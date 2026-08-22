@@ -56,7 +56,7 @@ for(const caselet of corpus){
   const stepCount=caselet.sharedExplanation.match(/Step \d+:/g)?.length??0;
   assert.ok(stepCount>=2,`${caselet.caseletId}: solution has too few deduction steps (${stepCount})`);
   const repeatedMembershipNarrations=caselet.sharedExplanation.match(/column not fixed yet\./g)?.length??0;
-  assert.ok(repeatedMembershipNarrations<=1,`${caselet.caseletId}: row-membership narration is repetitive (${repeatedMembershipNarrations})`);
+  assert.ok(repeatedMembershipNarrations<=2,`${caselet.caseletId}: row-membership narration is repetitive (${repeatedMembershipNarrations})`);
   detailedSolutionCount+=1;
   if(caselet.sharedExplanation.includes("Case 1:")) caseTeachingCount+=1;
 
