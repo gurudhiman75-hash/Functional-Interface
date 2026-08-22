@@ -57,7 +57,7 @@ async function installWebVitalObservers(page: Page) {
 
     new PerformanceObserver((list) => {
       const entries = list.getEntries();
-      const lastEntry = entries.at(-1);
+      const lastEntry = entries[entries.length - 1];
       if (lastEntry && window.__examtreeLowEndMetrics) {
         window.__examtreeLowEndMetrics.lcp = lastEntry.startTime;
       }
