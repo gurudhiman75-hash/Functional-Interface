@@ -86,6 +86,9 @@ jobs:
           STA_CHAPTER_EXAM_REALNESS_CASES_PER_QL_LOCALE: 4096
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-chapter-proof.test.ts
 
+      - name: Prove multilingual pre-freeze closure and remaining approval blocker
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/multilingual-pre-freeze-proof.test.ts
+
       - name: Generate QL004 Hindi/Punjabi V3 exam-realness review pack
         env:
           STA_QL004_LOCALIZATION_V3_REVIEW_OUTPUT_DIR: /tmp/sta-001-ql004-hi-pa-review-v3
