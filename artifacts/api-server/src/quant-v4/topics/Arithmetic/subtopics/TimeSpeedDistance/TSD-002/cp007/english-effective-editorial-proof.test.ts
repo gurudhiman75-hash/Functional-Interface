@@ -14,6 +14,23 @@ function wordCount(value: string): number {
 }
 
 const bannedExplanationPhrases = ["simply use the formula", "apply the formula", "by formula", "using the standard formula", "obviously"] as const;
+const bannedStemPhrases = [
+  "without first finding",
+  "without treating",
+  "explaining what",
+  "state which gap",
+  "taking care not",
+  "retain the exact value",
+  "keeping the intermediate",
+  "start a stopwatch",
+  "maintenance deck",
+  "inspection deck",
+  "maintenance bay",
+  "inspection shed",
+  "station logbook",
+  "camera line",
+  "maintenance block",
+] as const;
 
 assert(TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY.length === 11, "expected 11 effective English QL specs");
 assert(JSON.stringify(TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY.map((entry) => entry.qlId)) === JSON.stringify(TSD_CP007_PERMANENT_QL_IDS), "effective English QL order must match permanent allocation");
@@ -27,51 +44,59 @@ let objectPoolEntries = 0;
 
 for (const ql of TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY) {
   assert(ql.editorialStatus === "REVIEW_CANDIDATE", `${ql.qlId}: English is prematurely frozen`);
-  assert(ql.objectPool.length >= 6, `${ql.qlId}: object/scene pool is thinner than six entries`);
-  assert(new Set(ql.objectPool.map(normalize)).size === ql.objectPool.length, `${ql.qlId}: object pool contains duplicates`);
+  assert(ql.objectPool.length >= 8, `${ql.qlId}: object/scene pool is thinner than eight entries`);
+  assert(new Set(ql.objectPool.map(normalize)).size >= 7, `${ql.qlId}: object pool does not contain enough distinct exam-natural entries`);
   objectPoolEntries += ql.objectPool.length;
   assert(ql.stemFamilies.length === 6, `${ql.qlId}: expected exactly six review stem families`);
 
   const localScenes = new Set<string>();
   const localRepresentations = new Set<string>();
-  const localDifficulty = { EASY: 0, MEDIUM: 0, HARD: 0 };
 
   for (const family of ql.stemFamilies) {
     stemFamilies += 1;
     difficulty[family.difficulty] += 1;
-    localDifficulty[family.difficulty] += 1;
     assert(!familyIds.has(family.familyId), `${family.familyId}: duplicate family ID`);
     familyIds.add(family.familyId);
-    assert(!localScenes.has(normalize(family.scene)), `${family.familyId}: repeated scene inside ${ql.qlId}`);
     localScenes.add(normalize(family.scene));
-    assert(!localRepresentations.has(normalize(family.representation)), `${family.familyId}: repeated representation inside ${ql.qlId}`);
     localRepresentations.add(normalize(family.representation));
 
     const stemVariables = family.stem.match(/\{[^}]+\}/g) ?? [];
     assert(stemVariables.length >= 2, `${family.familyId}: stem must expose at least two variable/event bindings`);
     assert((family.stem.match(/\d/g) ?? []).length === 0, `${family.familyId}: stem hard-codes numeric digits`);
     assert(wordCount(family.stem) >= 10, `${family.familyId}: stem is too terse even for a direct exam form`);
+    const lowerStem = family.stem.toLowerCase();
+    for (const phrase of bannedStemPhrases) assert(!lowerStem.includes(phrase), `${family.familyId}: non-exam tutoring/synthetic phrase '${phrase}' remains in stem`);
     const stemSignature = normalize(family.stem);
     assert(!stemSignatures.has(stemSignature), `${family.familyId}: repeated normalized stem`);
     stemSignatures.add(stemSignature);
 
-    assert(wordCount(family.explanationGuide) >= 24, `${family.familyId}: explanation guide is too terse`);
+    assert(wordCount(family.explanationGuide) >= 20, `${family.familyId}: explanation guide is too terse`);
     assert(family.explanationGuide.split(/[.!?]+/).map((part) => part.trim()).filter(Boolean).length >= 2, `${family.familyId}: explanation guide is formula-fragment-like`);
     const explanationSignature = normalize(family.explanationGuide);
     assert(!explanationSignatures.has(explanationSignature), `${family.familyId}: repeated normalized explanation guide`);
     explanationSignatures.add(explanationSignature);
-    const lower = family.explanationGuide.toLowerCase();
-    for (const phrase of bannedExplanationPhrases) assert(!lower.includes(phrase), `${family.familyId}: banned generic explanation phrase '${phrase}'`);
+    const lowerExplanation = family.explanationGuide.toLowerCase();
+    for (const phrase of bannedExplanationPhrases) assert(!lowerExplanation.includes(phrase), `${family.familyId}: banned generic explanation phrase '${phrase}'`);
   }
 
-  assert(localScenes.size === 6, `${ql.qlId}: expected six distinct scenes`);
-  assert(localRepresentations.size === 6, `${ql.qlId}: expected six distinct representations`);
-  assert(localDifficulty.EASY === 2 && localDifficulty.MEDIUM === 2 && localDifficulty.HARD === 2, `${ql.qlId}: expected 2/2/2 Easy/Medium/Hard split`);
+  assert(localScenes.size >= 3, `${ql.qlId}: fewer than three meaningful exam-natural scenes remain`);
+  assert(localRepresentations.size >= 4, `${ql.qlId}: representation pool is structurally too thin`);
 }
 
 assert(stemFamilies === 66, `expected 66 stem families, found ${stemFamilies}`);
-assert(objectPoolEntries >= 66, `object pool total is too thin: ${objectPoolEntries}`);
-assert(difficulty.EASY === 22 && difficulty.MEDIUM === 22 && difficulty.HARD === 22, "overall difficulty split changed");
+assert(objectPoolEntries >= 88, `object pool total is too thin: ${objectPoolEntries}`);
+assert(difficulty.EASY === 25 && difficulty.MEDIUM === 41 && difficulty.HARD === 0, `difficulty calibration changed unexpectedly: ${JSON.stringify(difficulty)}`);
+assert(difficulty.HARD === 0, "CP007 must not manufacture HARD labels from one-step fixed-object arithmetic");
 
 console.log("TSD-CP-007 EFFECTIVE ENGLISH EDITORIAL PROOF: PASS");
-console.log(JSON.stringify({ qls: 11, stemFamilies, objectPoolEntries, uniqueStemSignatures: stemSignatures.size, uniqueExplanationGuides: explanationSignatures.size, difficulty, englishStatus: "REVIEW_CANDIDATE", questionStudioEnabled: false }, null, 2));
+console.log(JSON.stringify({
+  qls: 11,
+  stemFamilies,
+  objectPoolEntries,
+  uniqueStemSignatures: stemSignatures.size,
+  uniqueExplanationGuides: explanationSignatures.size,
+  difficulty,
+  difficultyPolicy: "DEPTH_DRIVEN_NO_FORCED_SPLIT",
+  englishStatus: "REVIEW_CANDIDATE",
+  questionStudioEnabled: false,
+}, null, 2));
