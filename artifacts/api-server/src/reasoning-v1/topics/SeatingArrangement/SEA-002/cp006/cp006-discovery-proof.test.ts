@@ -86,13 +86,16 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
     assert.ok(caselet.setupText.includes("same vertical column"));
     assert.ok(!/observer coordinates|blueprint|hidden state/i.test(caselet.setupText));
     assert.ok(caselet.diagram.svg.includes("fill=\"white\""));
-    assert.ok(caselet.diagramText.includes("Seat columns"));
+    assert.ok(caselet.diagramText.includes("Column:"));
     assert.ok(caselet.sharedExplanation.includes("Final arrangement:"));
     assert.ok(caselet.sharedExplanation.includes("Step 1:"));
-    assert.ok(caselet.sharedExplanation.includes("Result:"));
-    assert.ok(caselet.sharedExplanation.includes("upper row faces south"));
-    assert.ok(caselet.sharedExplanation.includes("lower row faces north"));
-    assert.ok(caselet.sharedExplanation.length>500,`${caselet.caseletId}: detailed solution too thin`);
+    assert.ok(caselet.sharedExplanation.includes("Position:"));
+    assert.match(caselet.sharedExplanation,/^Use columns 1 to 3 from left to right\./);
+    assert.match(caselet.sharedExplanation,/upper row faces south/i);
+    assert.match(caselet.sharedExplanation,/lower row faces north/i);
+    assert.ok(/\bcolumn\b/i.test(caselet.sharedExplanation));
+    assert.ok(!/Draw two equal rows first|For a person in the upper row|Here the conditions fix|Use this final arrangement to answer/i.test(caselet.sharedExplanation));
+    assert.ok(caselet.sharedExplanation.length>400,`${caselet.caseletId}: detailed solution too thin`);
     if(caselet.sharedExplanation.includes("Case 1:")) caseTeachingByBlueprint.set(blueprint,(caseTeachingByBlueprint.get(blueprint)??0)+1);
     assert.ok(!/SEA-PBA|SEA-QC|blueprint|oracle|fingerprint|hidden state|observer coordinates/i.test([caselet.setupText,...caselet.clueTexts,caselet.sharedExplanation,...caselet.children.map((child)=>child.text)].join("\n")),`${caselet.caseletId}: internal implementation language leaked to learner surface`);
 
