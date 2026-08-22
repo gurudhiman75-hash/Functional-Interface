@@ -9,8 +9,8 @@ const expectedPrototypes = Array.from({ length: 26 }, (_, index) =>
   `NUM-CP010-PROT-${String(index + 1).padStart(3, "0")}`,
 );
 
-assert.equal(NUM_CP010_PROPOSED_AUTHORITY_COUNT, 15, "CP010 proposed authority count drift");
-assert.equal(NUM_CP010_ID_FREE_AUTHORITY_PROPOSAL.length, 15, "Expected exactly 15 proposed authorities");
+assert.equal(NUM_CP010_PROPOSED_AUTHORITY_COUNT, 16, "CP010 proposed authority count drift");
+assert.equal(NUM_CP010_ID_FREE_AUTHORITY_PROPOSAL.length, 16, "Expected exactly 16 proposed authorities");
 
 const authorityKeys = NUM_CP010_ID_FREE_AUTHORITY_PROPOSAL.map((authority) => authority.authorityKey);
 assert.equal(new Set(authorityKeys).size, authorityKeys.length, "Duplicate CP010 authority key");
@@ -24,6 +24,11 @@ assert.deepEqual(
   [...expectedPrototypes].sort(),
   "Every CP010 discovery prototype P001..P026 must be covered exactly once",
 );
+
+const singleUnknownAddition = NUM_CP010_ID_FREE_AUTHORITY_PROPOSAL.find((authority) => authority.authorityKey === "CP010-AUTH-004");
+const twoUnknownAddition = NUM_CP010_ID_FREE_AUTHORITY_PROPOSAL.find((authority) => authority.authorityKey === "CP010-AUTH-005");
+assert.deepEqual(singleUnknownAddition?.prototypes, ["NUM-CP010-PROT-005", "NUM-CP010-PROT-011"], "Single-unknown addition ancestry drift");
+assert.deepEqual(twoUnknownAddition?.prototypes, ["NUM-CP010-PROT-020"], "Two-unknown ordered-pair addition must remain a protected split");
 
 for (const authority of NUM_CP010_ID_FREE_AUTHORITY_PROPOSAL) {
   assert.match(authority.authorityKey, /^CP010-AUTH-\d{3}$/u, `${authority.authorityKey}: malformed temporary authority key`);
@@ -41,6 +46,7 @@ console.log(JSON.stringify({
   proposedAuthorities: NUM_CP010_PROPOSED_AUTHORITY_COUNT,
   prototypeAssignments: assigned.length,
   uniquePrototypeAssignments: new Set(assigned).size,
+  protectedSplits: ["SINGLE_UNKNOWN_ADDITION_VS_TWO_UNKNOWN_ORDERED_PAIR_ADDITION"],
   permanentQlAllocations: 0,
   coverage: `${expectedPrototypes[0]}..${expectedPrototypes.at(-1)}`,
 }, null, 2));
