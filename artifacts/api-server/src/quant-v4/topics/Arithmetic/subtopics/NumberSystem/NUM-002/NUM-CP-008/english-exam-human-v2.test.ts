@@ -33,6 +33,7 @@ function words(value: string): number {
 const STEM_ACADEMIC = /(?:≡|\\pmod|\bmodulo\b|\bcongruence(?:s)?\b|\bresidue class(?:es)?\b|\bclassify the system\b|\bgeneralized CRT\b|\bnormalis(?:e|ation)|\bnormalize\b)/iu;
 const EXPLANATION_ACADEMIC = /(?:\bgeneralized CRT\b|\bcongruence(?:s)?\b|\bresidue class(?:es)?\b|\bmodulo\b|\bnormalis(?:e|ation)|\bnormalize\b)/iu;
 const ANSWER_ACADEMIC = /(?:\bmodulo\b|\bresidue class(?:es)?\b|\bcompatible\b|\bincompatible\b)/iu;
+const STEM_GRAMMAR_DEFECT = /(?:must leaves remainder|integers from[^?.\n]{0,160}that leaves remainder|values leaves remainder|they leaves remainder|conditions \(leaves remainder)/iu;
 const IMPLEMENTATION_LEAK = /prototype|generator|fingerprint|hidden state|authority package/iu;
 
 let checked = 0;
@@ -69,6 +70,7 @@ for (const allocation of NUM_CP008_PERMANENT_ALLOCATION) {
     assert.deepEqual(final.prototypeAncestry, source.prototypeAncestry, `${label}: prototype ancestry drift`);
 
     assert.doesNotMatch(final.stem, STEM_ACADEMIC, `${label}: academic wording leaked into stem: ${final.stem}`);
+    assert.doesNotMatch(final.stem, STEM_GRAMMAR_DEFECT, `${label}: grammar defect leaked into stem: ${final.stem}`);
     assert.ok(words(final.stem) <= 85, `${label}: stem too long (${words(final.stem)} words)`);
     const explanationText = [final.explanation.coreConcept, final.explanation.strategy, ...final.explanation.steps].join(" ");
     assert.doesNotMatch(explanationText, EXPLANATION_ACADEMIC, `${label}: academic wording leaked into explanation`);
