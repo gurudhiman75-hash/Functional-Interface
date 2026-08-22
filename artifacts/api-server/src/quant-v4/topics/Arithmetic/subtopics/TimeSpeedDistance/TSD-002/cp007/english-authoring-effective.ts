@@ -5,6 +5,22 @@ import {
 } from "./english-authoring-registry";
 
 const replacements = new Map<string, TsdCp007EnglishStemFamily>([
+  ["87-D", Object.freeze({
+    familyId: "87-D",
+    difficulty: "MEDIUM",
+    representation: "kmh answer projection",
+    scene: "station sign",
+    stem: "A train {trainLength} m long takes {pointTime} s to pass a station sign. Find its speed in km/h.",
+    explanationGuide: "The station sign is one fixed point, so the train covers exactly {trainLength} m in {pointTime} s. First divide the length by the time to obtain the exact speed in m/s. Then multiply that result by 18/5 to express the final speed in km/h.",
+  })],
+  ["90-E", Object.freeze({
+    familyId: "90-E",
+    difficulty: "HARD",
+    representation: "paired-time speed with kmh projection",
+    scene: "camera line and bridge",
+    stem: "A train crosses a camera line in {pointTime} s and a bridge {objectLength} m long in {crossingTime} s. Calculate its speed in km/h, keeping the intermediate m/s value exact.",
+    explanationGuide: "The bridge adds {objectLength} m beyond the point-crossing distance, and the matching extra time is {crossingTime} − {pointTime}. Divide the added distance by that extra time to get the exact speed in m/s. Convert only at the end by multiplying by 18/5 to obtain km/h.",
+  })],
   ["91-D", Object.freeze({
     familyId: "91-D",
     difficulty: "MEDIUM",
