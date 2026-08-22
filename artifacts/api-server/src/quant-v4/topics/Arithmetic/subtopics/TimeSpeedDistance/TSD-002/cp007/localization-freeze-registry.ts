@@ -3,6 +3,7 @@ import {
   TSD_CP007_EFFECTIVE_HINDI_LOCALIZATION,
   TSD_CP007_EFFECTIVE_PUNJABI_LOCALIZATION,
 } from "./localization-effective";
+import type { TsdCp007LocalizedQlSpec } from "./localization-authoring";
 import { TSD_CP007_PERMANENT_QL_IDS } from "./ql-allocation";
 
 export const TSD_CP007_LOCALIZATION_FREEZE_APPROVAL = Object.freeze({
@@ -28,7 +29,15 @@ export const TSD_CP007_LOCALIZATION_FREEZE_APPROVAL = Object.freeze({
   publiclyPublishable: false as const,
 });
 
-function freezeLocale<T extends readonly { qlId: string; localizationStatus: string }[]>(registry: T) {
+export type TsdCp007FrozenLocalizedQlSpec = Readonly<
+  Omit<TsdCp007LocalizedQlSpec, "localizationStatus"> & {
+    readonly localizationStatus: "FROZEN";
+  }
+>;
+
+function freezeLocale(
+  registry: readonly TsdCp007LocalizedQlSpec[],
+): readonly TsdCp007FrozenLocalizedQlSpec[] {
   return Object.freeze(registry.map((ql) => Object.freeze({
     ...ql,
     localizationStatus: "FROZEN" as const,
