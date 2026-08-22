@@ -79,10 +79,17 @@ jobs:
           pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-editorial-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-english-editorial-proof.log
           echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-english-editorial-proof-exit
           exit 0
-      - name: Generate English authoring review pack
+      - name: Run English semantic-contract proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-semantic-contract-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-english-semantic-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-english-semantic-proof-exit
+          exit 0
+      - name: Generate effective English authoring review pack
         env:
           TSD_CP007_REVIEW_OUTPUT_DIR: /tmp/tsd-cp007-english-review
-        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-review-export.ts
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-effective-review-export.ts
       - name: Publish proof and English review diagnostics
         if: always()
         uses: actions/upload-artifact@v4
@@ -97,6 +104,8 @@ jobs:
             /tmp/tsd-cp007-executable-proof-exit
             /tmp/tsd-cp007-english-editorial-proof.log
             /tmp/tsd-cp007-english-editorial-proof-exit
+            /tmp/tsd-cp007-english-semantic-proof.log
+            /tmp/tsd-cp007-english-semantic-proof-exit
             /tmp/tsd-cp007-english-review/**
           if-no-files-found: error
           retention-days: 14
@@ -106,3 +115,4 @@ jobs:
           test "$(cat /tmp/tsd-cp007-allocation-proof-exit)" = "0"
           test "$(cat /tmp/tsd-cp007-executable-proof-exit)" = "0"
           test "$(cat /tmp/tsd-cp007-english-editorial-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-english-semantic-proof-exit)" = "0"
