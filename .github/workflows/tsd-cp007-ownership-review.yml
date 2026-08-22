@@ -1,0 +1,185 @@
+name: Validate TSD CP007 frozen multilingual and Question Studio gate
+
+on:
+  push:
+    branches:
+      - feat/tsd-cp007-executable-discovery-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/**
+      - .github/workflows/tsd-cp007-ownership-review.yml
+  pull_request:
+    branches:
+      - feat/tsd-cp006-question-studio-review-v1
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/**
+      - .github/workflows/tsd-cp007-ownership-review.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tsd-cp007-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  approved-multilingual-freeze-and-question-studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check for CP007 package
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007 -name '*.ts' -print)
+      - name: Run pre-approval ownership snapshot proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/ownership-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-ownership-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-ownership-proof-exit
+          exit 0
+      - name: Run approved permanent-QL allocation proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/allocation-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-allocation-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-allocation-proof-exit
+          exit 0
+      - name: Run executable arithmetic and independent-verifier proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/executable-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-executable-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-executable-proof-exit
+          exit 0
+      - name: Run effective English editorial diversity proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-effective-editorial-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-english-editorial-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-english-editorial-proof-exit
+          exit 0
+      - name: Run English semantic-contract proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-semantic-contract-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-english-semantic-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-english-semantic-proof-exit
+          exit 0
+      - name: Run rendered English executable-binding proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-rendered-sample-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-english-rendered-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-english-rendered-proof-exit
+          exit 0
+      - name: Run approved English freeze proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-freeze-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-english-freeze-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-english-freeze-proof-exit
+          exit 0
+      - name: Run Hindi Punjabi localization parity proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/localization-parity-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-localization-parity-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-localization-parity-proof-exit
+          exit 0
+      - name: Run rendered Hindi Punjabi question parity proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/localized-rendered-review-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-localized-rendered-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-localized-rendered-proof-exit
+          exit 0
+      - name: Run approved Hindi Punjabi localization freeze proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/localization-freeze-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-localization-freeze-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-localization-freeze-proof-exit
+          exit 0
+      - name: Run Question Studio frozen review adapter proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/question-studio-review-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-question-studio-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-question-studio-proof-exit
+          exit 0
+      - name: Generate questions-only English Markdown review file
+        env:
+          TSD_CP007_REVIEW_OUTPUT_DIR: /tmp/tsd-cp007-english-review
+        run: |
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-rendered-review-export.ts
+      - name: Generate questions-only Hindi Punjabi Markdown review file
+        env:
+          TSD_CP007_LOCALIZED_REVIEW_OUTPUT_DIR: /tmp/tsd-cp007-localized-review
+        run: |
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/localized-rendered-review-export.ts
+      - name: Publish proof diagnostics and question reviews
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp007-frozen-multilingual-question-studio-review
+          path: |
+            /tmp/tsd-cp007-ownership-proof.log
+            /tmp/tsd-cp007-ownership-proof-exit
+            /tmp/tsd-cp007-allocation-proof.log
+            /tmp/tsd-cp007-allocation-proof-exit
+            /tmp/tsd-cp007-executable-proof.log
+            /tmp/tsd-cp007-executable-proof-exit
+            /tmp/tsd-cp007-english-editorial-proof.log
+            /tmp/tsd-cp007-english-editorial-proof-exit
+            /tmp/tsd-cp007-english-semantic-proof.log
+            /tmp/tsd-cp007-english-semantic-proof-exit
+            /tmp/tsd-cp007-english-rendered-proof.log
+            /tmp/tsd-cp007-english-rendered-proof-exit
+            /tmp/tsd-cp007-english-freeze-proof.log
+            /tmp/tsd-cp007-english-freeze-proof-exit
+            /tmp/tsd-cp007-localization-parity-proof.log
+            /tmp/tsd-cp007-localization-parity-proof-exit
+            /tmp/tsd-cp007-localized-rendered-proof.log
+            /tmp/tsd-cp007-localized-rendered-proof-exit
+            /tmp/tsd-cp007-localization-freeze-proof.log
+            /tmp/tsd-cp007-localization-freeze-proof-exit
+            /tmp/tsd-cp007-question-studio-proof.log
+            /tmp/tsd-cp007-question-studio-proof-exit
+            /tmp/tsd-cp007-english-review/TSD-CP007-ENGLISH-QUESTIONS.md
+            /tmp/tsd-cp007-localized-review/TSD-CP007-HINDI-PUNJABI-QUESTIONS.md
+          if-no-files-found: error
+          retention-days: 14
+      - name: Enforce proof results
+        run: |
+          test "$(cat /tmp/tsd-cp007-ownership-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-allocation-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-executable-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-english-editorial-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-english-semantic-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-english-rendered-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-english-freeze-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-localization-parity-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-localized-rendered-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-localization-freeze-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-question-studio-proof-exit)" = "0"
