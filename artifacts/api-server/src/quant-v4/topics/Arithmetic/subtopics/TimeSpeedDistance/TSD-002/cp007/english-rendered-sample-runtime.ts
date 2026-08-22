@@ -75,14 +75,14 @@ function targetLabel(generated: TsdCp007ExecutableGeneratedCase): string {
 function seedNumberForFamily(familyId: string): number {
   const special: Readonly<Record<string, number>> = Object.freeze({
     "84-D": 6,
-    "84-F": 8,
+    "84-F": 11,
     "85-D": 9,
-    "85-F": 8,
+    "85-F": 11,
     "86-D": 6,
-    "86-F": 8,
+    "86-F": 1,
     "87-D": 3,
-    "87-F": 8,
-    "88-A": 1, "88-B": 3, "88-C": 2, "88-D": 4, "88-E": 5, "88-F": 6,
+    "87-F": 11,
+    "88-A": 1, "88-B": 3, "88-C": 2, "88-D": 4, "88-E": 9, "88-F": 6,
     "90-E": 3,
     "92-A": 1, "92-B": 3, "92-C": 5, "92-D": 2, "92-E": 4, "92-F": 7,
     "93-A": 5, "93-B": 2, "93-C": 1, "93-D": 3, "93-E": 6, "93-F": 8,
@@ -96,24 +96,34 @@ function seedNumberForFamily(familyId: string): number {
   return ((qlNumber + familyIndex * 2) % 12) + 1;
 }
 
-function timelineEventBindings(generated: TsdCp007ExecutableGeneratedCase): { knownEvent: string; targetEvent: string } {
+function timelineObjectName(generated: TsdCp007ExecutableGeneratedCase): string {
+  switch (generated.input.objectKind) {
+    case "PLATFORM": return "platform";
+    case "BRIDGE": return "bridge";
+    case "TUNNEL": return "tunnel";
+    default: return "fixed section";
+  }
+}
+
+function timelineEventBindings(generated: TsdCp007ExecutableGeneratedCase): { knownEvent: string; targetEvent: string; objectName: string } {
   const kind = generated.input.timelineIntervalKind;
   const direction = generated.input.timelineTarget;
+  const objectName = timelineObjectName(generated);
   const pair = kind === "POINT_CROSSING"
-    ? ["the engine passes the fixed marker", "the rear passes the same marker"] as const
+    ? ["the engine passes the fixed marker", "the rear passes the same fixed marker"] as const
     : kind === "FULL_CROSSING"
-      ? ["the front enters the fixed section", "the rear leaves the far end"] as const
-      : ["the rear enters the fixed section", "the front leaves the far end"] as const;
+      ? [`the front enters the ${objectName}`, `the rear leaves the far end of the ${objectName}`] as const
+      : [`the rear enters the ${objectName}`, `the front reaches the far end of the ${objectName}`] as const;
   return direction === "FORWARD_CLOCK"
-    ? { knownEvent: pair[0], targetEvent: pair[1] }
-    : { knownEvent: pair[1], targetEvent: pair[0] };
+    ? { knownEvent: pair[0], targetEvent: pair[1], objectName }
+    : { knownEvent: pair[1], targetEvent: pair[0], objectName };
 }
 
 function endpointConvention(familyId: string, includeStart: boolean): string {
   if (familyId === "94-C") return includeStart ? "included in the count" : "excluded from the count";
-  if (familyId === "94-D") return includeStart ? "the starting post included" : "the starting post excluded";
-  if (familyId === "94-E") return includeStart ? "the starting pole is included" : "the starting pole is excluded";
-  if (familyId === "94-F") return includeStart ? "the starting pillar included" : "the starting pillar excluded";
+  if (familyId === "94-D") return includeStart ? "the post at the starting position included in the count" : "the post at the starting position excluded from the count";
+  if (familyId === "94-E") return includeStart ? "the pole at the starting position is included in the count" : "the pole at the starting position is not included in the count";
+  if (familyId === "94-F") return includeStart ? "the pillar at the starting position included in the count" : "the pillar at the starting position excluded from the count";
   return includeStart ? "including the starting point" : "excluding the starting point";
 }
 
@@ -171,6 +181,7 @@ function givenSummary(stemTemplate: string, bindings: Readonly<Record<string, st
     trainLength: "train length",
     speed: "speed",
     objectLength: "fixed-object length",
+    objectName: "fixed-object type",
     pointTime: "point-crossing time",
     crossingTime: "full-crossing time",
     timeA: "first crossing time",
