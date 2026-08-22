@@ -32,8 +32,10 @@ assert.match(proof, /toBeLessThanOrEqual\(3_000\)/);
 assert.match(proof, /toBeLessThanOrEqual\(4_000\)/);
 assert.match(proof, /toBeLessThanOrEqual\(0\.1\)/);
 assert.match(proof, /scrollWidth <= window\.innerWidth \+ 1/);
-assert.match(proof, /MathJaxRouteProvider-/);
-assert.match(proof, /auth-/);
-assert.match(proof, /firebase-/);
+assert.match(
+  proof,
+  /MathJaxRouteProvider\|auth\|firebase/,
+  "low-end Home proof must reject MathJax, auth, and Firebase deferred chunks on public startup",
+);
 
 console.log("Low-end performance audit passed.");
