@@ -45,6 +45,8 @@ for (const sample of samples) {
   assert(!/[{}]/.test(sample.stem), `${sample.familyId}: rendered stem still contains template braces`);
   assert(!/[{}]/.test(sample.explanation), `${sample.familyId}: rendered explanation still contains template braces`);
   assert(!/\b\d+\/\d+\s*s\b/.test(sample.stem), `${sample.familyId}: learner-facing stem contains an awkward fractional-seconds value`);
+  assert(!/\b\d+\/\d+\s*km\/h\b/i.test(sample.stem), `${sample.familyId}: learner-facing stem contains an awkward fractional km/h value`);
+  assert(!/\b\d+\/\d+\s*km\/h\b/i.test(sample.answer), `${sample.familyId}: learner-facing answer contains an awkward fractional km/h value`);
   assert(sample.explanation.startsWith("Given in this question:"), `${sample.familyId}: explanation does not explicitly state the question-specific givens`);
   assert(sample.explanation.includes("Therefore, the "), `${sample.familyId}: explanation does not explicitly close with the computed target`);
   assert(sample.explanation.includes(sample.answer), `${sample.familyId}: explanation does not include the computed answer`);
@@ -90,6 +92,7 @@ console.log(JSON.stringify({
   qls: byQl.size,
   unresolvedPlaceholders: 0,
   awkwardFractionalSecondStems: 0,
+  awkwardFractionalKmhValues: 0,
   kmhInputFamilies,
   kmhAnswerFamilies,
   difficulty,
