@@ -1,6 +1,6 @@
 # SEA-002 — Parallel Rows, Polygonal and Multi-Ring Seating
 
-Status: **CP006 TECHNICALLY COMPLETE / SIGNED ENGLISH FREEZE PENDING**
+Status: **CP006 ENGLISH FROZEN / PERMANENT QLs ALLOCATED INACTIVE**
 
 SEA-002 is the advanced-topology package in `REAS-SEA`. It starts only after the SEA-001 learner authorities are frozen and the SEA-001 Question Studio review-only gate is green.
 
@@ -14,18 +14,18 @@ SEA-002 is the advanced-topology package in `REAS-SEA`. It starts only after the
 | `SEA-CP-009` | Rectangular and regular-polygon seating |
 | `SEA-CP-010` | Concentric circles and dual-group seating |
 
-SEA-002 must prove row/column alignment, opposite and diagonal relations, corners versus side seats, perimeter order on non-circular tables, topology-specific symmetry, inner/outer-ring correspondence and diagram correctness.
+SEA-002 must prove row/position alignment, opposite and diagonal relations, corners versus side seats, perimeter order on non-circular tables, topology-specific symmetry, inner/outer-ring correspondence and diagram correctness.
 
-## CP006 retained authorities
+## CP006 frozen authorities
 
-`SEA-CP-006` technical discovery/implementation is complete with four provisional authorities:
+`SEA-CP-006` retains four permanent solve authorities:
 
-- `SEA-PBA-021` — fixed row membership with opposites
-- `SEA-PBA-022` — row membership partly inferred
-- `SEA-PBA-023` — same-row chains linked by opposite seats
-- `SEA-PBA-024` — opposite/not-opposite/diagonal/endpoint mix
+- `SEA-QL-021` ← `SEA-PBA-021` — fixed row membership with opposites
+- `SEA-QL-022` ← `SEA-PBA-022` — row membership partly inferred
+- `SEA-QL-023` ← `SEA-PBA-023` — same-row chains linked by opposite seats
+- `SEA-QL-024` ← `SEA-PBA-024` — opposite/not-opposite/diagonal/endpoint mix
 
-Final merge/split audit retains all four. These remain **provisional PBA IDs, not permanent `SEA-QL-*` IDs**, until the exact pinned English review artifact receives signed owner approval.
+Final merge/split audit retains all four with no merge or split. Widths 3+3 through 6+6 remain size variants, not separate authorities. The next available permanent seating ID is `SEA-QL-025`.
 
 ## CP006 topology contract
 
@@ -60,32 +60,43 @@ Shared solutions use simple teacher-style English and use **position** consisten
 - repeated row-membership narration is grouped rather than restating one sentence per person;
 - the English review gate rejects any learner-facing `column` / `columns` wording.
 
-The pinned 100-caselet review corpus has 100/100 detailed position-first solutions and 88/100 explicit case-formation solutions. The remaining 12 are direct-placement solutions where no useful trial-case split exists.
+The approved 100-caselet review corpus has 100/100 detailed position-first solutions and 88/100 explicit case-formation solutions. The remaining 12 are direct-placement solutions where no useful trial-case split exists.
 
-Current pinned review fingerprint:
+## Signed English review
+
+Approved review fingerprint:
 
 `07216e2a08c198266bd25e40484a477d5c6e4de73b2dae06b8235fc3773a0c3e`
 
-Verified executable/review workflow: `32565913630` on content head `9f827326085d823ea02cab666bb43191c2be3017`.
+Approved artifact: `cp006-english-review-100`, artifact ID `9474071929`.
 
-Pinned review artifact: `cp006-english-review-100`, artifact ID `9474071929`.
-
-Pinned review artifact ZIP digest:
+Approved artifact ZIP digest:
 
 `sha256:7e37d79da61f4b4edca8601e353cd1cf4b8fc1b85fa427dfd89591fa7f747ccc`
+
+Reviewer: `gurudhiman75-hash`
+
+Reviewed at: `2026-08-22T15:37:00+05:30`
+
+Approval decision: `100_ACCEPT_0_REWRITE_0_REJECT`.
+
+The approval is stored separately from the immutable review artifact. The freeze proof recalculates the full 100-caselet fingerprint and fails if the reviewed content changes.
 
 ## Lifecycle locks
 
 ```text
 technical CP006             complete
-permanent QLs               none
-English signed freeze       false
+permanent QLs               SEA-QL-021..SEA-QL-024 allocated inactive
+solve inventory             frozen
+query mix                   frozen
+English signed freeze       true
 Hindi/Punjabi freeze        false
 Question Studio registered  false
 Question Bank writable      false
 mock-test eligible          false
 production staging          false
 public delivery             false
+next permanent seating ID   SEA-QL-025
 ```
 
-The next available permanent seating ID after SEA-001 is `SEA-QL-021`. Permanent mapping for PBA-021..024 remains blocked until signed review of the exact pinned CP006 artifact.
+English approval does **not** activate downstream delivery. Localization, Question Studio, Question Bank, mocks, staging and public delivery require their own later gates.
