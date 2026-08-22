@@ -1,0 +1,157 @@
+import assert from "node:assert/strict";
+import { generateStaQl004LocalizedQuestionV2 } from "./localization-ql004-editorial-v2.ts";
+import {
+  generateStaQl004LocalizedQuestionV3,
+  STA_QL004_EXAM_REALNESS_EDITORIAL_VERSION,
+  STA_QL004_EXAM_REALNESS_REWRITE_COUNTS,
+  STA_QL004_LOCALIZATION_LIFECYCLE_V3,
+} from "./localization-ql004-editorial-v3.ts";
+import type { StaLocalizedLocale } from "./localization-types.ts";
+
+const CASES_PER_LOCALE = Number(process.env.STA_QL004_EXAM_REALNESS_CASES_PER_LOCALE ?? 4096);
+const MAX_SEED_SCAN = 20000;
+
+function normalize(value: string): string {
+  return value.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").replace(/\s+/g, " ").trim();
+}
+
+function wordCount(value: string): number {
+  return value.trim().split(/\s+/u).filter(Boolean).length;
+}
+
+function identityProjection(question: ReturnType<typeof generateStaQl004LocalizedQuestionV2>) {
+  return {
+    questionId: question.questionId,
+    packageId: question.packageId,
+    chapterId: question.chapterId,
+    checkpointId: question.checkpointId,
+    qlId: question.qlId,
+    proposedQlId: question.proposedQlId,
+    scenarioId: question.scenarioId,
+    seed: question.seed,
+    locale: question.locale,
+    difficulty: question.difficulty,
+    sourceProfile: question.sourceProfile,
+    candidates: question.candidates,
+    options: question.options,
+    answerIndex: question.answerIndex,
+    answerSet: question.answerSet,
+    explanation: question.explanation,
+    oracleParity: question.oracleParity,
+  };
+}
+
+function collectCanonical(locale: StaLocalizedLocale) {
+  const perScenario = new Map<string, Map<string, ReturnType<typeof generateStaQl004LocalizedQuestionV3>>>();
+  for (let index = 0; index < MAX_SEED_SCAN; index += 1) {
+    const q = generateStaQl004LocalizedQuestionV3(`sta-ql004-exam-realness-canonical:${locale}:${index}`, locale);
+    const statements = perScenario.get(q.scenarioId) ?? new Map<string, typeof q>();
+    if (!statements.has(q.statement)) statements.set(q.statement, q);
+    perScenario.set(q.scenarioId, statements);
+    if (perScenario.size === 16 && [...perScenario.values()].every((items) => items.size >= 2)) break;
+  }
+  assert.equal(perScenario.size, 16, `${locale}: canonical scan did not reach all 16 QL004 authorities`);
+  for (const [scenarioId, items] of perScenario) assert.ok(items.size >= 2, `${locale}/${scenarioId}: fewer than two distinct exam-realness stems`);
+  return [...perScenario.values()].flatMap((items) => [...items.values()].slice(0, 2));
+}
+
+assert.equal(STA_QL004_EXAM_REALNESS_EDITORIAL_VERSION, "V3_EXAM_REALNESS");
+assert.equal(STA_QL004_EXAM_REALNESS_REWRITE_COUNTS.hindi, 32);
+assert.equal(STA_QL004_EXAM_REALNESS_REWRITE_COUNTS.punjabi, 32);
+assert.equal(STA_QL004_LOCALIZATION_LIFECYCLE_V3.ql001HindiPunjabiStatus, "FROZEN_V2");
+assert.equal(STA_QL004_LOCALIZATION_LIFECYCLE_V3.ql002HindiPunjabiStatus, "FROZEN_V2");
+assert.equal(STA_QL004_LOCALIZATION_LIFECYCLE_V3.ql003HindiPunjabiStatus, "FROZEN_V2");
+assert.equal(STA_QL004_LOCALIZATION_LIFECYCLE_V3.ql004HindiPunjabiStatus, "REVIEW_CANDIDATE_V3");
+assert.equal(STA_QL004_LOCALIZATION_LIFECYCLE_V3.multilingualChapterFrozen, false);
+assert.equal(STA_QL004_LOCALIZATION_LIFECYCLE_V3.questionStudioDiscoverable, false);
+assert.equal(STA_QL004_LOCALIZATION_LIFECYCLE_V3.questionBankWritable, false);
+assert.equal(STA_QL004_LOCALIZATION_LIFECYCLE_V3.testEligible, false);
+assert.equal(STA_QL004_LOCALIZATION_LIFECYCLE_V3.publiclyPublishable, false);
+
+let semanticIdentityChecks = 0;
+let rewrittenStemChecks = 0;
+let implicitAntiRestatementChecks = 0;
+const reached = new Map<StaLocalizedLocale, Set<string>>([
+  ["hi-IN", new Set<string>()],
+  ["pa-IN", new Set<string>()],
+]);
+const answerPositions = new Map<StaLocalizedLocale, number[]>([
+  ["hi-IN", [0, 0, 0, 0]],
+  ["pa-IN", [0, 0, 0, 0]],
+]);
+
+for (const locale of ["hi-IN", "pa-IN"] as const) {
+  for (let index = 0; index < CASES_PER_LOCALE; index += 1) {
+    const seed = `sta-ql004-exam-realness-v3:${locale}:${index}`;
+    const v2 = generateStaQl004LocalizedQuestionV2(seed, locale);
+    const v3 = generateStaQl004LocalizedQuestionV3(seed, locale);
+
+    assert.deepEqual(identityProjection(v3), identityProjection(v2), `${locale}/${seed}: V3 changed semantic/editorial identity outside the stem`);
+    assert.notEqual(v3.statement, v2.statement, `${locale}/${seed}: V3 did not rewrite the QL004 stem`);
+    assert.equal(v3.lifecycle.ql004HindiPunjabiStatus, "REVIEW_CANDIDATE_V3");
+    assert.equal(v3.lifecycle.questionStudioDiscoverable, false);
+    assert.equal(v3.lifecycle.questionBankWritable, false);
+    assert.equal(v3.lifecycle.testEligible, false);
+    assert.equal(v3.lifecycle.publiclyPublishable, false);
+    assert.ok(wordCount(v3.statement) >= 12 && wordCount(v3.statement) <= 42, `${locale}/${seed}: stem outside exam-realness length envelope`);
+    assert.equal(v3.explanation.includes(v3.statement), false, `${locale}/${seed}: explanation repeats V3 full stem`);
+
+    const normalizedStatement = normalize(v3.statement);
+    for (const candidate of v3.candidates) {
+      if (candidate.oracle.classification !== "IMPLICIT") continue;
+      const normalizedCandidate = normalize(candidate.text);
+      assert.equal(normalizedStatement.includes(normalizedCandidate), false, `${locale}/${seed}/${candidate.candidateId}: implicit assumption became an explicit restatement`);
+      implicitAntiRestatementChecks += 1;
+    }
+
+    reached.get(locale)!.add(v3.scenarioId);
+    answerPositions.get(locale)![v3.answerIndex] += 1;
+    semanticIdentityChecks += 1;
+    rewrittenStemChecks += 1;
+  }
+}
+
+for (const locale of ["hi-IN", "pa-IN"] as const) {
+  assert.equal(reached.get(locale)!.size, 16, `${locale}: stress generation did not reach all 16 QL004 authorities`);
+  const positions = answerPositions.get(locale)!;
+  for (let index = 0; index < positions.length; index += 1) {
+    const share = positions[index]! / CASES_PER_LOCALE;
+    assert.ok(share >= 0.18 && share <= 0.32, `${locale}: answer position ${index} is imbalanced at ${share.toFixed(3)}`);
+  }
+}
+
+const hindiCanonical = collectCanonical("hi-IN");
+const punjabiCanonical = collectCanonical("pa-IN");
+assert.equal(hindiCanonical.length, 32);
+assert.equal(punjabiCanonical.length, 32);
+assert.equal(new Set(hindiCanonical.map((q) => q.statement)).size, 32, "Hindi V3 canonical stems are not unique");
+assert.equal(new Set(punjabiCanonical.map((q) => q.statement)).size, 32, "Punjabi V3 canonical stems are not unique");
+
+const hindiText = hindiCanonical.map((q) => q.statement).join("\n");
+const punjabiText = punjabiCanonical.map((q) => q.statement).join("\n");
+assert.equal((hindiText.match(/उम्मीद/gu) ?? []).length, 0, "Hindi V3 retained the dominant V2 उम्मीद skeleton");
+assert.equal((punjabiText.match(/ਉਮੀਦ/gu) ?? []).length, 0, "Punjabi V3 retained the dominant V2 ਉਮੀਦ skeleton");
+assert.ok((hindiText.match(/अनुमान/gu) ?? []).length <= 12, "Hindi V3 overuses अनुमान framing");
+assert.ok((hindiText.match(/अपेक्षा/gu) ?? []).length <= 16, "Hindi V3 overuses अपेक्षा framing");
+assert.ok((punjabiText.match(/ਅੰਦਾਜ਼/gu) ?? []).length <= 6, "Punjabi V3 overuses ਅੰਦਾਜ਼ framing");
+assert.ok((punjabiText.match(/ਆਸ/gu) ?? []).length <= 16, "Punjabi V3 overuses ਆਸ framing");
+
+console.log("PASS_STA_QL004_HI_PA_EXAM_REALNESS_V3");
+console.log(JSON.stringify({
+  editorialVersion: STA_QL004_EXAM_REALNESS_EDITORIAL_VERSION,
+  casesPerLocale: CASES_PER_LOCALE,
+  semanticIdentityChecks,
+  rewrittenStemChecks,
+  implicitAntiRestatementChecks,
+  canonicalHindiQuestions: hindiCanonical.length,
+  canonicalPunjabiQuestions: punjabiCanonical.length,
+  uniqueHindiStems: new Set(hindiCanonical.map((q) => q.statement)).size,
+  uniquePunjabiStems: new Set(punjabiCanonical.map((q) => q.statement)).size,
+  reachedHindiAuthorities: reached.get("hi-IN")!.size,
+  reachedPunjabiAuthorities: reached.get("pa-IN")!.size,
+  answerPositionsHindi: answerPositions.get("hi-IN"),
+  answerPositionsPunjabi: answerPositions.get("pa-IN"),
+  ql004HindiPunjabiStatus: "REVIEW_CANDIDATE_V3",
+  multilingualChapterFrozen: false,
+  questionStudioDiscoverable: false,
+}, null, 2));
