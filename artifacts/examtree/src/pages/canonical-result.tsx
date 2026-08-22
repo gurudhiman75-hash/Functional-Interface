@@ -138,7 +138,7 @@ export default function CanonicalResult() {
             <h1 className="mt-2 max-w-3xl text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">{result.testName}</h1>
             <p className="mt-2 text-sm text-slate-600">{result.category}</p>
             <p className="mt-5 max-w-2xl text-sm leading-6 text-slate-600">
-              Use the section breakdown and submitted-version solution review below to decide what to revise before your next attempt.
+              Use the section breakdown and submitted-version answers below to decide what to revise before your next attempt.
             </p>
           </div>
 
