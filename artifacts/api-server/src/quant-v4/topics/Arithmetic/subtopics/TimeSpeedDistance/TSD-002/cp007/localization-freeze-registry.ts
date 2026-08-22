@@ -1,8 +1,8 @@
 import { TSD_CP007_FROZEN_ENGLISH_REGISTRY } from "./english-freeze-registry";
 import {
-  TSD_CP007_EFFECTIVE_HINDI_LOCALIZATION,
-  TSD_CP007_EFFECTIVE_PUNJABI_LOCALIZATION,
-} from "./localization-effective";
+  TSD_CP007_FINAL_HINDI_LOCALIZATION,
+  TSD_CP007_FINAL_PUNJABI_LOCALIZATION,
+} from "./localization-final";
 import type { TsdCp007LocalizedQlSpec } from "./localization-authoring";
 import { TSD_CP007_PERMANENT_QL_IDS } from "./ql-allocation";
 
@@ -45,11 +45,11 @@ function freezeLocale(
 }
 
 export const TSD_CP007_FROZEN_HINDI_LOCALIZATION = freezeLocale(
-  TSD_CP007_EFFECTIVE_HINDI_LOCALIZATION,
+  TSD_CP007_FINAL_HINDI_LOCALIZATION,
 );
 
 export const TSD_CP007_FROZEN_PUNJABI_LOCALIZATION = freezeLocale(
-  TSD_CP007_EFFECTIVE_PUNJABI_LOCALIZATION,
+  TSD_CP007_FINAL_PUNJABI_LOCALIZATION,
 );
 
 const frozenQlIds = TSD_CP007_FROZEN_ENGLISH_REGISTRY.map((ql) => ql.qlId);
