@@ -19,7 +19,9 @@ function wordCount(value: string): number {
   return value.trim().split(/\s+/u).filter(Boolean).length;
 }
 
-function identityProjection(question: ReturnType<typeof generateStaQl004LocalizedQuestionV2>) {
+function identityProjection(
+  question: ReturnType<typeof generateStaQl004LocalizedQuestionV2> | ReturnType<typeof generateStaQl004LocalizedQuestionV3>,
+) {
   return {
     questionId: question.questionId,
     packageId: question.packageId,
