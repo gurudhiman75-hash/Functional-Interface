@@ -4,12 +4,41 @@ import {
   type GeoDiagramModel,
   type TheoremId,
 } from "../../../../../shared/geometry";
-import { buildExplanation, buildOptions, proveClueMinimality, seededShuffle } from "./wave1-utils";
+import {
+  buildExplanation,
+  buildOptions as baseBuildOptions,
+  proveClueMinimality,
+  seededShuffle,
+} from "./wave1-utils";
 import type { ClueMinimalityProof, MisconceptionOptionAnalysis } from "../GEO-001/discovery/phase1-types";
 import type { GapWave7CheckpointId, GapWave7Question, GapWave7VerifierResult } from "./wave7-types";
 import type { GapWave7SourceEvidenceId } from "./wave7-source-evidence";
 
-export { buildExplanation, buildOptions, proveClueMinimality, seededShuffle };
+export { buildExplanation, proveClueMinimality, seededShuffle };
+
+type WrongCandidate = Readonly<{ text: string; misconceptionId: string; rationale: string }>;
+
+export function buildOptions(correctText: string, wrongCandidates: readonly WrongCandidate[], seed: string) {
+  const candidates = [...wrongCandidates];
+  const uniqueTexts = new Set([correctText, ...candidates.map((candidate) => candidate.text)]);
+  const match = correctText.match(/^(-?\d+(?:\.\d+)?)(°| cm)$/);
+  if (uniqueTexts.size < 4 && match) {
+    const value = Number(match[1]);
+    const unit = match[2];
+    for (const offset of [13, 17, 23]) {
+      const text = `${value + offset}${unit}`;
+      if (uniqueTexts.has(text)) continue;
+      candidates.push({
+        text,
+        misconceptionId: "ADDED_OFFSET_INSTEAD_OF_USING_EQUALITY",
+        rationale: "Adds an unrelated offset instead of applying the required equality relation.",
+      });
+      uniqueTexts.add(text);
+      if (uniqueTexts.size >= 4) break;
+    }
+  }
+  return baseBuildOptions(correctText, candidates, seed);
+}
 
 function hashText(value: string): number {
   let hash = 2166136261;
