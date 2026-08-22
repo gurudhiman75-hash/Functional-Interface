@@ -38,17 +38,18 @@ Basic `ANGLE_IN_SEMICIRCLE` direct recognition is not duplicated because it is a
 
 All six prototypes use `REQUIRED_BOTH`.
 
-Stem figures:
-- preserve circle/chord/secant topology;
-- show only given semantic marks and given dimensions/angles;
-- withhold target/derived angle values, right-angle consequences, equal-distance consequences and same-segment conclusions.
+Stem figures preserve circle/chord/secant topology, show only given semantic marks and given dimensions/angles, and withhold target/derived angle values, right-angle consequences, equal-distance consequences and same-segment conclusions.
 
-Solution figures:
-- follow the active solution-diagram dimension policy;
-- retain all solve-relevant givens;
-- add only teaching-relevant derived angle/distance/right-angle evidence after derivation;
-- require Renderer V2, separate semantic fingerprints and zero reported label collisions;
-- remain subject to manual viewport/topology QA after CI.
+Solution figures follow the active solution-diagram dimension policy, retain solve-relevant givens, add teaching-relevant derived angle/distance/right-angle evidence after derivation, and require Renderer V2 plus separate semantic fingerprints and zero reported label collisions. Manual viewport/topology QA remains mandatory after CI.
+
+## Implementation evidence
+
+- implementation head: `78211a86634b5bf5d6db5b5625c97e433c622878`
+- 6 temporary prototypes × 3 review seeds = **18 review questions**
+- planned review figures: **18 stem + 18 solution = 36 runtime figures**
+- shared additions: equal-chord central-angle inference, equal-chord centre-distance inference, chord-midpoint inverse right-angle inference, same-segment transfer, central-to-inscribed half-angle inference
+- new theorem IDs: `EQUAL_CHORD_EQUAL_CENTRAL_ANGLE`, `PERPENDICULAR_FROM_CENTRE_BISECTS_CHORD_CONVERSE`
+- exact chord-circle radius remediation is applied before finalization for the two chord-distance/midpoint construction models
 
 ```text
 wave7ImplementationComplete = true
@@ -65,4 +66,4 @@ testEligibilityAllowed = false
 publicPublicationAllowed = false
 ```
 
-Next gate: full retained source audit + Geometry Phases 0–5 + approved Waves 1–6 + Wave-7 proof + 18-question review export with 18 stem and 18 solution figures, followed by manual visual/editorial QA.
+Next gate: full retained source audit + Geometry Phases 0–5 + approved Waves 1–6 + Wave-7 proof + 18-question review export, followed by manual visual/editorial QA.
