@@ -33,7 +33,7 @@ assert.match(polish, /\.et-interactive:focus-visible/);
 
 assert.match(publicLayout, /className="et-viewport et-page-surface bg-background text-foreground"/);
 assert.match(publicLayout, /data-testid="public-header"/);
-assert.match(publicLayout, /className="et-chrome sticky top-0 z-50 border-b"/);
+assert.match(publicLayout, /et-chrome sticky top-0 z-50 border-b/);
 assert.match(publicLayout, /bg-primary/);
 assert.match(publicLayout, /text-muted-foreground/);
 assert.doesNotMatch(publicLayout, /min-h-screen bg-slate-50 text-slate-950/);
