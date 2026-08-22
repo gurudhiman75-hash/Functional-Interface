@@ -20,6 +20,7 @@ import {
   getDsfReviewPackage,
   getDsfReviewStatus,
   previewDsfReview,
+  type DsfReviewAnswerProfile,
   type DsfReviewDifficulty,
   type DsfReviewDomain,
   type DsfReviewInput,
@@ -62,14 +63,16 @@ function QuestionCard({ question }: { question: DsfReviewQuestion }) {
           <Badge variant="outline">{question.solveModeId}</Badge>
           <Badge variant="outline">{question.difficulty}</Badge>
           <Badge variant="outline">{CLASS_LABELS[question.canonicalAnswer]}</Badge>
-          {question.validation.valid && (
+          <Badge variant="outline">{question.answerProfile}</Badge>
+          <Badge variant="outline">{question.examFamily}</Badge>
+          {question.validation.valid && question.validation.semanticTruthPreserved && (
             <Badge className="gap-1 bg-success/10 text-success hover:bg-success/10">
-              <CheckCircle2 className="h-3 w-3" /> Frozen source validated
+              <CheckCircle2 className="h-3 w-3" /> Frozen semantics preserved
             </Badge>
           )}
         </div>
         <p className="text-xs text-muted-foreground">
-          {question.sourceChapterId} · {question.targetKind} · seed {question.seed}
+          {question.sourceChapterId} · {question.targetKind} · seed {question.seed} · {question.profileEvidenceLevel}
         </p>
       </CardHeader>
       <CardContent className="space-y-4 text-sm">
@@ -91,6 +94,12 @@ function QuestionCard({ question }: { question: DsfReviewQuestion }) {
         <div className="rounded-lg border border-success/25 bg-success/5 p-3">
           <strong>Answer:</strong> {question.options[question.correctIndex]?.value}
         </div>
+        {question.profileOmittedSemanticClasses.length > 0 && (
+          <div className="rounded-lg border border-amber-500/25 bg-amber-500/5 p-3 text-xs text-muted-foreground">
+            This answer profile does not represent: {question.profileOmittedSemanticClasses.map((entry) => CLASS_LABELS[entry]).join(', ')}.
+            The generator excludes those semantic classes instead of changing the underlying DS truth.
+          </div>
+        )}
         <div className="rounded-lg border p-3">
           <p className="font-semibold">Solution</p>
           <div className="mt-3 space-y-2 leading-6 text-muted-foreground">
@@ -112,6 +121,7 @@ function QuestionCard({ question }: { question: DsfReviewQuestion }) {
 export function QuestionStudioDataSufficiencyReviewPanel() {
   const [pkg, setPkg] = useState<DsfReviewPackage | null>(null);
   const [status, setStatus] = useState<DsfReviewStatus | null>(null);
+  const [answerProfile, setAnswerProfile] = useState<DsfReviewAnswerProfile>('GENERIC_DS_STANDARD_5_EN');
   const [domain, setDomain] = useState(ALL);
   const [solveMode, setSolveMode] = useState(ALL);
   const [semanticClass, setSemanticClass] = useState(ALL);
@@ -147,6 +157,16 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
     return () => { active = false; };
   }, []);
 
+  const activeProfile = useMemo(
+    () => pkg?.answerProfiles.find((entry) => entry.id === answerProfile) ?? null,
+    [answerProfile, pkg],
+  );
+
+  const visibleSemanticClasses = useMemo(
+    () => activeProfile?.representedSemanticClasses ?? pkg?.supportedSemanticClasses ?? [],
+    [activeProfile, pkg],
+  );
+
   const visibleSolveModes = useMemo(() => {
     if (!pkg) return [] as string[];
     if (domain === ALL) return pkg.domains.flatMap((entry) => entry.solveModes);
@@ -155,14 +175,28 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
 
   const request = useMemo<DsfReviewInput>(() => ({
     language: 'en',
-    answerProfile: 'GENERIC_DS_STANDARD_5_EN',
+    answerProfile,
     domain: domain === ALL ? undefined : domain as DsfReviewDomain,
     solveMode: solveMode === ALL ? undefined : solveMode,
     semanticClass: semanticClass === ALL ? undefined : semanticClass as DsfReviewSemanticClass,
     difficulty: difficulty === ALL ? undefined : difficulty as DsfReviewDifficulty,
     count: Math.min(50, Math.max(1, count)),
     seed: seed.trim() || undefined,
-  }), [count, difficulty, domain, seed, semanticClass, solveMode]);
+  }), [answerProfile, count, difficulty, domain, seed, semanticClass, solveMode]);
+
+  const handleProfileChange = (value: string) => {
+    const next = value as DsfReviewAnswerProfile;
+    const nextProfile = pkg?.answerProfiles.find((entry) => entry.id === next);
+    setAnswerProfile(next);
+    if (
+      semanticClass !== ALL
+      && nextProfile
+      && !nextProfile.representedSemanticClasses.includes(semanticClass as DsfReviewSemanticClass)
+    ) {
+      setSemanticClass(ALL);
+    }
+    setQuestions([]);
+  };
 
   const handleDomainChange = (value: string) => {
     setDomain(value);
@@ -175,7 +209,7 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
     try {
       const result = await previewDsfReview({ ...request, count: Math.min(20, request.count) });
       setQuestions(result.questions);
-      showToast.success('Data Sufficiency preview loaded', `${result.questions.length} frozen-source question(s) validated.`);
+      showToast.success('Data Sufficiency preview loaded', `${result.questions.length} frozen-source question(s) rendered with ${answerProfile}.`);
     } catch (error) {
       showToast.error('Preview failed', error instanceof Error ? error.message : 'Unable to preview Data Sufficiency questions.');
     } finally {
@@ -189,7 +223,7 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
       const result = await createDsfReviewRun(request);
       window.dispatchEvent(new Event(QUESTION_STUDIO_REFRESH_EVENT));
       await refreshStatus();
-      showToast.success('Data Sufficiency review run created', `${result.publicCode} contains ${result.itemCount} question(s).`);
+      showToast.success('Data Sufficiency review run created', `${result.publicCode} contains ${result.itemCount} question(s) using ${result.answerProfile}.`);
     } catch (error) {
       showToast.error('Run creation failed', error instanceof Error ? error.message : 'Unable to create a Data Sufficiency review run.');
     } finally {
@@ -202,18 +236,18 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
       <CardHeader className="space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <CardTitle className="flex items-center gap-2 text-base">
-            <BrainCircuit className="h-4 w-4" /> Data Sufficiency · Frozen CP-001 · Question Studio CP-002
+            <BrainCircuit className="h-4 w-4" /> Data Sufficiency · Frozen CP-001 · Studio CP-002 · Profiles CP-003
           </CardTitle>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline">DSF-QL-001</Badge>
             <Badge variant="outline">4 source domains</Badge>
             <Badge variant="outline">8 solve modes</Badge>
-            <Badge variant="outline">5 canonical classes</Badge>
+            <Badge variant="outline">Banking + SSC profiles</Badge>
             <Badge variant="outline">English</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Generates review questions only from the frozen DSF-CP-001 production authority. Source-domain truth and canonical sufficiency semantics are preserved; CP-002 only adds Question Studio discovery and review-queue persistence.
+          CP-001 still owns frozen semantic truth, CP-002 owns Question Studio discovery/persistence, and CP-003 only changes answer-option rendering. Option position is never treated as semantic truth.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -231,7 +265,7 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
             <ShieldAlert className="h-4 w-4" /> Review-only lifecycle boundary
           </div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            Question Studio preview and review-queue persistence are enabled. Question Bank writes, scored tests, mock-test eligibility and public/student publication remain locked. Exam-specific SSC/Banking/Punjab answer-profile rendering is not enabled yet; this panel uses the frozen generic five-option English DS contract.
+            Banking five-option and SSC CGL four-option review profiles are enabled. SSC profiles explicitly exclude semantic classes their four-option contracts cannot represent. Punjab-specific rendering remains disabled pending stronger official evidence. Question Bank writes, scored tests, mock-test eligibility and public/student publication remain locked.
           </p>
         </div>
 
@@ -240,7 +274,18 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
             <Loader2 className="h-4 w-4 animate-spin" /> Loading Data Sufficiency package…
           </div>
         ) : (
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-7">
+            <Field label="Answer profile">
+              <Select value={answerProfile} onValueChange={handleProfileChange}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  {(pkg?.answerProfiles ?? []).map((entry) => (
+                    <SelectItem key={entry.id} value={entry.id}>{entry.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </Field>
+
             <Field label="Source domain">
               <Select value={domain} onValueChange={handleDomainChange}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
@@ -269,8 +314,8 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
               <Select value={semanticClass} onValueChange={(value) => { setSemanticClass(value); setQuestions([]); }}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={ALL}>All classes</SelectItem>
-                  {(pkg?.supportedSemanticClasses ?? []).map((entry) => (
+                  <SelectItem value={ALL}>All representable classes</SelectItem>
+                  {visibleSemanticClasses.map((entry) => (
                     <SelectItem key={entry} value={entry}>{CLASS_LABELS[entry]}</SelectItem>
                   ))}
                 </SelectContent>
@@ -305,6 +350,16 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
           </div>
         )}
 
+        {activeProfile && (
+          <div className="rounded-lg border bg-background/60 p-3 text-xs leading-5 text-muted-foreground">
+            <strong className="text-foreground">{activeProfile.label}</strong> · {activeProfile.optionCount} options · {activeProfile.evidenceLevel}.
+            {' '}{activeProfile.evidenceNote}
+            {activeProfile.omittedSemanticClasses.length > 0 && (
+              <> Omitted: {activeProfile.omittedSemanticClasses.map((entry) => CLASS_LABELS[entry]).join(', ')}.</>
+            )}
+          </div>
+        )}
+
         <div className="flex flex-wrap gap-3">
           <Button variant="outline" onClick={handlePreview} disabled={loading || working !== null}>
             {working === 'preview' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Eye className="mr-2 h-4 w-4" />}
@@ -323,7 +378,7 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
           <div className="space-y-4">
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm font-medium">Preview · {questions.length} question(s)</p>
-              <p className="text-xs text-muted-foreground">Frozen source identities preserved</p>
+              <p className="text-xs text-muted-foreground">Semantic identities preserved; only answer-profile rendering changes</p>
             </div>
             {questions.map((question) => <QuestionCard key={question.questionId} question={question} />)}
           </div>
