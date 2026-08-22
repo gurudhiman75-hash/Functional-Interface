@@ -3,10 +3,11 @@ import assert from "node:assert/strict";
 import { buildCp006EnglishReviewCorpus, cp006EnglishReviewFingerprint } from "./cp006-review-corpus.ts";
 import {
   cp006CorrectedRationaleMatch,
+  cp006HasKnownGenderedParticipantSurface,
   cp006TeachingSkeleton,
   localizeCp006CorrectedRationale,
-  localizeCp006CorrectedReviewCaselet,
-} from "./localization/rationale-fidelity-polish.ts";
+  localizeCp006PolishedReviewCaselet,
+} from "./localization/language-fidelity-polish.ts";
 import {
   SEA002_CP006_LOCALIZATION_HUMAN_REVIEW_BLOCKER,
   SEA002_CP006_TRANSLATION_TARGET_LOCALES,
@@ -35,6 +36,7 @@ let caseTeachingParity=0;
 let latinResidue=0;
 let wrongScript=0;
 let learnerColumnResidue=0;
+let genderedParticipantResidue=0;
 
 for(const canonical of corpus){
   const canonicalParity=cp006CanonicalParityFingerprint(canonical);
@@ -52,7 +54,7 @@ for(const canonical of corpus){
   }
 
   for(const locale of SEA002_CP006_TRANSLATION_TARGET_LOCALES){
-    const localized=localizeCp006CorrectedReviewCaselet(canonical,locale);
+    const localized=localizeCp006PolishedReviewCaselet(canonical,locale);
     localizedCaselets+=1;
     localizedChildren+=localized.children.length;
     localizedCounts.set(locale,(localizedCounts.get(locale)??0)+1);
@@ -103,10 +105,12 @@ for(const canonical of corpus){
     const learnerSurface=[localized.setupText,...localized.clueTexts,localized.sharedExplanation,localized.diagramText,...localized.children.flatMap((child)=>[child.text,child.displayAnswer,child.explanation,...child.options.flatMap((option)=>[option.displayValue,option.explanation])])].join("\n");
     if(/[A-Za-z]/u.test(learnerSurface)) latinResidue+=1;
     if(/\bcolumns?\b/iu.test(learnerSurface)) learnerColumnResidue+=1;
+    if(cp006HasKnownGenderedParticipantSurface(learnerSurface)) genderedParticipantResidue+=1;
     if(locale==="hi-IN"&&!/[\u0900-\u097F]/u.test(learnerSurface)) wrongScript+=1;
     if(locale==="pa-IN"&&!/[\u0A00-\u0A7F]/u.test(learnerSurface)) wrongScript+=1;
     assert.ok(!/[A-Za-z]/u.test(learnerSurface),`${canonical.caseletId}/${locale}: Latin learner residue`);
     assert.ok(!/\bcolumns?\b/iu.test(learnerSurface),`${canonical.caseletId}/${locale}: learner-facing column wording returned`);
+    assert.ok(!cp006HasKnownGenderedParticipantSurface(learnerSurface),`${canonical.caseletId}/${locale}: known gendered/mechanical participant wording returned`);
     assert.match(localized.presentationFingerprint,/^[a-f0-9]{64}$/u);
     assert.ok(!presentationFingerprints.has(localized.presentationFingerprint),`${canonical.caseletId}/${locale}: duplicate localized presentation fingerprint`);
     presentationFingerprints.add(localized.presentationFingerprint);
@@ -116,7 +120,9 @@ for(const canonical of corpus){
 assert.deepEqual(Object.fromEntries(localizedCounts),{"hi-IN":100,"pa-IN":100});
 assert.deepEqual(Object.fromEntries(pbaCounts),{"SEA-PBA-021":25,"SEA-PBA-022":25,"SEA-PBA-023":25,"SEA-PBA-024":25});
 assert.equal(canonicalCorrectedRationales,84);
-assert.deepEqual(Object.fromEntries(correctedByQuery),{"SEA-QC-010":34,"SEA-QC-003":41,"SEA-QC-012":9});
+assert.equal(correctedByQuery.get("SEA-QC-003"),41);
+assert.equal(correctedByQuery.get("SEA-QC-010"),34);
+assert.equal(correctedByQuery.get("SEA-QC-012"),9);
 assert.equal(localizedCorrectedRationales,168);
 assert.equal(localizedCaselets,200);
 assert.equal(localizedChildren,800);
@@ -128,6 +134,7 @@ assert.ok(caseTeachingParity>=160,`localized case-teaching coverage unexpectedly
 assert.equal(latinResidue,0);
 assert.equal(wrongScript,0);
 assert.equal(learnerColumnResidue,0);
+assert.equal(genderedParticipantResidue,0);
 
 assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationFrozen,false);
 assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered,false);
@@ -147,5 +154,6 @@ console.log("option rationale parity",`${optionParity}/${localizedChildren}`);
 console.log("presentation fingerprints",presentationFingerprints.size);
 console.log("Latin learner residue",latinResidue);
 console.log("learner column residue",learnerColumnResidue);
+console.log("known gendered participant residue",genderedParticipantResidue);
 console.log("human Hindi/Punjabi review","PENDING");
 console.log("multilingual freeze",false);
