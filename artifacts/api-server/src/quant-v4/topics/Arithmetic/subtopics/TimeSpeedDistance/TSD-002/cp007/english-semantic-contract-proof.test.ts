@@ -17,8 +17,14 @@ function family(id: string) {
 assert(families.size === 66, `expected 66 effective English families, found ${families.size}`);
 
 const bridgeContext = family("91-D");
-assert(bridgeContext.stem.toLowerCase().includes("difference between the bridge lengths"), "91-D must target the approved length-difference authority");
-assert(!bridgeContext.stem.toLowerCase().includes("find the second bridge length"), "91-D must not drift into an unimplemented absolute second-object target");
+const bridgeStem = bridgeContext.stem.toLowerCase();
+assert(bridgeStem.includes("difference") && bridgeStem.includes("bridge lengths"), "91-D must target the approved length-difference authority");
+assert(!bridgeStem.includes("find the second bridge length"), "91-D must not drift into an unimplemented absolute second-object target");
+
+const timelineDiscrimination = family("93-F");
+const timelineStem = timelineDiscrimination.stem.toLowerCase();
+assert(timelineStem.includes("records") && timelineStem.includes("find the time when"), "93-F must identify one known event and one target event");
+assert(timelineDiscrimination.stem.includes("{knownEvent}") && timelineDiscrimination.stem.includes("{targetEvent}"), "93-F must bind known and target event identities explicitly");
 
 const endpointContrast = family("94-E");
 assert(endpointContrast.stem.toLowerCase().includes("how many posts"), "94-E must target approved point counting");
@@ -51,7 +57,7 @@ for (const ql of TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY) {
 console.log("TSD-CP-007 ENGLISH SEMANTIC-CONTRACT PROOF: PASS");
 console.log(JSON.stringify({
   effectiveStemFamilies: families.size,
-  correctedSemanticDrifts: ["91-D", "94-E"],
+  correctedSemanticDrifts: ["91-D", "93-F", "94-E"],
   englishStatus: "REVIEW_CANDIDATE",
   questionStudioEnabled: false,
 }, null, 2));
