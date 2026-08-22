@@ -8,6 +8,7 @@ import {
 import { generateDsfCp001NumberSystemEnglish } from "./cp001-editorial-runtime.ts";
 import { generateDsfCp001RatioEnglish } from "./cp001-ratio-editorial-runtime.ts";
 import { generateDsfCp001PercentageEnglish } from "./cp001-percentage-editorial-runtime.ts";
+import { generateDsfCp001AlgebraEnglish } from "./cp001-algebra-runtime.ts";
 import {
   DSF_CP001_PRE_FREEZE_DECISION,
   DSF_CP001_SOURCE_DEPENDENCIES,
@@ -17,7 +18,8 @@ const seeds = Array.from({ length: 150 }, (_, seed) => seed);
 const numberSystem = seeds.map(generateDsfCp001NumberSystemEnglish);
 const ratio = seeds.map(generateDsfCp001RatioEnglish);
 const percentage = seeds.map(generateDsfCp001PercentageEnglish);
-const allQuestions = [...numberSystem, ...ratio, ...percentage];
+const algebra = seeds.map(generateDsfCp001AlgebraEnglish);
+const allQuestions = [...numberSystem, ...ratio, ...percentage, ...algebra];
 
 function classSet(questions: readonly { readonly canonicalAnswer: string }[]): Set<string> {
   return new Set(questions.map((question) => question.canonicalAnswer));
@@ -37,6 +39,7 @@ function assertFullFiveClassCoverage(
 assertFullFiveClassCoverage("Number System", numberSystem);
 assertFullFiveClassCoverage("Ratio & Proportion", ratio);
 assertFullFiveClassCoverage("Percentage", percentage);
+assertFullFiveClassCoverage("Algebra", algebra);
 
 assert.equal(DSF_PERMANENT_QL_REGISTRY.length, 1);
 const ql001 = DSF_PERMANENT_QL_REGISTRY[0]!;
@@ -45,11 +48,8 @@ assert.equal(ql001.taskContract, "TWO_STATEMENT_TARGET_DETERMINACY");
 assert.equal(ql001.answerSemantic, "SUFFICIENCY_CLASS");
 assert.equal(ql001.statementCount, 2);
 assert.equal(DSF_NEXT_AVAILABLE_QL_ID, "DSF-QL-002");
-assert.equal(
-  ql001.lifecycle.englishContentStatus,
-  "PARTIAL_PRODUCTION_GENERATION_REVIEW_CANDIDATE",
-);
-assert.deepEqual(ql001.lifecycle.productionBackedSourceChapters, ["NUM-001", "RAP-001", "PCT-001"]);
+assert.equal(ql001.lifecycle.englishContentStatus, "CP001_PRODUCTION_GENERATION_FROZEN");
+assert.deepEqual(ql001.lifecycle.productionBackedSourceChapters, ["NUM-001", "RAP-001", "PCT-001", "ALG-002"]);
 assert.equal(ql001.lifecycle.questionStudioDiscoverable, false);
 assert.equal(ql001.lifecycle.questionBankWritable, false);
 assert.equal(ql001.lifecycle.testEligible, false);
@@ -82,7 +82,7 @@ for (const question of allQuestions) {
 
 assert.deepEqual(
   new Set(allQuestions.map((question) => question.sourceChapterId)),
-  new Set(["NUM-001", "RAP-001", "PCT-001"]),
+  new Set(["NUM-001", "RAP-001", "PCT-001", "ALG-002"]),
 );
 
 const solveModes = new Set(allQuestions.map((question) => question.solveModeId));
@@ -93,59 +93,53 @@ assert.deepEqual(solveModes, new Set([
   "DSF-SM-RAP-GREATER-QUANTITY",
   "DSF-SM-PCT-NET-SUCCESSIVE-CHANGE",
   "DSF-SM-PCT-FINAL-DIRECTION",
+  "DSF-SM-ALG-SINGLE-VARIABLE-X",
+  "DSF-SM-ALG-LINEAR-SYSTEM-X",
 ]));
 
-const generationIdentities = new Set(allQuestions.map((question) => question.generationIdentity));
+const generationIdentities = new Set(allQuestions.map((question) => `${question.sourceChapterId}:${question.generationIdentity}`));
 assert.equal(generationIdentities.size, allQuestions.length);
 
 assert.equal(DSF_CP001_SOURCE_DEPENDENCIES.length, 4);
-const mergedSources = DSF_CP001_SOURCE_DEPENDENCIES.filter(
-  (entry) => entry.status === "PRODUCTION_BACKED_ON_NEW_MAIN",
+assert(DSF_CP001_SOURCE_DEPENDENCIES.every((entry) => entry.status === "PRODUCTION_BACKED_ON_NEW_MAIN"));
+assert.deepEqual(
+  DSF_CP001_SOURCE_DEPENDENCIES.map((entry) => entry.sourceChapterId),
+  ["NUM-001", "RAP-001", "PCT-001", "ALG-002"],
 );
-const algebra = DSF_CP001_SOURCE_DEPENDENCIES.find(
-  (entry) => entry.sourceChapterId === "ALG-001/ALG-002",
-)!;
-assert.deepEqual(mergedSources.map((entry) => entry.sourceChapterId), ["NUM-001", "RAP-001", "PCT-001"]);
-assert.equal(algebra.status, "SOURCE_RUNTIME_READY_OFF_BASE_BLOCKS_CP001_FREEZE");
-assert.equal(algebra.sourceRef?.prNumber, 867);
-assert.equal(algebra.sourceRef?.branch, "feature/alg-001-phase0-foundation");
-assert.equal(algebra.sourceRef?.draft, true);
-assert.equal(DSF_CP001_PRE_FREEZE_DECISION.status, "NOT_FREEZABLE_SOURCE_DEPENDENCY_PENDING");
-assert.equal(DSF_CP001_PRE_FREEZE_DECISION.blockingDomain, "Algebra");
+const algebraDependency = DSF_CP001_SOURCE_DEPENDENCIES.find((entry) => entry.sourceChapterId === "ALG-002")!;
+assert.equal(algebraDependency.sourceRef?.prNumber, 867);
+assert.equal(algebraDependency.sourceRef?.mergedHeadSha, "9bb081add70142a9bfb39e89ffd44904e6e67f89");
+assert.equal(algebraDependency.sourceRef?.mergeCommitSha, "849017e332c75108aef37b8bd51d4886fc54c7f3");
+assert.equal(DSF_CP001_PRE_FREEZE_DECISION.status, "READY_FOR_FINAL_CP001_FREEZE");
+assert.equal(DSF_CP001_PRE_FREEZE_DECISION.blockingDomain, null);
+assert.equal(DSF_CP001_PRE_FREEZE_DECISION.sourceDependenciesSatisfied, true);
 assert.equal(DSF_CP001_PRE_FREEZE_DECISION.permanentQlId, "DSF-QL-001");
 assert.equal(DSF_CP001_PRE_FREEZE_DECISION.newQlAllocationRequired, false);
 assert.equal(DSF_CP001_PRE_FREEZE_DECISION.questionStudioPublicationAllowed, false);
 
-const classCountsByWave = Object.fromEntries([
-  ["Number System", Object.fromEntries(SUFFICIENCY_CLASSES.map((semanticClass) => [
+const waves = [
+  ["Number System", numberSystem],
+  ["Ratio & Proportion", ratio],
+  ["Percentage", percentage],
+  ["Algebra", algebra],
+] as const;
+const classCountsByWave = Object.fromEntries(waves.map(([label, questions]) => [
+  label,
+  Object.fromEntries(SUFFICIENCY_CLASSES.map((semanticClass) => [
     semanticClass,
-    numberSystem.filter((question) => question.canonicalAnswer === semanticClass).length,
-  ]))],
-  ["Ratio & Proportion", Object.fromEntries(SUFFICIENCY_CLASSES.map((semanticClass) => [
-    semanticClass,
-    ratio.filter((question) => question.canonicalAnswer === semanticClass).length,
-  ]))],
-  ["Percentage", Object.fromEntries(SUFFICIENCY_CLASSES.map((semanticClass) => [
-    semanticClass,
-    percentage.filter((question) => question.canonicalAnswer === semanticClass).length,
-  ]))],
-]);
+    questions.filter((question) => question.canonicalAnswer === semanticClass).length,
+  ])),
+]));
 
 console.log(JSON.stringify({
-  status: "PASS_DSF_CP_001_CROSS_WAVE_PRE_FREEZE_AUDIT",
+  status: "PASS_DSF_CP_001_CROSS_WAVE_FROZEN_AUDIT",
   permanentQlIds: DSF_PERMANENT_QL_REGISTRY.map((entry) => entry.qlId),
   nextAvailableQlId: DSF_NEXT_AVAILABLE_QL_ID,
   auditedQuestions: allQuestions.length,
-  productionBackedSources: mergedSources.map((entry) => entry.sourceChapterId),
+  productionBackedSources: DSF_CP001_SOURCE_DEPENDENCIES.map((entry) => entry.sourceChapterId),
   solveModes: [...solveModes].sort(),
   classCountsByWave,
   distinctGenerationIdentities: generationIdentities.size,
   lifecycle: ql001.lifecycle.englishContentStatus,
-  freezeDecision: DSF_CP001_PRE_FREEZE_DECISION.status,
-  blocker: {
-    domain: DSF_CP001_PRE_FREEZE_DECISION.blockingDomain,
-    sourcePr: algebra.sourceRef?.prNumber,
-    sourceBranch: algebra.sourceRef?.branch,
-    sourceHeadAtAudit: algebra.sourceRef?.headShaAtAudit,
-  },
+  sourceDependenciesSatisfied: DSF_CP001_PRE_FREEZE_DECISION.sourceDependenciesSatisfied,
 }, null, 2));

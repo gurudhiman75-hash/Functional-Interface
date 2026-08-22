@@ -1,0 +1,66 @@
+name: Validate DSF-CP-001 Algebra production
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-001/cp001-algebra-*.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-001-MANIFEST-AMENDMENT-CP001-ALGEBRA.md
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/**
+      - artifacts/api-server/src/quant-v4/shared/algebra/**
+      - .github/workflows/dsf-cp001-algebra.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp001-algebra-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dsf-cp001-algebra:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle Algebra production proof and review exporter
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/dsf
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-001/cp001-algebra-runtime.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp001-algebra-runtime.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-001/cp001-algebra-review-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp001-algebra-review-export.mjs
+      - name: Run Algebra production proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp001-algebra-runtime.test.mjs
+      - name: Build Algebra review export
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp001-algebra-review-export.mjs
+      - name: Upload Algebra review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: dsf-cp001-algebra-review
+          path: |
+            artifacts/api-server/dist/reasoning-v1/dsf/dsf-cp001-algebra-review.html
+            artifacts/api-server/dist/reasoning-v1/dsf/dsf-cp001-algebra-review.json
+          if-no-files-found: error

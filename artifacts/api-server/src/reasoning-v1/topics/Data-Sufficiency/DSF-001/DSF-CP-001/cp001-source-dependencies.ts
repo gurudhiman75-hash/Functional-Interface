@@ -1,6 +1,5 @@
 export type DsfCp001SourceDependencyStatus =
-  | "PRODUCTION_BACKED_ON_NEW_MAIN"
-  | "SOURCE_RUNTIME_READY_OFF_BASE_BLOCKS_CP001_FREEZE";
+  | "PRODUCTION_BACKED_ON_NEW_MAIN";
 
 export interface DsfCp001SourceDependency {
   readonly sourceChapterId: string;
@@ -10,19 +9,18 @@ export interface DsfCp001SourceDependency {
   readonly sourceRef?: {
     readonly prNumber: number;
     readonly branch: string;
-    readonly headShaAtAudit: string;
-    readonly draft: boolean;
+    readonly mergedHeadSha: string;
+    readonly mergeCommitSha: string;
   };
   readonly policy: string;
 }
 
 /**
- * CP-001 pre-freeze dependency snapshot.
+ * CP-001 final-freeze dependency snapshot.
  *
- * Existing merged waves are production-backed on New-main. Algebra has a mature
- * source runtime in draft PR #867, but DSF must not import an unmerged source
- * branch. Once Algebra is merged, this snapshot must be revisited before CP-001
- * can be frozen.
+ * All planned source domains are now production-backed on New-main. Algebra is
+ * consumed through its frozen permanent source contract ALG-QL-040 / ALG-CP-014;
+ * DSF does not copy or replace Algebra solver truth.
  */
 export const DSF_CP001_SOURCE_DEPENDENCIES: readonly DsfCp001SourceDependency[] = [
   {
@@ -56,25 +54,29 @@ export const DSF_CP001_SOURCE_DEPENDENCIES: readonly DsfCp001SourceDependency[] 
     policy: "Reuse PCT-001 percentage arithmetic; DSF owns finite-world DS semantics and rendering.",
   },
   {
-    sourceChapterId: "ALG-001/ALG-002",
+    sourceChapterId: "ALG-002",
     domain: "Algebra",
-    status: "SOURCE_RUNTIME_READY_OFF_BASE_BLOCKS_CP001_FREEZE",
-    productionSolveModes: [],
+    status: "PRODUCTION_BACKED_ON_NEW_MAIN",
+    productionSolveModes: [
+      "DSF-SM-ALG-SINGLE-VARIABLE-X",
+      "DSF-SM-ALG-LINEAR-SYSTEM-X",
+    ],
     sourceRef: {
       prNumber: 867,
       branch: "feature/alg-001-phase0-foundation",
-      headShaAtAudit: "2332b2e0b2e08bd8baa20951393bb68934126ab4",
-      draft: true,
+      mergedHeadSha: "9bb081add70142a9bfb39e89ffd44904e6e67f89",
+      mergeCommitSha: "849017e332c75108aef37b8bd51d4886fc54c7f3",
     },
-    policy: "Do not copy Algebra solvers into DSF and do not import from an unmerged feature branch. Re-audit after the source Algebra PR reaches New-main.",
+    policy: "Reuse frozen ALG-QL-040 / ALG-CP-014 problem states and exact shared Algebra solvers; DSF owns canonical sufficiency classification and DS rendering.",
   },
 ] as const;
 
 export const DSF_CP001_PRE_FREEZE_DECISION = {
-  status: "NOT_FREEZABLE_SOURCE_DEPENDENCY_PENDING" as const,
-  productionBackedDomains: ["Number System", "Ratio & Proportion", "Percentage"] as const,
-  blockingDomain: "Algebra" as const,
+  status: "READY_FOR_FINAL_CP001_FREEZE" as const,
+  productionBackedDomains: ["Number System", "Ratio & Proportion", "Percentage", "Algebra"] as const,
+  blockingDomain: null,
   permanentQlId: "DSF-QL-001" as const,
   newQlAllocationRequired: false,
+  sourceDependenciesSatisfied: true,
   questionStudioPublicationAllowed: false,
 } as const;
