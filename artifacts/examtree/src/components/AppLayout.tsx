@@ -16,13 +16,13 @@ function CatalogAwareHeader() {
 
   return (
     <header
-      className="et-chrome fixed inset-x-0 top-0 z-50 border-b border-amber-300/70 py-2 md:left-[var(--sidebar-width)]"
+      className="et-chrome et-shell-header fixed inset-x-0 top-0 z-50 border-b border-amber-300/70 py-2 md:left-[var(--sidebar-width)]"
       role="status"
       aria-live="polite"
       data-testid="catalog-recovery-header"
     >
-      <div className="flex min-h-11 items-center gap-3 px-4 sm:px-6">
-        <SidebarTrigger className="et-interactive h-11 w-11 shrink-0 rounded-lg border border-amber-300/70 bg-card text-muted-foreground hover:bg-amber-100/70 hover:text-foreground" />
+      <div className="flex min-h-11 items-center gap-3 px-4 sm:px-6 lg:px-8">
+        <SidebarTrigger className="et-interactive h-11 w-11 shrink-0 rounded-xl border border-amber-300/70 bg-card text-muted-foreground hover:bg-amber-100/70 hover:text-foreground" />
         <AlertTriangle className="h-5 w-5 shrink-0 text-amber-700 dark:text-amber-400" aria-hidden="true" />
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-semibold text-foreground">Catalog temporarily unavailable</p>
@@ -32,7 +32,7 @@ function CatalogAwareHeader() {
           type="button"
           onClick={() => void retryCatalog()}
           disabled={isRetrying}
-          className="et-interactive inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg border border-amber-300/80 bg-card px-3 py-2 text-sm font-semibold text-amber-900 hover:bg-amber-100/70 disabled:cursor-wait disabled:opacity-60 dark:text-amber-200"
+          className="et-interactive inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl border border-amber-300/80 bg-card px-3 py-2 text-sm font-semibold text-amber-900 hover:bg-amber-100/70 disabled:cursor-wait disabled:opacity-60 dark:text-amber-200"
         >
           <RefreshCw className={`h-4 w-4 ${isRetrying ? "animate-spin" : ""}`} aria-hidden="true" />
           <span className="hidden sm:inline">{isRetrying ? "Retrying…" : "Retry catalog"}</span>
@@ -56,12 +56,12 @@ export function AppLayout({ children }: AppLayoutProps) {
         Skip to main content
       </a>
       <AppSidebar />
-      <SidebarInset>
+      <SidebarInset className="min-w-0 overflow-x-clip">
         <CatalogAwareHeader />
         <main
           id="main-content"
           tabIndex={-1}
-          className="flex flex-1 flex-col gap-6 bg-transparent px-4 pb-4 pt-24 transition-all duration-200 sm:px-6 sm:pb-6 sm:pt-28"
+          className="et-page-content flex flex-1 flex-col gap-6 bg-transparent px-4 pb-5 pt-24 transition-[padding] duration-200 sm:px-6 sm:pb-7 sm:pt-28 lg:px-8"
         >
           {children}
         </main>
