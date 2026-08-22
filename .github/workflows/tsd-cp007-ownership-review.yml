@@ -107,12 +107,24 @@ jobs:
           pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/localization-parity-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-localization-parity-proof.log
           echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-localization-parity-proof-exit
           exit 0
+      - name: Run rendered Hindi Punjabi question parity proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/localized-rendered-review-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-localized-rendered-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-localized-rendered-proof-exit
+          exit 0
       - name: Generate questions-only English Markdown review file
         env:
           TSD_CP007_REVIEW_OUTPUT_DIR: /tmp/tsd-cp007-english-review
         run: |
           pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-rendered-review-export.ts
-      - name: Publish proof diagnostics and English question review
+      - name: Generate questions-only Hindi Punjabi Markdown review file
+        env:
+          TSD_CP007_LOCALIZED_REVIEW_OUTPUT_DIR: /tmp/tsd-cp007-localized-review
+        run: |
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/localized-rendered-review-export.ts
+      - name: Publish proof diagnostics and question reviews
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -134,7 +146,10 @@ jobs:
             /tmp/tsd-cp007-english-freeze-proof-exit
             /tmp/tsd-cp007-localization-parity-proof.log
             /tmp/tsd-cp007-localization-parity-proof-exit
+            /tmp/tsd-cp007-localized-rendered-proof.log
+            /tmp/tsd-cp007-localized-rendered-proof-exit
             /tmp/tsd-cp007-english-review/TSD-CP007-ENGLISH-QUESTIONS.md
+            /tmp/tsd-cp007-localized-review/TSD-CP007-HINDI-PUNJABI-QUESTIONS.md
           if-no-files-found: error
           retention-days: 14
       - name: Enforce proof results
@@ -147,3 +162,4 @@ jobs:
           test "$(cat /tmp/tsd-cp007-english-rendered-proof-exit)" = "0"
           test "$(cat /tmp/tsd-cp007-english-freeze-proof-exit)" = "0"
           test "$(cat /tmp/tsd-cp007-localization-parity-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-localized-rendered-proof-exit)" = "0"
