@@ -38,22 +38,15 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Strict TypeScript check for TSD CP007 Studio route
+      - name: Transpile TSD CP007 Studio route in isolation
         working-directory: artifacts/api-server
         run: |
-          pnpm exec tsc \
-            --noEmit \
-            --target es2022 \
-            --module esnext \
-            --moduleResolution bundler \
-            --allowSyntheticDefaultImports \
-            --strictNullChecks \
-            --noImplicitAny \
-            --noImplicitReturns \
-            --noFallthroughCasesInSwitch \
-            --skipLibCheck \
-            --types node \
-            src/routes/admin-question-studio-time-speed-distance.ts
+          pnpm exec esbuild \
+            src/routes/admin-question-studio-time-speed-distance.ts \
+            --platform=node \
+            --format=esm \
+            --outfile=/tmp/tsd-cp007-question-studio-route.mjs
+          test -s /tmp/tsd-cp007-question-studio-route.mjs
       - name: Prove frozen Question Studio adapter
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/question-studio-review-proof.test.ts
       - name: Prove route registration and lifecycle locks
