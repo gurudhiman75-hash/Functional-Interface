@@ -81,7 +81,7 @@ export function StickyHeader() {
       data-testid="app-sticky-header"
     >
       <div className="flex items-center gap-3 px-4 sm:px-6">
-        <SidebarTrigger className="et-interactive h-11 w-11 shrink-0 rounded-xl border border-border bg-card/90 text-muted-foreground shadow-sm hover:bg-muted hover:text-foreground" />
+        <SidebarTrigger className="h-11 w-11 shrink-0 rounded-xl border border-border bg-card/90 text-muted-foreground shadow-sm hover:bg-muted hover:text-foreground et-interactive" />
 
         <div className="hidden items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground lg:flex">
           <Compass className="h-4 w-4 text-primary" aria-hidden="true" />
