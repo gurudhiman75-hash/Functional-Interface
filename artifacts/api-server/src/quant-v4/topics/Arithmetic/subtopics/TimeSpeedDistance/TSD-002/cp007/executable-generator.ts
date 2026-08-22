@@ -16,9 +16,9 @@ import { independentlyVerifyCp007Authority } from "./executable-verifier";
 const TRAIN_LENGTHS = [120, 132, 150, 144, 180, 220, 198, 240, 200, 243, 240, 288] as const;
 const SPEED_NUMERATORS = [10, 12, 15, 16, 18, 20, 22, 24, 25, 27, 30, 32] as const;
 const OBJECT_LENGTHS = [300, 360, 450, 400, 450, 500, 550, 480, 600, 540, 600, 640] as const;
-// The second-object offsets deliberately yield varied clean time differences
-// (mostly 5, 6 or 7 seconds) instead of making every comparison look templated.
-const OBJECT_DELTAS = [60, -84, 90, -112, 108, -100, 154, -144, 150, -189, 180, -224] as const;
+// The second-object offsets deliberately produce clean 4–9 second comparison
+// differences so QL-091 does not expose a repeated hidden numeric template.
+const OBJECT_DELTAS = [40, -60, 90, -112, 144, -180, 110, -144, 175, -216, 270, -128] as const;
 const SPACINGS = [25, 24, 25, 32, 27, 20, 22, 30, 25, 27, 30, 28] as const;
 const OBJECT_KINDS: readonly TsdCp007ObjectKind[] = Object.freeze(["PLATFORM", "BRIDGE", "TUNNEL"]);
 
