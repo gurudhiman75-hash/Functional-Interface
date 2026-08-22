@@ -28,13 +28,13 @@ function inverse(a: number, modulus: number): number | undefined {
   return undefined;
 }
 
-function lowerConclusion(step: string): string {
+function polishConclusion(step: string): string {
   return step
     .replace(/^Hence Only /u, "Hence only ")
     .replace(/^Therefore Both /u, "Therefore both ")
     .replace(/^Therefore Statement /u, "Therefore statement ")
-    .replace(/^Therefore Exactly /u, "Therefore exactly ")
-    .replace(/^Therefore More /u, "Therefore more ");
+    .replace(/^Therefore Exactly one solution\.?$/u, "Therefore there is exactly one solution.")
+    .replace(/^Therefore More than one solution\.?$/u, "Therefore there is more than one solution.");
 }
 
 function polishExplanation(q: NumCp008PermanentPackage): NumCp008PermanentPackage["explanation"] {
@@ -48,7 +48,7 @@ function polishExplanation(q: NumCp008PermanentPackage): NumCp008PermanentPackag
     const first = mod(base, divisor);
     const square = mod(first * first, divisor);
 
-    if (exponent >= 2 && square === 0) {
+    if (first !== 0 && exponent >= 2 && square === 0) {
       return Object.freeze({
         coreConcept: "Sometimes a large power becomes easy after checking only the square of the base.",
         strategy: `We need the remainder of ${base}^${exponent} on division by ${divisor}. First check ${base}^2 before doing any longer power work.`,
@@ -92,7 +92,7 @@ function polishExplanation(q: NumCp008PermanentPackage): NumCp008PermanentPackag
     }
   }
 
-  const polishedSteps = q.explanation.steps.map(lowerConclusion);
+  const polishedSteps = q.explanation.steps.map(polishConclusion);
   if (polishedSteps.some((step, index) => step !== q.explanation.steps[index])) {
     return Object.freeze({
       ...q.explanation,
