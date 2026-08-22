@@ -53,7 +53,7 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
   assert.equal(entry.solveInventoryStatus,"FROZEN");
   assert.equal(entry.queryMixStatus,"FROZEN");
   assert.equal(entry.allocationStatus,"PERMANENT_ID_ALLOCATED_INACTIVE");
-  assert.equal(entry.localizationStatus,"NOT_STARTED");
+  assert.equal(entry.localizationStatus,"REVIEW_CANDIDATE_HUMAN_REVIEW_PENDING");
   assert.equal(entry.active,false);
   assert.equal(entry.questionStudioDiscoverable,false);
   assert.equal(entry.questionBankWritable,false);
@@ -84,7 +84,8 @@ assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.solveInventoryStatus,"FRO
 assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.queryMixStatus,"FROZEN");
 assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.englishFreezeStatus,"FROZEN");
 assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.permanentQlCount,4);
-assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationStatus,"NOT_STARTED");
+assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationStatus,"REVIEW_CANDIDATE_HUMAN_REVIEW_PENDING");
+assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationFrozen,false);
 assert.doesNotThrow(()=>assertCp006PermanentLayerStillInactive());
 
 console.log("PASS_SEA002_CP006_PERMANENT_FREEZE");
@@ -93,4 +94,6 @@ console.log("blueprint mapping",SEA002_CP006_BLUEPRINT_TO_PERMANENT_QL);
 console.log("review fingerprint",fingerprint);
 console.log("review decision",SEA002_CP006_APPROVED_REVIEW.decision);
 console.log("next permanent QL",SEA002_NEXT_AVAILABLE_PERMANENT_QL_ID);
-console.log("localization/Studio/Bank/mock/staging/public",false,false,false,false,false,false);
+console.log("localization status",SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationStatus);
+console.log("localization frozen",SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationFrozen);
+console.log("Studio/Bank/mock/staging/public",false,false,false,false,false);
