@@ -23,7 +23,6 @@ const scenarioCoverage: Record<string, number> = {};
 const answerPositionCounts: Record<string, number[]> = {};
 let deterministicReplayChecks = 0;
 let generatedQuestions = 0;
-let fourAssumptionQuestions = 0;
 let fiveOptionQuestions = 0;
 let negativeQueryQuestions = 0;
 let noneOfTheseMetaOptionChecks = 0;
@@ -43,7 +42,6 @@ for (const profileId of PROFILE_IDS) {
 
     const reachedScenarios = new Set<string>();
     const positionCounts = Array.from({ length: profile.optionCount }, () => 0);
-    let sawCandidateIV = false;
     let sawFifthOption = false;
     let sawLocalizedInstruction = locale === "en-IN";
 
@@ -92,11 +90,6 @@ for (const profileId of PROFILE_IDS) {
         assert.deepEqual(question.answerSet, question.implicitAnswerSet, `${matrixKey}/${seed}: positive query answer differs from implicit assumptions`);
       }
 
-      if (question.candidateCount === 4) {
-        assert.equal(question.candidates[3]?.label, "IV", `${matrixKey}/${seed}: four-assumption rendering does not expose IV`);
-        sawCandidateIV = true;
-        fourAssumptionQuestions += 1;
-      }
       if (question.optionCount === 5) {
         assert.equal(question.options.length, 5);
         sawFifthOption = true;
@@ -126,7 +119,6 @@ for (const profileId of PROFILE_IDS) {
     }
 
     assert.ok(reachedScenarios.size >= Math.min(eligibleCount, 2), `${matrixKey}: insufficient scenario variety under stress generation`);
-    if (profile.candidateCount === 4) assert.equal(sawCandidateIV, true, `${matrixKey}: IV was never rendered`);
     if (profile.optionCount === 5) assert.equal(sawFifthOption, true, `${matrixKey}: fifth option was never rendered`);
     assert.equal(sawLocalizedInstruction, true, `${matrixKey}: localized instruction missing`);
     for (let position = 0; position < positionCounts.length; position += 1) {
@@ -137,7 +129,7 @@ for (const profileId of PROFILE_IDS) {
   }
 }
 
-assert.deepEqual([...reachedCandidateCounts].sort(), [2, 3, 4], "Exam-format stress did not exercise 2/3/4 assumptions");
+assert.deepEqual([...reachedCandidateCounts].sort(), [2, 3], "Exam-format stress did not exercise both source-backed assumption counts");
 assert.deepEqual([...reachedOptionCounts].sort(), [4, 5], "Exam-format stress did not exercise 4/5 options");
 assert.deepEqual([...reachedPolarities].sort(), ["IMPLICIT", "NOT_IMPLICIT"], "Exam-format stress did not exercise positive and negative query polarity");
 assert.deepEqual([...reachedSourceProfiles].sort(), ["BANKING", "PUNJAB_STATE", "SSC"], "Exam-format stress missed an intended source profile");
@@ -146,7 +138,6 @@ assert.deepEqual([...reachedQls].sort(), ["STA-QL-001", "STA-QL-002", "STA-QL-00
 assert.ok(reachedAnswerCardinalities.has(0), "Exam-format stress never produced a zero-assumption answer set");
 assert.ok(reachedAnswerCardinalities.has(1), "Exam-format stress never produced a single-assumption answer set");
 assert.ok(reachedAnswerCardinalities.has(2), "Exam-format stress never produced a two-assumption answer set");
-assert.ok(fourAssumptionQuestions > 0, "No four-assumption banking questions were generated");
 assert.ok(fiveOptionQuestions > 0, "No five-option banking questions were generated");
 assert.ok(negativeQueryQuestions > 0, "No negative-query banking questions were generated");
 assert.ok(noneOfTheseMetaOptionChecks > 0, "BANK_2X5 fifth-option checks were never exercised");
@@ -158,7 +149,6 @@ console.log(JSON.stringify({
   localeCount: LOCALES.length,
   generatedQuestions,
   deterministicReplayChecks,
-  fourAssumptionQuestions,
   fiveOptionQuestions,
   negativeQueryQuestions,
   noneOfTheseMetaOptionChecks,
