@@ -93,13 +93,12 @@ jobs:
           pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-rendered-sample-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-english-rendered-proof.log
           echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-english-rendered-proof-exit
           exit 0
-      - name: Generate English authoring and rendered review packs
+      - name: Generate questions-only Markdown review file
         env:
           TSD_CP007_REVIEW_OUTPUT_DIR: /tmp/tsd-cp007-english-review
         run: |
-          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-effective-review-export.ts
           pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-rendered-review-export.ts
-      - name: Publish proof and English review diagnostics
+      - name: Publish proof diagnostics and Markdown question review
         if: always()
         uses: actions/upload-artifact@v4
         with:
@@ -117,7 +116,7 @@ jobs:
             /tmp/tsd-cp007-english-semantic-proof-exit
             /tmp/tsd-cp007-english-rendered-proof.log
             /tmp/tsd-cp007-english-rendered-proof-exit
-            /tmp/tsd-cp007-english-review/**
+            /tmp/tsd-cp007-english-review/TSD-CP007-ENGLISH-QUESTIONS.md
           if-no-files-found: error
           retention-days: 14
       - name: Enforce proof results
