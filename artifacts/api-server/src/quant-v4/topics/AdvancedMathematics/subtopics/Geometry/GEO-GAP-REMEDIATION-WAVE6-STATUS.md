@@ -54,7 +54,7 @@ Solution figures:
 
 ## Final approved Wave-6 evidence
 
-Final current-head proof before approval-record commit:
+Final executable proof before approval-record commits:
 - workflow: `Validate Geometry Gap Remediation Wave 6`
 - proof head: `00ed4a060093f22c886176e30937f30bb0ed7788`
 - run: `32565830787`
