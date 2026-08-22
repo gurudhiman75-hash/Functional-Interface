@@ -46,6 +46,14 @@ Remaining candidates are dispositioned rather than left open:
 | Non-decimal base questions | REASSIGN CP013 |
 | Genuine digit + second-engine synthesis | HOLD for CP014 necessity ablation |
 
+## Challenged merge decisions
+
+Three borderline decisions were explicitly re-audited after Wave 04 rather than accepted from the first compression pass:
+
+1. **P020 versus P005/P011 — SPLIT.** P020 contains two linked unknown digits and returns an ordered pair. That changes both evidence topology and answer semantic, so it is now protected as a separate authority.
+2. **P014 versus P019 — MERGE retained.** Both require the complete set of all valid decimal states. Digit-set versus numeral-set changes the element domain, but not the exhaustive-state objective or completeness proof.
+3. **P015 versus P026 — MERGE retained with protected zero branch.** Both ask for positional occurrence count. Zero requires explicit leading-zero exclusion, but the final quantity and positional counting objective are unchanged; P026 exists to prove that special branch rather than create a second counting QL.
+
 ## Proposed permanent authority merge/split — 16 authorities
 
 This is an **ID-free** proposal. Labels below are conceptual only.
