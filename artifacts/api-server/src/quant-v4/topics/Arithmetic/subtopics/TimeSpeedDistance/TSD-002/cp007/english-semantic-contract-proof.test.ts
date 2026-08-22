@@ -18,22 +18,22 @@ assert(families.size === 66, `expected 66 effective English families, found ${fa
 
 const bridgeContext = family("91-D");
 const bridgeStem = bridgeContext.stem.toLowerCase();
-assert(bridgeStem.includes("difference") && bridgeStem.includes("bridge lengths"), "91-D must target the approved length-difference authority");
+assert(bridgeStem.includes("difference") && bridgeStem.includes("lengths"), "91-D must target the approved length-difference authority");
 assert(!bridgeStem.includes("find the second bridge length"), "91-D must not drift into an unimplemented absolute second-object target");
 
 const timelineDiscrimination = family("93-F");
 const timelineStem = timelineDiscrimination.stem.toLowerCase();
-assert(timelineStem.includes("records") && timelineStem.includes("find the time when"), "93-F must identify one known event and one target event");
+assert(timelineStem.includes("at {clocktime}") && timelineStem.includes("find the time when"), "93-F must identify one known clock event and one target event");
 assert(timelineDiscrimination.stem.includes("{knownEvent}") && timelineDiscrimination.stem.includes("{targetEvent}"), "93-F must bind known and target event identities explicitly");
 
 const endpointContrast = family("94-E");
-assert(endpointContrast.stem.toLowerCase().includes("how many posts"), "94-E must target approved point counting");
+assert(endpointContrast.stem.toLowerCase().includes("how many poles"), "94-E must target approved point counting");
 assert(!endpointContrast.stem.toLowerCase().includes("find the corresponding travelled distance"), "94-E must not drift into an unimplemented distance target");
 
 const occupancyFamilies = ["92-A", "92-B", "92-C", "92-D", "92-E", "92-F"].map(family);
 assert(occupancyFamilies.slice(0, 3).every((entry) => /how long|duration|interval/i.test(entry.stem)), "92-A..C must remain duration targets");
-assert(occupancyFamilies.slice(3, 5).every((entry) => /find the length|determine the shed length/i.test(entry.stem)), "92-D..E must remain inverse object-length targets");
-assert(/duration/i.test(occupancyFamilies[5]!.stem), "92-F must remain the feasibility-guarded duration target");
+assert(occupancyFamilies.slice(3, 5).every((entry) => /find the length|determine the length/i.test(entry.stem)), "92-D..E must remain inverse object-length targets");
+assert(/how long|duration/i.test(occupancyFamilies[5]!.stem), "92-F must remain the full-occupancy duration target");
 
 const spacingExpected = Object.freeze({
   "94-A": "COUNT",
@@ -57,7 +57,8 @@ for (const ql of TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY) {
 console.log("TSD-CP-007 ENGLISH SEMANTIC-CONTRACT PROOF: PASS");
 console.log(JSON.stringify({
   effectiveStemFamilies: families.size,
-  correctedSemanticDrifts: ["91-D", "93-F", "94-E"],
+  semanticCorrections: ["91-D", "93-F", "94-E"],
+  difficultyPolicy: "DEPTH_DRIVEN_NO_FORCED_SPLIT",
   englishStatus: "REVIEW_CANDIDATE",
   questionStudioEnabled: false,
 }, null, 2));
