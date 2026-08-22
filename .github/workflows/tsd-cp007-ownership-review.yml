@@ -1,4 +1,4 @@
-name: Validate TSD CP007 approved executable gate
+name: Validate TSD CP007 approved executable and English review gate
 
 on:
   push:
@@ -20,13 +20,13 @@ permissions:
   contents: read
 
 concurrency:
-  group: validate-tsd-cp007-executable-${{ github.ref }}
+  group: validate-tsd-cp007-review-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  approved-executable-proof:
+  approved-executable-and-english-review:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -72,11 +72,22 @@ jobs:
           pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/executable-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-executable-proof.log
           echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-executable-proof-exit
           exit 0
-      - name: Publish proof diagnostics
+      - name: Run English editorial diversity proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-editorial-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-english-editorial-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-english-editorial-proof-exit
+          exit 0
+      - name: Generate English authoring review pack
+        env:
+          TSD_CP007_REVIEW_OUTPUT_DIR: /tmp/tsd-cp007-english-review
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-review-export.ts
+      - name: Publish proof and English review diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-cp007-approved-executable-proof
+          name: tsd-cp007-approved-executable-and-english-review
           path: |
             /tmp/tsd-cp007-ownership-proof.log
             /tmp/tsd-cp007-ownership-proof-exit
@@ -84,6 +95,9 @@ jobs:
             /tmp/tsd-cp007-allocation-proof-exit
             /tmp/tsd-cp007-executable-proof.log
             /tmp/tsd-cp007-executable-proof-exit
+            /tmp/tsd-cp007-english-editorial-proof.log
+            /tmp/tsd-cp007-english-editorial-proof-exit
+            /tmp/tsd-cp007-english-review/**
           if-no-files-found: error
           retention-days: 14
       - name: Enforce proof results
@@ -91,3 +105,4 @@ jobs:
           test "$(cat /tmp/tsd-cp007-ownership-proof-exit)" = "0"
           test "$(cat /tmp/tsd-cp007-allocation-proof-exit)" = "0"
           test "$(cat /tmp/tsd-cp007-executable-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-english-editorial-proof-exit)" = "0"
