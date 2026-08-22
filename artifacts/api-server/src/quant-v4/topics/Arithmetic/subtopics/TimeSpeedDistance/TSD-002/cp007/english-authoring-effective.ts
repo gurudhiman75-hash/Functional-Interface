@@ -8,10 +8,10 @@ const replacements = new Map<string, TsdCp007EnglishStemFamily>([
   ["91-D", Object.freeze({
     familyId: "91-D",
     difficulty: "MEDIUM",
-    representation: "known-object context with difference target",
+    representation: "two-bridge contextual difference target",
     scene: "two bridges",
-    stem: "A train travelling at {speed} takes {timeA} s to cross one bridge and {timeB} s to cross another. One bridge is known to be {knownLength} m long. Before finding any absolute second length, determine the difference between the bridge lengths.",
-    explanationGuide: "The approved target here is the length difference, so the known bridge length is contextual rather than something we need to add immediately. The train length cancels between the two complete-crossing equations. Multiply the absolute time difference by speed to obtain how far apart the bridge lengths are.",
+    stem: "A train travelling at {speed} takes {timeA} s to cross one bridge and {timeB} s to cross another. Determine the difference between the two bridge lengths without first finding the train length.",
+    explanationGuide: "The target is only the difference between the bridge lengths. The train length appears in both complete-crossing distances and cancels when the two relations are subtracted. Multiply the absolute difference between {timeA} and {timeB} by the train speed to obtain the required length difference.",
   })],
   ["94-E", Object.freeze({
     familyId: "94-E",
