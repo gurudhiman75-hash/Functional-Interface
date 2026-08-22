@@ -10,7 +10,7 @@ const lines: string[] = [
   "",
   "Status: **REVIEW_CANDIDATE — NOT FROZEN**",
   "",
-  "This is the semantically aligned review surface. It includes the approved CP007 authority boundary and editorial corrections, while Question Studio and learner publication remain disabled.",
+  "This is the semantically aligned review surface. It includes the approved CP007 authority boundary, editorial corrections and unit-representation improvements, while Question Studio and learner publication remain disabled.",
   "",
 ];
 
@@ -37,7 +37,7 @@ console.log(JSON.stringify({
   englishStatus: "REVIEW_CANDIDATE",
   qls: TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY.length,
   stemFamilies: TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY.reduce((sum, ql) => sum + ql.stemFamilies.length, 0),
-  semanticCorrectionsApplied: ["91-D", "94-E"],
+  effectiveOverridesApplied: ["87-D", "90-E", "91-D", "93-F", "94-E"],
   markdownPath,
   jsonPath,
   questionStudioEnabled: false,
