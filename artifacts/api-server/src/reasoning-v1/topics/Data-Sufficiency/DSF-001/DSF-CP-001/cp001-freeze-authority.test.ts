@@ -11,7 +11,7 @@ import {
   DSF_CP001_SOURCE_DEPENDENCIES,
 } from "./cp001-source-dependencies.ts";
 
-assert.equal(DSF_CP001_FREEZE_AUTHORITY.status, "FREEZE_CANDIDATE");
+assert.equal(DSF_CP001_FREEZE_AUTHORITY.status, "FROZEN");
 assert.equal(DSF_CP001_FREEZE_AUTHORITY.packageId, "DSF-001");
 assert.equal(DSF_CP001_FREEZE_AUTHORITY.checkpointId, "DSF-CP-001");
 assert.equal(DSF_CP001_FREEZE_AUTHORITY.permanentQl.qlId, "DSF-QL-001");
@@ -39,6 +39,11 @@ assert.equal(DSF_CP001_FREEZE_AUTHORITY.proofGate.crossWaveQuestionCount, 600);
 assert.equal(DSF_CP001_FREEZE_AUTHORITY.proofGate.perDomainQuestionCount, 150);
 assert.equal(DSF_CP001_FREEZE_AUTHORITY.proofGate.productionDomainCount, 4);
 assert.equal(DSF_CP001_FREEZE_AUTHORITY.proofGate.productionSolveModeCount, 8);
+assert.equal(DSF_CP001_FREEZE_AUTHORITY.freezeEvidence.candidateProofHead, "00ea0d1ea55b2cfacf88b761c3be41cb7784b8d8");
+assert.equal(DSF_CP001_FREEZE_AUTHORITY.freezeEvidence.candidateProofRunId, 32562788021);
+assert.equal(DSF_CP001_FREEZE_AUTHORITY.freezeEvidence.candidateProofStatus, "SUCCESS");
+assert.equal(DSF_CP001_FREEZE_AUTHORITY.freezeEvidence.everyDomainCoveredAllFiveClasses, true);
+assert.equal(DSF_CP001_FREEZE_AUTHORITY.freezeEvidence.allSourceDependenciesSatisfied, true);
 
 const algebra = DSF_CP001_FREEZE_AUTHORITY.productionBackedSources.find((entry) => entry.sourceChapterId === "ALG-002")!;
 assert("sourcePermanentQlId" in algebra);
@@ -63,7 +68,7 @@ assert.equal(DSF_CP001_PRE_FREEZE_DECISION.newQlAllocationRequired, false);
 assert.equal(DSF_PERMANENT_QL_REGISTRY.length, 1);
 const ql001 = DSF_PERMANENT_QL_REGISTRY[0]!;
 assert.equal(ql001.qlId, "DSF-QL-001");
-assert.equal(ql001.lifecycle.englishContentStatus, "CP001_PRODUCTION_GENERATION_FREEZE_CANDIDATE");
+assert.equal(ql001.lifecycle.englishContentStatus, "CP001_PRODUCTION_GENERATION_FROZEN");
 assert.deepEqual(ql001.lifecycle.productionBackedSourceChapters, ["NUM-001", "RAP-001", "PCT-001", "ALG-002"]);
 
 for (const lifecycle of [ql001.lifecycle, DSF_CP001_FREEZE_AUTHORITY.lifecycle]) {
@@ -74,7 +79,7 @@ for (const lifecycle of [ql001.lifecycle, DSF_CP001_FREEZE_AUTHORITY.lifecycle])
 }
 
 console.log(JSON.stringify({
-  status: "PASS_DSF_CP_001_FINAL_FREEZE_CANDIDATE_AUTHORITY",
+  status: "PASS_DSF_CP_001_FROZEN_AUTHORITY",
   authorityId: DSF_CP001_FREEZE_AUTHORITY.authorityId,
   authorityStatus: DSF_CP001_FREEZE_AUTHORITY.status,
   permanentQlId: ql001.qlId,
