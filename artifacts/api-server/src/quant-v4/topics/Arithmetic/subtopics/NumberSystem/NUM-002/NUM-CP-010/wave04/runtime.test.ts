@@ -9,6 +9,7 @@ function words(value: string) {
 
 let packages = 0;
 const fingerprints = new Set<string>();
+const reachedUpperBounds = new Set<number>();
 
 for (const prototypeId of NUM_CP010_WAVE04_PROTOTYPE_IDS) {
   for (let seed = 1; seed <= 120; seed += 1) {
@@ -39,12 +40,15 @@ for (const prototypeId of NUM_CP010_WAVE04_PROTOTYPE_IDS) {
     assert.ok(!("permanentQlId" in q), `${label}: permanent QL allocated during discovery`);
 
     fingerprints.add(q.mathematicalFingerprint);
+    reachedUpperBounds.add(Number(q.hiddenState.upper));
     packages += 1;
   }
 }
 
 assert.equal(packages, 120);
-assert.ok(fingerprints.size >= 9, `Expected broad zero-count state reach, got ${fingerprints.size}`);
+assert.equal(fingerprints.size, 10, `Expected all 10 complete-hundred states, got ${fingerprints.size}`);
+assert.ok(reachedUpperBounds.has(99), "Lower boundary 1..99 was not reached");
+assert.ok(reachedUpperBounds.has(999), "Upper boundary 1..999 was not reached");
 
 console.log(JSON.stringify({
   status: "PASS_NUM_CP010_WAVE04_ZERO_OCCURRENCE",
@@ -55,5 +59,6 @@ console.log(JSON.stringify({
   explanationChecks: packages,
   lifecycleChecks: packages,
   distinctFingerprints: fingerprints.size,
+  boundaryReach: [99, 999],
   permanentQlAllocations: 0,
 }, null, 2));
