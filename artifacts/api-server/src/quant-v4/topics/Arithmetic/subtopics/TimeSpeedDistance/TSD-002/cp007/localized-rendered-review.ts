@@ -81,15 +81,15 @@ function localizeTimelineEvent(locale: TsdCp007Locale, value: string): string {
 
 function localizeEndpointConvention(locale: TsdCp007Locale, value: string): string {
   const excluded = /excluded|not included/.test(value);
-  const subject = value.includes("pole") ? "pole" : value.includes("pillar") ? "pillar" : value.includes("post") ? "post" : "point";
+  const subject = value.includes("pole") ? "pole" : value.includes("pillar") ? "pillar" : "post";
 
   if (locale === "hi-IN") {
-    const noun = subject === "pole" ? "खंभा" : subject === "pillar" ? "स्तंभ" : subject === "post" ? "पोस्ट" : "बिंदु";
-    return excluded ? `शुरुआती ${noun} को गणना में शामिल नहीं किया गया है` : `शुरुआती ${noun} को गणना में शामिल किया गया है`;
+    const noun = subject === "pole" ? "खंभा" : subject === "pillar" ? "स्तंभ" : "पोस्ट";
+    return excluded ? `शुरुआती ${noun} गिनती में शामिल नहीं है` : `शुरुआती ${noun} गिनती में शामिल है`;
   }
 
-  const noun = subject === "pole" ? "ਖੰਭਾ" : subject === "pillar" ? "ਥੰਮ੍ਹ" : subject === "post" ? "ਪੋਸਟ" : "ਬਿੰਦੂ";
-  return excluded ? `ਸ਼ੁਰੂਆਤੀ ${noun} ਨੂੰ ਗਿਣਤੀ ਵਿੱਚ ਸ਼ਾਮਲ ਨਹੀਂ ਕੀਤਾ ਗਿਆ ਹੈ` : `ਸ਼ੁਰੂਆਤੀ ${noun} ਨੂੰ ਗਿਣਤੀ ਵਿੱਚ ਸ਼ਾਮਲ ਕੀਤਾ ਗਿਆ ਹੈ`;
+  const noun = subject === "pole" ? "ਖੰਭਾ" : subject === "pillar" ? "ਸਤੰਭ" : "ਪੋਸਟ";
+  return excluded ? `ਸ਼ੁਰੂਆਤੀ ${noun} ਗਿਣਤੀ ਵਿੱਚ ਸ਼ਾਮਲ ਨਹੀਂ ਹੈ` : `ਸ਼ੁਰੂਆਤੀ ${noun} ਗਿਣਤੀ ਵਿੱਚ ਸ਼ਾਮਲ ਹੈ`;
 }
 
 function localizedBindings(locale: TsdCp007Locale, bindings: Readonly<Record<string, string>>): Readonly<Record<string, string>> {
