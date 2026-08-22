@@ -5,6 +5,7 @@ type SemanticCorrectionResult = {
   audit: {
     status: "PASS";
     removedFalseDimensions: number;
+    removedDuplicateDimensions: number;
     removedDuplicateSupportSegments: number;
     structuralCorrections: string[];
     remainingDimensions: number;
@@ -73,6 +74,34 @@ function filterSemanticallyFalseDimensions(qlId: string, stem: string, arrows: A
     kept.push({ ...arrow });
   }
   return { kept, removed };
+}
+
+function dimensionPriority(kind: string) {
+  if (kind === "REVIEW_REQUESTED_UNKNOWN") return 100;
+  if (kind === "REVIEW_GIVEN_WIRE" || kind === "REVIEW_GIVEN_LADDER") return 90;
+  if (kind === "REVIEW_GIVEN_SIGHT_LINE") return 70;
+  if (kind.startsWith("REVIEW_GIVEN_")) return 80;
+  if (kind.startsWith("REVIEW_RELATIONAL_")) return 85;
+  return 60;
+}
+
+function dedupeDimensionsByPhysicalGeometry(diagram: AnyRecord) {
+  const points = pointMap(diagram);
+  const arrows: AnyRecord[] = diagram.measurementArrows ?? [];
+  const selected = new Map<string, AnyRecord>();
+  const order: string[] = [];
+  for (const arrow of arrows) {
+    const key = `${geometricEndpointKey(arrow.fromPointId, arrow.toPointId, points)}::${String(arrow.label ?? "")}`;
+    const current = selected.get(key);
+    if (!current) {
+      selected.set(key, arrow);
+      order.push(key);
+      continue;
+    }
+    if (dimensionPriority(String(arrow.kind)) > dimensionPriority(String(current.kind))) selected.set(key, arrow);
+  }
+  const deduped = order.map((key) => ({ ...selected.get(key)! }));
+  return { arrows: deduped, removed: arrows.length - deduped.length };
 }
 
 function dedupeAndStrengthenSupportSegments(diagram: AnyRecord) {
@@ -229,6 +258,10 @@ export function applyTrg002V4DiagramSemanticCorrections(args: {
   diagram.segments = support.segments;
   if (support.removedDuplicates > 0) structuralCorrections.push(`DEDUPED_SUPPORT_SEGMENTS_${support.removedDuplicates}`);
 
+  const dedupedDimensions = dedupeDimensionsByPhysicalGeometry(diagram);
+  diagram.measurementArrows = dedupedDimensions.arrows;
+  if (dedupedDimensions.removed > 0) structuralCorrections.push(`DEDUPED_DIMENSIONS_${dedupedDimensions.removed}`);
+
   const arrows = diagram.measurementArrows ?? [];
   if (arrows.length < 2) throw new Error(`${qlId}: semantic diagram repair left fewer than two meaningful dimensions (${arrows.length}).`);
   const requestedPresent = arrows.some((arrow: AnyRecord) => String(arrow.kind) === "REVIEW_REQUESTED_UNKNOWN")
@@ -245,6 +278,7 @@ export function applyTrg002V4DiagramSemanticCorrections(args: {
   diagram.semanticDiagramAudit = {
     status: "PASS",
     removedFalseDimensions: filtered.removed,
+    removedDuplicateDimensions: dedupedDimensions.removed,
     removedDuplicateSupportSegments: support.removedDuplicates,
     structuralCorrections,
     remainingDimensions: arrows.length,
