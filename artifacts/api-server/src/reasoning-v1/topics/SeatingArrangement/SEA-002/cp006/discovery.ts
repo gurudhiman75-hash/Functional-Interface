@@ -39,17 +39,24 @@ function renderedClues(caselet:Sea002Cp006Caselet,clues:readonly Sea002Cp006Clue
 
 function examLikeSetup(people:readonly string[],state:Sea002Cp006State):string {
   const names=people.length===2?people.join(" and "):`${people.slice(0,-1).join(", ")} and ${people.at(-1)}`;
-  return `${people.length} persons, ${names}, are seated in two parallel rows containing ${state.seatCountPerRow} persons each. The persons in the upper row face south and the persons in the lower row face north. Each person in one row faces exactly one person in the other row; persons facing each other are in the same vertical column.`;
+  return `${people.length} persons, ${names}, are seated in two parallel rows containing ${state.seatCountPerRow} persons each. The persons in the upper row face south and the persons in the lower row face north. Each person in one row faces exactly one person in the other row; persons facing each other occupy the same position in the two rows.`;
 }
 
 function plainLanguage(text:string):string {
   return text
     .replaceAll("the observer's","our")
     .replaceAll("observer's","our")
-    .replaceAll("observer column","vertical column")
+    .replaceAll("observer columns","positions")
+    .replaceAll("observer column","position")
+    .replaceAll("vertical columns","positions")
+    .replaceAll("vertical column","position")
     .replaceAll("observer-left","left side of the page")
     .replaceAll("observer-right","right side of the page")
     .replaceAll("towards the our","towards our")
+    .replaceAll("Columns","Positions")
+    .replaceAll("columns","positions")
+    .replaceAll("Column","Position")
+    .replaceAll("column","position")
     .replaceAll("seat intervals","seats")
     .replaceAll("strictly between","between");
 }
@@ -65,10 +72,9 @@ function learnerDiagram(base:Sea002Cp006Caselet):Sea002Cp006Caselet["diagram"] {
   return {
     ...base.diagram,
     text:cp006TeachingArrangement(base.state),
-    svg:base.diagram.svg.replace(
-      "Columns are observer coordinates; dashed lines join opposite seats.",
-      "Dashed lines join persons who face each other.",
-    ),
+    svg:base.diagram.svg
+      .replace("Columns are observer coordinates; dashed lines join opposite seats.","Dashed lines join persons who face each other.")
+      .replace(/>C(\d+)</g,">P$1<"),
   };
 }
 
