@@ -68,13 +68,17 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
 
       const viewBox=caselet.diagram.svg.match(/viewBox="0 0 (\d+) (\d+)"/);
       assert.ok(viewBox,`${caselet.caseletId}: missing SVG viewBox`);
-      assert.ok(Number(viewBox[1])>=180+(width-1)*132,`${caselet.caseletId}: SVG width too small for ${width} columns`);
+      assert.ok(Number(viewBox[1])>=180+(width-1)*132,`${caselet.caseletId}: SVG width too small for ${width} positions`);
       assert.equal(Number(viewBox[2]),300);
       assert.ok(caselet.diagram.svg.includes("fill=\"white\""));
-      assert.ok(caselet.diagram.svg.includes(`C${width}</text>`));
+      assert.ok(caselet.diagram.svg.includes(`P${width}</text>`));
+      assert.ok(caselet.diagramText.includes("Positions:"));
+      assert.ok(!/\bcolumns?\b/i.test(caselet.diagramText));
       assert.ok(caselet.setupText.includes(`two parallel rows containing ${width} persons each`));
+      assert.ok(caselet.setupText.includes("same position"));
       assert.ok(caselet.sharedExplanation.includes("Final arrangement:"));
       assert.ok(caselet.sharedExplanation.length>500);
+      assert.ok(!/\bcolumns?\b/i.test(caselet.sharedExplanation));
 
       for(const person of caselet.people){
         const seat=seatOf(caselet.state,person);
