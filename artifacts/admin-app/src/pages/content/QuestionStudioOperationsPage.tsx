@@ -1,3 +1,4 @@
+import { QuestionStudioAlgebraReviewPanel } from './QuestionStudioAlgebraReviewPanel';
 import { QuestionStudioCalendarReviewPanel } from './QuestionStudioCalendarReviewPanel';
 import { QuestionStudioCockpitPage } from './QuestionStudioCockpitPage';
 import { QuestionStudioDifficultyMixControls } from './QuestionStudioDifficultyMixControls';
@@ -12,6 +13,7 @@ import { QuestionStudioSpatialReviewPanel } from './QuestionStudioSpatialReviewP
 export function QuestionStudioOperationsPage() {
   return (
     <>
+      <QuestionStudioAlgebraReviewPanel />
       <QuestionStudioSpatialReviewPanel />
       <QuestionStudioInterestReviewPanel />
       <QuestionStudioSeriesReviewPanel />

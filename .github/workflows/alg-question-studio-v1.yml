@@ -1,0 +1,64 @@
+name: Validate Algebra Question Studio V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/**
+      - artifacts/api-server/src/routes/admin-question-studio-algebra.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/question-studio/algebra-review-api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioAlgebraReviewPanel.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
+      - .github/workflows/alg-question-studio-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alg-question-studio-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-algebra-question-studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
+      - name: Bundle Algebra Question Studio V3 runtime audit
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/algebra
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/algebra-question-studio-runtime-v3.test.mjs
+      - name: Run Algebra Question Studio V3 runtime audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/algebra/algebra-question-studio-runtime-v3.test.mjs
+      - name: Bundle Algebra Question Studio integration contract
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-route-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/algebra/algebra-question-studio-route-v1.test.mjs
+      - name: Run Algebra Question Studio integration contract
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/algebra/algebra-question-studio-route-v1.test.mjs

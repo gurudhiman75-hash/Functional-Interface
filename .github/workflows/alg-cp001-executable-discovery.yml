@@ -1,0 +1,49 @@
+name: Validate Algebra CP-001 executable discovery
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/shared/algebra/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/ALG-001/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/cp001-discovery.test.ts
+      - .github/workflows/alg-cp001-executable-discovery.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alg-cp001-executable-discovery-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp001-discovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle CP-001 discovery test
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/algebra
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/tests/cp001-discovery.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra/cp001-discovery.test.mjs
+      - name: Run CP-001 discovery test
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/algebra/cp001-discovery.test.mjs
