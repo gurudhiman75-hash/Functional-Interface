@@ -2,6 +2,54 @@ import { TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY } from "./english-author
 import type { TsdCp007EnglishQlAuthoringSpec, TsdCp007EnglishStemFamily } from "./english-authoring-registry";
 
 const reviewReplacements = new Map<string, TsdCp007EnglishStemFamily>([
+  ["85-E", Object.freeze({
+    familyId: "85-E",
+    difficulty: "MEDIUM",
+    representation: "contiguous bridge-plus-platform crossing",
+    scene: "bridge followed by platform",
+    stem: "A {trainLength} m long train moving at {speed} enters a bridge {objectPartA} m long that is immediately followed by a platform {objectPartB} m long. Find the time from the front entering the bridge until the rear clears the far end of the platform.",
+    explanationGuide: "The bridge and platform are adjoining, so they form one continuous fixed length. Add {objectPartA} and {objectPartB}, then add the train length and divide the complete crossing distance by speed.",
+  })],
+  ["89-B", Object.freeze({
+    familyId: "89-B",
+    difficulty: "MEDIUM",
+    representation: "signal-post and bridge paired times",
+    scene: "signal post and bridge",
+    stem: "A train passes a signal post in {pointTime} s and crosses a bridge {objectLength} m long in {crossingTime} s. Find the length of the train.",
+    explanationGuide: "The extra time beyond the signal-post passage is used to cover only the bridge length. Divide {objectLength} by that extra time to obtain speed, then multiply by {pointTime} to obtain the train length.",
+  })],
+  ["89-C", Object.freeze({
+    familyId: "89-C",
+    difficulty: "MEDIUM",
+    representation: "kilometre-post and tunnel paired times",
+    scene: "kilometre post and tunnel",
+    stem: "A train passes a kilometre post in {pointTime} s and emerges completely from a tunnel {objectLength} m long in {crossingTime} s. Find the length of the train.",
+    explanationGuide: "The tunnel adds {objectLength} m to the point-crossing distance. Divide the tunnel length by the extra time to find speed, then multiply the speed by {pointTime} to recover the train length.",
+  })],
+  ["90-B", Object.freeze({
+    familyId: "90-B",
+    difficulty: "MEDIUM",
+    representation: "signal-post and bridge speed",
+    scene: "signal post and bridge",
+    stem: "A train passes a signal post in {pointTime} s and crosses a bridge {objectLength} m long in {crossingTime} s. Find the speed of the train.",
+    explanationGuide: "The additional time required for the bridge corresponds exactly to the bridge length. Divide {objectLength} by {crossingTime} minus {pointTime} to obtain the train speed.",
+  })],
+  ["91-E", Object.freeze({
+    familyId: "91-E",
+    difficulty: "EASY",
+    representation: "platform-versus-tunnel length difference",
+    scene: "platform and tunnel",
+    stem: "A train travelling at {speed} crosses a platform in {timeA} s and a tunnel in {timeB} s. Find the difference between the lengths of the platform and the tunnel.",
+    explanationGuide: "The same train length occurs in both complete-crossing distances and therefore cancels when the two are compared. Multiply the absolute difference between {timeA} and {timeB} by speed.",
+  })],
+  ["92-B", Object.freeze({
+    familyId: "92-B",
+    difficulty: "MEDIUM",
+    representation: "bridge full-occupancy duration",
+    scene: "long bridge",
+    stem: "A {trainLength} m long train moves at {speed} across a bridge {objectLength} m long. For how long is the entire train completely on the bridge?",
+    explanationGuide: "The whole train remains on the bridge while it travels the bridge length minus the train length. Divide that difference by speed to obtain the full-occupancy duration.",
+  })],
   ["92-C", Object.freeze({
     familyId: "92-C",
     difficulty: "MEDIUM",
