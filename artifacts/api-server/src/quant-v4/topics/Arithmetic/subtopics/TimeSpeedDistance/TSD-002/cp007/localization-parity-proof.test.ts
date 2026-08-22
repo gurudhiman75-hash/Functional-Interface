@@ -14,6 +14,10 @@ function normalized(value: string): string {
   return value.toLowerCase().replace(/\{[^}]+\}/g, "{var}").replace(/[\p{P}\p{S}\s]+/gu, " ").trim();
 }
 
+function visibleText(value: string): string {
+  return value.replace(/\{[^}]+\}/g, " ").toLowerCase();
+}
+
 function proveLocale(localeName: string, localized: readonly TsdCp007LocalizedQlSpec[], script: RegExp): void {
   assert(localized.length === 11, `${localeName}: expected 11 QLs`);
   assert(JSON.stringify(localized.map((entry) => entry.qlId)) === JSON.stringify(TSD_CP007_FROZEN_ENGLISH_REGISTRY.map((entry) => entry.qlId)), `${localeName}: QL order differs from frozen English`);
@@ -50,6 +54,11 @@ function proveLocale(localeName: string, localized: readonly TsdCp007LocalizedQl
       const localizedAllVars = placeholders(`${localizedFamily.stem} ${localizedFamily.explanationGuide}`);
       assert(JSON.stringify(localizedAllVars) === JSON.stringify(englishAllVars), `${localeName}/${englishFamily.familyId}: total placeholder parity failed: ${localizedAllVars.join(",")} vs ${englishAllVars.join(",")}`);
 
+      const learnerVisible = visibleText(`${localizedFamily.stem} ${localizedFamily.explanationGuide}`);
+      assert(!/\bcrossing\b/i.test(learnerVisible), `${localeName}/${englishFamily.familyId}: English word 'crossing' leaked into localized prose`);
+      assert(!/\bspeed\b/i.test(learnerVisible), `${localeName}/${englishFamily.familyId}: English word 'speed' leaked into localized prose`);
+      assert(!/\b(starting position|included in the count|excluded from the count)\b/i.test(learnerVisible), `${localeName}/${englishFamily.familyId}: English endpoint instruction leaked into localized prose`);
+
       const stemSignature = normalized(localizedFamily.stem);
       const guideSignature = normalized(localizedFamily.explanationGuide);
       assert(!stemSignatures.has(stemSignature), `${localeName}/${englishFamily.familyId}: duplicate localized stem signature`);
@@ -72,6 +81,7 @@ console.log(JSON.stringify({
   punjabiFamilies: 66,
   qlsPerLocale: 11,
   localizedObjectPoolEntriesPerLocale: 88,
+  learnerFacingEnglishLeakage: 0,
   sourceEnglishStatus: "FROZEN",
   localizationStatus: "REVIEW_CANDIDATE",
   questionStudioEnabled: false,
