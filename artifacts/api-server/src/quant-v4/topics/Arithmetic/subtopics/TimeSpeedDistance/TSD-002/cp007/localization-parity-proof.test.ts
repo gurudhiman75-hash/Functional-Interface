@@ -1,6 +1,5 @@
 import { TSD_CP007_FROZEN_ENGLISH_REGISTRY } from "./english-freeze-registry";
-import { TSD_CP007_HINDI_LOCALIZATION } from "./hindi-localization";
-import { TSD_CP007_PUNJABI_LOCALIZATION } from "./punjabi-localization";
+import { TSD_CP007_EFFECTIVE_HINDI_LOCALIZATION, TSD_CP007_EFFECTIVE_PUNJABI_LOCALIZATION } from "./localization-effective";
 import type { TsdCp007LocalizedQlSpec } from "./localization-authoring";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -63,8 +62,8 @@ function proveLocale(localeName: string, localized: readonly TsdCp007LocalizedQl
   assert(familyCount === 66, `${localeName}: expected 66 localized families, found ${familyCount}`);
 }
 
-proveLocale("hi-IN", TSD_CP007_HINDI_LOCALIZATION, /[\u0900-\u097F]/);
-proveLocale("pa-IN", TSD_CP007_PUNJABI_LOCALIZATION, /[\u0A00-\u0A7F]/);
+proveLocale("hi-IN", TSD_CP007_EFFECTIVE_HINDI_LOCALIZATION, /[\u0900-\u097F]/);
+proveLocale("pa-IN", TSD_CP007_EFFECTIVE_PUNJABI_LOCALIZATION, /[\u0A00-\u0A7F]/);
 
 console.log("TSD-CP-007 HINDI/PUNJABI LOCALIZATION PARITY PROOF: PASS");
 console.log(JSON.stringify({
