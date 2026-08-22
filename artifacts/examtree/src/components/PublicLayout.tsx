@@ -54,6 +54,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const user = getSessionUser();
+  const homeChrome = location === "/";
 
   useEffect(() => setMobileOpen(false), [location]);
 
@@ -77,15 +78,15 @@ export function PublicLayout({ children }: PublicLayoutProps) {
       </a>
 
       <header
-        className="et-chrome sticky top-0 z-50 border-b"
+        className={`et-chrome sticky top-0 z-50 border-b ${homeChrome ? "!border-white/10 !bg-[#090f2e] text-white" : ""}`}
         data-testid="public-header"
       >
         <div className="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
           <Link href="/" className="et-interactive flex shrink-0 items-center gap-2.5 rounded-xl" aria-label="ExamTree home">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-extrabold text-primary-foreground shadow-sm ring-1 ring-primary/15">
+            <span className={`flex h-9 w-9 items-center justify-center rounded-xl text-sm font-extrabold shadow-sm ring-1 ${homeChrome ? "bg-emerald-500 text-slate-950 ring-emerald-400/30" : "bg-primary text-primary-foreground ring-primary/15"}`}>
               E
             </span>
-            <span className="text-lg font-extrabold tracking-[-0.03em] text-foreground">examtree</span>
+            <span className={`text-lg font-extrabold tracking-[-0.03em] ${homeChrome ? "text-white" : "text-foreground"}`}>examtree</span>
           </Link>
 
           <nav aria-label="Primary navigation" className="ml-5 hidden items-center gap-1 lg:flex">
@@ -97,9 +98,13 @@ export function PublicLayout({ children }: PublicLayoutProps) {
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   className={`et-interactive rounded-lg px-3 py-2 text-sm font-semibold ${
-                    active
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    homeChrome
+                      ? active
+                        ? "bg-white/10 text-white"
+                        : "text-slate-300 hover:bg-white/10 hover:text-white"
+                      : active
+                        ? "bg-primary/10 text-primary"
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   }`}
                 >
                   {item.label}
@@ -112,7 +117,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
             {user ? (
               <Link
                 href="/dashboard"
-                className="et-interactive inline-flex min-h-10 items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md"
+                className={`et-interactive inline-flex min-h-10 items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold shadow-sm hover:shadow-md ${homeChrome ? "bg-emerald-500 text-slate-950 hover:bg-emerald-400" : "bg-primary text-primary-foreground"}`}
               >
                 <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
                 My dashboard
@@ -121,13 +126,13 @@ export function PublicLayout({ children }: PublicLayoutProps) {
               <>
                 <Link
                   href="/login/student"
-                  className="et-interactive inline-flex min-h-10 items-center rounded-xl px-4 py-2 text-sm font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
+                  className={`et-interactive inline-flex min-h-10 items-center rounded-xl px-4 py-2 text-sm font-semibold ${homeChrome ? "text-slate-200 hover:bg-white/10 hover:text-white" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
                 >
                   Sign in
                 </Link>
                 <Link
                   href="/exams"
-                  className="et-interactive inline-flex min-h-10 items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md"
+                  className={`et-interactive inline-flex min-h-10 items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold shadow-sm hover:shadow-md ${homeChrome ? "bg-emerald-500 text-slate-950 hover:bg-emerald-400" : "bg-primary text-primary-foreground"}`}
                 >
                   Browse tests
                   <ArrowRight className="h-4 w-4" aria-hidden="true" />
@@ -138,7 +143,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
 
           <button
             type="button"
-            className="et-interactive ml-auto flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground shadow-sm hover:bg-muted hover:text-foreground lg:hidden"
+            className={`et-interactive ml-auto flex h-11 w-11 items-center justify-center rounded-xl border shadow-sm lg:hidden ${homeChrome ? "border-white/15 bg-white/5 text-slate-200 hover:bg-white/10 hover:text-white" : "border-border bg-card text-muted-foreground hover:bg-muted hover:text-foreground"}`}
             aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={mobileOpen}
             aria-controls="public-mobile-navigation"
@@ -150,7 +155,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
 
         <div
           id="public-mobile-navigation"
-          className={`${mobileOpen ? "block" : "hidden"} border-t border-border bg-background lg:hidden`}
+          className={`${mobileOpen ? "block" : "hidden"} border-t lg:hidden ${homeChrome ? "border-white/10 bg-[#090f2e]" : "border-border bg-background"}`}
         >
           <nav aria-label="Mobile primary navigation" className="mx-auto max-w-7xl space-y-1 px-4 py-3 sm:px-6">
             {primaryLinks.map((item) => {
@@ -161,24 +166,26 @@ export function PublicLayout({ children }: PublicLayoutProps) {
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   className={`et-interactive flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold ${
-                    active ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    homeChrome
+                      ? active ? "bg-white/10 text-white" : "text-slate-300 hover:bg-white/10 hover:text-white"
+                      : active ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   }`}
                 >
                   {item.label}
                 </Link>
               );
             })}
-            <div className="grid gap-2 border-t border-border pt-3 sm:hidden">
+            <div className={`grid gap-2 border-t pt-3 sm:hidden ${homeChrome ? "border-white/10" : "border-border"}`}>
               {user ? (
-                <Link href="/dashboard" className="et-interactive flex min-h-11 items-center justify-center rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
+                <Link href="/dashboard" className={`et-interactive flex min-h-11 items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold ${homeChrome ? "bg-emerald-500 text-slate-950" : "bg-primary text-primary-foreground"}`}>
                   My dashboard
                 </Link>
               ) : (
                 <>
-                  <Link href="/login/student" className="et-interactive flex min-h-11 items-center justify-center rounded-xl border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground hover:bg-muted">
+                  <Link href="/login/student" className={`et-interactive flex min-h-11 items-center justify-center rounded-xl border px-4 py-2 text-sm font-semibold ${homeChrome ? "border-white/15 bg-white/5 text-white hover:bg-white/10" : "border-border bg-card text-foreground hover:bg-muted"}`}>
                     Sign in
                   </Link>
-                  <Link href="/exams" className="et-interactive flex min-h-11 items-center justify-center rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
+                  <Link href="/exams" className={`et-interactive flex min-h-11 items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold ${homeChrome ? "bg-emerald-500 text-slate-950" : "bg-primary text-primary-foreground"}`}>
                     Browse tests
                   </Link>
                 </>
