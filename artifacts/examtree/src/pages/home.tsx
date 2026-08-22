@@ -3,67 +3,32 @@ import { useLocation } from "wouter";
 import {
   ArrowRight,
   BarChart3,
-  BookOpenCheck,
   CheckCircle2,
   ChevronRight,
   Clock3,
-  ClipboardList,
-  Languages,
-  Landmark,
-  LineChart,
+  LayoutGrid,
+  PlayCircle,
+  RotateCcw,
   Search,
-  ShieldCheck,
   Sparkles,
-  Target,
 } from "lucide-react";
-import { getActiveTestSessions, getAttempts } from "@/lib/storage";
-import { useExamCatalog } from "@/providers/ExamCatalogProvider";
+
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import type { Category, Subcategory, Test } from "@/lib/data";
 import { buildExamTreeNodes } from "@/lib/exam-tree";
+import { getActiveTestSessions, getAttempts } from "@/lib/storage";
+import type { Category, Subcategory, Test } from "@/lib/data";
+import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 
 type ExamGroup = {
   id: string;
   name: string;
   description: string;
   icon: string;
-  tone: "ssc" | "banking" | "state" | "default";
   tests: Test[];
   subExams: { id: string; name: string }[];
 };
-
-const toneClasses = {
-  ssc: {
-    border: "border-l-orange-500",
-    icon: "bg-orange-50 text-orange-700",
-    badge: "border-orange-200 bg-orange-50 text-orange-700",
-  },
-  banking: {
-    border: "border-l-indigo-600",
-    icon: "bg-indigo-50 text-indigo-700",
-    badge: "border-indigo-200 bg-indigo-50 text-indigo-700",
-  },
-  state: {
-    border: "border-l-teal-500",
-    icon: "bg-teal-50 text-teal-700",
-    badge: "border-teal-200 bg-teal-50 text-teal-700",
-  },
-  default: {
-    border: "border-l-slate-400",
-    icon: "bg-slate-100 text-slate-700",
-    badge: "border-slate-200 bg-slate-50 text-slate-700",
-  },
-};
-
-function getTone(name: string): ExamGroup["tone"] {
-  const normalized = name.toLowerCase();
-  if (normalized.includes("ssc")) return "ssc";
-  if (normalized.includes("bank") || normalized.includes("ibps") || normalized.includes("sbi")) return "banking";
-  if (normalized.includes("punjab") || normalized.includes("state") || normalized.includes("psssb")) return "state";
-  return "default";
-}
 
 function buildExamGroups(
   categories: Category[],
@@ -74,8 +39,7 @@ function buildExamGroups(
     id: category.id,
     name: category.name,
     description: category.description,
-    icon: category.icon || "Landmark",
-    tone: getTone(category.name),
+    icon: category.icon || "LayoutGrid",
     tests: category.tests,
     subExams: category.subcategories.map((subExam) => ({ id: subExam.id, name: subExam.name })),
   }));
@@ -85,11 +49,19 @@ function formatCount(value: number) {
   return new Intl.NumberFormat("en-IN").format(Math.max(0, value));
 }
 
-function ExamTypeIcon({ tone }: { tone: ExamGroup["tone"] }) {
-  if (tone === "banking") return <LineChart className="h-5 w-5" />;
-  if (tone === "state") return <Landmark className="h-5 w-5" />;
-  if (tone === "ssc") return <ShieldCheck className="h-5 w-5" />;
-  return <ClipboardList className="h-5 w-5" />;
+function TestMeta({ test }: { test: Test }) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-500">
+      <span className="inline-flex items-center gap-1.5">
+        <LayoutGrid className="h-4 w-4" aria-hidden="true" />
+        {test.totalQuestions} questions
+      </span>
+      <span className="inline-flex items-center gap-1.5">
+        <Clock3 className="h-4 w-4" aria-hidden="true" />
+        {test.duration} min
+      </span>
+    </div>
+  );
 }
 
 export default function Home() {
@@ -102,42 +74,42 @@ export default function Home() {
 
   const latestAttempt = attempts[0] ?? null;
   const activeSessionEntries = Object.values(activeSessions).slice(0, 2);
-
   const examGroups = useMemo(
     () => buildExamGroups(categories, subcategories, tests),
     [categories, subcategories, tests],
   );
-  const activeGroup = examGroups.find((group) => group.id === activeGroupId) ?? examGroups[0] ?? null;
 
   const filteredGroups = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     if (!normalized) return examGroups;
-    return examGroups
-      .map((group) => ({
-        ...group,
-        tests: group.tests.filter(
-          (test) =>
-            test.name.toLowerCase().includes(normalized) ||
-            test.category.toLowerCase().includes(normalized) ||
-            (test.subcategoryName ?? "").toLowerCase().includes(normalized),
-        ),
-      }))
-      .filter((group) => group.name.toLowerCase().includes(normalized) || group.tests.length > 0);
+    return examGroups.filter((group) => {
+      if (group.name.toLowerCase().includes(normalized)) return true;
+      if (group.subExams.some((subExam) => subExam.name.toLowerCase().includes(normalized))) return true;
+      return group.tests.some((test) =>
+        test.name.toLowerCase().includes(normalized) ||
+        test.category.toLowerCase().includes(normalized) ||
+        (test.subcategoryName ?? "").toLowerCase().includes(normalized),
+      );
+    });
   }, [examGroups, query]);
 
-  const activeGroupTests =
-    activeGroup?.tests.filter((test) => (test.access ?? "free") === "free").slice(0, 4) ?? [];
+  const activeGroup = examGroups.find((group) => group.id === activeGroupId) ?? examGroups[0] ?? null;
+  const freeTests = useMemo(
+    () => tests.filter((test) => (test.access ?? "free") === "free"),
+    [tests],
+  );
+  const heroTest = freeTests[0] ?? tests[0] ?? null;
+  const activeGroupFreeTests = activeGroup?.tests.filter((test) => (test.access ?? "free") === "free").slice(0, 4) ?? [];
   const catalogQuestionCount = tests.reduce((sum, test) => sum + Math.max(0, test.totalQuestions), 0);
 
   if (isLoading) {
     return (
-      <div className="mx-auto w-full max-w-7xl space-y-5" role="status" aria-label="Loading ExamTree home">
-        <div className="skeleton-shimmer h-10 rounded-2xl" />
-        <div className="skeleton-shimmer h-[420px] rounded-2xl" />
+      <div className="mx-auto w-full max-w-7xl space-y-8 px-4 py-8 sm:px-6 lg:px-8" role="status" aria-label="Loading ExamTree home">
+        <div className="skeleton-shimmer h-[520px] rounded-[2rem]" />
         <div className="grid gap-5 md:grid-cols-3">
-          <div className="skeleton-shimmer h-56 rounded-2xl" />
-          <div className="skeleton-shimmer h-56 rounded-2xl" />
-          <div className="skeleton-shimmer h-56 rounded-2xl" />
+          <div className="skeleton-shimmer h-40 rounded-2xl" />
+          <div className="skeleton-shimmer h-40 rounded-2xl" />
+          <div className="skeleton-shimmer h-40 rounded-2xl" />
         </div>
         <span className="sr-only">Loading published tests and exam pathways…</span>
       </div>
@@ -145,321 +117,240 @@ export default function Home() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-7xl space-y-8">
-      <section className="overflow-hidden rounded-2xl border border-slate-800 bg-[#1e1b4b] text-white shadow-[0_16px_36px_-30px_rgba(15,23,42,0.7)]">
-        <div className="grid gap-0 text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100 md:grid-cols-3">
-          <div className="border-b border-white/10 px-5 py-3 md:border-b-0 md:border-r">
-            Published tests: {formatCount(tests.length)}
-          </div>
-          <div className="border-b border-white/10 px-5 py-3 md:border-b-0 md:border-r">
-            Questions in live catalog: {formatCount(catalogQuestionCount)}
-          </div>
-          <div className="px-5 py-3">Exam families: {formatCount(examGroups.length)}</div>
-        </div>
-      </section>
+    <div className="mx-auto w-full max-w-7xl px-4 pb-14 pt-6 sm:px-6 lg:px-8 lg:pt-10">
+      <section className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_24px_70px_-50px_rgba(15,23,42,0.45)]">
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-indigo-600 via-violet-500 to-teal-500" />
+        <div className="grid min-h-[560px] lg:grid-cols-[1.08fr_0.92fr]">
+          <div className="flex flex-col justify-center px-6 py-12 sm:px-10 lg:px-14 lg:py-16">
+            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-indigo-700">
+              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+              Serious practice. No clutter.
+            </div>
 
-      <section className="et-panel-raised relative overflow-hidden rounded-2xl">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(13,148,136,0.20),transparent_32%),radial-gradient(circle_at_88%_12%,rgba(79,70,229,0.20),transparent_34%),linear-gradient(135deg,#ffffff_0%,#f8fafc_54%,#eef2ff_100%)]" />
-        <div className="relative grid gap-8 p-6 lg:grid-cols-[1.08fr_0.92fr] lg:p-8">
-          <div className="flex flex-col justify-between">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-xl border border-teal-200 bg-white/80 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-teal-700 backdrop-blur-xl">
-                <Sparkles className="h-3.5 w-3.5" />
-                Logic-first exam practice
-              </div>
-              <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-                Structured mock tests for serious exam practice.
-              </h1>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-700">
-                Prepare for SSC, banking, and Punjab State exams with live published tests, multilingual question delivery, saved attempts, and solution review.
-              </p>
-              <div className="relative mt-7 max-w-2xl">
-                <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <h1 className="mt-6 max-w-3xl text-4xl font-black tracking-[-0.04em] text-slate-950 sm:text-5xl lg:text-[64px] lg:leading-[1.02]">
+              Practice the exam you actually want to crack.
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg">
+              Find your exam, take a real mock, and review every saved attempt from one focused workspace.
+            </p>
+
+            <div className="mt-8 max-w-2xl">
+              <label htmlFor="home-exam-search" className="sr-only">Search exams and mock tests</label>
+              <div className="relative">
+                <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" aria-hidden="true" />
                 <Input
+                  id="home-exam-search"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Search SSC CGL, IBPS PO, PSSSB, Quantitative Aptitude ..."
-                  className="h-12 rounded-2xl border-slate-200 bg-white/85 pl-11 shadow-sm backdrop-blur-xl"
+                  placeholder="Search SSC CGL, Banking, Punjab exams…"
+                  className="h-14 rounded-2xl border-slate-300 bg-white pl-12 pr-4 text-base shadow-sm focus-visible:ring-indigo-500"
                 />
               </div>
+
+              {query.trim() && (
+                <div className="mt-2 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl">
+                  {filteredGroups.slice(0, 5).map((group) => (
+                    <button
+                      key={group.id}
+                      type="button"
+                      onClick={() => setLocation(`/category/${group.id}`)}
+                      className="et-interactive flex min-h-12 w-full items-center justify-between border-b border-slate-100 px-4 py-3 text-left last:border-b-0 hover:bg-slate-50"
+                    >
+                      <span>
+                        <span className="block font-semibold text-slate-900">{group.name}</span>
+                        <span className="mt-0.5 block text-xs text-slate-500">{group.tests.length} published tests</span>
+                      </span>
+                      <ChevronRight className="h-4 w-4 text-slate-400" aria-hidden="true" />
+                    </button>
+                  ))}
+                  {filteredGroups.length === 0 && (
+                    <div className="px-4 py-4 text-sm text-slate-500">No matching exam family in the live catalog.</div>
+                  )}
+                </div>
+              )}
             </div>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Button className="h-11 rounded-xl bg-[#1e1b4b] px-5 text-white hover:bg-indigo-950" onClick={() => setLocation("/tests")}>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Button className="h-12 rounded-xl bg-indigo-700 px-6 text-base font-bold text-white hover:bg-indigo-800" onClick={() => setLocation("/tests")}>
                 Browse Live Tests
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
               </Button>
-              <Button variant="outline" className="h-11 rounded-xl border-slate-300 bg-white/80 px-5" onClick={() => setLocation("/dashboard")}>
-                View My Activity
-              </Button>
+              <span className="text-sm text-slate-500">Start with any published free mock.</span>
             </div>
-          </div>
 
-          <div className="grid gap-5">
-            <div className="rounded-2xl border border-slate-200 bg-white/82 p-5 shadow-[0_16px_40px_-32px_rgba(15,23,42,0.36)] backdrop-blur-xl">
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Live student experience</p>
-                  <h2 className="mt-1 text-xl font-semibold text-slate-950">Built around real attempt data</h2>
-                </div>
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700">
-                  <Target className="h-5 w-5" />
-                </span>
+            {examGroups.length > 0 && (
+              <div className="mt-8 flex flex-wrap gap-2">
+                {examGroups.slice(0, 5).map((group) => (
+                  <button
+                    key={group.id}
+                    type="button"
+                    onClick={() => setLocation(`/category/${group.id}`)}
+                    className="et-interactive min-h-11 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-semibold text-slate-700 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-800"
+                  >
+                    {group.name}
+                  </button>
+                ))}
               </div>
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-4">
-                  <ClipboardList className="h-5 w-5 text-indigo-700" />
-                  <p className="mt-3 text-sm font-semibold text-slate-950">Published test catalog</p>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-600">Browse the exam and test inventory currently available to students.</p>
-                </div>
-                <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-4">
-                  <Clock3 className="h-5 w-5 text-teal-700" />
-                  <p className="mt-3 text-sm font-semibold text-slate-950">Saved attempts</p>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-600">Resume an in-progress test and revisit completed attempts.</p>
-                </div>
-                <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-4">
-                  <Languages className="h-5 w-5 text-indigo-700" />
-                  <p className="mt-3 text-sm font-semibold text-slate-950">Multilingual delivery</p>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-600">Approved languages are shown when they are configured for a published test.</p>
-                </div>
-                <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-4">
-                  <CheckCircle2 className="h-5 w-5 text-teal-700" />
-                  <p className="mt-3 text-sm font-semibold text-slate-950">Solution review</p>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-600">Review evaluated attempts after submission without relying on demo analytics.</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-slate-200 bg-white/82 p-5 shadow-[0_16px_40px_-32px_rgba(15,23,42,0.36)] backdrop-blur-xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-700">Start a focused session</p>
-              <h2 className="mt-1 text-xl font-semibold text-slate-950">Choose a live test when you are ready</h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Use the test explorer to pick an exam, review its details, and start from the current published inventory.
-              </p>
-              <Button className="mt-4 h-11 w-full rounded-xl bg-teal-600 text-white hover:bg-teal-700" onClick={() => setLocation("/tests")}>
-                Open Test Explorer
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="grid gap-5 lg:grid-cols-[1fr_0.75fr]">
-        <div className="et-panel-raised overflow-hidden rounded-2xl">
-          <div className="bg-[#1e1b4b] px-5 py-4 text-white">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100">Exam pathways</p>
-            <h2 className="mt-1 text-2xl font-semibold">Find the right mock series faster</h2>
+            )}
           </div>
 
-          <div className="sticky top-14 z-10 flex gap-2 overflow-x-auto border-b border-slate-200 bg-white/88 px-4 py-3 backdrop-blur-xl">
-            {examGroups.map((group) => {
-              const tone = toneClasses[group.tone];
-              const active = activeGroup?.id === group.id;
-              return (
-                <button
-                  key={group.id}
-                  type="button"
-                  onClick={() => setActiveGroupId(group.id)}
-                  className={`et-interactive flex min-h-11 shrink-0 items-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold ${
-                    active
-                      ? "border-indigo-500 bg-indigo-950 text-white ring-2 ring-indigo-500 ring-offset-2"
-                      : `bg-white text-slate-700 ${tone.badge}`
-                  }`}
-                >
-                  <ExamTypeIcon tone={group.tone} />
-                  {group.name}
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="grid gap-4 p-5 md:grid-cols-2">
-            {(query ? filteredGroups : examGroups).slice(0, 6).map((group) => {
-              const tone = toneClasses[group.tone];
-              return (
-                <article
-                  key={group.id}
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => setLocation(`/category/${group.id}`)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      setLocation(`/category/${group.id}`);
-                    }
-                  }}
-                  className={`et-interactive rounded-2xl border border-slate-200 border-l-4 bg-white p-4 shadow-[0_14px_32px_-28px_rgba(15,23,42,0.4)] hover:border-indigo-200 hover:shadow-[0_18px_40px_-28px_rgba(15,23,42,0.36)] ${tone.border}`}
-                >
+          <div className="relative flex items-center bg-slate-950 px-6 py-10 text-white sm:px-10 lg:px-12">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_20%,rgba(99,102,241,0.32),transparent_28%),radial-gradient(circle_at_20%_85%,rgba(20,184,166,0.20),transparent_30%)]" />
+            <div className="relative w-full">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-indigo-200">Free mock ready</p>
+              {heroTest ? (
+                <div className="mt-4 rounded-[1.75rem] border border-white/15 bg-white/[0.08] p-6 shadow-2xl backdrop-blur-sm sm:p-7">
                   <div className="flex items-start justify-between gap-4">
-                    <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${tone.icon}`}>
-                      <CategoryIcon icon={group.icon} className="h-5 w-5" />
-                    </div>
-                    <span className={`rounded-lg border px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${tone.badge}`}>
-                      {group.tests.length} published {group.tests.length === 1 ? "test" : "tests"}
-                    </span>
+                    <span className="rounded-full border border-emerald-300/30 bg-emerald-400/15 px-3 py-1 text-xs font-bold text-emerald-200">FREE</span>
+                    <span className="text-xs font-medium text-slate-400">Published test</span>
                   </div>
-                  <h3 className="mt-4 text-lg font-semibold text-slate-950">{group.name}</h3>
-                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">{group.description}</p>
-                  <div className="mt-4 grid grid-cols-2 gap-2 rounded-xl border border-slate-100 bg-slate-50 p-3 text-xs">
-                    <div>
-                      <p className="font-semibold uppercase tracking-[0.12em] text-slate-400">Tests</p>
-                      <p className="mt-1 font-semibold text-slate-950">{formatCount(group.tests.length)}</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold uppercase tracking-[0.12em] text-slate-400">Exam branches</p>
-                      <p className="mt-1 font-semibold text-teal-700">{formatCount(group.subExams.length)}</p>
-                    </div>
+                  <p className="mt-5 text-sm font-semibold text-indigo-200">{heroTest.category}</p>
+                  <h2 className="mt-2 text-2xl font-bold tracking-tight text-white sm:text-3xl">{heroTest.name}</h2>
+                  <div className="mt-5 text-slate-300">
+                    <TestMeta test={heroTest} />
                   </div>
-                  <div className="mt-4 space-y-2">
-                    {group.subExams.slice(0, 3).map((subExam) => (
-                      <button
-                        key={subExam.id}
-                        type="button"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          setLocation(`/subcategory/${subExam.id}`);
-                        }}
-                        className="et-interactive flex min-h-11 w-full items-center justify-between rounded-xl border border-slate-100 bg-white px-3 py-2 text-left text-sm hover:border-teal-300 hover:bg-teal-50/60"
-                      >
-                        <span className="truncate font-medium text-slate-700">{subExam.name}</span>
-                        <ChevronRight className="h-4 w-4 text-slate-400" />
-                      </button>
-                    ))}
-                  </div>
-                  <div className="mt-4 flex items-center justify-between text-sm font-semibold text-indigo-800">
-                    <span>Open category</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
 
-        <div className="space-y-5">
-          <div className="et-panel-raised overflow-hidden rounded-2xl">
-            <div className="bg-[#1e1b4b] px-5 py-4 text-white">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100">Resume practice</p>
-              <h2 className="mt-1 text-xl font-semibold">Your active lane</h2>
-            </div>
-            <div className="p-5">
-              {activeSessionEntries.length === 0 && !latestAttempt ? (
-                <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center">
-                  <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
-                    <Target className="h-5 w-5" />
-                  </span>
-                  <p className="mt-3 text-sm font-semibold text-slate-950">No active test yet</p>
-                  <p className="mt-1 text-sm text-slate-600">Choose an exam path and start with a published test.</p>
-                  <Button className="mt-4 h-11 rounded-xl bg-teal-600 text-white hover:bg-teal-700" onClick={() => setLocation("/tests")}>
-                    Browse Live Tests
+                  <div className="my-6 h-px bg-white/10" />
+                  <div className="space-y-3 text-sm text-slate-300">
+                    <p className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-emerald-300" aria-hidden="true" />Real published questions</p>
+                    <p className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 text-emerald-300" aria-hidden="true" />Saved attempt and result review</p>
+                  </div>
+
+                  <Button className="mt-7 h-12 w-full rounded-xl bg-white text-base font-bold text-slate-950 hover:bg-slate-100" onClick={() => setLocation(`/test/${heroTest.id}`)}>
+                    Start free mock
+                    <PlayCircle className="ml-2 h-5 w-5" aria-hidden="true" />
                   </Button>
                 </div>
               ) : (
-                <div className="space-y-3">
-                  {latestAttempt && (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setLocation(
-                          `/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(latestAttempt.testId)}&tab=review`,
-                        )
-                      }
-                      className="et-interactive flex min-h-11 w-full items-center justify-between rounded-2xl border border-slate-200 border-l-4 border-l-indigo-600 bg-white p-4 text-left hover:border-indigo-200"
-                    >
-                      <div>
-                        <p className="font-semibold text-slate-950">{latestAttempt.testName}</p>
-                        <p className="mt-1 text-xs text-slate-500">Last score: {latestAttempt.score}%</p>
-                      </div>
-                      <BarChart3 className="h-4 w-4 shrink-0 text-indigo-700" />
-                    </button>
-                  )}
-                  {activeSessionEntries.map((session) => (
-                    <button
-                      key={session.testId}
-                      type="button"
-                      onClick={() => setLocation(`/test/${session.testId}`)}
-                      className="et-interactive flex min-h-11 w-full items-center justify-between rounded-2xl border border-slate-200 border-l-4 border-l-teal-500 bg-white p-4 text-left hover:border-teal-200"
-                    >
-                      <div>
-                        <p className="font-semibold text-slate-950">{session.testName}</p>
-                        <p className="mt-1 text-xs text-slate-500">In progress</p>
-                      </div>
-                      <Clock3 className="h-4 w-4 shrink-0 text-teal-700" />
-                    </button>
-                  ))}
+                <div className="mt-4 rounded-[1.75rem] border border-white/15 bg-white/[0.08] p-7 text-slate-300">
+                  No published mock is available right now. Browse the catalog for current exam pathways.
                 </div>
               )}
-            </div>
-          </div>
-
-          <div className="et-panel rounded-2xl p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">What is live now</p>
-            <h2 className="mt-1 text-xl font-semibold text-slate-950">Production-backed student journeys</h2>
-            <div className="mt-4 space-y-3">
-              {[
-                "Browse published tests and structured test series.",
-                "Resume an in-progress attempt after refresh.",
-                "Submit an attempt and reopen its saved result.",
-                "Use approved multilingual content when a test provides it.",
-              ].map((item) => (
-                <div key={item} className="flex gap-3 rounded-xl border border-slate-200 bg-slate-50/70 p-3">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" />
-                  <p className="text-sm leading-relaxed text-slate-600">{item}</p>
-                </div>
-              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="et-panel-raised overflow-hidden rounded-2xl">
-        <div className="bg-[#1e1b4b] px-5 py-4 text-white">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100">Featured free mocks</p>
-          <h2 className="mt-1 text-2xl font-semibold">{activeGroup?.name ?? "Featured"} tests</h2>
-        </div>
-        <div className="divide-y divide-slate-100">
-          {activeGroupTests.map((test) => {
-            const tone = toneClasses[activeGroup?.tone ?? "default"];
-            return (
-              <button
-                key={test.id}
-                type="button"
-                onClick={() => setLocation(`/test/${test.id}`)}
-                className={`et-interactive grid min-h-11 w-full gap-3 border-l-4 px-5 py-4 text-left hover:bg-slate-50 md:grid-cols-[1fr_130px_130px_150px] ${tone.border}`}
-              >
-                <div>
-                  <p className="font-semibold text-slate-950">{test.name}</p>
-                  <p className="mt-1 text-xs text-slate-500">{test.category} / {test.subcategoryName ?? "General"}</p>
-                </div>
-                <span className="inline-flex items-center gap-1.5 text-sm text-slate-600">
-                  <ClipboardList className="h-3.5 w-3.5" />
-                  {test.totalQuestions} Q
-                </span>
-                <span className="inline-flex items-center gap-1.5 text-sm text-slate-600">
-                  <Clock3 className="h-3.5 w-3.5" />
-                  {test.duration} min
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-lg border border-teal-200 bg-teal-50 px-2 py-1 text-xs font-semibold text-teal-700">
-                  <CheckCircle2 className="h-3.5 w-3.5" />
-                  Free Mock Test
-                </span>
-              </button>
-            );
-          })}
-          {activeGroupTests.length === 0 && (
-            <div className="p-8 text-center text-sm text-slate-600">
-              <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-50 text-teal-700">
-                <BookOpenCheck className="h-6 w-6" />
-              </span>
-              <p className="mt-3 font-semibold text-slate-950">No free featured test in this category yet</p>
-              <p className="mt-1">Open the category to see the current published inventory.</p>
-              {activeGroup && (
-                <Button variant="outline" className="mt-4 rounded-xl" onClick={() => setLocation(`/category/${activeGroup.id}`)}>
-                  Open Category
+      {(latestAttempt || activeSessionEntries.length > 0) && (
+        <section className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 sm:px-6">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">Continue where you left off</p>
+              <h2 className="mt-1 text-xl font-bold text-slate-950">Your practice is ready to resume.</h2>
+            </div>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              {activeSessionEntries[0] && (
+                <Button variant="outline" className="h-11 rounded-xl border-slate-300 bg-white" onClick={() => setLocation(`/test/${activeSessionEntries[0]!.testId}`)}>
+                  <RotateCcw className="mr-2 h-4 w-4" aria-hidden="true" />
+                  Resume {activeSessionEntries[0]!.testName}
+                </Button>
+              )}
+              {latestAttempt && (
+                <Button variant="outline" className="h-11 rounded-xl border-slate-300 bg-white" onClick={() => setLocation(`/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(latestAttempt.testId)}&tab=review`)}>
+                  <BarChart3 className="mr-2 h-4 w-4" aria-hidden="true" />
+                  Review last result
                 </Button>
               )}
             </div>
+          </div>
+        </section>
+      )}
+
+      <section className="mt-14" aria-labelledby="exam-families-heading">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-indigo-700">Choose your exam</p>
+            <h2 id="exam-families-heading" className="mt-2 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl">One clear path into every exam family.</h2>
+          </div>
+          <Button variant="ghost" className="h-11 w-fit rounded-xl text-indigo-700" onClick={() => setLocation("/tests")}>
+            View all exams <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+          </Button>
+        </div>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {(query ? filteredGroups : examGroups).slice(0, 6).map((group) => {
+            const active = activeGroup?.id === group.id;
+            return (
+              <button
+                key={group.id}
+                type="button"
+                onMouseEnter={() => setActiveGroupId(group.id)}
+                onFocus={() => setActiveGroupId(group.id)}
+                onClick={() => setLocation(`/category/${group.id}`)}
+                className={`et-interactive group min-h-[150px] rounded-2xl border p-5 text-left shadow-sm transition ${active ? "border-indigo-300 bg-indigo-50/70" : "border-slate-200 bg-white hover:border-indigo-200 hover:shadow-md"}`}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-950 text-white">
+                    <CategoryIcon icon={group.icon} className="h-5 w-5" />
+                  </span>
+                  <ChevronRight className="h-5 w-5 text-slate-300 transition group-hover:translate-x-0.5 group-hover:text-indigo-500" aria-hidden="true" />
+                </div>
+                <h3 className="mt-4 text-lg font-bold text-slate-950">{group.name}</h3>
+                <p className="mt-1 text-sm text-slate-500">{formatCount(group.tests.length)} tests · {formatCount(group.subExams.length)} exam paths</p>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="mt-14 rounded-[2rem] bg-slate-950 px-5 py-7 text-white sm:px-7 sm:py-8 lg:px-9" aria-labelledby="free-mocks-heading">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-indigo-200">Start without paying</p>
+            <h2 id="free-mocks-heading" className="mt-2 text-3xl font-black tracking-tight">Free mocks for {activeGroup?.name ?? "your exam"}.</h2>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {examGroups.slice(0, 4).map((group) => (
+              <button
+                key={group.id}
+                type="button"
+                onClick={() => setActiveGroupId(group.id)}
+                className={`et-interactive min-h-10 rounded-full border px-3 py-2 text-sm font-semibold ${activeGroup?.id === group.id ? "border-white bg-white text-slate-950" : "border-white/15 bg-white/[0.05] text-slate-300 hover:bg-white/[0.1]"}`}
+              >
+                {group.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6 grid gap-4 lg:grid-cols-2">
+          {activeGroupFreeTests.map((test) => (
+            <button
+              key={test.id}
+              type="button"
+              onClick={() => setLocation(`/test/${test.id}`)}
+              className="et-interactive group rounded-2xl border border-white/10 bg-white/[0.06] p-5 text-left hover:bg-white/[0.1]"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.14em] text-emerald-300">Free mock</p>
+                  <h3 className="mt-2 text-lg font-bold text-white">{test.name}</h3>
+                </div>
+                <PlayCircle className="h-5 w-5 shrink-0 text-indigo-300 transition group-hover:scale-110" aria-hidden="true" />
+              </div>
+              <div className="mt-4 text-slate-300"><TestMeta test={test} /></div>
+            </button>
+          ))}
+          {activeGroupFreeTests.length === 0 && (
+            <div className="rounded-2xl border border-dashed border-white/15 p-7 text-sm text-slate-300 lg:col-span-2">
+              No free mock is published in this exam family yet. Open the category to see its current catalog.
+            </div>
           )}
+        </div>
+      </section>
+
+      <section className="mt-10 grid gap-4 rounded-2xl border border-slate-200 bg-white p-5 text-sm sm:grid-cols-3 sm:p-6" aria-label="Live catalog summary">
+        <div>
+          <p className="font-bold text-slate-950">Published tests: {formatCount(tests.length)}</p>
+          <p className="mt-1 text-slate-500">Only tests currently available in the student catalog.</p>
+        </div>
+        <div>
+          <p className="font-bold text-slate-950">Questions in live catalog: {formatCount(catalogQuestionCount)}</p>
+          <p className="mt-1 text-slate-500">Calculated from the published test inventory.</p>
+        </div>
+        <div>
+          <p className="font-bold text-slate-950">{formatCount(freeTests.length)} free mocks</p>
+          <p className="mt-1 text-slate-500">Start practicing before choosing anything paid.</p>
         </div>
       </section>
     </div>
