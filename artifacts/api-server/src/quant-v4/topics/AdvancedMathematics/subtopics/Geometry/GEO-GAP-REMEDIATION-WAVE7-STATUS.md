@@ -7,44 +7,27 @@
 
 Wave 7 addresses residual `GEO-CP-010` and `GEO-CP-011` source-observed circle gaps with six temporary prototypes:
 
-1. `GEO-TMP-GAP-W7-CP010-EQUAL-CHORD-CENTRAL-ANGLE-V1`
-   - equal chords → equal central angles
-   - `REQUIRED_BOTH`
-2. `GEO-TMP-GAP-W7-CP010-EQUAL-CHORD-CENTRE-DISTANCE-V1`
-   - equal chords → equal perpendicular distances from centre
-   - `REQUIRED_BOTH`
-3. `GEO-TMP-GAP-W7-CP010-CENTRE-BISECTOR-PERPENDICULAR-V1`
-   - chord midpoint + line from centre → perpendicular to chord
-   - `REQUIRED_BOTH`
-4. `GEO-TMP-GAP-W7-CP011-SAME-SEGMENT-ANGLE-V1`
-   - same chord + same segment → equal inscribed angles
-   - `REQUIRED_BOTH`
-5. `GEO-TMP-GAP-W7-CP011-CYCLIC-EXTERIOR-CENTRAL-V1`
-   - central-angle evidence → half-angle relation → cyclic exterior angle
-   - `REQUIRED_BOTH`
-6. `GEO-TMP-GAP-W7-CP011-SEMICIRCLE-SAME-SEGMENT-CHAIN-V1`
-   - exterior triangle/linear pair → same-segment transfer → diameter right angle → target
-   - `REQUIRED_BOTH`
+1. `GEO-TMP-GAP-W7-CP010-EQUAL-CHORD-CENTRAL-ANGLE-V1` — equal chords → equal central angles — `REQUIRED_BOTH`
+2. `GEO-TMP-GAP-W7-CP010-EQUAL-CHORD-CENTRE-DISTANCE-V1` — equal chords → equal perpendicular distances from centre — `REQUIRED_BOTH`
+3. `GEO-TMP-GAP-W7-CP010-CENTRE-BISECTOR-PERPENDICULAR-V1` — chord midpoint + line from centre → perpendicular to chord — `REQUIRED_BOTH`
+4. `GEO-TMP-GAP-W7-CP011-SAME-SEGMENT-ANGLE-V1` — same chord + same segment → equal inscribed angles — `REQUIRED_BOTH`
+5. `GEO-TMP-GAP-W7-CP011-CYCLIC-EXTERIOR-CENTRAL-V1` — central-angle evidence → half-angle relation → cyclic exterior angle — `REQUIRED_BOTH`
+6. `GEO-TMP-GAP-W7-CP011-SEMICIRCLE-SAME-SEGMENT-CHAIN-V1` — exterior triangle/linear pair → same-segment transfer → diameter right angle → target — `REQUIRED_BOTH`
 
 Current temporary executable candidate count after Wave 7: **63**. Permanent QLs: **0**. Frozen permanent solve modes: **0**.
 
 ## Source boundary
 
-Wave 7 uses six secondary SSC PYQ repository records. Testbook is treated only as a secondary PYQ mirror, not as the official SSC publisher.
-
-Basic `ANGLE_IN_SEMICIRCLE` direct recognition is not duplicated because it is already covered by approved Wave 1. `CYCLIC_CONVERSE` remains deferred because the current source audit did not produce sufficiently clean SSC evidence for the remediation standard.
+Wave 7 uses six secondary SSC PYQ repository records. Testbook is treated only as a secondary PYQ mirror, not as the official SSC publisher. Basic `ANGLE_IN_SEMICIRCLE` direct recognition is not duplicated because approved Wave 1 already covers it. `CYCLIC_CONVERSE` remains deferred because the current source audit did not produce sufficiently clean SSC evidence for this remediation standard.
 
 ## Representation contract
 
-All six prototypes use `REQUIRED_BOTH`.
-
-Stem figures preserve circle/chord/secant topology, show only given semantic marks and given dimensions/angles, and withhold target/derived angle values, right-angle consequences, equal-distance consequences and same-segment conclusions.
-
-Solution figures follow the active solution-diagram dimension policy, retain solve-relevant givens, add teaching-relevant derived angle/distance/right-angle evidence after derivation, and require Renderer V2 plus separate semantic fingerprints and zero reported label collisions. Manual viewport/topology QA remains mandatory after CI.
+All six prototypes use `REQUIRED_BOTH`. Stem figures preserve circle/chord/secant topology, show only given semantic marks and given dimensions/angles, and withhold target/derived angle values, right-angle consequences, equal-distance consequences and same-segment conclusions. Solution figures follow the active solution-diagram dimension policy and remain subject to manual viewport/topology QA after CI.
 
 ## Implementation evidence
 
 - implementation head: `78211a86634b5bf5d6db5b5625c97e433c622878`
+- status-record head: `6669b0247282a666fc760a436d951bb75c5b2b85`
 - 6 temporary prototypes × 3 review seeds = **18 review questions**
 - planned review figures: **18 stem + 18 solution = 36 runtime figures**
 - shared additions: equal-chord central-angle inference, equal-chord centre-distance inference, chord-midpoint inverse right-angle inference, same-segment transfer, central-to-inscribed half-angle inference
