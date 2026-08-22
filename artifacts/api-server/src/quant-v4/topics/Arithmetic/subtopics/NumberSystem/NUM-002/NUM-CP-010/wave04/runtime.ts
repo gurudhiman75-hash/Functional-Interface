@@ -57,7 +57,7 @@ function bruteZeroCount(upper: number) {
 
 function p026(seed: number): NumCp010Wave04Package {
   const rng = new Rng(seed * 131 + 26);
-  const completedHundreds = rng.int(0, 8);
+  const completedHundreds = rng.int(0, 9);
   const upper = 100 * completedHundreds + 99;
   const unitsZeroes = 9 + 10 * completedHundreds;
   const tensZeroes = 10 * completedHundreds;
