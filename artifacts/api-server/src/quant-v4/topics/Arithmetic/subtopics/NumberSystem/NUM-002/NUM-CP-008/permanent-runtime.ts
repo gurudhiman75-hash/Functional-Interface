@@ -1,5 +1,6 @@
 import { NUM_CP008_PERMANENT_ALLOCATION } from "./permanent-allocation.ts";
 import { applyNumCp008EnglishExamHumanV2 } from "./english-exam-human-v2.ts";
+import { polishNumCp008EnglishExamHumanV2 } from "./english-exam-human-v2-polish.ts";
 import { generateNumCp008Wave01ReviewFinal } from "./wave01/runtime-review-final.ts";
 import type { NumCp008Wave01PrototypeId } from "./wave01/types.ts";
 import { generateNumCp008Wave02ReviewFinal } from "./wave02/runtime-review-final.ts";
@@ -89,5 +90,5 @@ export function generateNumCp008Permanent(qlId: NumCp008PermanentQlId, seed: num
     }),
   }) as NumCp008PermanentPackage;
 
-  return applyNumCp008EnglishExamHumanV2(permanent);
+  return polishNumCp008EnglishExamHumanV2(applyNumCp008EnglishExamHumanV2(permanent));
 }
