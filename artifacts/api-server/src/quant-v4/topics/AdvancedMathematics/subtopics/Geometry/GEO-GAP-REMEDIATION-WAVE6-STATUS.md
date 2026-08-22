@@ -3,7 +3,7 @@
 **Authority:** Composite Geometry Revision 3 + Solution-Diagram Dimension Policy Addendum  
 **Predecessors:** approved Waves 1–5 discovery remediation  
 **Lifecycle:** `DISCOVERY`  
-**Wave 6 state:** `IMPLEMENTED_AWAITING_CI`
+**Wave 6 state:** `REVIEW_READY_AWAITING_USER_APPROVAL`
 
 Wave 6 addresses residual `GEO-CP-006` source-observed gaps with four temporary prototypes:
 
@@ -48,14 +48,53 @@ Solution figures:
 - follow the active solution-diagram dimension policy;
 - show solve-relevant given values;
 - add only teaching-relevant derived equalities/relations after they are established;
+- use semantic equal-length marks instead of redundant equality text where that reduces clutter;
 - show solved target angle/length dimensions;
 - retain Renderer-V2 zero-collision proof and separate solution semantic fingerprints.
 
+## Final Wave-6 proof
+
+`Validate Geometry Gap Remediation Wave 6`
+- proof head: `ddf4001882b316042b654ac972accd7d33c063f5`
+- run: `32467714025`
+- conclusion: **success**
+- retained Geometry Source Saturation Audit V1: **PASS**
+- retained Geometry Phases 0–5: **PASS**
+- retained approved Waves 1–5: **PASS**
+- Wave-6 dedicated proof: **PASS**
+- review export: **PASS**
+- review upload: **PASS**
+
+Final review artifact:
+- artifact id: `9441319971`
+- name: `geometry-gap-remediation-wave6-review`
+- digest: `sha256:e345b6a656cf8403e240af6be0b539074d94e17c9fdd9e71e1d8758e331dc00f`
+- 4 prototypes × 3 seeds = **12 review questions**
+- **9 stem figures + 12 solution figures = 21 runtime figures**
+
+## Human QA result
+
+The first all-green Wave-6 artifact `9441160622` was **self-rejected and superseded** because manual visual inspection found viewport clipping that collision scores did not detect in several solution annotations.
+
+The viewport-safe artifact `9441319971` was then inspected across all 21 runtime figures. Human QA confirms:
+- no clipped labels or dimensions;
+- no unresolved text/segment crowding;
+- direct perpendicular-bisector solution shows derived `PT = TQ` semantically with equal-length marks and the solved angle text in clear whitespace;
+- rhombus converse solution keeps all dimensions/derived collinearity readable while the stem remains diagram-free to prevent topology leakage;
+- centroid inverse stems disclose only the given section and solutions show `AG`, `GD`, `AG:GD = 2:1`, and the full solved median without clipping;
+- midpoint-converse stems do not reveal `AE = EC`; solutions show the derived midpoint semantically with equal-length marks and the solved `EC` dimension;
+- all 12 question validations pass;
+- all clue-minimality proofs pass;
+- all independent verifiers pass;
+- all distractor values retain named misconception ownership;
+- learner explanations remain natural and theorem IDs do not leak.
+
 ```text
 wave6ImplementationComplete = true
-wave6RuntimeProofPassed = false
-wave6ReviewReady = false
+wave6RuntimeProofPassed = true
+wave6ReviewReady = true
 wave6Approved = false
+wave6FrozenForDiscovery = false
 sourceSaturationClaimAllowed = false
 permanentQlAllocationAllowed = false
 solveModeFreezeAllowed = false
@@ -65,4 +104,10 @@ testEligibilityAllowed = false
 publicPublicationAllowed = false
 ```
 
-Next gate: full retained source audit + Geometry Phases 0–5 + approved Waves 1–5 + Wave-6 proof + 12-question review export with 9 stem figures and 12 solution figures.
+## Approval boundary
+
+Wave 6 is review-ready only. No approval is inferred from CI or human QA. User approval is still required before these four temporary archetypes can be frozen for discovery continuity.
+
+Even after such approval, Wave 6 must not allocate permanent QLs, freeze permanent solve modes, claim source saturation, activate Question Studio, enable Question Bank writes, make questions test-eligible, or publish them publicly.
+
+Next gate: **explicit user review/approval of the 12-question Wave-6 artifact**. After that, record the narrow discovery freeze and continue the next Geometry source-gap remediation wave.
