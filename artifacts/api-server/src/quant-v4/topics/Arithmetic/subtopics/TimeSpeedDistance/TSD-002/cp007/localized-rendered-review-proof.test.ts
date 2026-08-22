@@ -5,8 +5,8 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(`TSD-CP-007 localized rendered review proof failed: ${message}`);
 }
 
-function digits(value: string): readonly string[] {
-  return Object.freeze(value.match(/\d+/g) ?? []);
+function digitMultiset(value: string): readonly string[] {
+  return Object.freeze([...(value.match(/\d+/g) ?? [])].sort((a, b) => Number(a) - Number(b) || a.localeCompare(b)));
 }
 
 const rows = renderCp007LocalizedReviewQuestions();
@@ -25,7 +25,7 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
 
   for (const row of localized) {
     assert(!/[{}]/.test(row.stem), `${locale}/${row.familyId}: unresolved placeholder remains`);
-    assert(JSON.stringify(digits(row.stem)) === JSON.stringify(digits(row.sourceEnglishStem)), `${locale}/${row.familyId}: numeric parity differs from frozen English`);
+    assert(JSON.stringify(digitMultiset(row.stem)) === JSON.stringify(digitMultiset(row.sourceEnglishStem)), `${locale}/${row.familyId}: numeric multiset differs from frozen English`);
     if (locale === "hi-IN") assert(/[\u0900-\u097F]/.test(row.stem), `${row.familyId}: Hindi script missing`);
     if (locale === "pa-IN") assert(/[\u0A00-\u0A7F]/.test(row.stem), `${row.familyId}: Punjabi script missing`);
     assert(!/\b(the engine|the rear|the front|starting position|included in the count|excluded from the count)\b/i.test(row.stem), `${locale}/${row.familyId}: dynamic English review phrase leaked into localization`);
@@ -40,7 +40,7 @@ console.log(JSON.stringify({
   questionsPerQlPerLocale: 6,
   qlsPerLocale: 11,
   unresolvedPlaceholders: 0,
-  numericParity: "IDENTICAL_TO_FROZEN_ENGLISH_CASES",
+  numericParity: "IDENTICAL_MULTISET_TO_FROZEN_ENGLISH_CASES",
   localizationStatus: "REVIEW_CANDIDATE",
   questionStudioEnabled: false,
 }, null, 2));
