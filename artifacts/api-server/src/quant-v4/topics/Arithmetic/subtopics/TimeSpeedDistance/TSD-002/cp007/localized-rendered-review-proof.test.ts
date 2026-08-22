@@ -26,7 +26,10 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
   for (const row of localized) {
     assert(!/[{}]/.test(row.stem), `${locale}/${row.familyId}: unresolved placeholder remains`);
     assert(JSON.stringify(digitMultiset(row.stem)) === JSON.stringify(digitMultiset(row.sourceEnglishStem)), `${locale}/${row.familyId}: numeric multiset differs from frozen English`);
-    if (locale === "hi-IN") assert(/[\u0900-\u097F]/.test(row.stem), `${row.familyId}: Hindi script missing`);
+    if (locale === "hi-IN") {
+      assert(/[\u0900-\u097F]/.test(row.stem), `${row.familyId}: Hindi script missing`);
+      assert(!/चाल/.test(row.stem), `${row.familyId}: deprecated Hindi term 'चाल' remains in rendered question`);
+    }
     if (locale === "pa-IN") assert(/[\u0A00-\u0A7F]/.test(row.stem), `${row.familyId}: Punjabi script missing`);
     assert(!/\b(the engine|the rear|the front|starting position|included in the count|excluded from the count)\b/i.test(row.stem), `${locale}/${row.familyId}: dynamic English review phrase leaked into localization`);
   }
@@ -41,6 +44,8 @@ console.log(JSON.stringify({
   qlsPerLocale: 11,
   unresolvedPlaceholders: 0,
   numericParity: "IDENTICAL_MULTISET_TO_FROZEN_ENGLISH_CASES",
+  hindiTerminology: "गति",
+  deprecatedHindiChaalOccurrences: 0,
   localizationStatus: "REVIEW_CANDIDATE",
   questionStudioEnabled: false,
 }, null, 2));
