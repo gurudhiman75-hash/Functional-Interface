@@ -369,7 +369,7 @@ function p007(seed: number): NumCp010Wave01Package {
 
 function p008(seed: number): NumCp010Wave01Package {
   const rng = new Rng(seed * 43 + 8);
-  const middle = rng.int(1, 7);
+  const middle = rng.int(2, 7);
   const h = middle - 1;
   const u = middle + 1;
   const correct = 100 * h + 10 * middle + u;
