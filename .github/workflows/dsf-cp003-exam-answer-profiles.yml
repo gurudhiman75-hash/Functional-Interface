@@ -1,0 +1,84 @@
+name: Validate DSF-CP-003 Exam Answer Profiles
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/**
+      - artifacts/api-server/src/routes/admin-question-studio-data-sufficiency.ts
+      - artifacts/admin-app/src/features/question-studio/data-sufficiency-review-api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioDataSufficiencyReviewPanel.tsx
+      - .github/workflows/dsf-cp003-exam-answer-profiles.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp003-exam-profiles-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dsf-cp003-exam-profiles:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
+      - name: Bundle DSF profile proofs
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/dsf
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-003/exam-answer-profiles-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp003-exam-answer-profiles.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-003/exam-answer-profiles-route-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp003-exam-answer-profiles-route.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-002/question-studio-integration-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp002-question-studio-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-002/question-studio-route-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp002-route-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-001/cp001-freeze-authority.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp001-freeze-regression.test.mjs
+      - name: Run CP-003 answer-profile proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp003-exam-answer-profiles.test.mjs
+      - name: Run CP-003 route and UI proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp003-exam-answer-profiles-route.test.mjs
+      - name: Re-prove CP-002 Question Studio runtime
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp002-question-studio-regression.test.mjs
+      - name: Re-prove CP-002 route contract
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp002-route-regression.test.mjs
+      - name: Re-prove CP-001 frozen semantic authority
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp001-freeze-regression.test.mjs
