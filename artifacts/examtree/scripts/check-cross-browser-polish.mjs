@@ -18,12 +18,18 @@ assert.equal(pkg.scripts["audit:cross-browser-polish"], "node scripts/check-cros
 assert.match(pkg.scripts.quality, /audit:cross-browser-polish/);
 
 assert.match(main, /import "\.\/index\.css";[\s\S]*?import "\.\/frontend-polish\.css";[\s\S]*?import "\.\/test-runner-mobile\.css";/);
-assert.match(polish, /-webkit-backdrop-filter: blur\(16px\) saturate\(140%\)/);
+assert.match(polish, /-webkit-backdrop-filter: blur\(18px\) saturate\(145%\)/);
+assert.match(polish, /backdrop-filter: blur\(18px\) saturate\(145%\)/);
+assert.match(polish, /min-height: 100svh/);
 assert.match(polish, /@supports \(min-height: 100dvh\)/);
 assert.match(polish, /@supports not \(\(backdrop-filter: blur\(1px\)\) or \(-webkit-backdrop-filter: blur\(1px\)\)\)/);
+assert.match(polish, /@supports not \(scrollbar-gutter: stable\)/);
+assert.match(polish, /overscroll-behavior: contain/);
+assert.match(polish, /-webkit-overflow-scrolling: touch/);
 assert.match(polish, /@media \(prefers-reduced-motion: reduce\)/);
 assert.match(polish, /@media \(forced-colors: active\)/);
 assert.match(polish, /touch-action: manipulation/);
+assert.match(polish, /\.et-interactive:focus-visible/);
 
 assert.match(publicLayout, /className="et-viewport et-page-surface bg-background text-foreground"/);
 assert.match(publicLayout, /data-testid="public-header"/);
@@ -33,9 +39,11 @@ assert.match(publicLayout, /text-muted-foreground/);
 assert.doesNotMatch(publicLayout, /min-h-screen bg-slate-50 text-slate-950/);
 
 assert.match(appLayout, /className="et-viewport et-page-surface bg-background text-foreground"/);
-assert.match(stickyHeader, /className=\{`et-chrome fixed inset-x-0 top-0/);
+assert.match(appLayout, /SidebarInset className="min-w-0 overflow-x-clip"/);
+assert.match(stickyHeader, /className=\{`et-chrome et-shell-header fixed inset-x-0 top-0/);
 assert.match(stickyHeader, /data-testid="app-sticky-header"/);
-assert.match(stickyHeader, /et-panel-raised/);
+assert.match(stickyHeader, /et-popover/);
+assert.match(stickyHeader, /aria-haspopup="dialog"/);
 
 assert.match(playwrightConfig, /name: "firefox-smoke"/);
 assert.match(playwrightConfig, /devices\["Desktop Firefox"\]/);
