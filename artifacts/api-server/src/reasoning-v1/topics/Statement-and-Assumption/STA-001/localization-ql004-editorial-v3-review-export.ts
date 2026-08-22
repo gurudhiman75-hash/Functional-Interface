@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { STA_ENGLISH_CORPUS_BY_QL } from "./english-corpus/index.ts";
@@ -60,23 +61,23 @@ function page(title: string, rows: readonly StaQl004LocalizedQuestionV3[]): stri
 mkdirSync(OUTPUT_DIR, { recursive: true });
 const hindi = collect("hi-IN");
 const punjabi = collect("pa-IN");
-const combined = { editorialVersion: STA_QL004_EXAM_REALNESS_EDITORIAL_VERSION, lifecycle: hindi[0]!.lifecycle, hindi, punjabi };
-
-writeFileSync(join(OUTPUT_DIR, "STA-QL004-HINDI-REVIEW-V3.json"), `${JSON.stringify(hindi, null, 2)}\n`, "utf8");
-writeFileSync(join(OUTPUT_DIR, "STA-QL004-PUNJABI-REVIEW-V3.json"), `${JSON.stringify(punjabi, null, 2)}\n`, "utf8");
-writeFileSync(join(OUTPUT_DIR, "STA-QL004-HINDI-REVIEW-V3.html"), page("STA-QL-004 Hindi Exam Realness Review V3", hindi), "utf8");
-writeFileSync(join(OUTPUT_DIR, "STA-QL004-PUNJABI-REVIEW-V3.html"), page("STA-QL-004 Punjabi Exam Realness Review V3", punjabi), "utf8");
-writeFileSync(join(OUTPUT_DIR, "STA-QL004-HI-PA-REVIEW-V3.json"), `${JSON.stringify(combined, null, 2)}\n`, "utf8");
-
-console.log(JSON.stringify({
+const stripLifecycle = ({ lifecycle: _lifecycle, ...learnerContent }: StaQl004LocalizedQuestionV3) => learnerContent;
+const learnerProjection = {
   editorialVersion: STA_QL004_EXAM_REALNESS_EDITORIAL_VERSION,
-  outputDir: OUTPUT_DIR,
+  hindi: hindi.map(stripLifecycle),
+  punjabi: punjabi.map(stripLifecycle),
+};
+const canonicalLearnerContentDigest = `sha256:${createHash("sha256").update(JSON.stringify(learnerProjection, null, 2), "utf8").digest("hex")}`;
+const freezeCandidate = {
+  editorialVersion: STA_QL004_EXAM_REALNESS_EDITORIAL_VERSION,
+  localizedQlId: "STA-QL-004",
   authoritiesPerLanguage: STA_ENGLISH_CORPUS_BY_QL["STA-QL-004"].length,
   examplesPerAuthority: EXAMPLES_PER_AUTHORITY,
-  hindiQuestions: hindi.length,
-  punjabiQuestions: punjabi.length,
+  canonicalQuestionsPerLocale: hindi.length,
+  canonicalCombinedQuestionCount: hindi.length + punjabi.length,
   uniqueHindiStems: new Set(hindi.map((question) => question.statement)).size,
   uniquePunjabiStems: new Set(punjabi.map((question) => question.statement)).size,
+  canonicalLearnerContentDigest,
   ql001HindiPunjabiStatus: "FROZEN_V2",
   ql002HindiPunjabiStatus: "FROZEN_V2",
   ql003HindiPunjabiStatus: "FROZEN_V2",
@@ -84,4 +85,23 @@ console.log(JSON.stringify({
   multilingualChapterFrozen: false,
   nativeApprovalRecorded: false,
   questionStudioDiscoverable: false,
+} as const;
+const combined = {
+  editorialVersion: STA_QL004_EXAM_REALNESS_EDITORIAL_VERSION,
+  canonicalLearnerContentDigest,
+  lifecycle: hindi[0]!.lifecycle,
+  hindi,
+  punjabi,
+};
+
+writeFileSync(join(OUTPUT_DIR, "STA-QL004-HINDI-REVIEW-V3.json"), `${JSON.stringify(hindi, null, 2)}\n`, "utf8");
+writeFileSync(join(OUTPUT_DIR, "STA-QL004-PUNJABI-REVIEW-V3.json"), `${JSON.stringify(punjabi, null, 2)}\n`, "utf8");
+writeFileSync(join(OUTPUT_DIR, "STA-QL004-HINDI-REVIEW-V3.html"), page("STA-QL-004 Hindi Exam Realness Review V3", hindi), "utf8");
+writeFileSync(join(OUTPUT_DIR, "STA-QL004-PUNJABI-REVIEW-V3.html"), page("STA-QL-004 Punjabi Exam Realness Review V3", punjabi), "utf8");
+writeFileSync(join(OUTPUT_DIR, "STA-QL004-HI-PA-REVIEW-V3.json"), `${JSON.stringify(combined, null, 2)}\n`, "utf8");
+writeFileSync(join(OUTPUT_DIR, "STA-QL004-FREEZE-CANDIDATE-V3.json"), `${JSON.stringify(freezeCandidate, null, 2)}\n`, "utf8");
+
+console.log(JSON.stringify({
+  ...freezeCandidate,
+  outputDir: OUTPUT_DIR,
 }, null, 2));
