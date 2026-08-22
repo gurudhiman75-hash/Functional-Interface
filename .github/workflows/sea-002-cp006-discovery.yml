@@ -41,13 +41,13 @@ jobs:
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-freeze-proof.test.ts
       - name: Prove CP006 Hindi/Punjabi localization readiness binds to corrected frozen English
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-localization-readiness-proof.test.ts
-      - name: Prove CP006 corrected Hindi/Punjabi explanation-parity and rationale fidelity
+      - name: Prove CP006 corrected Hindi/Punjabi explanation-parity, rationale and language fidelity
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-localized-review-corrected-proof.test.ts
-      - name: Export corrected CP006 Hindi/Punjabi 200-caselet review candidate
+      - name: Export final polished CP006 Hindi/Punjabi 200-caselet review candidate
         env:
           CP006_LOCALIZED_REVIEW_OUTPUT_DIR: ./cp006-localized-review-output
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-localized-review-corrected-export.ts
-      - name: Upload corrected CP006 Hindi/Punjabi review candidate
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-localized-review-final-export.ts
+      - name: Upload final polished CP006 Hindi/Punjabi review candidate
         uses: actions/upload-artifact@v4
         with:
           name: cp006-hi-pa-review-200
