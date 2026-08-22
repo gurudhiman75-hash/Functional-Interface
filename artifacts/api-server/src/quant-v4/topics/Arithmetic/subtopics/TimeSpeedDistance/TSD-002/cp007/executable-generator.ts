@@ -10,11 +10,14 @@ import {
 } from "./executable-types";
 import { independentlyVerifyCp007Authority } from "./executable-verifier";
 
-const TRAIN_LENGTHS = [120, 132, 144, 150, 165, 180, 192, 210, 225, 240, 252, 270] as const;
-const SPEED_NUMERATORS = [10, 11, 12, 15, 18, 20, 22, 24, 25, 27, 30, 32] as const;
-const OBJECT_LENGTHS = [300, 330, 360, 390, 420, 450, 480, 510, 540, 570, 600, 630] as const;
-const OBJECT_DELTAS = [60, -75, 90, -105, 120, -135, 150, -165, 180, -195, 210, -225] as const;
-const SPACINGS = [18, 20, 22, 24, 25, 27, 30, 32, 35, 36, 40, 45] as const;
+// Twelve deterministic latent cases. Point-crossing, object-crossing and
+// fixed-spacing timing values are intentionally integral so learner-facing
+// review questions do not devolve into awkward fractions such as 55/6 s.
+const TRAIN_LENGTHS = [120, 132, 150, 144, 180, 220, 198, 240, 200, 243, 240, 288] as const;
+const SPEED_NUMERATORS = [10, 12, 15, 16, 18, 20, 22, 24, 25, 27, 30, 32] as const;
+const OBJECT_LENGTHS = [300, 360, 450, 400, 450, 500, 550, 480, 600, 540, 600, 640] as const;
+const OBJECT_DELTAS = [60, -60, 90, -80, 90, -100, 110, -120, 150, -135, 180, -160] as const;
+const SPACINGS = [25, 24, 25, 32, 27, 20, 22, 30, 25, 27, 30, 28] as const;
 const OBJECT_KINDS: readonly TsdCp007ObjectKind[] = Object.freeze(["PLATFORM", "BRIDGE", "TUNNEL"]);
 
 function seedIndex(seed: string): number {
