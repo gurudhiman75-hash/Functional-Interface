@@ -61,7 +61,7 @@ assert(sourceFreeze.includes('status: "FROZEN"'), "DSF CP-001 source is not froz
 assert(sourceFreeze.includes('questionStudioDiscoverable: false'), "DSF CP-001 source lifecycle was improperly reopened");
 assert(integrationRuntime.includes('DSF_CP002_QUESTION_STUDIO_INTEGRATION_V1'), "CP-002 integration authority is missing");
 assert(integrationRuntime.includes('GENERIC_DS_STANDARD_5_EN'), "Frozen generic five-option answer profile is missing");
-assert(integrationRuntime.includes('examSpecificAnswerProfilesImplemented: false'), "Exam-profile boundary is not explicit");
+assert(integrationRuntime.includes('examSpecificAnswerProfilesImplemented: false'), "CP-002 source boundary is no longer explicit");
 assert(integrationRuntime.includes('permanentQlIds: ["DSF-QL-001"]'), "CP-002 does not preserve the single permanent QL");
 assert(integrationRuntime.includes('nextAvailableQlId: "DSF-QL-002"'), "CP-002 changed the next available permanent QL ID");
 
@@ -76,12 +76,14 @@ for (const apiFunction of [
 
 for (const panelFragment of [
   "QuestionStudioDataSufficiencyReviewPanel",
+  "Answer profile",
   "Source domain",
   "Solve mode",
   "Sufficiency class",
   "Create review run",
   "Question Bank locked",
-  "Exam-specific SSC/Banking/Punjab answer-profile rendering is not enabled yet",
+  "Profiles CP-003",
+  "Punjab-specific rendering remains disabled",
 ] as const) {
   assert(adminPanelSource.includes(panelFragment), `Data Sufficiency panel is missing UI contract: ${panelFragment}`);
 }
@@ -101,7 +103,8 @@ console.log(JSON.stringify({
   sourceCheckpoint: "DSF-CP-001/FROZEN",
   integrationCheckpoint: "DSF-CP-002",
   permanentQl: "DSF-QL-001",
-  answerProfile: "GENERIC_DS_STANDARD_5_EN",
+  cp002SourceAnswerProfile: "GENERIC_DS_STANDARD_5_EN",
+  laterProfileCheckpointAllowed: "DSF-CP-003",
   questionStudioDiscoverable: true,
   persistenceAllowed: true,
   downstreamLocked: true,
