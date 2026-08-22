@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { STA_BANK_FOURTH_ASSUMPTION_OVERLAYS } from "./exam-format-bank-fourth-assumption.ts";
 import {
   generateStaExamFormatQuestion,
   getStaExamProfileEligibleScenarioCount,
@@ -10,6 +11,18 @@ import {
 const CASES_PER_PROFILE_LOCALE = Number(process.env.STA_EXAM_FORMAT_CASES_PER_PROFILE_LOCALE ?? 512);
 const LOCALES = ["en-IN", "hi-IN", "pa-IN"] as const satisfies readonly StaExamLocale[];
 const PROFILE_IDS = Object.keys(STA_EXAM_PROFILES) as StaExamProfileId[];
+
+assert.equal(STA_BANK_FOURTH_ASSUMPTION_OVERLAYS.length, 8, "BANK_4X5 requires eight curated presentation overlays");
+assert.equal(new Set(STA_BANK_FOURTH_ASSUMPTION_OVERLAYS.map((item) => item.scenarioId)).size, 8, "BANK_4X5 overlay scenario IDs are not unique");
+assert.ok(new Set(STA_BANK_FOURTH_ASSUMPTION_OVERLAYS.map((item) => item.candidate.misconceptionClass)).size >= 4, "BANK_4X5 fourth-assumption misconception pool is too repetitive");
+for (const item of STA_BANK_FOURTH_ASSUMPTION_OVERLAYS) {
+  assert.equal(item.candidate.expectedClassification, "NOT_IMPLICIT", `${item.scenarioId}: overlay editorial classification must remain NOT_IMPLICIT`);
+  assert.ok(item.candidate.textVariants.length >= 2, `${item.scenarioId}: English overlay lacks stem variants`);
+  assert.ok(item.localized["hi-IN"].textVariants.length >= 2, `${item.scenarioId}: Hindi overlay lacks variants`);
+  assert.ok(item.localized["pa-IN"].textVariants.length >= 2, `${item.scenarioId}: Punjabi overlay lacks variants`);
+  assert.ok(item.localized["hi-IN"].rationale.trim().length > 20, `${item.scenarioId}: Hindi overlay rationale is too thin`);
+  assert.ok(item.localized["pa-IN"].rationale.trim().length > 20, `${item.scenarioId}: Punjabi overlay rationale is too thin`);
+}
 
 const reachedQls = new Set<string>();
 const reachedSourceProfiles = new Set<string>();
@@ -172,6 +185,8 @@ console.log(JSON.stringify({
   deterministicReplayChecks,
   fourAssumptionQuestions,
   bankFourthOverlayOracleChecks,
+  bankFourthOverlayCount: STA_BANK_FOURTH_ASSUMPTION_OVERLAYS.length,
+  bankFourthMisconceptionClasses: [...new Set(STA_BANK_FOURTH_ASSUMPTION_OVERLAYS.map((item) => item.candidate.misconceptionClass))].sort(),
   fiveOptionQuestions,
   negativeQueryQuestions,
   noneOfTheseMetaOptionChecks,
