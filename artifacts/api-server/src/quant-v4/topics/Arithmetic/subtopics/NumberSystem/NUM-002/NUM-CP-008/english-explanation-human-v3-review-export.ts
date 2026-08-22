@@ -8,7 +8,7 @@ import { generateNumCp008Permanent, type NumCp008PermanentQlId } from "./permane
 const reviewSeeds = [7, 18, 29] as const;
 
 const learnerTitles: Readonly<Record<string, string>> = Object.freeze({
-  "NUM-QL-166": "Basic remainder operations",
+  "NUM-QL-166": "Remainder normalization and operations",
   "NUM-QL-167": "Remainders of powers",
   "NUM-QL-168": "Finding x from a remainder condition",
   "NUM-QL-169": "When a remainder condition has no solution",
