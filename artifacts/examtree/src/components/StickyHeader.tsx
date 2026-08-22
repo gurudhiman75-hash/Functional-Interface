@@ -77,30 +77,31 @@ export function StickyHeader() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b border-slate-200 bg-white/80 font-sans backdrop-blur-xl transition-all duration-300 md:left-[var(--sidebar-width)] ${compact ? "py-2" : "py-4"}`}
+      className={`et-chrome fixed inset-x-0 top-0 z-50 border-b font-sans transition-[padding] duration-300 md:left-[var(--sidebar-width)] ${compact ? "py-2" : "py-4"}`}
+      data-testid="app-sticky-header"
     >
       <div className="flex items-center gap-3 px-4 sm:px-6">
-        <SidebarTrigger className="h-11 w-11 shrink-0 rounded-md border border-slate-200 text-slate-500 hover:bg-slate-100 hover:text-slate-950" />
+        <SidebarTrigger className="et-interactive h-11 w-11 shrink-0 rounded-lg border border-border bg-card text-muted-foreground shadow-sm hover:bg-muted hover:text-foreground" />
 
-        <div className="hidden items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-400 lg:flex">
-          <Compass className="h-4 w-4 text-teal-600" aria-hidden="true" />
+        <div className="hidden items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground lg:flex">
+          <Compass className="h-4 w-4 text-primary" aria-hidden="true" />
           ExamTree
         </div>
 
-        <div className="relative mx-auto min-w-0 flex-1 max-w-2xl">
+        <div className="relative mx-auto min-w-0 max-w-2xl flex-1">
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            className="flex h-11 w-full min-w-0 items-center justify-between gap-3 rounded-full border border-slate-200 bg-slate-50/90 px-4 text-left text-sm font-semibold text-slate-700 shadow-sm transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700"
+            className="et-interactive flex h-11 w-full min-w-0 items-center justify-between gap-3 rounded-full border border-border bg-card/90 px-4 text-left text-sm font-semibold text-foreground shadow-sm hover:border-primary/30 hover:bg-muted"
             aria-expanded={open}
             aria-controls="exam-selector-panel"
             aria-haspopup="dialog"
           >
             <span className="flex min-w-0 items-center gap-2">
-              <Search className="h-4 w-4 shrink-0 text-teal-600" aria-hidden="true" />
+              <Search className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
               <span className="truncate">{selectorLabel}</span>
             </span>
-            <ChevronDown className={`h-4 w-4 shrink-0 transition ${open ? "rotate-180" : ""}`} aria-hidden="true" />
+            <ChevronDown className={`h-4 w-4 shrink-0 transition-transform ${open ? "rotate-180" : ""}`} aria-hidden="true" />
           </button>
 
           {open && (
@@ -108,41 +109,41 @@ export function StickyHeader() {
               id="exam-selector-panel"
               role="dialog"
               aria-label="Choose exam or published test"
-              className="absolute left-1/2 top-full mt-3 max-h-[70vh] w-[min(920px,calc(100vw-2rem))] -translate-x-1/2 overflow-y-auto rounded-2xl border border-slate-200 bg-slate-50 p-4 shadow-[0_24px_80px_rgba(15,23,42,0.20)]"
+              className="et-panel-raised absolute left-1/2 top-full mt-3 max-h-[70vh] w-[min(920px,calc(100vw-2rem))] -translate-x-1/2 overflow-y-auto rounded-2xl p-4"
             >
               <div className="mb-3 flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-700">Live exam selector</p>
-                  <h2 className="text-lg font-semibold text-slate-950">Choose category, exam, or published test</h2>
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Live exam selector</p>
+                  <h2 className="text-lg font-semibold text-foreground">Choose category, exam, or published test</h2>
                 </div>
                 <button
                   type="button"
                   onClick={() => setLocation("/tests")}
-                  className="min-h-11 rounded-md border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-600 transition hover:bg-indigo-50 hover:text-indigo-700"
+                  className="et-interactive min-h-11 rounded-lg border border-border bg-card px-3 py-2 text-xs font-semibold text-muted-foreground hover:bg-muted hover:text-primary"
                 >
                   Open full explorer
                 </button>
               </div>
 
               {nodes.length === 0 ? (
-                <div className="rounded-xl border border-dashed bg-white p-8 text-center text-sm text-slate-500">
+                <div className="rounded-xl border border-dashed border-border bg-muted/30 p-8 text-center text-sm text-muted-foreground">
                   No published tests are available yet.
                 </div>
               ) : (
                 <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
                   {nodes.map((category) => (
-                    <div key={category.id} className="rounded-xl border border-slate-200 bg-white p-3">
+                    <div key={category.id} className="et-panel rounded-xl p-3">
                       <button
                         type="button"
                         onClick={() => setLocation(`/category/${category.id}`)}
-                        className="flex min-h-11 w-full items-center gap-3 rounded-lg px-2 py-2 text-left transition hover:bg-indigo-50 hover:text-indigo-700"
+                        className="et-interactive flex min-h-11 w-full items-center gap-3 rounded-lg px-2 py-2 text-left hover:bg-muted"
                       >
-                        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1e1b4b] text-white">
+                        <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm">
                           <CategoryIcon icon={category.icon} className="h-4 w-4" />
                         </span>
                         <span className="min-w-0">
-                          <span className="block truncate text-sm font-semibold text-slate-950">{category.name}</span>
-                          <span className="text-xs text-slate-500">{category.tests.length} tests</span>
+                          <span className="block truncate text-sm font-semibold text-foreground">{category.name}</span>
+                          <span className="text-xs text-muted-foreground">{category.tests.length} tests</span>
                         </span>
                       </button>
 
@@ -152,10 +153,10 @@ export function StickyHeader() {
                             key={subcategory.id}
                             type="button"
                             onClick={() => setLocation(`/subcategory/${subcategory.id}`)}
-                            className="flex min-h-11 w-full items-center justify-between rounded-lg px-2 py-2 text-left text-xs font-medium text-slate-600 transition hover:bg-indigo-50 hover:text-indigo-700"
+                            className="et-interactive flex min-h-11 w-full items-center justify-between rounded-lg px-2 py-2 text-left text-xs font-medium text-muted-foreground hover:bg-muted hover:text-primary"
                           >
                             <span className="truncate">{subcategory.name}</span>
-                            <span className="ml-2 rounded bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-500">{subcategory.tests.length}</span>
+                            <span className="ml-2 rounded-md bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">{subcategory.tests.length}</span>
                           </button>
                         ))}
                       </div>
@@ -171,7 +172,7 @@ export function StickyHeader() {
           <button
             type="button"
             onClick={() => setLocation("/dashboard")}
-            className="flex h-11 w-11 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-600 transition hover:bg-indigo-50 hover:text-indigo-700"
+            className="et-interactive flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground shadow-sm hover:bg-muted hover:text-primary"
             aria-label="My activity"
             title="My activity"
           >
@@ -180,7 +181,7 @@ export function StickyHeader() {
           <button
             type="button"
             onClick={() => setLocation("/profile")}
-            className="flex h-11 w-11 items-center justify-center rounded-md border border-slate-200 bg-white text-slate-600 transition hover:bg-indigo-50 hover:text-indigo-700"
+            className="et-interactive flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground shadow-sm hover:bg-muted hover:text-primary"
             aria-label="User profile"
             title="User profile"
           >
