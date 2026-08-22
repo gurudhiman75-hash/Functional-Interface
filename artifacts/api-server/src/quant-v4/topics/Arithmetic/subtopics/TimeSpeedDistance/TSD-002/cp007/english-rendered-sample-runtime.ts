@@ -1,5 +1,5 @@
 import { divide, multiply, rational, subtract, type Rational } from "../../TSD-001/foundation/rational";
-import { TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-effective";
+import { TSD_CP007_EXAM_REVIEW_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-exam-review";
 import { generateCp007ExecutableCase } from "./executable-generator";
 import type { TsdCp007ExecutableGeneratedCase } from "./executable-types";
 
@@ -76,7 +76,7 @@ function seedNumberForFamily(familyId: string): number {
   const special: Readonly<Record<string, number>> = Object.freeze({
     "84-D": 6,
     "84-F": 8,
-    "85-D": 6,
+    "85-D": 9,
     "85-F": 8,
     "86-D": 6,
     "86-F": 8,
@@ -194,7 +194,7 @@ function givenSummary(stemTemplate: string, bindings: Readonly<Record<string, st
 
 export function renderCp007EnglishReviewSamples(): readonly TsdCp007RenderedEnglishSample[] {
   const samples: TsdCp007RenderedEnglishSample[] = [];
-  for (const ql of TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY) {
+  for (const ql of TSD_CP007_EXAM_REVIEW_ENGLISH_AUTHORING_REGISTRY) {
     for (const family of ql.stemFamilies) {
       const seedNumber = seedNumberForFamily(family.familyId);
       const seed = `cp007:${ql.authorityKey}:${seedNumber}`;
