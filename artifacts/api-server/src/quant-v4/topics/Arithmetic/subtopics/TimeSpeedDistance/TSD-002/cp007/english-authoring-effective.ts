@@ -13,6 +13,14 @@ const replacements = new Map<string, TsdCp007EnglishStemFamily>([
     stem: "A train travelling at {speed} takes {timeA} s to cross one bridge and {timeB} s to cross another. Determine the difference between the two bridge lengths without first finding the train length.",
     explanationGuide: "The target is only the difference between the bridge lengths. The train length appears in both complete-crossing distances and cancels when the two relations are subtracted. Multiply the absolute difference between {timeA} and {timeB} by the train speed to obtain the required length difference.",
   })],
+  ["93-F", Object.freeze({
+    familyId: "93-F",
+    difficulty: "HARD",
+    representation: "event-semantic discrimination",
+    scene: "station logbook",
+    stem: "A station logbook records {knownEvent} at {clockTime}. For the same train, find the time when {targetEvent}. The train is {trainLength} m long, the fixed section is {objectLength} m, and its speed is {speed}.",
+    explanationGuide: "First identify the distance between {knownEvent} and {targetEvent}; depending on the event pair it is train length, train plus object length, or object minus train length. Divide that event-specific distance by speed. Then move forward or backward from {clockTime} according to the order of the two stated events.",
+  })],
   ["94-E", Object.freeze({
     familyId: "94-E",
     difficulty: "HARD",
