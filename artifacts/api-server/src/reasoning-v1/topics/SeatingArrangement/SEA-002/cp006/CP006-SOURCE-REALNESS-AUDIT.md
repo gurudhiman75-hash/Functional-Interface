@@ -96,22 +96,24 @@ Residual decisions are closed:
 - ordinary SSC/Banking wording such as “two parallel rows”, “faces north/south”, “faces each other”, “immediate neighbour”, “persons between” and “second from either end”;
 - no internal solver/oracle/blueprint/fingerprint/observer language;
 - compact passage wording;
+- learner-facing opposite-seat wording uses **same position in the two rows**, not column terminology;
 - white-background parallel-row diagram as a seating aid.
 
 ### Shared solution
 
-The final shared-solution contract keeps SEA-001-style reasoning but removes unnecessary tutorial framing.
+The final shared-solution contract keeps SEA-001-style reasoning but removes unnecessary tutorial framing and uses **position** consistently on learner surfaces.
 
-- Starts with one compact working frame only: columns numbered left-to-right, upper row south-facing, lower row north-facing, same column = facing pair.
+- Starts with one compact working frame only: positions numbered left-to-right, upper row south-facing, lower row north-facing, same position in the two rows = facing pair.
 - Goes immediately into case formation or positional deductions; the previous multi-paragraph “draw the rows / remember left-right” opening is forbidden.
-- Uses concrete seating language: `row`, `column`, `position`, `left/right end`, `column difference`, and `persons between`.
+- Uses concrete seating language: `row`, `position`, `left/right end`, `position difference`, and `persons between`.
 - Uses `Position:` for the deduction outcome instead of the generic `Result:` label.
-- For person-relative clues, states the reference row, facing and column, then the resulting target column.
+- For person-relative clues, states the reference row, facing and position, then the resulting target position.
 - Shows `Case 1`, `Case 2` and `Case 3` only when genuine alternatives exist, then rejects/retains cases with the deciding condition.
 - Groups row-membership givens instead of narrating one sentence per person when several are supplied.
+- Diagrams use `Positions:` with `P1`, `P2`, ... markers.
 - Ends at the final arrangement; the generic “use this arrangement to answer…” closing sentence is removed.
 
-The review gate forbids the old generic opening/closing boilerplate, `observer` leakage, malformed direction grammar and excessive row-membership repetition.
+The review gate forbids the old generic opening/closing boilerplate, `observer` leakage, malformed direction grammar, excessive row-membership repetition, and any learner-facing `column` / `columns` wording.
 
 ## Executable completion evidence
 
@@ -165,22 +167,23 @@ A deterministic 100-caselet `en-IN` review corpus is pinned:
 - 36 normalized clue-language surfaces;
 - 100 distinct structural fingerprints;
 - 100 / 100 contain detailed position-first shared solutions;
-- 100 / 100 contain concrete `Position:` and `column` wording;
+- 100 / 100 contain concrete `Position:` + position-based working;
 - 88 / 100 explicitly show candidate-case formation and elimination;
-- zero old generic opening paragraphs, zero `Result:` labels, zero old closing filler and zero learner-facing `observer` language in the pinned artifact;
+- zero learner-facing `column` / `columns` wording in the pinned corpus;
+- zero old generic opening paragraphs, zero `Result:` labels, zero old closing filler and zero learner-facing `observer` language;
 - options, answer positions, punctuation, explanation depth and internal-language leakage are automatically checked.
 
 Pinned review fingerprint:
 
-`361a52f0800e5ccd475d29128145e76f76174deb2e1dcdcd0dae347239134fbd`
+`07216e2a08c198266bd25e40484a477d5c6e4de73b2dae06b8235fc3773a0c3e`
 
-Verified executable/review workflow: run `32562509419` on content head `503d67b4fecb6d9f3251046e37b59f5888a50d77` — every CP006 executable and review gate passed.
+Verified executable/review workflow: run `32565913630` on content head `9f827326085d823ea02cab666bb43191c2be3017` — every CP006 executable and review gate passed.
 
-Uploaded artifact: `cp006-english-review-100`, artifact ID `9473188570`.
+Uploaded artifact: `cp006-english-review-100`, artifact ID `9474071929`.
 
 ZIP digest:
 
-`sha256:c5c4229b23ce89e1fc29308ffdc04583a99f456db80375c6432e2638e97d92e8`
+`sha256:7e37d79da61f4b4edca8601e353cd1cf4b8fc1b85fa427dfd89591fa7f747ccc`
 
 The manifest decision state remains `AWAITING_SIGNED_REVIEW`.
 
