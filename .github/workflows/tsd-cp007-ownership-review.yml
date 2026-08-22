@@ -1,4 +1,4 @@
-name: Validate TSD CP007 frozen English and localization gate
+name: Validate TSD CP007 frozen multilingual and Question Studio gate
 
 on:
   push:
@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  approved-executable-english-freeze-and-localization:
+  approved-multilingual-freeze-and-question-studio:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -114,6 +114,20 @@ jobs:
           pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/localized-rendered-review-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-localized-rendered-proof.log
           echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-localized-rendered-proof-exit
           exit 0
+      - name: Run approved Hindi Punjabi localization freeze proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/localization-freeze-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-localization-freeze-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-localization-freeze-proof-exit
+          exit 0
+      - name: Run Question Studio frozen review adapter proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/question-studio-review-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-question-studio-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-question-studio-proof-exit
+          exit 0
       - name: Generate questions-only English Markdown review file
         env:
           TSD_CP007_REVIEW_OUTPUT_DIR: /tmp/tsd-cp007-english-review
@@ -128,7 +142,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-cp007-frozen-english-and-localization-review
+          name: tsd-cp007-frozen-multilingual-question-studio-review
           path: |
             /tmp/tsd-cp007-ownership-proof.log
             /tmp/tsd-cp007-ownership-proof-exit
@@ -148,6 +162,10 @@ jobs:
             /tmp/tsd-cp007-localization-parity-proof-exit
             /tmp/tsd-cp007-localized-rendered-proof.log
             /tmp/tsd-cp007-localized-rendered-proof-exit
+            /tmp/tsd-cp007-localization-freeze-proof.log
+            /tmp/tsd-cp007-localization-freeze-proof-exit
+            /tmp/tsd-cp007-question-studio-proof.log
+            /tmp/tsd-cp007-question-studio-proof-exit
             /tmp/tsd-cp007-english-review/TSD-CP007-ENGLISH-QUESTIONS.md
             /tmp/tsd-cp007-localized-review/TSD-CP007-HINDI-PUNJABI-QUESTIONS.md
           if-no-files-found: error
@@ -163,3 +181,5 @@ jobs:
           test "$(cat /tmp/tsd-cp007-english-freeze-proof-exit)" = "0"
           test "$(cat /tmp/tsd-cp007-localization-parity-proof-exit)" = "0"
           test "$(cat /tmp/tsd-cp007-localized-rendered-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-localization-freeze-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-question-studio-proof-exit)" = "0"
