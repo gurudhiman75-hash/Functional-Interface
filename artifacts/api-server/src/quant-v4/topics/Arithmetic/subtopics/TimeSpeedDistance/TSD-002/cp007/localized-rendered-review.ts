@@ -1,9 +1,9 @@
 import { TSD_CP007_FROZEN_ENGLISH_REGISTRY } from "./english-freeze-registry";
 import { renderCp007EnglishReviewSamples } from "./english-rendered-sample-runtime";
 import {
-  TSD_CP007_EFFECTIVE_HINDI_LOCALIZATION,
-  TSD_CP007_EFFECTIVE_PUNJABI_LOCALIZATION,
-} from "./localization-effective";
+  TSD_CP007_FINAL_HINDI_LOCALIZATION,
+  TSD_CP007_FINAL_PUNJABI_LOCALIZATION,
+} from "./localization-final";
 import type { TsdCp007Locale, TsdCp007LocalizedQlSpec } from "./localization-authoring";
 
 export interface TsdCp007RenderedLocalizedQuestion {
@@ -110,7 +110,7 @@ function render(template: string, bindings: Readonly<Record<string, string>>): s
 }
 
 function registryFor(locale: TsdCp007Locale): readonly TsdCp007LocalizedQlSpec[] {
-  return locale === "hi-IN" ? TSD_CP007_EFFECTIVE_HINDI_LOCALIZATION : TSD_CP007_EFFECTIVE_PUNJABI_LOCALIZATION;
+  return locale === "hi-IN" ? TSD_CP007_FINAL_HINDI_LOCALIZATION : TSD_CP007_FINAL_PUNJABI_LOCALIZATION;
 }
 
 export function renderCp007LocalizedReviewQuestions(): readonly TsdCp007RenderedLocalizedQuestion[] {
