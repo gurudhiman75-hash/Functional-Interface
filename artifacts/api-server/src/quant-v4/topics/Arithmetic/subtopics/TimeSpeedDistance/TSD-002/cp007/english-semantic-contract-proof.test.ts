@@ -1,11 +1,11 @@
-import { TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-effective";
+import { TSD_CP007_EXAM_REVIEW_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-exam-review";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(`TSD-CP-007 English semantic-contract proof failed: ${message}`);
 }
 
 const families = new Map(
-  TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY.flatMap((ql) => ql.stemFamilies.map((family) => [family.familyId, family] as const)),
+  TSD_CP007_EXAM_REVIEW_ENGLISH_AUTHORING_REGISTRY.flatMap((ql) => ql.stemFamilies.map((family) => [family.familyId, family] as const)),
 );
 
 function family(id: string) {
@@ -50,7 +50,7 @@ for (const [id, target] of Object.entries(spacingExpected)) {
   if (target === "SPEED") assert(/speed/i.test(stem), `${id}: fixed-spacing family must ask for speed`);
 }
 
-for (const ql of TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY) {
+for (const ql of TSD_CP007_EXAM_REVIEW_ENGLISH_AUTHORING_REGISTRY) {
   assert(ql.editorialStatus === "REVIEW_CANDIDATE", `${ql.qlId}: semantic review must not freeze English content`);
 }
 
