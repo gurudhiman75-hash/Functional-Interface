@@ -23,6 +23,7 @@ const FALSE_HORIZONTAL_SEPARATION_QLS = new Set([
   "TRG-002-QL-070",
   "TRG-002-QL-071",
   "TRG-002-QL-072",
+  "TRG-002-QL-088",
 ]);
 
 function pointMap(diagram: AnyRecord) {
@@ -66,8 +67,6 @@ function filterSemanticallyFalseDimensions(qlId: string, stem: string, arrows: A
       continue;
     }
     if (qlId === "TRG-002-QL-079" && kind === "REVIEW_DERIVED_HELPER_OBJECT_HEIGHT") {
-      // Both pillars have equal height, so showing the solved height on the second pillar
-      // leaks the requested answer even though the requested arrow itself is hidden.
       removed += 1;
       continue;
     }
@@ -102,24 +101,18 @@ function dedupeAndStrengthenSupportSegments(diagram: AnyRecord) {
 
   const emittedSupport = new Set<string>();
   const segments: AnyRecord[] = [];
-  let removedDuplicates = 0;
   for (const segment of original) {
     if (!supportKinds.has(String(segment.kind))) {
       segments.push({ ...segment });
       continue;
     }
     const key = geometricEndpointKey(segment.fromPointId, segment.toPointId, points);
-    if (emittedSupport.has(key)) {
-      removedDuplicates += 1;
-      continue;
-    }
+    if (emittedSupport.has(key)) continue;
     emittedSupport.add(key);
     segments.push(selectedByKey.get(key)!);
-    removedDuplicates += Math.max(0, (groups.get(key)?.length ?? 1) - 1);
   }
 
-  // The loop above sees every duplicate again, so normalize to the actual number removed.
-  removedDuplicates = original.filter((segment) => supportKinds.has(String(segment.kind))).length - selectedByKey.size;
+  const removedDuplicates = original.filter((segment) => supportKinds.has(String(segment.kind))).length - selectedByKey.size;
   return { segments, removedDuplicates };
 }
 
