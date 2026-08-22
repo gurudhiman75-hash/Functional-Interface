@@ -33,20 +33,7 @@ Next available permanent seating ID: `SEA-QL-025`.
 
 ## Final clue ontology
 
-The executable CP006 clue layer covers:
-
-- `ROW_MEMBERSHIP`;
-- `OPPOSITE`;
-- `NOT_OPPOSITE`;
-- `SAME_ROW_RELATIVE`;
-- `SAME_ROW_GAP`;
-- `SAME_ROW_MIN_BETWEEN`;
-- `SAME_ROW_EQUAL_GAP`;
-- `NOT_ADJACENT`;
-- `FACING_REFERENT_RELATIVE`;
-- `END_POSITION`;
-- `ROW_END_DISTANCE`;
-- `DIAGONAL`.
+The executable CP006 clue layer covers `ROW_MEMBERSHIP`, `OPPOSITE`, `NOT_OPPOSITE`, `SAME_ROW_RELATIVE`, `SAME_ROW_GAP`, `SAME_ROW_MIN_BETWEEN`, `SAME_ROW_EQUAL_GAP`, `NOT_ADJACENT`, `FACING_REFERENT_RELATIVE`, `END_POSITION`, `ROW_END_DISTANCE`, and `DIAGONAL`.
 
 “An immediate neighbour of X faces Y” remains a language variant of the existing diagonal relation, not a duplicate solver family.
 
@@ -130,6 +117,8 @@ The immutable reviewed artifact itself is not rewritten after approval. Approval
 - `permanent/freeze.ts` — frozen solve inventory, query mix and English state;
 - `cp006-freeze-proof.test.ts` — stale-review, mapping, duplicate-ID and downstream-inactivity proof;
 - workflow includes the permanent freeze proof after the English review proof.
+
+The pre-approval content/review head is already green on workflow `32565913630`. The post-approval freeze workflow is queued on GitHub for the final freeze head; until that runner completes, do not describe the new freeze proof itself as CI-verified.
 
 ## Lifecycle verdict
 
