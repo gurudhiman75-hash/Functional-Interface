@@ -17,6 +17,13 @@ function withLabelPosition(model: GeoDiagramModel, labelId: string, x: number, y
   };
 }
 
+function withAngleLabelRadii(model: GeoDiagramModel, radii: Readonly<Record<string, number>>): GeoDiagramModel {
+  return {
+    ...model,
+    angleMarks: model.angleMarks.map((mark) => radii[mark.id] === undefined ? mark : { ...mark, labelRadius: radii[mark.id] }),
+  };
+}
+
 function refinalize(raw: GapWave7Question, diagramModel: GeoDiagramModel, solutionDiagramModel: GeoDiagramModel): GapWave7Question {
   return finalizeGapWave7Question({
     cpId: raw.cpId,
@@ -51,6 +58,15 @@ function exactify(index: number, seed: string): GapWave7Question {
     const radius = Math.hypot(75, 65);
     const stem = withCircleRadius(raw.diagramModel, radius);
     const solution = withLabelPosition(withCircleRadius(raw.solutionDiagramModel, radius), "answer-angle", 180, 140);
+    return refinalize(raw, stem, solution);
+  }
+  if (index === 5) {
+    const stem = withAngleLabelRadii(raw.diagramModel, { "given-apd": 50 });
+    const solution = withAngleLabelRadii(raw.solutionDiagramModel, {
+      "given-apd": 50,
+      "derived-abd": 68,
+      "answer-cbd": 58,
+    });
     return refinalize(raw, stem, solution);
   }
   return raw;
