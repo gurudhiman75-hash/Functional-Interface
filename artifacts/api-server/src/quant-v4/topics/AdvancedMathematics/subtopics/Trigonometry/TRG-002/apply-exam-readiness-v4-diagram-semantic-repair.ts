@@ -12,11 +12,20 @@ function stringify(value: unknown) {
   return JSON.stringify(value, (_key, current) => typeof current === "bigint" ? `bigint:${current}` : current, 2);
 }
 
+function normalizeLengthDisplay(value: unknown) {
+  return String(value ?? "")
+    .replaceAll("−", "-")
+    .replace(/\s+/gu, "")
+    .replace(/m$/u, "")
+    .trim();
+}
+
 const pack = JSON.parse(readFileSync(jsonPath, "utf8"));
 let html = readFileSync(htmlPath, "utf8");
 const rendered: string[] = [];
 let removedFalseDimensions = 0;
 let removedDuplicateSupportSegments = 0;
+let removedAnswerEquivalentHelpers = 0;
 let structuralCorrections = 0;
 let semanticDimensions = 0;
 
@@ -26,12 +35,45 @@ for (const row of pack.records as any[]) {
     diagram: row.solutionDiagram,
     englishStem: row.english.stem,
   });
+
+  const answerValue = normalizeLengthDisplay(row.english.answer);
+  const beforeLeakFilter = Array.isArray(repaired.diagram.measurementArrows)
+    ? repaired.diagram.measurementArrows
+    : [];
+  const afterLeakFilter = beforeLeakFilter.filter((arrow: any) => {
+    const kind = String(arrow.kind ?? "");
+    if (!kind.includes("DERIVED_HELPER")) return true;
+    return normalizeLengthDisplay(arrow.label) !== answerValue;
+  });
+  const removedHere = beforeLeakFilter.length - afterLeakFilter.length;
+  removedAnswerEquivalentHelpers += removedHere;
+  repaired.diagram.measurementArrows = afterLeakFilter;
+
+  if (afterLeakFilter.length < 2) {
+    throw new Error(`${row.qlId}: answer-leak filtering left fewer than two meaningful dimensions (${afterLeakFilter.length}).`);
+  }
+  if (afterLeakFilter.some((arrow: any) => String(arrow.kind ?? "").includes("DERIVED_HELPER") && normalizeLengthDisplay(arrow.label) === answerValue)) {
+    throw new Error(`${row.qlId}: answer-equivalent derived helper still leaks the requested answer.`);
+  }
+
+  if (repaired.diagram.reviewDimensionAudit) {
+    repaired.diagram.reviewDimensionAudit.autoDimensions = afterLeakFilter.length;
+    repaired.diagram.reviewDimensionAudit.totalDimensions = afterLeakFilter.length;
+    repaired.diagram.reviewDimensionAudit.answerEquivalentHelperLeaks = 0;
+  }
+  if (repaired.diagram.semanticDiagramAudit) {
+    repaired.diagram.semanticDiagramAudit.removedAnswerEquivalentHelpers = removedHere;
+    repaired.diagram.semanticDiagramAudit.remainingDimensions = afterLeakFilter.length;
+    repaired.diagram.semanticDiagramAudit.answerEquivalentHelperLeaks = 0;
+    if (removedHere > 0) repaired.diagram.semanticDiagramAudit.structuralCorrections.push(`REMOVED_ANSWER_EQUIVALENT_HELPERS_${removedHere}`);
+  }
+
   row.solutionDiagram = repaired.diagram;
   if (row.diagramEvidence?.solutionDiagram) row.diagramEvidence.solutionDiagram = repaired.diagram;
   removedFalseDimensions += repaired.audit.removedFalseDimensions;
   removedDuplicateSupportSegments += repaired.audit.removedDuplicateSupportSegments;
-  structuralCorrections += repaired.audit.structuralCorrections.length;
-  semanticDimensions += repaired.audit.remainingDimensions;
+  structuralCorrections += repaired.diagram.semanticDiagramAudit?.structuralCorrections?.length ?? 0;
+  semanticDimensions += afterLeakFilter.length;
 
   const figure = renderTrg002SolutionDiagramSvg({ ...repaired.diagram, qlId: row.qlId });
   const svg = figure.match(/<svg class="solution-diagram"[\s\S]*?<\/svg>/)?.[0];
@@ -50,9 +92,9 @@ if (index !== 96 || rendered.length !== 96) throw new Error(`Expected 96 semanti
 
 html = html.replace(
   "bold rendered solution geometry with all explicit dimensions outside the protected core diagram, canonical spatial state and diagram evidence.",
-  "bold semantically-audited solution geometry with explicit dimensions outside the protected core diagram, canonical spatial state and diagram evidence. Numeric values are attached only to their intended geometric relationships; changed-shadow and support-triangle states are explicitly represented.",
+  "bold semantically-audited solution geometry with explicit dimensions outside the protected core diagram, canonical spatial state and diagram evidence. Numeric values are attached only to their intended geometric relationships; changed-shadow and support-triangle states are explicitly represented; answer-equivalent derived helpers are suppressed.",
 );
 
 writeFileSync(jsonPath, stringify(pack), "utf8");
 writeFileSync(htmlPath, html, "utf8");
-console.log(`TRG002_V4_SEMANTIC_DIAGRAM_REPAIR_PASS qls=96 removedFalseDimensions=${removedFalseDimensions} removedDuplicateSupportSegments=${removedDuplicateSupportSegments} structuralCorrections=${structuralCorrections} semanticDimensions=${semanticDimensions}`);
+console.log(`TRG002_V4_SEMANTIC_DIAGRAM_REPAIR_PASS qls=96 removedFalseDimensions=${removedFalseDimensions} removedDuplicateSupportSegments=${removedDuplicateSupportSegments} removedAnswerEquivalentHelpers=${removedAnswerEquivalentHelpers} structuralCorrections=${structuralCorrections} semanticDimensions=${semanticDimensions} answerEquivalentHelperLeaks=0`);
