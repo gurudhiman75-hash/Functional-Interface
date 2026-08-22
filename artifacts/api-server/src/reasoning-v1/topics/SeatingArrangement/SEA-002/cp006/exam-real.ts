@@ -37,10 +37,17 @@ function plainLanguage(text:string):string {
   return text
     .replaceAll("the observer's","our")
     .replaceAll("observer's","our")
-    .replaceAll("observer column","vertical column")
+    .replaceAll("observer columns","positions")
+    .replaceAll("observer column","position")
+    .replaceAll("vertical columns","positions")
+    .replaceAll("vertical column","position")
     .replaceAll("observer-left","left side of the page")
     .replaceAll("observer-right","right side of the page")
     .replaceAll("towards the our","towards our")
+    .replaceAll("Columns","Positions")
+    .replaceAll("columns","positions")
+    .replaceAll("Column","Position")
+    .replaceAll("column","position")
     .replaceAll("seat intervals","seats")
     .replaceAll("strictly between","between");
 }
