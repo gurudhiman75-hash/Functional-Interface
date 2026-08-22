@@ -1,6 +1,7 @@
 import { QuestionStudioAlgebraReviewPanel } from './QuestionStudioAlgebraReviewPanel';
 import { QuestionStudioCalendarReviewPanel } from './QuestionStudioCalendarReviewPanel';
 import { QuestionStudioCockpitPage } from './QuestionStudioCockpitPage';
+import { QuestionStudioDataSufficiencyReviewPanel } from './QuestionStudioDataSufficiencyReviewPanel';
 import { QuestionStudioDifficultyMixControls } from './QuestionStudioDifficultyMixControls';
 import { QuestionStudioExamProfileSummary } from './QuestionStudioExamProfileSummary';
 import { QuestionStudioInputOutputReviewPanel } from './QuestionStudioInputOutputReviewPanel';
@@ -13,6 +14,7 @@ import { QuestionStudioSpatialReviewPanel } from './QuestionStudioSpatialReviewP
 export function QuestionStudioOperationsPage() {
   return (
     <>
+      <QuestionStudioDataSufficiencyReviewPanel />
       <QuestionStudioAlgebraReviewPanel />
       <QuestionStudioSpatialReviewPanel />
       <QuestionStudioInterestReviewPanel />
