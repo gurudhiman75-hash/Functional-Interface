@@ -78,8 +78,11 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await expect(menuButton).toBeVisible();
 
     const box = await menuButton.boundingBox();
-    expect(box?.width ?? 0).toBeGreaterThanOrEqual(44);
-    expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
+    expect(box).not.toBeNull();
+    const width = Math.round((box?.width ?? 0) * 1000) / 1000;
+    const height = Math.round((box?.height ?? 0) * 1000) / 1000;
+    expect(width).toBeGreaterThanOrEqual(44);
+    expect(height).toBeGreaterThanOrEqual(44);
 
     await menuButton.click();
     await expect(page.getByRole("navigation", { name: "Mobile primary navigation" })).toBeVisible();
