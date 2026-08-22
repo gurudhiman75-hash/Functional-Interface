@@ -7,6 +7,10 @@ on:
       - ".github/workflows/num-cp010-wave02-inverse-edge-v1.yml"
   workflow_dispatch:
 
+concurrency:
+  group: num-cp010-wave02-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
