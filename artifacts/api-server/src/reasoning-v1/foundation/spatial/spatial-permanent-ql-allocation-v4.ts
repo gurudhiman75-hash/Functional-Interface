@@ -126,5 +126,5 @@ export const SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V4 = Object.freeze({
     testEligible: false,
     publiclyPublishable: false,
   },
-  nextGate: "PFC_TPF_PERMANENT_ENGLISH_RUNTIME_V2" as const,
+  nextGate: "PFC_TPF_PERMANENT_ENGLISH_RUNTIME_V3" as const,
 } as const);
