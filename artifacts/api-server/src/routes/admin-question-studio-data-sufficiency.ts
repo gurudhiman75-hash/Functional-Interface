@@ -5,21 +5,24 @@ import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 import {
-  DSF_CP002_ANSWER_PROFILES,
   DSF_CP002_DIFFICULTIES,
   DSF_CP002_DOMAINS,
   DSF_CP002_LANGUAGES,
   DSF_CP002_QUESTION_STUDIO_AUTHORITY,
-  DSF_CP002_QUESTION_STUDIO_PACKAGE,
-  generateDsfQuestionStudioBatch,
-  type DsfQuestionStudioInput,
-  type DsfQuestionStudioQuestion,
-  type DsfStudioAnswerProfile,
   type DsfStudioDifficulty,
   type DsfStudioDomainId,
   type DsfStudioLanguage,
   type DsfStudioSolveMode,
 } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-002/question-studio-integration-v1";
+import {
+  DSF_CP003_ANSWER_PROFILE_IDS,
+  DSF_CP003_EXAM_PROFILE_AUTHORITY,
+  DSF_CP003_QUESTION_STUDIO_PACKAGE,
+  generateDsfExamProfileBatch,
+  type DsfExamAnswerProfileId,
+  type DsfExamProfileInput,
+  type DsfExamProfileQuestion,
+} from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-003/exam-answer-profiles-v1";
 import { SUFFICIENCY_CLASSES, type SufficiencyClass } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/foundation";
 
 const router = Router();
@@ -28,7 +31,7 @@ const SOLVE_MODES = new Set<string>(DSF_CP002_DOMAINS.flatMap((domain) => [...do
 const DIFFICULTIES = new Set<string>(DSF_CP002_DIFFICULTIES);
 const SEMANTIC_CLASSES = new Set<string>(SUFFICIENCY_CLASSES);
 const LANGUAGES = new Set<string>(DSF_CP002_LANGUAGES);
-const ANSWER_PROFILES = new Set<string>(DSF_CP002_ANSWER_PROFILES);
+const ANSWER_PROFILES = new Set<string>(DSF_CP003_ANSWER_PROFILE_IDS);
 
 function asString(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
@@ -44,7 +47,7 @@ function publicRunCode(): string {
   return `DSF-${date}-${randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase()}`;
 }
 
-function requestFilters(source: Record<string, unknown>): DsfQuestionStudioInput {
+function requestFilters(source: Record<string, unknown>): DsfExamProfileInput {
   const language = asString(source.language) || "en";
   const answerProfile = asString(source.answerProfile) || "GENERIC_DS_STANDARD_5_EN";
   const domain = asString(source.domain);
@@ -68,7 +71,7 @@ function requestFilters(source: Record<string, unknown>): DsfQuestionStudioInput
 
   return {
     language: language as DsfStudioLanguage,
-    answerProfile: answerProfile as DsfStudioAnswerProfile,
+    answerProfile: answerProfile as DsfExamAnswerProfileId,
     domain: domain ? domain as DsfStudioDomainId : undefined,
     solveMode: solveMode ? solveMode as DsfStudioSolveMode : undefined,
     semanticClass: semanticClass ? semanticClass as SufficiencyClass : undefined,
@@ -76,7 +79,7 @@ function requestFilters(source: Record<string, unknown>): DsfQuestionStudioInput
   };
 }
 
-function reviewPayload(question: DsfQuestionStudioQuestion) {
+function reviewPayload(question: DsfExamProfileQuestion) {
   const correctOption = question.options[question.correctIndex]!;
   const text = `${question.stem}\nI. ${question.statements[0].text}\nII. ${question.statements[1].text}`;
   return {
@@ -103,7 +106,9 @@ function reviewPayload(question: DsfQuestionStudioQuestion) {
     packageId: question.packageId,
     sourceCheckpointId: question.sourceCheckpointId,
     integrationCheckpointId: question.integrationCheckpointId,
+    profileCheckpointId: question.profileCheckpointId,
     questionId: question.questionId,
+    sourceQuestionId: question.sourceQuestionId,
     sourceGenerationIdentity: question.sourceGenerationIdentity,
     sourceChapterId: question.sourceChapterId,
     solveMode: question.solveModeId,
@@ -117,6 +122,11 @@ function reviewPayload(question: DsfQuestionStudioQuestion) {
     locale: question.locale,
     seed: question.seed,
     answerProfile: question.answerProfile,
+    examFamily: question.examFamily,
+    profileEvidenceLevel: question.profileEvidenceLevel,
+    profileSourcePatternIds: question.profileSourcePatternIds,
+    profileRepresentedSemanticClasses: question.profileRepresentedSemanticClasses,
+    profileOmittedSemanticClasses: question.profileOmittedSemanticClasses,
     renderer: "TEXT_MATH" as const,
     questionStudioRegistrationStatus: "REGISTERED" as const,
     questionStudioStagingStatus: "REVIEW_QUEUE_ENABLED" as const,
@@ -129,6 +139,7 @@ function reviewPayload(question: DsfQuestionStudioQuestion) {
     manualApprovalRequired: true as const,
     automaticStudentPublication: false as const,
     integrationAuthority: question.integrationAuthority,
+    deliveryProfileAuthority: question.deliveryProfileAuthority,
     sourceFreezeAuthority: question.sourceFreezeAuthority,
     sourceValidation: question.validation,
     generationContext: {
@@ -144,7 +155,9 @@ function reviewPayload(question: DsfQuestionStudioQuestion) {
       language: question.language,
       locale: question.locale,
       answerProfile: question.answerProfile,
+      examFamily: question.examFamily,
       integrationAuthority: question.integrationAuthority,
+      deliveryProfileAuthority: question.deliveryProfileAuthority,
       sourceFreezeAuthority: question.sourceFreezeAuthority,
       questionStudioDiscoverable: true as const,
       persistenceAllowed: true as const,
@@ -162,7 +175,7 @@ function reviewPayload(question: DsfQuestionStudioQuestion) {
 }
 
 async function persistRun(
-  questions: readonly DsfQuestionStudioQuestion[],
+  questions: readonly DsfExamProfileQuestion[],
   requestSnapshot: Record<string, unknown>,
   actorUserId: string,
 ) {
@@ -180,7 +193,7 @@ async function persistRun(
       ) VALUES (
         ${runId}::uuid, ${publicCode}, 'review'::generation_run_status, 1,
         ${JSON.stringify(requestSnapshot)}::jsonb, ${JSON.stringify(requestSnapshot)}::jsonb,
-        'examtree', 'reasoning-v1-dsf-frozen-cp001-v1', 0, 0, 0, 0,
+        'examtree', 'reasoning-v1-dsf-frozen-cp001-profile-cp003-v1', 0, 0, 0, 0,
         ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
       )
     `;
@@ -213,13 +226,14 @@ async function persistRun(
       ) VALUES (
         ${randomUUID()}::uuid, 'user'::audit_actor_type, ${actorUserId}::uuid,
         'question_studio.data_sufficiency_run.created', 'generation_run', ${runId}::uuid,
-        'Frozen DSF-CP-001 authority entered the Question Studio review queue through DSF-CP-002 without opening downstream publication gates',
+        'Frozen DSF-CP-001 semantic authority entered the Question Studio review queue through CP-002 with CP-003 exam-profile rendering; downstream publication gates remain closed',
         ${`Created ${questions.length} Data Sufficiency review items in ${publicCode}`},
         ${JSON.stringify({
           requestSnapshot,
           integrationAuthority: DSF_CP002_QUESTION_STUDIO_AUTHORITY,
-          sourceFreezeAuthority: DSF_CP002_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
-          permanentQlIds: DSF_CP002_QUESTION_STUDIO_PACKAGE.permanentQlIds,
+          deliveryProfileAuthority: DSF_CP003_EXAM_PROFILE_AUTHORITY,
+          sourceFreezeAuthority: DSF_CP003_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
+          permanentQlIds: DSF_CP003_QUESTION_STUDIO_PACKAGE.permanentQlIds,
           productionDomainCount: 4,
           solveModeCount: 8,
           questionBankWritable: false,
@@ -239,7 +253,8 @@ async function persistRun(
           itemCount: questions.length,
           chapter: "Data Sufficiency",
           integrationAuthority: DSF_CP002_QUESTION_STUDIO_AUTHORITY,
-          sourceFreezeAuthority: DSF_CP002_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
+          deliveryProfileAuthority: DSF_CP003_EXAM_PROFILE_AUTHORITY,
+          sourceFreezeAuthority: DSF_CP003_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
           reviewOnly: true,
           questionBankWritable: false,
         })}::jsonb
@@ -256,7 +271,7 @@ router.get("/reasoning/data-sufficiency/package", requireAdminPermission("conten
   res.json({
     generationSystem: "reasoning-v1",
     activationMode: "QUESTION_STUDIO_CONNECTED",
-    package: DSF_CP002_QUESTION_STUDIO_PACKAGE,
+    package: DSF_CP003_QUESTION_STUDIO_PACKAGE,
     maxBatchSize: 50,
     databaseWriteEnabled: true,
     persistenceAllowed: true,
@@ -271,7 +286,7 @@ router.get("/reasoning/data-sufficiency/package", requireAdminPermission("conten
 router.get("/reasoning/data-sufficiency/preview", requireAdminPermission("content.generation.read"), (req, res) => {
   try {
     const filters = requestFilters(req.query as Record<string, unknown>);
-    const result = generateDsfQuestionStudioBatch({
+    const result = generateDsfExamProfileBatch({
       ...filters,
       seed: asString(req.query.seed) || "dsf-question-studio-preview",
       count: asCount(req.query.count, 1, 20),
@@ -295,7 +310,7 @@ router.post("/reasoning/data-sufficiency/runs", requireAdminPermission("content.
     const filters = requestFilters((req.body ?? {}) as Record<string, unknown>);
     const count = asCount(req.body?.count, 5, 50);
     const seed = asString(req.body?.seed) || `dsf-run:${Date.now()}`;
-    const result = generateDsfQuestionStudioBatch({ ...filters, seed, count });
+    const result = generateDsfExamProfileBatch({ ...filters, seed, count });
     const persisted = await persistRun(result.questions, {
       chapter: "Data Sufficiency",
       domain: filters.domain ?? null,
@@ -307,7 +322,8 @@ router.post("/reasoning/data-sufficiency/runs", requireAdminPermission("content.
       count,
       seed,
       integrationAuthority: DSF_CP002_QUESTION_STUDIO_AUTHORITY,
-      sourceFreezeAuthority: DSF_CP002_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
+      deliveryProfileAuthority: DSF_CP003_EXAM_PROFILE_AUTHORITY,
+      sourceFreezeAuthority: DSF_CP003_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
       questionStudioDiscoverable: true,
       persistenceAllowed: true,
       reviewOnly: true,
@@ -324,6 +340,7 @@ router.post("/reasoning/data-sufficiency/runs", requireAdminPermission("content.
       chapter: "Data Sufficiency",
       language: filters.language ?? "en",
       answerProfile: filters.answerProfile ?? "GENERIC_DS_STANDARD_5_EN",
+      deliveryProfileAuthority: DSF_CP003_EXAM_PROFILE_AUTHORITY,
       reviewOnly: true,
       questionBankWritable: false,
       testEligible: false,
@@ -352,17 +369,21 @@ router.get("/reasoning/data-sufficiency/status", requireAdminPermission("content
 
     res.json({
       chapter: "Data Sufficiency",
-      permanentQlCount: DSF_CP002_QUESTION_STUDIO_PACKAGE.permanentQlIds.length,
-      domainCount: DSF_CP002_QUESTION_STUDIO_PACKAGE.domains.length,
-      solveModeCount: DSF_CP002_QUESTION_STUDIO_PACKAGE.solveModeCount,
+      permanentQlCount: DSF_CP003_QUESTION_STUDIO_PACKAGE.permanentQlIds.length,
+      domainCount: DSF_CP003_QUESTION_STUDIO_PACKAGE.domains.length,
+      solveModeCount: DSF_CP003_QUESTION_STUDIO_PACKAGE.solveModeCount,
       generationItemCount: Number(rows[0]?.generationItemCount ?? 0),
       approvedItemCount: Number(rows[0]?.approvedItemCount ?? 0),
       questionBankCount: Number(rows[0]?.questionBankCount ?? 0),
       integrationAuthority: DSF_CP002_QUESTION_STUDIO_AUTHORITY,
-      sourceFreezeAuthority: DSF_CP002_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
-      supportedLanguages: DSF_CP002_QUESTION_STUDIO_PACKAGE.supportedLanguages,
-      supportedAnswerProfiles: DSF_CP002_QUESTION_STUDIO_PACKAGE.supportedAnswerProfiles,
-      examSpecificAnswerProfilesImplemented: false,
+      deliveryProfileAuthority: DSF_CP003_EXAM_PROFILE_AUTHORITY,
+      sourceFreezeAuthority: DSF_CP003_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
+      supportedLanguages: DSF_CP003_QUESTION_STUDIO_PACKAGE.supportedLanguages,
+      supportedAnswerProfiles: DSF_CP003_QUESTION_STUDIO_PACKAGE.supportedAnswerProfiles,
+      answerProfiles: DSF_CP003_QUESTION_STUDIO_PACKAGE.answerProfiles,
+      supportedExamFamilies: DSF_CP003_QUESTION_STUDIO_PACKAGE.supportedExamFamilies,
+      disabledExamFamilies: DSF_CP003_QUESTION_STUDIO_PACKAGE.disabledExamFamilies,
+      examSpecificAnswerProfilesImplemented: true,
       questionStudioDiscoverable: true,
       persistenceAllowed: true,
       reviewOnly: true,
