@@ -1,5 +1,6 @@
 import { canonicalDigest } from "../../../SEA-001/canonical.ts";
 import { SEA002_CP006_APPROVED_REVIEW } from "../review/approved-review.ts";
+import { SEA002_CP006_REOPENED_ENGLISH_REVIEW } from "../review/reopened-review.ts";
 import {
   SEA002_CP006_PERMANENT_QL_REGISTRY,
   SEA002_NEXT_AVAILABLE_PERMANENT_QL_ID,
@@ -41,24 +42,29 @@ export const SEA002_CP006_QUERY_MIX_FREEZE = Object.freeze({
 });
 
 export const SEA002_CP006_ENGLISH_FREEZE = Object.freeze({
-  status: "FROZEN" as const,
+  status: "REVIEW_REOPENED" as const,
+  freezeActive: false as const,
   locale: "en-IN" as const,
   teachingStyle: "PLAIN_TEACHER_POSITION_WORDING" as const,
   learnerTerminology: "POSITION_NOT_COLUMN" as const,
-  reviewDecision: SEA002_CP006_APPROVED_REVIEW.decision,
-  reviewerId: SEA002_CP006_APPROVED_REVIEW.reviewerId,
-  reviewedAt: SEA002_CP006_APPROVED_REVIEW.reviewedAt,
-  approvedReviewFingerprint: SEA002_CP006_APPROVED_REVIEW.approvedReviewFingerprint,
-  approvedArtifactSha256: SEA002_CP006_APPROVED_REVIEW.artifactSha256,
+  previousReviewDecision: SEA002_CP006_APPROVED_REVIEW.decision,
+  previousReviewerId: SEA002_CP006_APPROVED_REVIEW.reviewerId,
+  previousReviewedAt: SEA002_CP006_APPROVED_REVIEW.reviewedAt,
+  previousApprovedReviewFingerprint: SEA002_CP006_APPROVED_REVIEW.approvedReviewFingerprint,
+  previousApprovedArtifactSha256: SEA002_CP006_APPROVED_REVIEW.artifactSha256,
+  currentReviewCandidateFingerprint: SEA002_CP006_REOPENED_ENGLISH_REVIEW.currentReviewCandidateFingerprint,
+  reopenReasonCode: SEA002_CP006_REOPENED_ENGLISH_REVIEW.reasonCode,
+  affectedRationaleCount: SEA002_CP006_REOPENED_ENGLISH_REVIEW.affectedRationaleCount,
+  currentReviewApproved: false as const,
 });
 
 export const SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE = Object.freeze({
   identityStatus: "PERMANENT_IDS_ALLOCATED" as const,
   solveInventoryStatus: "FROZEN" as const,
   queryMixStatus: "FROZEN" as const,
-  englishFreezeStatus: "FROZEN" as const,
+  englishFreezeStatus: "REVIEW_REOPENED" as const,
   permanentQlCount: 4 as const,
-  localizationStatus: "REVIEW_CANDIDATE_HUMAN_REVIEW_PENDING" as const,
+  localizationStatus: "BLOCKED_BY_ENGLISH_REVIEW_REOPENED" as const,
   localizationFrozen: false as const,
   questionStudioRegistered: false as const,
   questionBankWritable: false as const,
@@ -68,12 +74,13 @@ export const SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE = Object.freeze({
 });
 
 export function assertCp006PermanentLayerStillInactive(): void {
-  if (SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationFrozen
+  if (SEA002_CP006_ENGLISH_FREEZE.freezeActive
+    || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationFrozen
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionBankWritable
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.mockTestEligible
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.productionStaging
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.publiclyPublishable) {
-    throw new Error("SEA-002 CP006 localized review candidate must remain inactive until Hindi/Punjabi and downstream activation gates are explicitly approved.");
+    throw new Error("SEA-002 CP006 must remain inactive while corrected English learner text awaits explicit re-review approval.");
   }
 }
