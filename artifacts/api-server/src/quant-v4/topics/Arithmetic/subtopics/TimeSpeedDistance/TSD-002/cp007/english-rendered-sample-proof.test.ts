@@ -71,6 +71,13 @@ for (const qlId of TSD_CP007_PERMANENT_QL_IDS) {
   assert(new Set(qlSamples.map((sample) => sample.seed)).size >= 6, `${qlId}: numeric source pool is reusing the same executable seed too heavily`);
 }
 
+const comparisonTimeDifferences = (byQl.get("TSD-QL-091") ?? []).map((sample) => {
+  const seconds = [...sample.stem.matchAll(/\b(\d+) s\b/g)].map((match) => Number(match[1]));
+  assert(seconds.length === 2, `${sample.familyId}: expected exactly two crossing-time values for comparison audit`);
+  return Math.abs(seconds[0]! - seconds[1]!);
+});
+assert(new Set(comparisonTimeDifferences).size >= 3, `TSD-QL-091 comparison-time pool is too repetitive: ${comparisonTimeDifferences.join(", ")}`);
+
 const kmhInputFamilies = ["84-D", "84-F", "85-D", "85-F", "86-D", "86-F", "88-E"];
 for (const familyId of kmhInputFamilies) {
   const sample = byFamily.get(familyId);
@@ -93,6 +100,7 @@ console.log(JSON.stringify({
   unresolvedPlaceholders: 0,
   awkwardFractionalSecondStems: 0,
   awkwardFractionalKmhValues: 0,
+  comparisonTimeDifferences,
   kmhInputFamilies,
   kmhAnswerFamilies,
   difficulty,
