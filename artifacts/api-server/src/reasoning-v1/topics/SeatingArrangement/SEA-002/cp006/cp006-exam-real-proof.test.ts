@@ -38,12 +38,14 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
     maxDisplayedClues=Math.max(maxDisplayedClues,caselet.clueTexts.length);
 
     assert.ok(/two parallel rows/i.test(caselet.setupText),`${caselet.caseletId}: exam-style setup missing`);
-    assert.ok(!/observer coordinates|blueprint|hidden state/i.test(caselet.setupText),`${caselet.caseletId}: technical setup language leaked`);
+    assert.ok(/same position/i.test(caselet.setupText),`${caselet.caseletId}: facing setup must use position wording`);
+    assert.ok(!/observer coordinates|blueprint|hidden state|\bcolumns?\b/i.test(caselet.setupText),`${caselet.caseletId}: technical/column setup language leaked`);
     assert.ok(caselet.sharedExplanation.length>=400,`${caselet.caseletId}: detailed solution too thin`);
-    assert.match(caselet.sharedExplanation,new RegExp(`^Use columns 1 to ${width} from left to right\\.`),`${caselet.caseletId}: solution does not begin with the working frame`);
+    assert.match(caselet.sharedExplanation,new RegExp(`^Use positions 1 to ${width} from left to right\\.`),`${caselet.caseletId}: solution does not begin with the position frame`);
     assert.ok(caselet.sharedExplanation.includes("Step 1:"),`${caselet.caseletId}: step-by-step solution missing`);
     assert.ok(caselet.sharedExplanation.includes("Position:"),`${caselet.caseletId}: concrete position deduction missing`);
-    assert.ok(/\bcolumn\b/i.test(caselet.sharedExplanation),`${caselet.caseletId}: column-based reasoning missing`);
+    assert.ok(/\bposition\b/i.test(caselet.sharedExplanation),`${caselet.caseletId}: position-based reasoning missing`);
+    assert.ok(!/\bcolumns?\b/i.test(caselet.sharedExplanation),`${caselet.caseletId}: column wording leaked into shared solution`);
     assert.ok(caselet.sharedExplanation.includes("Final arrangement:"),`${caselet.caseletId}: final arrangement missing`);
     assert.ok(!/Draw two equal rows first|For a person in the upper row|Here the conditions fix|Use this final arrangement to answer|\bResult:/i.test(caselet.sharedExplanation),`${caselet.caseletId}: unnecessary solution boilerplate returned`);
     assert.ok(!caselet.sharedExplanation.includes("Clue 1:"),`${caselet.caseletId}: solution repeats the full clue list instead of explaining it`);
@@ -56,7 +58,8 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
       assert.equal(child.options.filter((option)=>option.isCorrect).length,1);
       assert.equal(child.options[child.answerIndex]?.value,child.answer);
       assert.ok(child.explanation.length>=40);
-      assert.ok(!/observer column|observer coordinates/i.test(child.explanation),`${caselet.caseletId}/Q${q+1}: technical wording in answer explanation`);
+      assert.ok(!/observer\b|\bcolumns?\b/i.test(child.explanation),`${caselet.caseletId}/Q${q+1}: technical/column wording in answer explanation`);
+      assert.ok(child.options.every((option)=>!/\bcolumns?\b/i.test(option.explanation)),`${caselet.caseletId}/Q${q+1}: column wording in option explanation`);
     }
     assert.equal(caselet.permanentQlAllocated,false);
     assert.equal(caselet.englishFrozen,false);
