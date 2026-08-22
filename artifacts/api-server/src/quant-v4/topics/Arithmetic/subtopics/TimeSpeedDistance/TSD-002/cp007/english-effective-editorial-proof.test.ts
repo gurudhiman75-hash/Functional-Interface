@@ -1,4 +1,4 @@
-import { TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-effective";
+import { TSD_CP007_EXAM_REVIEW_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-exam-review";
 import { TSD_CP007_PERMANENT_QL_IDS } from "./ql-allocation";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -32,8 +32,8 @@ const bannedStemPhrases = [
   "maintenance block",
 ] as const;
 
-assert(TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY.length === 11, "expected 11 effective English QL specs");
-assert(JSON.stringify(TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY.map((entry) => entry.qlId)) === JSON.stringify(TSD_CP007_PERMANENT_QL_IDS), "effective English QL order must match permanent allocation");
+assert(TSD_CP007_EXAM_REVIEW_ENGLISH_AUTHORING_REGISTRY.length === 11, "expected 11 effective English QL specs");
+assert(JSON.stringify(TSD_CP007_EXAM_REVIEW_ENGLISH_AUTHORING_REGISTRY.map((entry) => entry.qlId)) === JSON.stringify(TSD_CP007_PERMANENT_QL_IDS), "effective English QL order must match permanent allocation");
 
 const familyIds = new Set<string>();
 const stemSignatures = new Set<string>();
@@ -42,10 +42,10 @@ const difficulty = { EASY: 0, MEDIUM: 0, HARD: 0 };
 let stemFamilies = 0;
 let objectPoolEntries = 0;
 
-for (const ql of TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY) {
+for (const ql of TSD_CP007_EXAM_REVIEW_ENGLISH_AUTHORING_REGISTRY) {
   assert(ql.editorialStatus === "REVIEW_CANDIDATE", `${ql.qlId}: English is prematurely frozen`);
   assert(ql.objectPool.length >= 8, `${ql.qlId}: object/scene pool is thinner than eight entries`);
-  assert(new Set(ql.objectPool.map(normalize)).size >= 7, `${ql.qlId}: object pool does not contain enough distinct exam-natural entries`);
+  assert(new Set(ql.objectPool.map(normalize)).size === ql.objectPool.length, `${ql.qlId}: object pool still contains duplicate exam scenes`);
   objectPoolEntries += ql.objectPool.length;
   assert(ql.stemFamilies.length === 6, `${ql.qlId}: expected exactly six review stem families`);
 
