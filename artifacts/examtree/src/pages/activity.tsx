@@ -170,7 +170,7 @@ export default function ActivityPage() {
       <Card className="et-panel-raised overflow-hidden rounded-2xl">
         <CardHeader className="flex flex-row items-start justify-between gap-3 border-b border-border/70 bg-muted/20">
           <div className="min-w-0">
-            <CardTitle className="text-xl">Recent attempts</CardTitle>
+            <CardTitle className="text-xl" role="heading" aria-level={2}>Recent attempts</CardTitle>
             <p className="mt-1 text-sm text-muted-foreground">Saved evaluated attempts from the server.</p>
           </div>
           <Badge variant="outline" className="shrink-0 rounded-lg bg-background/80">{attempts.length} saved</Badge>
