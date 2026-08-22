@@ -131,7 +131,7 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-7xl space-y-5">
+      <div className="mx-auto w-full max-w-7xl space-y-5" role="status" aria-label="Loading ExamTree home">
         <div className="skeleton-shimmer h-10 rounded-2xl" />
         <div className="skeleton-shimmer h-[420px] rounded-2xl" />
         <div className="grid gap-5 md:grid-cols-3">
@@ -139,13 +139,14 @@ export default function Home() {
           <div className="skeleton-shimmer h-56 rounded-2xl" />
           <div className="skeleton-shimmer h-56 rounded-2xl" />
         </div>
+        <span className="sr-only">Loading published tests and exam pathways…</span>
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-7xl space-y-8">
-      <section className="overflow-hidden rounded-2xl border border-slate-800 bg-[#1e1b4b] text-white shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+    <div className="mx-auto w-full max-w-7xl space-y-8">
+      <section className="overflow-hidden rounded-2xl border border-slate-800 bg-[#1e1b4b] text-white shadow-[0_16px_36px_-30px_rgba(15,23,42,0.7)]">
         <div className="grid gap-0 text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100 md:grid-cols-3">
           <div className="border-b border-white/10 px-5 py-3 md:border-b-0 md:border-r">
             Published tests: {formatCount(tests.length)}
@@ -157,12 +158,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+      <section className="et-panel-raised relative overflow-hidden rounded-2xl">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(13,148,136,0.20),transparent_32%),radial-gradient(circle_at_88%_12%,rgba(79,70,229,0.20),transparent_34%),linear-gradient(135deg,#ffffff_0%,#f8fafc_54%,#eef2ff_100%)]" />
         <div className="relative grid gap-8 p-6 lg:grid-cols-[1.08fr_0.92fr] lg:p-8">
           <div className="flex flex-col justify-between">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-md border border-teal-200 bg-white/80 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-teal-700 backdrop-blur-xl">
+              <div className="inline-flex items-center gap-2 rounded-xl border border-teal-200 bg-white/80 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-teal-700 backdrop-blur-xl">
                 <Sparkles className="h-3.5 w-3.5" />
                 Logic-first exam practice
               </div>
@@ -178,48 +179,50 @@ export default function Home() {
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="Search SSC CGL, IBPS PO, PSSSB, Quantitative Aptitude ..."
-                  className="h-12 rounded-2xl border-slate-200 bg-white/80 pl-11 shadow-[0_8px_30px_rgb(0,0,0,0.08)] backdrop-blur-xl"
+                  className="h-12 rounded-2xl border-slate-200 bg-white/85 pl-11 shadow-sm backdrop-blur-xl"
                 />
               </div>
             </div>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Button className="h-11 rounded-md bg-[#1e1b4b] px-5 text-white hover:bg-indigo-950" onClick={() => setLocation("/tests")}>
+              <Button className="h-11 rounded-xl bg-[#1e1b4b] px-5 text-white hover:bg-indigo-950" onClick={() => setLocation("/tests")}>
                 Browse Live Tests
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
-              <Button variant="outline" className="h-11 rounded-md border-slate-300 bg-white/80 px-5" onClick={() => setLocation("/dashboard")}>
+              <Button variant="outline" className="h-11 rounded-xl border-slate-300 bg-white/80 px-5" onClick={() => setLocation("/dashboard")}>
                 View My Activity
               </Button>
             </div>
           </div>
 
           <div className="grid gap-5">
-            <div className="rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-[0_8px_30px_rgb(0,0,0,0.08)] backdrop-blur-xl">
-              <div className="flex items-center justify-between">
+            <div className="rounded-2xl border border-slate-200 bg-white/82 p-5 shadow-[0_16px_40px_-32px_rgba(15,23,42,0.36)] backdrop-blur-xl">
+              <div className="flex items-center justify-between gap-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Live student experience</p>
                   <h2 className="mt-1 text-xl font-semibold text-slate-950">Built around real attempt data</h2>
                 </div>
-                <Target className="h-6 w-6 text-indigo-700" />
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700">
+                  <Target className="h-5 w-5" />
+                </span>
               </div>
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-4">
                   <ClipboardList className="h-5 w-5 text-indigo-700" />
                   <p className="mt-3 text-sm font-semibold text-slate-950">Published test catalog</p>
                   <p className="mt-1 text-xs leading-relaxed text-slate-600">Browse the exam and test inventory currently available to students.</p>
                 </div>
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-4">
                   <Clock3 className="h-5 w-5 text-teal-700" />
                   <p className="mt-3 text-sm font-semibold text-slate-950">Saved attempts</p>
                   <p className="mt-1 text-xs leading-relaxed text-slate-600">Resume an in-progress test and revisit completed attempts.</p>
                 </div>
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-4">
                   <Languages className="h-5 w-5 text-indigo-700" />
                   <p className="mt-3 text-sm font-semibold text-slate-950">Multilingual delivery</p>
                   <p className="mt-1 text-xs leading-relaxed text-slate-600">Approved languages are shown when they are configured for a published test.</p>
                 </div>
-                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-4">
                   <CheckCircle2 className="h-5 w-5 text-teal-700" />
                   <p className="mt-3 text-sm font-semibold text-slate-950">Solution review</p>
                   <p className="mt-1 text-xs leading-relaxed text-slate-600">Review evaluated attempts after submission without relying on demo analytics.</p>
@@ -227,13 +230,13 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-[0_8px_30px_rgb(0,0,0,0.08)] backdrop-blur-xl">
+            <div className="rounded-2xl border border-slate-200 bg-white/82 p-5 shadow-[0_16px_40px_-32px_rgba(15,23,42,0.36)] backdrop-blur-xl">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-700">Start a focused session</p>
               <h2 className="mt-1 text-xl font-semibold text-slate-950">Choose a live test when you are ready</h2>
               <p className="mt-2 text-sm leading-relaxed text-slate-600">
                 Use the test explorer to pick an exam, review its details, and start from the current published inventory.
               </p>
-              <Button className="mt-4 h-10 w-full rounded-md bg-teal-600 text-white hover:bg-teal-700" onClick={() => setLocation("/tests")}>
+              <Button className="mt-4 h-11 w-full rounded-xl bg-teal-600 text-white hover:bg-teal-700" onClick={() => setLocation("/tests")}>
                 Open Test Explorer
               </Button>
             </div>
@@ -242,13 +245,13 @@ export default function Home() {
       </section>
 
       <section className="grid gap-5 lg:grid-cols-[1fr_0.75fr]">
-        <div className="rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-          <div className="rounded-t-2xl bg-[#1e1b4b] px-5 py-4 text-white">
+        <div className="et-panel-raised overflow-hidden rounded-2xl">
+          <div className="bg-[#1e1b4b] px-5 py-4 text-white">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100">Exam pathways</p>
             <h2 className="mt-1 text-2xl font-semibold">Find the right mock series faster</h2>
           </div>
 
-          <div className="sticky top-14 z-10 flex gap-2 overflow-x-auto border-b border-slate-200 bg-white/80 px-4 py-3 backdrop-blur-xl">
+          <div className="sticky top-14 z-10 flex gap-2 overflow-x-auto border-b border-slate-200 bg-white/88 px-4 py-3 backdrop-blur-xl">
             {examGroups.map((group) => {
               const tone = toneClasses[group.tone];
               const active = activeGroup?.id === group.id;
@@ -257,7 +260,7 @@ export default function Home() {
                   key={group.id}
                   type="button"
                   onClick={() => setActiveGroupId(group.id)}
-                  className={`flex shrink-0 items-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 ${
+                  className={`et-interactive flex min-h-11 shrink-0 items-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold ${
                     active
                       ? "border-indigo-500 bg-indigo-950 text-white ring-2 ring-indigo-500 ring-offset-2"
                       : `bg-white text-slate-700 ${tone.badge}`
@@ -285,19 +288,19 @@ export default function Home() {
                       setLocation(`/category/${group.id}`);
                     }
                   }}
-                  className={`rounded-2xl border border-slate-200 border-l-4 bg-white p-4 shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 hover:ring-2 hover:ring-indigo-500 hover:ring-offset-2 ${tone.border}`}
+                  className={`et-interactive rounded-2xl border border-slate-200 border-l-4 bg-white p-4 shadow-[0_14px_32px_-28px_rgba(15,23,42,0.4)] hover:border-indigo-200 hover:shadow-[0_18px_40px_-28px_rgba(15,23,42,0.36)] ${tone.border}`}
                 >
                   <div className="flex items-start justify-between gap-4">
-                    <div className={`flex h-11 w-11 items-center justify-center rounded-2xl ${tone.icon}`}>
+                    <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${tone.icon}`}>
                       <CategoryIcon icon={group.icon} className="h-5 w-5" />
                     </div>
-                    <span className={`rounded-md border px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${tone.badge}`}>
+                    <span className={`rounded-lg border px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${tone.badge}`}>
                       {group.tests.length} published {group.tests.length === 1 ? "test" : "tests"}
                     </span>
                   </div>
                   <h3 className="mt-4 text-lg font-semibold text-slate-950">{group.name}</h3>
                   <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">{group.description}</p>
-                  <div className="mt-4 grid grid-cols-2 gap-2 rounded-2xl border border-slate-100 bg-slate-50 p-2 text-xs">
+                  <div className="mt-4 grid grid-cols-2 gap-2 rounded-xl border border-slate-100 bg-slate-50 p-3 text-xs">
                     <div>
                       <p className="font-semibold uppercase tracking-[0.12em] text-slate-400">Tests</p>
                       <p className="mt-1 font-semibold text-slate-950">{formatCount(group.tests.length)}</p>
@@ -316,7 +319,7 @@ export default function Home() {
                           event.stopPropagation();
                           setLocation(`/subcategory/${subExam.id}`);
                         }}
-                        className="flex w-full items-center justify-between rounded-xl border border-slate-100 bg-white px-3 py-2 text-left text-sm transition hover:border-teal-300 hover:bg-teal-50/60"
+                        className="et-interactive flex min-h-11 w-full items-center justify-between rounded-xl border border-slate-100 bg-white px-3 py-2 text-left text-sm hover:border-teal-300 hover:bg-teal-50/60"
                       >
                         <span className="truncate font-medium text-slate-700">{subExam.name}</span>
                         <ChevronRight className="h-4 w-4 text-slate-400" />
@@ -334,18 +337,20 @@ export default function Home() {
         </div>
 
         <div className="space-y-5">
-          <div className="rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-            <div className="rounded-t-2xl bg-[#1e1b4b] px-5 py-4 text-white">
+          <div className="et-panel-raised overflow-hidden rounded-2xl">
+            <div className="bg-[#1e1b4b] px-5 py-4 text-white">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100">Resume practice</p>
               <h2 className="mt-1 text-xl font-semibold">Your active lane</h2>
             </div>
             <div className="p-5">
               {activeSessionEntries.length === 0 && !latestAttempt ? (
                 <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center">
-                  <Target className="mx-auto h-8 w-8 text-teal-700" />
+                  <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
+                    <Target className="h-5 w-5" />
+                  </span>
                   <p className="mt-3 text-sm font-semibold text-slate-950">No active test yet</p>
                   <p className="mt-1 text-sm text-slate-600">Choose an exam path and start with a published test.</p>
-                  <Button className="mt-4 rounded-md bg-teal-600 text-white hover:bg-teal-700" onClick={() => setLocation("/tests")}>
+                  <Button className="mt-4 h-11 rounded-xl bg-teal-600 text-white hover:bg-teal-700" onClick={() => setLocation("/tests")}>
                     Browse Live Tests
                   </Button>
                 </div>
@@ -359,13 +364,13 @@ export default function Home() {
                           `/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(latestAttempt.testId)}&tab=review`,
                         )
                       }
-                      className="flex w-full items-center justify-between rounded-2xl border border-slate-200 border-l-4 border-l-indigo-600 bg-white p-4 text-left transition-all duration-300 hover:-translate-y-0.5 hover:ring-2 hover:ring-indigo-500 hover:ring-offset-2"
+                      className="et-interactive flex min-h-11 w-full items-center justify-between rounded-2xl border border-slate-200 border-l-4 border-l-indigo-600 bg-white p-4 text-left hover:border-indigo-200"
                     >
                       <div>
                         <p className="font-semibold text-slate-950">{latestAttempt.testName}</p>
                         <p className="mt-1 text-xs text-slate-500">Last score: {latestAttempt.score}%</p>
                       </div>
-                      <BarChart3 className="h-4 w-4 text-indigo-700" />
+                      <BarChart3 className="h-4 w-4 shrink-0 text-indigo-700" />
                     </button>
                   )}
                   {activeSessionEntries.map((session) => (
@@ -373,13 +378,13 @@ export default function Home() {
                       key={session.testId}
                       type="button"
                       onClick={() => setLocation(`/test/${session.testId}`)}
-                      className="flex w-full items-center justify-between rounded-2xl border border-slate-200 border-l-4 border-l-teal-500 bg-white p-4 text-left transition-all duration-300 hover:-translate-y-0.5 hover:ring-2 hover:ring-indigo-500 hover:ring-offset-2"
+                      className="et-interactive flex min-h-11 w-full items-center justify-between rounded-2xl border border-slate-200 border-l-4 border-l-teal-500 bg-white p-4 text-left hover:border-teal-200"
                     >
                       <div>
                         <p className="font-semibold text-slate-950">{session.testName}</p>
                         <p className="mt-1 text-xs text-slate-500">In progress</p>
                       </div>
-                      <Clock3 className="h-4 w-4 text-teal-700" />
+                      <Clock3 className="h-4 w-4 shrink-0 text-teal-700" />
                     </button>
                   ))}
                 </div>
@@ -387,7 +392,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+          <div className="et-panel rounded-2xl p-5">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">What is live now</p>
             <h2 className="mt-1 text-xl font-semibold text-slate-950">Production-backed student journeys</h2>
             <div className="mt-4 space-y-3">
@@ -397,7 +402,7 @@ export default function Home() {
                 "Submit an attempt and reopen its saved result.",
                 "Use approved multilingual content when a test provides it.",
               ].map((item) => (
-                <div key={item} className="flex gap-3 rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <div key={item} className="flex gap-3 rounded-xl border border-slate-200 bg-slate-50/70 p-3">
                   <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" />
                   <p className="text-sm leading-relaxed text-slate-600">{item}</p>
                 </div>
@@ -407,8 +412,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-        <div className="rounded-t-2xl bg-[#1e1b4b] px-5 py-4 text-white">
+      <section className="et-panel-raised overflow-hidden rounded-2xl">
+        <div className="bg-[#1e1b4b] px-5 py-4 text-white">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100">Featured free mocks</p>
           <h2 className="mt-1 text-2xl font-semibold">{activeGroup?.name ?? "Featured"} tests</h2>
         </div>
@@ -420,7 +425,7 @@ export default function Home() {
                 key={test.id}
                 type="button"
                 onClick={() => setLocation(`/test/${test.id}`)}
-                className={`grid w-full gap-3 border-l-4 px-5 py-4 text-left transition-all duration-300 hover:bg-slate-50 md:grid-cols-[1fr_130px_130px_150px] ${tone.border}`}
+                className={`et-interactive grid min-h-11 w-full gap-3 border-l-4 px-5 py-4 text-left hover:bg-slate-50 md:grid-cols-[1fr_130px_130px_150px] ${tone.border}`}
               >
                 <div>
                   <p className="font-semibold text-slate-950">{test.name}</p>
@@ -434,7 +439,7 @@ export default function Home() {
                   <Clock3 className="h-3.5 w-3.5" />
                   {test.duration} min
                 </span>
-                <span className="inline-flex items-center gap-1.5 rounded-md border border-teal-200 bg-teal-50 px-2 py-1 text-xs font-semibold text-teal-700">
+                <span className="inline-flex items-center gap-1.5 rounded-lg border border-teal-200 bg-teal-50 px-2 py-1 text-xs font-semibold text-teal-700">
                   <CheckCircle2 className="h-3.5 w-3.5" />
                   Free Mock Test
                 </span>
@@ -443,11 +448,13 @@ export default function Home() {
           })}
           {activeGroupTests.length === 0 && (
             <div className="p-8 text-center text-sm text-slate-600">
-              <BookOpenCheck className="mx-auto h-8 w-8 text-teal-700" />
+              <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-50 text-teal-700">
+                <BookOpenCheck className="h-6 w-6" />
+              </span>
               <p className="mt-3 font-semibold text-slate-950">No free featured test in this category yet</p>
               <p className="mt-1">Open the category to see the current published inventory.</p>
               {activeGroup && (
-                <Button variant="outline" className="mt-4" onClick={() => setLocation(`/category/${activeGroup.id}`)}>
+                <Button variant="outline" className="mt-4 rounded-xl" onClick={() => setLocation(`/category/${activeGroup.id}`)}>
                   Open Category
                 </Button>
               )}

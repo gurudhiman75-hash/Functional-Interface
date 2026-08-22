@@ -34,7 +34,11 @@ assert.match(activity, /size="sm"[\s\S]*?View result/, "small Activity result ac
 assert.match(tests, /size="sm"[\s\S]*?Start test/, "small test-discovery action must inherit the hardened shared target");
 assert.match(result, /size="sm"[\s\S]*?setFilter/, "small result filter actions must inherit the hardened shared target");
 
-assert.match(stickyHeader, /relative mx-auto min-w-0 flex-1 max-w-2xl/, "mobile exam selector must be allowed to shrink inside the preparation header");
+assert.match(
+  stickyHeader,
+  /className="(?=[^"]*relative)(?=[^"]*mx-auto)(?=[^"]*min-w-0)(?=[^"]*flex-1)(?=[^"]*max-w-2xl)[^"]*"/,
+  "mobile exam selector must be allowed to shrink inside the preparation header",
+);
 assert.match(stickyHeader, /ml-auto flex shrink-0 items-center gap-2/, "mobile Activity and Profile actions must retain their fixed touch-target space");
 
 assert.match(proof, /Math\.round\(box!\.width \* 1000\) \/ 1000[\s\S]*?expect\(width\)\.toBeGreaterThanOrEqual\(44\)/, "browser proof must normalize floating geometry while retaining a 44px width gate");
