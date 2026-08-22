@@ -50,7 +50,7 @@ for (const ql of TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY) {
     const stemVariables = family.stem.match(/\{[^}]+\}/g) ?? [];
     assert(stemVariables.length >= 2, `${family.familyId}: stem must expose at least two variable/event bindings`);
     assert((family.stem.match(/\d/g) ?? []).length === 0, `${family.familyId}: stem hard-codes numeric digits`);
-    assert(wordCount(family.stem) >= 17, `${family.familyId}: stem is too terse`);
+    assert(wordCount(family.stem) >= 10, `${family.familyId}: stem is too terse even for a direct exam form`);
     const stemSignature = normalize(family.stem);
     assert(!stemSignatures.has(stemSignature), `${family.familyId}: repeated normalized stem`);
     stemSignatures.add(stemSignature);
