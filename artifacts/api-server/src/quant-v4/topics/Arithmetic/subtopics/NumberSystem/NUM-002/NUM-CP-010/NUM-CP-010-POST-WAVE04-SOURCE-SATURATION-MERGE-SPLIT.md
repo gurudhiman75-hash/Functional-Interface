@@ -33,7 +33,7 @@ Remaining candidates are dispositioned rather than left open:
 |---|---|
 | More palindrome lengths | MERGE as parameter/representation |
 | Longer repeated blocks / more repetitions | MERGE into concatenation unless new source topology appears |
-| More carry/borrow columns | MERGE as difficulty depth |
+| More carry/borrow columns | MERGE as difficulty depth within the same unknown-count contract |
 | Descending vs increasing consecutive digits | MERGE as direction parameter |
 | Face value vs place value | MISCONCEPTION/representation inside place-value authority |
 | Two-unknown multiplication | HOLD; composition of multi-unknown reconstruction + multiplication carry, no separate source need yet |
@@ -46,7 +46,7 @@ Remaining candidates are dispositioned rather than left open:
 | Non-decimal base questions | REASSIGN CP013 |
 | Genuine digit + second-engine synthesis | HOLD for CP014 necessity ablation |
 
-## Proposed permanent authority merge/split — 15 authorities
+## Proposed permanent authority merge/split — 16 authorities
 
 This is an **ID-free** proposal. Labels below are conceptual only.
 
@@ -62,51 +62,55 @@ This is an **ID-free** proposal. Labels below are conceptual only.
    Prototypes: P003 + P004 + P023  
    Rationale: same positional reversal equation; length and trailing-zero handling are variants.
 
-4. **Column addition digit reconstruction**  
-   Prototypes: P005 + P011 + P020  
-   Rationale: right-to-left column evidence with carry; one/two unknown and carry depth are modes, not separate authorities.
+4. **Single-unknown column addition digit reconstruction**  
+   Prototypes: P005 + P011  
+   Rationale: one unknown digit is recovered by right-to-left column evidence; carry depth is a difficulty mode.
 
-5. **Column subtraction digit reconstruction**  
+5. **Two-unknown column addition reconstruction**  
+   Prototype: P020  
+   Rationale: two linked unknown digits and an ordered-pair answer materially change the evidence topology and learner contract. This remains separate from single-unknown carry questions.
+
+6. **Column subtraction digit reconstruction**  
    Prototypes: P006 + P012  
    Rationale: borrow propagation is the governing topology; depth is difficulty.
 
-6. **Palindrome reconstruction**  
+7. **Palindrome reconstruction**  
    Prototypes: P007 + P016  
    Rationale: mirrored decimal positions; length is a representation parameter.
 
-7. **Relational / consecutive digit reconstruction**  
+8. **Relational / consecutive digit reconstruction**  
    Prototypes: P008 + P024  
    Rationale: relative digit equations; increasing/decreasing direction is a parameter.
 
-8. **Least or greatest numeral under digit constraints**  
+9. **Least or greatest numeral under digit constraints**  
    Prototype: P013  
    Rationale: optimisation over multiple admissible decimal states.
 
-9. **Complete valid digit/number set under decimal constraints**  
-   Prototypes: P014 + P019  
-   Rationale: exhaustive-set semantic; element domain (digit vs numeral) is a controlled mode.
+10. **Complete valid digit/number set under decimal constraints**  
+    Prototypes: P014 + P019  
+    Rationale: exhaustive-set semantic; element domain (digit versus numeral) is a controlled state-domain mode rather than a different inference objective.
 
-10. **Bounded digit-occurrence count**  
+11. **Bounded digit-occurrence count**  
     Prototypes: P015 + P026  
-    Rationale: positional occurrence counting; digit 0 requires a protected leading-zero branch but retains the same count objective.
+    Rationale: positional occurrence counting; digit 0 requires a protected leading-zero branch but retains the same counting objective.
 
-11. **Exact number of decimal digits**  
+12. **Exact number of decimal digits**  
     Prototype: P017  
     Rationale: positional-bound answer semantic; approximate logarithm policy is explicitly outside this authority.
 
-12. **Digit-constraint solution multiplicity classification**  
+13. **Digit-constraint solution multiplicity classification**  
     Prototype: P018  
-    Rationale: asks no/one/multiple admissible states rather than a particular state or set.
+    Rationale: asks no/one/multiple admissible states rather than a particular state or complete set.
 
-13. **Missing digit in multiplication with carry**  
+14. **Missing digit in multiplication with carry**  
     Prototype: P021  
     Rationale: multiplication-column propagation is materially distinct from addition/subtraction.
 
-14. **Repeated decimal block / concatenation reconstruction**  
+15. **Repeated decimal block / concatenation reconstruction**  
     Prototype: P022  
-    Rationale: decimal concatenation coefficient such as 101n is the governing positional invariant.
+    Rationale: decimal concatenation coefficient such as `101n` is the governing positional invariant.
 
-15. **Digital root / repeated digit-sum reduction**  
+16. **Digital root / repeated digit-sum reduction**  
     Prototype: P025  
     Rationale: iterative digit aggregation to one digit; direct digital-root work belongs here, while divisibility use stays CP003.
 
@@ -114,6 +118,7 @@ This is an **ID-free** proposal. Labels below are conceptual only.
 
 - direct digit-sum reconstruction vs digital root;
 - reversal vs palindrome;
+- single-unknown addition vs two-unknown ordered-pair addition;
 - addition carry vs subtraction borrow vs multiplication carry;
 - extremum vs complete set vs solution multiplicity;
 - digit occurrence count vs exact number-of-digits;
@@ -121,9 +126,9 @@ This is an **ID-free** proposal. Labels below are conceptual only.
 
 ## Count proposal
 
-**Proposed permanent authority count: 15.**
+**Proposed permanent authority count: 16.**
 
-If approved, the next step is to allocate the next free Number System identities starting at `NUM-QL-197` to these 15 authorities in the order above, then build/freeze the permanent English runtime. Until explicit approval:
+If approved, the next step is to re-confirm the chapter-wide next free Number System identity and allocate the approved contiguous range to these 16 authorities in the order above, then build/freeze the permanent English runtime. Until explicit approval:
 
 - no `NUM-QL-197+` IDs are assigned;
 - source lifecycle remains discovery-only;
