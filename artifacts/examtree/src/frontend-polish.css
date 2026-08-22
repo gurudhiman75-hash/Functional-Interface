@@ -1,5 +1,6 @@
 .et-viewport {
   min-height: 100vh;
+  min-height: 100svh;
 }
 
 @supports (min-height: 100dvh) {
@@ -10,16 +11,26 @@
 
 .et-page-surface {
   background:
-    radial-gradient(760px 360px at 12% -8%, hsl(var(--primary) / 0.07), transparent 48%),
-    radial-gradient(640px 320px at 92% 2%, hsl(var(--primary) / 0.04), transparent 46%),
-    hsl(var(--background));
+    radial-gradient(820px 380px at 10% -10%, hsl(var(--primary) / 0.075), transparent 50%),
+    radial-gradient(700px 340px at 94% 0%, hsl(var(--primary) / 0.045), transparent 48%),
+    linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted) / 0.22) 58%, hsl(var(--background)));
 }
 
 .et-chrome {
-  border-color: hsl(var(--border) / 0.8);
+  border-color: hsl(var(--border) / 0.82);
   background-color: hsl(var(--background) / 0.9);
-  -webkit-backdrop-filter: blur(16px) saturate(140%);
-  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+  backdrop-filter: blur(18px) saturate(145%);
+}
+
+.et-shell-header {
+  padding-top: max(0px, env(safe-area-inset-top));
+  box-shadow: 0 8px 30px -26px hsl(var(--foreground) / 0.42);
+}
+
+.et-page-content {
+  width: 100%;
+  min-width: 0;
 }
 
 .et-panel {
@@ -38,6 +49,17 @@
     0 18px 48px -28px hsl(var(--foreground) / 0.28);
 }
 
+.et-popover {
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card) / 0.98);
+  box-shadow:
+    0 10px 30px -14px hsl(var(--foreground) / 0.18),
+    0 26px 70px -28px hsl(var(--foreground) / 0.28);
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+}
+
 .et-interactive {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
@@ -47,6 +69,15 @@
     color 160ms ease,
     box-shadow 160ms ease,
     transform 160ms ease;
+}
+
+.et-interactive:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+.et-interactive:active {
+  transform: translateY(0) scale(0.985);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -61,11 +92,30 @@
   }
 }
 
+@supports not (scrollbar-gutter: stable) {
+  .et-popover {
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 639px) {
+  .et-shell-header {
+    box-shadow: 0 6px 24px -22px hsl(var(--foreground) / 0.48);
+  }
+
+  .et-popover {
+    max-height: min(72vh, 34rem);
+    max-height: min(72dvh, 34rem);
+  }
+}
+
 @media (forced-colors: active) {
   .et-chrome,
   .et-panel,
-  .et-panel-raised {
+  .et-panel-raised,
+  .et-popover {
     border: 1px solid CanvasText;
+    box-shadow: none;
   }
 }
 
@@ -84,6 +134,7 @@
   }
 
   .et-interactive:hover,
+  .et-interactive:active,
   .surface-hover:hover {
     transform: none !important;
   }
