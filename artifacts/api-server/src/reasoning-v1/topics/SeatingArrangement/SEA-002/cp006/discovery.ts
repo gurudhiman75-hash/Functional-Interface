@@ -60,11 +60,37 @@ function plainLanguage(text:string):string {
     .replaceAll("seat intervals","seats")
     .replaceAll("strictly between","between");
 }
+
+function selfReferenceRationale(child:Sea002Cp006ChildQuestion,optionValue:string,existing:string):string {
+  if(child.queryContractId==="SEA-QC-010") {
+    const match=child.text.match(/^Who sits exactly opposite (.+)\?$/);
+    const reference=match?.[1];
+    if(reference&&optionValue===reference) return `${reference} is the reference person, so ${reference} cannot also be the person sitting opposite ${reference}.`;
+  }
+  if(child.queryContractId==="SEA-QC-003") {
+    const match=child.text.match(/^Who sits (immediately|second|third|fourth|fifth) to the (left|right) of (.+)\?$/);
+    const reference=match?.[3];
+    if(reference&&optionValue===reference) {
+      const relation=match![1]==="immediately"?`immediately to the ${match![2]}`:`${match![1]} to the ${match![2]}`;
+      return `${reference} cannot be ${relation} of themselves; the required position must be occupied by another person in the same row.`;
+    }
+  }
+  if(child.queryContractId==="SEA-QC-012") {
+    const match=child.text.match(/^Who sits diagonally opposite (.+)\?$/);
+    const reference=match?.[1];
+    if(reference&&optionValue===reference) return `${reference} cannot sit diagonally opposite themselves; a diagonal seat must be in the other row at an adjacent position.`;
+  }
+  return existing;
+}
+
 function plainChild(child:Sea002Cp006ChildQuestion):Sea002Cp006ChildQuestion {
   return {
     ...child,
     explanation:plainLanguage(child.explanation),
-    options:child.options.map((option)=>({...option,explanation:plainLanguage(option.explanation)})) as Sea002Cp006ChildQuestion["options"],
+    options:child.options.map((option)=>({
+      ...option,
+      explanation:plainLanguage(selfReferenceRationale(child,option.value,option.explanation)),
+    })) as Sea002Cp006ChildQuestion["options"],
   };
 }
 
