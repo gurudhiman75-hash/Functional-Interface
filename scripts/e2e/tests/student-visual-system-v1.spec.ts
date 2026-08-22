@@ -76,23 +76,57 @@ const catalogTests = [
   },
 ];
 
+const student = {
+  id: "visual-student",
+  email: "visual.student@examtree.local",
+  name: "Visual Student",
+  role: "student" as const,
+};
+
+const savedAttempt = {
+  id: "visual-attempt-1",
+  userId: student.id,
+  testId: "ssc-full-1",
+  testName: "SSC CGL Full Mock 1",
+  category: "SSC",
+  score: 72,
+  actualScore: 72,
+  correct: 72,
+  wrong: 18,
+  unanswered: 10,
+  totalQuestions: 100,
+  timeSpent: 3_000,
+  createdAt: "2026-08-21T12:00:00.000Z",
+  submittedAt: "2026-08-21T12:00:00.000Z",
+  attemptType: "REAL",
+  isFirstAttempt: true,
+};
+
 async function fulfillJson(route: Route, body: unknown, status = 200) {
   await route.fulfill({ status, contentType: "application/json", body: JSON.stringify(body) });
 }
 
 async function installVisualFixtures(page: Page) {
   await page.route("**/api/**", async (route) => {
-    const path = new URL(route.request().url()).pathname.replace(/^\/api/, "");
+    const request = route.request();
+    const path = new URL(request.url()).pathname.replace(/^\/api/, "");
     if (path === "/categories") return fulfillJson(route, categories);
     if (path === "/subcategories") return fulfillJson(route, subcategories);
     if (path === "/tests") return fulfillJson(route, catalogTests);
-    if (path === "/me/entitlements") return fulfillJson(route, { error: "unauthorized" }, 401);
+    if (path === "/attempts" && request.method() === "GET") return fulfillJson(route, [savedAttempt]);
+    if (path === "/users/me" && request.method() === "GET") return fulfillJson(route, student);
+    if (path === "/me/entitlements" || path === "/users/me/entitlements") return fulfillJson(route, { error: "unauthorized" }, 401);
     if (path.includes("packages")) return fulfillJson(route, []);
     if (path === "/bundles") return fulfillJson(route, []);
     if (path === "/published-tests") return fulfillJson(route, { tests: [], generatedAt: "2026-08-21T00:00:00.000Z" });
     if (path === "/test-series") return fulfillJson(route, { series: [], generatedAt: "2026-08-21T00:00:00.000Z" });
     return fulfillJson(route, []);
   });
+}
+
+async function seedStudent(page: Page) {
+  await page.goto("/login/student");
+  await page.evaluate((profile) => localStorage.setItem("user", JSON.stringify(profile)), student);
 }
 
 async function expectNoHorizontalOverflow(page: Page) {
@@ -164,6 +198,41 @@ test.describe("Visual System V1 responsive public journey", () => {
     await expect(page.getByRole("heading", { level: 2, name: "Available tests", exact: true })).toBeVisible();
     await expect(page.getByText("SSC CGL Full Mock 1").first()).toBeVisible();
     await expect(page.getByText("Packages for this exam", { exact: true })).toHaveCount(0);
+    await expectNoHorizontalOverflow(page);
+  });
+});
+
+test.describe("Visual System V1 preparation workspace", () => {
+  test("prioritizes the next preparation action and reflows at 390px", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await installVisualFixtures(page);
+    await seedStudent(page);
+    await page.goto("/dashboard");
+
+    await expect(page.getByTestId("preparation-workspace")).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: "Welcome back, Visual Student" })).toBeVisible();
+    const nextStep = page.getByTestId("preparation-next-step");
+    await expect(nextStep).toContainText("Review your latest result");
+    await expect(nextStep).toContainText("72%");
+    await expect(page.getByTestId("preparation-metrics")).toBeVisible();
+    const reviewLink = nextStep.getByRole("link", { name: "Review result" });
+    await expectTouchTarget(reviewLink);
+    await expect(reviewLink).toHaveAttribute("href", "/result?attemptId=visual-attempt-1&testId=ssc-full-1");
+    await expect(page.getByRole("heading", { level: 2, name: "Recent attempts" })).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+  });
+
+  test("keeps the preparation rail secondary at desktop width", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await installVisualFixtures(page);
+    await seedStudent(page);
+    await page.goto("/dashboard");
+
+    await expect(page.getByRole("link", { name: "Tests & Exams" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "My Activity" })).toBeVisible();
+    await expect(page.getByTestId("preparation-next-step")).toBeVisible();
+    await expect(page.getByText("Preparation snapshot", { exact: true })).toBeVisible();
+    await expect(page.getByText("SSC CGL Full Mock 1", { exact: true }).first()).toBeVisible();
     await expectNoHorizontalOverflow(page);
   });
 });
