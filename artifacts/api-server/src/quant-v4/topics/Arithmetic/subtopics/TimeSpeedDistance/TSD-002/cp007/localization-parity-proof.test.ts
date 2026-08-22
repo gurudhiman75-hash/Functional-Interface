@@ -1,5 +1,5 @@
 import { TSD_CP007_FROZEN_ENGLISH_REGISTRY } from "./english-freeze-registry";
-import { TSD_CP007_EFFECTIVE_HINDI_LOCALIZATION, TSD_CP007_EFFECTIVE_PUNJABI_LOCALIZATION } from "./localization-effective";
+import { TSD_CP007_FINAL_HINDI_LOCALIZATION, TSD_CP007_FINAL_PUNJABI_LOCALIZATION } from "./localization-final";
 import type { TsdCp007LocalizedQlSpec } from "./localization-authoring";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -37,6 +37,11 @@ function proveLocale(localeName: string, localized: readonly TsdCp007LocalizedQl
     assert(script.test(localizedQl.learnerContract), `${localeName}/${localizedQl.qlId}: learner contract lacks target script`);
     assert(localizedQl.stemFamilies.length === englishQl.stemFamilies.length, `${localeName}/${localizedQl.qlId}: family count differs from English`);
 
+    if (localeName === "hi-IN") {
+      assert(!/चाल/.test(localizedQl.learnerContract), `${localeName}/${localizedQl.qlId}: deprecated Hindi term 'चाल' remains in learner contract`);
+      assert(!localizedQl.objectPool.some((entry) => /चाल/.test(entry)), `${localeName}/${localizedQl.qlId}: deprecated Hindi term 'चाल' remains in object pool`);
+    }
+
     for (let familyIndex = 0; familyIndex < localizedQl.stemFamilies.length; familyIndex += 1) {
       familyCount += 1;
       const englishFamily = englishQl.stemFamilies[familyIndex]!;
@@ -58,6 +63,7 @@ function proveLocale(localeName: string, localized: readonly TsdCp007LocalizedQl
       assert(!/\bcrossing\b/i.test(learnerVisible), `${localeName}/${englishFamily.familyId}: English word 'crossing' leaked into localized prose`);
       assert(!/\bspeed\b/i.test(learnerVisible), `${localeName}/${englishFamily.familyId}: English word 'speed' leaked into localized prose`);
       assert(!/\b(starting position|included in the count|excluded from the count)\b/i.test(learnerVisible), `${localeName}/${englishFamily.familyId}: English endpoint instruction leaked into localized prose`);
+      if (localeName === "hi-IN") assert(!/चाल/.test(learnerVisible), `${localeName}/${englishFamily.familyId}: deprecated Hindi term 'चाल' remains in learner-facing text`);
 
       const stemSignature = normalized(localizedFamily.stem);
       const guideSignature = normalized(localizedFamily.explanationGuide);
@@ -71,8 +77,8 @@ function proveLocale(localeName: string, localized: readonly TsdCp007LocalizedQl
   assert(familyCount === 66, `${localeName}: expected 66 localized families, found ${familyCount}`);
 }
 
-proveLocale("hi-IN", TSD_CP007_EFFECTIVE_HINDI_LOCALIZATION, /[\u0900-\u097F]/);
-proveLocale("pa-IN", TSD_CP007_EFFECTIVE_PUNJABI_LOCALIZATION, /[\u0A00-\u0A7F]/);
+proveLocale("hi-IN", TSD_CP007_FINAL_HINDI_LOCALIZATION, /[\u0900-\u097F]/);
+proveLocale("pa-IN", TSD_CP007_FINAL_PUNJABI_LOCALIZATION, /[\u0A00-\u0A7F]/);
 
 console.log("TSD-CP-007 HINDI/PUNJABI LOCALIZATION PARITY PROOF: PASS");
 console.log(JSON.stringify({
@@ -82,6 +88,8 @@ console.log(JSON.stringify({
   qlsPerLocale: 11,
   localizedObjectPoolEntriesPerLocale: 88,
   learnerFacingEnglishLeakage: 0,
+  hindiTerminology: "गति",
+  deprecatedHindiChaalOccurrences: 0,
   sourceEnglishStatus: "FROZEN",
   localizationStatus: "REVIEW_CANDIDATE",
   questionStudioEnabled: false,
