@@ -34,8 +34,9 @@ for(const caselet of corpus){
   if(caselet.seed.startsWith("english-review-base-")) baseCount+=1;
 
   const proseAtoms=[caselet.setupText,...caselet.clueTexts,...caselet.children.flatMap((child)=>[child.text,child.explanation,...child.options.map((option)=>option.explanation)])];
-  const learnerSurface=[...proseAtoms,caselet.sharedExplanation].join("\n");
+  const learnerSurface=[...proseAtoms,caselet.sharedExplanation,caselet.diagramText].join("\n");
   assert.ok(!/SEA-PBA|SEA-QC|oracle|fingerprint|hidden state|implementation|observer\b/i.test(learnerSurface),`${caselet.caseletId}: internal or technical language leaked`);
+  assert.ok(!/\bcolumns?\b/i.test(learnerSurface),`${caselet.caseletId}: learner-facing column terminology returned; use position`);
   assert.ok(!/\bthe our\b/i.test(learnerSurface),`${caselet.caseletId}: awkward direction grammar leaked`);
   assert.ok(!/\bThis matches\b/i.test(learnerSurface),`${caselet.caseletId}: generic explanation wording returned`);
   assert.ok(proseAtoms.every((text)=>!/[ \t]{2,}/.test(text)),`${caselet.caseletId}: doubled whitespace in prose`);
@@ -44,18 +45,19 @@ for(const caselet of corpus){
   assert.ok(/two parallel rows/i.test(caselet.setupText),`${caselet.caseletId}: setup not exam-like parallel-row language`);
   assert.ok(/upper row face south/i.test(caselet.setupText));
   assert.ok(/lower row face north/i.test(caselet.setupText));
+  assert.ok(/same position/i.test(caselet.setupText),`${caselet.caseletId}: facing relation should use position wording`);
 
   assert.ok(caselet.sharedExplanation.length>=400,`${caselet.caseletId}: detailed solution too thin`);
-  assert.match(caselet.sharedExplanation,new RegExp(`^Use columns 1 to ${caselet.state.seatCountPerRow} from left to right\\.`),`${caselet.caseletId}: shared solution does not start directly with column positions`);
+  assert.match(caselet.sharedExplanation,new RegExp(`^Use positions 1 to ${caselet.state.seatCountPerRow} from left to right\\.`),`${caselet.caseletId}: shared solution does not start directly with positions`);
   assert.ok(!/Draw two equal rows first|For a person in the upper row|Persons directly facing each other must|Here the conditions fix|Use this final arrangement to answer/i.test(caselet.sharedExplanation),`${caselet.caseletId}: unnecessary shared-solution boilerplate returned`);
   assert.ok(caselet.sharedExplanation.includes("Final arrangement:"),`${caselet.caseletId}: final arrangement missing from solution`);
   assert.ok(caselet.sharedExplanation.includes("Step 1:"),`${caselet.caseletId}: clue-by-clue working missing`);
   assert.ok(caselet.sharedExplanation.includes("Position:"),`${caselet.caseletId}: concrete position result missing`);
-  assert.ok(/\bcolumn\b/i.test(caselet.sharedExplanation),`${caselet.caseletId}: column-based working missing`);
+  assert.ok(/\bposition\b/i.test(caselet.sharedExplanation),`${caselet.caseletId}: position-based working missing`);
   assert.ok(!caselet.sharedExplanation.includes("Result:"),`${caselet.caseletId}: abstract Result label returned instead of position wording`);
   const stepCount=caselet.sharedExplanation.match(/Step \d+:/g)?.length??0;
   assert.ok(stepCount>=2,`${caselet.caseletId}: solution has too few deduction steps (${stepCount})`);
-  const repeatedMembershipNarrations=caselet.sharedExplanation.match(/column not fixed yet\./g)?.length??0;
+  const repeatedMembershipNarrations=caselet.sharedExplanation.match(/position not fixed yet\./g)?.length??0;
   assert.ok(repeatedMembershipNarrations<=2,`${caselet.caseletId}: row-membership narration is repetitive (${repeatedMembershipNarrations})`);
   detailedSolutionCount+=1;
   if(caselet.sharedExplanation.includes("Case 1:")) caseTeachingCount+=1;
@@ -68,14 +70,14 @@ for(const caselet of corpus){
     normalizedQuestionSurfaces.add(normalizePeople(child.text,caselet.people));
     assert.match(child.text.trim(),/\?$/,`${caselet.caseletId}/Q${q+1}: question punctuation`);
     assert.ok(child.explanation.length>=40,`${caselet.caseletId}/Q${q+1}: explanation too thin`);
-    assert.ok(!/observer\b/i.test(child.explanation),`${caselet.caseletId}/Q${q+1}: technical direction wording leaked`);
+    assert.ok(!/observer\b|\bcolumns?\b/i.test(child.explanation),`${caselet.caseletId}/Q${q+1}: technical/column wording leaked`);
     assert.ok(!/\bthe our\b/i.test(child.explanation),`${caselet.caseletId}/Q${q+1}: awkward direction grammar`);
     assert.equal(child.options.length,4);
     assert.equal(new Set(child.options.map((option)=>option.value)).size,4,`${caselet.caseletId}/Q${q+1}: duplicate displayed option`);
     assert.equal(child.options.filter((option)=>option.isCorrect).length,1);
     assert.equal(child.options[child.answerIndex]?.value,child.answer);
     assert.ok(child.options.every((option)=>option.explanation.length>=21),`${caselet.caseletId}/Q${q+1}: option explanation too thin`);
-    assert.ok(child.options.every((option)=>!/\bthe our\b|observer\b/i.test(option.explanation)),`${caselet.caseletId}/Q${q+1}: awkward/technical option explanation`);
+    assert.ok(child.options.every((option)=>!/\bthe our\b|observer\b|\bcolumns?\b/i.test(option.explanation)),`${caselet.caseletId}/Q${q+1}: awkward/technical/column option explanation`);
     answerPositions[q]![child.answerIndex]+=1;
   }
 
