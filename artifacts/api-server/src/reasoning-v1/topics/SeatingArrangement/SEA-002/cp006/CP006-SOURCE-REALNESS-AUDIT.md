@@ -1,12 +1,12 @@
-# SEA-002 / SEA-CP-006 — Completion and source-realness audit
+# SEA-002 / SEA-CP-006 — Completion, source-realness and freeze audit
 
-Status: **TECHNICALLY COMPLETE / ENGLISH REVIEW ARTIFACT PINNED — signed owner review pending before permanent allocation**
+Status: **TECHNICALLY COMPLETE / ENGLISH FROZEN / PERMANENT QLs ALLOCATED INACTIVE**
 
-This record covers `SEA-CP-006 — Two parallel rows facing each other`. Solve/query/source/inverse/merge-gap implementation and learner-language / solution hardening are complete. The signed English-review gate is deliberately not fabricated; permanent `SEA-QL-*` allocation, localisation, Question Studio, Question Bank, mocks, staging and public delivery remain locked.
+This record covers `SEA-CP-006 — Two parallel rows facing each other`. Solve/query/source/inverse/merge-gap implementation, learner-language hardening, manual English review and permanent inactive allocation are complete. Localization, Question Studio, Question Bank, mocks, staging and public delivery remain locked.
 
 ## Checkpoint boundary
 
-CP006 owns equal parallel rows with the upper row facing south and the lower row facing north, for 3–6 seats per row. It owns row identity, person-relative same-row movement, opposite/corresponding columns, not-opposite, diagonal, same-row adjacency/gaps and source-backed endpoint-domain language.
+CP006 owns equal parallel rows with the upper row facing south and the lower row facing north, for 3–6 seats per row. It owns row identity, person-relative same-row movement, opposite/corresponding positions, not-opposite, diagonal, same-row adjacency/gaps and source-backed endpoint-domain language.
 
 Excluded by design:
 
@@ -16,16 +16,20 @@ Excluded by design:
 - data-sufficiency decision format -> Data Sufficiency chapter;
 - exchange/rotation/hypothetical multi-model questions -> designated advanced seating checkpoint.
 
-## Retained solve authorities
+## Frozen solve authorities and permanent IDs
 
-No merge or split is justified. The four provisional solve authorities remain materially distinct:
+No merge or split is justified. Four permanent inactive QLs are allocated:
 
-- `SEA-PBA-021` — fixed row membership with opposites;
-- `SEA-PBA-022` — row membership partly inferred;
-- `SEA-PBA-023` — same-row positional chains linked through opposite seats;
-- `SEA-PBA-024` — opposite/not-opposite/diagonal/endpoint composition.
+| Permanent QL | Blueprint authority | Solve contract |
+|---|---|---|
+| `SEA-QL-021` | `SEA-PBA-021` | fixed row membership with opposites |
+| `SEA-QL-022` | `SEA-PBA-022` | row membership partly inferred |
+| `SEA-QL-023` | `SEA-PBA-023` | same-row positional chains linked through opposite seats |
+| `SEA-QL-024` | `SEA-PBA-024` | opposite/not-opposite/diagonal/endpoint composition |
 
 Width is a size variant, not an authority: 3+3, 4+4, 5+5 and 6+6 use the same topology and solver contract.
+
+Next available permanent seating ID: `SEA-QL-025`.
 
 ## Final clue ontology
 
@@ -35,20 +39,20 @@ The executable CP006 clue layer covers:
 - `OPPOSITE`;
 - `NOT_OPPOSITE`;
 - `SAME_ROW_RELATIVE`;
-- `SAME_ROW_GAP` — adjacency when `between = 0`, otherwise exact persons-between;
-- `SAME_ROW_MIN_BETWEEN` — lower-bound gap language;
-- `SAME_ROW_EQUAL_GAP` — equal persons-between comparison;
+- `SAME_ROW_GAP`;
+- `SAME_ROW_MIN_BETWEEN`;
+- `SAME_ROW_EQUAL_GAP`;
 - `NOT_ADJACENT`;
-- `FACING_REFERENT_RELATIVE` — nested “person facing X … person facing Y” composition;
+- `FACING_REFERENT_RELATIVE`;
 - `END_POSITION`;
-- `ROW_END_DISTANCE` — nth-from-either-end and negative end-distance domains;
+- `ROW_END_DISTANCE`;
 - `DIAGONAL`.
 
-“An immediate neighbour of X faces Y” is not a separate solver family in this topology: it is equivalent to the existing diagonal relation and is therefore a language variant, not duplicate semantics.
+“An immediate neighbour of X faces Y” remains a language variant of the existing diagonal relation, not a duplicate solver family.
 
-## Query-contract authority audit
+## Frozen query-contract inventory
 
-No new query IDs are introduced. Final retained CP006 query inventory:
+No new query IDs are introduced. Frozen CP006 query inventory:
 
 - `SEA-QC-003` — person-relative occupant;
 - `SEA-QC-006` — immediate-neighbour pair;
@@ -56,158 +60,92 @@ No new query IDs are introduced. Final retained CP006 query inventory:
 - `SEA-QC-010` — opposite/corresponding occupant;
 - `SEA-QC-011` — same-row/different-row occupant;
 - `SEA-QC-012` — diagonal occupant;
-- `SEA-QC-014` — pair occupying designated positions; reused for facing-pair and row-end-pair forms;
+- `SEA-QC-014` — pair occupying designated positions, reused for facing-pair and row-end-pair forms;
 - `SEA-QC-015` — relative-position phrase.
 
-Important correction: frozen SEA-001 authority shows `SEA-QC-009` is directional cyclic counting; ordinary same-row count-between is `SEA-QC-008`. CP006 uses `QC008` and does not retain `QC009`.
+`SEA-QC-009` is not owned by CP006; frozen SEA-001 authority defines it as directional cyclic counting.
 
-## Source evidence decisions
+## Learner-language contract
 
-SSC and banking source sampling across 4+4, 5+5 and 6+6 validated exact gaps, adjacency/non-adjacency, nested facing referents, endpoint distance, facing pairs, row-end pairs, relative-position outputs and equal-gap comparisons as relevant CP006 surfaces.
+Questions use compact exam-style SSC/Banking language. Internal engine language such as solver/oracle/blueprint/fingerprint/observer coordinates is prohibited from learner-facing prose.
 
-Residual decisions are closed:
+The final shared-solution contract:
 
-1. not-adjacent — accepted and implemented;
-2. minimum-gap — accepted and implemented;
-3. nth-from-end domains — accepted and implemented;
-4. neighbour-to-facing — merged into diagonal semantics;
-5. relative-position query — existing `QC015` reused;
-6. facing/extreme-end pair query — existing `QC014` reused;
-7. equal-gap comparison — accepted as `SAME_ROW_EQUAL_GAP`, without a new PBA.
+- starts with one compact working frame only;
+- uses **position / positions** for learner-facing seat numbering;
+- uses `Positions:` plus `P1`, `P2`, ... in diagrams;
+- never exposes learner-facing `column` / `columns`;
+- goes directly into case formation or positional deductions;
+- uses `Position:` for deduction outcomes rather than `Result:`;
+- states reference row/facing/position and resulting target position for person-relative clues;
+- shows Case 1 / Case 2 / Case 3 only when genuine alternatives exist;
+- groups repeated row-membership givens;
+- ends at the final arrangement without generic closing filler.
 
-## Separation of audit coverage from exam generation
+Internal solver state may continue to use a coordinate field named `column`; that implementation term is not part of learner-facing output.
 
-`source-realness.ts` is an all-semantics audit bundle. It composes every accepted source-natural semantic onto a uniquely solvable base so each semantic can be proved against both solvers. It is not the learner-facing generation strategy.
+## Executable completion evidence before approval
 
-`exam-real.ts` is the product-candidate generator. Each caselet:
+- baseline 3+3: **48 caselets / 192 child questions**;
+- wide 4+4–6+6: **24 / 96**;
+- all-semantics source proof: **48 / 192**;
+- completion saturation / inverse / metamorphic proof: **320 / 1,280**;
+- compact source-essential exam-real proof: **320 / 1,280**;
+- deterministic English review corpus: **100 / 400**.
 
-- preserves the defining PBA contract;
-- retains a compact clue set;
-- includes a source-natural clue that is solution-essential rather than decorative;
-- proves removing that source clue changes the unique-solution policy;
-- preserves production-solver / independent-oracle agreement;
-- groups fixed row-membership facts;
-- avoids full-clue-list repetition in the learner solution.
+Completion saturation proved 320 structural signatures, 120 essential clues, 16 rename-invariance checks, 16 mirror-metamorphic checks, 3,192 opposite involutions, 13,152 left/right inverse checks and 14,748 diagonal-symmetry checks.
 
-## Learner-language and solution contract
+Compact exam-real proof retained one solution-essential source-natural clue per caselet, reached all six source-essential clue families, produced 319 structural signatures, kept maximum displayed clues at 11 and exercised candidate-case teaching in 295/320 cases.
 
-### Question / passage language
+The English review corpus contains 25 cases per PBA, widths 3–6, all eight frozen query contracts, 15 normalized question surfaces, 36 normalized clue surfaces, 100 distinct structural fingerprints, 100/100 detailed position-first solutions and 88/100 explicit case-formation solutions.
 
-- ordinary SSC/Banking wording such as “two parallel rows”, “faces north/south”, “faces each other”, “immediate neighbour”, “persons between” and “second from either end”;
-- no internal solver/oracle/blueprint/fingerprint/observer language;
-- compact passage wording;
-- learner-facing opposite-seat wording uses **same position in the two rows**, not column terminology;
-- white-background parallel-row diagram as a seating aid.
+## Signed English approval
 
-### Shared solution
-
-The final shared-solution contract keeps SEA-001-style reasoning but removes unnecessary tutorial framing and uses **position** consistently on learner surfaces.
-
-- Starts with one compact working frame only: positions numbered left-to-right, upper row south-facing, lower row north-facing, same position in the two rows = facing pair.
-- Goes immediately into case formation or positional deductions; the previous multi-paragraph “draw the rows / remember left-right” opening is forbidden.
-- Uses concrete seating language: `row`, `position`, `left/right end`, `position difference`, and `persons between`.
-- Uses `Position:` for the deduction outcome instead of the generic `Result:` label.
-- For person-relative clues, states the reference row, facing and position, then the resulting target position.
-- Shows `Case 1`, `Case 2` and `Case 3` only when genuine alternatives exist, then rejects/retains cases with the deciding condition.
-- Groups row-membership givens instead of narrating one sentence per person when several are supplied.
-- Diagrams use `Positions:` with `P1`, `P2`, ... markers.
-- Ends at the final arrangement; the generic “use this arrangement to answer…” closing sentence is removed.
-
-The review gate forbids the old generic opening/closing boilerplate, `observer` leakage, malformed direction grammar, excessive row-membership repetition, and any learner-facing `column` / `columns` wording.
-
-## Executable completion evidence
-
-### Discovery and width
-
-- baseline 3+3: 48 caselets / 192 child questions;
-- wide 4+4–6+6: 24 caselets / 96 child questions.
-
-### All-semantics source proof
-
-- 48 caselets / 192 child questions;
-- all accepted source clue kinds exercised;
-- q3 surfaces include immediate-neighbour pair, facing pair and row-end pair;
-- q4 exercises both `QC008` and `QC015`;
-- production/oracle uniqueness, clue truth, clue-order invariance, option integrity and lifecycle locks required.
-
-### Completion saturation / inverse / metamorphic proof
-
-- 320 caselets / 1,280 child questions;
-- 80 structural signatures per PBA, 320 total;
-- all eight retained query contracts reached;
-- balanced answer positions;
-- exact duplicate clue sets rejected;
-- 16 supportive-clue invariance checks;
-- 16 minimized unique-set audits yielding 120 proven essential clues;
-- 16 rename-invariance proofs;
-- 16 mirror-metamorphic proofs;
-- 3,192 opposite involution checks;
-- 13,152 left/right inverse checks;
-- 14,748 diagonal-symmetry checks.
-
-### Compact exam-real proof
-
-- 320 caselets / 1,280 child questions;
-- 319 structural signatures;
-- every caselet contains exactly one source-natural relation selected as solution-essential;
-- all six source-essential families reached: facing-referent, not-adjacent, row-end-distance, equal-gap, exact/adjacent gap and minimum-gap;
-- maximum displayed clue count: 11;
-- 295 / 320 explicitly exercise candidate-case teaching;
-- no full-clue-list repetition in the shared explanation.
-
-## English review corpus
-
-A deterministic 100-caselet `en-IN` review corpus is pinned:
-
-- 25 caselets per PBA;
-- 80 compact exam-real cases + 20 baseline cases;
-- widths 3–6 represented;
-- all eight retained query contracts represented;
-- 15 normalized question-stem surfaces;
-- 36 normalized clue-language surfaces;
-- 100 distinct structural fingerprints;
-- 100 / 100 contain detailed position-first shared solutions;
-- 100 / 100 contain concrete `Position:` + position-based working;
-- 88 / 100 explicitly show candidate-case formation and elimination;
-- zero learner-facing `column` / `columns` wording in the pinned corpus;
-- zero old generic opening paragraphs, zero `Result:` labels, zero old closing filler and zero learner-facing `observer` language;
-- options, answer positions, punctuation, explanation depth and internal-language leakage are automatically checked.
-
-Pinned review fingerprint:
+The exact reviewed corpus is frozen by fingerprint:
 
 `07216e2a08c198266bd25e40484a477d5c6e4de73b2dae06b8235fc3773a0c3e`
 
-Verified executable/review workflow: run `32565913630` on content head `9f827326085d823ea02cab666bb43191c2be3017` — every CP006 executable and review gate passed.
+Approved artifact: `cp006-english-review-100`
 
-Uploaded artifact: `cp006-english-review-100`, artifact ID `9474071929`.
+Artifact ID: `9474071929`
 
-ZIP digest:
+Artifact ZIP digest:
 
 `sha256:7e37d79da61f4b4edca8601e353cd1cf4b8fc1b85fa427dfd89591fa7f747ccc`
 
-The manifest decision state remains `AWAITING_SIGNED_REVIEW`.
+Reviewer: `gurudhiman75-hash`
+
+Reviewed at: `2026-08-22T15:37:00+05:30`
+
+Approval source: project owner approval in ChatGPT immediately after review of the exact position-wording artifact.
+
+Decision: `100_ACCEPT_0_REWRITE_0_REJECT`.
+
+The immutable reviewed artifact itself is not rewritten after approval. Approval is recorded separately in `review/approved-review.ts`. `buildApprovedCp006ReviewLedger()` recomputes the complete corpus fingerprint and throws if the current review content no longer matches the approved fingerprint.
+
+## Permanent freeze implementation
+
+- `review/approved-review.ts` — signed review record and 100-entry ACCEPT ledger;
+- `permanent/registry.ts` — permanent inactive mapping `SEA-QL-021`..`SEA-QL-024`, next ID `SEA-QL-025`;
+- `permanent/freeze.ts` — frozen solve inventory, query mix and English state;
+- `cp006-freeze-proof.test.ts` — stale-review, mapping, duplicate-ID and downstream-inactivity proof;
+- workflow includes the permanent freeze proof after the English review proof.
 
 ## Lifecycle verdict
 
-Technical implementation verdict: **COMPLETE**.
-
-Learner-language / detailed-solution hardening verdict: **COMPLETE AND GREEN**.
-
-Signed English freeze verdict: **PENDING OWNER REVIEW OF THE EXACT PINNED ARTIFACT**.
-
-Until that exact fingerprint receives a signed review, lifecycle remains:
-
 ```text
-permanent QLs              0
-solve inventory            technically complete, allocation pending
-query inventory            technically complete, allocation pending
-English freeze             false
-Hindi/Punjabi freeze       false
-Question Studio registered false
-Question Bank writable     false
-mock-test eligible         false
-production staging         false
-public delivery            false
+technical CP006             COMPLETE
+permanent QLs               SEA-QL-021..SEA-QL-024 ALLOCATED INACTIVE
+solve inventory             FROZEN
+query mix                   FROZEN
+English freeze              FROZEN
+Hindi/Punjabi freeze        false / NOT STARTED
+Question Studio registered  false
+Question Bank writable      false
+mock-test eligible          false
+production staging          false
+public delivery             false
+next permanent seating ID   SEA-QL-025
 ```
 
-The next available permanent seating ID after SEA-001 is `SEA-QL-021`; candidate mapping for PBA-021..024 must not be committed as permanent authority until the signed English-review gate is satisfied.
+English freeze is an identity/content freeze only. No downstream surface becomes active without a separate explicit gate.
