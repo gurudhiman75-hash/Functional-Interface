@@ -11,6 +11,7 @@ const seriesCard = read("../src/components/ExamSeriesCard.tsx");
 const category = read("../src/pages/category.tsx");
 const subcategory = read("../src/pages/subcategory.tsx");
 const activity = read("../src/pages/activity.tsx");
+const result = read("../src/pages/canonical-result.tsx");
 const home = read("../src/pages/home.tsx");
 
 assert.match(publicLayout, /h-\[72px\]/, "public header should retain the calmer 72px navigation rhythm");
@@ -44,6 +45,14 @@ assert.match(activity, /data-testid="preparation-metrics"/, "dashboard should re
 assert.doesNotMatch(activity, /@\/components\/ui\/card|<Card/, "preparation workspace should not regress to generic equal-weight stat cards");
 assert.match(activity, /new URLSearchParams\(\{ attemptId: attempt\.id, testId: attempt\.testId \}\)/, "workspace redesign must preserve exact-attempt result navigation");
 
+assert.match(result, /data-testid="canonical-result-summary"/, "saved result should open with one canonical learning-report summary");
+assert.match(result, /data-testid="canonical-result-metrics"/, "saved result should keep score components in one compact metric rail");
+assert.match(result, /data-testid="canonical-solution-review"/, "solution review should remain the dominant learning surface");
+assert.doesNotMatch(result, /bg-gradient-to-br from-primary\/15/, "result page should not restore the old decorative score gradient hero");
+assert.match(result, /aria-pressed=\{filter === item\}/, "solution-review filters should expose their selected state");
+assert.match(result, /getAttemptById\(attemptId!\)/, "visual result redesign must keep exact canonical-attempt fetching");
+assert.match(result, /retryUrl = `\/test\/\$\{encodeURIComponent\(result\.testId\)\}/, "result redesign must preserve the canonical retake target");
+
 assert.match(appSidebar, /border-r border-slate-200 bg-white text-slate-700/, "preparation sidebar should remain a calm light rail");
 assert.match(appSidebar, /data-\[active=true\]:bg-indigo-50/, "preparation navigation should use a restrained active state");
 assert.doesNotMatch(appSidebar, /\[data-sidebar=sidebar\]\]:bg-\[#1e1b4b\]/, "full-height dark sidebar treatment should not return");
@@ -51,4 +60,4 @@ assert.match(appLayout, /"--sidebar-width": "240px"/, "preparation shell should 
 
 assert.doesNotMatch(home, /shadow-\[0_8px_30px_rgb\(0,0,0,0\.12\)\]/, "homepage should not regress to the old repeated heavy shadow treatment");
 
-console.log("Visual system V1 audit passed (31 assertions).");
+console.log("Visual system V1 audit passed (38 assertions).");
