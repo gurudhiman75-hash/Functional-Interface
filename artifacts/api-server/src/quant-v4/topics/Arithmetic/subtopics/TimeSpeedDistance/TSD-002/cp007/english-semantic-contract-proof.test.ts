@@ -31,9 +31,9 @@ assert(endpointContrast.stem.toLowerCase().includes("how many poles"), "94-E mus
 assert(!endpointContrast.stem.toLowerCase().includes("find the corresponding travelled distance"), "94-E must not drift into an unimplemented distance target");
 
 const occupancyFamilies = ["92-A", "92-B", "92-C", "92-D", "92-E", "92-F"].map(family);
-assert(occupancyFamilies.slice(0, 3).every((entry) => /how long|duration|interval/i.test(entry.stem)), "92-A..C must remain duration targets");
+assert(occupancyFamilies.slice(0, 3).every((entry) => /how long|duration|interval|find the time/i.test(entry.stem)), "92-A..C must remain duration targets");
 assert(occupancyFamilies.slice(3, 5).every((entry) => /find the length|determine the length/i.test(entry.stem)), "92-D..E must remain inverse object-length targets");
-assert(/how long|duration/i.test(occupancyFamilies[5]!.stem), "92-F must remain the full-occupancy duration target");
+assert(/how long|duration|find the time/i.test(occupancyFamilies[5]!.stem), "92-F must remain the full-occupancy duration target");
 
 const spacingExpected = Object.freeze({
   "94-A": "COUNT",
@@ -51,13 +51,13 @@ for (const [id, target] of Object.entries(spacingExpected)) {
 }
 
 for (const ql of TSD_CP007_EXAM_REVIEW_ENGLISH_AUTHORING_REGISTRY) {
-  assert(ql.editorialStatus === "REVIEW_CANDIDATE", `${ql.qlId}: semantic review must not freeze English content`);
+  assert(ql.editorialStatus === "REVIEW_CANDIDATE", `${ql.qlId}: semantic review source must remain the pre-freeze review candidate`);
 }
 
 console.log("TSD-CP-007 ENGLISH SEMANTIC-CONTRACT PROOF: PASS");
 console.log(JSON.stringify({
   effectiveStemFamilies: families.size,
-  semanticCorrections: ["91-D", "93-F", "94-E"],
+  semanticCorrections: ["91-D", "92-C", "93-F", "94-E"],
   difficultyPolicy: "DEPTH_DRIVEN_NO_FORCED_SPLIT",
   englishStatus: "REVIEW_CANDIDATE",
   questionStudioEnabled: false,
