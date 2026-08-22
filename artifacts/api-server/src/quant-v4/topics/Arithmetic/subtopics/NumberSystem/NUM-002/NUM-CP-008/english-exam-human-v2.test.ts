@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 
+import { presentNumCp008EnglishAnswer } from "./english-answer-presentation-v2.ts";
 import { NUM_CP008_PERMANENT_ALLOCATION } from "./permanent-allocation.ts";
 import { generateNumCp008Permanent, type NumCp008PermanentQlId } from "./permanent-runtime.ts";
 import { generateNumCp008Wave01ReviewFinal } from "./wave01/runtime-review-final.ts";
@@ -31,11 +32,13 @@ function words(value: string): number {
 
 const STEM_ACADEMIC = /(?:≡|\\pmod|\bmodulo\b|\bcongruence(?:s)?\b|\bresidue class(?:es)?\b|\bclassify the system\b|\bgeneralized CRT\b|\bnormalis(?:e|ation)|\bnormalize\b)/iu;
 const EXPLANATION_ACADEMIC = /(?:\bgeneralized CRT\b|\bcongruence(?:s)?\b|\bresidue class(?:es)?\b|\bmodulo\b|\bnormalis(?:e|ation)|\bnormalize\b)/iu;
+const ANSWER_ACADEMIC = /(?:\bmodulo\b|\bresidue class(?:es)?\b|\bcompatible\b|\bincompatible\b)/iu;
 const IMPLEMENTATION_LEAK = /prototype|generator|fingerprint|hidden state|authority package/iu;
 
 let checked = 0;
 let changedStems = 0;
 let changedExplanations = 0;
+let humanizedAnswerLabels = 0;
 let downstreamActivations = 0;
 const qlReach = new Set<string>();
 const prototypeReach = new Set<string>();
@@ -76,6 +79,14 @@ for (const allocation of NUM_CP008_PERMANENT_ALLOCATION) {
     assert.ok(final.explanation.steps.length >= 2, `${label}: explanation too thin`);
     assert.equal(final.explanation.finalAnswer, final.canonicalAnswer, `${label}: final answer drift`);
 
+    for (const option of final.options) {
+      const displayed = presentNumCp008EnglishAnswer(option.value);
+      assert.doesNotMatch(displayed, ANSWER_ACADEMIC, `${label}: academic answer label leaked to learner: ${displayed}`);
+      if (displayed !== option.value) humanizedAnswerLabels += 1;
+    }
+    const displayedAnswer = presentNumCp008EnglishAnswer(final.canonicalAnswer);
+    assert.equal(displayedAnswer, presentNumCp008EnglishAnswer(final.options[final.correctIndex]!.value), `${label}: displayed answer binding drift`);
+
     if (final.stem !== source.stem) changedStems += 1;
     if (JSON.stringify(final.explanation) !== JSON.stringify(source.explanation)) changedExplanations += 1;
 
@@ -95,6 +106,7 @@ assert.equal(qlReach.size, 19);
 assert.equal(prototypeReach.size, 26);
 assert.ok(changedStems >= Math.floor(checked * 0.95), `Expected at least 95% of sampled stems to be editorially rewritten, got ${changedStems}/${checked}`);
 assert.equal(changedExplanations, checked, "Every sampled English explanation should use the human surface");
+assert.ok(humanizedAnswerLabels > 0, "Expected academic source labels to be humanized at presentation time");
 assert.equal(downstreamActivations, 0, "English editorial work must not open downstream lifecycle gates");
 
 console.log(JSON.stringify({
@@ -104,8 +116,9 @@ console.log(JSON.stringify({
   prototypeReach: prototypeReach.size,
   changedStems,
   changedExplanations,
+  humanizedAnswerLabels,
   answerChanges: 0,
-  optionChanges: 0,
+  optionSemanticChanges: 0,
   fingerprintChanges: 0,
   downstreamActivations,
 }, null, 2));
