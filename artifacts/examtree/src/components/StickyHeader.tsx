@@ -88,7 +88,7 @@ export function StickyHeader() {
           ExamTree
         </div>
 
-        <div className="relative mx-auto min-w-0 max-w-2xl flex-1">
+        <div className="relative mx-auto min-w-0 flex-1 max-w-2xl">
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
