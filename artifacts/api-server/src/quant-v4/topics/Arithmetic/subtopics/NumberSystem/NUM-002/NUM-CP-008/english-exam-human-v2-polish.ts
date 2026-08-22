@@ -12,6 +12,13 @@ function mod(value: number, modulus: number): number {
   return ((value % modulus) + modulus) % modulus;
 }
 
+function gcd(a: number, b: number): number {
+  let x = Math.abs(a);
+  let y = Math.abs(b);
+  while (y !== 0) [x, y] = [y, x % y];
+  return x;
+}
+
 function polishStem(q: NumCp008PermanentPackage): string {
   let stem = q.stem;
   switch (q.temporaryPrototypeId) {
@@ -44,7 +51,7 @@ function polishExplanation(q: NumCp008PermanentPackage): NumCp008PermanentPackag
   const answer = Number(q.canonicalAnswer);
   const factor = base - 1;
 
-  if (Number.isSafeInteger(answer) && factor > 0) {
+  if (Number.isSafeInteger(answer) && factor > 0 && gcd(factor, modulus) === 1) {
     let powerResidue = 1;
     for (let index = 0; index < highestExponent + 1; index += 1) powerResidue = mod(powerResidue * base, modulus);
     const numeratorResidue = mod(powerResidue - 1, modulus);
