@@ -1,0 +1,62 @@
+name: Validate NUM-CP-010 Wave 01 digit-structure foundation
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/**"
+      - ".github/workflows/num-cp010-wave01-discovery-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp010-wave01:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP010 Wave 01 proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/wave01/runtime.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp010-wave01.test.mjs
+
+      - name: Run CP010 Wave 01 proof
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp010-wave01.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp010-wave01.log
+
+      - name: Bundle learner review export
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/wave01/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp010-wave01-review-export.mjs
+
+      - name: Generate learner review Markdown
+        run: node artifacts/api-server/dist/quant-v4/num-cp010-wave01-review-export.mjs
+
+      - name: Upload Wave 01 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp010-wave01-discovery-review
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp010-wave01.log
+            artifacts/api-server/dist/quant-v4/num-cp010-wave01-review.md
+          if-no-files-found: error
+          retention-days: 14
