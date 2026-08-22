@@ -11,16 +11,24 @@ const normalizedQuestionSurfaces=new Set<string>();
 const normalizedClueSurfaces=new Set<string>();
 const structuralFingerprints=new Set<string>();
 const answerPositions=Array.from({length:4},()=>[0,0,0,0]);
+const selfReferenceRationaleCounts=new Map<string,number>();
 let sourceCount=0;
 let baseCount=0;
 let detailedSolutionCount=0;
 let caseTeachingCount=0;
+let selfReferenceRationaleCount=0;
 
 function escapeRegex(value:string):string { return value.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
 function normalizePeople(text:string,people:readonly string[]):string {
   let normalized=text;
   for(const person of [...people].sort((a,b)=>b.length-a.length)) normalized=normalized.replace(new RegExp(`\\b${escapeRegex(person)}\\b`,"g"),"<PERSON>");
   return normalized.replace(/\s+/g," ").trim();
+}
+function selfReferencePerson(text:string,queryContractId:string):string|null {
+  if(queryContractId==="SEA-QC-010") return text.match(/^Who sits exactly opposite (.+)\?$/)?.[1]??null;
+  if(queryContractId==="SEA-QC-003") return text.match(/^Who sits (?:immediately|second|third|fourth|fifth) to the (?:left|right) of (.+)\?$/)?.[1]??null;
+  if(queryContractId==="SEA-QC-012") return text.match(/^Who sits diagonally opposite (.+)\?$/)?.[1]??null;
+  return null;
 }
 
 assert.equal(corpus.length,100,"CP006 English review must contain exactly 100 caselets");
@@ -78,6 +86,22 @@ for(const caselet of corpus){
     assert.equal(child.options[child.answerIndex]?.value,child.answer);
     assert.ok(child.options.every((option)=>option.explanation.length>=21),`${caselet.caseletId}/Q${q+1}: option explanation too thin`);
     assert.ok(child.options.every((option)=>!/\bthe our\b|observer\b|\bcolumns?\b/i.test(option.explanation)),`${caselet.caseletId}/Q${q+1}: awkward/technical/column option explanation`);
+
+    const reference=selfReferencePerson(child.text,child.queryContractId);
+    if(reference){
+      for(const option of child.options){
+        if(option.isCorrect||option.value!==reference) continue;
+        selfReferenceRationaleCount+=1;
+        selfReferenceRationaleCounts.set(child.queryContractId,(selfReferenceRationaleCounts.get(child.queryContractId)??0)+1);
+        if(child.queryContractId==="SEA-QC-010") {
+          assert.equal(option.explanation,`${reference} is the reference person, so ${reference} cannot also be the person sitting opposite ${reference}.`,`${caselet.caseletId}/Q${q+1}: opposite self-distractor rationale`);
+        } else if(child.queryContractId==="SEA-QC-003") {
+          assert.match(option.explanation,new RegExp(`^${escapeRegex(reference)} cannot be .+ of themselves; the required position must be occupied by another person in the same row\\.$`),`${caselet.caseletId}/Q${q+1}: relative self-distractor rationale`);
+        } else if(child.queryContractId==="SEA-QC-012") {
+          assert.equal(option.explanation,`${reference} cannot sit diagonally opposite themselves; a diagonal seat must be in the other row at an adjacent position.`,`${caselet.caseletId}/Q${q+1}: diagonal self-distractor rationale`);
+        }
+      }
+    }
     answerPositions[q]![child.answerIndex]+=1;
   }
 
@@ -101,6 +125,8 @@ assert.ok(normalizedQuestionSurfaces.size>=8,`question-stem surface pool too thi
 assert.ok(normalizedClueSurfaces.size>=14,`clue-language surface pool too thin: ${normalizedClueSurfaces.size}`);
 assert.ok(structuralFingerprints.size>=80,`review structural diversity too thin: ${structuralFingerprints.size}`);
 for(let q=0;q<4;q+=1) for(let answer=0;answer<4;answer+=1) assert.ok(answerPositions[q]![answer]>=10,`review Q${q+1} answer position ${answer} too thin`);
+assert.equal(selfReferenceRationaleCount,84,"CP006 frozen review self-reference distractor inventory changed unexpectedly");
+assert.deepEqual(Object.fromEntries([...selfReferenceRationaleCounts].sort()),{"SEA-QC-003":41,"SEA-QC-010":34,"SEA-QC-012":9});
 
 const fingerprint=cp006EnglishReviewFingerprint(corpus);
 assert.match(fingerprint,/^[a-f0-9]{64}$/);
@@ -116,5 +142,6 @@ console.log("normalized clue surfaces",normalizedClueSurfaces.size);
 console.log("structural fingerprints",structuralFingerprints.size);
 console.log("detailed solutions",detailedSolutionCount);
 console.log("case-teaching solutions",caseTeachingCount);
+console.log("self-reference rationales",selfReferenceRationaleCount,Object.fromEntries([...selfReferenceRationaleCounts].sort()));
 console.log("answer positions",answerPositions);
 console.log("review fingerprint",fingerprint);
