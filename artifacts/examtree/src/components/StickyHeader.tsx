@@ -81,7 +81,7 @@ export function StickyHeader() {
       data-testid="app-sticky-header"
     >
       <div className="flex items-center gap-3 px-4 sm:px-6">
-        <SidebarTrigger className="et-interactive h-11 w-11 shrink-0 rounded-lg border border-border bg-card text-muted-foreground shadow-sm hover:bg-muted hover:text-foreground" />
+        <SidebarTrigger className="h-11 w-11 shrink-0 rounded-lg border border-border bg-card text-muted-foreground shadow-sm hover:bg-muted hover:text-foreground et-interactive" />
 
         <div className="hidden items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground lg:flex">
           <Compass className="h-4 w-4 text-primary" aria-hidden="true" />
@@ -153,7 +153,7 @@ export function StickyHeader() {
                             key={subcategory.id}
                             type="button"
                             onClick={() => setLocation(`/subcategory/${subcategory.id}`)}
-                            className="et-interactive flex min-h-11 w-full items-center justify-between rounded-lg px-2 py-2 text-left text-xs font-medium text-muted-foreground hover:bg-muted hover:text-primary"
+                            className="flex min-h-11 w-full items-center justify-between rounded-lg px-2 py-2 text-left text-xs font-medium text-muted-foreground hover:bg-muted hover:text-primary et-interactive"
                           >
                             <span className="truncate">{subcategory.name}</span>
                             <span className="ml-2 rounded-md bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">{subcategory.tests.length}</span>
@@ -172,7 +172,7 @@ export function StickyHeader() {
           <button
             type="button"
             onClick={() => setLocation("/dashboard")}
-            className="et-interactive flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground shadow-sm hover:bg-muted hover:text-primary"
+            className="flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground shadow-sm hover:bg-muted hover:text-primary et-interactive"
             aria-label="My activity"
             title="My activity"
           >
@@ -181,7 +181,7 @@ export function StickyHeader() {
           <button
             type="button"
             onClick={() => setLocation("/profile")}
-            className="et-interactive flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground shadow-sm hover:bg-muted hover:text-primary"
+            className="flex h-11 w-11 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground shadow-sm hover:bg-muted hover:text-primary et-interactive"
             aria-label="User profile"
             title="User profile"
           >
