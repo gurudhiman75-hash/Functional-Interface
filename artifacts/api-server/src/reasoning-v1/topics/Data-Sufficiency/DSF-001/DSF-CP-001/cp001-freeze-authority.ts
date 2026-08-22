@@ -1,6 +1,6 @@
 export const DSF_CP001_FREEZE_AUTHORITY = {
   authorityId: "DSF_CP001_PRODUCTION_GENERATION_FREEZE_V1" as const,
-  status: "FREEZE_CANDIDATE" as const,
+  status: "FROZEN" as const,
   packageId: "DSF-001" as const,
   checkpointId: "DSF-CP-001" as const,
   permanentQl: {
@@ -54,6 +54,14 @@ export const DSF_CP001_FREEZE_AUTHORITY = {
     dsfOwnsCanonicalSufficiencyClassification: true as const,
     duplicateSourceSolversAllowed: false as const,
     algebraUsesBoundedWorldApproximation: false as const,
+  },
+  freezeEvidence: {
+    candidateProofHead: "00ea0d1ea55b2cfacf88b761c3be41cb7784b8d8" as const,
+    candidateProofRunId: 32562788021 as const,
+    candidateProofStatus: "SUCCESS" as const,
+    crossWaveQuestionCount: 600 as const,
+    everyDomainCoveredAllFiveClasses: true as const,
+    allSourceDependenciesSatisfied: true as const,
   },
   proofGate: {
     crossWaveQuestionCount: 600 as const,
