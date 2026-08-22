@@ -39,11 +39,13 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
 
     assert.ok(/two parallel rows/i.test(caselet.setupText),`${caselet.caseletId}: exam-style setup missing`);
     assert.ok(!/observer coordinates|blueprint|hidden state/i.test(caselet.setupText),`${caselet.caseletId}: technical setup language leaked`);
-    assert.ok(caselet.sharedExplanation.length>=500,`${caselet.caseletId}: detailed solution too thin`);
+    assert.ok(caselet.sharedExplanation.length>=400,`${caselet.caseletId}: detailed solution too thin`);
+    assert.match(caselet.sharedExplanation,new RegExp(`^Use columns 1 to ${width} from left to right\\.`),`${caselet.caseletId}: solution does not begin with the working frame`);
     assert.ok(caselet.sharedExplanation.includes("Step 1:"),`${caselet.caseletId}: step-by-step solution missing`);
-    assert.ok(caselet.sharedExplanation.includes("Result:"),`${caselet.caseletId}: clue result missing`);
+    assert.ok(caselet.sharedExplanation.includes("Position:"),`${caselet.caseletId}: concrete position deduction missing`);
+    assert.ok(/\bcolumn\b/i.test(caselet.sharedExplanation),`${caselet.caseletId}: column-based reasoning missing`);
     assert.ok(caselet.sharedExplanation.includes("Final arrangement:"),`${caselet.caseletId}: final arrangement missing`);
-    assert.ok(caselet.sharedExplanation.includes("Use this final arrangement to answer all the questions that follow."));
+    assert.ok(!/Draw two equal rows first|For a person in the upper row|Here the conditions fix|Use this final arrangement to answer|\bResult:/i.test(caselet.sharedExplanation),`${caselet.caseletId}: unnecessary solution boilerplate returned`);
     assert.ok(!caselet.sharedExplanation.includes("Clue 1:"),`${caselet.caseletId}: solution repeats the full clue list instead of explaining it`);
     if(caselet.sharedExplanation.includes("Case 1:")) caseTeachingCount+=1;
 
