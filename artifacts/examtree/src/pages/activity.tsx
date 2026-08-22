@@ -144,7 +144,7 @@ export default function ActivityPage() {
                 <Badge variant="outline" className={scoreClass(latestAttempt.score)}>{latestAttempt.score}%</Badge>
               </div>
               <p className="mt-2 text-sm leading-6 text-slate-600">
-                {latestAttempt.testName} · {latestAttempt.category} · {formatDate(latestAttempt.createdAt)}
+                {latestAttempt.category} · {formatDate(latestAttempt.createdAt)}
               </p>
               <div className="mt-5 flex flex-wrap gap-3">
                 <Button asChild className="min-h-11 bg-indigo-700 px-5 text-white hover:bg-indigo-800">
@@ -213,7 +213,7 @@ export default function ActivityPage() {
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
           <div>
             <h2 id="recent-attempts-heading" className="text-2xl font-semibold tracking-tight text-slate-950">Recent attempts</h2>
-            <p className="mt-1 text-sm text-slate-600">Saved evaluated attempts from your account.</p>
+            <p className="mt-1 text-sm text-slate-600">Attempt history below is loaded from ExamTree's canonical database.</p>
           </div>
           <span className="text-sm font-medium text-slate-500">{attempts.length} saved</span>
         </div>
@@ -242,7 +242,7 @@ export default function ActivityPage() {
                       <Badge variant="outline" className={scoreClass(attempt.score)}>{attempt.score}%</Badge>
                     </div>
                     <p className="mt-1 text-xs leading-5 text-slate-500">
-                      {attempt.category} · {formatDate(attempt.createdAt)} · {attempt.correct} correct · {attempt.wrong} wrong
+                      {attempt.category} · {formatDate(attempt.createdAt)} · {attempt.correct} correct, {attempt.wrong} wrong
                     </p>
                   </div>
                   <ResultLink attempt={attempt} />
