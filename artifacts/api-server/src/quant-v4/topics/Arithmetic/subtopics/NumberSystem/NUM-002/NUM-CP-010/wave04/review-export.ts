@@ -24,7 +24,7 @@ for (const [index, seed] of seeds.entries()) {
   lines.push("", `**Final answer:** ${q.canonicalAnswer}`, "", "---", "");
 }
 
-const output = resolve(process.cwd(), "dist/quant-v4/num-cp010-wave04-review.md");
+const output = resolve(process.cwd(), "artifacts/api-server/dist/quant-v4/num-cp010-wave04-review.md");
 mkdirSync(dirname(output), { recursive: true });
 writeFileSync(output, `${lines.join("\n")}\n`, "utf8");
 console.log(JSON.stringify({ status: "PASS_NUM_CP010_WAVE04_REVIEW_EXPORT", questions: seeds.length, output }, null, 2));
