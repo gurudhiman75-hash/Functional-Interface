@@ -103,14 +103,15 @@ for(const canonical of corpus){
     }
 
     const learnerSurface=[localized.setupText,...localized.clueTexts,localized.sharedExplanation,localized.diagramText,...localized.children.flatMap((child)=>[child.text,child.displayAnswer,child.explanation,...child.options.flatMap((option)=>[option.displayValue,option.explanation])])].join("\n");
+    const gendered=cp006HasKnownGenderedParticipantSurface(learnerSurface,canonical,locale);
     if(/[A-Za-z]/u.test(learnerSurface)) latinResidue+=1;
     if(/\bcolumns?\b/iu.test(learnerSurface)) learnerColumnResidue+=1;
-    if(cp006HasKnownGenderedParticipantSurface(learnerSurface)) genderedParticipantResidue+=1;
+    if(gendered) genderedParticipantResidue+=1;
     if(locale==="hi-IN"&&!/[\u0900-\u097F]/u.test(learnerSurface)) wrongScript+=1;
     if(locale==="pa-IN"&&!/[\u0A00-\u0A7F]/u.test(learnerSurface)) wrongScript+=1;
     assert.ok(!/[A-Za-z]/u.test(learnerSurface),`${canonical.caseletId}/${locale}: Latin learner residue`);
     assert.ok(!/\bcolumns?\b/iu.test(learnerSurface),`${canonical.caseletId}/${locale}: learner-facing column wording returned`);
-    assert.ok(!cp006HasKnownGenderedParticipantSurface(learnerSurface),`${canonical.caseletId}/${locale}: known gendered/mechanical participant wording returned`);
+    assert.ok(!gendered,`${canonical.caseletId}/${locale}: known gendered/mechanical participant wording returned`);
     assert.match(localized.presentationFingerprint,/^[a-f0-9]{64}$/u);
     assert.ok(!presentationFingerprints.has(localized.presentationFingerprint),`${canonical.caseletId}/${locale}: duplicate localized presentation fingerprint`);
     presentationFingerprints.add(localized.presentationFingerprint);
