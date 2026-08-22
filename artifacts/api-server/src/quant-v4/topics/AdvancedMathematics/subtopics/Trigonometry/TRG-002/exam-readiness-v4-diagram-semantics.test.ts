@@ -8,7 +8,7 @@ const jsonPath = join(outDir, "TRG-002-V4-EXAM-READINESS-REVIEW.json");
 const pack = JSON.parse(readFileSync(jsonPath, "utf8"));
 
 const falseObjectHeightQls = new Set(["TRG-002-QL-035", "TRG-002-QL-067", "TRG-002-QL-069", "TRG-002-QL-095"]);
-const falseHorizontalQls = new Set(["TRG-002-QL-042", "TRG-002-QL-070", "TRG-002-QL-071", "TRG-002-QL-072"]);
+const falseHorizontalQls = new Set(["TRG-002-QL-042", "TRG-002-QL-070", "TRG-002-QL-071", "TRG-002-QL-072", "TRG-002-QL-088"]);
 
 function pointMap(diagram: AnyRecord) {
   return new Map<string, AnyRecord>((diagram.points ?? []).map((point: AnyRecord) => [point.id, point]));
