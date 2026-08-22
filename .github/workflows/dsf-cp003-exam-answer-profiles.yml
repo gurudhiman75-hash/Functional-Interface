@@ -51,6 +51,10 @@ jobs:
             --bundle --platform=node --format=esm --packages=external \
             --outfile=dist/reasoning-v1/dsf/dsf-cp003-exam-answer-profiles-route.test.mjs
           pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-003/exam-answer-profiles-review-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp003-exam-answer-profiles-review-export.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
             src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-002/question-studio-integration-v1.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/dsf/dsf-cp002-question-studio-regression.test.mjs
@@ -70,6 +74,10 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/dsf/dsf-cp003-exam-answer-profiles-route.test.mjs
+      - name: Build CP-003 human review artifact
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp003-exam-answer-profiles-review-export.mjs
       - name: Re-prove CP-002 Question Studio runtime
         run: |
           cd artifacts/api-server
@@ -82,3 +90,11 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/dsf/dsf-cp001-freeze-regression.test.mjs
+      - name: Upload CP-003 exam-profile review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: dsf-cp003-exam-answer-profiles-review
+          path: |
+            artifacts/api-server/dist/reasoning-v1/dsf/dsf-cp003-exam-answer-profiles-review.html
+            artifacts/api-server/dist/reasoning-v1/dsf/dsf-cp003-exam-answer-profiles-review.json
+          if-no-files-found: error
