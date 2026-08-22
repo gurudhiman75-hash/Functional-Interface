@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 
+import { presentNumCp008EnglishAnswer } from "./english-answer-presentation-v2.ts";
 import { NUM_CP008_PERMANENT_ALLOCATION } from "./permanent-allocation.ts";
 import {
   generateNumCp008Permanent,
@@ -107,26 +108,20 @@ function tryGenerateMatchingDifficulty(
 }
 
 function normalizedPackage(pkg: ReturnType<typeof generateAuthority>, language: NumCp008QuestionStudioLanguage, seedText: string) {
+  const present = language === "en" ? presentNumCp008EnglishAnswer : (value: string) => value;
+  const displayedOptions = pkg.options.map((option) => present(option.value));
+  const displayedAnswer = present(pkg.canonicalAnswer);
+  const displayedVerifierAnswer = present(pkg.verifierAnswer);
+  const displayedFinalAnswer = present(pkg.explanation.finalAnswer);
+
   const explanationLines = [
     pkg.explanation.coreConcept,
     pkg.explanation.strategy,
     ...pkg.explanation.steps,
-    `उत्तर: ${pkg.explanation.finalAnswer}`,
+    `उत्तर: ${displayedFinalAnswer}`,
   ];
-  if (language === "en") explanationLines[explanationLines.length - 1] = `Answer: ${pkg.explanation.finalAnswer}`;
-  if (language === "pa") explanationLines[explanationLines.length - 1] = `ਉੱਤਰ: ${pkg.explanation.finalAnswer}`;
-
-  const identity = createHash("sha256")
-    .update(JSON.stringify({
-      qlId: pkg.permanentQlId,
-      language,
-      seed: pkg.seed,
-      stem: pkg.stem,
-      options: pkg.options.map((option) => option.value),
-      answer: pkg.canonicalAnswer,
-    }))
-    .digest("hex")
-    .slice(0, 20);
+  if (language === "en") explanationLines[explanationLines.length - 1] = `Answer: ${displayedFinalAnswer}`;
+  if (language === "pa") explanationLines[explanationLines.length - 1] = `ਉੱਤਰ: ${displayedFinalAnswer}`;
 
   const sourceLifecycle = pkg.lifecycle;
   const validationOk = pkg.canonicalAnswer === pkg.verifierAnswer
@@ -134,9 +129,24 @@ function normalizedPackage(pkg: ReturnType<typeof generateAuthority>, language: 
     && pkg.options[pkg.correctIndex]?.value === pkg.canonicalAnswer;
 
   if (!validationOk) throw new Error(`${pkg.permanentQlId}: frozen answer/verifier/option binding drift.`);
+  if (displayedAnswer !== displayedVerifierAnswer || displayedOptions[pkg.correctIndex] !== displayedAnswer) {
+    throw new Error(`${pkg.permanentQlId}: learner-facing answer presentation drift.`);
+  }
   if (sourceLifecycle.questionBankWritable || sourceLifecycle.testEligible || sourceLifecycle.publiclyPublishable) {
     throw new Error(`${pkg.permanentQlId}: downstream lifecycle lock unexpectedly opened.`);
   }
+
+  const identity = createHash("sha256")
+    .update(JSON.stringify({
+      qlId: pkg.permanentQlId,
+      language,
+      seed: pkg.seed,
+      stem: pkg.stem,
+      options: displayedOptions,
+      answer: displayedAnswer,
+    }))
+    .digest("hex")
+    .slice(0, 20);
 
   return Object.freeze({
     packageId: NUM_CP008_QUESTION_STUDIO_PACKAGE_ID,
@@ -145,14 +155,14 @@ function normalizedPackage(pkg: ReturnType<typeof generateAuthority>, language: 
     explanationId: `${pkg.permanentQlId}-EXP-${language.toUpperCase()}`,
     questionId: `NUM-CP008-${pkg.permanentQlId.slice(-3)}-${language.toUpperCase()}-${identity}`,
     stem: pkg.stem,
-    options: Object.freeze(pkg.options.map((option) => option.value)),
+    options: Object.freeze(displayedOptions),
     optionMetadata: Object.freeze(pkg.options.map((option) => Object.freeze({
       isCorrect: option.isCorrect,
       misconceptionId: option.misconceptionId,
     }))),
     correctIndex: pkg.correctIndex,
-    answer: pkg.canonicalAnswer,
-    verifierAnswer: pkg.verifierAnswer,
+    answer: displayedAnswer,
+    verifierAnswer: displayedVerifierAnswer,
     difficultyBand: titleDifficulty(pkg.difficulty),
     language,
     locale: language === "en" ? "en-IN" : language === "hi" ? "hi-IN" : "pa-IN",
