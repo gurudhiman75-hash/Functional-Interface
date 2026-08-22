@@ -3,7 +3,13 @@ import { adminRequest } from '@/lib/admin-request';
 export type DsfReviewLanguage = 'en';
 export type DsfReviewDifficulty = 'Easy' | 'Medium' | 'Hard';
 export type DsfReviewDomain = 'NUMBER_SYSTEM' | 'RATIO_PROPORTION' | 'PERCENTAGE' | 'ALGEBRA';
-export type DsfReviewAnswerProfile = 'GENERIC_DS_STANDARD_5_EN';
+export type DsfReviewAnswerProfile =
+  | 'GENERIC_DS_STANDARD_5_EN'
+  | 'BANKING_STANDARD_5_EN'
+  | 'BANKING_BOB_2015_5_EN'
+  | 'SSC_CGL_TIER2_2023_4_EN'
+  | 'SSC_CGL_TIER2_2024_4_EN';
+export type DsfReviewExamFamily = 'GENERIC' | 'BANKING' | 'SSC';
 export type DsfReviewSemanticClass =
   | 'STATEMENT_I_ONLY'
   | 'STATEMENT_II_ONLY'
@@ -18,15 +24,37 @@ export interface DsfReviewDomainDefinition {
   solveModes: string[];
 }
 
+export interface DsfReviewAnswerProfileDefinition {
+  id: DsfReviewAnswerProfile;
+  label: string;
+  examFamily: DsfReviewExamFamily;
+  optionCount: 4 | 5;
+  semanticOrder: DsfReviewSemanticClass[];
+  representedSemanticClasses: DsfReviewSemanticClass[];
+  omittedSemanticClasses: DsfReviewSemanticClass[];
+  evidenceLevel: string;
+  sourcePatternIds: string[];
+  evidenceNote: string;
+  enabledInQuestionStudio: true;
+  studentPublicationEligible: false;
+}
+
 export interface DsfReviewQuestion {
   packageId: 'DSF-001';
   sourceCheckpointId: 'DSF-CP-001';
   integrationCheckpointId: 'DSF-CP-002';
+  profileCheckpointId: 'DSF-CP-003';
   qlId: 'DSF-QL-001';
   questionId: string;
+  sourceQuestionId: string;
   language: DsfReviewLanguage;
   locale: 'en-IN';
   answerProfile: DsfReviewAnswerProfile;
+  examFamily: DsfReviewExamFamily;
+  profileEvidenceLevel: string;
+  profileSourcePatternIds: string[];
+  profileRepresentedSemanticClasses: DsfReviewSemanticClass[];
+  profileOmittedSemanticClasses: DsfReviewSemanticClass[];
   domain: DsfReviewDomain;
   domainLabel: string;
   sourceChapterId: string;
@@ -58,6 +86,7 @@ export interface DsfReviewQuestion {
   };
   sourceGenerationIdentity: string;
   integrationAuthority: string;
+  deliveryProfileAuthority: string;
   sourceFreezeAuthority: string;
   validation: {
     valid: true;
@@ -69,6 +98,9 @@ export interface DsfReviewQuestion {
     questionBankLocked: true;
     testMockLocked: true;
     publicationLocked: true;
+    profileRepresentable: true;
+    semanticTruthPreserved: true;
+    optionOrderMatchesProfile: true;
   };
   lifecycle: {
     questionStudioDiscoverable: true;
@@ -92,6 +124,8 @@ export interface DsfReviewPackage {
   sourceFreezeAuthority: string;
   sourceCheckpointId: 'DSF-CP-001';
   integrationCheckpointId: 'DSF-CP-002';
+  profileCheckpointId: 'DSF-CP-003';
+  profileDeliveryAuthority: string;
   permanentQlIds: ['DSF-QL-001'];
   nextAvailableQlId: 'DSF-QL-002';
   domains: DsfReviewDomainDefinition[];
@@ -100,8 +134,11 @@ export interface DsfReviewPackage {
   supportedDifficulties: DsfReviewDifficulty[];
   supportedLanguages: DsfReviewLanguage[];
   supportedAnswerProfiles: DsfReviewAnswerProfile[];
+  answerProfiles: DsfReviewAnswerProfileDefinition[];
   defaultAnswerProfile: DsfReviewAnswerProfile;
-  examSpecificAnswerProfilesImplemented: false;
+  examSpecificAnswerProfilesImplemented: true;
+  supportedExamFamilies: ['BANKING', 'SSC'];
+  disabledExamFamilies: Array<{ examFamily: 'PUNJAB_STATE'; reason: string }>;
   runtimeMode: string;
   reviewStatus: string;
   questionStudioDiscoverable: true;
@@ -135,10 +172,14 @@ export interface DsfReviewStatus {
   approvedItemCount: number;
   questionBankCount: number;
   integrationAuthority: string;
+  deliveryProfileAuthority: string;
   sourceFreezeAuthority: string;
   supportedLanguages: DsfReviewLanguage[];
   supportedAnswerProfiles: DsfReviewAnswerProfile[];
-  examSpecificAnswerProfilesImplemented: false;
+  answerProfiles: DsfReviewAnswerProfileDefinition[];
+  supportedExamFamilies: ['BANKING', 'SSC'];
+  disabledExamFamilies: Array<{ examFamily: 'PUNJAB_STATE'; reason: string }>;
+  examSpecificAnswerProfilesImplemented: true;
   questionStudioDiscoverable: true;
   persistenceAllowed: true;
   reviewOnly: true;
@@ -200,6 +241,7 @@ export function createDsfReviewRun(input: DsfReviewInput) {
     chapter: 'Data Sufficiency';
     language: DsfReviewLanguage;
     answerProfile: DsfReviewAnswerProfile;
+    deliveryProfileAuthority: string;
     reviewOnly: true;
     questionBankWritable: false;
     testEligible: false;
