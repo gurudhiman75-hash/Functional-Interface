@@ -13,7 +13,6 @@ export const SEA002_CP006_TRANSLATION_TARGET_LOCALES = Object.freeze([
 
 export const SEA002_CP006_LOCALIZATION_AUTHORITY = "SEA002_CP006_HI_PA_EXPLANATION_PARITY_REVIEW_CANDIDATE" as const;
 export const SEA002_CP006_LOCALIZATION_HUMAN_REVIEW_BLOCKER = "CP006_HINDI_PUNJABI_HUMAN_REVIEW_PENDING" as const;
-export const SEA002_CP006_LOCALIZATION_ENGLISH_BLOCKER = "CP006_ENGLISH_REVIEW_REOPENED" as const;
 
 export const SEA002_CP006_SPATIAL_GLOSSARY = Object.freeze([
   { concept: "POSITION", en: "position", hi: "स्थान / स्थिति", pa: "ਸਥਾਨ / ਸਥਿਤੀ" },
@@ -38,31 +37,11 @@ export const SEA002_CP006_SPATIAL_GLOSSARY = Object.freeze([
 ] as const);
 
 export const SEA002_CP006_LOCALIZATION_PROTECTED_FIELDS = Object.freeze([
-  "caseletId",
-  "packageId",
-  "checkpointId",
-  "blueprintAuthorityId",
-  "seed",
-  "people",
-  "state",
-  "clues",
-  "solutionCount",
-  "solverOracleAgreement",
-  "checkpointSkillCoverage",
-  "structuralFingerprint",
-  "queryContractId",
-  "answerType",
-  "answerDeterminingFactFingerprint",
-  "answerIndex",
-  "answer",
-  "option.value",
-  "option.isCorrect",
-  "option.misconceptionId",
-  "permanentQlId",
+  "caseletId","packageId","checkpointId","blueprintAuthorityId","seed","people","state","clues","solutionCount","solverOracleAgreement","checkpointSkillCoverage","structuralFingerprint","queryContractId","answerType","answerDeterminingFactFingerprint","answerIndex","answer","option.value","option.isCorrect","option.misconceptionId","permanentQlId",
 ] as const);
 
 export const SEA002_CP006_LOCALIZATION_READINESS = Object.freeze({
-  status: "BLOCKED_BY_ENGLISH_REVIEW_REOPENED" as const,
+  status: "READY_FOR_TRANSLATION" as const,
   canonicalLocale: "en-IN" as const,
   targetLocales: SEA002_CP006_TRANSLATION_TARGET_LOCALES,
   localizationAuthority: SEA002_CP006_LOCALIZATION_AUTHORITY,
@@ -71,12 +50,12 @@ export const SEA002_CP006_LOCALIZATION_READINESS = Object.freeze({
   learnerTerminologyPolicy: "POSITION_NOT_COLUMN" as const,
   learnerTextPolicy: "TRANSLATE_ONLY_AFTER_ENGLISH_FREEZE" as const,
   humanLanguageReviewRequired: true as const,
-  humanReviewStatus: "NOT_STARTED" as const,
-  activeEditorialBlockers: [SEA002_CP006_LOCALIZATION_ENGLISH_BLOCKER] as const,
+  humanReviewStatus: "PENDING" as const,
+  activeEditorialBlockers: [SEA002_CP006_LOCALIZATION_HUMAN_REVIEW_BLOCKER] as const,
   productDeliveryUnlocked: false as const,
   productionStagingApproved: false as const,
   englishFreezeActive: SEA002_CP006_ENGLISH_FREEZE.freezeActive,
-  englishReviewCandidateFingerprint: SEA002_CP006_ENGLISH_FREEZE.currentReviewCandidateFingerprint,
+  englishFreezeFingerprint: SEA002_CP006_ENGLISH_FREEZE.approvedReviewFingerprint,
   permanentQlCount: SEA002_CP006_PERMANENT_QL_REGISTRY.length,
   glossaryFingerprint: canonicalDigest(SEA002_CP006_SPATIAL_GLOSSARY),
   protectedFieldFingerprint: canonicalDigest(SEA002_CP006_LOCALIZATION_PROTECTED_FIELDS),
@@ -104,11 +83,7 @@ export function cp006CanonicalParityProjection(caselet: Sea002Cp006Caselet) {
       answerDeterminingFactFingerprint: child.answerDeterminingFactFingerprint,
       answerIndex: child.answerIndex,
       answer: child.answer,
-      options: child.options.map((option) => ({
-        value: option.value,
-        isCorrect: option.isCorrect,
-        misconceptionId: option.misconceptionId ?? null,
-      })),
+      options: child.options.map((option) => ({ value: option.value, isCorrect: option.isCorrect, misconceptionId: option.misconceptionId ?? null })),
     })),
   };
 }
@@ -118,31 +93,35 @@ export function cp006CanonicalParityFingerprint(caselet: Sea002Cp006Caselet): st
 }
 
 export function assertCp006LocalizationFoundationStillBlocked(): void {
-  if (SEA002_CP006_LOCALIZATION_READINESS.status !== "BLOCKED_BY_ENGLISH_REVIEW_REOPENED") {
-    throw new Error("SEA-002 CP006 localization must remain blocked until the corrected English review receives explicit approval.");
+  if (SEA002_CP006_LOCALIZATION_READINESS.status !== "READY_FOR_TRANSLATION") {
+    throw new Error("SEA-002 CP006 localization readiness unexpectedly changed.");
   }
-  if (SEA002_CP006_LOCALIZATION_READINESS.englishFreezeActive) {
-    throw new Error("SEA-002 CP006 localization cannot proceed while current English review approval is absent.");
+  if (!SEA002_CP006_LOCALIZATION_READINESS.englishFreezeActive) {
+    throw new Error("SEA-002 CP006 localization cannot proceed without the corrected frozen English authority.");
+  }
+  if (SEA002_CP006_LOCALIZATION_READINESS.humanReviewStatus !== "PENDING") {
+    throw new Error("SEA-002 CP006 Hindi/Punjabi human review must remain pending at candidate stage.");
   }
   if (SEA002_CP006_LOCALIZATION_READINESS.productDeliveryUnlocked || SEA002_CP006_LOCALIZATION_READINESS.productionStagingApproved) {
-    throw new Error("SEA-002 CP006 localization gate cannot unlock product delivery or production staging.");
+    throw new Error("SEA-002 CP006 localization readiness cannot unlock product delivery or staging.");
   }
-  if (SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered
+  if (SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationFrozen
+    || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionBankWritable
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.mockTestEligible
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.productionStaging
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.publiclyPublishable) {
-    throw new Error("SEA-002 CP006 localization gate must not bypass downstream activation gates.");
+    throw new Error("SEA-002 CP006 localization candidate must not bypass downstream activation gates.");
   }
 }
 
 export function assertCp006LocalizationBindsToApprovedEnglish(): void {
   const corpus = buildCp006EnglishReviewCorpus();
   const current = cp006EnglishReviewFingerprint(corpus);
-  if (current !== SEA002_CP006_LOCALIZATION_READINESS.englishReviewCandidateFingerprint) {
-    throw new Error(`SEA-002 CP006 localization candidate source drift: expected=${SEA002_CP006_LOCALIZATION_READINESS.englishReviewCandidateFingerprint}, current=${current}`);
+  if (current !== SEA002_CP006_LOCALIZATION_READINESS.englishFreezeFingerprint) {
+    throw new Error(`SEA-002 CP006 localization source drift: frozen=${SEA002_CP006_LOCALIZATION_READINESS.englishFreezeFingerprint}, current=${current}`);
   }
   if (!SEA002_CP006_LOCALIZATION_READINESS.englishFreezeActive) {
-    throw new Error("SEA-002 CP006 localization is blocked: corrected English review is not yet approved/frozen.");
+    throw new Error("SEA-002 CP006 localization is blocked: corrected English freeze is inactive.");
   }
 }

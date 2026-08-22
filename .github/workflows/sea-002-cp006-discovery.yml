@@ -37,10 +37,12 @@ jobs:
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-exam-real-proof.test.ts
       - name: Prove CP006 corrected 100-caselet English review and rationale quality
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-english-review-proof.test.ts
-      - name: Prove CP006 prior approval is stale and English review is safely reopened
+      - name: Prove CP006 corrected signed English freeze and permanent inactive allocation
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-freeze-proof.test.ts
-      - name: Prove CP006 Hindi/Punjabi localization is blocked until corrected English approval
+      - name: Prove CP006 Hindi/Punjabi localization readiness binds to corrected frozen English
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-localization-readiness-proof.test.ts
+      - name: Prove CP006 Hindi/Punjabi executable explanation-parity review candidate
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-localized-review-candidate-proof.test.ts
       - name: Export corrected CP006 100-caselet English review artifact
         env:
           CP006_REVIEW_OUTPUT_DIR: ./cp006-review-output
@@ -50,5 +52,16 @@ jobs:
         with:
           name: cp006-english-review-100
           path: ./cp006-review-output
+          if-no-files-found: error
+          retention-days: 30
+      - name: Export CP006 Hindi/Punjabi 200-caselet review candidate
+        env:
+          CP006_LOCALIZED_REVIEW_OUTPUT_DIR: ./cp006-localized-review-output
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-localized-review-export.ts
+      - name: Upload CP006 Hindi/Punjabi review candidate
+        uses: actions/upload-artifact@v4
+        with:
+          name: cp006-hi-pa-review-200
+          path: ./cp006-localized-review-output
           if-no-files-found: error
           retention-days: 30
