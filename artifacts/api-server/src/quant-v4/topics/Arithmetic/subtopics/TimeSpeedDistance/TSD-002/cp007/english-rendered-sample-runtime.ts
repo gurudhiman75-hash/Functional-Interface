@@ -1,4 +1,4 @@
-import { divide, rational, subtract, type Rational } from "../../TSD-001/foundation/rational";
+import { divide, multiply, rational, subtract, type Rational } from "../../TSD-001/foundation/rational";
 import { TSD_CP007_EFFECTIVE_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-effective";
 import { generateCp007ExecutableCase } from "./executable-generator";
 import type { TsdCp007ExecutableGeneratedCase } from "./executable-types";
@@ -17,6 +17,9 @@ export interface TsdCp007RenderedEnglishSample {
   readonly unresolvedPlaceholders: readonly string[];
 }
 
+const KMH_INPUT_FAMILIES = new Set(["84-D", "86-D"]);
+const KMH_ANSWER_FAMILIES = new Set(["87-D", "90-E"]);
+
 function rationalText(value: Rational): string {
   if (value.denominator === 1n) return value.numerator.toString();
   return `${value.numerator}/${value.denominator}`;
@@ -31,10 +34,14 @@ function clockText(value: Rational): string {
   return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${secondText}`;
 }
 
-function answerText(generated: TsdCp007ExecutableGeneratedCase): string {
+function answerText(familyId: string, generated: TsdCp007ExecutableGeneratedCase): string {
   const solution = generated.solution;
   if (solution.answerKind === "COUNT") return `${solution.count ?? 0n}`;
   if (!solution.value) throw new Error(`${generated.seed}: value solution is missing`);
+  if (solution.unit === "CLOCK_SECOND") return clockText(solution.value);
+  if (solution.unit === "METRE_PER_SECOND" && KMH_ANSWER_FAMILIES.has(familyId)) {
+    return `${rationalText(multiply(solution.value, rational(18, 5)))} km/h`;
+  }
   const unit = {
     SECOND: "s",
     METRE: "m",
@@ -42,7 +49,6 @@ function answerText(generated: TsdCp007ExecutableGeneratedCase): string {
     CLOCK_SECOND: "clock time",
     COUNT: "",
   }[solution.unit];
-  if (solution.unit === "CLOCK_SECOND") return clockText(solution.value);
   return `${rationalText(solution.value)} ${unit}`.trim();
 }
 
@@ -68,15 +74,21 @@ function targetLabel(generated: TsdCp007ExecutableGeneratedCase): string {
 
 function seedNumberForFamily(familyId: string): number {
   const special: Readonly<Record<string, number>> = Object.freeze({
+    "84-D": 6,
+    "86-D": 6,
+    "87-D": 3,
     "88-A": 1, "88-B": 3, "88-C": 2, "88-D": 4, "88-E": 5, "88-F": 6,
+    "90-E": 3,
     "92-A": 1, "92-B": 3, "92-C": 5, "92-D": 2, "92-E": 4, "92-F": 7,
-    "93-A": 5, "93-B": 2, "93-C": 1, "93-D": 3, "93-E": 6, "93-F": 4,
+    "93-A": 5, "93-B": 2, "93-C": 1, "93-D": 3, "93-E": 6, "93-F": 8,
     "94-A": 4, "94-B": 1, "94-C": 2, "94-D": 3, "94-E": 7, "94-F": 6,
   });
   if (special[familyId]) return special[familyId]!;
-  const letter = familyId.split("-")[1];
-  const index = letter ? letter.charCodeAt(0) - "A".charCodeAt(0) + 1 : 1;
-  return Math.max(1, index);
+  const [qlPart, letter] = familyId.split("-");
+  const qlNumber = Number(qlPart);
+  const familyIndex = letter ? letter.charCodeAt(0) - "A".charCodeAt(0) : 0;
+  if (!Number.isInteger(qlNumber) || familyIndex < 0) throw new Error(`${familyId}: invalid family ID for deterministic seed selection`);
+  return ((qlNumber + familyIndex * 2) % 12) + 1;
 }
 
 function timelineEventBindings(generated: TsdCp007ExecutableGeneratedCase): { knownEvent: string; targetEvent: string } {
@@ -104,7 +116,11 @@ function bindingsFor(familyId: string, generated: TsdCp007ExecutableGeneratedCas
   const input = generated.input;
   const bindings: Record<string, string> = {};
   if (input.trainLength) bindings.trainLength = rationalText(input.trainLength);
-  if (input.speed) bindings.speed = `${rationalText(input.speed)} m/s`;
+  if (input.speed) {
+    bindings.speed = KMH_INPUT_FAMILIES.has(familyId)
+      ? `${rationalText(multiply(input.speed, rational(18, 5)))} km/h`
+      : `${rationalText(input.speed)} m/s`;
+  }
   if (input.fixedObjectLength) bindings.objectLength = rationalText(input.fixedObjectLength);
   if (input.pointCrossingTime) bindings.pointTime = rationalText(input.pointCrossingTime);
   if (input.fixedObjectCrossingTime) {
@@ -182,7 +198,7 @@ export function renderCp007EnglishReviewSamples(): readonly TsdCp007RenderedEngl
       const renderedStem = render(family.stem, bindings);
       const renderedGuide = render(family.explanationGuide, bindings);
       const unresolved = Object.freeze([...new Set([...renderedStem.unresolved, ...renderedGuide.unresolved])]);
-      const answer = answerText(generated);
+      const answer = answerText(family.familyId, generated);
       const explanation = `${givenSummary(family.stem, bindings)} ${renderedGuide.text} Therefore, the ${targetLabel(generated)} is ${answer}.`;
       samples.push(Object.freeze({
         familyId: family.familyId,
