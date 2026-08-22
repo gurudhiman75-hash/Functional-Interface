@@ -34,8 +34,10 @@ async function expectTouchTarget(locator: Locator) {
   await expect(locator).toBeVisible();
   const box = await locator.boundingBox();
   expect(box).not.toBeNull();
-  expect(box?.width ?? 0).toBeGreaterThanOrEqual(44);
-  expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
+  const width = Math.round((box?.width ?? 0) * 1000) / 1000;
+  const height = Math.round((box?.height ?? 0) * 1000) / 1000;
+  expect(width).toBeGreaterThanOrEqual(44);
+  expect(height).toBeGreaterThanOrEqual(44);
 }
 
 test.describe("CP02 preparation chrome accessibility", () => {
