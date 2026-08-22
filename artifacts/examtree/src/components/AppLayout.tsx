@@ -1,8 +1,9 @@
 import type { CSSProperties, ReactNode } from "react";
 import { AlertTriangle, RefreshCw } from "lucide-react";
-import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
+
 import { AppSidebar } from "@/components/AppSidebar";
 import { StickyHeader } from "@/components/StickyHeader";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 
 interface AppLayoutProps {
@@ -46,8 +47,8 @@ function CatalogAwareHeader() {
 export function AppLayout({ children }: AppLayoutProps) {
   return (
     <SidebarProvider
-      className="min-h-screen bg-slate-100 text-foreground"
-      style={{ "--sidebar-width": "260px" } as CSSProperties}
+      className="min-h-screen bg-slate-50 text-foreground"
+      style={{ "--sidebar-width": "240px" } as CSSProperties}
     >
       <a
         href="#main-content"
@@ -61,7 +62,7 @@ export function AppLayout({ children }: AppLayoutProps) {
         <main
           id="main-content"
           tabIndex={-1}
-          className="flex flex-1 flex-col gap-6 bg-slate-100 px-4 pb-4 pt-24 transition-all duration-200 sm:px-6 sm:pb-6 sm:pt-28"
+          className="flex flex-1 flex-col bg-slate-50 px-4 pb-6 pt-24 transition-all duration-200 sm:px-6 sm:pb-8 sm:pt-28 lg:px-8"
         >
           {children}
         </main>
