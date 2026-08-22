@@ -50,7 +50,7 @@ export interface Sea002Cp006PermanentQlRegistryEntry {
   readonly englishStatus: "ENGLISH_MANUAL_FREEZE_APPROVED";
   readonly approvalReviewerId: string;
   readonly approvedReviewFingerprint: string;
-  readonly localizationStatus: "NOT_STARTED";
+  readonly localizationStatus: "REVIEW_CANDIDATE_HUMAN_REVIEW_PENDING";
   readonly active: false;
   readonly questionStudioDiscoverable: false;
   readonly questionBankWritable: false;
@@ -73,7 +73,7 @@ export const SEA002_CP006_PERMANENT_QL_REGISTRY: readonly Sea002Cp006PermanentQl
     englishStatus: "ENGLISH_MANUAL_FREEZE_APPROVED" as const,
     approvalReviewerId: SEA002_CP006_APPROVED_REVIEW.reviewerId,
     approvedReviewFingerprint: SEA002_CP006_APPROVED_REVIEW.approvedReviewFingerprint,
-    localizationStatus: "NOT_STARTED" as const,
+    localizationStatus: "REVIEW_CANDIDATE_HUMAN_REVIEW_PENDING" as const,
     active: false as const,
     questionStudioDiscoverable: false as const,
     questionBankWritable: false as const,
