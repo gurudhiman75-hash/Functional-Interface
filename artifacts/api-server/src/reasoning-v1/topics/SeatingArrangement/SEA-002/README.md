@@ -32,9 +32,9 @@ Final merge/split audit retains all four. These remain **provisional PBA IDs, no
 - two equal rows of 3–6 seats;
 - top row faces south;
 - bottom row faces north;
-- opposite seats share a vertical column;
+- internally, opposite seats share the same coordinate column;
 - person-relative left/right is evaluated from the reference person's facing;
-- diagonal means other row plus an adjacent column, never the same column;
+- internally, diagonal means other row plus an adjacent coordinate, never the opposite coordinate;
 - every displayed clue is typed and independently checked against the hidden state;
 - ordinary caselets require one unique arrangement;
 - each passage carries four child questions with diverse query contracts;
@@ -44,33 +44,35 @@ Final merge/split audit retains all four. These remain **provisional PBA IDs, no
 
 Questions use compact exam-style SSC/Banking language. Internal engine language such as solver/oracle/blueprint/fingerprint/observer coordinates is prohibited from learner-facing prose.
 
-Shared solutions use simple teacher-style English but start directly with the seating work:
+Shared solutions use simple teacher-style English and use **position** consistently for learner-facing seat numbering:
 
-- one compact opening frame: columns numbered left-to-right, upper row south-facing, lower row north-facing, same column = facing pair;
+- one compact opening frame: positions numbered left-to-right, upper row south-facing, lower row north-facing, same position in the two rows = facing pair;
 - no generic multi-paragraph “draw the rows / remember the direction rule” opening;
-- row groups marked without prematurely fixing column positions;
+- row groups marked without prematurely fixing exact positions;
 - candidate Case 1 / Case 2 / Case 3 shown whenever the clues genuinely create alternatives;
 - later conditions visibly reject the wrong cases;
-- deductions expressed with concrete `row`, `column` and `position` wording;
+- deductions expressed with concrete `row` and `position` wording;
 - `Position:` used for the outcome of a deduction instead of an abstract `Result:` label;
-- person-relative deductions state the reference row/facing/column and then the resulting target column;
+- person-relative deductions state the reference row/facing/position and then the resulting target position;
+- diagrams use `Positions:` and `P1`, `P2`, ... rather than learner-facing column labels;
 - final two-row arrangement shown after the deductions;
 - generic closing filler after the final arrangement is removed;
-- repeated row-membership narration is grouped rather than restating one sentence per person.
+- repeated row-membership narration is grouped rather than restating one sentence per person;
+- the English review gate rejects any learner-facing `column` / `columns` wording.
 
 The pinned 100-caselet review corpus has 100/100 detailed position-first solutions and 88/100 explicit case-formation solutions. The remaining 12 are direct-placement solutions where no useful trial-case split exists.
 
 Current pinned review fingerprint:
 
-`361a52f0800e5ccd475d29128145e76f76174deb2e1dcdcd0dae347239134fbd`
+`07216e2a08c198266bd25e40484a477d5c6e4de73b2dae06b8235fc3773a0c3e`
 
-Verified executable/review workflow: `32562509419` on content head `503d67b4fecb6d9f3251046e37b59f5888a50d77`.
+Verified executable/review workflow: `32565913630` on content head `9f827326085d823ea02cab666bb43191c2be3017`.
 
-Pinned review artifact: `cp006-english-review-100`, artifact ID `9473188570`.
+Pinned review artifact: `cp006-english-review-100`, artifact ID `9474071929`.
 
 Pinned review artifact ZIP digest:
 
-`sha256:c5c4229b23ce89e1fc29308ffdc04583a99f456db80375c6432e2638e97d92e8`
+`sha256:7e37d79da61f4b4edca8601e353cd1cf4b8fc1b85fa427dfd89591fa7f747ccc`
 
 ## Lifecycle locks
 
