@@ -18,8 +18,8 @@ const replacements = new Map<string, TsdCp007EnglishStemFamily>([
     difficulty: "HARD",
     representation: "endpoint semantic contrast in point count",
     scene: "fence posts",
-    stem: "Fence posts beside a rail line are {spacing} m apart. A train moves {distance} m, and the counting instruction states whether the post beside the engine at the start is included. How many posts should be reported under that convention?",
-    explanationGuide: "First divide {distance} by {spacing} to find the number of complete equal gaps traversed. If the starting post is included, the reported point count is one more than the gap count; if it is excluded, the count equals the completed gaps. The endpoint wording therefore decides whether the final count uses n or n plus one relative to the gaps.",
+    stem: "Fence posts beside a rail line are {spacing} m apart. A train moves {distance} m, and the counting rule is {endpointConvention}. How many posts should be reported?",
+    explanationGuide: "First divide {distance} by {spacing} to find the number of complete equal gaps traversed. Under the rule {endpointConvention}, the final point count must respect whether the starting post belongs to the count. This is the endpoint distinction between the number of gaps and the number of reported posts.",
   })],
 ]);
 
