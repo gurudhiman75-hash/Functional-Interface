@@ -15,7 +15,7 @@ assert.match(vite, /STATIC_ENTRY_CHUNK_BUDGET_BYTES = 384 \* 1024/);
 assert.match(vite, /STATIC_ENTRY_GRAPH_BUDGET_BYTES = 768 \* 1024/);
 assert.match(vite, /function assertStartupBundleBudgets\(\): Plugin/);
 assert.match(vite, /output\.isEntry/);
-assert.match(vite, /output\.imports/);
+assert.match(vite, /chunk\.imports/);
 assert.match(vite, /Buffer\.byteLength\(chunk\.code, "utf8"\)/);
 assert.match(vite, /assertStartupBundleBudgets\(\)/);
 
