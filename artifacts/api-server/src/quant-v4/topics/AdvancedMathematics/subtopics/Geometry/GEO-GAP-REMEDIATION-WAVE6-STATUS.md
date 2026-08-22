@@ -54,7 +54,7 @@ Solution figures:
 
 ## Final approved Wave-6 evidence
 
-Final current-head proof:
+Final current-head proof before approval-record commit:
 - workflow: `Validate Geometry Gap Remediation Wave 6`
 - proof head: `00ed4a060093f22c886176e30937f30bb0ed7788`
 - run: `32565830787`
@@ -74,7 +74,7 @@ Final approved review artifact:
 - 4 prototypes × 3 seeds = **12 review questions**
 - **9 stem figures + 12 solution figures = 21 runtime figures**
 
-The current-head artifact is content-equivalent to the manually audited viewport-safe artifact `9441319971` from proof head `ddf4001882b316042b654ac972accd7d33c063f5`.
+The approved artifact payload is content-equivalent to the manually audited viewport-safe artifact `9441319971` from proof head `ddf4001882b316042b654ac972accd7d33c063f5`.
 
 ## Human QA result
 
