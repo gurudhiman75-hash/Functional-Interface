@@ -48,10 +48,7 @@ assert.equal(ql001.taskContract, "TWO_STATEMENT_TARGET_DETERMINACY");
 assert.equal(ql001.answerSemantic, "SUFFICIENCY_CLASS");
 assert.equal(ql001.statementCount, 2);
 assert.equal(DSF_NEXT_AVAILABLE_QL_ID, "DSF-QL-002");
-assert.equal(
-  ql001.lifecycle.englishContentStatus,
-  "CP001_PRODUCTION_GENERATION_FREEZE_CANDIDATE",
-);
+assert.equal(ql001.lifecycle.englishContentStatus, "CP001_PRODUCTION_GENERATION_FROZEN");
 assert.deepEqual(ql001.lifecycle.productionBackedSourceChapters, ["NUM-001", "RAP-001", "PCT-001", "ALG-002"]);
 assert.equal(ql001.lifecycle.questionStudioDiscoverable, false);
 assert.equal(ql001.lifecycle.questionBankWritable, false);
@@ -135,7 +132,7 @@ const classCountsByWave = Object.fromEntries(waves.map(([label, questions]) => [
 ]));
 
 console.log(JSON.stringify({
-  status: "PASS_DSF_CP_001_CROSS_WAVE_FINAL_FREEZE_CANDIDATE_AUDIT",
+  status: "PASS_DSF_CP_001_CROSS_WAVE_FROZEN_AUDIT",
   permanentQlIds: DSF_PERMANENT_QL_REGISTRY.map((entry) => entry.qlId),
   nextAvailableQlId: DSF_NEXT_AVAILABLE_QL_ID,
   auditedQuestions: allQuestions.length,
@@ -144,6 +141,5 @@ console.log(JSON.stringify({
   classCountsByWave,
   distinctGenerationIdentities: generationIdentities.size,
   lifecycle: ql001.lifecycle.englishContentStatus,
-  freezeDecision: DSF_CP001_PRE_FREEZE_DECISION.status,
   sourceDependenciesSatisfied: DSF_CP001_PRE_FREEZE_DECISION.sourceDependenciesSatisfied,
 }, null, 2));
