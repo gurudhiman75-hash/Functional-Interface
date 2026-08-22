@@ -49,7 +49,9 @@ function exactify(index: number, seed: string): GapWave7Question {
   }
   if (index === 2) {
     const radius = Math.hypot(75, 65);
-    return refinalize(raw, withCircleRadius(raw.diagramModel, radius), withCircleRadius(raw.solutionDiagramModel, radius));
+    const stem = withCircleRadius(raw.diagramModel, radius);
+    const solution = withLabelPosition(withCircleRadius(raw.solutionDiagramModel, radius), "answer-angle", 180, 135);
+    return refinalize(raw, stem, solution);
   }
   return raw;
 }
