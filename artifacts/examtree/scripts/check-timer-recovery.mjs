@@ -155,8 +155,8 @@ assert.match(
 );
 assert.match(
   playwrightConfig,
-  /testMatch: \/student-\(production\|timer-mobile\)-hardening\\\.spec\\\.ts\//,
-  "Pixel-class CI must include the focused mobile runner certification without running the full desktop matrix twice",
+  /testMatch: \/student-\(production-hardening\|timer-mobile-hardening\|low-end-performance\)\\\.spec\\\.ts\//,
+  "Pixel-class CI must retain the focused mobile runner certification while adding the low-end performance proof without running the full desktop matrix twice",
 );
 
 console.log("Timer recovery audit passed (19 assertions).");
