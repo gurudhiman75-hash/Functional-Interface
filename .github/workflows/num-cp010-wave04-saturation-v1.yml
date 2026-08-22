@@ -54,6 +54,14 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-cp010-wave04.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp010-wave04.log
 
+      - name: Bundle cumulative explanation audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/post-wave04-cumulative-editorial-audit.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp010-cumulative-editorial-audit.test.mjs
+
+      - name: Run cumulative explanation audit
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp010-cumulative-editorial-audit.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp010-cumulative-editorial-audit.log
+
       - name: Bundle ID-free merge-split proof
         run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/post-wave04-authority-proposal.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp010-id-free-merge-split.test.mjs
 
@@ -80,6 +88,7 @@ jobs:
           name: num-cp010-wave04-saturation-review
           path: |
             artifacts/api-server/dist/quant-v4/num-cp010-wave04.log
+            artifacts/api-server/dist/quant-v4/num-cp010-cumulative-editorial-audit.log
             artifacts/api-server/dist/quant-v4/num-cp010-id-free-merge-split.log
             artifacts/api-server/dist/quant-v4/num-cp010-wave04-review.md
             artifacts/api-server/dist/quant-v4/num-cp010-cumulative-discovery-review.md
