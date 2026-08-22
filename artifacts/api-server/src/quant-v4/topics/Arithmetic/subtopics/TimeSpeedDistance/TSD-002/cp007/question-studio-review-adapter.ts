@@ -1,7 +1,7 @@
-import { add, multiply, rational, subtract, type Rational } from "../../TSD-001/foundation/rational";
+import { add, divide, multiply, rational, subtract, type Rational } from "../../TSD-001/foundation/rational";
 import { TSD_CP007_FROZEN_ENGLISH_REGISTRY } from "./english-freeze-registry";
-import { generateCp007ExecutableCase } from "./executable-generator";
-import type { TsdCp007ExecutableGeneratedCase } from "./executable-types";
+import { buildCp007ExecutableInput, generateCp007ExecutableCase } from "./executable-generator";
+import type { TsdCp007AuthorityKey, TsdCp007ExecutableGeneratedCase } from "./executable-types";
 import {
   TSD_CP007_FROZEN_HINDI_LOCALIZATION,
   TSD_CP007_FROZEN_PUNJABI_LOCALIZATION,
@@ -23,14 +23,93 @@ export type TsdCp007QuestionStudioQlId = (typeof TSD_CP007_PERMANENT_QL_IDS)[num
 export type TsdCp007QuestionStudioReviewRequest = Readonly<{
   language?: TsdCp007QuestionStudioLanguage;
   qlId?: TsdCp007QuestionStudioQlId;
+  familyId?: string;
   difficulty?: TsdCp007QuestionStudioDifficulty;
   seed?: string;
   count?: number;
 }>;
 
+interface StudioFamily {
+  readonly familyId: string;
+  readonly difficulty: "EASY" | "MEDIUM" | "HARD";
+  readonly representation: string;
+  readonly scene: string;
+  readonly stem: string;
+  readonly explanationGuide: string;
+}
+
+interface StudioQl {
+  readonly qlId: `TSD-QL-${string}`;
+  readonly authorityKey: TsdCp007AuthorityKey;
+  readonly learnerContract: string;
+  readonly stemFamilies: readonly StudioFamily[];
+}
+
 const FAMILY_COUNT = 66;
-const NUMERIC_CASES_PER_FAMILY = 12;
+const LATENT_NUMERIC_CASES = 12;
 const LOCALE_COUNT = 3;
+const KMH_INPUT_FAMILIES = new Set(["84-D", "84-F", "85-D", "85-F", "86-D", "86-F", "88-E"]);
+const KMH_ANSWER_FAMILIES = new Set(["87-D", "87-F", "90-E"]);
+
+function placeholderKeys(value: string): readonly string[] {
+  return Object.freeze([...new Set([...value.matchAll(/\{([^}]+)\}/g)].map((match) => match[1]!))]);
+}
+
+function availableBindingKeys(familyId: string, authorityKey: TsdCp007AuthorityKey, caseIndex: number): ReadonlySet<string> {
+  const input = buildCp007ExecutableInput(authorityKey, `cp007:${authorityKey}:${caseIndex}`);
+  const keys = new Set<string>();
+  if (input.trainLength) keys.add("trainLength");
+  if (input.speed) keys.add("speed");
+  if (input.fixedObjectLength) keys.add("objectLength");
+  if (input.pointCrossingTime) keys.add("pointTime");
+  if (input.fixedObjectCrossingTime) {
+    keys.add("crossingTime");
+    keys.add("timeA");
+  }
+  if (input.secondFixedObjectCrossingTime) keys.add("timeB");
+  if (input.occupancyDuration) keys.add("occupancyTime");
+  if (input.knownClockSecond) keys.add("clockTime");
+  if (input.distanceWindow) keys.add("distance");
+  if (input.spacing) keys.add("spacing");
+  if (input.timeWindow) keys.add("timeWindow");
+  if (input.observedPointCount !== undefined) keys.add("pointCount");
+  if (input.includeStartingPoint !== undefined) keys.add("endpointConvention");
+  if (familyId === "85-E" && input.fixedObjectLength) {
+    keys.add("objectPartA");
+    keys.add("objectPartB");
+  }
+  if (familyId === "93-F") {
+    keys.add("knownEvent");
+    keys.add("targetEvent");
+    keys.add("objectName");
+  }
+  return keys;
+}
+
+function compatibleCasesForFamily(ql: StudioQl, family: StudioFamily): readonly number[] {
+  const required = placeholderKeys(`${family.stem} ${family.explanationGuide}`);
+  const compatible = Array.from({ length: LATENT_NUMERIC_CASES }, (_, index) => index + 1)
+    .filter((caseIndex) => {
+      const available = availableBindingKeys(family.familyId, ql.authorityKey, caseIndex);
+      return required.every((key) => available.has(key));
+    });
+  if (!compatible.length) throw new Error(`${family.familyId}: no executable CP007 case satisfies the frozen placeholder contract`);
+  return Object.freeze(compatible);
+}
+
+function buildCompatibleCaseMap(): Readonly<Record<string, readonly number[]>> {
+  const entries: [string, readonly number[]][] = [];
+  for (const ql of TSD_CP007_FROZEN_ENGLISH_REGISTRY as readonly StudioQl[]) {
+    for (const family of ql.stemFamilies) entries.push([family.familyId, compatibleCasesForFamily(ql, family)]);
+  }
+  return Object.freeze(Object.fromEntries(entries) as Record<string, readonly number[]>);
+}
+
+export const TSD_CP007_QUESTION_STUDIO_COMPATIBLE_CASES = buildCompatibleCaseMap();
+export const TSD_CP007_QUESTION_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE = Object.freeze(
+  Object.values(TSD_CP007_QUESTION_STUDIO_COMPATIBLE_CASES).reduce((sum, cases) => sum + cases.length, 0),
+);
+const compatibleCaseCounts = Object.values(TSD_CP007_QUESTION_STUDIO_COMPATIBLE_CASES).map((cases) => cases.length);
 
 export const TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   id: TSD_CP007_QUESTION_STUDIO_PACKAGE_ID,
@@ -71,13 +150,13 @@ export const TSD_CP007_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   integrationAuthority: TSD_CP007_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
   frozenQlCount: TSD_CP007_PERMANENT_QL_IDS.length,
   frozenFamiliesPerLocale: FAMILY_COUNT,
-  numericCasesPerFamily: NUMERIC_CASES_PER_FAMILY,
-  deterministicReviewCombinations: FAMILY_COUNT * NUMERIC_CASES_PER_FAMILY * LOCALE_COUNT,
+  latentNumericCasePool: LATENT_NUMERIC_CASES,
+  minimumCompatibleCasesPerFamily: Math.min(...compatibleCaseCounts),
+  maximumCompatibleCasesPerFamily: Math.max(...compatibleCaseCounts),
+  compatibleReviewCombinationsPerLocale: TSD_CP007_QUESTION_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE,
+  deterministicReviewCombinations: TSD_CP007_QUESTION_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE * LOCALE_COUNT,
   bulkSyncSupported: false,
 } as const);
-
-const KMH_INPUT_FAMILIES = new Set(["84-D", "84-F", "85-D", "85-F", "86-D", "86-F", "88-E"]);
-const KMH_ANSWER_FAMILIES = new Set(["87-D", "87-F", "90-E"]);
 
 function rationalText(value: Rational): string {
   return value.denominator === 1n ? value.numerator.toString() : `${value.numerator}/${value.denominator}`;
@@ -158,7 +237,7 @@ function bindingsFor(familyId: string, generated: TsdCp007ExecutableGeneratedCas
   if (input.observedPointCount !== undefined) bindings.pointCount = input.observedPointCount.toString();
   if (input.includeStartingPoint !== undefined) bindings.endpointConvention = endpointConvention(familyId, input.includeStartingPoint);
   if (familyId === "85-E" && input.fixedObjectLength) {
-    const first = { numerator: input.fixedObjectLength.numerator, denominator: input.fixedObjectLength.denominator * 3n } as Rational;
+    const first = divide(input.fixedObjectLength, rational(3));
     const second = subtract(input.fixedObjectLength, first);
     bindings.objectPartA = rationalText(first);
     bindings.objectPartB = rationalText(second);
@@ -211,9 +290,11 @@ function render(template: string, bindings: Readonly<Record<string, string>>) {
   });
 }
 
-function registryFor(language: TsdCp007QuestionStudioLanguage) {
-  if (language === "en") return TSD_CP007_FROZEN_ENGLISH_REGISTRY;
-  return language === "hi" ? TSD_CP007_FROZEN_HINDI_LOCALIZATION : TSD_CP007_FROZEN_PUNJABI_LOCALIZATION;
+function registryFor(language: TsdCp007QuestionStudioLanguage): readonly StudioQl[] {
+  if (language === "en") return TSD_CP007_FROZEN_ENGLISH_REGISTRY as readonly StudioQl[];
+  return language === "hi"
+    ? TSD_CP007_FROZEN_HINDI_LOCALIZATION as readonly StudioQl[]
+    : TSD_CP007_FROZEN_PUNJABI_LOCALIZATION as readonly StudioQl[];
 }
 
 function localeFor(language: TsdCp007QuestionStudioLanguage) {
@@ -269,51 +350,59 @@ export function previewTsdCp007QuestionStudioReview(request: TsdCp007QuestionStu
   const language = request.language ?? "en";
   const locale = localeFor(language);
   const count = Math.min(50, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
-  const seed = request.seed?.trim() || `${TSD_CP007_QUESTION_STUDIO_CHECKPOINT_ID}:${language}:${request.qlId ?? "all"}:${request.difficulty ?? "all"}`;
+  const seed = request.seed?.trim() || `${TSD_CP007_QUESTION_STUDIO_CHECKPOINT_ID}:${language}:${request.qlId ?? "all"}:${request.familyId ?? "all-families"}:${request.difficulty ?? "all"}`;
   const eligible = allFamilies(language).filter(({ ql, family }) =>
     (!request.qlId || ql.qlId === request.qlId)
+    && (!request.familyId || family.familyId === request.familyId)
     && (!request.difficulty || family.difficulty === request.difficulty)
   );
   if (!eligible.length) throw new Error("No frozen TSD-CP-007 families match the requested filters.");
 
-  const used = new Set<string>();
-  const questions: unknown[] = [];
-  for (let itemIndex = 0; questions.length < count; itemIndex += 1) {
-    const familyEntry = eligible[hash(`${seed}:family:${itemIndex}`) % eligible.length]!;
-    const caseIndex = (hash(`${seed}:${familyEntry.family.familyId}:${itemIndex}`) % NUMERIC_CASES_PER_FAMILY) + 1;
-    const uniqueKey = `${familyEntry.family.familyId}:${caseIndex}`;
-    if (used.has(uniqueKey) && used.size < eligible.length * NUMERIC_CASES_PER_FAMILY) continue;
-    used.add(uniqueKey);
+  const candidates = eligible.flatMap((entry) => {
+    const cases = TSD_CP007_QUESTION_STUDIO_COMPATIBLE_CASES[entry.family.familyId];
+    if (!cases?.length) throw new Error(`${entry.family.familyId}: compatible Studio case map missing`);
+    return cases.map((caseIndex) => ({ ...entry, caseIndex }));
+  }).map((candidate) => ({
+    ...candidate,
+    score: hash(`${seed}:${candidate.family.familyId}:${candidate.caseIndex}`),
+  })).sort((left, right) => left.score - right.score
+    || left.family.familyId.localeCompare(right.family.familyId)
+    || left.caseIndex - right.caseIndex);
 
-    const generated = generateCp007ExecutableCase(familyEntry.ql.authorityKey, `cp007:${familyEntry.ql.authorityKey}:${caseIndex}`);
-    const bindings = localizeDynamic(language, familyEntry.family.familyId, bindingsFor(familyEntry.family.familyId, generated));
-    const stem = render(familyEntry.family.stem, bindings);
-    const answer = answerText(familyEntry.family.familyId, generated);
-    const optionData = optionSet(answer, `${seed}:${familyEntry.family.familyId}:${caseIndex}`);
-    if (optionData.correctIndex < 0) throw new Error(`${familyEntry.family.familyId}: correct answer missing from generated options`);
-    const questionId = `${TSD_CP007_QUESTION_STUDIO_CHECKPOINT_ID}:${familyEntry.family.familyId}:${locale}:${caseIndex}:${hash(seed)}`;
+  if (count > candidates.length) {
+    throw new Error(`Requested ${count} unique review questions, but the selected frozen filters support ${candidates.length}.`);
+  }
 
-    questions.push(Object.freeze({
+  const questions = candidates.slice(0, count).map(({ ql, family, caseIndex }) => {
+    const generated = generateCp007ExecutableCase(ql.authorityKey, `cp007:${ql.authorityKey}:${caseIndex}`);
+    const bindings = localizeDynamic(language, family.familyId, bindingsFor(family.familyId, generated));
+    const stem = render(family.stem, bindings);
+    const answer = answerText(family.familyId, generated);
+    const optionData = optionSet(answer, `${seed}:${family.familyId}:${caseIndex}`);
+    if (optionData.correctIndex < 0) throw new Error(`${family.familyId}: correct answer missing from generated options`);
+    const questionId = `${TSD_CP007_QUESTION_STUDIO_CHECKPOINT_ID}:${family.familyId}:${locale}:${caseIndex}:${hash(seed)}`;
+
+    return Object.freeze({
       archetypeId: TSD_CP007_QUESTION_STUDIO_PACKAGE_ID,
       packageId: TSD_CP007_QUESTION_STUDIO_PACKAGE_ID,
       canonicalProblemId: TSD_CP007_QUESTION_STUDIO_CHECKPOINT_ID,
-      qlId: familyEntry.ql.qlId,
-      familyId: familyEntry.family.familyId,
+      qlId: ql.qlId,
+      familyId: family.familyId,
       questionId,
-      canonicalItemId: `${familyEntry.family.familyId}:${caseIndex}`,
+      canonicalItemId: `${family.familyId}:${caseIndex}`,
       questionLanguageId: questionId,
       language,
       locale,
-      difficultyBand: familyEntry.family.difficulty,
-      representation: familyEntry.family.representation,
-      scene: familyEntry.family.scene,
+      difficultyBand: family.difficulty,
+      representation: family.representation,
+      scene: family.scene,
       stem,
       options: optionData.options,
       correctIndex: optionData.correctIndex,
       answer,
       explanation: Object.freeze({
-        whatAsked: familyEntry.ql.learnerContract,
-        steps: Object.freeze([explanation(language, familyEntry.family.explanationGuide, bindings, answer)]),
+        whatAsked: ql.learnerContract,
+        steps: Object.freeze([explanation(language, family.explanationGuide, bindings, answer)]),
         conclusion: answer,
         commonTrap: "",
       }),
@@ -329,16 +418,17 @@ export function previewTsdCp007QuestionStudioReview(request: TsdCp007QuestionStu
       manualApprovalRequired: true,
       automaticStudentPublication: false,
       integrationAuthority: TSD_CP007_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
-      parameters: Object.freeze({ seed, caseIndex, familyId: familyEntry.family.familyId, qlId: familyEntry.ql.qlId }),
+      parameters: Object.freeze({ seed, caseIndex, familyId: family.familyId, qlId: ql.qlId }),
       validation: Object.freeze({
         valid: generated.verification.valid,
         frozenAuthority: true,
+        compatibleCase: true,
         exactlyFourOptions: optionData.options.length === 4,
         uniqueOptions: new Set(optionData.options).size === 4,
         sourceLifecycleLocked: true,
       }),
-    }));
-  }
+    });
+  });
 
   return Object.freeze({
     generationContext: Object.freeze({
@@ -360,6 +450,7 @@ export function previewTsdCp007QuestionStudioReview(request: TsdCp007QuestionStu
       publiclyPublishable: false,
       persistenceAllowed: true,
       reviewOnly: true,
+      availableUniqueQuestionsForSelectedFilters: candidates.length,
     }),
     questions: Object.freeze(questions),
   });
