@@ -49,7 +49,9 @@ export const GEOMETRY_THEOREM_IDS = Object.freeze([
   "POLYGON_DIAGONAL_COUNT",
   "EQUAL_CHORD_EQUAL_ARC",
   "EQUAL_CHORD_EQUAL_CENTRE_DISTANCE",
+  "EQUAL_CHORD_EQUAL_CENTRAL_ANGLE",
   "PERPENDICULAR_FROM_CENTRE_BISECTS_CHORD",
+  "PERPENDICULAR_FROM_CENTRE_BISECTS_CHORD_CONVERSE",
   "CENTRAL_ANGLE_DOUBLE_INSCRIBED",
   "SAME_SEGMENT_ANGLE",
   "ANGLE_IN_SEMICIRCLE",
@@ -156,6 +158,8 @@ function humanize(id: string): string {
     POLYGON_EXTERIOR_SUM: "one exterior angle at each vertex of a convex polygon adds to 360°",
     REGULAR_POLYGON_ANGLE: "all corresponding angles of a regular polygon are equal",
     POLYGON_DIAGONAL_COUNT: "an n-sided polygon has n(n−3)/2 diagonals",
+    EQUAL_CHORD_EQUAL_CENTRAL_ANGLE: "equal chords of a circle subtend equal angles at the centre",
+    PERPENDICULAR_FROM_CENTRE_BISECTS_CHORD_CONVERSE: "a line from the centre through a chord's midpoint is perpendicular to the chord",
   };
   return names[id as TheoremId] ?? id.toLowerCase().replaceAll("_", " ");
 }

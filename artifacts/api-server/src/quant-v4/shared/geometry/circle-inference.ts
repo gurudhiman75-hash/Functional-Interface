@@ -31,6 +31,30 @@ export function equalChordLengthFromEqualCentreDistance(knownChordLength: Ration
   return knownChordLength;
 }
 
+export function equalCentreDistanceFromEqualChord(knownDistance: Rational): Rational {
+  requirePositive(knownDistance, "Known centre-to-chord distance");
+  return knownDistance;
+}
+
+export function equalCentralAngleFromEqualChord(knownCentralAngle: ExactAngle): ExactAngle {
+  requireInteriorAngle(knownCentralAngle, "Known central angle");
+  return knownCentralAngle;
+}
+
+export function centreLineThroughChordMidpointAngle(): ExactAngle {
+  return angle(90);
+}
+
+export function sameSegmentAngleFromSameChord(knownInscribedAngle: ExactAngle): ExactAngle {
+  requireInteriorAngle(knownInscribedAngle, "Known same-segment angle");
+  return knownInscribedAngle;
+}
+
+export function inscribedAngleFromCentral(centralAngle: ExactAngle): ExactAngle {
+  requireInteriorAngle(centralAngle, "Central angle");
+  return angle(centralAngle.numerator, centralAngle.denominator * 2n);
+}
+
 export function centralAngleFromInscribed(inscribed: ExactAngle): ExactAngle {
   requireInteriorAngle(inscribed, "Inscribed angle");
   const doubled = multiply(inscribed, rational(2));
