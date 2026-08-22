@@ -44,27 +44,33 @@ Final merge/split audit retains all four. These remain **provisional PBA IDs, no
 
 Questions use compact exam-style SSC/Banking language. Internal engine language such as solver/oracle/blueprint/fingerprint/observer coordinates is prohibited from learner-facing prose.
 
-Solutions use simple teacher-style English and are deliberately more detailed than the passage:
+Shared solutions use simple teacher-style English but start directly with the seating work:
 
-- direction rule first;
-- row groups marked without prematurely fixing order;
+- one compact opening frame: columns numbered left-to-right, upper row south-facing, lower row north-facing, same column = facing pair;
+- no generic multi-paragraph “draw the rows / remember the direction rule” opening;
+- row groups marked without prematurely fixing column positions;
 - candidate Case 1 / Case 2 / Case 3 shown whenever the clues genuinely create alternatives;
 - later conditions visibly reject the wrong cases;
-- remaining deductions shown step by step with short results;
-- final two-row arrangement shown before answering the child questions;
-- repeated row-membership narration is grouped instead of restating one sentence per person.
+- deductions expressed with concrete `row`, `column` and `position` wording;
+- `Position:` used for the outcome of a deduction instead of an abstract `Result:` label;
+- person-relative deductions state the reference row/facing/column and then the resulting target column;
+- final two-row arrangement shown after the deductions;
+- generic closing filler after the final arrangement is removed;
+- repeated row-membership narration is grouped rather than restating one sentence per person.
 
-The pinned 100-caselet review corpus has 100/100 detailed solutions and 88/100 explicit case-formation solutions. The remaining 12 are direct-placement solutions where no useful trial-case split exists.
+The pinned 100-caselet review corpus has 100/100 detailed position-first solutions and 88/100 explicit case-formation solutions. The remaining 12 are direct-placement solutions where no useful trial-case split exists.
 
 Current pinned review fingerprint:
 
-`37384b1a30e13a33bffe101d2906af56595f195d3d91238d8c571d67a5d07e6c`
+`361a52f0800e5ccd475d29128145e76f76174deb2e1dcdcd0dae347239134fbd`
 
-Verified executable/review workflow: `32468278834` on content head `7cd78e021c0521acad6783fdbe73d58dc6dc9648`.
+Verified executable/review workflow: `32562509419` on content head `503d67b4fecb6d9f3251046e37b59f5888a50d77`.
+
+Pinned review artifact: `cp006-english-review-100`, artifact ID `9473188570`.
 
 Pinned review artifact ZIP digest:
 
-`sha256:268a98b85f9bf5d275d0184fa96d90be3254d0f9ae4f26cd95f52b8a2b27cb53`
+`sha256:c5c4229b23ce89e1fc29308ffdc04583a99f456db80375c6432e2638e97d92e8`
 
 ## Lifecycle locks
 
