@@ -50,7 +50,7 @@ for (const prototypeId of NUM_CP010_WAVE02_PROTOTYPE_IDS) {
   });
 }
 
-const output = resolve(process.cwd(), "dist/quant-v4/num-cp010-wave02-review.md");
+const output = resolve(process.cwd(), "artifacts/api-server/dist/quant-v4/num-cp010-wave02-review.md");
 mkdirSync(dirname(output), { recursive: true });
 writeFileSync(output, `${lines.join("\n")}\n`, "utf8");
 
