@@ -77,10 +77,10 @@ export function StickyHeader() {
 
   return (
     <header
-      className={`et-chrome et-shell-header fixed inset-x-0 top-0 z-50 border-b font-sans transition-[padding] duration-200 md:left-[var(--sidebar-width)] ${compact ? "py-2" : "py-3 sm:py-4"}`}
+      className={`et-chrome et-shell-header fixed inset-x-0 top-0 z-50 border-b font-sans transition-[padding] duration-300 md:left-[var(--sidebar-width)] ${compact ? "py-2" : "py-4"}`}
       data-testid="app-sticky-header"
     >
-      <div className="flex items-center gap-2.5 px-4 sm:gap-3 sm:px-6 lg:px-8">
+      <div className="flex items-center gap-3 px-4 sm:px-6">
         <SidebarTrigger className="et-interactive h-11 w-11 shrink-0 rounded-xl border border-border bg-card/90 text-muted-foreground shadow-sm hover:bg-muted hover:text-foreground" />
 
         <div className="hidden items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground lg:flex">
