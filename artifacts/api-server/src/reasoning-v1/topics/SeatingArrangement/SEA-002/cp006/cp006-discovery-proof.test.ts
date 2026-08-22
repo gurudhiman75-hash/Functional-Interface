@@ -77,23 +77,27 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
       assert.equal(child.options[child.answerIndex]?.value,child.answer);
       assert.ok(child.explanation.length>40);
       assert.ok(child.options.every((option)=>option.explanation.length>20));
+      assert.ok(!/\bcolumns?\b/i.test(child.explanation));
+      assert.ok(child.options.every((option)=>!/\bcolumns?\b/i.test(option.explanation)));
       answerPositions[child.answerIndex]+=1;
     }
 
     assert.ok(caselet.setupText.includes("two parallel rows"));
     assert.ok(caselet.setupText.includes("upper row face south"));
     assert.ok(caselet.setupText.includes("lower row face north"));
-    assert.ok(caselet.setupText.includes("same vertical column"));
-    assert.ok(!/observer coordinates|blueprint|hidden state/i.test(caselet.setupText));
+    assert.ok(caselet.setupText.includes("same position"));
+    assert.ok(!/observer coordinates|blueprint|hidden state|\bcolumns?\b/i.test(caselet.setupText));
     assert.ok(caselet.diagram.svg.includes("fill=\"white\""));
-    assert.ok(caselet.diagramText.includes("Column:"));
+    assert.ok(caselet.diagramText.includes("Positions:"));
+    assert.ok(!/\bcolumns?\b/i.test(caselet.diagramText));
     assert.ok(caselet.sharedExplanation.includes("Final arrangement:"));
     assert.ok(caselet.sharedExplanation.includes("Step 1:"));
     assert.ok(caselet.sharedExplanation.includes("Position:"));
-    assert.match(caselet.sharedExplanation,/^Use columns 1 to 3 from left to right\./);
+    assert.match(caselet.sharedExplanation,/^Use positions 1 to 3 from left to right\./);
     assert.match(caselet.sharedExplanation,/upper row faces south/i);
     assert.match(caselet.sharedExplanation,/lower row faces north/i);
-    assert.ok(/\bcolumn\b/i.test(caselet.sharedExplanation));
+    assert.ok(/\bposition\b/i.test(caselet.sharedExplanation));
+    assert.ok(!/\bcolumns?\b/i.test(caselet.sharedExplanation));
     assert.ok(!/Draw two equal rows first|For a person in the upper row|Here the conditions fix|Use this final arrangement to answer/i.test(caselet.sharedExplanation));
     assert.ok(caselet.sharedExplanation.length>400,`${caselet.caseletId}: detailed solution too thin`);
     if(caselet.sharedExplanation.includes("Case 1:")) caseTeachingByBlueprint.set(blueprint,(caseTeachingByBlueprint.get(blueprint)??0)+1);
