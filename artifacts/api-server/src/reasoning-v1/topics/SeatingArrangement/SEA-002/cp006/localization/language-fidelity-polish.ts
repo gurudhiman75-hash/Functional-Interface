@@ -54,6 +54,18 @@ export function localizeCp006PolishedReviewCaselet(caselet:Sea002Cp006Caselet,lo
   return Object.freeze({...base,setupText,clueTexts,sharedExplanation,diagramText,children,presentationFingerprint});
 }
 
-export function cp006HasKnownGenderedParticipantSurface(text:string):boolean{
-  return /(?<!स्थान )मिलता है|(?<!ਸਥਾਨ )ਮਿਲਦਾ ਹੈ|मुख किए है(?!ं)|ਮੂੰਹ ਕਰਦਾ ਹੈ/u.test(text);
+export function cp006HasKnownGenderedParticipantSurface(
+  text:string,
+  caselet:Sea002Cp006Caselet,
+  locale:Sea002Cp006TranslatedLocale,
+):boolean{
+  for(const canonical of caselet.people){
+    const person=localizedSea001Name(canonical,locale);
+    const token=esc(person);
+    const pattern=locale==="hi-IN"
+      ? new RegExp(`${token} मिलता है|${token} (?:उत्तर|दक्षिण) की ओर मुख किए है(?!ं)`,"u")
+      : new RegExp(`${token} ਮਿਲਦਾ ਹੈ|${token} (?:ਉੱਤਰ|ਦੱਖਣ) ਵੱਲ ਮੂੰਹ ਕਰਦਾ ਹੈ`,"u");
+    if(pattern.test(text)) return true;
+  }
+  return false;
 }
