@@ -1,4 +1,5 @@
 import { SEA002_CP006_APPROVED_REVIEW } from "../review/approved-review.ts";
+import { SEA002_CP006_REOPENED_ENGLISH_REVIEW } from "../review/reopened-review.ts";
 import type { Sea002Cp006BlueprintId } from "../types.ts";
 
 export const SEA002_CP006_PERMANENT_QL_IDS = [
@@ -47,10 +48,11 @@ export interface Sea002Cp006PermanentQlRegistryEntry {
   readonly allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE";
   readonly solveInventoryStatus: "FROZEN";
   readonly queryMixStatus: "FROZEN";
-  readonly englishStatus: "ENGLISH_MANUAL_FREEZE_APPROVED";
-  readonly approvalReviewerId: string;
-  readonly approvedReviewFingerprint: string;
-  readonly localizationStatus: "REVIEW_CANDIDATE_HUMAN_REVIEW_PENDING";
+  readonly englishStatus: "ENGLISH_REVIEW_REOPENED_AFTER_EDITORIAL_ERRATA";
+  readonly previousApprovalReviewerId: string;
+  readonly previousApprovedReviewFingerprint: string;
+  readonly currentReviewCandidateFingerprint: string;
+  readonly localizationStatus: "BLOCKED_BY_ENGLISH_REVIEW_REOPENED";
   readonly active: false;
   readonly questionStudioDiscoverable: false;
   readonly questionBankWritable: false;
@@ -70,10 +72,11 @@ export const SEA002_CP006_PERMANENT_QL_REGISTRY: readonly Sea002Cp006PermanentQl
     allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE" as const,
     solveInventoryStatus: "FROZEN" as const,
     queryMixStatus: "FROZEN" as const,
-    englishStatus: "ENGLISH_MANUAL_FREEZE_APPROVED" as const,
-    approvalReviewerId: SEA002_CP006_APPROVED_REVIEW.reviewerId,
-    approvedReviewFingerprint: SEA002_CP006_APPROVED_REVIEW.approvedReviewFingerprint,
-    localizationStatus: "REVIEW_CANDIDATE_HUMAN_REVIEW_PENDING" as const,
+    englishStatus: "ENGLISH_REVIEW_REOPENED_AFTER_EDITORIAL_ERRATA" as const,
+    previousApprovalReviewerId: SEA002_CP006_APPROVED_REVIEW.reviewerId,
+    previousApprovedReviewFingerprint: SEA002_CP006_APPROVED_REVIEW.approvedReviewFingerprint,
+    currentReviewCandidateFingerprint: SEA002_CP006_REOPENED_ENGLISH_REVIEW.currentReviewCandidateFingerprint,
+    localizationStatus: "BLOCKED_BY_ENGLISH_REVIEW_REOPENED" as const,
     active: false as const,
     questionStudioDiscoverable: false as const,
     questionBankWritable: false as const,
