@@ -2,11 +2,11 @@
 
 Status: **TECHNICALLY COMPLETE / ENGLISH REVIEW ARTIFACT PINNED — signed owner review pending before permanent allocation**
 
-This record covers `SEA-CP-006 — Two parallel rows facing each other`. It closes the solve/query/source/inverse/merge-gap implementation work and the learner-language / detailed-solution hardening. It deliberately does **not** fabricate the signed English-review gate and therefore does not yet allocate permanent `SEA-QL-*` IDs or activate localisation, Question Studio, Question Bank, mocks, staging or public delivery.
+This record covers `SEA-CP-006 — Two parallel rows facing each other`. Solve/query/source/inverse/merge-gap implementation and learner-language / solution hardening are complete. The signed English-review gate is deliberately not fabricated; permanent `SEA-QL-*` allocation, localisation, Question Studio, Question Bank, mocks, staging and public delivery remain locked.
 
 ## Checkpoint boundary
 
-CP006 owns equal parallel rows with the upper row facing south and the lower row facing north, for 3–6 seats per row. It owns row identity, person-relative same-row movement, corresponding/opposite columns, not-opposite, diagonal, same-row adjacency/gaps and source-backed endpoint-domain language.
+CP006 owns equal parallel rows with the upper row facing south and the lower row facing north, for 3–6 seats per row. It owns row identity, person-relative same-row movement, opposite/corresponding columns, not-opposite, diagonal, same-row adjacency/gaps and source-backed endpoint-domain language.
 
 Excluded by design:
 
@@ -48,9 +48,7 @@ The executable CP006 clue layer covers:
 
 ## Query-contract authority audit
 
-No new query IDs are introduced.
-
-Final retained CP006 query inventory:
+No new query IDs are introduced. Final retained CP006 query inventory:
 
 - `SEA-QC-003` — person-relative occupant;
 - `SEA-QC-006` — immediate-neighbour pair;
@@ -61,13 +59,13 @@ Final retained CP006 query inventory:
 - `SEA-QC-014` — pair occupying designated positions; reused for facing-pair and row-end-pair forms;
 - `SEA-QC-015` — relative-position phrase.
 
-Important correction: CP006 previously used `SEA-QC-009` for an ordinary same-row persons-between question. Frozen SEA-001 authority shows `QC009` is directional cyclic counting, while ordinary linear count-between is `QC008`. CP006 now uses `QC008`; `QC009` is removed from its type/query inventory.
+Important correction: frozen SEA-001 authority shows `SEA-QC-009` is directional cyclic counting; ordinary same-row count-between is `SEA-QC-008`. CP006 uses `QC008` and does not retain `QC009`.
 
 ## Source evidence decisions
 
 SSC and banking source sampling across 4+4, 5+5 and 6+6 validated exact gaps, adjacency/non-adjacency, nested facing referents, endpoint distance, facing pairs, row-end pairs, relative-position outputs and equal-gap comparisons as relevant CP006 surfaces.
 
-All earlier residual decisions are now closed:
+Residual decisions are closed:
 
 1. not-adjacent — accepted and implemented;
 2. minimum-gap — accepted and implemented;
@@ -75,49 +73,45 @@ All earlier residual decisions are now closed:
 4. neighbour-to-facing — merged into diagonal semantics;
 5. relative-position query — existing `QC015` reused;
 6. facing/extreme-end pair query — existing `QC014` reused;
-7. equal-gap comparison — accepted as `SAME_ROW_EQUAL_GAP`, without adding a new PBA.
+7. equal-gap comparison — accepted as `SAME_ROW_EQUAL_GAP`, without a new PBA.
 
 ## Separation of audit coverage from exam generation
 
-`source-realness.ts` is an **all-semantics audit bundle**. It deliberately composes every accepted source-natural semantic onto an already unique base arrangement so each semantic can be independently proved against both solvers.
+`source-realness.ts` is an all-semantics audit bundle. It composes every accepted source-natural semantic onto a uniquely solvable base so each semantic can be proved against both solvers. It is not the learner-facing generation strategy.
 
-That bundle is not the final learner-facing generation strategy.
-
-`exam-real.ts` is the product-candidate generator. For each caselet it:
+`exam-real.ts` is the product-candidate generator. Each caselet:
 
 - preserves the defining PBA contract;
 - retains a compact clue set;
-- includes a source-natural clue that is **solution-essential** rather than decorative;
+- includes a source-natural clue that is solution-essential rather than decorative;
 - proves removing that source clue changes the unique-solution policy;
 - preserves production-solver / independent-oracle agreement;
-- groups fixed row-membership facts rather than printing one row sentence per person;
-- avoids repeating the full clue list in the shared explanation.
+- groups fixed row-membership facts;
+- avoids full-clue-list repetition in the learner solution.
 
 ## Learner-language and solution contract
 
-The final learner-facing contract is intentionally different from internal solver terminology.
-
 ### Question / passage language
 
-- uses ordinary SSC/Banking wording such as “two parallel rows”, “faces north/south”, “faces each other”, “immediate neighbour”, “persons between” and “second from either end”;
-- does not expose internal terms such as “observer coordinates”, solver, oracle, blueprint or fingerprint;
-- keeps the passage compact rather than explaining the solution inside the stem;
-- uses the white-background parallel-row diagram only as a clear seating aid.
+- ordinary SSC/Banking wording such as “two parallel rows”, “faces north/south”, “faces each other”, “immediate neighbour”, “persons between” and “second from either end”;
+- no internal solver/oracle/blueprint/fingerprint/observer language;
+- compact passage wording;
+- white-background parallel-row diagram as a seating aid.
 
-### Detailed shared solution
+### Shared solution
 
-The shared solution follows the established SEA-001 teaching style in simple English:
+The final shared-solution contract keeps SEA-001-style reasoning but removes unnecessary tutorial framing.
 
-1. state the north/south left-right rule;
-2. mark known row groups without deciding their order too early;
-3. use the early positional/opposite clues to form candidate cases where ambiguity exists;
-4. explicitly show `Case 1`, `Case 2` (and `Case 3` when required);
-5. apply a later deciding condition and mark surviving/rejected cases with clear reasons;
-6. continue the remaining deductions step by step with a short `Result:` after each deduction;
-7. show the final two-row arrangement;
-8. answer the child questions from that final arrangement with short, plain-language explanations.
+- Starts with one compact working frame only: columns numbered left-to-right, upper row south-facing, lower row north-facing, same column = facing pair.
+- Goes immediately into case formation or positional deductions; the previous multi-paragraph “draw the rows / remember left-right” opening is forbidden.
+- Uses concrete seating language: `row`, `column`, `position`, `left/right end`, `column difference`, and `persons between`.
+- Uses `Position:` for the deduction outcome instead of the generic `Result:` label.
+- For person-relative clues, states the reference row, facing and column, then the resulting target column.
+- Shows `Case 1`, `Case 2` and `Case 3` only when genuine alternatives exist, then rejects/retains cases with the deciding condition.
+- Groups row-membership givens instead of narrating one sentence per person when several are supplied.
+- Ends at the final arrangement; the generic “use this arrangement to answer…” closing sentence is removed.
 
-Row-membership givens are grouped during case formation when two or more are present, preventing long repetitive sequences such as “Put A in the upper row / Put B in the upper row ...”. The review gate also rejects awkward or technical learner wording including `observer` leakage and malformed direction phrases.
+The review gate forbids the old generic opening/closing boilerplate, `observer` leakage, malformed direction grammar and excessive row-membership repetition.
 
 ## Executable completion evidence
 
@@ -132,7 +126,7 @@ Row-membership givens are grouped during case formation when two or more are pre
 - all accepted source clue kinds exercised;
 - q3 surfaces include immediate-neighbour pair, facing pair and row-end pair;
 - q4 exercises both `QC008` and `QC015`;
-- production/oracle uniqueness, clue truth, clue-order invariance, option integrity and lifecycle locks are required.
+- production/oracle uniqueness, clue truth, clue-order invariance, option integrity and lifecycle locks required.
 
 ### Completion saturation / inverse / metamorphic proof
 
@@ -154,9 +148,9 @@ Row-membership givens are grouped during case formation when two or more are pre
 - 320 caselets / 1,280 child questions;
 - 319 structural signatures;
 - every caselet contains exactly one source-natural relation selected as solution-essential;
-- all six source-essential families are reached: facing-referent, not-adjacent, row-end-distance, equal-gap, exact/adjacent gap and minimum-gap;
-- maximum displayed clue count in the proof corpus: 11;
-- 295 / 320 exam-real caselets explicitly exercise Case 1 / Case 2 / Case 3 teaching; the remainder are correctly explained as direct-placement solutions because a useful trial-case split does not exist;
+- all six source-essential families reached: facing-referent, not-adjacent, row-end-distance, equal-gap, exact/adjacent gap and minimum-gap;
+- maximum displayed clue count: 11;
+- 295 / 320 explicitly exercise candidate-case teaching;
 - no full-clue-list repetition in the shared explanation.
 
 ## English review corpus
@@ -170,21 +164,23 @@ A deterministic 100-caselet `en-IN` review corpus is pinned:
 - 15 normalized question-stem surfaces;
 - 36 normalized clue-language surfaces;
 - 100 distinct structural fingerprints;
-- 100 / 100 contain detailed shared solutions with step/result/final-arrangement structure;
+- 100 / 100 contain detailed position-first shared solutions;
+- 100 / 100 contain concrete `Position:` and `column` wording;
 - 88 / 100 explicitly show candidate-case formation and elimination;
-- technical `observer` language and malformed direction grammar are forbidden across learner-facing prose;
-- repeated row-membership narration is capped by the review gate;
-- options, answer positions, punctuation, explanation length and internal-language leakage are automatically checked.
+- zero old generic opening paragraphs, zero `Result:` labels, zero old closing filler and zero learner-facing `observer` language in the pinned artifact;
+- options, answer positions, punctuation, explanation depth and internal-language leakage are automatically checked.
 
 Pinned review fingerprint:
 
-`37384b1a30e13a33bffe101d2906af56595f195d3d91238d8c571d67a5d07e6c`
+`361a52f0800e5ccd475d29128145e76f76174deb2e1dcdcd0dae347239134fbd`
 
-Verified executable/review workflow: run `32468278834` on content head `7cd78e021c0521acad6783fdbe73d58dc6dc9648` — every CP006 executable and review gate passed. Later commits in this branch only synchronize documentation to that already-pinned content result; they do not alter the review corpus generator.
+Verified executable/review workflow: run `32562509419` on content head `503d67b4fecb6d9f3251046e37b59f5888a50d77` — every CP006 executable and review gate passed.
 
-The exporter produced HTML, JSON and manifest artifacts under `cp006-english-review-100`. Uploaded ZIP digest:
+Uploaded artifact: `cp006-english-review-100`, artifact ID `9473188570`.
 
-`sha256:268a98b85f9bf5d275d0184fa96d90be3254d0f9ae4f26cd95f52b8a2b27cb53`
+ZIP digest:
+
+`sha256:c5c4229b23ce89e1fc29308ffdc04583a99f456db80375c6432e2638e97d92e8`
 
 The manifest decision state remains `AWAITING_SIGNED_REVIEW`.
 
@@ -212,5 +208,3 @@ public delivery            false
 ```
 
 The next available permanent seating ID after SEA-001 is `SEA-QL-021`; candidate mapping for PBA-021..024 must not be committed as permanent authority until the signed English-review gate is satisfied.
-
-Documentation sync note: `SEA-002/README.md` carries the same pinned fingerprint, workflow and artifact digest; these documentation-only sync commits do not change executable review content.
