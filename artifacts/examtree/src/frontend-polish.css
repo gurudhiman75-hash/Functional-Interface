@@ -24,7 +24,6 @@
 }
 
 .et-shell-header {
-  padding-top: max(0px, env(safe-area-inset-top));
   box-shadow: 0 8px 30px -26px hsl(var(--foreground) / 0.42);
 }
 
