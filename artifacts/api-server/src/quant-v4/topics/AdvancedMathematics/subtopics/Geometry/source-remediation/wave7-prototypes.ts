@@ -10,6 +10,10 @@ function withCircleRadius(model: GeoDiagramModel, radius: number): GeoDiagramMod
   };
 }
 
+function withoutEqualLengthMarks(model: GeoDiagramModel): GeoDiagramModel {
+  return { ...model, equalLengthMarks: [] };
+}
+
 function withLabelPosition(model: GeoDiagramModel, labelId: string, x: number, y: number): GeoDiagramModel {
   return {
     ...model,
@@ -17,10 +21,32 @@ function withLabelPosition(model: GeoDiagramModel, labelId: string, x: number, y
   };
 }
 
+function withPointPosition(model: GeoDiagramModel, pointId: string, x: number, y: number): GeoDiagramModel {
+  return {
+    ...model,
+    points: model.points.map((point) => point.id === pointId ? { ...point, x, y } : point),
+  };
+}
+
 function withAngleLabelRadii(model: GeoDiagramModel, radii: Readonly<Record<string, number>>): GeoDiagramModel {
   return {
     ...model,
     angleMarks: model.angleMarks.map((mark) => radii[mark.id] === undefined ? mark : { ...mark, labelRadius: radii[mark.id] }),
+  };
+}
+
+function simplifySemicircleSolution(model: GeoDiagramModel, answer: string): GeoDiagramModel {
+  const b = model.points.find((point) => point.id === "B");
+  if (!b) throw new Error("Wave 7 semicircle-chain solution is missing point B");
+  return {
+    ...model,
+    angleMarks: model.angleMarks
+      .filter((mark) => mark.id !== "derived-abd")
+      .map((mark) => mark.id === "answer-cbd" ? { ...mark, label: undefined } : mark),
+    labels: [
+      ...model.labels,
+      { id: "answer-cbd-text", text: `∠CBD = ${answer}`, x: b.x - 20, y: b.y + 30 },
+    ],
   };
 }
 
@@ -50,8 +76,10 @@ function exactify(index: number, seed: string): GapWave7Question {
   const raw = BASE_WAVE7_PROTOTYPES[index].generate(seed);
   if (index === 1) {
     const radius = Math.hypot(75, 34);
-    const stem = withCircleRadius(raw.diagramModel, radius);
-    const solution = withLabelPosition(withCircleRadius(raw.solutionDiagramModel, radius), "derived-on", 170, 115);
+    const stem = withoutEqualLengthMarks(withCircleRadius(raw.diagramModel, radius));
+    const solution = withoutEqualLengthMarks(
+      withLabelPosition(withCircleRadius(raw.solutionDiagramModel, radius), "derived-on", 170, 115),
+    );
     return refinalize(raw, stem, solution);
   }
   if (index === 2) {
@@ -60,13 +88,18 @@ function exactify(index: number, seed: string): GapWave7Question {
     const solution = withLabelPosition(withCircleRadius(raw.solutionDiagramModel, radius), "answer-angle", 180, 140);
     return refinalize(raw, stem, solution);
   }
+  if (index === 3) {
+    const sRadians = 25 * Math.PI / 180;
+    const x = 130 + 82 * Math.cos(sRadians);
+    const y = 110 + 82 * Math.sin(sRadians);
+    return refinalize(raw, withPointPosition(raw.diagramModel, "S", x, y), withPointPosition(raw.solutionDiagramModel, "S", x, y));
+  }
   if (index === 5) {
     const stem = withAngleLabelRadii(raw.diagramModel, { "given-apd": 50 });
-    const solution = withAngleLabelRadii(raw.solutionDiagramModel, {
-      "given-apd": 50,
-      "derived-abd": 68,
-      "answer-cbd": 58,
-    });
+    const solution = simplifySemicircleSolution(
+      withAngleLabelRadii(raw.solutionDiagramModel, { "given-apd": 50 }),
+      raw.answer,
+    );
     return refinalize(raw, stem, solution);
   }
   return raw;
