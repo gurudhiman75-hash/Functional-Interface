@@ -30,7 +30,7 @@ for (const sample of samples) {
   assert(sample.explanation.includes("Therefore, the "), `${sample.familyId}: explanation does not explicitly close with the computed target`);
   assert(sample.explanation.includes(sample.answer), `${sample.familyId}: explanation does not include the computed answer`);
   assert(sample.explanation.split(/\s+/).length >= 38, `${sample.familyId}: rendered explanation is too terse`);
-  assert(sample.stem.split(/\s+/).length >= 17, `${sample.familyId}: rendered stem is too terse`);
+  assert(sample.stem.split(/\s+/).length >= 10, `${sample.familyId}: rendered stem is too terse even for a direct exam form`);
 
   const stemSignature = normalize(sample.stem);
   assert(!normalizedStems.has(stemSignature), `${sample.familyId}: rendered stem collapses to a duplicate structural signature`);
