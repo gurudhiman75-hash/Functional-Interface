@@ -15,6 +15,7 @@ assert(new Set(samples.map((sample) => sample.familyId)).size === 66, "rendered 
 assert(new Set(samples.map((sample) => sample.qlId)).size === 11, "not every permanent QL is represented");
 
 const byQl = new Map<string, typeof samples[number][]>();
+const byFamily = new Map(samples.map((sample) => [sample.familyId, sample] as const));
 const normalizedStems = new Set<string>();
 const normalizedExplanations = new Set<string>();
 
@@ -26,6 +27,7 @@ for (const sample of samples) {
   assert(sample.unresolvedPlaceholders.length === 0, `${sample.familyId}: unresolved placeholders: ${sample.unresolvedPlaceholders.join(", ")}`);
   assert(!/[{}]/.test(sample.stem), `${sample.familyId}: rendered stem still contains template braces`);
   assert(!/[{}]/.test(sample.explanation), `${sample.familyId}: rendered explanation still contains template braces`);
+  assert(!/\b\d+\/\d+\s*s\b/.test(sample.stem), `${sample.familyId}: learner-facing stem contains an awkward fractional-seconds value`);
   assert(sample.explanation.startsWith("Given in this question:"), `${sample.familyId}: explanation does not explicitly state the question-specific givens`);
   assert(sample.explanation.includes("Therefore, the "), `${sample.familyId}: explanation does not explicitly close with the computed target`);
   assert(sample.explanation.includes(sample.answer), `${sample.familyId}: explanation does not include the computed answer`);
@@ -48,12 +50,25 @@ for (const qlId of TSD_CP007_PERMANENT_QL_IDS) {
   assert(new Set(qlSamples.map((sample) => sample.seed)).size >= 6, `${qlId}: numeric source pool is reusing the same executable seed too heavily`);
 }
 
+for (const familyId of ["84-D", "86-D"]) {
+  const sample = byFamily.get(familyId);
+  assert(sample?.stem.includes("km/h"), `${familyId}: expected a genuine km/h input representation`);
+}
+for (const familyId of ["87-D", "90-E"]) {
+  const sample = byFamily.get(familyId);
+  assert(sample?.stem.toLowerCase().includes("km/h"), `${familyId}: stem must explicitly request km/h`);
+  assert(sample?.answer.endsWith("km/h"), `${familyId}: rendered answer must be projected to km/h`);
+}
+
 console.log("TSD-CP-007 RENDERED ENGLISH SAMPLE PROOF: PASS");
 console.log(JSON.stringify({
   renderedSamples: samples.length,
   samplesPerQl: 6,
   qls: byQl.size,
   unresolvedPlaceholders: 0,
+  awkwardFractionalSecondStems: 0,
+  kmhInputFamilies: ["84-D", "86-D"],
+  kmhAnswerFamilies: ["87-D", "90-E"],
   uniqueStructuralStemSignatures: normalizedStems.size,
   uniqueStructuralExplanationSignatures: normalizedExplanations.size,
   explanationShape: "QUESTION_SPECIFIC_GIVENS + HUMAN_REASONING + COMPUTED_CONCLUSION",
