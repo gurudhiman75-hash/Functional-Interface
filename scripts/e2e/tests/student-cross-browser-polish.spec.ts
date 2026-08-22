@@ -55,7 +55,7 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
 
-    await expect(page.getByRole("heading", { name: "Structured mock tests for serious exam practice." })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Practice smarter\.\s*Score with confidence\./i })).toBeVisible();
     const header = page.getByTestId("public-header");
     await expect(header).toBeVisible();
     await expect(header).toHaveCSS("position", "sticky");

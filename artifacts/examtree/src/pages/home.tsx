@@ -7,63 +7,63 @@ import {
   CheckCircle2,
   ChevronRight,
   Clock3,
-  ClipboardList,
+  FileText,
   Languages,
-  Landmark,
-  LineChart,
-  Search,
+  LayoutGrid,
+  PlayCircle,
+  RotateCcw,
   ShieldCheck,
-  Sparkles,
   Target,
 } from "lucide-react";
-import { getActiveTestSessions, getAttempts } from "@/lib/storage";
-import { useExamCatalog } from "@/providers/ExamCatalogProvider";
+
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import type { Category, Subcategory, Test } from "@/lib/data";
 import { buildExamTreeNodes } from "@/lib/exam-tree";
+import { getActiveTestSessions, getAttempts } from "@/lib/storage";
+import type { Category, Subcategory, Test } from "@/lib/data";
+import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 
 type ExamGroup = {
   id: string;
   name: string;
   description: string;
   icon: string;
-  tone: "ssc" | "banking" | "state" | "default";
   tests: Test[];
   subExams: { id: string; name: string }[];
 };
 
-const toneClasses = {
-  ssc: {
-    border: "border-l-orange-500",
-    icon: "bg-orange-50 text-orange-700",
-    badge: "border-orange-200 bg-orange-50 text-orange-700",
+const GROUP_TONES = [
+  {
+    card: "border-emerald-200 bg-emerald-50/70 hover:border-emerald-300",
+    icon: "bg-emerald-100 text-emerald-700",
+    accent: "text-emerald-700",
   },
-  banking: {
-    border: "border-l-indigo-600",
-    icon: "bg-indigo-50 text-indigo-700",
-    badge: "border-indigo-200 bg-indigo-50 text-indigo-700",
+  {
+    card: "border-blue-200 bg-blue-50/70 hover:border-blue-300",
+    icon: "bg-blue-100 text-blue-700",
+    accent: "text-blue-700",
   },
-  state: {
-    border: "border-l-teal-500",
-    icon: "bg-teal-50 text-teal-700",
-    badge: "border-teal-200 bg-teal-50 text-teal-700",
+  {
+    card: "border-violet-200 bg-violet-50/70 hover:border-violet-300",
+    icon: "bg-violet-100 text-violet-700",
+    accent: "text-violet-700",
   },
-  default: {
-    border: "border-l-slate-400",
-    icon: "bg-slate-100 text-slate-700",
-    badge: "border-slate-200 bg-slate-50 text-slate-700",
+  {
+    card: "border-orange-200 bg-orange-50/70 hover:border-orange-300",
+    icon: "bg-orange-100 text-orange-700",
+    accent: "text-orange-700",
   },
-};
-
-function getTone(name: string): ExamGroup["tone"] {
-  const normalized = name.toLowerCase();
-  if (normalized.includes("ssc")) return "ssc";
-  if (normalized.includes("bank") || normalized.includes("ibps") || normalized.includes("sbi")) return "banking";
-  if (normalized.includes("punjab") || normalized.includes("state") || normalized.includes("psssb")) return "state";
-  return "default";
-}
+  {
+    card: "border-cyan-200 bg-cyan-50/70 hover:border-cyan-300",
+    icon: "bg-cyan-100 text-cyan-700",
+    accent: "text-cyan-700",
+  },
+  {
+    card: "border-rose-200 bg-rose-50/70 hover:border-rose-300",
+    icon: "bg-rose-100 text-rose-700",
+    accent: "text-rose-700",
+  },
+] as const;
 
 function buildExamGroups(
   categories: Category[],
@@ -74,8 +74,7 @@ function buildExamGroups(
     id: category.id,
     name: category.name,
     description: category.description,
-    icon: category.icon || "Landmark",
-    tone: getTone(category.name),
+    icon: category.icon || "LayoutGrid",
     tests: category.tests,
     subExams: category.subcategories.map((subExam) => ({ id: subExam.id, name: subExam.name })),
   }));
@@ -85,11 +84,26 @@ function formatCount(value: number) {
   return new Intl.NumberFormat("en-IN").format(Math.max(0, value));
 }
 
-function ExamTypeIcon({ tone }: { tone: ExamGroup["tone"] }) {
-  if (tone === "banking") return <LineChart className="h-5 w-5" />;
-  if (tone === "state") return <Landmark className="h-5 w-5" />;
-  if (tone === "ssc") return <ShieldCheck className="h-5 w-5" />;
-  return <ClipboardList className="h-5 w-5" />;
+function TestMeta({ test, inverse = false }: { test: Test; inverse?: boolean }) {
+  const textClass = inverse ? "text-slate-400" : "text-muted-foreground";
+  return (
+    <div className={`flex flex-wrap items-center gap-x-4 gap-y-2 text-sm ${textClass}`}>
+      <span className="inline-flex items-center gap-1.5">
+        <LayoutGrid className="h-4 w-4" aria-hidden="true" />
+        {test.totalQuestions} questions
+      </span>
+      <span className="inline-flex items-center gap-1.5">
+        <Clock3 className="h-4 w-4" aria-hidden="true" />
+        {test.duration} min
+      </span>
+      {test.languages && test.languages.length > 0 ? (
+        <span className="inline-flex items-center gap-1.5">
+          <Languages className="h-4 w-4" aria-hidden="true" />
+          {test.languages.length > 1 ? `${test.languages.length} languages` : test.languages[0]}
+        </span>
+      ) : null}
+    </div>
+  );
 }
 
 export default function Home() {
@@ -97,47 +111,32 @@ export default function Home() {
   const attempts = getAttempts();
   const activeSessions = getActiveTestSessions();
   const { tests, categories, subcategories, isLoading } = useExamCatalog();
-  const [query, setQuery] = useState("");
-  const [activeGroupId, setActiveGroupId] = useState<string | null>(null);
+  const [selectedGroupId, setSelectedGroupId] = useState("");
 
   const latestAttempt = attempts[0] ?? null;
   const activeSessionEntries = Object.values(activeSessions).slice(0, 2);
-
   const examGroups = useMemo(
     () => buildExamGroups(categories, subcategories, tests),
     [categories, subcategories, tests],
   );
-  const activeGroup = examGroups.find((group) => group.id === activeGroupId) ?? examGroups[0] ?? null;
 
-  const filteredGroups = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
-    if (!normalized) return examGroups;
-    return examGroups
-      .map((group) => ({
-        ...group,
-        tests: group.tests.filter(
-          (test) =>
-            test.name.toLowerCase().includes(normalized) ||
-            test.category.toLowerCase().includes(normalized) ||
-            (test.subcategoryName ?? "").toLowerCase().includes(normalized),
-        ),
-      }))
-      .filter((group) => group.name.toLowerCase().includes(normalized) || group.tests.length > 0);
-  }, [examGroups, query]);
-
-  const activeGroupTests =
-    activeGroup?.tests.filter((test) => (test.access ?? "free") === "free").slice(0, 4) ?? [];
+  const selectedGroup = examGroups.find((group) => group.id === selectedGroupId) ?? examGroups[0] ?? null;
+  const freeTests = useMemo(
+    () => tests.filter((test) => (test.access ?? "free") === "free"),
+    [tests],
+  );
+  const heroTest = selectedGroup?.tests.find((test) => (test.access ?? "free") === "free") ?? freeTests[0] ?? tests[0] ?? null;
+  const featuredFreeTests = freeTests.slice(0, 4);
   const catalogQuestionCount = tests.reduce((sum, test) => sum + Math.max(0, test.totalQuestions), 0);
 
   if (isLoading) {
     return (
-      <div className="mx-auto w-full max-w-7xl space-y-5" role="status" aria-label="Loading ExamTree home">
-        <div className="skeleton-shimmer h-10 rounded-2xl" />
-        <div className="skeleton-shimmer h-[420px] rounded-2xl" />
+      <div className="mx-auto w-full max-w-7xl space-y-8 px-4 py-8 sm:px-6 lg:px-8" role="status" aria-label="Loading ExamTree home">
+        <div className="skeleton-shimmer h-[560px] rounded-[2rem]" />
         <div className="grid gap-5 md:grid-cols-3">
-          <div className="skeleton-shimmer h-56 rounded-2xl" />
-          <div className="skeleton-shimmer h-56 rounded-2xl" />
-          <div className="skeleton-shimmer h-56 rounded-2xl" />
+          <div className="skeleton-shimmer h-40 rounded-2xl" />
+          <div className="skeleton-shimmer h-40 rounded-2xl" />
+          <div className="skeleton-shimmer h-40 rounded-2xl" />
         </div>
         <span className="sr-only">Loading published tests and exam pathways…</span>
       </div>
@@ -145,322 +144,246 @@ export default function Home() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-7xl space-y-8">
-      <section className="overflow-hidden rounded-2xl border border-slate-800 bg-[#1e1b4b] text-white shadow-[0_16px_36px_-30px_rgba(15,23,42,0.7)]">
-        <div className="grid gap-0 text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100 md:grid-cols-3">
-          <div className="border-b border-white/10 px-5 py-3 md:border-b-0 md:border-r">
-            Published tests: {formatCount(tests.length)}
-          </div>
-          <div className="border-b border-white/10 px-5 py-3 md:border-b-0 md:border-r">
-            Questions in live catalog: {formatCount(catalogQuestionCount)}
-          </div>
-          <div className="px-5 py-3">Exam families: {formatCount(examGroups.length)}</div>
+    <div className="bg-background">
+      <section className="relative overflow-hidden bg-[#090f2e] text-white">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -left-24 top-12 h-80 w-80 rounded-full bg-indigo-600/20 blur-3xl" />
+          <div className="absolute right-0 top-8 h-96 w-96 rounded-full bg-violet-600/20 blur-3xl" />
+          <div className="absolute bottom-0 left-1/3 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
         </div>
-      </section>
 
-      <section className="et-panel-raised relative overflow-hidden rounded-2xl">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_20%,rgba(13,148,136,0.20),transparent_32%),radial-gradient(circle_at_88%_12%,rgba(79,70,229,0.20),transparent_34%),linear-gradient(135deg,#ffffff_0%,#f8fafc_54%,#eef2ff_100%)]" />
-        <div className="relative grid gap-8 p-6 lg:grid-cols-[1.08fr_0.92fr] lg:p-8">
-          <div className="flex flex-col justify-between">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-xl border border-teal-200 bg-white/80 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-teal-700 backdrop-blur-xl">
-                <Sparkles className="h-3.5 w-3.5" />
-                Logic-first exam practice
+        <div className="relative mx-auto grid min-h-[590px] max-w-7xl gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:px-8 lg:py-16">
+          <div>
+            <p className="inline-flex items-center gap-2 rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-emerald-300">
+              <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" />
+              Focused mock-test practice
+            </p>
+
+            <h1 className="mt-6 max-w-3xl text-4xl font-black tracking-[-0.045em] text-white sm:text-5xl lg:text-[64px] lg:leading-[1.02]">
+              Practice smarter.
+              <span className="block text-emerald-400">Score with confidence.</span>
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-slate-300 sm:text-lg">
+              Choose your exam, take live published mock tests, save every attempt, and review solutions from one focused workspace.
+            </p>
+
+            <div className="mt-8 flex max-w-2xl flex-col gap-3 sm:flex-row">
+              <label htmlFor="home-exam-select" className="sr-only">Select your exam</label>
+              <select
+                id="home-exam-select"
+                value={selectedGroupId}
+                onChange={(event) => setSelectedGroupId(event.target.value)}
+                className="h-13 min-h-[52px] flex-1 rounded-xl border border-white/15 bg-white px-4 text-base font-semibold text-slate-900 shadow-xl outline-none ring-offset-2 focus:ring-2 focus:ring-emerald-400"
+              >
+                <option value="">Select your exam</option>
+                {examGroups.map((group) => (
+                  <option key={group.id} value={group.id}>{group.name}</option>
+                ))}
+              </select>
+              <Button
+                className="h-13 min-h-[52px] rounded-xl bg-emerald-500 px-6 text-base font-bold text-slate-950 shadow-lg shadow-emerald-900/20 hover:bg-emerald-400"
+                onClick={() => setLocation(selectedGroup ? `/category/${selectedGroup.id}` : "/tests")}
+              >
+                Find tests
+                <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+              </Button>
+            </div>
+
+            <div className="mt-8 grid max-w-2xl grid-cols-2 gap-x-5 gap-y-4 sm:grid-cols-4">
+              <div className="flex items-center gap-2 text-sm font-medium text-slate-200">
+                <Target className="h-5 w-5 shrink-0 text-emerald-400" aria-hidden="true" />
+                Exam-based mocks
               </div>
-              <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-                Structured mock tests for serious exam practice.
-              </h1>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-700">
-                Prepare for SSC, banking, and Punjab State exams with live published tests, multilingual question delivery, saved attempts, and solution review.
-              </p>
-              <div className="relative mt-7 max-w-2xl">
-                <Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-                <Input
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Search SSC CGL, IBPS PO, PSSSB, Quantitative Aptitude ..."
-                  className="h-12 rounded-2xl border-slate-200 bg-white/85 pl-11 shadow-sm backdrop-blur-xl"
-                />
+              <div className="flex items-center gap-2 text-sm font-medium text-slate-200">
+                <FileText className="h-5 w-5 shrink-0 text-emerald-400" aria-hidden="true" />
+                Saved solutions
+              </div>
+              <div className="flex items-center gap-2 text-sm font-medium text-slate-200">
+                <RotateCcw className="h-5 w-5 shrink-0 text-emerald-400" aria-hidden="true" />
+                Resume attempts
+              </div>
+              <div className="flex items-center gap-2 text-sm font-medium text-slate-200">
+                <Languages className="h-5 w-5 shrink-0 text-emerald-400" aria-hidden="true" />
+                Multilingual when live
               </div>
             </div>
 
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Button className="h-11 rounded-xl bg-[#1e1b4b] px-5 text-white hover:bg-indigo-950" onClick={() => setLocation("/tests")}>
-                Browse Live Tests
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button variant="outline" className="h-11 rounded-xl border-slate-300 bg-white/80 px-5" onClick={() => setLocation("/dashboard")}>
-                View My Activity
-              </Button>
+            <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-2 border-t border-white/10 pt-6 text-sm text-slate-400">
+              <span><strong className="font-bold text-white">Published tests: {formatCount(tests.length)}</strong></span>
+              <span><strong className="font-bold text-white">Questions in live catalog: {formatCount(catalogQuestionCount)}</strong></span>
             </div>
           </div>
 
-          <div className="grid gap-5">
-            <div className="rounded-2xl border border-slate-200 bg-white/82 p-5 shadow-[0_16px_40px_-32px_rgba(15,23,42,0.36)] backdrop-blur-xl">
-              <div className="flex items-center justify-between gap-4">
+          <div className="lg:pl-4">
+            <div className="rounded-2xl border border-white/10 bg-white/[0.07] p-4 shadow-2xl shadow-black/20 backdrop-blur-md sm:p-5">
+              <div className="flex items-center justify-between gap-4 px-1 pb-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Live student experience</p>
-                  <h2 className="mt-1 text-xl font-semibold text-slate-950">Built around real attempt data</h2>
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-300">Free mock ready</p>
+                  <h2 className="mt-1 text-lg font-bold text-white">Start with a live published test</h2>
                 </div>
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-indigo-700">
-                  <Target className="h-5 w-5" />
-                </span>
+                <span className="rounded-lg bg-emerald-500 px-2.5 py-1 text-xs font-black text-slate-950">FREE</span>
               </div>
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-4">
-                  <ClipboardList className="h-5 w-5 text-indigo-700" />
-                  <p className="mt-3 text-sm font-semibold text-slate-950">Published test catalog</p>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-600">Browse the exam and test inventory currently available to students.</p>
-                </div>
-                <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-4">
-                  <Clock3 className="h-5 w-5 text-teal-700" />
-                  <p className="mt-3 text-sm font-semibold text-slate-950">Saved attempts</p>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-600">Resume an in-progress test and revisit completed attempts.</p>
-                </div>
-                <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-4">
-                  <Languages className="h-5 w-5 text-indigo-700" />
-                  <p className="mt-3 text-sm font-semibold text-slate-950">Multilingual delivery</p>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-600">Approved languages are shown when they are configured for a published test.</p>
-                </div>
-                <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-4">
-                  <CheckCircle2 className="h-5 w-5 text-teal-700" />
-                  <p className="mt-3 text-sm font-semibold text-slate-950">Solution review</p>
-                  <p className="mt-1 text-xs leading-relaxed text-slate-600">Review evaluated attempts after submission without relying on demo analytics.</p>
-                </div>
-              </div>
-            </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-white/82 p-5 shadow-[0_16px_40px_-32px_rgba(15,23,42,0.36)] backdrop-blur-xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-700">Start a focused session</p>
-              <h2 className="mt-1 text-xl font-semibold text-slate-950">Choose a live test when you are ready</h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                Use the test explorer to pick an exam, review its details, and start from the current published inventory.
-              </p>
-              <Button className="mt-4 h-11 w-full rounded-xl bg-teal-600 text-white hover:bg-teal-700" onClick={() => setLocation("/tests")}>
-                Open Test Explorer
-              </Button>
+              {heroTest ? (
+                <div className="rounded-xl bg-white p-5 text-slate-950 shadow-xl sm:p-6">
+                  <span className="inline-flex rounded-lg bg-indigo-100 px-2.5 py-1 text-xs font-black uppercase tracking-[0.08em] text-indigo-700">
+                    {heroTest.category}
+                  </span>
+                  <h3 className="mt-4 text-2xl font-black tracking-tight text-slate-950">{heroTest.name}</h3>
+                  <div className="mt-4">
+                    <TestMeta test={heroTest} />
+                  </div>
+
+                  <Button
+                    className="mt-6 h-12 w-full rounded-xl bg-emerald-500 text-base font-black text-slate-950 hover:bg-emerald-400"
+                    onClick={() => setLocation(`/test/${heroTest.id}`)}
+                  >
+                    Start free test
+                    <PlayCircle className="ml-2 h-5 w-5" aria-hidden="true" />
+                  </Button>
+
+                  <div className="mt-6 border-t border-slate-100 pt-5">
+                    <p className="text-sm font-black text-slate-900">What you get</p>
+                    <div className="mt-3 space-y-2.5 text-sm text-slate-600">
+                      <p className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />Questions from the current published test version</p>
+                      <p className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />Saved attempt after submission</p>
+                      <p className="flex items-center gap-2"><CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />Solution review from the committed result</p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="rounded-xl bg-white p-7 text-sm text-slate-600">
+                  No published mock is available right now. Browse the live catalog for current exam pathways.
+                </div>
+              )}
+
+              <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.05] px-4 py-3 text-sm text-slate-300">
+                Already practicing? <button type="button" className="font-bold text-emerald-300 hover:text-emerald-200" onClick={() => setLocation("/dashboard")}>Open your activity</button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="grid gap-5 lg:grid-cols-[1fr_0.75fr]">
-        <div className="et-panel-raised overflow-hidden rounded-2xl">
-          <div className="bg-[#1e1b4b] px-5 py-4 text-white">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100">Exam pathways</p>
-            <h2 className="mt-1 text-2xl font-semibold">Find the right mock series faster</h2>
+      {(latestAttempt || activeSessionEntries.length > 0) && (
+        <section className="border-b border-border bg-muted/30">
+          <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-5 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-primary">Continue where you left off</p>
+              <h2 className="mt-1 text-xl font-black tracking-tight text-foreground">Your saved practice is ready.</h2>
+            </div>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              {activeSessionEntries[0] ? (
+                <Button variant="outline" className="min-h-11 rounded-xl bg-background" onClick={() => setLocation(`/test/${activeSessionEntries[0]!.testId}`)}>
+                  <RotateCcw className="mr-2 h-4 w-4" aria-hidden="true" />
+                  Resume test
+                </Button>
+              ) : null}
+              {latestAttempt ? (
+                <Button
+                  variant="outline"
+                  className="min-h-11 rounded-xl bg-background"
+                  onClick={() => setLocation(`/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(latestAttempt.testId)}&tab=review`)}
+                >
+                  <BarChart3 className="mr-2 h-4 w-4" aria-hidden="true" />
+                  Review last result
+                </Button>
+              ) : null}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8" aria-labelledby="journey-heading">
+        <div className="text-center">
+          <p className="text-xs font-black uppercase tracking-[0.16em] text-primary">A simple practice loop</p>
+          <h2 id="journey-heading" className="mt-2 text-3xl font-black tracking-tight text-foreground sm:text-4xl">Choose. Practice. Review.</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base">Three steps designed to keep the student focused on actual exam practice.</p>
+        </div>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          <div className="relative rounded-2xl border border-border bg-card p-6 text-center shadow-sm">
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 text-blue-700"><BookOpenCheck className="h-6 w-6" aria-hidden="true" /></span>
+            <p className="mt-5 text-xs font-black uppercase tracking-[0.12em] text-muted-foreground">Step 1</p>
+            <h3 className="mt-1 text-lg font-black text-foreground">Choose your exam</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">Open the exam family and pick from the tests that are actually published.</p>
+          </div>
+          <div className="relative rounded-2xl border border-border bg-card p-6 text-center shadow-sm">
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-violet-100 text-violet-700"><Target className="h-6 w-6" aria-hidden="true" /></span>
+            <p className="mt-5 text-xs font-black uppercase tracking-[0.12em] text-muted-foreground">Step 2</p>
+            <h3 className="mt-1 text-lg font-black text-foreground">Practice seriously</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">Take the mock in the runner, with its configured timing and question structure.</p>
+          </div>
+          <div className="relative rounded-2xl border border-border bg-card p-6 text-center shadow-sm">
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-orange-100 text-orange-700"><BarChart3 className="h-6 w-6" aria-hidden="true" /></span>
+            <p className="mt-5 text-xs font-black uppercase tracking-[0.12em] text-muted-foreground">Step 3</p>
+            <h3 className="mt-1 text-lg font-black text-foreground">Review the result</h3>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">Reopen the committed attempt, inspect answers, and use the solution review to improve.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-border bg-muted/25">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8" aria-labelledby="exam-families-heading">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.16em] text-primary">Exam families</p>
+              <h2 id="exam-families-heading" className="mt-2 text-3xl font-black tracking-tight text-foreground sm:text-4xl">Find your exam faster.</h2>
+            </div>
+            <Button variant="ghost" className="min-h-11 w-fit rounded-xl" onClick={() => setLocation("/tests")}>
+              View all exams <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+            </Button>
           </div>
 
-          <div className="sticky top-14 z-10 flex gap-2 overflow-x-auto border-b border-slate-200 bg-white/88 px-4 py-3 backdrop-blur-xl">
-            {examGroups.map((group) => {
-              const tone = toneClasses[group.tone];
-              const active = activeGroup?.id === group.id;
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+            {examGroups.slice(0, 6).map((group, index) => {
+              const tone = GROUP_TONES[index % GROUP_TONES.length];
               return (
                 <button
                   key={group.id}
                   type="button"
-                  onClick={() => setActiveGroupId(group.id)}
-                  className={`et-interactive flex min-h-11 shrink-0 items-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold ${
-                    active
-                      ? "border-indigo-500 bg-indigo-950 text-white ring-2 ring-indigo-500 ring-offset-2"
-                      : `bg-white text-slate-700 ${tone.badge}`
-                  }`}
+                  onClick={() => setLocation(`/category/${group.id}`)}
+                  className={`et-interactive group min-h-[168px] rounded-2xl border p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${tone.card}`}
                 >
-                  <ExamTypeIcon tone={group.tone} />
-                  {group.name}
+                  <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${tone.icon}`}>
+                    <CategoryIcon icon={group.icon} className="h-5 w-5" />
+                  </span>
+                  <h3 className="mt-5 line-clamp-2 text-base font-black leading-tight text-foreground">{group.name}</h3>
+                  <p className="mt-2 text-xs leading-5 text-muted-foreground">{formatCount(group.tests.length)} tests · {formatCount(group.subExams.length)} exam branches</p>
+                  <span className={`mt-4 inline-flex items-center text-xs font-black ${tone.accent}`}>Explore <ChevronRight className="ml-1 h-3.5 w-3.5 transition group-hover:translate-x-0.5" aria-hidden="true" /></span>
                 </button>
               );
             })}
           </div>
-
-          <div className="grid gap-4 p-5 md:grid-cols-2">
-            {(query ? filteredGroups : examGroups).slice(0, 6).map((group) => {
-              const tone = toneClasses[group.tone];
-              return (
-                <article
-                  key={group.id}
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => setLocation(`/category/${group.id}`)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault();
-                      setLocation(`/category/${group.id}`);
-                    }
-                  }}
-                  className={`et-interactive rounded-2xl border border-slate-200 border-l-4 bg-white p-4 shadow-[0_14px_32px_-28px_rgba(15,23,42,0.4)] hover:border-indigo-200 hover:shadow-[0_18px_40px_-28px_rgba(15,23,42,0.36)] ${tone.border}`}
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${tone.icon}`}>
-                      <CategoryIcon icon={group.icon} className="h-5 w-5" />
-                    </div>
-                    <span className={`rounded-lg border px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${tone.badge}`}>
-                      {group.tests.length} published {group.tests.length === 1 ? "test" : "tests"}
-                    </span>
-                  </div>
-                  <h3 className="mt-4 text-lg font-semibold text-slate-950">{group.name}</h3>
-                  <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-slate-600">{group.description}</p>
-                  <div className="mt-4 grid grid-cols-2 gap-2 rounded-xl border border-slate-100 bg-slate-50 p-3 text-xs">
-                    <div>
-                      <p className="font-semibold uppercase tracking-[0.12em] text-slate-400">Tests</p>
-                      <p className="mt-1 font-semibold text-slate-950">{formatCount(group.tests.length)}</p>
-                    </div>
-                    <div>
-                      <p className="font-semibold uppercase tracking-[0.12em] text-slate-400">Exam branches</p>
-                      <p className="mt-1 font-semibold text-teal-700">{formatCount(group.subExams.length)}</p>
-                    </div>
-                  </div>
-                  <div className="mt-4 space-y-2">
-                    {group.subExams.slice(0, 3).map((subExam) => (
-                      <button
-                        key={subExam.id}
-                        type="button"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          setLocation(`/subcategory/${subExam.id}`);
-                        }}
-                        className="et-interactive flex min-h-11 w-full items-center justify-between rounded-xl border border-slate-100 bg-white px-3 py-2 text-left text-sm hover:border-teal-300 hover:bg-teal-50/60"
-                      >
-                        <span className="truncate font-medium text-slate-700">{subExam.name}</span>
-                        <ChevronRight className="h-4 w-4 text-slate-400" />
-                      </button>
-                    ))}
-                  </div>
-                  <div className="mt-4 flex items-center justify-between text-sm font-semibold text-indigo-800">
-                    <span>Open category</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="space-y-5">
-          <div className="et-panel-raised overflow-hidden rounded-2xl">
-            <div className="bg-[#1e1b4b] px-5 py-4 text-white">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100">Resume practice</p>
-              <h2 className="mt-1 text-xl font-semibold">Your active lane</h2>
-            </div>
-            <div className="p-5">
-              {activeSessionEntries.length === 0 && !latestAttempt ? (
-                <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center">
-                  <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
-                    <Target className="h-5 w-5" />
-                  </span>
-                  <p className="mt-3 text-sm font-semibold text-slate-950">No active test yet</p>
-                  <p className="mt-1 text-sm text-slate-600">Choose an exam path and start with a published test.</p>
-                  <Button className="mt-4 h-11 rounded-xl bg-teal-600 text-white hover:bg-teal-700" onClick={() => setLocation("/tests")}>
-                    Browse Live Tests
-                  </Button>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {latestAttempt && (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setLocation(
-                          `/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(latestAttempt.testId)}&tab=review`,
-                        )
-                      }
-                      className="et-interactive flex min-h-11 w-full items-center justify-between rounded-2xl border border-slate-200 border-l-4 border-l-indigo-600 bg-white p-4 text-left hover:border-indigo-200"
-                    >
-                      <div>
-                        <p className="font-semibold text-slate-950">{latestAttempt.testName}</p>
-                        <p className="mt-1 text-xs text-slate-500">Last score: {latestAttempt.score}%</p>
-                      </div>
-                      <BarChart3 className="h-4 w-4 shrink-0 text-indigo-700" />
-                    </button>
-                  )}
-                  {activeSessionEntries.map((session) => (
-                    <button
-                      key={session.testId}
-                      type="button"
-                      onClick={() => setLocation(`/test/${session.testId}`)}
-                      className="et-interactive flex min-h-11 w-full items-center justify-between rounded-2xl border border-slate-200 border-l-4 border-l-teal-500 bg-white p-4 text-left hover:border-teal-200"
-                    >
-                      <div>
-                        <p className="font-semibold text-slate-950">{session.testName}</p>
-                        <p className="mt-1 text-xs text-slate-500">In progress</p>
-                      </div>
-                      <Clock3 className="h-4 w-4 shrink-0 text-teal-700" />
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="et-panel rounded-2xl p-5">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">What is live now</p>
-            <h2 className="mt-1 text-xl font-semibold text-slate-950">Production-backed student journeys</h2>
-            <div className="mt-4 space-y-3">
-              {[
-                "Browse published tests and structured test series.",
-                "Resume an in-progress attempt after refresh.",
-                "Submit an attempt and reopen its saved result.",
-                "Use approved multilingual content when a test provides it.",
-              ].map((item) => (
-                <div key={item} className="flex gap-3 rounded-xl border border-slate-200 bg-slate-50/70 p-3">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" />
-                  <p className="text-sm leading-relaxed text-slate-600">{item}</p>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
-      <section className="et-panel-raised overflow-hidden rounded-2xl">
-        <div className="bg-[#1e1b4b] px-5 py-4 text-white">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-indigo-100">Featured free mocks</p>
-          <h2 className="mt-1 text-2xl font-semibold">{activeGroup?.name ?? "Featured"} tests</h2>
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8" aria-labelledby="free-mocks-heading">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.16em] text-emerald-700">Free mocks</p>
+            <h2 id="free-mocks-heading" className="mt-2 text-3xl font-black tracking-tight text-foreground sm:text-4xl">Start practicing now.</h2>
+          </div>
+          <Button variant="outline" className="min-h-11 w-fit rounded-xl" onClick={() => setLocation("/tests")}>Browse Live Tests</Button>
         </div>
-        <div className="divide-y divide-slate-100">
-          {activeGroupTests.map((test) => {
-            const tone = toneClasses[activeGroup?.tone ?? "default"];
-            return (
-              <button
-                key={test.id}
-                type="button"
-                onClick={() => setLocation(`/test/${test.id}`)}
-                className={`et-interactive grid min-h-11 w-full gap-3 border-l-4 px-5 py-4 text-left hover:bg-slate-50 md:grid-cols-[1fr_130px_130px_150px] ${tone.border}`}
-              >
-                <div>
-                  <p className="font-semibold text-slate-950">{test.name}</p>
-                  <p className="mt-1 text-xs text-slate-500">{test.category} / {test.subcategoryName ?? "General"}</p>
-                </div>
-                <span className="inline-flex items-center gap-1.5 text-sm text-slate-600">
-                  <ClipboardList className="h-3.5 w-3.5" />
-                  {test.totalQuestions} Q
-                </span>
-                <span className="inline-flex items-center gap-1.5 text-sm text-slate-600">
-                  <Clock3 className="h-3.5 w-3.5" />
-                  {test.duration} min
-                </span>
-                <span className="inline-flex items-center gap-1.5 rounded-lg border border-teal-200 bg-teal-50 px-2 py-1 text-xs font-semibold text-teal-700">
-                  <CheckCircle2 className="h-3.5 w-3.5" />
-                  Free Mock Test
-                </span>
-              </button>
-            );
-          })}
-          {activeGroupTests.length === 0 && (
-            <div className="p-8 text-center text-sm text-slate-600">
-              <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-teal-50 text-teal-700">
-                <BookOpenCheck className="h-6 w-6" />
-              </span>
-              <p className="mt-3 font-semibold text-slate-950">No free featured test in this category yet</p>
-              <p className="mt-1">Open the category to see the current published inventory.</p>
-              {activeGroup && (
-                <Button variant="outline" className="mt-4 rounded-xl" onClick={() => setLocation(`/category/${activeGroup.id}`)}>
-                  Open Category
+
+        {featuredFreeTests.length > 0 ? (
+          <div className="mt-7 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {featuredFreeTests.map((test) => (
+              <article key={test.id} className="flex flex-col rounded-2xl border border-border bg-card p-5 shadow-sm transition hover:border-primary/30 hover:shadow-md">
+                <span className="w-fit rounded-lg bg-emerald-100 px-2.5 py-1 text-xs font-black text-emerald-700">FREE</span>
+                <p className="mt-4 text-xs font-bold uppercase tracking-[0.1em] text-primary">{test.category}</p>
+                <h3 className="mt-2 line-clamp-2 text-lg font-black leading-snug text-foreground">{test.name}</h3>
+                <div className="mt-4"><TestMeta test={test} /></div>
+                <Button className="mt-6 min-h-11 w-full rounded-xl" onClick={() => setLocation(`/test/${test.id}`)}>
+                  Start test <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                 </Button>
-              )}
-            </div>
-          )}
-        </div>
+              </article>
+            ))}
+          </div>
+        ) : (
+          <div className="mt-7 rounded-2xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">No free mock is published right now.</div>
+        )}
       </section>
     </div>
   );
