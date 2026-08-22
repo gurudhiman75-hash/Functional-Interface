@@ -1,15 +1,20 @@
 import assert from "node:assert/strict";
-import { generateStaQl004LocalizedQuestionV2 } from "./localization-ql004-editorial-v2.ts";
+import { STA_ENGLISH_CORPUS_BY_QL } from "./english-corpus/index.ts";
+import { STA_QL004_HINDI_REVIEW_COPY, STA_QL004_PUNJABI_REVIEW_COPY } from "./localization-ql004-copy.ts";
 import {
+  editorializeStaQl004LocalizedText,
+  generateStaQl004LocalizedQuestionV2,
+} from "./localization-ql004-editorial-v2.ts";
+import {
+  examRealizeStaQl004Statement,
   generateStaQl004LocalizedQuestionV3,
   STA_QL004_EXAM_REALNESS_EDITORIAL_VERSION,
   STA_QL004_EXAM_REALNESS_REWRITE_COUNTS,
   STA_QL004_LOCALIZATION_LIFECYCLE_V3,
 } from "./localization-ql004-editorial-v3.ts";
-import type { StaLocalizedLocale } from "./localization-types.ts";
+import type { StaLocalizedLocale, StaLocalizationBundle } from "./localization-types.ts";
 
 const CASES_PER_LOCALE = Number(process.env.STA_QL004_EXAM_REALNESS_CASES_PER_LOCALE ?? 4096);
-const MAX_SEED_SCAN = 20000;
 
 function normalize(value: string): string {
   return value.toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").replace(/\s+/g, " ").trim();
@@ -43,18 +48,27 @@ function identityProjection(
   };
 }
 
-function collectCanonical(locale: StaLocalizedLocale) {
-  const perScenario = new Map<string, Map<string, ReturnType<typeof generateStaQl004LocalizedQuestionV3>>>();
-  for (let index = 0; index < MAX_SEED_SCAN; index += 1) {
-    const q = generateStaQl004LocalizedQuestionV3(`sta-ql004-exam-realness-canonical:${locale}:${index}`, locale);
-    const statements = perScenario.get(q.scenarioId) ?? new Map<string, typeof q>();
-    if (!statements.has(q.statement)) statements.set(q.statement, q);
-    perScenario.set(q.scenarioId, statements);
-    if (perScenario.size === 16 && [...perScenario.values()].every((items) => items.size >= 2)) break;
-  }
-  assert.equal(perScenario.size, 16, `${locale}: canonical scan did not reach all 16 QL004 authorities`);
-  for (const [scenarioId, items] of perScenario) assert.ok(items.size >= 2, `${locale}/${scenarioId}: fewer than two distinct exam-realness stems`);
-  return [...perScenario.values()].flatMap((items) => [...items.values()].slice(0, 2));
+function bundleFor(locale: StaLocalizedLocale): StaLocalizationBundle {
+  return locale === "hi-IN" ? STA_QL004_HINDI_REVIEW_COPY : STA_QL004_PUNJABI_REVIEW_COPY;
+}
+
+function collectCanonicalStatements(locale: StaLocalizedLocale): string[] {
+  const bundle = bundleFor(locale);
+  const authorities = STA_ENGLISH_CORPUS_BY_QL["STA-QL-004"];
+  assert.equal(authorities.length, 16, `${locale}: expected 16 frozen QL004 authorities`);
+
+  return authorities.flatMap((authority) => {
+    const copy = bundle[authority.scenarioId];
+    assert.ok(copy, `${locale}/${authority.scenarioId}: localization copy missing`);
+    assert.ok(copy.statementVariants.length >= 2, `${locale}/${authority.scenarioId}: fewer than two authored localization stems`);
+    return copy.statementVariants.slice(0, 2).map((statement) => {
+      const v2 = editorializeStaQl004LocalizedText(locale, statement);
+      const v3 = examRealizeStaQl004Statement(locale, v2);
+      assert.notEqual(v3, v2, `${locale}/${authority.scenarioId}: authored V3 stem did not change from V2`);
+      assert.ok(wordCount(v3) >= 12 && wordCount(v3) <= 42, `${locale}/${authority.scenarioId}: authored V3 stem outside exam-realness length envelope`);
+      return v3;
+    });
+  });
 }
 
 assert.equal(STA_QL004_EXAM_REALNESS_EDITORIAL_VERSION, "V3_EXAM_REALNESS");
@@ -122,15 +136,15 @@ for (const locale of ["hi-IN", "pa-IN"] as const) {
   }
 }
 
-const hindiCanonical = collectCanonical("hi-IN");
-const punjabiCanonical = collectCanonical("pa-IN");
+const hindiCanonical = collectCanonicalStatements("hi-IN");
+const punjabiCanonical = collectCanonicalStatements("pa-IN");
 assert.equal(hindiCanonical.length, 32);
 assert.equal(punjabiCanonical.length, 32);
-assert.equal(new Set(hindiCanonical.map((q) => q.statement)).size, 32, "Hindi V3 canonical stems are not unique");
-assert.equal(new Set(punjabiCanonical.map((q) => q.statement)).size, 32, "Punjabi V3 canonical stems are not unique");
+assert.equal(new Set(hindiCanonical).size, 32, "Hindi V3 canonical stems are not unique");
+assert.equal(new Set(punjabiCanonical).size, 32, "Punjabi V3 canonical stems are not unique");
 
-const hindiText = hindiCanonical.map((q) => q.statement).join("\n");
-const punjabiText = punjabiCanonical.map((q) => q.statement).join("\n");
+const hindiText = hindiCanonical.join("\n");
+const punjabiText = punjabiCanonical.join("\n");
 assert.equal((hindiText.match(/उम्मीद/gu) ?? []).length, 0, "Hindi V3 retained the dominant V2 उम्मीद skeleton");
 assert.equal((punjabiText.match(/ਉਮੀਦ/gu) ?? []).length, 0, "Punjabi V3 retained the dominant V2 ਉਮੀਦ skeleton");
 assert.ok((hindiText.match(/अनुमान/gu) ?? []).length <= 12, "Hindi V3 overuses अनुमान framing");
@@ -147,8 +161,8 @@ console.log(JSON.stringify({
   implicitAntiRestatementChecks,
   canonicalHindiQuestions: hindiCanonical.length,
   canonicalPunjabiQuestions: punjabiCanonical.length,
-  uniqueHindiStems: new Set(hindiCanonical.map((q) => q.statement)).size,
-  uniquePunjabiStems: new Set(punjabiCanonical.map((q) => q.statement)).size,
+  uniqueHindiStems: new Set(hindiCanonical).size,
+  uniquePunjabiStems: new Set(punjabiCanonical).size,
   reachedHindiAuthorities: reached.get("hi-IN")!.size,
   reachedPunjabiAuthorities: reached.get("pa-IN")!.size,
   answerPositionsHindi: answerPositions.get("hi-IN"),
