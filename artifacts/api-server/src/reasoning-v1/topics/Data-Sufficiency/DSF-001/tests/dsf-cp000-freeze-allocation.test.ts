@@ -36,9 +36,9 @@ assert.equal(ql001.statementCount, 2);
 // to advance during later checkpoints without reopening the CP-000 allocation decision.
 assert.equal(
   ql001.lifecycle.englishContentStatus,
-  "PARTIAL_PRODUCTION_GENERATION_REVIEW_CANDIDATE",
+  "CP001_PRODUCTION_GENERATION_FREEZE_CANDIDATE",
 );
-assert.deepEqual(ql001.lifecycle.productionBackedSourceChapters, ["NUM-001", "RAP-001", "PCT-001"]);
+assert.deepEqual(ql001.lifecycle.productionBackedSourceChapters, ["NUM-001", "RAP-001", "PCT-001", "ALG-002"]);
 assert.equal(ql001.lifecycle.questionStudioDiscoverable, false);
 assert.equal(ql001.lifecycle.questionBankWritable, false);
 assert.equal(ql001.lifecycle.testEligible, false);
