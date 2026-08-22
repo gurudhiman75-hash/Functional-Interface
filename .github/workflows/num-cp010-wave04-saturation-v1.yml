@@ -1,0 +1,80 @@
+name: Validate NUM-CP-010 Wave 04 saturation
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/**"
+      - ".github/workflows/num-cp010-wave04-saturation-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp010-wave04:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 01 regression
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/wave01/runtime.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp010-wave01-regression.mjs
+
+      - name: Run Wave 01 regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp010-wave01-regression.mjs
+
+      - name: Bundle Wave 02 regression
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/wave02/runtime.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp010-wave02-regression.mjs
+
+      - name: Run Wave 02 regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp010-wave02-regression.mjs
+
+      - name: Bundle Wave 03 regression
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/wave03/runtime.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp010-wave03-regression.mjs
+
+      - name: Run Wave 03 regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp010-wave03-regression.mjs
+
+      - name: Bundle Wave 04 proof
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/wave04/runtime.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp010-wave04.test.mjs
+
+      - name: Run Wave 04 proof
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp010-wave04.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp010-wave04.log
+
+      - name: Bundle ID-free merge-split proof
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/post-wave04-authority-proposal.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp010-id-free-merge-split.test.mjs
+
+      - name: Run ID-free merge-split proof
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp010-id-free-merge-split.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp010-id-free-merge-split.log
+
+      - name: Bundle Wave 04 learner review
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/wave04/review-export.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp010-wave04-review-export.mjs
+
+      - name: Generate Wave 04 learner review
+        run: node artifacts/api-server/dist/quant-v4/num-cp010-wave04-review-export.mjs
+
+      - name: Upload Wave 04 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp010-wave04-saturation-review
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp010-wave04.log
+            artifacts/api-server/dist/quant-v4/num-cp010-id-free-merge-split.log
+            artifacts/api-server/dist/quant-v4/num-cp010-wave04-review.md
+          if-no-files-found: error
+          retention-days: 14
