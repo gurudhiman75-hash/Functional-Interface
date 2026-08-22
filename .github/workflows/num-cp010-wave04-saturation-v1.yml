@@ -68,6 +68,12 @@ jobs:
       - name: Generate Wave 04 learner review
         run: node artifacts/api-server/dist/quant-v4/num-cp010-wave04-review-export.mjs
 
+      - name: Bundle cumulative learner review
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/post-wave04-cumulative-review-export.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp010-cumulative-review-export.mjs
+
+      - name: Generate cumulative learner review
+        run: node artifacts/api-server/dist/quant-v4/num-cp010-cumulative-review-export.mjs
+
       - name: Upload Wave 04 evidence
         uses: actions/upload-artifact@v4
         with:
@@ -76,5 +82,6 @@ jobs:
             artifacts/api-server/dist/quant-v4/num-cp010-wave04.log
             artifacts/api-server/dist/quant-v4/num-cp010-id-free-merge-split.log
             artifacts/api-server/dist/quant-v4/num-cp010-wave04-review.md
+            artifacts/api-server/dist/quant-v4/num-cp010-cumulative-discovery-review.md
           if-no-files-found: error
           retention-days: 14
