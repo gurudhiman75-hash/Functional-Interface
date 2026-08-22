@@ -30,18 +30,22 @@ const MODE_MATRIX = [
 
 function questionsForProfile(profileId: (typeof REVIEW_PROFILES)[number]): DsfExamProfileQuestion[] {
   const profile = DSF_CP003_ANSWER_PROFILES.find((entry) => entry.id === profileId)!;
-  return Array.from({ length: 10 }, (_, index) => {
-    const mode = MODE_MATRIX[index % MODE_MATRIX.length]!;
-    const semanticClass = profile.representedSemanticClasses[index % profile.representedSemanticClasses.length]!;
-    return generateDsfExamProfileBatch({
-      answerProfile: profileId,
-      domain: mode.domain,
-      solveMode: mode.solveMode,
-      semanticClass,
-      count: 1,
-      seed: `dsf-cp003-review:${profileId}:${index}`,
-    }).questions[0]!;
-  });
+  const modeCoverage = MODE_MATRIX.map((mode, index) => generateDsfExamProfileBatch({
+    answerProfile: profileId,
+    domain: mode.domain,
+    solveMode: mode.solveMode,
+    count: 1,
+    seed: `dsf-cp003-review:${profileId}:mode:${index}`,
+  }).questions[0]!);
+
+  const classCoverage = profile.representedSemanticClasses.map((semanticClass, index) => generateDsfExamProfileBatch({
+    answerProfile: profileId,
+    semanticClass,
+    count: 1,
+    seed: `dsf-cp003-review:${profileId}:class:${index}`,
+  }).questions[0]!);
+
+  return [...modeCoverage, ...classCoverage];
 }
 
 const questions = REVIEW_PROFILES.flatMap(questionsForProfile);
@@ -116,7 +120,7 @@ body{font-family:system-ui,sans-serif;background:#f5f5f5;color:#171717;margin:0}
 </head><body><main class="wrap">
 <section class="top">
 <h1>Data Sufficiency · CP-003 Banking + SSC Answer Profile Review</h1>
-<p class="note">Human-review artifact for exam-profile rendering only. CP-001 semantic truth remains frozen. SSC four-option profiles exclude unrepresentable semantic classes instead of relabelling them. Punjab-specific rendering remains disabled. Question Bank, tests, mocks and public publication remain locked.</p>
+<p class="note">Human-review artifact for exam-profile rendering only. Each profile includes an eight-question solve-mode sweep plus one targeted question for every semantic class that profile can represent. CP-001 semantic truth remains frozen. SSC four-option profiles exclude unrepresentable semantic classes instead of relabelling them. Punjab-specific rendering remains disabled. Question Bank, tests, mocks and public publication remain locked.</p>
 <div class="summary">
 <span>Questions: ${questions.length}</span><span>Profiles: ${REVIEW_PROFILES.length}</span><span>Domains: ${domains.length}</span><span>Solve modes: ${solveModes.length}</span>
 ${REVIEW_PROFILES.map((profileId) => `<span>${escapeHtml(profileId)}: ${profileCounts[profileId]}</span>`).join("")}
@@ -134,6 +138,7 @@ writeFileSync(jsonPath, JSON.stringify({
   profileCheckpointId: "DSF-CP-003",
   authority: DSF_CP003_EXAM_PROFILE_AUTHORITY,
   reviewProfiles: REVIEW_PROFILES,
+  reviewDesign: "8 solve-mode questions + one targeted question per representable class, per profile",
   profileCounts,
   classCounts,
   domains,
