@@ -18,7 +18,7 @@ export function polishCp006LocalizedLearnerText(text:string,caselet:Sea002Cp006C
     if(locale==="hi-IN"){
       output=output
         .replace(new RegExp(`${token} मिलता है`,"gu"),`${person} का स्थान मिलता है`)
-        .replace(new RegExp(`${token} (उत्तर|दक्षिण) की ओर मुख किए है`,"gu"),`${person} का मुख $1 की ओर है`);
+        .replace(new RegExp(`${token} (उत्तर|दक्षिण) की ओर मुख किए है(?!ं)`,"gu"),`${person} का मुख $1 की ओर है`);
     }else{
       output=output
         .replace(new RegExp(`${token} ਮਿਲਦਾ ਹੈ`,"gu"),`${person} ਦਾ ਸਥਾਨ ਮਿਲਦਾ ਹੈ`)
@@ -55,5 +55,5 @@ export function localizeCp006PolishedReviewCaselet(caselet:Sea002Cp006Caselet,lo
 }
 
 export function cp006HasKnownGenderedParticipantSurface(text:string):boolean{
-  return /मिलता है|ਮਿਲਦਾ ਹੈ|मुख किए है|ਮੂੰਹ ਕਰਦਾ ਹੈ/u.test(text);
+  return /मिलता है|ਮਿਲਦਾ ਹੈ|मुख किए है(?!ं)|ਮੂੰਹ ਕਰਦਾ ਹੈ/u.test(text);
 }
