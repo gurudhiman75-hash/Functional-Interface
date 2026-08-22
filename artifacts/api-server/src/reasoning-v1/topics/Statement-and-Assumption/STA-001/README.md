@@ -4,68 +4,95 @@ Product code: `REAS-STA`
 
 Family: `Reasoning V1 / Family C — Logic and deduction`
 
-## Status
+## Current status
 
 ```text
-maturity:                    PERMANENT_QL_SEMANTIC_FREEZE
-permanentQlCount:            4
-sourceSaturation:            TARGETED_CORE_SATURATION_COMPLETE
-executableDiscovery:         GREEN
-permanentQlFreezeProof:      GREEN
-englishProductionCorpus:     NOT_FROZEN
-questionStudioDiscoverable:  false
-questionBankWritable:        false
-testEligible:                false
-publiclyPublishable:         false
-hindiPunjabi:                NOT_STARTED
+permanent QL semantics:       FROZEN (4 QLs)
+English corpus/runtime:       FROZEN_V2
+QL001 Hindi/Punjabi:          FROZEN_V2
+QL002 Hindi/Punjabi:          FROZEN_V2
+QL003 Hindi/Punjabi:          FROZEN_V2
+QL004 Hindi/Punjabi:          REVIEW_LOCKED_V3
+exam presentation runtime:    TECHNICALLY_CERTIFIED_V1
+multilingual chapter freeze:  false
+Question Studio:              CLOSED
+Question Bank writes:         CLOSED
+mock/test eligibility:        CLOSED
+public publication:           CLOSED
 ```
 
-Final semantic-freeze CI authority:
+QL004 learner content is technically review-locked to the exact certified V3 artifact, but native/product approval has **not** been recorded. That approval is the only declared blocker in `multilingual-pre-freeze-manifest.ts`; downstream gates remain closed until it is resolved and the final multilingual freeze is created.
+
+## Certified authorities
+
+English freeze:
 
 ```text
-workflow: Validate STA-001 semantic freeze
-run:      32210089893
-result:   SUCCESS
+freeze:   STA-001-EN-v2-frozen
+authorities: 64 (16 per QL)
+canonical English review questions: 128
+learner digest: sha256:92ea0a1af379cee387237b247c89f7457a9b22d1508032618ce310076103f6e9
 ```
 
-Authoritative chapter design:
+QL004 V3 technical review lock:
 
-- `STA-001-END-TO-END-DESIGN.md`
+```text
+review lock: STA-001-QL004-HI-PA-v3-review-locked
+certified source head: 902af678a76666de765d7ad193a602e9be6cd709
+workflow run: 32567365948 (SUCCESS)
+artifact: 9474478876
+artifact digest: sha256:7befb13b8c666e3f7f0919f38bbb095fbc264dcfbf44871addbbbab9bf1fe11b
+canonical questions: 32 Hindi + 32 Punjabi
+learner digest: sha256:ae65d8906fd644fe0062a2aa923dc7c2301608b60bdea1f7a6dcfcb326264a3b
+native/product approval: false
+```
 
-Executable/freeze authorities:
-
-- `types.ts`
-- `prototype-authorities.ts`
-- `oracle.ts`
-- `generator.ts`
-- `router.ts`
-- `permanent-authorities.ts`
-- `foundation-proof.test.ts`
-- `permanent-ql-proof.test.ts`
-- `STA-001-EXECUTABLE-DISCOVERY-EVIDENCE-V1.md`
+Exact-head run `32567365948` proved strict TypeScript, all existing immutable freezes, QL004 V2 semantic/native identity, QL004 V3 exam-realness over 8,192 generated questions, source-backed exam-format coverage, legacy banking five-code presentation, the 32,768-question chapter-wide learner-realness stress gate, review artifact generation, and production API build.
 
 ## Permanent semantic QLs
 
 ```text
-STA-QL-001  Core prerequisite / existence / availability / capability / feasibility dependency
-STA-QL-002  Recommendation / proposal / policy / decision need-and-efficacy dependency
-STA-QL-003  Source-supported notice / rule / institutional-communication audience-purpose dependency
-STA-QL-004  Claim / prediction hidden causal-or-efficacy bridge
+STA-QL-001  prerequisite / existence / availability / capability / feasibility dependency
+STA-QL-002  recommendation / proposal / policy / decision with relevant need plus feasibility/efficacy
+STA-QL-003  institutional notice / rule / service direction with audience relevance plus response capability
+STA-QL-004  claim / prediction with explicit premise plus a distinct hidden causal/efficacy bridge
 ```
 
-Candidate count (2 or 3), answer coding, negative wording and option ordering are metadata, not QL identity.
+Candidate count, coded options, query polarity and option order are **presentation metadata**, not QL identity.
 
-Still deferred rather than silently allocated:
+## Source-backed exam presentation matrix
 
-- advertising/appeal breadth as a distinct QL;
-- comparison/measurement/representativeness as a distinct QL;
-- negative-query-only QL.
+The runtime supports:
+
+- SSC: 2- and 3-assumption, 4-option forms;
+- Banking: 2-, 3- and 4-assumption, 5-option forms;
+- Banking negative-query 3-assumption form;
+- legacy Banking two-assumption five-code presentation;
+- Punjab-state: 2- and 3-assumption, 4-option forms;
+- English, Hindi and Punjabi presentation in every supported profile.
+
+`BANK_4X5` is source-backed by RBI Grade B 2024 evidence. Its fourth assumption is a curated **presentation-only** same-scenario authority: it does not mutate the frozen 64-authority English corpus. Eight overlay authorities span all four QLs and four misconception classes. The independent oracle must classify the added assumption `NOT_IMPLICIT / NO_REQUIRED_DEPENDENCY`.
+
+The stress proof exercises all assumption positions I-IV for both the overlay and genuine implicit assumptions, preventing position-predictable four-assumption questions.
+
+## Core doctrine
+
+An assumption is an **unstated proposition materially required by the discourse act**.
+
+The runtime therefore rejects:
+
+- explicit restatement;
+- merely true or plausible facts;
+- generic relevance or desirability;
+- consequences that are not required premises;
+- unrestricted commonsense/world-knowledge inference;
+- stronger claims than the statement needs.
+
+Semantic negation and dependency denial are validation aids. The generator constructs questions from reviewed proposition/dependency authority first; it does not write a fluent stem and invent an answer afterward.
 
 ## Product boundary
 
-This chapter owns **implicit-assumption identification** only.
-
-It is separate from:
+STA owns implicit-assumption identification only and stays distinct from:
 
 - Statement & Conclusion (`REAS-STC`)
 - Statement & Argument (`REAS-ARG`)
@@ -73,44 +100,13 @@ It is separate from:
 - Cause & Effect (`REAS-CAE`)
 - Assertion & Reason (`REAS-ASM`)
 
-The chapter may share Family C proposition utilities later, but it retains its own semantic oracle, scenario authority, distractor taxonomy, explanation contract and QA gates.
+## Current closure path
 
-## Current implementation evidence
+1. replay `localization-ql004-review-lock-proof.test.ts` and `multilingual-pre-freeze-proof.test.ts` on the current head;
+2. record explicit native/product approval for the exact QL004 V3 artifact;
+3. create the immutable QL004 V3 freeze manifest/proof;
+4. create the final multilingual STA runtime freeze;
+5. register STA in the shared Reasoning V1 Question Studio review registry;
+6. keep Question Bank, mock/test and public-publication locks closed until their own explicit release checkpoint.
 
-Final CI proves:
-
-- independent oracle never reads the editorial expected-answer flag as answer authority;
-- removing a required hidden dependency makes the candidate fail;
-- making the same proposition explicit makes it cease to be an implicit assumption;
-- semantic negation is represented as data rather than text-level `not` insertion;
-- two- and three-assumption questions both execute;
-- an SSC-style `All I, II and III` correct outcome executes;
-- all four option positions are exercised per QL;
-- deterministic replay is enforced;
-- the production API build is part of the dedicated CI gate;
-- review HTML/JSON is generated as a CI artifact.
-
-Final 480-question proof:
-
-```text
-reviewed authorities:                  13
-generated candidates:                1173
-implicit / not implicit:          607 / 566
-all-three-implicit questions:          30
-editorial/oracle parity checks:        39
-expected-answer independence:          39
-dependency-removal mutations:          21
-explicitness mutations:                21
-```
-
-## Next implementation step
-
-Permanent QL identity is frozen, but the chapter is **not yet production-ready**.
-
-Next:
-
-1. expand the English curated scenario/family library substantially inside the four frozen QLs;
-2. run large diversity, ambiguity, misconception and exam-readiness audits;
-3. freeze the English production corpus and explanation quality;
-4. localize/adapt Hindi and Punjabi with semantic parity tests;
-5. only then register the whole frozen chapter in Question Studio and open downstream gates.
+No further QL discovery, English corpus expansion or speculative presentation family is required for this closure path.
