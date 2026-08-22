@@ -73,6 +73,11 @@ jobs:
           STA_EXAM_FORMAT_CASES_PER_PROFILE_LOCALE: 512
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-extension-proof.test.ts
 
+      - name: Prove legacy banking two-assumption five-code presentation
+        env:
+          STA_LEGACY_BANK_CASES_PER_LOCALE: 1024
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-legacy-bank-proof.test.ts
+
       - name: Prove chapter-wide learner realness across 32768 localized questions
         env:
           STA_CHAPTER_EXAM_REALNESS_CASES_PER_QL_LOCALE: 4096
