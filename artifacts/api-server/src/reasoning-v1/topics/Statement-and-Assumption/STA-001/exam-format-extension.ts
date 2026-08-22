@@ -14,14 +14,13 @@ import { examRealizeStaQl004Statement } from "./localization-ql004-editorial-v3.
 
 export type StaExamLocale = "en-IN" | StaLocalizedLocale;
 export type StaExamQueryPolarity = "IMPLICIT" | "NOT_IMPLICIT";
-export type StaExamCandidateCount = 2 | 3 | 4;
+export type StaExamCandidateCount = 2 | 3;
 export type StaExamOptionCount = 4 | 5;
 export type StaExamProfileId =
   | "SSC_2X4"
   | "SSC_3X4"
   | "BANK_2X5"
   | "BANK_3X5"
-  | "BANK_4X5"
   | "BANK_3X5_NEGATIVE"
   | "PUNJAB_2X4"
   | "PUNJAB_3X4";
@@ -37,19 +36,24 @@ interface StaExamProfile {
   readonly sourceProfiles: readonly SourceProfile[];
 }
 
+/**
+ * Presentation profiles are deliberately restricted to source-backed STA surfaces.
+ * Source ownership audit V1 authorizes two- and three-assumption candidate sets;
+ * a four-assumption banking profile is therefore not exposed until direct source
+ * evidence is recorded and reviewed.
+ */
 export const STA_EXAM_PROFILES: Readonly<Record<StaExamProfileId, StaExamProfile>> = {
   SSC_2X4: { profileId: "SSC_2X4", candidateCount: 2, optionCount: 4, queryPolarity: "IMPLICIT", sourceProfiles: ["SSC"] },
   SSC_3X4: { profileId: "SSC_3X4", candidateCount: 3, optionCount: 4, queryPolarity: "IMPLICIT", sourceProfiles: ["SSC"] },
   BANK_2X5: { profileId: "BANK_2X5", candidateCount: 2, optionCount: 5, queryPolarity: "IMPLICIT", sourceProfiles: ["BANKING"] },
   BANK_3X5: { profileId: "BANK_3X5", candidateCount: 3, optionCount: 5, queryPolarity: "IMPLICIT", sourceProfiles: ["BANKING"] },
-  BANK_4X5: { profileId: "BANK_4X5", candidateCount: 4, optionCount: 5, queryPolarity: "IMPLICIT", sourceProfiles: ["BANKING"] },
   BANK_3X5_NEGATIVE: { profileId: "BANK_3X5_NEGATIVE", candidateCount: 3, optionCount: 5, queryPolarity: "NOT_IMPLICIT", sourceProfiles: ["BANKING"] },
   PUNJAB_2X4: { profileId: "PUNJAB_2X4", candidateCount: 2, optionCount: 4, queryPolarity: "IMPLICIT", sourceProfiles: ["PUNJAB_STATE"] },
   PUNJAB_3X4: { profileId: "PUNJAB_3X4", candidateCount: 3, optionCount: 4, queryPolarity: "IMPLICIT", sourceProfiles: ["PUNJAB_STATE"] },
 };
 
 export interface StaExamFormatRenderedCandidate {
-  readonly label: "I" | "II" | "III" | "IV";
+  readonly label: "I" | "II" | "III";
   readonly candidateId: string;
   readonly text: string;
   readonly oracle: ReturnType<typeof evaluateAssumptionOracle>;
@@ -161,11 +165,10 @@ function choose<T>(values: readonly T[], seed: string): T {
   return values[hash32(seed) % values.length]!;
 }
 
-function roman(index: number): "I" | "II" | "III" | "IV" {
+function roman(index: number): "I" | "II" | "III" {
   if (index === 0) return "I";
   if (index === 1) return "II";
   if (index === 2) return "III";
-  if (index === 3) return "IV";
   throw new Error(`Unsupported assumption label index ${index}`);
 }
 
@@ -278,11 +281,7 @@ function renderCandidateText(scenario: Scenario, candidate: StaCandidateAuthorit
   const copy = localizedBundle(scenario.proposedQlId, locale)[scenario.scenarioId];
   const localizedCandidate = copy?.candidates[candidate.candidateId];
   if (!localizedCandidate) throw new Error(`${scenario.scenarioId}/${locale}/${candidate.candidateId}: missing localized candidate copy`);
-  return editorializeLocalized(
-    scenario.proposedQlId,
-    locale,
-    choose(localizedCandidate.textVariants, `${seed}:${candidate.candidateId}:text`),
-  );
+  return editorializeLocalized(scenario.proposedQlId, locale, choose(localizedCandidate.textVariants, `${seed}:${candidate.candidateId}:text`));
 }
 
 function renderedRationale(scenario: Scenario, candidate: StaCandidateAuthority, locale: StaExamLocale): string {
