@@ -44,13 +44,13 @@ function exactify(index: number, seed: string): GapWave7Question {
   if (index === 1) {
     const radius = Math.hypot(75, 34);
     const stem = withCircleRadius(raw.diagramModel, radius);
-    const solution = withLabelPosition(withCircleRadius(raw.solutionDiagramModel, radius), "derived-on", 175, 110);
+    const solution = withLabelPosition(withCircleRadius(raw.solutionDiagramModel, radius), "derived-on", 170, 115);
     return refinalize(raw, stem, solution);
   }
   if (index === 2) {
     const radius = Math.hypot(75, 65);
     const stem = withCircleRadius(raw.diagramModel, radius);
-    const solution = withLabelPosition(withCircleRadius(raw.solutionDiagramModel, radius), "answer-angle", 180, 135);
+    const solution = withLabelPosition(withCircleRadius(raw.solutionDiagramModel, radius), "answer-angle", 180, 140);
     return refinalize(raw, stem, solution);
   }
   return raw;
