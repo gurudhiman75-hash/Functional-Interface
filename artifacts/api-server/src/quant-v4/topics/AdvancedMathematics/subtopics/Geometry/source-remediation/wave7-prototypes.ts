@@ -10,6 +10,13 @@ function withCircleRadius(model: GeoDiagramModel, radius: number): GeoDiagramMod
   };
 }
 
+function withLabelPosition(model: GeoDiagramModel, labelId: string, x: number, y: number): GeoDiagramModel {
+  return {
+    ...model,
+    labels: model.labels.map((label) => label.id === labelId ? { ...label, x, y } : label),
+  };
+}
+
 function refinalize(raw: GapWave7Question, diagramModel: GeoDiagramModel, solutionDiagramModel: GeoDiagramModel): GapWave7Question {
   return finalizeGapWave7Question({
     cpId: raw.cpId,
@@ -36,7 +43,9 @@ function exactify(index: number, seed: string): GapWave7Question {
   const raw = BASE_WAVE7_PROTOTYPES[index].generate(seed);
   if (index === 1) {
     const radius = Math.hypot(75, 34);
-    return refinalize(raw, withCircleRadius(raw.diagramModel, radius), withCircleRadius(raw.solutionDiagramModel, radius));
+    const stem = withCircleRadius(raw.diagramModel, radius);
+    const solution = withLabelPosition(withCircleRadius(raw.solutionDiagramModel, radius), "derived-on", 175, 110);
+    return refinalize(raw, stem, solution);
   }
   if (index === 2) {
     const radius = Math.hypot(75, 65);
