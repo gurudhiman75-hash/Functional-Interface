@@ -1,4 +1,4 @@
-name: Validate TSD CP007 ownership review gate
+name: Validate TSD CP007 approved executable gate
 
 on:
   push:
@@ -20,13 +20,13 @@ permissions:
   contents: read
 
 concurrency:
-  group: validate-tsd-cp007-ownership-${{ github.ref }}
+  group: validate-tsd-cp007-executable-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  ownership-review-proof:
+  approved-executable-proof:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -34,7 +34,7 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Strict TypeScript check for CP007 review package
+      - name: Strict TypeScript check for CP007 package
         working-directory: artifacts/api-server
         run: |
           pnpm exec tsc \
@@ -51,22 +51,43 @@ jobs:
             --skipLibCheck \
             --types node \
             $(find src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007 -name '*.ts' -print)
-      - name: Run CP007 ownership and lifecycle proof
+      - name: Run pre-approval ownership snapshot proof
         shell: bash
         run: |
           set +e
           pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/ownership-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-ownership-proof.log
           echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-ownership-proof-exit
           exit 0
+      - name: Run approved permanent-QL allocation proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/allocation-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-allocation-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-allocation-proof-exit
+          exit 0
+      - name: Run executable arithmetic and independent-verifier proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/executable-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-executable-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-executable-proof-exit
+          exit 0
       - name: Publish proof diagnostics
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-cp007-ownership-review-proof
+          name: tsd-cp007-approved-executable-proof
           path: |
             /tmp/tsd-cp007-ownership-proof.log
             /tmp/tsd-cp007-ownership-proof-exit
+            /tmp/tsd-cp007-allocation-proof.log
+            /tmp/tsd-cp007-allocation-proof-exit
+            /tmp/tsd-cp007-executable-proof.log
+            /tmp/tsd-cp007-executable-proof-exit
           if-no-files-found: error
           retention-days: 14
-      - name: Enforce proof result
-        run: test "$(cat /tmp/tsd-cp007-ownership-proof-exit)" = "0"
+      - name: Enforce proof results
+        run: |
+          test "$(cat /tmp/tsd-cp007-ownership-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-allocation-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-executable-proof-exit)" = "0"
