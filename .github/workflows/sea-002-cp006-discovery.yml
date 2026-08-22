@@ -39,6 +39,8 @@ jobs:
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-english-review-proof.test.ts
       - name: Prove CP006 signed review, permanent QL allocation and inactive English freeze
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-freeze-proof.test.ts
+      - name: Prove CP006 Hindi/Punjabi localization readiness remains bound to frozen English
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-localization-readiness-proof.test.ts
       - name: Export CP006 100-caselet English review artifact
         env:
           CP006_REVIEW_OUTPUT_DIR: ./cp006-review-output
