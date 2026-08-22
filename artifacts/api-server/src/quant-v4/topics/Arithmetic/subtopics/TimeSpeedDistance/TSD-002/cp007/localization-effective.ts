@@ -8,6 +8,15 @@ interface FamilyOverride {
 }
 
 const hindiReplacements: Readonly<Record<string, FamilyOverride>> = Object.freeze({
+  "85-D": Object.freeze({
+    stem: "{trainLength} m लंबी ट्रेन {speed} की चाल से {objectLength} m लंबे रेलवे पुल को पार करती है। पुल को पूरी तरह पार करने में कितने सेकंड लगेंगे?",
+  }),
+  "86-E": Object.freeze({
+    stem: "एक ट्रेन का इंजन फाटक पोस्ट तक पहुंचता है। {pointTime} सेकंड बाद उसका पिछला सिरा उसी पोस्ट तक पहुंचता है। ट्रेन की चाल {speed} है। इंजन और पिछले सिरे के बीच की दूरी ज्ञात करें।",
+  }),
+  "87-E": Object.freeze({
+    stem: "{trainLength} m लंबी ट्रेन का इंजन एक टेलीग्राफ खंभे को पार करता है। {pointTime} सेकंड बाद उसका अंतिम डिब्बा उसी खंभे को पार करता है। ट्रेन की समान चाल ज्ञात करें।",
+  }),
   "88-B": Object.freeze({ explanationGuide: "पूरी तरह पार करते समय तय कुल दूरी चाल × {crossingTime} है। इसमें से ट्रेन की लंबाई {trainLength} घटाने पर पुल की लंबाई मिलेगी।" }),
   "88-E": Object.freeze({
     stem: "एक {trainLength} m लंबी ट्रेन {speed} की चाल से चलकर किसी प्लेटफॉर्म को {crossingTime} सेकंड में पूरी तरह पार करती है। उस प्लेटफॉर्म की लंबाई कितनी है?",
@@ -50,7 +59,16 @@ const hindiReplacements: Readonly<Record<string, FamilyOverride>> = Object.freez
 });
 
 const punjabiReplacements: Readonly<Record<string, FamilyOverride>> = Object.freeze({
+  "85-C": Object.freeze({
+    stem: "ਰੇਲਗੱਡੀ ਦਾ ਇੰਜਣ {objectLength} m ਲੰਮੀ ਸੁਰੰਗ ਵਿੱਚ ਦਾਖਲ ਹੁੰਦਾ ਹੈ। ਰੇਲਗੱਡੀ {trainLength} m ਲੰਮੀ ਹੈ ਅਤੇ {speed} ਦੀ ਸਥਿਰ ਗਤੀ ਨਾਲ ਚੱਲਦੀ ਹੈ। ਪੂਰੀ ਰੇਲਗੱਡੀ ਸੁਰੰਗ ਤੋਂ ਬਾਹਰ ਆਉਣ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲਵੇਗੀ?",
+  }),
   "85-D": Object.freeze({ explanationGuide: "ਪੂਰੀ ਤਰ੍ਹਾਂ ਪਾਰ ਕਰਨ ਦੀ ਦੂਰੀ {trainLength} + {objectLength} ਹੈ। ਲੋੜ ਪਏ ਤਾਂ ਗਤੀ m/s ਵਿੱਚ ਬਦਲੋ ਅਤੇ ਕੁੱਲ ਦੂਰੀ ਨੂੰ ਗਤੀ ਨਾਲ ਭਾਗ ਦਿਓ।" }),
+  "86-E": Object.freeze({
+    stem: "ਰੇਲਗੱਡੀ ਦਾ ਇੰਜਣ ਇੱਕ ਫਾਟਕ ਪੋਸਟ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ। {pointTime} ਸਕਿੰਟ ਬਾਅਦ ਇਸਦਾ ਪਿਛਲਾ ਸਿਰਾ ਉਸੇ ਪੋਸਟ ਤੱਕ ਪਹੁੰਚਦਾ ਹੈ। ਗਤੀ {speed} ਹੈ। ਇੰਜਣ ਅਤੇ ਪਿਛਲੇ ਸਿਰੇ ਵਿਚਲੀ ਦੂਰੀ ਕੱਢੋ।",
+  }),
+  "87-E": Object.freeze({
+    stem: "{trainLength} m ਲੰਮੀ ਰੇਲਗੱਡੀ ਦਾ ਇੰਜਣ ਇੱਕ ਟੈਲੀਗ੍ਰਾਫ ਖੰਭੇ ਨੂੰ ਪਾਰ ਕਰਦਾ ਹੈ। {pointTime} ਸਕਿੰਟ ਬਾਅਦ ਆਖਰੀ ਡੱਬਾ ਉਸੇ ਖੰਭੇ ਨੂੰ ਪਾਰ ਕਰਦਾ ਹੈ। ਰੇਲਗੱਡੀ ਦੀ ਸਥਿਰ ਗਤੀ ਕੱਢੋ।",
+  }),
   "88-B": Object.freeze({ explanationGuide: "ਪੂਰੀ ਤਰ੍ਹਾਂ ਪਾਰ ਕਰਦੇ ਸਮੇਂ ਤੈਅ ਕੁੱਲ ਦੂਰੀ ਗਤੀ × {crossingTime} ਹੈ। ਇਸ ਵਿੱਚੋਂ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ {trainLength} ਘਟਾਉਣ ਨਾਲ ਪੁਲ ਦੀ ਲੰਬਾਈ ਮਿਲੇਗੀ।" }),
   "88-E": Object.freeze({
     stem: "ਇੱਕ {trainLength} m ਲੰਮੀ ਰੇਲਗੱਡੀ {speed} ਦੀ ਗਤੀ ਨਾਲ ਚੱਲ ਕੇ ਕਿਸੇ ਪਲੇਟਫਾਰਮ ਨੂੰ {crossingTime} ਸਕਿੰਟ ਵਿੱਚ ਪੂਰੀ ਤਰ੍ਹਾਂ ਪਾਰ ਕਰਦੀ ਹੈ। ਉਸ ਪਲੇਟਫਾਰਮ ਦੀ ਲੰਬਾਈ ਕਿੰਨੀ ਹੈ?",
