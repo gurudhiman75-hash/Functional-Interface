@@ -17,8 +17,8 @@ export interface TsdCp007RenderedEnglishSample {
   readonly unresolvedPlaceholders: readonly string[];
 }
 
-const KMH_INPUT_FAMILIES = new Set(["84-D", "86-D"]);
-const KMH_ANSWER_FAMILIES = new Set(["87-D", "90-E"]);
+const KMH_INPUT_FAMILIES = new Set(["84-D", "84-F", "85-D", "85-F", "86-D", "86-F", "88-E"]);
+const KMH_ANSWER_FAMILIES = new Set(["87-D", "87-F", "90-E"]);
 
 function rationalText(value: Rational): string {
   if (value.denominator === 1n) return value.numerator.toString();
@@ -75,8 +75,13 @@ function targetLabel(generated: TsdCp007ExecutableGeneratedCase): string {
 function seedNumberForFamily(familyId: string): number {
   const special: Readonly<Record<string, number>> = Object.freeze({
     "84-D": 6,
+    "84-F": 8,
+    "85-D": 6,
+    "85-F": 8,
     "86-D": 6,
+    "86-F": 8,
     "87-D": 3,
+    "87-F": 8,
     "88-A": 1, "88-B": 3, "88-C": 2, "88-D": 4, "88-E": 5, "88-F": 6,
     "90-E": 3,
     "92-A": 1, "92-B": 3, "92-C": 5, "92-D": 2, "92-E": 4, "92-F": 7,
@@ -106,8 +111,8 @@ function timelineEventBindings(generated: TsdCp007ExecutableGeneratedCase): { kn
 
 function endpointConvention(familyId: string, includeStart: boolean): string {
   if (familyId === "94-C") return includeStart ? "included in the count" : "excluded from the count";
-  if (familyId === "94-D") return includeStart ? "starting-marker-included" : "starting-marker-excluded";
-  if (familyId === "94-E") return includeStart ? "to include the starting post" : "to exclude the starting post";
+  if (familyId === "94-D") return includeStart ? "the starting post included" : "the starting post excluded";
+  if (familyId === "94-E") return includeStart ? "the starting pole is included" : "the starting pole is excluded";
   if (familyId === "94-F") return includeStart ? "the starting pillar included" : "the starting pillar excluded";
   return includeStart ? "including the starting point" : "excluding the starting point";
 }
