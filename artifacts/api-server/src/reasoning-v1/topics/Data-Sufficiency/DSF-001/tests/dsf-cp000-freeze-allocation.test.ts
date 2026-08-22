@@ -34,10 +34,7 @@ assert.equal(ql001.statementCount, 2);
 
 // CP-000 freezes identity/semantics and publication locks. Content lifecycle is allowed
 // to advance during later checkpoints without reopening the CP-000 allocation decision.
-assert.equal(
-  ql001.lifecycle.englishContentStatus,
-  "CP001_PRODUCTION_GENERATION_FREEZE_CANDIDATE",
-);
+assert.equal(ql001.lifecycle.englishContentStatus, "CP001_PRODUCTION_GENERATION_FROZEN");
 assert.deepEqual(ql001.lifecycle.productionBackedSourceChapters, ["NUM-001", "RAP-001", "PCT-001", "ALG-002"]);
 assert.equal(ql001.lifecycle.questionStudioDiscoverable, false);
 assert.equal(ql001.lifecycle.questionBankWritable, false);
