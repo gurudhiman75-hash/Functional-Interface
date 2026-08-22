@@ -1,4 +1,4 @@
-name: Validate TSD CP007 executable and rendered English review gate
+name: Validate TSD CP007 frozen English and localization gate
 
 on:
   push:
@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  approved-executable-and-english-review:
+  approved-executable-english-freeze-and-localization:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -93,16 +93,30 @@ jobs:
           pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-rendered-sample-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-english-rendered-proof.log
           echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-english-rendered-proof-exit
           exit 0
-      - name: Generate questions-only Markdown review file
+      - name: Run approved English freeze proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-freeze-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-english-freeze-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-english-freeze-proof-exit
+          exit 0
+      - name: Run Hindi Punjabi localization parity proof
+        shell: bash
+        run: |
+          set +e
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/localization-parity-proof.test.ts 2>&1 | tee /tmp/tsd-cp007-localization-parity-proof.log
+          echo "${PIPESTATUS[0]}" > /tmp/tsd-cp007-localization-parity-proof-exit
+          exit 0
+      - name: Generate questions-only English Markdown review file
         env:
           TSD_CP007_REVIEW_OUTPUT_DIR: /tmp/tsd-cp007-english-review
         run: |
           pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp007/english-rendered-review-export.ts
-      - name: Publish proof diagnostics and Markdown question review
+      - name: Publish proof diagnostics and English question review
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tsd-cp007-executable-and-rendered-english-review
+          name: tsd-cp007-frozen-english-and-localization-review
           path: |
             /tmp/tsd-cp007-ownership-proof.log
             /tmp/tsd-cp007-ownership-proof-exit
@@ -116,6 +130,10 @@ jobs:
             /tmp/tsd-cp007-english-semantic-proof-exit
             /tmp/tsd-cp007-english-rendered-proof.log
             /tmp/tsd-cp007-english-rendered-proof-exit
+            /tmp/tsd-cp007-english-freeze-proof.log
+            /tmp/tsd-cp007-english-freeze-proof-exit
+            /tmp/tsd-cp007-localization-parity-proof.log
+            /tmp/tsd-cp007-localization-parity-proof-exit
             /tmp/tsd-cp007-english-review/TSD-CP007-ENGLISH-QUESTIONS.md
           if-no-files-found: error
           retention-days: 14
@@ -127,3 +145,5 @@ jobs:
           test "$(cat /tmp/tsd-cp007-english-editorial-proof-exit)" = "0"
           test "$(cat /tmp/tsd-cp007-english-semantic-proof-exit)" = "0"
           test "$(cat /tmp/tsd-cp007-english-rendered-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-english-freeze-proof-exit)" = "0"
+          test "$(cat /tmp/tsd-cp007-localization-parity-proof-exit)" = "0"
