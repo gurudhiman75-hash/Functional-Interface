@@ -1,0 +1,70 @@
+name: Validate DSF-CP-001 final freeze
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/**
+      - artifacts/api-server/src/quant-v4/shared/algebra/**
+      - .github/workflows/dsf-cp001-final-freeze.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp001-final-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dsf-cp001-final-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle DSF CP-001 final proof suite
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/dsf
+          for spec in \
+            tests/dsf-cp000-freeze-allocation.test.ts \
+            DSF-CP-001/cp001-number-system-runtime.test.ts \
+            DSF-CP-001/cp001-ratio-runtime.test.ts \
+            DSF-CP-001/cp001-percentage-runtime.test.ts \
+            DSF-CP-001/cp001-algebra-runtime.test.ts \
+            DSF-CP-001/cp001-cross-wave-production-audit.test.ts \
+            DSF-CP-001/cp001-freeze-authority.test.ts
+          do
+            name=$(basename "$spec" .ts)
+            pnpm --dir artifacts/api-server exec esbuild \
+              "src/reasoning-v1/topics/Data-Sufficiency/DSF-001/$spec" \
+              --bundle --platform=node --format=esm \
+              --outfile="dist/reasoning-v1/dsf/$name.mjs"
+          done
+      - name: Run CP-000 allocation regression
+        run: node artifacts/api-server/dist/reasoning-v1/dsf/dsf-cp000-freeze-allocation.test.mjs
+      - name: Run Number System production regression
+        run: node artifacts/api-server/dist/reasoning-v1/dsf/cp001-number-system-runtime.test.mjs
+      - name: Run Ratio production regression
+        run: node artifacts/api-server/dist/reasoning-v1/dsf/cp001-ratio-runtime.test.mjs
+      - name: Run Percentage production regression
+        run: node artifacts/api-server/dist/reasoning-v1/dsf/cp001-percentage-runtime.test.mjs
+      - name: Run Algebra production regression
+        run: node artifacts/api-server/dist/reasoning-v1/dsf/cp001-algebra-runtime.test.mjs
+      - name: Run 600-question cross-wave audit
+        run: node artifacts/api-server/dist/reasoning-v1/dsf/cp001-cross-wave-production-audit.test.mjs
+      - name: Run final freeze candidate authority proof
+        run: node artifacts/api-server/dist/reasoning-v1/dsf/cp001-freeze-authority.test.mjs
