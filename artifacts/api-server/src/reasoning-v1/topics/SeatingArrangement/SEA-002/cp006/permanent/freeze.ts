@@ -58,7 +58,8 @@ export const SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE = Object.freeze({
   queryMixStatus: "FROZEN" as const,
   englishFreezeStatus: "FROZEN" as const,
   permanentQlCount: 4 as const,
-  localizationStatus: "NOT_STARTED" as const,
+  localizationStatus: "REVIEW_CANDIDATE_HUMAN_REVIEW_PENDING" as const,
+  localizationFrozen: false as const,
   questionStudioRegistered: false as const,
   questionBankWritable: false as const,
   mockTestEligible: false as const,
@@ -67,11 +68,12 @@ export const SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE = Object.freeze({
 });
 
 export function assertCp006PermanentLayerStillInactive(): void {
-  if (SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered
+  if (SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationFrozen
+    || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionBankWritable
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.mockTestEligible
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.productionStaging
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.publiclyPublishable) {
-    throw new Error("SEA-002 CP006 English freeze must remain inactive until downstream activation is explicitly approved.");
+    throw new Error("SEA-002 CP006 localized review candidate must remain inactive until Hindi/Punjabi and downstream activation gates are explicitly approved.");
   }
 }
