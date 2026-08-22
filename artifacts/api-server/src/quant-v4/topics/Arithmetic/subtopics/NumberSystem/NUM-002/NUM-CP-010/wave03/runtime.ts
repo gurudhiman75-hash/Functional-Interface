@@ -229,7 +229,8 @@ function p020(seed: number): NumCp010Wave03Package {
   const firstTens = rng.int(1, 7);
   const x = rng.int(5, 9);
   const fixedUnits = rng.int(Math.max(1, 10 - x), 9);
-  const y = rng.int(1, 8);
+  let y = rng.int(1, 8);
+  if (y === x) y = y === 8 ? 7 : y + 1;
   const first = 10 * firstTens + x;
   const second = 10 * y + fixedUnits;
   const result = first + second;
