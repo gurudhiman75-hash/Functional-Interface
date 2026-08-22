@@ -45,13 +45,18 @@ for(const caselet of corpus){
   assert.ok(/upper row face south/i.test(caselet.setupText));
   assert.ok(/lower row face north/i.test(caselet.setupText));
 
-  assert.ok(caselet.sharedExplanation.length>=500,`${caselet.caseletId}: detailed solution too thin`);
+  assert.ok(caselet.sharedExplanation.length>=400,`${caselet.caseletId}: detailed solution too thin`);
+  assert.match(caselet.sharedExplanation,new RegExp(`^Use columns 1 to ${caselet.state.seatCountPerRow} from left to right\\.`),`${caselet.caseletId}: shared solution does not start directly with column positions`);
+  assert.ok(!/Draw two equal rows first|For a person in the upper row|Persons directly facing each other must|Here the conditions fix|Use this final arrangement to answer/i.test(caselet.sharedExplanation),`${caselet.caseletId}: unnecessary shared-solution boilerplate returned`);
   assert.ok(caselet.sharedExplanation.includes("Final arrangement:"),`${caselet.caseletId}: final arrangement missing from solution`);
   assert.ok(caselet.sharedExplanation.includes("Step 1:"),`${caselet.caseletId}: clue-by-clue working missing`);
-  assert.ok(caselet.sharedExplanation.includes("Result:"),`${caselet.caseletId}: applied-clue result missing`);
-  assert.ok(caselet.sharedExplanation.includes("Use this final arrangement to answer all the questions that follow."),`${caselet.caseletId}: shared-solution close missing`);
-  const repeatedMembershipNarrations=caselet.sharedExplanation.match(/Keep the exact seat open until another condition fixes it\./g)?.length??0;
-  assert.ok(repeatedMembershipNarrations<=3,`${caselet.caseletId}: row-membership narration is repetitive (${repeatedMembershipNarrations})`);
+  assert.ok(caselet.sharedExplanation.includes("Position:"),`${caselet.caseletId}: concrete position result missing`);
+  assert.ok(/\bcolumn\b/i.test(caselet.sharedExplanation),`${caselet.caseletId}: column-based working missing`);
+  assert.ok(!caselet.sharedExplanation.includes("Result:"),`${caselet.caseletId}: abstract Result label returned instead of position wording`);
+  const stepCount=caselet.sharedExplanation.match(/Step \d+:/g)?.length??0;
+  assert.ok(stepCount>=2,`${caselet.caseletId}: solution has too few deduction steps (${stepCount})`);
+  const repeatedMembershipNarrations=caselet.sharedExplanation.match(/column not fixed yet\./g)?.length??0;
+  assert.ok(repeatedMembershipNarrations<=1,`${caselet.caseletId}: row-membership narration is repetitive (${repeatedMembershipNarrations})`);
   detailedSolutionCount+=1;
   if(caselet.sharedExplanation.includes("Case 1:")) caseTeachingCount+=1;
 
