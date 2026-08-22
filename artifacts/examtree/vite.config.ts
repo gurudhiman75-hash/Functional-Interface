@@ -15,6 +15,8 @@ if (Number.isNaN(port) || port <= 0) {
 
 const basePath = process.env.BASE_PATH ?? "/";
 const CATEGORY_ICON_CHUNK_BUDGET_BYTES = 64 * 1024;
+const STATIC_ENTRY_CHUNK_BUDGET_BYTES = 384 * 1024;
+const STATIC_ENTRY_GRAPH_BUDGET_BYTES = 768 * 1024;
 
 function assertStaticEntryExcludesFirebase(): Plugin {
   return {
@@ -91,6 +93,55 @@ function assertCategoryIconBundleBudget(): Plugin {
   };
 }
 
+function assertStartupBundleBudgets(): Plugin {
+  return {
+    name: "assert-startup-bundle-budgets",
+    apply: "build",
+    generateBundle(_options, bundle) {
+      const chunks = Object.values(bundle).filter((output) => output.type === "chunk");
+      const chunksByFileName = new Map(chunks.map((chunk) => [chunk.fileName, chunk]));
+      const entryChunks = chunks.filter((output) => output.isEntry);
+
+      if (entryChunks.length === 0) {
+        this.error("No production entry chunk was emitted; startup bundle budgets could not be verified.");
+      }
+
+      for (const entry of entryChunks) {
+        const entryBytes = Buffer.byteLength(entry.code, "utf8");
+        if (entryBytes > STATIC_ENTRY_CHUNK_BUDGET_BYTES) {
+          this.error(
+            `${entry.fileName} is ${(entryBytes / 1024).toFixed(1)} KiB. ` +
+              `Keep the production entry chunk below ${STATIC_ENTRY_CHUNK_BUDGET_BYTES / 1024} KiB.`,
+          );
+        }
+
+        const visited = new Set<string>();
+        const queue = [entry];
+        let staticGraphBytes = 0;
+
+        while (queue.length > 0) {
+          const chunk = queue.pop();
+          if (!chunk || visited.has(chunk.fileName)) continue;
+          visited.add(chunk.fileName);
+          staticGraphBytes += Buffer.byteLength(chunk.code, "utf8");
+
+          for (const importedFile of chunk.imports) {
+            const importedChunk = chunksByFileName.get(importedFile);
+            if (importedChunk) queue.push(importedChunk);
+          }
+        }
+
+        if (staticGraphBytes > STATIC_ENTRY_GRAPH_BUDGET_BYTES) {
+          this.error(
+            `${entry.fileName} has a ${(staticGraphBytes / 1024).toFixed(1)} KiB static JS graph. ` +
+              `Keep eagerly reachable production JavaScript below ${STATIC_ENTRY_GRAPH_BUDGET_BYTES / 1024} KiB.`,
+          );
+        }
+      }
+    },
+  };
+}
+
 export default defineConfig({
   base: basePath,
   plugins: [
@@ -99,6 +150,7 @@ export default defineConfig({
     runtimeErrorOverlay(),
     assertStaticEntryExcludesFirebase(),
     assertCategoryIconBundleBudget(),
+    assertStartupBundleBudgets(),
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
