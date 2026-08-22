@@ -19,7 +19,7 @@ assert.match(vite, /chunk\.imports/);
 assert.match(vite, /Buffer\.byteLength\(chunk\.code, "utf8"\)/);
 assert.match(vite, /assertStartupBundleBudgets\(\)/);
 
-assert.match(playwrightConfig, /student-\(timer-mobile-hardening\|low-end-performance\)/);
+assert.match(playwrightConfig, /student-\(timer-mobile-hardening\|low-end-performance\|cross-browser-polish\)/);
 assert.match(playwrightConfig, /student-\(production-hardening\|timer-mobile-hardening\|low-end-performance\)/);
 
 assert.match(proof, /Emulation\.setCPUThrottlingRate/);

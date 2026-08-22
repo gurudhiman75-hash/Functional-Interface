@@ -24,7 +24,8 @@
     "audit:catalog-failure-truth": "node scripts/check-catalog-failure-truth.mjs",
     "audit:startup-performance": "node scripts/check-startup-performance.mjs",
     "audit:low-end-performance": "node scripts/check-low-end-performance.mjs",
-    "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run audit:accessibility && pnpm run audit:public-shell && pnpm run audit:app-chrome-accessibility && pnpm run audit:zoom-contrast && pnpm run audit:touch-targets && pnpm run audit:runner-zoom-contrast && pnpm run audit:runner-dialog-accessibility && pnpm run audit:support-handoff && pnpm run audit:public-seo && pnpm run audit:public-prerender && pnpm run audit:catalog-scale && pnpm run audit:catalog-failure-truth && pnpm run audit:startup-performance && pnpm run audit:low-end-performance && pnpm run build"
+    "audit:cross-browser-polish": "node scripts/check-cross-browser-polish.mjs",
+    "quality": "pnpm run typecheck && pnpm run audit:production-truth && pnpm run audit:timer-recovery && pnpm run audit:accessibility && pnpm run audit:public-shell && pnpm run audit:app-chrome-accessibility && pnpm run audit:zoom-contrast && pnpm run audit:touch-targets && pnpm run audit:runner-zoom-contrast && pnpm run audit:runner-dialog-accessibility && pnpm run audit:support-handoff && pnpm run audit:public-seo && pnpm run audit:public-prerender && pnpm run audit:catalog-scale && pnpm run audit:catalog-failure-truth && pnpm run audit:startup-performance && pnpm run audit:low-end-performance && pnpm run audit:cross-browser-polish && pnpm run build"
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.10.0",
