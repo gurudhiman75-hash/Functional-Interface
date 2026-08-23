@@ -14,6 +14,8 @@ function renderSection(title: string, questions: readonly TsdCp008RenderedLocali
 }
 
 const markdown = `${renderSection("TSD-CP-008 Hindi Questions", TSD_CP008_RENDERED_HINDI_QUESTIONS)}\n\n${renderSection("TSD-CP-008 Punjabi Questions", TSD_CP008_RENDERED_PUNJABI_QUESTIONS)}\n`;
-const output = path.resolve(process.cwd(), "TSD-CP008-HINDI-PUNJABI-QUESTIONS.md");
+const outputDir = process.env.TSD_CP008_LOCALIZATION_REVIEW_OUTPUT_DIR ?? process.cwd();
+fs.mkdirSync(outputDir, { recursive: true });
+const output = path.resolve(outputDir, "TSD-CP008-HINDI-PUNJABI-QUESTIONS.md");
 fs.writeFileSync(output, markdown, "utf8");
 console.log(output);
