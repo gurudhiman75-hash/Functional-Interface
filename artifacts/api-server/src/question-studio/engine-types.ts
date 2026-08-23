@@ -9,7 +9,7 @@ export type QuestionStudioLanguage = "en" | "hi" | "pa";
 export type QuestionStudioPackageDefinition = {
   engineId: QuestionStudioEngineId;
   packageId: string;
-  subject: string;
+  subject?: string;
   topic: string;
   subtopic: string;
   label: string;
