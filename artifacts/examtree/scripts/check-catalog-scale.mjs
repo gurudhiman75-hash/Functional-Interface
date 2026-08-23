@@ -40,22 +40,21 @@ assert.match(browser, /data-testid="catalog-next-page"/);
 assert.match(browser, /h-11 w-full/, "catalog selects must retain 44px-class height");
 
 assert.match(testsPage, /const PROMO_PAGE_SIZE = 6/);
-assert.match(testsPage, /const HIERARCHY_RENDER_LIMIT = 300/);
+assert.match(testsPage, /buildExamTreeNodes\(categories, subcategories, tests\)/, "category discovery must be derived from the canonical exam tree");
+assert.match(testsPage, /const normalizedQuery = categoryQuery\.trim\(\)\.toLowerCase\(\)/, "category search must normalize user input");
+assert.match(testsPage, /categoryNodes\.filter/, "category search must filter the bounded category node list instead of rendering nested test trees");
+assert.match(testsPage, /category\.subcategories\.some/, "category search must include sub-exam names");
 assert.match(testsPage, /series\.slice\(\(activeSeriesPage - 1\) \* PROMO_PAGE_SIZE, activeSeriesPage \* PROMO_PAGE_SIZE\)/);
 assert.match(testsPage, /publishedTests\.slice\(\(activePublishedPage - 1\) \* PROMO_PAGE_SIZE, activePublishedPage \* PROMO_PAGE_SIZE\)/);
-assert.match(testsPage, /tests\.length > HIERARCHY_RENDER_LIMIT/);
-assert.match(testsPage, /data-testid="catalog-large-mode"/);
 assert.match(testsPage, /<CatalogTestBrowser tests=\{tests\} \/>/);
-assert.match(testsPage, /useCompactHierarchy \?/);
 assert.match(testsPage, /Retry series/);
 assert.match(testsPage, /Retry live tests/);
-assert.match(testsPage, /<ExamNavigator categories=\{categories\} subcategories=\{subcategories\} tests=\{tests\} \/>/);
+assert.doesNotMatch(testsPage, /<ExamNavigator/, "large catalogs must not recreate the legacy nested hierarchy on the discovery page");
 
 assert.match(proof, /length: 540/);
 assert.match(proof, /length: 13/);
 assert.match(proof, /Showing 1-18 of 540/);
 assert.match(proof, /toHaveCount\(18\)/);
-assert.match(proof, /catalog-large-mode/);
 assert.match(proof, /catalog-sort[\s\S]*?selectOption\("name"\)/);
 assert.match(proof, /catalog-next-page/);
 assert.match(proof, /Showing 19-36 of 540/);
@@ -72,4 +71,4 @@ assert.match(proof, /width: 390, height: 844/);
 assert.match(proof, /toBeGreaterThanOrEqual\(44\)/);
 assert.match(proof, /scrollWidth - window\.innerWidth[\s\S]*?toBeLessThanOrEqual\(1\)/);
 
-console.log("Catalog scale audit passed (61 assertions).");
+console.log("Catalog scale audit passed (59 assertions).");
