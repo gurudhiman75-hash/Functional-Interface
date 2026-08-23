@@ -32,7 +32,7 @@ const declaredRoutes = [...routeSource.matchAll(/router\.(get|post|put|patch|del
 assert(declaredRoutes.length === 4, `Expected exactly four Data Sufficiency Studio routes, found ${declaredRoutes.length}: ${declaredRoutes.join(", ")}`);
 assert(
   !declaredRoutes.some((route) => /publish|question-bank|mock|test/i.test(route)),
-  "Downstream publication/Question Bank/test route leaked into DSF CP-002 integration",
+  "A parallel downstream publication/Question Bank/test route leaked into the DSF Question Studio integration",
 );
 
 assert(
@@ -44,6 +44,8 @@ assert(
   "Data Sufficiency Question Studio router is not registered under /admin/question-studio",
 );
 
+// CP-002 remains frozen as a review-only source integration. Later checkpoints may
+// overlay delivery/profile/lifecycle behavior in the route without mutating this source authority.
 for (const lifecycleFragment of [
   "questionStudioDiscoverable: true",
   "persistenceAllowed: true",
@@ -53,8 +55,13 @@ for (const lifecycleFragment of [
   "mockTestEligible: false",
   "publiclyPublishable: false",
 ] as const) {
-  assert(routeSource.includes(lifecycleFragment), `Data Sufficiency route lost lifecycle contract: ${lifecycleFragment}`);
-  assert(integrationRuntime.includes(lifecycleFragment), `Data Sufficiency runtime lost lifecycle contract: ${lifecycleFragment}`);
+  assert(integrationRuntime.includes(lifecycleFragment), `Data Sufficiency CP-002 runtime lost lifecycle contract: ${lifecycleFragment}`);
+}
+
+assert(routeSource.includes("DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY"), "Later CP-004 lifecycle overlay is not explicit in DSF route");
+assert(routeSource.includes('questionBankAcceptanceMode: "BANK_ONLY"'), "CP-004 route does not keep Question Bank acceptance staged");
+for (const downstreamLock of ["testEligible: false", "mockTestEligible: false", "publiclyPublishable: false"] as const) {
+  assert(routeSource.includes(downstreamLock), `Later route overlay lost downstream lock ${downstreamLock}`);
 }
 
 assert(sourceFreeze.includes('status: "FROZEN"'), "DSF CP-001 source is not frozen");
@@ -81,9 +88,11 @@ for (const panelFragment of [
   "Solve mode",
   "Sufficiency class",
   "Create review run",
-  "Question Bank locked",
-  "Profiles CP-003",
+  "CP-003 profiles",
+  "CP-004 Question Bank",
   "Punjab-specific rendering remains disabled",
+  "Scored tests locked",
+  "Publication locked",
 ] as const) {
   assert(adminPanelSource.includes(panelFragment), `Data Sufficiency panel is missing UI contract: ${panelFragment}`);
 }
@@ -105,7 +114,8 @@ console.log(JSON.stringify({
   permanentQl: "DSF-QL-001",
   cp002SourceAnswerProfile: "GENERIC_DS_STANDARD_5_EN",
   laterProfileCheckpointAllowed: "DSF-CP-003",
-  questionStudioDiscoverable: true,
-  persistenceAllowed: true,
-  downstreamLocked: true,
+  laterLifecycleCheckpointAllowed: "DSF-CP-004",
+  cp002SourceReviewOnly: true,
+  routeQuestionBankAcceptanceMode: "BANK_ONLY",
+  testMockPublicationLocked: true,
 }, null, 2));
