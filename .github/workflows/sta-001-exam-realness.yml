@@ -76,6 +76,11 @@ jobs:
           STA_EXAM_FORMAT_CASES_PER_PROFILE_LOCALE: 512
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-extension-proof.test.ts
 
+      - name: Prove genuine five-assumption Banking format with non-decorative V
+        env:
+          STA_EXAM_FORMAT_FIVE_CASES_PER_LOCALE: 2048
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-five-assumption-proof.test.ts
+
       - name: Prove exam-format provenance and prevent source overclaims
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-provenance-proof.test.ts
 
