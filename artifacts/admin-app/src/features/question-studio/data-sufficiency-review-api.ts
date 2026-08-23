@@ -126,6 +126,8 @@ export interface DsfReviewPackage {
   integrationCheckpointId: 'DSF-CP-002';
   profileCheckpointId: 'DSF-CP-003';
   profileDeliveryAuthority: string;
+  questionBankAcceptanceCheckpointId: 'DSF-CP-004';
+  questionBankAcceptanceAuthority: string;
   permanentQlIds: ['DSF-QL-001'];
   nextAvailableQlId: 'DSF-QL-002';
   domains: DsfReviewDomainDefinition[];
@@ -143,9 +145,11 @@ export interface DsfReviewPackage {
   reviewStatus: string;
   questionStudioDiscoverable: true;
   persistenceAllowed: true;
-  reviewOnly: true;
-  questionBankStatus: 'NOT_STORED';
-  questionBankWritable: false;
+  reviewOnly: false;
+  manualApprovalRequired: true;
+  questionBankStatus: 'READY_FOR_STORAGE';
+  questionBankWritable: true;
+  questionBankAcceptanceMode: 'BANK_ONLY';
   testEligibility: 'INELIGIBLE';
   testEligible: false;
   mockTestEligible: false;
@@ -169,10 +173,13 @@ export interface DsfReviewStatus {
   domainCount: number;
   solveModeCount: number;
   generationItemCount: number;
+  cp004GenerationItemCount: number;
   approvedItemCount: number;
   questionBankCount: number;
   integrationAuthority: string;
   deliveryProfileAuthority: string;
+  questionBankAcceptanceCheckpointId: 'DSF-CP-004';
+  questionBankAcceptanceAuthority: string;
   sourceFreezeAuthority: string;
   supportedLanguages: DsfReviewLanguage[];
   supportedAnswerProfiles: DsfReviewAnswerProfile[];
@@ -182,8 +189,12 @@ export interface DsfReviewStatus {
   examSpecificAnswerProfilesImplemented: true;
   questionStudioDiscoverable: true;
   persistenceAllowed: true;
-  reviewOnly: true;
-  questionBankWritable: false;
+  manualReviewRequired: true;
+  questionBankStatus: 'READY_FOR_STORAGE';
+  questionBankAcceptanceEnabled: true;
+  questionBankWritable: true;
+  questionBankAcceptanceMode: 'BANK_ONLY';
+  testEligibility: 'INELIGIBLE';
   testEligible: false;
   mockTestEligible: false;
   publiclyPublishable: false;
@@ -206,11 +217,16 @@ function paramsFor(input: DsfReviewInput) {
 export function getDsfReviewPackage() {
   return adminRequest<{
     generationSystem: 'reasoning-v1';
-    activationMode: 'QUESTION_STUDIO_CONNECTED';
+    activationMode: 'QUESTION_BANK_ACCEPTANCE_ENABLED';
     package: DsfReviewPackage;
     maxBatchSize: number;
-    reviewOnly: true;
-    questionBankWriteEnabled: false;
+    manualReviewRequired: true;
+    questionBankAcceptanceEnabled: true;
+    questionBankWriteEnabled: true;
+    questionBankAcceptanceMode: 'BANK_ONLY';
+    testEligible: false;
+    mockTestEligible: false;
+    publiclyPublishable: false;
   }>('/admin/question-studio/reasoning/data-sufficiency/package', undefined, {
     fallbackMessage: 'Unable to load the Data Sufficiency Question Studio package.',
   });
@@ -221,8 +237,9 @@ export function previewDsfReview(input: DsfReviewInput) {
     questionCount: number;
     questions: DsfReviewQuestion[];
     productionEligible: false;
-    reviewOnly: true;
-    questionBankWritable: false;
+    manualReviewRequired: true;
+    questionBankAcceptanceEnabled: true;
+    questionBankAcceptanceMode: 'BANK_ONLY';
     testEligible: false;
     mockTestEligible: false;
     publiclyPublishable: false;
@@ -242,9 +259,13 @@ export function createDsfReviewRun(input: DsfReviewInput) {
     language: DsfReviewLanguage;
     answerProfile: DsfReviewAnswerProfile;
     deliveryProfileAuthority: string;
-    reviewOnly: true;
-    questionBankWritable: false;
+    questionBankAcceptanceCheckpointId: 'DSF-CP-004';
+    questionBankAcceptanceAuthority: string;
+    manualReviewRequired: true;
+    questionBankWritable: true;
+    questionBankAcceptanceMode: 'BANK_ONLY';
     testEligible: false;
+    mockTestEligible: false;
     publiclyPublishable: false;
   }>('/admin/question-studio/reasoning/data-sufficiency/runs', {
     method: 'POST',
