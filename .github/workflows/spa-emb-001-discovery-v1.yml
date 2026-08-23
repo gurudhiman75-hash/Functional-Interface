@@ -1,6 +1,9 @@
 name: Validate SPA EMB-001 Executable Discovery V1
 
 on:
+  push:
+    branches:
+      - feat/spa-emb-001-discovery-v1
   pull_request:
   workflow_dispatch:
 
