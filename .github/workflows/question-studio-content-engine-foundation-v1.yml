@@ -1,0 +1,61 @@
+name: Validate Question Studio Content Engine Foundation V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/question-studio/**
+      - artifacts/api-server/src/knowledge-v1/**
+      - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
+      - artifacts/api-server/src/routes/admin-question-studio-mixed-difficulty.ts
+      - artifacts/api-server/src/routes/index.ts
+      - .github/workflows/question-studio-content-engine-foundation-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: question-studio-content-engine-foundation-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-content-engine-foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle content engine tests
+        run: |
+          mkdir -p artifacts/api-server/dist/content-engine-foundation
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/engine-registry.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/content-engine-foundation/engine-registry.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/engine-route-integration.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/content-engine-foundation/engine-route-integration.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/engine.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/content-engine-foundation/knowledge-v1-engine.test.mjs
+      - name: Run content engine tests
+        run: |
+          cd artifacts/api-server
+          node dist/content-engine-foundation/engine-registry.test.mjs
+          node dist/content-engine-foundation/engine-route-integration.test.mjs
+          node dist/content-engine-foundation/knowledge-v1-engine.test.mjs
