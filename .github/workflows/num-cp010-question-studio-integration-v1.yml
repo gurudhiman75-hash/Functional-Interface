@@ -71,6 +71,18 @@ jobs:
           node artifacts/api-server/dist/quant-v4/num-cp010-question-studio-integration.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp010-question-studio-integration.log
 
+      - name: Validate CP010 admin route exposure
+        shell: bash
+        run: |
+          route="artifacts/api-server/src/routes/admin-question-studio-average.ts"
+          grep -Fq 'patternId.includes("num cp 010")' "$route"
+          grep -Fq 'checkpointId === "NUM-CP-010"' "$route"
+          grep -Fq 'if (number >= 197 && number <= 212) return "NUM-CP-010";' "$route"
+          grep -Fq 'requestedNumberSystemCp === "NUM-CP-010"' "$route"
+          grep -Fq 'requestedNumberSystemQlCp === "NUM-CP-010"' "$route"
+          grep -Fq 'targetCp !== "NUM-CP-010"' "$route"
+          grep -Fq 'Hindi/Punjabi controlled review is available for NUM-CP-001' "$route"
+
       - name: Bundle CP009 Question Studio regression
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
