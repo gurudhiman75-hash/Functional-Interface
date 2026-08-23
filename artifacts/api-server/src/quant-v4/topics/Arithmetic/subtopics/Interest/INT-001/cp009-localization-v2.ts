@@ -5,7 +5,8 @@ export const INT_CP009_LOCALIZATION_V2_VERSION = "INT-CP-009-HI-PA-v2-terminolog
 export { INT_CP009_LANGUAGES, type IntCp009Language } from "./cp009-localization-v1";
 
 const DEPRECATED_PUNJABI_COMPOUND_TERM = "ਚੱਕਰਵੱਧੀ";
-const APPROVED_PUNJABI_COMPOUND_TERM = "ਮਿਸ਼ਰਤ";
+const DEPRECATED_PUNJABI_COMPOUND_PHRASE = "ਚੱਕਰਵੱਧੀ ਵਿਆਜ";
+const APPROVED_PUNJABI_COMPOUND_TERM = "ਮਿਸ਼ਰਤ ਵਿਆਜ";
 
 function deepFreeze<T>(value: T, seen = new WeakSet<object>()): T {
   if (typeof value !== "object" || value === null) return value;
@@ -17,7 +18,9 @@ function deepFreeze<T>(value: T, seen = new WeakSet<object>()): T {
 }
 
 function cleanPunjabi(text: string) {
-  return text.replaceAll(DEPRECATED_PUNJABI_COMPOUND_TERM, APPROVED_PUNJABI_COMPOUND_TERM);
+  return text
+    .replaceAll(DEPRECATED_PUNJABI_COMPOUND_PHRASE, APPROVED_PUNJABI_COMPOUND_TERM)
+    .replaceAll(DEPRECATED_PUNJABI_COMPOUND_TERM, APPROVED_PUNJABI_COMPOUND_TERM);
 }
 
 export function generateIntCp009Localized(
@@ -44,8 +47,8 @@ export function generateIntCp009Localized(
   if (learnerText.includes(DEPRECATED_PUNJABI_COMPOUND_TERM)) {
     throw new Error(`${qlId}/${seed}: deprecated Punjabi compound-interest term survived localization V2.`);
   }
-  if (!learnerText.includes("ਮਿਸ਼ਰਤ ਵਿਆਜ") && cleaned.mathematicalState.prototypeId === "INT-CP009-PROT-007") {
-    throw new Error(`${qlId}/${seed}: approved Punjabi compound-interest terminology missing from rate-inverse stem.`);
+  if (!learnerText.includes(APPROVED_PUNJABI_COMPOUND_TERM)) {
+    throw new Error(`${qlId}/${seed}: approved Punjabi compound-interest terminology missing from localized learner surface.`);
   }
   return cleaned;
 }
