@@ -2,12 +2,24 @@ import type { KnowledgeFact } from "../types";
 import { COM001_MEMORY_STORAGE_CANDIDATE_FACTS } from "./com001-memory-storage-candidate-corpus";
 import { COM001_ROM_ABBREVIATION_CANDIDATES } from "./com001-rom-abbreviation-candidates";
 import { COM001_VOLATILITY_CANDIDATES } from "./com001-volatility-candidates";
+import { COM001_LAYER_CANDIDATES } from "./com001-layer-candidates";
+import { COM001_FUNCTION_CANDIDATES } from "./com001-function-candidates";
+import { COM001_SUBTYPE_CANDIDATES } from "./com001-subtype-candidates";
+import { COM001_HIERARCHY_CANDIDATES } from "./com001-hierarchy-candidates";
+import { COM001_STORAGE_MEDIUM_EXPANSION } from "./com001-storage-medium-expansion";
+import { COM001_CAPACITY_CANDIDATES } from "./com001-capacity-candidates";
 import { auditCom001Corpus } from "./com001-memory-storage-corpus-requirements";
 
 export const COM001_MEMORY_STORAGE_ALL_CANDIDATES: KnowledgeFact[] = [
   ...COM001_MEMORY_STORAGE_CANDIDATE_FACTS,
   ...COM001_ROM_ABBREVIATION_CANDIDATES,
   ...COM001_VOLATILITY_CANDIDATES,
+  ...COM001_LAYER_CANDIDATES,
+  ...COM001_FUNCTION_CANDIDATES,
+  ...COM001_SUBTYPE_CANDIDATES,
+  ...COM001_HIERARCHY_CANDIDATES,
+  ...COM001_STORAGE_MEDIUM_EXPANSION,
+  ...COM001_CAPACITY_CANDIDATES,
 ];
 
 export function asHypotheticallyApproved(
