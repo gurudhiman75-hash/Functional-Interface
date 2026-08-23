@@ -13,10 +13,10 @@ import {
   listNumCp009QuestionStudioPackages,
 } from "../quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/question-studio-integration";
 import {
-  generateSea002Cp006QuestionStudioBatch,
+  generateSea002Cp006QuestionBankAcceptedBatch,
   isSea002Cp006QuestionStudioRequest,
-  listSea002Cp006QuestionStudioPackages,
-} from "../reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-studio-integration";
+  listSea002Cp006QuestionBankAcceptedPackages,
+} from "../reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-bank-acceptance";
 import type { WorCheckpointId } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/foundation/types";
 import {
   buildWor001QuestionStudioPayload,
@@ -201,7 +201,7 @@ export function listQuestionStudioPackages() {
   else packages.push(num002Package);
 
   if (!packages.some((entry) => String(entry.packageId) === "SEA-002")) {
-    packages.push(listSea002Cp006QuestionStudioPackages()[0]!);
+    packages.push(listSea002Cp006QuestionBankAcceptedPackages()[0]!);
   }
   if (!packages.some((entry) => String(entry.packageId) === "WOR-001")) {
     packages.push(worPackageCapability());
@@ -310,7 +310,7 @@ async function generateWor001QuestionStudioQuestions(request: SharedQuestionStud
 
 export async function generateQuestion(request: SharedQuestionStudioGenerationRequest = {}) {
   if (isSea002Cp006QuestionStudioRequest(request)) {
-    return generateSea002Cp006QuestionStudioBatch(request);
+    return generateSea002Cp006QuestionBankAcceptedBatch(request);
   }
   if (isNumCp009QuestionStudioRequest(request)) {
     return generateNumCp009QuestionStudioBatch(request);
