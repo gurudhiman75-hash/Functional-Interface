@@ -5,7 +5,7 @@ import { auditCom001MemoryStorageReadiness } from "./com001-memory-storage-readi
 const audit = auditCom001MemoryStorageReadiness("2026-08-23");
 
 assert.equal(audit.structurallyValid, true, audit.issues.join("\n"));
-assert.equal(audit.candidateFactCount, 76);
+assert.equal(audit.candidateFactCount, 77);
 assert.equal(audit.productionEligibleFactCount, 0);
 
 // Hypothetical approval is an audit-only lens: it must reveal whether the
@@ -41,6 +41,6 @@ assert.deepEqual(
 
 // Access method and virtual memory are already HOLD_FOR_EVIDENCE in the
 // merge/split audit. Backup remains a real provisional learner task, but it
-// requires a composite device profile rather than a single has_backup_role
-// relation. Permanent QL allocation therefore remains closed until that
-// composite solve state and multi-statement composition verifier exist.
+// is now represented through source-backed composite device profiles rather
+// than a single has_backup_role fact. QL allocation readiness is evaluated in
+// its dedicated gate.
