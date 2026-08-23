@@ -5,8 +5,11 @@ on:
     paths:
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-CP-009/**'
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp009-dated-cash-flow-discovery-v1.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp009-dated-cash-flow-discovery-balanced-v2.ts'
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp009-discovery-wave01-audit.ts'
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp009-discovery-wave01-review-export.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp009-discovery-wave01-balanced-audit.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp009-discovery-wave01-balanced-review-export.ts'
       - '.github/workflows/int-cp009-discovery-wave01.yml'
   workflow_dispatch:
 
@@ -43,15 +46,15 @@ jobs:
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-localized-v6-freeze-audit.ts | tee int-cp008-localized-v6-freeze-regression.log
       - name: Verify CP008 frozen-base marker
         run: grep -q 'PASS_INT_CP008_LOCALIZED_V6_FREEZE_AUDIT' int-cp008-localized-v6-freeze-regression.log
-      - name: Run CP009 Wave01 discovery audit
+      - name: Run balanced CP009 Wave01 discovery audit
         shell: bash
         run: |
           set -o pipefail
-          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp009-discovery-wave01-audit.ts | tee int-cp009-discovery-wave01.log
-      - name: Verify CP009 Wave01 marker
-        run: grep -q 'PASS_INT_CP009_DISCOVERY_WAVE01_AUDIT' int-cp009-discovery-wave01.log
-      - name: Export CP009 Wave01 manual review pack
-        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp009-discovery-wave01-review-export.ts > INT-CP-009-WAVE01-REVIEW.md
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp009-discovery-wave01-balanced-audit.ts | tee int-cp009-discovery-wave01-balanced.log
+      - name: Verify CP009 balanced Wave01 marker
+        run: grep -q 'PASS_INT_CP009_DISCOVERY_WAVE01_BALANCED_AUDIT' int-cp009-discovery-wave01-balanced.log
+      - name: Export balanced CP009 Wave01 manual review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp009-discovery-wave01-balanced-review-export.ts > INT-CP-009-WAVE01-BALANCED-REVIEW.md
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Record exact validation head
@@ -65,8 +68,8 @@ jobs:
           name: int-cp009-dated-cash-flow-discovery-wave01
           path: |
             int-cp008-localized-v6-freeze-regression.log
-            int-cp009-discovery-wave01.log
+            int-cp009-discovery-wave01-balanced.log
             int-cp009-discovery-wave01-head.log
-            INT-CP-009-WAVE01-REVIEW.md
+            INT-CP-009-WAVE01-BALANCED-REVIEW.md
           retention-days: 30
           if-no-files-found: warn
