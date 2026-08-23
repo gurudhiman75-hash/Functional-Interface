@@ -70,9 +70,16 @@ if (!hasDimension("TRG-002-QL-027", "h√3", "pole-base", "shadow-30")) throw ne
 if (!hasDimension("TRG-002-QL-027", "h/√3", "pole-base", "shadow-60")) throw new Error("QL027: 60° shadow h/√3 missing.");
 if (!hasDimension("TRG-002-QL-034", "h = 5√3 m", "object-base", "object-top")) throw new Error("QL034: derived pole height from the first shadow state is missing.");
 
-// A ladder angle stated with the wall and then complemented in the solution must show both ideas.
+// A ladder angle stated with the wall and then complemented in the solution must show both physical arcs.
 const q37 = row("TRG-002-QL-037").solutionDiagram;
-if (!q37.points.some((point: AnyRecord) => String(point.label) === "C (30° to wall)")) throw new Error("QL037: given 30° wall angle is not visible at the contact point.");
+const q37Overlay = (q37.pedagogicAngleOverlays ?? []).find((overlay: AnyRecord) => overlay.id === "ql037-given-wall-angle");
+if (!q37Overlay
+  || q37Overlay.label !== "30°"
+  || q37Overlay.vertexPointId !== "wall-contact"
+  || q37Overlay.referencePointId !== "wall-base"
+  || q37Overlay.rayPointId !== "ladder-base"
+  || Math.abs(Number(q37Overlay.actualDegrees) - 30) > 0.75) throw new Error("QL037: given 30° wall/ladder physical angle arc is missing or incorrect.");
+if (q37.points.find((point: AnyRecord) => point.id === "wall-contact")?.label !== "C") throw new Error("QL037: wall contact should use clean point label C when the angle is drawn explicitly.");
 if (!q37.angles.some((angle: AnyRecord) => angle.label === "60°" && angle.vertexPointId === "ladder-base")) throw new Error("QL037: derived 60° ground angle missing.");
 
 // Same-side two-position algebra must map solved helper x and x+d to the actual ground segments.
@@ -127,4 +134,4 @@ if (!hasDimension("TRG-002-QL-095", "total = 8√3 m", "base", "upper-top")) thr
 if (!hasDimension("TRG-002-QL-096", "roof = x", "base", "roof")) throw new Error("QL096: symbolic roof=x missing.");
 if (!hasDimension("TRG-002-QL-096", "total = x√3", "base", "upper-top")) throw new Error("QL096: symbolic total=x√3 missing.");
 
-console.log(`TRG002_V4_PEDAGOGIC_ALIGNMENT_PASS qls=96 helperPoints=${helperPoints} teachingDimensions=${teachingDimensions} requestedRealignments=${requestedRealignments} diagramsWithTeachingFacts=${diagramsWithTeachingFacts} answerEquivalentExplanationHelpers=${answerEquivalentExplanationHelpers} dualStateHelpers=green variableConsistency=green oppositeSidePhysicalMapping=green`);
+console.log(`TRG002_V4_PEDAGOGIC_ALIGNMENT_PASS qls=96 helperPoints=${helperPoints} teachingDimensions=${teachingDimensions} requestedRealignments=${requestedRealignments} diagramsWithTeachingFacts=${diagramsWithTeachingFacts} answerEquivalentExplanationHelpers=${answerEquivalentExplanationHelpers} ql037PhysicalWallAngle=30deg dualStateHelpers=green variableConsistency=green oppositeSidePhysicalMapping=green`);
