@@ -1,6 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
-import { TSD_CP008_RENDERED_HINDI_QUESTIONS, TSD_CP008_RENDERED_PUNJABI_QUESTIONS, type TsdCp008RenderedLocalizedQuestion } from "./localized-rendered-review";
+import {
+  TSD_CP008_FINAL_RENDERED_HINDI_QUESTIONS,
+  TSD_CP008_FINAL_RENDERED_PUNJABI_QUESTIONS,
+  type TsdCp008RenderedLocalizedQuestion,
+} from "./localized-rendered-review-final";
 
 function renderSection(title: string, questions: readonly TsdCp008RenderedLocalizedQuestion[]): string {
   const lines: string[] = [`# ${title}`, ""];
@@ -13,7 +17,7 @@ function renderSection(title: string, questions: readonly TsdCp008RenderedLocali
   return lines.join("\n").trimEnd();
 }
 
-const markdown = `${renderSection("TSD-CP-008 Hindi Questions", TSD_CP008_RENDERED_HINDI_QUESTIONS)}\n\n${renderSection("TSD-CP-008 Punjabi Questions", TSD_CP008_RENDERED_PUNJABI_QUESTIONS)}\n`;
+const markdown = `${renderSection("TSD-CP-008 Hindi Questions", TSD_CP008_FINAL_RENDERED_HINDI_QUESTIONS)}\n\n${renderSection("TSD-CP-008 Punjabi Questions", TSD_CP008_FINAL_RENDERED_PUNJABI_QUESTIONS)}\n`;
 const outputDir = process.env.TSD_CP008_LOCALIZATION_REVIEW_OUTPUT_DIR ?? process.cwd();
 fs.mkdirSync(outputDir, { recursive: true });
 const output = path.resolve(outputDir, "TSD-CP008-HINDI-PUNJABI-QUESTIONS.md");
