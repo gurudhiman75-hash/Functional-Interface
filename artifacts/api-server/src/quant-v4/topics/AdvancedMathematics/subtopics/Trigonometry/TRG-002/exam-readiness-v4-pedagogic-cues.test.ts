@@ -84,11 +84,13 @@ if (!/shadow|sun ray|sun angle|sun-angle/iu.test(cueText("TRG-002-QL-027"))) thr
 if (!/two shadow endpoints|two right-triangle states/iu.test(geometryCue("TRG-002-QL-027"))) throw new Error("QL027: geometry cue must explicitly describe the two shadow states.");
 if (/two shadow endpoints|separate sun angle|separate sun-angle|two right-triangle states/iu.test(geometryCue("TRG-002-QL-025"))) throw new Error("QL025: single-shadow diagram must not claim multiple shadow states.");
 if (/eye[- ]level|helper intersection|raised observer/iu.test(geometryCue("TRG-002-QL-001"))) throw new Error("QL001: ground-coincident observer must not be described as a raised eye-level construction.");
-if (!/tan30|height|shadow/iu.test(calculationCue("TRG-002-QL-029"))) throw new Error("QL029: worked calculation cue should prefer the trigonometric equation over a bare variable declaration.");
+if (!/(?:1\s*\/\s*√3\s*=\s*h\s*\/\s*15|tan\s*30)/iu.test(calculationCue("TRG-002-QL-029"))) throw new Error(`QL029: worked trigonometric equation missing from calculation cue: ${calculationCue("TRG-002-QL-029")}`);
+if (!/(?:h\s*=\s*x√3|x\s*\+\s*y\s*=\s*32|tan\s*60)/iu.test(calculationCue("TRG-002-QL-060"))) throw new Error(`QL060: worked boat-distance equation missing from calculation cue: ${calculationCue("TRG-002-QL-060")}`);
+if (!/(?:tan\s*45[^=]*=\s*1|h\s*=\s*x.*h\s*=\s*y)/iu.test(calculationCue("TRG-002-QL-078"))) throw new Error(`QL078: worked opposite-side equation missing from calculation cue: ${calculationCue("TRG-002-QL-078")}`);
 if (!/ladder|hypotenuse|perpendicular/iu.test(cueText("TRG-002-QL-037"))) throw new Error("QL037: ladder teaching cue missing.");
 if (!/eye level|eye-level|helper intersection|rise/iu.test(cueText("TRG-002-QL-076"))) throw new Error("QL076: eye-level teaching cue missing.");
 if (!/shared height|ground relation|separate observation|road/iu.test(cueText("TRG-002-QL-079"))) throw new Error("QL079: two-target teaching cue missing.");
 if (!/eye level|eye-level|horizontal|rise|drop/iu.test(cueText("TRG-002-QL-088"))) throw new Error("QL088: elevation/depression split teaching cue missing.");
 if (!/roof|total|mast|difference/iu.test(cueText("TRG-002-QL-095"))) throw new Error("QL095: composite-height teaching cue missing.");
 
-console.log(`TRG002_V4_PEDAGOGIC_CUES_PASS qls=96 teachingPanels=96 teachingCues=${cueCount} geometryCues=${geometryCues} ruleOrCalculationCues=${ruleOrCalculationCues} topologyCueViolations=0 explanationTeachingCoverage=96/96`);
+console.log(`TRG002_V4_PEDAGOGIC_CUES_PASS qls=96 teachingPanels=96 teachingCues=${cueCount} geometryCues=${geometryCues} ruleOrCalculationCues=${ruleOrCalculationCues} topologyCueViolations=0 workedEquationCues=green explanationTeachingCoverage=96/96`);
