@@ -1,0 +1,74 @@
+name: Verify TRG-002 V4 Activation
+
+on:
+  push:
+    branches:
+      - feat/trg-002-localization-hi-pa-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/generation-engine.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-v4-activation.yml
+  pull_request:
+    branches:
+      - feat/trg-002-mvp48-freeze
+    paths:
+      - artifacts/api-server/src/quant-v4/generation-engine.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-v4-activation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-v4-activation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Verify pinned V4 approval governance
+        run: |
+          pnpm dlx tsx -e '
+            import { TRG_002_V4_HUMAN_APPROVAL, TRG_002_V4_ACTIVATION, TRG_002_V4_APPROVED_SOURCE_HEAD, TRG_002_V4_APPROVED_ARTIFACT } from "./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-approved-governance.ts";
+            if(TRG_002_V4_HUMAN_APPROVAL.status!=="APPROVED") throw new Error("V4 human approval missing");
+            if(TRG_002_V4_HUMAN_APPROVAL.approvedQlCount!==96) throw new Error("V4 approval must cover 96 QLs");
+            if(TRG_002_V4_APPROVED_SOURCE_HEAD!=="fa7e914b8872ba46e7967198322893f4eb31bff5") throw new Error("approved source head drifted");
+            if(TRG_002_V4_APPROVED_ARTIFACT.id!==9493897530) throw new Error("approved artifact drifted");
+            if(!TRG_002_V4_ACTIVATION.multilingualFreezeGranted||!TRG_002_V4_ACTIVATION.activationAuthorized||!TRG_002_V4_ACTIVATION.questionStudioDiscoverable) throw new Error("internal activation gates are not ON");
+            if(TRG_002_V4_ACTIVATION.questionBankStatus!=="WRITABLE"||TRG_002_V4_ACTIVATION.testEligibility!=="ELIGIBLE") throw new Error("storage/test activation missing");
+            if(TRG_002_V4_ACTIVATION.publiclyPublishable!==false||TRG_002_V4_ACTIVATION.publicReleaseAuthorized!==false) throw new Error("public release must remain OFF");
+            console.log("TRG002_V4_APPROVAL_GOVERNANCE_PASS qls=96 languages=3 freeze=ON activation=ON questionStudio=ON bank=WRITABLE testBuilder=ELIGIBLE public=OFF");
+          '
+
+      - name: Verify Question Studio storage bridge
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-storage.test.ts
+
+      - name: Verify 96 by 3 approved runtime matrix
+        run: |
+          pnpm dlx tsx -e '
+            import { generateApprovedTrg002V4Question, TRG_002_V4_QUESTION_STUDIO_PACKAGE } from "./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-v4-runtime.ts";
+            let total=0;
+            for(let n=1;n<=96;n++){
+              const qlId=`TRG-002-QL-${String(n).padStart(3,"0")}`;
+              for(const language of ["en","hi","pa"] as const){
+                const q:any=generateApprovedTrg002V4Question(qlId,`trg002-approved-runtime-${n}-${language}`,language);
+                if(q.questionLanguageId!==qlId||q.language!==language) throw new Error(`${qlId}:${language}: identity/language mismatch`);
+                if(q.activationAuthorized!==true||q.multilingualFreezeGranted!==true||q.questionStudioDiscoverable!==true) throw new Error(`${qlId}:${language}: activation regression`);
+                if(q.questionBankStatus!=="WRITABLE"||q.testEligibility!=="ELIGIBLE") throw new Error(`${qlId}:${language}: storage/test regression`);
+                if(q.publiclyPublishable!==false||q.publicReleaseAuthorized!==false) throw new Error(`${qlId}:${language}: public release regression`);
+                const d=q.solutionDiagram?.diagram;
+                if(d?.semanticDiagramAudit?.status!=="PASS"||d?.pedagogicDiagramAudit?.status!=="PASS") throw new Error(`${qlId}:${language}: teaching diagram audit missing`);
+                if((d?.pedagogicTeachingCues??[]).length!==3) throw new Error(`${qlId}:${language}: See/Rule/Use cues missing`);
+                total++;
+              }
+            }
+            if(total!==288) throw new Error(`Expected 288 approved runtime cases, got ${total}`);
+            if(TRG_002_V4_QUESTION_STUDIO_PACKAGE.qlCount!==96) throw new Error("Question Studio package must expose 96 QLs");
+            console.log(`TRG002_V4_ACTIVATED_RUNTIME_PASS cases=${total} qls=96 languages=3 pedagogic=96x3 storage=ON testBuilder=ON public=OFF`);
+          '
