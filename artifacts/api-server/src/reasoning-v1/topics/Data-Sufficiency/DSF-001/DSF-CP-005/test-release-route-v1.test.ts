@@ -10,22 +10,32 @@ const testsRoute = readFileSync(resolve(root, "src/routes/admin-tests.ts"), "utf
 
 const dsfRouteMatches = [...route.matchAll(/router\.(?:get|post)\("\/reasoning\/data-sufficiency\//g)];
 assert.equal(dsfRouteMatches.length, 4, "DSF must keep exactly four Question Studio routes");
-assert.ok(route.includes('activationMode: "MANUAL_TEST_RELEASE_ENABLED"'));
+assert.ok(route.includes('activationMode: "MOCK_TEST_RELEASE_ENABLED"'));
 assert.ok(route.includes('questionBankAcceptanceMode: "FULL_RELEASE"'));
 assert.ok(route.includes('testReleaseCheckpointId: DSF_CP005_CHECKPOINT_ID'));
 assert.ok(route.includes('testReleaseAuthority: DSF_CP005_TEST_RELEASE_AUTHORITY'));
+assert.ok(route.includes('mockTestReleaseCheckpointId: DSF_CP006_CHECKPOINT_ID'));
+assert.ok(route.includes('mockTestReleaseAuthority: DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY'));
 assert.ok(route.includes('testEligible: true'));
 assert.ok(route.includes('publiclyPublishable: true'));
-assert.ok(route.includes('mockTestEligible: false'));
+assert.ok(route.includes('mockTestEligible: true'));
 assert.ok(route.includes('automaticStudentPublication: false'));
 assert.ok(route.includes('export function dsfCp004ReviewPayload'));
 assert.ok(route.includes('questionBankAcceptanceMode: "BANK_ONLY" as const'));
 assert.ok(route.includes('export function dsfCp005ReviewPayload'));
+assert.ok(route.includes('export function dsfCp006ReviewPayload'));
+
+const cp005Start = route.indexOf('export function dsfCp005ReviewPayload');
+const cp006Start = route.indexOf('export function dsfCp006ReviewPayload');
+const cp005Source = route.slice(cp005Start, cp006Start);
+assert.ok(cp005Source.includes('mockTestEligible: false as const'), "CP-005 payload must remain mock-ineligible");
+assert.ok(cp005Source.includes('automaticStudentPublication: false as const'));
 
 assert.ok(converter.includes('getGeneratedQuestionBankAcceptanceMode'));
 assert.ok(converter.includes('if (acceptanceMode === "BANK_ONLY") return null'));
 assert.ok(converter.includes('testEligibility === "INELIGIBLE"'));
 assert.ok(converter.includes('publiclyPublishable === false'));
+assert.ok(converter.includes('mockTestEligible'));
 assert.ok(converter.includes('accepted_question_id'));
 
 assert.ok(publishRoute.includes("generationTestEligible === false"));
@@ -48,8 +58,9 @@ console.log(JSON.stringify({
   manualQuestionPublishGateReused: true,
   canonicalTestSelectionRequiresPublishedVersion: true,
   legacyCp004BankOnlyPayloadPreserved: true,
+  cp005MockIneligiblePayloadPreserved: true,
+  laterMockReleaseCheckpoint: "DSF-CP-006",
   parallelDsfPublishRouteAdded: false,
   parallelDsfTestRouteAdded: false,
-  mockTestEligible: false,
   automaticStudentPublication: false,
 }, null, 2));
