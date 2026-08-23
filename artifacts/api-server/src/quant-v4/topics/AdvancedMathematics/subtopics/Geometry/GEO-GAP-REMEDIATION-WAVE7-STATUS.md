@@ -3,7 +3,8 @@
 **Authority:** Composite Geometry Revision 3 + Solution-Diagram Dimension Policy Addendum  
 **Predecessors:** approved Waves 1–6 discovery remediation  
 **Lifecycle:** `DISCOVERY`  
-**Wave 7 state:** `REVIEW_READY_CANDIDATE`
+**Wave 7 state:** `APPROVED_FROZEN_FOR_DISCOVERY`  
+**User approval recorded:** `2026-08-23`
 
 Wave 7 addresses residual `GEO-CP-010` and `GEO-CP-011` source-observed circle gaps with six temporary prototypes:
 
@@ -26,9 +27,9 @@ All six prototypes use `REQUIRED_BOTH`. Stem figures preserve circle/chord/secan
 
 Manual visual QA passed all **36 runtime figures** (18 stem + 18 solution): no clipping, no misleading topology, no crowded point/angle labels, and no semantic-mark stacking. Final diagram SVGs and semantic fingerprints are byte-for-byte unchanged from the manually reviewed green artifact after the last editorial-only distractor remediation.
 
-## Executable proof
+## Approved executable proof
 
-Final proof candidate:
+Final approved proof candidate:
 
 - proof head: `6e1c0c39a8330bb33540b3f514ae80e9a6d21026`
 - dedicated workflow: `Validate Geometry Gap Remediation Wave 7`
@@ -58,12 +59,18 @@ The final remediation removes arbitrary offset generation entirely. Known collis
 
 Any future unrecognized distractor collision now fails loudly rather than inventing a value. Final artifact QA confirms no `ADDED_OFFSET_INSTEAD_OF_USING_EQUALITY` option remains anywhere.
 
+## Approval boundary
+
+The user explicitly approved Wave 7 on **23 August 2026**. This freezes the six temporary CP010/CP011 archetypes for discovery continuity only, including their current theorem/solver behavior, source mapping, `REQUIRED_BOTH` stem/solution representation, solution-dimension policy application, reviewed distractors/explanations, clue-minimality and independent-verifier contracts, and the final reviewed artifact identified above.
+
+This approval does **not** authorize source-saturation closure, permanent QL allocation, permanent solve-mode freeze, Question Studio activation, Question Bank writes, test eligibility, public publication, or PR merge.
+
 ```text
 wave7ImplementationComplete = true
 wave7RuntimeProofPassed = true
 wave7ReviewReady = true
-wave7Approved = false
-wave7FrozenForDiscovery = false
+wave7Approved = true
+wave7FrozenForDiscovery = true
 sourceSaturationClaimAllowed = false
 permanentQlAllocationAllowed = false
 solveModeFreezeAllowed = false
@@ -73,4 +80,4 @@ testEligibilityAllowed = false
 publicPublicationAllowed = false
 ```
 
-Next gate: explicit user review/approval of Wave 7. Approval, if given, freezes these six temporary archetypes for discovery continuity only; it does not authorize permanent QLs, Question Studio activation, publication, or PR merge.
+Next gate: continue remaining Geometry source-gap / ownership review under the same lifecycle locks.
