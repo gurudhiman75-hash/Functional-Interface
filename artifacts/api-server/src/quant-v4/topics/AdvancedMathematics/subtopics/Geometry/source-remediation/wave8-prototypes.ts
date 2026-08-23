@@ -172,8 +172,8 @@ function generateExteriorSumInvariant(seed: string): GapWave8Question {
     ...optionSet,
     explanation: buildExplanation(theoremTrace, [
       `At each vertex of the ${variant.polygonName}, the interior angle and the chosen exterior angle form a 180° linear pair.`,
-      `Across ${variant.sides} vertices those linear pairs total ${variant.sides * 180}°, while the interior angles total (${variant.sides} − 2) × 180° = ${interiorSum}°.` ,
-      `The exterior-angle total is therefore ${variant.sides * 180}° − ${interiorSum}° = 360°.` ,
+      `Across ${variant.sides} vertices those linear pairs total ${variant.sides * 180}°, while the interior angles total (${variant.sides} − 2) × 180° = ${interiorSum}°.`,
+      `The exterior-angle total is therefore ${variant.sides * 180}° − ${interiorSum}° = 360°.`,
     ]),
     theoremTrace,
     displayedClueIds: clueIds,
@@ -249,11 +249,7 @@ function generateInteriorSumToAngleDifference(seed: string): GapWave8Question {
   return finalizeGapWave8Question({
     temporaryPrototypeId: "GEO-TMP-GAP-W8-CP009-INTERIOR-SUM-ANGLE-DIFFERENCE-V1",
     sourceGapId: "GEO-CP-009/MIXED_POLYGON_ANGLE_CHAIN_OR_CLAIM",
-    sourceEvidenceIds: [
-      "SRC-TESTBOOK-CGL-POLYGON-INTERIOR-SUM-INVERSE-PYQ-2019",
-      "SRC-TESTBOOK-CGL-POLYGON-ANGLE-DIFFERENCE-PYQ-2020",
-      "SRC-TESTBOOK-CHSL-POLYGON-ANGLE-RATIO-PYQ-2025",
-    ],
+    sourceEvidenceIds: ["SRC-TESTBOOK-CGL-POLYGON-INTERIOR-SUM-INVERSE-PYQ-2019"],
     solveMode: "findRegularPolygonInteriorExteriorDifferenceFromInteriorSum",
     difficulty: "Medium",
     seed,
@@ -261,8 +257,8 @@ function generateInteriorSumToAngleDifference(seed: string): GapWave8Question {
     ...optionSet,
     explanation: buildExplanation(theoremTrace, [
       `From (${variant.sides} − 2) × 180° = ${variant.sum}°, the polygon has ${variant.sides} sides.`,
-      `Each exterior angle is 360° ÷ ${variant.sides} = ${angles?.exterior}°, so the corresponding interior angle is 180° − ${angles?.exterior}° = ${angles?.interior}°.` ,
-      `The requested difference is ${angles?.interior}° − ${angles?.exterior}° = ${variant.target}°.` ,
+      `Each exterior angle is 360° ÷ ${variant.sides} = ${angles?.exterior}°, so the corresponding interior angle is 180° − ${angles?.exterior}° = ${angles?.interior}°.`,
+      `The requested difference is ${angles?.interior}° − ${angles?.exterior}° = ${variant.target}°.`,
     ]),
     theoremTrace,
     displayedClueIds: clueIds,
