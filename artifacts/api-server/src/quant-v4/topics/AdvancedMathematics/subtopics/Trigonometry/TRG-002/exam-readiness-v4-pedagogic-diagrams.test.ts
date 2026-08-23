@@ -39,16 +39,19 @@ let helperPoints = 0;
 let teachingDimensions = 0;
 let requestedRealignments = 0;
 let diagramsWithTeachingFacts = 0;
+let answerEquivalentExplanationHelpers = 0;
 
 for (const record of pack.records as AnyRecord[]) {
   const diagram = record.solutionDiagram;
   const audit = diagram.pedagogicDiagramAudit;
   if (!audit || audit.status !== "PASS") throw new Error(`${record.qlId}: pedagogic audit missing.`);
   if (diagram.reviewDimensionAudit?.explanationAligned !== true) throw new Error(`${record.qlId}: explanation-aligned flag missing.`);
-  if (audit.finalAnswerLeakCount !== 0) throw new Error(`${record.qlId}: pedagogic final-answer leak detected.`);
+  if (audit.requestedSegmentSolvedLeakCount !== 0) throw new Error(`${record.qlId}: requested segment was solved directly on the teaching diagram.`);
+  if (audit.answerEquivalentExplanationHelpersAllowed !== true) throw new Error(`${record.qlId}: solution-diagram helper policy missing.`);
   helperPoints += Number(audit.helperPointsLabeled ?? 0);
   teachingDimensions += Number(audit.teachingDimensionsAdded ?? 0);
   requestedRealignments += Number(audit.requestedLabelsRealigned ?? 0);
+  answerEquivalentExplanationHelpers += Number(audit.answerEquivalentExplanationHelpers ?? 0);
   if ((audit.explanationFactsVisualized ?? []).length > 0) diagramsWithTeachingFacts += 1;
 
   const requested = (diagram.measurementArrows ?? []).find((arrow: AnyRecord) => String(arrow.kind ?? "").includes("REQUESTED"));
@@ -60,6 +63,7 @@ for (const record of pack.records as AnyRecord[]) {
 if (helperPoints < 12) throw new Error(`Expected broad helper-point labeling, got ${helperPoints}.`);
 if (teachingDimensions < 24) throw new Error(`Expected broad teaching-dimension coverage, got ${teachingDimensions}.`);
 if (diagramsWithTeachingFacts < 22) throw new Error(`Expected at least 22 diagrams with explicit explanation facts, got ${diagramsWithTeachingFacts}.`);
+if (answerEquivalentExplanationHelpers < 1) throw new Error("Expected at least one explanation-derived helper that legitimately equals the final numeric answer.");
 
 // Changed-shadow reasoning must be visible, not only the final geometry.
 if (!hasDimension("TRG-002-QL-027", "h√3", "pole-base", "shadow-30")) throw new Error("QL027: 30° shadow h√3 missing.");
@@ -88,12 +92,18 @@ for (const [id, expected] of [["TRG-002-QL-073", "rise = 20 m"], ["TRG-002-QL-07
   if (!diagram.measurementArrows.some((arrow: AnyRecord) => arrow.label === expected)) throw new Error(`${id}: explanation-critical ${expected} missing.`);
 }
 
-// Dual elevation/depression must visibly split the target around the eye-level helper and expose derived horizontal distance.
+// Dual elevation/depression must visibly split the target around eye level and distinguish vertical and horizontal quantities.
 const q88 = row("TRG-002-QL-088").solutionDiagram;
 if (!q88.points.some((point: AnyRecord) => String(point.label).startsWith("H"))) throw new Error("QL088: common eye-level helper H missing.");
 if (!q88.measurementArrows.some((arrow: AnyRecord) => arrow.label === "rise = 10 m")) throw new Error("QL088: 10 m rise above eye level missing.");
 if (!q88.measurementArrows.some((arrow: AnyRecord) => arrow.label === "drop = 10 m")) throw new Error("QL088: 10 m depression drop missing.");
 if (!q88.measurementArrows.some((arrow: AnyRecord) => arrow.label === "d = 10 m")) throw new Error("QL088: derived 10 m horizontal distance missing.");
+
+const q91 = row("TRG-002-QL-091").solutionDiagram;
+for (const expected of ["drop = 8 m", "d = 8√3 m", "rise = 24 m"] as const) {
+  if (!q91.measurementArrows.some((arrow: AnyRecord) => arrow.label === expected)) throw new Error(`QL091: explanation-critical ${expected} missing.`);
+}
+if (q91.measurementArrows.some((arrow: AnyRecord) => arrow.label === "drop = 8√3 m")) throw new Error("QL091: horizontal d=8√3 must not be mislabeled as the vertical drop.");
 
 // Observer-between-targets and opposite-side systems must show the split used in the equations.
 if (!hasDimensionMatching("TRG-002-QL-079", /^x = 8 m$/)) throw new Error("QL079: solved 60° distance x=8 m missing.");
@@ -108,4 +118,4 @@ if (!hasDimension("TRG-002-QL-095", "total = 8√3 m", "base", "upper-top")) thr
 if (!hasDimension("TRG-002-QL-096", "roof = x", "base", "roof")) throw new Error("QL096: symbolic roof=x missing.");
 if (!hasDimension("TRG-002-QL-096", "total = x√3", "base", "upper-top")) throw new Error("QL096: symbolic total=x√3 missing.");
 
-console.log(`TRG002_V4_PEDAGOGIC_ALIGNMENT_PASS qls=96 helperPoints=${helperPoints} teachingDimensions=${teachingDimensions} requestedRealignments=${requestedRealignments} diagramsWithTeachingFacts=${diagramsWithTeachingFacts} dualStateHelpers=green variableConsistency=green`);
+console.log(`TRG002_V4_PEDAGOGIC_ALIGNMENT_PASS qls=96 helperPoints=${helperPoints} teachingDimensions=${teachingDimensions} requestedRealignments=${requestedRealignments} diagramsWithTeachingFacts=${diagramsWithTeachingFacts} answerEquivalentExplanationHelpers=${answerEquivalentExplanationHelpers} dualStateHelpers=green variableConsistency=green`);
