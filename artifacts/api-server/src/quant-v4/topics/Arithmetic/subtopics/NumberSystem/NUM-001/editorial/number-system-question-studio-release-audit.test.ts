@@ -211,10 +211,12 @@ const routeMarkers = [
   "isNumberSystemRequest",
   'requestedNumberSystemPackage === "num 002"',
   'requestedNumberSystemCp === "NUM-CP-009"',
+  'requestedNumberSystemCp === "NUM-CP-010"',
+  'if (number >= 197 && number <= 212) return "NUM-CP-010";',
   '? num002Request ? "NUM-002" : "NUM-001"',
   'defaultSubtopic = numberSystemRequest ? "Number System" : "Average"',
-  'targetCp !== "NUM-CP-001" && targetCp !== "NUM-CP-008" && targetCp !== "NUM-CP-009"',
-  "Hindi/Punjabi Number System Question Studio review is frozen for NUM-CP-001, NUM-CP-008 and NUM-CP-009",
+  'targetCp !== "NUM-CP-010"',
+  "Hindi/Punjabi Number System Question Studio review is frozen for NUM-CP-001, NUM-CP-008, NUM-CP-009 and NUM-CP-010",
   "other currently routed checkpoints remain English-only",
 ];
 for (const marker of routeMarkers) {
