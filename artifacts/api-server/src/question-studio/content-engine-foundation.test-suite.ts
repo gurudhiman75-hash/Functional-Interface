@@ -6,5 +6,6 @@ import "../knowledge-v1/computer-awareness/com001-memory-storage-corpus-requirem
 import "../knowledge-v1/computer-awareness/com001-source-manifest.test";
 import "../knowledge-v1/computer-awareness/com001-memory-storage-candidate-corpus.test";
 import "../knowledge-v1/computer-awareness/com001-memory-storage-merge-split-audit.test";
+import "../knowledge-v1/computer-awareness/com001-memory-storage-readiness.test";
 
 console.log("Question Studio content engine foundation suite passed.");
