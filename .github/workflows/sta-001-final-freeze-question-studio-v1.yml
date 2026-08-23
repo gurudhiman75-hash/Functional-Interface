@@ -1,0 +1,91 @@
+name: Validate STA-001 Final Multilingual Freeze and Question Studio
+
+on:
+  push:
+    branches:
+      - integration/sta-001-current-main-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/**'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-average.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioStatementAssumptionReviewPanel.tsx'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx'
+      - '.github/workflows/sta-001-final-freeze-question-studio-v1.yml'
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/**'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-average.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioStatementAssumptionReviewPanel.tsx'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx'
+      - '.github/workflows/sta-001-final-freeze-question-studio-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sta-001-final-freeze-question-studio-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-sta-001-final-freeze-question-studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for STA source and shared integration
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Statement-and-Assumption/STA-001 -name '*.ts' -print) \
+            src/reasoning-v1/question-studio-review-registry.ts \
+            src/question-studio/shared-generation-engine.ts
+
+      - name: Replay immutable English V2 freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-freeze-proof.test.ts
+      - name: Replay immutable QL001 Hindi/Punjabi freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-freeze-proof.test.ts
+      - name: Replay immutable QL002 Hindi/Punjabi freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql002-freeze-proof.test.ts
+      - name: Replay immutable QL003 Hindi/Punjabi freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql003-freeze-proof.test.ts
+      - name: Prove approved QL004 Hindi/Punjabi V3 freeze
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-freeze-proof.test.ts
+      - name: Prove final multilingual frozen runtime
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/multilingual-freeze-proof.test.ts
+      - name: Re-prove nine-profile presentation provenance
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-provenance-v2-proof.test.ts
+      - name: Prove final STA shared Question Studio integration
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-integration.test.ts
+
+      - name: Regress WOR-001 shared Reasoning Question Studio
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-shared-question-studio.test.ts
+      - name: Regress NUM-CP-010 shared Question Studio routing
+        run: pnpm dlx tsx artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/question-studio-integration.test.ts
+
+      - name: Build production API
+        run: pnpm --dir artifacts/api-server build
+      - name: Build production admin app
+        run: pnpm --dir artifacts/admin-app build
