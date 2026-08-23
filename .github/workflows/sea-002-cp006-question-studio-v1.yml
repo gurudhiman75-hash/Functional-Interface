@@ -1,0 +1,127 @@
+name: Validate SEA-002 CP006 Question Studio integration
+
+on:
+  push:
+    branches:
+      - feature/sea-002-cp006-question-studio-v1
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/**"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
+      - ".github/workflows/sea-002-cp006-question-studio-v1.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/**"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
+      - ".github/workflows/sea-002-cp006-question-studio-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: sea-002-cp006-qs-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-sea-002-cp006-question-studio:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Re-prove signed SEA-002 CP006 multilingual freeze
+        run: >-
+          node --experimental-strip-types
+          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-localization-freeze-proof.test.ts
+
+      - name: Bundle SEA-002 CP006 Question Studio integration proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-studio-integration.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/sea-002-cp006-question-studio-integration.mjs
+
+      - name: Run SEA-002 CP006 Question Studio integration proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp006-question-studio-integration.mjs \
+            2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp006-question-studio-integration.log
+
+      - name: Bundle WOR-001 shared Question Studio regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-shared-question-studio.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/wor-001-shared-question-studio-sea-regression.mjs
+
+      - name: Run WOR-001 shared Question Studio regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/wor-001-shared-question-studio-sea-regression.mjs \
+            2>&1 | tee artifacts/api-server/dist/reasoning-v1/wor-001-shared-question-studio-sea-regression.log
+
+      - name: Bundle NUM-CP-008 Question Studio regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/question-studio-integration.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp008-question-studio-sea-regression.mjs
+
+      - name: Run NUM-CP-008 Question Studio regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp008-question-studio-sea-regression.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp008-question-studio-sea-regression.log
+
+      - name: Bundle NUM-CP-009 Question Studio regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/question-studio-integration.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp009-question-studio-sea-regression.mjs
+
+      - name: Run NUM-CP-009 Question Studio regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp009-question-studio-sea-regression.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp009-question-studio-sea-regression.log
+
+      - name: Bundle admin Question Studio route
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/routes/admin-question-studio-average.ts
+          --bundle --platform=node --format=esm
+          --packages=external
+          --outfile=dist/reasoning-v1/admin-question-studio-sea-002-route.mjs
+
+      - name: Upload SEA-002 CP006 Question Studio evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sea-002-cp006-question-studio-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/sea-002-cp006-question-studio-integration.log
+            artifacts/api-server/dist/reasoning-v1/wor-001-shared-question-studio-sea-regression.log
+            artifacts/api-server/dist/quant-v4/num-cp008-question-studio-sea-regression.log
+            artifacts/api-server/dist/quant-v4/num-cp009-question-studio-sea-regression.log
+          if-no-files-found: error
+          retention-days: 30
