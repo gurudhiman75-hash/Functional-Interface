@@ -115,6 +115,14 @@ export const COM001_FUNCTION_CANDIDATES: KnowledgeFact[] = [
     "IBM-DATA-STORAGE-2026",
   ),
   functionFact(
+    "ssd",
+    "SSD",
+    "provides persistent solid-state storage without mechanical moving parts",
+    "secondary-storage-functions",
+    "secondary-storage-functions",
+    "IBM-FLASH-VS-SSD-2025",
+  ),
+  functionFact(
     "magnetic-tape",
     "Magnetic tape",
     "provides removable sequential storage commonly used for long-term data retention and backup",
