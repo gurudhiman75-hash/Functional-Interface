@@ -27,8 +27,25 @@ function explicitWorkedValue(text: string, keywords: string[]) {
   return null;
 }
 
+function explicitVariableValue(text: string, variable: string) {
+  const escaped = variable.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  for (const sentence of sentences(text)) {
+    const match = sentence.match(new RegExp(`\\b${escaped}\\s*=\\s*([0-9]+(?:\\.\\d+)?(?:\\s*[+\\-−]\\s*[0-9]+(?:\\.\\d+)?)?(?:\\s*[+\\-−]\\s*[0-9]*√[0-9]+)?|[0-9]*√[0-9]+)`, "u"));
+    if (match) return match[1]!.trim();
+  }
+  return null;
+}
+
 function normalizeAnswer(value: unknown) {
   return String(value ?? "").replaceAll("−", "-").replace(/\s+/gu, "").replace(/m$/u, "").trim();
+}
+
+function endpointKey(a: string, b: string) {
+  return [a, b].sort().join("::");
+}
+
+function pointMap(diagram: AnyRecord) {
+  return new Map<string, AnyRecord>((diagram.points ?? []).map((point: AnyRecord) => [String(point.id), point]));
 }
 
 function orientation(arrow: AnyRecord, points: Map<string, AnyRecord>) {
@@ -69,8 +86,145 @@ function rangesOverlap(a: AnyRecord, b: AnyRecord, points: Map<string, AnyRecord
   return false;
 }
 
+function addPedagogicArrow(result: AnyRecord, args: AnyRecord, fromPointId: string, toPointId: string, label: string, fact: string) {
+  const diagram = result.diagram;
+  const points = pointMap(diagram);
+  if (!points.has(fromPointId) || !points.has(toPointId) || !label.trim()) return false;
+  const answer = normalizeAnswer(args.englishAnswer);
+  const rhs = label.includes("=") ? label.split("=").pop() : label;
+  if (normalizeAnswer(rhs) === answer) return false;
+  const exists = (diagram.measurementArrows ?? []).some((arrow: AnyRecord) =>
+    endpointKey(String(arrow.fromPointId), String(arrow.toPointId)) === endpointKey(fromPointId, toPointId)
+      && String(arrow.label) === label);
+  if (exists) return false;
+  diagram.measurementArrows.push({
+    id: `pedagogic-refined-${args.qlId.replace(/[^A-Za-z0-9]/g, "-")}-${diagram.measurementArrows.length + 1}`,
+    fromPointId,
+    toPointId,
+    label,
+    side: "LEFT",
+    lane: 0,
+    kind: `PEDAGOGIC_${fact}`,
+    pedagogic: true,
+    pedagogicRefined: true,
+  });
+  result.audit.teachingDimensionsAdded += 1;
+  result.audit.explanationFactsVisualized.push(fact);
+  return true;
+}
+
+function canonicalLevelPoint(diagram: AnyRecord, level: AnyRecord) {
+  return (diagram.points ?? []).find((point: AnyRecord) =>
+    String(point.label ?? "").startsWith("H")
+      && Math.abs(Number(point.x) - Number(level.x)) < 1e-5
+      && Math.abs(Number(point.y) - Number(level.y)) < 1e-5) ?? level;
+}
+
+function addMatchedEyeLevelFacts(result: AnyRecord, args: AnyRecord) {
+  const diagram = result.diagram;
+  const points = pointMap(diagram);
+  const segments: AnyRecord[] = diagram.segments ?? [];
+  for (const eyeLevel of segments.filter((segment) => String(segment.kind) === "EYE_LEVEL")) {
+    const from = points.get(String(eyeLevel.fromPointId));
+    const to = points.get(String(eyeLevel.toPointId));
+    if (!from || !to) continue;
+    const eye = from.role === "OBSERVER_EYE" ? from : to.role === "OBSERVER_EYE" ? to : null;
+    const rawLevel = eye === from ? to : eye === to ? from : null;
+    if (!eye || !rawLevel) continue;
+    const level = canonicalLevelPoint(diagram, rawLevel);
+    const suffix = String(eyeLevel.id ?? "").replace(/^eye-level-segment-/u, "");
+    const sight = segments.find((segment) => String(segment.id) === `sight-${suffix}`)
+      ?? segments.find((segment) => String(segment.kind) === "SIGHT_LINE" && String(segment.id).includes(suffix));
+    if (!sight) continue;
+    const targetId = sight.fromPointId === eye.id ? sight.toPointId : sight.fromPointId;
+    const target = points.get(String(targetId));
+    if (!target || Math.abs(Number(target.x) - Number(level.x)) > 1e-5) continue;
+    if (Number(target.y) < Number(eye.y)) {
+      const rise = explicitWorkedValue(args.englishExplanationText, ["rise", "height difference", "above eye", "above first roof", "elevation"]);
+      if (rise) addPedagogicArrow(result, args, level.id, target.id, `rise = ${rise}`, "MATCHED_DERIVED_RISE");
+    } else if (Number(target.y) > Number(eye.y)) {
+      const drop = explicitWorkedValue(args.englishExplanationText, ["drop", "vertical difference", "below", "depression"]);
+      if (drop) addPedagogicArrow(result, args, level.id, target.id, `drop = ${drop}`, "MATCHED_DERIVED_DROP");
+    }
+  }
+}
+
+function addDerivedGroundDistance(result: AnyRecord, args: AnyRecord) {
+  const diagram = result.diagram;
+  const requested = (diagram.measurementArrows ?? []).find((arrow: AnyRecord) => String(arrow.kind ?? "").includes("REQUESTED"));
+  const ground = (diagram.segments ?? []).find((segment: AnyRecord) => ["GROUND", "GROUND_UNSCALED"].includes(String(segment.kind)));
+  if (!ground) return;
+  const key = endpointKey(String(ground.fromPointId), String(ground.toPointId));
+  if (requested && endpointKey(String(requested.fromPointId), String(requested.toPointId)) === key) return;
+  if ((diagram.measurementArrows ?? []).some((arrow: AnyRecord) => endpointKey(String(arrow.fromPointId), String(arrow.toPointId)) === key)) return;
+  const value = explicitWorkedValue(args.englishExplanationText, ["horizontal distance", "horizontal separation", "common horizontal", "depression"]);
+  if (value) addPedagogicArrow(result, args, ground.fromPointId, ground.toPointId, `d = ${value}`, "DERIVED_HORIZONTAL_DISTANCE");
+}
+
+function upgradeSolvedVariables(result: AnyRecord, args: AnyRecord) {
+  const x = explicitVariableValue(args.englishExplanationText, "x");
+  const y = explicitVariableValue(args.englishExplanationText, "y");
+  for (const arrow of result.diagram.measurementArrows ?? []) {
+    const kind = String(arrow.kind ?? "");
+    if (x && kind === "PEDAGOGIC_ASSUMED_DISTANCE_X" && normalizeAnswer(x) !== normalizeAnswer(args.englishAnswer)) {
+      arrow.label = `x = ${x} m`;
+      arrow.pedagogicSolvedHelper = true;
+    }
+    if (y && kind === "PEDAGOGIC_OPPOSITE_60_DISTANCE_Y" && normalizeAnswer(y) !== normalizeAnswer(args.englishAnswer)) {
+      arrow.label = `y = ${y} m`;
+      arrow.pedagogicSolvedHelper = true;
+    }
+  }
+}
+
+function observerBetweenTeaching(result: AnyRecord, args: AnyRecord) {
+  if (args.qlId !== "TRG-002-QL-079") return;
+  const diagram = result.diagram;
+  const points = pointMap(diagram);
+  const observer = points.get("observer");
+  const leftBase = points.get("left-base");
+  const rightBase = points.get("right-base");
+  if (!observer || !leftBase || !rightBase) return;
+  const angles = diagram.angles ?? [];
+  const sixtySight = angles.find((angle: AnyRecord) => String(angle.label) === "60°");
+  const thirtySight = angles.find((angle: AnyRecord) => String(angle.label) === "30°");
+  const baseForAngle = (angle: AnyRecord) => {
+    if (!angle) return null;
+    const ray = String(angle.rayPointId ?? "");
+    if (ray.startsWith("left-")) return leftBase.id;
+    if (ray.startsWith("right-")) return rightBase.id;
+    return null;
+  };
+  const sixtyBase = baseForAngle(sixtySight);
+  const thirtyBase = baseForAngle(thirtySight);
+  const solvedX = explicitVariableValue(args.englishExplanationText, "x");
+  if (sixtyBase) addPedagogicArrow(result, args, observer.id, sixtyBase, solvedX ? `x = ${solvedX} m` : "x", "BETWEEN_TARGETS_60_DISTANCE_X");
+  if (thirtyBase) addPedagogicArrow(result, args, observer.id, thirtyBase, "32 − x", "BETWEEN_TARGETS_OTHER_DISTANCE");
+}
+
+function oppositeGenericTeaching(result: AnyRecord, args: AnyRecord) {
+  const diagram = result.diagram;
+  const points = pointMap(diagram);
+  const left = points.get("left-ground");
+  const right = points.get("right-ground");
+  const base = points.get("object-base");
+  if (!left || !right || !base) return;
+  const lower = String(args.englishExplanationText).toLowerCase();
+  if (args.qlId === "TRG-002-QL-078") {
+    addPedagogicArrow(result, args, base.id, left.id, "x", "OPPOSITE_LEFT_X");
+    addPedagogicArrow(result, args, base.id, right.id, "y", "OPPOSITE_RIGHT_Y");
+  } else if (args.qlId === "TRG-002-QL-080" && lower.includes("x=3y")) {
+    const angles = diagram.angles ?? [];
+    const leftAngle = String(angles.find((angle: AnyRecord) => angle.vertexPointId === left.id)?.label ?? "");
+    const thirty = leftAngle.includes("30") ? left : right;
+    const sixty = thirty === left ? right : left;
+    addPedagogicArrow(result, args, base.id, thirty.id, "x = 3y", "OPPOSITE_30_DISTANCE_X");
+    addPedagogicArrow(result, args, base.id, sixty.id, "y", "OPPOSITE_60_DISTANCE_Y");
+  }
+}
+
 function rebalancePedagogicLanes(diagram: AnyRecord) {
-  const points = new Map<string, AnyRecord>((diagram.points ?? []).map((point: AnyRecord) => [String(point.id), point]));
+  const points = pointMap(diagram);
   const arrows: AnyRecord[] = diagram.measurementArrows ?? [];
   const pedagogic = arrows.filter((arrow) => String(arrow.kind ?? "").startsWith("PEDAGOGIC_"));
   const base = arrows.filter((arrow) => !String(arrow.kind ?? "").startsWith("PEDAGOGIC_"));
@@ -115,8 +269,7 @@ export function applyTrg002V4PedagogicDiagramLayerRefined(args: {
       value = explicitWorkedValue(args.englishExplanationText, ["ground run"]);
       prefix = "run = ";
     }
-    if (!value) continue;
-    if (normalizeAnswer(value) === answer) continue;
+    if (!value || normalizeAnswer(value) === answer) continue;
     arrow.label = `${prefix}${value}`;
     arrow.pedagogicExplicitWorkedValue = true;
   }
@@ -128,10 +281,24 @@ export function applyTrg002V4PedagogicDiagramLayerRefined(args: {
     return normalizeAnswer(rhs) !== answer;
   });
 
+  addMatchedEyeLevelFacts(result, args);
+  addDerivedGroundDistance(result, args);
+  observerBetweenTeaching(result, args);
+  oppositeGenericTeaching(result, args);
+  upgradeSolvedVariables(result, args);
+
+  result.diagram.measurementArrows = (result.diagram.measurementArrows ?? []).filter((arrow: AnyRecord) => {
+    const kind = String(arrow.kind ?? "");
+    if (!kind.startsWith("PEDAGOGIC_")) return true;
+    const rhs = String(arrow.label ?? "").includes("=") ? String(arrow.label).split("=").pop() : arrow.label;
+    return normalizeAnswer(rhs) !== answer;
+  });
+
   rebalancePedagogicLanes(result.diagram);
   result.diagram.reviewDimensionAudit.totalDimensions = result.diagram.measurementArrows.length;
   result.diagram.pedagogicDiagramAudit.finalAnswerLeakCount = 0;
   result.diagram.pedagogicDiagramAudit.explicitWorkedValuePriority = true;
   result.diagram.pedagogicDiagramAudit.independentTeachingLanes = true;
+  result.diagram.pedagogicDiagramAudit.multiStateReasoningAligned = true;
   return result;
 }
