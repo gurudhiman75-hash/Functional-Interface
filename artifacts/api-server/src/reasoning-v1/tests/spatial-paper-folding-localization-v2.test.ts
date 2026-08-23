@@ -16,10 +16,13 @@ assert.equal(english.length, 84);
 assert.equal(hindi.length, 84);
 assert.equal(punjabi.length, 84);
 assert.equal(PFC_TPF_LOCALIZATION_AUTHORITY_V2.localizedQuestionCount, 168);
+assert.equal(PFC_TPF_LOCALIZATION_AUTHORITY_V2.editorialRevision, "V2.1");
 assert.equal(PFC_TPF_ENGLISH_FREEZE_AUTHORITY_V2.governance.englishFrozen, true);
 
 const DEVANAGARI = /[\u0900-\u097F]/;
 const GURMUKHI = /[\u0A00-\u0A7F]/;
+const BANNED_HI = ["दिखाए गए आकार का कागज़ को", "folded packet", "notch", "superposition"];
+const BANNED_PA = ["ਦਿਖਾਏ ਆਕਾਰ ਵਾਲਾ ਕਾਗਜ਼ ਨੂੰ", "folded packet", "notch", "superposition"];
 
 for (let index = 0; index < english.length; index += 1) {
   const source = english[index];
@@ -49,11 +52,19 @@ for (let index = 0; index < english.length; index += 1) {
   assert.ok(DEVANAGARI.test(hi.permanentQlTitle));
   assert.ok(DEVANAGARI.test(hi.stem));
   assert.ok(DEVANAGARI.test(hi.explanation));
+  for (const phrase of BANNED_HI) {
+    assert.ok(!hi.stem.includes(phrase), `${source.permanentQuestionId} Hindi stem contains banned phrase ${phrase}`);
+    assert.ok(!hi.explanation.includes(phrase), `${source.permanentQuestionId} Hindi explanation contains banned phrase ${phrase}`);
+  }
   assert.equal(pa.language, "pa");
   assert.equal(pa.locale, "pa-IN");
   assert.ok(GURMUKHI.test(pa.permanentQlTitle));
   assert.ok(GURMUKHI.test(pa.stem));
   assert.ok(GURMUKHI.test(pa.explanation));
+  for (const phrase of BANNED_PA) {
+    assert.ok(!pa.stem.includes(phrase), `${source.permanentQuestionId} Punjabi stem contains banned phrase ${phrase}`);
+    assert.ok(!pa.explanation.includes(phrase), `${source.permanentQuestionId} Punjabi explanation contains banned phrase ${phrase}`);
+  }
 }
 
 const expectedQlCounts = PFC_TPF_ENGLISH_FREEZE_AUTHORITY_V2.frozenCorpus.perQlCounts;
@@ -62,15 +73,22 @@ for (const qlId of Object.keys(expectedQlCounts) as Array<keyof typeof expectedQ
   assert.equal(punjabi.filter((question) => question.permanentQlId === qlId).length, expectedQlCounts[qlId]);
 }
 
+for (const qlId of ["SPA-QL-035", "SPA-QL-036", "SPA-QL-037"] as const) {
+  const hiExplanations = new Set(hindi.filter((q) => q.permanentQlId === qlId).map((q) => q.explanation));
+  const paExplanations = new Set(punjabi.filter((q) => q.permanentQlId === qlId).map((q) => q.explanation));
+  assert.ok(hiExplanations.size >= 3, `${qlId} Hindi explanations are too repetitive`);
+  assert.ok(paExplanations.size >= 3, `${qlId} Punjabi explanations are too repetitive`);
+}
+
 const html = renderPfcTpfLocalizationReviewHtmlV2();
-assert.ok(html.includes("PFC / TPF Hindi + Punjabi Localization Review V2"));
+assert.ok(html.includes("PFC / TPF Hindi + Punjabi Localization Review V2.1"));
 assert.ok(html.includes("हिन्दी"));
 assert.ok(html.includes("ਪੰਜਾਬੀ"));
-assert.equal((html.match(/class="q"/g) ?? []).length, 84);
-assert.equal((html.match(/class="option"/g) ?? []).length, 336);
+assert.equal((html.match(/class=\"q\"/g) ?? []).length, 84);
+assert.equal((html.match(/class=\"option\"/g) ?? []).length, 336);
 
 const evidence = {
-  status: "PASS_PFC_TPF_HINDI_PUNJABI_LOCALIZATION_V2_PARITY",
+  status: "PASS_PFC_TPF_HINDI_PUNJABI_LOCALIZATION_V2_1_PARITY_AND_EDITORIAL",
   authority: PFC_TPF_LOCALIZATION_AUTHORITY_V2,
   englishFreezeAuthorityId: PFC_TPF_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
   englishQuestionCount: english.length,
@@ -87,13 +105,18 @@ const evidence = {
   representationInvariant: true,
   canonicalContentFingerprintInvariant: true,
   replacementGlyphCount: 0,
+  editorialChecks: {
+    caseAgreementRemediated: true,
+    englishLearnerJargonRemoved: true,
+    ql035036037ExplanationDiversityMinimum: 3,
+  },
   governance: {
     humanReviewRequired: true,
     localizationFrozen: false,
     questionStudioAllowed: false,
     questionBankWritable: false,
     publicTestEligible: false,
-    nextGate: "PFC_TPF_HINDI_PUNJABI_LOCALIZATION_V2_HUMAN_DECISION",
+    nextGate: "PFC_TPF_HINDI_PUNJABI_LOCALIZATION_V2_1_HUMAN_DECISION",
   },
 };
 
