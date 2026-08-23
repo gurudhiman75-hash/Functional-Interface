@@ -1,0 +1,1 @@
+Wave 03 learner review evidence is generated from the executable `review-export.ts` path and is intentionally limited to compound trailing-zero representations. Edge conventions are covered by `edge-conventions.test.ts` rather than being presented as separate learner authorities.
