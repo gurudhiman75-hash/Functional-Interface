@@ -35,14 +35,22 @@ jobs:
             --outfile=dist/reasoning-v1/spatial/spatial-figure-graph-substructure-v1.test.mjs
       - name: Validate EMB graph substructure hardening
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-graph-substructure-v1.test.mjs
-      - name: Bundle EMB-001 discovery gate
+      - name: Bundle EMB-001 forward discovery gate
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
             src/reasoning-v1/tests/spatial-embedded-figures-discovery-v1.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/spatial/spatial-embedded-figures-discovery-v1.test.mjs
-      - name: Validate EMB-001 executable discovery
+      - name: Validate EMB-001 forward executable discovery
         run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-embedded-figures-discovery-v1.test.mjs
+      - name: Bundle EMB-001 source-backed directional discovery
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-embedded-figures-directional-discovery-v2.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-embedded-figures-directional-discovery-v2.test.mjs
+      - name: Validate EMB-001 source-backed directional discovery
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-embedded-figures-directional-discovery-v2.test.mjs
       - name: Upload EMB-001 discovery review evidence
         uses: actions/upload-artifact@v4
         with:
@@ -51,4 +59,7 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/spatial/spa-emb-001-discovery-v1-review.html
             artifacts/api-server/dist/reasoning-v1/spatial/spa-emb-001-discovery-v1-review.json
             artifacts/api-server/dist/reasoning-v1/spatial/spa-emb-001-discovery-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-emb-001-directional-discovery-v2-review.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-emb-001-directional-discovery-v2-review.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-emb-001-directional-discovery-v2-evidence.json
           if-no-files-found: error
