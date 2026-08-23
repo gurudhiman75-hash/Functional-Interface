@@ -11,5 +11,6 @@ import "../knowledge-v1/computer-awareness/com001-memory-storage-merge-split-aud
 import "../knowledge-v1/computer-awareness/com001-memory-storage-readiness.test";
 import "../knowledge-v1/computer-awareness/com001-storage-device-profiles.test";
 import "../knowledge-v1/computer-awareness/com001-ql-allocation-readiness.test";
+import "../knowledge-v1/computer-awareness/com001-memory-storage-ql-allocation.test";
 
 console.log("Question Studio content engine foundation suite passed.");
