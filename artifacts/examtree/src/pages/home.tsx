@@ -55,21 +55,21 @@ function formatCount(value: number) {
 }
 
 function TestMeta({ test }: { test: Test }) {
+  const languageCount = test.languages?.length ? test.languages.length : 1;
+
   return (
-    <div className="grid grid-cols-3 gap-3 border-y border-border/70 py-3 text-xs text-muted-foreground">
-      <span>
-        <strong className="block text-sm font-bold text-foreground">{test.totalQuestions}</strong>
-        Questions
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs font-semibold text-muted-foreground">
+      <span className="inline-flex items-center gap-1.5">
+        <LayoutGrid className="h-3.5 w-3.5" aria-hidden="true" />
+        {test.totalQuestions} Qs
       </span>
-      <span>
-        <strong className="block text-sm font-bold text-foreground">{test.duration}</strong>
-        Minutes
+      <span className="inline-flex items-center gap-1.5">
+        <Clock3 className="h-3.5 w-3.5" aria-hidden="true" />
+        {test.duration} min
       </span>
-      <span>
-        <strong className="block truncate text-sm font-bold text-foreground">
-          {test.languages?.length ? test.languages.length : 1}
-        </strong>
-        {test.languages?.length === 1 ? "Language" : "Languages"}
+      <span className="inline-flex items-center gap-1.5">
+        <Languages className="h-3.5 w-3.5" aria-hidden="true" />
+        {languageCount} {languageCount === 1 ? "lang" : "langs"}
       </span>
     </div>
   );
@@ -154,27 +154,27 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/20 bg-white/95 p-5 text-slate-950 shadow-2xl shadow-blue-950/20 sm:p-6">
+            <div className="rounded-2xl border border-white/20 bg-white/95 p-4 text-slate-950 shadow-2xl shadow-blue-950/20 sm:p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-black uppercase tracking-[0.12em] text-blue-600">Free mock ready</p>
-                  <h2 className="mt-1 text-lg font-black text-slate-950">Start directly from the live catalog</h2>
+                  <p className="text-[11px] font-black uppercase tracking-[0.12em] text-blue-600">Free mock ready</p>
+                  <h2 className="mt-1 text-base font-black text-slate-950">Start directly from the live catalog</h2>
                 </div>
-                <span className="rounded-lg bg-emerald-100 px-2.5 py-1 text-xs font-black text-emerald-700">FREE</span>
+                <span className="rounded-md bg-emerald-100 px-2 py-1 text-[10px] font-black text-emerald-700">FREE</span>
               </div>
 
               {heroTest ? (
-                <div className="mt-5">
-                  <p className="text-xs font-bold uppercase tracking-[0.1em] text-blue-600">{heroTest.category}</p>
-                  <h3 className="mt-2 text-xl font-black leading-snug text-slate-950">{heroTest.name}</h3>
-                  <div className="mt-4"><TestMeta test={heroTest} /></div>
-                  <Button className="mt-5 min-h-11 w-full rounded-xl bg-blue-600 font-bold text-white hover:bg-blue-700" onClick={() => setLocation(`/test/${heroTest.id}`)}>
+                <div className="mt-4 border-t border-slate-200/80 pt-4">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.1em] text-blue-600">{heroTest.category}</p>
+                  <h3 className="mt-1.5 line-clamp-2 text-lg font-black leading-snug text-slate-950">{heroTest.name}</h3>
+                  <div className="mt-3"><TestMeta test={heroTest} /></div>
+                  <Button className="mt-4 min-h-11 w-full rounded-lg bg-blue-600 text-sm font-bold text-white hover:bg-blue-700" onClick={() => setLocation(`/test/${heroTest.id}`)}>
                     <PlayCircle className="mr-2 h-4 w-4" aria-hidden="true" />
                     Start free test
                   </Button>
                 </div>
               ) : (
-                <p className="mt-5 rounded-xl bg-slate-50 p-4 text-sm text-slate-600">No published mock is available right now.</p>
+                <p className="mt-4 rounded-lg bg-slate-50 p-3 text-sm text-slate-600">No published mock is available right now.</p>
               )}
             </div>
           </div>
@@ -290,33 +290,36 @@ export default function Home() {
           </section>
         ) : null}
 
-        <section className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6" aria-labelledby="free-mocks-heading">
+        <section className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-5" aria-labelledby="free-mocks-heading">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h2 id="free-mocks-heading" className="text-xl font-black text-foreground">Live & free mocks</h2>
+              <h2 id="free-mocks-heading" className="text-lg font-black text-foreground">Live & free mocks</h2>
               <p className="mt-1 text-sm text-muted-foreground">Published tests you can enter right now.</p>
             </div>
-            <Button variant="outline" className="min-h-11 w-fit rounded-xl" onClick={() => setLocation("/tests")}>Browse Live Tests</Button>
+            <Button variant="outline" className="min-h-11 w-fit rounded-lg px-4" onClick={() => setLocation("/tests")}>Browse Live Tests</Button>
           </div>
 
           {featuredFreeTests.length > 0 ? (
-            <div className="mt-5 grid gap-4 lg:grid-cols-3">
+            <div className="mt-4 grid gap-3 lg:grid-cols-3">
               {featuredFreeTests.map((test) => (
-                <article key={test.id} className="flex flex-col rounded-2xl border border-border bg-background p-5 transition hover:border-blue-200 hover:shadow-md">
-                  <div className="flex items-start justify-between gap-3">
-                    <span className="rounded-lg bg-emerald-100 px-2.5 py-1 text-[11px] font-black text-emerald-700">AVAILABLE</span>
-                    <span className="text-xs font-semibold text-muted-foreground">{test.category}</span>
+                <article key={test.id} className="flex flex-col rounded-xl border border-border bg-background p-4 transition hover:border-blue-200 hover:shadow-sm">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="rounded-md bg-emerald-100 px-2 py-0.5 text-[10px] font-black text-emerald-700">AVAILABLE</span>
+                    <span className="line-clamp-1 text-[11px] font-semibold text-muted-foreground">{test.category}</span>
                   </div>
-                  <h3 className="mt-4 line-clamp-2 min-h-[48px] text-base font-black leading-snug text-foreground">{test.name}</h3>
-                  <div className="mt-4"><TestMeta test={test} /></div>
-                  <Button className="mt-5 min-h-11 w-full rounded-xl bg-blue-600 text-white hover:bg-blue-700" onClick={() => setLocation(`/test/${test.id}`)}>
-                    Attempt test <ChevronRight className="ml-1 h-4 w-4" aria-hidden="true" />
-                  </Button>
+                  <h3 className="mt-2.5 line-clamp-2 text-[15px] font-black leading-snug text-foreground">{test.name}</h3>
+                  <div className="mt-3"><TestMeta test={test} /></div>
+                  <div className="mt-3 flex items-center justify-between gap-3 border-t border-border/70 pt-3">
+                    <span className="text-xs font-semibold text-emerald-700">Free mock</span>
+                    <Button className="min-h-11 rounded-lg bg-blue-600 px-4 text-sm text-white hover:bg-blue-700" onClick={() => setLocation(`/test/${test.id}`)}>
+                      Attempt <ChevronRight className="ml-1 h-4 w-4" aria-hidden="true" />
+                    </Button>
+                  </div>
                 </article>
               ))}
             </div>
           ) : (
-            <div className="mt-5 rounded-2xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">No free mock is published right now.</div>
+            <div className="mt-4 rounded-xl border border-dashed border-border p-6 text-center text-sm text-muted-foreground">No free mock is published right now.</div>
           )}
         </section>
       </div>
