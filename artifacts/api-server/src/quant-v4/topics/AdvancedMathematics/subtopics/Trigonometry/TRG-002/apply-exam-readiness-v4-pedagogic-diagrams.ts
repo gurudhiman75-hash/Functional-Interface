@@ -41,15 +41,31 @@ function compactSentence(value: unknown, max = 190) {
 
 function geometryTeachingCue(diagram: any, stem: string) {
   const segments = Array.isArray(diagram?.segments) ? diagram.segments : [];
-  const helperH = (diagram?.points ?? []).some((point: any) => /^H\d*$/u.test(String(point?.label ?? "")));
+  const points = Array.isArray(diagram?.points) ? diagram.points : [];
+  const helperH = points.some((point: any) => /^H\d*$/u.test(String(point?.label ?? "")));
+  const observerEye = points.some((point: any) => String(point?.role ?? "") === "OBSERVER_EYE");
   const support = segments.some((segment: any) => ["LADDER", "WIRE"].includes(String(segment?.semanticKind ?? segment?.kind ?? "")));
   const sightLines = segments.filter((segment: any) => String(segment?.kind) === "SIGHT_LINE").length;
-  const eyeLevel = segments.some((segment: any) => String(segment?.kind) === "EYE_LEVEL");
+  const eyeLevel = observerEye && segments.some((segment: any) => String(segment?.kind) === "EYE_LEVEL");
+  const shadowSegments = segments.filter((segment: any) => String(segment?.kind ?? "").includes("SHADOW")).length;
+  const shadowEndpoints = points.filter((point: any) => /shadow/i.test(String(point?.id ?? ""))).length;
+  const changedShadow = shadowSegments >= 2 || shadowEndpoints >= 2;
 
-  if (helperH) return "H marks the helper intersection at the observer's horizontal eye level; read rise/drop from H, not from an unrelated full height.";
-  if (/shadow/iu.test(stem)) return "The vertical object, ground shadow and sun ray form the working right triangle; separate shadow endpoints represent separate sun-angle states.";
+  if (/shadow/iu.test(stem)) {
+    if (changedShadow) {
+      return "The vertical object and the two shadow endpoints form two right-triangle states; each sun angle belongs to its own shadow length.";
+    }
+    return "The vertical object and its shadow are the perpendicular legs of one right triangle; read the sun angle at the shadow tip.";
+  }
   if (support) return "The wall/object is perpendicular to level ground and the ladder/wire is the hypotenuse of the working right triangle.";
-  if (/depression/iu.test(stem) && eyeLevel) return "Measure the depression angle from the dashed horizontal through the observer; its matching vertical drop and horizontal run are the triangle legs.";
+  if (/depression/iu.test(stem) && eyeLevel) {
+    return "Measure the depression angle from the dashed horizontal through the observer; its matching vertical drop and horizontal run are the triangle legs.";
+  }
+  if (eyeLevel) {
+    return helperH
+      ? "H is the true eye-level intersection made by the dashed horizontal through the observer; use the rise/drop measured from H in the tangent triangle."
+      : "The dashed horizontal through the observer is the eye-level helper; use the rise/drop from that level rather than an unrelated full height.";
+  }
   if (sightLines >= 2) return "Each blue sight line is a separate observation/state; the solution links those triangles through their shared height, level or ground relation.";
   return "Use the bold vertical and horizontal segments as the perpendicular legs of the working right triangle; the blue line is the line of sight.";
 }
@@ -57,7 +73,9 @@ function geometryTeachingCue(diagram: any, stem: string) {
 function teachingCues(row: any, diagram: any) {
   const explanation = row?.english?.explanation ?? {};
   const stepBodies = (explanation.steps ?? []).map((step: any) => String(step?.body ?? "").trim()).filter(Boolean);
-  const calculation = stepBodies.find((body: string) => /(?:tan|sin|cos|cot|=|⇒|let\s)/iu.test(body)) ?? stepBodies[0] ?? explanation.shortcut ?? "";
+  const workedEquation = stepBodies.find((body: string) => /(?:tan|sin|cos|cot|=|⇒)/iu.test(body));
+  const variableSetup = stepBodies.find((body: string) => /\blet\s/iu.test(body));
+  const calculation = workedEquation ?? variableSetup ?? stepBodies[0] ?? explanation.shortcut ?? "";
   const candidates = [
     { kind: "GEOMETRY", text: geometryTeachingCue(diagram, String(row?.english?.stem ?? "")) },
     { kind: "RULE", text: compactSentence(explanation.keyRule) },
