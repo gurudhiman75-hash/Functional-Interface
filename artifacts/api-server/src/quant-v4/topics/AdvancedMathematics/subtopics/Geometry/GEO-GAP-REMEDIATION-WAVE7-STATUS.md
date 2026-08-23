@@ -3,7 +3,7 @@
 **Authority:** Composite Geometry Revision 3 + Solution-Diagram Dimension Policy Addendum  
 **Predecessors:** approved Waves 1–6 discovery remediation  
 **Lifecycle:** `DISCOVERY`  
-**Wave 7 state:** `IMPLEMENTED_AWAITING_EXECUTABLE_CI`
+**Wave 7 state:** `REVIEW_READY_CANDIDATE`
 
 Wave 7 addresses residual `GEO-CP-010` and `GEO-CP-011` source-observed circle gaps with six temporary prototypes:
 
@@ -22,22 +22,46 @@ Wave 7 uses six secondary SSC PYQ repository records. Testbook is treated only a
 
 ## Representation contract
 
-All six prototypes use `REQUIRED_BOTH`. Stem figures preserve circle/chord/secant topology, show only given semantic marks and given dimensions/angles, and withhold target/derived angle values, right-angle consequences, equal-distance consequences and same-segment conclusions. Solution figures follow the active solution-diagram dimension policy and remain subject to manual viewport/topology QA after CI.
+All six prototypes use `REQUIRED_BOTH`. Stem figures preserve circle/chord/secant topology, show only given semantic marks and given dimensions/angles, and withhold target/derived angle values, right-angle consequences, equal-distance consequences and same-segment conclusions. Solution figures follow the active solution-diagram dimension policy.
 
-## Implementation evidence
+Manual visual QA passed all **36 runtime figures** (18 stem + 18 solution): no clipping, no misleading topology, no crowded point/angle labels, and no semantic-mark stacking. Final diagram SVGs and semantic fingerprints are byte-for-byte unchanged from the manually reviewed green artifact after the last editorial-only distractor remediation.
 
-- implementation head: `78211a86634b5bf5d6db5b5625c97e433c622878`
-- status-record head: `6669b0247282a666fc760a436d951bb75c5b2b85`
+## Executable proof
+
+Final proof candidate:
+
+- proof head: `6e1c0c39a8330bb33540b3f514ae80e9a6d21026`
+- dedicated workflow: `Validate Geometry Gap Remediation Wave 7`
+- run: `32642578957`
+- job: `97201848442`
+- artifact: `9494017906`
+- artifact digest: `sha256:245f790e90071a9f49b55492f9aee0e0a2d6234b5bf6e71eb9cff2d48d014e90`
 - 6 temporary prototypes × 3 review seeds = **18 review questions**
-- planned review figures: **18 stem + 18 solution = 36 runtime figures**
-- shared additions: equal-chord central-angle inference, equal-chord centre-distance inference, chord-midpoint inverse right-angle inference, same-segment transfer, central-to-inscribed half-angle inference
-- new theorem IDs: `EQUAL_CHORD_EQUAL_CENTRAL_ANGLE`, `PERPENDICULAR_FROM_CENTRE_BISECTS_CHORD_CONVERSE`
-- exact chord-circle radius remediation is applied before finalization for the two chord-distance/midpoint construction models
+- **18 stem + 18 solution = 36 runtime figures**
+- retained Source Saturation Audit V1: PASS
+- retained Geometry Phases 0–5: PASS
+- retained approved Waves 1–6: PASS
+- Wave-7 proof: PASS
+- review export/upload: PASS
+- clue minimality + independent verification: PASS
+- stem anti-leak + zero-label-collision regressions: PASS
+- misconception-owned distractor regressions: PASS
+
+## Self-rejected / superseded evidence
+
+Earlier green artifact `9475786729` (`sha256:466370f8a856994602486ae4492f32b47cb828d5ff77297a2d10992763f4350f`) was **self-rejected** during editorial QA even though CI was green. Two numerical collisions had been filled by a generic `+13°` fallback, producing `73°` and `41°`; those values did not have genuine misconception ownership.
+
+The final remediation removes arbitrary offset generation entirely. Known collisions now resolve only through real wrong-reasoning states:
+
+- equal-chord 60° case: `300°` — `USED_REFLEX_CENTRAL_ANGLE`
+- semicircle-chain 28° case: `118°` — `STOPPED_AT_TRIANGLE_ADP_ANGLE`
+
+Any future unrecognized distractor collision now fails loudly rather than inventing a value. Final artifact QA confirms no `ADDED_OFFSET_INSTEAD_OF_USING_EQUALITY` option remains anywhere.
 
 ```text
 wave7ImplementationComplete = true
-wave7RuntimeProofPassed = false
-wave7ReviewReady = false
+wave7RuntimeProofPassed = true
+wave7ReviewReady = true
 wave7Approved = false
 wave7FrozenForDiscovery = false
 sourceSaturationClaimAllowed = false
@@ -49,4 +73,4 @@ testEligibilityAllowed = false
 publicPublicationAllowed = false
 ```
 
-Next gate: full retained source audit + Geometry Phases 0–5 + approved Waves 1–6 + Wave-7 proof + 18-question review export, followed by manual visual/editorial QA.
+Next gate: explicit user review/approval of Wave 7. Approval, if given, freezes these six temporary archetypes for discovery continuity only; it does not authorize permanent QLs, Question Studio activation, publication, or PR merge.
