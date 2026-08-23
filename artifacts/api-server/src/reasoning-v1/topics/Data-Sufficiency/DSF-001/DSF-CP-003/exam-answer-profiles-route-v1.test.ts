@@ -14,70 +14,46 @@ const cp001Freeze = readFileSync(resolve(process.cwd(), "src/reasoning-v1/topics
 const cp002Runtime = readFileSync(resolve(process.cwd(), "src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-002/question-studio-integration-v1.ts"), "utf8");
 
 for (const profileId of [
-  "GENERIC_DS_STANDARD_5_EN",
-  "BANKING_STANDARD_5_EN",
-  "BANKING_BOB_2015_5_EN",
-  "SSC_CGL_TIER2_2023_4_EN",
-  "SSC_CGL_TIER2_2024_4_EN",
+  "GENERIC_DS_STANDARD_5_EN", "BANKING_STANDARD_5_EN", "BANKING_BOB_2015_5_EN",
+  "SSC_CGL_TIER2_2023_4_EN", "SSC_CGL_TIER2_2024_4_EN",
 ] as const) {
   assert(runtimeSource.includes(`\"${profileId}\"`), `CP003 runtime missing ${profileId}`);
   assert(adminApiSource.includes(`'${profileId}'`), `Admin API type missing ${profileId}`);
 }
-
 for (const sourceConstant of [
-  "DSF_BANK_STANDARD_ORDER",
-  "DSF_BANK_BOB_2015_ORDER",
-  "DSF_SSC_CGL_2023_FOUR_ORDER",
-  "DSF_SSC_CGL_2024_FOUR_ORDER",
+  "DSF_BANK_STANDARD_ORDER", "DSF_BANK_BOB_2015_ORDER", "DSF_SSC_CGL_2023_FOUR_ORDER", "DSF_SSC_CGL_2024_FOUR_ORDER",
 ] as const) {
   assert(runtimeSource.includes(sourceConstant), `CP003 runtime is not pinned to ${sourceConstant}`);
   assert(sourceRegistry.includes(`export const ${sourceConstant}`), `Source registry lost ${sourceConstant}`);
 }
-
 assert(runtimeSource.includes('examFamily: "PUNJAB_STATE"'), "Punjab disabled-family gate is missing");
 assert(runtimeSource.includes("Official Punjab Data Sufficiency answer-contract evidence is not strong enough"), "Punjab evidence boundary is missing");
 assert(!runtimeSource.includes("PUNJAB_STANDARD"), "Unverified Punjab answer profile leaked into CP003");
-
 assert(runtimeSource.includes('omittedSemanticClasses: omittedClasses(DSF_SSC_CGL_2023_FOUR_ORDER)'), "SSC 2023 omission contract missing");
 assert(runtimeSource.includes('omittedSemanticClasses: omittedClasses(DSF_SSC_CGL_2024_FOUR_ORDER)'), "SSC 2024 omission contract missing");
 assert(runtimeSource.includes("cannot render ${input.semanticClass}"), "Explicit SSC eligibility rejection is missing");
-assert(runtimeSource.includes("semanticTruthPreserved: true"), "Semantic-preservation proof flag missing");
-assert(runtimeSource.includes("optionOrderMatchesProfile: true"), "Option-order proof flag missing");
+assert(runtimeSource.includes("semanticTruthPreserved: true"), "Semantic-preservation flag missing");
+assert(runtimeSource.includes("optionOrderMatchesProfile: true"), "Option-order flag missing");
 
-assert(routeSource.includes("generateDsfExamProfileBatch"), "Question Studio route is not using CP003 profile renderer");
-assert(routeSource.includes("DSF_CP003_EXAM_PROFILE_AUTHORITY"), "Route does not persist CP003 profile authority");
-assert(routeSource.includes("deliveryProfileAuthority"), "Persisted payload lost profile authority");
-assert(routeSource.includes("profileSourcePatternIds"), "Persisted payload lost source-pattern provenance");
-assert(routeSource.includes("DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY"), "Later CP004 lifecycle overlay is not explicit");
+for (const fragment of [
+  "generateDsfExamProfileBatch", "DSF_CP003_EXAM_PROFILE_AUTHORITY", "deliveryProfileAuthority", "profileSourcePatternIds",
+  "DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY", "DSF_CP005_TEST_RELEASE_AUTHORITY", "DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY",
+  "dsfCp004ReviewPayload", "dsfCp005ReviewPayload", "dsfCp006ReviewPayload",
+] as const) assert(routeSource.includes(fragment), `DSF route lost CP003/later contract: ${fragment}`);
 
 for (const panelFragment of [
-  "Answer profile",
-  "Banking + SSC profiles",
-  "All representable classes",
-  "Punjab-specific rendering remains disabled",
-  "Option position is never treated as semantic truth",
-] as const) {
-  assert(adminPanelSource.includes(panelFragment), `Admin panel missing CP003 contract: ${panelFragment}`);
-}
+  "Answer profile", "Banking + SSC", "All representable classes", "Punjab-specific rendering remains disabled", "No option-position remapping is allowed",
+] as const) assert(adminPanelSource.includes(panelFragment), `Admin panel missing CP003 contract: ${panelFragment}`);
 
-// CP-003 itself remains downstream-locked. CP-004 may later enable bank-only
-// storage in the route, but test/mock/publication remain closed everywhere.
-for (const sourceLock of [
-  "questionBankWritable: false",
-  "testEligible: false",
-  "mockTestEligible: false",
-  "publiclyPublishable: false",
-] as const) {
+for (const sourceLock of ["questionBankWritable: false", "testEligible: false", "mockTestEligible: false", "publiclyPublishable: false"] as const) {
   assert(runtimeSource.includes(sourceLock), `CP003 runtime lost downstream lock ${sourceLock}`);
 }
-for (const routeLock of [
-  "testEligible: false",
-  "mockTestEligible: false",
-  "publiclyPublishable: false",
-] as const) {
-  assert(routeSource.includes(routeLock), `CP004 route overlay lost downstream lock ${routeLock}`);
-}
-assert(routeSource.includes('questionBankAcceptanceMode: "BANK_ONLY"'), "CP004 storage overlay is not explicitly bank-only");
+assert(routeSource.includes('questionBankAcceptanceMode: "BANK_ONLY"'), "CP004 BANK_ONLY overlay lost");
+assert(routeSource.includes('questionBankAcceptanceMode: "FULL_RELEASE"'), "CP005/006 FULL_RELEASE overlay missing");
+assert(routeSource.includes('testEligible: true'), "Later scored-test overlay missing");
+assert(routeSource.includes('publiclyPublishable: true'), "Later manual publication overlay missing");
+assert(routeSource.includes('mockTestEligible: true'), "CP006 mock-test overlay missing");
+assert(routeSource.includes('automaticStudentPublication: false'), "Automatic student publication must remain disabled");
 
 assert(cp001Freeze.includes('status: "FROZEN"'), "CP001 semantic authority is no longer frozen");
 assert(cp001Freeze.includes('questionStudioDiscoverable: false'), "CP001 delivery lock was reopened");
@@ -88,7 +64,6 @@ assert(runtimeSource.includes('nextAvailableQlId: "DSF-QL-002"') || runtimeSourc
 console.log(JSON.stringify({
   status: "PASS_DSF_CP_003_ROUTE_UI_CONTRACT",
   profileCheckpoint: "DSF-CP-003",
-  laterLifecycleCheckpoint: "DSF-CP-004",
   bankingProfiles: 2,
   sscProfiles: 2,
   genericProfileRetained: true,
@@ -97,6 +72,10 @@ console.log(JSON.stringify({
   cp001Frozen: true,
   cp002Preserved: true,
   cp003SourceQuestionBankLocked: true,
-  cp004QuestionBankAcceptanceMode: "BANK_ONLY",
-  testMockPublicationLocked: true,
+  laterQuestionBankCheckpoint: "DSF-CP-004",
+  laterTestReleaseCheckpoint: "DSF-CP-005",
+  laterMockReleaseCheckpoint: "DSF-CP-006",
+  legacyCp004BankOnlyPayloadPreserved: true,
+  legacyCp005MockIneligiblePayloadPreserved: true,
+  automaticStudentDeliveryLocked: true,
 }, null, 2));
