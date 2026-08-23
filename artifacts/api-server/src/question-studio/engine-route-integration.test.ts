@@ -43,8 +43,15 @@ assert.equal(engineUse >= 0, true);
 assert.equal(legacyUse >= 0, true);
 assert.equal(engineUse < legacyUse, true);
 
-// Keep the facade available in the shared route index as an additive layer.
+// There must be exactly one production mount path for the engine facade: it is
+// composed inside the mixed-difficulty router, which is mounted by the shared
+// route index. A second direct facade mount would make route ownership opaque.
 assert.match(
   routeIndex,
-  /adminQuestionStudioEngineV1Router from "\.\/admin-question-studio-engine-v1"/,
+  /adminQuestionStudioMixedDifficultyRouter from "\.\/admin-question-studio-mixed-difficulty"/,
 );
+assert.match(
+  routeIndex,
+  /router\.use\("\/admin\/question-studio", adminQuestionStudioMixedDifficultyRouter\)/,
+);
+assert.doesNotMatch(routeIndex, /adminQuestionStudioEngineV1Router/);
