@@ -9,7 +9,7 @@ assert.equal(getTheoremDefinition("POLYGON_INTERIOR_SUM").family, "POLYGONS");
 assert.equal(getTheoremDefinition("POLYGON_EXTERIOR_SUM").family, "POLYGONS");
 assert.equal(getTheoremDefinition("LINEAR_PAIR_SUM").family, "LINES");
 
-assert.equal(GEO_GAP_REMEDIATION_WAVE8_SOURCE_EVIDENCE.length, 4);
+assert.equal(GEO_GAP_REMEDIATION_WAVE8_SOURCE_EVIDENCE.length, 2);
 for (const source of GEO_GAP_REMEDIATION_WAVE8_SOURCE_EVIDENCE) {
   assert.ok(source.url.startsWith("https://testbook.com/question-answer/"));
   assert.ok(source.support.length > 60);
@@ -103,8 +103,9 @@ assert.equal(exteriorInvariant.optionAnalysis.find((option) => option.misconcept
 const mixedChain = GEO_GAP_REMEDIATION_WAVE8_PROTOTYPES[2].generate("wave8-a");
 assert.equal(mixedChain.answer, "100°");
 assert.deepEqual(mixedChain.theoremTrace, ["POLYGON_INTERIOR_SUM", "POLYGON_EXTERIOR_SUM", "LINEAR_PAIR_SUM"]);
+assert.deepEqual(mixedChain.sourceEvidenceIds, ["SRC-TESTBOOK-CGL-POLYGON-INTERIOR-SUM-INVERSE-PYQ-2019"]);
 assert.equal(mixedChain.optionAnalysis.find((option) => option.misconceptionId === "RETURNED_INTERIOR_ANGLE_ONLY")?.text, "140°");
 assert.equal(mixedChain.optionAnalysis.find((option) => option.misconceptionId === "RETURNED_EXTERIOR_ANGLE_ONLY")?.text, "40°");
 assert.equal(mixedChain.optionAnalysis.find((option) => option.misconceptionId === "DOUBLED_EXTERIOR_ANGLE")?.text, "80°");
 
-console.log("Geometry gap remediation Wave 8 PASS: 3 CP009 polygon prototypes × 3 varied seeds with exact polygon inference, source-owned archetypes, misconception-owned distractors, clue minimality, independent checks and NO_DIAGRAM policy QA.");
+console.log("Geometry gap remediation Wave 8 PASS: 3 CP009 polygon prototypes × 3 varied seeds with exact source ownership, exact polygon inference, misconception-owned distractors, clue minimality, independent checks and NO_DIAGRAM policy QA.");
