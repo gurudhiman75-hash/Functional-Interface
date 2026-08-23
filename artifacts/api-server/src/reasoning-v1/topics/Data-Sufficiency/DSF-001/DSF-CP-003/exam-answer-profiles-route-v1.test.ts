@@ -48,6 +48,7 @@ assert(routeSource.includes("generateDsfExamProfileBatch"), "Question Studio rou
 assert(routeSource.includes("DSF_CP003_EXAM_PROFILE_AUTHORITY"), "Route does not persist CP003 profile authority");
 assert(routeSource.includes("deliveryProfileAuthority"), "Persisted payload lost profile authority");
 assert(routeSource.includes("profileSourcePatternIds"), "Persisted payload lost source-pattern provenance");
+assert(routeSource.includes("DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY"), "Later CP004 lifecycle overlay is not explicit");
 
 for (const panelFragment of [
   "Answer profile",
@@ -59,15 +60,24 @@ for (const panelFragment of [
   assert(adminPanelSource.includes(panelFragment), `Admin panel missing CP003 contract: ${panelFragment}`);
 }
 
-for (const lock of [
+// CP-003 itself remains downstream-locked. CP-004 may later enable bank-only
+// storage in the route, but test/mock/publication remain closed everywhere.
+for (const sourceLock of [
   "questionBankWritable: false",
   "testEligible: false",
   "mockTestEligible: false",
   "publiclyPublishable: false",
 ] as const) {
-  assert(runtimeSource.includes(lock), `CP003 runtime lost downstream lock ${lock}`);
-  assert(routeSource.includes(lock), `CP003 route lost downstream lock ${lock}`);
+  assert(runtimeSource.includes(sourceLock), `CP003 runtime lost downstream lock ${sourceLock}`);
 }
+for (const routeLock of [
+  "testEligible: false",
+  "mockTestEligible: false",
+  "publiclyPublishable: false",
+] as const) {
+  assert(routeSource.includes(routeLock), `CP004 route overlay lost downstream lock ${routeLock}`);
+}
+assert(routeSource.includes('questionBankAcceptanceMode: "BANK_ONLY"'), "CP004 storage overlay is not explicitly bank-only");
 
 assert(cp001Freeze.includes('status: "FROZEN"'), "CP001 semantic authority is no longer frozen");
 assert(cp001Freeze.includes('questionStudioDiscoverable: false'), "CP001 delivery lock was reopened");
@@ -78,6 +88,7 @@ assert(runtimeSource.includes('nextAvailableQlId: "DSF-QL-002"') || runtimeSourc
 console.log(JSON.stringify({
   status: "PASS_DSF_CP_003_ROUTE_UI_CONTRACT",
   profileCheckpoint: "DSF-CP-003",
+  laterLifecycleCheckpoint: "DSF-CP-004",
   bankingProfiles: 2,
   sscProfiles: 2,
   genericProfileRetained: true,
@@ -85,5 +96,7 @@ console.log(JSON.stringify({
   punjabSpecificProfileEnabled: false,
   cp001Frozen: true,
   cp002Preserved: true,
-  downstreamLocked: true,
+  cp003SourceQuestionBankLocked: true,
+  cp004QuestionBankAcceptanceMode: "BANK_ONLY",
+  testMockPublicationLocked: true,
 }, null, 2));

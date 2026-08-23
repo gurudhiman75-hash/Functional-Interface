@@ -47,6 +47,8 @@ export type PublishableQuestionSnapshot = {
   explanation: string;
   optionCount: number;
   correctOptionCount: number;
+  generationPubliclyPublishable?: boolean | null;
+  generationTestEligible?: boolean | null;
 };
 
 export class QuestionManagementError extends Error {
@@ -256,6 +258,12 @@ export function getPublicationIssues(snapshot: PublishableQuestionSnapshot): str
   if (!snapshot.explanation.trim()) issues.push("Explanation is missing.");
   if (snapshot.optionCount < 2) issues.push("At least two answer options are required.");
   if (snapshot.correctOptionCount !== 1) issues.push("Exactly one correct answer is required.");
+  if (snapshot.generationTestEligible === false) {
+    issues.push("Generation lifecycle has not enabled scored-test eligibility.");
+  }
+  if (snapshot.generationPubliclyPublishable === false) {
+    issues.push("Generation lifecycle has not enabled public publication.");
+  }
   return issues;
 }
 

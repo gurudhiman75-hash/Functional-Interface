@@ -15,14 +15,18 @@ import {
   type DsfStudioSolveMode,
 } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-002/question-studio-integration-v1";
 import {
-  DSF_CP003_ANSWER_PROFILE_IDS,
   DSF_CP003_EXAM_PROFILE_AUTHORITY,
-  DSF_CP003_QUESTION_STUDIO_PACKAGE,
   generateDsfExamProfileBatch,
   type DsfExamAnswerProfileId,
   type DsfExamProfileInput,
   type DsfExamProfileQuestion,
 } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-003/exam-answer-profiles-v1";
+import {
+  DSF_CP004_CHECKPOINT_ID,
+  DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
+  DSF_CP004_QUESTION_BANK_PROFILE_IDS,
+  DSF_CP004_QUESTION_STUDIO_PACKAGE,
+} from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-004/question-bank-acceptance-v1";
 import { SUFFICIENCY_CLASSES, type SufficiencyClass } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/foundation";
 
 const router = Router();
@@ -31,7 +35,7 @@ const SOLVE_MODES = new Set<string>(DSF_CP002_DOMAINS.flatMap((domain) => [...do
 const DIFFICULTIES = new Set<string>(DSF_CP002_DIFFICULTIES);
 const SEMANTIC_CLASSES = new Set<string>(SUFFICIENCY_CLASSES);
 const LANGUAGES = new Set<string>(DSF_CP002_LANGUAGES);
-const ANSWER_PROFILES = new Set<string>(DSF_CP003_ANSWER_PROFILE_IDS);
+const ANSWER_PROFILES = new Set<string>(DSF_CP004_QUESTION_BANK_PROFILE_IDS);
 
 function asString(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
@@ -79,7 +83,10 @@ function requestFilters(source: Record<string, unknown>): DsfExamProfileInput {
   };
 }
 
-function reviewPayload(question: DsfExamProfileQuestion) {
+export function dsfCp004ReviewPayload(question: DsfExamProfileQuestion) {
+  if (!DSF_CP004_QUESTION_BANK_PROFILE_IDS.includes(question.answerProfile as never)) {
+    throw new Error(`Answer profile ${question.answerProfile} is not approved for DSF-CP-004 Question Bank acceptance.`);
+  }
   const correctOption = question.options[question.correctIndex]!;
   const text = `${question.stem}\nI. ${question.statements[0].text}\nII. ${question.statements[1].text}`;
   return {
@@ -107,6 +114,7 @@ function reviewPayload(question: DsfExamProfileQuestion) {
     sourceCheckpointId: question.sourceCheckpointId,
     integrationCheckpointId: question.integrationCheckpointId,
     profileCheckpointId: question.profileCheckpointId,
+    questionBankAcceptanceCheckpointId: DSF_CP004_CHECKPOINT_ID,
     questionId: question.questionId,
     sourceQuestionId: question.sourceQuestionId,
     sourceGenerationIdentity: question.sourceGenerationIdentity,
@@ -130,8 +138,10 @@ function reviewPayload(question: DsfExamProfileQuestion) {
     renderer: "TEXT_MATH" as const,
     questionStudioRegistrationStatus: "REGISTERED" as const,
     questionStudioStagingStatus: "REVIEW_QUEUE_ENABLED" as const,
-    questionBankStatus: "NOT_STORED" as const,
-    questionBankWritable: false as const,
+    questionBankStatus: "READY_FOR_STORAGE" as const,
+    questionBankWritable: true as const,
+    questionBankAcceptanceMode: "BANK_ONLY" as const,
+    questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
     testEligibility: "INELIGIBLE" as const,
     testEligible: false as const,
     publiclyPublishable: false as const,
@@ -161,14 +171,17 @@ function reviewPayload(question: DsfExamProfileQuestion) {
       sourceFreezeAuthority: question.sourceFreezeAuthority,
       questionStudioDiscoverable: true as const,
       persistenceAllowed: true as const,
-      reviewOnly: true as const,
-      questionBankStatus: "NOT_STORED" as const,
-      questionBankWritable: false as const,
+      reviewOnly: false as const,
+      manualApprovalRequired: true as const,
+      questionBankStatus: "READY_FOR_STORAGE" as const,
+      questionBankWritable: true as const,
+      questionBankAcceptanceMode: "BANK_ONLY" as const,
+      questionBankAcceptanceCheckpointId: DSF_CP004_CHECKPOINT_ID,
+      questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
       testEligibility: "INELIGIBLE" as const,
       testEligible: false as const,
       mockTestEligible: false as const,
       publiclyPublishable: false as const,
-      manualApprovalRequired: true as const,
       automaticStudentPublication: false as const,
     },
   };
@@ -193,7 +206,7 @@ async function persistRun(
       ) VALUES (
         ${runId}::uuid, ${publicCode}, 'review'::generation_run_status, 1,
         ${JSON.stringify(requestSnapshot)}::jsonb, ${JSON.stringify(requestSnapshot)}::jsonb,
-        'examtree', 'reasoning-v1-dsf-frozen-cp001-profile-cp003-v1', 0, 0, 0, 0,
+        'examtree', 'reasoning-v1-dsf-cp004-bank-only-v1', 0, 0, 0, 0,
         ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
       )
     `;
@@ -202,7 +215,7 @@ async function persistRun(
       const question = questions[index]!;
       const itemId = randomUUID();
       const versionId = randomUUID();
-      const payload = reviewPayload(question);
+      const payload = dsfCp004ReviewPayload(question);
       await tx`
         INSERT INTO content.generation_run_items (
           id, generation_run_id, item_number, status, current_version_number, created_at, updated_at
@@ -226,18 +239,21 @@ async function persistRun(
       ) VALUES (
         ${randomUUID()}::uuid, 'user'::audit_actor_type, ${actorUserId}::uuid,
         'question_studio.data_sufficiency_run.created', 'generation_run', ${runId}::uuid,
-        'Frozen DSF-CP-001 semantic authority entered the Question Studio review queue through CP-002 with CP-003 exam-profile rendering; downstream publication gates remain closed',
-        ${`Created ${questions.length} Data Sufficiency review items in ${publicCode}`},
+        'DSF-CP-004 review items may enter Question Bank after manual approval; scored tests, mocks and public publication remain locked',
+        ${`Created ${questions.length} Data Sufficiency bank-capable review items in ${publicCode}`},
         ${JSON.stringify({
           requestSnapshot,
           integrationAuthority: DSF_CP002_QUESTION_STUDIO_AUTHORITY,
           deliveryProfileAuthority: DSF_CP003_EXAM_PROFILE_AUTHORITY,
-          sourceFreezeAuthority: DSF_CP003_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
-          permanentQlIds: DSF_CP003_QUESTION_STUDIO_PACKAGE.permanentQlIds,
+          questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
+          sourceFreezeAuthority: DSF_CP004_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
+          permanentQlIds: DSF_CP004_QUESTION_STUDIO_PACKAGE.permanentQlIds,
           productionDomainCount: 4,
           solveModeCount: 8,
-          questionBankWritable: false,
+          questionBankWritable: true,
+          questionBankAcceptanceMode: "BANK_ONLY",
           testEligible: false,
+          mockTestEligible: false,
           publiclyPublishable: false,
         })}::jsonb
       )
@@ -254,9 +270,13 @@ async function persistRun(
           chapter: "Data Sufficiency",
           integrationAuthority: DSF_CP002_QUESTION_STUDIO_AUTHORITY,
           deliveryProfileAuthority: DSF_CP003_EXAM_PROFILE_AUTHORITY,
-          sourceFreezeAuthority: DSF_CP003_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
-          reviewOnly: true,
-          questionBankWritable: false,
+          questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
+          sourceFreezeAuthority: DSF_CP004_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
+          manualApprovalRequired: true,
+          questionBankWritable: true,
+          questionBankAcceptanceMode: "BANK_ONLY",
+          testEligible: false,
+          publiclyPublishable: false,
         })}::jsonb
       )
     `;
@@ -270,13 +290,17 @@ router.use(authenticate);
 router.get("/reasoning/data-sufficiency/package", requireAdminPermission("content.generation.read"), (_req, res) => {
   res.json({
     generationSystem: "reasoning-v1",
-    activationMode: "QUESTION_STUDIO_CONNECTED",
-    package: DSF_CP003_QUESTION_STUDIO_PACKAGE,
+    activationMode: "QUESTION_BANK_ACCEPTANCE_ENABLED",
+    package: DSF_CP004_QUESTION_STUDIO_PACKAGE,
     maxBatchSize: 50,
     databaseWriteEnabled: true,
     persistenceAllowed: true,
-    reviewOnly: true,
-    questionBankWriteEnabled: false,
+    manualReviewRequired: true,
+    questionBankAcceptanceEnabled: true,
+    questionBankWriteEnabled: true,
+    questionBankAcceptanceMode: "BANK_ONLY",
+    questionBankAcceptanceCheckpointId: DSF_CP004_CHECKPOINT_ID,
+    questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
     testEligible: false,
     mockTestEligible: false,
     publiclyPublishable: false,
@@ -291,7 +315,16 @@ router.get("/reasoning/data-sufficiency/preview", requireAdminPermission("conten
       seed: asString(req.query.seed) || "dsf-question-studio-preview",
       count: asCount(req.query.count, 1, 20),
     });
-    res.json({ ...result, productionEligible: false, reviewOnly: true });
+    res.json({
+      ...result,
+      productionEligible: false,
+      manualReviewRequired: true,
+      questionBankAcceptanceEnabled: true,
+      questionBankAcceptanceMode: "BANK_ONLY",
+      testEligible: false,
+      mockTestEligible: false,
+      publiclyPublishable: false,
+    });
   } catch (error) {
     res.status(400).json({
       error: error instanceof Error ? error.message : "Unable to preview Data Sufficiency questions.",
@@ -323,11 +356,15 @@ router.post("/reasoning/data-sufficiency/runs", requireAdminPermission("content.
       seed,
       integrationAuthority: DSF_CP002_QUESTION_STUDIO_AUTHORITY,
       deliveryProfileAuthority: DSF_CP003_EXAM_PROFILE_AUTHORITY,
-      sourceFreezeAuthority: DSF_CP003_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
+      questionBankAcceptanceCheckpointId: DSF_CP004_CHECKPOINT_ID,
+      questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
+      sourceFreezeAuthority: DSF_CP004_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
       questionStudioDiscoverable: true,
       persistenceAllowed: true,
-      reviewOnly: true,
-      questionBankWritable: false,
+      manualApprovalRequired: true,
+      questionBankStatus: "READY_FOR_STORAGE",
+      questionBankWritable: true,
+      questionBankAcceptanceMode: "BANK_ONLY",
       testEligible: false,
       mockTestEligible: false,
       publiclyPublishable: false,
@@ -341,9 +378,13 @@ router.post("/reasoning/data-sufficiency/runs", requireAdminPermission("content.
       language: filters.language ?? "en",
       answerProfile: filters.answerProfile ?? "GENERIC_DS_STANDARD_5_EN",
       deliveryProfileAuthority: DSF_CP003_EXAM_PROFILE_AUTHORITY,
-      reviewOnly: true,
-      questionBankWritable: false,
+      questionBankAcceptanceCheckpointId: DSF_CP004_CHECKPOINT_ID,
+      questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
+      manualReviewRequired: true,
+      questionBankWritable: true,
+      questionBankAcceptanceMode: "BANK_ONLY",
       testEligible: false,
+      mockTestEligible: false,
       publiclyPublishable: false,
     });
   } catch (error) {
@@ -360,7 +401,10 @@ router.get("/reasoning/data-sufficiency/status", requireAdminPermission("content
       SELECT
         count(*)::int AS "generationItemCount",
         count(*) FILTER (WHERE i.status = 'approved')::int AS "approvedItemCount",
-        count(*) FILTER (WHERE i.accepted_question_id IS NOT NULL)::int AS "questionBankCount"
+        count(*) FILTER (WHERE i.accepted_question_id IS NOT NULL)::int AS "questionBankCount",
+        count(*) FILTER (
+          WHERE v.payload ->> 'questionBankAcceptanceAuthority' = ${DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY}
+        )::int AS "cp004GenerationItemCount"
       FROM content.generation_run_items i
       INNER JOIN content.generation_item_versions v
         ON v.generation_item_id = i.id AND v.version_number = i.current_version_number
@@ -369,25 +413,32 @@ router.get("/reasoning/data-sufficiency/status", requireAdminPermission("content
 
     res.json({
       chapter: "Data Sufficiency",
-      permanentQlCount: DSF_CP003_QUESTION_STUDIO_PACKAGE.permanentQlIds.length,
-      domainCount: DSF_CP003_QUESTION_STUDIO_PACKAGE.domains.length,
-      solveModeCount: DSF_CP003_QUESTION_STUDIO_PACKAGE.solveModeCount,
+      permanentQlCount: DSF_CP004_QUESTION_STUDIO_PACKAGE.permanentQlIds.length,
+      domainCount: DSF_CP004_QUESTION_STUDIO_PACKAGE.domains.length,
+      solveModeCount: DSF_CP004_QUESTION_STUDIO_PACKAGE.solveModeCount,
       generationItemCount: Number(rows[0]?.generationItemCount ?? 0),
+      cp004GenerationItemCount: Number(rows[0]?.cp004GenerationItemCount ?? 0),
       approvedItemCount: Number(rows[0]?.approvedItemCount ?? 0),
       questionBankCount: Number(rows[0]?.questionBankCount ?? 0),
       integrationAuthority: DSF_CP002_QUESTION_STUDIO_AUTHORITY,
       deliveryProfileAuthority: DSF_CP003_EXAM_PROFILE_AUTHORITY,
-      sourceFreezeAuthority: DSF_CP003_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
-      supportedLanguages: DSF_CP003_QUESTION_STUDIO_PACKAGE.supportedLanguages,
-      supportedAnswerProfiles: DSF_CP003_QUESTION_STUDIO_PACKAGE.supportedAnswerProfiles,
-      answerProfiles: DSF_CP003_QUESTION_STUDIO_PACKAGE.answerProfiles,
-      supportedExamFamilies: DSF_CP003_QUESTION_STUDIO_PACKAGE.supportedExamFamilies,
-      disabledExamFamilies: DSF_CP003_QUESTION_STUDIO_PACKAGE.disabledExamFamilies,
+      questionBankAcceptanceCheckpointId: DSF_CP004_CHECKPOINT_ID,
+      questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
+      sourceFreezeAuthority: DSF_CP004_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
+      supportedLanguages: DSF_CP004_QUESTION_STUDIO_PACKAGE.supportedLanguages,
+      supportedAnswerProfiles: DSF_CP004_QUESTION_STUDIO_PACKAGE.supportedAnswerProfiles,
+      answerProfiles: DSF_CP004_QUESTION_STUDIO_PACKAGE.answerProfiles,
+      supportedExamFamilies: DSF_CP004_QUESTION_STUDIO_PACKAGE.supportedExamFamilies,
+      disabledExamFamilies: DSF_CP004_QUESTION_STUDIO_PACKAGE.disabledExamFamilies,
       examSpecificAnswerProfilesImplemented: true,
       questionStudioDiscoverable: true,
       persistenceAllowed: true,
-      reviewOnly: true,
-      questionBankWritable: false,
+      manualReviewRequired: true,
+      questionBankStatus: "READY_FOR_STORAGE",
+      questionBankAcceptanceEnabled: true,
+      questionBankWritable: true,
+      questionBankAcceptanceMode: "BANK_ONLY",
+      testEligibility: "INELIGIBLE",
       testEligible: false,
       mockTestEligible: false,
       publiclyPublishable: false,

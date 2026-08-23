@@ -53,6 +53,18 @@ router.post(
             v.exam_version_id AS "examVersionId",
             v.stem,
             v.explanation,
+            CASE
+              WHEN v.answer_model #>> '{generation,publiclyPublishable}' IN ('true', 'false')
+              THEN (v.answer_model #>> '{generation,publiclyPublishable}')::boolean
+              ELSE NULL
+            END AS "generationPubliclyPublishable",
+            CASE
+              WHEN v.answer_model #>> '{generation,testEligible}' IN ('true', 'false')
+              THEN (v.answer_model #>> '{generation,testEligible}')::boolean
+              ELSE NULL
+            END AS "generationTestEligible",
+            v.answer_model #>> '{generation,questionBankAcceptanceMode}' AS "questionBankAcceptanceMode",
+            v.answer_model #>> '{generation,questionBankAcceptanceAuthority}' AS "questionBankAcceptanceAuthority",
             (SELECT COUNT(*)::int FROM content.question_options o WHERE o.question_version_id = v.id) AS "optionCount",
             (SELECT COUNT(*)::int FROM content.question_options o WHERE o.question_version_id = v.id AND o.is_correct = true) AS "correctOptionCount",
             (SELECT COUNT(*)::int FROM content.question_taxonomy_links l WHERE l.question_version_id = v.id) AS "taxonomyCount"
@@ -80,8 +92,23 @@ router.post(
         if (!String(question.explanation ?? "").trim()) issues.push("Question explanation is required.");
         if (Number(question.optionCount ?? 0) < 2) issues.push("At least two options are required.");
         if (Number(question.correctOptionCount ?? 0) !== 1) issues.push("Exactly one correct option is required.");
+        if (question.generationTestEligible === false) {
+          issues.push("Generation lifecycle has not enabled scored-test eligibility.");
+        }
+        if (question.generationPubliclyPublishable === false) {
+          issues.push("Generation lifecycle has not enabled public publication.");
+        }
         if (issues.length > 0) {
-          throw new QuestionManagementError("QUESTION_NOT_PUBLISHABLE", "Question is not ready to publish", 409, issues);
+          throw new QuestionManagementError(
+            "QUESTION_NOT_PUBLISHABLE",
+            "Question is not ready to publish",
+            409,
+            {
+              issues,
+              questionBankAcceptanceMode: question.questionBankAcceptanceMode ?? null,
+              questionBankAcceptanceAuthority: question.questionBankAcceptanceAuthority ?? null,
+            },
+          );
         }
 
         await tx`
