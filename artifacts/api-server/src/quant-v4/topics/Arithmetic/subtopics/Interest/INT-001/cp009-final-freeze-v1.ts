@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { generateIntCp009Localized, type IntCp009Language } from "./cp009-localization-v1";
+import { generateIntCp009Localized, type IntCp009Language } from "./cp009-localization-v2";
 import { type IntCp009PermanentQlId } from "./cp009-production-runtime-v1";
 
 export const INT_CP009_FINAL_FREEZE_VERSION = "INT-CP-009-MULTILINGUAL-FREEZE-v1" as const;
