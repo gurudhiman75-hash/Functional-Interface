@@ -39,14 +39,30 @@ function compactSentence(value: unknown, max = 190) {
   return `${clipped.slice(0, boundary > max * 0.65 ? boundary : clipped.length).trim()}…`;
 }
 
+function hasRaisedEyeLevel(points: any[], segments: any[]) {
+  const byId = new Map(points.map((point: any) => [String(point?.id ?? ""), point]));
+  const groundLikeRoles = new Set(["OBSERVER_GROUND", "OBJECT_BASE", "GROUND"]);
+  for (const segment of segments.filter((entry: any) => String(entry?.kind ?? "") === "EYE_LEVEL")) {
+    const from = byId.get(String(segment?.fromPointId ?? ""));
+    const to = byId.get(String(segment?.toPointId ?? ""));
+    const eye = String(from?.role ?? "") === "OBSERVER_EYE" ? from : String(to?.role ?? "") === "OBSERVER_EYE" ? to : null;
+    if (!eye) continue;
+    const base = points.find((point: any) =>
+      groundLikeRoles.has(String(point?.role ?? ""))
+      && Math.abs(Number(point?.x) - Number(eye?.x)) < 1e-5
+      && Number(point?.y) > Number(eye?.y) + 1e-5);
+    if (base) return true;
+  }
+  return false;
+}
+
 function geometryTeachingCue(diagram: any, stem: string) {
   const segments = Array.isArray(diagram?.segments) ? diagram.segments : [];
   const points = Array.isArray(diagram?.points) ? diagram.points : [];
   const helperH = points.some((point: any) => /^H\d*$/u.test(String(point?.label ?? "")));
-  const observerEye = points.some((point: any) => String(point?.role ?? "") === "OBSERVER_EYE");
   const support = segments.some((segment: any) => ["LADDER", "WIRE"].includes(String(segment?.semanticKind ?? segment?.kind ?? "")));
   const sightLines = segments.filter((segment: any) => String(segment?.kind) === "SIGHT_LINE").length;
-  const eyeLevel = observerEye && segments.some((segment: any) => String(segment?.kind) === "EYE_LEVEL");
+  const eyeLevel = hasRaisedEyeLevel(points, segments);
   const shadowSegments = segments.filter((segment: any) => String(segment?.kind ?? "").includes("SHADOW")).length;
   const shadowEndpoints = points.filter((point: any) => /shadow/i.test(String(point?.id ?? ""))).length;
   const changedShadow = shadowSegments >= 2 || shadowEndpoints >= 2;
@@ -63,8 +79,8 @@ function geometryTeachingCue(diagram: any, stem: string) {
   }
   if (eyeLevel) {
     return helperH
-      ? "H is the true eye-level intersection made by the dashed horizontal through the observer; use the rise/drop measured from H in the tangent triangle."
-      : "The dashed horizontal through the observer is the eye-level helper; use the rise/drop from that level rather than an unrelated full height.";
+      ? "H is the true raised eye-level intersection made by the dashed horizontal through the observer; use the rise/drop measured from H in the tangent triangle."
+      : "The dashed horizontal through the raised observer is the eye-level helper; use the rise/drop from that level rather than an unrelated full height.";
   }
   if (sightLines >= 2) return "Each blue sight line is a separate observation/state; the solution links those triangles through their shared height, level or ground relation.";
   return "Use the bold vertical and horizontal segments as the perpendicular legs of the working right triangle; the blue line is the line of sight.";
