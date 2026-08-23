@@ -127,6 +127,8 @@ export interface DsfReviewPackage {
   questionBankAcceptanceAuthority: string;
   testReleaseCheckpointId: 'DSF-CP-005';
   testReleaseAuthority: string;
+  mockTestReleaseCheckpointId: 'DSF-CP-006';
+  mockTestReleaseAuthority: string;
   permanentQlIds: ['DSF-QL-001'];
   nextAvailableQlId: 'DSF-QL-002';
   domains: DsfReviewDomainDefinition[];
@@ -151,7 +153,7 @@ export interface DsfReviewPackage {
   questionBankAcceptanceMode: 'FULL_RELEASE';
   testEligibility: 'ELIGIBLE';
   testEligible: true;
-  mockTestEligible: false;
+  mockTestEligible: true;
   publiclyPublishable: true;
   automaticStudentPublication: false;
 }
@@ -175,6 +177,7 @@ export interface DsfReviewStatus {
   generationItemCount: number;
   cp004GenerationItemCount: number;
   cp005GenerationItemCount: number;
+  cp006GenerationItemCount: number;
   approvedItemCount: number;
   questionBankCount: number;
   integrationAuthority: string;
@@ -183,6 +186,8 @@ export interface DsfReviewStatus {
   questionBankAcceptanceAuthority: string;
   testReleaseCheckpointId: 'DSF-CP-005';
   testReleaseAuthority: string;
+  mockTestReleaseCheckpointId: 'DSF-CP-006';
+  mockTestReleaseAuthority: string;
   sourceFreezeAuthority: string;
   supportedLanguages: DsfReviewLanguage[];
   supportedAnswerProfiles: DsfReviewAnswerProfile[];
@@ -200,7 +205,7 @@ export interface DsfReviewStatus {
   questionBankAcceptanceMode: 'FULL_RELEASE';
   testEligibility: 'ELIGIBLE';
   testEligible: true;
-  mockTestEligible: false;
+  mockTestEligible: true;
   publiclyPublishable: true;
   automaticStudentPublication: false;
 }
@@ -222,7 +227,7 @@ function paramsFor(input: DsfReviewInput) {
 export function getDsfReviewPackage() {
   return adminRequest<{
     generationSystem: 'reasoning-v1';
-    activationMode: 'MANUAL_TEST_RELEASE_ENABLED';
+    activationMode: 'MOCK_TEST_RELEASE_ENABLED';
     package: DsfReviewPackage;
     maxBatchSize: number;
     manualReviewRequired: true;
@@ -232,8 +237,10 @@ export function getDsfReviewPackage() {
     questionBankAcceptanceMode: 'FULL_RELEASE';
     testReleaseCheckpointId: 'DSF-CP-005';
     testReleaseAuthority: string;
+    mockTestReleaseCheckpointId: 'DSF-CP-006';
+    mockTestReleaseAuthority: string;
     testEligible: true;
-    mockTestEligible: false;
+    mockTestEligible: true;
     publiclyPublishable: true;
     automaticStudentPublication: false;
   }>('/admin/question-studio/reasoning/data-sufficiency/package', undefined, {
@@ -251,7 +258,7 @@ export function previewDsfReview(input: DsfReviewInput) {
     questionBankAcceptanceEnabled: true;
     questionBankAcceptanceMode: 'FULL_RELEASE';
     testEligible: true;
-    mockTestEligible: false;
+    mockTestEligible: true;
     publiclyPublishable: true;
     automaticStudentPublication: false;
   }>(`/admin/question-studio/reasoning/data-sufficiency/preview?${paramsFor(input).toString()}`, undefined, {
@@ -274,13 +281,15 @@ export function createDsfReviewRun(input: DsfReviewInput) {
     questionBankAcceptanceAuthority: string;
     testReleaseCheckpointId: 'DSF-CP-005';
     testReleaseAuthority: string;
+    mockTestReleaseCheckpointId: 'DSF-CP-006';
+    mockTestReleaseAuthority: string;
     manualReviewRequired: true;
     manualQuestionPublicationRequired: true;
     questionBankWritable: true;
     questionBankAcceptanceMode: 'FULL_RELEASE';
     testEligible: true;
     publiclyPublishable: true;
-    mockTestEligible: false;
+    mockTestEligible: true;
     automaticStudentPublication: false;
   }>('/admin/question-studio/reasoning/data-sufficiency/runs', {
     method: 'POST',

@@ -157,7 +157,7 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
       const result = await createDsfReviewRun(request);
       window.dispatchEvent(new Event(QUESTION_STUDIO_REFRESH_EVENT));
       await refreshStatus();
-      showToast.success('Review run created', `${result.publicCode}: approve items into Question Bank, then publish the Question Bank version before scored-test selection.`);
+      showToast.success('Review run created', `${result.publicCode}: after manual approval, publication and normal test QA, these questions are eligible for scored tests and mocks. Automatic student publication remains off.`);
     } catch (error) {
       showToast.error('Run creation failed', error instanceof Error ? error.message : 'Unable to create review run.');
     } finally { setWorking(null); }
@@ -167,11 +167,11 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
     <Card className="border-primary/20 bg-primary/5">
       <CardHeader className="space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <CardTitle className="flex items-center gap-2 text-base"><BrainCircuit className="h-4 w-4" /> Data Sufficiency · CP-005 manual test release</CardTitle>
+          <CardTitle className="flex items-center gap-2 text-base"><BrainCircuit className="h-4 w-4" /> Data Sufficiency · CP-006 mock-test release</CardTitle>
           <div className="flex flex-wrap gap-2"><Badge variant="outline">DSF-QL-001</Badge><Badge variant="outline">4 domains</Badge><Badge variant="outline">8 solve modes</Badge><Badge variant="outline">Banking + SSC</Badge><Badge variant="outline">English</Badge></div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          CP-001 owns frozen semantic truth, CP-003 owns approved answer-profile rendering, CP-004 owns Question Bank acceptance, and CP-005 permits manual Question Bank publication for scored-test selection. No option-position remapping is allowed.
+          CP-001 owns frozen semantic truth, CP-003 owns approved answer-profile rendering, CP-004 owns Question Bank acceptance, CP-005 enables manual scored-test release, and CP-006 enables mock-test eligibility. No option-position remapping is allowed.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -179,17 +179,17 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
             <Metric label="Permanent QLs" value={status.permanentQlCount} />
             <Metric label="Solve modes" value={status.solveModeCount} />
-            <Metric label="CP-005 items" value={status.cp005GenerationItemCount} />
-            <Metric label="Approved items" value={status.approvedItemCount} />
+            <Metric label="CP-006 items" value={status.cp006GenerationItemCount} />
             <Metric label="In Question Bank" value={status.questionBankCount} />
             <Metric label="Test eligible" value={status.testEligible ? 'Yes' : 'No'} />
+            <Metric label="Mock eligible" value={status.mockTestEligible ? 'Yes' : 'No'} />
           </div>
         )}
 
         <div className="rounded-lg border border-primary/20 bg-background/60 p-3 text-sm">
-          <div className="flex items-center gap-2 font-medium"><ShieldCheck className="h-4 w-4" /> Manual release boundary</div>
+          <div className="flex items-center gap-2 font-medium"><ShieldCheck className="h-4 w-4" /> Mock-test release boundary</div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            New CP-005 items still require manual Question Studio approval. After conversion to Question Bank, the normal exam-version and taxonomy checks plus an explicit Question Bank publish action are required before a scored test can select the version. Mock-test eligibility and automatic student publication remain OFF. Older CP-004 BANK_ONLY items are not upgraded. Punjab-specific rendering remains disabled.
+            New CP-006 items still require manual Question Studio approval and explicit Question Bank publication. They enter mocks only through the canonical published-test and test-series QA/release path. Automatic student publication remains OFF. Older CP-004 BANK_ONLY and CP-005 mock-ineligible payloads are not upgraded. Punjab-specific rendering remains disabled.
           </p>
         </div>
 

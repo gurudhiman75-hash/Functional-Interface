@@ -1,0 +1,79 @@
+name: Validate DSF-CP-006 Mock Test Release
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/**
+      - artifacts/api-server/src/routes/admin-question-studio-data-sufficiency.ts
+      - artifacts/api-server/src/routes/admin-tests.ts
+      - artifacts/api-server/src/lib/admin-question-conversion.ts
+      - artifacts/api-server/src/lib/admin-test-series.ts
+      - artifacts/admin-app/src/features/question-studio/data-sufficiency-review-api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioDataSufficiencyReviewPanel.tsx
+      - .github/workflows/dsf-cp006-mock-test-release.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp006-mock-test-release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dsf-cp006-mock-test-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
+      - name: Bundle DSF CP006 proofs
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/dsf
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-006/mock-test-release-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp006-mock-test-release.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-006/mock-test-release-route-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp006-route-mock.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-005/test-release-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp005-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-005/test-release-route-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp005-route-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-001/cp001-freeze-authority.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp001-freeze-regression.test.mjs
+      - name: Run CP006 mock-test release proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp006-mock-test-release.test.mjs
+      - name: Run CP006 route mock lifecycle proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp006-route-mock.test.mjs
+      - name: Re-prove CP005 test-release compatibility
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp005-regression.test.mjs
+      - name: Re-prove CP005 route compatibility
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp005-route-regression.test.mjs
+      - name: Re-prove CP001 frozen semantics
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp001-freeze-regression.test.mjs
