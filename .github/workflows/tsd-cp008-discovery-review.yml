@@ -1,4 +1,4 @@
-name: Validate TSD CP008 discovery boundary
+name: Validate TSD CP008 source saturation and executable feasibility
 
 on:
   push:
@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  discovery-boundary:
+  source-saturation-and-executable-feasibility:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -34,7 +34,7 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Strict TypeScript check for CP008 discovery package
+      - name: Strict TypeScript check for CP008 package
         working-directory: artifacts/api-server
         run: |
           pnpm exec tsc \
@@ -51,5 +51,9 @@ jobs:
             --skipLibCheck \
             --types node \
             $(find src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008 -name '*.ts' -print)
-      - name: Prove discovery ownership and lifecycle boundary
+      - name: Prove initial discovery ownership snapshot
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/ownership-proof.test.ts
+      - name: Prove source-saturated ownership boundary
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/source-saturation-proof.test.ts
+      - name: Prove executable feasibility and independent verification
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/executable-proof.test.ts
