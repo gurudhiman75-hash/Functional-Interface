@@ -118,6 +118,8 @@ Completion authority:
 
 `SEA002_CP006_AUTHORING_AND_BANK_COMPLETION_V1`
 
+The prior Question Bank conversion/readiness gate is green and pinned. The final hosted activation workflow was submitted on the closure head but remained queued without runner allocation during closure; it is not represented as a green result. The closure decision therefore relies on the completed source-level activation/route preflight, the already-green conversion readiness proof, clean reconciliation with current `New-main`, and explicit project-owner instruction to finish and advance. Any later hosted-run failure must reopen CP006 before downstream test/public activation.
+
 Test/mock/staging/public release are intentionally outside CP006 completion and require separate later lifecycle gates. This allows the chapter-authoring workflow to advance without silently publishing questions to learners.
 
 ## Next checkpoint — SEA-CP-007
