@@ -40,6 +40,8 @@ assert.equal(isSea002Cp006QuestionStudioRequest({ questionLanguageId: "SEA-QL-02
 assert.equal(isSea002Cp006QuestionStudioRequest({ topic: "Reasoning", subtopic: "Seating Arrangement" }), true);
 assert.equal(isSea002Cp006QuestionStudioRequest({ packageId: "NUM-002" }), false);
 
+// The source adapter remains review-only and Bank-inactive. The shared facade below
+// deliberately applies the separately proven manual BANK_ONLY acceptance overlay.
 const localCapability = listSea002Cp006QuestionStudioPackages()[0]!;
 assert.equal(localCapability.packageId, "SEA-002");
 assert.deepEqual(localCapability.cpIds, ["SEA-CP-006"]);
@@ -64,9 +66,16 @@ assert.equal(sharedCapability.enabled, true);
 assert.equal(sharedCapability.permanentQlCount, 4);
 assert.deepEqual(sharedCapability.permanentQlIds, SEA002_CP006_QUESTION_STUDIO_QL_IDS);
 assert.deepEqual(sharedCapability.supportedLanguages, ["en", "hi", "pa"]);
-assert.equal(sharedCapability.questionBankWritable, false);
+assert.equal(sharedCapability.questionBankAcceptanceActive, true);
+assert.equal(sharedCapability.questionBankStatus, "READY_FOR_STORAGE");
+assert.equal(sharedCapability.questionBankWritable, true);
+assert.equal(sharedCapability.questionBankAcceptanceMode, "BANK_ONLY");
+assert.equal(sharedCapability.manualApprovalRequired, true);
 assert.equal(sharedCapability.testEligible, false);
+assert.equal(sharedCapability.mockTestEligible, false);
+assert.equal(sharedCapability.productionStaging, false);
 assert.equal(sharedCapability.publiclyPublishable, false);
+assert.equal(sharedCapability.automaticStudentPublication, false);
 
 const targetScript = {
   hi: /[\u0900-\u097F]/u,
@@ -200,6 +209,20 @@ assert.equal(sharedResult.questions.length, 3);
 assert.ok(sharedResult.questions.every((question: any) => question.packageId === "SEA-002"));
 assert.ok(sharedResult.questions.every((question: any) => question.qlId === "SEA-QL-022"));
 assert.ok(sharedResult.questions.every((question: any) => question.language === "hi"));
+assert.equal(sharedResult.generationContext.questionBankAcceptanceActive, true);
+assert.equal(sharedResult.generationContext.questionBankStatus, "READY_FOR_STORAGE");
+assert.equal(sharedResult.generationContext.questionBankWritable, true);
+assert.equal(sharedResult.generationContext.questionBankAcceptanceMode, "BANK_ONLY");
+assert.equal(sharedResult.generationContext.manualApprovalRequired, true);
+assert.equal(sharedResult.generationContext.testEligible, false);
+assert.equal(sharedResult.generationContext.mockTestEligible, false);
+assert.equal(sharedResult.generationContext.publiclyPublishable, false);
+assert.ok(sharedResult.questions.every((question: any) => question.questionBankAcceptanceActive === true));
+assert.ok(sharedResult.questions.every((question: any) => question.questionBankWritable === true));
+assert.ok(sharedResult.questions.every((question: any) => question.questionBankAcceptanceMode === "BANK_ONLY"));
+assert.ok(sharedResult.questions.every((question: any) => question.testEligible === false));
+assert.ok(sharedResult.questions.every((question: any) => question.mockTestEligible === false));
+assert.ok(sharedResult.questions.every((question: any) => question.publiclyPublishable === false));
 
 console.log("PASS_SEA002_CP006_QUESTION_STUDIO_INTEGRATION_V1");
 console.log("Question Studio generated", generatedCount);
@@ -210,4 +233,4 @@ console.log("runtime variants", [...runtimeVariants].sort().join(","));
 console.log("source lifecycle locks", sourceLifecycleLocks);
 console.log("integration lifecycle locks", integrationLifecycleLocks);
 console.log("English/localized freeze fingerprints", SEA002_CP006_ENGLISH_FREEZE.approvedReviewFingerprint, SEA002_CP006_LOCALIZATION_FREEZE.approvedLocalizedReviewFingerprint);
-console.log("Studio review generation true; Bank/mock/staging/public false");
+console.log("source review adapter Bank-inactive; shared facade BANK_ONLY; test/mock/staging/public false");
