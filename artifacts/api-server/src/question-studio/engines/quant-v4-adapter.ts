@@ -30,7 +30,7 @@ function toSharedPackage(pkg: Record<string, unknown>): QuestionStudioPackageDef
   return {
     engineId: "quant-v4",
     packageId: asString(pkg.packageId),
-    subject: asString(pkg.subject) || "Quantitative Aptitude",
+    subject: asString(pkg.subject) || undefined,
     topic: asString(pkg.topic),
     subtopic: asString(pkg.subtopic),
     label: asString(pkg.label) || asString(pkg.packageId),
