@@ -1,4 +1,5 @@
 import { TSD_CP008_RENDERED_ENGLISH_QUESTIONS } from "./english-rendered-review";
+import { TSD_CP008_QL099_SAME_DIRECTION_GUARDS } from "./localization-final";
 import {
   TSD_CP008_FINAL_RENDERED_HINDI_QUESTIONS,
   TSD_CP008_FINAL_RENDERED_LOCALIZED_QUESTIONS,
@@ -32,10 +33,16 @@ for (const question of TSD_CP008_FINAL_RENDERED_LOCALIZED_QUESTIONS) {
   if (question.locale === "hi-IN") {
     assert(/\p{Script=Devanagari}/u.test(question.stem), `${question.familyId}: Hindi stem lacks Devanagari`);
     assert(!/चाल/.test(question.stem), `${question.familyId}: deprecated चाल appears in rendered Hindi stem`);
-    if (question.qlId === "TSD-QL-099") assert(question.stem.includes("समान दिशा वाली स्थिति में पहली ट्रेन को तेज माना जाए।"), `${question.familyId}: Hindi QL099 uniqueness guard missing`);
+    if (question.qlId === "TSD-QL-099") {
+      const sameDirection = /एक ही दिशा में/.test(question.stem);
+      assert(question.stem.includes(TSD_CP008_QL099_SAME_DIRECTION_GUARDS.hi) === sameDirection, `${question.familyId}: Hindi QL099 guard does not match case direction`);
+    }
   } else {
     assert(/\p{Script=Gurmukhi}/u.test(question.stem), `${question.familyId}: Punjabi stem lacks Gurmukhi`);
-    if (question.qlId === "TSD-QL-099") assert(question.stem.includes("ਇੱਕੋ ਦਿਸ਼ਾ ਵਾਲੀ ਸਥਿਤੀ ਵਿੱਚ ਪਹਿਲੀ ਰੇਲਗੱਡੀ ਨੂੰ ਤੇਜ਼ ਮੰਨਿਆ ਜਾਵੇ।"), `${question.familyId}: Punjabi QL099 uniqueness guard missing`);
+    if (question.qlId === "TSD-QL-099") {
+      const sameDirection = /ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ/.test(question.stem);
+      assert(question.stem.includes(TSD_CP008_QL099_SAME_DIRECTION_GUARDS.pa) === sameDirection, `${question.familyId}: Punjabi QL099 guard does not match case direction`);
+    }
   }
 }
 
@@ -56,7 +63,7 @@ console.log(JSON.stringify({
   hindiQuestions: 54,
   punjabiQuestions: 54,
   numericParity: "IDENTICAL_MULTISET_TO_FROZEN_ENGLISH_CASES",
-  ql099SameDirectionUniquenessGuard: true,
+  ql099CaseConditionalSameDirectionGuard: true,
   unresolvedPlaceholders: 0,
   deprecatedHindiChaalOccurrences: 0,
   ambiguousMaximumOverlapStems: 0,
