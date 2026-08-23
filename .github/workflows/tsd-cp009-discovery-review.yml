@@ -1,4 +1,4 @@
-name: Validate TSD CP009 source saturation and executable gate
+name: Validate TSD CP009 allocation and English review candidate
 
 on:
   push:
@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  source-saturation-and-executable:
+  allocation-and-english-review:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -57,3 +57,18 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/final-ownership-proof.test.ts
       - name: Prove CP009 executable feasibility and independent verification
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/executable-proof.test.ts
+      - name: Prove CP009 permanent QL allocation
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/allocation-proof.test.ts
+      - name: Prove CP009 English authoring and rendered review
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/english-authoring-proof.test.ts
+      - name: Generate one questions-only English review
+        env:
+          TSD_CP009_ENGLISH_REVIEW_OUTPUT_DIR: /tmp/tsd-cp009-english-review
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/english-rendered-review-export.ts
+      - name: Upload CP009 English questions-only review
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp009-english-question-review
+          path: /tmp/tsd-cp009-english-review/TSD-CP009-ENGLISH-QUESTIONS.md
+          if-no-files-found: error
+          retention-days: 14
