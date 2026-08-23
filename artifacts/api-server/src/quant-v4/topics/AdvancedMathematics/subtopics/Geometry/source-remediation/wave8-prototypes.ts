@@ -37,8 +37,8 @@ function generateInteriorSumToSides(seed: string): GapWave8Question {
       stem: "The sum of the interior angles of a polygon is 1260°. How many sides does the polygon have?",
       wrong: [
         { value: 7, misconceptionId: "POLYGON_INTERIOR_SUM_FORGOT_PLUS_TWO", rationale: "Stops at 1260 ÷ 180 = 7 and forgets that the formula gives n − 2, not n." },
-        { value: 8, misconceptionId: "POLYGON_INTERIOR_SUM_ADDED_ONE", rationale: "Finds 1260 ÷ 180 = 7 but adds only 1 instead of the required 2." },
-        { value: 11, misconceptionId: "POLYGON_INTERIOR_SUM_ADDED_FOUR", rationale: "Misremembers (n − 2) × 180° as (n − 4) × 180° and therefore adds 4 to 7." },
+        { value: 8, misconceptionId: "USED_N_MINUS_ONE_TRIANGLE_COUNT", rationale: "Misremembers the interior-angle sum as (n − 1) × 180°, so 1260 ÷ 180 = 7 is treated as n − 1 and gives n = 8." },
+        { value: 5, misconceptionId: "MOVED_MINUS_TWO_WRONG_DIRECTION", rationale: "Correctly reaches n − 2 = 7 but subtracts 2 again, giving n = 7 − 2 = 5 instead of adding 2." },
       ] as const,
       explanation: [
         "For an n-sided polygon, the interior-angle sum is (n − 2) × 180°.",
@@ -52,8 +52,8 @@ function generateInteriorSumToSides(seed: string): GapWave8Question {
       stem: "A polygon has a total interior-angle sum of 1440°. Find its number of sides.",
       wrong: [
         { value: 8, misconceptionId: "POLYGON_INTERIOR_SUM_FORGOT_PLUS_TWO", rationale: "Uses 1440 ÷ 180 = 8 directly as n instead of recognizing that it equals n − 2." },
-        { value: 9, misconceptionId: "POLYGON_INTERIOR_SUM_ADDED_ONE", rationale: "Adds only 1 to the intermediate value 8 instead of adding 2." },
-        { value: 12, misconceptionId: "POLYGON_INTERIOR_SUM_ADDED_FOUR", rationale: "Adds 4 to the intermediate value 8 after using an incorrect n − 4 interior-sum formula." },
+        { value: 9, misconceptionId: "USED_N_MINUS_ONE_TRIANGLE_COUNT", rationale: "Uses the incorrect relation (n − 1) × 180° = 1440°, so n − 1 = 8 and n is reported as 9." },
+        { value: 6, misconceptionId: "MOVED_MINUS_TWO_WRONG_DIRECTION", rationale: "From n − 2 = 8, subtracts 2 from 8 instead of adding 2 to both sides, producing n = 6." },
       ] as const,
       explanation: [
         "Use the polygon interior-sum relation (n − 2) × 180°.",
@@ -67,8 +67,8 @@ function generateInteriorSumToSides(seed: string): GapWave8Question {
       stem: "The interior angles of a polygon add up to 1800°. Determine the number of sides.",
       wrong: [
         { value: 10, misconceptionId: "POLYGON_INTERIOR_SUM_FORGOT_PLUS_TWO", rationale: "Treats 1800 ÷ 180 = 10 as the side count, forgetting that this quotient is n − 2." },
-        { value: 11, misconceptionId: "POLYGON_INTERIOR_SUM_ADDED_ONE", rationale: "Adds 1 rather than 2 to the quotient 10." },
-        { value: 14, misconceptionId: "POLYGON_INTERIOR_SUM_ADDED_FOUR", rationale: "Uses an incorrect n − 4 form and adds 4 to the quotient 10." },
+        { value: 11, misconceptionId: "USED_N_MINUS_ONE_TRIANGLE_COUNT", rationale: "Misuses (n − 1) × 180° as the interior-sum formula, turning the quotient 10 into n = 11." },
+        { value: 8, misconceptionId: "MOVED_MINUS_TWO_WRONG_DIRECTION", rationale: "Solves n − 2 = 10 by subtracting 2 from 10 instead of adding 2, giving n = 8." },
       ] as const,
       explanation: [
         "An n-sided polygon has interior-angle sum (n − 2) × 180°.",
