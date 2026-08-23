@@ -1,5 +1,5 @@
-import { TSD_CP004_FINAL_NEW_AUTHORITY_CANDIDATES } from "../../../TSD-001/cp004/final-ownership-candidate";
-import { TSD_CP005_APPROVED_LEARNER_AUTHORITIES } from "../../../TSD-001/cp005/approved-authority-registry";
+import { TSD_CP004_FINAL_NEW_AUTHORITY_CANDIDATES } from "../../TSD-001/cp004/final-ownership-candidate";
+import { TSD_CP005_APPROVED_LEARNER_AUTHORITIES } from "../../TSD-001/cp005/approved-authority-registry";
 import { TSD_CP008_FINAL_NEW_AUTHORITY_CANDIDATES } from "./final-ownership-candidate";
 import { TSD_CP008_FINAL_COUNTS, TSD_CP008_SOURCE_SATURATION_FINAL, TSD_CP008_SOURCE_SATURATION_POLICY } from "./source-saturation-final";
 
