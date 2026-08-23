@@ -39,6 +39,25 @@ function compactSentence(value: unknown, max = 190) {
   return `${clipped.slice(0, boundary > max * 0.65 ? boundary : clipped.length).trim()}…`;
 }
 
+function collectExplanationStrings(value: unknown, out: string[] = []) {
+  if (typeof value === "string") {
+    const text = value.trim();
+    if (text) out.push(text);
+    return out;
+  }
+  if (Array.isArray(value)) {
+    for (const item of value) collectExplanationStrings(item, out);
+    return out;
+  }
+  if (value && typeof value === "object") {
+    for (const [key, item] of Object.entries(value as Record<string, unknown>)) {
+      if (key === "title") continue;
+      collectExplanationStrings(item, out);
+    }
+  }
+  return out;
+}
+
 function explanationSentences(values: unknown[]) {
   return values.flatMap((value) => String(value ?? "")
     .replace(/\s+/gu, " ")
@@ -97,8 +116,8 @@ function geometryTeachingCue(diagram: any, stem: string) {
 
 function teachingCues(row: any, diagram: any) {
   const explanation = row?.english?.explanation ?? {};
-  const stepBodies = (explanation.steps ?? []).map((step: any) => String(step?.body ?? "").trim()).filter(Boolean);
-  const sentences = explanationSentences(stepBodies);
+  const allStrings = collectExplanationStrings(explanation);
+  const sentences = explanationSentences(allStrings);
   const workedEquation = sentences.find((sentence: string) =>
     /(?:tan|sin|cos|cot|⇒)/iu.test(sentence)
       || (/=/u.test(sentence) && !/^\s*let\b/iu.test(sentence)));
