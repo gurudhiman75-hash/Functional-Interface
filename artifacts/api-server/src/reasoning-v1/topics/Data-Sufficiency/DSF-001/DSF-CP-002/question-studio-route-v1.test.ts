@@ -41,6 +41,7 @@ for (const overlay of [
   "DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY",
   "DSF_CP005_TEST_RELEASE_AUTHORITY",
   "DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY",
+  "DSF_CP008_LOCALIZATION_AUTHORITY",
   "dsfCp004ReviewPayload",
   "dsfCp005ReviewPayload",
   "dsfCp006ReviewPayload",
@@ -63,8 +64,9 @@ for (const apiFunction of ["getDsfReviewPackage", "previewDsfReview", "createDsf
 }
 for (const panelFragment of [
   "QuestionStudioDataSufficiencyReviewPanel", "Answer profile", "Source domain", "Solve mode", "Sufficiency class",
-  "Create review run", "CP-006 mock-test release", "Banking + SSC", "Punjab-specific rendering remains disabled",
+  "Create review run", "CP-006 mock-test release", "Banking + SSC", "Punjab-specific answer-profile rendering remains disabled",
   "canonical published-test and test-series QA/release path", "Automatic student publication remains OFF",
+  "CP-008 Hindi/Punjabi localization review", "Hindi + Punjabi review",
 ] as const) {
   assert(adminPanelSource.includes(panelFragment), `Data Sufficiency panel is missing UI contract: ${panelFragment}`);
 }
@@ -81,6 +83,8 @@ console.log(JSON.stringify({
   laterQuestionBankCheckpointAllowed: "DSF-CP-004",
   laterTestReleaseCheckpointAllowed: "DSF-CP-005",
   laterMockReleaseCheckpointAllowed: "DSF-CP-006",
+  laterLocalizationCheckpointAllowed: "DSF-CP-008",
+  cp008LearnerTextOverlayOnly: true,
   legacyCp004BankOnlyPayloadPreserved: true,
   legacyCp005MockIneligiblePayloadPreserved: true,
   automaticStudentDeliveryLocked: true,
