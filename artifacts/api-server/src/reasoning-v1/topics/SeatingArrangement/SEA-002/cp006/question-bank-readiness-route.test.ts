@@ -21,7 +21,6 @@ for (const marker of [
   "convertApprovedGenerationItem",
   "accepted_question_id",
   "ITEM_ALREADY_CONVERTED",
-  "content.question.created_from_generation",
 ]) {
   assert.ok(bulkRoute.includes(marker), `Question Studio approval route missing Bank conversion marker: ${marker}`);
 }
@@ -45,6 +44,7 @@ for (const marker of [
   "automaticStudentPublication",
   "accepted_question_version_id",
   "Accepted into Question Bank with downstream lifecycle locked",
+  "content.question.created_from_generation",
 ]) {
   assert.ok(conversion.includes(marker), `Question Bank converter missing lifecycle marker: ${marker}`);
 }
