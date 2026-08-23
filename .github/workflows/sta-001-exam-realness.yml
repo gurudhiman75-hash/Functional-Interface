@@ -71,10 +71,13 @@ jobs:
       - name: Replay immutable QL004 V3 technical review lock
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-review-lock-proof.test.ts
 
-      - name: Prove source-backed 2/3/4-assumption and 4/5-option exam-format matrix
+      - name: Prove source-audited 2/3/4-assumption and 4/5-option exam-format matrix
         env:
           STA_EXAM_FORMAT_CASES_PER_PROFILE_LOCALE: 512
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-extension-proof.test.ts
+
+      - name: Prove exam-format provenance and prevent source overclaims
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-provenance-proof.test.ts
 
       - name: Prove per-profile anti-gaming answer-set saturation
         env:
