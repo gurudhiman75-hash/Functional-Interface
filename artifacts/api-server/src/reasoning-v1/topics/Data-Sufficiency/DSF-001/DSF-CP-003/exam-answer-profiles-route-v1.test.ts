@@ -12,6 +12,7 @@ const adminPanelSource = readFileSync(resolve(process.cwd(), "../admin-app/src/p
 const sourceRegistry = readFileSync(resolve(process.cwd(), "src/reasoning-v1/topics/Data-Sufficiency/DSF-001/discovery/source-pattern-registry.ts"), "utf8");
 const cp001Freeze = readFileSync(resolve(process.cwd(), "src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-001/cp001-freeze-authority.ts"), "utf8");
 const cp002Runtime = readFileSync(resolve(process.cwd(), "src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-002/question-studio-integration-v1.ts"), "utf8");
+const cp008Runtime = readFileSync(resolve(process.cwd(), "src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-008/localization-review-v1.ts"), "utf8");
 
 for (const profileId of [
   "GENERIC_DS_STANDARD_5_EN", "BANKING_STANDARD_5_EN", "BANKING_BOB_2015_5_EN",
@@ -42,8 +43,12 @@ for (const fragment of [
 ] as const) assert(routeSource.includes(fragment), `DSF route lost CP003/later contract: ${fragment}`);
 
 for (const panelFragment of [
-  "Answer profile", "Banking + SSC", "All representable classes", "Punjab-specific rendering remains disabled", "No option-position remapping is allowed",
-] as const) assert(adminPanelSource.includes(panelFragment), `Admin panel missing CP003 contract: ${panelFragment}`);
+  "Answer profile",
+  "Banking + SSC",
+  "All representable classes",
+  "Punjab-specific answer-profile rendering remains disabled",
+  "canonical semantics, correct option position and profile order cannot change",
+] as const) assert(adminPanelSource.includes(panelFragment), `Admin panel missing CP003 semantic contract: ${panelFragment}`);
 
 for (const sourceLock of ["questionBankWritable: false", "testEligible: false", "mockTestEligible: false", "publiclyPublishable: false"] as const) {
   assert(runtimeSource.includes(sourceLock), `CP003 runtime lost downstream lock ${sourceLock}`);
@@ -54,6 +59,14 @@ assert(routeSource.includes('testEligible: true'), "Later scored-test overlay mi
 assert(routeSource.includes('publiclyPublishable: true'), "Later manual publication overlay missing");
 assert(routeSource.includes('mockTestEligible: true'), "CP006 mock-test overlay missing");
 assert(routeSource.includes('automaticStudentPublication: false'), "Automatic student publication must remain disabled");
+
+// CP-008 is a later learner-text overlay only. It may widen Question Studio languages,
+// but it must explicitly preserve the CP-003 semantic profile/order/correct-index contract.
+assert(cp008Runtime.includes('localizationDoesNotMutateProfileSemanticOrder: true'), "CP008 did not preserve CP003 profile semantic order");
+assert(cp008Runtime.includes('optionSemanticOrderPreserved: true'), "CP008 localized questions lost option-order parity proof");
+assert(cp008Runtime.includes('correctIndexPreserved: true'), "CP008 localized questions lost correct-index parity proof");
+assert(cp008Runtime.includes('canonicalAnswerPreserved: true'), "CP008 localized questions lost canonical-answer parity proof");
+assert(cp008Runtime.includes('questionBankWritable: false'), "CP008 localized review must not inherit downstream approval");
 
 assert(cp001Freeze.includes('status: "FROZEN"'), "CP001 semantic authority is no longer frozen");
 assert(cp001Freeze.includes('questionStudioDiscoverable: false'), "CP001 delivery lock was reopened");
@@ -75,6 +88,8 @@ console.log(JSON.stringify({
   laterQuestionBankCheckpoint: "DSF-CP-004",
   laterTestReleaseCheckpoint: "DSF-CP-005",
   laterMockReleaseCheckpoint: "DSF-CP-006",
+  laterLocalizationCheckpoint: "DSF-CP-008",
+  cp008LearnerTextOverlayOnly: true,
   legacyCp004BankOnlyPayloadPreserved: true,
   legacyCp005MockIneligiblePayloadPreserved: true,
   automaticStudentDeliveryLocked: true,

@@ -7,18 +7,15 @@ import { authenticate } from "../middlewares/auth";
 import {
   DSF_CP002_DIFFICULTIES,
   DSF_CP002_DOMAINS,
-  DSF_CP002_LANGUAGES,
   DSF_CP002_QUESTION_STUDIO_AUTHORITY,
   type DsfStudioDifficulty,
   type DsfStudioDomainId,
-  type DsfStudioLanguage,
   type DsfStudioSolveMode,
 } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-002/question-studio-integration-v1";
 import {
   DSF_CP003_EXAM_PROFILE_AUTHORITY,
   generateDsfExamProfileBatch,
   type DsfExamAnswerProfileId,
-  type DsfExamProfileInput,
   type DsfExamProfileQuestion,
 } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-003/exam-answer-profiles-v1";
 import {
@@ -35,6 +32,15 @@ import {
   DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY,
   DSF_CP006_QUESTION_STUDIO_PACKAGE,
 } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-006/mock-test-release-v1";
+import {
+  DSF_CP008_CHECKPOINT_ID,
+  DSF_CP008_LOCALIZATION_AUTHORITY,
+  DSF_CP008_LOCALIZATION_REVIEW_PACKAGE,
+  DSF_CP008_SUPPORTED_LANGUAGES,
+  generateDsfLocalizedExamProfileBatch,
+  type DsfLocalizedExamProfileQuestion,
+  type DsfLocalizedLanguage,
+} from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-008/localization-review-v1";
 import { SUFFICIENCY_CLASSES, type SufficiencyClass } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/foundation";
 
 const router = Router();
@@ -42,8 +48,19 @@ const DOMAIN_IDS = new Set<string>(DSF_CP002_DOMAINS.map((domain) => domain.id))
 const SOLVE_MODES = new Set<string>(DSF_CP002_DOMAINS.flatMap((domain) => [...domain.solveModes]));
 const DIFFICULTIES = new Set<string>(DSF_CP002_DIFFICULTIES);
 const SEMANTIC_CLASSES = new Set<string>(SUFFICIENCY_CLASSES);
-const LANGUAGES = new Set<string>(DSF_CP002_LANGUAGES);
+const LANGUAGES = new Set<string>(DSF_CP008_SUPPORTED_LANGUAGES);
 const ANSWER_PROFILES = new Set<string>(DSF_CP004_QUESTION_BANK_PROFILE_IDS);
+
+type DsfRequestLanguage = "en" | DsfLocalizedLanguage;
+type DsfRequestFilters = {
+  readonly language: DsfRequestLanguage;
+  readonly answerProfile: DsfExamAnswerProfileId;
+  readonly domain?: DsfStudioDomainId;
+  readonly solveMode?: DsfStudioSolveMode;
+  readonly semanticClass?: SufficiencyClass;
+  readonly difficulty?: DsfStudioDifficulty;
+};
+type DsfReviewQuestion = DsfExamProfileQuestion | DsfLocalizedExamProfileQuestion;
 
 function asString(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
@@ -59,7 +76,7 @@ function publicRunCode(): string {
   return `DSF-${date}-${randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase()}`;
 }
 
-function requestFilters(source: Record<string, unknown>): DsfExamProfileInput {
+function requestFilters(source: Record<string, unknown>): DsfRequestFilters {
   const language = asString(source.language) || "en";
   const answerProfile = asString(source.answerProfile) || "GENERIC_DS_STANDARD_5_EN";
   const domain = asString(source.domain);
@@ -80,13 +97,32 @@ function requestFilters(source: Record<string, unknown>): DsfExamProfileInput {
   }
 
   return {
-    language: language as DsfStudioLanguage,
+    language: language as DsfRequestLanguage,
     answerProfile: answerProfile as DsfExamAnswerProfileId,
     domain: domain ? domain as DsfStudioDomainId : undefined,
     solveMode: solveMode ? solveMode as DsfStudioSolveMode : undefined,
     semanticClass: semanticClass ? semanticClass as SufficiencyClass : undefined,
     difficulty: difficulty ? difficulty as DsfStudioDifficulty : undefined,
   };
+}
+
+function isLocalizedQuestion(question: DsfReviewQuestion): question is DsfLocalizedExamProfileQuestion {
+  return "localizationAuthority" in question;
+}
+
+function generateReviewBatch(filters: DsfRequestFilters, seed: string, count: number) {
+  const shared = {
+    seed,
+    count,
+    answerProfile: filters.answerProfile,
+    domain: filters.domain,
+    solveMode: filters.solveMode,
+    semanticClass: filters.semanticClass,
+    difficulty: filters.difficulty,
+  };
+  return filters.language === "en"
+    ? generateDsfExamProfileBatch({ ...shared, language: "en" })
+    : generateDsfLocalizedExamProfileBatch({ ...shared, language: filters.language });
 }
 
 export function dsfCp004ReviewPayload(question: DsfExamProfileQuestion) {
@@ -237,8 +273,112 @@ export function dsfCp006ReviewPayload(question: DsfExamProfileQuestion) {
   };
 }
 
+export function dsfCp008LocalizedReviewPayload(question: DsfLocalizedExamProfileQuestion) {
+  const correctOption = question.options[question.correctIndex]!;
+  return {
+    text: `${question.stem}\nI. ${question.statements[0].text}\nII. ${question.statements[1].text}`,
+    stem: question.stem,
+    questionPrompt: question.questionPrompt,
+    statements: question.statements,
+    options: question.options.map((option) => option.value),
+    optionDetails: question.options.map((option) => ({
+      label: option.key,
+      text: option.value,
+      isCorrect: option.isCorrect,
+      semanticClass: option.semanticClass,
+    })),
+    correct: question.correctIndex,
+    correctIndex: question.correctIndex,
+    answer: correctOption.value,
+    canonicalAnswer: question.canonicalAnswer,
+    explanation: question.explanation.steps.join("\n"),
+    richExplanation: question.explanation,
+    difficulty: question.difficulty,
+    difficultyLabel: question.difficulty,
+    qlId: question.qlId,
+    packageId: question.packageId,
+    sourceCheckpointId: question.sourceCheckpointId,
+    integrationCheckpointId: question.integrationCheckpointId,
+    profileCheckpointId: question.profileCheckpointId,
+    localizationCheckpointId: question.localizationCheckpointId,
+    localizationAuthority: question.localizationAuthority,
+    localization: question.localization,
+    canonicalEnglishProfileQuestionId: question.canonicalEnglishProfileQuestionId,
+    questionId: question.questionId,
+    sourceQuestionId: question.sourceQuestionId,
+    sourceGenerationIdentity: question.sourceGenerationIdentity,
+    sourceChapterId: question.sourceChapterId,
+    solveMode: question.solveModeId,
+    targetKind: question.targetKind,
+    domain: question.domain,
+    domainLabel: question.domainLabel,
+    topic: "Data Sufficiency",
+    subtopic: question.domainLabel,
+    subject: "Reasoning",
+    language: question.language,
+    locale: question.locale,
+    seed: question.seed,
+    answerProfile: question.answerProfile,
+    examFamily: question.examFamily,
+    profileEvidenceLevel: question.profileEvidenceLevel,
+    profileSourcePatternIds: question.profileSourcePatternIds,
+    profileRepresentedSemanticClasses: question.profileRepresentedSemanticClasses,
+    profileOmittedSemanticClasses: question.profileOmittedSemanticClasses,
+    renderer: "TEXT_MATH" as const,
+    questionStudioRegistrationStatus: "REGISTERED" as const,
+    questionStudioStagingStatus: "LOCALIZATION_REVIEW_QUEUE" as const,
+    reviewOnly: true as const,
+    humanLanguageReviewRequired: true as const,
+    questionBankStatus: "NOT_STORED" as const,
+    questionBankWritable: false as const,
+    testEligibility: "INELIGIBLE" as const,
+    testEligible: false as const,
+    publiclyPublishable: false as const,
+    mockTestEligible: false as const,
+    manualApprovalRequired: true as const,
+    automaticStudentPublication: false as const,
+    integrationAuthority: question.integrationAuthority,
+    deliveryProfileAuthority: question.deliveryProfileAuthority,
+    sourceFreezeAuthority: question.sourceFreezeAuthority,
+    sourceValidation: question.validation,
+    generationContext: {
+      generationDomain: "reasoning-v1" as const,
+      chapter: "Data Sufficiency" as const,
+      packageId: question.packageId,
+      qlId: question.qlId,
+      sourceChapterId: question.sourceChapterId,
+      domain: question.domain,
+      solveMode: question.solveModeId,
+      semanticClass: question.canonicalAnswer,
+      difficulty: question.difficulty,
+      language: question.language,
+      locale: question.locale,
+      answerProfile: question.answerProfile,
+      examFamily: question.examFamily,
+      integrationAuthority: question.integrationAuthority,
+      deliveryProfileAuthority: question.deliveryProfileAuthority,
+      localizationCheckpointId: question.localizationCheckpointId,
+      localizationAuthority: question.localizationAuthority,
+      canonicalEnglishProfileQuestionId: question.canonicalEnglishProfileQuestionId,
+      sourceFreezeAuthority: question.sourceFreezeAuthority,
+      questionStudioDiscoverable: true as const,
+      persistenceAllowed: true as const,
+      reviewOnly: true as const,
+      humanLanguageReviewRequired: true as const,
+      manualApprovalRequired: true as const,
+      questionBankStatus: "NOT_STORED" as const,
+      questionBankWritable: false as const,
+      testEligibility: "INELIGIBLE" as const,
+      testEligible: false as const,
+      mockTestEligible: false as const,
+      publiclyPublishable: false as const,
+      automaticStudentPublication: false as const,
+    },
+  };
+}
+
 async function persistRun(
-  questions: readonly DsfExamProfileQuestion[],
+  questions: readonly DsfReviewQuestion[],
   requestSnapshot: Record<string, unknown>,
   actorUserId: string,
 ) {
@@ -246,6 +386,7 @@ async function persistRun(
   const runId = randomUUID();
   const publicCode = publicRunCode();
   const timestamp = new Date().toISOString();
+  const localized = isLocalizedQuestion(questions[0]!);
 
   await sqlClient.begin(async (tx) => {
     await tx`
@@ -256,16 +397,21 @@ async function persistRun(
       ) VALUES (
         ${runId}::uuid, ${publicCode}, 'review'::generation_run_status, 1,
         ${JSON.stringify(requestSnapshot)}::jsonb, ${JSON.stringify(requestSnapshot)}::jsonb,
-        'examtree', 'reasoning-v1-dsf-cp006-mock-test-release-v1', 0, 0, 0, 0,
-        ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
+        'examtree', ${localized ? "reasoning-v1-dsf-cp008-localization-review-v1" : "reasoning-v1-dsf-cp006-mock-test-release-v1"},
+        0, 0, 0, 0, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
       )
     `;
 
     for (let index = 0; index < questions.length; index += 1) {
       const question = questions[index]!;
+      if (isLocalizedQuestion(question) !== localized) {
+        throw new Error("DSF review run cannot mix English production and localized review payloads.");
+      }
       const itemId = randomUUID();
       const versionId = randomUUID();
-      const payload = dsfCp006ReviewPayload(question);
+      const payload = isLocalizedQuestion(question)
+        ? dsfCp008LocalizedReviewPayload(question)
+        : dsfCp006ReviewPayload(question);
       await tx`
         INSERT INTO content.generation_run_items (
           id, generation_run_id, item_number, status, current_version_number, created_at, updated_at
@@ -283,28 +429,44 @@ async function persistRun(
       `;
     }
 
+    const auditReason = localized
+      ? "DSF-CP-008 Hindi/Punjabi items are executable localization review candidates; Question Bank, tests, mocks and public publication remain blocked until explicit human language approval"
+      : "DSF-CP-006 items require manual approval, manual Question Bank publication and normal test QA; mock-test eligibility is enabled while automatic student publication remains locked";
+    const auditSummary = localized
+      ? `Created ${questions.length} Data Sufficiency localized review items in ${publicCode}`
+      : `Created ${questions.length} Data Sufficiency mock-eligible review items in ${publicCode}`;
+
     await tx`
       INSERT INTO platform.audit_events (
         id, actor_type, actor_user_id, action_key, entity_type, entity_id, reason, summary, metadata
       ) VALUES (
         ${randomUUID()}::uuid, 'user'::audit_actor_type, ${actorUserId}::uuid,
         'question_studio.data_sufficiency_run.created', 'generation_run', ${runId}::uuid,
-        'DSF-CP-006 items require manual approval, manual Question Bank publication and normal test QA; mock-test eligibility is enabled while automatic student publication remains locked',
-        ${`Created ${questions.length} Data Sufficiency mock-eligible review items in ${publicCode}`},
+        ${auditReason}, ${auditSummary},
         ${JSON.stringify({
           requestSnapshot,
           integrationAuthority: DSF_CP002_QUESTION_STUDIO_AUTHORITY,
           deliveryProfileAuthority: DSF_CP003_EXAM_PROFILE_AUTHORITY,
-          questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
-          testReleaseAuthority: DSF_CP005_TEST_RELEASE_AUTHORITY,
-          mockTestReleaseAuthority: DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY,
+          ...(localized ? {
+            localizationCheckpointId: DSF_CP008_CHECKPOINT_ID,
+            localizationAuthority: DSF_CP008_LOCALIZATION_AUTHORITY,
+            humanLanguageReviewRequired: true,
+            questionBankWritable: false,
+            testEligible: false,
+            publiclyPublishable: false,
+            mockTestEligible: false,
+          } : {
+            questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
+            testReleaseAuthority: DSF_CP005_TEST_RELEASE_AUTHORITY,
+            mockTestReleaseAuthority: DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY,
+            questionBankWritable: true,
+            questionBankAcceptanceMode: "FULL_RELEASE",
+            testEligible: true,
+            publiclyPublishable: true,
+            mockTestEligible: true,
+          }),
           sourceFreezeAuthority: DSF_CP006_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
           permanentQlIds: DSF_CP006_QUESTION_STUDIO_PACKAGE.permanentQlIds,
-          questionBankWritable: true,
-          questionBankAcceptanceMode: "FULL_RELEASE",
-          testEligible: true,
-          publiclyPublishable: true,
-          mockTestEligible: true,
           automaticStudentPublication: false,
         })}::jsonb
       )
@@ -314,13 +476,41 @@ async function persistRun(
   return { id: runId, publicCode, status: "review" as const, itemCount: questions.length };
 }
 
+function lifecycleForLanguage(language: DsfRequestLanguage) {
+  if (language === "en") {
+    return {
+      humanLanguageReviewRequired: false as const,
+      questionBankAcceptanceEnabled: true as const,
+      questionBankWritable: true as const,
+      questionBankAcceptanceMode: "FULL_RELEASE" as const,
+      testEligibility: "ELIGIBLE" as const,
+      testEligible: true as const,
+      publiclyPublishable: true as const,
+      mockTestEligible: true as const,
+      automaticStudentPublication: false as const,
+    };
+  }
+  return {
+    humanLanguageReviewRequired: true as const,
+    questionBankAcceptanceEnabled: false as const,
+    questionBankWritable: false as const,
+    questionBankAcceptanceMode: "LOCALIZATION_REVIEW_ONLY" as const,
+    testEligibility: "INELIGIBLE" as const,
+    testEligible: false as const,
+    publiclyPublishable: false as const,
+    mockTestEligible: false as const,
+    automaticStudentPublication: false as const,
+  };
+}
+
 router.use(authenticate);
 
 router.get("/reasoning/data-sufficiency/package", requireAdminPermission("content.generation.read"), (_req, res) => {
   res.json({
     generationSystem: "reasoning-v1",
     activationMode: "MOCK_TEST_RELEASE_ENABLED",
-    package: DSF_CP006_QUESTION_STUDIO_PACKAGE,
+    localizationReviewMode: "HI_PA_EXECUTABLE_REVIEW",
+    package: DSF_CP008_LOCALIZATION_REVIEW_PACKAGE,
     maxBatchSize: 50,
     databaseWriteEnabled: true,
     persistenceAllowed: true,
@@ -335,6 +525,13 @@ router.get("/reasoning/data-sufficiency/package", requireAdminPermission("conten
     testReleaseAuthority: DSF_CP005_TEST_RELEASE_AUTHORITY,
     mockTestReleaseCheckpointId: DSF_CP006_CHECKPOINT_ID,
     mockTestReleaseAuthority: DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY,
+    localizationCheckpointId: DSF_CP008_CHECKPOINT_ID,
+    localizationAuthority: DSF_CP008_LOCALIZATION_AUTHORITY,
+    localizedHumanReviewRequired: true,
+    localizedQuestionBankWritable: false,
+    localizedTestEligible: false,
+    localizedMockTestEligible: false,
+    localizedPubliclyPublishable: false,
     testEligible: true,
     mockTestEligible: true,
     publiclyPublishable: true,
@@ -345,22 +542,20 @@ router.get("/reasoning/data-sufficiency/package", requireAdminPermission("conten
 router.get("/reasoning/data-sufficiency/preview", requireAdminPermission("content.generation.read"), (req, res) => {
   try {
     const filters = requestFilters(req.query as Record<string, unknown>);
-    const result = generateDsfExamProfileBatch({
-      ...filters,
-      seed: asString(req.query.seed) || "dsf-question-studio-preview",
-      count: asCount(req.query.count, 1, 20),
-    });
+    const result = generateReviewBatch(
+      filters,
+      asString(req.query.seed) || "dsf-question-studio-preview",
+      asCount(req.query.count, 1, 20),
+    );
+    const lifecycle = lifecycleForLanguage(filters.language);
     res.json({
       ...result,
       productionEligible: false,
       manualReviewRequired: true,
-      manualQuestionPublicationRequired: true,
-      questionBankAcceptanceEnabled: true,
-      questionBankAcceptanceMode: "FULL_RELEASE",
-      testEligible: true,
-      mockTestEligible: true,
-      publiclyPublishable: true,
-      automaticStudentPublication: false,
+      manualQuestionPublicationRequired: filters.language === "en",
+      localizationCheckpointId: filters.language === "en" ? undefined : DSF_CP008_CHECKPOINT_ID,
+      localizationAuthority: filters.language === "en" ? undefined : DSF_CP008_LOCALIZATION_AUTHORITY,
+      ...lifecycle,
     });
   } catch (error) {
     res.status(400).json({ error: error instanceof Error ? error.message : "Unable to preview Data Sufficiency questions." });
@@ -378,37 +573,39 @@ router.post("/reasoning/data-sufficiency/runs", requireAdminPermission("content.
     const filters = requestFilters((req.body ?? {}) as Record<string, unknown>);
     const count = asCount(req.body?.count, 5, 50);
     const seed = asString(req.body?.seed) || `dsf-run:${Date.now()}`;
-    const result = generateDsfExamProfileBatch({ ...filters, seed, count });
+    const result = generateReviewBatch(filters, seed, count);
+    const lifecycle = lifecycleForLanguage(filters.language);
     const persisted = await persistRun(result.questions, {
       chapter: "Data Sufficiency",
       domain: filters.domain ?? null,
       solveMode: filters.solveMode ?? null,
       semanticClass: filters.semanticClass ?? null,
       difficulty: filters.difficulty ?? null,
-      language: filters.language ?? "en",
-      answerProfile: filters.answerProfile ?? "GENERIC_DS_STANDARD_5_EN",
+      language: filters.language,
+      answerProfile: filters.answerProfile,
       count,
       seed,
       integrationAuthority: DSF_CP002_QUESTION_STUDIO_AUTHORITY,
       deliveryProfileAuthority: DSF_CP003_EXAM_PROFILE_AUTHORITY,
-      questionBankAcceptanceCheckpointId: DSF_CP004_CHECKPOINT_ID,
-      questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
-      testReleaseCheckpointId: DSF_CP005_CHECKPOINT_ID,
-      testReleaseAuthority: DSF_CP005_TEST_RELEASE_AUTHORITY,
-      mockTestReleaseCheckpointId: DSF_CP006_CHECKPOINT_ID,
-      mockTestReleaseAuthority: DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY,
+      ...(filters.language === "en" ? {
+        questionBankAcceptanceCheckpointId: DSF_CP004_CHECKPOINT_ID,
+        questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
+        testReleaseCheckpointId: DSF_CP005_CHECKPOINT_ID,
+        testReleaseAuthority: DSF_CP005_TEST_RELEASE_AUTHORITY,
+        mockTestReleaseCheckpointId: DSF_CP006_CHECKPOINT_ID,
+        mockTestReleaseAuthority: DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY,
+      } : {
+        localizationCheckpointId: DSF_CP008_CHECKPOINT_ID,
+        localizationAuthority: DSF_CP008_LOCALIZATION_AUTHORITY,
+        humanLanguageReviewRequired: true,
+      }),
       sourceFreezeAuthority: DSF_CP006_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
       questionStudioDiscoverable: true,
       persistenceAllowed: true,
       manualApprovalRequired: true,
-      manualQuestionPublicationRequired: true,
-      questionBankStatus: "READY_FOR_STORAGE",
-      questionBankWritable: true,
-      questionBankAcceptanceMode: "FULL_RELEASE",
-      testEligible: true,
-      publiclyPublishable: true,
-      mockTestEligible: true,
-      automaticStudentPublication: false,
+      manualQuestionPublicationRequired: filters.language === "en",
+      questionBankStatus: filters.language === "en" ? "READY_FOR_STORAGE" : "NOT_STORED",
+      ...lifecycle,
       requestedByFirebaseUid: req.user?.id,
     }, actorUserId);
 
@@ -416,23 +613,23 @@ router.post("/reasoning/data-sufficiency/runs", requireAdminPermission("content.
       ...persisted,
       generationSystem: "reasoning-v1",
       chapter: "Data Sufficiency",
-      language: filters.language ?? "en",
-      answerProfile: filters.answerProfile ?? "GENERIC_DS_STANDARD_5_EN",
+      language: filters.language,
+      answerProfile: filters.answerProfile,
       deliveryProfileAuthority: DSF_CP003_EXAM_PROFILE_AUTHORITY,
-      questionBankAcceptanceCheckpointId: DSF_CP004_CHECKPOINT_ID,
-      questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
-      testReleaseCheckpointId: DSF_CP005_CHECKPOINT_ID,
-      testReleaseAuthority: DSF_CP005_TEST_RELEASE_AUTHORITY,
-      mockTestReleaseCheckpointId: DSF_CP006_CHECKPOINT_ID,
-      mockTestReleaseAuthority: DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY,
+      ...(filters.language === "en" ? {
+        questionBankAcceptanceCheckpointId: DSF_CP004_CHECKPOINT_ID,
+        questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
+        testReleaseCheckpointId: DSF_CP005_CHECKPOINT_ID,
+        testReleaseAuthority: DSF_CP005_TEST_RELEASE_AUTHORITY,
+        mockTestReleaseCheckpointId: DSF_CP006_CHECKPOINT_ID,
+        mockTestReleaseAuthority: DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY,
+      } : {
+        localizationCheckpointId: DSF_CP008_CHECKPOINT_ID,
+        localizationAuthority: DSF_CP008_LOCALIZATION_AUTHORITY,
+      }),
       manualReviewRequired: true,
-      manualQuestionPublicationRequired: true,
-      questionBankWritable: true,
-      questionBankAcceptanceMode: "FULL_RELEASE",
-      testEligible: true,
-      publiclyPublishable: true,
-      mockTestEligible: true,
-      automaticStudentPublication: false,
+      manualQuestionPublicationRequired: filters.language === "en",
+      ...lifecycle,
     });
   } catch (error) {
     console.error("Data Sufficiency Question Studio run failed", error);
@@ -449,7 +646,10 @@ router.get("/reasoning/data-sufficiency/status", requireAdminPermission("content
         count(*) FILTER (WHERE i.accepted_question_id IS NOT NULL)::int AS "questionBankCount",
         count(*) FILTER (WHERE v.payload ->> 'questionBankAcceptanceAuthority' = ${DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY})::int AS "cp004GenerationItemCount",
         count(*) FILTER (WHERE v.payload ->> 'testReleaseAuthority' = ${DSF_CP005_TEST_RELEASE_AUTHORITY})::int AS "cp005GenerationItemCount",
-        count(*) FILTER (WHERE v.payload ->> 'mockTestReleaseAuthority' = ${DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY})::int AS "cp006GenerationItemCount"
+        count(*) FILTER (WHERE v.payload ->> 'mockTestReleaseAuthority' = ${DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY})::int AS "cp006GenerationItemCount",
+        count(*) FILTER (WHERE v.payload ->> 'localizationAuthority' = ${DSF_CP008_LOCALIZATION_AUTHORITY})::int AS "cp008GenerationItemCount",
+        count(*) FILTER (WHERE v.payload ->> 'localizationAuthority' = ${DSF_CP008_LOCALIZATION_AUTHORITY} AND v.payload ->> 'language' = 'hi')::int AS "hindiReviewItemCount",
+        count(*) FILTER (WHERE v.payload ->> 'localizationAuthority' = ${DSF_CP008_LOCALIZATION_AUTHORITY} AND v.payload ->> 'language' = 'pa')::int AS "punjabiReviewItemCount"
       FROM content.generation_run_items i
       INNER JOIN content.generation_item_versions v
         ON v.generation_item_id = i.id AND v.version_number = i.current_version_number
@@ -458,13 +658,16 @@ router.get("/reasoning/data-sufficiency/status", requireAdminPermission("content
 
     res.json({
       chapter: "Data Sufficiency",
-      permanentQlCount: DSF_CP006_QUESTION_STUDIO_PACKAGE.permanentQlIds.length,
-      domainCount: DSF_CP006_QUESTION_STUDIO_PACKAGE.domains.length,
-      solveModeCount: DSF_CP006_QUESTION_STUDIO_PACKAGE.solveModeCount,
+      permanentQlCount: DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.permanentQlIds.length,
+      domainCount: DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.domains.length,
+      solveModeCount: DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.solveModeCount,
       generationItemCount: Number(rows[0]?.generationItemCount ?? 0),
       cp004GenerationItemCount: Number(rows[0]?.cp004GenerationItemCount ?? 0),
       cp005GenerationItemCount: Number(rows[0]?.cp005GenerationItemCount ?? 0),
       cp006GenerationItemCount: Number(rows[0]?.cp006GenerationItemCount ?? 0),
+      cp008GenerationItemCount: Number(rows[0]?.cp008GenerationItemCount ?? 0),
+      hindiReviewItemCount: Number(rows[0]?.hindiReviewItemCount ?? 0),
+      punjabiReviewItemCount: Number(rows[0]?.punjabiReviewItemCount ?? 0),
       approvedItemCount: Number(rows[0]?.approvedItemCount ?? 0),
       questionBankCount: Number(rows[0]?.questionBankCount ?? 0),
       integrationAuthority: DSF_CP002_QUESTION_STUDIO_AUTHORITY,
@@ -475,12 +678,19 @@ router.get("/reasoning/data-sufficiency/status", requireAdminPermission("content
       testReleaseAuthority: DSF_CP005_TEST_RELEASE_AUTHORITY,
       mockTestReleaseCheckpointId: DSF_CP006_CHECKPOINT_ID,
       mockTestReleaseAuthority: DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY,
-      sourceFreezeAuthority: DSF_CP006_QUESTION_STUDIO_PACKAGE.sourceFreezeAuthority,
-      supportedLanguages: DSF_CP006_QUESTION_STUDIO_PACKAGE.supportedLanguages,
-      supportedAnswerProfiles: DSF_CP006_QUESTION_STUDIO_PACKAGE.supportedAnswerProfiles,
-      answerProfiles: DSF_CP006_QUESTION_STUDIO_PACKAGE.answerProfiles,
-      supportedExamFamilies: DSF_CP006_QUESTION_STUDIO_PACKAGE.supportedExamFamilies,
-      disabledExamFamilies: DSF_CP006_QUESTION_STUDIO_PACKAGE.disabledExamFamilies,
+      localizationCheckpointId: DSF_CP008_CHECKPOINT_ID,
+      localizationAuthority: DSF_CP008_LOCALIZATION_AUTHORITY,
+      localizationStatus: DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.localizationStatus,
+      localizedHumanReviewRequired: true,
+      sourceFreezeAuthority: DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.sourceFreezeAuthority,
+      supportedLanguages: DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.supportedLanguages,
+      productionLanguages: DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.productionLanguages,
+      localizationReviewLanguages: DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.localizationReviewLanguages,
+      perLanguageLifecycle: DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.perLanguageLifecycle,
+      supportedAnswerProfiles: DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.supportedAnswerProfiles,
+      answerProfiles: DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.answerProfiles,
+      supportedExamFamilies: DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.supportedExamFamilies,
+      disabledExamFamilies: DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.disabledExamFamilies,
       examSpecificAnswerProfilesImplemented: true,
       questionStudioDiscoverable: true,
       persistenceAllowed: true,
