@@ -62,7 +62,7 @@ for(const blueprint of SEA002_CP006_BLUEPRINT_IDS){
   assert.equal(entry.englishStatus,"ENGLISH_MANUAL_FREEZE_APPROVED_CORRECTED");
   assert.equal(entry.solveInventoryStatus,"FROZEN");
   assert.equal(entry.queryMixStatus,"FROZEN");
-  assert.equal(entry.localizationStatus,"REVIEW_CANDIDATE_HUMAN_REVIEW_PENDING");
+  assert.equal(entry.localizationStatus,"LOCALIZATION_MANUAL_FREEZE_APPROVED");
   assert.equal(entry.active,false);
   assert.equal(entry.questionStudioDiscoverable,false);
   assert.equal(entry.questionBankWritable,false);
@@ -81,8 +81,13 @@ assert.equal(SEA002_CP006_ENGLISH_FREEZE.learnerTerminology,"POSITION_NOT_COLUMN
 assert.equal(SEA002_CP006_ENGLISH_FREEZE.currentReviewApproved,true);
 
 assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.englishFreezeStatus,"FROZEN");
-assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationStatus,"REVIEW_CANDIDATE_HUMAN_REVIEW_PENDING");
-assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationFrozen,false);
+assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationStatus,"FROZEN");
+assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationFrozen,true);
+assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered,false);
+assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionBankWritable,false);
+assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.mockTestEligible,false);
+assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.productionStaging,false);
+assert.equal(SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.publiclyPublishable,false);
 assert.doesNotThrow(()=>assertCp006PermanentLayerStillInactive());
 
 console.log("PASS_SEA002_CP006_CORRECTED_ENGLISH_FREEZE");
