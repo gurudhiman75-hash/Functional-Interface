@@ -43,6 +43,20 @@ jobs:
       - name: Run production uniqueness regression
         run: node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-production-regression.mjs
 
+      - name: Bundle exam-natural stem audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/exam-real-stem-v2.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/sea-002-cp007-exam-real-stem-v2.mjs
+
+      - name: Run exam-natural stem audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-exam-real-stem-v2.mjs \
+            2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp007-exam-real-stem-v2.log
+
       - name: Bundle English surface audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -77,6 +91,7 @@ jobs:
         with:
           name: sea-002-cp007-english-review-v1
           path: |
+            artifacts/api-server/dist/reasoning-v1/sea-002-cp007-exam-real-stem-v2.log
             artifacts/api-server/dist/reasoning-v1/sea-002-cp007-english-surface-v1.log
             artifacts/api-server/dist/reasoning-v1/sea-002-cp007-english-review-v1.md
           if-no-files-found: error
