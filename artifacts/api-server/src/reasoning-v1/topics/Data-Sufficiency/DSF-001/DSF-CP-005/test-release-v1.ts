@@ -1,4 +1,7 @@
-import { DSF_CP004_QUESTION_BANK_ACCEPTANCE } from "../DSF-CP-004/question-bank-acceptance-v1.ts";
+import {
+  DSF_CP004_QUESTION_BANK_ACCEPTANCE,
+  DSF_CP004_QUESTION_STUDIO_PACKAGE,
+} from "../DSF-CP-004/question-bank-acceptance-v1.ts";
 
 export const DSF_CP005_CHECKPOINT_ID = "DSF-CP-005" as const;
 export const DSF_CP005_TEST_RELEASE_AUTHORITY = "DSF_CP005_MANUAL_TEST_RELEASE_V1" as const;
@@ -38,10 +41,10 @@ export const DSF_CP005_TEST_RELEASE = Object.freeze({
 });
 
 export const DSF_CP005_QUESTION_STUDIO_PACKAGE = Object.freeze({
-  ...DSF_CP004_QUESTION_BANK_ACCEPTANCE,
-  checkpointId: DSF_CP005_CHECKPOINT_ID,
-  authorityId: DSF_CP005_TEST_RELEASE_AUTHORITY,
-  status: "MANUAL_TEST_RELEASE_ENABLED" as const,
+  ...DSF_CP004_QUESTION_STUDIO_PACKAGE,
+  label: "Data Sufficiency · Manual Question Bank publish + test eligible",
+  testReleaseCheckpointId: DSF_CP005_CHECKPOINT_ID,
+  testReleaseAuthority: DSF_CP005_TEST_RELEASE_AUTHORITY,
   questionBankStatus: "READY_FOR_STORAGE" as const,
   questionBankWritable: true as const,
   questionBankAcceptanceMode: "FULL_RELEASE" as const,
@@ -50,4 +53,5 @@ export const DSF_CP005_QUESTION_STUDIO_PACKAGE = Object.freeze({
   publiclyPublishable: true as const,
   mockTestEligible: false as const,
   automaticStudentPublication: false as const,
+  reviewStatus: "QUESTION_STUDIO_MANUAL_TEST_RELEASE" as const,
 });
