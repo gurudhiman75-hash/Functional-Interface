@@ -1,4 +1,4 @@
-import { TSD_CP008_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-registry";
+import { TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-final";
 import { TSD_CP008_ENGLISH_FREEZE_APPROVAL, TSD_CP008_FROZEN_ENGLISH_REGISTRY } from "./english-freeze-registry";
 import { TSD_CP008_PERMANENT_QL_IDS } from "./ql-allocation";
 
@@ -14,6 +14,7 @@ assert(TSD_CP008_ENGLISH_FREEZE_APPROVAL.status === "PRODUCT_OWNER_APPROVED_ENGL
 assert(TSD_CP008_ENGLISH_FREEZE_APPROVAL.approvedOn === "2026-08-23", "approval date changed");
 assert(TSD_CP008_ENGLISH_FREEZE_APPROVAL.approvalInstruction === "approved", "approval instruction changed");
 assert(TSD_CP008_ENGLISH_FREEZE_APPROVAL.approvedSourceHead === "14f09b2c687eadd6f422dd6547e564cdf5f30305", "approved source head changed");
+assert(TSD_CP008_ENGLISH_FREEZE_APPROVAL.approvedSourceLayer === "TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY", "freeze is not tied to final editorial layer");
 assert(TSD_CP008_ENGLISH_FREEZE_APPROVAL.englishFreezeStatus === "FROZEN", "English is not frozen");
 assert(TSD_CP008_ENGLISH_FREEZE_APPROVAL.localizationStatus === "IN_PROGRESS", "localization should be in progress");
 assert(TSD_CP008_FROZEN_ENGLISH_REGISTRY.length === 9, "frozen QL count changed");
@@ -21,7 +22,7 @@ assert(families.length === 54, "frozen family count changed");
 assert(easy === 17 && medium === 37, `frozen difficulty changed: ${easy}/${medium}`);
 assert(JSON.stringify(TSD_CP008_FROZEN_ENGLISH_REGISTRY.map((ql) => ql.qlId)) === JSON.stringify(TSD_CP008_PERMANENT_QL_IDS), "frozen QL order changed");
 assert(TSD_CP008_FROZEN_ENGLISH_REGISTRY.every((ql) => ql.editorialStatus === "FROZEN"), "a frozen QL lost FROZEN status");
-assert(JSON.stringify(TSD_CP008_FROZEN_ENGLISH_REGISTRY.map(({ editorialStatus: _status, ...ql }) => ql)) === JSON.stringify(TSD_CP008_ENGLISH_AUTHORING_REGISTRY), "frozen English content differs from approved review candidate");
+assert(JSON.stringify(TSD_CP008_FROZEN_ENGLISH_REGISTRY.map(({ editorialStatus: _status, ...ql }) => ql)) === JSON.stringify(TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY), "frozen English content differs from exact approved final review layer");
 assert(!TSD_CP008_ENGLISH_FREEZE_APPROVAL.questionStudioEnabled, "Question Studio opened during English freeze");
 assert(TSD_CP008_ENGLISH_FREEZE_APPROVAL.questionBankStatus === "NOT_STORED", "question bank opened during English freeze");
 assert(TSD_CP008_ENGLISH_FREEZE_APPROVAL.testEligibility === "INELIGIBLE", "tests opened during English freeze");
@@ -30,6 +31,7 @@ assert(!TSD_CP008_ENGLISH_FREEZE_APPROVAL.publiclyPublishable, "public publicati
 console.log("TSD-CP-008 APPROVED ENGLISH FREEZE PROOF: PASS");
 console.log(JSON.stringify({
   approvedSourceHead: TSD_CP008_ENGLISH_FREEZE_APPROVAL.approvedSourceHead,
+  approvedSourceLayer: TSD_CP008_ENGLISH_FREEZE_APPROVAL.approvedSourceLayer,
   qlRange: TSD_CP008_ENGLISH_FREEZE_APPROVAL.approvedQlRange,
   qls: TSD_CP008_FROZEN_ENGLISH_REGISTRY.length,
   families: families.length,
