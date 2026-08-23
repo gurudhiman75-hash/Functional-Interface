@@ -26,9 +26,17 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Bundle EMB-001 discovery gate
+      - name: Bundle EMB graph substructure hardening proof
         run: |
           mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-figure-graph-substructure-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-figure-graph-substructure-v1.test.mjs
+      - name: Validate EMB graph substructure hardening
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-figure-graph-substructure-v1.test.mjs
+      - name: Bundle EMB-001 discovery gate
+        run: |
           pnpm --dir artifacts/api-server exec esbuild \
             src/reasoning-v1/tests/spatial-embedded-figures-discovery-v1.test.ts \
             --bundle --platform=node --format=esm \
