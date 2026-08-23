@@ -1,17 +1,23 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-import {
+const reasoningRegistryModulePath = "../../../question-studio-review-registry.ts";
+const reasoningRegistry = await import(reasoningRegistryModulePath);
+const {
   listEnabledReasoningV1QuestionStudioPackages,
   listReasoningV1QuestionStudioReviewPackages,
   persistReasoningV1QuestionStudioReview,
   previewReasoningV1QuestionStudioReview,
-} from "../../../question-studio-review-registry.ts";
-import {
-  generateQuestion as generateSharedQuestionStudioQuestion,
+} = reasoningRegistry;
+
+const sharedGenerationEngineModulePath = "../../../../question-studio/shared-generation-engine.ts";
+const sharedGenerationEngine = await import(sharedGenerationEngineModulePath);
+const {
+  generateQuestion: generateSharedQuestionStudioQuestion,
   isSta001QuestionStudioRequest,
   listQuestionStudioPackages,
-} from "../../../../question-studio/shared-generation-engine.ts";
+} = sharedGenerationEngine;
+
 import { STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST } from "./multilingual-freeze-manifest.ts";
 import { buildSta001QuestionStudioPayload } from "./question-studio-payload.ts";
 import {
@@ -49,8 +55,8 @@ assert.equal(STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST.lifecycle.mockTestEligible,
 assert.equal(STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST.lifecycle.publiclyPublishable, false);
 assert.equal(STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST.lifecycle.automaticStudentPublication, false);
 
-assert.ok(listReasoningV1QuestionStudioReviewPackages().some((entry) => entry.packageId === "STA-001"));
-assert.ok(listEnabledReasoningV1QuestionStudioPackages().some((entry) => entry.packageId === "STA-001"));
+assert.ok(listReasoningV1QuestionStudioReviewPackages().some((entry: any) => entry.packageId === "STA-001"));
+assert.ok(listEnabledReasoningV1QuestionStudioPackages().some((entry: any) => entry.packageId === "STA-001"));
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioVisible, true);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.reviewOnly, true);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 4);
@@ -103,8 +109,11 @@ const registryPreview = previewReasoningV1QuestionStudioReview({
   count: 1,
   seed: "sta-registry-preview",
 });
-assert.equal(registryPreview.questions[0]!.permanentQlId, "STA-QL-004");
-assert.equal(registryPreview.questions[0]!.language, "hi");
+const registryQuestion = registryPreview.questions[0] as Record<string, any> | undefined;
+assert.ok(registryQuestion, "STA registry preview returned no question");
+assert.equal(registryQuestion.packageId, "STA-001");
+assert.equal(registryQuestion.permanentQlId, "STA-QL-004");
+assert.equal(registryQuestion.language, "hi");
 assert.throws(
   () => persistReasoningV1QuestionStudioReview({
     packageId: "STA-001",
