@@ -6,6 +6,7 @@ import {
   CalendarClock,
   ChevronRight,
   Clock3,
+  Flame,
   Layers3,
   LayoutGrid,
   Search,
@@ -21,6 +22,8 @@ import { getStudentTestSeries } from "@/lib/test-series";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 
 const PROMO_PAGE_SIZE = 6;
+
+type DiscoveryTab = "popular-series" | "live-mocks";
 
 const CATEGORY_TONES = [
   { accent: "bg-blue-500", icon: "bg-blue-50 text-blue-700 ring-blue-100", hover: "hover:border-blue-200 hover:bg-blue-50/35" },
@@ -58,6 +61,7 @@ export default function Tests() {
   const { categories, subcategories, tests, isLoading, error } = useExamCatalog();
   const [, setLocation] = useLocation();
   const [categoryQuery, setCategoryQuery] = useState("");
+  const [discoveryTab, setDiscoveryTab] = useState<DiscoveryTab>("popular-series");
   const [seriesPage, setSeriesPage] = useState(1);
   const [publishedPage, setPublishedPage] = useState(1);
   const publishedTestsQuery = useQuery({ queryKey: ["published-tests"], queryFn: getPublishedTests, staleTime: 30_000 });
@@ -78,6 +82,26 @@ export default function Tests() {
     [categoryNodes, normalizedQuery],
   );
   const catalogQuestionCount = tests.reduce((sum, test) => sum + Math.max(0, test.totalQuestions), 0);
+
+  const series = useMemo(
+    () => [...(seriesQuery.data?.series ?? [])].sort((left, right) => {
+      const attemptDelta = Number(right.attemptCount ?? 0) - Number(left.attemptCount ?? 0);
+      if (attemptDelta !== 0) return attemptDelta;
+      const liveDelta = right.liveTestCount - left.liveTestCount;
+      if (liveDelta !== 0) return liveDelta;
+      return left.name.localeCompare(right.name);
+    }),
+    [seriesQuery.data?.series],
+  );
+  const hasPopularitySignal = series.some((seriesItem) => Number(seriesItem.attemptCount ?? 0) > 0);
+  const seriesPages = Math.max(1, Math.ceil(series.length / PROMO_PAGE_SIZE));
+  const activeSeriesPage = Math.min(seriesPage, seriesPages);
+  const visibleSeries = series.slice((activeSeriesPage - 1) * PROMO_PAGE_SIZE, activeSeriesPage * PROMO_PAGE_SIZE);
+
+  const publishedTests = publishedTestsQuery.data?.tests ?? [];
+  const publishedPages = Math.max(1, Math.ceil(publishedTests.length / PROMO_PAGE_SIZE));
+  const activePublishedPage = Math.min(publishedPage, publishedPages);
+  const visiblePublishedTests = publishedTests.slice((activePublishedPage - 1) * PROMO_PAGE_SIZE, activePublishedPage * PROMO_PAGE_SIZE);
 
   if (error) {
     return (
@@ -100,16 +124,6 @@ export default function Tests() {
       </div>
     );
   }
-
-  const series = seriesQuery.data?.series ?? [];
-  const seriesPages = Math.max(1, Math.ceil(series.length / PROMO_PAGE_SIZE));
-  const activeSeriesPage = Math.min(seriesPage, seriesPages);
-  const visibleSeries = series.slice((activeSeriesPage - 1) * PROMO_PAGE_SIZE, activeSeriesPage * PROMO_PAGE_SIZE);
-
-  const publishedTests = publishedTestsQuery.data?.tests ?? [];
-  const publishedPages = Math.max(1, Math.ceil(publishedTests.length / PROMO_PAGE_SIZE));
-  const activePublishedPage = Math.min(publishedPage, publishedPages);
-  const visiblePublishedTests = publishedTests.slice((activePublishedPage - 1) * PROMO_PAGE_SIZE, activePublishedPage * PROMO_PAGE_SIZE);
 
   return (
     <div className="bg-[#f8fafc] py-5 sm:py-7">
@@ -205,94 +219,140 @@ export default function Tests() {
           )}
         </section>
 
-        {publishedTestsQuery.isError ? (
-          <section className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900" role="status">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><p>Live standalone tests could not be loaded. The full catalog remains available below.</p><Button className="min-h-11" size="sm" variant="outline" onClick={() => void publishedTestsQuery.refetch()}>Retry live tests</Button></div>
-          </section>
-        ) : null}
-
-        {publishedTests.length > 0 ? (
-          <section data-testid="published-tests-section" aria-labelledby="live-mocks-heading">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-blue-600">Quick practice</p>
-                <h2 id="live-mocks-heading" className="mt-1 text-xl font-black tracking-tight text-foreground">Live mock tests</h2>
-                <p className="mt-1 text-sm text-muted-foreground">Start a published standalone mock right away.</p>
-              </div>
-              <p className="text-sm font-semibold text-muted-foreground">{publishedTests.length} published</p>
+        <section className="border-t border-border/80 pt-7" aria-labelledby="featured-preparation-heading">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.14em] text-violet-600">Featured preparation</p>
+              <h2 id="featured-preparation-heading" className="mt-1 text-xl font-black tracking-tight text-foreground">Pick what you want to practise next</h2>
+              <p className="mt-1 text-sm text-muted-foreground">Switch between learner-ranked series and standalone live mocks without leaving exam discovery.</p>
             </div>
 
-            <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-              {visiblePublishedTests.map((test) => (
-                <article key={test.id} className="group rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-blue-200 hover:shadow-md">
-                  <div className="flex items-start gap-3">
-                    <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-700 ring-1 ring-blue-100"><Target className="h-4 w-4" aria-hidden="true" /></span>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="min-w-0">
-                          <p className="truncate text-[11px] font-bold uppercase tracking-wide text-blue-600">{test.examName}</p>
-                          <h3 className="mt-1 line-clamp-2 text-sm font-black leading-5 text-foreground">{test.title}</h3>
-                        </div>
-                        <span className="shrink-0 rounded-md bg-emerald-50 px-2 py-1 text-[10px] font-black text-emerald-700 ring-1 ring-emerald-100">LIVE</span>
-                      </div>
+            <div role="tablist" aria-label="Featured preparation" className="inline-flex w-fit rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
+              <button
+                id="popular-series-tab"
+                type="button"
+                role="tab"
+                aria-selected={discoveryTab === "popular-series"}
+                aria-controls="popular-series-panel"
+                data-testid="popular-series-tab"
+                onClick={() => setDiscoveryTab("popular-series")}
+                className={`et-interactive inline-flex min-h-11 items-center gap-2 rounded-lg px-3.5 text-sm font-bold transition ${discoveryTab === "popular-series" ? "bg-violet-600 text-white shadow-sm" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}
+              >
+                <Flame className="h-4 w-4" aria-hidden="true" />
+                Popular Test Series
+              </button>
+              <button
+                id="live-mocks-tab"
+                type="button"
+                role="tab"
+                aria-selected={discoveryTab === "live-mocks"}
+                aria-controls="live-mocks-panel"
+                data-testid="live-mocks-tab"
+                onClick={() => setDiscoveryTab("live-mocks")}
+                className={`et-interactive inline-flex min-h-11 items-center gap-2 rounded-lg px-3.5 text-sm font-bold transition ${discoveryTab === "live-mocks" ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"}`}
+              >
+                <Target className="h-4 w-4" aria-hidden="true" />
+                Live Mock Tests
+              </button>
+            </div>
+          </div>
 
-                      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold text-muted-foreground">
-                        <span>{test.questionCount} questions</span>
-                        <span className="inline-flex items-center gap-1"><Clock3 className="h-3.5 w-3.5" aria-hidden="true" />{Math.max(1, Math.ceil(test.durationSeconds / 60))} min</span>
-                      </div>
-
-                      <div className="mt-3 flex justify-end">
-                        <Button className="min-h-10 px-3" size="sm" onClick={() => setLocation(`/test/${test.id}`)}>Start test <ArrowRight className="ml-1.5 h-4 w-4" aria-hidden="true" /></Button>
-                      </div>
-                    </div>
+          {discoveryTab === "popular-series" ? (
+            <div id="popular-series-panel" role="tabpanel" aria-labelledby="popular-series-tab" className="mt-4" data-testid="series-section">
+              {seriesQuery.isError ? (
+                <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900" role="status">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><p>Test series could not be loaded. Live mocks and the catalog remain available.</p><Button className="min-h-11" size="sm" variant="outline" onClick={() => void seriesQuery.refetch()}>Retry series</Button></div>
+                </div>
+              ) : series.length > 0 ? (
+                <>
+                  <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                    <p className="text-sm text-muted-foreground">
+                      {hasPopularitySignal ? "Ranked by real evaluated learner attempts." : "Popularity ranking will strengthen as evaluated attempts accumulate; available series are shown meanwhile."}
+                    </p>
+                    <p className="text-xs font-bold text-violet-700">{series.length} available</p>
                   </div>
-                </article>
-              ))}
+                  <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                    {visibleSeries.map((seriesItem) => {
+                      const upcoming = Boolean(seriesItem.availabilityStartAt && new Date(seriesItem.availabilityStartAt).getTime() > Date.now());
+                      return (
+                        <article key={seriesItem.id} className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-violet-200 hover:shadow-md">
+                          <div className="flex items-start justify-between gap-3">
+                            <div className="min-w-0">
+                              <p className="truncate text-[11px] font-bold uppercase tracking-wide text-violet-600">{seriesItem.examName}</p>
+                              <h3 className="mt-1 line-clamp-2 text-sm font-black leading-5 text-foreground">{seriesItem.name}</h3>
+                            </div>
+                            <span className={`shrink-0 rounded-md px-2 py-1 text-[10px] font-black ring-1 ${upcoming ? "bg-amber-50 text-amber-700 ring-amber-100" : "bg-emerald-50 text-emerald-700 ring-emerald-100"}`}>{upcoming ? "UPCOMING" : "OPEN"}</span>
+                          </div>
+                          <p className="mt-2 line-clamp-2 text-xs leading-5 text-muted-foreground">{seriesItem.description || "An ExamTree mock-test sequence."}</p>
+                          <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs font-semibold text-muted-foreground">
+                            <span>{seriesItem.testCount} tests</span>
+                            <span>{seriesItem.questionCount} questions</span>
+                            {Number(seriesItem.attemptCount ?? 0) > 0 ? <span className="inline-flex items-center gap-1 text-violet-700"><Flame className="h-3.5 w-3.5" aria-hidden="true" />{formatCount(Number(seriesItem.attemptCount))} attempts</span> : null}
+                          </div>
+                          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                            <span>{progressionLabel(seriesItem.progressionMode)}</span>
+                            {seriesItem.availabilityStartAt ? <span className="inline-flex items-center gap-1.5"><CalendarClock className="h-3.5 w-3.5" aria-hidden="true" />{upcoming ? "Opens" : "Opened"} {new Intl.DateTimeFormat("en-IN", { dateStyle: "medium" }).format(new Date(seriesItem.availabilityStartAt))}</span> : null}
+                          </div>
+                          <div className="mt-3 flex justify-end"><Button className="min-h-11 px-3" size="sm" variant={upcoming ? "outline" : "default"} onClick={() => setLocation(`/test-series/${seriesItem.id}`)}>{upcoming ? "View schedule" : "View series"}</Button></div>
+                        </article>
+                      );
+                    })}
+                  </div>
+                  <Pager page={activeSeriesPage} totalPages={seriesPages} onPageChange={setSeriesPage} label="Popular test series" />
+                </>
+              ) : (
+                <div className="rounded-xl border border-dashed border-border bg-white px-5 py-8 text-center">
+                  <p className="font-bold text-foreground">No test series are live yet</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Switch to Live Mock Tests or browse the full catalog below.</p>
+                </div>
+              )}
             </div>
-            <Pager page={activePublishedPage} totalPages={publishedPages} onPageChange={setPublishedPage} label="Live mock tests" />
-          </section>
-        ) : null}
-
-        {seriesQuery.isError ? (
-          <section className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900" role="status">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><p>Test series could not be loaded. Standalone tests and the catalog remain available.</p><Button className="min-h-11" size="sm" variant="outline" onClick={() => void seriesQuery.refetch()}>Retry series</Button></div>
-          </section>
-        ) : null}
-
-        {series.length > 0 ? (
-          <section className="border-t border-border/80 pt-7" data-testid="series-section" aria-labelledby="test-series-heading">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-violet-600">Structured preparation</p>
-                <h2 id="test-series-heading" className="mt-1 text-xl font-black tracking-tight text-foreground">Test series</h2>
-                <p className="mt-1 text-sm text-muted-foreground">Follow complete preparation sequences when you want more than a single mock.</p>
-              </div>
-              <div className="flex items-center gap-2 text-sm font-semibold text-muted-foreground"><Layers3 className="h-4 w-4 text-violet-600" aria-hidden="true" /><span>{series.length} series</span></div>
+          ) : (
+            <div id="live-mocks-panel" role="tabpanel" aria-labelledby="live-mocks-tab" className="mt-4" data-testid="published-tests-section">
+              {publishedTestsQuery.isError ? (
+                <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900" role="status">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><p>Live standalone tests could not be loaded. Test series and the full catalog remain available.</p><Button className="min-h-11" size="sm" variant="outline" onClick={() => void publishedTestsQuery.refetch()}>Retry live tests</Button></div>
+                </div>
+              ) : publishedTests.length > 0 ? (
+                <>
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <p className="text-sm text-muted-foreground">Standalone published mocks you can start immediately.</p>
+                    <p className="text-xs font-bold text-blue-700">{publishedTests.length} published</p>
+                  </div>
+                  <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+                    {visiblePublishedTests.map((test) => (
+                      <article key={test.id} className="group rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-blue-200 hover:shadow-md">
+                        <div className="flex items-start gap-3">
+                          <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-700 ring-1 ring-blue-100"><Target className="h-4 w-4" aria-hidden="true" /></span>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-start justify-between gap-2">
+                              <div className="min-w-0">
+                                <p className="truncate text-[11px] font-bold uppercase tracking-wide text-blue-600">{test.examName}</p>
+                                <h3 className="mt-1 line-clamp-2 text-sm font-black leading-5 text-foreground">{test.title}</h3>
+                              </div>
+                              <span className="shrink-0 rounded-md bg-emerald-50 px-2 py-1 text-[10px] font-black text-emerald-700 ring-1 ring-emerald-100">LIVE</span>
+                            </div>
+                            <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold text-muted-foreground">
+                              <span>{test.questionCount} questions</span>
+                              <span className="inline-flex items-center gap-1"><Clock3 className="h-3.5 w-3.5" aria-hidden="true" />{Math.max(1, Math.ceil(test.durationSeconds / 60))} min</span>
+                            </div>
+                            <div className="mt-3 flex justify-end"><Button className="min-h-11 px-3" size="sm" onClick={() => setLocation(`/test/${test.id}`)}>Start test <ArrowRight className="ml-1.5 h-4 w-4" aria-hidden="true" /></Button></div>
+                          </div>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                  <Pager page={activePublishedPage} totalPages={publishedPages} onPageChange={setPublishedPage} label="Live mock tests" />
+                </>
+              ) : (
+                <div className="rounded-xl border border-dashed border-border bg-white px-5 py-8 text-center">
+                  <p className="font-bold text-foreground">No standalone live mocks are published yet</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Try Popular Test Series or browse the full catalog below.</p>
+                </div>
+              )}
             </div>
-
-            <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-              {visibleSeries.map((seriesItem) => {
-                const upcoming = Boolean(seriesItem.availabilityStartAt && new Date(seriesItem.availabilityStartAt).getTime() > Date.now());
-                return (
-                  <article key={seriesItem.id} className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition hover:border-violet-200 hover:shadow-md">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <p className="truncate text-[11px] font-bold uppercase tracking-wide text-violet-600">{seriesItem.examName}</p>
-                        <h3 className="mt-1 line-clamp-2 text-sm font-black leading-5 text-foreground">{seriesItem.name}</h3>
-                      </div>
-                      <span className={`shrink-0 rounded-md px-2 py-1 text-[10px] font-black ring-1 ${upcoming ? "bg-amber-50 text-amber-700 ring-amber-100" : "bg-emerald-50 text-emerald-700 ring-emerald-100"}`}>{upcoming ? "UPCOMING" : "OPEN"}</span>
-                    </div>
-                    <p className="mt-2 line-clamp-2 text-xs leading-5 text-muted-foreground">{seriesItem.description || "An ExamTree mock-test sequence."}</p>
-                    <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs font-semibold text-muted-foreground"><span>{seriesItem.testCount} tests</span><span>{seriesItem.questionCount} questions</span><span>{progressionLabel(seriesItem.progressionMode)}</span></div>
-                    {seriesItem.availabilityStartAt ? <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground"><CalendarClock className="h-3.5 w-3.5" aria-hidden="true" />{upcoming ? "Opens" : "Opened"} {new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeStyle: "short" }).format(new Date(seriesItem.availabilityStartAt))}</p> : null}
-                    <div className="mt-3 flex justify-end"><Button className="min-h-10 px-3" size="sm" variant={upcoming ? "outline" : "default"} onClick={() => setLocation(`/test-series/${seriesItem.id}`)}>{upcoming ? "View schedule" : "View progress"}</Button></div>
-                  </article>
-                );
-              })}
-            </div>
-            <Pager page={activeSeriesPage} totalPages={seriesPages} onPageChange={setSeriesPage} label="Test series" />
-          </section>
-        ) : null}
+          )}
+        </section>
 
         <section className="border-t border-border/80 pt-7" aria-labelledby="full-catalog-heading">
           <div className="mb-4">
