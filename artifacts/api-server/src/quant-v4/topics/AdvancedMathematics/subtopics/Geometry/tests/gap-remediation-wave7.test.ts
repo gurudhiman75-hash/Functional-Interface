@@ -96,6 +96,9 @@ assert.ok(equalDistance.solutionSvg.includes("ON = 8 cm"));
 assert.equal(equalDistance.diagramModel.equalLengthMarks.length, 0, "equal-chord ticks are omitted because they would stack on the perpendicular feet");
 assert.equal(equalDistance.solutionDiagramModel.equalLengthMarks.length, 0, "solution keeps the equal-chord fact in governed prose rather than overlapping semantic marks");
 assert.ok(equalDistance.stem.includes("AB = CD"), "the omitted ticks must remain explicit in the question stem");
+const derivedOnLabel = equalDistance.solutionDiagramModel.labels.find((label) => label.id === "derived-on");
+assert.ok(derivedOnLabel, "equal-distance solution must retain the solved ON dimension label");
+assert.deepEqual({ x: derivedOnLabel.x, y: derivedOnLabel.y }, { x: 130, y: 205 }, "ON dimension must stay in the viewport-safe teaching zone below the circle");
 
 const midpointInverse = GEO_GAP_REMEDIATION_WAVE7_PROTOTYPES[2].generate("wave7-a");
 assert.equal(midpointInverse.answer, "90°");
