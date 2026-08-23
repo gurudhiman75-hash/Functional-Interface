@@ -63,6 +63,9 @@ for (const qlId of NUM_CP010_PERMANENT_QL_IDS) {
       /prototype|generator|hidden state|fingerprint|source ancestry|authority package|answer semantic|lifecycle gate/iu,
       `${label}: implementation/governance vocabulary leak`,
     );
+    assert.doesNotMatch(explanationText, /\bvalid states?\b/iu, `${label}: internal state wording leaked to learner explanation`);
+    assert.doesNotMatch(explanationText, /\b(\d{2,})\s*=\s*\1\b/u, `${label}: tautological numeric equality in learner explanation`);
+    assert.doesNotMatch(explanationText, /valid two-digit numbers are none/iu, `${label}: awkward empty-set wording in learner explanation`);
     minExplanationWords = Math.min(minExplanationWords, explanationWords);
     maxExplanationWords = Math.max(maxExplanationWords, explanationWords);
     explanationChecks += 1;
