@@ -1,6 +1,7 @@
 export const GEOMETRY_THEOREM_IDS = Object.freeze([
   "GIVEN_ANGLE",
   "LINEAR_PAIR_SUM",
+  "COMPLEMENTARY_ANGLE_SUM",
   "VERTICAL_OPPOSITE_ANGLES",
   "ANGLE_AROUND_POINT",
   "CORRESPONDING_ANGLES_PARALLEL",
@@ -11,6 +12,7 @@ export const GEOMETRY_THEOREM_IDS = Object.freeze([
   "ISOSCELES_BASE_ANGLES",
   "ISOSCELES_CONVERSE",
   "TRIANGLE_INEQUALITY",
+  "TRIANGLE_SIDE_ANGLE_ORDERING",
   "PYTHAGORAS",
   "PYTHAGORAS_CONVERSE",
   "RIGHT_TRIANGLE_HYPOTENUSE_MEDIAN",
@@ -106,13 +108,14 @@ const FAMILY_BY_PREFIX: readonly [string, TheoremFamily][] = [
   ["PERPENDICULAR_BISECTOR_", "TRIANGLE_CENTRES"],
   ["TRIANGLE_CENTRE_", "TRIANGLE_CENTRES"], ["TRIANGLE_", "TRIANGLES"], ["ISOSCELES_", "TRIANGLES"],
   ["CORRESPONDING_", "LINES"], ["ALTERNATE_", "LINES"], ["CO_INTERIOR_", "LINES"],
-  ["LINEAR_", "LINES"], ["VERTICAL_", "LINES"], ["ANGLE_AROUND_", "LINES"],
+  ["COMPLEMENTARY_", "LINES"], ["LINEAR_", "LINES"], ["VERTICAL_", "LINES"], ["ANGLE_AROUND_", "LINES"],
 ];
 
 function humanize(id: string): string {
   const names: Partial<Record<TheoremId, string>> = {
     GIVEN_ANGLE: "the stated angle measure",
     LINEAR_PAIR_SUM: "angles in a linear pair add to 180°",
+    COMPLEMENTARY_ANGLE_SUM: "complementary angles add to 90°",
     VERTICAL_OPPOSITE_ANGLES: "vertically opposite angles are equal",
     ANGLE_AROUND_POINT: "angles around a point add to 360°",
     CORRESPONDING_ANGLES_PARALLEL: "corresponding angles are equal when the lines are parallel",
@@ -123,6 +126,7 @@ function humanize(id: string): string {
     ISOSCELES_BASE_ANGLES: "the base angles of an isosceles triangle are equal",
     ISOSCELES_CONVERSE: "equal angles in a triangle stand opposite equal sides",
     TRIANGLE_INEQUALITY: "the third side is greater than the difference and less than the sum of the other two sides",
+    TRIANGLE_SIDE_ANGLE_ORDERING: "in a triangle, the greater angle lies opposite the greater side and conversely",
     PYTHAGORAS: "in a right triangle the square of the hypotenuse equals the sum of the squares of the legs",
     PYTHAGORAS_CONVERSE: "if the square of the longest side equals the sum of the squares of the other two sides, the triangle is right-angled",
     RIGHT_TRIANGLE_HYPOTENUSE_MEDIAN: "the median from the right angle to the hypotenuse equals half the hypotenuse",
@@ -175,7 +179,6 @@ function inferFamily(id: TheoremId): TheoremFamily {
 }
 
 const registry = new Map<TheoremId, TheoremDefinition>();
-
 for (const id of GEOMETRY_THEOREM_IDS) {
   registry.set(id, Object.freeze({
     id,
@@ -184,6 +187,7 @@ for (const id of GEOMETRY_THEOREM_IDS) {
     phase0Executable: [
       "GIVEN_ANGLE",
       "LINEAR_PAIR_SUM",
+      "COMPLEMENTARY_ANGLE_SUM",
       "VERTICAL_OPPOSITE_ANGLES",
       "ANGLE_AROUND_POINT",
       "CORRESPONDING_ANGLES_PARALLEL",
@@ -199,7 +203,4 @@ export function getTheoremDefinition(id: TheoremId): TheoremDefinition {
   if (!definition) throw new Error(`Unknown Geometry theorem: ${id}`);
   return definition;
 }
-
-export function listTheorems(): readonly TheoremDefinition[] {
-  return Object.freeze([...registry.values()]);
-}
+export function listTheorems(): readonly TheoremDefinition[] { return Object.freeze([...registry.values()]); }
