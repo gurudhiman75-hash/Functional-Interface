@@ -39,15 +39,13 @@ function compactSentence(value: unknown, max = 190) {
   return `${clipped.slice(0, boundary > max * 0.65 ? boundary : clipped.length).trim()}…`;
 }
 
-function compactWorkedSentence(value: unknown, max = 190) {
-  const text = String(value ?? "").replace(/\s+/gu, " ").trim();
-  if (!text) return "";
-  // Some authored steps have no whitespace after punctuation (for example
-  // "Let x be ... m.Then h=x√3."). Split at punctuation regardless of spacing
-  // so the worked relation is not lost behind a setup sentence.
-  const sentences = text.split(/(?<=[.!?])\s*/u).map((part) => part.trim()).filter(Boolean);
-  const worked = sentences.find((sentence) => /(?:tan|sin|cos|cot|=|⇒)/iu.test(sentence)) ?? sentences[0] ?? text;
-  return compactSentence(worked, max);
+function explanationSentences(values: unknown[]) {
+  return values.flatMap((value) => String(value ?? "")
+    .replace(/\s+/gu, " ")
+    .trim()
+    .split(/(?<=[.!?])\s*/u)
+    .map((part) => part.trim())
+    .filter(Boolean));
 }
 
 function hasRaisedEyeLevel(points: any[], segments: any[]) {
@@ -100,13 +98,16 @@ function geometryTeachingCue(diagram: any, stem: string) {
 function teachingCues(row: any, diagram: any) {
   const explanation = row?.english?.explanation ?? {};
   const stepBodies = (explanation.steps ?? []).map((step: any) => String(step?.body ?? "").trim()).filter(Boolean);
-  const workedEquation = stepBodies.find((body: string) => /(?:tan|sin|cos|cot|=|⇒)/iu.test(body));
-  const variableSetup = stepBodies.find((body: string) => /\blet\s/iu.test(body));
-  const calculation = workedEquation ?? variableSetup ?? stepBodies[0] ?? explanation.shortcut ?? "";
+  const sentences = explanationSentences(stepBodies);
+  const workedEquation = sentences.find((sentence: string) =>
+    /(?:tan|sin|cos|cot|⇒)/iu.test(sentence)
+      || (/=/u.test(sentence) && !/^\s*let\b/iu.test(sentence)));
+  const variableSetup = sentences.find((sentence: string) => /\blet\s/iu.test(sentence));
+  const calculation = workedEquation ?? variableSetup ?? sentences[0] ?? explanation.shortcut ?? "";
   const candidates = [
     { kind: "GEOMETRY", text: geometryTeachingCue(diagram, String(row?.english?.stem ?? "")) },
     { kind: "RULE", text: compactSentence(explanation.keyRule) },
-    { kind: "CALCULATION", text: compactWorkedSentence(calculation) },
+    { kind: "CALCULATION", text: compactSentence(calculation) },
   ];
   const seen = new Set<string>();
   return candidates.filter((cue) => {
