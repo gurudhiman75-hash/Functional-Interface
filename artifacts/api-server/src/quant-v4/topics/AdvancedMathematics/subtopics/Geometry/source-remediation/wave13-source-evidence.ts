@@ -1,0 +1,5 @@
+export const GEO_GAP_REMEDIATION_WAVE13_SOURCE_EVIDENCE = Object.freeze([
+  Object.freeze({ id: "SRC-TESTBOOK-CHSL-COMPLEMENT-SUPPLEMENT-PYQ-2018", exam: "SSC CHSL Previous Paper 75", heldOn: "24 Mar 2018 Shift 1", url: "https://testbook.com/question-answer/if-the-supplement-of-an-angle-is-52-of-its-comp--5c10fff6ba96920c84d3e27f", support: "The supplement of an angle is 5/2 times its complement; using 180-x and 90-x gives x=30 degrees. This directly owns the complementary/supplementary relation decision." }),
+  Object.freeze({ id: "SRC-TESTBOOK-CGL-TRIANGLE-SIDE-ANGLE-ORDER-PYQ-2023", exam: "SSC CGL 2023 Tier-I", heldOn: "27 Jul 2023 Shift 2", url: "https://testbook.com/question-answer/if-in-acute-angled-triangle-abc-al-bm-and-cn-ar--64cb7ac157f8e15a60581811", support: "The source repeatedly compares a right angle with a smaller acute angle and uses the theorem that the side opposite the greater angle is greater, establishing the triangle side-angle ordering authority." }),
+] as const);
+export type GapWave13SourceEvidenceId = typeof GEO_GAP_REMEDIATION_WAVE13_SOURCE_EVIDENCE[number]["id"];
