@@ -78,7 +78,7 @@ function exactify(index: number, seed: string): GapWave7Question {
     const radius = Math.hypot(75, 34);
     const stem = withoutEqualLengthMarks(withCircleRadius(raw.diagramModel, radius));
     const solution = withoutEqualLengthMarks(
-      withLabelPosition(withCircleRadius(raw.solutionDiagramModel, radius), "derived-on", 130, 205),
+      withLabelPosition(withCircleRadius(raw.solutionDiagramModel, radius), "derived-on", 170, 115),
     );
     return refinalize(raw, stem, solution);
   }
