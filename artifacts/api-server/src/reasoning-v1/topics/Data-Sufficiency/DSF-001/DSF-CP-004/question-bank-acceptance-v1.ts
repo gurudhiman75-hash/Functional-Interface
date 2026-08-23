@@ -82,3 +82,22 @@ export const DSF_CP004_QUESTION_BANK_ACCEPTANCE = Object.freeze({
 
   nextGate: "TEST_AND_PUBLICATION_LIFECYCLE_ACTIVATION_REQUIRES_SEPARATE_CHECKPOINT" as const,
 });
+
+export const DSF_CP004_QUESTION_STUDIO_PACKAGE = Object.freeze({
+  ...DSF_CP003_QUESTION_STUDIO_PACKAGE,
+  label: "Data Sufficiency · Approved profiles · Question Bank acceptance",
+  questionBankAcceptanceCheckpointId: DSF_CP004_CHECKPOINT_ID,
+  questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
+  supportedAnswerProfiles: DSF_CP004_QUESTION_BANK_PROFILE_IDS,
+  questionBankStatus: "READY_FOR_STORAGE" as const,
+  questionBankWritable: true as const,
+  questionBankAcceptanceMode: "BANK_ONLY" as const,
+  manualApprovalRequired: true as const,
+  reviewOnly: false as const,
+  testEligibility: "INELIGIBLE" as const,
+  testEligible: false as const,
+  mockTestEligible: false as const,
+  publiclyPublishable: false as const,
+  automaticStudentPublication: false as const,
+  reviewStatus: "QUESTION_STUDIO_REVIEW_WITH_BANK_ACCEPTANCE" as const,
+});
