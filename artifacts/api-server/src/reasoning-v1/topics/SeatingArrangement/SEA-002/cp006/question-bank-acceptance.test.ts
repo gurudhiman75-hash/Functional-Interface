@@ -36,6 +36,7 @@ const packageCapability = listSea002Cp006QuestionBankAcceptedPackages()[0]!;
 assert.equal(packageCapability.questionBankStatus, "READY_FOR_STORAGE");
 assert.equal(packageCapability.questionBankWritable, true);
 assert.equal(packageCapability.questionBankAcceptanceMode, "BANK_ONLY");
+assert.equal(packageCapability.questionBankAcceptanceAuthority, SEA002_CP006_QUESTION_BANK_ACCEPTANCE_AUTHORITY);
 assert.equal(packageCapability.manualApprovalRequired, true);
 assert.equal(packageCapability.testEligible, false);
 assert.equal(packageCapability.mockTestEligible, false);
@@ -79,7 +80,8 @@ for (const language of languages) {
       assert.equal(question.questionBankStatus, "READY_FOR_STORAGE");
       assert.equal(question.questionBankWritable, true);
       assert.equal(question.questionBankAcceptanceMode, "BANK_ONLY");
-      assert.equal(question.questionBankAcceptanceAuthority, "SEA002_CP006_QUESTION_BANK_READINESS_V1");
+      assert.equal(question.questionBankAcceptanceAuthority, SEA002_CP006_QUESTION_BANK_ACCEPTANCE_AUTHORITY);
+      assert.equal(question.questionBankReadinessAuthority, "SEA002_CP006_QUESTION_BANK_READINESS_V1");
       assert.equal(question.manualApprovalRequired, true);
       assert.equal(question.testEligibility, "INELIGIBLE");
       assert.equal(question.testEligible, false);
@@ -112,6 +114,7 @@ for (const language of languages) {
       assert.equal(generation.questionBankStatus, "READY_FOR_STORAGE");
       assert.equal(generation.questionBankWritable, true);
       assert.equal(generation.questionBankAcceptanceMode, "BANK_ONLY");
+      assert.equal(generation.questionBankAcceptanceAuthority, SEA002_CP006_QUESTION_BANK_ACCEPTANCE_AUTHORITY);
       assert.equal(generation.testEligible, false);
       assert.equal(generation.mockTestEligible, false);
       assert.equal(generation.publiclyPublishable, false);
