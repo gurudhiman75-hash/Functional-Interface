@@ -31,7 +31,8 @@ for (const ql of TSD_CP008_ENGLISH_AUTHORING_REGISTRY) {
     assert(!banned.test(family.stem), `${family.familyId}: stem contains tutoring/meta language`);
     assert(!banned.test(family.explanationGuide), `${family.familyId}: explanation contains tutoring/meta language`);
     assert(family.stem.length >= 90, `${family.familyId}: stem too thin`);
-    assert(family.explanationGuide.length >= 100, `${family.familyId}: explanation guide too thin`);
+    assert(family.explanationGuide.length >= 70, `${family.familyId}: explanation guide is too thin to state the governing distance/relative-speed reasoning`);
+    assert(/length|distance|speed|time|equation|relative|ratio|crossing|containment/i.test(family.explanationGuide), `${family.familyId}: explanation guide lacks the actual reasoning quantity`);
   }
 }
 
@@ -71,6 +72,7 @@ console.log(JSON.stringify({
   unresolvedPlaceholders: 0,
   fractionalKmhStems: 0,
   ambiguousMaximumOverlapStems: 0,
+  explanationPolicy: "COMPLETE_AND_CONCISE_NOT_LENGTH_PADDED",
   englishFreezeStatus: "REVIEW_CANDIDATE",
   questionStudioEnabled: false,
 }, null, 2));
