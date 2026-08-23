@@ -9,6 +9,22 @@ const html = readFileSync(htmlPath, "utf8");
 
 type AnyRecord = Record<string, any>;
 
+function hasRaisedEyeLevel(points: AnyRecord[], segments: AnyRecord[]) {
+  const byId = new Map(points.map((point: AnyRecord) => [String(point?.id ?? ""), point]));
+  const groundLikeRoles = new Set(["OBSERVER_GROUND", "OBJECT_BASE", "GROUND"]);
+  for (const segment of segments.filter((entry: AnyRecord) => String(entry?.kind ?? "") === "EYE_LEVEL")) {
+    const from = byId.get(String(segment?.fromPointId ?? ""));
+    const to = byId.get(String(segment?.toPointId ?? ""));
+    const eye = String(from?.role ?? "") === "OBSERVER_EYE" ? from : String(to?.role ?? "") === "OBSERVER_EYE" ? to : null;
+    if (!eye) continue;
+    if (points.some((point: AnyRecord) =>
+      groundLikeRoles.has(String(point?.role ?? ""))
+      && Math.abs(Number(point?.x) - Number(eye?.x)) < 1e-5
+      && Number(point?.y) > Number(eye?.y) + 1e-5)) return true;
+  }
+  return false;
+}
+
 if (pack.records.length !== 96) throw new Error(`Expected 96 pedagogic records, got ${pack.records.length}.`);
 
 let cueCount = 0;
@@ -31,15 +47,14 @@ for (const row of pack.records as AnyRecord[]) {
   const geometryText = String(cues.find((cue: AnyRecord) => cue.kind === "GEOMETRY")?.text ?? "");
   const segments = diagram?.segments ?? [];
   const points = diagram?.points ?? [];
-  const hasObserverEye = points.some((point: AnyRecord) => String(point?.role ?? "") === "OBSERVER_EYE");
-  const hasEyeLevel = hasObserverEye && segments.some((segment: AnyRecord) => String(segment?.kind ?? "") === "EYE_LEVEL");
+  const raisedEyeLevel = hasRaisedEyeLevel(points, segments);
   const shadowSegments = segments.filter((segment: AnyRecord) => String(segment?.kind ?? "").includes("SHADOW")).length;
   const shadowEndpoints = points.filter((point: AnyRecord) => /shadow/i.test(String(point?.id ?? ""))).length;
   const changedShadow = shadowSegments >= 2 || shadowEndpoints >= 2;
 
-  if (/eye[- ]level|helper intersection|dashed horizontal through the observer/iu.test(geometryText) && !hasEyeLevel) {
+  if (/eye[- ]level|helper intersection|dashed horizontal through the observer|raised observer/iu.test(geometryText) && !raisedEyeLevel) {
     topologyCueViolations += 1;
-    throw new Error(`${row.qlId}: eye-level teaching cue is not backed by an OBSERVER_EYE + EYE_LEVEL construction.`);
+    throw new Error(`${row.qlId}: eye-level teaching cue is not backed by a genuinely raised observer-eye construction.`);
   }
   if (/two shadow endpoints|separate sun angle|separate sun-angle|two right-triangle states/iu.test(geometryText) && !changedShadow) {
     topologyCueViolations += 1;
@@ -68,7 +83,7 @@ const calculationCue = (id: string) => String((row(id).solutionDiagram.pedagogic
 if (!/shadow|sun ray|sun angle|sun-angle/iu.test(cueText("TRG-002-QL-027"))) throw new Error("QL027: changed-shadow teaching cue missing.");
 if (!/two shadow endpoints|two right-triangle states/iu.test(geometryCue("TRG-002-QL-027"))) throw new Error("QL027: geometry cue must explicitly describe the two shadow states.");
 if (/two shadow endpoints|separate sun angle|separate sun-angle|two right-triangle states/iu.test(geometryCue("TRG-002-QL-025"))) throw new Error("QL025: single-shadow diagram must not claim multiple shadow states.");
-if (/eye[- ]level|helper intersection/iu.test(geometryCue("TRG-002-QL-001"))) throw new Error("QL001: ordinary ground-observer triangle must not be described as an eye-level construction.");
+if (/eye[- ]level|helper intersection|raised observer/iu.test(geometryCue("TRG-002-QL-001"))) throw new Error("QL001: ground-coincident observer must not be described as a raised eye-level construction.");
 if (!/tan30|height|shadow/iu.test(calculationCue("TRG-002-QL-029"))) throw new Error("QL029: worked calculation cue should prefer the trigonometric equation over a bare variable declaration.");
 if (!/ladder|hypotenuse|perpendicular/iu.test(cueText("TRG-002-QL-037"))) throw new Error("QL037: ladder teaching cue missing.");
 if (!/eye level|eye-level|helper intersection|rise/iu.test(cueText("TRG-002-QL-076"))) throw new Error("QL076: eye-level teaching cue missing.");
