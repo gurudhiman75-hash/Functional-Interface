@@ -6,7 +6,7 @@ import {
   NUM_CP010_PERMANENT_ALLOCATION,
   type NumCp010PermanentQlId,
 } from "../permanent-allocation.ts";
-import { generateNumCp010LocalizedHumanReview } from "./runtime-human-review.ts";
+import { generateNumCp010LocalizedHumanFinal } from "./runtime-human-final.ts";
 import type { NumCp010LocalizedLanguage } from "./types.ts";
 
 const outputDir = path.resolve("dist/quant-v4/num-cp010-hi-pa-review");
@@ -17,7 +17,9 @@ const reviewSeeds = [31, 62, 93] as const;
 const rows = NUM_CP010_PERMANENT_ALLOCATION.flatMap((allocation) =>
   languages.flatMap((language) =>
     reviewSeeds.map((seed) => {
-      const item = generateNumCp010LocalizedHumanReview(allocation.qlId as NumCp010PermanentQlId, seed, language);
+      const item = generateNumCp010LocalizedHumanFinal(allocation.qlId as NumCp010PermanentQlId, seed, language);
+      assert.equal(item.lifecycle.reviewStatus, "MULTILINGUAL_FROZEN");
+      assert.equal(item.lifecycle.localizationStatus, "HI_PA_FROZEN");
       return {
         language,
         locale: item.locale,
@@ -72,7 +74,7 @@ const sections = rows.map((row) => {
 });
 
 const audit = {
-  status: "PASS_NUM_CP010_HI_PA_REVIEW_EXPORT",
+  status: "PASS_NUM_CP010_HI_PA_FROZEN_REVIEW_EXPORT",
   permanentAuthorities: NUM_CP010_PERMANENT_ALLOCATION.length,
   languages,
   samplesPerAuthorityPerLanguage: reviewSeeds.length,
@@ -81,7 +83,8 @@ const audit = {
   firstPermanentQl: "NUM-QL-197",
   lastPermanentQl: "NUM-QL-212",
   nextAvailableQl: "NUM-QL-213",
-  reviewStatus: "MULTILINGUAL_REVIEW_CANDIDATE",
+  reviewStatus: "MULTILINGUAL_FROZEN",
+  localizationStatus: "HI_PA_FROZEN",
   questionStudioDiscoverable: false,
   questionBankWritable: false,
   testEligible: false,
@@ -89,9 +92,9 @@ const audit = {
 };
 
 const markdown = [
-  "# NUM-CP-010 Hindi + Punjabi Review Candidate",
+  "# NUM-CP-010 Hindi + Punjabi Frozen Review",
   "",
-  "This workbook samples every permanent authority and every approved source prototype in both localized languages. It is review evidence only; no downstream delivery gate is opened.",
+  "This workbook samples every permanent authority and every approved source prototype in both frozen localized languages. It is review evidence only; Question Studio and all downstream delivery gates remain closed.",
   "",
   ...sections,
   "",
