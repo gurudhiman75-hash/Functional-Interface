@@ -1,4 +1,4 @@
-import { TSD_CP008_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-registry";
+import { TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-final";
 import { TSD_CP008_RENDERED_ENGLISH_QUESTIONS } from "./english-rendered-review";
 import { TSD_CP008_PERMANENT_QL_IDS } from "./ql-allocation";
 
@@ -10,22 +10,22 @@ function normalized(value: string): string {
   return value.toLowerCase().replace(/\d+(?:\.\d+)?/g, "#").replace(/[\p{P}\p{S}\s]+/gu, " ").trim();
 }
 
-const families = TSD_CP008_ENGLISH_AUTHORING_REGISTRY.flatMap((ql) => ql.stemFamilies);
-assert(TSD_CP008_ENGLISH_AUTHORING_REGISTRY.length === 9, "expected nine English QLs");
-assert(JSON.stringify(TSD_CP008_ENGLISH_AUTHORING_REGISTRY.map((ql) => ql.qlId)) === JSON.stringify(TSD_CP008_PERMANENT_QL_IDS), "English QL order differs from permanent allocation");
+const families = TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY.flatMap((ql) => ql.stemFamilies);
+assert(TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY.length === 9, "expected nine English QLs");
+assert(JSON.stringify(TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY.map((ql) => ql.qlId)) === JSON.stringify(TSD_CP008_PERMANENT_QL_IDS), "English QL order differs from permanent allocation");
 assert(families.length === 54, "expected 54 English families");
 assert(TSD_CP008_RENDERED_ENGLISH_QUESTIONS.length === 54, "expected 54 rendered English questions");
-assert(TSD_CP008_ENGLISH_AUTHORING_REGISTRY.every((ql) => ql.objectPool.length >= 8 && new Set(ql.objectPool.map(normalized)).size >= 8), "object pool is thin or repetitive");
-assert(TSD_CP008_ENGLISH_AUTHORING_REGISTRY.every((ql) => ql.stemFamilies.length === 6), "each QL must have six family shapes");
-assert(TSD_CP008_ENGLISH_AUTHORING_REGISTRY.every((ql) => new Set(ql.stemFamilies.map((family) => family.representation)).size >= 6), "representation labels must be genuinely varied within each QL");
-assert(TSD_CP008_ENGLISH_AUTHORING_REGISTRY.every((ql) => new Set(ql.stemFamilies.map((family) => family.scene)).size >= 6), "scene labels must be genuinely varied within each QL");
+assert(TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY.every((ql) => ql.objectPool.length >= 8 && new Set(ql.objectPool.map(normalized)).size >= 8), "object pool is thin or repetitive");
+assert(TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY.every((ql) => ql.stemFamilies.length === 6), "each QL must have six family shapes");
+assert(TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY.every((ql) => new Set(ql.stemFamilies.map((family) => family.representation)).size >= 6), "representation labels must be genuinely varied within each QL");
+assert(TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY.every((ql) => new Set(ql.stemFamilies.map((family) => family.scene)).size >= 6), "scene labels must be genuinely varied within each QL");
 
 const easy = families.filter((family) => family.difficulty === "EASY").length;
 const medium = families.filter((family) => family.difficulty === "MEDIUM").length;
 assert(easy === 17 && medium === 37, `difficulty mix must be 17 Easy / 37 Medium, got ${easy}/${medium}`);
 
 const banned = /\b(use formula|as per|synthetic|generated question|computed answer|template)\b/i;
-for (const ql of TSD_CP008_ENGLISH_AUTHORING_REGISTRY) {
+for (const ql of TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY) {
   assert(!banned.test(ql.learnerContract), `${ql.qlId}: learner contract contains tutoring/meta language`);
   for (const family of ql.stemFamilies) {
     assert(!banned.test(family.stem), `${family.familyId}: stem contains tutoring/meta language`);
@@ -46,6 +46,7 @@ for (const question of TSD_CP008_RENDERED_ENGLISH_QUESTIONS) {
   assert(!/[{}]/.test(question.explanation), `${question.familyId}: unresolved placeholder in explanation`);
   assert(!/\d+\/\d+/.test(question.stem), `${question.familyId}: learner stem contains an awkward rational fraction`);
   assert(!/\d+\.\d+\s*km\/h/.test(question.stem), `${question.familyId}: learner stem contains fractional km/h`);
+  assert(!/directions are in the same direction|same direction to the|opposite direction to the/i.test(question.stem), `${question.familyId}: awkward direction wording survived final editorial layer`);
   assert(question.answer.length > 0, `${question.familyId}: answer missing`);
   assert(question.explanation.includes(question.answer), `${question.familyId}: explanation does not conclude with its computed answer`);
 }
@@ -64,13 +65,14 @@ console.log("TSD-CP-008 ENGLISH AUTHORING/RENDERED REVIEW PROOF: PASS");
 console.log(JSON.stringify({
   qls: 9,
   families: 54,
-  objectPoolEntries: TSD_CP008_ENGLISH_AUTHORING_REGISTRY.reduce((sum, ql) => sum + ql.objectPool.length, 0),
+  objectPoolEntries: TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY.reduce((sum, ql) => sum + ql.objectPool.length, 0),
   renderedQuestions: 54,
   difficulty: { EASY: easy, MEDIUM: medium, HARD: 0 },
   uniqueStructuralStems: new Set(structuralStems).size,
   uniqueStructuralExplanations: new Set(structuralExplanations).size,
   unresolvedPlaceholders: 0,
   fractionalKmhStems: 0,
+  awkwardDirectionPhrases: 0,
   ambiguousMaximumOverlapStems: 0,
   explanationPolicy: "COMPLETE_AND_CONCISE_NOT_LENGTH_PADDED",
   englishFreezeStatus: "REVIEW_CANDIDATE",
