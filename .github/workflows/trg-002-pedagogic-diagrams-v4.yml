@@ -45,6 +45,8 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/apply-exam-readiness-v4-pedagogic-diagrams.ts
       - name: Verify explanation-to-diagram teaching alignment
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-pedagogic-diagrams.test.ts
+      - name: Verify 96-of-96 teaching cues
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-pedagogic-cues.test.ts
       - name: Upload pedagogic V4 review pack
         uses: actions/upload-artifact@v4
         with:
