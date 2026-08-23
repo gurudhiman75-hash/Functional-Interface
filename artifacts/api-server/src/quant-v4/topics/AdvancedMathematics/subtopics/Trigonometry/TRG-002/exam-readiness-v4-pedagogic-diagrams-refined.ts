@@ -120,6 +120,23 @@ function canonicalLevelPoint(diagram: AnyRecord, level: AnyRecord) {
       && Math.abs(Number(point.y) - Number(level.y)) < 1e-5) ?? level;
 }
 
+function observerHeightLabel(diagram: AnyRecord, eyeId: string) {
+  const points = pointMap(diagram);
+  const eye = points.get(eyeId);
+  if (!eye) return null;
+  const vertical = (diagram.segments ?? []).find((segment: AnyRecord) => {
+    if (!["VERTICAL_OBJECT", "VERTICAL"].includes(String(segment.kind))) return false;
+    return segment.fromPointId === eyeId || segment.toPointId === eyeId;
+  });
+  if (!vertical) return null;
+  const key = endpointKey(String(vertical.fromPointId), String(vertical.toPointId));
+  const given = (diagram.measurementArrows ?? []).find((arrow: AnyRecord) =>
+    endpointKey(String(arrow.fromPointId), String(arrow.toPointId)) === key
+      && !String(arrow.kind ?? "").startsWith("PEDAGOGIC_")
+      && /^\s*[^?]+\s*m\s*$/u.test(String(arrow.label ?? "")));
+  return given ? String(given.label).trim() : null;
+}
+
 function addMatchedEyeLevelFacts(result: AnyRecord, args: AnyRecord) {
   const diagram = result.diagram;
   const points = pointMap(diagram);
@@ -139,12 +156,19 @@ function addMatchedEyeLevelFacts(result: AnyRecord, args: AnyRecord) {
     const targetId = sight.fromPointId === eye.id ? sight.toPointId : sight.fromPointId;
     const target = points.get(String(targetId));
     if (!target || Math.abs(Number(target.x) - Number(level.x)) > 1e-5) continue;
+
     if (Number(target.y) < Number(eye.y)) {
-      const rise = explicitWorkedValue(args.englishExplanationText, ["rise", "height difference", "above eye", "above first roof", "elevation"]);
+      const rise = explicitWorkedValue(args.englishExplanationText, ["rise", "height difference", "above eye", "above first roof"]);
       if (rise) addPedagogicArrow(result, args, level.id, target.id, `rise = ${rise}`, "MATCHED_DERIVED_RISE");
     } else if (Number(target.y) > Number(eye.y)) {
-      const drop = explicitWorkedValue(args.englishExplanationText, ["drop", "vertical difference", "below", "depression"]);
-      if (drop) addPedagogicArrow(result, args, level.id, target.id, `drop = ${drop}`, "MATCHED_DERIVED_DROP");
+      // Never interpret a solved horizontal d from a depression equation as a vertical drop.
+      // If the worked solution explicitly calculates a drop, use that. Otherwise, when the
+      // depression target is on ground/base level, the vertical drop equals the observer's
+      // already-given height and should be repeated on the helper vertical used by the triangle.
+      const explicitDrop = explicitWorkedValue(args.englishExplanationText, ["vertical drop", "drop=", "drop =", "vertical difference", "below eye"]);
+      const targetIsGroundLike = ["OBJECT_BASE", "GROUND", "OBSERVER_GROUND"].includes(String(target.role ?? ""));
+      const drop = explicitDrop ?? (targetIsGroundLike ? observerHeightLabel(diagram, eye.id) : null);
+      if (drop) addPedagogicArrow(result, args, level.id, target.id, `drop = ${drop}`, explicitDrop ? "MATCHED_DERIVED_DROP" : "MATCHED_EQUAL_LEVEL_DROP");
     }
   }
 }
@@ -157,7 +181,7 @@ function addDerivedGroundDistance(result: AnyRecord, args: AnyRecord) {
   const key = endpointKey(String(ground.fromPointId), String(ground.toPointId));
   if (requested && endpointKey(String(requested.fromPointId), String(requested.toPointId)) === key) return;
   if ((diagram.measurementArrows ?? []).some((arrow: AnyRecord) => endpointKey(String(arrow.fromPointId), String(arrow.toPointId)) === key)) return;
-  const value = explicitWorkedValue(args.englishExplanationText, ["horizontal distance", "horizontal separation", "common horizontal", "depression"]);
+  const value = explicitWorkedValue(args.englishExplanationText, ["horizontal distance", "horizontal separation", "common horizontal", "from depression"]);
   if (value) addPedagogicArrow(result, args, ground.fromPointId, ground.toPointId, `d = ${value}`, "DERIVED_HORIZONTAL_DISTANCE");
 }
 
@@ -252,8 +276,13 @@ export function applyTrg002V4PedagogicDiagramLayerRefined(args: {
   topology?: string;
 }) {
   const result = applyTrg002V4PedagogicDiagramLayer(args);
-  const arrows: AnyRecord[] = result.diagram.measurementArrows ?? [];
   const answer = normalizeAnswer(args.englishAnswer);
+
+  // The base layer intentionally errs on the side of showing helpers. Rebuild vertical
+  // depression helpers here because "depression" equations often solve horizontal d,
+  // which must never be reinterpreted as a vertical drop.
+  const arrows: AnyRecord[] = (result.diagram.measurementArrows ?? []).filter((arrow: AnyRecord) => String(arrow.kind ?? "") !== "PEDAGOGIC_DERIVED_DROP");
+  result.diagram.measurementArrows = arrows;
 
   for (const arrow of arrows) {
     const kind = String(arrow.kind ?? "");
@@ -262,9 +291,6 @@ export function applyTrg002V4PedagogicDiagramLayerRefined(args: {
     if (kind === "PEDAGOGIC_DERIVED_RISE") {
       value = explicitWorkedValue(args.englishExplanationText, ["rise", "height difference", "above eye", "above first roof"]);
       prefix = "rise = ";
-    } else if (kind === "PEDAGOGIC_DERIVED_DROP") {
-      value = explicitWorkedValue(args.englishExplanationText, ["drop", "vertical difference", "below", "depression"]);
-      prefix = "drop = ";
     } else if (kind === "PEDAGOGIC_DERIVED_GROUND_RUN") {
       value = explicitWorkedValue(args.englishExplanationText, ["ground run"]);
       prefix = "run = ";
@@ -300,5 +326,6 @@ export function applyTrg002V4PedagogicDiagramLayerRefined(args: {
   result.diagram.pedagogicDiagramAudit.explicitWorkedValuePriority = true;
   result.diagram.pedagogicDiagramAudit.independentTeachingLanes = true;
   result.diagram.pedagogicDiagramAudit.multiStateReasoningAligned = true;
+  result.diagram.pedagogicDiagramAudit.depressionVerticalHorizontalRolesSeparated = true;
   return result;
 }
