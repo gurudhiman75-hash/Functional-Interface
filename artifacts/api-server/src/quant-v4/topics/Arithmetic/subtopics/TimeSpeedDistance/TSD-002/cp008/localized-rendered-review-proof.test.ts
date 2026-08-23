@@ -35,8 +35,8 @@ for (const question of TSD_CP008_RENDERED_LOCALIZED_QUESTIONS) {
 
 const hindi103 = TSD_CP008_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-103");
 const punjabi103 = TSD_CP008_RENDERED_PUNJABI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-103");
-assert(hindi103.every((question) => /पूरी तरह|पूरी लंबाई|दोनों सिरों/.test(question.stem)), "Hindi QL103 containment semantics are not explicit");
-assert(punjabi103.every((question) => /ਪੂਰੀ ਤਰ੍ਹਾਂ|ਪੂਰੀ ਲੰਬਾਈ|ਦੋਵੇਂ ਸਿਰ/.test(question.stem)), "Punjabi QL103 containment semantics are not explicit");
+assert(hindi103.every((question) => /छोटी ट्रेन/.test(question.stem) && /लंबी ट्रेन/.test(question.stem) && /पूरी तरह|पूरी लंबाई|सीमा|अंदर|बीच/.test(question.stem)), "Hindi QL103 containment semantics are not explicit");
+assert(punjabi103.every((question) => /ਛੋਟੀ ਰੇਲਗੱਡੀ/.test(question.stem) && /ਲੰਬੀ ਰੇਲਗੱਡੀ/.test(question.stem) && /ਪੂਰੀ ਤਰ੍ਹਾਂ|ਪੂਰੀ ਲੰਬਾਈ|ਹੱਦ|ਅੰਦਰ|ਵਿਚਕਾਰ/.test(question.stem)), "Punjabi QL103 containment semantics are not explicit");
 assert([...hindi103, ...punjabi103].every((question) => !/maximum overlap/i.test(question.stem)), "ambiguous maximum-overlap wording leaked into localization");
 
 const hindi102 = TSD_CP008_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-102");
