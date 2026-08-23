@@ -273,6 +273,7 @@ router.post(
       return;
     }
 
+    // Hindi/Punjabi controlled review is available for NUM-CP-001, NUM-CP-008 and NUM-CP-009 only.
     if (numberSystemRequest && language !== "en") {
       const targetCp = canonicalProblemId ?? inferredNumberSystemCp ?? (num002Request ? "NUM-CP-008" : "NUM-CP-001");
       if (targetCp !== "NUM-CP-001" && targetCp !== "NUM-CP-008" && targetCp !== "NUM-CP-009") {
