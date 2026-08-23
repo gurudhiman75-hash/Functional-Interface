@@ -14,6 +14,8 @@ const familyIds = Object.keys(TSD_CP008_QUESTION_STUDIO_COMPATIBLE_CASES);
 const caseCounts = Object.values(TSD_CP008_QUESTION_STUDIO_COMPATIBLE_CASES).map((indices) => indices.length);
 assert(familyIds.length === 54, `expected 54 frozen families, got ${familyIds.length}`);
 assert(caseCounts.every((count) => count >= 1 && count <= 6), "compatible natural case count must stay within 1..6");
+assert(TSD_CP008_QUESTION_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE === 280, `expected exactly 280 compatible review combinations per locale, got ${TSD_CP008_QUESTION_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE}`);
+assert(TSD_CP008_QUESTION_STUDIO_REVIEW_PACKAGE.deterministicReviewCombinations === 840, `expected exactly 840 multilingual deterministic review combinations, got ${TSD_CP008_QUESTION_STUDIO_REVIEW_PACKAGE.deterministicReviewCombinations}`);
 assert(TSD_CP008_QUESTION_STUDIO_REVIEW_PACKAGE.frozenQlCount === 9, "frozen QL count changed");
 assert(TSD_CP008_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioRegistrationStatus === "REGISTERED_REVIEW_ONLY", "Studio registration is not review-only");
 assert(TSD_CP008_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioStagingStatus === "REVIEW_QUEUE_ENABLED", "Studio review queue is not enabled");
@@ -60,6 +62,7 @@ for (const language of TSD_CP008_QUESTION_STUDIO_LANGUAGES) {
 }
 
 assert(validated === TSD_CP008_QUESTION_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE * 3, "multilingual exhaustive validation total mismatch");
+assert(validated === 840, `expected exactly 840 exhaustively validated multilingual questions, got ${validated}`);
 
 for (const [familyId, indices] of Object.entries(TSD_CP008_QUESTION_STUDIO_COMPATIBLE_CASES)) {
   const sample = previewTsdCp008QuestionStudioReview({ language: "en", familyId, count: indices.length, seed: `family-${familyId}` });
@@ -74,7 +77,7 @@ console.log(JSON.stringify({
   minimumCompatibleCasesPerFamily: Math.min(...caseCounts),
   maximumCompatibleCasesPerFamily: Math.max(...caseCounts),
   compatibleReviewCombinationsPerLocale: TSD_CP008_QUESTION_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE,
-  deterministicReviewCombinations: TSD_CP008_QUESTION_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE * 3,
+  deterministicReviewCombinations: TSD_CP008_QUESTION_STUDIO_REVIEW_PACKAGE.deterministicReviewCombinations,
   validatedQuestions: validated,
   ql099SameDirectionUniquenessGuard: true,
   questionStudioRegistrationStatus: TSD_CP008_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioRegistrationStatus,
