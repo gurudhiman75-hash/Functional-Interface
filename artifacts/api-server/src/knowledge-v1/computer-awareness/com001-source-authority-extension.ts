@@ -5,6 +5,15 @@ import {
 
 export const COM001_ADDITIONAL_SOURCE_AUTHORITIES: Com001SourceAuthority[] = [
   {
+    sourceId: "NIST-CSRC-BIT",
+    title: "NIST CSRC Glossary — bit",
+    url: "https://csrc.nist.gov/glossary/term/bit",
+    authorityClass: "STANDARD",
+    supports: ["capacity-unit-relationship", "bit-definition"],
+    verifiedOn: "2026-08-23",
+    notes: ["Use for the durable definition of a bit as a binary digit with value 0 or 1."],
+  },
+  {
     sourceId: "TECHTARGET-COMPUTER-MEMORY-2025",
     title: "TechTarget — What is computer memory and what are the different types?",
     url: "https://www.techtarget.com/whatis/definition/memory",
