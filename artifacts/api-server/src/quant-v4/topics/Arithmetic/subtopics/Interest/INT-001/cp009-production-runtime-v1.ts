@@ -39,6 +39,12 @@ function resolvePrototype(qlId: IntCp009PermanentQlId, seed: string): IntCp009Pr
   return authority.sourcePrototypeIds[stableIndex(`${qlId}:${seed}:source-variant`, authority.sourcePrototypeIds.length)]!;
 }
 
+function deriveGenerationSeed(qlId: IntCp009PermanentQlId, prototypeId: IntCp009PrototypeId, sourceSeed: string) {
+  return createHash("sha256")
+    .update(`INT-CP009:${qlId}:${prototypeId}:${sourceSeed}`)
+    .digest("hex");
+}
+
 export function getIntCp009PrototypeForPermanentQl(qlId: IntCp009PermanentQlId, seed: string | number) {
   return resolvePrototype(qlId, String(seed));
 }
@@ -47,7 +53,11 @@ export function generateIntCp009Permanent(qlId: IntCp009PermanentQlId, seed: str
   const sourceSeed = String(seed);
   const authority = getIntCp009PermanentAuthority(qlId);
   const prototypeId = resolvePrototype(qlId, sourceSeed);
-  const source = buildIntCp009ExamReadyPolishedPackage(prototypeId, `permanent:${qlId}:${sourceSeed}`) as any;
+  // The certified source constructors intentionally use small modular libraries. Hash the
+  // external production seed first so sequential Question Studio seeds explore those
+  // independent dimensions instead of correlating rate/timing/amount selectors.
+  const generationSeed = deriveGenerationSeed(qlId, prototypeId, sourceSeed);
+  const source = buildIntCp009ExamReadyPolishedPackage(prototypeId, `permanent:${qlId}:${prototypeId}:${generationSeed}`) as any;
 
   const canonical = solveIntCp009Prototype(source.mathematicalState);
   if (!eq(canonical, source.answer)) throw new Error(`${qlId}/${sourceSeed}: canonical answer drift.`);
