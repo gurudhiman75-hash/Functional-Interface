@@ -1,0 +1,54 @@
+name: Verify TRG-002 Pedagogic Diagrams V4
+
+on:
+  push:
+    branches:
+      - feat/trg-002-localization-hi-pa-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-pedagogic-diagrams-v4.yml
+  pull_request:
+    branches:
+      - feat/trg-002-mvp48-freeze
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
+      - .github/workflows/trg-002-pedagogic-diagrams-v4.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-pedagogic-diagrams:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Targeted Trigonometry TypeScript compile
+        run: |
+          cat > artifacts/api-server/tsconfig.trg002-pedagogic.json <<'JSON'
+          {"extends":"./tsconfig.json","compilerOptions":{"noEmit":true},"include":["src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/**/*.ts"],"exclude":["src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-storage.test.ts"],"references":[]}
+          JSON
+          pnpm exec tsc -p artifacts/api-server/tsconfig.trg002-pedagogic.json --pretty false
+      - name: Export dimensioned V4 review surface
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/export-exam-readiness-v4-review-dimensioned.ts
+      - name: Apply semantic diagram repair
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/apply-exam-readiness-v4-diagram-semantic-repair.ts
+      - name: Verify semantic diagram fidelity
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-diagram-semantics.test.ts
+      - name: Apply pedagogic explanation alignment
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/apply-exam-readiness-v4-pedagogic-diagrams.ts
+      - name: Verify explanation-to-diagram teaching alignment
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-pedagogic-diagrams.test.ts
+      - name: Upload pedagogic V4 review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-002-exam-readiness-v4-pedagogic-diagrams
+          path: artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/exam-readiness-v4/
+          if-no-files-found: error
+          retention-days: 14
