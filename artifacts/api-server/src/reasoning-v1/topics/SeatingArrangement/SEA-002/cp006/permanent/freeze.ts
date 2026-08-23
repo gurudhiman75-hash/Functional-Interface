@@ -1,4 +1,5 @@
 import { canonicalDigest } from "../../../SEA-001/canonical.ts";
+import { SEA002_CP006_APPROVED_LOCALIZATION_REVIEW } from "../localization/approved-review.ts";
 import { SEA002_CP006_APPROVED_REVIEW, SEA002_CP006_PREVIOUS_APPROVED_REVIEW } from "../review/approved-review.ts";
 import { SEA002_CP006_REOPENED_ENGLISH_REVIEW } from "../review/reopened-review.ts";
 import {
@@ -52,14 +53,32 @@ export const SEA002_CP006_ENGLISH_FREEZE = Object.freeze({
   currentReviewApproved: true as const,
 });
 
+export const SEA002_CP006_LOCALIZATION_FREEZE = Object.freeze({
+  status: "FROZEN" as const,
+  freezeActive: true as const,
+  locales: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.locales,
+  reviewerId: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.reviewerId,
+  reviewedAt: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.reviewedAt,
+  reviewDecision: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.decision,
+  approvedLocalizedReviewFingerprint: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.approvedLocalizedReviewFingerprint,
+  approvedArtifactId: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.artifactId,
+  approvedArtifactSha256: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.artifactSha256,
+  englishAuthorityFingerprint: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.englishAuthorityFingerprint,
+  renderer: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.renderer,
+  validationWorkflowRunId: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.validationWorkflowRunId,
+  implementationHead: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.implementationHead,
+  productDeliveryUnlocked: false as const,
+  productionStagingApproved: false as const,
+});
+
 export const SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE = Object.freeze({
   identityStatus: "PERMANENT_IDS_ALLOCATED" as const,
   solveInventoryStatus: "FROZEN" as const,
   queryMixStatus: "FROZEN" as const,
   englishFreezeStatus: "FROZEN" as const,
   permanentQlCount: 4 as const,
-  localizationStatus: "REVIEW_CANDIDATE_HUMAN_REVIEW_PENDING" as const,
-  localizationFrozen: false as const,
+  localizationStatus: "FROZEN" as const,
+  localizationFrozen: true as const,
   questionStudioRegistered: false as const,
   questionBankWritable: false as const,
   mockTestEligible: false as const,
@@ -69,14 +88,16 @@ export const SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE = Object.freeze({
 
 export function assertCp006PermanentLayerStillInactive(): void {
   if (!SEA002_CP006_ENGLISH_FREEZE.freezeActive) {
-    throw new Error("SEA-002 CP006 corrected English approval must remain frozen before localization review proceeds.");
+    throw new Error("SEA-002 CP006 corrected English freeze must remain active.");
   }
-  if (SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationFrozen
-    || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered
+  if (!SEA002_CP006_LOCALIZATION_FREEZE.freezeActive || !SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationFrozen) {
+    throw new Error("SEA-002 CP006 approved Hindi/Punjabi localization freeze must remain active.");
+  }
+  if (SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionBankWritable
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.mockTestEligible
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.productionStaging
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.publiclyPublishable) {
-    throw new Error("SEA-002 CP006 must remain product-inactive while Hindi/Punjabi human review is pending.");
+    throw new Error("SEA-002 CP006 must remain product-inactive until downstream activation gates are explicitly passed.");
   }
 }

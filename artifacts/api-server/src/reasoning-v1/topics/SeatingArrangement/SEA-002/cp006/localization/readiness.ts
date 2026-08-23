@@ -1,6 +1,6 @@
 import { canonicalDigest } from "../../../SEA-001/canonical.ts";
 import { buildCp006EnglishReviewCorpus, cp006EnglishReviewFingerprint } from "../cp006-review-corpus.ts";
-import { SEA002_CP006_ENGLISH_FREEZE, SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE } from "../permanent/freeze.ts";
+import { SEA002_CP006_ENGLISH_FREEZE, SEA002_CP006_LOCALIZATION_FREEZE, SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE } from "../permanent/freeze.ts";
 import { SEA002_CP006_BLUEPRINT_TO_PERMANENT_QL, SEA002_CP006_PERMANENT_QL_REGISTRY } from "../permanent/registry.ts";
 import type { Sea002Cp006Caselet } from "../types.ts";
 
@@ -11,7 +11,7 @@ export const SEA002_CP006_TRANSLATION_TARGET_LOCALES = Object.freeze([
   "pa-IN",
 ] as const satisfies readonly Sea002Cp006TranslatedLocale[]);
 
-export const SEA002_CP006_LOCALIZATION_AUTHORITY = "SEA002_CP006_HI_PA_EXPLANATION_PARITY_REVIEW_CANDIDATE" as const;
+export const SEA002_CP006_LOCALIZATION_AUTHORITY = "SEA002_CP006_HI_PA_EXPLANATION_PARITY_FROZEN" as const;
 export const SEA002_CP006_LOCALIZATION_HUMAN_REVIEW_BLOCKER = "CP006_HINDI_PUNJABI_HUMAN_REVIEW_PENDING" as const;
 
 export const SEA002_CP006_SPATIAL_GLOSSARY = Object.freeze([
@@ -41,21 +41,25 @@ export const SEA002_CP006_LOCALIZATION_PROTECTED_FIELDS = Object.freeze([
 ] as const);
 
 export const SEA002_CP006_LOCALIZATION_READINESS = Object.freeze({
-  status: "READY_FOR_TRANSLATION" as const,
+  status: "FROZEN_AFTER_HUMAN_REVIEW" as const,
   canonicalLocale: "en-IN" as const,
   targetLocales: SEA002_CP006_TRANSLATION_TARGET_LOCALES,
   localizationAuthority: SEA002_CP006_LOCALIZATION_AUTHORITY,
   semanticParityPolicy: "CANONICAL_PROJECTION_MUST_MATCH" as const,
   explanationParityPolicy: "FOLLOW_EXACT_APPROVED_ENGLISH_TEACHING_PATH" as const,
   learnerTerminologyPolicy: "POSITION_NOT_COLUMN" as const,
-  learnerTextPolicy: "TRANSLATE_ONLY_AFTER_ENGLISH_FREEZE" as const,
-  humanLanguageReviewRequired: true as const,
-  humanReviewStatus: "PENDING" as const,
-  activeEditorialBlockers: [SEA002_CP006_LOCALIZATION_HUMAN_REVIEW_BLOCKER] as const,
+  learnerTextPolicy: "FROZEN_TO_APPROVED_HI_PA_REVIEW_ARTIFACT" as const,
+  humanLanguageReviewRequired: false as const,
+  humanReviewStatus: "APPROVED" as const,
+  activeEditorialBlockers: Object.freeze([] as const),
   productDeliveryUnlocked: false as const,
   productionStagingApproved: false as const,
   englishFreezeActive: SEA002_CP006_ENGLISH_FREEZE.freezeActive,
   englishFreezeFingerprint: SEA002_CP006_ENGLISH_FREEZE.approvedReviewFingerprint,
+  localizationFreezeActive: SEA002_CP006_LOCALIZATION_FREEZE.freezeActive,
+  approvedLocalizedReviewFingerprint: SEA002_CP006_LOCALIZATION_FREEZE.approvedLocalizedReviewFingerprint,
+  approvedLocalizationArtifactId: SEA002_CP006_LOCALIZATION_FREEZE.approvedArtifactId,
+  approvedLocalizationArtifactSha256: SEA002_CP006_LOCALIZATION_FREEZE.approvedArtifactSha256,
   permanentQlCount: SEA002_CP006_PERMANENT_QL_REGISTRY.length,
   glossaryFingerprint: canonicalDigest(SEA002_CP006_SPATIAL_GLOSSARY),
   protectedFieldFingerprint: canonicalDigest(SEA002_CP006_LOCALIZATION_PROTECTED_FIELDS),
@@ -92,27 +96,34 @@ export function cp006CanonicalParityFingerprint(caselet: Sea002Cp006Caselet): st
   return canonicalDigest(cp006CanonicalParityProjection(caselet));
 }
 
-export function assertCp006LocalizationFoundationStillBlocked(): void {
-  if (SEA002_CP006_LOCALIZATION_READINESS.status !== "READY_FOR_TRANSLATION") {
-    throw new Error("SEA-002 CP006 localization readiness unexpectedly changed.");
+export function assertCp006LocalizationFoundationFrozen(): void {
+  if (SEA002_CP006_LOCALIZATION_READINESS.status !== "FROZEN_AFTER_HUMAN_REVIEW") {
+    throw new Error("SEA-002 CP006 localization freeze status unexpectedly changed.");
   }
-  if (!SEA002_CP006_LOCALIZATION_READINESS.englishFreezeActive) {
-    throw new Error("SEA-002 CP006 localization cannot proceed without the corrected frozen English authority.");
+  if (!SEA002_CP006_LOCALIZATION_READINESS.englishFreezeActive || !SEA002_CP006_LOCALIZATION_READINESS.localizationFreezeActive) {
+    throw new Error("SEA-002 CP006 localization freeze requires both corrected English and approved Hindi/Punjabi freezes.");
   }
-  if (SEA002_CP006_LOCALIZATION_READINESS.humanReviewStatus !== "PENDING") {
-    throw new Error("SEA-002 CP006 Hindi/Punjabi human review must remain pending at candidate stage.");
+  if (SEA002_CP006_LOCALIZATION_READINESS.humanReviewStatus !== "APPROVED") {
+    throw new Error("SEA-002 CP006 Hindi/Punjabi approval record is no longer active.");
+  }
+  if (SEA002_CP006_LOCALIZATION_READINESS.activeEditorialBlockers.length !== 0) {
+    throw new Error("SEA-002 CP006 approved localization must have no active language-review blocker.");
   }
   if (SEA002_CP006_LOCALIZATION_READINESS.productDeliveryUnlocked || SEA002_CP006_LOCALIZATION_READINESS.productionStagingApproved) {
-    throw new Error("SEA-002 CP006 localization readiness cannot unlock product delivery or staging.");
+    throw new Error("SEA-002 CP006 localization freeze does not itself unlock product delivery or staging.");
   }
-  if (SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationFrozen
+  if (!SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.localizationFrozen
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionStudioRegistered
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.questionBankWritable
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.mockTestEligible
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.productionStaging
     || SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE.publiclyPublishable) {
-    throw new Error("SEA-002 CP006 localization candidate must not bypass downstream activation gates.");
+    throw new Error("SEA-002 CP006 localization is frozen, but downstream activation must remain blocked.");
   }
+}
+
+export function assertCp006LocalizationFoundationStillBlocked(): void {
+  assertCp006LocalizationFoundationFrozen();
 }
 
 export function assertCp006LocalizationBindsToApprovedEnglish(): void {

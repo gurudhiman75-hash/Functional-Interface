@@ -1,3 +1,4 @@
+import { SEA002_CP006_APPROVED_LOCALIZATION_REVIEW } from "../localization/approved-review.ts";
 import { SEA002_CP006_APPROVED_REVIEW, SEA002_CP006_PREVIOUS_APPROVED_REVIEW } from "../review/approved-review.ts";
 import type { Sea002Cp006BlueprintId } from "../types.ts";
 
@@ -41,7 +42,11 @@ export interface Sea002Cp006PermanentQlRegistryEntry {
   readonly approvedArtifactId: number;
   readonly approvedArtifactSha256: string;
   readonly previousApprovedReviewFingerprint: string;
-  readonly localizationStatus: "REVIEW_CANDIDATE_HUMAN_REVIEW_PENDING";
+  readonly localizationStatus: "LOCALIZATION_MANUAL_FREEZE_APPROVED";
+  readonly localizationReviewerId: string;
+  readonly approvedLocalizedReviewFingerprint: string;
+  readonly approvedLocalizationArtifactId: number;
+  readonly approvedLocalizationArtifactSha256: string;
   readonly active: false;
   readonly questionStudioDiscoverable: false;
   readonly questionBankWritable: false;
@@ -67,7 +72,11 @@ export const SEA002_CP006_PERMANENT_QL_REGISTRY: readonly Sea002Cp006PermanentQl
     approvedArtifactId: SEA002_CP006_APPROVED_REVIEW.artifactId,
     approvedArtifactSha256: SEA002_CP006_APPROVED_REVIEW.artifactSha256,
     previousApprovedReviewFingerprint: SEA002_CP006_PREVIOUS_APPROVED_REVIEW.approvedReviewFingerprint,
-    localizationStatus: "REVIEW_CANDIDATE_HUMAN_REVIEW_PENDING" as const,
+    localizationStatus: "LOCALIZATION_MANUAL_FREEZE_APPROVED" as const,
+    localizationReviewerId: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.reviewerId,
+    approvedLocalizedReviewFingerprint: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.approvedLocalizedReviewFingerprint,
+    approvedLocalizationArtifactId: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.artifactId,
+    approvedLocalizationArtifactSha256: SEA002_CP006_APPROVED_LOCALIZATION_REVIEW.artifactSha256,
     active: false as const,
     questionStudioDiscoverable: false as const,
     questionBankWritable: false as const,
