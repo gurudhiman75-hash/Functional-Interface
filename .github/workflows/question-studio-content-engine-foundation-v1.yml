@@ -65,6 +65,10 @@ jobs:
             src/knowledge-v1/computer-awareness/com001-source-manifest.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/content-engine-foundation/com001-source-manifest.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com001-memory-storage-candidate-corpus.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/content-engine-foundation/com001-memory-storage-candidate-corpus.test.mjs
       - name: Run content engine tests
         run: |
           cd artifacts/api-server
@@ -74,3 +78,4 @@ jobs:
           node dist/content-engine-foundation/com001-memory-storage-discovery.test.mjs
           node dist/content-engine-foundation/com001-memory-storage-corpus-requirements.test.mjs
           node dist/content-engine-foundation/com001-source-manifest.test.mjs
+          node dist/content-engine-foundation/com001-memory-storage-candidate-corpus.test.mjs
