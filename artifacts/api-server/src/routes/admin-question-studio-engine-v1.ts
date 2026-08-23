@@ -56,6 +56,13 @@ function normalizeEngineId(value: unknown): QuestionStudioEngineId | undefined {
     : undefined;
 }
 
+function engineForPackage(packageId: string | undefined) {
+  if (!packageId) return undefined;
+  return listQuestionStudioPackages().find(
+    (pkg) => pkg.packageId === packageId,
+  )?.engineId;
+}
+
 router.use(authenticate);
 
 /**
@@ -109,13 +116,18 @@ router.get(
 /**
  * Multi-engine generation facade.
  *
- * Requests without engineId preserve legacy behavior and resolve to Quant V4.
- * Explicit engine selection is accepted only for registered engines.
+ * Legacy Quant/Reasoning packages intentionally fall through to the existing
+ * exam-profile `/runs` route. That path currently owns mixed-difficulty and
+ * exam-profile behavior and must remain behaviorally unchanged.
+ *
+ * This facade consumes only explicitly selected non-Quant engines, or package
+ * IDs registered to a non-Quant engine. That makes new engines live without
+ * stealing existing Quant traffic.
  */
 router.post(
   "/runs",
   requireAdminPermission("content.generation.run"),
-  async (req, res) => {
+  async (req, res, next) => {
     const requestedEngineRaw = asString(req.body?.engineId);
     const requestedEngineId = normalizeEngineId(requestedEngineRaw);
 
@@ -127,18 +139,33 @@ router.post(
       return;
     }
 
-    const legacyDefaults = !requestedEngineId || requestedEngineId === "quant-v4";
-    const count = asPositiveInteger(req.body?.count, 5, 50);
     const packageId = asString(req.body?.packageId) || undefined;
+    const packageEngineId = engineForPackage(packageId);
+    const selectedEngineId = requestedEngineId ?? packageEngineId;
+
+    // Preserve the current exam-profile/mixed-difficulty Quant path exactly.
+    if (!selectedEngineId || selectedEngineId === "quant-v4") {
+      next();
+      return;
+    }
+
+    if (
+      requestedEngineId &&
+      packageEngineId &&
+      requestedEngineId !== packageEngineId
+    ) {
+      res.status(400).json({
+        error: `Package ${packageId} belongs to ${packageEngineId}, not ${requestedEngineId}`,
+      });
+      return;
+    }
+
+    const count = asPositiveInteger(req.body?.count, 5, 50);
     const patternId = asString(req.body?.patternId) || undefined;
-    const topic =
-      asString(req.body?.topic) || (legacyDefaults ? "Arithmetic" : undefined);
-    const subtopic =
-      asString(req.body?.subtopic) || (legacyDefaults ? "Percentage" : undefined);
+    const topic = asString(req.body?.topic) || undefined;
+    const subtopic = asString(req.body?.subtopic) || undefined;
     const exam = asString(req.body?.exam) || "SSC CGL";
-    const subject =
-      asString(req.body?.subject) ||
-      (legacyDefaults ? "Quantitative Aptitude" : undefined);
+    const subject = asString(req.body?.subject) || undefined;
     const language = normalizeLanguage(req.body?.language);
     const difficulty = normalizeDifficulty(req.body?.difficulty);
     const seed = asString(req.body?.seed) || undefined;
@@ -158,7 +185,7 @@ router.post(
     }
 
     const generationRequest: QuestionStudioGenerationRequest = {
-      engineId: requestedEngineId,
+      engineId: selectedEngineId,
       exam,
       subject,
       difficulty,
