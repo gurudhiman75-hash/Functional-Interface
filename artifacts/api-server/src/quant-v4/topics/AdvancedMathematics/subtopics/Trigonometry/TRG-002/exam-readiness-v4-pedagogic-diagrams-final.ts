@@ -42,6 +42,40 @@ function samePhysicalPoint(a: AnyRecord | undefined, b: AnyRecord | undefined) {
   return !!a && !!b && Math.abs(Number(a.x) - Number(b.x)) < 1e-5 && Math.abs(Number(a.y) - Number(b.y)) < 1e-5;
 }
 
+function hasRaisedObserverBase(diagram: AnyRecord, eye: AnyRecord) {
+  const groundLikeRoles = new Set(["OBSERVER_GROUND", "OBJECT_BASE", "GROUND"]);
+  return (diagram.points ?? []).some((point: AnyRecord) =>
+    groundLikeRoles.has(String(point?.role ?? ""))
+      && Math.abs(Number(point?.x) - Number(eye?.x)) < 1e-5
+      && Number(point?.y) > Number(eye?.y) + 1e-5);
+}
+
+function suppressGroundCoincidentHelperLabels(result: AnyRecord) {
+  const diagram = result.diagram;
+  const points = pointMap(diagram);
+  const suppressedIds = new Set<string>();
+
+  for (const segment of (diagram.segments ?? []).filter((entry: AnyRecord) => String(entry?.kind ?? "") === "EYE_LEVEL")) {
+    const from = points.get(String(segment?.fromPointId ?? ""));
+    const to = points.get(String(segment?.toPointId ?? ""));
+    const eye = String(from?.role ?? "") === "OBSERVER_EYE" ? from : String(to?.role ?? "") === "OBSERVER_EYE" ? to : null;
+    const level = eye === from ? to : eye === to ? from : null;
+    if (!eye || !level || hasRaisedObserverBase(diagram, eye)) continue;
+    if (level.pedagogic === true && /^H\d*$/u.test(String(level.label ?? ""))) {
+      suppressedIds.add(String(level.id));
+      delete level.label;
+      delete level.pedagogic;
+    }
+  }
+
+  const count = suppressedIds.size;
+  result.audit.helperPointsLabeled = Math.max(0, Number(result.audit.helperPointsLabeled ?? 0) - count);
+  result.audit.explanationFactsVisualized.push(...Array.from({ length: count }, () => "GROUND_COINCIDENT_HELPER_LABEL_SUPPRESSED"));
+  result.diagram.pedagogicDiagramAudit.groundCoincidentHelperLabelsSuppressed = count;
+  result.diagram.pedagogicDiagramAudit.visibleHelperPointsRequireRaisedEyeLevel = true;
+  return count;
+}
+
 function pushTeachingArrow(result: AnyRecord, args: AnyRecord, fromPointId: string, toPointId: string, label: string, kind: string) {
   const diagram = result.diagram;
   const points = pointMap(diagram);
@@ -208,6 +242,7 @@ export function applyTrg002V4PedagogicDiagramLayerFinal(args: {
     }
   }
 
+  const groundCoincidentHelperLabelsSuppressed = suppressGroundCoincidentHelperLabels(result);
   const answerEquivalentExplanationHelpers = restoreExplicitRiseHelpers(result, args);
   const physicalAngleTeachingFixes = repairOppositeSideTeaching(result, args);
   result.diagram.reviewDimensionAudit.totalDimensions = result.diagram.measurementArrows.length;
@@ -218,5 +253,6 @@ export function applyTrg002V4PedagogicDiagramLayerFinal(args: {
   result.diagram.pedagogicDiagramAudit.answerEquivalentExplanationHelpers = answerEquivalentExplanationHelpers;
   result.diagram.pedagogicDiagramAudit.physicalAngleTeachingFixes = physicalAngleTeachingFixes;
   result.diagram.pedagogicDiagramAudit.coincidentEyeGroundResolvedByCoordinates = true;
+  result.diagram.pedagogicDiagramAudit.groundCoincidentHelperLabelsSuppressed = groundCoincidentHelperLabelsSuppressed;
   return result;
 }
