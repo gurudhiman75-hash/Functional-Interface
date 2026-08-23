@@ -7,6 +7,7 @@ import { renderTrg002SolutionDiagramSvg } from "./exam-readiness-v4-review-svg";
 const outDir = join(process.cwd(), "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/exam-readiness-v4");
 const jsonPath = join(outDir, "TRG-002-V4-EXAM-READINESS-REVIEW.json");
 const htmlPath = join(outDir, "TRG-002-V4-EXAM-READINESS-REVIEW.html");
+const REVIEW_PADDING = 240;
 
 function stringify(value: unknown) {
   return JSON.stringify(value, (_key, current) => typeof current === "bigint" ? `bigint:${current}` : current, 2);
@@ -206,17 +207,22 @@ function renderPedagogicAngleOverlays(diagram: any) {
     if (!Number.isFinite(expected) || Math.abs(actualDegrees - expected) > 0.75) {
       throw new Error(`${overlay.id}: overlay label ${overlay.label} disagrees with geometry (${actualDegrees.toFixed(2)}°).`);
     }
+    // renderTrg002SolutionDiagramSvg translates every logical point by the
+    // review padding before drawing. Custom overlays injected afterwards must
+    // use that same rendered coordinate space or they detach from the geometry.
+    const vx = Number(vertex.x) + REVIEW_PADDING;
+    const vy = Number(vertex.y) + REVIEW_PADDING;
     const radius = 52;
-    const sx = Number(vertex.x) + radius * Math.cos(start);
-    const sy = Number(vertex.y) + radius * Math.sin(start);
-    const ex = Number(vertex.x) + radius * Math.cos(target);
-    const ey = Number(vertex.y) + radius * Math.sin(target);
+    const sx = vx + radius * Math.cos(start);
+    const sy = vy + radius * Math.sin(start);
+    const ex = vx + radius * Math.cos(target);
+    const ey = vy + radius * Math.sin(target);
     const sweep = delta >= 0 ? 1 : 0;
     const mid = start + delta / 2;
     const labelRadius = 92;
-    const lx = Number(vertex.x) + labelRadius * Math.cos(mid);
-    const ly = Number(vertex.y) + labelRadius * Math.sin(mid);
-    return `<g class="pedagogic-angle-overlay" data-pedagogic-angle-id="${esc(overlay.id)}" data-pedagogic-angle-role="${esc(overlay.semanticRole)}"><path d="M ${sx.toFixed(2)} ${sy.toFixed(2)} A ${radius} ${radius} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}" fill="none" stroke="#6d28d9" stroke-width="3.2"/><rect x="${(lx - 26).toFixed(2)}" y="${(ly - 17).toFixed(2)}" width="52" height="34" rx="7" fill="#ffffff" fill-opacity="0.98" stroke="#ddd6fe" stroke-width="1"/><text x="${lx.toFixed(2)}" y="${ly.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-size="20" fill="#6d28d9">${esc(overlay.label)}</text></g>`;
+    const lx = vx + labelRadius * Math.cos(mid);
+    const ly = vy + labelRadius * Math.sin(mid);
+    return `<g class="pedagogic-angle-overlay" data-pedagogic-angle-id="${esc(overlay.id)}" data-pedagogic-angle-role="${esc(overlay.semanticRole)}" data-rendered-vertex-x="${vx.toFixed(2)}" data-rendered-vertex-y="${vy.toFixed(2)}"><path d="M ${sx.toFixed(2)} ${sy.toFixed(2)} A ${radius} ${radius} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}" fill="none" stroke="#6d28d9" stroke-width="3.2"/><rect x="${(lx - 26).toFixed(2)}" y="${(ly - 17).toFixed(2)}" width="52" height="34" rx="7" fill="#ffffff" fill-opacity="0.98" stroke="#ddd6fe" stroke-width="1"/><text x="${lx.toFixed(2)}" y="${ly.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-size="20" fill="#6d28d9">${esc(overlay.label)}</text></g>`;
   }).join("");
 }
 
