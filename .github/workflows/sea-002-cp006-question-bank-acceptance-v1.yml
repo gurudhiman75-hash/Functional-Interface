@@ -1,0 +1,103 @@
+name: Validate SEA-002 CP006 Question Bank acceptance
+
+on:
+  push:
+    branches:
+      - feature/sea-002-cp006-question-studio-v1
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/**"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine.ts"
+      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
+      - "artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
+      - ".github/workflows/sea-002-cp006-question-bank-acceptance-v1.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/**"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine.ts"
+      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
+      - "artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
+      - ".github/workflows/sea-002-cp006-question-bank-acceptance-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: sea-002-cp006-bank-accept-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-sea-002-cp006-question-bank-acceptance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Re-prove signed multilingual freeze
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-localization-freeze-proof.test.ts
+
+      - name: Re-prove frozen source Question Studio contract
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-studio-integration.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/sea-002-cp006-source-studio-contract.mjs
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp006-source-studio-contract.mjs
+
+      - name: Re-prove Question Bank conversion readiness
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-bank-readiness.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/sea-002-cp006-bank-readiness-regression.mjs
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp006-bank-readiness-regression.mjs
+
+      - name: Bundle Question Bank acceptance proof
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-bank-acceptance.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/sea-002-cp006-bank-acceptance.mjs
+
+      - name: Run Question Bank acceptance proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp006-bank-acceptance.mjs \
+            2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp006-bank-acceptance.log
+
+      - name: Bundle shared Studio acceptance-facade proof
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-bank-acceptance-facade.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/sea-002-cp006-bank-acceptance-facade.mjs
+
+      - name: Run shared Studio acceptance-facade proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp006-bank-acceptance-facade.mjs \
+            2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp006-bank-acceptance-facade.log
+
+      - name: Re-prove approval and downstream route locks
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-bank-readiness-route.test.ts
+
+      - name: Bundle production Question Studio and approval routes
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/routes/admin-question-studio-average.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/reasoning-v1/admin-question-studio-sea-bank-acceptance.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/routes/admin-question-studio-bulk-hardening.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/reasoning-v1/admin-question-studio-bulk-sea-bank-acceptance.mjs
+
+      - name: Upload CP006 Question Bank acceptance evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sea-002-cp006-question-bank-acceptance-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/sea-002-cp006-bank-acceptance.log
+            artifacts/api-server/dist/reasoning-v1/sea-002-cp006-bank-acceptance-facade.log
+          if-no-files-found: error
+          retention-days: 30
