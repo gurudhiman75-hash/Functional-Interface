@@ -25,16 +25,14 @@ Approved Waves 1–7 contain **63** temporary executable prototypes. Wave 8 adds
 Permanent QLs = **0**.  
 Frozen permanent solve modes = **0**.
 
-## Source basis
+## Exact source ownership
 
-Wave 8 uses secondary SSC PYQ repository evidence rather than claiming official publisher provenance:
+Wave 8 uses two secondary SSC PYQ repository records and does not claim official publisher provenance:
 
-- SSC CGL Tier 2, 12 Sep 2019: interior-angle sum 1260° first requires inverse recovery of `n = 9`, then continues into a regular-polygon interior/exterior comparison.
-- SSC CGL 2025, 18 Sep 2025 Shift 3: direct exterior-angle-sum invariant of 360°.
-- SSC CGL Tier 2, 18 Nov 2020: regular-polygon interior angle exceeds exterior angle by 90°, requiring supplementary-angle and exterior-angle/side-count reasoning.
-- SSC CHSL 2025 Tier-1, 27 Nov 2025 Shift 3: regular-polygon interior angle is five times the exterior angle, again requiring interior/exterior relation plus side-count reasoning.
+- **SSC CGL Tier 2, 12 Sep 2019** — the same question first requires inverse recovery of `n = 9` from a 1260° interior-angle sum and then asks for the regular polygon's interior/exterior-angle difference. This exact source owns both the inverse prototype and the mixed-chain prototype.
+- **SSC CGL 2025, 18 Sep 2025 Shift 3** — directly asks for the total of one exterior angle at each polygon vertex and establishes the invariant total as 360°. This exact source owns the exterior-sum prototype.
 
-These sources support the three residual CP009 audit families while preserving the distinction between direct inverse recovery, theorem-invariant recognition, and a multi-step mixed polygon chain.
+Broader polygon PYQ patterns are not attached as owners merely because they use adjacent theorems. Wave 8 source IDs are intentionally restricted to the records that materially match the implemented learner decisions.
 
 ## Representation decision
 
@@ -59,7 +57,7 @@ Each prototype currently provides:
 - natural learner explanations with no internal theorem-ID leakage;
 - remove-one-displayed-clue minimality proof;
 - independent definition-level verification;
-- explicit source-evidence IDs;
+- exact source-evidence IDs;
 - canonical fingerprints;
 - all product lifecycle locks retained.
 
