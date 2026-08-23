@@ -24,6 +24,24 @@ export const COM001_ADDITIONAL_SOURCE_AUTHORITIES: Com001SourceAuthority[] = [
     ],
   },
   {
+    sourceId: "IBM-PRIMARY-STORAGE-2024",
+    title: "IBM — What is Primary Storage?",
+    url: "https://www.ibm.com/think/topics/primary-storage",
+    authorityClass: "VENDOR_TECHNICAL",
+    supports: [
+      "memory-layer-classification",
+      "register-function",
+      "cache-function",
+      "ram-function",
+      "rom-function",
+    ],
+    verifiedOn: "2026-08-23",
+    notes: [
+      "Scoped to the reviewed primary-storage page, which identifies RAM, ROM and cache roles and distinguishes secondary/external memory.",
+      "This authority is separate from the rejected IBM primary-vs-secondary page and must not inherit claims from that rejected URL.",
+    ],
+  },
+  {
     sourceId: "INTEL-MEMORY-HIERARCHY-2007",
     title: "Intel Technology Journal — memory hierarchy pyramid",
     url: "https://www.intel.com/content/dam/www/public/us/en/documents/research/2007-vol11-iss-4-intel-technology-journal.pdf",
@@ -38,6 +56,30 @@ export const COM001_ADDITIONAL_SOURCE_AUTHORITIES: Com001SourceAuthority[] = [
     notes: [
       "Use only the durable broad hierarchy order: registers, cache levels, then main memory.",
       "Do not convert old benchmark values or processor-specific latency numbers into timeless facts.",
+    ],
+  },
+  {
+    sourceId: "IBM-FLOPPY-HISTORY",
+    title: "IBM — Floppy disk storage",
+    url: "https://www.ibm.com/history/floppy-disk",
+    authorityClass: "VENDOR_TECHNICAL",
+    supports: ["storage-medium", "floppy-magnetic", "removable-storage"],
+    verifiedOn: "2026-08-23",
+    notes: [
+      "Use for the durable magnetic-medium classification and removable-storage role of floppy disks.",
+      "Historical capacities are not generation authority for modern comparison questions.",
+    ],
+  },
+  {
+    sourceId: "KINGSTON-SD-MICROSD-CARDS",
+    title: "Kingston Technology — SD and microSD flash memory cards",
+    url: "https://www.kingston.com/en/memory-cards",
+    authorityClass: "VENDOR_TECHNICAL",
+    supports: ["storage-medium", "flash-memory-card", "removable-storage"],
+    verifiedOn: "2026-08-23",
+    notes: [
+      "Use only for the durable classification of SD/microSD products as flash memory cards.",
+      "Do not turn current product capacities or speed classes into timeless exam facts.",
     ],
   },
 ];
