@@ -1,5 +1,9 @@
 import { deterministicPick, deterministicShuffle } from "../deterministic";
-import { verifyKnowledgeComposition, type KnowledgeStatementClaim } from "../composition-verifier";
+import {
+  verifyKnowledgeComposition,
+  verifyKnowledgeStatements,
+  type KnowledgeStatementClaim,
+} from "../composition-verifier";
 import { assertKnowledgeQuestionValid } from "../question-validation";
 import type { KnowledgeFact, KnowledgeFactValue } from "../types";
 import { COM001_MEMORY_STORAGE_ALL_CANDIDATES } from "./com001-memory-storage-readiness";
@@ -228,18 +232,11 @@ export function generateCom001Ql008Review(seed: string): Com001ReviewQuestion {
   const qlId = "COM-001-QL-008";
   const template = deterministicPick(COMPOSITION_TEMPLATES, `${seed}:template`);
   const facts = template.claims.map((claim) => fact(claim.factId));
-  const truths = template.claims.map((claim) => claim.statementId);
-  const verifiedTruths = verifyKnowledgeComposition(
-    facts,
-    template.claims,
-    [
-      { optionId: "PROOF-A", trueStatementIds: truths },
-      { optionId: "PROOF-B", trueStatementIds: [] },
-    ],
-  );
-  // The temporary proof options above may not contain the real answer. Resolve
-  // the truth vector directly and then build the actual four answer choices.
-  const trueIds = verifiedTruths.truths.filter((entry) => entry.true).map((entry) => entry.statementId).sort();
+  const truthVector = verifyKnowledgeStatements(facts, template.claims);
+  const trueIds = truthVector
+    .filter((entry) => entry.true)
+    .map((entry) => entry.statementId)
+    .sort();
   const trueSignature = trueIds.join("|");
   const alternatives = deterministicShuffle(
     subsets(template.claims.map((claim) => claim.statementId))
