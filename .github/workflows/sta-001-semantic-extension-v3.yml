@@ -30,7 +30,7 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
-      - name: Strict STA TypeScript check
+      - name: Strict STA-owned TypeScript check
         working-directory: artifacts/api-server
         run: |
           pnpm exec tsc \
