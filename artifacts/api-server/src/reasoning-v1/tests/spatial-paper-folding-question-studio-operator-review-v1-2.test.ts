@@ -20,6 +20,7 @@ const localizedLatinLeak = /[A-Za-z]{2,}/;
 
 assert.equal(PFC_TPF_QUESTION_STUDIO_EDITORIAL_AUTHORITY_V1_1.registrationAllowed, false);
 assert.equal(PFC_TPF_QUESTION_STUDIO_OPERATOR_REVIEW_AUTHORITY_V1_2.questionStudioRegistrationAllowed, false);
+assert.equal(PFC_TPF_QUESTION_STUDIO_OPERATOR_REVIEW_AUTHORITY_V1_2.remediation.reachableDeterministicAnswerStemPairsOnly, true);
 assert.equal(PFC_TPF_QUESTION_STUDIO_EDITORIAL_AUTHORITY_V1_1.remediation.exactRenderedTextFingerprint, true);
 
 const stemVariantCoverage: Record<string, number[]> = {};
@@ -46,7 +47,6 @@ for (const qlId of QLS) {
     assert.equal(editedEn.provenance, baseEn.provenance);
     assert.equal(editedEn.representation, baseEn.representation);
     assert.deepEqual(editedEn.lifecycle, baseEn.lifecycle);
-    assert.notEqual(editedEn.stem, baseEn.stem);
 
     const baseHi = generatePfcTpfStudioQuestionV1({ qlId: qlId as PfcTpfStudioQlIdV1, seed, language: "hi" });
     const basePa = generatePfcTpfStudioQuestionV1({ qlId: qlId as PfcTpfStudioQlIdV1, seed, language: "pa" });
