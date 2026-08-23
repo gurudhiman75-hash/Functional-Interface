@@ -74,6 +74,23 @@ function generateSource(prototypeId: string, seed: number) {
   throw new Error(`Unknown NUM-CP-010 prototype id: ${prototypeId}`);
 }
 
+function polishLearnerText(value: string): string {
+  return value
+    .replace(/\b(\d{2,})\s*=\s*\1\b/gu, "$1")
+    .replace("The valid two-digit numbers are none.", "No two-digit number satisfies both conditions.")
+    .replace(/\bvalid states\b/gu, "valid numbers")
+    .replace(/\bvalid state\b/gu, "valid number");
+}
+
+function polishPermanentExplanation(source: ReturnType<typeof generateSource>) {
+  return Object.freeze({
+    coreConcept: polishLearnerText(source.explanation.coreConcept),
+    strategy: polishLearnerText(source.explanation.strategy),
+    steps: Object.freeze(source.explanation.steps.map((step) => polishLearnerText(step))),
+    finalAnswer: source.explanation.finalAnswer,
+  });
+}
+
 export function generateNumCp010Permanent(
   qlId: NumCp010PermanentQlId,
   seed: number,
@@ -103,6 +120,7 @@ export function generateNumCp010Permanent(
     sourceSeed,
     answerSemantic: allocation.authorityAnswerSemantic,
     sourceAnswerSemantic: source.answerSemantic,
+    explanation: polishPermanentExplanation(source),
     lifecycle: Object.freeze({
       permanentQlId: qlId,
       maturity: "PERMANENT_AUTHORITY" as const,
