@@ -85,6 +85,12 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/apply-exam-readiness-v4-diagram-semantic-repair.ts
       - name: Verify question-to-diagram semantic fidelity
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-diagram-semantics.test.ts
+      - name: Apply pedagogic explanation alignment
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/apply-exam-readiness-v4-pedagogic-diagrams.ts
+      - name: Verify explanation-to-diagram teaching alignment
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-pedagogic-diagrams.test.ts
+      - name: Verify 96-of-96 See Rule Use teaching cues
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/exam-readiness-v4-pedagogic-cues.test.ts
       - name: Verify V4 review artifact
         run: |
           JSON=artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/exam-readiness-v4/TRG-002-V4-EXAM-READINESS-REVIEW.json
@@ -114,6 +120,10 @@ jobs:
             if(!row.solutionDiagram.reviewDimensionAudit||row.solutionDiagram.reviewDimensionAudit.totalDimensions<2) throw new Error(`${row.qlId}: missing minimum solution dimensions`);
             if(row.solutionDiagram.reviewDimensionAudit.requestedDimensionPresent!==true) throw new Error(`${row.qlId}: requested linear dimension missing`);
             if(row.solutionDiagram.semanticDiagramAudit?.status!=='PASS') throw new Error(`${row.qlId}: semantic diagram audit missing`);
+            if(row.solutionDiagram.pedagogicDiagramAudit?.status!=='PASS') throw new Error(`${row.qlId}: pedagogic diagram audit missing`);
+            const cues=row.solutionDiagram.pedagogicTeachingCues??[];
+            if(cues.length!==3) throw new Error(`${row.qlId}: expected See/Rule/Use teaching cues`);
+            if(cues.filter((c)=>c.kind==='GEOMETRY').length!==1||cues.filter((c)=>c.kind==='RULE').length!==1||cues.filter((c)=>c.kind==='CALCULATION').length!==1) throw new Error(`${row.qlId}: incomplete teaching cue roles`);
             if(row.v4NaturalMeasurementOverride && (row.english.stem.includes('√')||row.hindi.stem.includes('√')||row.punjabi.stem.includes('√'))) throw new Error(`${row.qlId}: Wave2 review stem still exposes a surd physical measurement`);
             if(row.lifecycle.multilingualFreezeGranted!==false||row.lifecycle.activationAuthorized!==false) throw new Error(`${row.qlId}: V4 lifecycle lock regression`);
           }
@@ -124,7 +134,11 @@ jobs:
           if(svgs.some((svg)=>(svg.match(/data-measurement-id="/g)??[]).length<2)) throw new Error('At least one rendered SVG has fewer than two dimensions');
           if(svgs.some((svg)=>/\b(?:NaN|Infinity|-Infinity)\b/.test(svg))) throw new Error('Rendered SVG contains a non-finite coordinate');
           if(html.includes('<div class="diagram-missing">')) throw new Error('At least one review card is missing its rendered diagram');
-          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} renderedSvgs=${svgs.length} dimensionedSvgs=96 semanticDiagramAudited=96 semanticParityRemediated=30 catalog=${pack.audit.scenarioCatalog.shells} canonicalOverrides=6 naturalMeasurementOverrides=19 physicalSupportMigrations=3 surdPhysicalGivens=0 shallowHardSolutions=0`);
+          const panels=html.match(/data-pedagogic-panel="true"/g)??[];
+          if(panels.length!==96) throw new Error(`Expected 96 rendered pedagogic teaching panels, got ${panels.length}`);
+          const cueTotal=pack.records.reduce((sum,r)=>sum+(r.solutionDiagram.pedagogicTeachingCues??[]).length,0);
+          if(cueTotal!==288) throw new Error(`Expected 288 official teaching cues, got ${cueTotal}`);
+          console.log(`TRG002_V4_TRI_LANGUAGE_VISUAL_PACK_PASS qls=${pack.records.length} renderedSvgs=${svgs.length} dimensionedSvgs=96 semanticDiagramAudited=96 pedagogicDiagramAudited=96 teachingPanels=96 teachingCues=288 semanticParityRemediated=30 catalog=${pack.audit.scenarioCatalog.shells} canonicalOverrides=6 naturalMeasurementOverrides=19 physicalSupportMigrations=3 surdPhysicalGivens=0 shallowHardSolutions=0`);
           NODE
       - name: Upload V4 audit and review pack
         uses: actions/upload-artifact@v4
