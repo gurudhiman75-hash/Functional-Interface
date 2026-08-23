@@ -55,7 +55,7 @@ for (const record of pack.records as AnyRecord[]) {
   if ((audit.explanationFactsVisualized ?? []).length > 0) diagramsWithTeachingFacts += 1;
 
   const requested = (diagram.measurementArrows ?? []).find((arrow: AnyRecord) => String(arrow.kind ?? "").includes("REQUESTED"));
-  if (requested && !/[?]|x\s*[+−-]|far\s*=|near\s*=/u.test(String(requested.label))) {
+  if (requested && !/[?]|x\s*[+−-]|far\s*=|near\s*=|distance\s*=/u.test(String(requested.label))) {
     throw new Error(`${record.qlId}: requested dimension lost its unsolved/relation form (${requested.label}).`);
   }
 }
@@ -105,11 +105,20 @@ for (const expected of ["drop = 8 m", "d = 8√3 m", "rise = 24 m"] as const) {
 }
 if (q91.measurementArrows.some((arrow: AnyRecord) => arrow.label === "drop = 8√3 m")) throw new Error("QL091: horizontal d=8√3 must not be mislabeled as the vertical drop.");
 
-// Observer-between-targets and opposite-side systems must show the split used in the equations.
+// Observer-between-targets and opposite-side systems must show the exact algebra on the physically correct 30°/60° side.
 if (!hasDimensionMatching("TRG-002-QL-079", /^x = 8 m$/)) throw new Error("QL079: solved 60° distance x=8 m missing.");
 if (!hasDimension("TRG-002-QL-079", "32 − x")) throw new Error("QL079: complementary road distance 32−x missing.");
+
+const q80Requested = dimensions("TRG-002-QL-080").find((arrow) => String(arrow.kind).includes("REQUESTED"));
+if (q80Requested?.label !== "60° distance = y") throw new Error(`QL080: requested 60° distance must remain symbolic y, got ${q80Requested?.label}.`);
+if (!hasDimension("TRG-002-QL-080", "x = 3y")) throw new Error("QL080: 30° distance relation x=3y missing.");
+
+if (!hasDimensionMatching("TRG-002-QL-081", /^x = 12 m$/)) throw new Error("QL081: solved 60° car distance x=12 m missing.");
+if (!hasDimension("TRG-002-QL-081", "3x")) throw new Error("QL081: 30° car distance 3x missing.");
+
 if (!hasDimensionMatching("TRG-002-QL-082", /^y = 10 m$/)) throw new Error("QL082: solved 60° distance y=10 m missing.");
-if (!hasDimension("TRG-002-QL-082", "3y")) throw new Error("QL082: 30° distance 3y missing.");
+const q82Requested = dimensions("TRG-002-QL-082").find((arrow) => String(arrow.kind).includes("REQUESTED"));
+if (q82Requested?.label !== "30° distance = 3y") throw new Error(`QL082: requested 30° distance must show the 3y relation, got ${q82Requested?.label}.`);
 if (!hasDimension("TRG-002-QL-078", "x") || !hasDimension("TRG-002-QL-078", "y")) throw new Error("QL078: opposite-side x/y split missing.");
 
 // Composite vertical problems must show the two vertical quantities that are subtracted.
@@ -118,4 +127,4 @@ if (!hasDimension("TRG-002-QL-095", "total = 8√3 m", "base", "upper-top")) thr
 if (!hasDimension("TRG-002-QL-096", "roof = x", "base", "roof")) throw new Error("QL096: symbolic roof=x missing.");
 if (!hasDimension("TRG-002-QL-096", "total = x√3", "base", "upper-top")) throw new Error("QL096: symbolic total=x√3 missing.");
 
-console.log(`TRG002_V4_PEDAGOGIC_ALIGNMENT_PASS qls=96 helperPoints=${helperPoints} teachingDimensions=${teachingDimensions} requestedRealignments=${requestedRealignments} diagramsWithTeachingFacts=${diagramsWithTeachingFacts} answerEquivalentExplanationHelpers=${answerEquivalentExplanationHelpers} dualStateHelpers=green variableConsistency=green`);
+console.log(`TRG002_V4_PEDAGOGIC_ALIGNMENT_PASS qls=96 helperPoints=${helperPoints} teachingDimensions=${teachingDimensions} requestedRealignments=${requestedRealignments} diagramsWithTeachingFacts=${diagramsWithTeachingFacts} answerEquivalentExplanationHelpers=${answerEquivalentExplanationHelpers} dualStateHelpers=green variableConsistency=green oppositeSidePhysicalMapping=green`);
