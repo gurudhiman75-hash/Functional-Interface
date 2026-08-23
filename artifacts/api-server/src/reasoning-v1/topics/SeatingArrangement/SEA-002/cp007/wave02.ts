@@ -111,7 +111,6 @@ function prototype004(
   if (!sitsRelative(target, reference, direction, 2)) throw new Error("Distance-two relation failed self-check.");
   const answer = target.id;
   const correctIndex = answerIndex(seed);
-  const row = sortedRow(participants, reference.seat.row);
   return Object.freeze({
     prototypeId: "SEA-CP007-PROT-004",
     solveFamily: "PARAMETERIZED_RELATIVE_DISTANCE",
@@ -119,7 +118,7 @@ function prototype004(
     width,
     participants,
     stem: `${rowSentence(participants, reference.seat.row)} ${reference.id} faces ${reference.facing === "N" ? "north" : "south"}. Who sits second to the ${direction.toLowerCase()} of ${reference.id}?`,
-    options: optionsAt(answer, row.filter((p) => p.id !== answer).map((p) => p.id), correctIndex),
+    options: optionsAt(answer, participants.filter((p) => p.id !== answer).map((p) => p.id), correctIndex),
     correctIndex,
     answer,
     explanation: `${reference.id} faces ${reference.facing === "N" ? "north" : "south"}. Moving two positions to ${reference.id}'s ${direction.toLowerCase()} reaches position ${target.seat.position + 1} in the same row. ${target.id} occupies that position.`,
@@ -209,7 +208,6 @@ function prototype007(
   const diagonal = participants.find((p) => p.seat.row === anchor.seat.row && p.seat.position === targetPosition)!;
   const answer = diagonal.id;
   const correctIndex = answerIndex(seed);
-  const otherRow = sortedRow(participants, anchor.seat.row);
   return Object.freeze({
     prototypeId: "SEA-CP007-PROT-007",
     solveFamily: "INFERRED_FACING_DIAGONAL",
@@ -217,7 +215,7 @@ function prototype007(
     width,
     participants,
     stem: `${anchor.id} and ${opposite.id} occupy opposite positions. ${anchor.id} faces ${anchor.facing === "N" ? "north" : "south"}, and ${opposite.id} faces in the ${relation === "SAME" ? "same" : "opposite"} direction as ${anchor.id}. ${rowSentence(participants, anchor.seat.row)} Who sits diagonally from ${opposite.id} in ${opposite.id}'s right-hand direction?`,
-    options: optionsAt(answer, otherRow.filter((p) => p.id !== answer).map((p) => p.id), correctIndex),
+    options: optionsAt(answer, participants.filter((p) => p.id !== answer).map((p) => p.id), correctIndex),
     correctIndex,
     answer,
     explanation: `From the facing-relation clue, ${opposite.id} faces ${opposite.facing === "N" ? "north" : "south"}. Therefore ${opposite.id}'s right-hand direction points toward position ${targetPosition + 1}. The diagonally corresponding seat is in the other row at that position, occupied by ${diagonal.id}.`,
