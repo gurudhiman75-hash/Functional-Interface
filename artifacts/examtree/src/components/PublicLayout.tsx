@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { ArrowRight, LayoutDashboard, Menu, X } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
+import { PublicHomeSidebar } from "@/components/PublicHomeSidebar";
 import { PublicSeoFallback } from "@/components/PublicSeoFallback";
 import { getSessionUser } from "@/lib/session-user";
 
@@ -54,6 +55,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const user = getSessionUser();
+  const showHomeSidebar = location === "/";
 
   useEffect(() => setMobileOpen(false), [location]);
 
@@ -165,9 +167,18 @@ export function PublicLayout({ children }: PublicLayoutProps) {
         </div>
       </header>
 
-      <main id="main-content" tabIndex={-1} className="min-h-[60vh]">
-        {children}
-      </main>
+      {showHomeSidebar ? (
+        <div className="mx-auto w-full max-w-[1536px] lg:grid lg:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[232px_minmax(0,1fr)]">
+          <PublicHomeSidebar />
+          <main id="main-content" tabIndex={-1} className="min-h-[60vh] min-w-0">
+            {children}
+          </main>
+        </div>
+      ) : (
+        <main id="main-content" tabIndex={-1} className="min-h-[60vh]">
+          {children}
+        </main>
+      )}
 
       <footer className="border-t border-border bg-card/90">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.25fr_2fr] lg:px-8">
