@@ -31,14 +31,18 @@ assert.match(publicLayout, /aria-current=\{active \? "page" : undefined\}/, "pub
 assert.match(publicLayout, /href="#main-content"/, "public shell must preserve skip navigation");
 assert.match(publicLayout, /id="main-content" tabIndex=\{-1\}/, "public shell must expose a focusable main landmark");
 
-assert.match(publicLayout, /const showHomeSidebar = location === "\/"/, "public sidebar must stay scoped to the homepage");
-assert.match(publicLayout, /<PublicHomeSidebar \/>/, "homepage public shell must render its desktop sidebar");
-assert.match(publicLayout, /lg:grid-cols-\[220px_minmax\(0,1fr\)\]/, "homepage sidebar must keep a compact desktop width");
-assert.match(publicHomeSidebar, /hidden[^"]*lg:block/, "homepage sidebar must stay out of the mobile layout");
-assert.match(publicHomeSidebar, /sticky top-16/, "homepage sidebar must sit below the unchanged 64px public header");
-assert.match(publicHomeSidebar, /aria-label="Homepage study navigation"/, "homepage sidebar navigation needs an accessible name");
+assert.match(publicLayout, /function isStudyRoute\(location: string\)/, "public shell must explicitly scope its desktop study sidebar");
+assert.match(publicLayout, /location === "\/exams"/, "exam library must retain the desktop study sidebar");
+assert.match(publicLayout, /location\.startsWith\("\/category\/"\)/, "category discovery must retain the desktop study sidebar");
+assert.match(publicLayout, /location\.startsWith\("\/subcategory\/"\)/, "subcategory discovery must retain the desktop study sidebar");
+assert.match(publicLayout, /const showStudySidebar = isStudyRoute\(location\)/, "public shell must derive study-sidebar visibility from the route scope");
+assert.match(publicLayout, /<PublicHomeSidebar \/>/, "public study shell must render its desktop sidebar");
+assert.match(publicLayout, /lg:grid-cols-\[220px_minmax\(0,1fr\)\]/, "public study sidebar must keep a compact desktop width");
+assert.match(publicHomeSidebar, /hidden[^"]*lg:block/, "public study sidebar must stay out of the mobile layout");
+assert.match(publicHomeSidebar, /sticky top-16/, "public study sidebar must sit below the unchanged 64px public header");
+assert.match(publicHomeSidebar, /aria-label="Study navigation"/, "public study sidebar navigation needs an accessible name");
 for (const href of ["/", "/exams", "/mock-tests", "/pyqs", "/exams-covered"]) {
-  assert.match(publicHomeSidebar, new RegExp(`href: "${href.replaceAll("/", "\\/")}"|href="${href.replaceAll("/", "\\/")}"`), `homepage sidebar must preserve route: ${href}`);
+  assert.match(publicHomeSidebar, new RegExp(`href: "${href.replaceAll("/", "\\/")}"|href="${href.replaceAll("/", "\\/")}"`), `public study sidebar must preserve route: ${href}`);
 }
 
 for (const forbidden of ["Logic Engine v2.4", "Practice Motifs", "API Docs", "deep logic diagnostics"]) {
@@ -47,4 +51,4 @@ for (const forbidden of ["Logic Engine v2.4", "Practice Motifs", "API Docs", "de
 assert.doesNotMatch(appLayout, /MiniFooter/, "preparation shell must not render the obsolete public footer");
 assert.equal(fs.existsSync(path.join(appRoot, "src/components/MiniFooter.tsx")), false, "obsolete prototype footer file must be removed");
 
-console.log("Public/app shell audit passed (38 assertions).");
+console.log("Public/app shell audit passed (42 assertions).");

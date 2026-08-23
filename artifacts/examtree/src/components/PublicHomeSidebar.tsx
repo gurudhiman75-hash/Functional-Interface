@@ -47,7 +47,7 @@ export function PublicHomeSidebar() {
     <aside className="hidden border-r border-border/80 bg-card/70 lg:block" aria-label="Student navigation">
       <div className="sticky top-16 flex max-h-[calc(100vh-4rem)] flex-col overflow-y-auto px-3 py-5">
         <p className="px-3 text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground">Study</p>
-        <nav aria-label="Homepage study navigation" className="mt-2 space-y-1">
+        <nav aria-label="Study navigation" className="mt-2 space-y-1">
           {studyLinks.map((item) => {
             const active = isActiveRoute(location, item.href);
             return (

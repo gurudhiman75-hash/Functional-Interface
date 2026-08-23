@@ -51,11 +51,23 @@ function routeIsActive(location: string, href: string) {
   return location === href || location.startsWith(`${href}/`);
 }
 
+function isStudyRoute(location: string) {
+  return location === "/"
+    || location === "/exams"
+    || location === "/tests"
+    || location === "/mock-tests"
+    || location === "/pyqs"
+    || location === "/exams-covered"
+    || location.startsWith("/category/")
+    || location.startsWith("/subcategory/")
+    || location.startsWith("/published-tests/");
+}
+
 export function PublicLayout({ children }: PublicLayoutProps) {
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const user = getSessionUser();
-  const showHomeSidebar = location === "/";
+  const showStudySidebar = isStudyRoute(location);
 
   useEffect(() => setMobileOpen(false), [location]);
 
@@ -167,7 +179,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
         </div>
       </header>
 
-      {showHomeSidebar ? (
+      {showStudySidebar ? (
         <div className="mx-auto w-full max-w-[1536px] lg:grid lg:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[232px_minmax(0,1fr)]">
           <PublicHomeSidebar />
           <main id="main-content" tabIndex={-1} className="min-h-[60vh] min-w-0">
