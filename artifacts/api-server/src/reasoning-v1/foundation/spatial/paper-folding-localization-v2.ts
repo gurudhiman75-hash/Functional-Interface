@@ -136,43 +136,43 @@ function paNovelNote(question: PfcTpfPermanentEnglishQuestionV3): string {
 
 function hiExplanation(question: PfcTpfPermanentEnglishQuestionV3): string {
   const answer = question.correctOptionId;
-  const folds = foldCount(question);
+  const folds = Math.max(1, foldCount(question));
   switch (question.permanentQlId) {
     case "SPA-QL-035":
       return folds > 1
-        ? `${hiPaper(question.representation)} में ${folds} मोड़ दिखाए गए हैं। पहले आखिरी मोड़ खोलें, फिर उससे पहले वाला। हर बार कट या छेद केवल संबंधित मोड़ रेखा के दूसरी ओर समान दूरी पर बनता है।${hiNovelNote(question)} पूरी तरह खोलने पर विकल्प ${answer} मिलता है।`
-        : `${hiPaper(question.representation)} को एक बार मोड़ा गया है। कागज़ खोलते समय कट या छेद मोड़ रेखा के दूसरी ओर समान दूरी पर दिखाई देगा।${hiNovelNote(question)} इसलिए सही खुली आकृति विकल्प ${answer} है।`;
+        ? `${hiPaper(question.representation)} में ${folds} मोड़ हैं। पहले आखिरी मोड़ खोलें और फिर उससे पहले वाला। हर बार कट या छेद संबंधित मोड़ रेखा के दूसरी ओर समान दूरी पर बनता है।${hiNovelNote(question)} पूरी तरह खोलने पर विकल्प ${answer} मिलता है।`
+        : `${hiPaper(question.representation)} को एक बार मोड़ा गया है। कागज़ खोलने पर कट या छेद मोड़ रेखा के दूसरी ओर समान दूरी पर दिखाई देगा।${hiNovelNote(question)} इसलिए सही खुली आकृति विकल्प ${answer} है।`;
     case "SPA-QL-036":
-      return `यह बहु-मोड़ प्रश्न है। मोड़ उसी क्रम के उलट खोलें जिसमें वे लगाए गए थे—सबसे आखिरी मोड़ पहले। हर चरण में केवल उस मोड़ से जुड़ी परतों पर निशान की नई प्रतिलिपि बनती है।${hiNovelNote(question)} सभी चरण पूरे करने पर विकल्प ${answer} सही है।`;
+      return `${hiPaper(question.representation)} में ${folds} मोड़ हैं। उन्हें लगाने के उलटे क्रम में खोलें—सबसे आखिरी मोड़ पहले। हर चरण में निशान केवल उस मोड़ से जुड़ी परतों पर दोहरता है।${hiNovelNote(question)} सभी मोड़ खोलने पर विकल्प ${answer} सही है।`;
     case "SPA-QL-037":
-      return `यहाँ मुख्य मोड़ तिरछा या कोने पर है। इसलिए निशान को पूरे कागज़ की सीधी आधी प्रतिलिपि की तरह नहीं, वास्तविक तिरछी मोड़ रेखा के पार समान दूरी पर रखना होगा।${hiNovelNote(question)} इससे विकल्प ${answer} वाली आकृति बनती है।`;
+      return `${hiPaper(question.representation)} में मुख्य मोड़ तिरछा या कोने पर है। निशान को पूरे कागज़ की सीधी आधी प्रतिलिपि की तरह नहीं, वास्तविक तिरछी मोड़ रेखा के दूसरी ओर समान दूरी पर रखना होगा।${hiNovelNote(question)} इससे विकल्प ${answer} वाली आकृति बनती है।`;
     case "SPA-QL-038":
-      return `कटों को अलग-अलग ट्रैक करें। जो कट folded packet के अंदर है वह खुलने पर अंदर ही छेद बनाता है; जो कट वास्तव में किनारे को छूता है वही किनारे से जुड़ा notch बनता है। सभी कटों की सही प्रतिलिपियाँ जोड़ने पर विकल्प ${answer} मिलता है।`;
+      return `हर कट को अलग-अलग ट्रैक करें। जो कट मोड़े हुए कागज़ की परतों के अंदर है, वह खोलने पर अंदर का छेद ही बनता है। केवल वही कट किनारे से जुड़ा रहता है जो वास्तव में मोड़े हुए कागज़ के किनारे को छूता है। सभी कटों को सही जगह रखने पर विकल्प ${answer} मिलता है।`;
     case "SPA-QL-039":
-      return `दिए गए खुले परिणाम से पीछे की ओर जाँच करें। हर विकल्प की मोड़-पंच प्रक्रिया को मानसिक रूप से पूरा खोलें और देखें कि निशानों की संख्या, दिशा और दूरी लक्ष्य आकृति से पूरी तरह मिलती है या नहीं। केवल विकल्प ${answer} सभी निशान सही बनाता है।`;
+      return `दिए गए खुले परिणाम से पीछे की ओर जाँच करें। हर विकल्प की मोड़-पंच प्रक्रिया को मन में पूरा खोलें और देखें कि निशानों की संख्या, दिशा और दूरी लक्ष्य आकृति से पूरी तरह मिलती है या नहीं। केवल विकल्प ${answer} सभी निशान सही बनाता है।`;
     case "SPA-QL-040":
-      return `यह पारदर्शी कागज़ है, इसलिए मोड़ने से नया छेद या कट नहीं बनता। मोड़े गए हिस्से पर पहले से बनी रेखाएँ और आकृतियाँ मोड़ रेखा के पार जाकर दूसरी आकृतियों पर चढ़ती हैं। दोनों हिस्सों का सही superposition विकल्प ${answer} में है।`;
+      return `यह पारदर्शी कागज़ है, इसलिए मोड़ने से नया छेद या कट नहीं बनता। मोड़े गए हिस्से पर पहले से बनी रेखाएँ और आकृतियाँ मोड़ रेखा के पार जाकर दूसरी आकृतियों के ऊपर आ जाती हैं। दोनों हिस्सों को एक-दूसरे पर रखने से बनने वाली सही संयुक्त आकृति विकल्प ${answer} में है।`;
   }
 }
 
 function paExplanation(question: PfcTpfPermanentEnglishQuestionV3): string {
   const answer = question.correctOptionId;
-  const folds = foldCount(question);
+  const folds = Math.max(1, foldCount(question));
   switch (question.permanentQlId) {
     case "SPA-QL-035":
       return folds > 1
-        ? `${paPaper(question.representation)} ਵਿੱਚ ${folds} ਮੋੜ ਦਿਖਾਏ ਗਏ ਹਨ। ਪਹਿਲਾਂ ਸਭ ਤੋਂ ਆਖਰੀ ਮੋੜ ਖੋਲ੍ਹੋ, ਫਿਰ ਉਸ ਤੋਂ ਪਹਿਲਾਂ ਵਾਲਾ। ਹਰ ਵਾਰ ਕੱਟ ਜਾਂ ਛੇਦ ਸੰਬੰਧਤ ਮੋੜ ਰੇਖਾ ਦੇ ਦੂਜੇ ਪਾਸੇ ਉੱਨੀ ਹੀ ਦੂਰੀ ਤੇ ਬਣਦਾ ਹੈ।${paNovelNote(question)} ਪੂਰੀ ਤਰ੍ਹਾਂ ਖੋਲ੍ਹਣ ਤੇ ਵਿਕਲਪ ${answer} ਮਿਲਦਾ ਹੈ।`
+        ? `${paPaper(question.representation)} ਵਿੱਚ ${folds} ਮੋੜ ਹਨ। ਪਹਿਲਾਂ ਸਭ ਤੋਂ ਆਖਰੀ ਮੋੜ ਖੋਲ੍ਹੋ ਅਤੇ ਫਿਰ ਉਸ ਤੋਂ ਪਹਿਲਾਂ ਵਾਲਾ। ਹਰ ਵਾਰ ਕੱਟ ਜਾਂ ਛੇਦ ਸੰਬੰਧਤ ਮੋੜ ਰੇਖਾ ਦੇ ਦੂਜੇ ਪਾਸੇ ਉੱਨੀ ਹੀ ਦੂਰੀ ਤੇ ਬਣਦਾ ਹੈ।${paNovelNote(question)} ਪੂਰੀ ਤਰ੍ਹਾਂ ਖੋਲ੍ਹਣ ਤੇ ਵਿਕਲਪ ${answer} ਮਿਲਦਾ ਹੈ।`
         : `${paPaper(question.representation)} ਨੂੰ ਇੱਕ ਵਾਰ ਮੋੜਿਆ ਗਿਆ ਹੈ। ਕਾਗਜ਼ ਖੋਲ੍ਹਣ ਤੇ ਕੱਟ ਜਾਂ ਛੇਦ ਮੋੜ ਰੇਖਾ ਦੇ ਦੂਜੇ ਪਾਸੇ ਉੱਨੀ ਹੀ ਦੂਰੀ ਤੇ ਦਿਖਾਈ ਦੇਵੇਗਾ।${paNovelNote(question)} ਇਸ ਲਈ ਸਹੀ ਖੁੱਲ੍ਹੀ ਆਕ੍ਰਿਤੀ ਵਿਕਲਪ ${answer} ਹੈ।`;
     case "SPA-QL-036":
-      return `ਇਹ ਕਈ ਮੋੜਾਂ ਵਾਲਾ ਪ੍ਰਸ਼ਨ ਹੈ। ਮੋੜ ਉਸੇ ਕ੍ਰਮ ਦੇ ਉਲਟ ਖੋਲ੍ਹੋ ਜਿਸ ਵਿੱਚ ਉਹ ਲਗਾਏ ਗਏ ਸਨ—ਸਭ ਤੋਂ ਆਖਰੀ ਮੋੜ ਪਹਿਲਾਂ। ਹਰ ਪੜਾਅ ਵਿੱਚ ਨਿਸ਼ਾਨ ਦੀ ਨਵੀਂ ਕਾਪੀ ਸਿਰਫ਼ ਉਸ ਮੋੜ ਨਾਲ ਜੁੜੀਆਂ ਪਰਤਾਂ ਉੱਤੇ ਬਣਦੀ ਹੈ।${paNovelNote(question)} ਸਾਰੇ ਪੜਾਅ ਪੂਰੇ ਕਰਨ ਤੇ ਵਿਕਲਪ ${answer} ਸਹੀ ਹੈ।`;
+      return `${paPaper(question.representation)} ਵਿੱਚ ${folds} ਮੋੜ ਹਨ। ਉਹਨਾਂ ਨੂੰ ਲਗਾਉਣ ਦੇ ਉਲਟ ਕ੍ਰਮ ਵਿੱਚ ਖੋਲ੍ਹੋ—ਸਭ ਤੋਂ ਆਖਰੀ ਮੋੜ ਪਹਿਲਾਂ। ਹਰ ਪੜਾਅ ਵਿੱਚ ਨਿਸ਼ਾਨ ਸਿਰਫ਼ ਉਸ ਮੋੜ ਨਾਲ ਜੁੜੀਆਂ ਪਰਤਾਂ ਉੱਤੇ ਦੁਹਰਦਾ ਹੈ।${paNovelNote(question)} ਸਾਰੇ ਮੋੜ ਖੋਲ੍ਹਣ ਤੇ ਵਿਕਲਪ ${answer} ਸਹੀ ਹੈ।`;
     case "SPA-QL-037":
-      return `ਇੱਥੇ ਮੁੱਖ ਮੋੜ ਤਿਰਛਾ ਜਾਂ ਕੋਨੇ ਤੇ ਹੈ। ਇਸ ਲਈ ਨਿਸ਼ਾਨ ਨੂੰ ਪੂਰੇ ਕਾਗਜ਼ ਦੀ ਸਿੱਧੀ ਅੱਧੀ ਨਕਲ ਵਾਂਗ ਨਾ ਰੱਖੋ; ਉਸ ਨੂੰ ਅਸਲ ਤਿਰਛੀ ਮੋੜ ਰੇਖਾ ਦੇ ਪਾਰ ਉੱਨੀ ਹੀ ਦੂਰੀ ਤੇ ਰੱਖਣਾ ਹੈ।${paNovelNote(question)} ਇਸ ਨਾਲ ਵਿਕਲਪ ${answer} ਵਾਲੀ ਆਕ੍ਰਿਤੀ ਬਣਦੀ ਹੈ।`;
+      return `${paPaper(question.representation)} ਵਿੱਚ ਮੁੱਖ ਮੋੜ ਤਿਰਛਾ ਜਾਂ ਕੋਨੇ ਤੇ ਹੈ। ਨਿਸ਼ਾਨ ਨੂੰ ਪੂਰੇ ਕਾਗਜ਼ ਦੀ ਸਿੱਧੀ ਅੱਧੀ ਨਕਲ ਵਾਂਗ ਨਾ ਰੱਖੋ; ਉਸ ਨੂੰ ਅਸਲ ਤਿਰਛੀ ਮੋੜ ਰੇਖਾ ਦੇ ਦੂਜੇ ਪਾਸੇ ਉੱਨੀ ਹੀ ਦੂਰੀ ਤੇ ਰੱਖਣਾ ਹੈ।${paNovelNote(question)} ਇਸ ਨਾਲ ਵਿਕਲਪ ${answer} ਵਾਲੀ ਆਕ੍ਰਿਤੀ ਬਣਦੀ ਹੈ।`;
     case "SPA-QL-038":
-      return `ਹਰ ਕੱਟ ਨੂੰ ਵੱਖਰੇ ਤੌਰ ਤੇ ਟ੍ਰੈਕ ਕਰੋ। ਜੋ ਕੱਟ folded packet ਦੇ ਅੰਦਰ ਹੈ, ਉਹ ਖੋਲ੍ਹਣ ਤੇ ਅੰਦਰਲਾ ਛੇਦ ਹੀ ਬਣਦਾ ਹੈ; ਜੋ ਕੱਟ ਅਸਲ ਵਿੱਚ ਕਿਨਾਰੇ ਨੂੰ ਛੂਹਦਾ ਹੈ, ਉਹੀ ਕਿਨਾਰੇ ਨਾਲ ਜੁੜਿਆ notch ਬਣਦਾ ਹੈ। ਸਾਰੇ ਕੱਟਾਂ ਦੀਆਂ ਸਹੀ ਕਾਪੀਆਂ ਜੋੜਨ ਤੇ ਵਿਕਲਪ ${answer} ਮਿਲਦਾ ਹੈ।`;
+      return `ਹਰ ਕੱਟ ਨੂੰ ਵੱਖਰੇ ਤੌਰ ਤੇ ਟ੍ਰੈਕ ਕਰੋ। ਜੋ ਕੱਟ ਮੋੜੇ ਹੋਏ ਕਾਗਜ਼ ਦੀਆਂ ਪਰਤਾਂ ਦੇ ਅੰਦਰ ਹੈ, ਉਹ ਖੋਲ੍ਹਣ ਤੇ ਅੰਦਰਲਾ ਛੇਦ ਹੀ ਬਣਦਾ ਹੈ। ਸਿਰਫ਼ ਉਹੀ ਕੱਟ ਕਿਨਾਰੇ ਨਾਲ ਜੁੜਿਆ ਰਹਿੰਦਾ ਹੈ ਜੋ ਅਸਲ ਵਿੱਚ ਮੋੜੇ ਕਾਗਜ਼ ਦੇ ਕਿਨਾਰੇ ਨੂੰ ਛੂਹਦਾ ਹੈ। ਸਾਰੇ ਕੱਟ ਸਹੀ ਥਾਂ ਰੱਖਣ ਤੇ ਵਿਕਲਪ ${answer} ਮਿਲਦਾ ਹੈ।`;
     case "SPA-QL-039":
       return `ਦਿੱਤੀ ਖੁੱਲ੍ਹੀ ਆਕ੍ਰਿਤੀ ਤੋਂ ਪਿੱਛੇ ਵੱਲ ਜਾਂਚ ਕਰੋ। ਹਰ ਵਿਕਲਪ ਦੀ ਮੋੜ-ਪੰਚ ਪ੍ਰਕਿਰਿਆ ਨੂੰ ਮਨ ਵਿੱਚ ਪੂਰਾ ਖੋਲ੍ਹੋ ਅਤੇ ਵੇਖੋ ਕਿ ਨਿਸ਼ਾਨਾਂ ਦੀ ਗਿਣਤੀ, ਦਿਸ਼ਾ ਅਤੇ ਦੂਰੀ ਲਕਸ਼ ਆਕ੍ਰਿਤੀ ਨਾਲ ਪੂਰੀ ਤਰ੍ਹਾਂ ਮਿਲਦੀ ਹੈ ਜਾਂ ਨਹੀਂ। ਸਿਰਫ਼ ਵਿਕਲਪ ${answer} ਸਾਰੇ ਨਿਸ਼ਾਨ ਸਹੀ ਬਣਾਉਂਦਾ ਹੈ।`;
     case "SPA-QL-040":
-      return `ਇਹ ਪਾਰਦਰਸ਼ੀ ਕਾਗਜ਼ ਹੈ, ਇਸ ਲਈ ਮੋੜਨ ਨਾਲ ਕੋਈ ਨਵਾਂ ਛੇਦ ਜਾਂ ਕੱਟ ਨਹੀਂ ਬਣਦਾ। ਮੋੜੇ ਹਿੱਸੇ ਉੱਤੇ ਪਹਿਲਾਂ ਤੋਂ ਬਣੀਆਂ ਰੇਖਾਵਾਂ ਅਤੇ ਆਕ੍ਰਿਤੀਆਂ ਮੋੜ ਰੇਖਾ ਪਾਰ ਕਰਕੇ ਦੂਜੀਆਂ ਆਕ੍ਰਿਤੀਆਂ ਉੱਤੇ ਆ ਜਾਂਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਹਿੱਸਿਆਂ ਦਾ ਸਹੀ superposition ਵਿਕਲਪ ${answer} ਵਿੱਚ ਹੈ।`;
+      return `ਇਹ ਪਾਰਦਰਸ਼ੀ ਕਾਗਜ਼ ਹੈ, ਇਸ ਲਈ ਮੋੜਨ ਨਾਲ ਕੋਈ ਨਵਾਂ ਛੇਦ ਜਾਂ ਕੱਟ ਨਹੀਂ ਬਣਦਾ। ਮੋੜੇ ਹਿੱਸੇ ਉੱਤੇ ਪਹਿਲਾਂ ਤੋਂ ਬਣੀਆਂ ਰੇਖਾਵਾਂ ਅਤੇ ਆਕ੍ਰਿਤੀਆਂ ਮੋੜ ਰੇਖਾ ਪਾਰ ਕਰਕੇ ਦੂਜੀਆਂ ਆਕ੍ਰਿਤੀਆਂ ਉੱਤੇ ਆ ਜਾਂਦੀਆਂ ਹਨ। ਦੋਵੇਂ ਹਿੱਸਿਆਂ ਨੂੰ ਇੱਕ-ਦੂਜੇ ਉੱਤੇ ਰੱਖਣ ਨਾਲ ਬਣੀ ਸਹੀ ਮਿਲੀ ਹੋਈ ਆਕ੍ਰਿਤੀ ਵਿਕਲਪ ${answer} ਵਿੱਚ ਹੈ।`;
   }
 }
 
@@ -225,5 +225,5 @@ export function renderPfcTpfLocalizationReviewHtmlV2(): string {
     const pa = punjabi[index];
     return `<article class="q"><div class="meta">${question.permanentQuestionId} · ${question.permanentQlId} · ${esc(question.representation)} · ${question.provenance}</div><h2>${esc(question.permanentQlTitle)}</h2><p><strong>English:</strong> ${esc(question.stem)}</p><div class="stimulus">${question.stimulusSvg}</div><div class="options">${question.options.map((option) => `<div class="option"><strong>${option.optionId}</strong>${option.svg}</div>`).join("")}</div><div class="lang"><h3>हिन्दी</h3><p><strong>प्रश्न:</strong> ${esc(hi.stem)}</p><p><strong>उत्तर:</strong> ${hi.correctOptionId}</p><p><strong>समझ:</strong> ${esc(hi.explanation)}</p></div><div class="lang"><h3>ਪੰਜਾਬੀ</h3><p><strong>ਪ੍ਰਸ਼ਨ:</strong> ${esc(pa.stem)}</p><p><strong>ਉੱਤਰ:</strong> ${pa.correctOptionId}</p><p><strong>ਸਮਝ:</strong> ${esc(pa.explanation)}</p></div></article>`;
   }).join("\n");
-  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PFC TPF Hindi Punjabi Localization Review V2.1</title><style>*{box-sizing:border-box}body{margin:0;background:#fff;color:#111;font-family:Arial,"Noto Sans Devanagari","Noto Sans Gurmukhi",sans-serif;line-height:1.45}.wrap{max-width:1180px;margin:auto;padding:20px}.intro,.q{border:1px solid #ddd;border-radius:12px;padding:18px;margin-bottom:18px;background:#fff}.meta{font-size:12px;color:#555}.q h2{font-size:18px}.stimulus{overflow:auto;margin:10px 0}.options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.option{border:1px solid #ddd;border-radius:8px;padding:8px;text-align:center;overflow:hidden}.option svg{max-width:100%;height:auto}.lang{border-top:1px solid #e5e5e5;margin-top:14px;padding-top:10px}.lang h3{margin:0 0 6px}@media(max-width:760px){.options{grid-template-columns:repeat(2,minmax(0,1fr))}.wrap{padding:10px}}@media(max-width:430px){.options{grid-template-columns:1fr}}</style></head><body><main class="wrap"><section class="intro"><h1>PFC / TPF Hindi + Punjabi Localization Review V2.1</h1><p>84 frozen English archetypes reviewed in Hindi and Punjabi. V2.1 fixes case agreement and reduces repetitive learner explanations while keeping diagrams, options, answers, IDs, QLs and canonical fingerprints immutable.</p></section>${cards}</main></body></html>`;
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PFC TPF Hindi Punjabi Localization Review V2.1</title><style>*{box-sizing:border-box}body{margin:0;background:#fff;color:#111;font-family:Arial,"Noto Sans Devanagari","Noto Sans Gurmukhi",sans-serif;line-height:1.45}.wrap{max-width:1180px;margin:auto;padding:20px}.intro,.q{border:1px solid #ddd;border-radius:12px;padding:18px;margin-bottom:18px;background:#fff}.meta{font-size:12px;color:#555}.q h2{font-size:18px}.stimulus{overflow:auto;margin:10px 0}.options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.option{border:1px solid #ddd;border-radius:8px;padding:8px;text-align:center;overflow:hidden}.option svg{max-width:100%;height:auto}.lang{border-top:1px solid #e5e5e5;margin-top:14px;padding-top:10px}.lang h3{margin:0 0 6px}@media(max-width:760px){.options{grid-template-columns:repeat(2,minmax(0,1fr))}.wrap{padding:10px}}@media(max-width:430px){.options{grid-template-columns:1fr}}</style></head><body><main class="wrap"><section class="intro"><h1>PFC / TPF Hindi + Punjabi Localization Review V2.1</h1><p>84 frozen English archetypes reviewed in Hindi and Punjabi. V2.1 fixes case agreement, removes unnecessary English learner jargon and makes explanations more question-aware while keeping diagrams, options, answers, IDs, QLs and canonical fingerprints immutable.</p></section>${cards}</main></body></html>`;
 }
