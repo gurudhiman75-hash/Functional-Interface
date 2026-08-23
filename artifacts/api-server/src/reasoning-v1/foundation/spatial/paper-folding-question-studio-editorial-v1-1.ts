@@ -13,6 +13,7 @@ export const PFC_TPF_QUESTION_STUDIO_EDITORIAL_AUTHORITY_V1_1 = Object.freeze({
     hindiLearnerFacingEnglishJargonRemoved: true,
     punjabiLearnerFacingEnglishJargonRemoved: true,
     geometryAndAnswerInvariantsPreserved: true,
+    exactRenderedTextFingerprint: true,
   },
   status: "EDITORIAL_REVIEW_CANDIDATE" as const,
   registrationAllowed: false,
@@ -23,6 +24,19 @@ export type PfcTpfStudioEditorialQuestionV1_1 = PfcTpfStudioEditorialQuestionV1 
     hardeningAuthorityId: typeof PFC_TPF_QUESTION_STUDIO_EDITORIAL_AUTHORITY_V1_1.authorityId;
   };
 };
+
+function hash32(value: string): number {
+  let hash = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+function shortHash(value: string): string {
+  return hash32(value).toString(16).padStart(8, "0");
+}
 
 function hardenLocalizedText(value: string, language: PfcTpfStudioQuestionV1["language"]): string {
   if (language === "hi") {
@@ -41,17 +55,21 @@ function hardenLocalizedText(value: string, language: PfcTpfStudioQuestionV1["la
 export function applyPfcTpfStudioEditorialV1_1(question: PfcTpfStudioQuestionV1): PfcTpfStudioEditorialQuestionV1_1 {
   const edited = applyPfcTpfStudioEditorialV1(question);
   const language = edited.language;
+  const stem = hardenLocalizedText(edited.stem, language);
+  const explanation = {
+    observation: hardenLocalizedText(edited.explanation.observation, language),
+    rule: hardenLocalizedText(edited.explanation.rule, language),
+    application: hardenLocalizedText(edited.explanation.application, language),
+    check: hardenLocalizedText(edited.explanation.check, language),
+  };
+  const editorialFingerprint = `pfc-tpf-ed-${shortHash(JSON.stringify({ stem, explanation }))}`;
   return {
     ...edited,
-    stem: hardenLocalizedText(edited.stem, language),
-    explanation: {
-      observation: hardenLocalizedText(edited.explanation.observation, language),
-      rule: hardenLocalizedText(edited.explanation.rule, language),
-      application: hardenLocalizedText(edited.explanation.application, language),
-      check: hardenLocalizedText(edited.explanation.check, language),
-    },
+    stem,
+    explanation,
     editorial: {
       ...edited.editorial,
+      editorialFingerprint,
       hardeningAuthorityId: PFC_TPF_QUESTION_STUDIO_EDITORIAL_AUTHORITY_V1_1.authorityId,
     },
   };
