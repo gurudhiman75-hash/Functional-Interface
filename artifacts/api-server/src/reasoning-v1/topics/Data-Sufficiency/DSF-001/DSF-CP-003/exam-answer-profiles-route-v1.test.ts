@@ -48,20 +48,23 @@ assert(routeSource.includes("generateDsfExamProfileBatch"), "Question Studio rou
 assert(routeSource.includes("DSF_CP003_EXAM_PROFILE_AUTHORITY"), "Route does not persist CP003 profile authority");
 assert(routeSource.includes("deliveryProfileAuthority"), "Persisted payload lost profile authority");
 assert(routeSource.includes("profileSourcePatternIds"), "Persisted payload lost source-pattern provenance");
-assert(routeSource.includes("DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY"), "Later CP004 lifecycle overlay is not explicit");
+assert(routeSource.includes("DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY"), "CP004 Question Bank overlay is not explicit");
+assert(routeSource.includes("DSF_CP005_TEST_RELEASE_AUTHORITY"), "CP005 test-release overlay is not explicit");
+assert(routeSource.includes("dsfCp004ReviewPayload"), "Legacy CP004 BANK_ONLY payload path is missing");
+assert(routeSource.includes("dsfCp005ReviewPayload"), "CP005 FULL_RELEASE payload path is missing");
 
 for (const panelFragment of [
   "Answer profile",
-  "Banking + SSC profiles",
+  "Banking + SSC",
   "All representable classes",
   "Punjab-specific rendering remains disabled",
-  "Option position is never treated as semantic truth",
+  "No option-position remapping is allowed",
 ] as const) {
   assert(adminPanelSource.includes(panelFragment), `Admin panel missing CP003 contract: ${panelFragment}`);
 }
 
-// CP-003 itself remains downstream-locked. CP-004 may later enable bank-only
-// storage in the route, but test/mock/publication remain closed everywhere.
+// CP-003 itself remains downstream-locked. Later checkpoints may overlay lifecycle
+// behavior in the route without mutating CP-003's reviewed profile authority.
 for (const sourceLock of [
   "questionBankWritable: false",
   "testEligible: false",
@@ -70,14 +73,13 @@ for (const sourceLock of [
 ] as const) {
   assert(runtimeSource.includes(sourceLock), `CP003 runtime lost downstream lock ${sourceLock}`);
 }
-for (const routeLock of [
-  "testEligible: false",
-  "mockTestEligible: false",
-  "publiclyPublishable: false",
-] as const) {
-  assert(routeSource.includes(routeLock), `CP004 route overlay lost downstream lock ${routeLock}`);
-}
-assert(routeSource.includes('questionBankAcceptanceMode: "BANK_ONLY"'), "CP004 storage overlay is not explicitly bank-only");
+
+assert(routeSource.includes('questionBankAcceptanceMode: "BANK_ONLY"'), "Legacy CP004 BANK_ONLY overlay is no longer explicit");
+assert(routeSource.includes('questionBankAcceptanceMode: "FULL_RELEASE"'), "CP005 FULL_RELEASE overlay is missing");
+assert(routeSource.includes('testEligible: true'), "CP005 scored-test eligibility overlay is missing");
+assert(routeSource.includes('publiclyPublishable: true'), "CP005 manual publication eligibility overlay is missing");
+assert(routeSource.includes('mockTestEligible: false'), "CP005 must keep mock-test eligibility disabled");
+assert(routeSource.includes('automaticStudentPublication: false'), "CP005 must keep automatic student publication disabled");
 
 assert(cp001Freeze.includes('status: "FROZEN"'), "CP001 semantic authority is no longer frozen");
 assert(cp001Freeze.includes('questionStudioDiscoverable: false'), "CP001 delivery lock was reopened");
@@ -88,7 +90,6 @@ assert(runtimeSource.includes('nextAvailableQlId: "DSF-QL-002"') || runtimeSourc
 console.log(JSON.stringify({
   status: "PASS_DSF_CP_003_ROUTE_UI_CONTRACT",
   profileCheckpoint: "DSF-CP-003",
-  laterLifecycleCheckpoint: "DSF-CP-004",
   bankingProfiles: 2,
   sscProfiles: 2,
   genericProfileRetained: true,
@@ -97,6 +98,9 @@ console.log(JSON.stringify({
   cp001Frozen: true,
   cp002Preserved: true,
   cp003SourceQuestionBankLocked: true,
-  cp004QuestionBankAcceptanceMode: "BANK_ONLY",
-  testMockPublicationLocked: true,
+  laterQuestionBankCheckpoint: "DSF-CP-004",
+  laterTestReleaseCheckpoint: "DSF-CP-005",
+  legacyCp004BankOnlyPayloadPreserved: true,
+  cp005ManualTestReleaseOverlayDetected: true,
+  mockAndAutomaticStudentDeliveryLocked: true,
 }, null, 2));
