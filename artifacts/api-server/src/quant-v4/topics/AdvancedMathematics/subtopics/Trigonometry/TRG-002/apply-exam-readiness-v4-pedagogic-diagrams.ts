@@ -114,15 +114,30 @@ function geometryTeachingCue(diagram: any, stem: string) {
   return "Use the bold vertical and horizontal segments as the perpendicular legs of the working right triangle; the blue line is the line of sight.";
 }
 
+function isWorkedEquation(sentence: string) {
+  return /(?:tan|sin|cos|cot|⇒)/iu.test(sentence)
+    || (/=/u.test(sentence) && !/^\s*let\b/iu.test(sentence));
+}
+
 function teachingCues(row: any, diagram: any) {
   const explanation = row?.english?.explanation ?? {};
-  const allStrings = collectExplanationStrings(explanation);
-  const sentences = explanationSentences(allStrings);
-  const workedEquation = sentences.find((sentence: string) =>
-    /(?:tan|sin|cos|cot|⇒)/iu.test(sentence)
-      || (/=/u.test(sentence) && !/^\s*let\b/iu.test(sentence)));
-  const variableSetup = sentences.find((sentence: string) => /\blet\s/iu.test(sentence));
-  const calculation = workedEquation ?? variableSetup ?? sentences[0] ?? explanation.shortcut ?? "";
+  // Prefer the worked solution steps over rule/shortcut text. This prevents a
+  // key rule containing "tan...=" from masking the actual equation the learner
+  // should use in the worked solution.
+  const stepSentences = explanationSentences(collectExplanationStrings(explanation.steps ?? []));
+  const supplementalSentences = explanationSentences(collectExplanationStrings({
+    shortcut: explanation.shortcut,
+    traps: explanation.traps,
+    keyRule: explanation.keyRule,
+  }));
+  const workedEquation = stepSentences.find(isWorkedEquation)
+    ?? supplementalSentences.find(isWorkedEquation);
+  const variableSetup = stepSentences.find((sentence: string) => /\blet\s/iu.test(sentence));
+  const calculation = workedEquation
+    ?? variableSetup
+    ?? stepSentences[0]
+    ?? supplementalSentences[0]
+    ?? "";
   const candidates = [
     { kind: "GEOMETRY", text: geometryTeachingCue(diagram, String(row?.english?.stem ?? "")) },
     { kind: "RULE", text: compactSentence(explanation.keyRule) },
@@ -131,8 +146,9 @@ function teachingCues(row: any, diagram: any) {
   const seen = new Set<string>();
   return candidates.filter((cue) => {
     const text = String(cue.text ?? "").trim();
-    if (!text || seen.has(text)) return false;
-    seen.add(text);
+    const identity = `${cue.kind}\u0000${text}`;
+    if (!text || seen.has(identity)) return false;
+    seen.add(identity);
     return true;
   });
 }
