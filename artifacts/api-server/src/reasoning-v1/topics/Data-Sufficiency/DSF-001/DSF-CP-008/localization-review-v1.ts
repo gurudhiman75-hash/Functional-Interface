@@ -249,7 +249,7 @@ function localizeRatioStatement(text: string, locale: DsfLocalizedLocale): strin
 }
 
 function localizePercentageStatement(text: string, locale: DsfLocalizedLocale): string {
-  if (/^[PQ](?:\s*\+\s*[PQ])?\s*=\s*[0-9]+%?\.$/.test(text) || /^P\s*:\s*Q\s*=/.test(text)) return text;
+  if (/^[PQ](?:\s*\+\s*[PQ])?\s*=\s*[0-9]+%?\.$/.test(text) || /^P\s*:\s*Q\s*=/.test(text) || /^P\s*=\s*Q\.$/.test(text)) return text;
   let match = text.match(/^([PQ]) is (\d+) percentage points greater than ([PQ])\.$/);
   if (match) return textFor(locale, `${match[1]}, ${match[3]} से ${match[2]} प्रतिशत अंक अधिक है।`, `${match[1]}, ${match[3]} ਤੋਂ ${match[2]} ਪ੍ਰਤੀਸ਼ਤ ਅੰਕ ਵੱਧ ਹੈ।`);
   if (text === "P and Q are equal.") return textFor(locale, "P और Q बराबर हैं।", "P ਅਤੇ Q ਬਰਾਬਰ ਹਨ।");
