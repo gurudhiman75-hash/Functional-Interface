@@ -30,7 +30,7 @@ assert.equal(
   STA_001_MULTILINGUAL_PRE_FREEZE_V1_MANIFEST.ql004CanonicalLearnerContentDigest,
 );
 
-assert.equal(STA_QL001_HI_PA_FREEZE_V2_MANIFEST.lifecycle.ql001HindiPunjabiStatus, "FROZEN_V2");
+assert.equal(STA_QL001_HI_PA_FREEZE_V2_MANIFEST.lifecycle.ql001HindiPunjabiFrozen, true);
 assert.equal(STA_QL002_HI_PA_FREEZE_V2_MANIFEST.lifecycle.ql002HindiPunjabiStatus, "FROZEN_V2");
 assert.equal(STA_QL003_HI_PA_FREEZE_V2_MANIFEST.lifecycle.ql003HindiPunjabiStatus, "FROZEN_V2");
 assert.equal(STA_QL004_HI_PA_REVIEW_LOCK_V3_MANIFEST.lifecycle.ql004HindiPunjabiStatus, "REVIEW_LOCKED_V3");
