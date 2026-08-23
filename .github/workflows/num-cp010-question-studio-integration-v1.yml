@@ -1,0 +1,119 @@
+name: Validate NUM-CP-010 Question Studio integration
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/question-studio-integration.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/question-studio-integration.test.ts"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
+      - ".github/workflows/num-cp010-question-studio-integration-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp010-qs-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp010-question-studio:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP010 permanent English regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/permanent-runtime.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp010-qs-permanent-english-regression.mjs
+
+      - name: Run CP010 permanent English regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp010-qs-permanent-english-regression.mjs
+
+      - name: Bundle CP010 multilingual frozen regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/localization/runtime-human-quality.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp010-qs-multilingual-regression.mjs
+
+      - name: Run CP010 multilingual frozen regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp010-qs-multilingual-regression.mjs
+
+      - name: Bundle CP010 Question Studio integration proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/question-studio-integration.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp010-question-studio-integration.mjs
+
+      - name: Run CP010 Question Studio integration proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp010-question-studio-integration.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp010-question-studio-integration.log
+
+      - name: Bundle CP009 Question Studio regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/question-studio-integration.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp009-question-studio-cp010-regression.mjs
+
+      - name: Run CP009 Question Studio regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp009-question-studio-cp010-regression.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp009-question-studio-cp010-regression.log
+
+      - name: Bundle CP008 Question Studio regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/question-studio-integration.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp008-question-studio-cp010-regression.mjs
+
+      - name: Run CP008 Question Studio regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp008-question-studio-cp010-regression.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp008-question-studio-cp010-regression.log
+
+      - name: Bundle admin Question Studio route
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/routes/admin-question-studio-average.ts
+          --bundle --platform=node --format=esm
+          --packages=external
+          --outfile=dist/quant-v4/admin-question-studio-num-cp010-route.mjs
+
+      - name: Upload CP010 Question Studio evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp010-question-studio-integration-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp010-question-studio-integration.log
+            artifacts/api-server/dist/quant-v4/num-cp009-question-studio-cp010-regression.log
+            artifacts/api-server/dist/quant-v4/num-cp008-question-studio-cp010-regression.log
+          if-no-files-found: error
+          retention-days: 30
