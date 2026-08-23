@@ -1,0 +1,43 @@
+name: Validate SEA-002 CP006 discovery
+
+on:
+  push:
+    branches:
+      - feat/sea-002-cp006-discovery
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/**
+      - .github/workflows/sea-002-cp006-discovery.yml
+  pull_request:
+    branches:
+      - feat/sea-001-structural-realness-hardening
+    types: [opened, reopened, synchronize]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cp006-discovery:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Prove CP006 3+3 baseline topology, generator, solver/oracle and lifecycle locks
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-discovery-proof.test.ts
+      - name: Prove CP006 4+4, 5+5 and 6+6 scalable expansion
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-wide-proof.test.ts
+      - name: Prove CP006 source-real gap, adjacency, equal-gap, facing-referent and query-mix coverage
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-source-realness-proof.test.ts
+      - name: Prove CP006 saturation, retained-query inventory, inverse and metamorphic completion gates
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-completion-proof.test.ts
+      - name: Prove CP006 compact source-essential exam-real generation
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-exam-real-proof.test.ts
+      - name: Prove CP006 corrected 100-caselet English review and rationale quality
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-english-review-proof.test.ts
+      - name: Prove CP006 corrected signed English freeze and permanent inactive allocation
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-freeze-proof.test.ts
+      - name: Prove CP006 signed Hindi/Punjabi localization freeze remains exact and product-inactive
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-localization-freeze-proof.test.ts

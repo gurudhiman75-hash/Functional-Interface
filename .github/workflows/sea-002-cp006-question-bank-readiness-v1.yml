@@ -1,0 +1,62 @@
+name: Validate SEA-002 CP006 Question Bank readiness
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/**"
+      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
+      - "artifacts/api-server/src/lib/admin-question-management.ts"
+      - "artifacts/api-server/src/lib/admin-question-studio-approval-policy.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts"
+      - ".github/workflows/sea-002-cp006-question-bank-readiness-v1.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-sea-002-cp006-question-bank-readiness:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Re-prove signed SEA-002 CP006 multilingual freeze
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-localization-freeze-proof.test.ts
+
+      - name: Re-prove SEA-002 CP006 Question Studio integration
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-studio-integration.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/sea-002-cp006-question-studio-bank-regression.mjs
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp006-question-studio-bank-regression.mjs
+
+      - name: Bundle SEA-002 CP006 Question Bank readiness proof
+        run: pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-bank-readiness.test.ts --bundle --platform=node --format=esm --outfile=dist/reasoning-v1/sea-002-cp006-question-bank-readiness.mjs
+
+      - name: Run SEA-002 CP006 Question Bank readiness proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp006-question-bank-readiness.mjs \
+            2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp006-question-bank-readiness.log
+
+      - name: Prove Question Bank approval route contract
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-bank-readiness-route.test.ts
+
+      - name: Bundle Question Studio bulk approval route
+        run: pnpm --dir artifacts/api-server exec esbuild src/routes/admin-question-studio-bulk-hardening.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/reasoning-v1/admin-question-studio-bulk-hardening-bank-readiness.mjs
+
+      - name: Upload SEA-002 CP006 Question Bank readiness evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sea-002-cp006-question-bank-readiness-v1
+          path: artifacts/api-server/dist/reasoning-v1/sea-002-cp006-question-bank-readiness.log
+          if-no-files-found: error
+          retention-days: 30

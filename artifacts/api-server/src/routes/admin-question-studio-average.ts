@@ -5,9 +5,10 @@ import { sqlClient } from "../lib/db";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { authenticate } from "../middlewares/auth";
 // The shared facade keeps Quant requests on the guarded question-studio-review-engine path
-// while adding Reasoning packages such as WOR-001 to the same persistence workflow.
+// while adding audited Reasoning packages to the same review-workspace persistence flow.
 import {
   generateQuestion as generateQuestionStudioQuestions,
+  isSea002Cp006QuestionStudioRequest,
   isWor001QuestionStudioRequest,
   listQuestionStudioPackages,
 } from "../question-studio/shared-generation-engine";
@@ -200,8 +201,9 @@ router.post(
     const numberSystemRequest = isNumberSystemRequest(req.body);
     const averageRequest = isAverageRequest(req.body);
     const timeAndWorkRequest = isTimeAndWorkRequest(req.body);
+    const seaRequest = isSea002Cp006QuestionStudioRequest(req.body ?? {});
     const worRequest = isWor001QuestionStudioRequest(req.body ?? {});
-    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !worRequest) {
+    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !seaRequest && !worRequest) {
       next();
       return;
     }
@@ -222,27 +224,37 @@ router.post(
     const defaultPackageId = numberSystemRequest
       ? num002Request ? "NUM-002" : "NUM-001"
       : "AVG-001";
-    const selectedPackageId = worRequest
-      ? "WOR-001"
-      : simplificationRequest
-        ? "SAP"
-        : timeAndWorkRequest
-          ? "TMW-001"
-          : defaultPackageId;
+    const selectedPackageId = seaRequest
+      ? "SEA-002"
+      : worRequest
+        ? "WOR-001"
+        : simplificationRequest
+          ? "SAP"
+          : timeAndWorkRequest
+            ? "TMW-001"
+            : defaultPackageId;
     const defaultSubtopic = numberSystemRequest ? "Number System" : "Average";
-    const selectedSubtopic = worRequest
-      ? "Word & Dictionary Order"
-      : simplificationRequest
-        ? "Simplification & Approximation"
-        : timeAndWorkRequest
-          ? "Time & Work"
-          : defaultSubtopic;
+    const selectedSubtopic = seaRequest
+      ? "Two Parallel Rows Facing Each Other"
+      : worRequest
+        ? "Word & Dictionary Order"
+        : simplificationRequest
+          ? "Simplification & Approximation"
+          : timeAndWorkRequest
+            ? "Time & Work"
+            : defaultSubtopic;
     const packageId = asString(req.body?.packageId) || selectedPackageId;
     const patternId = asString(req.body?.patternId) || undefined;
-    const topic = worRequest ? "Reasoning" : asString(req.body?.topic) || "Arithmetic";
+    const topic = seaRequest
+      ? "Seating Arrangement"
+      : worRequest
+        ? "Reasoning"
+        : asString(req.body?.topic) || "Arithmetic";
     const subtopic = asString(req.body?.subtopic) || selectedSubtopic;
     const exam = asString(req.body?.exam) || "SSC CGL";
-    const subject = worRequest ? "Reasoning Ability" : asString(req.body?.subject) || "Quantitative Aptitude";
+    const subject = seaRequest || worRequest
+      ? "Reasoning Ability"
+      : asString(req.body?.subject) || "Quantitative Aptitude";
     const language = normalizeLanguage(req.body?.language);
     const requestedDifficulty = asString(req.body?.difficulty);
     const difficulty = worRequest && requestedDifficulty.toLowerCase() === "mixed"
@@ -334,7 +346,7 @@ router.post(
           ) VALUES (
             ${runId}::uuid, ${code}, 'review'::generation_run_status, 1,
             ${JSON.stringify(requestSnapshot)}, ${JSON.stringify(requestSnapshot)},
-            'examtree', ${worRequest ? "reasoning-v1-wor-001" : "quant-v4"}, 0, 0, 0, 0,
+            'examtree', ${seaRequest ? "reasoning-v1-sea-002-cp006" : worRequest ? "reasoning-v1-wor-001" : "quant-v4"}, 0, 0, 0, 0,
             ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
           )
         `;
@@ -401,7 +413,7 @@ router.post(
         publicCode: code,
         status: "review",
         itemCount: generatedQuestions.length,
-        generationSystem: worRequest ? "reasoning-v1" : "quant-v4",
+        generationSystem: seaRequest || worRequest ? "reasoning-v1" : "quant-v4",
       });
     } catch (error) {
       console.error(`${selectedPackageId} Question Studio generation failed`, error);
