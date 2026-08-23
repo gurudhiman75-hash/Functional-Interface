@@ -118,7 +118,7 @@ test.describe("CP04 catalog scale", () => {
 
     const grid = page.getByTestId("catalog-page-grid");
     await expect(grid.locator("article")).toHaveCount(18);
-    await expect(page.getByTestId("catalog-large-mode")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Exam categories", exact: true })).toBeVisible();
     await expect(page.getByText("Drill into the exact exam path.")).toHaveCount(0);
 
     await page.getByTestId("catalog-sort").selectOption("name");
