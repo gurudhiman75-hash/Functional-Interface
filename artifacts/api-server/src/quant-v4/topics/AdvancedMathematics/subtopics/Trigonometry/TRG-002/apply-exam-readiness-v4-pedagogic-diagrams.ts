@@ -39,6 +39,14 @@ function compactSentence(value: unknown, max = 190) {
   return `${clipped.slice(0, boundary > max * 0.65 ? boundary : clipped.length).trim()}…`;
 }
 
+function compactWorkedSentence(value: unknown, max = 190) {
+  const text = String(value ?? "").replace(/\s+/gu, " ").trim();
+  if (!text) return "";
+  const sentences = text.split(/(?<=[.!?])\s+/u).map((part) => part.trim()).filter(Boolean);
+  const worked = sentences.find((sentence) => /(?:tan|sin|cos|cot|=|⇒)/iu.test(sentence)) ?? sentences[0] ?? text;
+  return compactSentence(worked, max);
+}
+
 function hasRaisedEyeLevel(points: any[], segments: any[]) {
   const byId = new Map(points.map((point: any) => [String(point?.id ?? ""), point]));
   const groundLikeRoles = new Set(["OBSERVER_GROUND", "OBJECT_BASE", "GROUND"]);
@@ -95,7 +103,7 @@ function teachingCues(row: any, diagram: any) {
   const candidates = [
     { kind: "GEOMETRY", text: geometryTeachingCue(diagram, String(row?.english?.stem ?? "")) },
     { kind: "RULE", text: compactSentence(explanation.keyRule) },
-    { kind: "CALCULATION", text: compactSentence(calculation) },
+    { kind: "CALCULATION", text: compactWorkedSentence(calculation) },
   ];
   const seen = new Set<string>();
   return candidates.filter((cue) => {
