@@ -1,3 +1,4 @@
+import { TSD_CP008_QL099_SAME_DIRECTION_GUARDS } from "./localization-final";
 import {
   TSD_CP008_RENDERED_HINDI_QUESTIONS as RAW_HINDI,
   TSD_CP008_RENDERED_PUNJABI_QUESTIONS as RAW_PUNJABI,
@@ -6,22 +7,28 @@ import {
 
 function finalize(
   questions: readonly TsdCp008RenderedLocalizedQuestion[],
+  sameDirectionMarker: RegExp,
   guard: string,
 ): readonly TsdCp008RenderedLocalizedQuestion[] {
-  return Object.freeze(questions.map((question) => Object.freeze({
-    ...question,
-    stem: question.qlId === "TSD-QL-099" ? `${guard} ${question.stem}` : question.stem,
-  })));
+  return Object.freeze(questions.map((question) => {
+    const needsGuard = question.qlId === "TSD-QL-099" && sameDirectionMarker.test(question.stem);
+    return Object.freeze({
+      ...question,
+      stem: needsGuard ? `${guard} ${question.stem}` : question.stem,
+    });
+  }));
 }
 
 export const TSD_CP008_FINAL_RENDERED_HINDI_QUESTIONS = finalize(
   RAW_HINDI,
-  "समान दिशा वाली स्थिति में पहली ट्रेन को तेज माना जाए।",
+  /एक ही दिशा में/,
+  TSD_CP008_QL099_SAME_DIRECTION_GUARDS.hi,
 );
 
 export const TSD_CP008_FINAL_RENDERED_PUNJABI_QUESTIONS = finalize(
   RAW_PUNJABI,
-  "ਇੱਕੋ ਦਿਸ਼ਾ ਵਾਲੀ ਸਥਿਤੀ ਵਿੱਚ ਪਹਿਲੀ ਰੇਲਗੱਡੀ ਨੂੰ ਤੇਜ਼ ਮੰਨਿਆ ਜਾਵੇ।",
+  /ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ/,
+  TSD_CP008_QL099_SAME_DIRECTION_GUARDS.pa,
 );
 
 export const TSD_CP008_FINAL_RENDERED_LOCALIZED_QUESTIONS = Object.freeze([
