@@ -18,24 +18,61 @@ export { buildExplanation, proveClueMinimality, seededShuffle };
 
 type WrongCandidate = Readonly<{ text: string; misconceptionId: string; rationale: string }>;
 
+function numericOption(text: string): Readonly<{ value: number; unit: "°" | " cm" }> | null {
+  const match = text.match(/^(-?\d+(?:\.\d+)?)(°| cm)$/);
+  if (!match) return null;
+  return { value: Number(match[1]), unit: match[2] as "°" | " cm" };
+}
+
+function semanticCollisionReplacement(
+  correctText: string,
+  wrongCandidates: readonly WrongCandidate[],
+): WrongCandidate | null {
+  const correct = numericOption(correctText);
+  if (!correct || correct.unit !== "°") return null;
+
+  const byText = new Map<string, WrongCandidate[]>();
+  for (const candidate of wrongCandidates) {
+    const group = byText.get(candidate.text) ?? [];
+    group.push(candidate);
+    byText.set(candidate.text, group);
+  }
+
+  for (const [text, group] of byText) {
+    if (group.length < 2) continue;
+    const ids = new Set(group.map((candidate) => candidate.misconceptionId));
+
+    if (ids.has("DOUBLED_EQUAL_CENTRAL_ANGLE") && ids.has("USED_SUPPLEMENT")) {
+      return {
+        text: `${360 - correct.value}°`,
+        misconceptionId: "USED_REFLEX_CENTRAL_ANGLE",
+        rationale: "Chooses the reflex angle at the centre instead of the required minor central angle.",
+      };
+    }
+
+    if (ids.has("STOPPED_AT_SAME_SEGMENT_ANGLE") && ids.has("SUBTRACTED_ONLY_EXTERNAL_ANGLE")) {
+      const duplicated = numericOption(text);
+      if (!duplicated) return null;
+      return {
+        text: `${180 - duplicated.value}°`,
+        misconceptionId: "STOPPED_AT_TRIANGLE_ADP_ANGLE",
+        rationale: "Stops at the angle found in triangle ADP before converting the linear pair at D.",
+      };
+    }
+  }
+
+  return null;
+}
+
 export function buildOptions(correctText: string, wrongCandidates: readonly WrongCandidate[], seed: string) {
   const candidates = [...wrongCandidates];
   const uniqueTexts = new Set([correctText, ...candidates.map((candidate) => candidate.text)]);
-  const match = correctText.match(/^(-?\d+(?:\.\d+)?)(°| cm)$/);
-  if (uniqueTexts.size < 4 && match) {
-    const value = Number(match[1]);
-    const unit = match[2];
-    for (const offset of [13, 17, 23]) {
-      const text = `${value + offset}${unit}`;
-      if (uniqueTexts.has(text)) continue;
-      candidates.push({
-        text,
-        misconceptionId: "ADDED_OFFSET_INSTEAD_OF_USING_EQUALITY",
-        rationale: "Adds an unrelated offset instead of applying the required equality relation.",
-      });
-      uniqueTexts.add(text);
-      if (uniqueTexts.size >= 4) break;
+  if (uniqueTexts.size < 4) {
+    const replacement = semanticCollisionReplacement(correctText, candidates);
+    if (!replacement) {
+      throw new Error(`Wave 7 distractor collision has no misconception-owned replacement: ${correctText}`);
     }
+    candidates.push(replacement);
   }
   return baseBuildOptions(correctText, candidates, seed);
 }
