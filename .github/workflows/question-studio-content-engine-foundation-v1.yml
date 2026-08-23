@@ -38,44 +38,14 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Bundle content engine tests
+      - name: Bundle content engine foundation suite
         run: |
           mkdir -p artifacts/api-server/dist/content-engine-foundation
           pnpm --dir artifacts/api-server exec esbuild \
-            src/question-studio/engine-registry.test.ts \
+            src/question-studio/content-engine-foundation.test-suite.ts \
             --bundle --platform=node --format=esm \
-            --outfile=dist/content-engine-foundation/engine-registry.test.mjs
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/question-studio/engine-route-integration.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/content-engine-foundation/engine-route-integration.test.mjs
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/engine.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/content-engine-foundation/knowledge-v1-engine.test.mjs
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/computer-awareness/com001-memory-storage-discovery.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/content-engine-foundation/com001-memory-storage-discovery.test.mjs
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/computer-awareness/com001-memory-storage-corpus-requirements.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/content-engine-foundation/com001-memory-storage-corpus-requirements.test.mjs
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/computer-awareness/com001-source-manifest.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/content-engine-foundation/com001-source-manifest.test.mjs
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/computer-awareness/com001-memory-storage-candidate-corpus.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/content-engine-foundation/com001-memory-storage-candidate-corpus.test.mjs
-      - name: Run content engine tests
+            --outfile=dist/content-engine-foundation/content-engine-foundation.test-suite.mjs
+      - name: Run content engine foundation suite
         run: |
           cd artifacts/api-server
-          node dist/content-engine-foundation/engine-registry.test.mjs
-          node dist/content-engine-foundation/engine-route-integration.test.mjs
-          node dist/content-engine-foundation/knowledge-v1-engine.test.mjs
-          node dist/content-engine-foundation/com001-memory-storage-discovery.test.mjs
-          node dist/content-engine-foundation/com001-memory-storage-corpus-requirements.test.mjs
-          node dist/content-engine-foundation/com001-source-manifest.test.mjs
-          node dist/content-engine-foundation/com001-memory-storage-candidate-corpus.test.mjs
+          node dist/content-engine-foundation/content-engine-foundation.test-suite.mjs
