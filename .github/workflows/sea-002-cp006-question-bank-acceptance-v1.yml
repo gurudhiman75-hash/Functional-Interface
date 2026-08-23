@@ -87,6 +87,9 @@ jobs:
       - name: Re-prove approval and downstream route locks
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-bank-readiness-route.test.ts
 
+      - name: Prove CP006 completion authority and next-checkpoint handoff
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-completion-authority.test.ts
+
       - name: Bundle production Question Studio and approval routes
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/routes/admin-question-studio-average.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/reasoning-v1/admin-question-studio-sea-bank-acceptance.mjs
