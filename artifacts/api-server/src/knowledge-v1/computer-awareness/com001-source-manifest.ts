@@ -41,9 +41,7 @@ export const COM001_SOURCE_AUTHORITIES: Com001SourceAuthority[] = [
     authorityClass: "STANDARD",
     supports: ["capacity-unit-relationship", "byte-definition"],
     verifiedOn: "2026-08-23",
-    notes: [
-      "Use for the durable relation 1 byte = 8 bits.",
-    ],
+    notes: ["Use for the durable relation 1 byte = 8 bits."],
   },
   {
     sourceId: "NIST-BINARY-PREFIXES",
@@ -74,11 +72,7 @@ export const COM001_SOURCE_AUTHORITIES: Com001SourceAuthority[] = [
     title: "Intel — Embedded Systems, Memory Architectures",
     url: "https://www.intel.com/content/dam/www/public/us/en/documents/training/leeseshia-embedded-systems-intro.pdf",
     authorityClass: "VENDOR_TECHNICAL",
-    supports: [
-      "volatility",
-      "sram-dram-characteristics",
-      "memory-architecture",
-    ],
+    supports: ["volatility", "sram-dram-characteristics", "memory-architecture"],
     verifiedOn: "2026-08-23",
     notes: [
       "Supports SRAM and DRAM as volatile memory and DRAM refresh behavior.",
@@ -86,16 +80,23 @@ export const COM001_SOURCE_AUTHORITIES: Com001SourceAuthority[] = [
     ],
   },
   {
+    sourceId: "MICROCHIP-MEMORY-VOLATILITY-GLOSSARY",
+    title: "Microchip Technology — Security Glossary: Volatile",
+    url: "https://onlinedocs.microchip.com/oxy/GUID-DF33D7C4-5604-4C6B-92AF-8C864323C016-en-US-14/GUID-522AFF78-464A-44A4-8A56-DCB901070E40.html",
+    authorityClass: "VENDOR_TECHNICAL",
+    supports: ["volatility", "sram-dram-characteristics", "flash-nonvolatile", "eeprom-nonvolatile"],
+    verifiedOn: "2026-08-23",
+    notes: [
+      "Explicitly classifies SRAM and DRAM as volatile and flash/EEPROM as nonvolatile.",
+      "Strong cross-check for the volatility learner task.",
+    ],
+  },
+  {
     sourceId: "KINGSTON-COMPUTER-MEMORY",
     title: "Kingston Technology — What is Computer Memory?",
     url: "https://www.kingston.com/en/blog/pc-performance/what-is-computer-memory",
     authorityClass: "VENDOR_TECHNICAL",
-    supports: [
-      "volatility",
-      "ram-expansion",
-      "dram-main-memory",
-      "memory-function",
-    ],
+    supports: ["volatility", "ram-expansion", "dram-main-memory", "memory-function"],
     verifiedOn: "2026-08-23",
     notes: [
       "Useful secondary technical reference for RAM/DRAM and volatility.",
@@ -103,16 +104,34 @@ export const COM001_SOURCE_AUTHORITIES: Com001SourceAuthority[] = [
     ],
   },
   {
+    sourceId: "TECHTARGET-ROM-2025",
+    title: "TechTarget — What is Read-Only Memory (ROM)?",
+    url: "https://www.techtarget.com/whatis/definition/read-only-memory-ROM",
+    authorityClass: "REFERENCE",
+    supports: ["rom-nonvolatile", "rom-function", "rom-subtypes", "prom-eprom-eeprom-expansion"],
+    verifiedOn: "2026-08-23",
+    notes: [
+      "Use for durable ROM-family definitions and subtype expansions.",
+      "Avoid hardware-size or product-specific capacity examples that can age.",
+    ],
+  },
+  {
+    sourceId: "IBM-EEPROM-2026",
+    title: "IBM — What is EEPROM?",
+    url: "https://www.ibm.com/think/topics/eeprom",
+    authorityClass: "VENDOR_TECHNICAL",
+    supports: ["eeprom-nonvolatile", "eeprom-expansion", "rom-subtypes"],
+    verifiedOn: "2026-08-23",
+    notes: [
+      "Updated July 2026; explicitly defines EEPROM as nonvolatile and part of the ROM family.",
+    ],
+  },
+  {
     sourceId: "IBM-DATA-STORAGE-2026",
     title: "IBM — What is data storage?",
     url: "https://www.ibm.com/think/topics/data-storage",
     authorityClass: "VENDOR_TECHNICAL",
-    supports: [
-      "secondary-storage",
-      "storage-medium",
-      "hdd-ssd-usb-optical-tape",
-      "backup-storage-role",
-    ],
+    supports: ["secondary-storage", "storage-medium", "hdd-ssd-usb-optical-tape", "backup-storage-role"],
     verifiedOn: "2026-08-23",
     notes: [
       "Updated July 2026 and useful for durable storage-medium/device classification.",
@@ -124,27 +143,16 @@ export const COM001_SOURCE_AUTHORITIES: Com001SourceAuthority[] = [
     title: "IBM — Flash versus SSD storage",
     url: "https://www.ibm.com/think/topics/flash-vs-ssd-storage",
     authorityClass: "VENDOR_TECHNICAL",
-    supports: [
-      "storage-medium",
-      "flash-nonvolatile",
-      "ssd-flash-relation",
-      "ssd-no-moving-parts",
-    ],
+    supports: ["storage-medium", "flash-nonvolatile", "ssd-flash-relation", "ssd-no-moving-parts"],
     verifiedOn: "2026-08-23",
-    notes: [
-      "Use to distinguish flash technology from the SSD device category.",
-    ],
+    notes: ["Use to distinguish flash technology from the SSD device category."],
   },
   {
     sourceId: "MICROSOFT-PAGEFILE-2026",
     title: "Microsoft Learn — Introduction to the page file",
     url: "https://learn.microsoft.com/en-us/troubleshoot/windows-client/performance/introduction-to-the-page-file",
     authorityClass: "VENDOR_TECHNICAL",
-    supports: [
-      "virtual-memory-concept",
-      "pagefile",
-      "physical-extension-of-ram",
-    ],
+    supports: ["virtual-memory-concept", "pagefile", "physical-extension-of-ram"],
     verifiedOn: "2026-08-23",
     notes: [
       "Use for Windows page-file/virtual-memory statements only.",
@@ -156,10 +164,7 @@ export const COM001_SOURCE_AUTHORITIES: Com001SourceAuthority[] = [
     title: "Microsoft Learn — Virtual Address Space and Physical Storage",
     url: "https://learn.microsoft.com/en-us/windows/win32/memory/virtual-address-space-and-physical-storage",
     authorityClass: "VENDOR_TECHNICAL",
-    supports: [
-      "virtual-memory-concept",
-      "paging-to-disk",
-    ],
+    supports: ["virtual-memory-concept", "paging-to-disk"],
     verifiedOn: "2026-08-23",
     notes: [
       "Supports the limited awareness-level statement that Windows can move memory pages between physical memory and a paging file on disk.",
@@ -175,7 +180,7 @@ export const COM001_SOURCE_REJECTIONS = [
     sourceId: "IBM-PRIMARY-VS-SECONDARY-STORAGE",
     url: "https://www.ibm.com/think/topics/primary-vs-secondary-storage",
     reason:
-      "The reviewed page contains an internally incorrect statement describing DRAM as non-volatile. Do not use it as authority for COM-001 memory-volatility or hierarchy facts.",
+      "A reviewed indexed version exposed an internally incorrect DRAM-volatility statement. Do not use this page as COM-001 authority unless it is explicitly re-reviewed and the source-version discrepancy is resolved.",
     reviewedOn: "2026-08-23",
   },
 ] as const;
@@ -186,20 +191,12 @@ export function auditCom001SourceManifest() {
   const urls = new Set<string>();
 
   for (const source of COM001_SOURCE_AUTHORITIES) {
-    if (sourceIds.has(source.sourceId)) {
-      issues.push(`DUPLICATE_SOURCE_ID:${source.sourceId}`);
-    }
+    if (sourceIds.has(source.sourceId)) issues.push(`DUPLICATE_SOURCE_ID:${source.sourceId}`);
     sourceIds.add(source.sourceId);
-    if (urls.has(source.url)) {
-      issues.push(`DUPLICATE_URL:${source.url}`);
-    }
+    if (urls.has(source.url)) issues.push(`DUPLICATE_URL:${source.url}`);
     urls.add(source.url);
-    if (!/^https:\/\//.test(source.url)) {
-      issues.push(`NON_HTTPS_SOURCE:${source.sourceId}`);
-    }
-    if (source.supports.length === 0) {
-      issues.push(`NO_SUPPORT_SCOPE:${source.sourceId}`);
-    }
+    if (!/^https:\/\//.test(source.url)) issues.push(`NON_HTTPS_SOURCE:${source.sourceId}`);
+    if (source.supports.length === 0) issues.push(`NO_SUPPORT_SCOPE:${source.sourceId}`);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(source.verifiedOn)) {
       issues.push(`INVALID_VERIFIED_DATE:${source.sourceId}`);
     }
