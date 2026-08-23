@@ -1,20 +1,8 @@
+import { exactRationalSquareRoot } from "./circle-inference";
 import { divide, multiply, rational, type Rational } from "./exact";
 
 function assertPositive(value: Rational, owner: string): void {
   if (value.numerator <= 0n) throw new Error(`${owner} must be positive`);
-}
-
-function perfectSquareRoot(value: bigint, owner: string): bigint {
-  if (value < 0n) throw new Error(`${owner} must be non-negative`);
-  if (value < 2n) return value;
-  let x = value;
-  let y = (x + 1n) / 2n;
-  while (y < x) {
-    x = y;
-    y = (x + value / x) / 2n;
-  }
-  if (x * x !== value) throw new Error(`${owner} must be a perfect square for exact Geometry inference`);
-  return x;
 }
 
 /**
@@ -33,10 +21,7 @@ export function correspondingLengthFromPerimeterScale(
   return multiply(secondLength, divide(firstPerimeter, secondPerimeter));
 }
 
-/**
- * Returns the first-triangle perimeter from one corresponding side pair and
- * the second-triangle perimeter.
- */
+/** Returns the first-triangle perimeter from one corresponding side pair. */
 export function perimeterFromCorrespondingSideScale(
   firstSide: Rational,
   secondSide: Rational,
@@ -50,8 +35,8 @@ export function perimeterFromCorrespondingSideScale(
 
 /**
  * In similar triangles, area ratio is the square of the corresponding-side
- * ratio. Returns the exact first-side : second-side ratio for area fixtures
- * whose reduced numerator and denominator are perfect squares.
+ * ratio. The canonical Geometry exact-root primitive rejects non-square
+ * rational fixtures rather than falling back to floating point.
  */
 export function correspondingSideRatioFromAreaRatio(
   firstArea: Rational,
@@ -59,17 +44,10 @@ export function correspondingSideRatioFromAreaRatio(
 ): Rational {
   assertPositive(firstArea, "firstArea");
   assertPositive(secondArea, "secondArea");
-  const reducedAreaRatio = divide(firstArea, secondArea);
-  return rational(
-    perfectSquareRoot(reducedAreaRatio.numerator, "area-ratio numerator"),
-    perfectSquareRoot(reducedAreaRatio.denominator, "area-ratio denominator"),
-  );
+  return exactRationalSquareRoot(divide(firstArea, secondArea));
 }
 
-/**
- * Independent exact forward relation: corresponding-side ratio squared gives
- * the area ratio of similar triangles.
- */
+/** Corresponding-side ratio squared gives the area ratio. */
 export function areaRatioFromCorrespondingSideRatio(
   firstSide: Rational,
   secondSide: Rational,
