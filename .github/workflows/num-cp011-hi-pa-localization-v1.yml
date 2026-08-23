@@ -57,6 +57,15 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-cp011-hi-pa-human-quality.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp011-hi-pa-human-quality.log
 
+      - name: Bundle localized final binding audit
+        run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/localization/runtime-final.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp011-hi-pa-final-binding.mjs
+
+      - name: Run localized final binding audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp011-hi-pa-final-binding.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp011-hi-pa-final-binding.log
+
       - name: Bundle bilingual review exporter
         run: pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/localization/review-export.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp011-hi-pa-review-export.mjs
 
@@ -74,6 +83,7 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/num-cp011-hi-pa-parity.log
             artifacts/api-server/dist/quant-v4/num-cp011-hi-pa-human-quality.log
+            artifacts/api-server/dist/quant-v4/num-cp011-hi-pa-final-binding.log
             artifacts/api-server/dist/quant-v4/num-cp011-hi-pa-review-export.log
             artifacts/api-server/dist/quant-v4/num-cp011-hi-pa-review/audit.json
             artifacts/api-server/dist/quant-v4/num-cp011-hi-pa-review/review.json
