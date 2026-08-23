@@ -7,7 +7,7 @@ import {
   generateIntCp009Permanent,
   getIntCp009PrototypeForPermanentQl,
 } from "./cp009-production-runtime-v1";
-import { generateIntCp009Localized } from "./cp009-localization-v1";
+import { generateIntCp009Localized } from "./cp009-localization-v2";
 import { generateIntCp009Frozen, INT_CP009_RELEASE_ID } from "./cp009-final-freeze-v1";
 import {
   generateIntCp009QuestionStudioBatch,
@@ -82,6 +82,7 @@ for (const [qlId, fingerprints] of fingerprintByQl) assert(fingerprints.size >= 
 let localizedQuestions = 0;
 let localizationParityChecks = 0;
 let localizationScriptChecks = 0;
+let localizationTerminologyChecks = 0;
 for (const qlId of INT_CP009_PERMANENT_QL_IDS) {
   for (let index = 0; index < 200; index += 1) {
     const seed = `cp009:locale:${qlId}:${index}`;
@@ -96,8 +97,14 @@ for (const qlId of INT_CP009_PERMANENT_QL_IDS) {
       assert(language === "hi" ? /[\u0900-\u097f]/u.test(q.stem) : /[\u0a00-\u0a7f]/u.test(q.stem), `${qlId}/${seed}/${language}: native script missing from stem`);
       assert(language === "hi" ? /[\u0900-\u097f]/u.test(q.explanation.keyIdea) : /[\u0a00-\u0a7f]/u.test(q.explanation.keyIdea), `${qlId}/${seed}/${language}: native script missing from explanation`);
       assert(q.explanation.steps.length === 4 && q.explanation.steps.some((step: string) => step.includes("=")), `${qlId}/${seed}/${language}: localized worked arithmetic too thin`);
-      assert(!/(?:undefined|null|NaN|after after)/u.test(`${q.stem}\n${q.explanation.steps.join("\n")}`), `${qlId}/${seed}/${language}: invalid localization token`);
+      const localizedLearner = `${q.stem}\n${q.explanation.keyIdea}\n${q.explanation.steps.join("\n")}\n${q.explanation.finalAnswer}`;
+      assert(!/(?:undefined|null|NaN|after after)/u.test(localizedLearner), `${qlId}/${seed}/${language}: invalid localization token`);
       localizationScriptChecks += 4;
+      if (language === "pa") {
+        assert(!localizedLearner.includes("ਚੱਕਰਵੱਧੀ"), `${qlId}/${seed}: deprecated Punjabi compound-interest term leaked`);
+        assert(localizedLearner.includes("ਮਿਸ਼ਰਤ ਵਿਆਜ"), `${qlId}/${seed}: approved Punjabi compound-interest term missing`);
+        localizationTerminologyChecks += 2;
+      }
     }
   }
 }
@@ -115,6 +122,11 @@ for (const qlId of INT_CP009_PERMANENT_QL_IDS) {
       assert(q.lifecycle.englishContentFrozen === true && q.lifecycle.localizationFrozen === true, `${qlId}/${seed}/${language}: language freeze missing`);
       assert(q.lifecycle.questionStudioDiscoverable === false && q.lifecycle.questionBankWritable === false && q.lifecycle.testEligible === false && q.lifecycle.publiclyPublishable === false, `${qlId}/${seed}/${language}: frozen source leaked downstream`);
       assert(Object.isFrozen(q) && Object.isFrozen(q.lifecycle), `${qlId}/${seed}/${language}: freeze object mutable`);
+      if (language === "pa") {
+        const frozenLearner = `${q.stem}\n${q.explanation.keyIdea}\n${q.explanation.steps.join("\n")}\n${q.explanation.finalAnswer}`;
+        assert(!frozenLearner.includes("ਚੱਕਰਵੱਧੀ"), `${qlId}/${seed}: deprecated Punjabi term entered frozen authority`);
+        assert(frozenLearner.includes("ਮਿਸ਼ਰਤ ਵਿਆਜ"), `${qlId}/${seed}: approved Punjabi term missing from frozen authority`);
+      }
       freezeChecks += 4;
     }
   }
@@ -168,6 +180,7 @@ console.log(JSON.stringify({
   localizedQuestions,
   localizationParityChecks,
   localizationScriptChecks,
+  localizationTerminologyChecks,
   frozenQuestions,
   freezeChecks,
   studioQuestions: studio.studioQuestions,
