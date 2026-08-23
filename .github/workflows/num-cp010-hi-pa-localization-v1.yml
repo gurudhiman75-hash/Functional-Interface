@@ -1,0 +1,86 @@
+name: Validate NUM-CP-010 Hindi Punjabi localization candidate
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/**"
+      - ".github/workflows/num-cp010-hi-pa-localization-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp010-hi-pa-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp010-hi-pa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle permanent English regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/permanent-runtime.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp010-permanent-english-localization-regression.mjs
+
+      - name: Run permanent English regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp010-permanent-english-localization-regression.mjs
+
+      - name: Bundle Hindi Punjabi parity proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/localization/runtime-parity.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp010-hi-pa-parity.test.mjs
+
+      - name: Run Hindi Punjabi parity proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-parity.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-parity.log
+
+      - name: Bundle learner review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/localization/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp010-hi-pa-review-export.mjs
+
+      - name: Generate Hindi Punjabi learner review
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/num-cp010-hi-pa-review-export.mjs \
+            2>&1 | tee dist/quant-v4/num-cp010-hi-pa-review-export.log
+
+      - name: Upload localization review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp010-hi-pa-review-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-parity.log
+            artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-review-export.log
+            artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-review/audit.json
+            artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-review/review.json
+            artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-review/review.md
+          if-no-files-found: error
+          retention-days: 30
