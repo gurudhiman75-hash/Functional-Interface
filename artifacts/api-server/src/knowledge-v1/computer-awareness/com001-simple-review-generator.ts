@@ -141,7 +141,9 @@ export function generateCom001Ql002Review(seed: string): Com001ReviewQuestion {
 
 export function generateCom001Ql003Review(seed: string): Com001ReviewQuestion {
   const qlId = "COM-001-QL-003";
-  const pool = relationFacts("has_primary_function");
+  const pool = relationFacts("has_primary_function").filter(
+    (fact) => fact.contextGroupId !== "virtual-memory-awareness",
+  );
   const target = deterministicPick(pool, `${seed}:target`);
   const wrongFacts = pickThree(
     pool.filter((fact) => canonicalKnowledgeValueKey(fact) !== canonicalKnowledgeValueKey(target)),
@@ -251,7 +253,7 @@ export function generateCom001Ql006Review(seed: string): Com001ReviewQuestion {
     task.stem,
     entityLabel(target),
     wrongFacts.map(entityLabel),
-    `The broad order used by this QL is CPU registers → cache → main memory (RAM) → secondary storage.`,
+    "The broad order used by this QL is CPU registers → cache → main memory (RAM) → secondary storage.",
     pool,
     "ORDERED_HIERARCHY",
   );
@@ -279,25 +281,13 @@ export function generateCom001Ql009Review(seed: string): Com001ReviewQuestion {
 
   let wrongAnswers: string[];
   let evidenceFacts: KnowledgeFact[] = [target];
-  if (target.value.kind === "number" && target.value.unit === "bits") {
+  if (target.value.kind !== "number") {
+    throw new Error(`COM-001 QL-009 target ${target.factId} must be numeric`);
+  }
+  if (target.value.unit === "bits") {
+    // 4, 16 and 32 are common magnitude confusions for the canonical 8-bit byte.
     wrongAnswers = ["4 bits", "16 bits", "32 bits"];
   } else {
-    const wrongFacts = pickThree(
-      numericPool.filter(
-        (fact) =>
-          fact.factId !== target.factId &&
-          fact.value.kind === "number" &&
-          fact.value.unit === target.value.kind && false,
-      ),
-      `${seed}:wrong-unreachable`,
-    );
-    wrongAnswers = wrongFacts.map(numberAnswer);
-    evidenceFacts = [target, ...wrongFacts];
-  }
-
-  // The branch above intentionally special-cases bit-based questions. For byte
-  // relations, select other byte-denominated values as misconception traps.
-  if (target.value.kind === "number" && target.value.unit !== "bits") {
     const wrongFacts = pickThree(
       numericPool.filter(
         (fact) =>
