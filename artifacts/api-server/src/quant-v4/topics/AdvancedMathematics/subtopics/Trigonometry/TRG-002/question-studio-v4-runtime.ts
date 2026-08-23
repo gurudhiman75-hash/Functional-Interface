@@ -1,4 +1,5 @@
-import { buildTrg002ExamTreeExplanation } from "./examtree-solution-directive";
+import { Buffer } from "node:buffer";
+
 import { generateTrg002V4CandidateQuestion } from "./exam-readiness-v4-candidate";
 import { applyTrg002V4DiagramSemanticCorrections } from "./exam-readiness-v4-diagram-semantics";
 import { generateTrg002V4EnglishAuthorityQuestion } from "./exam-readiness-v4-english-authority";
@@ -15,7 +16,10 @@ import {
   TRG_002_PRODUCTION_96_IDS,
   trg002ProductionCpForId,
 } from "./production-96-registry";
-import { buildTrg002SolutionAnnotations } from "./solution-diagram-annotations";
+import {
+  TRG_002_EXAMTREE_DIRECTIVE_PREFIX,
+  TRG_002_EXAMTREE_MAX_ENCODED_LENGTH,
+} from "./examtree-solution-directive";
 
 type AnyRecord = Record<string, any>;
 export type Trg002V4StudioLanguage = "en" | "hi" | "pa";
@@ -264,15 +268,32 @@ function sourceQuestion(qlId: string, seed: string, language: Trg002V4StudioLang
     ? english
     : generateTrg002V4CandidateQuestion(qlId, seed, language === "hi" ? "hi-IN" : "pa-IN");
   const cpId = trg002ProductionCpForId(qlId);
-  const approved = applyTrg002V4ApprovedLifecycle({ ...localized, cpId, qlId });
+  const approved: AnyRecord = applyTrg002V4ApprovedLifecycle({ ...localized, cpId, qlId }) as AnyRecord;
   return { english, question: approved };
 }
 
+function v4Annotations(diagram: AnyRecord) {
+  const dimensions = (diagram.measurementArrows ?? []).map((arrow: AnyRecord, index: number) => ({
+    id: String(arrow.id ?? `v4-dimension-${index + 1}`),
+    role: String(arrow.kind ?? "DIMENSION"),
+    fromPointId: String(arrow.fromPointId ?? ""),
+    toPointId: String(arrow.toPointId ?? ""),
+    label: String(arrow.label ?? ""),
+    placement: String(arrow.side ?? "LEFT"),
+    lane: Number(arrow.lane ?? 0),
+    pedagogic: Boolean(arrow.pedagogic),
+  }));
+  const cues = (diagram.pedagogicTeachingCues ?? []).map((cue: AnyRecord, index: number) => ({
+    id: `teaching-cue-${index + 1}`,
+    role: String(cue.kind ?? "TEACHING"),
+    label: String(cue.text ?? ""),
+    pedagogic: true,
+  }));
+  return [...dimensions, ...cues];
+}
+
 function storagePayload(question: AnyRecord, diagram: AnyRecord) {
-  const withDiagram = { ...question, solutionDiagram: diagram };
-  const annotations = Array.isArray(question.solutionAnnotations)
-    ? question.solutionAnnotations
-    : buildTrg002SolutionAnnotations(withDiagram).annotations;
+  const annotations = v4Annotations(diagram);
   const payload = {
     kind: "TRG002_HEIGHTS_DISTANCES",
     version: 2,
@@ -288,6 +309,37 @@ function storagePayload(question: AnyRecord, diagram: AnyRecord) {
   return payload;
 }
 
+function encodeBase64Url(value: string) {
+  return Buffer.from(value, "utf8")
+    .toString("base64")
+    .replace(/\+/gu, "-")
+    .replace(/\//gu, "_")
+    .replace(/=+$/gu, "");
+}
+
+function buildV4ExamTreeExplanation(question: AnyRecord, solutionDiagram: AnyRecord) {
+  const directivePayload = {
+    version: 2,
+    qlId: question.qlId,
+    diagram: solutionDiagram.diagram,
+    annotations: solutionDiagram.annotations,
+    approvedSourceHead: TRG_002_V4_APPROVED_SOURCE_HEAD,
+    approvedArtifactId: TRG_002_V4_APPROVED_ARTIFACT.id,
+  };
+  const encoded = encodeBase64Url(JSON.stringify(directivePayload));
+  if (encoded.length > TRG_002_EXAMTREE_MAX_ENCODED_LENGTH) {
+    throw new Error(`${question.qlId}: V4 ExamTree solution directive exceeds ${TRG_002_EXAMTREE_MAX_ENCODED_LENGTH} encoded characters.`);
+  }
+  const structured = question.explanation ?? {};
+  return [
+    `Core rule: ${String(structured.keyRule ?? "")}`,
+    ...(structured.steps ?? []).map((step: AnyRecord) => `${String(step.title ?? "Step")}: ${String(step.body ?? "")}`),
+    structured.shortcut ? `Shortcut: ${String(structured.shortcut)}` : "",
+    (structured.traps ?? []).length ? `Common trap: ${(structured.traps ?? []).join(" ")}` : "",
+    `${TRG_002_EXAMTREE_DIRECTIVE_PREFIX}${encoded}]]`,
+  ].filter(Boolean).join("\n\n");
+}
+
 function optionDisplay(option: any) {
   return String(option?.display ?? option?.text ?? option?.value ?? option?.label ?? option);
 }
@@ -297,11 +349,7 @@ function questionStudioPreview(qlId: string, seed: string, language: Trg002V4Stu
   const diagram = approvedTeachingDiagram(qlId, english);
   const solutionDiagram = storagePayload(question, diagram);
   const options = (question.options ?? []).map(optionDisplay);
-  const explanation = buildTrg002ExamTreeExplanation({
-    ...question,
-    solutionDiagram: diagram,
-    solutionAnnotations: solutionDiagram.annotations,
-  });
+  const explanation = buildV4ExamTreeExplanation(question, solutionDiagram);
   const cpId = trg002ProductionCpForId(qlId);
   const answerModel = {
     kind: "single_choice",
