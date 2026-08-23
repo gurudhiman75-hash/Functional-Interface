@@ -49,8 +49,12 @@ for (const language of TSD_CP008_QUESTION_STUDIO_LANGUAGES) {
     if (language === "hi") {
       assert(/\p{Script=Devanagari}/u.test(question.stem), `${question.questionId}: Hindi stem lacks Devanagari`);
       assert(!/चाल/.test(`${question.stem} ${question.explanation.steps.join(" ")}`), `${question.questionId}: deprecated Hindi चाल leaked`);
+      if (question.qlId === "TSD-QL-099") assert(question.stem.includes("समान दिशा वाली स्थिति में पहली ट्रेन को तेज माना जाए।"), `${question.questionId}: Hindi QL099 faster-train uniqueness guard missing`);
     }
-    if (language === "pa") assert(/\p{Script=Gurmukhi}/u.test(question.stem), `${question.questionId}: Punjabi stem lacks Gurmukhi`);
+    if (language === "pa") {
+      assert(/\p{Script=Gurmukhi}/u.test(question.stem), `${question.questionId}: Punjabi stem lacks Gurmukhi`);
+      if (question.qlId === "TSD-QL-099") assert(question.stem.includes("ਇੱਕੋ ਦਿਸ਼ਾ ਵਾਲੀ ਸਥਿਤੀ ਵਿੱਚ ਪਹਿਲੀ ਰੇਲਗੱਡੀ ਨੂੰ ਤੇਜ਼ ਮੰਨਿਆ ਜਾਵੇ।"), `${question.questionId}: Punjabi QL099 faster-train uniqueness guard missing`);
+    }
     validated += 1;
   }
 }
@@ -72,6 +76,7 @@ console.log(JSON.stringify({
   compatibleReviewCombinationsPerLocale: TSD_CP008_QUESTION_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE,
   deterministicReviewCombinations: TSD_CP008_QUESTION_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE * 3,
   validatedQuestions: validated,
+  ql099SameDirectionUniquenessGuard: true,
   questionStudioRegistrationStatus: TSD_CP008_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioRegistrationStatus,
   questionStudioStagingStatus: TSD_CP008_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioStagingStatus,
   questionBankWritable: TSD_CP008_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankWritable,
