@@ -1,4 +1,4 @@
-name: Validate TSD CP008 source saturation and executable feasibility
+name: Validate TSD CP008 source saturation, executable feasibility and allocation
 
 on:
   push:
@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  source-saturation-and-executable-feasibility:
+  source-saturation-executable-feasibility-and-allocation:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -57,3 +57,5 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/source-saturation-proof.test.ts
       - name: Prove executable feasibility and independent verification
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/executable-proof.test.ts
+      - name: Prove permanent QL allocation
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/allocation-proof.test.ts
