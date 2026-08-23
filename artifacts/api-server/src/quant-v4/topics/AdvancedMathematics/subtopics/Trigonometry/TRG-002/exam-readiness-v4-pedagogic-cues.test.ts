@@ -9,20 +9,44 @@ const html = readFileSync(htmlPath, "utf8");
 
 type AnyRecord = Record<string, any>;
 
+const groundLikeRoles = new Set(["OBSERVER_GROUND", "OBJECT_BASE", "GROUND"]);
+
+function hasRaisedBase(points: AnyRecord[], eye: AnyRecord) {
+  return points.some((point: AnyRecord) =>
+    groundLikeRoles.has(String(point?.role ?? ""))
+    && Math.abs(Number(point?.x) - Number(eye?.x)) < 1e-5
+    && Number(point?.y) > Number(eye?.y) + 1e-5);
+}
+
 function hasRaisedEyeLevel(points: AnyRecord[], segments: AnyRecord[]) {
   const byId = new Map(points.map((point: AnyRecord) => [String(point?.id ?? ""), point]));
-  const groundLikeRoles = new Set(["OBSERVER_GROUND", "OBJECT_BASE", "GROUND"]);
   for (const segment of segments.filter((entry: AnyRecord) => String(entry?.kind ?? "") === "EYE_LEVEL")) {
     const from = byId.get(String(segment?.fromPointId ?? ""));
     const to = byId.get(String(segment?.toPointId ?? ""));
     const eye = String(from?.role ?? "") === "OBSERVER_EYE" ? from : String(to?.role ?? "") === "OBSERVER_EYE" ? to : null;
-    if (!eye) continue;
-    if (points.some((point: AnyRecord) =>
-      groundLikeRoles.has(String(point?.role ?? ""))
-      && Math.abs(Number(point?.x) - Number(eye?.x)) < 1e-5
-      && Number(point?.y) > Number(eye?.y) + 1e-5)) return true;
+    if (eye && hasRaisedBase(points, eye)) return true;
   }
   return false;
+}
+
+function groundCoincidentHelperLabelViolations(points: AnyRecord[], segments: AnyRecord[]) {
+  const byId = new Map(points.map((point: AnyRecord) => [String(point?.id ?? ""), point]));
+  const violatingPhysicalHelpers = new Set<string>();
+  for (const segment of segments.filter((entry: AnyRecord) => String(entry?.kind ?? "") === "EYE_LEVEL")) {
+    const from = byId.get(String(segment?.fromPointId ?? ""));
+    const to = byId.get(String(segment?.toPointId ?? ""));
+    const eye = String(from?.role ?? "") === "OBSERVER_EYE" ? from : String(to?.role ?? "") === "OBSERVER_EYE" ? to : null;
+    const level = eye === from ? to : eye === to ? from : null;
+    if (!eye || !level || hasRaisedBase(points, eye)) continue;
+    const helperAtLevel = points.find((point: AnyRecord) =>
+      /^H\d*$/u.test(String(point?.label ?? ""))
+      && Math.abs(Number(point?.x) - Number(level?.x)) < 1e-5
+      && Math.abs(Number(point?.y) - Number(level?.y)) < 1e-5);
+    if (helperAtLevel) {
+      violatingPhysicalHelpers.add(`${Number(level.x).toFixed(5)}:${Number(level.y).toFixed(5)}:${String(helperAtLevel.label)}`);
+    }
+  }
+  return violatingPhysicalHelpers.size;
 }
 
 if (pack.records.length !== 96) throw new Error(`Expected 96 pedagogic records, got ${pack.records.length}.`);
@@ -32,6 +56,8 @@ let geometryCues = 0;
 let ruleCues = 0;
 let calculationCues = 0;
 let topologyCueViolations = 0;
+let invalidHelperLabelViolations = 0;
+let visibleHelperLabels = 0;
 for (const row of pack.records as AnyRecord[]) {
   const diagram = row.solutionDiagram;
   const cues = diagram?.pedagogicTeachingCues ?? [];
@@ -53,7 +79,13 @@ for (const row of pack.records as AnyRecord[]) {
   const shadowSegments = segments.filter((segment: AnyRecord) => String(segment?.kind ?? "").includes("SHADOW")).length;
   const shadowEndpoints = points.filter((point: AnyRecord) => /shadow/i.test(String(point?.id ?? ""))).length;
   const changedShadow = shadowSegments >= 2 || shadowEndpoints >= 2;
+  const helperViolations = groundCoincidentHelperLabelViolations(points, segments);
+  visibleHelperLabels += points.filter((point: AnyRecord) => /^H\d*$/u.test(String(point?.label ?? ""))).length;
 
+  if (helperViolations !== 0) {
+    invalidHelperLabelViolations += helperViolations;
+    throw new Error(`${row.qlId}: found ${helperViolations} visible H/H2 helper label(s) on a ground-coincident eye-level construction.`);
+  }
   if (/eye[- ]level|helper intersection|dashed horizontal through the observer|raised observer/iu.test(geometryText) && !raisedEyeLevel) {
     topologyCueViolations += 1;
     throw new Error(`${row.qlId}: eye-level teaching cue is not backed by a genuinely raised observer-eye construction.`);
@@ -78,16 +110,20 @@ if (geometryCues !== 96) throw new Error(`Expected exactly one geometry cue per 
 if (ruleCues !== 96) throw new Error(`Expected exactly one rule cue per diagram, got ${ruleCues}.`);
 if (calculationCues !== 96) throw new Error(`Expected exactly one calculation cue per diagram, got ${calculationCues}.`);
 if (topologyCueViolations !== 0) throw new Error(`Expected zero cue/topology violations, got ${topologyCueViolations}.`);
+if (invalidHelperLabelViolations !== 0) throw new Error(`Expected zero ground-coincident helper-label violations, got ${invalidHelperLabelViolations}.`);
 
 const row = (id: string) => pack.records.find((record: AnyRecord) => record.qlId === id) as AnyRecord;
 const cueText = (id: string) => (row(id).solutionDiagram.pedagogicTeachingCues ?? []).map((cue: AnyRecord) => String(cue.text)).join(" ");
 const geometryCue = (id: string) => String((row(id).solutionDiagram.pedagogicTeachingCues ?? []).find((cue: AnyRecord) => cue.kind === "GEOMETRY")?.text ?? "");
 const calculationCue = (id: string) => String((row(id).solutionDiagram.pedagogicTeachingCues ?? []).find((cue: AnyRecord) => cue.kind === "CALCULATION")?.text ?? "");
+const helperLabels = (id: string) => (row(id).solutionDiagram.points ?? []).filter((point: AnyRecord) => /^H\d*$/u.test(String(point?.label ?? ""))).map((point: AnyRecord) => String(point.label));
 
 if (!/shadow|sun ray|sun angle|sun-angle/iu.test(cueText("TRG-002-QL-027"))) throw new Error("QL027: changed-shadow teaching cue missing.");
 if (!/two shadow endpoints|two right-triangle states/iu.test(geometryCue("TRG-002-QL-027"))) throw new Error("QL027: geometry cue must explicitly describe the two shadow states.");
 if (/two shadow endpoints|separate sun angle|separate sun-angle|two right-triangle states/iu.test(geometryCue("TRG-002-QL-025"))) throw new Error("QL025: single-shadow diagram must not claim multiple shadow states.");
 if (/eye[- ]level|helper intersection|raised observer/iu.test(geometryCue("TRG-002-QL-001"))) throw new Error("QL001: ground-coincident observer must not be described as a raised eye-level construction.");
+if (helperLabels("TRG-002-QL-001").length !== 0) throw new Error(`QL001: ground-coincident diagram must not show H/H2 helper labels: ${helperLabels("TRG-002-QL-001").join(",")}`);
+if (helperLabels("TRG-002-QL-076").length === 0) throw new Error("QL076: genuine raised-eye construction must retain its H helper label.");
 if (!/(?:1\s*\/\s*√3\s*=\s*h\s*\/\s*15|tan\s*30)/iu.test(calculationCue("TRG-002-QL-029"))) throw new Error(`QL029: worked trigonometric equation missing from calculation cue: ${calculationCue("TRG-002-QL-029")}`);
 if (/^\s*let\b/iu.test(calculationCue("TRG-002-QL-060"))) throw new Error(`QL060: variable setup incorrectly selected as worked equation: ${calculationCue("TRG-002-QL-060")}`);
 if (!/(?:h\s*=\s*x√3|x\s*\+\s*y\s*=\s*32|tan\s*60)/iu.test(calculationCue("TRG-002-QL-060"))) throw new Error(`QL060: worked boat-distance equation missing from calculation cue: ${calculationCue("TRG-002-QL-060")}`);
@@ -98,4 +134,4 @@ if (!/shared height|ground relation|separate observation|road/iu.test(cueText("T
 if (!/eye level|eye-level|horizontal|rise|drop/iu.test(cueText("TRG-002-QL-088"))) throw new Error("QL088: elevation/depression split teaching cue missing.");
 if (!/roof|total|mast|difference/iu.test(cueText("TRG-002-QL-095"))) throw new Error("QL095: composite-height teaching cue missing.");
 
-console.log(`TRG002_V4_PEDAGOGIC_CUES_PASS qls=96 teachingPanels=96 teachingCues=288 geometryCues=96 ruleCues=96 calculationCues=96 topologyCueViolations=0 workedEquationCues=green explanationTeachingCoverage=96/96`);
+console.log(`TRG002_V4_PEDAGOGIC_CUES_PASS qls=96 teachingPanels=96 teachingCues=288 geometryCues=96 ruleCues=96 calculationCues=96 visibleHelperLabels=${visibleHelperLabels} groundCoincidentHelperLabelViolations=0 topologyCueViolations=0 workedEquationCues=green explanationTeachingCoverage=96/96`);
