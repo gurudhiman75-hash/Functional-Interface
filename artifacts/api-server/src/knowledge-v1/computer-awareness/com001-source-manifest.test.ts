@@ -39,11 +39,16 @@ const virtualMemorySources = COM001_SOURCE_AUTHORITIES.filter((source) =>
 );
 assert.equal(virtualMemorySources.length >= 2, true);
 
+const romSources = COM001_SOURCE_AUTHORITIES.filter((source) =>
+  source.supports.some((scope) => /rom|eeprom|eprom|prom/i.test(scope)),
+);
+assert.equal(romSources.length >= 2, true);
+
 const rejectedIBM = COM001_SOURCE_REJECTIONS.find(
   (source) => source.sourceId === "IBM-PRIMARY-VS-SECONDARY-STORAGE",
 );
 assert.ok(rejectedIBM);
-assert.match(rejectedIBM.reason, /DRAM as non-volatile/i);
+assert.match(rejectedIBM.reason, /DRAM-volatility statement/i);
 assert.equal(
   COM001_SOURCE_AUTHORITIES.some(
     (source) => source.sourceId === rejectedIBM.sourceId,
