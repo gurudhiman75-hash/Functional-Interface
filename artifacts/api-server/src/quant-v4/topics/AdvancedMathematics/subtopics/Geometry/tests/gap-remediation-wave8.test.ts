@@ -93,6 +93,8 @@ const interiorInverse = GEO_GAP_REMEDIATION_WAVE8_PROTOTYPES[0].generate("wave8-
 assert.equal(interiorInverse.answer, "9 sides");
 assert.deepEqual(interiorInverse.theoremTrace, ["POLYGON_INTERIOR_SUM"]);
 assert.equal(interiorInverse.optionAnalysis.find((option) => option.misconceptionId === "POLYGON_INTERIOR_SUM_FORGOT_PLUS_TWO")?.text, "7 sides");
+assert.equal(interiorInverse.optionAnalysis.find((option) => option.misconceptionId === "USED_N_MINUS_ONE_TRIANGLE_COUNT")?.text, "8 sides");
+assert.equal(interiorInverse.optionAnalysis.find((option) => option.misconceptionId === "MOVED_MINUS_TWO_WRONG_DIRECTION")?.text, "5 sides");
 
 const exteriorInvariant = GEO_GAP_REMEDIATION_WAVE8_PROTOTYPES[1].generate("wave8-a");
 assert.equal(exteriorInvariant.answer, "360°");
