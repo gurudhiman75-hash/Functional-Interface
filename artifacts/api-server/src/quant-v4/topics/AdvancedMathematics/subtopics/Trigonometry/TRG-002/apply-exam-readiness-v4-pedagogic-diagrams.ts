@@ -115,7 +115,11 @@ function geometryTeachingCue(diagram: any, stem: string) {
 }
 
 function isWorkedEquation(sentence: string) {
-  return /(?:tan|sin|cos|cot|⇒)/iu.test(sentence)
+  // Match actual trig tokens such as tan30°, sin45° or cos(θ). A bare
+  // substring check is unsafe because words such as "distance" contain "tan".
+  const trigToken = /\b(?:tan|sin|cos|cot)(?=\s*(?:\d|°|θ|\())/iu;
+  return trigToken.test(sentence)
+    || /⇒/u.test(sentence)
     || (/=/u.test(sentence) && !/^\s*let\b/iu.test(sentence));
 }
 
@@ -181,7 +185,7 @@ for (const row of pack.records as any[]) {
   });
 
   const cues = teachingCues(row, result.diagram);
-  if (cues.length < 2) throw new Error(`${row.qlId}: expected at least two explanation-derived teaching cues, got ${cues.length}.`);
+  if (cues.length !== 3) throw new Error(`${row.qlId}: expected See/Rule/Use teaching cues, got ${cues.length}.`);
   result.diagram.pedagogicTeachingCues = cues;
   result.diagram.pedagogicDiagramAudit.teachingCues = cues.length;
   result.diagram.pedagogicDiagramAudit.teachingPanelPresent = true;
@@ -212,6 +216,7 @@ html = html.replace(/<svg class="solution-diagram"[\s\S]*?<\/svg>/g, () => {
 });
 if (index !== 96 || rendered.length !== 96) throw new Error(`Expected 96 pedagogic SVG replacements, got replaced=${index} rendered=${rendered.length}.`);
 if (teachingCuePanels !== 96) throw new Error(`Expected 96 pedagogic teaching panels, got ${teachingCuePanels}.`);
+if (teachingCueCount !== 288) throw new Error(`Expected exactly 288 See/Rule/Use teaching cues, got ${teachingCueCount}.`);
 
 html = html.replace(
   "bold semantically-audited solution geometry with explicit dimensions outside the protected core diagram, canonical spatial state and diagram evidence. Numeric values are attached only to their intended geometric relationships; changed-shadow and support-triangle states are explicitly represented; answer-equivalent derived helpers are suppressed; sloped callout leaders are ordered without crossings.",
