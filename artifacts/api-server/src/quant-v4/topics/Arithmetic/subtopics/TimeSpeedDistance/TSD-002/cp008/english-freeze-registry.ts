@@ -1,4 +1,5 @@
-import { TSD_CP008_ENGLISH_AUTHORING_REGISTRY, type TsdCp008EnglishQlSpec } from "./english-authoring-registry";
+import { TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-final";
+import type { TsdCp008EnglishQlSpec } from "./english-authoring-registry";
 import { TSD_CP008_PERMANENT_QL_IDS } from "./ql-allocation";
 
 export type TsdCp008FrozenEnglishQl = TsdCp008EnglishQlSpec & {
@@ -12,6 +13,7 @@ export const TSD_CP008_ENGLISH_FREEZE_APPROVAL = Object.freeze({
   approvalInstruction: "approved" as const,
   approvedSourceBranch: "feat/tsd-cp008-executable-discovery-v1" as const,
   approvedSourceHead: "14f09b2c687eadd6f422dd6547e564cdf5f30305" as const,
+  approvedSourceLayer: "TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY" as const,
   approvedQlRange: "TSD-QL-095..TSD-QL-103" as const,
   approvedQlCount: 9 as const,
   approvedQuestionFamilies: 54 as const,
@@ -27,7 +29,7 @@ export const TSD_CP008_ENGLISH_FREEZE_APPROVAL = Object.freeze({
 });
 
 export const TSD_CP008_FROZEN_ENGLISH_REGISTRY: readonly TsdCp008FrozenEnglishQl[] = Object.freeze(
-  TSD_CP008_ENGLISH_AUTHORING_REGISTRY.map((ql) => Object.freeze({
+  TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY.map((ql) => Object.freeze({
     ...ql,
     editorialStatus: "FROZEN" as const,
   })),
