@@ -5,7 +5,6 @@ import { getGeneratedItemApprovalDisposition } from "../../../../../lib/admin-qu
 import { DSF_CP001_FREEZE_AUTHORITY } from "../DSF-CP-001/cp001-freeze-authority.ts";
 import { DSF_CP003_ANSWER_PROFILES, generateDsfExamProfileBatch } from "../DSF-CP-003/exam-answer-profiles-v1.ts";
 import { DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY, DSF_CP004_QUESTION_BANK_PROFILE_IDS } from "../DSF-CP-004/question-bank-acceptance-v1.ts";
-import { dsfCp004ReviewPayload, dsfCp005ReviewPayload } from "../../../../../routes/admin-question-studio-data-sufficiency.ts";
 import {
   DSF_CP005_CHECKPOINT_ID,
   DSF_CP005_QUESTION_STUDIO_PACKAGE,
@@ -19,6 +18,9 @@ const {
   getGeneratedQuestionBankEligibilityIssue,
   normalizeGeneratedQuestionPayload,
 } = await import("../../../../../lib/admin-question-conversion.ts");
+const { dsfCp004ReviewPayload, dsfCp005ReviewPayload } = await import(
+  "../../../../../routes/admin-question-studio-data-sufficiency.ts"
+);
 
 assert.equal(DSF_CP001_FREEZE_AUTHORITY.status, "FROZEN");
 assert.equal(DSF_CP005_TEST_RELEASE.checkpointId, DSF_CP005_CHECKPOINT_ID);
