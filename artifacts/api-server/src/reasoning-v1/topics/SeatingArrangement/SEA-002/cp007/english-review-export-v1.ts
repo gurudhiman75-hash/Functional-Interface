@@ -1,6 +1,7 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 
+import { renderSea002Cp007ExamRealStem } from "./exam-real-stem-v2.ts";
 import {
   generateSea002Cp007ProductionCaselet,
   type Sea002Cp007CandidateAuthorityKey,
@@ -33,7 +34,7 @@ for (const authorityKey of AUTHORITIES) {
     const caselet = generateSea002Cp007ProductionCaselet(`english-review-v1:${authorityKey}:${sample}`, width, authorityKey);
     rows.push(`### ${ordinal}. ${caselet.caseletId} · ${width}+${width}`);
     rows.push("");
-    rows.push(caselet.stem);
+    rows.push(renderSea002Cp007ExamRealStem(caselet));
     rows.push("");
     rows.push(`**Question:** ${caselet.question}`);
     rows.push("");
@@ -54,5 +55,6 @@ writeFileSync(output, `${rows.join("\n")}\n`, "utf8");
 console.log("PASS_SEA002_CP007_ENGLISH_REVIEW_EXPORT_V1");
 console.log("review caselets", ordinal);
 console.log("candidate authorities", AUTHORITIES.length);
+console.log("renderer", "EXAM_REAL_COMPACT_V2");
 console.log("permanent QLs allocated", 0);
 console.log("output", output);
