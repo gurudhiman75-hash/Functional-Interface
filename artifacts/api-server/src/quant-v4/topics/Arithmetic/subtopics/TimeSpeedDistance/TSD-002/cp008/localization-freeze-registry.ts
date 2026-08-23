@@ -1,6 +1,8 @@
 import { TSD_CP008_FROZEN_ENGLISH_REGISTRY } from "./english-freeze-registry";
-import { TSD_CP008_HINDI_LOCALIZATION } from "./hindi-localization";
-import { TSD_CP008_PUNJABI_LOCALIZATION } from "./punjabi-localization";
+import {
+  TSD_CP008_FINAL_HINDI_LOCALIZATION,
+  TSD_CP008_FINAL_PUNJABI_LOCALIZATION,
+} from "./localization-final";
 import { TSD_CP008_PERMANENT_QL_IDS } from "./ql-allocation";
 import type { TsdCp008LocalizationRegistry, TsdCp008LocalizedQl } from "./localization-types";
 
@@ -12,6 +14,8 @@ export const TSD_CP008_LOCALIZATION_FREEZE_APPROVAL = Object.freeze({
   approvedSourceBranch: "feat/tsd-cp008-executable-discovery-v1" as const,
   approvedSourceHead: "dce8a35d4082e8032f0b9f868565299e0031fa1a" as const,
   approvedReviewArtifact: "TSD-CP008-HINDI-PUNJABI-QUESTIONS.md" as const,
+  finalLocalizationLayer: "CP008_FINAL_LOCALIZATION_WITH_QL099_UNIQUENESS_GUARD" as const,
+  finalNormalizationReason: "PRESERVE_ENGLISH_SAME_DIRECTION_FASTER_TRAIN_INVARIANT" as const,
   englishFreezeStatus: "FROZEN" as const,
   hindiFreezeStatus: "FROZEN" as const,
   punjabiFreezeStatus: "FROZEN" as const,
@@ -49,8 +53,8 @@ function freezeLocale(registry: TsdCp008LocalizationRegistry): TsdCp008FrozenLoc
   });
 }
 
-export const TSD_CP008_FROZEN_HINDI_LOCALIZATION = freezeLocale(TSD_CP008_HINDI_LOCALIZATION);
-export const TSD_CP008_FROZEN_PUNJABI_LOCALIZATION = freezeLocale(TSD_CP008_PUNJABI_LOCALIZATION);
+export const TSD_CP008_FROZEN_HINDI_LOCALIZATION = freezeLocale(TSD_CP008_FINAL_HINDI_LOCALIZATION);
+export const TSD_CP008_FROZEN_PUNJABI_LOCALIZATION = freezeLocale(TSD_CP008_FINAL_PUNJABI_LOCALIZATION);
 
 const frozenEnglishQlIds = TSD_CP008_FROZEN_ENGLISH_REGISTRY.map((ql) => ql.qlId);
 if (JSON.stringify(frozenEnglishQlIds) !== JSON.stringify(TSD_CP008_PERMANENT_QL_IDS)) {
