@@ -54,6 +54,7 @@ for (const prototype of GEO_GAP_REMEDIATION_WAVE7_PROTOTYPES) {
     assert.equal(new Set(question.options).size, 4);
     assert.equal(question.answer, question.options[question.correctIndex]);
     assert.equal(question.optionAnalysis.filter((o) => o.correct).length, 1);
+    assert.equal(question.optionAnalysis.some((o) => o.misconceptionId === "ADDED_OFFSET_INSTEAD_OF_USING_EQUALITY"), false, `${prototype.temporaryPrototypeId} must not use arbitrary offset fallback distractors`);
     assert.equal(question.minimalityProof.passed, true);
     assert.equal(question.independentVerifierResult.passed, true);
     assert.ok(question.sourceEvidenceIds.length > 0);
@@ -74,6 +75,11 @@ for (const prototype of GEO_GAP_REMEDIATION_WAVE7_PROTOTYPES) {
   assert.equal(stems.size, 3, `${prototype.temporaryPrototypeId} must expose three varied review stems`);
   assert.equal(fingerprints.size, 3, `${prototype.temporaryPrototypeId} fingerprints must vary by seed`);
 }
+
+const equalCentralA = GEO_GAP_REMEDIATION_WAVE7_PROTOTYPES[0].generate("wave7-a");
+assert.equal(equalCentralA.answer, "60°");
+assert.ok(equalCentralA.options.includes("300°"), "60° collision must resolve to a genuine reflex-central-angle misconception");
+assert.ok(equalCentralA.optionAnalysis.some((o) => o.text === "300°" && o.misconceptionId === "USED_REFLEX_CENTRAL_ANGLE"));
 
 const equalCentral = GEO_GAP_REMEDIATION_WAVE7_PROTOTYPES[0].generate("wave7-b");
 assert.equal(equalCentral.answer, "70°");
@@ -123,4 +129,9 @@ assert.equal(chain.solutionDiagramModel.angleMarks.some((mark) => mark.id === "d
 assert.ok(chain.solutionSvg.includes("∠CBD = 26°"), "final target must be named explicitly near vertex B");
 assert.equal(chain.solutionSvg.includes(">90°<"), false, "avoid a detached 90° text label; the right-angle mark is the uncluttered teaching representation");
 
-console.log("Geometry gap remediation Wave 7 PASS: 6 CP010/CP011 prototypes × 3 seeds with exact circle-theorem inference, REQUIRED_BOTH anti-leak stem/solution diagrams, dimension-rich solution disclosure, semantic-mark clarity, zero label collisions, clue minimality, independent verification and lifecycle locks.");
+const chainB = GEO_GAP_REMEDIATION_WAVE7_PROTOTYPES[5].generate("wave7-b");
+assert.equal(chainB.answer, "28°");
+assert.ok(chainB.options.includes("118°"), "duplicate 62° misconceptions must resolve to the genuine intermediate triangle angle");
+assert.ok(chainB.optionAnalysis.some((o) => o.text === "118°" && o.misconceptionId === "STOPPED_AT_TRIANGLE_ADP_ANGLE"));
+
+console.log("Geometry gap remediation Wave 7 PASS: 6 CP010/CP011 prototypes × 3 seeds with exact circle-theorem inference, REQUIRED_BOTH anti-leak stem/solution diagrams, dimension-rich solution disclosure, misconception-owned distractors, semantic-mark clarity, zero label collisions, clue minimality, independent verification and lifecycle locks.");
