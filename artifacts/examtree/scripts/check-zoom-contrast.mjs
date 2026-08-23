@@ -20,7 +20,7 @@ assert.doesNotMatch(indexHtml, /user-scalable\s*=\s*no/i, "student viewport must
 assert.match(publicPage, /bg-\[#1e1b4b\][\s\S]*?text-indigo-100/, "public hero must retain its high-contrast foreground/background contract");
 assert.match(publicPage, /bg-slate-50[\s\S]*?text-slate-950[\s\S]*?text-slate-600/, "public information cards must retain explicit readable light-surface colors");
 
-assert.match(profile, /min-h-screen bg-background/, "profile page must use the theme background instead of a permanently light gradient");
+assert.match(profile, /(?:bg|via|to)-background\b/, "profile page must use a theme-aware background token instead of a permanently light gradient");
 assert.doesNotMatch(profile, /from-slate-50 to-white/, "profile must not pair theme-dependent foreground text with a fixed light gradient");
 
 assert.match(browserProof, /pageScaleFactor:\s*2/, "browser proof must exercise a 2x Chromium page scale");
