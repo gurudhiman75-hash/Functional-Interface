@@ -128,10 +128,24 @@ if (!/(?:1\s*\/\s*√3\s*=\s*h\s*\/\s*15|tan\s*30)/iu.test(calculationCue("TRG-0
 if (/^\s*let\b/iu.test(calculationCue("TRG-002-QL-060"))) throw new Error(`QL060: variable setup incorrectly selected as worked equation: ${calculationCue("TRG-002-QL-060")}`);
 if (!/(?:h\s*=\s*x√3|x\s*\+\s*y\s*=\s*32|tan\s*60)/iu.test(calculationCue("TRG-002-QL-060"))) throw new Error(`QL060: worked boat-distance equation missing from calculation cue: ${calculationCue("TRG-002-QL-060")}`);
 if (!/(?:tan\s*45[^=]*=\s*1|h\s*=\s*x.*h\s*=\s*y)/iu.test(calculationCue("TRG-002-QL-078"))) throw new Error(`QL078: worked opposite-side equation missing from calculation cue: ${calculationCue("TRG-002-QL-078")}`);
+
+const q37 = row("TRG-002-QL-037").solutionDiagram;
+const q37Overlay = (q37.pedagogicAngleOverlays ?? []).find((overlay: AnyRecord) => overlay.id === "ql037-given-wall-angle");
+if (!q37Overlay
+  || q37Overlay.label !== "30°"
+  || q37Overlay.vertexPointId !== "wall-contact"
+  || q37Overlay.referencePointId !== "wall-base"
+  || q37Overlay.rayPointId !== "ladder-base"
+  || Math.abs(Number(q37Overlay.actualDegrees) - 30) > 0.75) {
+  throw new Error("QL037: the stated 30° ladder-to-wall angle must be represented by the actual wall/contact/ladder geometry.");
+}
+if (q37.points.find((point: AnyRecord) => point.id === "wall-contact")?.label !== "C") throw new Error("QL037: wall contact must use the clean point label C once the given 30° arc is drawn.");
+if (!html.includes('data-pedagogic-angle-id="ql037-given-wall-angle"')) throw new Error("QL037: rendered SVG is missing the explicit 30° wall-angle teaching arc.");
+if (!q37.angles.some((angle: AnyRecord) => angle.label === "60°" && angle.vertexPointId === "ladder-base")) throw new Error("QL037: derived 60° ground-angle arc must remain visible alongside the given 30° wall angle.");
 if (!/ladder|hypotenuse|perpendicular/iu.test(cueText("TRG-002-QL-037"))) throw new Error("QL037: ladder teaching cue missing.");
 if (!/eye level|eye-level|helper intersection|rise/iu.test(cueText("TRG-002-QL-076"))) throw new Error("QL076: eye-level teaching cue missing.");
 if (!/shared height|ground relation|separate observation|road/iu.test(cueText("TRG-002-QL-079"))) throw new Error("QL079: two-target teaching cue missing.");
 if (!/eye level|eye-level|horizontal|rise|drop/iu.test(cueText("TRG-002-QL-088"))) throw new Error("QL088: elevation/depression split teaching cue missing.");
 if (!/roof|total|mast|difference/iu.test(cueText("TRG-002-QL-095"))) throw new Error("QL095: composite-height teaching cue missing.");
 
-console.log(`TRG002_V4_PEDAGOGIC_CUES_PASS qls=96 teachingPanels=96 teachingCues=288 geometryCues=96 ruleCues=96 calculationCues=96 visibleHelperLabels=${visibleHelperLabels} groundCoincidentHelperLabelViolations=0 topologyCueViolations=0 workedEquationCues=green explanationTeachingCoverage=96/96`);
+console.log(`TRG002_V4_PEDAGOGIC_CUES_PASS qls=96 teachingPanels=96 teachingCues=288 geometryCues=96 ruleCues=96 calculationCues=96 visibleHelperLabels=${visibleHelperLabels} groundCoincidentHelperLabelViolations=0 topologyCueViolations=0 ql037WallAngleArc=30deg workedEquationCues=green explanationTeachingCoverage=96/96`);
