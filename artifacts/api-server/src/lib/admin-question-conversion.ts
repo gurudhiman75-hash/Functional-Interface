@@ -30,6 +30,23 @@ function asText(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function lifecycleValue(
+  payload: Record<string, unknown>,
+  generationContext: Record<string, unknown>,
+  key: string,
+): unknown {
+  return payload[key] ?? generationContext[key];
+}
+
+export function getGeneratedQuestionBankAcceptanceMode(value: unknown): "BANK_ONLY" | "FULL_RELEASE" {
+  const payload = asRecord(value);
+  const generationContext = asRecord(payload.generationContext);
+  const mode = asText(
+    lifecycleValue(payload, generationContext, "questionBankAcceptanceMode"),
+  ).toUpperCase();
+  return mode === "BANK_ONLY" ? "BANK_ONLY" : "FULL_RELEASE";
+}
+
 export function getGeneratedQuestionBankEligibilityIssue(
   value: unknown,
 ): string | null {
@@ -42,22 +59,28 @@ export function getGeneratedQuestionBankEligibilityIssue(
     payload.reviewStatus || generationContext.reviewStatus,
   ).toUpperCase();
   const questionBankStatus = asText(
-    payload.questionBankStatus || generationContext.questionBankStatus,
+    lifecycleValue(payload, generationContext, "questionBankStatus"),
   ).toUpperCase();
+  const questionBankWritable = lifecycleValue(
+    payload,
+    generationContext,
+    "questionBankWritable",
+  );
   const testEligibility = asText(
-    payload.testEligibility || generationContext.testEligibility,
+    lifecycleValue(payload, generationContext, "testEligibility"),
   ).toUpperCase();
-  const publiclyPublishable =
-    payload.publiclyPublishable ?? generationContext.publiclyPublishable;
+  const publiclyPublishable = lifecycleValue(
+    payload,
+    generationContext,
+    "publiclyPublishable",
+  );
+  const acceptanceMode = getGeneratedQuestionBankAcceptanceMode(payload);
 
   if (questionBankStatus === "NOT_STORED") {
     return "questionBankStatus is NOT_STORED";
   }
-  if (testEligibility === "INELIGIBLE") {
-    return "testEligibility is INELIGIBLE";
-  }
-  if (publiclyPublishable === false) {
-    return "publiclyPublishable is false";
+  if (questionBankWritable === false) {
+    return "questionBankWritable is false";
   }
   if (runtimeMode === "DYNAMIC_CANDIDATE") {
     return `runtimeMode ${runtimeMode} is review-only`;
@@ -67,6 +90,19 @@ export function getGeneratedQuestionBankEligibilityIssue(
     reviewStatus !== "APPROVED_EDITORIAL_CANONICAL"
   ) {
     return `reviewStatus ${reviewStatus || "MISSING"} is not release-approved`;
+  }
+
+  // BANK_ONLY is an explicit lifecycle checkpoint: the generated item may be
+  // accepted into Question Bank while scored-test and publication gates stay
+  // closed. The downstream locks are copied into answer_model.generation and
+  // are re-checked by the Question Bank publication gate.
+  if (acceptanceMode === "BANK_ONLY") return null;
+
+  if (testEligibility === "INELIGIBLE") {
+    return "testEligibility is INELIGIBLE";
+  }
+  if (publiclyPublishable === false) {
+    return "publiclyPublishable is false";
   }
   return null;
 }
@@ -167,6 +203,7 @@ export function normalizeGeneratedQuestionPayload(
   context: { itemId: string; generationRunCode: string },
 ): NormalizedGeneratedQuestion {
   const payload = asRecord(value);
+  const generationContext = asRecord(payload.generationContext);
   assertGeneratedQuestionBankEligible(payload);
   const baseStem = asText(payload.text) || asText(payload.stem);
   const explanation =
@@ -218,10 +255,32 @@ export function normalizeGeneratedQuestionPayload(
         providerQuestionId: payload.questionId ?? null,
         packageId: payload.packageId ?? null,
         patternId: payload.patternId ?? null,
+        qlId: payload.qlId ?? generationContext.qlId ?? null,
+        sourceChapterId: payload.sourceChapterId ?? generationContext.sourceChapterId ?? null,
+        solveMode: payload.solveMode ?? generationContext.solveMode ?? null,
+        semanticClass: payload.canonicalAnswer ?? generationContext.semanticClass ?? null,
+        answerProfile: payload.answerProfile ?? generationContext.answerProfile ?? null,
+        examFamily: payload.examFamily ?? generationContext.examFamily ?? null,
         topic: payload.topic ?? null,
         subtopic: payload.subtopic ?? null,
         language: payload.language ?? "en",
+        locale: payload.locale ?? generationContext.locale ?? null,
         visualContent: visualContent ? "spatial_svg_data_image_v1" : null,
+        questionBankStatus: lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
+        questionBankWritable: lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
+        questionBankAcceptanceMode: getGeneratedQuestionBankAcceptanceMode(payload),
+        questionBankAcceptanceAuthority:
+          lifecycleValue(payload, generationContext, "questionBankAcceptanceAuthority") ?? null,
+        testEligibility: lifecycleValue(payload, generationContext, "testEligibility") ?? null,
+        testEligible: lifecycleValue(payload, generationContext, "testEligible") ?? null,
+        mockTestEligible: lifecycleValue(payload, generationContext, "mockTestEligible") ?? null,
+        publiclyPublishable: lifecycleValue(payload, generationContext, "publiclyPublishable") ?? null,
+        automaticStudentPublication:
+          lifecycleValue(payload, generationContext, "automaticStudentPublication") ?? null,
+        integrationAuthority: payload.integrationAuthority ?? generationContext.integrationAuthority ?? null,
+        deliveryProfileAuthority:
+          payload.deliveryProfileAuthority ?? generationContext.deliveryProfileAuthority ?? null,
+        sourceFreezeAuthority: payload.sourceFreezeAuthority ?? generationContext.sourceFreezeAuthority ?? null,
       },
     },
   };
@@ -267,6 +326,7 @@ export async function convertApprovedGenerationItem(
     };
   }
 
+  const acceptanceMode = getGeneratedQuestionBankAcceptanceMode(row.payload);
   const normalized = normalizeGeneratedQuestionPayload(row.payload, {
     itemId,
     generationRunCode: String(row.generationRunCode),
@@ -315,7 +375,9 @@ export async function convertApprovedGenerationItem(
       ${JSON.stringify(normalized.answerModel)}::jsonb,
       1,
       0,
-      'Approved from generated question review',
+      ${acceptanceMode === "BANK_ONLY"
+        ? "Accepted into Question Bank with downstream lifecycle locked"
+        : "Approved from generated question review"},
       ${actorUserId}::uuid,
       now()
     )
@@ -375,9 +437,16 @@ export async function convertApprovedGenerationItem(
       'question',
       ${questionId}::uuid,
       ${questionVersionId}::uuid,
-      'Approved generated item converted to Question Bank',
+      ${acceptanceMode === "BANK_ONLY"
+        ? "Approved generated item accepted to Question Bank; tests and publication remain locked"
+        : "Approved generated item converted to Question Bank"},
       ${`Created ${publicCode} from approved generation item`},
-      ${JSON.stringify({ generationItemId: itemId, generationRunCode: row.generationRunCode })}::jsonb
+      ${JSON.stringify({
+        generationItemId: itemId,
+        generationRunCode: row.generationRunCode,
+        questionBankAcceptanceMode: acceptanceMode,
+        downstreamLifecycleLocked: acceptanceMode === "BANK_ONLY",
+      })}::jsonb
     )
   `;
 
