@@ -7,11 +7,11 @@ import {
 export * from "./generation-engine-base";
 
 import {
-  TRG_002_QUESTION_STUDIO_PACKAGE,
-  generateTrg002QuestionStudioBatch,
-  isTrg002GenerationRequest,
-  type Trg002QuestionStudioRequest,
-} from "./topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-runtime";
+  TRG_002_V4_QUESTION_STUDIO_PACKAGE,
+  generateTrg002V4QuestionStudioBatch,
+  isTrg002V4GenerationRequest,
+  type Trg002V4QuestionStudioRequest,
+} from "./topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/question-studio-v4-runtime";
 
 export type QuantV4GenerationRequest = Omit<
   BaseQuantV4GenerationRequest,
@@ -25,14 +25,14 @@ export function listQuantV4Packages() {
   const packages = listBasePackages().filter(
     (pkg: any) => String(pkg.packageId) !== "TRG-002",
   );
-  return [...packages, TRG_002_QUESTION_STUDIO_PACKAGE].sort((left: any, right: any) =>
+  return [...packages, TRG_002_V4_QUESTION_STUDIO_PACKAGE].sort((left: any, right: any) =>
     String(left.packageId).localeCompare(String(right.packageId)),
   );
 }
 
 export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
-  if (isTrg002GenerationRequest(request as Trg002QuestionStudioRequest)) {
-    return generateTrg002QuestionStudioBatch(request as Trg002QuestionStudioRequest);
+  if (isTrg002V4GenerationRequest(request as Trg002V4QuestionStudioRequest)) {
+    return generateTrg002V4QuestionStudioBatch(request as Trg002V4QuestionStudioRequest);
   }
   return generateBaseQuestion(request as BaseQuantV4GenerationRequest);
 }
