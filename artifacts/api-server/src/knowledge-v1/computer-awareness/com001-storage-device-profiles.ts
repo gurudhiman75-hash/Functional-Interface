@@ -1,3 +1,5 @@
+import { COM001_ALL_SOURCE_AUTHORITIES } from "./com001-source-authority-extension";
+
 export type Com001StorageMedium = "magnetic" | "optical" | "solid-state";
 export type Com001AccessPattern = "sequential" | "random";
 
@@ -159,14 +161,8 @@ export function matchesStorageProfile(
   if (typeof constraints.persistent === "boolean" && profile.persistent !== constraints.persistent) {
     return false;
   }
-  if (
-    constraints.requiredRoles?.some((role) => !profile.roles.includes(role))
-  ) {
-    return false;
-  }
-  if (constraints.excludedRoles?.some((role) => profile.roles.includes(role))) {
-    return false;
-  }
+  if (constraints.requiredRoles?.some((role) => !profile.roles.includes(role))) return false;
+  if (constraints.excludedRoles?.some((role) => profile.roles.includes(role))) return false;
   return true;
 }
 
@@ -181,6 +177,9 @@ export function solveStorageProfileConstraints(
 export function auditCom001StorageProfiles() {
   const issues: string[] = [];
   const ids = new Set<string>();
+  const approvedSourceById = new Map(
+    COM001_ALL_SOURCE_AUTHORITIES.map((source) => [source.sourceId, source]),
+  );
 
   for (const profile of COM001_STORAGE_DEVICE_PROFILES) {
     if (ids.has(profile.profileId)) issues.push(`DUPLICATE_PROFILE_ID:${profile.profileId}`);
@@ -191,6 +190,14 @@ export function auditCom001StorageProfiles() {
     if (profile.roles.length === 0) issues.push(`PROFILE_WITHOUT_ROLES:${profile.profileId}`);
     if (profile.sourceRefs.length === 0) issues.push(`PROFILE_WITHOUT_SOURCE:${profile.profileId}`);
     for (const sourceRef of profile.sourceRefs) {
+      const approvedSource = approvedSourceById.get(sourceRef.sourceId);
+      if (!approvedSource) {
+        issues.push(`UNREGISTERED_PROFILE_SOURCE:${profile.profileId}:${sourceRef.sourceId}`);
+        continue;
+      }
+      if (approvedSource.url !== sourceRef.url) {
+        issues.push(`PROFILE_SOURCE_URL_MISMATCH:${profile.profileId}:${sourceRef.sourceId}`);
+      }
       if (!sourceRef.url.startsWith("https://")) {
         issues.push(`NON_HTTPS_PROFILE_SOURCE:${profile.profileId}:${sourceRef.sourceId}`);
       }
