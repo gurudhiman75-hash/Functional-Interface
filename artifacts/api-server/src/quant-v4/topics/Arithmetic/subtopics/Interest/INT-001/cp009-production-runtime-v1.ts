@@ -1,6 +1,8 @@
 import { createHash } from "node:crypto";
 import { eq, rat, type Rational } from "./cp003-exam-model";
 import {
+  INT_CP009_RATE_LIBRARY,
+  intCp009DebtBalanceByRecurrence,
   intCp009GrowthFactor,
   intCp009ShiftAmount,
 } from "./cp009-dated-cash-flow-discovery-v1";
@@ -18,6 +20,7 @@ import {
 
 export const INT_CP009_PRODUCTION_RUNTIME_VERSION = "INT-CP-009-PRODUCTION-RUNTIME-v1" as const;
 export const INT_CP009_P001_OBJECT_POOL_VERSION = "INT-CP-009-P001-PRODUCTION-OBJECT-POOL-v2" as const;
+export const INT_CP009_P007_OBJECT_POOL_VERSION = "INT-CP-009-P007-PRODUCTION-OBJECT-POOL-v2" as const;
 export { INT_CP009_PERMANENT_QL_IDS };
 export type { IntCp009PermanentQlId };
 
@@ -51,8 +54,9 @@ function deriveGenerationSeed(qlId: IntCp009PermanentQlId, prototypeId: IntCp009
 }
 
 function indianInteger(value: bigint): string {
-  const source = value.toString();
-  if (source.length <= 3) return source;
+  const sign = value < 0n ? "−" : "";
+  const source = (value < 0n ? -value : value).toString();
+  if (source.length <= 3) return `${sign}${source}`;
   const tail = source.slice(-3);
   let head = source.slice(0, -3);
   const groups: string[] = [];
@@ -61,19 +65,19 @@ function indianInteger(value: bigint): string {
     head = head.slice(0, -2);
   }
   if (head) groups.unshift(head);
-  return `${groups.join(",")},${tail}`;
+  return `${sign}${groups.join(",")},${tail}`;
 }
 
 function money(value: Rational): string {
-  if (value.denominator !== 1n) {
-    let paise = (value.numerator * 100n) / value.denominator;
-    const remainder = (value.numerator * 100n) % value.denominator;
-    if (remainder * 2n >= value.denominator) paise += 1n;
-    const rupees = paise / 100n;
-    const p = paise % 100n;
-    return p === 0n ? `₹${indianInteger(rupees)}` : `₹${indianInteger(rupees)}.${p.toString().padStart(2, "0")}`;
-  }
-  return `₹${indianInteger(value.numerator)}`;
+  const negative = value.numerator < 0n;
+  const numerator = negative ? -value.numerator : value.numerator;
+  let paise = (numerator * 100n) / value.denominator;
+  const remainder = (numerator * 100n) % value.denominator;
+  if (remainder * 2n >= value.denominator) paise += 1n;
+  const rupees = paise / 100n;
+  const p = paise % 100n;
+  const amount = p === 0n ? indianInteger(rupees) : `${indianInteger(rupees)}.${p.toString().padStart(2, "0")}`;
+  return `${negative ? "−" : ""}₹${amount}`;
 }
 
 function percent(value: Rational): string {
@@ -101,6 +105,14 @@ function moneyOptions(correct: Rational, desiredIndex: number) {
   const ordered = [...distractors];
   ordered.splice(desiredIndex, 0, correctValue);
   return Object.freeze(ordered.map((value) => deepFreeze({ value, text: money(value) })));
+}
+
+function rateOptions(correct: Rational, desiredIndex: number) {
+  const candidateRates = [rat(10n), rat(15n), rat(20n), rat(25n)];
+  const distractors = candidateRates.filter((value) => !eq(value, correct));
+  const ordered = [...distractors];
+  ordered.splice(desiredIndex, 0, correct);
+  return Object.freeze(ordered.map((value) => deepFreeze({ value, text: percent(value) })));
 }
 
 function diversifyFutureFundPackage(source: any, generationSeed: string) {
@@ -168,6 +180,108 @@ function diversifyFutureFundPackage(source: any, generationSeed: string) {
   });
 }
 
+function diversifyRateInversePackage(source: any, generationSeed: string) {
+  if (source.prototypeId !== "INT-CP009-PROT-007") return source;
+  const openingDebts = Array.from({ length: 17 }, (_, index) => 40_000n + BigInt(index) * 5_000n);
+  const units = ["YEAR", "HALF_YEAR"] as const;
+  const ratioRanges = [[50, 78], [32, 62], [20, 48]] as const;
+
+  for (let attempt = 0; attempt < 8; attempt += 1) {
+    const digest = createHash("sha256").update(`${generationSeed}:p007-object-pool:${attempt}`).digest();
+    const selectedRate = INT_CP009_RATE_LIBRARY[digest.readUInt16BE(0) % INT_CP009_RATE_LIBRARY.length]!;
+    const periodUnit = units[digest.readUInt16BE(2) % units.length]!;
+    const periods = 3 + (digest.readUInt16BE(4) % 2);
+    const openingDebt = openingDebts[digest.readUInt16BE(6) % openingDebts.length]!;
+    const factor = intCp009GrowthFactor(selectedRate);
+    const repayments: Array<{ atPeriod: number; amount: Rational; direction: "REPAYMENT" }> = [];
+    let balance = openingDebt;
+    let valid = true;
+
+    for (let period = 1; period <= periods; period += 1) {
+      const grownNumerator = balance * factor.numerator;
+      if (grownNumerator % factor.denominator !== 0n) {
+        valid = false;
+        break;
+      }
+      const grown = grownNumerator / factor.denominator;
+      let payment: bigint;
+      if (period === periods) {
+        payment = grown;
+        balance = 0n;
+      } else {
+        const [minimumRatio, maximumRatio] = ratioRanges[period - 1]!;
+        const ratio = minimumRatio + (digest.readUInt16BE(8 + (period - 1) * 2) % (maximumRatio - minimumRatio + 1));
+        let target = ((grown * BigInt(ratio)) / 100n / 2_500n) * 2_500n;
+        if (target < 5_000n) target = 5_000n;
+        if (target >= grown) target = grown - 2_500n;
+        payment = grown - target;
+        balance = target;
+      }
+      if (payment < 2_000n || payment > 150_000n) {
+        valid = false;
+        break;
+      }
+      repayments.push(deepFreeze({ atPeriod: period, amount: rat(payment), direction: "REPAYMENT" as const }));
+    }
+    if (!valid || balance !== 0n) continue;
+
+    const mathematicalState = deepFreeze({
+      prototypeId: "INT-CP009-PROT-007" as const,
+      periodUnit,
+      openingDebt: rat(openingDebt),
+      repayments: Object.freeze(repayments),
+    });
+    const matches = INT_CP009_RATE_LIBRARY.filter((rate) =>
+      eq(intCp009DebtBalanceByRecurrence(mathematicalState.openingDebt, mathematicalState.repayments, rate, periods), rat(0n)),
+    );
+    if (matches.length !== 1 || !eq(matches[0]!, selectedRate)) continue;
+
+    const answer = solveIntCp009Prototype(mathematicalState as any);
+    if (!eq(answer, selectedRate) || !verifyIntCp009PrototypeAnswer(mathematicalState as any, answer)) continue;
+
+    const list = repayments.map((flow) => `${money(flow.amount)} ${timePhrase(flow.atPeriod, periodUnit)}`).join(", ");
+    const unitText = periodUnit === "YEAR" ? "per year" : "per half-year";
+    const family = String(source.presentation.stemFamilyId);
+    const familyIndex = family.endsWith("T2") ? 1 : family.endsWith("T3") ? 2 : 0;
+    const prompts = [
+      `A loan of ${money(mathematicalState.openingDebt)} is exactly cleared by repayments of ${list}. Which of the following compound interest rates ${unitText} is applicable?`,
+      `A debt starts at ${money(mathematicalState.openingDebt)} and is fully settled by ${list}. Find the compound interest rate ${unitText}.`,
+      `The opening loan is ${money(mathematicalState.openingDebt)} and repayments of ${list} leave a zero balance. Determine the interest rate ${unitText}.`,
+    ];
+    const presentation = deepFreeze({ ...source.presentation, prompt: prompts[familyIndex]! });
+    const candidateRates = [rat(10n), rat(15n), rat(20n), rat(25n)];
+    const residuals = candidateRates.map((rate) => ({
+      rate,
+      balance: intCp009DebtBalanceByRecurrence(mathematicalState.openingDebt, mathematicalState.repayments, rate, periods),
+    }));
+    const explanation = deepFreeze({
+      keyIdea: "Test the option rates in the repayment recurrence. The correct rate is the only one that leaves a zero balance after the final repayment.",
+      steps: Object.freeze([
+        `Start with ${money(mathematicalState.openingDebt)} and use B(new) = B(old) × (1 + r) − payment for every dated repayment.`,
+        `${percent(residuals[0]!.rate)} leaves ${money(residuals[0]!.balance)}; ${percent(residuals[1]!.rate)} leaves ${money(residuals[1]!.balance)}.`,
+        `${percent(residuals[2]!.rate)} leaves ${money(residuals[2]!.balance)}; ${percent(residuals[3]!.rate)} leaves ${money(residuals[3]!.balance)}.`,
+        `Only ${percent(answer)} leaves ₹0, so the required rate is ${percent(answer)}.`,
+      ]),
+      finalAnswer: percent(answer),
+    });
+    const correctIndex = source.correctIndex as number;
+    const options = rateOptions(answer, correctIndex);
+
+    return deepFreeze({
+      ...source,
+      productionDiversificationVersion: INT_CP009_P007_OBJECT_POOL_VERSION,
+      mathematicalState,
+      answer,
+      presentation,
+      options,
+      correctIndex,
+      correctAnswer: options[correctIndex]!.text,
+      explanation,
+    });
+  }
+  throw new Error("CP009 P007 could not construct a unique realistic production rate-inverse schedule.");
+}
+
 export function getIntCp009PrototypeForPermanentQl(qlId: IntCp009PermanentQlId, seed: string | number) {
   return resolvePrototype(qlId, String(seed));
 }
@@ -178,7 +292,8 @@ export function generateIntCp009Permanent(qlId: IntCp009PermanentQlId, seed: str
   const prototypeId = resolvePrototype(qlId, sourceSeed);
   const generationSeed = deriveGenerationSeed(qlId, prototypeId, sourceSeed);
   const certifiedSource = buildIntCp009ExamReadyPolishedPackage(prototypeId, `permanent:${qlId}:${prototypeId}:${generationSeed}`) as any;
-  const source = diversifyFutureFundPackage(certifiedSource, generationSeed) as any;
+  const diversifiedFutureFund = diversifyFutureFundPackage(certifiedSource, generationSeed) as any;
+  const source = diversifyRateInversePackage(diversifiedFutureFund, generationSeed) as any;
 
   const canonical = solveIntCp009Prototype(source.mathematicalState);
   if (!eq(canonical, source.answer)) throw new Error(`${qlId}/${sourceSeed}: canonical answer drift.`);
