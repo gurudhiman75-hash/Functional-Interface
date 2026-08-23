@@ -18,6 +18,8 @@ import {
   STA_001_MULTILINGUAL_FROZEN_PROFILE_IDS,
 } from "./multilingual-frozen-runtime.ts";
 
+type FrozenProfileId = (typeof STA_001_MULTILINGUAL_FROZEN_PROFILE_IDS)[number];
+
 function gitBlobSha(relativePath: string): string {
   const bytes = readFileSync(new URL(relativePath, import.meta.url));
   const header = Buffer.from(`blob ${bytes.length}\0`, "utf8");
@@ -68,9 +70,9 @@ let parityCount = 0;
 let bank5RemappedSeedCount = 0;
 
 for (const locale of STA_001_MULTILINGUAL_FROZEN_LOCALES) {
-  for (const profileId of STA_001_MULTILINGUAL_FROZEN_PROFILE_IDS) {
+  for (const profileId: FrozenProfileId of STA_001_MULTILINGUAL_FROZEN_PROFILE_IDS) {
     for (let index = 0; index < 64; index += 1) {
-      const requestedSeed = `sta-final-freeze:${locale}:${profileId}:${index}`;
+      const requestedSeed: string = `sta-final-freeze:${locale}:${profileId}:${index}`;
       const frozen = generateSta001MultilingualFrozenQuestion(requestedSeed, locale, profileId);
       const source = generateStaExamFormatQuestionV2(frozen.seed, locale, profileId);
       if (profileId !== "BANK_5X5") {
