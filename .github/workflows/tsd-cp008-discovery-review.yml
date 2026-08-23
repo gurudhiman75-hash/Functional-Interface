@@ -1,4 +1,4 @@
-name: Validate TSD CP008 frozen English and Hindi Punjabi review
+name: Validate TSD CP008 frozen multilingual and Question Studio gate
 
 on:
   push:
@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  frozen-english-and-localization-review:
+  frozen-multilingual-and-question-studio:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -67,14 +67,7 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/localization-parity-proof.test.ts
       - name: Prove rendered Hindi Punjabi numeric and semantic parity
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/localized-rendered-review-proof.test.ts
-      - name: Generate one combined questions-only localization review
-        env:
-          TSD_CP008_LOCALIZATION_REVIEW_OUTPUT_DIR: /tmp/tsd-cp008-localization-review
-        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/localized-rendered-review-export.ts
-      - name: Upload Hindi Punjabi questions-only review
-        uses: actions/upload-artifact@v4
-        with:
-          name: tsd-cp008-hindi-punjabi-question-review
-          path: /tmp/tsd-cp008-localization-review/TSD-CP008-HINDI-PUNJABI-QUESTIONS.md
-          if-no-files-found: error
-          retention-days: 14
+      - name: Prove approved Hindi Punjabi localization freeze
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/localization-freeze-proof.test.ts
+      - name: Prove exhaustive Question Studio review adapter
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/question-studio-review-proof.test.ts
