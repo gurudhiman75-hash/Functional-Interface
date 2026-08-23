@@ -1,5 +1,5 @@
 import { multiply, rational, type Rational } from "../../TSD-001/foundation/rational";
-import { TSD_CP008_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-registry";
+import { TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-final";
 import { TSD_CP008_ENGLISH_REVIEW_CASES } from "./english-review-cases";
 
 export interface TsdCp008RenderedEnglishQuestion {
@@ -44,9 +44,20 @@ function answerText(value: Rational, unit: string): string {
   return `${text(value)}${suffix}`;
 }
 
-function directionPhrase(direction: "OPPOSITE" | "SAME", observer = false): string {
-  if (observer) return direction === "OPPOSITE" ? "in the opposite direction" : "in the same direction";
-  return direction === "OPPOSITE" ? "in opposite directions" : "in the same direction, with the first train faster";
+function trainDirectionPhrase(direction: "OPPOSITE" | "SAME", requireFirstFaster: boolean): string {
+  if (direction === "OPPOSITE") return "in opposite directions";
+  return requireFirstFaster ? "in the same direction, with the first train faster" : "in the same direction";
+}
+
+function observerDirectionPhrase(direction: "OPPOSITE" | "SAME"): string {
+  return direction === "OPPOSITE" ? "in opposite directions" : "in the same direction";
+}
+
+function observerTarget(familyId: string): string {
+  if (familyId === "101-B") return "Find the guard's speed.";
+  if (familyId === "101-D") return "Find the worker's speed.";
+  if (familyId === "101-F") return "Find the moving person's speed.";
+  return "Find the moving observer's speed.";
 }
 
 function bindingsFor(familyId: string, input: (typeof TSD_CP008_ENGLISH_REVIEW_CASES)[number]["input"]): Readonly<Record<string, string>> {
@@ -62,16 +73,16 @@ function bindingsFor(familyId: string, input: (typeof TSD_CP008_ENGLISH_REVIEW_C
       Object.assign(bindings, { lengthA: text(input.lengthA), lengthB: text(input.lengthB), crossingTime: text(input.crossingTime) });
       break;
     case "trainLengthFromTrainCrossingEvidence":
-      Object.assign(bindings, { knownLength: text(input.knownLength), speedA: speed(input.speedA, familyId), speedB: speed(input.speedB, familyId), crossingTime: text(input.crossingTime), directionPhrase: directionPhrase(input.direction) });
+      Object.assign(bindings, { knownLength: text(input.knownLength), speedA: speed(input.speedA, familyId), speedB: speed(input.speedB, familyId), crossingTime: text(input.crossingTime), directionPhrase: trainDirectionPhrase(input.direction, false) });
       break;
     case "trainSpeedFromTrainCrossingEvidence":
-      Object.assign(bindings, { lengthA: text(input.lengthA), lengthB: text(input.lengthB), otherSpeed: speed(input.otherSpeed, familyId), crossingTime: text(input.crossingTime), directionPhrase: directionPhrase(input.direction) });
+      Object.assign(bindings, { lengthA: text(input.lengthA), lengthB: text(input.lengthB), otherSpeed: speed(input.otherSpeed, familyId), crossingTime: text(input.crossingTime), directionPhrase: trainDirectionPhrase(input.direction, true) });
       break;
     case "movingObserverTrainCrossingTime":
-      Object.assign(bindings, { trainLength: text(input.trainLength), trainSpeed: speed(input.trainSpeed, familyId), observerSpeed: speed(input.observerSpeed, familyId), directionPhrase: directionPhrase(input.direction, true) });
+      Object.assign(bindings, { trainLength: text(input.trainLength), trainSpeed: speed(input.trainSpeed, familyId), observerSpeed: speed(input.observerSpeed, familyId), directionPhrase: observerDirectionPhrase(input.direction) });
       break;
     case "trainObserverStateFromCrossingTimes":
-      Object.assign(bindings, { trainLength: text(input.trainLength), sameTime: text(input.sameDirectionTime), oppositeTime: text(input.oppositeDirectionTime), targetQuestion: input.target === "TRAIN_SPEED" ? "Find the train's speed." : "Find the moving observer's speed." });
+      Object.assign(bindings, { trainLength: text(input.trainLength), sameTime: text(input.sameDirectionTime), oppositeTime: text(input.oppositeDirectionTime), targetQuestion: input.target === "TRAIN_SPEED" ? "Find the train's speed." : observerTarget(familyId) });
       break;
     case "sharedFixedObjectTwoTrainEvidence": {
       const familyLetter = familyId.split("-")[1] ?? "A";
@@ -88,7 +99,7 @@ function bindingsFor(familyId: string, input: (typeof TSD_CP008_ENGLISH_REVIEW_C
       break;
     }
     case "fullContainmentOverlapDuration":
-      Object.assign(bindings, { lengthA: text(input.lengthA), lengthB: text(input.lengthB), speedA: speed(input.speedA, familyId), speedB: speed(input.speedB, familyId), directionPhrase: directionPhrase(input.direction) });
+      Object.assign(bindings, { lengthA: text(input.lengthA), lengthB: text(input.lengthB), speedA: speed(input.speedA, familyId), speedB: speed(input.speedB, familyId), directionPhrase: trainDirectionPhrase(input.direction, false) });
       break;
   }
   return Object.freeze(bindings);
@@ -105,7 +116,7 @@ function render(template: string, bindings: Readonly<Record<string, string>>): s
 const cases = new Map(TSD_CP008_ENGLISH_REVIEW_CASES.map((entry) => [entry.familyId, entry] as const));
 const rendered: TsdCp008RenderedEnglishQuestion[] = [];
 
-for (const ql of TSD_CP008_ENGLISH_AUTHORING_REGISTRY) {
+for (const ql of TSD_CP008_FINAL_ENGLISH_AUTHORING_REGISTRY) {
   for (const family of ql.stemFamilies) {
     const reviewCase = cases.get(family.familyId);
     if (!reviewCase) throw new Error(`${family.familyId}: natural review case missing`);
