@@ -80,7 +80,15 @@ export async function generateSea002Cp006QuestionBankAcceptedBatch(
 ) {
   const source = await generateSourceBatch(request);
   const questions = Object.freeze(
-    source.questions.map((question) => prepareSea002Cp006QuestionBankCandidate(question)),
+    source.questions.map((question) => {
+      const ready = prepareSea002Cp006QuestionBankCandidate(question);
+      return Object.freeze({
+        ...ready,
+        questionBankReadinessAuthority: SEA002_CP006_QUESTION_BANK_READINESS_AUTHORITY,
+        questionBankAcceptanceAuthority: SEA002_CP006_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
+        questionBankAcceptanceActive: true as const,
+      });
+    }),
   );
 
   const generationContext = Object.freeze({
