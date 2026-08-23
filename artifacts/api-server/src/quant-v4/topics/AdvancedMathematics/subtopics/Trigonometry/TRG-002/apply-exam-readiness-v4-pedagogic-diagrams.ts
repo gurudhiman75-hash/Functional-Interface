@@ -162,6 +162,64 @@ function renderTeachingPanel(row: any, cues: Array<{ kind: string; text: string 
   return `<div class="diagram-teaching-panel" data-pedagogic-panel="true" data-pedagogic-ql="${esc(row.qlId)}" style="margin:8px 0 14px;padding:10px 14px;border:1px solid #dbe3ec;border-radius:8px;background:#f8fafc;color:#1f2937"><div style="font-weight:700;margin-bottom:4px">Teaching cues</div><ul style="margin:0;padding-left:20px">${items}</ul></div>`;
 }
 
+function normalizeRadians(value: number) {
+  while (value > Math.PI) value -= 2 * Math.PI;
+  while (value < -Math.PI) value += 2 * Math.PI;
+  return value;
+}
+
+function preparePedagogicAngleDetails(qlId: string, diagram: any) {
+  if (qlId !== "TRG-002-QL-037") return;
+  const contact = (diagram.points ?? []).find((point: any) => point.id === "wall-contact");
+  const wallBase = (diagram.points ?? []).find((point: any) => point.id === "wall-base");
+  const ladderBase = (diagram.points ?? []).find((point: any) => point.id === "ladder-base");
+  if (!contact || !wallBase || !ladderBase) throw new Error("TRG-002-QL-037: given wall-angle teaching overlay requires wall-contact, wall-base and ladder-base points.");
+  contact.label = "C";
+  const wallDirection = Math.atan2(Number(wallBase.y) - Number(contact.y), Number(wallBase.x) - Number(contact.x));
+  const ladderDirection = Math.atan2(Number(ladderBase.y) - Number(contact.y), Number(ladderBase.x) - Number(contact.x));
+  const actualDegrees = Math.abs(normalizeRadians(ladderDirection - wallDirection)) * 180 / Math.PI;
+  if (Math.abs(actualDegrees - 30) > 0.75) throw new Error(`TRG-002-QL-037: wall/ladder geometry is ${actualDegrees.toFixed(2)}°, not the stated 30°.`);
+  diagram.pedagogicAngleOverlays = [{
+    id: "ql037-given-wall-angle",
+    vertexPointId: "wall-contact",
+    referencePointId: "wall-base",
+    rayPointId: "ladder-base",
+    label: "30°",
+    semanticRole: "GIVEN_LADDER_TO_WALL_ANGLE",
+    actualDegrees,
+  }];
+  diagram.pedagogicDiagramAudit.ql037GivenWallAngleArc = true;
+}
+
+function renderPedagogicAngleOverlays(diagram: any) {
+  const points = new Map<string, any>((diagram.points ?? []).map((point: any) => [String(point.id), point]));
+  return (diagram.pedagogicAngleOverlays ?? []).map((overlay: any) => {
+    const vertex = points.get(String(overlay.vertexPointId));
+    const reference = points.get(String(overlay.referencePointId));
+    const ray = points.get(String(overlay.rayPointId));
+    if (!vertex || !reference || !ray) throw new Error(`${overlay.id}: pedagogic angle overlay references a missing point.`);
+    const start = Math.atan2(Number(reference.y) - Number(vertex.y), Number(reference.x) - Number(vertex.x));
+    const target = Math.atan2(Number(ray.y) - Number(vertex.y), Number(ray.x) - Number(vertex.x));
+    const delta = normalizeRadians(target - start);
+    const actualDegrees = Math.abs(delta) * 180 / Math.PI;
+    const expected = Number(String(overlay.label).replace("°", ""));
+    if (!Number.isFinite(expected) || Math.abs(actualDegrees - expected) > 0.75) {
+      throw new Error(`${overlay.id}: overlay label ${overlay.label} disagrees with geometry (${actualDegrees.toFixed(2)}°).`);
+    }
+    const radius = 52;
+    const sx = Number(vertex.x) + radius * Math.cos(start);
+    const sy = Number(vertex.y) + radius * Math.sin(start);
+    const ex = Number(vertex.x) + radius * Math.cos(target);
+    const ey = Number(vertex.y) + radius * Math.sin(target);
+    const sweep = delta >= 0 ? 1 : 0;
+    const mid = start + delta / 2;
+    const labelRadius = 92;
+    const lx = Number(vertex.x) + labelRadius * Math.cos(mid);
+    const ly = Number(vertex.y) + labelRadius * Math.sin(mid);
+    return `<g class="pedagogic-angle-overlay" data-pedagogic-angle-id="${esc(overlay.id)}" data-pedagogic-angle-role="${esc(overlay.semanticRole)}"><path d="M ${sx.toFixed(2)} ${sy.toFixed(2)} A ${radius} ${radius} 0 0 ${sweep} ${ex.toFixed(2)} ${ey.toFixed(2)}" fill="none" stroke="#6d28d9" stroke-width="3.2"/><rect x="${(lx - 26).toFixed(2)}" y="${(ly - 17).toFixed(2)}" width="52" height="34" rx="7" fill="#ffffff" fill-opacity="0.98" stroke="#ddd6fe" stroke-width="1"/><text x="${lx.toFixed(2)}" y="${ly.toFixed(2)}" text-anchor="middle" dominant-baseline="middle" font-size="20" fill="#6d28d9">${esc(overlay.label)}</text></g>`;
+  }).join("");
+}
+
 const pack = JSON.parse(readFileSync(jsonPath, "utf8"));
 let html = readFileSync(htmlPath, "utf8");
 const rendered: string[] = [];
@@ -173,6 +231,7 @@ let explanationFacts = 0;
 let explanationAligned = 0;
 let teachingCuePanels = 0;
 let teachingCueCount = 0;
+let pedagogicAngleOverlays = 0;
 
 for (const row of pack.records as any[]) {
   const result = applyTrg002V4PedagogicDiagramLayerFinal({
@@ -184,6 +243,7 @@ for (const row of pack.records as any[]) {
     topology: row.hindi?.v4ExamReadiness?.spatialTopology,
   });
 
+  preparePedagogicAngleDetails(row.qlId, result.diagram);
   const cues = teachingCues(row, result.diagram);
   if (cues.length !== 3) throw new Error(`${row.qlId}: expected See/Rule/Use teaching cues, got ${cues.length}.`);
   result.diagram.pedagogicTeachingCues = cues;
@@ -200,8 +260,13 @@ for (const row of pack.records as any[]) {
   if (result.diagram.reviewDimensionAudit?.explanationAligned === true) explanationAligned += 1;
 
   const figure = renderTrg002SolutionDiagramSvg({ ...result.diagram, qlId: row.qlId });
-  const svg = figure.match(/<svg class="solution-diagram"[\s\S]*?<\/svg>/)?.[0];
+  let svg = figure.match(/<svg class="solution-diagram"[\s\S]*?<\/svg>/)?.[0];
   if (!svg) throw new Error(`${row.qlId}: pedagogic renderer did not emit a solution SVG.`);
+  const overlays = renderPedagogicAngleOverlays(result.diagram);
+  if (overlays) {
+    svg = svg.replace("</svg>", `${overlays}</svg>`);
+    pedagogicAngleOverlays += result.diagram.pedagogicAngleOverlays.length;
+  }
   if (/\b(?:NaN|Infinity|-Infinity)\b/.test(svg)) throw new Error(`${row.qlId}: pedagogic diagram contains non-finite geometry.`);
   rendered.push(`${svg}${renderTeachingPanel(row, cues)}`);
   teachingCuePanels += 1;
@@ -217,6 +282,7 @@ html = html.replace(/<svg class="solution-diagram"[\s\S]*?<\/svg>/g, () => {
 if (index !== 96 || rendered.length !== 96) throw new Error(`Expected 96 pedagogic SVG replacements, got replaced=${index} rendered=${rendered.length}.`);
 if (teachingCuePanels !== 96) throw new Error(`Expected 96 pedagogic teaching panels, got ${teachingCuePanels}.`);
 if (teachingCueCount !== 288) throw new Error(`Expected exactly 288 See/Rule/Use teaching cues, got ${teachingCueCount}.`);
+if (pedagogicAngleOverlays !== 1) throw new Error(`Expected exactly one explicit pedagogic angle overlay, got ${pedagogicAngleOverlays}.`);
 
 html = html.replace(
   "bold semantically-audited solution geometry with explicit dimensions outside the protected core diagram, canonical spatial state and diagram evidence. Numeric values are attached only to their intended geometric relationships; changed-shadow and support-triangle states are explicitly represented; answer-equivalent derived helpers are suppressed; sloped callout leaders are ordered without crossings.",
@@ -225,4 +291,4 @@ html = html.replace(
 
 writeFileSync(jsonPath, stringify(pack), "utf8");
 writeFileSync(htmlPath, html, "utf8");
-console.log(`TRG002_V4_PEDAGOGIC_DIAGRAM_PASS qls=96 explanationAligned=${explanationAligned} helperPoints=${helperPoints} helperSegments=${helperSegments} teachingDimensions=${teachingDimensions} requestedRealignments=${requestedRealignments} explanationFactsVisualized=${explanationFacts} teachingCuePanels=${teachingCuePanels} teachingCues=${teachingCueCount}`);
+console.log(`TRG002_V4_PEDAGOGIC_DIAGRAM_PASS qls=96 explanationAligned=${explanationAligned} helperPoints=${helperPoints} helperSegments=${helperSegments} teachingDimensions=${teachingDimensions} requestedRealignments=${requestedRealignments} explanationFactsVisualized=${explanationFacts} teachingCuePanels=${teachingCuePanels} teachingCues=${teachingCueCount} pedagogicAngleOverlays=${pedagogicAngleOverlays}`);
