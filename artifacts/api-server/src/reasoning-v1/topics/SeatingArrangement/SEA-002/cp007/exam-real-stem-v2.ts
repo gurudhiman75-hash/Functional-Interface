@@ -60,10 +60,16 @@ export function renderSea002Cp007ExamRealStem(caselet: Sea002Cp007ProductionCase
     if (rendered) sentences.push(rendered);
   }
 
-  for (const clue of caselet.clues) {
-    if (used.has(clue) || clue.kind !== "FACING_RELATION") continue;
-    used.add(clue);
-    sentences.push(`${clue.left} and ${clue.right} face in ${clue.relation === "SAME" ? "the same" : "opposite"} directions.`);
+  const residualFacing = caselet.clues.filter(
+    (clue): clue is Extract<Sea002Cp007ProductionClue, { kind: "FACING_RELATION" }> =>
+      !used.has(clue) && clue.kind === "FACING_RELATION",
+  );
+  if (residualFacing.length > 0) {
+    residualFacing.forEach((clue) => used.add(clue));
+    const compact = residualFacing.map((clue) =>
+      `${clue.left}–${clue.right}: ${clue.relation === "SAME" ? "same" : "opposite"}`,
+    );
+    sentences.push(`For the remaining facing relations, ${compact.join("; ")}.`);
   }
 
   return `Two parallel rows contain ${caselet.width} persons each. The upper-row members are ${[...caselet.rowGroups.top].sort().join(", ")}; the lower-row members are ${[...caselet.rowGroups.bottom].sort().join(", ")}. Some persons face north and some face south. ${sentences.join(" ")}`;
