@@ -41,9 +41,9 @@ export type NumCp010LocalizedPackage = Omit<
   lifecycle: Readonly<{
     permanentQlId: NumCp010PermanentQlId;
     maturity: "PERMANENT_AUTHORITY";
-    reviewStatus: "MULTILINGUAL_REVIEW_CANDIDATE";
+    reviewStatus: "MULTILINGUAL_REVIEW_CANDIDATE" | "MULTILINGUAL_FROZEN";
     englishAuthorityStatus: "ENGLISH_FROZEN";
-    localizationStatus: "HI_PA_REVIEW_CANDIDATE";
+    localizationStatus: "HI_PA_REVIEW_CANDIDATE" | "HI_PA_FROZEN";
     questionBankStatus: "NOT_STORED";
     testEligibility: "INELIGIBLE";
     active: false;
