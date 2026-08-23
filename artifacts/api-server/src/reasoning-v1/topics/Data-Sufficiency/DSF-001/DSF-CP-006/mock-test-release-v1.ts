@@ -1,4 +1,7 @@
-import { DSF_CP005_TEST_RELEASE } from "../DSF-CP-005/test-release-v1.ts";
+import {
+  DSF_CP005_QUESTION_STUDIO_PACKAGE,
+  DSF_CP005_TEST_RELEASE,
+} from "../DSF-CP-005/test-release-v1.ts";
 
 export const DSF_CP006_CHECKPOINT_ID = "DSF-CP-006" as const;
 export const DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY =
@@ -46,10 +49,10 @@ export const DSF_CP006_MOCK_TEST_RELEASE = Object.freeze({
 });
 
 export const DSF_CP006_QUESTION_STUDIO_PACKAGE = Object.freeze({
-  ...DSF_CP005_TEST_RELEASE,
-  authorityId: DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY,
-  checkpointId: DSF_CP006_CHECKPOINT_ID,
-  status: "MOCK_TEST_RELEASE_ENABLED" as const,
+  ...DSF_CP005_QUESTION_STUDIO_PACKAGE,
+  label: "Data Sufficiency · Mock-test eligible · manual delivery",
+  mockTestReleaseCheckpointId: DSF_CP006_CHECKPOINT_ID,
+  mockTestReleaseAuthority: DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY,
   questionBankStatus: "READY_FOR_STORAGE" as const,
   questionBankWritable: true as const,
   questionBankAcceptanceMode: "FULL_RELEASE" as const,
@@ -58,4 +61,5 @@ export const DSF_CP006_QUESTION_STUDIO_PACKAGE = Object.freeze({
   publiclyPublishable: true as const,
   mockTestEligible: true as const,
   automaticStudentPublication: false as const,
+  reviewStatus: "QUESTION_STUDIO_MOCK_TEST_RELEASE" as const,
 });
