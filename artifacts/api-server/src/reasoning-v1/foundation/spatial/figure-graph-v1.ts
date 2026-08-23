@@ -45,8 +45,17 @@ export interface FigureGraphEmbeddingV1 {
   matchedArcIndexes: number[];
 }
 
+export const FIGURE_GRAPH_V1_MATCHER_HARDENING = Object.freeze({
+  authorityId: "FIGURE-GRAPH-V1-SUBSTRUCTURE-HARDENING-2026-08-23" as const,
+  segmentSubstructureViaHostLandmarks: true,
+  hostIntersectionLandmarks: true,
+  hostArcEndpointLandmarks: true,
+  exactSubArcContainment: true,
+  scalingAllowed: false,
+} as const);
+
 const DEFAULT_TOLERANCE = 1e-5;
-const ARC_SAMPLE_STEPS = 8;
+const ARC_SAMPLE_STEPS = 12;
 
 function distance(a: SpatialPoint, b: SpatialPoint): number {
   return Math.hypot(a.x - b.x, a.y - b.y);
@@ -100,6 +109,11 @@ function sampleArc(arc: FigureGraphArcV1, steps = ARC_SAMPLE_STEPS): SpatialPoin
       y: arc.center.y + arc.radius * Math.sin(angle),
     };
   });
+}
+
+function arcEndpoints(arc: FigureGraphArcV1): [SpatialPoint, SpatialPoint] {
+  const samples = sampleArc(arc, 1);
+  return [samples[0]!, samples[1]!];
 }
 
 function canonicalArcKey(arc: FigureGraphArcV1): string {
@@ -209,31 +223,110 @@ function dot(a: SpatialPoint, b: SpatialPoint): number {
   return a.x * b.x + a.y * b.y;
 }
 
-function segmentContains(host: FigureGraphSegmentV1, target: FigureGraphSegmentV1, tolerance: number): boolean {
+function segmentParameter(host: FigureGraphSegmentV1, point: SpatialPoint, tolerance: number): number | null {
   const direction = subtract(host.b, host.a);
   const length = Math.hypot(direction.x, direction.y);
-  if (length <= tolerance) return false;
-  const targetA = subtract(target.a, host.a);
-  const targetB = subtract(target.b, host.a);
-  if (Math.abs(cross(direction, targetA)) / length > tolerance) return false;
-  if (Math.abs(cross(direction, targetB)) / length > tolerance) return false;
+  if (length <= tolerance) return null;
+  const relative = subtract(point, host.a);
+  if (Math.abs(cross(direction, relative)) / length > tolerance) return null;
   const denominator = dot(direction, direction);
-  const ta = dot(targetA, direction) / denominator;
-  const tb = dot(targetB, direction) / denominator;
-  return ta >= -tolerance && ta <= 1 + tolerance && tb >= -tolerance && tb <= 1 + tolerance;
+  const parameter = dot(relative, direction) / denominator;
+  return parameter >= -tolerance && parameter <= 1 + tolerance ? parameter : null;
 }
 
-function transformedArcSamples(arc: FigureGraphArcV1, transform: FigureGraphRigidTransformV1): SpatialPoint[] {
-  return sampleArc(arc).map((point) => applyFigureGraphTransformV1(point, transform));
+function segmentContains(host: FigureGraphSegmentV1, target: FigureGraphSegmentV1, tolerance: number): boolean {
+  return segmentParameter(host, target.a, tolerance) !== null && segmentParameter(host, target.b, tolerance) !== null;
 }
 
-function arcSamplesMatch(targetSamples: readonly SpatialPoint[], hostArc: FigureGraphArcV1, tolerance: number): boolean {
-  const hostSamples = sampleArc(hostArc);
-  if (hostSamples.length !== targetSamples.length) return false;
-  const direct = hostSamples.every((point, index) => distance(point, targetSamples[index]!) <= tolerance);
-  if (direct) return true;
-  const reversed = [...hostSamples].reverse();
-  return reversed.every((point, index) => distance(point, targetSamples[index]!) <= tolerance);
+function segmentIntersection(
+  first: FigureGraphSegmentV1,
+  second: FigureGraphSegmentV1,
+  tolerance: number,
+): SpatialPoint | null {
+  const r = subtract(first.b, first.a);
+  const s = subtract(second.b, second.a);
+  const denominator = cross(r, s);
+  if (Math.abs(denominator) <= tolerance) return null;
+  const delta = subtract(second.a, first.a);
+  const t = cross(delta, s) / denominator;
+  const u = cross(delta, r) / denominator;
+  if (t < -tolerance || t > 1 + tolerance || u < -tolerance || u > 1 + tolerance) return null;
+  return { x: first.a.x + t * r.x, y: first.a.y + t * r.y };
+}
+
+function dedupePoints(points: readonly SpatialPoint[], tolerance: number): SpatialPoint[] {
+  const precision = Math.max(tolerance * 4, 1e-5);
+  const seen = new Set<string>();
+  const result: SpatialPoint[] = [];
+  for (const point of points) {
+    const key = pointKey(point, precision);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    result.push(point);
+  }
+  return result;
+}
+
+function hostLandmarksOnSegment(
+  host: FigureGraphV1,
+  hostSegmentIndex: number,
+  tolerance: number,
+): SpatialPoint[] {
+  const segment = host.segments[hostSegmentIndex]!;
+  const points: SpatialPoint[] = [{ ...segment.a }, { ...segment.b }];
+
+  for (let index = 0; index < host.segments.length; index += 1) {
+    if (index === hostSegmentIndex) continue;
+    const other = host.segments[index]!;
+    if (segmentParameter(segment, other.a, tolerance) !== null) points.push({ ...other.a });
+    if (segmentParameter(segment, other.b, tolerance) !== null) points.push({ ...other.b });
+    const intersection = segmentIntersection(segment, other, tolerance);
+    if (intersection) points.push(intersection);
+  }
+
+  for (const hostArc of host.arcs) {
+    for (const endpoint of arcEndpoints(hostArc)) {
+      if (segmentParameter(segment, endpoint, tolerance) !== null) points.push(endpoint);
+    }
+  }
+
+  return dedupePoints(points, tolerance);
+}
+
+function angleOnArc(angleDeg: number, arc: FigureGraphArcV1, toleranceDeg: number): boolean {
+  const sweep = signedSweepDegrees(arc);
+  if (Math.abs(sweep) >= 360 - toleranceDeg) return true;
+  const start = normalizeAngle(arc.startAngleDeg);
+  const angle = normalizeAngle(angleDeg);
+  if (sweep > 0) return normalizeAngle(angle - start) <= sweep + toleranceDeg;
+  return normalizeAngle(start - angle) <= -sweep + toleranceDeg;
+}
+
+function transformedArcGeometry(
+  arc: FigureGraphArcV1,
+  transform: FigureGraphRigidTransformV1,
+): { center: SpatialPoint; samples: SpatialPoint[] } {
+  return {
+    center: applyFigureGraphTransformV1(arc.center, transform),
+    samples: sampleArc(arc).map((point) => applyFigureGraphTransformV1(point, transform)),
+  };
+}
+
+function arcContainsTransformedTarget(
+  targetArc: FigureGraphArcV1,
+  hostArc: FigureGraphArcV1,
+  transform: FigureGraphRigidTransformV1,
+  tolerance: number,
+): boolean {
+  if (Math.abs(targetArc.radius - hostArc.radius) > tolerance) return false;
+  const transformed = transformedArcGeometry(targetArc, transform);
+  if (distance(transformed.center, hostArc.center) > tolerance) return false;
+  const angularTolerance = radiansToDegrees(tolerance / Math.max(hostArc.radius, 1));
+  return transformed.samples.every((point) => {
+    if (Math.abs(distance(point, hostArc.center) - hostArc.radius) > tolerance) return false;
+    const angle = radiansToDegrees(Math.atan2(point.y - hostArc.center.y, point.x - hostArc.center.x));
+    return angleOnArc(angle, hostArc, angularTolerance);
+  });
 }
 
 function angleOfVector(vector: SpatialPoint): number {
@@ -245,28 +338,28 @@ function nearZeroRotation(rotationDeg: number, tolerance: number): boolean {
   return normalized <= tolerance || Math.abs(normalized - 360) <= tolerance;
 }
 
-function candidateFromSegmentPair(
+function candidateFromLandmark(
   target: FigureGraphSegmentV1,
   host: FigureGraphSegmentV1,
   reflected: boolean,
-  reverseHost: boolean,
+  targetEndpoint: "a" | "b",
+  hostDirection: 1 | -1,
+  landmark: SpatialPoint,
 ): FigureGraphRigidTransformV1 | null {
   const reflectedA = reflected ? reflectPoint(target.a) : target.a;
   const reflectedB = reflected ? reflectPoint(target.b) : target.b;
-  const targetVector = subtract(reflectedB, reflectedA);
-  const hostStart = reverseHost ? host.b : host.a;
-  const hostEnd = reverseHost ? host.a : host.b;
-  const hostVector = subtract(hostEnd, hostStart);
-  if (Math.abs(Math.hypot(targetVector.x, targetVector.y) - Math.hypot(hostVector.x, hostVector.y)) > 1e-4) return null;
+  const source = targetEndpoint === "a" ? reflectedA : reflectedB;
+  const other = targetEndpoint === "a" ? reflectedB : reflectedA;
+  const targetVector = subtract(other, source);
+  const rawHostVector = subtract(host.b, host.a);
+  const hostVector = hostDirection === 1 ? rawHostVector : { x: -rawHostVector.x, y: -rawHostVector.y };
+  if (Math.hypot(targetVector.x, targetVector.y) <= DEFAULT_TOLERANCE || Math.hypot(hostVector.x, hostVector.y) <= DEFAULT_TOLERANCE) return null;
   const rotationDeg = angleOfVector(hostVector) - angleOfVector(targetVector);
-  const rotatedTargetStart = rotatePoint(reflectedA, rotationDeg);
+  const rotatedSource = rotatePoint(source, rotationDeg);
   return {
     reflected,
     rotationDeg,
-    translation: {
-      x: hostStart.x - rotatedTargetStart.x,
-      y: hostStart.y - rotatedTargetStart.y,
-    },
+    translation: { x: landmark.x - rotatedSource.x, y: landmark.y - rotatedSource.y },
   };
 }
 
@@ -290,8 +383,7 @@ function verifyEmbedding(
 
   const matchedArcIndexes: number[] = [];
   for (const targetArc of target.arcs) {
-    const samples = transformedArcSamples(targetArc, transform);
-    const hostIndex = host.arcs.findIndex((candidate) => arcSamplesMatch(samples, candidate, tolerance));
+    const hostIndex = host.arcs.findIndex((candidate) => arcContainsTransformedTarget(targetArc, candidate, transform, tolerance));
     if (hostIndex < 0) return null;
     matchedArcIndexes.push(hostIndex);
   }
@@ -313,21 +405,33 @@ export function findFigureGraphEmbeddingsV1(
   const reflectionModes = policy.allowReflection ? [false, true] as const : [false] as const;
   const candidates = new Map<string, FigureGraphRigidTransformV1>();
 
-  for (const hostSegment of host.segments) {
-    for (const reflected of reflectionModes) {
-      for (const reverseHost of [false, true] as const) {
-        const candidate = candidateFromSegmentPair(anchor, hostSegment, reflected, reverseHost);
-        if (!candidate) continue;
-        if (!policy.allowRotation && !nearZeroRotation(candidate.rotationDeg, 1e-4)) continue;
-        candidates.set(transformKey(candidate), candidate);
+  for (let hostIndex = 0; hostIndex < host.segments.length; hostIndex += 1) {
+    const hostSegment = host.segments[hostIndex]!;
+    if (segmentLength(hostSegment) + tolerance < segmentLength(anchor)) continue;
+    const landmarks = hostLandmarksOnSegment(host, hostIndex, tolerance);
+    for (const landmark of landmarks) {
+      for (const reflected of reflectionModes) {
+        for (const targetEndpoint of ["a", "b"] as const) {
+          for (const hostDirection of [1, -1] as const) {
+            const candidate = candidateFromLandmark(anchor, hostSegment, reflected, targetEndpoint, hostDirection, landmark);
+            if (!candidate) continue;
+            if (!policy.allowRotation && !nearZeroRotation(candidate.rotationDeg, 1e-4)) continue;
+            candidates.set(transformKey(candidate), candidate);
+          }
+        }
       }
     }
   }
 
   const embeddings: FigureGraphEmbeddingV1[] = [];
+  const embeddingKeys = new Set<string>();
   for (const candidate of candidates.values()) {
     const verified = verifyEmbedding(target, host, candidate, tolerance);
-    if (verified) embeddings.push(verified);
+    if (!verified) continue;
+    const key = transformKey(verified.transform);
+    if (embeddingKeys.has(key)) continue;
+    embeddingKeys.add(key);
+    embeddings.push(verified);
   }
   return embeddings;
 }
