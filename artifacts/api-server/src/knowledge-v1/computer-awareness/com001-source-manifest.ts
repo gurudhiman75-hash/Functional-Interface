@@ -80,6 +80,23 @@ export const COM001_SOURCE_AUTHORITIES: Com001SourceAuthority[] = [
     ],
   },
   {
+    sourceId: "INTEL-PERSISTENT-MEMORY-VOLATILE-TIERS",
+    title: "Intel — Volatile Use of Persistent Memory",
+    url: "https://www.intel.com/content/www/us/en/developer/articles/technical/volatile-use-of-persistent-memory.html",
+    authorityClass: "VENDOR_TECHNICAL",
+    supports: [
+      "volatility",
+      "cache-register-volatility",
+      "memory-storage-hierarchy",
+      "dram-low-latency-tier",
+    ],
+    verifiedOn: "2026-08-23",
+    notes: [
+      "Explicitly distinguishes volatile DRAM/cache/register state from persistent memory/storage concepts.",
+      "Use only broad durable hierarchy/volatility facts; do not promote workload-specific performance claims into timeless exam facts.",
+    ],
+  },
+  {
     sourceId: "MICROCHIP-MEMORY-VOLATILITY-GLOSSARY",
     title: "Microchip Technology — Security Glossary: Volatile",
     url: "https://onlinedocs.microchip.com/oxy/GUID-DF33D7C4-5604-4C6B-92AF-8C864323C016-en-US-14/GUID-522AFF78-464A-44A4-8A56-DCB901070E40.html",
