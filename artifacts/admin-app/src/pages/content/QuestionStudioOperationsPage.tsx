@@ -10,6 +10,7 @@ import { QuestionStudioProfileCalibration } from './QuestionStudioProfileCalibra
 import { QuestionStudioRecoveryDock } from './QuestionStudioRecoveryDock';
 import { QuestionStudioSeriesReviewPanel } from './QuestionStudioSeriesReviewPanel';
 import { QuestionStudioSpatialReviewPanel } from './QuestionStudioSpatialReviewPanel';
+import { QuestionStudioStatementAssumptionReviewPanel } from './QuestionStudioStatementAssumptionReviewPanel';
 
 export function QuestionStudioOperationsPage() {
   return (
@@ -21,6 +22,7 @@ export function QuestionStudioOperationsPage() {
       <QuestionStudioSeriesReviewPanel />
       <QuestionStudioCalendarReviewPanel />
       <QuestionStudioInputOutputReviewPanel />
+      <QuestionStudioStatementAssumptionReviewPanel />
       <QuestionStudioExamProfileSummary />
       <QuestionStudioProfileCalibration />
       <QuestionStudioDifficultyMixControls />
