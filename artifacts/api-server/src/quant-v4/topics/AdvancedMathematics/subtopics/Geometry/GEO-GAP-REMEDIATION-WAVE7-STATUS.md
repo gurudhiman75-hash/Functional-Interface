@@ -31,7 +31,6 @@ Manual visual QA passed all **36 runtime figures** (18 stem + 18 solution): no c
 Final proof candidate:
 
 - proof head: `6e1c0c39a8330bb33540b3f514ae80e9a6d21026`
-- review-ready status head: `39124f19e5dd789c0cabcce8711c6063faba6577`
 - dedicated workflow: `Validate Geometry Gap Remediation Wave 7`
 - run: `32642578957`
 - job: `97201848442`
