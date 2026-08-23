@@ -35,6 +35,34 @@ export type Sta001FrozenLocale = StaExamLocale;
 export const STA_001_MULTILINGUAL_FROZEN_PROFILE_IDS = Object.freeze([...STA_EXAM_PROFILE_IDS_V2]) as readonly Sta001FrozenPresentationProfile[];
 export const STA_001_MULTILINGUAL_FROZEN_LOCALES = Object.freeze(["en-IN", "hi-IN", "pa-IN"] as const);
 
+const BANK_5X5_SPARSE_SOURCE_ERROR = /BANK_4X5 selected a scenario without BANK_5X5 overlay/u;
+const BANK_5X5_MAX_SOURCE_PROBES = 4096;
+
+function resolveFrozenSourceQuestion(
+  requestedSeed: string,
+  locale: Sta001FrozenLocale,
+  profileId: Sta001FrozenPresentationProfile,
+): StaExamFormatQuestionV2 {
+  if (profileId !== "BANK_5X5") {
+    return generateStaExamFormatQuestionV2(requestedSeed, locale, profileId);
+  }
+
+  for (let probe = 0; probe < BANK_5X5_MAX_SOURCE_PROBES; probe += 1) {
+    const sourceSeed = probe === 0
+      ? requestedSeed
+      : `${requestedSeed}:BANK_5X5:eligible:${probe}`;
+    try {
+      return generateStaExamFormatQuestionV2(sourceSeed, locale, profileId);
+    } catch (error) {
+      if (error instanceof Error && BANK_5X5_SPARSE_SOURCE_ERROR.test(error.message)) continue;
+      throw error;
+    }
+  }
+  throw new Error(
+    `${requestedSeed}: unable to resolve an approved BANK_5X5 source scenario after ${BANK_5X5_MAX_SOURCE_PROBES} deterministic probes`,
+  );
+}
+
 export function generateSta001MultilingualFrozenQuestion(
   seed: string,
   locale: Sta001FrozenLocale,
@@ -47,7 +75,7 @@ export function generateSta001MultilingualFrozenQuestion(
     throw new Error(`Unsupported frozen STA locale '${String(locale)}'.`);
   }
 
-  const source = generateStaExamFormatQuestionV2(seed, locale, profileId);
+  const source = resolveFrozenSourceQuestion(seed, locale, profileId);
   const frozen = {
     ...source,
     lifecycle: STA_001_MULTILINGUAL_FROZEN_LIFECYCLE,
