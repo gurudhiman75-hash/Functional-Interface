@@ -1,6 +1,6 @@
 # DSF-001 Manifest Amendment — CP-004 Question Bank Acceptance
 
-Status: `IMPLEMENTED / CI_PENDING`
+Status: `IMPLEMENTED / CI_PROVEN`
 
 Authority: `DSF_CP004_QUESTION_BANK_ACCEPTANCE_V1`
 
@@ -118,6 +118,52 @@ permanent QL:        DSF-QL-001
 next available ID:   DSF-QL-002
 new QL allocated:    false
 ```
+
+## CI proof
+
+Dedicated workflow: `Validate DSF-CP-004 Question Bank Acceptance`
+
+Initial exact implementation head proven before this manifest-only proof record:
+
+- head: `c7a2468e3c33d539e4e6e7539968403b8bffc32d`
+- run: `32625558865`
+- job: `97160259624`
+- result: `SUCCESS`
+
+CP-004 runtime proof:
+
+```text
+PASS_DSF_CP004_QUESTION_BANK_ACCEPTANCE
+accepted profiles:                 5
+profile × solve-mode proofs:       40
+solve modes proven:                8
+production domains proven:         4
+all five semantic classes seen:    true
+questionBankWritable:              true
+questionBankAcceptanceMode:        BANK_ONLY
+legacy review-only payload:        preserved
+publication blocked:               true
+test eligible:                     false
+mock-test eligible:                false
+publicly publishable:              false
+Punjab-specific profile enabled:   false
+```
+
+Route/lifecycle proof:
+
+```text
+PASS_DSF_CP004_QUESTION_BANK_ROUTE_LIFECYCLE_CONTRACT
+DSF-specific routes:               4 (unchanged)
+canonical acceptance path:         PATCH /admin/question-studio/items/bulk
+parallel Question Bank route:      false
+parallel test/publication route:   false
+hardened publication guard:        true
+canonical tests require published: true
+```
+
+The same workflow also passed CP-003 product-owner approval, CP-003 profile runtime/route, CP-002 runtime/route, and CP-001 frozen-authority regressions.
+
+A final exact-head run is required after this manifest proof record before merge.
 
 ## Next gate
 
