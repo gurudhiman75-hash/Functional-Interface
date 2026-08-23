@@ -1,0 +1,83 @@
+name: Validate INT-CP-008 Hindi Punjabi V6 Freeze
+
+on:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp008-instalment-english-v6-frozen.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v6-freeze-audit.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp008-instalment-localized-v6.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-localized-v6-audit.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-localized-v6-review-export.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp008-instalment-localized-v6-frozen.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-localized-v6-freeze-audit.ts'
+      - '.github/workflows/int-cp008-localized-v6-freeze.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: int-cp008-localized-v6-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-int-cp008-localized-v6-freeze:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - name: Check out exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Rerun frozen English V6 authority audit
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-english-v6-freeze-audit.ts | tee int-cp008-english-v6-freeze-regression.log
+      - name: Verify frozen English V6 marker
+        run: grep -q 'PASS_INT_CP008_ENGLISH_V6_FREEZE_AUDIT' int-cp008-english-v6-freeze-regression.log
+      - name: Rerun approved Hindi Punjabi V6 review audit
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-localized-v6-audit.ts | tee int-cp008-localized-v6-regression.log
+      - name: Verify approved Hindi Punjabi V6 marker
+        run: grep -q 'PASS_INT_CP008_LOCALIZED_V6_AUDIT' int-cp008-localized-v6-regression.log
+      - name: Run Hindi Punjabi V6 freeze audit
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-localized-v6-freeze-audit.ts | tee int-cp008-localized-v6-freeze.log
+      - name: Verify Hindi Punjabi V6 freeze marker
+        run: grep -q 'PASS_INT_CP008_LOCALIZED_V6_FREEZE_AUDIT' int-cp008-localized-v6-freeze.log
+      - name: Export frozen-source review pack again
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp008-localized-v6-review-export.ts > INT-CP-008-HI-PA-V6-FREEZE-REVIEW.md
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Record exact validation head
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-cp008-localized-v6-freeze-head.log
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+      - name: Upload CP008 Hindi Punjabi V6 freeze evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp008-hi-pa-v6-freeze
+          path: |
+            int-cp008-english-v6-freeze-regression.log
+            int-cp008-localized-v6-regression.log
+            int-cp008-localized-v6-freeze.log
+            int-cp008-localized-v6-freeze-head.log
+            INT-CP-008-HI-PA-V6-FREEZE-REVIEW.md
+          retention-days: 30
+          if-no-files-found: warn
