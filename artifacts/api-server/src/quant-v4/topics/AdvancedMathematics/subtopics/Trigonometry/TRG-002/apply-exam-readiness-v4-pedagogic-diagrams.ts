@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
-import { applyTrg002V4PedagogicDiagramLayerRefined } from "./exam-readiness-v4-pedagogic-diagrams-refined";
+import { applyTrg002V4PedagogicDiagramLayerFinal } from "./exam-readiness-v4-pedagogic-diagrams-final";
 import { renderTrg002SolutionDiagramSvg } from "./exam-readiness-v4-review-svg";
 
 const outDir = join(process.cwd(), "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/review-artifacts/exam-readiness-v4");
@@ -32,7 +32,7 @@ let explanationFacts = 0;
 let explanationAligned = 0;
 
 for (const row of pack.records as any[]) {
-  const result = applyTrg002V4PedagogicDiagramLayerRefined({
+  const result = applyTrg002V4PedagogicDiagramLayerFinal({
     qlId: row.qlId,
     diagram: row.solutionDiagram,
     englishStem: row.english.stem,
