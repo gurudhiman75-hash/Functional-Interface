@@ -65,16 +65,23 @@ const localeReach = new Set<string>();
 const answerPositions = new Set<number>();
 let generatedCount = 0;
 let parityCount = 0;
+let bank5RemappedSeedCount = 0;
 
 for (const locale of STA_001_MULTILINGUAL_FROZEN_LOCALES) {
   for (const profileId of STA_001_MULTILINGUAL_FROZEN_PROFILE_IDS) {
     for (let index = 0; index < 64; index += 1) {
-      const seed = `sta-final-freeze:${locale}:${profileId}:${index}`;
-      const source = generateStaExamFormatQuestionV2(seed, locale, profileId);
-      const frozen = generateSta001MultilingualFrozenQuestion(seed, locale, profileId);
+      const requestedSeed = `sta-final-freeze:${locale}:${profileId}:${index}`;
+      const frozen = generateSta001MultilingualFrozenQuestion(requestedSeed, locale, profileId);
+      const source = generateStaExamFormatQuestionV2(frozen.seed, locale, profileId);
+      if (profileId !== "BANK_5X5") {
+        assert.equal(frozen.seed, requestedSeed, `${requestedSeed}: non-sparse profile seed changed`);
+      } else if (frozen.seed !== requestedSeed) {
+        bank5RemappedSeedCount += 1;
+        assert.match(frozen.seed, /:BANK_5X5:eligible:\d+$/u, `${requestedSeed}: invalid BANK_5X5 resolved seed`);
+      }
       const { lifecycle: _sourceLifecycle, ...sourceLearnerAuthority } = source;
       const { lifecycle: _frozenLifecycle, ...frozenLearnerAuthority } = frozen;
-      assert.deepEqual(frozenLearnerAuthority, sourceLearnerAuthority, `${seed}: multilingual freeze changed learner/answer authority`);
+      assert.deepEqual(frozenLearnerAuthority, sourceLearnerAuthority, `${requestedSeed}: multilingual freeze changed learner/answer authority`);
       parityCount += 1;
 
       assert.equal(frozen.presentationProfile, profileId);
@@ -100,10 +107,10 @@ for (const locale of STA_001_MULTILINGUAL_FROZEN_LOCALES) {
       assert.equal(frozen.lifecycle.automaticStudentPublication, false);
 
       if (locale === "hi-IN") {
-        assert.match(`${frozen.instruction} ${frozen.statement}`, /[\u0900-\u097F]/, `${seed}: Hindi native script missing`);
+        assert.match(`${frozen.instruction} ${frozen.statement}`, /[\u0900-\u097F]/u, `${requestedSeed}: Hindi native script missing`);
       }
       if (locale === "pa-IN") {
-        assert.match(`${frozen.instruction} ${frozen.statement}`, /[\u0A00-\u0A7F]/, `${seed}: Punjabi native script missing`);
+        assert.match(`${frozen.instruction} ${frozen.statement}`, /[\u0A00-\u0A7F]/u, `${requestedSeed}: Punjabi native script missing`);
       }
 
       qlReach.add(frozen.qlId);
@@ -137,6 +144,7 @@ console.log(`freeze ${STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST.freezeId}`);
 console.log(`approval ${STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST.approvalAuthority}`);
 console.log(`questions ${generatedCount}`);
 console.log(`learner/answer parity ${parityCount}`);
+console.log(`BANK_5X5 deterministic source-seed remaps ${bank5RemappedSeedCount}`);
 console.log(`QL reach ${[...qlReach].sort().join(",")}`);
 console.log(`profile reach ${profileReach.size}`);
 console.log(`locale reach ${localeReach.size}`);
