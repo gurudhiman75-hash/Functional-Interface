@@ -47,8 +47,8 @@ export type PublishableQuestionSnapshot = {
   explanation: string;
   optionCount: number;
   correctOptionCount: number;
-  generationPubliclyPublishable: boolean | null;
-  generationTestEligible: boolean | null;
+  generationPubliclyPublishable?: boolean | null;
+  generationTestEligible?: boolean | null;
 };
 
 export class QuestionManagementError extends Error {
