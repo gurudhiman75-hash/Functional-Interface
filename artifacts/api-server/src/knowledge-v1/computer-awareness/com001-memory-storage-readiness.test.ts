@@ -5,38 +5,42 @@ import { auditCom001MemoryStorageReadiness } from "./com001-memory-storage-readi
 const audit = auditCom001MemoryStorageReadiness("2026-08-23");
 
 assert.equal(audit.structurallyValid, true, audit.issues.join("\n"));
-assert.equal(audit.candidateFactCount, 34);
+assert.equal(audit.candidateFactCount, 76);
 assert.equal(audit.productionEligibleFactCount, 0);
 
 // Hypothetical approval is an audit-only lens: it must reveal whether the
 // corpus is intrinsically broad enough without actually approving any fact.
 assert.equal(audit.hypotheticalCorpusReady, false);
 assert.equal(audit.hypotheticalTotalRequirements, 11);
+assert.equal(audit.hypotheticalPassedRequirements, 8);
 
-assert.equal(audit.passingFamilies.includes("volatility"), true);
-assert.equal(audit.passingFamilies.includes("abbreviation-expansion"), true);
-
-const failingFamilies = new Set(
-  audit.failingFamilies.map((entry) => entry.relationFamily),
-);
-for (const requiredGap of [
+for (const readyFamily of [
+  "volatility",
   "memory-layer-classification",
   "function-purpose",
   "subtype-membership",
   "storage-medium",
   "memory-hierarchy-order",
-  "access-method",
-  "backup-storage-role",
-  "virtual-memory-concept",
+  "abbreviation-expansion",
   "capacity-unit-relationship",
 ]) {
   assert.equal(
-    failingFamilies.has(requiredGap),
+    audit.passingFamilies.includes(readyFamily),
     true,
-    `Expected corpus gap ${requiredGap}`,
+    `Expected ready corpus family ${readyFamily}`,
   );
 }
 
-// Do not allocate permanent QLs while only a minority of corpus requirements
-// are ready. Evidence-supported task boundaries stay provisional.
-assert.equal(audit.hypotheticalPassedRequirements < 5, true);
+const failingFamilies = new Set(
+  audit.failingFamilies.map((entry) => entry.relationFamily),
+);
+assert.deepEqual(
+  [...failingFamilies].sort(),
+  ["access-method", "backup-storage-role", "virtual-memory-concept"].sort(),
+);
+
+// Access method and virtual memory are already HOLD_FOR_EVIDENCE in the
+// merge/split audit. Backup remains a real provisional learner task, but it
+// requires a composite device profile rather than a single has_backup_role
+// relation. Permanent QL allocation therefore remains closed until that
+// composite solve state and multi-statement composition verifier exist.
