@@ -43,7 +43,7 @@ for (const question of generated) {
 
 const recordPath = resolve(
   process.cwd(),
-  "src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/NUM-CP-011-WAVE04-SATURATION-MERGE-SPLIT.md",
+  "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/NUM-CP-011-WAVE04-SATURATION-MERGE-SPLIT.md",
 );
 const record = readFileSync(recordPath, "utf8");
 
