@@ -9,6 +9,7 @@ const routeSource = readFileSync("artifacts/api-server/src/routes/admin-question
 
 assert(routeIndex.includes('import adminQuestionStudioTimeSpeedDistanceCp008Router from "./admin-question-studio-time-speed-distance-cp008";'), "central route import missing");
 assert(routeIndex.includes('router.use("/admin/question-studio", adminQuestionStudioTimeSpeedDistanceCp008Router);'), "central route mount missing");
+assert(routeSource.includes("question-studio-review-adapter-final"), "route bypasses final CP008 exam-naturalness/semantic gate");
 
 for (const endpoint of [
   "/quant/time-speed-distance/cp008/package",
@@ -41,6 +42,7 @@ console.log("TSD-CP-008 QUESTION STUDIO ROUTE REGISTRATION PROOF: PASS");
 console.log(JSON.stringify({
   mountedAt: "/admin/question-studio",
   endpoints: 4,
+  adapter: "FINAL_EXAM_NATURALNESS_AND_CASE_CONDITIONAL_SEMANTIC_GATE",
   persistence: "REVIEW_QUEUE_ONLY",
   familyFilter: true,
   questionBankWritable: false,
