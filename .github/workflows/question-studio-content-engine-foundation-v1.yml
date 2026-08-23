@@ -53,9 +53,14 @@ jobs:
             src/knowledge-v1/engine.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/content-engine-foundation/knowledge-v1-engine.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com001-memory-storage-discovery.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/content-engine-foundation/com001-memory-storage-discovery.test.mjs
       - name: Run content engine tests
         run: |
           cd artifacts/api-server
           node dist/content-engine-foundation/engine-registry.test.mjs
           node dist/content-engine-foundation/engine-route-integration.test.mjs
           node dist/content-engine-foundation/knowledge-v1-engine.test.mjs
+          node dist/content-engine-foundation/com001-memory-storage-discovery.test.mjs
