@@ -223,7 +223,10 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
       const result = await createDsfReviewRun(request);
       window.dispatchEvent(new Event(QUESTION_STUDIO_REFRESH_EVENT));
       await refreshStatus();
-      showToast.success('Data Sufficiency review run created', `${result.publicCode} contains ${result.itemCount} question(s) using ${result.answerProfile}.`);
+      showToast.success(
+        'Data Sufficiency review run created',
+        `${result.publicCode} contains ${result.itemCount} question(s). Approved items can enter Question Bank; tests and publication stay locked.`,
+      );
     } catch (error) {
       showToast.error('Run creation failed', error instanceof Error ? error.message : 'Unable to create a Data Sufficiency review run.');
     } finally {
@@ -236,7 +239,7 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
       <CardHeader className="space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <CardTitle className="flex items-center gap-2 text-base">
-            <BrainCircuit className="h-4 w-4" /> Data Sufficiency · Frozen CP-001 · Studio CP-002 · Profiles CP-003
+            <BrainCircuit className="h-4 w-4" /> Data Sufficiency · CP-001 frozen · CP-002 Studio · CP-003 profiles · CP-004 Question Bank
           </CardTitle>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline">DSF-QL-001</Badge>
@@ -247,25 +250,27 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          CP-001 still owns frozen semantic truth, CP-002 owns Question Studio discovery/persistence, and CP-003 only changes answer-option rendering. Option position is never treated as semantic truth.
+          CP-001 still owns frozen semantic truth, CP-002 owns Question Studio generation, CP-003 owns reviewed answer-profile rendering, and CP-004 only enables canonical Question Bank acceptance after manual item approval. Option position is never treated as semantic truth.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
         {status && (
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">
             <Metric label="Permanent QLs" value={status.permanentQlCount} />
             <Metric label="Source domains" value={status.domainCount} />
             <Metric label="Solve modes" value={status.solveModeCount} />
-            <Metric label="Review items" value={status.generationItemCount} />
+            <Metric label="CP-004 items" value={status.cp004GenerationItemCount} />
+            <Metric label="Approved items" value={status.approvedItemCount} />
+            <Metric label="In Question Bank" value={status.questionBankCount} />
           </div>
         )}
 
         <div className="rounded-lg border border-primary/20 bg-background/60 p-3 text-sm">
           <div className="flex items-center gap-2 font-medium">
-            <ShieldAlert className="h-4 w-4" /> Review-only lifecycle boundary
+            <ShieldAlert className="h-4 w-4" /> Question Bank acceptance boundary
           </div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            Banking five-option and SSC CGL four-option review profiles are enabled. SSC profiles explicitly exclude semantic classes their four-option contracts cannot represent. Punjab-specific rendering remains disabled pending stronger official evidence. Question Bank writes, scored tests, mock-test eligibility and public/student publication remain locked.
+            New CP-004 review items are marked ready for storage and enter the canonical Question Bank only after manual Question Studio approval. They remain explicitly ineligible for scored tests, mock tests and public/student publication. Older pre-CP-004 review items keep their original review-only payload. SSC four-option eligibility rules remain unchanged, and Punjab-specific rendering remains disabled pending stronger official evidence.
           </p>
         </div>
 
@@ -369,7 +374,8 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
             {working === 'run' && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Create review run
           </Button>
-          <Badge variant="secondary">Question Bank locked</Badge>
+          <Badge variant="outline">Question Bank after approval</Badge>
+          <Badge variant="secondary">Scored tests locked</Badge>
           <Badge variant="secondary">Mock tests locked</Badge>
           <Badge variant="secondary">Publication locked</Badge>
         </div>
@@ -378,7 +384,7 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
           <div className="space-y-4">
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm font-medium">Preview · {questions.length} question(s)</p>
-              <p className="text-xs text-muted-foreground">Semantic identities preserved; only answer-profile rendering changes</p>
+              <p className="text-xs text-muted-foreground">Preview is read-only; Question Bank conversion happens only after review-run approval</p>
             </div>
             {questions.map((question) => <QuestionCard key={question.questionId} question={question} />)}
           </div>
