@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 
 import { localizedSea001Name } from "../../SEA-001/localization/name-pack.ts";
+import { generateSea002Cp006DiscoveryCaselet } from "./discovery.ts";
 import { generateSea002Cp006ExamRealCaselet } from "./exam-real.ts";
 import { localizeCp006FrozenCaselet } from "./localization/frozen-localizer.ts";
 import {
@@ -25,6 +26,8 @@ export const SEA002_CP006_QUESTION_STUDIO_RELEASE_ID = "SEA-002-CP006-QS-MULTILI
 
 export type Sea002Cp006QuestionStudioLanguage = (typeof SEA002_CP006_QUESTION_STUDIO_LANGUAGES)[number];
 export type Sea002Cp006QuestionStudioDifficulty = "Easy" | "Medium" | "Hard";
+type Sea002Cp006FrozenQueryContract = (typeof SEA002_CP006_FROZEN_QUERY_CONTRACTS)[number];
+type Sea002Cp006RuntimeVariant = "EXAM_REAL_SOURCE_A" | "EXAM_REAL_SOURCE_B" | "APPROVED_BASELINE";
 
 export type Sea002Cp006QuestionStudioRequest = Readonly<{
   packageId?: string;
@@ -95,10 +98,23 @@ function stableRank(value: string): number {
   return createHash("sha256").update(value).digest().readUInt32BE(0);
 }
 
+function stableNumber(value: string): number {
+  let hash = 0x811c9dc5;
+  for (const character of value) hash = Math.imul(hash ^ character.charCodeAt(0), 0x01000193);
+  return hash >>> 0;
+}
+
 function rotatedQlOrder(seed: string): readonly Sea002Cp006PermanentQlId[] {
   const offset = stableRank(`${seed}:ql-offset`) % SEA002_CP006_QUESTION_STUDIO_QL_IDS.length;
   return Object.freeze(Array.from({ length: SEA002_CP006_QUESTION_STUDIO_QL_IDS.length }, (_, index) =>
     SEA002_CP006_QUESTION_STUDIO_QL_IDS[(offset + index) % SEA002_CP006_QUESTION_STUDIO_QL_IDS.length]!,
+  ));
+}
+
+function rotatedQueryOrder(seed: string): readonly Sea002Cp006FrozenQueryContract[] {
+  const offset = stableRank(`${seed}:query-offset`) % SEA002_CP006_FROZEN_QUERY_CONTRACTS.length;
+  return Object.freeze(Array.from({ length: SEA002_CP006_FROZEN_QUERY_CONTRACTS.length }, (_, index) =>
+    SEA002_CP006_FROZEN_QUERY_CONTRACTS[(offset + index) % SEA002_CP006_FROZEN_QUERY_CONTRACTS.length]!,
   ));
 }
 
@@ -127,12 +143,15 @@ function positionWording(text: string): string {
 }
 
 function englishDisplayCaselet(caselet: Sea002Cp006Caselet) {
+  const entry = SEA002_CP006_PERMANENT_QL_REGISTRY.find((candidate) => candidate.blueprintAuthorityId === caselet.blueprintAuthorityId);
+  if (!entry) throw new Error(`${caselet.blueprintAuthorityId}: permanent QL mapping is missing.`);
+  const fingerprint = cp006ReviewContentFingerprint(caselet);
   return Object.freeze({
     locale: "en-IN" as const,
     canonicalCaseletId: caselet.caseletId,
-    permanentQlId: qlEntry(SEA002_CP006_PERMANENT_QL_REGISTRY.find((entry) => entry.blueprintAuthorityId === caselet.blueprintAuthorityId)!.permanentQlId).permanentQlId,
-    canonicalContentFingerprint: cp006ReviewContentFingerprint(caselet),
-    presentationFingerprint: cp006ReviewContentFingerprint(caselet),
+    permanentQlId: entry.permanentQlId,
+    canonicalContentFingerprint: fingerprint,
+    presentationFingerprint: fingerprint,
     setupText: positionWording(caselet.setupText),
     clueTexts: Object.freeze(caselet.clueTexts.map(positionWording)),
     sharedExplanation: positionWording(caselet.sharedExplanation),
@@ -160,6 +179,17 @@ function displayCaselet(caselet: Sea002Cp006Caselet, language: Sea002Cp006Questi
   if (language === "en") return englishDisplayCaselet(caselet);
   return localizeCp006FrozenCaselet(caselet, language === "hi" ? "hi-IN" : "pa-IN");
 }
+
+type Cp006DisplayCaselet = ReturnType<typeof displayCaselet>;
+
+type Cp006Candidate = Readonly<{
+  qlId: Sea002Cp006PermanentQlId;
+  source: Sea002Cp006Caselet;
+  display: Cp006DisplayCaselet;
+  childIndex: number;
+  requestSeed: string;
+  runtimeVariant: Sea002Cp006RuntimeVariant;
+}>;
 
 function localizedPerson(person: string, language: Sea002Cp006QuestionStudioLanguage): string {
   return language === "en" ? person : localizedSea001Name(person, language === "hi" ? "hi-IN" : "pa-IN");
@@ -215,15 +245,78 @@ function assertSourceLocks(): void {
   }
 }
 
-function normalizedQuestion(
-  caselet: Sea002Cp006Caselet,
-  display: ReturnType<typeof displayCaselet>,
-  childIndex: number,
+function findProfileSeed(
+  baseSeed: string,
+  profile: "SOURCE_A" | "SOURCE_B",
+): string {
+  for (let attempt = 0; attempt < 128; attempt += 1) {
+    const candidate = `${baseSeed}:${profile.toLowerCase()}:${attempt}`;
+    const q3Selector = stableNumber(`${candidate}:source-q3-family`) % 3;
+    const q4Selector = stableNumber(candidate) % 2;
+    if (profile === "SOURCE_A" && q3Selector === 0 && q4Selector === 0) return candidate;
+    if (profile === "SOURCE_B" && q3Selector !== 0 && q4Selector === 1) return candidate;
+  }
+  throw new Error(`${baseSeed}: could not find deterministic CP006 source query profile ${profile}.`);
+}
+
+function childIndexForQuery(caselet: Sea002Cp006Caselet, queryContractId: Sea002Cp006FrozenQueryContract): number {
+  const index = caselet.children.findIndex((child) => child.queryContractId === queryContractId);
+  if (index < 0) throw new Error(`${caselet.caseletId}: missing frozen query ${queryContractId}.`);
+  return index;
+}
+
+function queryCompleteCandidateSet(
   qlId: Sea002Cp006PermanentQlId,
   language: Sea002Cp006QuestionStudioLanguage,
   difficulty: Sea002Cp006QuestionStudioDifficulty,
-  requestSeed: string,
+  baseSeed: string,
+): Readonly<Record<Sea002Cp006FrozenQueryContract, Cp006Candidate>> {
+  const entry = qlEntry(qlId);
+  const width = widthForDifficulty(difficulty);
+  const baselineSeed = `${baseSeed}:approved-baseline`;
+  const sourceASeed = findProfileSeed(`${baseSeed}:exam-real`, "SOURCE_A");
+  const sourceBSeed = findProfileSeed(`${baseSeed}:exam-real`, "SOURCE_B");
+  const baseline = generateSea002Cp006DiscoveryCaselet(entry.blueprintAuthorityId, baselineSeed, width);
+  const sourceA = generateSea002Cp006ExamRealCaselet(entry.blueprintAuthorityId, sourceASeed, width);
+  const sourceB = generateSea002Cp006ExamRealCaselet(entry.blueprintAuthorityId, sourceBSeed, width);
+  const baselineDisplay = displayCaselet(baseline, language);
+  const sourceADisplay = displayCaselet(sourceA, language);
+  const sourceBDisplay = displayCaselet(sourceB, language);
+
+  const make = (
+    source: Sea002Cp006Caselet,
+    display: Cp006DisplayCaselet,
+    queryContractId: Sea002Cp006FrozenQueryContract,
+    requestSeed: string,
+    runtimeVariant: Sea002Cp006RuntimeVariant,
+  ): Cp006Candidate => Object.freeze({
+    qlId,
+    source,
+    display,
+    childIndex: childIndexForQuery(source, queryContractId),
+    requestSeed,
+    runtimeVariant,
+  });
+
+  const candidates: Record<Sea002Cp006FrozenQueryContract, Cp006Candidate> = {
+    "SEA-QC-003": make(sourceA, sourceADisplay, "SEA-QC-003", sourceASeed, "EXAM_REAL_SOURCE_A"),
+    "SEA-QC-006": make(sourceA, sourceADisplay, "SEA-QC-006", sourceASeed, "EXAM_REAL_SOURCE_A"),
+    "SEA-QC-008": make(sourceA, sourceADisplay, "SEA-QC-008", sourceASeed, "EXAM_REAL_SOURCE_A"),
+    "SEA-QC-010": make(sourceB, sourceBDisplay, "SEA-QC-010", sourceBSeed, "EXAM_REAL_SOURCE_B"),
+    "SEA-QC-011": make(baseline, baselineDisplay, "SEA-QC-011", baselineSeed, "APPROVED_BASELINE"),
+    "SEA-QC-012": make(baseline, baselineDisplay, "SEA-QC-012", baselineSeed, "APPROVED_BASELINE"),
+    "SEA-QC-014": make(sourceB, sourceBDisplay, "SEA-QC-014", sourceBSeed, "EXAM_REAL_SOURCE_B"),
+    "SEA-QC-015": make(sourceB, sourceBDisplay, "SEA-QC-015", sourceBSeed, "EXAM_REAL_SOURCE_B"),
+  };
+  return Object.freeze(candidates);
+}
+
+function normalizedQuestion(
+  candidate: Cp006Candidate,
+  language: Sea002Cp006QuestionStudioLanguage,
+  difficulty: Sea002Cp006QuestionStudioDifficulty,
 ) {
+  const { source: caselet, display, childIndex, qlId, requestSeed, runtimeVariant } = candidate;
   const sourceChild = caselet.children[childIndex]!;
   const displayChild = display.children[childIndex]!;
   const entry = qlEntry(qlId);
@@ -233,7 +326,7 @@ function normalizedQuestion(
     throw new Error(`${caselet.caseletId}: localized option identity drift.`);
   }
   const identity = createHash("sha256")
-    .update(JSON.stringify({ caseletId: caselet.caseletId, qlId, childIndex, language, requestSeed }))
+    .update(JSON.stringify({ caseletId: caselet.caseletId, qlId, childIndex, language, requestSeed, runtimeVariant }))
     .digest("hex")
     .slice(0, 20);
   const fullStem = [
@@ -297,6 +390,7 @@ function normalizedQuestion(
     answerType: sourceChild.answerType,
     language,
     locale: localeForLanguage(language),
+    runtimeVariant,
     runtimeMode: "QUESTION_STUDIO_ACTIVE" as const,
     reviewStatus: "FROZEN_MULTILINGUAL_CONTENT_AUTHORITY" as const,
     questionStudioDiscoverable: true as const,
@@ -329,12 +423,15 @@ function normalizedQuestion(
       structuralFingerprint: caselet.structuralFingerprint,
       canonicalContentFingerprint: cp006ReviewContentFingerprint(caselet),
       presentationFingerprint: display.presentationFingerprint,
+      runtimeVariant,
     }),
     traceability: Object.freeze({
       releaseId: SEA002_CP006_QUESTION_STUDIO_RELEASE_ID,
       englishFreezeFingerprint: SEA002_CP006_ENGLISH_FREEZE.approvedReviewFingerprint,
       localizedFreezeFingerprint: SEA002_CP006_LOCALIZATION_FREEZE.approvedLocalizedReviewFingerprint,
       approvedLocalizationArtifactId: SEA002_CP006_LOCALIZATION_FREEZE.approvedArtifactId,
+      approvedCorpusComposition: "80_EXAM_REAL_20_APPROVED_BASELINE" as const,
+      runtimeVariant,
       sourceLifecycle: SEA002_CP006_PERMANENT_INACTIVE_LIFECYCLE,
       sourceQuestionStudioRegistered: false as const,
       adapterQuestionStudioDiscoverable: true as const,
@@ -369,6 +466,7 @@ export function listSea002Cp006QuestionStudioPackages() {
     })]),
     permanentQlCount: SEA002_CP006_QUESTION_STUDIO_QL_IDS.length,
     permanentQlIds: SEA002_CP006_QUESTION_STUDIO_QL_IDS,
+    frozenQueryContracts: SEA002_CP006_FROZEN_QUERY_CONTRACTS,
     supportedDifficulties: Object.freeze(["Easy", "Medium", "Hard"] as const),
     supportedLanguages: SEA002_CP006_QUESTION_STUDIO_LANGUAGES,
     enabled: true,
@@ -387,6 +485,7 @@ export function listSea002Cp006QuestionStudioPackages() {
     releaseId: SEA002_CP006_QUESTION_STUDIO_RELEASE_ID,
     englishFreezeFingerprint: SEA002_CP006_ENGLISH_FREEZE.approvedReviewFingerprint,
     localizedFreezeFingerprint: SEA002_CP006_LOCALIZATION_FREEZE.approvedLocalizedReviewFingerprint,
+    approvedCorpusComposition: "80_EXAM_REAL_20_APPROVED_BASELINE",
   })];
 }
 
@@ -394,7 +493,6 @@ export async function generateSea002Cp006QuestionStudioBatch(request: Sea002Cp00
   assertSourceLocks();
   const language = normalizeLanguage(request.language);
   const difficulty = normalizeDifficulty(request.difficulty);
-  const width = widthForDifficulty(difficulty);
   const count = Math.min(50, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
   const explicitCp = String(request.canonicalProblemId ?? request.cpId ?? "") || undefined;
   if (explicitCp && explicitCp !== SEA002_CP006_QUESTION_STUDIO_CHECKPOINT_ID) {
@@ -405,46 +503,45 @@ export async function generateSea002Cp006QuestionStudioBatch(request: Sea002Cp00
 
   const batchSeed = request.seed?.trim()
     || `question-studio:SEA-002:SEA-CP-006:${language}:${Date.now()}:${Math.random().toString(36).slice(2)}`;
-  const qlOrder = explicitQl ? [explicitQl as Sea002Cp006PermanentQlId] : rotatedQlOrder(batchSeed);
-  const caseletRounds = explicitQl
-    ? Math.ceil(count / 4)
-    : Math.ceil(count / (4 * qlOrder.length));
+  const qlOrder = explicitQl ? Object.freeze([explicitQl as Sea002Cp006PermanentQlId]) : rotatedQlOrder(batchSeed);
+  const queryOrder = rotatedQueryOrder(batchSeed);
+  const candidateSetsPerQl = Math.ceil(count / (SEA002_CP006_FROZEN_QUERY_CONTRACTS.length * qlOrder.length));
+  const pools = new Map<Sea002Cp006PermanentQlId, Map<Sea002Cp006FrozenQueryContract, Cp006Candidate[]>>();
 
-  const generatedCaselets: Array<Readonly<{
-    qlId: Sea002Cp006PermanentQlId;
-    source: Sea002Cp006Caselet;
-    display: ReturnType<typeof displayCaselet>;
-    requestSeed: string;
-  }>> = [];
-
-  for (let round = 0; round < caseletRounds; round += 1) {
-    for (const qlId of qlOrder) {
-      const entry = qlEntry(qlId);
-      const caseletSeed = `${batchSeed}:${qlId}:round-${round}:${difficulty}`;
-      const source = generateSea002Cp006ExamRealCaselet(entry.blueprintAuthorityId, caseletSeed, width);
-      const display = displayCaselet(source, language);
-      generatedCaselets.push(Object.freeze({ qlId, source, display, requestSeed: caseletSeed }));
-    }
-  }
-
-  const questionPackages: ReturnType<typeof normalizedQuestion>[] = [];
-  for (let childIndex = 0; childIndex < 4 && questionPackages.length < count; childIndex += 1) {
-    for (const generated of generatedCaselets) {
-      if (questionPackages.length >= count) break;
-      questionPackages.push(normalizedQuestion(
-        generated.source,
-        generated.display,
-        childIndex,
-        generated.qlId,
+  for (const qlId of qlOrder) {
+    const byQuery = new Map<Sea002Cp006FrozenQueryContract, Cp006Candidate[]>();
+    for (const queryContractId of SEA002_CP006_FROZEN_QUERY_CONTRACTS) byQuery.set(queryContractId, []);
+    for (let setIndex = 0; setIndex < candidateSetsPerQl; setIndex += 1) {
+      const candidates = queryCompleteCandidateSet(
+        qlId,
         language,
         difficulty,
-        generated.requestSeed,
-      ));
+        `${batchSeed}:${qlId}:set-${setIndex}`,
+      );
+      for (const queryContractId of SEA002_CP006_FROZEN_QUERY_CONTRACTS) {
+        byQuery.get(queryContractId)!.push(candidates[queryContractId]);
+      }
     }
+    pools.set(qlId, byQuery);
   }
 
-  if (questionPackages.length !== count) {
-    throw new Error(`SEA-CP-006 generated ${questionPackages.length} questions for requested count ${count}.`);
+  const occurrence = new Map<string, number>();
+  const questionPackages: ReturnType<typeof normalizedQuestion>[] = [];
+  for (let index = 0; index < count; index += 1) {
+    const queryContractId = queryOrder[index % queryOrder.length]!;
+    const queryCycle = Math.floor(index / queryOrder.length);
+    const qlId = qlOrder[(index + queryCycle) % qlOrder.length]!;
+    const key = `${qlId}:${queryContractId}`;
+    const candidateIndex = occurrence.get(key) ?? 0;
+    const candidates = pools.get(qlId)?.get(queryContractId);
+    const candidate = candidates?.[candidateIndex];
+    if (!candidate) throw new Error(`${key}: insufficient deterministic CP006 Question Studio candidate depth.`);
+    occurrence.set(key, candidateIndex + 1);
+    questionPackages.push(normalizedQuestion(candidate, language, difficulty));
+  }
+
+  if (new Set(questionPackages.map((question) => question.questionId)).size !== questionPackages.length) {
+    throw new Error("SEA-CP-006 Question Studio batch produced duplicate question identities.");
   }
 
   return Object.freeze({
@@ -461,10 +558,12 @@ export async function generateSea002Cp006QuestionStudioBatch(request: Sea002Cp00
       language,
       locale: localeForLanguage(language),
       difficulty,
-      seatCountPerRow: width,
+      seatCountPerRow: widthForDifficulty(difficulty),
       permanentQlCount: SEA002_CP006_QUESTION_STUDIO_QL_IDS.length,
       permanentQlIds: SEA002_CP006_QUESTION_STUDIO_QL_IDS,
       frozenQueryContracts: SEA002_CP006_FROZEN_QUERY_CONTRACTS,
+      queryCompleteRuntime: true,
+      approvedCorpusComposition: "80_EXAM_REAL_20_APPROVED_BASELINE",
       englishFreezeFingerprint: SEA002_CP006_ENGLISH_FREEZE.approvedReviewFingerprint,
       localizedFreezeFingerprint: SEA002_CP006_LOCALIZATION_FREEZE.approvedLocalizedReviewFingerprint,
       sourceQuestionStudioRegistered: false,
