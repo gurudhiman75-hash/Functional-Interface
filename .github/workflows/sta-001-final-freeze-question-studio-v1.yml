@@ -79,6 +79,8 @@ jobs:
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-provenance-v2-proof.test.ts
       - name: Prove final STA shared Question Studio integration
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-integration.test.ts
+      - name: Prove final STA chapter closeout authority
+        run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/chapter-closeout-proof.test.ts
 
       - name: Regress WOR-001 shared Reasoning Question Studio
         run: pnpm dlx tsx artifacts/api-server/src/reasoning-v1/topics/Word-Dictionary-Order/WOR-001/wor-001-shared-question-studio.test.ts
