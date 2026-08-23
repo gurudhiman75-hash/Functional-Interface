@@ -10,6 +10,7 @@ const html = readFileSync(htmlPath, "utf8");
 type AnyRecord = Record<string, any>;
 
 const groundLikeRoles = new Set(["OBSERVER_GROUND", "OBJECT_BASE", "GROUND"]);
+const REVIEW_PADDING = 240;
 
 function hasRaisedBase(points: AnyRecord[], eye: AnyRecord) {
   return points.some((point: AnyRecord) =>
@@ -47,6 +48,13 @@ function groundCoincidentHelperLabelViolations(points: AnyRecord[], segments: An
     }
   }
   return violatingPhysicalHelpers.size;
+}
+
+function renderedSvg(id: string) {
+  const escaped = id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const match = html.match(new RegExp(`(<svg class="solution-diagram"[^>]*data-diagram-ql="${escaped}"[\\s\\S]*?<\\/svg>)`, "u"));
+  if (!match) throw new Error(`${id}: rendered SVG missing from HTML review pack.`);
+  return match[1]!;
 }
 
 if (pack.records.length !== 96) throw new Error(`Expected 96 pedagogic records, got ${pack.records.length}.`);
@@ -139,8 +147,22 @@ if (!q37Overlay
   || Math.abs(Number(q37Overlay.actualDegrees) - 30) > 0.75) {
   throw new Error("QL037: the stated 30° ladder-to-wall angle must be represented by the actual wall/contact/ladder geometry.");
 }
-if (q37.points.find((point: AnyRecord) => point.id === "wall-contact")?.label !== "C") throw new Error("QL037: wall contact must use the clean point label C once the given 30° arc is drawn.");
-if (!html.includes('data-pedagogic-angle-id="ql037-given-wall-angle"')) throw new Error("QL037: rendered SVG is missing the explicit 30° wall-angle teaching arc.");
+const q37Contact = q37.points.find((point: AnyRecord) => point.id === "wall-contact");
+if (q37Contact?.label !== "C") throw new Error("QL037: wall contact must use the clean point label C once the given 30° arc is drawn.");
+const q37Svg = renderedSvg("TRG-002-QL-037");
+const q37RenderedOverlay = q37Svg.match(/<g class="pedagogic-angle-overlay"[^>]*data-pedagogic-angle-id="ql037-given-wall-angle"[^>]*data-rendered-vertex-x="([^"]+)"[^>]*data-rendered-vertex-y="([^"]+)"[^>]*>[\s\S]*?<path d="M ([^ ]+) ([^ ]+) A 52 52 0 0 [01] ([^ ]+) ([^"]+)"/u);
+if (!q37RenderedOverlay) throw new Error("QL037: rendered SVG is missing the explicit 30° wall-angle teaching arc with anchor evidence.");
+const expectedVertexX = Number(q37Contact.x) + REVIEW_PADDING;
+const expectedVertexY = Number(q37Contact.y) + REVIEW_PADDING;
+const renderedVertexX = Number(q37RenderedOverlay[1]);
+const renderedVertexY = Number(q37RenderedOverlay[2]);
+if (Math.abs(renderedVertexX - expectedVertexX) > 0.01 || Math.abs(renderedVertexY - expectedVertexY) > 0.01) {
+  throw new Error(`QL037: rendered 30° arc center is detached from C: expected (${expectedVertexX},${expectedVertexY}) got (${renderedVertexX},${renderedVertexY}).`);
+}
+for (const [x, y] of [[Number(q37RenderedOverlay[3]), Number(q37RenderedOverlay[4])], [Number(q37RenderedOverlay[5]), Number(q37RenderedOverlay[6])]]) {
+  const radius = Math.hypot(x - expectedVertexX, y - expectedVertexY);
+  if (Math.abs(radius - 52) > 0.1) throw new Error(`QL037: rendered 30° arc endpoint is not anchored 52 px from C (radius=${radius.toFixed(2)}).`);
+}
 if (!q37.angles.some((angle: AnyRecord) => angle.label === "60°" && angle.vertexPointId === "ladder-base")) throw new Error("QL037: derived 60° ground-angle arc must remain visible alongside the given 30° wall angle.");
 if (!/ladder|hypotenuse|perpendicular/iu.test(cueText("TRG-002-QL-037"))) throw new Error("QL037: ladder teaching cue missing.");
 if (!/eye level|eye-level|helper intersection|rise/iu.test(cueText("TRG-002-QL-076"))) throw new Error("QL076: eye-level teaching cue missing.");
@@ -148,4 +170,4 @@ if (!/shared height|ground relation|separate observation|road/iu.test(cueText("T
 if (!/eye level|eye-level|horizontal|rise|drop/iu.test(cueText("TRG-002-QL-088"))) throw new Error("QL088: elevation/depression split teaching cue missing.");
 if (!/roof|total|mast|difference/iu.test(cueText("TRG-002-QL-095"))) throw new Error("QL095: composite-height teaching cue missing.");
 
-console.log(`TRG002_V4_PEDAGOGIC_CUES_PASS qls=96 teachingPanels=96 teachingCues=288 geometryCues=96 ruleCues=96 calculationCues=96 visibleHelperLabels=${visibleHelperLabels} groundCoincidentHelperLabelViolations=0 topologyCueViolations=0 ql037WallAngleArc=30deg workedEquationCues=green explanationTeachingCoverage=96/96`);
+console.log(`TRG002_V4_PEDAGOGIC_CUES_PASS qls=96 teachingPanels=96 teachingCues=288 geometryCues=96 ruleCues=96 calculationCues=96 visibleHelperLabels=${visibleHelperLabels} groundCoincidentHelperLabelViolations=0 topologyCueViolations=0 ql037WallAngleArc=30deg ql037RenderedArcAnchored=true workedEquationCues=green explanationTeachingCoverage=96/96`);
