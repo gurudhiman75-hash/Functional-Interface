@@ -1,4 +1,4 @@
-name: Validate TSD CP008 source saturation, executable feasibility and allocation
+name: Validate TSD CP008 allocation and English review candidate
 
 on:
   push:
@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  source-saturation-executable-feasibility-and-allocation:
+  allocation-and-english-review:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -59,3 +59,16 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/executable-proof.test.ts
       - name: Prove permanent QL allocation
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/allocation-proof.test.ts
+      - name: Prove English authoring and rendered review
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/english-authoring-proof.test.ts
+      - name: Generate questions-only English Markdown review
+        env:
+          TSD_CP008_REVIEW_OUTPUT_DIR: /tmp/tsd-cp008-review
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/english-rendered-review-export.ts
+      - name: Upload questions-only English review
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp008-english-question-review
+          path: /tmp/tsd-cp008-review/TSD-CP008-ENGLISH-QUESTIONS.md
+          if-no-files-found: error
+          retention-days: 14
