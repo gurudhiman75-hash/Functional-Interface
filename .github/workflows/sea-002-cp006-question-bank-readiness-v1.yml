@@ -47,6 +47,9 @@ jobs:
           node artifacts/api-server/dist/reasoning-v1/sea-002-cp006-question-bank-readiness.mjs \
             2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp006-question-bank-readiness.log
 
+      - name: Prove Question Bank approval route contract
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-bank-readiness-route.test.ts
+
       - name: Bundle Question Studio bulk approval route
         run: pnpm --dir artifacts/api-server exec esbuild src/routes/admin-question-studio-bulk-hardening.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/reasoning-v1/admin-question-studio-bulk-hardening-bank-readiness.mjs
 
