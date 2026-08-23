@@ -91,6 +91,55 @@ export const COM001_ADDITIONAL_SOURCE_AUTHORITIES: Com001SourceAuthority[] = [
       "Do not turn current product capacities or speed classes into timeless exam facts.",
     ],
   },
+  {
+    sourceId: "IBM-AIX-RMT-TAPE",
+    title: "IBM AIX — rmt special file",
+    url: "https://www.ibm.com/docs/en/aix/7.3.0?topic=files-rmt-special-file",
+    authorityClass: "VENDOR_TECHNICAL",
+    supports: ["tape-sequential-access", "backup-storage-role", "archive-storage-role"],
+    verifiedOn: "2026-08-23",
+    notes: [
+      "Use for magnetic tape as sequential-access media primarily used for backup, archive and offline storage.",
+    ],
+  },
+  {
+    sourceId: "IBM-TAPE-STORAGE",
+    title: "IBM — Tape storage",
+    url: "https://www.ibm.com/products/tape",
+    authorityClass: "VENDOR_TECHNICAL",
+    supports: ["backup-storage-role", "archive-storage-role", "long-term-retention"],
+    verifiedOn: "2026-08-23",
+    notes: ["Use only durable tape backup/archive role statements, not current product performance claims."],
+  },
+  {
+    sourceId: "IBM-HMC-USB-FLASH",
+    title: "IBM HMC — USB flash memory drive",
+    url: "https://www.ibm.com/docs/en/help-ibm-hmc-z17?topic=introduction-usb-flash-memory-drive",
+    authorityClass: "VENDOR_TECHNICAL",
+    supports: ["usb-removable-storage", "backup-storage-role"],
+    verifiedOn: "2026-08-23",
+    notes: ["Use for USB flash as removable writable media and HMC backup media."],
+  },
+  {
+    sourceId: "IBM-I-RMS",
+    title: "IBM i — Removable Mass Storage",
+    url: "https://www.ibm.com/docs/en/i/7.5.0?topic=solutions-removable-mass-storage-rms",
+    authorityClass: "VENDOR_TECHNICAL",
+    supports: ["random-access-removable-storage", "rdx-backup-recovery", "flash-removable-storage"],
+    verifiedOn: "2026-08-23",
+    notes: [
+      "Use for removable random-access storage, RDX backup/recovery and flash-drive media roles.",
+    ],
+  },
+  {
+    sourceId: "IBM-I-OPTICAL-MEDIA",
+    title: "IBM i — Optical media types",
+    url: "https://www.ibm.com/docs/en/i/7.6.0?topic=devices-optical-media-types",
+    authorityClass: "VENDOR_TECHNICAL",
+    supports: ["worm-optical", "archive-storage-role", "write-once-retention"],
+    verifiedOn: "2026-08-23",
+    notes: ["Use for WORM optical media as archival write-once storage."],
+  },
 ];
 
 export const COM001_ALL_SOURCE_AUTHORITIES: Com001SourceAuthority[] = [
