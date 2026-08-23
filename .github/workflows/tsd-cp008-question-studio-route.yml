@@ -1,0 +1,53 @@
+name: Validate TSD CP008 Question Studio route integration
+
+on:
+  push:
+    branches:
+      - feat/tsd-cp008-executable-discovery-v1
+    paths:
+      - artifacts/api-server/src/routes/admin-question-studio-time-speed-distance-cp008.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/**
+      - .github/workflows/tsd-cp008-question-studio-route.yml
+  pull_request:
+    branches:
+      - feat/tsd-cp007-executable-discovery-v1
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/routes/admin-question-studio-time-speed-distance-cp008.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/**
+      - .github/workflows/tsd-cp008-question-studio-route.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tsd-cp008-studio-route-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  question-studio-route:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Transpile TSD CP008 Studio route in isolation
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/routes/admin-question-studio-time-speed-distance-cp008.ts \
+            --platform=node \
+            --format=esm \
+            --outfile=/tmp/tsd-cp008-question-studio-route.mjs
+          test -s /tmp/tsd-cp008-question-studio-route.mjs
+      - name: Prove frozen multilingual Question Studio adapter
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/question-studio-review-proof.test.ts
+      - name: Prove route registration and lifecycle locks
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/question-studio-route-registration-proof.test.ts
