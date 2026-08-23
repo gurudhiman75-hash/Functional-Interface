@@ -13,6 +13,11 @@ import {
   listNumCp009QuestionStudioPackages,
 } from "../quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/question-studio-integration";
 import {
+  generateNumCp010QuestionStudioBatch,
+  isNumCp010QuestionStudioRequest,
+  listNumCp010QuestionStudioPackages,
+} from "../quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/question-studio-integration";
+import {
   generateSea002Cp006QuestionBankAcceptedBatch,
   isSea002Cp006QuestionStudioRequest,
   listSea002Cp006QuestionBankAcceptedPackages,
@@ -65,7 +70,12 @@ function normalizeSelector(value: unknown) {
     .trim();
 }
 
-export { isNumCp008QuestionStudioRequest, isNumCp009QuestionStudioRequest, isSea002Cp006QuestionStudioRequest };
+export {
+  isNumCp008QuestionStudioRequest,
+  isNumCp009QuestionStudioRequest,
+  isNumCp010QuestionStudioRequest,
+  isSea002Cp006QuestionStudioRequest,
+};
 
 export function isWor001QuestionStudioRequest(request: SharedQuestionStudioGenerationRequest) {
   const packageId = normalizeSelector(request.packageId ?? request.archetypeId);
@@ -167,24 +177,27 @@ function worPackageCapability() {
 function num002PackageCapability() {
   const cp008 = listNumCp008QuestionStudioPackages()[0]!;
   const cp009 = listNumCp009QuestionStudioPackages()[0]!;
+  const cp010 = listNumCp010QuestionStudioPackages()[0]!;
   return Object.freeze({
     ...cp008,
-    name: "NUM-002 Number System — Remainders, Modular Arithmetic & Cyclicity",
-    label: "Number System — Remainders, Modular Arithmetic & Cyclicity",
-    cpIds: Object.freeze([...cp008.cpIds, ...cp009.cpIds]),
+    name: "NUM-002 Number System — Remainders, Cyclicity & Digit Structure",
+    label: "Number System — Remainders, Cyclicity & Digit Structure",
+    cpIds: Object.freeze([...cp008.cpIds, ...cp009.cpIds, ...cp010.cpIds]),
     canonicalProblems: Object.freeze([
       ...cp008.canonicalProblems,
       ...cp009.canonicalProblems,
+      ...cp010.canonicalProblems,
     ]),
-    permanentQlCount: cp008.permanentQlCount + cp009.permanentQlCount,
+    permanentQlCount: cp008.permanentQlCount + cp009.permanentQlCount + cp010.permanentQlCount,
     permanentQlIds: Object.freeze([
       ...cp008.permanentQlIds,
       ...cp009.permanentQlIds,
+      ...cp010.permanentQlIds,
     ]),
     supportedDifficulties: Object.freeze(["Easy", "Medium", "Hard"]),
     supportedLanguages: Object.freeze(["en", "hi", "pa"]),
-    releaseId: "NUM-002-QS-CP008-CP009-MULTILINGUAL-FROZEN-V1",
-    checkpointReleaseIds: Object.freeze([cp008.releaseId, cp009.releaseId]),
+    releaseId: "NUM-002-QS-CP008-CP010-MULTILINGUAL-FROZEN-V1",
+    checkpointReleaseIds: Object.freeze([cp008.releaseId, cp009.releaseId, cp010.releaseId]),
     questionBankWritable: false,
     testEligible: false,
     mockTestEligible: false,
@@ -311,6 +324,9 @@ async function generateWor001QuestionStudioQuestions(request: SharedQuestionStud
 export async function generateQuestion(request: SharedQuestionStudioGenerationRequest = {}) {
   if (isSea002Cp006QuestionStudioRequest(request)) {
     return generateSea002Cp006QuestionBankAcceptedBatch(request);
+  }
+  if (isNumCp010QuestionStudioRequest(request)) {
+    return generateNumCp010QuestionStudioBatch(request);
   }
   if (isNumCp009QuestionStudioRequest(request)) {
     return generateNumCp009QuestionStudioBatch(request);
