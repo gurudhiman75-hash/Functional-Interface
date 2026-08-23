@@ -4,6 +4,7 @@ import { QuestionStudioDifficultyMixControls } from './QuestionStudioDifficultyM
 import { QuestionStudioExamProfileSummary } from './QuestionStudioExamProfileSummary';
 import { QuestionStudioInputOutputReviewPanel } from './QuestionStudioInputOutputReviewPanel';
 import { QuestionStudioInterestCp007ReviewPanel } from './QuestionStudioInterestCp007ReviewPanel';
+import { QuestionStudioInterestCp009ReviewPanel } from './QuestionStudioInterestCp009ReviewPanel';
 import { QuestionStudioInterestReviewPanel } from './QuestionStudioInterestReviewPanel';
 import { QuestionStudioProfileCalibration } from './QuestionStudioProfileCalibration';
 import { QuestionStudioRecoveryDock } from './QuestionStudioRecoveryDock';
@@ -16,6 +17,7 @@ export function QuestionStudioOperationsPage() {
       <QuestionStudioSpatialReviewPanel />
       <QuestionStudioInterestReviewPanel />
       <QuestionStudioInterestCp007ReviewPanel />
+      <QuestionStudioInterestCp009ReviewPanel />
       <QuestionStudioSeriesReviewPanel />
       <QuestionStudioCalendarReviewPanel />
       <QuestionStudioInputOutputReviewPanel />
