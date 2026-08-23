@@ -44,6 +44,7 @@ const localCapability = listSea002Cp006QuestionStudioPackages()[0]!;
 assert.equal(localCapability.packageId, "SEA-002");
 assert.deepEqual(localCapability.cpIds, ["SEA-CP-006"]);
 assert.deepEqual(localCapability.permanentQlIds, ["SEA-QL-021", "SEA-QL-022", "SEA-QL-023", "SEA-QL-024"]);
+assert.deepEqual(localCapability.frozenQueryContracts, SEA002_CP006_FROZEN_QUERY_CONTRACTS);
 assert.deepEqual(localCapability.supportedLanguages, ["en", "hi", "pa"]);
 assert.deepEqual(localCapability.supportedDifficulties, ["Easy", "Medium", "Hard"]);
 assert.equal(localCapability.enabled, true);
@@ -55,6 +56,7 @@ assert.equal(localCapability.testEligible, false);
 assert.equal(localCapability.mockTestEligible, false);
 assert.equal(localCapability.publiclyPublishable, false);
 assert.equal(localCapability.automaticStudentPublication, false);
+assert.equal(localCapability.approvedCorpusComposition, "80_EXAM_REAL_20_APPROVED_BASELINE");
 
 const sharedCapability = listQuestionStudioPackages().find((entry: any) => entry.packageId === "SEA-002");
 assert.ok(sharedCapability, "SEA-002 must be discoverable through the shared Question Studio capability list");
@@ -72,6 +74,7 @@ const targetScript = {
 } as const;
 const qlReach = new Set<string>();
 const queryReach = new Set<string>();
+const runtimeVariants = new Set<string>();
 let generatedCount = 0;
 let multilingualCount = 0;
 let sourceLifecycleLocks = 0;
@@ -89,8 +92,16 @@ for (const language of ["en", "hi", "pa"] as const) {
     });
     assert.equal(result.questions.length, 8);
     assert.equal(result.questionPackages.length, 8);
+    assert.equal(new Set(result.questions.map((question) => question.questionId)).size, 8);
+    assert.deepEqual(
+      [...new Set(result.questions.map((question) => question.queryContractId))].sort(),
+      [...SEA002_CP006_FROZEN_QUERY_CONTRACTS].sort(),
+    );
     assert.equal(result.generationContext.runtimeMode, "QUESTION_STUDIO_ACTIVE");
     assert.equal(result.generationContext.lifecycleStatus, "REVIEW_ONLY");
+    assert.equal(result.generationContext.queryCompleteRuntime, true);
+    assert.deepEqual(result.generationContext.frozenQueryContracts, SEA002_CP006_FROZEN_QUERY_CONTRACTS);
+    assert.equal(result.generationContext.approvedCorpusComposition, "80_EXAM_REAL_20_APPROVED_BASELINE");
     assert.equal(result.generationContext.sourceQuestionStudioRegistered, false);
     assert.equal(result.generationContext.adapterQuestionStudioDiscoverable, true);
     assert.equal(result.generationContext.questionBankWritable, false);
@@ -102,6 +113,7 @@ for (const language of ["en", "hi", "pa"] as const) {
       generatedCount += 1;
       qlReach.add(question.qlId);
       queryReach.add(question.queryContractId);
+      runtimeVariants.add(question.runtimeVariant);
       assert.ok(SEA002_CP006_QUESTION_STUDIO_QL_IDS.includes(question.qlId));
       assert.ok(SEA002_CP006_FROZEN_QUERY_CONTRACTS.includes(question.queryContractId));
       assert.equal(question.options.length, 4);
@@ -157,18 +169,23 @@ assert.equal(multilingualCount, 48);
 assert.equal(sourceLifecycleLocks, 72);
 assert.equal(integrationLifecycleLocks, 72);
 assert.deepEqual([...qlReach].sort(), [...SEA002_CP006_QUESTION_STUDIO_QL_IDS].sort());
-assert.ok(queryReach.size >= 4, `expected broad frozen query reach, got ${[...queryReach].join(", ")}`);
+assert.deepEqual([...queryReach].sort(), [...SEA002_CP006_FROZEN_QUERY_CONTRACTS].sort());
+assert.deepEqual([...runtimeVariants].sort(), ["APPROVED_BASELINE", "EXAM_REAL_SOURCE_A", "EXAM_REAL_SOURCE_B"]);
 
 const explicitQl = await generateSea002Cp006QuestionStudioBatch({
   questionLanguageId: "SEA-QL-024",
   language: "pa",
   difficulty: "Hard",
   seed: "sea-cp006-question-studio-explicit-ql",
-  count: 5,
+  count: 8,
 });
-assert.equal(explicitQl.questions.length, 5);
+assert.equal(explicitQl.questions.length, 8);
 assert.ok(explicitQl.questions.every((question) => question.qlId === "SEA-QL-024"));
 assert.ok(explicitQl.questions.every((question) => question.authorityId === "SEA-PBA-024"));
+assert.deepEqual(
+  [...new Set(explicitQl.questions.map((question) => question.queryContractId))].sort(),
+  [...SEA002_CP006_FROZEN_QUERY_CONTRACTS].sort(),
+);
 
 const sharedResult = await generateSharedQuestionStudioQuestion({
   packageId: "SEA-002",
@@ -188,7 +205,8 @@ console.log("PASS_SEA002_CP006_QUESTION_STUDIO_INTEGRATION_V1");
 console.log("Question Studio generated", generatedCount);
 console.log("multilingual learner checks", multilingualCount);
 console.log("permanent QL reach", [...qlReach].sort().join(","));
-console.log("query contracts reached", [...queryReach].sort().join(","));
+console.log("frozen query contracts reached", [...queryReach].sort().join(","));
+console.log("runtime variants", [...runtimeVariants].sort().join(","));
 console.log("source lifecycle locks", sourceLifecycleLocks);
 console.log("integration lifecycle locks", integrationLifecycleLocks);
 console.log("English/localized freeze fingerprints", SEA002_CP006_ENGLISH_FREEZE.approvedReviewFingerprint, SEA002_CP006_LOCALIZATION_FREEZE.approvedLocalizedReviewFingerprint);
