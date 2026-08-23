@@ -42,7 +42,10 @@ function compactSentence(value: unknown, max = 190) {
 function compactWorkedSentence(value: unknown, max = 190) {
   const text = String(value ?? "").replace(/\s+/gu, " ").trim();
   if (!text) return "";
-  const sentences = text.split(/(?<=[.!?])\s+/u).map((part) => part.trim()).filter(Boolean);
+  // Some authored steps have no whitespace after punctuation (for example
+  // "Let x be ... m.Then h=x√3."). Split at punctuation regardless of spacing
+  // so the worked relation is not lost behind a setup sentence.
+  const sentences = text.split(/(?<=[.!?])\s*/u).map((part) => part.trim()).filter(Boolean);
   const worked = sentences.find((sentence) => /(?:tan|sin|cos|cot|=|⇒)/iu.test(sentence)) ?? sentences[0] ?? text;
   return compactSentence(worked, max);
 }
