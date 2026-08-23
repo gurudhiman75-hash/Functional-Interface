@@ -24,9 +24,11 @@ export const STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST = {
     "BANK_5X5",
   ],
   presentationProvenanceBoundary: {
-    directPyqBacked: ["SSC_2X4", "SSC_3X4", "BANK_3X5", "BANK_4X5", "PUNJAB_2X4"],
-    legacySourceFamilyCompatible: ["BANK_2X5", "BANK_3X5_NEGATIVE", "BANK_5X5"],
+    directPyqFormat: ["SSC_2X4", "SSC_3X4", "PUNJAB_2X4"],
+    directMemoryBasedPyq: ["BANK_3X5", "BANK_4X5", "BANK_5X5"],
+    legacyOrFamilyCompatible: ["BANK_2X5", "BANK_3X5_NEGATIVE"],
     crossExamSynthesisOnly: ["PUNJAB_3X4"],
+    officialVerbatimBankingClaim: false,
     directPunjab3x4Claim: false,
   },
   authorityBlobLocks: {
@@ -42,6 +44,8 @@ export const STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST = {
     "./exam-format-bank-fourth-assumption.ts": "1a35559eb4ec12a8d918fad561f49586bf7f0254",
     "./exam-format-bank-fifth-assumption.ts": "891fb90bc0a968d98aa89a0dc968aec0ca3b1cb1",
     "./exam-format-legacy-bank.ts": "251baf6e8c034ab9567275d52f45e4a1719c0b73",
+    "./exam-format-provenance.ts": "f3846fd62625bffaf65f726faf98c41d594ff7cd",
+    "./exam-format-provenance-v2.ts": "03f24044979f3e521ef3776c8bc0b7937e587b7e",
   },
   lifecycle: {
     semanticQls: "FROZEN",
