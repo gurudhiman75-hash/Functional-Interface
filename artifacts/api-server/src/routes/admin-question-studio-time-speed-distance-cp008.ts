@@ -14,7 +14,7 @@ import {
   type TsdCp008QuestionStudioDifficulty,
   type TsdCp008QuestionStudioLanguage,
   type TsdCp008QuestionStudioQlId,
-} from "../quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/question-studio-review-adapter";
+} from "../quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/question-studio-review-adapter-final";
 import { TSD_CP008_PERMANENT_QL_IDS } from "../quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp008/ql-allocation";
 
 const router = Router();
