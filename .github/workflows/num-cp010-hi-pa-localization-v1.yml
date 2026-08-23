@@ -1,4 +1,4 @@
-name: Validate NUM-CP-010 Hindi Punjabi localization candidate
+name: Validate NUM-CP-010 Hindi Punjabi localization freeze
 
 on:
   pull_request:
@@ -57,14 +57,28 @@ jobs:
           node artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-parity.test.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-parity.log
 
-      - name: Bundle learner review exporter
+      - name: Bundle frozen human-quality proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/localization/runtime-human-quality.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp010-hi-pa-human-quality.test.mjs
+
+      - name: Run frozen human-quality proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-human-quality.test.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-human-quality.log
+
+      - name: Bundle frozen learner review exporter
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/localization/review-export.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/num-cp010-hi-pa-review-export.mjs
 
-      - name: Generate Hindi Punjabi learner review
+      - name: Generate frozen Hindi Punjabi learner review
         working-directory: artifacts/api-server
         shell: bash
         run: |
@@ -72,12 +86,13 @@ jobs:
           node dist/quant-v4/num-cp010-hi-pa-review-export.mjs \
             2>&1 | tee dist/quant-v4/num-cp010-hi-pa-review-export.log
 
-      - name: Upload localization review evidence
+      - name: Upload frozen localization evidence
         uses: actions/upload-artifact@v4
         with:
-          name: num-cp010-hi-pa-review-v1
+          name: num-cp010-hi-pa-frozen-v1
           path: |
             artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-parity.log
+            artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-human-quality.log
             artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-review-export.log
             artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-review/audit.json
             artifacts/api-server/dist/quant-v4/num-cp010-hi-pa-review/review.json
