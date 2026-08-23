@@ -34,9 +34,39 @@ function endpointKey(a: string, b: string) {
   return [a, b].sort().join("::");
 }
 
+function pointMap(diagram: AnyRecord) {
+  return new Map<string, AnyRecord>((diagram.points ?? []).map((point: AnyRecord) => [String(point.id), point]));
+}
+
+function samePhysicalPoint(a: AnyRecord | undefined, b: AnyRecord | undefined) {
+  return !!a && !!b && Math.abs(Number(a.x) - Number(b.x)) < 1e-5 && Math.abs(Number(a.y) - Number(b.y)) < 1e-5;
+}
+
+function pushTeachingArrow(result: AnyRecord, args: AnyRecord, fromPointId: string, toPointId: string, label: string, kind: string) {
+  const diagram = result.diagram;
+  const points = pointMap(diagram);
+  if (!points.has(fromPointId) || !points.has(toPointId)) return false;
+  const key = endpointKey(fromPointId, toPointId);
+  if ((diagram.measurementArrows ?? []).some((arrow: AnyRecord) => endpointKey(String(arrow.fromPointId), String(arrow.toPointId)) === key && String(arrow.label) === label)) return false;
+  diagram.measurementArrows.push({
+    id: `pedagogic-final-${args.qlId.replace(/[^A-Za-z0-9]/g, "-")}-${diagram.measurementArrows.length + 1}`,
+    fromPointId,
+    toPointId,
+    label,
+    side: "LEFT",
+    lane: 0,
+    kind: `PEDAGOGIC_${kind}`,
+    pedagogic: true,
+    pedagogicFinal: true,
+  });
+  result.audit.teachingDimensionsAdded += 1;
+  result.audit.explanationFactsVisualized.push(kind);
+  return true;
+}
+
 function restoreExplicitRiseHelpers(result: AnyRecord, args: AnyRecord) {
   const diagram = result.diagram;
-  const points = new Map<string, AnyRecord>((diagram.points ?? []).map((point: AnyRecord) => [String(point.id), point]));
+  const points = pointMap(diagram);
   const segments: AnyRecord[] = diagram.segments ?? [];
   const rise = explicitWorkedValue(args.englishExplanationText, ["rise", "height difference", "above eye", "above first roof"]);
   if (!rise) return 0;
@@ -80,6 +110,68 @@ function restoreExplicitRiseHelpers(result: AnyRecord, args: AnyRecord) {
   return added;
 }
 
+function physicalAngleAtGround(diagram: AnyRecord, groundId: string) {
+  const points = pointMap(diagram);
+  const ground = points.get(groundId);
+  if (!ground) return null;
+  for (const angle of diagram.angles ?? []) {
+    const vertex = points.get(String(angle.vertexPointId));
+    if (samePhysicalPoint(vertex, ground)) return String(angle.label ?? "");
+  }
+  return null;
+}
+
+function repairOppositeSideTeaching(result: AnyRecord, args: AnyRecord) {
+  if (!["TRG-002-QL-080", "TRG-002-QL-081", "TRG-002-QL-082"].includes(args.qlId)) return 0;
+  const diagram = result.diagram;
+  const points = pointMap(diagram);
+  const left = points.get("left-ground");
+  const right = points.get("right-ground");
+  const base = points.get("object-base");
+  if (!left || !right || !base) return 0;
+
+  diagram.measurementArrows = (diagram.measurementArrows ?? []).filter((arrow: AnyRecord) => {
+    const kind = String(arrow.kind ?? "");
+    return !kind.startsWith("PEDAGOGIC_OPPOSITE_");
+  });
+
+  const leftAngle = physicalAngleAtGround(diagram, left.id);
+  const rightAngle = physicalAngleAtGround(diagram, right.id);
+  const thirty = leftAngle?.includes("30") ? left : rightAngle?.includes("30") ? right : null;
+  const sixty = leftAngle?.includes("60") ? left : rightAngle?.includes("60") ? right : null;
+  if (!thirty || !sixty) throw new Error(`${args.qlId}: could not map 30°/60° observation points by physical position.`);
+
+  const requested = (diagram.measurementArrows ?? []).find((arrow: AnyRecord) => String(arrow.kind ?? "").includes("REQUESTED"));
+  const requestedKey = requested ? endpointKey(String(requested.fromPointId), String(requested.toPointId)) : "";
+  let added = 0;
+
+  if (args.qlId === "TRG-002-QL-080") {
+    if (requested && requestedKey === endpointKey(base.id, sixty.id)) {
+      requested.label = "60° distance = y";
+      requested.pedagogicRequestedRelation = true;
+    }
+    if (pushTeachingArrow(result, args, base.id, thirty.id, "x = 3y", "OPPOSITE_30_DISTANCE_X_3Y")) added += 1;
+  }
+
+  if (args.qlId === "TRG-002-QL-081") {
+    const x = exactVariableValue(args.englishExplanationText, "x");
+    if (pushTeachingArrow(result, args, base.id, sixty.id, x ? `x = ${x} m` : "x", "OPPOSITE_60_CAR_X")) added += 1;
+    if (pushTeachingArrow(result, args, base.id, thirty.id, "3x", "OPPOSITE_30_CAR_3X")) added += 1;
+  }
+
+  if (args.qlId === "TRG-002-QL-082") {
+    const y = exactVariableValue(args.englishExplanationText, "y");
+    if (pushTeachingArrow(result, args, base.id, sixty.id, y ? `y = ${y} m` : "y", "OPPOSITE_60_DISTANCE_Y")) added += 1;
+    if (requested && requestedKey === endpointKey(base.id, thirty.id)) {
+      requested.label = "30° distance = 3y";
+      requested.pedagogicRequestedRelation = true;
+    } else if (pushTeachingArrow(result, args, base.id, thirty.id, "3y", "OPPOSITE_30_DISTANCE_3Y")) added += 1;
+  }
+
+  result.audit.explanationFactsVisualized.push("PHYSICAL_ANGLE_TO_GROUND_ALIGNMENT");
+  return added;
+}
+
 export function applyTrg002V4PedagogicDiagramLayerFinal(args: {
   qlId: string;
   diagram: AnyRecord;
@@ -117,11 +209,14 @@ export function applyTrg002V4PedagogicDiagramLayerFinal(args: {
   }
 
   const answerEquivalentExplanationHelpers = restoreExplicitRiseHelpers(result, args);
+  const physicalAngleTeachingFixes = repairOppositeSideTeaching(result, args);
   result.diagram.reviewDimensionAudit.totalDimensions = result.diagram.measurementArrows.length;
   result.diagram.pedagogicDiagramAudit.exactVariableExpressionsPreserved = true;
   result.diagram.pedagogicDiagramAudit.exactVariablesShown = exactVariablesShown;
   result.diagram.pedagogicDiagramAudit.requestedSegmentSolvedLeakCount = 0;
   result.diagram.pedagogicDiagramAudit.answerEquivalentExplanationHelpersAllowed = true;
   result.diagram.pedagogicDiagramAudit.answerEquivalentExplanationHelpers = answerEquivalentExplanationHelpers;
+  result.diagram.pedagogicDiagramAudit.physicalAngleTeachingFixes = physicalAngleTeachingFixes;
+  result.diagram.pedagogicDiagramAudit.coincidentEyeGroundResolvedByCoordinates = true;
   return result;
 }
