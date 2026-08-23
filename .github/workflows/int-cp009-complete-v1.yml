@@ -1,0 +1,65 @@
+name: Validate INT-CP-009 Complete V1
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine.ts"
+      - ".github/workflows/int-cp009-complete-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp009-complete-v1:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Reconfirm CP009 V3 exam readiness
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp009-exam-readiness-v3-polish-audit.ts | tee int-cp009-v3-regression.log
+          grep -q 'PASS_INT_CP009_EXAM_READINESS_V3_POLISH_AUDIT' int-cp009-v3-regression.log
+      - name: Reconfirm CP002 ownership boundary
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp009-cp002-boundary-audit.ts | tee int-cp009-cp002-boundary.log
+          grep -q 'PASS_INT_CP009_CP002_BOUNDARY_AUDIT' int-cp009-cp002-boundary.log
+      - name: Run complete CP009 production localization freeze studio audit
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp009-complete-v1-audit.ts | tee int-cp009-complete-v1.log
+          grep -q 'PASS_INT_CP009_COMPLETE_V1_AUDIT' int-cp009-complete-v1.log
+      - name: Export final multilingual review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp009-complete-v1-review-export.ts > INT-CP-009-FINAL-MULTILINGUAL-REVIEW.md
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Record exact validation head
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-cp009-complete-v1-head.log
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+      - name: Upload CP009 completion evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp009-complete-v1
+          path: |
+            int-cp009-v3-regression.log
+            int-cp009-cp002-boundary.log
+            int-cp009-complete-v1.log
+            int-cp009-complete-v1-head.log
+            INT-CP-009-FINAL-MULTILINGUAL-REVIEW.md
+          retention-days: 30
