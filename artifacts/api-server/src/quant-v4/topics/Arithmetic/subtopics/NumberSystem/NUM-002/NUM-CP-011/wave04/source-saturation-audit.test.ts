@@ -52,7 +52,7 @@ assert.deepEqual(
 
 const saturationPath = resolve(
   process.cwd(),
-  "src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/NUM-CP-011-WAVE04-SOURCE-SATURATION-MERGE-SPLIT.md",
+  "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/NUM-CP-011-WAVE04-SOURCE-SATURATION-MERGE-SPLIT.md",
 );
 const saturationRecord = readFileSync(saturationPath, "utf8");
 
