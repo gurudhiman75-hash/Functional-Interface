@@ -1,36 +1,15 @@
 import { TSD_CP008_HINDI_LOCALIZATION } from "./hindi-localization";
 import { TSD_CP008_PUNJABI_LOCALIZATION } from "./punjabi-localization";
-import type { TsdCp008LocalizationRegistry } from "./localization-types";
 
-function finalizeLocalization(
-  registry: TsdCp008LocalizationRegistry,
-  sameDirectionUniquenessGuard: string,
-): TsdCp008LocalizationRegistry {
-  return Object.freeze({
-    locale: registry.locale,
-    qls: Object.freeze(registry.qls.map((ql) => Object.freeze({
-      ...ql,
-      families: Object.freeze(ql.families.map((family) => Object.freeze({
-        ...family,
-        stem: ql.qlId === "TSD-QL-099"
-          ? `${sameDirectionUniquenessGuard} ${family.stem}`
-          : family.stem,
-      }))),
-    }))),
-  });
-}
+// The approved localized templates stay byte-for-byte semantically intact.
+// QL099 needs one runtime-only clarification when the generated numeric case
+// is SAME direction: the first/target train is the faster train. Applying that
+// sentence to opposite-direction cases would add irrelevant learner text, so
+// the policy is exported here and applied only after a SAME case is selected.
+export const TSD_CP008_QL099_SAME_DIRECTION_GUARDS = Object.freeze({
+  hi: "समान दिशा वाली स्थिति में पहली ट्रेन तेज है।" as const,
+  pa: "ਇੱਕੋ ਦਿਸ਼ਾ ਵਾਲੀ ਸਥਿਤੀ ਵਿੱਚ ਪਹਿਲੀ ਰੇਲਗੱਡੀ ਤੇਜ਼ ਹੈ।" as const,
+});
 
-// QL099 solves an individual train speed from a relative-speed magnitude.
-// In a same-direction state the target train must be identified as the faster
-// train; otherwise the inverse can admit two speed interpretations. English
-// already states this dynamically. These native-language guards preserve that
-// exact learner invariant without changing any numeric evidence or placeholder.
-export const TSD_CP008_FINAL_HINDI_LOCALIZATION = finalizeLocalization(
-  TSD_CP008_HINDI_LOCALIZATION,
-  "समान दिशा वाली स्थिति में पहली ट्रेन को तेज माना जाए।",
-);
-
-export const TSD_CP008_FINAL_PUNJABI_LOCALIZATION = finalizeLocalization(
-  TSD_CP008_PUNJABI_LOCALIZATION,
-  "ਇੱਕੋ ਦਿਸ਼ਾ ਵਾਲੀ ਸਥਿਤੀ ਵਿੱਚ ਪਹਿਲੀ ਰੇਲਗੱਡੀ ਨੂੰ ਤੇਜ਼ ਮੰਨਿਆ ਜਾਵੇ।",
-);
+export const TSD_CP008_FINAL_HINDI_LOCALIZATION = TSD_CP008_HINDI_LOCALIZATION;
+export const TSD_CP008_FINAL_PUNJABI_LOCALIZATION = TSD_CP008_PUNJABI_LOCALIZATION;
