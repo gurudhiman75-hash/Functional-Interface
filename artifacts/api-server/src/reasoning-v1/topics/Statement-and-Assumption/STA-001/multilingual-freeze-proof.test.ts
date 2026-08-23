@@ -68,9 +68,10 @@ const answerPositions = new Set<number>();
 let generatedCount = 0;
 let parityCount = 0;
 let bank5RemappedSeedCount = 0;
+const frozenProfileIds: readonly FrozenProfileId[] = STA_001_MULTILINGUAL_FROZEN_PROFILE_IDS;
 
 for (const locale of STA_001_MULTILINGUAL_FROZEN_LOCALES) {
-  for (const profileId: FrozenProfileId of STA_001_MULTILINGUAL_FROZEN_PROFILE_IDS) {
+  for (const profileId of frozenProfileIds) {
     for (let index = 0; index < 64; index += 1) {
       const requestedSeed: string = `sta-final-freeze:${locale}:${profileId}:${index}`;
       const frozen = generateSta001MultilingualFrozenQuestion(requestedSeed, locale, profileId);
