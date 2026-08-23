@@ -63,7 +63,28 @@ function engineForPackage(packageId: string | undefined) {
   )?.engineId;
 }
 
-router.use(authenticate);
+function nonQuantRunGate(req: any, _res: any, next: any) {
+  const requestedEngineRaw = asString(req.body?.engineId);
+  const requestedEngineId = normalizeEngineId(requestedEngineRaw);
+
+  // Invalid explicit IDs stay on this route so the authenticated handler can
+  // return the proper validation error without leaking capability data.
+  if (requestedEngineRaw && !requestedEngineId) {
+    next();
+    return;
+  }
+
+  const packageId = asString(req.body?.packageId) || undefined;
+  const selectedEngineId = requestedEngineId ?? engineForPackage(packageId);
+
+  // Quant/Reasoning remains owned by the established exam-profile route.
+  if (!selectedEngineId || selectedEngineId === "quant-v4") {
+    next("route");
+    return;
+  }
+
+  next();
+}
 
 /**
  * Multi-engine capabilities facade.
@@ -74,6 +95,7 @@ router.use(authenticate);
  */
 router.get(
   "/capabilities",
+  authenticate,
   requireAdminPermission("content.generation.read"),
   async (_req, res) => {
     try {
@@ -114,20 +136,17 @@ router.get(
 );
 
 /**
- * Multi-engine generation facade.
+ * Non-Quant generation route.
  *
- * Legacy Quant/Reasoning packages intentionally fall through to the existing
- * exam-profile `/runs` route. That path currently owns mixed-difficulty and
- * exam-profile behavior and must remain behaviorally unchanged.
- *
- * This facade consumes only explicitly selected non-Quant engines, or package
- * IDs registered to a non-Quant engine. That makes new engines live without
- * stealing existing Quant traffic.
+ * The gate skips this route entirely for existing Quant/Reasoning requests,
+ * so their exam-profile and mixed-difficulty behavior is unchanged.
  */
 router.post(
   "/runs",
+  nonQuantRunGate,
+  authenticate,
   requireAdminPermission("content.generation.run"),
-  async (req, res, next) => {
+  async (req, res) => {
     const requestedEngineRaw = asString(req.body?.engineId);
     const requestedEngineId = normalizeEngineId(requestedEngineRaw);
 
@@ -143,9 +162,11 @@ router.post(
     const packageEngineId = engineForPackage(packageId);
     const selectedEngineId = requestedEngineId ?? packageEngineId;
 
-    // Preserve the current exam-profile/mixed-difficulty Quant path exactly.
     if (!selectedEngineId || selectedEngineId === "quant-v4") {
-      next();
+      // Defensive only: the route gate should have skipped this route.
+      res.status(409).json({
+        error: "Legacy Quant requests must use the established Question Studio run path",
+      });
       return;
     }
 
