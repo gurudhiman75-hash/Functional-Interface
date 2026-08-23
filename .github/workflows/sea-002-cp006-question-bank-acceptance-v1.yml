@@ -84,6 +84,11 @@ jobs:
           node artifacts/api-server/dist/reasoning-v1/sea-002-cp006-bank-acceptance-facade.mjs \
             2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp006-bank-acceptance-facade.log
 
+      - name: Run NUM-CP-010 shared-facade regression
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/question-studio-integration.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp010-question-studio-sea-bank-regression.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp010-question-studio-sea-bank-regression.mjs
+
       - name: Re-prove approval and downstream route locks
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-bank-readiness-route.test.ts
 
