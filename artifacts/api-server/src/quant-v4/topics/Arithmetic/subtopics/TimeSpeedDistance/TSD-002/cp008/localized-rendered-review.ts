@@ -46,10 +46,10 @@ function ratio(value: Rational): string {
 function directionPhrase(direction: "OPPOSITE" | "SAME", locale: TsdCp008Locale, observer = false): string {
   if (locale === "hi-IN") {
     if (observer) return direction === "OPPOSITE" ? "विपरीत दिशा में" : "एक ही दिशा में";
-    return direction === "OPPOSITE" ? "विपरीत दिशाओं में" : "एक ही दिशा में, जहाँ पहली ट्रेन तेज है";
+    return direction === "OPPOSITE" ? "विपरीत दिशाओं में" : "एक ही दिशा में";
   }
   if (observer) return direction === "OPPOSITE" ? "ਉਲਟੀ ਦਿਸ਼ਾ ਵਿੱਚ" : "ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ";
-  return direction === "OPPOSITE" ? "ਉਲਟੀ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ" : "ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ, ਜਿੱਥੇ ਪਹਿਲੀ ਰੇਲਗੱਡੀ ਤੇਜ਼ ਹੈ";
+  return direction === "OPPOSITE" ? "ਉਲਟੀ ਦਿਸ਼ਾਵਾਂ ਵਿੱਚ" : "ਇੱਕੋ ਦਿਸ਼ਾ ਵਿੱਚ";
 }
 
 function answerText(value: Rational, unit: string, locale: TsdCp008Locale): string {
@@ -63,20 +63,29 @@ function answerText(value: Rational, unit: string, locale: TsdCp008Locale): stri
   return `${text(value)} ਮੀ/ਸਕਿੰਟ`;
 }
 
-function targetQuestion(target: string, locale: TsdCp008Locale, authorityKey: string): string {
-  if (authorityKey === "trainObserverStateFromCrossingTimes") {
-    if (locale === "hi-IN") return target === "TRAIN_SPEED" ? "ट्रेन की गति निकालें।" : "चलते पर्यवेक्षक की गति निकालें।";
-    return target === "TRAIN_SPEED" ? "ਰੇਲਗੱਡੀ ਦੀ ਗਤੀ ਕੱਢੋ।" : "ਚੱਲਦੇ ਦਰਸ਼ਕ ਦੀ ਗਤੀ ਕੱਢੋ।";
-  }
-  if (locale === "hi-IN") return target === "FIXED_OBJECT_LENGTH" ? "स्थिर वस्तु की लंबाई निकालें।" : "पहली ट्रेन की लंबाई निकालें।";
-  return target === "FIXED_OBJECT_LENGTH" ? "ਸਥਿਰ ਵਸਤੂ ਦੀ ਲੰਬਾਈ ਕੱਢੋ।" : "ਪਹਿਲੀ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ ਕੱਢੋ।";
-}
-
 function objectName(familyId: string, locale: TsdCp008Locale): string {
   const familyLetter = familyId.split("-")[1] ?? "A";
   const bridge = ["B", "D", "F"].includes(familyLetter);
   if (locale === "hi-IN") return bridge ? "रेलवे पुल" : "स्टेशन प्लेटफॉर्म";
   return bridge ? "ਰੇਲਵੇ ਪੁਲ" : "ਸਟੇਸ਼ਨ ਪਲੇਟਫਾਰਮ";
+}
+
+function observerName(familyId: string, locale: TsdCp008Locale): string {
+  const letter = familyId.split("-")[1] ?? "A";
+  if (locale === "hi-IN") {
+    return ({ A: "पैदल निरीक्षक", B: "रेलवे गार्ड", C: "साइकिल सवार", D: "चलते कर्मचारी", E: "धावक", F: "चलते व्यक्ति" } as const)[letter as "A" | "B" | "C" | "D" | "E" | "F"] ?? "चलते व्यक्ति";
+  }
+  return ({ A: "ਪੈਦਲ ਇੰਸਪੈਕਟਰ", B: "ਰੇਲਵੇ ਗਾਰਡ", C: "ਸਾਈਕਲ ਸਵਾਰ", D: "ਚੱਲਦੇ ਕਰਮਚਾਰੀ", E: "ਦੌੜਾਕ", F: "ਚੱਲਦੇ ਵਿਅਕਤੀ" } as const)[letter as "A" | "B" | "C" | "D" | "E" | "F"] ?? "ਚੱਲਦੇ ਵਿਅਕਤੀ";
+}
+
+function targetQuestion(target: string, locale: TsdCp008Locale, authorityKey: string, familyId: string): string {
+  if (authorityKey === "trainObserverStateFromCrossingTimes") {
+    if (locale === "hi-IN") return target === "TRAIN_SPEED" ? "ट्रेन की गति निकालें।" : `${observerName(familyId, locale)} की गति निकालें।`;
+    return target === "TRAIN_SPEED" ? "ਰੇਲਗੱਡੀ ਦੀ ਗਤੀ ਕੱਢੋ।" : `${observerName(familyId, locale)} ਦੀ ਗਤੀ ਕੱਢੋ।`;
+  }
+  const object = objectName(familyId, locale);
+  if (locale === "hi-IN") return target === "FIXED_OBJECT_LENGTH" ? `${object} की लंबाई निकालें।` : "पहली ट्रेन की लंबाई निकालें।";
+  return target === "FIXED_OBJECT_LENGTH" ? `${object} ਦੀ ਲੰਬਾਈ ਕੱਢੋ।` : "ਪਹਿਲੀ ਰੇਲਗੱਡੀ ਦੀ ਲੰਬਾਈ ਕੱਢੋ।";
 }
 
 function bindingsFor(familyId: string, input: (typeof TSD_CP008_ENGLISH_REVIEW_CASES)[number]["input"], locale: TsdCp008Locale): Readonly<Record<string, string>> {
@@ -101,10 +110,10 @@ function bindingsFor(familyId: string, input: (typeof TSD_CP008_ENGLISH_REVIEW_C
       Object.assign(bindings, { trainLength: text(input.trainLength), trainSpeed: speed(input.trainSpeed, familyId, locale), observerSpeed: speed(input.observerSpeed, familyId, locale), directionPhrase: directionPhrase(input.direction, locale, true) });
       break;
     case "trainObserverStateFromCrossingTimes":
-      Object.assign(bindings, { trainLength: text(input.trainLength), sameTime: text(input.sameDirectionTime), oppositeTime: text(input.oppositeDirectionTime), targetQuestion: targetQuestion(input.target, locale, input.authorityKey) });
+      Object.assign(bindings, { trainLength: text(input.trainLength), sameTime: text(input.sameDirectionTime), oppositeTime: text(input.oppositeDirectionTime), targetQuestion: targetQuestion(input.target, locale, input.authorityKey, familyId) });
       break;
     case "sharedFixedObjectTwoTrainEvidence":
-      Object.assign(bindings, { ratio: ratio(input.lengthRatioAtoB), speedA: speed(input.speedA, familyId, locale), speedB: speed(input.speedB, familyId, locale), timeA: text(input.crossingTimeA), timeB: text(input.crossingTimeB), objectName: objectName(familyId, locale), targetQuestion: targetQuestion(input.target, locale, input.authorityKey) });
+      Object.assign(bindings, { ratio: ratio(input.lengthRatioAtoB), speedA: speed(input.speedA, familyId, locale), speedB: speed(input.speedB, familyId, locale), timeA: text(input.crossingTimeA), timeB: text(input.crossingTimeB), objectName: objectName(familyId, locale), targetQuestion: targetQuestion(input.target, locale, input.authorityKey, familyId) });
       break;
     case "fullContainmentOverlapDuration":
       Object.assign(bindings, { lengthA: text(input.lengthA), lengthB: text(input.lengthB), speedA: speed(input.speedA, familyId, locale), speedB: speed(input.speedB, familyId, locale), directionPhrase: directionPhrase(input.direction, locale) });
