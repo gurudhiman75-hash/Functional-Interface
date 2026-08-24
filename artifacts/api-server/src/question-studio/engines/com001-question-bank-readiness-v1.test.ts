@@ -1,11 +1,14 @@
 import { strict as assert } from "node:assert";
 
-import {
+import { COM001_REVIEW_ONLY_PACKAGE } from "./knowledge-v1-com001-adapter";
+
+process.env.DATABASE_URL ??= "postgresql://test:test@127.0.0.1:5432/test";
+
+const {
   COM001_QUESTION_BANK_DRY_RUN_AUTHORITY,
   COM001_REQUIRED_BANK_PROVENANCE_FIELDS,
   auditCom001QuestionBankReadinessV1,
-} from "./com001-question-bank-readiness-v1";
-import { COM001_REVIEW_ONLY_PACKAGE } from "./knowledge-v1-com001-adapter";
+} = await import("./com001-question-bank-readiness-v1");
 
 const result = await auditCom001QuestionBankReadinessV1();
 
