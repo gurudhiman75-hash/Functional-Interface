@@ -1,24 +1,24 @@
 import { strict as assert } from "node:assert";
 import { SRI_CHAPTER_MANIFEST, assertSriReleaseLocks } from "../chapter-manifest";
 import { validateSriDiscoveryQuestion } from "../discovery-runtime";
-import {
-  SRI_PHASE1_POWER_CANDIDATES,
-  generateSriPhase1PowerCandidate,
-} from "../SRI-001/phase1-power-discovery";
 import { SRI_001_MANIFEST } from "../SRI-001/manifest";
+import {
+  SRI_PHASE2_POWER_RELATION_CANDIDATES,
+  generateSriPhase2PowerRelationCandidate,
+} from "../SRI-001/phase2-power-relations";
 
 const SEEDS_PER_CANDIDATE = 80;
-const EXPECTED_CANDIDATES = 25;
+const EXPECTED_PHASE2_CANDIDATES = 23;
+const EXPECTED_TOTAL_SRI001_CANDIDATES = 48;
 
-assert.equal(SRI_PHASE1_POWER_CANDIDATES.length, EXPECTED_CANDIDATES, "Phase 1 must expose all 25 provisional CP001-003 candidates");
-assert.equal(new Set(SRI_PHASE1_POWER_CANDIDATES.map((item) => item.candidateId)).size, EXPECTED_CANDIDATES, "Candidate IDs must be unique");
-assert.equal(SRI_001_MANIFEST.permanentQlCount, 0, "Phase 1 discovery must not allocate permanent QLs");
-assert.equal(SRI_001_MANIFEST.frozenSolveModeCount, 0, "Phase 1 discovery must not freeze solve modes");
-assert.ok(SRI_001_MANIFEST.provisionalCandidateCount >= EXPECTED_CANDIDATES, "Later discovery waves may increase the package-wide provisional candidate count, but Phase 1 must remain represented");
-assert.equal(SRI_001_MANIFEST.discoveryWaves.phase1PowerFoundations, EXPECTED_CANDIDATES);
-for (const checkpointId of ["SRI-CP-001", "SRI-CP-002", "SRI-CP-003"] as const) {
-  assert.ok(SRI_001_MANIFEST.activeExecutableDiscoveryCheckpoints.includes(checkpointId), `${checkpointId} must remain executable discovery`);
-}
+assert.equal(SRI_PHASE2_POWER_RELATION_CANDIDATES.length, EXPECTED_PHASE2_CANDIDATES, "Phase 2 must expose all 23 CP004-006 candidates");
+assert.equal(new Set(SRI_PHASE2_POWER_RELATION_CANDIDATES.map((item) => item.candidateId)).size, EXPECTED_PHASE2_CANDIDATES, "Phase 2 candidate IDs must be unique");
+assert.equal(SRI_001_MANIFEST.provisionalCandidateCount, EXPECTED_TOTAL_SRI001_CANDIDATES);
+assert.equal(SRI_001_MANIFEST.discoveryWaves.phase1PowerFoundations, 25);
+assert.equal(SRI_001_MANIFEST.discoveryWaves.phase2PowerRelations, 23);
+assert.equal(SRI_001_MANIFEST.permanentQlCount, 0);
+assert.equal(SRI_001_MANIFEST.frozenSolveModeCount, 0);
+assert.deepEqual(SRI_001_MANIFEST.activeExecutableDiscoveryCheckpoints, ["SRI-CP-001", "SRI-CP-002", "SRI-CP-003", "SRI-CP-004", "SRI-CP-005", "SRI-CP-006"]);
 assert.equal(SRI_001_MANIFEST.downstreamEligibility.questionStudio, false);
 assert.equal(SRI_001_MANIFEST.downstreamEligibility.questionBank, false);
 assert.equal(SRI_001_MANIFEST.downstreamEligibility.tests, false);
@@ -34,27 +34,36 @@ assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.publicPublicationEnabled, false);
 assertSriReleaseLocks();
 
 const expectedCheckpointCounts = new Map([
-  ["SRI-CP-001", 8],
-  ["SRI-CP-002", 11],
-  ["SRI-CP-003", 6],
+  ["SRI-CP-004", 7],
+  ["SRI-CP-005", 9],
+  ["SRI-CP-006", 7],
 ]);
 for (const [checkpointId, expected] of expectedCheckpointCounts) {
-  assert.equal(SRI_PHASE1_POWER_CANDIDATES.filter((item) => item.checkpointId === checkpointId).length, expected, `${checkpointId} candidate count mismatch`);
+  assert.equal(SRI_PHASE2_POWER_RELATION_CANDIDATES.filter((item) => item.checkpointId === checkpointId).length, expected, `${checkpointId} candidate count mismatch`);
 }
 
 let generated = 0;
 const checkpointCounts = new Map<string, number>();
 const candidateStemDiversity = new Map<string, Set<string>>();
 const optionPositions = new Map<string, Set<number>>();
+const answerDiversity = new Map<string, Set<string>>();
 
-for (const descriptor of SRI_PHASE1_POWER_CANDIDATES) {
+for (const descriptor of SRI_PHASE2_POWER_RELATION_CANDIDATES) {
   const stems = new Set<string>();
   const positions = new Set<number>();
+  const answers = new Set<string>();
 
   for (let index = 0; index < SEEDS_PER_CANDIDATE; index += 1) {
-    const seed = `SRI-PHASE1:${descriptor.candidateId}:${index}`;
-    const question = generateSriPhase1PowerCandidate(descriptor.candidateId, seed);
-    const repeat = generateSriPhase1PowerCandidate(descriptor.candidateId, seed);
+    const seed = `SRI-PHASE2:${descriptor.candidateId}:${index}`;
+    let question;
+    let repeat;
+    try {
+      question = generateSriPhase2PowerRelationCandidate(descriptor.candidateId, seed);
+      repeat = generateSriPhase2PowerRelationCandidate(descriptor.candidateId, seed);
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error);
+      throw new Error(`${descriptor.candidateId} failed generation for seed ${seed}: ${detail}`);
+    }
     generated += 1;
 
     assert.deepEqual(repeat, question, `${descriptor.candidateId} is not deterministic for seed ${index}`);
@@ -69,7 +78,9 @@ for (const descriptor of SRI_PHASE1_POWER_CANDIDATES) {
     assert.equal(question.options.filter((option) => option.canonicalKey === question.answer.canonicalKey).length, 1, `${descriptor.candidateId} does not have exactly one correct option`);
     assert.equal(question.options[question.correctIndex]?.canonicalKey, question.answer.canonicalKey);
     assert.equal(question.verification.solverVerifierAgree, true, `${descriptor.candidateId} solver/verifier mismatch`);
+    assert.equal(question.verification.exactlyOneCorrectOption, true);
     assert.equal(question.verification.domainValid, true, `${descriptor.candidateId} generated an inadmissible state`);
+    assert.equal(question.verification.deterministic, true);
     assert.equal(question.proofEvents.some((event) => event.kind === "INDEPENDENT_VERIFY"), true);
     assert.ok(question.stem.trim().length > 8, `${descriptor.candidateId} stem is too short`);
     assert.equal(question.stem.includes("undefined"), false);
@@ -79,33 +90,45 @@ for (const descriptor of SRI_PHASE1_POWER_CANDIDATES) {
     assert.ok(question.explanation.method.trim().length > 0);
     assert.ok(question.explanation.working.length > 0);
     assert.equal(question.explanation.answer, question.answer.text);
-    assert.notEqual(question.explanation.given.trim(), question.stem.trim(), `${descriptor.candidateId} explanation repeats the complete stem`);
+    assert.notEqual(normalize(question.explanation.given), normalize(question.stem), `${descriptor.candidateId} explanation repeats the complete stem`);
     assert.equal(question.options.filter((option) => option.misconceptionId !== null).length, 3, `${descriptor.candidateId} must expose exactly three misconception-backed distractors`);
+
+    if (descriptor.candidateId === "C005-F") {
+      assert.ok(typeof question.state.companionRoot === "string", "C005-F must record its deliberately non-power companion root");
+    }
 
     stems.add(question.stem);
     positions.add(question.correctIndex);
+    answers.add(question.answer.canonicalKey);
     checkpointCounts.set(question.checkpointId, (checkpointCounts.get(question.checkpointId) ?? 0) + 1);
   }
 
   candidateStemDiversity.set(descriptor.candidateId, stems);
   optionPositions.set(descriptor.candidateId, positions);
+  answerDiversity.set(descriptor.candidateId, answers);
   assert.ok(stems.size >= 3, `${descriptor.candidateId} stem pool is too thin: ${stems.size} unique stems in ${SEEDS_PER_CANDIDATE} seeds`);
   assert.ok(positions.size >= 3, `${descriptor.candidateId} correct-option placement is too concentrated: ${[...positions].join(",")}`);
 }
 
-assert.equal(generated, EXPECTED_CANDIDATES * SEEDS_PER_CANDIDATE);
-assert.equal(checkpointCounts.get("SRI-CP-001"), 8 * SEEDS_PER_CANDIDATE);
-assert.equal(checkpointCounts.get("SRI-CP-002"), 11 * SEEDS_PER_CANDIDATE);
-assert.equal(checkpointCounts.get("SRI-CP-003"), 6 * SEEDS_PER_CANDIDATE);
+assert.equal(generated, EXPECTED_PHASE2_CANDIDATES * SEEDS_PER_CANDIDATE);
+assert.equal(checkpointCounts.get("SRI-CP-004"), 7 * SEEDS_PER_CANDIDATE);
+assert.equal(checkpointCounts.get("SRI-CP-005"), 9 * SEEDS_PER_CANDIDATE);
+assert.equal(checkpointCounts.get("SRI-CP-006"), 7 * SEEDS_PER_CANDIDATE);
 
 console.log(JSON.stringify({
   status: "PASS",
   generated,
-  candidateCount: EXPECTED_CANDIDATES,
+  candidateCount: EXPECTED_PHASE2_CANDIDATES,
   seedsPerCandidate: SEEDS_PER_CANDIDATE,
   checkpointCounts: Object.fromEntries(checkpointCounts),
   minUniqueStems: Math.min(...[...candidateStemDiversity.values()].map((set) => set.size)),
   minCorrectOptionPositions: Math.min(...[...optionPositions.values()].map((set) => set.size)),
+  minDistinctAnswers: Math.min(...[...answerDiversity.values()].map((set) => set.size)),
+  sri001ProvisionalCandidateCount: SRI_001_MANIFEST.provisionalCandidateCount,
   permanentQlCount: SRI_001_MANIFEST.permanentQlCount,
   frozenSolveModeCount: SRI_001_MANIFEST.frozenSolveModeCount,
 }, null, 2));
+
+function normalize(value: string): string {
+  return value.trim().replace(/[?.!]+$/g, "").replace(/\s+/g, " ").toLowerCase();
+}

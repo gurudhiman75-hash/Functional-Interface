@@ -45,7 +45,11 @@ function canonicalFallbackDistractors(correct: SriCandidateAnswer): SriDistracto
     const value = BigInt(correct.canonicalKey.slice(2));
     const candidates: readonly [bigint, string][] = [
       [value + 1n, "ARITHMETIC_OFF_BY_ONE"],
-      [value > 1n ? value - 1n : value + 2n, "ARITHMETIC_OFF_BY_ONE"],
+      [value - 1n, "ARITHMETIC_OFF_BY_ONE"],
+      [value + 2n, "ARITHMETIC_OFF_BY_TWO"],
+      [value - 2n, "ARITHMETIC_OFF_BY_TWO"],
+      [value + 3n, "ARITHMETIC_OFF_BY_THREE"],
+      [value - 3n, "ARITHMETIC_OFF_BY_THREE"],
       [value * 2n, "DOUBLE_RESULT"],
       [-value, "SIGN_ERROR"],
     ];
@@ -63,6 +67,10 @@ function canonicalFallbackDistractors(correct: SriCandidateAnswer): SriDistracto
     const candidates = [
       { value: addRational(value, rational(1)), misconceptionId: "ARITHMETIC_OFF_BY_ONE" },
       { value: subtractRational(value, rational(1)), misconceptionId: "ARITHMETIC_OFF_BY_ONE" },
+      { value: addRational(value, rational(2)), misconceptionId: "ARITHMETIC_OFF_BY_TWO" },
+      { value: subtractRational(value, rational(2)), misconceptionId: "ARITHMETIC_OFF_BY_TWO" },
+      { value: addRational(value, rational(3)), misconceptionId: "ARITHMETIC_OFF_BY_THREE" },
+      { value: subtractRational(value, rational(3)), misconceptionId: "ARITHMETIC_OFF_BY_THREE" },
       { value: multiplyRational(value, rational(2)), misconceptionId: "DOUBLE_RESULT" },
       { value: negateRational(value), misconceptionId: "SIGN_ERROR" },
       ...(value.numerator !== 0n ? [{ value: reciprocalRational(value), misconceptionId: "RECIPROCAL_ERROR" }] : []),
