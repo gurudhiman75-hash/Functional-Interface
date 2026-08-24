@@ -214,16 +214,6 @@ export const STA_V41_CONTEXTS: readonly StaV41Context[] = Object.freeze([
     lt("fewer duplicate tickets", "कम दोहराए टिकट", "ਘੱਟ ਦੁਹਰਾਏ ਟਿਕਟ"),
     lt("users seeking technical support", "तकनीकी सहायता चाहने वाले उपयोगकर्ता", "ਤਕਨੀਕੀ ਮਦਦ ਲੈਣ ਵਾਲੇ ਵਰਤੋਂਕਾਰ"),
     lt("duplicate-ticket rate", "दोहराए टिकट की दर", "ਦੁਹਰਾਏ ਟਿਕਟ ਦਰ")),
-
-  ctx("UTILITY-METER", "CROSS_EXAM_DISCOVERY", "Hard", "UTILITY_BILLING",
-    lt("utility customers", "उपयोगिता ग्राहक", "ਯੂਟਿਲਿਟੀ ਗਾਹਕ"),
-    lt("meter-reading disputes", "मीटर रीडिंग विवाद", "ਮੀਟਰ ਰੀਡਿੰਗ ਵਿਵਾਦ"),
-    lt("the billing-service portal", "बिलिंग सेवा पोर्टल", "ਬਿਲਿੰਗ ਸੇਵਾ ਪੋਰਟਲ"),
-    lt("billing disputes caused by unclear readings", "अस्पष्ट रीडिंग से बिलिंग विवाद", "ਅਸਪਸ਼ਟ ਰੀਡਿੰਗ ਕਾਰਨ ਬਿਲਿੰਗ ਵਿਵਾਦ"),
-    lt("timestamped meter photographs", "समय-मुद्रित मीटर फोटो", "ਸਮਾਂ-ਮੋਹਰ ਵਾਲੀਆਂ ਮੀਟਰ ਤਸਵੀਰਾਂ"),
-    lt("fewer reading disputes", "कम रीडिंग विवाद", "ਘੱਟ ਰੀਡਿੰਗ ਵਿਵਾਦ"),
-    lt("customers receiving metered bills", "मीटर वाले बिल पाने वाले ग्राहक", "ਮੀਟਰ ਵਾਲੇ ਬਿੱਲ ਲੈਣ ਵਾਲੇ ਗਾਹਕ"),
-    lt("meter-reading dispute rate", "मीटर रीडिंग विवाद दर", "ਮੀਟਰ ਰੀਡਿੰਗ ਵਿਵਾਦ ਦਰ")),
 ]);
 
 if (STA_V41_CONTEXTS.length !== 18 || new Set(STA_V41_CONTEXTS.map((item) => item.id)).size !== 18) {
