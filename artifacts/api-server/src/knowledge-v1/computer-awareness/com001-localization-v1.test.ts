@@ -1,6 +1,7 @@
 import { strict as assert } from "node:assert";
 
 import { COM001_ENGLISH_FREEZE_AUTHORITY_V1, auditCom001EnglishFreezeV1 } from "./com001-english-freeze-v1";
+import { COM001_EDITORIALLY_APPROVED_FACTS } from "./com001-editorial-review";
 import {
   COM001_LOCALIZATION_AUTHORITY_DRAFT_V1,
   COM001_LOCALIZATION_VERSION_V1,
@@ -92,8 +93,22 @@ for (const qlId of listCom001ReviewQlIds()) {
         false,
       );
 
-      if (qlId === "COM-001-QL-009" && !/एक बाइट|ਇੱਕ ਬਾਈਟ|bit-to-byte/i.test(localized.stem)) {
-        assert.equal(/SI|IEC/u.test(localized.stem), true, `${qlId}/${seed}/${language}: capacity convention missing`);
+      if (qlId === "COM-001-QL-009") {
+        const targetFactId = english.sourceFactIds[0];
+        const targetFact = COM001_EDITORIALLY_APPROVED_FACTS.find(
+          (fact) => fact.factId === targetFactId,
+        );
+        assert.ok(targetFact, `${qlId}/${seed}/${language}: capacity source fact missing`);
+        assert.equal(targetFact.value.kind, "number", `${qlId}/${seed}/${language}: capacity fact not numeric`);
+        if (targetFact.value.kind === "number" && targetFact.value.unit !== "bits") {
+          const label = targetFact.entity.label.en;
+          const expectedConvention = /KiB|MiB|GiB/.test(label) ? "IEC" : "SI";
+          assert.equal(
+            localized.stem.includes(expectedConvention),
+            true,
+            `${qlId}/${seed}/${language}: ${expectedConvention} capacity convention missing`,
+          );
+        }
       }
     }
   }
