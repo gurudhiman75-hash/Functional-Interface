@@ -72,5 +72,8 @@ await runStage("COM-001 human review wave 1 sampler", () =>
 await runStage("COM-001 human review wave 2 sampler", () =>
   import("../knowledge-v1/computer-awareness/com001-human-review-wave2.test")
 );
+await runStage("COM-001 human review wave 3 QL-009 sampler", () =>
+  import("../knowledge-v1/computer-awareness/com001-human-review-wave3.test")
+);
 
 console.log("Question Studio content engine foundation suite passed.");
