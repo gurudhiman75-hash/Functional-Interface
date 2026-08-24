@@ -4,7 +4,7 @@ import {
   generateSea002Cp007ProductionCaselet,
   independentlySolveSea002Cp007Caselet,
   type Sea002Cp007CandidateAuthorityKey,
-} from "./production-caselet-v1.ts";
+} from "./production-caselet-v2.ts";
 import { renderSea002Cp007TeacherExplanation } from "./teacher-explanation-v1.ts";
 
 const AUTHORITIES = ["CP007-AUTH-01", "CP007-AUTH-02", "CP007-AUTH-03", "CP007-AUTH-04"] as const satisfies readonly Sea002Cp007CandidateAuthorityKey[];
@@ -13,6 +13,7 @@ let answerCoverageChecks = 0;
 let structureChecks = 0;
 let constructionChecks = 0;
 let querySpecificChecks = 0;
+let auth01InferenceChecks = 0;
 
 for (const authorityKey of AUTHORITIES) {
   for (let index = 0; index < 20; index += 1) {
@@ -31,27 +32,32 @@ for (const authorityKey of AUTHORITIES) {
     assert.equal(explanation.includes("settles as P1:"), false);
     assert.ok(explanation.startsWith("Method:"));
     assert.ok(explanation.split("\n").length >= 3);
-    structureChecks += 8;
+    assert.ok(/[↑↓]/u.test(explanation));
+    structureChecks += 9;
     answerCoverageChecks += 1;
 
     if (authorityKey === "CP007-AUTH-01") {
-      const direct = explanation.includes("match the reference person and direction");
-      if (direct) {
-        assert.ok(explanation.includes("same person's"));
-        assert.ok(explanation.includes("clue itself answers the question"));
-        assert.equal(explanation.includes("Final arrangement"), false);
-        querySpecificChecks += 4;
-      } else {
-        assert.ok(explanation.includes("Facing chain:"));
-        assert.match(explanation, /faces (?:north|south), so [A-Za-z]+'s (?:left|right) is toward the (?:left|right) side of the page/iu);
-        assert.ok(explanation.includes("row blocks:"));
-        assert.ok(explanation.includes("Final arrangement (left to right; ↑ = north, ↓ = south):"));
-        assert.ok(explanation.includes("Position  | 1"));
-        assert.ok(explanation.includes("Upper row |"));
-        assert.ok(explanation.includes("Lower row |"));
-        constructionChecks += 6;
-        querySpecificChecks += 1;
-      }
+      const reference = caselet.question.match(/\bof ([A-Za-z]+)\?$/u)?.[1];
+      assert.ok(reference);
+      const directPair = caselet.clues.some((clue) =>
+        clue.kind === "SAME_ROW_OFFSET"
+        && ((clue.subject === reference && clue.reference === caselet.answer)
+          || (clue.subject === caselet.answer && clue.reference === reference)),
+      );
+      assert.equal(directPair, false, `${caselet.caseletId} must not ask a directly clued neighbour pair.`);
+      assert.equal(explanation.includes("clue itself answers the question"), false);
+      assert.equal(explanation.includes("match the reference person and direction"), false);
+      assert.ok(explanation.includes("Facing chain:"));
+      assert.match(explanation, /faces (?:north|south), so [A-Za-z]+'s (?:left|right) is toward the (?:left|right) side of the page/iu);
+      assert.ok(explanation.includes("row blocks:"));
+      assert.ok(explanation.includes("Final arrangement (left to right; ↑ = north, ↓ = south):"));
+      assert.ok(explanation.includes("Position  | 1"));
+      assert.ok(explanation.includes("Upper row |"));
+      assert.ok(explanation.includes("Lower row |"));
+      assert.ok(explanation.includes("point of view"));
+      constructionChecks += 7;
+      querySpecificChecks += 4;
+      auth01InferenceChecks += 1;
     }
 
     if (authorityKey === "CP007-AUTH-02") {
@@ -93,11 +99,13 @@ for (const authorityKey of AUTHORITIES) {
   }
 }
 
-console.log("PASS_SEA002_CP007_ENGLISH_SURFACE_V3_CONSTRUCTION_TEACHING");
+assert.equal(auth01InferenceChecks, 20);
+console.log("PASS_SEA002_CP007_ENGLISH_SURFACE_V4_NON_DIRECT_CONSTRUCTION");
 console.log("teacher explanations", surfaces);
 console.log("answer coverage checks", answerCoverageChecks);
 console.log("structure checks", structureChecks);
 console.log("construction teaching checks", constructionChecks);
 console.log("query-specific checks", querySpecificChecks);
+console.log("AUTH01 inferred-query checks", auth01InferenceChecks);
 console.log("learner column residue", 0);
 console.log("English approval remains", false);
