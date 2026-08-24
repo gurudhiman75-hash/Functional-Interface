@@ -55,6 +55,15 @@ const BANNED_EDITORIAL_TEXT = [
   /\b(?:1th|2th|3th)\b/,
   /\b1\\sqrt/,
 ];
+const BANNED_GIVEN_PROSE = [
+  /^The supplied relation is (?:If|Given|Using)\b/i,
+  /^The supplied information is Write\b/i,
+  /^The supplied condition is rationalising\b/i,
+  /\band find A[+-]B\b/i,
+  /\bby using a common base\b/i,
+  /\bbetween (?:two )?consecutive integers without decimals\b/i,
+  /\binto simplest surd form\b/i,
+];
 
 assert.equal(SRI_ENGLISH_REVIEW_READY_GROUPS_R1.length, EXPECTED_READY_GROUPS, "English R1 must expose exactly 58 source-supported retained groups");
 assert.equal(SRI_ENGLISH_REVIEW_HOLD_GROUPS_R1.length, 1, "English R1 must keep exactly one unresolved hold outside the review-ready set");
@@ -101,6 +110,9 @@ for (const member of SRI_ENGLISH_REVIEW_MEMBERS_R1) {
     assert.equal(question.options.filter((option) => option.misconceptionId !== null).length, 3);
     if (GENERIC_GIVEN_FALLBACKS.has(question.explanation.given)) {
       genericGivenFallbackFailures.push(`${member.memberCandidateId} seed=${seedIndex}: ${question.stem}`);
+    }
+    for (const pattern of BANNED_GIVEN_PROSE) {
+      assert.equal(pattern.test(question.explanation.given), false, `${member.memberCandidateId} has mechanical Given prose: ${question.explanation.given}`);
     }
 
     const learnerText = [
