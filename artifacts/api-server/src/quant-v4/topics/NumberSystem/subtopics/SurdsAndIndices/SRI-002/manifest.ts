@@ -1,14 +1,15 @@
 export const SRI_002_MANIFEST = {
   packageId: "SRI-002",
   displayName: "Surds, Radicals & Rationalisation",
-  status: "DISCOVERY_OPEN_PHASE_3_SURD_FOUNDATIONS",
+  status: "DISCOVERY_OPEN_PHASE_4_ADVANCED_SURDS",
   canonicalCheckpoints: ["SRI-CP-007", "SRI-CP-008", "SRI-CP-009", "SRI-CP-010", "SRI-CP-011", "SRI-CP-012"],
   permanentQlCount: 0,
   frozenSolveModeCount: 0,
-  activeExecutableDiscoveryCheckpoints: ["SRI-CP-007", "SRI-CP-008", "SRI-CP-009"],
-  provisionalCandidateCount: 23,
+  activeExecutableDiscoveryCheckpoints: ["SRI-CP-007", "SRI-CP-008", "SRI-CP-009", "SRI-CP-010", "SRI-CP-011", "SRI-CP-012"],
+  provisionalCandidateCount: 43,
   discoveryWaves: {
     phase3SurdFoundations: 23,
+    phase4SurdAdvanced: 20,
   },
   legacyEvidence: {
     packageId: "NS-SURD-001",
