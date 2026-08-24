@@ -1,8 +1,10 @@
 import { strict as assert } from "node:assert";
 
+import { getGeneratedItemApprovalDisposition } from "../../lib/admin-question-studio-approval-policy";
 import { COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1 } from "../../knowledge-v1/computer-awareness/com001-hi-pa-localization-freeze-v1";
 import { listCom001ReviewQlIds } from "../../knowledge-v1/computer-awareness/com001-review-synthesis";
 import {
+  COM001_QUESTION_BANK_STATUS,
   COM001_QUESTION_STUDIO_PACKAGE_ID,
   COM001_QUESTION_STUDIO_RUNTIME_MODE,
   COM001_REVIEW_ONLY_PACKAGE,
@@ -12,10 +14,12 @@ import {
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.enabled, true);
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.engineId, "knowledge-v1");
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.runtimeMode, "review-only");
+assert.equal(COM001_REVIEW_ONLY_PACKAGE.questionBankStatus, "NOT_STORED");
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.publiclyPublishable, false);
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.reviewOnly, true);
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.reviewRunPersistenceAllowed, true);
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.canonicalQuestionPersistenceAllowed, false);
+assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.questionBankStatus, "NOT_STORED");
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.questionBankWritable, false);
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.testEligible, false);
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.automaticStudentPublication, false);
@@ -29,6 +33,7 @@ const qlIds = listCom001ReviewQlIds();
 assert.equal(qlIds.length, 9);
 
 let auditedQuestions = 0;
+let reviewOnlyApprovalChecks = 0;
 for (const qlId of qlIds) {
   for (const language of ["en", "hi", "pa"] as const) {
     const request = {
@@ -48,6 +53,7 @@ for (const qlId of qlIds) {
     assert.equal(first.generationContext?.reviewOnly, true);
     assert.equal(first.generationContext?.difficultyFilterApplied, false);
     assert.equal(first.generationContext?.canonicalQuestionPersistenceAllowed, false);
+    assert.equal(first.generationContext?.questionBankStatus, "NOT_STORED");
     assert.equal(first.generationContext?.questionBankWritable, false);
     assert.equal(first.generationContext?.testEligible, false);
     assert.equal(first.generationContext?.publiclyPublishable, false);
@@ -72,10 +78,16 @@ for (const qlId of qlIds) {
       assert.equal(question.options[question.correctIndex], question.canonicalAnswer);
       assert.equal(question.correct, question.correctIndex);
       assert.equal(question.text, question.stem);
+      assert.equal(question.questionBankStatus, COM001_QUESTION_BANK_STATUS);
+      assert.equal(question.questionBankWritable, false);
+      assert.equal(question.testEligible, false);
+      assert.equal(question.publiclyPublishable, false);
+      assert.equal(question.automaticStudentPublication, false);
       assert.equal(question.questionStudioReview.registrationStatus, "REVIEW_ONLY_REGISTERED");
       assert.equal(question.questionStudioReview.runtimeMode, "review-only");
       assert.equal(question.questionStudioReview.reviewRunPersistenceAllowed, true);
       assert.equal(question.questionStudioReview.canonicalQuestionPersistenceAllowed, false);
+      assert.equal(question.questionStudioReview.questionBankStatus, "NOT_STORED");
       assert.equal(question.questionStudioReview.questionBankWritable, false);
       assert.equal(question.questionStudioReview.testEligible, false);
       assert.equal(question.questionStudioReview.publiclyPublishable, false);
@@ -85,6 +97,10 @@ for (const qlId of qlIds) {
         question.questionStudioReview.localizationCombinedFingerprint,
         COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1.fingerprints.combinedFingerprint,
       );
+      const disposition = getGeneratedItemApprovalDisposition(question);
+      assert.equal(disposition.mode, "review_only");
+      assert.match(String(disposition.reason), /disables Question Bank storage/);
+      reviewOnlyApprovalChecks += 1;
       assert.equal(question.sourceFactIds.includes("com001-sram-layer"), false);
       assert.equal(
         question.sourceFactIds.some((factId: string) => /windows-pagefile|windows-paging/i.test(factId)),
@@ -99,6 +115,7 @@ for (const qlId of qlIds) {
 }
 
 assert.equal(auditedQuestions, 1080);
+assert.equal(reviewOnlyApprovalChecks, 1080);
 
 const mixedRequest = {
   engineId: "knowledge-v1" as const,
