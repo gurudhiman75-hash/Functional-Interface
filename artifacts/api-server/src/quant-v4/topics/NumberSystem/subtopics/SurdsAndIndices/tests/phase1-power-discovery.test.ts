@@ -12,8 +12,8 @@ const EXPECTED_CANDIDATES = 25;
 
 assert.equal(SRI_PHASE1_POWER_CANDIDATES.length, EXPECTED_CANDIDATES, "Phase 1 must expose all 25 provisional CP001-003 candidates");
 assert.equal(new Set(SRI_PHASE1_POWER_CANDIDATES.map((item) => item.candidateId)).size, EXPECTED_CANDIDATES, "Candidate IDs must be unique");
-assert.equal(SRI_001_MANIFEST.permanentQlCount, 0, "Phase 1 discovery must not allocate permanent QLs");
-assert.equal(SRI_001_MANIFEST.frozenSolveModeCount, 0, "Phase 1 discovery must not freeze solve modes");
+assert.equal(SRI_001_MANIFEST.permanentQlCount, 29, "Phase 7 must preserve the 29 allocated SRI-001 permanent identities while Phase 1 discovery remains reproducible");
+assert.equal(SRI_001_MANIFEST.frozenSolveModeCount, 0, "Permanent solve modes must remain unfrozen during Phase 7 review");
 assert.ok(SRI_001_MANIFEST.provisionalCandidateCount >= EXPECTED_CANDIDATES, "Later discovery waves may increase the package-wide provisional candidate count, but Phase 1 must remain represented");
 assert.equal(SRI_001_MANIFEST.discoveryWaves.phase1PowerFoundations, EXPECTED_CANDIDATES);
 for (const checkpointId of ["SRI-CP-001", "SRI-CP-002", "SRI-CP-003"] as const) {
@@ -23,7 +23,7 @@ assert.equal(SRI_001_MANIFEST.downstreamEligibility.questionStudio, false);
 assert.equal(SRI_001_MANIFEST.downstreamEligibility.questionBank, false);
 assert.equal(SRI_001_MANIFEST.downstreamEligibility.tests, false);
 assert.equal(SRI_001_MANIFEST.downstreamEligibility.public, false);
-assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 0);
+assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 58);
 assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 0);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.discoveryOpen, true);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionStudioDiscoverable, false);
