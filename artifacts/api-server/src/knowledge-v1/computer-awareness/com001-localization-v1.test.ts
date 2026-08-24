@@ -8,7 +8,10 @@ import {
 } from "./com001-localization-v1";
 import { generateCom001ReviewQuestion, listCom001ReviewQlIds } from "./com001-review-synthesis";
 
-const DEVANAGARI = /[\u0900-\u097F]/u;
+// U+0964/U+0965 danda punctuation is shared in Indic prose, including Punjabi.
+// Exclude those punctuation code points so the leakage audit tests Devanagari
+// script content rather than shared sentence punctuation.
+const DEVANAGARI = /[\u0900-\u0963\u0966-\u097F]/u;
 const GURMUKHI = /[\u0A00-\u0A7F]/u;
 const FORBIDDEN_ENGLISH_PROSE = /\b(?:Which|Identify|Consider|Therefore|because|classified as|correct answer|main function|main purpose|satisfies all the given conditions|Which of the above statements|uses .* storage technology)\b/iu;
 
