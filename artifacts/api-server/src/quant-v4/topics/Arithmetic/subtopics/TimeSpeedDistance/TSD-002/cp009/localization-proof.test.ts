@@ -41,8 +41,14 @@ for (const question of [...TSD_CP009_RENDERED_HINDI_QUESTIONS, ...TSD_CP009_REND
   assert(!/\d+\/\d+\s*(?:किमी|ਕਿਮੀ)/.test(question.answer), `${question.locale}/${question.familyId}: fractional localized answer leaked`);
 }
 
-assert(TSD_CP009_RENDERED_HINDI_QUESTIONS.every((question) => !/[\u0A00-\u0A7F]/.test(question.stem)), "Hindi stem contains Gurmukhi leakage");
-assert(TSD_CP009_RENDERED_PUNJABI_QUESTIONS.every((question) => !/[\u0900-\u097F]/.test(question.stem)), "Punjabi stem contains Devanagari leakage");
+for (const question of TSD_CP009_RENDERED_HINDI_QUESTIONS) {
+  const match = question.stem.match(/[\u0A00-\u0A7F]/);
+  assert(!match, `Hindi/${question.familyId}: Gurmukhi leakage '${match?.[0] ?? ""}'`);
+}
+for (const question of TSD_CP009_RENDERED_PUNJABI_QUESTIONS) {
+  const match = question.stem.match(/[\u0900-\u097F]/);
+  assert(!match, `Punjabi/${question.familyId}: Devanagari leakage '${match?.[0] ?? ""}' U+${match ? match[0].codePointAt(0)?.toString(16).toUpperCase() : ""}`);
+}
 assert(TSD_CP009_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-111").every((question) => /ऊपरी सिरे/.test(question.stem)), "Hindi QL111 upstream-end anchor missing");
 assert(TSD_CP009_RENDERED_PUNJABI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-111").every((question) => /ਉਪਰਲੇ ਸਿਰੇ/.test(question.stem)), "Punjabi QL111 upstream-end anchor missing");
 assert(TSD_CP009_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-113").every((question) => /मुड़|दिशा बदल/.test(question.stem)), "Hindi QL113 turnaround event missing");
