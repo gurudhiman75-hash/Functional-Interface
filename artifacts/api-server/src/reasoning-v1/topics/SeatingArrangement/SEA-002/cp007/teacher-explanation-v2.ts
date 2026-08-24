@@ -42,19 +42,21 @@ function renderRowDiagram(
     .filter((item) => item.seat.row === row)
     .sort((left, right) => left.seat.position - right.seat.position)
     .map((item) => {
-      const value = `P${item.seat.position + 1} ${item.id}${arrow(item.facing)}`;
+      const value = `${item.id}${arrow(item.facing)}`;
       return highlighted.has(item.id) ? `[${value}]` : value;
     })
     .join(" | ");
-  return `${row === "TOP" ? "Upper" : "Lower"}: ${seats}`;
+  return `${row === "TOP" ? "Upper row" : "Lower row"}: ${seats}`;
 }
 
 function renderDiagram(
   caselet: Sea002Cp007ProductionCaselet,
   highlight: readonly string[] = [],
 ) {
+  const positions = Array.from({ length: caselet.width }, (_, index) => String(index + 1));
   return [
-    "Arrangement (our left → right):",
+    "Final arrangement (our left → right):",
+    `Position : ${positions.join(" | ")}`,
     renderRowDiagram(caselet, "TOP", highlight),
     renderRowDiagram(caselet, "BOTTOM", highlight),
     "↑ = north, ↓ = south",
@@ -246,9 +248,9 @@ function renderAuthority01(caselet: Sea002Cp007ProductionCaselet): string {
     `2) Build ${referenceId}'s row from the position clues:`,
     ...sameRowPlacementLines(caselet, reference.seat.row),
     ...alignmentLines(caselet),
-    renderRowDiagram(caselet, reference.seat.row, [referenceId, caselet.answer]),
+    renderDiagram(caselet, [referenceId, caselet.answer]),
     `3) Read left/right from ${referenceId}'s point of view. ${pointOfViewRule(referenceId, reference.facing)}`,
-    `${referenceId} is at P${reference.seat.position + 1}; one place to ${referenceId}'s ${direction.toLowerCase()} is P${answer.seat.position + 1}, occupied by ${caselet.answer}.`,
+    `${referenceId} is at position ${reference.seat.position + 1}; one place to ${referenceId}'s ${direction.toLowerCase()} is position ${answer.seat.position + 1}, occupied by ${caselet.answer}.`,
     `Answer: ${caselet.answer}.`,
   ].join("\n");
 }
@@ -302,7 +304,7 @@ function renderAuthority04(caselet: Sea002Cp007ProductionCaselet): string {
     ...sameRowPlacementLines(caselet, "BOTTOM"),
     ...alignmentLines(caselet),
     renderDiagram(caselet, [referenceId, caselet.answer]),
-    `4) ${referenceId} is at P${reference.seat.position + 1}. One place to ${referenceId}'s ${direction.toLowerCase()} is P${answer.seat.position + 1}; diagonal means take that position in the other row. ${caselet.answer} is there.`,
+    `4) ${referenceId} is at position ${reference.seat.position + 1}. One place to ${referenceId}'s ${direction.toLowerCase()} is position ${answer.seat.position + 1}; diagonal means take that position in the other row. ${caselet.answer} is there.`,
     `Answer: ${caselet.answer}.`,
   ].join("\n");
 }
