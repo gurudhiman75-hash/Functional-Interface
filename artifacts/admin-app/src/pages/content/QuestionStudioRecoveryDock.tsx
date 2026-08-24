@@ -128,6 +128,7 @@ export function QuestionStudioRecoveryDock() {
           <Input value={reason} onChange={(event) => setReason(event.target.value)} placeholder="Reason for regeneration" />
           <Button
             type="button"
+            aria-label="Retry all needs fix"
             onClick={() => void regenerate(allNeedsFixIds, 'Retry all needs-fix items')}
             disabled={!canRegenerate || busy || allNeedsFixIds.length === 0}
           >
