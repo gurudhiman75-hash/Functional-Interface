@@ -43,12 +43,12 @@ assert.equal(localCapability.automaticStudentPublication, false);
 
 const sharedCapability = listQuestionStudioPackages().find((entry: any) => entry.packageId === "NUM-002");
 assert.ok(sharedCapability, "NUM-002 must be discoverable from the shared Question Studio capability list");
-assert.deepEqual(sharedCapability.cpIds, ["NUM-CP-008", "NUM-CP-009", "NUM-CP-010"]);
+assert.deepEqual(sharedCapability.cpIds, ["NUM-CP-008", "NUM-CP-009", "NUM-CP-010", "NUM-CP-011"]);
 assert.deepEqual(sharedCapability.supportedLanguages, ["en", "hi", "pa"]);
-assert.equal(sharedCapability.permanentQlCount, 47);
-assert.equal(sharedCapability.permanentQlIds.length, 47);
+assert.equal(sharedCapability.permanentQlCount, 60);
+assert.equal(sharedCapability.permanentQlIds.length, 60);
 assert.equal(sharedCapability.permanentQlIds[0], "NUM-QL-166");
-assert.equal(sharedCapability.permanentQlIds.at(-1), "NUM-QL-212");
+assert.equal(sharedCapability.permanentQlIds.at(-1), "NUM-QL-225");
 assert.equal(sharedCapability.questionBankWritable, false);
 assert.equal(sharedCapability.testEligible, false);
 assert.equal(sharedCapability.publiclyPublishable, false);
@@ -63,22 +63,8 @@ for (const qlId of NUM_CP009_QUESTION_STUDIO_QL_IDS) {
   for (const language of languages) {
     for (let sample = 1; sample <= 8; sample += 1) {
       const seed = `cp009-question-studio-proof:${qlId}:${language}:${sample}`;
-      const first = await generateNumCp009QuestionStudioBatch({
-        packageId: "NUM-002",
-        canonicalProblemId: "NUM-CP-009",
-        questionLanguageId: qlId,
-        language,
-        seed,
-        count: 1,
-      });
-      const second = await generateNumCp009QuestionStudioBatch({
-        packageId: "NUM-002",
-        canonicalProblemId: "NUM-CP-009",
-        questionLanguageId: qlId,
-        language,
-        seed,
-        count: 1,
-      });
+      const first = await generateNumCp009QuestionStudioBatch({ packageId: "NUM-002", canonicalProblemId: "NUM-CP-009", questionLanguageId: qlId, language, seed, count: 1 });
+      const second = await generateNumCp009QuestionStudioBatch({ packageId: "NUM-002", canonicalProblemId: "NUM-CP-009", questionLanguageId: qlId, language, seed, count: 1 });
       const pkg = first.questionPackages[0]!;
       const question = first.questions[0]!;
 
@@ -128,7 +114,6 @@ for (const qlId of NUM_CP009_QUESTION_STUDIO_QL_IDS) {
       } else {
         assert.equal(pkg.traceability.englishAuthorityStatus, "ENGLISH_FROZEN");
       }
-
       packages += 1;
     }
   }
@@ -136,14 +121,7 @@ for (const qlId of NUM_CP009_QUESTION_STUDIO_QL_IDS) {
 
 for (const language of languages) {
   for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
-    const result = await generateNumCp009QuestionStudioBatch({
-      packageId: "NUM-002",
-      canonicalProblemId: "NUM-CP-009",
-      language,
-      difficulty,
-      seed: `cp009-difficulty-proof:${language}:${difficulty}`,
-      count: 12,
-    });
+    const result = await generateNumCp009QuestionStudioBatch({ packageId: "NUM-002", canonicalProblemId: "NUM-CP-009", language, difficulty, seed: `cp009-difficulty-proof:${language}:${difficulty}`, count: 12 });
     assert.equal(result.questions.length, 12);
     for (const question of result.questions) {
       assert.equal(question.difficulty, difficulty, `${language}/${difficulty}: difficulty filter drift`);
@@ -155,16 +133,7 @@ for (const language of languages) {
 }
 
 for (const language of languages) {
-  const shared = await generateSharedQuestionStudioQuestion({
-    packageId: "NUM-002",
-    canonicalProblemId: "NUM-CP-009",
-    topic: "Arithmetic",
-    subtopic: "Number System",
-    language,
-    difficulty: "Medium",
-    seed: `cp009-shared-facade:${language}`,
-    count: 5,
-  });
+  const shared = await generateSharedQuestionStudioQuestion({ packageId: "NUM-002", canonicalProblemId: "NUM-CP-009", topic: "Arithmetic", subtopic: "Number System", language, difficulty: "Medium", seed: `cp009-shared-facade:${language}`, count: 5 });
   assert.equal(shared.questions.length, 5);
   assert.equal(shared.generationContext.packageId, "NUM-002");
   assert.equal(shared.generationContext.canonicalProblemId, "NUM-CP-009");
@@ -178,25 +147,12 @@ for (const language of languages) {
   }
 }
 
-// Existing package-only NUM-002 behavior remains routed to CP008.
-const packageOnlyFallback = await generateSharedQuestionStudioQuestion({
-  packageId: "NUM-002",
-  language: "en",
-  difficulty: "Medium",
-  seed: "cp009-prove-cp008-package-only-fallback",
-  count: 1,
-});
+const packageOnlyFallback = await generateSharedQuestionStudioQuestion({ packageId: "NUM-002", language: "en", difficulty: "Medium", seed: "cp009-prove-cp008-package-only-fallback", count: 1 });
 assert.equal(packageOnlyFallback.generationContext.canonicalProblemId, "NUM-CP-008");
 assert.equal(packageOnlyFallback.questions[0]?.canonicalProblemId, "NUM-CP-008");
 
 await assert.rejects(
-  () => generateNumCp009QuestionStudioBatch({
-    packageId: "NUM-002",
-    canonicalProblemId: "NUM-CP-009",
-    questionLanguageId: "NUM-QL-184",
-    language: "en",
-    seed: "bad-owner",
-  }),
+  () => generateNumCp009QuestionStudioBatch({ packageId: "NUM-002", canonicalProblemId: "NUM-CP-009", questionLanguageId: "NUM-QL-184", language: "en", seed: "bad-owner" }),
   /not owned by NUM-CP-009/u,
 );
 
@@ -216,5 +172,5 @@ console.log(JSON.stringify({
   questionBankWritable: false,
   testEligible: false,
   publiclyPublishable: false,
-  nextAvailableQl: "NUM-QL-213",
+  nextAvailableQl: "NUM-QL-226",
 }, null, 2));
