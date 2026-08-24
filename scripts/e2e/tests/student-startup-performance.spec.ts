@@ -117,7 +117,7 @@ test.describe("CP05 route-scoped startup runtime", () => {
     const counts: CatalogRequestCounts = { categories: 0, subcategories: 0, tests: 0 };
     await installFixtures(page, counts);
     await page.goto("/exams");
-    await expect(page.getByRole("heading", { name: "Explore the catalog hierarchy" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Explore Exams", exact: true })).toBeVisible();
     await page.waitForLoadState("networkidle");
 
     expect(counts.categories).toBeGreaterThan(0);
