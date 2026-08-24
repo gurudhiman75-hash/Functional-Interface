@@ -21,6 +21,7 @@ assert.ok(samples.every((q) => q.humanReviewV2.status === "REMEDIATED_CANDIDATE"
 assert.ok(samples.every((q) => q.options.length === 4 && new Set(q.options).size === 4));
 assert.ok(samples.every((q) => !/\bMiB\b|\bGiB\b|\bKiB\b/u.test(q.stem)));
 assert.ok(samples.every((q) => !/traditional|competitive-exam|SI|IEC/iu.test(q.stem)));
+assert.ok(samples.every((q) => !/stored separately|not being conflated|canonical|authority|generator/iu.test(q.explanation)));
 assert.ok(samples.every((q) => q.sourceIds.every((id) => id === "NIST-CSRC-BYTE" || evidenceIds.has(id))));
 assert.ok(samples.filter((q) => q.sourceFactIds.includes("com001-exam-mb-kb")).every((q) => q.sourceIds.includes("SSC-CHSL-2023-MB-1024KB")));
 
