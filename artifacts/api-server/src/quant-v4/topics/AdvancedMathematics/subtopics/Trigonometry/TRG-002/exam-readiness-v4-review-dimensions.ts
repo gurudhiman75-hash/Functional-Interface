@@ -47,6 +47,13 @@ function textContainsLength(text: string, label: string) {
   return normalizeMathText(text).includes(normalizeMathText(label));
 }
 
+function exactLengthMention(text: string, label: string) {
+  const normalizedText = normalizeMathText(text);
+  const normalizedLabel = normalizeMathText(label);
+  const escaped = normalizedLabel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(?<![\\d√/])${escaped}(?!\\d)`, "u").test(normalizedText);
+}
+
 function endpointKey(a: string, b: string) {
   return [a, b].sort().join("::");
 }
@@ -151,7 +158,7 @@ function numericDistance(statePoints: Map<string, AnyRecord>, fromPointId: strin
 }
 
 function numericMeterLiterals(stem: string): MeterLiteral[] {
-  return [...stem.matchAll(/(?<![\d.])(\d+(?:\.\d+)?)\s*m\b/g)].map((match) => ({
+  return [...stem.matchAll(/(?<![\d./√])(\d+(?:\.\d+)?)\s*m\b/g)].map((match) => ({
     value: Number(match[1]),
     label: `${match[1]} m`,
   }));
@@ -244,13 +251,15 @@ export function applyTrg002V4ReviewDimensions(args: {
   if (reqPair) add(reqPair.fromPointId, reqPair.toPointId, requestedLabel(requested.kind, unit), "REQUESTED_UNKNOWN");
 
   // Object/eye heights are shown when they are stated givens, or when the worked solution
-  // explicitly uses the derived height as a helper quantity.
+  // explicitly uses the derived height as a helper quantity. Exact stem matching handles
+  // integers, fractions and surds without reducing them to floating-point literals.
   for (const object of state.verticalObjects ?? []) {
     const key = endpointKey(object.basePointId, object.topPointId);
     if (key === reqKey) continue;
     const label = formatLength(object.height, unit);
     const literal = matchingLiteral(exactToNumber(object.height), stemMeters);
-    if (literal) add(object.basePointId, object.topPointId, literal.label, "GIVEN_OBJECT_HEIGHT");
+    if (exactLengthMention(englishStem, label)) add(object.basePointId, object.topPointId, label, "GIVEN_OBJECT_HEIGHT");
+    else if (literal) add(object.basePointId, object.topPointId, literal.label, "GIVEN_OBJECT_HEIGHT");
     else if (textContainsLength(englishExplanationText, label)) add(object.basePointId, object.topPointId, label, "DERIVED_HELPER_OBJECT_HEIGHT");
   }
 
@@ -260,7 +269,8 @@ export function applyTrg002V4ReviewDimensions(args: {
     if (key === reqKey) continue;
     const label = formatLength(observer.eyeHeight, unit);
     const literal = matchingLiteral(exactToNumber(observer.eyeHeight), stemMeters);
-    if (literal) add(observer.groundPointId, observer.eyePointId, literal.label, "GIVEN_EYE_HEIGHT");
+    if (exactLengthMention(englishStem, label)) add(observer.groundPointId, observer.eyePointId, label, "GIVEN_EYE_HEIGHT");
+    else if (literal) add(observer.groundPointId, observer.eyePointId, literal.label, "GIVEN_EYE_HEIGHT");
     else if (textContainsLength(englishExplanationText, label)) add(observer.groundPointId, observer.eyePointId, label, "DERIVED_HELPER_EYE_HEIGHT");
   }
 
@@ -268,6 +278,33 @@ export function applyTrg002V4ReviewDimensions(args: {
   // ground segment rather than a dedicated segment between the two observation points.
   const groundRoles = new Set(["GROUND", "OBJECT_BASE", "OBSERVER_GROUND", "SHADOW_TIP", "ANCHOR", "TOUCH_POINT", "BREAK_POINT"]);
   const groundPoints = (state.points ?? []).filter((point: AnyRecord) => diagramPointIds.has(point.id) && groundRoles.has(point.role));
+
+  // First preserve exact canonical labels appearing in the stem, including surds/fractions.
+  const exactHorizontalByLabel = new Map<string, Array<{ score: number; fromPointId: string; toPointId: string }>>();
+  for (let left = 0; left < groundPoints.length; left += 1) {
+    for (let right = left + 1; right < groundPoints.length; right += 1) {
+      const from = groundPoints[left]!;
+      const to = groundPoints[right]!;
+      const key = endpointKey(from.id, to.id);
+      if (key === reqKey || seen.has(key)) continue;
+      const distance = pointExactHorizontalDistance(statePoints, from.id, to.id);
+      if (!distance) continue;
+      const label = formatLength(distance, unit);
+      if (!exactLengthMention(englishStem, label)) continue;
+      const bothObservers = from.role === "OBSERVER_GROUND" && to.role === "OBSERVER_GROUND";
+      const oneObserver = from.role === "OBSERVER_GROUND" || to.role === "OBSERVER_GROUND";
+      const candidates = exactHorizontalByLabel.get(label) ?? [];
+      candidates.push({ score: bothObservers ? 0 : oneObserver ? 1 : 2, fromPointId: from.id, toPointId: to.id });
+      exactHorizontalByLabel.set(label, candidates);
+    }
+  }
+  for (const [label, candidates] of exactHorizontalByLabel) {
+    candidates.sort((a, b) => a.score - b.score || a.fromPointId.localeCompare(b.fromPointId) || a.toPointId.localeCompare(b.toPointId));
+    const best = candidates[0];
+    if (best) add(best.fromPointId, best.toPointId, label, "GIVEN_HORIZONTAL_SEPARATION");
+  }
+
+  // Decimal/integer fallback tolerates editorial formatting variants.
   for (const literal of stemMeters) {
     const candidates: Array<{ score: number; fromPointId: string; toPointId: string }> = [];
     for (let left = 0; left < groundPoints.length; left += 1) {
@@ -295,7 +332,8 @@ export function applyTrg002V4ReviewDimensions(args: {
     if (key === reqKey) continue;
     const label = formatLength(movement.distance, unit);
     const literal = matchingLiteral(exactToNumber(movement.distance), stemMeters);
-    if (literal) add(movement.fromGroundPointId, movement.toGroundPointId, literal.label, "GIVEN_MOVEMENT");
+    if (exactLengthMention(englishStem, label)) add(movement.fromGroundPointId, movement.toGroundPointId, label, "GIVEN_MOVEMENT");
+    else if (literal) add(movement.fromGroundPointId, movement.toGroundPointId, literal.label, "GIVEN_MOVEMENT");
     else if (textContainsLength(englishExplanationText, label)) add(movement.fromGroundPointId, movement.toGroundPointId, label, "DERIVED_HELPER_MOVEMENT");
   }
 
@@ -310,8 +348,10 @@ export function applyTrg002V4ReviewDimensions(args: {
   for (const [name, [fromPointId, toPointId]] of Object.entries(specialPairs)) {
     const value = measurements[name];
     if (!value) continue;
+    const label = formatLength(value, unit);
     const literal = matchingLiteral(exactToNumber(value), stemMeters);
-    if (literal) add(fromPointId, toPointId, literal.label, `GIVEN_${name.toUpperCase().replaceAll("-", "_")}`);
+    if (exactLengthMention(englishStem, label)) add(fromPointId, toPointId, label, `GIVEN_${name.toUpperCase().replaceAll("-", "_")}`);
+    else if (literal) add(fromPointId, toPointId, literal.label, `GIVEN_${name.toUpperCase().replaceAll("-", "_")}`);
   }
 
   // Given ladder/wire/sight-line lengths are not axis-aligned, so match their canonical
