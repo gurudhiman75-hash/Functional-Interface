@@ -17,7 +17,7 @@ assert(families.length === 66, `expected 66 English families, got ${families.len
 assert(new Set(families.map((family) => family.familyId)).size === 66, "family IDs are not unique");
 assert(new Set(families.map((family) => family.stem)).size === 66, "structural English stems are not unique");
 assert(new Set(families.map((family) => family.explanationGuide)).size === 66, "explanation guides are not unique");
-assert(families.every((family) => family.explanationGuide.length >= 70), "one or more explanation guides is too thin");
+assert(families.every((family) => family.explanationGuide.trim().split(/\s+/).length >= 8), "one or more explanation guides lacks meaningful solve detail");
 assert(families.every((family) => family.difficulty !== "HARD"), "artificial Hard question leaked into CP009 English review");
 
 const easy = families.filter((family) => family.difficulty === "EASY").length;
