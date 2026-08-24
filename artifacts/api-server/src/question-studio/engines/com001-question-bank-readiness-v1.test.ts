@@ -20,15 +20,9 @@ assert.equal(result.bankOnlyLifecycleProven, true);
 assert.equal(result.liveQuestionBankLockPreserved, true);
 assert.equal(result.semanticNormalizationProven, true);
 assert.equal(result.productionActivationAuthorized, false);
-assert.equal(result.status, "BLOCKED_METADATA_PROVENANCE");
-
-for (const field of COM001_REQUIRED_BANK_PROVENANCE_FIELDS) {
-  assert.equal(
-    result.missingNormalizedProvenanceFields.includes(field),
-    true,
-    `Expected shared Question Bank normalizer to expose unresolved COM-001 provenance field: ${field}`,
-  );
-}
+assert.equal(result.status, "READY_FOR_BANK_ONLY_REVIEW");
+assert.deepEqual(result.missingNormalizedProvenanceFields, []);
+assert.equal(COM001_REQUIRED_BANK_PROVENANCE_FIELDS.length, 13);
 
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.questionBankStatus, "NOT_STORED");
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.questionBankWritable, false);
@@ -39,6 +33,7 @@ assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.automaticStudentPublication, f
 console.log("[COM001-QUESTION-BANK-READINESS-V1]", {
   status: result.status,
   auditedQuestionCount: result.auditedQuestionCount,
+  requiredNormalizedProvenanceFields: COM001_REQUIRED_BANK_PROVENANCE_FIELDS,
   missingNormalizedProvenanceFields: result.missingNormalizedProvenanceFields,
   bankOnlyLifecycleProven: result.bankOnlyLifecycleProven,
   liveQuestionBankLockPreserved: result.liveQuestionBankLockPreserved,
