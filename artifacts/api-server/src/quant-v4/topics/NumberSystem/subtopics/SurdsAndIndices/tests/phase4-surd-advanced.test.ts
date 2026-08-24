@@ -9,11 +9,11 @@ import {
 
 const SEEDS_PER_CANDIDATE = 80;
 const EXPECTED_CANDIDATES = 20;
-const EXPECTED_SRI002_TOTAL = 43;
+const PHASE4_BASELINE_SRI002_TOTAL = 43;
 
 assert.equal(SRI_PHASE4_SURD_ADVANCED_CANDIDATES.length, EXPECTED_CANDIDATES, "Phase 4 must expose all 20 CP010-012 candidates");
 assert.equal(new Set(SRI_PHASE4_SURD_ADVANCED_CANDIDATES.map((item) => item.candidateId)).size, EXPECTED_CANDIDATES, "Phase 4 candidate IDs must be unique");
-assert.equal(SRI_002_MANIFEST.provisionalCandidateCount, EXPECTED_SRI002_TOTAL);
+assert.ok(SRI_002_MANIFEST.provisionalCandidateCount >= PHASE4_BASELINE_SRI002_TOTAL, "later saturation waves may grow SRI-002 but cannot remove the Phase-4 baseline");
 assert.equal(SRI_002_MANIFEST.discoveryWaves.phase3SurdFoundations, 23);
 assert.equal(SRI_002_MANIFEST.discoveryWaves.phase4SurdAdvanced, 20);
 assert.equal(SRI_002_MANIFEST.permanentQlCount, 0);
