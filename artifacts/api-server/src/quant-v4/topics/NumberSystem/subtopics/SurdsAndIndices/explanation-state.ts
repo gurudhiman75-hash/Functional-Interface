@@ -129,7 +129,7 @@ function deriveVisibleGiven(stem: string): string | null {
   match = /^Which single power is equal to\s+(.+)$/i.exec(text);
   if (match) return sentence("The given product is", match[1]!);
 
-  match = /^(?:Rewrite|Write)\s+(.+?)\s+(?:as|in)\s+(?:a |one |single )?power(?: of \d+)?$/i.exec(text);
+  match = /^(?:Rewrite|Write)\s+(.+?)\s+(?:as|in)\s+(?:a\s+)?(?:single\s+|one\s+)?power(?:\s+of\s+\d+)?$/i.exec(text);
   if (match) return sentence("The given power expression is", match[1]!);
 
   // Surd arithmetic and simplification.
