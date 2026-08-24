@@ -14,6 +14,8 @@ export const PFC_TPF_QUESTION_STUDIO_EDITORIAL_AUTHORITY_V1_1 = Object.freeze({
     punjabiLearnerFacingEnglishJargonRemoved: true,
     geometryAndAnswerInvariantsPreserved: true,
     exactRenderedTextFingerprint: true,
+    deterministicStemVariantBalancing: true,
+    sequentialAuditSeedsCoverAllFourStemVariants: true,
   },
   status: "EDITORIAL_REVIEW_CANDIDATE" as const,
   registrationAllowed: false,
@@ -38,6 +40,40 @@ function shortHash(value: string): string {
   return hash32(value).toString(16).padStart(8, "0");
 }
 
+function balancedStemVariant(question: PfcTpfStudioQuestionV1): number {
+  // Sequential seed families are common in Studio batches and audits. Mixing the
+  // stable prefix with the trailing ordinal guarantees a balanced 0..3 cycle
+  // instead of relying on hash-modulo sampling that can accidentally omit a style.
+  const match = question.seed.match(/^(.*):(\d+)$/);
+  if (match) {
+    const prefixOffset = hash32(`${match[1]}:${question.qlId}:stem-balance`) % 4;
+    return (prefixOffset + Number(match[2])) % 4;
+  }
+  return hash32(`${question.seed}:${question.qlId}:stem-balance`) % 4;
+}
+
+function applyBaseEditorialWithStemVariant(
+  question: PfcTpfStudioQuestionV1,
+  targetStemVariant: number,
+): PfcTpfStudioEditorialQuestionV1 {
+  // V1 owns the actual multilingual templates. We search a private editorial-only
+  // seed until V1 selects the required template, then restore the real generation
+  // seed so geometry provenance and delivery identity remain unchanged.
+  for (let attempt = 0; attempt < 64; attempt += 1) {
+    const editorialOnlySeed = `${question.generationSeed}:balanced-stem:${targetStemVariant}:${attempt}`;
+    const edited = applyPfcTpfStudioEditorialV1({
+      ...question,
+      generationSeed: editorialOnlySeed,
+    });
+    if (edited.editorial.stemVariant !== targetStemVariant) continue;
+    return {
+      ...edited,
+      generationSeed: question.generationSeed,
+    };
+  }
+  throw new Error(`${question.qlId}/${question.seed}: unable to resolve balanced stem variant ${targetStemVariant}.`);
+}
+
 function hardenLocalizedText(value: string, language: PfcTpfStudioQuestionV1["language"]): string {
   if (language === "hi") {
     return value
@@ -53,7 +89,8 @@ function hardenLocalizedText(value: string, language: PfcTpfStudioQuestionV1["la
 }
 
 export function applyPfcTpfStudioEditorialV1_1(question: PfcTpfStudioQuestionV1): PfcTpfStudioEditorialQuestionV1_1 {
-  const edited = applyPfcTpfStudioEditorialV1(question);
+  const targetStemVariant = balancedStemVariant(question);
+  const edited = applyBaseEditorialWithStemVariant(question, targetStemVariant);
   const language = edited.language;
   const stem = hardenLocalizedText(edited.stem, language);
   const explanation = {
@@ -69,6 +106,7 @@ export function applyPfcTpfStudioEditorialV1_1(question: PfcTpfStudioQuestionV1)
     explanation,
     editorial: {
       ...edited.editorial,
+      stemVariant: targetStemVariant,
       editorialFingerprint,
       hardeningAuthorityId: PFC_TPF_QUESTION_STUDIO_EDITORIAL_AUTHORITY_V1_1.authorityId,
     },
