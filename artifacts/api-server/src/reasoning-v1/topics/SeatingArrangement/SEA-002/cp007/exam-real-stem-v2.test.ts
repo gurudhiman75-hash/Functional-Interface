@@ -15,6 +15,7 @@ let surfaces = 0;
 let compactnessChecks = 0;
 let semanticTokens = 0;
 let auth01InferenceChecks = 0;
+let auth04InferenceChecks = 0;
 
 for (const authorityKey of AUTHORITIES) {
   for (let index = 0; index < 24; index += 1) {
@@ -50,14 +51,31 @@ for (const authorityKey of AUTHORITIES) {
       assert.equal(directPair, false);
       auth01InferenceChecks += 1;
     }
+
+    if (authorityKey === "CP007-AUTH-04") {
+      const match = caselet.question.match(/diagonally from ([A-Za-z]+) in \1's (left|right)-hand direction\?/u);
+      assert.ok(match);
+      const reference = match[1]!;
+      const direction = match[2]!.toUpperCase() as "LEFT" | "RIGHT";
+      const direct = caselet.clues.some((clue) =>
+        clue.kind === "DIAGONAL"
+        && clue.reference === reference
+        && clue.subject === caselet.answer
+        && clue.direction === direction,
+      );
+      assert.equal(direct, false);
+      auth04InferenceChecks += 1;
+    }
   }
 }
 
 assert.equal(auth01InferenceChecks, 24);
-console.log("PASS_SEA002_CP007_EXAM_REAL_STEM_V3_AUTH01_HARDENED");
+assert.equal(auth04InferenceChecks, 24);
+console.log("PASS_SEA002_CP007_EXAM_REAL_STEM_V4_POSITIONAL_QUERIES_HARDENED");
 console.log("rendered surfaces", surfaces);
 console.log("compactness checks", compactnessChecks);
 console.log("participant token checks", semanticTokens);
 console.log("AUTH01 non-direct surfaces", auth01InferenceChecks);
+console.log("AUTH04 non-direct surfaces", auth04InferenceChecks);
 console.log("learner column residue", 0);
 console.log("permanent QLs allocated", 0);
