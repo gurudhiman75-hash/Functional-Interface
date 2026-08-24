@@ -42,8 +42,14 @@ await runStage("COM-001 QL allocation readiness", () =>
 await runStage("COM-001 permanent QL allocation", () =>
   import("../knowledge-v1/computer-awareness/com001-memory-storage-ql-allocation.test")
 );
+await runStage("COM-001 editorial fact review", () =>
+  import("../knowledge-v1/computer-awareness/com001-editorial-review.test")
+);
 await runStage("COM-001 360-question review synthesis", () =>
   import("../knowledge-v1/computer-awareness/com001-review-synthesis.test")
+);
+await runStage("COM-001 360-question editorial quality audit", () =>
+  import("../knowledge-v1/computer-awareness/com001-editorial-question-audit.test")
 );
 
 console.log("Question Studio content engine foundation suite passed.");
