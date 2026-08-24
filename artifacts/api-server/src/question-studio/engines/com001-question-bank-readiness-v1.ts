@@ -28,6 +28,8 @@ export type Com001QuestionBankReadinessV1 = {
   languages: readonly ["en", "hi", "pa"];
   bankOnlyLifecycleProven: boolean;
   liveQuestionBankLockPreserved: boolean;
+  liveQuestionBankState: "PRE_ACTIVATION_LOCKED" | "BANK_ONLY_ACTIVE" | "UNEXPECTED";
+  downstreamLifecycleLocked: boolean;
   semanticNormalizationProven: boolean;
   missingNormalizedProvenanceFields: string[];
   productionActivationAuthorized: false;
@@ -100,6 +102,8 @@ export async function auditCom001QuestionBankReadinessV1(): Promise<Com001Questi
   let auditedQuestionCount = 0;
   let semanticNormalizationProven = true;
   let liveQuestionBankLockPreserved = true;
+  let liveBankOnlyActive = true;
+  let downstreamLifecycleLocked = true;
   let bankOnlyLifecycleProven = true;
 
   for (const qlId of qlIds) {
@@ -120,9 +124,16 @@ export async function auditCom001QuestionBankReadinessV1(): Promise<Com001Questi
         auditedQuestionCount += 1;
         liveQuestionBankLockPreserved &&=
           question.questionBankStatus === "NOT_STORED" &&
-          question.questionBankWritable === false &&
+          question.questionBankWritable === false;
+        liveBankOnlyActive &&=
+          question.questionBankStatus === "READY_FOR_STORAGE" &&
+          question.questionBankWritable === true &&
+          question.questionBankAcceptanceMode === "BANK_ONLY";
+        downstreamLifecycleLocked &&=
           question.testEligible === false &&
-          question.publiclyPublishable === false;
+          question.mockTestEligible === false &&
+          question.publiclyPublishable === false &&
+          question.automaticStudentPublication === false;
 
         const dryRunPayload = buildDryRunPayload(
           question,
@@ -178,12 +189,17 @@ export async function auditCom001QuestionBankReadinessV1(): Promise<Com001Questi
   }
 
   const missingNormalizedProvenanceFields = [...missing].sort();
+  const liveQuestionBankState = liveBankOnlyActive
+    ? "BANK_ONLY_ACTIVE" as const
+    : liveQuestionBankLockPreserved
+      ? "PRE_ACTIVATION_LOCKED" as const
+      : "UNEXPECTED" as const;
   return {
     status:
       missingNormalizedProvenanceFields.length === 0 &&
       bankOnlyLifecycleProven &&
-      liveQuestionBankLockPreserved &&
-      semanticNormalizationProven
+      semanticNormalizationProven &&
+      downstreamLifecycleLocked
         ? "READY_FOR_BANK_ONLY_REVIEW"
         : "BLOCKED_METADATA_PROVENANCE",
     auditedQuestionCount,
@@ -191,6 +207,8 @@ export async function auditCom001QuestionBankReadinessV1(): Promise<Com001Questi
     languages,
     bankOnlyLifecycleProven,
     liveQuestionBankLockPreserved,
+    liveQuestionBankState,
+    downstreamLifecycleLocked,
     semanticNormalizationProven,
     missingNormalizedProvenanceFields,
     productionActivationAuthorized: false,
