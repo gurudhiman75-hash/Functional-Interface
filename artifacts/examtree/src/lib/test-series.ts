@@ -15,6 +15,7 @@ export interface StudentSeriesSummary {
   examFamilyName: string;
   testCount: number;
   liveTestCount: number;
+  fullLengthTestCount: number;
   durationSeconds: number;
   questionCount: number;
   attemptCount: number;
