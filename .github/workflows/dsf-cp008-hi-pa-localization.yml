@@ -43,7 +43,7 @@ jobs:
         run: pnpm --dir artifacts/api-server build
       - name: Build admin app
         run: pnpm --dir artifacts/admin-app build
-      - name: Bundle DSF CP008 proofs and review pack
+      - name: Bundle DSF CP008 proofs and review packs
         run: |
           mkdir -p artifacts/api-server/dist/reasoning-v1/dsf
           pnpm --dir artifacts/api-server exec esbuild \
@@ -58,6 +58,10 @@ jobs:
             src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-008/localization-review-pack-v1.test.ts \
             --bundle --platform=node --format=esm --packages=external \
             --outfile=dist/reasoning-v1/dsf/dsf-cp008-localization-review-pack.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-008/localization-review-pack-paired-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp008-localization-paired-review-pack.test.mjs
           pnpm --dir artifacts/api-server exec esbuild \
             src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-007/production-readiness-freeze-v1.test.ts \
             --bundle --platform=node --format=esm \
@@ -82,10 +86,13 @@ jobs:
         run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp008-localization-review.test.mjs
       - name: Run CP008 route and UI contract proof
         run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp008-localization-route.test.mjs
-      - name: Build CP008 Hindi Punjabi human review pack
+      - name: Build CP008 Hindi Punjabi human review packs
         env:
           DSF_CP008_REVIEW_DIR: dist/reasoning-v1/dsf-cp008-localization-review
-        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp008-localization-review-pack.test.mjs
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp008-localization-review-pack.test.mjs
+          node dist/reasoning-v1/dsf/dsf-cp008-localization-paired-review-pack.test.mjs
       - name: Re-prove CP007 English production freeze
         run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp007-regression.test.mjs
       - name: Re-prove CP006 mock eligibility
