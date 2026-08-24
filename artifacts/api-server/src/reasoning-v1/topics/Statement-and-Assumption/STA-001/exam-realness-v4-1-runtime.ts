@@ -191,15 +191,22 @@ function explanationLead(language: StaV4Language, polarity: "POSITIVE" | "NEGATI
     : "Deny each assumption and identify what the statement's logic actually depends on.";
 }
 
+function normalizeRationale(language: StaV4Language, rationale: string): string {
+  if (language === "hi") return rationale.replace(/\bconfound\b/giu, "भ्रमकारी कारक");
+  if (language === "pa") return rationale.replace(/\bconfound\b/giu, "ਭ੍ਰਮਕ ਕਾਰਕ");
+  return rationale;
+}
+
 function explanationLine(
   language: StaV4Language,
   label: string,
   classification: "IMPLICIT" | "NOT_IMPLICIT",
   rationale: string,
 ): string {
-  if (language === "hi") return `पूर्वधारणा ${label} ${classification === "IMPLICIT" ? "निहित है" : "निहित नहीं है"}: ${rationale}`;
-  if (language === "pa") return `ਧਾਰਨਾ ${label} ${classification === "IMPLICIT" ? "ਨਿਹਿਤ ਹੈ" : "ਨਿਹਿਤ ਨਹੀਂ ਹੈ"}: ${rationale}`;
-  return `Assumption ${label} is ${classification === "IMPLICIT" ? "implicit" : "not implicit"}: ${rationale}`;
+  const localizedRationale = normalizeRationale(language, rationale);
+  if (language === "hi") return `पूर्वधारणा ${label} ${classification === "IMPLICIT" ? "निहित है" : "निहित नहीं है"}: ${localizedRationale}`;
+  if (language === "pa") return `ਧਾਰਨਾ ${label} ${classification === "IMPLICIT" ? "ਨਿਹਿਤ ਹੈ" : "ਨਿਹਿਤ ਨਹੀਂ ਹੈ"}: ${localizedRationale}`;
+  return `Assumption ${label} is ${classification === "IMPLICIT" ? "implicit" : "not implicit"}: ${localizedRationale}`;
 }
 
 function explanationConclusion(language: StaV4Language, answer: string): string {
