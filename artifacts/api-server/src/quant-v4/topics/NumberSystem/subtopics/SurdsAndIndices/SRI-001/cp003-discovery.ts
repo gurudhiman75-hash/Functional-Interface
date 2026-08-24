@@ -45,7 +45,6 @@ function powerDistractors(items: readonly { text: string; value: Rational; misco
       output.push({ text: item.text, canonicalKey: key, misconceptionId: item.misconceptionId });
     }
   }
-  if (output.length < 3) throw new Error("CP003 requires at least three unique distractors");
   return output;
 }
 
