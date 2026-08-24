@@ -17,6 +17,7 @@ export interface StudentSeriesSummary {
   liveTestCount: number;
   durationSeconds: number;
   questionCount: number;
+  attemptCount: number;
 }
 
 export interface StudentSeriesMember {

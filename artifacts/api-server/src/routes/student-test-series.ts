@@ -286,7 +286,17 @@ router.get("/test-series", async (_req, res) => {
           WHERE test.status = 'live'::test_status
             AND publication.published_at IS NOT NULL
             AND (publication.closes_at IS NULL OR publication.closes_at > now())
-        ), 0)::int AS "questionCount"
+        ), 0)::int AS "questionCount",
+        COALESCE((
+          SELECT COUNT(*)::int
+          FROM learning.attempts attempt
+          JOIN assessment.test_publications attempt_publication
+            ON attempt_publication.id = attempt.test_publication_id
+          JOIN assessment.test_series_items attempted_item
+            ON attempted_item.test_id = attempt_publication.test_id
+           AND attempted_item.series_version_id = version.id
+          WHERE attempt.status = 'evaluated'
+        ), 0)::int AS "attemptCount"
       FROM assessment.test_series s
       JOIN assessment.test_series_versions version
         ON version.series_id = s.id
@@ -314,7 +324,7 @@ router.get("/test-series", async (_req, res) => {
           AND publication.published_at IS NOT NULL
           AND (publication.closes_at IS NULL OR publication.closes_at > now())
       ) > 0
-      ORDER BY (version.availability_start_at > now()) DESC, s.updated_at DESC
+      ORDER BY "attemptCount" DESC, (version.availability_start_at > now()) DESC, s.updated_at DESC
       LIMIT 200
     `;
     res.json({ series: rows, generatedAt: new Date().toISOString() });
