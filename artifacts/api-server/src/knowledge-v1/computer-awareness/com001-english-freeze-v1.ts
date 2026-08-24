@@ -132,11 +132,11 @@ export function computeCom001EnglishFreezeFingerprintsV1() {
 }
 
 export const COM001_ENGLISH_FREEZE_PINS_V1 = {
-  factFingerprint: "PENDING_FACT_FINGERPRINT",
-  qlFingerprint: "PENDING_QL_FINGERPRINT",
-  storageProfileFingerprint: "PENDING_STORAGE_PROFILE_FINGERPRINT",
-  englishCorpusFingerprint: "PENDING_ENGLISH_CORPUS_FINGERPRINT",
-  combinedFingerprint: "PENDING_COMBINED_FINGERPRINT",
+  factFingerprint: "8c8439aa528bf3fad92fad0b025dae3dd58bb725bd3c04a0919c665bd8231e54",
+  qlFingerprint: "d47a1d18449bd8831c55f7d289d952f2c017d23b3a9b28c66eabd16a02a22d1b",
+  storageProfileFingerprint: "48c02d729285d489019ddeceb5b3ab41aea5dc2e8e1e661c993c25a98fe1bd6b",
+  englishCorpusFingerprint: "56b5f95d3ddc770c19750dbe62a3c072d8e11cd388d2e0f5003b85590c7deda6",
+  combinedFingerprint: "986a444f0fec27a47a21471ec98dde426bf1cf5f9fac9905c38900f511bf5bcf",
 } as const;
 
 export const COM001_ENGLISH_FREEZE_AUTHORITY_V1 = {
