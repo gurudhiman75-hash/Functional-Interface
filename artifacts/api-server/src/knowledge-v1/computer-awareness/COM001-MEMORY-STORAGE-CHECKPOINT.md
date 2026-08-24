@@ -1,6 +1,6 @@
 # COM-001 / CP-001 Memory & Storage — Implementation Checkpoint
 
-Status: PERMANENT QL TAXONOMY ALLOCATED / EDITORIAL SYNTHESIS IMPLEMENTED / RUNTIME CLOSED
+Status: PERMANENT QL TAXONOMY ALLOCATED / EDITORIAL SYNTHESIS CI-GREEN / RUNTIME CLOSED
 
 ## Permanent ownership
 
@@ -103,6 +103,30 @@ The aggregate audit generates 40 seeded questions per QL (360 total) and checks:
 - held virtual-memory facts cannot leak into QL-003
 - ambiguous universal `KB = 1024` wording is not generated
 
+## CI checkpoint
+
+Dedicated workflow `Validate Question Studio Content Engine Foundation V1` run **#71** completed successfully on 2026-08-24 against the PR merge ref.
+
+The staged suite explicitly passed:
+
+- engine registry
+- engine route integration
+- knowledge-v1 engine
+- composition verifier
+- COM-001 discovery
+- corpus requirements
+- source manifest
+- source-authority extension
+- candidate corpus
+- merge/split audit
+- readiness
+- storage-device profiles
+- QL-allocation readiness
+- permanent QL allocation
+- COM-001 360-question review synthesis
+
+This closes the implementation/CI gate for the current English editorial synthesis. It does not constitute editorial fact approval or production release.
+
 ## Source-quality safeguards
 
 Source authority is scoped per relation family rather than granted to an entire publisher.
@@ -127,11 +151,10 @@ Still closed:
 
 ## Next production sequence
 
-1. dedicated CI green on the complete foundation + 360-question review audit
-2. editorial review of source-backed candidate facts and review-question samples
-3. promote approved canonical facts to permanent `COM-001-CP-001` ownership
-4. implement/freeze English realizers and explanation families
-5. localization to Hindi/Punjabi where product policy supports it
-6. register the disabled/review-only Question Studio package
-7. Question Studio batch audit
-8. only then open Question Bank/test/publication gates through explicit lifecycle approval
+1. editorial review of source-backed candidate facts and review-question samples
+2. promote approved canonical facts to permanent `COM-001-CP-001` ownership
+3. implement/freeze English realizers and explanation families after editorial corrections
+4. localization to Hindi/Punjabi where product policy supports it
+5. register the disabled/review-only Question Studio package
+6. Question Studio batch audit
+7. only then open Question Bank/test/publication gates through explicit lifecycle approval
