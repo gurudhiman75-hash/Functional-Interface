@@ -37,12 +37,15 @@ for (const [checkpointId, expected] of EXPECTED_OWNER_COUNTS) {
   assert.equal(SRI_RETAINED_CONTRACTS_R1.filter((group) => group.ownerCheckpointId === checkpointId).length, expected, `${checkpointId} retained-contract count mismatch`);
 }
 
-const sourceGatedGroups = SRI_RETAINED_CONTRACTS_R1.filter((group) => group.sourceGated);
-assert.equal(sourceGatedGroups.length, 2, "R1 must retain exactly two unresolved source gates");
-assert.deepEqual(sourceGatedGroups.map((group) => group.retainedGroupId).sort(), ["SRI-RG-039", "SRI-RG-047"]);
-for (const group of sourceGatedGroups) {
+// `sourceGated` on the compression authority records discovery-time provenance.
+// R1 resolution is applied separately by source-gate-resolution-r1.ts; one of these
+// two provenance-marked groups (RG-047) is source-backed after R1, while RG-039 remains held.
+const discoverySourceGatedGroups = SRI_RETAINED_CONTRACTS_R1.filter((group) => group.sourceGated);
+assert.equal(discoverySourceGatedGroups.length, 2, "R1 compression must preserve exactly two discovery-time source-gated provenance groups");
+assert.deepEqual(discoverySourceGatedGroups.map((group) => group.retainedGroupId).sort(), ["SRI-RG-039", "SRI-RG-047"]);
+for (const group of discoverySourceGatedGroups) {
   for (const candidateId of group.memberCandidateIds) {
-    assert.equal(descriptors.get(candidateId)?.sourceDisposition, "SOURCE_GATED", `${candidateId} source-gate metadata drift`);
+    assert.equal(descriptors.get(candidateId)?.sourceDisposition, "SOURCE_GATED", `${candidateId} source-gate provenance drift`);
   }
 }
 assert.equal(SRI_RETAINED_CONTRACTS_R1.filter((group) => !group.sourceGated).length, 57);
@@ -51,8 +54,8 @@ console.log(JSON.stringify({
   status: "PASS",
   executablePrototypes: EXPECTED_PROTOTYPES,
   retainedContractsR1: EXPECTED_GROUPS,
-  nonSourceGatedContracts: 57,
-  sourceGatedContracts: sourceGatedGroups.map((group) => ({ id: group.retainedGroupId, members: group.memberCandidateIds })),
+  contractsWithoutDiscoverySourceGate: 57,
+  discoverySourceGatedContracts: discoverySourceGatedGroups.map((group) => ({ id: group.retainedGroupId, members: group.memberCandidateIds })),
   crossOwnerMoves: [...crossOwnerMoves].sort(),
   ownerCounts: Object.fromEntries(EXPECTED_OWNER_COUNTS),
 }, null, 2));
