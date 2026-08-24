@@ -2,7 +2,7 @@ export const SRI_CHAPTER_MANIFEST = {
   chapterId: "SRI",
   displayName: "Surds & Indices",
   designAuthority: "SRI-END-TO-END-DESIGN-R1",
-  implementationPhase: "PHASE_4_ALL_CHECKPOINTS_EXECUTABLE_DISCOVERY",
+  implementationPhase: "SOURCE_SATURATION_R1_FREEZE_PREP",
   packages: ["SRI-001", "SRI-002"],
   canonicalCheckpoints: [
     "SRI-CP-001", "SRI-CP-002", "SRI-CP-003", "SRI-CP-004", "SRI-CP-005", "SRI-CP-006",
