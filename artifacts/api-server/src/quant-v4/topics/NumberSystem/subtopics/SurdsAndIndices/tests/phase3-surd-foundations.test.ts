@@ -12,11 +12,13 @@ const EXPECTED_CANDIDATES = 23;
 
 assert.equal(SRI_PHASE3_SURD_FOUNDATION_CANDIDATES.length, EXPECTED_CANDIDATES, "Phase 3 must expose all 23 CP007-009 candidates");
 assert.equal(new Set(SRI_PHASE3_SURD_FOUNDATION_CANDIDATES.map((item) => item.candidateId)).size, EXPECTED_CANDIDATES, "Phase 3 candidate IDs must be unique");
-assert.equal(SRI_002_MANIFEST.provisionalCandidateCount, EXPECTED_CANDIDATES);
+assert.ok(SRI_002_MANIFEST.provisionalCandidateCount >= EXPECTED_CANDIDATES, "SRI-002 cumulative candidate count cannot be smaller than the Phase 3 wave");
 assert.equal(SRI_002_MANIFEST.discoveryWaves.phase3SurdFoundations, EXPECTED_CANDIDATES);
 assert.equal(SRI_002_MANIFEST.permanentQlCount, 0);
 assert.equal(SRI_002_MANIFEST.frozenSolveModeCount, 0);
-assert.deepEqual(SRI_002_MANIFEST.activeExecutableDiscoveryCheckpoints, ["SRI-CP-007", "SRI-CP-008", "SRI-CP-009"]);
+for (const checkpointId of ["SRI-CP-007", "SRI-CP-008", "SRI-CP-009"] as const) {
+  assert.ok(SRI_002_MANIFEST.activeExecutableDiscoveryCheckpoints.includes(checkpointId), `${checkpointId} must remain active executable discovery`);
+}
 assert.equal(SRI_002_MANIFEST.downstreamEligibility.questionStudio, false);
 assert.equal(SRI_002_MANIFEST.downstreamEligibility.questionBank, false);
 assert.equal(SRI_002_MANIFEST.downstreamEligibility.tests, false);
