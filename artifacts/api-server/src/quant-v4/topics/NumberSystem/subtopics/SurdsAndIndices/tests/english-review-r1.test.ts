@@ -16,6 +16,20 @@ const EXPECTED_REVIEW_MEMBERS = 92;
 const EXPECTED_EXPORT_ROWS = EXPECTED_REVIEW_MEMBERS * EXPORT_SEEDS_PER_MEMBER;
 
 const FIXED_SEMANTIC_MEMBERS = new Set(["C001-E", "C002-I", "C002-K", "C012-C"]);
+const GENERIC_GIVEN_FALLBACKS = new Set([
+  "The question gives an expression built from integer powers.",
+  "The question gives a power whose zero, negative, or fractional exponent must be interpreted over the real numbers.",
+  "The given powers use related bases that can be rewritten using one common base.",
+  "One or more exact power values are provided for a related transformation or parameter.",
+  "An exponential equation or exact power relation is given.",
+  "Power expressions or index-law statements are given for exact comparison.",
+  "A radical expression is given for simplification or classification.",
+  "A surd expression is given for exact arithmetic or classification.",
+  "The given expression contains a radical denominator that can be rationalised.",
+  "A nested or repeating radical relation is given.",
+  "Surd expressions, bounds, or a radical equation are given for exact analysis.",
+  "The given expression combines radical and fractional-index notation.",
+]);
 const BANNED_LEARNER_METADATA = [
   /SRI-RG-/i,
   /C\d{3}-[A-Z]/,
@@ -36,6 +50,7 @@ const BANNED_EDITORIAL_TEXT = [
   /\breverse-constructed\b/i,
   /\bprime base\b/i,
   /\bdenominator-th root\b/i,
+  /\bsupported denested form\b/i,
   /\bperfect 2nd power\b/i,
   /\b(?:1th|2th|3th)\b/,
   /\b1\\sqrt/,
@@ -83,6 +98,7 @@ for (const member of SRI_ENGLISH_REVIEW_MEMBERS_R1) {
     assert.equal(question.options.filter((option) => option.canonicalKey === question.answer.canonicalKey).length, 1);
     assert.equal(question.options[question.correctIndex]?.canonicalKey, question.answer.canonicalKey);
     assert.equal(question.options.filter((option) => option.misconceptionId !== null).length, 3);
+    assert.equal(GENERIC_GIVEN_FALLBACKS.has(question.explanation.given), false, `${member.memberCandidateId} still uses generic checkpoint Given fallback`);
 
     const learnerText = [
       question.stem,
@@ -164,6 +180,7 @@ console.log(JSON.stringify({
   auditQuestionsGenerated: generated,
   exportSeedsPerMember: EXPORT_SEEDS_PER_MEMBER,
   exportRows: exportCorpus.length,
+  genericGivenFallbacks: 0,
   minUniqueStems: Math.min(...[...memberStemSets.values()].map((set) => set.size)),
   minCorrectPositions: Math.min(...[...memberPositionSets.values()].map((set) => set.size)),
   permanentQlCount: SRI_CHAPTER_MANIFEST.permanentQlCount,
