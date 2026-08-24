@@ -191,21 +191,22 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
     <Card className="border-primary/20 bg-primary/5">
       <CardHeader className="space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <CardTitle className="flex items-center gap-2 text-base"><BrainCircuit className="h-4 w-4" /> Data Sufficiency · CP-009 multilingual production release</CardTitle>
-          <div className="flex flex-wrap gap-2"><Badge variant="outline">DSF-QL-001</Badge><Badge variant="outline">4 domains</Badge><Badge variant="outline">8 solve modes</Badge><Badge variant="outline">Banking + SSC</Badge><Badge variant="outline">English + Hindi + Punjabi production</Badge><Badge variant="outline">CP-009 approved</Badge></div>
+          <CardTitle className="flex items-center gap-2 text-base"><BrainCircuit className="h-4 w-4" /> Data Sufficiency · CP-010 multilingual production freeze</CardTitle>
+          <div className="flex flex-wrap gap-2"><Badge variant="outline">DSF-QL-001</Badge><Badge variant="outline">4 domains</Badge><Badge variant="outline">8 solve modes</Badge><Badge variant="outline">Banking + SSC</Badge><Badge variant="outline">English + Hindi + Punjabi production</Badge><Badge variant="outline">English + Hindi + Punjabi frozen production</Badge><Badge variant="outline">CP-009 approved</Badge><Badge variant="outline">CP-010 frozen</Badge></div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          CP-001 owns frozen semantic truth, CP-003 owns approved answer-profile rendering, CP-004 owns Question Bank acceptance, CP-005 enables manual scored-test release, CP-006 enables mock-test eligibility, CP-008 owns executable Hindi/Punjabi localization parity, and CP-009 records product-owner language approval. Canonical semantics, correct option position and profile order cannot change.
+          CP-001 owns frozen semantic truth, CP-003 owns approved answer-profile rendering, CP-004 owns Question Bank acceptance, CP-005 enables manual scored-test release, CP-006 enables mock-test eligibility, CP-008 owns executable Hindi/Punjabi localization parity, and CP-009 records product-owner language approval. The CP-009 multilingual production release is now pinned by CP-010 as the final current-scope multilingual production freeze. Canonical semantics, correct option position and profile order cannot change.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
         {status && (
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-9">
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-10">
             <Metric label="Permanent QLs" value={status.permanentQlCount} />
             <Metric label="Solve modes" value={status.solveModeCount} />
             <Metric label="CP-006 items" value={status.cp006GenerationItemCount} />
             <Metric label="CP-008 items" value={status.cp008GenerationItemCount} />
             <Metric label="CP-009 items" value={status.cp009GenerationItemCount} />
+            <Metric label="CP-010 items" value={status.cp010GenerationItemCount} />
             <Metric label="Hindi released" value={status.hindiReleaseItemCount} />
             <Metric label="Punjabi released" value={status.punjabiReleaseItemCount} />
             <Metric label="Test eligible" value={status.testEligible ? 'Yes' : 'No'} />
@@ -214,9 +215,9 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
         )}
 
         <div className="rounded-lg border border-primary/20 bg-background/60 p-3 text-sm">
-          <div className="flex items-center gap-2 font-medium"><ShieldCheck className="h-4 w-4" /> CP-009 Hindi/Punjabi approval · canonical production gates</div>
+          <div className="flex items-center gap-2 font-medium"><ShieldCheck className="h-4 w-4" /> CP-010 multilingual production freeze · canonical production gates</div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            English, Hindi and Punjabi now share the controlled production lifecycle: manual Question Studio approval, explicit Question Bank publication, canonical scored-test validation, and test-series QA/release before mock delivery. Automatic student publication remains OFF. Historical CP-004/CP-005/CP-008 payloads are not retroactively upgraded. Punjab-specific answer-profile rendering remains disabled.
+            English, Hindi and Punjabi are frozen in the controlled production lifecycle: manual Question Studio approval, explicit Question Bank publication, canonical scored-test validation, and test-series QA/release before mock delivery. Chapter status = CLOSED_CURRENT_APPROVED_SCOPE. Automatic student publication remains OFF. Historical CP-004/CP-005/CP-008 payloads are not retroactively upgraded. Punjab-specific answer-profile rendering remains disabled.
           </p>
         </div>
 
