@@ -26,11 +26,17 @@ const BANNED_LEARNER_METADATA = [
   /proofEvents/i,
   /SRI-EN-R1:/i,
   /\b[A-Z][A-Z0-9_]{2,}:/,
+  /\b(?:rational mode|first true|second true|solution mode)\b/i,
 ];
 const BANNED_EDITORIAL_TEXT = [
   /\bcanonical result\b/i,
   /\bcanonical values?\b/i,
+  /\bcanonical surd form\b/i,
+  /\bcanonical form\b/i,
   /\breverse-constructed\b/i,
+  /\bprime base\b/i,
+  /\bdenominator-th root\b/i,
+  /\bperfect 2nd power\b/i,
   /\b(?:1th|2th|3th)\b/,
   /\b1\\sqrt/,
 ];
@@ -104,6 +110,14 @@ for (const member of SRI_ENGLISH_REVIEW_MEMBERS_R1) {
     assert.equal(question.explanation.answer, question.answer.text);
     assert.notEqual(normalize(question.explanation.given), normalize(question.stem), `${member.memberCandidateId} repeats the full stem as the given section`);
 
+    if (member.memberCandidateId === "C002-F" || member.memberCandidateId === "C012-B") {
+      const numerator = Number(question.state.numerator);
+      const denominator = Number(question.state.denominator);
+      assert.ok(Number.isInteger(numerator) && Number.isInteger(denominator) && denominator > 1);
+      assert.equal(gcd(numerator, denominator), 1, `${member.memberCandidateId} must expose a reduced fractional exponent`);
+      assert.ok(numerator < denominator, `${member.memberCandidateId} must remain a genuinely fractional-index task`);
+    }
+
     const normalizedStem = normalize(question.stem);
     const previousOwner = exactStemOwners.get(normalizedStem);
     if (previousOwner && previousOwner !== member.memberCandidateId) {
@@ -158,4 +172,15 @@ console.log(JSON.stringify({
 
 function normalize(value: string): string {
   return value.trim().replace(/[?.!]+$/g, "").replace(/\s+/g, " ").toLowerCase();
+}
+
+function gcd(left: number, right: number): number {
+  let a = Math.abs(left);
+  let b = Math.abs(right);
+  while (b !== 0) {
+    const remainder = a % b;
+    a = b;
+    b = remainder;
+  }
+  return a;
 }
