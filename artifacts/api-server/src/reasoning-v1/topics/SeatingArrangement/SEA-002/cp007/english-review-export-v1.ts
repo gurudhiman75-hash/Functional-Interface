@@ -16,12 +16,15 @@ const AUTHORITIES = [
   "CP007-AUTH-04",
 ] as const satisfies readonly Sea002Cp007CandidateAuthorityKey[];
 
+const RENDERER = "EXAM_REAL_COMPACT_V3_HELPFUL_EXPLANATIONS" as const;
+
 const rows: string[] = [
-  "# SEA-002 / SEA-CP-007 — English Review Candidate V1",
+  "# SEA-002 / SEA-CP-007 — English Review Candidate V2",
   "",
-  "Status: **HUMAN REVIEW CANDIDATE / NO PRODUCT ACTIVATION**",
+  "Status: **HUMAN REVIEW CANDIDATE / HELPFUL-EXPLANATION REWRITE / NO PRODUCT ACTIVATION**",
   "",
   "24 caselets = 6 per candidate authority. This export is for learner-surface review only.",
+  "Solutions are query-specific: they show the deductions needed for the asked question and stop once the answer is established.",
   "",
 ];
 
@@ -55,10 +58,10 @@ const reviewFingerprint = createHash("sha256").update(reviewText, "utf8").digest
 const output = "artifacts/api-server/dist/reasoning-v1/sea-002-cp007-english-review-v1.md";
 mkdirSync(dirname(output), { recursive: true });
 writeFileSync(output, reviewText, "utf8");
-console.log("PASS_SEA002_CP007_ENGLISH_REVIEW_EXPORT_V1");
+console.log("PASS_SEA002_CP007_ENGLISH_REVIEW_EXPORT_V2_HELPFUL");
 console.log("review caselets", ordinal);
 console.log("candidate authorities", AUTHORITIES.length);
-console.log("renderer", "EXAM_REAL_COMPACT_V2");
+console.log("renderer", RENDERER);
 console.log("review fingerprint", reviewFingerprint);
 console.log("review artifact product activation", false);
 console.log("output", output);
