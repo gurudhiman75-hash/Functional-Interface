@@ -158,7 +158,7 @@ function normalizeExplanation(
   };
   const repeatsStem = normalizeComparableText(cleaned.given) === normalizeComparableText(stem);
   const unsafeGiven = repeatsStem || hasStructuredStateLeak(cleaned.given);
-  return unsafeGiven ? { ...cleaned, given: describeSriGivenContext(checkpointId) } : cleaned;
+  return unsafeGiven ? { ...cleaned, given: describeSriGivenContext(checkpointId, stem) } : cleaned;
 }
 
 export function finalizeSriDiscoveryQuestion(input: FinalizeSriDiscoveryInput): SriDiscoveryQuestion {
