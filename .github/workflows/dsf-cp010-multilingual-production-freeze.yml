@@ -1,0 +1,108 @@
+name: Validate DSF-CP-010 Multilingual Production Freeze
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/**
+      - artifacts/api-server/src/routes/admin-question-studio-data-sufficiency.ts
+      - artifacts/admin-app/src/features/question-studio/data-sufficiency-review-api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioDataSufficiencyReviewPanel.tsx
+      - .github/workflows/dsf-cp010-multilingual-production-freeze.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp010-multilingual-production-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dsf-cp010-multilingual-production-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      DATABASE_URL: postgresql://test:test@127.0.0.1:5432/test
+    steps:
+      - name: Checkout exact source head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
+      - name: Bundle CP010 and regression proofs
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/dsf
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-010/multilingual-production-freeze-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp010-freeze.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-010/multilingual-production-freeze-route-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp010-route.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-009/localization-approval-release-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp009-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-009/localization-release-route-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp009-route-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-008/localization-review-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp008-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-007/production-readiness-freeze-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp007-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-006/mock-test-release-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp006-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-006/mock-test-release-route-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp006-route-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-003/exam-answer-profiles-approval-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp003-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-001/cp001-freeze-authority.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp001-regression.test.mjs
+      - name: Run CP010 624-question multilingual production freeze audit
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp010-freeze.test.mjs
+      - name: Run CP010 route and UI final-freeze proof
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp010-route.test.mjs
+      - name: Re-prove CP009 localization approval release
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp009-regression.test.mjs
+      - name: Re-prove CP009 multilingual route compatibility
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp009-route-regression.test.mjs
+      - name: Re-prove CP008 localization semantic parity and historical review boundary
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp008-regression.test.mjs
+      - name: Re-prove CP007 historical English production freeze
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp007-regression.test.mjs
+      - name: Re-prove CP006 mock eligibility
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp006-regression.test.mjs
+      - name: Re-prove CP006 route compatibility
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp006-route-regression.test.mjs
+      - name: Re-prove CP003 reviewed answer profiles
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp003-regression.test.mjs
+      - name: Re-prove CP001 frozen semantics
+        run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp001-regression.test.mjs
