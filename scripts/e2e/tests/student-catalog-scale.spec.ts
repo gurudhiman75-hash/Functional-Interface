@@ -67,6 +67,7 @@ const series = Array.from({ length: 13 }, (_, index) => ({
   examFamilyName: "SSC",
   testCount: 10,
   liveTestCount: 10,
+  fullLengthTestCount: index < 6 ? 8 : 0,
   durationSeconds: 18_000,
   questionCount: 500,
   attemptCount: (13 - index) * 125,
@@ -146,6 +147,7 @@ test.describe("CP04 catalog scale", () => {
   test("renders the final differentiated marketplace shelves without unbounded promo grids", async ({ page }) => {
     await openCatalog(page);
 
+    await expect(page.getByTestId("exam-discovery-command-center")).toBeVisible();
     await expect(page.getByTestId("exam-category-logo-row").getByRole("button")).toHaveCount(4);
 
     const featured = page.getByTestId("featured-series-section");
@@ -155,6 +157,7 @@ test.describe("CP04 catalog scale", () => {
 
     const fullLength = page.getByTestId("full-length-series-section");
     await expect(fullLength.locator("article")).toHaveCount(4);
+    await expect(fullLength.locator("article").first()).toContainText("8 full-length tests");
 
     const freePractice = page.getByTestId("free-practice-section");
     await expect(freePractice.locator("article")).toHaveCount(4);
