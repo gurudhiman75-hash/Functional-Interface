@@ -1,19 +1,21 @@
 # SRI — 58-Contract Adversarial English Review R1
 
 **Chapter:** Surds & Indices  
-**Stage:** English review before permanent allocation  
+**Stage:** Pre-allocation English review of retained learner contracts  
 **Review-ready retained contracts:** 58  
 **Source-supported prototype members represented:** 92  
 **Unresolved hold:** `SRI-RG-039 / C008-I`  
 **Permanent QLs:** 0  
 **Frozen solve modes:** 0  
-**Status:** `CORPUS_GENERATOR_IMPLEMENTED_REVIEW_NOT_YET_CLOSED`
+**Status:** `PRE_ALLOCATION_ENGLISH_REVIEW_R1_CLOSED_PERMANENT_ALLOCATION_READY`
 
 ## 1. Purpose
 
-Source saturation and exact generation are necessary but insufficient for permanent QL allocation. R1 English review must inspect the **actual generated learner experience** across every prototype member that contributed evidence to the 58 source-supported retained contracts.
+Source saturation and exact generation are necessary but insufficient for permanent QL allocation. R1 English review inspects the **actual generated learner experience** across every prototype member that contributed evidence to the 58 source-supported retained contracts.
 
-A green generator does not prove that:
+This is deliberately a **pre-allocation** review. It proves that the retained contract set is fit to enter the permanent-allocation wave; it is not the final Phase-7 English approval/fingerprint freeze defined by `SRI-END-TO-END-DESIGN-R1`.
+
+A green generator by itself does not prove that:
 
 - the stem is natural and exam-standard;
 - a mathematical condition is genuinely necessary rather than decorative;
@@ -24,7 +26,7 @@ A green generator does not prove that:
 - a retained contract still belongs to SRI after learner-facing review;
 - a special case deserves an independent permanent QL.
 
-Therefore this stage remains pre-permanent and may still `MERGE`, `SPLIT`, `MOVE`, `REPAIR` or `HOLD` any retained contract.
+Therefore this stage was allowed to `MERGE`, `SPLIT`, `MOVE`, `REPAIR` or `HOLD` retained contracts before permanent IDs existed.
 
 ## 2. Review-set authority
 
@@ -36,7 +38,7 @@ Therefore this stage remains pre-permanent and may still `MERGE`, `SPLIT`, `MOVE
 
 No hand-maintained review list is allowed.
 
-Expected derived state:
+Closed derived state:
 
 ```text
 Retained groups after compression:        59
@@ -48,7 +50,7 @@ English review prototype members:         92
 ```
 
 `C010-F / SRI-RG-047` is included because its source gate was resolved `SOURCE_BACKED_KEEP`.  
-`C008-I / SRI-RG-039` is excluded from the freeze-ready corpus and appears only in the HOLD appendix.
+`C008-I / SRI-RG-039` remains excluded from the allocation-ready corpus and appears only in the HOLD appendix.
 
 ## 3. Corpus depth
 
@@ -72,7 +74,7 @@ The export is produced as JSON, CSV and Markdown. Three rows per **prototype mem
 
 ## 4. Automated English gate
 
-`tests/english-review-r1.test.ts` must prove:
+`tests/english-review-r1.test.ts` proves:
 
 - exactly 58 review-ready retained groups;
 - exactly one held group, RG039;
@@ -96,13 +98,48 @@ The export is produced as JSON, CSV and Markdown. Three rows per **prototype mem
 - correct-option positions are not concentrated;
 - answer variation where the learner contract should vary;
 - explicit fixed-semantic invariance where variation would be mathematically wrong;
+- no generic checkpoint-level `Given` fallback;
+- no mechanical `Given` wrappers such as `The supplied relation is If/Given/Using/For/From/Let/After`;
+- no task instructions leaking into the `Given` sentence;
 - exactly three exported review rows per prototype member.
 
-The word **“Undefined” is not metadata leakage**. It is a legitimate learner-facing answer for zero-base domain questions and must remain available when mathematically correct.
+The word **“Undefined” is not metadata leakage**. It is a legitimate learner-facing answer for zero-base domain questions and remains available when mathematically correct.
+
+### Closure evidence
+
+Final audited branch head before this closure record:
+
+```text
+head:                         dca2ba339ba173d056e71e43dfd61e856c30938b
+workflow run:                 32721267235
+job:                          97413004715
+status:                       PASS
+review-ready groups:          58
+held groups:                  SRI-RG-039
+review prototype members:     92
+audit seeds/member:           12
+audit questions:              1,104
+export seeds/member:          3
+export rows:                   276
+generic Given fallbacks:      0
+minimum unique stems/member:  3
+minimum correct positions:    4
+permanent QLs:                0
+frozen solve modes:           0
+```
+
+Final reviewer artifact:
+
+```text
+artifact id:                  9517917702
+artifact name:                sri-v4-english-review-r1
+artifact SHA-256:             493b6286fef1ee8cba61c9f04753e14774fd6b8e51a6f8ccbbc3c807efbbc43c
+files:                        JSON / CSV / Markdown
+```
 
 ## 5. Manual adversarial review questions
 
-For each retained group, reviewers must answer all of the following from the generated corpus.
+For each retained group, review considered the following.
 
 ### Contract validity
 
@@ -136,47 +173,72 @@ For each retained group, reviewers must answer all of the following from the gen
 5. Does it avoid repeating the entire question?
 6. Does it stop after the answer is established instead of adding unnecessary textbook commentary?
 
-## 6. Known editorial risks to inspect deliberately
+## 6. Closure findings and remediation
 
-R1 saturation already suggests several areas that deserve extra attention in the 276-question corpus:
+The adversarial pass did find learner-facing defects, and R1 was not closed until they were removed.
 
-- excessive use of generic openers such as “Evaluate”, “Simplify”, “Compare” or “Which option” within one prototype family;
-- explanations containing engineering-flavoured phrases such as “canonical result”, “normalize” or “verification” where simpler learner language is available;
-- rationalisation solutions becoming mechanical formula chains without explaining why the conjugate is chosen;
-- domain questions becoming definition quizzes rather than applied reasoning;
-- comparison questions relying on “without decimals” wording too often;
-- merged groups where one prototype may visibly feel harder/deeper than its siblings even though the mathematical authority is shared;
-- repeating-radical questions needing a clear convergence/admissibility explanation rather than merely solving a quadratic fixed point;
-- extraneous-root questions needing original-equation checking to be explicit and easy to follow;
-- mixed surd-index questions becoming long BODMAS chains that should instead be Simplification-owned.
+### Remediated during R1
 
-These are review targets, not assumptions that defects exist in every affected family.
+- checkpoint-level generic `Given` fallbacks were replaced with question-specific summaries derived only from visible learner data;
+- parser coverage was expanded across all discovered stem topologies rather than fixed one seed at a time;
+- legacy surfaces were regression-checked so the rewrite did not lose previously supported wording;
+- engineering terms such as `canonical`, `normalize`, `reverse-constructed`, `prime base` and internal review/runtime identifiers were removed from learner text;
+- awkward wrappers such as `The supplied relation is If ...`, `Given ...`, `Using ...`, `For ...`, `From ...`, `Let ...` and `After ...` were rewritten into direct human statements;
+- task fragments such as `by using a common base`, `between consecutive integers without decimals`, `into simplest form` and coefficient-recovery instructions were removed from the `Given` field;
+- rationalisation coefficient forms and extraneous-root summaries were rewritten as explicit learner-visible mathematical relations;
+- `canonical rationalised form` was replaced by ordinary exam-facing language;
+- malformed ordinals and display residue such as `1th`, `2th`, `3th` and `1\sqrt{...}` are gated out.
+
+### Final 276-row manual sweep
+
+The final fresh artifact was inspected after the stricter prose gate passed.
+
+Observed final state:
+
+```text
+rows:                                      276
+prototype members:                         92
+retained groups:                           58
+cross-member exact stem collisions:         0
+mechanical Given guard hits:                0
+internal/editorial jargon hits:             0
+malformed fraction/ordinal residue hits:    0
+generic Given fallbacks:                    0
+```
+
+Simple direct-law questions may have compact formula-only working lines, but they retain an ordinary-language method sentence that explains the governing inference. No remaining formula-wall defect required another contract split or editorial repair.
+
+No new `SPLIT`, `MOVE` or `DROP` decision was justified by the final learner-facing corpus. The 58 source-supported retained contracts remain the allocation-ready contract set.
 
 ## 7. HOLD appendix policy
 
-`SRI-RG-039 / C008-I` remains outside the 58-contract freeze-ready set because direct target-exam provenance for the **condition-target** form is still insufficient.
+`SRI-RG-039 / C008-I` remains outside the 58-contract allocation-ready set because direct target-exam provenance for the **condition-target** form is still insufficient.
 
 Its executable question may be shown in a HOLD appendix for future source comparison, but:
 
-- it must not count toward English review closure;
-- it must not receive a permanent QL ID;
+- it does not count toward this English review closure;
+- it must not receive a permanent QL ID in the upcoming allocation wave;
 - it must not be used to justify chapter freeze;
-- a future source-resolution wave may promote or drop it without disturbing the 58-contract review corpus.
+- a future source-resolution wave may promote or drop it without disturbing the 58-contract allocation-ready corpus.
 
-## 8. Current decision
+## 8. Closure decision
 
 ```text
-Source saturation closed:                  YES
-93→59 compression closed:                  YES
-Source-supported retained contracts:        58
-Unresolved holds:                            1
-English corpus generator implemented:      YES
-Automated English gate green:          PENDING
-276-question corpus generated:         PENDING
-Adversarial corpus review closed:       PENDING
-Permanent allocation authorised:            NO
-English frozen:                              NO
-Question Studio / QB / tests / public:      OFF
+Source saturation closed:                       YES
+93→59 compression closed:                       YES
+Source-supported retained contracts:             58
+Unresolved holds:                                 1
+Pre-allocation English corpus implemented:       YES
+Automated English gate green:                    YES
+276-question corpus generated:                   YES
+Adversarial retained-contract review closed:     YES
+Permanent allocation wave may begin:             YES
+Permanent QLs allocated:                          0
+Final Phase-7 English approval/freeze complete:   NO
+English frozen:                                   NO
+Question Studio / QB / tests / public:           OFF
 ```
 
-No permanent IDs may be allocated merely because the automated English gate becomes green. The generated corpus must first be inspected and the findings recorded in this authority or a follow-up closure audit.
+This closure authorizes a **separate permanent-allocation wave** for the 58 retained contracts. It does not itself allocate IDs, freeze solve modes, freeze English content fingerprints, localise Hindi/Punjabi, or enable any downstream product capability.
+
+Per `SRI-END-TO-END-DESIGN-R1`, the next wave must allocate contiguous package-local permanent QLs, regenerate representative English review evidence against those permanent IDs, independently re-solve high-risk samples, inspect object-pool/key distribution again, obtain explicit final English approval, and only then freeze English fingerprints.
