@@ -1,6 +1,9 @@
 import { TSD_CP009_FROZEN_ENGLISH_REGISTRY } from "./english-freeze-registry";
-import { TSD_CP009_HINDI_LOCALIZATION } from "./hindi-localization";
-import { TSD_CP009_PUNJABI_LOCALIZATION } from "./punjabi-localization";
+import {
+  TSD_CP009_FINAL_HINDI_LOCALIZATION,
+  TSD_CP009_FINAL_PUNJABI_LOCALIZATION,
+  TSD_CP009_REJECTED_PUNJABI_WORDING,
+} from "./localization-review-final";
 import { TSD_CP009_RENDERED_HINDI_QUESTIONS, TSD_CP009_RENDERED_PUNJABI_QUESTIONS } from "./localized-rendered-review";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -14,7 +17,7 @@ function placeholders(value: string): readonly string[] {
 const frozenFamilies = TSD_CP009_FROZEN_ENGLISH_REGISTRY.flatMap((ql) => ql.stemFamilies.map((family) => ({ qlId: ql.qlId, authorityKey: ql.authorityKey, ...family })));
 assert(frozenFamilies.length === 66, "frozen English family count changed");
 
-for (const registry of [TSD_CP009_HINDI_LOCALIZATION, TSD_CP009_PUNJABI_LOCALIZATION]) {
+for (const registry of [TSD_CP009_FINAL_HINDI_LOCALIZATION, TSD_CP009_FINAL_PUNJABI_LOCALIZATION]) {
   assert(registry.qls.length === 11, `${registry.locale}: expected 11 QLs`);
   assert(JSON.stringify(registry.qls.map((ql) => ql.qlId)) === JSON.stringify(TSD_CP009_FROZEN_ENGLISH_REGISTRY.map((ql) => ql.qlId)), `${registry.locale}: QL order drifted`);
   const localizedFamilies = registry.qls.flatMap((ql) => ql.families.map((family) => ({ qlId: ql.qlId, authorityKey: ql.authorityKey, ...family })));
@@ -33,6 +36,9 @@ for (const registry of [TSD_CP009_HINDI_LOCALIZATION, TSD_CP009_PUNJABI_LOCALIZA
   }
 }
 
+const finalPunjabiText = JSON.stringify(TSD_CP009_FINAL_PUNJABI_LOCALIZATION);
+assert(!finalPunjabiText.includes(TSD_CP009_REJECTED_PUNJABI_WORDING), `Punjabi rejected wording '${TSD_CP009_REJECTED_PUNJABI_WORDING}' leaked into final localization`);
+
 assert(TSD_CP009_RENDERED_HINDI_QUESTIONS.length === 66, "Hindi rendered count changed");
 assert(TSD_CP009_RENDERED_PUNJABI_QUESTIONS.length === 66, "Punjabi rendered count changed");
 for (const question of [...TSD_CP009_RENDERED_HINDI_QUESTIONS, ...TSD_CP009_RENDERED_PUNJABI_QUESTIONS]) {
@@ -46,10 +52,9 @@ for (const question of TSD_CP009_RENDERED_HINDI_QUESTIONS) {
   assert(!match, `Hindi/${question.familyId}: Gurmukhi leakage '${match?.[0] ?? ""}'`);
 }
 for (const question of TSD_CP009_RENDERED_PUNJABI_QUESTIONS) {
-  // U+0964/U+0965 danda punctuation is shared by multiple Indic scripts and is valid in Punjabi prose.
-  // Reject actual Devanagari letters, marks and digits while allowing those shared punctuation marks.
   const match = question.stem.match(/[\u0900-\u0963\u0966-\u097F]/);
   assert(!match, `Punjabi/${question.familyId}: Devanagari leakage '${match?.[0] ?? ""}' U+${match ? match[0].codePointAt(0)?.toString(16).toUpperCase() : ""}`);
+  assert(!question.stem.includes(TSD_CP009_REJECTED_PUNJABI_WORDING), `Punjabi/${question.familyId}: rejected wording leaked into rendered stem`);
 }
 assert(TSD_CP009_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-111").every((question) => /ऊपरी सिरे/.test(question.stem)), "Hindi QL111 upstream-end anchor missing");
 assert(TSD_CP009_RENDERED_PUNJABI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-111").every((question) => /ਉਪਰਲੇ ਸਿਰੇ/.test(question.stem)), "Punjabi QL111 upstream-end anchor missing");
@@ -64,6 +69,8 @@ console.log(JSON.stringify({
   renderedHindi: TSD_CP009_RENDERED_HINDI_QUESTIONS.length,
   renderedPunjabi: TSD_CP009_RENDERED_PUNJABI_QUESTIONS.length,
   unresolvedPlaceholders: 0,
+  rejectedPunjabiWording: TSD_CP009_REJECTED_PUNJABI_WORDING,
+  rejectedPunjabiWordingCount: 0,
   sourceEnglishStatus: "FROZEN",
   localizationStatus: "REVIEW_CANDIDATE",
 }, null, 2));
