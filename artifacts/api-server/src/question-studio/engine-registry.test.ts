@@ -40,7 +40,7 @@ assert.equal(com001.enabled, true);
 assert.deepEqual(com001.cpIds, ["COM-001-CP-001"]);
 assert.deepEqual(com001.supportedLanguages, ["en", "hi", "pa"]);
 assert.equal(com001.runtimeMode, "review-only");
-assert.equal(com001.questionBankStatus, "LOCKED_NOT_WRITABLE");
+assert.equal(com001.questionBankStatus, "NOT_STORED");
 assert.equal(com001.testEligibility, "INELIGIBLE_REVIEW_ONLY");
 assert.equal(com001.publiclyPublishable, false);
 assert.equal(resolveQuestionStudioEngine({ packageId: "COM-001" }).engineId, "knowledge-v1");
