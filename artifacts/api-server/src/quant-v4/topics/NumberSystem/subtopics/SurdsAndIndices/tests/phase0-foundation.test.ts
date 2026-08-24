@@ -1,0 +1,20 @@
+import "./rational-exponent-normalisation.test";
+import "./integer-index-laws.test";
+import "./negative-index-domain.test";
+import "./fractional-index.test";
+import "./power-normal-form.test";
+import "./power-equivalence.test";
+import "./perfect-power-extraction.test";
+import "./square-surd-normalisation.test";
+import "./surd-sum-equivalence.test";
+import "./conjugate-product.test";
+import "./rationalisation-roundtrip.test";
+import "./denest-roundtrip.test";
+import "./radical-equation-extraneous.test";
+import "./exact-comparison.test";
+import "./bounds.test";
+import "./serialization.test";
+import "./determinism.test";
+import "./lifecycle-lock.test";
+
+console.log("SRI Quant V4 Phase 0 exact-foundation suite passed (18 mandatory audit areas).");
