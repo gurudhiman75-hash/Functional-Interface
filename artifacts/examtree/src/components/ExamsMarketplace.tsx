@@ -23,7 +23,7 @@ import { CatalogTestBrowser } from "@/components/CatalogTestBrowser";
 import { Button } from "@/components/ui/button";
 import { getDailyChallenge, type Test } from "@/lib/data";
 import { buildExamTreeNodes } from "@/lib/exam-tree";
-import { getStudentTestSeries, type StudentSeriesSummary } from "@/lib/test-series";
+import { getStudentTestSeries } from "@/lib/test-series";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 
 type FreePracticeTab = "sectional" | "topic-wise" | "all";
@@ -113,14 +113,6 @@ function SectionHeader({ eyebrow, title, description, trailing }: { eyebrow?: st
   );
 }
 
-function seriesMatchesFullLength(seriesItem: StudentSeriesSummary, fullLengthTests: Test[]) {
-  const seriesNames = [seriesItem.examName, seriesItem.examFamilyName].map(normalize).filter(Boolean);
-  return fullLengthTests.some((test) => {
-    const testNames = [test.subcategoryName, test.categoryName, test.category].map(normalize).filter(Boolean);
-    return seriesNames.some((seriesName) => testNames.some((testName) => seriesName === testName || seriesName.includes(testName) || testName.includes(seriesName)));
-  });
-}
-
 export default function ExamsMarketplace() {
   const { categories, subcategories, tests, isLoading, error } = useExamCatalog();
   const [, setLocation] = useLocation();
@@ -165,7 +157,10 @@ export default function ExamsMarketplace() {
 
   const freeTests = useMemo(() => tests.filter((test) => (test.access ?? "free") === "free"), [tests]);
   const fullLengthTests = useMemo(() => tests.filter((test) => test.kind === "full-length"), [tests]);
-  const fullLengthSeries = useMemo(() => series.filter((seriesItem) => seriesMatchesFullLength(seriesItem, fullLengthTests)).slice(0, 4), [series, fullLengthTests]);
+  const fullLengthSeries = useMemo(
+    () => series.filter((seriesItem) => Number(seriesItem.fullLengthTestCount ?? 0) > 0).slice(0, 4),
+    [series],
+  );
   const featuredSeries = series.slice(0, 4);
 
   const freePracticeTests = useMemo(() => {
@@ -215,7 +210,7 @@ export default function ExamsMarketplace() {
   if (isLoading) {
     return (
       <div className="mx-auto w-full max-w-7xl space-y-5 px-4 py-6 sm:px-6 lg:px-8" role="status" aria-label="Loading exams">
-        <div className="skeleton-shimmer h-28 rounded-2xl" />
+        <div className="skeleton-shimmer h-48 rounded-2xl" />
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {Array.from({ length: 8 }, (_, index) => <div key={index} className="skeleton-shimmer h-28 rounded-xl" />)}
         </div>
@@ -229,12 +224,17 @@ export default function ExamsMarketplace() {
   return (
     <div className="bg-[#f8fafc] py-5 sm:py-7">
       <div className="mx-auto w-full max-w-7xl space-y-9 px-4 sm:px-6 lg:px-8">
-        <section aria-labelledby="explore-exams-heading">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <section className="overflow-hidden rounded-2xl border border-blue-200 bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 p-5 text-white shadow-sm sm:p-6" aria-labelledby="explore-exams-heading" data-testid="exam-discovery-command-center">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.14em] text-blue-600">Exam discovery</p>
-              <h1 id="explore-exams-heading" className="mt-1 text-3xl font-black tracking-[-0.035em] text-foreground sm:text-4xl">Explore Exams</h1>
-              <p className="mt-1.5 max-w-2xl text-sm leading-6 text-muted-foreground">Find test series, full-length mocks, free practice and exam-wise preparation from the live ExamTree catalog.</p>
+              <p className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-blue-100"><Sparkles className="h-4 w-4" aria-hidden="true" />Exam discovery</p>
+              <h1 id="explore-exams-heading" className="mt-1.5 text-3xl font-black tracking-[-0.035em] text-white sm:text-4xl">Explore Exams</h1>
+              <p className="mt-1.5 max-w-2xl text-sm leading-6 text-blue-100">Find test series, full-length mocks, free practice and exam-wise preparation from the live ExamTree catalog.</p>
+              <div className="mt-3 flex flex-wrap gap-2 text-[11px] font-black text-blue-50">
+                <span className="rounded-full bg-white/10 px-2.5 py-1 ring-1 ring-white/15">{formatCount(categoryNodes.length)} exam families</span>
+                <span className="rounded-full bg-white/10 px-2.5 py-1 ring-1 ring-white/15">{formatCount(tests.length)} published tests</span>
+                <span className="rounded-full bg-white/10 px-2.5 py-1 ring-1 ring-white/15">{formatCount(freeTests.length)} free tests</span>
+              </div>
             </div>
             <div className="w-full lg:max-w-xl">
               <label htmlFor="exam-category-search" className="sr-only">Search exam categories</label>
@@ -246,19 +246,19 @@ export default function ExamsMarketplace() {
                   value={categoryQuery}
                   onChange={(event) => setCategoryQuery(event.target.value)}
                   placeholder="Search SSC, Banking, Railways, Punjab exams…"
-                  className="min-h-[50px] w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-sm font-semibold text-slate-900 shadow-sm outline-none placeholder:text-slate-400 focus:border-primary/40 focus:ring-2 focus:ring-primary/10"
+                  className="min-h-[50px] w-full rounded-xl border border-white/70 bg-white pl-12 pr-4 text-sm font-semibold text-slate-900 shadow-lg outline-none placeholder:text-slate-400 focus:border-white focus:ring-2 focus:ring-white/30"
                 />
               </div>
             </div>
           </div>
 
-          <div className="mt-5 flex gap-3 overflow-x-auto pb-2" data-testid="exam-category-logo-row">
+          <div className="mt-5 flex gap-3 overflow-x-auto pb-1" data-testid="exam-category-logo-row">
             {filteredCategories.map((category) => (
               <button
                 key={category.id}
                 type="button"
                 onClick={() => setLocation(`/category/${category.id}`)}
-                className="et-interactive group flex min-h-[72px] min-w-[142px] items-center gap-3 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md"
+                className="et-interactive group flex min-h-[72px] min-w-[142px] items-center gap-3 rounded-xl border border-white/70 bg-white/95 px-3.5 py-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:bg-white hover:shadow-md"
               >
                 <ExamLogo name={category.name} icon={category.icon} size="sm" />
                 <span className="min-w-0">
@@ -268,7 +268,7 @@ export default function ExamsMarketplace() {
               </button>
             ))}
             {filteredCategories.length === 0 ? (
-              <div className="w-full rounded-xl border border-dashed border-slate-300 bg-white px-5 py-5 text-center text-sm text-muted-foreground">No exam category matches “{categoryQuery.trim()}”.</div>
+              <div className="w-full rounded-xl border border-dashed border-white/50 bg-white/10 px-5 py-5 text-center text-sm text-blue-50">No exam category matches “{categoryQuery.trim()}”.</div>
             ) : null}
           </div>
         </section>
@@ -299,20 +299,20 @@ export default function ExamsMarketplace() {
         </section>
 
         <section className="rounded-2xl border border-slate-200 bg-white/80 p-5 shadow-sm sm:p-6" data-testid="full-length-series-section" aria-labelledby="full-length-series-heading">
-          <div id="full-length-series-heading"><SectionHeader eyebrow="Exam simulation" title="Full-Length Test Series" description="Complete mock sequences for exams that already have full-length tests in the live catalog." trailing={<Trophy className="h-5 w-5 text-amber-500" />} /></div>
+          <div id="full-length-series-heading"><SectionHeader eyebrow="Exam simulation" title="Full-Length Test Series" description="Complete mock sequences classified from the actual live member types in each published series." trailing={<Trophy className="h-5 w-5 text-amber-500" />} /></div>
           {fullLengthSeries.length > 0 ? (
             <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
               {fullLengthSeries.map((seriesItem, index) => (
                 <article key={seriesItem.id} className="group rounded-xl border border-slate-200 bg-white p-4 transition hover:border-blue-200 hover:shadow-sm">
-                  <div className="flex items-center gap-3"><ExamLogo name={`${seriesItem.examFamilyName} ${seriesItem.examName}`} /><div className="min-w-0"><p className="truncate text-sm font-black text-slate-950">{seriesItem.examName}</p><p className="truncate text-xs font-semibold text-slate-500">Full-length series</p></div></div>
-                  <div className="mt-4 grid grid-cols-2 gap-2 text-xs"><div className="rounded-lg bg-slate-50 px-2.5 py-2"><span className="block font-black text-slate-900">{seriesItem.testCount}</span><span className="text-slate-500">Tests</span></div><div className="rounded-lg bg-slate-50 px-2.5 py-2"><span className="block font-black text-slate-900">{formatCount(seriesItem.questionCount)}</span><span className="text-slate-500">Questions</span></div></div>
+                  <div className="flex items-center gap-3"><ExamLogo name={`${seriesItem.examFamilyName} ${seriesItem.examName}`} /><div className="min-w-0"><p className="truncate text-sm font-black text-slate-950">{seriesItem.examName}</p><p className="truncate text-xs font-semibold text-slate-500">{formatCount(seriesItem.fullLengthTestCount)} full-length tests</p></div></div>
+                  <div className="mt-4 grid grid-cols-2 gap-2 text-xs"><div className="rounded-lg bg-slate-50 px-2.5 py-2"><span className="block font-black text-slate-900">{seriesItem.testCount}</span><span className="text-slate-500">Series tests</span></div><div className="rounded-lg bg-slate-50 px-2.5 py-2"><span className="block font-black text-slate-900">{formatCount(seriesItem.questionCount)}</span><span className="text-slate-500">Questions</span></div></div>
                   <div className={`mt-4 h-1 rounded-full ${["bg-amber-400", "bg-blue-500", "bg-rose-500", "bg-violet-500"][index % 4]}`} aria-hidden="true" />
                   <Button className="mt-3 min-h-11 w-full" size="sm" variant="ghost" onClick={() => setLocation(`/test-series/${seriesItem.id}`)}>View Series <ArrowRight className="ml-1.5 h-4 w-4" /></Button>
                 </article>
               ))}
             </div>
           ) : fullLengthTests.length > 0 ? (
-            <div className="mt-4 flex flex-col gap-3 rounded-xl bg-blue-50/70 p-4 sm:flex-row sm:items-center sm:justify-between"><div><p className="font-black text-slate-900">Full-length mocks are live</p><p className="mt-1 text-sm text-slate-600">A canonical full-length series has not been published for these mocks yet.</p></div><Button className="min-h-11" variant="outline" onClick={() => setLocation(`/test/${fullLengthTests[0].id}`)}>Open a full-length mock</Button></div>
+            <div className="mt-4 flex flex-col gap-3 rounded-xl bg-blue-50/70 p-4 sm:flex-row sm:items-center sm:justify-between"><div><p className="font-black text-slate-900">Full-length mocks are live</p><p className="mt-1 text-sm text-slate-600">No live series currently contains a published full-length member, so start with a standalone mock.</p></div><Button className="min-h-11" variant="outline" onClick={() => setLocation(`/test/${fullLengthTests[0].id}`)}>Open a full-length mock</Button></div>
           ) : <p className="mt-4 rounded-xl border border-dashed border-slate-300 px-5 py-6 text-center text-sm text-muted-foreground">Full-length series will appear here when matching mocks are published.</p>}
         </section>
 
