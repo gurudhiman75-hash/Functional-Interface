@@ -1,8 +1,16 @@
 import { strict as assert } from "node:assert";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-const sourceRoot = resolve(import.meta.dirname, "..");
+// This test is bundled into dist/ for CI, so import.meta.dirname points at the
+// generated bundle rather than the TypeScript source tree. Resolve source from
+// the working directory instead and support both package-root and repo-root
+// invocation.
+const packageSourceRoot = resolve(process.cwd(), "src");
+const sourceRoot = existsSync(resolve(packageSourceRoot, "routes"))
+  ? packageSourceRoot
+  : resolve(process.cwd(), "artifacts/api-server/src");
+
 const engineRoute = readFileSync(
   resolve(sourceRoot, "routes/admin-question-studio-engine-v1.ts"),
   "utf8",
