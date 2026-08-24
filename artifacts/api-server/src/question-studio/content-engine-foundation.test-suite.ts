@@ -90,5 +90,8 @@ await runStage("COM-001 Hindi/Punjabi localization freeze V2", () =>
 await runStage("COM-001 Question Studio review integration authority V2", () =>
   import("./engines/com001-question-studio-review-integration-v2.test")
 );
+await runStage("COM-001 V2 topology difficulty classifier candidate", () =>
+  import("../knowledge-v1/computer-awareness/com001-difficulty-routing-v2.test")
+);
 
 console.log("Question Studio content engine foundation suite passed.");
