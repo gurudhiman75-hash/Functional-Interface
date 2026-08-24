@@ -25,6 +25,14 @@ const BANNED_LEARNER_METADATA = [
   /solverVerifierAgree/i,
   /proofEvents/i,
   /SRI-EN-R1:/i,
+  /\b[A-Z][A-Z0-9_]{2,}:/,
+];
+const BANNED_EDITORIAL_TEXT = [
+  /\bcanonical result\b/i,
+  /\bcanonical values?\b/i,
+  /\breverse-constructed\b/i,
+  /\b(?:1th|2th|3th)\b/,
+  /\b1\\sqrt/,
 ];
 
 assert.equal(SRI_ENGLISH_REVIEW_READY_GROUPS_R1.length, EXPECTED_READY_GROUPS, "English R1 must expose exactly 58 source-supported retained groups");
@@ -81,6 +89,9 @@ for (const member of SRI_ENGLISH_REVIEW_MEMBERS_R1) {
     ].join("\n");
     for (const pattern of BANNED_LEARNER_METADATA) {
       assert.equal(pattern.test(learnerText), false, `${member.memberCandidateId} leaks internal review/runtime metadata: ${pattern}`);
+    }
+    for (const pattern of BANNED_EDITORIAL_TEXT) {
+      assert.equal(pattern.test(learnerText), false, `${member.memberCandidateId} contains discovery/editorial residue: ${pattern}`);
     }
     // "Undefined" is a legitimate learner-facing mathematical answer for zero-base domain cases.
     assert.equal(learnerText.includes("NaN"), false, `${member.memberCandidateId} contains NaN learner text`);
