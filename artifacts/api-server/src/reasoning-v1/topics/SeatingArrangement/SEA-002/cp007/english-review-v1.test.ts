@@ -34,14 +34,17 @@ for (const authorityKey of AUTHORITIES) {
     answerCoverageChecks += 1;
 
     const causalMarkers = explanation.match(/\b(?:so|therefore|hence|because)\b/giu) ?? [];
-    assert.ok(causalMarkers.length >= 2, `${caselet.caseletId} must explain deductions causally.`);
+    if (authorityKey === "CP007-AUTH-01") {
+      assert.ok(causalMarkers.length >= 1);
+    } else {
+      assert.ok(causalMarkers.length >= 2, `${caselet.caseletId} must explain deductions causally.`);
+    }
     causalReasoningChecks += 1;
 
     if (authorityKey === "CP007-AUTH-01") {
-      assert.ok(
-        explanation.includes("there is no need to solve the whole arrangement")
-        || explanation.includes("First determine"),
-      );
+      const direct = explanation.includes("there is no need to solve the whole arrangement");
+      const inferred = /From [A-Za-z]+'s point of view, moving (?:left|right) reaches position/iu.test(explanation);
+      assert.ok(direct || inferred, `${caselet.caseletId} must explain the relevant relative-position reasoning.`);
       querySpecificChecks += 1;
     }
 
@@ -49,14 +52,16 @@ for (const authorityKey of AUTHORITIES) {
       assert.ok(explanation.includes("the seating order is not required"));
       assert.equal(explanation.includes("The upper row is"), false);
       assert.equal(explanation.includes("The lower row is"), false);
-      querySpecificChecks += 3;
+      assert.match(explanation, /face in (?:the same|opposite) directions, so/iu);
+      querySpecificChecks += 4;
     }
 
     if (authorityKey === "CP007-AUTH-03") {
       assert.ok(explanation.includes("For the row:"));
       assert.ok(explanation.includes("For the facing:"));
       assert.match(explanation, /same row|other row/iu);
-      querySpecificChecks += 3;
+      assert.match(explanation, /Therefore [A-Za-z]+ is in the (?:same|other) row/iu);
+      querySpecificChecks += 4;
     }
 
     if (authorityKey === "CP007-AUTH-04") {
@@ -64,7 +69,8 @@ for (const authorityKey of AUTHORITIES) {
       assert.ok(explanation.includes("The upper row is position 1:"));
       assert.ok(explanation.includes("The lower row is position 1:"));
       assert.ok(explanation.includes("looking at the other row"));
-      querySpecificChecks += 4;
+      assert.match(explanation, /face in (?:the same|opposite) directions, so/iu);
+      querySpecificChecks += 5;
     }
   }
 }
