@@ -76,17 +76,27 @@ export interface QuestionStudioDashboard {
 }
 
 export interface GenerationPackage {
+  engineId?: string;
   packageId: string;
+  subject?: string;
   topic: string;
   subtopic: string;
   label: string;
   enabled: boolean;
   cpIds: string[];
   supportedLanguages: string[];
+  runtimeMode?: string;
+  supportedRuntimeModes?: string[];
+  dynamicCandidateCpIds?: string[];
+  questionBankStatus?: string;
+  testEligibility?: string;
+  publiclyPublishable?: boolean;
 }
 
 export interface QuestionStudioCapabilities {
   generationSystem: string;
+  defaultGenerationSystem?: string;
+  generationSystems?: string[];
   packages: GenerationPackage[];
   difficulties: string[];
   languages: string[];
@@ -94,6 +104,7 @@ export interface QuestionStudioCapabilities {
 }
 
 export interface CreateGenerationRunInput {
+  engineId?: string;
   exam: string;
   subject: string;
   difficulty: string;
@@ -104,6 +115,7 @@ export interface CreateGenerationRunInput {
   subtopic?: string;
   language: string;
   seed?: string;
+  runtimeMode?: string;
   canonicalProblemId?: string;
 }
 
@@ -198,6 +210,7 @@ export function createGenerationRun(input: CreateGenerationRunInput) {
     status: GenerationRunStatus;
     itemCount: number;
     generationSystem: string;
+    engineId?: string;
   }>(
     '/admin/question-studio/runs',
     { method: 'POST', body: JSON.stringify(body) },
