@@ -46,7 +46,9 @@ for (const question of TSD_CP009_RENDERED_HINDI_QUESTIONS) {
   assert(!match, `Hindi/${question.familyId}: Gurmukhi leakage '${match?.[0] ?? ""}'`);
 }
 for (const question of TSD_CP009_RENDERED_PUNJABI_QUESTIONS) {
-  const match = question.stem.match(/[\u0900-\u097F]/);
+  // U+0964/U+0965 danda punctuation is shared by multiple Indic scripts and is valid in Punjabi prose.
+  // Reject actual Devanagari letters, marks and digits while allowing those shared punctuation marks.
+  const match = question.stem.match(/[\u0900-\u0963\u0966-\u097F]/);
   assert(!match, `Punjabi/${question.familyId}: Devanagari leakage '${match?.[0] ?? ""}' U+${match ? match[0].codePointAt(0)?.toString(16).toUpperCase() : ""}`);
 }
 assert(TSD_CP009_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-111").every((question) => /ऊपरी सिरे/.test(question.stem)), "Hindi QL111 upstream-end anchor missing");
