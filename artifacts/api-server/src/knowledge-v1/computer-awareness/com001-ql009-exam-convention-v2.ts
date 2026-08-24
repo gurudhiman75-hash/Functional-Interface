@@ -126,11 +126,14 @@ function wrongAnswersFor(fact: Com001ExamCapacityRelationV2, stem: string) {
   return WRONG_ANSWERS[fact.label] ?? [];
 }
 
-function explanationFor(fact: Com001ExamCapacityRelationV2) {
+function explanationFor(fact: Com001ExamCapacityRelationV2, stem: string, canonicalAnswer: string) {
   if (fact.label === "1 byte") {
     return "One byte contains 8 bits. Therefore, 8 bits is the correct answer.";
   }
-  return `This question follows the traditional 1024-based convention used in competitive-exam computer-awareness questions: ${fact.relationText}. Strict SI/IEC prefix definitions are stored separately and are not being conflated with this exam convention.`;
+  if (stem.endsWith("1024 ______.")) {
+    return `Using the traditional 1024-based convention used in competitive exams, ${fact.relationText}. Therefore, the blank is ${canonicalAnswer}.`;
+  }
+  return `Using the traditional 1024-based convention used in competitive exams, ${fact.relationText}. Therefore, ${canonicalAnswer} is the correct answer.`;
 }
 
 export function generateCom001Ql009ExamConventionV2(seed: string): Com001HumanReviewV2Candidate {
@@ -149,7 +152,7 @@ export function generateCom001Ql009ExamConventionV2(seed: string): Com001HumanRe
   );
   const options = records.map((entry) => entry.text);
   const correctIndex = records.findIndex((entry) => entry.correct);
-  const explanation = explanationFor(fact);
+  const explanation = explanationFor(fact, stem, canonicalAnswer);
 
   assertKnowledgeQuestionValid({
     stem,
