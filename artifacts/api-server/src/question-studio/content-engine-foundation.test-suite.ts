@@ -51,5 +51,8 @@ await runStage("COM-001 360-question review synthesis", () =>
 await runStage("COM-001 360-question editorial quality audit", () =>
   import("../knowledge-v1/computer-awareness/com001-editorial-question-audit.test")
 );
+await runStage("COM-001 English freeze V1", () =>
+  import("../knowledge-v1/computer-awareness/com001-english-freeze-v1.test")
+);
 
 console.log("Question Studio content engine foundation suite passed.");
