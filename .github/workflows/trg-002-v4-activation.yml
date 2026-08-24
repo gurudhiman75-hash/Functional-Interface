@@ -6,6 +6,7 @@ on:
       - feat/trg-002-localization-hi-pa-v1
     paths:
       - artifacts/api-server/src/quant-v4/generation-engine.ts
+      - artifacts/api-server/src/lib/admin-question-conversion.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
       - .github/workflows/trg-002-v4-activation.yml
   pull_request:
@@ -13,6 +14,7 @@ on:
       - feat/trg-002-mvp48-freeze
     paths:
       - artifacts/api-server/src/quant-v4/generation-engine.ts
+      - artifacts/api-server/src/lib/admin-question-conversion.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-002/**
       - .github/workflows/trg-002-v4-activation.yml
   workflow_dispatch:
