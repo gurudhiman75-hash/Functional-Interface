@@ -11,7 +11,7 @@ const AUTHORITIES = ["CP007-AUTH-01", "CP007-AUTH-02", "CP007-AUTH-03", "CP007-A
 let surfaces = 0;
 let answerCoverageChecks = 0;
 let structureChecks = 0;
-let causalReasoningChecks = 0;
+let constructionChecks = 0;
 let querySpecificChecks = 0;
 
 for (const authorityKey of AUTHORITIES) {
@@ -29,57 +29,75 @@ for (const authorityKey of AUTHORITIES) {
     assert.equal(/undefined|null/i.test(explanation), false);
     assert.equal(explanation.includes("Following the same/opposite-facing clues gives"), false);
     assert.equal(explanation.includes("settles as P1:"), false);
-    assert.ok(explanation.split("\n").length >= 3 && explanation.split("\n").length <= 5);
+    assert.ok(explanation.startsWith("Method:"));
+    assert.ok(explanation.split("\n").length >= 3);
     structureChecks += 8;
     answerCoverageChecks += 1;
 
-    const causalMarkers = explanation.match(/\b(?:so|therefore|hence|because)\b/giu) ?? [];
     if (authorityKey === "CP007-AUTH-01") {
-      assert.ok(causalMarkers.length >= 1);
-    } else {
-      assert.ok(causalMarkers.length >= 2, `${caselet.caseletId} must explain deductions causally.`);
-    }
-    causalReasoningChecks += 1;
-
-    if (authorityKey === "CP007-AUTH-01") {
-      const direct = explanation.includes("there is no need to solve the whole arrangement");
-      const inferred = /From [A-Za-z]+'s point of view, moving (?:left|right) reaches position/iu.test(explanation);
-      assert.ok(direct || inferred, `${caselet.caseletId} must explain the relevant relative-position reasoning.`);
-      querySpecificChecks += 1;
+      const direct = explanation.includes("match the reference person and direction");
+      if (direct) {
+        assert.ok(explanation.includes("same person's"));
+        assert.ok(explanation.includes("clue itself answers the question"));
+        assert.equal(explanation.includes("Final arrangement"), false);
+        querySpecificChecks += 4;
+      } else {
+        assert.ok(explanation.includes("Facing chain:"));
+        assert.match(explanation, /faces (?:north|south), so [A-Za-z]+'s (?:left|right) is toward the (?:left|right) side of the page/iu);
+        assert.ok(explanation.includes("row blocks:"));
+        assert.ok(explanation.includes("Final arrangement (left to right; ↑ = north, ↓ = south):"));
+        assert.ok(explanation.includes("Position  | 1"));
+        assert.ok(explanation.includes("Upper row |"));
+        assert.ok(explanation.includes("Lower row |"));
+        constructionChecks += 6;
+        querySpecificChecks += 1;
+      }
     }
 
     if (authorityKey === "CP007-AUTH-02") {
-      assert.ok(explanation.includes("the seating order is not required"));
-      assert.equal(explanation.includes("The upper row is"), false);
-      assert.equal(explanation.includes("The lower row is"), false);
-      assert.match(explanation, /face in (?:the same|opposite) directions, so/iu);
-      querySpecificChecks += 4;
+      assert.ok(explanation.includes("Only the facing chain is needed"));
+      assert.ok(explanation.includes("Facing chain:"));
+      assert.match(explanation, /⇒ [A-Za-z]+[↑↓]/u);
+      assert.equal(explanation.includes("Final arrangement"), false);
+      assert.equal(explanation.includes("row blocks:"), false);
+      constructionChecks += 3;
+      querySpecificChecks += 2;
     }
 
     if (authorityKey === "CP007-AUTH-03") {
-      assert.ok(explanation.includes("For the row:"));
-      assert.ok(explanation.includes("For the facing:"));
+      assert.ok(explanation.includes("Row chain:"));
+      assert.ok(explanation.includes("Facing chain:"));
       assert.match(explanation, /same row|other row/iu);
-      assert.match(explanation, /Therefore [A-Za-z]+ is in the (?:same|other) row/iu);
-      querySpecificChecks += 4;
+      assert.ok(explanation.includes("Verification arrangement (left to right; ↑ = north, ↓ = south):"));
+      assert.ok(explanation.includes("Position  | 1"));
+      assert.ok(explanation.includes("Upper row |"));
+      assert.ok(explanation.includes("Lower row |"));
+      constructionChecks += 6;
+      querySpecificChecks += 2;
     }
 
     if (authorityKey === "CP007-AUTH-04") {
-      assert.ok(explanation.includes("left/right changes with the direction a person faces"));
-      assert.ok(explanation.includes("The upper row is position 1:"));
-      assert.ok(explanation.includes("The lower row is position 1:"));
-      assert.ok(explanation.includes("looking at the other row"));
-      assert.match(explanation, /face in (?:the same|opposite) directions, so/iu);
-      querySpecificChecks += 5;
+      assert.ok(explanation.includes("Build the rows:"));
+      assert.ok(explanation.includes("Upper-row blocks:"));
+      assert.ok(explanation.includes("Lower-row blocks:"));
+      assert.ok(explanation.includes("Align the two rows:"));
+      assert.match(explanation, /faces (?:north|south), so [A-Za-z]+'s (?:left|right) is toward the (?:left|right) side of the page/iu);
+      assert.ok(explanation.includes("Final arrangement (left to right; ↑ = north, ↓ = south):"));
+      assert.ok(explanation.includes("Position  | 1"));
+      assert.ok(explanation.includes("Upper row |"));
+      assert.ok(explanation.includes("Lower row |"));
+      assert.ok(explanation.includes("switch to the other row"));
+      constructionChecks += 9;
+      querySpecificChecks += 2;
     }
   }
 }
 
-console.log("PASS_SEA002_CP007_ENGLISH_SURFACE_V2_HELPFUL");
+console.log("PASS_SEA002_CP007_ENGLISH_SURFACE_V3_CONSTRUCTION_TEACHING");
 console.log("teacher explanations", surfaces);
 console.log("answer coverage checks", answerCoverageChecks);
 console.log("structure checks", structureChecks);
-console.log("causal reasoning checks", causalReasoningChecks);
+console.log("construction teaching checks", constructionChecks);
 console.log("query-specific checks", querySpecificChecks);
 console.log("learner column residue", 0);
 console.log("English approval remains", false);
