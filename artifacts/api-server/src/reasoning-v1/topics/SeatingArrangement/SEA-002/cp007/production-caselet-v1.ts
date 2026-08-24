@@ -17,6 +17,7 @@ export type Sea002Cp007CandidateAuthorityKey =
 export type Sea002Cp007ProductionClue =
   | Readonly<{ kind: "FACING_ANCHOR"; person: string; facing: Sea002Cp007Facing }>
   | Readonly<{ kind: "FACING_RELATION"; left: string; right: string; relation: "SAME" | "OPPOSITE" }>
+  | Readonly<{ kind: "ROW_ANCHOR"; person: string; row: Sea002Cp007Row }>
   | Readonly<{ kind: "SAME_ROW_OFFSET"; subject: string; reference: string; direction: "LEFT" | "RIGHT"; distance: number }>
   | Readonly<{ kind: "OPPOSITE"; left: string; right: string }>
   | Readonly<{ kind: "DIAGONAL"; subject: string; reference: string; direction: "LEFT" | "RIGHT" }>;
@@ -28,6 +29,7 @@ export type Sea002Cp007ProductionCaselet = Readonly<{
   authorityKey: Sea002Cp007CandidateAuthorityKey;
   participants: readonly Sea002Cp007Participant[];
   rowGroups: Readonly<{ top: readonly string[]; bottom: readonly string[] }>;
+  rowMembershipMode: "GIVEN" | "INFERRED";
   clues: readonly Sea002Cp007ProductionClue[];
   stem: string;
   question: string;
@@ -88,6 +90,10 @@ function at(
   return found;
 }
 
+function facingAnchorId(participants: readonly Sea002Cp007Participant[]): string {
+  return [...participants].sort((a, b) => a.id.localeCompare(b.id))[0]!.id;
+}
+
 function relationDirection(reference: Sea002Cp007Participant, subjectPosition: number): "LEFT" | "RIGHT" {
   const physicalDelta = subjectPosition - reference.seat.position;
   const rightDelta = relativeDelta(reference.facing, "RIGHT");
@@ -110,6 +116,13 @@ function buildFacingClues(participants: readonly Sea002Cp007Participant[]): Sea0
     }));
   }
   return clues;
+}
+
+function buildRowAnchorClue(
+  participants: readonly Sea002Cp007Participant[], seed: string,
+): Sea002Cp007ProductionClue {
+  const anchor = participants[hashInt(`${seed}:row-anchor`) % participants.length]!;
+  return Object.freeze({ kind: "ROW_ANCHOR", person: anchor.id, row: anchor.seat.row });
 }
 
 function buildSeatClues(
@@ -174,6 +187,8 @@ function renderClue(clue: Sea002Cp007ProductionClue): string {
       return `${clue.person} faces ${clue.facing === "N" ? "north" : "south"}.`;
     case "FACING_RELATION":
       return `${clue.left} and ${clue.right} face in ${clue.relation === "SAME" ? "the same" : "opposite"} directions.`;
+    case "ROW_ANCHOR":
+      return `${clue.person} sits in the ${clue.row === "TOP" ? "upper" : "lower"} row.`;
     case "SAME_ROW_OFFSET":
       return `${clue.subject} sits ${clue.distance === 1 ? "immediately" : `${clue.distance} positions`} to the ${clue.direction.toLowerCase()} of ${clue.reference}.`;
     case "OPPOSITE":
@@ -195,7 +210,9 @@ function queryForAuthority(
   authorityKey: Sea002Cp007CandidateAuthorityKey,
   participants: readonly Sea002Cp007Participant[],
   seed: string,
+  rowAnchorPerson?: string,
 ): { question: string; answer: string; distractors: string[]; explanation: string } {
+  const directFacingAnchor = facingAnchorId(participants);
   if (authorityKey === "CP007-AUTH-01") {
     const references = participants.filter((p) => p.seat.position > 0 && p.seat.position < Math.max(...participants.map((x) => x.seat.position)));
     const reference = references[hashInt(`${seed}:qref`) % references.length]!;
@@ -210,7 +227,8 @@ function queryForAuthority(
     };
   }
   if (authorityKey === "CP007-AUTH-02") {
-    const target = participants[hashInt(`${seed}:qtarget`) % participants.length]!;
+    const candidates = participants.filter((p) => p.id !== directFacingAnchor);
+    const target = candidates[hashInt(`${seed}:qtarget`) % candidates.length]!;
     const answer = target.facing === "N" ? "North" : "South";
     return {
       question: `Which direction does ${target.id} face?`,
@@ -220,7 +238,8 @@ function queryForAuthority(
     };
   }
   if (authorityKey === "CP007-AUTH-03") {
-    const target = participants[hashInt(`${seed}:qtarget`) % participants.length]!;
+    const candidates = participants.filter((p) => p.id !== directFacingAnchor && p.id !== rowAnchorPerson);
+    const target = candidates[hashInt(`${seed}:qtarget`) % candidates.length]!;
     const answer = `${target.seat.row === "TOP" ? "Upper row" : "Lower row"} — ${target.facing === "N" ? "North" : "South"}`;
     const all = ["Upper row — North", "Upper row — South", "Lower row — North", "Lower row — South"];
     return {
@@ -230,7 +249,11 @@ function queryForAuthority(
       explanation: `The row-position clues place ${target.id} in the ${target.seat.row === "TOP" ? "upper" : "lower"} row. The facing-relation chain fixes ${target.id} as facing ${target.facing === "N" ? "north" : "south"}.`,
     };
   }
-  const references = participants.filter((p) => p.seat.position > 0 && p.seat.position < Math.max(...participants.map((x) => x.seat.position)));
+  const references = participants.filter((p) =>
+    p.id !== directFacingAnchor
+    && p.seat.position > 0
+    && p.seat.position < Math.max(...participants.map((x) => x.seat.position)),
+  );
   const reference = references[hashInt(`${seed}:qref`) % references.length]!;
   const direction = hashInt(`${seed}:qdir`) % 2 === 0 ? "LEFT" as const : "RIGHT" as const;
   const targetPosition = reference.seat.position + relativeDelta(reference.facing, direction);
@@ -251,12 +274,23 @@ export function generateSea002Cp007ProductionCaselet(
   const participants = buildState(seed, width);
   const top = participants.filter((p) => p.seat.row === "TOP").sort((a, b) => a.seat.position - b.seat.position);
   const bottom = participants.filter((p) => p.seat.row === "BOTTOM").sort((a, b) => a.seat.position - b.seat.position);
+  const rowMembershipMode = authorityKey === "CP007-AUTH-03" ? "INFERRED" as const : "GIVEN" as const;
+  const rowAnchor = rowMembershipMode === "INFERRED" ? buildRowAnchorClue(participants, seed) : null;
   const clues = Object.freeze([
     ...buildFacingClues(participants),
+    ...(rowAnchor ? [rowAnchor] : []),
     ...buildSeatClues(participants, width, seed),
   ]);
-  const query = queryForAuthority(authorityKey, participants, seed);
+  const query = queryForAuthority(
+    authorityKey,
+    participants,
+    seed,
+    rowAnchor?.kind === "ROW_ANCHOR" ? rowAnchor.person : undefined,
+  );
   const correctIndex = hashInt(`${seed}:${authorityKey}:answer-index`) % 4;
+  const rowRoster = rowMembershipMode === "GIVEN"
+    ? `The upper-row members are ${top.map((p) => p.id).sort().join(", ")}; the lower-row members are ${bottom.map((p) => p.id).sort().join(", ")}. `
+    : "";
   return Object.freeze({
     caseletId: `SEA-CP007-CASE-${createHash("sha256").update(`${seed}:${width}`).digest("hex").slice(0, 12)}`,
     seed,
@@ -267,8 +301,9 @@ export function generateSea002Cp007ProductionCaselet(
       top: Object.freeze(top.map((p) => p.id)),
       bottom: Object.freeze(bottom.map((p) => p.id)),
     }),
+    rowMembershipMode,
     clues,
-    stem: `Two parallel rows contain ${width} persons each. The upper-row members are ${top.map((p) => p.id).sort().join(", ")}; the lower-row members are ${bottom.map((p) => p.id).sort().join(", ")}. Some persons face north and some face south. ${clues.map(renderClue).join(" ")}`,
+    stem: `Two parallel rows contain ${width} persons each. ${rowRoster}Some persons face north and some face south. ${clues.map(renderClue).join(" ")}`,
     question: query.question,
     options: makeOptions(query.answer, query.distractors, correctIndex),
     correctIndex,
@@ -317,6 +352,64 @@ function solveFacings(
   return facings.size === people.length ? facings : null;
 }
 
+function oppositeRow(row: Sea002Cp007Row): Sea002Cp007Row {
+  return row === "TOP" ? "BOTTOM" : "TOP";
+}
+
+function rowRelation(clue: Sea002Cp007ProductionClue):
+  | { left: string; right: string; relation: "SAME" | "DIFFERENT" }
+  | null {
+  if (clue.kind === "SAME_ROW_OFFSET") {
+    return { left: clue.subject, right: clue.reference, relation: "SAME" };
+  }
+  if (clue.kind === "OPPOSITE") {
+    return { left: clue.left, right: clue.right, relation: "DIFFERENT" };
+  }
+  if (clue.kind === "DIAGONAL") {
+    return { left: clue.subject, right: clue.reference, relation: "DIFFERENT" };
+  }
+  return null;
+}
+
+function solveRows(
+  people: readonly string[], width: number, clues: readonly Sea002Cp007ProductionClue[],
+): Map<string, Sea002Cp007Row> | null {
+  const rows = new Map<string, Sea002Cp007Row>();
+  for (const clue of clues) {
+    if (clue.kind !== "ROW_ANCHOR") continue;
+    const existing = rows.get(clue.person);
+    if (existing && existing !== clue.row) return null;
+    rows.set(clue.person, clue.row);
+  }
+  if (rows.size === 0) return null;
+
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const clue of clues) {
+      const relation = rowRelation(clue);
+      if (!relation) continue;
+      const left = rows.get(relation.left);
+      const right = rows.get(relation.right);
+      if (left && !right) {
+        rows.set(relation.right, relation.relation === "SAME" ? left : oppositeRow(left));
+        changed = true;
+      } else if (right && !left) {
+        rows.set(relation.left, relation.relation === "SAME" ? right : oppositeRow(right));
+        changed = true;
+      } else if (left && right) {
+        const expected = relation.relation === "SAME" ? left : oppositeRow(left);
+        if (right !== expected) return null;
+      }
+    }
+  }
+
+  if (rows.size !== people.length) return null;
+  const topCount = people.filter((person) => rows.get(person) === "TOP").length;
+  const bottomCount = people.filter((person) => rows.get(person) === "BOTTOM").length;
+  return topCount === width && bottomCount === width ? rows : null;
+}
+
 function sameRowCluesSatisfied(
   order: readonly string[], row: Sea002Cp007Row, facings: ReadonlyMap<string, Sea002Cp007Facing>, clues: readonly Sea002Cp007ProductionClue[],
 ): boolean {
@@ -334,12 +427,22 @@ function sameRowCluesSatisfied(
 }
 
 export function independentlySolveSea002Cp007Caselet(caselet: Sea002Cp007ProductionCaselet) {
-  const people = [...caselet.rowGroups.top, ...caselet.rowGroups.bottom];
+  const people = caselet.participants.map((participant) => participant.id);
   const facings = solveFacings(people, caselet.clues);
   if (!facings) return Object.freeze({ solutionCount: 0, solutions: Object.freeze([]) });
 
-  const topOrders = permutations(caselet.rowGroups.top).filter((order) => sameRowCluesSatisfied(order, "TOP", facings, caselet.clues));
-  const bottomOrders = permutations(caselet.rowGroups.bottom).filter((order) => sameRowCluesSatisfied(order, "BOTTOM", facings, caselet.clues));
+  const rows = caselet.rowMembershipMode === "INFERRED"
+    ? solveRows(people, caselet.width, caselet.clues)
+    : new Map<string, Sea002Cp007Row>([
+      ...caselet.rowGroups.top.map((person) => [person, "TOP" as const] as const),
+      ...caselet.rowGroups.bottom.map((person) => [person, "BOTTOM" as const] as const),
+    ]);
+  if (!rows) return Object.freeze({ solutionCount: 0, solutions: Object.freeze([]) });
+
+  const topPeople = people.filter((person) => rows.get(person) === "TOP");
+  const bottomPeople = people.filter((person) => rows.get(person) === "BOTTOM");
+  const topOrders = permutations(topPeople).filter((order) => sameRowCluesSatisfied(order, "TOP", facings, caselet.clues));
+  const bottomOrders = permutations(bottomPeople).filter((order) => sameRowCluesSatisfied(order, "BOTTOM", facings, caselet.clues));
   const solutions: Array<{ top: string[]; bottom: string[]; facings: Record<string, Sea002Cp007Facing> }> = [];
 
   for (const top of topOrders) {
@@ -351,6 +454,10 @@ export function independentlySolveSea002Cp007Caselet(caselet: Sea002Cp007Product
         : { row: "BOTTOM" as const, position: bottomPos.get(person)! };
       let valid = true;
       for (const clue of caselet.clues) {
+        if (clue.kind === "ROW_ANCHOR") {
+          const located = locate(clue.person);
+          if (located.row !== clue.row) { valid = false; break; }
+        }
         if (clue.kind === "OPPOSITE") {
           const left = locate(clue.left);
           const right = locate(clue.right);
