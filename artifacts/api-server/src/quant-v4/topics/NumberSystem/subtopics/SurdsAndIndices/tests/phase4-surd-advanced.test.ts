@@ -3,40 +3,40 @@ import { SRI_CHAPTER_MANIFEST, assertSriReleaseLocks } from "../chapter-manifest
 import { validateSriDiscoveryQuestion } from "../discovery-runtime";
 import { SRI_002_MANIFEST } from "../SRI-002/manifest";
 import {
-  SRI_PHASE3_SURD_FOUNDATION_CANDIDATES,
-  generateSriPhase3SurdFoundationCandidate,
-} from "../SRI-002/phase3-surd-foundations";
+  SRI_PHASE4_SURD_ADVANCED_CANDIDATES,
+  generateSriPhase4SurdAdvancedCandidate,
+} from "../SRI-002/phase4-surd-advanced";
 
 const SEEDS_PER_CANDIDATE = 80;
-const EXPECTED_CANDIDATES = 23;
+const EXPECTED_CANDIDATES = 20;
+const EXPECTED_SRI002_TOTAL = 43;
 
-assert.equal(SRI_PHASE3_SURD_FOUNDATION_CANDIDATES.length, EXPECTED_CANDIDATES, "Phase 3 must expose all 23 CP007-009 candidates");
-assert.equal(new Set(SRI_PHASE3_SURD_FOUNDATION_CANDIDATES.map((item) => item.candidateId)).size, EXPECTED_CANDIDATES, "Phase 3 candidate IDs must be unique");
-assert.ok(SRI_002_MANIFEST.provisionalCandidateCount >= EXPECTED_CANDIDATES, "SRI-002 cumulative candidate count cannot be smaller than the Phase 3 wave");
-assert.equal(SRI_002_MANIFEST.discoveryWaves.phase3SurdFoundations, EXPECTED_CANDIDATES);
+assert.equal(SRI_PHASE4_SURD_ADVANCED_CANDIDATES.length, EXPECTED_CANDIDATES, "Phase 4 must expose all 20 CP010-012 candidates");
+assert.equal(new Set(SRI_PHASE4_SURD_ADVANCED_CANDIDATES.map((item) => item.candidateId)).size, EXPECTED_CANDIDATES, "Phase 4 candidate IDs must be unique");
+assert.equal(SRI_002_MANIFEST.provisionalCandidateCount, EXPECTED_SRI002_TOTAL);
+assert.equal(SRI_002_MANIFEST.discoveryWaves.phase3SurdFoundations, 23);
+assert.equal(SRI_002_MANIFEST.discoveryWaves.phase4SurdAdvanced, 20);
 assert.equal(SRI_002_MANIFEST.permanentQlCount, 0);
 assert.equal(SRI_002_MANIFEST.frozenSolveModeCount, 0);
-for (const checkpointId of ["SRI-CP-007", "SRI-CP-008", "SRI-CP-009"] as const) {
-  assert.ok(SRI_002_MANIFEST.activeExecutableDiscoveryCheckpoints.includes(checkpointId), `${checkpointId} must remain active executable discovery`);
-}
-assert.equal(SRI_002_MANIFEST.downstreamEligibility.questionStudio, false);
-assert.equal(SRI_002_MANIFEST.downstreamEligibility.questionBank, false);
-assert.equal(SRI_002_MANIFEST.downstreamEligibility.tests, false);
-assert.equal(SRI_002_MANIFEST.downstreamEligibility.public, false);
+assert.deepEqual(SRI_002_MANIFEST.activeExecutableDiscoveryCheckpoints, ["SRI-CP-007", "SRI-CP-008", "SRI-CP-009", "SRI-CP-010", "SRI-CP-011", "SRI-CP-012"]);
+assert.equal(SRI_CHAPTER_MANIFEST.executableDiscoveryCheckpoints.length, 12, "All SRI checkpoints must now be executable discovery");
 assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 0);
 assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 0);
-for (const checkpointId of ["SRI-CP-007", "SRI-CP-008", "SRI-CP-009"] as const) {
-  assert.ok(SRI_CHAPTER_MANIFEST.executableDiscoveryCheckpoints.includes(checkpointId), `${checkpointId} must be executable discovery`);
-}
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.discoveryOpen, true);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionStudioDiscoverable, false);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionStudioGenerationEnabled, false);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionBankWritesEnabled, false);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.testEligibilityEnabled, false);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.publicPublicationEnabled, false);
 assertSriReleaseLocks();
 
 const expectedCheckpointCounts = new Map([
-  ["SRI-CP-007", 6],
-  ["SRI-CP-008", 8],
-  ["SRI-CP-009", 9],
+  ["SRI-CP-010", 6],
+  ["SRI-CP-011", 9],
+  ["SRI-CP-012", 5],
 ]);
 for (const [checkpointId, expected] of expectedCheckpointCounts) {
-  assert.equal(SRI_PHASE3_SURD_FOUNDATION_CANDIDATES.filter((item) => item.checkpointId === checkpointId).length, expected, `${checkpointId} candidate count mismatch`);
+  assert.equal(SRI_PHASE4_SURD_ADVANCED_CANDIDATES.filter((item) => item.checkpointId === checkpointId).length, expected, `${checkpointId} candidate count mismatch`);
 }
 
 let generated = 0;
@@ -45,18 +45,18 @@ const candidateStemDiversity = new Map<string, Set<string>>();
 const optionPositions = new Map<string, Set<number>>();
 const answerDiversity = new Map<string, Set<string>>();
 
-for (const descriptor of SRI_PHASE3_SURD_FOUNDATION_CANDIDATES) {
+for (const descriptor of SRI_PHASE4_SURD_ADVANCED_CANDIDATES) {
   const stems = new Set<string>();
   const positions = new Set<number>();
   const answers = new Set<string>();
 
   for (let index = 0; index < SEEDS_PER_CANDIDATE; index += 1) {
-    const seed = `SRI-PHASE3:${descriptor.candidateId}:${index}`;
+    const seed = `SRI-PHASE4:${descriptor.candidateId}:${index}`;
     let question;
     let repeat;
     try {
-      question = generateSriPhase3SurdFoundationCandidate(descriptor.candidateId, seed);
-      repeat = generateSriPhase3SurdFoundationCandidate(descriptor.candidateId, seed);
+      question = generateSriPhase4SurdAdvancedCandidate(descriptor.candidateId, seed);
+      repeat = generateSriPhase4SurdAdvancedCandidate(descriptor.candidateId, seed);
     } catch (error) {
       const detail = error instanceof Error ? error.message : String(error);
       throw new Error(`${descriptor.candidateId} failed generation for seed ${seed}: ${detail}`);
@@ -74,6 +74,7 @@ for (const descriptor of SRI_PHASE3_SURD_FOUNDATION_CANDIDATES) {
     assert.equal(new Set(question.options.map((option) => option.canonicalKey)).size, 4, `${descriptor.candidateId} has duplicate canonical options`);
     assert.equal(question.options.filter((option) => option.canonicalKey === question.answer.canonicalKey).length, 1, `${descriptor.candidateId} does not have exactly one correct option`);
     assert.equal(question.options[question.correctIndex]?.canonicalKey, question.answer.canonicalKey);
+    assert.equal(question.options.filter((option) => option.misconceptionId !== null).length, 3, `${descriptor.candidateId} must expose exactly three misconception-backed distractors`);
     assert.equal(question.verification.solverVerifierAgree, true, `${descriptor.candidateId} solver/verifier mismatch`);
     assert.equal(question.verification.exactlyOneCorrectOption, true);
     assert.equal(question.verification.domainValid, true, `${descriptor.candidateId} generated an inadmissible state`);
@@ -88,11 +89,20 @@ for (const descriptor of SRI_PHASE3_SURD_FOUNDATION_CANDIDATES) {
     assert.ok(question.explanation.working.length > 0);
     assert.equal(question.explanation.answer, question.answer.text);
     assert.notEqual(normalize(question.explanation.given), normalize(question.stem), `${descriptor.candidateId} explanation repeats the complete stem`);
-    assert.equal(question.options.filter((option) => option.misconceptionId !== null).length, 3, `${descriptor.candidateId} must expose exactly three misconception-backed distractors`);
 
-    if (descriptor.candidateId === "C007-F") {
-      const normalizedExponentKeys = question.options.map((option) => normalizeExponentKey(option.canonicalKey));
-      assert.equal(new Set(normalizedExponentKeys).size, 4, "C007-F must not contain equivalent exponents under unreduced canonical keys");
+    if (descriptor.candidateId === "C010-C") {
+      assert.ok(typeof question.state.discriminant === "string", "C010-C must carry the exact denesting discriminant");
+    }
+    if (descriptor.candidateId === "C010-F") {
+      assert.equal(descriptor.sourceDisposition, "SOURCE_GATED", "Infinite-radical candidate must remain source-gated during discovery");
+    }
+    if (descriptor.candidateId === "C011-H") {
+      assert.ok(typeof question.state.extraneous === "number" && typeof question.state.valid === "number", "C011-H must retain both squared-equation candidates");
+      assert.notEqual(question.state.extraneous, question.state.valid);
+      assert.equal(question.answer.text, String(question.state.extraneous));
+    }
+    if (descriptor.candidateId === "C012-C") {
+      assert.equal(question.answer.canonicalKey, "T:EQUAL", "C012-C is an exact representation-equivalence contract");
     }
 
     stems.add(question.stem);
@@ -109,9 +119,9 @@ for (const descriptor of SRI_PHASE3_SURD_FOUNDATION_CANDIDATES) {
 }
 
 assert.equal(generated, EXPECTED_CANDIDATES * SEEDS_PER_CANDIDATE);
-assert.equal(checkpointCounts.get("SRI-CP-007"), 6 * SEEDS_PER_CANDIDATE);
-assert.equal(checkpointCounts.get("SRI-CP-008"), 8 * SEEDS_PER_CANDIDATE);
-assert.equal(checkpointCounts.get("SRI-CP-009"), 9 * SEEDS_PER_CANDIDATE);
+assert.equal(checkpointCounts.get("SRI-CP-010"), 6 * SEEDS_PER_CANDIDATE);
+assert.equal(checkpointCounts.get("SRI-CP-011"), 9 * SEEDS_PER_CANDIDATE);
+assert.equal(checkpointCounts.get("SRI-CP-012"), 5 * SEEDS_PER_CANDIDATE);
 
 console.log(JSON.stringify({
   status: "PASS",
@@ -122,28 +132,11 @@ console.log(JSON.stringify({
   minUniqueStems: Math.min(...[...candidateStemDiversity.values()].map((set) => set.size)),
   minCorrectOptionPositions: Math.min(...[...optionPositions.values()].map((set) => set.size)),
   minDistinctAnswers: Math.min(...[...answerDiversity.values()].map((set) => set.size)),
+  sri002ProvisionalCandidateCount: SRI_002_MANIFEST.provisionalCandidateCount,
   permanentQlCount: SRI_002_MANIFEST.permanentQlCount,
   frozenSolveModeCount: SRI_002_MANIFEST.frozenSolveModeCount,
 }, null, 2));
 
 function normalize(value: string): string {
   return value.trim().replace(/[?.!]+$/g, "").replace(/\s+/g, " ").toLowerCase();
-}
-
-function normalizeExponentKey(key: string): string {
-  if (!key.startsWith("E:")) return key;
-  const match = /^E:(-?\d+)\/(\d+)$/.exec(key);
-  if (!match) return key;
-  let numerator = BigInt(match[1]!);
-  let denominator = BigInt(match[2]!);
-  const gcd = (a: bigint, b: bigint): bigint => {
-    let x = a < 0n ? -a : a;
-    let y = b < 0n ? -b : b;
-    while (y !== 0n) [x, y] = [y, x % y];
-    return x === 0n ? 1n : x;
-  };
-  const d = gcd(numerator, denominator);
-  numerator /= d;
-  denominator /= d;
-  return `E:${numerator}/${denominator}`;
 }
