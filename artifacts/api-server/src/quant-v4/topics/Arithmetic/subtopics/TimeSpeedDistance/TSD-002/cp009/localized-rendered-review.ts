@@ -1,6 +1,9 @@
 import { divide, multiply, rational, type Rational } from "../../TSD-001/foundation/rational";
 import { TSD_CP009_FROZEN_ENGLISH_REGISTRY } from "./english-freeze-registry";
-import { TSD_CP009_FINAL_HINDI_LOCALIZATION, TSD_CP009_FINAL_PUNJABI_LOCALIZATION } from "./localization-review-final";
+import {
+  TSD_CP009_NATIVE_FINAL_HINDI_LOCALIZATION,
+  TSD_CP009_NATIVE_FINAL_PUNJABI_LOCALIZATION,
+} from "./localization-native-final";
 import { TSD_CP009_LOCALIZED_REVIEW_CASES } from "./localized-review-cases";
 import type { TsdCp009Locale, TsdCp009LocalizationRegistry } from "./localization-types";
 
@@ -153,6 +156,6 @@ function renderLocale(registry: TsdCp009LocalizationRegistry): readonly TsdCp009
   return Object.freeze(rendered);
 }
 
-export const TSD_CP009_RENDERED_HINDI_QUESTIONS = renderLocale(TSD_CP009_FINAL_HINDI_LOCALIZATION);
-export const TSD_CP009_RENDERED_PUNJABI_QUESTIONS = renderLocale(TSD_CP009_FINAL_PUNJABI_LOCALIZATION);
+export const TSD_CP009_RENDERED_HINDI_QUESTIONS = renderLocale(TSD_CP009_NATIVE_FINAL_HINDI_LOCALIZATION);
+export const TSD_CP009_RENDERED_PUNJABI_QUESTIONS = renderLocale(TSD_CP009_NATIVE_FINAL_PUNJABI_LOCALIZATION);
 export const TSD_CP009_RENDERED_LOCALIZED_QUESTIONS = Object.freeze([...TSD_CP009_RENDERED_HINDI_QUESTIONS, ...TSD_CP009_RENDERED_PUNJABI_QUESTIONS]);
