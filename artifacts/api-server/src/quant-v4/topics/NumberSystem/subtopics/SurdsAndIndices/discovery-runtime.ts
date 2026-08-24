@@ -87,6 +87,12 @@ function canonicalFallbackDistractors(correct: SriCandidateAnswer): SriDistracto
 
 function cleanSriLearnerText(value: string): string {
   return value
+    .replace(/^Using the common exponent, find an equivalent single-power form of\s+(.+?)\.?$/i, "Write $1 as one power.")
+    .replace(/^Evaluate exactly:\s*(.+)$/i, "Evaluate $1")
+    .replace(/^Simplify the surd binomial square\s+(.+)$/i, "Expand and simplify $1")
+    .replace(/^Evaluate the conjugate product\s+(.+)$/i, "Evaluate $1")
+    .replace(/^Evaluate the positive infinite radical\s+(.+)$/i, "Find the positive value of the repeating radical $1")
+    .replace(/^Evaluate the two exact bound statements about\s+.+?:\s*(.+)$/i, "Without decimals, decide the truth of: $1")
     .replace(/^First reduce the radical, then simplify\s+/i, "Simplify ")
     .replace(/^Write\s+(.+?)\s+in the form a\+b\\sqrt\{[^}]+\}\.?$/i, "Expand and simplify $1.")
     .replace(/^Convert the radical to an index and solve\s+/i, "Solve ")
