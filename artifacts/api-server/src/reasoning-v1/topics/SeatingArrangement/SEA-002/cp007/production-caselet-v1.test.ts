@@ -19,6 +19,8 @@ let identityChecks = 0;
 let optionChecks = 0;
 let lifecycleChecks = 0;
 let presentationChecks = 0;
+let inferredRowCases = 0;
+let rowAnchorNecessityChecks = 0;
 const answerPositions = new Map<string, Set<number>>();
 const widths = new Map<string, Set<number>>();
 const clueKinds = new Set<string>();
@@ -78,6 +80,27 @@ for (const authorityKey of AUTHORITIES) {
     assert.ok(caselet.explanation.length >= 90);
     presentationChecks += 4;
 
+    if (authorityKey === "CP007-AUTH-03") {
+      inferredRowCases += 1;
+      assert.equal(caselet.rowMembershipMode, "INFERRED");
+      assert.equal(/upper-row members|lower-row members/iu.test(caselet.stem), false);
+      assert.equal(caselet.clues.filter((clue) => clue.kind === "ROW_ANCHOR").length, 1);
+      const rowAnchor = caselet.clues.find((clue) => clue.kind === "ROW_ANCHOR")!;
+      const facingAnchor = caselet.clues.find((clue) => clue.kind === "FACING_ANCHOR")!;
+      assert.equal(caselet.question.includes(rowAnchor.person), false);
+      assert.equal(caselet.question.includes(facingAnchor.person), false);
+      const withoutRowAnchor = Object.freeze({
+        ...caselet,
+        clues: Object.freeze(caselet.clues.filter((clue) => clue.kind !== "ROW_ANCHOR")),
+      });
+      assert.notEqual(independentlySolveSea002Cp007Caselet(withoutRowAnchor).solutionCount, 1);
+      rowAnchorNecessityChecks += 1;
+    } else {
+      assert.equal(caselet.rowMembershipMode, "GIVEN");
+      assert.match(caselet.stem, /upper-row members/iu);
+      assert.match(caselet.stem, /lower-row members/iu);
+    }
+
     const withoutFacingAnchor = Object.freeze({
       ...caselet,
       clues: Object.freeze(caselet.clues.filter((clue) => clue.kind !== "FACING_ANCHOR")),
@@ -99,9 +122,11 @@ assert.deepEqual([...widths.get("CP007-AUTH-01")!].sort(), [3, 4, 5, 6]);
 assert.deepEqual([...widths.get("CP007-AUTH-02")!].sort(), [3, 4, 5, 6]);
 assert.deepEqual([...widths.get("CP007-AUTH-03")!].sort(), [3, 4, 5, 6]);
 assert.deepEqual([...widths.get("CP007-AUTH-04")!].sort(), [4, 5, 6]);
-assert.deepEqual([...clueKinds].sort(), ["DIAGONAL", "FACING_ANCHOR", "FACING_RELATION", "OPPOSITE", "SAME_ROW_OFFSET"]);
+assert.deepEqual([...clueKinds].sort(), ["DIAGONAL", "FACING_ANCHOR", "FACING_RELATION", "OPPOSITE", "ROW_ANCHOR", "SAME_ROW_OFFSET"]);
+assert.equal(inferredRowCases, 48);
+assert.equal(rowAnchorNecessityChecks, 48);
 
-console.log("PASS_SEA002_CP007_PRODUCTION_CASELET_UNIQUENESS_V1");
+console.log("PASS_SEA002_CP007_PRODUCTION_CASELET_UNIQUENESS_V2");
 console.log("candidate authorities", AUTHORITIES.length);
 console.log("production caselets", generated);
 console.log("independent unique solutions", uniqueSolutions);
@@ -109,6 +134,8 @@ console.log("hidden-state identity checks", identityChecks);
 console.log("option checks", optionChecks);
 console.log("lifecycle checks", lifecycleChecks);
 console.log("presentation checks", presentationChecks);
+console.log("AUTH03 inferred-row cases", inferredRowCases);
+console.log("AUTH03 row-anchor necessity checks", rowAnchorNecessityChecks);
 console.log("clue kinds", [...clueKinds].sort().join(","));
 console.log("permanent QLs allocated", 0);
 console.log("next proposed range", "SEA-QL-025..SEA-QL-028");
