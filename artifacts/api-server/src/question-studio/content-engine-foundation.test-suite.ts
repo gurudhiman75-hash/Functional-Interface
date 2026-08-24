@@ -57,5 +57,8 @@ await runStage("COM-001 English freeze V1", () =>
 await runStage("COM-001 Hindi/Punjabi localization parity V1", () =>
   import("../knowledge-v1/computer-awareness/com001-localization-v1.test")
 );
+await runStage("COM-001 Hindi/Punjabi localization freeze V1", () =>
+  import("../knowledge-v1/computer-awareness/com001-hi-pa-localization-freeze-v1.test")
+);
 
 console.log("Question Studio content engine foundation suite passed.");
