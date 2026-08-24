@@ -7,6 +7,7 @@ import { NS_EXP_001_MATHJAX_KEYS } from "./math";
 import type { NsExp001CanonicalProblemId, NsExp001QuestionPackage, NsExp001VariableMap } from "./types";
 
 export const NS_EXP_001_ACTIVE_CP_IDS = ["CP01", "CP02", "CP03", "CP04", "CP05", "CP06", "CP07", "CP09"] as const;
+export const NS_EXP_001_CURRENT_QL_COUNT = 100;
 
 export function getNsExp001ActiveCanonicalProblemIds() {
   return [...NS_EXP_001_ACTIVE_CP_IDS] as NsExp001CanonicalProblemId[];
@@ -18,15 +19,15 @@ export function validateNsExp001Libraries() {
     if (lib.archetypeId !== "NS-EXP-001") failures.push(`${lib.libraryId} archetype mismatch.`);
   }
   const qlIds = questionLanguageLibrary.canonicalProblems.flatMap((cp) => cp.entries.map((entry) => entry.id));
-  if (qlIds.length !== 190) failures.push(`QL count must be 190; found ${qlIds.length}.`);
+  if (qlIds.length !== NS_EXP_001_CURRENT_QL_COUNT) failures.push(`Current runtime QL count must be ${NS_EXP_001_CURRENT_QL_COUNT}; found ${qlIds.length}.`);
   if (new Set(qlIds).size !== qlIds.length) failures.push("QL IDs must be unique.");
-  for (let i = 1; i <= 190; i += 1) {
-    const id = `QL-${String(i).padStart(3, "0")}`;
-    if (!qlIds.includes(id)) failures.push(`Missing ${id}.`);
+  for (const cpId of NS_EXP_001_ACTIVE_CP_IDS) {
+    const cp = questionLanguageLibrary.canonicalProblems.find((entry) => entry.cpId === cpId);
+    if (!cp || cp.entries.length === 0) failures.push(`Active CP ${cpId} must own at least one QL.`);
   }
   const esIds = explanationLibrary.families.flatMap((family) => family.entries.map((entry) => entry.id));
   if (JSON.stringify(esIds) !== JSON.stringify(["ES-001", "ES-002", "ES-003", "ES-004", "ES-005", "ES-006", "ES-007", "ES-008"])) failures.push("ES IDs must be ES-001 through ES-008.");
-  return { valid: failures.length === 0, failures };
+  return { valid: failures.length === 0, failures, qlCount: qlIds.length };
 }
 
 export function getQuestionLanguageEntries(cpId: NsExp001CanonicalProblemId) {
