@@ -11,7 +11,7 @@ import {
   subtractRational,
   type SriProofEvent,
 } from "../../../../shared/surds-indices";
-import { describeSriGivenState } from "./explanation-state";
+import { describeSriGivenContext } from "./explanation-state";
 import type {
   SriCandidateAnswer,
   SriCandidateOption,
@@ -114,13 +114,20 @@ function normalizeComparableText(value: string): string {
   return value.trim().replace(/[?.!]+$/g, "").replace(/\s+/g, " ").toLowerCase();
 }
 
+function hasStructuredStateLeak(given: string): boolean {
+  const stateAssignmentDump = given.startsWith("Given ") && /\s=\s/.test(given);
+  const internalEnumToken = /\b[A-Z][A-Z0-9_]{2,}\b/.test(given);
+  return stateAssignmentDump || internalEnumToken;
+}
+
 function normalizeExplanation(
   explanation: SriHumanExplanation,
   stem: string,
-  state: Readonly<Record<string, string | number | boolean>>,
+  checkpointId: SriCheckpointId,
 ): SriHumanExplanation {
   const repeatsStem = normalizeComparableText(explanation.given) === normalizeComparableText(stem);
-  return repeatsStem ? { ...explanation, given: describeSriGivenState(state) } : explanation;
+  const unsafeGiven = repeatsStem || hasStructuredStateLeak(explanation.given);
+  return unsafeGiven ? { ...explanation, given: describeSriGivenContext(checkpointId) } : explanation;
 }
 
 export function finalizeSriDiscoveryQuestion(input: FinalizeSriDiscoveryInput): SriDiscoveryQuestion {
@@ -128,7 +135,7 @@ export function finalizeSriDiscoveryQuestion(input: FinalizeSriDiscoveryInput): 
   const solverVerifierAgree = input.canonicalSolverKey === input.independentVerifierKey;
   const exactlyOneCorrectOption = options.filter((option) => option.canonicalKey === input.answer.canonicalKey).length === 1;
   const domainValid = input.domainValid ?? true;
-  const explanation = normalizeExplanation(input.explanation, input.stem, input.state);
+  const explanation = normalizeExplanation(input.explanation, input.stem, input.checkpointId);
   const proofEvents = [
     ...(input.proofEvents ?? []),
     proofEvent(
