@@ -9,7 +9,7 @@ export const STA_001_CHAPTER_REOPEN_V4_1 = Object.freeze({
   preservesHistoricalFreezeEvidence: true,
   priorFrozenProductQlIds: ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004"],
   v41ReviewQlIds: STA_V4_QL_IDS,
-  promotedSourceBackedQlIds: ["STA-QL-005", "STA-QL-006"],
+  sourceBackedCandidateQlIds: ["STA-QL-005", "STA-QL-006"],
   contentAuthority: Object.freeze({
     status: "V4_1_REVIEW_CANDIDATE",
     semanticAuthorityCount: 108,
