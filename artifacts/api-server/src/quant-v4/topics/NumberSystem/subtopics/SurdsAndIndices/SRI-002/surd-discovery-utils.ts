@@ -56,10 +56,14 @@ export function surdSumAnswer(value: SurdSum): SriCandidateAnswer {
 export function squareSurdDistractors(value: SquareSurd): SriDistractor[] {
   const c = value.coefficient;
   const r = value.radicand;
+  const shifted = (delta: bigint) => squareSurd(rational(c.numerator + delta * c.denominator, c.denominator), r);
   const candidates: readonly [SquareSurd, string][] = [
-    [squareSurd(rational(c.numerator + c.denominator, c.denominator), r), "COEFFICIENT_OFF_BY_ONE"],
-    [squareSurd(rational(c.numerator - c.denominator, c.denominator), r), "COEFFICIENT_OFF_BY_ONE"],
+    [shifted(1n), "COEFFICIENT_OFF_BY_ONE"],
+    [shifted(-1n), "COEFFICIENT_OFF_BY_ONE"],
+    [shifted(2n), "COEFFICIENT_OFF_BY_TWO"],
+    [shifted(-2n), "COEFFICIENT_OFF_BY_TWO"],
     [squareSurd(rational(-c.numerator, c.denominator), r), "SIGN_ERROR"],
+    [squareSurd(rational(c.numerator * 2n, c.denominator), r), "DOUBLE_COEFFICIENT"],
     [squareSurd(c, r === 1n ? 2n : r + 1n), "RADICAND_NOT_SIMPLIFIED"],
   ];
   const answer = squareSurdAnswer(value);
@@ -73,35 +77,50 @@ export function squareSurdDistractors(value: SquareSurd): SriDistractor[] {
     }
     if (output.length >= 3) break;
   }
+  if (output.length < 3) throw new Error("Unable to build three unique square-surd distractors");
   return output;
 }
 
 export function surdSumDistractors(value: SurdSum): SriDistractor[] {
   const terms = value.terms;
-  const variants: SurdSum[] = [];
+  const variants: { value: SurdSum; misconceptionId: string }[] = [];
   if (terms.length > 0) {
-    variants.push(surdSum(terms.map((term, index) => index === 0
-      ? { coefficient: rational(term.coefficient.numerator + term.coefficient.denominator, term.coefficient.denominator), radicand: term.radicand }
-      : term)));
-    variants.push(surdSum(terms.map((term, index) => index === terms.length - 1
-      ? { coefficient: rational(-term.coefficient.numerator, term.coefficient.denominator), radicand: term.radicand }
-      : term)));
+    variants.push({
+      value: surdSum(terms.map((term, index) => index === 0
+        ? { coefficient: rational(term.coefficient.numerator + term.coefficient.denominator, term.coefficient.denominator), radicand: term.radicand }
+        : term)),
+      misconceptionId: "FIRST_TERM_OFF_BY_ONE",
+    });
+    variants.push({
+      value: surdSum(terms.map((term, index) => index === terms.length - 1
+        ? { coefficient: rational(-term.coefficient.numerator, term.coefficient.denominator), radicand: term.radicand }
+        : term)),
+      misconceptionId: "LAST_TERM_SIGN_ERROR",
+    });
+    variants.push({
+      value: surdSum(terms.map((term) => ({ coefficient: rational(-term.coefficient.numerator, term.coefficient.denominator), radicand: term.radicand }))),
+      misconceptionId: "NEGATE_COMPLETE_RESULT",
+    });
   }
-  variants.push(surdSum([...terms, { coefficient: rational(1), radicand: 1n }]));
-  variants.push(surdSum([...terms, { coefficient: rational(-1), radicand: 1n }]));
+  for (const delta of [1, -1, 2, -2, 3, -3]) {
+    variants.push({
+      value: surdSum([...terms, { coefficient: rational(delta), radicand: 1n }]),
+      misconceptionId: `RATIONAL_PART_SHIFT_${delta}`,
+    });
+  }
 
   const correct = surdSumAnswer(value);
   const seen = new Set<string>([correct.canonicalKey]);
   const output: SriDistractor[] = [];
-  const labels = ["RATIONAL_PART_ERROR", "SURD_SIGN_ERROR", "EXTRA_ONE", "MISSING_ONE"];
-  for (let index = 0; index < variants.length; index += 1) {
-    const option = surdSumAnswer(variants[index]!);
+  for (const variant of variants) {
+    const option = surdSumAnswer(variant.value);
     if (!seen.has(option.canonicalKey)) {
       seen.add(option.canonicalKey);
-      output.push({ ...option, misconceptionId: labels[index]! });
+      output.push({ ...option, misconceptionId: variant.misconceptionId });
     }
     if (output.length >= 3) break;
   }
+  if (output.length < 3) throw new Error("Unable to build three unique surd-sum distractors");
   return output;
 }
 
