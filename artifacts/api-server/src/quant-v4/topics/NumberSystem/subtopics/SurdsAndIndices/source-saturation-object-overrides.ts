@@ -8,14 +8,15 @@ import {
   rationalKey,
   sriInt,
   sriPick,
+  verifySquareRootEquationCandidate,
   type Rational,
 } from "../../../../shared/surds-indices";
-import { integerAnswer, rationalAnswer, rationalDistractors } from "./discovery-answer-utils";
+import { integerAnswer, rationalAnswer, rationalDistractors, textDistractors } from "./discovery-answer-utils";
 import { finalizeSriDiscoveryQuestion } from "./discovery-runtime";
 import type { SriDiscoveryQuestion } from "./discovery-types";
 import { classificationDistractors } from "./SRI-002/surd-discovery-utils";
 
-export const SRI_SOURCE_SATURATION_OVERRIDE_IDS = new Set(["C002-F", "C002-G", "C007-D", "C012-B"] as const);
+export const SRI_SOURCE_SATURATION_OVERRIDE_IDS = new Set(["C002-F", "C002-G", "C007-D", "C011-H", "C012-B"] as const);
 
 function pow(base: number, exponent: number): bigint {
   return BigInt(base) ** BigInt(exponent);
@@ -162,6 +163,49 @@ function generateC007D(seed: string): SriDiscoveryQuestion {
   });
 }
 
+function generateC011H(seed: string): SriDiscoveryQuestion {
+  // The reverse construction remains valid for every d in this range:
+  // the rejected candidate always gives RHS -2, while the valid candidate gives RHS 3.
+  const d = sriInt(`${seed}:d`, 3, 10);
+  const extraneous = d - 2;
+  const valid = d + 3;
+  const c = 6 - d;
+  const validCheck = verifySquareRootEquationCandidate(rational(valid + c), rational(valid - d));
+  const extraCheck = verifySquareRootEquationCandidate(rational(extraneous + c), rational(extraneous - d));
+  if (!validCheck.valid || extraCheck.valid) throw new Error("C011-H saturation override failed extraneous-root invariant");
+  const answer = integerAnswer(extraneous);
+  const stem = sriPick(`${seed}:surface`, [
+    `Squaring \\sqrt{x+${c}}=x-${d} gives candidates x=${extraneous} and x=${valid}. Which candidate is extraneous?`,
+    `For \\sqrt{x+${c}}=x-${d}, the squared equation yields ${extraneous} and ${valid}. Which value must be rejected?`,
+    `After squaring \\sqrt{x+${c}}=x-${d}, candidates ${extraneous}, ${valid} appear. Identify the extraneous root.`,
+    `Which candidate fails the original equation \\sqrt{x+${c}}=x-${d}: ${extraneous} or ${valid}?`,
+  ]);
+  return finalizeSriDiscoveryQuestion({
+    packageId: "SRI-002", checkpointId: "SRI-CP-011", candidateId: "C011-H", seed,
+    state: { c, d, extraneous, valid },
+    stem, answer,
+    canonicalSolverKey: answer.canonicalKey,
+    independentVerifierKey: integerAnswer(extraCheck.valid ? valid : extraneous).canonicalKey,
+    distractors: textDistractors([
+      { text: String(valid), key: `R:${valid}/1`, misconceptionId: "REJECT_VALID_ROOT" },
+      { text: String(d), key: `R:${d}/1`, misconceptionId: "USE_SHIFT_AS_ROOT" },
+      { text: "Neither", key: "T:NEITHER", misconceptionId: "SKIP_ORIGINAL_CHECK" },
+    ]),
+    explanation: {
+      given: `The squared equation gives the two candidates ${extraneous} and ${valid}.`,
+      asked: "Identify the candidate that fails the original radical equation.",
+      method: "Substitute both candidates into the unsquared equation; a principal square root cannot equal a negative right-hand side.",
+      working: [
+        `For x=${extraneous}: ${extraCheck.reason}.`,
+        `For x=${valid}: ${validCheck.reason}.`,
+        `Reject x=${extraneous}.`,
+      ],
+      answer: answer.text,
+    },
+    proofEvents: [proofEvent("SOLVE", "original-equation rejection after squaring", { extraneous: String(extraneous), valid: String(valid) }, { rejected: String(extraneous) })],
+  });
+}
+
 function generateC012B(seed: string): SriDiscoveryQuestion {
   const [numerator, denominator] = sriPick(`${seed}:fraction`, [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4]] as const);
   const root = sriInt(`${seed}:root`, 2, 6);
@@ -203,6 +247,7 @@ export function generateSriSourceSaturationObjectOverride(candidateId: string, s
   if (candidateId === "C002-F") return generateC002F(seed);
   if (candidateId === "C002-G") return generateC002G(seed);
   if (candidateId === "C007-D") return generateC007D(seed);
+  if (candidateId === "C011-H") return generateC011H(seed);
   if (candidateId === "C012-B") return generateC012B(seed);
   throw new Error(`Unknown SRI saturation object override: ${candidateId}`);
 }
