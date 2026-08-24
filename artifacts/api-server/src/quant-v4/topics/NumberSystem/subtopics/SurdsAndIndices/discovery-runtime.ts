@@ -1,4 +1,5 @@
 import { proofEvent, sriBucket, type SriProofEvent } from "../../../../shared/surds-indices";
+import { describeSriGivenState } from "./explanation-state";
 import type {
   SriCandidateAnswer,
   SriCandidateOption,
@@ -51,11 +52,25 @@ export function buildSriOptions(
   };
 }
 
+function normalizeComparableText(value: string): string {
+  return value.trim().replace(/[?.!]+$/g, "").replace(/\s+/g, " ").toLowerCase();
+}
+
+function normalizeExplanation(
+  explanation: SriHumanExplanation,
+  stem: string,
+  state: Readonly<Record<string, string | number | boolean>>,
+): SriHumanExplanation {
+  const repeatsStem = normalizeComparableText(explanation.given) === normalizeComparableText(stem);
+  return repeatsStem ? { ...explanation, given: describeSriGivenState(state) } : explanation;
+}
+
 export function finalizeSriDiscoveryQuestion(input: FinalizeSriDiscoveryInput): SriDiscoveryQuestion {
   const { options, correctIndex } = buildSriOptions(input.seed, input.answer, input.distractors);
   const solverVerifierAgree = input.canonicalSolverKey === input.independentVerifierKey;
   const exactlyOneCorrectOption = options.filter((option) => option.canonicalKey === input.answer.canonicalKey).length === 1;
   const domainValid = input.domainValid ?? true;
+  const explanation = normalizeExplanation(input.explanation, input.stem, input.state);
   const proofEvents = [
     ...(input.proofEvents ?? []),
     proofEvent(
@@ -77,7 +92,7 @@ export function finalizeSriDiscoveryQuestion(input: FinalizeSriDiscoveryInput): 
     answer: input.answer,
     options,
     correctIndex,
-    explanation: input.explanation,
+    explanation,
     proofEvents,
     verification: {
       canonicalSolverKey: input.canonicalSolverKey,
@@ -110,5 +125,6 @@ export function validateSriDiscoveryQuestion(question: SriDiscoveryQuestion): st
   if (!question.verification.exactlyOneCorrectOption) failures.push("question verification did not prove exactly one correct option");
   if (!question.verification.domainValid) failures.push("question state is outside the declared real domain");
   if (!question.proofEvents.some((event) => event.kind === "INDEPENDENT_VERIFY")) failures.push("proof trace lacks independent verification");
+  if (normalizeComparableText(question.explanation.given) === normalizeComparableText(question.stem)) failures.push("explanation repeats the complete stem");
   return failures;
 }
