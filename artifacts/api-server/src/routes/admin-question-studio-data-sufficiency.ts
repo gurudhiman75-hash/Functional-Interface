@@ -35,9 +35,7 @@ import {
 import {
   DSF_CP008_CHECKPOINT_ID,
   DSF_CP008_LOCALIZATION_AUTHORITY,
-  DSF_CP008_LOCALIZATION_REVIEW_PACKAGE,
   DSF_CP008_SUPPORTED_LANGUAGES,
-  generateDsfLocalizedExamProfileBatch,
   type DsfLocalizedExamProfileQuestion,
   type DsfLocalizedLanguage,
 } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-008/localization-review-v1";

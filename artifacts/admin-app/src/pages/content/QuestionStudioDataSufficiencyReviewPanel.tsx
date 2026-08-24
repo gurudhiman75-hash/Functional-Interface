@@ -200,7 +200,7 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
       </CardHeader>
       <CardContent className="space-y-5">
         {status && (
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-8">
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-9">
             <Metric label="Permanent QLs" value={status.permanentQlCount} />
             <Metric label="Solve modes" value={status.solveModeCount} />
             <Metric label="CP-006 items" value={status.cp006GenerationItemCount} />
@@ -227,7 +227,7 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
         )}
 
         {loading ? <div className="flex items-center gap-2 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading Data Sufficiency package…</div> : (
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-8">
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-9">
             <Field label="Language"><Select value={language} onValueChange={(value) => { setLanguage(value as DsfReviewLanguage); setQuestions([]); }}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{(pkg?.supportedLanguages ?? ['en', 'hi', 'pa']).map((entry) => <SelectItem key={entry} value={entry}>{LANGUAGE_LABELS[entry]}</SelectItem>)}</SelectContent></Select></Field>
             <Field label="Answer profile"><Select value={answerProfile} onValueChange={(value) => { const next = value as DsfReviewAnswerProfile; setAnswerProfile(next); const profile = pkg?.answerProfiles.find((entry) => entry.id === next); if (semanticClass !== ALL && profile && !profile.representedSemanticClasses.includes(semanticClass as DsfReviewSemanticClass)) setSemanticClass(ALL); setQuestions([]); }}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{(pkg?.answerProfiles ?? []).map((entry) => <SelectItem key={entry.id} value={entry.id}>{entry.label}</SelectItem>)}</SelectContent></Select></Field>
             <Field label="Source domain"><Select value={domain} onValueChange={(value) => { setDomain(value); setSolveMode(ALL); setQuestions([]); }}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value={ALL}>All domains</SelectItem>{(pkg?.domains ?? []).map((entry) => <SelectItem key={entry.id} value={entry.id}>{entry.label}</SelectItem>)}</SelectContent></Select></Field>
