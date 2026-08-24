@@ -143,8 +143,13 @@ export function generateSriCp003Candidate(candidateId: string, seed: string): Sr
       const solver = powRationalInteger(rational(combinedBase), exponent);
       const commonExponent = (k1 + k2) * exponent;
       const answer = powerAnswer(`${combinedBase}^${exponent} (= ${commonBase}^${commonExponent})`, solver);
-      return finish(candidateId, seed, { commonBase, visible1, visible2, exponent },
-        `Simplify ${visible1}^${exponent} × ${visible2}^${exponent}.`, answer, verifier,
+      const stem = sriPick(`${seed}:stem-surface`, [
+        `Simplify ${visible1}^${exponent} × ${visible2}^${exponent}.`,
+        `Write ${visible1}^${exponent} × ${visible2}^${exponent} as one power.`,
+        `Using the common exponent, find an equivalent single-power form of ${visible1}^${exponent} × ${visible2}^${exponent}.`,
+        `Which single power is equal to ${visible1}^${exponent} × ${visible2}^${exponent}?`,
+      ]);
+      return finish(candidateId, seed, { commonBase, visible1, visible2, exponent }, stem, answer, verifier,
         rationalDistractors(solver),
         "Equal exponents allow the bases to be multiplied; the composite result can also be harmonised to the prime base.",
         [`(${visible1}×${visible2})^${exponent} = ${combinedBase}^${exponent}`, `Since ${combinedBase} = ${commonBase}^${k1 + k2}, this is ${commonBase}^${commonExponent}.`]);
