@@ -112,14 +112,20 @@ assert.equal(statesByQl.size, EXPECTED_QLS);
 assert.equal(stemsByQl.size, EXPECTED_QLS);
 assert.equal(positionsByQl.size, EXPECTED_QLS);
 
+const thinStatePools: string[] = [];
+const thinStemPools: string[] = [];
+const incompletePositionPools: string[] = [];
 for (const allocation of SRI_PERMANENT_ALLOCATION_V1) {
   const stateCount = statesByQl.get(allocation.qlId)?.size ?? 0;
   const stemCount = stemsByQl.get(allocation.qlId)?.size ?? 0;
   const positions = positionsByQl.get(allocation.qlId) ?? new Set<number>();
-  assert.ok(stateCount >= 6, `${allocation.qlId}: thin state pool ${stateCount}`);
-  assert.ok(stemCount >= 3, `${allocation.qlId}: thin stem pool ${stemCount}`);
-  assert.equal(positions.size, 4, `${allocation.qlId}: not all four correct-option positions are exercised`);
+  if (stateCount < 6) thinStatePools.push(`${allocation.qlId}=${stateCount}`);
+  if (stemCount < 3) thinStemPools.push(`${allocation.qlId}=${stemCount}`);
+  if (positions.size !== 4) incompletePositionPools.push(`${allocation.qlId}=[${[...positions].sort().join(",")}]`);
 }
+assert.deepEqual(thinStatePools, [], `Permanent QLs with fewer than 6 distinct audited states: ${thinStatePools.join(", ")}`);
+assert.deepEqual(thinStemPools, [], `Permanent QLs with fewer than 3 distinct audited stems: ${thinStemPools.join(", ")}`);
+assert.deepEqual(incompletePositionPools, [], `Permanent QLs missing answer positions: ${incompletePositionPools.join(", ")}`);
 
 const minimumGlobalPositionCount = Math.floor(generated * 0.18);
 for (let position = 0; position < 4; position += 1) {
