@@ -63,5 +63,8 @@ await runStage("COM-001 Hindi/Punjabi localization freeze V1", () =>
 await runStage("COM-001 review-only Question Studio batch audit", () =>
   import("./engines/knowledge-v1-com001-adapter.test")
 );
+await runStage("COM-001 Question Studio review integration authority V1", () =>
+  import("./engines/com001-question-studio-review-integration-v1.test")
+);
 
 console.log("Question Studio content engine foundation suite passed.");
