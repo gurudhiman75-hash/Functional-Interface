@@ -64,31 +64,56 @@ export const COM001_EXAM_CAPACITY_RELATIONS_V2: Com001ExamCapacityRelationV2[] =
 const WRONG_ANSWERS: Record<string, string[]> = {
   "1 byte": ["4 bits", "16 bits", "32 bits"],
   "1 KB": ["1,000 bytes", "512 bytes", "2,048 bytes"],
-  "1 MB": ["1,000 KB", "1,024 bytes", "1,024 MB"],
-  "1 GB": ["1,000 MB", "1,024 KB", "1,024 GB"],
-  "1 TB": ["1,000 GB", "1,024 MB", "1,024 TB"],
+  "1 MB": ["1,000 KB", "512 KB", "2,048 KB"],
+  "1 GB": ["1,000 MB", "512 MB", "2,048 MB"],
+  "1 TB": ["1,000 GB", "512 GB", "2,048 GB"],
 };
 
 function stemFor(fact: Com001ExamCapacityRelationV2, seed: string) {
-  if (fact.label === "1 byte") {
-    return deterministicPick(
-      [
-        "How many bits are there in one byte?",
-        "One byte is equal to how many bits?",
-      ],
-      `${seed}:stem`,
-    );
+  switch (fact.label) {
+    case "1 byte":
+      return deterministicPick(
+        [
+          "How many bits are there in one byte?",
+          "One byte is equal to how many bits?",
+        ],
+        `${seed}:stem`,
+      );
+    case "1 KB":
+      return deterministicPick(
+        [
+          "1 KB is equal to how many bytes?",
+          "How many bytes are there in 1 KB?",
+        ],
+        `${seed}:stem`,
+      );
+    case "1 MB":
+      return deterministicPick(
+        [
+          "1 MB is equal to how many KB?",
+          "1 MB consists of 1024 ______.",
+        ],
+        `${seed}:stem`,
+      );
+    case "1 GB":
+      return deterministicPick(
+        [
+          "1 GB is equal to how many MB?",
+          "How many MB are there in 1 GB?",
+        ],
+        `${seed}:stem`,
+      );
+    case "1 TB":
+      return deterministicPick(
+        [
+          "1 TB is equal to how many GB?",
+          "How many GB are there in 1 TB?",
+        ],
+        `${seed}:stem`,
+      );
+    default:
+      throw new Error(`Unsupported QL-009 V2 fact label ${fact.label}`);
   }
-  if (fact.label === "1 MB") {
-    return deterministicPick(
-      [
-        "In the traditional 1024-based convention used in basic computer-awareness exams, 1 MB equals how many KB?",
-        "Using the traditional competitive-exam memory-unit convention, 1 MB consists of 1024 ______.",
-      ],
-      `${seed}:stem`,
-    );
-  }
-  return `Using the traditional 1024-based convention common in basic computer-awareness exams, ${fact.label} equals:`;
 }
 
 function answerForStem(fact: Com001ExamCapacityRelationV2, stem: string) {
@@ -99,6 +124,13 @@ function answerForStem(fact: Com001ExamCapacityRelationV2, stem: string) {
 function wrongAnswersFor(fact: Com001ExamCapacityRelationV2, stem: string) {
   if (stem.endsWith("1024 ______.")) return ["GB", "TB", "bytes"];
   return WRONG_ANSWERS[fact.label] ?? [];
+}
+
+function explanationFor(fact: Com001ExamCapacityRelationV2) {
+  if (fact.label === "1 byte") {
+    return "One byte contains 8 bits. Therefore, 8 bits is the correct answer.";
+  }
+  return `This question follows the traditional 1024-based convention used in competitive-exam computer-awareness questions: ${fact.relationText}. Strict SI/IEC prefix definitions are stored separately and are not being conflated with this exam convention.`;
 }
 
 export function generateCom001Ql009ExamConventionV2(seed: string): Com001HumanReviewV2Candidate {
@@ -117,9 +149,7 @@ export function generateCom001Ql009ExamConventionV2(seed: string): Com001HumanRe
   );
   const options = records.map((entry) => entry.text);
   const correctIndex = records.findIndex((entry) => entry.correct);
-  const explanation = fact.label === "1 byte"
-    ? "One byte contains 8 bits. Therefore, 8 bits is the correct answer."
-    : `${fact.relationText} under the traditional 1024-based convention commonly used in competitive-exam computer-awareness questions. This exam convention is kept separate from strict SI/IEC prefix definitions.`;
+  const explanation = explanationFor(fact);
 
   assertKnowledgeQuestionValid({
     stem,
