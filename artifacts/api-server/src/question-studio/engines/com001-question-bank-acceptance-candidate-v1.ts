@@ -6,16 +6,12 @@ import {
 } from "./com001-question-bank-readiness-v1";
 import { COM001_QUESTION_STUDIO_REVIEW_DIFFICULTY_AUTHORITY_V1 } from "./com001-question-studio-review-difficulty-authority-v1";
 import { COM001_QUESTION_STUDIO_REVIEW_INTEGRATION_AUTHORITY_V2 } from "./com001-question-studio-review-integration-v2";
-import {
-  COM001_QUESTION_STUDIO_PACKAGE_ID,
-  COM001_REVISION_POLICY,
-} from "./knowledge-v1-com001-adapter";
 
 export const COM001_QUESTION_BANK_ACCEPTANCE_CANDIDATE_AUTHORITY_V1 = Object.freeze({
   authorityId: "COM-001-QUESTION-BANK-ACCEPTANCE-CANDIDATE-V1" as const,
   chapterId: "COM-001" as const,
   cpId: "COM-001-CP-001" as const,
-  packageId: COM001_QUESTION_STUDIO_PACKAGE_ID,
+  packageId: "COM-001" as const,
   engineId: "knowledge-v1" as const,
   status: "BANK_ONLY_ACCEPTANCE_CANDIDATE_PROVEN_NOT_ACTIVATED" as const,
   liveActivationAuthorized: false as const,
@@ -67,7 +63,7 @@ export const COM001_QUESTION_BANK_ACCEPTANCE_CANDIDATE_AUTHORITY_V1 = Object.fre
     idempotentByGenerationItem: true as const,
     canonicalAnswerPreservedInAnswerModel: true,
     provenancePreservedInAnswerModel: true,
-    revisionPolicy: COM001_REVISION_POLICY,
+    revisionPolicy: "SOURCE_GENERATOR_ONLY" as const,
   },
 
   downstreamLifecycleMustRemainLocked: {
@@ -95,12 +91,12 @@ export const COM001_QUESTION_BANK_ACCEPTANCE_CANDIDATE_AUTHORITY_V1 = Object.fre
     exactHeadIntegratedAdminRequired: true as const,
     sharedConverterBankOnlyRegressionProofRequired: true as const,
     liveAdapterChangeMustBeSeparateCommit: true as const,
-    liveActivationMustBindThisAuthorityId: true as const,
+    liveActivationMustBindCandidateAuthorityChain: true as const,
     downstreamLocksMayNotChangeDuringBankActivation: true as const,
   },
 
   invalidationRule:
     "Any material change to frozen V2 content authorities, difficulty authority, shared Question Bank normalization/provenance semantics, permanent QL/language scope, or downstream lifecycle locks requires a new COM-001 Question Bank acceptance candidate authority.",
   nextGate:
-    "SEPARATE_LIVE_BANK_ONLY_ADAPTER_ACTIVATION_BOUND_TO_THIS_AUTHORITY" as const,
+    "SEPARATE_LIVE_BANK_ONLY_ADAPTER_ACTIVATION_BOUND_TO_THIS_CANDIDATE_CHAIN" as const,
 });
