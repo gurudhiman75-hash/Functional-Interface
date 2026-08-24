@@ -74,6 +74,7 @@ const memberStemSets = new Map<string, Set<string>>();
 const memberAnswerSets = new Map<string, Set<string>>();
 const memberPositionSets = new Map<string, Set<number>>();
 const exactStemOwners = new Map<string, string>();
+const genericGivenFallbackFailures: string[] = [];
 let generated = 0;
 
 for (const member of SRI_ENGLISH_REVIEW_MEMBERS_R1) {
@@ -98,7 +99,9 @@ for (const member of SRI_ENGLISH_REVIEW_MEMBERS_R1) {
     assert.equal(question.options.filter((option) => option.canonicalKey === question.answer.canonicalKey).length, 1);
     assert.equal(question.options[question.correctIndex]?.canonicalKey, question.answer.canonicalKey);
     assert.equal(question.options.filter((option) => option.misconceptionId !== null).length, 3);
-    assert.equal(GENERIC_GIVEN_FALLBACKS.has(question.explanation.given), false, `${member.memberCandidateId} still uses generic checkpoint Given fallback`);
+    if (GENERIC_GIVEN_FALLBACKS.has(question.explanation.given)) {
+      genericGivenFallbackFailures.push(`${member.memberCandidateId} seed=${seedIndex}: ${question.stem}`);
+    }
 
     const learnerText = [
       question.stem,
@@ -158,6 +161,8 @@ for (const member of SRI_ENGLISH_REVIEW_MEMBERS_R1) {
   }
 }
 
+assert.deepEqual(genericGivenFallbackFailures, [], `English R1 still has generic Given fallbacks:\n${genericGivenFallbackFailures.join("\n")}`);
+
 const exportCorpus = buildSriEnglishReviewCorpusR1(EXPORT_SEEDS_PER_MEMBER);
 assert.equal(exportCorpus.length, EXPECTED_EXPORT_ROWS);
 const exportCounts = new Map<string, number>();
@@ -180,7 +185,7 @@ console.log(JSON.stringify({
   auditQuestionsGenerated: generated,
   exportSeedsPerMember: EXPORT_SEEDS_PER_MEMBER,
   exportRows: exportCorpus.length,
-  genericGivenFallbacks: 0,
+  genericGivenFallbacks: genericGivenFallbackFailures.length,
   minUniqueStems: Math.min(...[...memberStemSets.values()].map((set) => set.size)),
   minCorrectPositions: Math.min(...[...memberPositionSets.values()].map((set) => set.size)),
   permanentQlCount: SRI_CHAPTER_MANIFEST.permanentQlCount,
