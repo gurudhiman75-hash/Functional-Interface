@@ -9,6 +9,7 @@ import {
   type GenerationItemStatus,
   type QuestionStudioCapabilities,
   type QuestionStudioDashboard,
+  type QuestionStudioRun,
   type ReviseGenerationItemInput,
 } from './api';
 import { QUESTION_STUDIO_REFRESH_EVENT } from './events';
@@ -34,6 +35,27 @@ function withMixedDifficulty(capabilities: QuestionStudioCapabilities): Question
   return { ...capabilities, difficulties };
 }
 
+function isLegacyCockpitRun(run: QuestionStudioRun) {
+  const engineId = run.requestSnapshot?.engineId;
+  return typeof engineId !== 'string' || !engineId.trim() || engineId === 'quant-v4';
+}
+
+function legacyCockpitDashboard(dashboard: QuestionStudioDashboard): QuestionStudioDashboard {
+  return {
+    ...dashboard,
+    runs: dashboard.runs.filter(isLegacyCockpitRun),
+  };
+}
+
+function legacyCockpitCapabilities(capabilities: QuestionStudioCapabilities): QuestionStudioCapabilities {
+  return withMixedDifficulty({
+    ...capabilities,
+    packages: capabilities.packages.filter(
+      (entry) => !entry.engineId || entry.engineId === 'quant-v4',
+    ),
+  });
+}
+
 type BulkReviewResult = Awaited<ReturnType<typeof updateGenerationItems>> & {
   attempted?: number;
   succeeded?: number;
@@ -46,6 +68,11 @@ type BulkReviewResult = Awaited<ReturnType<typeof updateGenerationItems>> & {
   }>;
 };
 
+/**
+ * Compatibility hook for the existing Quant/Reasoning cockpit and recovery
+ * surface. Non-Quant engines use dedicated engine-aware review panels until
+ * the generic cockpit is migrated away from Quant-specific assumptions.
+ */
 export function useQuestionStudio() {
   const [dashboard, setDashboard] = useState<QuestionStudioDashboard>(EMPTY_DASHBOARD);
   const [capabilities, setCapabilities] = useState<QuestionStudioCapabilities>(EMPTY_CAPABILITIES);
@@ -63,8 +90,8 @@ export function useQuestionStudio() {
         getQuestionStudioDashboard(),
         getQuestionStudioCapabilities(),
       ]);
-      setDashboard(nextDashboard);
-      setCapabilities(withMixedDifficulty(nextCapabilities));
+      setDashboard(legacyCockpitDashboard(nextDashboard));
+      setCapabilities(legacyCockpitCapabilities(nextCapabilities));
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Unable to load Question Studio.');
     } finally {
