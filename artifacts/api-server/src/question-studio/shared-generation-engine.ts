@@ -136,8 +136,8 @@ function normalizeStaProfile(value: unknown): StaQuestionStudioProfileId | undef
 function normalizeStaQl(value: unknown): StaQuestionStudioQlId | undefined {
   const requested = String(value ?? "").trim().toUpperCase();
   if (!requested.startsWith("STA-QL-")) return undefined;
-  if (!(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds as readonly string[]).includes(requested)) {
-    throw new Error(`Unsupported STA V4 QL '${requested}'.`);
+  if (!(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlIds as readonly string[]).includes(requested)) {
+    throw new Error(`Unsupported STA V4.1 candidate QL '${requested}'.`);
   }
   return requested as StaQuestionStudioQlId;
 }
@@ -146,7 +146,7 @@ function normalizeStaCheckpoint(value: unknown): StaQuestionStudioCheckpointId |
   const requested = String(value ?? "").trim().toUpperCase();
   if (!requested.startsWith("STA-CP-")) return undefined;
   if (!STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.checkpoints.some((entry) => entry.checkpointId === requested)) {
-    throw new Error(`Unsupported STA V4 checkpoint '${requested}'.`);
+    throw new Error(`Unsupported STA V4.1 checkpoint '${requested}'.`);
   }
   return requested as StaQuestionStudioCheckpointId;
 }
@@ -218,6 +218,9 @@ function staPackageCapability() {
     permanentQlCount: pkg.permanentQlCount,
     permanentQlIds: [...pkg.permanentQlIds],
     permanentQlAllocationStatus: pkg.permanentQlAllocationStatus,
+    candidateQlCount: pkg.candidateQlCount,
+    candidateQlIds: [...pkg.candidateQlIds],
+    candidateQlAllocationStatus: pkg.candidateQlAllocationStatus,
     supportedDifficulties: [...pkg.supportedDifficulties],
     supportedLanguages: [...pkg.supportedLanguages],
     enabled: pkg.questionStudioVisible,
@@ -371,6 +374,9 @@ async function generateSta001QuestionStudioQuestions(request: SharedQuestionStud
       permanentQlCount: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount,
       permanentQlIds: [...STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds],
       permanentQlAllocationStatus: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlAllocationStatus,
+      candidateQlCount: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlCount,
+      candidateQlIds: [...STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlIds],
+      candidateQlAllocationStatus: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlAllocationStatus,
       revisionPolicy: STA_001_QUESTION_STUDIO_REVISION_POLICY,
       questionBankStatus: "NOT_STORED",
       questionBankWritable: false,
