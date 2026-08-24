@@ -87,6 +87,9 @@ function canonicalFallbackDistractors(correct: SriCandidateAnswer): SriDistracto
 
 function cleanSriLearnerText(value: string): string {
   return value
+    .replace(/^First reduce the radical, then simplify\s+/i, "Simplify ")
+    .replace(/^Write\s+(.+?)\s+in the form a\+b\\sqrt\{[^}]+\}\.?$/i, "Expand and simplify $1.")
+    .replace(/^Convert the radical to an index and solve\s+/i, "Solve ")
     .replace(/\b[A-Z][A-Z0-9_]{2,}:\s*/g, "")
     .replace(/Normalize each visible base to the common prime base and compare canonical values\./gi, "Rewrite each given base as a power of the common base, then compare the exact values.")
     .replace(/\bNormalize\b/g, "Rewrite")
@@ -95,6 +98,7 @@ function cleanSriLearnerText(value: string): string {
     .replace(/\bcanonical values?\b/gi, "exact values")
     .replace(/\bcanonical surd form\b/gi, "simplest surd form")
     .replace(/\bcanonical coefficients?\b/gi, "standard-form coefficients")
+    .replace(/\bcanonical rationalised form\b/gi, "rationalised form")
     .replace(/\bcanonical form\b/gi, "standard form")
     .replace(/\bprime base\b/gi, "common base")
     .replace(/\bdenominator-th root\b/gi, "root indicated by the denominator")
