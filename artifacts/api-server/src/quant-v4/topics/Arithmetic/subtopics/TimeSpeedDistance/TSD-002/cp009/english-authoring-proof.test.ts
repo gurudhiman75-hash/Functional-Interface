@@ -1,4 +1,4 @@
-import { TSD_CP009_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-registry";
+import { TSD_CP009_FINAL_ENGLISH_AUTHORING_REGISTRY, TSD_CP009_ENGLISH_STEM_POLISH } from "./english-authoring-final";
 import { TSD_CP009_RENDERED_ENGLISH_QUESTIONS } from "./english-rendered-review";
 import { TSD_CP009_PERMANENT_QL_IDS } from "./ql-allocation";
 
@@ -6,19 +6,24 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(`TSD-CP-009 English authoring proof failed: ${message}`);
 }
 
-assert(TSD_CP009_ENGLISH_AUTHORING_REGISTRY.length === 11, "expected 11 English QLs");
-assert(JSON.stringify(TSD_CP009_ENGLISH_AUTHORING_REGISTRY.map((ql) => ql.qlId)) === JSON.stringify(TSD_CP009_PERMANENT_QL_IDS), "English QL order differs from permanent allocation");
-assert(TSD_CP009_ENGLISH_AUTHORING_REGISTRY.every((ql) => ql.objectPool.length >= 8), "every QL must have at least eight context/object entries");
-assert(TSD_CP009_ENGLISH_AUTHORING_REGISTRY.every((ql) => new Set(ql.objectPool).size === ql.objectPool.length), "object pools contain duplicates");
-assert(TSD_CP009_ENGLISH_AUTHORING_REGISTRY.every((ql) => ql.stemFamilies.length === 6), "every QL must have six stem families");
+assert(TSD_CP009_FINAL_ENGLISH_AUTHORING_REGISTRY.length === 11, "expected 11 English QLs");
+assert(JSON.stringify(TSD_CP009_FINAL_ENGLISH_AUTHORING_REGISTRY.map((ql) => ql.qlId)) === JSON.stringify(TSD_CP009_PERMANENT_QL_IDS), "English QL order differs from permanent allocation");
+assert(TSD_CP009_FINAL_ENGLISH_AUTHORING_REGISTRY.every((ql) => ql.objectPool.length >= 8), "every QL must have at least eight context/object entries");
+assert(TSD_CP009_FINAL_ENGLISH_AUTHORING_REGISTRY.every((ql) => new Set(ql.objectPool).size === ql.objectPool.length), "object pools contain duplicates");
+assert(TSD_CP009_FINAL_ENGLISH_AUTHORING_REGISTRY.every((ql) => ql.stemFamilies.length === 6), "every QL must have six stem families");
 
-const families = TSD_CP009_ENGLISH_AUTHORING_REGISTRY.flatMap((ql) => ql.stemFamilies);
+const families = TSD_CP009_FINAL_ENGLISH_AUTHORING_REGISTRY.flatMap((ql) => ql.stemFamilies);
 assert(families.length === 66, `expected 66 English families, got ${families.length}`);
 assert(new Set(families.map((family) => family.familyId)).size === 66, "family IDs are not unique");
 assert(new Set(families.map((family) => family.stem)).size === 66, "structural English stems are not unique");
 assert(new Set(families.map((family) => family.explanationGuide)).size === 66, "explanation guides are not unique");
 assert(families.every((family) => family.explanationGuide.trim().split(/\s+/).length >= 8), "one or more explanation guides lacks meaningful solve detail");
 assert(families.every((family) => family.difficulty !== "HARD"), "artificial Hard question leaked into CP009 English review");
+
+const polishedFamilyIds = Object.keys(TSD_CP009_ENGLISH_STEM_POLISH).sort();
+assert(polishedFamilyIds.length === 12, `expected 12 editorially polished stems, got ${polishedFamilyIds.length}`);
+assert(polishedFamilyIds.every((familyId) => families.some((family) => family.familyId === familyId)), "polish overlay references an unknown family");
+assert(polishedFamilyIds.every((familyId) => families.find((family) => family.familyId === familyId)?.stem === TSD_CP009_ENGLISH_STEM_POLISH[familyId]), "final registry did not apply every polish overlay");
 
 const easy = families.filter((family) => family.difficulty === "EASY").length;
 const medium = families.filter((family) => family.difficulty === "MEDIUM").length;
@@ -44,6 +49,7 @@ console.log("TSD-CP-009 ENGLISH AUTHORING / RENDERED REVIEW PROOF: PASS");
 console.log(JSON.stringify({
   qls: 11,
   families: 66,
+  editoriallyPolishedStems: polishedFamilyIds.length,
   objectPoolMinimum: 8,
   easy,
   medium,
