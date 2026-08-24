@@ -98,4 +98,25 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     expect(viewportFillsScreen).toBe(true);
     expect(["firefox", "webkit"]).toContain(browserName);
   });
+
+  test("sample homepage preview is labeled, populated, bounded, and routes safely", async ({ page, browserName }) => {
+    await installFixtures(page);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/?preview=sample");
+
+    await expect(page.getByTestId("home-sample-preview-badge")).toContainText("Sample data preview");
+    await expect(page.getByText("98 published tests", { exact: true })).toBeVisible();
+    await expect(page.getByTestId("home-exam-logo-row").getByRole("button")).toHaveCount(7);
+    await expect(page.getByTestId("home-featured-series").locator("article")).toHaveCount(4);
+    await expect(page.getByTestId("home-free-practice").locator("article")).toHaveCount(4);
+    await expect(page.getByTestId("home-daily-practice").getByRole("button")).toHaveCount(3);
+    await expect(page.getByTestId("home-pyq-subjects")).toBeVisible();
+    await expect(page.getByTestId("home-popular-tests").getByRole("button")).toHaveCount(4);
+    await expectNoHorizontalOverflow(page);
+
+    await page.getByTestId("home-featured-series").getByRole("button", { name: "View Series" }).first().click();
+    await expect(page).toHaveURL(/\/exams$/);
+
+    expect(["firefox", "webkit"]).toContain(browserName);
+  });
 });
