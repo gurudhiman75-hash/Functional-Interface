@@ -100,7 +100,7 @@ export function buildSta001QuestionStudioPayload(question: StaQuestionStudioRevi
       testEligible: false as const,
       mockTestEligible: false as const,
       publiclyPublishable: false as const,
-      persistenceAllowed: true as const,
+      persistenceAllowed: false as const,
       reviewOnly: true as const,
       manualApprovalRequired: true as const,
       automaticStudentPublication: false as const,
