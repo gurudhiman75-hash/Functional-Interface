@@ -273,6 +273,12 @@ router.get("/test-series", async (_req, res) => {
             AND publication.published_at IS NOT NULL
             AND (publication.closes_at IS NULL OR publication.closes_at > now())
         )::int AS "liveTestCount",
+        COUNT(item.id) FILTER (
+          WHERE test.status = 'live'::test_status
+            AND publication.published_at IS NOT NULL
+            AND (publication.closes_at IS NULL OR publication.closes_at > now())
+            AND COALESCE(published.settings->>'testType', 'full_mock') <> 'sectional'
+        )::int AS "fullLengthTestCount",
         COALESCE(SUM(published.duration_seconds) FILTER (
           WHERE test.status = 'live'::test_status
             AND publication.published_at IS NOT NULL
