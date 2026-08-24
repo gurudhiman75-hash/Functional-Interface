@@ -110,12 +110,12 @@ for (const member of SRI_ENGLISH_REVIEW_MEMBERS_R1) {
     assert.equal(question.explanation.answer, question.answer.text);
     assert.notEqual(normalize(question.explanation.given), normalize(question.stem), `${member.memberCandidateId} repeats the full stem as the given section`);
 
-    if (member.memberCandidateId === "C002-F" || member.memberCandidateId === "C012-B") {
+    if (["C002-F", "C002-G", "C012-B"].includes(member.memberCandidateId)) {
       const numerator = Number(question.state.numerator);
       const denominator = Number(question.state.denominator);
       assert.ok(Number.isInteger(numerator) && Number.isInteger(denominator) && denominator > 1);
       assert.equal(gcd(numerator, denominator), 1, `${member.memberCandidateId} must expose a reduced fractional exponent`);
-      assert.ok(numerator < denominator, `${member.memberCandidateId} must remain a genuinely fractional-index task`);
+      assert.ok(Math.abs(numerator) < denominator, `${member.memberCandidateId} must remain a genuinely fractional-index task`);
     }
 
     const normalizedStem = normalize(question.stem);
