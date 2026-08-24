@@ -15,15 +15,24 @@ import {
   SRI_PHASE4_SURD_ADVANCED_CANDIDATES,
   generateSriPhase4SurdAdvancedCandidate,
 } from "./SRI-002/phase4-surd-advanced";
+import {
+  SRI_SOURCE_SATURATION_ADDITIONS,
+  generateSriSourceSaturationAddition,
+} from "./SRI-002/source-saturation-additions";
 
 export const SRI_ALL_EXECUTABLE_DISCOVERY_CANDIDATES: readonly SriCandidateDescriptor[] = [
   ...SRI_PHASE1_POWER_CANDIDATES,
   ...SRI_PHASE2_POWER_RELATION_CANDIDATES,
   ...SRI_PHASE3_SURD_FOUNDATION_CANDIDATES,
   ...SRI_PHASE4_SURD_ADVANCED_CANDIDATES,
+  ...SRI_SOURCE_SATURATION_ADDITIONS,
 ];
 
+const SATURATION_ADDITION_IDS = new Set(SRI_SOURCE_SATURATION_ADDITIONS.map((item) => item.candidateId));
+
 export function generateSriExecutableDiscoveryCandidate(candidateId: string, seed: string): SriDiscoveryQuestion {
+  if (SATURATION_ADDITION_IDS.has(candidateId)) return generateSriSourceSaturationAddition(candidateId, seed);
+
   const checkpointNumber = Number(/^C(\d{3})-/.exec(candidateId)?.[1]);
   if (!Number.isInteger(checkpointNumber) || checkpointNumber < 1 || checkpointNumber > 12) {
     throw new Error(`Unknown SRI executable discovery candidate: ${candidateId}`);
