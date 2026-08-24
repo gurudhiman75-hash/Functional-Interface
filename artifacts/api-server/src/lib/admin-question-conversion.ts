@@ -204,6 +204,8 @@ export function normalizeGeneratedQuestionPayload(
 ): NormalizedGeneratedQuestion {
   const payload = asRecord(value);
   const generationContext = asRecord(payload.generationContext);
+  const questionStudioReview = asRecord(payload.questionStudioReview);
+  const difficultyDecision = asRecord(payload.difficultyDecisionV2);
   assertGeneratedQuestionBankEligible(payload);
   const baseStem = asText(payload.text) || asText(payload.stem);
   const explanation =
@@ -281,6 +283,56 @@ export function normalizeGeneratedQuestionPayload(
         deliveryProfileAuthority:
           payload.deliveryProfileAuthority ?? generationContext.deliveryProfileAuthority ?? null,
         sourceFreezeAuthority: payload.sourceFreezeAuthority ?? generationContext.sourceFreezeAuthority ?? null,
+        sourceIds: payload.sourceIds ?? generationContext.sourceIds ?? null,
+        sourceFactIds: payload.sourceFactIds ?? generationContext.sourceFactIds ?? null,
+        solverAuthority: payload.solverAuthority ?? generationContext.solverAuthority ?? null,
+        contentAuthorityVersion:
+          payload.contentAuthorityVersion ??
+          questionStudioReview.contentAuthorityVersion ??
+          generationContext.contentAuthorityVersion ??
+          null,
+        englishFreezeAuthorityId:
+          payload.englishFreezeAuthorityId ??
+          questionStudioReview.englishFreezeAuthorityId ??
+          generationContext.englishFreezeAuthorityId ??
+          null,
+        englishCombinedFingerprint:
+          payload.englishCombinedFingerprint ??
+          questionStudioReview.englishCombinedFingerprint ??
+          generationContext.englishCombinedFingerprint ??
+          null,
+        localizationFreezeAuthorityId:
+          payload.localizationFreezeAuthorityId ??
+          questionStudioReview.localizationFreezeAuthorityId ??
+          generationContext.localizationFreezeAuthorityId ??
+          null,
+        localizationCombinedFingerprint:
+          payload.localizationCombinedFingerprint ??
+          questionStudioReview.localizationCombinedFingerprint ??
+          generationContext.localizationCombinedFingerprint ??
+          null,
+        difficultyClassifierVersion:
+          payload.difficultyClassifierVersion ??
+          questionStudioReview.difficultyClassifierVersion ??
+          difficultyDecision.classifierVersion ??
+          generationContext.difficultyClassifierVersion ??
+          null,
+        difficultyTopology:
+          payload.difficultyTopology ??
+          questionStudioReview.difficultyTopology ??
+          difficultyDecision.topology ??
+          generationContext.difficultyTopology ??
+          null,
+        difficultyRationale:
+          payload.difficultyRationale ??
+          questionStudioReview.difficultyRationale ??
+          difficultyDecision.rationale ??
+          generationContext.difficultyRationale ??
+          null,
+        relationalSurfaceMode:
+          payload.relationalSurfaceMode ?? generationContext.relationalSurfaceMode ?? null,
+        capacityConvention:
+          payload.capacityConvention ?? generationContext.capacityConvention ?? null,
       },
     },
   };
