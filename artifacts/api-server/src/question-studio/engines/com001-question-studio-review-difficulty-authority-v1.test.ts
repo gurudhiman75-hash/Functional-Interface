@@ -2,6 +2,7 @@ import { strict as assert } from "node:assert";
 
 import { COM001_DIFFICULTY_CLASSIFIER_VERSION_V2 } from "../../knowledge-v1/computer-awareness/com001-difficulty-routing-v2";
 import { listQuestionStudioPackages } from "../engine-registry";
+import { COM001_QUESTION_BANK_ACCEPTANCE_AUTHORITY_ID } from "./com001-question-bank-acceptance-contract-v1";
 import { COM001_QUESTION_STUDIO_REVIEW_DIFFICULTY_AUTHORITY_V1 } from "./com001-question-studio-review-difficulty-authority-v1";
 import { knowledgeV1Com001QuestionStudioAdapter } from "./knowledge-v1-com001-adapter";
 
@@ -31,6 +32,8 @@ assert.equal(authority.reviewerSurface.difficultySelectorVisible, true);
 assert.equal(authority.reviewerSurface.qlAwareDifficultyChoices, true);
 assert.equal(authority.reviewerSurface.topologyVisiblePerItem, true);
 assert.equal(authority.reviewerSurface.rationaleVisiblePerItem, true);
+
+// Historical difficulty authority remains pinned to the review-only checkpoint.
 assert.equal(authority.editorSafety.approvalDisposition, "REVIEW_ONLY");
 assert.equal(authority.editorSafety.reviewRunPersistenceAllowed, true);
 assert.equal(authority.editorSafety.canonicalQuestionPersistenceAllowed, false);
@@ -42,15 +45,21 @@ assert.equal(authority.editorSafety.automaticStudentPublication, false);
 assert.equal(authority.editorSafety.productionDifficultyClaimsAuthorized, false);
 assert.equal(authority.editorSafety.productionReleaseAuthorized, false);
 
+// Current live package has advanced only the manual Question Bank gate.
 const pkg = listQuestionStudioPackages().find((entry) => entry.packageId === "COM-001");
 assert.ok(pkg);
 assert.equal(pkg.runtimeMode, "review-only");
 assert.equal(pkg.metadata?.difficultyFilterSupported, true);
 assert.equal(pkg.metadata?.difficultyClassifierVersion, COM001_DIFFICULTY_CLASSIFIER_VERSION_V2);
 assert.equal(pkg.metadata?.productionDifficultyClaimsAuthorized, false);
-assert.equal(pkg.metadata?.questionBankWritable, false);
+assert.equal(pkg.questionBankStatus, "READY_FOR_STORAGE");
+assert.equal(pkg.metadata?.questionBankWritable, true);
+assert.equal(pkg.metadata?.questionBankAcceptanceMode, "BANK_ONLY");
+assert.equal(pkg.metadata?.questionBankAcceptanceAuthority, COM001_QUESTION_BANK_ACCEPTANCE_AUTHORITY_ID);
 assert.equal(pkg.metadata?.testEligible, false);
+assert.equal(pkg.metadata?.mockTestEligible, false);
 assert.equal(pkg.publiclyPublishable, false);
+assert.equal(pkg.metadata?.productionReleaseAuthorized, false);
 
 const base = {
   engineId: "knowledge-v1" as const,
@@ -72,6 +81,10 @@ assert.equal(mixed.questions.length, 12);
 assert.equal(mixed.generationContext?.difficultyFilterApplied, false);
 assert.equal(mixed.generationContext?.requestedDifficulty, "Mixed");
 assert.equal(mixed.generationContext?.productionDifficultyClaimAuthorized, false);
+assert.equal(mixed.generationContext?.questionBankWritable, true);
+assert.equal(mixed.generationContext?.questionBankAcceptanceMode, "BANK_ONLY");
+assert.equal(mixed.generationContext?.testEligible, false);
+assert.equal(mixed.generationContext?.publiclyPublishable, false);
 assert.equal(
   new Set(mixed.questions.map((question) => String(question.difficulty))).size >= 2,
   true,
@@ -104,10 +117,15 @@ for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
     assert.equal(question.questionStudioReview?.requestedDifficulty, difficulty);
     assert.equal(question.questionStudioReview?.classifiedDifficulty, difficulty);
     assert.equal(question.questionStudioReview?.productionDifficultyClaimAuthorized, false);
-    assert.equal(question.questionBankWritable, false);
+    assert.equal(question.questionBankStatus, "READY_FOR_STORAGE");
+    assert.equal(question.questionBankWritable, true);
+    assert.equal(question.questionBankAcceptanceMode, "BANK_ONLY");
+    assert.equal(question.questionBankAcceptanceAuthority, COM001_QUESTION_BANK_ACCEPTANCE_AUTHORITY_ID);
     assert.equal(question.testEligible, false);
+    assert.equal(question.mockTestEligible, false);
     assert.equal(question.publiclyPublishable, false);
     assert.equal(question.automaticStudentPublication, false);
+    assert.equal(question.productionReleaseAuthorized, false);
   }
 }
 
