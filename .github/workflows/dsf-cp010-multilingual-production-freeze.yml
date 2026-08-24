@@ -86,7 +86,7 @@ jobs:
             src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-001/cp001-freeze-authority.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/reasoning-v1/dsf/dsf-cp001-regression.test.mjs
-      - name: Run CP010 624-question multilingual production freeze audit
+      - name: Run CP010 source-valid 633-question multilingual production freeze audit
         run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp010-freeze.test.mjs
       - name: Run CP010 route and UI final-freeze proof
         run: cd artifacts/api-server && node dist/reasoning-v1/dsf/dsf-cp010-route.test.mjs
