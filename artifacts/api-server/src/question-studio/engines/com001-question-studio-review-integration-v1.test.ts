@@ -37,6 +37,28 @@ assert.equal(
   authority.contentAuthorities.localizationCombinedFingerprint,
   COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1.fingerprints.combinedFingerprint,
 );
+assert.equal(
+  authority.exactReviewedAdminSurface.headSha,
+  "ddb8e698c10473a35f2b0090f9efd02a7b4fec5f",
+);
+assert.equal(authority.exactReviewedAdminSurface.contentEngineRunNumber, 115);
+assert.equal(authority.exactReviewedAdminSurface.integratedAdminRunNumber, 8854);
+assert.equal(
+  authority.exactReviewedAdminSurface.reviewVerdict,
+  "APPROVED_DEDICATED_COMPUTER_REVIEW_SURFACE_WITH_LEGACY_COCKPIT_ISOLATION",
+);
+assert.equal(
+  authority.exactReviewedAdminSurface.verifiedChecks.includes("ADMIN_TYPESCRIPT_TYPECHECK"),
+  true,
+);
+assert.equal(
+  authority.exactReviewedAdminSurface.verifiedChecks.includes("ADMIN_APPLICATION_BUILD"),
+  true,
+);
+assert.equal(
+  authority.exactReviewedAdminSurface.verifiedChecks.includes("QUESTION_STUDIO_PRODUCTION_GATE"),
+  true,
+);
 assert.equal(authority.auditCoverage.explicitQlLanguageQuestions, 1080);
 assert.equal(authority.auditCoverage.mixedReviewBatchQuestions, 50);
 assert.equal(authority.editorSafety.approvalDisposition, "REVIEW_ONLY");
@@ -48,6 +70,9 @@ assert.equal(
   authority.editorSafety.regenerationStatus,
   "LOCKED_UNTIL_ENGINE_AWARE_REGENERATION",
 );
+assert.equal(authority.editorSafety.dedicatedAdminReviewSurface, true);
+assert.equal(authority.editorSafety.legacyQuantCockpitIsolationRequired, true);
+assert.equal(authority.editorSafety.sourceControlledRecoveryRetryExcluded, true);
 assert.equal(authority.difficulty.filterSupported, false);
 assert.equal(authority.difficulty.productionDifficultyClaimsAuthorized, false);
 assert.equal(authority.lifecycle.questionStudioDiscoverable, true);
