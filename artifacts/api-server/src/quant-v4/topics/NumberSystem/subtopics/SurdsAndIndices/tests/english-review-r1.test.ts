@@ -56,13 +56,13 @@ const BANNED_EDITORIAL_TEXT = [
   /\b1\\sqrt/,
 ];
 const BANNED_GIVEN_PROSE = [
-  /^The supplied relation is (?:If|Given|Using)\b/i,
-  /^The supplied information is Write\b/i,
-  /^The supplied condition is rationalising\b/i,
+  /^The supplied relation is (?:If|Given|Using|For|From|Let|After)\b/i,
+  /^The supplied condition is (?:If|Given|Using|For|From|Let|After|rationalising)\b/i,
+  /^The supplied information is (?:The|Write|For|After|Consider|Quantity)\b/i,
   /\band find A[+-]B\b/i,
   /\bby using a common base\b/i,
   /\bbetween (?:two )?consecutive integers without decimals\b/i,
-  /\binto simplest surd form\b/i,
+  /\binto simplest(?: surd)? form\b/i,
 ];
 
 assert.equal(SRI_ENGLISH_REVIEW_READY_GROUPS_R1.length, EXPECTED_READY_GROUPS, "English R1 must expose exactly 58 source-supported retained groups");
