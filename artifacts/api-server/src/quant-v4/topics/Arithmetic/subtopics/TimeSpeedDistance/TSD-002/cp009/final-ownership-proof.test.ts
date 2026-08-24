@@ -17,7 +17,8 @@ for (const authority of TSD_CP009_FINAL_NEW_AUTHORITY_CANDIDATES) {
     .filter((entry) => (entry.disposition === "LEARNER_AUTHORITY" || entry.disposition === "MERGED") && entry.target === authority.authorityKey)
     .map((entry) => entry.candidate);
   assert(JSON.stringify(authority.underlyingSolveModes) === JSON.stringify(expectedModes), `${authority.authorityKey}: underlying source-mode coverage drifted`);
-  assert(authority.executableInvariant.length >= 40, `${authority.authorityKey}: executable invariant too thin`);
+  assert(authority.executableInvariant.trim().split(/\s+/).length >= 5, `${authority.authorityKey}: executable invariant lacks a meaningful statement`);
+  assert(/=|speed|time|distance|medium|ground|frame|current|average|ratio|trip|drift|meeting/i.test(authority.executableInvariant), `${authority.authorityKey}: executable invariant lacks an equation or motion-domain semantic marker`);
 }
 
 const representationCount = TSD_CP009_FINAL_NEW_AUTHORITY_CANDIDATES.reduce((sum, entry) => sum + entry.examRepresentations.length, 0);
