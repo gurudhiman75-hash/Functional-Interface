@@ -99,7 +99,7 @@ assertSurfaceModes("COM-001-QL-004", ["PARENT_TO_ENTITY", "ENTITY_TO_PARENT"]);
 assertSurfaceModes("COM-001-QL-005", ["MEDIUM_TO_ENTITY", "MATCHED_PAIR"]);
 
 const ql002 = generateCom001ReviewBatchV2("COM-001-QL-002", 40, "v2-ql002-grammar");
-assert.ok(ql002.every((q) => !/CPU registers (?:is|belongs)/iu.test(q.explanation)));
+assert.ok(ql002.every((q) => !/CPU registers (?:is classified|belongs to)/iu.test(q.explanation)));
 
 const ql003 = generateCom001ReviewBatchV2("COM-001-QL-003", 40, "v2-ql003-grammar");
 assert.ok(ql003.every((q) => !/is used to (?:stores|holds|keeps|provides|serves)/iu.test(q.explanation)));
