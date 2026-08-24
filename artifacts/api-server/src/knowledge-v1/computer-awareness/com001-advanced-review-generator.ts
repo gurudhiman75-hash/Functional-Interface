@@ -6,7 +6,7 @@ import {
 } from "../composition-verifier";
 import { assertKnowledgeQuestionValid } from "../question-validation";
 import type { KnowledgeFact, KnowledgeFactValue } from "../types";
-import { COM001_MEMORY_STORAGE_ALL_CANDIDATES } from "./com001-memory-storage-readiness";
+import { COM001_EDITORIAL_REVIEWABLE_FACTS } from "./com001-editorial-review";
 import {
   COM001_STORAGE_DEVICE_PROFILES,
   solveStorageProfileConstraints,
@@ -15,10 +15,10 @@ import {
 import type { Com001ReviewQuestion } from "./com001-review-types";
 
 function fact(factId: string) {
-  const match = COM001_MEMORY_STORAGE_ALL_CANDIDATES.find(
+  const match = COM001_EDITORIAL_REVIEWABLE_FACTS.find(
     (entry) => entry.factId === factId,
   );
-  if (!match) throw new Error(`COM-001 review fact ${factId} is missing`);
+  if (!match) throw new Error(`COM-001 editorial review fact ${factId} is unavailable`);
   return match;
 }
 
@@ -100,6 +100,29 @@ const BACKUP_TEMPLATES: BackupTemplate[] = [
   },
 ];
 
+function readableRole(role: string) {
+  switch (role) {
+    case "archive":
+      return "archival use";
+    case "write-once-retention":
+      return "write-once retention";
+    case "recovery":
+      return "recovery";
+    default:
+      return role;
+  }
+}
+
+function backupExplanation(label: string, constraints: Com001StorageProfileConstraints) {
+  const properties = [
+    constraints.medium ? `${constraints.medium} storage` : undefined,
+    constraints.accessPattern ? `${constraints.accessPattern} access` : undefined,
+    constraints.removable === true ? "removable media" : undefined,
+    ...(constraints.requiredRoles ?? []).map(readableRole),
+  ].filter(Boolean);
+  return `${label} satisfies all the given conditions: ${properties.join(", ")}. Therefore, ${label} is the correct answer.`;
+}
+
 export function generateCom001Ql007Review(seed: string): Com001ReviewQuestion {
   const qlId = "COM-001-QL-007";
   const template = deterministicPick(BACKUP_TEMPLATES, `${seed}:template`);
@@ -123,12 +146,6 @@ export function generateCom001Ql007Review(seed: string): Com001ReviewQuestion {
   );
   const options = records.map((entry) => entry.text);
   const correctIndex = records.findIndex((entry) => entry.correct);
-  const constraints = [
-    template.constraints.medium,
-    template.constraints.accessPattern,
-    template.constraints.removable ? "removable" : undefined,
-    ...(template.constraints.requiredRoles ?? []),
-  ].filter(Boolean).join(", ");
   return finalize(
     qlId,
     seed,
@@ -136,7 +153,7 @@ export function generateCom001Ql007Review(seed: string): Com001ReviewQuestion {
     options,
     correctIndex,
     target.label,
-    `${target.label} is the only reviewed device profile satisfying all required properties: ${constraints}.`,
+    backupExplanation(target.label, template.constraints),
     target.sourceRefs.map((entry) => entry.sourceId),
     [],
     "STORAGE_PROFILE_CONSTRAINTS",
@@ -188,7 +205,10 @@ const COMPOSITION_TEMPLATES: CompositionTemplate[] = [
 function valueText(value: KnowledgeFactValue) {
   if (value.kind === "text") return value.text.en;
   if (value.kind === "entity_ref") return value.label.en;
-  if (value.kind === "number") return `${value.value} ${value.unit ?? ""}`.trim();
+  if (value.kind === "number") {
+    const formatted = new Intl.NumberFormat("en-US", { maximumFractionDigits: 0 }).format(value.value);
+    return `${formatted} ${value.unit ?? ""}`.trim();
+  }
   if (value.kind === "date") return value.isoDate;
   return value.value ? "true" : "false";
 }
@@ -209,6 +229,24 @@ function statementText(claim: KnowledgeStatementClaim) {
       return `${entity} equals ${valueText(claim.claimedValue)}.`;
     default:
       return `${entity}: ${valueText(claim.claimedValue)}.`;
+  }
+}
+
+function actualFactSentence(target: KnowledgeFact) {
+  const entity = target.entity.label.en;
+  switch (target.relation) {
+    case "has_volatility":
+      return `${entity} is ${valueText(target.value)}`;
+    case "classified_as_memory_layer":
+      return `${entity} is classified as ${valueText(target.value)}`;
+    case "is_subtype_of":
+      return `${entity} is a subtype of ${valueText(target.value)}`;
+    case "uses_storage_medium":
+      return `${entity} uses ${valueText(target.value)} storage technology`;
+    case "capacity_unit_relation":
+      return `${entity} equals ${valueText(target.value)}`;
+    default:
+      return `${entity} has the value ${valueText(target.value)}`;
   }
 }
 
@@ -259,12 +297,11 @@ export function generateCom001Ql008Review(seed: string): Com001ReviewQuestion {
     ...template.claims.map((claim) => `${claim.statementId}. ${statementText(claim)}`),
     "Which of the above statements are correct?",
   ].join("\n");
-  const explanation = result.truths
-    .map((entry) => {
-      const target = fact(entry.factId);
-      return `${entry.statementId} is ${entry.true ? "correct" : "incorrect"}; the canonical fact for ${target.entity.label.en} is ${valueText(target.value)}.`;
-    })
-    .join(" ");
+  const explanationParts = result.truths.map((entry) => {
+    const target = fact(entry.factId);
+    return `${entry.statementId} is ${entry.true ? "correct" : "incorrect"} because ${actualFactSentence(target)}.`;
+  });
+  const explanation = `${explanationParts.join(" ")} Therefore, ${combinationLabel(trueIds)} are correct.`;
   return finalize(
     qlId,
     seed,
