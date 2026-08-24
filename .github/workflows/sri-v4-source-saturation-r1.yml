@@ -52,3 +52,13 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/quant-v4/sri/source-saturation-r1.test.mjs
+      - name: Bundle merge-split closure audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/merge-split-r1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/merge-split-r1.test.mjs
+      - name: Run merge-split closure audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/merge-split-r1.test.mjs
