@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { STA_V4_CANDIDATE_MATRIX_SIZE } from "./exam-realness-v4-candidate-matrix.ts";
 import {
   STA_V4_DIFFICULTIES,
   STA_V4_LANGUAGES,
@@ -11,25 +12,16 @@ import {
   generateStaV4Question,
   staV4CueSignalCount,
   type StaV4Language,
-  type StaV4Locale,
   type StaV4ProfileId,
-  type StaV4QlId,
 } from "./exam-realness-v4-runtime.ts";
 import {
   STA_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   previewSta001QuestionStudioReview,
-} from "./question-studio-review-v4.ts";
+} from "./question-studio-review.ts";
 
-const LOCALE_BY_LANGUAGE: Record<StaV4Language, StaV4Locale> = {
-  en: "en-IN",
-  hi: "hi-IN",
-  pa: "pa-IN",
-};
-
-assert.equal(STA_V4_SCENARIOS.length, 108, "V4 must expose 108 controlled semantic authorities");
-for (const qlId of STA_V4_QL_IDS) {
-  assert.equal(STA_V4_SCENARIOS_BY_QL[qlId].length, 18, `${qlId}: expected 18 V4 authorities`);
-}
+assert.equal(STA_V4_SCENARIOS.length, 108, "V4 must expose 108 genuinely distinct scenario authorities");
+assert.equal(STA_V4_CANDIDATE_MATRIX_SIZE, 7);
+for (const qlId of STA_V4_QL_IDS) assert.equal(STA_V4_SCENARIOS_BY_QL[qlId].length, 18, `${qlId}: expected 18 V4 authorities`);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 6);
 assert.deepEqual(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds, STA_V4_QL_IDS);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.multilingualChapterFrozen, false);
@@ -39,8 +31,6 @@ assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.mockTestEligible, false);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.publiclyPublishable, false);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.automaticStudentPublication, false);
 
-const seenScenarioIds = new Set<string>();
-const seenDifficulties = new Set<string>();
 const cueStats = Object.fromEntries(STA_V4_LANGUAGES.map((language) => [language, {
   implicit: 0,
   notImplicit: 0,
@@ -73,12 +63,14 @@ function legacyShortcutGuess(text: string, language: StaV4Language): "IMPLICIT" 
   return null;
 }
 
+const seenScenarioIds = new Set<string>();
+const seenDifficulties = new Set<string>();
 for (const scenario of STA_V4_SCENARIOS) {
   assert.equal(scenario.statementVariants.length, 3, `${scenario.scenarioId}: expected three authored stems`);
-  assert.equal(scenario.candidates.length, 5, `${scenario.scenarioId}: expected five candidate authorities`);
-  assert.equal(scenario.candidates.filter((candidate) => candidate.implicit).length, 2, `${scenario.scenarioId}: expected two required dependencies`);
-  assert.equal(scenario.candidates.filter((candidate) => !candidate.implicit).length, 3, `${scenario.scenarioId}: expected three subtle distractors`);
-  assert.equal(new Set(scenario.candidates.map((candidate) => candidate.id)).size, 5, `${scenario.scenarioId}: candidate IDs must be unique`);
+  assert.equal(scenario.candidates.length, 7, `${scenario.scenarioId}: expected seven candidate authorities`);
+  assert.equal(scenario.candidates.filter((candidate) => candidate.implicit).length, 3, `${scenario.scenarioId}: expected three required dependencies`);
+  assert.equal(scenario.candidates.filter((candidate) => !candidate.implicit).length, 4, `${scenario.scenarioId}: expected four subtle distractors`);
+  assert.equal(new Set(scenario.candidates.map((candidate) => candidate.id)).size, 7, `${scenario.scenarioId}: candidate IDs must be unique`);
   seenScenarioIds.add(scenario.scenarioId);
   seenDifficulties.add(scenario.difficulty);
 
@@ -102,7 +94,6 @@ for (const scenario of STA_V4_SCENARIOS) {
     }
   }
 }
-
 assert.equal(seenScenarioIds.size, 108);
 assert.deepEqual([...seenDifficulties].sort(), [...STA_V4_DIFFICULTIES].sort());
 
@@ -115,16 +106,20 @@ for (const language of STA_V4_LANGUAGES) {
   const cueGap = Math.abs(implicitCueRate - notImplicitCueRate);
   assert.ok(coverage <= 0.15, `${language}: legacy wording shortcut still covers ${(coverage * 100).toFixed(1)}% of candidate surfaces`);
   assert.ok(cueGap <= 0.08, `${language}: cue-rate gap remains ${(cueGap * 100).toFixed(1)} percentage points`);
+  if (stats.heuristicCovered > 0) {
+    const conditionalAccuracy = stats.heuristicCorrect / stats.heuristicCovered;
+    assert.ok(conditionalAccuracy <= 0.70, `${language}: old lexical shortcut remains too accurate at ${(conditionalAccuracy * 100).toFixed(1)}%`);
+  }
 }
 
 const profileMeta = Object.fromEntries(STA_V4_PRESENTATION_PROFILES.map((profile) => [profile.profileId, profile]));
+const answerPositions = Object.fromEntries(STA_V4_PROFILE_IDS.map((profileId) => [profileId, Array(profileMeta[profileId]!.optionCount).fill(0)])) as Record<StaV4ProfileId, number[]>;
+const answerCardinalities = Object.fromEntries(STA_V4_PROFILE_IDS.map((profileId) => [profileId, new Set<number>()])) as Record<StaV4ProfileId, Set<number>>;
+const answerSets = Object.fromEntries(STA_V4_PROFILE_IDS.map((profileId) => [profileId, new Set<string>()])) as Record<StaV4ProfileId, Set<string>>;
 let generated = 0;
 let parityChecks = 0;
 let deterministicChecks = 0;
 const reached = new Set<string>();
-const answerPositions: Record<StaV4ProfileId, number[]> = Object.fromEntries(
-  STA_V4_PROFILE_IDS.map((profileId) => [profileId, Array(profileMeta[profileId]!.optionCount).fill(0)]),
-) as Record<StaV4ProfileId, number[]>;
 
 for (const qlId of STA_V4_QL_IDS) {
   for (const profileId of STA_V4_PROFILE_IDS) {
@@ -155,13 +150,11 @@ for (const qlId of STA_V4_QL_IDS) {
         assert.deepEqual(translated.options.map((option) => option.semanticAnswerSet), english.options.map((option) => option.semanticAnswerSet), `${seed}: coded options changed across locale`);
         parityChecks += 1;
       }
-      assert.deepEqual(
-        english,
-        generateStaV4Question({ seed, locale: "en-IN", profileId, qlId }),
-        `${seed}: deterministic replay drift`,
-      );
+      assert.deepEqual(english, generateStaV4Question({ seed, locale: "en-IN", profileId, qlId }), `${seed}: deterministic replay drift`);
       deterministicChecks += 1;
       answerPositions[profileId]![english.answerIndex] += 1;
+      answerCardinalities[profileId]!.add(english.answerSet.length);
+      answerSets[profileId]!.add(english.answerSet.join(","));
     }
   }
 }
@@ -174,10 +167,11 @@ for (const profileId of STA_V4_PROFILE_IDS) {
     const share = count / total;
     assert.ok(share >= 0.08 && share <= 0.42, `${profileId}: answer-position share ${(share * 100).toFixed(1)}% outside V4 envelope`);
   }
+  assert.ok(answerCardinalities[profileId]!.size >= 2, `${profileId}: answer cardinality remains profile-learnable`);
+  assert.ok(answerSets[profileId]!.size >= 3, `${profileId}: insufficient semantic answer-set diversity`);
 }
+assert.ok(answerCardinalities.BANK_5X5.has(1) && answerCardinalities.BANK_5X5.has(2) && answerCardinalities.BANK_5X5.has(3), "BANK_5X5 must reach one-, two- and three-implicit states");
 
-// Surface-space lower bound ignores statement paraphrase order beyond three stems,
-// yet still requires a genuinely large pool from candidate identity + wording + option order.
 function permutations(n: number, k: number): number {
   let value = 1;
   for (let index = 0; index < k; index += 1) value *= n - index;
@@ -190,23 +184,13 @@ function factorial(n: number): number {
 }
 let theoreticalSurfaceLowerBoundPerLanguage = 0;
 for (const profile of STA_V4_PRESENTATION_PROFILES) {
-  theoreticalSurfaceLowerBoundPerLanguage += 108
-    * 3
-    * permutations(5, profile.candidateCount)
-    * (2 ** profile.candidateCount)
-    * factorial(profile.optionCount);
+  theoreticalSurfaceLowerBoundPerLanguage += 108 * 3 * permutations(7, profile.candidateCount) * (2 ** profile.candidateCount) * factorial(profile.optionCount);
 }
-assert.ok(theoreticalSurfaceLowerBoundPerLanguage > 10_000_000, `V4 surface lower bound too small: ${theoreticalSurfaceLowerBoundPerLanguage}`);
+assert.ok(theoreticalSurfaceLowerBoundPerLanguage > 100_000_000, `V4 surface lower bound too small: ${theoreticalSurfaceLowerBoundPerLanguage}`);
 
 for (const qlId of STA_V4_QL_IDS) {
   const seed = `sta-v4-studio-parity:${qlId}`;
-  const previews = Object.fromEntries(STA_V4_LANGUAGES.map((language) => [language, previewSta001QuestionStudioReview({
-    language,
-    qlId,
-    profileId: "BANK_3X5",
-    seed,
-    count: 8,
-  }).questions]));
+  const previews = Object.fromEntries(STA_V4_LANGUAGES.map((language) => [language, previewSta001QuestionStudioReview({ language, qlId, profileId: "BANK_3X5", seed, count: 8 }).questions]));
   for (let index = 0; index < 8; index += 1) {
     const en = previews.en![index]!;
     for (const language of ["hi", "pa"] as const) {
@@ -223,6 +207,7 @@ console.log("PASS_STA_001_EXAM_REALNESS_V4");
 console.log(JSON.stringify({
   semanticAuthorities: STA_V4_SCENARIOS.length,
   authoritiesPerQl: Object.fromEntries(STA_V4_QL_IDS.map((qlId) => [qlId, STA_V4_SCENARIOS_BY_QL[qlId].length])),
+  candidateAuthoritiesPerScenario: STA_V4_CANDIDATE_MATRIX_SIZE,
   qlCount: STA_V4_QL_IDS.length,
   profiles: STA_V4_PROFILE_IDS.length,
   languages: STA_V4_LANGUAGES.length,
@@ -233,12 +218,7 @@ console.log(JSON.stringify({
   theoreticalSurfaceLowerBoundPerLanguage,
   cueStats,
   answerPositions,
-  lifecycle: {
-    reviewOnly: true,
-    multilingualChapterFrozen: false,
-    questionBankWritable: false,
-    testEligible: false,
-    mockTestEligible: false,
-    publiclyPublishable: false,
-  },
+  answerCardinalities: Object.fromEntries(STA_V4_PROFILE_IDS.map((profileId) => [profileId, [...answerCardinalities[profileId]!].sort()])),
+  answerSetCounts: Object.fromEntries(STA_V4_PROFILE_IDS.map((profileId) => [profileId, answerSets[profileId]!.size])),
+  lifecycle: { reviewOnly: true, multilingualChapterFrozen: false, questionBankWritable: false, testEligible: false, mockTestEligible: false, publiclyPublishable: false },
 }, null, 2));
