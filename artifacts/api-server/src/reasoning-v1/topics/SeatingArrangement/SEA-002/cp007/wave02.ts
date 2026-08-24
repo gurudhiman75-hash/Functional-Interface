@@ -46,19 +46,27 @@ function rotate<T>(values: readonly T[], offset: number): T[] {
   return [...values.slice(shift), ...values.slice(0, shift)];
 }
 
+function facingBit(seed: string, row: Sea002Cp007Row, position: number): number {
+  const parity = hashInt(`${seed}:facing-parity`) % 2;
+  const mode = hashInt(`${seed}:facing-pattern`) % 4;
+  const rowShift = row === "BOTTOM" ? 1 : 0;
+  if (mode === 0) return (position + rowShift + parity) % 2;
+  if (mode === 1) return (Math.floor(position / 2) + rowShift + parity) % 2;
+  if (mode === 2) return (position + parity) % 2;
+  return (Math.floor((position + 1) / 2) + rowShift + parity) % 2;
+}
+
 function buildState(seed: string, width: number): readonly Sea002Cp007Participant[] {
   const names = rotate(NAMES, hashInt(`${seed}:names`) % NAMES.length).slice(0, width * 2);
   const participants: Sea002Cp007Participant[] = [];
   let nameIndex = 0;
-  const parity = hashInt(`${seed}:facing-parity`) % 2;
   for (const row of ["TOP", "BOTTOM"] as const satisfies readonly Sea002Cp007Row[]) {
     const positions = rotate([...Array(width).keys()], hashInt(`${seed}:${row}:order`) % width);
     for (const position of positions) {
-      const rowShift = row === "BOTTOM" ? 1 : 0;
       participants.push(Object.freeze({
         id: names[nameIndex++]!,
         seat: Object.freeze({ row, position }),
-        facing: (position + rowShift + parity) % 2 === 0 ? "N" : "S",
+        facing: facingBit(seed, row, position) === 0 ? "N" : "S",
       }));
     }
   }
