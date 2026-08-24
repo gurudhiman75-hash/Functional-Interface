@@ -1,6 +1,6 @@
 name: TEMP Apply DSF CP010 Freeze Patch
 
-# Trigger after workflow registration so the one-shot patch runs on the feature branch.
+# Retriggered after the source-valid CP-010 audit correction; remove after the patch lands.
 on:
   push:
     branches:
