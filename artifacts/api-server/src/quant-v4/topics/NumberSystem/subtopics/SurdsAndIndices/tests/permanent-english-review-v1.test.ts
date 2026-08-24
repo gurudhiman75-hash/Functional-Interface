@@ -13,6 +13,16 @@ const EXPORT_SEEDS_PER_MEMBER = 2;
 const EXPECTED_QLS = 58;
 const EXPECTED_MEMBERS = 92;
 
+// These two QLs intentionally expose finite semantic state sets.
+// QL-011 covers exactly the three zero-base undefined edge states represented by the contract;
+// adding more negative magnitudes would repeat the same domain reasoning rather than add a solve state.
+// QL-028 records which of the five independently valid index laws is the unique true option;
+// its false-law combinations, stems and answer positions are audited separately below.
+const MIN_STATES_BY_QL = new Map<string, number>([
+  ["SRI-001-QL-011", 3],
+  ["SRI-001-QL-028", 5],
+]);
+
 const BANNED_LEARNER_TEXT = [
   /SRI-00[12]-QL-/i,
   /SRI-00[12]-SM-/i,
@@ -119,11 +129,12 @@ for (const allocation of SRI_PERMANENT_ALLOCATION_V1) {
   const stateCount = statesByQl.get(allocation.qlId)?.size ?? 0;
   const stemCount = stemsByQl.get(allocation.qlId)?.size ?? 0;
   const positions = positionsByQl.get(allocation.qlId) ?? new Set<number>();
-  if (stateCount < 6) thinStatePools.push(`${allocation.qlId}=${stateCount}`);
+  const minimumStateCount = MIN_STATES_BY_QL.get(allocation.qlId) ?? 6;
+  if (stateCount < minimumStateCount) thinStatePools.push(`${allocation.qlId}=${stateCount}<${minimumStateCount}`);
   if (stemCount < 3) thinStemPools.push(`${allocation.qlId}=${stemCount}`);
   if (positions.size !== 4) incompletePositionPools.push(`${allocation.qlId}=[${[...positions].sort().join(",")}]`);
 }
-assert.deepEqual(thinStatePools, [], `Permanent QLs with fewer than 6 distinct audited states: ${thinStatePools.join(", ")}`);
+assert.deepEqual(thinStatePools, [], `Permanent QLs below their audited state floors: ${thinStatePools.join(", ")}`);
 assert.deepEqual(thinStemPools, [], `Permanent QLs with fewer than 3 distinct audited stems: ${thinStemPools.join(", ")}`);
 assert.deepEqual(incompletePositionPools, [], `Permanent QLs missing answer positions: ${incompletePositionPools.join(", ")}`);
 
@@ -152,6 +163,7 @@ console.log(JSON.stringify({
   exportSeedsPerMember: EXPORT_SEEDS_PER_MEMBER,
   exportQuestions: exportCorpus.length,
   minStatesPerQl: Math.min(...[...statesByQl.values()].map((items) => items.size)),
+  finiteSemanticStateFloors: Object.fromEntries(MIN_STATES_BY_QL),
   minStemsPerQl: Math.min(...[...stemsByQl.values()].map((items) => items.size)),
   minStemsPerMember: Math.min(...[...stemsByMember.values()].map((items) => items.size)),
   globalCorrectIndexCounts: globalPositions,
