@@ -2,13 +2,16 @@ export const SRI_CHAPTER_MANIFEST = {
   chapterId: "SRI",
   displayName: "Surds & Indices",
   designAuthority: "SRI-END-TO-END-DESIGN-R1",
-  implementationPhase: "PHASE_2_EXECUTABLE_POWER_RELATIONS_DISCOVERY",
+  implementationPhase: "PHASE_3_EXECUTABLE_SURD_FOUNDATIONS_DISCOVERY",
   packages: ["SRI-001", "SRI-002"],
   canonicalCheckpoints: [
     "SRI-CP-001", "SRI-CP-002", "SRI-CP-003", "SRI-CP-004", "SRI-CP-005", "SRI-CP-006",
     "SRI-CP-007", "SRI-CP-008", "SRI-CP-009", "SRI-CP-010", "SRI-CP-011", "SRI-CP-012",
   ],
-  executableDiscoveryCheckpoints: ["SRI-CP-001", "SRI-CP-002", "SRI-CP-003", "SRI-CP-004", "SRI-CP-005", "SRI-CP-006"],
+  executableDiscoveryCheckpoints: [
+    "SRI-CP-001", "SRI-CP-002", "SRI-CP-003", "SRI-CP-004", "SRI-CP-005", "SRI-CP-006",
+    "SRI-CP-007", "SRI-CP-008", "SRI-CP-009",
+  ],
   permanentQlCount: 0,
   frozenSolveModeCount: 0,
   locales: ["en-IN", "hi-IN", "pa-IN"],
