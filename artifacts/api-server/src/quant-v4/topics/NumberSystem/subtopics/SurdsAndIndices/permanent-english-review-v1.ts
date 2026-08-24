@@ -46,17 +46,39 @@ export function generateSriPermanentEnglishReviewQuestionV1(
   return generateSriExecutableDiscoveryCandidate(member.memberCandidateId, seed);
 }
 
+/**
+ * Reviewer exports deliberately select distinct stem surfaces from the same 12-seed
+ * window used by the permanent English audit. This prevents a manual reviewer from
+ * receiving duplicate examples merely because adjacent deterministic seeds collide.
+ */
 export function buildSriPermanentEnglishReviewCorpusV1(
   seedsPerMember = 2,
 ): readonly SriPermanentEnglishReviewRecordV1[] {
   if (!Number.isInteger(seedsPerMember) || seedsPerMember < 1) {
     throw new Error("seedsPerMember must be a positive integer");
   }
-  return SRI_PERMANENT_ENGLISH_REVIEW_MEMBERS_V1.flatMap((member) =>
-    Array.from({ length: seedsPerMember }, (_, reviewSeedIndex) => ({
-      ...member,
-      reviewSeedIndex,
-      question: generateSriPermanentEnglishReviewQuestionV1(member, reviewSeedIndex),
-    })),
-  );
+  const maximumReviewSeedProbes = 12;
+  if (seedsPerMember > maximumReviewSeedProbes) {
+    throw new Error(`seedsPerMember cannot exceed the ${maximumReviewSeedProbes}-seed permanent review window`);
+  }
+
+  return SRI_PERMANENT_ENGLISH_REVIEW_MEMBERS_V1.flatMap((member) => {
+    const records: SriPermanentEnglishReviewRecordV1[] = [];
+    const seenStems = new Set<string>();
+    for (let reviewSeedIndex = 0; reviewSeedIndex < maximumReviewSeedProbes && records.length < seedsPerMember; reviewSeedIndex += 1) {
+      const question = generateSriPermanentEnglishReviewQuestionV1(member, reviewSeedIndex);
+      const stemKey = normalizeStem(question.stem);
+      if (seenStems.has(stemKey)) continue;
+      seenStems.add(stemKey);
+      records.push({ ...member, reviewSeedIndex, question });
+    }
+    if (records.length !== seedsPerMember) {
+      throw new Error(`${member.qlId}/${member.memberCandidateId} exposes only ${records.length} distinct stems in the 12-seed review window`);
+    }
+    return records;
+  });
+}
+
+function normalizeStem(value: string): string {
+  return value.trim().replace(/[?.!]+$/g, "").replace(/\s+/g, " ").toLowerCase();
 }
