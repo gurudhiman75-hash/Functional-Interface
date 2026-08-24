@@ -80,6 +80,7 @@ const series = Array.from({ length: 13 }, (_, index) => ({
   liveTestCount: 10,
   durationSeconds: 18_000,
   questionCount: 500,
+  attemptCount: (13 - index) * 125,
 }));
 
 async function fulfillJson(route: Route, body: unknown) {
@@ -118,7 +119,7 @@ test.describe("CP04 catalog scale", () => {
 
     const grid = page.getByTestId("catalog-page-grid");
     await expect(grid.locator("article")).toHaveCount(18);
-    await expect(page.getByTestId("catalog-large-mode")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Explore exam categories", exact: true })).toBeVisible();
     await expect(page.getByText("Drill into the exact exam path.")).toHaveCount(0);
 
     await page.getByTestId("catalog-sort").selectOption("name");
@@ -148,18 +149,24 @@ test.describe("CP04 catalog scale", () => {
     await expect(page.getByTestId("catalog-empty-state")).toContainText("No tests match these filters");
   });
 
-  test("pages promotional series and live-test grids at six cards", async ({ page }) => {
+  test("tabs and pages promotional series and live-test grids at six cards", async ({ page }) => {
     await openCatalog(page);
 
+    await expect(page.getByTestId("popular-series-tab")).toHaveAttribute("aria-selected", "true");
     const seriesSection = page.getByTestId("series-section");
-    const publishedSection = page.getByTestId("published-tests-section");
     await expect(seriesSection.locator("article")).toHaveCount(6);
-    await expect(publishedSection.locator("article")).toHaveCount(6);
+    await expect(seriesSection.locator("article h3").first()).toHaveText("Series 01");
+    await expect(seriesSection).toContainText("1,625 attempts");
 
-    const seriesPager = page.getByRole("navigation", { name: "Test series pagination" });
+    const seriesPager = page.getByRole("navigation", { name: "Popular test series pagination" });
     await seriesPager.getByRole("button", { name: "Next" }).click();
     await expect(seriesPager).toContainText("Page 2 of 3");
     await expect(seriesSection.locator("article")).toHaveCount(6);
+
+    await page.getByTestId("live-mocks-tab").click();
+    await expect(page.getByTestId("live-mocks-tab")).toHaveAttribute("aria-selected", "true");
+    const publishedSection = page.getByTestId("published-tests-section");
+    await expect(publishedSection.locator("article")).toHaveCount(6);
 
     const livePager = page.getByRole("navigation", { name: "Live mock tests pagination" });
     await livePager.getByRole("button", { name: "Next" }).click();
@@ -171,7 +178,7 @@ test.describe("CP04 catalog scale", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await openCatalog(page);
 
-    for (const testId of ["catalog-search", "catalog-category-filter", "catalog-access-filter", "catalog-difficulty-filter", "catalog-kind-filter", "catalog-language-filter", "catalog-sort", "catalog-next-page"]) {
+    for (const testId of ["popular-series-tab", "live-mocks-tab", "catalog-search", "catalog-category-filter", "catalog-access-filter", "catalog-difficulty-filter", "catalog-kind-filter", "catalog-language-filter", "catalog-sort", "catalog-next-page"]) {
       await expectTouchTarget(page.getByTestId(testId));
     }
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
