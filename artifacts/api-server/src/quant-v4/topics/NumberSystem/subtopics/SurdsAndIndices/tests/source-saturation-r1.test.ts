@@ -18,6 +18,17 @@ const EXPECTED_CHECKPOINT_COUNTS = new Map([
 ]);
 const ALLOWED_DISPOSITIONS = new Set(["KEEP", "EXPAND", "NEW", "SOURCE_GATED"]);
 
+// Some mathematically sound contracts intentionally have one invariant answer semantic
+// across every valid state. Saturation must demand state/stem/option-position diversity
+// for them, not fabricate answer diversity that would make the mathematics wrong.
+const FIXED_SEMANTIC_ANSWER_CANDIDATES = new Set([
+  "C001-E", // a^0 = 1 for every non-zero base
+  "C002-I", // 0^0 and zero to a negative exponent are undefined
+  "C002-K", // generated negative-base even-denominator forms are non-real
+  "C008-I", // sqrt(x)+sqrt(y)=sqrt(x+y), x,y>=0 => xy=0
+  "C012-C", // deliberately asks whether two exact representations are equal
+]);
+
 assert.equal(SRI_ALL_EXECUTABLE_DISCOVERY_CANDIDATES.length, EXPECTED_TOTAL, "SRI saturation registry must expose all 93 current provisional families");
 assert.equal(new Set(SRI_ALL_EXECUTABLE_DISCOVERY_CANDIDATES.map((item) => item.candidateId)).size, EXPECTED_TOTAL, "candidate IDs must be globally unique");
 assert.equal(new Set(SRI_ALL_EXECUTABLE_DISCOVERY_CANDIDATES.map((item) => item.title)).size, EXPECTED_TOTAL, "candidate titles must be globally unique");
@@ -110,7 +121,9 @@ for (const descriptor of SRI_ALL_EXECUTABLE_DISCOVERY_CANDIDATES) {
   assert.ok(stems.size >= 3, `${descriptor.candidateId} stem diversity is too thin: ${stems.size}`);
   assert.ok(states.size >= 2, `${descriptor.candidateId} state/object diversity is too thin: ${states.size}`);
   assert.ok(correctPositions.size >= 3, `${descriptor.candidateId} correct-option positions are too concentrated: ${[...correctPositions].join(",")}`);
-  if (descriptor.candidateId !== "C008-I") {
+  if (FIXED_SEMANTIC_ANSWER_CANDIDATES.has(descriptor.candidateId)) {
+    assert.equal(answers.size, 1, `${descriptor.candidateId} is a fixed-semantic contract but generated ${answers.size} answer semantics`);
+  } else {
     assert.ok(answers.size >= 2, `${descriptor.candidateId} answer diversity is too thin: ${answers.size}`);
   }
 }
@@ -119,7 +132,7 @@ assert.equal(generated, EXPECTED_TOTAL * SEEDS_PER_CANDIDATE);
 for (const [checkpoint, familyCount] of EXPECTED_CHECKPOINT_COUNTS) {
   assert.equal(checkpointGeneratedCounts.get(checkpoint), familyCount * SEEDS_PER_CANDIDATE, `${checkpoint} generated package count mismatch`);
 }
-assert.ok(sourceGatedIds.has("C010-F"), "repeating infinite radical must remain source-gated");
+assert.ok(sourceGatedIds.has("C010-F"), "repeating infinite radical must preserve its discovery-time source-gated provenance");
 assert.ok(sourceGatedIds.has("C008-I"), "root-sum condition identity must remain source-gated in R1");
 
 console.log(JSON.stringify({
@@ -130,6 +143,7 @@ console.log(JSON.stringify({
   seedsPerCandidate: SEEDS_PER_CANDIDATE,
   checkpointFamilyCounts: Object.fromEntries(EXPECTED_CHECKPOINT_COUNTS),
   sourceGated: [...sourceGatedIds].sort(),
+  fixedSemanticAnswerCandidates: [...FIXED_SEMANTIC_ANSWER_CANDIDATES].sort(),
   permanentQlCount: SRI_CHAPTER_MANIFEST.permanentQlCount,
   frozenSolveModeCount: SRI_CHAPTER_MANIFEST.frozenSolveModeCount,
 }, null, 2));
