@@ -9,7 +9,7 @@ import {
   SEA002_NEXT_AVAILABLE_PERMANENT_QL_ID_AFTER_CP007,
 } from "./registry.ts";
 
-assert.equal(SEA002_CP006_COMPLETION_AUTHORITY.nextCheckpoint, "SEA-CP-007");
+assert.equal(SEA002_CP006_COMPLETION_AUTHORITY.nextCheckpointId, "SEA-CP-007");
 assert.equal(SEA002_CP006_COMPLETION_AUTHORITY.nextPermanentQlId, "SEA-QL-025");
 assert.equal(SEA002_CP007_SOURCE_SATURATION_V1.proposedAuthorities.length, 4);
 assert.equal(SEA002_CP007_SOURCE_SATURATION_V1.proposedPermanentRangeIfApproved, "SEA-QL-025..SEA-QL-028");
