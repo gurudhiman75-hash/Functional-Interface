@@ -45,8 +45,7 @@ function exactDecimal(value: Rational): string {
 }
 
 function generateC002F(seed: string): SriDiscoveryQuestion {
-  const denominator = sriPick(`${seed}:denominator`, [2, 3]);
-  const numerator = sriPick(`${seed}:numerator`, [1, 2]);
+  const [numerator, denominator] = sriPick(`${seed}:fraction`, [[1, 2], [1, 3], [2, 3]] as const);
   const q = sriPick(`${seed}:q`, [2, 5]);
   const p = sriPick(`${seed}:p`, [1, 3, 7, 9].filter((value) => value !== q && value % q !== 0));
   const baseValue = rational(pow(p, denominator), pow(q, denominator));
@@ -69,9 +68,9 @@ function generateC002F(seed: string): SriDiscoveryQuestion {
     independentVerifierKey: `R:${rationalKey(independent)}`,
     distractors: rationalDistractors(solver),
     explanation: {
-      given: `An exact rational base is raised to the fractional index ${numerator}/${denominator}.`,
+      given: `An exact rational base is raised to the reduced fractional index ${numerator}/${denominator}.`,
       asked: "Evaluate the expression exactly.",
-      method: "Treat the base as an exact rational number, take the denominator-th root of numerator and denominator, then apply the numerator power.",
+      method: "Take the exact root indicated by the denominator from both numerator and denominator of the base, then apply the numerator power.",
       working: [
         `${formatRational(baseValue)} = (${p}/${q})^${denominator}`,
         `(${formatRational(baseValue)})^(${numerator}/${denominator}) = (${p}/${q})^${numerator}`,
@@ -131,6 +130,7 @@ function generateC012B(seed: string): SriDiscoveryQuestion {
   const radical = denominator === 2
     ? `\\sqrt{${visibleBase}^{${numerator}}}`
     : `\\sqrt[${denominator}]{${visibleBase}^{${numerator}}}`;
+  const powerName = denominator === 2 ? "perfect square" : denominator === 3 ? "perfect cube" : "perfect fourth power";
   const stem = sriPick(`${seed}:surface`, [
     `Evaluate ${visibleBase}^{${numerator}/${denominator}} by converting it to ${radical}.`,
     `Rewrite ${visibleBase}^{${numerator}/${denominator}} as a radical and simplify exactly.`,
@@ -145,9 +145,9 @@ function generateC012B(seed: string): SriDiscoveryQuestion {
     independentVerifierKey: integerAnswer(result).canonicalKey,
     distractors: rationalDistractors(rational(result)),
     explanation: {
-      given: `The base is a perfect ${denominator}th power and the exponent ${numerator}/${denominator} is already in lowest terms.`,
+      given: `The base is a ${powerName}, and the exponent ${numerator}/${denominator} is already in lowest terms.`,
       asked: "Evaluate the fractional-index expression through its radical form.",
-      method: "The denominator gives the root to take, and the numerator gives the power to apply after taking that root.",
+      method: "The denominator tells which root to take; the numerator tells which power to apply after taking that root.",
       working: [
         `${visibleBase}=${root}^${denominator}`,
         `${visibleBase}^{${numerator}/${denominator}}=(${root})^${numerator}=${result}`,
