@@ -312,7 +312,7 @@ function deriveVisibleGiven(stem: string): string | null {
   match = /^Choose the exact consecutive-integer interval containing\s+(.+)$/i.exec(text);
   if (match) return sentence("The radical to bound is", match[1]!);
 
-  match = /^Locate\s+(.+?)\s+between consecutive integers\b/i.exec(text);
+  match = /^Locate\s+(.+?)\s+between\s+(?:two\s+)?consecutive integers\b/i.exec(text);
   if (match) return sentence("The quantity to bound is", match[1]!);
 
   return null;
