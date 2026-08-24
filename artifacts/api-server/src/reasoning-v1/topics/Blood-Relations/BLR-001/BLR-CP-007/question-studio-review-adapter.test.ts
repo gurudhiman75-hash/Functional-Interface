@@ -14,18 +14,25 @@ import {
 
 const packages = listReasoningV1QuestionStudioReviewPackages();
 const enabledPackages = listEnabledReasoningV1QuestionStudioPackages();
+const blrPackages = packages.filter((entry) => entry.packageId === BLR_CP007_QUESTION_STUDIO_PACKAGE_ID);
+const blrPackage = blrPackages[0];
 const entries = listBlrCp007QuestionStudioReviewEntries();
 
-assert.equal(packages.length, 1);
-assert.equal(packages[0]?.packageId, BLR_CP007_QUESTION_STUDIO_PACKAGE_ID);
-assert.equal(packages[0]?.enabled, false);
-assert.equal(packages[0]?.reviewPreviewAvailable, true);
-assert.equal(packages[0]?.persistenceAllowed, false);
-assert.equal(packages[0]?.questionStudioVisible, false);
-assert.equal(packages[0]?.questionBankEligible, false);
-assert.equal(packages[0]?.mockTestEligible, false);
-assert.equal(packages[0]?.publiclyPublishable, false);
-assert.equal(enabledPackages.length, 0, "Review package must not enter the live enabled package list");
+assert.equal(blrPackages.length, 1, "BLR CP007 must be registered exactly once in the shared review registry");
+assert(blrPackage, "BLR CP007 review package missing from shared Reasoning registry");
+assert.equal(blrPackage.packageId, BLR_CP007_QUESTION_STUDIO_PACKAGE_ID);
+assert.equal(blrPackage.enabled, false);
+assert.equal(blrPackage.reviewPreviewAvailable, true);
+assert.equal(blrPackage.persistenceAllowed, false);
+assert.equal(blrPackage.questionStudioVisible, false);
+assert.equal(blrPackage.questionBankEligible, false);
+assert.equal(blrPackage.mockTestEligible, false);
+assert.equal(blrPackage.publiclyPublishable, false);
+assert.equal(
+  enabledPackages.some((entry) => entry.packageId === BLR_CP007_QUESTION_STUDIO_PACKAGE_ID),
+  false,
+  "BLR CP007 review package must not enter the live enabled package list",
+);
 
 assert.equal(entries.length, 504);
 assert.equal(new Set(entries.map((entry) => entry.questionId)).size, 504);
@@ -161,6 +168,8 @@ console.log(JSON.stringify({
   runtimeMode: BLR_CP007_QUESTION_STUDIO_RUNTIME_MODE,
   reviewPackageCount: packages.length,
   enabledPackageCount: enabledPackages.length,
+  blrReviewPackageCount: blrPackages.length,
+  blrEnabledPackageCount: enabledPackages.filter((entry) => entry.packageId === BLR_CP007_QUESTION_STUDIO_PACKAGE_ID).length,
   previewableRecordCount: entries.length,
   languageCounts: {
     en: entries.filter((entry) => entry.language === "en").length,
