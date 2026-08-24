@@ -10,12 +10,12 @@ import {
   sriPick,
   type Rational,
 } from "../../../../shared/surds-indices";
-import { rationalAnswer, rationalDistractors } from "./discovery-answer-utils";
+import { integerAnswer, rationalAnswer, rationalDistractors } from "./discovery-answer-utils";
 import { finalizeSriDiscoveryQuestion } from "./discovery-runtime";
 import type { SriDiscoveryQuestion } from "./discovery-types";
 import { classificationDistractors } from "./SRI-002/surd-discovery-utils";
 
-export const SRI_SOURCE_SATURATION_OVERRIDE_IDS = new Set(["C002-F", "C007-D"] as const);
+export const SRI_SOURCE_SATURATION_OVERRIDE_IDS = new Set(["C002-F", "C007-D", "C012-B"] as const);
 
 function pow(base: number, exponent: number): bigint {
   return BigInt(base) ** BigInt(exponent);
@@ -93,6 +93,8 @@ function generateC007D(seed: string): SriDiscoveryQuestion {
   const solverClass = exact === null ? "SURD" : "RATIONAL";
   const verifierClass = rationalMode ? "RATIONAL" : "SURD";
   const rootText = index === 2 ? `\\sqrt{${radicand}}` : `\\sqrt[${index}]{${radicand}}`;
+  const rootName = index === 2 ? "square root" : index === 3 ? "cube root" : `${index}th root`;
+  const powerName = index === 2 ? "perfect square" : index === 3 ? "perfect cube" : `perfect ${index}th power`;
   const answer = { text: solverClass === "RATIONAL" ? "Rational" : "Surd", canonicalKey: `T:${solverClass}` };
   const stem = sriPick(`${seed}:surface`, [
     `Classify ${rootText} as rational or a surd.`,
@@ -108,11 +110,11 @@ function generateC007D(seed: string): SriDiscoveryQuestion {
     independentVerifierKey: `T:${verifierClass}`,
     distractors: classificationDistractors(solverClass),
     explanation: {
-      given: `A positive ${index}th-root radical is given.`,
+      given: `A positive ${rootName} expression is given.`,
       asked: "Classify it as rational or a surd.",
-      method: `Check whether the radicand is an exact ${index}th power.`,
+      method: `Check whether the radicand is a ${powerName}.`,
       working: exact === null
-        ? [`${radicand} is not a perfect ${index}th power, so the radical remains irrational.`]
+        ? [`${radicand} is not a ${powerName}, so the radical remains irrational.`]
         : [`${radicand}=${exact}^${index}, so the radical equals ${exact}.`],
       answer: answer.text,
     },
@@ -120,8 +122,45 @@ function generateC007D(seed: string): SriDiscoveryQuestion {
   });
 }
 
+function generateC012B(seed: string): SriDiscoveryQuestion {
+  const [numerator, denominator] = sriPick(`${seed}:fraction`, [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4]] as const);
+  const root = sriInt(`${seed}:root`, 2, 6);
+  const visibleBase = Number(pow(root, denominator));
+  const result = Number(pow(root, numerator));
+  const answer = integerAnswer(result);
+  const radical = denominator === 2
+    ? `\\sqrt{${visibleBase}^{${numerator}}}`
+    : `\\sqrt[${denominator}]{${visibleBase}^{${numerator}}}`;
+  const stem = sriPick(`${seed}:surface`, [
+    `Evaluate ${visibleBase}^{${numerator}/${denominator}} by converting it to ${radical}.`,
+    `Rewrite ${visibleBase}^{${numerator}/${denominator}} as a radical and simplify exactly.`,
+    `Use radical form to find the exact value of ${visibleBase}^{${numerator}/${denominator}}.`,
+    `Convert the fractional index ${visibleBase}^{${numerator}/${denominator}} to a root before evaluating it.`,
+  ]);
+  return finalizeSriDiscoveryQuestion({
+    packageId: "SRI-002", checkpointId: "SRI-CP-012", candidateId: "C012-B", seed,
+    state: { root, visibleBase, numerator, denominator },
+    stem, answer,
+    canonicalSolverKey: answer.canonicalKey,
+    independentVerifierKey: integerAnswer(result).canonicalKey,
+    distractors: rationalDistractors(rational(result)),
+    explanation: {
+      given: `The base is a perfect ${denominator}th power and the exponent ${numerator}/${denominator} is already in lowest terms.`,
+      asked: "Evaluate the fractional-index expression through its radical form.",
+      method: "The denominator gives the root to take, and the numerator gives the power to apply after taking that root.",
+      working: [
+        `${visibleBase}=${root}^${denominator}`,
+        `${visibleBase}^{${numerator}/${denominator}}=(${root})^${numerator}=${result}`,
+      ],
+      answer: answer.text,
+    },
+    proofEvents: [proofEvent("SOLVE", "reduced fractional-index evaluation through exact radical form", { base: String(visibleBase), exponent: `${numerator}/${denominator}` }, { answer: String(result) })],
+  });
+}
+
 export function generateSriSourceSaturationObjectOverride(candidateId: string, seed: string): SriDiscoveryQuestion {
   if (candidateId === "C002-F") return generateC002F(seed);
   if (candidateId === "C007-D") return generateC007D(seed);
+  if (candidateId === "C012-B") return generateC012B(seed);
   throw new Error(`Unknown SRI saturation object override: ${candidateId}`);
 }
