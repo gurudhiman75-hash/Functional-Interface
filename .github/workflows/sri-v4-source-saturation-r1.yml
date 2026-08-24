@@ -62,3 +62,13 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/quant-v4/sri/merge-split-r1.test.mjs
+      - name: Bundle source-gate resolution audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/source-gates-r1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/source-gates-r1.test.mjs
+      - name: Run source-gate resolution audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/source-gates-r1.test.mjs
