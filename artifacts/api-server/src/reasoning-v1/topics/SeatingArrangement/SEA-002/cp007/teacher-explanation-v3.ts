@@ -51,7 +51,7 @@ function fullFacingDerivation(caselet: Sea002Cp007ProductionCaselet): string[] {
       known.set(nextPerson, nextFacing);
       used.add(clue);
       lines.push(
-        `- ${clue.left} and ${clue.right} face ${clue.relation === "SAME" ? "the same way" : "opposite ways"}; since ${knownPerson} is ${arrow(knownFacing)}, ${nextPerson} is ${arrow(nextFacing)} (${facingWord(nextFacing)}).`,
+        `- ${clue.left} and ${clue.right} face ${clue.relation === "SAME" ? "the same way" : "opposite ways"}; ${knownPerson} ${arrow(knownFacing)} (${facingWord(knownFacing)}) ⇒ ${nextPerson} ${arrow(nextFacing)} (${facingWord(nextFacing)}).`,
       );
       progressed = true;
     }
