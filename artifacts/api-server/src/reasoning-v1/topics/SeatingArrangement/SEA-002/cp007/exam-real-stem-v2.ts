@@ -18,8 +18,8 @@ function facingSuffix(
   if (!relation || relation.kind !== "FACING_RELATION") return "";
   used.add(relation);
   return relation.relation === "SAME"
-    ? " The two face in the same direction."
-    : " The two face in opposite directions.";
+    ? ", and the two face in the same direction"
+    : ", and the two face in opposite directions";
 }
 
 function renderPositionClue(
@@ -32,15 +32,15 @@ function renderPositionClue(
     const placement = clue.distance === 1
       ? `immediately to the ${clue.direction.toLowerCase()} of`
       : `${clue.distance} positions to the ${clue.direction.toLowerCase()} of`;
-    return `${clue.subject} sits ${placement} ${clue.reference}.${facingSuffix(clue.subject, clue.reference, all, used)}`;
+    return `${clue.subject} sits ${placement} ${clue.reference}${facingSuffix(clue.subject, clue.reference, all, used)}.`;
   }
   if (clue.kind === "OPPOSITE") {
     used.add(clue);
-    return `${clue.left} sits opposite ${clue.right}.${facingSuffix(clue.left, clue.right, all, used)}`;
+    return `${clue.left} sits opposite ${clue.right}${facingSuffix(clue.left, clue.right, all, used)}.`;
   }
   if (clue.kind === "DIAGONAL") {
     used.add(clue);
-    return `${clue.subject} sits diagonally from ${clue.reference} in ${clue.reference}'s ${clue.direction.toLowerCase()}-hand direction.${facingSuffix(clue.subject, clue.reference, all, used)}`;
+    return `${clue.subject} sits diagonally from ${clue.reference} in ${clue.reference}'s ${clue.direction.toLowerCase()}-hand direction${facingSuffix(clue.subject, clue.reference, all, used)}.`;
   }
   return null;
 }
