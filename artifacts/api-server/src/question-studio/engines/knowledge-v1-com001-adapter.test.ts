@@ -1,6 +1,7 @@
 import { strict as assert } from "node:assert";
 
 import { getGeneratedItemApprovalDisposition } from "../../lib/admin-question-studio-approval-policy";
+import { COM001_DIFFICULTY_CLASSIFIER_VERSION_V2 } from "../../knowledge-v1/computer-awareness/com001-difficulty-routing-v2";
 import { COM001_ENGLISH_FREEZE_AUTHORITY_V2 } from "../../knowledge-v1/computer-awareness/com001-english-freeze-v2";
 import { COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V2 } from "../../knowledge-v1/computer-awareness/com001-hi-pa-localization-freeze-v2";
 import { listCom001ReviewV2QlIds } from "../../knowledge-v1/computer-awareness/com001-review-synthesis-v2";
@@ -27,7 +28,17 @@ assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.questionBankStatus, "NOT_STORE
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.questionBankWritable, false);
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.testEligible, false);
 assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.automaticStudentPublication, false);
-assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.difficultyFilterSupported, false);
+assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.difficultyFilterSupported, true);
+assert.equal(
+  COM001_REVIEW_ONLY_PACKAGE.metadata?.difficultySelectionStatus,
+  "REVIEW_ONLY_TOPOLOGY_FILTER_ACTIVE",
+);
+assert.equal(
+  COM001_REVIEW_ONLY_PACKAGE.metadata?.difficultyClassifierVersion,
+  COM001_DIFFICULTY_CLASSIFIER_VERSION_V2,
+);
+assert.equal(COM001_REVIEW_ONLY_PACKAGE.metadata?.productionDifficultyClaimsAuthorized, false);
+assert.deepEqual(COM001_REVIEW_ONLY_PACKAGE.metadata?.supportedDifficulties, ["Easy", "Medium", "Hard"]);
 assert.equal(
   COM001_REVIEW_ONLY_PACKAGE.metadata?.englishFreezeAuthorityId,
   COM001_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
@@ -60,7 +71,7 @@ for (const qlId of qlIds) {
       runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
       count: 40,
       seed: `question-studio-v2-batch:${qlId}:${language}`,
-      difficulty: "Medium" as const,
+      difficulty: "Mixed" as const,
     };
     const first = await knowledgeV1Com001QuestionStudioAdapter.generate(request);
     const replay = await knowledgeV1Com001QuestionStudioAdapter.generate(request);
@@ -70,6 +81,12 @@ for (const qlId of qlIds) {
     assert.equal(first.generationContext?.contentAuthorityVersion, COM001_REVIEW_CONTENT_AUTHORITY_VERSION);
     assert.equal(first.generationContext?.humanReviewApproved, true);
     assert.equal(first.generationContext?.difficultyFilterApplied, false);
+    assert.equal(first.generationContext?.requestedDifficulty, "Mixed");
+    assert.equal(
+      first.generationContext?.difficultyClassifierVersion,
+      COM001_DIFFICULTY_CLASSIFIER_VERSION_V2,
+    );
+    assert.equal(first.generationContext?.productionDifficultyClaimAuthorized, false);
     assert.equal(first.generationContext?.canonicalQuestionPersistenceAllowed, false);
     assert.equal(first.generationContext?.questionBankStatus, "NOT_STORED");
     assert.equal(first.generationContext?.questionBankWritable, false);
@@ -89,6 +106,7 @@ for (const qlId of qlIds) {
     const correctPositions = new Set<number>();
     const relationalModes = new Set<string>();
     const capacityConventions = new Set<string>();
+    const observedDifficulties = new Set<string>();
     for (const rawQuestion of first.questions) {
       auditedQuestions += 1;
       const question = rawQuestion as Record<string, any>;
@@ -103,6 +121,14 @@ for (const qlId of qlIds) {
       assert.equal(question.options[question.correctIndex], question.canonicalAnswer);
       assert.equal(question.correct, question.correctIndex);
       assert.equal(question.text, question.stem);
+      assert.equal(["Easy", "Medium", "Hard"].includes(question.difficulty), true);
+      assert.equal(question.difficultyLabel, question.difficulty);
+      assert.equal(question.difficultyDecisionV2?.difficulty, question.difficulty);
+      assert.equal(
+        question.difficultyDecisionV2?.classifierVersion,
+        COM001_DIFFICULTY_CLASSIFIER_VERSION_V2,
+      );
+      assert.equal(question.difficultyDecisionV2?.productionClaimAuthorized, false);
       assert.equal(question.questionBankStatus, COM001_QUESTION_BANK_STATUS);
       assert.equal(question.questionBankWritable, false);
       assert.equal(question.testEligible, false);
@@ -125,6 +151,13 @@ for (const qlId of qlIds) {
       assert.equal(question.questionStudioReview.publiclyPublishable, false);
       assert.equal(question.questionStudioReview.automaticStudentPublication, false);
       assert.equal(question.questionStudioReview.difficultyFilterApplied, false);
+      assert.equal(question.questionStudioReview.requestedDifficulty, "Mixed");
+      assert.equal(question.questionStudioReview.classifiedDifficulty, question.difficulty);
+      assert.equal(
+        question.questionStudioReview.difficultyClassifierVersion,
+        COM001_DIFFICULTY_CLASSIFIER_VERSION_V2,
+      );
+      assert.equal(question.questionStudioReview.productionDifficultyClaimAuthorized, false);
       assert.equal(
         question.questionStudioReview.englishFreezeAuthorityId,
         COM001_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
@@ -153,6 +186,7 @@ for (const qlId of qlIds) {
       }
       stems.add(question.stem);
       correctPositions.add(question.correctIndex);
+      observedDifficulties.add(question.difficulty);
       if (question.relationalSurfaceMode) relationalModes.add(question.relationalSurfaceMode);
       if (question.capacityConvention) capacityConventions.add(question.capacityConvention);
     }
@@ -160,6 +194,11 @@ for (const qlId of qlIds) {
     assert.equal(correctPositions.size >= 3, true, `${qlId}/${language}: narrow answer-position spread`);
     if (["COM-001-QL-001", "COM-001-QL-002", "COM-001-QL-003", "COM-001-QL-004", "COM-001-QL-005"].includes(qlId)) {
       assert.equal(relationalModes.size >= 2, true, `${qlId}/${language}: V2 relational surfaces collapsed`);
+      assert.deepEqual([...observedDifficulties].sort(), ["Easy", "Medium"]);
+    }
+    if (qlId === "COM-001-QL-006") assert.deepEqual([...observedDifficulties], ["Medium"]);
+    if (["COM-001-QL-007", "COM-001-QL-008"].includes(qlId)) {
+      assert.deepEqual([...observedDifficulties], ["Hard"]);
     }
     if (qlId === "COM-001-QL-009") {
       assert.deepEqual(
@@ -167,6 +206,7 @@ for (const qlId of qlIds) {
         ["SI_IEC_EXPLICIT", "TRADITIONAL_EXAM_1024"],
         `${qlId}/${language}: both capacity conventions must remain available`,
       );
+      assert.deepEqual([...observedDifficulties].sort(), ["Easy", "Medium"]);
     }
   }
 }
@@ -181,14 +221,67 @@ const mixedRequest = {
   runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
   count: 50,
   seed: "question-studio-v2-mixed-review",
+  difficulty: "Mixed" as const,
 };
 const mixed = await knowledgeV1Com001QuestionStudioAdapter.generate(mixedRequest);
 assert.equal(mixed.questions.length, 50);
+assert.equal(mixed.generationContext?.difficultyFilterApplied, false);
 assert.equal(
   new Set(mixed.questions.map((question) => String(question.qlId))).size >= 6,
   true,
   "mixed COM-001 V2 review batch did not cover enough permanent QLs",
 );
+
+for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
+  const request = {
+    ...mixedRequest,
+    count: 30,
+    difficulty,
+    seed: `question-studio-v2-filter:${difficulty}`,
+  };
+  const first = await knowledgeV1Com001QuestionStudioAdapter.generate(request);
+  const replay = await knowledgeV1Com001QuestionStudioAdapter.generate(request);
+  assert.deepEqual(first, replay, `${difficulty}: filtered replay changed`);
+  assert.equal(first.questions.length, 30);
+  assert.equal(first.generationContext?.difficultyFilterApplied, true);
+  assert.equal(first.generationContext?.requestedDifficulty, difficulty);
+  assert.equal(first.generationContext?.productionDifficultyClaimAuthorized, false);
+  assert.equal(
+    first.questions.every((question) => question.difficulty === difficulty),
+    true,
+    `${difficulty}: filtered batch leaked another difficulty`,
+  );
+  assert.equal(
+    first.questions.every((question) => (question as any).questionBankWritable === false),
+    true,
+  );
+  assert.equal(
+    first.questions.every((question) => (question as any).testEligible === false),
+    true,
+  );
+}
+
+const ql007Hard = await knowledgeV1Com001QuestionStudioAdapter.generate({
+  packageId: "COM-001",
+  patternId: "COM-001-QL-007",
+  runtimeMode: "review-only",
+  language: "en",
+  difficulty: "Hard",
+  count: 10,
+  seed: "ql007-hard-review-filter",
+});
+assert.equal(ql007Hard.questions.every((question) => question.difficulty === "Hard"), true);
+
+const ql006Medium = await knowledgeV1Com001QuestionStudioAdapter.generate({
+  packageId: "COM-001",
+  patternId: "COM-001-QL-006",
+  runtimeMode: "review-only",
+  language: "en",
+  difficulty: "Medium",
+  count: 10,
+  seed: "ql006-medium-review-filter",
+});
+assert.equal(ql006Medium.questions.every((question) => question.difficulty === "Medium"), true);
 
 await assert.rejects(
   () => knowledgeV1Com001QuestionStudioAdapter.generate({
@@ -205,6 +298,23 @@ await assert.rejects(
     count: 1,
   }),
   /Unknown COM-001 QL/,
+);
+await assert.rejects(
+  () => knowledgeV1Com001QuestionStudioAdapter.generate({
+    packageId: "COM-001",
+    patternId: "COM-001-QL-007",
+    difficulty: "Easy",
+    count: 1,
+  }),
+  /does not produce Easy questions/,
+);
+await assert.rejects(
+  () => knowledgeV1Com001QuestionStudioAdapter.generate({
+    packageId: "COM-001",
+    difficulty: "Extreme",
+    count: 1,
+  }),
+  /difficulty must be Easy, Medium, Hard, or Mixed/,
 );
 await assert.rejects(
   () => knowledgeV1Com001QuestionStudioAdapter.generate({
