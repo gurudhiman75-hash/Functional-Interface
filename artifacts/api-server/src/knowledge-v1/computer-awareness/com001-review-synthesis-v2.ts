@@ -20,7 +20,7 @@ export type Com001ReviewV2Mode =
 
 export type Com001ReviewV2Question = Com001ReviewQuestion & {
   humanReviewV2: {
-    status: "REMEDIATED_CANDIDATE" | "UNCHANGED_FROM_V1";
+    status: "REMEDIATED_CANDIDATE" | "UNCHANGED_FROM_V1" | "BLOCKED_PENDING_MODEL";
     reason: string;
   };
   reviewV2Mode: Com001ReviewV2Mode;
