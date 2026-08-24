@@ -55,8 +55,15 @@ for (const descriptor of SRI_PHASE2_POWER_RELATION_CANDIDATES) {
 
   for (let index = 0; index < SEEDS_PER_CANDIDATE; index += 1) {
     const seed = `SRI-PHASE2:${descriptor.candidateId}:${index}`;
-    const question = generateSriPhase2PowerRelationCandidate(descriptor.candidateId, seed);
-    const repeat = generateSriPhase2PowerRelationCandidate(descriptor.candidateId, seed);
+    let question;
+    let repeat;
+    try {
+      question = generateSriPhase2PowerRelationCandidate(descriptor.candidateId, seed);
+      repeat = generateSriPhase2PowerRelationCandidate(descriptor.candidateId, seed);
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : String(error);
+      throw new Error(`${descriptor.candidateId} failed generation for seed ${seed}: ${detail}`);
+    }
     generated += 1;
 
     assert.deepEqual(repeat, question, `${descriptor.candidateId} is not deterministic for seed ${index}`);
