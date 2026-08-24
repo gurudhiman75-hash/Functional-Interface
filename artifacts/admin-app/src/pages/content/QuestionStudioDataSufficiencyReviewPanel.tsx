@@ -70,7 +70,7 @@ function QuestionCard({ question }: { question: DsfReviewQuestion }) {
             <Badge className="gap-1 bg-success/10 text-success hover:bg-success/10"><CheckCircle2 className="h-3 w-3" /> Frozen semantics preserved</Badge>
           )}
           {question.localization?.semanticParity === 'EXECUTABLE_PROVED' && (
-            <Badge className="gap-1 bg-primary/10 text-primary hover:bg-primary/10"><CheckCircle2 className="h-3 w-3" /> Localization parity proved</Badge>
+            <Badge className="gap-1 bg-primary/10 text-primary hover:bg-primary/10"><CheckCircle2 className="h-3 w-3" /> Localization approved</Badge>
           )}
         </div>
         <p className="text-xs text-muted-foreground">{question.sourceChapterId} · {question.targetKind} · seed {question.seed} · {question.profileEvidenceLevel}</p>
@@ -96,7 +96,7 @@ function QuestionCard({ question }: { question: DsfReviewQuestion }) {
         )}
         {question.localization && (
           <div className="rounded-lg border border-primary/25 bg-primary/5 p-3 text-xs leading-5 text-muted-foreground">
-            <strong>CP-008 localization review:</strong> executable semantic parity is proved, but human Hindi/Punjabi editorial approval is still required. Question Bank, tests, mocks and public publication remain blocked for this localized item.
+            <strong>CP-009 localized production release:</strong> the CP-008 semantic-parity pack is product-owner approved. This localized item follows the same manual generation approval, explicit Question Bank publication, scored-test and mock-test QA gates as English. Automatic student publication remains off.
           </div>
         )}
         <div className="rounded-lg border p-3">
@@ -181,11 +181,7 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
       const result = await createDsfReviewRun(request);
       window.dispatchEvent(new Event(QUESTION_STUDIO_REFRESH_EVENT));
       await refreshStatus();
-      if (language === 'en') {
-        showToast.success('Review run created', `${result.publicCode}: after manual approval, publication and normal test QA, these questions are eligible for scored tests and mocks. Automatic student publication remains off.`);
-      } else {
-        showToast.success('Localization review run created', `${result.publicCode}: ${LANGUAGE_LABELS[language]} items are saved for human language review only. Question Bank, tests, mocks and public publication remain blocked until localization approval.`);
-      }
+      showToast.success('Review run created', `${result.publicCode}: ${LANGUAGE_LABELS[language]} items require manual approval and explicit Question Bank publication, then are eligible for scored tests and mocks through canonical QA/release. Automatic student publication remains off.`);
     } catch (error) {
       showToast.error('Run creation failed', error instanceof Error ? error.message : 'Unable to create review run.');
     } finally { setWorking(null); }
@@ -195,11 +191,11 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
     <Card className="border-primary/20 bg-primary/5">
       <CardHeader className="space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <CardTitle className="flex items-center gap-2 text-base"><BrainCircuit className="h-4 w-4" /> Data Sufficiency · CP-008 Hindi/Punjabi localization review</CardTitle>
-          <div className="flex flex-wrap gap-2"><Badge variant="outline">DSF-QL-001</Badge><Badge variant="outline">4 domains</Badge><Badge variant="outline">8 solve modes</Badge><Badge variant="outline">Banking + SSC</Badge><Badge variant="outline">English production</Badge><Badge variant="outline">Hindi + Punjabi review</Badge></div>
+          <CardTitle className="flex items-center gap-2 text-base"><BrainCircuit className="h-4 w-4" /> Data Sufficiency · CP-009 multilingual production release</CardTitle>
+          <div className="flex flex-wrap gap-2"><Badge variant="outline">DSF-QL-001</Badge><Badge variant="outline">4 domains</Badge><Badge variant="outline">8 solve modes</Badge><Badge variant="outline">Banking + SSC</Badge><Badge variant="outline">English + Hindi + Punjabi production</Badge><Badge variant="outline">CP-009 approved</Badge></div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          CP-001 owns frozen semantic truth, CP-003 owns approved answer-profile rendering, CP-004 owns Question Bank acceptance, CP-005 enables manual scored-test release, and CP-006 enables mock-test eligibility. CP-008 localizes only learner-facing text; canonical semantics, correct option position and profile order cannot change.
+          CP-001 owns frozen semantic truth, CP-003 owns approved answer-profile rendering, CP-004 owns Question Bank acceptance, CP-005 enables manual scored-test release, CP-006 enables mock-test eligibility, CP-008 owns executable Hindi/Punjabi localization parity, and CP-009 records product-owner language approval. Canonical semantics, correct option position and profile order cannot change.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -209,23 +205,24 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
             <Metric label="Solve modes" value={status.solveModeCount} />
             <Metric label="CP-006 items" value={status.cp006GenerationItemCount} />
             <Metric label="CP-008 items" value={status.cp008GenerationItemCount} />
-            <Metric label="Hindi review" value={status.hindiReviewItemCount} />
-            <Metric label="Punjabi review" value={status.punjabiReviewItemCount} />
-            <Metric label="Test eligible (EN)" value={status.testEligible ? 'Yes' : 'No'} />
-            <Metric label="Mock eligible (EN)" value={status.mockTestEligible ? 'Yes' : 'No'} />
+            <Metric label="CP-009 items" value={status.cp009GenerationItemCount} />
+            <Metric label="Hindi released" value={status.hindiReleaseItemCount} />
+            <Metric label="Punjabi released" value={status.punjabiReleaseItemCount} />
+            <Metric label="Test eligible" value={status.testEligible ? 'Yes' : 'No'} />
+            <Metric label="Mock eligible" value={status.mockTestEligible ? 'Yes' : 'No'} />
           </div>
         )}
 
         <div className="rounded-lg border border-primary/20 bg-background/60 p-3 text-sm">
-          <div className="flex items-center gap-2 font-medium"><ShieldCheck className="h-4 w-4" /> CP-006 mock-test release · CP-008 localization boundary</div>
+          <div className="flex items-center gap-2 font-medium"><ShieldCheck className="h-4 w-4" /> CP-009 Hindi/Punjabi approval · canonical production gates</div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            English keeps the CP-006 mock-test release: new English items still require manual Question Studio approval and explicit Question Bank publication, then enter mocks only through the canonical published-test and test-series QA/release path. Automatic student publication remains OFF. Older CP-004 BANK_ONLY and CP-005 mock-ineligible payloads are not upgraded. Hindi and Punjabi are executable review candidates only; their downstream gates remain locked until explicit human language approval. Punjab-specific answer-profile rendering remains disabled.
+            English, Hindi and Punjabi now share the controlled production lifecycle: manual Question Studio approval, explicit Question Bank publication, canonical scored-test validation, and test-series QA/release before mock delivery. Automatic student publication remains OFF. Historical CP-004/CP-005/CP-008 payloads are not retroactively upgraded. Punjab-specific answer-profile rendering remains disabled.
           </p>
         </div>
 
         {activeLanguageLifecycle && language !== 'en' && (
-          <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-3 text-xs leading-5 text-muted-foreground">
-            <strong>{LANGUAGE_LABELS[language]} localization is review-only.</strong> Semantic parity is executable-proved, but Question Bank writable = No, test eligible = No, mock eligible = No, public publication = No until editorial approval.
+          <div className="rounded-lg border border-success/30 bg-success/5 p-3 text-xs leading-5 text-muted-foreground">
+            <strong>{LANGUAGE_LABELS[language]} localization is product-owner approved.</strong> Question Bank writable = Yes, test eligible = Yes, mock eligible = Yes, public publication = Yes through the canonical manual gates. Automatic student publication = No.
           </div>
         )}
 
@@ -246,7 +243,7 @@ export function QuestionStudioDataSufficiencyReviewPanel() {
 
         <div className="flex flex-wrap gap-2">
           <Button variant="outline" onClick={handlePreview} disabled={working !== null}><Eye className="mr-2 h-4 w-4" />{working === 'preview' ? 'Loading…' : 'Preview'}</Button>
-          <Button onClick={handleRun} disabled={working !== null}>{working === 'run' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CheckCircle2 className="mr-2 h-4 w-4" />}{language === 'en' ? 'Create review run' : 'Create localization review run'}</Button>
+          <Button onClick={handleRun} disabled={working !== null}>{working === 'run' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <CheckCircle2 className="mr-2 h-4 w-4" />}Create review run</Button>
         </div>
 
         {questions.length > 0 && <div className="space-y-4">{questions.map((question) => <QuestionCard key={question.questionId} question={question} />)}</div>}
