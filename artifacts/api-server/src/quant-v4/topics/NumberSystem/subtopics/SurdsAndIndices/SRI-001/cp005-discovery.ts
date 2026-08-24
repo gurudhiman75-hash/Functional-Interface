@@ -39,6 +39,14 @@ function lcm(a: number, b: number): number {
   return Math.abs(a * b) / gcd(a, b);
 }
 
+function isExactNonNegativePower(base: number, value: bigint): boolean {
+  if (value < 1n) return false;
+  let current = 1n;
+  const b = BigInt(base);
+  while (current < value) current *= b;
+  return current === value;
+}
+
 function finish(
   candidateId: string,
   seed: string,
@@ -75,7 +83,7 @@ function finish(
   });
 }
 
-function bruteExponent(base: number, target: bigint, evaluator: (x: number) => bigint, min = -8, max = 12): number {
+function bruteExponent(target: bigint, evaluator: (x: number) => bigint, min = -8, max = 12): number {
   const matches: number[] = [];
   for (let x = min; x <= max; x += 1) {
     try {
@@ -84,7 +92,7 @@ function bruteExponent(base: number, target: bigint, evaluator: (x: number) => b
       // outside evaluator domain
     }
   }
-  if (matches.length !== 1) throw new Error(`Expected one integer exponent solution for base ${base}; found ${matches.join(",")}`);
+  if (matches.length !== 1) throw new Error(`Expected one integer exponent solution; found ${matches.join(",")}`);
   return matches[0]!;
 }
 
@@ -95,7 +103,7 @@ export function generateSriCp005Candidate(candidateId: string, seed: string): Sr
   switch (candidateId) {
     case "C005-A": {
       const targetExponent = x;
-      const verifier = bruteExponent(base, powBigInt(base, targetExponent), (probe) => probe < 0 ? 0n : powBigInt(base, probe), 0, 10);
+      const verifier = bruteExponent(powBigInt(base, targetExponent), (probe) => probe < 0 ? 0n : powBigInt(base, probe), 0, 10);
       const stem = sriPick(`${seed}:surface`, [
         `If ${base}^x = ${base}^${targetExponent}, find x.`,
         `Solve ${base}^x = ${base}^${targetExponent}.`,
@@ -110,14 +118,15 @@ export function generateSriCp005Candidate(candidateId: string, seed: string): Sr
       const shift = sriInt(`${seed}:shift`, -3, 3);
       const targetExponent = coefficient * x + shift;
       const verifier = (targetExponent - shift) / coefficient;
+      const exponentText = shift === 0 ? `${coefficient}x` : `${coefficient}x${shift > 0 ? `+${shift}` : shift}`;
       const stem = sriPick(`${seed}:surface`, [
-        `If ${base}^(${coefficient}x${shift >= 0 ? `+${shift}` : shift}) = ${base}^${targetExponent}, find x.`,
-        `Solve ${base}^(${coefficient}x${shift >= 0 ? `+${shift}` : shift}) = ${base}^${targetExponent}.`,
-        `Determine x when ${base}^(${coefficient}x${shift >= 0 ? `+${shift}` : shift}) and ${base}^${targetExponent} are equal.`,
+        `If ${base}^(${exponentText}) = ${base}^${targetExponent}, find x.`,
+        `Solve ${base}^(${exponentText}) = ${base}^${targetExponent}.`,
+        `Determine x when ${base}^(${exponentText}) and ${base}^${targetExponent} are equal.`,
       ]);
       return finish(candidateId, seed, { base, coefficient, shift, targetExponent }, stem, x, verifier,
         "Equate the exponents, then solve the resulting linear equation.",
-        [`${coefficient}x${shift >= 0 ? `+${shift}` : shift} = ${targetExponent}`, `${coefficient}x = ${targetExponent - shift}`, `x = ${x}`]);
+        [`${exponentText} = ${targetExponent}`, `${coefficient}x = ${targetExponent - shift}`, `x = ${x}`]);
     }
     case "C005-C": {
       const commonBase = sriPick(`${seed}:common-base`, [2, 3]);
@@ -141,7 +150,7 @@ export function generateSriCp005Candidate(candidateId: string, seed: string): Sr
     case "C005-D": {
       const offset = sriInt(`${seed}:offset`, 1, 3);
       const target = powBigInt(base, x) + powBigInt(base, x + offset);
-      const verifier = bruteExponent(base, target, (probe) => probe < 0 ? -1n : powBigInt(base, probe) + powBigInt(base, probe + offset), 0, 8);
+      const verifier = bruteExponent(target, (probe) => probe < 0 ? -1n : powBigInt(base, probe) + powBigInt(base, probe + offset), 0, 8);
       const stem = sriPick(`${seed}:surface`, [
         `Solve ${base}^x + ${base}^(x+${offset}) = ${target}.`,
         `If ${base}^x + ${base}^(x+${offset}) = ${target}, find x.`,
@@ -154,7 +163,7 @@ export function generateSriCp005Candidate(candidateId: string, seed: string): Sr
     case "C005-E": {
       const offset = sriInt(`${seed}:offset`, 1, 3);
       const target = powBigInt(base, x + offset) - powBigInt(base, x);
-      const verifier = bruteExponent(base, target, (probe) => probe < 0 ? -1n : powBigInt(base, probe + offset) - powBigInt(base, probe), 0, 8);
+      const verifier = bruteExponent(target, (probe) => probe < 0 ? -1n : powBigInt(base, probe + offset) - powBigInt(base, probe), 0, 8);
       const stem = sriPick(`${seed}:surface`, [
         `Solve ${base}^(x+${offset}) - ${base}^x = ${target}.`,
         `If ${base}^(x+${offset}) - ${base}^x = ${target}, find x.`,
@@ -166,24 +175,27 @@ export function generateSriCp005Candidate(candidateId: string, seed: string): Sr
     }
     case "C005-F": {
       const powerRoot = powBigInt(base, x);
-      const otherRoot = powerRoot + BigInt(sriPick(`${seed}:other-root-gap`, [1, 2, 4]));
+      const admissibleGaps = [1, 2, 4, 5, 7].filter((gap) => !isExactNonNegativePower(base, powerRoot + BigInt(gap)));
+      if (admissibleGaps.length === 0) throw new Error("No non-power companion root available for C005-F");
+      const gap = sriPick(`${seed}:other-root-gap`, admissibleGaps);
+      const otherRoot = powerRoot + BigInt(gap);
       const sum = powerRoot + otherRoot;
       const product = powerRoot * otherRoot;
-      const verifier = (() => {
-        for (let probe = 0; probe <= 8; probe += 1) {
-          const y = powBigInt(base, probe);
-          if (y * y - sum * y + product === 0n) return probe;
-        }
-        throw new Error("No power root found in independent quadratic verification");
-      })();
+      const matches: number[] = [];
+      for (let probe = 0; probe <= 8; probe += 1) {
+        const y = powBigInt(base, probe);
+        if (y * y - sum * y + product === 0n) matches.push(probe);
+      }
+      if (matches.length !== 1) throw new Error(`C005-F must have exactly one admissible power root; found ${matches.join(",")}`);
+      const verifier = matches[0]!;
       const stem = sriPick(`${seed}:surface`, [
         `If (${base}^x)^2 - ${sum}(${base}^x) + ${product} = 0, find the integer x.`,
         `Solve ${base}^(2x) - ${sum}·${base}^x + ${product} = 0 for integer x.`,
         `Using y=${base}^x, determine the integer x satisfying y^2 - ${sum}y + ${product}=0.`,
       ]);
-      return finish(candidateId, seed, { base, sum: sum.toString(), product: product.toString() }, stem, x, verifier,
+      return finish(candidateId, seed, { base, sum: sum.toString(), product: product.toString(), companionRoot: otherRoot.toString() }, stem, x, verifier,
         "Substitute y=a^x, factor the quadratic, then retain the root that is an exact power of the base.",
-        [`y^2-${sum}y+${product}=0`, `One admissible power root is y=${powerRoot}=${base}^${x}`, `Therefore x=${x}`]);
+        [`y^2-${sum}y+${product}=0`, `The roots are ${powerRoot} and ${otherRoot}; only ${powerRoot} is an exact power of ${base}.`, `${powerRoot}=${base}^${x}, so x=${x}.`]);
     }
     case "C005-G": {
       const commonBase = sriPick(`${seed}:common-base`, [2, 3]);
@@ -200,7 +212,7 @@ export function generateSriCp005Candidate(candidateId: string, seed: string): Sr
       const solver = xv + yv + zv;
       const verifier = L / p + L / q - L / (p + q);
       const stem = sriPick(`${seed}:surface`, [
-        `If ${a}^x = ${b}^y = (${a * b})^(-z), find x+y+z for the least positive common exponent scale ${L}.`,
+        `If ${a}^x = ${b}^y = (${a * b})^(-z) and their common exponent on base ${commonBase} is ${L}, find x+y+z.`,
         `Given ${a}^x = ${b}^y = (${a * b})^(-z) and the common exponent on base ${commonBase} is ${L}, find x+y+z.`,
         `For ${a}^x = ${b}^y = (${a * b})^(-z), the common ${commonBase}-exponent is ${L}. Determine x+y+z.`,
       ]);
@@ -232,7 +244,7 @@ export function generateSriCp005Candidate(candidateId: string, seed: string): Sr
       const shift = sriInt(`${seed}:shift`, -2, 2);
       const solution = -t - shift;
       const verifier = -t - shift;
-      const exponentText = shift >= 0 ? `x+${shift}` : `x${shift}`;
+      const exponentText = shift === 0 ? "x" : shift > 0 ? `x+${shift}` : `x${shift}`;
       const stem = sriPick(`${seed}:surface`, [
         `Solve ${base}^(${exponentText}) = (1/${base})^${t}.`,
         `If ${base}^(${exponentText}) = (1/${base})^${t}, find x.`,
