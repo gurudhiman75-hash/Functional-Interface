@@ -1,4 +1,16 @@
-import { proofEvent, sriBucket, type SriProofEvent } from "../../../../shared/surds-indices";
+import {
+  addRational,
+  formatRational,
+  multiplyRational,
+  negateRational,
+  proofEvent,
+  rational,
+  rationalKey,
+  reciprocalRational,
+  sriBucket,
+  subtractRational,
+  type SriProofEvent,
+} from "../../../../shared/surds-indices";
 import { describeSriGivenState } from "./explanation-state";
 import type {
   SriCandidateAnswer,
@@ -28,6 +40,43 @@ export interface FinalizeSriDiscoveryInput {
   readonly domainValid?: boolean;
 }
 
+function canonicalFallbackDistractors(correct: SriCandidateAnswer): SriDistractor[] {
+  if (correct.canonicalKey.startsWith("V:")) {
+    const value = BigInt(correct.canonicalKey.slice(2));
+    const candidates: readonly [bigint, string][] = [
+      [value + 1n, "ARITHMETIC_OFF_BY_ONE"],
+      [value > 1n ? value - 1n : value + 2n, "ARITHMETIC_OFF_BY_ONE"],
+      [value * 2n, "DOUBLE_RESULT"],
+      [-value, "SIGN_ERROR"],
+    ];
+    return candidates.map(([candidate, misconceptionId]) => ({
+      text: candidate.toString(),
+      canonicalKey: `V:${candidate}`,
+      misconceptionId,
+    }));
+  }
+
+  if (correct.canonicalKey.startsWith("R:")) {
+    const match = /^R:(-?\d+)\/(\d+)$/.exec(correct.canonicalKey);
+    if (!match) return [];
+    const value = rational(BigInt(match[1]!), BigInt(match[2]!));
+    const candidates = [
+      { value: addRational(value, rational(1)), misconceptionId: "ARITHMETIC_OFF_BY_ONE" },
+      { value: subtractRational(value, rational(1)), misconceptionId: "ARITHMETIC_OFF_BY_ONE" },
+      { value: multiplyRational(value, rational(2)), misconceptionId: "DOUBLE_RESULT" },
+      { value: negateRational(value), misconceptionId: "SIGN_ERROR" },
+      ...(value.numerator !== 0n ? [{ value: reciprocalRational(value), misconceptionId: "RECIPROCAL_ERROR" }] : []),
+    ];
+    return candidates.map(({ value: candidate, misconceptionId }) => ({
+      text: formatRational(candidate),
+      canonicalKey: `R:${rationalKey(candidate)}`,
+      misconceptionId,
+    }));
+  }
+
+  return [];
+}
+
 export function buildSriOptions(
   seed: string,
   correct: SriCandidateAnswer,
@@ -35,10 +84,11 @@ export function buildSriOptions(
 ): { options: SriDiscoveryQuestion["options"]; correctIndex: 0 | 1 | 2 | 3 } {
   const unique = new Map<string, SriCandidateOption>();
   unique.set(correct.canonicalKey, { ...correct, misconceptionId: null });
-  for (const distractor of distractors) {
+  for (const distractor of [...distractors, ...canonicalFallbackDistractors(correct)]) {
     if (distractor.canonicalKey !== correct.canonicalKey && !unique.has(distractor.canonicalKey)) {
       unique.set(distractor.canonicalKey, distractor);
     }
+    if (unique.size >= 4) break;
   }
   if (unique.size < 4) throw new Error(`SRI discovery option pool requires four unique canonical answers; found ${unique.size}`);
   const selected = [...unique.values()].slice(0, 4);
