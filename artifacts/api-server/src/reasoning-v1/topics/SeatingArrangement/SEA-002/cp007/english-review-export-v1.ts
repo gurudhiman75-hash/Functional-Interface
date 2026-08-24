@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 
@@ -18,7 +19,7 @@ const AUTHORITIES = [
 const rows: string[] = [
   "# SEA-002 / SEA-CP-007 — English Review Candidate V1",
   "",
-  "Status: **HUMAN REVIEW CANDIDATE / NO PERMANENT QL ALLOCATION / NO PRODUCT ACTIVATION**",
+  "Status: **HUMAN REVIEW CANDIDATE / NO PRODUCT ACTIVATION**",
   "",
   "24 caselets = 6 per candidate authority. This export is for learner-surface review only.",
   "",
@@ -49,12 +50,15 @@ for (const authorityKey of AUTHORITIES) {
   }
 }
 
+const reviewText = `${rows.join("\n")}\n`;
+const reviewFingerprint = createHash("sha256").update(reviewText, "utf8").digest("hex");
 const output = "artifacts/api-server/dist/reasoning-v1/sea-002-cp007-english-review-v1.md";
 mkdirSync(dirname(output), { recursive: true });
-writeFileSync(output, `${rows.join("\n")}\n`, "utf8");
+writeFileSync(output, reviewText, "utf8");
 console.log("PASS_SEA002_CP007_ENGLISH_REVIEW_EXPORT_V1");
 console.log("review caselets", ordinal);
 console.log("candidate authorities", AUTHORITIES.length);
 console.log("renderer", "EXAM_REAL_COMPACT_V2");
-console.log("permanent QLs allocated", 0);
+console.log("review fingerprint", reviewFingerprint);
+console.log("review artifact product activation", false);
 console.log("output", output);
