@@ -1,17 +1,30 @@
 import { deterministicPick } from "../deterministic";
 import { generateCom001HumanReviewV2Candidate } from "./com001-human-review-remediation-v2";
 import { generateCom001Ql009ExamConventionV2 } from "./com001-ql009-exam-convention-v2";
+import {
+  generateCom001Ql001RelationalV2,
+  generateCom001Ql002RelationalV2,
+  generateCom001Ql003RelationalV2,
+  generateCom001Ql004RelationalV2,
+  generateCom001Ql005RelationalV2,
+} from "./com001-relational-surfaces-v2";
 import { generateCom001ReviewQuestion, listCom001ReviewQlIds } from "./com001-review-synthesis";
+import type { Com001ReviewQuestion } from "./com001-review-types";
 
 export type Com001ReviewV2Mode =
+  | "RELATIONAL_SURFACE_EXPANSION"
   | "UNCHANGED_V1"
-  | "GRAMMAR_REMEDIATION"
   | "BACKUP_EXAM_REMEDIATION"
   | "CAPACITY_EXAM_1024"
   | "CAPACITY_STANDARD_EXPLICIT";
 
-export type Com001ReviewV2Question = ReturnType<typeof generateCom001HumanReviewV2Candidate> & {
+export type Com001ReviewV2Question = Com001ReviewQuestion & {
+  humanReviewV2: {
+    status: "REMEDIATED_CANDIDATE" | "UNCHANGED_FROM_V1";
+    reason: string;
+  };
   reviewV2Mode: Com001ReviewV2Mode;
+  relationalSurfaceMode?: string;
   capacityConvention?: "TRADITIONAL_EXAM_1024" | "SI_IEC_EXPLICIT";
 };
 
@@ -32,10 +45,7 @@ function generateQl009V2(seed: string): Com001ReviewV2Question {
     };
   }
 
-  const v1 = generateCom001ReviewQuestion({
-    qlId: "COM-001-QL-009",
-    seed,
-  });
+  const v1 = generateCom001ReviewQuestion({ qlId: "COM-001-QL-009", seed });
   return {
     ...v1,
     questionId: `${v1.questionId}-V2CANDIDATE`,
@@ -45,6 +55,32 @@ function generateQl009V2(seed: string): Com001ReviewV2Question {
     },
     reviewV2Mode: mode,
     capacityConvention: "SI_IEC_EXPLICIT",
+  };
+}
+
+function relationalQuestionV2(
+  qlId: string,
+  seed: string,
+): Com001ReviewV2Question | undefined {
+  const generators: Record<string, (seed: string) => { question: Com001ReviewQuestion; surfaceMode: string }> = {
+    "COM-001-QL-001": generateCom001Ql001RelationalV2,
+    "COM-001-QL-002": generateCom001Ql002RelationalV2,
+    "COM-001-QL-003": generateCom001Ql003RelationalV2,
+    "COM-001-QL-004": generateCom001Ql004RelationalV2,
+    "COM-001-QL-005": generateCom001Ql005RelationalV2,
+  };
+  const generator = generators[qlId];
+  if (!generator) return undefined;
+  const generated = generator(seed);
+  return {
+    ...generated.question,
+    questionId: `${generated.question.questionId}-V2CANDIDATE`,
+    humanReviewV2: {
+      status: "REMEDIATED_CANDIDATE",
+      reason: "Expands the frozen QL into both forward and inverse/correct-match surfaces required by its learner-task contract.",
+    },
+    reviewV2Mode: "RELATIONAL_SURFACE_EXPANSION",
+    relationalSurfaceMode: generated.surfaceMode,
   };
 }
 
@@ -59,16 +95,15 @@ export function generateCom001ReviewQuestionV2(input: { qlId: string; seed: stri
   }
   if (input.qlId === "COM-001-QL-009") return generateQl009V2(input.seed);
 
-  const question = generateCom001HumanReviewV2Candidate(input);
-  const reviewV2Mode: Com001ReviewV2Mode = input.qlId === "COM-001-QL-002" || input.qlId === "COM-001-QL-003"
-    ? "GRAMMAR_REMEDIATION"
-    : input.qlId === "COM-001-QL-007"
-      ? "BACKUP_EXAM_REMEDIATION"
-      : "UNCHANGED_V1";
+  const relational = relationalQuestionV2(input.qlId, input.seed);
+  if (relational) return relational;
 
+  const question = generateCom001HumanReviewV2Candidate(input);
   return {
     ...question,
-    reviewV2Mode,
+    reviewV2Mode: input.qlId === "COM-001-QL-007"
+      ? "BACKUP_EXAM_REMEDIATION"
+      : "UNCHANGED_V1",
   };
 }
 
