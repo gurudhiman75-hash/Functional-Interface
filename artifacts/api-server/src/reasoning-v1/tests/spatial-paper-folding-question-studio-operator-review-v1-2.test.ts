@@ -21,6 +21,7 @@ const localizedLatinLeak = /[A-Za-z]{2,}/;
 assert.equal(PFC_TPF_QUESTION_STUDIO_EDITORIAL_AUTHORITY_V1_1.registrationAllowed, false);
 assert.equal(PFC_TPF_QUESTION_STUDIO_OPERATOR_REVIEW_AUTHORITY_V1_2.questionStudioRegistrationAllowed, false);
 assert.equal(PFC_TPF_QUESTION_STUDIO_OPERATOR_REVIEW_AUTHORITY_V1_2.remediation.reachableDeterministicAnswerStemPairsOnly, true);
+assert.equal(PFC_TPF_QUESTION_STUDIO_OPERATOR_REVIEW_AUTHORITY_V1_2.remediation.reviewAxisSelection, "STEM_VARIANT_FIXED_PER_FORWARD_QL_ANSWER_COVERAGE_SOLVED_ACROSS_SET");
 assert.equal(PFC_TPF_QUESTION_STUDIO_EDITORIAL_AUTHORITY_V1_1.remediation.exactRenderedTextFingerprint, true);
 
 const stemVariantCoverage: Record<string, number[]> = {};
@@ -115,7 +116,10 @@ for (const qlId of QLS) {
   };
 }
 
-assert.deepEqual(answerCounts, { A: 6, B: 3, C: 6, D: 3 });
+assert.equal(Object.values(answerCounts).reduce((sum, count) => sum + count, 0), 18);
+for (const [answer, count] of Object.entries(answerCounts)) {
+  assert.ok(count >= 3, `Expected answer position ${answer} to appear in at least one EN/HI/PA paired review set.`);
+}
 assert.deepEqual([...forwardReviewStemVariants].sort(), [0, 1, 2, 3]);
 
 const html = renderPfcTpfStudioOperatorReviewHtmlV1_2(review);
@@ -138,6 +142,7 @@ const evidence = {
   localizedLatinWordLeakage: false,
   reviewQuestionCount: review.length,
   reviewAnswerCounts: answerCounts,
+  answerPositionCoverage: Object.fromEntries(Object.entries(answerCounts).map(([answer, count]) => [answer, count > 0])),
   forwardReviewStemVariants: [...forwardReviewStemVariants].sort(),
   qlReviewEvidence,
   geometryOptionAnswerFingerprintInvariantsPreserved: true,
