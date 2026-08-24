@@ -27,7 +27,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
       - name: Apply CP010 freeze wiring patch
-        run: python artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-010/apply-cp010-freeze-patch.py
+        run: python artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-010/apply-cp010-freeze-patch-v2.py
       - name: Commit and push wiring
         run: |
           if git diff --quiet; then
