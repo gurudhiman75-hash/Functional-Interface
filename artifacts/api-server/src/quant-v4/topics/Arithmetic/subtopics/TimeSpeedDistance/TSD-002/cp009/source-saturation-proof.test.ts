@@ -30,8 +30,9 @@ assert(counts.learner + counts.merged + counts.cross + counts.qa === 39, "dispos
 assert(TSD_CP009_LEARNER_AUTHORITIES.length === 11, "learner authority registry count changed");
 assert(new Set(TSD_CP009_LEARNER_AUTHORITIES.map((authority) => authority.authorityKey)).size === 11, "authority keys are not unique");
 assert(new Set(TSD_CP009_LEARNER_AUTHORITIES.map((authority) => authority.sourceCandidate)).size === 11, "retained source candidates are not unique");
-assert(TSD_CP009_LEARNER_AUTHORITIES.every((authority) => authority.learnerContract.length >= 70), "learner contract is too thin");
-assert(TSD_CP009_LEARNER_AUTHORITIES.every((authority) => authority.invariant.length >= 40), "executable invariant is too thin");
+assert(TSD_CP009_LEARNER_AUTHORITIES.every((authority) => authority.learnerContract.trim().split(/\s+/).length >= 8), "learner contract lacks a meaningful semantic statement");
+assert(TSD_CP009_LEARNER_AUTHORITIES.every((authority) => authority.invariant.trim().split(/\s+/).length >= 5), "executable invariant lacks a meaningful semantic statement");
+assert(TSD_CP009_LEARNER_AUTHORITIES.every((authority) => /speed|time|distance|medium|ground|frame|current|average|ratio|trip|drift|meeting/i.test(authority.invariant)), "executable invariant lacks a motion-domain semantic marker");
 
 const authorityKeys = new Set(TSD_CP009_LEARNER_AUTHORITIES.map((authority) => authority.authorityKey));
 for (const entry of TSD_CP009_SOURCE_ACCOUNTING) {
