@@ -29,8 +29,10 @@ for (const qlId of STA_V4_QL_IDS) {
   assert.equal(pool.length, 18, `${qlId}: expected 18 V4.1 authorities`);
   assert.equal(new Set(pool.map((item) => item.domain)).size, 18, `${qlId}: contexts are being inflated by wording rotation rather than distinct domains`);
 }
-assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 6);
-assert.deepEqual(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds, STA_V4_QL_IDS);
+assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 4);
+assert.deepEqual(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds, ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004"]);
+assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlCount, 6);
+assert.deepEqual(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlIds, STA_V4_QL_IDS);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.multilingualChapterFrozen, false);
 for (const flag of [
   STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankWritable,
@@ -205,6 +207,8 @@ console.log(JSON.stringify({
   candidateAuthoritiesPerScenario: 7,
   requiredDependenciesPerScenario: 3,
   subtleDistractorsPerScenario: 4,
+  historicalPermanentQlCount: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount,
+  v41CandidateQlCount: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlCount,
   qlCount: STA_V4_QL_IDS.length,
   profiles: STA_V4_PROFILE_IDS.length,
   languages: STA_V4_LANGUAGES.length,
