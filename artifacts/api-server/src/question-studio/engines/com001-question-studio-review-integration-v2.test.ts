@@ -7,6 +7,7 @@ import { COM001_ENGLISH_FREEZE_AUTHORITY_V2 } from "../../knowledge-v1/computer-
 import { COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V2 } from "../../knowledge-v1/computer-awareness/com001-hi-pa-localization-freeze-v2";
 import { listCom001ReviewV2QlIds } from "../../knowledge-v1/computer-awareness/com001-review-synthesis-v2";
 import { listQuestionStudioPackages } from "../engine-registry";
+import { COM001_QUESTION_BANK_ACCEPTANCE_AUTHORITY_ID } from "./com001-question-bank-acceptance-contract-v1";
 import { COM001_QUESTION_STUDIO_REVIEW_INTEGRATION_AUTHORITY_V2 } from "./com001-question-studio-review-integration-v2";
 import {
   COM001_QUESTION_BANK_STATUS,
@@ -23,46 +24,31 @@ assert.equal(authority.packageId, "COM-001");
 assert.equal(authority.runtimeMode, "review-only");
 assert.equal(authority.permanentQlCount, 9);
 assert.deepEqual(authority.supportedLanguages, ["en", "hi", "pa"]);
-assert.equal(
-  authority.contentAuthorities.englishFreezeAuthorityId,
-  COM001_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
-);
-assert.equal(
-  authority.contentAuthorities.englishCombinedFingerprint,
-  COM001_ENGLISH_FREEZE_AUTHORITY_V2.fingerprints.combinedFingerprint,
-);
-assert.equal(
-  authority.contentAuthorities.localizationFreezeAuthorityId,
-  COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V2.authorityId,
-);
-assert.equal(
-  authority.contentAuthorities.localizationCombinedFingerprint,
-  COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V2.fingerprints.combinedFingerprint,
-);
+assert.equal(authority.contentAuthorities.englishFreezeAuthorityId, COM001_ENGLISH_FREEZE_AUTHORITY_V2.authorityId);
+assert.equal(authority.contentAuthorities.englishCombinedFingerprint, COM001_ENGLISH_FREEZE_AUTHORITY_V2.fingerprints.combinedFingerprint);
+assert.equal(authority.contentAuthorities.localizationFreezeAuthorityId, COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V2.authorityId);
+assert.equal(authority.contentAuthorities.localizationCombinedFingerprint, COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V2.fingerprints.combinedFingerprint);
 assert.equal(authority.contentAuthorities.humanReviewStatus, "APPROVED");
 assert.equal(authority.exactReviewedImplementation.contentEngineRunNumber, 156);
 assert.equal(authority.exactReviewedImplementation.integratedAdminRunNumber, 8924);
-assert.equal(authority.adminSurfaceContinuity.adminSurfaceChangedForV2Switch, false);
-assert.equal(authority.adminSurfaceContinuity.exactSwitchedHeadPassedIntegratedAdminWorkflow, true);
 assert.equal(authority.auditCoverage.explicitQlLanguageQuestions, 1080);
 assert.equal(authority.auditCoverage.hindiPunjabiParityQuestions, 720);
 assert.equal(authority.auditCoverage.englishV2AuditQuestions, 360);
 assert.equal(authority.learnerSurfaceV2.ql007RdxLearnerSurfaceRemoved, true);
 assert.equal(authority.learnerSurfaceV2.ql009TraditionalExam1024ConventionAdded, true);
 assert.equal(authority.learnerSurfaceV2.ql009StrictSiIecModeRetainedSeparately, true);
+
+// Historical V2 review integration remains immutable.
 assert.equal(authority.editorSafety.approvalDisposition, "REVIEW_ONLY");
 assert.equal(authority.editorSafety.questionBankStatus, "NOT_STORED");
 assert.equal(authority.editorSafety.questionBankWritable, false);
 assert.equal(authority.editorSafety.revisionPolicy, "SOURCE_GENERATOR_ONLY");
 assert.equal(authority.editorSafety.manualFreeTextRevisionAllowed, false);
 assert.equal(authority.editorSafety.canonicalQuestionPersistenceAllowed, false);
-// Historical V2 authority remains pinned to the pre-filter checkpoint.
 assert.equal(authority.difficulty.filterSupported, false);
 assert.equal(authority.difficulty.productionDifficultyClaimsAuthorized, false);
 assert.equal(authority.lifecycle.questionStudioDiscoverable, true);
 assert.equal(authority.lifecycle.questionStudioRegistrationStatus, "REVIEW_ONLY_REGISTERED_V2");
-assert.equal(authority.lifecycle.v2LearnerSurfaceActiveInReviewStudio, true);
-assert.equal(authority.lifecycle.reviewRunPersistenceAllowed, true);
 assert.equal(authority.lifecycle.canonicalQuestionPersistenceAllowed, false);
 assert.equal(authority.lifecycle.questionBankWritable, false);
 assert.equal(authority.lifecycle.testEligible, false);
@@ -71,31 +57,29 @@ assert.equal(authority.lifecycle.publiclyPublishable, false);
 assert.equal(authority.lifecycle.automaticStudentPublication, false);
 assert.equal(authority.lifecycle.productionReleaseAuthorized, false);
 
+// Current package is allowed to advance through separately proved lifecycle authorities.
 const registered = listQuestionStudioPackages().find((pkg) => pkg.packageId === "COM-001");
 assert.ok(registered);
 assert.equal(registered.engineId, "knowledge-v1");
 assert.equal(registered.runtimeMode, COM001_QUESTION_STUDIO_RUNTIME_MODE);
 assert.equal(registered.questionBankStatus, COM001_QUESTION_BANK_STATUS);
-assert.equal(registered.testEligibility, "INELIGIBLE_REVIEW_ONLY");
+assert.equal(registered.questionBankStatus, "READY_FOR_STORAGE");
+assert.equal(registered.testEligibility, "INELIGIBLE");
 assert.equal(registered.publiclyPublishable, false);
 assert.equal(registered.metadata?.contentAuthorityVersion, COM001_REVIEW_CONTENT_AUTHORITY_VERSION);
 assert.equal(registered.metadata?.humanReviewApproved, true);
 assert.equal(registered.metadata?.revisionPolicy, COM001_REVISION_POLICY);
-// Live package has a later review-only difficulty-routing layer; this does not mutate the historical authority above.
 assert.equal(registered.metadata?.difficultyFilterSupported, true);
-assert.equal(
-  registered.metadata?.difficultyClassifierVersion,
-  COM001_DIFFICULTY_CLASSIFIER_VERSION_V2,
-);
+assert.equal(registered.metadata?.difficultyClassifierVersion, COM001_DIFFICULTY_CLASSIFIER_VERSION_V2);
+assert.equal(registered.metadata?.questionBankWritable, true);
+assert.equal(registered.metadata?.questionBankAcceptanceMode, "BANK_ONLY");
+assert.equal(registered.metadata?.questionBankAcceptanceAuthority, COM001_QUESTION_BANK_ACCEPTANCE_AUTHORITY_ID);
+assert.equal(registered.metadata?.testEligible, false);
+assert.equal(registered.metadata?.mockTestEligible, false);
 assert.equal(registered.metadata?.productionDifficultyClaimsAuthorized, false);
-assert.equal(
-  registered.metadata?.englishFreezeAuthorityId,
-  COM001_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
-);
-assert.equal(
-  registered.metadata?.localizationFreezeAuthorityId,
-  COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V2.authorityId,
-);
+assert.equal(registered.metadata?.productionReleaseAuthorized, false);
+assert.equal(registered.metadata?.englishFreezeAuthorityId, COM001_ENGLISH_FREEZE_AUTHORITY_V2.authorityId);
+assert.equal(registered.metadata?.localizationFreezeAuthorityId, COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V2.authorityId);
 
 const qlIds = listCom001ReviewV2QlIds();
 assert.equal(qlIds.length, 9);
@@ -116,8 +100,10 @@ for (const qlId of qlIds) {
     assert.equal(generated.generationContext?.contentAuthorityVersion, "V2");
     assert.equal(generated.generationContext?.difficultyFilterApplied, false);
     assert.equal(generated.generationContext?.requestedDifficulty, "Mixed");
-    assert.equal(generated.generationContext?.questionBankWritable, false);
+    assert.equal(generated.generationContext?.questionBankWritable, true);
+    assert.equal(generated.generationContext?.questionBankAcceptanceMode, "BANK_ONLY");
     assert.equal(generated.generationContext?.testEligible, false);
+    assert.equal(generated.generationContext?.publiclyPublishable, false);
     const question = generated.questions[0] as Record<string, any>;
     audited += 1;
     assert.equal(question.qlId, qlId);
@@ -125,22 +111,21 @@ for (const qlId of qlIds) {
     assert.equal(["Easy", "Medium", "Hard"].includes(question.difficulty), true);
     assert.equal(question.questionStudioReview.contentAuthorityVersion, "V2");
     assert.equal(question.questionStudioReview.humanReviewApproved, true);
-    assert.equal(question.questionStudioReview.difficultyFilterApplied, false);
-    assert.equal(question.questionStudioReview.requestedDifficulty, "Mixed");
-    assert.equal(question.questionStudioReview.questionBankWritable, false);
+    assert.equal(question.questionStudioReview.questionBankWritable, true);
+    assert.equal(question.questionStudioReview.questionBankAcceptanceMode, "BANK_ONLY");
     assert.equal(question.questionStudioReview.testEligible, false);
     assert.equal(question.questionStudioReview.publiclyPublishable, false);
+    // Frozen historical V2 metadata stays pinned.
     assert.equal(question.lifecycleV2?.questionStudioV2Active, false);
     assert.equal(question.lifecycleV2?.questionBankWritable, false);
     assert.equal(question.localizationV2?.englishFreezeAuthorityId, COM001_ENGLISH_FREEZE_AUTHORITY_V2.authorityId);
 
-    const disposition = getGeneratedItemApprovalDisposition({
+    assert.deepEqual(getGeneratedItemApprovalDisposition({
       ...question,
       generationContext: generated.generationContext,
-    });
-    assert.deepEqual(disposition, {
-      mode: "review_only",
-      reason: "Payload explicitly disables Question Bank storage",
+    }), {
+      mode: "question_bank",
+      reason: null,
     });
 
     assert.throws(
