@@ -65,20 +65,21 @@ No DSF-specific publish, mock, freeze, or student-delivery endpoint is introduce
 
 ## Final multilingual audit
 
-CP-010 executes a deterministic **633-question** source-valid production audit:
+CP-010 executes a deterministic **282-question source-valid production audit**:
 
-- 540 questions across language × answer profile × domain × difficulty, with three samples per cell
-- 69 explicit language × answer profile × representable semantic-class representatives, without inventing unsupported domain/difficulty combinations
+- 180 production-breadth questions across language × answer profile × source domain, with three deterministic samples per cell
+- 69 explicit language × answer profile × representable semantic-class representatives
 - 24 explicit language × frozen solve-mode representatives
-- 211 audited questions per production language
+- 9 explicit language × difficulty representatives
+- 94 audited questions per production language
 - all 5 answer profiles
-- all 4 domains
+- all 4 source domains
 - all 8 solve modes
-- all 5 canonical semantic classes corpus-wide and every class representable by each profile
-- all 3 difficulties
+- all 5 canonical semantic classes corpus-wide and every class representable by each answer profile
+- all 3 difficulties in every production language
 - deterministic Hindi/Punjabi generation replay proof
 
-The audit intentionally does not require every semantic class to exist inside every domain/difficulty cell; that is not a CP-001 source-runtime guarantee. Semantic completeness is proved separately at the answer-profile level, while domain/difficulty and solve-mode breadth are proved through source-valid requests.
+The audit intentionally does not invent unsupported cross-products. CP-001 does not guarantee every semantic class or difficulty inside every source domain; for example, the current frozen Algebra source runtime has no Easy cell. The final gate therefore proves each production axis exhaustively at the level actually guaranteed by the frozen source contract: language/profile/domain breadth, profile-semantic completeness, solve-mode completeness, and global per-language difficulty completeness.
 
 The freeze fingerprint is generated from the canonical production-scope contract and is exposed by the CP-010 package/Question Studio status surface.
 
