@@ -72,39 +72,50 @@ type Ql007TemplateV2 = {
   explanation: (answer: string) => string;
 };
 
+const MAGNETIC_TAPE_BACKUP_TEMPLATE: Ql007TemplateV2 = {
+  templateId: "magnetic-tape-backup",
+  stem: "Which storage medium uses sequential access and is commonly used for backup and archival storage?",
+  constraints: {
+    medium: "magnetic",
+    accessPattern: "sequential",
+    removable: true,
+    requiredRoles: ["backup", "archive"],
+  },
+  explanation: (answer) => `${answer} is sequential-access magnetic storage commonly used for backup and archiving. Therefore, ${answer} is correct.`,
+};
+
+const WORM_ARCHIVE_TEMPLATE: Ql007TemplateV2 = {
+  templateId: "worm-archive",
+  stem: "Which optical storage medium is designed for write-once archival retention?",
+  constraints: {
+    medium: "optical",
+    removable: true,
+    requiredRoles: ["archive", "write-once-retention"],
+  },
+  explanation: (answer) => `${answer} is designed for write-once retention and archival use. Therefore, ${answer} is correct.`,
+};
+
+const USB_BACKUP_TEMPLATE: Ql007TemplateV2 = {
+  templateId: "usb-portable-backup",
+  stem: "Which removable solid-state storage device supports random access and can be used to keep portable backup copies?",
+  constraints: {
+    medium: "solid-state",
+    accessPattern: "random",
+    removable: true,
+    requiredRoles: ["backup"],
+  },
+  explanation: (answer) => `${answer} is removable solid-state storage with random access and can be used for portable backup copies. Therefore, ${answer} is correct.`,
+};
+
+// Magnetic tape receives the largest share because target-exam evidence directly
+// tests its sequential-access/backup characteristics. WORM and USB remain
+// secondary surfaces so the QL does not collapse to a one-object loop.
 const QL007_TEMPLATES_V2: Ql007TemplateV2[] = [
-  {
-    templateId: "magnetic-tape-backup",
-    stem: "Which storage medium uses sequential access and is commonly used for backup and archival storage?",
-    constraints: {
-      medium: "magnetic",
-      accessPattern: "sequential",
-      removable: true,
-      requiredRoles: ["backup", "archive"],
-    },
-    explanation: (answer) => `${answer} is sequential-access magnetic storage commonly used for backup and archiving. Therefore, ${answer} is correct.`,
-  },
-  {
-    templateId: "worm-archive",
-    stem: "Which optical storage medium is designed for write-once archival retention?",
-    constraints: {
-      medium: "optical",
-      removable: true,
-      requiredRoles: ["archive", "write-once-retention"],
-    },
-    explanation: (answer) => `${answer} is optical media designed for write-once retention and archival use. Therefore, ${answer} is correct.`,
-  },
-  {
-    templateId: "usb-portable-backup",
-    stem: "Which removable solid-state storage device supports random access and can be used to keep portable backup copies?",
-    constraints: {
-      medium: "solid-state",
-      accessPattern: "random",
-      removable: true,
-      requiredRoles: ["backup"],
-    },
-    explanation: (answer) => `${answer} is removable solid-state storage with random access and can be used for portable backup copies. Therefore, ${answer} is correct.`,
-  },
+  MAGNETIC_TAPE_BACKUP_TEMPLATE,
+  MAGNETIC_TAPE_BACKUP_TEMPLATE,
+  MAGNETIC_TAPE_BACKUP_TEMPLATE,
+  WORM_ARCHIVE_TEMPLATE,
+  USB_BACKUP_TEMPLATE,
 ];
 
 const QL007_SURFACE_PROFILE_IDS = new Set([
@@ -166,7 +177,7 @@ function generateQl007V2(seed: string): Com001HumanReviewV2Candidate {
     runtimeRegistered: false,
     humanReviewV2: {
       status: "REMEDIATED_CANDIDATE",
-      reason: "Removes RDX from learner-facing options and uses shorter PYQ-like backup/archive wording.",
+      reason: "Uses PYQ-like backup/archive wording, excludes RDX from learner-facing options, and weights the SSC-backed magnetic-tape surface most heavily.",
     },
   };
 }
