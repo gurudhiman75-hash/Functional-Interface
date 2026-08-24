@@ -144,16 +144,16 @@ function normalizeExplanation(
   stem: string,
   checkpointId: SriCheckpointId,
 ): SriHumanExplanation {
-  const repeatsStem = normalizeComparableText(explanation.given) === normalizeComparableText(stem);
-  const unsafeGiven = repeatsStem || hasStructuredStateLeak(explanation.given);
-  const safe = unsafeGiven ? { ...explanation, given: describeSriGivenContext(checkpointId) } : explanation;
-  return {
-    given: cleanSriLearnerText(safe.given),
-    asked: cleanSriLearnerText(safe.asked),
-    method: cleanSriLearnerText(safe.method),
-    working: safe.working.map(cleanSriLearnerText),
-    answer: cleanSriLearnerText(safe.answer),
+  const cleaned: SriHumanExplanation = {
+    given: cleanSriLearnerText(explanation.given),
+    asked: cleanSriLearnerText(explanation.asked),
+    method: cleanSriLearnerText(explanation.method),
+    working: explanation.working.map(cleanSriLearnerText),
+    answer: cleanSriLearnerText(explanation.answer),
   };
+  const repeatsStem = normalizeComparableText(cleaned.given) === normalizeComparableText(stem);
+  const unsafeGiven = repeatsStem || hasStructuredStateLeak(cleaned.given);
+  return unsafeGiven ? { ...cleaned, given: describeSriGivenContext(checkpointId) } : cleaned;
 }
 
 export function finalizeSriDiscoveryQuestion(input: FinalizeSriDiscoveryInput): SriDiscoveryQuestion {
