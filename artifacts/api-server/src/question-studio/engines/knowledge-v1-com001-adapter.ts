@@ -13,6 +13,7 @@ import type {
 
 export const COM001_QUESTION_STUDIO_PACKAGE_ID = "COM-001" as const;
 export const COM001_QUESTION_STUDIO_RUNTIME_MODE = "review-only" as const;
+export const COM001_QUESTION_BANK_STATUS = "NOT_STORED" as const;
 
 const qlIds = listCom001ReviewQlIds();
 const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
@@ -29,7 +30,7 @@ export const COM001_REVIEW_ONLY_PACKAGE: QuestionStudioPackageDefinition = {
   supportedLanguages,
   runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
   supportedRuntimeModes: [COM001_QUESTION_STUDIO_RUNTIME_MODE],
-  questionBankStatus: "LOCKED_NOT_WRITABLE",
+  questionBankStatus: COM001_QUESTION_BANK_STATUS,
   testEligibility: "INELIGIBLE_REVIEW_ONLY",
   publiclyPublishable: false,
   metadata: {
@@ -39,6 +40,7 @@ export const COM001_REVIEW_ONLY_PACKAGE: QuestionStudioPackageDefinition = {
     difficultySelectionStatus: "NOT_APPLIED_IN_REVIEW_ONLY_PILOT",
     reviewRunPersistenceAllowed: true,
     canonicalQuestionPersistenceAllowed: false,
+    questionBankStatus: COM001_QUESTION_BANK_STATUS,
     questionBankWritable: false,
     testEligible: false,
     publiclyPublishable: false,
@@ -117,11 +119,17 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
         patternId: question.qlId,
         text: question.stem,
         correct: question.correctIndex,
+        questionBankStatus: COM001_QUESTION_BANK_STATUS,
+        questionBankWritable: false,
+        testEligible: false,
+        publiclyPublishable: false,
+        automaticStudentPublication: false,
         questionStudioReview: {
           registrationStatus: "REVIEW_ONLY_REGISTERED",
           runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
           reviewRunPersistenceAllowed: true,
           canonicalQuestionPersistenceAllowed: false,
+          questionBankStatus: COM001_QUESTION_BANK_STATUS,
           questionBankWritable: false,
           testEligible: false,
           publiclyPublishable: false,
@@ -151,6 +159,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
         permanentQlIds: qlIds,
         reviewRunPersistenceAllowed: true,
         canonicalQuestionPersistenceAllowed: false,
+        questionBankStatus: COM001_QUESTION_BANK_STATUS,
         questionBankWritable: false,
         testEligible: false,
         publiclyPublishable: false,
