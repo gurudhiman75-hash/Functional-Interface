@@ -1,5 +1,5 @@
 import { strict as assert } from "node:assert";
-import { getNsExp001ActiveCanonicalProblemIds, getQuestionLanguageEntries, validateNsExp001Libraries } from "./library";
+import { getNsExp001ActiveCanonicalProblemIds, getQuestionLanguageEntries, NS_EXP_001_CURRENT_QL_COUNT, validateNsExp001Libraries } from "./library";
 import { generateNsExp001Parameters } from "./parameter-generator";
 import { runNsExp001Pipeline } from "./pipeline";
 import { solveNsExp001 } from "./solver";
@@ -38,7 +38,7 @@ for (const cpId of CP_IDS) {
   }
 }
 
-assert.equal(qlCount, 190, `Expected exhaustive coverage of 190 QLs; got ${qlCount}`);
+assert.equal(qlCount, NS_EXP_001_CURRENT_QL_COUNT, `Expected exhaustive coverage of ${NS_EXP_001_CURRENT_QL_COUNT} current runtime QLs; got ${qlCount}`);
 
 // Regression guard for the original P0 defect: changing expectedAnswer must never change the solver result.
 const parameters = generateNsExp001Parameters("CP01", { seed: "NS-EXP-001:P0:passthrough-regression", questionLanguageId: "QL-001" });
@@ -47,4 +47,4 @@ const tampered = solveNsExp001({ ...parameters, expectedAnswer: "DELIBERATELY_WR
 assert.equal(tampered.answer, genuine.answer, "Solver is reading expectedAnswer instead of solving structured state");
 assert.equal(tampered.verification.independentlyVerified, false, "Tampered reference answer should fail independent verification");
 
-console.log(`NS-EXP-001 P0 tests passed: ${qlCount} QLs x 5 deterministic variants plus answer-passthrough regression.`);
+console.log(`NS-EXP-001 P0 tests passed: ${qlCount} current runtime QLs x 5 deterministic variants plus answer-passthrough regression.`);
