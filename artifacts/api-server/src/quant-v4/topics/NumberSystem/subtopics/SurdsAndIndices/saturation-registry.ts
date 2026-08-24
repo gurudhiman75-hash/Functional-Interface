@@ -19,6 +19,10 @@ import {
   SRI_SOURCE_SATURATION_ADDITIONS,
   generateSriSourceSaturationAddition,
 } from "./SRI-002/source-saturation-additions";
+import {
+  SRI_SOURCE_SATURATION_OVERRIDE_IDS,
+  generateSriSourceSaturationObjectOverride,
+} from "./source-saturation-object-overrides";
 
 export const SRI_ALL_EXECUTABLE_DISCOVERY_CANDIDATES: readonly SriCandidateDescriptor[] = [
   ...SRI_PHASE1_POWER_CANDIDATES,
@@ -32,6 +36,9 @@ const SATURATION_ADDITION_IDS = new Set(SRI_SOURCE_SATURATION_ADDITIONS.map((ite
 
 export function generateSriExecutableDiscoveryCandidate(candidateId: string, seed: string): SriDiscoveryQuestion {
   if (SATURATION_ADDITION_IDS.has(candidateId)) return generateSriSourceSaturationAddition(candidateId, seed);
+  if (SRI_SOURCE_SATURATION_OVERRIDE_IDS.has(candidateId as "C002-F" | "C007-D")) {
+    return generateSriSourceSaturationObjectOverride(candidateId, seed);
+  }
 
   const checkpointNumber = Number(/^C(\d{3})-/.exec(candidateId)?.[1]);
   if (!Number.isInteger(checkpointNumber) || checkpointNumber < 1 || checkpointNumber > 12) {
