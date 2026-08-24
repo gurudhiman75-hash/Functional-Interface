@@ -175,6 +175,11 @@ export interface DsfReviewPackage {
   localizationAuthority: string;
   localizationApprovalCheckpointId: 'DSF-CP-009';
   localizationApprovalAuthority: string;
+  productionReadinessFreezeCheckpointId: 'DSF-CP-010';
+  productionReadinessFreezeAuthority: string;
+  productionReadinessFreezeStatus: 'PRODUCTION_READY_MULTILINGUAL_FROZEN';
+  productionReadinessFreezeFingerprint: string;
+  chapterStatus: 'CLOSED_CURRENT_APPROVED_SCOPE';
   localizationStatus: 'PRODUCT_OWNER_APPROVED';
   humanLanguageReviewRequired: false;
   permanentQlIds: ['DSF-QL-001'];
@@ -231,6 +236,7 @@ export interface DsfReviewStatus {
   cp006GenerationItemCount: number;
   cp008GenerationItemCount: number;
   cp009GenerationItemCount: number;
+  cp010GenerationItemCount: number;
   hindiReviewItemCount: number;
   hindiReleaseItemCount: number;
   punjabiReviewItemCount: number;
@@ -249,6 +255,11 @@ export interface DsfReviewStatus {
   localizationAuthority: string;
   localizationApprovalCheckpointId: 'DSF-CP-009';
   localizationApprovalAuthority: string;
+  productionReadinessFreezeCheckpointId: 'DSF-CP-010';
+  productionReadinessFreezeAuthority: string;
+  productionReadinessFreezeStatus: 'PRODUCTION_READY_MULTILINGUAL_FROZEN';
+  productionReadinessFreezeFingerprint: string;
+  chapterStatus: 'CLOSED_CURRENT_APPROVED_SCOPE';
   localizationStatus: 'PRODUCT_OWNER_APPROVED';
   localizedHumanReviewRequired: false;
   sourceFreezeAuthority: string;
@@ -311,6 +322,11 @@ export function getDsfReviewPackage() {
     localizationAuthority: string;
     localizationApprovalCheckpointId: 'DSF-CP-009';
     localizationApprovalAuthority: string;
+    productionReadinessFreezeCheckpointId: 'DSF-CP-010';
+    productionReadinessFreezeAuthority: string;
+    productionReadinessFreezeStatus: 'PRODUCTION_READY_MULTILINGUAL_FROZEN';
+    productionReadinessFreezeFingerprint: string;
+    chapterStatus: 'CLOSED_CURRENT_APPROVED_SCOPE';
     localizedHumanReviewRequired: false;
     localizedQuestionBankWritable: true;
     localizedTestEligible: true;

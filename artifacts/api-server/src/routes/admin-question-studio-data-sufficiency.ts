@@ -46,6 +46,12 @@ import {
   generateDsfApprovedLocalizedExamProfileBatch,
   type DsfApprovedLocalizedExamProfileQuestion,
 } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-009/localization-approval-release-v1";
+import {
+  DSF_CP010_CHECKPOINT_ID,
+  DSF_CP010_FREEZE_FINGERPRINT,
+  DSF_CP010_MULTILINGUAL_PRODUCTION_FREEZE_AUTHORITY,
+  DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE,
+} from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-010/multilingual-production-freeze-v1";
 import { SUFFICIENCY_CLASSES, type SufficiencyClass } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/foundation";
 
 const router = Router();
@@ -436,6 +442,33 @@ export function dsfCp009LocalizedReleasePayload(question: DsfApprovedLocalizedEx
   };
 }
 
+export function dsfCp010ProductionPayload(question: DsfReviewQuestion) {
+  if (isLocalizedQuestion(question) && !isApprovedLocalizedQuestion(question)) {
+    throw new Error("DSF CP-010 cannot retroactively upgrade a CP-008 localization-review payload.");
+  }
+  const payload = isApprovedLocalizedQuestion(question)
+    ? dsfCp009LocalizedReleasePayload(question)
+    : dsfCp006ReviewPayload(question as DsfExamProfileQuestion);
+  return {
+    ...payload,
+    productionReadinessFreezeCheckpointId: DSF_CP010_CHECKPOINT_ID,
+    productionReadinessFreezeAuthority: DSF_CP010_MULTILINGUAL_PRODUCTION_FREEZE_AUTHORITY,
+    productionReadinessFreezeStatus: "PRODUCTION_READY_MULTILINGUAL_FROZEN" as const,
+    productionReadinessFreezeFingerprint: DSF_CP010_FREEZE_FINGERPRINT,
+    chapterStatus: "CLOSED_CURRENT_APPROVED_SCOPE" as const,
+    automaticStudentPublication: false as const,
+    generationContext: {
+      ...payload.generationContext,
+      productionReadinessFreezeCheckpointId: DSF_CP010_CHECKPOINT_ID,
+      productionReadinessFreezeAuthority: DSF_CP010_MULTILINGUAL_PRODUCTION_FREEZE_AUTHORITY,
+      productionReadinessFreezeStatus: "PRODUCTION_READY_MULTILINGUAL_FROZEN" as const,
+      productionReadinessFreezeFingerprint: DSF_CP010_FREEZE_FINGERPRINT,
+      chapterStatus: "CLOSED_CURRENT_APPROVED_SCOPE" as const,
+      automaticStudentPublication: false as const,
+    },
+  };
+}
+
 async function persistRun(
   questions: readonly DsfReviewQuestion[],
   requestSnapshot: Record<string, unknown>,
@@ -469,11 +502,7 @@ async function persistRun(
       }
       const itemId = randomUUID();
       const versionId = randomUUID();
-      const payload = isApprovedLocalizedQuestion(question)
-        ? dsfCp009LocalizedReleasePayload(question)
-        : isLocalizedQuestion(question)
-          ? dsfCp008LocalizedReviewPayload(question)
-          : dsfCp006ReviewPayload(question);
+      const payload = dsfCp010ProductionPayload(question);
       await tx`
         INSERT INTO content.generation_run_items (
           id, generation_run_id, item_number, status, current_version_number, created_at, updated_at
@@ -512,6 +541,11 @@ async function persistRun(
           questionBankAcceptanceAuthority: DSF_CP004_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
           testReleaseAuthority: DSF_CP005_TEST_RELEASE_AUTHORITY,
           mockTestReleaseAuthority: DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY,
+          productionReadinessFreezeCheckpointId: DSF_CP010_CHECKPOINT_ID,
+          productionReadinessFreezeAuthority: DSF_CP010_MULTILINGUAL_PRODUCTION_FREEZE_AUTHORITY,
+          productionReadinessFreezeStatus: "PRODUCTION_READY_MULTILINGUAL_FROZEN",
+          productionReadinessFreezeFingerprint: DSF_CP010_FREEZE_FINGERPRINT,
+          chapterStatus: "CLOSED_CURRENT_APPROVED_SCOPE",
           ...(localized ? {
             localizationCheckpointId: DSF_CP008_CHECKPOINT_ID,
             localizationAuthority: DSF_CP008_LOCALIZATION_AUTHORITY,
@@ -537,6 +571,11 @@ async function persistRun(
 
 function lifecycleForLanguage(_language: DsfRequestLanguage) {
   return {
+    productionReadinessFreezeCheckpointId: DSF_CP010_CHECKPOINT_ID,
+    productionReadinessFreezeAuthority: DSF_CP010_MULTILINGUAL_PRODUCTION_FREEZE_AUTHORITY,
+    productionReadinessFreezeStatus: "PRODUCTION_READY_MULTILINGUAL_FROZEN" as const,
+    productionReadinessFreezeFingerprint: DSF_CP010_FREEZE_FINGERPRINT,
+    chapterStatus: "CLOSED_CURRENT_APPROVED_SCOPE" as const,
     humanLanguageReviewRequired: false as const,
     questionBankAcceptanceEnabled: true as const,
     questionBankWritable: true as const,
@@ -557,7 +596,7 @@ router.get("/reasoning/data-sufficiency/package", requireAdminPermission("conten
     activationMode: "MULTILINGUAL_MOCK_TEST_RELEASE_ENABLED",
     localizationReviewMode: "HI_PA_PRODUCT_OWNER_APPROVED",
     localizationReleaseMode: "HI_PA_PRODUCT_OWNER_APPROVED",
-    package: DSF_CP009_LOCALIZATION_RELEASE_PACKAGE,
+    package: DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE,
     maxBatchSize: 50,
     databaseWriteEnabled: true,
     persistenceAllowed: true,
@@ -576,6 +615,11 @@ router.get("/reasoning/data-sufficiency/package", requireAdminPermission("conten
     localizationAuthority: DSF_CP008_LOCALIZATION_AUTHORITY,
     localizationApprovalCheckpointId: DSF_CP009_CHECKPOINT_ID,
     localizationApprovalAuthority: DSF_CP009_LOCALIZATION_APPROVAL_AUTHORITY,
+    productionReadinessFreezeCheckpointId: DSF_CP010_CHECKPOINT_ID,
+    productionReadinessFreezeAuthority: DSF_CP010_MULTILINGUAL_PRODUCTION_FREEZE_AUTHORITY,
+    productionReadinessFreezeStatus: "PRODUCTION_READY_MULTILINGUAL_FROZEN",
+    productionReadinessFreezeFingerprint: DSF_CP010_FREEZE_FINGERPRINT,
+    chapterStatus: "CLOSED_CURRENT_APPROVED_SCOPE",
     localizedHumanReviewRequired: false,
     localizedQuestionBankWritable: true,
     localizedTestEligible: true,
@@ -702,6 +746,7 @@ router.get("/reasoning/data-sufficiency/status", requireAdminPermission("content
         count(*) FILTER (WHERE v.payload ->> 'mockTestReleaseAuthority' = ${DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY})::int AS "cp006GenerationItemCount",
         count(*) FILTER (WHERE v.payload ->> 'localizationAuthority' = ${DSF_CP008_LOCALIZATION_AUTHORITY})::int AS "cp008GenerationItemCount",
         count(*) FILTER (WHERE v.payload ->> 'localizationApprovalAuthority' = ${DSF_CP009_LOCALIZATION_APPROVAL_AUTHORITY})::int AS "cp009GenerationItemCount",
+        count(*) FILTER (WHERE v.payload ->> 'productionReadinessFreezeAuthority' = ${DSF_CP010_MULTILINGUAL_PRODUCTION_FREEZE_AUTHORITY})::int AS "cp010GenerationItemCount",
         count(*) FILTER (WHERE v.payload ->> 'localizationAuthority' = ${DSF_CP008_LOCALIZATION_AUTHORITY} AND v.payload ->> 'language' = 'hi' AND v.payload ->> 'localizationApprovalAuthority' IS NULL)::int AS "hindiReviewItemCount",
         count(*) FILTER (WHERE v.payload ->> 'localizationApprovalAuthority' = ${DSF_CP009_LOCALIZATION_APPROVAL_AUTHORITY} AND v.payload ->> 'language' = 'hi')::int AS "hindiReleaseItemCount",
         count(*) FILTER (WHERE v.payload ->> 'localizationAuthority' = ${DSF_CP008_LOCALIZATION_AUTHORITY} AND v.payload ->> 'language' = 'pa' AND v.payload ->> 'localizationApprovalAuthority' IS NULL)::int AS "punjabiReviewItemCount",
@@ -714,15 +759,16 @@ router.get("/reasoning/data-sufficiency/status", requireAdminPermission("content
 
     res.json({
       chapter: "Data Sufficiency",
-      permanentQlCount: DSF_CP009_LOCALIZATION_RELEASE_PACKAGE.permanentQlIds.length,
-      domainCount: DSF_CP009_LOCALIZATION_RELEASE_PACKAGE.domains.length,
-      solveModeCount: DSF_CP009_LOCALIZATION_RELEASE_PACKAGE.solveModeCount,
+      permanentQlCount: DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE.permanentQlIds.length,
+      domainCount: DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE.domains.length,
+      solveModeCount: DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE.solveModeCount,
       generationItemCount: Number(rows[0]?.generationItemCount ?? 0),
       cp004GenerationItemCount: Number(rows[0]?.cp004GenerationItemCount ?? 0),
       cp005GenerationItemCount: Number(rows[0]?.cp005GenerationItemCount ?? 0),
       cp006GenerationItemCount: Number(rows[0]?.cp006GenerationItemCount ?? 0),
       cp008GenerationItemCount: Number(rows[0]?.cp008GenerationItemCount ?? 0),
       cp009GenerationItemCount: Number(rows[0]?.cp009GenerationItemCount ?? 0),
+      cp010GenerationItemCount: Number(rows[0]?.cp010GenerationItemCount ?? 0),
       hindiReviewItemCount: Number(rows[0]?.hindiReviewItemCount ?? 0),
       hindiReleaseItemCount: Number(rows[0]?.hindiReleaseItemCount ?? 0),
       punjabiReviewItemCount: Number(rows[0]?.punjabiReviewItemCount ?? 0),
@@ -742,16 +788,21 @@ router.get("/reasoning/data-sufficiency/status", requireAdminPermission("content
       localizationStatus: DSF_CP009_LOCALIZATION_RELEASE_PACKAGE.localizationStatus,
       localizationApprovalCheckpointId: DSF_CP009_CHECKPOINT_ID,
       localizationApprovalAuthority: DSF_CP009_LOCALIZATION_APPROVAL_AUTHORITY,
+      productionReadinessFreezeCheckpointId: DSF_CP010_CHECKPOINT_ID,
+      productionReadinessFreezeAuthority: DSF_CP010_MULTILINGUAL_PRODUCTION_FREEZE_AUTHORITY,
+      productionReadinessFreezeStatus: "PRODUCTION_READY_MULTILINGUAL_FROZEN",
+      productionReadinessFreezeFingerprint: DSF_CP010_FREEZE_FINGERPRINT,
+      chapterStatus: "CLOSED_CURRENT_APPROVED_SCOPE",
       localizedHumanReviewRequired: false,
-      sourceFreezeAuthority: DSF_CP009_LOCALIZATION_RELEASE_PACKAGE.sourceFreezeAuthority,
-      supportedLanguages: DSF_CP009_LOCALIZATION_RELEASE_PACKAGE.supportedLanguages,
-      productionLanguages: DSF_CP009_LOCALIZATION_RELEASE_PACKAGE.productionLanguages,
-      localizationReviewLanguages: DSF_CP009_LOCALIZATION_RELEASE_PACKAGE.localizationReviewLanguages,
-      perLanguageLifecycle: DSF_CP009_LOCALIZATION_RELEASE_PACKAGE.perLanguageLifecycle,
-      supportedAnswerProfiles: DSF_CP009_LOCALIZATION_RELEASE_PACKAGE.supportedAnswerProfiles,
-      answerProfiles: DSF_CP009_LOCALIZATION_RELEASE_PACKAGE.answerProfiles,
-      supportedExamFamilies: DSF_CP009_LOCALIZATION_RELEASE_PACKAGE.supportedExamFamilies,
-      disabledExamFamilies: DSF_CP009_LOCALIZATION_RELEASE_PACKAGE.disabledExamFamilies,
+      sourceFreezeAuthority: DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE.sourceFreezeAuthority,
+      supportedLanguages: DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE.supportedLanguages,
+      productionLanguages: DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE.productionLanguages,
+      localizationReviewLanguages: DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE.localizationReviewLanguages,
+      perLanguageLifecycle: DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE.perLanguageLifecycle,
+      supportedAnswerProfiles: DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE.supportedAnswerProfiles,
+      answerProfiles: DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE.answerProfiles,
+      supportedExamFamilies: DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE.supportedExamFamilies,
+      disabledExamFamilies: DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE.disabledExamFamilies,
       examSpecificAnswerProfilesImplemented: true,
       questionStudioDiscoverable: true,
       persistenceAllowed: true,
