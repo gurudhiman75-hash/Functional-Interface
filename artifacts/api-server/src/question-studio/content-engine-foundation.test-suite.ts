@@ -93,5 +93,8 @@ await runStage("COM-001 Question Studio review integration authority V2", () =>
 await runStage("COM-001 V2 topology difficulty classifier candidate", () =>
   import("../knowledge-v1/computer-awareness/com001-difficulty-routing-v2.test")
 );
+await runStage("COM-001 Question Studio review difficulty authority V1", () =>
+  import("./engines/com001-question-studio-review-difficulty-authority-v1.test")
+);
 
 console.log("Question Studio content engine foundation suite passed.");
