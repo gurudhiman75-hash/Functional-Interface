@@ -7,7 +7,7 @@ import {
   generateSea002Cp007ProductionCaselet,
   type Sea002Cp007CandidateAuthorityKey,
 } from "./production-caselet-v2.ts";
-import { renderSea002Cp007TeacherExplanationV2 } from "./teacher-explanation-v2.ts";
+import { renderSea002Cp007TeacherExplanationV3 } from "./teacher-explanation-v3.ts";
 
 const AUTHORITIES = [
   "CP007-AUTH-01",
@@ -16,15 +16,15 @@ const AUTHORITIES = [
   "CP007-AUTH-04",
 ] as const satisfies readonly Sea002Cp007CandidateAuthorityKey[];
 
-const RENDERER = "EXAM_REAL_VISUAL_DEDUCTION_V7_ALL_POSITIONAL_QUERIES_INFERRED" as const;
+const RENDERER = "EXAM_REAL_VISUAL_DEDUCTION_V8_EXPLICIT_PLACEMENT_FACINGS" as const;
 
 const rows: string[] = [
-  "# SEA-002 / SEA-CP-007 — English Review Candidate V6",
+  "# SEA-002 / SEA-CP-007 — English Review Candidate V7",
   "",
-  "Status: **HUMAN REVIEW CANDIDATE / VISUAL DEDUCTION TEACHING / ALL POSITIONAL QUERIES INFERRED / NO PRODUCT ACTIVATION**",
+  "Status: **HUMAN REVIEW CANDIDATE / VISUAL DEDUCTION TEACHING / ALL POSITIONAL QUERIES INFERRED / EXPLICIT PLACEMENT FACINGS / NO PRODUCT ACTIVATION**",
   "",
   "24 caselets = 6 per candidate authority. This export is for learner-surface review only.",
-  "Solutions mirror paper solving: identify what is asked, derive facing/row facts, convert person-relative left/right, build and align seat blocks, show the final two-row arrangement, then read the answer.",
+  "Solutions mirror paper solving: identify what is asked, explicitly establish every facing used by a placement clue, convert person-relative left/right, build and align seat blocks, show the final two-row arrangement, then read the answer.",
   "AUTH01 is hardened: the queried neighbour pair is not directly stated by any same-row clue and the reference is not the direct facing anchor.",
   "AUTH04 is hardened: the asked diagonal is not the same reference+direction+person relation stated by any diagonal clue, and the reference facing must be inferred.",
   "",
@@ -50,7 +50,7 @@ for (const authorityKey of AUTHORITIES) {
     rows.push("");
     rows.push("**Solution:**");
     rows.push("");
-    rows.push(renderSea002Cp007TeacherExplanationV2(caselet));
+    rows.push(renderSea002Cp007TeacherExplanationV3(caselet));
     rows.push("");
   }
 }
@@ -60,7 +60,7 @@ const reviewFingerprint = createHash("sha256").update(reviewText, "utf8").digest
 const output = "artifacts/api-server/dist/reasoning-v1/sea-002-cp007-english-review-v1.md";
 mkdirSync(dirname(output), { recursive: true });
 writeFileSync(output, reviewText, "utf8");
-console.log("PASS_SEA002_CP007_ENGLISH_REVIEW_EXPORT_V6_ALL_POSITIONAL_QUERIES_INFERRED");
+console.log("PASS_SEA002_CP007_ENGLISH_REVIEW_EXPORT_V7_EXPLICIT_PLACEMENT_FACINGS");
 console.log("review caselets", ordinal);
 console.log("candidate authorities", AUTHORITIES.length);
 console.log("renderer", RENDERER);
