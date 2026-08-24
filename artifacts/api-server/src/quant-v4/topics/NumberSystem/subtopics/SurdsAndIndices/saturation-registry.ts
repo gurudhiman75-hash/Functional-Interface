@@ -24,15 +24,11 @@ import {
   generateSriSourceSaturationObjectOverride,
 } from "./source-saturation-object-overrides";
 
-const SATURATION_PHASE4_DESCRIPTORS: readonly SriCandidateDescriptor[] = SRI_PHASE4_SURD_ADVANCED_CANDIDATES.map((item) =>
-  item.candidateId === "C010-F" ? { ...item, sourceDisposition: "KEEP" as const } : item,
-);
-
 export const SRI_ALL_EXECUTABLE_DISCOVERY_CANDIDATES: readonly SriCandidateDescriptor[] = [
   ...SRI_PHASE1_POWER_CANDIDATES,
   ...SRI_PHASE2_POWER_RELATION_CANDIDATES,
   ...SRI_PHASE3_SURD_FOUNDATION_CANDIDATES,
-  ...SATURATION_PHASE4_DESCRIPTORS,
+  ...SRI_PHASE4_SURD_ADVANCED_CANDIDATES,
   ...SRI_SOURCE_SATURATION_ADDITIONS,
 ];
 
