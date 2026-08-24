@@ -89,9 +89,9 @@ export function computeCom001HiPaLocalizationFreezeFingerprintsV1() {
 }
 
 export const COM001_HI_PA_LOCALIZATION_FREEZE_PINS_V1 = {
-  terminologyFingerprint: "PENDING_TERMINOLOGY_FINGERPRINT",
-  localizedCorpusFingerprint: "PENDING_LOCALIZED_CORPUS_FINGERPRINT",
-  combinedFingerprint: "PENDING_COMBINED_FINGERPRINT",
+  terminologyFingerprint: "476c735a5ba563e74d416da66db94123e102dd97b9675bbbd835c332b9bd756f",
+  localizedCorpusFingerprint: "955aaf7d5050df7035f6b66a9bd403f4b0031b416c5e042c6da92e38fc9c53cb",
+  combinedFingerprint: "7bb9c0b308dd8a42362efc7990b7235ff1a189a51334bc437a23de5a613e05aa",
 } as const;
 
 export const COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1 = {
