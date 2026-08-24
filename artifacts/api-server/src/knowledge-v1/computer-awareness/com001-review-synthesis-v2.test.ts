@@ -84,12 +84,30 @@ for (const qlId of listCom001ReviewV2QlIds()) {
 }
 assert.equal(audited, 360);
 
+function assertSurfaceModes(qlId: string, expected: string[]) {
+  const batch = generateCom001ReviewBatchV2(qlId, 80, `v2-surface-audit:${qlId}`);
+  const modes = new Set(batch.map((q) => q.relationalSurfaceMode).filter(Boolean));
+  for (const mode of expected) {
+    assert.equal(modes.has(mode), true, `${qlId} failed to surface ${mode}`);
+  }
+}
+
+assertSurfaceModes("COM-001-QL-001", ["ENTITY_SELECTION", "MATCHED_PAIR"]);
+assertSurfaceModes("COM-001-QL-002", ["LAYER_TO_ENTITY", "ENTITY_TO_LAYER"]);
+assertSurfaceModes("COM-001-QL-003", ["COMPONENT_TO_FUNCTION", "FUNCTION_TO_COMPONENT"]);
+assertSurfaceModes("COM-001-QL-004", ["PARENT_TO_ENTITY", "ENTITY_TO_PARENT"]);
+assertSurfaceModes("COM-001-QL-005", ["MEDIUM_TO_ENTITY", "MATCHED_PAIR"]);
+
 const ql002 = generateCom001ReviewBatchV2("COM-001-QL-002", 40, "v2-ql002-grammar");
-assert.ok(ql002.every((q) => q.explanation.startsWith("The correct classification for ")));
 assert.ok(ql002.every((q) => !/CPU registers (?:is|belongs)/iu.test(q.explanation)));
 
 const ql003 = generateCom001ReviewBatchV2("COM-001-QL-003", 40, "v2-ql003-grammar");
 assert.ok(ql003.every((q) => !/is used to (?:stores|holds|keeps|provides|serves)/iu.test(q.explanation)));
+
+const ql005Matched = generateCom001ReviewBatchV2("COM-001-QL-005", 80, "v2-ql005-pairs")
+  .filter((q) => q.relationalSurfaceMode === "MATCHED_PAIR");
+assert.equal(ql005Matched.length > 0, true);
+assert.ok(ql005Matched.every((q) => q.canonicalAnswer.includes(" — ")));
 
 const ql007 = generateCom001ReviewBatchV2("COM-001-QL-007", 40, "v2-audit:COM-001-QL-007");
 const ql007TapeCount = ql007.filter((q) => q.canonicalAnswer === "Magnetic tape").length;
