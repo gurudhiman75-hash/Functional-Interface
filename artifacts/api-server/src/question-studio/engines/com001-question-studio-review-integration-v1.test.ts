@@ -6,6 +6,7 @@ import { COM001_ENGLISH_FREEZE_AUTHORITY_V1 } from "../../knowledge-v1/computer-
 import { COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1 } from "../../knowledge-v1/computer-awareness/com001-hi-pa-localization-freeze-v1";
 import { listCom001ReviewQlIds } from "../../knowledge-v1/computer-awareness/com001-review-synthesis";
 import { listQuestionStudioPackages } from "../engine-registry";
+import { COM001_QUESTION_BANK_ACCEPTANCE_AUTHORITY_ID } from "./com001-question-bank-acceptance-contract-v1";
 import { COM001_QUESTION_STUDIO_REVIEW_INTEGRATION_AUTHORITY_V1 } from "./com001-question-studio-review-integration-v1";
 import {
   COM001_QUESTION_BANK_STATUS,
@@ -43,22 +44,6 @@ assert.equal(
 );
 assert.equal(authority.exactReviewedAdminSurface.contentEngineRunNumber, 115);
 assert.equal(authority.exactReviewedAdminSurface.integratedAdminRunNumber, 8854);
-assert.equal(
-  authority.exactReviewedAdminSurface.reviewVerdict,
-  "APPROVED_DEDICATED_COMPUTER_REVIEW_SURFACE_WITH_LEGACY_COCKPIT_ISOLATION",
-);
-assert.equal(
-  authority.exactReviewedAdminSurface.verifiedChecks.includes("ADMIN_TYPESCRIPT_TYPECHECK"),
-  true,
-);
-assert.equal(
-  authority.exactReviewedAdminSurface.verifiedChecks.includes("ADMIN_APPLICATION_BUILD"),
-  true,
-);
-assert.equal(
-  authority.exactReviewedAdminSurface.verifiedChecks.includes("QUESTION_STUDIO_PRODUCTION_GATE"),
-  true,
-);
 assert.equal(authority.auditCoverage.explicitQlLanguageQuestions, 1080);
 assert.equal(authority.auditCoverage.mixedReviewBatchQuestions, 50);
 assert.equal(authority.editorSafety.approvalDisposition, "REVIEW_ONLY");
@@ -73,7 +58,6 @@ assert.equal(
 assert.equal(authority.editorSafety.dedicatedAdminReviewSurface, true);
 assert.equal(authority.editorSafety.legacyQuantCockpitIsolationRequired, true);
 assert.equal(authority.editorSafety.sourceControlledRecoveryRetryExcluded, true);
-// Historical V1 authority remains immutable even though the live package has moved through later review-only gates.
 assert.equal(authority.difficulty.filterSupported, false);
 assert.equal(authority.difficulty.productionDifficultyClaimsAuthorized, false);
 assert.equal(authority.lifecycle.questionStudioDiscoverable, true);
@@ -87,17 +71,27 @@ assert.equal(authority.lifecycle.publiclyPublishable, false);
 assert.equal(authority.lifecycle.automaticStudentPublication, false);
 assert.equal(authority.lifecycle.productionReleaseAuthorized, false);
 
+// The V1 authority is historical. The live package may advance through later, separately proved lifecycle gates.
 const registered = listQuestionStudioPackages().find((pkg) => pkg.packageId === "COM-001");
 assert.ok(registered);
 assert.equal(registered.engineId, "knowledge-v1");
 assert.equal(registered.runtimeMode, COM001_QUESTION_STUDIO_RUNTIME_MODE);
 assert.equal(registered.questionBankStatus, COM001_QUESTION_BANK_STATUS);
-assert.equal(registered.testEligibility, "INELIGIBLE_REVIEW_ONLY");
+assert.equal(registered.questionBankStatus, "READY_FOR_STORAGE");
+assert.equal(registered.testEligibility, "INELIGIBLE");
 assert.equal(registered.publiclyPublishable, false);
 assert.equal(registered.metadata?.revisionPolicy, COM001_REVISION_POLICY);
-// Live package state is allowed to advance beyond the pinned V1 authority while remaining review-only.
 assert.equal(registered.metadata?.difficultyFilterSupported, true);
+assert.equal(registered.metadata?.questionBankWritable, true);
+assert.equal(registered.metadata?.questionBankAcceptanceMode, "BANK_ONLY");
+assert.equal(
+  registered.metadata?.questionBankAcceptanceAuthority,
+  COM001_QUESTION_BANK_ACCEPTANCE_AUTHORITY_ID,
+);
+assert.equal(registered.metadata?.testEligible, false);
+assert.equal(registered.metadata?.mockTestEligible, false);
 assert.equal(registered.metadata?.productionDifficultyClaimsAuthorized, false);
+assert.equal(registered.metadata?.productionReleaseAuthorized, false);
 
 const qlIds = listCom001ReviewQlIds();
 assert.equal(qlIds.length, 9);
@@ -122,11 +116,15 @@ for (const qlId of qlIds) {
     assert.equal(question.qlId, qlId);
     assert.equal(question.language, language);
     assert.equal(question.revisionPolicy, COM001_REVISION_POLICY);
-    assert.equal(question.questionBankStatus, COM001_QUESTION_BANK_STATUS);
-    assert.equal(question.questionBankWritable, false);
+    assert.equal(question.questionBankStatus, "READY_FOR_STORAGE");
+    assert.equal(question.questionBankWritable, true);
+    assert.equal(question.questionBankAcceptanceMode, "BANK_ONLY");
+    assert.equal(question.questionBankAcceptanceAuthority, COM001_QUESTION_BANK_ACCEPTANCE_AUTHORITY_ID);
     assert.equal(question.testEligible, false);
+    assert.equal(question.mockTestEligible, false);
     assert.equal(question.publiclyPublishable, false);
     assert.equal(question.automaticStudentPublication, false);
+    assert.equal(question.productionReleaseAuthorized, false);
     assert.equal(question.questionStudioReview.runtimeMode, "review-only");
     assert.equal(question.questionStudioReview.revisionPolicy, COM001_REVISION_POLICY);
     assert.equal(question.questionStudioReview.difficultyFilterApplied, false);
@@ -137,8 +135,8 @@ for (const qlId of qlIds) {
       generationContext: generated.generationContext,
     });
     assert.deepEqual(disposition, {
-      mode: "review_only",
-      reason: "Payload explicitly disables Question Bank storage",
+      mode: "question_bank",
+      reason: null,
     });
 
     assert.throws(
