@@ -65,9 +65,9 @@ for (const question of TSD_CP009_RENDERED_PUNJABI_QUESTIONS) {
 }
 
 const hindi111 = TSD_CP009_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-111");
-assert(hindi111.every((question) => /ऊपरी सिरे से चलने वाली|ऊपरी सिरे वाली/.test(question.stem) && /निचले सिरे से चलने वाली|निचले सिरे वाली/.test(question.stem)), "Hindi QL111 must explicitly assign each speed to its starting end");
+assert(hindi111.every((question) => /ऊपरी सिरे से|ऊपरी सिरे वाली/.test(question.stem) && /निचले सिरे से|निचले सिरे वाली/.test(question.stem) && (question.stem.match(/गति/g)?.length ?? 0) >= 3), "Hindi QL111 must explicitly assign each speed to its starting end");
 const punjabi111 = TSD_CP009_RENDERED_PUNJABI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-111");
-assert(punjabi111.every((question) => /ਉੱਪਰਲੇ ਸਿਰੇ ਤੋਂ ਚੱਲਣ ਵਾਲੀ|ਉੱਪਰਲੇ ਸਿਰੇ ਵਾਲੀ/.test(question.stem) && /ਹੇਠਲੇ ਸਿਰੇ ਤੋਂ ਚੱਲਣ ਵਾਲੀ|ਹੇਠਲੇ ਸਿਰੇ ਵਾਲੀ/.test(question.stem)), "Punjabi QL111 must explicitly assign each speed to its starting end");
+assert(punjabi111.every((question) => /ਉੱਪਰਲੇ ਸਿਰੇ ਤੋਂ|ਉੱਪਰਲੇ ਸਿਰੇ ਵਾਲੀ/.test(question.stem) && /ਹੇਠਲੇ ਸਿਰੇ ਤੋਂ|ਹੇਠਲੇ ਸਿਰੇ ਵਾਲੀ/.test(question.stem) && (question.stem.match(/ਗਤੀ/g)?.length ?? 0) >= 3), "Punjabi QL111 must explicitly assign each speed to its starting end");
 
 assert(TSD_CP009_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-110").every((question) => /समान|एक ही/.test(question.stem)), "Hindi QL110 equal-time invariant not explicit");
 assert(TSD_CP009_RENDERED_PUNJABI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-110").every((question) => /ਇੱਕੋ/.test(question.stem)), "Punjabi QL110 equal-time invariant not explicit");
