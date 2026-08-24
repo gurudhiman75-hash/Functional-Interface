@@ -65,17 +65,20 @@ No DSF-specific publish, mock, freeze, or student-delivery endpoint is introduce
 
 ## Final multilingual audit
 
-CP-010 executes a deterministic 624-question production audit:
+CP-010 executes a deterministic **633-question** source-valid production audit:
 
-- 552 questions across language × answer profile × domain × representable semantic class, with two samples per matrix cell
-- 72 explicit language × solve-mode × difficulty representatives
-- 208 audited questions per production language
+- 540 questions across language × answer profile × domain × difficulty, with three samples per cell
+- 69 explicit language × answer profile × representable semantic-class representatives, without inventing unsupported domain/difficulty combinations
+- 24 explicit language × frozen solve-mode representatives
+- 211 audited questions per production language
 - all 5 answer profiles
 - all 4 domains
 - all 8 solve modes
-- all 5 canonical semantic classes
+- all 5 canonical semantic classes corpus-wide and every class representable by each profile
 - all 3 difficulties
-- deterministic localized generation replay proof
+- deterministic Hindi/Punjabi generation replay proof
+
+The audit intentionally does not require every semantic class to exist inside every domain/difficulty cell; that is not a CP-001 source-runtime guarantee. Semantic completeness is proved separately at the answer-profile level, while domain/difficulty and solve-mode breadth are proved through source-valid requests.
 
 The freeze fingerprint is generated from the canonical production-scope contract and is exposed by the CP-010 package/Question Studio status surface.
 
