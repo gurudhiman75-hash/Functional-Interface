@@ -26,11 +26,12 @@ import {
   STA_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   STA_001_QUESTION_STUDIO_REVIEW_STATUS,
   previewSta001QuestionStudioReview,
+  type StaQuestionStudioCheckpointId,
   type StaQuestionStudioDifficulty,
   type StaQuestionStudioLanguage,
+  type StaQuestionStudioProfileId,
+  type StaQuestionStudioQlId,
 } from "../reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-review";
-import type { StaCheckpointId, StaQlId } from "../reasoning-v1/topics/Statement-and-Assumption/STA-001/types";
-import type { StaExamProfileIdV2 } from "../reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-extension-v2";
 import type { WorCheckpointId } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/foundation/types";
 import {
   buildWor001QuestionStudioPayload,
@@ -125,29 +126,29 @@ function normalizeStaLanguage(value: unknown): StaQuestionStudioLanguage {
   throw new Error(`STA-001 does not support Question Studio language ${language}.`);
 }
 
-function normalizeStaProfile(value: unknown): StaExamProfileIdV2 | undefined {
+function normalizeStaProfile(value: unknown): StaQuestionStudioProfileId | undefined {
   const requested = String(value ?? "").trim().toUpperCase();
   if (!requested) return undefined;
   const match = STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.presentationProfiles.find((entry) => entry.profileId === requested);
   return match?.profileId;
 }
 
-function normalizeStaQl(value: unknown): StaQlId | undefined {
+function normalizeStaQl(value: unknown): StaQuestionStudioQlId | undefined {
   const requested = String(value ?? "").trim().toUpperCase();
   if (!requested.startsWith("STA-QL-")) return undefined;
-  if (!STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds.includes(requested as StaQlId)) {
-    throw new Error(`Unsupported STA permanent QL '${requested}'.`);
+  if (!(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds as readonly string[]).includes(requested)) {
+    throw new Error(`Unsupported STA V4 QL '${requested}'.`);
   }
-  return requested as StaQlId;
+  return requested as StaQuestionStudioQlId;
 }
 
-function normalizeStaCheckpoint(value: unknown): StaCheckpointId | undefined {
+function normalizeStaCheckpoint(value: unknown): StaQuestionStudioCheckpointId | undefined {
   const requested = String(value ?? "").trim().toUpperCase();
   if (!requested.startsWith("STA-CP-")) return undefined;
   if (!STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.checkpoints.some((entry) => entry.checkpointId === requested)) {
-    throw new Error(`Unsupported STA checkpoint '${requested}'.`);
+    throw new Error(`Unsupported STA V4 checkpoint '${requested}'.`);
   }
-  return requested as StaCheckpointId;
+  return requested as StaQuestionStudioCheckpointId;
 }
 
 function normalizeWorDifficulty(value: unknown): WorQuestionStudioDifficulty | undefined {
@@ -226,7 +227,7 @@ function staPackageCapability() {
     releaseFreezeStatus: pkg.releaseFreezeStatus,
     reviewOnly: pkg.reviewOnly,
     revisionPolicy: STA_001_QUESTION_STUDIO_REVISION_POLICY,
-    multilingualChapterFrozen: true,
+    multilingualChapterFrozen: pkg.multilingualChapterFrozen,
     sourceRuntimeQuestionStudioDiscoverable: pkg.sourceRuntimeQuestionStudioDiscoverable,
     questionBankStatus: pkg.questionBankStatus,
     questionBankWritable: pkg.questionBankWritable,
@@ -366,7 +367,7 @@ async function generateSta001QuestionStudioQuestions(request: SharedQuestionStud
       runtimeMode: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.runtimeMode,
       reviewStatus: STA_001_QUESTION_STUDIO_REVIEW_STATUS,
       lifecycleStatus: "REVIEW_ONLY",
-      multilingualChapterFrozen: true,
+      multilingualChapterFrozen: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.multilingualChapterFrozen,
       permanentQlCount: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount,
       permanentQlIds: [...STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds],
       permanentQlAllocationStatus: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlAllocationStatus,
