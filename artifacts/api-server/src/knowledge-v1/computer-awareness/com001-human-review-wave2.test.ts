@@ -16,6 +16,8 @@ const reviewCases = [
 const samples = reviewCases.map(({ qlId, seed }) => generateCom001HumanReviewV2Candidate({ qlId, seed }));
 assert.equal(samples.length, 13);
 assert.equal(samples.at(-1)?.humanReviewV2.status, "BLOCKED_PENDING_MODEL");
+assert.ok(samples.filter((q) => q.qlId === "COM-001-QL-002").every((q) => q.explanation.startsWith("The correct classification for ")));
+assert.ok(samples.filter((q) => q.qlId === "COM-001-QL-002").every((q) => !/CPU registers (?:is|belongs)/iu.test(q.explanation)));
 assert.ok(samples.filter((q) => q.qlId === "COM-001-QL-007").every((q) => !q.options.includes("RDX removable disk")));
 assert.ok(samples.filter((q) => q.qlId === "COM-001-QL-003").every((q) => !/is used to (?:stores|holds|keeps|provides)/iu.test(q.explanation)));
 
