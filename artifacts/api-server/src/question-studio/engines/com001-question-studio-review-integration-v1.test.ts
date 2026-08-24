@@ -73,6 +73,7 @@ assert.equal(
 assert.equal(authority.editorSafety.dedicatedAdminReviewSurface, true);
 assert.equal(authority.editorSafety.legacyQuantCockpitIsolationRequired, true);
 assert.equal(authority.editorSafety.sourceControlledRecoveryRetryExcluded, true);
+// Historical V1 authority remains immutable even though the live package has moved through later review-only gates.
 assert.equal(authority.difficulty.filterSupported, false);
 assert.equal(authority.difficulty.productionDifficultyClaimsAuthorized, false);
 assert.equal(authority.lifecycle.questionStudioDiscoverable, true);
@@ -94,7 +95,9 @@ assert.equal(registered.questionBankStatus, COM001_QUESTION_BANK_STATUS);
 assert.equal(registered.testEligibility, "INELIGIBLE_REVIEW_ONLY");
 assert.equal(registered.publiclyPublishable, false);
 assert.equal(registered.metadata?.revisionPolicy, COM001_REVISION_POLICY);
-assert.equal(registered.metadata?.difficultyFilterSupported, false);
+// Live package state is allowed to advance beyond the pinned V1 authority while remaining review-only.
+assert.equal(registered.metadata?.difficultyFilterSupported, true);
+assert.equal(registered.metadata?.productionDifficultyClaimsAuthorized, false);
 
 const qlIds = listCom001ReviewQlIds();
 assert.equal(qlIds.length, 9);
@@ -109,9 +112,11 @@ for (const qlId of qlIds) {
       runtimeMode: "review-only",
       count: 1,
       seed: `integration-authority:${qlId}:${language}`,
-      difficulty: "Hard",
+      difficulty: "Mixed",
     });
     assert.equal(generated.questions.length, 1);
+    assert.equal(generated.generationContext?.difficultyFilterApplied, false);
+    assert.equal(generated.generationContext?.requestedDifficulty, "Mixed");
     const question = generated.questions[0] as Record<string, any>;
     audited += 1;
     assert.equal(question.qlId, qlId);
@@ -125,6 +130,7 @@ for (const qlId of qlIds) {
     assert.equal(question.questionStudioReview.runtimeMode, "review-only");
     assert.equal(question.questionStudioReview.revisionPolicy, COM001_REVISION_POLICY);
     assert.equal(question.questionStudioReview.difficultyFilterApplied, false);
+    assert.equal(question.questionStudioReview.requestedDifficulty, "Mixed");
 
     const disposition = getGeneratedItemApprovalDisposition({
       ...question,
