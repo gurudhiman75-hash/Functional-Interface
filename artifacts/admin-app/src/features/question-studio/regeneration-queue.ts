@@ -7,6 +7,7 @@ export interface RegenerationQueueItem {
   blockerCount: number;
   warningCount: number;
   reasons: string[];
+  regenerationLocked: boolean;
 }
 
 export interface RegenerationQueueRun {
@@ -15,9 +16,18 @@ export interface RegenerationQueueRun {
   needsFixItemIds: string[];
 }
 
+function revisionPolicy(item: QuestionStudioItem) {
+  const value = item.payload?.revisionPolicy;
+  return typeof value === 'string' ? value.trim() : '';
+}
+
 export function isItemRegeneratable(item: QuestionStudioItem): boolean {
   return !item.acceptedQuestionId
     && (item.status === 'unreviewed' || item.status === 'needs_fix' || item.status === 'rejected');
+}
+
+export function isItemRegenerationLocked(item: QuestionStudioItem): boolean {
+  return revisionPolicy(item) === 'SOURCE_GENERATOR_ONLY';
 }
 
 export function buildRegenerationQueue(runs: QuestionStudioRun[]): RegenerationQueueRun[] {
@@ -30,8 +40,12 @@ export function buildRegenerationQueue(runs: QuestionStudioRun[]): RegenerationQ
         || quality.blockerCount > 0;
       if (!shouldSurface) return [];
 
+      const regenerationLocked = isItemRegenerationLocked(item);
       const reasons = [
         item.retryReason,
+        regenerationLocked
+          ? 'Source-controlled package: fix the canonical generator/localization source and create a new review batch.'
+          : null,
         ...quality.issues
           .filter((issue) => issue.severity === 'blocker')
           .map((issue) => issue.message),
@@ -43,6 +57,7 @@ export function buildRegenerationQueue(runs: QuestionStudioRun[]): RegenerationQ
         blockerCount: quality.blockerCount,
         warningCount: quality.warningCount,
         reasons: [...new Set(reasons)],
+        regenerationLocked,
       }];
     });
 
@@ -50,7 +65,7 @@ export function buildRegenerationQueue(runs: QuestionStudioRun[]): RegenerationQ
       run,
       items,
       needsFixItemIds: items
-        .filter((entry) => entry.item.status === 'needs_fix')
+        .filter((entry) => entry.item.status === 'needs_fix' && !entry.regenerationLocked)
         .map((entry) => entry.item.id),
     };
   }).filter((entry) => entry.items.length > 0);
