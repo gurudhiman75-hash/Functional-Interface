@@ -14,6 +14,7 @@ import type {
 export const COM001_QUESTION_STUDIO_PACKAGE_ID = "COM-001" as const;
 export const COM001_QUESTION_STUDIO_RUNTIME_MODE = "review-only" as const;
 export const COM001_QUESTION_BANK_STATUS = "NOT_STORED" as const;
+export const COM001_REVISION_POLICY = "SOURCE_GENERATOR_ONLY" as const;
 
 const qlIds = listCom001ReviewQlIds();
 const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
@@ -36,6 +37,7 @@ export const COM001_REVIEW_ONLY_PACKAGE: QuestionStudioPackageDefinition = {
   metadata: {
     reviewOnly: true,
     permanentQlIds: qlIds,
+    revisionPolicy: COM001_REVISION_POLICY,
     difficultyFilterSupported: false,
     difficultySelectionStatus: "NOT_APPLIED_IN_REVIEW_ONLY_PILOT",
     reviewRunPersistenceAllowed: true,
@@ -119,6 +121,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
         patternId: question.qlId,
         text: question.stem,
         correct: question.correctIndex,
+        revisionPolicy: COM001_REVISION_POLICY,
         questionBankStatus: COM001_QUESTION_BANK_STATUS,
         questionBankWritable: false,
         testEligible: false,
@@ -127,6 +130,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
         questionStudioReview: {
           registrationStatus: "REVIEW_ONLY_REGISTERED",
           runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
+          revisionPolicy: COM001_REVISION_POLICY,
           reviewRunPersistenceAllowed: true,
           canonicalQuestionPersistenceAllowed: false,
           questionBankStatus: COM001_QUESTION_BANK_STATUS,
@@ -152,6 +156,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
         packageId: COM001_QUESTION_STUDIO_PACKAGE_ID,
         runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
         reviewOnly: true,
+        revisionPolicy: COM001_REVISION_POLICY,
         language,
         requestedDifficulty: request.difficulty ?? null,
         difficultyFilterApplied: false,
