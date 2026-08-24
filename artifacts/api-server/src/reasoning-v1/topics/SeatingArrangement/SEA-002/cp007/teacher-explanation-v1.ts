@@ -211,8 +211,8 @@ function renderAuthority01(caselet: Sea002Cp007ProductionCaselet): string {
 
   if (direct?.kind === "SAME_ROW_OFFSET") {
     return [
-      `Only the clue involving ${reference} is needed here; there is no need to solve the whole arrangement.`,
-      `The statement directly says that ${caselet.answer} sits ${direct.distance === 1 ? "immediately" : `${direct.distance} positions`} to the ${direction.toLowerCase()} of ${reference}.`,
+      `Because the statement itself gives ${caselet.answer}'s position relative to ${reference}, there is no need to solve the whole arrangement.`,
+      `It says that ${caselet.answer} sits ${direct.distance === 1 ? "immediately" : `${direct.distance} positions`} to the ${direction.toLowerCase()} of ${reference}, so ${caselet.answer} directly satisfies what the question asks.`,
       `Therefore, the answer is ${caselet.answer}.`,
     ].join("\n");
   }
