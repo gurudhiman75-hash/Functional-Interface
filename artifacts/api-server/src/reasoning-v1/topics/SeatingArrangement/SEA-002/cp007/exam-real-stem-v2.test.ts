@@ -8,12 +8,13 @@ import {
   generateSea002Cp007ProductionCaselet,
   independentlySolveSea002Cp007Caselet,
   type Sea002Cp007CandidateAuthorityKey,
-} from "./production-caselet-v1.ts";
+} from "./production-caselet-v2.ts";
 
 const AUTHORITIES = ["CP007-AUTH-01", "CP007-AUTH-02", "CP007-AUTH-03", "CP007-AUTH-04"] as const satisfies readonly Sea002Cp007CandidateAuthorityKey[];
 let surfaces = 0;
 let compactnessChecks = 0;
 let semanticTokens = 0;
+let auth01InferenceChecks = 0;
 
 for (const authorityKey of AUTHORITIES) {
   for (let index = 0; index < 24; index += 1) {
@@ -37,12 +38,26 @@ for (const authorityKey of AUTHORITIES) {
       semanticTokens += 1;
     }
     assert.ok(stem.includes("opposite") || stem.includes("diagonally"));
+
+    if (authorityKey === "CP007-AUTH-01") {
+      const reference = caselet.question.match(/\bof ([A-Za-z]+)\?$/u)?.[1];
+      assert.ok(reference);
+      const directPair = caselet.clues.some((clue) =>
+        clue.kind === "SAME_ROW_OFFSET"
+        && ((clue.subject === reference && clue.reference === caselet.answer)
+          || (clue.subject === caselet.answer && clue.reference === reference)),
+      );
+      assert.equal(directPair, false);
+      auth01InferenceChecks += 1;
+    }
   }
 }
 
-console.log("PASS_SEA002_CP007_EXAM_REAL_STEM_V2");
+assert.equal(auth01InferenceChecks, 24);
+console.log("PASS_SEA002_CP007_EXAM_REAL_STEM_V3_AUTH01_HARDENED");
 console.log("rendered surfaces", surfaces);
 console.log("compactness checks", compactnessChecks);
 console.log("participant token checks", semanticTokens);
+console.log("AUTH01 non-direct surfaces", auth01InferenceChecks);
 console.log("learner column residue", 0);
 console.log("permanent QLs allocated", 0);
