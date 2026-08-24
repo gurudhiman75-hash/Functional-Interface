@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { buildSta001QuestionStudioPayload } from "./question-studio-payload.ts";
 import {
+  STA_001_HISTORICAL_PERMANENT_QL_IDS,
   STA_001_QUESTION_STUDIO_RELEASE_FREEZE,
   STA_001_QUESTION_STUDIO_REVIEW_AUTHORITY,
   STA_001_QUESTION_STUDIO_REVIEW_PACKAGE,
@@ -10,8 +11,12 @@ import {
 const registry = await import("../../../question-studio-review-registry.ts");
 const shared = await import("../../../../question-studio/shared-generation-engine.ts");
 
-assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 6);
-assert.deepEqual(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds, ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004", "STA-QL-005", "STA-QL-006"]);
+assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlCount, 4);
+assert.deepEqual(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds, ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004"]);
+assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlCount, 6);
+assert.deepEqual(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlIds, ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004", "STA-QL-005", "STA-QL-006"]);
+assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlAllocationStatus, "HISTORICAL_FOUR_QL_FREEZE_PRESERVED");
+assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlAllocationStatus, "V4_1_REVIEW_CANDIDATE");
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.checkpointCount, 4);
 assert.equal(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.presentationProfiles.length, 9);
 assert.deepEqual(STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.supportedLanguages, ["en", "hi", "pa"]);
@@ -47,18 +52,23 @@ function assertLockedPayload(payload: Record<string, any>): void {
   assert.equal(payload.generationContext.persistenceAllowed, false);
 }
 
-for (const qlId of STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds) {
+for (const qlId of STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.candidateQlIds) {
   const seed = `sta-v41-integration:${qlId}`;
   const byLanguage = Object.fromEntries((["en", "hi", "pa"] as const).map((language) => [language, previewSta001QuestionStudioReview({
     language, qlId, profileId: "BANK_5X5", count: 3, seed,
   }).questions]));
   for (let index = 0; index < 3; index += 1) {
     const en = byLanguage.en[index]!;
-    assert.equal(en.permanentQlId, qlId);
+    assert.equal(en.candidateQlId, qlId);
+    const historicallyPermanent = (STA_001_HISTORICAL_PERMANENT_QL_IDS as readonly string[]).includes(qlId);
+    assert.equal(en.permanentQlId, historicallyPermanent ? qlId : null);
     assert.equal(en.integrationAuthority, STA_001_QUESTION_STUDIO_REVIEW_AUTHORITY);
     assert.equal(en.source.freezeId, STA_001_QUESTION_STUDIO_RELEASE_FREEZE);
     assert.equal(en.validation.multilingualFrozen, false);
-    assertLockedPayload(buildSta001QuestionStudioPayload(en) as Record<string, any>);
+    const payload = buildSta001QuestionStudioPayload(en) as Record<string, any>;
+    assert.equal(payload.candidateQlId, qlId);
+    assert.equal(payload.permanentQlId, historicallyPermanent ? qlId : null);
+    assertLockedPayload(payload);
     for (const language of ["hi", "pa"] as const) {
       const translated = byLanguage[language][index]!;
       assert.equal(translated.canonicalItemId, en.canonicalItemId);
@@ -82,7 +92,10 @@ for (const profile of STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.presentationProfile
 const capabilities = shared.listQuestionStudioPackages();
 const sta = capabilities.find((entry: any) => entry.packageId === "STA-001");
 assert.ok(sta, "STA-001 missing from shared Question Studio capabilities");
-assert.equal(sta.permanentQlCount, 6);
+assert.equal(sta.permanentQlCount, 4);
+assert.deepEqual(sta.permanentQlIds, ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004"]);
+assert.equal(sta.candidateQlCount, 6);
+assert.deepEqual(sta.candidateQlIds, ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004", "STA-QL-005", "STA-QL-006"]);
 assert.equal(sta.multilingualChapterFrozen, false);
 assert.equal(sta.questionBankWritable, false);
 assert.equal(sta.testEligible, false);
@@ -100,14 +113,19 @@ for (const language of ["en", "hi", "pa"] as const) {
   }) as any;
   assert.equal(generated.questions.length, 3);
   assert.equal(generated.questionPackages.length, 3);
-  assert.equal(generated.generationContext.permanentQlCount, 6);
+  assert.equal(generated.generationContext.permanentQlCount, 4);
+  assert.deepEqual(generated.generationContext.permanentQlIds, ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004"]);
+  assert.equal(generated.generationContext.candidateQlCount, 6);
+  assert.deepEqual(generated.generationContext.candidateQlIds, ["STA-QL-001", "STA-QL-002", "STA-QL-003", "STA-QL-004", "STA-QL-005", "STA-QL-006"]);
   assert.equal(generated.generationContext.multilingualChapterFrozen, false);
   assert.equal(generated.generationContext.questionBankWritable, false);
   assert.equal(generated.generationContext.testEligible, false);
   assert.equal(generated.generationContext.mockTestEligible, false);
   assert.equal(generated.generationContext.publiclyPublishable, false);
   for (const payload of generated.questions as Record<string, any>[]) {
-    assert.equal(payload.permanentQlId, "STA-QL-006");
+    assert.equal(payload.qlId, "STA-QL-006");
+    assert.equal(payload.candidateQlId, "STA-QL-006");
+    assert.equal(payload.permanentQlId, null);
     assert.equal(payload.language, language);
     assertLockedPayload(payload);
   }
