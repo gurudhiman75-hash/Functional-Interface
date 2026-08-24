@@ -39,10 +39,10 @@ function remediateQl002(question: Com001ReviewQuestion) {
   return withReviewStatus(
     {
       ...question,
-      explanation: `${question.canonicalAnswer} belongs to ${layer}. The other options belong to different memory or storage categories.`,
+      explanation: `The correct classification for ${question.canonicalAnswer} is ${layer}. The other options belong to different memory or storage categories.`,
     },
     "REMEDIATED_CANDIDATE",
-    "Grammar-safe explanation avoids singular/plural agreement errors for labels such as CPU registers.",
+    "Grammar-safe explanation avoids subject-verb agreement errors for labels such as CPU registers.",
   );
 }
 
