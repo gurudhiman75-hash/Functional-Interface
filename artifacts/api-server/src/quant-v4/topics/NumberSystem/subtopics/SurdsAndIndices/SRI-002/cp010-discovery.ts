@@ -64,6 +64,14 @@ function pairDistractors(A: bigint, B: bigint): SriDistractor[] {
   ]);
 }
 
+const NON_DENESTABLE_C010_C_PAIRS = [
+  [5, 2],
+  [7, 5],
+  [9, 11],
+  [10, 13],
+  [11, 17],
+] as const;
+
 export function generateSriCp010Candidate(candidateId: string, seed: string): SriDiscoveryQuestion {
   switch (candidateId) {
     case "C010-A": {
@@ -109,13 +117,14 @@ export function generateSriCp010Candidate(candidateId: string, seed: string): Sr
         A = state.A;
         B = state.B;
       } else {
-        const pair = sriPick(`${seed}:no`, [[5, 2], [6, 5], [7, 5], [8, 7], [9, 11]] as const);
+        const pair = sriPick(`${seed}:no`, NON_DENESTABLE_C010_C_PAIRS);
         A = BigInt(pair[0]);
         B = BigInt(pair[1]);
       }
       const solver = isDenestableNestedSquareRoot(A, B, 1);
-      const verifier = denestable;
-      if (!denestable && solver) return generateSriCp010Candidate(candidateId, `${seed}:retry`);
+      if (solver !== denestable) {
+        throw new Error(`C010-C construction invariant failed for A=${A}, B=${B}`);
+      }
       const answer = textAnswer(solver ? "Denestable" : "Not denestable", `T:${solver ? "DENESTABLE" : "NOT_DENESTABLE"}`);
       const stem = sriPick(`${seed}:surface`, [
         `Can \\sqrt{${A}+2\\sqrt{${B}}} be written as \\sqrt{m}+\\sqrt{n} for non-negative integers m,n?`,
@@ -130,7 +139,7 @@ export function generateSriCp010Candidate(candidateId: string, seed: string): Sr
       ]);
       const discriminant = A * A - 4n * B;
       return finish(candidateId, seed, { A: A.toString(), B: B.toString(), discriminant: discriminant.toString() }, stem,
-        answer, `T:${verifier ? "DENESTABLE" : "NOT_DENESTABLE"}`, distractors,
+        answer, `T:${denestable ? "DENESTABLE" : "NOT_DENESTABLE"}`, distractors,
         "For integer-radicand denesting, A²−4B must be a non-negative perfect square and yield integer m,n.",
         [`A²−4B=${discriminant}.`, solver ? "The exact denesting test succeeds." : "The exact denesting test fails."],
         "Decide whether the nested surd has the supported denested form.");
