@@ -22,6 +22,7 @@ let presentationChecks = 0;
 let inferredRowCases = 0;
 let rowAnchorNecessityChecks = 0;
 let auth01NonDirectChecks = 0;
+let auth04NonDirectChecks = 0;
 const answerPositions = new Map<string, Set<number>>();
 const widths = new Map<string, Set<number>>();
 const clueKinds = new Set<string>();
@@ -97,6 +98,25 @@ for (const authorityKey of AUTHORITIES) {
       auth01NonDirectChecks += 5;
     }
 
+    if (authorityKey === "CP007-AUTH-04") {
+      const match = caselet.question.match(/diagonally from ([A-Za-z]+) in \1's (left|right)-hand direction\?/u);
+      assert.ok(match, `AUTH04 query parse failed: ${caselet.question}`);
+      const reference = match[1]!;
+      const direction = match[2]!.toUpperCase() as "LEFT" | "RIGHT";
+      const facingAnchor = caselet.clues.find((clue) => clue.kind === "FACING_ANCHOR")!;
+      assert.notEqual(reference, facingAnchor.person, "AUTH04 must infer the queried reference facing.");
+      const direct = caselet.clues.some((clue) =>
+        clue.kind === "DIAGONAL"
+        && clue.reference === reference
+        && clue.subject === caselet.answer
+        && clue.direction === direction,
+      );
+      assert.equal(direct, false, `${caselet.caseletId} AUTH04 query must not repeat a diagonal clue.`);
+      const referenceRow = caselet.participants.find((p) => p.id === reference)!.seat.row;
+      assert.ok(caselet.options.every((option) => caselet.participants.find((p) => p.id === option)!.seat.row !== referenceRow));
+      auth04NonDirectChecks += 4;
+    }
+
     if (authorityKey === "CP007-AUTH-03") {
       inferredRowCases += 1;
       assert.equal(caselet.rowMembershipMode, "INFERRED");
@@ -143,8 +163,9 @@ assert.deepEqual([...clueKinds].sort(), ["DIAGONAL", "FACING_ANCHOR", "FACING_RE
 assert.equal(inferredRowCases, 48);
 assert.equal(rowAnchorNecessityChecks, 48);
 assert.equal(auth01NonDirectChecks, 240);
+assert.equal(auth04NonDirectChecks, 192);
 
-console.log("PASS_SEA002_CP007_PRODUCTION_CASELET_UNIQUENESS_V3_AUTH01_HARDENED");
+console.log("PASS_SEA002_CP007_PRODUCTION_CASELET_UNIQUENESS_V4_POSITIONAL_QUERIES_HARDENED");
 console.log("candidate authorities", AUTHORITIES.length);
 console.log("production caselets", generated);
 console.log("independent unique solutions", uniqueSolutions);
@@ -153,6 +174,7 @@ console.log("option checks", optionChecks);
 console.log("lifecycle checks", lifecycleChecks);
 console.log("presentation checks", presentationChecks);
 console.log("AUTH01 non-direct checks", auth01NonDirectChecks);
+console.log("AUTH04 non-direct checks", auth04NonDirectChecks);
 console.log("AUTH03 inferred-row cases", inferredRowCases);
 console.log("AUTH03 row-anchor necessity checks", rowAnchorNecessityChecks);
 console.log("clue kinds", [...clueKinds].sort().join(","));
