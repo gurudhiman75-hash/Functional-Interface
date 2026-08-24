@@ -212,10 +212,13 @@ export function QuestionStudioComputerAwarenessReviewPanel() {
         reason: reviewReason.trim() || undefined,
       });
       if (status === 'approved') {
-        if (result.convertedCount !== 0 || result.reviewOnlyApprovedCount !== 1) {
-          throw new Error('COM-001 approval did not remain review-only.');
+        if (result.convertedCount !== 1 || result.reviewOnlyApprovedCount !== 0 || !result.converted[0]) {
+          throw new Error('COM-001 approval did not complete exactly one BANK_ONLY Question Bank conversion.');
         }
-        showToast.success('Review-only approval recorded', 'No Question Bank write was performed.');
+        showToast.success(
+          'Question Bank acceptance complete',
+          `${result.converted[0].publicCode} was stored in Question Bank. Test, mock-test and publication gates remain locked.`,
+        );
       } else {
         showToast.success('Review state updated', `Item moved to ${status.replace(/_/g, ' ')}.`);
       }
@@ -244,14 +247,15 @@ export function QuestionStudioComputerAwarenessReviewPanel() {
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Badge variant="outline" className="border-info/30 text-info">Review only</Badge>
+            <Badge variant="outline" className="border-info/30 text-info">Manual Bank acceptance</Badge>
             <Badge variant="outline">9 permanent QLs</Badge>
             <Badge variant="outline">Topology difficulty filter</Badge>
-            <Badge variant="outline" className="border-warning/30 text-warning">Question Bank locked</Badge>
+            <Badge variant="outline" className="border-success/30 text-success">Question Bank writable</Badge>
+            <Badge variant="outline" className="border-warning/30 text-warning">Tests/publication locked</Badge>
           </div>
         </div>
         <div className="rounded-lg border border-info/20 bg-info/5 p-3 text-xs text-muted-foreground">
-          Difficulty here is a review-only topology classification layered over frozen V2 questions; it does not authorize a production difficulty claim. Approval records editorial acceptance only. Inline revision and regeneration remain disabled; mark an item <strong className="text-foreground">Needs fix</strong>, correct the canonical fact/generator/localization source, then create a fresh review batch.
+          Difficulty is a topology classification layered over frozen V2 questions; it still does not authorize a production difficulty claim. <strong className="text-foreground">Approve to Question Bank</strong> performs a manual BANK_ONLY acceptance after editorial review. It does not make the question test-eligible or public. Inline revision and regeneration remain disabled; mark an item <strong className="text-foreground">Needs fix</strong>, correct the canonical fact/generator/localization source, then create a fresh review batch.
         </div>
       </CardHeader>
 
@@ -310,7 +314,7 @@ export function QuestionStudioComputerAwarenessReviewPanel() {
           <div className="mb-3 flex flex-col justify-between gap-3 md:flex-row md:items-end">
             <div>
               <p className="text-sm font-semibold">Recent COM-001 review runs</p>
-              <p className="text-xs text-muted-foreground">These runs are isolated from the legacy Quant/Reasoning cockpit.</p>
+              <p className="text-xs text-muted-foreground">Question Bank acceptance is manual and remains isolated from test/publication activation.</p>
             </div>
             <Field label="Reason for Needs fix / Reject" className="w-full md:max-w-lg">
               <Textarea value={reviewReason} onChange={(event) => setReviewReason(event.target.value)} className="min-h-16" placeholder="Describe the factual, source, wording, localization, distractor, explanation, or difficulty-topology issue" />
@@ -356,7 +360,7 @@ function ComputerRun({ run, canReview, updatingItemId, onDecision }: {
         </div>
         <div className="flex flex-wrap gap-2">
           <Badge variant="outline">knowledge-v1</Badge>
-          <Badge variant="outline" className="border-info/30 text-info">review-only</Badge>
+          <Badge variant="outline" className="border-info/30 text-info">BANK_ONLY review</Badge>
           <Badge variant="outline">{selectedDifficulty}</Badge>
           <Badge variant="outline">{run.items.length} item(s)</Badge>
         </div>
@@ -389,8 +393,9 @@ function ComputerReviewItem({ item, canReview, updating, onDecision }: {
   const explanation = itemExplanation(payload);
   const qlId = asText(payload?.qlId) || asText(payload?.patternId);
   const quality = analyzeItemQuality(payload);
-  const reviewOnly = asText(payload?.questionBankStatus) === 'NOT_STORED'
-    && payload?.questionBankWritable === false;
+  const bankOnly = asText(payload?.questionBankStatus) === 'READY_FOR_STORAGE'
+    && payload?.questionBankWritable === true
+    && asText(payload?.questionBankAcceptanceMode) === 'BANK_ONLY';
   const sourceControlled = asText(payload?.revisionPolicy) === 'SOURCE_GENERATOR_ONLY';
   const difficulty = asText(payload?.difficulty) || 'Unclassified';
   const difficultyDecision = asRecord(payload?.difficultyDecisionV2);
@@ -407,7 +412,7 @@ function ComputerReviewItem({ item, canReview, updating, onDecision }: {
           <div className="flex flex-wrap items-center gap-2">
             <span className="font-mono text-[10px] text-muted-foreground">Item {item.itemNumber} · {qlId || 'QL unavailable'}</span>
             <Badge variant="outline">{item.status.replace(/_/g, ' ')}</Badge>
-            {reviewOnly && <Badge variant="outline" className="border-info/30 text-info">Review only</Badge>}
+            {bankOnly && <Badge variant="outline" className="border-success/30 text-success">Bank eligible · manual</Badge>}
             {sourceControlled && <Badge variant="outline">Source controlled</Badge>}
             <Badge variant="outline">{difficulty}</Badge>
             {topology && <Badge variant="outline">{readableToken(topology)}</Badge>}
@@ -437,18 +442,18 @@ function ComputerReviewItem({ item, canReview, updating, onDecision }: {
           <p className="mt-1 whitespace-pre-wrap text-xs leading-relaxed text-muted-foreground">{explanation || 'No explanation recorded.'}</p>
           {item.retryReason && <p className="mt-2 text-xs text-warning">Review reason: {item.retryReason}</p>}
         </div>
-        <div className="flex shrink-0 flex-wrap gap-2 lg:w-36 lg:flex-col">
-          <Button size="sm" onClick={() => void onDecision(item, 'approved')} disabled={!canReview || updating || quality.blockerCount > 0}>
-            {updating ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <CheckCircle2 className="mr-1.5 h-3.5 w-3.5" />} Approve review
+        <div className="flex shrink-0 flex-wrap gap-2 lg:w-40 lg:flex-col">
+          <Button size="sm" onClick={() => void onDecision(item, 'approved')} disabled={!canReview || updating || quality.blockerCount > 0 || Boolean(item.acceptedQuestionId)}>
+            {updating ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <CheckCircle2 className="mr-1.5 h-3.5 w-3.5" />} {item.acceptedQuestionId ? 'In Question Bank' : 'Approve to Bank'}
           </Button>
-          <Button size="sm" variant="outline" onClick={() => void onDecision(item, 'needs_fix')} disabled={!canReview || updating}>
+          <Button size="sm" variant="outline" onClick={() => void onDecision(item, 'needs_fix')} disabled={!canReview || updating || Boolean(item.acceptedQuestionId)}>
             <AlertTriangle className="mr-1.5 h-3.5 w-3.5" /> Needs fix
           </Button>
-          <Button size="sm" variant="destructive" onClick={() => void onDecision(item, 'rejected')} disabled={!canReview || updating}>
+          <Button size="sm" variant="destructive" onClick={() => void onDecision(item, 'rejected')} disabled={!canReview || updating || Boolean(item.acceptedQuestionId)}>
             <XCircle className="mr-1.5 h-3.5 w-3.5" /> Reject
           </Button>
           <div className="rounded-md border bg-muted/20 p-2 text-[10px] leading-relaxed text-muted-foreground">
-            <ShieldCheck className="mb-1 h-3.5 w-3.5" /> No inline edit, regenerate, Question Bank, test, or publication action is available here.
+            <ShieldCheck className="mb-1 h-3.5 w-3.5" /> Approval may write this item to Question Bank only. Inline edit, regeneration, tests, mock tests and publication remain unavailable here.
           </div>
         </div>
       </div>
