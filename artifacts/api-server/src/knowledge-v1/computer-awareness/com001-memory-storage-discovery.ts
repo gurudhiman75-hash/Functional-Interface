@@ -269,11 +269,8 @@ export const COM001_MEMORY_STORAGE_DISCOVERY: ComputerDiscoveryCandidate[] = [
       "Which of the following statements about ROM is incorrect?",
     ],
     evidence: ["DOMAIN_HYPOTHESIS", "PYQ_REQUIRED"],
-    likelyMergeWith: [
-      "underlying relation-family QLs if statement form adds no new learner demand",
-    ],
     ownershipNotes: [
-      "statement wording alone must not create a permanent QL",
+      "statement wording alone must not create a permanent QL; it is realized through the underlying relation-family QL",
     ],
     productionState: "DISCOVERY_ONLY",
   },
