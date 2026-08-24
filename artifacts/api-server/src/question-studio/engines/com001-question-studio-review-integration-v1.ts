@@ -44,6 +44,41 @@ export const COM001_QUESTION_STUDIO_REVIEW_INTEGRATION_AUTHORITY_V1 = Object.fre
     reviewVerdict:
       "APPROVED_REVIEW_ONLY_INTEGRATION_WITH_PRODUCTION_LIFECYCLE_LOCKS" as const,
   },
+  exactReviewedAdminSurface: {
+    headSha: "ddb8e698c10473a35f2b0090f9efd02a7b4fec5f" as const,
+    computerReviewPanelBlobSha:
+      "6eaf09b18babbab3d65786e42e62226272404b6c" as const,
+    legacyCockpitIsolationBlobSha:
+      "ac6d8b9e70f815cde7da739b6924949c2627e989" as const,
+    recoveryDockBlobSha:
+      "5512d2546dfc49ca11a91d0fed087792361c4c51" as const,
+    operationsPageBlobSha:
+      "fa39e40c5a722f1a8cb05b82bdef6fbc589ed1e2" as const,
+    contentEngineWorkflowName:
+      "Validate Question Studio Content Engine Foundation V1" as const,
+    contentEngineRunNumber: 115,
+    contentEngineRunId: 32714703196,
+    contentEngineJobId: 97393368261,
+    integratedAdminWorkflowName: "Validate integrated admin panel" as const,
+    integratedAdminRunNumber: 8854,
+    integratedAdminRunId: 32714703185,
+    integratedAdminJobId: 97393368579,
+    verifiedChecks: [
+      "CANONICAL_DATABASE_FREEZE",
+      "CANONICAL_ADMIN_SURFACE",
+      "TRUTHFUL_FRONTEND_SURFACE",
+      "QUESTION_STUDIO_PRODUCTION_GATE",
+      "API_SERVER_BUILD_AND_ROUTE_BUNDLE",
+      "ADMIN_RBAC_AND_CONTENT_RULES",
+      "ADMIN_TYPESCRIPT_TYPECHECK",
+      "ADMIN_APPLICATION_TESTS",
+      "ADMIN_APPLICATION_BUILD",
+      "STUDENT_APPLICATION_BUILD",
+      "SINGLE_SITE_HOSTING_ASSEMBLY",
+    ] as const,
+    reviewVerdict:
+      "APPROVED_DEDICATED_COMPUTER_REVIEW_SURFACE_WITH_LEGACY_COCKPIT_ISOLATION" as const,
+  },
   auditCoverage: {
     explicitQlLanguageQuestions: 1080,
     explicitQuestionsPerQlPerLanguage: 40,
@@ -62,6 +97,9 @@ export const COM001_QUESTION_STUDIO_REVIEW_INTEGRATION_AUTHORITY_V1 = Object.fre
     manualFreeTextRevisionAllowed: false,
     regenerationStatus: "LOCKED_UNTIL_ENGINE_AWARE_REGENERATION" as const,
     sourceCorrectionRequiredForRegeneration: true,
+    dedicatedAdminReviewSurface: true,
+    legacyQuantCockpitIsolationRequired: true,
+    sourceControlledRecoveryRetryExcluded: true,
   },
   difficulty: {
     filterSupported: false,
@@ -82,7 +120,7 @@ export const COM001_QUESTION_STUDIO_REVIEW_INTEGRATION_AUTHORITY_V1 = Object.fre
     productionReleaseAuthorized: false,
   },
   invalidationRule:
-    "Any material change to COM-001 engine/package routing, review payload lifecycle flags, approval disposition, revision policy, regeneration lock, bound English/localization authority, permanent QL scope, or learner-facing generation requires a new integration authority version and exact-head CI proof.",
+    "Any material change to COM-001 engine/package routing, review payload lifecycle flags, approval disposition, revision policy, regeneration lock, dedicated admin review surface, legacy cockpit isolation, recovery retry isolation, bound English/localization authority, permanent QL scope, or learner-facing generation requires a new integration authority version and exact-head CI proof.",
   nextGate:
     "COM001_ADMIN_HUMAN_STUDIO_REVIEW_AND_DIFFICULTY_ROUTING_DECISION" as const,
 });
