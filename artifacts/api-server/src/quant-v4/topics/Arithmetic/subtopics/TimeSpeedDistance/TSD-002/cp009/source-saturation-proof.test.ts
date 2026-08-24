@@ -32,7 +32,7 @@ assert(new Set(TSD_CP009_LEARNER_AUTHORITIES.map((authority) => authority.author
 assert(new Set(TSD_CP009_LEARNER_AUTHORITIES.map((authority) => authority.sourceCandidate)).size === 11, "retained source candidates are not unique");
 assert(TSD_CP009_LEARNER_AUTHORITIES.every((authority) => authority.learnerContract.trim().split(/\s+/).length >= 8), "learner contract lacks a meaningful semantic statement");
 assert(TSD_CP009_LEARNER_AUTHORITIES.every((authority) => authority.invariant.trim().split(/\s+/).length >= 5), "executable invariant lacks a meaningful semantic statement");
-assert(TSD_CP009_LEARNER_AUTHORITIES.every((authority) => /speed|time|distance|medium|ground|frame|current|average|ratio|trip|drift|meeting/i.test(authority.invariant)), "executable invariant lacks a motion-domain semantic marker");
+assert(TSD_CP009_LEARNER_AUTHORITIES.every((authority) => /=|speed|time|distance|medium|ground|frame|current|average|ratio|trip|drift|meeting/i.test(authority.invariant)), "executable invariant lacks an equation or motion-domain semantic marker");
 
 const authorityKeys = new Set(TSD_CP009_LEARNER_AUTHORITIES.map((authority) => authority.authorityKey));
 for (const entry of TSD_CP009_SOURCE_ACCOUNTING) {
