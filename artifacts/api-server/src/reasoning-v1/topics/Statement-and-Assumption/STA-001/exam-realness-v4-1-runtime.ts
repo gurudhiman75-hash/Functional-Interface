@@ -156,7 +156,7 @@ function optionSemanticSets(
   correct: readonly number[],
   profile: StaV4PresentationProfile,
   seed: string,
-): readonly number[][] {
+): readonly (readonly number[])[] {
   if (profile.profileId === "BANK_2X5") {
     const ordinary = allSubsets(2);
     return shuffled([...ordinary, [-1]], `${seed}:bank-2x5-option-order`);
