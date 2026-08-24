@@ -15,7 +15,7 @@ import { finalizeSriDiscoveryQuestion } from "./discovery-runtime";
 import type { SriDiscoveryQuestion } from "./discovery-types";
 import { classificationDistractors } from "./SRI-002/surd-discovery-utils";
 
-export const SRI_SOURCE_SATURATION_OVERRIDE_IDS = new Set(["C002-F", "C007-D", "C012-B"] as const);
+export const SRI_SOURCE_SATURATION_OVERRIDE_IDS = new Set(["C002-F", "C002-G", "C007-D", "C012-B"] as const);
 
 function pow(base: number, exponent: number): bigint {
   return BigInt(base) ** BigInt(exponent);
@@ -44,8 +44,12 @@ function exactDecimal(value: Rational): string {
   return `${negative ? "-" : ""}${whole}${fraction ? `.${fraction}` : ""}`;
 }
 
+function reducedFraction(seed: string): readonly [number, number] {
+  return sriPick(`${seed}:fraction`, [[1, 2], [1, 3], [2, 3]] as const);
+}
+
 function generateC002F(seed: string): SriDiscoveryQuestion {
-  const [numerator, denominator] = sriPick(`${seed}:fraction`, [[1, 2], [1, 3], [2, 3]] as const);
+  const [numerator, denominator] = reducedFraction(seed);
   const q = sriPick(`${seed}:q`, [2, 5]);
   const p = sriPick(`${seed}:p`, [1, 3, 7, 9].filter((value) => value !== q && value % q !== 0));
   const baseValue = rational(pow(p, denominator), pow(q, denominator));
@@ -79,6 +83,43 @@ function generateC002F(seed: string): SriDiscoveryQuestion {
       answer: answer.text,
     },
     proofEvents: [proofEvent("SOLVE", "exact rational fractional-index evaluation", { base: formatRational(baseValue), exponent: `${numerator}/${denominator}` }, { answer: answer.text })],
+  });
+}
+
+function generateC002G(seed: string): SriDiscoveryQuestion {
+  const [numerator, denominator] = reducedFraction(seed);
+  const p = sriPick(`${seed}:p`, [2, 3, 5]);
+  const q = sriPick(`${seed}:q`, [2, 3, 4, 5].filter((value) => value !== p));
+  const baseValue = rational(pow(p, denominator), pow(q, denominator));
+  const solver = evaluateExactRationalPower(baseValue, rationalExponent(-numerator, denominator));
+  const positiveValue = rational(pow(p, numerator), pow(q, numerator));
+  const independent = rational(pow(q, numerator), pow(p, numerator));
+  const answer = rationalAnswer(solver);
+  const baseText = formatRational(baseValue);
+  const stem = sriPick(`${seed}:surface`, [
+    `Evaluate (${baseText})^(-${numerator}/${denominator}).`,
+    `Find the exact value of (${baseText})^(-${numerator}/${denominator}).`,
+    `Use fractional-index laws to simplify (${baseText})^(-${numerator}/${denominator}).`,
+    `Evaluate the fraction (${baseText}) raised to -${numerator}/${denominator}.`,
+  ]);
+  return finalizeSriDiscoveryQuestion({
+    packageId: "SRI-001", checkpointId: "SRI-CP-002", candidateId: "C002-G", seed,
+    state: { base: baseText, numerator: -numerator, denominator, rootNumerator: p, rootDenominator: q },
+    stem, answer,
+    canonicalSolverKey: answer.canonicalKey,
+    independentVerifierKey: `R:${rationalKey(independent)}`,
+    distractors: rationalDistractors(solver),
+    explanation: {
+      given: `The fraction ${baseText} is raised to the reduced negative fractional index -${numerator}/${denominator}.`,
+      asked: "Evaluate the expression exactly.",
+      method: "First evaluate the corresponding positive fractional power using the exact root, then take its reciprocal because the exponent is negative.",
+      working: [
+        `(${baseText})^(${numerator}/${denominator}) = ${formatRational(positiveValue)}`,
+        `Therefore (${baseText})^(-${numerator}/${denominator}) = ${formatRational(independent)}.`,
+      ],
+      answer: answer.text,
+    },
+    proofEvents: [proofEvent("SOLVE", "exact negative fractional-index evaluation on a rational base", { base: baseText, exponent: `-${numerator}/${denominator}` }, { answer: answer.text })],
   });
 }
 
@@ -160,6 +201,7 @@ function generateC012B(seed: string): SriDiscoveryQuestion {
 
 export function generateSriSourceSaturationObjectOverride(candidateId: string, seed: string): SriDiscoveryQuestion {
   if (candidateId === "C002-F") return generateC002F(seed);
+  if (candidateId === "C002-G") return generateC002G(seed);
   if (candidateId === "C007-D") return generateC007D(seed);
   if (candidateId === "C012-B") return generateC012B(seed);
   throw new Error(`Unknown SRI saturation object override: ${candidateId}`);
