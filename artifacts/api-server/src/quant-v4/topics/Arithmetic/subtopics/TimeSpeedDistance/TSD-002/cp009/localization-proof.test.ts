@@ -64,10 +64,24 @@ for (const question of TSD_CP009_RENDERED_PUNJABI_QUESTIONS) {
   assert(!match, `Punjabi/${question.familyId}: Devanagari leakage '${match?.[0] ?? ""}' U+${match ? match[0].codePointAt(0)?.toString(16).toUpperCase() : ""}`);
 }
 
+function hindi111AssignmentIsExplicit(stem: string): boolean {
+  const bothEndsNamed = /ऊपरी सिरे से|ऊपरी सिरे वाली/.test(stem) && /निचले सिरे से|निचले सिरे वाली/.test(stem);
+  const directlyAssigned = (stem.match(/गति/g)?.length ?? 0) >= 3;
+  const respectivelyAssigned = /क्रमशः/.test(stem) && (stem.match(/गति/g)?.length ?? 0) >= 2;
+  return bothEndsNamed && (directlyAssigned || respectivelyAssigned);
+}
+
+function punjabi111AssignmentIsExplicit(stem: string): boolean {
+  const bothEndsNamed = /ਉੱਪਰਲੇ ਸਿਰੇ ਤੋਂ|ਉੱਪਰਲੇ ਸਿਰੇ ਵਾਲੀ/.test(stem) && /ਹੇਠਲੇ ਸਿਰੇ ਤੋਂ|ਹੇਠਲੇ ਸਿਰੇ ਵਾਲੀ/.test(stem);
+  const directlyAssigned = (stem.match(/ਗਤੀ/g)?.length ?? 0) >= 3;
+  const respectivelyAssigned = /ਕ੍ਰਮਵਾਰ/.test(stem) && (stem.match(/ਗਤੀ/g)?.length ?? 0) >= 2;
+  return bothEndsNamed && (directlyAssigned || respectivelyAssigned);
+}
+
 const hindi111 = TSD_CP009_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-111");
-assert(hindi111.every((question) => /ऊपरी सिरे से|ऊपरी सिरे वाली/.test(question.stem) && /निचले सिरे से|निचले सिरे वाली/.test(question.stem) && (question.stem.match(/गति/g)?.length ?? 0) >= 3), "Hindi QL111 must explicitly assign each speed to its starting end");
+assert(hindi111.every((question) => hindi111AssignmentIsExplicit(question.stem)), "Hindi QL111 must explicitly assign each speed to its starting end");
 const punjabi111 = TSD_CP009_RENDERED_PUNJABI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-111");
-assert(punjabi111.every((question) => /ਉੱਪਰਲੇ ਸਿਰੇ ਤੋਂ|ਉੱਪਰਲੇ ਸਿਰੇ ਵਾਲੀ/.test(question.stem) && /ਹੇਠਲੇ ਸਿਰੇ ਤੋਂ|ਹੇਠਲੇ ਸਿਰੇ ਵਾਲੀ/.test(question.stem) && (question.stem.match(/ਗਤੀ/g)?.length ?? 0) >= 3), "Punjabi QL111 must explicitly assign each speed to its starting end");
+assert(punjabi111.every((question) => punjabi111AssignmentIsExplicit(question.stem)), "Punjabi QL111 must explicitly assign each speed to its starting end");
 
 assert(TSD_CP009_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-110").every((question) => /समान|एक ही/.test(question.stem)), "Hindi QL110 equal-time invariant not explicit");
 assert(TSD_CP009_RENDERED_PUNJABI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-110").every((question) => /ਇੱਕੋ/.test(question.stem)), "Punjabi QL110 equal-time invariant not explicit");
