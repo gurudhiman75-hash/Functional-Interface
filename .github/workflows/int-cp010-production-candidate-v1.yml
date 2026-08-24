@@ -1,4 +1,4 @@
-name: Validate INT-CP-010 Production Candidate V1
+name: Validate INT-CP-010 Production Candidate V2 Realism
 
 on:
   pull_request:
@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 jobs:
-  validate-int-cp010-production-candidate-v1:
+  validate-int-cp010-production-candidate-v2-realism:
     runs-on: ubuntu-24.04
     steps:
       - name: Check out exact branch head
@@ -34,26 +34,26 @@ jobs:
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-two-authority-proposal-v1-audit.ts | tee int-cp010-two-authority-regression.log
           grep -q 'PASS_INT_CP010_TWO_AUTHORITY_PROPOSAL_V1_AUDIT' int-cp010-two-authority-regression.log
-      - name: Run CP010 production authoring candidate stress audit
+      - name: Run CP010 production candidate V2 realism stress audit
         run: |
           set -o pipefail
-          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-production-candidate-v1-audit.ts | tee int-cp010-production-candidate-v1.log
-          grep -q 'PASS_INT_CP010_PRODUCTION_CANDIDATE_V1_AUDIT' int-cp010-production-candidate-v1.log
-      - name: Export CP010 English production candidate review pack
-        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-production-candidate-v1-review-export.ts > INT-CP-010-PRODUCTION-CANDIDATE-EN-REVIEW.md
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-production-candidate-v2-realism-audit.ts | tee int-cp010-production-candidate-v2-realism.log
+          grep -q 'PASS_INT_CP010_PRODUCTION_CANDIDATE_V2_REALISM_AUDIT' int-cp010-production-candidate-v2-realism.log
+      - name: Export CP010 V2 English production candidate review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-production-candidate-v2-realism-review-export.ts > INT-CP-010-PRODUCTION-CANDIDATE-V2-EN-REVIEW.md
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Record exact validation head
         run: |
-          echo "validated_head=$(git rev-parse HEAD)" | tee int-cp010-production-candidate-v1-head.log
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-cp010-production-candidate-v2-head.log
           test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
-      - name: Upload CP010 production candidate evidence
+      - name: Upload CP010 production candidate V2 evidence
         uses: actions/upload-artifact@v4
         with:
-          name: int-cp010-production-candidate-v1
+          name: int-cp010-production-candidate-v2-realism
           path: |
             int-cp010-two-authority-regression.log
-            int-cp010-production-candidate-v1.log
-            int-cp010-production-candidate-v1-head.log
-            INT-CP-010-PRODUCTION-CANDIDATE-EN-REVIEW.md
+            int-cp010-production-candidate-v2-realism.log
+            int-cp010-production-candidate-v2-head.log
+            INT-CP-010-PRODUCTION-CANDIDATE-V2-EN-REVIEW.md
           retention-days: 30
