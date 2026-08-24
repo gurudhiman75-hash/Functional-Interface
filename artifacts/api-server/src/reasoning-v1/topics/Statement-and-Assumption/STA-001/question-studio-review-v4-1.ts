@@ -23,6 +23,12 @@ export const STA_001_QUESTION_STUDIO_DIFFICULTIES = STA_V4_DIFFICULTIES;
 export const STA_001_QUESTION_STUDIO_REVIEW_STATUS = "EXAM_REALNESS_V4_1_REVIEW_CANDIDATE" as const;
 export const STA_001_QUESTION_STUDIO_RUNTIME_MODE = "STA-001-EXAM-REALNESS-V4-1" as const;
 export const STA_001_QUESTION_STUDIO_RELEASE_FREEZE = "STA-001-V4-1-REVIEW-CANDIDATE" as const;
+export const STA_001_HISTORICAL_PERMANENT_QL_IDS = Object.freeze([
+  "STA-QL-001",
+  "STA-QL-002",
+  "STA-QL-003",
+  "STA-QL-004",
+] as const);
 
 export type StaQuestionStudioLanguage = StaV4Language;
 export type StaQuestionStudioDifficulty = StaV4Difficulty;
@@ -31,6 +37,10 @@ export type StaQuestionStudioCheckpointId = StaV4CheckpointId;
 export type StaQuestionStudioProfileId = StaV4ProfileId;
 
 const LOCALE_BY_LANGUAGE: Readonly<Record<StaV4Language, StaV4Locale>> = Object.freeze({ en: "en-IN", hi: "hi-IN", pa: "pa-IN" });
+
+function historicalPermanentQlId(qlId: StaV4QlId): StaV4QlId | null {
+  return (STA_001_HISTORICAL_PERMANENT_QL_IDS as readonly string[]).includes(qlId) ? qlId : null;
+}
 
 export const STA_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   packageId: "STA-001" as const,
@@ -46,14 +56,20 @@ export const STA_001_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
     { checkpointId: "STA-CP-003" as const, title: "Advertisement, appeal and audience-response assumptions" },
     { checkpointId: "STA-CP-004" as const, title: "Comparison, measurement and evidence-validity assumptions" },
   ]),
-  permanentQlCount: 6 as const,
-  permanentQlIds: STA_V4_QL_IDS,
-  permanentQlAllocationStatus: "V4_1_REVIEW_CANDIDATE" as const,
+  permanentQlCount: 4 as const,
+  permanentQlIds: STA_001_HISTORICAL_PERMANENT_QL_IDS,
+  historicalPermanentQlCount: 4 as const,
+  historicalPermanentQlIds: STA_001_HISTORICAL_PERMANENT_QL_IDS,
+  candidateQlCount: 6 as const,
+  candidateQlIds: STA_V4_QL_IDS,
+  permanentQlAllocationStatus: "HISTORICAL_FOUR_QL_FREEZE_PRESERVED" as const,
+  candidateQlAllocationStatus: "V4_1_REVIEW_CANDIDATE" as const,
   qls: Object.freeze(STA_V4_QL_IDS.map((qlId) => Object.freeze({
     qlId,
     checkpointId: STA_V4_CHECKPOINT_BY_QL[qlId],
     semanticAuthority: STA_V4_SEMANTIC_AUTHORITY[qlId],
     status: "V4_1_REVIEW_CANDIDATE" as const,
+    historicallyPermanent: historicalPermanentQlId(qlId) !== null,
   }))),
   presentationProfiles: STA_V4_PRESENTATION_PROFILES,
   supportedLanguages: STA_V4_LANGUAGES,
@@ -87,7 +103,8 @@ export interface StaQuestionStudioReviewQuestion {
   readonly packageId: "STA-001";
   readonly chapterId: "REAS-STA";
   readonly checkpointId: StaV4CheckpointId;
-  readonly permanentQlId: StaV4QlId;
+  readonly permanentQlId: StaV4QlId | null;
+  readonly candidateQlId: StaV4QlId;
   readonly qlId: StaV4QlId;
   readonly presentationProfile: StaV4ProfileId;
   readonly patternId: StaV4ProfileId;
@@ -156,7 +173,8 @@ function toReviewQuestion(question: StaV4Question): StaQuestionStudioReviewQuest
     packageId: "STA-001",
     chapterId: "REAS-STA",
     checkpointId: question.checkpointId,
-    permanentQlId: question.qlId,
+    permanentQlId: historicalPermanentQlId(question.qlId),
+    candidateQlId: question.qlId,
     qlId: question.qlId,
     presentationProfile: question.presentationProfile,
     patternId: question.presentationProfile,
