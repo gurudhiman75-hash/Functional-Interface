@@ -42,7 +42,7 @@ export function equalsRationalExponent(a: RationalExponent, b: RationalExponent)
 function safeIndex(value: bigint): number {
   if (value > BigInt(Number.MAX_SAFE_INTEGER)) throw new Error("Root index exceeds safe executable range");
   const index = Number(value);
-  if (!Number.isInteger(index) || index < 1) throw new Error("Root index must be a positive integer");
+  if (!Number.isInteger(index) || index < 2) throw new Error("Fractional root index must be an integer >= 2");
   return index;
 }
 
@@ -62,6 +62,10 @@ export function evaluateExactRationalPower(base: Rational, exponent: RationalExp
   if (base.numerator === 0n && normalized.numerator < 0n) throw new Error("Zero cannot be raised to a negative exponent");
   if (base.numerator < 0n && normalized.denominator % 2n === 0n) {
     throw new Error("Negative base with an even root denominator is not real");
+  }
+
+  if (normalized.denominator === 1n) {
+    return powRationalInteger(base, safeIntegerExponent(normalized.numerator));
   }
 
   const index = safeIndex(normalized.denominator);
