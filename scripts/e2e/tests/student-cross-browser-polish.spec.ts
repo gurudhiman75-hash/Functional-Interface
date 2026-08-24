@@ -38,6 +38,7 @@ async function installFixtures(page: Page) {
     if (path === "/tests") return fulfillJson(route, tests);
     if (path === "/published-tests") return fulfillJson(route, { tests, generatedAt: "2026-08-22T06:45:00.000Z" });
     if (path === "/test-series") return fulfillJson(route, { series: [], generatedAt: "2026-08-22T06:45:00.000Z" });
+    if (path === "/daily-challenge") return fulfillJson(route, {});
     return fulfillJson(route, []);
   });
 }
@@ -55,7 +56,8 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
 
-    await expect(page.getByRole("heading", { name: /Practice smarter\.\s*Score with confidence\./i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "What are you preparing for?" })).toBeVisible();
+    await expect(page.getByTestId("home-exam-logo-row")).toBeVisible();
     const header = page.getByTestId("public-header");
     await expect(header).toBeVisible();
     await expect(header).toHaveCSS("position", "sticky");
