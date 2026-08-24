@@ -47,6 +47,7 @@ const COM001_PACKAGE_ID = 'COM-001';
 const COM001_ENGINE_ID = 'knowledge-v1';
 const COM001_RUNTIME_MODE = 'review-only';
 const MIXED_QL = 'mixed';
+const MIXED_DIFFICULTY = 'Mixed';
 
 const QLS = [
   ['COM-001-QL-001', 'Memory Volatility & Data Retention'],
@@ -66,8 +67,33 @@ const LANGUAGE_LABELS: Record<string, string> = {
   pa: 'Punjabi',
 };
 
+const QL_DIFFICULTIES: Record<string, readonly string[]> = {
+  'COM-001-QL-001': ['Easy', 'Medium'],
+  'COM-001-QL-002': ['Easy', 'Medium'],
+  'COM-001-QL-003': ['Easy', 'Medium'],
+  'COM-001-QL-004': ['Easy', 'Medium'],
+  'COM-001-QL-005': ['Easy', 'Medium'],
+  'COM-001-QL-006': ['Medium'],
+  'COM-001-QL-007': ['Hard'],
+  'COM-001-QL-008': ['Hard'],
+  'COM-001-QL-009': ['Easy', 'Medium'],
+};
+
 function asText(value: unknown) {
   return typeof value === 'string' ? value.trim() : '';
+}
+
+function asRecord(value: unknown): Record<string, unknown> | null {
+  return value && typeof value === 'object' && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : null;
+}
+
+function readableToken(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
 function isCom001Run(run: QuestionStudioRun) {
@@ -77,6 +103,11 @@ function isCom001Run(run: QuestionStudioRun) {
 
 function qlLabel(qlId: string) {
   return QLS.find(([id]) => id === qlId)?.[1] ?? qlId;
+}
+
+function difficultiesForQl(qlId: string) {
+  if (qlId === MIXED_QL) return ['Easy', 'Medium', 'Hard'];
+  return [...(QL_DIFFICULTIES[qlId] ?? [])];
 }
 
 export function QuestionStudioComputerAwarenessReviewPanel() {
@@ -91,6 +122,7 @@ export function QuestionStudioComputerAwarenessReviewPanel() {
   const [exam, setExam] = useState(EXAMS[0]?.code ?? 'SSC_CGL');
   const [qlId, setQlId] = useState<string>(MIXED_QL);
   const [language, setLanguage] = useState('en');
+  const [difficulty, setDifficulty] = useState(MIXED_DIFFICULTY);
   const [count, setCount] = useState(10);
   const [seed, setSeed] = useState('');
   const [reviewReason, setReviewReason] = useState('');
@@ -122,6 +154,13 @@ export function QuestionStudioComputerAwarenessReviewPanel() {
   }, [refresh]);
 
   const recentRuns = useMemo(() => runs.slice(0, 8), [runs]);
+  const availableDifficulties = useMemo(() => difficultiesForQl(qlId), [qlId]);
+
+  useEffect(() => {
+    if (difficulty !== MIXED_DIFFICULTY && !availableDifficulties.includes(difficulty)) {
+      setDifficulty(MIXED_DIFFICULTY);
+    }
+  }, [availableDifficulties, difficulty]);
 
   const generate = async () => {
     if (!available) {
@@ -135,7 +174,7 @@ export function QuestionStudioComputerAwarenessReviewPanel() {
         engineId: COM001_ENGINE_ID,
         exam: selectedExam?.name ?? exam,
         subject: 'Computer Awareness',
-        difficulty: 'Medium',
+        difficulty,
         count: Math.max(1, Math.min(50, count)),
         packageId: COM001_PACKAGE_ID,
         patternId: qlId === MIXED_QL ? undefined : qlId,
@@ -147,7 +186,7 @@ export function QuestionStudioComputerAwarenessReviewPanel() {
       });
       showToast.success(
         'COM-001 review batch created',
-        `${result.publicCode} produced ${result.itemCount} ${LANGUAGE_LABELS[language] ?? language} review item(s).`,
+        `${result.publicCode} produced ${result.itemCount} ${LANGUAGE_LABELS[language] ?? language} ${difficulty} review item(s).`,
       );
       await refresh();
     } catch (caught) {
@@ -201,18 +240,18 @@ export function QuestionStudioComputerAwarenessReviewPanel() {
               <Sparkles className="h-4 w-4 text-info" /> Computer Awareness · COM-001 review
             </CardTitle>
             <p className="mt-1 text-xs text-muted-foreground">
-              knowledge-v1 · Memory & Storage · frozen English/Hindi/Punjabi authority
+              knowledge-v1 · Memory & Storage · human-approved V2 English/Hindi/Punjabi authority
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline" className="border-info/30 text-info">Review only</Badge>
             <Badge variant="outline">9 permanent QLs</Badge>
-            <Badge variant="outline">No difficulty filter</Badge>
+            <Badge variant="outline">Topology difficulty filter</Badge>
             <Badge variant="outline" className="border-warning/30 text-warning">Question Bank locked</Badge>
           </div>
         </div>
         <div className="rounded-lg border border-info/20 bg-info/5 p-3 text-xs text-muted-foreground">
-          Approval records editorial acceptance only. Inline revision and regeneration are intentionally disabled for this source-controlled package; mark an item <strong className="text-foreground">Needs fix</strong>, correct the canonical fact/generator/localization source, then create a fresh review batch.
+          Difficulty here is a review-only topology classification layered over frozen V2 questions; it does not authorize a production difficulty claim. Approval records editorial acceptance only. Inline revision and regeneration remain disabled; mark an item <strong className="text-foreground">Needs fix</strong>, correct the canonical fact/generator/localization source, then create a fresh review batch.
         </div>
       </CardHeader>
 
@@ -240,7 +279,13 @@ export function QuestionStudioComputerAwarenessReviewPanel() {
             </Select>
           </Field>
           <Field label="Difficulty">
-            <Input value="Not applied in review pilot" disabled />
+            <Select value={difficulty} onValueChange={setDifficulty}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value={MIXED_DIFFICULTY}>Mixed / no filter</SelectItem>
+                {availableDifficulties.map((entry) => <SelectItem key={entry} value={entry}>{entry}</SelectItem>)}
+              </SelectContent>
+            </Select>
           </Field>
           <Field label="Question count">
             <Input type="number" min={1} max={50} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} />
@@ -268,7 +313,7 @@ export function QuestionStudioComputerAwarenessReviewPanel() {
               <p className="text-xs text-muted-foreground">These runs are isolated from the legacy Quant/Reasoning cockpit.</p>
             </div>
             <Field label="Reason for Needs fix / Reject" className="w-full md:max-w-lg">
-              <Textarea value={reviewReason} onChange={(event) => setReviewReason(event.target.value)} className="min-h-16" placeholder="Describe the factual, source, wording, localization, distractor, or explanation issue" />
+              <Textarea value={reviewReason} onChange={(event) => setReviewReason(event.target.value)} className="min-h-16" placeholder="Describe the factual, source, wording, localization, distractor, explanation, or difficulty-topology issue" />
             </Field>
           </div>
 
@@ -299,18 +344,20 @@ function ComputerRun({ run, canReview, updatingItemId, onDecision }: {
 }) {
   const language = asText(run.requestSnapshot?.language) || 'en';
   const selectedQl = asText(run.requestSnapshot?.patternId) || 'Mixed QLs';
+  const selectedDifficulty = asText(run.requestSnapshot?.difficulty) || MIXED_DIFFICULTY;
   return (
     <div className="rounded-xl border">
       <div className="flex flex-col justify-between gap-2 border-b bg-muted/20 px-4 py-3 md:flex-row md:items-center">
         <div>
           <p className="font-mono text-xs font-bold">{run.publicCode}</p>
           <p className="mt-1 text-[11px] text-muted-foreground">
-            {asText(run.requestSnapshot?.exam) || 'Exam not recorded'} · {LANGUAGE_LABELS[language] ?? language} · {selectedQl === 'Mixed QLs' ? selectedQl : `${selectedQl} · ${qlLabel(selectedQl)}`}
+            {asText(run.requestSnapshot?.exam) || 'Exam not recorded'} · {LANGUAGE_LABELS[language] ?? language} · {selectedQl === 'Mixed QLs' ? selectedQl : `${selectedQl} · ${qlLabel(selectedQl)}`} · Difficulty: {selectedDifficulty}
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Badge variant="outline">knowledge-v1</Badge>
           <Badge variant="outline" className="border-info/30 text-info">review-only</Badge>
+          <Badge variant="outline">{selectedDifficulty}</Badge>
           <Badge variant="outline">{run.items.length} item(s)</Badge>
         </div>
       </div>
@@ -345,6 +392,13 @@ function ComputerReviewItem({ item, canReview, updating, onDecision }: {
   const reviewOnly = asText(payload?.questionBankStatus) === 'NOT_STORED'
     && payload?.questionBankWritable === false;
   const sourceControlled = asText(payload?.revisionPolicy) === 'SOURCE_GENERATOR_ONLY';
+  const difficulty = asText(payload?.difficulty) || 'Unclassified';
+  const difficultyDecision = asRecord(payload?.difficultyDecisionV2);
+  const topology = asText(difficultyDecision?.topology);
+  const rationale = asText(difficultyDecision?.rationale);
+  const reviewV2Mode = asText(payload?.reviewV2Mode);
+  const relationalSurfaceMode = asText(payload?.relationalSurfaceMode);
+  const capacityConvention = asText(payload?.capacityConvention);
 
   return (
     <div className="p-4">
@@ -355,10 +409,22 @@ function ComputerReviewItem({ item, canReview, updating, onDecision }: {
             <Badge variant="outline">{item.status.replace(/_/g, ' ')}</Badge>
             {reviewOnly && <Badge variant="outline" className="border-info/30 text-info">Review only</Badge>}
             {sourceControlled && <Badge variant="outline">Source controlled</Badge>}
+            <Badge variant="outline">{difficulty}</Badge>
+            {topology && <Badge variant="outline">{readableToken(topology)}</Badge>}
             <Badge variant="outline" className={quality.blockerCount ? 'border-destructive/30 text-destructive' : 'border-success/30 text-success'}>
               {quality.blockerCount ? `${quality.blockerCount} blocker(s)` : `Quality ${quality.score}`}
             </Badge>
           </div>
+          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[10px] text-muted-foreground">
+            {reviewV2Mode && <span>V2 mode: <strong className="text-foreground">{readableToken(reviewV2Mode)}</strong></span>}
+            {relationalSurfaceMode && <span>Surface: <strong className="text-foreground">{readableToken(relationalSurfaceMode)}</strong></span>}
+            {capacityConvention && <span>Capacity convention: <strong className="text-foreground">{readableToken(capacityConvention)}</strong></span>}
+          </div>
+          {rationale && (
+            <div className="mt-2 rounded-md border bg-muted/20 px-3 py-2 text-[11px] leading-relaxed text-muted-foreground">
+              <strong className="text-foreground">Difficulty rationale:</strong> {rationale}
+            </div>
+          )}
           <p className="mt-2 text-sm leading-relaxed">{stem}</p>
           <div className="mt-3 grid gap-2 sm:grid-cols-2">
             {options.map((option, index) => (
