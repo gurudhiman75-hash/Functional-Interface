@@ -1,8 +1,30 @@
-import { sriBucket } from "../../../../shared/surds-indices";
-import type { SriCandidateAnswer, SriCandidateOption, SriDiscoveryQuestion } from "./discovery-types";
+import { proofEvent, sriBucket, type SriProofEvent } from "../../../../shared/surds-indices";
+import type {
+  SriCandidateAnswer,
+  SriCandidateOption,
+  SriDiscoveryQuestion,
+  SriHumanExplanation,
+  SriCheckpointId,
+} from "./discovery-types";
 
 export interface SriDistractor extends SriCandidateAnswer {
   readonly misconceptionId: string;
+}
+
+export interface FinalizeSriDiscoveryInput {
+  readonly packageId: "SRI-001" | "SRI-002";
+  readonly checkpointId: SriCheckpointId;
+  readonly candidateId: string;
+  readonly seed: string;
+  readonly state: Readonly<Record<string, string | number | boolean>>;
+  readonly stem: string;
+  readonly answer: SriCandidateAnswer;
+  readonly canonicalSolverKey: string;
+  readonly independentVerifierKey: string;
+  readonly distractors: readonly SriDistractor[];
+  readonly explanation: SriHumanExplanation;
+  readonly proofEvents?: readonly SriProofEvent[];
+  readonly domainValid?: boolean;
 }
 
 export function buildSriOptions(
@@ -27,6 +49,51 @@ export function buildSriOptions(
     options: rotated as SriDiscoveryQuestion["options"],
     correctIndex: correctIndex as 0 | 1 | 2 | 3,
   };
+}
+
+export function finalizeSriDiscoveryQuestion(input: FinalizeSriDiscoveryInput): SriDiscoveryQuestion {
+  const { options, correctIndex } = buildSriOptions(input.seed, input.answer, input.distractors);
+  const solverVerifierAgree = input.canonicalSolverKey === input.independentVerifierKey;
+  const exactlyOneCorrectOption = options.filter((option) => option.canonicalKey === input.answer.canonicalKey).length === 1;
+  const domainValid = input.domainValid ?? true;
+  const proofEvents = [
+    ...(input.proofEvents ?? []),
+    proofEvent(
+      "INDEPENDENT_VERIFY",
+      "canonical solver must agree with materially independent verifier",
+      { canonicalSolverKey: input.canonicalSolverKey },
+      { independentVerifierKey: input.independentVerifierKey, agree: String(solverVerifierAgree) },
+    ),
+  ];
+
+  const question: SriDiscoveryQuestion = {
+    status: "PROVISIONAL_DISCOVERY",
+    packageId: input.packageId,
+    checkpointId: input.checkpointId,
+    candidateId: input.candidateId,
+    seed: input.seed,
+    state: input.state,
+    stem: input.stem,
+    answer: input.answer,
+    options,
+    correctIndex,
+    explanation: input.explanation,
+    proofEvents,
+    verification: {
+      canonicalSolverKey: input.canonicalSolverKey,
+      independentVerifierKey: input.independentVerifierKey,
+      solverVerifierAgree,
+      exactlyOneCorrectOption,
+      deterministic: true,
+      domainValid,
+    },
+  };
+
+  const failures = validateSriDiscoveryQuestion(question);
+  if (failures.length > 0) {
+    throw new Error(`Invalid SRI discovery question ${input.candidateId}: ${failures.join(" | ")}`);
+  }
+  return question;
 }
 
 export function validateSriDiscoveryQuestion(question: SriDiscoveryQuestion): string[] {
