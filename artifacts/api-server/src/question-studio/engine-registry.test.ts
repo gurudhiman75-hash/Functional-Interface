@@ -8,14 +8,10 @@ import {
 } from "./engine-registry";
 
 const engines = listQuestionStudioEngines();
-assert.deepEqual(engines, ["quant-v4"]);
+assert.deepEqual(engines, ["quant-v4", "knowledge-v1"]);
 
 const packages = listQuestionStudioPackages();
 assert.equal(packages.length > 0, true);
-assert.equal(
-  packages.every((pkg) => pkg.engineId === "quant-v4"),
-  true,
-);
 assert.equal(
   packages.every((pkg) => pkg.packageId.length > 0),
   true,
@@ -25,9 +21,10 @@ assert.equal(
   true,
 );
 
-const firstPackage = packages[0]!;
+const quantPackage = packages.find((pkg) => pkg.engineId === "quant-v4");
+assert.ok(quantPackage);
 assert.equal(
-  resolveQuestionStudioEngine({ packageId: firstPackage.packageId }).engineId,
+  resolveQuestionStudioEngine({ packageId: quantPackage.packageId }).engineId,
   "quant-v4",
 );
 assert.equal(
@@ -36,7 +33,20 @@ assert.equal(
 );
 assert.equal(getQuestionStudioEngine("quant-v4").engineId, "quant-v4");
 
+const com001 = packages.find((pkg) => pkg.packageId === "COM-001");
+assert.ok(com001);
+assert.equal(com001.engineId, "knowledge-v1");
+assert.equal(com001.enabled, true);
+assert.deepEqual(com001.cpIds, ["COM-001-CP-001"]);
+assert.deepEqual(com001.supportedLanguages, ["en", "hi", "pa"]);
+assert.equal(com001.runtimeMode, "review-only");
+assert.equal(com001.questionBankStatus, "LOCKED_NOT_WRITABLE");
+assert.equal(com001.testEligibility, "INELIGIBLE_REVIEW_ONLY");
+assert.equal(com001.publiclyPublishable, false);
+assert.equal(resolveQuestionStudioEngine({ packageId: "COM-001" }).engineId, "knowledge-v1");
+assert.equal(getQuestionStudioEngine("knowledge-v1").engineId, "knowledge-v1");
+
 assert.throws(
-  () => getQuestionStudioEngine("knowledge-v1"),
+  () => getQuestionStudioEngine("language-v1"),
   /not registered/,
 );
