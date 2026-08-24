@@ -1,0 +1,78 @@
+name: Validate STA-001 Exam Realness V4
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-*
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/chapter-reopen-v4-*
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-review-v4.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-review.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-payload.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-integration.test.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioStatementAssumptionReviewPanel.tsx
+      - .github/workflows/sta-001-exam-realness-v4.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-sta-001-exam-realness-v4-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  v4-exam-realness-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for STA package
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/reasoning-v1/topics/Statement-and-Assumption/STA-001 -name '*.ts' -print)
+
+      - name: Replay historical immutable freezes
+        run: |
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-freeze-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-freeze-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql002-freeze-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql003-freeze-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-freeze-proof.test.ts
+
+      - name: Prove V4 chapter reopening governance
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/chapter-reopen-v4-proof.test.ts
+
+      - name: Prove V4 anti-cue, scale and tri-language semantic identity
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-proof.test.ts
+
+      - name: Prove V4 shared Question Studio integration
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-integration.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build
