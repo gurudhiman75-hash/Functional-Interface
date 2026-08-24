@@ -1,4 +1,5 @@
 import { strict as assert } from "node:assert";
+import { SRI_CHAPTER_MANIFEST, assertSriReleaseLocks } from "../chapter-manifest";
 import { validateSriDiscoveryQuestion } from "../discovery-runtime";
 import {
   SRI_PHASE1_POWER_CANDIDATES,
@@ -13,10 +14,21 @@ assert.equal(SRI_PHASE1_POWER_CANDIDATES.length, EXPECTED_CANDIDATES, "Phase 1 m
 assert.equal(new Set(SRI_PHASE1_POWER_CANDIDATES.map((item) => item.candidateId)).size, EXPECTED_CANDIDATES, "Candidate IDs must be unique");
 assert.equal(SRI_001_MANIFEST.permanentQlCount, 0, "Phase 1 discovery must not allocate permanent QLs");
 assert.equal(SRI_001_MANIFEST.frozenSolveModeCount, 0, "Phase 1 discovery must not freeze solve modes");
-assert.equal(SRI_001_MANIFEST.lifecycle.questionStudioEnabled, false);
-assert.equal(SRI_001_MANIFEST.lifecycle.questionBankWritesEnabled, false);
-assert.equal(SRI_001_MANIFEST.lifecycle.testEligibilityEnabled, false);
-assert.equal(SRI_001_MANIFEST.lifecycle.publicPublicationEnabled, false);
+assert.equal(SRI_001_MANIFEST.provisionalCandidateCount, EXPECTED_CANDIDATES);
+assert.deepEqual(SRI_001_MANIFEST.activeExecutableDiscoveryCheckpoints, ["SRI-CP-001", "SRI-CP-002", "SRI-CP-003"]);
+assert.equal(SRI_001_MANIFEST.downstreamEligibility.questionStudio, false);
+assert.equal(SRI_001_MANIFEST.downstreamEligibility.questionBank, false);
+assert.equal(SRI_001_MANIFEST.downstreamEligibility.tests, false);
+assert.equal(SRI_001_MANIFEST.downstreamEligibility.public, false);
+assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 0);
+assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 0);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.discoveryOpen, true);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionStudioDiscoverable, false);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionStudioGenerationEnabled, false);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionBankWritesEnabled, false);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.testEligibilityEnabled, false);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.publicPublicationEnabled, false);
+assertSriReleaseLocks();
 
 const expectedCheckpointCounts = new Map([
   ["SRI-CP-001", 8],
