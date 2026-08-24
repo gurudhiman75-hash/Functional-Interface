@@ -15,10 +15,16 @@ import type {
   QuestionStudioLanguage,
   QuestionStudioPackageDefinition,
 } from "../engine-types";
+import {
+  COM001_QUESTION_BANK_ACCEPTANCE_AUTHORITY_ID,
+  COM001_QUESTION_BANK_ACCEPTANCE_MODE,
+  COM001_QUESTION_BANK_READY_STATUS,
+  COM001_QUESTION_BANK_TEST_ELIGIBILITY,
+} from "./com001-question-bank-acceptance-contract-v1";
 
 export const COM001_QUESTION_STUDIO_PACKAGE_ID = "COM-001" as const;
 export const COM001_QUESTION_STUDIO_RUNTIME_MODE = "review-only" as const;
-export const COM001_QUESTION_BANK_STATUS = "NOT_STORED" as const;
+export const COM001_QUESTION_BANK_STATUS = COM001_QUESTION_BANK_READY_STATUS;
 export const COM001_REVISION_POLICY = "SOURCE_GENERATOR_ONLY" as const;
 export const COM001_REVIEW_CONTENT_AUTHORITY_VERSION = "V2" as const;
 
@@ -38,23 +44,24 @@ const qlDifficultySupport: Record<string, readonly Com001DifficultyV2[]> = {
   "COM-001-QL-009": ["Easy", "Medium"],
 };
 
-export const COM001_REVIEW_ONLY_PACKAGE: QuestionStudioPackageDefinition = {
+export const COM001_BANK_ONLY_PACKAGE: QuestionStudioPackageDefinition = {
   engineId: "knowledge-v1",
   packageId: COM001_QUESTION_STUDIO_PACKAGE_ID,
   subject: "Computer Awareness",
   topic: "Computer Awareness",
   subtopic: "Memory & Storage",
-  label: "Computer Awareness · Memory & Storage (Review Only · V2)",
+  label: "Computer Awareness · Memory & Storage (Review + Question Bank · V2)",
   enabled: true,
   cpIds: ["COM-001-CP-001"],
   supportedLanguages,
   runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
   supportedRuntimeModes: [COM001_QUESTION_STUDIO_RUNTIME_MODE],
   questionBankStatus: COM001_QUESTION_BANK_STATUS,
-  testEligibility: "INELIGIBLE_REVIEW_ONLY",
+  testEligibility: COM001_QUESTION_BANK_TEST_ELIGIBILITY,
   publiclyPublishable: false,
   metadata: {
-    reviewOnly: true,
+    reviewOnly: false,
+    reviewSurfaceRequired: true,
     contentAuthorityVersion: COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
     humanReviewApproved: true,
     permanentQlIds: qlIds,
@@ -65,12 +72,18 @@ export const COM001_REVIEW_ONLY_PACKAGE: QuestionStudioPackageDefinition = {
     difficultyClassifierVersion: COM001_DIFFICULTY_CLASSIFIER_VERSION_V2,
     productionDifficultyClaimsAuthorized: false,
     reviewRunPersistenceAllowed: true,
-    canonicalQuestionPersistenceAllowed: false,
+    canonicalQuestionPersistenceAllowed: true,
+    manualApprovalRequired: true,
     questionBankStatus: COM001_QUESTION_BANK_STATUS,
-    questionBankWritable: false,
+    questionBankWritable: true,
+    questionBankAcceptanceMode: COM001_QUESTION_BANK_ACCEPTANCE_MODE,
+    questionBankAcceptanceAuthority: COM001_QUESTION_BANK_ACCEPTANCE_AUTHORITY_ID,
+    testEligibility: COM001_QUESTION_BANK_TEST_ELIGIBILITY,
     testEligible: false,
+    mockTestEligible: false,
     publiclyPublishable: false,
     automaticStudentPublication: false,
+    productionReleaseAuthorized: false,
     englishFreezeAuthorityId: COM001_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
     englishCombinedFingerprint:
       COM001_ENGLISH_FREEZE_AUTHORITY_V2.fingerprints.combinedFingerprint,
@@ -81,6 +94,9 @@ export const COM001_REVIEW_ONLY_PACKAGE: QuestionStudioPackageDefinition = {
   },
 };
 
+/** Historical export name retained so existing imports do not break. */
+export const COM001_REVIEW_ONLY_PACKAGE = COM001_BANK_ONLY_PACKAGE;
+
 function normalizeLanguage(language: QuestionStudioGenerationRequest["language"]): QuestionStudioLanguage {
   if (!language) return "en";
   if (supportedLanguages.includes(language)) return language;
@@ -90,7 +106,7 @@ function normalizeLanguage(language: QuestionStudioGenerationRequest["language"]
 function normalizeCount(count: number | undefined) {
   if (count == null) return 5;
   if (!Number.isInteger(count) || count < 1 || count > 50) {
-    throw new Error("COM-001 review-only batches require count between 1 and 50");
+    throw new Error("COM-001 review batches require count between 1 and 50");
   }
   return count;
 }
@@ -156,7 +172,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
   engineId: "knowledge-v1",
 
   listPackages() {
-    return [COM001_REVIEW_ONLY_PACKAGE];
+    return [COM001_BANK_ONLY_PACKAGE];
   },
 
   async generate(
@@ -191,23 +207,34 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
         difficultyDecisionV2: difficultyDecision,
         revisionPolicy: COM001_REVISION_POLICY,
         questionBankStatus: COM001_QUESTION_BANK_STATUS,
-        questionBankWritable: false,
+        questionBankWritable: true,
+        questionBankAcceptanceMode: COM001_QUESTION_BANK_ACCEPTANCE_MODE,
+        questionBankAcceptanceAuthority: COM001_QUESTION_BANK_ACCEPTANCE_AUTHORITY_ID,
+        testEligibility: COM001_QUESTION_BANK_TEST_ELIGIBILITY,
         testEligible: false,
+        mockTestEligible: false,
         publiclyPublishable: false,
         automaticStudentPublication: false,
+        productionReleaseAuthorized: false,
         questionStudioReview: {
-          registrationStatus: "REVIEW_ONLY_REGISTERED",
+          registrationStatus: "BANK_ONLY_ACCEPTANCE_REGISTERED",
           runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
           contentAuthorityVersion: COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
           humanReviewApproved: true,
           revisionPolicy: COM001_REVISION_POLICY,
           reviewRunPersistenceAllowed: true,
-          canonicalQuestionPersistenceAllowed: false,
+          canonicalQuestionPersistenceAllowed: true,
+          manualApprovalRequired: true,
           questionBankStatus: COM001_QUESTION_BANK_STATUS,
-          questionBankWritable: false,
+          questionBankWritable: true,
+          questionBankAcceptanceMode: COM001_QUESTION_BANK_ACCEPTANCE_MODE,
+          questionBankAcceptanceAuthority: COM001_QUESTION_BANK_ACCEPTANCE_AUTHORITY_ID,
+          testEligibility: COM001_QUESTION_BANK_TEST_ELIGIBILITY,
           testEligible: false,
+          mockTestEligible: false,
           publiclyPublishable: false,
           automaticStudentPublication: false,
+          productionReleaseAuthorized: false,
           difficultyFilterApplied,
           requestedDifficulty: requestedDifficulty ?? "Mixed",
           classifiedDifficulty: difficultyDecision.difficulty,
@@ -240,7 +267,8 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
         runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
         contentAuthorityVersion: COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
         humanReviewApproved: true,
-        reviewOnly: true,
+        reviewOnly: false,
+        reviewSurfaceRequired: true,
         revisionPolicy: COM001_REVISION_POLICY,
         language,
         requestedDifficulty: requestedDifficulty ?? "Mixed",
@@ -250,12 +278,18 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
         qlSelection: request.patternId ?? "DETERMINISTIC_ACROSS_PERMANENT_QLS",
         permanentQlIds: qlIds,
         reviewRunPersistenceAllowed: true,
-        canonicalQuestionPersistenceAllowed: false,
+        canonicalQuestionPersistenceAllowed: true,
+        manualApprovalRequired: true,
         questionBankStatus: COM001_QUESTION_BANK_STATUS,
-        questionBankWritable: false,
+        questionBankWritable: true,
+        questionBankAcceptanceMode: COM001_QUESTION_BANK_ACCEPTANCE_MODE,
+        questionBankAcceptanceAuthority: COM001_QUESTION_BANK_ACCEPTANCE_AUTHORITY_ID,
+        testEligibility: COM001_QUESTION_BANK_TEST_ELIGIBILITY,
         testEligible: false,
+        mockTestEligible: false,
         publiclyPublishable: false,
         automaticStudentPublication: false,
+        productionReleaseAuthorized: false,
         englishFreezeAuthorityId: COM001_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
         englishCombinedFingerprint:
           COM001_ENGLISH_FREEZE_AUTHORITY_V2.fingerprints.combinedFingerprint,
