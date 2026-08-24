@@ -7,7 +7,8 @@ assert.equal(STA_001_CHAPTER_CLOSEOUT_V1.permanentQlCount, 4, "historical closeo
 assert.equal(STA_001_CHAPTER_REOPEN_V4_1.preservesHistoricalFreezeEvidence, true);
 assert.equal(STA_001_CHAPTER_REOPEN_V4_1.supersedesCurrentReviewCandidate, "STA-001-CHAPTER-REOPEN-EXAM-REALNESS-V4");
 assert.deepEqual(STA_001_CHAPTER_REOPEN_V4_1.v41ReviewQlIds, STA_V4_QL_IDS);
-assert.deepEqual(STA_001_CHAPTER_REOPEN_V4_1.promotedSourceBackedQlIds, ["STA-QL-005", "STA-QL-006"]);
+assert.deepEqual(STA_001_CHAPTER_REOPEN_V4_1.sourceBackedCandidateQlIds, ["STA-QL-005", "STA-QL-006"]);
+assert.equal(STA_001_CHAPTER_REOPEN_V4_1.contentAuthority.status, "V4_1_REVIEW_CANDIDATE");
 assert.equal(STA_001_CHAPTER_REOPEN_V4_1.contentAuthority.semanticAuthorityCount, 108);
 assert.equal(STA_V4_SCENARIOS.length, 108);
 assert.equal(STA_001_CHAPTER_REOPEN_V4_1.contentAuthority.semanticAuthoritiesPerQl, 18);
