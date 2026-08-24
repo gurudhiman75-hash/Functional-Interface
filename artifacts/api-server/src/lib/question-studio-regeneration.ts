@@ -108,6 +108,17 @@ export function buildRegenerationRequest(
     || asString(metadata.cpId)
     || asString(requestSnapshot.cpId);
 
+  // The current regeneration route still uses the legacy shared generator.
+  // Never allow a knowledge-v1 item to fall through that path because it
+  // could leave the frozen knowledge/localization authority. Source changes
+  // must be made in the canonical COM-001 engine and reviewed as a new batch
+  // until engine-aware regeneration is implemented explicitly.
+  if (preservedEngineId === "knowledge-v1" || packageId === "COM-001") {
+    throw new Error(
+      "KNOWLEDGE_V1_REGENERATION_LOCKED: COM-001 is source-generator controlled; correct the canonical generator/localization source and create a new review batch.",
+    );
+  }
+
   return {
     engineId: preservedEngineId,
     exam: asString(requestSnapshot.exam) || undefined,
