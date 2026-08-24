@@ -29,6 +29,9 @@ const ibmPrimary = COM001_ADDITIONAL_SOURCE_AUTHORITIES.find(
 );
 assert.ok(ibmPrimary);
 assert.equal(
-  ibmPrimary.notes.some((note) => /separate from the rejected IBM page/i.test(note)),
+  ibmPrimary.notes.some((note) =>
+    /separate from the rejected IBM primary-vs-secondary page/i.test(note),
+  ),
   true,
+  "IBM primary-storage authority must explicitly remain separate from the rejected primary-vs-secondary page",
 );
