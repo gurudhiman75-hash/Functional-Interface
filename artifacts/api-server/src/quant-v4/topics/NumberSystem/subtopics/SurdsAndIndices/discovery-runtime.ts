@@ -85,6 +85,25 @@ function canonicalFallbackDistractors(correct: SriCandidateAnswer): SriDistracto
   return [];
 }
 
+function cleanSriLearnerText(value: string): string {
+  return value
+    .replace(/\b[A-Z][A-Z0-9_]{2,}:\s*/g, "")
+    .replace(/Normalize each visible base to the common prime base and compare canonical values\./gi, "Rewrite each given base as a power of the common prime base, then compare the exact values.")
+    .replace(/\bNormalize\b/g, "Rewrite")
+    .replace(/\bnormalize\b/g, "rewrite")
+    .replace(/\bCanonical result\b/gi, "Simplified result")
+    .replace(/\bcanonical values?\b/gi, "exact values")
+    .replace(/the visible base was reverse-constructed as a perfect qth power\./gi, "the base is a perfect qth power, so its qth root is exact.")
+    .replace(/\breverse-constructed\b/gi, "chosen")
+    .replace(/\bvisible base\b/gi, "given base")
+    .replace(/\b1th\b/g, "1st")
+    .replace(/\b2th\b/g, "2nd")
+    .replace(/\b3th\b/g, "3rd")
+    .replace(/The exact denesting test succeeds\./g, "The condition is satisfied, so denesting is possible.")
+    .replace(/The exact denesting test fails\./g, "The condition is not satisfied, so this form cannot be denested into integer-radicand square roots.")
+    .replace(/\b1\\sqrt/g, "\\sqrt");
+}
+
 export function buildSriOptions(
   seed: string,
   correct: SriCandidateAnswer,
@@ -127,15 +146,25 @@ function normalizeExplanation(
 ): SriHumanExplanation {
   const repeatsStem = normalizeComparableText(explanation.given) === normalizeComparableText(stem);
   const unsafeGiven = repeatsStem || hasStructuredStateLeak(explanation.given);
-  return unsafeGiven ? { ...explanation, given: describeSriGivenContext(checkpointId) } : explanation;
+  const safe = unsafeGiven ? { ...explanation, given: describeSriGivenContext(checkpointId) } : explanation;
+  return {
+    given: cleanSriLearnerText(safe.given),
+    asked: cleanSriLearnerText(safe.asked),
+    method: cleanSriLearnerText(safe.method),
+    working: safe.working.map(cleanSriLearnerText),
+    answer: cleanSriLearnerText(safe.answer),
+  };
 }
 
 export function finalizeSriDiscoveryQuestion(input: FinalizeSriDiscoveryInput): SriDiscoveryQuestion {
-  const { options, correctIndex } = buildSriOptions(input.seed, input.answer, input.distractors);
+  const cleanedAnswer: SriCandidateAnswer = { ...input.answer, text: cleanSriLearnerText(input.answer.text) };
+  const cleanedDistractors: SriDistractor[] = input.distractors.map((item) => ({ ...item, text: cleanSriLearnerText(item.text) }));
+  const { options, correctIndex } = buildSriOptions(input.seed, cleanedAnswer, cleanedDistractors);
   const solverVerifierAgree = input.canonicalSolverKey === input.independentVerifierKey;
-  const exactlyOneCorrectOption = options.filter((option) => option.canonicalKey === input.answer.canonicalKey).length === 1;
+  const exactlyOneCorrectOption = options.filter((option) => option.canonicalKey === cleanedAnswer.canonicalKey).length === 1;
   const domainValid = input.domainValid ?? true;
-  const explanation = normalizeExplanation(input.explanation, input.stem, input.checkpointId);
+  const stem = cleanSriLearnerText(input.stem);
+  const explanation = normalizeExplanation({ ...input.explanation, answer: cleanedAnswer.text }, stem, input.checkpointId);
   const proofEvents = [
     ...(input.proofEvents ?? []),
     proofEvent(
@@ -153,8 +182,8 @@ export function finalizeSriDiscoveryQuestion(input: FinalizeSriDiscoveryInput): 
     candidateId: input.candidateId,
     seed: input.seed,
     state: input.state,
-    stem: input.stem,
-    answer: input.answer,
+    stem,
+    answer: cleanedAnswer,
     options,
     correctIndex,
     explanation,
