@@ -1,8 +1,9 @@
 import { TSD_CP009_FROZEN_ENGLISH_REGISTRY } from "./english-freeze-registry";
 import {
-  TSD_CP009_FINAL_HINDI_LOCALIZATION,
-  TSD_CP009_FINAL_PUNJABI_LOCALIZATION,
-} from "./localization-review-final";
+  TSD_CP009_NATIVE_FINAL_HINDI_LOCALIZATION,
+  TSD_CP009_NATIVE_FINAL_PUNJABI_LOCALIZATION,
+} from "./localization-native-final";
+import { TSD_CP009_LOCALIZED_REVIEW_CASES } from "./localized-review-cases";
 import { TSD_CP009_RENDERED_HINDI_QUESTIONS, TSD_CP009_RENDERED_PUNJABI_QUESTIONS } from "./localized-rendered-review";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -16,7 +17,7 @@ function placeholders(value: string): readonly string[] {
 const frozenFamilies = TSD_CP009_FROZEN_ENGLISH_REGISTRY.flatMap((ql) => ql.stemFamilies.map((family) => ({ qlId: ql.qlId, authorityKey: ql.authorityKey, ...family })));
 assert(frozenFamilies.length === 66, "frozen English family count changed");
 
-for (const registry of [TSD_CP009_FINAL_HINDI_LOCALIZATION, TSD_CP009_FINAL_PUNJABI_LOCALIZATION]) {
+for (const registry of [TSD_CP009_NATIVE_FINAL_HINDI_LOCALIZATION, TSD_CP009_NATIVE_FINAL_PUNJABI_LOCALIZATION]) {
   assert(registry.qls.length === 11, `${registry.locale}: expected 11 QLs`);
   assert(JSON.stringify(registry.qls.map((ql) => ql.qlId)) === JSON.stringify(TSD_CP009_FROZEN_ENGLISH_REGISTRY.map((ql) => ql.qlId)), `${registry.locale}: QL order drifted`);
   const localizedFamilies = registry.qls.flatMap((ql) => ql.families.map((family) => ({ qlId: ql.qlId, authorityKey: ql.authorityKey, ...family })));
@@ -35,12 +36,16 @@ for (const registry of [TSD_CP009_FINAL_HINDI_LOCALIZATION, TSD_CP009_FINAL_PUNJ
   }
 }
 
-const finalHindiText = JSON.stringify(TSD_CP009_FINAL_HINDI_LOCALIZATION);
-const finalPunjabiText = JSON.stringify(TSD_CP009_FINAL_PUNJABI_LOCALIZATION);
-const rejectedHindi = ["गश्ती नाव", "वॉटर टैक्सी", "ड्रिफ्ट मार्कर", "लाइफबॉय", "मार्कर बुआ"] as const;
-const rejectedPunjabi = ["ਗਸ਼ਤੀ", "ਨਿਗਰਾਨੀ ਕਿਸ਼ਤੀ", "ਸਰਵੇ ਕਿਸ਼ਤੀ", "ਵਾਟਰ ਟੈਕਸੀ", "ਡ੍ਰਿਫਟ ਮਾਰਕਰ", "ਲਾਈਫਬੁਆਇ", "ਮਾਰਕਰ ਬੁਆਇ", "ਟ੍ਰੇਨਿੰਗ ਜਹਾਜ਼"] as const;
+const finalHindiText = JSON.stringify(TSD_CP009_NATIVE_FINAL_HINDI_LOCALIZATION);
+const finalPunjabiText = JSON.stringify(TSD_CP009_NATIVE_FINAL_PUNJABI_LOCALIZATION);
+const rejectedHindi = ["गश्ती", "वॉटर टैक्सी", "ड्रिफ्ट मार्कर", "लाइफबॉय", "मार्कर बुआ"] as const;
+const rejectedPunjabi = ["ਗਸ਼ਤੀ", "ਨਿਗਰਾਨੀ", "ਸਰਵੇ ਕਿਸ਼ਤੀ", "ਵਾਟਰ ਟੈਕਸੀ", "ਡ੍ਰਿਫਟ ਮਾਰਕਰ", "ਲਾਈਫਬੁਆਇ", "ਮਾਰਕਰ ਬੁਆਇ", "ਟ੍ਰੇਨਿੰਗ ਜਹਾਜ਼"] as const;
 for (const wording of rejectedHindi) assert(!finalHindiText.includes(wording), `Hindi rejected wording '${wording}' leaked into final localization`);
 for (const wording of rejectedPunjabi) assert(!finalPunjabiText.includes(wording), `Punjabi rejected wording '${wording}' leaked into final localization`);
+
+assert(TSD_CP009_LOCALIZED_REVIEW_CASES.length === 66, "localized review case count changed");
+const realisticFamilyIds = new Set(["104-C", "104-E", "105-E", "105-F", "108-F", "110-A", "110-B", "110-C", "110-D", "110-E", "110-F", "113-A", "113-B", "113-C", "113-D", "113-E", "113-F", "114-A", "114-C", "114-D", "114-E"]);
+assert([...realisticFamilyIds].every((familyId) => TSD_CP009_LOCALIZED_REVIEW_CASES.some((entry) => entry.familyId === familyId)), "realism override family missing");
 
 assert(TSD_CP009_RENDERED_HINDI_QUESTIONS.length === 66, "Hindi rendered count changed");
 assert(TSD_CP009_RENDERED_PUNJABI_QUESTIONS.length === 66, "Punjabi rendered count changed");
@@ -64,16 +69,24 @@ assert(hindi111.every((question) => /ऊपरी सिरे से चलन�
 const punjabi111 = TSD_CP009_RENDERED_PUNJABI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-111");
 assert(punjabi111.every((question) => /ਉੱਪਰਲੇ ਸਿਰੇ ਤੋਂ ਚੱਲਣ ਵਾਲੀ|ਉੱਪਰਲੇ ਸਿਰੇ ਵਾਲੀ/.test(question.stem) && /ਹੇਠਲੇ ਸਿਰੇ ਤੋਂ ਚੱਲਣ ਵਾਲੀ|ਹੇਠਲੇ ਸਿਰੇ ਵਾਲੀ/.test(question.stem)), "Punjabi QL111 must explicitly assign each speed to its starting end");
 
-assert(TSD_CP009_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-110").every((question) => /समान|एक ही|एक ही नाव/.test(question.stem)), "Hindi QL110 equal-time invariant not explicit");
-assert(TSD_CP009_RENDERED_PUNJABI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-110").every((question) => /ਇੱਕੋ|ਇੱਕੋ ਰਹਿੰਦੀ|ਇੱਕੋ ਹੈ/.test(question.stem)), "Punjabi QL110 equal-time invariant not explicit");
+assert(TSD_CP009_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-110").every((question) => /समान|एक ही/.test(question.stem)), "Hindi QL110 equal-time invariant not explicit");
+assert(TSD_CP009_RENDERED_PUNJABI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-110").every((question) => /ਇੱਕੋ/.test(question.stem)), "Punjabi QL110 equal-time invariant not explicit");
 
-assert(TSD_CP009_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-113").every((question) => /बह|तैर/.test(question.stem) && /मुड़|दिशा बदल/.test(question.stem)), "Hindi QL113 floating-object + turnaround semantics must be explicit");
-assert(TSD_CP009_RENDERED_PUNJABI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-113").every((question) => /ਵਗ|ਤੈਰ/.test(question.stem) && /ਮੁੜ|ਦਿਸ਼ਾ ਬਦਲ/.test(question.stem)), "Punjabi QL113 floating-object + turnaround semantics must be explicit");
+const hindi113 = TSD_CP009_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-113");
+const punjabi113 = TSD_CP009_RENDERED_PUNJABI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-113");
+assert(hindi113.every((question) => /बह|तैर/.test(question.stem) && /मुड़|दिशा बदल/.test(question.stem) && /मिनट/.test(question.stem)), "Hindi QL113 must use explicit float/turn semantics and minute-scale scenarios");
+assert(punjabi113.every((question) => /ਵਗ|ਤੈਰ/.test(question.stem) && /ਮੁੜ|ਦਿਸ਼ਾ ਬਦਲ/.test(question.stem) && /ਮਿੰਟ/.test(question.stem)), "Punjabi QL113 must use explicit float/turn semantics and minute-scale scenarios");
 
 assert(TSD_CP009_RENDERED_HINDI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-114").every((question) => /स्थिर जल में गति.*(?:समान|नहीं बदलती|अपरिवर्तित)|केवल धारा|केवल प्रवाह/.test(question.stem)), "Hindi QL114 must state that only the medium changes");
 assert(TSD_CP009_RENDERED_PUNJABI_QUESTIONS.filter((question) => question.qlId === "TSD-QL-114").every((question) => /ਸ਼ਾਂਤ ਪਾਣੀ.*(?:ਇੱਕੋ|ਨਹੀਂ ਬਦਲਦੀ)|ਸਿਰਫ਼ ਧਾਰਾ|ਸਿਰਫ਼ ਵਹਾਅ/.test(question.stem)), "Punjabi QL114 must state that only the medium changes");
 
-console.log("TSD-CP-009 NATIVE HINDI/PUNJABI LOCALIZATION + AMBIGUITY PROOF: PASS");
+const aircraftFamilies = new Set(["104-E", "105-E", "105-F", "108-F"]);
+for (const question of [...TSD_CP009_RENDERED_HINDI_QUESTIONS, ...TSD_CP009_RENDERED_PUNJABI_QUESTIONS].filter((item) => aircraftFamilies.has(item.familyId))) {
+  const speeds = [...question.stem.matchAll(/(\d+)\s*(?:किमी\/घंटा|ਕਿਮੀ\/ਘੰਟਾ)/g)].map((match) => Number(match[1]));
+  assert(speeds.some((speed) => speed >= 200), `${question.locale}/${question.familyId}: aircraft review values still look boat-scale`);
+}
+
+console.log("TSD-CP-009 NATIVE HINDI/PUNJABI LOCALIZATION + AMBIGUITY/REALISM PROOF: PASS");
 console.log(JSON.stringify({
   hindiFamilies: 66,
   punjabiFamilies: 66,
@@ -83,6 +96,7 @@ console.log(JSON.stringify({
   rejectedHindiTerms: rejectedHindi.length,
   rejectedPunjabiTerms: rejectedPunjabi.length,
   ambiguityGuardedQls: ["TSD-QL-109", "TSD-QL-110", "TSD-QL-111", "TSD-QL-113", "TSD-QL-114"],
+  realismOverrideFamilies: realisticFamilyIds.size,
   sourceEnglishStatus: "FROZEN",
   localizationStatus: "REVIEW_CANDIDATE",
 }, null, 2));
