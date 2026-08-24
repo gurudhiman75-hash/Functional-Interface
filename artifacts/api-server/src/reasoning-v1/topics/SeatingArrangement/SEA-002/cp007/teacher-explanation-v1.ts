@@ -179,9 +179,11 @@ function renderRowProof(caselet: Sea002Cp007ProductionCaselet, target: string): 
 }
 
 function parseReference(question: string): string {
-  const match = question.match(/\bof ([A-Za-z]+)\?$/u);
-  if (!match) throw new Error(`Could not parse reference from question: ${question}`);
-  return match[1]!;
+  const sameRow = question.match(/\bof ([A-Za-z]+)\?$/u);
+  if (sameRow) return sameRow[1]!;
+  const diagonal = question.match(/\bfrom ([A-Za-z]+) in \1's (?:left|right)-hand direction\?$/u);
+  if (diagonal) return diagonal[1]!;
+  throw new Error(`Could not parse reference from question: ${question}`);
 }
 
 function parseDirection(question: string): "LEFT" | "RIGHT" {
