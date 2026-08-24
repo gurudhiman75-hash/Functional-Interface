@@ -406,13 +406,13 @@ function ql009Stem(question: Com001ReviewQuestion, language: TargetLanguage) {
   m = en.match(/^Under the IEC binary-prefix convention, what is the value of (.+)\?$/u);
   if (m) return hi ? `IEC बाइनरी-प्रीफिक्स मानक के अनुसार ${m[1]} का मान क्या है?` : `IEC ਬਾਈਨਰੀ-ਪ੍ਰੀਫਿਕਸ ਮਿਆਰ ਅਨੁਸਾਰ ${m[1]} ਦਾ ਮਾਨ ਕੀ ਹੈ?`;
   m = en.match(/^Choose the correct byte value for (.+) under the binary-prefix convention\.$/u);
-  if (m) return hi ? `बाइनरी-प्रीफिक्स मानक के अनुसार ${m[1]} का सही बाइट मान चुनिए।` : `ਬਾਈਨਰੀ-ਪ੍ਰੀਫਿਕਸ ਮਿਆਰ ਅਨੁਸਾਰ ${m[1]} ਦਾ ਸਹੀ ਬਾਈਟ ਮਾਨ ਚੁਣੋ।`;
+  if (m) return hi ? `IEC बाइनरी-प्रीफिक्स मानक के अनुसार ${m[1]} का सही बाइट मान चुनिए।` : `IEC ਬਾਈਨਰੀ-ਪ੍ਰੀਫਿਕਸ ਮਿਆਰ ਅਨੁਸਾਰ ${m[1]} ਦਾ ਸਹੀ ਬਾਈਟ ਮਾਨ ਚੁਣੋ।`;
   m = en.match(/^Using SI decimal prefixes, (.+) is equal to how many bytes\?$/u);
   if (m) return hi ? `SI दशमलव प्रीफिक्स के अनुसार ${m[1]} कितने बाइट के बराबर है?` : `SI ਦਸ਼ਮਲਵ ਪ੍ਰੀਫਿਕਸ ਅਨੁਸਾਰ ${m[1]} ਕਿੰਨੇ ਬਾਈਟ ਦੇ ਬਰਾਬਰ ਹੈ?`;
   m = en.match(/^Under the SI decimal-prefix convention, what is the value of (.+)\?$/u);
   if (m) return hi ? `SI दशमलव-प्रीफिक्स मानक के अनुसार ${m[1]} का मान क्या है?` : `SI ਦਸ਼ਮਲਵ-ਪ੍ਰੀਫਿਕਸ ਮਿਆਰ ਅਨੁਸਾਰ ${m[1]} ਦਾ ਮਾਨ ਕੀ ਹੈ?`;
   m = en.match(/^Choose the correct byte value for (.+) under the decimal-prefix convention\.$/u);
-  if (m) return hi ? `दशमलव-प्रीफिक्स मानक के अनुसार ${m[1]} का सही बाइट मान चुनिए।` : `ਦਸ਼ਮਲਵ-ਪ੍ਰੀਫਿਕਸ ਮਿਆਰ ਅਨੁਸਾਰ ${m[1]} ਦਾ ਸਹੀ ਬਾਈਟ ਮਾਨ ਚੁਣੋ।`;
+  if (m) return hi ? `SI दशमलव-प्रीफिक्स मानक के अनुसार ${m[1]} का सही बाइट मान चुनिए।` : `SI ਦਸ਼ਮਲਵ-ਪ੍ਰੀਫਿਕਸ ਮਿਆਰ ਅਨੁਸਾਰ ${m[1]} ਦਾ ਸਹੀ ਬਾਈਟ ਮਾਨ ਚੁਣੋ।`;
   throw new Error(`${question.questionId}: QL-009 English stem shape changed`);
 }
 
