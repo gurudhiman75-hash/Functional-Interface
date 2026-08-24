@@ -98,6 +98,7 @@ function cleanSriLearnerText(value: string): string {
     .replace(/\bcanonical form\b/gi, "standard form")
     .replace(/\bprime base\b/gi, "common base")
     .replace(/\bdenominator-th root\b/gi, "root indicated by the denominator")
+    .replace(/\bsupported denested form\b/gi, "requested denested form")
     .replace(/the visible base was reverse-constructed as a perfect qth power\./gi, "the base is a perfect qth power, so its qth root is exact.")
     .replace(/\breverse-constructed\b/gi, "chosen")
     .replace(/\bvisible base\b/gi, "given base")
