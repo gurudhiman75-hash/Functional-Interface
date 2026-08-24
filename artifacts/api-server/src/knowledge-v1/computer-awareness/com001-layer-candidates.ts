@@ -49,10 +49,14 @@ export const COM001_LAYER_CANDIDATES: KnowledgeFact[] = [
   layerFact("cpu-cache", "Cache memory", "cache", "cache memory", "INTEL-MEMORY-HIERARCHY-2007"),
   layerFact("ram", "RAM", "primary", "primary memory", "TECHTARGET-COMPUTER-MEMORY-2025"),
   layerFact("dram", "DRAM", "primary", "primary memory", "TECHTARGET-COMPUTER-MEMORY-2025"),
+  // SRAM is deliberately retained as a discovery candidate only. At the
+  // editorial gate it is rejected as a hard layer-classification fact because
+  // SRAM is a RAM technology commonly used to implement cache, so forcing it
+  // into one hierarchy bucket creates an avoidable exam ambiguity.
   layerFact("sram", "SRAM", "primary", "primary memory", "TECHTARGET-COMPUTER-MEMORY-2025"),
-  layerFact("rom", "ROM", "primary", "primary memory", "IBM-PRIMARY-STORAGE-2024"),
-  layerFact("hdd", "HDD", "secondary", "secondary memory/storage", "IBM-PRIMARY-STORAGE-2024"),
-  layerFact("ssd", "SSD", "secondary", "secondary memory/storage", "TECHTARGET-COMPUTER-MEMORY-2025"),
-  layerFact("usb-flash", "USB flash drive", "secondary", "secondary memory/storage", "IBM-PRIMARY-STORAGE-2024"),
-  layerFact("magnetic-tape", "Magnetic tape", "secondary", "secondary memory/storage", "IBM-PRIMARY-STORAGE-2024"),
+  layerFact("rom", "ROM", "primary", "primary memory", "TECHTARGET-COMPUTER-MEMORY-2025"),
+  layerFact("hdd", "HDD", "secondary", "secondary storage", "TECHTARGET-COMPUTER-MEMORY-2025"),
+  layerFact("ssd", "SSD", "secondary", "secondary storage", "TECHTARGET-COMPUTER-MEMORY-2025"),
+  layerFact("usb-flash", "USB flash drive", "secondary", "secondary storage", "IBM-DATA-STORAGE-2026"),
+  layerFact("magnetic-tape", "Magnetic tape", "secondary", "secondary storage", "IBM-DATA-STORAGE-2026"),
 ];
