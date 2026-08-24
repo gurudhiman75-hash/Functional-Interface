@@ -41,6 +41,9 @@ export function getGeneratedQuestionBankEligibilityIssue(
   const reviewStatus = asText(
     payload.reviewStatus || generationContext.reviewStatus,
   ).toUpperCase();
+  const humanReviewStatus = asText(
+    payload.humanReviewStatus || generationContext.humanReviewStatus,
+  ).toUpperCase();
   const questionBankStatus = asText(
     payload.questionBankStatus || generationContext.questionBankStatus,
   ).toUpperCase();
@@ -49,15 +52,14 @@ export function getGeneratedQuestionBankEligibilityIssue(
   ).toUpperCase();
   const publiclyPublishable =
     payload.publiclyPublishable ?? generationContext.publiclyPublishable;
+  const activationAuthorized =
+    payload.activationAuthorized ?? generationContext.activationAuthorized;
 
   if (questionBankStatus === "NOT_STORED") {
     return "questionBankStatus is NOT_STORED";
   }
   if (testEligibility === "INELIGIBLE") {
     return "testEligibility is INELIGIBLE";
-  }
-  if (publiclyPublishable === false) {
-    return "publiclyPublishable is false";
   }
   if (runtimeMode === "DYNAMIC_CANDIDATE") {
     return `runtimeMode ${runtimeMode} is review-only`;
@@ -67,6 +69,22 @@ export function getGeneratedQuestionBankEligibilityIssue(
     reviewStatus !== "APPROVED_EDITORIAL_CANONICAL"
   ) {
     return `reviewStatus ${reviewStatus || "MISSING"} is not release-approved`;
+  }
+
+  if (publiclyPublishable === false) {
+    const humanApproved =
+      humanReviewStatus.startsWith("APPROVED") ||
+      reviewStatus.startsWith("HUMAN_APPROVED") ||
+      reviewStatus === "APPROVED_EDITORIAL_CANONICAL";
+    const internallyReleased =
+      questionBankStatus === "WRITABLE" &&
+      testEligibility === "ELIGIBLE" &&
+      activationAuthorized === true &&
+      humanApproved;
+
+    if (!internallyReleased) {
+      return "publiclyPublishable is false without an approved internal-storage authorization";
+    }
   }
   return null;
 }
