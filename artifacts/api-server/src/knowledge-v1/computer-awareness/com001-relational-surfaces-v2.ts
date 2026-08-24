@@ -1,4 +1,4 @@
-import { deterministicPick, deterministicShuffle } from "../deterministic";
+import { deterministicIndex, deterministicPick, deterministicShuffle } from "../deterministic";
 import { assertKnowledgeQuestionValid } from "../question-validation";
 import type { KnowledgeFact } from "../types";
 import { COM001_EDITORIAL_REVIEWABLE_FACTS } from "./com001-editorial-review";
@@ -27,6 +27,27 @@ function sourceIds(facts: readonly KnowledgeFact[]) {
   return [...new Set(facts.map((fact) => fact.source.sourceId))];
 }
 
+function positionOptions(canonicalAnswer: string, wrongAnswers: string[], seed: string) {
+  const shuffledWrong = deterministicShuffle(wrongAnswers, `${seed}:wrong-options`);
+  const correctIndex = deterministicIndex(`${seed}:correct-position`, shuffledWrong.length + 1);
+  const options = [...shuffledWrong];
+  options.splice(correctIndex, 0, canonicalAnswer);
+  return { options, correctIndex };
+}
+
+function repositionQuestion(question: Com001ReviewQuestion, seed: string): Com001ReviewQuestion {
+  const wrongAnswers = question.options.filter((_, index) => index !== question.correctIndex);
+  const { options, correctIndex } = positionOptions(question.canonicalAnswer, wrongAnswers, seed);
+  assertKnowledgeQuestionValid({
+    stem: question.stem,
+    explanation: question.explanation,
+    options,
+    correctIndex,
+    canonicalAnswer: question.canonicalAnswer,
+  });
+  return { ...question, options, correctIndex };
+}
+
 function finalize(
   qlId: string,
   seed: string,
@@ -37,15 +58,11 @@ function finalize(
   facts: readonly KnowledgeFact[],
 ): Com001ReviewQuestion {
   if (wrongAnswers.length !== 3) throw new Error(`${qlId} V2 requires exactly three distractors`);
-  const records = deterministicShuffle(
-    [
-      { text: canonicalAnswer, correct: true },
-      ...wrongAnswers.map((text) => ({ text, correct: false })),
-    ],
+  const { options, correctIndex } = positionOptions(
+    canonicalAnswer,
+    wrongAnswers,
     `${seed}:${qlId}:v2-options`,
   );
-  const options = records.map((entry) => entry.text);
-  const correctIndex = records.findIndex((entry) => entry.correct);
   assertKnowledgeQuestionValid({ stem, explanation, options, correctIndex, canonicalAnswer });
   return {
     questionId: `COM001-V2REL-${qlId}-${seed}`,
@@ -68,22 +85,28 @@ function pickThreeDistinct<T>(items: readonly T[], seed: string) {
   return deterministicShuffle(items, seed).slice(0, 3);
 }
 
-function patchQl003Forward(question: Com001ReviewQuestion) {
+function patchQl003Forward(question: Com001ReviewQuestion, seed: string) {
   const entity = question.stem.match(/main function of (.+)\?$/u)?.[1]
     ?? question.stem.match(/purpose of (.+)\?$/u)?.[1]
     ?? question.stem.match(/^(.+) is primarily used for which/u)?.[1];
   if (!entity) throw new Error(`${question.questionId}: unable to recover QL-003 entity`);
-  return {
+  return repositionQuestion({
     ...question,
     questionId: `${question.questionId}-V2FORWARD`,
     explanation: `${entity} ${question.canonicalAnswer}. Therefore, this option correctly states its main function.`,
-  };
+  }, `${seed}:ql003-forward`);
 }
 
 export function generateCom001Ql001RelationalV2(seed: string) {
   const mode = deterministicPick(["ENTITY_SELECTION", "ENTITY_SELECTION", "MATCHED_PAIR"] as const, `${seed}:mode`);
   if (mode === "ENTITY_SELECTION") {
-    return { question: generateCom001ReviewQuestion({ qlId: "COM-001-QL-001", seed }), surfaceMode: mode };
+    return {
+      question: repositionQuestion(
+        generateCom001ReviewQuestion({ qlId: "COM-001-QL-001", seed }),
+        `${seed}:ql001-forward`,
+      ),
+      surfaceMode: mode,
+    };
   }
 
   const qlId = "COM-001-QL-001";
@@ -127,11 +150,11 @@ export function generateCom001Ql002RelationalV2(seed: string) {
       ?? question.stem.match(/^Identify the (.+) item from/u)?.[1];
     if (!layer) throw new Error(`${question.questionId}: unable to recover QL-002 layer`);
     return {
-      question: {
+      question: repositionQuestion({
         ...question,
         questionId: `${question.questionId}-V2FORWARD`,
         explanation: `The correct classification for ${question.canonicalAnswer} is ${layer}. The other options belong to different memory or storage categories.`,
-      },
+      }, `${seed}:ql002-forward`),
       surfaceMode: mode,
     };
   }
@@ -168,7 +191,10 @@ export function generateCom001Ql003RelationalV2(seed: string) {
   const mode = deterministicPick(["COMPONENT_TO_FUNCTION", "FUNCTION_TO_COMPONENT"] as const, `${seed}:mode`);
   if (mode === "COMPONENT_TO_FUNCTION") {
     return {
-      question: patchQl003Forward(generateCom001ReviewQuestion({ qlId: "COM-001-QL-003", seed })),
+      question: patchQl003Forward(
+        generateCom001ReviewQuestion({ qlId: "COM-001-QL-003", seed }),
+        seed,
+      ),
       surfaceMode: mode,
     };
   }
@@ -203,7 +229,13 @@ export function generateCom001Ql003RelationalV2(seed: string) {
 export function generateCom001Ql004RelationalV2(seed: string) {
   const mode = deterministicPick(["PARENT_TO_ENTITY", "ENTITY_TO_PARENT"] as const, `${seed}:mode`);
   if (mode === "PARENT_TO_ENTITY") {
-    return { question: generateCom001ReviewQuestion({ qlId: "COM-001-QL-004", seed }), surfaceMode: mode };
+    return {
+      question: repositionQuestion(
+        generateCom001ReviewQuestion({ qlId: "COM-001-QL-004", seed }),
+        `${seed}:ql004-forward`,
+      ),
+      surfaceMode: mode,
+    };
   }
 
   const qlId = "COM-001-QL-004";
@@ -237,7 +269,13 @@ export function generateCom001Ql004RelationalV2(seed: string) {
 export function generateCom001Ql005RelationalV2(seed: string) {
   const mode = deterministicPick(["MEDIUM_TO_ENTITY", "MEDIUM_TO_ENTITY", "MATCHED_PAIR"] as const, `${seed}:mode`);
   if (mode === "MEDIUM_TO_ENTITY") {
-    return { question: generateCom001ReviewQuestion({ qlId: "COM-001-QL-005", seed }), surfaceMode: mode };
+    return {
+      question: repositionQuestion(
+        generateCom001ReviewQuestion({ qlId: "COM-001-QL-005", seed }),
+        `${seed}:ql005-forward`,
+      ),
+      surfaceMode: mode,
+    };
   }
 
   const qlId = "COM-001-QL-005";
