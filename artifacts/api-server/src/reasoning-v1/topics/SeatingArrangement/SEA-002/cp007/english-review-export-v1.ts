@@ -6,7 +6,7 @@ import { renderSea002Cp007ExamRealStem } from "./exam-real-stem-v2.ts";
 import {
   generateSea002Cp007ProductionCaselet,
   type Sea002Cp007CandidateAuthorityKey,
-} from "./production-caselet-v1.ts";
+} from "./production-caselet-v2.ts";
 import { renderSea002Cp007TeacherExplanation } from "./teacher-explanation-v1.ts";
 
 const AUTHORITIES = [
@@ -16,15 +16,16 @@ const AUTHORITIES = [
   "CP007-AUTH-04",
 ] as const satisfies readonly Sea002Cp007CandidateAuthorityKey[];
 
-const RENDERER = "EXAM_REAL_COMPACT_V4_CONSTRUCTION_TEACHING" as const;
+const RENDERER = "EXAM_REAL_COMPACT_V5_NON_DIRECT_CONSTRUCTION_TEACHING" as const;
 
 const rows: string[] = [
-  "# SEA-002 / SEA-CP-007 — English Review Candidate V3",
+  "# SEA-002 / SEA-CP-007 — English Review Candidate V4",
   "",
-  "Status: **HUMAN REVIEW CANDIDATE / CONSTRUCTION-TEACHING REWRITE / NO PRODUCT ACTIVATION**",
+  "Status: **HUMAN REVIEW CANDIDATE / NON-DIRECT CONSTRUCTION TEACHING / NO PRODUCT ACTIVATION**",
   "",
   "24 caselets = 6 per candidate authority. This export is for learner-surface review only.",
-  "Solutions now teach the paper-solving process: facing chain, row inference, left/right conversion, row blocks, cross-row alignment, final arrangement, then the asked answer.",
+  "Solutions teach the paper-solving process: facing chain, left/right conversion, row blocks, cross-row alignment, visual final arrangement, then the asked answer.",
+  "AUTH01 is hardened: the queried neighbour pair is not directly stated by any same-row clue and the reference is not the direct facing anchor.",
   "",
 ];
 
@@ -58,7 +59,7 @@ const reviewFingerprint = createHash("sha256").update(reviewText, "utf8").digest
 const output = "artifacts/api-server/dist/reasoning-v1/sea-002-cp007-english-review-v1.md";
 mkdirSync(dirname(output), { recursive: true });
 writeFileSync(output, reviewText, "utf8");
-console.log("PASS_SEA002_CP007_ENGLISH_REVIEW_EXPORT_V3_CONSTRUCTION_TEACHING");
+console.log("PASS_SEA002_CP007_ENGLISH_REVIEW_EXPORT_V4_NON_DIRECT_CONSTRUCTION");
 console.log("review caselets", ordinal);
 console.log("candidate authorities", AUTHORITIES.length);
 console.log("renderer", RENDERER);
