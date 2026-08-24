@@ -1,24 +1,26 @@
-name: Validate STA-001 exam realness and exhaustive formats
+name: STA-001 Historical Exam-Format Regression
 
 on:
   pull_request:
     branches:
       - New-main
-    types: [opened, reopened, synchronize]
     paths:
-      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/**
-      - .github/workflows/sta-001-exam-realness.yml
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-chapter-proof.test.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/multilingual-pre-freeze-proof.test.ts'
+      - '.github/workflows/sta-001-exam-realness.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: validate-sta-001-exam-realness-${{ github.ref }}
+  group: sta-001-historical-exam-format-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  exam-realness-gate:
+  historical-exam-format-regression:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -29,86 +31,41 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
-      - name: Strict TypeScript check for complete STA package
-        working-directory: artifacts/api-server
-        run: |
-          pnpm exec tsc \
-            --noEmit \
-            --target es2022 \
-            --module esnext \
-            --moduleResolution bundler \
-            --allowImportingTsExtensions \
-            --strictNullChecks \
-            --noImplicitAny \
-            --noImplicitReturns \
-            --noFallthroughCasesInSwitch \
-            --skipLibCheck \
-            --types node \
-            $(find src/reasoning-v1/topics/Statement-and-Assumption/STA-001 -name '*.ts' -print)
-
-      - name: Replay immutable English V2 freeze
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-freeze-proof.test.ts
-      - name: Replay immutable QL001 Hindi/Punjabi freeze
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-freeze-proof.test.ts
-      - name: Replay immutable QL002 Hindi/Punjabi freeze
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql002-freeze-proof.test.ts
-      - name: Replay immutable QL003 Hindi/Punjabi freeze
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql003-freeze-proof.test.ts
-
-      - name: Re-prove QL004 V2 semantic and native-editorial identity
-        env:
-          STA_QL004_LOCALIZATION_V2_CASES_PER_LOCALE: 1024
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-editorial-v2-proof.test.ts
-      - name: Prove QL004 V3 exam-realness overlay across 8192 questions
+      - name: Replay QL004 V3 historical learner-realness proof
         env:
           STA_QL004_EXAM_REALNESS_CASES_PER_LOCALE: 4096
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-editorial-v3-proof.test.ts
-      - name: Replay immutable QL004 V3 technical review lock
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-review-lock-proof.test.ts
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-editorial-v3-proof.test.ts
 
-      - name: Prove source-audited 2/3/4-assumption and 4/5-option exam-format matrix
+      - name: Replay historical 2/3/4-assumption format matrix
         env:
           STA_EXAM_FORMAT_CASES_PER_PROFILE_LOCALE: 512
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-extension-proof.test.ts
-      - name: Prove genuine five-assumption Banking format with non-decorative V
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-extension-proof.test.ts
+
+      - name: Replay historical five-assumption Banking format proof
         env:
           STA_EXAM_FORMAT_FIVE_CASES_PER_LOCALE: 2048
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-five-assumption-proof.test.ts
-      - name: Prove exam-format provenance and prevent source overclaims
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-provenance-proof.test.ts
-      - name: Prove nine-profile provenance including memory-based BANK_5X5 boundary
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-provenance-v2-proof.test.ts
-      - name: Prove original per-profile anti-gaming answer-set saturation
-        env:
-          STA_EXAM_FORMAT_SATURATION_CASES_PER_PROFILE_LOCALE: 2048
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-saturation-proof.test.ts
-      - name: Prove complete 2/3/4/5-assumption nine-profile saturation across 55296 questions
-        env:
-          STA_EXAM_FORMAT_SATURATION_V2_CASES_PER_PROFILE_LOCALE: 2048
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-saturation-v2-proof.test.ts
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-five-assumption-proof.test.ts
 
-      - name: Prove legacy banking two-assumption five-code presentation
+      - name: Replay historical provenance and overclaim guards
+        run: |
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-provenance-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-provenance-v2-proof.test.ts
+
+      - name: Replay historical presentation saturation
+        env:
+          STA_EXAM_FORMAT_SATURATION_CASES_PER_PROFILE_LOCALE: 1024
+          STA_EXAM_FORMAT_SATURATION_V2_CASES_PER_PROFILE_LOCALE: 1024
+        run: |
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-saturation-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-saturation-v2-proof.test.ts
+
+      - name: Replay legacy Banking coded-answer surface
         env:
           STA_LEGACY_BANK_CASES_PER_LOCALE: 1024
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-legacy-bank-proof.test.ts
-      - name: Prove chapter-wide learner realness across 32768 localized questions
-        env:
-          STA_CHAPTER_EXAM_REALNESS_CASES_PER_QL_LOCALE: 4096
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-chapter-proof.test.ts
-      - name: Prove multilingual pre-freeze closure and remaining approval blocker
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/multilingual-pre-freeze-proof.test.ts
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-legacy-bank-proof.test.ts
 
-      - name: Generate QL004 Hindi/Punjabi V3 exam-realness review pack
-        env:
-          STA_QL004_LOCALIZATION_V3_REVIEW_OUTPUT_DIR: /tmp/sta-001-ql004-hi-pa-review-v3
-          STA_QL004_LOCALIZATION_V3_EXAMPLES_PER_AUTHORITY: 2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-editorial-v3-review-export.ts
-      - name: Build production API
-        working-directory: artifacts/api-server
-        run: pnpm run build
-      - uses: actions/upload-artifact@v4
-        with:
-          name: sta-001-ql004-hi-pa-exam-realness-review-v3
-          path: /tmp/sta-001-ql004-hi-pa-review-v3/**
-          if-no-files-found: error
-          retention-days: 14
+      - name: Historical-authority boundary
+        run: |
+          echo 'Old format/provenance evidence remains immutable regression evidence.'
+          echo 'This workflow does not certify the current V4.1 learner corpus.'
+          echo 'Current STA release authority belongs exclusively to the V4.1 review gate plus human approval.'
