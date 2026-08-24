@@ -93,9 +93,9 @@ export function computeCom001HiPaLocalizationFreezeFingerprintsV2() {
 }
 
 export const COM001_HI_PA_LOCALIZATION_FREEZE_PINS_V2 = {
-  terminologyFingerprint: "PENDING_CI_PIN",
-  localizedV2CorpusFingerprint: "PENDING_CI_PIN",
-  combinedFingerprint: "PENDING_CI_PIN",
+  terminologyFingerprint: "476c735a5ba563e74d416da66db94123e102dd97b9675bbbd835c332b9bd756f",
+  localizedV2CorpusFingerprint: "27691272e3bac13bb29a09b9464813ff46b48db008c69d0a301136a3c91ae2ce",
+  combinedFingerprint: "5418e3c9f6dac56611fe38fc47b30b84ff005d6ad105a699767d3c90f8776031",
 } as const;
 
 export const COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V2 = {
