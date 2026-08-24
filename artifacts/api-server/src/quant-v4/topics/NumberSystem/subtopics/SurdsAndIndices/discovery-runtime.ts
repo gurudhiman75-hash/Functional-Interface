@@ -90,6 +90,16 @@ function cleanSriLearnerText(value: string): string {
     .replace(/^First reduce the radical, then simplify\s+/i, "Simplify ")
     .replace(/^Write\s+(.+?)\s+in the form a\+b\\sqrt\{[^}]+\}\.?$/i, "Expand and simplify $1.")
     .replace(/^Convert the radical to an index and solve\s+/i, "Solve ")
+    .replace(/^The supplied relation is If\s+/i, "The supplied condition is ")
+    .replace(/^The supplied relation is Given\s+/i, "The supplied condition is ")
+    .replace(/^The supplied relation is Using y=/i, "The substitution is y=")
+    .replace(/^The supplied relation is Using the conjugate of\s+(.+?)\.$/i, "The supplied surd value is $1.")
+    .replace(/^The supplied relation is Using\s+/i, "The supplied relation is ")
+    .replace(/^The given equation is (.+?)\s+by using a common base\.$/i, "The given equation is $1.")
+    .replace(/^The supplied information is Write\s+(.+?)\s+after rationalisation\.$/i, "The rationalised coefficient form is $1.")
+    .replace(/^The given expression is (.+?)\s+and find A[+-]B\.$/i, "The rationalised coefficient form is $1.")
+    .replace(/^The quantity to bound is (.+?)\s+between (?:two\s+)?consecutive integers(?:\s+without decimals)?\.$/i, "The quantity to bound is $1.")
+    .replace(/^The given expression is (.+?)\s+into simplest surd form\.$/i, "The expression to simplify is $1.")
     .replace(/\b[A-Z][A-Z0-9_]{2,}:\s*/g, "")
     .replace(/Normalize each visible base to the common prime base and compare canonical values\./gi, "Rewrite each given base as a power of the common base, then compare the exact values.")
     .replace(/\bNormalize\b/g, "Rewrite")
@@ -163,7 +173,9 @@ function normalizeExplanation(
   };
   const repeatsStem = normalizeComparableText(cleaned.given) === normalizeComparableText(stem);
   const unsafeGiven = repeatsStem || hasStructuredStateLeak(cleaned.given);
-  return unsafeGiven ? { ...cleaned, given: describeSriGivenContext(checkpointId, stem) } : cleaned;
+  return unsafeGiven
+    ? { ...cleaned, given: cleanSriLearnerText(describeSriGivenContext(checkpointId, stem)) }
+    : cleaned;
 }
 
 export function finalizeSriDiscoveryQuestion(input: FinalizeSriDiscoveryInput): SriDiscoveryQuestion {
