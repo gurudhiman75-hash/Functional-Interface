@@ -44,6 +44,7 @@ function assertLockedPayload(payload: Record<string, any>): void {
   assert.equal(payload.automaticStudentPublication, false);
   assert.equal(payload.manualApprovalRequired, true);
   assert.equal(payload.generationContext.multilingualChapterFrozen, false);
+  assert.equal(payload.generationContext.persistenceAllowed, false);
 }
 
 for (const qlId of STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.permanentQlIds) {
