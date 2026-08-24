@@ -1,26 +1,33 @@
-name: Validate STA-001 semantic freeze and English corpus
+name: STA-001 Historical Four-QL Freeze Regression
 
 on:
   pull_request:
     branches:
       - New-main
-    types: [opened, reopened, synchronize]
     paths:
-      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/**
-      - .github/workflows/sta-001-discovery.yml
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/foundation-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/permanent-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/ambiguity-proof.test.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-readiness-proof.test.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql002-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql003-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-*'
+      - '.github/workflows/sta-001-discovery.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: validate-sta-001-${{ github.ref }}
+  group: sta-001-historical-four-ql-freeze-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  discovery-gate:
+  historical-four-ql-freeze-regression:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -29,224 +36,32 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
-      - name: Strict TypeScript check
-        working-directory: artifacts/api-server
-        run: |
-          pnpm exec tsc \
-            --noEmit \
-            --target es2022 \
-            --module esnext \
-            --moduleResolution bundler \
-            --allowImportingTsExtensions \
-            --strictNullChecks \
-            --noImplicitAny \
-            --noImplicitReturns \
-            --noFallthroughCasesInSwitch \
-            --skipLibCheck \
-            --types node \
-            $(find src/reasoning-v1/topics/Statement-and-Assumption/STA-001 -name '*.ts' -print)
-
-      - name: Run STA executable proof
+      - name: Replay historical executable core proof
         env:
           STA_DISCOVERY_CASES_PER_QL: 120
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/foundation-proof.test.ts
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/foundation-proof.test.ts
 
-      - name: Prove permanent STA QL semantic authority
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/permanent-ql-proof.test.ts
+      - name: Replay historical permanent four-QL semantic authority
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/permanent-ql-proof.test.ts
 
-      - name: Prove STA English corpus V2 freeze-candidate coverage
+      - name: Replay immutable English V2 corpus and ambiguity proofs
         env:
           STA_ENGLISH_CORPUS_CASES_PER_QL: 320
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-corpus-proof.test.ts
+        run: |
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-corpus-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/ambiguity-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-readiness-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-freeze-proof.test.ts
 
-      - name: Prove STA English V2 ambiguity and anti-restatement rules
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/ambiguity-proof.test.ts
+      - name: Replay immutable QL001-QL004 localization freezes
+        run: |
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-freeze-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql002-freeze-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql003-freeze-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-freeze-proof.test.ts
 
-      - name: Prove STA English V2 exam-readiness regressions
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-readiness-proof.test.ts
-
-      - name: Prove STA English V2 immutable freeze
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-freeze-proof.test.ts
-
-      - name: Prove STA QL001 Hindi/Punjabi semantic parity candidate V1
-        env:
-          STA_QL001_LOCALIZATION_CASES_PER_LOCALE: 768
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-proof.test.ts
-
-      - name: Prove STA QL001 Hindi/Punjabi native editorial V2
-        env:
-          STA_QL001_LOCALIZATION_V2_CASES_PER_LOCALE: 768
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-editorial-v2-proof.test.ts
-
-      - name: Prove STA QL001 Hindi/Punjabi immutable freeze V2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-freeze-proof.test.ts
-
-      - name: Prove STA QL002 Hindi/Punjabi semantic parity candidate V1
-        env:
-          STA_QL002_LOCALIZATION_CASES_PER_LOCALE: 768
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql002-proof.test.ts
-
-      - name: Prove STA QL002 Hindi/Punjabi native editorial V2
-        env:
-          STA_QL002_LOCALIZATION_V2_CASES_PER_LOCALE: 768
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql002-editorial-v2-proof.test.ts
-
-      - name: Prove STA QL002 Hindi/Punjabi immutable freeze V2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql002-freeze-proof.test.ts
-
-      - name: Prove STA QL003 Hindi/Punjabi semantic parity candidate V1
-        env:
-          STA_QL003_LOCALIZATION_CASES_PER_LOCALE: 768
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql003-proof.test.ts
-
-      - name: Prove STA QL003 Hindi/Punjabi native editorial V2
-        env:
-          STA_QL003_LOCALIZATION_V2_CASES_PER_LOCALE: 768
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql003-editorial-v2-proof.test.ts
-
-      - name: Prove STA QL003 Hindi/Punjabi immutable freeze V2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql003-freeze-proof.test.ts
-
-      - name: Prove STA QL004 Hindi/Punjabi semantic parity candidate V1
-        env:
-          STA_QL004_LOCALIZATION_CASES_PER_LOCALE: 768
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-proof.test.ts
-
-      - name: Prove STA QL004 Hindi/Punjabi native editorial V2
-        env:
-          STA_QL004_LOCALIZATION_V2_CASES_PER_LOCALE: 768
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-editorial-v2-proof.test.ts
-
-      - name: Generate STA semantic-freeze review pack
-        env:
-          STA_DISCOVERY_REVIEW_OUTPUT_DIR: /tmp/sta-001-discovery-review
-          STA_DISCOVERY_REVIEW_EXAMPLES_PER_QL: 8
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/review-export.ts
-
-      - name: Generate exhaustive STA English V2 review pack
-        env:
-          STA_ENGLISH_REVIEW_OUTPUT_DIR: /tmp/sta-001-english-corpus-v2-review
-          STA_ENGLISH_REVIEW_EXAMPLES_PER_AUTHORITY: 2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-review-export.ts
-
-      - name: Generate STA QL001 Hindi/Punjabi V1 review pack
-        env:
-          STA_QL001_LOCALIZATION_REVIEW_OUTPUT_DIR: /tmp/sta-001-ql001-hi-pa-review-v1
-          STA_QL001_LOCALIZATION_EXAMPLES_PER_AUTHORITY: 2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-review-export.ts
-
-      - name: Generate STA QL001 Hindi/Punjabi native editorial V2 review pack
-        env:
-          STA_QL001_LOCALIZATION_V2_REVIEW_OUTPUT_DIR: /tmp/sta-001-ql001-hi-pa-review-v2
-          STA_QL001_LOCALIZATION_V2_EXAMPLES_PER_AUTHORITY: 2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-editorial-v2-review-export.ts
-
-      - name: Generate STA QL002 Hindi/Punjabi review candidate V1
-        env:
-          STA_QL002_LOCALIZATION_REVIEW_OUTPUT_DIR: /tmp/sta-001-ql002-hi-pa-review-v1
-          STA_QL002_LOCALIZATION_EXAMPLES_PER_AUTHORITY: 2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql002-review-export.ts
-
-      - name: Generate STA QL002 Hindi/Punjabi native editorial V2 review pack
-        env:
-          STA_QL002_LOCALIZATION_V2_REVIEW_OUTPUT_DIR: /tmp/sta-001-ql002-hi-pa-review-v2
-          STA_QL002_LOCALIZATION_V2_EXAMPLES_PER_AUTHORITY: 2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql002-editorial-v2-review-export.ts
-
-      - name: Generate STA QL003 Hindi/Punjabi review candidate V1
-        env:
-          STA_QL003_LOCALIZATION_REVIEW_OUTPUT_DIR: /tmp/sta-001-ql003-hi-pa-review-v1
-          STA_QL003_LOCALIZATION_EXAMPLES_PER_AUTHORITY: 2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql003-review-export.ts
-
-      - name: Generate STA QL003 Hindi/Punjabi native editorial V2 review pack
-        env:
-          STA_QL003_LOCALIZATION_V2_REVIEW_OUTPUT_DIR: /tmp/sta-001-ql003-hi-pa-review-v2
-          STA_QL003_LOCALIZATION_V2_EXAMPLES_PER_AUTHORITY: 2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql003-editorial-v2-review-export.ts
-
-      - name: Generate STA QL004 Hindi/Punjabi review candidate V1
-        env:
-          STA_QL004_LOCALIZATION_REVIEW_OUTPUT_DIR: /tmp/sta-001-ql004-hi-pa-review-v1
-          STA_QL004_LOCALIZATION_EXAMPLES_PER_AUTHORITY: 2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-review-export.ts
-
-      - name: Generate STA QL004 Hindi/Punjabi native editorial V2 review pack
-        env:
-          STA_QL004_LOCALIZATION_V2_REVIEW_OUTPUT_DIR: /tmp/sta-001-ql004-hi-pa-review-v2
-          STA_QL004_LOCALIZATION_V2_EXAMPLES_PER_AUTHORITY: 2
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-editorial-v2-review-export.ts
-
-      - name: Build production API
-        working-directory: artifacts/api-server
-        run: pnpm run build
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: sta-001-executable-discovery-review
-          path: /tmp/sta-001-discovery-review/**
-          if-no-files-found: error
-          retention-days: 14
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: sta-001-english-corpus-v2-review
-          path: /tmp/sta-001-english-corpus-v2-review/**
-          if-no-files-found: error
-          retention-days: 14
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: sta-001-ql001-hi-pa-review-v1
-          path: /tmp/sta-001-ql001-hi-pa-review-v1/**
-          if-no-files-found: error
-          retention-days: 14
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: sta-001-ql001-hi-pa-review-v2
-          path: /tmp/sta-001-ql001-hi-pa-review-v2/**
-          if-no-files-found: error
-          retention-days: 14
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: sta-001-ql002-hi-pa-review-v1
-          path: /tmp/sta-001-ql002-hi-pa-review-v1/**
-          if-no-files-found: error
-          retention-days: 14
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: sta-001-ql002-hi-pa-review-v2
-          path: /tmp/sta-001-ql002-hi-pa-review-v2/**
-          if-no-files-found: error
-          retention-days: 14
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: sta-001-ql003-hi-pa-review-v1
-          path: /tmp/sta-001-ql003-hi-pa-review-v1/**
-          if-no-files-found: error
-          retention-days: 14
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: sta-001-ql003-hi-pa-review-v2
-          path: /tmp/sta-001-ql003-hi-pa-review-v2/**
-          if-no-files-found: error
-          retention-days: 14
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: sta-001-ql004-hi-pa-review-v1
-          path: /tmp/sta-001-ql004-hi-pa-review-v1/**
-          if-no-files-found: error
-          retention-days: 14
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: sta-001-ql004-hi-pa-review-v2
-          path: /tmp/sta-001-ql004-hi-pa-review-v2/**
-          if-no-files-found: error
-          retention-days: 14
+      - name: Historical-authority boundary
+        run: |
+          echo 'The former QL001-QL004 product freeze remains preserved as immutable historical evidence.'
+          echo 'This workflow does not assert that the current V4.1 review candidate has only four QLs.'
+          echo 'It does not grant V4.1 freeze or delivery approval.'
