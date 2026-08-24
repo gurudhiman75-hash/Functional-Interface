@@ -1,5 +1,6 @@
 import { divide, multiply, rational, type Rational } from "../../TSD-001/foundation/rational";
-import { TSD_CP009_ENGLISH_AUTHORING_REGISTRY, type TsdCp009Difficulty } from "./english-authoring-registry";
+import { TSD_CP009_FINAL_ENGLISH_AUTHORING_REGISTRY } from "./english-authoring-final";
+import type { TsdCp009Difficulty } from "./english-authoring-registry";
 import { TSD_CP009_ENGLISH_REVIEW_CASES } from "./english-review-cases";
 
 export interface TsdCp009RenderedEnglishQuestion {
@@ -105,7 +106,7 @@ function answer(value: Rational, unit: string): string {
 const cases = new Map(TSD_CP009_ENGLISH_REVIEW_CASES.map((entry) => [entry.familyId, entry] as const));
 const rendered: TsdCp009RenderedEnglishQuestion[] = [];
 
-for (const ql of TSD_CP009_ENGLISH_AUTHORING_REGISTRY) {
+for (const ql of TSD_CP009_FINAL_ENGLISH_AUTHORING_REGISTRY) {
   for (const family of ql.stemFamilies) {
     const reviewCase = cases.get(family.familyId);
     if (!reviewCase) throw new Error(`${family.familyId}: natural review case missing`);
