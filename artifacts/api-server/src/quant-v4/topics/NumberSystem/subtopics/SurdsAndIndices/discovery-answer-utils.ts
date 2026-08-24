@@ -43,7 +43,6 @@ export function rationalDistractors(value: Rational): SriDistractor[] {
     }
     if (distractors.length >= 5) break;
   }
-  if (distractors.length < 3) throw new Error("Unable to build three unique rational distractors");
   return distractors;
 }
 
