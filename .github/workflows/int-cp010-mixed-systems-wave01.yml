@@ -1,0 +1,54 @@
+name: Validate INT-CP-010 Mixed Systems Wave01
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp010-mixed-systems-discovery-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-mixed-systems-wave01-audit.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-mixed-systems-wave01-review-export.ts"
+      - ".github/workflows/int-cp010-mixed-systems-wave01.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp010-mixed-systems-wave01:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run CP010 mixed systems Wave01 audit
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-mixed-systems-wave01-audit.ts | tee int-cp010-wave01.log
+          grep -q 'PASS_INT_CP010_MIXED_SYSTEMS_WAVE01_AUDIT' int-cp010-wave01.log
+      - name: Export balanced English discovery review
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-mixed-systems-wave01-review-export.ts > INT-CP-010-WAVE01-EN-REVIEW.md
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Record exact validation head
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-cp010-wave01-head.log
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+      - name: Upload CP010 Wave01 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp010-mixed-systems-wave01
+          path: |
+            int-cp010-wave01.log
+            int-cp010-wave01-head.log
+            INT-CP-010-WAVE01-EN-REVIEW.md
+          retention-days: 30
