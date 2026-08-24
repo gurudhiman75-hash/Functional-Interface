@@ -192,7 +192,11 @@ function explanationLead(language: StaV4Language, polarity: "POSITIVE" | "NEGATI
 }
 
 function normalizeRationale(language: StaV4Language, rationale: string): string {
-  if (language === "hi") return rationale.replace(/\bconfound\b/giu, "भ्रमकारी कारक");
+  if (language === "hi") {
+    return rationale
+      .replace(/\bconfound\b/giu, "भ्रमकारी कारक")
+      .replace(/\bpersuasive\b/giu, "प्रेरक");
+  }
   if (language === "pa") return rationale.replace(/\bconfound\b/giu, "ਭ੍ਰਮਕ ਕਾਰਕ");
   return rationale;
 }
