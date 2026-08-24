@@ -20,13 +20,180 @@ function stripTerminalPunctuation(value: string): string {
 }
 
 function sentence(prefix: string, body: string): string {
-  const value = stripTerminalPunctuation(body);
-  return `${prefix} ${value}.`;
+  return `${prefix} ${stripTerminalPunctuation(body)}.`;
 }
 
 function deriveVisibleGiven(stem: string): string | null {
   const text = stripTerminalPunctuation(stem);
   let match: RegExpExecArray | null;
+
+  match = /^Which statement correctly describes\s+(.+?)\s+over the real numbers$/i.exec(text);
+  if (match) return sentence("The power to classify is", match[1]!);
+
+  match = /^The values\s+(.+?)\s+are known\.\s*What is\s+/i.exec(text);
+  if (match) return sentence("The supplied power values are", match[1]!);
+
+  match = /^For\s+(.+?),\s*determine the exponent\b/i.exec(text);
+  if (match) return sentence("The given power equation is", match[1]!);
+
+  match = /^Determine x when\s+(.+?)\s+and\s+(.+?)\s+are equal$/i.exec(text);
+  if (match) return `The two equal power expressions are ${stripTerminalPunctuation(match[1]!)} and ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^Determine x when\s+(.+?)\s+equals\s+(.+)$/i.exec(text);
+  if (match) return `The given equation is ${stripTerminalPunctuation(match[1]!)} = ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^For\s+(.+?),\s*the common\s+.+?\s+is\s+(.+?)\.\s*Determine\b/i.exec(text);
+  if (match) return `The linked power relation is ${stripTerminalPunctuation(match[1]!)} with common exponent ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^After writing both with base\s+(.+?),\s*compare\s+(.+)$/i.exec(text);
+  if (match) return sentence("The two powers to compare are", match[2]!);
+
+  match = /^Using base\s+(.+?),\s*order\s+(.+?)\s+from least to greatest$/i.exec(text);
+  if (match) return sentence("The powers to order are", match[2]!);
+
+  match = /^State whether\s+(.+?)\s+is greater than, less than, or equal to\s+(.+)$/i.exec(text);
+  if (match) return `The powers to compare are ${stripTerminalPunctuation(match[1]!)} and ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^Classify the relation between\s+(.+?)\s+and\s+(.+)$/i.exec(text);
+  if (match) return `The powers to compare are ${stripTerminalPunctuation(match[1]!)} and ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^For the following two index statements—\s*(.+?)\s*—which option is correct$/i.exec(text);
+  if (match) return sentence("The two displayed index statements are", match[1]!);
+
+  match = /^Consider\s+(.+?)\.\s*Choose the correct truth combination$/i.exec(text);
+  if (match) return sentence("The two displayed index statements are", match[1]!);
+
+  match = /^Quantity A:\s*(.+?)\.\s*Quantity B:\s*(.+?)\.\s*Compare A and B$/i.exec(text);
+  if (match) return `Quantity A is ${stripTerminalPunctuation(match[1]!)} and Quantity B is ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^Which is the simplest form of\s+(.+)$/i.exec(text);
+  if (match) return sentence("The radical to simplify is", match[1]!);
+
+  match = /^Extract the greatest perfect-(?:square|cube) factor from\s+(.+)$/i.exec(text);
+  if (match) return sentence("The radical to simplify is", match[1]!);
+
+  match = /^Find (?:the )?(?:simplified|simplest exact radical) form of\s+(.+)$/i.exec(text);
+  if (match) return sentence("The radical to simplify is", match[1]!);
+
+  match = /^Write\s+(.+?)\s+after extracting the perfect\s+.+?\s+factor$/i.exec(text);
+  if (match) return sentence("The radical to simplify is", match[1]!);
+
+  match = /^Write\s+(.+?)\s+using a fractional index$/i.exec(text);
+  if (match) return sentence("The radical form to convert is", match[1]!);
+
+  match = /^Find the exact product of\s+(.+?)\s+and\s+(.+)$/i.exec(text);
+  if (match) return `The factors are ${stripTerminalPunctuation(match[1]!)} and ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^Find the exact product\s+(.+)$/i.exec(text);
+  if (match) return sentence("The given product is", match[1]!);
+
+  match = /^Divide the surds exactly:\s*(.+)$/i.exec(text);
+  if (match) return sentence("The given surd quotient is", match[1]!);
+
+  match = /^Expand and simplify\s+(.+)$/i.exec(text);
+  if (match) return sentence("The surd expression to expand is", match[1]!);
+
+  match = /^Classify the result of\s+(.+)$/i.exec(text);
+  if (match) return sentence("The given surd expression is", match[1]!);
+
+  match = /^After exact simplification, is\s+(.+?)\s+rational or irrational$/i.exec(text);
+  if (match) return sentence("The surd expression to classify is", match[1]!);
+
+  match = /^Remove (?:the radical|the radicals) from the denominator of\s+(.+)$/i.exec(text);
+  if (match) return sentence("The fraction to rationalise is", match[1]!);
+
+  match = /^Write\s+(.+?)\s+with a rational denominator$/i.exec(text);
+  if (match) return sentence("The fraction to rationalise is", match[1]!);
+
+  match = /^Find the (?:simplest|exact) rationalised form of\s+(.+)$/i.exec(text);
+  if (match) return sentence("The fraction to rationalise is", match[1]!);
+
+  match = /^Use the conjugate to rationalise\s+(.+)$/i.exec(text);
+  if (match) return sentence("The fraction to rationalise is", match[1]!);
+
+  match = /^Write\s+(.+?)=(.+?)\s+after rationalisation\.\s*Determine\b/i.exec(text);
+  if (match) return sentence("The fraction to rationalise is", match[1]!);
+
+  match = /^After recovering\s+.+?\s+from\s+(.+?),\s*calculate\b/i.exec(text);
+  if (match) return sentence("The fraction to rationalise is", match[1]!);
+
+  match = /^Find the exact denested form of\s+(.+)$/i.exec(text);
+  if (match) return sentence("The nested radical is", match[1]!);
+
+  match = /^Decide whether\s+(.+?)\s+is denestable\b/i.exec(text);
+  if (match) return sentence("The nested radical to test is", match[1]!);
+
+  match = /^Can\s+(.+?)\s+be written as\s+(.+)$/i.exec(text);
+  if (match) return sentence("The nested radical to test is", match[1]!);
+
+  match = /^Find\s+\(A,B\)\s+such that\s+(.+)$/i.exec(text);
+  if (match) return sentence("The denesting identity to match is", match[1]!);
+
+  match = /^For\s+(.+?),\s*recover the nested-surd parameters\b/i.exec(text);
+  if (match) return sentence("The denested expression is", match[1]!);
+
+  match = /^Recover x when\s+(.+)$/i.exec(text);
+  if (match) return sentence("The denesting relation is", match[1]!);
+
+  match = /^The denested form of\s+(.+?)\s+is\s+(.+?)\.\s*Determine x$/i.exec(text);
+  if (match) return `The nested radical is ${stripTerminalPunctuation(match[1]!)} and its denested form is ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^Use a common exact power to compare\s+(.+?)\s+with\s+(.+)$/i.exec(text);
+  if (match) return `The radicals to compare are ${stripTerminalPunctuation(match[1]!)} and ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^Determine the exact order of the different-index radicals\s+(.+?)\s+and\s+(.+)$/i.exec(text);
+  if (match) return `The radicals to compare are ${stripTerminalPunctuation(match[1]!)} and ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^Between which consecutive integers does\s+(.+?)\s+lie$/i.exec(text);
+  if (match) return sentence("The radical to bound is", match[1]!);
+
+  match = /^Choose the true range statement for\s+(.+)$/i.exec(text);
+  if (match) return sentence("The irrational quantity to bound is", match[1]!);
+
+  match = /^Bound the irrational quantity\s+(.+?)\s+exactly by consecutive integers$/i.exec(text);
+  if (match) return sentence("The irrational quantity to bound is", match[1]!);
+
+  match = /^Use the conjugate of\s+(.+?)\s+to find\b/i.exec(text);
+  if (match) return sentence("The supplied surd value is", match[1]!);
+
+  match = /^Without decimal approximation, determine\s+(.+?)\s+when\s+(.+)$/i.exec(text);
+  if (match) return sentence("The supplied surd value is", match[2]!);
+
+  match = /^Find the bounded real solution of\s+(.+?),\s*where\s+(.+)$/i.exec(text);
+  if (match) return `The equation is ${stripTerminalPunctuation(match[1]!)} with the restriction ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^Determine x in\s+(.+?)\s+satisfying\s+(.+)$/i.exec(text);
+  if (match) return `The variable is restricted to ${stripTerminalPunctuation(match[1]!)} and satisfies ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^For\s+(.+?),\s*the squared equation yields\s+(.+?)\.\s*Which value must be rejected$/i.exec(text);
+  if (match) return `The original equation is ${stripTerminalPunctuation(match[1]!)} and squaring gives candidates ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^After squaring\s+(.+?),\s*candidates\s+(.+?)\s+appear\.\s*Identify the extraneous root$/i.exec(text);
+  if (match) return `The original equation is ${stripTerminalPunctuation(match[1]!)} and squaring gives candidates ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^Which candidate fails the original equation\s+(.+?):\s*(.+)$/i.exec(text);
+  if (match) return `The original equation is ${stripTerminalPunctuation(match[1]!)} with candidate values ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^Which statement set is correct for\s+(.+?)\?\s*(.+)$/i.exec(stem.trim());
+  if (match) return `The radical under review is ${stripTerminalPunctuation(match[1]!)}; the displayed statements are ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^Without decimals, decide the truth of:\s*(.+)$/i.exec(text);
+  if (match) return sentence("The displayed surd statements are", match[1]!);
+
+  match = /^Are\s+(.+?)\s+and\s+(.+?)\s+equal, or is one greater$/i.exec(text);
+  if (match) return `The two exact representations are ${stripTerminalPunctuation(match[1]!)} and ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^Using exact radical-index equivalence, compare\s+(.+?)\s+with\s+(.+)$/i.exec(text);
+  if (match) return `The two exact representations are ${stripTerminalPunctuation(match[1]!)} and ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^Determine the relation between\s+(.+?)\s+and\s+(.+)$/i.exec(text);
+  if (match) return `The two exact representations are ${stripTerminalPunctuation(match[1]!)} and ${stripTerminalPunctuation(match[2]!)}.`;
+
+  match = /^Use fractional indices to reduce\s+(.+?)\s+to simplest radical form$/i.exec(text);
+  if (match) return sentence("The radical to simplify is", match[1]!);
+
+  match = /^Use surd simplification and a negative index to evaluate\s+(.+)$/i.exec(text);
+  if (match) return sentence("The mixed surd-index expression is", match[1]!);
 
   match = /^(?:Simplify|Evaluate|Denest|Rationalise)\s+(.+)$/i.exec(text);
   if (match) return sentence("The given expression is", match[1]!);
