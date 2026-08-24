@@ -27,6 +27,10 @@ function renderPositionClue(
   all: readonly Sea002Cp007ProductionClue[],
   used: Set<Sea002Cp007ProductionClue>,
 ): string | null {
+  if (clue.kind === "ROW_ANCHOR") {
+    used.add(clue);
+    return `${clue.person} sits in the ${clue.row === "TOP" ? "upper" : "lower"} row.`;
+  }
   if (clue.kind === "SAME_ROW_OFFSET") {
     used.add(clue);
     const placement = clue.distance === 1
@@ -72,12 +76,15 @@ export function renderSea002Cp007ExamRealStem(caselet: Sea002Cp007ProductionCase
     sentences.push(`For the remaining facing relations, ${compact.join("; ")}.`);
   }
 
-  return `Two parallel rows contain ${caselet.width} persons each. The upper-row members are ${[...caselet.rowGroups.top].sort().join(", ")}; the lower-row members are ${[...caselet.rowGroups.bottom].sort().join(", ")}. Some persons face north and some face south. ${sentences.join(" ")}`;
+  const roster = caselet.rowMembershipMode === "GIVEN"
+    ? `The upper-row members are ${[...caselet.rowGroups.top].sort().join(", ")}; the lower-row members are ${[...caselet.rowGroups.bottom].sort().join(", ")}. `
+    : "";
+  return `Two parallel rows contain ${caselet.width} persons each. ${roster}Some persons face north and some face south. ${sentences.join(" ")}`;
 }
 
 export function countSea002Cp007ExamRealClueSentences(caselet: Sea002Cp007ProductionCaselet): number {
   const stem = renderSea002Cp007ExamRealStem(caselet);
-  const prefixSentences = 3;
+  const prefixSentences = caselet.rowMembershipMode === "GIVEN" ? 3 : 2;
   const sentenceCount = (stem.match(/\./g) ?? []).length;
   return Math.max(0, sentenceCount - prefixSentences);
 }
