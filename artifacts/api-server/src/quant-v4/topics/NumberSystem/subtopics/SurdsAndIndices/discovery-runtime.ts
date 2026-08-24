@@ -88,11 +88,16 @@ function canonicalFallbackDistractors(correct: SriCandidateAnswer): SriDistracto
 function cleanSriLearnerText(value: string): string {
   return value
     .replace(/\b[A-Z][A-Z0-9_]{2,}:\s*/g, "")
-    .replace(/Normalize each visible base to the common prime base and compare canonical values\./gi, "Rewrite each given base as a power of the common prime base, then compare the exact values.")
+    .replace(/Normalize each visible base to the common prime base and compare canonical values\./gi, "Rewrite each given base as a power of the common base, then compare the exact values.")
     .replace(/\bNormalize\b/g, "Rewrite")
     .replace(/\bnormalize\b/g, "rewrite")
     .replace(/\bCanonical result\b/gi, "Simplified result")
     .replace(/\bcanonical values?\b/gi, "exact values")
+    .replace(/\bcanonical surd form\b/gi, "simplest surd form")
+    .replace(/\bcanonical coefficients?\b/gi, "standard-form coefficients")
+    .replace(/\bcanonical form\b/gi, "standard form")
+    .replace(/\bprime base\b/gi, "common base")
+    .replace(/\bdenominator-th root\b/gi, "root indicated by the denominator")
     .replace(/the visible base was reverse-constructed as a perfect qth power\./gi, "the base is a perfect qth power, so its qth root is exact.")
     .replace(/\breverse-constructed\b/gi, "chosen")
     .replace(/\bvisible base\b/gi, "given base")
