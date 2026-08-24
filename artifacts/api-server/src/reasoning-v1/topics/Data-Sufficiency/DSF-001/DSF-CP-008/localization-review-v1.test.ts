@@ -31,6 +31,18 @@ function assertLocalizedSurface(language: DsfLocalizedLanguage, text: string, la
   );
 }
 
+function assertLocalizedStatement(language: DsfLocalizedLanguage, text: string, label: string): void {
+  assert.doesNotMatch(
+    text,
+    /\b(is|are|and|greater|less|even|odd|prime|multiple|divisible|product|at\s+least|at\s+most|percentage\s+points)\b/i,
+    `${label} leaked English statement prose`,
+  );
+  const mathOnly = /^[ABPQXYxy0-9+\-*/=<>:%.(),\s]+$/.test(text);
+  if (!mathOnly) {
+    assert.match(text, scriptRegex(language), `${label} must contain the target script unless it is pure mathematical notation`);
+  }
+}
+
 function sourceInput(input: {
   seed: string;
   count: number;
@@ -86,6 +98,8 @@ for (const language of DSF_CP008_LOCALIZED_LANGUAGES) {
       assert.equal(question.validation.canonicalAnswerPreserved, true);
       assertLocalizedSurface(language, question.stem, `${question.questionId}/stem`);
       assertLocalizedSurface(language, question.questionPrompt, `${question.questionId}/prompt`);
+      assertLocalizedStatement(language, question.statements[0].text, `${question.questionId}/statement I`);
+      assertLocalizedStatement(language, question.statements[1].text, `${question.questionId}/statement II`);
       assertLocalizedSurface(language, question.explanation.askedTarget, `${question.questionId}/askedTarget`);
       assertLocalizedSurface(language, question.explanation.statementI, `${question.questionId}/statementI explanation`);
       assertLocalizedSurface(language, question.explanation.statementII, `${question.questionId}/statementII explanation`);
