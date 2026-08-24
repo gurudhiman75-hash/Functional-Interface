@@ -35,14 +35,16 @@ function relationFromComparison(comparison: -1 | 0 | 1): Relation {
 function relationAnswer(relation: Relation, firstLabel = "First expression", secondLabel = "Second expression") {
   if (relation === "FIRST_GREATER") return textAnswer(`${firstLabel} is greater`, "T:FIRST_GREATER");
   if (relation === "SECOND_GREATER") return textAnswer(`${secondLabel} is greater`, "T:SECOND_GREATER");
-  return textAnswer("The two expressions are equal", "T:EQUAL");
+  const text = firstLabel === "First expression" ? "The two expressions are equal" : `${firstLabel} and ${secondLabel} are equal`;
+  return textAnswer(text, "T:EQUAL");
 }
 
-function relationDistractors() {
+function relationDistractors(firstLabel = "First expression", secondLabel = "Second expression") {
+  const equalText = firstLabel === "First expression" ? "The two expressions are equal" : `${firstLabel} and ${secondLabel} are equal`;
   return textDistractors([
-    { text: "First expression is greater", key: "T:FIRST_GREATER", misconceptionId: "COMPARE_VISIBLE_BASES_ONLY" },
-    { text: "Second expression is greater", key: "T:SECOND_GREATER", misconceptionId: "COMPARE_VISIBLE_EXPONENTS_ONLY" },
-    { text: "The two expressions are equal", key: "T:EQUAL", misconceptionId: "ASSUME_EQUAL_AFTER_ALIGNMENT" },
+    { text: `${firstLabel} is greater`, key: "T:FIRST_GREATER", misconceptionId: "COMPARE_VISIBLE_BASES_ONLY" },
+    { text: `${secondLabel} is greater`, key: "T:SECOND_GREATER", misconceptionId: "COMPARE_VISIBLE_EXPONENTS_ONLY" },
+    { text: equalText, key: "T:EQUAL", misconceptionId: "ASSUME_EQUAL_AFTER_ALIGNMENT" },
     { text: "Cannot be determined", key: "T:CANNOT_DETERMINE", misconceptionId: "MISS_EXACT_NORMALIZATION" },
   ]);
 }
@@ -70,7 +72,7 @@ function finishRelation(
     answer,
     canonicalSolverKey: answer.canonicalKey,
     independentVerifierKey: relationAnswer(verifierRelation, firstLabel, secondLabel).canonicalKey,
-    distractors: relationDistractors(),
+    distractors: relationDistractors(firstLabel, secondLabel),
     explanation: {
       given: stem.replace(/\?$/, ""),
       asked: "Compare the quantities exactly using index laws.",
@@ -78,7 +80,7 @@ function finishRelation(
       working,
       answer: answer.text,
     },
-    proofEvents: [proofEvent("COMPARE", method, { stem }, { relation: solverRelation })],
+    proofEvents: [proofEvent("NORMALIZE", method, { stem }, { relation: solverRelation })],
   });
 }
 
@@ -132,14 +134,15 @@ export function generateSriCp006Candidate(candidateId: string, seed: string): Sr
     }
     case "C006-B": {
       const tuples = [
-        { label: "A", k: 2, m: 2, exponent: 4 },
-        { label: "B", k: 3, m: 2, exponent: 6 },
-        { label: "C", k: 3, m: 3, exponent: 9 },
+        { k: 2, m: 2, exponent: 4 },
+        { k: 3, m: 2, exponent: 6 },
+        { k: 3, m: 3, exponent: 9 },
       ] as const;
       const rotation = sriInt(`${seed}:rotation`, 0, 2);
       const ordered = [...tuples.slice(rotation), ...tuples.slice(0, rotation)];
-      const expressions = ordered.map((item) => ({
-        label: item.label,
+      const labels = ["A", "B", "C"] as const;
+      const expressions = ordered.map((item, index) => ({
+        label: labels[index]!,
         visibleBase: Number(powBigInt(commonBase, item.k)),
         exponent: item.m,
         normalizedExponent: item.exponent,
@@ -174,7 +177,7 @@ export function generateSriCp006Candidate(candidateId: string, seed: string): Sr
           working: expressions.map((item) => `${item.label} = ${commonBase}^${item.normalizedExponent}`),
           answer: answer.text,
         },
-        proofEvents: [proofEvent("COMPARE", "three-way exact common-base ordering", { stem }, { order: solverText })],
+        proofEvents: [proofEvent("NORMALIZE", "three-way exact common-base ordering", { stem }, { order: solverText })],
       });
     }
     case "C006-C": {
@@ -199,24 +202,25 @@ export function generateSriCp006Candidate(candidateId: string, seed: string): Sr
     }
     case "C006-D": {
       const mode = sriPick(`${seed}:mode`, ["FIRST_GREATER", "SECOND_GREATER", "EQUAL"] as const);
-      const firstK = mode === "SECOND_GREATER" ? 2 : 3;
-      const firstM = mode === "FIRST_GREATER" ? 3 : 2;
-      const secondK = mode === "FIRST_GREATER" ? 2 : 3;
-      const secondM = mode === "SECOND_GREATER" ? 3 : 2;
-      const visible1 = Number(powBigInt(commonBase, firstK));
-      const visible2 = Number(powBigInt(commonBase, secondK));
-      const e1 = firstK * firstM;
-      const e2 = secondK * secondM;
+      const shape = mode === "FIRST_GREATER"
+        ? { firstK: 3, firstM: 3, secondK: 2, secondM: 3 }
+        : mode === "SECOND_GREATER"
+          ? { firstK: 2, firstM: 3, secondK: 3, secondM: 3 }
+          : { firstK: 2, firstM: 3, secondK: 3, secondM: 2 };
+      const visible1 = Number(powBigInt(commonBase, shape.firstK));
+      const visible2 = Number(powBigInt(commonBase, shape.secondK));
+      const e1 = shape.firstK * shape.firstM;
+      const e2 = shape.secondK * shape.secondM;
       const solverRelation = e1 > e2 ? "FIRST_GREATER" : e1 < e2 ? "SECOND_GREATER" : "EQUAL";
-      const verifierRelation = relationFromComparison(compareRational(powRationalInteger(rational(visible1), firstM), powRationalInteger(rational(visible2), secondM)));
+      const verifierRelation = relationFromComparison(compareRational(powRationalInteger(rational(visible1), shape.firstM), powRationalInteger(rational(visible2), shape.secondM)));
       const stem = sriPick(`${seed}:surface`, [
-        `Classify the relation between ${visible1}^${firstM} and ${visible2}^${secondM}.`,
-        `State whether ${visible1}^${firstM} is greater than, less than, or equal to ${visible2}^${secondM}.`,
-        `Compare exactly: ${visible1}^${firstM} versus ${visible2}^${secondM}.`,
+        `Classify the relation between ${visible1}^${shape.firstM} and ${visible2}^${shape.secondM}.`,
+        `State whether ${visible1}^${shape.firstM} is greater than, less than, or equal to ${visible2}^${shape.secondM}.`,
+        `Compare exactly: ${visible1}^${shape.firstM} versus ${visible2}^${shape.secondM}.`,
       ]);
-      return finishRelation(candidateId, seed, { commonBase, visible1, firstM, visible2, secondM }, stem, solverRelation, verifierRelation,
+      return finishRelation(candidateId, seed, { commonBase, visible1, firstExponent: shape.firstM, visible2, secondExponent: shape.secondM }, stem, solverRelation, verifierRelation,
         "Reduce each expression to a power of the same base and classify the relation.",
-        [`${visible1}^${firstM} = ${commonBase}^${e1}`, `${visible2}^${secondM} = ${commonBase}^${e2}`]);
+        [`${visible1}^${shape.firstM} = ${commonBase}^${e1}`, `${visible2}^${shape.secondM} = ${commonBase}^${e2}`]);
     }
     case "C006-E": {
       const trueLaw = sriPick(`${seed}:true-law`, TRUE_LAWS);
@@ -243,7 +247,7 @@ export function generateSriCp006Candidate(candidateId: string, seed: string): Sr
           working: [trueLaw.reason, ...falseLaws.map((law) => `${law.id}: ${law.reason}`)],
           answer: answer.text,
         },
-        proofEvents: [proofEvent("VERIFY", "truth-table check of index-law statements", { candidateCount: "4" }, { uniqueTrueLaw: trueLaw.id })],
+        proofEvents: [proofEvent("SOLVE", "truth-table check of index-law statements", { candidateCount: "4" }, { uniqueTrueLaw: trueLaw.id })],
       });
     }
     case "C006-F": {
@@ -263,11 +267,12 @@ export function generateSriCp006Candidate(candidateId: string, seed: string): Sr
         `Consider I: ${firstLaw.text} II: ${secondLaw.text} Choose the correct truth combination.`,
         `For the following two index statements— I. ${firstLaw.text} II. ${secondLaw.text} —which option is correct?`,
       ]);
+      const verifierKey = firstLaw.trueForDeclaredDomain && secondLaw.trueForDeclaredDomain ? "BOTH_TRUE" : firstLaw.trueForDeclaredDomain ? "ONLY_I" : secondLaw.trueForDeclaredDomain ? "ONLY_II" : "BOTH_FALSE";
       return finalizeSriDiscoveryQuestion({
         packageId: "SRI-001", checkpointId: "SRI-CP-006", candidateId, seed,
         state: { statementI: firstLaw.id, statementII: secondLaw.id, firstTruth, secondTruth }, stem, answer,
         canonicalSolverKey: answer.canonicalKey,
-        independentVerifierKey: `T:${firstLaw.trueForDeclaredDomain && secondLaw.trueForDeclaredDomain ? "BOTH_TRUE" : firstLaw.trueForDeclaredDomain ? "ONLY_I" : secondLaw.trueForDeclaredDomain ? "ONLY_II" : "BOTH_FALSE"}`,
+        independentVerifierKey: `T:${verifierKey}`,
         distractors: textDistractors([
           { text: "Both I and II are true", key: "T:BOTH_TRUE", misconceptionId: "MARK_BOTH_TRUE" },
           { text: "Only I is true", key: "T:ONLY_I", misconceptionId: "MARK_ONLY_I" },
@@ -281,13 +286,13 @@ export function generateSriCp006Candidate(candidateId: string, seed: string): Sr
           working: [`I: ${firstLaw.reason}`, `II: ${secondLaw.reason}`],
           answer: answer.text,
         },
-        proofEvents: [proofEvent("VERIFY", "independent truth evaluation of two index statements", { I: firstLaw.id, II: secondLaw.id }, { result: key })],
+        proofEvents: [proofEvent("SOLVE", "independent truth evaluation of two index statements", { I: firstLaw.id, II: secondLaw.id }, { result: key })],
       });
     }
     case "C006-G": {
       const mode = sriPick(`${seed}:mode`, ["FIRST_GREATER", "SECOND_GREATER", "EQUAL"] as const);
       const firstNormalized = mode === "FIRST_GREATER" ? 8 : mode === "SECOND_GREATER" ? 6 : 6;
-      const secondNormalized = mode === "FIRST_GREATER" ? 6 : mode === "SECOND_GREATER" ? 8 : 6;
+      const secondNormalized = mode === "FIRST_GREATER" ? 6 : mode === "SECOND_GREATER" ? 9 : 6;
       const firstK = 2;
       const firstM = firstNormalized / firstK;
       const secondK = 3;
