@@ -2,6 +2,9 @@ import type { Com001ReviewV2Question } from "./com001-review-synthesis-v2";
 
 export type Com001DifficultyV2 = "Easy" | "Medium" | "Hard";
 
+export const COM001_DIFFICULTY_CLASSIFIER_VERSION_V2 =
+  "COM-001-DIFFICULTY-V2-CANDIDATE-1" as const;
+
 export type Com001DifficultyDecisionV2 = {
   difficulty: Com001DifficultyV2;
   topology:
@@ -14,11 +17,9 @@ export type Com001DifficultyDecisionV2 = {
     | "DIRECT_EXAM_CAPACITY_RELATION"
     | "EXPLICIT_STANDARDS_CONVENTION";
   rationale: string;
-  classifierVersion: "COM-001-DIFFICULTY-V2-CANDIDATE-1";
+  classifierVersion: typeof COM001_DIFFICULTY_CLASSIFIER_VERSION_V2;
   productionClaimAuthorized: false;
 };
-
-const VERSION = "COM-001-DIFFICULTY-V2-CANDIDATE-1" as const;
 
 function decision(
   difficulty: Com001DifficultyV2,
@@ -29,7 +30,7 @@ function decision(
     difficulty,
     topology,
     rationale,
-    classifierVersion: VERSION,
+    classifierVersion: COM001_DIFFICULTY_CLASSIFIER_VERSION_V2,
     productionClaimAuthorized: false,
   };
 }
