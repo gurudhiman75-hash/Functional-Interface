@@ -1,0 +1,37 @@
+name: TEMP Apply DSF CP009 Release Patch
+
+on:
+  push:
+    branches:
+      - feature/dsf-cp009-hi-pa-localization-approval-release-v1
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-009/apply-cp009-release-patch.py
+      - .github/workflows/_temp-dsf-cp009-apply-release-patch.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/dsf-cp009-hi-pa-localization-approval-release-v1
+          fetch-depth: 0
+      - name: Apply CP009 patch
+        run: python artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-009/apply-cp009-release-patch.py
+      - name: Commit patched integration files
+        run: |
+          if git diff --quiet; then
+            echo "No changes required"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/routes/admin-question-studio-data-sufficiency.ts \
+                  artifacts/admin-app/src/features/question-studio/data-sufficiency-review-api.ts \
+                  artifacts/admin-app/src/pages/content/QuestionStudioDataSufficiencyReviewPanel.tsx
+          git commit -m "DSF-CP-009: wire approved localization release"
+          git push origin HEAD:feature/dsf-cp009-hi-pa-localization-approval-release-v1
