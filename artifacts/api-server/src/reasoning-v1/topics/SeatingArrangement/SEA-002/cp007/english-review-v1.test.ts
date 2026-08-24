@@ -14,6 +14,7 @@ let structureChecks = 0;
 let visualTeachingChecks = 0;
 let querySpecificChecks = 0;
 let auth01InferenceChecks = 0;
+let auth04InferenceChecks = 0;
 
 for (const authorityKey of AUTHORITIES) {
   for (let index = 0; index < 20; index += 1) {
@@ -84,6 +85,17 @@ for (const authorityKey of AUTHORITIES) {
     }
 
     if (authorityKey === "CP007-AUTH-04") {
+      const match = caselet.question.match(/diagonally from ([A-Za-z]+) in \1's (left|right)-hand direction\?/u);
+      assert.ok(match);
+      const reference = match[1]!;
+      const direction = match[2]!.toUpperCase() as "LEFT" | "RIGHT";
+      const direct = caselet.clues.some((clue) =>
+        clue.kind === "DIAGONAL"
+        && clue.reference === reference
+        && clue.subject === caselet.answer
+        && clue.direction === direction,
+      );
+      assert.equal(direct, false, `${caselet.caseletId} must not ask a directly stated diagonal.`);
       assert.ok(explanation.includes("1) First fix the reference person's facing:"));
       assert.ok(explanation.includes("2) Translate"));
       assert.ok(explanation.includes("3) Build and align the two rows:"));
@@ -96,18 +108,21 @@ for (const authorityKey of AUTHORITIES) {
       assert.ok(explanation.includes("diagonal means take that position in the other row"));
       assert.ok(explanation.includes("↑ = north, ↓ = south"));
       visualTeachingChecks += 10;
-      querySpecificChecks += 3;
+      querySpecificChecks += 4;
+      auth04InferenceChecks += 1;
     }
   }
 }
 
 assert.equal(auth01InferenceChecks, 20);
-console.log("PASS_SEA002_CP007_ENGLISH_SURFACE_V5_VISUAL_DEDUCTION_TEACHING");
+assert.equal(auth04InferenceChecks, 20);
+console.log("PASS_SEA002_CP007_ENGLISH_SURFACE_V6_ALL_POSITIONAL_QUERIES_INFERRED");
 console.log("teacher explanations", surfaces);
 console.log("answer coverage checks", answerCoverageChecks);
 console.log("structure checks", structureChecks);
 console.log("visual teaching checks", visualTeachingChecks);
 console.log("query-specific checks", querySpecificChecks);
 console.log("AUTH01 inferred-query checks", auth01InferenceChecks);
+console.log("AUTH04 inferred-query checks", auth04InferenceChecks);
 console.log("learner column residue", 0);
 console.log("English approval remains", false);
