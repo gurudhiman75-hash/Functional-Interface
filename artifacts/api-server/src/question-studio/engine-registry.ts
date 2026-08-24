@@ -5,10 +5,12 @@ import type {
   QuestionStudioGenerationResult,
   QuestionStudioPackageDefinition,
 } from "./engine-types";
+import { knowledgeV1Com001QuestionStudioAdapter } from "./engines/knowledge-v1-com001-adapter";
 import { quantV4QuestionStudioAdapter } from "./engines/quant-v4-adapter";
 
 const adapters = new Map<QuestionStudioEngineId, QuestionStudioEngineAdapter>([
   [quantV4QuestionStudioAdapter.engineId, quantV4QuestionStudioAdapter],
+  [knowledgeV1Com001QuestionStudioAdapter.engineId, knowledgeV1Com001QuestionStudioAdapter],
 ]);
 
 export function listQuestionStudioEngines(): QuestionStudioEngineId[] {
@@ -56,8 +58,8 @@ export function resolveQuestionStudioEngine(
   }
 
   // Backward-compatible default while the existing admin route remains
-  // Quant-V4-first. New engines must be selected explicitly until the UI is
-  // migrated to expose engine-aware packages.
+  // Quant-V4-first. New engines are selected explicitly or by registered
+  // package ownership so existing Quant traffic is not stolen.
   return quantV4QuestionStudioAdapter;
 }
 
