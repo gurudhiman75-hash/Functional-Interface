@@ -4,7 +4,7 @@ import {
   generateSea002Cp007ProductionCaselet,
   independentlySolveSea002Cp007Caselet,
   type Sea002Cp007CandidateAuthorityKey,
-} from "./production-caselet-v1.ts";
+} from "./production-caselet-v2.ts";
 
 const AUTHORITIES = [
   "CP007-AUTH-01",
@@ -21,6 +21,7 @@ let lifecycleChecks = 0;
 let presentationChecks = 0;
 let inferredRowCases = 0;
 let rowAnchorNecessityChecks = 0;
+let auth01NonDirectChecks = 0;
 const answerPositions = new Map<string, Set<number>>();
 const widths = new Map<string, Set<number>>();
 const clueKinds = new Set<string>();
@@ -80,6 +81,22 @@ for (const authorityKey of AUTHORITIES) {
     assert.ok(caselet.explanation.length >= 90);
     presentationChecks += 4;
 
+    if (authorityKey === "CP007-AUTH-01") {
+      const reference = caselet.question.match(/\bof ([A-Za-z]+)\?$/u)?.[1];
+      assert.ok(reference, `AUTH01 reference missing in ${caselet.question}`);
+      const facingAnchor = caselet.clues.find((clue) => clue.kind === "FACING_ANCHOR")!;
+      assert.notEqual(reference, facingAnchor.person, "AUTH01 must not query the direct facing anchor.");
+      assert.notEqual(reference, caselet.answer);
+      assert.equal(caselet.options.includes(reference), false, "AUTH01 reference must not be a distractor.");
+      const pairDirectlyClued = caselet.clues.some((clue) =>
+        clue.kind === "SAME_ROW_OFFSET"
+        && ((clue.subject === reference && clue.reference === caselet.answer)
+          || (clue.subject === caselet.answer && clue.reference === reference)),
+      );
+      assert.equal(pairDirectlyClued, false, `${caselet.caseletId} AUTH01 answer pair must require inference.`);
+      auth01NonDirectChecks += 5;
+    }
+
     if (authorityKey === "CP007-AUTH-03") {
       inferredRowCases += 1;
       assert.equal(caselet.rowMembershipMode, "INFERRED");
@@ -125,8 +142,9 @@ assert.deepEqual([...widths.get("CP007-AUTH-04")!].sort(), [4, 5, 6]);
 assert.deepEqual([...clueKinds].sort(), ["DIAGONAL", "FACING_ANCHOR", "FACING_RELATION", "OPPOSITE", "ROW_ANCHOR", "SAME_ROW_OFFSET"]);
 assert.equal(inferredRowCases, 48);
 assert.equal(rowAnchorNecessityChecks, 48);
+assert.equal(auth01NonDirectChecks, 240);
 
-console.log("PASS_SEA002_CP007_PRODUCTION_CASELET_UNIQUENESS_V2");
+console.log("PASS_SEA002_CP007_PRODUCTION_CASELET_UNIQUENESS_V3_AUTH01_HARDENED");
 console.log("candidate authorities", AUTHORITIES.length);
 console.log("production caselets", generated);
 console.log("independent unique solutions", uniqueSolutions);
@@ -134,6 +152,7 @@ console.log("hidden-state identity checks", identityChecks);
 console.log("option checks", optionChecks);
 console.log("lifecycle checks", lifecycleChecks);
 console.log("presentation checks", presentationChecks);
+console.log("AUTH01 non-direct checks", auth01NonDirectChecks);
 console.log("AUTH03 inferred-row cases", inferredRowCases);
 console.log("AUTH03 row-anchor necessity checks", rowAnchorNecessityChecks);
 console.log("clue kinds", [...clueKinds].sort().join(","));
