@@ -30,9 +30,10 @@ assertDsfCp010FreezeInvariant();
 const languages = ["en", "hi", "pa"] as const;
 const seenQuestionIds = new Set<string>();
 const seenGenerationIdentities = new Set<string>();
-let domainDifficultyQuestionCount = 0;
+let domainBreadthQuestionCount = 0;
 let semanticCoverageQuestionCount = 0;
 let solveModeQuestionCount = 0;
+let difficultyQuestionCount = 0;
 const languageCounts: Record<(typeof languages)[number], number> = { en: 0, hi: 0, pa: 0 };
 const profileCounts = new Map<string, number>();
 const domainCounts = new Map<string, number>();
@@ -40,6 +41,7 @@ const solveModeCounts = new Map<string, number>();
 const semanticCounts = new Map<string, number>();
 const difficultyCounts = new Map<string, number>();
 const profileSemanticCoverage = new Set<string>();
+const explicitDifficultyCoverage = new Set<string>();
 
 function bump(map: Map<string, number>, key: string) {
   map.set(key, (map.get(key) ?? 0) + 1);
@@ -112,36 +114,33 @@ function auditQuestion(
   bump(difficultyCounts, question.difficulty);
 }
 
-// Source-valid production breadth: every language × profile × domain × difficulty.
-// We deliberately do not force a semantic class inside this matrix because the frozen
-// source runtime does not promise every semantic class in every domain/difficulty cell.
-// Three deterministic samples per cell provide 540 questions of production breadth.
+// Production breadth: every production language × every approved answer profile ×
+// every frozen source domain. Difficulty and semantic class are intentionally not
+// cross-forced here because CP-001 does not promise every difficulty or semantic class
+// inside every domain. Three deterministic samples per cell give 180 breadth samples.
 for (const language of languages) {
   for (const profile of DSF_CP003_ANSWER_PROFILES) {
     for (const domain of DSF_CP002_DOMAINS) {
-      for (const difficulty of DSF_CP002_DIFFICULTIES) {
-        const seed = `dsf-cp010-freeze:breadth:${language}:${profile.id}:${domain.id}:${difficulty}`;
-        const result = generate(language, {
-          seed,
-          count: 3,
-          answerProfile: profile.id,
-          domain: domain.id,
-          difficulty,
-        });
-        assert.equal(result.questionCount, 3);
-        for (const question of result.questions) {
-          auditQuestion(language, profile, question);
-          assert.equal(question.domain, domain.id);
-          assert.equal(question.difficulty, difficulty);
-          domainDifficultyQuestionCount += 1;
-        }
+      const seed = `dsf-cp010-freeze:breadth:${language}:${profile.id}:${domain.id}`;
+      const result = generate(language, {
+        seed,
+        count: 3,
+        answerProfile: profile.id,
+        domain: domain.id,
+      });
+      assert.equal(result.questionCount, 3);
+      for (const question of result.questions) {
+        auditQuestion(language, profile, question);
+        assert.equal(question.domain, domain.id);
+        domainBreadthQuestionCount += 1;
       }
     }
   }
 }
 
-// Semantic completeness: every language × every semantic class representable by each
-// approved profile, without inventing an unsupported domain/difficulty constraint.
+// Semantic completeness: every production language × every semantic class that each
+// approved profile can legally represent. SSC four-option profiles continue to omit
+// EACH_STATEMENT_ALONE rather than remap it.
 for (const language of languages) {
   for (const profile of DSF_CP003_ANSWER_PROFILES) {
     for (const semanticClass of profile.representedSemanticClasses) {
@@ -162,8 +161,6 @@ for (const language of languages) {
 }
 
 // Solve-mode completeness: every production language × every frozen solve mode.
-// Difficulty is already exhaustive in the breadth matrix, so it is intentionally not
-// cross-forced here; this keeps the audit aligned to source-valid contracts.
 const genericProfile = DSF_CP003_ANSWER_PROFILES.find((profile) => profile.id === "GENERIC_DS_STANDARD_5_EN")!;
 for (const language of languages) {
   for (const domain of DSF_CP002_DOMAINS) {
@@ -184,24 +181,49 @@ for (const language of languages) {
   }
 }
 
-assert.equal(domainDifficultyQuestionCount, 540);
+// Difficulty completeness is proved globally per production language. We do not attach
+// a domain because the frozen source runtime does not guarantee every difficulty in
+// every domain (for example, Algebra has no Easy source cell in the current CP-001 runtime).
+for (const language of languages) {
+  for (const difficulty of DSF_CP002_DIFFICULTIES) {
+    const seed = `dsf-cp010-freeze:difficulty:${language}:${difficulty}`;
+    const result = generate(language, {
+      seed,
+      count: 1,
+      answerProfile: genericProfile.id,
+      difficulty,
+    });
+    const question = result.questions[0]!;
+    auditQuestion(language, genericProfile, question);
+    assert.equal(question.difficulty, difficulty);
+    explicitDifficultyCoverage.add(`${language}:${difficulty}`);
+    difficultyQuestionCount += 1;
+  }
+}
+
+assert.equal(domainBreadthQuestionCount, 180);
 assert.equal(semanticCoverageQuestionCount, 69);
 assert.equal(solveModeQuestionCount, 24);
-assert.equal(seenQuestionIds.size, 633);
-assert.equal(seenGenerationIdentities.size, 633);
-assert.deepEqual(languageCounts, { en: 211, hi: 211, pa: 211 });
+assert.equal(difficultyQuestionCount, 9);
+assert.equal(seenQuestionIds.size, 282);
+assert.equal(seenGenerationIdentities.size, 282);
+assert.deepEqual(languageCounts, { en: 94, hi: 94, pa: 94 });
 assert.equal(profileCounts.size, 5);
 assert.equal(domainCounts.size, 4);
 assert.equal(solveModeCounts.size, 8);
 assert.equal(semanticCounts.size, 5);
 assert.equal(difficultyCounts.size, 3);
 assert.equal(profileSemanticCoverage.size, 69);
+assert.equal(explicitDifficultyCoverage.size, 9);
 for (const language of languages) {
   for (const profile of DSF_CP003_ANSWER_PROFILES) {
     assert.ok((profileCounts.get(profile.id) ?? 0) > 0);
     for (const semanticClass of profile.representedSemanticClasses) {
       assert.ok(profileSemanticCoverage.has(`${language}:${profile.id}:${semanticClass}`));
     }
+  }
+  for (const difficulty of DSF_CP002_DIFFICULTIES) {
+    assert.ok(explicitDifficultyCoverage.has(`${language}:${difficulty}`));
   }
 }
 for (const domain of DSF_CP002_DOMAINS) assert.ok((domainCounts.get(domain.id) ?? 0) > 0);
@@ -210,7 +232,7 @@ for (const domain of DSF_CP002_DOMAINS) {
 }
 for (const difficulty of DSF_CP002_DIFFICULTIES) assert.ok((difficultyCounts.get(difficulty) ?? 0) > 0);
 
-// Determinism proof on both localized production paths.
+// Determinism proof on both approved localized production paths.
 for (const language of ["hi", "pa"] as const) {
   const input = {
     seed: `dsf-cp010-determinism:${language}`,
@@ -249,7 +271,7 @@ assert.equal(DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE.chapterClosedForCurrentAp
 assert.equal(DSF_CP010_MULTILINGUAL_PRODUCTION_PACKAGE.automaticStudentPublication, false);
 assert.match(DSF_CP010_FREEZE_FINGERPRINT, /^[0-9a-f]{64}$/);
 
-// Historical checkpoints are not rewritten by this closure overlay.
+// Historical checkpoints remain historical and are not rewritten by this closure overlay.
 assert.equal(DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.humanLanguageReviewRequired, true);
 assert.equal(DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.localizedQuestionBankWritable, false);
 assert.deepEqual(DSF_CP008_LOCALIZATION_REVIEW_PACKAGE.productionLanguages, ["en"]);
@@ -259,10 +281,11 @@ console.log(JSON.stringify({
   status: "PASS_DSF_CP010_MULTILINGUAL_PRODUCTION_FREEZE",
   chapterStatus: DSF_CP010_CHAPTER_STATUS,
   freezeFingerprint: DSF_CP010_FREEZE_FINGERPRINT,
-  auditedQuestionCount: domainDifficultyQuestionCount + semanticCoverageQuestionCount + solveModeQuestionCount,
-  domainDifficultyBreadthQuestionCount: domainDifficultyQuestionCount,
+  auditedQuestionCount: domainBreadthQuestionCount + semanticCoverageQuestionCount + solveModeQuestionCount + difficultyQuestionCount,
+  domainBreadthQuestionCount,
   explicitProfileSemanticQuestionCount: semanticCoverageQuestionCount,
   explicitSolveModeQuestionCount: solveModeQuestionCount,
+  explicitDifficultyQuestionCount: difficultyQuestionCount,
   languageCounts,
   answerProfileCount: profileCounts.size,
   domainCount: domainCounts.size,
