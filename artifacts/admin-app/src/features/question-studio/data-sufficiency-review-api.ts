@@ -46,13 +46,13 @@ export interface DsfReviewLocalizationMetadata {
   language: 'hi' | 'pa';
   locale: 'hi-IN' | 'pa-IN';
   authority: string;
-  status: 'EXECUTABLE_REVIEW_REQUIRED';
+  status: 'PRODUCT_OWNER_APPROVED';
   semanticParity: 'EXECUTABLE_PROVED';
   learnerTextLocalized: true;
   optionSemanticOrderPreserved: true;
   correctIndexPreserved: true;
   canonicalAnswerPreserved: true;
-  humanLanguageReviewRequired: true;
+  humanLanguageReviewRequired: false;
   activeEditorialBlockers: string[];
 }
 
@@ -63,6 +63,8 @@ export interface DsfReviewQuestion {
   profileCheckpointId: 'DSF-CP-003';
   localizationCheckpointId?: 'DSF-CP-008';
   localizationAuthority?: string;
+  localizationApprovalCheckpointId?: 'DSF-CP-009';
+  localizationApprovalAuthority?: string;
   canonicalEnglishProfileQuestionId?: string;
   localization?: DsfReviewLocalizationMetadata;
   qlId: 'DSF-QL-001';
@@ -129,20 +131,22 @@ export interface DsfReviewQuestion {
   lifecycle: {
     questionStudioDiscoverable: true;
     persistenceAllowed: true;
-    reviewOnly: true;
-    questionBankStatus: 'NOT_STORED';
-    questionBankWritable: false;
-    testEligibility: 'INELIGIBLE';
-    testEligible: false;
-    mockTestEligible: false;
-    publiclyPublishable: false;
+    reviewOnly: false;
+    questionBankStatus: 'READY_FOR_STORAGE';
+    questionBankWritable: true;
+    questionBankAcceptanceMode: 'FULL_RELEASE';
+    manualQuestionPublicationRequired: true;
+    testEligibility: 'ELIGIBLE';
+    testEligible: true;
+    mockTestEligible: true;
+    publiclyPublishable: true;
     manualApprovalRequired: true;
     automaticStudentPublication: false;
   };
 }
 
 export interface DsfReviewLanguageLifecycle {
-  status: 'PRODUCTION_READY_FROZEN' | 'LOCALIZED_REVIEW_REQUIRED';
+  status: 'PRODUCTION_READY_FROZEN' | 'LOCALIZED_PRODUCTION_READY';
   questionBankWritable: boolean;
   testEligible: boolean;
   mockTestEligible: boolean;
@@ -169,8 +173,10 @@ export interface DsfReviewPackage {
   productionReadinessAuthority: string;
   localizationCheckpointId: 'DSF-CP-008';
   localizationAuthority: string;
-  localizationStatus: 'EXECUTABLE_REVIEW_REQUIRED';
-  humanLanguageReviewRequired: true;
+  localizationApprovalCheckpointId: 'DSF-CP-009';
+  localizationApprovalAuthority: string;
+  localizationStatus: 'PRODUCT_OWNER_APPROVED';
+  humanLanguageReviewRequired: false;
   permanentQlIds: ['DSF-QL-001'];
   nextAvailableQlId: 'DSF-QL-002';
   domains: DsfReviewDomainDefinition[];
@@ -178,8 +184,8 @@ export interface DsfReviewPackage {
   supportedSemanticClasses: DsfReviewSemanticClass[];
   supportedDifficulties: DsfReviewDifficulty[];
   supportedLanguages: DsfReviewLanguage[];
-  productionLanguages: ['en'];
-  localizationReviewLanguages: ['hi', 'pa'];
+  productionLanguages: ['en', 'hi', 'pa'];
+  localizationReviewLanguages: [];
   perLanguageLifecycle: Record<DsfReviewLanguage, DsfReviewLanguageLifecycle>;
   supportedAnswerProfiles: DsfReviewAnswerProfile[];
   answerProfiles: DsfReviewAnswerProfileDefinition[];
@@ -224,8 +230,11 @@ export interface DsfReviewStatus {
   cp005GenerationItemCount: number;
   cp006GenerationItemCount: number;
   cp008GenerationItemCount: number;
+  cp009GenerationItemCount: number;
   hindiReviewItemCount: number;
+  hindiReleaseItemCount: number;
   punjabiReviewItemCount: number;
+  punjabiReleaseItemCount: number;
   approvedItemCount: number;
   questionBankCount: number;
   integrationAuthority: string;
@@ -238,12 +247,14 @@ export interface DsfReviewStatus {
   mockTestReleaseAuthority: string;
   localizationCheckpointId: 'DSF-CP-008';
   localizationAuthority: string;
-  localizationStatus: 'EXECUTABLE_REVIEW_REQUIRED';
-  localizedHumanReviewRequired: true;
+  localizationApprovalCheckpointId: 'DSF-CP-009';
+  localizationApprovalAuthority: string;
+  localizationStatus: 'PRODUCT_OWNER_APPROVED';
+  localizedHumanReviewRequired: false;
   sourceFreezeAuthority: string;
   supportedLanguages: DsfReviewLanguage[];
-  productionLanguages: ['en'];
-  localizationReviewLanguages: ['hi', 'pa'];
+  productionLanguages: ['en', 'hi', 'pa'];
+  localizationReviewLanguages: [];
   perLanguageLifecycle: Record<DsfReviewLanguage, DsfReviewLanguageLifecycle>;
   supportedAnswerProfiles: DsfReviewAnswerProfile[];
   answerProfiles: DsfReviewAnswerProfileDefinition[];
@@ -282,8 +293,9 @@ function paramsFor(input: DsfReviewInput) {
 export function getDsfReviewPackage() {
   return adminRequest<{
     generationSystem: 'reasoning-v1';
-    activationMode: 'MOCK_TEST_RELEASE_ENABLED';
-    localizationReviewMode: 'HI_PA_EXECUTABLE_REVIEW';
+    activationMode: 'MULTILINGUAL_MOCK_TEST_RELEASE_ENABLED';
+    localizationReviewMode: 'HI_PA_PRODUCT_OWNER_APPROVED';
+    localizationReleaseMode: 'HI_PA_PRODUCT_OWNER_APPROVED';
     package: DsfReviewPackage;
     maxBatchSize: number;
     manualReviewRequired: true;
@@ -297,11 +309,13 @@ export function getDsfReviewPackage() {
     mockTestReleaseAuthority: string;
     localizationCheckpointId: 'DSF-CP-008';
     localizationAuthority: string;
-    localizedHumanReviewRequired: true;
-    localizedQuestionBankWritable: false;
-    localizedTestEligible: false;
-    localizedMockTestEligible: false;
-    localizedPubliclyPublishable: false;
+    localizationApprovalCheckpointId: 'DSF-CP-009';
+    localizationApprovalAuthority: string;
+    localizedHumanReviewRequired: false;
+    localizedQuestionBankWritable: true;
+    localizedTestEligible: true;
+    localizedMockTestEligible: true;
+    localizedPubliclyPublishable: true;
     testEligible: true;
     mockTestEligible: true;
     publiclyPublishable: true;
@@ -320,7 +334,7 @@ export function previewDsfReview(input: DsfReviewInput) {
     manualQuestionPublicationRequired: boolean;
     humanLanguageReviewRequired: boolean;
     questionBankAcceptanceEnabled: boolean;
-    questionBankAcceptanceMode: 'FULL_RELEASE' | 'LOCALIZATION_REVIEW_ONLY';
+    questionBankAcceptanceMode: 'FULL_RELEASE';
     questionBankWritable: boolean;
     testEligible: boolean;
     mockTestEligible: boolean;
@@ -328,6 +342,8 @@ export function previewDsfReview(input: DsfReviewInput) {
     automaticStudentPublication: false;
     localizationCheckpointId?: 'DSF-CP-008';
     localizationAuthority?: string;
+    localizationApprovalCheckpointId?: 'DSF-CP-009';
+    localizationApprovalAuthority?: string;
   }>(`/admin/question-studio/reasoning/data-sufficiency/preview?${paramsFor(input).toString()}`, undefined, {
     fallbackMessage: 'Unable to preview Data Sufficiency questions.',
   });
@@ -346,6 +362,8 @@ export function createDsfReviewRun(input: DsfReviewInput) {
     deliveryProfileAuthority: string;
     localizationCheckpointId?: 'DSF-CP-008';
     localizationAuthority?: string;
+    localizationApprovalCheckpointId?: 'DSF-CP-009';
+    localizationApprovalAuthority?: string;
     questionBankAcceptanceCheckpointId?: 'DSF-CP-004';
     questionBankAcceptanceAuthority?: string;
     testReleaseCheckpointId?: 'DSF-CP-005';
@@ -356,7 +374,7 @@ export function createDsfReviewRun(input: DsfReviewInput) {
     manualQuestionPublicationRequired: boolean;
     humanLanguageReviewRequired: boolean;
     questionBankWritable: boolean;
-    questionBankAcceptanceMode: 'FULL_RELEASE' | 'LOCALIZATION_REVIEW_ONLY';
+    questionBankAcceptanceMode: 'FULL_RELEASE';
     testEligible: boolean;
     publiclyPublishable: boolean;
     mockTestEligible: boolean;
