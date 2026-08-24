@@ -37,10 +37,12 @@ function relationDistractors(correctKey: string) {
 }
 
 function pairForEqualSum(seed: string): readonly [number, number, number, number] {
-  return sriPick(`${seed}:pair`, [
+  const pair = sriPick(`${seed}:pair`, [
     [6, 2, 5, 3], [10, 2, 7, 5], [11, 3, 9, 5], [13, 3, 11, 5],
     [14, 2, 11, 5], [15, 3, 13, 5], [17, 3, 13, 7], [19, 5, 17, 7],
   ] as const);
+  const reverseSides = sriPick(`${seed}:orientation`, [false, true] as const);
+  return reverseSides ? [pair[2], pair[3], pair[0], pair[1]] : pair;
 }
 
 export function generateSriSourceSaturationAddition(candidateId: string, seed: string): SriDiscoveryQuestion {
