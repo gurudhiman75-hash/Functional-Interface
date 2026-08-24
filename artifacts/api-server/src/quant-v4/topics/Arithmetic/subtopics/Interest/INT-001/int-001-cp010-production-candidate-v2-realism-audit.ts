@@ -85,7 +85,8 @@ for (const authorityId of INT_CP010_PRODUCTION_CANDIDATE_AUTHORITIES) {
     assert(!/(?:undefined|null|NaN|after after|half-year period)/u.test(learner), `${authorityId}/${seed}: editorial token leaked`);
     editorialChecks += 5;
 
-    const openingDebt = rupees(q.mathematicalState.openingDebt);
+    const openingDebtValue = q.sourcePrototypeId === "INT-CP010-PROT-003" ? q.mathematicalState.openingDebt : q.answer;
+    const openingDebt = rupees(openingDebtValue);
     assert(openingDebt >= q.realismBand.openingDebtMin && openingDebt <= q.realismBand.openingDebtMax, `${authorityId}/${seed}: opening debt escaped V2 realism band (${openingDebt})`);
     if (q.sourcePrototypeId === "INT-CP010-PROT-003") {
       const instalment = rupees(q.answer);
