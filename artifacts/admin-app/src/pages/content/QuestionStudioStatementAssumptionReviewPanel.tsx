@@ -105,7 +105,7 @@ export function QuestionStudioStatementAssumptionReviewPanel() {
     const selectedProfile = profileId === AUTO_PROFILE ? undefined : profileId as StaProfileId;
     try {
       const result = await generate({
-        exam: selectedProfile ? examForProfile(selectedProfile) : 'Statement & Assumption — V4 profile mix',
+        exam: selectedProfile ? examForProfile(selectedProfile) : 'Statement & Assumption — V4.1 profile mix',
         subject: 'Reasoning Ability',
         difficulty,
         count: Math.min(capabilities.maxBatchSize, Math.max(1, count)),
@@ -119,12 +119,12 @@ export function QuestionStudioStatementAssumptionReviewPanel() {
       });
       window.dispatchEvent(new Event(QUESTION_STUDIO_REFRESH_EVENT));
       showToast.success(
-        'Statement & Assumption V4 review run created',
+        'Statement & Assumption V4.1 review run created',
         `${result.publicCode} produced ${result.itemCount} ${qlId} ${difficulty} review question(s).`,
       );
     } catch (caught) {
       showToast.error(
-        'STA V4 generation failed',
+        'STA V4.1 generation failed',
         caught instanceof Error ? caught.message : 'Unable to generate Statement & Assumption questions.',
       );
     }
@@ -135,23 +135,23 @@ export function QuestionStudioStatementAssumptionReviewPanel() {
       <CardHeader className="space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <CardTitle className="flex items-center gap-2 text-base">
-            <BrainCircuit className="h-4 w-4" /> Statement & Assumption · STA-001 · V4
+            <BrainCircuit className="h-4 w-4" /> Statement & Assumption · STA-001 · V4.1
           </CardTitle>
           <div className="flex flex-wrap gap-2">
             <Badge className="gap-1 bg-success/10 text-success hover:bg-success/10">
               <Database className="h-3 w-3" /> 108 semantic authorities
             </Badge>
-            <Badge variant="outline">6 QLs · 9 profiles · 3 languages</Badge>
+            <Badge variant="outline">4 historical permanent QLs · 6 V4.1 candidate QLs · 9 profiles · 3 languages</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          V4 is the exam-realness hardening candidate: locale-independent semantic selection, anti-cue distractors, strict EN/HI/PA same-item identity, and permanent review coverage for advertisement/appeal plus comparison/evidence assumptions. Presentation format remains separate from semantic QL identity.
+          V4.1 is the exam-realness hardening candidate: locale-independent semantic selection, anti-cue distractors, strict EN/HI/PA same-item identity, and candidate review coverage for advertisement/appeal plus comparison/evidence assumptions. Presentation format remains separate from semantic QL identity.
         </p>
       </CardHeader>
 
       <CardContent className="space-y-5">
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-          <Metric label="V4 QLs" value={6} />
+          <Metric label="V4.1 candidate QLs" value={6} />
           <Metric label="Semantic authorities" value={108} />
           <Metric label="Studio items" value={staItems.length} />
           <Metric label="Question Bank" value="Locked" />
@@ -159,16 +159,16 @@ export function QuestionStudioStatementAssumptionReviewPanel() {
 
         <div className="rounded-lg border border-warning/25 bg-warning/5 p-3 text-sm">
           <div className="flex items-center gap-2 font-medium">
-            <ShieldCheck className="h-4 w-4" /> V4 review candidate · delivery locked
+            <ShieldCheck className="h-4 w-4" /> V4.1 review candidate · delivery locked
           </div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            The previous V1 multilingual freeze is retained as historical evidence, but the August 24 exam-realness audit reopened STA for V4. QL005 and QL006 are now in the review model. EN/HI/PA share the same candidate identities and answer set for a canonical item. Banking memory-PYQ formats are not official verbatim, and PUNJAB_3X4 remains cross-exam synthesis. Question Bank writes, tests, mocks, public publication and automatic student publication remain disabled.
+            The previous four-QL multilingual freeze is retained as historical evidence, but the August 24 exam-realness audit reopened STA for V4.1. QL005 and QL006 are source-backed candidates in the review model, not approved permanent QLs. EN/HI/PA share the same candidate identities and answer set for a canonical item. Banking memory-PYQ formats are not official verbatim, and PUNJAB_3X4 remains cross-exam synthesis. Question Bank writes, tests, mocks, public publication and automatic student publication remain disabled.
           </p>
         </div>
 
         {loading ? (
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Loader2 className="h-4 w-4 animate-spin" /> Loading STA-001 V4 capability…
+            <Loader2 className="h-4 w-4 animate-spin" /> Loading STA-001 V4.1 capability…
           </div>
         ) : !pkg ? (
           <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
@@ -176,7 +176,7 @@ export function QuestionStudioStatementAssumptionReviewPanel() {
           </div>
         ) : (
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-6">
-            <Field label="Semantic question type (QL)">
+            <Field label="Semantic question type (V4.1 candidate QL)">
               <Select value={qlId} onValueChange={(value) => setQlId(value as StaQlId)}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
@@ -219,7 +219,7 @@ export function QuestionStudioStatementAssumptionReviewPanel() {
               <Input type="number" min={1} max={capabilities.maxBatchSize} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} />
             </Field>
             <Field label="Optional deterministic seed">
-              <Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="sta-v4-review-01" />
+              <Input value={seed} onChange={setSeed} placeholder="sta-v4-1-review-01" />
             </Field>
           </div>
         )}
@@ -229,7 +229,7 @@ export function QuestionStudioStatementAssumptionReviewPanel() {
         <div className="flex flex-wrap items-center gap-3">
           <Button onClick={() => void handleCreateRun()} disabled={!pkg || generating || !canRun}>
             {generating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Database className="mr-2 h-4 w-4" />}
-            {generating ? 'Generating…' : 'Create STA V4 review run'}
+            {generating ? 'Generating…' : 'Create STA V4.1 review run'}
           </Button>
           <span className="text-xs text-muted-foreground">
             {qlId} · {profileId === AUTO_PROFILE ? 'auto profile' : profileId} · {difficulty} · {LANGUAGE_LABELS[effectiveLanguage] ?? effectiveLanguage}
