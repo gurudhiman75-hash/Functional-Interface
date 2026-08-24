@@ -16,15 +16,15 @@ const AUTHORITIES = [
   "CP007-AUTH-04",
 ] as const satisfies readonly Sea002Cp007CandidateAuthorityKey[];
 
-const RENDERER = "EXAM_REAL_COMPACT_V3_HELPFUL_EXPLANATIONS" as const;
+const RENDERER = "EXAM_REAL_COMPACT_V4_CONSTRUCTION_TEACHING" as const;
 
 const rows: string[] = [
-  "# SEA-002 / SEA-CP-007 — English Review Candidate V2",
+  "# SEA-002 / SEA-CP-007 — English Review Candidate V3",
   "",
-  "Status: **HUMAN REVIEW CANDIDATE / HELPFUL-EXPLANATION REWRITE / NO PRODUCT ACTIVATION**",
+  "Status: **HUMAN REVIEW CANDIDATE / CONSTRUCTION-TEACHING REWRITE / NO PRODUCT ACTIVATION**",
   "",
   "24 caselets = 6 per candidate authority. This export is for learner-surface review only.",
-  "Solutions are query-specific: they show the deductions needed for the asked question and stop once the answer is established.",
+  "Solutions now teach the paper-solving process: facing chain, row inference, left/right conversion, row blocks, cross-row alignment, final arrangement, then the asked answer.",
   "",
 ];
 
@@ -58,7 +58,7 @@ const reviewFingerprint = createHash("sha256").update(reviewText, "utf8").digest
 const output = "artifacts/api-server/dist/reasoning-v1/sea-002-cp007-english-review-v1.md";
 mkdirSync(dirname(output), { recursive: true });
 writeFileSync(output, reviewText, "utf8");
-console.log("PASS_SEA002_CP007_ENGLISH_REVIEW_EXPORT_V2_HELPFUL");
+console.log("PASS_SEA002_CP007_ENGLISH_REVIEW_EXPORT_V3_CONSTRUCTION_TEACHING");
 console.log("review caselets", ordinal);
 console.log("candidate authorities", AUTHORITIES.length);
 console.log("renderer", RENDERER);
