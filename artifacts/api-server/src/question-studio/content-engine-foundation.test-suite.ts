@@ -54,7 +54,7 @@ await runStage("COM-001 360-question editorial quality audit", () =>
 await runStage("COM-001 English freeze V1", () =>
   import("../knowledge-v1/computer-awareness/com001-english-freeze-v1.test")
 );
-await runStage("COM-001 Hindi/Punjabi localization parity V1", () =>
+await runStage("COM-001 Hindi/Punjab localization parity V1", () =>
   import("../knowledge-v1/computer-awareness/com001-localization-v1.test")
 );
 await runStage("COM-001 Hindi/Punjabi localization freeze V1", () =>
@@ -80,6 +80,9 @@ await runStage("COM-001 360-question English V2 candidate audit", () =>
 );
 await runStage("COM-001 English freeze V2", () =>
   import("../knowledge-v1/computer-awareness/com001-english-freeze-v2.test")
+);
+await runStage("COM-001 Hindi/Punjabi localization parity V2", () =>
+  import("../knowledge-v1/computer-awareness/com001-localization-v2.test")
 );
 
 console.log("Question Studio content engine foundation suite passed.");
