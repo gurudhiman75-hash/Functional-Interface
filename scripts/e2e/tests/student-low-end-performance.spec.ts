@@ -47,6 +47,7 @@ async function installFixtures(page: Page) {
     if (path === "/tests") return fulfillJson(route, tests);
     if (path === "/published-tests") return fulfillJson(route, { tests, generatedAt: "2026-08-22T05:30:00.000Z" });
     if (path === "/test-series") return fulfillJson(route, { series: [], generatedAt: "2026-08-22T05:30:00.000Z" });
+    if (path === "/daily-challenge") return fulfillJson(route, {});
     return fulfillJson(route, []);
   });
 }
@@ -93,7 +94,7 @@ test.describe("CP07 low-end mobile acquisition performance", () => {
     await cdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
 
     await page.goto("/");
-    await expect(page.getByRole("heading", { name: /Practice smarter\.\s*Score with confidence\./i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "What are you preparing for?" })).toBeVisible();
     await page.waitForLoadState("networkidle");
 
     const metrics = await page.evaluate(() => {
