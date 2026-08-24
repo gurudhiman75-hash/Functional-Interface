@@ -76,9 +76,9 @@ export function computeCom001EnglishFreezeFingerprintsV2() {
 }
 
 export const COM001_ENGLISH_FREEZE_PINS_V2 = {
-  pyqEvidenceFingerprint: "PENDING_CI_PIN",
-  englishV2CorpusFingerprint: "PENDING_CI_PIN",
-  combinedFingerprint: "PENDING_CI_PIN",
+  pyqEvidenceFingerprint: "6a201416818d933953f0127974b5f7076062b224db1feb14080258c40473287e",
+  englishV2CorpusFingerprint: "aa5e3039cc12134a098da04cf13cd77415886fe2f0f62521e218da0089264254",
+  combinedFingerprint: "fb71a33d70adba10f3aad62a6d5d9f60b0740ed6d3881e832ded585dc4d879e9",
 } as const;
 
 export const COM001_ENGLISH_FREEZE_AUTHORITY_V2 = {
