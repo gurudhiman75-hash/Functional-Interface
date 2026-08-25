@@ -7,6 +7,43 @@ function words(value: string) {
   return value.trim().split(/\s+/u).filter(Boolean).length;
 }
 
+function powBig(base: bigint, exponent: number) {
+  return base ** BigInt(exponent);
+}
+
+function assertVerifierEquivalent(
+  q: ReturnType<typeof generateNumCp012Wave02>,
+  label: string,
+) {
+  if (q.temporaryPrototypeId !== "NUM-CP012-PROT-009") {
+    assert.equal(q.canonicalAnswer, q.verifierAnswer, `${label}: independent verifier mismatch`);
+    return;
+  }
+
+  if (q.canonicalAnswer === "NO_INTEGER_ROOT") {
+    assert.equal(q.verifierAnswer, "NO_INTEGER_ROOT", `${label}: no-root verifier mismatch`);
+    return;
+  }
+
+  const k = Number(q.hiddenState.k);
+  const target = BigInt(String(q.hiddenState.value));
+  const canonical = BigInt(q.canonicalAnswer);
+  const witness = BigInt(q.verifierAnswer);
+  assert.equal(powBig(canonical, k), target, `${label}: canonical root does not reproduce target`);
+  assert.equal(powBig(witness, k), target, `${label}: independent root witness does not reproduce target`);
+
+  // For a positive even perfect power, ±r are both integer witnesses. The learner-facing
+  // canonical answer remains the principal non-negative root; the independent verifier is
+  // allowed to discover the negative witness first during exhaustive signed enumeration.
+  if (target >= 0n && k % 2 === 0) {
+    const absCanonical = canonical < 0n ? -canonical : canonical;
+    const absWitness = witness < 0n ? -witness : witness;
+    assert.equal(absWitness, absCanonical, `${label}: even-root verifier magnitude mismatch`);
+  } else {
+    assert.equal(witness, canonical, `${label}: signed root verifier mismatch`);
+  }
+}
+
 let packages = 0;
 let replayChecks = 0;
 let verifierChecks = 0;
@@ -45,7 +82,7 @@ for (const prototypeId of NUM_CP012_WAVE02_PROTOTYPE_IDS) {
     assert.equal(q.packageId, "NUM-002", `${label}: package drift`);
     assert.equal(q.checkpointId, "NUM-CP-012", `${label}: checkpoint drift`);
     assert.equal(q.temporaryPrototypeId, prototypeId, `${label}: prototype drift`);
-    assert.equal(q.canonicalAnswer, q.verifierAnswer, `${label}: independent verifier mismatch`);
+    assertVerifierEquivalent(q, label);
     assert.equal(q.explanation.finalAnswer, q.canonicalAnswer, `${label}: explanation answer mismatch`);
     verifierChecks += 1;
 
