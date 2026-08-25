@@ -55,6 +55,12 @@ function showStudySidebarForRoute(location: string) {
   return location === "/"
     || location === "/exams"
     || location === "/tests"
+    || location === "/mock-tests"
+    || location === "/pyqs"
+    || location === "/exams-covered"
+    || location === "/faq"
+    || location === "/contact"
+    || location === "/about"
     || location.startsWith("/category/")
     || location.startsWith("/subcategory/")
     || location.startsWith("/published-tests/");
@@ -94,7 +100,10 @@ export function PublicLayout({ children }: PublicLayoutProps) {
             <span className="text-lg font-extrabold tracking-[-0.03em] text-foreground">examtree</span>
           </Link>
 
-          <nav aria-label="Primary navigation" className="ml-5 hidden items-center gap-1 lg:flex">
+          <nav
+            aria-label="Primary navigation"
+            className={showStudySidebar ? "hidden" : "ml-5 hidden items-center gap-1 lg:flex"}
+          >
             {primaryLinks.map((item) => {
               const active = routeIsActive(location, item.href);
               return (
@@ -110,7 +119,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
             })}
           </nav>
 
-          <div className="ml-auto hidden items-center gap-2 sm:flex">
+          <div className="ml-auto hidden items-center gap-2 sm:flex" data-testid="public-header-actions">
             {user ? (
               <Link href="/dashboard" className="et-interactive inline-flex min-h-10 items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
                 <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
@@ -121,10 +130,12 @@ export function PublicLayout({ children }: PublicLayoutProps) {
                 <Link href="/login/student" className="et-interactive inline-flex min-h-10 items-center rounded-xl px-4 py-2 text-sm font-semibold text-muted-foreground hover:bg-muted hover:text-foreground">
                   Sign in
                 </Link>
-                <Link href="/exams" className="et-interactive inline-flex min-h-10 items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
-                  Browse tests
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                </Link>
+                {!showStudySidebar ? (
+                  <Link href="/exams" className="et-interactive inline-flex min-h-10 items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
+                    Browse tests
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                ) : null}
               </>
             )}
           </div>
@@ -143,6 +154,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
 
         <div id="public-mobile-navigation" className={`${mobileOpen ? "block" : "hidden"} border-t border-border bg-background lg:hidden`}>
           <nav aria-label="Mobile primary navigation" className="mx-auto max-w-7xl space-y-1 px-4 py-3 sm:px-6">
+            <Link href="/" className={`et-interactive flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold ${location === "/" ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}>Home</Link>
             {primaryLinks.map((item) => {
               const active = routeIsActive(location, item.href);
               return (
