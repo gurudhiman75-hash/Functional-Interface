@@ -1,0 +1,67 @@
+name: Validate NUM-CP-012 Hindi Punjabi localization freeze
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/**"
+      - ".github/workflows/num-cp012-hi-pa-localization-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp012-hi-pa-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp012-hi-pa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle localization audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/localization"
+          pnpm --dir artifacts/api-server exec esbuild "$base/runtime-parity.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/num-cp012-hi-pa-parity.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$base/runtime-human-quality.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/num-cp012-hi-pa-human-quality.mjs
+
+      - name: Run Hindi Punjabi parity audit
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-hi-pa-parity.mjs
+
+      - name: Run Hindi Punjabi human-quality audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp012-hi-pa-human-quality.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp012-hi-pa-human-quality.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload CP012 localization evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp012-hi-pa-localization-v1
+          path: artifacts/api-server/dist/quant-v4/num-cp012-hi-pa-human-quality.log
+          if-no-files-found: error
+          retention-days: 30
