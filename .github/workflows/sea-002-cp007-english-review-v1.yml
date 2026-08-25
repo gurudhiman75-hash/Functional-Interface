@@ -81,19 +81,33 @@ jobs:
       - name: Run localization readiness proof
         run: node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-readiness-v1.mjs
 
-      - name: Bundle Hindi Punjabi candidate audit
+      - name: Bundle Hindi Punjabi structural candidate audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/localization/candidate-localizer-v1.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/reasoning-v1/sea-002-cp007-localization-candidate-v1.mjs
 
-      - name: Run Hindi Punjabi candidate audit
+      - name: Run Hindi Punjabi structural candidate audit
         shell: bash
         run: |
           set -o pipefail
           node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-candidate-v1.mjs \
             2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-candidate-v1.log
+
+      - name: Bundle Hindi Punjabi language fidelity V2
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/localization/language-fidelity-polish-v2.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/sea-002-cp007-localization-language-v2.mjs
+
+      - name: Run Hindi Punjabi language fidelity V2
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-language-v2.mjs \
+            2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-language-v2.log
 
       - name: Bundle English review exporter
         run: >-
@@ -105,19 +119,19 @@ jobs:
       - name: Generate English learner review
         run: node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-english-review-export-v1.mjs
 
-      - name: Bundle localization review exporter
+      - name: Bundle localization review exporter V2
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
-          src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/localization/review-export-v1.ts
+          src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/localization/review-export-v2.ts
           --bundle --platform=node --format=esm
-          --outfile=dist/reasoning-v1/sea-002-cp007-localization-review-export-v1.mjs
+          --outfile=dist/reasoning-v1/sea-002-cp007-localization-review-export-v2.mjs
 
-      - name: Generate Hindi Punjabi learner review
+      - name: Generate Hindi Punjabi learner review V2
         shell: bash
         run: |
           set -o pipefail
-          node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-review-export-v1.mjs \
-            2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-review-export-v1.log
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-review-export-v2.mjs \
+            2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-review-export-v2.log
 
       - name: Re-prove CP006 completion authority
         run: >-
@@ -132,8 +146,9 @@ jobs:
             artifacts/api-server/dist/reasoning-v1/sea-002-cp007-exam-real-stem-v2.log
             artifacts/api-server/dist/reasoning-v1/sea-002-cp007-english-surface-v1.log
             artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-candidate-v1.log
-            artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-review-export-v1.log
+            artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-language-v2.log
+            artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-review-export-v2.log
             artifacts/api-server/dist/reasoning-v1/sea-002-cp007-english-review-v1.md
-            artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-review-v1.md
+            artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-review-v2.md
           if-no-files-found: error
           retention-days: 30
