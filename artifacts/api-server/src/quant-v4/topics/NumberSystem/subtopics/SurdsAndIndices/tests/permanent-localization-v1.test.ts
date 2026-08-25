@@ -173,7 +173,11 @@ console.log(JSON.stringify({
 }, null, 2));
 
 function mathSkeleton(text: string): readonly string[] {
-  return text.match(/\\[A-Za-z]+|\d+(?:\.\d+)?|[=+\-−×÷*/^<>≤≥≠(){}\[\]]/gu) ?? [];
+  // A hyphen joining two language words (for example Hindi “कौन-सा”) is prose,
+  // not subtraction. Strip only letter-letter hyphens; mathematical negatives and
+  // subtraction such as -2, x-3 and (a-b) remain visible to the parity audit.
+  const withoutLinguisticHyphens = text.replace(/(?<=\p{L})-(?=\p{L})/gu, "");
+  return withoutLinguisticHyphens.match(/\\[A-Za-z]+|\d+(?:\.\d+)?|[=+\-−×÷*/^<>≤≥≠(){}\[\]]/gu) ?? [];
 }
 
 function assertDeepFrozen(value: unknown, seen = new WeakSet<object>()): number {
