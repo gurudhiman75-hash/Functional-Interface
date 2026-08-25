@@ -10,6 +10,14 @@ interface PublicLayoutProps {
   children: ReactNode;
 }
 
+type MobileStudyLink = {
+  label: string;
+  icon: typeof Home;
+  href?: string;
+  authNext?: string;
+  disabled?: boolean;
+};
+
 const primaryLinks = [
   { label: "Tests", href: "/exams" },
   { label: "Mock Tests", href: "/mock-tests" },
@@ -18,14 +26,14 @@ const primaryLinks = [
   { label: "FAQ", href: "/faq" },
 ];
 
-const mobileStudyLinks = [
+const mobileStudyLinks: MobileStudyLink[] = [
   { label: "Home", href: "/", icon: Home },
   { label: "Explore Exams", href: "/exams", icon: LayoutDashboard },
   { label: "My Tests", href: "/dashboard", icon: LayoutDashboard, authNext: "/dashboard" },
-  { label: "Analytics", href: "/performance", icon: BarChart3, authNext: "/performance" },
+  { label: "Analytics", icon: BarChart3, disabled: true },
   { label: "Support", href: "/contact", icon: ArrowRight },
   { label: "Settings", href: "/profile", icon: Settings, authNext: "/profile" },
-] as const;
+];
 
 const footerColumns = [
   {
@@ -106,7 +114,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
       <header className="et-chrome sticky top-0 z-50 border-b" data-testid="public-header">
         <div className={`mx-auto flex h-16 w-full items-center gap-4 px-4 sm:px-6 ${showStudySidebar ? "max-w-[1536px] lg:px-0" : "max-w-7xl lg:px-8"}`}>
           <div className={showStudySidebar ? "lg:flex lg:w-[252px] lg:shrink-0 lg:items-center lg:border-r lg:border-slate-200 lg:px-5 lg:self-stretch" : "shrink-0"}>
-            <Link href="/" className="et-interactive flex shrink-0 items-center gap-2.5 rounded-xl" aria-label="ExamTree home">
+            <Link href="/" className="et-interactive flex min-h-11 shrink-0 items-center gap-2.5 rounded-xl" aria-label="ExamTree home">
               <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-extrabold text-primary-foreground shadow-sm ring-1 ring-primary/15">E</span>
               <span className="text-lg font-extrabold tracking-[-0.03em] text-foreground">examtree</span>
             </Link>
@@ -123,7 +131,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
                   key={item.href}
                   href={item.href}
                   aria-current={active ? "page" : undefined}
-                  className={`et-interactive rounded-lg px-3 py-2 text-sm font-semibold ${active ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
+                  className={`et-interactive inline-flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-semibold ${active ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
                 >
                   {item.label}
                 </Link>
@@ -133,17 +141,17 @@ export function PublicLayout({ children }: PublicLayoutProps) {
 
           <div className={`ml-auto hidden items-center gap-2 sm:flex ${showStudySidebar ? "lg:px-5" : ""}`} data-testid="public-header-actions">
             {user ? (
-              <Link href="/dashboard" className="et-interactive inline-flex min-h-10 items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
+              <Link href="/dashboard" className="et-interactive inline-flex min-h-11 items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
                 <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
                 My dashboard
               </Link>
             ) : (
               <>
-                <Link href="/login/student" className="et-interactive inline-flex min-h-10 items-center rounded-xl px-4 py-2 text-sm font-semibold text-muted-foreground hover:bg-muted hover:text-foreground">
+                <Link href="/login/student" className="et-interactive inline-flex min-h-11 items-center rounded-xl px-4 py-2 text-sm font-semibold text-muted-foreground hover:bg-muted hover:text-foreground">
                   Sign in
                 </Link>
                 {!showStudySidebar ? (
-                  <Link href="/exams" className="et-interactive inline-flex min-h-10 items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
+                  <Link href="/exams" className="et-interactive inline-flex min-h-11 items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
                     Browse tests
                     <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
@@ -166,14 +174,40 @@ export function PublicLayout({ children }: PublicLayoutProps) {
 
         <div id="public-mobile-navigation" className={`${mobileOpen ? "block" : "hidden"} border-t border-border bg-background lg:hidden`}>
           <nav aria-label="Mobile primary navigation" className="mx-auto max-w-7xl space-y-1 px-4 py-3 sm:px-6">
-            {(showStudySidebar ? mobileStudyLinks : primaryLinks).map((item) => {
+            {showStudySidebar ? mobileStudyLinks.map((item) => {
+              if (item.disabled || !item.href) {
+                return (
+                  <div
+                    key={item.label}
+                    className="flex min-h-11 cursor-default items-center gap-2 rounded-xl px-3 py-2 text-sm font-semibold text-muted-foreground/55"
+                    aria-disabled="true"
+                    title={`${item.label} is coming soon`}
+                    data-testid={`mobile-disabled-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+                  >
+                    <span className="min-w-0 flex-1">{item.label}</span>
+                    <span className="rounded-md bg-muted px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wide text-muted-foreground">Soon</span>
+                  </div>
+                );
+              }
+
               const active = routeIsActive(location, item.href);
-              const authNext = "authNext" in item ? item.authNext : undefined;
-              const target = authNext && !user ? `/login/student?next=${encodeURIComponent(authNext)}` : item.href;
+              const target = item.authNext && !user ? `/login/student?next=${encodeURIComponent(item.authNext)}` : item.href;
+              return (
+                <Link
+                  key={item.label}
+                  href={target}
+                  aria-current={active ? "page" : undefined}
+                  className={`et-interactive flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold ${active ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
+                >
+                  {item.label}
+                </Link>
+              );
+            }) : primaryLinks.map((item) => {
+              const active = routeIsActive(location, item.href);
               return (
                 <Link
                   key={item.href}
-                  href={target}
+                  href={item.href}
                   aria-current={active ? "page" : undefined}
                   className={`et-interactive flex min-h-11 items-center rounded-xl px-3 py-2 text-sm font-semibold ${active ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
                 >
