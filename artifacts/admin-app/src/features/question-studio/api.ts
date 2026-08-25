@@ -83,6 +83,12 @@ export interface GenerationPackage {
   enabled: boolean;
   cpIds: string[];
   supportedLanguages: string[];
+  supportedDifficulties?: string[];
+  runtimeMode?: string;
+  questionBankStatus?: string;
+  testEligibility?: string;
+  publiclyPublishable?: boolean;
+  selectorKind?: 'standard' | 'tsd-cp009-review';
 }
 
 export interface QuestionStudioCapabilities {
@@ -104,6 +110,8 @@ export interface CreateGenerationRunInput {
   subtopic?: string;
   language: string;
   seed?: string;
+  qlId?: string;
+  familyId?: string;
 }
 
 export interface ConvertedQuestion {
@@ -160,11 +168,46 @@ export interface RegenerateGenerationItemsResult {
   failed: Array<{ itemId: string; message: string }>;
 }
 
+export const TSD_CP009_SELECTOR_PACKAGE_ID = 'TSD-002::CP009-REVIEW' as const;
+
+export interface TsdCp009QuestionStudioPackageResponse {
+  generationSystem: 'quant-v4';
+  activationMode: 'REVIEW_ONLY';
+  package: {
+    packageId: 'TSD-002';
+    checkpointId: 'TSD-CP-009';
+    runtimeMode: string;
+    permanentQlIds: string[];
+    supportedLanguages: readonly string[];
+    supportedDifficulties: readonly string[];
+    deterministicReviewCombinations: number;
+    questionBankStatus: 'NOT_STORED';
+    testEligibility: 'INELIGIBLE';
+    publiclyPublishable: false;
+  };
+  maxBatchSize: number;
+  permanentQlCount: number;
+  deterministicReviewCombinations: number;
+  supportedLanguages: readonly string[];
+  supportedDifficulties: readonly string[];
+  questionBankWriteEnabled: false;
+  testEligible: false;
+  publiclyPublishable: false;
+}
+
 export function getQuestionStudioCapabilities() {
   return adminRequest<QuestionStudioCapabilities>(
     '/admin/question-studio/capabilities',
     undefined,
     { fallbackMessage: 'Unable to load Question Studio capabilities.' },
+  );
+}
+
+export function getTsdCp009QuestionStudioPackage() {
+  return adminRequest<TsdCp009QuestionStudioPackageResponse>(
+    '/admin/question-studio/quant/time-speed-distance/cp009/package',
+    undefined,
+    { fallbackMessage: 'Unable to load TSD CP009 Question Studio package.' },
   );
 }
 
@@ -190,6 +233,40 @@ export function createGenerationRun(input: CreateGenerationRunInput) {
   );
 }
 
+export function createTsdCp009GenerationRun(input: CreateGenerationRunInput) {
+  const difficulty = input.difficulty.trim().toUpperCase();
+  if (difficulty !== 'EASY' && difficulty !== 'MEDIUM') {
+    throw new Error('TSD CP009 currently supports Easy and Medium review questions only.');
+  }
+  return adminRequest<{
+    id: string;
+    publicCode: string;
+    status: GenerationRunStatus;
+    itemCount: number;
+    generationSystem: string;
+    packageId: 'TSD-002';
+    checkpointId: 'TSD-CP-009';
+    reviewOnly: true;
+    questionBankWritable: false;
+    testEligible: false;
+    publiclyPublishable: false;
+  }>(
+    '/admin/question-studio/quant/time-speed-distance/cp009/runs',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        language: input.language,
+        difficulty,
+        count: input.count,
+        seed: input.seed,
+        qlId: input.qlId,
+        familyId: input.familyId,
+      }),
+    },
+    { fallbackMessage: 'Unable to create the TSD CP009 review run.' },
+  );
+}
+
 export function updateGenerationItems(input: {
   itemIds: string[];
   status: GenerationItemStatus;
@@ -202,6 +279,7 @@ export function updateGenerationItems(input: {
       previousStatus: GenerationItemStatus;
       status: GenerationItemStatus;
       convertedQuestion: ConvertedQuestion | null;
+      questionBankEligibilityIssue?: string | null;
     }>;
     updatedCount: number;
     converted: ConvertedQuestion[];
