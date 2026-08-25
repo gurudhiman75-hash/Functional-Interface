@@ -21,90 +21,39 @@ export interface Int001CheckpointAuthority {
   notes: readonly string[];
 }
 
-function ql(number: number): string {
-  return `INT-QL-${String(number).padStart(3, "0")}`;
-}
-
+function ql(number: number): string { return `INT-QL-${String(number).padStart(3, "0")}`; }
 function range(start: number, end: number, exclusions: readonly number[] = []): readonly string[] {
   const excluded = new Set(exclusions);
-  return Object.freeze(Array.from({ length: end - start + 1 }, (_, index) => start + index)
-    .filter((number) => !excluded.has(number))
-    .map(ql));
+  return Object.freeze(Array.from({ length: end - start + 1 }, (_, index) => start + index).filter((number) => !excluded.has(number)).map(ql));
 }
-
-function checkpoint(
-  cpId: Int001CpId,
-  qlIds: readonly string[],
-  contentLanguages: readonly Int001Language[],
-  currentQuestionStudioLanguages: readonly Int001Language[],
-  notes: readonly string[] = [],
-): Int001CheckpointAuthority {
+function checkpoint(cpId: Int001CpId, qlIds: readonly string[], contentLanguages: readonly Int001Language[], currentQuestionStudioLanguages: readonly Int001Language[], notes: readonly string[] = []): Int001CheckpointAuthority {
   return Object.freeze({
-    cpId,
-    qlIds: Object.freeze([...qlIds]),
-    contentLanguages: Object.freeze([...contentLanguages]),
-    currentQuestionStudioLanguages: Object.freeze([...currentQuestionStudioLanguages]),
-    authorityFrozen: true as const,
-    questionBankWritable: false as const,
-    testEligible: false as const,
-    mockTestEligible: false as const,
-    publiclyPublishable: false as const,
+    cpId, qlIds: Object.freeze([...qlIds]), contentLanguages: Object.freeze([...contentLanguages]), currentQuestionStudioLanguages: Object.freeze([...currentQuestionStudioLanguages]),
+    authorityFrozen: true as const, questionBankWritable: false as const, testEligible: false as const, mockTestEligible: false as const, publiclyPublishable: false as const,
     notes: Object.freeze([...notes]),
   });
 }
-
 const ALL = ["en", "hi", "pa"] as const;
 
 export const INT_001_FINAL_CHECKPOINT_AUTHORITIES: readonly Int001CheckpointAuthority[] = Object.freeze([
-  checkpoint("INT-CP-001", range(1, 21), ALL, [], [
-    "Current head carries approved multilingual authority; historical pre-registration head is not used as ancestry proof.",
-    "Chapter adapter must explicitly register this checkpoint before Question Studio discovery opens.",
-  ]),
-  checkpoint("INT-CP-002", range(22, 52), ["en"], [], [
-    "Current head contains cp002-final-registry.ts for INT-QL-022..052.",
-    "No certified Hindi/Punjabi CP002 learner authority is claimed by this registry.",
-    "INT-QL-028..032 and INT-QL-042..045 remain simple-interest ledger ownership and must not drift into CP009.",
-  ]),
-  checkpoint("INT-CP-003", range(53, 66), ALL, [], [
-    "Final multilingual checkpoint is in the modern Interest ancestry.",
-  ]),
-  checkpoint("INT-CP-004", range(67, 85), ["hi", "pa"], ["hi", "pa"], [
-    "Current native Question Studio registration is retained for certified Hindi/Punjabi surfaces.",
-    "English is not chapter-registered until a remediated English learner surface is explicitly certified.",
-  ]),
-  checkpoint("INT-CP-005", range(86, 95, [94]), ALL, [], [
-    "INT-QL-094 is intentionally vacant: the migration/event-order family had no recovered Interest-family authority.",
-  ]),
-  checkpoint("INT-CP-006", range(96, 108), ALL, [], [
-    "Multilingual authority frozen; Punjabi CI terminology uses the approved native term.",
-  ]),
-  checkpoint("INT-CP-007", range(109, 115), ALL, ALL, [
-    "Existing multilingual Question Studio review-only integration is retained.",
-  ]),
-  checkpoint("INT-CP-008", range(116, 124), ALL, [], [
-    "Multilingual authority frozen; chapter adapter registration remains a separate delivery step.",
-  ]),
-  checkpoint("INT-CP-009", range(125, 129), ALL, ALL, [
-    "Existing JSON-safe multilingual Question Studio review-only integration is retained.",
-    "Owns compound/exact-periodic heterogeneous dated cash-flow authorities, not CP002 simple-interest ledgers.",
-  ]),
-  checkpoint("INT-CP-010", range(130, 131), ALL, [], [
-    "Permanent multilingual authority frozen on the certified CP010 completion head.",
-  ]),
+  checkpoint("INT-CP-001", range(1, 21), ALL, [], ["Current head carries approved multilingual authority; historical pre-registration head is not used as ancestry proof.", "Chapter adapter must explicitly register this checkpoint before Question Studio discovery opens."]),
+  checkpoint("INT-CP-002", range(22, 52), ["en"], [], ["Current head contains cp002-final-registry.ts for INT-QL-022..052.", "No certified Hindi/Punjabi CP002 learner authority is claimed by this registry.", "INT-QL-028..032 and INT-QL-042..045 remain simple-interest ledger ownership and must not drift into CP009."]),
+  checkpoint("INT-CP-003", range(53, 66), ALL, [], ["Final multilingual checkpoint is in the modern Interest ancestry."]),
+  checkpoint("INT-CP-004", range(67, 85), ["hi", "pa"], ["hi", "pa"], ["Current native Question Studio registration is retained for certified Hindi/Punjabi surfaces.", "English is not chapter-registered until a remediated English learner surface is explicitly certified."]),
+  checkpoint("INT-CP-005", range(86, 95, [94]), ALL, [], ["INT-QL-094 is intentionally vacant: the migration/event-order family had no recovered Interest-family authority."]),
+  checkpoint("INT-CP-006", range(96, 108), ALL, [], ["Multilingual authority frozen; Punjabi CI terminology uses the approved native term."]),
+  checkpoint("INT-CP-007", range(109, 115), ALL, ALL, ["Existing multilingual Question Studio review-only integration is retained."]),
+  checkpoint("INT-CP-008", range(116, 124), ALL, [], ["Multilingual authority frozen; chapter adapter registration remains a separate delivery step."]),
+  checkpoint("INT-CP-009", range(125, 129), ALL, ALL, ["Existing JSON-safe multilingual Question Studio review-only integration is retained.", "Owns compound/exact-periodic heterogeneous dated cash-flow authorities, not CP002 simple-interest ledgers."]),
+  checkpoint("INT-CP-010", range(130, 131), ALL, ALL, ["Permanent multilingual authority frozen on the certified CP010 completion head.", "JSON-safe review-only Question Studio adapter and admin route are registered; downstream delivery remains closed."]),
 ]);
 
-export const INT_001_FINAL_QL_IDS: readonly string[] = Object.freeze(
-  INT_001_FINAL_CHECKPOINT_AUTHORITIES.flatMap((checkpointAuthority) => checkpointAuthority.qlIds),
-);
-
+export const INT_001_FINAL_QL_IDS: readonly string[] = Object.freeze(INT_001_FINAL_CHECKPOINT_AUTHORITIES.flatMap((checkpointAuthority) => checkpointAuthority.qlIds));
 const byQl = new Map<string, Int001CheckpointAuthority>();
-for (const authority of INT_001_FINAL_CHECKPOINT_AUTHORITIES) {
-  for (const qlId of authority.qlIds) {
-    if (byQl.has(qlId)) throw new Error(`Duplicate Interest permanent authority for ${qlId}`);
-    byQl.set(qlId, authority);
-  }
+for (const authority of INT_001_FINAL_CHECKPOINT_AUTHORITIES) for (const qlId of authority.qlIds) {
+  if (byQl.has(qlId)) throw new Error(`Duplicate Interest permanent authority for ${qlId}`);
+  byQl.set(qlId, authority);
 }
-
 export function getInt001CheckpointAuthorityByQl(qlId: string): Int001CheckpointAuthority {
   const authority = byQl.get(qlId);
   if (!authority) throw new Error(`No permanent Interest authority is registered for ${qlId}`);
