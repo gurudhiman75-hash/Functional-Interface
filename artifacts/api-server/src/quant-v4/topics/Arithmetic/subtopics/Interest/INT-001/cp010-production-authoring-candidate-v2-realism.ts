@@ -18,8 +18,14 @@ function rupees(value: { numerator: bigint; denominator: bigint }) {
   return Number(value.numerator) / Number(value.denominator);
 }
 
+function openingDebtFor(question: any) {
+  return question.authorityId === "INT-CP010-AUTH-01"
+    ? question.mathematicalState.openingDebt
+    : question.answer;
+}
+
 function isRealistic(question: any) {
-  const openingDebt = rupees(question.mathematicalState.openingDebt);
+  const openingDebt = rupees(openingDebtFor(question));
   if (!(openingDebt >= 25_000 && openingDebt <= 2_500_000)) return false;
   if (question.authorityId === "INT-CP010-AUTH-01") {
     const instalment = rupees(question.answer);
