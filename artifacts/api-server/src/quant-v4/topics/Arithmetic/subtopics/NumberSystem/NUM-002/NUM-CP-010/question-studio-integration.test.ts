@@ -12,16 +12,11 @@ import {
 } from "./question-studio-integration.ts";
 
 const languages = ["en", "hi", "pa"] as const;
-const targetScript = {
-  hi: /[\u0900-\u097F]/u,
-  pa: /[\u0A00-\u0A7F]/u,
-} as const;
+const targetScript = { hi: /[\u0900-\u097F]/u, pa: /[\u0A00-\u0A7F]/u } as const;
 
 assert.equal(NUM_CP010_QUESTION_STUDIO_QL_IDS.length, 16);
 assert.equal(NUM_CP010_QUESTION_STUDIO_QL_IDS[0], "NUM-QL-197");
 assert.equal(NUM_CP010_QUESTION_STUDIO_QL_IDS.at(-1), "NUM-QL-212");
-
-// CP010 must be explicit. Package-only NUM-002 remains CP008's historical fallback.
 assert.equal(isNumCp010QuestionStudioRequest({ packageId: "NUM-002" }), false);
 assert.equal(isNumCp010QuestionStudioRequest({ canonicalProblemId: "NUM-CP-010" }), true);
 assert.equal(isNumCp010QuestionStudioRequest({ patternId: "NUM-CP-010" }), true);
@@ -42,13 +37,13 @@ assert.equal(localCapability.publiclyPublishable, false);
 assert.equal(localCapability.automaticStudentPublication, false);
 
 const sharedCapability = listQuestionStudioPackages().find((entry: any) => entry.packageId === "NUM-002");
-assert.ok(sharedCapability, "NUM-002 must be discoverable from shared Question Studio capability list");
-assert.deepEqual(sharedCapability.cpIds, ["NUM-CP-008", "NUM-CP-009", "NUM-CP-010"]);
+assert.ok(sharedCapability);
+assert.deepEqual(sharedCapability.cpIds, ["NUM-CP-008", "NUM-CP-009", "NUM-CP-010", "NUM-CP-011"]);
 assert.deepEqual(sharedCapability.supportedLanguages, ["en", "hi", "pa"]);
-assert.equal(sharedCapability.permanentQlCount, 47);
-assert.equal(sharedCapability.permanentQlIds.length, 47);
+assert.equal(sharedCapability.permanentQlCount, 60);
+assert.equal(sharedCapability.permanentQlIds.length, 60);
 assert.equal(sharedCapability.permanentQlIds[0], "NUM-QL-166");
-assert.equal(sharedCapability.permanentQlIds.at(-1), "NUM-QL-212");
+assert.equal(sharedCapability.permanentQlIds.at(-1), "NUM-QL-225");
 assert.equal(sharedCapability.questionBankWritable, false);
 assert.equal(sharedCapability.testEligible, false);
 assert.equal(sharedCapability.mockTestEligible, false);
@@ -66,27 +61,12 @@ for (const qlId of NUM_CP010_QUESTION_STUDIO_QL_IDS) {
   for (const language of languages) {
     for (let sample = 1; sample <= 8; sample += 1) {
       const seed = `cp010-question-studio-proof:${qlId}:${language}:${sample}`;
-      const first = await generateNumCp010QuestionStudioBatch({
-        packageId: "NUM-002",
-        canonicalProblemId: "NUM-CP-010",
-        questionLanguageId: qlId,
-        language,
-        seed,
-        count: 1,
-      });
-      const second = await generateNumCp010QuestionStudioBatch({
-        packageId: "NUM-002",
-        canonicalProblemId: "NUM-CP-010",
-        questionLanguageId: qlId,
-        language,
-        seed,
-        count: 1,
-      });
+      const first = await generateNumCp010QuestionStudioBatch({ packageId: "NUM-002", canonicalProblemId: "NUM-CP-010", questionLanguageId: qlId, language, seed, count: 1 });
+      const second = await generateNumCp010QuestionStudioBatch({ packageId: "NUM-002", canonicalProblemId: "NUM-CP-010", questionLanguageId: qlId, language, seed, count: 1 });
       const pkg = first.questionPackages[0]!;
       const question = first.questions[0]!;
-
-      assert.deepEqual(first.questionPackages, second.questionPackages, `${qlId}/${language}/${sample}: deterministic package drift`);
-      assert.deepEqual(first.questions, second.questions, `${qlId}/${language}/${sample}: deterministic preview drift`);
+      assert.deepEqual(first.questionPackages, second.questionPackages);
+      assert.deepEqual(first.questions, second.questions);
       assert.equal(pkg.packageId, "NUM-002");
       assert.equal(pkg.canonicalProblemId, "NUM-CP-010");
       assert.equal(pkg.questionLanguageId, qlId);
@@ -104,13 +84,11 @@ for (const qlId of NUM_CP010_QUESTION_STUDIO_QL_IDS) {
       assert.equal(question.canonicalProblemId, "NUM-CP-010");
       assert.equal(question.authorityId, pkg.authorityId);
       authorityChecks += 1;
-
       assert.equal(pkg.traceability.sourceLifecycle.questionStudioDiscoverable, false);
       assert.equal(pkg.traceability.sourceLifecycle.questionBankWritable, false);
       assert.equal(pkg.traceability.sourceLifecycle.testEligible, false);
       assert.equal(pkg.traceability.sourceLifecycle.publiclyPublishable, false);
       sourceLifecycleLocks += 1;
-
       assert.equal(pkg.questionStudioDiscoverable, true);
       assert.equal(pkg.questionBankWritable, false);
       assert.equal(pkg.testEligible, false);
@@ -123,36 +101,24 @@ for (const qlId of NUM_CP010_QUESTION_STUDIO_QL_IDS) {
       assert.equal(first.generationContext.mockTestEligible, false);
       assert.equal(first.generationContext.publiclyPublishable, false);
       integrationLifecycleLocks += 1;
-
       if (language !== "en") {
         assert.match(`${pkg.stem} ${pkg.explanation.lines.join(" ")}`, targetScript[language]);
         assert.equal(pkg.traceability.localizationStatus, "HI_PA_FROZEN");
         multilingualChecks += 1;
-      } else {
-        assert.equal(pkg.traceability.englishAuthorityStatus, "ENGLISH_FROZEN");
-      }
-
+      } else assert.equal(pkg.traceability.englishAuthorityStatus, "ENGLISH_FROZEN");
       prototypeReach.add(pkg.temporaryPrototypeId);
       packages += 1;
     }
   }
 }
-
-assert.equal(prototypeReach.size, 26, "Question Studio sample must reach all 26 CP010 source prototypes");
+assert.equal(prototypeReach.size, 26);
 
 for (const language of languages) {
   for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
-    const result = await generateNumCp010QuestionStudioBatch({
-      packageId: "NUM-002",
-      canonicalProblemId: "NUM-CP-010",
-      language,
-      difficulty,
-      seed: `cp010-difficulty-proof:${language}:${difficulty}`,
-      count: 16,
-    });
+    const result = await generateNumCp010QuestionStudioBatch({ packageId: "NUM-002", canonicalProblemId: "NUM-CP-010", language, difficulty, seed: `cp010-difficulty-proof:${language}:${difficulty}`, count: 16 });
     assert.equal(result.questions.length, 16);
     for (const question of result.questions) {
-      assert.equal(question.difficulty, difficulty, `${language}/${difficulty}: difficulty filter drift`);
+      assert.equal(question.difficulty, difficulty);
       assert.equal(question.questionBankWritable, false);
       assert.equal(question.testEligible, false);
       assert.equal(question.publiclyPublishable, false);
@@ -161,16 +127,7 @@ for (const language of languages) {
 }
 
 for (const language of languages) {
-  const shared = await generateSharedQuestionStudioQuestion({
-    packageId: "NUM-002",
-    canonicalProblemId: "NUM-CP-010",
-    topic: "Arithmetic",
-    subtopic: "Number System",
-    language,
-    difficulty: "Medium",
-    seed: `cp010-shared-facade:${language}`,
-    count: 5,
-  });
+  const shared = await generateSharedQuestionStudioQuestion({ packageId: "NUM-002", canonicalProblemId: "NUM-CP-010", topic: "Arithmetic", subtopic: "Number System", language, difficulty: "Medium", seed: `cp010-shared-facade:${language}`, count: 5 });
   assert.equal(shared.questions.length, 5);
   assert.equal(shared.generationContext.packageId, "NUM-002");
   assert.equal(shared.generationContext.canonicalProblemId, "NUM-CP-010");
@@ -184,56 +141,11 @@ for (const language of languages) {
   }
 }
 
-// CP009 explicit routing remains intact.
-const cp009Explicit = await generateSharedQuestionStudioQuestion({
-  packageId: "NUM-002",
-  canonicalProblemId: "NUM-CP-009",
-  language: "en",
-  difficulty: "Medium",
-  seed: "cp010-prove-cp009-explicit-routing",
-  count: 1,
-});
+const cp009Explicit = await generateSharedQuestionStudioQuestion({ packageId: "NUM-002", canonicalProblemId: "NUM-CP-009", language: "en", difficulty: "Medium", seed: "cp010-prove-cp009-explicit-routing", count: 1 });
 assert.equal(cp009Explicit.generationContext.canonicalProblemId, "NUM-CP-009");
-
-// Existing package-only NUM-002 behavior remains routed to CP008.
-const packageOnlyFallback = await generateSharedQuestionStudioQuestion({
-  packageId: "NUM-002",
-  language: "en",
-  difficulty: "Medium",
-  seed: "cp010-prove-cp008-package-only-fallback",
-  count: 1,
-});
+const packageOnlyFallback = await generateSharedQuestionStudioQuestion({ packageId: "NUM-002", language: "en", difficulty: "Medium", seed: "cp010-prove-cp008-package-only-fallback", count: 1 });
 assert.equal(packageOnlyFallback.generationContext.canonicalProblemId, "NUM-CP-008");
 assert.equal(packageOnlyFallback.questions[0]?.canonicalProblemId, "NUM-CP-008");
+await assert.rejects(() => generateNumCp010QuestionStudioBatch({ packageId: "NUM-002", canonicalProblemId: "NUM-CP-010", questionLanguageId: "NUM-QL-196", language: "en", seed: "bad-owner" }), /not owned by NUM-CP-010/u);
 
-await assert.rejects(
-  () => generateNumCp010QuestionStudioBatch({
-    packageId: "NUM-002",
-    canonicalProblemId: "NUM-CP-010",
-    questionLanguageId: "NUM-QL-196",
-    language: "en",
-    seed: "bad-owner",
-  }),
-  /not owned by NUM-CP-010/u,
-);
-
-console.log(JSON.stringify({
-  status: "PASS_NUM_CP010_QUESTION_STUDIO_INTEGRATION_V1",
-  permanentAuthorities: NUM_CP010_QUESTION_STUDIO_QL_IDS.length,
-  sharedNum002PermanentAuthorities: sharedCapability.permanentQlCount,
-  sharedNum002Checkpoints: sharedCapability.cpIds,
-  languages,
-  packages,
-  sourceLifecycleLocks,
-  integrationLifecycleLocks,
-  multilingualChecks,
-  authorityChecks,
-  prototypeReach: prototypeReach.size,
-  cp009ExplicitCheckpoint: cp009Explicit.generationContext.canonicalProblemId,
-  packageOnlyFallbackCheckpoint: packageOnlyFallback.generationContext.canonicalProblemId,
-  questionStudioDiscoverable: true,
-  questionBankWritable: false,
-  testEligible: false,
-  publiclyPublishable: false,
-  nextAvailableQl: "NUM-QL-213",
-}, null, 2));
+console.log(JSON.stringify({ status: "PASS_NUM_CP010_QUESTION_STUDIO_INTEGRATION_V1", permanentAuthorities: NUM_CP010_QUESTION_STUDIO_QL_IDS.length, sharedNum002PermanentAuthorities: sharedCapability.permanentQlCount, sharedNum002Checkpoints: sharedCapability.cpIds, languages, packages, sourceLifecycleLocks, integrationLifecycleLocks, multilingualChecks, authorityChecks, prototypeReach: prototypeReach.size, cp009ExplicitCheckpoint: cp009Explicit.generationContext.canonicalProblemId, packageOnlyFallbackCheckpoint: packageOnlyFallback.generationContext.canonicalProblemId, questionStudioDiscoverable: true, questionBankWritable: false, testEligible: false, publiclyPublishable: false, nextAvailableQl: "NUM-QL-226" }, null, 2));
