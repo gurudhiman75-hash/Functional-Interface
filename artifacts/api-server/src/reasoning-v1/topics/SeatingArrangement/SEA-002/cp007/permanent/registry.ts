@@ -55,8 +55,8 @@ export interface Sea002Cp007PermanentQlRegistryEntry {
   readonly allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE";
   readonly sourceSaturationStatus: "FOUR_AUTHORITIES_PROVEN";
   readonly productionUniquenessStatus: "INDEPENDENT_UNIQUENESS_V2_PROVEN";
-  readonly englishReviewStatus: "REVIEW_READY_NOT_APPROVED";
-  readonly localizationStatus: "NOT_STARTED";
+  readonly englishReviewStatus: "CI_CERTIFIED_SELF_REVIEW_COMPLETE";
+  readonly localizationStatus: "FOUNDATION_OPEN_HI_PA_PENDING";
   readonly active: false;
   readonly questionStudioDiscoverable: false;
   readonly questionBankWritable: false;
@@ -80,8 +80,8 @@ export const SEA002_CP007_PERMANENT_QL_REGISTRY: readonly Sea002Cp007PermanentQl
     allocationStatus: "PERMANENT_ID_ALLOCATED_INACTIVE" as const,
     sourceSaturationStatus: "FOUR_AUTHORITIES_PROVEN" as const,
     productionUniquenessStatus: "INDEPENDENT_UNIQUENESS_V2_PROVEN" as const,
-    englishReviewStatus: "REVIEW_READY_NOT_APPROVED" as const,
-    localizationStatus: "NOT_STARTED" as const,
+    englishReviewStatus: "CI_CERTIFIED_SELF_REVIEW_COMPLETE" as const,
+    localizationStatus: "FOUNDATION_OPEN_HI_PA_PENDING" as const,
     active: false as const,
     questionStudioDiscoverable: false as const,
     questionBankWritable: false as const,
