@@ -37,6 +37,7 @@ let parityChecks = 0;
 let deepFrozenObjects = 0;
 let nativeScriptChecks = 0;
 let mathSkeletonChecks = 0;
+const nativeScriptFailures: string[] = [];
 const residualFailures: string[] = [];
 const sourceCandidatesSeen = new Set<string>();
 
@@ -98,7 +99,9 @@ for (const allocation of SRI_PERMANENT_ALLOCATION_V1) {
       }
 
       for (const text of [q.stem, q.explanation.asked, q.explanation.method]) {
-        assert.match(text, NATIVE_SCRIPT[locale], `${allocation.qlId}/${q.candidateId}/${locale}: expected native script in ${text}`);
+        if (!NATIVE_SCRIPT[locale].test(text) && nativeScriptFailures.length < 80) {
+          nativeScriptFailures.push(`${allocation.qlId}/${q.candidateId}/${locale}: expected native script :: ${text}`);
+        }
         nativeScriptChecks += 1;
       }
 
@@ -134,7 +137,8 @@ for (const allocation of SRI_PERMANENT_ALLOCATION_V1) {
 }
 
 assert.equal(generated, EXPECTED_QLS * SEEDS_PER_QL * LOCALES.length);
-assert.deepEqual(residualFailures, [], `Localized learner text still contains English instructional residue:\n${residualFailures.join("\n")}`);
+const localizationQualityFailures = [...nativeScriptFailures, ...residualFailures];
+assert.deepEqual(localizationQualityFailures, [], `Localized learner text failed language-quality gates:\n${localizationQualityFailures.join("\n")}`);
 
 const reviewCorpus = buildSriPermanentEnglishReviewCorpusV1(2);
 assert.equal(reviewCorpus.length, EXPECTED_REVIEW_ROWS);
