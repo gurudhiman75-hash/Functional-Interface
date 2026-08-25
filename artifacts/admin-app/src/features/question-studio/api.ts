@@ -88,9 +88,20 @@ export interface GenerationPackage {
   runtimeMode?: string;
   supportedRuntimeModes?: string[];
   dynamicCandidateCpIds?: string[];
+  lifecycleId?: string;
+  lifecycleStage?: 'REVIEW_ONLY' | 'BANK_ONLY';
+  reviewSurfaceRequired?: boolean;
+  manualApprovalRequired?: boolean;
   questionBankStatus?: string;
+  questionBankWritable?: boolean;
+  questionBankAcceptanceMode?: 'BANK_ONLY' | 'FULL_RELEASE';
+  questionBankAcceptanceAuthority?: string | null;
   testEligibility?: string;
+  testEligible?: boolean;
+  mockTestEligible?: boolean;
   publiclyPublishable?: boolean;
+  automaticStudentPublication?: boolean;
+  productionReleaseAuthorized?: boolean;
 }
 
 export interface QuestionStudioCapabilities {
