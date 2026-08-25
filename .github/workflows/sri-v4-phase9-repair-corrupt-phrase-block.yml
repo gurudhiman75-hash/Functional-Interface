@@ -1,0 +1,76 @@
+name: SRI Phase 9 safe phrase-block repair
+
+on:
+  push:
+    branches:
+      - feature/sri-v4-phase9-localization-v1
+    paths:
+      - .github/workflows/sri-v4-phase9-repair-corrupt-phrase-block.yml
+
+permissions:
+  contents: write
+
+jobs:
+  repair-phrase-block:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Phase 9 branch with history
+        uses: actions/checkout@v4
+        with:
+          ref: feature/sri-v4-phase9-localization-v1
+          fetch-depth: 0
+      - name: Restore intended phrase rows from known-good helper commit
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess
+
+          helper_commit = "97ab14027211abdef97919dd9bed2619fbcf02c5"
+          helper_path = ".github/workflows/sri-v4-phase9-localization-phrase-remediation.yml"
+          helper = subprocess.check_output(
+              ["git", "show", f"{helper_commit}:{helper_path}"],
+              text=True,
+          )
+
+          def extract_rows(name: str) -> str:
+              marker = f"{name} = '''"
+              start = helper.index(marker) + len(marker)
+              end = helper.index("'''", start)
+              rows = []
+              for raw in helper[start:end].splitlines():
+                  idx = raw.find('["')
+                  if idx >= 0:
+                      rows.append("    " + raw[idx:])
+              if len(rows) < 80:
+                  raise SystemExit(f"Expected a broad {name} phrase payload, found {len(rows)} rows")
+              return "\n".join(rows) + "\n"
+
+          hi_rows = extract_rows("hi")
+          pa_rows = extract_rows("pa")
+
+          path = Path("artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts")
+          text = path.read_text(encoding="utf-8")
+          baseline = '    ["over the real numbers",'
+
+          for locale, rows in (("hi-IN", hi_rows), ("pa-IN", pa_rows)):
+              anchor = f'  "{locale}": [\n'
+              start = text.index(anchor) + len(anchor)
+              end = text.index(baseline, start)
+              text = text[:start] + rows + text[end:]
+
+          if '-base factors",' in text or '\nrator exponents",' in text or '\nonalise the denominator' in text:
+              raise SystemExit("Corrupted phrase prefixes remain after repair")
+          if text.count('Combine same-base factors by adding numerator exponents and subtracting the denominator exponent.') != 2:
+              raise SystemExit("Expected the restored whole-phrase authority in both locales")
+
+          path.write_text(text, encoding="utf-8")
+          PY
+      - name: Verify and commit durable repair
+        run: |
+          git diff --check
+          git diff -- artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts
+          git commit -m "SRI Phase 9: repair Hindi Punjabi phrase authority"
+          git push origin HEAD:feature/sri-v4-phase9-localization-v1
