@@ -1,9 +1,7 @@
 import { normalizeGeneratedQuestionPayload } from "../../lib/admin-question-conversion";
 import type { QuestionStudioGeneratedQuestion } from "../engine-types";
+import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
 import { knowledgeV1Com001QuestionStudioAdapter } from "./knowledge-v1-com001-adapter";
-
-export const COM001_QUESTION_BANK_DRY_RUN_AUTHORITY =
-  "COM-001-QUESTION-BANK-DRY-RUN-CANDIDATE-V1" as const;
 
 export const COM001_REQUIRED_BANK_PROVENANCE_FIELDS = [
   "sourceIds",
@@ -22,30 +20,16 @@ export const COM001_REQUIRED_BANK_PROVENANCE_FIELDS = [
 ] as const;
 
 export type Com001QuestionBankReadinessV1 = {
-  status: "BLOCKED_METADATA_PROVENANCE" | "READY_FOR_BANK_ONLY_REVIEW";
+  status: "STANDARD_LIFECYCLE_READY" | "BLOCKED_METADATA_PROVENANCE";
   auditedQuestionCount: number;
   qlCount: number;
   languages: readonly ["en", "hi", "pa"];
-  bankOnlyLifecycleProven: boolean;
-  liveQuestionBankLockPreserved: boolean;
-  liveQuestionBankState: "PRE_ACTIVATION_LOCKED" | "BANK_ONLY_ACTIVE" | "UNEXPECTED";
+  currentLifecycleMatchesStandard: boolean;
   downstreamLifecycleLocked: boolean;
   semanticNormalizationProven: boolean;
   missingNormalizedProvenanceFields: string[];
-  productionActivationAuthorized: false;
+  productionReleaseAuthorized: false;
 };
-
-const BANK_ONLY_DRY_RUN_LIFECYCLE = {
-  questionBankStatus: "READY_FOR_STORAGE",
-  questionBankWritable: true,
-  questionBankAcceptanceMode: "BANK_ONLY",
-  questionBankAcceptanceAuthority: COM001_QUESTION_BANK_DRY_RUN_AUTHORITY,
-  testEligibility: "INELIGIBLE",
-  testEligible: false,
-  mockTestEligible: false,
-  publiclyPublishable: false,
-  automaticStudentPublication: false,
-} as const;
 
 function asRecord(value: unknown): Record<string, unknown> {
   return value && typeof value === "object" && !Array.isArray(value)
@@ -59,17 +43,15 @@ function present(value: unknown): boolean {
   return value !== null && value !== undefined;
 }
 
-function buildDryRunPayload(
+function buildNormalizationPayload(
   question: QuestionStudioGeneratedQuestion,
   generationContext: Record<string, unknown>,
 ) {
   const review = asRecord(question.questionStudioReview);
   return {
     ...question,
-    ...BANK_ONLY_DRY_RUN_LIFECYCLE,
     generationContext: {
       ...generationContext,
-      ...BANK_ONLY_DRY_RUN_LIFECYCLE,
       contentAuthorityVersion:
         review.contentAuthorityVersion ?? generationContext.contentAuthorityVersion,
       englishFreezeAuthorityId:
@@ -98,13 +80,12 @@ export async function auditCom001QuestionBankReadinessV1(): Promise<Com001Questi
     `COM-001-QL-${String(index + 1).padStart(3, "0")}`,
   );
   const languages = ["en", "hi", "pa"] as const;
+  const lifecycle = QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
   const missing = new Set<string>();
   let auditedQuestionCount = 0;
   let semanticNormalizationProven = true;
-  let liveQuestionBankLockPreserved = true;
-  let liveBankOnlyActive = true;
+  let currentLifecycleMatchesStandard = true;
   let downstreamLifecycleLocked = true;
-  let bankOnlyLifecycleProven = true;
 
   for (const qlId of qlIds) {
     for (const language of languages) {
@@ -116,33 +97,32 @@ export async function auditCom001QuestionBankReadinessV1(): Promise<Com001Questi
         runtimeMode: "review-only",
         difficulty: "Mixed",
         count: 10,
-        seed: `com001-bank-readiness-v1:${qlId}:${language}`,
+        seed: `com001-bank-normalization-v1:${qlId}:${language}`,
       });
 
-      for (let index = 0; index < generated.questions.length; index += 1) {
-        const question = generated.questions[index]!;
+      for (const question of generated.questions) {
         auditedQuestionCount += 1;
-        liveQuestionBankLockPreserved &&=
-          question.questionBankStatus === "NOT_STORED" &&
-          question.questionBankWritable === false;
-        liveBankOnlyActive &&=
-          question.questionBankStatus === "READY_FOR_STORAGE" &&
-          question.questionBankWritable === true &&
-          question.questionBankAcceptanceMode === "BANK_ONLY";
+        currentLifecycleMatchesStandard &&=
+          question.lifecycleId === lifecycle.lifecycleId &&
+          question.stage === lifecycle.stage &&
+          question.questionBankStatus === lifecycle.questionBankStatus &&
+          question.questionBankWritable === lifecycle.questionBankWritable &&
+          question.questionBankAcceptanceMode === lifecycle.questionBankAcceptanceMode &&
+          question.questionBankAcceptanceAuthority === lifecycle.questionBankAcceptanceAuthority;
         downstreamLifecycleLocked &&=
           question.testEligible === false &&
           question.mockTestEligible === false &&
           question.publiclyPublishable === false &&
-          question.automaticStudentPublication === false;
+          question.automaticStudentPublication === false &&
+          question.productionReleaseAuthorized === false;
 
-        const dryRunPayload = buildDryRunPayload(
-          question,
-          asRecord(generated.generationContext),
+        const normalized = normalizeGeneratedQuestionPayload(
+          buildNormalizationPayload(question, asRecord(generated.generationContext)),
+          {
+            itemId: `com001-bank-normalization-${auditedQuestionCount}`,
+            generationRunCode: "COM001-STANDARD-LIFECYCLE-NORMALIZATION-V1",
+          },
         );
-        const normalized = normalizeGeneratedQuestionPayload(dryRunPayload, {
-          itemId: `com001-bank-dry-run-${auditedQuestionCount}`,
-          generationRunCode: "COM001-BANK-DRY-RUN-V1",
-        });
         const generation = asRecord(normalized.answerModel.generation);
 
         semanticNormalizationProven &&=
@@ -153,11 +133,12 @@ export async function auditCom001QuestionBankReadinessV1(): Promise<Com001Questi
           normalized.options.length === (Array.isArray(question.options) ? question.options.length : 0) &&
           normalized.answerModel.canonicalAnswer === question.canonicalAnswer;
 
-        bankOnlyLifecycleProven &&=
-          generation.questionBankStatus === "READY_FOR_STORAGE" &&
-          generation.questionBankWritable === true &&
-          generation.questionBankAcceptanceMode === "BANK_ONLY" &&
-          generation.questionBankAcceptanceAuthority === COM001_QUESTION_BANK_DRY_RUN_AUTHORITY &&
+        currentLifecycleMatchesStandard &&=
+          generation.questionBankStatus === lifecycle.questionBankStatus &&
+          generation.questionBankWritable === lifecycle.questionBankWritable &&
+          generation.questionBankAcceptanceMode === lifecycle.questionBankAcceptanceMode &&
+          generation.questionBankAcceptanceAuthority === lifecycle.questionBankAcceptanceAuthority;
+        downstreamLifecycleLocked &&=
           generation.testEligible === false &&
           generation.mockTestEligible === false &&
           generation.publiclyPublishable === false &&
@@ -189,28 +170,21 @@ export async function auditCom001QuestionBankReadinessV1(): Promise<Com001Questi
   }
 
   const missingNormalizedProvenanceFields = [...missing].sort();
-  const liveQuestionBankState = liveBankOnlyActive
-    ? "BANK_ONLY_ACTIVE" as const
-    : liveQuestionBankLockPreserved
-      ? "PRE_ACTIVATION_LOCKED" as const
-      : "UNEXPECTED" as const;
   return {
     status:
       missingNormalizedProvenanceFields.length === 0 &&
-      bankOnlyLifecycleProven &&
-      semanticNormalizationProven &&
-      downstreamLifecycleLocked
-        ? "READY_FOR_BANK_ONLY_REVIEW"
+      currentLifecycleMatchesStandard &&
+      downstreamLifecycleLocked &&
+      semanticNormalizationProven
+        ? "STANDARD_LIFECYCLE_READY"
         : "BLOCKED_METADATA_PROVENANCE",
     auditedQuestionCount,
     qlCount: qlIds.length,
     languages,
-    bankOnlyLifecycleProven,
-    liveQuestionBankLockPreserved,
-    liveQuestionBankState,
+    currentLifecycleMatchesStandard,
     downstreamLifecycleLocked,
     semanticNormalizationProven,
     missingNormalizedProvenanceFields,
-    productionActivationAuthorized: false,
+    productionReleaseAuthorized: false,
   };
 }
