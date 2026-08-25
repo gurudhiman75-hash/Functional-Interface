@@ -24,7 +24,13 @@ function buildInput(authorityKey: TsdCp010AuthorityKey, index: number): TsdCp010
   const absoluteTimeLead = rational((aN - bN) * 10);
 
   switch (authorityKey) {
-    case "finishDistanceLeadState": return { authorityKey, raceDistance: baseDistance, winnerSpeed: a, loserSpeed: b };
+    case "finishDistanceLeadState": return {
+      authorityKey,
+      target: index === 5 || index === 11 ? "PERCENT_OF_RACE" : "DISTANCE_LEAD",
+      raceDistance: baseDistance,
+      winnerSpeed: a,
+      loserSpeed: b,
+    };
     case "finishTimeLeadState": return { authorityKey, raceDistance: absoluteRaceDistance, winnerSpeed: a, loserSpeed: b };
     case "raceSpeedRatioState":
       return index % 2 === 0
