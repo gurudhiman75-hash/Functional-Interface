@@ -28,8 +28,9 @@ jobs:
           start = next(i for i, line in enumerate(helper) if "python - <<'PY'" in line) + 1
           end = next(i for i in range(start, len(helper)) if helper[i].strip() == 'PY')
           script_lines = helper[start:end]
-          indent = min(len(line) - len(line.lstrip()) for line in script_lines if line.strip())
-          script = '\n'.join(line[indent:] for line in script_lines) + '\n'
+          first = next(line for line in script_lines if line.strip())
+          indent = len(first) - len(first.lstrip())
+          script = '\n'.join(line[indent:] if len(line) >= indent else line for line in script_lines) + '\n'
           Path('/tmp/sri-phase9-remediate.py').write_text(script, encoding='utf-8')
           PY
           python /tmp/sri-phase9-remediate.py
