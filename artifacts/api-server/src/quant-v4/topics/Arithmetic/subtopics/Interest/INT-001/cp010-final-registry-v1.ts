@@ -78,6 +78,25 @@ function permanentLifecycle(sourceLifecycle: any) {
   });
 }
 
+function normalizedEnglishStem(stem: string) {
+  return stem
+    .replace(/\bA education loan\b/gu, "An education loan")
+    .replace(/\ba education loan\b/gu, "an education loan");
+}
+
+function normalizedExplanation(source: any, authorityId: IntCp010CandidateAuthorityId) {
+  if (authorityId !== "INT-CP010-AUTH-02") return source.explanation;
+  const steps = [...source.explanation.steps];
+  if (steps.length < 4) throw new Error("CP010 AUTH-02 explanation is too short to normalize");
+  const given = steps[0]!;
+  const conclusion = steps.at(-1)!;
+  const reverseRecurrence = steps.slice(1, -1).reverse();
+  return deepFreeze({
+    ...source.explanation,
+    steps: Object.freeze([given, ...reverseRecurrence, conclusion]),
+  });
+}
+
 export function generateIntCp010PermanentEnglish(qlId: IntCp010PermanentQlId, seed: string | number) {
   const entry = entryFor(qlId);
   const source = generateIntCp010ProductionCandidateV2(entry.authorityId as IntCp010CandidateAuthorityId, seed) as any;
@@ -88,6 +107,8 @@ export function generateIntCp010PermanentEnglish(qlId: IntCp010PermanentQlId, se
     completionStatus: INT_CP010_COMPLETION_STATUS,
     permanentQlId: qlId,
     permanentIdentityAllocated: true as const,
+    stem: normalizedEnglishStem(source.stem),
+    explanation: normalizedExplanation(source, entry.authorityId),
     lifecycle: permanentLifecycle(source.lifecycle),
   });
 }
@@ -106,6 +127,7 @@ export function generateIntCp010PermanentLocalized(
     completionStatus: INT_CP010_COMPLETION_STATUS,
     permanentQlId: qlId,
     permanentIdentityAllocated: true as const,
+    explanation: normalizedExplanation(source, entry.authorityId),
     lifecycle: permanentLifecycle(source.lifecycle),
   });
 }
