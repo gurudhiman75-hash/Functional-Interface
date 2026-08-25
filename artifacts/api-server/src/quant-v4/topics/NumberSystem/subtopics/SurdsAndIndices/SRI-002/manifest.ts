@@ -1,10 +1,10 @@
 export const SRI_002_MANIFEST = {
   packageId: "SRI-002",
   displayName: "Surds, Radicals & Rationalisation",
-  status: "PERMANENT_ALLOCATION_V1_ENGLISH_FREEZE_PENDING",
+  status: "PERMANENT_ENGLISH_FROZEN_V1_LOCALIZATION_PENDING",
   canonicalCheckpoints: ["SRI-CP-007", "SRI-CP-008", "SRI-CP-009", "SRI-CP-010", "SRI-CP-011", "SRI-CP-012"],
   permanentQlCount: 29,
-  frozenSolveModeCount: 0,
+  frozenSolveModeCount: 29,
   activeExecutableDiscoveryCheckpoints: ["SRI-CP-007", "SRI-CP-008", "SRI-CP-009", "SRI-CP-010", "SRI-CP-011", "SRI-CP-012"],
   provisionalCandidateCount: 45,
   discoveryWaves: {
