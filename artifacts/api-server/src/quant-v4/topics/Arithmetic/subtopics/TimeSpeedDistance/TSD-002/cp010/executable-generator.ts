@@ -5,7 +5,7 @@ import { TSD_CP010_AUTHORITY_KEYS, type TsdCp010AuthorityKey } from "./source-sa
 
 const SPEED_PAIRS = [
   [6, 5], [7, 6], [8, 6], [5, 4], [6, 4], [5, 3],
-  [8, 7], [7, 5], [6, 5], [7, 4], [8, 6], [5, 4],
+  [8, 7], [7, 5], [6, 3], [7, 4], [8, 5], [8, 4],
 ] as const;
 const SPEED_TRIPLES = [
   [8, 6, 4], [6, 4, 3], [5, 4, 3], [8, 6, 3], [6, 5, 4], [8, 4, 2],
