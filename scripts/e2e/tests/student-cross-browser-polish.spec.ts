@@ -70,14 +70,15 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await expect(sidebar.getByRole("link", { name: "Home", exact: true })).toHaveAttribute("aria-current", "page");
     await expect(sidebar.getByRole("link", { name: "Explore Exams", exact: true })).toBeVisible();
     await expect(sidebar.getByRole("link", { name: "My Tests", exact: true })).toBeVisible();
-    await expect(sidebar.getByRole("link", { name: "Analytics", exact: true })).toBeVisible();
+    await expect(sidebar.getByTestId("sidebar-disabled-analytics")).toHaveAttribute("aria-disabled", "true");
+    await expect(sidebar.getByRole("link", { name: "Analytics", exact: true })).toHaveCount(0);
     await expect(sidebar.getByText("Bookmarks", { exact: true })).toBeVisible();
     await expect(sidebar.getByText("Downloads", { exact: true })).toBeVisible();
     await expect(sidebar.getByText("Study Plan", { exact: true })).toBeVisible();
     await expect(sidebar.getByText("Rewards", { exact: true })).toBeVisible();
     await expect(sidebar.getByRole("link", { name: "Support", exact: true })).toBeVisible();
     await expect(sidebar.getByRole("link", { name: "Settings", exact: true })).toBeVisible();
-    await expect(sidebar.locator('[aria-disabled="true"]')).toHaveCount(4);
+    await expect(sidebar.locator('[aria-disabled="true"]')).toHaveCount(5);
 
     const sidebarBox = await sidebar.boundingBox();
     expect(sidebarBox).not.toBeNull();
@@ -93,7 +94,7 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     expect(["firefox", "webkit"]).toContain(browserName);
   });
 
-  test("mobile menu keeps 44px controls, Escape recovery, and bounded layout", async ({ page, browserName }) => {
+  test("mobile menu keeps 44px controls, truthful disabled analytics, Escape recovery, and bounded layout", async ({ page, browserName }) => {
     await installFixtures(page);
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
@@ -114,7 +115,8 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await expect(mobileNav).toBeVisible();
     await expect(mobileNav.getByRole("link", { name: "Explore Exams" })).toBeVisible();
     await expect(mobileNav.getByRole("link", { name: "My Tests" })).toBeVisible();
-    await expect(mobileNav.getByRole("link", { name: "Analytics" })).toBeVisible();
+    await expect(mobileNav.getByTestId("mobile-disabled-analytics")).toHaveAttribute("aria-disabled", "true");
+    await expect(mobileNav.getByRole("link", { name: "Analytics" })).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Close navigation menu" })).toHaveAttribute("aria-expanded", "true");
 
     await page.keyboard.press("Escape");
