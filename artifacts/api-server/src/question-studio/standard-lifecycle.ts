@@ -7,7 +7,7 @@ export const QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 = Object.freeze({
   manualApprovalRequired: true as const,
   questionBankStatus: "NOT_STORED" as const,
   questionBankWritable: false as const,
-  questionBankAcceptanceMode: "BANK_ONLY" as const,
+  questionBankAcceptanceMode: null,
   questionBankAcceptanceAuthority: null,
   testEligibility: "INELIGIBLE" as const,
   testEligible: false as const,
