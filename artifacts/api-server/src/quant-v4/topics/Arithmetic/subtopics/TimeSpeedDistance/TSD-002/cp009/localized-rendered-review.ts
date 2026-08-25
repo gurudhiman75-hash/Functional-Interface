@@ -1,9 +1,9 @@
 import { divide, multiply, rational, type Rational } from "../../TSD-001/foundation/rational";
 import { TSD_CP009_FROZEN_ENGLISH_REGISTRY } from "./english-freeze-registry";
 import {
-  TSD_CP009_NATIVE_FINAL_HINDI_LOCALIZATION,
-  TSD_CP009_NATIVE_FINAL_PUNJABI_LOCALIZATION,
-} from "./localization-native-final";
+  TSD_CP009_FROZEN_HINDI_LOCALIZATION,
+  TSD_CP009_FROZEN_PUNJABI_LOCALIZATION,
+} from "./localization-freeze-registry";
 import { TSD_CP009_LOCALIZED_REVIEW_CASES } from "./localized-review-cases";
 import type { TsdCp009Locale, TsdCp009LocalizationRegistry } from "./localization-types";
 
@@ -32,21 +32,20 @@ function km(value: Rational, locale: TsdCp009Locale): string {
   return locale === "hi-IN" ? `${raw(converted)} किमी` : `${raw(converted)} ਕਿਮੀ`;
 }
 
-function timeText(value: Rational, locale: TsdCp009Locale): string {
-  if (value.denominator === 1n && value.numerator % 60n === 0n) {
-    const totalMinutes = value.numerator / 60n;
-    const wholeHours = totalMinutes / 60n;
-    const minutes = totalMinutes % 60n;
-    if (minutes === 0n) {
-      if (locale === "hi-IN") return `${wholeHours} ${wholeHours === 1n ? "घंटा" : "घंटे"}`;
-      return `${wholeHours} ${wholeHours === 1n ? "ਘੰਟਾ" : "ਘੰਟੇ"}`;
+function hours(value: Rational, locale: TsdCp009Locale): string {
+  const minutes = divide(value, rational(60));
+  if (minutes.denominator === 1n) {
+    const totalMinutes = minutes.numerator;
+    const h = totalMinutes / 60n;
+    const m = totalMinutes % 60n;
+    if (locale === "hi-IN") {
+      if (h === 0n) return `${m} मिनट`;
+      if (m === 0n) return `${h} ${h === 1n ? "घंटा" : "घंटे"}`;
+      return `${h} ${h === 1n ? "घंटा" : "घंटे"} ${m} मिनट`;
     }
-    if (wholeHours === 0n) {
-      if (locale === "hi-IN") return `${minutes} मिनट`;
-      return `${minutes} ਮਿੰਟ`;
-    }
-    if (locale === "hi-IN") return `${wholeHours} ${wholeHours === 1n ? "घंटा" : "घंटे"} ${minutes} मिनट`;
-    return `${wholeHours} ${wholeHours === 1n ? "ਘੰਟਾ" : "ਘੰਟੇ"} ${minutes} ਮਿੰਟ`;
+    if (h === 0n) return `${m} ਮਿੰਟ`;
+    if (m === 0n) return `${h} ${h === 1n ? "ਘੰਟਾ" : "ਘੰਟੇ"}`;
+    return `${h} ${h === 1n ? "ਘੰਟਾ" : "ਘੰਟੇ"} ${m} ਮਿੰਟ`;
   }
   const converted = divide(value, rational(3600));
   if (locale === "hi-IN") return `${raw(converted)} घंटे`;
@@ -78,11 +77,11 @@ function bindingsFor(familyId: string, input: (typeof TSD_CP009_LOCALIZED_REVIEW
     case "mediumLegTravelState":
       Object.assign(bindings, { bodySpeed: kmh(input.bodyRelativeSpeed, locale), mediumSpeed: kmh(input.mediumSpeed, locale), directionPhrase: directionPhrase(familyId, input.direction, locale) });
       if (input.target === "TIME") bindings.distance = km(input.distance, locale);
-      else bindings.time = timeText(input.time, locale);
+      else bindings.time = hours(input.time, locale);
       break;
     case "pairedEqualDistanceMediumState":
-      if (input.mode === "COMPONENT_FROM_DISTANCE_AND_TIMES") Object.assign(bindings, { equalDistance: km(input.equalDistance, locale), assistedTime: timeText(input.assistedTime, locale), opposedTime: timeText(input.opposedTime, locale) });
-      else if (input.mode === "DISTANCE_FROM_TIME_DIFFERENCE") Object.assign(bindings, { bodySpeed: kmh(input.bodyRelativeSpeed, locale), mediumSpeed: kmh(input.mediumSpeed, locale), timeDifference: timeText(input.opposedMinusAssistedTime, locale) });
+      if (input.mode === "COMPONENT_FROM_DISTANCE_AND_TIMES") Object.assign(bindings, { equalDistance: km(input.equalDistance, locale), assistedTime: hours(input.assistedTime, locale), opposedTime: hours(input.opposedTime, locale) });
+      else if (input.mode === "DISTANCE_FROM_TIME_DIFFERENCE") Object.assign(bindings, { bodySpeed: kmh(input.bodyRelativeSpeed, locale), mediumSpeed: kmh(input.mediumSpeed, locale), timeDifference: hours(input.opposedMinusAssistedTime, locale) });
       else if (input.mode === "BODY_SPEED_FROM_TIME_RATIO") Object.assign(bindings, { mediumSpeed: kmh(input.mediumSpeed, locale), timeRatio: ratio(input.opposedToAssistedTimeRatio) });
       else Object.assign(bindings, { bodySpeed: kmh(input.bodyRelativeSpeed, locale), timeRatio: ratio(input.opposedToAssistedTimeRatio) });
       break;
@@ -90,13 +89,13 @@ function bindingsFor(familyId: string, input: (typeof TSD_CP009_LOCALIZED_REVIEW
       Object.assign(bindings, { bodySpeed: kmh(input.bodyRelativeSpeed, locale), mediumSpeed: kmh(input.mediumSpeed, locale), distance: km(input.oneWayDistance, locale) });
       break;
     case "mixedUnequalLegMediumState":
-      Object.assign(bindings, { mediumSpeed: kmh(input.mediumSpeed, locale), totalTime: timeText(input.totalTime, locale) });
+      Object.assign(bindings, { mediumSpeed: kmh(input.mediumSpeed, locale), totalTime: hours(input.totalTime, locale) });
       if (input.target === "ASSISTED_DISTANCE") Object.assign(bindings, { bodySpeed: kmh(input.bodyRelativeSpeed, locale), opposedDistance: km(input.opposedDistance, locale) });
       else if (input.target === "OPPOSED_DISTANCE") Object.assign(bindings, { bodySpeed: kmh(input.bodyRelativeSpeed, locale), assistedDistance: km(input.assistedDistance, locale) });
       else Object.assign(bindings, { assistedDistance: km(input.assistedDistance, locale), opposedDistance: km(input.opposedDistance, locale) });
       break;
     case "equalTimeMediumDistanceSpread":
-      Object.assign(bindings, { mediumSpeed: kmh(input.mediumSpeed, locale), time: timeText(input.equalTime, locale) });
+      Object.assign(bindings, { mediumSpeed: kmh(input.mediumSpeed, locale), time: hours(input.equalTime, locale) });
       break;
     case "mediumShiftedMeetingPoint":
       Object.assign(bindings, { routeDistance: km(input.routeDistance, locale), upstreamBodySpeed: kmh(input.fromUpstreamBodySpeed, locale), downstreamBodySpeed: kmh(input.fromDownstreamBodySpeed, locale), mediumSpeed: kmh(input.mediumSpeed, locale) });
@@ -106,10 +105,10 @@ function bindingsFor(familyId: string, input: (typeof TSD_CP009_LOCALIZED_REVIEW
       if (input.target === "TRAVEL_TIME") bindings.distance = km(input.distance, locale);
       break;
     case "floatingObjectRecoveryState":
-      Object.assign(bindings, { bodySpeed: kmh(input.bodyRelativeSpeed, locale), mediumSpeed: kmh(input.mediumSpeed, locale), separationTime: timeText(input.separationTimeBeforeTurn, locale) });
+      Object.assign(bindings, { bodySpeed: kmh(input.bodyRelativeSpeed, locale), mediumSpeed: kmh(input.mediumSpeed, locale), separationTime: hours(input.separationTimeBeforeTurn, locale) });
       break;
     case "changingMediumState":
-      Object.assign(bindings, { bodySpeed: kmh(input.bodyRelativeSpeed, locale), distance: km(input.distance, locale), directionPhrase: directionPhrase(familyId, input.direction, locale), firstTime: timeText(input.firstTripTime, locale), secondTime: timeText(input.secondTripTime, locale) });
+      Object.assign(bindings, { bodySpeed: kmh(input.bodyRelativeSpeed, locale), distance: km(input.distance, locale), directionPhrase: directionPhrase(familyId, input.direction, locale), firstTime: hours(input.firstTripTime, locale), secondTime: hours(input.secondTripTime, locale) });
       break;
   }
   return Object.freeze(bindings);
@@ -126,7 +125,7 @@ function render(template: string, bindings: Readonly<Record<string, string>>): s
 function answerText(value: Rational, unit: string, locale: TsdCp009Locale): string {
   if (unit === "METRE_PER_SECOND") return kmh(value, locale);
   if (unit === "METRE") return km(value, locale);
-  return timeText(value, locale);
+  return hours(value, locale);
 }
 
 function renderLocale(registry: TsdCp009LocalizationRegistry): readonly TsdCp009RenderedLocalizedQuestion[] {
@@ -156,6 +155,6 @@ function renderLocale(registry: TsdCp009LocalizationRegistry): readonly TsdCp009
   return Object.freeze(rendered);
 }
 
-export const TSD_CP009_RENDERED_HINDI_QUESTIONS = renderLocale(TSD_CP009_NATIVE_FINAL_HINDI_LOCALIZATION);
-export const TSD_CP009_RENDERED_PUNJABI_QUESTIONS = renderLocale(TSD_CP009_NATIVE_FINAL_PUNJABI_LOCALIZATION);
+export const TSD_CP009_RENDERED_HINDI_QUESTIONS = renderLocale(TSD_CP009_FROZEN_HINDI_LOCALIZATION);
+export const TSD_CP009_RENDERED_PUNJABI_QUESTIONS = renderLocale(TSD_CP009_FROZEN_PUNJABI_LOCALIZATION);
 export const TSD_CP009_RENDERED_LOCALIZED_QUESTIONS = Object.freeze([...TSD_CP009_RENDERED_HINDI_QUESTIONS, ...TSD_CP009_RENDERED_PUNJABI_QUESTIONS]);
