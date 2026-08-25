@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
 import { SUFFICIENCY_CLASSES } from "../foundation/index.ts";
+import { DSF_CP011_AGES_SOLVE_MODES } from "./ages-runtime-v1.ts";
 import {
-  DSF_CP011_AGES_SOLVE_MODES,
-  generateDsfCp011AgesBatch,
+  generateDsfCp011AgesEditorialBatch,
   normalizeDsfCp011AgesSurface,
-} from "./ages-runtime-v1.ts";
+} from "./ages-editorial-runtime-v1.ts";
 
-const questions = generateDsfCp011AgesBatch(Array.from({ length: 250 }, (_, seed) => seed));
+const questions = generateDsfCp011AgesEditorialBatch(Array.from({ length: 250 }, (_, seed) => seed));
 
 assert.equal(questions.length, 250);
 assert.deepEqual(new Set(questions.map((question) => question.canonicalAnswer)), new Set(SUFFICIENCY_CLASSES));
