@@ -105,16 +105,18 @@ export function generateSriCp001Candidate(candidateId: string, seed: string): Sr
         "For the same base, division subtracts the denominator exponent.", [`${base}^${top} ÷ ${base}^${n} = ${base}^(${top}-${n})`, `= ${base}^${exponent}`]);
     }
     case "C001-C": {
+      // Five bases break the modulo-4 correlation between base, m and n in the deterministic picker.
+      const powerBase = sriPick(`${seed}:power-base`, [2, 3, 5, 7, 11]);
       const exponent = m * n;
-      const value = powBigInt(powSmall(base, m), n);
-      const answer = valueAnswer(`${base}^${exponent}`, powBigInt(base, exponent));
-      return common(candidateId, seed, { base, m, n }, `Simplify (${base}^${m})^${n}.`, answer, `V:${value}`,
+      const value = powBigInt(powSmall(powerBase, m), n);
+      const answer = valueAnswer(`${powerBase}^${exponent}`, powBigInt(powerBase, exponent));
+      return common(candidateId, seed, { base: powerBase, m, n }, `Simplify (${powerBase}^${m})^${n}.`, answer, `V:${value}`,
         expressionDistractors([
-          { text: `${base}^${m + n}`, value: powBigInt(base, m + n), misconceptionId: "ADD_EXPONENTS_IN_POWER" },
-          { text: `${base * n}^${m}`, value: powBigInt(base * n, m), misconceptionId: "MULTIPLY_BASE_BY_OUTER" },
-          { text: `${base}^${Math.abs(m - n)}`, value: powBigInt(base, Math.abs(m - n)), misconceptionId: "SUBTRACT_EXPONENTS" },
+          { text: `${powerBase}^${m + n}`, value: powBigInt(powerBase, m + n), misconceptionId: "ADD_EXPONENTS_IN_POWER" },
+          { text: `${powerBase * n}^${m}`, value: powBigInt(powerBase * n, m), misconceptionId: "MULTIPLY_BASE_BY_OUTER" },
+          { text: `${powerBase}^${Math.abs(m - n)}`, value: powBigInt(powerBase, Math.abs(m - n)), misconceptionId: "SUBTRACT_EXPONENTS" },
         ]),
-        "A power raised to another power multiplies the exponents.", [`(${base}^${m})^${n} = ${base}^(${m}×${n})`, `= ${base}^${exponent}`]);
+        "A power raised to another power multiplies the exponents.", [`(${powerBase}^${m})^${n} = ${powerBase}^(${m}×${n})`, `= ${powerBase}^${exponent}`]);
     }
     case "C001-D": {
       const p = sriInt(`${seed}:p`, 1, Math.max(1, m + n - 1));
@@ -130,15 +132,16 @@ export function generateSriCp001Candidate(candidateId: string, seed: string): Sr
         "Combine same-base factors by adding numerator exponents and subtracting the denominator exponent.", [`Exponent = ${m}+${n}-${p} = ${exponent}`, `So the expression is ${base}^${exponent}.`]);
     }
     case "C001-E": {
+      const zeroBase = sriPick(`${seed}:zero-base`, [2, 3, 5, 7, 11, 13, 17]);
       const value = 1n;
       const answer = valueAnswer("1", value);
-      return common(candidateId, seed, { base }, `Find the value of ${base}^0.`, answer, "V:1",
+      return common(candidateId, seed, { base: zeroBase }, `Find the value of ${zeroBase}^0.`, answer, "V:1",
         expressionDistractors([
           { text: "0", value: 0n, misconceptionId: "ZERO_EXPONENT_GIVES_ZERO" },
-          { text: `${base}`, value: BigInt(base), misconceptionId: "IGNORE_EXPONENT" },
-          { text: `${base}^2`, value: powBigInt(base, 2), misconceptionId: "REPLACE_ZERO_WITH_TWO" },
+          { text: `${zeroBase}`, value: BigInt(zeroBase), misconceptionId: "IGNORE_EXPONENT" },
+          { text: `${zeroBase}^2`, value: powBigInt(zeroBase, 2), misconceptionId: "REPLACE_ZERO_WITH_TWO" },
         ]),
-        "Any non-zero number raised to the power 0 equals 1.", [`${base} ≠ 0`, `${base}^0 = 1`]);
+        "Any non-zero number raised to the power 0 equals 1.", [`${zeroBase} ≠ 0`, `${zeroBase}^0 = 1`]);
     }
     case "C001-F": {
       const secondBase = sriPick(`${seed}:second-base`, [2, 3, 4, 5].filter((x) => x !== base));
