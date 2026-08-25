@@ -48,6 +48,7 @@ for (const entry of SRI_PERMANENT_ENGLISH_FREEZE_V1) {
 
 const ancestrySeenByQl = new Map<string, Set<string>>();
 let generated = 0;
+let crossCheckpointPackages = 0;
 for (const entry of SRI_PERMANENT_ENGLISH_FREEZE_V1) {
   const seen = new Set<string>();
   for (let seedIndex = 0; seedIndex < RUNTIME_SEEDS_PER_QL; seedIndex += 1) {
@@ -65,6 +66,8 @@ for (const entry of SRI_PERMANENT_ENGLISH_FREEZE_V1) {
     assert.equal(pkg.locale, "en-IN");
     assert.equal(pkg.englishFingerprint, entry.englishFingerprint);
     assert.ok(entry.memberCandidateIds.includes(pkg.sourceCandidateId));
+    assert.equal(pkg.sourceCheckpointId, pkg.question.checkpointId);
+    assert.equal(pkg.question.packageId, entry.packageId);
     assert.equal(pkg.question.candidateId, pkg.sourceCandidateId);
     assert.equal(pkg.question.seed, pkg.sourceSeed);
     assert.equal(pkg.question.verification.solverVerifierAgree, true);
@@ -72,6 +75,7 @@ for (const entry of SRI_PERMANENT_ENGLISH_FREEZE_V1) {
     assert.equal(pkg.question.verification.domainValid, true);
     assert.equal(pkg.question.options.length, 4);
     assert.equal(pkg.question.options[pkg.question.correctIndex]?.canonicalKey, pkg.question.answer.canonicalKey);
+    if (pkg.sourceCheckpointId !== pkg.checkpointId) crossCheckpointPackages += 1;
 
     assert.equal(pkg.lifecycle.maturity, "PERMANENT_AUTHORITY");
     assert.equal(pkg.lifecycle.reviewStatus, "ENGLISH_FROZEN");
@@ -89,6 +93,7 @@ for (const entry of SRI_PERMANENT_ENGLISH_FREEZE_V1) {
 
 assert.equal(generated, EXPECTED_QLS * RUNTIME_SEEDS_PER_QL);
 assert.equal(ancestrySeenByQl.size, EXPECTED_QLS);
+assert.ok(crossCheckpointPackages > 0, "permanent runtime must preserve cross-checkpoint compressed ancestry where allocated");
 
 for (const entry of SRI_PERMANENT_ENGLISH_FREEZE_V1.filter((item) => item.memberCandidateIds.length > 1)) {
   assert.ok(
@@ -105,6 +110,7 @@ console.log(JSON.stringify({
   reviewedFingerprintQuestions: 184,
   runtimeSeedsPerQl: RUNTIME_SEEDS_PER_QL,
   permanentRuntimeQuestions: generated,
+  crossCheckpointPackages,
   englishFrozen: SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen,
   multilingualFrozen: SRI_CHAPTER_MANIFEST.lifecycle.multilingualFrozen,
   downstreamReleaseEnabled: false,
