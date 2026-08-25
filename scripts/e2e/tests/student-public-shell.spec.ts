@@ -34,11 +34,11 @@ test.describe("CP02 public and app shell split", () => {
   test("uses sidebar-first acquisition chrome publicly and preparation chrome on dashboard", async ({ page }) => {
     await installPublicFixtures(page);
     await page.setViewportSize({ width: 1280, height: 800 });
-    await page.goto("/about");
+    await page.goto("/contact");
 
     await expect(page.getByRole("navigation", { name: "Primary navigation" })).toBeHidden();
     await expect(page.getByTestId("public-study-sidebar")).toBeVisible();
-    await expect(page.getByTestId("public-study-sidebar").getByRole("link", { name: "About ExamTree", exact: true })).toHaveAttribute("aria-current", "page");
+    await expect(page.getByTestId("public-study-sidebar").getByRole("link", { name: "Support", exact: true })).toHaveAttribute("aria-current", "page");
     await expect(page.getByRole("link", { name: "ExamTree home" }).first()).toBeVisible();
     await expect(page.getByText("Built for exam discovery, mock tests, and saved review.")).toBeVisible();
     await expect(page.getByRole("button", { name: /Select Targeted Exam/i })).toHaveCount(0);
@@ -56,7 +56,7 @@ test.describe("CP02 public and app shell split", () => {
   test("keeps the public mobile menu keyboard-operable without horizontal overflow", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await installPublicFixtures(page);
-    await page.goto("/about");
+    await page.goto("/contact");
 
     await expect(page.getByTestId("public-study-sidebar")).toBeHidden();
     const menuButton = page.getByRole("button", { name: "Open navigation menu" });
@@ -69,7 +69,8 @@ test.describe("CP02 public and app shell split", () => {
     const mobileNavigation = page.getByRole("navigation", { name: "Mobile primary navigation" });
     await expect(mobileNavigation).toBeVisible();
     await expect(mobileNavigation.getByRole("link", { name: "Sign in" })).toBeVisible();
-    await expect(mobileNavigation.getByRole("link", { name: "Browse tests", exact: true })).toBeVisible();
+    await expect(mobileNavigation.getByRole("link", { name: "Explore Exams", exact: true })).toBeVisible();
+    await expect(mobileNavigation.getByRole("link", { name: "Support", exact: true })).toHaveAttribute("aria-current", "page");
 
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow).toBeLessThanOrEqual(1);
