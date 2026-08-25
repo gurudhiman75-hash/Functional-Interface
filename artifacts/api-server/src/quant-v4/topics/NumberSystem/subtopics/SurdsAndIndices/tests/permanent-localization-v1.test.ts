@@ -176,7 +176,7 @@ function mathSkeleton(text: string): readonly string[] {
   // A hyphen joining two language words (for example Hindi “कौन-सा”) is prose,
   // not subtraction. Strip only letter-letter hyphens; mathematical negatives and
   // subtraction such as -2, x-3 and (a-b) remain visible to the parity audit.
-  const withoutLinguisticHyphens = text.replace(/(?<=\p{L})-(?=\p{L})/gu, "");
+  const withoutLinguisticHyphens = text.replace(/(?<=[\p{L}\p{M}])-(?=[\p{L}\p{M}])/gu, "");
   return withoutLinguisticHyphens.match(/\\[A-Za-z]+|\d+(?:\.\d+)?|[=+\-−×÷*/^<>≤≥≠(){}\[\]]/gu) ?? [];
 }
 
