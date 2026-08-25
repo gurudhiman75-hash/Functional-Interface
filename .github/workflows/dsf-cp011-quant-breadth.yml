@@ -10,6 +10,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-001-MANIFEST-AMENDMENT-CP011.md
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/foundation/**
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/**
       - .github/workflows/dsf-cp011-quant-breadth.yml
   workflow_dispatch:
 
@@ -21,7 +22,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate-cp011-average-wave1:
+  validate-cp011-quant-breadth:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -48,3 +49,13 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/data-sufficiency/cp011/average-runtime-v1.test.mjs
+      - name: Bundle CP-011 Ages breadth audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-011/ages-runtime-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp011/ages-runtime-v1.test.mjs
+      - name: Run CP-011 Ages breadth audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp011/ages-runtime-v1.test.mjs
