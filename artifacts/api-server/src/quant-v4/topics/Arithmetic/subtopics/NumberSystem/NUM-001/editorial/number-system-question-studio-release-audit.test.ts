@@ -135,8 +135,6 @@ stage("active-registry:complete", {
   cp004QlCount: cp004QlIds.length,
 });
 
-// Exhaustive mathematical generation remains owned by the existing CP-specific
-// workflows. This release proof exercises one bounded adapter route per CP.
 const representativeRequests = [
   { cpId: "NUM-CP-003", qlId: "NUM-QL-001" },
   { cpId: "NUM-CP-004", qlId: "NUM-QL-018" },
@@ -222,7 +220,7 @@ const routeMarkers = [
   'targetCp !== "NUM-CP-010"',
   'targetCp !== "NUM-CP-011"',
   'targetCp !== "NUM-CP-012"',
-  "Hindi/Punjabi Number System Question Studio review is frozen for NUM-CP-001, NUM-CP-008, NUM-CP-009, NUM-CP-010, NUM-CP-011 and NUM-CP-012",
+  "Hindi/Punjabi Number System Question Studio review is frozen for NUM-CP-001 and NUM-CP-008 through NUM-CP-012",
   "other currently routed checkpoints remain English-only",
 ];
 for (const marker of routeMarkers) {
