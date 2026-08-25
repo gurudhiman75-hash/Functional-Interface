@@ -219,7 +219,7 @@ export function QuestionStudioStatementAssumptionReviewPanel() {
               <Input type="number" min={1} max={capabilities.maxBatchSize} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} />
             </Field>
             <Field label="Optional deterministic seed">
-              <Input value={seed} onChange={setSeed} placeholder="sta-v4-1-review-01" />
+              <Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="sta-v4-1-review-01" />
             </Field>
           </div>
         )}
