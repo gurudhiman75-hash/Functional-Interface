@@ -124,7 +124,8 @@ export function PublicHomeSidebar() {
             <p className="mt-1 text-[11px] leading-4 text-slate-600">Choose an exam and continue with mocks, PYQs or free practice.</p>
             <Link
               href="/exams"
-              className="et-interactive mt-3 flex min-h-10 items-center justify-center rounded-lg bg-blue-600 px-3 py-2 text-xs font-black text-white shadow-sm hover:bg-blue-700"
+              className="et-interactive mt-3 flex min-h-11 items-center justify-center rounded-lg bg-blue-600 px-3 py-2 text-xs font-black text-white shadow-sm hover:bg-blue-700"
+              data-testid="sidebar-explore-cta"
             >
               Explore exams
             </Link>
