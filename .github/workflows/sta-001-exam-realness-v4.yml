@@ -77,7 +77,15 @@ jobs:
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-proof.test.ts
 
       - name: Prove V4.1 shared Question Studio integration
-        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-v4-1-integration.test.ts
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-v4-1-integration.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/sta-001-v4-1-question-studio-integration.mjs
+          node dist/sta-001-v4-1-question-studio-integration.mjs
 
       - name: Export exact-head trilingual human review pack
         env:
