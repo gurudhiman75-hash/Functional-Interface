@@ -11,7 +11,7 @@ import {
   subtractRational,
   type SriProofEvent,
 } from "../../../../shared/surds-indices";
-import { describeSriGivenState } from "./explanation-state";
+import { describeSriGivenContext } from "./explanation-state";
 import type {
   SriCandidateAnswer,
   SriCandidateOption,
@@ -85,6 +85,69 @@ function canonicalFallbackDistractors(correct: SriCandidateAnswer): SriDistracto
   return [];
 }
 
+function cleanSriLearnerText(value: string): string {
+  return value
+    .replace(/^Using the common exponent, find an equivalent single-power form of\s+(.+?)\.?$/i, "Write $1 as one power.")
+    .replace(/^Evaluate exactly:\s*(.+)$/i, "Evaluate $1")
+    .replace(/^Simplify the surd binomial square\s+(.+)$/i, "Expand and simplify $1")
+    .replace(/^Evaluate the conjugate product\s+(.+)$/i, "Evaluate $1")
+    .replace(/^Evaluate the positive infinite radical\s+(.+)$/i, "Find the positive value of the repeating radical $1")
+    .replace(/^Evaluate the two exact bound statements about\s+.+?:\s*(.+)$/i, "Without decimals, decide the truth of: $1")
+    .replace(/^First reduce the radical, then simplify\s+/i, "Simplify ")
+    .replace(/^Write\s+(.+?)\s+in the form a\+b\\sqrt\{[^}]+\}\.?$/i, "Expand and simplify $1.")
+    .replace(/^Convert the radical to an index and solve\s+/i, "Solve ")
+    .replace(/^The supplied relation is Let\s+(.+?)\.\s+If\s+(.+)\.$/i, "The supplied relations are $1; $2.")
+    .replace(/^The supplied relation is Using the conjugate of\s+(.+?)\.$/i, "The value used for x is $1.")
+    .replace(/^The supplied relation is After rationalising\s+(.+)\.$/i, "The fraction to rationalise is $1.")
+    .replace(/^The supplied relation is After recovering A and B from\s+(.+)\.$/i, "The fraction used to recover A and B is $1.")
+    .replace(/^The supplied relation is If rationalising\s+(.+?)\s+gives\s+(.+)\.$/i, "The rationalised form of $1 is $2.")
+    .replace(/^The supplied relation is For\s+(\\sqrt.+)\.$/i, "The supplied surd expression is $1.")
+    .replace(/^The supplied relation is If\s+/i, "The supplied condition is ")
+    .replace(/^The supplied relation is Given\s+/i, "The supplied condition is ")
+    .replace(/^The supplied relation is Using y=/i, "The substitution is y=")
+    .replace(/^The supplied relation is Using\s+/i, "The supplied relation is ")
+    .replace(/^The supplied relation is (?:For|From)\s+/i, "The supplied relation is ")
+    .replace(/^The supplied condition is rationalising\s+(.+?)\s+gives\s+(.+?)\.$/i, "The rationalised form of $1 is $2.")
+    .replace(/^The supplied condition is (.+?)\s+after rationalisation\.$/i, "The rationalised form is $1.")
+    .replace(/^The supplied information is The value of\s+(.+?)\s+is\s+(.+)\.$/i, "The supplied value is $1 = $2.")
+    .replace(/^The supplied information is The values\s+(.+?)\s+are known\.$/i, "The supplied values are $1.")
+    .replace(/^The supplied information is The two expressions have\s+(.+)\.$/i, "The two expressions have $1.")
+    .replace(/^The supplied information is Quantity A:\s*(.+?)\.\s*Quantity B:\s*(.+)\.$/i, "Quantity A is $1 and Quantity B is $2.")
+    .replace(/^The supplied information is Consider\s+(.+)\.$/i, "The displayed statements are $1.")
+    .replace(/^The supplied information is Write\s+(.+?)\s+after rationalisation\.$/i, "The rationalised coefficient form is $1.")
+    .replace(/^The supplied information is The denested form of\s+(.+?)\s+is\s+(.+)\.$/i, "The denested form of $1 is $2.")
+    .replace(/^The supplied information is For\s+(.+?),\s*the squared equation yields\s+(.+)\.$/i, "The original equation is $1; squaring yields candidates $2.")
+    .replace(/^The supplied information is After squaring\s+(.+?),\s*candidates\s+(.+?)\s+appear\.$/i, "The original equation is $1; squaring yields candidates $2.")
+    .replace(/^The supplied information is For\s+/i, "The supplied information is ")
+    .replace(/^The given equation is (.+?)\s+by using a common base\.$/i, "The given equation is $1.")
+    .replace(/^The given expression is (.+?)\s+and find A[+-]B\.$/i, "The rationalised coefficient form is $1.")
+    .replace(/^The quantity to bound is (.+?)\s+between (?:two\s+)?consecutive integers(?:\s+without decimals)?\.$/i, "The quantity to bound is $1.")
+    .replace(/^The given surd expression is (.+?)\s+into simplest form\.$/i, "The given surd expression is $1.")
+    .replace(/^The given expression is (.+?)\s+into simplest surd form\.$/i, "The expression to simplify is $1.")
+    .replace(/\b[A-Z][A-Z0-9_]{2,}:\s*/g, "")
+    .replace(/Normalize each visible base to the common prime base and compare canonical values\./gi, "Rewrite each given base as a power of the common base, then compare the exact values.")
+    .replace(/\bNormalize\b/g, "Rewrite")
+    .replace(/\bnormalize\b/g, "rewrite")
+    .replace(/\bCanonical result\b/gi, "Simplified result")
+    .replace(/\bcanonical values?\b/gi, "exact values")
+    .replace(/\bcanonical surd form\b/gi, "simplest surd form")
+    .replace(/\bcanonical coefficients?\b/gi, "standard-form coefficients")
+    .replace(/\bcanonical rationalised form\b/gi, "rationalised form")
+    .replace(/\bcanonical form\b/gi, "standard form")
+    .replace(/\bprime base\b/gi, "common base")
+    .replace(/\bdenominator-th root\b/gi, "root indicated by the denominator")
+    .replace(/\bsupported denested form\b/gi, "requested denested form")
+    .replace(/the visible base was reverse-constructed as a perfect qth power\./gi, "the base is a perfect qth power, so its qth root is exact.")
+    .replace(/\breverse-constructed\b/gi, "chosen")
+    .replace(/\bvisible base\b/gi, "given base")
+    .replace(/\b1th\b/g, "1st")
+    .replace(/\b2th\b/g, "2nd")
+    .replace(/\b3th\b/g, "3rd")
+    .replace(/The exact denesting test succeeds\./g, "The condition is satisfied, so denesting is possible.")
+    .replace(/The exact denesting test fails\./g, "The condition is not satisfied, so this form cannot be denested into integer-radicand square roots.")
+    .replace(/\b1\\sqrt/g, "\\sqrt");
+}
+
 export function buildSriOptions(
   seed: string,
   correct: SriCandidateAnswer,
@@ -114,21 +177,40 @@ function normalizeComparableText(value: string): string {
   return value.trim().replace(/[?.!]+$/g, "").replace(/\s+/g, " ").toLowerCase();
 }
 
+function hasStructuredStateLeak(given: string): boolean {
+  const stateAssignmentDump = given.startsWith("Given ") && /\s=\s/.test(given);
+  const internalEnumToken = /\b[A-Z][A-Z0-9_]{2,}\b/.test(given);
+  return stateAssignmentDump || internalEnumToken;
+}
+
 function normalizeExplanation(
   explanation: SriHumanExplanation,
   stem: string,
-  state: Readonly<Record<string, string | number | boolean>>,
+  checkpointId: SriCheckpointId,
 ): SriHumanExplanation {
-  const repeatsStem = normalizeComparableText(explanation.given) === normalizeComparableText(stem);
-  return repeatsStem ? { ...explanation, given: describeSriGivenState(state) } : explanation;
+  const cleaned: SriHumanExplanation = {
+    given: cleanSriLearnerText(explanation.given),
+    asked: cleanSriLearnerText(explanation.asked),
+    method: cleanSriLearnerText(explanation.method),
+    working: explanation.working.map(cleanSriLearnerText),
+    answer: cleanSriLearnerText(explanation.answer),
+  };
+  const repeatsStem = normalizeComparableText(cleaned.given) === normalizeComparableText(stem);
+  const unsafeGiven = repeatsStem || hasStructuredStateLeak(cleaned.given);
+  return unsafeGiven
+    ? { ...cleaned, given: cleanSriLearnerText(describeSriGivenContext(checkpointId, stem)) }
+    : cleaned;
 }
 
 export function finalizeSriDiscoveryQuestion(input: FinalizeSriDiscoveryInput): SriDiscoveryQuestion {
-  const { options, correctIndex } = buildSriOptions(input.seed, input.answer, input.distractors);
+  const cleanedAnswer: SriCandidateAnswer = { ...input.answer, text: cleanSriLearnerText(input.answer.text) };
+  const cleanedDistractors: SriDistractor[] = input.distractors.map((item) => ({ ...item, text: cleanSriLearnerText(item.text) }));
+  const { options, correctIndex } = buildSriOptions(input.seed, cleanedAnswer, cleanedDistractors);
   const solverVerifierAgree = input.canonicalSolverKey === input.independentVerifierKey;
-  const exactlyOneCorrectOption = options.filter((option) => option.canonicalKey === input.answer.canonicalKey).length === 1;
+  const exactlyOneCorrectOption = options.filter((option) => option.canonicalKey === cleanedAnswer.canonicalKey).length === 1;
   const domainValid = input.domainValid ?? true;
-  const explanation = normalizeExplanation(input.explanation, input.stem, input.state);
+  const stem = cleanSriLearnerText(input.stem);
+  const explanation = normalizeExplanation({ ...input.explanation, answer: cleanedAnswer.text }, stem, input.checkpointId);
   const proofEvents = [
     ...(input.proofEvents ?? []),
     proofEvent(
@@ -146,8 +228,8 @@ export function finalizeSriDiscoveryQuestion(input: FinalizeSriDiscoveryInput): 
     candidateId: input.candidateId,
     seed: input.seed,
     state: input.state,
-    stem: input.stem,
-    answer: input.answer,
+    stem,
+    answer: cleanedAnswer,
     options,
     correctIndex,
     explanation,

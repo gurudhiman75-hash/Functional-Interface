@@ -26,7 +26,7 @@ const catalogTest = {
   subcategoryName: "SSC CGL",
   access: "free",
   priceCents: null,
-  kind: "full-length",
+  kind: "sectional",
   duration: 60,
   totalQuestions: 100,
   attempts: 0,
@@ -52,6 +52,8 @@ async function fulfillJson(route: Route, body: unknown, status = 200) {
 async function installCatalogFixture(page: Page, state: CatalogFixtureState) {
   await page.route("**/api/**", async (route) => {
     const path = new URL(route.request().url()).pathname.replace(/^\/api/, "");
+    if (path === "/test-series") return fulfillJson(route, { series: [], generatedAt: "2026-08-24T06:00:00.000Z" });
+    if (path === "/daily-challenge") return fulfillJson(route, {});
     if (path !== "/categories" && path !== "/subcategories" && path !== "/tests") {
       return fulfillJson(route, { error: `Unhandled catalog truth route: ${path}` }, 404);
     }
@@ -76,7 +78,7 @@ test.describe("CP06 catalog failure truth", () => {
     await page.goto("/");
     await expect(page.getByTestId("catalog-unavailable")).toBeVisible({ timeout: 15_000 });
     await expect(page.getByRole("heading", { name: "We couldn’t load the live exam catalog" })).toBeVisible();
-    await expect(page.getByText("Published tests: 0", { exact: true })).toHaveCount(0);
+    await expect(page.getByText("0 published tests", { exact: true })).toHaveCount(0);
     expect(state.requests).toBeGreaterThanOrEqual(2);
 
     await page.evaluate(() => {
@@ -87,7 +89,7 @@ test.describe("CP06 catalog failure truth", () => {
     await page.getByRole("button", { name: "Retry catalog" }).click();
 
     await expect(page.getByTestId("catalog-unavailable")).toHaveCount(0);
-    await expect(page.getByText("Published tests: 1", { exact: true })).toBeVisible();
+    await expect(page.getByText("1 published tests", { exact: true })).toBeVisible();
     await expect(page.getByText("SSC CGL Mock 1", { exact: true }).first()).toBeVisible();
 
     const sentinel = await page.evaluate(() =>

@@ -42,13 +42,16 @@ for (const overlay of [
   "DSF_CP005_TEST_RELEASE_AUTHORITY",
   "DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY",
   "DSF_CP008_LOCALIZATION_AUTHORITY",
+  "DSF_CP009_LOCALIZATION_APPROVAL_AUTHORITY",
   "dsfCp004ReviewPayload",
   "dsfCp005ReviewPayload",
   "dsfCp006ReviewPayload",
+  "dsfCp008LocalizedReviewPayload",
+  "dsfCp009LocalizedReleasePayload",
 ] as const) assert(routeSource.includes(overlay), `Later lifecycle overlay missing: ${overlay}`);
 assert(routeSource.includes('questionBankAcceptanceMode: "BANK_ONLY"'), "CP-004 BANK_ONLY contract not preserved");
-assert(routeSource.includes('questionBankAcceptanceMode: "FULL_RELEASE"'), "CP-005/006 FULL_RELEASE contract missing");
-assert(routeSource.includes('mockTestEligible: true'), "CP-006 mock eligibility missing");
+assert(routeSource.includes('questionBankAcceptanceMode: "FULL_RELEASE"'), "CP-005/006/009 FULL_RELEASE contract missing");
+assert(routeSource.includes('mockTestEligible: true'), "CP-006/009 mock eligibility missing");
 assert(routeSource.includes('automaticStudentPublication: false'), "Automatic student publication must stay disabled");
 
 assert(sourceFreeze.includes('status: "FROZEN"'), "DSF CP-001 source is not frozen");
@@ -64,9 +67,9 @@ for (const apiFunction of ["getDsfReviewPackage", "previewDsfReview", "createDsf
 }
 for (const panelFragment of [
   "QuestionStudioDataSufficiencyReviewPanel", "Answer profile", "Source domain", "Solve mode", "Sufficiency class",
-  "Create review run", "CP-006 mock-test release", "Banking + SSC", "Punjab-specific answer-profile rendering remains disabled",
-  "canonical published-test and test-series QA/release path", "Automatic student publication remains OFF",
-  "CP-008 Hindi/Punjabi localization review", "Hindi + Punjabi review",
+  "Create review run", "CP-006 enables mock-test eligibility", "Banking + SSC", "Punjab-specific answer-profile rendering remains disabled",
+  "test-series QA/release before mock delivery", "Automatic student publication remains OFF",
+  "CP-009 multilingual production release", "English + Hindi + Punjabi production",
 ] as const) {
   assert(adminPanelSource.includes(panelFragment), `Data Sufficiency panel is missing UI contract: ${panelFragment}`);
 }
@@ -84,6 +87,7 @@ console.log(JSON.stringify({
   laterTestReleaseCheckpointAllowed: "DSF-CP-005",
   laterMockReleaseCheckpointAllowed: "DSF-CP-006",
   laterLocalizationCheckpointAllowed: "DSF-CP-008",
+  laterLocalizationApprovalCheckpointAllowed: "DSF-CP-009",
   cp008LearnerTextOverlayOnly: true,
   legacyCp004BankOnlyPayloadPreserved: true,
   legacyCp005MockIneligiblePayloadPreserved: true,
