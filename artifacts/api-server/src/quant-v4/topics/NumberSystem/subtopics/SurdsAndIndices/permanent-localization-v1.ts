@@ -87,6 +87,7 @@ const EXACT: Record<SriLocalizedLocaleV1, Readonly<Record<string, string>>> = {
 
 const PHRASES: Record<SriLocalizedLocaleV1, readonly (readonly [string, string])[]> = {
   "hi-IN": [
+    ["Recognize a^(mx) as (a^x)^m.", "a^(mx) को (a^x)^m के रूप में पहचानिए।"],
     ["over the real numbers", "वास्तविक संख्याओं में"],
     ["over the real number system", "वास्तविक संख्या पद्धति में"],
     ["using a common base", "समान आधार का उपयोग करके"],
@@ -360,6 +361,7 @@ const PHRASES: Record<SriLocalizedLocaleV1, readonly (readonly [string, string])
     ["solutions", "हल"],
   ],
   "pa-IN": [
+    ["Recognize a^(mx) as (a^x)^m.", "a^(mx) ਨੂੰ (a^x)^m ਦੇ ਰੂਪ ਵਿੱਚ ਪਛਾਣੋ।"],
     ["over the real numbers", "ਵਾਸਤਵਿਕ ਸੰਖਿਆਵਾਂ ਵਿੱਚ"],
     ["over the real number system", "ਵਾਸਤਵਿਕ ਸੰਖਿਆ ਪ੍ਰਣਾਲੀ ਵਿੱਚ"],
     ["using a common base", "ਸਾਂਝੇ ਅਧਾਰ ਦੀ ਵਰਤੋਂ ਕਰਕੇ"],
