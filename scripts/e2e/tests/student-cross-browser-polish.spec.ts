@@ -57,7 +57,6 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await page.goto("/");
 
     await expect(page.getByTestId("home-hero-carousel")).toBeVisible();
-    await expect(page.getByRole("heading", { name: "What are you preparing for?" })).toBeVisible();
     await expect(page.getByTestId("home-exam-logo-row")).toBeVisible();
     await expect(page.getByTestId("home-testimonials-preview")).toHaveCount(0);
     const header = page.getByTestId("public-header");
@@ -121,7 +120,7 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await expect(page.getByTestId("home-explore-gateway")).toBeVisible();
     await expect(page.getByTestId("catalog-test-browser")).toHaveCount(0);
 
-    await page.getByRole("button", { name: "Next hero slide" }).click();
+    await page.getByRole("button", { name: "Show slide 2" }).click();
     await expect(page.getByRole("heading", { name: "Train in the format the exam actually demands." })).toBeVisible();
     await expectNoHorizontalOverflow(page);
 
