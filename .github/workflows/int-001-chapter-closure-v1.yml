@@ -35,6 +35,12 @@ jobs:
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-chapter-final-readiness-v1-audit.ts | tee int-001-chapter-final-readiness-v1.log
           grep -q 'PASS_INT_001_CHAPTER_FINAL_READINESS_V1_AUDIT' int-001-chapter-final-readiness-v1.log
 
+      - name: Certify CP010 Question Studio adapter
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-question-studio-v1-audit.ts | tee int-cp010-question-studio-v1.log
+          grep -q 'PASS_INT_CP010_QUESTION_STUDIO_V1_AUDIT' int-cp010-question-studio-v1.log
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
@@ -49,5 +55,6 @@ jobs:
           name: int-001-chapter-closure-v1
           path: |
             int-001-chapter-final-readiness-v1.log
+            int-cp010-question-studio-v1.log
             int-001-chapter-closure-v1-head.log
           retention-days: 30
