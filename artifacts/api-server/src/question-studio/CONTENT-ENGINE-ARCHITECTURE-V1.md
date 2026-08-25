@@ -1,18 +1,20 @@
 # Question Studio Content Engine Architecture V1
 
-Status: FOUNDATION / IMPLEMENTATION STARTED
+Status: MULTI-ENGINE FOUNDATION IMPLEMENTED / STANDARD LIFECYCLE WIRED
 
 ## Goal
 
-Keep one Question Studio review, approval, persistence and analytics workflow while allowing subject families to use different truth/validation engines.
+Examtree has one Question Studio workflow. Subject families may use different generation and truth engines, but they do **not** own separate review, Question Bank, test or publication lifecycles.
 
-The UI contract stays common. The generation engine is selected behind it.
+The boundary is:
+
+`subject engine -> validated generated payload -> Question Studio -> review -> Question Bank -> later test/publication gates`
 
 ## Engine families
 
-### quant-v4
+### `quant-v4`
 
-Owns deterministic mathematical and structured-reasoning generation already in production development.
+Deterministic mathematical and structured-reasoning generation.
 
 Truth authority:
 - structured mathematical/logical state
@@ -20,9 +22,9 @@ Truth authority:
 - independent verifier
 - admissibility rules
 
-### language-v1
+### `language-v1`
 
-Owns English and future language-skill question generation.
+English and future language-skill generation.
 
 Truth authority:
 - curated linguistic objects/corpora
@@ -32,9 +34,9 @@ Truth authority:
 
 No question may rely on an LLM as the sole authority for grammatical correctness, synonymy, antonymy, spelling or answer uniqueness.
 
-### knowledge-v1
+### `knowledge-v1`
 
-Owns Computer Awareness, Static GK, Punjab GK and other factual-awareness domains.
+Computer Awareness, Static GK, Punjab GK and other factual-awareness domains.
 
 Truth authority:
 - curated canonical fact records
@@ -43,100 +45,140 @@ Truth authority:
 - relation-aware distractor pools
 - deterministic answer verification
 
-Current Affairs will share the knowledge representation but must use a separate dated ingestion/verification pipeline before facts become generation-eligible.
+Current Affairs may reuse the knowledge representation only after a separate dated ingestion and editorial-verification pipeline.
 
 ## Shared Question Studio outer contract
 
-All engines must expose:
+All engines expose the same outer contract:
 
 1. packages/capabilities
 2. generation request handling
-3. generated questions in the common single-choice payload shape
-4. generation context and lifecycle locks
-5. deterministic replay when a seed is supplied where the engine supports generation
-6. validation metadata
+3. common generated-question payload shape
+4. generation context and provenance
+5. deterministic replay where supported
+6. engine-specific validation metadata
+7. a standard Question Studio lifecycle declaration
 
-The existing `content.generation_runs`, `content.generation_run_items`, `content.generation_item_versions`, review states and Question Bank conversion workflow remain the shared outer shell.
+The existing tables and routes remain the shared shell:
+
+- `content.generation_runs`
+- `content.generation_run_items`
+- `content.generation_item_versions`
+- existing review states
+- existing bulk approval route
+- existing Question Bank normalizer/converter
+- existing downstream test/publication gates
+
+## Standard lifecycle
+
+The lifecycle is engine-agnostic and lives in `question-studio/standard-lifecycle.ts`.
+
+### `QUESTION-STUDIO-STANDARD-REVIEW-ONLY-V1`
+
+Use while a package is eligible for Question Studio review but not canonical Question Bank persistence.
+
+Key state:
+- `questionBankStatus = NOT_STORED`
+- `questionBankWritable = false`
+- manual review required
+- test/mock/publication disabled
+
+### `QUESTION-STUDIO-STANDARD-BANK-ONLY-V1`
+
+Use when manually approved Question Studio items may enter Question Bank while downstream delivery remains locked.
+
+Key state:
+- `questionBankStatus = READY_FOR_STORAGE`
+- `questionBankWritable = true`
+- `questionBankAcceptanceMode = BANK_ONLY`
+- manual approval required
+- `testEligible = false`
+- `mockTestEligible = false`
+- `publiclyPublishable = false`
+- `automaticStudentPublication = false`
+- `productionReleaseAuthorized = false`
+
+The shared approval policy decides whether an approved generated item is review-only or Question-Bank-bound. The shared Question Bank converter performs normalization and persistence. Subject engines must not implement parallel approval or persistence routes.
+
+## Lifecycle metadata persistence
+
+A generated item and its stored Question Bank version preserve the standard lifecycle identity and important lifecycle flags, including:
+
+- `lifecycleId`
+- `lifecycleStage`
+- review-surface requirement
+- review-run persistence policy
+- canonical-question persistence policy
+- manual-approval requirement
+- Question Bank status/writability/acceptance mode
+- test/mock/publication locks
+- production-release authorization
+
+Engine-specific provenance remains additive. For `knowledge-v1`, this can include source IDs, fact IDs, solver authority, freeze fingerprints, difficulty topology and representation/convention metadata.
 
 ## Shared hierarchy
 
-Subject -> Chapter -> CP -> QL -> object/fact/corpus pool -> generator -> validator -> distractor builder -> realizer -> explanation -> localization -> audit -> Question Studio
+`Subject -> Chapter -> CP -> QL -> object/fact/corpus pool -> generator -> validator -> distractor builder -> realizer -> explanation -> localization -> audit -> Question Studio`
 
 QLs represent materially different learner tasks. Surface wording changes are not separate QLs.
 
 ## Knowledge V1 canonical fact contract
 
-The old `generators/knowledge` implementation is reference-only. AI extraction endpoints remain disabled.
+A generation-eligible fact carries, as applicable:
 
-A new generation-eligible fact must eventually carry at least:
-
-- factId
-- subject
-- chapter/topic
-- CP ownership
+- fact ID
+- subject/chapter/CP ownership
 - entity/relation/value representation
-- localized labels/aliases where available
+- localized labels/aliases
 - source/provenance
 - review status
 - confidence
-- freshnessClass: IMMUTABLE | SLOW_MUTABLE | CURRENT | EVENT
-- validFrom
-- validUntil
-- lastVerifiedAt
+- freshness class: `IMMUTABLE | SLOW_MUTABLE | CURRENT | EVENT`
+- validity dates
+- last verification date
 - exam tags
 - distractor neighborhood/group
 
-Generation must reject facts that are unreviewed, expired, outside their validity window, missing required provenance, or ambiguous for the selected QL.
+Generation rejects facts that are unreviewed, expired, outside validity bounds, missing required provenance or ambiguous for the selected QL.
 
 ## Knowledge question construction
 
-Do not author a permanent MCQ bank as the source of truth.
+Canonical facts/relations are the source of truth; a permanent hand-authored MCQ bank is not.
 
-Store canonical facts/relations, then realize supported QLs such as:
-
+Supported learner-task surfaces may include:
 - forward recall
 - reverse recall
 - statement identification
-- true/false statement set
-- pair matching
-- chronology/order where a real ordered relation exists
+- multi-statement evaluation
+- matching
+- chronology/order
 - classification
 - exception/not-belonging
 
-Every mode requires an independent validity check and uniqueness check.
-
-Correct-answer position must be shuffled deterministically from the seed. It must never be fixed at option 0.
-
-Distractors must come from semantic/confusion neighborhoods or explicitly curated misconception pools, not arbitrary nearby strings.
+Every surface requires unique-answer validation. Correct-answer position is seeded/deterministic. Distractors come from semantic/confusion neighborhoods or curated misconception pools.
 
 ## Computer Awareness pilot
 
-Computer Awareness will be the first `knowledge-v1` production pilot because it is predominantly factual but has clearer ontologies than broad GK.
+`COM-001 / Memory & Storage` is the first `knowledge-v1` pilot.
 
-Initial canonical entity families:
+Current permanent scope:
+- `COM-001-CP-001`
+- `COM-001-QL-001..009`
+- English/Hindi/Punjabi
+- frozen V2 learner-facing authority
+- topology-based review difficulty classifier
+- standard Question Studio package registration
+- standard `BANK_ONLY` lifecycle for manual Question Bank acceptance
 
-- hardware components
-- memory/storage
-- input/output devices
-- operating systems
-- software categories
-- MS Office concepts
-- networking
-- internet protocols
-- cyber security
-- databases
-- programming/language basics
-- computer abbreviations and standards
+COM-001-specific authorities validate content, localization and difficulty. They do **not** define a parallel Question Studio lifecycle.
 
-The first chapter should be `Computer Fundamentals / Memory & Storage`, after the shared knowledge contracts are implemented.
+## Static GK / Punjab GK
 
-## Static GK and Punjab GK
+These should use the same `knowledge-v1` engine and standard Question Studio lifecycle, with separate taxonomies and curated knowledge repositories.
 
-These use the same `knowledge-v1` engine but separate taxonomies and curated repositories.
+Punjab GK is a first-class subject package rather than a tag over India GK.
 
-Punjab GK must be a first-class subject package rather than a tag layered over India GK.
-
-Facts that appear static but can change (district counts, protected areas, office holders, scheme status, rankings, GI tags, Ramsar/UNESCO lists, etc.) must use SLOW_MUTABLE or CURRENT freshness rather than IMMUTABLE.
+Facts that can change use `SLOW_MUTABLE` or `CURRENT`, not `IMMUTABLE`.
 
 ## Current Affairs
 
@@ -144,128 +186,83 @@ Current Affairs is not generated from unrestricted web/LLM text at runtime.
 
 Pipeline:
 
-trusted source -> event candidate -> entity resolution -> structured fact extraction -> editorial verification -> canonical event/fact record -> generation eligibility -> expiry/archive
+`trusted source -> event candidate -> entity resolution -> structured extraction -> editorial verification -> canonical event/fact -> generation eligibility -> Question Studio`
 
-Only verified canonical event facts reach Question Studio generation.
+After validation, Current Affairs enters the same standard Question Studio lifecycle as other engines.
 
-## Language V1 foundation
+## Language V1
 
 Language V1 uses typed linguistic objects rather than variable-substitution stems.
 
-Core object families:
-
+Core object families include:
 - token/lemma
 - part of speech
-- grammatical features (person/number/tense/aspect/etc.)
+- grammatical features
 - clause/sentence structure
-- dependency/role information where needed
 - lexical sense
 - synonym/antonym relation
 - collocation
 - confusable/error class
 - curated sentence/context corpus
 
-English implementation order:
-
-1. grammar foundation
-2. subject-verb agreement pilot
-3. tense/verb-form families
-4. articles/determiners/prepositions/modifiers
-5. sentence correction/error detection
-6. vocabulary engine
-7. cloze/comprehension/ordering families
-
-For every generated question, the validator must establish exactly one correct option for the intended reading. Ambiguous corpus items are rejected.
+After linguistic validation, language questions enter the same standard Question Studio lifecycle.
 
 ## Localization
 
 Localization is semantic reconstruction, not blind translation.
 
-- Quant/Reasoning may localize the same mathematical/logical object.
-- Knowledge facts need localized entity labels and localized realizers.
-- English-language skill questions normally remain English as the tested object; instructions/explanations may be localized where product design permits.
-- Punjab/Hindi language subjects, when added, use their own language-engine corpora and rules rather than translations of English questions.
+- Quant/Reasoning localize the same mathematical/logical state.
+- Knowledge facts use localized entity labels and localized realizers.
+- English-language-skill questions normally preserve English as the tested object.
+- Hindi/Punjabi language subjects use their own corpora/rules rather than translated English questions.
 
-## Phase plan
+## Engine qualification vs lifecycle
 
-### Phase 0 - shared engine seam (started)
+These are deliberately separate concepts.
 
-- shared engine types
-- engine registry
-- Quant V4 compatibility adapter
-- registry contract tests
-- no route behavior change yet
-
-Exit gate: existing Quant packages can be represented through the shared adapter without losing lifecycle/capability metadata.
-
-### Phase 1 - route integration
-
-- make Question Studio capabilities engine-aware
-- keep legacy `generationSystem: quant-v4` compatibility during UI migration
-- route generation through registry
-- persist engineId in request snapshot/generation context
-- preserve existing review and conversion behavior
-
-### Phase 2 - knowledge-v1 core
-
-- canonical fact schema
-- freshness/validity model
-- provenance/review gates
-- deterministic selector
-- semantic distractor contract
-- answer-position shuffle
-- uniqueness validator
-- lifecycle policy
-
-### Phase 3 - Computer Awareness pilot
-
-- exhaustive chapter/CP/QL discovery for first computer chapter
-- curated fact seed set
-- generator + validator + distractor + realizer
-- Question Studio package registration
-- review audit
-
-### Phase 4 - Static GK/Punjab GK expansion
-
-Only after the Computer pilot proves the knowledge engine.
-
-### Phase 5 - language-v1 core and English pilot
-
-- linguistic types and corpus contract
-- grammar rule/verifier layer
-- Subject-Verb Agreement end-to-end pilot
-- Question Studio package registration
-
-### Phase 6 - Current Affairs ingestion
-
-Build dated editorial ingestion after static knowledge generation is stable. Do not reactivate the old AI-intake route as the production source of truth.
-
-## Freeze rules
-
-An engine cannot be considered production-ready until it proves:
-
+**Engine/content qualification** proves:
 - answer correctness
 - unique answer
 - deterministic replay where applicable
 - object/fact/corpus diversity
 - stem diversity
-- misconception-backed distractors
-- difficulty integrity
+- distractor integrity
 - explanation quality
-- localization parity where supported
-- lifecycle locks
-- batch audit and collision checks
-- Question Studio review-path compatibility
+- localization parity
+- source/provenance quality
+- difficulty integrity where claimed
 
-## Current branch checkpoint
+**Question Studio lifecycle** controls:
+- review state
+- manual approval
+- Question Bank persistence
+- test/mock eligibility
+- publication
+
+A subject-specific audit may qualify a payload to enter a lifecycle stage, but it does not create a new lifecycle state.
+
+## Current implementation checkpoint
 
 Branch: `feature/content-engine-foundation-v1`
 
-Implemented in Phase 0:
+Implemented:
+- shared engine types and registry
+- Quant V4 compatibility adapter
+- `knowledge-v1` core
+- engine-aware capabilities and run routing
+- standard lifecycle contracts
+- generic lifecycle capabilities exposure
+- generic lifecycle persistence in Question Bank generation metadata
+- shared approval/conversion path
+- COM-001 V2 content/localization/difficulty qualification
+- COM-001 standard Question Studio registration
 
-- `engine-types.ts`
-- `engine-registry.ts`
-- `engines/quant-v4-adapter.ts`
-- `engine-registry.test.ts`
+Current downstream boundary for COM-001:
+- manual Question Bank acceptance: enabled through standard `BANK_ONLY`
+- test eligibility: closed
+- mock-test eligibility: closed
+- public/student publication: closed
+- automatic publication: closed
+- production release: closed
 
-Next code checkpoint: integrate `/admin/question-studio/capabilities` and `/admin/question-studio/runs` with the registry while preserving exact Quant V4 behavior.
+Future engines should plug into the engine seam and then declare one of the standard lifecycle stages instead of creating subject-specific lifecycle machinery.
