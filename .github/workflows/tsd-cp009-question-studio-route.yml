@@ -6,8 +6,12 @@ on:
       - feat/tsd-cp009-executable-discovery-v1
     paths:
       - artifacts/api-server/src/routes/admin-question-studio-time-speed-distance-cp009.ts
+      - artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/**
+      - artifacts/admin-app/src/features/question-studio/api.ts
+      - artifacts/admin-app/src/features/question-studio/useQuestionStudio.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioLivePage.tsx
       - .github/workflows/tsd-cp009-question-studio-route.yml
   pull_request:
     branches:
@@ -15,8 +19,12 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - artifacts/api-server/src/routes/admin-question-studio-time-speed-distance-cp009.ts
+      - artifacts/api-server/src/routes/admin-question-studio-bulk-hardening.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/**
+      - artifacts/admin-app/src/features/question-studio/api.ts
+      - artifacts/admin-app/src/features/question-studio/useQuestionStudio.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioLivePage.tsx
       - .github/workflows/tsd-cp009-question-studio-route.yml
   workflow_dispatch:
 
@@ -51,3 +59,7 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/question-studio-review-adapter-proof.test.ts
       - name: Prove route registration and lifecycle locks
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/question-studio-route-registration-proof.test.ts
+      - name: Prove production selector and review-only approval semantics
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/question-studio-production-selector-proof.test.ts
+      - name: Typecheck production admin Question Studio wiring
+        run: pnpm --filter @workspace/examtree-admin typecheck
