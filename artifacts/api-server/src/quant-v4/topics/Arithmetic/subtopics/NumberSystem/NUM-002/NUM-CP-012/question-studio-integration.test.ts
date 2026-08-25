@@ -42,7 +42,15 @@ for (const qlId of NUM_CP012_QUESTION_STUDIO_QL_IDS) {
     const replay = await generateNumCp012QuestionStudioBatch(request);
     const label = `${qlId}/${language}`;
 
-    assert.deepEqual(replay, batch, `${label}: deterministic Studio replay drift`);
+    // Run timestamps are intentionally observational metadata. Deterministic replay
+    // is required for generated content and every stable generation-context field,
+    // not for the wall-clock timestamp at which the replay call was made.
+    assert.deepEqual(replay.questionPackages, batch.questionPackages, `${label}: deterministic Studio package replay drift`);
+    assert.deepEqual(replay.questions, batch.questions, `${label}: deterministic Studio preview replay drift`);
+    const { timestamp: _batchTimestamp, ...stableBatchContext } = batch.generationContext;
+    const { timestamp: _replayTimestamp, ...stableReplayContext } = replay.generationContext;
+    assert.deepEqual(stableReplayContext, stableBatchContext, `${label}: stable generation context replay drift`);
+
     assert.equal(batch.generationContext.packageId, "NUM-002", `${label}: package drift`);
     assert.equal(batch.generationContext.canonicalProblemId, "NUM-CP-012", `${label}: checkpoint drift`);
     assert.equal(batch.generationContext.permanentQlCount, 11, `${label}: permanent QL count drift`);
@@ -108,6 +116,8 @@ console.log(JSON.stringify({
   permanentQlCount: NUM_CP012_QUESTION_STUDIO_QL_IDS.length,
   explicitPackages,
   supportedLanguages: ["en", "hi", "pa"],
+  deterministicContentReplay: true,
+  observationalTimestampExcludedFromReplayEquality: true,
   packageOnlyNum002Claimed: false,
   questionStudioDiscoverable: true,
   questionBankWritable: false,

@@ -213,13 +213,16 @@ const routeMarkers = [
   'requestedNumberSystemCp === "NUM-CP-009"',
   'requestedNumberSystemCp === "NUM-CP-010"',
   'requestedNumberSystemCp === "NUM-CP-011"',
+  'requestedNumberSystemCp === "NUM-CP-012"',
   'if (number >= 197 && number <= 212) return "NUM-CP-010";',
   'if (number >= 213 && number <= 225) return "NUM-CP-011";',
+  'if (number >= 226 && number <= 236) return "NUM-CP-012";',
   '? num002Request ? "NUM-002" : "NUM-001"',
   'defaultSubtopic = numberSystemRequest ? "Number System" : "Average"',
   'targetCp !== "NUM-CP-010"',
   'targetCp !== "NUM-CP-011"',
-  "Hindi/Punjabi Number System Question Studio review is frozen for NUM-CP-001, NUM-CP-008, NUM-CP-009, NUM-CP-010 and NUM-CP-011",
+  'targetCp !== "NUM-CP-012"',
+  "Hindi/Punjabi Number System Question Studio review is frozen for NUM-CP-001, NUM-CP-008, NUM-CP-009, NUM-CP-010, NUM-CP-011 and NUM-CP-012",
   "other currently routed checkpoints remain English-only",
 ];
 for (const marker of routeMarkers) {
