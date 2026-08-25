@@ -1,0 +1,77 @@
+name: SRI Phase 8 lifecycle assertion migration
+
+on:
+  push:
+    branches:
+      - feature/sri-v4-phase8-english-freeze-v1
+    paths:
+      - .github/workflows/sri-v4-phase8-lifecycle-assertion-migration.yml
+
+permissions:
+  contents: write
+
+jobs:
+  migrate-sri-lifecycle-assertions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/sri-v4-phase8-english-freeze-v1
+      - name: Apply exact lifecycle assertion migration
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path("artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests")
+          replacements = {
+              "SRI_001_MANIFEST.frozenSolveModeCount, 0": "SRI_001_MANIFEST.frozenSolveModeCount, 29",
+              "SRI_002_MANIFEST.frozenSolveModeCount, 0": "SRI_002_MANIFEST.frozenSolveModeCount, 29",
+              "SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 0": "SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 58",
+              "SRI_CHAPTER_MANIFEST.lifecycle.discoveryOpen, true": "SRI_CHAPTER_MANIFEST.lifecycle.discoveryOpen, false",
+              "SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen, false": "SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen, true",
+              "Permanent solve modes must remain unfrozen during Phase 7 review": "Permanent solve modes must remain frozen after the Phase 8 English authority freeze",
+          }
+
+          changed = []
+          counts = {key: 0 for key in replacements}
+          for path in root.glob("*.test.ts"):
+              original = path.read_text(encoding="utf-8")
+              updated = original
+              for old, new in replacements.items():
+                  occurrences = updated.count(old)
+                  if occurrences:
+                      counts[old] += occurrences
+                      updated = updated.replace(old, new)
+              if updated != original:
+                  path.write_text(updated, encoding="utf-8")
+                  changed.append(str(path))
+
+          required = [
+              "SRI_001_MANIFEST.frozenSolveModeCount, 0",
+              "SRI_002_MANIFEST.frozenSolveModeCount, 0",
+              "SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 0",
+              "SRI_CHAPTER_MANIFEST.lifecycle.discoveryOpen, true",
+          ]
+          missing = [key for key in required if counts[key] == 0]
+          if missing:
+              raise SystemExit(f"Expected lifecycle assertions were not found: {missing}")
+
+          print("Changed files:")
+          print("\n".join(changed))
+          print("Replacement counts:", counts)
+          PY
+      - name: Verify no stale Phase 7 lifecycle assertions remain
+        run: |
+          ! grep -R "SRI_001_MANIFEST\.frozenSolveModeCount, 0" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests --include='*.test.ts'
+          ! grep -R "SRI_002_MANIFEST\.frozenSolveModeCount, 0" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests --include='*.test.ts'
+          ! grep -R "SRI_CHAPTER_MANIFEST\.frozenSolveModeCount, 0" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests --include='*.test.ts'
+          ! grep -R "SRI_CHAPTER_MANIFEST\.lifecycle\.discoveryOpen, true" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests --include='*.test.ts'
+      - name: Commit migrated assertions
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests
+          git diff --cached --check
+          git commit -m "SRI Phase 8: migrate lifecycle assertions to English freeze"
+          git push origin HEAD:feature/sri-v4-phase8-english-freeze-v1
