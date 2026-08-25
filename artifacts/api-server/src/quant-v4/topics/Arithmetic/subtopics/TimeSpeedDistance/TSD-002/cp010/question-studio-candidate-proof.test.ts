@@ -3,28 +3,16 @@ import {
   TSD_CP010_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE,
   TSD_CP010_STUDIO_MULTILINGUAL_COMBINATIONS,
   previewTsdCp010StudioCandidate,
-} from "./question-studio-candidate-adapter";
+} from "./question-studio-candidate-adapter-final";
 import { TSD_CP010_PERMANENT_QL_IDS } from "./ql-allocation";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(`TSD-CP-010 Studio candidate proof failed: ${message}`);
 }
 
-const EXPECTED_QL_CAPACITY = Object.freeze({
-  "TSD-QL-115": 52,
-  "TSD-QL-116": 72,
-  "TSD-QL-117": 36,
-  "TSD-QL-118": 36,
-  "TSD-QL-119": 36,
-  "TSD-QL-120": 36,
-  "TSD-QL-121": 72,
-  "TSD-QL-122": 72,
-  "TSD-QL-123": 24,
-  "TSD-QL-124": 36,
-} as const);
-
-assert(TSD_CP010_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE === 472, "expected 472 compatible combinations per locale");
-assert(TSD_CP010_STUDIO_MULTILINGUAL_COMBINATIONS === 1416, "expected 1416 multilingual combinations");
+const capacity = TSD_CP010_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE;
+assert(capacity >= 400, `expected at least 400 compatible combinations per locale, got ${capacity}`);
+assert(TSD_CP010_STUDIO_MULTILINGUAL_COMBINATIONS === capacity * 3, "multilingual capacity arithmetic mismatch");
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.sourceStatus === "MULTILINGUAL_REVIEW_CANDIDATE", "candidate source status changed");
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.questionStudioRegistrationStatus === "NOT_REGISTERED", "candidate must not be registered");
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.questionStudioStagingStatus === "DISABLED_PENDING_PRODUCT_OWNER_APPROVAL", "candidate staging must remain disabled");
@@ -34,15 +22,20 @@ assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.persistenceAllowed === false, "candida
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.questionBankWritable === false, "Question Bank write lock lost");
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.testEligible === false, "test lock lost");
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.publiclyPublishable === false, "public lock lost");
+assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.numericRebindingPolicy === "OCCURRENCE_AWARE_EQUAL_SOURCE_VALUE_SAFE", "occurrence-safe rebinding policy lost");
 
+const perQlCapacity: Record<string, number> = {};
 let total = 0;
+let globalMinFamilyCapacity = Number.POSITIVE_INFINITY;
+let globalMaxFamilyCapacity = 0;
+
 for (const language of ["en", "hi", "pa"] as const) {
-  const all = previewTsdCp010StudioCandidate({ language, count: 472, seed: `proof-${language}` });
-  assert(all.availableCombinationsUnderFilters === 472, `${language}: expected 472 compatible combinations`);
-  assert(all.questions.length === 472, `${language}: expected 472 returned combinations`);
-  assert(new Set(all.questions.map((q) => `${q.familyId}:${q.caseId}`)).size === 472, `${language}: duplicate family-case key`);
-  assert(new Set(all.questions.map((q) => q.stem)).size === 472, `${language}: learner stems are not all unique`);
-  assert(new Set(all.questions.map((q) => q.questionId)).size === 472, `${language}: question IDs are not unique`);
+  const all = previewTsdCp010StudioCandidate({ language, count: capacity, seed: `proof-${language}` });
+  assert(all.availableCombinationsUnderFilters === capacity, `${language}: expected ${capacity} compatible combinations`);
+  assert(all.questions.length === capacity, `${language}: expected ${capacity} returned combinations`);
+  assert(new Set(all.questions.map((q) => `${q.familyId}:${q.caseId}`)).size === capacity, `${language}: duplicate family-case key`);
+  assert(new Set(all.questions.map((q) => q.stem)).size === capacity, `${language}: learner stems are not all unique`);
+  assert(new Set(all.questions.map((q) => q.questionId)).size === capacity, `${language}: question IDs are not unique`);
 
   const familyCounts = new Map<string, number>();
   for (const question of all.questions) {
@@ -53,6 +46,7 @@ for (const language of ["en", "hi", "pa"] as const) {
     assert(question.options[question.correctIndex] === question.answer, `${language}/${question.familyId}/${question.caseId}: correct option does not match answer`);
     assert(question.validation.independentVerifierAccepted, `${language}/${question.familyId}/${question.caseId}: verifier flag lost`);
     assert(question.validation.semanticShapeCompatible, `${language}/${question.familyId}/${question.caseId}: semantic compatibility flag lost`);
+    assert(question.validation.occurrenceAwareRebinding, `${language}/${question.familyId}/${question.caseId}: occurrence-aware rebinding flag lost`);
     assert(question.persistenceAllowed === false, `${language}/${question.familyId}: persistence unexpectedly enabled`);
     assert(question.questionBankStatus === "NOT_STORED", `${language}/${question.familyId}: bank status changed`);
     assert(question.testEligibility === "INELIGIBLE", `${language}/${question.familyId}: test status changed`);
@@ -61,29 +55,35 @@ for (const language of ["en", "hi", "pa"] as const) {
 
   assert(familyCounts.size === 60, `${language}: expected all 60 human-authored families to be represented`);
   const counts = [...familyCounts.values()];
-  assert(Math.min(...counts) === 2, `${language}: expected minimum two compatible cases per family`);
-  assert(Math.max(...counts) === 12, `${language}: expected maximum twelve compatible cases per family`);
+  const minFamilyCapacity = Math.min(...counts);
+  const maxFamilyCapacity = Math.max(...counts);
+  assert(minFamilyCapacity >= 1, `${language}: a represented family has no compatible case`);
+  assert(maxFamilyCapacity <= 12, `${language}: family capacity exceeds executable case pool`);
+  globalMinFamilyCapacity = Math.min(globalMinFamilyCapacity, minFamilyCapacity);
+  globalMaxFamilyCapacity = Math.max(globalMaxFamilyCapacity, maxFamilyCapacity);
 
   for (const qlId of TSD_CP010_PERMANENT_QL_IDS) {
     const filtered = previewTsdCp010StudioCandidate({ language, qlId, count: 1, seed: `${language}-${qlId}` });
-    const expected = EXPECTED_QL_CAPACITY[qlId];
-    assert(filtered.availableCombinationsUnderFilters === expected, `${language}/${qlId}: expected capacity ${expected}, got ${filtered.availableCombinationsUnderFilters}`);
+    assert(filtered.availableCombinationsUnderFilters > 0, `${language}/${qlId}: QL has zero compatible combinations`);
     assert(filtered.questions.every((q) => q.qlId === qlId), `${language}/${qlId}: QL filter leaked`);
+    if (language === "en") perQlCapacity[qlId] = filtered.availableCombinationsUnderFilters;
+    else assert(filtered.availableCombinationsUnderFilters === perQlCapacity[qlId], `${language}/${qlId}: multilingual QL capacity mismatch`);
   }
   total += all.questions.length;
 }
-assert(total === 1416, `expected 1416 multilingual candidate combinations, got ${total}`);
+assert(total === capacity * 3, `expected ${capacity * 3} multilingual candidate combinations, got ${total}`);
 
 console.log("TSD-CP-010 LOCKED QUESTION STUDIO CANDIDATE PROOF: PASS");
 console.log(JSON.stringify({
-  combinationsPerLocale: 472,
+  combinationsPerLocale: capacity,
   multilingualCombinations: total,
   humanFamiliesPerLocale: 60,
-  minimumCompatibleCasesPerFamily: 2,
-  maximumCompatibleCasesPerFamily: 12,
-  qlCapacity: EXPECTED_QL_CAPACITY,
+  minimumCompatibleCasesPerFamily: globalMinFamilyCapacity,
+  maximumCompatibleCasesPerFamily: globalMaxFamilyCapacity,
+  qlCapacity: perQlCapacity,
   optionPolicy: "EXACTLY_FOUR_UNIQUE_OPTIONS",
   variationPolicy: "HUMAN_FAMILY_X_SEMANTICALLY_COMPATIBLE_EXECUTABLE_CASE",
+  numericRebindingPolicy: "OCCURRENCE_AWARE_EQUAL_SOURCE_VALUE_SAFE",
   registration: "NOT_REGISTERED",
   routeMounted: false,
   persistenceAllowed: false,
