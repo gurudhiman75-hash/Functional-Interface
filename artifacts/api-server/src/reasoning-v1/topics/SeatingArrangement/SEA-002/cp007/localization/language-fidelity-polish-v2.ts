@@ -7,6 +7,7 @@ import type { Sea002Cp007TranslatedLocale } from "./readiness.ts";
 
 function polishHindi(text: string): string {
   return text
+    .replace(/([A-Za-z]+) किस दिशा की ओर मुख करता\/करती है\?/gu, "$1 का मुख किस दिशा की ओर है?")
     .replace(/([A-Za-z]+) (उत्तर|दक्षिण) की ओर मुख करके बैठा\/बैठी है/gu, "$1 का मुख $2 की ओर है")
     .replace(/([A-Za-z]+) (उत्तर|दक्षिण) की ओर मुख करता\/करती है/gu, "$1 का मुख $2 की ओर है")
     .replace(/([A-Za-z]+), ([A-Za-z]+) के (बाईं ओर|दाईं ओर) तुरंत बैठता\/बैठती है/gu, "$1, $2 के ठीक $3 है")
@@ -17,12 +18,12 @@ function polishHindi(text: string): string {
     .replace(/([A-Za-z]+), ([A-Za-z]+) के दूसरी पंक्ति में है/gu, "$1, $2 की दूसरी पंक्ति में है")
     .replace(/कौन बैठता\/बैठती है\?/gu, "कौन है?")
     .replace(/बैठता\/बैठती है/gu, "है")
-    .replace(/बैठा\/बैठी है/gu, "है")
-    .replace(/मुख करता\/करती है/gu, "का मुख है");
+    .replace(/बैठा\/बैठी है/gu, "है");
 }
 
 function polishPunjabi(text: string): string {
   return text
+    .replace(/([A-Za-z]+) ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਮੂੰਹ ਕਰਦਾ\/ਕਰਦੀ ਹੈ\?/gu, "$1 ਦਾ ਮੂੰਹ ਕਿਹੜੀ ਦਿਸ਼ਾ ਵੱਲ ਹੈ?")
     .replace(/([A-Za-z]+) (ਉੱਤਰ|ਦੱਖਣ) ਵੱਲ ਮੂੰਹ ਕਰਕੇ ਬੈਠਦਾ\/ਬੈਠਦੀ ਹੈ/gu, "$1 ਦਾ ਮੂੰਹ $2 ਵੱਲ ਹੈ")
     .replace(/([A-Za-z]+) (ਉੱਤਰ|ਦੱਖਣ) ਵੱਲ ਮੂੰਹ ਕਰਦਾ\/ਕਰਦੀ ਹੈ/gu, "$1 ਦਾ ਮੂੰਹ $2 ਵੱਲ ਹੈ")
     .replace(/([A-Za-z]+), ([A-Za-z]+) ਦੇ (ਖੱਬੇ ਪਾਸੇ|ਸੱਜੇ ਪਾਸੇ) ਤੁਰੰਤ ਬੈਠਦਾ\/ਬੈਠਦੀ ਹੈ/gu, "$1, $2 ਦੇ ਬਿਲਕੁਲ $3 ਹੈ")
@@ -30,8 +31,7 @@ function polishPunjabi(text: string): string {
     .replace(/([A-Za-z]+), ([A-Za-z]+) ਤੋਂ ਤਿਰਛੇ ([A-Za-z]+) ਦੇ (ਖੱਬੇ ਪਾਸੇ|ਸੱਜੇ ਪਾਸੇ) ਬੈਠਦਾ\/ਬੈਠਦੀ ਹੈ/gu, "$1, $2 ਤੋਂ ਤਿਰਛੇ, $3 ਦੇ $4 ਹੈ")
     .replace(/([A-Za-z]+) (ਉੱਪਰਲੀ ਕਤਾਰ|ਹੇਠਲੀ ਕਤਾਰ) ਵਿੱਚ ਬੈਠਦਾ\/ਬੈਠਦੀ ਹੈ/gu, "$1 $2 ਵਿੱਚ ਹੈ")
     .replace(/ਕੌਣ ਬੈਠਦਾ\/ਬੈਠਦੀ ਹੈ\?/gu, "ਕੌਣ ਹੈ?")
-    .replace(/ਬੈਠਦਾ\/ਬੈਠਦੀ ਹੈ/gu, "ਹੈ")
-    .replace(/ਮੂੰਹ ਕਰਦਾ\/ਕਰਦੀ ਹੈ/gu, "ਦਾ ਮੂੰਹ ਹੈ");
+    .replace(/ਬੈਠਦਾ\/ਬੈਠਦੀ ਹੈ/gu, "ਹੈ");
 }
 
 function polish(text: string, locale: Sea002Cp007TranslatedLocale): string {
