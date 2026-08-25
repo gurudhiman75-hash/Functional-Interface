@@ -69,17 +69,20 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await expect(sidebar).toBeVisible();
     await expect(sidebar.getByRole("link", { name: "Home", exact: true })).toHaveAttribute("aria-current", "page");
     await expect(sidebar.getByRole("link", { name: "Explore Exams", exact: true })).toBeVisible();
-    await expect(sidebar.getByRole("link", { name: "Mock Tests", exact: true })).toBeVisible();
-    await expect(sidebar.getByRole("link", { name: "Previous Year Questions", exact: true })).toBeVisible();
     await expect(sidebar.getByRole("link", { name: "My Tests", exact: true })).toBeVisible();
-    await expect(sidebar.getByRole("link", { name: "Performance", exact: true })).toBeVisible();
-    await expect(sidebar.getByRole("link", { name: "Profile & Settings", exact: true })).toBeVisible();
-    await expect(sidebar.getByRole("link", { name: "Contact Support", exact: true })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Analytics", exact: true })).toBeVisible();
+    await expect(sidebar.getByText("Bookmarks", { exact: true })).toBeVisible();
+    await expect(sidebar.getByText("Downloads", { exact: true })).toBeVisible();
+    await expect(sidebar.getByText("Study Plan", { exact: true })).toBeVisible();
+    await expect(sidebar.getByText("Rewards", { exact: true })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Support", exact: true })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Settings", exact: true })).toBeVisible();
+    await expect(sidebar.locator('[aria-disabled="true"]')).toHaveCount(4);
 
     const sidebarBox = await sidebar.boundingBox();
     expect(sidebarBox).not.toBeNull();
-    expect(sidebarBox?.width ?? 0).toBeGreaterThanOrEqual(210);
-    expect(sidebarBox?.width ?? 0).toBeLessThanOrEqual(250);
+    expect(sidebarBox?.width ?? 0).toBeGreaterThanOrEqual(248);
+    expect(sidebarBox?.width ?? 0).toBeLessThanOrEqual(256);
     await expectNoHorizontalOverflow(page);
 
     await sidebar.getByRole("link", { name: "Explore Exams", exact: true }).click();
@@ -107,7 +110,11 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     expect(height).toBeGreaterThanOrEqual(44);
 
     await menuButton.click();
-    await expect(page.getByRole("navigation", { name: "Mobile primary navigation" })).toBeVisible();
+    const mobileNav = page.getByRole("navigation", { name: "Mobile primary navigation" });
+    await expect(mobileNav).toBeVisible();
+    await expect(mobileNav.getByRole("link", { name: "Explore Exams" })).toBeVisible();
+    await expect(mobileNav.getByRole("link", { name: "My Tests" })).toBeVisible();
+    await expect(mobileNav.getByRole("link", { name: "Analytics" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Close navigation menu" })).toHaveAttribute("aria-expanded", "true");
 
     await page.keyboard.press("Escape");
