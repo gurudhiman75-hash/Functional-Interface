@@ -38,8 +38,8 @@ for (const candidateId of HIGH_RISK_CANDIDATES) {
 assert.equal(generated, HIGH_RISK_CANDIDATES.length * SEEDS_PER_CANDIDATE);
 assert.ok(qlsCovered.size >= 15, `high-risk audit collapsed onto too few permanent QLs: ${qlsCovered.size}`);
 assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 58);
-assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 0);
-assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen, false);
+assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 58);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen, true);
 assertSriReleaseLocks();
 
 console.log(JSON.stringify({

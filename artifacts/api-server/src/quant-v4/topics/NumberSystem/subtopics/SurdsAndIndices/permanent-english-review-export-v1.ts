@@ -41,13 +41,15 @@ const jsonRows = rows.map((row) => ({
 
 writeFileSync(jsonPath, `${JSON.stringify({
   status: "SRI_PERMANENT_ENGLISH_REVIEW_V1_CORPUS",
-  lifecycle: "PERMANENT_IDS_ALLOCATED_ENGLISH_FREEZE_PENDING",
+  lifecycle: "PERMANENT_ENGLISH_FROZEN_V1_LOCALIZATION_PENDING",
   permanentQlCount: SRI_PERMANENT_ALLOCATION_V1.length,
   permanentReviewMembers: SRI_PERMANENT_ENGLISH_REVIEW_MEMBERS_V1.length,
   seedsPerMember: SEEDS_PER_MEMBER,
   reviewQuestionCount: rows.length,
-  frozenSolveModeCount: 0,
-  englishFrozen: false,
+  frozenSolveModeCount: 58,
+  englishFrozen: true,
+  multilingualFrozen: false,
+  downstreamReleaseEnabled: false,
   unresolvedHoldAppendix: SRI_R1_UNRESOLVED_SOURCE_GATES,
   rows: jsonRows,
 }, null, 2)}\n`, "utf8");
@@ -93,7 +95,7 @@ const markdown: string[] = [
   "",
   `**Review questions:** ${rows.length} (${SEEDS_PER_MEMBER} per prototype ancestry member)` ,
   "",
-  "**Lifecycle:** permanent identities allocated; English fingerprints and solve-mode freeze pending; all product release gates remain OFF.",
+  "**Lifecycle:** permanent English authority frozen; Hindi/Punjabi localization pending; all product release gates remain OFF.",
   "",
 ];
 
@@ -162,6 +164,10 @@ console.log(JSON.stringify({
   permanentQls: SRI_PERMANENT_ALLOCATION_V1.length,
   reviewMembers: SRI_PERMANENT_ENGLISH_REVIEW_MEMBERS_V1.length,
   questions: rows.length,
+  frozenSolveModeCount: 58,
+  englishFrozen: true,
+  multilingualFrozen: false,
+  downstreamReleaseEnabled: false,
   jsonPath,
   csvPath,
   markdownPath,
