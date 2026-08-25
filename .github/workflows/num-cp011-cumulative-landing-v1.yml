@@ -96,11 +96,12 @@ jobs:
         run: node artifacts/api-server/dist/quant-v4/num-cp011-cumulative-cp008-regression.mjs
 
       - name: Run Number System shared release audit
+        working-directory: artifacts/api-server
         shell: bash
         run: |
           set -o pipefail
-          node artifacts/api-server/dist/quant-v4/num-cp011-cumulative-number-system-release.mjs \
-            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp011-cumulative-number-system-release.log
+          node dist/quant-v4/num-cp011-cumulative-number-system-release.mjs \
+            2>&1 | tee dist/quant-v4/num-cp011-cumulative-number-system-release.log
 
       - name: Run cumulative CP011 landing audit
         shell: bash
