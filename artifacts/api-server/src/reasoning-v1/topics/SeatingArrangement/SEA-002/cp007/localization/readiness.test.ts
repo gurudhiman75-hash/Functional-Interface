@@ -6,13 +6,14 @@ import {
   SEA002_CP007_LOCALIZATION_PROTECTED_FIELDS,
   SEA002_CP007_LOCALIZATION_READINESS,
   SEA002_CP007_TRANSLATION_TARGET_LOCALES,
-  assertCp007LocalizationFoundationOpen,
+  assertCp007LocalizationReviewReady,
   cp007CanonicalParityFingerprint,
 } from "./readiness.ts";
 import { SEA002_CP007_PERMANENT_QL_REGISTRY } from "../permanent/registry.ts";
 
 assert.deepEqual(SEA002_CP007_TRANSLATION_TARGET_LOCALES, ["hi-IN", "pa-IN"]);
-assert.equal(SEA002_CP007_LOCALIZATION_READINESS.status, "FOUNDATION_OPEN");
+assert.equal(SEA002_CP007_LOCALIZATION_READINESS.status, "V2_REVIEW_READY");
+assert.equal(SEA002_CP007_LOCALIZATION_READINESS.languageFidelityPolicy, "GENDER_NEUTRAL_EXAM_WORDING_V2");
 assert.equal(SEA002_CP007_LOCALIZATION_READINESS.humanLanguageReviewRequired, true);
 assert.equal(SEA002_CP007_LOCALIZATION_READINESS.humanReviewStatus, "PENDING");
 assert.equal(SEA002_CP007_LOCALIZATION_READINESS.productDeliveryUnlocked, false);
@@ -22,12 +23,13 @@ assert.equal(SEA002_CP007_LOCALIZATION_READINESS.productionStagingApproved, fals
 assert.equal(SEA002_CP007_LOCALIZATION_READINESS.permanentQlCount, 4);
 assert.equal(SEA002_CP007_PERMANENT_QL_REGISTRY.length, 4);
 assert.ok(SEA002_CP007_GLOSSARY.length >= 15);
+assert.ok(SEA002_CP007_GLOSSARY.every((entry) => !entry.hi.includes("/") && !entry.pa.includes("/")), "V2 glossary must not restore gender-slash wording");
 assert.ok(SEA002_CP007_LOCALIZATION_PROTECTED_FIELDS.includes("mathematicalFingerprint"));
 assert.ok(SEA002_CP007_LOCALIZATION_PROTECTED_FIELDS.includes("correctIndex"));
 assert.ok(SEA002_CP007_PERMANENT_QL_REGISTRY.every((entry) => entry.englishReviewStatus === "CI_CERTIFIED_SELF_REVIEW_COMPLETE"));
-assert.ok(SEA002_CP007_PERMANENT_QL_REGISTRY.every((entry) => entry.localizationStatus === "FOUNDATION_OPEN_HI_PA_PENDING"));
+assert.ok(SEA002_CP007_PERMANENT_QL_REGISTRY.every((entry) => entry.localizationStatus === "V2_REVIEW_READY_HUMAN_APPROVAL_PENDING"));
 assert.ok(SEA002_CP007_PERMANENT_QL_REGISTRY.every((entry) => !entry.active && !entry.questionStudioDiscoverable && !entry.questionBankWritable));
-assert.doesNotThrow(() => assertCp007LocalizationFoundationOpen());
+assert.doesNotThrow(() => assertCp007LocalizationReviewReady());
 
 const authorities = ["CP007-AUTH-01", "CP007-AUTH-02", "CP007-AUTH-03", "CP007-AUTH-04"] as const;
 const fingerprints = new Set<string>();
@@ -48,9 +50,10 @@ for (const authority of authorities) {
 }
 assert.equal(fingerprints.size, 24, "review seeds should expose 24 distinct canonical parity projections");
 
-console.log("PASS_SEA002_CP007_LOCALIZATION_READINESS_V1");
+console.log("PASS_SEA002_CP007_LOCALIZATION_READINESS_V2");
 console.log("target locales", SEA002_CP007_TRANSLATION_TARGET_LOCALES.join(","));
 console.log("permanent QLs", SEA002_CP007_PERMANENT_QL_REGISTRY.map((entry) => entry.permanentQlId).join(","));
 console.log("canonical parity samples", fingerprints.size);
+console.log("review status", SEA002_CP007_LOCALIZATION_READINESS.status);
 console.log("human language review", SEA002_CP007_LOCALIZATION_READINESS.humanReviewStatus);
 console.log("Studio/Bank/staging", false, false, false);
