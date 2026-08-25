@@ -3,6 +3,7 @@ import { Router } from "express";
 
 import {
   convertApprovedGenerationItem,
+  getGeneratedQuestionBankEligibilityIssue,
   type ConvertedQuestion,
   type QuestionSqlExecutor,
 } from "../lib/admin-question-conversion";
@@ -23,6 +24,7 @@ type ItemResult = {
   code?: string;
   message?: string;
   convertedQuestion?: ConvertedQuestion | null;
+  questionBankEligibilityIssue?: string | null;
 };
 
 function text(value: unknown): string {
@@ -96,13 +98,17 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
       const result = await sqlClient.begin(async (tx) => {
         const rows = await tx`
           SELECT
-            id::text AS id,
-            generation_run_id::text AS "generationRunId",
-            status::text AS status,
-            accepted_question_id::text AS "acceptedQuestionId"
-          FROM content.generation_run_items
-          WHERE id = ${itemId}::uuid
-          FOR UPDATE
+            i.id::text AS id,
+            i.generation_run_id::text AS "generationRunId",
+            i.status::text AS status,
+            i.accepted_question_id::text AS "acceptedQuestionId",
+            v.payload
+          FROM content.generation_run_items i
+          INNER JOIN content.generation_item_versions v
+            ON v.generation_item_id = i.id
+           AND v.version_number = i.current_version_number
+          WHERE i.id = ${itemId}::uuid
+          FOR UPDATE OF i
         `;
         const item = rows[0];
         if (!item) throw Object.assign(new Error("Generated item not found"), { code: "ITEM_NOT_FOUND" });
@@ -120,14 +126,18 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
         `;
 
         let convertedQuestion: ConvertedQuestion | null = null;
+        let questionBankEligibilityIssue: string | null = null;
         if (status === "approved") {
-          convertedQuestion = await convertApprovedGenerationItem(
-            tx as QuestionSqlExecutor,
-            itemId,
-            actorUserId,
-          );
-          if (!convertedQuestion) {
-            throw Object.assign(new Error("Approved item could not be converted to Question Bank"), { code: "CONVERSION_FAILED" });
+          questionBankEligibilityIssue = getGeneratedQuestionBankEligibilityIssue(item.payload);
+          if (!questionBankEligibilityIssue) {
+            convertedQuestion = await convertApprovedGenerationItem(
+              tx as QuestionSqlExecutor,
+              itemId,
+              actorUserId,
+            );
+            if (!convertedQuestion) {
+              throw Object.assign(new Error("Approved item could not be converted to Question Bank"), { code: "CONVERSION_FAILED" });
+            }
           }
         }
 
@@ -150,6 +160,8 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
               status,
               questionId: convertedQuestion?.questionId ?? null,
               questionVersionId: convertedQuestion?.questionVersionId ?? null,
+              questionBankConversionSkipped: status === "approved" && Boolean(questionBankEligibilityIssue),
+              questionBankEligibilityIssue,
             })}
           )
         `;
@@ -161,6 +173,7 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
           status,
           ok: true,
           convertedQuestion,
+          questionBankEligibilityIssue,
         } satisfies ItemResult;
       });
       results.push(result);
@@ -188,6 +201,7 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
       previousStatus: result.previousStatus,
       status: result.status,
       convertedQuestion: result.convertedQuestion ?? null,
+      questionBankEligibilityIssue: result.questionBankEligibilityIssue ?? null,
     })),
     updatedCount: succeeded,
     converted,
