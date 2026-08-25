@@ -67,14 +67,14 @@ test.describe("CP08 cross-browser shared shell polish", () => {
 
     const sidebar = page.getByTestId("public-study-sidebar");
     await expect(sidebar).toBeVisible();
-    await expect(sidebar.getByRole("link", { name: "Home" })).toHaveAttribute("aria-current", "page");
-    await expect(sidebar.getByRole("link", { name: "Explore Exams" })).toBeVisible();
-    await expect(sidebar.getByRole("link", { name: "Mock Tests" })).toBeVisible();
-    await expect(sidebar.getByRole("link", { name: "Previous Year Questions" })).toBeVisible();
-    await expect(sidebar.getByRole("link", { name: "My Tests" })).toBeVisible();
-    await expect(sidebar.getByRole("link", { name: "Performance" })).toBeVisible();
-    await expect(sidebar.getByRole("link", { name: "Profile & Settings" })).toBeVisible();
-    await expect(sidebar.getByRole("link", { name: "Contact Support" })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Home", exact: true })).toHaveAttribute("aria-current", "page");
+    await expect(sidebar.getByRole("link", { name: "Explore Exams", exact: true })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Mock Tests", exact: true })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Previous Year Questions", exact: true })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "My Tests", exact: true })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Performance", exact: true })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Profile & Settings", exact: true })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Contact Support", exact: true })).toBeVisible();
 
     const sidebarBox = await sidebar.boundingBox();
     expect(sidebarBox).not.toBeNull();
@@ -82,10 +82,10 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     expect(sidebarBox?.width ?? 0).toBeLessThanOrEqual(250);
     await expectNoHorizontalOverflow(page);
 
-    await sidebar.getByRole("link", { name: "Explore Exams" }).click();
+    await sidebar.getByRole("link", { name: "Explore Exams", exact: true }).click();
     await expect(page).toHaveURL(/\/exams$/);
     await expect(page.getByTestId("public-study-sidebar")).toBeVisible();
-    await expect(page.getByTestId("public-study-sidebar").getByRole("link", { name: "Explore Exams" })).toHaveAttribute("aria-current", "page");
+    await expect(page.getByTestId("public-study-sidebar").getByRole("link", { name: "Explore Exams", exact: true })).toHaveAttribute("aria-current", "page");
 
     expect(["firefox", "webkit"]).toContain(browserName);
   });
