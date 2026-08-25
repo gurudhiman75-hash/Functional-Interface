@@ -81,7 +81,10 @@ function permanentLifecycle(sourceLifecycle: any) {
 function normalizedEnglishStem(stem: string) {
   return stem
     .replace(/\bA education loan\b/gu, "An education loan")
-    .replace(/\ba education loan\b/gu, "an education loan");
+    .replace(/\ba education loan\b/gu, "an education loan")
+    .replace(/\bfarm-machinery finance\b/gu, "farm-machinery loan")
+    .replace(/\bvehicle finance\b/gu, "vehicle loan")
+    .replace(/\bworkshop-equipment finance\b/gu, "workshop-equipment loan");
 }
 
 function normalizedExplanation(source: any, authorityId: IntCp010CandidateAuthorityId) {
