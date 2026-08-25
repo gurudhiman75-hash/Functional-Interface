@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { TSD_CP010_STUDIO_CANDIDATE_PACKAGE } from "./question-studio-candidate-adapter";
+import { TSD_CP010_STUDIO_CANDIDATE_PACKAGE } from "./question-studio-candidate-adapter-final";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(`TSD-CP-010 pre-freeze registration proof failed: ${message}`);
@@ -12,6 +12,8 @@ const adminHook = readFileSync("artifacts/admin-app/src/features/question-studio
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.questionStudioRegistrationStatus === "NOT_REGISTERED", "candidate package claims registration");
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.routeMounted === false, "candidate package claims mounted route");
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.productionSelectorVisible === false, "candidate package claims selector visibility");
+assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.compatibleCombinationsPerLocale === 471, "locked pre-freeze capacity changed");
+assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.deterministicMultilingualCombinations === 1413, "locked multilingual capacity changed");
 assert(!routeIndex.includes("admin-question-studio-time-speed-distance-cp010"), "CP010 route was mounted before approval");
 assert(!routeIndex.includes("time-speed-distance/cp010"), "CP010 route path leaked into production route index");
 assert(!adminApi.includes("TSD_CP010_SELECTOR_PACKAGE_ID"), "CP010 selector API was wired before approval");
@@ -20,3 +22,14 @@ assert(!adminHook.includes("TSD_CP010_SELECTOR_PACKAGE_ID"), "CP010 production h
 assert(!adminHook.includes("cp010-review"), "CP010 production selector marker was wired before approval");
 
 console.log("TSD-CP-010 PRE-FREEZE PRODUCTION REGISTRATION LOCK: PASS");
+console.log(JSON.stringify({
+  combinationsPerLocale: 471,
+  multilingualCombinations: 1413,
+  registration: "NOT_REGISTERED",
+  routeMounted: false,
+  productionSelectorVisible: false,
+  persistenceAllowed: false,
+  questionBankStatus: "NOT_STORED",
+  testEligibility: "INELIGIBLE",
+  publiclyPublishable: false,
+}, null, 2));
