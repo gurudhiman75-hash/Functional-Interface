@@ -1,0 +1,50 @@
+name: Validate DSF CP-011 Quant breadth
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-011/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-001-MANIFEST-AMENDMENT-CP011.md
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/foundation/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
+      - .github/workflows/dsf-cp011-quant-breadth.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp011-quant-breadth-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp011-average-wave1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle CP-011 Average breadth audit
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/data-sufficiency/cp011
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-011/average-runtime-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp011/average-runtime-v1.test.mjs
+      - name: Run CP-011 Average breadth audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp011/average-runtime-v1.test.mjs
