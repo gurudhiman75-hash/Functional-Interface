@@ -34,8 +34,18 @@ function finishTimeLead(distance: Rational, faster: Rational, slower: Rational):
 
 export function solveTsdCp010(input: TsdCp010ExecutableInput): TsdCp010ExecutableSolution {
   switch (input.authorityKey) {
-    case "finishDistanceLeadState":
-      return { authorityKey: input.authorityKey, answer: finishDistanceLead(input.raceDistance, input.winnerSpeed, input.loserSpeed), unit: "METRE", invariant: "When the winner finishes, loser distance = loserSpeed × winnerTime; lead = raceDistance − loserDistance." };
+    case "finishDistanceLeadState": {
+      const lead = finishDistanceLead(input.raceDistance, input.winnerSpeed, input.loserSpeed);
+      if (input.target === "PERCENT_OF_RACE") {
+        return {
+          authorityKey: input.authorityKey,
+          answer: divide(multiply(lead, rational(100)), input.raceDistance),
+          unit: "PERCENT",
+          invariant: "Winning margin percent = finish-distance lead ÷ race distance × 100.",
+        };
+      }
+      return { authorityKey: input.authorityKey, answer: lead, unit: "METRE", invariant: "When the winner finishes, loser distance = loserSpeed × winnerTime; lead = raceDistance − loserDistance." };
+    }
     case "finishTimeLeadState":
       return { authorityKey: input.authorityKey, answer: finishTimeLead(input.raceDistance, input.winnerSpeed, input.loserSpeed), unit: "SECOND", invariant: "Time lead is loser finish time minus winner finish time over the same race distance." };
     case "raceSpeedRatioState": {
