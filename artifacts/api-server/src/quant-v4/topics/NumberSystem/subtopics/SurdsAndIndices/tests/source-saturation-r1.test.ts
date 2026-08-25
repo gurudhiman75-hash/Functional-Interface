@@ -35,16 +35,16 @@ assert.equal(new Set(SRI_ALL_EXECUTABLE_DISCOVERY_CANDIDATES.map((item) => item.
 assert.equal(SRI_001_MANIFEST.provisionalCandidateCount, 48);
 assert.equal(SRI_002_MANIFEST.provisionalCandidateCount, 45);
 assert.equal(SRI_001_MANIFEST.provisionalCandidateCount + SRI_002_MANIFEST.provisionalCandidateCount, EXPECTED_TOTAL);
-assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 0);
+assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 58);
 assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 0);
-assert.equal(SRI_001_MANIFEST.permanentQlCount, 0);
-assert.equal(SRI_002_MANIFEST.permanentQlCount, 0);
+assert.equal(SRI_001_MANIFEST.permanentQlCount, 29);
+assert.equal(SRI_002_MANIFEST.permanentQlCount, 29);
 assert.equal(SRI_001_MANIFEST.frozenSolveModeCount, 0);
 assert.equal(SRI_002_MANIFEST.frozenSolveModeCount, 0);
 assertSriReleaseLocks();
 
 for (const checkpoint of SRI_CHAPTER_MANIFEST.canonicalCheckpoints) {
-  assert.ok(SRI_CHAPTER_MANIFEST.executableDiscoveryCheckpoints.includes(checkpoint), `${checkpoint} must remain executable during saturation`);
+  assert.ok(SRI_CHAPTER_MANIFEST.executableDiscoveryCheckpoints.includes(checkpoint), `${checkpoint} must remain executable as saturation evidence after permanent allocation`);
 }
 for (const [checkpoint, expected] of EXPECTED_CHECKPOINT_COUNTS) {
   const actual = SRI_ALL_EXECUTABLE_DISCOVERY_CANDIDATES.filter((item) => item.checkpointId === checkpoint).length;
@@ -133,7 +133,7 @@ for (const [checkpoint, familyCount] of EXPECTED_CHECKPOINT_COUNTS) {
   assert.equal(checkpointGeneratedCounts.get(checkpoint), familyCount * SEEDS_PER_CANDIDATE, `${checkpoint} generated package count mismatch`);
 }
 assert.ok(sourceGatedIds.has("C010-F"), "repeating infinite radical must preserve its discovery-time source-gated provenance");
-assert.ok(sourceGatedIds.has("C008-I"), "root-sum condition identity must remain source-gated in R1");
+assert.ok(sourceGatedIds.has("C008-I"), "root-sum condition identity must remain source-gated in R1 provenance");
 
 console.log(JSON.stringify({
   status: "PASS",

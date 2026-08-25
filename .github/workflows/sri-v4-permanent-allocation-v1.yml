@@ -1,0 +1,98 @@
+name: Validate SRI Quant V4 Permanent Allocation V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/shared/surds-indices/**
+      - artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/**
+      - .github/workflows/sri-v4-permanent-allocation-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sri-v4-permanent-allocation-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-sri-permanent-allocation-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Reject Math.random in SRI
+        run: |
+          if grep -R "Math\.random" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices artifacts/api-server/src/quant-v4/shared/surds-indices --include='*.ts'; then
+            echo "Math.random is forbidden in SRI V4 code."
+            exit 1
+          fi
+      - name: Bundle permanent allocation proof
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/sri
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/permanent-allocation-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/permanent-allocation-v1.test.mjs
+      - name: Run permanent allocation proof
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/permanent-allocation-v1.test.mjs
+      - name: Bundle permanent English review audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/permanent-english-review-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/permanent-english-review-v1.test.mjs
+      - name: Run 1,104-question permanent English review audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/permanent-english-review-v1.test.mjs
+      - name: Bundle independent high-risk re-solve audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/permanent-high-risk-resolve-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/permanent-high-risk-resolve-v1.test.mjs
+      - name: Run independent high-risk re-solve audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/permanent-high-risk-resolve-v1.test.mjs
+      - name: Bundle permanent reviewer export
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-english-review-export-v1.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/permanent-english-review-export-v1.mjs
+      - name: Generate 184-question permanent reviewer corpus
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/permanent-english-review-export-v1.mjs
+      - name: Verify permanent reviewer corpus files
+        run: |
+          test -s artifacts/api-server/dist/quant-v4/sri/sri-permanent-english-review-v1.json
+          test -s artifacts/api-server/dist/quant-v4/sri/sri-permanent-english-review-v1.csv
+          test -s artifacts/api-server/dist/quant-v4/sri/sri-permanent-english-review-v1.md
+      - name: Upload permanent English review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sri-v4-permanent-english-review-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/sri/sri-permanent-english-review-v1.json
+            artifacts/api-server/dist/quant-v4/sri/sri-permanent-english-review-v1.csv
+            artifacts/api-server/dist/quant-v4/sri/sri-permanent-english-review-v1.md
+          if-no-files-found: error
