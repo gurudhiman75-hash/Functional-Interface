@@ -23,8 +23,7 @@ function fasterThan(faster: Rational, slower: Rational) {
 function finishDistanceLead(distance: Rational, faster: Rational, slower: Rational): Rational {
   positive(distance, "race distance");
   fasterThan(faster, slower);
-  const fasterTime = divide(distance, faster);
-  return subtract(distance, multiply(slower, fasterTime));
+  return subtract(distance, multiply(slower, divide(distance, faster)));
 }
 
 function finishTimeLead(distance: Rational, faster: Rational, slower: Rational): Rational {
@@ -40,14 +39,23 @@ export function solveTsdCp010(input: TsdCp010ExecutableInput): TsdCp010Executabl
     case "finishTimeLeadState":
       return { authorityKey: input.authorityKey, answer: finishTimeLead(input.raceDistance, input.winnerSpeed, input.loserSpeed), unit: "SECOND", invariant: "Time lead is loser finish time minus winner finish time over the same race distance." };
     case "raceSpeedRatioState": {
-      positive(input.raceDistance, "race distance"); positive(input.distanceLead, "distance lead");
-      const loserCovered = subtract(input.raceDistance, input.distanceLead); positive(loserCovered, "loser covered distance");
-      return { authorityKey: input.authorityKey, answer: divide(input.raceDistance, loserCovered), unit: "RATIO", invariant: "With equal elapsed time, winnerSpeed:loserSpeed = raceDistance:loserDistanceAtWinnerFinish." };
+      if (input.mode === "DISTANCE_LEAD") {
+        positive(input.raceDistance, "race distance"); positive(input.distanceLead, "distance lead");
+        const loserCovered = subtract(input.raceDistance, input.distanceLead); positive(loserCovered, "loser covered distance");
+        return { authorityKey: input.authorityKey, answer: divide(input.raceDistance, loserCovered), unit: "RATIO", invariant: "With equal elapsed time, winnerSpeed:loserSpeed = raceDistance:loserDistanceAtWinnerFinish." };
+      }
+      positive(input.winnerTime, "winner time"); positive(input.timeLead, "time lead");
+      return { authorityKey: input.authorityKey, answer: divide(add(input.winnerTime, input.timeLead), input.winnerTime), unit: "RATIO", invariant: "For the same race distance, winnerSpeed:loserSpeed = loserTime:winnerTime." };
     }
     case "raceLengthFromLeadEvidence": {
-      fasterThan(input.winnerSpeed, input.loserSpeed); positive(input.distanceLead, "distance lead");
+      fasterThan(input.winnerSpeed, input.loserSpeed);
       const speedDifference = subtract(input.winnerSpeed, input.loserSpeed);
-      return { authorityKey: input.authorityKey, answer: divide(multiply(input.distanceLead, input.winnerSpeed), speedDifference), unit: "METRE", invariant: "distanceLead/raceDistance = (winnerSpeed−loserSpeed)/winnerSpeed." };
+      if (input.mode === "DISTANCE_LEAD") {
+        positive(input.distanceLead, "distance lead");
+        return { authorityKey: input.authorityKey, answer: divide(multiply(input.distanceLead, input.winnerSpeed), speedDifference), unit: "METRE", invariant: "distanceLead/raceDistance = (winnerSpeed−loserSpeed)/winnerSpeed." };
+      }
+      positive(input.timeLead, "time lead");
+      return { authorityKey: input.authorityKey, answer: divide(multiply(multiply(input.timeLead, input.winnerSpeed), input.loserSpeed), speedDifference), unit: "METRE", invariant: "timeLead = raceDistance × (winnerSpeed−loserSpeed)/(winnerSpeed×loserSpeed)." };
     }
     case "deadHeatHandicapState": {
       fasterThan(input.fasterSpeed, input.slowerSpeed); positive(input.raceDistance, "race distance");
