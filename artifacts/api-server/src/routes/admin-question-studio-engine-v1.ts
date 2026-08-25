@@ -113,9 +113,20 @@ router.get(
         runtimeMode: pkg.runtimeMode,
         supportedRuntimeModes: pkg.supportedRuntimeModes ?? [],
         dynamicCandidateCpIds: pkg.dynamicCandidateCpIds ?? [],
+        lifecycleId: pkg.lifecycleId,
+        lifecycleStage: pkg.lifecycleStage,
+        reviewSurfaceRequired: pkg.reviewSurfaceRequired,
+        manualApprovalRequired: pkg.manualApprovalRequired,
         questionBankStatus: pkg.questionBankStatus,
+        questionBankWritable: pkg.questionBankWritable,
+        questionBankAcceptanceMode: pkg.questionBankAcceptanceMode,
+        questionBankAcceptanceAuthority: pkg.questionBankAcceptanceAuthority,
         testEligibility: pkg.testEligibility,
+        testEligible: pkg.testEligible,
+        mockTestEligible: pkg.mockTestEligible,
         publiclyPublishable: pkg.publiclyPublishable,
+        automaticStudentPublication: pkg.automaticStudentPublication,
+        productionReleaseAuthorized: pkg.productionReleaseAuthorized,
       }));
 
       res.json({
