@@ -1,0 +1,103 @@
+name: Validate SEA-002 CP007 Hindi Punjabi localization V1
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/**"
+      - ".github/workflows/sea-002-cp007-localization-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: sea-002-cp007-localization-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-sea-002-cp007-localization:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle localization readiness proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/localization/readiness.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/sea-002-cp007-localization-readiness-v1.mjs
+
+      - name: Run localization readiness proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-readiness-v1.mjs \
+            2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-readiness-v1.log
+
+      - name: Bundle Hindi Punjabi candidate audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/localization/candidate-localizer-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/sea-002-cp007-localization-candidate-v1.mjs
+
+      - name: Run Hindi Punjabi candidate audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-candidate-v1.mjs \
+            2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-candidate-v1.log
+
+      - name: Re-prove English review authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/english-review-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/sea-002-cp007-english-reproof-for-localization.mjs
+
+      - name: Run English review re-proof
+        run: node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-english-reproof-for-localization.mjs
+
+      - name: Bundle localization review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/localization/review-export-v1.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/sea-002-cp007-localization-review-export-v1.mjs
+
+      - name: Generate Hindi Punjabi learner review
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-review-export-v1.mjs \
+            2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-review-export-v1.log
+
+      - name: Re-prove CP006 completion authority
+        run: >-
+          node --experimental-strip-types
+          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-completion-authority.test.ts
+
+      - name: Upload CP007 localization review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sea-002-cp007-localization-review-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-readiness-v1.log
+            artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-candidate-v1.log
+            artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-review-export-v1.log
+            artifacts/api-server/dist/reasoning-v1/sea-002-cp007-localization-review-v1.md
+          if-no-files-found: error
+          retention-days: 30
