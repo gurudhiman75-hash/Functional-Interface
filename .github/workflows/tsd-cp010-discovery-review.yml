@@ -65,6 +65,8 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/localization-proof.test.ts
       - name: Prove CP010 locked Question Studio candidate scaffold
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-candidate-proof.test.ts
+      - name: Prove CP010 pre-freeze production registration lock
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-prefreeze-registration-proof.test.ts
       - name: Export English review questions
         run: |
           mkdir -p /tmp/tsd-cp010-review
