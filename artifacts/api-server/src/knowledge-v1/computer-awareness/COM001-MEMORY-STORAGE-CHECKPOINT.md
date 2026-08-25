@@ -1,6 +1,6 @@
 # COM-001 / CP-001 Memory & Storage — Implementation Checkpoint
 
-Status: PERMANENT QL TAXONOMY ALLOCATED / EDITORIAL SYNTHESIS CI-GREEN / RUNTIME CLOSED
+Status: V2 CONTENT/LOCALIZATION FROZEN / QUESTION STUDIO STANDARD LIFECYCLE WIRED / BANK_ONLY / TEST-PUBLICATION CLOSED
 
 ## Permanent ownership
 
@@ -20,141 +20,141 @@ Status: PERMANENT QL TAXONOMY ALLOCATED / EDITORIAL SYNTHESIS CI-GREEN / RUNTIME
 8. `COM-001-QL-008` — Memory & Storage Multi-Statement Evaluation
 9. `COM-001-QL-009` — Computer Data Capacity Units
 
-These IDs were allocated only after executable discovery, PYQ evidence mapping, merge/split audit, corpus breadth gates, a composite backup solver and an independent multi-statement verifier.
+## Editorial authority
 
-## Explicitly not allocated
+The 77 raw candidate facts were resolved as:
 
-The following discovery surfaces remain outside the permanent QL taxonomy:
+- 73 approved
+- 3 held
+- 1 rejected (`com001-sram-layer`)
 
-- standalone access-method QL — held for stronger target-exam evidence
-- abbreviation expansion — retained as corpus/support data, held as a standalone learner task
-- matching — held pending target-exam evidence and a dedicated matching verifier
-- virtual memory — held pending stronger target-exam evidence
-- pairwise technology comparison split product — held for evidence
-- simple correct/incorrect statement wording — realizer surface, not a separate QL
+Held/rejected facts cannot leak into permanent synthesis.
 
-## Corpus checkpoint
+V2 learner-facing changes were human reviewed and include:
+- grammar-safe QL-002/003 explanations
+- forward/inverse or matched-pair surfaces across QL-001..005
+- exam-style QL-007 weighting with RDX removed from learner-facing options
+- traditional competitive-exam 1024 capacity convention separated from strict SI/IEC mode in QL-009
 
-Current review-only candidate fact corpus: 77 canonical fact candidates.
+## Frozen learner-facing authority
 
-The facts are source-backed and structurally audited but remain `REVIEW_REQUIRED`; none is production generation-eligible.
+English V2:
+- 9 QLs × 40 seeds = 360 audited questions
+- deterministic replay
+- unique answers
+- answer-position spread
+- stem/object diversity
+- source/fact integrity
 
-Hypothetical-approval breadth audit passes these simple relation families:
+Hindi/Punjabi V2:
+- 9 QLs × 40 seeds × 2 languages = 720 parity-audited questions
+- semantic state, source facts, option order and correct index remain invariant from English
 
-- volatility
-- memory-layer classification
-- function/purpose
-- subtype membership
-- storage medium
-- broad memory hierarchy
-- abbreviation expansion support pool
-- capacity-unit relationships
+Historical V1 authorities remain preserved for audit history.
 
-The remaining raw corpus requirement failures are intentional:
+## Difficulty
 
-- access method — held learner task
-- virtual memory — held learner task
-- backup role — replaced for the allocated backup QL by the richer storage-device profile solver
+Difficulty is derived after canonical V2 generation from cognitive topology rather than authored independently.
 
-## Composite backup authority
+Audited 360-question English V2 distribution:
+- Easy: 146
+- Medium: 134
+- Hard: 80
 
-`COM-001-QL-007` does not encode brittle facts such as `tape = best backup`.
+Difficulty remains provenance/review metadata and does not itself authorize test or production delivery.
 
-It solves over source-backed device profiles with properties such as:
+## Question Studio integration
 
-- storage medium
-- access pattern
-- removability
-- persistence
-- backup/archive/recovery roles
+COM-001 uses `knowledge-v1` for generation/validation and the **existing shared Question Studio lifecycle** for review and persistence.
 
-The canonical magnetic-tape constraint set is independently required to resolve to exactly one profile.
-
-All composite-profile sources must exist in the COM-001 source-authority registry.
-
-## Multi-statement authority
-
-`COM-001-QL-008` uses the generic `knowledge-v1/composition-verifier.ts`.
+There is no COM-specific approval/persistence lifecycle.
 
 Flow:
 
-canonical facts -> statement claims -> independent truth vector -> candidate combination options -> unique combination-answer verification
+`knowledge-v1 -> validated COM-001 payload -> Question Studio run -> existing review states -> existing approval route -> existing Question Bank converter`
 
-The question author/realizer is not trusted to supply the truth labels or correct combination.
+The current standard lifecycle is:
 
-## Editorial synthesis
+`QUESTION-STUDIO-STANDARD-BANK-ONLY-V1`
 
-All nine QLs have deterministic review-only synthesis.
+It allows a manually approved Question Studio item to be stored in Question Bank while downstream delivery remains locked.
 
-Review outputs are explicitly marked:
+Current lifecycle state:
+- review surface required: yes
+- manual approval required: yes
+- Question Bank status: `READY_FOR_STORAGE`
+- Question Bank writable: yes
+- acceptance mode: `BANK_ONLY`
+- test eligibility: no
+- mock-test eligibility: no
+- public/student publication: no
+- automatic publication: no
+- production release: no
 
-- `reviewOnly: true`
-- `runtimeRegistered: false`
+The Computer review panel uses the generic generation and bulk-review APIs. `Approve to Question Bank` is therefore the existing Question Studio approval/conversion path, not a Computer-specific route.
 
-The aggregate audit generates 40 seeded questions per QL (360 total) and checks:
+## Question Bank normalization/provenance audit
 
-- deterministic replay
-- exactly four unique options
-- canonical answer at the declared correct index
-- non-fixed correct-answer position
-- stem diversity
-- answer/object diversity
-- source provenance
-- held virtual-memory facts cannot leak into QL-003
-- ambiguous universal `KB = 1024` wording is not generated
+A 270-question audit (9 QLs × 3 languages × 10 seeds) sends real COM-001 output through the shared Question Bank normalizer and requires:
 
-## CI checkpoint
+- unchanged stem/options/correct answer/explanation/difficulty
+- standard lifecycle identity preserved
+- all downstream locks preserved
+- zero loss of required COM provenance
 
-Dedicated workflow `Validate Question Studio Content Engine Foundation V1` run **#71** completed successfully on 2026-08-24 against the PR merge ref.
+COM provenance currently checked includes:
+- source IDs
+- source fact IDs
+- solver authority
+- content authority version
+- English freeze authority/fingerprint
+- localization freeze authority/fingerprint
+- difficulty classifier version/topology/rationale
+- relational surface mode
+- capacity convention
 
-The staged suite explicitly passed:
+The shared normalizer also stores generic lifecycle metadata such as lifecycle ID/stage, approval requirement and persistence/release flags.
 
-- engine registry
-- engine route integration
-- knowledge-v1 engine
-- composition verifier
-- COM-001 discovery
-- corpus requirements
-- source manifest
-- source-authority extension
-- candidate corpus
-- merge/split audit
-- readiness
-- storage-device profiles
-- QL-allocation readiness
-- permanent QL allocation
-- COM-001 360-question review synthesis
+## Composite backup authority
 
-This closes the implementation/CI gate for the current English editorial synthesis. It does not constitute editorial fact approval or production release.
+`COM-001-QL-007` solves over source-backed device profiles rather than encoding brittle claims such as `tape = best backup`.
 
-## Source-quality safeguards
+The V2 learner-facing realizer emphasizes exam-familiar magnetic-tape backup/archive questions while retaining canonical profile validation.
 
-Source authority is scoped per relation family rather than granted to an entire publisher.
+## Multi-statement authority
 
-One IBM primary-vs-secondary-storage page remains explicitly rejected because a reviewed indexed version exposed an incorrect DRAM-volatility statement. A separate IBM primary-storage page may be used only for the exact claims independently reviewed there.
+`COM-001-QL-008` uses the independent `knowledge-v1/composition-verifier.ts`:
 
-Capacity facts distinguish SI decimal prefixes from IEC binary prefixes. Universal ambiguous `KB = 1024 bytes` truth is not part of the canonical corpus.
+`canonical facts -> statement claims -> truth vector -> combination options -> unique answer verification`
 
-## Gates still closed
+The realizer is not trusted to supply truth labels.
 
-This checkpoint does NOT mean production release.
+## Lifecycle vs content authority
+
+COM-specific freezes and audits qualify the **content**.
+
+Question Studio's standard lifecycle controls:
+- review states
+- manual approval
+- Question Bank persistence
+- later test/mock eligibility
+- later publication
+
+Do not create a new COM-specific lifecycle authority for future Computer chapters. COM-002 onward should reuse the same engine seam and standard lifecycle contracts.
+
+## Current safety boundary
+
+Open:
+- deterministic V2 generation in Question Studio
+- EN/HI/PA review
+- topology difficulty filtering for review
+- manual Question Bank acceptance through standard `BANK_ONLY`
 
 Still closed:
-
-- editorial fact approval
-- Question Studio `knowledge-v1` package registration for COM-001
-- Hindi localization
-- Punjabi localization
-- Question Bank persistence from COM-001
 - scored-test eligibility
+- mock-test eligibility
 - public/student publication
+- automatic publication
+- production release
 
-## Next production sequence
-
-1. editorial review of source-backed candidate facts and review-question samples
-2. promote approved canonical facts to permanent `COM-001-CP-001` ownership
-3. implement/freeze English realizers and explanation families after editorial corrections
-4. localization to Hindi/Punjabi where product policy supports it
-5. register the disabled/review-only Question Studio package
-6. Question Studio batch audit
-7. only then open Question Bank/test/publication gates through explicit lifecycle approval
+Source-controlled regeneration remains disabled; issues are corrected in canonical fact/generator/localization source and a fresh review batch is generated.
