@@ -14,6 +14,17 @@ function nativeCount(value: string, language: NumCp012LocalizedLanguage) {
   return value.match(pattern)?.length ?? 0;
 }
 
+function hasDevanagariLetterOrMark(value: string) {
+  // U+0964/U+0965 are shared Indic danda punctuation and are legitimate in
+  // Punjabi prose despite living in the Devanagari Unicode block. Exclude
+  // those punctuation code points while still rejecting actual Devanagari
+  // letters, vowel signs and marks.
+  return [...value].some((character) => {
+    const code = character.codePointAt(0)!;
+    return code >= 0x0900 && code <= 0x097f && code !== 0x0964 && code !== 0x0965;
+  });
+}
+
 const languages: readonly NumCp012LocalizedLanguage[] = ["hi", "pa"];
 let packages = 0;
 let humanTextChecks = 0;
@@ -50,7 +61,7 @@ for (const qlId of NUM_CP012_PERMANENT_QL_IDS) {
       if (language === "hi") {
         assert.doesNotMatch(learnerText, /[\u0A00-\u0A7F]/u, `${label}: Gurmukhi leaked into Hindi`);
       } else {
-        assert.doesNotMatch(learnerText, /[\u0900-\u097F]/u, `${label}: Devanagari leaked into Punjabi`);
+        assert.equal(hasDevanagariLetterOrMark(learnerText), false, `${label}: Devanagari letters/marks leaked into Punjabi`);
       }
       leakageChecks += 1;
 
@@ -72,6 +83,7 @@ console.log(JSON.stringify({
   packages,
   humanTextChecks,
   leakageChecks,
+  sharedIndicDandaAllowedInPunjabi: true,
   minimumNativeCharacters: nativeMinimums,
   questionStudioDiscoverable: false,
   questionBankWritable: false,
