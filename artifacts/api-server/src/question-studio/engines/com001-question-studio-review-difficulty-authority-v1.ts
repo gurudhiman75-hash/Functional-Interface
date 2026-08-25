@@ -2,13 +2,6 @@ import { COM001_DIFFICULTY_CLASSIFIER_VERSION_V2 } from "../../knowledge-v1/comp
 import { COM001_ENGLISH_FREEZE_AUTHORITY_V2 } from "../../knowledge-v1/computer-awareness/com001-english-freeze-v2";
 import { COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V2 } from "../../knowledge-v1/computer-awareness/com001-hi-pa-localization-freeze-v2";
 import { COM001_QUESTION_STUDIO_REVIEW_INTEGRATION_AUTHORITY_V2 } from "./com001-question-studio-review-integration-v2";
-import {
-  COM001_QUESTION_BANK_STATUS,
-  COM001_QUESTION_STUDIO_PACKAGE_ID,
-  COM001_QUESTION_STUDIO_RUNTIME_MODE,
-  COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
-  COM001_REVISION_POLICY,
-} from "./knowledge-v1-com001-adapter";
 
 export const COM001_QUESTION_STUDIO_REVIEW_DIFFICULTY_AUTHORITY_V1 = Object.freeze({
   authorityId: "COM-001-QUESTION-STUDIO-REVIEW-DIFFICULTY-V1" as const,
@@ -16,9 +9,9 @@ export const COM001_QUESTION_STUDIO_REVIEW_DIFFICULTY_AUTHORITY_V1 = Object.free
   cpId: "COM-001-CP-001" as const,
   status: "REVIEW_ONLY_DIFFICULTY_ROUTING_APPROVED" as const,
   engineId: "knowledge-v1" as const,
-  packageId: COM001_QUESTION_STUDIO_PACKAGE_ID,
-  runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
-  contentAuthorityVersion: COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
+  packageId: "COM-001" as const,
+  runtimeMode: "review-only" as const,
+  contentAuthorityVersion: "V2" as const,
   supersedesDifficultyStateFromAuthorityId:
     COM001_QUESTION_STUDIO_REVIEW_INTEGRATION_AUTHORITY_V2.authorityId,
   contentAuthorities: {
@@ -106,12 +99,12 @@ export const COM001_QUESTION_STUDIO_REVIEW_DIFFICULTY_AUTHORITY_V1 = Object.free
   },
   editorSafety: {
     approvalDisposition: "REVIEW_ONLY" as const,
-    revisionPolicy: COM001_REVISION_POLICY,
+    revisionPolicy: "SOURCE_GENERATOR_ONLY" as const,
     manualFreeTextRevisionAllowed: false,
     regenerationAllowed: false,
     reviewRunPersistenceAllowed: true,
     canonicalQuestionPersistenceAllowed: false,
-    questionBankStatus: COM001_QUESTION_BANK_STATUS,
+    questionBankStatus: "NOT_STORED" as const,
     questionBankWritable: false,
     testEligible: false,
     mockTestEligible: false,
