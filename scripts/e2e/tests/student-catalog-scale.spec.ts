@@ -156,13 +156,13 @@ test.describe("CP04 catalog scale", () => {
     await expect(featured).toContainText("1,625 attempts");
 
     const fullLength = page.getByTestId("full-length-series-section");
-    await expect(fullLength.locator("article")).toHaveCount(4);
-    await expect(fullLength.locator("article").first()).toContainText("8 full-length tests");
+    await expect(fullLength.getByRole("button", { name: /Open series/ })).toHaveCount(4);
+    await expect(fullLength).toContainText("8 full-length tests");
 
     const freePractice = page.getByTestId("free-practice-section");
-    await expect(freePractice.locator("article")).toHaveCount(4);
+    await expect(freePractice.getByRole("button", { name: "Start Free" })).toHaveCount(6);
     await freePractice.getByRole("tab", { name: "Topic Tests" }).click();
-    await expect(freePractice.locator("article")).toHaveCount(4);
+    await expect(freePractice.getByRole("button", { name: "Start Free" })).toHaveCount(6);
 
     const daily = page.getByTestId("daily-practice-section");
     await expect(daily).toContainText("Daily Quant Challenge");
@@ -170,7 +170,7 @@ test.describe("CP04 catalog scale", () => {
 
     const pyq = page.getByTestId("pyq-section");
     await expect(pyq).toContainText("SSC CGL PYQ 2024");
-    await expect(pyq.getByRole("button", { name: /Open PYQ Hub/i })).toBeVisible();
+    await expect(pyq.getByRole("button").first()).toBeVisible();
 
     const subjects = page.getByTestId("subject-practice-section");
     await expect(subjects.getByRole("button")).toHaveCount(5);

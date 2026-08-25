@@ -21,7 +21,9 @@ const tests = [
     duration: 60,
     access: "free",
     difficulty: "Medium",
-    testType: "Full Length",
+    kind: "full-length",
+    attempts: 12,
+    sections: [],
     languages: ["en"],
   },
 ];
@@ -44,9 +46,7 @@ async function installFixtures(page: Page) {
 }
 
 async function expectNoHorizontalOverflow(page: Page) {
-  const noOverflow = await page.evaluate(
-    () => document.documentElement.scrollWidth <= window.innerWidth + 1,
-  );
+  const noOverflow = await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1);
   expect(noOverflow).toBe(true);
 }
 
@@ -99,7 +99,7 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     expect(["firefox", "webkit"]).toContain(browserName);
   });
 
-  test("sample homepage preview is labeled, populated, bounded, and routes safely", async ({ page, browserName }) => {
+  test("sample Home is a compact launchpad rather than a duplicate marketplace", async ({ page, browserName }) => {
     await installFixtures(page);
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/?preview=sample");
@@ -107,15 +107,40 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await expect(page.getByTestId("home-sample-preview-badge")).toContainText("Sample data preview");
     await expect(page.getByText("98 published tests", { exact: true })).toBeVisible();
     await expect(page.getByTestId("home-exam-logo-row").getByRole("button")).toHaveCount(7);
-    await expect(page.getByTestId("home-featured-series").locator("article")).toHaveCount(4);
-    await expect(page.getByTestId("home-free-practice").locator("article")).toHaveCount(4);
-    await expect(page.getByTestId("home-daily-practice").getByRole("button")).toHaveCount(3);
-    await expect(page.getByTestId("home-pyq-subjects")).toBeVisible();
-    await expect(page.getByTestId("home-popular-tests").getByRole("button")).toHaveCount(4);
+    await expect(page.getByTestId("home-quick-start")).toBeVisible();
+    await expect(page.getByTestId("home-featured-series").locator("article")).toHaveCount(3);
+    await expect(page.getByTestId("home-free-start")).toBeVisible();
+    await expect(page.getByTestId("home-explore-gateway")).toBeVisible();
+    await expect(page.getByTestId("catalog-test-browser")).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
 
-    await page.getByTestId("home-featured-series").getByRole("button", { name: "View Series" }).first().click();
-    await expect(page).toHaveURL(/\/exams$/);
+    await page.getByRole("button", { name: "Open Exams marketplace" }).click();
+    await expect(page).toHaveURL(/\/exams\?preview=sample$/);
+
+    expect(["firefox", "webkit"]).toContain(browserName);
+  });
+
+  test("sample Exams marketplace is fully populated and visually sectioned", async ({ page, browserName }) => {
+    await installFixtures(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto("/exams?preview=sample");
+
+    await expect(page.getByTestId("exams-sample-preview-badge")).toContainText("Sample data preview");
+    await expect(page.getByText("98 published tests", { exact: true })).toBeVisible();
+    await expect(page.getByTestId("exam-category-logo-row").getByRole("button")).toHaveCount(7);
+    await expect(page.getByTestId("featured-series-section").locator("article")).toHaveCount(4);
+    await expect(page.getByTestId("full-length-series-section").getByRole("button", { name: /Open series/ })).toHaveCount(4);
+    await expect(page.getByTestId("free-practice-section").getByRole("button", { name: "Start Free" })).toHaveCount(6);
+    await expect(page.getByTestId("daily-practice-section").getByRole("button")).toHaveCount(3);
+    await expect(page.getByTestId("pyq-section")).toBeVisible();
+    await expect(page.getByTestId("subject-practice-section")).toBeVisible();
+    await expect(page.getByTestId("popular-tests-section").getByRole("button")).toHaveCount(5);
+    await expect(page.getByTestId("catalog-result-count")).toContainText("Showing 1-18 of 98");
+    await expect(page.getByTestId("catalog-page-grid").locator("article")).toHaveCount(18);
+    await expectNoHorizontalOverflow(page);
+
+    await page.getByTestId("exams-sample-preview-badge").getByRole("button", { name: "Compare Home" }).click();
+    await expect(page).toHaveURL(/\/\?preview=sample$/);
 
     expect(["firefox", "webkit"]).toContain(browserName);
   });
