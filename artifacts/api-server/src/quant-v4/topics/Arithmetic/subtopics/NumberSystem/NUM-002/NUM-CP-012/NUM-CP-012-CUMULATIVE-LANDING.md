@@ -25,7 +25,7 @@
 
 ## Shared NUM-002 review surface
 
-The Question Studio `NUM-002` capability is cumulative:
+The Question Studio `NUM-002` capability is cumulative and now exposes **71 permanent QLs** across CP008 through CP012:
 
 | Checkpoint | Permanent QLs | Count |
 |---|---:|---:|
