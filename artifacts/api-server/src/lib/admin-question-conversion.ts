@@ -268,6 +268,22 @@ export function normalizeGeneratedQuestionPayload(
         language: payload.language ?? "en",
         locale: payload.locale ?? generationContext.locale ?? null,
         visualContent: visualContent ? "spatial_svg_data_image_v1" : null,
+        lifecycleId:
+          lifecycleValue(payload, generationContext, "lifecycleId") ?? null,
+        lifecycleStage:
+          payload.lifecycleStage ??
+          payload.stage ??
+          generationContext.lifecycleStage ??
+          generationContext.stage ??
+          null,
+        reviewSurfaceRequired:
+          lifecycleValue(payload, generationContext, "reviewSurfaceRequired") ?? null,
+        reviewRunPersistenceAllowed:
+          lifecycleValue(payload, generationContext, "reviewRunPersistenceAllowed") ?? null,
+        canonicalQuestionPersistenceAllowed:
+          lifecycleValue(payload, generationContext, "canonicalQuestionPersistenceAllowed") ?? null,
+        manualApprovalRequired:
+          lifecycleValue(payload, generationContext, "manualApprovalRequired") ?? null,
         questionBankStatus: lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
         questionBankWritable: lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
         questionBankAcceptanceMode: getGeneratedQuestionBankAcceptanceMode(payload),
@@ -279,6 +295,8 @@ export function normalizeGeneratedQuestionPayload(
         publiclyPublishable: lifecycleValue(payload, generationContext, "publiclyPublishable") ?? null,
         automaticStudentPublication:
           lifecycleValue(payload, generationContext, "automaticStudentPublication") ?? null,
+        productionReleaseAuthorized:
+          lifecycleValue(payload, generationContext, "productionReleaseAuthorized") ?? null,
         integrationAuthority: payload.integrationAuthority ?? generationContext.integrationAuthority ?? null,
         deliveryProfileAuthority:
           payload.deliveryProfileAuthority ?? generationContext.deliveryProfileAuthority ?? null,
