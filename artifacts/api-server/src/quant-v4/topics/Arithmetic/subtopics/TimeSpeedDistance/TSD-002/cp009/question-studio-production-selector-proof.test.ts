@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { getGeneratedQuestionBankEligibilityIssue } from "../../../../../../../../lib/admin-question-conversion";
+import { getGeneratedQuestionBankEligibilityIssue } from "../../../../../../../lib/admin-question-conversion";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(`TSD-CP-009 production selector proof failed: ${message}`);
