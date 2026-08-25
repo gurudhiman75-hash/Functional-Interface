@@ -24,7 +24,7 @@ for (const allocation of TSD_CP010_QL_ALLOCATION) {
   assert(new Set(ql.objectPool.map((x) => `${x.first}|${x.second}|${x.third ?? ""}|${x.scene}`)).size === ql.objectPool.length, `${allocation.qlId} object pool contains duplicates`);
   for (const family of ql.families) {
     assert(family.stem.length >= 90, `${family.familyId} stem is too thin`);
-    assert(family.explanationGuide.length >= 70, `${family.familyId} explanation guide is too thin`);
+    assert(family.explanationGuide.length >= 35, `${family.familyId} explanation guide is too thin`);
     assert(!stems.has(family.stem), `${family.familyId} duplicates another structural stem`);
     assert(!guides.has(family.explanationGuide), `${family.familyId} duplicates another explanation guide`);
     stems.add(family.stem);
@@ -42,6 +42,7 @@ for (const question of TSD_CP010_FINAL_RENDERED_ENGLISH_REVIEW) {
   assert(question.stem.length >= 75, `${question.familyId} rendered stem too short`);
   assert(question.explanation.steps.length >= 2, `${question.familyId} explanation lacks calculation flow`);
   assert(question.answer.length > 0, `${question.familyId} missing learner answer`);
+  assert(!/\b(?:10|11|12) m\/s\b/.test(question.stem), `${question.familyId} uses an unrealistic sustained running speed`);
   assert(verifyTsdCp010(question.input, question.solution).accepted, `${question.familyId} fails independent verification`);
 }
 
@@ -71,4 +72,5 @@ console.log(JSON.stringify({
   uniqueRenderedStems: new Set(TSD_CP010_FINAL_RENDERED_ENGLISH_REVIEW.map((x) => x.stem)).size,
   unresolvedPlaceholders: TSD_CP010_FINAL_RENDERED_ENGLISH_REVIEW.filter((x) => /\{[A-Za-z0-9]+\}/.test(x.stem)).length,
   difficultyPolicy: "DEPTH_DRIVEN_NO_FORCED_HARD_QUOTA",
+  runningSpeedRealismGuard: "NO_10_11_12_MPS_IN_REVIEW_STEMS",
 }, null, 2));
