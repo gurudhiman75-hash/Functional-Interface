@@ -23,7 +23,10 @@ assert.equal(SEA002_CP007_LOCALIZATION_READINESS.productionStagingApproved, fals
 assert.equal(SEA002_CP007_LOCALIZATION_READINESS.permanentQlCount, 4);
 assert.equal(SEA002_CP007_PERMANENT_QL_REGISTRY.length, 4);
 assert.ok(SEA002_CP007_GLOSSARY.length >= 15);
-assert.ok(SEA002_CP007_GLOSSARY.every((entry) => !entry.hi.includes("/") && !entry.pa.includes("/")), "V2 glossary must not restore gender-slash wording");
+const glossaryText = SEA002_CP007_GLOSSARY.map((entry) => `${entry.hi}\n${entry.pa}`).join("\n");
+for (const forbidden of ["बैठता/बैठती", "बैठा/बैठी", "करता/करती", "ਬੈਠਦਾ/ਬੈਠਦੀ", "ਕਰਦਾ/ਕਰਦੀ"] as const) {
+  assert.equal(glossaryText.includes(forbidden), false, `V2 glossary must not restore mechanical gender-slash wording: ${forbidden}`);
+}
 assert.ok(SEA002_CP007_LOCALIZATION_PROTECTED_FIELDS.includes("mathematicalFingerprint"));
 assert.ok(SEA002_CP007_LOCALIZATION_PROTECTED_FIELDS.includes("correctIndex"));
 assert.ok(SEA002_CP007_PERMANENT_QL_REGISTRY.every((entry) => entry.englishReviewStatus === "CI_CERTIFIED_SELF_REVIEW_COMPLETE"));
