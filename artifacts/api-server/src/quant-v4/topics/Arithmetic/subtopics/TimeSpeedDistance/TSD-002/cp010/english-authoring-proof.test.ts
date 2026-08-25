@@ -9,7 +9,7 @@ function assert(condition: unknown, message: string): asserts condition {
 
 assert(TSD_CP010_FINAL_ENGLISH_AUTHORING_REGISTRY.length === 10, "expected 10 English QLs");
 assert(TSD_CP010_FINAL_RENDERED_ENGLISH_REVIEW.length === 60, "expected 60 rendered English questions");
-assert(TSD_CP010_ENGLISH_EXHAUSTIVENESS_PATCH_COUNT === 6, "expected six time-lead exhaustiveness patches");
+assert(TSD_CP010_ENGLISH_EXHAUSTIVENESS_PATCH_COUNT === 7, "expected seven exhaustiveness patches");
 
 const stems = new Set<string>();
 const guides = new Set<string>();
@@ -46,8 +46,11 @@ for (const question of TSD_CP010_FINAL_RENDERED_ENGLISH_REVIEW) {
   assert(verifyTsdCp010(question.input, question.solution).accepted, `${question.familyId} fails independent verification`);
 }
 
+const ql115 = TSD_CP010_FINAL_RENDERED_ENGLISH_REVIEW.filter((x) => x.qlId === "TSD-QL-115");
 const ql117 = TSD_CP010_FINAL_RENDERED_ENGLISH_REVIEW.filter((x) => x.qlId === "TSD-QL-117");
 const ql118 = TSD_CP010_FINAL_RENDERED_ENGLISH_REVIEW.filter((x) => x.qlId === "TSD-QL-118");
+assert(ql115.filter((x) => x.input.authorityKey === "finishDistanceLeadState" && x.input.target === "PERCENT_OF_RACE").length === 1, "QL115 needs an explicit percent-of-race winning-margin variant");
+assert(ql115.some((x) => x.solution.unit === "PERCENT" && x.answer.endsWith("%")), "QL115 percentage variant must render a percent answer");
 assert(ql117.filter((x) => x.input.authorityKey === "raceSpeedRatioState" && x.input.mode === "DISTANCE_LEAD").length === 3, "QL117 needs three distance-lead variants");
 assert(ql117.filter((x) => x.input.authorityKey === "raceSpeedRatioState" && x.input.mode === "TIME_LEAD").length === 3, "QL117 needs three time-lead variants");
 assert(ql118.filter((x) => x.input.authorityKey === "raceLengthFromLeadEvidence" && x.input.mode === "DISTANCE_LEAD").length === 3, "QL118 needs three distance-lead variants");
@@ -60,6 +63,7 @@ console.log(JSON.stringify({
   families: TSD_CP010_FINAL_ENGLISH_AUTHORING_REGISTRY.reduce((sum, ql) => sum + ql.families.length, 0),
   objectPoolMinimum: Math.min(...TSD_CP010_FINAL_ENGLISH_AUTHORING_REGISTRY.map((ql) => ql.objectPool.length)),
   exhaustivenessPatches: TSD_CP010_ENGLISH_EXHAUSTIVENESS_PATCH_COUNT,
+  ql115PercentOfRaceVariants: 1,
   ql117DistanceLeadVariants: 3,
   ql117TimeLeadVariants: 3,
   ql118DistanceLeadVariants: 3,
