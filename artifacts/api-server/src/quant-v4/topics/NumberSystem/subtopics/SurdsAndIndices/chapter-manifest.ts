@@ -2,7 +2,7 @@ export const SRI_CHAPTER_MANIFEST = {
   chapterId: "SRI",
   displayName: "Surds & Indices",
   designAuthority: "SRI-END-TO-END-DESIGN-R1",
-  implementationPhase: "PHASE_8_PERMANENT_ENGLISH_FROZEN_V1_LOCALIZATION_PENDING",
+  implementationPhase: "PHASE_9_LOCALIZATION_REVIEW_V1",
   packages: ["SRI-001", "SRI-002"],
   canonicalCheckpoints: [
     "SRI-CP-001", "SRI-CP-002", "SRI-CP-003", "SRI-CP-004", "SRI-CP-005", "SRI-CP-006",
@@ -36,6 +36,6 @@ export function assertSriReleaseLocks(): void {
     lifecycle.testEligibilityEnabled ||
     lifecycle.publicPublicationEnabled
   ) {
-    throw new Error("SRI Phase 8 English freeze must keep downstream release locks closed");
+    throw new Error("SRI Phase 9 localization review must keep downstream release locks closed");
   }
 }
