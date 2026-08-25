@@ -49,5 +49,6 @@ await runStage("COM-002 cross-exam Banking PYQ evidence", () => import("../knowl
 await runStage("COM-002 recent SSC Tier-II PYQ evidence", () => import("../knowledge-v1/computer-awareness/com002-ssc-tier2-pyq-evidence.test"));
 await runStage("COM-002 merge/split ownership audit", () => import("../knowledge-v1/computer-awareness/com002-operating-system-merge-split-audit.test"));
 await runStage("COM-002 permanent allocation readiness", () => import("../knowledge-v1/computer-awareness/com002-allocation-readiness.test"));
+await runStage("COM-002 permanent CP/QL allocation", () => import("../knowledge-v1/computer-awareness/com002-permanent-ql-allocation.test"));
 
 console.log("Question Studio content engine foundation suite passed.");
