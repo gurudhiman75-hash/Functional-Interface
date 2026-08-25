@@ -12,6 +12,7 @@ function answerText(solution: TsdCp010ExecutableSolution) {
   if (solution.unit === "METRE") return metres(solution.answer);
   if (solution.unit === "SECOND") return seconds(solution.answer);
   if (solution.unit === "METRE_PER_SECOND") return speed(solution.answer);
+  if (solution.unit === "PERCENT") return `${value(solution.answer)}%`;
   return ratio(solution.answer);
 }
 
@@ -52,7 +53,10 @@ function explanation(input: TsdCp010ExecutableInput, solution: TsdCp010Executabl
   switch (input.authorityKey) {
     case "finishDistanceLeadState": {
       const time = divide(input.raceDistance, input.winnerSpeed);
-      return [`Winner's time = ${metres(input.raceDistance)} ÷ ${speed(input.winnerSpeed)} = ${seconds(time)}.`, `The slower racer covers ${metres(multiply(input.loserSpeed, time))}; remaining distance = ${answerText(solution)}.`];
+      const lead = subtract(input.raceDistance, multiply(input.loserSpeed, time));
+      return input.target === "PERCENT_OF_RACE"
+        ? [`Winner's time = ${metres(input.raceDistance)} ÷ ${speed(input.winnerSpeed)} = ${seconds(time)}; the ordinary winning distance is ${metres(lead)}.`, `Winning margin as a percentage of race length = lead ÷ race distance × 100 = ${answerText(solution)}.`]
+        : [`Winner's time = ${metres(input.raceDistance)} ÷ ${speed(input.winnerSpeed)} = ${seconds(time)}.`, `The slower racer covers ${metres(multiply(input.loserSpeed, time))}; remaining distance = ${answerText(solution)}.`];
     }
     case "finishTimeLeadState":
       return [`Winner time = ${seconds(divide(input.raceDistance, input.winnerSpeed))}; slower-racer time = ${seconds(divide(input.raceDistance, input.loserSpeed))}.`, `Finish-time difference = ${answerText(solution)}.`];
