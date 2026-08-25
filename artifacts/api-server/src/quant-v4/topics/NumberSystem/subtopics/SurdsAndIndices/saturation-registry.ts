@@ -34,7 +34,7 @@ export const SRI_ALL_EXECUTABLE_DISCOVERY_CANDIDATES: readonly SriCandidateDescr
 
 const SATURATION_ADDITION_IDS = new Set(SRI_SOURCE_SATURATION_ADDITIONS.map((item) => item.candidateId));
 
-type SriSaturationOverrideId = "C002-F" | "C002-G" | "C007-D" | "C012-B";
+type SriSaturationOverrideId = "C002-F" | "C002-G" | "C007-D" | "C011-H" | "C012-B";
 
 export function generateSriExecutableDiscoveryCandidate(candidateId: string, seed: string): SriDiscoveryQuestion {
   if (SATURATION_ADDITION_IDS.has(candidateId)) return generateSriSourceSaturationAddition(candidateId, seed);

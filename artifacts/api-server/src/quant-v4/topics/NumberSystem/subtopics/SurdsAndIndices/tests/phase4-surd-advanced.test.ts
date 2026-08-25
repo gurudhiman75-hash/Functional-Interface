@@ -16,11 +16,11 @@ assert.equal(new Set(SRI_PHASE4_SURD_ADVANCED_CANDIDATES.map((item) => item.cand
 assert.ok(SRI_002_MANIFEST.provisionalCandidateCount >= PHASE4_BASELINE_SRI002_TOTAL, "later saturation waves may grow SRI-002 but cannot remove the Phase-4 baseline");
 assert.equal(SRI_002_MANIFEST.discoveryWaves.phase3SurdFoundations, 23);
 assert.equal(SRI_002_MANIFEST.discoveryWaves.phase4SurdAdvanced, 20);
-assert.equal(SRI_002_MANIFEST.permanentQlCount, 0);
+assert.equal(SRI_002_MANIFEST.permanentQlCount, 29);
 assert.equal(SRI_002_MANIFEST.frozenSolveModeCount, 0);
 assert.deepEqual(SRI_002_MANIFEST.activeExecutableDiscoveryCheckpoints, ["SRI-CP-007", "SRI-CP-008", "SRI-CP-009", "SRI-CP-010", "SRI-CP-011", "SRI-CP-012"]);
-assert.equal(SRI_CHAPTER_MANIFEST.executableDiscoveryCheckpoints.length, 12, "All SRI checkpoints must now be executable discovery");
-assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 0);
+assert.equal(SRI_CHAPTER_MANIFEST.executableDiscoveryCheckpoints.length, 12, "All SRI checkpoints must remain executable discovery evidence during Phase 7");
+assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 58);
 assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 0);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.discoveryOpen, true);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionStudioDiscoverable, false);
@@ -94,7 +94,7 @@ for (const descriptor of SRI_PHASE4_SURD_ADVANCED_CANDIDATES) {
       assert.ok(typeof question.state.discriminant === "string", "C010-C must carry the exact denesting discriminant");
     }
     if (descriptor.candidateId === "C010-F") {
-      assert.equal(descriptor.sourceDisposition, "SOURCE_GATED", "Infinite-radical candidate must remain source-gated during discovery");
+      assert.equal(descriptor.sourceDisposition, "SOURCE_GATED", "Infinite-radical candidate must preserve its discovery-time source-gated provenance");
     }
     if (descriptor.candidateId === "C011-H") {
       assert.ok(typeof question.state.extraneous === "number" && typeof question.state.valid === "number", "C011-H must retain both squared-equation candidates");

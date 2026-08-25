@@ -74,7 +74,7 @@ assert.equal(new Set(SRI_ENGLISH_REVIEW_MEMBERS_R1.map((member) => member.member
 assert.equal(SRI_ENGLISH_REVIEW_MEMBERS_R1.some((member) => member.memberCandidateId === "C008-I"), false, "held C008-I must not enter freeze-ready review");
 assert.equal(SRI_ENGLISH_REVIEW_MEMBERS_R1.some((member) => member.memberCandidateId === "C010-F"), true, "source-resolved C010-F must enter English review");
 assert.equal(new Set(SRI_ENGLISH_REVIEW_READY_GROUPS_R1.map((group) => group.ownerCheckpointId)).size, 12, "all 12 owner checkpoints must remain represented");
-assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 0);
+assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 58);
 assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 0);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen, false);
 assertSriReleaseLocks();
