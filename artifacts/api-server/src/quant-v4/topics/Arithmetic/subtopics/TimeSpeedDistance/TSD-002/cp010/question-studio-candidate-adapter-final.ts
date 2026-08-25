@@ -10,7 +10,7 @@ export const TSD_CP010_STUDIO_CANDIDATE_PACKAGE_ID = "TSD-002" as const;
 export const TSD_CP010_STUDIO_CANDIDATE_CHECKPOINT_ID = "TSD-CP-010" as const;
 export const TSD_CP010_STUDIO_CANDIDATE_LANGUAGES = ["en", "hi", "pa"] as const;
 export const TSD_CP010_STUDIO_CANDIDATE_DIFFICULTIES = ["EASY", "MEDIUM"] as const;
-export const TSD_CP010_STUDIO_CANDIDATE_RUNTIME_MODE = "TSD-CP-010-MULTILINGUAL-REVIEW-CANDIDATE-v3" as const;
+export const TSD_CP010_STUDIO_CANDIDATE_RUNTIME_MODE = "TSD-CP-010-MULTILINGUAL-REVIEW-CANDIDATE-v4" as const;
 
 export type TsdCp010StudioCandidateLanguage = (typeof TSD_CP010_STUDIO_CANDIDATE_LANGUAGES)[number];
 export type TsdCp010StudioCandidateDifficulty = (typeof TSD_CP010_STUDIO_CANDIDATE_DIFFICULTIES)[number];
@@ -355,14 +355,16 @@ function allCompatible(language: TsdCp010StudioCandidateLanguage) {
 
   const keys = new Set<string>();
   const stems = new Set<string>();
+  const deduped: typeof out = [];
   for (const item of out) {
     const key = `${item.familyId}:${item.caseId}`;
     if (keys.has(key)) throw new Error(`${language}/${key}: duplicate CP010 family-case combination`);
     keys.add(key);
-    if (stems.has(item.stem)) throw new Error(`${language}/${key}: duplicate learner stem after family-case recombination`);
+    if (stems.has(item.stem)) continue;
     stems.add(item.stem);
+    deduped.push(item);
   }
-  return Object.freeze(out);
+  return Object.freeze(deduped);
 }
 
 const ALL_BY_LANGUAGE = Object.freeze(Object.fromEntries(
@@ -405,6 +407,7 @@ export const TSD_CP010_STUDIO_CANDIDATE_PACKAGE = Object.freeze({
   verificationPolicy: "EXACT_SOLVER_PLUS_INDEPENDENT_VERIFIER" as const,
   variationPolicy: "HUMAN_FAMILY_X_SEMANTICALLY_COMPATIBLE_EXECUTABLE_CASE" as const,
   numericRebindingPolicy: "OCCURRENCE_AWARE_EQUAL_SOURCE_VALUE_SAFE" as const,
+  duplicateStemPolicy: "DROP_DUPLICATE_RENDERED_STEM" as const,
 });
 
 function shuffled<T>(items: readonly T[], seed: string) {
