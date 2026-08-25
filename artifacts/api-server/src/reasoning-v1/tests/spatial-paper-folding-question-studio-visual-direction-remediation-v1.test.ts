@@ -163,9 +163,9 @@ assert.ok((html.match(/data-fold-direction-cue="true"/g) ?? []).length >= 9, "Ex
 const evidence = {
   status: "PASS_PFC_TPF_QUESTION_STUDIO_VISUAL_DIRECTION_REMEDIATION_V1",
   remediationAuthority: PFC_TPF_QUESTION_STUDIO_VISUAL_DIRECTION_REMEDIATION_AUTHORITY_V1,
-  supersededHumanDecisionCandidate: "PFC-TPF-QUESTION-STUDIO-OPERATOR-REVIEW-V1.2",
+  supersededReviewCandidate: "PFC-TPF-QUESTION-STUDIO-OPERATOR-REVIEW-V1.2",
   currentReviewCandidate: "PFC-TPF-QUESTION-STUDIO-OPERATOR-REVIEW-V1.3",
-  defectDisposition: "V1_2_HUMAN_VISUAL_REVIEW_REJECTED_MISSING_TPF_FOLD_DIRECTION_CUE",
+  defectDisposition: "V1_2_OPERATOR_VISUAL_AUDIT_REJECTED_MISSING_TPF_FOLD_DIRECTION_CUE",
   oldOperatorReviewRegressionQuestionCount: remediatedReview.length,
   focusedDirectionReviewQuestionCount: directionProofQuestions.length,
   auditedTpfSeedCount,
