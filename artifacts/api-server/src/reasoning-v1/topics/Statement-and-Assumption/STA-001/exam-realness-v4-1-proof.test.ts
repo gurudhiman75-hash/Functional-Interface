@@ -64,9 +64,13 @@ function shortcutGuess(text: string, language: StaV4Language): "IMPLICIT" | "NOT
     return null;
   }
   if (/(ਸਾਰੇ|ਹਰ|ਕਦੇ ਨਹੀਂ|ਹਮੇਸ਼ਾ|ਕੇਵਲ|ਸਭ ਤੋਂ|ਕੋਈ ਨਹੀਂ|ਅਸੰਭਵ)/u.test(text)) return "NOT_IMPLICIT";
-  if (/(ਸਕ|ਕੁਝ|ਸਮਰਥ)/u.test(text)) return "IMPLICIT";
+  if (/(ਸਕਦਾ|ਸਕਦੀ|ਸਕਦੇ|ਸਕਦੀਆਂ|ਸਕਣ|ਸਕਣਾ|ਕੁਝ|ਸਮਰਥ)/u.test(text)) return "IMPLICIT";
   return null;
 }
+
+assert.equal(shortcutGuess("ਸਕੂਲ ਅਧਿਆਪਕ", "pa"), null, "Punjabi cue detector must not treat ਸਕੂਲ as an ability modal");
+assert.equal(shortcutGuess("ਦਸਤਾਵੇਜ਼ ਝਲਕ ਸਕ੍ਰੀਨ", "pa"), null, "Punjabi cue detector must not treat ਸਕ੍ਰੀਨ as an ability modal");
+assert.equal(shortcutGuess("ਲੋਕ ਇਸ ਉੱਤੇ ਕਾਰਵਾਈ ਕਰ ਸਕਦੇ ਹਨ", "pa"), "IMPLICIT", "Punjabi cue detector must still recognize an actual ability modal");
 
 for (const scenario of STA_V4_SCENARIOS) {
   assert.equal(scenario.statementVariants.length, 3, `${scenario.scenarioId}: expected three authored statement surfaces`);
