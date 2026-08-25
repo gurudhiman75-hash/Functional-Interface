@@ -5,6 +5,7 @@ export type QuestionStudioEngineId =
 
 export type QuestionStudioDifficulty = "Easy" | "Medium" | "Hard";
 export type QuestionStudioLanguage = "en" | "hi" | "pa";
+export type QuestionStudioLifecycleStage = "REVIEW_ONLY" | "BANK_ONLY";
 
 export type QuestionStudioPackageDefinition = {
   engineId: QuestionStudioEngineId;
@@ -19,9 +20,20 @@ export type QuestionStudioPackageDefinition = {
   runtimeMode?: string;
   supportedRuntimeModes?: string[];
   dynamicCandidateCpIds?: string[];
+  lifecycleId?: string;
+  lifecycleStage?: QuestionStudioLifecycleStage;
+  reviewSurfaceRequired?: boolean;
+  manualApprovalRequired?: boolean;
   questionBankStatus?: string;
+  questionBankWritable?: boolean;
+  questionBankAcceptanceMode?: "BANK_ONLY" | "FULL_RELEASE";
+  questionBankAcceptanceAuthority?: string | null;
   testEligibility?: string;
+  testEligible?: boolean;
+  mockTestEligible?: boolean;
   publiclyPublishable?: boolean;
+  automaticStudentPublication?: boolean;
+  productionReleaseAuthorized?: boolean;
   metadata?: Record<string, unknown>;
 };
 
