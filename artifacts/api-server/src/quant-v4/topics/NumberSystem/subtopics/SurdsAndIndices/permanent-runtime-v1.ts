@@ -13,6 +13,7 @@ import type {
 
 export interface SriPermanentEnglishQuestionV1 {
   readonly packageId: "SRI-001" | "SRI-002";
+  /** Permanent authority owner checkpoint after solve-mode compression. */
   readonly checkpointId: SriDiscoveryQuestion["checkpointId"];
   readonly permanentQlId: SriPermanentQlId;
   readonly permanentSolveModeId: SriPermanentSolveModeId;
@@ -21,6 +22,8 @@ export interface SriPermanentEnglishQuestionV1 {
   readonly locale: "en-IN";
   readonly externalSeed: string;
   readonly sourceCandidateId: string;
+  /** Original checkpoint of the selected prototype ancestry member. */
+  readonly sourceCheckpointId: SriDiscoveryQuestion["checkpointId"];
   readonly sourceSeed: string;
   readonly englishFingerprint: SriEnglishFingerprintV1;
   readonly question: SriDiscoveryQuestion;
@@ -58,9 +61,12 @@ export function generateSriPermanentEnglishQuestionV1(
   if (validationErrors.length > 0) {
     throw new Error(`${qlId} permanent runtime produced an invalid source package: ${validationErrors.join("; ")}`);
   }
-  if (question.packageId !== freeze.packageId || question.checkpointId !== freeze.checkpointId) {
+  // Retained contracts may intentionally compress prototype ancestry from more than one
+  // checkpoint. Package ownership is invariant; sourceCheckpointId preserves the original
+  // prototype checkpoint while checkpointId remains the permanent authority owner.
+  if (question.packageId !== freeze.packageId) {
     throw new Error(
-      `${qlId} permanent runtime ownership drift: ${question.packageId}/${question.checkpointId}`,
+      `${qlId} permanent runtime package ownership drift: expected ${freeze.packageId}, received ${question.packageId}`,
     );
   }
 
@@ -74,6 +80,7 @@ export function generateSriPermanentEnglishQuestionV1(
     locale: "en-IN" as const,
     externalSeed,
     sourceCandidateId,
+    sourceCheckpointId: question.checkpointId,
     sourceSeed,
     englishFingerprint: freeze.englishFingerprint,
     question,
