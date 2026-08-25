@@ -43,4 +43,7 @@ await runStage("COM-001 V2 topology difficulty classifier", () => import("../kno
 await runStage("COM-001 historical review difficulty authority V1", () => import("./engines/com001-question-studio-review-difficulty-authority-v1.test"));
 await runStage("COM-001 Question Bank normalization audit V1", () => import("./engines/com001-question-bank-readiness-v1.test"));
 
+await runStage("COM-002 source/PYQ manifest", () => import("../knowledge-v1/computer-awareness/com002-source-manifest.test"));
+await runStage("COM-002 operating-system discovery inventory", () => import("../knowledge-v1/computer-awareness/com002-operating-system-discovery.test"));
+
 console.log("Question Studio content engine foundation suite passed.");
