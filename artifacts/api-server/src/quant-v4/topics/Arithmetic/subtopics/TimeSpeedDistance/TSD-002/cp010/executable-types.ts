@@ -1,10 +1,10 @@
 import type { Rational } from "../../TSD-001/foundation/rational";
 import type { TsdCp010AuthorityKey } from "./source-saturation";
 
-export type TsdCp010Unit = "METRE" | "SECOND" | "METRE_PER_SECOND" | "RATIO";
+export type TsdCp010Unit = "METRE" | "SECOND" | "METRE_PER_SECOND" | "RATIO" | "PERCENT";
 
 export type TsdCp010ExecutableInput =
-  | Readonly<{ authorityKey: "finishDistanceLeadState"; raceDistance: Rational; winnerSpeed: Rational; loserSpeed: Rational }>
+  | Readonly<{ authorityKey: "finishDistanceLeadState"; target: "DISTANCE_LEAD" | "PERCENT_OF_RACE"; raceDistance: Rational; winnerSpeed: Rational; loserSpeed: Rational }>
   | Readonly<{ authorityKey: "finishTimeLeadState"; raceDistance: Rational; winnerSpeed: Rational; loserSpeed: Rational }>
   | Readonly<{ authorityKey: "raceSpeedRatioState"; mode: "DISTANCE_LEAD"; raceDistance: Rational; distanceLead: Rational }>
   | Readonly<{ authorityKey: "raceSpeedRatioState"; mode: "TIME_LEAD"; winnerTime: Rational; timeLead: Rational }>
