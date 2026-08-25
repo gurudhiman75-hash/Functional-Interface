@@ -11,7 +11,7 @@ export function runNsExp001Pipeline(cpId: NsExp001CanonicalProblemId, input: NsE
   const solver = solveNsExp001(parameters);
   const graph = buildNsExp001ReasoningGraph(parameters, solver);
   const explanation = renderNsExp001Explanation(parameters, solver, graph);
-  const stem = renderQuestion(cpId, parameters.questionLanguageId);
+  const stem = renderQuestion(cpId, parameters.questionLanguageId, parameters.variables);
   const mathJax = mathJaxFromSolver(solver);
   const basePackage = {
     archetypeId: parameters.archetypeId,

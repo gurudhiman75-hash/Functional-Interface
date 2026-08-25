@@ -1,0 +1,54 @@
+name: Validate SRI Quant V4 Phase 0 foundation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/shared/surds-indices/**
+      - artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/**
+      - .github/workflows/sri-v4-phase0-foundation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sri-v4-phase0-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-sri-phase0:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Reject Math.random in SRI V4 foundation
+        run: |
+          if grep -R "Math\.random" artifacts/api-server/src/quant-v4/shared/surds-indices artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices --include='*.ts'; then
+            echo "Math.random is forbidden in SRI V4 production/discovery code."
+            exit 1
+          fi
+      - name: Bundle SRI Phase 0 suite
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/sri
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/phase0-foundation.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/phase0-foundation.test.mjs
+      - name: Run SRI Phase 0 suite
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/phase0-foundation.test.mjs
