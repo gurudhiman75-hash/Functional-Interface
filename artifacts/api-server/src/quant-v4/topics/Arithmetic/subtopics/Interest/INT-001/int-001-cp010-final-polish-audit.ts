@@ -15,8 +15,9 @@ for (const entry of INT_CP010_FINAL_AUTHORITIES) {
     const en = generateIntCp010PermanentEnglish(entry.permanentQlId, seed) as any;
     const enText = `${en.stem}\n${en.explanation.keyIdea}\n${en.explanation.steps.join("\n")}`;
     assert(!/\ba education loan\b/iu.test(enText), `${entry.permanentQlId}/${seed}: English article error survived permanent polish`);
+    assert(!/\b(?:farm-machinery finance|vehicle finance|workshop-equipment finance)\b/iu.test(en.stem), `${entry.permanentQlId}/${seed}: awkward finance context survived permanent polish`);
     assert(!/(?:undefined|null|NaN|after after|₹-)/u.test(enText), `${entry.permanentQlId}/${seed}: malformed English learner token`);
-    grammarChecks += 2;
+    grammarChecks += 3;
     englishChecks += 1;
 
     if (entry.authorityId === "INT-CP010-AUTH-02") {
