@@ -23,14 +23,17 @@ assert.match(appSource, /path="\/profile" component=\{\(\) => renderAppRoute\(Pr
 assert.match(appSource, /ProtectedRoute component=\{TestSeries\}/, "protected Test Series detail must use the default preparation shell");
 assert.match(appSource, /ProtectedRoute component=\{Test\} layout="none"/, "full-screen test runner must remain outside both navigation shells");
 
-assert.match(publicLayout, /<nav[\s\S]*?aria-label="Primary navigation"/, "public desktop navigation needs an accessible name");
+assert.match(publicLayout, /<nav[\s\S]*?aria-label="Primary navigation"/, "public desktop navigation needs an accessible name for non-study routes");
 assert.match(publicLayout, /className=\{showStudySidebar \? "hidden" : "ml-5 hidden items-center gap-1 lg:flex"\}/, "desktop top navigation must yield to the detailed sidebar on study routes");
+assert.match(publicLayout, /lg:w-\[252px\]/, "header brand column must align to the detailed desktop rail");
+assert.match(publicLayout, /lg:grid-cols-\[252px_minmax\(0,1fr\)\]/, "public sidebar must use the reference-style 252px desktop width");
 assert.match(publicLayout, /aria-expanded=\{mobileOpen\}/, "public mobile menu control must expose expanded state");
 assert.match(publicLayout, /aria-controls="public-mobile-navigation"/, "public mobile menu control must identify its panel");
 assert.match(publicLayout, /event\.key === "Escape"/, "public mobile menu must close with Escape");
 assert.match(publicLayout, /aria-current=\{active \? "page" : undefined\}/, "public navigation must expose current-page state");
 assert.match(publicLayout, /href="#main-content"/, "public shell must preserve skip navigation");
 assert.match(publicLayout, /id="main-content" tabIndex=\{-1\}/, "public shell must expose a focusable main landmark");
+assert.match(publicLayout, /mobileStudyLinks/, "mobile navigation must mirror the study-shell hierarchy");
 
 assert.match(publicLayout, /function showStudySidebarForRoute\(location: string\)/, "public shell must centralize discovery-sidebar routing");
 for (const routeProof of [
@@ -49,17 +52,22 @@ for (const routeProof of [
   assert.match(publicLayout, routeProof, "public sidebar must cover the core study and support journey");
 }
 assert.match(publicLayout, /<PublicHomeSidebar \/>/, "public discovery shell must render its desktop sidebar");
-assert.match(publicLayout, /lg:grid-cols-\[220px_minmax\(0,1fr\)\]/, "public sidebar must keep a compact desktop width");
 assert.match(publicHomeSidebar, /data-testid="public-study-sidebar"/, "public sidebar must expose a browser-proof hook");
 assert.match(publicHomeSidebar, /hidden[^"]*lg:block/, "public sidebar must stay out of the mobile layout");
 assert.match(publicHomeSidebar, /sticky top-16/, "public sidebar must sit below the unchanged 64px public header");
 assert.match(publicHomeSidebar, /aria-label="Homepage study navigation"/, "public sidebar navigation needs an accessible name");
-for (const href of ["/", "/exams", "/mock-tests", "/pyqs", "/exams-covered", "/dashboard", "/performance", "/profile", "/faq", "/contact", "/about"]) {
+
+for (const href of ["/", "/exams", "/dashboard", "/performance", "/profile", "/contact"]) {
   assert.match(publicHomeSidebar, new RegExp(`href: "${href.replaceAll("/", "\\/")}"|href="${href.replaceAll("/", "\\/")}"`), `public sidebar must preserve route: ${href}`);
 }
-for (const label of ["Explore Exams", "My Tests", "Performance", "Profile & Settings", "Contact Support", "About ExamTree"]) {
-  assert.match(publicHomeSidebar, new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `public sidebar must expose detailed navigation label: ${label}`);
+for (const label of ["Home", "Explore Exams", "My Tests", "Analytics", "Bookmarks", "Downloads", "Study Plan", "Rewards", "Support", "Settings"]) {
+  assert.match(publicHomeSidebar, new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `public sidebar must expose reference navigation label: ${label}`);
 }
+for (const futureFeature of ["Bookmarks", "Downloads", "Study Plan", "Rewards"]) {
+  assert.match(publicHomeSidebar, new RegExp(`label: "${futureFeature}"[\\s\\S]{0,80}disabled: true`), `${futureFeature} must be visible but non-navigating until implemented`);
+}
+assert.match(publicHomeSidebar, /aria-disabled="true"/, "future sidebar features must expose disabled semantics");
+assert.match(publicHomeSidebar, />Soon</, "future sidebar features must be visibly marked as upcoming");
 
 for (const forbidden of ["Logic Engine v2.4", "Practice Motifs", "API Docs", "deep logic diagnostics"]) {
   assert.doesNotMatch(publicLayout, new RegExp(forbidden, "i"), `public shell must not expose prototype footer copy: ${forbidden}`);
@@ -67,4 +75,4 @@ for (const forbidden of ["Logic Engine v2.4", "Practice Motifs", "API Docs", "de
 assert.doesNotMatch(appLayout, /MiniFooter/, "preparation shell must not render the obsolete public footer");
 assert.equal(fs.existsSync(path.join(appRoot, "src/components/MiniFooter.tsx")), false, "obsolete prototype footer file must be removed");
 
-console.log("Public/app shell audit passed (detailed desktop sidebar contract).\n");
+console.log("Public/app shell audit passed (reference-style detailed desktop sidebar contract).\n");
