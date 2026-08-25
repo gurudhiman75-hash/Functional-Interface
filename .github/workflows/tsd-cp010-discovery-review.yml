@@ -1,0 +1,79 @@
+name: Validate TSD CP010 executable discovery and English review
+
+on:
+  push:
+    branches:
+      - feat/tsd-cp010-executable-discovery-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/**
+      - .github/workflows/tsd-cp010-discovery-review.yml
+  pull_request:
+    branches:
+      - feat/tsd-cp009-executable-discovery-v1
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/**
+      - .github/workflows/tsd-cp010-discovery-review.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tsd-cp010-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  discovery-and-english-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check for CP010 package
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010 -name '*.ts' -print)
+      - name: Prove CP010 source saturation
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/source-saturation-proof.test.ts
+      - name: Prove CP010 representation saturation
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/final-ownership-proof.test.ts
+      - name: Prove CP010 executable feasibility and independent verification
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/executable-proof.test.ts
+      - name: Prove CP010 permanent QL allocation
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/allocation-proof.test.ts
+      - name: Prove CP010 English authoring when present
+        run: |
+          if [ -f ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/english-authoring-proof.test.ts ]; then
+            pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/english-authoring-proof.test.ts
+          fi
+      - name: Export English review questions when present
+        run: |
+          if [ -f ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/english-rendered-review-export.ts ]; then
+            mkdir -p /tmp/tsd-cp010-review
+            pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/english-rendered-review-export.ts /tmp/tsd-cp010-review/TSD-CP010-ENGLISH-QUESTIONS.md
+          fi
+      - name: Upload English question review
+        if: hashFiles('artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/english-rendered-review-export.ts') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp010-english-question-review
+          path: /tmp/tsd-cp010-review/TSD-CP010-ENGLISH-QUESTIONS.md
+          if-no-files-found: error
