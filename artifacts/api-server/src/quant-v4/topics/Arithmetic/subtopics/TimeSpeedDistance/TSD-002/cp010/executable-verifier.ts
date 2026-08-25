@@ -17,7 +17,12 @@ function finishTimeLead(distance: Rational, faster: Rational, slower: Rational) 
 }
 function expectedAnswer(input: TsdCp010ExecutableInput): { answer: Rational; unit: TsdCp010ExecutableSolution["unit"] } {
   switch (input.authorityKey) {
-    case "finishDistanceLeadState": return { answer: finishDistanceLead(input.raceDistance, input.winnerSpeed, input.loserSpeed), unit: "METRE" };
+    case "finishDistanceLeadState": {
+      const lead = finishDistanceLead(input.raceDistance, input.winnerSpeed, input.loserSpeed);
+      return input.target === "PERCENT_OF_RACE"
+        ? { answer: divide(multiply(lead, rational(100)), input.raceDistance), unit: "PERCENT" }
+        : { answer: lead, unit: "METRE" };
+    }
     case "finishTimeLeadState": return { answer: finishTimeLead(input.raceDistance, input.winnerSpeed, input.loserSpeed), unit: "SECOND" };
     case "raceSpeedRatioState":
       return input.mode === "DISTANCE_LEAD"
