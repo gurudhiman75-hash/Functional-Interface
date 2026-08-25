@@ -1,0 +1,77 @@
+name: Validate INT-CP-010 Complete V1
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp010-**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-**"
+      - ".github/workflows/int-cp010-complete-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-int-cp010-complete-v1:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Reconfirm CP010 post-Wave01 source saturation
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-post-wave01-source-gap-audit.ts | tee int-cp010-source-gap-regression.log
+          grep -q 'PASS_INT_CP010_POST_WAVE01_SOURCE_GAP_AUDIT' int-cp010-source-gap-regression.log
+      - name: Reconfirm CP010 two-authority proposal
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-two-authority-proposal-v1-audit.ts | tee int-cp010-two-authority-regression.log
+          grep -q 'PASS_INT_CP010_TWO_AUTHORITY_PROPOSAL_V1_AUDIT' int-cp010-two-authority-regression.log
+      - name: Reconfirm CP010 English production candidate V2
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-production-candidate-v2-realism-audit.ts | tee int-cp010-production-v2-regression.log
+          grep -q 'PASS_INT_CP010_PRODUCTION_CANDIDATE_V2_REALISM_AUDIT' int-cp010-production-v2-regression.log
+      - name: Reconfirm CP010 Hindi Punjabi candidate parity
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-localization-candidate-v1-audit.ts | tee int-cp010-localization-regression.log
+          grep -q 'PASS_INT_CP010_LOCALIZATION_CANDIDATE_V1_AUDIT' int-cp010-localization-regression.log
+      - name: Run CP010 permanent allocation freeze completion audit
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-complete-v1-audit.ts | tee int-cp010-complete-v1.log
+          grep -q 'PASS_INT_CP010_COMPLETE_V1_AUDIT' int-cp010-complete-v1.log
+      - name: Export CP010 final permanent review pack
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-final-review-export.ts > INT-CP-010-FINAL-PERMANENT-REVIEW.md
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Record exact validation head
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-cp010-complete-v1-head.log
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+      - name: Upload CP010 completion evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp010-complete-v1
+          path: |
+            int-cp010-source-gap-regression.log
+            int-cp010-two-authority-regression.log
+            int-cp010-production-v2-regression.log
+            int-cp010-localization-regression.log
+            int-cp010-complete-v1.log
+            int-cp010-complete-v1-head.log
+            INT-CP-010-FINAL-PERMANENT-REVIEW.md
+          retention-days: 30
