@@ -36,11 +36,11 @@ assert.equal(SRI_001_MANIFEST.provisionalCandidateCount, 48);
 assert.equal(SRI_002_MANIFEST.provisionalCandidateCount, 45);
 assert.equal(SRI_001_MANIFEST.provisionalCandidateCount + SRI_002_MANIFEST.provisionalCandidateCount, EXPECTED_TOTAL);
 assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 58);
-assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 0);
+assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 58);
 assert.equal(SRI_001_MANIFEST.permanentQlCount, 29);
 assert.equal(SRI_002_MANIFEST.permanentQlCount, 29);
-assert.equal(SRI_001_MANIFEST.frozenSolveModeCount, 0);
-assert.equal(SRI_002_MANIFEST.frozenSolveModeCount, 0);
+assert.equal(SRI_001_MANIFEST.frozenSolveModeCount, 29);
+assert.equal(SRI_002_MANIFEST.frozenSolveModeCount, 29);
 assertSriReleaseLocks();
 
 for (const checkpoint of SRI_CHAPTER_MANIFEST.canonicalCheckpoints) {

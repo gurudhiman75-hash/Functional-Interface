@@ -17,12 +17,12 @@ assert.ok(SRI_002_MANIFEST.provisionalCandidateCount >= PHASE4_BASELINE_SRI002_T
 assert.equal(SRI_002_MANIFEST.discoveryWaves.phase3SurdFoundations, 23);
 assert.equal(SRI_002_MANIFEST.discoveryWaves.phase4SurdAdvanced, 20);
 assert.equal(SRI_002_MANIFEST.permanentQlCount, 29);
-assert.equal(SRI_002_MANIFEST.frozenSolveModeCount, 0);
+assert.equal(SRI_002_MANIFEST.frozenSolveModeCount, 29);
 assert.deepEqual(SRI_002_MANIFEST.activeExecutableDiscoveryCheckpoints, ["SRI-CP-007", "SRI-CP-008", "SRI-CP-009", "SRI-CP-010", "SRI-CP-011", "SRI-CP-012"]);
 assert.equal(SRI_CHAPTER_MANIFEST.executableDiscoveryCheckpoints.length, 12, "All SRI checkpoints must remain executable discovery evidence during Phase 7");
 assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 58);
-assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 0);
-assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.discoveryOpen, true);
+assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 58);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.discoveryOpen, false);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionStudioDiscoverable, false);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionStudioGenerationEnabled, false);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionBankWritesEnabled, false);

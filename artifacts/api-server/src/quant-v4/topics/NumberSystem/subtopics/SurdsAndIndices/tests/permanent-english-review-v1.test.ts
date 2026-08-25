@@ -150,8 +150,8 @@ assert.equal(new Set(exportCorpus.map((row) => row.qlId)).size, EXPECTED_QLS);
 assert.equal(new Set(exportCorpus.map((row) => row.memberCandidateId)).size, EXPECTED_MEMBERS);
 
 assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, EXPECTED_QLS);
-assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 0);
-assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen, false);
+assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 58);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen, true);
 assertSriReleaseLocks();
 
 console.log(JSON.stringify({
