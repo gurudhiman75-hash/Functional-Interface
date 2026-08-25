@@ -1,0 +1,78 @@
+name: Validate SRI Quant V4 English Review R1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/shared/surds-indices/**
+      - artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/**
+      - .github/workflows/sri-v4-english-review-r1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sri-v4-english-review-r1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-sri-english-review-r1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Reject Math.random in SRI
+        run: |
+          if grep -R "Math\.random" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices artifacts/api-server/src/quant-v4/shared/surds-indices --include='*.ts'; then
+            echo "Math.random is forbidden in SRI V4 production/discovery/review code."
+            exit 1
+          fi
+      - name: Bundle English adversarial audit
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/sri
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/english-review-r1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/english-review-r1.test.mjs
+      - name: Run English adversarial audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/english-review-r1.test.mjs
+      - name: Bundle reviewer export
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/english-review-export-r1.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/english-review-export-r1.mjs
+      - name: Generate 276-question reviewer corpus
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/english-review-export-r1.mjs
+      - name: Verify reviewer corpus files
+        run: |
+          test -s artifacts/api-server/dist/quant-v4/sri/sri-english-review-r1.json
+          test -s artifacts/api-server/dist/quant-v4/sri/sri-english-review-r1.csv
+          test -s artifacts/api-server/dist/quant-v4/sri/sri-english-review-r1.md
+      - name: Upload English review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sri-v4-english-review-r1
+          path: |
+            artifacts/api-server/dist/quant-v4/sri/sri-english-review-r1.json
+            artifacts/api-server/dist/quant-v4/sri/sri-english-review-r1.csv
+            artifacts/api-server/dist/quant-v4/sri/sri-english-review-r1.md
+          if-no-files-found: error

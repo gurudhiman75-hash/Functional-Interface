@@ -2,6 +2,7 @@ export const NS_EXP_001_ARCHETYPE_ID = "NS-EXP-001" as const;
 
 export type NsExp001CanonicalProblemId = "CP01" | "CP02" | "CP03" | "CP04" | "CP05" | "CP06" | "CP07" | "CP09";
 export type NsExp001DifficultyBand = "Easy" | "Medium" | "Hard";
+export type NsExp001VariableMap = Record<string, number>;
 
 export interface NsExp001MathJaxFields {
   sameBaseCompressionLatex: string;
@@ -21,7 +22,10 @@ export interface NsExp001Parameters {
   difficultyBand: NsExp001DifficultyBand;
   questionLanguageId: string;
   explanationId: string;
+  stemTemplate: string;
+  variables: NsExp001VariableMap;
   expression: string;
+  /** Independent reference answer generated from structured state. The runtime solver must not read this field. */
   expectedAnswer: string;
   coverageBucket: string;
   operationType?: string;
@@ -33,6 +37,8 @@ export interface NsExp001SolverResult extends NsExp001MathJaxFields {
   verification: {
     inputValid: boolean;
     answerRecomputed: boolean;
+    independentlyVerified: boolean;
+    referenceAnswer: string;
     mathJaxValid: boolean;
   };
 }

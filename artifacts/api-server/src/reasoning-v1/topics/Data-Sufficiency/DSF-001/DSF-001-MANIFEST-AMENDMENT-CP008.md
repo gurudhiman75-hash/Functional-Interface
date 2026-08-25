@@ -50,7 +50,7 @@ The following must remain byte/semantic equivalent to the canonical English sour
 - difficulty
 - domain and solve mode
 
-Any learner sentence or statement shape not explicitly recognized by the CP-008 translator is a generation error. English fallback inside localized learner text is not permitted.
+Any learner sentence or statement shape not explicitly recognized by the CP-008 translator is a generation error. English fallback inside localized learner text is not permitted. Pure mathematical notation (for example `A:B = 2:3`, `P = 20%`, or an algebraic equation) is language-neutral and may remain unchanged, but statement prose is explicitly checked for untranslated English leakage.
 
 ## Review lifecycle
 
@@ -67,9 +67,14 @@ Hindi/Punjabi localized items are executable review candidates only:
 
 English retains the CP-007 frozen production lifecycle unchanged.
 
-## Human review pack
+## Human review packs
 
-The CP-008 workflow builds a 62-question review pack:
+The CP-008 workflow builds two representations of the same 62-question review corpus:
+
+1. Machine-oriented localization review pack (`HTML` + `JSON`).
+2. Paired human-review pack (`HTML` + `JSON`) showing the exact canonical English profile question beside its Hindi/Punjabi localization.
+
+The corpus contains:
 
 - 31 Hindi
 - 31 Punjabi
@@ -78,7 +83,9 @@ The CP-008 workflow builds a 62-question review pack:
 - every semantic class representable by each profile
 - SSC four-option profiles continue to reject `EACH_STATEMENT_ALONE`; no remapping is allowed
 
-Human approval of this pack is required before a later checkpoint may unlock localized Question Bank/test/mock/publication lifecycle flags.
+For every paired item, the gate asserts equality of source identity, canonical sufficiency class, option semantic order, and correct option index before writing the review artifact.
+
+Human approval of this corpus is required before a later checkpoint may unlock localized Question Bank/test/mock/publication lifecycle flags.
 
 ## Deferred scope
 
