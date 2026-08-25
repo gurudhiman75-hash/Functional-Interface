@@ -1,6 +1,6 @@
 # DSF-CP-011 — Two-Statement Quant Breadth Expansion
 
-Status: **WAVE 1 REVIEW CANDIDATE**
+Status: **AVERAGE GREEN / AGES REVIEW CANDIDATE**
 
 CP-011 is additive. It does not rewrite or weaken any authority frozen by DSF-CP-001 through DSF-CP-010.
 
@@ -12,22 +12,20 @@ CP-011 is additive. It does not rewrite or weaken any authority frozen by DSF-CP
 - Answer-position truth remains separate from semantic truth
 - No new permanent QL is allocated by CP-011
 
-## Wave 1 implemented source binding
+## Implemented source bindings
 
-### Average / `AVG-001`
+### Wave 1 — Average / `AVG-001`
 
 Source capability reused directly:
 
 - `AVG-001/foundation/solver::solveAvg001`
 
-CP-011 does not own or duplicate Average arithmetic. Every surviving finite world is projected to the asked target through the canonical AVG-001 solver; DSF owns only statement subset evaluation and sufficiency classification.
-
-Production-candidate solve modes:
+Solve modes:
 
 - `DSF-SM-AVG-TOTAL-FROM-GROUP`
 - `DSF-SM-AVG-AVERAGE-FROM-GROUP`
 
-Student-facing context worlds:
+Student-facing contexts:
 
 - class marks
 - cricket innings
@@ -36,11 +34,31 @@ Student-facing context worlds:
 - worker wages
 - books per shelf
 
-## Exam-realness rule introduced here
+Dedicated CI is green for the API build plus the 250-question Average breadth/realness audit.
 
-Generation identity is not accepted as evidence of student-visible variety.
+### Wave 2 — Ages / `RAP-003`
 
-The Wave 1 audit additionally measures:
+Source capability reused directly:
+
+- `RAP-003/solver::solveRap003(ageFromSumAndRatio)`
+- `RAP-003/math::simplifyRatio`
+
+DSF does not calculate the target age independently. Each surviving finite world is projected through the source solver; DSF owns only statement filtering and canonical sufficiency classification.
+
+Solve modes:
+
+- `DSF-SM-AGE-PRESENT-AGE-A`
+- `DSF-SM-AGE-PRESENT-AGE-B`
+
+Statement families include present ratio, sum, difference, exact age, future ratio, past ratio, bounds, parity, comparison, ratio+sum and ratio+difference.
+
+Neutral student-facing contexts include cousins, colleagues, neighbours, club players, friends and siblings. No unstated age-order or cultural assumption is used.
+
+Wave 2 is review-only until its executable audit is green.
+
+## Exam-realness rule
+
+Generation identity is not accepted as evidence of student-visible variety. Each implemented lane additionally measures:
 
 - normalized stem surfaces with numbers removed;
 - target kind;
@@ -48,11 +66,11 @@ The Wave 1 audit additionally measures:
 - student-facing structural fingerprints;
 - largest repeated structural cluster in a deterministic batch.
 
-Insufficiency explanations prefer short counterexamples (two distinct possible target answers) instead of dumping complete finite-world sets.
+Insufficiency explanations prefer short counterexamples (two conflicting target answers) instead of dumping complete finite-world sets.
 
 ## Lifecycle
 
-Wave 1 remains review-only until its dedicated CI and human review gate pass:
+All CP-011 expansion questions remain review-only until their dedicated CI and human review gates pass:
 
 - Question Studio discoverable: no
 - Question Bank writable: no
@@ -62,15 +80,14 @@ Wave 1 remains review-only until its dedicated CI and human review gate pass:
 
 ## Planned later CP-011 waves
 
-High-value additive source bindings remain:
+High-value additive source bindings still remaining:
 
-1. Ages
-2. Profit/Loss/Discount
-3. Simple/Compound Interest
-4. Time & Work / Pipes
-5. Time-Speed-Distance / Trains / Boats
-6. Mixture & Alligation
-7. Geometry / Mensuration
-8. richer Number System, Ratio, Percentage and Algebra target/world variants
+1. Profit/Loss/Discount
+2. Simple/Compound Interest
+3. Time & Work / Pipes
+4. Time-Speed-Distance / Trains / Boats
+5. Mixture & Alligation
+6. Geometry / Mensuration
+7. richer Number System, Ratio, Percentage and Algebra target/world variants
 
 Each wave must reuse the source chapter's solver/capability or stay blocked; CP-011 must not become a second arithmetic implementation layer inside DSF.
