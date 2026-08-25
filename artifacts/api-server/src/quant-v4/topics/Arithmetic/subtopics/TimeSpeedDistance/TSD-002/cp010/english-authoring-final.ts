@@ -1,6 +1,11 @@
 import { TSD_CP010_ENGLISH_AUTHORING_REGISTRY, type TsdCp010EnglishFamily, type TsdCp010EnglishQl } from "./english-authoring-registry";
 
 const PATCHES: Readonly<Record<string, Readonly<Pick<TsdCp010EnglishFamily, "stem" | "explanationGuide" | "representation">>>> = Object.freeze({
+  "115-F": {
+    representation: "winning margin as percent of race distance",
+    stem: "In a {raceDistance} {scene}, {first} runs at {winnerSpeed} and {second} at {loserSpeed}. They start together and maintain these speeds. {first}'s winning distance is what percent of the race length?",
+    explanationGuide: "First find the ordinary finish-distance lead at the winner's finishing instant, then divide that lead by the full race distance and multiply by 100.",
+  },
   "117-B": {
     representation: "ratio from time lead",
     stem: "{first} completes a race in {winnerTime}, while {second} finishes {timeLead} later. They cover the same distance at constant speeds. Find the speed ratio {first}:{second}.",
@@ -37,11 +42,13 @@ export const TSD_CP010_ENGLISH_EXHAUSTIVENESS_PATCH_COUNT = Object.keys(PATCHES)
 
 export const TSD_CP010_FINAL_ENGLISH_AUTHORING_REGISTRY: readonly TsdCp010EnglishQl[] = Object.freeze(
   TSD_CP010_ENGLISH_AUTHORING_REGISTRY.map((ql) => {
-    const learnerContract = ql.qlId === "TSD-QL-117"
-      ? "Infer the faster-to-slower speed ratio from either a finish-distance lead or a finish-time lead with the winner's completion time supplied."
-      : ql.qlId === "TSD-QL-118"
-        ? "Recover an unknown race length from two constant speeds and either a finish-distance lead or a finish-time lead."
-        : ql.learnerContract;
+    const learnerContract = ql.qlId === "TSD-QL-115"
+      ? "Find the finish-distance lead, including its equivalent percentage of race length when explicitly requested."
+      : ql.qlId === "TSD-QL-117"
+        ? "Infer the faster-to-slower speed ratio from either a finish-distance lead or a finish-time lead with the winner's completion time supplied."
+        : ql.qlId === "TSD-QL-118"
+          ? "Recover an unknown race length from two constant speeds and either a finish-distance lead or a finish-time lead."
+          : ql.learnerContract;
     return Object.freeze({
       ...ql,
       learnerContract,
