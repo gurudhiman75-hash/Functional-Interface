@@ -1,4 +1,4 @@
-name: Validate TSD CP009 frozen English + localization review
+name: Validate TSD CP009 frozen multilingual + Question Studio review
 
 on:
   push:
@@ -24,7 +24,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  frozen-english-and-localization-review:
+  frozen-multilingual-and-studio-review:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -63,16 +63,9 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/english-authoring-proof.test.ts
       - name: Prove CP009 approved English freeze
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/english-freeze-proof.test.ts
-      - name: Prove CP009 Hindi Punjabi localization parity and rendering
+      - name: Prove CP009 native Hindi Punjabi localization parity and rendering
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/localization-proof.test.ts
-      - name: Generate one questions-only Hindi Punjabi review
-        env:
-          TSD_CP009_LOCALIZED_REVIEW_OUTPUT_DIR: /tmp/tsd-cp009-localized-review
-        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/localized-rendered-review-export.ts
-      - name: Upload CP009 Hindi Punjabi questions-only review
-        uses: actions/upload-artifact@v4
-        with:
-          name: tsd-cp009-hindi-punjabi-question-review
-          path: /tmp/tsd-cp009-localized-review/TSD-CP009-HINDI-PUNJABI-QUESTIONS.md
-          if-no-files-found: error
-          retention-days: 14
+      - name: Prove CP009 approved native localization freeze
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/localization-freeze-proof.test.ts
+      - name: Prove CP009 frozen multilingual Question Studio adapter
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp009/question-studio-review-adapter-proof.test.ts
