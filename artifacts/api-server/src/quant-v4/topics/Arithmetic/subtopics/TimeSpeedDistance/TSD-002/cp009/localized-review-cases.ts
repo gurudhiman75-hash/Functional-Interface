@@ -4,6 +4,8 @@ import { solveTsdCp009 } from "./executable-solver";
 import type { TsdCp009ExecutableInput } from "./executable-types";
 import { verifyTsdCp009 } from "./executable-verifier";
 
+export type { TsdCp009EnglishReviewCase } from "./english-review-cases";
+
 const K = (kmh: number) => rational(kmh * 5, 18);
 const D = (km: number) => rational(km * 1000);
 const H = (hours: number) => rational(hours * 3600);
