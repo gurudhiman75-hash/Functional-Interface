@@ -20,6 +20,7 @@ assert.match(appSource, /path="\/login\/student" component=\{\(\) => renderPubli
 assert.match(appSource, /path="\/dashboard" component=\{\(\) => renderAppRoute\(Dashboard\)\}/, "dashboard must stay in the preparation shell");
 assert.match(appSource, /path="\/result" component=\{\(\) => renderAppRoute\(Result\)\}/, "saved results must stay in the preparation shell");
 assert.match(appSource, /path="\/profile" component=\{\(\) => renderAppRoute\(Profile\)\}/, "profile must stay in the preparation shell");
+assert.match(appSource, /path="\/performance" component=\{\(\) => renderAppRoute\(AnalyticsUnavailable\)\}/, "direct analytics links must remain truthful until learner analytics is production-ready");
 assert.match(appSource, /ProtectedRoute component=\{TestSeries\}/, "protected Test Series detail must use the default preparation shell");
 assert.match(appSource, /ProtectedRoute component=\{Test\} layout="none"/, "full-screen test runner must remain outside both navigation shells");
 
@@ -34,6 +35,11 @@ assert.match(publicLayout, /aria-current=\{active \? "page" : undefined\}/, "pub
 assert.match(publicLayout, /href="#main-content"/, "public shell must preserve skip navigation");
 assert.match(publicLayout, /id="main-content" tabIndex=\{-1\}/, "public shell must expose a focusable main landmark");
 assert.match(publicLayout, /mobileStudyLinks/, "mobile navigation must mirror the study-shell hierarchy");
+assert.match(publicLayout, /label: "Analytics"[\s\S]{0,80}disabled: true/, "mobile study navigation must mark learner analytics unavailable instead of linking to it");
+assert.match(publicLayout, /data-testid=\{`mobile-disabled-\$\{item\.label\.toLowerCase\(\)\.replace\(\/\\s\+\/g, "-"\)\}`\}/, "mobile unavailable features need a stable browser-proof hook");
+assert.match(publicLayout, /inline-flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-semibold/, "desktop public navigation links must keep the 44px interaction contract");
+assert.match(publicLayout, /href="\/login\/student" className="et-interactive inline-flex min-h-11/, "desktop sign-in action must keep the 44px interaction contract");
+assert.match(publicLayout, /href="\/exams" className="et-interactive inline-flex min-h-11/, "desktop browse action must keep the 44px interaction contract");
 
 assert.match(publicLayout, /function showStudySidebarForRoute\(location: string\)/, "public shell must centralize discovery-sidebar routing");
 for (const routeProof of [
@@ -57,13 +63,14 @@ assert.match(publicHomeSidebar, /hidden[^"]*lg:block/, "public sidebar must stay
 assert.match(publicHomeSidebar, /sticky top-16/, "public sidebar must sit below the unchanged 64px public header");
 assert.match(publicHomeSidebar, /aria-label="Homepage study navigation"/, "public sidebar navigation needs an accessible name");
 
-for (const href of ["/", "/exams", "/dashboard", "/performance", "/profile", "/contact"]) {
+for (const href of ["/", "/exams", "/dashboard", "/profile", "/contact"]) {
   assert.match(publicHomeSidebar, new RegExp(`href: "${href.replaceAll("/", "\\/")}"|href="${href.replaceAll("/", "\\/")}"`), `public sidebar must preserve route: ${href}`);
 }
+assert.doesNotMatch(publicHomeSidebar, /href: "\/performance"/, "learner analytics must not be advertised as a live sidebar destination while its route is unavailable");
 for (const label of ["Home", "Explore Exams", "My Tests", "Analytics", "Bookmarks", "Downloads", "Study Plan", "Rewards", "Support", "Settings"]) {
   assert.match(publicHomeSidebar, new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `public sidebar must expose reference navigation label: ${label}`);
 }
-for (const futureFeature of ["Bookmarks", "Downloads", "Study Plan", "Rewards"]) {
+for (const futureFeature of ["Analytics", "Bookmarks", "Downloads", "Study Plan", "Rewards"]) {
   assert.match(publicHomeSidebar, new RegExp(`label: "${futureFeature}"[\\s\\S]{0,80}disabled: true`), `${futureFeature} must be visible but non-navigating until implemented`);
 }
 assert.match(publicHomeSidebar, /aria-disabled="true"/, "future sidebar features must expose disabled semantics");
@@ -75,4 +82,4 @@ for (const forbidden of ["Logic Engine v2.4", "Practice Motifs", "API Docs", "de
 assert.doesNotMatch(appLayout, /MiniFooter/, "preparation shell must not render the obsolete public footer");
 assert.equal(fs.existsSync(path.join(appRoot, "src/components/MiniFooter.tsx")), false, "obsolete prototype footer file must be removed");
 
-console.log("Public/app shell audit passed (reference-style detailed desktop sidebar contract).\n");
+console.log("Public/app shell audit passed (truthful detailed navigation + 44px public header contract).\n");

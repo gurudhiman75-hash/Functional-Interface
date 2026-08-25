@@ -26,7 +26,7 @@ const mainItems: SidebarItem[] = [
   { href: "/", label: "Home", icon: Home },
   { href: "/exams", label: "Explore Exams", icon: ClipboardList },
   { href: "/dashboard", label: "My Tests", icon: LayoutDashboard, authNext: "/dashboard" },
-  { href: "/performance", label: "Analytics", icon: BarChart3, authNext: "/performance" },
+  { label: "Analytics", icon: BarChart3, disabled: true },
   { label: "Bookmarks", icon: Bookmark, disabled: true },
   { label: "Downloads", icon: Download, disabled: true },
   { label: "Study Plan", icon: CalendarDays, disabled: true },
