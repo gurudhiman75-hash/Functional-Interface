@@ -31,11 +31,14 @@ async function installPublicFixtures(page: Page) {
 }
 
 test.describe("CP02 public and app shell split", () => {
-  test("uses acquisition chrome publicly and preparation chrome on dashboard", async ({ page }) => {
+  test("uses sidebar-first acquisition chrome publicly and preparation chrome on dashboard", async ({ page }) => {
     await installPublicFixtures(page);
+    await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/about");
 
-    await expect(page.getByRole("navigation", { name: "Primary navigation" })).toBeVisible();
+    await expect(page.getByRole("navigation", { name: "Primary navigation" })).toBeHidden();
+    await expect(page.getByTestId("public-study-sidebar")).toBeVisible();
+    await expect(page.getByTestId("public-study-sidebar").getByRole("link", { name: "About ExamTree", exact: true })).toHaveAttribute("aria-current", "page");
     await expect(page.getByRole("link", { name: "ExamTree home" }).first()).toBeVisible();
     await expect(page.getByText("Built for exam discovery, mock tests, and saved review.")).toBeVisible();
     await expect(page.getByRole("button", { name: /Select Targeted Exam/i })).toHaveCount(0);
@@ -44,6 +47,7 @@ test.describe("CP02 public and app shell split", () => {
 
     await page.goto("/dashboard");
 
+    await expect(page.getByTestId("public-study-sidebar")).toHaveCount(0);
     await expect(page.getByRole("navigation", { name: "Primary navigation" })).toHaveCount(0);
     await expect(page.getByRole("button", { name: /Select Targeted Exam/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Your activity follows you across devices/i })).toBeVisible();
@@ -54,6 +58,7 @@ test.describe("CP02 public and app shell split", () => {
     await installPublicFixtures(page);
     await page.goto("/about");
 
+    await expect(page.getByTestId("public-study-sidebar")).toBeHidden();
     const menuButton = page.getByRole("button", { name: "Open navigation menu" });
     await expect(menuButton).toBeVisible();
     await expect(menuButton).toHaveAttribute("aria-expanded", "false");
