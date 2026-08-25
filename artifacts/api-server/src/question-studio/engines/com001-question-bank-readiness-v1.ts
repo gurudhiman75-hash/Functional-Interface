@@ -108,7 +108,11 @@ export async function auditCom001QuestionBankReadinessV1(): Promise<Com001Questi
           question.questionBankStatus === lifecycle.questionBankStatus &&
           question.questionBankWritable === lifecycle.questionBankWritable &&
           question.questionBankAcceptanceMode === lifecycle.questionBankAcceptanceMode &&
-          question.questionBankAcceptanceAuthority === lifecycle.questionBankAcceptanceAuthority;
+          question.questionBankAcceptanceAuthority === lifecycle.questionBankAcceptanceAuthority &&
+          question.reviewSurfaceRequired === lifecycle.reviewSurfaceRequired &&
+          question.reviewRunPersistenceAllowed === lifecycle.reviewRunPersistenceAllowed &&
+          question.canonicalQuestionPersistenceAllowed === lifecycle.canonicalQuestionPersistenceAllowed &&
+          question.manualApprovalRequired === lifecycle.manualApprovalRequired;
         downstreamLifecycleLocked &&=
           question.testEligible === false &&
           question.mockTestEligible === false &&
@@ -134,6 +138,12 @@ export async function auditCom001QuestionBankReadinessV1(): Promise<Com001Questi
           normalized.answerModel.canonicalAnswer === question.canonicalAnswer;
 
         currentLifecycleMatchesStandard &&=
+          generation.lifecycleId === lifecycle.lifecycleId &&
+          generation.lifecycleStage === lifecycle.stage &&
+          generation.reviewSurfaceRequired === lifecycle.reviewSurfaceRequired &&
+          generation.reviewRunPersistenceAllowed === lifecycle.reviewRunPersistenceAllowed &&
+          generation.canonicalQuestionPersistenceAllowed === lifecycle.canonicalQuestionPersistenceAllowed &&
+          generation.manualApprovalRequired === lifecycle.manualApprovalRequired &&
           generation.questionBankStatus === lifecycle.questionBankStatus &&
           generation.questionBankWritable === lifecycle.questionBankWritable &&
           generation.questionBankAcceptanceMode === lifecycle.questionBankAcceptanceMode &&
@@ -142,7 +152,8 @@ export async function auditCom001QuestionBankReadinessV1(): Promise<Com001Questi
           generation.testEligible === false &&
           generation.mockTestEligible === false &&
           generation.publiclyPublishable === false &&
-          generation.automaticStudentPublication === false;
+          generation.automaticStudentPublication === false &&
+          generation.productionReleaseAuthorized === false;
 
         const expectedProvenance = {
           sourceIds: question.sourceIds,
