@@ -52,7 +52,7 @@ for (const [language, questions] of [
       assert(!/(डेड\s*हीट|हेड\s*स्टार्ट|फिनिश|हैंडिकैप|\bलीड\b)/i.test(question.stem), `${question.familyId}: rejected translated race jargon remains in Hindi`);
     } else {
       assert(/[\u0A00-\u0A7F]/.test(question.stem), `${question.familyId}: Punjabi script missing`);
-      assert(!/[\u0900-\u097F]/.test(question.stem), `${question.familyId}: Punjabi stem contains Devanagari`);
+      assert(!/[\u0900-\u0963\u0966-\u097F]/.test(question.stem), `${question.familyId}: Punjabi stem contains Devanagari letters or digits`);
       assert(!/(ਡੈੱਡ|ਹੈੱਡ|ਫਿਨਿਸ਼|ਹੈਂਡੀਕੈਪ|ਲੀਡ)/.test(question.stem), `${question.familyId}: rejected translated race jargon remains in Punjabi`);
     }
   }
