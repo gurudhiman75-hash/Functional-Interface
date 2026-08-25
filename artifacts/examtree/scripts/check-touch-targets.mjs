@@ -10,7 +10,7 @@ const button = fs.readFileSync(path.join(appRoot, "src/components/ui/button.tsx"
 const accessibility = fs.readFileSync(path.join(appRoot, "src/accessibility.css"), "utf8");
 const login = fs.readFileSync(path.join(appRoot, "src/pages/login.tsx"), "utf8");
 const activity = fs.readFileSync(path.join(appRoot, "src/pages/activity.tsx"), "utf8");
-const tests = fs.readFileSync(path.join(appRoot, "src/pages/tests.tsx"), "utf8");
+const examsMarketplace = fs.readFileSync(path.join(appRoot, "src/components/ExamsMarketplace.tsx"), "utf8");
 const result = fs.readFileSync(path.join(appRoot, "src/pages/canonical-result.tsx"), "utf8");
 const stickyHeader = fs.readFileSync(path.join(appRoot, "src/components/StickyHeader.tsx"), "utf8");
 const proof = fs.readFileSync(path.join(repoRoot, "scripts/e2e/tests/student-touch-target-hardening.spec.ts"), "utf8");
@@ -31,7 +31,7 @@ assert.match(login, /data-testid="tab-login"/, "login tab must remain covered by
 assert.match(login, /data-testid="btn-toggle-password"/, "password visibility control must remain covered by browser proof");
 assert.match(login, /data-testid="btn-forgot-password"/, "forgot-password control must remain covered by browser proof");
 assert.match(activity, /size="sm"[\s\S]*?View result/, "small Activity result action must inherit the hardened shared target");
-assert.match(tests, /size="sm"[\s\S]*?Start test/, "small test-discovery action must inherit the hardened shared target");
+assert.match(examsMarketplace, /size="sm"[\s\S]*?Start Free/, "small exam-marketplace action must inherit the hardened shared target");
 assert.match(result, /size="sm"[\s\S]*?setFilter/, "small result filter actions must inherit the hardened shared target");
 
 assert.match(

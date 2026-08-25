@@ -12,10 +12,11 @@ const adminPanel = readFileSync(resolve(root, "../admin-app/src/pages/content/Qu
 
 const routes = [...route.matchAll(/router\.(?:get|post)\("\/reasoning\/data-sufficiency\//g)];
 assert.equal(routes.length, 4, "CP-006 must not add a parallel DSF mock endpoint");
-assert.ok(route.includes('activationMode: "MOCK_TEST_RELEASE_ENABLED"'));
+assert.ok(route.includes('activationMode: "MULTILINGUAL_MOCK_TEST_RELEASE_ENABLED"'));
 assert.ok(route.includes('mockTestReleaseCheckpointId: DSF_CP006_CHECKPOINT_ID'));
 assert.ok(route.includes('mockTestReleaseAuthority: DSF_CP006_MOCK_TEST_RELEASE_AUTHORITY'));
 assert.ok(route.includes('export function dsfCp006ReviewPayload'));
+assert.ok(route.includes('export function dsfCp009LocalizedReleasePayload'));
 assert.ok(route.includes('mockTestEligible: true as const'));
 assert.ok(route.includes('automaticStudentPublication: false as const'));
 assert.ok(route.includes('export function dsfCp005ReviewPayload'));
@@ -32,14 +33,14 @@ assert.ok(testsRoute.includes('code: "QUESTION_NOT_PUBLISHED"'));
 assert.ok(seriesLib.includes('["qa_approved", "scheduled", "live", "completed"].includes(status)'));
 assert.ok(seriesLib.includes('test(s) are not QA approved or released'));
 
-assert.ok(adminClient.includes("activationMode: 'MOCK_TEST_RELEASE_ENABLED'"));
+assert.ok(adminClient.includes("activationMode: 'MULTILINGUAL_MOCK_TEST_RELEASE_ENABLED'"));
 assert.ok(adminClient.includes("mockTestReleaseCheckpointId: 'DSF-CP-006'"));
 assert.ok(adminClient.includes('mockTestEligible: true'));
 assert.ok(adminClient.includes('automaticStudentPublication: false'));
-assert.ok(adminPanel.includes('CP-006 mock-test release'));
-assert.ok(adminPanel.includes('canonical published-test and test-series QA/release path'));
+assert.ok(adminPanel.includes('CP-006 enables mock-test eligibility'));
+assert.ok(adminPanel.includes('test-series QA/release before mock delivery'));
 assert.ok(adminPanel.includes('Automatic student publication remains OFF'));
-assert.ok(adminPanel.includes('Older CP-004 BANK_ONLY and CP-005 mock-ineligible payloads are not upgraded'));
+assert.ok(adminPanel.includes('Historical CP-004/CP-005/CP-008 payloads are not retroactively upgraded'));
 
 console.log(JSON.stringify({
   status: "PASS_DSF_CP006_ROUTE_MOCK_LIFECYCLE_CONTRACT",
@@ -49,6 +50,7 @@ console.log(JSON.stringify({
   canonicalSeriesQaOrReleaseRequired: true,
   parallelDsfMockRouteAdded: false,
   legacyCp005MockIneligiblePayloadPreserved: true,
+  laterCp009MultilingualOverlayAllowed: true,
   mockTestEligible: true,
   automaticStudentPublication: false,
 }, null, 2));

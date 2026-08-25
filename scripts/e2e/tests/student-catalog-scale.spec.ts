@@ -18,14 +18,22 @@ const subcategories = categories.flatMap((category) => [1, 2].map((suffix) => ({
 
 const difficulties = ["Easy", "Medium", "Hard"] as const;
 const kinds = ["full-length", "sectional", "topic-wise"] as const;
+const subjects = ["Quantitative Aptitude", "Reasoning Ability", "English Language", "General Awareness", "Computer Awareness"] as const;
 
 const catalogTests = Array.from({ length: 540 }, (_, index) => {
   const number = index + 1;
   const category = categories[index % categories.length]!;
   const subcategory = subcategories[(index % categories.length) * 2 + (index % 2)]!;
+  const specialName = number === 11
+    ? "Daily Quant Challenge"
+    : number === 13
+      ? "SSC CGL PYQ 2024"
+      : number === 17
+        ? "Daily Current Affairs Quiz"
+        : null;
   return {
     id: `catalog-${String(number).padStart(3, "0")}`,
-    name: `Catalog Test ${String(number).padStart(3, "0")}`,
+    name: specialName ?? `Catalog Test ${String(number).padStart(3, "0")}`,
     category: category.name,
     categoryName: category.name,
     categoryId: category.id,
@@ -39,29 +47,10 @@ const catalogTests = Array.from({ length: 540 }, (_, index) => {
     attempts: number * 10,
     avgScore: 40 + (number % 50),
     difficulty: difficulties[index % difficulties.length],
-    sections: [],
+    sections: [{ id: `section-${number}`, name: subjects[index % subjects.length], questions: [] }],
     languages: number % 4 === 0 ? ["en", "pa"] : number % 5 === 0 ? ["en", "hi"] : ["en"],
   };
 });
-
-const publishedTests = Array.from({ length: 13 }, (_, index) => ({
-  id: `published-${index + 1}`,
-  publicCode: `PUB-${index + 1}`,
-  examVersionId: `exam-v-${index + 1}`,
-  publishedVersionId: `published-v-${index + 1}`,
-  title: `Live Test ${String(index + 1).padStart(2, "0")}`,
-  description: null,
-  durationSeconds: 3600,
-  totalMarks: 100,
-  settings: {},
-  examCode: "SSC-CGL",
-  examName: "SSC CGL",
-  examFamilyCode: "SSC",
-  examFamilyName: "SSC",
-  questionCount: 100,
-  publishedAt: "2026-08-20T00:00:00.000Z",
-  closesAt: null,
-}));
 
 const series = Array.from({ length: 13 }, (_, index) => ({
   id: `series-${index + 1}`,
@@ -78,8 +67,10 @@ const series = Array.from({ length: 13 }, (_, index) => ({
   examFamilyName: "SSC",
   testCount: 10,
   liveTestCount: 10,
+  fullLengthTestCount: index < 6 ? 8 : 0,
   durationSeconds: 18_000,
   questionCount: 500,
+  attemptCount: (13 - index) * 125,
 }));
 
 async function fulfillJson(route: Route, body: unknown) {
@@ -92,8 +83,13 @@ async function installCatalogFixtures(page: Page) {
     if (path === "/categories") return fulfillJson(route, categories);
     if (path === "/subcategories") return fulfillJson(route, subcategories);
     if (path === "/tests") return fulfillJson(route, catalogTests);
-    if (path === "/published-tests") return fulfillJson(route, { tests: publishedTests, generatedAt: "2026-08-20T06:30:00.000Z" });
-    if (path === "/test-series") return fulfillJson(route, { series, generatedAt: "2026-08-20T06:30:00.000Z" });
+    if (path === "/test-series") return fulfillJson(route, { series, generatedAt: "2026-08-24T06:30:00.000Z" });
+    if (path === "/daily-challenge") return fulfillJson(route, {
+      testId: "catalog-011",
+      testName: "Daily Quant Challenge",
+      date: "2026-08-24",
+      totalParticipants: 512,
+    });
     return fulfillJson(route, []);
   });
 }
@@ -101,6 +97,7 @@ async function installCatalogFixtures(page: Page) {
 async function openCatalog(page: Page) {
   await installCatalogFixtures(page);
   await page.goto("/exams");
+  await expect(page.getByRole("heading", { name: "Explore Exams", exact: true })).toBeVisible();
   await expect(page.getByTestId("catalog-test-browser")).toBeVisible();
   await expect(page.getByTestId("catalog-result-count")).toHaveText("Showing 1-18 of 540");
 }
@@ -118,7 +115,6 @@ test.describe("CP04 catalog scale", () => {
 
     const grid = page.getByTestId("catalog-page-grid");
     await expect(grid.locator("article")).toHaveCount(18);
-    await expect(page.getByTestId("catalog-large-mode")).toBeVisible();
     await expect(page.getByText("Drill into the exact exam path.")).toHaveCount(0);
 
     await page.getByTestId("catalog-sort").selectOption("name");
@@ -148,29 +144,49 @@ test.describe("CP04 catalog scale", () => {
     await expect(page.getByTestId("catalog-empty-state")).toContainText("No tests match these filters");
   });
 
-  test("pages promotional series and live-test grids at six cards", async ({ page }) => {
+  test("renders the final differentiated marketplace shelves without unbounded promo grids", async ({ page }) => {
     await openCatalog(page);
 
-    const seriesSection = page.getByTestId("series-section");
-    const publishedSection = page.getByTestId("published-tests-section");
-    await expect(seriesSection.locator("article")).toHaveCount(6);
-    await expect(publishedSection.locator("article")).toHaveCount(6);
+    await expect(page.getByTestId("exam-discovery-command-center")).toBeVisible();
+    await expect(page.getByTestId("exam-category-logo-row").getByRole("button")).toHaveCount(4);
 
-    const seriesPager = page.getByRole("navigation", { name: "Test series pagination" });
-    await seriesPager.getByRole("button", { name: "Next" }).click();
-    await expect(seriesPager).toContainText("Page 2 of 3");
-    await expect(seriesSection.locator("article")).toHaveCount(6);
+    const featured = page.getByTestId("featured-series-section");
+    await expect(featured.locator("article")).toHaveCount(4);
+    await expect(featured.locator("article h3").first()).toHaveText("Series 01");
+    await expect(featured).toContainText("1,625 attempts");
 
-    const livePager = page.getByRole("navigation", { name: "Live mock tests pagination" });
-    await livePager.getByRole("button", { name: "Next" }).click();
-    await expect(livePager).toContainText("Page 2 of 3");
-    await expect(publishedSection.locator("article")).toHaveCount(6);
+    const fullLength = page.getByTestId("full-length-series-section");
+    await expect(fullLength.locator("article")).toHaveCount(4);
+    await expect(fullLength.locator("article").first()).toContainText("8 full-length tests");
+
+    const freePractice = page.getByTestId("free-practice-section");
+    await expect(freePractice.locator("article")).toHaveCount(4);
+    await freePractice.getByRole("tab", { name: "Topic Tests" }).click();
+    await expect(freePractice.locator("article")).toHaveCount(4);
+
+    const daily = page.getByTestId("daily-practice-section");
+    await expect(daily).toContainText("Daily Quant Challenge");
+    await expect(daily.getByRole("button").first()).toBeVisible();
+
+    const pyq = page.getByTestId("pyq-section");
+    await expect(pyq).toContainText("SSC CGL PYQ 2024");
+    await expect(pyq.getByRole("button", { name: /Open PYQ Hub/i })).toBeVisible();
+
+    const subjects = page.getByTestId("subject-practice-section");
+    await expect(subjects.getByRole("button")).toHaveCount(5);
+
+    const popular = page.getByTestId("popular-tests-section");
+    await expect(popular.getByRole("button")).toHaveCount(5);
+
+    await expect(page.getByTestId("catalog-page-grid").locator("article")).toHaveCount(18);
   });
 
-  test("keeps scale controls mobile-safe at 390px", async ({ page }) => {
+  test("keeps marketplace and scale controls mobile-safe at 390px", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await openCatalog(page);
 
+    await expectTouchTarget(page.getByTestId("exam-category-logo-row").getByRole("button").first());
+    await expectTouchTarget(page.getByTestId("free-practice-section").getByRole("tab", { name: "Sectional Tests" }));
     for (const testId of ["catalog-search", "catalog-category-filter", "catalog-access-filter", "catalog-difficulty-filter", "catalog-kind-filter", "catalog-language-filter", "catalog-sort", "catalog-next-page"]) {
       await expectTouchTarget(page.getByTestId(testId));
     }

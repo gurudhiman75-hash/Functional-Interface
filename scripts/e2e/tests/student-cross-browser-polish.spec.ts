@@ -38,6 +38,7 @@ async function installFixtures(page: Page) {
     if (path === "/tests") return fulfillJson(route, tests);
     if (path === "/published-tests") return fulfillJson(route, { tests, generatedAt: "2026-08-22T06:45:00.000Z" });
     if (path === "/test-series") return fulfillJson(route, { series: [], generatedAt: "2026-08-22T06:45:00.000Z" });
+    if (path === "/daily-challenge") return fulfillJson(route, {});
     return fulfillJson(route, []);
   });
 }
@@ -55,7 +56,8 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
 
-    await expect(page.getByRole("heading", { name: /Practice smarter\.\s*Score with confidence\./i })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "What are you preparing for?" })).toBeVisible();
+    await expect(page.getByTestId("home-exam-logo-row")).toBeVisible();
     const header = page.getByTestId("public-header");
     await expect(header).toBeVisible();
     await expect(header).toHaveCSS("position", "sticky");
@@ -94,6 +96,27 @@ test.describe("CP08 cross-browser shared shell polish", () => {
 
     const viewportFillsScreen = await page.evaluate(() => document.body.scrollHeight >= window.innerHeight);
     expect(viewportFillsScreen).toBe(true);
+    expect(["firefox", "webkit"]).toContain(browserName);
+  });
+
+  test("sample homepage preview is labeled, populated, bounded, and routes safely", async ({ page, browserName }) => {
+    await installFixtures(page);
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto("/?preview=sample");
+
+    await expect(page.getByTestId("home-sample-preview-badge")).toContainText("Sample data preview");
+    await expect(page.getByText("98 published tests", { exact: true })).toBeVisible();
+    await expect(page.getByTestId("home-exam-logo-row").getByRole("button")).toHaveCount(7);
+    await expect(page.getByTestId("home-featured-series").locator("article")).toHaveCount(4);
+    await expect(page.getByTestId("home-free-practice").locator("article")).toHaveCount(4);
+    await expect(page.getByTestId("home-daily-practice").getByRole("button")).toHaveCount(3);
+    await expect(page.getByTestId("home-pyq-subjects")).toBeVisible();
+    await expect(page.getByTestId("home-popular-tests").getByRole("button")).toHaveCount(4);
+    await expectNoHorizontalOverflow(page);
+
+    await page.getByTestId("home-featured-series").getByRole("button", { name: "View Series" }).first().click();
+    await expect(page).toHaveURL(/\/exams$/);
+
     expect(["firefox", "webkit"]).toContain(browserName);
   });
 });

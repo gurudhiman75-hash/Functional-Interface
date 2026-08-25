@@ -75,12 +75,15 @@ function isNumberSystemRequest(body: any) {
     patternId.includes("num cp 008") ||
     patternId.includes("num cp 009") ||
     patternId.includes("num cp 010") ||
+    patternId.includes("num cp 011") ||
     checkpointId === "NUM-CP-008" ||
     checkpointId === "NUM-CP-009" ||
     checkpointId === "NUM-CP-010" ||
+    checkpointId === "NUM-CP-011" ||
     inferredQlCp === "NUM-CP-008" ||
     inferredQlCp === "NUM-CP-009" ||
     inferredQlCp === "NUM-CP-010" ||
+    inferredQlCp === "NUM-CP-011" ||
     (selectors.has(topic) && !subtopic) ||
     (topic === "arithmetic" && selectors.has(subtopic))
   );
@@ -136,6 +139,7 @@ function inferNumberSystemCpFromQl(value: unknown) {
   if (number >= 166 && number <= 184) return "NUM-CP-008";
   if (number >= 185 && number <= 196) return "NUM-CP-009";
   if (number >= 197 && number <= 212) return "NUM-CP-010";
+  if (number >= 213 && number <= 225) return "NUM-CP-011";
   return undefined;
 }
 
@@ -176,6 +180,9 @@ router.get(
           ? pkg.presentationProfiles.map((entry: any) => ({ ...entry }))
           : [],
         permanentQlIds: Array.isArray(pkg.permanentQlIds) ? pkg.permanentQlIds.map(String) : [],
+        candidateQlIds: Array.isArray(pkg.candidateQlIds) ? pkg.candidateQlIds.map(String) : [],
+        permanentQlCount: Number.isFinite(Number(pkg.permanentQlCount)) ? Number(pkg.permanentQlCount) : undefined,
+        candidateQlCount: Number.isFinite(Number(pkg.candidateQlCount)) ? Number(pkg.candidateQlCount) : undefined,
         supportedDifficulties: Array.isArray(pkg.supportedDifficulties)
           ? pkg.supportedDifficulties.map(String)
           : ["Easy", "Medium", "Hard"],
@@ -189,10 +196,30 @@ router.get(
         reviewStatus: asString(pkg.reviewStatus) || undefined,
         releaseFreezeStatus: asString(pkg.releaseFreezeStatus) || undefined,
         questionBankStatus: asString(pkg.questionBankStatus) || undefined,
+        questionBankWritable:
+          typeof pkg.questionBankWritable === "boolean"
+            ? pkg.questionBankWritable
+            : undefined,
         testEligibility: asString(pkg.testEligibility) || undefined,
+        testEligible:
+          typeof pkg.testEligible === "boolean"
+            ? pkg.testEligible
+            : undefined,
+        mockTestEligible:
+          typeof pkg.mockTestEligible === "boolean"
+            ? pkg.mockTestEligible
+            : undefined,
+        multilingualChapterFrozen:
+          typeof pkg.multilingualChapterFrozen === "boolean"
+            ? pkg.multilingualChapterFrozen
+            : undefined,
         publiclyPublishable:
           typeof pkg.publiclyPublishable === "boolean"
             ? pkg.publiclyPublishable
+            : undefined,
+        automaticStudentPublication:
+          typeof pkg.automaticStudentPublication === "boolean"
+            ? pkg.automaticStudentPublication
             : undefined,
       }));
 
@@ -234,9 +261,11 @@ router.post(
       || requestedNumberSystemCp === "NUM-CP-008"
       || requestedNumberSystemCp === "NUM-CP-009"
       || requestedNumberSystemCp === "NUM-CP-010"
+      || requestedNumberSystemCp === "NUM-CP-011"
       || requestedNumberSystemQlCp === "NUM-CP-008"
       || requestedNumberSystemQlCp === "NUM-CP-009"
       || requestedNumberSystemQlCp === "NUM-CP-010"
+      || requestedNumberSystemQlCp === "NUM-CP-011"
     );
     const defaultPackageId = numberSystemRequest
       ? num002Request ? "NUM-002" : "NUM-001"
@@ -292,7 +321,7 @@ router.post(
       return;
     }
 
-    // Hindi/Punjabi controlled review is available for NUM-CP-001, NUM-CP-008, NUM-CP-009 and NUM-CP-010 only.
+    // Hindi/Punjabi controlled review is available for NUM-CP-001, NUM-CP-008, NUM-CP-009, NUM-CP-010 and NUM-CP-011 only.
     if (numberSystemRequest && language !== "en") {
       const targetCp = canonicalProblemId ?? inferredNumberSystemCp ?? (num002Request ? "NUM-CP-008" : "NUM-CP-001");
       if (
@@ -300,9 +329,10 @@ router.post(
         && targetCp !== "NUM-CP-008"
         && targetCp !== "NUM-CP-009"
         && targetCp !== "NUM-CP-010"
+        && targetCp !== "NUM-CP-011"
       ) {
         res.status(400).json({
-          error: "Hindi/Punjabi Number System Question Studio review is frozen for NUM-CP-001, NUM-CP-008, NUM-CP-009 and NUM-CP-010; the other currently routed checkpoints remain English-only.",
+          error: "Hindi/Punjabi Number System Question Studio review is frozen for NUM-CP-001, NUM-CP-008, NUM-CP-009, NUM-CP-010 and NUM-CP-011; the other currently routed checkpoints remain English-only.",
         });
         return;
       }

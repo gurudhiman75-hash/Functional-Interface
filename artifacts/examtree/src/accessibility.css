@@ -13,6 +13,17 @@ a.fixed[href="/account-recovery"] {
   min-block-size: 2.75rem;
 }
 
+/* The homepage daily-practice shelf uses the shared section-heading structure on
+   a dark acquisition surface. Keep its heading/copy contrast explicit rather than
+   inheriting the light-surface foreground tokens used by the other shelves. */
+[data-testid="home-daily-practice"] #home-daily-heading h2 {
+  color: #ffffff !important;
+}
+
+[data-testid="home-daily-practice"] #home-daily-heading p {
+  color: #dbeafe !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html:focus-within {
     scroll-behavior: auto;
