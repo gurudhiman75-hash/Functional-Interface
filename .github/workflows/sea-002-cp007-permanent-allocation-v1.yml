@@ -1,0 +1,75 @@
+name: Validate SEA-002 CP007 permanent QL allocation V1
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/**"
+      - ".github/workflows/sea-002-cp007-permanent-allocation-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: sea-002-cp007-permanent-allocation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-sea-002-cp007-permanent-allocation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Re-prove CP007 source saturation
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/source-saturation-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/sea-002-cp007-source-saturation-allocation-regression.mjs
+
+      - name: Run source saturation regression
+        run: node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-source-saturation-allocation-regression.mjs
+
+      - name: Re-prove independent production uniqueness V2
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/production-caselet-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/sea-002-cp007-production-allocation-regression.mjs
+
+      - name: Run production uniqueness regression
+        run: node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-production-allocation-regression.mjs
+
+      - name: Prove inactive permanent QL allocation
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/permanent/allocation.test.ts \
+            2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp007-permanent-allocation-v1.log
+
+      - name: Re-prove CP006 completion handoff
+        run: >-
+          node --experimental-strip-types
+          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-completion-authority.test.ts
+
+      - name: Upload CP007 permanent allocation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sea-002-cp007-permanent-allocation-v1
+          path: artifacts/api-server/dist/reasoning-v1/sea-002-cp007-permanent-allocation-v1.log
+          if-no-files-found: error
+          retention-days: 30

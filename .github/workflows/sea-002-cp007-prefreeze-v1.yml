@@ -1,0 +1,77 @@
+name: Validate SEA-002 CP007 prefreeze authority V1
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/**"
+      - ".github/workflows/sea-002-cp007-prefreeze-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: sea-002-cp007-prefreeze-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-sea-002-cp007-prefreeze:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Prove CP007 approval-gated prefreeze authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/review/prefreeze-authority-v1.test.ts \
+            2>&1 | tee /tmp/sea-002-cp007-prefreeze-authority-v1.log
+
+      - name: Prove exact approval-to-freeze contract
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/review/freeze-contract-v1.test.ts \
+            2>&1 | tee /tmp/sea-002-cp007-freeze-contract-v1.log
+
+      - name: Prove blocked Question Studio preview adapter
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/question-studio-preintegration-v1.test.ts \
+            2>&1 | tee /tmp/sea-002-cp007-question-studio-prefreeze-v1.log
+
+      - name: Re-prove permanent inactive allocation
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/permanent/allocation.test.ts \
+            2>&1 | tee /tmp/sea-002-cp007-permanent-allocation-reproof.log
+
+      - name: Re-prove CP006 completion handoff
+        run: >-
+          node --experimental-strip-types
+          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-completion-authority.test.ts
+
+      - name: Upload prefreeze evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sea-002-cp007-prefreeze-authority-v1
+          path: |
+            /tmp/sea-002-cp007-prefreeze-authority-v1.log
+            /tmp/sea-002-cp007-freeze-contract-v1.log
+            /tmp/sea-002-cp007-question-studio-prefreeze-v1.log
+            /tmp/sea-002-cp007-permanent-allocation-reproof.log
+          if-no-files-found: error
+          retention-days: 30

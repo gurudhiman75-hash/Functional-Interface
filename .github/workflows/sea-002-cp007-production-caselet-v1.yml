@@ -1,0 +1,71 @@
+name: Validate SEA-002 CP007 production caselet uniqueness
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/**"
+      - ".github/workflows/sea-002-cp007-production-caselet-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: sea-002-cp007-production-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-sea-002-cp007-production:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave02 source saturation regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/source-saturation-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/sea-002-cp007-source-saturation-regression.mjs
+
+      - name: Run Wave02 source saturation regression
+        run: node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-source-saturation-regression.mjs
+
+      - name: Bundle production caselet audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/production-caselet-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/reasoning-v1/sea-002-cp007-production-caselet-v1.mjs
+
+      - name: Run production caselet audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp007-production-caselet-v1.mjs \
+            2>&1 | tee artifacts/api-server/dist/reasoning-v1/sea-002-cp007-production-caselet-v1.log
+
+      - name: Re-prove CP006 completion authority
+        run: >-
+          node --experimental-strip-types
+          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/cp006-completion-authority.test.ts
+
+      - name: Upload production-caselet evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sea-002-cp007-production-caselet-v1
+          path: artifacts/api-server/dist/reasoning-v1/sea-002-cp007-production-caselet-v1.log
+          if-no-files-found: error
+          retention-days: 30
