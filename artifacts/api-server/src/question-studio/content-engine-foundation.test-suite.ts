@@ -46,6 +46,8 @@ await runStage("COM-001 Question Bank normalization audit V1", () => import("./e
 await runStage("COM-002 source/PYQ manifest", () => import("../knowledge-v1/computer-awareness/com002-source-manifest.test"));
 await runStage("COM-002 operating-system discovery inventory", () => import("../knowledge-v1/computer-awareness/com002-operating-system-discovery.test"));
 await runStage("COM-002 cross-exam Banking PYQ evidence", () => import("../knowledge-v1/computer-awareness/com002-cross-exam-pyq-evidence.test"));
+await runStage("COM-002 recent SSC Tier-II PYQ evidence", () => import("../knowledge-v1/computer-awareness/com002-ssc-tier2-pyq-evidence.test"));
 await runStage("COM-002 merge/split ownership audit", () => import("../knowledge-v1/computer-awareness/com002-operating-system-merge-split-audit.test"));
+await runStage("COM-002 permanent allocation readiness", () => import("../knowledge-v1/computer-awareness/com002-allocation-readiness.test"));
 
 console.log("Question Studio content engine foundation suite passed.");
