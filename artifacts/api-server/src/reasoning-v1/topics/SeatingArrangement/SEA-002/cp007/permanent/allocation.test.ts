@@ -28,8 +28,8 @@ for (const entry of SEA002_CP007_PERMANENT_QL_REGISTRY) {
   assert.equal(entry.allocationStatus, "PERMANENT_ID_ALLOCATED_INACTIVE");
   assert.equal(entry.sourceSaturationStatus, "FOUR_AUTHORITIES_PROVEN");
   assert.equal(entry.productionUniquenessStatus, "INDEPENDENT_UNIQUENESS_V2_PROVEN");
-  assert.equal(entry.englishReviewStatus, "REVIEW_READY_NOT_APPROVED");
-  assert.equal(entry.localizationStatus, "NOT_STARTED");
+  assert.equal(entry.englishReviewStatus, "CI_CERTIFIED_SELF_REVIEW_COMPLETE");
+  assert.equal(entry.localizationStatus, "V2_REVIEW_READY_HUMAN_APPROVAL_PENDING");
   assert.equal(entry.active, false);
   assert.equal(entry.questionStudioDiscoverable, false);
   assert.equal(entry.questionBankWritable, false);
@@ -53,10 +53,11 @@ assert.match(auth04.solveContract, /infer the reference person's facing/iu);
 
 assert.equal(SEA002_NEXT_AVAILABLE_PERMANENT_QL_ID_AFTER_CP007, "SEA-QL-029");
 
-console.log("PASS_SEA002_CP007_PERMANENT_QL_ALLOCATION_V1");
+console.log("PASS_SEA002_CP007_PERMANENT_QL_ALLOCATION_V2_REVIEW_READY");
 console.log("allocated inactive QLs", SEA002_CP007_PERMANENT_QL_IDS.join(","));
 console.log("authority count", SEA002_CP007_PERMANENT_QL_REGISTRY.length);
-console.log("English review approved", false);
-console.log("localization started", false);
+console.log("English review", "CI_CERTIFIED_SELF_REVIEW_COMPLETE");
+console.log("localization", "V2_REVIEW_READY_HUMAN_APPROVAL_PENDING");
+console.log("human approval", false);
 console.log("Studio/Bank/test/mock/staging/public", false, false, false, false, false, false);
 console.log("next permanent QL", SEA002_NEXT_AVAILABLE_PERMANENT_QL_ID_AFTER_CP007);
