@@ -28,6 +28,23 @@ assert.match(engineRoute, /generationSystems/);
 assert.match(engineRoute, /listQuestionStudioPackages\(\)/);
 assert.match(engineRoute, /engineId:\s*pkg\.engineId/);
 
+// Lifecycle is also package-generic; future engines must not need subject-specific capability fields.
+for (const field of [
+  "lifecycleId",
+  "lifecycleStage",
+  "reviewSurfaceRequired",
+  "manualApprovalRequired",
+  "questionBankWritable",
+  "questionBankAcceptanceMode",
+  "questionBankAcceptanceAuthority",
+  "testEligible",
+  "mockTestEligible",
+  "automaticStudentPublication",
+  "productionReleaseAuthorized",
+]) {
+  assert.match(engineRoute, new RegExp(`${field}:\\s*pkg\\.${field}`));
+}
+
 // Existing Quant traffic must bypass the new non-Quant persistence path.
 assert.match(engineRoute, /selectedEngineId === "quant-v4"/);
 assert.match(engineRoute, /next\("route"\)/);
