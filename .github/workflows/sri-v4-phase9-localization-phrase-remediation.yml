@@ -1,0 +1,240 @@
+name: SRI Phase 9 localization phrase remediation
+
+on:
+  push:
+    branches:
+      - feature/sri-v4-phase9-localization-v1
+    paths:
+      - .github/workflows/sri-v4-phase9-localization-phrase-remediation.yml
+
+permissions:
+  contents: write
+
+jobs:
+  remediate-localization-phrases:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/sri-v4-phase9-localization-v1
+      - name: Apply Unicode parser and phrase authority remediation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path("artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices")
+          test_path = root / "tests/permanent-localization-v1.test.ts"
+          text = test_path.read_text(encoding="utf-8")
+          old = r'(?<=\p{L})-(?=\p{L})'
+          new = r'(?<=[\p{L}\p{M}])-(?=[\p{L}\p{M}])'
+          if old not in text:
+              raise SystemExit("Expected letter-letter linguistic hyphen parser not found")
+          text = text.replace(old, new)
+          test_path.write_text(text, encoding="utf-8")
+
+          loc_path = root / "permanent-localization-v1.ts"
+          text = loc_path.read_text(encoding="utf-8")
+          hi_anchor = '  "hi-IN": [\n'
+          pa_anchor = '  "pa-IN": [\n'
+          if text.count(hi_anchor) != 1 or text.count(pa_anchor) != 1:
+              raise SystemExit("Localization phrase anchors are not unique")
+
+          hi = '''    ["Combine same-base factors by adding numerator exponents and subtracting the denominator exponent.", "समान आधार वाले गुणनखंडों को मिलाइए: अंश के घातांक जोड़िए और हर का घातांक घटाइए।"],
+    ["same-base factors", "समान आधार वाले गुणनखंड"],
+    ["numerator exponents", "अंश के घातांक"],
+    ["denominator exponent", "हर का घातांक"],
+    ["by adding", "जोड़कर"],
+    ["and subtracting", "और घटाकर"],
+    ["Rationalise the denominator and simplify exactly.", "हर का परिमेयकरण करके सटीक रूप से सरल कीजिए।"],
+    ["rationalise the denominator", "हर का परिमेयकरण कीजिए"],
+    ["rationalize the denominator", "हर का परिमेयकरण कीजिए"],
+    ["rationalise", "परिमेयकरण कीजिए"],
+    ["rationalize", "परिमेयकरण कीजिए"],
+    ["rationalised", "परिमेयकृत"],
+    ["rationalized", "परिमेयकृत"],
+    ["rationalisation", "परिमेयकरण"],
+    ["rationalization", "परिमेयकरण"],
+    ["with a rational denominator", "परिमेय हर के साथ"],
+    ["Remove the radical from the denominator", "हर से मूल हटाइए"],
+    ["Remove the radicals from the denominator", "हर से मूल हटाइए"],
+    ["denominator becomes the radicand", "हर करणीगत संख्या बन जाता है"],
+    ["denominator norm", "हर का मानक गुणनफल"],
+    ["after conjugation", "संयुग्मीकरण के बाद"],
+    ["conjugation", "संयुग्मीकरण"],
+    ["Denest", "करणी-विघटन कीजिए"],
+    ["denested form", "विघटित करणी रूप"],
+    ["denested pair", "विघटित करणी युग्म"],
+    ["denestable", "करणी-विघटनीय"],
+    ["Not denestable", "करणी-विघटनीय नहीं"],
+    ["Always denestable", "हमेशा करणी-विघटनीय"],
+    ["nested-surd", "नेस्टेड करणी"],
+    ["nested surd", "नेस्टेड करणी"],
+    ["nested radical", "नेस्टेड मूल"],
+    ["infinite radical", "अनंत आवर्ती मूल"],
+    ["repeating radical", "आवर्ती मूल"],
+    ["fixed point", "स्थिर बिंदु"],
+    ["positive fixed point", "धनात्मक स्थिर बिंदु"],
+    ["repeating tail", "आवर्ती शेष भाग"],
+    ["consecutive integers", "क्रमागत पूर्णांकों"],
+    ["consecutive-integer", "क्रमागत-पूर्णांक"],
+    ["consecutive perfect squares", "क्रमागत पूर्ण वर्गों"],
+    ["without decimals", "दशमलव के बिना"],
+    ["without decimal approximation", "दशमलव सन्निकटन के बिना"],
+    ["decimal approximation", "दशमलव सन्निकटन"],
+    ["bound statement", "सीमा कथन"],
+    ["range statement", "परास कथन"],
+    ["bound the", "की सीमाएँ ज्ञात कीजिए"],
+    ["bound that", "उसकी सीमाएँ ज्ञात कीजिए"],
+    ["bounds", "सीमाएँ"],
+    ["interval", "अंतराल"],
+    ["extraneous", "बाह्य"],
+    ["candidate after squaring", "वर्ग करने के बाद प्राप्त प्रत्याशी"],
+    ["after squaring", "वर्ग करने के बाद"],
+    ["different-index radicals", "भिन्न घातांक वाले मूल"],
+    ["common exact power", "समान सटीक घात"],
+    ["positive square roots", "धनात्मक वर्गमूलों"],
+    ["positive surds", "धनात्मक करणियों"],
+    ["by exact arithmetic", "सटीक गणना से"],
+    ["rational-exponent", "परिमेय-घातांक"],
+    ["rational exponent", "परिमेय घातांक"],
+    ["rational exponents", "परिमेय घातांक"],
+    ["fractional indices", "भिन्नात्मक घातांकों"],
+    ["fractional index", "भिन्नात्मक घातांक"],
+    ["index notation", "घातांक संकेतन"],
+    ["radical-index", "मूल-घातांक"],
+    ["radical and index", "मूल और घातांक"],
+    ["radical form", "मूल रूप"],
+    ["exponent notation", "घातांक संकेतन"],
+    ["equivalent representation", "समतुल्य निरूपण"],
+    ["equivalent representations", "समतुल्य निरूपण"],
+    ["equivalence", "समतुल्यता"],
+    ["representation", "निरूपण"],
+    ["representations", "निरूपण"],
+    ["integer-radicand", "पूर्णांक-करणीगत"],
+    ["integer radicands", "पूर्णांक करणीगत संख्याएँ"],
+    ["non-negative integers", "ऋणेतर पूर्णांक"],
+    ["cross-term", "मिश्र पद"],
+    ["cross term", "मिश्र पद"],
+    ["one-radical equation", "एक-मूल समीकरण"],
+    ["raise both positive radicals", "दोनों धनात्मक मूलों को घात तक उठाइए"],
+    ["preserves their order", "उनका क्रम बनाए रखता है"],
+    ["recover the", "पुनः ज्ञात कीजिए"],
+    ["recover", "पुनः ज्ञात कीजिए"],
+    ["missing radicand", "लुप्त करणीगत संख्या"],
+    ["positive root", "धनात्मक मूल"],
+    ["root is", "मूल है"],
+    ["squaring", "वर्ग करने पर"],
+    ["square them", "उनका वर्ग कीजिए"],
+    ["square the", "का वर्ग कीजिए"],
+    ["the exact denesting test succeeds", "सटीक करणी-विघटन परीक्षण सफल है"],
+    ["the exact denesting test fails", "सटीक करणी-विघटन परीक्षण असफल है"],
+'''
+          pa = '''    ["Combine same-base factors by adding numerator exponents and subtracting the denominator exponent.", "ਇੱਕੋ ਅਧਾਰ ਵਾਲੇ ਗੁਣਨਖੰਡ ਮਿਲਾਓ: ਅੰਸ਼ ਦੇ ਘਾਤਾਂਕ ਜੋੜੋ ਅਤੇ ਹਰ ਦਾ ਘਾਤਾਂਕ ਘਟਾਓ।"],
+    ["same-base factors", "ਇੱਕੋ ਅਧਾਰ ਵਾਲੇ ਗੁਣਨਖੰਡ"],
+    ["numerator exponents", "ਅੰਸ਼ ਦੇ ਘਾਤਾਂਕ"],
+    ["denominator exponent", "ਹਰ ਦਾ ਘਾਤਾਂਕ"],
+    ["by adding", "ਜੋੜ ਕੇ"],
+    ["and subtracting", "ਅਤੇ ਘਟਾ ਕੇ"],
+    ["Rationalise the denominator and simplify exactly.", "ਹਰ ਦਾ ਪਰਿਮੇਯਕਰਨ ਕਰਕੇ ਸਟੀਕ ਰੂਪ ਵਿੱਚ ਸਰਲ ਕਰੋ।"],
+    ["rationalise the denominator", "ਹਰ ਦਾ ਪਰਿਮੇਯਕਰਨ ਕਰੋ"],
+    ["rationalize the denominator", "ਹਰ ਦਾ ਪਰਿਮੇਯਕਰਨ ਕਰੋ"],
+    ["rationalise", "ਪਰਿਮੇਯਕਰਨ ਕਰੋ"],
+    ["rationalize", "ਪਰਿਮੇਯਕਰਨ ਕਰੋ"],
+    ["rationalised", "ਪਰਿਮੇਯਕ੍ਰਿਤ"],
+    ["rationalized", "ਪਰਿਮੇਯਕ੍ਰਿਤ"],
+    ["rationalisation", "ਪਰਿਮੇਯਕਰਨ"],
+    ["rationalization", "ਪਰਿਮੇਯਕਰਨ"],
+    ["with a rational denominator", "ਪਰਿਮੇਯ ਹਰ ਨਾਲ"],
+    ["Remove the radical from the denominator", "ਹਰ ਵਿਚੋਂ ਮੂਲ ਹਟਾਓ"],
+    ["Remove the radicals from the denominator", "ਹਰ ਵਿਚੋਂ ਮੂਲ ਹਟਾਓ"],
+    ["denominator becomes the radicand", "ਹਰ ਕਰਣੀਗਤ ਸੰਖਿਆ ਬਣ ਜਾਂਦਾ ਹੈ"],
+    ["denominator norm", "ਹਰ ਦਾ ਮਿਆਰੀ ਗੁਣਨਫਲ"],
+    ["after conjugation", "ਸੰਯੁਗਮੀਕਰਨ ਤੋਂ ਬਾਅਦ"],
+    ["conjugation", "ਸੰਯੁਗਮੀਕਰਨ"],
+    ["Denest", "ਕਰਣੀ-ਵਿਘਟਨ ਕਰੋ"],
+    ["denested form", "ਵਿਘਟਿਤ ਕਰਣੀ ਰੂਪ"],
+    ["denested pair", "ਵਿਘਟਿਤ ਕਰਣੀ ਜੋੜਾ"],
+    ["denestable", "ਕਰਣੀ-ਵਿਘਟਨਯੋਗ"],
+    ["Not denestable", "ਕਰਣੀ-ਵਿਘਟਨਯੋਗ ਨਹੀਂ"],
+    ["Always denestable", "ਹਮੇਸ਼ਾਂ ਕਰਣੀ-ਵਿਘਟਨਯੋਗ"],
+    ["nested-surd", "ਨੇਸਟਡ ਕਰਣੀ"],
+    ["nested surd", "ਨੇਸਟਡ ਕਰਣੀ"],
+    ["nested radical", "ਨੇਸਟਡ ਮੂਲ"],
+    ["infinite radical", "ਅਨੰਤ ਆਵਰਤੀ ਮੂਲ"],
+    ["repeating radical", "ਆਵਰਤੀ ਮੂਲ"],
+    ["fixed point", "ਸਥਿਰ ਬਿੰਦੂ"],
+    ["positive fixed point", "ਧਨਾਤਮਕ ਸਥਿਰ ਬਿੰਦੂ"],
+    ["repeating tail", "ਆਵਰਤੀ ਬਾਕੀ ਹਿੱਸਾ"],
+    ["consecutive integers", "ਲਗਾਤਾਰ ਪੂਰਨ ਅੰਕਾਂ"],
+    ["consecutive-integer", "ਲਗਾਤਾਰ-ਪੂਰਨ-ਅੰਕ"],
+    ["consecutive perfect squares", "ਲਗਾਤਾਰ ਪੂਰਨ ਵਰਗਾਂ"],
+    ["without decimals", "ਦਸ਼ਮਲਵਾਂ ਤੋਂ ਬਿਨਾਂ"],
+    ["without decimal approximation", "ਦਸ਼ਮਲਵ ਸਨਿਕਟਨ ਤੋਂ ਬਿਨਾਂ"],
+    ["decimal approximation", "ਦਸ਼ਮਲਵ ਸਨਿਕਟਨ"],
+    ["bound statement", "ਸੀਮਾ ਕਥਨ"],
+    ["range statement", "ਪਰਾਸ ਕਥਨ"],
+    ["bound the", "ਦੀਆਂ ਸੀਮਾਵਾਂ ਪਤਾ ਕਰੋ"],
+    ["bound that", "ਉਸ ਦੀਆਂ ਸੀਮਾਵਾਂ ਪਤਾ ਕਰੋ"],
+    ["bounds", "ਸੀਮਾਵਾਂ"],
+    ["interval", "ਅੰਤਰਾਲ"],
+    ["extraneous", "ਬਾਹਰੀ"],
+    ["candidate after squaring", "ਵਰਗ ਕਰਨ ਤੋਂ ਬਾਅਦ ਮਿਲਿਆ ਉਮੀਦਵਾਰ"],
+    ["after squaring", "ਵਰਗ ਕਰਨ ਤੋਂ ਬਾਅਦ"],
+    ["different-index radicals", "ਵੱਖਰੇ ਘਾਤਾਂਕ ਵਾਲੇ ਮੂਲ"],
+    ["common exact power", "ਸਾਂਝੀ ਸਟੀਕ ਘਾਤ"],
+    ["positive square roots", "ਧਨਾਤਮਕ ਵਰਗਮੂਲਾਂ"],
+    ["positive surds", "ਧਨਾਤਮਕ ਕਰਣੀਆਂ"],
+    ["by exact arithmetic", "ਸਟੀਕ ਗਣਨਾ ਨਾਲ"],
+    ["rational-exponent", "ਪਰਿਮੇਯ-ਘਾਤਾਂਕ"],
+    ["rational exponent", "ਪਰਿਮੇਯ ਘਾਤਾਂਕ"],
+    ["rational exponents", "ਪਰਿਮੇਯ ਘਾਤਾਂਕ"],
+    ["fractional indices", "ਭਿੰਨਾਤਮਕ ਘਾਤਾਂਕਾਂ"],
+    ["fractional index", "ਭਿੰਨਾਤਮਕ ਘਾਤਾਂਕ"],
+    ["index notation", "ਘਾਤਾਂਕ ਸੰਕੇਤਨ"],
+    ["radical-index", "ਮੂਲ-ਘਾਤਾਂਕ"],
+    ["radical and index", "ਮੂਲ ਅਤੇ ਘਾਤਾਂਕ"],
+    ["radical form", "ਮੂਲ ਰੂਪ"],
+    ["exponent notation", "ਘਾਤਾਂਕ ਸੰਕੇਤਨ"],
+    ["equivalent representation", "ਸਮਤੁੱਲ ਨਿਰੂਪਣ"],
+    ["equivalent representations", "ਸਮਤੁੱਲ ਨਿਰੂਪਣ"],
+    ["equivalence", "ਸਮਤੁੱਲਤਾ"],
+    ["representation", "ਨਿਰੂਪਣ"],
+    ["representations", "ਨਿਰੂਪਣ"],
+    ["integer-radicand", "ਪੂਰਨ-ਅੰਕ-ਕਰਣੀਗਤ"],
+    ["integer radicands", "ਪੂਰਨ ਅੰਕ ਕਰਣੀਗਤ ਸੰਖਿਆਵਾਂ"],
+    ["non-negative integers", "ਗੈਰ-ਰਿਣਾਤਮਕ ਪੂਰਨ ਅੰਕ"],
+    ["cross-term", "ਮਿਸ਼ਰ ਪਦ"],
+    ["cross term", "ਮਿਸ਼ਰ ਪਦ"],
+    ["one-radical equation", "ਇੱਕ-ਮੂਲ ਸਮੀਕਰਨ"],
+    ["raise both positive radicals", "ਦੋਵੇਂ ਧਨਾਤਮਕ ਮੂਲਾਂ ਨੂੰ ਘਾਤ ਤੱਕ ਚੁੱਕੋ"],
+    ["preserves their order", "ਉਨ੍ਹਾਂ ਦਾ ਕ੍ਰਮ ਕਾਇਮ ਰੱਖਦਾ ਹੈ"],
+    ["recover the", "ਮੁੜ ਪਤਾ ਕਰੋ"],
+    ["recover", "ਮੁੜ ਪਤਾ ਕਰੋ"],
+    ["missing radicand", "ਗੁੰਮ ਕਰਣੀਗਤ ਸੰਖਿਆ"],
+    ["positive root", "ਧਨਾਤਮਕ ਮੂਲ"],
+    ["root is", "ਮੂਲ ਹੈ"],
+    ["squaring", "ਵਰਗ ਕਰਨ ਤੇ"],
+    ["square them", "ਉਨ੍ਹਾਂ ਦਾ ਵਰਗ ਕਰੋ"],
+    ["square the", "ਦਾ ਵਰਗ ਕਰੋ"],
+    ["the exact denesting test succeeds", "ਸਟੀਕ ਕਰਣੀ-ਵਿਘਟਨ ਜਾਂਚ ਸਫਲ ਹੈ"],
+    ["the exact denesting test fails", "ਸਟੀਕ ਕਰਣੀ-ਵਿਘਟਨ ਜਾਂਚ ਅਸਫਲ ਹੈ"],
+'''
+          text = text.replace(hi_anchor, hi_anchor + hi, 1)
+          text = text.replace(pa_anchor, pa_anchor + pa, 1)
+          loc_path.write_text(text, encoding="utf-8")
+          PY
+      - name: Verify remediation markers
+        run: |
+          grep -F 'अंश के घातांक जोड़िए और हर का घातांक घटाइए' artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts
+          grep -F 'ਅੰਸ਼ ਦੇ ਘਾਤਾਂਕ ਜੋੜੋ ਅਤੇ ਹਰ ਦਾ ਘਾਤਾਂਕ ਘਟਾਓ' artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts
+          grep -F '(?<=[\p{L}\p{M}])-(?=[\p{L}\p{M}])' artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/permanent-localization-v1.test.ts
+      - name: Commit remediation
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts \
+                  artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/permanent-localization-v1.test.ts
+          git diff --cached --check
+          git commit -m "SRI Phase 9: expand Hindi Punjabi phrase authority"
+          git push origin HEAD:feature/sri-v4-phase9-localization-v1
