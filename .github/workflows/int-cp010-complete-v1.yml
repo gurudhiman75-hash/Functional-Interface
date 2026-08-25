@@ -54,6 +54,11 @@ jobs:
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-complete-v1-audit.ts | tee int-cp010-complete-v1.log
           grep -q 'PASS_INT_CP010_COMPLETE_V1_AUDIT' int-cp010-complete-v1.log
+      - name: Run CP010 final learner polish audit
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-final-polish-audit.ts | tee int-cp010-final-polish.log
+          grep -q 'PASS_INT_CP010_FINAL_POLISH_AUDIT' int-cp010-final-polish.log
       - name: Export CP010 final permanent review pack
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp010-final-review-export.ts > INT-CP-010-FINAL-PERMANENT-REVIEW.md
       - name: Build API server
@@ -72,6 +77,7 @@ jobs:
             int-cp010-production-v2-regression.log
             int-cp010-localization-regression.log
             int-cp010-complete-v1.log
+            int-cp010-final-polish.log
             int-cp010-complete-v1-head.log
             INT-CP-010-FINAL-PERMANENT-REVIEW.md
           retention-days: 30
