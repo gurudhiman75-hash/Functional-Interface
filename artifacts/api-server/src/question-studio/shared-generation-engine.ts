@@ -22,6 +22,11 @@ import {
   isNumCp011QuestionStudioRequest,
   listNumCp011QuestionStudioPackages,
 } from "../quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/question-studio-integration";
+import {
+  generateNumCp012QuestionStudioBatch,
+  isNumCp012QuestionStudioRequest,
+  listNumCp012QuestionStudioPackages,
+} from "../quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/question-studio-integration";
 import type { WorCheckpointId } from "../reasoning-v1/topics/Word-Dictionary-Order/WOR-001/foundation/types";
 import {
   buildWor001QuestionStudioPayload,
@@ -75,6 +80,7 @@ export {
   isNumCp009QuestionStudioRequest,
   isNumCp010QuestionStudioRequest,
   isNumCp011QuestionStudioRequest,
+  isNumCp012QuestionStudioRequest,
 };
 
 export function isWor001QuestionStudioRequest(request: SharedQuestionStudioGenerationRequest) {
@@ -179,28 +185,31 @@ function num002PackageCapability() {
   const cp009 = listNumCp009QuestionStudioPackages()[0]!;
   const cp010 = listNumCp010QuestionStudioPackages()[0]!;
   const cp011 = listNumCp011QuestionStudioPackages()[0]!;
+  const cp012 = listNumCp012QuestionStudioPackages()[0]!;
   return Object.freeze({
     ...cp008,
-    name: "NUM-002 Number System — Remainders, Cyclicity, Digit Structure & Factorial Valuations",
-    label: "Number System — Remainders, Cyclicity, Digit Structure & Factorial Valuations",
-    cpIds: Object.freeze([...cp008.cpIds, ...cp009.cpIds, ...cp010.cpIds, ...cp011.cpIds]),
+    name: "NUM-002 Number System — Remainders, Cyclicity, Digit Structure, Factorial Valuations & Perfect Powers",
+    label: "Number System — Remainders, Cyclicity, Digit Structure, Factorial Valuations & Perfect Powers",
+    cpIds: Object.freeze([...cp008.cpIds, ...cp009.cpIds, ...cp010.cpIds, ...cp011.cpIds, ...cp012.cpIds]),
     canonicalProblems: Object.freeze([
       ...cp008.canonicalProblems,
       ...cp009.canonicalProblems,
       ...cp010.canonicalProblems,
       ...cp011.canonicalProblems,
+      ...cp012.canonicalProblems,
     ]),
-    permanentQlCount: cp008.permanentQlCount + cp009.permanentQlCount + cp010.permanentQlCount + cp011.permanentQlCount,
+    permanentQlCount: cp008.permanentQlCount + cp009.permanentQlCount + cp010.permanentQlCount + cp011.permanentQlCount + cp012.permanentQlCount,
     permanentQlIds: Object.freeze([
       ...cp008.permanentQlIds,
       ...cp009.permanentQlIds,
       ...cp010.permanentQlIds,
       ...cp011.permanentQlIds,
+      ...cp012.permanentQlIds,
     ]),
     supportedDifficulties: Object.freeze(["Easy", "Medium", "Hard"]),
     supportedLanguages: Object.freeze(["en", "hi", "pa"]),
-    releaseId: "NUM-002-QS-CP008-CP011-MULTILINGUAL-FROZEN-V1",
-    checkpointReleaseIds: Object.freeze([cp008.releaseId, cp009.releaseId, cp010.releaseId, cp011.releaseId]),
+    releaseId: "NUM-002-QS-CP008-CP012-MULTILINGUAL-FROZEN-V1",
+    checkpointReleaseIds: Object.freeze([cp008.releaseId, cp009.releaseId, cp010.releaseId, cp011.releaseId, cp012.releaseId]),
     questionBankWritable: false,
     testEligible: false,
     mockTestEligible: false,
@@ -322,6 +331,9 @@ async function generateWor001QuestionStudioQuestions(request: SharedQuestionStud
 }
 
 export async function generateQuestion(request: SharedQuestionStudioGenerationRequest = {}) {
+  if (isNumCp012QuestionStudioRequest(request)) {
+    return generateNumCp012QuestionStudioBatch(request);
+  }
   if (isNumCp011QuestionStudioRequest(request)) {
     return generateNumCp011QuestionStudioBatch(request);
   }
