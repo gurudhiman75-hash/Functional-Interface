@@ -44,6 +44,7 @@ await runStage("COM-001 historical review difficulty authority V1", () => import
 await runStage("COM-001 Question Bank normalization audit V1", () => import("./engines/com001-question-bank-readiness-v1.test"));
 
 await runStage("COM-002 source/PYQ manifest", () => import("../knowledge-v1/computer-awareness/com002-source-manifest.test"));
+await runStage("COM-002 source authority extension", () => import("../knowledge-v1/computer-awareness/com002-source-authority-extension.test"));
 await runStage("COM-002 operating-system discovery inventory", () => import("../knowledge-v1/computer-awareness/com002-operating-system-discovery.test"));
 await runStage("COM-002 cross-exam Banking PYQ evidence", () => import("../knowledge-v1/computer-awareness/com002-cross-exam-pyq-evidence.test"));
 await runStage("COM-002 recent SSC Tier-II PYQ evidence", () => import("../knowledge-v1/computer-awareness/com002-ssc-tier2-pyq-evidence.test"));
