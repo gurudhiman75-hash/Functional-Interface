@@ -10,7 +10,7 @@ export const TSD_CP010_STUDIO_CANDIDATE_PACKAGE_ID = "TSD-002" as const;
 export const TSD_CP010_STUDIO_CANDIDATE_CHECKPOINT_ID = "TSD-CP-010" as const;
 export const TSD_CP010_STUDIO_CANDIDATE_LANGUAGES = ["en", "hi", "pa"] as const;
 export const TSD_CP010_STUDIO_CANDIDATE_DIFFICULTIES = ["EASY", "MEDIUM"] as const;
-export const TSD_CP010_STUDIO_CANDIDATE_RUNTIME_MODE = "TSD-CP-010-MULTILINGUAL-REVIEW-CANDIDATE-v4" as const;
+export const TSD_CP010_STUDIO_CANDIDATE_RUNTIME_MODE = "TSD-CP-010-MULTILINGUAL-REVIEW-CANDIDATE-v5" as const;
 
 export type TsdCp010StudioCandidateLanguage = (typeof TSD_CP010_STUDIO_CANDIDATE_LANGUAGES)[number];
 export type TsdCp010StudioCandidateDifficulty = (typeof TSD_CP010_STUDIO_CANDIDATE_DIFFICULTIES)[number];
@@ -260,13 +260,12 @@ function alternativeSolutions(solution: TsdCp010ExecutableSolution): readonly Ts
     const n = solution.answer.numerator;
     const d = solution.answer.denominator;
     return Object.freeze([
-      { ...solution, answer: rational(n + 1n, d) },
-      { ...solution, answer: rational(n, d + 1n) },
-      { ...solution, answer: rational(n + 2n, d + 1n) },
+      Object.freeze({ ...solution, answer: rational(n + d, d) }),
+      Object.freeze({ ...solution, answer: rational(n, n + d) }),
+      Object.freeze({ ...solution, answer: rational(n + 2n * d, d) }),
     ]);
   }
-  const deltas = solution.answer.numerator > 2n * solution.answer.denominator ? [-2, -1, 1] : [1, 2, 3];
-  return Object.freeze(deltas.map((delta) => Object.freeze({ ...solution, answer: add(solution.answer, rational(delta)) })));
+  return Object.freeze([1, 2, 3].map((delta) => Object.freeze({ ...solution, answer: add(solution.answer, rational(delta)) })));
 }
 
 function hash(value: string) {
@@ -280,7 +279,7 @@ function hash(value: string) {
 
 function optionsFor(solution: TsdCp010ExecutableSolution, language: TsdCp010StudioCandidateLanguage, seed: string) {
   const values = [answerText(solution, language), ...alternativeSolutions(solution).map((x) => answerText(x, language))];
-  if (new Set(values).size !== 4) throw new Error("CP010 candidate options are not unique");
+  if (new Set(values).size !== 4) throw new Error(`CP010 candidate options are not unique for ${answerText(solution, language)}`);
   const correct = values[0]!;
   const shift = hash(seed) % 4;
   const options = values.map((_value, index) => values[(index + shift) % 4]!);
