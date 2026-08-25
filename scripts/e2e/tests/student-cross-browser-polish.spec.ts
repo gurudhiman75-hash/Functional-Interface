@@ -51,7 +51,7 @@ async function expectNoHorizontalOverflow(page: Page) {
 }
 
 test.describe("CP08 cross-browser shared shell polish", () => {
-  test("desktop public chrome remains stable and navigable", async ({ page, browserName }) => {
+  test("desktop study routes use the detailed sidebar instead of duplicated top navigation", async ({ page, browserName }) => {
     await installFixtures(page);
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
@@ -59,15 +59,33 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await expect(page.getByTestId("home-hero-carousel")).toBeVisible();
     await expect(page.getByTestId("home-exam-logo-row")).toBeVisible();
     await expect(page.getByTestId("home-testimonials-preview")).toHaveCount(0);
+
     const header = page.getByTestId("public-header");
     await expect(header).toBeVisible();
     await expect(header).toHaveCSS("position", "sticky");
+    await expect(page.getByRole("navigation", { name: "Primary navigation" })).toBeHidden();
+
+    const sidebar = page.getByTestId("public-study-sidebar");
+    await expect(sidebar).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Home" })).toHaveAttribute("aria-current", "page");
+    await expect(sidebar.getByRole("link", { name: "Explore Exams" })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Mock Tests" })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Previous Year Questions" })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "My Tests" })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Performance" })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Profile & Settings" })).toBeVisible();
+    await expect(sidebar.getByRole("link", { name: "Contact Support" })).toBeVisible();
+
+    const sidebarBox = await sidebar.boundingBox();
+    expect(sidebarBox).not.toBeNull();
+    expect(sidebarBox?.width ?? 0).toBeGreaterThanOrEqual(210);
+    expect(sidebarBox?.width ?? 0).toBeLessThanOrEqual(250);
     await expectNoHorizontalOverflow(page);
 
-    const browseTests = header.getByRole("link", { name: "Browse tests" });
-    await expect(browseTests).toBeVisible();
-    await browseTests.click();
+    await sidebar.getByRole("link", { name: "Explore Exams" }).click();
     await expect(page).toHaveURL(/\/exams$/);
+    await expect(page.getByTestId("public-study-sidebar")).toBeVisible();
+    await expect(page.getByTestId("public-study-sidebar").getByRole("link", { name: "Explore Exams" })).toHaveAttribute("aria-current", "page");
 
     expect(["firefox", "webkit"]).toContain(browserName);
   });
@@ -77,6 +95,7 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
 
+    await expect(page.getByTestId("public-study-sidebar")).toBeHidden();
     const menuButton = page.getByRole("button", { name: "Open navigation menu" });
     await expect(menuButton).toBeVisible();
 
@@ -135,6 +154,8 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto("/exams?preview=sample");
 
+    await expect(page.getByTestId("public-study-sidebar")).toBeVisible();
+    await expect(page.getByRole("navigation", { name: "Primary navigation" })).toBeHidden();
     await expect(page.getByTestId("exams-sample-preview-badge")).toContainText("Sample data preview");
     await expect(page.getByText("98 published tests", { exact: true })).toBeVisible();
     await expect(page.getByTestId("exam-category-logo-row").getByRole("button")).toHaveCount(7);
