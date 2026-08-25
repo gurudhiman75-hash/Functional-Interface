@@ -4,8 +4,8 @@ import type { TsdCp010ExecutableCase, TsdCp010ExecutableInput } from "./executab
 import { TSD_CP010_AUTHORITY_KEYS, type TsdCp010AuthorityKey } from "./source-saturation";
 
 const SPEED_PAIRS = [
-  [6, 5], [7, 6], [8, 6], [5, 4], [6, 4], [7, 5],
-  [8, 7], [5, 3], [6, 5], [7, 4], [8, 6], [6, 5],
+  [6, 5], [7, 6], [8, 6], [5, 4], [6, 4], [5, 3],
+  [8, 7], [7, 5], [6, 5], [7, 4], [8, 6], [5, 4],
 ] as const;
 const SPEED_TRIPLES = [
   [8, 6, 4], [6, 4, 3], [5, 4, 3], [8, 6, 3], [6, 5, 4], [8, 4, 2],
