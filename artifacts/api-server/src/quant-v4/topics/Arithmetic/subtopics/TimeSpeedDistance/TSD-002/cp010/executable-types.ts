@@ -6,8 +6,10 @@ export type TsdCp010Unit = "METRE" | "SECOND" | "METRE_PER_SECOND" | "RATIO";
 export type TsdCp010ExecutableInput =
   | Readonly<{ authorityKey: "finishDistanceLeadState"; raceDistance: Rational; winnerSpeed: Rational; loserSpeed: Rational }>
   | Readonly<{ authorityKey: "finishTimeLeadState"; raceDistance: Rational; winnerSpeed: Rational; loserSpeed: Rational }>
-  | Readonly<{ authorityKey: "raceSpeedRatioState"; raceDistance: Rational; distanceLead: Rational }>
-  | Readonly<{ authorityKey: "raceLengthFromLeadEvidence"; winnerSpeed: Rational; loserSpeed: Rational; distanceLead: Rational }>
+  | Readonly<{ authorityKey: "raceSpeedRatioState"; mode: "DISTANCE_LEAD"; raceDistance: Rational; distanceLead: Rational }>
+  | Readonly<{ authorityKey: "raceSpeedRatioState"; mode: "TIME_LEAD"; winnerTime: Rational; timeLead: Rational }>
+  | Readonly<{ authorityKey: "raceLengthFromLeadEvidence"; mode: "DISTANCE_LEAD"; winnerSpeed: Rational; loserSpeed: Rational; distanceLead: Rational }>
+  | Readonly<{ authorityKey: "raceLengthFromLeadEvidence"; mode: "TIME_LEAD"; winnerSpeed: Rational; loserSpeed: Rational; timeLead: Rational }>
   | Readonly<{ authorityKey: "deadHeatHandicapState"; mode: "DISTANCE_HANDICAP" | "TIME_DELAY"; raceDistance: Rational; fasterSpeed: Rational; slowerSpeed: Rational }>
   | Readonly<{ authorityKey: "leadConversionState"; mode: "DISTANCE_TO_TIME" | "TIME_TO_DISTANCE"; loserSpeed: Rational; distanceLead?: Rational; timeLead?: Rational }>
   | Readonly<{ authorityKey: "transitiveRaceComparison"; raceDistance: Rational; aBeatsBBy: Rational; bBeatsCBy: Rational }>
