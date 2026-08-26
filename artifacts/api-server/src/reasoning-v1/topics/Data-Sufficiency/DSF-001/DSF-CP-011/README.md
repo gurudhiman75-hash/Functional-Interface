@@ -1,6 +1,6 @@
 # DSF-CP-011 — Two-Statement Quant Breadth Expansion
 
-Status: **AVERAGE GREEN / AGES GREEN / PROFIT-LOSS-DISCOUNT REVIEW CANDIDATE / INTEREST REVIEW CANDIDATE**
+Status: **AVERAGE GREEN / AGES GREEN / PROFIT-LOSS-DISCOUNT REVIEW CANDIDATE / INTEREST REVIEW CANDIDATE / TIME-WORK-PIPES REVIEW CANDIDATE**
 
 CP-011 is additive. It does not rewrite or weaken any authority frozen by DSF-CP-001 through DSF-CP-010.
 
@@ -99,6 +99,27 @@ Statement families cover exact principal/rate/time, exact source-derived SI/CI/a
 
 Wave 4 is review-only until its executable 250-question audit is green.
 
+### Wave 5 — Time & Work / Pipes & Cisterns / `TMW-001`
+
+Canonical source solvers reused directly:
+
+- `TMW-001/foundation/cp001-solver::solveTmwCp001`
+- `TMW-001/foundation/cp009-solver::solveTmwCp009`
+
+Ordinary work worlds use the CP001 rate/work/time solver. Pipe worlds use the CP009 signed-flow solver, including true inlet+outlet systems rather than treating an outlet as a positive worker.
+
+Solve modes:
+
+- `DSF-SM-TMW-COMPLETION-TIME`
+- `DSF-SM-TMW-WORK-RATE`
+- `DSF-SM-TMW-FRACTION-COMPLETED`
+- `DSF-SM-PIPE-POSITIVE-FILL-TIME`
+- `DSF-SM-PIPE-MIXED-FILL-TIME`
+
+The finite audit universes contain 66 work worlds, 42 two-inlet worlds and 30 inlet+outlet worlds. Work contexts cover documents, packaging, painting, inspection, loading and assembly. Pipe contexts cover water, reservoir, storage, process, service and collection tanks.
+
+Wave 5 is review-only until its executable 250-question audit is green.
+
 ## Exam-realness rule
 
 Generation identity is not accepted as evidence of student-visible variety. Each implemented lane additionally measures:
@@ -125,10 +146,9 @@ All CP-011 expansion questions remain review-only until their dedicated CI and h
 
 High-value additive source bindings still remaining:
 
-1. Time & Work / Pipes
-2. Time-Speed-Distance / Trains / Boats
-3. Mixture & Alligation
-4. Geometry / Mensuration
-5. richer Number System, Ratio, Percentage and Algebra target/world variants
+1. Time-Speed-Distance / Trains / Boats
+2. Mixture & Alligation
+3. Geometry / Mensuration
+4. richer Number System, Ratio, Percentage and Algebra target/world variants
 
 Each wave must reuse the source chapter's solver/capability or stay blocked; CP-011 must not become a second arithmetic implementation layer inside DSF.
