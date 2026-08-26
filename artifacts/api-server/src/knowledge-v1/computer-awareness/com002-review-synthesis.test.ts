@@ -33,6 +33,7 @@ for (const qlId of qlIds) {
     assert.equal(first.sourceFactIds.length > 0, true);
     assert.equal(/canonical fact|distractor pool|review metadata|solver authority|this ql/i.test(`${first.stem} ${first.explanation}`), false, `${first.questionId} leaks internal language`);
     assert.equal(/is used to (?:helps|provides|shows|manages|accepts)|component core component|kernel core component/i.test(`${first.stem} ${first.explanation}`), false, `${first.questionId} contains known grammar regression`);
+    assert.equal(/classified here as/i.test(`${first.stem} ${first.explanation}`), false, `${first.questionId} contains internal-sounding classification language`);
 
     if (qlId === "COM-002-QL-013") {
       assert.equal(first.targetFactId, null);
@@ -49,8 +50,12 @@ for (const qlId of qlIds) {
     if (qlId === "COM-002-QL-002" && first.surfaceMode === "ATTRIBUTE_TO_OS") {
       const stemOpen = /open-source/i.test(first.stem);
       const stemProp = /proprietary/i.test(first.stem);
+      assert.equal(/classified as/i.test(first.stem), false, `${first.questionId} keeps avoidable classification wording in the learner stem`);
       if (stemOpen) assert.equal(first.options.some((option) => option !== first.canonicalAnswer && /^(Ubuntu|Linux|Android)/i.test(option)), false, `${first.questionId} uses another open-source OS as a wrong option`);
       if (stemProp) assert.equal(first.options.some((option) => option !== first.canonicalAnswer && /^(macOS|iOS)/i.test(option)), false, `${first.questionId} uses another proprietary OS as a wrong option`);
+    }
+    if (qlId === "COM-002-QL-007" && first.surfaceMode === "COMPONENT_TO_FUNCTION") {
+      assert.equal(first.options.some((option) => /^(?:provides|shows|helps|manages|accepts|uses|allows|displays|opens)\b/i.test(option)), false, `${first.questionId} mixes finite-verb and base-verb function options`);
     }
     if (qlId === "COM-002-QL-009" && first.surfaceMode === "TYPE_TO_EXTENSION") {
       assert.equal(/JPEG image file/i.test(first.stem), false, `${first.questionId} creates ambiguous JPEG reverse mapping`);
@@ -74,6 +79,19 @@ for (const qlId of qlIds) {
     assert.equal(surfaces.size >= 2, true, `${qlId} has thin solve-mode coverage: ${[...surfaces]}`);
   }
 }
+
+const q03 = generateCom002ReviewQuestionV2({ qlId: "COM-002-QL-002", seed: "human-review-wave1:COM-002-QL-002:A" });
+assert.equal(q03.explanation, "Ubuntu Desktop is an open-source operating system.");
+
+const q04 = generateCom002ReviewQuestionV2({ qlId: "COM-002-QL-002", seed: "human-review-wave1:COM-002-QL-002:B" });
+assert.equal(q04.stem, "Which of the following is a proprietary mobile operating system?");
+
+const q13 = generateCom002ReviewQuestionV2({ qlId: "COM-002-QL-007", seed: "human-review-wave1:COM-002-QL-007:A" });
+assert.equal(q13.stem, "Which part of the Windows taskbar displays system-status icons and notification-related features?");
+
+const q14 = generateCom002ReviewQuestionV2({ qlId: "COM-002-QL-007", seed: "human-review-wave1:COM-002-QL-007:B" });
+assert.equal(q14.canonicalAnswer, "provide access to apps, settings, files and search");
+assert.equal(q14.options.some((option) => /^(?:provides|shows|helps)\b/i.test(option)), false);
 
 assert.equal(questionCount, 520);
 console.log(`[com002-review-synthesis-v2] PASS questions=${questionCount}`);
