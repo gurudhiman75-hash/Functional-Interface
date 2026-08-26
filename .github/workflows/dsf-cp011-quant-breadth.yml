@@ -16,6 +16,8 @@ on:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeAndWork/TMW-001/**
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/**
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-001/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/**
       - .github/workflows/dsf-cp011-quant-breadth.yml
   workflow_dispatch:
 
@@ -114,3 +116,13 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/data-sufficiency/cp011/mixture-runtime-v1.test.mjs
+      - name: Bundle CP-011 Mensuration breadth audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-011/mensuration-runtime-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp011/mensuration-runtime-v1.test.mjs
+      - name: Run CP-011 Mensuration breadth audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp011/mensuration-runtime-v1.test.mjs
