@@ -2,7 +2,14 @@ name: Validate SPA-FND-001 Production Authority V1
 
 on:
   pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
+      - ".github/workflows/spa-production-authority-v1.yml"
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read

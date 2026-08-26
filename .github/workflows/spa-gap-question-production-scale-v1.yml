@@ -8,6 +8,10 @@ on:
       - ".github/workflows/spa-gap-question-production-scale-v1.yml"
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate-gap-question-production-scale-v2:
     runs-on: ubuntu-24.04
