@@ -1,6 +1,6 @@
 import { strict as assert } from "node:assert";
 import { COM002_EDITORIAL_TARGET_FACTS, getCom002EditorialDecision } from "./com002-editorial-review";
-import { generateCom002ReviewQuestion } from "./com002-review-synthesis";
+import { generateCom002ReviewQuestionV2 } from "./com002-review-synthesis-v2";
 
 const qlIds = Array.from({ length: 13 }, (_, index) => `COM-002-QL-${String(index + 1).padStart(3, "0")}`);
 const targetIds = new Set(COM002_EDITORIAL_TARGET_FACTS.map((fact) => fact.factId));
@@ -15,8 +15,8 @@ for (const qlId of qlIds) {
 
   for (let index = 0; index < 40; index += 1) {
     const seed = `com002-review-audit:${qlId}:${index}`;
-    const first = generateCom002ReviewQuestion({ qlId, seed });
-    const replay = generateCom002ReviewQuestion({ qlId, seed });
+    const first = generateCom002ReviewQuestionV2({ qlId, seed });
+    const replay = generateCom002ReviewQuestionV2({ qlId, seed });
     questionCount += 1;
 
     assert.deepEqual(replay, first, `${qlId} seed ${index} is not deterministic`);
@@ -32,6 +32,7 @@ for (const qlId of qlIds) {
     assert.equal(first.sourceIds.length > 0, true);
     assert.equal(first.sourceFactIds.length > 0, true);
     assert.equal(/canonical fact|distractor pool|review metadata|solver authority|this ql/i.test(`${first.stem} ${first.explanation}`), false, `${first.questionId} leaks internal language`);
+    assert.equal(/is used to (?:helps|provides|shows|manages|accepts)|component core component|kernel core component/i.test(`${first.stem} ${first.explanation}`), false, `${first.questionId} contains known grammar regression`);
 
     if (qlId === "COM-002-QL-013") {
       assert.equal(first.targetFactId, null);
@@ -45,6 +46,12 @@ for (const qlId of qlIds) {
       targets.add(first.targetFactId!);
     }
 
+    if (qlId === "COM-002-QL-002" && first.surfaceMode === "ATTRIBUTE_TO_OS") {
+      const stemOpen = /open-source/i.test(first.stem);
+      const stemProp = /proprietary/i.test(first.stem);
+      if (stemOpen) assert.equal(first.options.some((option) => option !== first.canonicalAnswer && /^(Ubuntu|Linux|Android)/i.test(option)), false, `${first.questionId} uses another open-source OS as a wrong option`);
+      if (stemProp) assert.equal(first.options.some((option) => option !== first.canonicalAnswer && /^(macOS|iOS)/i.test(option)), false, `${first.questionId} uses another proprietary OS as a wrong option`);
+    }
     if (qlId === "COM-002-QL-009" && first.surfaceMode === "TYPE_TO_EXTENSION") {
       assert.equal(/JPEG image file/i.test(first.stem), false, `${first.questionId} creates ambiguous JPEG reverse mapping`);
       assert.equal(first.options.includes(".jpg") && first.options.includes(".jpeg"), false, `${first.questionId} puts JPEG aliases in competition`);
@@ -69,4 +76,4 @@ for (const qlId of qlIds) {
 }
 
 assert.equal(questionCount, 520);
-console.log(`[com002-review-synthesis] PASS questions=${questionCount}`);
+console.log(`[com002-review-synthesis-v2] PASS questions=${questionCount}`);
