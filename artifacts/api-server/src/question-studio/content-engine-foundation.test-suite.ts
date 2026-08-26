@@ -57,5 +57,8 @@ await runStage("COM-002 candidate corpus breadth extension", () => import("../kn
 await runStage("COM-002 OS component/power-action corpus extension", () => import("../knowledge-v1/computer-awareness/com002-candidate-corpus-extension2.test"));
 await runStage("COM-002 exact exam-family OS corpus extension", () => import("../knowledge-v1/computer-awareness/com002-candidate-corpus-extension3.test"));
 await runStage("COM-002 permanent QL corpus coverage", () => import("../knowledge-v1/computer-awareness/com002-corpus-coverage.test"));
+await runStage("COM-002 editorial fact review", () => import("../knowledge-v1/computer-awareness/com002-editorial-review.test"));
+await runStage("COM-002 520-question English review synthesis", () => import("../knowledge-v1/computer-awareness/com002-review-synthesis.test"));
+await runStage("COM-002 26-question human review sampler", () => import("../knowledge-v1/computer-awareness/com002-human-review-wave1.test"));
 
 console.log("Question Studio content engine foundation suite passed.");
