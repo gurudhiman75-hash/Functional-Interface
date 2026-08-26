@@ -41,13 +41,34 @@ for (const localized of SEA002_CP008_LOCALIZED_REVIEW_SET_V2) {
   assert.doesNotMatch(localized.stem, /बैठता|बैठती|बैठेगा|बैठेगी|ਬੈਠਦਾ|ਬੈਠਦੀ|ਬੈਠੇਗਾ|ਬੈਠੇਗੀ/iu);
   assert.doesNotMatch(localized.question, /बैठता|बैठती|ਬੈਠਦਾ|ਬੈਠਦੀ/iu);
   assert.doesNotMatch(localized.explanation, /बैठता|बैठती|ਬੈਠਦਾ|ਬੈਠਦੀ/iu);
+  assert.doesNotMatch(localized.stem, /constraint spine|discovery spine|prototype|seatIndex|structural fingerprint/iu);
 }
+
+for (const locale of ["hi", "pa"] as const) {
+  const role12 = SEA002_CP008_LOCALIZED_REVIEW_SET_V2.filter((candidate) =>
+    candidate.locale === locale && candidate.permanentQlId === "SEA-QL-029" && candidate.variantIndex >= 4,
+  );
+  assert.equal(role12.length, 2);
+  if (locale === "hi") {
+    assert.ok(role12.every((candidate) => /बारह/u.test(candidate.stem)));
+    assert.ok(role12.every((candidate) => !/60 मीटर|5 मीटर/u.test(candidate.stem)), "QL029 role-derived Hindi must not leak metric-square wording");
+  } else {
+    assert.ok(role12.every((candidate) => /ਬਾਰਾਂ/u.test(candidate.stem)));
+    assert.ok(role12.every((candidate) => !/60 ਮੀਟਰ|5 ਮੀਟਰ/u.test(candidate.stem)), "QL029 role-derived Punjabi must not leak metric-square wording");
+  }
+}
+
+const hiMetric = SEA002_CP008_LOCALIZED_REVIEW_SET_V2.filter((candidate) => candidate.locale === "hi" && candidate.permanentQlId === "SEA-QL-035");
+assert.ok(hiMetric.every((candidate) => /60 मीटर/u.test(candidate.stem) && /5 मीटर/u.test(candidate.stem)));
+const paMetric = SEA002_CP008_LOCALIZED_REVIEW_SET_V2.filter((candidate) => candidate.locale === "pa" && candidate.permanentQlId === "SEA-QL-035");
+assert.ok(paMetric.every((candidate) => /60 ਮੀਟਰ/u.test(candidate.stem) && /5 ਮੀਟਰ/u.test(candidate.stem)));
 
 console.log("PASS_SEA002_CP008_LOCALIZATION_V2");
 console.log("English V2 source surfaces", SEA002_CP008_ENGLISH_REVIEW_SET_V2.length);
 console.log("localized V2 surfaces", SEA002_CP008_LOCALIZED_REVIEW_SET_V2.length);
 console.log("Hindi unique setups", new Set(SEA002_CP008_LOCALIZED_REVIEW_SET_V2.filter((candidate) => candidate.locale === "hi").map((candidate) => candidate.stem)).size);
 console.log("Punjabi unique setups", new Set(SEA002_CP008_LOCALIZED_REVIEW_SET_V2.filter((candidate) => candidate.locale === "pa").map((candidate) => candidate.stem)).size);
+console.log("12-seat role-derived locale guards", 4);
 console.log("mechanical gender slash residue", 0);
 console.log("human approval", SEA002_CP008_LOCALIZATION_EDITORIAL_V2.humanApprovalStatus);
 console.log("Studio/Bank/public", false, false, false);
