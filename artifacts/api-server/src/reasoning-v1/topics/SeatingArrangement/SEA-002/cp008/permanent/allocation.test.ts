@@ -2,7 +2,11 @@ import assert from "node:assert/strict";
 
 import { SEA002_NEXT_AVAILABLE_PERMANENT_QL_ID_AFTER_CP007 } from "../../cp007/permanent/registry.ts";
 import { SEA002_CP008_SOURCE_SATURATION_V3 } from "../source-saturation-v3.ts";
-import { SEA002_CP008_PERMANENT_ELIGIBLE_SIGNATURE_IDS } from "../solve-signature-v4.ts";
+import {
+  SEA002_CP008_PERMANENT_ELIGIBLE_SIGNATURE_IDS,
+  SEA002_CP008_WAVE04_AUTHORITY_STATUS,
+  SEA002_CP008_WAVE04_SOLVE_SIGNATURES,
+} from "../solve-signature-v4.ts";
 import {
   SEA002_CP008_PERMANENT_QL_IDS,
   SEA002_CP008_PERMANENT_QL_REGISTRY,
@@ -48,6 +52,16 @@ for (const entry of SEA002_CP008_PERMANENT_QL_REGISTRY) {
   assert.ok(entry.definingDiscriminators.length >= 4);
 }
 
+const ql029 = SEA002_CP008_PERMANENT_QL_REGISTRY.find((entry) => entry.permanentQlId === "SEA-QL-029");
+assert.ok(ql029);
+assert.equal(ql029.signatureId, "SEA-CP008-SIG-A");
+assert.match(ql029.authorityLabel, /8-seat and 12-seat scales/iu);
+assert.match(ql029.solveContract, /12-seat/iu);
+assert.ok(ql029.definingDiscriminators.includes("8-seat or 12-seat scale parameter"));
+assert.deepEqual(SEA002_CP008_WAVE04_SOLVE_SIGNATURES["SEA-CP008-SIG-A"].prototypeIds, [
+  "SEA-CP008-PROT-001", "SEA-CP008-PROT-002", "SEA-CP008-PROT-005",
+]);
+assert.equal(SEA002_CP008_WAVE04_AUTHORITY_STATUS.sourceBackedRoleDerivedScaleVariantMergedInto, "SEA-CP008-SIG-A");
 assert.equal(SEA002_CP008_PERMANENT_QL_REGISTRY.some((entry) => entry.signatureId === "SEA-CP008-SIG-D"), false);
 assert.equal(SEA002_CP008_PERMANENT_QL_REGISTRY.some((entry) => entry.permanentQlId === "SEA-QL-036"), false);
 assert.equal(SEA002_NEXT_AVAILABLE_PERMANENT_QL_ID_AFTER_CP008, "SEA-QL-036");
@@ -55,7 +69,8 @@ assert.equal(SEA002_NEXT_AVAILABLE_PERMANENT_QL_ID_AFTER_CP008, "SEA-QL-036");
 console.log("PASS_SEA002_CP008_PERMANENT_QL_ALLOCATION_V1");
 console.log("allocated inactive QLs", SEA002_CP008_PERMANENT_QL_IDS.join(","));
 console.log("authority count", SEA002_CP008_PERMANENT_QL_REGISTRY.length);
-console.log("stress-only SIG-D allocated", false);
+console.log("source-backed SIG-D scale variant merged into SIG-A", true);
+console.log("eighth QL allocated", false);
 console.log("English/localization", "NOT_STARTED", "NOT_STARTED");
 console.log("Studio/Bank/test/mock/staging/public", false, false, false, false, false, false);
 console.log("next permanent QL", SEA002_NEXT_AVAILABLE_PERMANENT_QL_ID_AFTER_CP008);
