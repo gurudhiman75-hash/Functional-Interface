@@ -1,5 +1,5 @@
 import { writeFileSync } from "node:fs";
-import { TSD_CP010_NATIVE_FINAL_HINDI_REVIEW, TSD_CP010_NATIVE_FINAL_PUNJABI_REVIEW } from "./localization-native-final";
+import { TSD_CP010_EXAM_REAL_HINDI_REVIEW, TSD_CP010_EXAM_REAL_PUNJABI_REVIEW } from "./exam-real-review-final";
 
 const outputPath = process.argv[2] ?? "TSD-CP010-HINDI-PUNJABI-QUESTIONS.md";
 const lines: string[] = [
@@ -9,7 +9,7 @@ const lines: string[] = [
   "",
 ];
 
-for (const [label, questions] of [["Hindi", TSD_CP010_NATIVE_FINAL_HINDI_REVIEW], ["Punjabi", TSD_CP010_NATIVE_FINAL_PUNJABI_REVIEW]] as const) {
+for (const [label, questions] of [["Hindi", TSD_CP010_EXAM_REAL_HINDI_REVIEW], ["Punjabi", TSD_CP010_EXAM_REAL_PUNJABI_REVIEW]] as const) {
   lines.push(`# ${label}`, "");
   let currentQl = "";
   for (const question of questions) {
@@ -22,4 +22,4 @@ for (const [label, questions] of [["Hindi", TSD_CP010_NATIVE_FINAL_HINDI_REVIEW]
 }
 
 writeFileSync(outputPath, `${lines.join("\n")}\n`, "utf8");
-console.log(`Wrote ${TSD_CP010_NATIVE_FINAL_HINDI_REVIEW.length + TSD_CP010_NATIVE_FINAL_PUNJABI_REVIEW.length} native CP010 review questions to ${outputPath}`);
+console.log(`Wrote ${TSD_CP010_EXAM_REAL_HINDI_REVIEW.length + TSD_CP010_EXAM_REAL_PUNJABI_REVIEW.length} exam-real native CP010 review questions to ${outputPath}`);
