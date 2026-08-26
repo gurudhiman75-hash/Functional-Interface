@@ -1,6 +1,6 @@
 # DSF-CP-011 — Two-Statement Quant Breadth Expansion
 
-Status: **AVERAGE GREEN / AGES REVIEW CANDIDATE**
+Status: **AVERAGE GREEN / AGES GREEN / PROFIT-LOSS-DISCOUNT REVIEW CANDIDATE**
 
 CP-011 is additive. It does not rewrite or weaken any authority frozen by DSF-CP-001 through DSF-CP-010.
 
@@ -41,7 +41,6 @@ Dedicated CI is green for the API build plus the 250-question Average breadth/re
 Source capability reused directly:
 
 - `RAP-003/solver::solveRap003(ageFromSumAndRatio)`
-- `RAP-003/math::simplifyRatio`
 
 DSF does not calculate the target age independently. Each surviving finite world is projected through the source solver; DSF owns only statement filtering and canonical sufficiency classification.
 
@@ -54,7 +53,29 @@ Statement families include present ratio, sum, difference, exact age, future rat
 
 Neutral student-facing contexts include cousins, colleagues, neighbours, club players, friends and siblings. No unstated age-order or cultural assumption is used.
 
-Wave 2 is review-only until its executable audit is green.
+Dedicated CI is green for the API build plus the 250-question Ages breadth/realness audit.
+
+### Wave 3 — Profit/Loss/Discount / `PNL-001`
+
+Source capabilities reused directly:
+
+- `PNL-001/foundation/solver::solveFundamental`
+- `PNL-001/foundation/discount-solver::solveDiscount`
+
+The base price worlds are themselves created through the canonical PNL solvers. Every surviving world is then projected to the asked target through the appropriate source solver. CP-011 therefore does not own profit/loss or discount formulas.
+
+Solve modes:
+
+- `DSF-SM-PNL-SP-FROM-CP-RATE`
+- `DSF-SM-PNL-CP-FROM-SP-RATE`
+- `DSF-SM-PNL-RATE-FROM-CP-SP`
+- `DSF-SM-DISCOUNT-SP-FROM-MP-RATE`
+- `DSF-SM-DISCOUNT-RATE-FROM-MP-SP`
+- `DSF-SM-DISCOUNT-MP-FROM-SP-RATE`
+
+Statement families cover exact CP/SP/MP/rate, profit-or-loss direction, canonical price/rate pairs, bounds and low-information congruence conditions. Neutral retail contexts include books, garments, electronics, furniture, sports goods and stationery.
+
+Wave 3 is review-only until its executable 250-question audit is green.
 
 ## Exam-realness rule
 
@@ -82,12 +103,11 @@ All CP-011 expansion questions remain review-only until their dedicated CI and h
 
 High-value additive source bindings still remaining:
 
-1. Profit/Loss/Discount
-2. Simple/Compound Interest
-3. Time & Work / Pipes
-4. Time-Speed-Distance / Trains / Boats
-5. Mixture & Alligation
-6. Geometry / Mensuration
-7. richer Number System, Ratio, Percentage and Algebra target/world variants
+1. Simple/Compound Interest
+2. Time & Work / Pipes
+3. Time-Speed-Distance / Trains / Boats
+4. Mixture & Alligation
+5. Geometry / Mensuration
+6. richer Number System, Ratio, Percentage and Algebra target/world variants
 
 Each wave must reuse the source chapter's solver/capability or stay blocked; CP-011 must not become a second arithmetic implementation layer inside DSF.
