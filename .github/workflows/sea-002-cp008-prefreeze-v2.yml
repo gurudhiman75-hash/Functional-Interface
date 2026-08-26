@@ -25,14 +25,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+
+      # Phase A: prove the candidate itself. These checks must all pass before a
+      # fresh review-content artifact is allowed to exist.
       - name: Re-prove source saturation
-        run: >-
-          node --experimental-strip-types
-          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/source-saturation-v3.test.ts
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/source-saturation-v3.test.ts \
+            2>&1 | tee /tmp/sea-002-cp008-source-saturation-v3.log
       - name: Re-prove permanent allocation
-        run: >-
-          node --experimental-strip-types
-          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/permanent/allocation.test.ts
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/permanent/allocation.test.ts \
+            2>&1 | tee /tmp/sea-002-cp008-permanent-allocation-v1.log
       - name: Certify English editorial V2
         shell: bash
         run: |
@@ -54,20 +63,6 @@ jobs:
           node --experimental-strip-types \
             ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/review/prefreeze-authority-v2.test.ts \
             2>&1 | tee /tmp/sea-002-cp008-prefreeze-authority-v2.log
-      - name: Verify pinned certified review evidence V2
-        shell: bash
-        run: |
-          set -o pipefail
-          node --experimental-strip-types \
-            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/review/certified-evidence-v2.test.ts \
-            2>&1 | tee /tmp/sea-002-cp008-certified-evidence-v2.log
-      - name: Prove exact approval-to-freeze contract V2
-        shell: bash
-        run: |
-          set -o pipefail
-          node --experimental-strip-types \
-            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/review/freeze-contract-v2.test.ts \
-            2>&1 | tee /tmp/sea-002-cp008-freeze-contract-v2.log
       - name: Prove blocked Question Studio V2 preview adapter
         shell: bash
         run: |
@@ -86,29 +81,61 @@ jobs:
           ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/localization-export-v2.ts
           > /tmp/sea-002-cp008-localization-v2.json
       - name: Re-prove source-backed ALT12 uniqueness
-        run: >-
-          node --experimental-strip-types
-          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/discovery-alt12-v1.test.ts
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/discovery-alt12-v1.test.ts \
+            2>&1 | tee /tmp/sea-002-cp008-alt12-uniqueness-v1.log
       - name: Re-prove variable-side6 uniqueness
-        run: >-
-          node --experimental-strip-types
-          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/discovery-variable-side6-v1.test.ts
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/discovery-variable-side6-v1.test.ts \
+            2>&1 | tee /tmp/sea-002-cp008-variable-side6-v1.log
       - name: Re-prove CP007 approval boundary
-        run: >-
-          node --experimental-strip-types
-          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/review/prefreeze-authority-v1.test.ts
-      - name: Upload CP008 final V2 prefreeze evidence
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/review/prefreeze-authority-v1.test.ts \
+            2>&1 | tee /tmp/sea-002-cp007-prefreeze-boundary.log
+
+      - name: Upload CP008 V2 review-content evidence
         uses: actions/upload-artifact@v4
         with:
-          name: sea-002-cp008-prefreeze-v2
+          name: sea-002-cp008-review-content-v2
           path: |
+            /tmp/sea-002-cp008-source-saturation-v3.log
+            /tmp/sea-002-cp008-permanent-allocation-v1.log
             /tmp/sea-002-cp008-english-review-v2.log
             /tmp/sea-002-cp008-localization-v2.log
             /tmp/sea-002-cp008-prefreeze-authority-v2.log
-            /tmp/sea-002-cp008-certified-evidence-v2.log
-            /tmp/sea-002-cp008-freeze-contract-v2.log
             /tmp/sea-002-cp008-question-studio-v2.log
+            /tmp/sea-002-cp008-alt12-uniqueness-v1.log
+            /tmp/sea-002-cp008-variable-side6-v1.log
+            /tmp/sea-002-cp007-prefreeze-boundary.log
             /tmp/sea-002-cp008-english-review-v2.json
             /tmp/sea-002-cp008-localization-v2.json
           if-no-files-found: error
           retention-days: 30
+
+      # Phase B: approval/freeze safety. When review content changes, the artifact
+      # above is intentionally created first; this old-pin check then fails until
+      # certified-evidence-v2.ts is updated to that exact artifact. On the next
+      # exact-head run both safety checks must pass.
+      - name: Verify pinned certified review evidence V2
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/review/certified-evidence-v2.test.ts \
+            2>&1 | tee /tmp/sea-002-cp008-certified-evidence-v2.log
+      - name: Prove exact approval-to-freeze contract V2
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/review/freeze-contract-v2.test.ts \
+            2>&1 | tee /tmp/sea-002-cp008-freeze-contract-v2.log
