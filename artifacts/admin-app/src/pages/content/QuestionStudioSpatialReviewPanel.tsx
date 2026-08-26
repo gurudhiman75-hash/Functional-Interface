@@ -36,6 +36,8 @@ const CHAPTER_LABELS: Record<SpatialReviewChapter, string> = {
   'FCL-001': 'Figure Classification',
   'FSR-001': 'Figure Series',
   'FGC-001': 'Figure Completion',
+  'PFC-001': 'Paper Folding & Cutting',
+  'TPF-001': 'Transparent Pattern Folding',
 };
 const LANGUAGE_LABELS: Record<SpatialReviewLanguage, string> = {
   en: 'English',
@@ -61,7 +63,7 @@ function SvgFigure({ svg, label, wide = false }: { svg: string; label: string; w
     <div className="rounded-lg border bg-white p-2 text-center text-slate-950">
       <div className="mb-1 text-xs font-medium text-slate-500">{label}</div>
       <div
-        className={`mx-auto w-full ${wide ? 'max-w-[384px]' : 'max-w-[150px]'} [&_svg]:h-auto [&_svg]:w-full`}
+        className={`mx-auto w-full ${wide ? 'max-w-[560px]' : 'max-w-[150px]'} [&_svg]:h-auto [&_svg]:w-full`}
         // SVG is produced only by the validated internal Spatial renderer.
         dangerouslySetInnerHTML={{ __html: svg }}
       />
@@ -77,7 +79,7 @@ function explanationLabels(language: SpatialReviewLanguage) {
 
 function SpatialQuestionCard({ question }: { question: SpatialReviewQuestion }) {
   const labels = explanationLabels(question.language);
-  const isFigureCompletion = question.chapterCode === 'FGC-001';
+  const isWideStimulus = question.chapterCode === 'FGC-001' || question.chapterCode === 'PFC-001' || question.chapterCode === 'TPF-001';
   return (
     <Card className="border-primary/15 bg-background">
       <CardHeader className="space-y-2 pb-3">
@@ -101,13 +103,13 @@ function SpatialQuestionCard({ question }: { question: SpatialReviewQuestion }) 
         {question.stimulusSvgs.length > 0 && (
           <div>
             <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Stimulus</p>
-            <div className={isFigureCompletion ? 'grid gap-2' : 'grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'}>
+            <div className={isWideStimulus ? 'grid gap-2' : 'grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'}>
               {question.stimulusSvgs.map((svg, index) => (
                 <SvgFigure
                   key={`${question.questionId}-stimulus-${index}`}
                   svg={svg}
                   label={`Figure ${index + 1}`}
-                  wide={isFigureCompletion}
+                  wide={isWideStimulus}
                 />
               ))}
             </div>
@@ -247,11 +249,11 @@ export function QuestionStudioSpatialReviewPanel() {
             <Badge variant="outline" className="gap-1">
               <ShieldAlert className="h-3 w-3" /> Standard Question Studio lifecycle
             </Badge>
-            <Badge variant="outline">34 permanent QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
+            <Badge variant="outline">{pkg?.permanentQlCount ?? 40} permanent QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Generate approved Mirror Image, Water Image, Figure Analogy, Figure Classification, Figure Series and Figure Completion questions in English, Hindi or Punjabi directly into the normal Question Studio review queue. Frozen geometry and answers stay identical across languages; only learner-facing text is localized.
+          Generate approved Mirror Image, Water Image, Figure Analogy, Figure Classification, Figure Series, Figure Completion, Paper Folding & Cutting and Transparent Pattern Folding questions in English, Hindi or Punjabi directly into the normal Question Studio review queue. Frozen geometry and answers stay identical across languages; only learner-facing text is localized.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
