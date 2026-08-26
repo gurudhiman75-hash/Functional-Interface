@@ -80,6 +80,7 @@ function explanationLabels(language: SpatialReviewLanguage) {
 function SpatialQuestionCard({ question }: { question: SpatialReviewQuestion }) {
   const labels = explanationLabels(question.language);
   const isWideStimulus = question.chapterCode === 'FGC-001' || question.chapterCode === 'PFC-001' || question.chapterCode === 'TPF-001';
+  const isWideOptionProcess = question.qlId === 'SPA-QL-039';
   return (
     <Card className="border-primary/15 bg-background">
       <CardHeader className="space-y-2 pb-3">
@@ -118,13 +119,13 @@ function SpatialQuestionCard({ question }: { question: SpatialReviewQuestion }) 
 
         <div>
           <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">Options</p>
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          <div className={isWideOptionProcess ? 'grid gap-2 sm:grid-cols-2' : 'grid gap-2 sm:grid-cols-2 lg:grid-cols-4'}>
             {question.optionSvgs.map((svg, index) => (
               <div
                 key={`${question.questionId}-option-${index}`}
                 className={index === question.correctIndex ? 'rounded-lg ring-2 ring-success/50' : ''}
               >
-                <SvgFigure svg={svg} label={`Option ${question.optionLabels[index]}`} />
+                <SvgFigure svg={svg} label={`Option ${question.optionLabels[index]}`} wide={isWideOptionProcess} />
               </div>
             ))}
           </div>
