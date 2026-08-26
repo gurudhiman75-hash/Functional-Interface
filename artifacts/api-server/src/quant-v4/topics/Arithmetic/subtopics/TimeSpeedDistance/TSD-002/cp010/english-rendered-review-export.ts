@@ -1,5 +1,5 @@
 import { writeFileSync } from "node:fs";
-import { TSD_CP010_FINAL_RENDERED_ENGLISH_REVIEW } from "./english-rendered-review-final";
+import { TSD_CP010_EXAM_REAL_ENGLISH_REVIEW } from "./exam-real-review-final";
 
 const outputPath = process.argv[2] ?? "TSD-CP010-ENGLISH-QUESTIONS.md";
 const lines: string[] = [
@@ -9,7 +9,7 @@ const lines: string[] = [
   "",
 ];
 let currentQl = "";
-for (const question of TSD_CP010_FINAL_RENDERED_ENGLISH_REVIEW) {
+for (const question of TSD_CP010_EXAM_REAL_ENGLISH_REVIEW) {
   if (question.qlId !== currentQl) {
     currentQl = question.qlId;
     lines.push(`## ${currentQl}`, "");
@@ -17,4 +17,4 @@ for (const question of TSD_CP010_FINAL_RENDERED_ENGLISH_REVIEW) {
   lines.push(`### ${question.familyId} · ${question.difficulty}`, "", question.stem, "");
 }
 writeFileSync(outputPath, `${lines.join("\n")}\n`, "utf8");
-console.log(`Wrote ${TSD_CP010_FINAL_RENDERED_ENGLISH_REVIEW.length} CP010 English review questions to ${outputPath}`);
+console.log(`Wrote ${TSD_CP010_EXAM_REAL_ENGLISH_REVIEW.length} CP010 exam-real English review questions to ${outputPath}`);
