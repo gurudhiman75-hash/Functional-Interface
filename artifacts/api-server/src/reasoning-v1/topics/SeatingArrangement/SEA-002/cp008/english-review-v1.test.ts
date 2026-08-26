@@ -34,7 +34,10 @@ function queryIsDirect(candidate: Sea002Cp008ReviewCandidate): boolean {
 
 assert.equal(SEA002_CP008_ENGLISH_REVIEW_SET_V1.length, 42);
 assert.equal(new Set(SEA002_CP008_ENGLISH_REVIEW_SET_V1.map((candidate) => candidate.fingerprint)).size, 42);
-assert.equal(new Set(SEA002_CP008_ENGLISH_REVIEW_SET_V1.map((candidate) => candidate.stem)).size, 42);
+const uniqueSetups = new Set(SEA002_CP008_ENGLISH_REVIEW_SET_V1.map((candidate) => candidate.stem)).size;
+const uniqueFullQuestions = new Set(SEA002_CP008_ENGLISH_REVIEW_SET_V1.map((candidate) => `${candidate.stem}\n${candidate.question}`)).size;
+assert.ok(uniqueSetups >= 40, `expected at least 40 distinct setup paragraphs; got ${uniqueSetups}`);
+assert.equal(uniqueFullQuestions, 42, "all canonical setup + child-question surfaces must be unique");
 
 let maxStemWords = 0;
 let maxExplanationWords = 0;
@@ -46,6 +49,8 @@ for (const permanentQlId of SEA002_CP008_PERMANENT_QL_IDS) {
   assert.equal(group.length, 6, `${permanentQlId}: expected six canonical review surfaces`);
   assert.deepEqual(group.map((candidate) => candidate.difficulty).sort(), ["Easy", "Easy", "Hard", "Hard", "Medium", "Medium"]);
   assert.equal(new Set(group.map((candidate) => candidate.seed)).size, 6);
+  assert.ok(new Set(group.map((candidate) => candidate.stem)).size >= 5, `${permanentQlId}: setup pool too repetitive`);
+  assert.equal(new Set(group.map((candidate) => `${candidate.stem}\n${candidate.question}`)).size, 6, `${permanentQlId}: duplicate full question surface`);
   assert.ok(new Set(group.map((candidate) => candidate.examLineage)).size >= 3, `${permanentQlId}: lineage pool too thin`);
 }
 
@@ -92,6 +97,8 @@ assert.ok(mixedFacingCandidates >= 12);
 
 console.log("PASS_SEA002_CP008_ENGLISH_REVIEW_V1");
 console.log("canonical English surfaces", SEA002_CP008_ENGLISH_REVIEW_SET_V1.length);
+console.log("unique setup paragraphs", uniqueSetups);
+console.log("unique full question surfaces", uniqueFullQuestions);
 console.log("permanent QLs covered", SEA002_CP008_PERMANENT_QL_IDS.length);
 console.log("surfaces per QL", 6);
 console.log("non-direct query checks", nonDirectChecks);
