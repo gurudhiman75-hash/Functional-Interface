@@ -11,6 +11,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/foundation/**
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/**
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/ProfitAndLoss/PNL-001/**
       - .github/workflows/dsf-cp011-quant-breadth.yml
   workflow_dispatch:
 
@@ -59,3 +60,13 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/data-sufficiency/cp011/ages-runtime-v1.test.mjs
+      - name: Bundle CP-011 Profit Loss Discount breadth audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-011/pnl-runtime-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp011/pnl-runtime-v1.test.mjs
+      - name: Run CP-011 Profit Loss Discount breadth audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp011/pnl-runtime-v1.test.mjs
