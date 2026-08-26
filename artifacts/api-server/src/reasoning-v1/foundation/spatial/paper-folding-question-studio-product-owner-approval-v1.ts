@@ -22,7 +22,7 @@ export const PFC_TPF_QUESTION_STUDIO_PRODUCT_OWNER_APPROVAL_V1 = Object.freeze({
     result: "SUCCESS" as const,
   },
   approvalSource: "EXPLICIT_PRODUCT_OWNER_APPROVAL_IN_PROJECT_CHAT" as const,
-  approvalRecordedAt: "2026-08-26T06:54:00+05:30" as const,
+  approvalRecordedAt: "2026-08-26T07:40:00+05:30" as const,
   approvalScope: "PFC_TPF_STANDARD_QUESTION_STUDIO_INTEGRATION_AND_V1_3_REVIEWED_LEARNER_SURFACE" as const,
   productOwnerVerdict: "APPROVED" as const,
   approved: true,
