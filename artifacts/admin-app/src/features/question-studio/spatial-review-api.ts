@@ -1,7 +1,7 @@
 import { adminRequest } from '@/lib/admin-request';
 
 export type SpatialReviewDifficulty = 'Easy' | 'Medium' | 'Hard';
-export type SpatialReviewChapter = 'MIR-001' | 'WAT-001' | 'FAN-001' | 'FCL-001' | 'FSR-001' | 'FGC-001';
+export type SpatialReviewChapter = 'MIR-001' | 'WAT-001' | 'FAN-001' | 'FCL-001' | 'FSR-001' | 'FGC-001' | 'PFC-001' | 'TPF-001';
 export type SpatialReviewLanguage = 'en' | 'hi' | 'pa';
 
 export interface SpatialReviewQl {
@@ -27,6 +27,9 @@ export interface SpatialReviewPackage {
   integrationAuthority: string;
   localizationAuthority: string;
   fgcLocalizationAuthority?: string;
+  pfcTpfLocalizationAuthority?: string;
+  pfcTpfProductOwnerApprovalAuthority?: string;
+  pfcTpfVisualRemediationAuthority?: string;
   releaseAuthority: string;
   permanentQlCount: number;
   questionStudioVisible: true;
@@ -77,8 +80,12 @@ export interface SpatialReviewQuestion {
     semanticParity: 'GEOMETRY_AND_ANSWER_EXACT';
   };
   lifecycle: {
+    questionStudioDiscoverable?: true;
+    registrationStatus?: 'REGISTERED';
+    persistenceAllowed?: true;
     questionBankStatus: 'READY_FOR_STORAGE';
     testEligibility: 'ELIGIBLE';
+    testEligible?: true;
     publiclyPublishable: true;
     mockTestEligible: true;
     manualApprovalRequired: true;
@@ -87,10 +94,14 @@ export interface SpatialReviewQuestion {
   };
   validation: {
     valid: true;
-    semanticOptionUniqueness: true;
-    perceptualOptionUniqueness: true;
-    learnerExplanationSafe: true;
+    semanticOptionUniqueness?: true;
+    perceptualOptionUniqueness?: true;
+    learnerExplanationSafe?: true;
     uniqueAnswer?: true;
+    exactSolverBacked?: true;
+    optionArtUnique?: true;
+    spacingOnlyDistractorsAllowed?: false;
+    falsePyqAttribution?: false;
   };
 }
 
