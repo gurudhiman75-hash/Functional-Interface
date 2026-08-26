@@ -1,6 +1,6 @@
 import {
-  generateSpatialProductionStudioQuestionV1,
-  type SpatialProductionStudioQuestionV1,
+  generateSpatialProductionStudioQuestionV1 as generateLegacySpatialProductionStudioQuestionV1,
+  type SpatialProductionStudioQuestionV1 as LegacySpatialProductionStudioQuestionV1,
 } from "./spatial-question-studio-production-v1";
 import {
   SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1,
@@ -58,7 +58,7 @@ export type SpatialPfcTpfProductionStudioQuestionV2 = Omit<PfcTpfStudioQuestionV
 };
 
 export type SpatialProductionStudioQuestionV2 =
-  | (SpatialProductionStudioQuestionV1 & {
+  | (LegacySpatialProductionStudioQuestionV1 & {
       integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V2.integrationAuthority;
     })
   | SpatialPfcTpfProductionStudioQuestionV2;
@@ -115,8 +115,8 @@ export function generateSpatialProductionStudioQuestionV2(input: {
   if (isSpatialPfcTpfQuestionStudioQlIdV2(input.qlId)) {
     return generatePfcTpfProductionQuestionV2({ qlId: input.qlId, seed: input.seed, language });
   }
-  const legacy = generateSpatialProductionStudioQuestionV1({
-    qlId: input.qlId as Parameters<typeof generateSpatialProductionStudioQuestionV1>[0]["qlId"],
+  const legacy = generateLegacySpatialProductionStudioQuestionV1({
+    qlId: input.qlId as Parameters<typeof generateLegacySpatialProductionStudioQuestionV1>[0]["qlId"],
     seed: input.seed,
     language,
   });
@@ -203,3 +203,8 @@ export function generateSpatialProductionStudioBatchV2(request: SpatialProductio
     questions,
   } as const;
 }
+
+// Route-compatible aliases let the existing admin route switch to V2 by module path only.
+export const generateSpatialProductionStudioBatchV1 = generateSpatialProductionStudioBatchV2;
+export const generateSpatialProductionStudioQuestionV1 = generateSpatialProductionStudioQuestionV2;
+export type SpatialProductionStudioQuestionV1 = SpatialProductionStudioQuestionV2;
