@@ -41,6 +41,24 @@ for (const qlId of SEA002_CP008_PERMANENT_QL_IDS) {
   }
 }
 
+for (const language of ["en", "hi", "pa"] as const) {
+  const hardRoleScale = generateSea002Cp008QuestionStudioPreviewV2({
+    questionLanguageId: "SEA-QL-029",
+    language,
+    difficulty: "Hard",
+    seed: `ql029-alt12-role-studio:${language}`,
+    count: 2,
+  });
+  assert.equal(hardRoleScale.length, 2);
+  assert.ok(hardRoleScale.every((question) => question.signatureId === "SEA-CP008-SIG-A"));
+  assert.ok(hardRoleScale.every((question) => question.authorityId === "CP008-AUTH-01"));
+  assert.ok(hardRoleScale.every((question) => [4, 5].includes(question.variantIndex)));
+  assert.ok(hardRoleScale.every((question) => !/60\s*(?:m|मीटर|ਮੀਟਰ)|5\s*(?:m|मीटर|ਮੀਟਰ)/u.test(question.setupText)));
+  if (language === "en") assert.ok(hardRoleScale.every((question) => /Twelve|twelve/u.test(question.setupText)));
+  if (language === "hi") assert.ok(hardRoleScale.every((question) => /बारह व्यक्ति/u.test(question.setupText)));
+  if (language === "pa") assert.ok(hardRoleScale.every((question) => /ਬਾਰਾਂ ਵਿਅਕਤੀ/u.test(question.setupText)));
+}
+
 const rotated = generateSea002Cp008QuestionStudioPreviewV2({
   canonicalProblemId: "SEA-CP-008",
   language: "en",
@@ -61,6 +79,7 @@ assert.throws(() => activateSea002Cp008QuestionStudioV2(), /blocked until explic
 console.log("PASS_SEA002_CP008_QUESTION_STUDIO_PREINTEGRATION_V2");
 console.log("preview surfaces", previewSurfaces);
 console.log("QL coverage", SEA002_CP008_PERMANENT_QL_IDS.length);
+console.log("QL029 ALT12 role-derived Studio languages", "en,hi,pa");
 console.log("languages", "en,hi,pa");
 console.log("difficulties", "Easy,Medium,Hard");
 console.log("broad Seating Arrangement selector intercepted", false);
