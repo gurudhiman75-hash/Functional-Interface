@@ -154,6 +154,28 @@ function patchQl009TypeToExtension(question: Com002ReviewQuestion, target: Knowl
   return reposition(patched, wrongAnswers, `${seed}:ql009-type-to-extension`);
 }
 
+function patchQl010Delete(question: Com002ReviewQuestion, target: KnowledgeFact): Com002ReviewQuestion {
+  if (target.factId !== "com002-file-operation-delete") return question;
+  if (question.surfaceMode === "EFFECT_TO_ACTION") {
+    return {
+      ...question,
+      stem: "Which file/folder operation is used to delete a selected item?",
+      explanation: "Delete removes the selected file or folder rather than relocating it to another folder.",
+    };
+  }
+  if (question.surfaceMode === "ACTION_TO_EFFECT") {
+    const canonicalAnswer = "deletes the selected file or folder";
+    const options = question.options.map((option, index) => index === question.correctIndex ? canonicalAnswer : option);
+    return {
+      ...question,
+      canonicalAnswer,
+      options,
+      explanation: "The Delete operation deletes the selected file or folder; it is not the same as moving the item to a different location.",
+    };
+  }
+  return question;
+}
+
 export function generateCom002ReviewQuestionV2(input: { qlId: string; seed: string }): Com002ReviewQuestion {
   let question = generateCom002ReviewQuestion(input);
   let target = factById(question.targetFactId);
@@ -204,6 +226,10 @@ export function generateCom002ReviewQuestionV2(input: { qlId: string; seed: stri
     }
     question = patchQl009TypeToExtension(question, target, input.seed);
     question = redistributeAnswerPosition(question, input.seed);
+  }
+
+  if (input.qlId === "COM-002-QL-010" && target) {
+    question = patchQl010Delete(question, target);
   }
 
   assertKnowledgeQuestionValid({
