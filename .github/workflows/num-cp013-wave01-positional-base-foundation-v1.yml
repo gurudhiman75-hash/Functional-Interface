@@ -1,4 +1,4 @@
-name: Validate NUM-CP-013 positional-base discovery through Wave 03
+name: Validate NUM-CP-013 positional-base discovery through Wave 04
 
 on:
   pull_request:
@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 jobs:
-  validate-num-cp013-through-wave03:
+  validate-num-cp013-through-wave04:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -111,13 +111,29 @@ jobs:
           node artifacts/api-server/dist/quant-v4/num-cp013-wave03-independent-saturation.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp013-wave03-independent-saturation.log
 
+      - name: Bundle Wave 04 merge-split audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-013/wave04"
+          pnpm --dir artifacts/api-server exec esbuild "$base/merge-split-proposal.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="dist/quant-v4/num-cp013-wave04-merge-split-audit.mjs"
+
+      - name: Run Wave 04 merge-split and ownership closure audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp013-wave04-merge-split-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp013-wave04-merge-split-audit.log
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Upload CP013 Wave 01-03 evidence
+      - name: Upload CP013 Wave 01-04 evidence
         uses: actions/upload-artifact@v4
         with:
-          name: num-cp013-positional-base-discovery-through-wave03
+          name: num-cp013-positional-base-discovery-through-wave04
           path: |
             artifacts/api-server/dist/quant-v4/num-cp013-wave01-runtime-audit.log
             artifacts/api-server/dist/quant-v4/num-cp013-wave01-independent-minimality.log
@@ -125,5 +141,6 @@ jobs:
             artifacts/api-server/dist/quant-v4/num-cp013-wave02-independent-saturation.log
             artifacts/api-server/dist/quant-v4/num-cp013-wave03-runtime-audit.log
             artifacts/api-server/dist/quant-v4/num-cp013-wave03-independent-saturation.log
+            artifacts/api-server/dist/quant-v4/num-cp013-wave04-merge-split-audit.log
           if-no-files-found: error
           retention-days: 30
