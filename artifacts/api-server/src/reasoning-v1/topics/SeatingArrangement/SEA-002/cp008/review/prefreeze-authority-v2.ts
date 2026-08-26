@@ -12,6 +12,7 @@ export const SEA002_CP008_PREFREEZE_AUTHORITY_V2 = Object.freeze({
     renderer: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.renderer,
     productionGraphVersion: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.productionGraphVersion,
     difficultyPolicy: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.difficultyPolicy,
+    explanationPolicy: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.explanationPolicy,
     discoveryConstraintSpineUsed: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.discoveryConstraintSpineUsed,
     canonicalSurfaces: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.englishCanonicalSurfaces,
     reviewFingerprint: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.englishReviewFingerprint,
@@ -49,6 +50,9 @@ export function assertSea002Cp008PrefreezeBoundaryV2(): void {
   }
   if (authority.english.discoveryConstraintSpineUsed !== false) {
     throw new Error("SEA-CP-008 V3 cannot certify learner surfaces derived from discovery constraint spines.");
+  }
+  if (authority.english.explanationPolicy !== "HUMAN_COMPLETED_ARRANGEMENT_NO_GRAPH_JARGON") {
+    throw new Error("SEA-CP-008 V3 requires human learner explanations without graph/solver jargon.");
   }
   if (authority.productOwnerApprovalStatus !== "PENDING" || authority.freezeStatus !== "NOT_FROZEN") {
     throw new Error("SEA-CP-008 V3 must not claim freeze before explicit product-owner approval.");
