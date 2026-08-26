@@ -3,7 +3,19 @@ import {
   type Sea002Cp008Wave02SourceRecord,
 } from "./source-saturation-v2.ts";
 
-const WAVE04_SOURCE_EVIDENCE: readonly Sea002Cp008Wave02SourceRecord[] = Object.freeze([
+export type Sea002Cp008Wave04SourceRecord = Sea002Cp008Wave02SourceRecord | Readonly<{
+  id: string;
+  lineage: "BANKING_PRACTICE";
+  sourceLabel: string;
+  sourceUrl: string;
+  schema: "ALT12_CORNER_PLUS_TWO_SIDE";
+  facingMode: "CORNERS_OUT_SIDES_IN";
+  evidenceStrength: "ESTABLISHED_PREP_ARCHIVE";
+  prototypeIds: readonly string[];
+  notes: string;
+}>;
+
+const WAVE04_SOURCE_EVIDENCE: readonly Sea002Cp008Wave04SourceRecord[] = Object.freeze([
   Object.freeze({
     id: "CP008-SRC-014",
     lineage: "BANKING_PRACTICE",
@@ -28,7 +40,7 @@ const WAVE04_SOURCE_EVIDENCE: readonly Sea002Cp008Wave02SourceRecord[] = Object.
   }),
 ]);
 
-export const SEA002_CP008_SOURCE_EVIDENCE_V3: readonly Sea002Cp008Wave02SourceRecord[] = Object.freeze([
+export const SEA002_CP008_SOURCE_EVIDENCE_V3: readonly Sea002Cp008Wave04SourceRecord[] = Object.freeze([
   ...SEA002_CP008_SOURCE_EVIDENCE_V2,
   ...WAVE04_SOURCE_EVIDENCE,
 ]);
