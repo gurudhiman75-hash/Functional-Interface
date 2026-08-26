@@ -26,9 +26,32 @@ const ZERO_EXPONENT_SENTENCE: Record<SriLocalizedLocaleV1, string> = {
   "pa-IN": "ਕਿਸੇ ਵੀ ਸਿਫ਼ਰ ਤੋਂ ਵੱਖ ਸੰਖਿਆ ਦੀ 0 ਘਾਤ 1 ਹੁੰਦੀ ਹੈ।",
 };
 
+const CROSS_TERM_COMPARISON_SENTENCE: Record<SriLocalizedLocaleV1, string> = {
+  "hi-IN": "दोनों धनात्मक व्यंजकों का वर्ग कीजिए। उनके परिमेय भाग समान हैं, इसलिए मिश्र पदों के सटीक गुणनफलों की तुलना कीजिए।",
+  "pa-IN": "ਦੋਵੇਂ ਧਨਾਤਮਕ ਵਿਅੰਜਕਾਂ ਦਾ ਵਰਗ ਕਰੋ। ਉਨ੍ਹਾਂ ਦੇ ਪਰਿਮੇਯ ਭਾਗ ਇੱਕੋ ਹਨ, ਇਸ ਲਈ ਮਿਸ਼ਰਤ ਪਦਾਂ ਦੇ ਸਟੀਕ ਗੁਣਨਫਲਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
+};
+
 export function localizeSriLearnerTextV1(text: string, locale: SriLocalizedLocaleV1): string {
   if (text === "Any non-zero number raised to the power 0 equals 1.") {
     return ZERO_EXPONENT_SENTENCE[locale];
+  }
+
+  if (text === "Square both positive expressions. Their rational parts match, so compare the exact cross-term products.") {
+    return CROSS_TERM_COMPARISON_SENTENCE[locale];
+  }
+
+  const denest = text.match(/^Denest (.+)\.$/u);
+  if (denest) {
+    return locale === "hi-IN"
+      ? `${denest[1]} को सरल करणी रूप में लिखिए।`
+      : `${denest[1]} ਨੂੰ ਸਰਲ ਕਰਣੀ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`;
+  }
+
+  const crossTermRadicand = text.match(/^Second cross-term radicand: (.+)$/u);
+  if (crossTermRadicand) {
+    return locale === "hi-IN"
+      ? `दूसरे मिश्र पद की करणीगत संख्या: ${crossTermRadicand[1]}`
+      : `ਦੂਜੇ ਮਿਸ਼ਰਤ ਪਦ ਦੀ ਕਰਣੀਗਤ ਸੰਖਿਆ: ${crossTermRadicand[1]}`;
   }
 
   const extraction = text.match(/^Write (.+) after extracting the perfect (.+)-power factor\.$/u);
