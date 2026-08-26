@@ -3,7 +3,7 @@ import {
   TSD_CP010_STUDIO_COMPATIBLE_COMBINATIONS_PER_LOCALE,
   TSD_CP010_STUDIO_MULTILINGUAL_COMBINATIONS,
   previewTsdCp010StudioCandidate,
-} from "./question-studio-candidate-adapter-final";
+} from "./question-studio-candidate-adapter-exam-real";
 import { TSD_CP010_PERMANENT_QL_IDS } from "./ql-allocation";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -37,6 +37,8 @@ assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.testEligible === false, "test lock los
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.publiclyPublishable === false, "public lock lost");
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.numericRebindingPolicy === "OCCURRENCE_AWARE_EQUAL_SOURCE_VALUE_SAFE", "occurrence-safe rebinding policy lost");
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.duplicateStemPolicy === "DROP_DUPLICATE_RENDERED_STEM", "duplicate-stem policy lost");
+assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.stemAuthoringPolicy === "SSC_BANK_PUNJAB_EXAM_REAL_RACE_LANGUAGE", "exam-real stem policy lost");
+assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.stemNarrativePolicy === "RESULT_FIRST_LOW_NARRATIVE", "result-first stem policy lost");
 
 let total = 0;
 for (const language of ["en", "hi", "pa"] as const) {
@@ -57,6 +59,7 @@ for (const language of ["en", "hi", "pa"] as const) {
     assert(question.validation.independentVerifierAccepted, `${language}/${question.familyId}/${question.caseId}: verifier flag lost`);
     assert(question.validation.semanticShapeCompatible, `${language}/${question.familyId}/${question.caseId}: semantic compatibility flag lost`);
     assert(question.validation.occurrenceAwareRebinding, `${language}/${question.familyId}/${question.caseId}: occurrence-aware rebinding flag lost`);
+    assert(question.validation.examRealStem, `${language}/${question.familyId}/${question.caseId}: exam-real stem flag lost`);
     assert(question.persistenceAllowed === false, `${language}/${question.familyId}: persistence unexpectedly enabled`);
     assert(question.questionBankStatus === "NOT_STORED", `${language}/${question.familyId}: bank status changed`);
     assert(question.testEligibility === "INELIGIBLE", `${language}/${question.familyId}: test status changed`);
@@ -78,7 +81,7 @@ for (const language of ["en", "hi", "pa"] as const) {
 }
 assert(total === 1413, `expected 1413 multilingual candidate combinations, got ${total}`);
 
-console.log("TSD-CP-010 LOCKED QUESTION STUDIO CANDIDATE PROOF: PASS");
+console.log("TSD-CP-010 LOCKED EXAM-REAL QUESTION STUDIO CANDIDATE PROOF: PASS");
 console.log(JSON.stringify({
   combinationsPerLocale: 471,
   multilingualCombinations: total,
@@ -86,6 +89,8 @@ console.log(JSON.stringify({
   minimumCompatibleCasesPerFamily: 2,
   maximumCompatibleCasesPerFamily: 12,
   qlCapacity: EXPECTED_QL_CAPACITY,
+  stemAuthoringPolicy: "SSC_BANK_PUNJAB_EXAM_REAL_RACE_LANGUAGE",
+  stemNarrativePolicy: "RESULT_FIRST_LOW_NARRATIVE",
   optionPolicy: "EXACTLY_FOUR_UNIQUE_OPTIONS",
   variationPolicy: "HUMAN_FAMILY_X_SEMANTICALLY_COMPATIBLE_EXECUTABLE_CASE",
   numericRebindingPolicy: "OCCURRENCE_AWARE_EQUAL_SOURCE_VALUE_SAFE",
