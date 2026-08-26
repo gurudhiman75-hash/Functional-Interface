@@ -3,7 +3,7 @@
 ## Authority boundary
 
 - Checkpoint: `DSF-CP-011`
-- Status: `AVERAGE_GREEN_AGES_GREEN_PNL_REVIEW_CANDIDATE`
+- Status: `AVERAGE_GREEN_AGES_GREEN_PNL_REVIEW_CANDIDATE_INTEREST_REVIEW_CANDIDATE`
 - Base production freeze: `DSF-CP-010`
 - Permanent QL reused: `DSF-QL-001`
 - Next available permanent QL remains: `DSF-QL-002`
@@ -18,8 +18,9 @@ CP-011 is additive. CP-001 through CP-010 remain immutable historical authoritie
 | 1 | `AVG-001` | `DSF-SM-AVG-TOTAL-FROM-GROUP`, `DSF-SM-AVG-AVERAGE-FROM-GROUP` | `AVG-001/foundation/solver::solveAvg001` | dedicated CI green |
 | 2 | `RAP-003` Ages | `DSF-SM-AGE-PRESENT-AGE-A`, `DSF-SM-AGE-PRESENT-AGE-B` | `RAP-003/solver::solveRap003(ageFromSumAndRatio)` | dedicated CI green |
 | 3 | `PNL-001` Profit/Loss/Discount | `DSF-SM-PNL-SP-FROM-CP-RATE`, `DSF-SM-PNL-CP-FROM-SP-RATE`, `DSF-SM-PNL-RATE-FROM-CP-SP`, `DSF-SM-DISCOUNT-SP-FROM-MP-RATE`, `DSF-SM-DISCOUNT-RATE-FROM-MP-SP`, `DSF-SM-DISCOUNT-MP-FROM-SP-RATE` | `PNL-001/foundation/solver::solveFundamental`, `PNL-001/foundation/discount-solver::solveDiscount` | review candidate |
+| 4 | `INT-001` Simple/Compound Interest | `DSF-SM-INT-SIMPLE-INTEREST`, `DSF-SM-INT-COMPOUND-INTEREST`, `DSF-SM-INT-COMPOUND-AMOUNT`, `DSF-SM-INT-CI-MINUS-SI` | `INT-001/cp006-si-ci-relations-runtime-v1::{simpleInterest, compoundInterest, compoundAmount, siCiDifference}` | review candidate |
 
-Every adapter independently filters valid source worlds through Statement I, Statement II and their conjunction, then projects surviving worlds through the source chapter solver. The shared frozen DSF evaluator alone assigns the canonical sufficiency class.
+Every adapter independently filters valid source worlds through Statement I, Statement II and their conjunction, then projects surviving worlds through the source chapter solver/function. The shared frozen DSF evaluator alone assigns the canonical sufficiency class.
 
 ## Exam-realness delta
 
@@ -31,6 +32,8 @@ Ages provides six neutral contexts and statement families covering present ratio
 
 Profit/Loss/Discount uses canonical exact Money/Rational arithmetic from `PNL-001`. It spans six target modes across fundamental profit/loss and discount mechanics, with exact-price/rate, direction, compound-pair, bound and congruence statement families plus six neutral retail contexts.
 
+Interest uses the canonical `INT-001` CP006 SI/CI runtime functions for all world construction and target projection. It spans SI, CI, compound amount and CI−SI targets across principal/rate/time exacts, source-derived exact values, parameter pairs, complete parameter triples and low-information bounds, with six neutral investment contexts.
+
 ## Required proof
 
 Average requires all five canonical classes, both solve modes, all six contexts, all three difficulties, exactly one correct option, canonical source ancestry, 250 unique generation identities, at least 16 normalized stems, at least 40 structural fingerprints, and a maximum cluster of 14/250. This gate is green.
@@ -38,6 +41,8 @@ Average requires all five canonical classes, both solve modes, all six contexts,
 Ages requires all five classes, both age targets/solve modes, all six contexts, all three difficulties, exactly one correct option, canonical `RAP-003` source projection, 250 unique generation identities, at least 20 normalized stems, at least 60 structural fingerprints, and a maximum cluster of 10/250. This gate is green.
 
 Profit/Loss/Discount requires all five classes, all six solve modes, both canonical source solvers, both `PROFIT_LOSS` and `DISCOUNT` source domains, all six contexts, all three difficulties, exactly one correct option, 250 unique generation identities, at least 20 normalized stems, at least 60 structural fingerprints, and a maximum cluster of 10/250.
+
+Interest requires all five classes, all four solve modes/source functions, all six contexts, all three difficulties, exactly one correct option, canonical `INT-001` source ancestry, 250 unique generation identities, at least 20 normalized stems, at least 60 structural fingerprints, and a maximum cluster of 10/250.
 
 ## Lifecycle lock
 
@@ -51,7 +56,6 @@ All CP-011 expansion content remains review-only until the lane's executable aud
 
 ## Remaining CP-011 breadth work
 
-- SI/CI
 - Time & Work/Pipes
 - TSD/Trains/Boats
 - Mixture & Alligation
