@@ -1,4 +1,4 @@
-name: Validate NUM-CP-013 positional-base discovery through Wave 02
+name: Validate NUM-CP-013 positional-base discovery through Wave 03
 
 on:
   pull_request:
@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 jobs:
-  validate-num-cp013-through-wave02:
+  validate-num-cp013-through-wave03:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -85,17 +85,45 @@ jobs:
           node artifacts/api-server/dist/quant-v4/num-cp013-wave02-independent-saturation.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp013-wave02-independent-saturation.log
 
+      - name: Bundle Wave 03 audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-013/wave03"
+          pnpm --dir artifacts/api-server exec esbuild "$base/runtime.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="dist/quant-v4/num-cp013-wave03-runtime-audit.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/independent-saturation.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="dist/quant-v4/num-cp013-wave03-independent-saturation.mjs"
+
+      - name: Run Wave 03 source and edge saturation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp013-wave03-runtime-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp013-wave03-runtime-audit.log
+
+      - name: Run Wave 03 independent saturation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp013-wave03-independent-saturation.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp013-wave03-independent-saturation.log
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Upload CP013 Wave 01-02 evidence
+      - name: Upload CP013 Wave 01-03 evidence
         uses: actions/upload-artifact@v4
         with:
-          name: num-cp013-positional-base-discovery-through-wave02
+          name: num-cp013-positional-base-discovery-through-wave03
           path: |
             artifacts/api-server/dist/quant-v4/num-cp013-wave01-runtime-audit.log
             artifacts/api-server/dist/quant-v4/num-cp013-wave01-independent-minimality.log
             artifacts/api-server/dist/quant-v4/num-cp013-wave02-runtime-audit.log
             artifacts/api-server/dist/quant-v4/num-cp013-wave02-independent-saturation.log
+            artifacts/api-server/dist/quant-v4/num-cp013-wave03-runtime-audit.log
+            artifacts/api-server/dist/quant-v4/num-cp013-wave03-independent-saturation.log
           if-no-files-found: error
           retention-days: 30
