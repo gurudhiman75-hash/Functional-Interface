@@ -95,11 +95,17 @@ export function questionPublicCode(
 
 const SPATIAL_SVG_ALLOWED_TAGS = new Set([
   "svg",
+  "g",
+  "defs",
+  "clippath",
+  "marker",
+  "rect",
   "line",
   "circle",
   "polygon",
   "polyline",
   "path",
+  "text",
 ]);
 
 function safeSpatialSvg(value: unknown, label: string): string {
