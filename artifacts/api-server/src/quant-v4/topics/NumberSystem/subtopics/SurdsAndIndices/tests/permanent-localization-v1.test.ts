@@ -147,8 +147,6 @@ for (const allocation of SRI_PERMANENT_ALLOCATION_V1) {
 }
 
 assert.equal(generated, EXPECTED_QLS * SEEDS_PER_QL * LOCALES.length);
-const localizationQualityFailures = [...nativeScriptFailures, ...foreignScriptFailures, ...residualFailures];
-assert.deepEqual(localizationQualityFailures, [], `Localized learner text failed language-quality gates:\n${localizationQualityFailures.join("\n")}`);
 
 const reviewCorpus = buildSriPermanentEnglishReviewCorpusV1(2);
 assert.equal(reviewCorpus.length, EXPECTED_REVIEW_ROWS);
@@ -163,10 +161,55 @@ for (const row of reviewCorpus) {
     assert.equal(q.answer.canonicalKey, row.question.answer.canonicalKey);
     assert.equal(q.correctIndex, row.question.correctIndex);
     assert.deepEqual(q.verification, row.question.verification);
-    assert.match(q.stem, NATIVE_SCRIPT[locale]);
+
+    const reviewPairs = [
+      [row.question.stem, q.stem],
+      [row.question.answer.text, q.answer.text],
+      [row.question.explanation.given, q.explanation.given],
+      [row.question.explanation.asked, q.explanation.asked],
+      [row.question.explanation.method, q.explanation.method],
+      [row.question.explanation.answer, q.explanation.answer],
+      ...row.question.options.map((option, index) => [option.text, q.options[index]!.text] as const),
+      ...row.question.explanation.working.map((line, index) => [line, q.explanation.working[index]!] as const),
+    ] as const;
+    for (const [sourceText, localizedText] of reviewPairs) {
+      assert.deepEqual(mathSkeleton(localizedText), mathSkeleton(sourceText), `${row.qlId}/${row.memberCandidateId}/${locale}: review-corpus math skeleton drifted\nEN: ${sourceText}\nLO: ${localizedText}`);
+      mathSkeletonChecks += 1;
+    }
+
+    for (const text of [q.stem, q.explanation.asked, q.explanation.method]) {
+      if (!NATIVE_SCRIPT[locale].test(text) && nativeScriptFailures.size < 160) {
+        nativeScriptFailures.add(`${row.qlId}/${row.memberCandidateId}/${locale}: review corpus expected native script :: ${text}`);
+      }
+      nativeScriptChecks += 1;
+    }
+
+    const reviewLearnerText = [
+      q.stem,
+      ...q.options.map((option) => option.text),
+      q.explanation.given,
+      q.explanation.asked,
+      q.explanation.method,
+      ...q.explanation.working,
+      q.explanation.answer,
+    ].join("\n");
+    assert.equal(INTERNAL_LEAK.test(reviewLearnerText), false, `${row.qlId}/${row.memberCandidateId}/${locale}: review corpus internal metadata leaked`);
+    INTERNAL_LEAK.lastIndex = 0;
+    if (FOREIGN_SCRIPT[locale].test(reviewLearnerText) && foreignScriptFailures.size < 160) {
+      foreignScriptFailures.add(`${row.qlId}/${row.memberCandidateId}/${locale}: review corpus foreign native script leaked :: ${reviewLearnerText.replaceAll("\n", " | ")}`);
+    }
+    FOREIGN_SCRIPT[locale].lastIndex = 0;
+    const reviewResidues = [...reviewLearnerText.matchAll(BANNED_ENGLISH)].map((match) => match[0].toLowerCase());
+    BANNED_ENGLISH.lastIndex = 0;
+    if (reviewResidues.length > 0 && residualFailures.size < 160) {
+      residualFailures.add(`${row.qlId}/${row.memberCandidateId}/${locale}: review corpus ${[...new Set(reviewResidues)].join(", ")} :: ${reviewLearnerText.replaceAll("\n", " | ")}`);
+    }
   }
 }
 assert.equal(localizedReviewRows, EXPECTED_REVIEW_ROWS * LOCALES.length);
+
+const localizationQualityFailures = [...nativeScriptFailures, ...foreignScriptFailures, ...residualFailures];
+assert.deepEqual(localizationQualityFailures, [], `Localized learner text failed language-quality gates:\n${localizationQualityFailures.join("\n")}`);
 
 console.log(JSON.stringify({
   status: "PASS_SRI_PERMANENT_LOCALIZATION_V1",
