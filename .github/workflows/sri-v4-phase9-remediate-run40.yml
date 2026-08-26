@@ -20,3 +20,39 @@ jobs:
       - name: Insert C008 C009 structural localization authority
         env:
           PAYLOAD: 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
+        run: |
+          python - <<'PY'
+          import base64
+          import os
+          import pathlib
+          import zlib
+
+          target = pathlib.Path("artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts")
+          helper = pathlib.Path(".github/workflows/sri-v4-phase9-remediate-run40.yml")
+          source = target.read_text(encoding="utf-8")
+          marker = "RUN40_C008_C009_LOCALIZATION_BLOCK_V1"
+          block = zlib.decompress(base64.b64decode(os.environ["PAYLOAD"])).decode("utf-8")
+
+          if marker not in source:
+              function_needle = "export function localizeSriLearnerTextV1(text: string, locale: SriLocalizedLocaleV1): string {"
+              if function_needle not in source:
+                  raise SystemExit("localization function insertion point not found")
+              source = source.replace(function_needle, "// RUN40_C008_C009_LOCALIZATION_BLOCK_V1\n" + block + "\n\n" + function_needle, 1)
+
+              call_needle = '  const exact = EXACT_SENTENCES[locale][text];\n  if (exact) return exact;\n'
+              if call_needle not in source:
+                  raise SystemExit("exact-sentence insertion point not found")
+              source = source.replace(call_needle, call_needle + '\n  const run40Residual = localizeRun40ResidualTextV1(text, locale);\n  if (run40Residual) return run40Residual;\n', 1)
+              target.write_text(source, encoding="utf-8")
+
+          if helper.exists():
+              helper.unlink()
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts .github/workflows/sri-v4-phase9-remediate-run40.yml
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "SRI Phase 9: close C008 C009 localization residuals"
+          git push origin HEAD:feature/sri-v4-phase9-localization-v1
