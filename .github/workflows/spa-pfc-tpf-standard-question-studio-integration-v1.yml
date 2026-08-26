@@ -7,6 +7,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: validate-spa-pfc-tpf-standard-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate-pfc-tpf-standard-question-studio-integration-v1:
     runs-on: ubuntu-24.04
