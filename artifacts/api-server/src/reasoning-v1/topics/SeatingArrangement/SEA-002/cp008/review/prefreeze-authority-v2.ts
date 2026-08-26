@@ -8,14 +8,14 @@ export const SEA002_CP008_PREFREEZE_AUTHORITY_V2 = Object.freeze({
   permanentAuthorityCount: SEA002_CP008_PERMANENT_QL_REGISTRY.length,
   productionSourceSaturation: SEA002_CP008_SOURCE_SATURATION_V3.productionSourceSaturationClaimed,
   english: Object.freeze({
-    status: "V2_REVIEW_READY_CI_AND_HUMAN_APPROVAL_PENDING" as const,
+    status: "V2_CI_CERTIFIED_HUMAN_APPROVAL_PENDING" as const,
     renderer: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.renderer,
     canonicalSurfaces: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.englishCanonicalSurfaces,
     reviewFingerprint: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.englishReviewFingerprint,
     humanApprovalStatus: "PENDING" as const,
   }),
   localization: Object.freeze({
-    status: "V2_REVIEW_READY_CI_AND_HUMAN_APPROVAL_PENDING" as const,
+    status: "V2_CI_CERTIFIED_HUMAN_APPROVAL_PENDING" as const,
     locales: Object.freeze(["hi-IN", "pa-IN"] as const),
     localizedSurfaces: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.localizedSurfaces,
     reviewFingerprint: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.localizationReviewFingerprint,
