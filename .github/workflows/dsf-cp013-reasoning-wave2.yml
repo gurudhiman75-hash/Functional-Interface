@@ -1,0 +1,54 @@
+name: Validate DSF CP-013 Reasoning Wave 2
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-013/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/foundation/**
+      - artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-001/**
+      - artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/**
+      - artifacts/api-server/src/reasoning-v1/topics/Calendar/CAL-001/**
+      - artifacts/api-server/src/lib/reasoning/coding-decoding.ts
+      - artifacts/api-server/src/lib/reasoning/pattern-inference.ts
+      - .github/workflows/dsf-cp013-reasoning-wave2.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp013-reasoning-wave2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp013-reasoning-wave2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle CP-013 Seating audit
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/data-sufficiency/cp013
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-013/seating-runtime-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp013/seating-runtime-v1.test.mjs
+      - name: Run CP-013 Seating audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp013/seating-runtime-v1.test.mjs
