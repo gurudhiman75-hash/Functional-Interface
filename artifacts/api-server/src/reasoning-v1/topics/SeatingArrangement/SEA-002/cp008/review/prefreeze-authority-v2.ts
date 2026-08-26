@@ -8,14 +8,17 @@ export const SEA002_CP008_PREFREEZE_AUTHORITY_V2 = Object.freeze({
   permanentAuthorityCount: SEA002_CP008_PERMANENT_QL_REGISTRY.length,
   productionSourceSaturation: SEA002_CP008_SOURCE_SATURATION_V3.productionSourceSaturationClaimed,
   english: Object.freeze({
-    status: "V2_REVIEW_READY_CI_RECERTIFICATION_AND_HUMAN_APPROVAL_PENDING" as const,
+    status: "V3_EXAM_REAL_REVIEW_READY_CI_RECERTIFICATION_AND_HUMAN_APPROVAL_PENDING" as const,
     renderer: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.renderer,
+    productionGraphVersion: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.productionGraphVersion,
+    difficultyPolicy: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.difficultyPolicy,
+    discoveryConstraintSpineUsed: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.discoveryConstraintSpineUsed,
     canonicalSurfaces: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.englishCanonicalSurfaces,
     reviewFingerprint: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.englishReviewFingerprint,
     humanApprovalStatus: "PENDING" as const,
   }),
   localization: Object.freeze({
-    status: "V2_REVIEW_READY_CI_RECERTIFICATION_AND_HUMAN_APPROVAL_PENDING" as const,
+    status: "V3_SOURCE_GRAPH_LOCALIZATION_REVIEW_READY_CI_RECERTIFICATION_AND_HUMAN_APPROVAL_PENDING" as const,
     locales: Object.freeze(["hi-IN", "pa-IN"] as const),
     localizedSurfaces: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.localizedSurfaces,
     reviewFingerprint: SEA002_CP008_REVIEW_FINGERPRINT_AUTHORITY_V2.localizationReviewFingerprint,
@@ -39,13 +42,16 @@ export const SEA002_CP008_PREFREEZE_AUTHORITY_V2 = Object.freeze({
 export function assertSea002Cp008PrefreezeBoundaryV2(): void {
   const authority = SEA002_CP008_PREFREEZE_AUTHORITY_V2;
   if (!authority.productionSourceSaturation || authority.permanentAuthorityCount !== 7) {
-    throw new Error("SEA-CP-008 V2 pre-freeze authority requires the proven seven-authority source-saturated set.");
+    throw new Error("SEA-CP-008 V3 pre-freeze authority requires the proven seven-authority source-saturated set.");
   }
   if (authority.english.canonicalSurfaces !== 42 || authority.localization.localizedSurfaces !== 84) {
-    throw new Error("SEA-CP-008 V2 review-surface cardinality drifted.");
+    throw new Error("SEA-CP-008 V3 review-surface cardinality drifted.");
+  }
+  if (authority.english.discoveryConstraintSpineUsed !== false) {
+    throw new Error("SEA-CP-008 V3 cannot certify learner surfaces derived from discovery constraint spines.");
   }
   if (authority.productOwnerApprovalStatus !== "PENDING" || authority.freezeStatus !== "NOT_FROZEN") {
-    throw new Error("SEA-CP-008 V2 must not claim freeze before explicit product-owner approval.");
+    throw new Error("SEA-CP-008 V3 must not claim freeze before explicit product-owner approval.");
   }
   if (authority.questionStudioActivationEligible
     || authority.questionStudioRegistered
@@ -55,7 +61,7 @@ export function assertSea002Cp008PrefreezeBoundaryV2(): void {
     || authority.productionStaging
     || authority.publiclyPublishable
     || authority.automaticStudentDelivery) {
-    throw new Error("SEA-CP-008 V2 pre-freeze authority must keep every downstream product surface locked.");
+    throw new Error("SEA-CP-008 V3 pre-freeze authority must keep every downstream product surface locked.");
   }
   if (SEA002_CP008_PERMANENT_QL_REGISTRY.some((entry) =>
     entry.active
@@ -66,9 +72,9 @@ export function assertSea002Cp008PrefreezeBoundaryV2(): void {
     || entry.productionStaging
     || entry.publiclyPublishable
     || entry.automaticStudentPublication)) {
-    throw new Error("SEA-CP-008 permanent QLs drifted active before V2 approval/freeze.");
+    throw new Error("SEA-CP-008 permanent QLs drifted active before V3 approval/freeze.");
   }
   if (authority.english.reviewFingerprint.length !== 64 || authority.localization.reviewFingerprint.length !== 64) {
-    throw new Error("SEA-CP-008 V2 review fingerprints are not valid SHA-256 identities.");
+    throw new Error("SEA-CP-008 V3 review fingerprints are not valid SHA-256 identities.");
   }
 }
