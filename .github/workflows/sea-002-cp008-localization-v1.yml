@@ -1,4 +1,4 @@
-name: Validate SEA-002 CP008 localization V1
+name: Validate SEA-002 CP008 localization V2
 
 on:
   pull_request:
@@ -25,22 +25,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Re-prove English review set
+      - name: Re-prove exam-real English review set
         run: >-
           node --experimental-strip-types
-          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/english-review-v1.test.ts
+          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/english-review-v2.test.ts
       - name: Prove Hindi Punjabi localization parity
         shell: bash
         run: |
           set -o pipefail
           node --experimental-strip-types \
-            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/localization-v1.test.ts \
-            2>&1 | tee /tmp/sea-002-cp008-localization-v1.log
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/localization-v2.test.ts \
+            2>&1 | tee /tmp/sea-002-cp008-localization-v2.log
       - name: Export localized review set
         run: >-
           node --experimental-strip-types
-          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/localization-export-v1.ts
-          > /tmp/sea-002-cp008-localization-v1.json
+          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/localization-export-v2.ts
+          > /tmp/sea-002-cp008-localization-v2.json
       - name: Re-prove permanent allocation
         run: >-
           node --experimental-strip-types
@@ -52,9 +52,9 @@ jobs:
       - name: Upload localization review evidence
         uses: actions/upload-artifact@v4
         with:
-          name: sea-002-cp008-localization-v1
+          name: sea-002-cp008-localization-v2
           path: |
-            /tmp/sea-002-cp008-localization-v1.log
-            /tmp/sea-002-cp008-localization-v1.json
+            /tmp/sea-002-cp008-localization-v2.log
+            /tmp/sea-002-cp008-localization-v2.json
           if-no-files-found: error
           retention-days: 30
