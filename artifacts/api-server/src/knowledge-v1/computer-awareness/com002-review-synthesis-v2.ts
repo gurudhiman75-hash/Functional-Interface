@@ -59,6 +59,10 @@ function licensePolarity(value: string): "OPEN_SOURCE" | "PROPRIETARY" | "OTHER"
   return "OTHER";
 }
 
+function articleFor(value: string) {
+  return /^[aeiou]/i.test(value.trim()) ? "an" : "a";
+}
+
 function patchQl002Attribute(question: Com002ReviewQuestion, seed: string): Com002ReviewQuestion {
   if (question.surfaceMode !== "ATTRIBUTE_TO_OS") return question;
   const target = factById(question.targetFactId);
@@ -80,6 +84,21 @@ function patchQl002Attribute(question: Com002ReviewQuestion, seed: string): Com0
     sourceIds: unique(usedFacts.map((fact) => fact.source.sourceId)),
   };
   return reposition(patched, wrongAnswers, `${seed}:ql002-attribute`);
+}
+
+function patchQl002Presentation(question: Com002ReviewQuestion, target: KnowledgeFact): Com002ReviewQuestion {
+  if (!["OS_TO_LICENSE", "ATTRIBUTE_TO_OS"].includes(question.surfaceMode)) return question;
+  const value = textValue(target);
+  const article = articleFor(value);
+  const explanation = `${target.entity.label.en} is ${article} ${value}.`;
+  if (question.surfaceMode === "ATTRIBUTE_TO_OS") {
+    return {
+      ...question,
+      stem: `Which of the following is ${article} ${value}?`,
+      explanation,
+    };
+  }
+  return { ...question, explanation };
 }
 
 function kernelExplanation(fact: KnowledgeFact) {
@@ -127,6 +146,48 @@ function patchQl005Stem(question: Com002ReviewQuestion, target: KnowledgeFact, s
       `${entity} is best described by which of the following?`,
     ], `${seed}:ql005-interface-to-property`),
   };
+}
+
+function functionOptionPhrase(value: string) {
+  const replacements: readonly [RegExp, string][] = [
+    [/^provides\b/i, "provide"],
+    [/^shows\b/i, "show"],
+    [/^helps\b/i, "help"],
+    [/^manages\b/i, "manage"],
+    [/^accepts\b/i, "accept"],
+    [/^uses\b/i, "use"],
+    [/^allows\b/i, "allow"],
+    [/^displays\b/i, "display"],
+    [/^opens\b/i, "open"],
+  ];
+  for (const [pattern, replacement] of replacements) {
+    if (pattern.test(value)) return value.replace(pattern, replacement);
+  }
+  return value;
+}
+
+function patchQl007(question: Com002ReviewQuestion, target: KnowledgeFact): Com002ReviewQuestion {
+  const value = textValue(target);
+  const explanation = `${target.entity.label.en} ${value}.`;
+  if (question.surfaceMode === "FUNCTION_TO_COMPONENT") {
+    const stem = target.factId === "com002-notification-area-function"
+      ? "Which part of the Windows taskbar displays system-status icons and notification-related features?"
+      : `Which Windows component or settings area is used to ${functionOptionPhrase(value)}?`;
+    return { ...question, stem, explanation };
+  }
+  if (question.surfaceMode === "COMPONENT_TO_FUNCTION") {
+    const canonicalAnswer = functionOptionPhrase(value);
+    const options = question.options.map((option, index) =>
+      index === question.correctIndex ? canonicalAnswer : functionOptionPhrase(option),
+    );
+    return {
+      ...question,
+      canonicalAnswer,
+      options,
+      explanation,
+    };
+  }
+  return { ...question, explanation };
 }
 
 function canonicalFileType(value: string) {
@@ -252,6 +313,7 @@ export function generateCom002ReviewQuestionV2(input: { qlId: string; seed: stri
   if (input.qlId === "COM-002-QL-002") {
     question = patchQl002Attribute(question, input.seed);
     target = factById(question.targetFactId);
+    if (target) question = patchQl002Presentation(question, target);
   }
 
   if (input.qlId === "COM-002-QL-004" && target) {
@@ -266,13 +328,7 @@ export function generateCom002ReviewQuestionV2(input: { qlId: string; seed: stri
   }
 
   if (input.qlId === "COM-002-QL-007" && target) {
-    if (question.surfaceMode === "FUNCTION_TO_COMPONENT") {
-      question = {
-        ...question,
-        stem: `Which Windows component or settings area best matches this function or task: ${textValue(target)}?`,
-      };
-    }
-    question = { ...question, explanation: `${target.entity.label.en} ${textValue(target)}.` };
+    question = patchQl007(question, target);
   }
 
   if (input.qlId === "COM-002-QL-008" && target) {
