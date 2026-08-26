@@ -54,6 +54,13 @@ jobs:
           node --experimental-strip-types \
             ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/review/prefreeze-authority-v2.test.ts \
             2>&1 | tee /tmp/sea-002-cp008-prefreeze-authority-v2.log
+      - name: Verify pinned certified review evidence V2
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/review/certified-evidence-v2.test.ts \
+            2>&1 | tee /tmp/sea-002-cp008-certified-evidence-v2.log
       - name: Prove exact approval-to-freeze contract V2
         shell: bash
         run: |
@@ -98,6 +105,7 @@ jobs:
             /tmp/sea-002-cp008-english-review-v2.log
             /tmp/sea-002-cp008-localization-v2.log
             /tmp/sea-002-cp008-prefreeze-authority-v2.log
+            /tmp/sea-002-cp008-certified-evidence-v2.log
             /tmp/sea-002-cp008-freeze-contract-v2.log
             /tmp/sea-002-cp008-question-studio-v2.log
             /tmp/sea-002-cp008-english-review-v2.json
