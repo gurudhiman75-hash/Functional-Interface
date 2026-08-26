@@ -45,15 +45,21 @@ function patchQl002Attribute(question: Com002ReviewQuestion, seed: string): Com0
   if (!target) throw new Error(`${question.questionId}: QL-002 target fact is missing`);
   const targetPolarity = licensePolarity(textValue(target));
   const licenseFacts = COM002_EDITORIAL_TARGET_FACTS.filter((fact) => fact.relation === "license_class");
-  const oppositeEntities = unique(
-    licenseFacts
-      .filter((fact) => licensePolarity(textValue(fact)) !== targetPolarity)
-      .map((fact) => fact.entity.label.en),
+  const oppositeFacts = licenseFacts.filter(
+    (fact) => licensePolarity(textValue(fact)) !== targetPolarity && licensePolarity(textValue(fact)) !== "OTHER",
   );
+  const oppositeEntities = unique(oppositeFacts.map((fact) => fact.entity.label.en));
   const fallback = ["Microsoft Excel", "Google Chrome", "Intel processor", "SQL language"];
   const wrongPool = unique([...oppositeEntities, ...fallback]).filter((entry) => entry !== question.canonicalAnswer);
   const wrongAnswers = deterministicShuffle(wrongPool, `${seed}:ql002-v2-wrong`).slice(0, 3);
-  return reposition(question, wrongAnswers, `${seed}:ql002-attribute`);
+  const usedFactEntities = new Set(wrongAnswers);
+  const usedFacts = [target, ...oppositeFacts.filter((fact) => usedFactEntities.has(fact.entity.label.en))];
+  const patched = {
+    ...question,
+    sourceFactIds: unique(usedFacts.map((fact) => fact.factId)),
+    sourceIds: unique(usedFacts.map((fact) => fact.source.sourceId)),
+  };
+  return reposition(patched, wrongAnswers, `${seed}:ql002-attribute`);
 }
 
 function kernelExplanation(fact: KnowledgeFact) {
