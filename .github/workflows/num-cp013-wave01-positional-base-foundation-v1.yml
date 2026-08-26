@@ -1,4 +1,4 @@
-name: Validate NUM-CP-013 Wave 01 positional-base foundation
+name: Validate NUM-CP-013 positional-base discovery through Wave 02
 
 on:
   pull_request:
@@ -8,14 +8,14 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: num-cp013-wave01-${{ github.event.pull_request.number || github.ref }}
+  group: num-cp013-discovery-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  validate-num-cp013-wave01-positional-base-foundation:
+  validate-num-cp013-through-wave02:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -33,7 +33,7 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle Wave 01 runtime and independent audits
+      - name: Bundle Wave 01 audits
         shell: bash
         run: |
           set -euo pipefail
@@ -45,29 +45,57 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile="dist/quant-v4/num-cp013-wave01-independent-minimality.mjs"
 
-      - name: Run exhaustive Wave 01 foundation audit
+      - name: Run Wave 01 exhaustive foundation audit
         shell: bash
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-cp013-wave01-runtime-audit.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp013-wave01-runtime-audit.log
 
-      - name: Run independent uniqueness and arithmetic audit
+      - name: Run Wave 01 independent uniqueness audit
         shell: bash
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-cp013-wave01-independent-minimality.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp013-wave01-independent-minimality.log
 
+      - name: Bundle Wave 02 audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-013/wave02"
+          pnpm --dir artifacts/api-server exec esbuild "$base/runtime.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="dist/quant-v4/num-cp013-wave02-runtime-audit.mjs"
+          pnpm --dir artifacts/api-server exec esbuild "$base/independent-saturation.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile="dist/quant-v4/num-cp013-wave02-independent-saturation.mjs"
+
+      - name: Run Wave 02 edge and representation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp013-wave02-runtime-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp013-wave02-runtime-audit.log
+
+      - name: Run Wave 02 independent saturation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp013-wave02-independent-saturation.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp013-wave02-independent-saturation.log
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Upload CP013 Wave 01 evidence
+      - name: Upload CP013 Wave 01-02 evidence
         uses: actions/upload-artifact@v4
         with:
-          name: num-cp013-wave01-positional-base-foundation-v1
+          name: num-cp013-positional-base-discovery-through-wave02
           path: |
             artifacts/api-server/dist/quant-v4/num-cp013-wave01-runtime-audit.log
             artifacts/api-server/dist/quant-v4/num-cp013-wave01-independent-minimality.log
+            artifacts/api-server/dist/quant-v4/num-cp013-wave02-runtime-audit.log
+            artifacts/api-server/dist/quant-v4/num-cp013-wave02-independent-saturation.log
           if-no-files-found: error
           retention-days: 30
