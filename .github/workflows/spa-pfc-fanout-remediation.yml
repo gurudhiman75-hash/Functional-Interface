@@ -1,0 +1,88 @@
+name: One-shot scope SPA PFC workflow fanout
+
+on:
+  push:
+    branches:
+      - chore/ci-path-scope-spatial-pfc-v1
+    paths:
+      - .github/workflows/spa-pfc-fanout-remediation.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout remediation branch
+        uses: actions/checkout@v4
+        with:
+          ref: chore/ci-path-scope-spatial-pfc-v1
+          fetch-depth: 0
+
+      - name: Add path scopes to broad SPA PFC workflows
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path('.github/workflows')
+          helper = root / 'spa-pfc-fanout-remediation.yml'
+          changed = []
+
+          for path in sorted(root.glob('spa-pfc-*.yml')):
+              if path == helper:
+                  continue
+
+              text = path.read_text()
+              original = text
+
+              # Remediate only the legacy broad trigger shape proven to fan out on unrelated PRs.
+              trigger = re.compile(r'^on:\n  pull_request:\s*\n  workflow_dispatch:\s*$', re.MULTILINE)
+              if trigger.search(text):
+                  scoped = (
+                      'on:\n'
+                      '  pull_request:\n'
+                      '    paths:\n'
+                      '      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"\n'
+                      '      - "artifacts/api-server/src/reasoning-v1/tests/spatial-*.test.ts"\n'
+                      '      - "artifacts/admin-app/src/features/question-studio/**"\n'
+                      f'      - ".github/workflows/{path.name}"\n'
+                      '      - "package.json"\n'
+                      '      - "pnpm-lock.yaml"\n'
+                      '  workflow_dispatch:'
+                  )
+                  text = trigger.sub(scoped, text, count=1)
+
+                  # The repository policy forbids ambiguous 20/25 minute caps in modified workflows.
+                  text = re.sub(
+                      r'^(\s*timeout-minutes:\s*)(20|25)(\s*(?:#.*)?)$',
+                      r'\g<1>45\g<3>',
+                      text,
+                      flags=re.MULTILINE,
+                  )
+
+              if text != original:
+                  path.write_text(text)
+                  changed.append(str(path))
+
+          print(f'Remediated {len(changed)} workflow(s).')
+          for item in changed:
+              print(item)
+
+          if not changed:
+              raise SystemExit('No broad spa-pfc workflows matched; refusing an empty remediation run.')
+          PY
+
+      - name: Commit scoped workflow triggers
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "examtree-ci"
+          git config user.email "actions@users.noreply.github.com"
+          git add .github/workflows/spa-pfc-*.yml
+          git commit -m "ci(spatial): path-scope legacy PFC workflow family"
+          git push origin HEAD:chore/ci-path-scope-spatial-pfc-v1
