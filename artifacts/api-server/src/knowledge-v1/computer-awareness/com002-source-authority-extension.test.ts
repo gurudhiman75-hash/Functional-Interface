@@ -7,17 +7,20 @@ import {
 
 const audit = auditCom002SourceAuthorityExtension();
 assert.equal(audit.valid, true, audit.issues.join("\n"));
-assert.equal(audit.sourceCount, 7);
+assert.equal(audit.sourceCount, 9);
 
 for (const scope of [
   "os-function",
   "gui-cli-awareness",
+  "os-type-classification",
   "real-time-os-property",
   "kernel-core",
   "taskbar-function",
   "start-menu-function",
   "delete-recovery-behavior",
   "boot-load-operating-system",
+  "shutdown-action",
+  "restart-action",
 ]) {
   assert.equal(audit.supportScopes.includes(scope), true, `Missing COM-002 truth scope ${scope}`);
 }
