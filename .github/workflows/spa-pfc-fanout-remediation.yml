@@ -1,4 +1,4 @@
-# Trigger the armed one-shot helper; delete it after the PFC family is path-scoped.
+# Resynchronize the armed one-shot helper; delete it after the PFC family is path-scoped.
 name: One-shot scope SPA PFC workflow fanout
 
 on:
