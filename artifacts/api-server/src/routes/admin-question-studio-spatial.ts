@@ -10,7 +10,7 @@ import {
   type SpatialQuestionStudioChapterCodeV1,
   type SpatialQuestionStudioDifficultyV1,
   type SpatialQuestionStudioPermanentQlIdV1,
-} from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v1";
+} from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v2";
 import {
   SPATIAL_QUESTION_STUDIO_LANGUAGES_V1,
   type SpatialQuestionStudioLanguageV1,
@@ -18,7 +18,7 @@ import {
 import {
   generateSpatialProductionStudioBatchV1,
   type SpatialProductionStudioQuestionV1,
-} from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v1";
+} from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v2";
 
 const router = Router();
 const QL_IDS = new Set<string>(SPATIAL_QUESTION_STUDIO_PACKAGE_V1.qlIds);
