@@ -22,7 +22,9 @@ concurrency:
 jobs:
   validate-number-system-complete-design:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # Normal chapter-validation ceiling. Avoid 20/25-minute caps so CI timeout
+    # failures stay clearly distinguishable from external execution-window limits.
+    timeout-minutes: 45
     steps:
       - name: Checkout source
         uses: actions/checkout@v4

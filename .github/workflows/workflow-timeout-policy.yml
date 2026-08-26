@@ -1,0 +1,51 @@
+name: Enforce workflow timeout policy
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - .github/workflows/**
+
+permissions:
+  contents: read
+
+concurrency:
+  group: workflow-timeout-policy-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-changed-workflows:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reject ambiguous 20/25-minute workflow caps
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+
+          mapfile -t files < <(
+            git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- \
+              '.github/workflows/*.yml' \
+              '.github/workflows/*.yaml'
+          )
+
+          failed=0
+          for file in "${files[@]}"; do
+            [[ -f "$file" ]] || continue
+
+            if grep -nE '^[[:space:]]*timeout-minutes:[[:space:]]*(20|25)([[:space:]]*(#.*)?)?$' "$file"; then
+              echo "::error file=$file::20/25-minute job caps are not allowed in new or modified workflows. Use <=15 for a deliberate fast guard, or >=30 for normal validation; 45 minutes is the default for long chapter validation."
+              failed=1
+            fi
+          done
+
+          exit "$failed"
