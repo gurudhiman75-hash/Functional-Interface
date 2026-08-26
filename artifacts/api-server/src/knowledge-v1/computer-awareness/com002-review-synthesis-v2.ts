@@ -129,29 +129,88 @@ function patchQl005Stem(question: Com002ReviewQuestion, target: KnowledgeFact, s
   };
 }
 
-function patchQl009TypeToExtension(question: Com002ReviewQuestion, target: KnowledgeFact, seed: string): Com002ReviewQuestion {
-  if (question.surfaceMode !== "TYPE_TO_EXTENSION") return question;
-  const mappings = COM002_EDITORIAL_TARGET_FACTS.filter((fact) => fact.relation === "extension_file_type");
-  const wrongGroups = new Map<string, KnowledgeFact[]>();
-  for (const fact of mappings) {
-    const fileType = textValue(fact);
-    if (fileType === textValue(target)) continue;
-    const bucket = wrongGroups.get(fileType) ?? [];
+function canonicalFileType(value: string) {
+  const normalized = value.normalize("NFKC").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  if (normalized.includes("jpeg")) return "jpeg-image";
+  return normalized;
+}
+
+function extensionMappings() {
+  return COM002_EDITORIAL_TARGET_FACTS.filter((fact) => fact.relation === "extension_file_type");
+}
+
+function representativeWrongExtensionFacts(target: KnowledgeFact, seed: string) {
+  const targetType = canonicalFileType(textValue(target));
+  const groups = new Map<string, KnowledgeFact[]>();
+  for (const fact of extensionMappings()) {
+    const typeKey = canonicalFileType(textValue(fact));
+    if (typeKey === targetType) continue;
+    const bucket = groups.get(typeKey) ?? [];
     bucket.push(fact);
-    wrongGroups.set(fileType, bucket);
+    groups.set(typeKey, bucket);
   }
-  const representativeFacts = [...wrongGroups.entries()].map(([fileType, facts]) =>
-    deterministicShuffle(facts, `${seed}:ql009-alias-representative:${fileType}`)[0]!,
-  );
-  const wrongFacts = deterministicShuffle(representativeFacts, `${seed}:ql009-v2-wrong-types`).slice(0, 3);
-  const wrongAnswers = wrongFacts.map((fact) => fact.entity.label.en);
-  const usedFacts = [target, ...wrongFacts];
-  const patched = {
-    ...question,
-    sourceFactIds: usedFacts.map((fact) => fact.factId),
-    sourceIds: unique(usedFacts.map((fact) => fact.source.sourceId)),
-  };
-  return reposition(patched, wrongAnswers, `${seed}:ql009-type-to-extension`);
+  return deterministicShuffle(
+    [...groups.entries()].map(([typeKey, facts]) =>
+      deterministicShuffle(facts, `${seed}:alias-representative:${typeKey}`)[0]!,
+    ),
+    `${seed}:wrong-extension-types`,
+  ).slice(0, 3);
+}
+
+function patchQl009AliasSafety(question: Com002ReviewQuestion, target: KnowledgeFact, seed: string): Com002ReviewQuestion {
+  if (question.surfaceMode === "TYPE_TO_EXTENSION") {
+    const sameType = extensionMappings().filter(
+      (fact) => canonicalFileType(textValue(fact)) === canonicalFileType(textValue(target)),
+    );
+    let effectiveTarget = target;
+    if (sameType.length > 1) {
+      const uniqueTargets = extensionMappings().filter((fact) => {
+        const key = canonicalFileType(textValue(fact));
+        return extensionMappings().filter((candidate) => canonicalFileType(textValue(candidate)) === key).length === 1;
+      });
+      effectiveTarget = deterministicShuffle(uniqueTargets, `${seed}:unique-reverse-target`)[0]!;
+    }
+    const wrongFacts = representativeWrongExtensionFacts(effectiveTarget, `${seed}:type-to-extension`);
+    const canonicalAnswer = effectiveTarget.entity.label.en;
+    const stem = pickStem([
+      `Which file extension is associated with a ${textValue(effectiveTarget)}?`,
+      `A ${textValue(effectiveTarget)} commonly uses which file extension?`,
+      `Identify the extension associated with a ${textValue(effectiveTarget)}.`,
+    ], `${seed}:ql009-type-to-extension-stem`);
+    const usedFacts = [effectiveTarget, ...wrongFacts];
+    const patched: Com002ReviewQuestion = {
+      ...question,
+      targetFactId: effectiveTarget.factId,
+      stem,
+      canonicalAnswer,
+      explanation: `${canonicalAnswer} is associated with a ${textValue(effectiveTarget)}.`,
+      sourceFactIds: usedFacts.map((fact) => fact.factId),
+      sourceIds: unique(usedFacts.map((fact) => fact.source.sourceId)),
+    };
+    return reposition(patched, wrongFacts.map((fact) => fact.entity.label.en), `${seed}:ql009-type-to-extension`);
+  }
+
+  if (question.surfaceMode === "MATCHED_PAIR") {
+    const wrongFacts = representativeWrongExtensionFacts(target, `${seed}:matched-pair`);
+    const canonicalAnswer = `${target.entity.label.en} — ${textValue(target)}`;
+    const wrongAnswers = wrongFacts.map((fact) => `${fact.entity.label.en} — ${textValue(target)}`);
+    const usedFacts = [target, ...wrongFacts];
+    const patched: Com002ReviewQuestion = {
+      ...question,
+      canonicalAnswer,
+      stem: pickStem([
+        "Which file extension and file-type pair is correctly matched?",
+        "Identify the correctly matched file extension and file type.",
+        "Which option correctly pairs a file extension with its file type?",
+      ], `${seed}:ql009-matched-pair-stem`),
+      explanation: `${target.entity.label.en} is associated with a ${textValue(target)}, so ${canonicalAnswer} is the correctly matched pair.`,
+      sourceFactIds: usedFacts.map((fact) => fact.factId),
+      sourceIds: unique(usedFacts.map((fact) => fact.source.sourceId)),
+    };
+    return reposition(patched, wrongAnswers, `${seed}:ql009-matched-pair`);
+  }
+
+  return question;
 }
 
 function patchQl010Delete(question: Com002ReviewQuestion, target: KnowledgeFact): Com002ReviewQuestion {
@@ -224,7 +283,7 @@ export function generateCom002ReviewQuestionV2(input: { qlId: string; seed: stri
     if (question.surfaceMode === "EXTENSION_CONCEPT") {
       question = { ...question, explanation: describeExtensionConcept(target) };
     }
-    question = patchQl009TypeToExtension(question, target, input.seed);
+    question = patchQl009AliasSafety(question, target, input.seed);
     question = redistributeAnswerPosition(question, input.seed);
   }
 
