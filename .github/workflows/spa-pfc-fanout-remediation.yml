@@ -1,4 +1,4 @@
-# Temporary one-shot helper. Deleted after the PFC workflow family is path-scoped.
+# Trigger the armed one-shot helper; delete it after the PFC family is path-scoped.
 name: One-shot scope SPA PFC workflow fanout
 
 on:
