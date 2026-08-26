@@ -37,8 +37,8 @@ let parityChecks = 0;
 let deepFrozenObjects = 0;
 let nativeScriptChecks = 0;
 let mathSkeletonChecks = 0;
-const nativeScriptFailures: string[] = [];
-const residualFailures: string[] = [];
+const nativeScriptFailures = new Set<string>();
+const residualFailures = new Set<string>();
 const sourceCandidatesSeen = new Set<string>();
 
 for (const allocation of SRI_PERMANENT_ALLOCATION_V1) {
@@ -99,8 +99,8 @@ for (const allocation of SRI_PERMANENT_ALLOCATION_V1) {
       }
 
       for (const text of [q.stem, q.explanation.asked, q.explanation.method]) {
-        if (!NATIVE_SCRIPT[locale].test(text) && nativeScriptFailures.length < 80) {
-          nativeScriptFailures.push(`${allocation.qlId}/${q.candidateId}/${locale}: expected native script :: ${text}`);
+        if (!NATIVE_SCRIPT[locale].test(text) && nativeScriptFailures.size < 160) {
+          nativeScriptFailures.add(`${allocation.qlId}/${q.candidateId}/${locale}: expected native script :: ${text}`);
         }
         nativeScriptChecks += 1;
       }
@@ -118,8 +118,8 @@ for (const allocation of SRI_PERMANENT_ALLOCATION_V1) {
       INTERNAL_LEAK.lastIndex = 0;
       const residues = [...learnerText.matchAll(BANNED_ENGLISH)].map((match) => match[0].toLowerCase());
       BANNED_ENGLISH.lastIndex = 0;
-      if (residues.length > 0 && residualFailures.length < 80) {
-        residualFailures.push(`${allocation.qlId}/${q.candidateId}/${locale}: ${[...new Set(residues)].join(", ")} :: ${learnerText.replaceAll("\n", " | ")}`);
+      if (residues.length > 0 && residualFailures.size < 160) {
+        residualFailures.add(`${allocation.qlId}/${q.candidateId}/${locale}: ${[...new Set(residues)].join(", ")} :: ${learnerText.replaceAll("\n", " | ")}`);
       }
 
       assert.equal(localized.lifecycle.reviewStatus, "LOCALIZATION_REVIEW_READY");
