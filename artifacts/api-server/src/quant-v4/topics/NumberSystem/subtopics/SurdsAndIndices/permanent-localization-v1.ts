@@ -54,6 +54,12 @@ const EXACT_SENTENCES: Record<SriLocalizedLocaleV1, Readonly<Record<string, stri
     "Which statement is valid under its stated domain?": "अपने दिए गए परिभाषा-क्षेत्र में कौन-सा कथन सही है?",
     "Identify the true index-law statement.": "सही घातांक-नियम वाला कथन पहचानिए।",
     "Which of the following statements about indices is true?": "घातांकों के बारे में निम्नलिखित में से कौन-सा कथन सत्य है?",
+    "Determine the truth value of each statement independently.": "प्रत्येक कथन की सत्यता अलग-अलग निर्धारित कीजिए।",
+    "Both I and II are true": "I और II दोनों सत्य हैं",
+    "Only I is true": "केवल I सत्य है",
+    "Only II is true": "केवल II सत्य है",
+    "Both I and II are false": "I और II दोनों असत्य हैं",
+    "Normalize both quantities to powers of the same base and compare the exact exponents.": "दोनों राशियों को समान आधार की घातों में बदलकर सटीक घातांकों की तुलना कीजिए।",
     "Same-base multiplication adds exponents.": "समान आधार वाली घातों के गुणा में घातांक जुड़ते हैं।",
     "Same-base division subtracts exponents.": "समान आधार वाली घातों के भाग में घातांक घटते हैं।",
     "A power raised to a power multiplies exponents.": "एक घात को दूसरी घात तक उठाने पर घातांकों का गुणा होता है।",
@@ -97,6 +103,12 @@ const EXACT_SENTENCES: Record<SriLocalizedLocaleV1, Readonly<Record<string, stri
     "Which statement is valid under its stated domain?": "ਆਪਣੇ ਦਿੱਤੇ ਪਰਿਭਾਸ਼ਾ-ਖੇਤਰ ਵਿੱਚ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
     "Identify the true index-law statement.": "ਸਹੀ ਘਾਤਾਂਕ-ਨਿਯਮ ਵਾਲੇ ਕਥਨ ਦੀ ਪਛਾਣ ਕਰੋ।",
     "Which of the following statements about indices is true?": "ਘਾਤਾਂਕਾਂ ਬਾਰੇ ਹੇਠ ਲਿਖਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਕਥਨ ਸੱਚ ਹੈ?",
+    "Determine the truth value of each statement independently.": "ਹਰੇਕ ਕਥਨ ਦੀ ਸੱਚਾਈ ਵੱਖ-ਵੱਖ ਨਿਰਧਾਰਤ ਕਰੋ।",
+    "Both I and II are true": "I ਅਤੇ II ਦੋਵੇਂ ਸੱਚ ਹਨ",
+    "Only I is true": "ਕੇਵਲ I ਸੱਚ ਹੈ",
+    "Only II is true": "ਕੇਵਲ II ਸੱਚ ਹੈ",
+    "Both I and II are false": "I ਅਤੇ II ਦੋਵੇਂ ਝੂਠ ਹਨ",
+    "Normalize both quantities to powers of the same base and compare the exact exponents.": "ਦੋਵੇਂ ਰਾਸ਼ੀਆਂ ਨੂੰ ਇੱਕੋ ਅਧਾਰ ਦੀਆਂ ਘਾਤਾਂ ਵਿੱਚ ਬਦਲ ਕੇ ਸਟੀਕ ਘਾਤਾਂਕਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
     "Same-base multiplication adds exponents.": "ਇੱਕੋ ਅਧਾਰ ਵਾਲੀਆਂ ਘਾਤਾਂ ਦੇ ਗੁਣਾ ਵਿੱਚ ਘਾਤਾਂਕ ਜੋੜੇ ਜਾਂਦੇ ਹਨ।",
     "Same-base division subtracts exponents.": "ਇੱਕੋ ਅਧਾਰ ਵਾਲੀਆਂ ਘਾਤਾਂ ਦੇ ਭਾਗ ਵਿੱਚ ਘਾਤਾਂਕ ਘਟਾਏ ਜਾਂਦੇ ਹਨ।",
     "A power raised to a power multiplies exponents.": "ਇੱਕ ਘਾਤ ਨੂੰ ਹੋਰ ਘਾਤ ਤੱਕ ਚੁੱਕਣ ਤੇ ਘਾਤਾਂਕਾਂ ਦਾ ਗੁਣਾ ਹੁੰਦਾ ਹੈ।",
@@ -126,6 +138,10 @@ function nativeConnectorText(value: string, locale: SriLocalizedLocaleV1): strin
     .replace(/\s+and\s+/giu, locale === "hi-IN" ? " और " : " ਅਤੇ ")
     .replace(/\s+or\s+/giu, locale === "hi-IN" ? " या " : " ਜਾਂ ")
     .replace(/\s+with\s+/giu, locale === "hi-IN" ? " तथा " : " ਅਤੇ ");
+}
+
+function localizeEmbeddedLaw(text: string, locale: SriLocalizedLocaleV1): string {
+  return localizeSriLearnerTextV1(text.trim(), locale);
 }
 
 export function localizeSriLearnerTextV1(text: string, locale: SriLocalizedLocaleV1): string {
@@ -171,6 +187,38 @@ export function localizeSriLearnerTextV1(text: string, locale: SriLocalizedLocal
     return locale === "hi-IN"
       ? `सभी वास्तविक a,b के लिए, ${match[1]}।`
       : `ਸਭ ਵਾਸਤਵਿਕ a,b ਲਈ, ${match[1]}।`;
+  }
+
+  match = text.match(/^Statement I: (.+?) Statement II: (.+?) Which conclusion is correct\?$/u);
+  if (match) {
+    const first = localizeEmbeddedLaw(match[1], locale);
+    const second = localizeEmbeddedLaw(match[2], locale);
+    return locale === "hi-IN"
+      ? `कथन I: ${first} कथन II: ${second} सही निष्कर्ष चुनिए।`
+      : `ਕਥਨ I: ${first} ਕਥਨ II: ${second} ਸਹੀ ਨਤੀਜਾ ਚੁਣੋ।`;
+  }
+
+  match = text.match(/^Consider I: (.+?) II: (.+?) Choose the correct truth combination\.$/u);
+  if (match) {
+    const first = localizeEmbeddedLaw(match[1], locale);
+    const second = localizeEmbeddedLaw(match[2], locale);
+    return locale === "hi-IN"
+      ? `I पर विचार कीजिए: ${first} II: ${second} सही सत्यता-संयोजन चुनिए।`
+      : `I ਬਾਰੇ ਵਿਚਾਰ ਕਰੋ: ${first} II: ${second} ਸਹੀ ਸੱਚਾਈ-ਸੰਯੋਗ ਚੁਣੋ।`;
+  }
+
+  match = text.match(/^For the following two index statements— I\. (.+?) II\. (.+?) —which option is correct\?$/u);
+  if (match) {
+    const first = localizeEmbeddedLaw(match[1], locale);
+    const second = localizeEmbeddedLaw(match[2], locale);
+    return locale === "hi-IN"
+      ? `निम्न दो घातांक कथनों के लिए— I. ${first} II. ${second} —कौन-सा विकल्प सही है?`
+      : `ਹੇਠਲੇ ਦੋ ਘਾਤਾਂਕ ਕਥਨਾਂ ਲਈ— I. ${first} II. ${second} —ਕਿਹੜਾ ਵਿਕਲਪ ਸਹੀ ਹੈ?`;
+  }
+
+  match = text.match(/^Statement I is [A-Z0-9_]+; Statement II is [A-Z0-9_]+\.$/u);
+  if (match) {
+    return locale === "hi-IN" ? "कथन I और कथन II दिए गए हैं।" : "ਕਥਨ I ਅਤੇ ਕਥਨ II ਦਿੱਤੇ ਗਏ ਹਨ।";
   }
 
   match = text.match(/^Which statement correctly describes (.+) over the real numbers\?$/u);
@@ -374,6 +422,27 @@ export function localizeSriLearnerTextV1(text: string, locale: SriLocalizedLocal
     return locale === "hi-IN"
       ? `दोनों व्यंजकों का घातांक ${match[1]} समान है। ${match[2]} और ${match[3]} की तुलना कीजिए।`
       : `ਦੋਵੇਂ ਵਿਅੰਜਕਾਂ ਦਾ ਘਾਤਾਂਕ ${match[1]} ਇੱਕੋ ਹੈ। ${match[2]} ਅਤੇ ${match[3]} ਦੀ ਤੁਲਨਾ ਕਰੋ।`;
+  }
+
+  match = text.match(/^Quantity A: (.+)\. Quantity B: (.+)\. Compare A and B\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `राशि A: ${match[1]}। राशि B: ${match[2]}। A और B की तुलना कीजिए।`
+      : `ਰਾਸ਼ੀ A: ${match[1]}। ਰਾਸ਼ੀ B: ${match[2]}। A ਅਤੇ B ਦੀ ਤੁਲਨਾ ਕਰੋ।`;
+  }
+
+  match = text.match(/^Compare Quantity A = (.+) with Quantity B = (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `राशि A = ${match[1]} और राशि B = ${match[2]} की तुलना कीजिए।`
+      : `ਰਾਸ਼ੀ A = ${match[1]} ਅਤੇ ਰਾਸ਼ੀ B = ${match[2]} ਦੀ ਤੁਲਨਾ ਕਰੋ।`;
+  }
+
+  match = text.match(/^Which relation is correct for A=(.+) and B=(.+)\?$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `A=${match[1]} और B=${match[2]} के लिए कौन-सा संबंध सही है?`
+      : `A=${match[1]} ਅਤੇ B=${match[2]} ਲਈ ਕਿਹੜਾ ਸੰਬੰਧ ਸਹੀ ਹੈ?`;
   }
 
   match = text.match(/^The supplied condition is (.+)\.$/u);
