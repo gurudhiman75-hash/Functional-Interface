@@ -2,6 +2,16 @@ import { SEA002_CP008_WAVE03_SOLVE_SIGNATURES } from "./solve-signature-v3.ts";
 
 export const SEA002_CP008_WAVE04_SOLVE_SIGNATURES = Object.freeze({
   ...SEA002_CP008_WAVE03_SOLVE_SIGNATURES,
+  "SEA-CP008-SIG-A": Object.freeze({
+    ...SEA002_CP008_WAVE03_SOLVE_SIGNATURES["SEA-CP008-SIG-A"],
+    label: "Role-derived corner/side square with 8-seat and 12-seat scale variants",
+    prototypeIds: Object.freeze([
+      "SEA-CP008-PROT-001",
+      "SEA-CP008-PROT-002",
+      "SEA-CP008-PROT-005",
+    ] as const),
+    mergeRationale: "The 12-seat corner-plus-two-side-slot role-derived family is source-backed, but when clues do not use same-side slot identity or metric distance it preserves the same corner/side role -> facing -> person-relative deduction graph as the classic 8-seat family. Seat-count expansion is therefore a scale parameter within SIG-A, not a new authority.",
+  }),
   "SEA-CP008-SIG-H": Object.freeze({
     label: "Extended 12-seat square with multiple side slots and metric perimeter distance",
     operations: Object.freeze([
@@ -33,6 +43,11 @@ export type Sea002Cp008PermanentEligibleSignatureId = (typeof SEA002_CP008_PERMA
 
 export const SEA002_CP008_WAVE04_FINAL_DECISIONS = Object.freeze([
   Object.freeze({
+    comparison: Object.freeze(["SEA-CP008-SIG-A", "SEA-CP008-SIG-D"] as const),
+    decision: "MERGE_SCALE_VARIANT_INTO_SIG_A" as const,
+    reason: "Strong banking evidence proves the 12-seat role-derived family, but without same-side or metric clues its extra side slots only expand perimeter scale; the role-derived facing and relative-position solve graph remains SIG-A.",
+  }),
+  Object.freeze({
     comparison: Object.freeze(["SEA-CP008-SIG-E", "SEA-CP008-SIG-H"] as const),
     decision: "KEEP_SEPARATE" as const,
     reason: "SIG-H adds two side slots per side, same-side pairing and metric perimeter-distance constraints; SIG-E has only one side-centre seat per side.",
@@ -41,11 +56,6 @@ export const SEA002_CP008_WAVE04_FINAL_DECISIONS = Object.freeze([
     comparison: Object.freeze(["SEA-CP008-SIG-B", "SEA-CP008-SIG-H"] as const),
     decision: "KEEP_SEPARATE" as const,
     reason: "Both may be uniformly inward, but SIG-B has no occupied corners and exactly two seats on each side, whereas SIG-H has corners plus two side slots and a 12-seat metric perimeter.",
-  }),
-  Object.freeze({
-    comparison: Object.freeze(["SEA-CP008-SIG-D"] as const),
-    decision: "EXCLUDE_FROM_PERMANENT_SET_RETAIN_STRESS_ONLY" as const,
-    reason: "The 12-seat role-derived facing variant remains supported only by discovery-grade evidence.",
   }),
   Object.freeze({
     comparison: Object.freeze(["SEA-CP008-PROT-010"] as const),
@@ -60,10 +70,10 @@ export const SEA002_CP008_WAVE04_AUTHORITY_STATUS = Object.freeze({
   permanentEligibleSignatureCount: SEA002_CP008_PERMANENT_ELIGIBLE_SIGNATURE_IDS.length,
   permanentEligibleSignatureIds: SEA002_CP008_PERMANENT_ELIGIBLE_SIGNATURE_IDS,
   sourceBackedAlt12Signature: "SEA-CP008-SIG-H" as const,
+  sourceBackedRoleDerivedScaleVariantMergedInto: "SEA-CP008-SIG-A" as const,
   productionSourceSaturationClaimed: true as const,
   unresolvedProductionFamilies: Object.freeze([] as const),
   stressOnlyFamilies: Object.freeze([
-    "SEA-CP008-SIG-D",
     "SEA-CP008-PROT-010",
   ] as const),
   permanentAuthorityCount: 0,
