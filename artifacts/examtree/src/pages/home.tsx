@@ -1,28 +1,20 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import {
-  ArrowLeft,
   ArrowRight,
   BarChart3,
-  BookOpen,
-  BrainCircuit,
-  CalendarDays,
+  BookOpenCheck,
   CheckCircle2,
   ChevronRight,
   Clock3,
   FileClock,
-  Flame,
-  Globe2,
-  GraduationCap,
+  Languages,
   Layers3,
   ListChecks,
-  Monitor,
-  Quote,
   RotateCcw,
   Search,
   ShieldCheck,
-  Sigma,
   Sparkles,
   Target,
   Trophy,
@@ -31,11 +23,9 @@ import {
 
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { Button } from "@/components/ui/button";
-import { getDailyChallenge } from "@/lib/data";
 import { buildExamTreeNodes } from "@/lib/exam-tree";
 import {
   SAMPLE_HOME_CATEGORIES,
-  SAMPLE_HOME_DAILY_CHALLENGE,
   SAMPLE_HOME_SERIES,
   SAMPLE_HOME_SUBCATEGORIES,
   SAMPLE_HOME_TESTS,
@@ -44,89 +34,53 @@ import { getActiveTestSessions, getAttempts } from "@/lib/storage";
 import { getStudentTestSeries } from "@/lib/test-series";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 
-const EXAM_LOGOS = [
-  { match: /\bssc\b/i, src: "https://ssc.gov.in/favicon.ico" },
-  { match: /\bibps\b|bank/i, src: "https://www.ibps.in/favicon.ico" },
-  { match: /\brrb\b|railway/i, src: "https://indianrailways.gov.in/favicon.ico" },
-  { match: /punjab police/i, src: "https://punjabpolice.gov.in/favicon.ico" },
-] as const;
-
-const QUICK_START = [
-  { label: "Full mocks", icon: Trophy, kind: "full-length" as const, tone: "bg-amber-50 text-amber-700" },
-  { label: "Sectionals", icon: ListChecks, kind: "sectional" as const, tone: "bg-blue-50 text-blue-700" },
-  { label: "Topic practice", icon: Layers3, kind: "topic-wise" as const, tone: "bg-violet-50 text-violet-700" },
-  { label: "PYQs", icon: FileClock, kind: "pyq" as const, tone: "bg-emerald-50 text-emerald-700" },
-] as const;
-
-const SUBJECT_ICONS = [Sigma, BrainCircuit, BookOpen, Globe2, Monitor] as const;
-
-const HERO_SLIDES = [
+const PRACTICE_MODES = [
   {
-    eyebrow: "Your preparation home",
-    title: "What are you preparing for?",
-    description: "Find your exam, start a mock, continue practice, or move into the complete Exams marketplace from one focused starting point.",
-    primary: "Explore exams",
-    secondary: "Start free practice",
-    tone: "from-blue-700 via-blue-650 to-indigo-800",
-    orb: "bg-cyan-300/20",
-    icon: GraduationCap,
-  },
-  {
-    eyebrow: "Practice with purpose",
-    title: "Train in the format the exam actually demands.",
-    description: "Move between full-length mocks, sectional tests, topic practice and PYQs without turning your homepage into a crowded catalog.",
-    primary: "Browse mock tests",
-    secondary: "See practice modes",
-    tone: "from-violet-700 via-indigo-700 to-blue-800",
-    orb: "bg-fuchsia-300/20",
+    label: "Full mock tests",
+    description: "Train through the complete published exam format in one sitting.",
     icon: Trophy,
+    kind: "full-length" as const,
+    href: "/mock-tests",
   },
   {
-    eyebrow: "Build a daily rhythm",
-    title: "A little focused practice, every day.",
-    description: "Use daily challenges, free starts and result review to keep momentum, then go deeper whenever you are ready.",
-    primary: "Start today’s practice",
-    secondary: "Open PYQs",
-    tone: "from-emerald-700 via-teal-700 to-slate-900",
-    orb: "bg-emerald-200/20",
-    icon: Zap,
-  },
-] as const;
-
-const SAMPLE_TESTIMONIALS = [
-  {
-    name: "Sample learner 01",
-    exam: "SSC aspirant",
-    quote: "I can see the exam path, start a mock quickly and return to review without hunting through different pages.",
+    label: "Sectional tests",
+    description: "Focus on one exam section at a time and build speed deliberately.",
+    icon: ListChecks,
+    kind: "sectional" as const,
+    href: "/exams",
   },
   {
-    name: "Sample learner 02",
-    exam: "Banking aspirant",
-    quote: "The practice formats feel separated clearly, so I know when I am doing a full mock, sectional test or topic drill.",
+    label: "Topic practice",
+    description: "Work on narrower skills before moving back into timed mocks.",
+    icon: Layers3,
+    kind: "topic-wise" as const,
+    href: "/exams",
   },
   {
-    name: "Sample learner 03",
-    exam: "Railway aspirant",
-    quote: "The homepage gives me a simple next action while the Exams page keeps the full catalog available when I need it.",
+    label: "Previous-year questions",
+    description: "Use published PYQ sets to understand the shape of earlier papers.",
+    icon: FileClock,
+    kind: "pyq" as const,
+    href: "/pyqs",
   },
 ] as const;
 
 const FAQS = [
   {
-    question: "Where can I find the complete test catalog?",
-    answer: "Use Tests & Exams from the sidebar or the Explore Exams buttons on Home. The Exams page contains the full searchable and filterable catalog.",
+    question: "Where should I start if I am new to ExamTree?",
+    answer: "Choose your exam from the search or exam-family cards, then begin with a free published test when one is available.",
   },
   {
-    question: "Can I continue an unfinished test?",
-    answer: "When a saved active session exists on this device, Home shows a Continue where you left off strip with a resume action.",
+    question: "Can I practise without taking a full mock?",
+    answer: "Yes. Published sectional, topic-wise and PYQ formats appear separately from full-length mocks so you can choose the depth you need.",
   },
   {
-    question: "How do I find free practice?",
-    answer: "Home highlights a free starting point when one is published, while the Exams marketplace separates free sectional and topic practice from full-length series.",
+    question: "Does ExamTree support Hindi and Punjabi?",
+    answer: "Multilingual options are shown only on tests where those languages are actually published. Availability can differ by test.",
   },
   {
-    question: "Where do previous-year questions live?",
-    answer: "PYQs have their own discovery path inside Exams, and Home also provides a quick-start shortcut when matching published tests are available.",
+    question: "Can I resume an unfinished test?",
+    answer: "If a saved active session exists on this device, the homepage shows a continue card that takes you back into that test.",
   },
 ] as const;
 
@@ -143,12 +97,22 @@ function initials(value: string) {
   return words.length ? words.slice(0, 2).map((word) => word[0]?.toUpperCase()).join("") : "ET";
 }
 
+function languageLabel(languages: string[] | undefined) {
+  if (!languages?.length) return null;
+  const labels = languages.map((language) => {
+    const normalized = language.toLowerCase();
+    if (normalized === "en" || normalized === "english") return "EN";
+    if (normalized === "hi" || normalized === "hindi") return "HI";
+    if (normalized === "pa" || normalized === "punjabi") return "PA";
+    return language.toUpperCase();
+  });
+  return Array.from(new Set(labels)).join(" · ");
+}
+
 function ExamMark({ name, icon }: { name: string; icon?: string }) {
-  const src = EXAM_LOGOS.find((item) => item.match.test(name))?.src ?? null;
   return (
-    <span className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-slate-200 bg-white text-xs font-black text-slate-600 shadow-sm">
-      {icon ? <CategoryIcon icon={icon} className="h-5 w-5" /> : <span>{initials(name)}</span>}
-      {src ? <img src={src} alt={`${name} logo`} className="absolute inset-1 h-[calc(100%-0.5rem)] w-[calc(100%-0.5rem)] object-contain" loading="lazy" referrerPolicy="no-referrer" onError={(event) => { event.currentTarget.hidden = true; }} /> : null}
+    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-border bg-background text-xs font-black text-muted-foreground shadow-sm">
+      {icon ? <CategoryIcon icon={icon} className="h-5 w-5 text-primary" /> : initials(name)}
     </span>
   );
 }
@@ -158,8 +122,6 @@ export default function Home() {
   const catalog = useExamCatalog();
   const sampleMode = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("preview") === "sample";
   const [examQuery, setExamQuery] = useState("");
-  const [heroIndex, setHeroIndex] = useState(0);
-  const [heroPaused, setHeroPaused] = useState(false);
 
   const categories = sampleMode ? SAMPLE_HOME_CATEGORIES : catalog.categories;
   const subcategories = sampleMode ? SAMPLE_HOME_SUBCATEGORIES : catalog.subcategories;
@@ -171,13 +133,6 @@ export default function Home() {
     enabled: !sampleMode,
     staleTime: 30_000,
   });
-  const dailyChallengeQuery = useQuery({
-    queryKey: ["daily-challenge"],
-    queryFn: getDailyChallenge,
-    enabled: !sampleMode,
-    retry: 1,
-    staleTime: 60_000,
-  });
 
   const attempts = getAttempts();
   const activeSessions = Object.values(getActiveTestSessions());
@@ -185,60 +140,51 @@ export default function Home() {
   const activeSession = activeSessions[0] ?? null;
 
   const examGroups = useMemo(() => buildExamTreeNodes(categories, subcategories, tests), [categories, subcategories, tests]);
+  const series = useMemo(
+    () => [...(sampleMode ? SAMPLE_HOME_SERIES : (seriesQuery.data?.series ?? []))]
+      .sort((left, right) => Number(right.attemptCount ?? 0) - Number(left.attemptCount ?? 0)),
+    [sampleMode, seriesQuery.data?.series],
+  );
+
   const normalizedQuery = normalize(examQuery);
-  const visibleExamGroups = useMemo(
-    () => examGroups.filter((group) => !normalizedQuery || normalize(`${group.name} ${group.description} ${group.subcategories.map((item) => item.name).join(" ")}`).includes(normalizedQuery)).slice(0, 8),
+  const searchResults = useMemo(
+    () => examGroups.filter((group) => !normalizedQuery || normalize(`${group.name} ${group.description} ${group.subcategories.map((item) => item.name).join(" ")}`).includes(normalizedQuery)).slice(0, 5),
     [examGroups, normalizedQuery],
   );
 
-  const series = useMemo(
-    () => [...(sampleMode ? SAMPLE_HOME_SERIES : (seriesQuery.data?.series ?? []))].sort((left, right) => Number(right.attemptCount ?? 0) - Number(left.attemptCount ?? 0)),
-    [sampleMode, seriesQuery.data?.series],
+  const popularTests = useMemo(
+    () => [...tests]
+      .sort((left, right) => Number(right.attempts ?? 0) - Number(left.attempts ?? 0))
+      .slice(0, 8),
+    [tests],
   );
-  const featuredSeries = series.slice(0, 3);
-  const dailyChallenge = sampleMode ? SAMPLE_HOME_DAILY_CHALLENGE : dailyChallengeQuery.data;
   const freeTests = useMemo(() => tests.filter((test) => (test.access ?? "free") === "free"), [tests]);
-  const topFreeTest = useMemo(() => [...freeTests].sort((left, right) => Number(right.attempts ?? 0) - Number(left.attempts ?? 0))[0] ?? null, [freeTests]);
+  const topFreeTest = useMemo(
+    () => [...freeTests].sort((left, right) => Number(right.attempts ?? 0) - Number(left.attempts ?? 0))[0] ?? null,
+    [freeTests],
+  );
   const catalogQuestionCount = tests.reduce((sum, test) => sum + Math.max(0, Number(test.totalQuestions) || 0), 0);
+  const featuredSeries = series.slice(0, 4);
+  const featuredExamGroups = examGroups.slice(0, 8);
 
-  const quickCounts = useMemo(() => QUICK_START.map((item) => ({
-    ...item,
-    count: item.kind === "pyq"
+  const modeCounts = useMemo(() => PRACTICE_MODES.map((mode) => ({
+    ...mode,
+    count: mode.kind === "pyq"
       ? tests.filter((test) => /\bpyq\b|previous year|previous-year/i.test(test.name)).length
-      : tests.filter((test) => test.kind === item.kind).length,
+      : tests.filter((test) => test.kind === mode.kind).length,
   })), [tests]);
 
-  const subjectNames = useMemo(() => {
-    const names = new Set<string>();
-    for (const test of tests) for (const section of test.sections ?? []) if (section.name) names.add(section.name);
-    return Array.from(names).slice(0, 5);
-  }, [tests]);
-
-  useEffect(() => {
-    if (heroPaused) return undefined;
-    const timer = window.setInterval(() => setHeroIndex((index) => (index + 1) % HERO_SLIDES.length), 6500);
-    return () => window.clearInterval(timer);
-  }, [heroPaused]);
-
-  const goMarketplace = () => sampleMode ? setLocation("/exams?preview=sample") : setLocation("/exams");
-  const goCategory = (id: string) => sampleMode ? setLocation("/exams?preview=sample") : setLocation(`/category/${id}`);
-  const goSeries = (id: string) => sampleMode ? setLocation("/exams?preview=sample") : setLocation(`/test-series/${id}`);
-  const goTest = (id: string) => sampleMode ? setLocation("/exams?preview=sample") : setLocation(`/test/${id}`);
-
-  const heroPrimaryAction = () => {
-    if (heroIndex === 2 && dailyChallenge) return goTest(dailyChallenge.testId);
-    return goMarketplace();
-  };
-  const heroSecondaryAction = () => {
-    if (heroIndex === 0 && topFreeTest) return goTest(topFreeTest.id);
-    return goMarketplace();
-  };
+  const goMarketplace = () => setLocation(sampleMode ? "/exams?preview=sample" : "/exams");
+  const goCategory = (id: string) => setLocation(sampleMode ? "/exams?preview=sample" : `/category/${id}`);
+  const goSeries = (id: string) => setLocation(sampleMode ? "/exams?preview=sample" : `/test-series/${id}`);
+  const goTest = (id: string) => setLocation(sampleMode ? "/exams?preview=sample" : `/test/${id}`);
+  const goMode = (href: string) => setLocation(sampleMode ? "/exams?preview=sample" : href);
 
   if (!sampleMode && catalog.error) {
     return (
-      <div className="mx-auto my-10 max-w-lg rounded-2xl border border-rose-200 bg-white p-8 text-center shadow-sm">
-        <h1 className="text-xl font-black text-slate-950">Could not load preparation home</h1>
-        <p className="mt-2 text-sm text-slate-600">The test catalog is temporarily unavailable. Your saved attempts are not affected.</p>
+      <div className="mx-auto my-16 max-w-lg rounded-3xl border border-border bg-card p-8 text-center shadow-sm">
+        <h1 className="text-xl font-black text-foreground">Could not load ExamTree</h1>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">The published test catalog is temporarily unavailable. Saved attempts are not affected.</p>
         <Button className="mt-5 min-h-11" variant="outline" onClick={() => window.location.reload()}>Try again</Button>
       </div>
     );
@@ -246,222 +192,334 @@ export default function Home() {
 
   if (!sampleMode && catalog.isLoading) {
     return (
-      <div className="mx-auto w-full max-w-7xl space-y-4 px-4 py-6 sm:px-6 lg:px-8" role="status" aria-label="Loading ExamTree home">
-        <div className="skeleton-shimmer h-72 rounded-3xl" />
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{Array.from({ length: 4 }, (_, index) => <div key={index} className="skeleton-shimmer h-24 rounded-xl" />)}</div>
-        <span className="sr-only">Loading published tests and exam pathways…</span>
+      <div className="mx-auto w-full max-w-7xl space-y-5 px-4 py-8 sm:px-6 lg:px-8" role="status" aria-label="Loading ExamTree home">
+        <div className="skeleton-shimmer h-[430px] rounded-[32px]" />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{Array.from({ length: 4 }, (_, index) => <div key={index} className="skeleton-shimmer h-24 rounded-2xl" />)}</div>
+        <span className="sr-only">Loading published exams and tests…</span>
       </div>
     );
   }
 
-  const hero = HERO_SLIDES[heroIndex];
-  const HeroIcon = hero.icon;
-
   return (
-    <div className="overflow-x-clip bg-[#f8fafc] py-5 sm:py-7">
-      <div className="mx-auto max-w-7xl space-y-8 px-4 sm:px-6 lg:px-8">
-        {sampleMode ? (
-          <div className="flex items-center justify-between gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900" data-testid="home-sample-preview-badge">
-            <span><strong>Sample data preview</strong> · Catalog and testimonial examples on this page are visual-only and do not alter production data.</span>
-            <button type="button" className="min-h-11 rounded-lg px-3 text-xs font-black hover:bg-amber-100" onClick={() => setLocation("/")}>Exit preview</button>
+    <div className="overflow-x-clip bg-background">
+      {sampleMode ? (
+        <div className="border-b border-amber-200 bg-amber-50 text-amber-950" data-testid="home-sample-preview-badge">
+          <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-3 text-sm sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+            <span><strong>Sample data preview.</strong> Catalog examples on this page are visual-only and do not alter production data.</span>
+            <button type="button" className="min-h-11 self-start rounded-lg px-3 text-xs font-black hover:bg-amber-100 sm:self-auto" onClick={() => setLocation("/")}>Exit preview</button>
           </div>
-        ) : null}
+        </div>
+      ) : null}
 
-        <section
-          className={`relative min-w-0 overflow-hidden rounded-3xl bg-gradient-to-br ${hero.tone} text-white shadow-xl shadow-slate-900/10`}
-          data-testid="home-hero-carousel"
-          aria-roledescription="carousel"
-          aria-label="ExamTree highlights"
-          onMouseEnter={() => setHeroPaused(true)}
-          onMouseLeave={() => setHeroPaused(false)}
-          onFocusCapture={() => setHeroPaused(true)}
-          onBlurCapture={() => setHeroPaused(false)}
-        >
-          <div className={`pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full ${hero.orb} blur-2xl`} />
-          <div className="pointer-events-none absolute bottom-0 right-[18%] h-44 w-44 rounded-full bg-white/5 blur-xl" />
-          <div className="relative grid min-h-[360px] min-w-0 lg:grid-cols-[minmax(0,1.18fr)_minmax(290px,0.82fr)] lg:items-stretch">
-            <div className="min-w-0 p-6 sm:p-8 lg:p-10">
-              <p className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.16em] text-blue-100"><Sparkles className="h-4 w-4" aria-hidden="true" />{hero.eyebrow}</p>
-              <h1 id="home-heading" className="mt-3 max-w-3xl text-3xl font-black tracking-[-0.05em] text-white sm:text-4xl lg:text-[48px] lg:leading-[1.02]">{hero.title}</h1>
-              <p className="mt-4 max-w-2xl text-sm leading-6 text-blue-50/90 sm:text-base">{hero.description}</p>
+      <section className="border-b border-border bg-gradient-to-b from-primary/[0.07] via-background to-background" data-testid="home-hero">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,0.9fr)] lg:items-center lg:px-8 lg:py-20">
+          <div className="min-w-0">
+            <div className="inline-flex min-h-9 items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 text-xs font-black text-primary">
+              <Sparkles className="h-4 w-4" aria-hidden="true" />
+              Serious practice, without the clutter
+            </div>
+            <h1 className="mt-5 max-w-3xl text-4xl font-black tracking-[-0.055em] text-foreground sm:text-5xl lg:text-[64px] lg:leading-[0.98]">
+              Practice like the real exam. Improve with every mock.
+            </h1>
+            <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
+              Find your exam, start a published mock or free practice set, and move from full-length tests to sectionals, topic practice and PYQs from one focused preparation platform.
+            </p>
 
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <Button className="min-h-11 rounded-xl bg-white px-5 font-black text-slate-950 hover:bg-blue-50" onClick={heroPrimaryAction}>{hero.primary} <ArrowRight className="ml-2 h-4 w-4" /></Button>
-                <Button className="min-h-11 rounded-xl border-white/25 bg-white/10 px-5 font-black text-white hover:bg-white/15" variant="outline" onClick={heroSecondaryAction}>{hero.secondary}</Button>
-              </div>
-
-              <div className="relative mt-6 max-w-2xl">
-                <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" aria-hidden="true" />
-                <input
-                  type="search"
-                  value={examQuery}
-                  onChange={(event) => setExamQuery(event.target.value)}
-                  onKeyDown={(event) => { if (event.key === "Enter") goMarketplace(); }}
-                  placeholder="Search SSC CGL, Banking, Railways, Punjab exams…"
-                  aria-label="Search exams"
-                  className="min-h-[52px] w-full rounded-xl border border-white/70 bg-white pl-12 pr-4 text-sm font-semibold text-slate-950 shadow-lg outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-white/40"
-                />
-              </div>
-
-              <div className="mt-4 flex flex-wrap gap-2 text-[11px] font-bold text-blue-100" aria-label="Live catalog summary">
-                <span>{formatCount(tests.length)} published tests</span><span>•</span><span>{formatCount(catalogQuestionCount)} live questions</span><span>•</span><span>{formatCount(examGroups.length)} exam families</span>
-              </div>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <Button className="min-h-12 rounded-xl px-6 text-sm font-black" onClick={goMarketplace}>
+                Explore mock tests <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+              </Button>
+              {topFreeTest ? (
+                <Button className="min-h-12 rounded-xl px-6 text-sm font-black" variant="outline" onClick={() => goTest(topFreeTest.id)}>
+                  Start a free test
+                </Button>
+              ) : (
+                <Button className="min-h-12 rounded-xl px-6 text-sm font-black" variant="outline" onClick={goMarketplace}>
+                  Browse free practice
+                </Button>
+              )}
             </div>
 
-            <div className="relative hidden min-w-0 items-center justify-center overflow-hidden border-l border-white/10 bg-slate-950/15 p-8 lg:flex">
-              <div className="relative w-full max-w-sm">
-                <div className="absolute -left-5 -top-7 h-24 w-24 rounded-3xl border border-white/10 bg-white/10 backdrop-blur" />
-                <div className="relative rounded-3xl border border-white/15 bg-white/10 p-6 shadow-2xl backdrop-blur-md">
-                  <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-slate-950 shadow-lg"><HeroIcon className="h-8 w-8" /></span>
-                  <p className="mt-6 text-xs font-black uppercase tracking-[0.16em] text-blue-100">ExamTree</p>
-                  <p className="mt-2 text-2xl font-black tracking-tight">One focused next step.</p>
-                  <div className="mt-6 grid grid-cols-2 gap-3">
-                    <div className="rounded-2xl bg-white/10 p-4"><p className="text-2xl font-black">{formatCount(examGroups.length)}</p><p className="mt-1 text-xs font-semibold text-blue-100">Exam families</p></div>
-                    <div className="rounded-2xl bg-white/10 p-4"><p className="text-2xl font-black">{formatCount(freeTests.length)}</p><p className="mt-1 text-xs font-semibold text-blue-100">Free tests</p></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative flex items-center justify-between border-t border-white/10 px-5 py-3 sm:px-8">
-            <div className="flex items-center gap-2" aria-label={`Slide ${heroIndex + 1} of ${HERO_SLIDES.length}`}>
-              {HERO_SLIDES.map((slide, index) => (
-                <button key={slide.title} type="button" aria-label={`Show slide ${index + 1}`} aria-current={heroIndex === index ? "true" : undefined} onClick={() => setHeroIndex(index)} className={`min-h-11 min-w-11 rounded-full p-3 ${heroIndex === index ? "bg-white/15" : "hover:bg-white/10"}`}>
-                  <span className={`block h-2 rounded-full transition-all ${heroIndex === index ? "w-7 bg-white" : "w-2 bg-white/45"}`} />
-                </button>
+            <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-muted-foreground" aria-label="Available preparation formats">
+              {["Full mocks", "Sectionals", "Topic practice", "PYQs"].map((label) => (
+                <span key={label} className="inline-flex items-center gap-1.5"><CheckCircle2 className="h-4 w-4 text-primary" aria-hidden="true" />{label}</span>
               ))}
             </div>
-            <div className="flex gap-2">
-              <button type="button" aria-label="Previous hero slide" onClick={() => setHeroIndex((index) => (index - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)} className="flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 hover:bg-white/15"><ArrowLeft className="h-4 w-4" /></button>
-              <button type="button" aria-label="Next hero slide" onClick={() => setHeroIndex((index) => (index + 1) % HERO_SLIDES.length)} className="flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 hover:bg-white/15"><ArrowRight className="h-4 w-4" /></button>
+          </div>
+
+          <div className="relative min-w-0" data-testid="home-exam-finder">
+            <div className="pointer-events-none absolute -inset-5 rounded-[36px] bg-primary/10 blur-3xl" />
+            <div className="relative rounded-[28px] border border-border bg-card p-4 shadow-xl shadow-black/5 sm:p-5">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-[11px] font-black uppercase tracking-[0.16em] text-primary">Find your exam</p>
+                  <h2 className="mt-1 text-xl font-black tracking-tight text-foreground">What are you preparing for?</h2>
+                </div>
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary"><Target className="h-5 w-5" aria-hidden="true" /></span>
+              </div>
+
+              <label className="relative mt-5 block">
+                <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+                <span className="sr-only">Search exams</span>
+                <input
+                  value={examQuery}
+                  onChange={(event) => setExamQuery(event.target.value)}
+                  placeholder="Search SSC, Banking, Railways…"
+                  className="min-h-12 w-full rounded-xl border border-border bg-background pl-11 pr-4 text-sm font-semibold text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/15"
+                />
+              </label>
+
+              <div className="mt-4 space-y-2" aria-live="polite">
+                {searchResults.map((group) => (
+                  <button
+                    key={group.id}
+                    type="button"
+                    onClick={() => goCategory(group.id)}
+                    className="et-interactive flex min-h-[64px] w-full items-center gap-3 rounded-2xl border border-transparent px-3 text-left transition hover:border-border hover:bg-muted/60"
+                  >
+                    <ExamMark name={group.name} icon={group.icon} />
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-sm font-black text-foreground">{group.name}</span>
+                      <span className="mt-0.5 block text-xs font-semibold text-muted-foreground">{formatCount(group.tests.length)} published tests</span>
+                    </span>
+                    <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+                  </button>
+                ))}
+                {searchResults.length === 0 ? (
+                  <div className="rounded-2xl border border-dashed border-border px-4 py-5 text-center text-sm text-muted-foreground">No matching exam family. Use the complete exam catalog instead.</div>
+                ) : null}
+              </div>
+
+              <Button className="mt-4 min-h-11 w-full rounded-xl" variant="outline" onClick={goMarketplace}>View all exams</Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-border bg-card/40" aria-label="ExamTree catalog totals" data-testid="home-proof-strip">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-y divide-border px-4 sm:grid-cols-4 sm:divide-y-0 sm:px-6 lg:px-8">
+          {[
+            [formatCount(tests.length), "Published tests"],
+            [formatCount(catalogQuestionCount), "Catalog questions"],
+            [formatCount(examGroups.length), "Exam families"],
+            [formatCount(freeTests.length), "Free starts"],
+          ].map(([value, label]) => (
+            <div key={label} className="px-4 py-6 text-center">
+              <p className="text-2xl font-black tracking-tight text-foreground">{value}</p>
+              <p className="mt-1 text-xs font-semibold text-muted-foreground">{label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {(activeSession || latestAttempt) ? (
+        <section className="mx-auto max-w-7xl px-4 pt-10 sm:px-6 lg:px-8" data-testid="home-continue-strip">
+          <div className="flex flex-col gap-4 rounded-3xl border border-primary/20 bg-primary/[0.06] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+            <div className="flex items-center gap-4">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground"><RotateCcw className="h-5 w-5" aria-hidden="true" /></span>
+              <div>
+                <p className="text-[11px] font-black uppercase tracking-[0.14em] text-primary">Welcome back</p>
+                <h2 className="mt-1 text-lg font-black text-foreground">Continue your preparation</h2>
+                <p className="mt-1 text-sm text-muted-foreground">Resume a saved test or return to the review from your latest attempt.</p>
+              </div>
+            </div>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              {activeSession ? <Button className="min-h-11" variant="outline" onClick={() => setLocation(`/test/${activeSession.testId}`)}>Resume test</Button> : null}
+              {latestAttempt ? <Button className="min-h-11" onClick={() => setLocation(`/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(latestAttempt.testId)}&tab=review`)}><BarChart3 className="mr-2 h-4 w-4" />Review result</Button> : null}
             </div>
           </div>
         </section>
+      ) : null}
 
-        <section className="flex min-w-0 gap-3 overflow-x-auto pb-1" data-testid="home-exam-logo-row" aria-label="Exam families">
-          {visibleExamGroups.map((group) => (
-            <button key={group.id} type="button" onClick={() => goCategory(group.id)} className="et-interactive flex min-h-[68px] min-w-[150px] items-center gap-3 rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md">
-              <ExamMark name={group.name} icon={group.icon} />
-              <span className="min-w-0"><span className="block truncate text-sm font-black text-slate-950">{group.name}</span><span className="mt-0.5 block text-[11px] font-semibold text-slate-500">{formatCount(group.tests.length)} tests</span></span>
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8" data-testid="home-exam-families">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-primary">Choose your exam</p>
+            <h2 className="mt-2 text-2xl font-black tracking-tight text-foreground sm:text-3xl">Popular exam families</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">Start from the exam you care about, then move into the live mocks, series and practice formats attached to it.</p>
+          </div>
+          <Button className="min-h-11 self-start sm:self-auto" variant="ghost" onClick={goMarketplace}>See all exams <ArrowRight className="ml-2 h-4 w-4" /></Button>
+        </div>
+
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {featuredExamGroups.map((group) => (
+            <button
+              key={group.id}
+              type="button"
+              onClick={() => goCategory(group.id)}
+              className="et-interactive group min-h-[132px] rounded-3xl border border-border bg-card p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-md"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <ExamMark name={group.name} icon={group.icon} />
+                <ChevronRight className="h-4 w-4 text-muted-foreground transition group-hover:translate-x-0.5 group-hover:text-primary" aria-hidden="true" />
+              </div>
+              <h3 className="mt-4 truncate text-sm font-black text-foreground">{group.name}</h3>
+              <p className="mt-1 text-xs font-semibold text-muted-foreground">{formatCount(group.tests.length)} published tests</p>
             </button>
           ))}
-          {visibleExamGroups.length === 0 ? <div className="w-full rounded-xl border border-dashed border-slate-300 bg-white p-4 text-center text-sm text-slate-500">No matching exam family. Open the full marketplace to search every test.</div> : null}
-        </section>
+          {featuredExamGroups.length === 0 ? <div className="sm:col-span-2 lg:col-span-4 rounded-3xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">Published exam families will appear here when catalog data is available.</div> : null}
+        </div>
+      </section>
 
-        {(activeSession || latestAttempt) ? (
-          <section className="rounded-2xl border border-blue-200 bg-blue-50 px-5 py-4" data-testid="home-continue-strip">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex items-center gap-3"><span className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-white"><RotateCcw className="h-5 w-5" /></span><div><h2 className="font-black text-slate-950">Continue where you left off</h2><p className="mt-0.5 text-sm text-slate-600">Resume a saved test or review your latest result.</p></div></div>
-              <div className="flex flex-col gap-2 sm:flex-row">
-                {activeSession ? <Button className="min-h-11" variant="outline" onClick={() => setLocation(`/test/${activeSession.testId}`)}>Resume test</Button> : null}
-                {latestAttempt ? <Button className="min-h-11" onClick={() => setLocation(`/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(latestAttempt.testId)}&tab=review`)}><BarChart3 className="mr-2 h-4 w-4" />Review result</Button> : null}
+      {popularTests.length > 0 ? (
+        <section className="border-y border-border bg-muted/25 py-14 sm:py-16" data-testid="home-popular-tests">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-[11px] font-black uppercase tracking-[0.16em] text-primary">Start practising</p>
+                <h2 className="mt-2 text-2xl font-black tracking-tight text-foreground sm:text-3xl">Popular mock tests</h2>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">Ordered by real catalog attempt activity when that signal exists—never by fabricated popularity.</p>
               </div>
+              <Button className="min-h-11 self-start sm:self-auto" variant="ghost" onClick={goMarketplace}>Browse all tests <ArrowRight className="ml-2 h-4 w-4" /></Button>
             </div>
-          </section>
-        ) : null}
 
-        <section data-testid="home-quick-start" aria-labelledby="home-quick-start-heading">
-          <div className="flex items-end justify-between gap-4"><div><p className="text-[11px] font-black uppercase tracking-[0.14em] text-blue-600">Quick start</p><h2 id="home-quick-start-heading" className="mt-1 text-xl font-black tracking-tight text-slate-950">Choose how you want to practice</h2></div><button type="button" onClick={goMarketplace} className="min-h-11 text-sm font-black text-blue-600">See everything <ArrowRight className="ml-1 inline h-4 w-4" /></button></div>
-          <div className="mt-3 grid overflow-hidden rounded-2xl border border-slate-200 bg-white sm:grid-cols-2 xl:grid-cols-4">
-            {quickCounts.map((item, index) => {
-              const Icon = item.icon;
-              return (
-                <button key={item.label} type="button" onClick={goMarketplace} className={`et-interactive flex min-h-[92px] items-center gap-3 p-4 text-left transition hover:bg-slate-50 ${index > 0 ? "border-t border-slate-200 sm:border-l sm:border-t-0" : ""}`}>
-                  <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${item.tone}`}><Icon className="h-5 w-5" /></span>
-                  <span><span className="block text-sm font-black text-slate-950">{item.label}</span><span className="mt-1 block text-xs font-semibold text-slate-500">{formatCount(item.count)} available</span></span>
-                </button>
-              );
-            })}
-          </div>
-        </section>
-
-        {(featuredSeries.length > 0 || topFreeTest || dailyChallenge) ? (
-          <section className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1.45fr)_minmax(280px,0.55fr)]" data-testid="home-focus-area">
-            <div className="min-w-0">
-              <div className="flex items-end justify-between gap-4"><div><p className="text-[11px] font-black uppercase tracking-[0.14em] text-violet-600">Recommended paths</p><h2 className="mt-1 text-xl font-black tracking-tight text-slate-950">Featured preparation</h2></div><button type="button" className="min-h-11 text-sm font-black text-blue-600" onClick={goMarketplace}>Browse series <ArrowRight className="ml-1 inline h-4 w-4" /></button></div>
-              <div className="mt-3 grid min-w-0 gap-3 md:grid-cols-3" data-testid="home-featured-series">
-                {featuredSeries.map((seriesItem, index) => (
-                  <article key={seriesItem.id} className={`min-w-0 rounded-2xl border p-4 shadow-sm ${index === 0 ? "border-slate-800 bg-slate-950 text-white" : "border-slate-200 bg-white text-slate-950"}`}>
-                    <div className="flex items-center justify-between gap-3"><ExamMark name={`${seriesItem.examFamilyName} ${seriesItem.examName}`} /><span className={`rounded-full px-2 py-1 text-[10px] font-black ${index === 0 ? "bg-white/10 text-blue-200" : "bg-slate-100 text-slate-600"}`}>{formatCount(seriesItem.testCount)} TESTS</span></div>
-                    <p className={`mt-4 text-[11px] font-black uppercase tracking-wide ${index === 0 ? "text-blue-300" : "text-slate-500"}`}>{seriesItem.examName}</p>
-                    <h3 className="mt-1 line-clamp-2 min-h-10 text-sm font-black leading-5">{seriesItem.name}</h3>
-                    <p className={`mt-3 text-xs font-semibold ${index === 0 ? "text-slate-300" : "text-slate-500"}`}>{formatCount(seriesItem.questionCount)} questions{seriesItem.attemptCount > 0 ? ` · ${formatCount(seriesItem.attemptCount)} attempts` : ""}</p>
-                    <Button className={`mt-4 min-h-11 w-full ${index === 0 ? "bg-white text-slate-950 hover:bg-slate-100" : ""}`} variant={index === 0 ? "default" : "outline"} onClick={() => goSeries(seriesItem.id)}>View Series</Button>
+            <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              {popularTests.slice(0, 4).map((test) => {
+                const languages = languageLabel(test.languages);
+                return (
+                  <article key={test.id} className="flex min-h-[280px] flex-col rounded-3xl border border-border bg-card p-5 shadow-sm">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className={`rounded-full px-2.5 py-1 text-[10px] font-black uppercase tracking-wide ${(test.access ?? "free") === "free" ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-300" : "bg-primary/10 text-primary"}`}>
+                        {(test.access ?? "free") === "free" ? "Free" : "Published"}
+                      </span>
+                      {Number(test.attempts ?? 0) > 0 ? <span className="text-[11px] font-semibold text-muted-foreground">{formatCount(Number(test.attempts))} attempts</span> : null}
+                    </div>
+                    <p className="mt-4 text-[11px] font-black uppercase tracking-[0.12em] text-muted-foreground">{test.subcategoryName || test.category}</p>
+                    <h3 className="mt-1 line-clamp-2 text-base font-black leading-6 text-foreground">{test.name}</h3>
+                    <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold text-muted-foreground">
+                      <span className="inline-flex items-center gap-1.5"><Clock3 className="h-3.5 w-3.5" />{test.duration} min</span>
+                      <span className="inline-flex items-center gap-1.5"><ListChecks className="h-3.5 w-3.5" />{test.totalQuestions} questions</span>
+                      {languages ? <span className="inline-flex items-center gap-1.5"><Languages className="h-3.5 w-3.5" />{languages}</span> : null}
+                    </div>
+                    <Button className="mt-auto min-h-11 w-full rounded-xl" onClick={() => goTest(test.id)}>Start test</Button>
                   </article>
-                ))}
-                {featuredSeries.length === 0 ? <div className="md:col-span-3 rounded-2xl border border-dashed border-slate-300 bg-white p-6 text-center text-sm text-slate-500">No live series yet. Use the marketplace to start with individual tests.</div> : null}
-              </div>
+                );
+              })}
             </div>
-
-            <div className="min-w-0 space-y-3">
-              {dailyChallenge ? (
-                <button type="button" onClick={() => goTest(dailyChallenge.testId)} className="et-interactive w-full rounded-2xl bg-gradient-to-br from-indigo-600 to-blue-700 p-5 text-left text-white shadow-sm" data-testid="home-daily-practice">
-                  <div className="flex items-center justify-between"><span className="rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-black">TODAY</span><CalendarDays className="h-5 w-5 text-blue-100" /></div>
-                  <h3 className="mt-4 text-lg font-black">{dailyChallenge.testName}</h3>
-                  <p className="mt-2 text-xs font-semibold text-blue-100">{dailyChallenge.date}{dailyChallenge.totalParticipants > 0 ? ` · ${formatCount(dailyChallenge.totalParticipants)} participants` : ""}</p>
-                  <span className="mt-5 inline-flex items-center text-sm font-black">Start daily practice <ArrowRight className="ml-1.5 h-4 w-4" /></span>
-                </button>
-              ) : null}
-              {topFreeTest ? (
-                <article className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5" data-testid="home-free-start">
-                  <div className="flex items-center justify-between"><span className="rounded-full bg-emerald-100 px-2.5 py-1 text-[10px] font-black text-emerald-700">FREE START</span><Target className="h-5 w-5 text-emerald-700" /></div>
-                  <h3 className="mt-3 line-clamp-2 text-sm font-black leading-5 text-slate-950">{topFreeTest.name}</h3>
-                  <p className="mt-2 text-xs font-semibold text-slate-600"><Clock3 className="mr-1 inline h-3.5 w-3.5" />{topFreeTest.duration} min · {topFreeTest.totalQuestions} questions</p>
-                  <Button className="mt-4 min-h-11 w-full bg-emerald-700 text-white hover:bg-emerald-800" onClick={() => goTest(topFreeTest.id)}>Start Free</Button>
-                </article>
-              ) : null}
-            </div>
-          </section>
-        ) : null}
-
-        {subjectNames.length > 0 ? (
-          <section className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white px-5 py-4 sm:flex-row sm:items-center sm:justify-between" data-testid="home-subject-shortcuts">
-            <div><p className="text-[11px] font-black uppercase tracking-[0.14em] text-slate-500">Fast subject access</p><h2 className="mt-1 text-base font-black text-slate-950">Practice by subject</h2></div>
-            <div className="flex flex-wrap gap-2">{subjectNames.map((name, index) => { const Icon = SUBJECT_ICONS[index % SUBJECT_ICONS.length]; return <button key={name} type="button" onClick={goMarketplace} className="et-interactive inline-flex min-h-11 items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 text-xs font-black text-slate-700 hover:border-blue-200 hover:bg-blue-50"><Icon className="h-4 w-4 text-blue-600" />{name}</button>; })}</div>
-          </section>
-        ) : null}
-
-        <section className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7" data-testid="home-why-examtree">
-          <div className="mx-auto max-w-2xl text-center"><p className="text-[11px] font-black uppercase tracking-[0.16em] text-blue-600">Built around the preparation journey</p><h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950 sm:text-3xl">Less hunting. More useful practice.</h2><p className="mt-2 text-sm leading-6 text-slate-600">Home keeps the next action obvious while Exams carries the deeper discovery, filters and full inventory.</p></div>
-          <div className="mt-6 grid gap-3 md:grid-cols-3">
-            <article className="rounded-2xl bg-blue-50 p-5"><span className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-white"><Target className="h-5 w-5" /></span><h3 className="mt-4 font-black text-slate-950">Exam-first discovery</h3><p className="mt-2 text-sm leading-6 text-slate-600">Start from an exam family, then move into the matching series and published test formats.</p></article>
-            <article className="rounded-2xl bg-violet-50 p-5"><span className="flex h-11 w-11 items-center justify-center rounded-xl bg-violet-600 text-white"><Zap className="h-5 w-5" /></span><h3 className="mt-4 font-black text-slate-950">Fast return to practice</h3><p className="mt-2 text-sm leading-6 text-slate-600">Saved sessions and recent results surface on Home when they exist, so the next useful action stays close.</p></article>
-            <article className="rounded-2xl bg-emerald-50 p-5"><span className="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-700 text-white"><ShieldCheck className="h-5 w-5" /></span><h3 className="mt-4 font-black text-slate-950">Truthful catalog signals</h3><p className="mt-2 text-sm leading-6 text-slate-600">Counts and popularity labels are shown only when they are backed by actual catalog or attempt data.</p></article>
           </div>
         </section>
+      ) : null}
 
-        <section className="grid gap-5 rounded-3xl bg-slate-950 p-5 text-white sm:p-7 lg:grid-cols-[0.72fr_1.28fr] lg:items-center" data-testid="home-how-it-works">
-          <div><p className="text-[11px] font-black uppercase tracking-[0.16em] text-blue-300">Simple by design</p><h2 className="mt-2 text-2xl font-black tracking-tight sm:text-3xl">From choosing an exam to reviewing a result.</h2><p className="mt-3 text-sm leading-6 text-slate-300">The homepage guides entry. The marketplace handles depth. The runner and result screens handle the attempt itself.</p></div>
-          <div className="grid gap-3 sm:grid-cols-3">
+      {topFreeTest ? (
+        <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8" data-testid="home-free-test-cta">
+          <div className="relative overflow-hidden rounded-[32px] bg-foreground px-6 py-8 text-background sm:px-8 lg:grid lg:grid-cols-[1fr_auto] lg:items-center lg:gap-8 lg:px-10 lg:py-10">
+            <div className="pointer-events-none absolute right-0 top-0 h-56 w-56 translate-x-1/3 -translate-y-1/3 rounded-full bg-primary/30 blur-3xl" />
+            <div className="relative max-w-2xl">
+              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-background/65">Try ExamTree before you commit</p>
+              <h2 className="mt-2 text-2xl font-black tracking-tight sm:text-3xl">Start preparing for free.</h2>
+              <p className="mt-3 text-sm leading-6 text-background/70">{topFreeTest.name} is currently published as a free starting point with {topFreeTest.totalQuestions} questions in {topFreeTest.duration} minutes.</p>
+            </div>
+            <Button className="relative mt-6 min-h-12 rounded-xl bg-background px-6 font-black text-foreground hover:bg-background/90 lg:mt-0" onClick={() => goTest(topFreeTest.id)}>
+              Take this free test <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+        </section>
+      ) : null}
+
+      {featuredSeries.length > 0 ? (
+        <section className="mx-auto max-w-7xl px-4 pb-14 sm:px-6 sm:pb-16 lg:px-8" data-testid="home-featured-series">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-primary">Build a preparation path</p>
+              <h2 className="mt-2 text-2xl font-black tracking-tight text-foreground sm:text-3xl">Featured test series</h2>
+            </div>
+            <Button className="min-h-11 self-start sm:self-auto" variant="ghost" onClick={goMarketplace}>Explore the catalog <ArrowRight className="ml-2 h-4 w-4" /></Button>
+          </div>
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {featuredSeries.map((seriesItem) => (
+              <article key={seriesItem.id} className="rounded-3xl border border-border bg-card p-5 shadow-sm">
+                <div className="flex items-center justify-between gap-3"><ExamMark name={`${seriesItem.examFamilyName} ${seriesItem.examName}`} /><span className="rounded-full bg-muted px-2.5 py-1 text-[10px] font-black text-muted-foreground">{formatCount(seriesItem.testCount)} TESTS</span></div>
+                <p className="mt-4 text-[11px] font-black uppercase tracking-wide text-primary">{seriesItem.examName}</p>
+                <h3 className="mt-1 line-clamp-2 min-h-12 text-base font-black leading-6 text-foreground">{seriesItem.name}</h3>
+                <p className="mt-3 text-xs font-semibold text-muted-foreground">{formatCount(seriesItem.questionCount)} questions{Number(seriesItem.attemptCount ?? 0) > 0 ? ` · ${formatCount(Number(seriesItem.attemptCount))} attempts` : ""}</p>
+                <Button className="mt-5 min-h-11 w-full rounded-xl" variant="outline" onClick={() => goSeries(seriesItem.id)}>View series</Button>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      <section className="border-y border-border bg-card/50 py-14 sm:py-16" data-testid="home-why-examtree">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-primary">Why ExamTree</p>
+            <h2 className="mt-2 text-2xl font-black tracking-tight text-foreground sm:text-3xl">A cleaner path from discovery to review.</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">The homepage keeps the next action obvious while deeper catalog, test-runner and review experiences handle the detail.</p>
+          </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-3">
             {[
-              ["01", "Choose", "Pick an exam family or search the marketplace."],
-              ["02", "Practice", "Start the published mock or practice format you need."],
-              ["03", "Review", "Return to the result and review surfaces after an attempt."],
-            ].map(([step, title, copy]) => <article key={step} className="rounded-2xl border border-white/10 bg-white/5 p-4"><span className="text-xs font-black text-blue-300">{step}</span><h3 className="mt-3 font-black">{title}</h3><p className="mt-2 text-sm leading-6 text-slate-400">{copy}</p></article>)}
+              { icon: Target, title: "Exam-first discovery", copy: "Start from a published exam family instead of hunting through an undifferentiated list of tests." },
+              { icon: BookOpenCheck, title: "Clear practice formats", copy: "Full mocks, sectionals, topic practice and PYQs stay visibly distinct so you know what you are starting." },
+              { icon: Languages, title: "Multilingual where published", copy: "Language support is surfaced only when that test actually includes the corresponding published content." },
+            ].map(({ icon: Icon, title, copy }) => (
+              <article key={title} className="rounded-3xl border border-border bg-background p-6">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary"><Icon className="h-5 w-5" /></span>
+                <h3 className="mt-5 text-base font-black text-foreground">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{copy}</p>
+              </article>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {sampleMode ? (
-          <section className="rounded-3xl border border-amber-200 bg-amber-50/60 p-5 sm:p-7" data-testid="home-testimonials-preview">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-[11px] font-black uppercase tracking-[0.16em] text-amber-700">Preview-only examples</p><h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950">What learner testimonials could look like</h2><p className="mt-2 text-sm text-slate-600">These are sample layout quotes, not real endorsements. Production will show this section only after verified testimonials are supplied.</p></div><Quote className="h-8 w-8 text-amber-600" /></div>
-            <div className="mt-6 grid gap-3 md:grid-cols-3">
-              {SAMPLE_TESTIMONIALS.map((item) => <article key={item.name} className="rounded-2xl border border-amber-200 bg-white p-5 shadow-sm"><Quote className="h-5 w-5 text-amber-500" /><p className="mt-4 text-sm leading-6 text-slate-700">“{item.quote}”</p><div className="mt-5 border-t border-slate-100 pt-4"><p className="text-sm font-black text-slate-950">{item.name}</p><p className="mt-0.5 text-xs font-semibold text-slate-500">{item.exam} · sample content</p></div></article>)}
-            </div>
-          </section>
-        ) : null}
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8" data-testid="home-practice-modes">
+        <div>
+          <p className="text-[11px] font-black uppercase tracking-[0.16em] text-primary">Practice your way</p>
+          <h2 className="mt-2 text-2xl font-black tracking-tight text-foreground sm:text-3xl">Choose the right depth for today.</h2>
+        </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {modeCounts.map((mode) => {
+            const Icon = mode.icon;
+            return (
+              <button key={mode.label} type="button" onClick={() => goMode(mode.href)} className="et-interactive group min-h-[190px] rounded-3xl border border-border bg-card p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-md">
+                <div className="flex items-start justify-between gap-3"><span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary"><Icon className="h-5 w-5" /></span><ArrowRight className="h-4 w-4 text-muted-foreground transition group-hover:translate-x-0.5 group-hover:text-primary" /></div>
+                <h3 className="mt-5 text-base font-black text-foreground">{mode.label}</h3>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{mode.description}</p>
+                <p className="mt-4 text-xs font-black text-primary">{formatCount(mode.count)} available</p>
+              </button>
+            );
+          })}
+        </div>
+      </section>
 
-        <section className="grid gap-4 lg:grid-cols-[0.72fr_1.28fr]" data-testid="home-faq">
-          <div className="rounded-3xl bg-blue-50 p-5 sm:p-7"><p className="text-[11px] font-black uppercase tracking-[0.16em] text-blue-600">Need help getting started?</p><h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950">Common questions</h2><p className="mt-3 text-sm leading-6 text-slate-600">Quick answers about where the main learner journeys live.</p><Button className="mt-5 min-h-11" variant="outline" onClick={goMarketplace}>Browse Tests & Exams <ArrowRight className="ml-2 h-4 w-4" /></Button></div>
-          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white">
-            {FAQS.map((item, index) => <details key={item.question} className={`group px-5 py-4 ${index > 0 ? "border-t border-slate-200" : ""}`}><summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 text-sm font-black text-slate-950">{item.question}<ChevronRight className="h-4 w-4 shrink-0 text-slate-400 transition group-open:rotate-90" /></summary><p className="pb-2 pr-7 text-sm leading-6 text-slate-600">{item.answer}</p></details>)}
+      <section className="border-y border-border bg-muted/25 py-14 sm:py-16" data-testid="home-faq">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8">
+          <div>
+            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-primary">Questions before you start?</p>
+            <h2 className="mt-2 text-2xl font-black tracking-tight text-foreground sm:text-3xl">A few quick answers.</h2>
+            <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">For anything else, the complete FAQ and support routes remain available from the public navigation.</p>
+            <Button className="mt-5 min-h-11" variant="outline" onClick={() => setLocation("/faq")}>Open full FAQ</Button>
           </div>
-        </section>
+          <div className="space-y-3">
+            {FAQS.map((item) => (
+              <details key={item.question} className="group rounded-2xl border border-border bg-card p-5">
+                <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-4 text-sm font-black text-foreground marker:hidden">
+                  {item.question}
+                  <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground transition group-open:rotate-90" aria-hidden="true" />
+                </summary>
+                <p className="pt-2 text-sm leading-6 text-muted-foreground">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
 
-        <section className="overflow-hidden rounded-3xl bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 px-5 py-7 text-white sm:px-8" data-testid="home-explore-gateway">
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"><div><p className="text-[11px] font-black uppercase tracking-[0.14em] text-blue-200">Ready to go deeper?</p><h2 className="mt-1 text-2xl font-black">The complete catalog lives in Exams.</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-blue-100">Compare series, full-length mocks, free practice, PYQs, subjects and every published test with filters.</p></div><Button className="min-h-11 w-fit rounded-xl bg-white px-5 font-black text-blue-700 hover:bg-blue-50" onClick={goMarketplace}>Open Exams marketplace <ArrowRight className="ml-2 h-4 w-4" /></Button></div>
-        </section>
-      </div>
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 sm:py-16 lg:px-8" data-testid="home-explore-gateway">
+        <div className="rounded-[32px] border border-border bg-card p-7 text-center shadow-sm sm:p-10">
+          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary"><Zap className="h-6 w-6" /></span>
+          <h2 className="mx-auto mt-5 max-w-2xl text-2xl font-black tracking-tight text-foreground sm:text-3xl">Find the exam. Pick the format. Start practising.</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">Use the complete Exams marketplace when you want deeper filters, every published series and the full live catalog.</p>
+          <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+            <Button className="min-h-12 rounded-xl px-6 font-black" onClick={goMarketplace}>Open Exams marketplace <ArrowRight className="ml-2 h-4 w-4" /></Button>
+            <Button className="min-h-12 rounded-xl px-6 font-black" variant="outline" onClick={() => setLocation(sampleMode ? "/exams?preview=sample" : "/mock-tests")}>Browse mock tests</Button>
+          </div>
+          <div className="mx-auto mt-7 flex max-w-xl flex-wrap justify-center gap-3 text-xs font-semibold text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-primary" />Published catalog only</span>
+            <span className="inline-flex items-center gap-1.5"><Clock3 className="h-4 w-4 text-primary" />Timed test formats</span>
+            <span className="inline-flex items-center gap-1.5"><BarChart3 className="h-4 w-4 text-primary" />Result review after attempts</span>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
