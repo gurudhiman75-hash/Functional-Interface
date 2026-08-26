@@ -7,6 +7,7 @@ import {
 import { generateNumCp012Permanent } from "./permanent-runtime.ts";
 import { generateNumCp012Localized } from "./localization/runtime.ts";
 import type { NumCp012LocalizedLanguage } from "./localization/types.ts";
+import { buildNumCp012ExamDepthExplanation } from "./exam-depth-explanation.ts";
 
 export const NUM_CP012_QUESTION_STUDIO_PACKAGE_ID = "NUM-002" as const;
 export const NUM_CP012_QUESTION_STUDIO_CHECKPOINT_ID = "NUM-CP-012" as const;
@@ -37,11 +38,7 @@ const RELEASE_ID = "NUM-CP-012-QS-MULTILINGUAL-FROZEN-V1" as const;
 const DIFFICULTY_SEARCH_WINDOW = 480;
 
 function normalizeSelector(value: unknown) {
-  return String(value ?? "")
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, " ")
-    .trim();
+  return String(value ?? "").trim().toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
 }
 
 function isCp012Ql(value: unknown): value is NumCp012PermanentQlId {
@@ -109,17 +106,7 @@ function normalizedPackage(
   language: NumCp012QuestionStudioLanguage,
   seedText: string,
 ) {
-  const explanationLines = [
-    pkg.explanation.coreConcept,
-    pkg.explanation.strategy,
-    ...pkg.explanation.steps,
-    language === "en"
-      ? `Answer: ${pkg.explanation.finalAnswer}`
-      : language === "hi"
-        ? `उत्तर: ${pkg.explanation.finalAnswer}`
-        : `ਉੱਤਰ: ${pkg.explanation.finalAnswer}`,
-  ];
-
+  const examDepthExplanation = buildNumCp012ExamDepthExplanation(pkg, language);
   const identity = createHash("sha256")
     .update(JSON.stringify({
       qlId: pkg.permanentQlId,
@@ -170,7 +157,8 @@ function normalizedPackage(
     mockTestEligible: false as const,
     publiclyPublishable: false as const,
     automaticStudentPublication: false as const,
-    explanation: Object.freeze({ lines: Object.freeze(explanationLines) }),
+    explanation: examDepthExplanation,
+    explanationStandard: examDepthExplanation.standard,
     authorityId: pkg.authorityId,
     authorityLabel: pkg.authorityLabel,
     representation: pkg.representation,
@@ -200,6 +188,7 @@ function normalizedPackage(
       sourceLifecycle,
       englishAuthorityStatus: "ENGLISH_FROZEN" as const,
       localizationStatus: language === "en" ? "NOT_APPLICABLE" as const : "HI_PA_FROZEN" as const,
+      explanationStandard: examDepthExplanation.standard,
       questionStudioDiscoverable: true as const,
       questionBankWritable: false as const,
       testEligible: false as const,
@@ -226,6 +215,7 @@ function toPreview(pkg: ReturnType<typeof normalizedPackage>, index: number, cou
     canonicalAnswer,
     explanation: pkg.explanation.lines.join("\n\n"),
     packageExplanation: pkg.explanation,
+    explanationStandard: pkg.explanationStandard,
     difficulty: pkg.difficultyBand,
     difficultyLabel: pkg.difficultyBand,
     patternId: NUM_CP012_QUESTION_STUDIO_PACKAGE_ID,
@@ -298,6 +288,7 @@ export function listNumCp012QuestionStudioPackages() {
     runtimeMode: "QUESTION_STUDIO_ACTIVE",
     supportedRuntimeModes: Object.freeze(["QUESTION_STUDIO_ACTIVE"]),
     reviewStatus: "FROZEN_MULTILINGUAL_CONTENT_AUTHORITY",
+    explanationStandard: "FULL_DERIVATION_AND_EXAM_SHORTCUT_V1",
     questionBankStatus: "NOT_STORED",
     questionBankWritable: false,
     testEligibility: "INELIGIBLE",
@@ -372,6 +363,7 @@ export async function generateNumCp012QuestionStudioBatch(request: NumCp012Quest
       reviewStatus: "FROZEN_MULTILINGUAL_CONTENT_AUTHORITY",
       lifecycleStatus: "QUESTION_STUDIO_ACTIVE_SOURCE_ONLY",
       permanentQlCount: NUM_CP012_QUESTION_STUDIO_QL_IDS.length,
+      explanationStandard: "FULL_DERIVATION_AND_EXAM_SHORTCUT_V1",
       questionBankStatus: "NOT_STORED",
       questionBankWritable: false,
       testEligibility: "INELIGIBLE",
