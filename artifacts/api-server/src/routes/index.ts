@@ -34,6 +34,7 @@ import adminQuestionStudioMixedDifficultyRouter from "./admin-question-studio-mi
 import adminQuestionStudioSeriesRouter from "./admin-question-studio-series";
 import adminQuestionStudioInterestRouter from "./admin-question-studio-interest";
 import adminQuestionStudioInterestCp001Router from "./admin-question-studio-interest-cp001";
+import adminQuestionStudioInterestCp003Router from "./admin-question-studio-interest-cp003";
 import adminQuestionStudioInterestCp007Router from "./admin-question-studio-interest-cp007";
 import adminQuestionStudioInterestCp009Router from "./admin-question-studio-interest-cp009";
 import adminQuestionStudioInterestCp010Router from "./admin-question-studio-interest-cp010";
@@ -146,6 +147,7 @@ router.use("/admin/question-studio", adminQuestionStudioMixedDifficultyRouter);
 router.use("/admin/question-studio", adminQuestionStudioSeriesRouter);
 router.use("/admin/question-studio", adminQuestionStudioInterestRouter);
 router.use("/admin/question-studio", adminQuestionStudioInterestCp001Router);
+router.use("/admin/question-studio", adminQuestionStudioInterestCp003Router);
 router.use("/admin/question-studio", adminQuestionStudioInterestCp007Router);
 router.use("/admin/question-studio", adminQuestionStudioInterestCp009Router);
 router.use("/admin/question-studio", adminQuestionStudioInterestCp010Router);
