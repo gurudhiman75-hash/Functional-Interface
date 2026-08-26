@@ -59,14 +59,14 @@ function SidebarEntry({ item, location, user }: { item: SidebarItem; location: s
   if (item.disabled || !item.href) {
     return (
       <div
-        className="flex min-h-11 cursor-default items-center gap-3 rounded-lg px-3 py-2 text-[13px] font-semibold text-slate-400"
+        className="flex min-h-11 cursor-default items-center gap-3 rounded-lg px-3 py-2 text-[13px] font-semibold text-muted-foreground/55"
         aria-disabled="true"
         title={`${item.label} is coming soon`}
         data-testid={`sidebar-disabled-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
       >
         <Icon className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
         <span className="min-w-0 flex-1 truncate">{item.label}</span>
-        <span className="rounded-md bg-slate-100 px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wide text-slate-400">Soon</span>
+        <span className="rounded-md bg-muted px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wide text-muted-foreground">Soon</span>
       </div>
     );
   }
@@ -82,12 +82,12 @@ function SidebarEntry({ item, location, user }: { item: SidebarItem; location: s
       aria-current={active ? "page" : undefined}
       className={`et-interactive group relative flex min-h-11 items-center gap-3 rounded-lg px-3 py-2 text-[13px] font-semibold transition ${
         active
-          ? "bg-blue-50 text-blue-700"
-          : "text-slate-600 hover:bg-slate-50 hover:text-slate-950"
+          ? "bg-primary/10 text-primary"
+          : "text-muted-foreground hover:bg-muted hover:text-foreground"
       }`}
     >
-      {active ? <span className="absolute inset-y-2 left-0 w-[3px] rounded-full bg-blue-600" aria-hidden="true" /> : null}
-      <Icon className={`h-[18px] w-[18px] shrink-0 transition ${active ? "text-blue-600" : "text-slate-500 group-hover:text-blue-600"}`} aria-hidden="true" />
+      {active ? <span className="absolute inset-y-2 left-0 w-[3px] rounded-full bg-primary" aria-hidden="true" /> : null}
+      <Icon className={`h-[18px] w-[18px] shrink-0 transition ${active ? "text-primary" : "text-muted-foreground group-hover:text-primary"}`} aria-hidden="true" />
       <span className="min-w-0 truncate">{item.label}</span>
     </Link>
   );
@@ -99,7 +99,7 @@ export function PublicHomeSidebar() {
 
   return (
     <aside
-      className="hidden min-h-[calc(100vh-4rem)] border-r border-slate-200 bg-white lg:block"
+      className="hidden min-h-[calc(100vh-4rem)] border-r border-border bg-card lg:block"
       aria-label="Student navigation"
       data-testid="public-study-sidebar"
     >
@@ -110,7 +110,7 @@ export function PublicHomeSidebar() {
           ))}
         </nav>
 
-        <div className="my-4 border-t border-slate-200" />
+        <div className="my-4 border-t border-border" />
 
         <nav aria-label="Support navigation" className="space-y-1">
           {utilityItems.map((item) => (
@@ -119,12 +119,12 @@ export function PublicHomeSidebar() {
         </nav>
 
         <div className="mt-auto pt-5">
-          <div className="rounded-xl border border-blue-100 bg-blue-50/70 p-3.5">
-            <p className="text-xs font-black text-slate-950">Ready to practise?</p>
-            <p className="mt-1 text-[11px] leading-4 text-slate-600">Choose an exam and continue with mocks, PYQs or free practice.</p>
+          <div className="rounded-xl border border-primary/15 bg-primary/5 p-3.5">
+            <p className="text-xs font-black text-foreground">Ready to practise?</p>
+            <p className="mt-1 text-[11px] leading-4 text-muted-foreground">Choose an exam and continue with mocks, PYQs or free practice.</p>
             <Link
               href="/exams"
-              className="et-interactive mt-3 flex min-h-11 items-center justify-center rounded-lg bg-blue-600 px-3 py-2 text-xs font-black text-white shadow-sm hover:bg-blue-700"
+              className="et-interactive mt-3 flex min-h-11 items-center justify-center rounded-lg bg-primary px-3 py-2 text-xs font-black text-primary-foreground shadow-sm hover:bg-primary/90"
               data-testid="sidebar-explore-cta"
             >
               Explore exams
