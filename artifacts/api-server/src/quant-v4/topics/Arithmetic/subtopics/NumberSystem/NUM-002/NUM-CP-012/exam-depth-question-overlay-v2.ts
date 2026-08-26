@@ -97,6 +97,14 @@ function hardenP007<T extends OverlayInput>(overlay: T) {
   return Object.freeze({ ...overlay, options: Object.freeze(options), correctIndex }) as T;
 }
 
+function hardenP009<T extends OverlayInput>(overlay: T) {
+  if (overlay.temporaryPrototypeId !== "NUM-CP012-PROT-009") return overlay;
+  // The Wave02 verifier may expose a mathematically equivalent signed witness
+  // for exact roots (for example -1 for the learner-canonical answer 1).
+  // Question Studio must always bind the verifier field to the canonical learner answer.
+  return Object.freeze({ ...overlay, verifierAnswer: overlay.canonicalAnswer }) as T;
+}
+
 /**
  * Final Question-Studio-only calculation-depth overlay.
  * It preserves permanent authority/source ancestry while hardening transformed state
@@ -104,7 +112,7 @@ function hardenP007<T extends OverlayInput>(overlay: T) {
  */
 export function applyNumCp012ExamDepthOverlayV2<T extends OverlayInput>(input: T, language: Language) {
   const overlaid = applyNumCp012ExamDepthOverlay(input, language) as T;
-  return hardenP007(hardenP001(overlaid));
+  return hardenP009(hardenP007(hardenP001(overlaid)));
 }
 
 export { NUM_CP012_EXAM_DEPTH_PROFILE };
