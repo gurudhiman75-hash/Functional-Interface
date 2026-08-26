@@ -59,26 +59,26 @@ jobs:
           node artifacts/api-server/dist/quant-v4/num-cp013-wave01-independent-minimality.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp013-wave01-independent-minimality.log
 
-      - name: Bundle Wave 02 audits
+      - name: Bundle canonical Wave 02 V4 audits
         shell: bash
         run: |
           set -euo pipefail
           base="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-013/wave02"
-          pnpm --dir artifacts/api-server exec esbuild "$base/runtime.test.ts" \
+          pnpm --dir artifacts/api-server exec esbuild "$base/runtime-v4.test.ts" \
             --bundle --platform=node --format=esm \
             --outfile="dist/quant-v4/num-cp013-wave02-runtime-audit.mjs"
-          pnpm --dir artifacts/api-server exec esbuild "$base/independent-saturation.test.ts" \
+          pnpm --dir artifacts/api-server exec esbuild "$base/independent-v4.test.ts" \
             --bundle --platform=node --format=esm \
             --outfile="dist/quant-v4/num-cp013-wave02-independent-saturation.mjs"
 
-      - name: Run Wave 02 edge and representation audit
+      - name: Run canonical Wave 02 edge and representation audit
         shell: bash
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-cp013-wave02-runtime-audit.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp013-wave02-runtime-audit.log
 
-      - name: Run Wave 02 independent saturation audit
+      - name: Run canonical Wave 02 independent saturation audit
         shell: bash
         run: |
           set -o pipefail
