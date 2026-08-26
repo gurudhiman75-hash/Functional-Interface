@@ -67,6 +67,52 @@ function assertSea002Cp008QuestionStudioActivationV1(): void {
   }
 }
 
+export function listSea002Cp008QuestionStudioPackagesV1() {
+  assertSea002Cp008QuestionStudioActivationV1();
+  return [Object.freeze({
+    id: "SEA-002" as const,
+    packageId: "SEA-002" as const,
+    type: "reasoning-v1" as const,
+    section: "Reasoning" as const,
+    domain: "reasoning" as const,
+    subject: "Reasoning Ability" as const,
+    topic: "Seating Arrangement" as const,
+    subtopic: "Square Seating" as const,
+    name: "SEA-002 Seating Arrangement — Square Seating" as const,
+    label: "Seating Arrangement — Square Seating" as const,
+    generationDomain: "reasoning-v1" as const,
+    cpIds: Object.freeze(["SEA-CP-008"] as const),
+    canonicalProblems: Object.freeze([Object.freeze({
+      id: "SEA-CP-008" as const,
+      label: "Square Seating" as const,
+    })]),
+    permanentQlCount: SEA002_CP008_PERMANENT_QL_IDS.length,
+    permanentQlIds: SEA002_CP008_PERMANENT_QL_IDS,
+    supportedDifficulties: SEA002_CP008_QUESTION_STUDIO_DIFFICULTIES_V1,
+    supportedLanguages: SEA002_CP008_QUESTION_STUDIO_LANGUAGES_V1,
+    enabled: true as const,
+    runtimeMode: "QUESTION_STUDIO_ACTIVE_APPROVED_FROZEN" as const,
+    supportedRuntimeModes: Object.freeze(["QUESTION_STUDIO_ACTIVE_APPROVED_FROZEN"] as const),
+    reviewStatus: "APPROVED_FROZEN_V1" as const,
+    reviewOnly: true as const,
+    sourceQuestionStudioRegistered: false as const,
+    questionStudioRegistered: true as const,
+    questionBankStatus: "NOT_STORED" as const,
+    questionBankWritable: false as const,
+    testEligibility: "INELIGIBLE" as const,
+    testEligible: false as const,
+    mockTestEligible: false as const,
+    productionStaging: false as const,
+    publiclyPublishable: false as const,
+    automaticStudentPublication: false as const,
+    releaseId: SEA002_CP008_QUESTION_STUDIO_RELEASE_V1,
+    approvedAt: SEA002_CP008_EXPLICIT_PRODUCT_APPROVAL_V1.approvedAt,
+    certifiedReviewArtifactId: SEA002_CP008_CERTIFIED_REVIEW_EVIDENCE_V2.artifactId,
+    englishReviewFingerprint: SEA002_CP008_CERTIFIED_REVIEW_EVIDENCE_V2.englishReviewFingerprint,
+    localizationReviewFingerprint: SEA002_CP008_CERTIFIED_REVIEW_EVIDENCE_V2.localizationReviewFingerprint,
+  })];
+}
+
 export function generateSea002Cp008QuestionStudioQuestionsV1(request: Sea002Cp008QuestionStudioRequest) {
   assertSea002Cp008QuestionStudioActivationV1();
   if (!isSea002Cp008QuestionStudioRequest(request)) {
@@ -108,6 +154,45 @@ export function generateSea002Cp008QuestionStudioQuestionV1(
   request: Omit<Sea002Cp008QuestionStudioRequest, "count">,
 ) {
   return generateSea002Cp008QuestionStudioQuestionsV1({ ...request, count: 1 })[0]!;
+}
+
+export function generateSea002Cp008QuestionStudioBatchV1(
+  request: Sea002Cp008QuestionStudioRequest,
+) {
+  const questions = generateSea002Cp008QuestionStudioQuestionsV1(request);
+  const first = questions[0]!;
+  const generationContext = Object.freeze({
+    generationDomain: "reasoning-v1" as const,
+    packageId: "SEA-002" as const,
+    chapterId: "SEA-002" as const,
+    checkpointId: "SEA-CP-008" as const,
+    seed: String(request.seed ?? "sea-cp008-approved-runtime"),
+    runtimeMode: "QUESTION_STUDIO_ACTIVE_APPROVED_FROZEN" as const,
+    reviewStatus: "APPROVED_FROZEN_V1" as const,
+    lifecycleStatus: "QUESTION_STUDIO_ACTIVE_APPROVED_FROZEN" as const,
+    productOwnerApprovalStatus: "APPROVED" as const,
+    approvedAt: SEA002_CP008_EXPLICIT_PRODUCT_APPROVAL_V1.approvedAt,
+    freezeStatus: "FROZEN" as const,
+    releaseId: SEA002_CP008_QUESTION_STUDIO_RELEASE_V1,
+    questionBankStatus: "NOT_STORED" as const,
+    questionBankWritable: false as const,
+    testEligibility: "INELIGIBLE" as const,
+    testEligible: false as const,
+    mockTestEligible: false as const,
+    productionStaging: false as const,
+    publiclyPublishable: false as const,
+    automaticStudentPublication: false as const,
+    language: first.language,
+    difficulty: first.difficulty,
+    permanentQlCount: SEA002_CP008_PERMANENT_QL_IDS.length,
+    certifiedReviewArtifactId: SEA002_CP008_CERTIFIED_REVIEW_EVIDENCE_V2.artifactId,
+    certifiedReviewArtifactDigest: SEA002_CP008_CERTIFIED_REVIEW_EVIDENCE_V2.artifactDigest,
+  });
+  return Object.freeze({
+    generationContext,
+    questionPackages: questions,
+    questions,
+  });
 }
 
 export type Sea002Cp008QuestionStudioLanguageV1 = Sea002Cp008QuestionStudioLanguageV2;
