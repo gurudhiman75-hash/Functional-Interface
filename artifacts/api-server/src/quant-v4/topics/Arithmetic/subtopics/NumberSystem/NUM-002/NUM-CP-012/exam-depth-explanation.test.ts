@@ -57,8 +57,9 @@ for (const prototypeId of wave02) {
 // the arithmetic or exponent operation that produced it, rather than only assert it.
 const multiplier = buildNumCp012ExamDepthExplanation(generateNumCp012Wave01("NUM-CP012-PROT-003", 1), "en");
 const multiplierText = multiplier.fullDerivation.join("\n");
-assert.match(multiplierText, /remainder/u);
 assert.match(multiplierText, /÷/u);
+assert.match(multiplierText, /\d+ = \d+ × \d+ \+ \d+/u);
+assert.match(multiplierText, /So add \d+ more factor/u);
 assert.match(multiplierText, /=/u);
 
 // Exact AT_LEAST boundary must explain the canonical boundary itself, not the next one.
