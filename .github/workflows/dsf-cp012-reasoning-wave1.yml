@@ -1,0 +1,103 @@
+name: Validate DSF CP-012 Reasoning Wave 1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-012/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/foundation/**
+      - artifacts/api-server/src/reasoning-v1/topics/Ranking-and-Order/RNK-001/RNK-CP-001/**
+      - artifacts/api-server/src/reasoning-v1/topics/Blood-Relations/BLR-001/foundation/**
+      - artifacts/api-server/src/lib/reasoning/spatial-reasoning.ts
+      - artifacts/api-server/src/lib/reasoning/direction-sense.ts
+      - artifacts/api-server/src/lib/reasoning/blood-relations.ts
+      - artifacts/api-server/src/lib/reasoning/inequality.ts
+      - artifacts/api-server/src/lib/reasoning/inequality-foundation.ts
+      - artifacts/api-server/src/lib/reasoning/inequality-foundation.test.ts
+      - artifacts/api-server/src/lib/motifs/inequality.ts
+      - artifacts/api-server/src/lib/shared/**
+      - .github/workflows/dsf-cp012-reasoning-wave1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp012-reasoning-wave1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp012-reasoning-wave1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle inequality source-foundation parity audit
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/data-sufficiency/cp012
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/lib/reasoning/inequality-foundation.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp012/inequality-foundation.test.mjs
+      - name: Run inequality source-foundation parity audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp012/inequality-foundation.test.mjs
+
+      - name: Bundle CP-012 Ranking audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-012/ranking-runtime-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp012/ranking-runtime-v1.test.mjs
+      - name: Run CP-012 Ranking audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp012/ranking-runtime-v1.test.mjs
+
+      - name: Bundle CP-012 Direction audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-012/direction-runtime-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp012/direction-runtime-v1.test.mjs
+      - name: Run CP-012 Direction audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp012/direction-runtime-v1.test.mjs
+
+      - name: Bundle CP-012 Blood Relations audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-012/blood-relations-runtime-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp012/blood-relations-runtime-v1.test.mjs
+      - name: Run CP-012 Blood Relations audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp012/blood-relations-runtime-v1.test.mjs
+
+      - name: Bundle CP-012 Inequality audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-012/inequality-runtime-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp012/inequality-runtime-v1.test.mjs
+      - name: Run CP-012 Inequality audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp012/inequality-runtime-v1.test.mjs
