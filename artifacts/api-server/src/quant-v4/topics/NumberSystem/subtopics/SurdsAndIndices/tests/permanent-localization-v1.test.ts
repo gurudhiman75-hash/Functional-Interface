@@ -20,7 +20,12 @@ const NATIVE_SCRIPT: Record<SriLocalizedLocaleV1, RegExp> = {
   "pa-IN": /[\u0A00-\u0A7F]/u,
 };
 
-const BANNED_ENGLISH = /\b(?:simplify|evaluate|find|determine|which|what|write|reduce|expand|multiply|divide|compare|arrange|classify|choose|extract|given|using|from|when|value|values|expression|expressions|exponent|exponents|base|bases|root|roots|radical|radicals|surd|surds|rational|irrational|conjugate|coefficient|coefficients|radicand|equation|statement|statements|result|results|factor|factors|power|powers|positive|negative|real|true|false|defined|undefined|common|same|greater|smaller|larger|equal|exact|exactly|first|second|therefore|hence|thus|since|because|canonical|form|term|terms|law|laws|condition|conditions|solution|solutions|denominator|numerator|reciprocal|integer|increasing|order|requested|supplied|known|normalize|rewrite|convert|substitute|factor|apply|add|subtract|combined|total|net|method|quantity|quantities|classification)\b/giu;
+const FOREIGN_SCRIPT: Record<SriLocalizedLocaleV1, RegExp> = {
+  "hi-IN": /[\u0A00-\u0A7F]/u,
+  "pa-IN": /[\u0900-\u097F]/u,
+};
+
+const BANNED_ENGLISH = /\b(?:simplify|evaluate|find|determine|which|what|write|reduce|expand|multiply|divide|compare|arrange|classify|choose|extract|given|using|from|when|value|values|expression|expressions|exponent|exponents|base|bases|root|roots|radical|radicals|surd|surds|rational|irrational|conjugate|coefficient|coefficients|radicand|equation|statement|statements|result|results|factor|factors|power|powers|positive|negative|real|true|false|defined|undefined|common|same|greater|smaller|larger|equal|exact|exactly|first|second|therefore|hence|thus|since|because|canonical|form|term|terms|law|laws|condition|conditions|solution|solutions|denominator|numerator|reciprocal|integer|increasing|order|requested|supplied|known|normalize|rewrite|convert|substitute|apply|add|subtract|combined|total|net|method|quantity|quantities|classification|match|denest|rationalise|rationalize|bound|bounds|bounded|take|then|without|decimal|decimals|truth|number|numbers|zero|nonzero|indicated|corresponding|requires|required|require|supply|supplies|contributes|contribution|collect|parts|pair|pairs|surrounding|consecutive|perfect|square|squares|cube|cubes|visible|reverse|recover|involved|transferring|operation|operations|composite|prime|signed|odd|even|inside|outside|before|after|both|each|only|not|all)\b/giu;
 
 const INTERNAL_LEAK = /SRI-(?:00[12]-)?(?:QL|SM|RG)-|PROVISIONAL_DISCOVERY|canonicalSolverKey|independentVerifierKey|solverVerifierAgree|proofEvents/iu;
 
@@ -38,6 +43,7 @@ let deepFrozenObjects = 0;
 let nativeScriptChecks = 0;
 let mathSkeletonChecks = 0;
 const nativeScriptFailures = new Set<string>();
+const foreignScriptFailures = new Set<string>();
 const residualFailures = new Set<string>();
 const sourceCandidatesSeen = new Set<string>();
 
@@ -116,6 +122,10 @@ for (const allocation of SRI_PERMANENT_ALLOCATION_V1) {
       ].join("\n");
       assert.equal(INTERNAL_LEAK.test(learnerText), false, `${allocation.qlId}/${locale}: internal metadata leaked`);
       INTERNAL_LEAK.lastIndex = 0;
+      if (FOREIGN_SCRIPT[locale].test(learnerText) && foreignScriptFailures.size < 160) {
+        foreignScriptFailures.add(`${allocation.qlId}/${q.candidateId}/${locale}: foreign native script leaked :: ${learnerText.replaceAll("\n", " | ")}`);
+      }
+      FOREIGN_SCRIPT[locale].lastIndex = 0;
       const residues = [...learnerText.matchAll(BANNED_ENGLISH)].map((match) => match[0].toLowerCase());
       BANNED_ENGLISH.lastIndex = 0;
       if (residues.length > 0 && residualFailures.size < 160) {
@@ -137,7 +147,7 @@ for (const allocation of SRI_PERMANENT_ALLOCATION_V1) {
 }
 
 assert.equal(generated, EXPECTED_QLS * SEEDS_PER_QL * LOCALES.length);
-const localizationQualityFailures = [...nativeScriptFailures, ...residualFailures];
+const localizationQualityFailures = [...nativeScriptFailures, ...foreignScriptFailures, ...residualFailures];
 assert.deepEqual(localizationQualityFailures, [], `Localized learner text failed language-quality gates:\n${localizationQualityFailures.join("\n")}`);
 
 const reviewCorpus = buildSriPermanentEnglishReviewCorpusV1(2);
