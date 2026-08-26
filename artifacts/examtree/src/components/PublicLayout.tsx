@@ -70,8 +70,7 @@ function routeIsActive(location: string, href: string) {
 }
 
 function showStudySidebarForRoute(location: string) {
-  return location === "/"
-    || location === "/exams"
+  return location === "/exams"
     || location === "/tests"
     || location === "/mock-tests"
     || location === "/pyqs"
@@ -113,7 +112,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
 
       <header className="et-chrome sticky top-0 z-50 border-b" data-testid="public-header">
         <div className={`mx-auto flex h-16 w-full items-center gap-4 px-4 sm:px-6 ${showStudySidebar ? "max-w-[1536px] lg:px-0" : "max-w-7xl lg:px-8"}`}>
-          <div className={showStudySidebar ? "lg:flex lg:w-[252px] lg:shrink-0 lg:items-center lg:border-r lg:border-slate-200 lg:px-5 lg:self-stretch" : "shrink-0"}>
+          <div className={showStudySidebar ? "lg:flex lg:w-[252px] lg:shrink-0 lg:items-center lg:border-r lg:border-sidebar-border lg:px-5 lg:self-stretch" : "shrink-0"}>
             <Link href="/" className="et-interactive flex min-h-11 shrink-0 items-center gap-2.5 rounded-xl" aria-label="ExamTree home">
               <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-extrabold text-primary-foreground shadow-sm ring-1 ring-primary/15">E</span>
               <span className="text-lg font-extrabold tracking-[-0.03em] text-foreground">examtree</span>
