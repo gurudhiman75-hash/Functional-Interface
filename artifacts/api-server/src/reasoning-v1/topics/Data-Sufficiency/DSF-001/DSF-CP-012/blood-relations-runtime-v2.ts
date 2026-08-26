@@ -29,7 +29,6 @@ export const DSF_CP012_BLOOD_SOLVE_MODES = [
 export type DsfCp012BloodSolveMode = (typeof DSF_CP012_BLOOD_SOLVE_MODES)[number];
 type Difficulty = "Easy" | "Medium" | "Hard";
 type ContextId = "FAMILY_TREE" | "FAMILY_GATHERING" | "HOUSEHOLD_RECORD" | "RELATION_CHAIN" | "PEDIGREE_NOTE" | "KINSHIP_RECORD";
-type LinkOrientation = "P_TO_X" | "X_TO_P" | "X_TO_Q" | "Q_TO_X";
 type DirectCategory = "PARENT" | "CHILD" | "SIBLING" | "SPOUSE";
 type StatementFamily =
   | "TARGET_EXACT"
@@ -370,9 +369,9 @@ export function generateDsfCp012BloodQuestion(seed: number) {
     const problem: BloodProblem = { solveMode, anchor, contextId: context.id, intro };
     try {
       const pair = synthesizePair(problem, seed + attempt * 997, desiredClass);
-      const options = DS_STANDARD_5_EN.map((option) => option.label);
-      const correctOption = optionForClass("DS_STANDARD_5", desiredClass);
-      const correctIndex = DS_STANDARD_5_EN.findIndex((option) => option.key === correctOption.key);
+      const options = DS_STANDARD_5_EN.options.map((option) => option.text);
+      const correctOption = optionForClass(DS_STANDARD_5_EN, desiredClass);
+      const correctIndex = DS_STANDARD_5_EN.options.findIndex((option) => option.key === correctOption.key);
       const stem = `${intro} ${promptFor(solveMode)}\n\nStatement I: ${pair.statementI.text}\nStatement II: ${pair.statementII.text}`;
       return Object.freeze({
         runtimeVersion: DSF_CP012_BLOOD_RUNTIME_VERSION,
