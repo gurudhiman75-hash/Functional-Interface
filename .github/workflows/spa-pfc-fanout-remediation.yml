@@ -1,10 +1,10 @@
-# One-shot trigger after bootstrap landed on New-main.
+# Temporary one-shot helper. Deleted after the PFC workflow family is path-scoped.
 name: One-shot scope SPA PFC workflow fanout
 
 on:
-  push:
+  pull_request:
     branches:
-      - chore/ci-path-scope-spatial-pfc-v1
+      - New-main
     paths:
       - .github/workflows/spa-pfc-fanout-remediation.yml
   workflow_dispatch:
@@ -41,7 +41,6 @@ jobs:
               text = path.read_text()
               original = text
 
-              # Remediate only the legacy broad trigger shape proven to fan out on unrelated PRs.
               trigger = re.compile(r'^on:\n  pull_request:\s*\n  workflow_dispatch:\s*$', re.MULTILINE)
               if trigger.search(text):
                   scoped = (
@@ -57,8 +56,6 @@ jobs:
                       '  workflow_dispatch:'
                   )
                   text = trigger.sub(scoped, text, count=1)
-
-                  # The repository policy forbids ambiguous 20/25 minute caps in modified workflows.
                   text = re.sub(
                       r'^(\s*timeout-minutes:\s*)(20|25)(\s*(?:#.*)?)$',
                       r'\g<1>45\g<3>',
@@ -73,15 +70,16 @@ jobs:
           print(f'Remediated {len(changed)} workflow(s).')
           for item in changed:
               print(item)
-
-          if not changed:
-              raise SystemExit('No broad spa-pfc workflows matched; refusing an empty remediation run.')
           PY
 
-      - name: Commit scoped workflow triggers
+      - name: Commit scoped workflow triggers when needed
         shell: bash
         run: |
           set -euo pipefail
+          if git diff --quiet -- .github/workflows/spa-pfc-*.yml; then
+            echo "No remaining broad SPA PFC workflows require remediation."
+            exit 0
+          fi
           git config user.name "examtree-ci"
           git config user.email "actions@users.noreply.github.com"
           git add .github/workflows/spa-pfc-*.yml
