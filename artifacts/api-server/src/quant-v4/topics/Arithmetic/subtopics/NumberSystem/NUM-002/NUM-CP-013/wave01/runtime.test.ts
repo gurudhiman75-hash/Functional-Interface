@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { generateNumCp013Wave01 } from "./runtime.ts";
+import { generateNumCp013Wave01 } from "./runtime-v2.ts";
 import { NUM_CP013_WAVE01_PROTOTYPE_IDS } from "./types.ts";
 
 function positionalValue(digits: readonly number[], base: number) {
