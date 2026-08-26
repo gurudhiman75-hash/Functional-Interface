@@ -1,0 +1,60 @@
+name: SRI Phase 9 remediate run40 residual localization
+
+on:
+  push:
+    branches:
+      - feature/sri-v4-phase9-localization-v1
+    paths:
+      - .github/workflows/sri-v4-phase9-remediate-run40.yml
+
+permissions:
+  contents: write
+
+jobs:
+  remediate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/sri-v4-phase9-localization-v1
+      - name: Insert C008 C009 structural localization authority
+        env:
+          PAYLOAD: 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
+        run: |
+          python - <<'PY'
+          import base64
+          import os
+          import pathlib
+          import zlib
+
+          target = pathlib.Path("artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts")
+          helper = pathlib.Path(".github/workflows/sri-v4-phase9-remediate-run40.yml")
+          source = target.read_text(encoding="utf-8")
+          marker = "RUN40_C008_C009_LOCALIZATION_BLOCK_V1"
+          block = zlib.decompress(base64.b64decode(os.environ["PAYLOAD"])).decode("utf-8")
+
+          if marker not in source:
+              function_needle = "export function localizeSriLearnerTextV1(text: string, locale: SriLocalizedLocaleV1): string {"
+              if function_needle not in source:
+                  raise SystemExit("localization function insertion point not found")
+              block_with_marker = "// RUN40_C008_C009_LOCALIZATION_BLOCK_V1\n" + block + "\n\n"
+              source = source.replace(function_needle, block_with_marker + function_needle, 1)
+
+              call_needle = '  const exact = EXACT_SENTENCES[locale][text];\n  if (exact) return exact;\n'
+              if call_needle not in source:
+                  raise SystemExit("exact-sentence insertion point not found")
+              call = call_needle + '\n  const run40Residual = localizeRun40ResidualTextV1(text, locale);\n  if (run40Residual) return run40Residual;\n'
+              source = source.replace(call_needle, call, 1)
+              target.write_text(source, encoding="utf-8")
+
+          if helper.exists():
+              helper.unlink()
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts .github/workflows/sri-v4-phase9-remediate-run40.yml
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git commit -m "SRI Phase 9: close C008 C009 localization residuals"
+          git push origin HEAD:feature/sri-v4-phase9-localization-v1
