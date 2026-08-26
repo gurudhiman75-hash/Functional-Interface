@@ -466,6 +466,247 @@ export function localizeSriLearnerTextV1(text: string, locale: SriLocalizedLocal
       : `ਦਿੱਤਾ ਗਿਆ ਸੰਬੰਧ ${nativeConnectorText(match[1], locale)} ਹੈ।`;
   }
 
+  // RUN35_SURD_LOCALIZATION_BLOCK_V1
+  match = text.match(/^The two displayed index statements are I\. (.+?) II\. (.+)\.$/u);
+  if (match) {
+    const first = localizeEmbeddedLaw(match[1], locale);
+    const second = localizeEmbeddedLaw(match[2], locale);
+    return locale === "hi-IN"
+      ? `दिखाए गए दो घातांक कथन हैं— I. ${first} II. ${second}`
+      : `ਦਿਖਾਏ ਗਏ ਦੋ ਘਾਤਾਂਕ ਕਥਨ ਹਨ— I. ${first} II. ${second}`;
+  }
+
+  match = text.match(/^The displayed statements are I: (.+?) II: (.+)\.$/u);
+  if (match) {
+    const first = localizeEmbeddedLaw(match[1], locale);
+    const second = localizeEmbeddedLaw(match[2], locale);
+    return locale === "hi-IN"
+      ? `दिखाए गए कथन हैं— I: ${first} II: ${second}`
+      : `ਦਿਖਾਏ ਗਏ ਕਥਨ ਹਨ— I: ${first} II: ${second}`;
+  }
+
+  match = text.match(/^The given information is Statement I: (.+?) Statement II: (.+)\.$/u);
+  if (match) {
+    const first = localizeEmbeddedLaw(match[1], locale);
+    const second = localizeEmbeddedLaw(match[2], locale);
+    return locale === "hi-IN"
+      ? `दी गई जानकारी में कथन I: ${first} और कथन II: ${second}`
+      : `ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਵਿੱਚ ਕਥਨ I: ${first} ਅਤੇ ਕਥਨ II: ${second}`;
+  }
+
+  match = text.match(/^([IV]+): (.+)$/u);
+  if (match) {
+    return `${match[1]}: ${localizeEmbeddedLaw(match[2], locale)}`;
+  }
+
+  match = text.match(/^Write (.+) in simplest surd form\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को सरलतम करणी रूप में लिखिए।` : `${match[1]} ਨੂੰ ਸਭ ਤੋਂ ਸਰਲ ਕਰਣੀ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`;
+
+  match = text.match(/^Write (.+) in simplest radical form\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को सरलतम करणी रूप में लिखिए।` : `${match[1]} ਨੂੰ ਸਭ ਤੋਂ ਸਰਲ ਕਰਣੀ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`;
+
+  match = text.match(/^Extract the greatest perfect-square factor from (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} में से सबसे बड़ा पूर्ण-वर्ग गुणनखंड बाहर निकालिए।` : `${match[1]} ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਵੱਡਾ ਪੂਰਨ-ਵਰਗ ਗੁਣਨਖੰਡ ਬਾਹਰ ਕੱਢੋ।`;
+
+  match = text.match(/^Extract the greatest perfect-cube factor from (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} में से सबसे बड़ा पूर्ण-घन गुणनखंड बाहर निकालिए।` : `${match[1]} ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਵੱਡਾ ਪੂਰਨ-ਘਣ ਗੁਣਨਖੰਡ ਬਾਹਰ ਕੱਢੋ।`;
+
+  match = text.match(/^Which is the simplest form of (.+)\?$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} का सरलतम रूप कौन-सा है?` : `${match[1]} ਦਾ ਸਭ ਤੋਂ ਸਰਲ ਰੂਪ ਕਿਹੜਾ ਹੈ?`;
+
+  match = text.match(/^Find the simplified form of (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} का सरल रूप ज्ञात कीजिए।` : `${match[1]} ਦਾ ਸਰਲ ਰੂਪ ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^Find the simplest exact radical form of (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} का सरलतम सटीक करणी रूप ज्ञात कीजिए।` : `${match[1]} ਦਾ ਸਭ ਤੋਂ ਸਰਲ ਸਟੀਕ ਕਰਣੀ ਰੂਪ ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^Reduce (.+) to index-free radicand form\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को इस प्रकार सरल कीजिए कि करणीगत संख्या में कोई पूर्ण-घात गुणनखंड न बचे।` : `${match[1]} ਨੂੰ ਇਸ ਤਰ੍ਹਾਂ ਸਰਲ ਕਰੋ ਕਿ ਕਰਣੀਗਤ ਸੰਖਿਆ ਵਿੱਚ ਕੋਈ ਪੂਰਨ-ਘਾਤ ਗੁਣਨਖੰਡ ਨਾ ਬਚੇ।`;
+
+  match = text.match(/^The radical expression to simplify is (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `सरल किया जाने वाला करणी व्यंजक ${match[1]} है।` : `ਸਰਲ ਕੀਤਾ ਜਾਣ ਵਾਲਾ ਕਰਣੀ ਵਿਅੰਜਕ ${match[1]} ਹੈ।`;
+
+  match = text.match(/^The root to simplify is (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `सरल किया जाने वाला मूल ${match[1]} है।` : `ਸਰਲ ਕੀਤਾ ਜਾਣ ਵਾਲਾ ਮੂਲ ${match[1]} ਹੈ।`;
+
+  match = text.match(/^The expression to classify is (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `वर्गीकृत किया जाने वाला व्यंजक ${match[1]} है।` : `ਵਰਗੀਕਰਨ ਲਈ ਵਿਅੰਜਕ ${match[1]} ਹੈ।`;
+
+  if (text === "Separate the largest perfect-square factor and take its square root outside the radical.") {
+    return locale === "hi-IN" ? "सबसे बड़ा पूर्ण-वर्ग गुणनखंड अलग कीजिए और उसका वर्गमूल करणी के बाहर निकालिए।" : "ਸਭ ਤੋਂ ਵੱਡਾ ਪੂਰਨ-ਵਰਗ ਗੁਣਨਖੰਡ ਵੱਖ ਕਰੋ ਅਤੇ ਉਸ ਦਾ ਵਰਗਮੂਲ ਕਰਣੀ ਤੋਂ ਬਾਹਰ ਕੱਢੋ।";
+  }
+
+  if (text === "Separate the largest perfect-cube factor and take its cube root outside.") {
+    return locale === "hi-IN" ? "सबसे बड़ा पूर्ण-घन गुणनखंड अलग कीजिए और उसका घनमूल बाहर निकालिए।" : "ਸਭ ਤੋਂ ਵੱਡਾ ਪੂਰਨ-ਘਣ ਗੁਣਨਖੰਡ ਵੱਖ ਕਰੋ ਅਤੇ ਉਸ ਦਾ ਘਣਮੂਲ ਬਾਹਰ ਕੱਢੋ।";
+  }
+
+  match = text.match(/^Factor out the largest perfect ([0-9]+)th power from the radicand\.$/u);
+  if (match) return locale === "hi-IN" ? `करणीगत संख्या से सबसे बड़ा पूर्ण ${match[1]}वीं घात वाला गुणनखंड बाहर निकालिए।` : `ਕਰਣੀਗਤ ਸੰਖਿਆ ਵਿੱਚੋਂ ਸਭ ਤੋਂ ਵੱਡਾ ਪੂਰਨ ${match[1]}ਵੀਂ ਘਾਤ ਵਾਲਾ ਗੁਣਨਖੰਡ ਬਾਹਰ ਕੱਢੋ।`;
+
+  match = text.match(/^Classify (.+) as rational or a surd\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को परिमेय या करणी के रूप में वर्गीकृत कीजिए।` : `${match[1]} ਨੂੰ ਪਰਿਮੇਯ ਜਾਂ ਕਰਣੀ ਵਜੋਂ ਵਰਗੀਕਰਨ ਕਰੋ।`;
+
+  match = text.match(/^Is (.+) rational or a surd\?$/u);
+  if (match) return locale === "hi-IN" ? `क्या ${match[1]} परिमेय है या करणी?` : `ਕੀ ${match[1]} ਪਰਿਮੇਯ ਹੈ ਜਾਂ ਕਰਣੀ?`;
+
+  match = text.match(/^Choose the correct classification of (?:the radical )?(.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} का सही वर्गीकरण चुनिए।` : `${match[1]} ਦਾ ਸਹੀ ਵਰਗੀਕਰਨ ਚੁਣੋ।`;
+
+  match = text.match(/^Determine whether (.+) has an exact rational value\.$/u);
+  if (match) return locale === "hi-IN" ? `निर्धारित कीजिए कि ${match[1]} का सटीक परिमेय मान है या नहीं।` : `ਨਿਰਧਾਰਤ ਕਰੋ ਕਿ ${match[1]} ਦਾ ਸਟੀਕ ਪਰਿਮੇਯ ਮੁੱਲ ਹੈ ਜਾਂ ਨਹੀਂ।`;
+
+  if (text === "Not a real number") return locale === "hi-IN" ? "वास्तविक संख्या नहीं" : "ਵਾਸਤਵਿਕ ਸੰਖਿਆ ਨਹੀਂ";
+
+  if (text === "A positive square root expression is given.") return locale === "hi-IN" ? "एक धनात्मक वर्गमूल व्यंजक दिया गया है।" : "ਇੱਕ ਧਨਾਤਮਕ ਵਰਗਮੂਲ ਵਿਅੰਜਕ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
+  if (text === "A positive cube root expression is given.") return locale === "hi-IN" ? "एक धनात्मक घनमूल व्यंजक दिया गया है।" : "ਇੱਕ ਧਨਾਤਮਕ ਘਣਮੂਲ ਵਿਅੰਜਕ ਦਿੱਤਾ ਗਿਆ ਹੈ।";
+
+  match = text.match(/^A positive ([0-9]+)th root expression is given\.$/u);
+  if (match) return locale === "hi-IN" ? `एक धनात्मक ${match[1]}वीं मूल वाला व्यंजक दिया गया है।` : `ਇੱਕ ਧਨਾਤਮਕ ${match[1]}ਵੀਂ ਮੂਲ ਵਾਲਾ ਵਿਅੰਜਕ ਦਿੱਤਾ ਗਿਆ ਹੈ।`;
+
+  if (text === "Check whether the radicand is a perfect square.") return locale === "hi-IN" ? "जाँचिए कि करणीगत संख्या पूर्ण वर्ग है या नहीं।" : "ਜਾਂਚੋ ਕਿ ਕਰਣੀਗਤ ਸੰਖਿਆ ਪੂਰਨ ਵਰਗ ਹੈ ਜਾਂ ਨਹੀਂ।";
+  if (text === "Check whether the radicand is a perfect cube.") return locale === "hi-IN" ? "जाँचिए कि करणीगत संख्या पूर्ण घन है या नहीं।" : "ਜਾਂਚੋ ਕਿ ਕਰਣੀਗਤ ਸੰਖਿਆ ਪੂਰਨ ਘਣ ਹੈ ਜਾਂ ਨਹੀਂ।";
+
+  match = text.match(/^Check whether the radicand is a perfect ([0-9]+)th power\.$/u);
+  if (match) return locale === "hi-IN" ? `जाँचिए कि करणीगत संख्या पूर्ण ${match[1]}वीं घात है या नहीं।` : `ਜਾਂਚੋ ਕਿ ਕਰਣੀਗਤ ਸੰਖਿਆ ਪੂਰਨ ${match[1]}ਵੀਂ ਘਾਤ ਹੈ ਜਾਂ ਨਹੀਂ।`;
+
+  match = text.match(/^(.+) is not a perfect square, so the radical remains irrational\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} पूर्ण वर्ग नहीं है, इसलिए करणी अपरिमेय रहती है।` : `${match[1]} ਪੂਰਨ ਵਰਗ ਨਹੀਂ ਹੈ, ਇਸ ਲਈ ਕਰਣੀ ਅਪਰਿਮੇਯ ਰਹਿੰਦੀ ਹੈ।`;
+
+  match = text.match(/^(.+) is not a perfect cube, so the radical remains irrational\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} पूर्ण घन नहीं है, इसलिए करणी अपरिमेय रहती है।` : `${match[1]} ਪੂਰਨ ਘਣ ਨਹੀਂ ਹੈ, ਇਸ ਲਈ ਕਰਣੀ ਅਪਰਿਮੇਯ ਰਹਿੰਦੀ ਹੈ।`;
+
+  match = text.match(/^(.+) is not a perfect ([0-9]+)th power, so the radical remains irrational\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} पूर्ण ${match[2]}वीं घात नहीं है, इसलिए करणी अपरिमेय रहती है।` : `${match[1]} ਪੂਰਨ ${match[2]}ਵੀਂ ਘਾਤ ਨਹੀਂ ਹੈ, ਇਸ ਲਈ ਕਰਣੀ ਅਪਰਿਮੇਯ ਰਹਿੰਦੀ ਹੈ।`;
+
+  match = text.match(/^(.+), so the radical equals (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]}, इसलिए करणी का मान ${match[2]} है।` : `${match[1]}, ਇਸ ਲਈ ਕਰਣੀ ਦਾ ਮੁੱਲ ${match[2]} ਹੈ।`;
+
+  match = text.match(/^Classify (.+) as rational or irrational\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को परिमेय या अपरिमेय के रूप में वर्गीकृत कीजिए।` : `${match[1]} ਨੂੰ ਪਰਿਮੇਯ ਜਾਂ ਅਪਰਿਮੇਯ ਵਜੋਂ ਵਰਗੀਕਰਨ ਕਰੋ।`;
+
+  match = text.match(/^Is (.+) rational or irrational\?$/u);
+  if (match) return locale === "hi-IN" ? `क्या ${match[1]} परिमेय है या अपरिमेय?` : `ਕੀ ${match[1]} ਪਰਿਮੇਯ ਹੈ ਜਾਂ ਅਪਰਿਮੇਯ?`;
+
+  match = text.match(/^After exact simplification, classify (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `सटीक रूप से सरल करने के बाद ${match[1]} का वर्गीकरण कीजिए।` : `ਸਟੀਕ ਤੌਰ ਤੇ ਸਰਲ ਕਰਨ ਤੋਂ ਬਾਅਦ ${match[1]} ਦਾ ਵਰਗੀਕਰਨ ਕਰੋ।`;
+
+  match = text.match(/^Determine the number type of (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} की संख्या-प्रकृति निर्धारित कीजिए।` : `${match[1]} ਦੀ ਸੰਖਿਆ-ਕਿਸਮ ਨਿਰਧਾਰਤ ਕਰੋ।`;
+
+  if (text === "Simplify the first radical to a like surd, combine coefficients, then classify the result.") {
+    return locale === "hi-IN" ? "पहली करणी को समान करणी में सरल कीजिए, गुणांकों को मिलाइए और फिर परिणाम का वर्गीकरण कीजिए।" : "ਪਹਿਲੀ ਕਰਣੀ ਨੂੰ ਇੱਕੋ ਕਰਣੀ ਵਿੱਚ ਸਰਲ ਕਰੋ, ਗੁਣਾਂਕ ਮਿਲਾਓ ਅਤੇ ਫਿਰ ਨਤੀਜੇ ਦਾ ਵਰਗੀਕਰਨ ਕਰੋ।";
+  }
+
+  if (text === "The two like surds cancel to 0, which is rational.") return locale === "hi-IN" ? "दोनों समान करणियाँ कटकर 0 देती हैं, जो परिमेय है।" : "ਦੋਵੇਂ ਇੱਕੋ ਕਰਣੀਆਂ ਕੱਟ ਕੇ 0 ਦਿੰਦੀਆਂ ਹਨ, ਜੋ ਪਰਿਮੇਯ ਹੈ।";
+
+  match = text.match(/^The result is (.+), which is irrational\.$/u);
+  if (match) return locale === "hi-IN" ? `परिणाम ${match[1]} है, जो अपरिमेय है।` : `ਨਤੀਜਾ ${match[1]} ਹੈ, ਜੋ ਅਪਰਿਮੇਯ ਹੈ।`;
+
+  match = text.match(/^Write (.+) using a fractional index\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को भिन्नात्मक घातांक में लिखिए।` : `${match[1]} ਨੂੰ ਭਿੰਨਾਤਮਕ ਘਾਤਾਂਕ ਵਿੱਚ ਲਿਖੋ।`;
+
+  match = text.match(/^Convert (.+) to exponent notation\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को घातांक रूप में बदलिए।` : `${match[1]} ਨੂੰ ਘਾਤਾਂਕ ਰੂਪ ਵਿੱਚ ਬਦਲੋ।`;
+
+  match = text.match(/^Which power of a is equivalent to (.+)\?$/u);
+  if (match) return locale === "hi-IN" ? `a की कौन-सी घात ${match[1]} के समतुल्य है?` : `a ਦੀ ਕਿਹੜੀ ਘਾਤ ${match[1]} ਦੇ ਸਮਤੁੱਲ ਹੈ?`;
+
+  match = text.match(/^Express (.+) without a radical sign\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को करणी चिह्न के बिना लिखिए।` : `${match[1]} ਨੂੰ ਕਰਣੀ ਚਿੰਨ੍ਹ ਤੋਂ ਬਿਨਾਂ ਲਿਖੋ।`;
+
+  match = text.match(/^Write (.+) in radical notation\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को करणी रूप में लिखिए।` : `${match[1]} ਨੂੰ ਕਰਣੀ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`;
+
+  match = text.match(/^Convert (.+) to an equivalent radical\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को समतुल्य करणी में बदलिए।` : `${match[1]} ਨੂੰ ਸਮਤੁੱਲ ਕਰਣੀ ਵਿੱਚ ਬਦਲੋ।`;
+
+  match = text.match(/^Which radical (?:is equivalent to|represents) (.+)\?$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} के समतुल्य कौन-सी करणी है?` : `${match[1]} ਦੇ ਸਮਤੁੱਲ ਕਿਹੜੀ ਕਰਣੀ ਹੈ?`;
+
+  match = text.match(/^Express (.+) using a root sign\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को मूल चिह्न का उपयोग करके लिखिए।` : `${match[1]} ਨੂੰ ਮੂਲ ਚਿੰਨ੍ਹ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਲਿਖੋ।`;
+
+  if (text === "Convert between radical and fractional-index notation.") return locale === "hi-IN" ? "करणी और भिन्नात्मक घातांक रूपों के बीच रूपांतरण कीजिए।" : "ਕਰਣੀ ਅਤੇ ਭਿੰਨਾਤਮਕ ਘਾਤਾਂਕ ਰੂਪਾਂ ਵਿਚਕਾਰ ਬਦਲਾਅ ਕਰੋ।";
+  if (text === "Use the identity that an nth root contributes denominator n to the exponent.") return locale === "hi-IN" ? "इस तथ्य का उपयोग कीजिए कि nवाँ मूल घातांक के हर में n देता है।" : "ਇਸ ਤੱਥ ਦੀ ਵਰਤੋਂ ਕਰੋ ਕਿ nਵਾਂ ਮੂਲ ਘਾਤਾਂਕ ਦੇ ਹਰ ਵਿੱਚ n ਦਿੰਦਾ ਹੈ।";
+
+  match = text.match(/^Reduced exponent = (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `लघुतम घातांक = ${match[1]}।` : `ਘਟਾਇਆ ਹੋਇਆ ਘਾਤਾਂਕ = ${match[1]}।`;
+
+  match = text.match(/^Combine the like surds: (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `समान करणियों को मिलाइए: ${match[1]}।` : `ਇੱਕੋ ਕਰਣੀਆਂ ਨੂੰ ਮਿਲਾਓ: ${match[1]}।`;
+
+  match = text.match(/^Find the exact value of (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} का सटीक मान ज्ञात कीजिए।` : `${match[1]} ਦਾ ਸਟੀਕ ਮੁੱਲ ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^Reduce (.+) to one surd term\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को एक करणी पद में सरल कीजिए।` : `${match[1]} ਨੂੰ ਇੱਕ ਕਰਣੀ ਪਦ ਵਿੱਚ ਸਰਲ ਕਰੋ।`;
+
+  match = text.match(/^First reduce the radical, then simplify (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `पहले करणी को सरल कीजिए, फिर ${match[1]} को सरल कीजिए।` : `ਪਹਿਲਾਂ ਕਰਣੀ ਨੂੰ ਸਰਲ ਕਰੋ, ਫਿਰ ${match[1]} ਨੂੰ ਸਰਲ ਕਰੋ।`;
+
+  match = text.match(/^Combine (.+) into simplest form\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को मिलाकर सरलतम रूप में लिखिए।` : `${match[1]} ਨੂੰ ਮਿਲਾ ਕੇ ਸਭ ਤੋਂ ਸਰਲ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`;
+
+  match = text.match(/^Evaluate exactly: (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `सटीक मान ज्ञात कीजिए: ${match[1]}।` : `ਸਟੀਕ ਮੁੱਲ ਪਤਾ ਕਰੋ: ${match[1]}।`;
+
+  match = text.match(/^Multiply and simplify (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} का गुणा करके सरल कीजिए।` : `${match[1]} ਦਾ ਗੁਣਾ ਕਰਕੇ ਸਰਲ ਕਰੋ।`;
+
+  match = text.match(/^Find the exact product of (.+) and (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} और ${match[2]} का सटीक गुणनफल ज्ञात कीजिए।` : `${match[1]} ਅਤੇ ${match[2]} ਦਾ ਸਟੀਕ ਗੁਣਨਫਲ ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^Reduce (.+) to simplest surd form\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को सरलतम करणी रूप में लिखिए।` : `${match[1]} ਨੂੰ ਸਭ ਤੋਂ ਸਰਲ ਕਰਣੀ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`;
+
+  match = text.match(/^Divide the surds exactly: (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `करणियों का सटीक भाग कीजिए: ${match[1]}।` : `ਕਰਣੀਆਂ ਦਾ ਸਟੀਕ ਭਾਗ ਕਰੋ: ${match[1]}।`;
+
+  match = text.match(/^Find the simplest form of (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} का सरलतम रूप ज्ञात कीजिए।` : `${match[1]} ਦਾ ਸਭ ਤੋਂ ਸਰਲ ਰੂਪ ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^Reduce the quotient (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `भागफल ${match[1]} को सरल कीजिए।` : `ਭਾਗਫਲ ${match[1]} ਨੂੰ ਸਰਲ ਕਰੋ।`;
+
+  match = text.match(/^Expand and simplify (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} का विस्तार करके सरल कीजिए।` : `${match[1]} ਦਾ ਵਿਸਥਾਰ ਕਰਕੇ ਸਰਲ ਕਰੋ।`;
+
+  match = text.match(/^Write (.+) in the form (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को ${match[2]} के रूप में लिखिए।` : `${match[1]} ਨੂੰ ${match[2]} ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`;
+
+  match = text.match(/^Simplify the surd binomial square (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `करणी वाली द्विपदी के वर्ग ${match[1]} को सरल कीजिए।` : `ਕਰਣੀ ਵਾਲੇ ਦੋਪਦੀ ਵਰਗ ${match[1]} ਨੂੰ ਸਰਲ ਕਰੋ।`;
+
+  match = text.match(/^Evaluate the conjugate product (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `संयुग्मी गुणनफल ${match[1]} का मान ज्ञात कीजिए।` : `ਸੰਯੁਗਮੀ ਗੁਣਨਫਲ ${match[1]} ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^Use a difference of squares to find (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `वर्गों के अंतर का उपयोग करके ${match[1]} ज्ञात कीजिए।` : `ਵਰਗਾਂ ਦੇ ਅੰਤਰ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ${match[1]} ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^Find the exact product of (.+) and its conjugate\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} और उसके संयुग्मी का सटीक गुणनफल ज्ञात कीजिए।` : `${match[1]} ਅਤੇ ਇਸ ਦੇ ਸੰਯੁਗਮੀ ਦਾ ਸਟੀਕ ਗੁਣਨਫਲ ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^Multiply the surd sums (.+) and (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `करणी योग ${match[1]} और ${match[2]} का गुणा कीजिए।` : `ਕਰਣੀ ਜੋੜ ${match[1]} ਅਤੇ ${match[2]} ਦਾ ਗੁਣਾ ਕਰੋ।`;
+
+  match = text.match(/^Write (.+) in canonical surd form\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} को मानक करणी रूप में लिखिए।` : `${match[1]} ਨੂੰ ਮਿਆਰੀ ਕਰਣੀ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`;
+
+  if (text === "The radicals are already alike, so combine only their coefficients.") return locale === "hi-IN" ? "करणियाँ पहले से समान हैं, इसलिए केवल उनके गुणांक मिलाइए।" : "ਕਰਣੀਆਂ ਪਹਿਲਾਂ ਹੀ ਇੱਕੋ ਹਨ, ਇਸ ਲਈ ਕੇਵਲ ਉਨ੍ਹਾਂ ਦੇ ਗੁਣਾਂਕ ਮਿਲਾਓ।";
+  if (text === "Multiply the coefficients and radicands, then extract any perfect-square factor from the product radicand.") return locale === "hi-IN" ? "गुणांकों और करणीगत संख्याओं का गुणा कीजिए, फिर प्राप्त करणीगत संख्या से कोई भी पूर्ण-वर्ग गुणनखंड बाहर निकालिए।" : "ਗੁਣਾਂਕਾਂ ਅਤੇ ਕਰਣੀਗਤ ਸੰਖਿਆਵਾਂ ਦਾ ਗੁਣਾ ਕਰੋ, ਫਿਰ ਮਿਲੀ ਕਰਣੀਗਤ ਸੰਖਿਆ ਵਿੱਚੋਂ ਕੋਈ ਵੀ ਪੂਰਨ-ਵਰਗ ਗੁਣਨਖੰਡ ਬਾਹਰ ਕੱਢੋ।";
+  if (text === "Cancel the common radical factor exactly and reduce the rational coefficient.") return locale === "hi-IN" ? "समान करणी गुणनखंड को सटीक रूप से काटिए और परिमेय गुणांक को सरल कीजिए।" : "ਸਾਂਝੇ ਕਰਣੀ ਗੁਣਨਖੰਡ ਨੂੰ ਸਟੀਕ ਤੌਰ ਤੇ ਕੱਟੋ ਅਤੇ ਪਰਿਮੇਯ ਗੁਣਾਂਕ ਨੂੰ ਸਰਲ ਕਰੋ।";
+  if (text === "Use (a+b)^2=a^2+2ab+b^2 and simplify the square of the radical exactly.") return locale === "hi-IN" ? "(a+b)^2=a^2+2ab+b^2 का उपयोग कीजिए और करणी के वर्ग को सटीक रूप से सरल कीजिए।" : "(a+b)^2=a^2+2ab+b^2 ਦੀ ਵਰਤੋਂ ਕਰੋ ਅਤੇ ਕਰਣੀ ਦੇ ਵਰਗ ਨੂੰ ਸਟੀਕ ਤੌਰ ਤੇ ਸਰਲ ਕਰੋ।";
+  if (text === "A conjugate product is a difference of squares, so the mixed radical terms cancel.") return locale === "hi-IN" ? "संयुग्मी गुणनफल वर्गों का अंतर होता है, इसलिए मिश्र करणी पद कट जाते हैं।" : "ਸੰਯੁਗਮੀ ਗੁਣਨਫਲ ਵਰਗਾਂ ਦਾ ਅੰਤਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮਿਸ਼ਰਤ ਕਰਣੀ ਪਦ ਕੱਟ ਜਾਂਦੇ ਹਨ।";
+
+  match = text.match(/^Canonical result = (.+)$/u);
+  if (match) return locale === "hi-IN" ? `मानक परिणाम = ${match[1]}` : `ਮਿਆਰੀ ਨਤੀਜਾ = ${match[1]}`;
+
+  match = text.match(/^Coefficient = (.+)$/u);
+  if (match) return locale === "hi-IN" ? `गुणांक = ${match[1]}` : `ਗੁਣਾਂਕ = ${match[1]}`;
+
+  match = text.match(/^Result = (.+)$/u);
+  if (match) return locale === "hi-IN" ? `परिणाम = ${match[1]}` : `ਨਤੀਜਾ = ${match[1]}`;
+
   const denest = text.match(/^Denest (.+)\.$/u);
   if (denest) {
     return locale === "hi-IN"
