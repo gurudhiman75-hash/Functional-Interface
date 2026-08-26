@@ -33,6 +33,10 @@ function reposition(question: Com002ReviewQuestion, wrongAnswers: string[], seed
   return { ...question, options, correctIndex };
 }
 
+function pickStem(variants: readonly string[], seed: string) {
+  return variants[deterministicIndex(`${seed}:v2-stem`, variants.length)]!;
+}
+
 function licensePolarity(value: string): "OPEN_SOURCE" | "PROPRIETARY" | "OTHER" {
   if (/open-source/i.test(value)) return "OPEN_SOURCE";
   if (/proprietary/i.test(value)) return "PROPRIETARY";
@@ -86,6 +90,29 @@ function describeExtensionConcept(fact: KnowledgeFact) {
   return `${entity} ${value}.`;
 }
 
+function patchQl005Stem(question: Com002ReviewQuestion, target: KnowledgeFact, seed: string): Com002ReviewQuestion {
+  const value = textValue(target);
+  const entity = target.entity.label.en;
+  if (question.surfaceMode === "PROPERTY_TO_INTERFACE") {
+    return {
+      ...question,
+      stem: pickStem([
+        `Which user-interface type is described by the following property: it ${value}?`,
+        `An interface that ${value} is best classified as:`,
+        `Identify the interface type that ${value}.`,
+      ], `${seed}:ql005-property-to-interface`),
+    };
+  }
+  return {
+    ...question,
+    stem: pickStem([
+      `Which statement correctly describes ${entity}?`,
+      `Which property is associated with ${entity}?`,
+      `${entity} is best described by which of the following?`,
+    ], `${seed}:ql005-interface-to-property`),
+  };
+}
+
 export function generateCom002ReviewQuestionV2(input: { qlId: string; seed: string }): Com002ReviewQuestion {
   let question = generateCom002ReviewQuestion(input);
   const target = factById(question.targetFactId);
@@ -109,6 +136,10 @@ export function generateCom002ReviewQuestionV2(input: { qlId: string; seed: stri
       question = { ...question, stem: "Which component forms the core of an operating system?" };
     }
     question = { ...question, explanation: kernelExplanation(target) };
+  }
+
+  if (input.qlId === "COM-002-QL-005" && target) {
+    question = patchQl005Stem(question, target, input.seed);
   }
 
   if (input.qlId === "COM-002-QL-007" && target) {
