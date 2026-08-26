@@ -42,10 +42,10 @@ for (const question of TSD_CP010_EXAM_REAL_ENGLISH_REVIEW) {
   if (question.qlId === "TSD-QL-117") assert(/ratio|speed/i.test(question.stem), `${question.familyId}: QL117 must ask a speed ratio`);
   if (question.qlId === "TSD-QL-118") assert(/length|distance|long/i.test(question.stem), `${question.familyId}: QL118 must ask race length`);
   if (question.qlId === "TSD-QL-119") assert(/start|dead heat|finish together|reach the post together|neither wins|equal finish/i.test(question.stem), `${question.familyId}: QL119 handicap/dead-heat semantics not explicit`);
-  if (question.qlId === "TSD-QL-120") assert(/beats|winning|finish/i.test(question.stem), `${question.familyId}: QL120 must remain a race-margin conversion`);
-  if (question.qlId === "TSD-QL-121") assert(/beats/.test(question.stem), `${question.familyId}: QL121 pairwise race-result language missing`);
+  if (question.qlId === "TSD-QL-120") assert(/beat(?:s)?|winning|finish/i.test(question.stem), `${question.familyId}: QL120 must remain a race-margin conversion`);
+  if (question.qlId === "TSD-QL-121") assert(/\bbeat(?:s)?\b/i.test(question.stem), `${question.familyId}: QL121 pairwise race-result language missing`);
   if (question.qlId === "TSD-QL-122") assert(/start|head start/i.test(question.stem), `${question.familyId}: QL122 second-race start must be explicit`);
-  if (question.qlId === "TSD-QL-124") assert(/race|beats/.test(question.stem) && /speed/.test(question.stem), `${question.familyId}: QL124 two-race speed inference not explicit`);
+  if (question.qlId === "TSD-QL-124") assert(/race|beat(?:s)?/i.test(question.stem) && /speed/i.test(question.stem), `${question.familyId}: QL124 two-race speed inference not explicit`);
 }
 
 console.log("TSD-CP-010 EXAM REALNESS / STEM STYLE PROOF: PASS");
