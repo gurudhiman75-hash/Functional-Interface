@@ -16,13 +16,13 @@ const EXPECTED_REVIEW_MEMBERS = 92;
 const EXPECTED_REVIEW_ROWS = 184;
 
 const NATIVE_SCRIPT: Record<SriLocalizedLocaleV1, RegExp> = {
-  "hi-IN": /[\u0900-\u097F]/u,
-  "pa-IN": /[\u0A00-\u0A7F]/u,
+  "hi-IN": /\p{Script=Devanagari}/u,
+  "pa-IN": /\p{Script=Gurmukhi}/u,
 };
 
 const FOREIGN_SCRIPT: Record<SriLocalizedLocaleV1, RegExp> = {
-  "hi-IN": /[\u0A00-\u0A7F]/u,
-  "pa-IN": /[\u0900-\u097F]/u,
+  "hi-IN": /\p{Script=Gurmukhi}/u,
+  "pa-IN": /\p{Script=Devanagari}/u,
 };
 
 const BANNED_ENGLISH = /\b(?:simplify|evaluate|find|determine|which|what|write|reduce|expand|multiply|divide|compare|arrange|classify|choose|extract|given|using|from|when|value|values|expression|expressions|exponent|exponents|base|bases|root|roots|radical|radicals|surd|surds|rational|irrational|conjugate|coefficient|coefficients|radicand|equation|statement|statements|result|results|factor|factors|power|powers|positive|negative|real|true|false|defined|undefined|common|same|greater|smaller|larger|equal|exact|exactly|first|second|therefore|hence|thus|since|because|canonical|form|term|terms|law|laws|condition|conditions|solution|solutions|denominator|numerator|reciprocal|integer|increasing|order|requested|supplied|known|normalize|rewrite|convert|substitute|apply|add|subtract|combined|total|net|method|quantity|quantities|classification|match|denest|rationalise|rationalize|bound|bounds|bounded|take|then|without|decimal|decimals|truth|number|numbers|zero|nonzero|indicated|corresponding|requires|required|require|supply|supplies|contributes|contribution|collect|parts|pair|pairs|surrounding|consecutive|perfect|square|squares|cube|cubes|visible|reverse|recover|involved|transferring|operation|operations|composite|prime|signed|odd|even|inside|outside|before|after|both|each|only|not|all)\b/giu;
