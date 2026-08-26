@@ -113,9 +113,34 @@ function patchQl005Stem(question: Com002ReviewQuestion, target: KnowledgeFact, s
   };
 }
 
+function patchQl009TypeToExtension(question: Com002ReviewQuestion, target: KnowledgeFact, seed: string): Com002ReviewQuestion {
+  if (question.surfaceMode !== "TYPE_TO_EXTENSION") return question;
+  const mappings = COM002_EDITORIAL_TARGET_FACTS.filter((fact) => fact.relation === "extension_file_type");
+  const wrongGroups = new Map<string, KnowledgeFact[]>();
+  for (const fact of mappings) {
+    const fileType = textValue(fact);
+    if (fileType === textValue(target)) continue;
+    const bucket = wrongGroups.get(fileType) ?? [];
+    bucket.push(fact);
+    wrongGroups.set(fileType, bucket);
+  }
+  const representativeFacts = [...wrongGroups.entries()].map(([fileType, facts]) =>
+    deterministicShuffle(facts, `${seed}:ql009-alias-representative:${fileType}`)[0]!,
+  );
+  const wrongFacts = deterministicShuffle(representativeFacts, `${seed}:ql009-v2-wrong-types`).slice(0, 3);
+  const wrongAnswers = wrongFacts.map((fact) => fact.entity.label.en);
+  const usedFacts = [target, ...wrongFacts];
+  const patched = {
+    ...question,
+    sourceFactIds: usedFacts.map((fact) => fact.factId),
+    sourceIds: unique(usedFacts.map((fact) => fact.source.sourceId)),
+  };
+  return reposition(patched, wrongAnswers, `${seed}:ql009-type-to-extension`);
+}
+
 export function generateCom002ReviewQuestionV2(input: { qlId: string; seed: string }): Com002ReviewQuestion {
   let question = generateCom002ReviewQuestion(input);
-  const target = factById(question.targetFactId);
+  let target = factById(question.targetFactId);
 
   if (input.qlId === "COM-002-QL-001" && question.surfaceMode === "FUNCTION_TO_ENTITY") {
     question = {
@@ -129,6 +154,7 @@ export function generateCom002ReviewQuestionV2(input: { qlId: string; seed: stri
 
   if (input.qlId === "COM-002-QL-002") {
     question = patchQl002Attribute(question, input.seed);
+    target = factById(question.targetFactId);
   }
 
   if (input.qlId === "COM-002-QL-004" && target) {
@@ -156,8 +182,11 @@ export function generateCom002ReviewQuestionV2(input: { qlId: string; seed: stri
     question = { ...question, explanation: describeFileItem(target) };
   }
 
-  if (input.qlId === "COM-002-QL-009" && target && question.surfaceMode === "EXTENSION_CONCEPT") {
-    question = { ...question, explanation: describeExtensionConcept(target) };
+  if (input.qlId === "COM-002-QL-009" && target) {
+    if (question.surfaceMode === "EXTENSION_CONCEPT") {
+      question = { ...question, explanation: describeExtensionConcept(target) };
+    }
+    question = patchQl009TypeToExtension(question, target, input.seed);
   }
 
   assertKnowledgeQuestionValid({
