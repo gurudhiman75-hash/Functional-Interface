@@ -3,6 +3,7 @@ export type Com002ReviewQuestion = {
   qlId: string;
   cpId: "COM-002-CP-001" | "COM-002-CP-002";
   surfaceMode: string;
+  targetFactId: string | null;
   stem: string;
   options: string[];
   correctIndex: number;
