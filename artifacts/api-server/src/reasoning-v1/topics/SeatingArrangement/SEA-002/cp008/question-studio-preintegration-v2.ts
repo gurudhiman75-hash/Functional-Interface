@@ -45,10 +45,14 @@ function qlOrder(seed: string): readonly Sea002Cp008PermanentQlId[] {
   ));
 }
 
-function variantForDifficulty(difficulty: Sea002Cp008QuestionStudioDifficultyV2, seed: string, index: number): number {
+function variantForDifficulty(
+  difficulty: Sea002Cp008QuestionStudioDifficultyV2,
+  qlId: Sea002Cp008PermanentQlId,
+  index: number,
+): number {
   const base = difficulty === "Easy" ? 0 : difficulty === "Medium" ? 2 : 4;
-  const offset = (createHash("sha256").update(`${seed}:${index}:v2-variant`).digest().readUInt32BE(0) + index) % 2;
-  return base + offset;
+  const qlOffset = createHash("sha256").update(`${qlId}:${difficulty}:v2-variant-base`).digest().readUInt32BE(0) % 2;
+  return base + ((qlOffset + index) % 2);
 }
 
 function locale(language: Sea002Cp008QuestionStudioLanguageV2): "en-IN" | "hi-IN" | "pa-IN" {
@@ -63,7 +67,7 @@ function buildPreviewQuestion(
   index: number,
 ) {
   assertSea002Cp008PrefreezeBoundaryV2();
-  const variantIndex = variantForDifficulty(difficulty, seed, index);
+  const variantIndex = variantForDifficulty(difficulty, qlId, index);
   const english = generateSea002Cp008EnglishReviewCandidateV2(qlId, variantIndex);
   const localized = language === "en" ? null : localizeSea002Cp008ReviewCandidateV2(english, language);
   const setupText = localized?.stem ?? english.stem;
