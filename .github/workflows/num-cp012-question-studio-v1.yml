@@ -67,6 +67,19 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-cp012-question-studio-integration.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp012-question-studio-integration.log
 
+      - name: Bundle CP012 exam-depth explanation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/exam-depth-explanation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp012-exam-depth-explanation.mjs
+
+      - name: Run CP012 exam-depth explanation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-explanation.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-explanation.log
+
       - name: Bundle shared engine and admin route contract
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
@@ -147,6 +160,7 @@ jobs:
           name: num-cp012-question-studio-v1
           path: |
             artifacts/api-server/dist/quant-v4/num-cp012-question-studio-integration.log
+            artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-explanation.log
             artifacts/api-server/dist/quant-v4/num-cp012-question-studio-route-contract.log
           if-no-files-found: error
           retention-days: 30
