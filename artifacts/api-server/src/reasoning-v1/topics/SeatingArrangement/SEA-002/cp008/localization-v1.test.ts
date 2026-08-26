@@ -51,6 +51,35 @@ for (const localized of SEA002_CP008_LOCALIZED_REVIEW_SET_V1) {
   residueChecks += 8;
 }
 
+const ql029EnglishAlt12 = SEA002_CP008_ENGLISH_REVIEW_SET_V1.filter((candidate) =>
+  candidate.permanentQlId === "SEA-QL-029" && candidate.topology === "ALT12_ROLE_DERIVED",
+);
+assert.equal(ql029EnglishAlt12.length, 2);
+
+const hiRoleAlt12 = SEA002_CP008_LOCALIZED_REVIEW_SET_V1.filter((candidate) =>
+  candidate.locale === "hi" && candidate.permanentQlId === "SEA-QL-029" && [4, 5].includes(candidate.variantIndex),
+);
+assert.equal(hiRoleAlt12.length, 2);
+assert.ok(hiRoleAlt12.every((candidate) => /बारह व्यक्ति/u.test(candidate.stem)));
+assert.ok(hiRoleAlt12.every((candidate) => /प्रत्येक कोने पर एक व्यक्ति/u.test(candidate.stem)));
+assert.ok(hiRoleAlt12.every((candidate) => /प्रत्येक भुजा पर दो व्यक्ति/u.test(candidate.stem)));
+assert.ok(hiRoleAlt12.every((candidate) => !/60 मीटर|5 मीटर/u.test(candidate.stem)));
+assert.ok(hiRoleAlt12.every((candidate) => /कोना-बनाम-भुजा नियम/u.test(candidate.explanation)));
+assert.ok(hiRoleAlt12.some((candidate) => /कोनों पर मौजूद व्यक्तियों का मुख बाहर की ओर/u.test(candidate.stem)));
+assert.ok(hiRoleAlt12.some((candidate) => /कोनों पर मौजूद व्यक्तियों का मुख केंद्र की ओर/u.test(candidate.stem)));
+
+const paRoleAlt12 = SEA002_CP008_LOCALIZED_REVIEW_SET_V1.filter((candidate) =>
+  candidate.locale === "pa" && candidate.permanentQlId === "SEA-QL-029" && [4, 5].includes(candidate.variantIndex),
+);
+assert.equal(paRoleAlt12.length, 2);
+assert.ok(paRoleAlt12.every((candidate) => /ਬਾਰਾਂ ਵਿਅਕਤੀ/u.test(candidate.stem)));
+assert.ok(paRoleAlt12.every((candidate) => /ਹਰ ਕੋਨੇ 'ਤੇ ਇੱਕ ਵਿਅਕਤੀ/u.test(candidate.stem)));
+assert.ok(paRoleAlt12.every((candidate) => /ਹਰ ਭੁਜਾ 'ਤੇ ਦੋ ਵਿਅਕਤੀ/u.test(candidate.stem)));
+assert.ok(paRoleAlt12.every((candidate) => !/60 ਮੀਟਰ|5 ਮੀਟਰ/u.test(candidate.stem)));
+assert.ok(paRoleAlt12.every((candidate) => /ਕੋਨਾ-ਬਨਾਮ-ਭੁਜਾ ਨਿਯਮ/u.test(candidate.explanation)));
+assert.ok(paRoleAlt12.some((candidate) => /ਕੋਨਿਆਂ ਵਾਲਿਆਂ ਦਾ ਮੂੰਹ ਬਾਹਰ ਵੱਲ/u.test(candidate.stem)));
+assert.ok(paRoleAlt12.some((candidate) => /ਕੋਨਿਆਂ ਵਾਲਿਆਂ ਦਾ ਮੂੰਹ ਕੇਂਦਰ ਵੱਲ/u.test(candidate.stem)));
+
 const hiAlt12 = SEA002_CP008_LOCALIZED_REVIEW_SET_V1.filter((candidate) => candidate.locale === "hi" && candidate.permanentQlId === "SEA-QL-035");
 assert.ok(hiAlt12.every((candidate) => /60 मीटर/u.test(candidate.stem) && /5 मीटर/u.test(candidate.stem)));
 const paAlt12 = SEA002_CP008_LOCALIZED_REVIEW_SET_V1.filter((candidate) => candidate.locale === "pa" && candidate.permanentQlId === "SEA-QL-035");
@@ -61,6 +90,7 @@ console.log("English source surfaces", SEA002_CP008_ENGLISH_REVIEW_SET_V1.length
 console.log("localized surfaces", SEA002_CP008_LOCALIZED_REVIEW_SET_V1.length);
 console.log("Hindi surfaces", 42);
 console.log("Punjabi surfaces", 42);
+console.log("localized QL029 ALT12 role-derived surfaces", hiRoleAlt12.length + paRoleAlt12.length);
 console.log("semantic parity checks", parityChecks);
 console.log("editorial residue checks", residueChecks);
 console.log("mechanical gender slash residue", 0);
