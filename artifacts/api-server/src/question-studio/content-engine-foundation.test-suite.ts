@@ -51,5 +51,9 @@ await runStage("COM-002 recent SSC Tier-II PYQ evidence", () => import("../knowl
 await runStage("COM-002 merge/split ownership audit", () => import("../knowledge-v1/computer-awareness/com002-operating-system-merge-split-audit.test"));
 await runStage("COM-002 permanent allocation readiness", () => import("../knowledge-v1/computer-awareness/com002-allocation-readiness.test"));
 await runStage("COM-002 permanent CP/QL allocation", () => import("../knowledge-v1/computer-awareness/com002-permanent-ql-allocation.test"));
+await runStage("COM-002 base candidate corpus", () => import("../knowledge-v1/computer-awareness/com002-candidate-corpus.test"));
+await runStage("COM-002 candidate corpus breadth extension", () => import("../knowledge-v1/computer-awareness/com002-candidate-corpus-extension.test"));
+await runStage("COM-002 OS component/power-action corpus extension", () => import("../knowledge-v1/computer-awareness/com002-candidate-corpus-extension2.test"));
+await runStage("COM-002 permanent QL corpus coverage", () => import("../knowledge-v1/computer-awareness/com002-corpus-coverage.test"));
 
 console.log("Question Studio content engine foundation suite passed.");
