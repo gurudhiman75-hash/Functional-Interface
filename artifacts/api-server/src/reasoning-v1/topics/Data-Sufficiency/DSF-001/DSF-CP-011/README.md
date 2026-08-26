@@ -1,6 +1,6 @@
 # DSF-CP-011 — Two-Statement Quant Breadth Expansion
 
-Status: **AVERAGE GREEN / AGES GREEN / PROFIT-LOSS-DISCOUNT GREEN / INTEREST GREEN / TIME-WORK-PIPES GREEN / TSD-TRAINS-BOATS REVIEW CANDIDATE**
+Status: **AVERAGE GREEN / AGES GREEN / PROFIT-LOSS-DISCOUNT GREEN / INTEREST GREEN / TIME-WORK-PIPES GREEN / TSD-TRAINS-BOATS REVIEW CANDIDATE / MIXTURE-ALLIGATION REVIEW CANDIDATE**
 
 CP-011 is additive. It does not rewrite or weaken any authority frozen by DSF-CP-001 through DSF-CP-010.
 
@@ -125,6 +125,27 @@ The finite source universes contain 64 core-motion worlds, 180 train-vs-fixed-ob
 
 Wave 6 remains review-only until its executable audit is green.
 
+### Wave 7 — Mixture & Alligation / `MAL-001` — REVIEW CANDIDATE
+
+Canonical source capability reused directly:
+
+- `MAL-001/foundation/solver::solveMalCp001`
+
+Solve modes:
+
+- `DSF-SM-MAL-MEAN-FROM-COMPONENTS`
+- `DSF-SM-MAL-RATIO-FROM-TARGET`
+- `DSF-SM-MAL-UNKNOWN-SOURCE-VALUE`
+- `DSF-SM-MAL-UNKNOWN-COMPONENT-QUANTITY`
+- `DSF-SM-MAL-ADD-QUANTITY-TO-TARGET`
+- `DSF-SM-MAL-TWO-QUANTITIES-FROM-TOTAL`
+
+Two separate 400-world universes are used. The blend universe covers weighted mean, alligation ratio, unknown source value, unknown quantity and two-quantity reconstruction. The addition universe covers add-to-target quantity. Both world sets are constructed and projected through `solveMalCp001`; DSF does not own weighted-average or alligation formulas.
+
+The 300-question audit allocates 50 deterministic samples per solve mode and 60 per canonical DS class across rice, tea, coffee, cooking-oil, spice and dry-fruit contexts.
+
+Wave 7 remains review-only until its executable audit is green.
+
 ## Exam-realness rule
 
 Generation identity is not accepted as evidence of student-visible variety. Each implemented lane additionally measures:
@@ -151,9 +172,8 @@ All CP-011 expansion questions remain review-only until their dedicated CI and h
 
 High-value additive source bindings still remaining:
 
-1. Mixture & Alligation
-2. Mensuration
-3. Geometry only after its current merged source authority is resolved
-4. richer Number System, Ratio, Percentage and Algebra target/world variants
+1. Mensuration
+2. Geometry only after its current merged source authority is resolved
+3. richer Number System, Ratio, Percentage and Algebra target/world variants
 
 Each wave must reuse the source chapter's solver/capability or stay blocked; CP-011 must not become a second arithmetic implementation layer inside DSF.
