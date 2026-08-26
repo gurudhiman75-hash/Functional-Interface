@@ -177,4 +177,28 @@ test.describe("CP02 zoom reflow and contrast", () => {
     expect(await contrastRatio(supportingCopy)).toBeGreaterThanOrEqual(4.5);
     await expectNoHorizontalOverflow(page);
   });
+
+  test("keeps the detailed public study sidebar theme-native and readable in dark mode", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await installFixtures(page);
+    await page.goto("/contact");
+
+    await page.evaluate(() => {
+      document.documentElement.classList.add("dark");
+    });
+
+    const sidebar = page.getByTestId("public-study-sidebar");
+    const activeSupport = sidebar.getByRole("link", { name: "Support" });
+    const exploreCta = page.getByTestId("sidebar-explore-cta");
+
+    await expect(sidebar).toBeVisible();
+    await expect(activeSupport).toHaveAttribute("aria-current", "page");
+    await expect(exploreCta).toBeVisible();
+
+    const sidebarBackground = await sidebar.evaluate((element) => getComputedStyle(element).backgroundColor);
+    expect(sidebarBackground).not.toBe("rgb(255, 255, 255)");
+    expect(await contrastRatio(activeSupport)).toBeGreaterThanOrEqual(4.5);
+    expect(await contrastRatio(exploreCta)).toBeGreaterThanOrEqual(4.5);
+    await expectNoHorizontalOverflow(page);
+  });
 });
