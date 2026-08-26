@@ -2,7 +2,19 @@ name: Validate SPA-FND-001 Production Synthesis V1
 
 on:
   pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-*.test.ts"
+      - "artifacts/api-server/package.json"
+      - "artifacts/api-server/tsconfig*.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - ".github/workflows/spa-production-synthesis-v1.yml"
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
