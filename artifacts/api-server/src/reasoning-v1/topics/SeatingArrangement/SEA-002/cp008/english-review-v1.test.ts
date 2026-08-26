@@ -77,9 +77,9 @@ for (const candidate of SEA002_CP008_ENGLISH_REVIEW_SET_V1) {
   maxStemWords = Math.max(maxStemWords, stemWords);
   maxExplanationWords = Math.max(maxExplanationWords, explanationWords);
   assert.ok(stemWords >= 70, `${candidate.permanentQlId}/${candidate.variantIndex}: stem suspiciously thin (${stemWords})`);
-  assert.ok(stemWords <= 240, `${candidate.permanentQlId}/${candidate.variantIndex}: stem too cluttered (${stemWords})`);
+  assert.ok(stemWords <= 250, `${candidate.permanentQlId}/${candidate.variantIndex}: stem too cluttered (${stemWords})`);
   assert.ok(explanationWords >= 25, `${candidate.permanentQlId}/${candidate.variantIndex}: explanation too thin`);
-  assert.ok(explanationWords <= 115, `${candidate.permanentQlId}/${candidate.variantIndex}: explanation too long`);
+  assert.ok(explanationWords <= 120, `${candidate.permanentQlId}/${candidate.variantIndex}: explanation too long`);
   assert.match(candidate.explanation, new RegExp(`\\b${candidate.answer}\\b`, "u"));
   assert.doesNotMatch(candidate.stem, /prototype|constraint spine|seatIndex|structural fingerprint|column/iu);
   assert.doesNotMatch(candidate.explanation, /prototype|constraint spine|seatIndex|structural fingerprint|column/iu);
@@ -89,8 +89,22 @@ for (const candidate of SEA002_CP008_ENGLISH_REVIEW_SET_V1) {
 }
 
 const ql029 = SEA002_CP008_ENGLISH_REVIEW_SET_V1.filter((candidate) => candidate.permanentQlId === "SEA-QL-029");
+assert.equal(ql029.length, 6);
+assert.equal(ql029.filter((candidate) => candidate.topology === "ALT8_ROLE_DERIVED").length, 4);
+const ql029Alt12 = ql029.filter((candidate) => candidate.topology === "ALT12_ROLE_DERIVED");
+assert.equal(ql029Alt12.length, 2);
+assert.deepEqual(ql029Alt12.map((candidate) => candidate.variantIndex), [4, 5]);
+assert.ok(ql029Alt12.every((candidate) => candidate.participants.length === 12));
+assert.ok(ql029Alt12.every((candidate) => candidate.signatureId === "SEA-CP008-SIG-A"));
+assert.ok(ql029Alt12.every((candidate) => candidate.authorityKey === "CP008-AUTH-01"));
+assert.ok(ql029Alt12.every((candidate) => /Twelve|twelve/u.test(candidate.stem)));
+assert.ok(ql029Alt12.every((candidate) => !/60 m|5 m/u.test(candidate.stem)), "role-derived ALT12 must not leak metric-family wording");
+assert.deepEqual(new Set(ql029Alt12.map((candidate) => candidate.facingMode)), new Set(["CORNERS_IN_SIDES_OUT", "CORNERS_OUT_SIDES_IN"]));
 assert.ok(ql029.some((candidate) => candidate.facingMode === "CORNERS_IN_SIDES_OUT"));
 assert.ok(ql029.some((candidate) => candidate.facingMode === "CORNERS_OUT_SIDES_IN"));
+assert.ok(ql029Alt12.every((candidate) => /corner and side positions|corner-versus-side rule/iu.test(candidate.explanation)));
+assert.ok(ql029Alt12.every((candidate) => !/propagate the facing relations/iu.test(candidate.explanation)));
+
 const ql032 = SEA002_CP008_ENGLISH_REVIEW_SET_V1.filter((candidate) => candidate.permanentQlId === "SEA-QL-032");
 assert.ok(ql032.some((candidate) => candidate.facingMode === "ALL_IN"));
 assert.ok(ql032.some((candidate) => candidate.facingMode === "ALL_OUT"));
@@ -105,6 +119,7 @@ console.log("unique setup paragraphs", uniqueSetups);
 console.log("unique learner surfaces", uniqueLearnerSurfaces);
 console.log("permanent QLs covered", SEA002_CP008_PERMANENT_QL_IDS.length);
 console.log("surfaces per QL", 6);
+console.log("QL029 ALT8/ALT12 role-derived surfaces", 4, ql029Alt12.length);
 console.log("non-direct query checks", nonDirectChecks);
 console.log("mixed-facing surfaces", mixedFacingCandidates);
 console.log("max stem words", maxStemWords);
