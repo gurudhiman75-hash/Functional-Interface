@@ -1,3 +1,4 @@
+# One-shot trigger after bootstrap landed on New-main.
 name: One-shot scope SPA PFC workflow fanout
 
 on:
