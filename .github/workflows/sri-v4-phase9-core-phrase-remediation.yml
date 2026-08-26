@@ -1,0 +1,69 @@
+name: SRI Phase 9 core phrase remediation
+
+on:
+  push:
+    branches:
+      - feature/sri-v4-phase9-localization-v1
+    paths:
+      - .github/workflows/sri-v4-phase9-core-phrase-remediation.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch-core-phrases:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/sri-v4-phase9-localization-v1
+      - name: Insert confirmed whole-phrase localization authority
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts')
+          text = path.read_text(encoding='utf-8')
+          rows = {
+            'hi-IN': [
+              ('The given expression is ', 'दिया गया व्यंजक है '),
+              ('Simplify the power expression using the applicable law.', 'उपयुक्त घातांक नियम का उपयोग करके व्यंजक को सरल कीजिए।'),
+              ('Combine same-base factors by adding numerator exponents and subtracting the denominator exponent.', 'समान आधार वाले गुणनखंडों में अंश के घातांक जोड़कर और हर का घातांक घटाकर सरल कीजिए।'),
+              ('Therefore the expression is ', 'अतः व्यंजक है '),
+              ('Any non-zero number raised to the power 0 equals 1.', 'किसी भी शून्येतर संख्या की शून्य घात 1 होती है।'),
+              ('Denest ', 'नेस्टेड करणी को सरल रूप में लिखिए '),
+              ('Match A=m+n and B=mn, then use √(A+2√B)=√m+√n.', 'A=m+n और B=mn का मिलान कीजिए, फिर √(A+2√B)=√m+√n का उपयोग कीजिए।'),
+              ('Match A=m+n and B=mn, with m≥n, then use √(A−2√B)=√m−√n.', 'A=m+n और B=mn का मिलान कीजिए, जहाँ m≥n, फिर √(A−2√B)=√m−√n का उपयोग कीजिए।'),
+              ('Without decimals, decide the truth of: ', 'दशमलव का प्रयोग किए बिना, कथनों की सत्यता निर्धारित कीजिए: '),
+            ],
+            'pa-IN': [
+              ('The given expression is ', 'ਦਿੱਤਾ ਗਿਆ ਵਿਅੰਜਕ ਹੈ '),
+              ('Simplify the power expression using the applicable law.', 'ਉਚਿਤ ਘਾਤਾਂਕ ਨਿਯਮ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਵਿਅੰਜਕ ਨੂੰ ਸਰਲ ਕਰੋ।'),
+              ('Combine same-base factors by adding numerator exponents and subtracting the denominator exponent.', 'ਇੱਕੋ ਅਧਾਰ ਵਾਲੇ ਗੁਣਨਖੰਡਾਂ ਵਿੱਚ ਅੰਸ਼ ਦੇ ਘਾਤਾਂਕ ਜੋੜ ਕੇ ਅਤੇ ਹਰ ਦਾ ਘਾਤਾਂਕ ਘਟਾ ਕੇ ਸਰਲ ਕਰੋ।'),
+              ('Therefore the expression is ', 'ਇਸ ਲਈ ਵਿਅੰਜਕ ਹੈ '),
+              ('Any non-zero number raised to the power 0 equals 1.', 'ਕਿਸੇ ਵੀ ਸਿਫ਼ਰ ਤੋਂ ਵੱਖ ਸੰਖਿਆ ਦੀ ਸਿਫ਼ਰ ਘਾਤ 1 ਹੁੰਦੀ ਹੈ।'),
+              ('Denest ', 'ਨੇਸਟਡ ਕਰਣੀ ਨੂੰ ਸਰਲ ਰੂਪ ਵਿੱਚ ਲਿਖੋ '),
+              ('Match A=m+n and B=mn, then use √(A+2√B)=√m+√n.', 'A=m+n ਅਤੇ B=mn ਦਾ ਮਿਲਾਨ ਕਰੋ, ਫਿਰ √(A+2√B)=√m+√n ਦੀ ਵਰਤੋਂ ਕਰੋ।'),
+              ('Match A=m+n and B=mn, with m≥n, then use √(A−2√B)=√m−√n.', 'A=m+n ਅਤੇ B=mn ਦਾ ਮਿਲਾਨ ਕਰੋ, ਜਿੱਥੇ m≥n, ਫਿਰ √(A−2√B)=√m−√n ਦੀ ਵਰਤੋਂ ਕਰੋ।'),
+              ('Without decimals, decide the truth of: ', 'ਦਸ਼ਮਲਵ ਵਰਤੇ ਬਿਨਾਂ, ਕਥਨਾਂ ਦੀ ਸੱਚਾਈ ਨਿਰਧਾਰਤ ਕਰੋ: '),
+            ],
+          }
+          for locale, locale_rows in rows.items():
+            anchor = f'  "{locale}": [\n'
+            if text.count(anchor) != 1:
+              raise SystemExit(f'Unexpected phrase table anchor for {locale}')
+            payload = ''.join(f'    [{src!r}, {dst!r}],\n' for src, dst in locale_rows)
+            # Convert Python single-quoted repr rows into JSON-compatible TS string literals safely.
+            import json
+            payload = ''.join(f'    [{json.dumps(src, ensure_ascii=False)}, {json.dumps(dst, ensure_ascii=False)}],\n' for src, dst in locale_rows)
+            text = text.replace(anchor, anchor + payload, 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+          git diff --check
+      - name: Commit durable phrase remediation
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts
+          git diff --cached --check
+          git commit -m "SRI Phase 9: localize core power denesting and bounds phrases"
+          git push origin HEAD:feature/sri-v4-phase9-localization-v1
