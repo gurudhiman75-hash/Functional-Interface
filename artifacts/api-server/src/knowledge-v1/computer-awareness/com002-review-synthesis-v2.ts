@@ -1,4 +1,4 @@
-import { deterministicIndex, deterministicShuffle } from "../deterministic";
+import { deterministicIndex, deterministicShuffle, hashKnowledgeSeed } from "../deterministic";
 import { assertKnowledgeQuestionValid } from "../question-validation";
 import type { KnowledgeFact } from "../types";
 import { COM002_EDITORIAL_TARGET_FACTS } from "./com002-editorial-review";
@@ -21,6 +21,22 @@ function unique(items: readonly string[]) {
 
 function reposition(question: Com002ReviewQuestion, wrongAnswers: string[], seed: string): Com002ReviewQuestion {
   const correctIndex = deterministicIndex(`${seed}:v2-correct-position`, 4);
+  const options = [...wrongAnswers];
+  options.splice(correctIndex, 0, question.canonicalAnswer);
+  assertKnowledgeQuestionValid({
+    stem: question.stem,
+    explanation: question.explanation,
+    options,
+    correctIndex,
+    canonicalAnswer: question.canonicalAnswer,
+  });
+  return { ...question, options, correctIndex };
+}
+
+function redistributeAnswerPosition(question: Com002ReviewQuestion, seed: string): Com002ReviewQuestion {
+  const wrongAnswers = question.options.filter((_, index) => index !== question.correctIndex);
+  const hash = hashKnowledgeSeed(`${seed}:ql009-final-position`);
+  const correctIndex = ((hash >>> 24) ^ (hash >>> 16) ^ (hash >>> 8) ^ hash) & 3;
   const options = [...wrongAnswers];
   options.splice(correctIndex, 0, question.canonicalAnswer);
   assertKnowledgeQuestionValid({
@@ -187,6 +203,7 @@ export function generateCom002ReviewQuestionV2(input: { qlId: string; seed: stri
       question = { ...question, explanation: describeExtensionConcept(target) };
     }
     question = patchQl009TypeToExtension(question, target, input.seed);
+    question = redistributeAnswerPosition(question, input.seed);
   }
 
   assertKnowledgeQuestionValid({
