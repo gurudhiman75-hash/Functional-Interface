@@ -11,10 +11,10 @@ function refineEnglish(familyId: string, stem: string) {
   let out = stem;
   if (familyId === "116-B") out = out.replace("Find P's winning time.", "By how many seconds does P beat Q?");
   if (familyId === "117-B") out = out.replace("In the same race,", "In a race,");
-  if (familyId === "118-D") out = out.replace("Find the distance.", "Find the race distance.");
+  if (familyId === "118-D") out = out.replace(/Find the distance\.$/, "Find the race distance.");
   if (familyId === "119-B") out = out.replace("What time start should Q get for a dead heat?", "How many seconds before P should Q start so that both finish together?");
   if (familyId === "119-C") out = out.replace("so that neither wins?", "so that both finish together?");
-  if (familyId === "119-D") out = out.replace("Find the time handicap to be given against Ravi for an equal finish.", "How many seconds later should Ravi start so that both finish together?");
+  if (familyId === "119-D") out = out.replace(/Find the time handicap to be given against Ravi for an equal finish\.$/, "How many seconds later should Ravi start so that both finish together?");
   if (familyId === "120-B") out = out.replace("Find P's winning distance.", "By how many metres does P beat Q?");
   if (familyId === "121-A") out = out.replace(/^A beats B by (.+?) and B beats C by (.+?) in a (.+?) race\./, "In separate $3 races, A beats B by $1 and B beats C by $2.");
   if (familyId === "121-D") out = out.replace(/^In a (.+?) race, Ravi beats Sahil by (.+?); Sahil beats Vikas by (.+?)\./, "In separate $1 races, Ravi beats Sahil by $2 and Sahil beats Vikas by $3.");
@@ -35,14 +35,13 @@ function refineHindi(familyId: string, stem: string) {
     .replaceAll("जीत-अंतर", "जीत का अंतर")
     .replaceAll("समय-अंतर", "समय का अंतर");
   if (familyId === "116-B") out = out.replace("P की समय-बढ़त कितनी है?", "P, Q से कितने सेकंड पहले पहुँचेगा?");
-  if (familyId === "118-D") out = out.replace("दूरी ज्ञात कीजिए।", "दौड़ की दूरी ज्ञात कीजिए।");
+  if (familyId === "118-D") out = out.replace(/दूरी ज्ञात कीजिए।$/, "दौड़ की दूरी ज्ञात कीजिए।");
   if (familyId === "119-C") out = out.replace("ताकि कोई न जीते?", "ताकि दोनों साथ पहुँचें?");
   if (familyId === "119-E") out = out.replace("मोहन कहाँ से शुरू करे", "मोहन कितने मीटर आगे से शुरू करे");
-  if (familyId === "121-A") out = out.replace(/^600 मीटर की दौड़ में/, "600 मीटर की अलग-अलग दौड़ों में");
-  if (familyId === "121-D") out = out.replace(/^600 मीटर की दौड़ में/, "600 मीटर की अलग-अलग दौड़ों में");
+  if (familyId === "121-A" || familyId === "121-D") out = out.replace(/^(.+? मीटर) की दौड़ में/, "$1 की अलग-अलग दौड़ों में");
   if (familyId === "121-E") out = out.replace("करण-नितिन जीत का अंतर ज्ञात कीजिए।", "करण, नितिन को कितने मीटर से हराएगा?");
-  if (familyId === "122-C") out = out.replace("अरुण, भारत को 40 मीटर की शुरुआत देता है।", "भारत को 40 मीटर आगे से शुरू कराया जाता है।");
-  if (familyId === "122-F") out = out.replace("दीपक को 40 मीटर की शुरुआत मिलती है।", "दीपक को 40 मीटर आगे से शुरू कराया जाता है।");
+  if (familyId === "122-C") out = out.replace(/अरुण, भारत को (.+? मीटर) की शुरुआत देता है।/, "भारत को $1 आगे से शुरू कराया जाता है।");
+  if (familyId === "122-F") out = out.replace(/दीपक को (.+? मीटर) की शुरुआत मिलती है।/, "दीपक को $1 आगे से शुरू कराया जाता है।");
   if (familyId === "123-F") out = out.replace(/^रोहित, दीपक को (.+?) की समय-शुरुआत देता है\. /, "दीपक, रोहित से $1 पहले शुरू करता है। ");
   if (familyId === "124-C") out = out.replace(/^अरुण और भारत दो दौड़ें दौड़ते हैं\. अरुण, (.+?) में (.+?) से और (.+?) में (.+?) से जीतता है\./, "पहली $1 की दौड़ में अरुण, भारत को $2 से हराता है; दूसरी $3 की दौड़ में वह $4 से जीतता है।");
   if (familyId === "124-E") out = out.replace("करण और मोहन की गतियाँ दोनों दौड़ों में समान रहती हैं।", "करण और मोहन दोनों अपनी-अपनी गति नहीं बदलते।");
@@ -56,13 +55,12 @@ function refinePunjabi(familyId: string, stem: string) {
     .replaceAll("ਜਿੱਤ-ਅੰਤਰ", "ਜਿੱਤ ਦਾ ਅੰਤਰ")
     .replaceAll("ਸਮਾਂ-ਅੰਤਰ", "ਸਮੇਂ ਦਾ ਅੰਤਰ");
   if (familyId === "116-B") out = out.replace("P ਦਾ ਸਮਾਂ-ਅੰਤਰ ਕਿੰਨਾ ਹੈ?", "P, Q ਤੋਂ ਕਿੰਨੇ ਸਕਿੰਟ ਪਹਿਲਾਂ ਪਹੁੰਚੇਗਾ?");
-  if (familyId === "118-D") out = out.replace("ਦੂਰੀ ਕੱਢੋ।", "ਦੌੜ ਦੀ ਦੂਰੀ ਕੱਢੋ।");
+  if (familyId === "118-D") out = out.replace(/ਦੂਰੀ ਕੱਢੋ।$/, "ਦੌੜ ਦੀ ਦੂਰੀ ਕੱਢੋ।");
   if (familyId === "119-C") out = out.replace("ਤਾਂ ਜੋ ਕੋਈ ਨਾ ਜਿੱਤੇ?", "ਤਾਂ ਜੋ ਦੋਵੇਂ ਇਕੱਠੇ ਪਹੁੰਚਣ?");
-  if (familyId === "121-A") out = out.replace(/^600 ਮੀਟਰ ਦੀ ਦੌੜ ਵਿੱਚ/, "600 ਮੀਟਰ ਦੀਆਂ ਵੱਖ-ਵੱਖ ਦੌੜਾਂ ਵਿੱਚ");
-  if (familyId === "121-D") out = out.replace(/^600 ਮੀਟਰ ਦੀ ਦੌੜ ਵਿੱਚ/, "600 ਮੀਟਰ ਦੀਆਂ ਵੱਖ-ਵੱਖ ਦੌੜਾਂ ਵਿੱਚ");
+  if (familyId === "121-A" || familyId === "121-D") out = out.replace(/^(.+? ਮੀਟਰ) ਦੀ ਦੌੜ ਵਿੱਚ/, "$1 ਦੀਆਂ ਵੱਖ-ਵੱਖ ਦੌੜਾਂ ਵਿੱਚ");
   if (familyId === "121-E") out = out.replace("ਕਰਨ-ਨਿਤਿਨ ਜਿੱਤ ਦਾ ਅੰਤਰ ਕੱਢੋ।", "ਕਰਨ, ਨਿਤਿਨ ਨੂੰ ਕਿੰਨੇ ਮੀਟਰ ਨਾਲ ਹਰਾਏਗਾ?");
-  if (familyId === "122-C") out = out.replace("ਅਰੁਣ, ਭਾਰਤ ਨੂੰ 40 ਮੀਟਰ ਦੀ ਸ਼ੁਰੂਆਤ ਦਿੰਦਾ ਹੈ।", "ਭਾਰਤ ਨੂੰ 40 ਮੀਟਰ ਅੱਗੇ ਤੋਂ ਸ਼ੁਰੂ ਕਰਾਇਆ ਜਾਂਦਾ ਹੈ।");
-  if (familyId === "122-F") out = out.replace("ਦੀਪਕ ਨੂੰ 40 ਮੀਟਰ ਦੀ ਸ਼ੁਰੂਆਤ ਮਿਲਦੀ ਹੈ।", "ਦੀਪਕ ਨੂੰ 40 ਮੀਟਰ ਅੱਗੇ ਤੋਂ ਸ਼ੁਰੂ ਕਰਾਇਆ ਜਾਂਦਾ ਹੈ।");
+  if (familyId === "122-C") out = out.replace(/ਅਰੁਣ, ਭਾਰਤ ਨੂੰ (.+? ਮੀਟਰ) ਦੀ ਸ਼ੁਰੂਆਤ ਦਿੰਦਾ ਹੈ।/, "ਭਾਰਤ ਨੂੰ $1 ਅੱਗੇ ਤੋਂ ਸ਼ੁਰੂ ਕਰਾਇਆ ਜਾਂਦਾ ਹੈ।");
+  if (familyId === "122-F") out = out.replace(/ਦੀਪਕ ਨੂੰ (.+? ਮੀਟਰ) ਦੀ ਸ਼ੁਰੂਆਤ ਮਿਲਦੀ ਹੈ।/, "ਦੀਪਕ ਨੂੰ $1 ਅੱਗੇ ਤੋਂ ਸ਼ੁਰੂ ਕਰਾਇਆ ਜਾਂਦਾ ਹੈ।");
   if (familyId === "123-F") out = out.replace(/^ਰੋਹਿਤ, ਦੀਪਕ ਨੂੰ (.+?) ਦੀ ਸਮਾਂ-ਸ਼ੁਰੂਆਤ ਦਿੰਦਾ ਹੈ\. /, "ਦੀਪਕ, ਰੋਹਿਤ ਤੋਂ $1 ਪਹਿਲਾਂ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ। ");
   if (familyId === "124-C") out = out.replace(/^ਅਰੁਣ ਅਤੇ ਭਾਰਤ ਦੋ ਦੌੜਾਂ ਦੌੜਦੇ ਹਨ\. ਅਰੁਣ, (.+?) ਵਿੱਚ (.+?) ਨਾਲ ਅਤੇ (.+?) ਵਿੱਚ (.+?) ਨਾਲ ਜਿੱਤਦਾ ਹੈ\./, "ਪਹਿਲੀ $1 ਦੀ ਦੌੜ ਵਿੱਚ ਅਰੁਣ, ਭਾਰਤ ਨੂੰ $2 ਨਾਲ ਹਰਾਉਂਦਾ ਹੈ; ਦੂਜੀ $3 ਦੀ ਦੌੜ ਵਿੱਚ ਉਹ $4 ਨਾਲ ਜਿੱਤਦਾ ਹੈ।");
   if (familyId === "124-E") out = out.replace("ਕਰਨ ਅਤੇ ਮੋਹਨ ਦੀਆਂ ਰਫ਼ਤਾਰਾਂ ਦੋਹਾਂ ਦੌੜਾਂ ਵਿੱਚ ਇੱਕੋ ਰਹਿੰਦੀਆਂ ਹਨ।", "ਕਰਨ ਅਤੇ ਮੋਹਨ ਦੋਵੇਂ ਆਪਣੀ-ਆਪਣੀ ਰਫ਼ਤਾਰ ਨਹੀਂ ਬਦਲਦੇ।");
