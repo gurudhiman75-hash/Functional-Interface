@@ -38,7 +38,7 @@ const ALL = ["en", "hi", "pa"] as const;
 export const INT_001_FINAL_CHECKPOINT_AUTHORITIES: readonly Int001CheckpointAuthority[] = Object.freeze([
   checkpoint("INT-CP-001", range(1, 21), ALL, ALL, ["Approved multilingual authority is exposed through the registered review-only CP001 Question Studio adapter.", "Question Bank, tests, mocks and public delivery remain closed."]),
   checkpoint("INT-CP-002", range(22, 52), ["en"], [], ["Current head contains cp002-final-registry.ts for INT-QL-022..052.", "No certified Hindi/Punjabi CP002 learner authority is claimed by this registry.", "INT-QL-028..032 and INT-QL-042..045 remain simple-interest ledger ownership and must not drift into CP009."]),
-  checkpoint("INT-CP-003", range(53, 66), ALL, [], ["Final multilingual checkpoint is in the modern Interest ancestry."]),
+  checkpoint("INT-CP-003", range(53, 66), ALL, ALL, ["Immutable English freeze and approved Hindi/Punjabi V3 freeze are exposed through the registered review-only CP003 Question Studio adapter.", "Question Bank, tests, mocks and public delivery remain closed."]),
   checkpoint("INT-CP-004", range(67, 85), ["hi", "pa"], ["hi", "pa"], ["Current native Question Studio registration is retained for certified Hindi/Punjabi surfaces.", "English is not chapter-registered until a remediated English learner surface is explicitly certified."]),
   checkpoint("INT-CP-005", range(86, 95, [94]), ALL, [], ["INT-QL-094 is intentionally vacant: the migration/event-order family had no recovered Interest-family authority."]),
   checkpoint("INT-CP-006", range(96, 108), ALL, [], ["Multilingual authority frozen; Punjabi CI terminology uses the approved native term."]),
