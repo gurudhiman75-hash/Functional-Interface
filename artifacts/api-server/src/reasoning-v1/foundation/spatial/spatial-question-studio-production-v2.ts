@@ -52,15 +52,17 @@ type StandardLifecycleV2 = {
   releaseAuthority: typeof SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority;
 };
 
-export type SpatialPfcTpfProductionStudioQuestionV2 = Omit<PfcTpfStudioQuestionV1, "lifecycle"> & {
+type WithCurrentIntegrationAuthority<T> = Omit<T, "integrationAuthority"> & {
+  integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V2.integrationAuthority;
+};
+
+export type SpatialPfcTpfProductionStudioQuestionV2 = Omit<PfcTpfStudioQuestionV1, "lifecycle" | "integrationAuthority"> & {
   integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V2.integrationAuthority;
   lifecycle: StandardLifecycleV2;
 };
 
 export type SpatialProductionStudioQuestionV2 =
-  | (LegacySpatialProductionStudioQuestionV1 & {
-      integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V2.integrationAuthority;
-    })
+  | WithCurrentIntegrationAuthority<LegacySpatialProductionStudioQuestionV1>
   | SpatialPfcTpfProductionStudioQuestionV2;
 
 export interface SpatialProductionStudioBatchRequestV2 {
