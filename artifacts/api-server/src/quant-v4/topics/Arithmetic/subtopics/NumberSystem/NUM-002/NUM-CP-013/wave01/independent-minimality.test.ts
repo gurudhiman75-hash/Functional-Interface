@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { generateNumCp013Wave01 } from "./runtime.ts";
+import { generateNumCp013Wave01 } from "./runtime-v2.ts";
 
 function positionalValue(digits: readonly number[], base: number) {
   return digits.reduce((value, digit) => value * base + digit, 0);
@@ -65,6 +65,7 @@ for (let seed = 1; seed <= 160; seed += 1) {
   const baseSolutions = Array.from({ length: 13 - minBase }, (_, index) => minBase + index)
     .filter((base) => positionalValue(s6.digits, base) === s6.decimal);
   assert.deepEqual(baseSolutions, [Number(p006.canonicalAnswer)], `P006/${seed}: bounded base uniqueness failure`);
+  assert.equal(new Set(p006.options.map((option) => option.value)).size, 4, `P006/${seed}: base distractors not distinct`);
   checks += 1;
 
   const p007 = generateNumCp013Wave01("NUM-CP013-PROT-007", seed);
@@ -82,7 +83,13 @@ for (let seed = 1; seed <= 160; seed += 1) {
   assert.ok(s8.trace.some((step: any) => step.borrowOut > 0), `P008/${seed}: borrow proof missing`);
   for (const step of s8.trace) {
     assert.equal(step.adjustedTopDigit - step.bottomDigit, step.writtenDigit, `P008/${seed}: subtraction column invalid`);
-    if (step.borrowOut > 0) assert.ok(step.adjustedTopDigit >= s8.base, `P008/${seed}: borrow did not add one base group`);
+    const availableBeforeNewBorrow = step.topDigitBeforeBorrow - step.borrowIn;
+    if (step.borrowOut > 0) {
+      assert.equal(step.adjustedTopDigit, availableBeforeNewBorrow + s8.base, `P008/${seed}: borrow did not add exactly one base group`);
+      assert.ok(availableBeforeNewBorrow < step.bottomDigit, `P008/${seed}: unnecessary borrow`);
+    } else {
+      assert.equal(step.adjustedTopDigit, availableBeforeNewBorrow, `P008/${seed}: non-borrow column was altered`);
+    }
   }
   checks += 1;
 }
