@@ -1,6 +1,6 @@
 # DSF-CP-011 — Two-Statement Quant Breadth Expansion
 
-Status: **AVERAGE GREEN / AGES GREEN / PROFIT-LOSS-DISCOUNT REVIEW CANDIDATE / INTEREST REVIEW CANDIDATE / TIME-WORK-PIPES REVIEW CANDIDATE**
+Status: **AVERAGE GREEN / AGES GREEN / PROFIT-LOSS-DISCOUNT GREEN / INTEREST GREEN / TIME-WORK-PIPES GREEN / TSD-TRAINS-BOATS REVIEW CANDIDATE**
 
 CP-011 is additive. It does not rewrite or weaken any authority frozen by DSF-CP-001 through DSF-CP-010.
 
@@ -14,7 +14,7 @@ CP-011 is additive. It does not rewrite or weaken any authority frozen by DSF-CP
 
 ## Implemented source bindings
 
-### Wave 1 — Average / `AVG-001`
+### Wave 1 — Average / `AVG-001` — GREEN
 
 Source capability reused directly:
 
@@ -25,18 +25,9 @@ Solve modes:
 - `DSF-SM-AVG-TOTAL-FROM-GROUP`
 - `DSF-SM-AVG-AVERAGE-FROM-GROUP`
 
-Student-facing contexts:
+Student-facing contexts cover class marks, cricket innings, parcel weights, daily sales, worker wages and books per shelf. Dedicated CI is green for the API build plus the 250-question Average breadth/realness audit.
 
-- class marks
-- cricket innings
-- parcel weights
-- daily sales
-- worker wages
-- books per shelf
-
-Dedicated CI is green for the API build plus the 250-question Average breadth/realness audit.
-
-### Wave 2 — Ages / `RAP-003`
+### Wave 2 — Ages / `RAP-003` — GREEN
 
 Source capability reused directly:
 
@@ -49,20 +40,16 @@ Solve modes:
 - `DSF-SM-AGE-PRESENT-AGE-A`
 - `DSF-SM-AGE-PRESENT-AGE-B`
 
-Statement families include present ratio, sum, difference, exact age, future ratio, past ratio, bounds, parity, comparison, ratio+sum and ratio+difference.
+Statement families include present ratio, sum, difference, exact age, future ratio, past ratio, bounds, parity, comparison, ratio+sum and ratio+difference. Neutral contexts include cousins, colleagues, neighbours, club players, friends and siblings. Dedicated CI is green for the API build plus the 250-question Ages breadth/realness audit.
 
-Neutral student-facing contexts include cousins, colleagues, neighbours, club players, friends and siblings. No unstated age-order or cultural assumption is used.
-
-Dedicated CI is green for the API build plus the 250-question Ages breadth/realness audit.
-
-### Wave 3 — Profit/Loss/Discount / `PNL-001`
+### Wave 3 — Profit/Loss/Discount / `PNL-001` — GREEN
 
 Source capabilities reused directly:
 
 - `PNL-001/foundation/solver::solveFundamental`
 - `PNL-001/foundation/discount-solver::solveDiscount`
 
-The base price worlds are themselves created through the canonical PNL solvers. Every surviving world is then projected to the asked target through the appropriate source solver. CP-011 therefore does not own profit/loss or discount formulas.
+The base price worlds are created through the canonical PNL solvers. Every surviving world is projected through the appropriate source solver, so CP-011 does not own profit/loss or discount formulas.
 
 Solve modes:
 
@@ -73,11 +60,9 @@ Solve modes:
 - `DSF-SM-DISCOUNT-RATE-FROM-MP-SP`
 - `DSF-SM-DISCOUNT-MP-FROM-SP-RATE`
 
-Statement families cover exact CP/SP/MP/rate, profit-or-loss direction, canonical price/rate pairs, bounds and low-information congruence conditions. Neutral retail contexts include books, garments, electronics, furniture, sports goods and stationery.
+Statement families cover exact CP/SP/MP/rate, profit-or-loss direction, canonical price/rate pairs, bounds and low-information congruence conditions. Neutral retail contexts include books, garments, electronics, furniture, sports goods and stationery. The combined CP011 gate is green for its 250-question audit.
 
-Wave 3 is review-only until its executable 250-question audit is green.
-
-### Wave 4 — Simple/Compound Interest / `INT-001`
+### Wave 4 — Simple/Compound Interest / `INT-001` — GREEN
 
 Canonical source functions reused directly from `INT-001/cp006-si-ci-relations-runtime-v1`:
 
@@ -95,11 +80,9 @@ Solve modes:
 - `DSF-SM-INT-COMPOUND-AMOUNT`
 - `DSF-SM-INT-CI-MINUS-SI`
 
-Statement families cover exact principal/rate/time, exact source-derived SI/CI/amount/difference, parameter pairs, a complete parameter triple and low-information bounds. Neutral contexts include bank, post-office, cooperative, savings-plan, education-fund and business-reserve deposits.
+Statement families cover exact principal/rate/time, exact source-derived SI/CI/amount/difference, parameter pairs, a complete parameter triple and low-information bounds. Neutral contexts include bank, post-office, cooperative, savings-plan, education-fund and business-reserve deposits. The combined CP011 gate is green for its 250-question audit.
 
-Wave 4 is review-only until its executable 250-question audit is green.
-
-### Wave 5 — Time & Work / Pipes & Cisterns / `TMW-001`
+### Wave 5 — Time & Work / Pipes & Cisterns / `TMW-001` — GREEN
 
 Canonical source solvers reused directly:
 
@@ -116,9 +99,31 @@ Solve modes:
 - `DSF-SM-PIPE-POSITIVE-FILL-TIME`
 - `DSF-SM-PIPE-MIXED-FILL-TIME`
 
-The finite audit universes contain 66 work worlds, 42 two-inlet worlds and 30 inlet+outlet worlds. Work contexts cover documents, packaging, painting, inspection, loading and assembly. Pipe contexts cover water, reservoir, storage, process, service and collection tanks.
+The finite audit universes contain 66 work worlds, 42 two-inlet worlds and 30 inlet+outlet worlds. Work contexts cover documents, packaging, painting, inspection, loading and assembly. Pipe contexts cover water, reservoir, storage, process, service and collection tanks. The combined CP011 gate is green for its 250-question audit.
 
-Wave 5 is review-only until its executable 250-question audit is green.
+### Wave 6 — Time-Speed-Distance / Trains / Boats / `TSD-001` — REVIEW CANDIDATE
+
+Canonical source authorities reused directly:
+
+- `TSD-001/cp001/canonical-solver::solveCp001`
+- `TSD-001/foundation/motion::trainClearTimeAgainstFixedObject`
+- `TSD-001/foundation/motion::twoTrainCompleteCrossingTime`
+- `TSD-001/foundation/motion::groundSpeedInMedium`
+- `TSD-001/foundation/motion::durationForUniformMotion`
+
+Solve modes:
+
+- `DSF-SM-TSD-DISTANCE`
+- `DSF-SM-TSD-SPEED`
+- `DSF-SM-TSD-TIME`
+- `DSF-SM-TRAIN-FIXED-CLEAR-TIME`
+- `DSF-SM-TRAIN-TWO-CROSS-TIME`
+- `DSF-SM-BOAT-UPSTREAM-TIME`
+- `DSF-SM-BOAT-DOWNSTREAM-TIME`
+
+The finite source universes contain 64 core-motion worlds, 180 train-vs-fixed-object worlds, 256 opposite-moving two-train worlds, 144 upstream boat worlds and 144 downstream boat worlds. The 350-question audit allocates 50 deterministic samples per solve mode and 70 per canonical DS class. Road, cyclist, runner, railway, train, ferry and river-boat contexts are intentionally separated rather than surface-renaming one world family.
+
+Wave 6 remains review-only until its executable audit is green.
 
 ## Exam-realness rule
 
@@ -146,9 +151,9 @@ All CP-011 expansion questions remain review-only until their dedicated CI and h
 
 High-value additive source bindings still remaining:
 
-1. Time-Speed-Distance / Trains / Boats
-2. Mixture & Alligation
-3. Geometry / Mensuration
+1. Mixture & Alligation
+2. Mensuration
+3. Geometry only after its current merged source authority is resolved
 4. richer Number System, Ratio, Percentage and Algebra target/world variants
 
 Each wave must reuse the source chapter's solver/capability or stay blocked; CP-011 must not become a second arithmetic implementation layer inside DSF.
