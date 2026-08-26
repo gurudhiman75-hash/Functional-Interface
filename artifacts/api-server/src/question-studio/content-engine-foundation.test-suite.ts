@@ -45,6 +45,7 @@ await runStage("COM-001 Question Bank normalization audit V1", () => import("./e
 
 await runStage("COM-002 source/PYQ manifest", () => import("../knowledge-v1/computer-awareness/com002-source-manifest.test"));
 await runStage("COM-002 source authority extension", () => import("../knowledge-v1/computer-awareness/com002-source-authority-extension.test"));
+await runStage("COM-002 government OS-type source authority extension", () => import("../knowledge-v1/computer-awareness/com002-source-authority-extension2.test"));
 await runStage("COM-002 operating-system discovery inventory", () => import("../knowledge-v1/computer-awareness/com002-operating-system-discovery.test"));
 await runStage("COM-002 cross-exam Banking PYQ evidence", () => import("../knowledge-v1/computer-awareness/com002-cross-exam-pyq-evidence.test"));
 await runStage("COM-002 recent SSC Tier-II PYQ evidence", () => import("../knowledge-v1/computer-awareness/com002-ssc-tier2-pyq-evidence.test"));
@@ -54,6 +55,7 @@ await runStage("COM-002 permanent CP/QL allocation", () => import("../knowledge-
 await runStage("COM-002 base candidate corpus", () => import("../knowledge-v1/computer-awareness/com002-candidate-corpus.test"));
 await runStage("COM-002 candidate corpus breadth extension", () => import("../knowledge-v1/computer-awareness/com002-candidate-corpus-extension.test"));
 await runStage("COM-002 OS component/power-action corpus extension", () => import("../knowledge-v1/computer-awareness/com002-candidate-corpus-extension2.test"));
+await runStage("COM-002 exact exam-family OS corpus extension", () => import("../knowledge-v1/computer-awareness/com002-candidate-corpus-extension3.test"));
 await runStage("COM-002 permanent QL corpus coverage", () => import("../knowledge-v1/computer-awareness/com002-corpus-coverage.test"));
 
 console.log("Question Studio content engine foundation suite passed.");
