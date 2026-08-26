@@ -34,6 +34,7 @@ export type Sea002Cp008NormalizedQuery = Readonly<{
 
 export type Sea002Cp008ReviewTopology =
   | "ALT8_ROLE_DERIVED"
+  | "ALT12_ROLE_DERIVED"
   | "SIDEPAIR8_UNIFORM"
   | "SIDEPAIR8_MIXED"
   | "ALT8_UNIFORM"
@@ -70,7 +71,7 @@ export type Sea002Cp008ReviewCandidate = Readonly<{
 }>;
 
 const QL_CONFIG = Object.freeze({
-  "SEA-QL-029": Object.freeze({ topology: "ALT8_ROLE_DERIVED" as const, lineage: ["RRB", "BANKING", "SSC", "RRB", "BANKING", "STATE"] as const }),
+  "SEA-QL-029": Object.freeze({ topology: "ALT8_ROLE_DERIVED" as const, lineage: ["RRB", "BANKING", "SSC", "RRB", "BANKING", "BANKING"] as const }),
   "SEA-QL-030": Object.freeze({ topology: "SIDEPAIR8_UNIFORM" as const, lineage: ["SSC", "BANKING", "RRB", "SSC", "BANKING", "STATE"] as const }),
   "SEA-QL-031": Object.freeze({ topology: "SIDEPAIR8_MIXED" as const, lineage: ["BANKING", "BANKING", "RRB", "SSC", "BANKING", "STATE"] as const }),
   "SEA-QL-032": Object.freeze({ topology: "ALT8_UNIFORM" as const, lineage: ["RRB", "SSC", "STATE", "RRB", "SSC", "BANKING"] as const }),
@@ -118,9 +119,41 @@ function normalizeQuery(query: any): Sea002Cp008NormalizedQuery {
   });
 }
 
+function oppositeFacing(facing: Sea002Cp008Facing): Sea002Cp008Facing {
+  return facing === "IN" ? "OUT" : "IN";
+}
+
+function oppositeDirection(direction: "LEFT" | "RIGHT"): "LEFT" | "RIGHT" {
+  return direction === "LEFT" ? "RIGHT" : "LEFT";
+}
+
+function reverseRoleFacingCaselet(caselet: any): any {
+  return Object.freeze({
+    ...caselet,
+    facingMode: caselet.facingMode === "CORNERS_IN_SIDES_OUT" ? "CORNERS_OUT_SIDES_IN" : "CORNERS_IN_SIDES_OUT",
+    participants: Object.freeze(caselet.participants.map((participant: any) => Object.freeze({
+      ...participant,
+      facing: oppositeFacing(participant.facing),
+    }))),
+    clues: Object.freeze(caselet.clues.map((clue: any) => {
+      if (clue.kind === "FACING_ANCHOR") return Object.freeze({ ...clue, facing: oppositeFacing(clue.facing) });
+      if (clue.kind === "RELATIVE") return Object.freeze({ ...clue, direction: oppositeDirection(clue.direction) });
+      return clue;
+    })),
+    query: caselet.query.kind === "RELATIVE"
+      ? Object.freeze({ ...caselet.query, direction: oppositeDirection(caselet.query.direction) })
+      : caselet.query,
+  });
+}
+
 function hiddenCaselet(permanentQlId: Sea002Cp008PermanentQlId, seed: string, variantIndex: number) {
   if (permanentQlId === "SEA-QL-029") {
-    return generateSea002Cp008DiscoveryCaselet(variantIndex % 2 === 0 ? "SEA-CP008-PROT-001" : "SEA-CP008-PROT-002", seed);
+    const slot = variantIndex % 6;
+    if (slot >= 4) {
+      const alt12 = generateSea002Cp008DiscoveryCaselet("SEA-CP008-PROT-005", seed);
+      return slot === 5 ? reverseRoleFacingCaselet(alt12) : alt12;
+    }
+    return generateSea002Cp008DiscoveryCaselet(slot % 2 === 0 ? "SEA-CP008-PROT-001" : "SEA-CP008-PROT-002", seed);
   }
   if (permanentQlId === "SEA-QL-030") return generateSea002Cp008DiscoveryCaselet("SEA-CP008-PROT-003", seed);
   if (permanentQlId === "SEA-QL-031") return generateSea002Cp008DiscoveryCaselet("SEA-CP008-PROT-004", seed);
@@ -136,6 +169,11 @@ function facingModeLabel(caselet: any): string {
   return String(caselet.facingMode ?? "ALL_IN");
 }
 
+function topologyFor(permanentQlId: Sea002Cp008PermanentQlId, variantIndex: number): Sea002Cp008ReviewTopology {
+  if (permanentQlId === "SEA-QL-029" && variantIndex % 6 >= 4) return "ALT12_ROLE_DERIVED";
+  return QL_CONFIG[permanentQlId].topology;
+}
+
 function topologyIntro(topology: Sea002Cp008ReviewTopology, facingMode: string, style: number): string {
   const variants: Record<Sea002Cp008ReviewTopology, readonly string[]> = {
     ALT8_ROLE_DERIVED: facingMode === "CORNERS_OUT_SIDES_IN"
@@ -148,6 +186,17 @@ function topologyIntro(topology: Sea002Cp008ReviewTopology, facingMode: string, 
         "Eight persons sit around a square table. Four occupy the corners and four sit at the middle of the sides. Corner occupants face the centre while side-middle occupants face outside.",
         "Eight people are seated at a square table, one at every corner and one at the centre of every side. Those at corners face inward; the others face away from the table.",
         "Around a square table sit eight persons: four at corners and four at side centres. The corner seats face the centre and the side-centre seats face outward.",
+      ],
+    ALT12_ROLE_DERIVED: facingMode === "CORNERS_OUT_SIDES_IN"
+      ? [
+        "Twelve persons sit around a square table. One person occupies each corner and two persons sit along each side. Corner occupants face outside while side occupants face the centre.",
+        "A square table has twelve occupants: one at every corner and two on every side. Those at corners face away from the centre; all side-seat occupants face inward.",
+        "Twelve people are seated around a square table with four corner seats and eight side seats. The corner seats face outward and the side seats face the centre.",
+      ]
+      : [
+        "Twelve persons sit around a square table. One person occupies each corner and two persons sit along each side. Corner occupants face the centre while side occupants face outside.",
+        "A square table has twelve occupants: one at every corner and two on every side. Those at corners face inward; all side-seat occupants face away from the centre.",
+        "Twelve people are seated around a square table with four corner seats and eight side seats. The corner seats face the centre and the side seats face outward.",
       ],
     SIDEPAIR8_UNIFORM: [
       "Eight persons sit around a square table, two on each side. No one occupies a corner and everyone faces the centre.",
@@ -269,13 +318,16 @@ function explanationFor(
   const ordered = [...participants].sort((a, b) => a.seatIndex - b.seatIndex);
   const mixed = new Set(ordered.map((participant) => participant.facing)).size > 1;
   const orderText = ordered.map((participant) => mixed ? `${participant.id} (${participant.facing === "IN" ? "in" : "out"})` : participant.id).join(" → ");
+  const roleDerived = topology === "ALT8_ROLE_DERIVED" || topology === "ALT12_ROLE_DERIVED";
   const setup = topology === "ALT12_METRIC"
     ? "Treat each 5 m interval as one seat-step and apply left/right from the reference person's inward-facing direction."
     : topology === "VARIABLE_SIDE6"
       ? "First fix the 1-2-1-2 side-occupancy pattern; only a half-turn is an equivalent rotation for this layout."
-      : mixed
-        ? "Fix the square positions and propagate the facing relations before interpreting each left/right clue."
-        : "Fix the square positions first, using the stated facing rule when reading every left/right clue.";
+      : roleDerived
+        ? "First identify the corner and side positions; each person's facing direction then follows directly from the stated corner-versus-side rule before left/right clues are applied."
+        : mixed
+          ? "Fix the square positions and propagate the facing relations before interpreting each left/right clue."
+          : "Fix the square positions first, using the stated facing rule when reading every left/right clue.";
   return `${setup} One valid clockwise representation of the completed arrangement is ${orderText}. In that arrangement, ${query.answer} is ${queryRelationText(query)}. Therefore, the answer is ${query.answer}.`;
 }
 
@@ -287,6 +339,7 @@ export function generateSea002Cp008EnglishReviewCandidate(
   const registry = SEA002_CP008_PERMANENT_QL_REGISTRY.find((entry) => entry.permanentQlId === permanentQlId);
   if (!registry) throw new Error(`Unknown CP008 permanent QL: ${permanentQlId}`);
   const config = QL_CONFIG[permanentQlId];
+  const topology = topologyFor(permanentQlId, variantIndex);
   const seed = `cp008-production:${permanentQlId}:${variantIndex}`;
   const hidden: any = hiddenCaselet(permanentQlId, seed, variantIndex);
   const participants = Object.freeze(hidden.participants.map((participant: any) => Object.freeze({
@@ -299,11 +352,11 @@ export function generateSea002Cp008EnglishReviewCandidate(
   const style = hashInt(`${seed}:style`) % 6;
   const renderedClues = clues.map((clue, index) => renderClue(clue, style + index));
   const clueOrder = rotate(renderedClues, style % Math.max(1, renderedClues.length));
-  const stem = `${topologyIntro(config.topology, facingModeLabel(hidden), style)} ${clueOrder.join(" ")}`;
+  const stem = `${topologyIntro(topology, facingModeLabel(hidden), style)} ${clueOrder.join(" ")}`;
   const question = renderQuestion(query, style);
   const options = buildOptions(query.answer, participants, seed);
   const correctOptionIndex = options.indexOf(query.answer);
-  const explanation = explanationFor(config.topology, participants, query);
+  const explanation = explanationFor(topology, participants, query);
   const fingerprint = createHash("sha256").update(JSON.stringify({ permanentQlId, seed, stem, question, options, explanation })).digest("hex");
   return Object.freeze({
     checkpointId: "SEA-CP-008" as const,
@@ -312,7 +365,7 @@ export function generateSea002Cp008EnglishReviewCandidate(
     signatureId: registry.signatureId,
     seed,
     variantIndex,
-    topology: config.topology,
+    topology,
     facingMode: facingModeLabel(hidden),
     difficulty: difficultyFor(variantIndex % 6),
     examLineage: config.lineage[variantIndex % config.lineage.length],
