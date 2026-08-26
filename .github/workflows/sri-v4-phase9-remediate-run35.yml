@@ -6,6 +6,11 @@ on:
       - feature/sri-v4-phase9-localization-v1
     paths:
       - .github/workflows/sri-v4-phase9-remediate-run35.yml
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - .github/workflows/sri-v4-phase9-remediate-run35.yml
 
 permissions:
   contents: write
