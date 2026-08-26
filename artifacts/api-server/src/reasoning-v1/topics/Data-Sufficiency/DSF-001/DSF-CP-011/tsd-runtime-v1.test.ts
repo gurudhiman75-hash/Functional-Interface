@@ -4,7 +4,7 @@ import {
   DSF_CP011_TSD_SOLVE_MODES,
   generateDsfCp011TsdBatch,
   normalizeDsfCp011TsdSurface,
-} from "./tsd-runtime-v1.ts";
+} from "./tsd-runtime-v2.ts";
 
 const questions = generateDsfCp011TsdBatch(Array.from({ length: 350 }, (_, seed) => seed));
 
