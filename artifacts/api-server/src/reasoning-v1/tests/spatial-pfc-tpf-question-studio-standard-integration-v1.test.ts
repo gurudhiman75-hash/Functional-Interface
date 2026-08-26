@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
-import { getGeneratedQuestionBankEligibilityIssue } from "../../lib/admin-question-conversion";
+import {
+  getGeneratedQuestionBankEligibilityIssue,
+  normalizeGeneratedQuestionPayload,
+} from "../../lib/admin-question-conversion";
 import { getGeneratedItemApprovalDisposition } from "../../lib/admin-question-studio-approval-policy";
 import { SPATIAL_QUESTION_STUDIO_PACKAGE_V1 as LEGACY_SPATIAL_PACKAGE } from "../foundation/spatial/spatial-question-studio-integration-v1";
 import {
@@ -73,6 +76,7 @@ function eligibilityPayload(question: ReturnType<typeof generateSpatialProductio
 }
 
 const evidence: Record<string, unknown> = {};
+let questionBankNormalizationCount = 0;
 for (const qlId of PFC_TPF_QLS) {
   const seed = `PFC-TPF-STANDARD:${qlId}`;
   const byLanguage = LANGUAGES.map((language) => generateSpatialProductionStudioQuestionV2({ qlId, seed, language }));
@@ -80,6 +84,7 @@ for (const qlId of PFC_TPF_QLS) {
   assert.deepEqual(replay, byLanguage[0], `${qlId}: deterministic replay failed.`);
 
   for (const question of byLanguage) {
+    const payload = eligibilityPayload(question);
     assert.equal(question.integrationAuthority, SPATIAL_QUESTION_STUDIO_PACKAGE_V2.integrationAuthority);
     assert.equal(question.lifecycle.questionStudioDiscoverable, true);
     assert.equal(question.lifecycle.registrationStatus, "REGISTERED");
@@ -94,8 +99,17 @@ for (const qlId of PFC_TPF_QLS) {
     assert.equal(question.answer, question.optionLabels[question.correctIndex]);
     assert.equal(question.optionSvgs.length, 4);
     assert.equal(new Set(question.optionSvgs).size, 4);
-    assert.equal(getGeneratedQuestionBankEligibilityIssue(eligibilityPayload(question)), null, `${qlId}/${question.language}: Question Bank eligibility blocked.`);
-    assert.equal(getGeneratedItemApprovalDisposition(eligibilityPayload(question)).mode, "question_bank", `${qlId}/${question.language}: approval flow did not use Question Bank conversion.`);
+    assert.equal(getGeneratedQuestionBankEligibilityIssue(payload), null, `${qlId}/${question.language}: Question Bank eligibility blocked.`);
+    assert.equal(getGeneratedItemApprovalDisposition(payload).mode, "question_bank", `${qlId}/${question.language}: approval flow did not use Question Bank conversion.`);
+    const normalized = normalizeGeneratedQuestionPayload(payload, {
+      itemId: `${qlId}-${question.language}`,
+      generationRunCode: "PFC-TPF-STANDARD-INTEGRATION-GATE",
+    });
+    questionBankNormalizationCount += 1;
+    assert.equal(normalized.correctIndex, question.correctIndex);
+    assert.equal(normalized.options.length, 4);
+    assert.ok(normalized.options.every((option) => option.startsWith('<img src="data:image/svg+xml;base64,')), `${qlId}/${question.language}: option SVG did not normalize to a safe image.`);
+    assert.ok(normalized.stem.includes('<img src="data:image/svg+xml;base64,'), `${qlId}/${question.language}: stimulus SVG did not normalize to a safe image.`);
     if (qlId === "SPA-QL-040") {
       assert.ok(question.stimulusSvgs[0]?.includes(DIRECTION_CUE), `${qlId}/${question.language}: direction cue missing.`);
       assert.ok(question.stimulusSvgs[0]?.includes("data-fold-direction="), `${qlId}/${question.language}: direction semantics missing.`);
@@ -114,6 +128,7 @@ for (const qlId of PFC_TPF_QLS) {
     languages: byLanguage.map((question) => question.language),
   };
 }
+assert.equal(questionBankNormalizationCount, 18);
 
 const pfcBatch = generateSpatialProductionStudioBatchV2({ seed: "PFC-STANDARD-BATCH", chapterCode: "PFC-001", count: 12, language: "en" });
 assert.equal(pfcBatch.questions.length, 12);
@@ -140,6 +155,8 @@ const result = {
   addedPermanentQlRange: "SPA-QL-035..SPA-QL-040",
   languages: LANGUAGES,
   pfcTpfEvidence: evidence,
+  questionBankNormalizationCount,
+  staticSvgConversionTagsEnabled: ["g", "defs", "clipPath", "marker", "rect", "text"],
   standardLifecycle: {
     questionStudioDiscoverable: true,
     registrationStatus: "REGISTERED",
