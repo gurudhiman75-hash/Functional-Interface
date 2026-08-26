@@ -31,6 +31,48 @@ const CROSS_TERM_COMPARISON_SENTENCE: Record<SriLocalizedLocaleV1, string> = {
   "pa-IN": "ਦੋਵੇਂ ਧਨਾਤਮਕ ਵਿਅੰਜਕਾਂ ਦਾ ਵਰਗ ਕਰੋ। ਉਨ੍ਹਾਂ ਦੇ ਪਰਿਮੇਯ ਭਾਗ ਇੱਕੋ ਹਨ, ਇਸ ਲਈ ਮਿਸ਼ਰਤ ਪਦਾਂ ਦੇ ਸਟੀਕ ਗੁਣਨਫਲਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।",
 };
 
+const EXACT_SENTENCES: Record<SriLocalizedLocaleV1, Readonly<Record<string, string>>> = {
+  "hi-IN": {
+    "Simplify the index expression using the applicable law.": "उपयुक्त घातांक नियम का उपयोग करके व्यंजक को सरल कीजिए।",
+    "Evaluate the index expression exactly over the real numbers.": "वास्तविक संख्याओं में घातांक व्यंजक का सटीक मान ज्ञात कीजिए।",
+    "Rewrite the bases into a common structure and simplify exactly.": "आधारों को समान आधार के रूप में लिखकर सटीक रूप से सरल कीजिए।",
+    "Use the supplied power relation to recover the requested exact quantity.": "दिए गए घात संबंध का उपयोग करके पूछी गई राशि का सटीक मान ज्ञात कीजिए।",
+    "Compare the quantities exactly using index laws.": "घातांक नियमों का उपयोग करके राशियों की सटीक तुलना कीजिए।",
+    "First convert the terminating decimal exponent exactly: -1.5 = -3/2.": "पहले समाप्त दशमलव घातांक को सटीक भिन्न में बदलिए: -1.5 = -3/2।",
+    "Check zero-base edge conditions before applying ordinary index laws.": "सामान्य घातांक नियम लगाने से पहले शून्य आधार की विशेष स्थितियाँ जाँचिए।",
+    "Negative exponent requires a non-zero base": "ऋणात्मक घातांक के लिए आधार शून्येतर होना आवश्यक है",
+    "A negative exponent requires a non-zero base": "ऋणात्मक घातांक के लिए आधार शून्येतर होना आवश्यक है",
+    "0^0 is undefined": "0^0 अपरिभाषित है",
+    "A negative number": "एक ऋणात्मक संख्या",
+    "Equal exponents allow the bases to be multiplied; the composite result can also be harmonised to the prime base.": "समान घातांक होने पर आधारों को गुणा किया जा सकता है; प्राप्त परिणाम को भी समान अभाज्य आधार की घात के रूप में लिखा जा सकता है।",
+    "First recover the multiplier a^k from the ratio, then apply that multiplier once more.": "पहले अनुपात से गुणक a^k ज्ञात कीजिए, फिर उसी गुणक का एक बार और उपयोग कीजिए।",
+    "Cannot be determined exactly": "सटीक रूप से निर्धारित नहीं किया जा सकता",
+  },
+  "pa-IN": {
+    "Simplify the index expression using the applicable law.": "ਉਚਿਤ ਘਾਤਾਂਕ ਨਿਯਮ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਵਿਅੰਜਕ ਨੂੰ ਸਰਲ ਕਰੋ।",
+    "Evaluate the index expression exactly over the real numbers.": "ਵਾਸਤਵਿਕ ਸੰਖਿਆਵਾਂ ਵਿੱਚ ਘਾਤਾਂਕ ਵਿਅੰਜਕ ਦਾ ਸਟੀਕ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+    "Rewrite the bases into a common structure and simplify exactly.": "ਅਧਾਰਾਂ ਨੂੰ ਇੱਕੋ ਸਾਂਝੇ ਅਧਾਰ ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖ ਕੇ ਸਟੀਕ ਤੌਰ ਤੇ ਸਰਲ ਕਰੋ।",
+    "Use the supplied power relation to recover the requested exact quantity.": "ਦਿੱਤੇ ਘਾਤ ਸੰਬੰਧ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਪੁੱਛੀ ਗਈ ਰਾਸ਼ੀ ਦਾ ਸਟੀਕ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+    "Compare the quantities exactly using index laws.": "ਘਾਤਾਂਕ ਨਿਯਮਾਂ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਰਾਸ਼ੀਆਂ ਦੀ ਸਟੀਕ ਤੁਲਨਾ ਕਰੋ।",
+    "First convert the terminating decimal exponent exactly: -1.5 = -3/2.": "ਪਹਿਲਾਂ ਸਮਾਪਤ ਦਸ਼ਮਲਵ ਘਾਤਾਂਕ ਨੂੰ ਸਟੀਕ ਭਿੰਨ ਵਿੱਚ ਬਦਲੋ: -1.5 = -3/2।",
+    "Check zero-base edge conditions before applying ordinary index laws.": "ਆਮ ਘਾਤਾਂਕ ਨਿਯਮ ਲਗਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਸਿਫ਼ਰ ਅਧਾਰ ਦੀਆਂ ਵਿਸ਼ੇਸ਼ ਸਥਿਤੀਆਂ ਜਾਂਚੋ।",
+    "Negative exponent requires a non-zero base": "ਰਿਣਾਤਮਕ ਘਾਤਾਂਕ ਲਈ ਅਧਾਰ ਸਿਫ਼ਰ ਤੋਂ ਵੱਖ ਹੋਣਾ ਲਾਜ਼ਮੀ ਹੈ",
+    "A negative exponent requires a non-zero base": "ਰਿਣਾਤਮਕ ਘਾਤਾਂਕ ਲਈ ਅਧਾਰ ਸਿਫ਼ਰ ਤੋਂ ਵੱਖ ਹੋਣਾ ਲਾਜ਼ਮੀ ਹੈ",
+    "0^0 is undefined": "0^0 ਅਪਰਿਭਾਸ਼ਿਤ ਹੈ",
+    "A negative number": "ਇੱਕ ਰਿਣਾਤਮਕ ਸੰਖਿਆ",
+    "Equal exponents allow the bases to be multiplied; the composite result can also be harmonised to the prime base.": "ਇੱਕੋ ਘਾਤਾਂਕ ਹੋਣ ਤੇ ਅਧਾਰਾਂ ਨੂੰ ਗੁਣਾ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ; ਮਿਲੇ ਨਤੀਜੇ ਨੂੰ ਵੀ ਸਾਂਝੇ ਅਭਾਜ ਅਧਾਰ ਦੀ ਘਾਤ ਵਜੋਂ ਲਿਖਿਆ ਜਾ ਸਕਦਾ ਹੈ।",
+    "First recover the multiplier a^k from the ratio, then apply that multiplier once more.": "ਪਹਿਲਾਂ ਅਨੁਪਾਤ ਤੋਂ ਗੁਣਕ a^k ਪਤਾ ਕਰੋ, ਫਿਰ ਉਸੇ ਗੁਣਕ ਦੀ ਇੱਕ ਵਾਰ ਹੋਰ ਵਰਤੋਂ ਕਰੋ।",
+    "Cannot be determined exactly": "ਸਟੀਕ ਤੌਰ ਤੇ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ",
+  },
+};
+
+function nativeConnectorText(value: string, locale: SriLocalizedLocaleV1): string {
+  return value
+    .replace(/\s+and\s+/giu, locale === "hi-IN" ? " और " : " ਅਤੇ ")
+    .replace(/\s+or\s+/giu, locale === "hi-IN" ? " या " : " ਜਾਂ ")
+    .replace(/\s+and then\s+/giu, locale === "hi-IN" ? " और फिर " : " ਅਤੇ ਫਿਰ ");
+}
+
 export function localizeSriLearnerTextV1(text: string, locale: SriLocalizedLocaleV1): string {
   if (text === "Any non-zero number raised to the power 0 equals 1.") {
     return ZERO_EXPONENT_SENTENCE[locale];
@@ -38,6 +80,163 @@ export function localizeSriLearnerTextV1(text: string, locale: SriLocalizedLocal
 
   if (text === "Square both positive expressions. Their rational parts match, so compare the exact cross-term products.") {
     return CROSS_TERM_COMPARISON_SENTENCE[locale];
+  }
+
+  const exact = EXACT_SENTENCES[locale][text];
+  if (exact) return exact;
+
+  let match = text.match(/^Which statement correctly describes (.+) over the real numbers\?$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `वास्तविक संख्याओं में ${match[1]} के बारे में कौन-सा कथन सही है?`
+      : `ਵਾਸਤਵਿਕ ਸੰਖਿਆਵਾਂ ਵਿੱਚ ${match[1]} ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?`;
+  }
+
+  match = text.match(/^Over the real numbers, how should (.+) be classified\?$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `वास्तविक संख्याओं में ${match[1]} का वर्गीकरण कैसे होगा?`
+      : `ਵਾਸਤਵਿਕ ਸੰਖਿਆਵਾਂ ਵਿੱਚ ${match[1]} ਦਾ ਵਰਗੀਕਰਨ ਕਿਵੇਂ ਹੋਵੇਗਾ?`;
+  }
+
+  match = text.match(/^Cube root of (.+) is (.+)$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `${match[1]} का घनमूल ${match[2]} है`
+      : `${match[1]} ਦਾ ਘਣਮੂਲ ${match[2]} ਹੈ`;
+  }
+
+  match = text.match(/^Use fractional-index laws to simplify (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `भिन्नात्मक घातांक नियमों का उपयोग करके ${match[1]} को सरल कीजिए।`
+      : `ਭਿੰਨਾਤਮਕ ਘਾਤਾਂਕ ਨਿਯਮਾਂ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ${match[1]} ਨੂੰ ਸਰਲ ਕਰੋ।`;
+  }
+
+  match = text.match(/^Use fractional-index rule to simplify (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `भिन्नात्मक घातांक नियम का उपयोग करके ${match[1]} को सरल कीजिए।`
+      : `ਭਿੰਨਾਤਮਕ ਘਾਤਾਂਕ ਨਿਯਮ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ${match[1]} ਨੂੰ ਸਰਲ ਕਰੋ।`;
+  }
+
+  match = text.match(/^Evaluate the rational base (.+) raised to (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `परिमेय आधार ${match[1]} की घात ${match[2]} का सटीक मान ज्ञात कीजिए।`
+      : `ਪਰਿਮੇਯ ਅਧਾਰ ${match[1]} ਦੀ ਘਾਤ ${match[2]} ਦਾ ਸਟੀਕ ਮੁੱਲ ਪਤਾ ਕਰੋ।`;
+  }
+
+  match = text.match(/^Evaluate the fraction (.+) raised to (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `भिन्न ${match[1]} की घात ${match[2]} का सटीक मान ज्ञात कीजिए।`
+      : `ਭਿੰਨ ${match[1]} ਦੀ ਘਾਤ ${match[2]} ਦਾ ਸਟੀਕ ਮੁੱਲ ਪਤਾ ਕਰੋ।`;
+  }
+
+  match = text.match(/^The fraction (.+) is raised to the reduced negative fractional index (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `भिन्न ${match[1]} पर लघुतम ऋणात्मक भिन्नात्मक घातांक ${match[2]} लगाया गया है।`
+      : `ਭਿੰਨ ${match[1]} ਉੱਤੇ ਘਟਾਇਆ ਹੋਇਆ ਰਿਣਾਤਮਕ ਭਿੰਨਾਤਮਕ ਘਾਤਾਂਕ ${match[2]} ਲਗਾਇਆ ਗਿਆ ਹੈ।`;
+  }
+
+  match = text.match(/^Rewrite (.+) as a single power of (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `${match[1]} को ${match[2]} की एकल घात के रूप में लिखिए।`
+      : `${match[1]} ਨੂੰ ${match[2]} ਦੀ ਇੱਕਲ ਘਾਤ ਵਜੋਂ ਲਿਖੋ।`;
+  }
+
+  match = text.match(/^Using the common exponent, find an equivalent single-power form of (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `समान घातांक का उपयोग करके ${match[1]} का समतुल्य एकल-घात रूप ज्ञात कीजिए।`
+      : `ਸਾਂਝੇ ਘਾਤਾਂਕ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ${match[1]} ਦਾ ਸਮਤੁੱਲ ਇੱਕਲ-ਘਾਤ ਰੂਪ ਪਤਾ ਕਰੋ।`;
+  }
+
+  match = text.match(/^Which single power is equal to (.+)\?$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `${match[1]} के बराबर कौन-सी एकल घात है?`
+      : `${match[1]} ਦੇ ਬਰਾਬਰ ਕਿਹੜੀ ਇੱਕਲ ਘਾਤ ਹੈ?`;
+  }
+
+  match = text.match(/^The given power expression is (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `दिया गया घात व्यंजक ${nativeConnectorText(match[1], locale)} है।`
+      : `ਦਿੱਤਾ ਗਿਆ ਘਾਤ ਵਿਅੰਜਕ ${nativeConnectorText(match[1], locale)} ਹੈ।`;
+  }
+
+  match = text.match(/^The given product is (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `दिया गया गुणनफल ${nativeConnectorText(match[1], locale)} है।`
+      : `ਦਿੱਤਾ ਗਿਆ ਗੁਣਨਫਲ ${nativeConnectorText(match[1], locale)} ਹੈ।`;
+  }
+
+  match = text.match(/^Since (.+), this is (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `क्योंकि ${nativeConnectorText(match[1], locale)}, इसलिए यह ${match[2]} है।`
+      : `ਕਿਉਂਕਿ ${nativeConnectorText(match[1], locale)}, ਇਸ ਲਈ ਇਹ ${match[2]} ਹੈ।`;
+  }
+
+  match = text.match(/^Solve (.+) and then evaluate (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `${match[1]} को हल कीजिए और फिर ${match[2]} का मान ज्ञात कीजिए।`
+      : `${match[1]} ਨੂੰ ਹੱਲ ਕਰੋ ਅਤੇ ਫਿਰ ${match[2]} ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।`;
+  }
+
+  match = text.match(/^The given equation is (.+) and then evaluate (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `दिया गया समीकरण ${match[1]} है और इसके बाद ${match[2]} का मान ज्ञात करना है।`
+      : `ਦਿੱਤਾ ਗਿਆ ਸਮੀਕਰਨ ${match[1]} ਹੈ ਅਤੇ ਇਸ ਤੋਂ ਬਾਅਦ ${match[2]} ਦਾ ਮੁੱਲ ਪਤਾ ਕਰਨਾ ਹੈ।`;
+  }
+
+  match = text.match(/^If (.+) and (.+), find (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `यदि ${match[1]} और ${match[2]}, तो ${match[3]} ज्ञात कीजिए।`
+      : `ਜੇ ${match[1]} ਅਤੇ ${match[2]}, ਤਾਂ ${match[3]} ਪਤਾ ਕਰੋ।`;
+  }
+
+  match = text.match(/^Given (.+) and (.+), evaluate (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `दिया है ${match[1]} और ${match[2]}; ${match[3]} का मान ज्ञात कीजिए।`
+      : `ਦਿੱਤਾ ਹੈ ${match[1]} ਅਤੇ ${match[2]}; ${match[3]} ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।`;
+  }
+
+  match = text.match(/^Using the two relations (.+) and (.+), determine (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `दोनों संबंध ${match[1]} और ${match[2]} का उपयोग करके ${match[3]} ज्ञात कीजिए।`
+      : `ਦੋਵੇਂ ਸੰਬੰਧ ${match[1]} ਅਤੇ ${match[2]} ਦੀ ਵਰਤੋਂ ਕਰਕੇ ${match[3]} ਪਤਾ ਕਰੋ।`;
+  }
+
+  match = text.match(/^The supplied condition is (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `दी गई शर्त ${nativeConnectorText(match[1], locale)} है।`
+      : `ਦਿੱਤੀ ਗਈ ਸ਼ਰਤ ${nativeConnectorText(match[1], locale)} ਹੈ।`;
+  }
+
+  match = text.match(/^The supplied relation is the two relations (.+) and (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `दिए गए दो संबंध ${match[1]} और ${match[2]} हैं।`
+      : `ਦਿੱਤੇ ਗਏ ਦੋ ਸੰਬੰਧ ${match[1]} ਅਤੇ ${match[2]} ਹਨ।`;
+  }
+
+  match = text.match(/^The supplied relation is (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `दिया गया संबंध ${nativeConnectorText(match[1], locale)} है।`
+      : `ਦਿੱਤਾ ਗਿਆ ਸੰਬੰਧ ${nativeConnectorText(match[1], locale)} ਹੈ।`;
   }
 
   const denest = text.match(/^Denest (.+)\.$/u);
