@@ -1,8 +1,8 @@
 # SRI Open QL Discovery and Freeze Protocol
 
-**Permanent QLs:** 0  
-**Frozen solve modes:** 0  
-**Current state:** `DISCOVERY_OPEN`.
+**Permanent QLs:** 58  
+**Frozen solve modes:** 58  
+**Current state:** `ENGLISH_FROZEN_LOCALIZATION_REVIEW`.
 
 ## 1. What may create a candidate QL
 
