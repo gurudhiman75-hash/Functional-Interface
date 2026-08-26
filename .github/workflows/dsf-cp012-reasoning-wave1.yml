@@ -80,16 +80,16 @@ jobs:
           cd artifacts/api-server
           node dist/reasoning-v1/data-sufficiency/cp012/direction-runtime-v1.test.mjs
 
-      - name: Bundle CP-012 Blood Relations audit
+      - name: Bundle CP-012 Blood Relations V2 audit
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-012/blood-relations-runtime-v1.test.ts \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-012/blood-relations-runtime-v2.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=dist/reasoning-v1/data-sufficiency/cp012/blood-relations-runtime-v1.test.mjs
-      - name: Run CP-012 Blood Relations audit
+            --outfile=dist/reasoning-v1/data-sufficiency/cp012/blood-relations-runtime-v2.test.mjs
+      - name: Run CP-012 Blood Relations V2 audit
         run: |
           cd artifacts/api-server
-          node dist/reasoning-v1/data-sufficiency/cp012/blood-relations-runtime-v1.test.mjs
+          node dist/reasoning-v1/data-sufficiency/cp012/blood-relations-runtime-v2.test.mjs
 
       - name: Bundle CP-012 Inequality audit
         run: |
