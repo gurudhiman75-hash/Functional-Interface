@@ -63,10 +63,12 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/english-authoring-proof.test.ts
       - name: Prove CP010 native Hindi Punjabi localization
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/localization-proof.test.ts
-      - name: Prove CP010 SSC Bank Punjab exam-real stem style
+      - name: Prove CP010 SSC Bank Punjab exam-real stem style V2
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/exam-realness-proof.test.ts
       - name: Prove CP010 locked Question Studio candidate scaffold
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-candidate-proof.test.ts
+      - name: Audit all 1413 CP010 Studio V2 learner stems
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-exam-real-v2-proof.test.ts
       - name: Prove CP010 pre-freeze production registration lock
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-prefreeze-registration-proof.test.ts
       - name: Export one multilingual questions-only review file
