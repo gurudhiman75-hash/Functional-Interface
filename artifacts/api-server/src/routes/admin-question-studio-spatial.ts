@@ -353,7 +353,10 @@ router.get(
         INNER JOIN content.generation_item_versions v
           ON v.generation_item_id = i.id AND v.version_number = i.current_version_number
         WHERE v.payload ->> 'packageId' = 'SPA-001'
-          AND v.payload ->> 'integrationAuthority' = ${SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority}
+          AND (
+            v.payload ->> 'integrationAuthority' = ${SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority}
+            OR v.payload ->> 'integrationAuthority' = ${SPATIAL_QUESTION_STUDIO_PACKAGE_V1.supersedesIntegrationAuthority}
+          )
       `;
       res.json({
         packageId: "SPA-001",
@@ -363,8 +366,10 @@ router.get(
         approvedItemCount: Number(rows[0]?.approvedItemCount ?? 0),
         questionBankCount: Number(rows[0]?.questionBankCount ?? 0),
         integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
+        supersededIntegrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.supersedesIntegrationAuthority,
         localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
         fgcLocalizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.fgcLocalizationAuthority,
+        pfcTpfLocalizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.pfcTpfLocalizationAuthority,
         releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
         questionBankConversionEligibleAfterApproval: true,
         testEligibleAfterApproval: true,
