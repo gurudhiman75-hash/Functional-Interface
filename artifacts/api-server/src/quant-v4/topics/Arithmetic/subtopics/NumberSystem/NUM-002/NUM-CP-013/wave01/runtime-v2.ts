@@ -181,12 +181,37 @@ function generateP006V2(seed: number): NumCp013Wave01Package {
   });
 }
 
+function balanceP005AnswerPosition(seed: number): NumCp013Wave01Package {
+  const source = generateWave01V1("NUM-CP013-PROT-005", seed);
+  const targetIndex = (seed - 1) % 4;
+  if (source.correctIndex === targetIndex) return source;
+
+  const reordered = [...source.options];
+  [reordered[source.correctIndex], reordered[targetIndex]] = [reordered[targetIndex]!, reordered[source.correctIndex]!];
+  const options = Object.freeze(reordered.map((option) => Object.freeze({ ...option })));
+  const correctIndex = options.findIndex((option) => option.isCorrect);
+  if (correctIndex !== targetIndex || options[correctIndex]?.value !== source.canonicalAnswer) {
+    throw new Error("NUM-CP013-PROT-005: deterministic answer-position balancing broke answer binding.");
+  }
+
+  return Object.freeze({
+    ...source,
+    options,
+    correctIndex,
+    prototypeAncestry: Object.freeze([
+      ...source.prototypeAncestry,
+      "P005-DETERMINISTIC-ANSWER-POSITION-BALANCE-V2",
+    ]),
+  });
+}
+
 /**
- * Canonical Wave01 entry after the bounded-base distractor hardening.
- * P001..P005 and P007..P008 retain the original foundation runtime;
- * P006 is regenerated with a complete distinct-option construction over bases 2..12.
+ * Canonical Wave01 entry after discovery hardening.
+ * - P005 keeps its mathematics and misconceptions but rotates the correct option through A/B/C/D by seed.
+ * - P006 uses a complete distinct-option construction over bases 2..12.
  */
 export function generateNumCp013Wave01(prototypeId: NumCp013Wave01PrototypeId, seed: number): NumCp013Wave01Package {
+  if (prototypeId === "NUM-CP013-PROT-005") return balanceP005AnswerPosition(seed);
   if (prototypeId === "NUM-CP013-PROT-006") return generateP006V2(seed);
   return generateWave01V1(prototypeId, seed);
 }
