@@ -38,6 +38,16 @@ const EXACT_SENTENCES: Record<SriLocalizedLocaleV1, Readonly<Record<string, stri
     "Rewrite the bases into a common structure and simplify exactly.": "आधारों को समान आधार के रूप में लिखकर सटीक रूप से सरल कीजिए।",
     "Use the supplied power relation to recover the requested exact quantity.": "दिए गए घात संबंध का उपयोग करके पूछी गई राशि का सटीक मान ज्ञात कीजिए।",
     "Compare the quantities exactly using index laws.": "घातांक नियमों का उपयोग करके राशियों की सटीक तुलना कीजिए।",
+    "Simplify or classify the radical exactly.": "करणी को सटीक रूप से सरल कीजिए या उसका वर्गीकरण कीजिए।",
+    "Simplify the surd expression exactly.": "करणी व्यंजक को सटीक रूप से सरल कीजिए।",
+    "Rationalise the denominator and simplify exactly.": "हर का परिमेयकरण करके सटीक रूप से सरल कीजिए।",
+    "Simplify the nested surd exactly.": "नेस्टेड करणी को सटीक रूप से सरल करणी रूप में लिखिए।",
+    "Evaluate the expression exactly.": "व्यंजक का सटीक मान ज्ञात कीजिए।",
+    "Classify it as rational or a surd.": "निर्धारित कीजिए कि यह परिमेय है या करणी।",
+    "Find the condition forced by the equality.": "समानता से आवश्यक होने वाली शर्त ज्ञात कीजिए।",
+    "Compare the two expressions exactly.": "दोनों व्यंजकों की सटीक तुलना कीजिए।",
+    "Identify the candidate that fails the original radical equation.": "उस मान की पहचान कीजिए जो मूल करणी समीकरण को संतुष्ट नहीं करता।",
+    "Evaluate the fractional-index expression through its radical form.": "करणी रूप का उपयोग करके भिन्नात्मक घातांक व्यंजक का मान ज्ञात कीजिए।",
     "First convert the terminating decimal exponent exactly: -1.5 = -3/2.": "पहले समाप्त दशमलव घातांक को सटीक भिन्न में बदलिए: -1.5 = -3/2।",
     "Check zero-base edge conditions before applying ordinary index laws.": "सामान्य घातांक नियम लगाने से पहले शून्य आधार की विशेष स्थितियाँ जाँचिए।",
     "Negative exponent requires a non-zero base": "ऋणात्मक घातांक के लिए आधार शून्येतर होना आवश्यक है",
@@ -54,6 +64,16 @@ const EXACT_SENTENCES: Record<SriLocalizedLocaleV1, Readonly<Record<string, stri
     "Rewrite the bases into a common structure and simplify exactly.": "ਅਧਾਰਾਂ ਨੂੰ ਇੱਕੋ ਸਾਂਝੇ ਅਧਾਰ ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖ ਕੇ ਸਟੀਕ ਤੌਰ ਤੇ ਸਰਲ ਕਰੋ।",
     "Use the supplied power relation to recover the requested exact quantity.": "ਦਿੱਤੇ ਘਾਤ ਸੰਬੰਧ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਪੁੱਛੀ ਗਈ ਰਾਸ਼ੀ ਦਾ ਸਟੀਕ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
     "Compare the quantities exactly using index laws.": "ਘਾਤਾਂਕ ਨਿਯਮਾਂ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਰਾਸ਼ੀਆਂ ਦੀ ਸਟੀਕ ਤੁਲਨਾ ਕਰੋ।",
+    "Simplify or classify the radical exactly.": "ਕਰਣੀ ਨੂੰ ਸਟੀਕ ਤੌਰ ਤੇ ਸਰਲ ਕਰੋ ਜਾਂ ਇਸ ਦਾ ਵਰਗੀਕਰਨ ਕਰੋ।",
+    "Simplify the surd expression exactly.": "ਕਰਣੀ ਵਿਅੰਜਕ ਨੂੰ ਸਟੀਕ ਤੌਰ ਤੇ ਸਰਲ ਕਰੋ।",
+    "Rationalise the denominator and simplify exactly.": "ਹਰ ਦਾ ਪਰਿਮੇਯਕਰਨ ਕਰਕੇ ਸਟੀਕ ਤੌਰ ਤੇ ਸਰਲ ਕਰੋ।",
+    "Simplify the nested surd exactly.": "ਨੇਸਟਡ ਕਰਣੀ ਨੂੰ ਸਟੀਕ ਤੌਰ ਤੇ ਸਰਲ ਕਰਣੀ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।",
+    "Evaluate the expression exactly.": "ਵਿਅੰਜਕ ਦਾ ਸਟੀਕ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
+    "Classify it as rational or a surd.": "ਨਿਰਧਾਰਤ ਕਰੋ ਕਿ ਇਹ ਪਰਿਮੇਯ ਹੈ ਜਾਂ ਕਰਣੀ।",
+    "Find the condition forced by the equality.": "ਬਰਾਬਰੀ ਤੋਂ ਲਾਜ਼ਮੀ ਹੋਣ ਵਾਲੀ ਸ਼ਰਤ ਪਤਾ ਕਰੋ।",
+    "Compare the two expressions exactly.": "ਦੋਵੇਂ ਵਿਅੰਜਕਾਂ ਦੀ ਸਟੀਕ ਤੁਲਨਾ ਕਰੋ।",
+    "Identify the candidate that fails the original radical equation.": "ਉਸ ਮੁੱਲ ਦੀ ਪਛਾਣ ਕਰੋ ਜੋ ਮੂਲ ਕਰਣੀ ਸਮੀਕਰਨ ਨੂੰ ਪੂਰਾ ਨਹੀਂ ਕਰਦਾ।",
+    "Evaluate the fractional-index expression through its radical form.": "ਕਰਣੀ ਰੂਪ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਭਿੰਨਾਤਮਕ ਘਾਤਾਂਕ ਵਿਅੰਜਕ ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।",
     "First convert the terminating decimal exponent exactly: -1.5 = -3/2.": "ਪਹਿਲਾਂ ਸਮਾਪਤ ਦਸ਼ਮਲਵ ਘਾਤਾਂਕ ਨੂੰ ਸਟੀਕ ਭਿੰਨ ਵਿੱਚ ਬਦਲੋ: -1.5 = -3/2।",
     "Check zero-base edge conditions before applying ordinary index laws.": "ਆਮ ਘਾਤਾਂਕ ਨਿਯਮ ਲਗਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਸਿਫ਼ਰ ਅਧਾਰ ਦੀਆਂ ਵਿਸ਼ੇਸ਼ ਸਥਿਤੀਆਂ ਜਾਂਚੋ।",
     "Negative exponent requires a non-zero base": "ਰਿਣਾਤਮਕ ਘਾਤਾਂਕ ਲਈ ਅਧਾਰ ਸਿਫ਼ਰ ਤੋਂ ਵੱਖ ਹੋਣਾ ਲਾਜ਼ਮੀ ਹੈ",
@@ -68,9 +88,9 @@ const EXACT_SENTENCES: Record<SriLocalizedLocaleV1, Readonly<Record<string, stri
 
 function nativeConnectorText(value: string, locale: SriLocalizedLocaleV1): string {
   return value
+    .replace(/\s+and then\s+/giu, locale === "hi-IN" ? " और फिर " : " ਅਤੇ ਫਿਰ ")
     .replace(/\s+and\s+/giu, locale === "hi-IN" ? " और " : " ਅਤੇ ")
-    .replace(/\s+or\s+/giu, locale === "hi-IN" ? " या " : " ਜਾਂ ")
-    .replace(/\s+and then\s+/giu, locale === "hi-IN" ? " और फिर " : " ਅਤੇ ਫਿਰ ");
+    .replace(/\s+or\s+/giu, locale === "hi-IN" ? " या " : " ਜਾਂ ");
 }
 
 export function localizeSriLearnerTextV1(text: string, locale: SriLocalizedLocaleV1): string {
