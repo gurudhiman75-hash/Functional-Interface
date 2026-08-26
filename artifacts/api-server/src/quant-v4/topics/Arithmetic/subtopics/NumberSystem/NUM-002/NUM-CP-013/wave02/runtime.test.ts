@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { generateNumCp013Wave02 } from "./runtime-v2.ts";
+import { generateNumCp013Wave02 } from "./runtime-v3.ts";
 import { NUM_CP013_WAVE02_PROTOTYPE_IDS } from "./types.ts";
 
 const SYMBOLS = "0123456789ABCDEF";
