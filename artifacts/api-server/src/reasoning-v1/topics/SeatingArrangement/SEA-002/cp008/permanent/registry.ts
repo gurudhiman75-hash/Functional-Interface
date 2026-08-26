@@ -28,9 +28,9 @@ export const SEA002_CP008_SIGNATURE_TO_PERMANENT_QL = Object.freeze({
 const AUTHORITY = Object.freeze({
   "SEA-CP008-SIG-A": Object.freeze({
     authorityKey: "CP008-AUTH-01" as const,
-    label: "Alternating corner/side square with role-derived facing",
-    solveContract: "place eight people at four corners and four side centres, derive inward/outward facing from seat role, then apply person-relative left/right and square-opposite relations",
-    definingDiscriminators: Object.freeze(["corner/side-centre role", "role-derived facing", "square opposite", "person-relative left/right"] as const),
+    label: "Role-derived corner/side square across 8-seat and 12-seat scales",
+    solveContract: "place people at square corner and side-role positions on either the classic 8-seat corner/side-centre layout or the source-backed 12-seat corner-plus-two-side-slot layout, derive inward/outward facing from seat role, then apply person-relative left/right and square-opposite relations without introducing same-side-slot or metric-distance reasoning",
+    definingDiscriminators: Object.freeze(["corner/side role", "role-derived facing", "8-seat or 12-seat scale parameter", "square opposite", "person-relative left/right"] as const),
   }),
   "SEA-CP008-SIG-B": Object.freeze({
     authorityKey: "CP008-AUTH-02" as const,
