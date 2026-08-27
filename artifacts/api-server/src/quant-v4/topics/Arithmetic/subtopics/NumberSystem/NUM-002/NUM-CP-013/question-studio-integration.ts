@@ -101,12 +101,16 @@ function tryGenerateMatchingDifficulty(
   return undefined;
 }
 
-function buildExplanation(pkg: ReturnType<typeof generateAuthority>) {
+function buildExplanation(
+  pkg: ReturnType<typeof generateAuthority>,
+  language: NumCp013QuestionStudioLanguage,
+) {
+  const answerLabel = language === "hi" ? "उत्तर" : language === "pa" ? "ਉੱਤਰ" : "Answer";
   const lines = Object.freeze([
     pkg.explanation.coreConcept,
     pkg.explanation.strategy,
     ...pkg.explanation.steps,
-    `Answer: ${pkg.explanation.finalAnswer}`,
+    `${answerLabel}: ${pkg.explanation.finalAnswer}`,
   ]);
   return Object.freeze({
     standard: EXPLANATION_STANDARD,
@@ -150,7 +154,7 @@ function normalizedPackage(
     throw new Error(`${pkg.permanentQlId}: downstream lifecycle lock unexpectedly opened.`);
   }
 
-  const explanation = buildExplanation(pkg);
+  const explanation = buildExplanation(pkg, language);
 
   return Object.freeze({
     packageId: NUM_CP013_QUESTION_STUDIO_PACKAGE_ID,
@@ -190,7 +194,8 @@ function normalizedPackage(
     sourceAnswerSemantic: pkg.sourceAnswerSemantic,
     temporaryPrototypeId: pkg.temporaryPrototypeId,
     hiddenState: pkg.hiddenState,
-    sourceSeed: pkg.seed,
+    permanentSeed: pkg.seed,
+    sourceSeed: pkg.sourceSeed,
     resolvedSourceSeed: pkg.sourceSeed,
     requestSeed: seedText,
     mathematicalFingerprint: pkg.mathematicalFingerprint,
@@ -204,6 +209,8 @@ function normalizedPackage(
       packageId: NUM_CP013_QUESTION_STUDIO_PACKAGE_ID,
       checkpointId: NUM_CP013_QUESTION_STUDIO_CHECKPOINT_ID,
       permanentQlId: pkg.permanentQlId,
+      permanentSeed: pkg.seed,
+      sourceSeed: pkg.sourceSeed,
       authorityId: pkg.authorityId,
       temporaryPrototypeId: pkg.temporaryPrototypeId,
       sourceAncestry: pkg.sourceAncestry,
@@ -258,6 +265,8 @@ function toPreview(pkg: ReturnType<typeof normalizedPackage>, index: number, cou
     qlId: pkg.questionLanguageId,
     questionId: pkg.questionId,
     seed: pkg.requestSeed,
+    permanentSeed: pkg.permanentSeed,
+    sourceSeed: pkg.sourceSeed,
     language: pkg.language,
     locale: pkg.locale,
     runtimeMode: pkg.runtimeMode,
