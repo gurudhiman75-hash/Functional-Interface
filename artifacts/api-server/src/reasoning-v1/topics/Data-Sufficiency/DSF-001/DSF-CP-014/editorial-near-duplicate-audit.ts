@@ -48,6 +48,10 @@ export interface DsfEditorialAuditResult {
   readonly passed: boolean;
 }
 
+const ENTITY_SENTINEL = "dsfentity";
+const NUMBER_SENTINEL = "dsfnumber";
+const CURRENCY_SENTINEL = "dsfcurrency";
+
 const DEFAULT_STOPWORDS = new Set([
   "a", "an", "and", "are", "as", "at", "be", "by", "can", "determine", "does", "for", "from",
   "given", "if", "in", "is", "it", "of", "on", "or", "the", "then", "to", "what", "which", "with",
@@ -62,23 +66,23 @@ function replaceEntities(text: string, entityLexicon: readonly string[]): string
   const entities = [...new Set(entityLexicon.map((entity) => entity.trim()).filter(Boolean))]
     .sort((left, right) => right.length - left.length);
   for (const entity of entities) {
-    output = output.replace(new RegExp(`\\b${escapeRegExp(entity)}\\b`, "giu"), " <entity> ");
+    output = output.replace(new RegExp(`\\b${escapeRegExp(entity)}\\b`, "giu"), ` ${ENTITY_SENTINEL} `);
   }
   return output;
 }
 
 export function normalizeDsfEditorialSurface(text: string, entityLexicon: readonly string[] = []): string {
   return replaceEntities(text.normalize("NFKC").toLowerCase(), entityLexicon)
-    .replace(/[₹$£€]/gu, " <currency> ")
-    .replace(/\b\d+(?:\.\d+)?\s*%/gu, " <number> percent ")
-    .replace(/\b\d+(?:\.\d+)?\b/gu, " <number> ")
+    .replace(/[₹$£€]/gu, ` ${CURRENCY_SENTINEL} `)
+    .replace(/\b\d+(?:\.\d+)?\s*%/gu, ` ${NUMBER_SENTINEL} percent `)
+    .replace(/\b\d+(?:\.\d+)?\b/gu, ` ${NUMBER_SENTINEL} `)
     .replace(/≥/gu, " greater-or-equal ")
     .replace(/≤/gu, " less-or-equal ")
     .replace(/≠/gu, " not-equal ")
     .replace(/>/gu, " greater-than ")
     .replace(/</gu, " less-than ")
     .replace(/=/gu, " equal-to ")
-    .replace(/[^\p{L}\p{N}<>-]+/gu, " ")
+    .replace(/[^\p{L}\p{N}-]+/gu, " ")
     .replace(/\s+/gu, " ")
     .trim();
 }
@@ -158,7 +162,7 @@ function candidatePairs(
   const tokenToIndexes = new Map<string, number[]>();
   surfaces.forEach((surface, index) => {
     for (const token of new Set(meaningfulTokens(surface))) {
-      if (token === "<number>" || token === "<entity>" || token.length < 3) continue;
+      if (token === NUMBER_SENTINEL || token === ENTITY_SENTINEL || token === CURRENCY_SENTINEL || token.length < 3) continue;
       const bucket = tokenToIndexes.get(token) ?? [];
       bucket.push(index);
       tokenToIndexes.set(token, bucket);
