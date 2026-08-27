@@ -21,11 +21,11 @@ The final CP013 landing gate must execute all of the following on one head:
 3. Wave03 source/edge and independent saturation.
 4. Wave04 22-prototype → 11-authority merge/split/ownership closure.
 5. Permanent QL allocation `NUM-QL-237..NUM-QL-247`.
-6. Permanent English runtime audit across 880 packages.
-7. Hindi/Punjabi semantic parity across 1,100 packages.
+6. Permanent English runtime audit across 880 packages, including source-seed decoupling and prototype-internal mode reachability.
+7. Hindi/Punjabi semantic parity across 1,100 packages, including the same internal modes in each language.
 8. Hindi/Punjabi human-quality/script audit across 770 packages.
-9. CP013 Question Studio adapter audit.
-10. CP013 shared-facade/admin-route contract.
+9. CP013 Question Studio adapter audit, including permanent/source-seed traceability and native final-answer labels.
+10. CP013 shared-facade/admin-route contract with exact mount-order guard.
 11. CP013 cumulative landing audit.
 12. Actual CP013 admin route bundle.
 13. API server build.
@@ -36,6 +36,29 @@ The final CP013 landing gate must execute all of the following on one head:
 - permanent solve authorities: 11
 - permanent QLs: `NUM-QL-237..NUM-QL-247`
 - next free QL: `NUM-QL-248`
+
+## Reachability repair included in the landing authority
+
+Before final certification, static audit found that the original permanent projection reused one seed for both source-prototype choice and prototype-internal mode choice. Prototype-level coverage therefore hid two permanent coverage losses:
+
+- QL237/P011 could not reach number-of-digits or smallest n-digit boundary modes;
+- QL241/P021 could not reach one-solution or multiple-solution topology.
+
+The landing candidate now decouples source selection from source generation:
+
+- source prototype is selected by permanent-seed position in the authority's retained source list;
+- source generator receives the successive visit number for that prototype as `sourceSeed`.
+
+Cumulative certification explicitly requires:
+
+- QL237/P011 → modes `0,1,2,3`;
+- QL241/P021 → modes `0,1,2`;
+- those same modes in both Hindi and Punjabi;
+- positive permanent/source seeds and exact Studio traceability parity.
+
+Additional permanent/localization audits also require all internal modes for P009, P012 and P015.
+
+This is a CP013 freeze correction, not a new authority allocation. QL248 remains free.
 
 ## Shared Question Studio result
 
@@ -56,6 +79,8 @@ Aggregate release:
 
 Package-only `NUM-002` fallback remains preserved.
 
+Studio review payloads distinguish `permanentSeed` from the resolved `sourceSeed`. Hindi/Punjabi final explanation lines use `उत्तर:` / `ਉੱਤਰ:` rather than English `Answer:`.
+
 ## Lifecycle closure
 
 The cumulative landing opens only guarded Question Studio review for CP013.
@@ -70,4 +95,6 @@ The cumulative landing opens only guarded Question Studio review for CP013.
 
 ## Current certification caveat
 
-GitHub Actions is currently failing repository-wide before jobs receive a first step. This affects unrelated workflows as well as CP013. Therefore this document defines the cumulative gate, but CP013 must not be called cumulative-certified or merged solely on those infrastructure-level failures. The latest cumulative head must execute successfully once Actions execution is available.
+GitHub Actions is currently failing repository-wide before jobs receive a first step. The observed CP013 and unrelated jobs have `steps: null`, so these are infrastructure-level non-executions rather than test assertion results. Vercel checks have also reported build-rate-limit failures.
+
+Therefore this document defines the cumulative gate and records the completed code/static hardening, but CP013 must not be called cumulative-certified or merged until the latest candidate head executes the permanent English, localization, Question Studio, cumulative, admin-route/API and production regressions successfully.
