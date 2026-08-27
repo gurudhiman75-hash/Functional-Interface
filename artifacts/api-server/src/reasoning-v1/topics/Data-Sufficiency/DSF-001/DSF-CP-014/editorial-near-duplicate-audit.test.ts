@@ -68,9 +68,9 @@ const nearParaphrases: readonly DsfEditorialAuditRecord[] = [
   },
   {
     id: "NEAR-2",
-    stem: "Five trainees sit in one straight row. Find who occupies the middle position.",
-    statementI: "Aman is immediately left of Bina.",
-    statementII: "Charan is seated at an end.",
+    stem: "Five trainees are seated in a straight row. Find the person occupying the middle seat.",
+    statementI: "Aman sits immediately left of Bina.",
+    statementII: "Charan occupies an end seat.",
     solveModeId: "MIDDLE",
   },
   {
