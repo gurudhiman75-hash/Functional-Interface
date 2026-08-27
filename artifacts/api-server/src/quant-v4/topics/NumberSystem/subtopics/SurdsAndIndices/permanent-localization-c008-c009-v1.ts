@@ -41,6 +41,11 @@ export function localizeSriC008C009FinalizedSurfaceV1(
     ? `${match[1]} को मानक करणी रूप में लिखिए।`
     : `${match[1]} ਨੂੰ ਮਿਆਰੀ ਕਰਣੀ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`;
 
+  match = text.match(/^Simplify (.+) into simplest surd form\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} को सरलतम करणी रूप में लिखिए।`
+    : `${match[1]} ਨੂੰ ਸਭ ਤੋਂ ਸਰਲ ਕਰਣੀ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`;
+
   if (text === "Distribute every term, replace (√r)^2 by r, then collect the rational and surd parts.") {
     return locale === "hi-IN"
       ? "प्रत्येक पद का वितरण कीजिए, (√r)^2 को r से बदलिए, फिर परिमेय और करणी भागों को मिलाइए।"
@@ -132,14 +137,13 @@ export function localizeSriC008C009FinalizedSurfaceV1(
     return locale === "hi-IN" ? "दोनों मानक गुणांक ज्ञात कीजिए।" : "ਦੋਵੇਂ ਮਿਆਰੀ ਗੁਣਾਂਕ ਪਤਾ ਕਰੋ।";
   }
 
-  if (text === "Rationalise with the conjugate, then read the rational and surd coefficients from canonical form.") {
-    return locale === "hi-IN"
-      ? "संयुग्मी से परिमेयकरण कीजिए, फिर मानक रूप से परिमेय और करणी गुणांक पढ़िए।"
-      : "ਸੰਯੁਗਮੀ ਨਾਲ ਪਰਿਮੇਯਕਰਨ ਕਰੋ, ਫਿਰ ਮਿਆਰੀ ਰੂਪ ਤੋਂ ਪਰਿਮੇਯ ਅਤੇ ਕਰਣੀ ਗੁਣਾਂਕ ਪੜ੍ਹੋ।";
-  }
+  match = text.match(/^Rationalise with (?:the )?conjugate, then read the rational and surd coefficients from (?:canonical|standard) form\.$/u);
+  if (match) return locale === "hi-IN"
+    ? "संयुग्मी से परिमेयकरण कीजिए, फिर मानक रूप से परिमेय और करणी गुणांक पढ़िए।"
+    : "ਸੰਯੁਗਮੀ ਨਾਲ ਪਰਿਮੇਯਕਰਨ ਕਰੋ, ਫਿਰ ਮਿਆਰੀ ਰੂਪ ਤੋਂ ਪਰਿਮੇਯ ਅਤੇ ਕਰਣੀ ਗੁਣਾਂਕ ਪੜ੍ਹੋ।";
 
   match = text.match(/^Norm = (.+)$/u);
-  if (match) return locale === "hi-IN" ? `हर का नॉर्म = ${match[1]}` : `ਹਰ ਦਾ ਨਾਰਮ = ${match[1]}`;
+  if (match) return locale === "hi-IN" ? `हर का मान = ${match[1]}` : `ਹਰ ਦਾ ਮੁੱਲ = ${match[1]}`;
 
   match = text.match(/^Rationalise (.+) and find (A[+-]B)\.$/u);
   if (match) return locale === "hi-IN"
@@ -173,6 +177,23 @@ export function localizeSriC008C009FinalizedSurfaceV1(
   if (match) return locale === "hi-IN"
     ? `A और B ज्ञात कीजिए, फिर ${match[1]} का मान निकालिए।`
     : `A ਅਤੇ B ਪਤਾ ਕਰੋ, ਫਿਰ ${match[1]} ਦਾ ਮੁੱਲ ਕੱਢੋ।`;
+
+  match = text.match(/^The value used for x is (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `x के लिए प्रयुक्त मान ${match[1]} है।`
+    : `x ਲਈ ਵਰਤਿਆ ਮੁੱਲ ${match[1]} ਹੈ।`;
+
+  if (text === "The conjugate has product 1 with x, so it is exactly 1/x; adding the pair cancels the surd.") {
+    return locale === "hi-IN"
+      ? "संयुग्मी का x के साथ गुणनफल 1 है, इसलिए वह ठीक 1/x है; दोनों को जोड़ने पर करणी पद कट जाते हैं।"
+      : "ਸੰਯੁਗਮੀ ਦਾ x ਨਾਲ ਗੁਣਨਫਲ 1 ਹੈ, ਇਸ ਲਈ ਉਹ ਠੀਕ 1/x ਹੈ; ਦੋਵਾਂ ਨੂੰ ਜੋੜਣ ਤੇ ਕਰਣੀ ਪਦ ਕੱਟ ਜਾਂਦੇ ਹਨ।";
+  }
+
+  if (text === "Use the reciprocal-conjugate relation to evaluate the target.") {
+    return locale === "hi-IN"
+      ? "पूछे गए मान के लिए व्युत्क्रम-संयुग्मी संबंध का उपयोग कीजिए।"
+      : "ਪੁੱਛੇ ਗਏ ਮੁੱਲ ਲਈ ਵਿਉਤਕ੍ਰਮ-ਸੰਯੁਗਮੀ ਸੰਬੰਧ ਦੀ ਵਰਤੋਂ ਕਰੋ।";
+  }
 
   return undefined;
 }
