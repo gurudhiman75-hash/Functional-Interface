@@ -1,0 +1,102 @@
+name: Validate NUM-CP-013 cumulative landing
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-013/**"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine-cp013.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-cp013.ts"
+      - "artifacts/api-server/src/routes/index.ts"
+      - ".github/workflows/num-cp013-cumulative-landing-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp013-cumulative-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp013-cumulative:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle all CP013 audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-013"
+          pnpm --dir artifacts/api-server exec esbuild "$root/wave01/runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave01-runtime.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/wave01/independent-minimality.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave01-independent.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/wave02/runtime-v4.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave02-v4.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/wave02/independent-saturation-v4.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave02-independent-v4.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/wave03/runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave03-runtime.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/wave03/independent-saturation.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave03-independent.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/wave04/merge-split-proposal.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave04-merge-split.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/permanent-allocation.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-permanent-allocation.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/permanent-runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-permanent-english.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/localization/runtime-parity.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-hi-pa-parity.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/localization/runtime-human-quality.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-hi-pa-human-quality.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/question-studio-integration.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-question-studio.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/question-studio-route-contract.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-question-studio-route.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/cumulative-landing.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-cumulative.mjs
+
+      - name: Run discovery and merge-split audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp013-wave01-runtime.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp013-wave01-independent.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp013-wave02-v4.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp013-wave02-independent-v4.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp013-wave03-runtime.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp013-wave03-independent.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp013-wave04-merge-split.mjs
+
+      - name: Run permanent and localization audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp013-permanent-allocation.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp013-permanent-english.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp013-hi-pa-parity.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp013-hi-pa-human-quality.mjs
+
+      - name: Run Question Studio and cumulative audits
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp013-question-studio.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp013-question-studio-route.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp013-cumulative.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp013-cumulative.log
+
+      - name: Bundle actual admin route
+        shell: bash
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/routes/admin-question-studio-cp013.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/quant-v4/admin-question-studio-cp013-route.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload cumulative evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp013-cumulative-landing-v1
+          path: artifacts/api-server/dist/quant-v4/num-cp013-cumulative.log
+          if-no-files-found: error
+          retention-days: 30
