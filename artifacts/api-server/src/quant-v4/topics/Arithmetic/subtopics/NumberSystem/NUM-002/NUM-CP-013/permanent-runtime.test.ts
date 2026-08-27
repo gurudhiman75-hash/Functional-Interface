@@ -17,6 +17,8 @@ const answerPositions = new Map<string, Set<number>>();
 const fingerprints = new Map<string, Set<string>>();
 const sourcePrototypeCoverage = new Map<string, Set<string>>();
 const sourceSemanticCoverage = new Map<string, Set<string>>();
+const sourceModeCoverage = new Map<string, Set<number>>();
+const sourceSeedCoverage = new Map<string, Set<number>>();
 
 for (const qlId of NUM_CP013_PERMANENT_QL_IDS) {
   answerPositions.set(qlId, new Set());
@@ -41,6 +43,7 @@ for (const qlId of NUM_CP013_PERMANENT_QL_IDS) {
     assert.equal(q.authorityLabel, allocation.label, `${label}: authority label drift`);
     assert.equal(q.answerSemantic, allocation.authorityAnswerSemantic, `${label}: authority answer semantic drift`);
     assert.ok(allocation.sourcePrototypes.includes(q.temporaryPrototypeId as never), `${label}: source prototype not allowed by allocation`);
+    assert.ok(Number.isSafeInteger(q.sourceSeed) && q.sourceSeed >= 1, `${label}: invalid decoupled source seed`);
     assert.ok(q.sourceAnswerSemantic.length > 0, `${label}: source semantic missing`);
     assert.equal(q.canonicalAnswer, q.verifierAnswer, `${label}: canonical/verifier mismatch`);
     assert.equal(q.explanation.finalAnswer, q.canonicalAnswer, `${label}: explanation answer mismatch`);
@@ -86,6 +89,15 @@ for (const qlId of NUM_CP013_PERMANENT_QL_IDS) {
     fingerprints.get(qlId)!.add(q.mathematicalFingerprint);
     sourcePrototypeCoverage.get(qlId)!.add(q.temporaryPrototypeId);
     sourceSemanticCoverage.get(qlId)!.add(q.sourceAnswerSemantic);
+
+    const sourceKey = `${qlId}/${q.temporaryPrototypeId}`;
+    if (!sourceSeedCoverage.has(sourceKey)) sourceSeedCoverage.set(sourceKey, new Set());
+    sourceSeedCoverage.get(sourceKey)!.add(q.sourceSeed);
+    const rawMode = (q.hiddenState as Readonly<Record<string, unknown>>).mode;
+    if (typeof rawMode === "number" && Number.isInteger(rawMode)) {
+      if (!sourceModeCoverage.has(sourceKey)) sourceModeCoverage.set(sourceKey, new Set());
+      sourceModeCoverage.get(sourceKey)!.add(rawMode);
+    }
     packages += 1;
   }
 }
@@ -107,6 +119,26 @@ for (const allocation of NUM_CP013_PERMANENT_ALLOCATION) {
     `${qlId}: merged authority did not reach every source prototype`,
   );
   assert.ok(sourceSemanticCoverage.get(qlId)!.size >= 1, `${qlId}: source semantic coverage missing`);
+  for (const prototypeId of allocation.sourcePrototypes) {
+    const sourceKey = `${qlId}/${prototypeId}`;
+    assert.ok((sourceSeedCoverage.get(sourceKey)?.size ?? 0) >= 1, `${sourceKey}: no source seeds reached`);
+  }
+}
+
+const requiredInternalModes = Object.freeze([
+  { sourceKey: "NUM-QL-237/NUM-CP013-PROT-011", modes: [0, 1, 2, 3] },
+  { sourceKey: "NUM-QL-238/NUM-CP013-PROT-009", modes: [0, 1, 2, 3] },
+  { sourceKey: "NUM-QL-239/NUM-CP013-PROT-012", modes: [0, 1, 2] },
+  { sourceKey: "NUM-QL-241/NUM-CP013-PROT-021", modes: [0, 1, 2] },
+  { sourceKey: "NUM-QL-245/NUM-CP013-PROT-015", modes: [0, 1, 2] },
+] as const);
+
+for (const requirement of requiredInternalModes) {
+  assert.deepEqual(
+    [...(sourceModeCoverage.get(requirement.sourceKey) ?? new Set<number>())].sort((a, b) => a - b),
+    [...requirement.modes],
+    `${requirement.sourceKey}: prototype-internal mode reachability drift`,
+  );
 }
 
 console.log(JSON.stringify({
@@ -120,7 +152,9 @@ console.log(JSON.stringify({
   lifecycleChecks,
   permanentRange: `${NUM_CP013_PERMANENT_QL_IDS[0]}..${NUM_CP013_PERMANENT_QL_IDS.at(-1)}`,
   nextAvailableQl: "NUM-QL-248",
+  sourceSeedSelectionDecoupled: true,
   answerPositions: Object.fromEntries([...answerPositions].map(([id, values]) => [id, [...values].sort()])),
   sourcePrototypeCoverage: Object.fromEntries([...sourcePrototypeCoverage].map(([id, values]) => [id, [...values].sort()])),
   sourceSemanticCoverage: Object.fromEntries([...sourceSemanticCoverage].map(([id, values]) => [id, [...values].sort()])),
+  sourceModeCoverage: Object.fromEntries([...sourceModeCoverage].map(([id, values]) => [id, [...values].sort((a, b) => a - b)])),
 }, null, 2));
