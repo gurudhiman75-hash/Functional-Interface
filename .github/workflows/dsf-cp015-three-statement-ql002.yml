@@ -1,0 +1,50 @@
+name: Validate DSF CP-015 Three Statement QL-002 Foundation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-015/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/foundation/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/discovery/ql-boundary-candidates.ts
+      - .github/workflows/dsf-cp015-three-statement-ql002.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp015-three-statement-ql002-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp015-three-statement-ql002:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle CP-015 three-statement foundation audit
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/data-sufficiency/cp015
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-015/three-statement-foundation.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp015/three-statement-foundation.test.mjs
+      - name: Run CP-015 three-statement foundation audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp015/three-statement-foundation.test.mjs
