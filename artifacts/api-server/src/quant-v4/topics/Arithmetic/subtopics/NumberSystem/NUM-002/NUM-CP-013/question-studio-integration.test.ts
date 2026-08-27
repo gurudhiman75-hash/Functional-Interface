@@ -81,8 +81,17 @@ for (const qlId of NUM_CP013_QUESTION_STUDIO_QL_IDS) {
       assert.equal(question.semanticMetadata.testEligible, false, `${label}: traceability test gate opened`);
       assert.equal(question.semanticMetadata.mockTestEligible, false, `${label}: traceability mock gate opened`);
       assert.equal(question.semanticMetadata.publiclyPublishable, false, `${label}: traceability public gate opened`);
+      assert.ok(Number.isSafeInteger(question.permanentSeed) && question.permanentSeed >= 1, `${label}: permanent seed missing`);
+      assert.ok(Number.isSafeInteger(question.sourceSeed) && question.sourceSeed >= 1, `${label}: resolved source seed missing`);
+      assert.equal(question.semanticMetadata.permanentSeed, question.permanentSeed, `${label}: permanent-seed traceability drift`);
+      assert.equal(question.semanticMetadata.sourceSeed, question.sourceSeed, `${label}: source-seed traceability drift`);
       assert.ok(String(question.explanation).length >= 80, `${label}: Studio explanation too thin`);
       assert.ok(String(question.taskKind).length > 0, `${label}: task-kind traceability missing`);
+
+      const finalExplanationLine = String(question.packageExplanation.lines.at(-1));
+      const expectedAnswerPrefix = language === "hi" ? "उत्तर:" : language === "pa" ? "ਉੱਤਰ:" : "Answer:";
+      assert.ok(finalExplanationLine.startsWith(expectedAnswerPrefix), `${label}: localized final-answer label drift`);
+      if (language !== "en") assert.doesNotMatch(finalExplanationLine, /^Answer:/u, `${label}: English final-answer label leaked`);
     }
     explicitPackages += batch.questions.length;
   }
@@ -121,6 +130,8 @@ console.log(JSON.stringify({
   supportedLanguages: ["en", "hi", "pa"],
   deterministicContentReplay: true,
   observationalTimestampExcludedFromReplayEquality: true,
+  sourceSeedSelectionDecoupled: true,
+  localeNativeFinalAnswerLabels: true,
   packageOnlyNum002Claimed: false,
   questionStudioDiscoverable: true,
   questionBankWritable: false,
