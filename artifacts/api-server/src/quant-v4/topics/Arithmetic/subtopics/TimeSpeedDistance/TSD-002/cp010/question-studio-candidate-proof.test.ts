@@ -37,8 +37,9 @@ assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.testEligible === false, "test lock los
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.publiclyPublishable === false, "public lock lost");
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.numericRebindingPolicy === "OCCURRENCE_AWARE_EQUAL_SOURCE_VALUE_SAFE", "occurrence-safe rebinding policy lost");
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.duplicateStemPolicy === "DROP_DUPLICATE_RENDERED_STEM", "duplicate-stem policy lost");
-assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.stemAuthoringPolicy === "SSC_BANK_PUNJAB_EXAM_REAL_RACE_LANGUAGE", "exam-real stem policy lost");
-assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.stemNarrativePolicy === "RESULT_FIRST_LOW_NARRATIVE", "result-first stem policy lost");
+assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.stemAuthoringPolicy === "SSC_BANK_PUNJAB_OFFICIAL_PAPER_RACE_LANGUAGE", "official-paper stem policy lost");
+assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.stemNarrativePolicy === "RESULT_CAPABILITY_HANDICAP_FIRST_LOW_NARRATIVE", "V3 narrative policy lost");
+assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.representationPolicy === "CAPABILITY_BEATS_BY_START_RATIO_TWO_RACE_EVIDENCE", "V3 representation policy lost");
 
 let total = 0;
 for (const language of ["en", "hi", "pa"] as const) {
@@ -60,6 +61,8 @@ for (const language of ["en", "hi", "pa"] as const) {
     assert(question.validation.semanticShapeCompatible, `${language}/${question.familyId}/${question.caseId}: semantic compatibility flag lost`);
     assert(question.validation.occurrenceAwareRebinding, `${language}/${question.familyId}/${question.caseId}: occurrence-aware rebinding flag lost`);
     assert(question.validation.examRealStem, `${language}/${question.familyId}/${question.caseId}: exam-real stem flag lost`);
+    assert(question.validation.officialPaperRepresentationV3, `${language}/${question.familyId}/${question.caseId}: V3 official-paper flag lost`);
+    assert(question.validation.rawSpeedDrillAvoidedWhereRaceRepresentationExists, `${language}/${question.familyId}/${question.caseId}: V3 raw-speed guard lost`);
     assert(question.persistenceAllowed === false, `${language}/${question.familyId}: persistence unexpectedly enabled`);
     assert(question.questionBankStatus === "NOT_STORED", `${language}/${question.familyId}: bank status changed`);
     assert(question.testEligibility === "INELIGIBLE", `${language}/${question.familyId}: test status changed`);
@@ -81,7 +84,7 @@ for (const language of ["en", "hi", "pa"] as const) {
 }
 assert(total === 1413, `expected 1413 multilingual candidate combinations, got ${total}`);
 
-console.log("TSD-CP-010 LOCKED EXAM-REAL QUESTION STUDIO CANDIDATE PROOF: PASS");
+console.log("TSD-CP-010 LOCKED OFFICIAL-PAPER V3 QUESTION STUDIO CANDIDATE PROOF: PASS");
 console.log(JSON.stringify({
   combinationsPerLocale: 471,
   multilingualCombinations: total,
@@ -89,8 +92,9 @@ console.log(JSON.stringify({
   minimumCompatibleCasesPerFamily: 2,
   maximumCompatibleCasesPerFamily: 12,
   qlCapacity: EXPECTED_QL_CAPACITY,
-  stemAuthoringPolicy: "SSC_BANK_PUNJAB_EXAM_REAL_RACE_LANGUAGE",
-  stemNarrativePolicy: "RESULT_FIRST_LOW_NARRATIVE",
+  stemAuthoringPolicy: "SSC_BANK_PUNJAB_OFFICIAL_PAPER_RACE_LANGUAGE",
+  stemNarrativePolicy: "RESULT_CAPABILITY_HANDICAP_FIRST_LOW_NARRATIVE",
+  representationPolicy: "CAPABILITY_BEATS_BY_START_RATIO_TWO_RACE_EVIDENCE",
   optionPolicy: "EXACTLY_FOUR_UNIQUE_OPTIONS",
   variationPolicy: "HUMAN_FAMILY_X_SEMANTICALLY_COMPATIBLE_EXECUTABLE_CASE",
   numericRebindingPolicy: "OCCURRENCE_AWARE_EQUAL_SOURCE_VALUE_SAFE",
