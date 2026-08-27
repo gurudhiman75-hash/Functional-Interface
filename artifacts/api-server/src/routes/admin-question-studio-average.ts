@@ -153,32 +153,54 @@ router.get(
   requireAdminPermission("content.generation.read"),
   async (_req, res) => {
     try {
-      const packages = listQuestionStudioPackages().map((pkg: any) => ({
-        packageId: String(pkg.packageId),
-        topic: String(pkg.topic),
-        subtopic: String(pkg.subtopic),
-        subject: asString(pkg.subject) || undefined,
-        label: String(pkg.label),
-        enabled: Boolean(pkg.enabled),
-        cpIds: Array.isArray(pkg.cpIds)
+      const packages = listQuestionStudioPackages().map((pkg: any) => {
+        const cpIds = Array.isArray(pkg.cpIds)
           ? pkg.cpIds.map(String)
           : Array.isArray(pkg.canonicalProblems)
             ? pkg.canonicalProblems.map((item: any) => String(item?.id ?? "")).filter(Boolean)
+            : [];
+        const canonicalProblems = Array.isArray(pkg.canonicalProblems)
+          ? pkg.canonicalProblems
+              .map((item: any) => {
+                const id = String(item?.id ?? "").trim();
+                return id
+                  ? { id, label: asString(item?.label) || id }
+                  : null;
+              })
+              .filter(Boolean)
+          : cpIds.map((id: string) => ({ id, label: id }));
+        return {
+          packageId: String(pkg.packageId),
+          topic: String(pkg.topic),
+          subtopic: String(pkg.subtopic),
+          subject: asString(pkg.subject) || undefined,
+          label: String(pkg.label),
+          enabled: Boolean(pkg.enabled),
+          cpIds,
+          canonicalProblems,
+          supportedLanguages: Array.isArray(pkg.supportedLanguages)
+            ? pkg.supportedLanguages.map(String)
+            : ["en"],
+          runtimeMode: asString(pkg.runtimeMode) || undefined,
+          supportedRuntimeModes: Array.isArray(pkg.supportedRuntimeModes)
+            ? pkg.supportedRuntimeModes.map(String)
             : [],
-        supportedLanguages: Array.isArray(pkg.supportedLanguages)
-          ? pkg.supportedLanguages.map(String)
-          : ["en"],
-        runtimeMode: asString(pkg.runtimeMode) || undefined,
-        supportedRuntimeModes: Array.isArray(pkg.supportedRuntimeModes)
-          ? pkg.supportedRuntimeModes.map(String)
-          : [],
-        questionBankStatus: asString(pkg.questionBankStatus) || undefined,
-        testEligibility: asString(pkg.testEligibility) || undefined,
-        publiclyPublishable:
-          typeof pkg.publiclyPublishable === "boolean"
-            ? pkg.publiclyPublishable
-            : undefined,
-      }));
+          questionBankStatus: asString(pkg.questionBankStatus) || undefined,
+          questionBankWritable:
+            typeof pkg.questionBankWritable === "boolean"
+              ? pkg.questionBankWritable
+              : undefined,
+          checkpointCapabilities:
+            pkg.checkpointCapabilities && typeof pkg.checkpointCapabilities === "object"
+              ? pkg.checkpointCapabilities
+              : undefined,
+          testEligibility: asString(pkg.testEligibility) || undefined,
+          publiclyPublishable:
+            typeof pkg.publiclyPublishable === "boolean"
+              ? pkg.publiclyPublishable
+              : undefined,
+        };
+      });
 
       res.json({
         generationSystem: "question-studio",
@@ -254,7 +276,9 @@ router.post(
       : worRequest
         ? "Reasoning"
         : asString(req.body?.topic) || "Arithmetic";
-    const subtopic = asString(req.body?.subtopic) || selectedSubtopic;
+    const subtopic = seaRequest
+      ? selectedSubtopic
+      : asString(req.body?.subtopic) || selectedSubtopic;
     const exam = asString(req.body?.exam) || "SSC CGL";
     const subject = seaRequest || worRequest
       ? "Reasoning Ability"
@@ -265,7 +289,12 @@ router.post(
       ? "Mixed"
       : normalizeDifficulty(requestedDifficulty);
     const seed = asString(req.body?.seed) || undefined;
-    const canonicalProblemId = asString(req.body?.canonicalProblemId) || undefined;
+    const inferredSeaCp = seaCp008Request
+      ? "SEA-CP-008"
+      : seaRequest
+        ? "SEA-CP-006"
+        : undefined;
+    const canonicalProblemId = asString(req.body?.canonicalProblemId) || inferredSeaCp;
     const questionLanguageId = asString(req.body?.questionLanguageId) || undefined;
     const inferredNumberSystemCp = numberSystemRequest
       ? inferNumberSystemCpFromQl(questionLanguageId)
