@@ -15,6 +15,47 @@ export type { SharedQuestionStudioGenerationRequest };
 
 const AGGREGATE_RELEASE_ID = "NUM-002-QS-CP008-CP013-MULTILINGUAL-FROZEN-V1" as const;
 
+function finalAnswerPrefix(language: string) {
+  if (language === "hi") return "उत्तर";
+  if (language === "pa") return "ਉੱਤਰ";
+  return "Answer";
+}
+
+function localizeCp013StudioExplanation(result: any, request: SharedQuestionStudioGenerationRequest) {
+  const language = String(request.language ?? "en").trim().toLowerCase();
+  if (language !== "hi" && language !== "pa") return result;
+
+  const prefix = finalAnswerPrefix(language);
+  const questionPackages = Object.freeze((result.questionPackages ?? []).map((pkg: any) => {
+    const explanation = pkg.explanation;
+    if (!explanation || !Array.isArray(explanation.lines)) return pkg;
+    const lines = Object.freeze([
+      ...explanation.lines.slice(0, -1),
+      `${prefix}: ${explanation.finalAnswer}`,
+    ]);
+    return Object.freeze({
+      ...pkg,
+      explanation: Object.freeze({ ...explanation, lines }),
+    });
+  }));
+
+  const questions = Object.freeze((result.questions ?? []).map((question: any, index: number) => {
+    const packageExplanation = questionPackages[index]?.explanation ?? question.packageExplanation;
+    if (!packageExplanation || !Array.isArray(packageExplanation.lines)) return question;
+    return Object.freeze({
+      ...question,
+      explanation: packageExplanation.lines.join("\n\n"),
+      packageExplanation,
+    });
+  }));
+
+  return Object.freeze({
+    ...result,
+    questionPackages,
+    questions,
+  });
+}
+
 export function listQuestionStudioPackages() {
   const packages = [...listPreviousPackages()] as any[];
   const cp013 = listNumCp013QuestionStudioPackages()[0]!;
@@ -57,7 +98,8 @@ export function listQuestionStudioPackages() {
 
 export async function generateQuestion(request: SharedQuestionStudioGenerationRequest = {}) {
   if (isNumCp013QuestionStudioRequest(request)) {
-    return generateNumCp013QuestionStudioBatch(request);
+    const result = await generateNumCp013QuestionStudioBatch(request);
+    return localizeCp013StudioExplanation(result, request);
   }
   return generatePreviousQuestion(request);
 }
