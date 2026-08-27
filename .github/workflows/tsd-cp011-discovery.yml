@@ -53,6 +53,8 @@ jobs:
             $(find src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011 -name '*.ts' -print)
       - name: Prove CP011 source saturation and disposition
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/source-saturation-proof.test.ts
+      - name: Prove CP011 representation saturation
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/representation-saturation-proof.test.ts
       - name: Prove CP011 exact executable feasibility and independent verification
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/executable-proof.test.ts
       - name: Prove CP011 provisional QL allocation and lifecycle locks
