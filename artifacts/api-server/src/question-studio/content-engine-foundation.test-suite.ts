@@ -60,5 +60,6 @@ await runStage("COM-002 permanent QL corpus coverage", () => import("../knowledg
 await runStage("COM-002 editorial fact review", () => import("../knowledge-v1/computer-awareness/com002-editorial-review.test"));
 await runStage("COM-002 520-question English review synthesis", () => import("../knowledge-v1/computer-awareness/com002-review-synthesis.test"));
 await runStage("COM-002 26-question human review sampler", () => import("../knowledge-v1/computer-awareness/com002-human-review-wave1.test"));
+await runStage("COM-002 English freeze V1", () => import("../knowledge-v1/computer-awareness/com002-english-freeze-v1.test"));
 
 console.log("Question Studio content engine foundation suite passed.");
