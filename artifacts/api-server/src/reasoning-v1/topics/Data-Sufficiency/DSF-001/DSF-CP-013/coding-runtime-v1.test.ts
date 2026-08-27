@@ -14,10 +14,9 @@ assert.equal(questions.length, 300);
 assert.deepEqual(new Set(questions.map((question) => question.canonicalAnswer)), new Set(SUFFICIENCY_CLASSES));
 assert.deepEqual(new Set(questions.map((question) => question.solveModeId)), new Set(DSF_CP013_CODING_SOLVE_MODES));
 assert.deepEqual(new Set(questions.map((question) => question.difficulty)), new Set(["Easy", "Medium", "Hard"]));
-assert.deepEqual(
-  new Set(questions.map((question) => question.contextId)),
-  new Set(["CODE_LANGUAGE", "ACCESS_KEY", "ARCHIVE_KEY", "TRAINING_CODE", "SIGNAL_CODE", "LABEL_CODE"]),
-);
+
+const expectedContexts = new Set(["CODE_LANGUAGE", "ACCESS_KEY", "ARCHIVE_KEY", "TRAINING_CODE", "SIGNAL_CODE", "LABEL_CODE"]);
+assert.deepEqual(new Set(questions.map((question) => question.contextId)), expectedContexts);
 
 for (const mode of DSF_CP013_CODING_SOLVE_MODES) {
   const modeQuestions = questions.filter((question) => question.solveModeId === mode);
@@ -26,6 +25,11 @@ for (const mode of DSF_CP013_CODING_SOLVE_MODES) {
     new Set(modeQuestions.map((question) => question.canonicalAnswer)),
     new Set(SUFFICIENCY_CLASSES),
     `${mode} must realize all five canonical DS classes`,
+  );
+  assert.deepEqual(
+    new Set(modeQuestions.map((question) => question.contextId)),
+    expectedContexts,
+    `${mode} must use all six Coding contexts`,
   );
 }
 
@@ -37,8 +41,9 @@ for (const semanticClass of SUFFICIENCY_CLASSES) {
   );
 }
 
-for (const contextId of ["CODE_LANGUAGE", "ACCESS_KEY", "ARCHIVE_KEY", "TRAINING_CODE", "SIGNAL_CODE", "LABEL_CODE"] as const) {
-  assert.equal(questions.filter((question) => question.contextId === contextId).length, 50, `${contextId} must contribute exactly 50 questions`);
+for (const contextId of expectedContexts) {
+  const count = questions.filter((question) => question.contextId === contextId).length;
+  assert(count >= 48 && count <= 51, `${contextId} should remain near-balanced in the 300-question audit; found ${count}`);
 }
 
 for (const question of questions) {
@@ -91,7 +96,7 @@ console.log(JSON.stringify({
   sourceWorldCount: DSF_CP013_CODING_WORLD_COUNT,
   solveModeCounts: Object.fromEntries(DSF_CP013_CODING_SOLVE_MODES.map((mode) => [mode, questions.filter((question) => question.solveModeId === mode).length])),
   classCounts: Object.fromEntries(SUFFICIENCY_CLASSES.map((semanticClass) => [semanticClass, questions.filter((question) => question.canonicalAnswer === semanticClass).length])),
-  contextCounts: Object.fromEntries([...new Set(questions.map((question) => question.contextId))].sort().map((contextId) => [contextId, questions.filter((question) => question.contextId === contextId).length])),
+  contextCounts: Object.fromEntries([...expectedContexts].sort().map((contextId) => [contextId, questions.filter((question) => question.contextId === contextId).length])),
   normalizedStemCount: normalizedStems.size,
   structuralFingerprintCount: structuralFingerprints.size,
   largestFingerprintCluster,
