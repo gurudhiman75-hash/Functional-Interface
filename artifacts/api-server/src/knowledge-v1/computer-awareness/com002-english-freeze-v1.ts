@@ -98,9 +98,9 @@ export function computeCom002EnglishFreezeFingerprintsV1() {
 }
 
 export const COM002_ENGLISH_FREEZE_PINS_V1 = {
-  englishCorpusFingerprint: "PENDING",
-  humanReviewFingerprint: "PENDING",
-  combinedFingerprint: "PENDING",
+  englishCorpusFingerprint: "d6a102066f42241cfa9f41538a3a12eb91c809844abb04e735ee9bab1f70893f",
+  humanReviewFingerprint: "191a6378299e31f006e04d878358c1d05045b5620dd403a033702fdc26a70e74",
+  combinedFingerprint: "37b898c5390467705eea6975b3c55d2421425db118ca84fb8df2f4de17288199",
 } as const;
 
 export const COM002_ENGLISH_FREEZE_AUTHORITY_V1 = Object.freeze({
