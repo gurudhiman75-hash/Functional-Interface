@@ -305,7 +305,7 @@ export default function Home() {
       .map(seriesToHeroSlide);
     if (publishedSeriesSlides.length > 0) return publishedSeriesSlides;
 
-    const fallbackSlides: MemberHeroSlide[] = [
+    return [
       {
         id: "dashboard",
         eyebrow: "Your ExamTree workspace",
@@ -329,7 +329,6 @@ export default function Home() {
         meta: [`${formatCount(resources.length)} published resources`, "Current affairs", "PDF notes"],
       },
     ];
-    return fallbackSlides;
   }, [catalogQuestionCount, examGroups.length, memberSeries, resources.length]);
 
   useEffect(() => {
@@ -365,12 +364,16 @@ export default function Home() {
       setLocation("/login/student");
       return;
     }
+
+    const returnUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    window.history.replaceState(window.history.state, "", "/login/student?next=%2Fdashboard&source=home-google");
     setGoogleLoading(true);
     try {
       const user = await signInWithGoogle();
       setSessionUser(user);
       setLocation("/dashboard");
     } catch (error) {
+      window.history.replaceState(window.history.state, "", returnUrl);
       const code = typeof error === "object" && error !== null && "code" in error ? String((error as { code?: unknown }).code ?? "") : "";
       if (code === "auth/popup-closed-by-user") {
         setGoogleError("Google sign-in was cancelled.");
@@ -442,12 +445,12 @@ export default function Home() {
                     <h1 className="max-w-2xl text-4xl font-black tracking-[-0.045em] sm:text-5xl lg:text-[58px] lg:leading-[1.02]">
                       Your next score starts with better practice.
                     </h1>
-                    <p className="mt-4 max-w-xl text-sm leading-7 text-white/78 sm:text-base">
+                    <p className="mt-4 max-w-xl text-sm leading-7 text-white/[0.78] sm:text-base">
                       Prepare for government and competitive exams with focused mock tests, PYQs, exam pathways and free study resources in one modern workspace.
                     </p>
-                    <div className="mt-6 flex flex-wrap gap-2 text-xs font-bold text-white/88">
+                    <div className="mt-6 flex flex-wrap gap-2 text-xs font-bold text-white/[0.88]">
                       {["Exam-real mocks", "Free resources", "English · हिन्दी · ਪੰਜਾਬੀ where published"].map((label) => (
-                        <span key={label} className="rounded-full border border-white/15 bg-black/20 px-3 py-2 backdrop-blur-sm">{label}</span>
+                        <span key={label} className="rounded-full border border-white/[0.15] bg-black/20 px-3 py-2 backdrop-blur-sm">{label}</span>
                       ))}
                     </div>
                   </div>
@@ -470,13 +473,7 @@ export default function Home() {
                       <span className="h-px flex-1 bg-border" />
                     </div>
 
-                    <Button
-                      className="min-h-12 w-full rounded-xl bg-background text-sm font-black shadow-sm"
-                      variant="outline"
-                      onClick={handleGoogleLogin}
-                      disabled={googleLoading}
-                      data-testid="home-google-login"
-                    >
+                    <Button className="min-h-12 w-full rounded-xl bg-background text-sm font-black shadow-sm" variant="outline" onClick={handleGoogleLogin} disabled={googleLoading} data-testid="home-google-login">
                       <span className="mr-2 flex h-6 w-6 items-center justify-center rounded-full border border-border bg-white text-xs font-black text-slate-700">G</span>
                       {googleLoading ? "Opening Google…" : "Continue with Google"}
                     </Button>
@@ -501,14 +498,14 @@ export default function Home() {
               <div className="relative grid min-h-[440px] gap-7 p-6 sm:p-8 lg:grid-cols-[minmax(0,1.12fr)_minmax(330px,0.88fr)] lg:items-center lg:p-11">
                 <div>
                   <div className="flex flex-wrap items-center gap-3">
-                    <span className="rounded-full border border-white/15 bg-white/10 px-3 py-2 text-xs font-black backdrop-blur">Welcome back, {firstName}</span>
-                    <span className="text-xs font-bold text-white/55">{heroSlideIndex + 1} / {memberHeroSlides.length}</span>
+                    <span className="rounded-full border border-white/[0.15] bg-white/10 px-3 py-2 text-xs font-black backdrop-blur">Welcome back, {firstName}</span>
+                    <span className="text-xs font-bold text-white/[0.55]">{heroSlideIndex + 1} / {memberHeroSlides.length}</span>
                   </div>
                   <p className="mt-7 text-[11px] font-black uppercase tracking-[0.18em] text-indigo-300">{activeHeroSlide.eyebrow}</p>
                   <h1 className="mt-3 max-w-3xl text-4xl font-black tracking-[-0.045em] sm:text-5xl lg:text-[58px] lg:leading-[1.02]">{activeHeroSlide.title}</h1>
-                  <p className="mt-4 max-w-2xl text-sm leading-7 text-white/68 sm:text-base">{activeHeroSlide.description}</p>
+                  <p className="mt-4 max-w-2xl text-sm leading-7 text-white/[0.68] sm:text-base">{activeHeroSlide.description}</p>
                   <div className="mt-6 flex flex-wrap gap-2">
-                    {activeHeroSlide.meta.map((item) => <span key={item} className="rounded-full border border-white/12 bg-white/8 px-3 py-2 text-xs font-bold text-white/78">{item}</span>)}
+                    {activeHeroSlide.meta.map((item) => <span key={item} className="rounded-full border border-white/[0.12] bg-white/[0.08] px-3 py-2 text-xs font-bold text-white/[0.78]">{item}</span>)}
                   </div>
                   <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                     <Button className="min-h-12 rounded-xl bg-white px-6 font-black text-slate-950 hover:bg-white/90" onClick={() => navigateHero(activeHeroSlide.primaryHref)}>
@@ -522,22 +519,22 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="rounded-[28px] border border-white/12 bg-white/[0.07] p-5 backdrop-blur-xl sm:p-6">
+                <div className="rounded-[28px] border border-white/[0.12] bg-white/[0.07] p-5 backdrop-blur-xl sm:p-6">
                   <div className="flex items-center justify-between gap-4">
                     <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-indigo-200"><Trophy className="h-5 w-5" /></span>
-                    <span className="rounded-full border border-white/10 bg-black/15 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white/60">For you</span>
+                    <span className="rounded-full border border-white/10 bg-black/[0.15] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white/60">For you</span>
                   </div>
                   <p className="mt-6 text-sm font-black text-white/60">Featured preparation</p>
                   <h2 className="mt-2 text-2xl font-black tracking-tight">{activeHeroSlide.title}</h2>
                   <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                     {activeHeroSlide.meta.slice(0, 4).map((item) => (
-                      <div key={item} className="rounded-2xl border border-white/10 bg-black/15 p-4">
+                      <div key={item} className="rounded-2xl border border-white/10 bg-black/[0.15] p-4">
                         <CheckCircle2 className="h-4 w-4 text-emerald-300" />
-                        <p className="mt-3 text-sm font-black text-white/88">{item}</p>
+                        <p className="mt-3 text-sm font-black text-white/[0.88]">{item}</p>
                       </div>
                     ))}
                   </div>
-                  <Button className="mt-6 min-h-11 w-full rounded-xl border-white/15 bg-white/10 text-white hover:bg-white/15" variant="outline" onClick={() => setLocation("/dashboard") }>
+                  <Button className="mt-6 min-h-11 w-full rounded-xl border-white/[0.15] bg-white/10 text-white hover:bg-white/[0.15]" variant="outline" onClick={() => setLocation("/dashboard") }>
                     <LayoutDashboard className="mr-2 h-4 w-4" /> My dashboard
                   </Button>
                 </div>
@@ -546,19 +543,12 @@ export default function Home() {
               <div className="relative flex items-center justify-between border-t border-white/10 px-6 py-4 sm:px-8 lg:px-11">
                 <div className="flex items-center gap-2" aria-label="Hero slides">
                   {memberHeroSlides.map((slide, index) => (
-                    <button
-                      key={slide.id}
-                      type="button"
-                      aria-label={`Show slide ${index + 1}`}
-                      aria-current={index === heroSlideIndex ? "true" : undefined}
-                      className={`h-2.5 rounded-full transition-all ${index === heroSlideIndex ? "w-8 bg-white" : "w-2.5 bg-white/30 hover:bg-white/55"}`}
-                      onClick={() => setHeroSlideIndex(index)}
-                    />
+                    <button key={slide.id} type="button" aria-label={`Show slide ${index + 1}`} aria-current={index === heroSlideIndex ? "true" : undefined} className={`h-2.5 rounded-full transition-all ${index === heroSlideIndex ? "w-8 bg-white" : "w-2.5 bg-white/30 hover:bg-white/[0.55]"}`} onClick={() => setHeroSlideIndex(index)} />
                   ))}
                 </div>
                 <div className="flex gap-2">
-                  <button type="button" className="et-interactive flex h-11 w-11 items-center justify-center rounded-xl border border-white/12 bg-white/5 text-white hover:bg-white/10" aria-label="Previous promotion" onClick={() => setHeroSlideIndex((current) => (current - 1 + memberHeroSlides.length) % memberHeroSlides.length)}><ChevronLeft className="h-4 w-4" /></button>
-                  <button type="button" className="et-interactive flex h-11 w-11 items-center justify-center rounded-xl border border-white/12 bg-white/5 text-white hover:bg-white/10" aria-label="Next promotion" onClick={() => setHeroSlideIndex((current) => (current + 1) % memberHeroSlides.length)}><ChevronRight className="h-4 w-4" /></button>
+                  <button type="button" className="et-interactive flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.12] bg-white/5 text-white hover:bg-white/10" aria-label="Previous promotion" onClick={() => setHeroSlideIndex((current) => (current - 1 + memberHeroSlides.length) % memberHeroSlides.length)}><ChevronLeft className="h-4 w-4" /></button>
+                  <button type="button" className="et-interactive flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.12] bg-white/5 text-white hover:bg-white/10" aria-label="Next promotion" onClick={() => setHeroSlideIndex((current) => (current + 1) % memberHeroSlides.length)}><ChevronRight className="h-4 w-4" /></button>
                 </div>
               </div>
             </div>
