@@ -17,15 +17,72 @@
     0 1px 0 hsl(var(--background) / 0.8) inset;
 }
 
+/*
+ * Anonymous acquisition scenes.
+ * Pexels IDs: 4308096 (South Asian study session), 4622108 (Indian university
+ * campus study group), 16504588 (New Delhi university library study).
+ * Pexels permits commercial website use under its content license.
+ */
+[data-testid="home-acquisition-hero"] > div > div:first-child {
+  position: relative;
+  isolation: isolate;
+  background-image: url("https://images.pexels.com/photos/16504588/pexels-photo-16504588.jpeg?auto=compress&cs=tinysrgb&w=1400");
+  background-position: 32% center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+[data-testid="home-acquisition-hero"] > div > div:first-child::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  background-image: url("https://images.pexels.com/photos/4622108/pexels-photo-4622108.jpeg?auto=compress&cs=tinysrgb&w=1400");
+  background-position: center 48%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: examtree-acquisition-scene-two 24s ease-in-out infinite;
+  will-change: opacity;
+}
+
 [data-testid="home-acquisition-hero"] > div > div:first-child::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
   background:
     radial-gradient(circle at 15% 14%, hsl(0 0% 100% / 0.14), transparent 13rem),
     linear-gradient(135deg, transparent 52%, hsl(var(--primary) / 0.16));
   mix-blend-mode: screen;
+}
+
+[data-testid="home-acquisition-hero"] > div > div:first-child > img {
+  z-index: 0;
+  animation: examtree-acquisition-scene-one 24s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+[data-testid="home-acquisition-hero"] > div > div:first-child > div.absolute {
+  z-index: 1;
+}
+
+[data-testid="home-acquisition-hero"] > div > div:first-child > div.relative {
+  z-index: 2;
+}
+
+@keyframes examtree-acquisition-scene-one {
+  0%, 29% { opacity: 1; }
+  35%, 94% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes examtree-acquisition-scene-two {
+  0%, 29% { opacity: 0; }
+  35%, 62% { opacity: 1; }
+  68%, 100% { opacity: 0; }
 }
 
 [data-testid="home-acquisition-hero"] img {
@@ -292,6 +349,20 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  [data-testid="home-acquisition-hero"] > div > div:first-child::before {
+    display: none;
+    animation: none;
+  }
+
+  [data-testid="home-acquisition-hero"] > div > div:first-child {
+    background-image: none;
+  }
+
+  [data-testid="home-acquisition-hero"] img {
+    opacity: 1;
+    animation: none;
+  }
+
   [data-testid="home-acquisition-hero"] img,
   [data-testid="home-hero-auth-card"] button,
   [data-testid="home-member-hero"] button,
