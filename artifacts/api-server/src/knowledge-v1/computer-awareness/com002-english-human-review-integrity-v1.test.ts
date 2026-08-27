@@ -6,10 +6,18 @@ assert.equal(
   COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.status,
   "BLOCKED_PENDING_EXPLICIT_PRODUCT_OWNER_APPROVAL",
 );
+assert.equal(COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.reviewPack.title, "COM-002-HUMAN-REVIEW-WAVE-1-V2.md");
+assert.equal(
+  COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.reviewPack.repositoryPath,
+  "artifacts/api-server/src/knowledge-v1/computer-awareness/COM-002-HUMAN-REVIEW-WAVE-1-V2.md",
+);
+assert.equal(COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.reviewPack.version, "V2_CORRECTED_POST_EDITORIAL_REMEDIATION");
 assert.equal(COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.reviewPack.questionCount, 26);
 assert.equal(COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.reviewPack.qlCount, 13);
+assert.equal(COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.reviewPack.questionsPerQl, 2);
 assert.equal(COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.reviewPack.observedStatus, "REVIEW_REQUIRED");
 assert.equal(COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.automatedEvidence.englishAuditQuestionCount, 520);
+assert.equal(COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.automatedEvidence.correctedReviewPackMaterialized, true);
 assert.equal(COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.automatedEvidence.humanApprovalSubstitutableByAutomation, false);
 assert.equal(COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.historicalFreezeRecord.operationallyValid, false);
 assert.equal(COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.explicitApprovalVerified, false);
@@ -25,4 +33,4 @@ assert.equal(COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.lifecycle.mockTestEligible
 assert.equal(COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.lifecycle.publiclyPublishable, false);
 assert.equal(COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.lifecycle.productionReleaseAuthorized, false);
 
-console.log("[COM002-ENGLISH-HUMAN-REVIEW-INTEGRITY-V1] PASS failClosed=true");
+console.log("[COM002-ENGLISH-HUMAN-REVIEW-INTEGRITY-V1] PASS failClosed=true correctedPack=V2");
