@@ -69,6 +69,7 @@ await runStage("COM-002 historical English human-review integrity blocker V1", (
 await runStage("COM-002 historical executed English V3 human-review integrity V2", () => import("../knowledge-v1/computer-awareness/com002-english-human-review-integrity-v2.test"));
 await runStage("COM-002 executed English V4 human-review integrity V3", () => import("../knowledge-v1/computer-awareness/com002-english-human-review-integrity-v3.test"));
 await runStage("COM-002 historical English V3 freeze fingerprint candidate", () => import("../knowledge-v1/computer-awareness/com002-english-freeze-v3-candidate.test"));
+await runStage("COM-002 English V4 freeze fingerprint candidate", () => import("../knowledge-v1/computer-awareness/com002-english-freeze-v4-candidate.test"));
 await runStage("COM-002 historical English freeze V1", () => import("../knowledge-v1/computer-awareness/com002-english-freeze-v1.test"));
 await runStage("COM-002 historical Hindi/Punjabi semantic lexicon coverage V1", () => import("../knowledge-v1/computer-awareness/com002-localization-lexicon-v1.test"));
 await runStage("COM-002 historical Hindi/Punjabi 1040-question localization parity V1", () => import("../knowledge-v1/computer-awareness/com002-localization-v1.test"));
