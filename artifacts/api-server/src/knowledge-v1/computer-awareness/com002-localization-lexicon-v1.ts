@@ -1,5 +1,6 @@
 import { COM002_EDITORIALLY_APPROVED_FACTS } from "./com002-editorial-review";
 import { COM002_ENGLISH_FREEZE_AUTHORITY_V1 } from "./com002-english-freeze-v1";
+import { COM002_TERMINOLOGY_EXTENSION_V1 } from "./com002-localization-lexicon-extension-v1";
 
 export const COM002_LOCALIZATION_VERSION_V1 = "COM-002-LOCALIZATION-V1" as const;
 export const COM002_LOCALIZATION_DRAFT_AUTHORITY_V1 = "COM002_HI_PA_LOCALIZATION_REVIEW_V1" as const;
@@ -14,7 +15,7 @@ export type Com002LocalizedLexeme = Readonly<{ hi: string; pa: string }>;
  * file extensions may intentionally retain Latin script; surrounding learner
  * prose is localized by the question-surface renderer.
  */
-export const COM002_TERMINOLOGY_REGISTRY_V1: Readonly<Record<string, Com002LocalizedLexeme>> = Object.freeze({
+const COM002_CORE_TERMINOLOGY_REGISTRY_V1: Readonly<Record<string, Com002LocalizedLexeme>> = Object.freeze({
   "Operating system": { hi: "ऑपरेटिंग सिस्टम", pa: "ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ" },
   "operating system": { hi: "ऑपरेटिंग सिस्टम", pa: "ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ" },
   "mobile operating system": { hi: "मोबाइल ऑपरेटिंग सिस्टम", pa: "ਮੋਬਾਈਲ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ" },
@@ -59,6 +60,11 @@ export const COM002_TERMINOLOGY_REGISTRY_V1: Readonly<Record<string, Com002Local
   "iOS": { hi: "iOS", pa: "iOS" },
   "Linux": { hi: "Linux", pa: "Linux" },
   "macOS": { hi: "macOS", pa: "macOS" },
+});
+
+export const COM002_TERMINOLOGY_REGISTRY_V1: Readonly<Record<string, Com002LocalizedLexeme>> = Object.freeze({
+  ...COM002_CORE_TERMINOLOGY_REGISTRY_V1,
+  ...COM002_TERMINOLOGY_EXTENSION_V1,
 });
 
 export function localizeCom002LexemeV1(text: string, language: Com002TargetLanguageV1): string {
