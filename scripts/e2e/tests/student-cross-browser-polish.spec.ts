@@ -28,6 +28,29 @@ const tests = [
   },
 ];
 
+const series = [
+  {
+    id: "series-ssc-cgl-2026",
+    code: "SSC-CGL-2026",
+    name: "SSC CGL 2026 Complete Mock Series",
+    description: "A focused full-length and sectional preparation series for SSC CGL.",
+    availabilityStartAt: null,
+    availabilityEndAt: null,
+    progressionMode: "open",
+    completionThreshold: null,
+    examCode: "SSC-CGL",
+    examName: "SSC CGL",
+    examFamilyCode: "SSC",
+    examFamilyName: "SSC",
+    testCount: 24,
+    liveTestCount: 24,
+    fullLengthTestCount: 16,
+    durationSeconds: 86400,
+    questionCount: 2400,
+    attemptCount: 18200,
+  },
+];
+
 async function fulfillJson(route: Route, body: unknown) {
   await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify(body) });
 }
@@ -39,7 +62,7 @@ async function installFixtures(page: Page) {
     if (path === "/subcategories") return fulfillJson(route, []);
     if (path === "/tests") return fulfillJson(route, tests);
     if (path === "/published-tests") return fulfillJson(route, { tests, generatedAt: "2026-08-22T06:45:00.000Z" });
-    if (path === "/test-series") return fulfillJson(route, { series: [], generatedAt: "2026-08-22T06:45:00.000Z" });
+    if (path === "/test-series") return fulfillJson(route, { series, generatedAt: "2026-08-27T07:00:00.000Z" });
     if (path === "/learning-resources") return fulfillJson(route, { resources: [], filters: { category: null, format: null, language: null }, generatedAt: "2026-08-27T06:15:00.000Z" });
     if (path === "/daily-challenge") return fulfillJson(route, {});
     return fulfillJson(route, []);
@@ -52,13 +75,18 @@ async function expectNoHorizontalOverflow(page: Page) {
 }
 
 test.describe("CP08 cross-browser shared shell polish", () => {
-  test("desktop Home is a full-width launchpad while deeper study routes retain the detailed sidebar", async ({ page, browserName }) => {
+  test("desktop Home uses the photographic acquisition hero while deeper study routes retain the detailed sidebar", async ({ page, browserName }) => {
     await installFixtures(page);
     await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto("/");
 
     await expect(page.getByTestId("home-hero")).toBeVisible();
-    await expect(page.getByTestId("home-exam-finder")).toBeVisible();
+    await expect(page.getByTestId("home-acquisition-hero")).toBeVisible();
+    await expect(page.getByTestId("home-hero-auth-card")).toBeVisible();
+    await expect(page.getByTestId("home-google-login")).toContainText("Continue with Google");
+    await expect(page.getByRole("img", { name: "Students preparing together with a laptop and study notes" })).toBeVisible();
+    await expect(page.getByTestId("home-member-hero")).toHaveCount(0);
+    await expect(page.getByTestId("home-exam-finder")).toHaveCount(0);
     await expect(page.getByTestId("home-proof-strip")).toBeVisible();
     await expect(page.getByTestId("home-why-examtree")).toBeVisible();
     await expect(page.getByTestId("home-testimonials")).toBeVisible();
@@ -101,11 +129,39 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     expect(["firefox", "webkit"]).toContain(browserName);
   });
 
+  test("logged-in Home swaps acquisition for a published test-series carousel", async ({ page, browserName }) => {
+    await installFixtures(page);
+    await page.addInitScript(() => {
+      window.localStorage.setItem("user", JSON.stringify({
+        id: "student-1",
+        email: "learner@example.com",
+        name: "Aman Singh",
+        role: "student",
+      }));
+    });
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/");
+
+    const memberHero = page.getByTestId("home-member-hero");
+    await expect(memberHero).toBeVisible();
+    await expect(memberHero).toContainText("Welcome back, Aman");
+    await expect(memberHero).toContainText("SSC CGL 2026 Complete Mock Series");
+    await expect(memberHero).toContainText("24 tests");
+    await expect(memberHero.getByRole("button", { name: "Next promotion" })).toBeVisible();
+    await expect(page.getByTestId("home-acquisition-hero")).toHaveCount(0);
+    await expect(page.getByTestId("home-hero-auth-card")).toHaveCount(0);
+    await expectNoHorizontalOverflow(page);
+
+    expect(["firefox", "webkit"]).toContain(browserName);
+  });
+
   test("mobile Home uses public navigation, keeps 44px controls, and study routes preserve truthful disabled states", async ({ page, browserName }) => {
     await installFixtures(page);
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
 
+    await expect(page.getByTestId("home-acquisition-hero")).toBeVisible();
+    await expect(page.getByTestId("home-hero-auth-card")).toBeVisible();
     await expect(page.getByTestId("public-study-sidebar")).toHaveCount(0);
     const menuButton = page.getByRole("button", { name: "Open navigation menu" });
     await expect(menuButton).toBeVisible();
@@ -151,7 +207,8 @@ test.describe("CP08 cross-browser shared shell polish", () => {
 
     await expect(page.getByTestId("home-sample-preview-badge")).toContainText("Sample data preview");
     await expect(page.getByTestId("home-hero")).toBeVisible();
-    await expect(page.getByTestId("home-exam-finder")).toBeVisible();
+    await expect(page.getByTestId("home-acquisition-hero")).toBeVisible();
+    await expect(page.getByTestId("home-hero-auth-card")).toBeVisible();
     await expect(page.getByTestId("home-proof-strip")).toContainText("Exam families");
     await expect(page.getByTestId("home-proof-strip")).toContainText("Free resources");
     await expect(page.getByTestId("home-exam-families")).toBeVisible();
@@ -171,11 +228,9 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await expect(page.getByTestId("home-featured-series")).toHaveCount(0);
     await expect(page.getByTestId("home-practice-modes")).toHaveCount(0);
     await expect(page.getByTestId("home-continue-strip")).toHaveCount(0);
+    await expect(page.getByTestId("home-exam-finder")).toHaveCount(0);
     await expect(page.getByTestId("catalog-test-browser")).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
-
-    await page.getByPlaceholder("Search SSC, Banking, Railways…").fill("SSC");
-    await expect(page.getByTestId("home-exam-finder").getByRole("button").first()).toBeVisible();
 
     await page.getByTestId("home-explore-gateway").getByRole("button", { name: "Explore exams" }).click();
     await expect(page).toHaveURL(/\/exams\?preview=sample$/);

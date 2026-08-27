@@ -1,34 +1,42 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import {
   ArrowRight,
   BookOpenCheck,
   CheckCircle2,
+  ChevronLeft,
   ChevronRight,
   Download,
   FileClock,
   FileText,
   Languages,
+  LayoutDashboard,
+  LogIn,
   Newspaper,
   Quote,
-  Search,
   ShieldCheck,
   Sigma,
   Sparkles,
   Target,
+  Trophy,
   Zap,
 } from "lucide-react";
 
 import { CategoryIcon } from "@/components/CategoryIcon";
 import { Button } from "@/components/ui/button";
 import { apiRequest } from "@/lib/api";
+import { signInWithGoogle } from "@/lib/auth";
 import { buildExamTreeNodes } from "@/lib/exam-tree";
+import { getFirebaseAuth } from "@/lib/firebase";
 import {
   SAMPLE_HOME_CATEGORIES,
+  SAMPLE_HOME_SERIES,
   SAMPLE_HOME_SUBCATEGORIES,
   SAMPLE_HOME_TESTS,
 } from "@/lib/home-sample-data";
+import { getSessionUser } from "@/lib/session-user";
+import { getStudentTestSeries, type StudentSeriesSummary } from "@/lib/test-series";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import "@/styles/home-section-rhythm.css";
 
@@ -55,6 +63,21 @@ type LearningResourcesResponse = {
   resources: LearningResource[];
   generatedAt: string;
 };
+
+type MemberHeroSlide = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  primaryLabel: string;
+  primaryHref: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  meta: string[];
+};
+
+const ACQUISITION_HERO_IMAGE =
+  "https://images.pexels.com/photos/4308096/pexels-photo-4308096.jpeg?auto=compress&cs=tinysrgb&w=1400";
 
 const SAMPLE_RESOURCES: LearningResource[] = [
   {
@@ -174,10 +197,6 @@ function formatCount(value: number) {
   return new Intl.NumberFormat("en-IN").format(Math.max(0, Number(value) || 0));
 }
 
-function normalize(value: string | null | undefined) {
-  return String(value ?? "").trim().toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-}
-
 function initials(value: string) {
   const words = value.trim().split(/\s+/).filter(Boolean);
   return words.length ? words.slice(0, 2).map((word) => word[0]?.toUpperCase()).join("") : "ET";
@@ -216,12 +235,33 @@ function ExamMark({ name, icon }: { name: string; icon?: string }) {
   );
 }
 
+function seriesToHeroSlide(series: StudentSeriesSummary): MemberHeroSlide {
+  return {
+    id: `series-${series.id}`,
+    eyebrow: `${series.examFamilyName} · ${series.examName}`,
+    title: series.name,
+    description: series.description || `A published ${series.examName} preparation series ready to continue from your ExamTree workspace.`,
+    primaryLabel: "View test series",
+    primaryHref: `/test-series/${series.id}`,
+    secondaryLabel: "My dashboard",
+    secondaryHref: "/dashboard",
+    meta: [
+      `${formatCount(series.testCount)} tests`,
+      `${formatCount(series.questionCount)} questions`,
+      ...(Number(series.attemptCount ?? 0) > 0 ? [`${formatCount(Number(series.attemptCount))} attempts`] : []),
+    ],
+  };
+}
+
 export default function Home() {
   const [, setLocation] = useLocation();
   const catalog = useExamCatalog();
   const sampleMode = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("preview") === "sample";
-  const [examQuery, setExamQuery] = useState("");
+  const [sessionUser, setSessionUser] = useState(() => getSessionUser());
   const [resourceCategory, setResourceCategory] = useState<LearningResourceCategory | null>(null);
+  const [heroSlideIndex, setHeroSlideIndex] = useState(0);
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [googleError, setGoogleError] = useState<string | null>(null);
 
   const categories = sampleMode ? SAMPLE_HOME_CATEGORIES : catalog.categories;
   const subcategories = sampleMode ? SAMPLE_HOME_SUBCATEGORIES : catalog.subcategories;
@@ -235,13 +275,16 @@ export default function Home() {
     staleTime: 60_000,
   });
 
+  const seriesQuery = useQuery({
+    queryKey: ["student-test-series", "home-hero"],
+    queryFn: getStudentTestSeries,
+    enabled: Boolean(sessionUser) && !sampleMode,
+    retry: 1,
+    staleTime: 60_000,
+  });
+
   const resources = sampleMode ? SAMPLE_RESOURCES : (resourceQuery.data?.resources ?? []);
   const examGroups = useMemo(() => buildExamTreeNodes(categories, subcategories, tests), [categories, subcategories, tests]);
-  const normalizedQuery = normalize(examQuery);
-  const searchResults = useMemo(
-    () => examGroups.filter((group) => !normalizedQuery || normalize(`${group.name} ${group.description} ${group.subcategories.map((item) => item.name).join(" ")}`).includes(normalizedQuery)).slice(0, 5),
-    [examGroups, normalizedQuery],
-  );
   const featuredExamGroups = examGroups.slice(0, 8);
   const catalogQuestionCount = tests.reduce((sum, test) => sum + Math.max(0, Number(test.totalQuestions) || 0), 0);
   const publishedLanguageCount = useMemo(() => {
@@ -254,12 +297,94 @@ export default function Home() {
     [resourceCategory, resources],
   );
 
+  const memberSeries = sampleMode ? SAMPLE_HOME_SERIES : (seriesQuery.data?.series ?? []);
+  const memberHeroSlides = useMemo<MemberHeroSlide[]>(() => {
+    const publishedSeriesSlides = [...memberSeries]
+      .sort((left, right) => Number(right.attemptCount ?? 0) - Number(left.attemptCount ?? 0))
+      .slice(0, 4)
+      .map(seriesToHeroSlide);
+    if (publishedSeriesSlides.length > 0) return publishedSeriesSlides;
+
+    return [
+      {
+        id: "dashboard",
+        eyebrow: "Your ExamTree workspace",
+        title: "Pick up your preparation from one focused dashboard.",
+        description: "Open your learner workspace for saved activity, recent attempts and the preparation paths already connected to your account.",
+        primaryLabel: "Open dashboard",
+        primaryHref: "/dashboard",
+        secondaryLabel: "Explore exams",
+        secondaryHref: "/exams",
+        meta: [`${formatCount(examGroups.length)} exam families`, `${formatCount(catalogQuestionCount)} catalog questions`],
+      },
+      {
+        id: "resources",
+        eyebrow: "Free resources",
+        title: "Use notes, current affairs and formula sheets between mocks.",
+        description: "Published learning resources stay separate from the test runner so revision material remains easy to find.",
+        primaryLabel: "Browse free resources",
+        primaryHref: "#home-free-resources",
+        secondaryLabel: "Browse PYQs",
+        secondaryHref: "/pyqs",
+        meta: [`${formatCount(resources.length)} published resources`, "Current affairs", "PDF notes"],
+      },
+    ];
+  }, [catalogQuestionCount, examGroups.length, memberSeries, resources.length]);
+
+  useEffect(() => {
+    setHeroSlideIndex(0);
+  }, [sessionUser?.id, memberHeroSlides.length]);
+
+  useEffect(() => {
+    if (!sessionUser || memberHeroSlides.length <= 1) return;
+    const timer = window.setInterval(() => {
+      setHeroSlideIndex((current) => (current + 1) % memberHeroSlides.length);
+    }, 6500);
+    return () => window.clearInterval(timer);
+  }, [memberHeroSlides.length, sessionUser]);
+
   const goMarketplace = () => setLocation(sampleMode ? "/exams?preview=sample" : "/exams");
   const goCategory = (id: string) => setLocation(sampleMode ? "/exams?preview=sample" : `/category/${id}`);
   const scrollToResources = () => document.getElementById("home-free-resources")?.scrollIntoView({ behavior: "smooth", block: "start" });
   const chooseResourceCategory = (category: LearningResourceCategory) => {
     setResourceCategory(category);
     window.requestAnimationFrame(scrollToResources);
+  };
+  const navigateHero = (href: string) => {
+    if (href === "#home-free-resources") {
+      scrollToResources();
+      return;
+    }
+    setLocation(href);
+  };
+
+  const handleGoogleLogin = async () => {
+    setGoogleError(null);
+    if (!getFirebaseAuth()) {
+      setLocation("/login/student");
+      return;
+    }
+
+    const returnUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    window.history.replaceState(window.history.state, "", "/login/student?next=%2Fdashboard&source=home-google");
+    setGoogleLoading(true);
+    try {
+      const user = await signInWithGoogle();
+      setSessionUser(user);
+      setLocation("/dashboard");
+    } catch (error) {
+      window.history.replaceState(window.history.state, "", returnUrl);
+      const code = typeof error === "object" && error !== null && "code" in error ? String((error as { code?: unknown }).code ?? "") : "";
+      if (code === "auth/popup-closed-by-user") {
+        setGoogleError("Google sign-in was cancelled.");
+      } else if (code === "auth/popup-blocked") {
+        setGoogleError("Your browser blocked the Google sign-in window. Use Login instead.");
+      } else {
+        setGoogleError("Google sign-in could not be completed. You can still use the regular login.");
+      }
+    } finally {
+      setGoogleLoading(false);
+    }
   };
 
   if (!sampleMode && catalog.error) {
@@ -275,12 +400,15 @@ export default function Home() {
   if (!sampleMode && catalog.isLoading) {
     return (
       <div className="mx-auto w-full max-w-7xl space-y-5 px-4 py-8 sm:px-6 lg:px-8" role="status" aria-label="Loading ExamTree home">
-        <div className="skeleton-shimmer h-[430px] rounded-[32px]" />
+        <div className="skeleton-shimmer h-[520px] rounded-[32px]" />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{Array.from({ length: 4 }, (_, index) => <div key={index} className="skeleton-shimmer h-24 rounded-2xl" />)}</div>
         <span className="sr-only">Loading published exam pathways…</span>
       </div>
     );
   }
+
+  const activeHeroSlide = memberHeroSlides[heroSlideIndex % memberHeroSlides.length];
+  const firstName = sessionUser?.name?.trim().split(/\s+/)[0] || "Learner";
 
   return (
     <div className="overflow-x-clip bg-background">
@@ -293,82 +421,138 @@ export default function Home() {
         </div>
       ) : null}
 
-      <section className="border-b border-border bg-gradient-to-b from-primary/[0.07] via-background to-background" data-testid="home-hero">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[minmax(0,1.1fr)_minmax(360px,0.9fr)] lg:items-center lg:px-8 lg:py-20">
-          <div className="min-w-0">
-            <div className="inline-flex min-h-9 items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 text-xs font-black text-primary">
-              <Sparkles className="h-4 w-4" aria-hidden="true" />
-              Exam preparation, organised better
-            </div>
-            <h1 className="mt-5 max-w-3xl text-4xl font-black tracking-[-0.055em] text-foreground sm:text-5xl lg:text-[64px] lg:leading-[0.98]">
-              Find your exam. Build a sharper preparation routine.
-            </h1>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
-              Explore exam pathways, move into the complete mock-test catalog when you are ready, and use free current affairs, notes, formula sheets and PYQs to support daily preparation.
-            </p>
-
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Button className="min-h-12 rounded-xl px-6 text-sm font-black" onClick={goMarketplace}>
-                Explore exams <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-              </Button>
-              <Button className="min-h-12 rounded-xl px-6 text-sm font-black" variant="outline" onClick={scrollToResources}>
-                Free resources
-              </Button>
-            </div>
-
-            <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-muted-foreground" aria-label="ExamTree preparation benefits">
-              {["Exam-first discovery", "Free study resources", "Multilingual content where published"].map((label) => (
-                <span key={label} className="inline-flex items-center gap-1.5"><CheckCircle2 className="h-4 w-4 text-primary" aria-hidden="true" />{label}</span>
-              ))}
-            </div>
-          </div>
-
-          <div className="relative min-w-0" data-testid="home-exam-finder">
-            <div className="pointer-events-none absolute -inset-5 rounded-[36px] bg-primary/10 blur-3xl" />
-            <div className="relative rounded-[28px] border border-border bg-card p-4 shadow-xl shadow-black/5 sm:p-5">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-[11px] font-black uppercase tracking-[0.16em] text-primary">Find your exam</p>
-                  <h2 className="mt-1 text-xl font-black tracking-tight text-foreground">What are you preparing for?</h2>
+      <section className="py-7 sm:py-9 lg:py-11" data-testid="home-hero">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {!sessionUser ? (
+            <div className="overflow-hidden rounded-[32px] border border-border bg-card shadow-[0_28px_90px_-45px_rgba(15,23,42,0.45)]" data-testid="home-acquisition-hero">
+              <div className="grid lg:min-h-[555px] lg:grid-cols-[minmax(0,1.35fr)_minmax(360px,0.65fr)]">
+                <div className="relative min-h-[390px] overflow-hidden sm:min-h-[460px] lg:min-h-full">
+                  <img
+                    src={ACQUISITION_HERO_IMAGE}
+                    alt="Students preparing together with a laptop and study notes"
+                    className="absolute inset-0 h-full w-full object-cover object-center"
+                    loading="eager"
+                    fetchPriority="high"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/48 to-slate-950/10" />
+                  <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-slate-950/80 to-transparent" />
+                  <div className="relative flex h-full min-h-[390px] max-w-2xl flex-col justify-end p-6 text-white sm:min-h-[460px] sm:p-9 lg:min-h-[555px] lg:p-12">
+                    <div className="mb-auto inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-2 text-xs font-black backdrop-blur-md">
+                      <Sparkles className="h-4 w-4" />
+                      Built for serious exam preparation
+                    </div>
+                    <h1 className="max-w-2xl text-4xl font-black tracking-[-0.045em] sm:text-5xl lg:text-[58px] lg:leading-[1.02]">
+                      Your next score starts with better practice.
+                    </h1>
+                    <p className="mt-4 max-w-xl text-sm leading-7 text-white/[0.78] sm:text-base">
+                      Prepare for government and competitive exams with focused mock tests, PYQs, exam pathways and free study resources in one modern workspace.
+                    </p>
+                    <div className="mt-6 flex flex-wrap gap-2 text-xs font-bold text-white/[0.88]">
+                      {["Exam-real mocks", "Free resources", "English · हिन्दी · ਪੰਜਾਬੀ where published"].map((label) => (
+                        <span key={label} className="rounded-full border border-white/[0.15] bg-black/20 px-3 py-2 backdrop-blur-sm">{label}</span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary"><Target className="h-5 w-5" aria-hidden="true" /></span>
+
+                <div className="flex items-center bg-gradient-to-b from-background to-muted/40 p-5 sm:p-7 lg:p-9" data-testid="home-hero-auth-card">
+                  <div className="w-full rounded-[26px] border border-border bg-background p-6 shadow-xl shadow-black/5 sm:p-7">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary"><LogIn className="h-5 w-5" /></span>
+                    <p className="mt-5 text-[11px] font-black uppercase tracking-[0.16em] text-primary">Welcome to ExamTree</p>
+                    <h2 className="mt-2 text-2xl font-black tracking-[-0.03em] text-foreground">Sign in and make every practice session count.</h2>
+                    <p className="mt-3 text-sm leading-6 text-muted-foreground">Access your test history, saved progress and personalized preparation workspace.</p>
+
+                    <Button className="mt-6 min-h-12 w-full rounded-xl text-sm font-black" onClick={() => setLocation("/login/student") }>
+                      Login / Sign up <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+
+                    <div className="my-4 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+                      <span className="h-px flex-1 bg-border" />
+                      or
+                      <span className="h-px flex-1 bg-border" />
+                    </div>
+
+                    <Button className="min-h-12 w-full rounded-xl bg-background text-sm font-black shadow-sm" variant="outline" onClick={handleGoogleLogin} disabled={googleLoading} data-testid="home-google-login">
+                      <span className="mr-2 flex h-6 w-6 items-center justify-center rounded-full border border-border bg-white text-xs font-black text-slate-700">G</span>
+                      {googleLoading ? "Opening Google…" : "Continue with Google"}
+                    </Button>
+
+                    {googleError ? <p className="mt-3 text-xs font-semibold leading-5 text-destructive" role="alert">{googleError}</p> : null}
+
+                    <button type="button" className="et-interactive mt-5 flex min-h-11 w-full items-center justify-center rounded-xl text-sm font-bold text-muted-foreground hover:bg-muted hover:text-foreground" onClick={goMarketplace}>
+                      Explore exams without signing in
+                    </button>
+
+                    <div className="mt-5 border-t border-border pt-5">
+                      <p className="text-xs font-semibold leading-5 text-muted-foreground">Free resources and exam discovery remain available before login. Sign in when you want your progress tied to your workspace.</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-
-              <label className="relative mt-5 block">
-                <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
-                <span className="sr-only">Search exams</span>
-                <input
-                  value={examQuery}
-                  onChange={(event) => setExamQuery(event.target.value)}
-                  placeholder="Search SSC, Banking, Railways…"
-                  className="min-h-12 w-full rounded-xl border border-border bg-background pl-11 pr-4 text-sm font-semibold text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/15"
-                />
-              </label>
-
-              <div className="mt-4 space-y-2" aria-live="polite">
-                {searchResults.map((group) => (
-                  <button
-                    key={group.id}
-                    type="button"
-                    onClick={() => goCategory(group.id)}
-                    className="et-interactive flex min-h-[64px] w-full items-center gap-3 rounded-2xl border border-transparent px-3 text-left transition hover:border-border hover:bg-muted/60"
-                  >
-                    <ExamMark name={group.name} icon={group.icon} />
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate text-sm font-black text-foreground">{group.name}</span>
-                      <span className="mt-0.5 block text-xs font-semibold text-muted-foreground">{formatCount(group.subcategories.length)} exam paths</span>
-                    </span>
-                    <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
-                  </button>
-                ))}
-                {searchResults.length === 0 ? (
-                  <div className="rounded-2xl border border-dashed border-border px-4 py-5 text-center text-sm text-muted-foreground">No matching exam family. Use the complete exam catalog instead.</div>
-                ) : null}
-              </div>
-
-              <Button className="mt-4 min-h-11 w-full rounded-xl" variant="outline" onClick={goMarketplace}>View all exams</Button>
             </div>
-          </div>
+          ) : (
+            <div className="relative overflow-hidden rounded-[32px] bg-slate-950 text-white shadow-[0_30px_100px_-52px_rgba(15,23,42,0.9)]" data-testid="home-member-hero">
+              <div className="pointer-events-none absolute -right-20 -top-24 h-80 w-80 rounded-full bg-primary/35 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-32 left-1/3 h-72 w-72 rounded-full bg-violet-500/20 blur-3xl" />
+              <div className="relative grid min-h-[440px] gap-7 p-6 sm:p-8 lg:grid-cols-[minmax(0,1.12fr)_minmax(330px,0.88fr)] lg:items-center lg:p-11">
+                <div>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="rounded-full border border-white/[0.15] bg-white/10 px-3 py-2 text-xs font-black backdrop-blur">Welcome back, {firstName}</span>
+                    <span className="text-xs font-bold text-white/[0.55]">{heroSlideIndex + 1} / {memberHeroSlides.length}</span>
+                  </div>
+                  <p className="mt-7 text-[11px] font-black uppercase tracking-[0.18em] text-indigo-300">{activeHeroSlide.eyebrow}</p>
+                  <h1 className="mt-3 max-w-3xl text-4xl font-black tracking-[-0.045em] sm:text-5xl lg:text-[58px] lg:leading-[1.02]">{activeHeroSlide.title}</h1>
+                  <p className="mt-4 max-w-2xl text-sm leading-7 text-white/[0.68] sm:text-base">{activeHeroSlide.description}</p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {activeHeroSlide.meta.map((item) => <span key={item} className="rounded-full border border-white/[0.12] bg-white/[0.08] px-3 py-2 text-xs font-bold text-white/[0.78]">{item}</span>)}
+                  </div>
+                  <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                    <Button className="min-h-12 rounded-xl bg-white px-6 font-black text-slate-950 hover:bg-white/90" onClick={() => navigateHero(activeHeroSlide.primaryHref)}>
+                      {activeHeroSlide.primaryLabel} <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                    {activeHeroSlide.secondaryHref && activeHeroSlide.secondaryLabel ? (
+                      <Button className="min-h-12 rounded-xl border-white/20 bg-white/5 px-6 font-black text-white hover:bg-white/10" variant="outline" onClick={() => navigateHero(activeHeroSlide.secondaryHref!)}>
+                        {activeHeroSlide.secondaryLabel}
+                      </Button>
+                    ) : null}
+                  </div>
+                </div>
+
+                <div className="rounded-[28px] border border-white/[0.12] bg-white/[0.07] p-5 backdrop-blur-xl sm:p-6">
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-indigo-200"><Trophy className="h-5 w-5" /></span>
+                    <span className="rounded-full border border-white/10 bg-black/[0.15] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.16em] text-white/60">For you</span>
+                  </div>
+                  <p className="mt-6 text-sm font-black text-white/60">Featured preparation</p>
+                  <h2 className="mt-2 text-2xl font-black tracking-tight">{activeHeroSlide.title}</h2>
+                  <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                    {activeHeroSlide.meta.slice(0, 4).map((item) => (
+                      <div key={item} className="rounded-2xl border border-white/10 bg-black/[0.15] p-4">
+                        <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+                        <p className="mt-3 text-sm font-black text-white/[0.88]">{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <Button className="mt-6 min-h-11 w-full rounded-xl border-white/[0.15] bg-white/10 text-white hover:bg-white/[0.15]" variant="outline" onClick={() => setLocation("/dashboard") }>
+                    <LayoutDashboard className="mr-2 h-4 w-4" /> My dashboard
+                  </Button>
+                </div>
+              </div>
+
+              <div className="relative flex items-center justify-between border-t border-white/10 px-6 py-4 sm:px-8 lg:px-11">
+                <div className="flex items-center gap-2" aria-label="Hero slides">
+                  {memberHeroSlides.map((slide, index) => (
+                    <button key={slide.id} type="button" aria-label={`Show slide ${index + 1}`} aria-current={index === heroSlideIndex ? "true" : undefined} className={`h-2.5 rounded-full transition-all ${index === heroSlideIndex ? "w-8 bg-white" : "w-2.5 bg-white/30 hover:bg-white/[0.55]"}`} onClick={() => setHeroSlideIndex(index)} />
+                  ))}
+                </div>
+                <div className="flex gap-2">
+                  <button type="button" className="et-interactive flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.12] bg-white/5 text-white hover:bg-white/10" aria-label="Previous promotion" onClick={() => setHeroSlideIndex((current) => (current - 1 + memberHeroSlides.length) % memberHeroSlides.length)}><ChevronLeft className="h-4 w-4" /></button>
+                  <button type="button" className="et-interactive flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.12] bg-white/5 text-white hover:bg-white/10" aria-label="Next promotion" onClick={() => setHeroSlideIndex((current) => (current + 1) % memberHeroSlides.length)}><ChevronRight className="h-4 w-4" /></button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -400,12 +584,7 @@ export default function Home() {
 
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {featuredExamGroups.map((group) => (
-            <button
-              key={group.id}
-              type="button"
-              onClick={() => goCategory(group.id)}
-              className="et-interactive group min-h-[132px] rounded-3xl border border-border bg-card p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-md"
-            >
+            <button key={group.id} type="button" onClick={() => goCategory(group.id)} className="et-interactive group min-h-[132px] rounded-3xl border border-border bg-card p-5 text-left shadow-sm transition hover:-translate-y-0.5 hover:border-primary/25 hover:shadow-md">
               <div className="flex items-start justify-between gap-3">
                 <ExamMark name={group.name} icon={group.icon} />
                 <ChevronRight className="h-4 w-4 text-muted-foreground transition group-hover:translate-x-0.5 group-hover:text-primary" aria-hidden="true" />
@@ -496,12 +675,7 @@ export default function Home() {
               const Icon = item.icon;
               const active = item.key !== "pyq" && resourceCategory === item.key;
               return (
-                <button
-                  key={item.key}
-                  type="button"
-                  onClick={() => item.key === "pyq" ? setLocation("/pyqs") : chooseResourceCategory(item.key)}
-                  className={`et-interactive group min-h-[172px] rounded-3xl border p-5 text-left transition hover:-translate-y-0.5 hover:shadow-md ${active ? "border-primary/35 bg-primary/[0.06]" : "border-border bg-card"}`}
-                >
+                <button key={item.key} type="button" onClick={() => item.key === "pyq" ? setLocation("/pyqs") : chooseResourceCategory(item.key)} className={`et-interactive group min-h-[172px] rounded-3xl border p-5 text-left transition hover:-translate-y-0.5 hover:shadow-md ${active ? "border-primary/35 bg-primary/[0.06]" : "border-border bg-card"}`}>
                   <div className="flex items-start justify-between gap-3">
                     <span className={`flex h-12 w-12 items-center justify-center rounded-2xl ${item.tone}`}><Icon className="h-5 w-5" /></span>
                     <ArrowRight className="h-4 w-4 text-muted-foreground transition group-hover:translate-x-0.5 group-hover:text-primary" />
@@ -523,9 +697,7 @@ export default function Home() {
             </div>
 
             {!sampleMode && resourceQuery.isLoading ? (
-              <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                {Array.from({ length: 3 }, (_, index) => <div key={index} className="skeleton-shimmer h-52 rounded-3xl" />)}
-              </div>
+              <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{Array.from({ length: 3 }, (_, index) => <div key={index} className="skeleton-shimmer h-52 rounded-3xl" />)}</div>
             ) : visibleResources.length > 0 ? (
               <div className="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {visibleResources.map((resource) => {
@@ -568,9 +740,7 @@ export default function Home() {
               </div>
             )}
 
-            {!sampleMode && resourceQuery.isError ? (
-              <p className="mt-4 text-xs font-semibold text-muted-foreground">The public resource feed could not be loaded right now. Exam and PYQ discovery remain available.</p>
-            ) : null}
+            {!sampleMode && resourceQuery.isError ? <p className="mt-4 text-xs font-semibold text-muted-foreground">The public resource feed could not be loaded right now. Exam and PYQ discovery remain available.</p> : null}
           </div>
         </div>
       </section>
@@ -580,7 +750,7 @@ export default function Home() {
           <div>
             <p className="text-[11px] font-black uppercase tracking-[0.16em] text-primary">Questions before you start?</p>
             <h2 className="mt-2 text-2xl font-black tracking-tight text-foreground sm:text-3xl">A few quick answers.</h2>
-            <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">The homepage is intentionally lighter now. Full test discovery lives deeper in the product instead of competing with every other section here.</p>
+            <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">Home handles discovery, trust and free study material. Full test discovery stays deeper in the product where it belongs.</p>
             <Button className="mt-5 min-h-11" variant="outline" onClick={() => setLocation("/faq")}>Open full FAQ</Button>
           </div>
           <div className="space-y-3">
