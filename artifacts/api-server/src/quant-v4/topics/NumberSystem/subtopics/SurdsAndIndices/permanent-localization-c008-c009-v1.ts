@@ -46,10 +46,92 @@ export function localizeSriC008C009FinalizedSurfaceV1(
     ? `${match[1]} को सरलतम करणी रूप में लिखिए।`
     : `${match[1]} ਨੂੰ ਸਭ ਤੋਂ ਸਰਲ ਕਰਣੀ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`;
 
+  match = text.match(/^Write (.+) with a rational denominator\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} को परिमेय हर के साथ लिखिए।`
+    : `${match[1]} ਨੂੰ ਪਰਿਮੇਯ ਹਰ ਨਾਲ ਲਿਖੋ।`;
+
+  match = text.match(/^Find the (?:exact |simplest )?rationalised form of (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} का परिमेयकृत रूप ज्ञात कीजिए।`
+    : `${match[1]} ਦਾ ਪਰਿਮੇਯਕ੍ਰਿਤ ਰੂਪ ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^Use the conjugate to rationalise (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `संयुग्मी का उपयोग करके ${match[1]} का परिमेयकरण कीजिए।`
+    : `ਸੰਯੁਗਮੀ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ${match[1]} ਦਾ ਪਰਿਮੇਯਕਰਨ ਕਰੋ।`;
+
+  match = text.match(/^Use a conjugate to remove the radicals from the denominator of (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `संयुग्मी का उपयोग करके ${match[1]} के हर से करणियाँ हटाइए।`
+    : `ਸੰਯੁਗਮੀ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ${match[1]} ਦੇ ਹਰ ਵਿੱਚੋਂ ਕਰਣੀਆਂ ਹਟਾਓ।`;
+
+  match = text.match(/^Remove the radicals from the denominator of (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} के हर से करणियाँ हटाकर परिमेय कीजिए।`
+    : `${match[1]} ਦੇ ਹਰ ਵਿੱਚੋਂ ਕਰਣੀਆਂ ਹਟਾ ਕੇ ਪਰਿਮੇਯ ਕਰੋ।`;
+
+  match = text.match(/^Use the coefficient-bearing conjugate to simplify (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `गुणांक सहित संयुग्मी का उपयोग करके ${match[1]} को सरल कीजिए।`
+    : `ਗੁਣਾਂਕ ਸਮੇਤ ਸੰਯੁਗਮੀ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ${match[1]} ਨੂੰ ਸਰਲ ਕਰੋ।`;
+
+  match = text.match(/^Rationalise and combine (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} का परिमेयकरण करके पदों को मिलाइए।`
+    : `${match[1]} ਦਾ ਪਰਿਮੇਯਕਰਨ ਕਰਕੇ ਪਦਾਂ ਨੂੰ ਮਿਲਾਓ।`;
+
+  match = text.match(/^Write the sum (.+) as (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `योग ${match[1]} को ${match[2]} के रूप में लिखिए।`
+    : `ਜੋੜ ${match[1]} ਨੂੰ ${match[2]} ਦੇ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`;
+
   if (text === "Distribute every term, replace (√r)^2 by r, then collect the rational and surd parts.") {
     return locale === "hi-IN"
       ? "प्रत्येक पद का वितरण कीजिए, (√r)^2 को r से बदलिए, फिर परिमेय और करणी भागों को मिलाइए।"
       : "ਹਰੇਕ ਪਦ ਨੂੰ ਵਿਸਥਾਰੋ, (√r)^2 ਨੂੰ r ਨਾਲ ਬਦਲੋ, ਫਿਰ ਪਰਿਮੇਯ ਅਤੇ ਕਰਣੀ ਭਾਗਾਂ ਨੂੰ ਇਕੱਠਾ ਕਰੋ।";
+  }
+
+  if (text === "Multiply numerator and denominator by the same square root; the denominator becomes the radicand.") {
+    return locale === "hi-IN"
+      ? "अंश और हर को उसी वर्गमूल से गुणा कीजिए; हर करणीगत संख्या के बराबर हो जाता है।"
+      : "ਅੰਸ਼ ਅਤੇ ਹਰ ਨੂੰ ਉਸੇ ਵਰਗਮੂਲ ਨਾਲ ਗੁਣਾ ਕਰੋ; ਹਰ ਕਰਣੀਗਤ ਸੰਖਿਆ ਦੇ ਬਰਾਬਰ ਹੋ ਜਾਂਦਾ ਹੈ।";
+  }
+
+  if (text === "Multiply by the conjugate of the binomial denominator; its product with the denominator is a difference of squares.") {
+    return locale === "hi-IN"
+      ? "द्विपदी हर के संयुग्मी से अंश और हर दोनों को गुणा कीजिए; हर में वर्गों का अंतर प्राप्त होता है।"
+      : "ਦੋਪਦੀ ਹਰ ਦੇ ਸੰਯੁਗਮੀ ਨਾਲ ਅੰਸ਼ ਅਤੇ ਹਰ ਦੋਵਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ; ਹਰ ਵਿੱਚ ਵਰਗਾਂ ਦਾ ਅੰਤਰ ਮਿਲਦਾ ਹੈ।";
+  }
+
+  if (text === "Multiply by the conjugate; (√a+√b)(√a-√b)=a-b.") {
+    return locale === "hi-IN"
+      ? "संयुग्मी से गुणा कीजिए; (√a+√b)(√a-√b)=a-b।"
+      : "ਸੰਯੁਗਮੀ ਨਾਲ ਗੁਣਾ ਕਰੋ; (√a+√b)(√a-√b)=a-b।";
+  }
+
+  if (text === "Use the conjugate with the same coefficients; the denominator becomes p²a-q²b.") {
+    return locale === "hi-IN"
+      ? "समान गुणांकों वाले संयुग्मी का उपयोग कीजिए; हर p²a-q²b बन जाता है।"
+      : "ਉਹੀ ਗੁਣਾਂਕਾਂ ਵਾਲੇ ਸੰਯੁਗਮੀ ਦੀ ਵਰਤੋਂ ਕਰੋ; ਹਰ p²a-q²b ਬਣ ਜਾਂਦਾ ਹੈ।";
+  }
+
+  if (text === "Rationalise each conjugate denominator, then collect rational and surd parts.") {
+    return locale === "hi-IN"
+      ? "प्रत्येक संयुग्मी हर का परिमेयकरण कीजिए, फिर परिमेय और करणी भागों को मिलाइए।"
+      : "ਹਰੇਕ ਸੰਯੁਗਮੀ ਹਰ ਦਾ ਪਰਿਮੇਯਕਰਨ ਕਰੋ, ਫਿਰ ਪਰਿਮੇਯ ਅਤੇ ਕਰਣੀ ਭਾਗਾਂ ਨੂੰ ਇਕੱਠਾ ਕਰੋ।";
+  }
+
+  if (text === "Rationalise first, recover A and B exactly, then evaluate the requested coefficient expression.") {
+    return locale === "hi-IN"
+      ? "पहले परिमेयकरण करके A और B का सटीक मान ज्ञात कीजिए, फिर पूछे गए गुणांक व्यंजक का मान निकालिए।"
+      : "ਪਹਿਲਾਂ ਪਰਿਮੇਯਕਰਨ ਕਰਕੇ A ਅਤੇ B ਦੇ ਸਟੀਕ ਮੁੱਲ ਪਤਾ ਕਰੋ, ਫਿਰ ਪੁੱਛੇ ਗਏ ਗੁਣਾਂਕ ਵਿਅੰਜਕ ਦਾ ਮੁੱਲ ਕੱਢੋ।";
+  }
+
+  if (text === "Rationalise, combine and simplify the expression.") {
+    return locale === "hi-IN"
+      ? "व्यंजक का परिमेयकरण कीजिए, पदों को मिलाइए और सरल कीजिए।"
+      : "ਵਿਅੰਜਕ ਦਾ ਪਰਿਮੇਯਕਰਨ ਕਰੋ, ਪਦਾਂ ਨੂੰ ਮਿਲਾਓ ਅਤੇ ਸਰਲ ਕਰੋ।";
   }
 
   match = text.match(/^Rational part = (.+)$/u);
@@ -57,6 +139,36 @@ export function localizeSriC008C009FinalizedSurfaceV1(
 
   match = text.match(/^Surd coefficient = (.+)$/u);
   if (match) return locale === "hi-IN" ? `करणी गुणांक = ${match[1]}` : `ਕਰਣੀ ਗੁਣਾਂਕ = ${match[1]}`;
+
+  match = text.match(/^Simplified result = (.+)$/u);
+  if (match) return locale === "hi-IN" ? `सरल परिणाम = ${match[1]}` : `ਸਰਲ ਨਤੀਜਾ = ${match[1]}`;
+
+  match = text.match(/^Exact simplified result = (.+)$/u);
+  if (match) return locale === "hi-IN" ? `सटीक सरल परिणाम = ${match[1]}` : `ਸਟੀਕ ਸਰਲ ਨਤੀਜਾ = ${match[1]}`;
+
+  match = text.match(/^Therefore the result is (rational|irrational)\.$/u);
+  if (match) {
+    const classification = match[1] === "rational"
+      ? (locale === "hi-IN" ? "परिमेय" : "ਪਰਿਮੇਯ")
+      : (locale === "hi-IN" ? "अपरिमेय" : "ਅਪਰਿਮੇਯ");
+    return locale === "hi-IN"
+      ? `इसलिए परिणाम ${classification} है।`
+      : `ਇਸ ਲਈ ਨਤੀਜਾ ${classification} ਹੈ।`;
+  }
+
+  match = text.match(/^Conjugate: (.+)$/u);
+  if (match) return locale === "hi-IN" ? `संयुग्मी: ${match[1]}` : `ਸੰਯੁਗਮੀ: ${match[1]}`;
+
+  match = text.match(/^Denominator norm = (.+)$/u);
+  if (match) return locale === "hi-IN" ? `हर का मान = ${match[1]}` : `ਹਰ ਦਾ ਮੁੱਲ = ${match[1]}`;
+
+  match = text.match(/^Denominator after conjugation = (.+)$/u);
+  if (match) return locale === "hi-IN"
+    ? `संयुग्मी से गुणा करने के बाद हर = ${match[1]}`
+    : `ਸੰਯੁਗਮੀ ਨਾਲ ਗੁਣਾ ਕਰਨ ਤੋਂ ਬਾਅਦ ਹਰ = ${match[1]}`;
+
+  match = text.match(/^Common norm = (.+)$/u);
+  if (match) return locale === "hi-IN" ? `साझा हर का मान = ${match[1]}` : `ਸਾਂਝੇ ਹਰ ਦਾ ਮੁੱਲ = ${match[1]}`;
 
   match = text.match(/^Determine whether (.+) simplifies to a rational or irrational number\.$/u);
   if (match) return locale === "hi-IN"
@@ -96,6 +208,11 @@ export function localizeSriC008C009FinalizedSurfaceV1(
     ? `परिमेयकरण किया जाने वाला भिन्न ${match[1]} है।`
     : `ਪਰਿਮੇਯਕਰਨ ਕੀਤਾ ਜਾਣ ਵਾਲਾ ਭਿੰਨ ${match[1]} ਹੈ।`;
 
+  match = text.match(/^The conjugate-denominator sum is (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `संयुग्मी हरों वाला योग ${match[1]} है।`
+    : `ਸੰਯੁਗਮੀ ਹਰਾਂ ਵਾਲਾ ਜੋੜ ${match[1]} ਹੈ।`;
+
   if (text === "Multiply by the cube root needed to complete a perfect cube in the denominator.") {
     return locale === "hi-IN"
       ? "हर में पूर्ण घन बनाने के लिए आवश्यक घनमूल से अंश और हर दोनों को गुणा कीजिए।"
@@ -129,6 +246,11 @@ export function localizeSriC008C009FinalizedSurfaceV1(
 
   match = text.match(/^The rationalised coefficient form is (.+)\.$/u);
   if (match) return locale === "hi-IN" ? `परिमेयकृत गुणांक रूप ${match[1]} है।` : `ਪਰਿਮੇਯਕ੍ਰਿਤ ਗੁਣਾਂਕ ਰੂਪ ${match[1]} ਹੈ।`;
+
+  match = text.match(/^The rationalised form of (.+) is (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} का परिमेयकृत रूप ${match[2]} है।`
+    : `${match[1]} ਦਾ ਪਰਿਮੇਯਕ੍ਰਿਤ ਰੂਪ ${match[2]} ਹੈ।`;
 
   match = text.match(/^The rationalisation identity is (.+)\.$/u);
   if (match) return locale === "hi-IN" ? `परिमेयकरण की सर्वसमिका ${match[1]} है।` : `ਪਰਿਮੇਯਕਰਨ ਦੀ ਸਰਵਸਮਿਕਾ ${match[1]} ਹੈ।`;
