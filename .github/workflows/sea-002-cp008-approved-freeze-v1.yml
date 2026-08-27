@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-bank-acceptance.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-studio-integration.test.ts"
       - ".github/workflows/sea-002-cp008-approved-freeze-v1.yml"
   workflow_dispatch:
 
@@ -90,6 +92,17 @@ jobs:
             ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/question-studio-integration-v1.test.ts \
             2>&1 | tee /tmp/sea-002-cp008-question-studio-live-v1.log
 
+      - name: Prove shared Question Studio product routing
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/question-studio-shared-route-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/sea-002-cp008-shared-route-v1.mjs
+          node artifacts/api-server/dist/reasoning-v1/sea-002-cp008-shared-route-v1.mjs \
+            2>&1 | tee /tmp/sea-002-cp008-shared-route-v1.log
+
       - name: Re-prove CP007 boundary
         shell: bash
         run: |
@@ -111,6 +124,7 @@ jobs:
             /tmp/sea-002-cp008-approved-freeze-contract.log
             /tmp/sea-002-cp008-approved-freeze-v1.log
             /tmp/sea-002-cp008-question-studio-live-v1.log
+            /tmp/sea-002-cp008-shared-route-v1.log
             /tmp/sea-002-cp007-boundary-after-cp008-approval.log
           if-no-files-found: error
           retention-days: 30
