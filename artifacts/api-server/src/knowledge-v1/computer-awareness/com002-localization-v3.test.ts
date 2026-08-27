@@ -118,6 +118,22 @@ for (const language of languages) {
   );
 }
 
+const purposeStemSeed = "english-v4-localization-v3:COM-002-QL-012:0";
+const purposeStemHi = localizeCom002QuestionV3({
+  qlId: "COM-002-QL-012",
+  seed: purposeStemSeed,
+  language: "hi",
+});
+const purposeStemPa = localizeCom002QuestionV3({
+  qlId: "COM-002-QL-012",
+  seed: purposeStemSeed,
+  language: "pa",
+});
+assert.match(purposeStemHi.stem, /रीफ़्रेश करने के लिए/u);
+assert.doesNotMatch(purposeStemHi.stem, /रीफ़्रेश करना के लिए/u);
+assert.match(purposeStemPa.stem, /ਰਿਫ੍ਰੈਸ਼ ਕਰਨ ਲਈ/u);
+assert.doesNotMatch(purposeStemPa.stem, /ਰਿਫ੍ਰੈਸ਼ ਕਰਨਾ ਲਈ/u);
+
 assert.equal(audited, 1040);
 assert.ok(ql004CoreDescriptionAudited > 0);
 assert.equal(ql013Audited, 80);
@@ -126,4 +142,5 @@ console.log("[com002-localization-v3] PASS", {
   ql004CoreDescriptionAudited,
   ql013Audited,
   grammarOverlay: true,
+  purposeStemRegressionLocked: true,
 });
