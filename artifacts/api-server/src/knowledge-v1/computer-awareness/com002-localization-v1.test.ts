@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 
+import { localizeCom002QuestionEditorialV1 } from "./com002-localization-editorial-v1";
 import { auditCom002LocalizationLexiconCoverageV1 } from "./com002-localization-lexicon-v1";
-import { localizeCom002QuestionV1 } from "./com002-localization-v1";
 import { generateCom002ReviewQuestionV2 } from "./com002-review-synthesis-v2";
 
 const qlIds = Array.from(
@@ -23,8 +23,8 @@ for (const qlId of qlIds) {
     const english = generateCom002ReviewQuestionV2({ qlId, seed });
 
     for (const language of languages) {
-      const localized = localizeCom002QuestionV1({ qlId, seed, language });
-      const replay = localizeCom002QuestionV1({ qlId, seed, language });
+      const localized = localizeCom002QuestionEditorialV1({ qlId, seed, language });
+      const replay = localizeCom002QuestionEditorialV1({ qlId, seed, language });
 
       assert.deepEqual(replay, localized, `${qlId}/${seed}/${language}: deterministic replay drift`);
       assert.equal(localized.qlId, english.qlId);
