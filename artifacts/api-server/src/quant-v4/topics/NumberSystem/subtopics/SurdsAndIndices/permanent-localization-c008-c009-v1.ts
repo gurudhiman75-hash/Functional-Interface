@@ -300,6 +300,26 @@ export function localizeSriC008C009FinalizedSurfaceV1(
     ? `A और B ज्ञात कीजिए, फिर ${match[1]} का मान निकालिए।`
     : `A ਅਤੇ B ਪਤਾ ਕਰੋ, ਫਿਰ ${match[1]} ਦਾ ਮੁੱਲ ਕੱਢੋ।`;
 
+  match = text.match(/^Let x=(.+)\. Find (.+) exactly\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `मान लीजिए x=${match[1]}। ${match[2]} का सटीक मान ज्ञात कीजिए।`
+    : `ਮੰਨੋ x=${match[1]}। ${match[2]} ਦਾ ਸਟੀਕ ਮੁੱਲ ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^If x=(.+), evaluate (.+) without decimal approximation\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `यदि x=${match[1]}, तो ${match[2]} का मान दशमलव सन्निकटन के बिना ज्ञात कीजिए।`
+    : `ਜੇ x=${match[1]}, ਤਾਂ ${match[2]} ਦਾ ਮੁੱਲ ਦਸ਼ਮਲਵ ਅਨੁਮਾਨ ਤੋਂ ਬਿਨਾਂ ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^Using the conjugate of (.+), find (.+) where x=(.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} के संयुग्मी का उपयोग करके ${match[2]} ज्ञात कीजिए, जहाँ x=${match[3]}।`
+    : `${match[1]} ਦੇ ਸੰਯੁਗਮੀ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ${match[2]} ਪਤਾ ਕਰੋ, ਜਿੱਥੇ x=${match[3]}।`;
+
+  match = text.match(/^For x=(.+), determine the exact value of (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `x=${match[1]} के लिए ${match[2]} का सटीक मान ज्ञात कीजिए।`
+    : `x=${match[1]} ਲਈ ${match[2]} ਦਾ ਸਟੀਕ ਮੁੱਲ ਪਤਾ ਕਰੋ।`;
+
   match = text.match(/^The value used for x is (.+)\.$/u);
   if (match) return locale === "hi-IN"
     ? `x के लिए प्रयुक्त मान ${match[1]} है।`
