@@ -63,19 +63,29 @@ assert.equal(localCapability.approvedCorpusComposition, "80_EXAM_REAL_20_APPROVE
 const sharedCapability = listQuestionStudioPackages().find((entry: any) => entry.packageId === "SEA-002");
 assert.ok(sharedCapability, "SEA-002 must be discoverable through the shared Question Studio capability list");
 assert.equal(sharedCapability.enabled, true);
-assert.equal(sharedCapability.permanentQlCount, 4);
-assert.deepEqual(sharedCapability.permanentQlIds, SEA002_CP006_QUESTION_STUDIO_QL_IDS);
+assert.deepEqual(sharedCapability.cpIds, ["SEA-CP-006", "SEA-CP-008"]);
+assert.equal(sharedCapability.permanentQlCount, 11);
+assert.ok(SEA002_CP006_QUESTION_STUDIO_QL_IDS.every((qlId) => sharedCapability.permanentQlIds.includes(qlId)));
 assert.deepEqual(sharedCapability.supportedLanguages, ["en", "hi", "pa"]);
 assert.equal(sharedCapability.questionBankAcceptanceActive, true);
-assert.equal(sharedCapability.questionBankStatus, "READY_FOR_STORAGE");
+assert.equal(sharedCapability.questionBankStatus, "CHECKPOINT_SCOPED");
 assert.equal(sharedCapability.questionBankWritable, true);
-assert.equal(sharedCapability.questionBankAcceptanceMode, "BANK_ONLY");
+assert.equal(sharedCapability.questionBankAcceptanceMode, "CP006_BANK_ONLY_CP008_NOT_STORED");
 assert.equal(sharedCapability.manualApprovalRequired, true);
 assert.equal(sharedCapability.testEligible, false);
 assert.equal(sharedCapability.mockTestEligible, false);
 assert.equal(sharedCapability.productionStaging, false);
 assert.equal(sharedCapability.publiclyPublishable, false);
 assert.equal(sharedCapability.automaticStudentPublication, false);
+assert.equal(sharedCapability.checkpointCapabilities["SEA-CP-006"].questionBankWritable, true);
+assert.equal(sharedCapability.checkpointCapabilities["SEA-CP-006"].questionBankAcceptanceMode, "BANK_ONLY");
+assert.equal(sharedCapability.checkpointCapabilities["SEA-CP-008"].questionStudioActive, true);
+assert.equal(sharedCapability.checkpointCapabilities["SEA-CP-008"].productOwnerApprovalStatus, "APPROVED");
+assert.equal(sharedCapability.checkpointCapabilities["SEA-CP-008"].freezeStatus, "FROZEN");
+assert.equal(sharedCapability.checkpointCapabilities["SEA-CP-008"].questionBankWritable, false);
+assert.equal(sharedCapability.checkpointCapabilities["SEA-CP-008"].testEligible, false);
+assert.equal(sharedCapability.checkpointCapabilities["SEA-CP-008"].mockTestEligible, false);
+assert.equal(sharedCapability.checkpointCapabilities["SEA-CP-008"].publiclyPublishable, false);
 
 const targetScript = {
   hi: /[\u0900-\u097F]/u,
@@ -233,4 +243,4 @@ console.log("runtime variants", [...runtimeVariants].sort().join(","));
 console.log("source lifecycle locks", sourceLifecycleLocks);
 console.log("integration lifecycle locks", integrationLifecycleLocks);
 console.log("English/localized freeze fingerprints", SEA002_CP006_ENGLISH_FREEZE.approvedReviewFingerprint, SEA002_CP006_LOCALIZATION_FREEZE.approvedLocalizedReviewFingerprint);
-console.log("source review adapter Bank-inactive; shared facade BANK_ONLY; test/mock/staging/public false");
+console.log("source review adapter Bank-inactive; shared facade CP006 BANK_ONLY + CP008 Studio-only; test/mock/staging/public false");

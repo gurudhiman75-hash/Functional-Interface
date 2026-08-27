@@ -1,0 +1,78 @@
+name: Validate SEA-002 CP008 Wave02 source and ALT8 discovery
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/**"
+      - ".github/workflows/sea-002-cp008-wave02-source-and-alt8-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: sea-002-cp008-wave02-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-sea-002-cp008-wave02:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Re-prove Wave01 discovery
+        run: >-
+          node --experimental-strip-types
+          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/discovery-v1.test.ts
+
+      - name: Validate expanded source evidence
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/source-saturation-v2.test.ts \
+            2>&1 | tee /tmp/sea-002-cp008-source-saturation-v2.log
+
+      - name: Independently solve Wave02 ALT8 prototypes
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/discovery-wave02-v1.test.ts \
+            2>&1 | tee /tmp/sea-002-cp008-wave02-alt8-discovery-v1.log
+
+      - name: Validate Wave02 solve-signature decisions
+        shell: bash
+        run: |
+          set -o pipefail
+          node --experimental-strip-types \
+            ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/solve-signature-v2.test.ts \
+            2>&1 | tee /tmp/sea-002-cp008-solve-signature-v2.log
+
+      - name: Re-prove square topology primitives
+        run: >-
+          node --experimental-strip-types
+          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/topology-v1.test.ts
+
+      - name: Re-prove CP007 pre-freeze boundary
+        run: >-
+          node --experimental-strip-types
+          ./artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp007/review/prefreeze-authority-v1.test.ts
+
+      - name: Upload Wave02 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sea-002-cp008-wave02-source-alt8-v1
+          path: |
+            /tmp/sea-002-cp008-source-saturation-v2.log
+            /tmp/sea-002-cp008-wave02-alt8-discovery-v1.log
+            /tmp/sea-002-cp008-solve-signature-v2.log
+          if-no-files-found: error
+          retention-days: 30

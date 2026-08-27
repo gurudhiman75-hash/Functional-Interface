@@ -12,6 +12,7 @@ import {
   isWor001QuestionStudioRequest,
   listQuestionStudioPackages,
 } from "../question-studio/shared-generation-engine";
+import { isSea002Cp008QuestionStudioRequest } from "../reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/question-studio-integration-v1";
 
 const router = Router();
 const LANGUAGES = new Set(["en", "hi", "pa"]);
@@ -152,32 +153,54 @@ router.get(
   requireAdminPermission("content.generation.read"),
   async (_req, res) => {
     try {
-      const packages = listQuestionStudioPackages().map((pkg: any) => ({
-        packageId: String(pkg.packageId),
-        topic: String(pkg.topic),
-        subtopic: String(pkg.subtopic),
-        subject: asString(pkg.subject) || undefined,
-        label: String(pkg.label),
-        enabled: Boolean(pkg.enabled),
-        cpIds: Array.isArray(pkg.cpIds)
+      const packages = listQuestionStudioPackages().map((pkg: any) => {
+        const cpIds = Array.isArray(pkg.cpIds)
           ? pkg.cpIds.map(String)
           : Array.isArray(pkg.canonicalProblems)
             ? pkg.canonicalProblems.map((item: any) => String(item?.id ?? "")).filter(Boolean)
+            : [];
+        const canonicalProblems = Array.isArray(pkg.canonicalProblems)
+          ? pkg.canonicalProblems
+              .map((item: any) => {
+                const id = String(item?.id ?? "").trim();
+                return id
+                  ? { id, label: asString(item?.label) || id }
+                  : null;
+              })
+              .filter(Boolean)
+          : cpIds.map((id: string) => ({ id, label: id }));
+        return {
+          packageId: String(pkg.packageId),
+          topic: String(pkg.topic),
+          subtopic: String(pkg.subtopic),
+          subject: asString(pkg.subject) || undefined,
+          label: String(pkg.label),
+          enabled: Boolean(pkg.enabled),
+          cpIds,
+          canonicalProblems,
+          supportedLanguages: Array.isArray(pkg.supportedLanguages)
+            ? pkg.supportedLanguages.map(String)
+            : ["en"],
+          runtimeMode: asString(pkg.runtimeMode) || undefined,
+          supportedRuntimeModes: Array.isArray(pkg.supportedRuntimeModes)
+            ? pkg.supportedRuntimeModes.map(String)
             : [],
-        supportedLanguages: Array.isArray(pkg.supportedLanguages)
-          ? pkg.supportedLanguages.map(String)
-          : ["en"],
-        runtimeMode: asString(pkg.runtimeMode) || undefined,
-        supportedRuntimeModes: Array.isArray(pkg.supportedRuntimeModes)
-          ? pkg.supportedRuntimeModes.map(String)
-          : [],
-        questionBankStatus: asString(pkg.questionBankStatus) || undefined,
-        testEligibility: asString(pkg.testEligibility) || undefined,
-        publiclyPublishable:
-          typeof pkg.publiclyPublishable === "boolean"
-            ? pkg.publiclyPublishable
-            : undefined,
-      }));
+          questionBankStatus: asString(pkg.questionBankStatus) || undefined,
+          questionBankWritable:
+            typeof pkg.questionBankWritable === "boolean"
+              ? pkg.questionBankWritable
+              : undefined,
+          checkpointCapabilities:
+            pkg.checkpointCapabilities && typeof pkg.checkpointCapabilities === "object"
+              ? pkg.checkpointCapabilities
+              : undefined,
+          testEligibility: asString(pkg.testEligibility) || undefined,
+          publiclyPublishable:
+            typeof pkg.publiclyPublishable === "boolean"
+              ? pkg.publiclyPublishable
+              : undefined,
+        };
+      });
 
       res.json({
         generationSystem: "question-studio",
@@ -201,6 +224,7 @@ router.post(
     const numberSystemRequest = isNumberSystemRequest(req.body);
     const averageRequest = isAverageRequest(req.body);
     const timeAndWorkRequest = isTimeAndWorkRequest(req.body);
+    const seaCp008Request = isSea002Cp008QuestionStudioRequest(req.body ?? {});
     const seaRequest = isSea002Cp006QuestionStudioRequest(req.body ?? {});
     const worRequest = isWor001QuestionStudioRequest(req.body ?? {});
     if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !seaRequest && !worRequest) {
@@ -234,15 +258,17 @@ router.post(
             ? "TMW-001"
             : defaultPackageId;
     const defaultSubtopic = numberSystemRequest ? "Number System" : "Average";
-    const selectedSubtopic = seaRequest
-      ? "Two Parallel Rows Facing Each Other"
-      : worRequest
-        ? "Word & Dictionary Order"
-        : simplificationRequest
-          ? "Simplification & Approximation"
-          : timeAndWorkRequest
-            ? "Time & Work"
-            : defaultSubtopic;
+    const selectedSubtopic = seaCp008Request
+      ? "Square Seating"
+      : seaRequest
+        ? "Two Parallel Rows Facing Each Other"
+        : worRequest
+          ? "Word & Dictionary Order"
+          : simplificationRequest
+            ? "Simplification & Approximation"
+            : timeAndWorkRequest
+              ? "Time & Work"
+              : defaultSubtopic;
     const packageId = asString(req.body?.packageId) || selectedPackageId;
     const patternId = asString(req.body?.patternId) || undefined;
     const topic = seaRequest
@@ -250,7 +276,9 @@ router.post(
       : worRequest
         ? "Reasoning"
         : asString(req.body?.topic) || "Arithmetic";
-    const subtopic = asString(req.body?.subtopic) || selectedSubtopic;
+    const subtopic = seaRequest
+      ? selectedSubtopic
+      : asString(req.body?.subtopic) || selectedSubtopic;
     const exam = asString(req.body?.exam) || "SSC CGL";
     const subject = seaRequest || worRequest
       ? "Reasoning Ability"
@@ -261,7 +289,12 @@ router.post(
       ? "Mixed"
       : normalizeDifficulty(requestedDifficulty);
     const seed = asString(req.body?.seed) || undefined;
-    const canonicalProblemId = asString(req.body?.canonicalProblemId) || undefined;
+    const inferredSeaCp = seaCp008Request
+      ? "SEA-CP-008"
+      : seaRequest
+        ? "SEA-CP-006"
+        : undefined;
+    const canonicalProblemId = asString(req.body?.canonicalProblemId) || inferredSeaCp;
     const questionLanguageId = asString(req.body?.questionLanguageId) || undefined;
     const inferredNumberSystemCp = numberSystemRequest
       ? inferNumberSystemCpFromQl(questionLanguageId)
@@ -346,7 +379,7 @@ router.post(
           ) VALUES (
             ${runId}::uuid, ${code}, 'review'::generation_run_status, 1,
             ${JSON.stringify(requestSnapshot)}, ${JSON.stringify(requestSnapshot)},
-            'examtree', ${seaRequest ? "reasoning-v1-sea-002-cp006" : worRequest ? "reasoning-v1-wor-001" : "quant-v4"}, 0, 0, 0, 0,
+            'examtree', ${seaCp008Request ? "reasoning-v1-sea-002-cp008" : seaRequest ? "reasoning-v1-sea-002-cp006" : worRequest ? "reasoning-v1-wor-001" : "quant-v4"}, 0, 0, 0, 0,
             ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
           )
         `;

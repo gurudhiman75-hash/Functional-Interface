@@ -5,10 +5,16 @@ import {
 } from "./question-bank-readiness.ts";
 import {
   generateSea002Cp006QuestionStudioBatch as generateSourceBatch,
-  isSea002Cp006QuestionStudioRequest,
+  isSea002Cp006QuestionStudioRequest as isSea002Cp006SourceQuestionStudioRequest,
   listSea002Cp006QuestionStudioPackages as listSourcePackages,
   type Sea002Cp006QuestionStudioRequest,
 } from "./question-studio-integration.ts";
+import {
+  generateSea002Cp008QuestionStudioBatchV1,
+  isSea002Cp008QuestionStudioRequest,
+  listSea002Cp008QuestionStudioPackagesV1,
+} from "../cp008/question-studio-integration-v1.ts";
+import type { Sea002Cp008QuestionStudioRequest } from "../cp008/question-studio-preintegration-v1.ts";
 
 export const SEA002_CP006_QUESTION_BANK_ACCEPTANCE_AUTHORITY =
   "SEA002_CP006_QUESTION_BANK_ACCEPTANCE_V1" as const;
@@ -49,22 +55,52 @@ export const SEA002_CP006_QUESTION_BANK_ACCEPTANCE = Object.freeze({
   nextGate: "TEST_AND_PUBLICATION_LIFECYCLE_ACTIVATION_REQUIRES_SEPARATE_CHECKPOINT" as const,
 });
 
-export { isSea002Cp006QuestionStudioRequest };
+export type Sea002CumulativeQuestionStudioRequest =
+  | Sea002Cp006QuestionStudioRequest
+  | Sea002Cp008QuestionStudioRequest;
+
+export function isSea002Cp006QuestionStudioRequest(
+  request: Sea002CumulativeQuestionStudioRequest,
+): boolean {
+  return isSea002Cp008QuestionStudioRequest(request)
+    || isSea002Cp006SourceQuestionStudioRequest(request);
+}
 
 export function listSea002Cp006QuestionBankAcceptedPackages() {
   const source = listSourcePackages()[0]!;
+  const square = listSea002Cp008QuestionStudioPackagesV1()[0]!;
   return [Object.freeze({
     ...source,
-    label: "Seating Arrangement — Two Parallel Rows Facing Each Other · Question Bank acceptance",
+    name: "SEA-002 Seating Arrangement — Parallel Rows + Square Seating",
+    label: "Seating Arrangement — Parallel Rows + Square Seating",
+    subtopic: "Seating Arrangement",
+    cpIds: Object.freeze([...source.cpIds, ...square.cpIds]),
+    canonicalProblems: Object.freeze([
+      ...source.canonicalProblems,
+      ...square.canonicalProblems,
+    ]),
+    permanentQlCount: source.permanentQlCount + square.permanentQlCount,
+    permanentQlIds: Object.freeze([
+      ...source.permanentQlIds,
+      ...square.permanentQlIds,
+    ]),
+    supportedDifficulties: Object.freeze(["Easy", "Medium", "Hard"] as const),
+    supportedLanguages: Object.freeze(["en", "hi", "pa"] as const),
+    enabled: true,
+    runtimeMode: "QUESTION_STUDIO_ACTIVE_CHECKPOINT_SCOPED",
+    supportedRuntimeModes: Object.freeze([
+      source.runtimeMode,
+      square.runtimeMode,
+    ]),
     reviewOnly: false,
-    reviewStatus: "QUESTION_STUDIO_REVIEW_WITH_BANK_ACCEPTANCE",
+    reviewStatus: "CHECKPOINT_SCOPED_FROZEN_AUTHORITIES",
     questionBankAcceptanceCheckpointId: "SEA-CP-006-BANK-ACCEPTANCE",
     questionBankReadinessAuthority: SEA002_CP006_QUESTION_BANK_READINESS_AUTHORITY,
     questionBankAcceptanceAuthority: SEA002_CP006_QUESTION_BANK_ACCEPTANCE_AUTHORITY,
     questionBankAcceptanceActive: true,
-    questionBankStatus: "READY_FOR_STORAGE",
+    questionBankStatus: "CHECKPOINT_SCOPED",
     questionBankWritable: true,
-    questionBankAcceptanceMode: "BANK_ONLY",
+    questionBankAcceptanceMode: "CP006_BANK_ONLY_CP008_NOT_STORED",
     manualApprovalRequired: true,
     testEligibility: "INELIGIBLE",
     testEligible: false,
@@ -72,13 +108,41 @@ export function listSea002Cp006QuestionBankAcceptedPackages() {
     productionStaging: false,
     publiclyPublishable: false,
     automaticStudentPublication: false,
+    checkpointCapabilities: Object.freeze({
+      "SEA-CP-006": Object.freeze({
+        questionStudioActive: true,
+        questionBankStatus: "READY_FOR_STORAGE",
+        questionBankWritable: true,
+        questionBankAcceptanceMode: "BANK_ONLY",
+        testEligible: false,
+        mockTestEligible: false,
+        publiclyPublishable: false,
+      }),
+      "SEA-CP-008": Object.freeze({
+        questionStudioActive: true,
+        productOwnerApprovalStatus: "APPROVED",
+        freezeStatus: "FROZEN",
+        questionBankStatus: "NOT_STORED",
+        questionBankWritable: false,
+        testEligible: false,
+        mockTestEligible: false,
+        productionStaging: false,
+        publiclyPublishable: false,
+        automaticStudentPublication: false,
+        releaseId: square.releaseId,
+      }),
+    }),
   })];
 }
 
 export async function generateSea002Cp006QuestionBankAcceptedBatch(
-  request: Sea002Cp006QuestionStudioRequest = {},
+  request: Sea002CumulativeQuestionStudioRequest = {},
 ) {
-  const source = await generateSourceBatch(request);
+  if (isSea002Cp008QuestionStudioRequest(request)) {
+    return generateSea002Cp008QuestionStudioBatchV1(request);
+  }
+
+  const source = await generateSourceBatch(request as Sea002Cp006QuestionStudioRequest);
   const questions = Object.freeze(
     source.questions.map((question) => {
       const ready = prepareSea002Cp006QuestionBankCandidate(question);
