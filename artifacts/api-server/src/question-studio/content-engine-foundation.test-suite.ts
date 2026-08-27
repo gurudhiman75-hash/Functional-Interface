@@ -58,16 +58,18 @@ await runStage("COM-002 OS component/power-action corpus extension", () => impor
 await runStage("COM-002 exact exam-family OS corpus extension", () => import("../knowledge-v1/computer-awareness/com002-candidate-corpus-extension3.test"));
 await runStage("COM-002 permanent QL corpus coverage", () => import("../knowledge-v1/computer-awareness/com002-corpus-coverage.test"));
 await runStage("COM-002 editorial fact review", () => import("../knowledge-v1/computer-awareness/com002-editorial-review.test"));
-await runStage("COM-002 520-question English review synthesis", () => import("../knowledge-v1/computer-awareness/com002-review-synthesis.test"));
-await runStage("COM-002 26-question human review sampler", () => import("../knowledge-v1/computer-awareness/com002-human-review-wave1.test"));
+await runStage("COM-002 historical 520-question English V2 synthesis", () => import("../knowledge-v1/computer-awareness/com002-review-synthesis.test"));
+await runStage("COM-002 historical 26-question English V2 sampler", () => import("../knowledge-v1/computer-awareness/com002-human-review-wave1.test"));
+await runStage("COM-002 corrected 520-question English V3 candidate audit", () => import("../knowledge-v1/computer-awareness/com002-review-synthesis-v3.test"));
+await runStage("COM-002 corrected 26-question English V3 human review sampler", () => import("../knowledge-v1/computer-awareness/com002-human-review-wave1-v3.test"));
 await runStage("COM-002 English human-review integrity blocker V1", () => import("../knowledge-v1/computer-awareness/com002-english-human-review-integrity-v1.test"));
 await runStage("COM-002 historical English freeze V1", () => import("../knowledge-v1/computer-awareness/com002-english-freeze-v1.test"));
-await runStage("COM-002 Hindi/Punjabi semantic lexicon coverage V1", () => import("../knowledge-v1/computer-awareness/com002-localization-lexicon-v1.test"));
-await runStage("COM-002 Hindi/Punjabi 1040-question localization parity V1", () => import("../knowledge-v1/computer-awareness/com002-localization-v1.test"));
-await runStage("COM-002 Hindi/Punjabi localization human review sampler V1", () => import("../knowledge-v1/computer-awareness/com002-localization-human-review-v1.test"));
+await runStage("COM-002 historical Hindi/Punjabi semantic lexicon coverage V1", () => import("../knowledge-v1/computer-awareness/com002-localization-lexicon-v1.test"));
+await runStage("COM-002 historical Hindi/Punjabi 1040-question localization parity V1", () => import("../knowledge-v1/computer-awareness/com002-localization-v1.test"));
+await runStage("COM-002 historical Hindi/Punjabi localization human review sampler V1", () => import("../knowledge-v1/computer-awareness/com002-localization-human-review-v1.test"));
 await runStage("COM-002 pre-freeze Question Studio activation blocker V1", () => import("./engines/com002-question-studio-activation-gate-v1.test"));
 await runStage("COM-002 520-question difficulty routing candidate V1", () => import("../knowledge-v1/computer-awareness/com002-difficulty-routing-v1.test"));
 await runStage("COM-002 fail-closed Question Studio candidate adapter V1", () => import("./engines/knowledge-v1-com002-candidate-adapter.test"));
-await runStage("COM-002 Hindi/Punjabi localization freeze candidate V1", () => import("../knowledge-v1/computer-awareness/com002-hi-pa-localization-freeze-v1.test"));
+await runStage("COM-002 historical Hindi/Punjabi localization hash candidate V1", () => import("../knowledge-v1/computer-awareness/com002-hi-pa-localization-freeze-v1.test"));
 
 console.log("Question Studio content engine foundation suite passed.");
