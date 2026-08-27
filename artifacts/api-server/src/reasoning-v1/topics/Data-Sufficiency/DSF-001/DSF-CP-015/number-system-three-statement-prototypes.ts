@@ -108,7 +108,7 @@ const adapter = {
 export interface DsfCp015NumberSystemPrototypeResult {
   readonly prototypeId: DsfCp015NumThreeStatementPrototypeId;
   readonly candidateQlId: "DSF-QL-CAND-002";
-  readonly permanentQlId: null;
+  readonly permanentQlId: "DSF-QL-002";
   readonly sourceChapterId: "NUM-001";
   readonly sourceCapability: "NUM-001/foundation/divisibility";
   readonly problemTemplate: "42X";
@@ -151,7 +151,7 @@ export function runDsfCp015NumberSystemPrototype(
   return Object.freeze({
     prototypeId,
     candidateQlId: "DSF-QL-CAND-002" as const,
-    permanentQlId: null,
+    permanentQlId: "DSF-QL-002" as const,
     sourceChapterId: "NUM-001" as const,
     sourceCapability: "NUM-001/foundation/divisibility" as const,
     problemTemplate: PROBLEM.template,
