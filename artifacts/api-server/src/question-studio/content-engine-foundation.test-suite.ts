@@ -64,8 +64,10 @@ await runStage("COM-002 historical 520-question English V3 candidate audit", () 
 await runStage("COM-002 historical 26-question English V3 human review sampler", () => import("../knowledge-v1/computer-awareness/com002-human-review-wave1-v3.test"));
 await runStage("COM-002 final-candidate 520-question English V4 editorial audit", () => import("../knowledge-v1/computer-awareness/com002-review-synthesis-v4.test"));
 await runStage("COM-002 final-candidate 26-question English V4 human review sampler", () => import("../knowledge-v1/computer-awareness/com002-human-review-wave1-v4.test"));
+await runStage("COM-002 exact executed English V4 review pack", () => import("../knowledge-v1/computer-awareness/com002-english-human-review-pack-v4.test"));
 await runStage("COM-002 historical English human-review integrity blocker V1", () => import("../knowledge-v1/computer-awareness/com002-english-human-review-integrity-v1.test"));
 await runStage("COM-002 historical executed English V3 human-review integrity V2", () => import("../knowledge-v1/computer-awareness/com002-english-human-review-integrity-v2.test"));
+await runStage("COM-002 executed English V4 human-review integrity V3", () => import("../knowledge-v1/computer-awareness/com002-english-human-review-integrity-v3.test"));
 await runStage("COM-002 historical English V3 freeze fingerprint candidate", () => import("../knowledge-v1/computer-awareness/com002-english-freeze-v3-candidate.test"));
 await runStage("COM-002 historical English freeze V1", () => import("../knowledge-v1/computer-awareness/com002-english-freeze-v1.test"));
 await runStage("COM-002 historical Hindi/Punjabi semantic lexicon coverage V1", () => import("../knowledge-v1/computer-awareness/com002-localization-lexicon-v1.test"));
