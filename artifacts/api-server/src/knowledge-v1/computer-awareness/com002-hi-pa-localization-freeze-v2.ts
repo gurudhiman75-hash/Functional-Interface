@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-import { COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1 } from "./com002-english-human-review-integrity-v1";
+import { COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V2 } from "./com002-english-human-review-integrity-v2";
 import {
   COM002_LOCALIZATION_DRAFT_AUTHORITY_V2,
   COM002_LOCALIZATION_VERSION_V2,
@@ -113,10 +113,14 @@ export function computeCom002HiPaLocalizationFreezeFingerprintsV2() {
   const combinedFingerprint = fingerprint({
     chapterId: "COM-002",
     englishGeneratorVersion: COM002_ENGLISH_GENERATOR_VERSION_V3,
-    englishHumanReviewIntegrityAuthorityId: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.authorityId,
-    englishHumanReviewIntegrityStatus: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.status,
-    explicitEnglishApprovalVerified: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.explicitApprovalVerified,
-    operationalEnglishFreezeAllowed: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.operationalEnglishFreezeAllowed,
+    englishHumanReviewIntegrityAuthorityId: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V2.authorityId,
+    englishHumanReviewIntegrityStatus: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V2.status,
+    executedWorkflowRunId:
+      COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V2.exactExecutedEvidence.workflowRunId,
+    explicitEnglishApprovalVerified:
+      COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V2.humanReview.explicitApprovalVerified,
+    operationalEnglishFreezeAllowed:
+      COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V2.operationalEnglishFreezeAllowed,
     localizationVersion: COM002_LOCALIZATION_VERSION_V2,
     terminologyFingerprint,
     localizedCorpusFingerprint,
@@ -147,12 +151,12 @@ export const COM002_HI_PA_LOCALIZATION_FREEZE_PINS_V2 = {
 } as const;
 
 /**
- * V3-bound localization hash candidate only.
+ * Executed V3-bound localization hash candidate only.
  *
- * It deliberately cannot become an operational localization freeze while the
- * corrected English V3 review pack is unexecuted/unapproved. The hashes are
- * still useful because they define the exact multilingual candidate corpus to
- * be reviewed once hosted CI executes again.
+ * The 1,040-question parity corpus and 26-question bilingual sampler executed
+ * green on the canonical runner. Machine fingerprints can now be pinned, but
+ * promotion remains blocked until the exact English V3 review pack receives
+ * explicit product-owner approval and an operational English V3 freeze exists.
  */
 export const COM002_HI_PA_LOCALIZATION_FREEZE_CANDIDATE_V2 = Object.freeze({
   candidateId: "COM-002-HI-PA-LOCALIZATION-FREEZE-CANDIDATE-V2" as const,
@@ -160,16 +164,19 @@ export const COM002_HI_PA_LOCALIZATION_FREEZE_CANDIDATE_V2 = Object.freeze({
   cpRange: "COM-002-CP-001..COM-002-CP-002" as const,
   permanentQlRange: "COM-002-QL-001..COM-002-QL-013" as const,
   permanentQlCount: 13,
-  status: "V3_BOUND_HASH_REVIEW_CANDIDATE_BLOCKED_BY_ENGLISH_APPROVAL" as const,
+  status: "EXECUTED_V3_BOUND_HASH_CANDIDATE_BLOCKED_BY_EXPLICIT_ENGLISH_APPROVAL" as const,
   supportedLanguages: ["en", "hi", "pa"] as const,
   locales: ["en-IN", "hi-IN", "pa-IN"] as const,
   englishGeneratorVersion: COM002_ENGLISH_GENERATOR_VERSION_V3,
   localizationVersion: COM002_LOCALIZATION_VERSION_V2,
   draftAuthority: COM002_LOCALIZATION_DRAFT_AUTHORITY_V2,
-  englishHumanReviewIntegrityAuthorityId: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.authorityId,
-  englishHumanReviewIntegrityStatus: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.status,
-  explicitEnglishApprovalVerified: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.explicitApprovalVerified,
-  operationalEnglishFreezeAllowed: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.operationalEnglishFreezeAllowed,
+  englishHumanReviewIntegrityAuthorityId: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V2.authorityId,
+  englishHumanReviewIntegrityStatus: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V2.status,
+  exactExecutedEvidence: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V2.exactExecutedEvidence,
+  explicitEnglishApprovalVerified:
+    COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V2.humanReview.explicitApprovalVerified,
+  operationalEnglishFreezeAllowed:
+    COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V2.operationalEnglishFreezeAllowed,
   fingerprints: COM002_HI_PA_LOCALIZATION_FREEZE_PINS_V2,
   expectedProof: {
     localizedParityQuestions: 1040,
@@ -192,12 +199,16 @@ export const COM002_HI_PA_LOCALIZATION_FREEZE_CANDIDATE_V2 = Object.freeze({
     correctIndexImmutable: true,
   },
   promotionAllowed: false,
-  promotionBlocker: "EXECUTED_GREEN_V3_ENGLISH_REVIEW_PLUS_EXPLICIT_PRODUCT_OWNER_APPROVAL_AND_SUPERSEDING_ENGLISH_FREEZE_REQUIRED" as const,
+  promotionBlocker:
+    "EXPLICIT_PRODUCT_OWNER_APPROVAL_AND_OPERATIONAL_ENGLISH_V3_FREEZE_REQUIRED" as const,
   lifecycle: {
     englishV3CandidateImplemented: true,
+    englishV3ExecutedGreen: true,
     englishV3Approved: false,
     operationalEnglishFreezeAllowed: false,
     hindiPunjabiV2GenerationImplemented: true,
+    localizationV2ExecutedGreen: true,
+    localizationFingerprintsPinned: false,
     localizationFrozen: false,
     questionStudioActive: false,
     reviewRunPersistenceAllowed: false,
@@ -209,7 +220,7 @@ export const COM002_HI_PA_LOCALIZATION_FREEZE_CANDIDATE_V2 = Object.freeze({
     automaticStudentPublication: false,
     productionReleaseAuthorized: false,
   },
-  nextGate: "COM002_EXECUTE_V3_ENGLISH_AND_LOCALIZATION_REVIEW_THEN_EXPLICIT_APPROVAL" as const,
+  nextGate: "COM002_EXPLICIT_ENGLISH_V3_APPROVAL_THEN_FREEZE_PROMOTION" as const,
 });
 
 export function auditCom002HiPaLocalizationFreezeCandidateV2() {
@@ -227,8 +238,8 @@ export function auditCom002HiPaLocalizationFreezeCandidateV2() {
   if (actual.englishGeneratorVersion !== COM002_ENGLISH_GENERATOR_VERSION_V3) {
     issues.push("ENGLISH_V3_GENERATOR_VERSION_DRIFT");
   }
-  if (!COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.operationalEnglishFreezeAllowed) {
-    issues.push("ENGLISH_V3_OPERATIONAL_FREEZE_BLOCKED_PENDING_EXECUTION_AND_EXPLICIT_APPROVAL");
+  if (!COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V2.operationalEnglishFreezeAllowed) {
+    issues.push("ENGLISH_V3_OPERATIONAL_FREEZE_BLOCKED_PENDING_EXPLICIT_APPROVAL");
   }
 
   for (const key of [
@@ -242,9 +253,15 @@ export function auditCom002HiPaLocalizationFreezeCandidateV2() {
     }
   }
 
+  const fingerprintIssues = issues.filter((issue) =>
+    issue.startsWith("FINGERPRINT_MISMATCH:"),
+  );
+
   return {
-    valid: issues.length === 0,
-    promotable: false as const,
+    machineFingerprintValid: fingerprintIssues.length === 0,
+    promotable:
+      fingerprintIssues.length === 0 &&
+      COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V2.operationalEnglishFreezeAllowed,
     hashProbeComputed: true as const,
     actual,
     pins,
