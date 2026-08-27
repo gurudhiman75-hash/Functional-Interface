@@ -59,3 +59,5 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/executable-proof.test.ts
       - name: Prove CP011 provisional QL allocation and lifecycle locks
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/allocation-proof.test.ts
+      - name: Prove CP011 English review authoring
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/english-authoring-proof.test.ts
