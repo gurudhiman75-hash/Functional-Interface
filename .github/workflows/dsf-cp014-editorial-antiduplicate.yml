@@ -1,0 +1,47 @@
+name: Validate DSF CP-014 Editorial Anti-Duplicate Foundation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-014/**
+      - .github/workflows/dsf-cp014-editorial-antiduplicate.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp014-editorial-antiduplicate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp014-editorial-antiduplicate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle CP-014 editorial audit tests
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/data-sufficiency/cp014
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-014/editorial-near-duplicate-audit.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp014/editorial-near-duplicate-audit.test.mjs
+      - name: Run CP-014 editorial audit tests
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp014/editorial-near-duplicate-audit.test.mjs
