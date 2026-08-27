@@ -40,6 +40,7 @@ async function installFixtures(page: Page) {
     if (path === "/tests") return fulfillJson(route, tests);
     if (path === "/published-tests") return fulfillJson(route, { tests, generatedAt: "2026-08-22T06:45:00.000Z" });
     if (path === "/test-series") return fulfillJson(route, { series: [], generatedAt: "2026-08-22T06:45:00.000Z" });
+    if (path === "/learning-resources") return fulfillJson(route, { resources: [], filters: { category: null, format: null, language: null }, generatedAt: "2026-08-27T06:15:00.000Z" });
     if (path === "/daily-challenge") return fulfillJson(route, {});
     return fulfillJson(route, []);
   });
@@ -59,6 +60,9 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await expect(page.getByTestId("home-hero")).toBeVisible();
     await expect(page.getByTestId("home-exam-finder")).toBeVisible();
     await expect(page.getByTestId("home-proof-strip")).toBeVisible();
+    await expect(page.getByTestId("home-why-examtree")).toBeVisible();
+    await expect(page.getByTestId("home-testimonials")).toBeVisible();
+    await expect(page.getByTestId("home-free-resources")).toBeVisible();
     await expect(page.getByTestId("public-study-sidebar")).toHaveCount(0);
 
     const header = page.getByTestId("public-header");
@@ -140,7 +144,7 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     expect(["firefox", "webkit"]).toContain(browserName);
   });
 
-  test("sample Home is a full-width conversion launchpad without fabricated testimonials", async ({ page, browserName }) => {
+  test("sample Home is a simplified marketing launchpad with preview-only testimonials and free resources", async ({ page, browserName }) => {
     await installFixtures(page);
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/?preview=sample");
@@ -148,23 +152,32 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await expect(page.getByTestId("home-sample-preview-badge")).toContainText("Sample data preview");
     await expect(page.getByTestId("home-hero")).toBeVisible();
     await expect(page.getByTestId("home-exam-finder")).toBeVisible();
-    await expect(page.getByTestId("home-proof-strip")).toContainText("98");
+    await expect(page.getByTestId("home-proof-strip")).toContainText("Exam families");
+    await expect(page.getByTestId("home-proof-strip")).toContainText("Free resources");
     await expect(page.getByTestId("home-exam-families")).toBeVisible();
-    await expect(page.getByTestId("home-popular-tests").locator("article")).toHaveCount(4);
-    await expect(page.getByTestId("home-free-test-cta")).toBeVisible();
-    await expect(page.getByTestId("home-featured-series").locator("article").first()).toBeVisible();
     await expect(page.getByTestId("home-why-examtree")).toBeVisible();
-    await expect(page.getByTestId("home-practice-modes")).toBeVisible();
+    await expect(page.getByTestId("home-testimonials")).toBeVisible();
+    await expect(page.getByTestId("home-testimonials").locator("article")).toHaveCount(3);
+    await expect(page.getByText("Preview testimonial")).toHaveCount(3);
+    await expect(page.getByTestId("home-free-resources")).toBeVisible();
+    await expect(page.getByTestId("home-free-resources")).toContainText("Current affairs");
+    await expect(page.getByTestId("home-free-resources")).toContainText("PDF notes");
+    await expect(page.getByTestId("home-free-resources")).toContainText("Formula sheets");
     await expect(page.getByTestId("home-faq")).toBeVisible();
     await expect(page.getByTestId("home-explore-gateway")).toBeVisible();
-    await expect(page.getByText(/Sample learner/i)).toHaveCount(0);
+
+    await expect(page.getByTestId("home-popular-tests")).toHaveCount(0);
+    await expect(page.getByTestId("home-free-test-cta")).toHaveCount(0);
+    await expect(page.getByTestId("home-featured-series")).toHaveCount(0);
+    await expect(page.getByTestId("home-practice-modes")).toHaveCount(0);
+    await expect(page.getByTestId("home-continue-strip")).toHaveCount(0);
     await expect(page.getByTestId("catalog-test-browser")).toHaveCount(0);
     await expectNoHorizontalOverflow(page);
 
     await page.getByPlaceholder("Search SSC, Banking, Railways…").fill("SSC");
     await expect(page.getByTestId("home-exam-finder").getByRole("button").first()).toBeVisible();
 
-    await page.getByTestId("home-explore-gateway").getByRole("button", { name: /Open Exams marketplace/ }).click();
+    await page.getByTestId("home-explore-gateway").getByRole("button", { name: "Explore exams" }).click();
     await expect(page).toHaveURL(/\/exams\?preview=sample$/);
 
     expect(["firefox", "webkit"]).toContain(browserName);
