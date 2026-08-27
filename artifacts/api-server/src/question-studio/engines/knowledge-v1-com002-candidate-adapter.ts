@@ -4,9 +4,15 @@ import {
   COM002_DIFFICULTY_CLASSIFIER_VERSION_V1,
   type Com002DifficultyV1,
 } from "../../knowledge-v1/computer-awareness/com002-difficulty-routing-v1";
-import { localizeCom002QuestionV1 } from "../../knowledge-v1/computer-awareness/com002-localization-v1";
+import {
+  COM002_LOCALIZATION_VERSION_V2,
+  localizeCom002QuestionV2,
+} from "../../knowledge-v1/computer-awareness/com002-localization-v2";
 import { COM002_PERMANENT_QLS } from "../../knowledge-v1/computer-awareness/com002-permanent-ql-allocation";
-import { generateCom002ReviewQuestionV2 } from "../../knowledge-v1/computer-awareness/com002-review-synthesis-v2";
+import {
+  COM002_ENGLISH_GENERATOR_VERSION_V3,
+  generateCom002ReviewQuestionV3,
+} from "../../knowledge-v1/computer-awareness/com002-review-synthesis-v3";
 import type {
   QuestionStudioEngineAdapter,
   QuestionStudioGenerationRequest,
@@ -19,6 +25,8 @@ import { COM002_QUESTION_STUDIO_ACTIVATION_GATE_V1 } from "./com002-question-stu
 export const COM002_QUESTION_STUDIO_PACKAGE_ID = "COM-002" as const;
 export const COM002_REVIEW_CANDIDATE_RUNTIME_MODE = "review-only-candidate" as const;
 export const COM002_REVISION_POLICY_V1 = "SOURCE_GENERATOR_ONLY" as const;
+export const COM002_REVIEW_CANDIDATE_CONTENT_VERSION =
+  "ENGLISH_V3_LOCALIZATION_V2" as const;
 
 const qlIds: string[] = COM002_PERMANENT_QLS.map((ql) => ql.qlId);
 const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
@@ -30,7 +38,7 @@ export const COM002_REVIEW_CANDIDATE_PACKAGE_V1: QuestionStudioPackageDefinition
   subject: "Computer Awareness",
   topic: "Computer Awareness",
   subtopic: "Operating Systems, Files & Windows",
-  label: "Computer Awareness · Operating Systems, Files & Windows · Candidate",
+  label: "Computer Awareness · Operating Systems, Files & Windows · V3/V2 Candidate",
   enabled: false,
   cpIds: ["COM-002-CP-001", "COM-002-CP-002"],
   supportedLanguages,
@@ -40,7 +48,7 @@ export const COM002_REVIEW_CANDIDATE_PACKAGE_V1: QuestionStudioPackageDefinition
   manualApprovalRequired: true,
   questionBankStatus: "NOT_STORED",
   questionBankWritable: false,
-  testEligibility: "BLOCKED_PENDING_AUTHORITY_CHAIN",
+  testEligibility: "BLOCKED_PENDING_V3_AUTHORITY_CHAIN",
   testEligible: false,
   mockTestEligible: false,
   publiclyPublishable: false,
@@ -48,6 +56,9 @@ export const COM002_REVIEW_CANDIDATE_PACKAGE_V1: QuestionStudioPackageDefinition
   productionReleaseAuthorized: false,
   metadata: {
     candidateOnly: true,
+    contentCandidateVersion: COM002_REVIEW_CANDIDATE_CONTENT_VERSION,
+    englishGeneratorVersion: COM002_ENGLISH_GENERATOR_VERSION_V3,
+    localizationVersion: COM002_LOCALIZATION_VERSION_V2,
     discoverable: false,
     registrationAllowed: false,
     reviewRunPersistenceAllowed: false,
@@ -99,10 +110,10 @@ export function generateCom002CandidateQuestionForAuditV1(input: {
   language: QuestionStudioLanguage;
 }) {
   validatePattern(input.qlId);
-  const english = generateCom002ReviewQuestionV2({ qlId: input.qlId, seed: input.seed });
+  const english = generateCom002ReviewQuestionV3({ qlId: input.qlId, seed: input.seed });
   const question = input.language === "en"
     ? { ...english, language: "en" as const, locale: "en-IN" as const }
-    : localizeCom002QuestionV1({
+    : localizeCom002QuestionV2({
         qlId: input.qlId,
         seed: input.seed,
         language: input.language,
@@ -121,6 +132,9 @@ export function generateCom002CandidateQuestionForAuditV1(input: {
     revisionPolicy: COM002_REVISION_POLICY_V1,
     questionStudioCandidate: {
       candidateOnly: true,
+      contentCandidateVersion: COM002_REVIEW_CANDIDATE_CONTENT_VERSION,
+      englishGeneratorVersion: COM002_ENGLISH_GENERATOR_VERSION_V3,
+      localizationVersion: COM002_LOCALIZATION_VERSION_V2,
       registrationStatus: "BLOCKED_NOT_REGISTERED" as const,
       runtimeMode: COM002_REVIEW_CANDIDATE_RUNTIME_MODE,
       activationGateAuthorityId: COM002_QUESTION_STUDIO_ACTIVATION_GATE_V1.authorityId,
@@ -157,7 +171,7 @@ export async function generateCom002CandidateBatchForAuditV1(
   const language = normalizeLanguage(request.language);
   const count = normalizeCount(request.count);
   const requestedDifficulty = normalizeDifficulty(request.difficulty);
-  const baseSeed = request.seed?.trim() || "com002-question-studio-candidate-v1";
+  const baseSeed = request.seed?.trim() || "com002-question-studio-v3-v2-candidate";
   const questions: Record<string, unknown>[] = [];
   const maxCandidateCount = Math.max(500, count * 100);
 
@@ -185,6 +199,9 @@ export async function generateCom002CandidateBatchForAuditV1(
     questions,
     generationContext: {
       candidateOnly: true,
+      contentCandidateVersion: COM002_REVIEW_CANDIDATE_CONTENT_VERSION,
+      englishGeneratorVersion: COM002_ENGLISH_GENERATOR_VERSION_V3,
+      localizationVersion: COM002_LOCALIZATION_VERSION_V2,
       discoverable: false,
       registrationAllowed: false,
       engineId: "knowledge-v1",
@@ -210,8 +227,8 @@ export async function generateCom002CandidateBatchForAuditV1(
 
 /**
  * Deliberately non-discoverable adapter. Promotion must replace this fail-closed
- * surface only after the English approval + localization freeze authority chain
- * supersedes COM002_QUESTION_STUDIO_ACTIVATION_GATE_V1.
+ * surface only after the approved English V3 + V3-bound localization authority
+ * chain supersedes COM002_QUESTION_STUDIO_ACTIVATION_GATE_V1.
  */
 export const knowledgeV1Com002CandidateAdapter: QuestionStudioEngineAdapter = {
   engineId: "knowledge-v1",
