@@ -158,6 +158,9 @@ export function localizeSriLearnerTextV1(text: string, locale: SriLocalizedLocal
   const exact = EXACT_SENTENCES[locale][text];
   if (exact) return exact;
 
+  const finalizedC008C009 = localizeSriC008C009FinalizedSurfaceV1(text, locale);
+  if (finalizedC008C009) return finalizedC008C009;
+
   let match = text.match(/^(?:A )?negative exponent requires a non-zero base\.?$/iu);
   if (match) {
     return locale === "hi-IN"
@@ -729,9 +732,6 @@ export function localizeSriLearnerTextV1(text: string, locale: SriLocalizedLocal
       ? `${extraction[1]} में पूर्ण ${extraction[2]} घात वाला गुणनखंड बाहर निकालकर लिखिए।`
       : `${extraction[1]} ਵਿੱਚ ਪੂਰਨ ${extraction[2]} ਘਾਤ ਵਾਲਾ ਗੁਣਨਖੰਡ ਬਾਹਰ ਕੱਢ ਕੇ ਲਿਖੋ।`;
   }
-
-  const finalizedC008C009 = localizeSriC008C009FinalizedSurfaceV1(text, locale);
-  if (finalizedC008C009) return finalizedC008C009;
 
   return localizeSriLearnerTextNaturalV1(text, locale);
 }
