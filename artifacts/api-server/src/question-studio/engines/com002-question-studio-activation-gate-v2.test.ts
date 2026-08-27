@@ -1,0 +1,30 @@
+import assert from "node:assert/strict";
+
+import { COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2 } from "./com002-question-studio-activation-gate-v2";
+
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.status, "BLOCKED_PENDING_ENGLISH_V4_LOCALIZATION_V3_EXECUTION_AND_EXPLICIT_APPROVAL");
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.candidateChain.englishGeneratorVersion, "COM-002-ENGLISH-GENERATOR-V4-CANDIDATE-1");
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.candidateChain.localizationVersion, "COM-002-LOCALIZATION-V3-CANDIDATE-1");
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.candidateChain.englishV4ExecutedGreen, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.candidateChain.englishV4ReviewPackMaterialized, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.candidateChain.englishV4ExplicitApprovalVerified, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.candidateChain.operationalEnglishV4FreezeExists, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.candidateChain.localizationV3ExecutedGreen, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.candidateChain.localizationV3HumanReviewAccepted, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.candidateChain.localizationV3FingerprintsPinned, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.candidateChain.localizationV3FreezeExists, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.historicalEvidence.englishV3ExecutedGreen, true);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.historicalEvidence.transferableAsV4Approval, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.activation.questionStudioDiscoverable, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.activation.questionStudioRegistrationAllowed, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.activation.reviewOnlySwitchAllowed, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.activation.reviewRunPersistenceAllowed, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.activation.canonicalQuestionPersistenceAllowed, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.activation.questionBankWritable, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.activation.testEligible, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.activation.mockTestEligible, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.activation.publiclyPublishable, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.activation.productionReleaseAuthorized, false);
+assert.equal(COM002_QUESTION_STUDIO_ACTIVATION_GATE_V2.unlockRequirements.length, 9);
+
+console.log("[COM002-ACTIVATION-GATE-V2] PASS failClosed=true english=V4 localization=V3");
