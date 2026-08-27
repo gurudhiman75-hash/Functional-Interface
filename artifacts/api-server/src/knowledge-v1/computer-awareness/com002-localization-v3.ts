@@ -30,7 +30,7 @@ export type Com002LocalizedQuestionV3 = Omit<
     supersedesLocalizationVersion: typeof COM002_LOCALIZATION_VERSION_V2;
     authority: typeof COM002_LOCALIZATION_DRAFT_AUTHORITY_V3;
     englishGeneratorVersion: typeof COM002_ENGLISH_GENERATOR_VERSION_V4;
-    englishAuthorityStatus: "V4_CANDIDATE_AWAITING_EXECUTION_AND_EXPLICIT_APPROVAL";
+    englishAuthorityStatus: "V4_CANDIDATE_EXECUTED_GREEN_AWAITING_EXPLICIT_APPROVAL";
     englishQuestionId: string;
     semanticStateInvariant: true;
     qlInvariant: true;
@@ -252,7 +252,7 @@ export function localizeCom002QuestionV3(input: {
       supersedesLocalizationVersion: COM002_LOCALIZATION_VERSION_V2,
       authority: COM002_LOCALIZATION_DRAFT_AUTHORITY_V3,
       englishGeneratorVersion: COM002_ENGLISH_GENERATOR_VERSION_V4,
-      englishAuthorityStatus: "V4_CANDIDATE_AWAITING_EXECUTION_AND_EXPLICIT_APPROVAL",
+      englishAuthorityStatus: "V4_CANDIDATE_EXECUTED_GREEN_AWAITING_EXPLICIT_APPROVAL",
       englishQuestionId: english.questionId,
       semanticStateInvariant: true,
       qlInvariant: true,
