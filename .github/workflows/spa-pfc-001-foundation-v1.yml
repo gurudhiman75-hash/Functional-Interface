@@ -2,6 +2,13 @@ name: Validate SPA PFC-001 Foundation V1
 
 on:
   pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-*.test.ts"
+      - "artifacts/admin-app/src/features/question-studio/**"
+      - ".github/workflows/spa-pfc-001-foundation-v1.yml"
+      - "package.json"
+      - "pnpm-lock.yaml"
   workflow_dispatch:
 
 permissions:

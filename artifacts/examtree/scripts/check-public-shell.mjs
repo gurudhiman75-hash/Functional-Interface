@@ -42,8 +42,9 @@ assert.match(publicLayout, /href="\/login\/student" className="et-interactive in
 assert.match(publicLayout, /href="\/exams" className="et-interactive inline-flex min-h-11/, "desktop browse action must keep the 44px interaction contract");
 
 assert.match(publicLayout, /function showStudySidebarForRoute\(location: string\)/, "public shell must centralize discovery-sidebar routing");
+const sidebarRouting = publicLayout.match(/function showStudySidebarForRoute\(location: string\) \{[\s\S]*?\n\}/)?.[0] ?? "";
+assert.doesNotMatch(sidebarRouting, /location === "\/"/, "homepage must remain a full-width acquisition surface outside the detailed study sidebar");
 for (const routeProof of [
-  /location === "\/"/,
   /location === "\/exams"/,
   /location === "\/tests"/,
   /location === "\/mock-tests"/,
@@ -55,7 +56,7 @@ for (const routeProof of [
   /location\.startsWith\("\/category\/"\)/,
   /location\.startsWith\("\/subcategory\/"\)/,
 ]) {
-  assert.match(publicLayout, routeProof, "public sidebar must cover the core study and support journey");
+  assert.match(sidebarRouting, routeProof, "public sidebar must cover the core study and support journey");
 }
 assert.match(publicLayout, /<PublicHomeSidebar \/>/, "public discovery shell must render its desktop sidebar");
 assert.match(publicHomeSidebar, /data-testid="public-study-sidebar"/, "public sidebar must expose a browser-proof hook");
@@ -82,4 +83,4 @@ for (const forbidden of ["Logic Engine v2.4", "Practice Motifs", "API Docs", "de
 assert.doesNotMatch(appLayout, /MiniFooter/, "preparation shell must not render the obsolete public footer");
 assert.equal(fs.existsSync(path.join(appRoot, "src/components/MiniFooter.tsx")), false, "obsolete prototype footer file must be removed");
 
-console.log("Public/app shell audit passed (truthful detailed navigation + 44px public header contract).\n");
+console.log("Public/app shell audit passed (full-width Home + truthful detailed study navigation + 44px public header contract).\n");

@@ -1,3 +1,5 @@
+import "@/styles/home-section-rhythm.css";
+
 import type { Category, DailyChallenge, Subcategory, Test } from "@/lib/data";
 import type { StudentSeriesSummary } from "@/lib/test-series";
 
