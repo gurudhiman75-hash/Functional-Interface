@@ -110,7 +110,16 @@ for (const marker of [
   assert.ok(adminRouteSource.includes(marker), `CP013 admin route missing marker: ${marker}`);
 }
 assert.ok(routeIndexSource.includes('import adminQuestionStudioCp013Router from "./admin-question-studio-cp013";'));
-assert.ok(routeIndexSource.indexOf("adminQuestionStudioCp013Router") < routeIndexSource.indexOf("adminQuestionStudioAverageRouter", routeIndexSource.indexOf("router.use")), "CP013 router must be mounted before legacy average router");
+const cp013Mount = 'router.use("/admin/question-studio", adminQuestionStudioCp013Router);';
+const legacyNumberSystemMount = 'router.use("/admin/question-studio", adminQuestionStudioAverageRouter);';
+const cp013MountIndex = routeIndexSource.indexOf(cp013Mount);
+const legacyNumberSystemMountIndex = routeIndexSource.indexOf(legacyNumberSystemMount);
+assert.ok(cp013MountIndex >= 0, "CP013 admin Question Studio router mount is missing");
+assert.ok(legacyNumberSystemMountIndex >= 0, "Legacy Number System Question Studio router mount is missing");
+assert.ok(
+  cp013MountIndex < legacyNumberSystemMountIndex,
+  "CP013 admin Question Studio router must be mounted before the legacy Number System router",
+);
 
 for (const marker of [
   "generateNumCp013QuestionStudioBatch",
@@ -132,6 +141,7 @@ console.log(JSON.stringify({
   nextAvailableQl: "NUM-QL-248",
   packageOnlyFallbackPreserved: true,
   cp008ThroughCp012RoutingRegression: "PASS",
+  routeMountOrderGuard: "CP013_BEFORE_LEGACY_NUMBER_SYSTEM",
   questionBankWritable: false,
   testEligible: false,
   mockTestEligible: false,
