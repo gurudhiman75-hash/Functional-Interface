@@ -111,18 +111,38 @@ function polishPurposeConstructions(
   language: Com002TargetLanguageV1,
 ) {
   if (language === "hi") {
-    return text.replace(
-      /का उपयोग ([^।\n]+?) के लिए किया जाता है/gu,
-      (_match, value: string) =>
-        `का उपयोग ${com002PurposePhraseV3(value, language)} के लिए किया जाता है`,
-    );
+    return text
+      .replace(
+        /का उपयोग ([^।\n]+?) के लिए किया जाता है/gu,
+        (_match, value: string) =>
+          `का उपयोग ${com002PurposePhraseV3(value, language)} के लिए किया जाता है`,
+      )
+      .replace(
+        /(\S+ना) या (\S+ना) के लिए/gu,
+        (_match, left: string, right: string) =>
+          `${inflectHindiPurposeWord(left)} या ${inflectHindiPurposeWord(right)} के लिए`,
+      )
+      .replace(
+        /(\S+ना) के लिए/gu,
+        (_match, word: string) => `${inflectHindiPurposeWord(word)} के लिए`,
+      );
   }
 
-  return text.replace(
-    /ਦੀ ਵਰਤੋਂ ([^।\n]+?) ਲਈ ਕੀਤੀ ਜਾਂਦੀ ਹੈ/gu,
-    (_match, value: string) =>
-      `ਦੀ ਵਰਤੋਂ ${com002PurposePhraseV3(value, language)} ਲਈ ਕੀਤੀ ਜਾਂਦੀ ਹੈ`,
-  );
+  return text
+    .replace(
+      /ਦੀ ਵਰਤੋਂ ([^।\n]+?) ਲਈ ਕੀਤੀ ਜਾਂਦੀ ਹੈ/gu,
+      (_match, value: string) =>
+        `ਦੀ ਵਰਤੋਂ ${com002PurposePhraseV3(value, language)} ਲਈ ਕੀਤੀ ਜਾਂਦੀ ਹੈ`,
+    )
+    .replace(
+      /(\S+(?:ਣਾ|ਨਾ)) ਜਾਂ (\S+(?:ਣਾ|ਨਾ)) ਲਈ/gu,
+      (_match, left: string, right: string) =>
+        `${inflectPunjabiPurposeWord(left)} ਜਾਂ ${inflectPunjabiPurposeWord(right)} ਲਈ`,
+    )
+    .replace(
+      /(\S+(?:ਣਾ|ਨਾ)) ਲਈ/gu,
+      (_match, word: string) => `${inflectPunjabiPurposeWord(word)} ਲਈ`,
+    );
 }
 
 function editorialExplanation(input: {
