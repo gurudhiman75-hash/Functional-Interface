@@ -60,3 +60,14 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/data-sufficiency/cp015/number-system-three-statement-prototypes.test.mjs
+
+      - name: Bundle CP-015 QL-002 allocation audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-015/ql002-allocation-authority.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp015/ql002-allocation-authority.test.mjs
+      - name: Run CP-015 QL-002 allocation audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp015/ql002-allocation-authority.test.mjs
