@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 
+import { getGeneratedQuestionBankEligibilityIssue } from "../../../../../lib/admin-question-conversion.ts";
 import {
   generateQuestion,
   isSea002Cp006QuestionStudioRequest,
@@ -61,6 +62,11 @@ for (const question of cp008Result.questions as any[]) {
   assert.equal(question.publiclyPublishable, false);
   assert.equal(question.automaticStudentPublication, false);
   assert.ok(["SEA-QL-029", "SEA-QL-030", "SEA-QL-031", "SEA-QL-032", "SEA-QL-033", "SEA-QL-034", "SEA-QL-035"].includes(question.qlId));
+  assert.equal(
+    getGeneratedQuestionBankEligibilityIssue(question),
+    "questionBankStatus is NOT_STORED",
+    "approved CP008 Studio output must remain rejected by the Question Bank converter",
+  );
 }
 
 for (const language of ["en", "hi", "pa"] as const) {
@@ -79,6 +85,7 @@ for (const language of ["en", "hi", "pa"] as const) {
   assert.ok((byQl.questions as any[]).every((question) => question.signatureId === "SEA-CP008-SIG-A"));
   assert.ok((byQl.questions as any[]).every((question) => [4, 5].includes(question.variantIndex)));
   assert.ok((byQl.questions as any[]).every((question) => !/60\s*(?:m|मीटर|ਮੀਟਰ)|5\s*(?:m|मीटर|ਮੀਟਰ)/u.test(question.setupText)));
+  assert.ok((byQl.questions as any[]).every((question) => getGeneratedQuestionBankEligibilityIssue(question) !== null));
 }
 
 const genericSea002 = {
@@ -95,10 +102,17 @@ assert.equal(cp006Result.generationContext.checkpointId, "SEA-CP-006");
 assert.equal(cp006Result.generationContext.questionBankWritable, true);
 assert.equal(cp006Result.generationContext.questionBankAcceptanceMode, "BANK_ONLY");
 assert.equal((cp006Result.questions[0] as any).canonicalProblemId, "SEA-CP-006");
+assert.equal(
+  getGeneratedQuestionBankEligibilityIssue(cp006Result.questions[0]),
+  null,
+  "CP006 BANK_ONLY output must remain eligible for manual Question Bank acceptance",
+);
 
 console.log("PASS_SEA002_CP008_SHARED_QUESTION_STUDIO_ROUTE_V1");
 console.log("shared SEA-002 checkpoints", sea002.cpIds.join(","));
 console.log("CP008 shared questions", cp008Result.questions.length);
 console.log("QL029 live languages", "en,hi,pa");
 console.log("CP008 Bank writable", cp008Result.generationContext.questionBankWritable);
+console.log("CP008 Bank conversion", "BLOCKED");
 console.log("generic SEA-002 remains CP006", cp006Result.generationContext.checkpointId);
+console.log("CP006 BANK_ONLY conversion", "ELIGIBLE");
