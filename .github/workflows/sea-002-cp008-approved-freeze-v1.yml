@@ -6,6 +6,8 @@ on:
       - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp008/**"
       - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-bank-acceptance.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/SeatingArrangement/SEA-002/cp006/question-studio-integration.test.ts"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
       - ".github/workflows/sea-002-cp008-approved-freeze-v1.yml"
   workflow_dispatch:
 
@@ -103,6 +105,16 @@ jobs:
           node artifacts/api-server/dist/reasoning-v1/sea-002-cp008-shared-route-v1.mjs \
             2>&1 | tee /tmp/sea-002-cp008-shared-route-v1.log
 
+      - name: Compile admin Question Studio CP008 route
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/routes/admin-question-studio-average.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/routes/admin-question-studio-sea-002-cp008.mjs \
+            2>&1 | tee /tmp/sea-002-cp008-admin-route-v1.log
+
       - name: Re-prove CP007 boundary
         shell: bash
         run: |
@@ -125,6 +137,7 @@ jobs:
             /tmp/sea-002-cp008-approved-freeze-v1.log
             /tmp/sea-002-cp008-question-studio-live-v1.log
             /tmp/sea-002-cp008-shared-route-v1.log
+            /tmp/sea-002-cp008-admin-route-v1.log
             /tmp/sea-002-cp007-boundary-after-cp008-approval.log
           if-no-files-found: error
           retention-days: 30
