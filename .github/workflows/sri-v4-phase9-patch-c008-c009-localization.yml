@@ -1,0 +1,211 @@
+name: SRI Phase 9 patch C008 C009 localization families
+
+on:
+  push:
+    branches:
+      - feature/sri-v4-phase9-localization-v1
+    paths:
+      - .github/workflows/sri-v4-phase9-patch-c008-c009-localization.yml
+
+permissions:
+  contents: write
+
+jobs:
+  patch-localization-families:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/sri-v4-phase9-localization-v1
+      - name: Insert whole-template C008 C009 localization rules
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts')
+          text = path.read_text(encoding='utf-8')
+          marker = '  return localizeSriLearnerTextNaturalV1(text, locale);\n'
+          if text.count(marker) != 1:
+              raise SystemExit(f'Expected one natural-localization fallback, found {text.count(marker)}')
+          sentinel = '// RUN44_C008_C009_LOCALIZATION_FAMILIES_V1'
+          if sentinel in text:
+              raise SystemExit('C008/C009 localization family block already exists')
+
+          block = r'''  // RUN44_C008_C009_LOCALIZATION_FAMILIES_V1
+  // Finalized CP008/CP009 surfaces are translated as whole learner-facing
+  // templates. Captured mathematical expressions are reinserted unchanged.
+  match = text.match(/^Find the exact product of (.+) and its conjugate\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} और उसके संयुग्मी का सटीक गुणनफल ज्ञात कीजिए।`
+    : `${match[1]} ਅਤੇ ਇਸ ਦੇ ਸੰਯੁਗਮੀ ਦਾ ਸਟੀਕ ਗੁਣਨਫਲ ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^The factors are (.+) and its conjugate\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `गुणनखंड ${match[1]} और उसका संयुग्मी हैं।`
+    : `ਗੁਣਨਖੰਡ ${match[1]} ਅਤੇ ਇਸ ਦਾ ਸੰਯੁਗਮੀ ਹਨ।`;
+
+  match = text.match(/^The two surd factors are (.+) and (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `दोनों करणी गुणनखंड ${match[1]} और ${match[2]} हैं।`
+    : `ਦੋਵੇਂ ਕਰਣੀ ਗੁਣਨਖੰਡ ${match[1]} ਅਤੇ ${match[2]} ਹਨ।`;
+
+  match = text.match(/^Find the exact product (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} का सटीक गुणनफल ज्ञात कीजिए।`
+    : `${match[1]} ਦਾ ਸਟੀਕ ਗੁਣਨਫਲ ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^Multiply the surd sums (.+) and (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `करणी योग ${match[1]} और ${match[2]} का गुणा कीजिए।`
+    : `ਕਰਣੀ ਜੋੜ ${match[1]} ਅਤੇ ${match[2]} ਦਾ ਗੁਣਾ ਕਰੋ।`;
+
+  match = text.match(/^Write (.+) in canonical surd form\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} को मानक करणी रूप में लिखिए।`
+    : `${match[1]} ਨੂੰ ਮਿਆਰੀ ਕਰਣੀ ਰੂਪ ਵਿੱਚ ਲਿਖੋ।`;
+
+  if (text === "Distribute every term, replace (√r)^2 by r, then collect the rational and surd parts.") {
+    return locale === "hi-IN"
+      ? "प्रत्येक पद का वितरण कीजिए, (√r)^2 को r से बदलिए, फिर परिमेय और करणी भागों को मिलाइए।"
+      : "ਹਰੇਕ ਪਦ ਨੂੰ ਵਿਸਥਾਰੋ, (√r)^2 ਨੂੰ r ਨਾਲ ਬਦਲੋ, ਫਿਰ ਪਰਿਮੇਯ ਅਤੇ ਕਰਣੀ ਭਾਗਾਂ ਨੂੰ ਇਕੱਠਾ ਕਰੋ।";
+  }
+
+  match = text.match(/^Rational part = (.+)$/u);
+  if (match) return locale === "hi-IN" ? `परिमेय भाग = ${match[1]}` : `ਪਰਿਮੇਯ ਭਾਗ = ${match[1]}`;
+
+  match = text.match(/^Surd coefficient = (.+)$/u);
+  if (match) return locale === "hi-IN" ? `करणी गुणांक = ${match[1]}` : `ਕਰਣੀ ਗੁਣਾਂਕ = ${match[1]}`;
+
+  match = text.match(/^Determine whether (.+) simplifies to a rational or irrational number\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `निर्धारित कीजिए कि ${match[1]} को सरल करने पर परिणाम परिमेय है या अपरिमेय।`
+    : `ਨਿਰਧਾਰਤ ਕਰੋ ਕਿ ${match[1]} ਨੂੰ ਸਰਲ ਕਰਨ ਤੇ ਨਤੀਜਾ ਪਰਿਮੇਯ ਹੈ ਜਾਂ ਅਪਰਿਮੇਯ।`;
+
+  match = text.match(/^What is the number type of the exact result of (.+)\?$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} के सटीक परिणाम का संख्या-प्रकार क्या है?`
+    : `${match[1]} ਦੇ ਸਟੀਕ ਨਤੀਜੇ ਦੀ ਸੰਖਿਆ-ਕਿਸਮ ਕੀ ਹੈ?`;
+
+  match = text.match(/^Classify the result of (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} के परिणाम का वर्गीकरण कीजिए।`
+    : `${match[1]} ਦੇ ਨਤੀਜੇ ਦਾ ਵਰਗੀਕਰਨ ਕਰੋ।`;
+
+  if (text === "Simplify exactly and classify the result.") {
+    return locale === "hi-IN" ? "सटीक रूप से सरल कीजिए और परिणाम का वर्गीकरण कीजिए।" : "ਸਟੀਕ ਤੌਰ ਤੇ ਸਰਲ ਕਰੋ ਅਤੇ ਨਤੀਜੇ ਦਾ ਵਰਗੀਕਰਨ ਕਰੋ।";
+  }
+
+  if (text === "Combine the like surds; a non-zero square-free radical remains.") {
+    return locale === "hi-IN"
+      ? "समान करणी पदों को मिलाइए; एक शून्येतर वर्ग-मुक्त मूल शेष रहता है।"
+      : "ਇੱਕੋ ਜਿਹੇ ਕਰਣੀ ਪਦਾਂ ਨੂੰ ਮਿਲਾਓ; ਇੱਕ ਸਿਫ਼ਰ ਤੋਂ ਵੱਖ ਵਰਗ-ਮੁਕਤ ਮੂਲ ਬਚਦਾ ਹੈ।";
+  }
+
+  if (text === "Use the conjugate identity; the radical terms cancel.") {
+    return locale === "hi-IN"
+      ? "संयुग्मी सर्वसमिका का उपयोग कीजिए; मूल वाले पद कट जाते हैं।"
+      : "ਸੰਯੁਗਮੀ ਸਰਵਸਮਿਕਾ ਵਰਤੋ; ਮੂਲ ਵਾਲੇ ਪਦ ਕੱਟ ਜਾਂਦੇ ਹਨ।";
+  }
+
+  match = text.match(/^The fraction to rationalise is (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `परिमेयकरण किया जाने वाला भिन्न ${match[1]} है।`
+    : `ਪਰਿਮੇਯਕਰਨ ਕੀਤਾ ਜਾਣ ਵਾਲਾ ਭਿੰਨ ${match[1]} ਹੈ।`;
+
+  if (text === "Multiply by the cube root needed to complete a perfect cube in the denominator.") {
+    return locale === "hi-IN"
+      ? "हर में पूर्ण घन बनाने के लिए आवश्यक घनमूल से अंश और हर दोनों को गुणा कीजिए।"
+      : "ਹਰ ਵਿੱਚ ਪੂਰਨ ਘਣ ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੇ ਘਣਮੂਲ ਨਾਲ ਅੰਸ਼ ਅਤੇ ਹਰ ਦੋਵਾਂ ਨੂੰ ਗੁਣਾ ਕਰੋ।";
+  }
+
+  match = text.match(/^Remove the cube root from the denominator of (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} के हर से घनमूल हटाकर परिमेय कीजिए।`
+    : `${match[1]} ਦੇ ਹਰ ਵਿੱਚੋਂ ਘਣਮੂਲ ਹਟਾ ਕੇ ਪਰਿਮੇਯ ਕਰੋ।`;
+
+  match = text.match(/^If rationalising (.+) gives (.+), find \(A,B\)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `यदि ${match[1]} का परिमेयकरण करने पर ${match[2]} मिलता है, तो (A,B) ज्ञात कीजिए।`
+    : `ਜੇ ${match[1]} ਦਾ ਪਰਿਮੇਯਕਰਨ ਕਰਨ ਤੇ ${match[2]} ਮਿਲਦਾ ਹੈ, ਤਾਂ (A,B) ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^Write (.+) after rationalisation\. Determine \(A,B\)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `परिमेयकरण के बाद ${match[1]} लिखिए और (A,B) निर्धारित कीजिए।`
+    : `ਪਰਿਮੇਯਕਰਨ ਤੋਂ ਬਾਅਦ ${match[1]} ਲਿਖੋ ਅਤੇ (A,B) ਨਿਰਧਾਰਤ ਕਰੋ।`;
+
+  match = text.match(/^After rationalising (.+), identify the rational coefficient A and surd coefficient B\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} का परिमेयकरण करने के बाद परिमेय गुणांक A और करणी गुणांक B पहचानिए।`
+    : `${match[1]} ਦਾ ਪਰਿਮੇਯਕਰਨ ਕਰਨ ਤੋਂ ਬਾਅਦ ਪਰਿਮੇਯ ਗੁਣਾਂਕ A ਅਤੇ ਕਰਣੀ ਗੁਣਾਂਕ B ਪਛਾਣੋ।`;
+
+  match = text.match(/^Find the ordered pair \(A,B\) when (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `जब ${match[1]}, तब क्रमित युग्म (A,B) ज्ञात कीजिए।`
+    : `ਜਦੋਂ ${match[1]}, ਤਦ ਕ੍ਰਮਿਤ ਜੋੜਾ (A,B) ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^The rationalised coefficient form is (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `परिमेयकृत गुणांक रूप ${match[1]} है।` : `ਪਰਿਮੇਯਕ੍ਰਿਤ ਗੁਣਾਂਕ ਰੂਪ ${match[1]} ਹੈ।`;
+
+  match = text.match(/^The rationalisation identity is (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `परिमेयकरण की सर्वसमिका ${match[1]} है।` : `ਪਰਿਮੇਯਕਰਨ ਦੀ ਸਰਵਸਮਿਕਾ ${match[1]} ਹੈ।`;
+
+  if (text === "Recover the two canonical coefficients." || text === "Recover the two standard-form coefficients.") {
+    return locale === "hi-IN" ? "दोनों मानक गुणांक ज्ञात कीजिए।" : "ਦੋਵੇਂ ਮਿਆਰੀ ਗੁਣਾਂਕ ਪਤਾ ਕਰੋ।";
+  }
+
+  if (text === "Rationalise with the conjugate, then read the rational and surd coefficients from canonical form.") {
+    return locale === "hi-IN"
+      ? "संयुग्मी से परिमेयकरण कीजिए, फिर मानक रूप से परिमेय और करणी गुणांक पढ़िए।"
+      : "ਸੰਯੁਗਮੀ ਨਾਲ ਪਰਿਮੇਯਕਰਨ ਕਰੋ, ਫਿਰ ਮਿਆਰੀ ਰੂਪ ਤੋਂ ਪਰਿਮੇਯ ਅਤੇ ਕਰਣੀ ਗੁਣਾਂਕ ਪੜ੍ਹੋ।";
+  }
+
+  match = text.match(/^Norm = (.+)$/u);
+  if (match) return locale === "hi-IN" ? `हर का नॉर्म = ${match[1]}` : `ਹਰ ਦਾ ਨਾਰਮ = ${match[1]}`;
+
+  match = text.match(/^Rationalise (.+) and find (A[+-]B)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} का परिमेयकरण कीजिए और ${match[2]} ज्ञात कीजिए।`
+    : `${match[1]} ਦਾ ਪਰਿਮੇਯਕਰਨ ਕਰੋ ਅਤੇ ${match[2]} ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^If (.+) after rationalisation, evaluate (A[+-]B)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `यदि परिमेयकरण के बाद ${match[1]}, तो ${match[2]} का मान ज्ञात कीजिए।`
+    : `ਜੇ ਪਰਿਮੇਯਕਰਨ ਤੋਂ ਬਾਅਦ ${match[1]}, ਤਾਂ ${match[2]} ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^Determine (A[+-]B) from the canonical rationalised form of (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[2]} के मानक परिमेयकृत रूप से ${match[1]} ज्ञात कीजिए।`
+    : `${match[2]} ਦੇ ਮਿਆਰੀ ਪਰਿਮੇਯਕ੍ਰਿਤ ਰੂਪ ਤੋਂ ${match[1]} ਪਤਾ ਕਰੋ।`;
+
+  match = text.match(/^After recovering A and B from (.+), calculate (A[+-]B)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} से A और B ज्ञात करने के बाद ${match[2]} का मान निकालिए।`
+    : `${match[1]} ਤੋਂ A ਅਤੇ B ਪਤਾ ਕਰਨ ਤੋਂ ਬਾਅਦ ${match[2]} ਦਾ ਮੁੱਲ ਕੱਢੋ।`;
+
+  match = text.match(/^The fraction used to recover A and B is (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `A और B ज्ञात करने के लिए प्रयुक्त भिन्न ${match[1]} है।`
+    : `A ਅਤੇ B ਪਤਾ ਕਰਨ ਲਈ ਵਰਤਿਆ ਭਿੰਨ ${match[1]} ਹੈ।`;
+
+  match = text.match(/^The rationalised form is (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `परिमेयकृत रूप ${match[1]} है।` : `ਪਰਿਮੇਯਕ੍ਰਿਤ ਰੂਪ ${match[1]} ਹੈ।`;
+
+  match = text.match(/^Recover A and B, then evaluate (A[+-]B)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `A और B ज्ञात कीजिए, फिर ${match[1]} का मान निकालिए।`
+    : `A ਅਤੇ B ਪਤਾ ਕਰੋ, ਫਿਰ ${match[1]} ਦਾ ਮੁੱਲ ਕੱਢੋ।`;
+
+'''
+          text = text.replace(marker, block + marker, 1)
+          path.write_text(text, encoding='utf-8')
+          PY
+          git diff --check
+          grep -n "RUN44_C008_C009_LOCALIZATION_FAMILIES_V1" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts
+      - name: Commit durable localization family patch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-v1.ts
+          git diff --cached --check
+          git commit -m "SRI Phase 9: localize finalized C008 C009 families"
+          git push origin HEAD:feature/sri-v4-phase9-localization-v1
