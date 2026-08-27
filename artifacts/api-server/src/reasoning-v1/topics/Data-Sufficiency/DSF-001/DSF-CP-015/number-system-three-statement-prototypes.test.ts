@@ -12,7 +12,7 @@ assert.deepEqual(new Set(corpus.map((entry) => entry.evaluation.semanticKey)), n
 
 for (const entry of corpus) {
   assert.equal(entry.candidateQlId, "DSF-QL-CAND-002");
-  assert.equal(entry.permanentQlId, null, "permanent DSF-QL-002 must remain unallocated before executable freeze");
+  assert.equal(entry.permanentQlId, "DSF-QL-002", "post-allocation source prototypes must project the current permanent QL identity");
   assert.equal(entry.sourceChapterId, "NUM-001");
   assert.equal(entry.sourceCapability, "NUM-001/foundation/divisibility");
   assert.equal(entry.problemTemplate, "42X");
@@ -32,6 +32,7 @@ for (const entry of corpus) {
 
 const mixed = runDsfCp015NumberSystemPrototype("DSF-CP015-NUM-MIXED-ALTERNATIVE", 21);
 assert.equal(mixed.anchorDigit, 3);
+assert.equal(mixed.permanentQlId, "DSF-QL-002");
 assert.equal(mixed.evaluation.semanticKey, "I|II+III");
 assert.deepEqual(
   mixed.evaluation.minimalSufficientSets.map((subset) => subset.join("+")),
@@ -41,6 +42,7 @@ assert.deepEqual(
 
 const allThree = runDsfCp015NumberSystemPrototype("DSF-CP015-NUM-ALL-THREE-REQUIRED", 22);
 assert.equal(allThree.anchorDigit, 0);
+assert.equal(allThree.permanentQlId, "DSF-QL-002");
 assert.equal(allThree.evaluation.semanticKey, "I+II+III");
 assert.deepEqual(
   allThree.evaluation.minimalSufficientSets.map((subset) => subset.join("+")),
@@ -60,5 +62,6 @@ console.log(JSON.stringify({
   prototypeCount: corpus.length,
   semanticKeys: corpus.map((entry) => entry.evaluation.semanticKey),
   sourceWorldCount: corpus[0]?.evaluation.base.worldCount,
-  permanentQlAllocated: false,
+  permanentQlAllocated: true,
+  permanentQlId: "DSF-QL-002",
 }, null, 2));
