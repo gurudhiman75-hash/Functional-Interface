@@ -1,7 +1,7 @@
 import type { TsdCp010ExecutableInput } from "./executable-types";
 import type { TsdCp010ExamRealLanguage } from "./exam-real-review-final";
 import {
-  TSD_CP010_EXAM_PAPER_V3_ENGLISH_REVIEW,
+  TSD_CP010_EXAM_PAPER_V3_ENGLISH_REVIEW as ENGLISH_V3,
   renderTsdCp010ExamPaperStemV3 as renderEnglishV3,
 } from "./exam-paper-review-final-v3";
 import {
@@ -15,7 +15,7 @@ export function renderTsdCp010ExamPaperStemV3(language: TsdCp010ExamRealLanguage
   return renderTsdCp010NativeExamPaperStemV3(language, familyId, input);
 }
 
-export const TSD_CP010_EXAM_PAPER_V3_ENGLISH_REVIEW = TSD_CP010_EXAM_PAPER_V3_ENGLISH_REVIEW;
+export const TSD_CP010_EXAM_PAPER_V3_ENGLISH_REVIEW = ENGLISH_V3;
 
 export const TSD_CP010_EXAM_PAPER_V3_HINDI_REVIEW = Object.freeze(
   TSD_CP010_EXAM_REAL_V2_HINDI_REVIEW.map((question) => Object.freeze({
