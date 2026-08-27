@@ -63,3 +63,14 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/data-sufficiency/cp013/coding-runtime-v1.test.mjs
+
+      - name: Bundle CP-013 Calendar audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-013/calendar-runtime-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp013/calendar-runtime-v1.test.mjs
+      - name: Run CP-013 Calendar audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp013/calendar-runtime-v1.test.mjs
