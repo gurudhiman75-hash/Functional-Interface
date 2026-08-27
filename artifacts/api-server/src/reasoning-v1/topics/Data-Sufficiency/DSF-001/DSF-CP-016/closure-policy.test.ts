@@ -15,28 +15,28 @@ const LOCKED_LIFECYCLE: DsfClosureLifecycleState = Object.freeze({
   automaticStudentPublication: false,
 });
 
-const RUNS: Readonly<Record<(typeof DSF_CP016_REQUIRED_CHECKPOINTS)[number], number>> = Object.freeze({
-  "DSF-CP-011": 32947914900,
-  "DSF-CP-012": 32979622746,
-  "DSF-CP-013": 33049254915,
-  "DSF-CP-014": 33057329390,
-  "DSF-CP-015": 33058017319,
-});
+const FIXTURE_RUNS = Object.freeze({
+  "DSF-CP-011": 101,
+  "DSF-CP-012": 102,
+  "DSF-CP-013": 103,
+  "DSF-CP-014": 104,
+  "DSF-CP-015": 105,
+} satisfies Readonly<Record<(typeof DSF_CP016_REQUIRED_CHECKPOINTS)[number], number>>);
 
-const HEADS: Readonly<Record<(typeof DSF_CP016_REQUIRED_CHECKPOINTS)[number], string>> = Object.freeze({
-  "DSF-CP-011": "52e2faca00000000000000000000000000000000",
-  "DSF-CP-012": "4e33cdbb645d6a5030a73f1e823f51c779e4832b",
-  "DSF-CP-013": "718015279183ea81d1d1f4ed0553dc179d457016",
-  "DSF-CP-014": "45da4eeae73ce3894ccfe20a486e762347a2d568",
-  "DSF-CP-015": "0b160a22e093451dcb3b5f0da347b9dc039327a8",
-});
+const FIXTURE_HEADS = Object.freeze({
+  "DSF-CP-011": "1111111111111111111111111111111111111111",
+  "DSF-CP-012": "2222222222222222222222222222222222222222",
+  "DSF-CP-013": "3333333333333333333333333333333333333333",
+  "DSF-CP-014": "4444444444444444444444444444444444444444",
+  "DSF-CP-015": "5555555555555555555555555555555555555555",
+} satisfies Readonly<Record<(typeof DSF_CP016_REQUIRED_CHECKPOINTS)[number], string>>);
 
 function greenEvidence(mergedToCommonBase: boolean): readonly DsfCheckpointClosureEvidence[] {
   return DSF_CP016_REQUIRED_CHECKPOINTS.map((checkpointId) => Object.freeze({
     checkpointId,
     implementationStatus: "EXECUTABLE_GREEN" as const,
-    executableRunId: RUNS[checkpointId],
-    exactExecutableHead: HEADS[checkpointId],
+    executableRunId: FIXTURE_RUNS[checkpointId],
+    exactExecutableHead: FIXTURE_HEADS[checkpointId],
     mergedToCommonBase,
     externalSourceHolds: checkpointId === "DSF-CP-011"
       ? Object.freeze(["Geometry: no canonical merged GEO-001/source solver authority"])
@@ -124,6 +124,7 @@ assert(duplicateAssessment.violations.some((violation) => violation.includes("Du
 
 console.log(JSON.stringify({
   status: "PASS_DSF_CP016_CLOSURE_POLICY",
+  fixtureOnly: true,
   requiredCheckpoints: DSF_CP016_REQUIRED_CHECKPOINTS,
   featureImplementationClosureReady: featureComplete.implementationClosureReady,
   featureCommonBaseClosureReady: featureComplete.commonBaseClosureReady,
