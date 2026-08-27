@@ -5,30 +5,36 @@ import { COM002_HI_PA_LOCALIZATION_FREEZE_CANDIDATE_V1 } from "../../knowledge-v
 /**
  * Fail-closed pre-integration authority.
  *
- * COM-002 must not become discoverable merely because automated English audits
- * or localization generation exist. The historical English freeze record is
- * operationally invalidated by COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1 until
- * the product owner explicitly approves the exact 26-question English pack.
+ * The historical English V1 freeze is audit history only. The V3 English
+ * candidate contains later QL-004/QL-013 safety remediation and must execute,
+ * be materialized as an exact 26-question pack, receive explicit product-owner
+ * approval, and then receive a new freeze authority. Localization must then be
+ * rebased to that approved V3 authority before Question Studio can activate.
  */
 export const COM002_QUESTION_STUDIO_ACTIVATION_GATE_V1 = Object.freeze({
   authorityId: "COM-002-QUESTION-STUDIO-ACTIVATION-GATE-V1" as const,
   chapterId: "COM-002" as const,
   packageId: "COM-002" as const,
   engineId: "knowledge-v1" as const,
-  status: "BLOCKED_PENDING_EXPLICIT_ENGLISH_HUMAN_REVIEW" as const,
+  status: "BLOCKED_PENDING_V3_ENGLISH_APPROVAL_AND_REBASED_LOCALIZATION" as const,
   englishAuthority: {
     historicalAuthorityId: COM002_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,
     historicalCombinedFingerprint: COM002_ENGLISH_FREEZE_AUTHORITY_V1.fingerprints.combinedFingerprint,
+    historicalAuthorityOperationallyValid: false,
     integrityAuthorityId: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.authorityId,
+    integrityStatus: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.status,
+    candidateGeneratorVersion: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.reviewCandidate.generatorVersion,
+    v3PackMaterialized: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.reviewCandidate.materializedPackAvailable,
     explicitApprovalVerified: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.explicitApprovalVerified,
     operationallyValid: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V1.operationalEnglishFreezeAllowed,
     frozen: false,
   },
   localizationAuthority: {
-    candidateId: COM002_HI_PA_LOCALIZATION_FREEZE_CANDIDATE_V1.candidateId,
-    status: COM002_HI_PA_LOCALIZATION_FREEZE_CANDIDATE_V1.status,
+    historicalCandidateId: COM002_HI_PA_LOCALIZATION_FREEZE_CANDIDATE_V1.candidateId,
+    historicalCandidateStatus: COM002_HI_PA_LOCALIZATION_FREEZE_CANDIDATE_V1.status,
+    requiresV3Rebase: true,
     frozen: false,
-    fingerprintsPinned: false,
+    fingerprintsPinnedAgainstApprovedV3: false,
     humanReviewAccepted: false,
     promotionAllowed: false,
   },
@@ -46,14 +52,17 @@ export const COM002_QUESTION_STUDIO_ACTIVATION_GATE_V1 = Object.freeze({
     productionReleaseAuthorized: false,
   },
   unlockRequirements: [
-    "COM002_26_ENGLISH_REVIEW_SAMPLER_EXPLICITLY_APPROVED",
-    "COM002_NEW_ENGLISH_FREEZE_AUTHORITY_BINDS_EXPLICIT_APPROVAL",
-    "COM002_1040_LOCALIZATION_PARITY_EXECUTED_GREEN",
-    "COM002_26_BILINGUAL_REVIEW_SAMPLER_ACCEPTED",
-    "COM002_LOCALIZATION_FINGERPRINTS_PINNED",
-    "COM002_LOCALIZATION_FREEZE_AUTHORITY_CREATED",
-    "COM002_REVIEW_ONLY_ADAPTER_AUDITED",
+    "COM002_V3_520_ENGLISH_AUDIT_EXECUTED_GREEN",
+    "COM002_V3_26_ENGLISH_REVIEW_PACK_MATERIALIZED",
+    "COM002_V3_26_ENGLISH_REVIEW_PACK_EXPLICITLY_APPROVED",
+    "COM002_NEW_ENGLISH_FREEZE_AUTHORITY_BINDS_APPROVED_V3_PACK",
+    "COM002_LOCALIZATION_V2_REBASED_TO_APPROVED_V3_AUTHORITY",
+    "COM002_V2_LOCALIZATION_PARITY_EXECUTED_GREEN",
+    "COM002_V2_BILINGUAL_REVIEW_SAMPLER_ACCEPTED",
+    "COM002_V2_LOCALIZATION_FINGERPRINTS_PINNED",
+    "COM002_V2_LOCALIZATION_FREEZE_AUTHORITY_CREATED",
+    "COM002_REVIEW_ONLY_ADAPTER_AUDITED_AGAINST_NEW_AUTHORITIES",
   ] as const,
   invalidationRule:
-    "This blocker may only be superseded by a new authority chain that first binds explicit product-owner approval of the exact COM-002 English 26-question review pack, then binds the audited localization freeze, while preserving all bank/test/mock/public release locks during review-only Question Studio activation.",
+    "This blocker may only be superseded by an authority chain that binds the executed and explicitly approved COM-002 English V3 pack, then a V3-bound Hindi/Punjabi localization freeze, while preserving all bank/test/mock/public release locks during review-only Question Studio activation.",
 });
