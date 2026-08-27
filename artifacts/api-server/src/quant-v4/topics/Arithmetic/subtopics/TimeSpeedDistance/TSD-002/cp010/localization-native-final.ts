@@ -1,4 +1,4 @@
-import { add, subtract, toMixedString, type Rational } from "../../TSD-001/foundation/rational";
+import { add, toMixedString, type Rational } from "../../TSD-001/foundation/rational";
 import type { TsdCp010ExecutableInput } from "./executable-types";
 import { TSD_CP010_LOCALIZED_REVIEW } from "./localized-review";
 
@@ -20,7 +20,7 @@ const PA = [
   ["ਦੀਪਕ", "ਰੋਹਿਤ", "ਸੁਮਿਤ"], ["ਨੀਰਜ", "ਮਨੀਸ਼", "ਦਿਨੇਸ਼"], ["ਕਬੀਰ", "ਸਾਹਿਲ", "ਨਵੀਨ"],
 ] as const;
 
-function hindiStem(qlId: string, familyId: string, input: TsdCp010ExecutableInput): string {
+function hindiStem(_qlId: string, familyId: string, input: TsdCp010ExecutableInput): string {
   const i = idx(familyId); const [a, b, c] = HI[i]!;
   switch (input.authorityKey) {
     case "finishDistanceLeadState": {
@@ -34,15 +34,14 @@ function hindiStem(qlId: string, familyId: string, input: TsdCp010ExecutableInpu
         "",
       ][i]!;
     }
-    case "finishTimeLeadState":
-      return [
-        `${hiM(input.raceDistance)} की दौड़ में ${a} और ${b} की गतियाँ ${hiV(input.winnerSpeed)} और ${hiV(input.loserSpeed)} हैं। ${a}, ${b} को कितने सेकंड से हराएगा?`,
-        `${a} और ${b} ${hiM(input.raceDistance)} क्रमशः ${hiV(input.winnerSpeed)} और ${hiV(input.loserSpeed)} से तय करते हैं। उनके समयों का अंतर ज्ञात कीजिए।`,
-        `दो धावक ${hiM(input.raceDistance)} की समान दूरी ${hiV(input.winnerSpeed)} और ${hiV(input.loserSpeed)} की गति से दौड़ते हैं। तेज धावक कितने सेकंड पहले पहुँचेगा?`,
-        `${a} ${hiM(input.raceDistance)} की दूरी ${hiV(input.winnerSpeed)} से तय करता है और ${b} वही दूरी ${hiV(input.loserSpeed)} से। ${b}, ${a} के कितने सेकंड बाद पहुँचेगा?`,
-        `${hiM(input.raceDistance)} की दौड़ में दोनों एक साथ शुरू करते हैं। उनकी गतियाँ ${hiV(input.winnerSpeed)} और ${hiV(input.loserSpeed)} हैं। जीत का समय-अंतर कितना होगा?`,
-        `यदि ${a} और ${b} ${hiM(input.raceDistance)} की दौड़ ${hiV(input.winnerSpeed)} और ${hiV(input.loserSpeed)} से दौड़ें, तो ${a} कितने समय से जीतेगा?`,
-      ][i]!;
+    case "finishTimeLeadState": return [
+      `${hiM(input.raceDistance)} की दौड़ में ${a} और ${b} की गतियाँ ${hiV(input.winnerSpeed)} और ${hiV(input.loserSpeed)} हैं। ${a}, ${b} को कितने सेकंड से हराएगा?`,
+      `${a} और ${b} ${hiM(input.raceDistance)} क्रमशः ${hiV(input.winnerSpeed)} और ${hiV(input.loserSpeed)} से तय करते हैं। उनके समयों का अंतर ज्ञात कीजिए।`,
+      `दो धावक ${hiM(input.raceDistance)} की समान दूरी ${hiV(input.winnerSpeed)} और ${hiV(input.loserSpeed)} की गति से दौड़ते हैं। तेज धावक कितने सेकंड पहले पहुँचेगा?`,
+      `${a} ${hiM(input.raceDistance)} की दूरी ${hiV(input.winnerSpeed)} से तय करता है और ${b} वही दूरी ${hiV(input.loserSpeed)} से। ${b}, ${a} के कितने सेकंड बाद पहुँचेगा?`,
+      `${hiM(input.raceDistance)} की दौड़ में दोनों एक साथ शुरू करते हैं। उनकी गतियाँ ${hiV(input.winnerSpeed)} और ${hiV(input.loserSpeed)} हैं। जीत का समय-अंतर कितना होगा?`,
+      `यदि ${a} और ${b} ${hiM(input.raceDistance)} की दौड़ ${hiV(input.winnerSpeed)} और ${hiV(input.loserSpeed)} से दौड़ें, तो ${a} कितने समय से जीतेगा?`,
+    ][i]!;
     case "raceSpeedRatioState": {
       if (input.mode === "DISTANCE_LEAD") return [
         `${hiM(input.raceDistance)} की दौड़ में ${a}, ${b} को ${hiM(input.distanceLead)} से हराता है। उनकी गतियों का अनुपात ज्ञात कीजिए।`,
@@ -68,24 +67,22 @@ function hindiStem(qlId: string, familyId: string, input: TsdCp010ExecutableInpu
         `${a}, ${b} को ${hiM(input.distanceLead!)} से हराता है। यदि ${b} की गति ${hiV(input.loserSpeed)} है, तो ${a} कितने सेकंड से जीता?`, "", `${a} की जीत ${hiM(input.distanceLead!)} है और ${b} की गति ${hiV(input.loserSpeed)}। यही जीत समय में कितने सेकंड है?`, "", `${a} के पहुँचने पर ${b} को ${hiM(input.distanceLead!)} बाकी है। ${b} ${hiV(input.loserSpeed)} से दौड़ता है। वह कितने सेकंड बाद पहुँचेगा?`, "",
       ][i]!;
       return ["", `${a}, ${b} को ${hiS(input.timeLead!)} से हराता है। यदि ${b} की गति ${hiV(input.loserSpeed)} है, तो जीत का दूरी-अंतर कितना है?`, "", `${a} ${hiS(input.timeLead!)} पहले पहुँचता है और ${b} की गति ${hiV(input.loserSpeed)} है। ${a} कितने मीटर से जीता?`, "", `${b}, ${a} के ${hiS(input.timeLead!)} बाद पहुँचता है और उसकी गति ${hiV(input.loserSpeed)} है। ${a} के पहुँचने पर ${b} कितने मीटर पीछे था?`][i]!;
-    case "transitiveRaceComparison":
-      return [
-        `${hiM(input.raceDistance)} की अलग-अलग दौड़ों में ${a}, ${b} को ${hiM(input.aBeatsBBy)} से और ${b}, ${c} को ${hiM(input.bBeatsCBy)} से हराता है। ${a}, ${c} को कितने मीटर से हराएगा?`,
-        `समान ${hiM(input.raceDistance)} की दो दौड़ों में ${a} की ${b} पर जीत ${hiM(input.aBeatsBBy)} और ${b} की ${c} पर जीत ${hiM(input.bBeatsCBy)} है। ${a} की ${c} पर जीत ज्ञात कीजिए।`,
-        `दो स्वतंत्र ${hiM(input.raceDistance)} की दौड़ों में ${a}, ${b} को ${hiM(input.aBeatsBBy)} से तथा ${b}, ${c} को ${hiM(input.bBeatsCBy)} से हराता है। ${a} बनाम ${c} का दूरी-अंतर क्या होगा?`,
-        `${a}, ${b} को ${hiM(input.aBeatsBBy)} से और दूसरी समान ${hiM(input.raceDistance)} की दौड़ में ${b}, ${c} को ${hiM(input.bBeatsCBy)} से हराता है। ${a} के पहुँचने पर ${c} कितने मीटर पीछे होगा?`,
-        `समान दूरी ${hiM(input.raceDistance)} की दो अलग दौड़ों के परिणाम हैं: ${a} ने ${b} को ${hiM(input.aBeatsBBy)} से और ${b} ने ${c} को ${hiM(input.bBeatsCBy)} से हराया। ${a}, ${c} को कितना हराएगा?`,
-        `${hiM(input.raceDistance)} की दो दौड़ों में पहले ${a} ने ${b} को ${hiM(input.aBeatsBBy)} से और फिर ${b} ने ${c} को ${hiM(input.bBeatsCBy)} से हराया। ${a} की ${c} पर जीत कितनी होगी?`,
-      ][i]!;
-    case "multiOutcomeRaceComparison":
-      return [
-        `${a}, ${b} को ${hiM(input.firstRaceDistance)} की दौड़ में ${hiM(input.firstRaceLead)} से हराता है। ${hiM(input.secondRaceDistance)} की दूसरी दौड़ में ${b} को ${hiM(input.secondRaceHeadStartForLoser)} की शुरुआती बढ़त दी जाए, तो ${a} कितने मीटर से जीतेगा?`,
-        `${hiM(input.firstRaceDistance)} में ${a}, ${b} को ${hiM(input.firstRaceLead)} से हराता है। दूसरी ${hiM(input.secondRaceDistance)} की दौड़ में ${b} ${hiM(input.secondRaceHeadStartForLoser)} आगे से शुरू करे, तो परिणाम क्या होगा?`,
-        `पहली ${hiM(input.firstRaceDistance)} की दौड़ में जीत ${hiM(input.firstRaceLead)} की है। दूसरी ${hiM(input.secondRaceDistance)} की दौड़ में ${b} को ${hiM(input.secondRaceHeadStartForLoser)} की शुरुआती बढ़त मिलती है। ${a} का अंतिम दूरी-अंतर ज्ञात कीजिए।`,
-        `${a} ने ${b} को ${hiM(input.firstRaceDistance)} में ${hiM(input.firstRaceLead)} से हराया। दूसरी दौड़ ${hiM(input.secondRaceDistance)} की है और ${b} शुरुआत में ${hiM(input.secondRaceHeadStartForLoser)} आगे है। ${a} कितना जीतेगा?`,
-        `पहली दौड़ के परिणाम में ${a}, ${b} से ${hiM(input.firstRaceLead)} आगे रहता है। दूसरी ${hiM(input.secondRaceDistance)} की दौड़ में ${b} ${hiM(input.secondRaceHeadStartForLoser)} आगे से शुरू करता है। जीत का अंतर ज्ञात कीजिए।`,
-        `${a} और ${b} की गति नहीं बदलती। ${hiM(input.firstRaceDistance)} में ${a} की जीत ${hiM(input.firstRaceLead)} है। दूसरी ${hiM(input.secondRaceDistance)} की दौड़ में ${b} को ${hiM(input.secondRaceHeadStartForLoser)} की शुरुआती बढ़त है। अंतिम अंतर क्या होगा?`,
-      ][i]!;
+    case "transitiveRaceComparison": return [
+      `${hiM(input.raceDistance)} की अलग-अलग दौड़ों में ${a}, ${b} को ${hiM(input.aBeatsBBy)} से और ${b}, ${c} को ${hiM(input.bBeatsCBy)} से हराता है। ${a}, ${c} को कितने मीटर से हराएगा?`,
+      `समान ${hiM(input.raceDistance)} की दो दौड़ों में ${a} की ${b} पर जीत ${hiM(input.aBeatsBBy)} और ${b} की ${c} पर जीत ${hiM(input.bBeatsCBy)} है। ${a} की ${c} पर जीत ज्ञात कीजिए।`,
+      `दो स्वतंत्र ${hiM(input.raceDistance)} की दौड़ों में ${a}, ${b} को ${hiM(input.aBeatsBBy)} से तथा ${b}, ${c} को ${hiM(input.bBeatsCBy)} से हराता है। ${a} बनाम ${c} का दूरी-अंतर क्या होगा?`,
+      `${a}, ${b} को ${hiM(input.aBeatsBBy)} से और दूसरी समान ${hiM(input.raceDistance)} की दौड़ में ${b}, ${c} को ${hiM(input.bBeatsCBy)} से हराता है। ${a} के पहुँचने पर ${c} कितने मीटर पीछे होगा?`,
+      `समान दूरी ${hiM(input.raceDistance)} की दो अलग दौड़ों के परिणाम हैं: ${a} ने ${b} को ${hiM(input.aBeatsBBy)} से और ${b} ने ${c} को ${hiM(input.bBeatsCBy)} से हराया। ${a}, ${c} को कितना हराएगा?`,
+      `${hiM(input.raceDistance)} की दो दौड़ों में पहले ${a} ने ${b} को ${hiM(input.aBeatsBBy)} से और फिर ${b} ने ${c} को ${hiM(input.bBeatsCBy)} से हराया। ${a} की ${c} पर जीत कितनी होगी?`,
+    ][i]!;
+    case "multiOutcomeRaceComparison": return [
+      `${a}, ${b} को ${hiM(input.firstRaceDistance)} की दौड़ में ${hiM(input.firstRaceLead)} से हराता है। ${hiM(input.secondRaceDistance)} की दूसरी दौड़ में ${b} को ${hiM(input.secondRaceHeadStartForLoser)} की शुरुआती बढ़त दी जाए, तो ${a} कितने मीटर से जीतेगा?`,
+      `${hiM(input.firstRaceDistance)} में ${a}, ${b} को ${hiM(input.firstRaceLead)} से हराता है। दूसरी ${hiM(input.secondRaceDistance)} की दौड़ में ${b} ${hiM(input.secondRaceHeadStartForLoser)} आगे से शुरू करे, तो परिणाम क्या होगा?`,
+      `पहली ${hiM(input.firstRaceDistance)} की दौड़ में जीत ${hiM(input.firstRaceLead)} की है। दूसरी ${hiM(input.secondRaceDistance)} की दौड़ में ${b} को ${hiM(input.secondRaceHeadStartForLoser)} की शुरुआती बढ़त मिलती है। ${a} का अंतिम दूरी-अंतर ज्ञात कीजिए।`,
+      `${a} ने ${b} को ${hiM(input.firstRaceDistance)} में ${hiM(input.firstRaceLead)} से हराया। दूसरी दौड़ ${hiM(input.secondRaceDistance)} की है और ${b} शुरुआत में ${hiM(input.secondRaceHeadStartForLoser)} आगे है। ${a} कितना जीतेगा?`,
+      `पहली दौड़ के परिणाम में ${a}, ${b} से ${hiM(input.firstRaceLead)} आगे रहता है। दूसरी ${hiM(input.secondRaceDistance)} की दौड़ में ${b} ${hiM(input.secondRaceHeadStartForLoser)} आगे से शुरू करता है। जीत का अंतर ज्ञात कीजिए।`,
+      `${a} और ${b} की गति नहीं बदलती। ${hiM(input.firstRaceDistance)} में ${a} की जीत ${hiM(input.firstRaceLead)} है। दूसरी ${hiM(input.secondRaceDistance)} की दौड़ में ${b} को ${hiM(input.secondRaceHeadStartForLoser)} की शुरुआती बढ़त है। अंतिम अंतर क्या होगा?`,
+    ][i]!;
     case "changedRaceOutcomeState":
       if (input.mode === "FASTER_SPEED_CHANGE") return [
         `${hiM(input.raceDistance)} की दौड़ में ${a} की सामान्य गति ${hiV(input.fasterSpeed)} और ${b} की ${hiV(input.slowerSpeed)} है। यदि ${a} की गति बढ़कर ${hiV(input.changedFasterSpeed!)} हो जाए, तो वह कितने मीटर से जीतेगा?`, "", "", `${a} की गति ${hiV(input.fasterSpeed)} से बढ़कर ${hiV(input.changedFasterSpeed!)} हो जाती है, जबकि ${b} ${hiV(input.slowerSpeed)} से दौड़ता है। ${hiM(input.raceDistance)} में नया जीत-अंतर ज्ञात कीजिए।`, "", "",
@@ -99,14 +96,14 @@ function hindiStem(qlId: string, familyId: string, input: TsdCp010ExecutableInpu
         `दो दौड़ों में प्रत्येक धावक की अपनी गति नहीं बदलती। ${a} की ${b} पर जीत ${hiM(input.firstRaceDistance)} में ${hiM(input.firstRaceDistanceLead)} तथा ${hiM(input.secondRaceDistance)} में ${hiS(input.secondRaceTimeLead)} है। ${target} की गति क्या है?`,
         `पहली ${hiM(input.firstRaceDistance)} की दौड़ में ${a}, ${b} को ${hiM(input.firstRaceDistanceLead)} से हराता है। दूसरी ${hiM(input.secondRaceDistance)} में वह ${hiS(input.secondRaceTimeLead)} से जीतता है। दोनों अपनी वही गति रखते हैं। ${target} की गति ज्ञात कीजिए।`,
         `${a} और ${b} की गति दोनों दौड़ों में स्थिर है। ${a}, ${b} को ${hiM(input.firstRaceDistance)} में ${hiM(input.firstRaceDistanceLead)} और ${hiM(input.secondRaceDistance)} में ${hiS(input.secondRaceTimeLead)} से हराता है। ${target} की गति निकालिए।`,
-        `दो समान धावकों की अपनी-अपनी गति नहीं बदलती। पहली दूरी ${hiM(input.firstRaceDistance)} पर जीत ${hiM(input.firstRaceDistanceLead)} की और दूसरी दूरी ${hiM(input.secondRaceDistance)} पर जीत ${hiS(input.secondRaceTimeLead)} की है। ${target} की गति ज्ञात कीजिए।`,
-        `${a} तथा ${b} हर दौड़ में अपनी वही गति रखते हैं। ${a} की जीत क्रमशः ${hiM(input.firstRaceLead ?? input.firstRaceDistanceLead)} और ${hiS(input.secondRaceTimeLead)} है। दूरियाँ ${hiM(input.firstRaceDistance)} और ${hiM(input.secondRaceDistance)} हैं। ${target} की गति क्या है?`,
+        `दो धावकों की अपनी-अपनी गति नहीं बदलती। पहली दूरी ${hiM(input.firstRaceDistance)} पर जीत ${hiM(input.firstRaceDistanceLead)} की और दूसरी दूरी ${hiM(input.secondRaceDistance)} पर जीत ${hiS(input.secondRaceTimeLead)} की है। ${target} की गति ज्ञात कीजिए।`,
+        `${a} तथा ${b} हर दौड़ में अपनी वही गति रखते हैं। ${a} की जीत ${hiM(input.firstRaceDistance)} में ${hiM(input.firstRaceDistanceLead)} और ${hiM(input.secondRaceDistance)} में ${hiS(input.secondRaceTimeLead)} है। ${target} की गति क्या है?`,
       ][i]!;
     }
   }
 }
 
-function punjabiStem(qlId: string, familyId: string, input: TsdCp010ExecutableInput): string {
+function punjabiStem(_qlId: string, familyId: string, input: TsdCp010ExecutableInput): string {
   const i = idx(familyId); const [a, b, c] = PA[i]!;
   switch (input.authorityKey) {
     case "finishDistanceLeadState": {
@@ -116,8 +113,7 @@ function punjabiStem(qlId: string, familyId: string, input: TsdCp010ExecutableIn
         `${a} ਅਤੇ ${b} ${paM(input.raceDistance)} ਦੀ ਦੌੜ ${paV(input.winnerSpeed)} ਅਤੇ ${paV(input.loserSpeed)} ਨਾਲ ਦੌੜਦੇ ਹਨ। ${a} ਦੇ ਪਹੁੰਚਣ ਵੇਲੇ ${b} ਅੰਤਲੀ ਰੇਖਾ ਤੋਂ ਕਿੰਨੀ ਦੂਰ ਹੋਵੇਗਾ?`,
         `ਦੋ ਧਾਵਕ ${paM(input.raceDistance)} ਦੀ ਦੌੜ ਇਕੱਠੇ ਸ਼ੁਰੂ ਕਰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਰਫ਼ਤਾਰਾਂ ${paV(input.winnerSpeed)} ਅਤੇ ${paV(input.loserSpeed)} ਹਨ। ਜਿੱਤ ਦਾ ਦੂਰੀ-ਅੰਤਰ ਕੱਢੋ।`,
         `${paM(input.raceDistance)} ਦੀ ਦੌੜ ਵਿੱਚ ${a} ਅਤੇ ${b} ਦੀਆਂ ਰਫ਼ਤਾਰਾਂ ${paV(input.winnerSpeed)} ਅਤੇ ${paV(input.loserSpeed)} ਹਨ। ${a} ਕਿੰਨੇ ਮੀਟਰ ਨਾਲ ਜਿੱਤੇਗਾ?`,
-        `${a} ${paM(input.raceDistance)} ਦੀ ਦੌੜ ${paV(input.winnerSpeed)} ਨਾਲ ਅਤੇ ${b} ${paV(input.loserSpeed)} ਨਾਲ ਦੌੜਦਾ ਹੈ। ਇਕੱਠੇ ਸ਼ੁਰੂ ਕਰਨ 'ਤੇ ${a} ਦੇ ਜਿੱਤਣ ਵੇਲੇ ${b} ਕਿੰਨੇ ਮੀਟਰ ਪਿੱਛੇ ਹੋਵੇਗਾ?`,
-        "",
+        `${a} ${paM(input.raceDistance)} ਦੀ ਦੌੜ ${paV(input.winnerSpeed)} ਨਾਲ ਅਤੇ ${b} ${paV(input.loserSpeed)} ਨਾਲ ਦੌੜਦਾ ਹੈ। ਇਕੱਠੇ ਸ਼ੁਰੂ ਕਰਨ 'ਤੇ ${a} ਦੇ ਜਿੱਤਣ ਵੇਲੇ ${b} ਕਿੰਨੇ ਮੀਟਰ ਪਿੱਛੇ ਹੋਵੇਗਾ?`, "",
       ][i]!;
     }
     case "finishTimeLeadState": return [
@@ -132,8 +128,7 @@ function punjabiStem(qlId: string, familyId: string, input: TsdCp010ExecutableIn
       if (input.mode === "DISTANCE_LEAD") return [
         `${paM(input.raceDistance)} ਦੀ ਦੌੜ ਵਿੱਚ ${a}, ${b} ਨੂੰ ${paM(input.distanceLead)} ਨਾਲ ਹਰਾਉਂਦਾ ਹੈ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਰਫ਼ਤਾਰਾਂ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।`,
         `${a} ਦੇ ${paM(input.raceDistance)} ਪੂਰੇ ਕਰਨ ਵੇਲੇ ${b} ਅੰਤਲੀ ਰੇਖਾ ਤੋਂ ${paM(input.distanceLead)} ਪਿੱਛੇ ਹੈ। ${a}:${b} ਦੀ ਰਫ਼ਤਾਰ ਦਾ ਅਨੁਪਾਤ ਕੀ ਹੈ?`,
-        `${paM(input.raceDistance)} ਦੀ ਦੌੜ ਵਿੱਚ ${a} ਦੀ ${b} ਉੱਤੇ ਜਿੱਤ ${paM(input.distanceLead)} ਹੈ। ਰਫ਼ਤਾਰਾਂ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।`,
-        "", `${a}, ${b} ਨੂੰ ${paM(input.distanceLead)} ਨਾਲ ਹਰਾਉਂਦਾ ਹੈ ਅਤੇ ਦੌੜ ${paM(input.raceDistance)} ਦੀ ਹੈ। ${a}:${b} ਕੱਢੋ।`, "",
+        `${paM(input.raceDistance)} ਦੀ ਦੌੜ ਵਿੱਚ ${a} ਦੀ ${b} ਉੱਤੇ ਜਿੱਤ ${paM(input.distanceLead)} ਹੈ। ਰਫ਼ਤਾਰਾਂ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।`, "", `${a}, ${b} ਨੂੰ ${paM(input.distanceLead)} ਨਾਲ ਹਰਾਉਂਦਾ ਹੈ ਅਤੇ ਦੌੜ ${paM(input.raceDistance)} ਦੀ ਹੈ। ${a}:${b} ਕੱਢੋ।`, "",
       ][i]!;
       const loserTime = add(input.winnerTime, input.timeLead);
       return ["", `${a} ਦੌੜ ${paS(input.winnerTime)} ਵਿੱਚ ਪੂਰੀ ਕਰਦਾ ਹੈ ਅਤੇ ${b} ${paS(input.timeLead)} ਬਾਅਦ ਪਹੁੰਚਦਾ ਹੈ। ਰਫ਼ਤਾਰਾਂ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।`, "", `ਇੱਕੋ ਦੂਰੀ ਲਈ ${a} ਦਾ ਸਮਾਂ ${paS(input.winnerTime)} ਅਤੇ ${b} ਦਾ ${paS(loserTime)} ਹੈ। ${a}:${b} ਦੀ ਰਫ਼ਤਾਰ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।`, "", `${a} ਦਾ ਸਮਾਂ ${paS(input.winnerTime)} ਹੈ ਅਤੇ ${b} ਉਸ ਤੋਂ ${paS(input.timeLead)} ਵੱਧ ਲੈਂਦਾ ਹੈ। ਰਫ਼ਤਾਰ ਅਨੁਪਾਤ ਕੀ ਹੈ?`][i]!;
@@ -191,9 +186,7 @@ function punjabiStem(qlId: string, familyId: string, input: TsdCp010ExecutableIn
 
 export const TSD_CP010_NATIVE_FINAL_REVIEW = Object.freeze(TSD_CP010_LOCALIZED_REVIEW.map((question) => Object.freeze({
   ...question,
-  stem: question.language === "hi"
-    ? hindiStem(question.qlId, question.familyId, question.input)
-    : punjabiStem(question.qlId, question.familyId, question.input),
+  stem: question.language === "hi" ? hindiStem(question.qlId, question.familyId, question.input) : punjabiStem(question.qlId, question.familyId, question.input),
 })));
 
 export const TSD_CP010_NATIVE_FINAL_HINDI_REVIEW = Object.freeze(TSD_CP010_NATIVE_FINAL_REVIEW.filter((x) => x.language === "hi"));
