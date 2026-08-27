@@ -64,5 +64,6 @@ await runStage("COM-002 English freeze V1", () => import("../knowledge-v1/comput
 await runStage("COM-002 Hindi/Punjabi semantic lexicon coverage V1", () => import("../knowledge-v1/computer-awareness/com002-localization-lexicon-v1.test"));
 await runStage("COM-002 Hindi/Punjabi 1040-question localization parity V1", () => import("../knowledge-v1/computer-awareness/com002-localization-v1.test"));
 await runStage("COM-002 Hindi/Punjabi localization human review sampler V1", () => import("../knowledge-v1/computer-awareness/com002-localization-human-review-v1.test"));
+await runStage("COM-002 Hindi/Punjabi localization freeze candidate V1", () => import("../knowledge-v1/computer-awareness/com002-hi-pa-localization-freeze-v1.test"));
 
 console.log("Question Studio content engine foundation suite passed.");
