@@ -81,7 +81,7 @@ function inflectHindiPurposeWord(word: string) {
 }
 
 function inflectPunjabiPurposeWord(word: string) {
-  return word.replace(/(?:ਣਾ|ਨਾ)$/u, "ਣ");
+  return word.replace(/ਣਾ$/u, "ਣ").replace(/ਨਾ$/u, "ਨ");
 }
 
 /** Convert learner-facing infinitives into the oblique purpose form. */
@@ -103,7 +103,7 @@ export function com002PurposePhraseV3(
     (_match, left: string, right: string) =>
       `${inflectPunjabiPurposeWord(left)} ਜਾਂ ${inflectPunjabiPurposeWord(right)}`,
   );
-  return paired.replace(/(?:ਣਾ|ਨਾ)$/u, "ਣ");
+  return paired.replace(/(?:ਣਾ|ਨਾ)$/u, (ending) => ending === "ਣਾ" ? "ਣ" : "ਨ");
 }
 
 function polishPurposeConstructions(
