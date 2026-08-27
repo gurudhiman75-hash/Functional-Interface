@@ -1,9 +1,9 @@
 import { writeFileSync } from "node:fs";
 import {
-  TSD_CP010_EXAM_REAL_V2_ENGLISH_REVIEW,
-  TSD_CP010_EXAM_REAL_V2_HINDI_REVIEW,
-  TSD_CP010_EXAM_REAL_V2_PUNJABI_REVIEW,
-} from "./exam-real-review-final-v2";
+  TSD_CP010_EXAM_PAPER_V3_ENGLISH_REVIEW,
+  TSD_CP010_EXAM_PAPER_V3_HINDI_REVIEW,
+  TSD_CP010_EXAM_PAPER_V3_PUNJABI_REVIEW,
+} from "./exam-paper-review-final-v3-all";
 
 const outputPath = process.argv[2] ?? "TSD-CP010-MULTILINGUAL-QUESTIONS.md";
 const lines: string[] = [
@@ -14,9 +14,9 @@ const lines: string[] = [
 ];
 
 for (const [label, questions] of [
-  ["English", TSD_CP010_EXAM_REAL_V2_ENGLISH_REVIEW],
-  ["Hindi", TSD_CP010_EXAM_REAL_V2_HINDI_REVIEW],
-  ["Punjabi", TSD_CP010_EXAM_REAL_V2_PUNJABI_REVIEW],
+  ["English", TSD_CP010_EXAM_PAPER_V3_ENGLISH_REVIEW],
+  ["Hindi", TSD_CP010_EXAM_PAPER_V3_HINDI_REVIEW],
+  ["Punjabi", TSD_CP010_EXAM_PAPER_V3_PUNJABI_REVIEW],
 ] as const) {
   lines.push(`# ${label}`, "");
   let currentQl = "";
@@ -29,6 +29,6 @@ for (const [label, questions] of [
   }
 }
 
-const total = TSD_CP010_EXAM_REAL_V2_ENGLISH_REVIEW.length + TSD_CP010_EXAM_REAL_V2_HINDI_REVIEW.length + TSD_CP010_EXAM_REAL_V2_PUNJABI_REVIEW.length;
+const total = TSD_CP010_EXAM_PAPER_V3_ENGLISH_REVIEW.length + TSD_CP010_EXAM_PAPER_V3_HINDI_REVIEW.length + TSD_CP010_EXAM_PAPER_V3_PUNJABI_REVIEW.length;
 writeFileSync(outputPath, `${lines.join("\n")}\n`, "utf8");
-console.log(`Wrote ${total} CP010 exam-real V2 questions to ${outputPath}`);
+console.log(`Wrote ${total} CP010 official-paper V3 questions to ${outputPath}`);
