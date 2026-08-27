@@ -33,7 +33,7 @@ for (const qlId of qlIds) {
       );
       assert.equal(
         question.localizationV3.englishAuthorityStatus,
-        "V4_CANDIDATE_AWAITING_EXECUTION_AND_EXPLICIT_APPROVAL",
+        "V4_CANDIDATE_EXECUTED_GREEN_AWAITING_EXPLICIT_APPROVAL",
       );
       assert.equal(question.localizationV3.englishQuestionId, english.questionId);
       assert.equal(question.localizationV3.editorialGrammarOverlayOnly, true);
