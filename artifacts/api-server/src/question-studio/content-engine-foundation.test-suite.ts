@@ -72,6 +72,7 @@ await runStage("COM-002 corrected V3-bound Hindi/Punjabi 26-question localizatio
 await runStage("COM-002 pre-freeze Question Studio activation blocker V1", () => import("./engines/com002-question-studio-activation-gate-v1.test"));
 await runStage("COM-002 520-question difficulty routing candidate V1", () => import("../knowledge-v1/computer-awareness/com002-difficulty-routing-v1.test"));
 await runStage("COM-002 fail-closed Question Studio candidate adapter V1", () => import("./engines/knowledge-v1-com002-candidate-adapter.test"));
+await runStage("COM-002 390-question fail-closed pre-bank readiness candidate V1", () => import("./engines/com002-question-bank-readiness-candidate-v1.test"));
 await runStage("COM-002 historical Hindi/Punjabi localization hash candidate V1", () => import("../knowledge-v1/computer-awareness/com002-hi-pa-localization-freeze-v1.test"));
 await runStage("COM-002 V3-bound Hindi/Punjabi localization hash candidate V2", () => import("../knowledge-v1/computer-awareness/com002-hi-pa-localization-freeze-v2.test"));
 
