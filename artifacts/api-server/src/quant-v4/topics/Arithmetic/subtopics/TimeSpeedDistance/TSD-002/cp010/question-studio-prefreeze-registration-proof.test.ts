@@ -14,7 +14,8 @@ assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.routeMounted === false, "candidate pac
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.productionSelectorVisible === false, "candidate package claims selector visibility");
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.compatibleCombinationsPerLocale === 471, "locked pre-freeze capacity changed");
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.deterministicMultilingualCombinations === 1413, "locked multilingual capacity changed");
-assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.stemAuthoringPolicy === "SSC_BANK_PUNJAB_EXAM_REAL_RACE_LANGUAGE", "exam-real stem policy changed");
+assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.stemAuthoringPolicy === "SSC_BANK_PUNJAB_OFFICIAL_PAPER_RACE_LANGUAGE", "official-paper V3 stem policy changed");
+assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.representationPolicy === "CAPABILITY_BEATS_BY_START_RATIO_TWO_RACE_EVIDENCE", "V3 representation policy changed");
 assert(!routeIndex.includes("admin-question-studio-time-speed-distance-cp010"), "CP010 route was mounted before approval");
 assert(!routeIndex.includes("time-speed-distance/cp010"), "CP010 route path leaked into production route index");
 assert(!adminApi.includes("TSD_CP010_SELECTOR_PACKAGE_ID"), "CP010 selector API was wired before approval");
@@ -22,11 +23,12 @@ assert(!adminApi.includes("/time-speed-distance/cp010"), "CP010 frontend API end
 assert(!adminHook.includes("TSD_CP010_SELECTOR_PACKAGE_ID"), "CP010 production hook was wired before approval");
 assert(!adminHook.includes("cp010-review"), "CP010 production selector marker was wired before approval");
 
-console.log("TSD-CP-010 PRE-FREEZE EXAM-REAL PRODUCTION REGISTRATION LOCK: PASS");
+console.log("TSD-CP-010 PRE-FREEZE OFFICIAL-PAPER V3 PRODUCTION REGISTRATION LOCK: PASS");
 console.log(JSON.stringify({
   combinationsPerLocale: 471,
   multilingualCombinations: 1413,
-  stemAuthoringPolicy: "SSC_BANK_PUNJAB_EXAM_REAL_RACE_LANGUAGE",
+  stemAuthoringPolicy: "SSC_BANK_PUNJAB_OFFICIAL_PAPER_RACE_LANGUAGE",
+  representationPolicy: "CAPABILITY_BEATS_BY_START_RATIO_TWO_RACE_EVIDENCE",
   registration: "NOT_REGISTERED",
   routeMounted: false,
   productionSelectorVisible: false,
