@@ -7,6 +7,8 @@ import {
   type TsdCp010ExamRealLanguage,
 } from "./exam-real-review-final";
 
+export type { TsdCp010ExamRealLanguage } from "./exam-real-review-final";
+
 function refineEnglish(familyId: string, stem: string) {
   let out = stem;
   if (familyId === "116-B") out = out.replace("Find P's winning time.", "By how many seconds does P beat Q?");
