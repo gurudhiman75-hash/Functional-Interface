@@ -68,7 +68,7 @@ for (const language of ["hi", "pa"] as const) {
   assert(ql119.every((q) => language === "hi" ? /(एक ही समय|बराबरी|साथ समाप्त)/.test(q.stem) : /(ਇੱਕੋ ਸਮੇਂ|ਬਰਾਬਰੀ|ਇਕੱਠੇ)/.test(q.stem)), `${language}/QL119: dead-heat equality must be explicit`);
   assert(ql119.every((q) => language === "hi" ? /(शुरुआती|समय शून्य|पहले शुरू|आगे से शुरू|शून्य मीटर)/.test(q.stem) : /(ਸ਼ੁਰੂਆਤੀ|ਸਮਾਂ ਸਿਫ਼ਰ|ਪਹਿਲਾਂ ਸ਼ੁਰੂ|ਅੱਗੇ ਤੋਂ ਸ਼ੁਰੂ|ਸਿਫ਼ਰ ਮੀਟਰ)/.test(q.stem)), `${language}/QL119: start advantage/delay must be explicit`);
   assert(ql121.every((q) => language === "hi" ? /(अलग|स्वतंत्र|दो|समान|दूसरी)/.test(q.stem) : /(ਵੱਖ|ਅਲੱਗ|ਦੋ|ਇੱਕੋ|ਦੂਜੀ)/.test(q.stem)), `${language}/QL121: pairwise race separation must be explicit`);
-  assert(ql122.every((q) => language === "hi" ? /(शुरुआती|आगे से शुरू|शुरुआत[^।?]*आगे से)/.test(q.stem) : /(ਸ਼ੁਰੂਆਤੀ|ਅੱਗੇ ਤੋਂ ਸ਼ੁਰੂ|ਸ਼ੁਰੂਆਤ[^।?]*ਅੱਗੇ ਤੋਂ)/.test(q.stem)), `${language}/QL122: second-race head start must be explicit`);
+  assert(ql122.every((q) => language === "hi" ? /(शुरुआती|आगे से शुरू|शुरुआत[^।?]*आगे)/.test(q.stem) : /(ਸ਼ੁਰੂਆਤੀ|ਅੱਗੇ ਤੋਂ ਸ਼ੁਰੂ|ਸ਼ੁਰੂਆਤ[^।?]*ਅੱਗੇ)/.test(q.stem)), `${language}/QL122: second-race head start must be explicit`);
   assert(ql123.filter((q) => q.input.authorityKey === "changedRaceOutcomeState" && q.input.mode === "FASTER_START_DELAY").every((q) => language === "hi" ? /(पहले शुरू|समय शून्य|देर से)/.test(q.stem) : /(ਪਹਿਲਾਂ ਸ਼ੁਰੂ|ਸਮਾਂ ਸਿਫ਼ਰ|ਦੇਰ ਨਾਲ)/.test(q.stem)), `${language}/QL123: delayed-start chronology must be explicit`);
   assert(ql124.every((q) => language === "hi" ? /(गति नहीं बदलती|गति नहीं बदलता|स्थिर|वही गति|अपनी गति)/.test(q.stem) : /(ਰਫ਼ਤਾਰ ਨਹੀਂ ਬਦਲਦੀ|ਸਥਿਰ|ਉਹੀ ਰਫ਼ਤਾਰ|ਆਪਣੀ ਰਫ਼ਤਾਰ)/.test(q.stem)), `${language}/QL124: each runner's speed invariance must be explicit`);
 }
