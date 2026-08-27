@@ -62,5 +62,6 @@ await runStage("COM-002 520-question English review synthesis", () => import("..
 await runStage("COM-002 26-question human review sampler", () => import("../knowledge-v1/computer-awareness/com002-human-review-wave1.test"));
 await runStage("COM-002 English freeze V1", () => import("../knowledge-v1/computer-awareness/com002-english-freeze-v1.test"));
 await runStage("COM-002 Hindi/Punjabi semantic lexicon coverage V1", () => import("../knowledge-v1/computer-awareness/com002-localization-lexicon-v1.test"));
+await runStage("COM-002 Hindi/Punjabi 1040-question localization parity V1", () => import("../knowledge-v1/computer-awareness/com002-localization-v1.test"));
 
 console.log("Question Studio content engine foundation suite passed.");
