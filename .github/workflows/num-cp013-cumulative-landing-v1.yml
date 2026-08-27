@@ -44,7 +44,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$root/wave01/runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave01-runtime.mjs
           pnpm --dir artifacts/api-server exec esbuild "$root/wave01/independent-minimality.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave01-independent.mjs
           pnpm --dir artifacts/api-server exec esbuild "$root/wave02/runtime-v4.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave02-v4.mjs
-          pnpm --dir artifacts/api-server exec esbuild "$root/wave02/independent-saturation-v4.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave02-independent-v4.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/wave02/independent-v4.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave02-independent-v4.mjs
           pnpm --dir artifacts/api-server exec esbuild "$root/wave03/runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave03-runtime.mjs
           pnpm --dir artifacts/api-server exec esbuild "$root/wave03/independent-saturation.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave03-independent.mjs
           pnpm --dir artifacts/api-server exec esbuild "$root/wave04/merge-split-proposal.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-wave04-merge-split.mjs
