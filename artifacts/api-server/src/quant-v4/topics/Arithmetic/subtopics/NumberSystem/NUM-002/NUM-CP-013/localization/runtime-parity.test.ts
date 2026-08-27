@@ -12,6 +12,7 @@ let semanticChecks = 0;
 let optionChecks = 0;
 let lifecycleChecks = 0;
 const sourceCoverage = new Map<string, Set<string>>();
+const localizedModeCoverage = new Map<string, Set<number>>();
 
 for (const qlId of NUM_CP013_PERMANENT_QL_IDS) sourceCoverage.set(qlId, new Set());
 
@@ -74,6 +75,12 @@ for (const qlId of NUM_CP013_PERMANENT_QL_IDS) {
       lifecycleChecks += 1;
 
       sourceCoverage.get(qlId)!.add(localized.temporaryPrototypeId);
+      const rawMode = (localized.hiddenState as Readonly<Record<string, unknown>>).mode;
+      if (typeof rawMode === "number" && Number.isInteger(rawMode)) {
+        const modeKey = `${language}/${qlId}/${localized.temporaryPrototypeId}`;
+        if (!localizedModeCoverage.has(modeKey)) localizedModeCoverage.set(modeKey, new Set());
+        localizedModeCoverage.get(modeKey)!.add(rawMode);
+      }
       packages += 1;
     }
   }
@@ -91,6 +98,25 @@ assert.equal(semanticChecks, packages);
 assert.equal(optionChecks, packages);
 assert.equal(lifecycleChecks, packages);
 
+const requiredLocalizedInternalModes = Object.freeze([
+  { qlId: "NUM-QL-237", prototypeId: "NUM-CP013-PROT-011", modes: [0, 1, 2, 3] },
+  { qlId: "NUM-QL-238", prototypeId: "NUM-CP013-PROT-009", modes: [0, 1, 2, 3] },
+  { qlId: "NUM-QL-239", prototypeId: "NUM-CP013-PROT-012", modes: [0, 1, 2] },
+  { qlId: "NUM-QL-241", prototypeId: "NUM-CP013-PROT-021", modes: [0, 1, 2] },
+  { qlId: "NUM-QL-245", prototypeId: "NUM-CP013-PROT-015", modes: [0, 1, 2] },
+] as const);
+
+for (const language of languages) {
+  for (const requirement of requiredLocalizedInternalModes) {
+    const key = `${language}/${requirement.qlId}/${requirement.prototypeId}`;
+    assert.deepEqual(
+      [...(localizedModeCoverage.get(key) ?? new Set<number>())].sort((a, b) => a - b),
+      [...requirement.modes],
+      `${key}: localized prototype-internal mode reachability drift`,
+    );
+  }
+}
+
 console.log(JSON.stringify({
   status: "PASS_NUM_CP013_HI_PA_PARITY",
   authorities: NUM_CP013_PERMANENT_QL_IDS.length,
@@ -100,5 +126,7 @@ console.log(JSON.stringify({
   semanticChecks,
   optionChecks,
   lifecycleChecks,
+  sourceSeedSelectionDecoupled: true,
   sourceCoverage: Object.fromEntries([...sourceCoverage].map(([id, values]) => [id, [...values].sort()])),
+  localizedModeCoverage: Object.fromEntries([...localizedModeCoverage].map(([id, values]) => [id, [...values].sort((a, b) => a - b)])),
 }, null, 2));
