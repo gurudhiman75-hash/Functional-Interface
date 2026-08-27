@@ -5,7 +5,7 @@ import {
   COM002_DIFFICULTY_CLASSIFIER_VERSION_V1,
   type Com002DifficultyV1,
 } from "./com002-difficulty-routing-v1";
-import { generateCom002ReviewQuestionV2 } from "./com002-review-synthesis-v2";
+import { generateCom002ReviewQuestionV3 } from "./com002-review-synthesis-v3";
 
 const qlIds = Array.from(
   { length: 13 },
@@ -24,8 +24,8 @@ for (const qlId of qlIds) {
   const qlSupport = new Set<Com002DifficultyV1>();
   support.set(qlId, qlSupport);
   for (let index = 0; index < 40; index += 1) {
-    const seed = `difficulty-v1:${qlId}:${index}`;
-    const question = generateCom002ReviewQuestionV2({ qlId, seed });
+    const seed = `difficulty-v1-v3:${qlId}:${index}`;
+    const question = generateCom002ReviewQuestionV3({ qlId, seed });
     const replay = classifyCom002DifficultyV1(question);
     const decision = classifyCom002DifficultyV1(question);
 
@@ -53,6 +53,7 @@ assert.ok(distribution.Hard > 0, "COM-002 difficulty candidate must produce Hard
 assert.deepEqual([...support.get("COM-002-QL-013")!], ["Hard"]);
 
 console.log("[COM002-DIFFICULTY-V1-CANDIDATE]", {
+  contentGenerator: "V3",
   audited,
   distribution,
   qlSupport: Object.fromEntries(
