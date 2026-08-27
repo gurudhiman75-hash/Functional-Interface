@@ -52,20 +52,47 @@ Important split decisions remain enforced:
 - stated-base terminal digit remains distinct from decimal terminal-digit cycles in CP009;
 - Data Sufficiency remains owned by `DSF-001`.
 
+## Permanent source-seed reachability repair
+
+Static freeze review found a source-selection coupling defect before publication gates were opened. The first permanent projection used the same permanent seed both to choose a source prototype and to drive that source prototype's internal `seed % N` mode. For merged authorities, that can trap a retained prototype in only some residue classes even though prototype-level coverage looks green.
+
+Two concrete CP013 losses were identified:
+
+- `NUM-QL-237 / P011`: P011 was selected only on even permanent seeds, so its internal `seed % 4` family reached only mode 0 (place value) and mode 2 (largest n-digit boundary). Mode 1 (number of digits in a base) and mode 3 (smallest n-digit boundary) were unreachable.
+- `NUM-QL-241 / P021`: P021 was selected only when the permanent seed was divisible by 3, while P021 also uses `seed % 3`. It therefore reached only mode 0 (`NO_SOLUTION`); `ONE_SOLUTION` and `MULTIPLE_SOLUTIONS` were unreachable.
+
+The permanent projection now deliberately separates the two clocks:
+
+- `sourceIndex = (permanentSeed - 1) % sourcePrototypeCount`
+- `sourceSeed = floor((permanentSeed - 1) / sourcePrototypeCount) + 1`
+
+Thus each retained prototype receives source seeds 1, 2, 3, ... on successive visits while the permanent seed continues to control permanent replay and answer-position normalization. Single-source authorities naturally preserve `sourceSeed = permanentSeed`.
+
+The permanent audit now requires internal-mode reachability, not merely prototype identity:
+
+- QL237/P011 → modes 0, 1, 2, 3
+- QL238/P009 → modes 0, 1, 2, 3
+- QL239/P012 → modes 0, 1, 2
+- QL241/P021 → modes 0, 1, 2
+- QL245/P015 → modes 0, 1, 2
+
+This repair does not allocate a new QL and does not open any downstream lifecycle gate.
+
 ## English runtime contract
 
 `permanent-runtime.ts` projects certified discovery packages into permanent authority packages while preserving:
 
 - exact mathematical state and fingerprint;
 - source prototype ancestry;
+- explicit permanent seed and resolved source seed;
 - source task/representation;
 - canonical answer and independent verifier answer;
 - four distinct misconception-tagged options;
 - deterministic replay;
 - concise question-specific English explanation;
-- merged-authority source diversity.
+- merged-authority source and internal-mode diversity.
 
-Permanent answer position is deliberately normalized by seed so A/B/C/D are all guaranteed rather than left to accidental random coverage.
+Permanent answer position is deliberately normalized by permanent seed so A/B/C/D are all guaranteed rather than left to accidental random coverage.
 
 The English explanation exposes:
 
@@ -85,6 +112,8 @@ It checks:
 - deterministic replay;
 - permanent QL and authority identity;
 - certified source-prototype reachability;
+- prototype-internal mode reachability for every multi-mode source family;
+- valid decoupled source-seed progression;
 - canonical/verifier equality;
 - unique four-option MCQs;
 - exact correct-answer binding;
