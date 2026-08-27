@@ -20,6 +20,8 @@ A package-only `NUM-002` request is deliberately **not** claimed by CP013. It co
 
 The additive shared facade delegates every non-CP013 request to the earlier shared engine unchanged. This prevents CP013 from stealing CP008–CP012 or other Question Studio packages.
 
+The dedicated CP013 admin router is mounted before the legacy Number System Question Studio router. The route regression test checks the exact `router.use(...)` mount positions rather than import order, preventing a false-positive routing audit.
+
 ## Aggregate NUM-002 capability
 
 With CP013 added, the Question Studio capability surface becomes:
@@ -44,6 +46,8 @@ Next free Number System QL: `NUM-QL-248`.
 Each CP013 Studio question carries:
 
 - permanent QL and authority identity;
+- permanent generation seed;
+- resolved source-generator seed;
 - actual source task kind and representation;
 - retained discovery prototype;
 - hidden mathematical state;
@@ -54,7 +58,33 @@ Each CP013 Studio question carries:
 - canonical and verifier answers;
 - question-specific human explanation.
 
+The permanent seed and source seed are deliberately distinct fields. After the merged-authority reachability repair, a permanent seed chooses the retained source prototype while a decoupled source seed drives that prototype's internal state. Studio traceability therefore exposes:
+
+- `permanentSeed`: the permanent authority replay seed;
+- `sourceSeed`: the resolved source-generator seed;
+- `resolvedSourceSeed`: identical to `sourceSeed` for explicit traceability.
+
+It no longer labels the permanent seed as if it were the source seed.
+
 The explanation standard is `QUESTION_SPECIFIC_HUMAN_V1`: concept, direct strategy, two-to-four concrete steps and final answer. It is generated from the frozen question state rather than from a generic solution template.
+
+Final-answer labels are locale-native:
+
+- English: `Answer:`
+- Hindi: `उत्तर:`
+- Punjabi: `ਉੱਤਰ:`
+
+The Studio test explicitly rejects English `Answer:` leakage in Hindi/Punjabi final lines.
+
+## Reachability carried into Studio
+
+Question Studio consumes the repaired permanent/localized authority packages, so the restored internal states are available to review generation. In particular:
+
+- QL237/P011 can expose place value, number-of-digits, largest n-digit and smallest n-digit forms;
+- QL241/P021 can expose no-solution, one-solution and multiple-solution unknown-base topology;
+- P009 grouping and P012 bounded-valid-base mode families remain fully reachable.
+
+The Studio breadth audit remains a broad review-surface check; exact internal-mode guarantees are enforced in permanent and localization audits and again in cumulative landing.
 
 ## Admin route
 
