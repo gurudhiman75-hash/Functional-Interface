@@ -60,11 +60,14 @@ await runStage("COM-002 permanent QL corpus coverage", () => import("../knowledg
 await runStage("COM-002 editorial fact review", () => import("../knowledge-v1/computer-awareness/com002-editorial-review.test"));
 await runStage("COM-002 520-question English review synthesis", () => import("../knowledge-v1/computer-awareness/com002-review-synthesis.test"));
 await runStage("COM-002 26-question human review sampler", () => import("../knowledge-v1/computer-awareness/com002-human-review-wave1.test"));
-await runStage("COM-002 English freeze V1", () => import("../knowledge-v1/computer-awareness/com002-english-freeze-v1.test"));
+await runStage("COM-002 English human-review integrity blocker V1", () => import("../knowledge-v1/computer-awareness/com002-english-human-review-integrity-v1.test"));
+await runStage("COM-002 historical English freeze V1", () => import("../knowledge-v1/computer-awareness/com002-english-freeze-v1.test"));
 await runStage("COM-002 Hindi/Punjabi semantic lexicon coverage V1", () => import("../knowledge-v1/computer-awareness/com002-localization-lexicon-v1.test"));
 await runStage("COM-002 Hindi/Punjabi 1040-question localization parity V1", () => import("../knowledge-v1/computer-awareness/com002-localization-v1.test"));
 await runStage("COM-002 Hindi/Punjabi localization human review sampler V1", () => import("../knowledge-v1/computer-awareness/com002-localization-human-review-v1.test"));
 await runStage("COM-002 pre-freeze Question Studio activation blocker V1", () => import("./engines/com002-question-studio-activation-gate-v1.test"));
+await runStage("COM-002 520-question difficulty routing candidate V1", () => import("../knowledge-v1/computer-awareness/com002-difficulty-routing-v1.test"));
+await runStage("COM-002 fail-closed Question Studio candidate adapter V1", () => import("./engines/knowledge-v1-com002-candidate-adapter.test"));
 await runStage("COM-002 Hindi/Punjabi localization freeze candidate V1", () => import("../knowledge-v1/computer-awareness/com002-hi-pa-localization-freeze-v1.test"));
 
 console.log("Question Studio content engine foundation suite passed.");
