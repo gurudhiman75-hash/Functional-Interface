@@ -20,7 +20,7 @@ export const COM002_QUESTION_STUDIO_PACKAGE_ID = "COM-002" as const;
 export const COM002_REVIEW_CANDIDATE_RUNTIME_MODE = "review-only-candidate" as const;
 export const COM002_REVISION_POLICY_V1 = "SOURCE_GENERATOR_ONLY" as const;
 
-const qlIds = COM002_PERMANENT_QLS.map((ql) => ql.qlId);
+const qlIds: string[] = COM002_PERMANENT_QLS.map((ql) => ql.qlId);
 const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
 const supportedDifficulties: Com002DifficultyV1[] = ["Easy", "Medium", "Hard"];
 
