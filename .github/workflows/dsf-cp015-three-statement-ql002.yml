@@ -9,6 +9,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-015/**
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/foundation/**
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/discovery/ql-boundary-candidates.ts
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/**
       - .github/workflows/dsf-cp015-three-statement-ql002.yml
   workflow_dispatch:
 
@@ -48,3 +49,14 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/data-sufficiency/cp015/three-statement-foundation.test.mjs
+
+      - name: Bundle CP-015 NUM-001 source prototype audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-015/number-system-three-statement-prototypes.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp015/number-system-three-statement-prototypes.test.mjs
+      - name: Run CP-015 NUM-001 source prototype audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp015/number-system-three-statement-prototypes.test.mjs
