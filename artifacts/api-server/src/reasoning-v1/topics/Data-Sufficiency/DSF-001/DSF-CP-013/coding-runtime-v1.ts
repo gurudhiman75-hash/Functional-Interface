@@ -398,7 +398,8 @@ function structuralFingerprint(problem: CodingProblem, pair: Pair): string {
 export function generateDsfCp013CodingQuestion(seed: number) {
   const solveMode = modeForSeed(seed);
   const desiredClass = classForSeed(seed);
-  const context = CONTEXTS[Math.abs(seed) % CONTEXTS.length]!;
+  const contextIndex = Math.floor(Math.abs(seed) / DSF_CP013_CODING_SOLVE_MODES.length) % CONTEXTS.length;
+  const context = CONTEXTS[contextIndex]!;
   const random = createRng(seed, `problem:${solveMode}:${context.id}`);
   const anchor = pick(random, CODING_WORLDS);
   const intro = context.intros[Math.abs(seed * 5) % context.intros.length]!;
