@@ -76,9 +76,29 @@ function generateSource(prototypeId: string, seed: number) {
 
 type SourcePackage = ReturnType<typeof generateSource>;
 
-function chooseSourcePrototype(sourcePrototypes: readonly string[], seed: number) {
-  if (sourcePrototypes.length === 1) return sourcePrototypes[0]!;
-  return sourcePrototypes[(seed - 1) % sourcePrototypes.length]!;
+/**
+ * Source choice and source-generator seed are deliberately decoupled.
+ *
+ * For a merged authority, the permanent seed first selects one retained source
+ * prototype. The quotient of that selection cycle then becomes the source seed.
+ * As a result, each retained prototype receives source seeds 1, 2, 3, ... on
+ * successive visits instead of being trapped in one residue class of the same
+ * seed used for prototype selection. This prevents merged authorities from
+ * silently losing prototype-internal modes such as seed % 3 or seed % 4.
+ *
+ * Single-source authorities preserve the historical identity sourceSeed = seed.
+ */
+function chooseSourceProjection(sourcePrototypes: readonly string[], seed: number) {
+  const sourceCount = sourcePrototypes.length;
+  if (sourceCount < 1) throw new Error("NUM-CP-013 permanent authority has no retained source prototypes.");
+  const sourceIndex = (seed - 1) % sourceCount;
+  const sourceCycle = Math.floor((seed - 1) / sourceCount);
+  return Object.freeze({
+    sourcePrototypeId: sourcePrototypes[sourceIndex]!,
+    sourceSeed: sourceCycle + 1,
+    sourceIndex,
+    sourceCycle,
+  });
 }
 
 function normalizeOptionOrder(source: SourcePackage, seed: number) {
@@ -135,8 +155,9 @@ export function generateNumCp013Permanent(
   const allocation = NUM_CP013_PERMANENT_ALLOCATION.find((item) => item.qlId === qlId);
   if (!allocation) throw new Error(`Unknown NUM-CP-013 permanent QL: ${qlId}`);
 
-  const sourcePrototypeId = chooseSourcePrototype(allocation.sourcePrototypes, seed);
-  const sourceSeed = seed;
+  const projection = chooseSourceProjection(allocation.sourcePrototypes, seed);
+  const sourcePrototypeId = projection.sourcePrototypeId;
+  const sourceSeed = projection.sourceSeed;
   const source = generateSource(sourcePrototypeId, sourceSeed);
 
   if (source.temporaryPrototypeId !== sourcePrototypeId) {
