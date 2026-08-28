@@ -1,14 +1,6 @@
 name: Validate SRI Quant V4 Phase 3 surd foundations
 
 on:
-  pull_request:
-    branches:
-      - New-main
-    types: [opened, reopened, synchronize, ready_for_review]
-    paths:
-      - artifacts/api-server/src/quant-v4/shared/surds-indices/**
-      - artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/**
-      - .github/workflows/sri-v4-phase3-surd-foundations.yml
   workflow_dispatch:
 
 permissions:
