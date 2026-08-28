@@ -33,12 +33,13 @@ for (const authority of NUM_CP014_AUTHORITY_PROPOSAL) {
     assert.equal(q.lifecycle.testEligible, false);
     assert.equal(q.lifecycle.mockTestEligible, false);
     assert.equal(q.lifecycle.publiclyPublishable, false);
+    assert.notEqual(projection.answerSemantic, "undefined");
 
     sourceCoverage[authority.authorityId]!.add(projection.sourcePrototypeId);
     sourceSeedCoverage[projection.sourcePrototypeId] ??= new Set();
     sourceSeedCoverage[projection.sourcePrototypeId]!.add(projection.sourceSeed);
     answerPositionCoverage[authority.authorityId]!.add(Number(q.correctIndex));
-    semanticCoverage[authority.authorityId]!.add(String(q.answerSemantic));
+    semanticCoverage[authority.authorityId]!.add(projection.answerSemantic);
     if (q.representation) representationCoverage[authority.authorityId]!.add(String(q.representation));
 
     assert.ok(!JSON.stringify(projection).includes("NUM-QL-248"), `${authority.authorityId}/${authoritySeed}: QL248 leaked before allocation`);
@@ -95,6 +96,8 @@ console.log(JSON.stringify({
   proposedAuthorities: NUM_CP014_AUTHORITY_PROPOSAL.length,
   projections,
   sourceSeedSelectionDecoupled: true,
+  canonicalWave01RuntimeEnforced: true,
+  normalizedLegacyAnswerSemantics: true,
   allSourcePrototypesReachable: true,
   dynamicHiddenScalarSemanticsReachable: true,
   solutionClassModesReachable: [...solutionClasses].sort(),
