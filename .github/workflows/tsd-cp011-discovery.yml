@@ -63,3 +63,15 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/english-authoring-proof.test.ts
       - name: Prove CP011 native Hindi Punjabi localization
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/native-localization-proof.test.ts
+      - name: Prove CP011 multilingual questions-only review export
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/multilingual-review-export-proof.test.ts
+      - name: Export CP011 multilingual questions-only review file
+        run: |
+          mkdir -p /tmp/tsd-cp011-review
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/multilingual-review-export.ts /tmp/tsd-cp011-review/TSD-CP011-MULTILINGUAL-QUESTIONS.md
+      - name: Upload CP011 multilingual question review
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp011-multilingual-question-review
+          path: /tmp/tsd-cp011-review/TSD-CP011-MULTILINGUAL-QUESTIONS.md
+          if-no-files-found: error
