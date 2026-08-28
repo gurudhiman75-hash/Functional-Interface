@@ -1,23 +1,26 @@
-name: Validate Geometry Hindi Punjabi localisation review
+name: Validate Geometry Hindi Punjabi localisation review V2
 
 on:
   pull_request:
     branches: [New-main]
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
-      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/**
-      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-permanent-multilingual-review-v1.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/geometry-localization-editorial-v2-*.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/geometry-localization-options-v2.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/geometry-permanent-multilingual-review-v2.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-permanent-multilingual-review-v2.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-permanent-multilingual-review-v2.test.ts
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: geometry-multilingual-review-${{ github.ref }}
+  group: geometry-multilingual-review-v2-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-geometry-hindi-punjabi-localisation-review:
+  validate-geometry-hindi-punjabi-localisation-review-v2:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -31,18 +34,18 @@ jobs:
         run: corepack enable
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-      - name: Prove Geometry Hindi Punjabi localisation review runtime
+      - name: Prove Geometry Hindi Punjabi human editorial review V2
         run: |
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-permanent-multilingual-review-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-permanent-multilingual-review-v1.test.mjs
-          node artifacts/api-server/dist/quant-v4/geometry-permanent-multilingual-review-v1.test.mjs
-      - name: Export Geometry Hindi Punjabi localisation review pack
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-permanent-multilingual-review-v2.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-permanent-multilingual-review-v2.test.mjs
+          node artifacts/api-server/dist/quant-v4/geometry-permanent-multilingual-review-v2.test.mjs
+      - name: Export Geometry Hindi Punjabi human editorial review V2 pack
         run: |
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-permanent-multilingual-review-v1.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-permanent-multilingual-review-v1-export.mjs
-          (cd artifacts/api-server && node dist/quant-v4/geometry-permanent-multilingual-review-v1-export.mjs)
-      - name: Upload Geometry Hindi Punjabi localisation review pack
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-permanent-multilingual-review-v2.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-permanent-multilingual-review-v2-export.mjs
+          (cd artifacts/api-server && node dist/quant-v4/geometry-permanent-multilingual-review-v2-export.mjs)
+      - name: Upload Geometry Hindi Punjabi human editorial review V2 pack
         uses: actions/upload-artifact@v4
         with:
-          name: geometry-permanent-multilingual-review-v1
-          path: artifacts/api-server/dist/quant-v4/geometry-permanent-multilingual-review-v1
+          name: geometry-permanent-multilingual-review-v2
+          path: artifacts/api-server/dist/quant-v4/geometry-permanent-multilingual-review-v2
           if-no-files-found: error
           retention-days: 30
