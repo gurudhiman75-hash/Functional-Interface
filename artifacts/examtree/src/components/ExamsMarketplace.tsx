@@ -288,12 +288,13 @@ export default function ExamsMarketplace() {
                   </div>
                   <p className="mt-5 truncate text-[10px] font-black uppercase tracking-[0.15em] text-[#6657e8]">{seriesItem.examName}</p>
                   <h3 className="mt-1.5 line-clamp-2 min-h-[48px] text-[17px] font-bold leading-6 tracking-[-0.02em] text-slate-950">{seriesItem.name}</h3>
+                  <span className="sr-only">{formatCount(seriesItem.fullLengthTestCount)} full-length tests</span>
                   <div className="mt-4 grid grid-cols-2 gap-2">
                     <div className="rounded-xl border border-white bg-white/75 px-3 py-2.5"><p className="text-lg font-black tracking-tight text-slate-950">{formatCount(seriesItem.fullLengthTestCount)}</p><p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-500">Full tests</p></div>
                     <div className="rounded-xl border border-white bg-white/75 px-3 py-2.5"><p className="text-lg font-black tracking-tight text-slate-950">{formatCount(seriesItem.questionCount)}</p><p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-500">Questions</p></div>
                   </div>
                   {seriesItem.attemptCount > 0 ? <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500"><Flame className="h-3.5 w-3.5 text-orange-500" />{formatCount(seriesItem.attemptCount)} attempts</p> : <div className="mt-3" />}
-                  <Button className="mt-auto min-h-11 w-full rounded-xl bg-[#6657e8] text-white hover:bg-[#594bd9]" onClick={() => goSeries(seriesItem.id)}>Open Series <ArrowRight className="ml-1.5 h-4 w-4" /></Button>
+                  <Button className="mt-auto min-h-11 w-full rounded-xl bg-[#6657e8] text-white hover:bg-[#594bd9]" onClick={() => goSeries(seriesItem.id)}>Open series <ArrowRight className="ml-1.5 h-4 w-4" /></Button>
                 </article>
               ))}
             </div>
