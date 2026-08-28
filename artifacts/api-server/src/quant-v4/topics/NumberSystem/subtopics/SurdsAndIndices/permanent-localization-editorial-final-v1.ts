@@ -19,12 +19,33 @@ export function localizeSriEditorialFinalSurfaceV1(
       : `ਦਿੱਤੇ ਸੰਬੰਧ ${match[1]} ਅਤੇ ${match[2]} ਹਨ।`;
   }
 
-  // C005-F quadratic-in-a^x stem.
+  // C005-F quadratic-in-a^x stems and derived equation shell.
   match = text.match(/^If (\(.+?\)\^2 - .+? = 0), find the integer x\.$/u);
   if (match) {
     return locale === "hi-IN"
       ? `यदि ${match[1]}, तो पूर्णांक x ज्ञात कीजिए।`
       : `ਜੇ ${match[1]}, ਤਾਂ ਪੂਰਨ ਅੰਕ x ਪਤਾ ਕਰੋ।`;
+  }
+
+  match = text.match(/^Solve (.+?) for integer x\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `${match[1]} को हल कीजिए, जहाँ x पूर्णांक है।`
+      : `${match[1]} ਨੂੰ ਹੱਲ ਕਰੋ, ਜਿੱਥੇ x ਪੂਰਨ ਅੰਕ ਹੈ।`;
+  }
+
+  match = text.match(/^Using (y=.+?), determine the integer x satisfying (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `${match[1]} का उपयोग करके वह पूर्णांक x ज्ञात कीजिए जो ${match[2]} को संतुष्ट करता है।`
+      : `${match[1]} ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਉਹ ਪੂਰਨ ਅੰਕ x ਪਤਾ ਕਰੋ ਜੋ ${match[2]} ਨੂੰ ਸੰਤੁਸ਼ਟ ਕਰਦਾ ਹੈ।`;
+  }
+
+  match = text.match(/^The given equation is (.+?) for integer x\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `दिया गया समीकरण ${match[1]} है, जहाँ x पूर्णांक है।`
+      : `ਦਿੱਤਾ ਸਮੀਕਰਨ ${match[1]} ਹੈ, ਜਿੱਥੇ x ਪੂਰਨ ਅੰਕ ਹੈ।`;
   }
 
   // C005-G derived common-exponent explanation shells.
@@ -87,9 +108,11 @@ export function localizeSriEditorialFinalSurfaceV1(
       : `ਸੰਯੁਗਮੀ ਗੁਣਨਫਲ ${match[1]} ਹੈ।`;
   }
 
-  // C009-B/C/D/E direct rationalisation stems missed by token fallback.
+  // C009-B/C/D/E direct fraction-only rationalisation stems. Do not capture
+  // longer C009 method sentences such as "Rationalise each..." or
+  // "Rationalise with the conjugate..."; those belong to the proven core.
   match = text.match(/^Rationalise (.+)\.$/u);
-  if (match) {
+  if (match && match[1]!.startsWith("\\frac{")) {
     return locale === "hi-IN"
       ? `${match[1]} का हर परिमेय कीजिए।`
       : `${match[1]} ਦਾ ਹਰ ਪਰਿਮੇਯ ਕਰੋ।`;
