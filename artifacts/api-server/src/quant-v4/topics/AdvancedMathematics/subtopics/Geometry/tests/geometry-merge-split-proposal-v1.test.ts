@@ -10,7 +10,7 @@ import {
 } from "../permanent-review/geometry-merge-split-proposal-v1";
 
 assert.equal(GEO_TEMPORARY_CANDIDATE_REGISTRY_V1.length, 81);
-assert.equal(GEO_MERGE_SPLIT_PROPOSAL_V1.length, 74, "Geometry strict semantic family count drifted");
+assert.equal(GEO_MERGE_SPLIT_PROPOSAL_V1.length, 75, "Geometry strict semantic family count drifted");
 
 const mappedIds = GEO_MERGE_SPLIT_PROPOSAL_V1.flatMap((family) => family.candidateIds);
 assert.equal(mappedIds.length, 81, "Every temporary candidate must map to exactly one proposed family");
@@ -47,7 +47,7 @@ const expectedFamiliesByCp = Object.freeze({
   "GEO-CP-010": 5,
   "GEO-CP-011": 6,
   "GEO-CP-012": 5,
-  "GEO-CP-013": 3,
+  "GEO-CP-013": 4,
   "GEO-CP-014": 7,
 } as const);
 
@@ -57,9 +57,9 @@ for (const [cpId, expectedCount] of Object.entries(expectedFamiliesByCp)) {
 }
 
 const mergedFamilies = GEO_MERGE_SPLIT_PROPOSAL_V1.filter((family) => family.candidateIds.length > 1);
-assert.equal(mergedFamilies.length, 7, "Only seven intentional merge groups are authorized in the strict proposal");
+assert.equal(mergedFamilies.length, 6, "Only six intentional merge groups are authorized in the strict proposal");
 const mergeSavings = mergedFamilies.reduce((sum, family) => sum + family.candidateIds.length - 1, 0);
-assert.equal(mergeSavings, 7, "The strict proposal must compress exactly seven duplicate authorities: 81 to 74");
+assert.equal(mergeSavings, 6, "The strict proposal must compress exactly six duplicate authorities: 81 to 75");
 assert.deepEqual(
   mergedFamilies.map((family) => family.proposalKey).sort(),
   [
@@ -68,7 +68,6 @@ assert.deepEqual(
     "CP006_CENTROID_DIRECT_INVERSE",
     "CP006_INCENTRE_ANGLE_DIRECT_INVERSE",
     "CP006_TRIANGLE_CENTRE_IDENTIFICATION",
-    "CP013_SECANT_SECANT_DIRECT_REVERSE",
     "CP014_PARALLEL_CONGRUENCE_CPCT_SYNTHESIS",
   ].sort(),
   "Unexpected merge group entered or left the strict proposal",
@@ -87,6 +86,19 @@ assert.deepEqual(
   "Right-triangle orthocentre location must remain a separate learner authority",
 );
 
+const directSecant = GEO_MERGE_SPLIT_PROPOSAL_V1.find((family) => family.proposalKey === "CP013_SECANT_SECANT_MISSING_WHOLE");
+assert.deepEqual(
+  directSecant?.candidateIds,
+  ["GEO-TMP-CP013-SECANT-SECANT-V1"],
+  "Linear missing-whole secant recovery must remain its own authority",
+);
+const reverseSecant = GEO_MERGE_SPLIT_PROPOSAL_V1.find((family) => family.proposalKey === "CP013_SECANT_SECANT_REVERSE_EXTERNAL_QUADRATIC");
+assert.deepEqual(
+  reverseSecant?.candidateIds,
+  ["GEO-TMP-GAP-W12-CP013-REVERSE-UNKNOWN-EXTERNAL-SECANT-V1"],
+  "Quadratic reverse external-secant recovery must remain separate from linear missing-whole recovery",
+);
+
 const explicitlyDeferred = GEO_GAP_CLOSURE_LEDGER_V1.filter((entry) => entry.state === "DEFERRED_SOURCE_EVIDENCE");
 assert.equal(explicitlyDeferred.length, 5);
 for (const entry of explicitlyDeferred) {
@@ -102,8 +114,8 @@ assert.equal(otherChapter.length, 1);
 assert.match(otherChapter[0]?.gapId ?? "", /MULTI_THEOREM_STATEMENT_COMPARISON_OR_DATA_SUFFICIENCY/);
 
 assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.temporaryCandidateCount, 81);
-assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.proposedSemanticFamilyCount, 74);
-assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.expectedProposedSemanticFamilyCount, 74);
+assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.proposedSemanticFamilyCount, 75);
+assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.expectedProposedSemanticFamilyCount, 75);
 assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.permanentQlCount, 0);
 assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.permanentQlIdsReserved, false);
 assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.permanentAllocationAuthorized, false);
@@ -116,7 +128,7 @@ assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.testEligibilityAuthorized, false)
 assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.publicPublicationAuthorized, false);
 
 console.log(JSON.stringify({
-  status: "PASS_GEOMETRY_STRICT_81_TO_74_MERGE_SPLIT_PROPOSAL_V1",
+  status: "PASS_GEOMETRY_STRICT_81_TO_75_MERGE_SPLIT_PROPOSAL_V1",
   temporaryCandidates: mappedIds.length,
   proposedSemanticFamilies: GEO_MERGE_SPLIT_PROPOSAL_V1.length,
   intentionalMergeGroups: mergedFamilies.length,
