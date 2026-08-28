@@ -14,4 +14,4 @@ pnpm install --frozen-lockfile --prod=false --force
 pnpm run build:hosting
 
 # Build the API server using the established esbuild production bundle.
-API_PRODUCTION_ONLY=1 node artifacts/api-server/build.mjs
+node artifacts/api-server/build.mjs
