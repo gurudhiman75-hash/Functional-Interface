@@ -2,7 +2,7 @@
 
 **Authority:** Composite Geometry Revision 3  
 **Prototype remediation:** Waves 1–13  
-**State:** `STRICT_81_TO_74_PROPOSAL_IMPLEMENTED__CI_PROOF_PENDING`  
+**State:** `STRICT_81_TO_75_PROPOSAL_IMPLEMENTED__CI_PROOF_PENDING`  
 **Permanent QLs:** `0`  
 **Frozen solve modes:** `0`
 
@@ -21,9 +21,12 @@ The canonical executable review corpus contains **81** candidates: 38 baseline d
 
 ## Strict merge/split proposal
 
-The earlier experimental 81→45 compression was rejected as over-compressed. A subsequent 81→73 draft was also corrected before proof after final semantic review found that right-triangle orthocentre **location** is not the same learner authority as centre-name identification from concurrency.
+The experimental 81→45 compression was rejected as over-compressed. Two later pre-proof drafts were also tightened during source-contract review:
 
-The current authority-based proposal is **81 temporary candidates → 74 semantic learner families**.
+- 81→73 incorrectly grouped right-triangle orthocentre **location** with centre-name identification;
+- 81→74 incorrectly grouped linear missing-whole secant recovery with reverse unknown-external secant recovery, whose whole segment contains the unknown and therefore produces a quadratic.
+
+The current authority-based proposal is **81 temporary candidates → 75 semantic learner families**.
 
 Expected family counts by checkpoint:
 
@@ -40,40 +43,43 @@ CP009 7
 CP010 5
 CP011 6
 CP012 5
-CP013 3
+CP013 4
 CP014 7
-TOTAL 74
+TOTAL 75
 ```
 
-Only seven intentional merge groups remain, producing seven total reductions:
+Only six intentional merge groups remain, producing six total reductions:
 
 1. positive RHS/SAS congruence-criterion selection;
 2. reversible perimeter↔side similarity scaling;
 3. centroid 2:1 direct/inverse length recovery;
 4. centre-name identification from defining concurrency for circumcentre/incentre;
 5. incentre-angle direct/inverse recovery;
-6. secant-secant direct/reverse unknown-position recovery;
-7. parallel-angle → congruence → CPCT synthesis with ASA/SAS criterion parameterization.
+6. parallel-angle → congruence → CPCT synthesis with ASA/SAS criterion parameterization.
 
-The right-triangle orthocentre-location prototype is explicitly separate from centre-name identification: its stem already names the orthocentre and asks where it lies, and it has a distinct audited source-gap contract.
+Explicitly split after final source-contract review:
+
+- right-triangle orthocentre location vs generic centre-name identification;
+- linear missing-whole secant recovery vs reverse unknown-external quadratic secant recovery.
 
 All other executable candidates remain distinct because their governing equation, theorem direction, requested output, misconception structure, or essential solve graph changes.
 
 ## Proof state
 
-The 52-gap closure and canonical 81-candidate registry were already proven in retained Geometry CI. The strict 81→74 mapping test is wired into the same retained gate and must prove:
+The 52-gap closure and canonical 81-candidate registry were already proven in retained Geometry CI. The strict 81→75 mapping test is wired into the same retained gate and must prove:
 
-- exactly 74 proposal families;
+- exactly 75 proposal families;
 - all 81 candidates mapped exactly once;
 - no unknown or duplicated candidate IDs;
 - exact per-CP family counts;
-- exactly seven intentional merge groups and seven merge savings;
-- explicit regression separation of right-triangle orthocentre location from generic centre-name identification;
+- exactly six intentional merge groups and six merge savings;
+- regression separation of right-triangle orthocentre location from generic centre-name identification;
+- regression separation of linear direct secant recovery from quadratic reverse external-secant recovery;
 - all five source-deferred gaps remain absent;
 - the Data Sufficiency/statement-evaluation format remains outside Geometry ownership;
 - permanent QL IDs and all downstream lifecycle gates remain locked.
 
-Until that repository job is green, 74 is a review proposal rather than an approved or permanent count.
+Until that repository job is green, 75 is a review proposal rather than an approved or permanent count.
 
 ## Five explicit source deferrals
 
@@ -116,4 +122,4 @@ prMergeAuthorized = false
 
 ## Next lifecycle gate
 
-Prove the strict 81→74 proposal in retained CI. If green, the next gate is explicit approval of the permanent-family proposal before any `GEO-QL-*` numbering, solve-mode freeze, English freeze, localisation, Question Studio activation, Question Bank writes, test eligibility, publication, or PR merge authorization.
+Prove the strict 81→75 proposal in retained CI. If green, the next gate is explicit approval of the permanent-family proposal before any `GEO-QL-*` numbering, solve-mode freeze, English freeze, localisation, Question Studio activation, Question Bank writes, test eligibility, publication, or PR merge authorization.
