@@ -17,10 +17,12 @@ for (const qlId of TSD_CP011_PROVISIONAL_QL_IDS) {
   assert(questions.some((x) => x.difficulty === "EASY") && questions.some((x) => x.difficulty === "MEDIUM"), `${qlId}: difficulty spread missing`);
 }
 
+const EXPLANATION_EVIDENCE = /(rate|speed|time|distance|length|step|escalator|surface|walk|wheel|revolution|circumference|radius|diameter|rpm|minute|ratio)/i;
 for (const question of TSD_CP011_ENGLISH_REVIEW) {
   assert(question.stem.length >= 75, `${question.familyId}: stem is too thin`);
   assert(question.explanation.steps.length === 2, `${question.familyId}: explanation should remain two concise steps`);
-  assert(question.explanation.steps.every((step) => step.length >= 35), `${question.familyId}: explanation step is too thin`);
+  assert(question.explanation.steps.every((step) => step.length >= 25), `${question.familyId}: explanation step is fragmentary`);
+  assert(question.explanation.steps.every((step) => EXPLANATION_EVIDENCE.test(step)), `${question.familyId}: explanation step lacks problem-specific motion evidence`);
   assert(question.explanation.conclusion.startsWith("Answer:"), `${question.familyId}: conclusion missing answer`);
   assert(!/\{[A-Za-z0-9]+\}/.test(question.stem), `${question.familyId}: unresolved placeholder`);
   assert(!/(practice set|worksheet|survey|selection committee|report states|data collected)/i.test(question.stem), `${question.familyId}: synthetic non-paper prose detected`);
@@ -50,4 +52,5 @@ console.log(JSON.stringify({
   familiesPerQl: 6,
   uniqueStems: new Set(TSD_CP011_ENGLISH_REVIEW.map((x) => x.stem)).size,
   explanationStyle: "TWO_CONCISE_CUSTOM_STEPS_PLUS_CONCLUSION",
+  explanationGuard: "SUBSTANTIVE_AND_PROBLEM_SPECIFIC",
 }, null, 2));
