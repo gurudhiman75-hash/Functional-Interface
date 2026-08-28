@@ -18,6 +18,13 @@ export function localizeSriC008C009FinalizedSurfaceV1(
       : `ਜਾਣੀ ਕਰਣੀਗਤ ਸੰਖਿਆ = ${knownRadicand[1]}।`;
   }
 
+  const orderedPair = text.match(/^Find the ordered pair \(A,B\) when (.+)\.$/u);
+  if (orderedPair) {
+    return locale === "hi-IN"
+      ? `(A,B) क्रमित युग्म ज्ञात कीजिए, जब ${orderedPair[1]}।`
+      : `(A,B) ਕ੍ਰਮਿਤ ਜੋੜਾ ਪਤਾ ਕਰੋ, ਜਦੋਂ ${orderedPair[1]}।`;
+  }
+
   const truthSet = text.match(/^Truth set: (.+)\.$/u);
   if (truthSet) {
     const value = localizeTruthSetValue(truthSet[1], locale);
