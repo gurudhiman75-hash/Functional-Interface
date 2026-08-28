@@ -61,3 +61,5 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/allocation-proof.test.ts
       - name: Prove CP011 English review authoring
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/english-authoring-proof.test.ts
+      - name: Prove CP011 native Hindi Punjabi localization
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/native-localization-proof.test.ts
