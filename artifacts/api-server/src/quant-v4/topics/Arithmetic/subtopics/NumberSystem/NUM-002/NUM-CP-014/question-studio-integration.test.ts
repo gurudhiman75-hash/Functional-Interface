@@ -64,7 +64,8 @@ await assert.rejects(
   /Hard difficulty only/u,
 );
 
-const num002 = listQuestionStudioPackages().find((pkg: any) => String(pkg.packageId) === "NUM-002") as any;
+const allPackages = listQuestionStudioPackages() as any[];
+const num002 = allPackages.find((pkg: any) => String(pkg.packageId) === "NUM-002") as any;
 assert.ok(num002, "NUM-002 aggregate capability missing");
 assert.equal(num002.permanentQlCount, 88);
 assert.equal(num002.permanentQlIds[0], "NUM-QL-166");
@@ -77,6 +78,8 @@ for (const cpId of ["NUM-CP-008", "NUM-CP-009", "NUM-CP-010", "NUM-CP-011", "NUM
   assert.ok(num002.cpIds.includes(cpId), `${cpId}: aggregate CP capability missing`);
 }
 assert.equal(num002.releaseId, "NUM-002-QS-CP008-CP014-MULTILINGUAL-FROZEN-V1");
+assert.ok(allPackages.some((pkg: any) => String(pkg.packageId) === "TRG-001"), "CP014 aggregate lost TRG-001 capability");
+assert.ok(allPackages.some((pkg: any) => String(pkg.packageId) === "TRG-002"), "CP014 aggregate lost TRG-002 capability");
 
 const sharedCp014 = await generateQuestion({ canonicalProblemId: "NUM-CP-014", questionLanguageId: "NUM-QL-248", language: "hi", difficulty: "Hard", seed: "cp014-shared-hi", count: 2 });
 assert.ok(sharedCp014.questions.every((q: any) => q.canonicalProblemId === "NUM-CP-014"));
@@ -98,14 +101,20 @@ const cp014RouteSource = readFileSync(resolve(process.cwd(), "artifacts/api-serv
 const facadeSource = readFileSync(resolve(process.cwd(), "artifacts/api-server/src/question-studio/shared-generation-engine-cp014.ts"), "utf8");
 
 const cp014Mount = "router.use(adminQuestionStudioCp014Router);";
+const trigMount = "router.use(adminQuestionStudioTrigonometryRouter);";
 const cp013Mount = "router.use(adminQuestionStudioCp013Router);";
 assert.ok(registrySource.includes('import adminQuestionStudioCp014Router from "./admin-question-studio-cp014";'));
-assert.ok(registrySource.indexOf(cp014Mount) >= 0 && registrySource.indexOf(cp013Mount) >= 0);
-assert.ok(registrySource.indexOf(cp014Mount) < registrySource.indexOf(cp013Mount), "CP014 registry router must precede CP013");
+assert.ok(registrySource.includes('import adminQuestionStudioTrigonometryRouter from "./admin-question-studio-trigonometry";'));
+const cp014MountIndex = registrySource.indexOf(cp014Mount);
+const trigMountIndex = registrySource.indexOf(trigMount);
+const cp013MountIndex = registrySource.indexOf(cp013Mount);
+assert.ok(cp014MountIndex >= 0 && trigMountIndex >= 0 && cp013MountIndex >= 0);
+assert.ok(cp014MountIndex < trigMountIndex, "CP014 aggregate router must precede Trigonometry capability router");
+assert.ok(trigMountIndex < cp013MountIndex, "Trigonometry router must remain before CP013");
 for (const marker of ["isNumCp014QuestionStudioRequest", "shared-generation-engine-cp014", 'canonicalProblemId = asString(req.body?.canonicalProblemId)', 'questionLanguageId = asString(req.body?.questionLanguageId)', "quant-v4-num-cp014"]) {
   assert.ok(cp014RouteSource.includes(marker), `CP014 admin route missing marker: ${marker}`);
 }
-for (const marker of ["generateNumCp014QuestionStudioBatch", "isNumCp014QuestionStudioRequest", "CP008-CP014-MULTILINGUAL-FROZEN-V1", "permanentQlCount: 88", "return generatePreviousQuestion(request)"]) {
+for (const marker of ["shared-generation-engine-trigonometry", "generateNumCp014QuestionStudioBatch", "isNumCp014QuestionStudioRequest", "CP008-CP014-MULTILINGUAL-FROZEN-V1", "permanentQlCount: 88", "return generatePreviousQuestion(request)"]) {
   assert.ok(facadeSource.includes(marker), `CP014 shared facade missing marker: ${marker}`);
 }
 
@@ -117,7 +126,8 @@ console.log(JSON.stringify({
   nextFreeQl: "NUM-QL-254",
   packageOnlyFallbackPreserved: true,
   cp012Cp013RoutingRegression: "PASS",
-  registryMountOrder: "CP014_BEFORE_CP013",
+  trigonometryCapabilitiesPreserved: true,
+  registryMountOrder: "CP014_BEFORE_TRIGONOMETRY_BEFORE_CP013",
   supportedLanguages: ["en", "hi", "pa"],
   questionBankWritable: false,
   testEligible: false,
