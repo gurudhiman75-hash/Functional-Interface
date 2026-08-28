@@ -3,7 +3,7 @@ name: Validate TSD CP-004 Relative Motion Foundation
 on:
   pull_request:
     paths:
-      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-001/**"
       - ".github/workflows/validate-tsd-cp004-relative-motion-foundation.yml"
   workflow_dispatch:
 
