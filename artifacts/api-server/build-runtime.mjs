@@ -17,7 +17,12 @@ await esbuild({
   platform: "node",
   bundle: true,
   format: "esm",
-  outfile: path.resolve(distDir, "index.mjs"),
+  // esbuild-plugin-pino adds transport/worker entry points. That makes this a
+  // multi-entry build even though the application has one explicit entry.
+  // Multi-entry esbuild builds must use outdir rather than outfile.
+  outdir: distDir,
+  entryNames: "[name]",
+  outExtension: { ".js": ".mjs" },
   logLevel: "info",
   sourcemap: false,
   external: [
