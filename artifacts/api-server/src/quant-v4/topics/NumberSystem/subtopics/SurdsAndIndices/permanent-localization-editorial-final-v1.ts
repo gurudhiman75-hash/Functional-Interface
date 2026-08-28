@@ -11,6 +11,15 @@ export function localizeSriEditorialFinalSurfaceV1(
 ): string | undefined {
   let match: RegExpMatchArray | null;
 
+  // C001-E: generic token fallback previously moved the postposition before
+  // the mathematical expression ("का मान... 17^0"). Preserve natural order.
+  match = text.match(/^Find the value of (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `${match[1]} का मान ज्ञात कीजिए।`
+      : `${match[1]} ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।`;
+  }
+
   // C004-F derived explanation shell: X while Y.
   match = text.match(/^The supplied (?:relation|condition) is (?:Given )?(.+?) while (.+)\.$/u);
   if (match) {
