@@ -2,7 +2,7 @@
 
 **Authority:** Composite Geometry Revision 3  
 **Prototype remediation:** Waves 1–13  
-**State:** `STRICT_81_TO_73_PROPOSAL_IMPLEMENTED__CI_PROOF_PENDING`  
+**State:** `STRICT_81_TO_74_PROPOSAL_IMPLEMENTED__CI_PROOF_PENDING`  
 **Permanent QLs:** `0`  
 **Frozen solve modes:** `0`
 
@@ -21,7 +21,9 @@ The canonical executable review corpus contains **81** candidates: 38 baseline d
 
 ## Strict merge/split proposal
 
-The earlier experimental 81→45 compression was rejected as over-compressed. The corrected authority-based proposal is **81 temporary candidates → 73 semantic learner families**.
+The earlier experimental 81→45 compression was rejected as over-compressed. A subsequent 81→73 draft was also corrected before proof after final semantic review found that right-triangle orthocentre **location** is not the same learner authority as centre-name identification from concurrency.
+
+The current authority-based proposal is **81 temporary candidates → 74 semantic learner families**.
 
 Expected family counts by checkpoint:
 
@@ -31,7 +33,7 @@ CP002 3
 CP003 7
 CP004 4
 CP005 6
-CP006 8
+CP006 9
 CP007 3
 CP008 5
 CP009 7
@@ -40,35 +42,38 @@ CP011 6
 CP012 5
 CP013 3
 CP014 7
-TOTAL 73
+TOTAL 74
 ```
 
-Only seven intentional merge groups remain, producing eight total reductions:
+Only seven intentional merge groups remain, producing seven total reductions:
 
 1. positive RHS/SAS congruence-criterion selection;
 2. reversible perimeter↔side similarity scaling;
 3. centroid 2:1 direct/inverse length recovery;
-4. triangle-centre identification from defining construction (circumcentre/incentre/orthocentre variants);
+4. centre-name identification from defining concurrency for circumcentre/incentre;
 5. incentre-angle direct/inverse recovery;
 6. secant-secant direct/reverse unknown-position recovery;
 7. parallel-angle → congruence → CPCT synthesis with ASA/SAS criterion parameterization.
+
+The right-triangle orthocentre-location prototype is explicitly separate from centre-name identification: its stem already names the orthocentre and asks where it lies, and it has a distinct audited source-gap contract.
 
 All other executable candidates remain distinct because their governing equation, theorem direction, requested output, misconception structure, or essential solve graph changes.
 
 ## Proof state
 
-The 52-gap closure and canonical 81-candidate registry were already proven in retained Geometry CI. The new strict 81→73 mapping test is now wired into the same retained gate and must prove:
+The 52-gap closure and canonical 81-candidate registry were already proven in retained Geometry CI. The strict 81→74 mapping test is wired into the same retained gate and must prove:
 
-- exactly 73 proposal families;
+- exactly 74 proposal families;
 - all 81 candidates mapped exactly once;
 - no unknown or duplicated candidate IDs;
 - exact per-CP family counts;
-- exactly seven intentional merge groups and eight merge savings;
+- exactly seven intentional merge groups and seven merge savings;
+- explicit regression separation of right-triangle orthocentre location from generic centre-name identification;
 - all five source-deferred gaps remain absent;
 - the Data Sufficiency/statement-evaluation format remains outside Geometry ownership;
 - permanent QL IDs and all downstream lifecycle gates remain locked.
 
-Until that repository job is green, 73 is a review proposal rather than an approved or permanent count.
+Until that repository job is green, 74 is a review proposal rather than an approved or permanent count.
 
 ## Five explicit source deferrals
 
@@ -111,4 +116,4 @@ prMergeAuthorized = false
 
 ## Next lifecycle gate
 
-Prove the strict 81→73 proposal in retained CI. If green, the next gate is explicit approval of the permanent-family proposal before any `GEO-QL-*` numbering, solve-mode freeze, English freeze, localisation, Question Studio activation, Question Bank writes, test eligibility, publication, or PR merge authorization.
+Prove the strict 81→74 proposal in retained CI. If green, the next gate is explicit approval of the permanent-family proposal before any `GEO-QL-*` numbering, solve-mode freeze, English freeze, localisation, Question Studio activation, Question Bank writes, test eligibility, publication, or PR merge authorization.
