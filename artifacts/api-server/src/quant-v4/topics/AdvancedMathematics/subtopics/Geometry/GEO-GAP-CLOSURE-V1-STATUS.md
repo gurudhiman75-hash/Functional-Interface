@@ -2,13 +2,13 @@
 
 **Authority:** Composite Geometry Revision 3  
 **Prototype remediation:** Waves 1–13  
-**State:** `EXECUTABLE_CLOSURE_PROVEN__MERGE_SPLIT_REVIEW_ACTIVE`  
+**State:** `STRICT_81_TO_73_PROPOSAL_IMPLEMENTED__CI_PROOF_PENDING`  
 **Permanent QLs:** `0`  
 **Frozen solve modes:** `0`
 
-## Hard endpoint
+## Proven source-gap endpoint
 
-The Geometry source-gap remediation wave sequence is finished. Wave 13 is the final prototype-adding wave. The immutable Source Saturation Audit V1 contained **52** `newGapCandidates`; Closure Ledger V1 classifies every one exactly once:
+The remediation wave sequence is finished. The immutable Source Saturation Audit V1 contained **52** `newGapCandidates`; Closure Ledger V1 classifies every one exactly once:
 
 - **37** — `IMPLEMENTED`
 - **9** — `MERGED_EXISTING_AUTHORITY`
@@ -17,30 +17,58 @@ The Geometry source-gap remediation wave sequence is finished. Wave 13 is the fi
 - **0** — open
 - **0** — unclassified
 
-Final temporary executable candidate count = **81**:
-- 38 baseline discovery prototypes;
-- +25 approved/frozen candidates from Waves 1–7;
-- +18 review candidates from Waves 8–13.
+The canonical executable review corpus contains **81** candidates: 38 baseline discovery prototypes, 25 Waves 1–7 additions, and 18 Waves 8–13 additions. The registry derives them directly from source modules and rejects ID collisions/count drift.
 
-The canonical `geometry-temporary-candidate-registry-v1.ts` now derives these 81 candidates directly from baseline Phases 1–5 and remediation Waves 1–13 and rejects ID collisions/count drift before permanent merge/split review.
+## Strict merge/split proposal
 
-## Final executable closure proof
+The earlier experimental 81→45 compression was rejected as over-compressed. The corrected authority-based proposal is **81 temporary candidates → 73 semantic learner families**.
 
-Current proven head: `fc0c125e3e040099842fd3cf30c4abb3453db96f`  
-GitHub Actions run: `33133733541`  
-Job: `98728955462` (`validate-geometry-phase5`)  
-Conclusion: `success`
+Expected family counts by checkpoint:
 
-The final retained gate executes:
+```text
+CP001 4
+CP002 3
+CP003 7
+CP004 4
+CP005 6
+CP006 8
+CP007 3
+CP008 5
+CP009 7
+CP010 5
+CP011 6
+CP012 5
+CP013 3
+CP014 7
+TOTAL 73
+```
 
-- Geometry Phases 0–5;
-- remediation Waves 1–13;
-- the immutable source saturation audit;
-- exhaustive 52-gap Closure Ledger V1;
-- canonical 81-candidate review-registry proof;
-- closure-report export.
+Only seven intentional merge groups remain, producing eight total reductions:
 
-This proves executable closure and registry integrity. It does **not** constitute product-owner English approval, permanent allocation, solve-mode freeze, localisation approval, or Question Studio activation.
+1. positive RHS/SAS congruence-criterion selection;
+2. reversible perimeter↔side similarity scaling;
+3. centroid 2:1 direct/inverse length recovery;
+4. triangle-centre identification from defining construction (circumcentre/incentre/orthocentre variants);
+5. incentre-angle direct/inverse recovery;
+6. secant-secant direct/reverse unknown-position recovery;
+7. parallel-angle → congruence → CPCT synthesis with ASA/SAS criterion parameterization.
+
+All other executable candidates remain distinct because their governing equation, theorem direction, requested output, misconception structure, or essential solve graph changes.
+
+## Proof state
+
+The 52-gap closure and canonical 81-candidate registry were already proven in retained Geometry CI. The new strict 81→73 mapping test is now wired into the same retained gate and must prove:
+
+- exactly 73 proposal families;
+- all 81 candidates mapped exactly once;
+- no unknown or duplicated candidate IDs;
+- exact per-CP family counts;
+- exactly seven intentional merge groups and eight merge savings;
+- all five source-deferred gaps remain absent;
+- the Data Sufficiency/statement-evaluation format remains outside Geometry ownership;
+- permanent QL IDs and all downstream lifecycle gates remain locked.
+
+Until that repository job is green, 73 is a review proposal rather than an approved or permanent count.
 
 ## Five explicit source deferrals
 
@@ -50,18 +78,15 @@ This proves executable closure and registry integrity. It does **not** constitut
 4. `GEO-CP-008/KITE_TRAPEZIUM_PROPERTY_RECOGNITION`
 5. `GEO-CP-011/CYCLIC_CONVERSE`
 
-Each has a concrete reopen trigger in `geometry-gap-closure-ledger-v1.ts`. These gaps are not silently ignored and do not justify fabricated questions without target-exam evidence.
+Each has a concrete reopen trigger in `geometry-gap-closure-ledger-v1.ts`. No synthetic family is created merely to force saturation.
 
 ## Cross-chapter ownership
 
-`GEO-CP-014/MULTI_THEOREM_STATEMENT_COMPARISON_OR_DATA_SUFFICIENCY` is owned by Data Sufficiency/statement-evaluation format authority. Geometry supplies theorem operands; it does not create a duplicate Geometry QL for the format.
+`GEO-CP-014/MULTI_THEOREM_STATEMENT_COMPARISON_OR_DATA_SUFFICIENCY` remains owned by Data Sufficiency/statement-evaluation format authority. Geometry supplies theorem operands only.
 
 ## Source-saturation boundary
 
-This closure means **all 52 discovered SSC Geometry gaps are accounted for**. It does **not** claim full source saturation because:
-- five theorem directions remain explicitly source-deferred;
-- Banking Geometry scope was not established by Source Saturation Audit V1;
-- Punjab recruitment PYQ saturation was not established by Source Saturation Audit V1.
+The closure accounts for all 52 gaps discovered by the SSC-oriented audit. It does **not** claim full target-source saturation because five theorem directions remain source-deferred and Banking/Punjab recruitment saturation was not established by that audit.
 
 ## Lifecycle locks
 
@@ -70,10 +95,13 @@ prototypeWaveSequenceFinished = true
 allBaselineGapsClassified = true
 executableClosureProven = true
 canonicalTemporaryCandidateRegistryProven = true
-mergeSplitReviewActive = true
+strictMergeSplitProposalImplemented = true
+strictMergeSplitProposalProven = false
 sourceSaturationClaimAllowed = false
 permanentQlAllocationAllowed = false
 solveModeFreezeAllowed = false
+englishFreezeAllowed = false
+localizationAllowed = false
 questionStudioActivationAllowed = false
 questionBankWriteAllowed = false
 testEligibilityAllowed = false
@@ -83,4 +111,4 @@ prMergeAuthorized = false
 
 ## Next lifecycle gate
 
-No additional remediation wave is authorized by this closure. The active work is chapter-wide semantic merge/split compression over the proven 81-candidate registry, followed by a permanent QL proposal. Permanent QL numbering remains forbidden until that proposal is exhaustive, collision-audited, and explicitly approved for allocation.
+Prove the strict 81→73 proposal in retained CI. If green, the next gate is explicit approval of the permanent-family proposal before any `GEO-QL-*` numbering, solve-mode freeze, English freeze, localisation, Question Studio activation, Question Bank writes, test eligibility, publication, or PR merge authorization.
