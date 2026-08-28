@@ -2,6 +2,7 @@ import type { SriLocalizedLocaleV1 } from "./permanent-localization-base-v1";
 import { localizeSriC008C009FinalizedSurfaceV1 as localizeSriC008C009CoreV1 } from "./permanent-localization-c008-c009-core-v1";
 import { localizeSriC010C012FinalizedSurfaceV1 } from "./permanent-localization-c010-c012-v1";
 import { localizeSriEditorialC004C005SurfaceV1 } from "./permanent-localization-editorial-c004-c005-v1";
+import { localizeSriEditorialC006C011SurfaceV1 } from "./permanent-localization-editorial-c006-c011-v1";
 import { localizeSriEditorialSurfaceV1 } from "./permanent-localization-editorial-v1";
 import { localizeSriResidualSurfaceV1 } from "./permanent-localization-residual-v1";
 
@@ -24,6 +25,9 @@ export function localizeSriC008C009FinalizedSurfaceV1(
 
   const c004c005Editorial = localizeSriEditorialC004C005SurfaceV1(text, locale);
   if (c004c005Editorial) return c004c005Editorial;
+
+  const c006c011Editorial = localizeSriEditorialC006C011SurfaceV1(text, locale);
+  if (c006c011Editorial) return c006c011Editorial;
 
   const editorial = localizeSriEditorialSurfaceV1(text, locale);
   if (editorial) return editorial;
