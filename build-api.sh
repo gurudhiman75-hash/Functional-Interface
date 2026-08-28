@@ -24,8 +24,9 @@ pnpm --dir artifacts/examtree build
 # Render deploys the already typechecked admin bundle. Do not run the admin
 # package's `tsc -b --force` here: that is a CI/development validation concern
 # and is one of the highest-heap Node phases in the production deploy path.
+# Source maps are also disabled for this deploy-only Vite build.
 echo "[render-build] build admin app"
-pnpm --dir artifacts/admin-app exec vite build
+EXAMTREE_RENDER_BUILD=1 pnpm --dir artifacts/admin-app exec vite build
 
 # Assemble the single static tree served by the API service.
 echo "[render-build] assemble hosting tree"
