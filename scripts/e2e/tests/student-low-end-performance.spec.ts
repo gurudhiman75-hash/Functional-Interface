@@ -94,7 +94,8 @@ test.describe("CP07 low-end mobile acquisition performance", () => {
     await cdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
 
     await page.goto("/");
-    await expect(page.getByRole("heading", { name: "What are you preparing for?" })).toBeVisible();
+    await expect(page.getByTestId("home-reference")).toBeVisible();
+    await expect(page.getByTestId("home-exam-categories")).toBeVisible();
     await page.waitForLoadState("networkidle");
 
     const metrics = await page.evaluate(() => {
