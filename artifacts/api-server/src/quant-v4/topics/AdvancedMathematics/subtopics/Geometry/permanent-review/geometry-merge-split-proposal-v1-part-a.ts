@@ -1,119 +1,31 @@
 import { defineGeometryMergeSplitFamilyV1 } from "./geometry-merge-split-proposal-v1-types";
 
 export const GEO_MERGE_SPLIT_PROPOSAL_V1_PART_A = Object.freeze([
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP001_VERTICAL_ANGLE", cpId: "GEO-CP-001", learnerDecision: "Vertical-angle equality", candidateIds: Object.freeze(["GEO-TMP-CP001-VERTICAL-ANGLE-V1"]), mergeRationale: "Keep distinct because opposite-angle topology is the essential learner operation." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP001_LINEAR_PAIR", cpId: "GEO-CP-001", learnerDecision: "Linear-pair supplement", candidateIds: Object.freeze(["GEO-TMP-CP001-LINEAR-PAIR-V1"]), mergeRationale: "Keep distinct because adjacency on a straight line drives a supplementary relation rather than equality." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP001_AROUND_POINT", cpId: "GEO-CP-001", learnerDecision: "Angles around a point", candidateIds: Object.freeze(["GEO-TMP-GAP-W9-CP001-AROUND-POINT-EQUAL-ANGLES-V1"]), mergeRationale: "Keep distinct because the governing invariant is a full turn around one point." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP001_COMPLEMENT_SUPPLEMENT", cpId: "GEO-CP-001", learnerDecision: "Complement/supplement relation", candidateIds: Object.freeze(["GEO-TMP-GAP-W13-CP001-COMPLEMENT-SUPPLEMENT-RELATION-V1"]), mergeRationale: "Keep distinct because the learner combines complementary and supplementary constraints." }),
+
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP002_CORRESPONDING_ANGLE", cpId: "GEO-CP-002", learnerDecision: "Corresponding-angle transfer on parallel lines", candidateIds: Object.freeze(["GEO-TMP-CP002-CORRESPONDING-V1"]), mergeRationale: "Corresponding-position recognition is a distinct angle-relation decision and is not merged merely because the lines are parallel." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP002_COINTERIOR_SUPPLEMENT", cpId: "GEO-CP-002", learnerDecision: "Co-interior supplementary relation", candidateIds: Object.freeze(["GEO-TMP-CP002-COINTERIOR-V1"]), mergeRationale: "Co-interior angles use a supplementary equation, unlike equal corresponding or alternate angles." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP002_ALTERNATE_INTERIOR_ANGLE", cpId: "GEO-CP-002", learnerDecision: "Alternate-interior angle equality", candidateIds: Object.freeze(["GEO-TMP-GAP-W9-CP002-ALTERNATE-INTERIOR-V1"]), mergeRationale: "Alternate-interior position recognition remains its own learner operation under the design authority." }),
+
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP003_TRIANGLE_ANGLE_SUM", cpId: "GEO-CP-003", learnerDecision: "Triangle interior-angle sum", candidateIds: Object.freeze(["GEO-TMP-CP003-THIRD-ANGLE-V1"]), mergeRationale: "Direct third-angle recovery is a primitive triangle-angle decision." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP003_EXTERIOR_ANGLE", cpId: "GEO-CP-003", learnerDecision: "Triangle exterior-angle theorem", candidateIds: Object.freeze(["GEO-TMP-CP003-EXTERIOR-ANGLE-V1"]), mergeRationale: "Exterior-angle recovery uses a different theorem statement from the interior-angle-sum primitive." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP003_ISOSCELES_BASE_ANGLE", cpId: "GEO-CP-003", learnerDecision: "Isosceles base-angle relation", candidateIds: Object.freeze(["GEO-TMP-CP003-ISOSCELES-BASE-V1"]), mergeRationale: "Isosceles side-angle structure is a distinct theorem family." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP003_TRIANGLE_INEQUALITY_RANGE", cpId: "GEO-CP-003", learnerDecision: "Permissible third-side interval", candidateIds: Object.freeze(["GEO-TMP-CP003-TRIANGLE-INEQUALITY-RANGE-V1"]), mergeRationale: "Producing an open interval is a different learner output contract from counting integers or judging a claim." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP003_TRIANGLE_INEQUALITY_INTEGER_COUNT", cpId: "GEO-CP-003", learnerDecision: "Count integer third sides", candidateIds: Object.freeze(["GEO-TMP-GAP-W9-CP003-TRIANGLE-INEQUALITY-INTEGER-COUNT-V1"]), mergeRationale: "Counting integer solutions adds a discrete enumeration step after deriving the strict inequality bounds." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP003_TRIANGLE_INEQUALITY_CLAIM", cpId: "GEO-CP-003", learnerDecision: "Judge triangle-inequality claim", candidateIds: Object.freeze(["GEO-TMP-GAP-W9-CP003-TRIANGLE-INEQUALITY-CLAIM-V1"]), mergeRationale: "Claim validation is a recognition contract rather than interval construction or integer enumeration." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP003_SIDE_ANGLE_ORDER", cpId: "GEO-CP-003", learnerDecision: "Triangle side-angle ordering", candidateIds: Object.freeze(["GEO-TMP-GAP-W13-CP003-SIDE-ANGLE-ORDERING-V1"]), mergeRationale: "Opposite side-angle comparison is distinct from triangle inequality and angle-sum operations." }),
+
   defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP001_VERTICAL_ANGLE",
-    cpId: "GEO-CP-001",
-    learnerDecision: "Vertical-angle equality",
-    candidateIds: Object.freeze([
-      "GEO-TMP-CP001-VERTICAL-ANGLE-V1",
-    ]),
-    mergeRationale: "Keep distinct from adjacent supplementary relations because the learner must identify the opposite-angle topology.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP001_LINEAR_PAIR",
-    cpId: "GEO-CP-001",
-    learnerDecision: "Linear-pair supplement",
-    candidateIds: Object.freeze([
-      "GEO-TMP-CP001-LINEAR-PAIR-V1",
-    ]),
-    mergeRationale: "Keep distinct from vertical-angle equality because adjacency and straight-line evidence drive a different learner decision.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP001_AROUND_POINT",
-    cpId: "GEO-CP-001",
-    learnerDecision: "Angles around a point",
-    candidateIds: Object.freeze([
-      "GEO-TMP-GAP-W9-CP001-AROUND-POINT-EQUAL-ANGLES-V1",
-    ]),
-    mergeRationale: "One full-turn angle-sum decision family.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP001_COMPLEMENT_SUPPLEMENT",
-    cpId: "GEO-CP-001",
-    learnerDecision: "Complement/supplement relation",
-    candidateIds: Object.freeze([
-      "GEO-TMP-GAP-W13-CP001-COMPLEMENT-SUPPLEMENT-RELATION-V1",
-    ]),
-    mergeRationale: "One relation family for recovering an angle from complementary and supplementary constraints.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP002_PARALLEL_LINE_ANGLE_RELATIONS",
-    cpId: "GEO-CP-002",
-    learnerDecision: "Parallel-line angle transfer",
-    candidateIds: Object.freeze([
-      "GEO-TMP-CP002-CORRESPONDING-V1",
-      "GEO-TMP-CP002-COINTERIOR-V1",
-      "GEO-TMP-GAP-W9-CP002-ALTERNATE-INTERIOR-V1",
-    ]),
-    mergeRationale: "Merge corresponding, alternate-interior and co-interior variants into one parameterized learner decision over relation type.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP003_TRIANGLE_ANGLE_SUM",
-    cpId: "GEO-CP-003",
-    learnerDecision: "Triangle interior-angle sum",
-    candidateIds: Object.freeze([
-      "GEO-TMP-CP003-THIRD-ANGLE-V1",
-    ]),
-    mergeRationale: "Direct third-angle recovery remains a distinct primitive decision.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP003_EXTERIOR_ANGLE",
-    cpId: "GEO-CP-003",
-    learnerDecision: "Triangle exterior-angle relation",
-    candidateIds: Object.freeze([
-      "GEO-TMP-CP003-EXTERIOR-ANGLE-V1",
-    ]),
-    mergeRationale: "Exterior angle from remote interior angles remains a distinct theorem application.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP003_ISOSCELES_RELATIONS",
-    cpId: "GEO-CP-003",
-    learnerDecision: "Isosceles side-angle relation",
-    candidateIds: Object.freeze([
-      "GEO-TMP-CP003-ISOSCELES-BASE-V1",
-    ]),
-    mergeRationale: "Bidirectional isosceles authority is one learner relation family.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP003_TRIANGLE_INEQUALITY",
-    cpId: "GEO-CP-003",
-    learnerDecision: "Triangle-inequality validity and range",
-    candidateIds: Object.freeze([
-      "GEO-TMP-CP003-TRIANGLE-INEQUALITY-RANGE-V1",
-      "GEO-TMP-GAP-W9-CP003-TRIANGLE-INEQUALITY-INTEGER-COUNT-V1",
-      "GEO-TMP-GAP-W9-CP003-TRIANGLE-INEQUALITY-CLAIM-V1",
-    ]),
-    mergeRationale: "Merge interval, integer-count and claim-recognition variants because they apply the same strict inequality boundary.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP003_SIDE_ANGLE_ORDER",
-    cpId: "GEO-CP-003",
-    learnerDecision: "Triangle side-angle ordering",
-    candidateIds: Object.freeze([
-      "GEO-TMP-GAP-W13-CP003-SIDE-ANGLE-ORDERING-V1",
-    ]),
-    mergeRationale: "Opposite side/angle order is a distinct comparison decision.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP004_CONGRUENCE_CRITERION_SUFFICIENCY",
+    proposalKey: "CP004_SELECT_VALID_CONGRUENCE_CRITERION",
     cpId: "GEO-CP-004",
-    learnerDecision: "Congruence criterion and evidence sufficiency",
-    candidateIds: Object.freeze([
-      "GEO-TMP-CP004-RHS-CRITERION-V1",
-      "GEO-TMP-GAP-W10-CP004-SAS-CRITERION-V1",
-      "GEO-TMP-GAP-W10-CP004-INVALID-CONGRUENCE-CRITERION-V1",
-      "GEO-TMP-GAP-W10-CP004-CONGRUENCE-EVIDENCE-SUFFICIENCY-V1",
-    ]),
-    mergeRationale: "Merge positive criterion selection, invalid criterion rejection and evidence sufficiency into one congruence-evidence decision family.",
+    learnerDecision: "Select the valid congruence criterion",
+    candidateIds: Object.freeze(["GEO-TMP-CP004-RHS-CRITERION-V1", "GEO-TMP-GAP-W10-CP004-SAS-CRITERION-V1"]),
+    mergeRationale: "RHS and SAS are parameterized positive instances of the same criterion-selection operation; the evidence pattern changes but the learner decision does not.",
   }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP004_CPCT_CORRESPONDENCE",
-    cpId: "GEO-CP-004",
-    learnerDecision: "CPCT correspondence and consequence",
-    candidateIds: Object.freeze([
-      "GEO-TMP-CP004-CPCT-CORRESPONDENCE-V1",
-    ]),
-    mergeRationale: "Correspondence recovery after congruence is a distinct post-proof learner decision.",
-  }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP004_CPCT_CORRESPONDENCE", cpId: "GEO-CP-004", learnerDecision: "Recover correspondence after congruence", candidateIds: Object.freeze(["GEO-TMP-CP004-CPCT-CORRESPONDENCE-V1"]), mergeRationale: "Post-congruence correspondence recovery is distinct from deciding whether congruence is established." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP004_INVALID_CONGRUENCE_CRITERION", cpId: "GEO-CP-004", learnerDecision: "Reject an invalid congruence criterion", candidateIds: Object.freeze(["GEO-TMP-GAP-W10-CP004-INVALID-CONGRUENCE-CRITERION-V1"]), mergeRationale: "Invalid-rule rejection is a negative classification task with different misconception ownership from positive criterion selection." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP004_CONGRUENCE_EVIDENCE_SUFFICIENCY", cpId: "GEO-CP-004", learnerDecision: "Judge whether supplied evidence proves congruence", candidateIds: Object.freeze(["GEO-TMP-GAP-W10-CP004-CONGRUENCE-EVIDENCE-SUFFICIENCY-V1"]), mergeRationale: "Evidence sufficiency is a proof-completeness decision and remains separate from naming a valid criterion." }),
 ]);
