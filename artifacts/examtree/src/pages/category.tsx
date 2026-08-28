@@ -188,6 +188,15 @@ export default function CategoryPage() {
                   <div className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-400">Free</div>
                 </div>
               </div>
+
+              <button
+                type="button"
+                onClick={() => setLocation("/packages")}
+                className="mt-5 inline-flex min-h-11 items-center gap-1.5 rounded-lg px-2 text-xs font-semibold text-slate-500 transition hover:bg-slate-50 hover:text-[#6657e8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#6c5cf1]"
+              >
+                Browse Packages
+                <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
+              </button>
             </div>
 
             <div className="border-t border-slate-100 bg-[#17182c] p-6 text-white lg:border-l lg:border-t-0 lg:p-8">
