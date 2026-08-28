@@ -13,8 +13,10 @@ export {
   type GeometryReviewLocaleV2,
   type GeometryEditorialTemplateV2,
   type GeometryPrototypeEditorialTemplateV2,
+  type GeometryPrototypeEditorialVariantsV2,
 } from "./geometry-localization-editorial-v2-types";
 export { GEO_LOCALIZATION_OPTION_TRANSLATIONS_V2 } from "./geometry-localization-options-v2";
+export { GEO_LOCALIZATION_EDITORIAL_VARIANTS_V2 } from "./geometry-localization-editorial-v2-variants";
 
 export const GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2 = Object.freeze({
   ...GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2_A1,

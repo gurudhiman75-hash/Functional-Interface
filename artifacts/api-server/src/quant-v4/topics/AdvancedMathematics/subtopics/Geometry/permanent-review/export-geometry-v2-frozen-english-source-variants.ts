@@ -6,6 +6,7 @@ import {
 import { generateGeometryPermanentEnglishFrozenV1 } from "./geometry-permanent-english-freeze-v1";
 import {
   GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2,
+  GEO_LOCALIZATION_EDITORIAL_VARIANTS_V2,
   GEO_LOCALIZATION_OPTION_TRANSLATIONS_V2,
 } from "./geometry-localization-editorial-v2";
 
@@ -48,7 +49,8 @@ writeFileSync(resolve(outputDirectory, "geometry-v2-frozen-english-source-varian
   seedsPerPrototype: seedSuffixes.length,
   prototypeCount: prototypes.length,
   prototypes,
-  authoredTemplates: GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2,
+  authoredCanonicalTemplates: GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2,
+  authoredSourceVariants: GEO_LOCALIZATION_EDITORIAL_VARIANTS_V2,
   authoredOptionTranslations: GEO_LOCALIZATION_OPTION_TRANSLATIONS_V2,
 }, null, 2) + "\n");
 
@@ -58,6 +60,7 @@ console.log(JSON.stringify({
   prototypeCount: prototypes.length,
   prototypesWithQuestionVariation: prototypes.filter((entry) => entry.questionPatterns.length > 1).length,
   prototypesWithExplanationVariation: prototypes.filter((entry) => entry.explanationPatternsByLine.some((line) => line.length > 1)).length,
-  authoredTemplateCount: Object.keys(GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2).length,
+  canonicalTemplateCount: Object.keys(GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2).length,
+  sourceVariantPrototypeCount: Object.keys(GEO_LOCALIZATION_EDITORIAL_VARIANTS_V2).length,
   outputDirectory,
 }, null, 2));

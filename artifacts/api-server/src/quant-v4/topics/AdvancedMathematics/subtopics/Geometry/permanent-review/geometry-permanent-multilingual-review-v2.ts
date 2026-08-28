@@ -8,8 +8,10 @@ import {
 import { GEO_PERMANENT_ENGLISH_FREEZE_PROOF_V1 } from "./geometry-permanent-english-freeze-proof-v1";
 import {
   GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2,
+  GEO_LOCALIZATION_EDITORIAL_VARIANTS_V2,
   GEO_LOCALIZATION_OPTION_TRANSLATIONS_V2,
   type GeometryEditorialTemplateV2,
+  type GeometryPrototypeEditorialVariantsV2,
   type GeometryReviewLocaleV2,
 } from "./geometry-localization-editorial-v2";
 
@@ -31,32 +33,35 @@ function maskDynamicNumbers(value: string): Readonly<{ masked: string; values: r
   return Object.freeze({ masked, values: Object.freeze(values) });
 }
 
-function renderEditorialTemplate(
+function renderEditorialCandidates(
   source: string,
-  template: GeometryEditorialTemplateV2,
+  candidates: readonly GeometryEditorialTemplateV2[],
   locale: GeometryReviewLocaleV2,
   context: string,
 ): string {
   const masked = maskDynamicNumbers(source);
-  if (masked.masked !== template.sourceMasked) {
-    throw new Error(`${context}: frozen English source drifted outside the approved V2 parameter contract.\nExpected: ${template.sourceMasked}\nActual:   ${masked.masked}`);
+  const template = candidates.find((candidate) => candidate.sourceMasked === masked.masked);
+  if (!template) {
+    throw new Error(
+      `${context}: frozen English source drifted outside the complete V2 human-editorial authority.\nActual: ${masked.masked}\nKnown patterns:\n${candidates.map((candidate) => `- ${candidate.sourceMasked}`).join("\n")}`,
+    );
   }
   const localized = locale === "hi-IN" ? template.hi : template.pa;
-  return localized.replace(PLACEHOLDER, (_match, rawIndex: string) => {
+  const rendered = localized.replace(PLACEHOLDER, (_match, rawIndex: string) => {
     const index = Number(rawIndex);
     const value = masked.values[index];
     if (value === undefined) throw new Error(`${context}: missing numeric placeholder ${index}`);
     return value;
   });
+  if (/\{\{\d+\}\}/.test(rendered)) throw new Error(`${context}: unresolved V2 numeric placeholder`);
+  return rendered;
 }
 
 function translateOption(option: string, locale: GeometryReviewLocaleV2, context: string): string {
   const translation = GEO_LOCALIZATION_OPTION_TRANSLATIONS_V2[option];
   if (translation) return locale === "hi-IN" ? translation.hi : translation.pa;
   const leaks = findGeometryLocalizationEnglishLeaksV2(option);
-  if (leaks.length) {
-    throw new Error(`${context}: learner-facing option has no V2 translation: ${option}`);
-  }
+  if (leaks.length) throw new Error(`${context}: learner-facing option has no V2 translation: ${option}`);
   return option;
 }
 
@@ -67,6 +72,41 @@ export function findGeometryLocalizationEnglishLeaksV2(value: string): readonly 
     if (/^[A-Z]{1,5}$/.test(word)) return false;
     return true;
   }));
+}
+
+export function getGeometryLocalizationAuthoredPatternsV2(prototypeId: string): Readonly<{
+  questionPatterns: readonly string[];
+  explanationPatternsByLine: readonly (readonly string[])[];
+}> {
+  const canonical = GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2[prototypeId as keyof typeof GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2];
+  if (!canonical) throw new Error(`${prototypeId}: missing canonical V2 human-editorial template`);
+  const variants = (GEO_LOCALIZATION_EDITORIAL_VARIANTS_V2 as Readonly<Record<string, GeometryPrototypeEditorialVariantsV2>>)[prototypeId];
+  return Object.freeze({
+    questionPatterns: Object.freeze([
+      canonical.question.sourceMasked,
+      ...(variants?.questions ?? []).map((candidate) => candidate.sourceMasked),
+    ]),
+    explanationPatternsByLine: Object.freeze(canonical.explanations.map((candidate, lineIndex) => Object.freeze([
+      candidate.sourceMasked,
+      ...(variants?.explanationsByLine?.[lineIndex] ?? []).map((variant) => variant.sourceMasked),
+    ]))),
+  });
+}
+
+function getGeometryLocalizationTemplateCandidatesV2(prototypeId: string): Readonly<{
+  questionCandidates: readonly GeometryEditorialTemplateV2[];
+  explanationCandidatesByLine: readonly (readonly GeometryEditorialTemplateV2[])[];
+}> {
+  const canonical = GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2[prototypeId as keyof typeof GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2];
+  if (!canonical) throw new Error(`${prototypeId}: missing canonical V2 human-editorial template`);
+  const variants = (GEO_LOCALIZATION_EDITORIAL_VARIANTS_V2 as Readonly<Record<string, GeometryPrototypeEditorialVariantsV2>>)[prototypeId];
+  return Object.freeze({
+    questionCandidates: Object.freeze([canonical.question, ...(variants?.questions ?? [])]),
+    explanationCandidatesByLine: Object.freeze(canonical.explanations.map((candidate, lineIndex) => Object.freeze([
+      candidate,
+      ...(variants?.explanationsByLine?.[lineIndex] ?? []),
+    ]))),
+  });
 }
 
 export interface GeometryPermanentMultilingualReviewItemV2 extends Omit<
@@ -98,22 +138,34 @@ export function generateGeometryPermanentMultilingualReviewV2(
   requestedVariantIndex?: number,
 ): GeometryPermanentMultilingualReviewItemV2 {
   const english = generateGeometryPermanentEnglishFrozenV1(qlId, seed, requestedVariantIndex);
-  const template = GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2[english.prototypeId as keyof typeof GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2];
-  if (!template) throw new Error(`${qlId}/${english.prototypeId}: missing V2 human-editorial template`);
-  if (template.explanations.length !== english.explanationLines.length) {
+  const templates = getGeometryLocalizationTemplateCandidatesV2(english.prototypeId);
+  if (templates.explanationCandidatesByLine.length !== english.explanationLines.length) {
     throw new Error(`${qlId}/${english.prototypeId}: V2 explanation-line contract drifted`);
   }
 
-  const question = renderEditorialTemplate(english.question, template.question, locale, `${qlId}/${english.prototypeId}/question`);
-  const options = Object.freeze(english.options.map((option, index) => translateOption(option, locale, `${qlId}/${english.prototypeId}/option-${index}`)));
+  const question = renderEditorialCandidates(
+    english.question,
+    templates.questionCandidates,
+    locale,
+    `${qlId}/${english.prototypeId}/question`,
+  );
+  const options = Object.freeze(english.options.map((option, index) =>
+    translateOption(option, locale, `${qlId}/${english.prototypeId}/option-${index}`),
+  ));
   const explanationLines = Object.freeze(english.explanationLines.map((line, index) =>
-    renderEditorialTemplate(line, template.explanations[index]!, locale, `${qlId}/${english.prototypeId}/explanation-${index}`),
+    renderEditorialCandidates(
+      line,
+      templates.explanationCandidatesByLine[index]!,
+      locale,
+      `${qlId}/${english.prototypeId}/explanation-${index}`,
+    ),
   ));
   const canonicalAnswer = options[english.correctIndex]!;
   const visible = `${question}\n${options.join("\n")}\n${explanationLines.join("\n")}`;
   const leaks = findGeometryLocalizationEnglishLeaksV2(visible);
   if (leaks.length) throw new Error(`${qlId}/${english.prototypeId}/${locale}: unapproved English prose leakage: ${[...new Set(leaks)].join(", ")}`);
   if (options.length !== 4 || new Set(options).size !== 4) throw new Error(`${qlId}/${locale}: V2 must preserve four unique options`);
+  if (canonicalAnswer !== options[english.correctIndex]) throw new Error(`${qlId}/${locale}: V2 answer index drifted`);
 
   return Object.freeze({
     ...english,
@@ -136,22 +188,31 @@ export function generateGeometryPermanentMultilingualReviewV2(
   } satisfies GeometryPermanentMultilingualReviewItemV2);
 }
 
+const VARIANT_AUTHORITY_COUNT = Object.values(GEO_LOCALIZATION_EDITORIAL_VARIANTS_V2 as Readonly<Record<string, GeometryPrototypeEditorialVariantsV2>>).reduce(
+  (sum, variants) => sum
+    + (variants.questions?.length ?? 0)
+    + (variants.explanationsByLine?.reduce((lineSum, candidates) => lineSum + candidates.length, 0) ?? 0),
+  0,
+);
+
 export const GEO_PERMANENT_MULTILINGUAL_REVIEW_AUTHORITY_V2 = Object.freeze({
   authorityId: "GEO-PERMANENT-MULTILINGUAL-REVIEW-V2",
   authorityRevision: 3,
   sourceEnglishFreezeProofAuthorityId: GEO_PERMANENT_ENGLISH_FREEZE_PROOF_V1.authorityId,
   rejectedPriorReviewArtifactId: 9681238482,
   rejectedPriorReviewArtifactDigest: "sha256:7fc99143e4059393b14e7f57fc9dbec34e7c9d46725e6ef8c54c149b170622ef",
-  status: "HINDI_PUNJABI_HUMAN_EDITORIAL_REVIEW_V2_IMPLEMENTED__CI_PROOF_PENDING",
+  status: "HINDI_PUNJABI_HUMAN_EDITORIAL_REVIEW_V2_SOURCE_VARIANTS_COMPLETE__CI_PROOF_PENDING",
   locales: Object.freeze(["hi-IN", "pa-IN"] as const),
   permanentQlCount: GEO_PERMANENT_ENGLISH_RUNTIME_DEFINITIONS_V1.length,
   mappedPrototypeVariantCount: GEO_PERMANENT_ENGLISH_RUNTIME_DEFINITIONS_V1.reduce((sum, definition) => sum + definition.prototypeIds.length, 0),
-  templateAuthorityCount: Object.keys(GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2).length,
+  canonicalPrototypeTemplateCount: Object.keys(GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2).length,
+  additionalSourceVariantTemplateCount: VARIANT_AUTHORITY_COUNT,
   lifecycle: Object.freeze({
     englishFreezeProven: true,
     localizationAllowed: true,
     localizationV1EditoriallyRejected: true,
     localizationV2Implemented: true,
+    localizationV2SourceVariantCoverageImplemented: true,
     localizationV2Proven: false,
     multilingualImplementationFrozen: false,
     multilingualFreezeAllowed: false,
