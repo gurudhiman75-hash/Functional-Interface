@@ -205,8 +205,6 @@ export default function ActivityPage() {
     );
   }
 
-  const firstName = user.name.trim().split(/\s+/)[0] || user.name;
-
   return (
     <div className="mx-auto w-full max-w-7xl pb-8" data-testid="student-dashboard">
       <section
@@ -217,7 +215,7 @@ export default function ActivityPage() {
           <div className="min-w-0">
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#6657e8]">Your dashboard</p>
             <h1 id="dashboard-title" className="mt-2 text-3xl font-semibold tracking-[-0.045em] text-slate-950 sm:text-4xl">
-              Welcome back, {firstName}
+              Welcome back, {user.name}
             </h1>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-500 sm:text-[15px]">
               Continue your tests, review saved results, and keep your preparation moving from one place.
