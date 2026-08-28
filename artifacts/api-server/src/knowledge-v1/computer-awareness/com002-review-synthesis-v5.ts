@@ -97,7 +97,7 @@ function simplifyLearnerFacingText(question: Com002ReviewQuestion): Com002Review
   if (question.qlId === "COM-002-QL-004") {
     if (question.surfaceMode === "COMPONENT_TO_ROLE") {
       stem = question.targetFactId === "com002-kernel-core"
-        ? "Which part forms the core of an operating system?"
+        ? "Which statement correctly describes the kernel in an operating system?"
         : "What is the main role of the kernel in an operating system?";
     }
     if (question.surfaceMode === "CORE_COMPONENT") stem = "Which part forms the core of an operating system?";
