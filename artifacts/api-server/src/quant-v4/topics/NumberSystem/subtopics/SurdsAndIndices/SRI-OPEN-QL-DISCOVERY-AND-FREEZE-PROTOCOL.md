@@ -2,7 +2,12 @@
 
 **Permanent QLs:** 58  
 **Frozen solve modes:** 58  
-**Current state:** `ENGLISH_FROZEN_LOCALIZATION_REVIEW`.
+**Current state:** `MULTILINGUAL_FREEZE_APPROVED_PENDING_BASE_RECERTIFICATION`.
+
+**Approved localization artifact:** `9684834606`  
+**Approved artifact digest:** `sha256:a212a40f917e8e91a6d5741fc4acd32a73782885981b2b7f7ef8b4c3bb7251ac`  
+**Approval authority:** explicit product-owner approval in active session on 2026-08-28.  
+**Activation rule:** approval alone does not activate multilingual freeze; after any base movement, the current PR merge-ref must recertify before `multilingualFrozen` may become true.
 
 ## 1. What may create a candidate QL
 
@@ -93,6 +98,8 @@ Every retained permanent QL must prove:
 ## 6. Multilingual gate
 
 Hindi/Punjabi derive from frozen structured English semantic authority. They may not regenerate mathematics independently. Freeze requires terminology, grammar, notation and semantic-parity review.
+
+The Phase-9 multilingual reviewer artifact named above has explicit product-owner approval. The lifecycle freeze may activate only after the approved source plus current base integration passes the canonical English-freeze regression, 2,784-question localization parity audit, strict editorial-quality audit, reviewer export verification and evidence upload.
 
 ## 7. Product lifecycle gate
 
