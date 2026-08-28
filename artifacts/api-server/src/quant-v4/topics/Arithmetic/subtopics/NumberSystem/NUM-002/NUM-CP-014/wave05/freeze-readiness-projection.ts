@@ -1,4 +1,4 @@
-import { generateNumCp014Wave01 } from "../wave01/runtime.ts";
+import { generateNumCp014Wave01 } from "../wave01/runtime-v2.ts";
 import { generateNumCp014Wave02 } from "../wave02/runtime.ts";
 import { generateNumCp014Wave03V2 } from "../wave03/runtime-v2.ts";
 import { NUM_CP014_AUTHORITY_PROPOSAL, type NumCp014AuthorityId } from "../wave04/merge-split-proposal.ts";
@@ -36,6 +36,8 @@ export function resolveNumCp014AuthorityCandidate(
   let sourcePackage: any;
   const numericId = Number(sourcePrototypeId.split("-").at(-1));
   if (numericId >= 1 && numericId <= 6) {
+    // Wave01 runtime-v2 is canonical because P003 perfect-square synthesis was rejected
+    // and replaced by the genuine divisor-count + perfect-cube family.
     sourcePackage = generateNumCp014Wave01(sourcePrototypeId as any, sourceSeed);
   } else if (numericId >= 7 && numericId <= 12) {
     sourcePackage = generateNumCp014Wave02(sourcePrototypeId as any, sourceSeed);
@@ -47,6 +49,9 @@ export function resolveNumCp014AuthorityCandidate(
 
   if (String(sourcePackage.temporaryPrototypeId) !== sourcePrototypeId) {
     throw new Error(`${authorityId}/${authoritySeed}: source dispatch drifted from ${sourcePrototypeId}.`);
+  }
+  if (sourcePrototypeId === "NUM-CP014-PROT-003" && !String(sourcePackage.mathematicalFingerprint).startsWith("P003V2|")) {
+    throw new Error(`${authorityId}/${authoritySeed}: obsolete Wave01 P003 runtime leaked into freeze-readiness projection.`);
   }
 
   return Object.freeze({
