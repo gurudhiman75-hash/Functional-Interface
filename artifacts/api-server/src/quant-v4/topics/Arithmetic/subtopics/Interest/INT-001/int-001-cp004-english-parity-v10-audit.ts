@@ -1,0 +1,144 @@
+import assert from "node:assert/strict";
+import {
+  INT_CP004_QL_IDS,
+  verifyCp004Answer,
+} from "./cp004-frequency-math";
+import { generateIntCp004EnglishFrozenV2Question } from "./cp004-english-frozen-runtime-v2";
+import { selectIntCp004ExamFriendlyFrozenSourceV9 } from "./cp004-exam-friendly-source-v9";
+import {
+  INT_CP004_ENGLISH_EXAM_FRIENDLY_REVIEW_V10,
+  generateIntCp004EnglishExamFriendlyReviewV10,
+} from "./cp004-english-exam-friendly-review-v10";
+
+function stable(value: unknown) {
+  return JSON.stringify(value, (_key, current) => typeof current === "bigint" ? `${current}n` : current);
+}
+
+const DECIMAL_TOKEN = /\d+\.\d+/u;
+const BLOCKED_WORDING = /two\s+decimal\s+places|rounded?\s+to|approximately|illustrative\s+compound|complete\s+periods?|reference\s+principal|a\/p\s+ratio|ci\/p\s+ratio/iu;
+const INTERNAL_ID = /INT-CP|INT-QL|authority|prototype|review candidate|freeze id/iu;
+const SAMPLES_PER_QL = 100;
+
+let packages = 0;
+let deterministicChecks = 0;
+let verifierChecks = 0;
+let optionChecks = 0;
+let explanationChecks = 0;
+let learnerSurfaceChecks = 0;
+let historicalAuthorityPreservationChecks = 0;
+let v9MathematicalParityChecks = 0;
+let lifecycleChecks = 0;
+const answerPositions = [0, 0, 0, 0];
+const stemFamilies = new Map<string, Set<string>>();
+const uniqueStates = new Map<string, Set<string>>();
+const representations = new Map<string, number>();
+const difficulties = new Set<string>();
+
+assert.equal(INT_CP004_ENGLISH_EXAM_FRIENDLY_REVIEW_V10.qlCount, 19);
+assert.equal(INT_CP004_ENGLISH_EXAM_FRIENDLY_REVIEW_V10.approved, false);
+assert.equal(INT_CP004_ENGLISH_EXAM_FRIENDLY_REVIEW_V10.permanentIdentityChanges, false);
+
+for (const qlId of INT_CP004_QL_IDS) {
+  stemFamilies.set(qlId, new Set());
+  uniqueStates.set(qlId, new Set());
+  for (let index = 0; index < SAMPLES_PER_QL; index += 1) {
+    const seed = `int-cp004-english-parity-v10:${qlId}:${index}`;
+    const historicalBefore = generateIntCp004EnglishFrozenV2Question(qlId, seed);
+    const first = generateIntCp004EnglishExamFriendlyReviewV10(qlId, seed);
+    const replay = generateIntCp004EnglishExamFriendlyReviewV10(qlId, seed);
+    const historicalAfter = generateIntCp004EnglishFrozenV2Question(qlId, seed);
+    const v9Source = selectIntCp004ExamFriendlyFrozenSourceV9(qlId, seed);
+    packages += 1;
+
+    assert.equal(stable(first), stable(replay), `${qlId}/${index}: deterministic replay drift`);
+    deterministicChecks += 1;
+
+    assert.equal(verifyCp004Answer(first.mathematicalState, first.solution), true, `${qlId}/${index}: independent verifier rejected solution`);
+    assert.equal(first.solution.denominator, 1n, `${qlId}/${index}: exam-friendly answer is not integer-clean`);
+    verifierChecks += 2;
+
+    assert.equal(stable(first.mathematicalState), stable(v9Source.mathematicalState), `${qlId}/${index}: V9 mathematical-state parity drift`);
+    v9MathematicalParityChecks += 1;
+
+    assert.equal(stable(historicalBefore), stable(historicalAfter), `${qlId}/${index}: historical frozen English authority mutated`);
+    assert.equal(historicalBefore.freezeId, historicalAfter.freezeId);
+    historicalAuthorityPreservationChecks += 2;
+
+    assert.equal(first.options.length, 4, `${qlId}/${index}: expected four options`);
+    assert.equal(first.options.filter((option) => option.isCorrect).length, 1, `${qlId}/${index}: expected exactly one correct option`);
+    assert.equal(first.options[first.correctIndex]?.isCorrect, true, `${qlId}/${index}: correct index ownership drift`);
+    assert.equal(first.options[first.correctIndex]?.text, first.correctAnswer, `${qlId}/${index}: correct answer text drift`);
+    assert.equal(new Set(first.options.map((option) => option.text)).size, 4, `${qlId}/${index}: duplicate displayed options`);
+    assert.ok(first.options.every((option) => option.feedback === ""), `${qlId}/${index}: learner-facing option feedback leaked`);
+    optionChecks += 6;
+    answerPositions[first.correctIndex] += 1;
+
+    assert.ok((first.explanation.steps[0] ?? "").startsWith("Formula:"), `${qlId}/${index}: explanation is not formula-first`);
+    assert.ok(first.explanation.steps.length >= 3, `${qlId}/${index}: explanation is too thin`);
+    assert.ok(first.explanation.steps.slice(1).some((step) => /[=×÷+−^/]/u.test(step)), `${qlId}/${index}: explanation lacks explicit calculation`);
+    assert.equal(first.explanation.finalAnswer, first.correctAnswer, `${qlId}/${index}: explanation final answer drift`);
+    explanationChecks += 4;
+
+    const learnerText = [
+      first.stem,
+      ...first.options.map((option) => option.text),
+      first.correctAnswer,
+      first.explanation.whatAsked,
+      ...first.explanation.steps,
+      first.explanation.finalAnswer,
+      first.explanation.commonMistake,
+    ].join("\n");
+    assert.equal(DECIMAL_TOKEN.test(learnerText), false, `${qlId}/${index}: decimal token leaked into English learner surface`);
+    assert.equal(BLOCKED_WORDING.test(learnerText), false, `${qlId}/${index}: blocked legacy/calculator wording remains`);
+    assert.equal(INTERNAL_ID.test(learnerText), false, `${qlId}/${index}: internal identifier leaked to learner`);
+    assert.ok(first.stem.length >= 35, `${qlId}/${index}: stem is too thin`);
+    learnerSurfaceChecks += 4;
+
+    assert.equal(first.reviewAuthorityStatus, "ENGLISH_REMEDIATED_REVIEW_CANDIDATE");
+    assert.equal(first.historicalEnglishAuthorityPreserved, true);
+    assert.equal(first.learnerContentFrozen, false);
+    assert.equal(first.manualApprovalRequired, true);
+    assert.equal(first.enabled, false);
+    assert.equal(first.stagingStatus, "NOT_STAGED");
+    assert.equal(first.registrationStatus, "NOT_REGISTERED");
+    assert.equal(first.questionStudioDiscoverable, false);
+    assert.equal(first.questionBankStatus, "NOT_STORED");
+    assert.equal(first.testEligibility, "INELIGIBLE");
+    assert.equal(first.publiclyPublishable, false);
+    lifecycleChecks += 11;
+
+    stemFamilies.get(qlId)!.add(first.stemFamilyId);
+    uniqueStates.get(qlId)!.add(stable(first.mathematicalState));
+    representations.set(first.representation, (representations.get(first.representation) ?? 0) + 1);
+    difficulties.add(first.difficulty);
+  }
+}
+
+for (const qlId of INT_CP004_QL_IDS) {
+  assert.ok(stemFamilies.get(qlId)!.size >= 3, `${qlId}: fewer than three English stem families reached`);
+  assert.ok(uniqueStates.get(qlId)!.size >= 20, `${qlId}: mathematical-state diversity is too thin`);
+}
+assert.ok(answerPositions.every((count) => count >= 350), `answer-position imbalance too large: ${answerPositions.join(" / ")}`);
+assert.deepEqual([...difficulties].sort(), ["Easy", "Hard", "Medium"]);
+
+console.log("PASS_INT_CP004_ENGLISH_PARITY_V10_AUDIT");
+console.log(JSON.stringify({
+  qlCount: INT_CP004_QL_IDS.length,
+  samplesPerQl: SAMPLES_PER_QL,
+  packages,
+  deterministicChecks,
+  verifierChecks,
+  optionChecks,
+  explanationChecks,
+  learnerSurfaceChecks,
+  historicalAuthorityPreservationChecks,
+  v9MathematicalParityChecks,
+  lifecycleChecks,
+  answerPositions,
+  stemFamilies: Object.fromEntries([...stemFamilies].map(([key, value]) => [key, value.size])),
+  uniqueStates: Object.fromEntries([...uniqueStates].map(([key, value]) => [key, value.size])),
+  representations: Object.fromEntries(representations),
+  difficulties: [...difficulties].sort(),
+  approvalStatus: "NOT_APPROVED",
+  questionStudioActivationAuthorized: false,
+}, null, 2));
