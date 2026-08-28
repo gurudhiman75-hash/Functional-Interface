@@ -9,11 +9,25 @@ export interface NumCp014AuthorityCandidateProjection {
   readonly sourceIndex: number;
   readonly sourceSeed: number;
   readonly sourcePrototypeId: string;
+  readonly answerSemantic: string;
   readonly sourcePackage: any;
 }
 
 function seedOf(raw: number) {
   return Number.isFinite(raw) && raw > 0 ? Math.trunc(raw) : 1;
+}
+
+function normalizeAnswerSemantic(sourcePrototypeId: string, sourcePackage: any): string {
+  if (sourcePackage?.answerSemantic) return String(sourcePackage.answerSemantic);
+  switch (sourcePrototypeId) {
+    case "NUM-CP014-PROT-001": return "DIGIT";
+    case "NUM-CP014-PROT-002": return "HIDDEN_NUMBER";
+    case "NUM-CP014-PROT-003": return "HIDDEN_NUMBER";
+    case "NUM-CP014-PROT-004": return "HIDDEN_EXPONENT";
+    case "NUM-CP014-PROT-005": return "HIDDEN_BASE";
+    case "NUM-CP014-PROT-006": return "HIDDEN_NUMBER";
+    default: throw new Error(`CP014 freeze-readiness cannot normalize answer semantic for ${sourcePrototypeId}.`);
+  }
 }
 
 export function resolveNumCp014AuthorityCandidate(
@@ -54,12 +68,15 @@ export function resolveNumCp014AuthorityCandidate(
     throw new Error(`${authorityId}/${authoritySeed}: obsolete Wave01 P003 runtime leaked into freeze-readiness projection.`);
   }
 
+  const answerSemantic = normalizeAnswerSemantic(sourcePrototypeId, sourcePackage);
+
   return Object.freeze({
     authorityId,
     authoritySeed,
     sourceIndex,
     sourceSeed,
     sourcePrototypeId,
+    answerSemantic,
     sourcePackage,
   });
 }
