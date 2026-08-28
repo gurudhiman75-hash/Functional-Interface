@@ -1,8 +1,6 @@
 import type { IntCp005QlId } from "./cp005-variable-growth-decay-runtime";
-import {
-  INT_CP005_V16_1_QL_IDS,
-  generateIntCp005V16_1FrozenQuestion,
-} from "./cp005-variable-growth-decay-v16-1-frozen";
+import { INT_CP005_V16_1_QL_IDS } from "./cp005-variable-growth-decay-runtime-v16-1-final-v2";
+import { generateIntCp005V16_1FrozenQuestion } from "./cp005-variable-growth-decay-v16-1-frozen";
 import {
   createInterestFrozenQuestionStudioAdapter,
   type InterestQuestionStudioRequest,
