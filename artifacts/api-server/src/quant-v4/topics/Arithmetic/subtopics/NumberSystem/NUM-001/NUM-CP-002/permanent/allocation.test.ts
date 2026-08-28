@@ -60,7 +60,15 @@ assert.equal(
 
 assert.equal(NUM_CP002_PERMANENT_QL_IDS[0], "NUM-QL-145");
 assert.equal(NUM_CP002_PERMANENT_QL_IDS[20], "NUM-QL-165");
-assert.equal(NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT, 166);
+
+// CP002 froze when the next available Number System identity was QL166. That
+// historical checkpoint-local boundary must not be confused with the chapter's
+// live next coordinate after CP008..CP014 were permanently allocated.
+const cp002FreezeLastQlNumber = Number(NUM_CP002_PERMANENT_QL_IDS.at(-1)!.slice(-3));
+const cp002FreezeNextPermanentQlNumber = cp002FreezeLastQlNumber + 1;
+assert.equal(cp002FreezeNextPermanentQlNumber, 166);
+assert.equal(NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT, 254);
+assert.ok(NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT > cp002FreezeNextPermanentQlNumber);
 
 console.log(JSON.stringify({
   status: "PASS_NUM_CP002_PERMANENT_ENGLISH_FROZEN_ALLOCATION",
@@ -72,6 +80,7 @@ console.log(JSON.stringify({
   singletonAuthorityCount: 14,
   solveModeFrozen: true,
   englishImplementationFrozen: true,
-  nextPermanentQl: "NUM-QL-166",
+  nextPermanentQlAtCp002Freeze: "NUM-QL-166",
+  currentChapterNextPermanentQl: `NUM-QL-${String(NUMBER_SYSTEM_NEXT_PERMANENT_QL_NUMBER_CURRENT).padStart(3, "0")}`,
   deliveryExposure: 0,
 }, null, 2));
