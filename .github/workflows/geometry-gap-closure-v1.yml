@@ -1,5 +1,11 @@
 name: Validate Geometry 52-Gap Closure V1
 on:
+  push:
+    branches: [feature/geo-phase0-foundation-v1]
+    paths:
+      - artifacts/api-server/src/quant-v4/shared/geometry/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/**
+      - .github/workflows/geometry-gap-closure-v1.yml
   pull_request:
     branches: [New-main]
     types: [opened,reopened,synchronize,ready_for_review]
