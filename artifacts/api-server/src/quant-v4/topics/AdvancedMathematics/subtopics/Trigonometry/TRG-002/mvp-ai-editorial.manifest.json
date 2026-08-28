@@ -1,0 +1,95 @@
+{
+  "packageId": "TRG-002",
+  "checkpoint": "PHASE7_MVP_48_POST_SELF_REVIEW_REMEDIATED",
+  "status": "AI_EDITORIAL_REMEDIATION_PASS_EXECUTION_PASS_REPRESENTATIVE_RUNTIME_VISUAL_PASS_APP_UI_AND_HUMAN_REVIEW_PENDING",
+  "activeRuntime": "mvp-final-editorial-runtime.ts",
+  "counts": {
+    "mvpPermanentQlCount": 48,
+    "aiEditorialRemediated": 48,
+    "humanReviewed": 0
+  },
+  "editorialRemediationQlIds": [
+    "TRG-002-QL-007",
+    "TRG-002-QL-024",
+    "TRG-002-QL-043",
+    "TRG-002-QL-049",
+    "TRG-002-QL-067",
+    "TRG-002-QL-069",
+    "TRG-002-QL-071",
+    "TRG-002-QL-073",
+    "TRG-002-QL-076",
+    "TRG-002-QL-081",
+    "TRG-002-QL-083",
+    "TRG-002-QL-092",
+    "TRG-002-QL-095",
+    "TRG-002-QL-096"
+  ],
+  "studentFacingPresentationQlIds": [
+    "TRG-002-QL-067",
+    "TRG-002-QL-073",
+    "TRG-002-QL-076",
+    "TRG-002-QL-081",
+    "TRG-002-QL-095"
+  ],
+  "difficulty": {
+    "mediumLocked": [
+      "TRG-002-QL-052",
+      "TRG-002-QL-055",
+      "TRG-002-QL-058",
+      "TRG-002-QL-061",
+      "TRG-002-QL-064",
+      "TRG-002-QL-095"
+    ],
+    "hardRetained": ["TRG-002-QL-096"]
+  },
+  "diagramStandard": {
+    "angleArcRequired": true,
+    "rightAngleMarkersFirstClass": true,
+    "sharedVertexAngleArcLanes": true,
+    "solutionDiagramRequiredCount": 48,
+    "stemDiagramAutomaticCount": 0
+  },
+  "reviewMetadata": {
+    "reviewStatus": "AI_REVIEWED",
+    "aiEditorialStatus": "PASS",
+    "humanReviewStatus": "PENDING",
+    "runtimeSpecVisualInspection": "NOT_ASSERTED_PER_INSTANCE",
+    "representativeRuntimeVisualEvidence": "EXTERNAL_REVIEW_ARTIFACT",
+    "representativeVisualReviewScope": "ONE_DESIGNATED_REVIEW_INSTANCE_PER_QL",
+    "appUiRenderedInspection": "PENDING",
+    "humanReviewSubstituted": false
+  },
+  "executionEvidence": {
+    "workflow": ".github/workflows/trg-002-mvp48-verification.yml",
+    "observedSuccessfulRunId": 31820489042,
+    "observedSuccessfulHead": "0a0b0fbe72bd053252d7dd05c33721a9aab522d2",
+    "artifactId": 9226750393,
+    "strictTypeScriptCompile": "PASS",
+    "mvpCanonicalCases": 576,
+    "mvpCanonicalGate": "PASS",
+    "mvpSweepCases": 2400,
+    "mvpSweepGate": "PASS",
+    "labelSmokeGate": "PASS",
+    "difficultyRegressionGate": "PASS",
+    "diagramStrategyGate": "PASS",
+    "specialProjectionGate": "PASS",
+    "finalEditorialCases": 576,
+    "finalEditorialGate": "PASS",
+    "runtimeReviewExport": "PASS",
+    "artifactName": "trg-002-mvp48-runtime-review"
+  },
+  "visualInspection": {
+    "representativeRuntimeArtifact": "PASS",
+    "compositeNestedAngleArcsQlIds": ["TRG-002-QL-095", "TRG-002-QL-096"],
+    "browserAppWrapper": "PENDING"
+  },
+  "freezeEligible": false,
+  "activation": {
+    "questionStudioDiscoverable": false,
+    "testBuilderEligible": false,
+    "questionBankStored": false,
+    "publiclyPublishable": false,
+    "hindiPunjabiRuntime": false
+  },
+  "next": "Inspect the real ExamTree/browser UI wrapper and complete human review of all 48 QLs before production freeze or 48-to-96 expansion under the current plan."
+}

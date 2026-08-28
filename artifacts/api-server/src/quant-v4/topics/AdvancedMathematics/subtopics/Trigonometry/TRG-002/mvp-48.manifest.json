@@ -1,0 +1,124 @@
+{
+  "packageId": "TRG-002",
+  "checkpoint": "PHASE7_MVP_48_HUMAN_APPROVED_BROWSER_VALIDATED_FROZEN",
+  "status": "MVP_48_HUMAN_APPROVED_BROWSER_WRAPPER_PASS_FROZEN",
+  "activeRuntime": "mvp-human-approved-runtime.ts",
+  "counts": {
+    "perCp": 12,
+    "mvpPermanentQlCount": 48,
+    "retainedProofAnchors": 20,
+    "addedMvpQlCount": 28,
+    "productionTarget": 96
+  },
+  "review": {
+    "aiEditorialRemediation": "PASS",
+    "knownActiveBlockers": 0,
+    "representativeRuntimeVisualInspection": "PASS",
+    "perSeedVisualInspection": "NOT_ASSERTED",
+    "appUiRenderedInspection": "PASS",
+    "humanReviewed": 48,
+    "humanReviewTarget": 48,
+    "humanReviewStatus": "APPROVED",
+    "freezeEligible": true,
+    "freezeStatus": "FROZEN",
+    "approvedContentFingerprint": "b60217f9b29af79435ab065e4c64c40449dc43df2fa9646b055f41763bce04db"
+  },
+  "coverage": {
+    "brokenObjectQlIds": ["TRG-002-QL-041", "TRG-002-QL-043"],
+    "comparativeTwoObjectQlIds": ["TRG-002-QL-071"],
+    "compositeVerticalObjectQlIds": ["TRG-002-QL-095", "TRG-002-QL-096"],
+    "representedDiagramStrategies": 14
+  },
+  "solutionDiagramPolicy": {
+    "solutionRequired": 48,
+    "stemAutomatic": 0,
+    "stemPolicy": "OPTIONAL",
+    "solutionDisclosure": "AFTER_ATTEMPT",
+    "canonicalStateBindingRequired": true,
+    "angleArcs": true,
+    "rightAngleMarkers": true,
+    "sharedVertexAngleArcLanes": true
+  },
+  "remediation": {
+    "editorialQlIds": [
+      "TRG-002-QL-007",
+      "TRG-002-QL-024",
+      "TRG-002-QL-043",
+      "TRG-002-QL-049",
+      "TRG-002-QL-067",
+      "TRG-002-QL-069",
+      "TRG-002-QL-071",
+      "TRG-002-QL-073",
+      "TRG-002-QL-076",
+      "TRG-002-QL-081",
+      "TRG-002-QL-083",
+      "TRG-002-QL-092",
+      "TRG-002-QL-095",
+      "TRG-002-QL-096"
+    ],
+    "studentFacingPresentationQlIds": [
+      "TRG-002-QL-067",
+      "TRG-002-QL-073",
+      "TRG-002-QL-076",
+      "TRG-002-QL-081",
+      "TRG-002-QL-095"
+    ],
+    "mediumDifficultyQlIds": [
+      "TRG-002-QL-052",
+      "TRG-002-QL-055",
+      "TRG-002-QL-058",
+      "TRG-002-QL-061",
+      "TRG-002-QL-064",
+      "TRG-002-QL-095"
+    ],
+    "hardRetainedQlIds": ["TRG-002-QL-096"],
+    "cp009DiversifiedQlIds": ["TRG-002-QL-067", "TRG-002-QL-069"],
+    "compositeNestedAngleArcQlIds": ["TRG-002-QL-095", "TRG-002-QL-096"]
+  },
+  "executionEvidence": {
+    "workflow": ".github/workflows/trg-002-mvp48-verification.yml",
+    "approvedContentRunId": 31932920092,
+    "approvedContentSourceHead": "60e289ee6c89a3f595ad75038ac563daf2a5fc5f",
+    "artifactId": 9259815578,
+    "artifactDigest": "sha256:2e49ac250376d38fcd7fa21aa7be4d9906f9fed6d6ccc8a036dfe69bcad2788f",
+    "strictTypeScriptCompile": "PASS",
+    "mvpCanonicalCases": 576,
+    "mvpCanonicalGate": "PASS",
+    "mvpSweepCases": 2400,
+    "mvpSweepGate": "PASS",
+    "labelSmokeGate": "PASS",
+    "difficultyRegressionGate": "PASS",
+    "visualStrategyGate": "PASS",
+    "specialProjectionGate": "PASS",
+    "finalEditorialCases": 576,
+    "finalEditorialGate": "PASS",
+    "examStyleStemGate": "PASS",
+    "runtimeReviewExport": "PASS",
+    "artifactName": "trg-002-mvp48-runtime-review"
+  },
+  "browserEvidence": {
+    "workflowRunId": 31945456581,
+    "integrationHead": "e0480a63188327fb4a4521f0ade2efc1970557cf",
+    "verifyJob": "PASS",
+    "browserWrapperJob": "PASS",
+    "responsive390x844": "PASS"
+  },
+  "freeze": {
+    "status": "FROZEN",
+    "frozenAt": "2026-08-17T07:47:00+05:30",
+    "freezeGovernanceBaseHead": "828782170a15779f6b039668b254ec19647ec9c5",
+    "approvedContentFingerprint": "b60217f9b29af79435ab065e4c64c40449dc43df2fa9646b055f41763bce04db",
+    "contentChangeRequiresNewHumanApproval": true,
+    "perGeneratedSeedVisualPassClaimed": false,
+    "expansionAuthorized": false,
+    "mergeAuthorized": false
+  },
+  "activation": {
+    "questionStudioDiscoverable": false,
+    "testBuilderEligible": false,
+    "questionBankStored": false,
+    "publiclyPublishable": false,
+    "hindiPunjabiRuntime": false
+  },
+  "next": "Verify the freeze on its exact branch head. After a green freeze gate, use this frozen 48-QL baseline as the controlled base for the planned 48-to-96 English expansion without activating product surfaces."
+}

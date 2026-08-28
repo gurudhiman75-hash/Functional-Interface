@@ -2,6 +2,7 @@ import { Router, type IRouter } from "express";
 
 import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk-hardening";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
+import adminQuestionStudioTrigonometryRouter from "./admin-question-studio-trigonometry";
 import adminQuestionStudioCp013Router from "./admin-question-studio-cp013";
 import adminQuestionStudioAverageRouter from "./admin-question-studio-average";
 import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
@@ -32,6 +33,7 @@ const router: IRouter = Router();
 
 router.use(adminQuestionStudioBulkHardeningRouter);
 router.use(adminQuestionStudioQualityRouter);
+router.use(adminQuestionStudioTrigonometryRouter);
 router.use(adminQuestionStudioCp013Router);
 router.use(adminQuestionStudioAverageRouter);
 router.use(adminQuestionStudioRegenerationRouter);

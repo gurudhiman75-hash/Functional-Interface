@@ -1,0 +1,129 @@
+{
+  "packageId": "TRG-002",
+  "checkpoint": "PHASE6_RUNTIME_PROOF_20_FINAL_REMEDIATED",
+  "status": "AI_FINAL_REMEDIATION_IMPLEMENTED_EXECUTION_VISUAL_AND_HUMAN_REVIEW_PENDING",
+  "base": "feat/trg-002-spatial-foundation@eaee9f91a4a02b78f5119b843b5d573c30ba9c9b",
+  "engineeringRuntime": "runtime-proof.ts",
+  "legacyReviewedInput": "runtime-proof-reviewed.ts",
+  "examReadyInput": "runtime-proof-exam-ready.ts",
+  "activeCandidate": "runtime-proof-final-remediation.ts",
+  "activeDiagramCandidate": "runtime-proof-solution-diagram.ts",
+  "activeGateSuites": [
+    "runtime-proof-exam-ready.test.ts",
+    "runtime-proof-final-remediation.test.ts",
+    "runtime-proof-solution-diagram.test.ts",
+    "solution-diagram-visual-review.test.ts"
+  ],
+  "visualReviewManifest": "solution-diagram-visual-review.manifest.ts",
+  "retiredLegacyGateSuites": [
+    "runtime-proof.test.ts",
+    "runtime-proof-reviewed.test.ts"
+  ],
+  "legacyGateRationale": "Fresh audit found QL-056, QL-065 and QL-068 marked Hard with only two engineering explanation steps while the engineering runtime requires at least three; the original all-20 gates were therefore not valid authority surfaces.",
+  "statusDocument": "RUNTIME_PROOF_STATUS.md",
+  "legacyGateNote": "LEGACY_PROOF_GATE_NOTE.md",
+  "qlCounts": {
+    "proof": 20,
+    "perCp": 5,
+    "distinctSolveModes": 20,
+    "distinctLockedFamilies": 20,
+    "fullProductionTarget": 96
+  },
+  "proofIds": {
+    "TRG-CP-007": ["TRG-002-QL-001","TRG-002-QL-007","TRG-002-QL-012","TRG-002-QL-015","TRG-002-QL-023"],
+    "TRG-CP-008": ["TRG-002-QL-025","TRG-002-QL-030","TRG-002-QL-033","TRG-002-QL-036","TRG-002-QL-045"],
+    "TRG-CP-009": ["TRG-002-QL-049","TRG-002-QL-056","TRG-002-QL-061","TRG-002-QL-065","TRG-002-QL-068"],
+    "TRG-CP-010": ["TRG-002-QL-073","TRG-002-QL-078","TRG-002-QL-083","TRG-002-QL-088","TRG-002-QL-092"]
+  },
+  "diagramPolicy": {
+    "solutionRequired": 20,
+    "stemAutomatic": 0,
+    "canonicalStateBindingRequired": true,
+    "solutionDisclosure": "AFTER_ATTEMPT",
+    "representedProofStrategies": 13,
+    "visualReviewCases": 13,
+    "brokenTreeClaimed": false
+  },
+  "examReadinessRemediation": {
+    "stateOrMathRemodel": [
+      "TRG-002-QL-015",
+      "TRG-002-QL-025",
+      "TRG-002-QL-030",
+      "TRG-002-QL-056",
+      "TRG-002-QL-065",
+      "TRG-002-QL-068",
+      "TRG-002-QL-073"
+    ],
+    "difficultyOrEditorialCalibration": [
+      "TRG-002-QL-049",
+      "TRG-002-QL-061",
+      "TRG-002-QL-078",
+      "TRG-002-QL-083",
+      "TRG-002-QL-088",
+      "TRG-002-QL-092"
+    ],
+    "difficultyMedium": [
+      "TRG-002-QL-056",
+      "TRG-002-QL-065",
+      "TRG-002-QL-068",
+      "TRG-002-QL-078",
+      "TRG-002-QL-083",
+      "TRG-002-QL-088",
+      "TRG-002-QL-092"
+    ],
+    "genuineHardRetained": [
+      "TRG-002-QL-049",
+      "TRG-002-QL-061"
+    ],
+    "specificFixes": {
+      "TRG-002-QL-015": "FINAL_45_DEG_INTEGER_DISTANCE_INTEGER_HEIGHT_DEPRESSION_CONSTRUCTION",
+      "TRG-002-QL-025": "REMOVED_AWKWARD_SQRT3_OVER_3_HEIGHT_ANSWERS",
+      "TRG-002-QL-030": "NATURAL_INTEGER_GIVEN_HEIGHT_WITH_SURD_ANSWER",
+      "TRG-002-QL-049": "CLEANED_OBSERVATION_POINT_WORDING",
+      "TRG-002-QL-056": "CANONICAL_REQUEST_TARGET_BOUND_TO_NEAR_HORIZONTAL_DISTANCE",
+      "TRG-002-QL-061": "RETAINED_NO_ORIGINAL_DISTANCE_INFORMATION_LEAK",
+      "TRG-002-QL-065": "CANONICAL_REQUEST_TARGET_BOUND_TO_ORIGINAL_FAR_HORIZONTAL_DISTANCE",
+      "TRG-002-QL-068": "CANONICAL_REQUEST_TARGET_BOUND_TO_NEAR_FAR_POINT_SEPARATION",
+      "TRG-002-QL-073": "FIXED_OBSERVER_EYE_HEIGHT_TO_1_5_M",
+      "TRG-002-QL-078": "CORRECTED_DISTRACTOR_PROVENANCE_LABELS",
+      "TRG-002-QL-083": "CLEANED_BUILDING_TO_BUILDING_WORDING"
+    }
+  },
+  "gateTargets": {
+    "canonicalSeedsPerQl": 12,
+    "canonicalCases": 240,
+    "sweepSeeds": 50,
+    "sweepCases": 1000,
+    "minimumStemVariantsPerQl": 2,
+    "solutionDiagramCanonicalCases": 240,
+    "solutionDiagramSweepCases": 1000,
+    "representativeVisualStrategies": 13
+  },
+  "editorial": {
+    "aiRemediationCompleted": true,
+    "humanReviewed": 0,
+    "humanReviewTarget": 20,
+    "renderedVisualReviewCompleted": false
+  },
+  "executionEvidence": {
+    "strictTypeScriptCompile": "NOT_CLAIMED",
+    "examReadyGateExecution": "NOT_CLAIMED",
+    "finalRemediationGateExecution": "NOT_CLAIMED",
+    "solutionDiagramGateExecution": "NOT_CLAIMED",
+    "visualReviewGateExecution": "NOT_CLAIMED",
+    "githubActionsObserved": false,
+    "localCloneAttempt": "FAILED_DNS_NO_GITHUB_HOST_RESOLUTION"
+  },
+  "unrepresentedProofFamiliesStillMandatory": [
+    "BROKEN_OBJECT",
+    "COMPOSITE_VERTICAL_OBJECT"
+  ],
+  "activation": {
+    "questionStudioDiscoverable": false,
+    "testBuilderEligible": false,
+    "questionBankStored": false,
+    "publiclyPublishable": false,
+    "hindiPunjabiRuntime": false
+  },
+  "next": "Obtain execution evidence and actual rendered visual inspection for the 13 representative proof strategies, then perform a final active-output audit before expanding to the 48-QL TRG-002 MVP."
+}

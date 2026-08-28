@@ -1,0 +1,84 @@
+name: Validate Trigonometry family Question Studio
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/**"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine-trigonometry.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-trigonometry.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
+      - ".github/workflows/trigonometry-family-question-studio-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: trigonometry-family-question-studio-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-trigonometry-family-question-studio:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Trigonometry family integration audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry"
+          pnpm --dir artifacts/api-server exec esbuild "$base/question-studio-family-integration.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/trigonometry-family-question-studio-integration.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$base/question-studio-family-route-contract.test.ts" \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/trigonometry-family-question-studio-route.mjs
+
+      - name: Run frozen authority and lifecycle integration audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trigonometry-family-question-studio-integration.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trigonometry-family-question-studio-integration.log
+
+      - name: Run route and aggregate facade contract audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trigonometry-family-question-studio-route.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trigonometry-family-question-studio-route.log
+
+      - name: Bundle actual Trigonometry admin route
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/routes/admin-question-studio-trigonometry.ts
+          --bundle --platform=node --format=esm --packages=external
+          --outfile=dist/quant-v4/admin-question-studio-trigonometry-route.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload Trigonometry family evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: trigonometry-family-question-studio-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/trigonometry-family-question-studio-integration.log
+            artifacts/api-server/dist/quant-v4/trigonometry-family-question-studio-route.log
+          if-no-files-found: error
+          retention-days: 30
