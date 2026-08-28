@@ -13,10 +13,10 @@ export const GEO_MERGE_SPLIT_PROPOSAL_V1: readonly GeometryMergeSplitFamilyPropo
 ]);
 
 export const GEO_MERGE_SPLIT_PROPOSAL_STATE_V1 = Object.freeze({
-  state: "STRICT_81_TO_73_MERGE_SPLIT_PROPOSAL_COMPLETE__PERMANENT_ALLOCATION_NOT_AUTHORIZED",
+  state: "STRICT_81_TO_74_MERGE_SPLIT_PROPOSAL_COMPLETE__PERMANENT_ALLOCATION_NOT_AUTHORIZED",
   temporaryCandidateCount: GEO_TEMPORARY_CANDIDATE_REGISTRY_V1.length,
   proposedSemanticFamilyCount: GEO_MERGE_SPLIT_PROPOSAL_V1.length,
-  expectedProposedSemanticFamilyCount: 73,
+  expectedProposedSemanticFamilyCount: 74,
   permanentQlCount: 0,
   permanentQlIdsReserved: false,
   permanentAllocationAuthorized: false,
