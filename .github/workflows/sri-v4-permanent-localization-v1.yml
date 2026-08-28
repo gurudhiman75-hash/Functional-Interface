@@ -72,6 +72,16 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/quant-v4/sri/permanent-localization-editorial-quality-v1.test.mjs
+      - name: Bundle governed multilingual freeze audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/permanent-multilingual-freeze-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/permanent-multilingual-freeze-v1.test.mjs
+      - name: Run 2,784-package multilingual freeze audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/permanent-multilingual-freeze-v1.test.mjs
       - name: Bundle multilingual review exporter
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
