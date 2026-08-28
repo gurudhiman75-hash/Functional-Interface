@@ -28,6 +28,30 @@ export function localizeSriEditorialFinalSurfaceV1(
       : `ਦਿੱਤੇ ਸੰਬੰਧ ${match[1]} ਅਤੇ ${match[2]} ਹਨ।`;
   }
 
+  // C005-D/E/H/I whole-template stems. Generic token fallback previously
+  // produced machine-literal word order (and once leaked an attached Latin
+  // "s" from "equals"). Keep formula order unchanged for math-skeleton parity.
+  match = text.match(/^Determine x when (.+?) equals (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `x का मान तब ज्ञात कीजिए जब ${match[1]} का मान ${match[2]} हो।`
+      : `x ਦਾ ਮੁੱਲ ਤਦ ਪਤਾ ਕਰੋ ਜਦੋਂ ${match[1]} ਦਾ ਮੁੱਲ ${match[2]} ਹੋਵੇ।`;
+  }
+
+  match = text.match(/^Determine x from (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `x का मान ${match[1]} से ज्ञात कीजिए।`
+      : `x ਦਾ ਮੁੱਲ ${match[1]} ਤੋਂ ਪਤਾ ਕਰੋ।`;
+  }
+
+  match = text.match(/^Given (.+?), determine the value of (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `दिया है: ${match[1]}। ${match[2]} का मान ज्ञात कीजिए।`
+      : `ਦਿੱਤਾ ਹੈ: ${match[1]}। ${match[2]} ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।`;
+  }
+
   // C005-F quadratic-in-a^x stems and derived equation shell.
   match = text.match(/^If (\(.+?\)\^2 - .+? = 0), find the integer x\.$/u);
   if (match) {
