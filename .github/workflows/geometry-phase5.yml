@@ -1,4 +1,4 @@
-name: Validate Geometry permanent solve-mode freeze
+name: Validate Geometry permanent English review
 
 on:
   pull_request:
@@ -6,18 +6,18 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/**
-      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-solve-mode-freeze-v1.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-permanent-english-runtime-v1.test.ts
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: geometry-solve-mode-freeze-${{ github.ref }}
+  group: geometry-permanent-english-review-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-geometry-permanent-solve-mode-freeze:
+  validate-geometry-permanent-english-review:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -35,20 +35,20 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Prove Geometry permanent 75 solve-mode freeze
+      - name: Prove Geometry permanent English runtime review
         run: |
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-solve-mode-freeze-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-solve-mode-freeze-v1.test.mjs
-          node artifacts/api-server/dist/quant-v4/geometry-solve-mode-freeze-v1.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-permanent-english-runtime-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-permanent-english-runtime-v1.test.mjs
+          node artifacts/api-server/dist/quant-v4/geometry-permanent-english-runtime-v1.test.mjs
 
-      - name: Export Geometry permanent solve-mode freeze evidence
+      - name: Export Geometry permanent English review pack
         run: |
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-solve-mode-freeze-v1.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-solve-mode-freeze-v1-export.mjs
-          (cd artifacts/api-server && node dist/quant-v4/geometry-solve-mode-freeze-v1-export.mjs)
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-permanent-english-review-v1.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-permanent-english-review-v1-export.mjs
+          (cd artifacts/api-server && node dist/quant-v4/geometry-permanent-english-review-v1-export.mjs)
 
-      - name: Upload Geometry permanent solve-mode freeze evidence
+      - name: Upload Geometry permanent English review pack
         uses: actions/upload-artifact@v4
         with:
-          name: geometry-solve-mode-freeze-v1
-          path: artifacts/api-server/dist/quant-v4/geometry-solve-mode-freeze-v1
+          name: geometry-permanent-english-review-v1
+          path: artifacts/api-server/dist/quant-v4/geometry-permanent-english-review-v1
           if-no-files-found: error
           retention-days: 30

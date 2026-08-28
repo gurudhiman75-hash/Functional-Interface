@@ -1,46 +1,40 @@
 # Geometry Source-Gap Closure V1 Status
 
 **Authority:** Composite Geometry Revision 3  
-**State:** `PERMANENT_75_SOLVE_MODE_FREEZE_IMPLEMENTED__CI_PROOF_PENDING`  
+**State:** `PERMANENT_ENGLISH_RUNTIME_REVIEW_IMPLEMENTED__CI_PROOF_PENDING`  
 **Permanent QLs:** `75` (`GEO-QL-001..GEO-QL-075`)  
 **Canonical solve-mode families:** `75` (`GEO-SM-001..GEO-SM-075`)  
-**English runtime:** `NOT_AUTHORIZED`
+**Mapped executable English prototype variants:** `81`  
+**English freeze:** `NOT_AUTHORIZED`
 
-## Proven source and family endpoint
+## Proven architecture
 
-The 52-gap closure remains proven: **37 IMPLEMENTED**, **9 MERGED_EXISTING_AUTHORITY**, **1 OWNED_OTHER_CHAPTER**, **5 DEFERRED_SOURCE_EVIDENCE**, **0 open**, **0 unclassified**. The canonical executable corpus remains **81** temporary candidates.
+The 52-gap closure remains proven: **37 IMPLEMENTED**, **9 MERGED_EXISTING_AUTHORITY**, **1 OWNED_OTHER_CHAPTER**, **5 DEFERRED_SOURCE_EVIDENCE**, **0 open**, **0 unclassified**. The executable corpus remains **81** temporary prototypes mapped into **75** approved permanent families.
 
-The strict family architecture is proven as **81 → 75**, with exactly six intentional merge groups. Proposal proof:
+Permanent QLs are proven as `GEO-QL-001..GEO-QL-075`.
 
-- head `5307cc23c306659f224e3f7817181b2c13379a97`
-- run `33136861208`
-- job `98738647609`
-- artifact `9673884272` — `geometry-merge-split-proposal-v1`
-- digest `sha256:b78616664cb1e4ffd81ee0d6f854a3eca5d34b1006e904a875b9726ae9d5e5e4`
+Solve-mode families are proven as `GEO-SM-001..GEO-SM-075`:
 
-## Permanent QL allocation — proven
+- head `53317e88b88e2fec800e11d375eeae79e6dbbe7d`
+- run `33155000056`
+- job `98795564529` — `validate-geometry-permanent-solve-mode-freeze` — **success**
+- artifact `9679234386` — `geometry-solve-mode-freeze-v1`
+- size `16835` bytes
+- digest `sha256:56c81abad2fc5da23cb2850bded0f24afa5f0627142eae0a0989b824e30ad497`
 
-The approved 75 families are permanently allocated as `GEO-QL-001..GEO-QL-075`, with `GEO-QL-076` next available. All 81 temporary authorities are represented exactly once and the six intentional merge groups are preserved.
+## Permanent English runtime review V1
 
-Dedicated allocation proof:
+The English adapter reuses the already-executable prototype generators rather than replacing them with generic permanent placeholders. Every one of the 81 prototype authorities maps exactly once into its approved permanent QL. For the six merged families, the permanent runtime exposes the approved prototype members as deterministic variants under one canonical solve-mode family.
 
-- head `b67e602105efda7bd2f0a67d4fc6698daaa3c4aa`
-- run `33154550293`
-- job `98794102972` — `validate-geometry-permanent-75-ql-allocation` — **success**
-- artifact `9679061402` — `geometry-permanent-ql-allocation-v1`
-- size `22015` bytes
-- digest `sha256:f6811e00ee39805a32b0cba9ac24bd74d36701e5aa2630a959e1e86c45af5831`
+The review gate generates:
 
-## Solve-mode freeze V1 — implementation pending proof
+- one deterministic review item for each mapped prototype variant: **81**;
+- twelve stress seeds per mapped prototype variant: **972** total stress generations;
+- a machine-readable JSON review pack;
+- a Markdown review pack;
+- a browser-reviewable HTML pack with diagrams on a white review surface.
 
-Each permanent QL now receives exactly one canonical solve-mode family `GEO-SM-001..GEO-SM-075`, aligned one-to-one with `GEO-QL-001..GEO-QL-075`. Existing prototype solve-mode names remain attached as provenance/parameter variants, so reversible or representation-level members of the six approved merge groups are not erased.
-
-Regression locks explicitly keep distinct:
-
-- right-triangle orthocentre location vs generic centre-name identification;
-- linear missing-whole secant recovery vs reverse unknown-external quadratic secant recovery.
-
-The solve-mode freeze repository proof is pending. Until green, English runtime implementation is not authorized.
+CI proof is pending. English remains unfrozen until explicit approval of the exact successful review artifact.
 
 ## Source boundary
 
@@ -59,14 +53,12 @@ Still source-deferred:
 strictMergeSplitProposalProven = true
 permanentFamilyArchitectureApproved = true
 permanentQlAllocationProven = true
-permanentQlIdsReserved = true
-solveModeFreezeAllowed = true
-solveModeFreezeImplemented = true
-solveModeFreezeProven = false
-solveModesFrozenInAuthority = true
-englishRuntimeImplementationAllowed = false
-englishRuntimeImplemented = false
+solveModeFreezeProven = true
+englishRuntimeImplementationAllowed = true
+englishRuntimeImplemented = true
+englishRuntimeProven = false
 englishFreezeAllowed = false
+englishImplementationFrozen = false
 localizationAllowed = false
 questionStudioActivationAllowed = false
 questionBankWriteAllowed = false
@@ -77,4 +69,4 @@ prMergeAuthorized = false
 
 ## Next gate
 
-Prove the 75-family solve-mode freeze in the dedicated related-only Geometry gate. If green, advance to `ENGLISH_RUNTIME_REVIEW`; do not activate localisation, Question Studio, Question Bank, tests or publication yet.
+Prove the permanent English runtime/review pack in the dedicated related-only Geometry gate. If green, stop for explicit product-owner approval of the exact artifact before English freeze. Localisation, Question Studio, Question Bank, test eligibility and publication remain locked.
