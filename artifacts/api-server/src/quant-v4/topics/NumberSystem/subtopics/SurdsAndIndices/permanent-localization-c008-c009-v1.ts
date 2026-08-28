@@ -1,6 +1,7 @@
 import type { SriLocalizedLocaleV1 } from "./permanent-localization-base-v1";
 import { localizeSriC008C009FinalizedSurfaceV1 as localizeSriC008C009CoreV1 } from "./permanent-localization-c008-c009-core-v1";
 import { localizeSriC010C012FinalizedSurfaceV1 } from "./permanent-localization-c010-c012-v1";
+import { localizeSriEditorialSurfaceV1 } from "./permanent-localization-editorial-v1";
 import { localizeSriResidualSurfaceV1 } from "./permanent-localization-residual-v1";
 
 /**
@@ -12,6 +13,9 @@ export function localizeSriC008C009FinalizedSurfaceV1(
   text: string,
   locale: SriLocalizedLocaleV1,
 ): string | undefined {
+  const editorial = localizeSriEditorialSurfaceV1(text, locale);
+  if (editorial) return editorial;
+
   // C012-E strict residuals exposed after all earlier families cleared in run #70.
   const simplifyThenFind = text.match(/^First simplify the surd, then find (.+)\.$/u);
   if (simplifyThenFind) {
