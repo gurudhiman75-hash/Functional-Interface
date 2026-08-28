@@ -134,7 +134,23 @@ export function localizeSriEditorialFinalSurfaceV1(
       : `ਦਿੱਤਾ ਹੈ x=${match[1]}।`;
   }
 
-  // C011-C different-index radical derived shell.
+  // C011-B/C exact-comparison derived shells. Keep qualifiers outside the
+  // captured mathematical operands so no English prose is carried through.
+  match = text.match(/^The quantities to compare are the positive surds (.+?) and (.+?) by exact arithmetic\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `सटीक गणना से तुलना की जाने वाली धनात्मक करणियाँ ${match[1]} और ${match[2]} हैं।`
+      : `ਸਟੀਕ ਗਣਨਾ ਨਾਲ ਤੁਲਨਾ ਲਈ ਧਨਾਤਮਕ ਕਰਣੀਆਂ ${match[1]} ਅਤੇ ${match[2]} ਹਨ।`;
+  }
+
+  match = text.match(/^The quantities to compare are the different-index radicals (.+?) and (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `तुलना की जाने वाली भिन्न-घातांक करणियाँ ${match[1]} और ${match[2]} हैं।`
+      : `ਤੁਲਨਾ ਲਈ ਵੱਖਰੇ-ਘਾਤਾਂਕ ਕਰਣੀਆਂ ${match[1]} ਅਤੇ ${match[2]} ਹਨ।`;
+  }
+
+  // C011-C different-index radical generic derived shell.
   match = text.match(/^The (?:radicals|quantities) to compare are (.+?) and (.+)\.$/u);
   if (match) {
     return locale === "hi-IN"
