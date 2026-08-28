@@ -2,6 +2,11 @@ name: Validate SPA PFC TPF Question Studio Operator Review V1.3
 
 on:
   pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-*.test.ts"
+      - "artifacts/admin-app/src/features/question-studio/**"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"
   workflow_dispatch:
 
 permissions:
