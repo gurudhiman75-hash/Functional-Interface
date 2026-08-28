@@ -20,6 +20,15 @@ export {
 };
 export type { SharedQuestionStudioGenerationRequest };
 
+const TRG_002_AGGREGATE_CAPABILITY = Object.freeze({
+  ...TRG_002_V4_QUESTION_STUDIO_PACKAGE,
+  permanentQlCount: 96,
+  questionBankWritable: true,
+  testEligible: true,
+  mockTestEligible: true,
+  automaticStudentPublication: false,
+});
+
 function upsertPackage(packages: any[], capability: any) {
   const packageId = String(capability.packageId);
   const index = packages.findIndex((entry) => String(entry.packageId) === packageId);
@@ -27,10 +36,40 @@ function upsertPackage(packages: any[], capability: any) {
   else packages.push(capability);
 }
 
+function applyInternalLifecycleBooleans(result: any) {
+  const lifecycle = {
+    questionBankWritable: true,
+    testEligible: true,
+    mockTestEligible: true,
+    publiclyPublishable: false,
+    publicReleaseAuthorized: false,
+    automaticStudentPublication: false,
+  } as const;
+
+  const questionPackages = Object.freeze((result.questionPackages ?? []).map((entry: any) => Object.freeze({
+    ...entry,
+    ...lifecycle,
+  })));
+  const questions = Object.freeze((result.questions ?? []).map((entry: any) => Object.freeze({
+    ...entry,
+    ...lifecycle,
+  })));
+
+  return Object.freeze({
+    ...result,
+    generationContext: Object.freeze({
+      ...(result.generationContext ?? {}),
+      ...lifecycle,
+    }),
+    questionPackages,
+    questions,
+  });
+}
+
 export function listQuestionStudioPackages() {
   const packages = [...listPreviousPackages()] as any[];
   upsertPackage(packages, TRG_001_QUESTION_STUDIO_PACKAGE);
-  upsertPackage(packages, TRG_002_V4_QUESTION_STUDIO_PACKAGE);
+  upsertPackage(packages, TRG_002_AGGREGATE_CAPABILITY);
   return packages.sort((left, right) => String(left.packageId).localeCompare(String(right.packageId)));
 }
 
@@ -41,7 +80,7 @@ export async function generateQuestion(request: SharedQuestionStudioGenerationRe
     return generateTrg001QuestionStudioBatch(request);
   }
   if (isTrg002V4GenerationRequest(request)) {
-    return generateTrg002V4QuestionStudioBatch(request);
+    return applyInternalLifecycleBooleans(generateTrg002V4QuestionStudioBatch(request));
   }
   return generatePreviousQuestion(request);
 }
