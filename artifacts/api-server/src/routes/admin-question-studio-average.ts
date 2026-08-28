@@ -76,14 +76,17 @@ function isNumberSystemRequest(body: any) {
     patternId.includes("num cp 009") ||
     patternId.includes("num cp 010") ||
     patternId.includes("num cp 011") ||
+    patternId.includes("num cp 012") ||
     checkpointId === "NUM-CP-008" ||
     checkpointId === "NUM-CP-009" ||
     checkpointId === "NUM-CP-010" ||
     checkpointId === "NUM-CP-011" ||
+    checkpointId === "NUM-CP-012" ||
     inferredQlCp === "NUM-CP-008" ||
     inferredQlCp === "NUM-CP-009" ||
     inferredQlCp === "NUM-CP-010" ||
     inferredQlCp === "NUM-CP-011" ||
+    inferredQlCp === "NUM-CP-012" ||
     (selectors.has(topic) && !subtopic) ||
     (topic === "arithmetic" && selectors.has(subtopic))
   );
@@ -140,6 +143,7 @@ function inferNumberSystemCpFromQl(value: unknown) {
   if (number >= 185 && number <= 196) return "NUM-CP-009";
   if (number >= 197 && number <= 212) return "NUM-CP-010";
   if (number >= 213 && number <= 225) return "NUM-CP-011";
+  if (number >= 226 && number <= 236) return "NUM-CP-012";
   return undefined;
 }
 
@@ -262,10 +266,12 @@ router.post(
       || requestedNumberSystemCp === "NUM-CP-009"
       || requestedNumberSystemCp === "NUM-CP-010"
       || requestedNumberSystemCp === "NUM-CP-011"
+      || requestedNumberSystemCp === "NUM-CP-012"
       || requestedNumberSystemQlCp === "NUM-CP-008"
       || requestedNumberSystemQlCp === "NUM-CP-009"
       || requestedNumberSystemQlCp === "NUM-CP-010"
       || requestedNumberSystemQlCp === "NUM-CP-011"
+      || requestedNumberSystemQlCp === "NUM-CP-012"
     );
     const defaultPackageId = numberSystemRequest
       ? num002Request ? "NUM-002" : "NUM-001"
@@ -321,7 +327,7 @@ router.post(
       return;
     }
 
-    // Hindi/Punjabi controlled review is available for NUM-CP-001, NUM-CP-008, NUM-CP-009, NUM-CP-010 and NUM-CP-011 only.
+    // Hindi/Punjabi controlled review is available for NUM-CP-001 and NUM-CP-008 through NUM-CP-012.
     if (numberSystemRequest && language !== "en") {
       const targetCp = canonicalProblemId ?? inferredNumberSystemCp ?? (num002Request ? "NUM-CP-008" : "NUM-CP-001");
       if (
@@ -330,9 +336,10 @@ router.post(
         && targetCp !== "NUM-CP-009"
         && targetCp !== "NUM-CP-010"
         && targetCp !== "NUM-CP-011"
+        && targetCp !== "NUM-CP-012"
       ) {
         res.status(400).json({
-          error: "Hindi/Punjabi Number System Question Studio review is frozen for NUM-CP-001, NUM-CP-008, NUM-CP-009, NUM-CP-010 and NUM-CP-011; the other currently routed checkpoints remain English-only.",
+          error: "Hindi/Punjabi Number System Question Studio review is frozen for NUM-CP-001 and NUM-CP-008 through NUM-CP-012; the other currently routed checkpoints remain English-only.",
         });
         return;
       }
