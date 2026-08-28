@@ -8,7 +8,6 @@ on:
     paths:
       - artifacts/api-server/src/quant-v4/shared/surds-indices/**
       - artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/**
-      - .github/workflows/sri-v4-permanent-localization-v1.yml
   workflow_dispatch:
 
 permissions:
