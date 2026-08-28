@@ -10,7 +10,7 @@ import {
 } from "../permanent-review/geometry-merge-split-proposal-v1";
 
 assert.equal(GEO_TEMPORARY_CANDIDATE_REGISTRY_V1.length, 81);
-assert.equal(GEO_MERGE_SPLIT_PROPOSAL_V1.length, 45, "Geometry semantic family count drifted");
+assert.equal(GEO_MERGE_SPLIT_PROPOSAL_V1.length, 73, "Geometry strict semantic family count drifted");
 
 const mappedIds = GEO_MERGE_SPLIT_PROPOSAL_V1.flatMap((family) => family.candidateIds);
 assert.equal(mappedIds.length, 81, "Every temporary candidate must map to exactly one proposed family");
@@ -34,6 +34,46 @@ for (const family of GEO_MERGE_SPLIT_PROPOSAL_V1) {
   assert.ok(family.mergeRationale.length > 10);
 }
 
+const expectedFamiliesByCp = Object.freeze({
+  "GEO-CP-001": 4,
+  "GEO-CP-002": 3,
+  "GEO-CP-003": 7,
+  "GEO-CP-004": 4,
+  "GEO-CP-005": 6,
+  "GEO-CP-006": 8,
+  "GEO-CP-007": 3,
+  "GEO-CP-008": 5,
+  "GEO-CP-009": 7,
+  "GEO-CP-010": 5,
+  "GEO-CP-011": 6,
+  "GEO-CP-012": 5,
+  "GEO-CP-013": 3,
+  "GEO-CP-014": 7,
+} as const);
+
+for (const [cpId, expectedCount] of Object.entries(expectedFamiliesByCp)) {
+  const actualCount = GEO_MERGE_SPLIT_PROPOSAL_V1.filter((family) => family.cpId === cpId).length;
+  assert.equal(actualCount, expectedCount, `${cpId} strict semantic-family count drifted`);
+}
+
+const mergedFamilies = GEO_MERGE_SPLIT_PROPOSAL_V1.filter((family) => family.candidateIds.length > 1);
+assert.equal(mergedFamilies.length, 7, "Only seven intentional merge groups are authorized in the strict proposal");
+const mergeSavings = mergedFamilies.reduce((sum, family) => sum + family.candidateIds.length - 1, 0);
+assert.equal(mergeSavings, 8, "The strict proposal must compress exactly eight duplicate authorities: 81 to 73");
+assert.deepEqual(
+  mergedFamilies.map((family) => family.proposalKey).sort(),
+  [
+    "CP004_SELECT_VALID_CONGRUENCE_CRITERION",
+    "CP005_PERIMETER_SIDE_SCALE_TRANSFER",
+    "CP006_CENTROID_DIRECT_INVERSE",
+    "CP006_INCENTRE_ANGLE_DIRECT_INVERSE",
+    "CP006_TRIANGLE_CENTRE_IDENTIFICATION",
+    "CP013_SECANT_SECANT_DIRECT_REVERSE",
+    "CP014_PARALLEL_CONGRUENCE_CPCT_SYNTHESIS",
+  ].sort(),
+  "Unexpected merge group entered or left the strict proposal",
+);
+
 const explicitlyDeferred = GEO_GAP_CLOSURE_LEDGER_V1.filter((entry) => entry.state === "DEFERRED_SOURCE_EVIDENCE");
 assert.equal(explicitlyDeferred.length, 5);
 for (const entry of explicitlyDeferred) {
@@ -49,7 +89,8 @@ assert.equal(otherChapter.length, 1);
 assert.match(otherChapter[0]?.gapId ?? "", /MULTI_THEOREM_STATEMENT_COMPARISON_OR_DATA_SUFFICIENCY/);
 
 assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.temporaryCandidateCount, 81);
-assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.proposedSemanticFamilyCount, 45);
+assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.proposedSemanticFamilyCount, 73);
+assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.expectedProposedSemanticFamilyCount, 73);
 assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.permanentQlCount, 0);
 assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.permanentQlIdsReserved, false);
 assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.permanentAllocationAuthorized, false);
@@ -62,9 +103,12 @@ assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.testEligibilityAuthorized, false)
 assert.equal(GEO_MERGE_SPLIT_PROPOSAL_STATE_V1.publicPublicationAuthorized, false);
 
 console.log(JSON.stringify({
-  status: "PASS_GEOMETRY_MERGE_SPLIT_PROPOSAL_V1",
+  status: "PASS_GEOMETRY_STRICT_81_TO_73_MERGE_SPLIT_PROPOSAL_V1",
   temporaryCandidates: mappedIds.length,
   proposedSemanticFamilies: GEO_MERGE_SPLIT_PROPOSAL_V1.length,
+  intentionalMergeGroups: mergedFamilies.length,
+  mergeSavings,
+  familiesByCp: expectedFamiliesByCp,
   deferredSourceGaps: explicitlyDeferred.length,
   otherChapterOwnedGaps: otherChapter.length,
   permanentQlCount: 0,
