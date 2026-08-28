@@ -560,6 +560,7 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl grid-cols-2 divide-x divide-y divide-border px-4 sm:grid-cols-4 sm:divide-y-0 sm:px-6 lg:px-8">
           {[
             [formatCount(examGroups.length), "Exam families"],
+            [formatCount(tests.length), "Published tests"],
             [formatCount(catalogQuestionCount), "Catalog questions"],
             [formatCount(publishedLanguageCount), "Published languages"],
             [formatCount(resources.length), "Free resources"],
@@ -773,7 +774,7 @@ export default function Home() {
           <h2 className="mx-auto mt-5 max-w-2xl text-2xl font-black tracking-tight text-foreground sm:text-3xl">Choose your exam, then go as deep as you need.</h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">Use Home for discovery and free study material. Use the Exams marketplace when you want the complete mock-test and practice catalog.</p>
           <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button className="min-h-12 rounded-xl px-6 font-black" onClick={goMarketplace}>Explore exams <ArrowRight className="ml-2 h-4 w-4" /></Button>
+            <Button className="min-h-12 rounded-xl px-6 font-black" onClick={goMarketplace}>Start a free test <ArrowRight className="ml-2 h-4 w-4" /></Button>
             <Button className="min-h-12 rounded-xl px-6 font-black" variant="outline" onClick={scrollToResources}>Browse free resources</Button>
           </div>
           <div className="mx-auto mt-7 flex max-w-xl flex-wrap justify-center gap-3 text-xs font-semibold text-muted-foreground">
