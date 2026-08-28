@@ -38,7 +38,9 @@ export function localizeSriEditorialFinalSurfaceV1(
       : `x ਦਾ ਮੁੱਲ ਤਦ ਪਤਾ ਕਰੋ ਜਦੋਂ ${match[1]} ਦਾ ਮੁੱਲ ${match[2]} ਹੋਵੇ।`;
   }
 
-  match = text.match(/^Determine x from (.+)\.$/u);
+  // Equation-only C005-E/I shape. Do not intercept longer specialized stems
+  // such as "... by using a common base" or "the mixed radical-index equation ...".
+  match = text.match(/^Determine x from ([0-9x^()\/+\- =]+)\.$/u);
   if (match) {
     return locale === "hi-IN"
       ? `x का मान ${match[1]} से ज्ञात कीजिए।`
