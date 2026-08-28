@@ -132,7 +132,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
       <header className={`et-chrome sticky top-0 z-50 border-b ${isHome ? "home-reference-header" : ""}`} data-testid="public-header">
         <div className={`mx-auto flex w-full items-center gap-4 px-4 sm:px-6 ${isHome ? "h-14 max-w-7xl lg:px-8" : `h-16 ${showStudySidebar ? "max-w-[1536px] lg:px-0" : "max-w-7xl lg:px-8"}`}`}>
           <div className={!isHome && showStudySidebar ? "lg:flex lg:w-[252px] lg:shrink-0 lg:items-center lg:border-r lg:border-sidebar-border lg:px-5 lg:self-stretch" : "shrink-0"}>
-            <Link href="/" className="et-interactive flex min-h-11 shrink-0 items-center gap-2 rounded-xl" aria-label="ExamTree home">
+            <Link href="/" className="et-interactive flex min-h-[45px] shrink-0 items-center gap-2 rounded-xl" aria-label="ExamTree home">
               <span className={`flex items-center justify-center bg-primary font-extrabold text-primary-foreground shadow-sm ring-1 ring-primary/15 ${isHome ? "h-8 w-8 rounded-lg text-xs" : "h-9 w-9 rounded-xl text-sm"}`}>E</span>
               <span className={`${isHome ? "text-[15px]" : "text-lg"} font-extrabold tracking-[-0.03em] text-foreground`}>EXAMTREE</span>
             </Link>
@@ -147,7 +147,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
                   key={`${item.label}-${item.href}`}
                   href={item.href}
                   aria-current={active && !isHome ? "page" : undefined}
-                  className={`et-interactive inline-flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-semibold ${isHome ? "text-[11px] text-slate-600 hover:bg-slate-50 hover:text-slate-950" : active ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
+                  className={`et-interactive inline-flex min-h-[45px] items-center rounded-lg px-3 py-2 text-sm font-semibold ${isHome ? "text-[11px] text-slate-600 hover:bg-slate-50 hover:text-slate-950" : active ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
                 >
                   {item.label}
                   {dropdown ? <ChevronDown className="ml-1 h-3 w-3" aria-hidden="true" /> : null}
@@ -161,24 +161,24 @@ export function PublicLayout({ children }: PublicLayoutProps) {
               <>
                 <span className="mr-1 hidden items-center gap-1.5 text-[11px] font-medium text-slate-500 md:inline-flex"><Languages className="h-3.5 w-3.5" /> English <ChevronDown className="h-3 w-3" /></span>
                 {user ? (
-                  <Link href="/dashboard" className="et-interactive inline-flex min-h-11 items-center rounded-lg bg-[#6857f5] px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#5b48ed]">Dashboard</Link>
+                  <Link href="/dashboard" className="et-interactive inline-flex min-h-[45px] items-center rounded-lg bg-[#6857f5] px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#5b48ed]">Dashboard</Link>
                 ) : (
                   <>
-                    <Link href="/login/student" className="et-interactive inline-flex min-h-11 items-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">Log in</Link>
-                    <Link href="/login/student" className="et-interactive inline-flex min-h-11 items-center rounded-lg bg-[#6857f5] px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#5b48ed]">Sign up</Link>
+                    <Link href="/login/student" className="et-interactive inline-flex min-h-[45px] items-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">Log in</Link>
+                    <Link href="/login/student" className="et-interactive inline-flex min-h-[45px] items-center rounded-lg bg-[#6857f5] px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#5b48ed]">Sign up</Link>
                   </>
                 )}
               </>
             ) : user ? (
-              <Link href="/dashboard" className="et-interactive inline-flex min-h-11 items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
+              <Link href="/dashboard" className="et-interactive inline-flex min-h-[45px] items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
                 <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
                 My dashboard
               </Link>
             ) : (
               <>
-                <Link href="/login/student" className="et-interactive inline-flex min-h-11 items-center rounded-xl px-4 py-2 text-sm font-semibold text-muted-foreground hover:bg-muted hover:text-foreground">Sign in</Link>
+                <Link href="/login/student" className="et-interactive inline-flex min-h-[45px] items-center rounded-xl px-4 py-2 text-sm font-semibold text-muted-foreground hover:bg-muted hover:text-foreground">Sign in</Link>
                 {!showStudySidebar ? (
-                  <Link href="/exams" className="et-interactive inline-flex min-h-11 items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
+                  <Link href="/exams" className="et-interactive inline-flex min-h-[45px] items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm hover:shadow-md">
                     Browse tests <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </Link>
                 ) : null}
