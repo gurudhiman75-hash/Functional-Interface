@@ -1,0 +1,104 @@
+name: Validate PNC-002 CP-010 human editorial review
+
+on:
+  push:
+    branches:
+      - feat/pnc-002-cp010-hi-pa-localization
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-localization-cp010-human-review.yml
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/**
+      - .github/workflows/pnc-002-localization-cp010-human-review.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-pnc-002-localization-cp010-human-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pnc-002-localization-cp010-human-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: >-
+          pnpm exec tsc
+          --noEmit
+          --target es2022
+          --module esnext
+          --moduleResolution bundler
+          --resolveJsonModule
+          --allowSyntheticDefaultImports
+          --strictNullChecks
+          --noImplicitAny
+          --noImplicitReturns
+          --noFallthroughCasesInSwitch
+          --skipLibCheck
+          --types node
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp010.ts
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp010-reviewed.ts
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp010-reviewed-final.ts
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/foundation/localization-cp010-reviewed-human.ts
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp010-human-review.test.ts
+
+      - name: Bundle human editorial review proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/PermutationAndCombination/PNC-002/pnc-002-localization-cp010-human-review.test.ts
+          --bundle
+          --platform=node
+          --format=esm
+          --outfile=dist/quant-v4/pnc-002-localization-cp010-human-review-proof.mjs
+
+      - name: Run human editorial review proof
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          mkdir -p dist/quant-v4/pnc-002-localization-cp010-human-review-diagnostics
+          set +e
+          node dist/quant-v4/pnc-002-localization-cp010-human-review-proof.mjs \
+            > dist/quant-v4/pnc-002-localization-cp010-human-review-diagnostics/proof.log 2>&1
+          status=$?
+          tail -n 260 dist/quant-v4/pnc-002-localization-cp010-human-review-diagnostics/proof.log
+          exit "$status"
+
+      - name: Publish human editorial review artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-cp010-hi-pa-human-editorial-review
+          path: artifacts/api-server/dist/quant-v4/pnc-002-localization-cp010-human-review/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish human review diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnc-002-cp010-hi-pa-human-editorial-diagnostics
+          path: artifacts/api-server/dist/quant-v4/pnc-002-localization-cp010-human-review-diagnostics/
+          if-no-files-found: error
+          retention-days: 3
