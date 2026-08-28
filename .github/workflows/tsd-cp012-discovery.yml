@@ -54,3 +54,5 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/executable-proof.test.ts
       - name: Prove CP012 learner-source executable coverage
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/source-executable-coverage-proof.test.ts
+      - name: Prove CP012 two-engine cross-authority provenance
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/two-engine-provenance-proof.test.ts
