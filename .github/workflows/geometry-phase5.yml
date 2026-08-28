@@ -1,4 +1,4 @@
-name: Validate Geometry strict 81-to-75 proposal
+name: Validate Geometry permanent 75 QL allocation
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/**
-      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-merge-split-proposal-v1.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-permanent-ql-allocation-v1.test.ts
       - .github/workflows/geometry-phase5.yml
   workflow_dispatch:
 
@@ -15,11 +15,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: geometry-strict-merge-split-${{ github.ref }}
+  group: geometry-permanent-ql-allocation-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-geometry-81-to-75-proposal:
+  validate-geometry-permanent-75-ql-allocation:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -37,20 +37,20 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Prove strict Geometry 81-to-75 merge split proposal
+      - name: Prove Geometry permanent 75 QL allocation
         run: |
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-merge-split-proposal-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-merge-split-proposal-v1.test.mjs
-          node artifacts/api-server/dist/quant-v4/geometry-merge-split-proposal-v1.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-permanent-ql-allocation-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-permanent-ql-allocation-v1.test.mjs
+          node artifacts/api-server/dist/quant-v4/geometry-permanent-ql-allocation-v1.test.mjs
 
-      - name: Export strict Geometry 81-to-75 merge split proposal
+      - name: Export Geometry permanent 75 QL allocation evidence
         run: |
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-merge-split-proposal-v1.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-merge-split-proposal-v1-export.mjs
-          (cd artifacts/api-server && node dist/quant-v4/geometry-merge-split-proposal-v1-export.mjs)
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-permanent-ql-allocation-v1.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-permanent-ql-allocation-v1-export.mjs
+          (cd artifacts/api-server && node dist/quant-v4/geometry-permanent-ql-allocation-v1-export.mjs)
 
-      - name: Upload strict Geometry merge split proposal evidence
+      - name: Upload Geometry permanent 75 QL allocation evidence
         uses: actions/upload-artifact@v4
         with:
-          name: geometry-merge-split-proposal-v1
-          path: artifacts/api-server/dist/quant-v4/geometry-merge-split-proposal-v1
+          name: geometry-permanent-ql-allocation-v1
+          path: artifacts/api-server/dist/quant-v4/geometry-permanent-ql-allocation-v1
           if-no-files-found: error
           retention-days: 30
