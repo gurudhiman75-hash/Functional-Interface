@@ -89,9 +89,10 @@ test.describe("CP06 catalog failure truth", () => {
     await page.getByRole("button", { name: "Retry catalog" }).click();
 
     await expect(page.getByTestId("catalog-unavailable")).toHaveCount(0);
-    await expect(page.getByTestId("home-proof-strip")).toContainText("1");
-    await expect(page.getByTestId("home-proof-strip")).toContainText("Published tests");
-    await expect(page.getByText("SSC CGL Mock 1", { exact: true }).first()).toBeVisible();
+    await expect(page.getByTestId("home-reference")).toBeVisible();
+    await expect(page.getByTestId("home-category-grid").getByRole("button")).toHaveCount(1);
+    await expect(page.getByTestId("home-category-grid")).toContainText("SSC");
+    await expect(page.getByTestId("home-category-grid")).toContainText("1+ tests");
 
     const sentinel = await page.evaluate(() =>
       (window as typeof window & { __catalogRetrySentinel?: string }).__catalogRetrySentinel,
