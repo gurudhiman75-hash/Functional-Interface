@@ -3,6 +3,7 @@ import { localizeSriC008C009FinalizedSurfaceV1 as localizeSriC008C009CoreV1 } fr
 import { localizeSriC010C012FinalizedSurfaceV1 } from "./permanent-localization-c010-c012-v1";
 import { localizeSriEditorialC004C005SurfaceV1 } from "./permanent-localization-editorial-c004-c005-v1";
 import { localizeSriEditorialC006C011SurfaceV1 } from "./permanent-localization-editorial-c006-c011-v1";
+import { localizeSriEditorialFinalSurfaceV1 } from "./permanent-localization-editorial-final-v1";
 import { localizeSriEditorialSurfaceV1 } from "./permanent-localization-editorial-v1";
 import { localizeSriResidualSurfaceV1 } from "./permanent-localization-residual-v1";
 
@@ -22,6 +23,9 @@ export function localizeSriC008C009FinalizedSurfaceV1(
       ? `A+B का मान ${rationalisedCoefficientTarget[1]} के परिमेयकृत रूप से ज्ञात कीजिए।`
       : `A+B ਦਾ ਮੁੱਲ ${rationalisedCoefficientTarget[1]} ਦੇ ਪਰਿਮੇਯਕ੍ਰਿਤ ਰੂਪ ਤੋਂ ਪਤਾ ਕਰੋ।`;
   }
+
+  const finalEditorial = localizeSriEditorialFinalSurfaceV1(text, locale);
+  if (finalEditorial) return finalEditorial;
 
   const c004c005Editorial = localizeSriEditorialC004C005SurfaceV1(text, locale);
   if (c004c005Editorial) return c004c005Editorial;
