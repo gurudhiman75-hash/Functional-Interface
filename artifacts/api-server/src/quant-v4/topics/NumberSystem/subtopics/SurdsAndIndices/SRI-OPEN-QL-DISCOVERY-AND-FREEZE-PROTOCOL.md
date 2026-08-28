@@ -2,12 +2,13 @@
 
 **Permanent QLs:** 58  
 **Frozen solve modes:** 58  
-**Current state:** `MULTILINGUAL_FREEZE_APPROVED_PENDING_BASE_RECERTIFICATION`.
+**Current state:** `MULTILINGUAL_FROZEN_V1`.
 
 **Approved localization artifact:** `9684834606`  
 **Approved artifact digest:** `sha256:a212a40f917e8e91a6d5741fc4acd32a73782885981b2b7f7ef8b4c3bb7251ac`  
 **Approval authority:** explicit product-owner approval in active session on 2026-08-28.  
-**Activation rule:** approval alone does not activate multilingual freeze; after any base movement, the current PR merge-ref must recertify before `multilingualFrozen` may become true.
+**Approved source head:** `a3d24d97221bf94da04e77daa140164dbcdb0e51`.  
+**Base recertification:** run `33176307480` on head `1b96cb213eacb25d9f5372afed77ee4ff286d2f8` against `New-main` `2754618366072250467e4d862caa11525d4e0900` passed English freeze, 2,784-question localization parity, strict editorial quality, reviewer export verification and evidence upload before activation.
 
 ## 1. What may create a candidate QL
 
@@ -99,17 +100,18 @@ Every retained permanent QL must prove:
 
 Hindi/Punjabi derive from frozen structured English semantic authority. They may not regenerate mathematics independently. Freeze requires terminology, grammar, notation and semantic-parity review.
 
-The Phase-9 multilingual reviewer artifact named above has explicit product-owner approval. The lifecycle freeze may activate only after the approved source plus current base integration passes the canonical English-freeze regression, 2,784-question localization parity audit, strict editorial-quality audit, reviewer export verification and evidence upload.
+The Phase-9 multilingual reviewer artifact named above is explicitly approved and frozen. `permanent-multilingual-freeze-v1.ts` is the governed frozen runtime wrapper; it preserves the reviewed localized question byte-for-byte and changes only lifecycle/approval metadata. The underlying reviewed localization generator remains immutable review authority.
 
 ## 7. Product lifecycle gate
 
-Question Studio review registration is independent from Question Bank/test/public release.
+Multilingual freeze is independent from Question Studio, Question Bank, test and public release.
 
 Until explicit later approval, all of the following remain false:
 
+- Question Studio discoverability;
 - Question Studio production generation;
 - Question Bank writes;
 - mock/test eligibility;
 - public publication.
 
-A green mathematical package is not automatically a released product package.
+A multilingual-frozen mathematical package is not automatically a released product package.
