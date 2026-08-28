@@ -20,6 +20,15 @@ export function localizeSriEditorialFinalSurfaceV1(
       : `${match[1]} ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।`;
   }
 
+  // C004-C: preserve source math order while placing the requested target
+  // before the Hindi/Punjabi value postposition.
+  match = text.match(/^From (.+?), determine the value of (.+)\.$/u);
+  if (match) {
+    return locale === "hi-IN"
+      ? `${match[1]} से ${match[2]} का मान ज्ञात कीजिए।`
+      : `${match[1]} ਤੋਂ ${match[2]} ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ।`;
+  }
+
   // C004-F derived explanation shell: X while Y.
   match = text.match(/^The supplied (?:relation|condition) is (?:Given )?(.+?) while (.+)\.$/u);
   if (match) {
