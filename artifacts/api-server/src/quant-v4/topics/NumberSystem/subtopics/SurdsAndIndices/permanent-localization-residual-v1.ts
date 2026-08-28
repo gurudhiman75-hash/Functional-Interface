@@ -10,22 +10,26 @@ export function localizeSriResidualSurfaceV1(
 ): string | undefined {
   let match: RegExpMatchArray | null;
 
-  // CP006-G quantity comparison labels.
+  // CP006-G quantity comparison labels and generated given surfaces.
   if (text === "Quantity A is greater") return locale === "hi-IN" ? "राशि A बड़ी है" : "ਰਾਸ਼ੀ A ਵੱਡੀ ਹੈ";
   if (text === "Quantity B is greater") return locale === "hi-IN" ? "राशि B बड़ी है" : "ਰਾਸ਼ੀ B ਵੱਡੀ ਹੈ";
   if (text === "Quantity A and Quantity B are equal") return locale === "hi-IN" ? "राशि A और राशि B बराबर हैं" : "ਰਾਸ਼ੀ A ਅਤੇ ਰਾਸ਼ੀ B ਬਰਾਬਰ ਹਨ";
-  match = text.match(/^The quantities to compare are Quantity A = (.+) and Quantity B = (.+)\.$/u);
+  match = text.match(/^The quantities to compare are Quantity A = (.+?) (?:and|with) Quantity B = (.+)\.$/u);
   if (match) return locale === "hi-IN"
     ? `तुलना की जाने वाली राशियाँ A = ${match[1]} और B = ${match[2]} हैं।`
     : `ਤੁਲਨਾ ਲਈ ਰਾਸ਼ੀਆਂ A = ${match[1]} ਅਤੇ B = ${match[2]} ਹਨ।`;
+  match = text.match(/^Quantity A is (.+?) and Quantity B is (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `राशि A ${match[1]} है और राशि B ${match[2]} है।`
+    : `ਰਾਸ਼ੀ A ${match[1]} ਹੈ ਅਤੇ ਰਾਸ਼ੀ B ${match[2]} ਹੈ।`;
 
-  // CP011-C: must precede the generic exact-order rule.
+  // CP011-C: must precede generic exact-order rules.
   match = text.match(/^Determine the exact order of the different-index radicals (.+) and (.+)\.$/u);
   if (match) return locale === "hi-IN"
     ? `भिन्न-घातांक करणियों ${match[1]} और ${match[2]} का सटीक क्रम निर्धारित कीजिए।`
     : `ਵੱਖਰੇ-ਘਾਤਾਂਕ ਕਰਣੀਆਂ ${match[1]} ਅਤੇ ${match[2]} ਦਾ ਸਟੀਕ ਕ੍ਰਮ ਨਿਰਧਾਰਤ ਕਰੋ।`;
 
-  // CP011-D/E exact-bound stems and derived given lines.
+  // CP011-D/E exact-bound stems and explanation-state surfaces.
   match = text.match(/^Without decimals, bound (.+) by consecutive integers\.$/u);
   if (match) return locale === "hi-IN"
     ? `दशमलव के बिना ${match[1]} को क्रमागत पूर्णांकों से सीमाबद्ध कीजिए।`
@@ -42,8 +46,8 @@ export function localizeSriResidualSurfaceV1(
   if (match) return locale === "hi-IN"
     ? `अपरिमेय राशि ${match[1]} को क्रमागत पूर्णांकों से सटीक रूप से सीमाबद्ध कीजिए।`
     : `ਅਪਰਿਮੇਯ ਰਾਸ਼ੀ ${match[1]} ਨੂੰ ਲਗਾਤਾਰ ਪੂਰਨ ਅੰਕਾਂ ਨਾਲ ਸਟੀਕ ਤੌਰ ਤੇ ਸੀਮਿਤ ਕਰੋ।`;
-  match = text.match(/^The root to bound is (.+)\.$/u);
-  if (match) return locale === "hi-IN" ? `सीमाबद्ध किया जाने वाला मूल ${match[1]} है।` : `ਸੀਮਿਤ ਕੀਤਾ ਜਾਣ ਵਾਲਾ ਮੂਲ ${match[1]} ਹੈ।`;
+  match = text.match(/^The (?:root|radical) to bound is (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `सीमाबद्ध की जाने वाली करणी ${match[1]} है।` : `ਸੀਮਿਤ ਕੀਤੀ ਜਾਣ ਵਾਲੀ ਕਰਣੀ ${match[1]} ਹੈ।`;
   match = text.match(/^The quantity to bound is (.+)\.$/u);
   if (match) return locale === "hi-IN" ? `सीमाबद्ध की जाने वाली राशि ${match[1]} है।` : `ਸੀਮਿਤ ਕੀਤੀ ਜਾਣ ਵਾਲੀ ਰਾਸ਼ੀ ${match[1]} ਹੈ।`;
   match = text.match(/^The irrational quantity to bound is (.+)\.$/u);
@@ -81,6 +85,52 @@ export function localizeSriResidualSurfaceV1(
   if (match) return locale === "hi-IN" ? `पहले मिश्र पद की करणीगत संख्या: ${match[1]}।` : `ਪਹਿਲੇ ਮਿਸ਼ਰਤ ਪਦ ਦੀ ਕਰਣੀਗਤ ਸੰਖਿਆ: ${match[1]}।`;
   match = text.match(/^Second cross-term radicand: (.+)\.$/u);
   if (match) return locale === "hi-IN" ? `दूसरे मिश्र पद की करणीगत संख्या: ${match[1]}।` : `ਦੂਜੇ ਮਿਸ਼ਰਤ ਪਦ ਦੀ ਕਰਣੀਗਤ ਸੰਖਿਆ: ${match[1]}।`;
+
+  // CP012-A radical -> rational-index simplification surfaces.
+  match = text.match(/^Find the exact simplified form of (.+) using rational exponents\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} का परिमेय घातांकों से सटीक सरल रूप ज्ञात कीजिए।`
+    : `${match[1]} ਦਾ ਪਰਿਮੇਯ ਘਾਤਾਂਕਾਂ ਨਾਲ ਸਟੀਕ ਸਰਲ ਰੂਪ ਪਤਾ ਕਰੋ।`;
+  match = text.match(/^The radical to simplify is (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `सरल की जाने वाली करणी ${match[1]} है।` : `ਸਰਲ ਕੀਤੀ ਜਾਣ ਵਾਲੀ ਕਰਣੀ ${match[1]} ਹੈ।`;
+  match = text.match(/^The perfect (\d+)(?:st|nd|rd|th)-power part contributes (.+) outside the radical\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `पूर्ण ${match[1]}वीं घात वाला भाग करणी के बाहर ${match[2]} देता है।`
+    : `ਪੂਰਨ ${match[1]}ਵੀਂ ਘਾਤ ਵਾਲਾ ਭਾਗ ਕਰਣੀ ਤੋਂ ਬਾਹਰ ${match[2]} ਦਿੰਦਾ ਹੈ।`;
+
+  // CP012-B exact fractional-index -> radical surfaces, including saturation override.
+  match = text.match(/^Convert the fractional index (.+) to a root before evaluating it\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `भिन्नात्मक घातांक ${match[1]} को मान निकालने से पहले करणी रूप में बदलिए।`
+    : `ਭਿੰਨਾਤਮਕ ਘਾਤਾਂਕ ${match[1]} ਨੂੰ ਮੁੱਲ ਕੱਢਣ ਤੋਂ ਪਹਿਲਾਂ ਕਰਣੀ ਰੂਪ ਵਿੱਚ ਬਦਲੋ।`;
+  match = text.match(/^The base is a perfect (square|cube|fourth power), and the exponent (.+) is already in lowest terms\.$/u);
+  if (match) {
+    const powerHi = match[1] === "square" ? "पूर्ण वर्ग" : match[1] === "cube" ? "पूर्ण घन" : "पूर्ण चौथी घात";
+    const powerPa = match[1] === "square" ? "ਪੂਰਨ ਵਰਗ" : match[1] === "cube" ? "ਪੂਰਨ ਘਣ" : "ਪੂਰਨ ਚੌਥੀ ਘਾਤ";
+    return locale === "hi-IN"
+      ? `आधार ${powerHi} है और घातांक ${match[2]} पहले से लघुतम रूप में है।`
+      : `ਅਧਾਰ ${powerPa} ਹੈ ਅਤੇ ਘਾਤਾਂਕ ${match[2]} ਪਹਿਲਾਂ ਹੀ ਘੱਟਤਮ ਰੂਪ ਵਿੱਚ ਹੈ।`;
+  }
+
+  // CP012-C equivalent radical/index representation family.
+  if (text === "Cannot be compared exactly") return locale === "hi-IN" ? "सटीक तुलना नहीं की जा सकती" : "ਸਟੀਕ ਤੁਲਨਾ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ";
+  match = text.match(/^Are (.+) and (.+) equal, or is one greater\?$/u);
+  if (match) return locale === "hi-IN"
+    ? `क्या ${match[1]} और ${match[2]} बराबर हैं, या इनमें एक बड़ा है?`
+    : `ਕੀ ${match[1]} ਅਤੇ ${match[2]} ਬਰਾਬਰ ਹਨ, ਜਾਂ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਇੱਕ ਵੱਡਾ ਹੈ?`;
+  match = text.match(/^Determine the relation between (.+) and (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `${match[1]} और ${match[2]} के बीच संबंध निर्धारित कीजिए।`
+    : `${match[1]} ਅਤੇ ${match[2]} ਵਿਚਕਾਰ ਸੰਬੰਧ ਨਿਰਧਾਰਤ ਕਰੋ।`;
+  match = text.match(/^The two exact representations are (.+) and (.+)\.$/u);
+  if (match) return locale === "hi-IN"
+    ? `दो सटीक निरूपण ${match[1]} और ${match[2]} हैं।`
+    : `ਦੋ ਸਟੀਕ ਨਿਰੂਪਣ ${match[1]} ਅਤੇ ${match[2]} ਹਨ।`;
+  if (text === "Compare the radical and fractional-index representations exactly.") {
+    return locale === "hi-IN"
+      ? "करणी और भिन्नात्मक-घातांक निरूपणों की सटीक तुलना कीजिए।"
+      : "ਕਰਣੀ ਅਤੇ ਭਿੰਨਾਤਮਕ-ਘਾਤਾਂਕ ਨਿਰੂਪਣਾਂ ਦੀ ਸਟੀਕ ਤੁਲਨਾ ਕਰੋ।";
+  }
 
   return undefined;
 }
