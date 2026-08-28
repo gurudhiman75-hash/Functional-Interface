@@ -11,6 +11,13 @@ export function localizeSriC008C009FinalizedSurfaceV1(
   text: string,
   locale: SriLocalizedLocaleV1,
 ): string | undefined {
+  const knownRadicand = text.match(/^Known radicand = (.+)\.$/u);
+  if (knownRadicand) {
+    return locale === "hi-IN"
+      ? `ज्ञात करणीगत संख्या = ${knownRadicand[1]}।`
+      : `ਜਾਣੀ ਕਰਣੀਗਤ ਸੰਖਿਆ = ${knownRadicand[1]}।`;
+  }
+
   return localizeSriC008C009CoreV1(text, locale)
     ?? localizeSriC010C012FinalizedSurfaceV1(text, locale);
 }
