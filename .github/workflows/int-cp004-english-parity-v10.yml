@@ -1,0 +1,60 @@
+name: Validate INT-CP-004 English Parity V10
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp004-english-exam-friendly-review-v10.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-english-parity-v10-audit.ts'
+      - '.github/workflows/int-cp004-english-parity-v10.yml'
+
+jobs:
+  validate-int-cp004-english-parity-v10:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.33.0'
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate remediated English learner candidate
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-english-parity-v10-audit.ts | tee int-cp004-english-parity-v10.log
+          grep -q 'PASS_INT_CP004_ENGLISH_PARITY_V10_AUDIT' int-cp004-english-parity-v10.log
+
+      - name: Preserve approved Hindi Punjabi V9 freeze
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-multilingual-freeze-v9-audit.ts | tee int-cp004-hi-pa-v9-regression.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Record exact validation head
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-cp004-english-parity-v10-head.log
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp004-english-parity-v10
+          path: |
+            int-cp004-english-parity-v10.log
+            int-cp004-hi-pa-v9-regression.log
+            int-cp004-english-parity-v10-head.log
+          retention-days: 30
