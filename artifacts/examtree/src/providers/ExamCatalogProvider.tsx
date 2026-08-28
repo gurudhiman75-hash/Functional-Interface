@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCategories, getSubcategories, getTests, type Category, type Subcategory, type Test } from "@/lib/data";
 import { mergeRuntimeTestsFromApi } from "@/lib/test-bank";
@@ -95,6 +95,13 @@ export function useExamCatalog(): ExamCatalogContextValue {
 function CatalogFailureState() {
   const { retryCatalog, isRetrying } = useExamCatalog();
 
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      void retryCatalog();
+    }, 10_000);
+    return () => window.clearInterval(timer);
+  }, [retryCatalog]);
+
   return (
     <div className="examtree-shell min-h-screen bg-background" data-testid="catalog-unavailable">
       <main className="mx-auto flex min-h-[75vh] max-w-2xl items-center px-4 py-12 sm:px-6">
@@ -102,7 +109,7 @@ function CatalogFailureState() {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">Catalog temporarily unavailable</p>
           <h1 className="mt-2 text-2xl font-bold text-slate-950">We couldn’t load the live exam catalog</h1>
           <p className="mx-auto mt-3 max-w-lg text-sm leading-6 text-slate-600">
-            Your saved attempts are safe. Retry the catalog without reloading the app, or use the support page if the problem continues.
+            Your saved attempts are safe. The server may be waking up, so ExamTree will retry automatically. You can also retry now without reloading the app.
           </p>
           <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
             <button
