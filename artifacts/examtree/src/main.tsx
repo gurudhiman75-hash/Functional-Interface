@@ -5,6 +5,7 @@ import { RunnerDialogAccessibility } from "./components/RunnerDialogAccessibilit
 import "./lib/install-safe-storage";
 import "./index.css";
 import "./frontend-polish.css";
+import "./subcategory-light.css";
 import "./test-runner-mobile.css";
 
 createRoot(document.getElementById("root")!).render(
