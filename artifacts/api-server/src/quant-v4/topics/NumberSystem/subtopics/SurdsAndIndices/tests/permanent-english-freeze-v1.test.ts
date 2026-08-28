@@ -29,7 +29,7 @@ assert.deepEqual(observedFingerprints, SRI_PERMANENT_ENGLISH_FINGERPRINTS_V1);
 assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 58);
 assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 58);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen, true);
-assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.multilingualFrozen, false);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.multilingualFrozen, true);
 assert.equal(SRI_001_MANIFEST.permanentQlCount, 29);
 assert.equal(SRI_001_MANIFEST.frozenSolveModeCount, 29);
 assert.equal(SRI_002_MANIFEST.permanentQlCount, 29);
