@@ -3,6 +3,7 @@ import { Router, type IRouter } from "express";
 import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk-hardening";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
 import adminQuestionStudioCp014Router from "./admin-question-studio-cp014";
+import adminQuestionStudioTrigonometryRouter from "./admin-question-studio-trigonometry";
 import adminQuestionStudioCp013Router from "./admin-question-studio-cp013";
 import adminQuestionStudioAverageRouter from "./admin-question-studio-average";
 import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
@@ -27,14 +28,17 @@ import adminQuestionStudioRouter from "./admin-question-studio";
  * firing whenever one Question Studio package is added or reordered.
  *
  * Order is intentional: hardening/specialized additive routers must run before
- * the legacy catch-all router at the bottom. CP014 precedes CP013 because both
- * extend NUM-002, while CP014 claims only explicit CP014/QL248..253 selectors.
+ * the legacy catch-all router at the bottom. CP014 is mounted before the
+ * Trigonometry and CP013 routers because its GET /capabilities is built from the
+ * latest Trigonometry aggregate and its POST handler claims only explicit
+ * CP014/QL248..253 selectors. Non-CP014 requests fall through unchanged.
  */
 const router: IRouter = Router();
 
 router.use(adminQuestionStudioBulkHardeningRouter);
 router.use(adminQuestionStudioQualityRouter);
 router.use(adminQuestionStudioCp014Router);
+router.use(adminQuestionStudioTrigonometryRouter);
 router.use(adminQuestionStudioCp013Router);
 router.use(adminQuestionStudioAverageRouter);
 router.use(adminQuestionStudioRegenerationRouter);
