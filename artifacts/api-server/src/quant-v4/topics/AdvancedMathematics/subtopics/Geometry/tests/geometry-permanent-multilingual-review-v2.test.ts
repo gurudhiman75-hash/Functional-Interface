@@ -64,18 +64,36 @@ function audit(item: ReturnType<typeof generateGeometryPermanentMultilingualRevi
 }
 
 let deterministicReviewSampleCount = 0;
+const deterministicErrors = new Map<string, string>();
 for (const definition of GEO_PERMANENT_ENGLISH_RUNTIME_DEFINITIONS_V1) {
   for (let variantIndex = 0; variantIndex < definition.prototypeIds.length; variantIndex += 1) {
+    const prototypeId = definition.prototypeIds[variantIndex]!;
     for (const locale of locales) {
-      audit(generateGeometryPermanentMultilingualReviewV2(
-        definition.qlId,
-        `geo-ml-v2-review-${definition.qlId.toLowerCase()}-${variantIndex}-${locale}`,
-        locale,
-        variantIndex,
-      ));
-      deterministicReviewSampleCount += 1;
+      try {
+        audit(generateGeometryPermanentMultilingualReviewV2(
+          definition.qlId,
+          `geo-ml-v2-review-${definition.qlId.toLowerCase()}-${variantIndex}-${locale}`,
+          locale,
+          variantIndex,
+        ));
+        deterministicReviewSampleCount += 1;
+      } catch (error) {
+        const key = `${definition.qlId}/${prototypeId}`;
+        if (!deterministicErrors.has(key)) {
+          deterministicErrors.set(key, error instanceof Error ? error.message : String(error));
+        }
+      }
     }
   }
+}
+
+if (deterministicErrors.size) {
+  console.error(JSON.stringify({
+    status: "FAIL_GEOMETRY_HINDI_PUNJABI_V2_SOURCE_CONTRACT_DIAGNOSTIC",
+    mismatchCount: deterministicErrors.size,
+    mismatches: [...deterministicErrors.entries()].map(([key, message]) => ({ key, message })),
+  }, null, 2));
+  throw new Error(`Geometry V2 deterministic source-contract audit found ${deterministicErrors.size} mismatched prototype authorities.`);
 }
 assert.equal(deterministicReviewSampleCount, 162);
 
