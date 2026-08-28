@@ -4,6 +4,7 @@ import {
   COM002_HI_PA_LOCALIZATION_FREEZE_CANDIDATE_V4,
   auditCom002HiPaLocalizationFreezeCandidateV4,
 } from "./com002-hi-pa-localization-freeze-v4-candidate";
+import { auditCom002HiPaLocalizationMachineLockV4 } from "./com002-hi-pa-localization-machine-lock-v4";
 
 const audit = auditCom002HiPaLocalizationFreezeCandidateV4();
 console.log("[COM002-HI-PA-LOCALIZATION-V4-CANDIDATE] actual fingerprints", audit.actual);
@@ -26,4 +27,15 @@ assert.deepEqual(
   ["BILINGUAL_HUMAN_REVIEW_NOT_ACCEPTED"],
 );
 
-console.log("[COM002-HI-PA-LOCALIZATION-V4-CANDIDATE] PASS hashProbe=true humanAccepted=false promotable=false");
+const machineLockAudit = auditCom002HiPaLocalizationMachineLockV4();
+assert.equal(machineLockAudit.valid, true, machineLockAudit.issues.join(" | "));
+assert.equal(machineLockAudit.authority.lifecycle.localizationV4ExecutedGreen, true);
+assert.equal(machineLockAudit.authority.lifecycle.localizationFingerprintsPinned, true);
+assert.equal(machineLockAudit.authority.lifecycle.localizationMachineLocked, true);
+assert.equal(machineLockAudit.authority.humanReview.accepted, false);
+assert.equal(machineLockAudit.authority.lifecycle.localizationFrozen, false);
+assert.equal(machineLockAudit.authority.lifecycle.questionStudioActive, false);
+assert.equal(machineLockAudit.authority.lifecycle.questionBankWritable, false);
+assert.equal(machineLockAudit.authority.lifecycle.productionReleaseAuthorized, false);
+
+console.log("[COM002-HI-PA-LOCALIZATION-V4-CANDIDATE] PASS hashProbe=true machineLock=true humanAccepted=false promotable=false");
