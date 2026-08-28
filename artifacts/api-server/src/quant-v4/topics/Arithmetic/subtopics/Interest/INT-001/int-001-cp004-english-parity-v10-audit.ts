@@ -14,7 +14,7 @@ function stable(value: unknown) {
   return JSON.stringify(value, (_key, current) => typeof current === "bigint" ? `${current}n` : current);
 }
 
-const DECIMAL_TOKEN = /\d+\.\d+/u;
+const DECIMAL_TOKEN = /\d+\.\d+/gu;
 const BLOCKED_WORDING = /two\s+decimal\s+places|rounded?\s+to|approximately|illustrative\s+compound|complete\s+periods?|reference\s+principal|a\/p\s+ratio|ci\/p\s+ratio/iu;
 const INTERNAL_ID = /INT-CP|INT-QL|authority|prototype|review candidate|freeze id/iu;
 const SAMPLES_PER_QL = 100;
@@ -88,7 +88,12 @@ for (const qlId of INT_CP004_QL_IDS) {
       first.explanation.finalAnswer,
       first.explanation.commonMistake,
     ].join("\n");
-    assert.equal(DECIMAL_TOKEN.test(learnerText), false, `${qlId}/${index}: decimal token leaked into English learner surface`);
+    const decimalMatches = [...learnerText.matchAll(DECIMAL_TOKEN)].map((match) => match[0]);
+    assert.equal(
+      decimalMatches.length,
+      0,
+      `${qlId}/${index}: decimal token(s) leaked into English learner surface: ${decimalMatches.join(", ")}\n${learnerText}`,
+    );
     assert.equal(BLOCKED_WORDING.test(learnerText), false, `${qlId}/${index}: blocked legacy/calculator wording remains`);
     assert.equal(INTERNAL_ID.test(learnerText), false, `${qlId}/${index}: internal identifier leaked to learner`);
     assert.ok(first.stem.length >= 35, `${qlId}/${index}: stem is too thin`);
