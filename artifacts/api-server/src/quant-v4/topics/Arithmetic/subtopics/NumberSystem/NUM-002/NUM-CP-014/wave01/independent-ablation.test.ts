@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { NUM_CP014_WAVE01_PROTOTYPE_IDS, generateNumCp014Wave01 } from "./runtime.ts";
+import { NUM_CP014_WAVE01_PROTOTYPE_IDS, generateNumCp014Wave01 } from "./runtime-v2.ts";
 
 function gcd(a: number, b: number) {
   let x = Math.abs(a), y = Math.abs(b);
@@ -19,6 +19,10 @@ function tau(n: number) {
 function square(n: number) {
   const r = Math.floor(Math.sqrt(n));
   return r * r === n;
+}
+function cube(n: number) {
+  for (let r = 1; r * r * r <= n; r += 1) if (r * r * r === n) return true;
+  return false;
 }
 function vpFactorial(n: number, p: number) {
   let count = 0;
@@ -60,7 +64,7 @@ for (const prototypeId of NUM_CP014_WAVE01_PROTOTYPE_IDS) {
       case "NUM-CP014-PROT-003":
         domain = ints(s.lo, s.hi);
         a = domain.filter((n) => tau(n) === s.tau);
-        b = domain.filter(square);
+        b = domain.filter(cube);
         break;
       case "NUM-CP014-PROT-004":
         domain = ints(s.lo, s.hi);
@@ -92,10 +96,13 @@ for (const prototypeId of NUM_CP014_WAVE01_PROTOTYPE_IDS) {
 
 console.log(JSON.stringify({
   status: "PASS_NUM_CP014_WAVE01_INDEPENDENT_ABLATION",
+  canonicalRuntime: "runtime-v2.ts",
   prototypes: NUM_CP014_WAVE01_PROTOTYPE_IDS.length,
   seedsPerPrototype: 80,
   independentChecks,
   bothComponentsNecessary: true,
+  rejectedRedundantPrototype: "DIVISOR_COUNT_PLUS_PERFECT_SQUARE",
+  replacementPrototype: "DIVISOR_COUNT_PLUS_PERFECT_CUBE",
   boundedExactConstraintSearch: true,
   ql248Allocated: false,
 }, null, 2));
