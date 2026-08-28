@@ -7,7 +7,6 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
-      - .github/workflows/number-system-complete-design-authority.yml
       - package.json
       - pnpm-lock.yaml
   workflow_dispatch:
