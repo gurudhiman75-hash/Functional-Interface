@@ -25,18 +25,18 @@ const TRG_002_AGGREGATE_CAPABILITY = Object.freeze({
   automaticStudentPublication: false,
 });
 
-function selector(request: SharedQuestionStudioGenerationRequest) {
-  return String(request.questionLanguageId ?? request.canonicalProblemId ?? request.cpId ?? "").trim().toUpperCase();
+function selector(request: any) {
+  return String(request?.questionLanguageId ?? request?.canonicalProblemId ?? request?.cpId ?? "").trim().toUpperCase();
 }
 
-export function isTrg001QuestionStudioRequest(request: SharedQuestionStudioGenerationRequest) {
+export function isTrg001QuestionStudioRequest(request: any) {
   const selected = selector(request);
   return selected.startsWith("TRG-001-QL-")
     || /^TRG-CP-00[1-6]$/u.test(selected)
     || isTrg001QuestionStudioRequestBase(request as any);
 }
 
-export function isTrg002V4GenerationRequest(request: SharedQuestionStudioGenerationRequest) {
+export function isTrg002V4GenerationRequest(request: any) {
   const selected = selector(request);
   return selected.startsWith("TRG-002-QL-")
     || /^TRG-CP-0(?:07|08|09|10)$/u.test(selected)
