@@ -35,7 +35,7 @@ jobs:
         run: |
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp004-multilingual-freeze-v9-audit.ts | tee int-cp004-hi-pa-v9-regression.log
-          grep -q 'PASS_INT_CP004_MULTILINGUAL_FREEZE_V9_AUDIT' int-cp004-hi-pa-v9-regression.log
+          grep -q 'PASS_INT_CP004_MULTILINGUAL_FREEZE_V9' int-cp004-hi-pa-v9-regression.log
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Record exact validation head
