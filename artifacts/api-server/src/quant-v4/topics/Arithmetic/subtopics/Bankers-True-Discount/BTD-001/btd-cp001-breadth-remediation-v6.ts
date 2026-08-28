@@ -67,11 +67,14 @@ function optionsFor(state: BtdPrototype009State, answer: Rational, seed: string)
   if (answer.d !== 1n) throw new Error(`${seed}: P009 canonical rate must be an integer`);
   const rate = Number(answer.n);
   const candidates = [
+    { value: rat(Math.max(1, rate - 1)), misconceptionId: "RATE_ONE_LOW" },
+    { value: rat(rate + 1), misconceptionId: "RATE_ONE_HIGH" },
+    { value: rat(Math.max(1, rate - 2)), misconceptionId: "RATE_TWO_LOW" },
+    { value: rat(rate + 2), misconceptionId: "RATE_TWO_HIGH" },
     { value: rat(Math.max(1, rate - state.rateEqualsYearsMultiplier)), misconceptionId: "USE_ONE_YEAR_LESS" },
     { value: rat(rate + state.rateEqualsYearsMultiplier), misconceptionId: "USE_ONE_YEAR_MORE" },
     { value: rat(Math.max(1, state.hiddenCanonicalYears)), misconceptionId: "REPORT_TIME_AS_RATE" },
     { value: rat(rate * 2), misconceptionId: "DOUBLE_RATE" },
-    { value: rat(rate + 5), misconceptionId: "ADD_FIVE_TO_RATE" },
   ];
   const selected: { value: Rational; misconceptionId: string }[] = [];
   const seen = new Set([key(answer)]);
