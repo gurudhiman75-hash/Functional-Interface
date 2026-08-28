@@ -85,7 +85,7 @@ test.describe("CP08 cross-browser shared shell polish", () => {
     await expect(page.getByTestId("home-category-grid").getByRole("button")).toHaveCount(1);
     await expect(page.getByTestId("home-popular-series")).toContainText("Popular test series");
     await expect(page.getByTestId("home-popular-series")).toContainText("SSC CGL 2026 Complete Mock Series");
-    await expect(page.getByTestId("home-examtree-edge")).toContainText("Don’t just take tests.");
+    await expect(page.getByTestId("home-examtree-edge")).toContainText("Don't just take tests.");
     await expect(page.getByTestId("home-final-cta")).toContainText("Ready to move ahead");
     await expect(page.getByTestId("public-study-sidebar")).toHaveCount(0);
 
