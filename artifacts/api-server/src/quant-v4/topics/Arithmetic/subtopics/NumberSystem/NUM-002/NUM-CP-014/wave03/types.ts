@@ -42,6 +42,7 @@ export interface NumCp014Wave03Package {
   readonly seed: number;
   readonly answerSemantic: "DIGIT" | "HIDDEN_NUMBER" | "HIDDEN_BASE" | "HIDDEN_EXPONENT";
   readonly representation: NumCp014Wave03Representation;
+  readonly representationPayload: readonly string[];
   readonly stem: string;
   readonly canonicalAnswer: string;
   readonly verifierAnswer: string;
