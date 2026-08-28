@@ -19,6 +19,10 @@ const mixedRoute = readFileSync(
   resolve(sourceRoot, "routes/admin-question-studio-mixed-difficulty.ts"),
   "utf8",
 );
+const questionStudioRegistry = readFileSync(
+  resolve(sourceRoot, "routes/admin-question-studio-registry.ts"),
+  "utf8",
+);
 const routeIndex = readFileSync(resolve(sourceRoot, "routes/index.ts"), "utf8");
 
 // Capabilities become engine-aware without removing the legacy field.
@@ -56,8 +60,8 @@ assert.match(engineRoute, /generationSystem:\s*result\.engineId/);
 assert.match(engineRoute, /\$\{result\.engineId\}/);
 assert.match(engineRoute, /generationContext/);
 
-// The compatibility composition must offer new engines first refusal, then
-// fall through to the established exam-profile/mixed-difficulty router.
+// The compatibility composition offers new engines first refusal, then falls
+// through to the established exam-profile/mixed-difficulty router.
 const engineUse = mixedRoute.indexOf(
   "router.use(adminQuestionStudioEngineV1Router)",
 );
@@ -68,15 +72,31 @@ assert.equal(engineUse >= 0, true);
 assert.equal(legacyUse >= 0, true);
 assert.equal(engineUse < legacyUse, true);
 
-// There must be exactly one production mount path for the engine facade: it is
-// composed inside the mixed-difficulty router, which is mounted by the shared
-// route index. A second direct facade mount would make route ownership opaque.
+// New-main owns Question Studio composition through the canonical registry.
+// The mixed-difficulty compatibility router must be registered there before the
+// catch-all router. The global route index mounts only the registry and must not
+// directly mount either the mixed router or the engine facade.
 assert.match(
-  routeIndex,
+  questionStudioRegistry,
   /adminQuestionStudioMixedDifficultyRouter from "\.\/admin-question-studio-mixed-difficulty"/,
 );
+const mixedRegistryUse = questionStudioRegistry.indexOf(
+  "router.use(adminQuestionStudioMixedDifficultyRouter)",
+);
+const catchAllRegistryUse = questionStudioRegistry.indexOf(
+  "router.use(adminQuestionStudioRouter)",
+);
+assert.equal(mixedRegistryUse >= 0, true);
+assert.equal(catchAllRegistryUse >= 0, true);
+assert.equal(mixedRegistryUse < catchAllRegistryUse, true);
+
 assert.match(
   routeIndex,
-  /router\.use\("\/admin\/question-studio", adminQuestionStudioMixedDifficultyRouter\)/,
+  /adminQuestionStudioRegistryRouter from "\.\/admin-question-studio-registry"/,
 );
+assert.match(
+  routeIndex,
+  /router\.use\("\/admin\/question-studio", adminQuestionStudioRegistryRouter\)/,
+);
+assert.doesNotMatch(routeIndex, /adminQuestionStudioMixedDifficultyRouter/);
 assert.doesNotMatch(routeIndex, /adminQuestionStudioEngineV1Router/);
