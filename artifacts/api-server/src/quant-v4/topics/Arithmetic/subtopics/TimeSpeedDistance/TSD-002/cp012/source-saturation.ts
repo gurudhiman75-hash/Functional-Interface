@@ -7,7 +7,11 @@ export const TSD_CP012_LEARNER_AUTHORITIES = Object.freeze([
   "terminalConstraintProgramState",
   "routeProfileProgramState",
   "motionReconstructionProgramState",
-  "composedMotionSystemState",
+  "trainScheduleSynthesisState",
+  "mediumPursuitSynthesisState",
+  "closedTrackRaceSynthesisState",
+  "movingSurfaceScheduleSynthesisState",
+  "twoEngineInverseState",
   "feasibleParameterSetState",
 ] as const);
 export type TsdCp012AuthorityKey = typeof TSD_CP012_LEARNER_AUTHORITIES[number];
@@ -35,7 +39,7 @@ export const TSD_CP012_SOURCE_CANDIDATES = Object.freeze([
   learner("CP012-INV-005", "findTimeForAlternatingSpeeds", "discreteSpeedProgramState", "Alternating schedule with time target."),
   learner("CP012-INV-006", "findDistanceForPeriodicSpeedCycle", "discreteSpeedProgramState", "Repeated finite speed cycle."),
   learner("CP012-INV-007", "findExactTerminalPartialCycleTime", "discreteSpeedProgramState", "Periodic cycle ending inside a partial terminal stage."),
-  learner("CP012-INV-008", "findTravelRestPeriodicCompletionTime", "periodicTravelRestProgramState", "Travel/rest cycle where zero-speed rest stages are essential."),
+  learner("CP012-INV-008", "findTravelRestPeriodicCompletionTime", "periodicTravelRestProgramState", "Travel/rest cycle where zero-speed rest stages are essential; a single explicit source is enough to justify provisional discovery because the rest state changes the equation class."),
   learner("CP012-INV-009", "findDistanceRemainingAfterVariableSpeeds", "terminalConstraintProgramState", "Variable schedule evaluated against a terminal distance constraint."),
   learner("CP012-INV-010", "findRequiredFinalSegmentSpeed", "terminalConstraintProgramState", "Solve final segment speed needed to meet a total-time/distance constraint."),
   learner("CP012-INV-011", "findRequiredFinalSegmentTime", "terminalConstraintProgramState", "Solve final segment time needed to meet a total constraint."),
@@ -55,11 +59,11 @@ export const TSD_CP012_SOURCE_CANDIDATES = Object.freeze([
   learner("CP012-INV-025", "findMotionStateFromSpeedTimeTable", "motionReconstructionProgramState", "Compact speed-time table represents the same reconstruction authority."),
   learner("CP012-INV-026", "findMotionStateFromDiagramAndText", "motionReconstructionProgramState", "Diagram is representation evidence, not a new mathematical QL."),
   learner("CP012-INV-027", "findMotionStateFromSharedCaselet", "motionReconstructionProgramState", "Shared caselet is a representation of one underlying reconstructed state."),
-  learner("CP012-INV-028", "findTrainPlusScheduleSynthesis", "composedMotionSystemState", "Train authority plus an independently essential schedule constraint."),
-  learner("CP012-INV-029", "findBoatPlusPursuitSynthesis", "composedMotionSystemState", "Medium-motion authority plus independently essential pursuit state."),
-  learner("CP012-INV-030", "findCircularRaceSynthesis", "composedMotionSystemState", "Closed-track authority plus independently essential race/finish state."),
-  learner("CP012-INV-031", "findEscalatorPlusScheduleSynthesis", "composedMotionSystemState", "Moving-surface authority plus independently essential schedule state."),
-  learner("CP012-INV-032", "findTwoEngineInverseState", "composedMotionSystemState", "Two distinct earlier TSD engines are both required to recover the unknown state."),
+  learner("CP012-INV-028", "findTrainPlusScheduleSynthesis", "trainScheduleSynthesisState", "Finite train crossing/meeting authority plus an independently essential departure or schedule constraint; kept separate because finite train length/event semantics remain essential."),
+  learner("CP012-INV-029", "findBoatPlusPursuitSynthesis", "mediumPursuitSynthesisState", "Signed medium-motion authority plus independently essential pursuit/closing-speed state; mathematically distinct from train or closed-track synthesis."),
+  learner("CP012-INV-030", "findCircularRaceSynthesis", "closedTrackRaceSynthesisState", "Closed-track modular position plus race/finish comparison are both essential; modular event state prevents merger with ordinary route profiles."),
+  learner("CP012-INV-031", "findEscalatorPlusScheduleSynthesis", "movingSurfaceScheduleSynthesisState", "Moving-surface relative motion plus an independently essential schedule/state-change constraint."),
+  learner("CP012-INV-032", "findTwoEngineInverseState", "twoEngineInverseState", "Generic inverse state in which two earlier TSD engines are independently necessary; retained as a distinct source-backed synthesis contract pending executable proof."),
   learner("CP012-INV-033", "findMinimumFeasibleSpeed", "terminalConstraintProgramState", "Boundary value satisfying explicit motion constraints."),
   learner("CP012-INV-034", "findMaximumFeasibleDelay", "terminalConstraintProgramState", "Latest delay satisfying explicit motion constraints."),
   learner("CP012-INV-035", "findCompleteValidParameterSet", "feasibleParameterSetState", "Return every parameter value satisfying a finite exact constraint system."),
@@ -68,9 +72,17 @@ export const TSD_CP012_SOURCE_CANDIDATES = Object.freeze([
   qa("CP012-INV-038", "classifySynthesisStateAsUniqueMultipleOrImpossible", "Internal identifiability classifier; does not create a new learner mathematical authority."),
   qa("CP012-INV-039", "verifyMultiStageMotionClaim", "Independent verification mode."),
   qa("CP012-INV-040", "solveMultiStageMotionDataSufficiency", "Data-sufficiency wrapper is held as QA/representation until ordinary authorities are proven."),
-  learner("CP012-XCP-041", "findStateAfterEscalatorDirectionReversal", "composedMotionSystemState", "Transferred from CP011: direction reversal creates essential multi-stage moving-surface synthesis."),
-  learner("CP012-XCP-042", "findStopStartEscalatorSchedule", "composedMotionSystemState", "Transferred from CP011: stop/start schedule creates essential multi-stage moving-surface synthesis."),
+  learner("CP012-XCP-041", "findStateAfterEscalatorDirectionReversal", "movingSurfaceScheduleSynthesisState", "Transferred from CP011: direction reversal changes the signed surface contribution across stages and therefore belongs to multi-stage moving-surface synthesis."),
+  learner("CP012-XCP-042", "findStopStartEscalatorSchedule", "movingSurfaceScheduleSynthesisState", "Transferred from CP011: stop/start schedule changes the surface state across stages and therefore belongs to multi-stage moving-surface synthesis."),
 ] as const satisfies readonly TsdCp012SourceCandidate[]);
+
+export const TSD_CP012_SINGLE_SOURCE_DISTINCT_AUTHORITIES = Object.freeze([
+  "periodicTravelRestProgramState",
+  "trainScheduleSynthesisState",
+  "mediumPursuitSynthesisState",
+  "closedTrackRaceSynthesisState",
+  "twoEngineInverseState",
+] as const satisfies readonly TsdCp012AuthorityKey[]);
 
 export const TSD_CP012_SOURCE_SUMMARY = Object.freeze({
   inventoryCandidates: 40,
