@@ -1,7 +1,7 @@
 export const SRI_001_MANIFEST = {
   packageId: "SRI-001",
   displayName: "Indices, Exponents & Power Structure",
-  status: "PERMANENT_ENGLISH_FROZEN_V1_LOCALIZATION_PENDING",
+  status: "PERMANENT_MULTILINGUAL_FROZEN_V1",
   canonicalCheckpoints: ["SRI-CP-001", "SRI-CP-002", "SRI-CP-003", "SRI-CP-004", "SRI-CP-005", "SRI-CP-006"],
   permanentQlCount: 29,
   frozenSolveModeCount: 29,
