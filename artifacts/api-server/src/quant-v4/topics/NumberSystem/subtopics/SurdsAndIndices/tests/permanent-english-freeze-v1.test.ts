@@ -10,6 +10,7 @@ import {
   computeSriPermanentEnglishFingerprintsV1,
 } from "../permanent-english-freeze-v1";
 import { generateSriPermanentEnglishQuestionV1 } from "../permanent-runtime-v1";
+import { generateSriExecutableDiscoveryCandidate } from "../saturation-registry";
 
 const EXPECTED_QLS = 58;
 const RUNTIME_SEEDS_PER_QL = 16;
@@ -45,6 +46,23 @@ for (const entry of SRI_PERMANENT_ENGLISH_FREEZE_V1) {
   assert.equal(entry.testEligible, false);
   assert.equal(entry.publiclyPublishable, false);
 }
+
+// Phase-8 presentation erratum guard for C011-H. The saturation authority
+// deliberately spans d=3..10, so c=6-d can be zero or negative. Exercise a
+// broad deterministic window and prove both cases occur without leaking
+// non-exam-standard x+0 / x+-k notation into frozen English learner surfaces.
+let sawC011HZeroShift = false;
+let sawC011HNegativeShift = false;
+for (let seedIndex = 0; seedIndex < 256; seedIndex += 1) {
+  const question = generateSriExecutableDiscoveryCandidate("C011-H", `phase8:c011h-presentation:${seedIndex}`);
+  const shift = Number(question.state.c);
+  if (shift === 0) sawC011HZeroShift = true;
+  if (shift < 0) sawC011HNegativeShift = true;
+  assert.doesNotMatch(question.stem, /x\+0(?=[}=])/u, `C011-H leaked x+0 notation at presentation seed ${seedIndex}`);
+  assert.doesNotMatch(question.stem, /x\+-\d/u, `C011-H leaked x+-k notation at presentation seed ${seedIndex}`);
+}
+assert.equal(sawC011HZeroShift, true, "C011-H presentation guard did not exercise the zero-shift case");
+assert.equal(sawC011HNegativeShift, true, "C011-H presentation guard did not exercise a negative-shift case");
 
 const ancestrySeenByQl = new Map<string, Set<string>>();
 let generated = 0;
@@ -111,6 +129,8 @@ console.log(JSON.stringify({
   runtimeSeedsPerQl: RUNTIME_SEEDS_PER_QL,
   permanentRuntimeQuestions: generated,
   crossCheckpointPackages,
+  c011hPresentationZeroShiftCovered: sawC011HZeroShift,
+  c011hPresentationNegativeShiftCovered: sawC011HNegativeShift,
   englishFrozen: SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen,
   multilingualFrozen: SRI_CHAPTER_MANIFEST.lifecycle.multilingualFrozen,
   downstreamReleaseEnabled: false,
