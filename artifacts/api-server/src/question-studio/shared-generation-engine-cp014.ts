@@ -1,21 +1,29 @@
 import {
   generateQuestion as generatePreviousQuestion,
-  isNumCp013QuestionStudioRequest,
+  isTrg001QuestionStudioRequest,
+  isTrg002V4GenerationRequest,
   listQuestionStudioPackages as listPreviousPackages,
   type SharedQuestionStudioGenerationRequest,
-} from "./shared-generation-engine-cp013.ts";
+} from "./shared-generation-engine-trigonometry.ts";
 import {
   generateNumCp014QuestionStudioBatch,
   isNumCp014QuestionStudioRequest,
   listNumCp014QuestionStudioPackages,
 } from "../quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/question-studio-integration.ts";
 
-export { isNumCp013QuestionStudioRequest, isNumCp014QuestionStudioRequest };
+export {
+  isNumCp014QuestionStudioRequest,
+  isTrg001QuestionStudioRequest,
+  isTrg002V4GenerationRequest,
+};
 export type { SharedQuestionStudioGenerationRequest };
 
 const AGGREGATE_RELEASE_ID = "NUM-002-QS-CP008-CP014-MULTILINGUAL-FROZEN-V1" as const;
 
 export function listQuestionStudioPackages() {
+  // Extend the newest aggregate (currently Trigonometry -> CP013) rather than
+  // branching from CP013 directly. This preserves every package already exposed
+  // by the canonical Question Studio route registry.
   const packages = [...listPreviousPackages()] as any[];
   const cp014 = listNumCp014QuestionStudioPackages()[0]!;
   const index = packages.findIndex((entry) => String(entry.packageId) === "NUM-002");
