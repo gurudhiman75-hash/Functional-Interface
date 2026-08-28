@@ -53,9 +53,41 @@ const summary = Object.freeze({
   nextGate: "EXPLICIT_ENGLISH_ARTIFACT_APPROVAL",
 });
 
+const reviewItemsForJson = reviewItems.map((item) => Object.freeze({
+  qlId: item.qlId,
+  canonicalSolveModeFamilyId: item.canonicalSolveModeFamilyId,
+  cpId: item.cpId,
+  proposalKey: item.proposalKey,
+  learnerDecision: item.learnerDecision,
+  prototypeId: item.prototypeId,
+  prototypeSolveMode: item.prototypeSolveMode,
+  variantIndex: item.variantIndex,
+  seed: item.seed,
+  language: item.language,
+  question: item.question,
+  options: item.options,
+  correctIndex: item.correctIndex,
+  canonicalAnswer: item.canonicalAnswer,
+  explanation: item.explanation,
+  explanationLines: item.explanationLines,
+  theoremNames: item.theoremNames,
+  stemSvg: item.stemSvg,
+  diagramPresent: item.stemSvg !== null || item.diagramModel !== null,
+  canonicalGeometryFingerprint: item.canonicalGeometryFingerprint,
+  diagramFingerprint: item.diagramFingerprint,
+  maturity: item.maturity,
+  reviewStatus: item.reviewStatus,
+  englishImplementationFrozen: item.englishImplementationFrozen,
+  active: item.active,
+  questionStudioDiscoverable: item.questionStudioDiscoverable,
+  questionBankWritable: item.questionBankWritable,
+  testEligible: item.testEligible,
+  publiclyPublishable: item.publiclyPublishable,
+}));
+
 writeFileSync(
   resolve(outputDirectory, "geometry-permanent-english-review-v1.json"),
-  JSON.stringify({ summary, runtimeAuthority: GEO_PERMANENT_ENGLISH_RUNTIME_AUTHORITY_V1, reviewItems }, null, 2) + "\n",
+  JSON.stringify({ summary, runtimeAuthority: GEO_PERMANENT_ENGLISH_RUNTIME_AUTHORITY_V1, reviewItems: reviewItemsForJson }, null, 2) + "\n",
 );
 
 const markdown = [
