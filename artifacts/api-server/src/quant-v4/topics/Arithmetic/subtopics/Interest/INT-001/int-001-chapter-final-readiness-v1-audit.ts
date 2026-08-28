@@ -29,11 +29,8 @@ assert.equal(INT_001_FINAL_QL_IDS.includes("INT-QL-132"), false);
 
 for (let number = 1; number <= 131; number += 1) {
   const qlId = `INT-QL-${String(number).padStart(3, "0")}`;
-  if (number === 94) {
-    assert.equal(INT_001_FINAL_QL_IDS.includes(qlId), false, `${qlId} must remain intentionally vacant`);
-  } else {
-    assert.equal(INT_001_FINAL_QL_IDS.includes(qlId), true, `${qlId} is missing from chapter ownership`);
-  }
+  if (number === 94) assert.equal(INT_001_FINAL_QL_IDS.includes(qlId), false, `${qlId} must remain intentionally vacant`);
+  else assert.equal(INT_001_FINAL_QL_IDS.includes(qlId), true, `${qlId} is missing from chapter ownership`);
 }
 
 for (const authority of INT_001_FINAL_CHECKPOINT_AUTHORITIES) {
@@ -43,6 +40,11 @@ for (const authority of INT_001_FINAL_CHECKPOINT_AUTHORITIES) {
   assert.equal(authority.testEligible, false);
   assert.equal(authority.mockTestEligible, false);
   assert.equal(authority.publiclyPublishable, false);
+  assert.deepEqual(
+    [...authority.currentQuestionStudioLanguages],
+    [...authority.contentLanguages],
+    `${authority.cpId} does not expose every currently certified content language to Question Studio`,
+  );
   for (const qlId of authority.qlIds) assert.equal(getInt001CheckpointAuthorityByQl(qlId).cpId, authority.cpId);
 }
 
@@ -61,17 +63,17 @@ for (const qlId of ["INT-QL-125", "INT-QL-126", "INT-QL-127", "INT-QL-128", "INT
 
 const cp002 = INT_001_FINAL_CHECKPOINT_AUTHORITIES.find((entry) => entry.cpId === "INT-CP-002")!;
 assert.deepEqual(cp002.contentLanguages, ["en"]);
-assert.deepEqual(cp002.currentQuestionStudioLanguages, []);
+assert.deepEqual(cp002.currentQuestionStudioLanguages, ["en"]);
 const cp004 = INT_001_FINAL_CHECKPOINT_AUTHORITIES.find((entry) => entry.cpId === "INT-CP-004")!;
 assert.deepEqual(cp004.contentLanguages, ["hi", "pa"]);
 assert.deepEqual(cp004.currentQuestionStudioLanguages, ["hi", "pa"]);
-const cp007 = INT_001_FINAL_CHECKPOINT_AUTHORITIES.find((entry) => entry.cpId === "INT-CP-007")!;
-const cp009 = INT_001_FINAL_CHECKPOINT_AUTHORITIES.find((entry) => entry.cpId === "INT-CP-009")!;
-assert.deepEqual(cp007.currentQuestionStudioLanguages, ["en", "hi", "pa"]);
-assert.deepEqual(cp009.currentQuestionStudioLanguages, ["en", "hi", "pa"]);
+for (const cpId of ["INT-CP-001", "INT-CP-003", "INT-CP-005", "INT-CP-006", "INT-CP-007", "INT-CP-008", "INT-CP-009", "INT-CP-010"] as const) {
+  const authority = INT_001_FINAL_CHECKPOINT_AUTHORITIES.find((entry) => entry.cpId === cpId)!;
+  assert.deepEqual(authority.currentQuestionStudioLanguages, ["en", "hi", "pa"]);
+}
 
 assert.equal(INT_001_CHAPTER_LIFECYCLE.contentAuthorityComplete, true);
-assert.equal(INT_001_CHAPTER_LIFECYCLE.chapterQuestionStudioIntegrationComplete, false);
+assert.equal(INT_001_CHAPTER_LIFECYCLE.chapterQuestionStudioIntegrationComplete, true);
 assert.equal(INT_001_CHAPTER_LIFECYCLE.questionBankWritable, false);
 assert.equal(INT_001_CHAPTER_LIFECYCLE.testEligible, false);
 assert.equal(INT_001_CHAPTER_LIFECYCLE.mockTestEligible, false);
@@ -81,6 +83,7 @@ assert.equal(INT_001_CHAPTER_LIFECYCLE.automaticStudentPublication, false);
 const currentStudioQlCount = INT_001_FINAL_CHECKPOINT_AUTHORITIES
   .filter((entry) => entry.currentQuestionStudioLanguages.length > 0)
   .reduce((sum, entry) => sum + entry.qlIds.length, 0);
+assert.equal(currentStudioQlCount, 130);
 
 console.log(JSON.stringify({
   registryVersion: INT_001_FINAL_AUTHORITY_REGISTRY_VERSION,
