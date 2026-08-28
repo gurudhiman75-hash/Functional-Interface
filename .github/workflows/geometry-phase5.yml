@@ -8,6 +8,7 @@ on:
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/geometry-localization-editorial-v2-*.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/geometry-localization-options-v2.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/geometry-permanent-multilingual-review-v2.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-v2-frozen-english-source-variants.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-permanent-multilingual-review-v2.ts
       - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-permanent-multilingual-review-v2.test.ts
   workflow_dispatch:
@@ -34,6 +35,17 @@ jobs:
         run: corepack enable
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
+      - name: Export frozen English source-variant authority diagnostic
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-v2-frozen-english-source-variants.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-v2-frozen-english-source-variants-export.mjs
+          (cd artifacts/api-server && node dist/quant-v4/geometry-v2-frozen-english-source-variants-export.mjs)
+      - name: Upload frozen English source-variant authority diagnostic
+        uses: actions/upload-artifact@v4
+        with:
+          name: geometry-v2-frozen-english-source-variants
+          path: artifacts/api-server/dist/quant-v4/geometry-v2-frozen-english-source-variants
+          if-no-files-found: error
+          retention-days: 7
       - name: Prove Geometry Hindi Punjabi human editorial review V2
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-permanent-multilingual-review-v2.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-permanent-multilingual-review-v2.test.mjs
