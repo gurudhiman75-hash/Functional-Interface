@@ -2,12 +2,13 @@ name: Validate NUM-CP-014 Question Studio integration
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/**"
       - "artifacts/api-server/src/question-studio/shared-generation-engine-cp014.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-cp014.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
-      - ".github/workflows/num-cp014-question-studio-v1.yml"
   workflow_dispatch:
 
 concurrency:
