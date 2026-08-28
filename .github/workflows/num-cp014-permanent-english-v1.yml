@@ -1,0 +1,44 @@
+name: Validate NUM-CP-014 permanent allocation and English runtime
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/**"
+      - ".github/workflows/num-cp014-permanent-english-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp014-permanent-english-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp014-permanent-english:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle CP014 permanent audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014"
+          pnpm --dir artifacts/api-server exec esbuild "$root/permanent-allocation.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-permanent-allocation.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/permanent-runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-permanent-runtime.mjs
+      - name: Run permanent allocation audit
+        run: node artifacts/api-server/dist/quant-v4/num-cp014-permanent-allocation.mjs
+      - name: Run permanent English runtime audit
+        run: node artifacts/api-server/dist/quant-v4/num-cp014-permanent-runtime.mjs
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
