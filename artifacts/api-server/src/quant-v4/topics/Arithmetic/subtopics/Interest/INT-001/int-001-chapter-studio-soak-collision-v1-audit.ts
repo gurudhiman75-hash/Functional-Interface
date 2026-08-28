@@ -192,15 +192,44 @@ function qlEvidence(question: any, pkg: any): readonly string[] {
   ].filter(Boolean).map(String));
 }
 
-function collisionSemanticKey(question: any, pkg: any) {
-  return String(
+function explanationText(question: any, pkg: any) {
+  const direct = question?.explanation;
+  if (typeof direct === "string" && direct.trim()) return direct.trim();
+  const lines: string[] = [];
+  const push = (value: unknown) => {
+    if (value === undefined || value === null || value === "") return;
+    lines.push(String(value));
+  };
+  if (direct && typeof direct === "object") {
+    push(direct.whatAsked);
+    push(direct.keyIdea);
+    for (const line of direct.lines ?? []) push(line);
+    for (const line of direct.steps ?? []) push(line);
+    push(direct.conclusion);
+    push(direct.finalAnswer);
+    push(direct.shortcut);
+    push(direct.commonTrap);
+  }
+  for (const line of question?.packageExplanation?.lines ?? []) push(line);
+  for (const line of pkg?.explanation?.lines ?? []) push(line);
+  return lines.join("\n").trim();
+}
+
+function collisionSemanticKey(question: any, pkg: any, explanation: string) {
+  const solveContract = String(
     question?.solveMode
     ?? question?.parameters?.solveContract
     ?? pkg?.solveContract
-    ?? question?.traceability?.mathematicalFingerprint
+    ?? "",
+  ).normalize("NFKC").trim();
+  const conceptProof = normalizeSemanticSkeleton(explanation);
+  const fallbackFingerprint = String(
+    question?.traceability?.mathematicalFingerprint
     ?? question?.mathematicalFingerprint
     ?? "",
   ).normalize("NFKC").trim();
+  if (conceptProof) return `${normalizeSemanticSkeleton(solveContract)}|${conceptProof}`;
+  return `${normalizeSemanticSkeleton(solveContract)}|${normalizeSemanticSkeleton(fallbackFingerprint)}`;
 }
 
 function assertPreview(question: any, pkg: any, cpId: string, qlId: string, language: string) {
@@ -217,7 +246,7 @@ function assertPreview(question: any, pkg: any, cpId: string, qlId: string, lang
   assert.ok(Number.isInteger(correctIndex) && correctIndex >= 0 && correctIndex < 4, `${qlId}/${language}: invalid correct index.`);
   const answer = String(question.answer ?? pkg?.answer ?? options[correctIndex]);
   assert.equal(answer, options[correctIndex], `${qlId}/${language}: answer no longer binds to correct option.`);
-  const explanation = String(question.explanation ?? question.packageExplanation?.lines?.join("\n") ?? "").trim();
+  const explanation = explanationText(question, pkg);
   assert.ok(explanation.length > 0, `${qlId}/${language}: explanation is empty.`);
   const studioOpen = question.questionStudioDiscoverable === true
     || question.safety?.questionStudioDiscoverable === true
@@ -238,7 +267,7 @@ function assertPreview(question: any, pkg: any, cpId: string, qlId: string, lang
   }
   JSON.stringify(question);
   if (pkg) JSON.stringify(pkg);
-  return Object.freeze({ stem, semanticKey: collisionSemanticKey(question, pkg) });
+  return Object.freeze({ stem, semanticKey: collisionSemanticKey(question, pkg, explanation) });
 }
 
 const allQls = surfaces.flatMap((surface) => surface.qlIds.map((qlId) => ({ cpId: surface.cpId, qlId })));
@@ -315,7 +344,7 @@ const exactCrossQlCollisions = [...exactStemOwners.entries()].filter(([, owners]
 assert.deepEqual(exactCrossQlCollisions, [], `Exact learner-stem collisions found across permanent QLs: ${JSON.stringify(exactCrossQlCollisions.slice(0, 10).map(([key, owners]) => [key, [...owners]]))}`);
 
 const semanticCrossQlCollisions = [...skeletonSemanticOwners.entries()].filter(([, owners]) => owners.size > 1);
-assert.deepEqual(semanticCrossQlCollisions, [], `Same semantic-key + normalized-stem collisions found across permanent QLs: ${JSON.stringify(semanticCrossQlCollisions.slice(0, 10).map(([key, owners]) => [key, [...owners]]))}`);
+assert.deepEqual(semanticCrossQlCollisions, [], `Same normalized stem + normalized solution-concept collisions found across permanent QLs: ${JSON.stringify(semanticCrossQlCollisions.slice(0, 10).map(([key, owners]) => [key, [...owners]]))}`);
 
 const representationOnlySkeletonCollisions = [...skeletonOwners.entries()].filter(([, owners]) => owners.size > 1).length;
 
