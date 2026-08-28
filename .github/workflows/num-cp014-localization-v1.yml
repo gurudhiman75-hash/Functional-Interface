@@ -2,9 +2,10 @@ name: Validate NUM-CP-014 Hindi Punjabi localization
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/**"
-      - ".github/workflows/num-cp014-localization-v1.yml"
   workflow_dispatch:
 
 concurrency:
