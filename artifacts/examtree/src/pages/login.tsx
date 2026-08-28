@@ -377,7 +377,7 @@ export default function Login() {
               type="button"
               onClick={() => setLocation("/")}
               className="et-interactive inline-flex min-h-11 items-center gap-2 rounded-xl px-1 text-sm font-semibold text-slate-600 transition hover:text-slate-950 lg:hidden"
-              data-testid="btn-back-mobile"
+              data-testid="btn-back"
             >
               <ArrowLeft className="h-4 w-4" />
               Home
@@ -590,19 +590,8 @@ export default function Login() {
             type="button"
             onClick={() => setLocation("/")}
             className="mx-auto mt-5 hidden min-h-11 items-center gap-2 rounded-xl px-3 text-sm font-semibold text-slate-500 transition hover:bg-[#f7f5ff] hover:text-slate-900 lg:flex"
-            data-testid="btn-back"
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Home
-          </button>
-          <button
-            type="button"
-            onClick={() => setLocation("/")}
-            className="sr-only"
-            data-testid="btn-back-mobile-proxy"
-            aria-hidden="true"
-            tabIndex={-1}
-          >
             Back to Home
           </button>
         </section>
