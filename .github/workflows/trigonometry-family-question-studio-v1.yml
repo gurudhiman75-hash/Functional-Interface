@@ -2,13 +2,13 @@ name: Validate Trigonometry family Question Studio
 
 on:
   pull_request:
-    branches: [New-main]
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/**"
       - "artifacts/api-server/src/question-studio/shared-generation-engine-trigonometry.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-trigonometry.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
-      - ".github/workflows/trigonometry-family-question-studio-v1.yml"
   workflow_dispatch:
 
 concurrency:
