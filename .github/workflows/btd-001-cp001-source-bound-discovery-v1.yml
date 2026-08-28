@@ -32,12 +32,12 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run BTD official-source expansion audit v3
+      - name: Run BTD breadth-remediation audit v4
         shell: bash
         run: |
           set -o pipefail
-          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/btd-cp001-official-source-expansion-v3-audit.ts | tee btd-001-cp001-official-source-expansion-v3.log
-          grep -q 'PASS_BTD_001_CP001_OFFICIAL_SOURCE_EXPANSION_AUDIT_V3' btd-001-cp001-official-source-expansion-v3.log
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/btd-cp001-breadth-remediation-v4-audit.ts | tee btd-001-cp001-breadth-remediation-v4.log
+          grep -q 'PASS_BTD_001_CP001_BREADTH_REMEDIATION_AUDIT_V4' btd-001-cp001-breadth-remediation-v4.log
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
@@ -45,14 +45,14 @@ jobs:
       - name: Record exact validation head
         shell: bash
         run: |
-          echo "validated_head=$(git rev-parse HEAD)" | tee btd-001-cp001-official-source-expansion-v3-head.log
+          echo "validated_head=$(git rev-parse HEAD)" | tee btd-001-cp001-breadth-remediation-v4-head.log
           test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
 
       - name: Upload evidence
         uses: actions/upload-artifact@v4
         with:
-          name: btd-001-cp001-official-source-expansion-v3
+          name: btd-001-cp001-breadth-remediation-v4
           path: |
-            btd-001-cp001-official-source-expansion-v3.log
-            btd-001-cp001-official-source-expansion-v3-head.log
+            btd-001-cp001-breadth-remediation-v4.log
+            btd-001-cp001-breadth-remediation-v4-head.log
           retention-days: 30
