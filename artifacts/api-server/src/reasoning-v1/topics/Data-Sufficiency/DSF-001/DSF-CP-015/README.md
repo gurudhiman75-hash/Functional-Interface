@@ -2,16 +2,34 @@
 
 ## Status
 
-**IMPLEMENTED CANDIDATE — PERMANENT QL ALLOCATION PENDING EXECUTABLE GREEN**
+**FINAL IMPLEMENTATION / PERMANENT SEMANTIC ALLOCATION — EXECUTABLE GREEN**
 
-This checkpoint implements the previously frozen deferred boundary candidate `DSF-QL-CAND-002`:
+Final executable allocation head:
+
+- `166b8d691ce0c042d44fbed06295712e6f8ee85a`
+- workflow: `Validate DSF CP-015 Three Statement QL-002 Foundation`
+- run: `33058818772`
+- job: `98472226362`
+- conclusion: **SUCCESS**
+
+The exact-head job completed locked dependency installation, API build, exhaustive three-statement semantic QA, real `NUM-001` source-prototype QA, and the additive `DSF-QL-002` allocation audit.
+
+`DSF-QL-002` is therefore permanently allocated in the **current** DSF registry from historical candidate `DSF-QL-CAND-002`. The historical CP000 snapshot is intentionally unchanged and still truthfully records that CP000 initially allocated only `DSF-QL-001` and deferred Candidate 002.
+
+Current permanent semantic identities after CP015:
+
+- `DSF-QL-001` — two-statement target determinacy;
+- `DSF-QL-002` — three-statement minimal-sufficient-subset reasoning;
+- next available identity: `DSF-QL-003`.
+
+All learner-delivery lifecycle capabilities remain locked.
+
+## Permanent contract
 
 - statement count: 3;
 - task contract: `THREE_STATEMENT_MINIMAL_SUFFICIENT_SUBSETS`;
 - rule: `INFORMATION_SUFFICIENCY_SUBSET_LATTICE`;
 - answer semantic: `MINIMAL_SUFFICIENT_STATEMENT_SUBSET`.
-
-The permanent registry is intentionally unchanged until the current-head CP015 evaluator + renderer QA succeeds.
 
 ## Why this requires a new QL
 
@@ -35,7 +53,7 @@ Therefore the three-statement semantic space contains exactly **19 valid learner
 - checks consistency for every non-empty subset;
 - enforces sufficiency monotonicity across subset/superset pairs;
 - enforces target-answer stability after adding consistent evidence;
-- derives the minimal sufficient antichain using the existing shared `findMinimalSufficientSubsets` authority;
+- derives the minimal sufficient antichain using the shared `findMinimalSufficientSubsets` authority;
 - serializes that antichain into a stable semantic key; and
 - exposes `evaluateFiniteDomainTriple` so existing source-domain adapters can be reused without giving DSF ownership of source mathematics/reasoning.
 
@@ -56,28 +74,60 @@ This avoids both unacceptable alternatives:
 - collapsing three-statement truth into the five two-statement classes; or
 - presenting learners with a 19-option answer list.
 
-## Exhaustive foundation audit
+## Exhaustive foundation audit — GREEN
 
 `three-statement-foundation.test.ts` constructively creates a finite world set for **every one of the 19 valid semantic states**.
 
-The audit verifies:
+Final run `33058818772` reports:
 
-- all 19 states are realizable and reproduced exactly by the evaluator;
-- all seven non-empty subsets are evaluated for every state;
-- the base problem remains insufficient;
-- all statement subsets remain logically consistent;
-- canonical semantic serialization is stable;
-- five answer options are produced for every state;
-- option semantic keys and text are unique;
-- exactly one option is correct;
-- seeds 0..4 place the correct answer at all five option positions;
-- all 19 human-readable labels are distinct;
-- `evaluateFiniteDomainTriple` works through the existing finite-domain adapter contract;
-- already-sufficient base problems are rejected; and
-- jointly inconsistent three-statement sets are rejected.
+- `PASS_DSF_CP015_THREE_STATEMENT_SUBSET_LATTICE_FOUNDATION`;
+- semantic states: 19;
+- evaluated subsets per state: 7;
+- answer options per state: 5;
+- correct answer positions verified at A/B/C/D/E;
+- finite-domain bridge verified.
 
-## Allocation rule
+The audit also verifies already-sufficient base rejection and jointly inconsistent statement-set rejection.
 
-`DSF-QL-002` must **not** be added to `permanent-ql-registry.ts` merely because this code exists. Allocation occurs only after the current-head CP015 workflow completes successfully.
+## Real source-bound prototypes — GREEN
 
-When that happens, the permanent entry should be allocated from `DSF-QL-CAND-002` with the exact frozen contract above. Lifecycle must remain review-only until separate Question Studio / Question Bank / scored-test / mock-test release checkpoints explicitly grant those capabilities.
+The new semantic authority is not frozen on synthetic worlds alone. CP015 binds it to the existing reviewed `NUM-001/foundation/divisibility` authority over the complete `42X` single-digit universe.
+
+Two source prototypes pass on the final head:
+
+1. `I|II+III` — Statement I alone is sufficient, or Statements II and III together are sufficient;
+2. `I+II+III` — no single statement or pair is sufficient; all three are required.
+
+Final run output records:
+
+- `PASS_DSF_CP015_NUM001_THREE_STATEMENT_SOURCE_PROTOTYPES`;
+- source worlds: 10;
+- `permanentQlAllocated: true`;
+- `permanentQlId: DSF-QL-002`.
+
+The prototypes retain historical `candidateQlId: DSF-QL-CAND-002` ancestry while exposing the current permanent identity `DSF-QL-002`.
+
+## Additive allocation audit — GREEN
+
+The allocation audit proves both historical and current views simultaneously:
+
+- historical CP000 permanent IDs: `[DSF-QL-001]`;
+- current permanent IDs: `[DSF-QL-001, DSF-QL-002]`;
+- allocated identity: `DSF-QL-002`;
+- next available identity: `DSF-QL-003`;
+- lifecycle locked: true.
+
+It reports `PASS_DSF_CP015_QL002_ADDITIVE_PERMANENT_ALLOCATION` on final run `33058818772`.
+
+## Lifecycle
+
+CP015 grants semantic identity only. It does **not** grant delivery authority:
+
+- Question Studio discoverable: false;
+- Question Bank writable: false;
+- scored/test eligible: false;
+- mock-test eligible: false;
+- publicly publishable: false;
+- automatic student publication: false.
+
+Any later delivery activation requires separate governed checkpoints and must not be inferred from this semantic freeze.
