@@ -55,3 +55,5 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/source-saturation-proof.test.ts
       - name: Prove CP012 representation saturation
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/representation-saturation-proof.test.ts
+      - name: Prove CP012 exact executable feasibility and independent verification
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/executable-proof.test.ts
