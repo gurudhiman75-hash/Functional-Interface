@@ -2,12 +2,13 @@ name: Validate NUM-CP-014 cumulative landing
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/**"
       - "artifacts/api-server/src/question-studio/shared-generation-engine-cp014.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-cp014.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
-      - ".github/workflows/num-cp014-cumulative-landing-v1.yml"
   workflow_dispatch:
 
 concurrency:
