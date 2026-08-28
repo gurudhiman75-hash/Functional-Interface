@@ -20,9 +20,12 @@ export function localizeSriC008C009FinalizedSurfaceV1(
 
   const truthSet = text.match(/^Truth set: (.+)\.$/u);
   if (truthSet) {
-    return locale === "hi-IN"
-      ? `सत्य कथन: ${truthSet[1]}।`
-      : `ਸੱਚ ਕਥਨ: ${truthSet[1]}।`;
+    const value = localizeTruthSetValue(truthSet[1], locale);
+    if (value) {
+      return locale === "hi-IN"
+        ? `सत्य कथन: ${value}।`
+        : `ਸੱਚ ਕਥਨ: ${value}।`;
+    }
   }
 
   const originalCheck = text.match(/^Original-equation check: (.+)\.$/u);
@@ -44,6 +47,14 @@ export function localizeSriC008C009FinalizedSurfaceV1(
 
   return localizeSriC008C009CoreV1(text, locale)
     ?? localizeSriC010C012FinalizedSurfaceV1(text, locale);
+}
+
+function localizeTruthSetValue(text: string, locale: SriLocalizedLocaleV1): string | undefined {
+  if (text === "Both I and II") return locale === "hi-IN" ? "I और II दोनों" : "I ਅਤੇ II ਦੋਵੇਂ";
+  if (text === "Only I") return locale === "hi-IN" ? "केवल I" : "ਕੇਵਲ I";
+  if (text === "Only II") return locale === "hi-IN" ? "केवल II" : "ਕੇਵਲ II";
+  if (text === "Neither I nor II") return locale === "hi-IN" ? "न I, न II" : "ਨਾ I, ਨਾ II";
+  return undefined;
 }
 
 function localizeRadicalCandidateReason(text: string, locale: SriLocalizedLocaleV1): string | undefined {
