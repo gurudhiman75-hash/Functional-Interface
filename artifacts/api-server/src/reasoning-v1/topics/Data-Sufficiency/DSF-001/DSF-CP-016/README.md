@@ -2,7 +2,7 @@
 
 ## Status
 
-**FEATURE IMPLEMENTATION EVIDENCE COMPLETE — COMMON-BASE INTEGRATION PENDING**
+**FEATURE IMPLEMENTATION CLOSURE — EXECUTABLE GREEN / COMMON-BASE INTEGRATION PENDING**
 
 CP016 has two layers:
 
@@ -11,7 +11,18 @@ CP016 has two layers:
 
 The generic policy foundation passed on exact head `d82880e92521b3369acc703a5e04782e7653c745`, workflow run `33059141963`.
 
-The live ledger is now wired into the same workflow and must pass on its own final exact head before this checkpoint is frozen. It deliberately does **not** claim that CP011–CP015 already coexist on `New-main`.
+The final exact live-ledger head `fd3c2e2cf2bcf0494bc019c364df93587372d380` passed workflow run `33134335543` against the current `New-main` merge preview. That run completed the API build, generic closure-policy audit, and exact implementation-evidence ledger audit successfully.
+
+Final executable ledger output:
+
+- `PASS_DSF_CP016_IMPLEMENTATION_EVIDENCE_LEDGER_V1`
+- checkpoint count: 5
+- implementation closure ready: `true`
+- common-base closure ready: `false`
+- learner release ready: `false`
+- external source holds: 2
+
+This documentation-only freeze commit changes no closure-policy or ledger semantics.
 
 ## Exact feature evidence
 
@@ -25,7 +36,7 @@ The live ledger is now wired into the same workflow and must pass on its own fin
 | DSF-CP-014 | #1117 | `45da4eeae73ce3894ccfe20a486e762347a2d568` | `33057329390` | Editorial / anti-duplicate foundation |
 | DSF-CP-015 | #1120 | `166b8d691ce0c042d44fbed06295712e6f8ee85a` | `33058818772` | Permanent three-statement `DSF-QL-002` semantics |
 
-Every entry is explicitly `mergedToCommonBase: false` because these PRs remain separate feature work. Green feature evidence is not treated as proof of common-base coexistence.
+Every entry remains explicitly `mergedToCommonBase: false` because these PRs remain separate feature work. Green feature evidence is not treated as proof of common-base coexistence.
 
 ## Two closure levels
 
@@ -40,13 +51,13 @@ Every entry is explicitly `mergedToCommonBase: false` because these PRs remain s
 - next available semantic identity exactly `DSF-QL-003`; and
 - all learner-delivery lifecycle capabilities locked false.
 
-With the exact ledger above, the expected implementation verdict is **true**.
+The final live-ledger run proves this verdict is **true**.
 
 ### 2. Common-base closure
 
 `commonBaseClosureReady` additionally requires all five required checkpoint implementations to actually coexist on one common base and be recorded as `mergedToCommonBase: true`.
 
-With the current separate draft branches, the expected common-base verdict is **false**.
+With the current separate draft branches, the verified common-base verdict remains **false**.
 
 This is intentional. CP016 refuses to convert feature-branch evidence into a false `New-main` closure claim.
 
@@ -107,4 +118,4 @@ The CP016 workflow runs both:
 - `closure-policy.test.ts` — generic policy/invariant audit; and
 - `implementation-evidence-ledger-v1.test.ts` — exact live CP011–CP015 evidence audit.
 
-The ledger audit must report implementation closure true, common-base closure false, two visible source holds and learner release false.
+Final executable authority: head `fd3c2e2cf2bcf0494bc019c364df93587372d380`, run `33134335543`, conclusion **SUCCESS**.
