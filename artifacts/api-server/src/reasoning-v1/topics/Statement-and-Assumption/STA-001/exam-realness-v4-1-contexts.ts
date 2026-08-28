@@ -47,7 +47,7 @@ export const STA_V41_CONTEXTS: readonly StaV41Context[] = Object.freeze([
 
   ctx("BANK-ROUTINE", "BANKING", "Medium", "BANKING_SERVICE",
     lt("branch customers", "शाखा ग्राहक", "ਸ਼ਾਖਾ ਗਾਹਕ"),
-    lt("routine service requests", "नियमित सेवा अनुरोध", "ਰੋਜ਼ਾਨਾ ਸੇਵਾ ਬੇਨਤੀਆਂ"),
+    lt("routine service request processing", "नियमित सेवा अनुरोध", "ਰੋਜ਼ਾਨਾ ਸੇਵਾ ਬੇਨਤੀਆਂ"),
     lt("the mobile banking app", "मोबाइल बैंकिंग ऐप", "ਮੋਬਾਈਲ ਬੈਂਕਿੰਗ ਐਪ"),
     lt("repeat counter visits", "बार-बार काउंटर पर जाना", "ਵਾਰ-ਵਾਰ ਕਾਊਂਟਰ ਦੌਰੇ"),
     lt("a guided digital-help desk", "मार्गदर्शित डिजिटल सहायता डेस्क", "ਮਾਰਗਦਰਸ਼ਿਤ ਡਿਜ਼ਿਟਲ ਮਦਦ ਡੈਸਕ"),
@@ -57,7 +57,7 @@ export const STA_V41_CONTEXTS: readonly StaV41Context[] = Object.freeze([
 
   ctx("DISTRICT-CERTIFICATE", "PUNJAB_STATE", "Easy", "PUBLIC_CERTIFICATE",
     lt("certificate applicants", "प्रमाण-पत्र आवेदक", "ਸਰਟੀਫਿਕੇਟ ਅਰਜ਼ੀਦਾਰ"),
-    lt("certificate applications", "प्रमाण-पत्र आवेदन", "ਸਰਟੀਫਿਕੇਟ ਅਰਜ਼ੀਆਂ"),
+    lt("certificate application processing", "प्रमाण-पत्र आवेदन", "ਸਰਟੀਫਿਕੇਟ ਅਰਜ਼ੀਆਂ"),
     lt("the district online portal", "जिला ऑनलाइन पोर्टल", "ਜ਼ਿਲ੍ਹਾ ਆਨਲਾਈਨ ਪੋਰਟਲ"),
     lt("incomplete applications", "अधूरे आवेदन", "ਅਧੂਰੀਆਂ ਅਰਜ਼ੀਆਂ"),
     lt("a pre-submission checklist", "जमा करने से पहले की चेकलिस्ट", "ਜਮ੍ਹਾਂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਦੀ ਚੈੱਕਲਿਸਟ"),
@@ -67,7 +67,7 @@ export const STA_V41_CONTEXTS: readonly StaV41Context[] = Object.freeze([
 
   ctx("HR-LEAVE", "CROSS_EXAM_DISCOVERY", "Medium", "WORKPLACE_HR",
     lt("employees", "कर्मचारी", "ਕਰਮਚਾਰੀ"),
-    lt("leave requests", "अवकाश अनुरोध", "ਛੁੱਟੀ ਬੇਨਤੀਆਂ"),
+    lt("leave-request processing", "अवकाश अनुरोध", "ਛੁੱਟੀ ਬੇਨਤੀਆਂ"),
     lt("the HR portal", "एचआर पोर्टल", "ਐਚਆਰ ਪੋਰਟਲ"),
     lt("processing delays", "प्रक्रिया में देरी", "ਕਾਰਵਾਈ ਵਿੱਚ ਦੇਰੀ"),
     lt("automated document screening", "स्वचालित दस्तावेज़ जांच", "ਆਟੋਮੈਟਿਕ ਦਸਤਾਵੇਜ਼ ਜਾਂਚ"),
@@ -77,7 +77,7 @@ export const STA_V41_CONTEXTS: readonly StaV41Context[] = Object.freeze([
 
   ctx("HOSPITAL-APPOINTMENT", "CROSS_EXAM_DISCOVERY", "Hard", "HEALTH_APPOINTMENT",
     lt("outpatients", "बाह्य रोगी", "ਬਾਹਰੀ ਮਰੀਜ਼"),
-    lt("clinic appointments", "क्लिनिक अपॉइंटमेंट", "ਕਲੀਨਿਕ ਮੁਲਾਕਾਤਾਂ"),
+    lt("clinic appointment booking", "क्लिनिक अपॉइंटमेंट", "ਕਲੀਨਿਕ ਮੁਲਾਕਾਤਾਂ"),
     lt("the appointment helpline", "अपॉइंटमेंट हेल्पलाइन", "ਮੁਲਾਕਾਤ ਹੈਲਪਲਾਈਨ"),
     lt("missed appointment slots", "छूटे हुए अपॉइंटमेंट स्लॉट", "ਖੁੰਝੇ ਹੋਏ ਮੁਲਾਕਾਤ ਸਲਾਟ"),
     lt("a reminder-call system", "रिमाइंडर कॉल प्रणाली", "ਯਾਦ-ਦਿਹਾਨੀ ਕਾਲ ਪ੍ਰਣਾਲੀ"),
@@ -87,7 +87,7 @@ export const STA_V41_CONTEXTS: readonly StaV41Context[] = Object.freeze([
 
   ctx("RAILWAY-ENQUIRY", "SSC", "Medium", "RAILWAY_SERVICE",
     lt("rail passengers", "रेल यात्री", "ਰੇਲ ਯਾਤਰੀ"),
-    lt("platform enquiries", "प्लेटफॉर्म संबंधी पूछताछ", "ਪਲੇਟਫਾਰਮ ਪੁੱਛਗਿੱਛ"),
+    lt("platform enquiry handling", "प्लेटफॉर्म संबंधी पूछताछ", "ਪਲੇਟਫਾਰਮ ਪੁੱਛਗਿੱਛ"),
     lt("the station information kiosk", "स्टेशन सूचना कियोस्क", "ਸਟੇਸ਼ਨ ਜਾਣਕਾਰੀ ਕਿਓਸਕ"),
     lt("crowding at the enquiry counter", "पूछताछ काउंटर पर भीड़", "ਪੁੱਛਗਿੱਛ ਕਾਊਂਟਰ ਉੱਤੇ ਭੀੜ"),
     lt("an additional self-service kiosk network", "अतिरिक्त स्व-सेवा कियोस्क", "ਵਾਧੂ ਸਵੈ-ਸੇਵਾ ਕਿਓਸਕ"),
@@ -97,7 +97,7 @@ export const STA_V41_CONTEXTS: readonly StaV41Context[] = Object.freeze([
 
   ctx("SCHOLARSHIP-FORM", "PUNJAB_STATE", "Hard", "EDUCATION_BENEFIT",
     lt("scholarship applicants", "छात्रवृत्ति आवेदक", "ਵਜ਼ੀਫ਼ਾ ਅਰਜ਼ੀਦਾਰ"),
-    lt("scholarship submissions", "छात्रवृत्ति आवेदन जमा करना", "ਵਜ਼ੀਫ਼ਾ ਅਰਜ਼ੀਆਂ ਜਮ੍ਹਾਂ ਕਰਨਾ"),
+    lt("scholarship submission processing", "छात्रवृत्ति आवेदन जमा करना", "ਵਜ਼ੀਫ਼ਾ ਅਰਜ਼ੀਆਂ ਜਮ੍ਹਾਂ ਕਰਨਾ"),
     lt("the scholarship portal", "छात्रवृत्ति पोर्टल", "ਵਜ਼ੀਫ਼ਾ ਪੋਰਟਲ"),
     lt("rejections caused by missing documents", "गुम दस्तावेज़ों से होने वाली अस्वीकृति", "ਗੁੰਮ ਦਸਤਾਵੇਜ਼ਾਂ ਕਾਰਨ ਰੱਦ ਹੋਣ ਵਾਲੀਆਂ ਅਰਜ਼ੀਆਂ"),
     lt("a document-preview screen", "दस्तावेज़ पूर्वावलोकन स्क्रीन", "ਦਸਤਾਵੇਜ਼ ਝਲਕ ਸਕ੍ਰੀਨ"),
@@ -117,7 +117,7 @@ export const STA_V41_CONTEXTS: readonly StaV41Context[] = Object.freeze([
 
   ctx("WATER-COMPLAINT", "PUNJAB_STATE", "Medium", "MUNICIPAL_SERVICE",
     lt("residents", "निवासी", "ਨਿਵਾਸੀ"),
-    lt("water-supply complaints", "जल-आपूर्ति शिकायतें", "ਪਾਣੀ ਸਪਲਾਈ ਸ਼ਿਕਾਇਤਾਂ"),
+    lt("water-supply complaint handling", "जल-आपूर्ति शिकायतें", "ਪਾਣੀ ਸਪਲਾਈ ਸ਼ਿਕਾਇਤਾਂ"),
     lt("the municipal complaint line", "नगर शिकायत लाइन", "ਨਗਰ ਸ਼ਿਕਾਇਤ ਲਾਈਨ"),
     lt("untracked complaints", "बिना ट्रैकिंग वाली शिकायतें", "ਬਿਨਾਂ ਟ੍ਰੈਕਿੰਗ ਵਾਲੀਆਂ ਸ਼ਿਕਾਇਤਾਂ"),
     lt("an automatic complaint-ticket system", "स्वचालित शिकायत टिकट नंबर", "ਆਟੋਮੈਟਿਕ ਸ਼ਿਕਾਇਤ ਟਿਕਟ ਨੰਬਰ"),
@@ -167,7 +167,7 @@ export const STA_V41_CONTEXTS: readonly StaV41Context[] = Object.freeze([
 
   ctx("FARM-SUBSIDY", "PUNJAB_STATE", "Hard", "AGRICULTURE_SERVICE",
     lt("farmers", "किसान", "ਕਿਸਾਨ"),
-    lt("subsidy claims", "सब्सिडी दावे", "ਸਬਸਿਡੀ ਦਾਅਵੇ"),
+    lt("subsidy-claim processing", "सब्सिडी दावे", "ਸਬਸਿਡੀ ਦਾਅਵੇ"),
     lt("the agriculture service portal", "कृषि सेवा पोर्टल", "ਖੇਤੀਬਾੜੀ ਸੇਵਾ ਪੋਰਟਲ"),
     lt("claim-status uncertainty", "दावे की स्थिति को लेकर अनिश्चितता", "ਦਾਅਵੇ ਦੀ ਸਥਿਤੀ ਬਾਰੇ ਅਣਿਸ਼ਚਿਤਤਾ"),
     lt("stage-wise status messages", "चरणवार स्थिति संदेश", "ਪੜਾਅ-ਵਾਰ ਸਥਿਤੀ ਸੁਨੇਹੇ"),
@@ -190,7 +190,7 @@ export const STA_V41_CONTEXTS: readonly StaV41Context[] = Object.freeze([
     lt("claim-document submission", "दावा दस्तावेज़ जमा करना", "ਦਾਅਵਾ ਦਸਤਾਵੇਜ਼ ਜਮ੍ਹਾਂ ਕਰਨਾ"),
     lt("the insurer upload centre", "बीमाकर्ता अपलोड केंद्र", "ਬੀਮਾਕਰਤਾ ਅੱਪਲੋਡ ਕੇਂਦਰ"),
     lt("requests for missing claim papers", "गुम दावा दस्तावेज़ों के अनुरोध", "ਗੁੰਮ ਦਾਅਵਾ ਕਾਗਜ਼ਾਂ ਲਈ ਬੇਨਤੀਆਂ"),
-    lt("a document-category prompt system", "दस्तावेज़ श्रेणी संकेत", "ਦਸਤਾਵੇਜ਼ ਸ਼੍ਰੇਣੀ ਸੰਕੇਤ"),
+    lt("a document-category guidance system", "दस्तावेज़ श्रेणी संकेत", "ਦਸਤਾਵੇਜ਼ ਸ਼੍ਰੇਣੀ ਸੰਕੇਤ"),
     lt("fewer missing-document requests", "कम गुम-दस्तावेज़ अनुरोध", "ਘੱਟ ਗੁੰਮ-ਦਸਤਾਵੇਜ਼ ਬੇਨਤੀਆਂ"),
     lt("policyholders filing claims", "दावा करने वाले पॉलिसीधारक", "ਦਾਅਵੇ ਕਰਨ ਵਾਲੇ ਪਾਲਿਸੀਧਾਰਕ"),
     lt("complete-claim submission rate", "पूर्ण दावा जमा दर", "ਪੂਰਾ ਦਾਅਵਾ ਜਮ੍ਹਾਂ ਦਰ")),
