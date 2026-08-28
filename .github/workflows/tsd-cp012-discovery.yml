@@ -7,13 +7,6 @@ on:
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/**
       - .github/workflows/tsd-cp012-discovery.yml
-  pull_request:
-    branches:
-      - feat/tsd-cp011-executable-discovery-v1
-    types: [opened, reopened, synchronize, ready_for_review]
-    paths:
-      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/**
-      - .github/workflows/tsd-cp012-discovery.yml
   workflow_dispatch:
 
 permissions:
