@@ -3,9 +3,14 @@ name: Validate BTD-001 CP001 Source-Bound Discovery V1
 on:
   workflow_dispatch:
   pull_request:
+    branches:
+      - New-main
     paths:
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/**'
-      - '.github/workflows/btd-001-cp001-source-bound-discovery-v1.yml'
+
+concurrency:
+  group: btd-001-cp001-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-btd-001-cp001-source-bound-discovery-v1:
