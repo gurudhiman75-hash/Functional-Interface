@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { STA_V4_QL_IDS, generateStaV4Question, type StaV4ProfileId } from "./exam-realness-v4-1-runtime.ts";
+import { STA_V4_QL_IDS, generateStaV4Question, type StaV4ProfileId } from "./exam-realness-v4-1-editorial-runtime.ts";
 
 const profiles: readonly StaV4ProfileId[] = ["SSC_2X4", "BANK_5X5", "PUNJAB_2X4", "BANK_3X5_NEGATIVE"];
 const locales = ["en-IN", "hi-IN", "pa-IN"] as const;
@@ -19,6 +19,7 @@ const items = STA_V4_QL_IDS.flatMap((qlId, qlIndex) => profiles.map((profileId, 
 
 writeFileSync(resolve(outputDir, "sta-v4-1-trilingual-review.json"), JSON.stringify({
   runtime: "EXAM_REALNESS_V4_1",
+  editorialSurfaceAuthority: "STA-001-V4-1-EDITORIAL-R2",
   reviewStatus: "HUMAN_REVIEW_REQUIRED",
   itemCount: items.length,
   languageSurfaceCount: items.length * 3,
@@ -27,6 +28,8 @@ writeFileSync(resolve(outputDir, "sta-v4-1-trilingual-review.json"), JSON.string
 
 const lines: string[] = [
   "# STA-001 V4.1 Trilingual Human Review Pack",
+  "",
+  "Editorial surface authority: STA-001-V4-1-EDITORIAL-R2",
   "",
   "Status: HUMAN REVIEW REQUIRED — this pack is not a freeze or release approval.",
   "",
