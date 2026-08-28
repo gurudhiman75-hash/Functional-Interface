@@ -45,3 +45,13 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/reasoning-v1/data-sufficiency/cp016/closure-policy.test.mjs
+      - name: Bundle CP-016 exact implementation evidence ledger audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-016/implementation-evidence-ledger-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp016/implementation-evidence-ledger-v1.test.mjs
+      - name: Run CP-016 exact implementation evidence ledger audit
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/data-sufficiency/cp016/implementation-evidence-ledger-v1.test.mjs
