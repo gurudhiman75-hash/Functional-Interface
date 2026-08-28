@@ -147,7 +147,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
                   key={`${item.label}-${item.href}`}
                   href={item.href}
                   aria-current={active && !isHome ? "page" : undefined}
-                  className={`et-interactive inline-flex min-h-10 items-center rounded-lg px-3 py-2 text-xs font-semibold ${isHome ? "text-slate-600 hover:bg-slate-50 hover:text-slate-950" : active ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
+                  className={`et-interactive inline-flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-semibold ${isHome ? "text-[11px] text-slate-600 hover:bg-slate-50 hover:text-slate-950" : active ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted hover:text-foreground"}`}
                 >
                   {item.label}
                   {dropdown ? <ChevronDown className="ml-1 h-3 w-3" aria-hidden="true" /> : null}
@@ -161,11 +161,11 @@ export function PublicLayout({ children }: PublicLayoutProps) {
               <>
                 <span className="mr-1 hidden items-center gap-1.5 text-[11px] font-medium text-slate-500 md:inline-flex"><Languages className="h-3.5 w-3.5" /> English <ChevronDown className="h-3 w-3" /></span>
                 {user ? (
-                  <Link href="/dashboard" className="et-interactive inline-flex min-h-10 items-center rounded-lg bg-[#6857f5] px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#5b48ed]">Dashboard</Link>
+                  <Link href="/dashboard" className="et-interactive inline-flex min-h-11 items-center rounded-lg bg-[#6857f5] px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#5b48ed]">Dashboard</Link>
                 ) : (
                   <>
-                    <Link href="/login/student" className="et-interactive inline-flex min-h-10 items-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">Log in</Link>
-                    <Link href="/login/student" className="et-interactive inline-flex min-h-10 items-center rounded-lg bg-[#6857f5] px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#5b48ed]">Sign up</Link>
+                    <Link href="/login/student" className="et-interactive inline-flex min-h-11 items-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">Log in</Link>
+                    <Link href="/login/student" className="et-interactive inline-flex min-h-11 items-center rounded-lg bg-[#6857f5] px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#5b48ed]">Sign up</Link>
                   </>
                 )}
               </>
