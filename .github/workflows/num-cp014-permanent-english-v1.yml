@@ -2,9 +2,10 @@ name: Validate NUM-CP-014 permanent allocation and English runtime
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/**"
-      - ".github/workflows/num-cp014-permanent-english-v1.yml"
   workflow_dispatch:
 
 concurrency:
