@@ -1,0 +1,54 @@
+name: Validate INT-CP-002 Native HI PA V2
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp002-localized-native-v1.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp002-localized-native-v2.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-localized-native-v2-audit.ts'
+      - '.github/workflows/int-cp002-localized-native-v2.yml'
+
+jobs:
+  validate-int-cp002-native-hi-pa-v2:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.33.0'
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Validate native Hindi Punjabi candidate
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-localized-native-v2-audit.ts | tee int-cp002-native-hi-pa-v2.log
+          grep -q 'PASS_INT_CP002_LOCALIZED_NATIVE_V2_AUDIT' int-cp002-native-hi-pa-v2.log
+      - name: Preserve approved English freeze
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-english-freeze-audit.ts | tee int-cp002-english-freeze-regression.log
+          grep -q 'PASS_INT_CP002_ENGLISH_FREEZE_AUDIT' int-cp002-english-freeze-regression.log
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Record exact validation head
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-cp002-native-hi-pa-v2-head.log
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp002-native-hi-pa-v2
+          path: |
+            int-cp002-native-hi-pa-v2.log
+            int-cp002-english-freeze-regression.log
+            int-cp002-native-hi-pa-v2-head.log
+          retention-days: 30
