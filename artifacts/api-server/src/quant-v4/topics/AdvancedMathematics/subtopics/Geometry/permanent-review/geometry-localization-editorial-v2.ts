@@ -31,6 +31,7 @@ const GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2_BASE = Object.freeze({
   ...GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2_D2,
 });
 
+const sssSimilarity = GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2_BASE["GEO-TMP-GAP-W10-CP005-SSS-SIMILARITY-V1"];
 const perimeterToSide = GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2_BASE["GEO-TMP-GAP-W4-CP005-PERIMETER-TO-SIDE-V1"];
 const sideToPerimeter = GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2_BASE["GEO-TMP-GAP-W4-CP005-SIDE-TO-PERIMETER-V1"];
 const exteriorFromN = GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2_BASE["GEO-TMP-CP009-EXTERIOR-FROM-N-V1"];
@@ -38,6 +39,17 @@ const secantSecant = GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2_BASE["GEO-TMP-CP013
 
 export const GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2 = Object.freeze({
   ...GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2_BASE,
+  "GEO-TMP-GAP-W10-CP005-SSS-SIMILARITY-V1": Object.freeze({
+    ...sssSimilarity,
+    explanations: Object.freeze([
+      Object.freeze({
+        ...sssSimilarity.explanations[0]!,
+        hi: "हर संगत भुजा-युग्म का अनुपात समान है।",
+        pa: "ਹਰ ਸੰਗਤ ਭੁਜਾ-ਜੋੜੇ ਦਾ ਅਨੁਪਾਤ ਇੱਕੋ ਹੈ।",
+      }),
+      ...sssSimilarity.explanations.slice(1),
+    ]),
+  }),
   "GEO-TMP-GAP-W4-CP005-PERIMETER-TO-SIDE-V1": Object.freeze({
     ...perimeterToSide,
     explanations: Object.freeze([
@@ -63,7 +75,12 @@ export const GEO_LOCALIZATION_EDITORIAL_TEMPLATES_V2 = Object.freeze({
         hi: "PQR से ABC की संगत भुजाओं का अनुपात {{0}}/{{1}} = {{2}}/{{3}} है।",
         pa: "PQR ਤੋਂ ABC ਦੀਆਂ ਸੰਗਤ ਭੁਜਾਵਾਂ ਦਾ ਅਨੁਪਾਤ {{0}}/{{1}} = {{2}}/{{3}} ਹੈ।",
       }),
-      ...sideToPerimeter.explanations.slice(2),
+      Object.freeze({
+        ...sideToPerimeter.explanations[2]!,
+        hi: "इसी अनुपात को पूरे परिमाप पर लागू करें: {{0}} × {{1}}/{{2}} = {{3}} cm।",
+        pa: "ਇਹੀ ਅਨੁਪਾਤ ਪੂਰੇ ਪਰਿਮਾਪ ਉੱਤੇ ਲਗਾਓ: {{0}} × {{1}}/{{2}} = {{3}} cm।",
+      }),
+      ...sideToPerimeter.explanations.slice(3),
     ]),
   }),
   "GEO-TMP-CP009-EXTERIOR-FROM-N-V1": Object.freeze({
