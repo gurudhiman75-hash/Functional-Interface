@@ -1,7 +1,6 @@
 name: Validate SPA PFC TPF Question Studio Operator Review V1.2
 
 on:
-  pull_request:
   workflow_dispatch:
 
 permissions:
