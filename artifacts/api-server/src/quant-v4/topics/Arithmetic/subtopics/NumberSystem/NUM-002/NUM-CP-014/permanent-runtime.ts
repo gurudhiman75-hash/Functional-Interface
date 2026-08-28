@@ -119,6 +119,20 @@ function freezeExplanation(source: any) {
   });
 }
 
+function normalizeComponentEngines(source: any): readonly string[] {
+  const direct = Array.isArray(source.componentEngines) ? source.componentEngines.map(String) : [];
+  const fromWave02 = Array.isArray(source.ablation?.components) ? source.ablation.components.map(String) : [];
+  const fromWave01 = [source.ablation?.componentA, source.ablation?.componentB]
+    .filter((value) => typeof value === "string" && value.length > 0)
+    .map(String);
+  const engines = direct.length > 0 ? direct : fromWave02.length > 0 ? fromWave02 : fromWave01;
+  const unique = [...new Set(engines)];
+  if (unique.length < 2) {
+    throw new Error(`${source.temporaryPrototypeId}: synthesis component-engine evidence is incomplete.`);
+  }
+  return Object.freeze(unique);
+}
+
 export function generateNumCp014Permanent(
   qlId: NumCp014PermanentQlId,
   seed: number,
@@ -130,16 +144,17 @@ export function generateNumCp014Permanent(
   const projection = resolveNumCp014AuthorityCandidate(allocation.authorityId, seed);
   const source = projection.sourcePackage as any;
 
-  if (!allocation.sourcePrototypes.includes(projection.sourcePrototypeId as never)) {
+  if (!(allocation.sourcePrototypes as readonly string[]).includes(projection.sourcePrototypeId)) {
     throw new Error(`${qlId}/${seed}: projected source ${projection.sourcePrototypeId} is outside permanent authority ancestry.`);
   }
   if (String(source.canonicalAnswer) !== String(source.verifierAnswer)) {
     throw new Error(`${qlId}/${seed}: canonical/verifier answer drift.`);
   }
-  if (!source.ablation || !source.componentEngines || source.componentEngines.length < 2) {
-    throw new Error(`${qlId}/${seed}: synthesis necessity evidence missing.`);
+  if (!source.ablation) {
+    throw new Error(`${qlId}/${seed}: synthesis ablation evidence missing.`);
   }
 
+  const componentEngines = normalizeComponentEngines(source);
   const normalizedOptions = normalizeOptions(source, seed);
   const explanation = freezeExplanation(source);
   const representation = String(source.representation ?? "STANDARD_SYNTHESIS");
@@ -167,7 +182,7 @@ export function generateNumCp014Permanent(
     canonicalAnswer: String(source.canonicalAnswer),
     verifierAnswer: String(source.verifierAnswer),
     hiddenState: Object.freeze({ ...source.hiddenState }),
-    componentEngines: Object.freeze([...source.componentEngines].map(String)),
+    componentEngines,
     ablation: Object.freeze({ ...source.ablation }),
     mathematicalFingerprint: String(source.mathematicalFingerprint),
     explanation,
