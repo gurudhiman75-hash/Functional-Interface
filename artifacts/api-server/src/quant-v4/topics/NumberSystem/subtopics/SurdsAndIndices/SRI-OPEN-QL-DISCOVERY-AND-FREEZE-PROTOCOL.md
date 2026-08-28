@@ -10,6 +10,8 @@
 **Approved source head:** `a3d24d97221bf94da04e77daa140164dbcdb0e51`.  
 **Base recertification:** run `33176307480` on head `1b96cb213eacb25d9f5372afed77ee4ff286d2f8` against `New-main` `2754618366072250467e4d862caa11525d4e0900` passed English freeze, 2,784-question localization parity, strict editorial quality, reviewer export verification and evidence upload before activation.  
 **Freeze activation certification:** run `33177065943` validated the frozen lifecycle and governed wrapper against the same `New-main` base, including all 2,784 frozen localized runtime packages with downstream release disabled.  
+**Final exact-head certification:** run `33177440135` on head `48bf1235fbb2332375178da90dadab900a1f66c5` and PR merge-ref `137c4529c20c00bcbd9d9a03a2a58f362743621b` passed English freeze, 2,784-question localization parity, strict editorial quality, the 2,784-package multilingual freeze audit, reviewer export verification and artifact upload. Repository workflow-hygiene, branch-topology and Render production-build checks are also green on this exact head.  
+**Final evidence artifact:** `9688237353`, digest `sha256:49bb69ed92558e6e0f326e8268bb6be08d0852b4628f281eb3bb942cb7a1cfef`.  
 **CI fanout policy:** the chapter validator is path-scoped to SRI/shared SRI source only; its own workflow YAML is intentionally not listed in `pull_request.paths`, so workflow-definition edits are governed by the repository-wide workflow-hygiene gate rather than self-triggering chapter validation.
 
 ## 1. What may create a candidate QL
