@@ -1,12 +1,12 @@
 # Geometry Source-Gap Closure V1 Status
 
 **Authority:** Composite Geometry Revision 3  
-**State:** `HINDI_PUNJABI_LOCALIZATION_V2_HUMAN_EDITORIAL_REVIEW_IMPLEMENTED__CI_PROOF_PENDING`  
+**State:** `MULTILINGUAL_FREEZE_PROVEN__QUESTION_STUDIO_INTEGRATION_ALLOWED_NOT_ACTIVE`  
 **Permanent QLs:** `75` (`GEO-QL-001..GEO-QL-075`)  
 **Canonical solve-mode families:** `75` (`GEO-SM-001..GEO-SM-075`)  
 **Mapped executable variants:** `81`  
 **English freeze:** `PROVEN`  
-**Hindi/Punjabi:** `V2_HUMAN_EDITORIAL_REVIEW_CANDIDATE__NOT_FROZEN`
+**Hindi/Punjabi:** `V2_APPROVED_AND_PROVEN_FROZEN`
 
 ## Proven English freeze
 
@@ -21,36 +21,55 @@ English freeze proof:
 - deterministic content-equality samples: `81`
 - stress content-equality samples: `972`
 
-## Localisation V1 — mechanically green, editorially rejected
+## Localisation V1 — rejected
 
-V1 mechanical proof:
-- head `d6c6a9683a48bbd52cbd6dbffece7e15b6ce6c96`
-- run `33160044783` — **success**
-- job `98812024222` — **success**
+V1 was mechanically green but editorially rejected because token-level substitution produced hybrid English/Hindi/Punjabi sentence fragments and unnatural word order.
+
+Rejected V1 evidence:
+- run `33160044783`, job `98812024222` — mechanically successful
 - artifact `9681238482`
 - digest `sha256:7fc99143e4059393b14e7f57fc9dbec34e7c9d46725e6ef8c54c149b170622ef`
-- 75 QLs / 81 mapped variants / 162 deterministic locale items / 972 stress generations
 
-Direct linguistic inspection rejected V1 because token-level substitution still produced hybrid English/Hindi/Punjabi sentence fragments and unnatural word order. V1 cannot authorize multilingual freeze.
+V1 does not authorize any multilingual lifecycle transition.
 
-## Localisation V2 — human-editorial prototype authority
+## Localisation V2 — proven and explicitly approved
 
-V2 replaces broad vocabulary substitution with full-sentence Hindi/Punjabi templates for every executable Geometry prototype. Dynamic numeric values are the only templated learner-content parameters.
+V2 uses prototype-aware human-editorial Hindi/Punjabi sentence authorities anchored to the frozen English implementation. It is fail-closed when frozen-English wording drifts outside the authored source-pattern authority.
 
-V2 contains exactly **81 prototype-specific human-editorial authorities** covering all executable Geometry variants. The runtime must reject any seed whose frozen-English question or explanation drifts from its approved sentence template after numeric masking.
+Final V2 review proof:
+- head `aa94efa28a51724f1c0f5416a4d4f9bee9703f19`
+- run `33182824118` — **success**
+- job `98888110972` — **success**
+- artifact `9690420669` — `geometry-permanent-multilingual-review-v2`
+- digest `sha256:090ef5809e9a9b3f49df6be8e073786347d8427012eecd16b960f742a97292b6`
+- permanent QLs: `75`
+- mapped prototype variants: `81`
+- source seeds per prototype: `96`
+- observed stem patterns: `146`
+- observed explanation patterns: `207`
+- additional human-editorial source-variant templates: `91`
+- deterministic bilingual review items: `162`
+- stress generations: `972`
+- English-prose leaks: `0`
+- unresolved numeric placeholders: `0`
 
-The dedicated V2 gate must prove:
-- 75 permanent QLs;
-- all 81 executable prototype authorities represented exactly once;
-- both locales `hi-IN` and `pa-IN`;
-- 162 deterministic side-by-side review items;
-- 972 additional multilingual stress generations;
-- frozen-English semantic/answer-index/diagram identity preserved;
-- four unique localized options;
-- zero unapproved ASCII English prose in learner-visible localized content;
-- no multilingual freeze or downstream activation.
+The product owner explicitly approved this exact artifact and digest on `2026-08-28`.
 
-V2 remains a review candidate until its exact successful JSON/Markdown/HTML artifact receives explicit product-owner approval.
+## Hindi/Punjabi multilingual freeze — proven
+
+The approved V2 learner-facing implementation is now frozen without changing localized question text, options, correct answer index, explanation text or diagram/fingerprint identity.
+
+Freeze proof:
+- freeze implementation head `37159dda9df002a144de2f2a51290b8cfa892926`
+- run `33185991437` — **success**
+- job `98899017638` — **success**
+- artifact `9691767855` — `geometry-permanent-multilingual-freeze-v1`
+- artifact size: `2029` bytes
+- digest `sha256:78c91fa134661080513549a9350d02e2d5a1345d84063688c84da82bb9d8b426`
+- deterministic bilingual content-equality samples: `162`
+- bilingual stress content-equality samples: `972`
+- approved review artifact pinned: `9690420669`
+- learner-facing content unchanged by freeze: `true`
 
 ## Source boundary
 
@@ -74,16 +93,22 @@ englishFreezeProven = true
 localizationAllowed = true
 localizationV1EditoriallyRejected = true
 localizationV2Implemented = true
-localizationV2Proven = false
-multilingualImplementationFrozen = false
-multilingualFreezeAllowed = false
+localizationV2Proven = true
+exactMultilingualV2ReviewArtifactApproved = true
+multilingualImplementationFrozen = true
+multilingualFreezeProven = true
+questionStudioIntegrationAllowed = true
 questionStudioActivationAllowed = false
+questionStudioDiscoverable = false
 questionBankWriteAllowed = false
+questionBankWritable = false
 testEligibilityAllowed = false
+testEligible = false
 publicPublicationAllowed = false
+publiclyPublishable = false
 prMergeAuthorized = false
 ```
 
 ## Next gate
 
-Run the dedicated Geometry Hindi/Punjabi human-editorial V2 gate and inspect the exact exported side-by-side artifact. If both CI and direct linguistic audit are clean, stop for explicit product-owner approval before multilingual freeze. Question Studio, Question Bank, test eligibility, publication and PR merge remain locked.
+Implement Geometry Question Studio integration against the proven English + Hindi + Punjabi frozen authorities. The integration stage must remain non-discoverable and non-writable until its own dedicated proof passes. Question Bank writes, test eligibility, public publication and PR merge remain locked.
