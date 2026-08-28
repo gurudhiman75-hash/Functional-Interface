@@ -7,6 +7,9 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(`TSD-CP-011 native localization proof failed: ${message}`);
 }
 
+const DEVANAGARI = /\p{Script=Devanagari}/u;
+const GURMUKHI = /\p{Script=Gurmukhi}/u;
+
 assert(TSD_CP011_NATIVE_HINDI_REVIEW.length === 42, "expected 42 Hindi review questions");
 assert(TSD_CP011_NATIVE_PUNJABI_REVIEW.length === 42, "expected 42 Punjabi review questions");
 assert(TSD_CP011_ENGLISH_REVIEW.length === 42, "expected 42 English parity questions");
@@ -39,12 +42,12 @@ for (const [language, questions] of [
     assert(verifyTsdCp011(question.input, question.solution).accepted, `${language}/${question.familyId}: independent verifier rejected`);
 
     if (language === "hi") {
-      assert(/[\u0900-\u097F]/.test(question.stem), `${question.familyId}: Devanagari script missing`);
-      assert(!/[\u0A00-\u0A7F]/.test(question.stem), `${question.familyId}: Hindi stem contains Gurmukhi`);
+      assert(DEVANAGARI.test(question.stem), `${question.familyId}: Devanagari script missing`);
+      assert(!GURMUKHI.test(question.stem), `${question.familyId}: Hindi stem contains Gurmukhi letters`);
       assert(!/(एस्केलेटर|वॉकवे|कन्वेयर|आरपीएम)/.test(question.stem), `${question.familyId}: avoidable transliterated jargon remains in Hindi`);
     } else {
-      assert(/[\u0A00-\u0A7F]/.test(question.stem), `${question.familyId}: Gurmukhi script missing`);
-      assert(!/[\u0900-\u097F]/.test(question.stem), `${question.familyId}: Punjabi stem contains Devanagari`);
+      assert(GURMUKHI.test(question.stem), `${question.familyId}: Gurmukhi script missing`);
+      assert(!DEVANAGARI.test(question.stem), `${question.familyId}: Punjabi stem contains Devanagari letters`);
       assert(!/(ਐਸਕੇਲੇਟਰ|ਵਾਕਵੇ|ਕਨਵੇਅਰ|ਆਰਪੀਐਮ)/.test(question.stem), `${question.familyId}: avoidable transliterated jargon remains in Punjabi`);
     }
   }
@@ -72,5 +75,6 @@ console.log(JSON.stringify({
   familiesPerQl: 6,
   qls: TSD_CP011_PROVISIONAL_QL_IDS.length,
   latinScriptInLearnerStems: "ABSENT",
+  crossScriptLetters: "ABSENT",
   avoidableTranslatedJargon: "ABSENT",
 }, null, 2));
