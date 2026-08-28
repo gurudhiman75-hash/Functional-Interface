@@ -81,10 +81,13 @@ await runStage("COM-002 historical Hindi/Punjabi 1040-question localization pari
 await runStage("COM-002 historical Hindi/Punjabi localization human review sampler V1", () => import("../knowledge-v1/computer-awareness/com002-localization-human-review-v1.test"));
 await runStage("COM-002 historical V3-bound Hindi/Punjabi 1040-question localization parity V2", () => import("../knowledge-v1/computer-awareness/com002-localization-v2.test"));
 await runStage("COM-002 historical V3-bound Hindi/Punjabi 26-question localization sampler V2", () => import("../knowledge-v1/computer-awareness/com002-localization-human-review-v2.test"));
-await runStage("COM-002 final-candidate V4-bound Hindi/Punjabi 1040-question localization V3 parity", () => import("../knowledge-v1/computer-awareness/com002-localization-v3.test"));
-await runStage("COM-002 final-candidate V4-bound Hindi/Punjabi 26-question localization V3 sampler", () => import("../knowledge-v1/computer-awareness/com002-localization-human-review-v3.test"));
+await runStage("COM-002 historical V4-bound Hindi/Punjabi 1040-question localization V3 parity", () => import("../knowledge-v1/computer-awareness/com002-localization-v3.test"));
+await runStage("COM-002 historical V4-bound Hindi/Punjabi 26-question localization V3 sampler", () => import("../knowledge-v1/computer-awareness/com002-localization-human-review-v3.test"));
+await runStage("COM-002 V5-freeze-bound Hindi/Punjabi 1040-question localization V4 parity", () => import("../knowledge-v1/computer-awareness/com002-localization-v4.test"));
+await runStage("COM-002 V5-freeze-bound Hindi/Punjabi 26-question localization V4 sampler", () => import("../knowledge-v1/computer-awareness/com002-localization-human-review-v4.test"));
 await runStage("COM-002 historical pre-freeze Question Studio activation blocker V1", () => import("./engines/com002-question-studio-activation-gate-v1.test"));
-await runStage("COM-002 final-candidate V4 V3 activation blocker V2", () => import("./engines/com002-question-studio-activation-gate-v2.test"));
+await runStage("COM-002 historical V4 V3 activation blocker V2", () => import("./engines/com002-question-studio-activation-gate-v2.test"));
+await runStage("COM-002 current V5 V4 activation blocker V3", () => import("./engines/com002-question-studio-activation-gate-v3.test"));
 await runStage("COM-002 520-question difficulty routing candidate V1", () => import("../knowledge-v1/computer-awareness/com002-difficulty-routing-v1.test"));
 await runStage("COM-002 historical fail-closed Question Studio candidate adapter V1", () => import("./engines/knowledge-v1-com002-candidate-adapter.test"));
 await runStage("COM-002 final-candidate fail-closed Question Studio adapter V2", () => import("./engines/knowledge-v1-com002-candidate-adapter-v2.test"));
@@ -92,5 +95,6 @@ await runStage("COM-002 historical 390-question fail-closed pre-bank readiness c
 await runStage("COM-002 final-candidate 390-question fail-closed pre-bank readiness candidate V2", () => import("./engines/com002-question-bank-readiness-candidate-v2.test"));
 await runStage("COM-002 historical Hindi/Punjabi localization hash candidate V1", () => import("../knowledge-v1/computer-awareness/com002-hi-pa-localization-freeze-v1.test"));
 await runStage("COM-002 historical executed V3-bound Hindi/Punjabi localization hash candidate V2", () => import("../knowledge-v1/computer-awareness/com002-hi-pa-localization-freeze-v2.test"));
+await runStage("COM-002 V5-bound Hindi/Punjabi localization V4 fingerprint candidate", () => import("../knowledge-v1/computer-awareness/com002-hi-pa-localization-freeze-v4-candidate.test"));
 
 console.log("Question Studio content engine foundation suite passed.");
