@@ -33,14 +33,14 @@ export function isTrg001QuestionStudioRequest(request: SharedQuestionStudioGener
   const selected = selector(request);
   return selected.startsWith("TRG-001-QL-")
     || /^TRG-CP-00[1-6]$/u.test(selected)
-    || isTrg001QuestionStudioRequestBase(request);
+    || isTrg001QuestionStudioRequestBase(request as any);
 }
 
 export function isTrg002V4GenerationRequest(request: SharedQuestionStudioGenerationRequest) {
   const selected = selector(request);
   return selected.startsWith("TRG-002-QL-")
     || /^TRG-CP-0(?:07|08|09|10)$/u.test(selected)
-    || isTrg002V4GenerationRequestBase(request);
+    || isTrg002V4GenerationRequestBase(request as any);
 }
 
 function upsertPackage(packages: any[], capability: any) {
@@ -91,10 +91,10 @@ export async function generateQuestion(request: SharedQuestionStudioGenerationRe
   // Keep TRG-001 first because the TRG-002 base detector intentionally accepts
   // broader Trigonometry topic selectors.
   if (isTrg001QuestionStudioRequest(request)) {
-    return generateTrg001QuestionStudioBatch(request);
+    return generateTrg001QuestionStudioBatch(request as any);
   }
   if (isTrg002V4GenerationRequest(request)) {
-    return applyInternalLifecycleBooleans(generateTrg002V4QuestionStudioBatch(request));
+    return applyInternalLifecycleBooleans(generateTrg002V4QuestionStudioBatch(request as any));
   }
   return generatePreviousQuestion(request);
 }
