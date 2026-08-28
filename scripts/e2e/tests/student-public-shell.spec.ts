@@ -95,7 +95,7 @@ test.describe("CP02 public and app shell split", () => {
     await expect(closeButton).toHaveAttribute("aria-expanded", "true");
     const mobileNavigation = page.getByRole("navigation", { name: "Mobile primary navigation" });
     await expect(mobileNavigation).toBeVisible();
-    await expect(mobileNavigation.getByRole("link", { name: "Sign in" })).toBeVisible();
+    await expect(mobileNavigation.getByRole("link", { name: "Log in" })).toBeVisible();
     await expect(mobileNavigation.getByRole("link", { name: "Explore Exams", exact: true })).toBeVisible();
     await expect(mobileNavigation.getByTestId("mobile-disabled-analytics")).toHaveAttribute("aria-disabled", "true");
     await expect(mobileNavigation.getByRole("link", { name: "Analytics", exact: true })).toHaveCount(0);
