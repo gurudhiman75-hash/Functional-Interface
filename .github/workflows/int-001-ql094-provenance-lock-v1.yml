@@ -1,0 +1,54 @@
+name: Validate INT-001 QL094 Provenance Lock V1
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-ql094-provenance-lock-v1.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-ql094-provenance-lock-v1-audit.ts'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/INT-001-QL094-PROVENANCE-DISPOSITION.md'
+      - '.github/workflows/int-001-ql094-provenance-lock-v1.yml'
+
+jobs:
+  validate-int-001-ql094-provenance-lock-v1:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.33.0'
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Validate QL094 provenance and vacancy lock
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-ql094-provenance-lock-v1-audit.ts | tee int-001-ql094-provenance-lock-v1.log
+          grep -q 'PASS_INT_001_QL094_PROVENANCE_LOCK_V1_AUDIT' int-001-ql094-provenance-lock-v1.log
+      - name: Preserve chapter final readiness
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-chapter-final-readiness-v1-audit.ts | tee int-001-ql094-baseline-regression.log
+          grep -q 'PASS_INT_001_CHAPTER_FINAL_READINESS_V1_AUDIT' int-001-ql094-baseline-regression.log
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Record exact validation head
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-001-ql094-provenance-lock-v1-head.log
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-001-ql094-provenance-lock-v1
+          path: |
+            int-001-ql094-provenance-lock-v1.log
+            int-001-ql094-baseline-regression.log
+            int-001-ql094-provenance-lock-v1-head.log
+          retention-days: 30
