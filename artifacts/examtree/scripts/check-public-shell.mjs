@@ -37,9 +37,9 @@ assert.match(publicLayout, /id="main-content" tabIndex=\{-1\}/, "public shell mu
 assert.match(publicLayout, /mobileStudyLinks/, "mobile navigation must mirror the study-shell hierarchy");
 assert.match(publicLayout, /label: "Analytics"[\s\S]{0,80}disabled: true/, "mobile study navigation must mark learner analytics unavailable instead of linking to it");
 assert.match(publicLayout, /data-testid=\{`mobile-disabled-\$\{item\.label\.toLowerCase\(\)\.replace\(\/\\s\+\/g, "-"\)\}`\}/, "mobile unavailable features need a stable browser-proof hook");
-assert.match(publicLayout, /inline-flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-semibold/, "desktop public navigation links must keep the 44px interaction contract");
-assert.match(publicLayout, /href="\/login\/student" className="et-interactive inline-flex min-h-11/, "desktop sign-in action must keep the 44px interaction contract");
-assert.match(publicLayout, /href="\/exams" className="et-interactive inline-flex min-h-11/, "desktop browse action must keep the 44px interaction contract");
+assert.match(publicLayout, /inline-flex min-h-\[45px\] items-center rounded-lg px-3 py-2 text-sm font-semibold/, "desktop public navigation links must exceed the 44px interaction contract to avoid fractional-pixel underflow");
+assert.match(publicLayout, /href="\/login\/student" className="et-interactive inline-flex min-h-\[45px\]/, "desktop sign-in action must exceed the 44px interaction contract");
+assert.match(publicLayout, /href="\/exams" className="et-interactive inline-flex min-h-\[45px\]/, "desktop browse action must exceed the 44px interaction contract");
 
 assert.match(publicLayout, /function showStudySidebarForRoute\(location: string\)/, "public shell must centralize discovery-sidebar routing");
 const sidebarRouting = publicLayout.match(/function showStudySidebarForRoute\(location: string\) \{[\s\S]*?\n\}/)?.[0] ?? "";
@@ -83,4 +83,4 @@ for (const forbidden of ["Logic Engine v2.4", "Practice Motifs", "API Docs", "de
 assert.doesNotMatch(appLayout, /MiniFooter/, "preparation shell must not render the obsolete public footer");
 assert.equal(fs.existsSync(path.join(appRoot, "src/components/MiniFooter.tsx")), false, "obsolete prototype footer file must be removed");
 
-console.log("Public/app shell audit passed (full-width Home + truthful detailed study navigation + 44px public header contract).\n");
+console.log("Public/app shell audit passed (full-width Home + truthful detailed study navigation + hardened >=44px public header contract).\n");
