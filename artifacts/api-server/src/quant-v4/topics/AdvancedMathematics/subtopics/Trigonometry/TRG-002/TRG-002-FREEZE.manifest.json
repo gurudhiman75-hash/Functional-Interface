@@ -1,0 +1,29 @@
+{
+  "packageId": "TRG-002",
+  "scope": "MVP_48_PERMANENT_ENGLISH_QLS",
+  "status": "FROZEN",
+  "frozenBy": "gurudhiman75-hash",
+  "frozenAt": "2026-08-17T07:47:00+05:30",
+  "approvedQlCount": 48,
+  "humanReviewStatus": "APPROVED",
+  "approvedContentSourceHead": "60e289ee6c89a3f595ad75038ac563daf2a5fc5f",
+  "approvedContentFingerprintAlgorithm": "sha256(JSON.stringify(TRG-002-MVP-48-RUNTIME-REVIEW.json))",
+  "approvedContentFingerprint": "b60217f9b29af79435ab065e4c64c40449dc43df2fa9646b055f41763bce04db",
+  "freezeGovernanceBaseHead": "828782170a15779f6b039668b254ec19647ec9c5",
+  "approvedWorkflowRunId": "31932920092",
+  "approvedPackArtifactId": "9259815578",
+  "approvedPackArtifactDigest": "sha256:2e49ac250376d38fcd7fa21aa7be4d9906f9fed6d6ccc8a036dfe69bcad2788f",
+  "browserValidationRunId": "31945456581",
+  "browserValidationHead": "e0480a63188327fb4a4521f0ade2efc1970557cf",
+  "perGeneratedSeedVisualPassClaimed": false,
+  "contentChangeRequiresNewHumanApproval": true,
+  "expansionAuthorized": false,
+  "mergeAuthorized": false,
+  "activation": {
+    "questionStudio": false,
+    "testBuilder": false,
+    "questionBankStorage": false,
+    "publicPublication": false,
+    "localizationRuntime": false
+  }
+}
