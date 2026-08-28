@@ -2,9 +2,10 @@ name: Validate NUM-CP-014 through Wave04 merge split
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/**"
-      - ".github/workflows/num-cp014-through-wave04-merge-split-v1.yml"
   workflow_dispatch:
 
 concurrency:
@@ -21,27 +22,21 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
       - name: Enable pnpm
         run: corepack enable
-
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-
       - name: Bundle CP014 Wave04 audit
         shell: bash
         run: |
           set -euo pipefail
           root="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014"
           pnpm --dir artifacts/api-server exec esbuild "$root/wave04/merge-split-proposal.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-wave04-merge-split.mjs
-
       - name: Run merge split and ownership audit
         run: node artifacts/api-server/dist/quant-v4/num-cp014-wave04-merge-split.mjs
-
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
