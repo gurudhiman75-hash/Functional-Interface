@@ -63,9 +63,9 @@ for (const [language, questions] of [["hi", TSD_CP011_NATIVE_HINDI_REVIEW], ["pa
   assert(ql126.every((x) => language === "hi" ? /सीढ़/.test(x.stem) : /ਸੀੜ੍ਹ|ਪੌੜ/.test(x.stem)), `${language}/QL126: step/escalator evidence missing`);
   assert(ql127.every((x) => language === "hi" ? /(दिशा|ऊपर|नीचे|विपरीत)/.test(x.stem) : /(ਦਿਸ਼ਾ|ਉੱਪਰ|ਹੇਠਾਂ|ਉਲਟ)/.test(x.stem)), `${language}/QL127: directional pair evidence missing`);
   assert(ql128.every((x) => language === "hi" ? /(रुकी|खड़े|चलती)/.test(x.stem) : /(ਰੁਕੀ|ਖੜ੍ਹੇ|ਚੱਲਦੀ)/.test(x.stem)), `${language}/QL128: alternate surface state missing`);
-  assert(ql129.every((x) => language === "hi" ? /पहिय/.test(x.stem) : /ਪਹੀ/.test(x.stem)), `${language}/QL129: wheel evidence missing`);
+  assert(ql129.every((x) => language === "hi" ? /(पहिया|पहिए|पहिये)/.test(x.stem) : /ਪਹੀ/.test(x.stem)), `${language}/QL129: wheel evidence missing`);
   assert(ql130.every((x) => language === "hi" ? /(प्रति मिनट|परिधि)/.test(x.stem) : /(ਪ੍ਰਤੀ ਮਿੰਟ|ਘੇਰ)/.test(x.stem)), `${language}/QL130: rotational-rate evidence missing`);
-  assert(ql131.every((x) => language === "hi" ? /दो पहिय|पहिया क/.test(x.stem) : /ਦੋ ਪਹੀ|ਪਹੀਆ ਕ/.test(x.stem)), `${language}/QL131: two-wheel evidence missing`);
+  assert(ql131.every((x) => language === "hi" ? /(दो पहिए|दो पहियों|पहिया क)/.test(x.stem) : /(ਦੋ ਪਹੀ|ਪਹੀਆ ਕ)/.test(x.stem)), `${language}/QL131: two-wheel evidence missing`);
 }
 
 console.log("TSD-CP-011 NATIVE HINDI/PUNJABI LOCALIZATION PROOF: PASS");
