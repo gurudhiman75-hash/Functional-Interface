@@ -47,6 +47,8 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$root/wave03/runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w3-runtime.mjs
           pnpm --dir artifacts/api-server exec esbuild "$root/wave03/independent-saturation.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w3-independent.mjs
           pnpm --dir artifacts/api-server exec esbuild "$root/wave03/redundancy-negative-control.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w3-negative.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/wave03/runtime-v2.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w3-v2-runtime.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$root/wave03/independent-v2.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w3-v2-independent.mjs
 
       - name: Run Wave01 necessity and negative controls
         run: |
@@ -62,12 +64,14 @@ jobs:
           node artifacts/api-server/dist/quant-v4/num-cp014-w2-independent.mjs
           node artifacts/api-server/dist/quant-v4/num-cp014-w2-admission.mjs
 
-      - name: Run Wave03 representation saturation
+      - name: Run Wave03 representation and answer-semantic saturation
         run: |
           set -euo pipefail
           node artifacts/api-server/dist/quant-v4/num-cp014-w3-runtime.mjs
           node artifacts/api-server/dist/quant-v4/num-cp014-w3-independent.mjs
           node artifacts/api-server/dist/quant-v4/num-cp014-w3-negative.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp014-w3-v2-runtime.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp014-w3-v2-independent.mjs
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
