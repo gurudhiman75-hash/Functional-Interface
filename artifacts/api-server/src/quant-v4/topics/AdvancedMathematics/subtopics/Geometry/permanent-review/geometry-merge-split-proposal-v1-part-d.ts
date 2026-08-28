@@ -1,80 +1,25 @@
 import { defineGeometryMergeSplitFamilyV1 } from "./geometry-merge-split-proposal-v1-types";
 
 export const GEO_MERGE_SPLIT_PROPOSAL_V1_PART_D = Object.freeze([
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP013_INTERSECTING_CHORD_PRODUCT", cpId: "GEO-CP-013", learnerDecision: "Use the intersecting-chord product relation", candidateIds: Object.freeze(["GEO-TMP-CP013-INTERSECTING-CHORDS-V1"]), mergeRationale: "Internal chord intersection has a different segment topology from external secants and tangent-secant power." }),
   defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP013_POWER_OF_POINT_TOPOLOGIES",
+    proposalKey: "CP013_SECANT_SECANT_DIRECT_REVERSE",
     cpId: "GEO-CP-013",
-    learnerDecision: "Power of a point",
-    candidateIds: Object.freeze([
-      "GEO-TMP-CP013-INTERSECTING-CHORDS-V1",
-      "GEO-TMP-CP013-SECANT-SECANT-V1",
-      "GEO-TMP-CP013-TANGENT-SECANT-V1",
-      "GEO-TMP-GAP-W12-CP013-REVERSE-UNKNOWN-EXTERNAL-SECANT-V1",
-    ]),
-    mergeRationale: "Merge intersecting-chord, secant-secant, tangent-secant and reverse unknown-external forms into one topology-parameterized product family.",
-  }),
+    learnerDecision: "Use external-part times whole-secant equality for two secants",
+    candidateIds: Object.freeze(["GEO-TMP-CP013-SECANT-SECANT-V1", "GEO-TMP-GAP-W12-CP013-REVERSE-UNKNOWN-EXTERNAL-SECANT-V1"]),
+    mergeRationale: "Direct whole-secant recovery and reverse external-part recovery solve the same secant-secant product equation with a different unknown position." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP013_TANGENT_SECANT_POWER", cpId: "GEO-CP-013", learnerDecision: "Use tangent-secant power of a point", candidateIds: Object.freeze(["GEO-TMP-CP013-TANGENT-SECANT-V1"]), mergeRationale: "The squared tangent term changes the governing equation and misconception structure, so it remains separate from secant-secant power." }),
+
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP014_CHORD_PYTHAGORAS_SYNTHESIS", cpId: "GEO-CP-014", learnerDecision: "Combine chord bisection with Pythagoras", candidateIds: Object.freeze(["GEO-TMP-CP014-CHORD-PYTHAGORAS-V1"]), mergeRationale: "This two-theorem metric graph is distinct and both theorem families are essential." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP014_CYCLIC_ISOSCELES_SYNTHESIS", cpId: "GEO-CP-014", learnerDecision: "Combine cyclic-angle and isosceles-triangle relations", candidateIds: Object.freeze(["GEO-TMP-CP014-CYCLIC-ISOSCELES-V1"]), mergeRationale: "Cyclic supplementation followed by isosceles angle recovery is its own solve graph." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP014_TANGENT_TRIANGLE_SYNTHESIS", cpId: "GEO-CP-014", learnerDecision: "Combine radius-tangent perpendicularity with triangle angle sum", candidateIds: Object.freeze(["GEO-TMP-CP014-TANGENT-TRIANGLE-V1"]), mergeRationale: "This graph uses the tangent theorem to create the essential right angle before triangle-angle recovery." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP014_BPT_ANGLE_BISECTOR_SYNTHESIS", cpId: "GEO-CP-014", learnerDecision: "Combine BPT with the angle-bisector theorem", candidateIds: Object.freeze(["GEO-TMP-CP014-BPT-BISECTOR-V1"]), mergeRationale: "A similarity/proportionality stage feeds a second angle-bisector stage, so this remains a distinct synthesis authority." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP014_COMMON_TANGENT_SIMILARITY_SYNTHESIS", cpId: "GEO-CP-014", learnerDecision: "Combine common-tangent geometry with similarity", candidateIds: Object.freeze(["GEO-TMP-GAP-W2-CP014-COMMON-TANGENT-SIMILARITY-V1"]), mergeRationale: "Two-circle tangent structure followed by similarity is a source-backed mixed solve graph." }),
+  defineGeometryMergeSplitFamilyV1({ proposalKey: "CP014_TANGENT_CENTRAL_INSCRIBED_SYNTHESIS", cpId: "GEO-CP-014", learnerDecision: "Chain tangent angle to central angle to inscribed angle", candidateIds: Object.freeze(["GEO-TMP-GAP-W2-CP014-TANGENT-CENTRAL-INSCRIBED-V1"]), mergeRationale: "The tangent-central-inscribed conversion chain is materially different from the simple tangent-triangle synthesis." }),
   defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP014_CHORD_PYTHAGORAS_SYNTHESIS",
+    proposalKey: "CP014_PARALLEL_CONGRUENCE_CPCT_SYNTHESIS",
     cpId: "GEO-CP-014",
-    learnerDecision: "Chord-bisection plus Pythagoras synthesis",
-    candidateIds: Object.freeze([
-      "GEO-TMP-CP014-CHORD-PYTHAGORAS-V1",
-    ]),
-    mergeRationale: "Retain this two-theorem solve graph as its own synthesis family.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP014_CYCLIC_ISOSCELES_SYNTHESIS",
-    cpId: "GEO-CP-014",
-    learnerDecision: "Cyclic plus isosceles synthesis",
-    candidateIds: Object.freeze([
-      "GEO-TMP-CP014-CYCLIC-ISOSCELES-V1",
-    ]),
-    mergeRationale: "Retain cyclic-opposite plus isosceles/triangle-sum graph as its own synthesis family.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP014_TANGENT_TRIANGLE_SYNTHESIS",
-    cpId: "GEO-CP-014",
-    learnerDecision: "Radius-tangent plus triangle-angle synthesis",
-    candidateIds: Object.freeze([
-      "GEO-TMP-CP014-TANGENT-TRIANGLE-V1",
-    ]),
-    mergeRationale: "Retain radius-perpendicular-tangent followed by triangle angle sum as its own graph.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP014_BPT_ANGLE_BISECTOR_SYNTHESIS",
-    cpId: "GEO-CP-014",
-    learnerDecision: "BPT plus angle-bisector synthesis",
-    candidateIds: Object.freeze([
-      "GEO-TMP-CP014-BPT-BISECTOR-V1",
-    ]),
-    mergeRationale: "Retain BPT scale recovery followed by angle-bisector theorem as its own graph.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP014_COMMON_TANGENT_SIMILARITY_SYNTHESIS",
-    cpId: "GEO-CP-014",
-    learnerDecision: "Common-tangent plus similarity synthesis",
-    candidateIds: Object.freeze([
-      "GEO-TMP-GAP-W2-CP014-COMMON-TANGENT-SIMILARITY-V1",
-    ]),
-    mergeRationale: "Retain two-circle tangent geometry followed by similarity as its own graph.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP014_TANGENT_CENTRAL_INSCRIBED_SYNTHESIS",
-    cpId: "GEO-CP-014",
-    learnerDecision: "Tangent to central to inscribed-angle synthesis",
-    candidateIds: Object.freeze([
-      "GEO-TMP-GAP-W2-CP014-TANGENT-CENTRAL-INSCRIBED-V1",
-    ]),
-    mergeRationale: "Retain the tangent/central/inscribed conversion chain as its own graph rather than merging it with a simple tangent triangle.",
-  }),
-  defineGeometryMergeSplitFamilyV1({
-    proposalKey: "CP014_PARALLEL_CONGRUENCE_SYNTHESIS",
-    cpId: "GEO-CP-014",
-    learnerDecision: "Parallel-angle to congruence to CPCT synthesis",
-    candidateIds: Object.freeze([
-      "GEO-TMP-GAP-W5-CP014-PARALLELOGRAM-EXTENSION-MIDPOINT-V1",
-      "GEO-TMP-GAP-W5-CP014-EQUAL-PARALLEL-DIAGONAL-CPCT-V1",
-    ]),
-    mergeRationale: "Merge the ASA and SAS source-backed variants because both use parallel-angle evidence to prove congruence and extract a corresponding length.",
-  }),
+    learnerDecision: "Use parallel-angle evidence to prove congruence and extract a CPCT length",
+    candidateIds: Object.freeze(["GEO-TMP-GAP-W5-CP014-PARALLELOGRAM-EXTENSION-MIDPOINT-V1", "GEO-TMP-GAP-W5-CP014-EQUAL-PARALLEL-DIAGONAL-CPCT-V1"]),
+    mergeRationale: "ASA and SAS are parameterized proof criteria inside the same higher-order graph: parallel-angle transfer, congruence proof, then CPCT length extraction." }),
 ]);
