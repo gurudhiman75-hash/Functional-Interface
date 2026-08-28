@@ -82,6 +82,7 @@ export default function SubcategoryPage() {
   const queryClient = useQueryClient();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<ExamTab>("full-length");
+  const [viewMode, setViewMode] = useState<"list" | "grid">("grid");
 
   const { data: allPackages = [] } = useQuery<Package[]>({
     queryKey: ["packages"],
@@ -203,7 +204,7 @@ export default function SubcategoryPage() {
           <p className="mt-2 text-sm text-muted-foreground">
             The exam catalog is temporarily unavailable. Please try again.
           </p>
-          <Button className="mt-5" variant="outline" onClick={() => window.location.reload()}>
+          <Button className="mt-5 min-h-11" variant="outline" onClick={() => window.location.reload()}>
             Retry
           </Button>
         </main>
@@ -237,7 +238,7 @@ export default function SubcategoryPage() {
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               This exam page is not available right now.
             </p>
-            <Button className="mt-6 rounded-2xl" onClick={() => setLocation("/exams")}>
+            <Button className="mt-6 min-h-11 rounded-2xl" onClick={() => setLocation("/exams")}>
               Back to Exams
             </Button>
           </div>
@@ -297,18 +298,17 @@ export default function SubcategoryPage() {
     }
   };
 
-  const [viewMode, setViewMode] = useState<"list" | "grid">("grid");
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background">
       <div className="border-b border-border/50 bg-background/80 backdrop-blur-sm">
         <div className="mx-auto max-w-5xl px-4 py-3 sm:px-6">
           <button
+            type="button"
             onClick={() => setLocation(`/category/${exam.categoryId}`)}
-            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
+            className="et-interactive inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
             data-testid="btn-back-category"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             {category?.name ?? "Back"}
           </button>
         </div>
@@ -317,18 +317,18 @@ export default function SubcategoryPage() {
       <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
         <div className="flex flex-col gap-8 xl:flex-row xl:items-start">
           <div className="min-w-0 flex-1">
-            <div className="mb-6 rounded-2xl overflow-hidden border border-sky-80 bg-gradient-to-br from-sky-50 via-slate-50 to-indigo-50 px-5 py-6 shadow-sm">
-              <div className="inline-flex items-center rounded-full px-3 py-1 mb-3" style={{ backgroundImage: gradient }}>
+            <section className="et-panel mb-6 overflow-hidden rounded-2xl border border-border/60 bg-card px-5 py-6 shadow-sm" aria-labelledby="subcategory-title">
+              <div className="mb-3 inline-flex items-center rounded-full px-3 py-1" style={{ backgroundImage: gradient }}>
                 <span className="text-[11px] font-bold uppercase tracking-widest text-white/90">{category?.name}</span>
               </div>
               <div className="flex items-start gap-3">
                 <div
-                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl shadow-sm ${isImageIcon(examIcon) ? "border border-slate-200 bg-white text-slate-700" : "text-white"}`}
+                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl shadow-sm ${isImageIcon(examIcon) ? "border border-border bg-background text-foreground" : "text-white"}`}
                   style={isImageIcon(examIcon) ? undefined : { backgroundImage: gradient }}
                 >
                   <CategoryIcon icon={examIcon} className="h-5 w-5" />
                 </div>
-                <h1 className="text-[34px] font-black tracking-tight text-foreground leading-tight sm:text-[40px]">{exam.name}</h1>
+                <h1 id="subcategory-title" className="text-[34px] font-black leading-tight tracking-tight text-foreground sm:text-[40px]">{exam.name}</h1>
               </div>
               <ExamDescription
                 text={exam.description || `Browse ${exam.name} by full-length, sectional, and topic-wise practice.`}
@@ -341,17 +341,17 @@ export default function SubcategoryPage() {
               />
               <div className="mt-4 flex flex-wrap gap-2">
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-border/50 bg-muted/50 px-3 py-1 text-xs font-medium text-foreground">
-                  <BookOpen className="h-3.5 w-3.5 text-primary/70" />{examTests.length} total
+                  <BookOpen className="h-3.5 w-3.5 text-primary/70" aria-hidden="true" />{examTests.length} total
                 </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
-                  <ShieldCheck className="h-3.5 w-3.5" />{examTests.filter(t => (t.access ?? "free") === "free").length} free
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
+                  <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" />{examTests.filter(t => (t.access ?? "free") === "free").length} free
                 </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700">
-                  <Lock className="h-3.5 w-3.5" />{examTests.filter(t => (t.access ?? "free") !== "free").length} paid
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/25 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-700 dark:text-amber-300">
+                  <Lock className="h-3.5 w-3.5" aria-hidden="true" />{examTests.filter(t => (t.access ?? "free") !== "free").length} paid
                 </span>
                 {attempts.length > 0 && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700">
-                    <Users className="h-3.5 w-3.5" />{attempts.length} attempts saved
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-500/25 bg-sky-500/10 px-3 py-1 text-xs font-semibold text-sky-700 dark:text-sky-300">
+                    <Users className="h-3.5 w-3.5" aria-hidden="true" />{attempts.length} attempts saved
                   </span>
                 )}
               </div>
@@ -363,11 +363,11 @@ export default function SubcategoryPage() {
                 const pct = Math.round((completed / total) * 100);
                 return (
                   <div className="mt-4">
-                    <div className="flex items-center justify-between mb-1.5">
+                    <div className="mb-1.5 flex items-center justify-between">
                       <span className="text-[11px] font-medium text-muted-foreground">Your progress</span>
                       <span className="text-[11px] font-semibold text-foreground">{completed} / {total} completed</span>
                     </div>
-                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted/60">
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted/60" role="progressbar" aria-label={`${exam.name} completion`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct}>
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-500"
                         style={{ width: `${pct}%` }}
@@ -376,9 +376,9 @@ export default function SubcategoryPage() {
                   </div>
                 );
               })()}
-            </div>
+            </section>
 
-            <div className="flex gap-1 rounded-xl border border-border/60 bg-muted/40 p-1">
+            <div className="flex gap-1 rounded-xl border border-border/60 bg-muted/40 p-1" role="tablist" aria-label={`${exam.name} test format`}>
               {(Object.keys(TAB_LABELS) as ExamTab[]).map((tab) => {
                 const count = examTests.filter((t) => (t.kind ?? "full-length") === tab).length;
                 const isActive = activeTab === tab;
@@ -386,57 +386,61 @@ export default function SubcategoryPage() {
                   <button
                     key={tab}
                     type="button"
+                    role="tab"
+                    aria-selected={isActive}
                     onClick={() => setActiveTab(tab)}
-                    className={`flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm transition-all ${
+                    className={`et-interactive flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-sm transition-all ${
                       isActive
-                        ? "bg-sky-600 shadow-md text-white font-bold border border-sky-700"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50 font-medium"
+                        ? "border border-primary bg-primary font-bold text-primary-foreground shadow-sm"
+                        : "font-medium text-muted-foreground hover:bg-background/80 hover:text-foreground"
                     }`}
                   >
                     {TAB_LABELS[tab]}
                     <span className={`rounded-full px-1.5 py-0.5 text-[11px] font-semibold ${
-                      isActive ? "bg-white/20 text-white" : "bg-muted/60 text-muted-foreground/50"
+                      isActive ? "bg-primary-foreground/15 text-primary-foreground" : "bg-muted text-muted-foreground"
                     }`}>{count}</span>
                   </button>
                 );
               })}
             </div>
 
-            <div className="mt-4 mb-3 flex items-center justify-between">
+            <div className="mb-3 mt-4 flex items-center justify-between gap-3">
               <p className="text-xs font-medium text-muted-foreground">
                 {tabTests.length} {TAB_LABELS[activeTab].toLowerCase()} test{tabTests.length !== 1 ? "s" : ""}
               </p>
-              <div className="flex items-center gap-1 rounded-lg border border-border/50 bg-muted/30 p-0.5">
+              <div className="flex items-center gap-1 rounded-lg border border-border/50 bg-muted/30 p-0.5" role="group" aria-label="Test layout">
                 <button
                   type="button"
                   onClick={() => setViewMode("list")}
-                  className={`rounded-md p-1.5 transition-colors ${
-                    viewMode === "list" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                  className={`et-interactive flex h-11 w-11 items-center justify-center rounded-md transition-colors ${
+                    viewMode === "list" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:bg-background/70 hover:text-foreground"
                   }`}
                   aria-label="List view"
+                  aria-pressed={viewMode === "list"}
                 >
-                  <List className="h-3.5 w-3.5" />
+                  <List className="h-4 w-4" aria-hidden="true" />
                 </button>
                 <button
                   type="button"
                   onClick={() => setViewMode("grid")}
-                  className={`rounded-md p-1.5 transition-colors ${
-                    viewMode === "grid" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+                  className={`et-interactive flex h-11 w-11 items-center justify-center rounded-md transition-colors ${
+                    viewMode === "grid" ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:bg-background/70 hover:text-foreground"
                   }`}
                   aria-label="Grid view"
+                  aria-pressed={viewMode === "grid"}
                 >
-                  <LayoutGrid className="h-3.5 w-3.5" />
+                  <LayoutGrid className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
             </div>
 
             {tabTests.length === 0 ? (
               <div className="rounded-xl border border-dashed border-border/60 px-6 py-14 text-center">
-                <BookOpen className="mx-auto h-9 w-9 text-muted-foreground/40" />
+                <BookOpen className="mx-auto h-9 w-9 text-muted-foreground/40" aria-hidden="true" />
                 <p className="mt-3 text-sm text-muted-foreground">No {TAB_LABELS[activeTab].toLowerCase()} tests yet</p>
               </div>
             ) : viewMode === "grid" ? (
-              <div className="grid gap-3 sm:grid-cols-2">
+              <div className="grid gap-3 sm:grid-cols-2" data-testid="subcategory-test-grid">
                 {tabTests.map((test) => {
                   const latestAttempt = attemptsByTestId.get(test.id);
                   const attempted = Boolean(latestAttempt);
@@ -455,29 +459,28 @@ export default function SubcategoryPage() {
                       : "border-l-amber-400";
 
                   return (
-                    <div
+                    <article
                       key={test.id}
-                      className={`group relative flex flex-col gap-3 rounded-xl border border-slate-100 border-l-4 ${borderAccent} bg-white/80 p-4 shadow-[0_1px_4px_rgba(0,0,0,0.06)] transition-all duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 hover:bg-white cursor-pointer`}
-                      onClick={() => !isLocked || pkgOwned ? setLocation(`/test/${test.id}`) : undefined}
+                      className={`group relative flex flex-col gap-3 rounded-xl border border-border/60 border-l-4 ${borderAccent} bg-card p-4 shadow-sm transition-shadow duration-200 hover:shadow-md`}
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
-                          <p className="text-[18px] font-bold text-slate-800 leading-snug">{test.name}</p>
-                          <div className="mt-1.5 flex flex-wrap items-center gap-2 text-[14px] text-slate-400">
-                            <span className="flex items-center gap-1"><Clock3 className="h-3 w-3 text-primary/50" />{test.duration} min</span>
-                            <span className="flex items-center gap-1"><Hash className="h-3 w-3 text-slate-400" />{test.totalQuestions} Qs</span>
+                          <h2 className="text-[18px] font-bold leading-snug text-foreground">{test.name}</h2>
+                          <div className="mt-1.5 flex flex-wrap items-center gap-2 text-[14px] text-muted-foreground">
+                            <span className="flex items-center gap-1"><Clock3 className="h-3 w-3 text-primary/60" aria-hidden="true" />{test.duration} min</span>
+                            <span className="flex items-center gap-1"><Hash className="h-3 w-3" aria-hidden="true" />{test.totalQuestions} Qs</span>
                             <DifficultyBadge difficulty={test.difficulty} />
                           </div>
                         </div>
                         <TestStatusBadge isFree={isFree} isLocked={isLocked} pkgOwned={pkgOwned} attempted={attempted} activeSession={!!activeSession} />
                       </div>
                       {latestAttempt && (
-                        <p className="text-[11px] text-muted-foreground/70">
+                        <p className="text-[11px] text-muted-foreground/80">
                           Last attempt: {new Date(latestAttempt.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
-                          {latestAttempt.score != null && <> &middot; <span className={latestAttempt.score >= 70 ? "text-emerald-600" : latestAttempt.score >= 40 ? "text-amber-600" : "text-rose-600"}>{latestAttempt.score}%</span></>}
+                          {latestAttempt.score != null && <> &middot; <span className={latestAttempt.score >= 70 ? "text-emerald-600 dark:text-emerald-400" : latestAttempt.score >= 40 ? "text-amber-600 dark:text-amber-400" : "text-rose-600 dark:text-rose-400"}>{latestAttempt.score}%</span></>}
                         </p>
                       )}
-                      <div className="mt-auto" onClick={(e) => e.stopPropagation()}>
+                      <div className="mt-auto">
                         <TestActionButton
                           test={test}
                           isLocked={isLocked}
@@ -492,12 +495,12 @@ export default function SubcategoryPage() {
                           onReview={() => latestAttempt && setLocation(`/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(test.id)}&tab=review`)}
                         />
                       </div>
-                    </div>
+                    </article>
                   );
                 })}
               </div>
             ) : (
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2" data-testid="subcategory-test-list">
                 {tabTests.map((test) => {
                   const latestAttempt = attemptsByTestId.get(test.id);
                   const attempted = Boolean(latestAttempt);
@@ -516,35 +519,34 @@ export default function SubcategoryPage() {
                       : "border-l-amber-400";
 
                   return (
-                    <div
+                    <article
                       key={test.id}
-                      className={`group flex items-center gap-3 rounded-xl border border-slate-100 border-l-4 ${borderAccent} bg-white/80 px-4 py-3.5 shadow-[0_1px_4px_rgba(0,0,0,0.06)] transition-all duration-200 hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:translate-x-0.5 hover:bg-white cursor-pointer`}
-                      onClick={() => !isLocked || pkgOwned ? setLocation(`/test/${test.id}`) : undefined}
+                      className={`group flex flex-col gap-3 rounded-xl border border-border/60 border-l-4 ${borderAccent} bg-card px-4 py-3.5 shadow-sm transition-shadow duration-200 hover:shadow-md sm:flex-row sm:items-center`}
                     >
                       <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
-                        isLocked && !pkgOwned ? "bg-amber-100 text-amber-600" : attempted ? "bg-sky-100 text-sky-600" : "bg-primary/10 text-primary"
+                        isLocked && !pkgOwned ? "bg-amber-500/10 text-amber-600 dark:text-amber-400" : attempted ? "bg-sky-500/10 text-sky-600 dark:text-sky-400" : "bg-primary/10 text-primary"
                       }`}>
-                        {isLocked && !pkgOwned ? <Lock className="h-4 w-4" /> : attempted ? <RotateCcw className="h-4 w-4" /> : <ShieldCheck className="h-4 w-4" />}
+                        {isLocked && !pkgOwned ? <Lock className="h-4 w-4" aria-hidden="true" /> : attempted ? <RotateCcw className="h-4 w-4" aria-hidden="true" /> : <ShieldCheck className="h-4 w-4" aria-hidden="true" />}
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-[18px] font-bold text-slate-800 leading-snug">{test.name}</p>
-                        <div className="mt-0.5 flex flex-wrap items-center gap-2 text-[14px] text-slate-400">
+                        <h2 className="truncate text-[18px] font-bold leading-snug text-foreground">{test.name}</h2>
+                        <div className="mt-0.5 flex flex-wrap items-center gap-2 text-[14px] text-muted-foreground">
                           <TestStatusBadge isFree={isFree} isLocked={isLocked} pkgOwned={pkgOwned} attempted={attempted} activeSession={!!activeSession} />
-                          <span className="flex items-center gap-0.5"><Clock3 className="h-3 w-3 text-primary/50" />{test.duration} min</span>
-                          <span className="flex items-center gap-0.5"><Hash className="h-3 w-3 text-slate-400" />{test.totalQuestions} Qs</span>
+                          <span className="flex items-center gap-0.5"><Clock3 className="h-3 w-3 text-primary/60" aria-hidden="true" />{test.duration} min</span>
+                          <span className="flex items-center gap-0.5"><Hash className="h-3 w-3" aria-hidden="true" />{test.totalQuestions} Qs</span>
                           <DifficultyBadge difficulty={test.difficulty} />
-                          {activeSession && <span className="font-medium text-sky-600">In progress</span>}
+                          {activeSession && <span className="font-medium text-sky-600 dark:text-sky-400">In progress</span>}
                         </div>
                         {latestAttempt && (
-                          <p className="mt-0.5 text-[11px] text-muted-foreground/70">
+                          <p className="mt-0.5 text-[11px] text-muted-foreground/80">
                             {new Date(latestAttempt.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
-                            {latestAttempt.score != null && <> &middot; <span className={latestAttempt.score >= 70 ? "text-emerald-600 font-medium" : latestAttempt.score >= 40 ? "text-amber-600 font-medium" : "text-rose-600 font-medium"}>{latestAttempt.score}%</span></>}
+                            {latestAttempt.score != null && <> &middot; <span className={latestAttempt.score >= 70 ? "font-medium text-emerald-600 dark:text-emerald-400" : latestAttempt.score >= 40 ? "font-medium text-amber-600 dark:text-amber-400" : "font-medium text-rose-600 dark:text-rose-400"}>{latestAttempt.score}%</span></>}
                           </p>
                         )}
                       </div>
 
-                      <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
+                      <div className="shrink-0">
                         <TestActionButton
                           test={test}
                           isLocked={isLocked}
@@ -559,7 +561,7 @@ export default function SubcategoryPage() {
                           onReview={() => latestAttempt && setLocation(`/result?attemptId=${encodeURIComponent(latestAttempt.id)}&testId=${encodeURIComponent(test.id)}&tab=review`)}
                         />
                       </div>
-                    </div>
+                    </article>
                   );
                 })}
               </div>
@@ -567,29 +569,29 @@ export default function SubcategoryPage() {
           </div>
 
           {examPackages.length > 0 && (
-            <div className="w-full xl:w-72 xl:shrink-0">
-              <div className="sticky top-6 space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground px-1">Unlock a Package</p>
+            <aside className="w-full xl:w-72 xl:shrink-0" aria-label="Exam packages">
+              <div className="sticky top-20 space-y-3">
+                <p className="px-1 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Unlock a Package</p>
                 {examPackages.map((ep) => {
                   const isBest = ep.id === bestValueId;
                   const owned = ownedPackageIds.has(ep.id);
                   return (
                     <div
                       key={ep.id}
-                      className={`relative rounded-xl border overflow-hidden transition-all duration-200 hover:scale-[1.015] ${
+                      className={`relative overflow-hidden rounded-xl border bg-card transition-shadow duration-200 ${
                         owned
-                          ? "border-emerald-300/70 shadow-lg shadow-emerald-100/50"
+                          ? "border-emerald-500/40 shadow-md"
                           : isBest
-                            ? "border-violet-400/60 shadow-lg shadow-violet-100/60 ring-1 ring-violet-300/40"
-                            : "border-border/60 shadow-md hover:shadow-lg"
+                            ? "border-violet-500/45 shadow-md ring-1 ring-violet-500/20"
+                            : "border-border/60 shadow-sm hover:shadow-md"
                       }`}
                     >
-                      <div className={`px-4 pt-4 pb-3 ${
+                      <div className={`px-4 pb-3 pt-4 ${
                         owned
-                          ? "bg-gradient-to-br from-emerald-50 to-teal-50/60"
+                          ? "bg-emerald-500/10"
                           : isBest
-                            ? "bg-gradient-to-br from-violet-50 to-indigo-50/60"
-                            : "bg-gradient-to-br from-muted/40 to-muted/10"
+                            ? "bg-violet-500/10"
+                            : "bg-muted/25"
                       }`}>
                         <div className="flex items-start justify-between gap-2">
                           <div className="min-w-0">
@@ -600,51 +602,51 @@ export default function SubcategoryPage() {
                             )}
                             {!owned && isBest && (
                               <span className="mb-1.5 inline-flex items-center gap-1 rounded-full bg-violet-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white">
-                                <Zap className="h-2.5 w-2.5" /> Best Value
+                                <Zap className="h-2.5 w-2.5" aria-hidden="true" /> Best Value
                               </span>
                             )}
-                            <p className="text-[14px] font-bold text-foreground leading-snug">{ep.name}</p>
+                            <p className="text-[14px] font-bold leading-snug text-foreground">{ep.name}</p>
                           </div>
-                          <div className="text-right shrink-0">
+                          <div className="shrink-0 text-right">
                             <p className="text-xl font-black tracking-tight text-foreground">₹{(ep.finalPriceCents / 100).toFixed(0)}</p>
                             {ep.originalPriceCents && ep.originalPriceCents > ep.finalPriceCents && (
                               <p className="text-[11px] font-normal text-muted-foreground/70 line-through">₹{(ep.originalPriceCents / 100).toFixed(0)}</p>
                             )}
                             {ep.discountPercent > 0 && (
-                              <p className="text-[11px] font-bold text-emerald-600">{ep.discountPercent}% off</p>
+                              <p className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">{ep.discountPercent}% off</p>
                             )}
                           </div>
                         </div>
                       </div>
 
-                      <div className="bg-card px-4 py-3 border-t border-border/40">
-                        <div className="grid grid-cols-2 divide-x divide-border/40 mb-3 text-center">
+                      <div className="border-t border-border/40 bg-card px-4 py-3">
+                        <div className="mb-3 grid grid-cols-2 divide-x divide-border/40 text-center">
                           <div className="pr-2">
                             <p className="text-sm font-black text-foreground">{ep.testIds.length}</p>
-                            <p className="text-[10px] font-medium text-muted-foreground leading-tight">Tests</p>
+                            <p className="text-[10px] font-medium leading-tight text-muted-foreground">Tests</p>
                           </div>
                           <div className="pl-2">
                             <p className="text-sm font-black text-foreground">Full</p>
-                            <p className="text-[10px] font-medium text-muted-foreground leading-tight">Access</p>
+                            <p className="text-[10px] font-medium leading-tight text-muted-foreground">Access</p>
                           </div>
                         </div>
                         <ul className="space-y-1 text-xs text-muted-foreground">
                           <li className="flex items-center gap-1.5">
-                            <ShieldCheck className="h-3 w-3 shrink-0 text-emerald-600" />
+                            <ShieldCheck className="h-3 w-3 shrink-0 text-emerald-600 dark:text-emerald-400" aria-hidden="true" />
                             Attempts and solution review
                           </li>
                           <li className="flex items-center gap-1.5">
-                            <RotateCcw className="h-3 w-3 shrink-0 text-sky-600" />
+                            <RotateCcw className="h-3 w-3 shrink-0 text-sky-600 dark:text-sky-400" aria-hidden="true" />
                             Retake available tests
                           </li>
                         </ul>
                         <Button
                           size="sm"
-                          className={`mt-3 w-full rounded-lg font-semibold ${
+                          className={`mt-3 min-h-11 w-full rounded-lg font-semibold ${
                             owned
-                              ? "bg-emerald-600 hover:bg-emerald-600 cursor-default"
+                              ? "cursor-default bg-emerald-600 hover:bg-emerald-600"
                               : isBest
-                                ? "bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 shadow-sm"
+                                ? "bg-gradient-to-r from-violet-600 to-indigo-600 shadow-sm hover:from-violet-700 hover:to-indigo-700"
                                 : ""
                           }`}
                           disabled={owned}
@@ -675,7 +677,7 @@ export default function SubcategoryPage() {
                   ))}
                 </ul>
               </div>
-            </div>
+            </aside>
           )}
         </div>
       </div>
@@ -701,26 +703,26 @@ function TestActionButton({ isLocked, pkgOwned, pkg, activeSession, attempted, u
   if (!isLocked || pkgOwned) {
     if (activeSession && !attempted) {
       return (
-        <Button size="sm" className="rounded-lg bg-sky-600 hover:bg-sky-700 text-white shadow-sm font-bold" onClick={onStart}>
-          <Play className="mr-1.5 h-3.5 w-3.5" />Resume
+        <Button size="sm" className="min-h-11 rounded-lg bg-sky-600 font-bold text-white shadow-sm hover:bg-sky-700" onClick={onStart}>
+          <Play className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />Resume
         </Button>
       );
     }
     if (attempted) {
       return (
-        <div className="flex gap-1.5">
-          <Button size="sm" variant="outline" className="rounded-lg border-muted-foreground/30 hover:border-foreground/40 font-medium" onClick={onStart}>
-            <RotateCcw className="mr-1.5 h-3.5 w-3.5" />Retry
+        <div className="flex flex-wrap gap-1.5">
+          <Button size="sm" variant="outline" className="min-h-11 rounded-lg border-muted-foreground/30 font-medium hover:border-foreground/40" onClick={onStart}>
+            <RotateCcw className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />Retry
           </Button>
-          <Button size="sm" variant="outline" className="rounded-lg border-purple-300 text-purple-700 hover:bg-purple-50 font-medium" onClick={onReview}>
-            <BookOpen className="mr-1.5 h-3.5 w-3.5" />Review
+          <Button size="sm" variant="outline" className="min-h-11 rounded-lg border-violet-500/30 font-medium text-violet-700 hover:bg-violet-500/10 dark:text-violet-300" onClick={onReview}>
+            <BookOpen className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />Review
           </Button>
         </div>
       );
     }
     return (
-      <Button size="sm" className="rounded-lg shadow-sm font-bold" onClick={onStart}>
-        <ChevronRight className="mr-1.5 h-3.5 w-3.5" />Start
+      <Button size="sm" className="min-h-11 rounded-lg font-bold shadow-sm" onClick={onStart}>
+        <ChevronRight className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />Start
       </Button>
     );
   }
@@ -728,16 +730,16 @@ function TestActionButton({ isLocked, pkgOwned, pkg, activeSession, attempted, u
     return (
       <Button
         size="sm"
-        className="rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-sm shadow-amber-200"
+        className="min-h-11 rounded-lg bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-sm hover:from-amber-600 hover:to-orange-600"
         onClick={onBuy}
       >
-        <Lock className="mr-1.5 h-3.5 w-3.5" />Buy
+        <Lock className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />Buy
       </Button>
     );
   }
   return (
-    <Button size="sm" variant="outline" className="rounded-lg border-muted-foreground/30 font-medium" onClick={onUnlock}>
-      {user ? <><CreditCard className="mr-1.5 h-3.5 w-3.5" />Unlock</> : <><LogIn className="mr-1.5 h-3.5 w-3.5" />Sign in</>}
+    <Button size="sm" variant="outline" className="min-h-11 rounded-lg border-muted-foreground/30 font-medium" onClick={onUnlock}>
+      {user ? <><CreditCard className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />Unlock</> : <><LogIn className="mr-1.5 h-3.5 w-3.5" aria-hidden="true" />Sign in</>}
     </Button>
   );
 }
@@ -753,28 +755,28 @@ type TestStatusBadgeProps = {
 function TestStatusBadge({ isFree, isLocked, pkgOwned, attempted }: TestStatusBadgeProps) {
   if (isLocked && !pkgOwned) {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-medium text-amber-700">
-        <Lock className="h-2.5 w-2.5" />Locked
+      <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 px-2 py-0.5 text-[11px] font-medium text-amber-700 dark:text-amber-300">
+        <Lock className="h-2.5 w-2.5" aria-hidden="true" />Locked
       </span>
     );
   }
   if (attempted) {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-sky-50 px-2 py-0.5 text-[11px] font-medium text-sky-700">
-        <RotateCcw className="h-2.5 w-2.5" />Attempted
+      <span className="inline-flex items-center gap-1 rounded-full bg-sky-500/10 px-2 py-0.5 text-[11px] font-medium text-sky-700 dark:text-sky-300">
+        <RotateCcw className="h-2.5 w-2.5" aria-hidden="true" />Attempted
       </span>
     );
   }
   if (isFree) {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] font-medium text-emerald-700">
-        <ShieldCheck className="h-2.5 w-2.5" />Free
+      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-medium text-emerald-700 dark:text-emerald-300">
+        <ShieldCheck className="h-2.5 w-2.5" aria-hidden="true" />Free
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-0.5 text-[11px] font-medium text-violet-700">
-      <ShieldCheck className="h-2.5 w-2.5" />Purchased
+    <span className="inline-flex items-center gap-1 rounded-full bg-violet-500/10 px-2 py-0.5 text-[11px] font-medium text-violet-700 dark:text-violet-300">
+      <ShieldCheck className="h-2.5 w-2.5" aria-hidden="true" />Purchased
     </span>
   );
 }
@@ -782,9 +784,9 @@ function TestStatusBadge({ isFree, isLocked, pkgOwned, attempted }: TestStatusBa
 function DifficultyBadge({ difficulty }: { difficulty?: "Easy" | "Medium" | "Hard" }) {
   if (!difficulty) return null;
   const styles = {
-    Easy:   "bg-emerald-50 text-emerald-600",
-    Medium: "bg-amber-50   text-amber-600",
-    Hard:   "bg-rose-50    text-rose-600",
+    Easy:   "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+    Medium: "bg-amber-500/10 text-amber-600 dark:text-amber-400",
+    Hard:   "bg-rose-500/10 text-rose-600 dark:text-rose-400",
   }[difficulty];
   return (
     <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-semibold ${styles}`}>
@@ -863,7 +865,8 @@ function ExamDescription({
       <button
         type="button"
         onClick={() => setExpanded((v) => !v)}
-        className="mt-1.5 text-[12px] font-semibold text-primary hover:underline"
+        className="et-interactive mt-1.5 inline-flex min-h-11 items-center text-[12px] font-semibold text-primary hover:underline"
+        aria-expanded={expanded}
       >
         {expanded ? "Show less ↑" : "Read more ↓"}
       </button>

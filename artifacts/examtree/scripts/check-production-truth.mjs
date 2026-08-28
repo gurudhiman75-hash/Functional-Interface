@@ -56,13 +56,13 @@ const forbidden = [
 ];
 
 const required = [
-  ["home", "{formatCount(tests.length)} published tests", "Homepage should expose a truthful catalog-backed test count."],
-  ["home", "{formatCount(catalogQuestionCount)} live questions", "Homepage should expose only the current catalog question count."],
-  ["home", 'setLocation("/exams")', "Homepage discovery CTA must lead to the canonical exams marketplace."],
-  ["home", "Start Free", "Homepage should retain a direct live-test action when free practice exists."],
+  ["home", '[formatCount(tests.length), "Published tests"]', "Homepage should expose a truthful catalog-backed test count."],
+  ["home", '[formatCount(catalogQuestionCount), "Catalog questions"]', "Homepage should expose only the current catalog question count."],
+  ["home", 'setLocation(sampleMode ? "/exams?preview=sample" : "/exams")', "Homepage discovery CTA must lead to the canonical exams marketplace in production while preserving sample preview routing."],
+  ["home", "Start a free test", "Homepage should retain a direct live-test action when free practice exists."],
   ["home", "attemptId=", "Resume/review link must carry the canonical attempt id."],
   ["tests", "The test catalog is temporarily unavailable.", "Catalog errors should use student-safe recovery copy."],
-  ["category", "The exam catalog is temporarily unavailable. Please try again.", "Category errors should use student-safe recovery copy."],
+  ["category", "The exam catalog is temporarily unavailable. Please try again.", "Category-page errors should use student-safe recovery copy."],
   ["category", "Browse Packages", "Category commerce CTA should remain neutral rather than inventing an offer."],
   ["subcategory", "The exam catalog is temporarily unavailable. Please try again.", "Exam-page errors should use student-safe recovery copy."],
   ["subcategory", "attemptId=${encodeURIComponent(latestAttempt.id)}", "Exam-page review actions must carry the exact saved attempt id."],

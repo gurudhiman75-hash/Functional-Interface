@@ -1,0 +1,97 @@
+name: Validate NUM-CP-012 exam-depth Question Studio
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/**"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
+      - ".github/workflows/num-cp012-exam-depth-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp012-exam-depth-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp012-exam-depth:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle calculation-depth overlay audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/exam-depth-question-overlay.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp012-exam-depth-question-overlay.mjs
+
+      - name: Run calculation-depth overlay audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-question-overlay.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-question-overlay.log
+
+      - name: Bundle full-derivation explanation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/exam-depth-explanation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp012-exam-depth-explanation.mjs
+
+      - name: Run full-derivation explanation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-explanation.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-explanation.log
+
+      - name: Bundle actual CP012 Question Studio integration
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/question-studio-integration.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp012-exam-depth-question-studio.mjs
+
+      - name: Run actual CP012 Question Studio integration
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-question-studio.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-question-studio.log
+
+      - name: Bundle actual admin Question Studio route
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/routes/admin-question-studio-average.ts
+          --bundle --platform=node --format=esm
+          --packages=external
+          --outfile=dist/quant-v4/admin-question-studio-num-cp012-exam-depth.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload exam-depth evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp012-exam-depth-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-question-overlay.log
+            artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-explanation.log
+            artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-question-studio.log
+          if-no-files-found: error
+          retention-days: 30
