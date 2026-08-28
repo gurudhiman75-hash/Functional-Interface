@@ -1,7 +1,6 @@
 name: Validate SPA PFC-001 Hexagon Learner Review V1
 
 on:
-  pull_request:
   workflow_dispatch:
 
 permissions:
