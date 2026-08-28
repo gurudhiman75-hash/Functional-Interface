@@ -74,6 +74,10 @@ jobs:
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/temporary-candidate-registry-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-temporary-candidate-registry-v1.test.mjs
           node artifacts/api-server/dist/quant-v4/geometry-temporary-candidate-registry-v1.test.mjs
+      - name: Prove exhaustive Geometry 81-to-45 merge split proposal
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-merge-split-proposal-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-merge-split-proposal-v1.test.mjs
+          node artifacts/api-server/dist/quant-v4/geometry-merge-split-proposal-v1.test.mjs
       - name: Export Geometry Phase 5 review evidence
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/GEO-002/discovery/phase5-review-export.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-phase5-review-export.mjs
