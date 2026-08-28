@@ -276,19 +276,29 @@ export default function ExamsMarketplace() {
           ) : <div className="mt-4 rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center text-sm text-slate-500">No canonical test series are live yet.</div>}
         </section>
 
-        <section className="min-w-0 overflow-hidden rounded-3xl border border-[#e5e2f4] bg-white shadow-[0_8px_28px_rgba(37,42,68,0.035)]" data-testid="full-length-series-section" aria-labelledby="full-length-series-heading">
-          <div className="border-b border-[#ece9f5] bg-[#faf9ff] px-5 py-4 sm:px-6"><div id="full-length-series-heading"><SectionHeader eyebrow="Complete mock experience" title="Full-Length Test Series" description="Open full-exam practice paths with the configured test and question inventory shown clearly." trailing={<Trophy className="h-5 w-5 text-[#6657e8]" />} /></div></div>
+        <section className="min-w-0" data-testid="full-length-series-section" aria-labelledby="full-length-series-heading">
+          <div id="full-length-series-heading"><SectionHeader eyebrow="Complete mock experience" title="Full-Length Test Series" description="Full-exam practice paths shown as larger cards so the exam identity, mock inventory and action are easier to scan." trailing={<Trophy className="h-5 w-5 text-[#6657e8]" />} /></div>
           {fullLengthSeries.length > 0 ? (
-            <div className="min-w-0 divide-y divide-[#eeeef4]">
+            <div className="mt-4 grid min-w-0 gap-4 sm:grid-cols-2 xl:grid-cols-4">
               {fullLengthSeries.map((seriesItem, index) => (
-                <div key={seriesItem.id} className="grid min-w-0 gap-4 px-5 py-4 transition hover:bg-[#fbfaff] sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:px-6">
-                  <div className="flex min-w-0 items-center gap-3"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#ece8ff] text-xs font-black text-[#6657e8]">{index + 1}</span><ExamLogo name={`${seriesItem.examFamilyName} ${seriesItem.examName}`} /></div>
-                  <div className="min-w-0"><p className="truncate text-sm font-bold text-slate-950">{seriesItem.name}</p><p className="mt-1 truncate text-xs font-semibold text-slate-500">{seriesItem.examName} · {formatCount(seriesItem.fullLengthTestCount)} full-length tests · {formatCount(seriesItem.questionCount)} questions</p></div>
-                  <Button className="min-h-11 w-full shrink-0 rounded-xl border-[#dedbea] bg-white text-slate-700 hover:bg-[#f7f5ff] sm:w-auto" variant="outline" onClick={() => goSeries(seriesItem.id)}>Open series <ArrowRight className="ml-1.5 h-4 w-4" /></Button>
-                </div>
+                <article key={seriesItem.id} className={`group flex min-h-[290px] min-w-0 flex-col overflow-hidden rounded-3xl border p-5 shadow-[0_10px_30px_rgba(37,42,68,0.045)] transition hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(54,47,112,0.08)] ${FEATURE_TONES[(index + 1) % FEATURE_TONES.length]}`}>
+                  <div className="flex min-w-0 items-start justify-between gap-3">
+                    <span className={`flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-2xl border border-white/80 ${FEATURE_ICON_TONES[(index + 1) % FEATURE_ICON_TONES.length]}`}><ExamLogo name={`${seriesItem.examFamilyName} ${seriesItem.examName}`} size="lg" /></span>
+                    <span className="shrink-0 rounded-full border border-white bg-white/85 px-2.5 py-1 text-[10px] font-black uppercase tracking-wide text-slate-600">Full mocks</span>
+                  </div>
+                  <p className="mt-5 truncate text-[10px] font-black uppercase tracking-[0.15em] text-[#6657e8]">{seriesItem.examName}</p>
+                  <h3 className="mt-1.5 line-clamp-2 min-h-[48px] text-[17px] font-bold leading-6 tracking-[-0.02em] text-slate-950">{seriesItem.name}</h3>
+                  <span className="sr-only">{formatCount(seriesItem.fullLengthTestCount)} full-length tests</span>
+                  <div className="mt-4 grid grid-cols-2 gap-2">
+                    <div className="rounded-xl border border-white bg-white/75 px-3 py-2.5"><p className="text-lg font-black tracking-tight text-slate-950">{formatCount(seriesItem.fullLengthTestCount)}</p><p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-500">Full tests</p></div>
+                    <div className="rounded-xl border border-white bg-white/75 px-3 py-2.5"><p className="text-lg font-black tracking-tight text-slate-950">{formatCount(seriesItem.questionCount)}</p><p className="mt-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-500">Questions</p></div>
+                  </div>
+                  {seriesItem.attemptCount > 0 ? <p className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500"><Flame className="h-3.5 w-3.5 text-orange-500" />{formatCount(seriesItem.attemptCount)} attempts</p> : <div className="mt-3" />}
+                  <Button className="mt-auto min-h-11 w-full rounded-xl bg-[#6657e8] text-white hover:bg-[#594bd9]" onClick={() => goSeries(seriesItem.id)}>Open series <ArrowRight className="ml-1.5 h-4 w-4" /></Button>
+                </article>
               ))}
             </div>
-          ) : fullLengthTests.length > 0 ? <div className="p-5 text-sm text-slate-600">Standalone full-length mocks are available. <Button className="ml-2 min-h-11 rounded-xl" variant="outline" onClick={() => goTest(fullLengthTests[0].id)}>Open a full-length mock</Button></div> : <p className="p-6 text-center text-sm text-slate-500">Full-length series will appear here when matching mocks are published.</p>}
+          ) : fullLengthTests.length > 0 ? <div className="mt-4 rounded-3xl border border-[#e5e2f4] bg-white p-6 text-sm text-slate-600 shadow-[0_8px_24px_rgba(37,42,68,0.035)]">Standalone full-length mocks are available. <Button className="ml-2 min-h-11 rounded-xl" variant="outline" onClick={() => goTest(fullLengthTests[0].id)}>Open a full-length mock</Button></div> : <p className="mt-4 rounded-3xl border border-dashed border-slate-300 bg-white p-6 text-center text-sm text-slate-500">Full-length series will appear here when matching mocks are published.</p>}
         </section>
 
         <section className="min-w-0" data-testid="free-practice-section" aria-labelledby="free-practice-heading">
