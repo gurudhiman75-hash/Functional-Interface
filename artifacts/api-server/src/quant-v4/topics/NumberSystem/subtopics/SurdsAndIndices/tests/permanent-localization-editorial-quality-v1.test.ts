@@ -49,7 +49,7 @@ assert.equal(reviewRows, EXPECTED_REVIEW_ROWS * LOCALES.length);
 assert.deepEqual(
   [...failures],
   [],
-  `SRI localized learner prose contains unexpected Latin-language residue:\n${[...failures].join("\n")}`,
+  `SRI localized learner prose failed editorial-quality gates:\n${[...failures].join("\n")}`,
 );
 
 console.log(JSON.stringify({
@@ -61,6 +61,7 @@ console.log(JSON.stringify({
   localizedReviewRows: reviewRows,
   learnerSurfacesAudited: learnerSurfaces,
   allowedSymbolicLatinTokens: [...ALLOWED_MULTI_LETTER_LATIN],
+  machineLiteralPresentationChecks: true,
   editorialQualityPassed: true,
 }, null, 2));
 
@@ -92,7 +93,10 @@ function auditSurfaces(scope: string, surfaces: readonly string[]): void {
   for (const text of surfaces) {
     const residues = unexpectedLatinWords(text);
     if (residues.length > 0 && failures.size < 240) {
-      failures.add(`${scope}: ${residues.join(", ")} :: ${text}`);
+      failures.add(`${scope}: latin:${residues.join(", ")} :: ${text}`);
+    }
+    for (const problem of machineLiteralProblems(text)) {
+      if (failures.size < 240) failures.add(`${scope}: ${problem} :: ${text}`);
     }
   }
 }
@@ -107,4 +111,16 @@ function unexpectedLatinWords(text: string): readonly string[] {
     .map((match) => match[0].toLowerCase())
     .filter((token) => !ALLOWED_MULTI_LETTER_LATIN.has(token));
   return [...new Set(tokens)];
+}
+
+function machineLiteralProblems(text: string): readonly string[] {
+  const problems: string[] = [];
+  if (/[\u0900-\u097F\u0A00-\u0A7F]s\b/u.test(text)) problems.push("attached-English-suffix");
+  if (/निर्धारित कीजिए x से/u.test(text)) problems.push("machine-order-hi-determine-x-from");
+  if (/ਨਿਰਧਾਰਤ ਕਰੋ x ਤੋਂ/u.test(text)) problems.push("machine-order-pa-determine-x-from");
+  if (/का मान ज्ञात कीजिए\s+[A-Za-z0-9\\(]/u.test(text)) problems.push("machine-order-hi-value-of");
+  if (/ਦਾ ਮੁੱਲ ਪਤਾ ਕਰੋ\s+[A-Za-z0-9\\(]/u.test(text)) problems.push("machine-order-pa-value-of");
+  if (/x\+-\d/u.test(text)) problems.push("malformed-signed-shift");
+  if (/x\+0(?=[}=])/u.test(text)) problems.push("redundant-zero-shift");
+  return problems;
 }
