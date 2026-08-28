@@ -55,7 +55,10 @@ jobs:
             src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-contexts.ts \
             src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-authorities.ts \
             src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-runtime.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-editorial-runtime.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-editorial-proof.test.ts \
             src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-review-v4-1.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-review.ts \
             src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-payload.ts \
             src/reasoning-v1/topics/Statement-and-Assumption/STA-001/chapter-reopen-v4-1-manifest.ts \
             src/reasoning-v1/topics/Statement-and-Assumption/STA-001/chapter-reopen-v4-1-proof.test.ts \
@@ -75,6 +78,9 @@ jobs:
 
       - name: Prove V4.1 anti-gaming scale and tri-language semantic identity
         run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-proof.test.ts
+
+      - name: Prove V4.1 editorial R2 learner surfaces
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-editorial-proof.test.ts
 
       - name: Prove V4.1 shared Question Studio integration
         working-directory: artifacts/api-server
