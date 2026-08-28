@@ -12,6 +12,21 @@ export function localizeSriC008C009FinalizedSurfaceV1(
   text: string,
   locale: SriLocalizedLocaleV1,
 ): string | undefined {
+  // C012-E strict residuals exposed after all earlier families cleared in run #70.
+  const simplifyThenFind = text.match(/^First simplify the surd, then find (.+)\.$/u);
+  if (simplifyThenFind) {
+    return locale === "hi-IN"
+      ? `पहले करणी को सरल कीजिए, फिर ${simplifyThenFind[1]} ज्ञात कीजिए।`
+      : `ਪਹਿਲਾਂ ਕਰਣੀ ਨੂੰ ਸਰਲ ਕਰੋ, ਫਿਰ ${simplifyThenFind[1]} ਪਤਾ ਕਰੋ।`;
+  }
+
+  const mixedSurdIndex = text.match(/^The mixed surd-index expression is (.+)\.$/u);
+  if (mixedSurdIndex) {
+    return locale === "hi-IN"
+      ? `मिश्रित करणी-घातांक व्यंजक ${mixedSurdIndex[1]} है।`
+      : `ਮਿਸ਼ਰਤ ਕਰਣੀ-ਘਾਤਾਂਕ ਵਿਅੰਜਕ ${mixedSurdIndex[1]} ਹੈ।`;
+  }
+
   const residual = localizeSriResidualSurfaceV1(text, locale);
   if (residual) return residual;
 
