@@ -13,6 +13,14 @@ export function localizeSriC008C009FinalizedSurfaceV1(
   text: string,
   locale: SriLocalizedLocaleV1,
 ): string | undefined {
+  // C009-H has A+B before the fraction in English; retain that visible math order.
+  const rationalisedCoefficientTarget = text.match(/^Determine A\+B from the rationalised form of (.+)\.$/u);
+  if (rationalisedCoefficientTarget) {
+    return locale === "hi-IN"
+      ? `A+B का मान ${rationalisedCoefficientTarget[1]} के परिमेयकृत रूप से ज्ञात कीजिए।`
+      : `A+B ਦਾ ਮੁੱਲ ${rationalisedCoefficientTarget[1]} ਦੇ ਪਰਿਮੇਯਕ੍ਰਿਤ ਰੂਪ ਤੋਂ ਪਤਾ ਕਰੋ।`;
+  }
+
   const editorial = localizeSriEditorialSurfaceV1(text, locale);
   if (editorial) return editorial;
 
