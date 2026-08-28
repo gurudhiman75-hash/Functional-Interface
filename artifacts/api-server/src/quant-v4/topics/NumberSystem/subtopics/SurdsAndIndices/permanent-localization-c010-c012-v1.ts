@@ -29,12 +29,24 @@ export function localizeSriC010C012FinalizedSurfaceV1(
   if (match) return locale === "hi-IN"
     ? `पूर्णांक करणीगत संख्याओं के लिए निर्धारित कीजिए कि ${match[1]} सरल करणी रूप में बदला जा सकता है या नहीं।`
     : `ਪੂਰਨ ਅੰਕ ਕਰਣੀਗਤ ਸੰਖਿਆਵਾਂ ਲਈ ਨਿਰਧਾਰਤ ਕਰੋ ਕਿ ${match[1]} ਸਰਲ ਕਰਣੀ ਰੂਪ ਵਿੱਚ ਬਦਲਿਆ ਜਾ ਸਕਦਾ ਹੈ ਜਾਂ ਨਹੀਂ।`;
+  match = text.match(/^The nested radical is (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `संयुक्त करणी ${match[1]} है।` : `ਸੰਯੁਕਤ ਕਰਣੀ ${match[1]} ਹੈ।`;
+  match = text.match(/^The nested radical to test is (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `जाँच की जाने वाली संयुक्त करणी ${match[1]} है।` : `ਜਾਂਚ ਕੀਤੀ ਜਾਣ ਵਾਲੀ ਸੰਯੁਕਤ ਕਰਣੀ ${match[1]} ਹੈ।`;
+  if (text === "Decide whether the nested surd has the requested denested form." || text === "Decide whether the nested surd has the supported denested form.") {
+    return locale === "hi-IN" ? "निर्धारित कीजिए कि संयुक्त करणी का अपेक्षित सरल रूप संभव है या नहीं।" : "ਨਿਰਧਾਰਤ ਕਰੋ ਕਿ ਸੰਯੁਕਤ ਕਰਣੀ ਦਾ ਮੰਗਿਆ ਸਰਲ ਰੂਪ ਸੰਭਵ ਹੈ ਜਾਂ ਨਹੀਂ।";
+  }
   if (text === "For integer-radicand denesting, A²−4B must be a non-negative perfect square and yield integer m,n.") return locale === "hi-IN"
     ? "पूर्णांक करणीगत संख्याओं में सरल करने के लिए A²−4B गैर-ऋणात्मक पूर्ण वर्ग होना चाहिए और m,n पूर्णांक मिलने चाहिए।"
     : "ਪੂਰਨ ਅੰਕ ਕਰਣੀਗਤ ਸੰਖਿਆਵਾਂ ਵਿੱਚ ਸਰਲ ਕਰਨ ਲਈ A²−4B ਗੈਰ-ਰਿਣਾਤਮਕ ਪੂਰਨ ਵਰਗ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ ਅਤੇ m,n ਪੂਰਨ ਅੰਕ ਮਿਲਣੇ ਚਾਹੀਦੇ ਹਨ।";
   if (text === "The exact denesting test succeeds.") return locale === "hi-IN" ? "सटीक सरलीकरण जाँच सफल है।" : "ਸਟੀਕ ਸਰਲੀਕਰਨ ਜਾਂਚ ਸਫਲ ਹੈ।";
   if (text === "The exact denesting test fails.") return locale === "hi-IN" ? "सटीक सरलीकरण जाँच असफल है।" : "ਸਟੀਕ ਸਰਲੀਕਰਨ ਜਾਂਚ ਅਸਫਲ ਹੈ।";
-  if (text === "Decide whether the nested surd has the supported denested form.") return locale === "hi-IN" ? "निर्धारित कीजिए कि संयुक्त करणी का समर्थित सरल रूप है या नहीं।" : "ਨਿਰਧਾਰਤ ਕਰੋ ਕਿ ਸੰਯੁਕਤ ਕਰਣੀ ਦਾ ਸਮਰਥਿਤ ਸਰਲ ਰੂਪ ਹੈ ਜਾਂ ਨਹੀਂ।";
+  if (text === "The condition is satisfied, so this form can be denested into integer-radicand square roots.") {
+    return locale === "hi-IN" ? "शर्त पूरी होती है, इसलिए यह रूप पूर्णांक करणीगत संख्याओं वाले वर्गमूलों में सरल किया जा सकता है।" : "ਸ਼ਰਤ ਪੂਰੀ ਹੁੰਦੀ ਹੈ, ਇਸ ਲਈ ਇਹ ਰੂਪ ਪੂਰਨ ਅੰਕ ਕਰਣੀਗਤ ਸੰਖਿਆਵਾਂ ਵਾਲੇ ਵਰਗਮੂਲਾਂ ਵਿੱਚ ਸਰਲ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।";
+  }
+  if (text === "The condition is not satisfied, so this form cannot be denested into integer-radicand square roots.") {
+    return locale === "hi-IN" ? "शर्त पूरी नहीं होती, इसलिए यह रूप पूर्णांक करणीगत संख्याओं वाले वर्गमूलों में सरल नहीं किया जा सकता।" : "ਸ਼ਰਤ ਪੂਰੀ ਨਹੀਂ ਹੁੰਦੀ, ਇਸ ਲਈ ਇਹ ਰੂਪ ਪੂਰਨ ਅੰਕ ਕਰਣੀਗਤ ਸੰਖਿਆਵਾਂ ਵਾਲੇ ਵਰਗਮੂਲਾਂ ਵਿੱਚ ਸਰਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।";
+  }
 
   // CP010-D/E reverse-denesting surfaces.
   match = text.match(/^For (.+), recover the nested-surd parameters \(A,B\) after squaring\.$/u);
@@ -61,7 +73,35 @@ export function localizeSriC010C012FinalizedSurfaceV1(
   if (text === "The repeating tail is again x, so square x=√(k+x) and keep the positive fixed point.") return locale === "hi-IN" ? "आवर्ती शेष भाग फिर x ही है, इसलिए x=√(k+x) का वर्ग कीजिए और धनात्मक स्थिर-बिंदु रखिए।" : "ਆਵਰਤੀ ਬਾਕੀ ਭਾਗ ਫਿਰ x ਹੀ ਹੈ, ਇਸ ਲਈ x=√(k+x) ਦਾ ਵਰਗ ਕਰੋ ਅਤੇ ਧਨਾਤਮਕ ਸਥਿਰ-ਬਿੰਦੂ ਰੱਖੋ।";
   if (text === "Evaluate the positive repeating radical fixed point.") return locale === "hi-IN" ? "धनात्मक आवर्ती करणी का स्थिर-बिंदु मान ज्ञात कीजिए।" : "ਧਨਾਤਮਕ ਆਵਰਤੀ ਕਰਣੀ ਦਾ ਸਥਿਰ-ਬਿੰਦੂ ਮੁੱਲ ਪਤਾ ਕਰੋ।";
 
-  // CP011 comparison and bounds surfaces that generic localization leaves awkward.
+  // CP011 exact comparison surfaces.
+  match = text.match(/^Compare (.+) and (.+) exactly\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} और ${match[2]} की सटीक तुलना कीजिए।` : `${match[1]} ਅਤੇ ${match[2]} ਦੀ ਸਟੀਕ ਤੁਲਨਾ ਕਰੋ।`;
+  match = text.match(/^Which is greater: (.+) or (.+)\?$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} और ${match[2]} में कौन बड़ा है?` : `${match[1]} ਅਤੇ ${match[2]} ਵਿੱਚੋਂ ਕਿਹੜਾ ਵੱਡਾ ਹੈ?`;
+  match = text.match(/^Without decimal approximation, compare (.+) with (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `दशमलव सन्निकटन के बिना ${match[1]} और ${match[2]} की तुलना कीजिए।` : `ਦਸ਼ਮਲਵ ਅਨੁਮਾਨ ਤੋਂ ਬਿਨਾਂ ${match[1]} ਅਤੇ ${match[2]} ਦੀ ਤੁਲਨਾ ਕਰੋ।`;
+  match = text.match(/^Determine the exact order of (.+) and (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} और ${match[2]} का सटीक क्रम निर्धारित कीजिए।` : `${match[1]} ਅਤੇ ${match[2]} ਦਾ ਸਟੀਕ ਕ੍ਰਮ ਨਿਰਧਾਰਤ ਕਰੋ।`;
+  match = text.match(/^Compare the positive surds (.+) and (.+) by exact arithmetic\.$/u);
+  if (match) return locale === "hi-IN" ? `धनात्मक करणियों ${match[1]} और ${match[2]} की सटीक गणना से तुलना कीजिए।` : `ਧਨਾਤਮਕ ਕਰਣੀਆਂ ${match[1]} ਅਤੇ ${match[2]} ਦੀ ਸਟੀਕ ਗਣਨਾ ਨਾਲ ਤੁਲਨਾ ਕਰੋ।`;
+  match = text.match(/^Without decimals, determine the order of (.+) and (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `दशमलव के बिना ${match[1]} और ${match[2]} का क्रम निर्धारित कीजिए।` : `ਦਸ਼ਮਲਵ ਤੋਂ ਬਿਨਾਂ ${match[1]} ਅਤੇ ${match[2]} ਦਾ ਕ੍ਰਮ ਨਿਰਧਾਰਤ ਕਰੋ।`;
+  match = text.match(/^Use a common exact power to compare (.+) with (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `${match[1]} और ${match[2]} की तुलना समान सटीक घात से कीजिए।` : `${match[1]} ਅਤੇ ${match[2]} ਦੀ ਤੁਲਨਾ ਸਾਂਝੀ ਸਟੀਕ ਘਾਤ ਨਾਲ ਕਰੋ।`;
+  match = text.match(/^Determine the exact order of the different-index radicals (.+) and (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `भिन्न-घातांक करणियों ${match[1]} और ${match[2]} का सटीक क्रम निर्धारित कीजिए।` : `ਵੱਖਰੇ-ਘਾਤਾਂਕ ਕਰਣੀਆਂ ${match[1]} ਅਤੇ ${match[2]} ਦਾ ਸਟੀਕ ਕ੍ਰਮ ਨਿਰਧਾਰਤ ਕਰੋ।`;
+
+  match = text.match(/^The quantities to compare are the positive surds (.+) and (.+) by exact arithmetic\.$/u);
+  if (match) return locale === "hi-IN" ? `तुलना की जाने वाली धनात्मक करणियाँ ${match[1]} और ${match[2]} हैं।` : `ਤੁਲਨਾ ਲਈ ਧਨਾਤਮਕ ਕਰਣੀਆਂ ${match[1]} ਅਤੇ ${match[2]} ਹਨ।`;
+  match = text.match(/^The quantities to compare are the different-index radicals (.+) and (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `तुलना की जाने वाली भिन्न-घातांक करणियाँ ${match[1]} और ${match[2]} हैं।` : `ਤੁਲਨਾ ਲਈ ਵੱਖਰੇ-ਘਾਤਾਂਕ ਕਰਣੀਆਂ ${match[1]} ਅਤੇ ${match[2]} ਹਨ।`;
+  match = text.match(/^The quantities to compare are (.+) with (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `तुलना की जाने वाली राशियाँ ${match[1]} और ${match[2]} हैं।` : `ਤੁਲਨਾ ਲਈ ਰਾਸ਼ੀਆਂ ${match[1]} ਅਤੇ ${match[2]} ਹਨ।`;
+  match = text.match(/^The quantities to compare are (.+) and (.+)\.$/u);
+  if (match) return locale === "hi-IN" ? `तुलना की जाने वाली राशियाँ ${match[1]} और ${match[2]} हैं।` : `ਤੁਲਨਾ ਲਈ ਰਾਸ਼ੀਆਂ ${match[1]} ਅਤੇ ${match[2]} ਹਨ।`;
+  if (text === "Compare the two positive square roots exactly.") return locale === "hi-IN" ? "दोनों धनात्मक वर्गमूलों की सटीक तुलना कीजिए।" : "ਦੋਵੇਂ ਧਨਾਤਮਕ ਵਰਗਮੂਲਾਂ ਦੀ ਸਟੀਕ ਤੁਲਨਾ ਕਰੋ।";
+  if (text === "Compare the two coefficient-bearing surds exactly.") return locale === "hi-IN" ? "गुणांक वाली दोनों करणियों की सटीक तुलना कीजिए।" : "ਗੁਣਾਂਕ ਵਾਲੀਆਂ ਦੋਵੇਂ ਕਰਣੀਆਂ ਦੀ ਸਟੀਕ ਤੁਲਨਾ ਕਰੋ।";
+  if (text === "Compare the different-index radicals exactly.") return locale === "hi-IN" ? "भिन्न-घातांक करणियों की सटीक तुलना कीजिए।" : "ਵੱਖਰੇ-ਘਾਤਾਂਕ ਕਰਣੀਆਂ ਦੀ ਸਟੀਕ ਤੁਲਨਾ ਕਰੋ।";
   if (text === "Both radicals are positive, so compare their squares exactly.") return locale === "hi-IN" ? "दोनों करणियाँ धनात्मक हैं, इसलिए उनके वर्गों की सटीक तुलना कीजिए।" : "ਦੋਵੇਂ ਕਰਣੀਆਂ ਧਨਾਤਮਕ ਹਨ, ਇਸ ਲਈ ਉਨ੍ਹਾਂ ਦੇ ਵਰਗਾਂ ਦੀ ਸਟੀਕ ਤੁਲਨਾ ਕਰੋ।";
   if (text === "Because both quantities are positive, square them and compare the resulting integers.") return locale === "hi-IN" ? "दोनों राशियाँ धनात्मक हैं, इसलिए उनका वर्ग करके प्राप्त पूर्णांकों की तुलना कीजिए।" : "ਦੋਵੇਂ ਰਾਸ਼ੀਆਂ ਧਨਾਤਮਕ ਹਨ, ਇਸ ਲਈ ਉਨ੍ਹਾਂ ਦਾ ਵਰਗ ਕਰਕੇ ਮਿਲੇ ਪੂਰਨ ਅੰਕਾਂ ਦੀ ਤੁਲਨਾ ਕਰੋ।";
   match = text.match(/^Raise both positive radicals to the common power (\d+); this preserves their order\.$/u);
