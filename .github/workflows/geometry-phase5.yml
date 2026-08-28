@@ -1,27 +1,25 @@
-name: Validate Geometry Hindi Punjabi localisation review V2
+name: Validate Geometry permanent multilingual freeze V1
 
 on:
   pull_request:
     branches: [New-main]
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
-      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/geometry-localization-editorial-v2-*.ts
-      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/geometry-localization-options-v2.ts
-      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/geometry-permanent-multilingual-review-v2.ts
-      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-v2-frozen-english-source-variants.ts
-      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-permanent-multilingual-review-v2.ts
-      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-permanent-multilingual-review-v2.test.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/geometry-permanent-multilingual-review-proof-v2.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/geometry-permanent-multilingual-freeze-v1.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-permanent-multilingual-freeze-v1.ts
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-permanent-multilingual-freeze-v1.test.ts
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: geometry-multilingual-review-v2-${{ github.ref }}
+  group: geometry-multilingual-freeze-v1-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-geometry-hindi-punjabi-localisation-review-v2:
+  validate-geometry-permanent-multilingual-freeze:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -35,29 +33,18 @@ jobs:
         run: corepack enable
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-      - name: Export frozen English source-variant authority diagnostic
+      - name: Prove Geometry permanent Hindi Punjabi freeze V1
         run: |
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-v2-frozen-english-source-variants.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-v2-frozen-english-source-variants-export.mjs
-          (cd artifacts/api-server && node dist/quant-v4/geometry-v2-frozen-english-source-variants-export.mjs)
-      - name: Upload frozen English source-variant authority diagnostic
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-permanent-multilingual-freeze-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-permanent-multilingual-freeze-v1.test.mjs
+          node artifacts/api-server/dist/quant-v4/geometry-permanent-multilingual-freeze-v1.test.mjs
+      - name: Export Geometry permanent Hindi Punjabi freeze V1 evidence
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-permanent-multilingual-freeze-v1.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-permanent-multilingual-freeze-v1-export.mjs
+          (cd artifacts/api-server && node dist/quant-v4/geometry-permanent-multilingual-freeze-v1-export.mjs)
+      - name: Upload Geometry permanent Hindi Punjabi freeze V1 evidence
         uses: actions/upload-artifact@v4
         with:
-          name: geometry-v2-frozen-english-source-variants
-          path: artifacts/api-server/dist/quant-v4/geometry-v2-frozen-english-source-variants
-          if-no-files-found: error
-          retention-days: 7
-      - name: Prove Geometry Hindi Punjabi human editorial review V2
-        run: |
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/geometry-permanent-multilingual-review-v2.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-permanent-multilingual-review-v2.test.mjs
-          node artifacts/api-server/dist/quant-v4/geometry-permanent-multilingual-review-v2.test.mjs
-      - name: Export Geometry Hindi Punjabi human editorial review V2 pack
-        run: |
-          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/permanent-review/export-geometry-permanent-multilingual-review-v2.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-permanent-multilingual-review-v2-export.mjs
-          (cd artifacts/api-server && node dist/quant-v4/geometry-permanent-multilingual-review-v2-export.mjs)
-      - name: Upload Geometry Hindi Punjabi human editorial review V2 pack
-        uses: actions/upload-artifact@v4
-        with:
-          name: geometry-permanent-multilingual-review-v2
-          path: artifacts/api-server/dist/quant-v4/geometry-permanent-multilingual-review-v2
+          name: geometry-permanent-multilingual-freeze-v1
+          path: artifacts/api-server/dist/quant-v4/geometry-permanent-multilingual-freeze-v1
           if-no-files-found: error
           retention-days: 30
