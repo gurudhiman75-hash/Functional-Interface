@@ -9,6 +9,8 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid ADMIN_PORT value: "${rawPort}"`);
 }
 
+const renderBuild = process.env.EXAMTREE_RENDER_BUILD === '1';
+
 export default defineConfig({
   base: '/admin/',
   plugins: [react()],
@@ -24,7 +26,7 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, 'dist/public'),
     emptyOutDir: true,
-    sourcemap: true,
+    sourcemap: !renderBuild,
   },
   server: {
     host: '0.0.0.0',
