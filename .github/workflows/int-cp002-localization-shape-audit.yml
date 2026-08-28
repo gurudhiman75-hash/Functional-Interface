@@ -1,0 +1,38 @@
+name: Validate INT-CP-002 Localization Shape Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-localization-shape-audit.ts'
+      - '.github/workflows/int-cp002-localization-shape-audit.yml'
+
+jobs:
+  validate-int-cp002-localization-shapes:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.33.0'
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Inventory structured localization shapes
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-cp002-localization-shape-audit.ts | tee int-cp002-localization-shapes.log
+          grep -q 'PASS_INT_CP002_LOCALIZATION_SHAPE_AUDIT' int-cp002-localization-shapes.log
+      - name: Upload shape inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-cp002-localization-shapes
+          path: int-cp002-localization-shapes.log
+          retention-days: 30
