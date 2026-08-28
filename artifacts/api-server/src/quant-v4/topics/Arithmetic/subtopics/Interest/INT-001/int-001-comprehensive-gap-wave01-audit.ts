@@ -2,10 +2,10 @@ import assert from "node:assert/strict";
 import {
   INT_CP010_SEQUENTIAL_REOPEN_PROTOTYPES,
   INT_CP010_SEQUENTIAL_REOPEN_SOURCE_AUTHORITY,
-  buildIntCp010SequentialReopenPackage,
+  buildIntCp010SequentialReopenPackageV2,
   solveIntCp010SequentialReopen,
   verifyIntCp010SequentialReopen,
-} from "./cp010-sequential-mixed-source-reopen-v1";
+} from "./cp010-sequential-mixed-source-reopen-v2";
 
 function stable(value: unknown) {
   return JSON.stringify(value, (_key, current) => typeof current === "bigint" ? `${current}n` : current);
@@ -18,6 +18,8 @@ let verifierChecks = 0;
 let optionChecks = 0;
 let lifecycleChecks = 0;
 let sourceBoundaryChecks = 0;
+let packagingRemediationChecks = 0;
+let remediatedSeedCount = 0;
 const answerPositions = [0, 0, 0, 0];
 const stems = new Map<string, Set<string>>();
 const fingerprints = new Map<string, Set<string>>();
@@ -38,12 +40,18 @@ for (const prototypeId of INT_CP010_SEQUENTIAL_REOPEN_PROTOTYPES) {
   fingerprints.set(prototypeId, new Set());
   for (let index = 0; index < SAMPLES_PER_PROTOTYPE; index += 1) {
     const seed = `int-gap-wave01:${prototypeId}:${index}`;
-    const first = buildIntCp010SequentialReopenPackage(prototypeId, seed);
-    const replay = buildIntCp010SequentialReopenPackage(prototypeId, seed);
+    const first = buildIntCp010SequentialReopenPackageV2(prototypeId, seed);
+    const replay = buildIntCp010SequentialReopenPackageV2(prototypeId, seed);
     packages += 1;
 
     assert.equal(stable(first), stable(replay), `${prototypeId}/${index}: deterministic replay drift`);
-    deterministicChecks += 1;
+    assert.equal(first.requestedSeed, seed, `${prototypeId}/${index}: requested-seed trace drift`);
+    assert.equal(first.effectiveSeed, replay.effectiveSeed, `${prototypeId}/${index}: effective-seed replay drift`);
+    assert.ok(first.seedResolutionAttempts >= 1 && first.seedResolutionAttempts <= 32, `${prototypeId}/${index}: invalid seed-resolution attempt count`);
+    assert.ok(first.packagingRemediationVersion.includes("v2"), `${prototypeId}/${index}: packaging remediation version missing`);
+    deterministicChecks += 3;
+    packagingRemediationChecks += 2;
+    if (first.effectiveSeed !== first.requestedSeed) remediatedSeedCount += 1;
 
     const canonical = solveIntCp010SequentialReopen(first.state);
     assert.equal(stable(canonical), stable(first.answer), `${prototypeId}/${index}: solver/package answer drift`);
@@ -90,6 +98,7 @@ for (const prototypeId of INT_CP010_SEQUENTIAL_REOPEN_PROTOTYPES) {
 assert.deepEqual([...inverseOrders].sort(), ["CI_THEN_SI", "SI_THEN_CI"], "mixed-stage inverse did not reach both stage orders");
 assert.deepEqual([...spreadFrequencies].sort(), [1, 2], "scheme-spread inverse did not reach annual and half-yearly compounding");
 assert.ok(answerPositions.every((count) => count >= 200), `answer-position imbalance too large: ${answerPositions.join(" / ")}`);
+assert.ok(remediatedSeedCount > 0, "V2 remediation path was never exercised; edge-case coverage is missing");
 
 console.log("PASS_INT_001_COMPREHENSIVE_GAP_WAVE01_AUDIT");
 console.log(JSON.stringify({
@@ -101,6 +110,8 @@ console.log(JSON.stringify({
   optionChecks,
   lifecycleChecks,
   sourceBoundaryChecks,
+  packagingRemediationChecks,
+  remediatedSeedCount,
   answerPositions,
   stemFamilies: Object.fromEntries([...stems].map(([key, value]) => [key, value.size])),
   uniqueStates: Object.fromEntries([...fingerprints].map(([key, value]) => [key, value.size])),
