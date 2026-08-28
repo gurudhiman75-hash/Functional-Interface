@@ -2,9 +2,10 @@ name: Validate NUM-CP-014 through Wave03 saturation
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/**"
-      - ".github/workflows/num-cp014-through-wave03-saturation-v1.yml"
   workflow_dispatch:
 
 concurrency:
@@ -21,57 +22,33 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
       - name: Enable pnpm
         run: corepack enable
-
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-
       - name: Bundle CP014 discovery audits
         shell: bash
         run: |
           set -euo pipefail
           root="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014"
-          pnpm --dir artifacts/api-server exec esbuild "$root/wave01/runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w1-runtime.mjs
-          pnpm --dir artifacts/api-server exec esbuild "$root/wave01/independent-ablation.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w1-independent.mjs
-          pnpm --dir artifacts/api-server exec esbuild "$root/wave01/redundancy-rejection.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w1-negative.mjs
-          pnpm --dir artifacts/api-server exec esbuild "$root/wave02/runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w2-runtime.mjs
-          pnpm --dir artifacts/api-server exec esbuild "$root/wave02/independent-answer-impact.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w2-independent.mjs
-          pnpm --dir artifacts/api-server exec esbuild "$root/wave02/solution-class-admission.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w2-admission.mjs
-          pnpm --dir artifacts/api-server exec esbuild "$root/wave03/runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w3-runtime.mjs
-          pnpm --dir artifacts/api-server exec esbuild "$root/wave03/independent-saturation.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w3-independent.mjs
-          pnpm --dir artifacts/api-server exec esbuild "$root/wave03/redundancy-negative-control.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w3-negative.mjs
-          pnpm --dir artifacts/api-server exec esbuild "$root/wave03/runtime-v2.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w3-v2-runtime.mjs
-          pnpm --dir artifacts/api-server exec esbuild "$root/wave03/independent-v2.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-w3-v2-independent.mjs
-
-      - name: Run Wave01 necessity and negative controls
+          for spec in \
+            "wave01/runtime.test.ts:w1-runtime" "wave01/independent-ablation.test.ts:w1-independent" "wave01/redundancy-rejection.test.ts:w1-negative" \
+            "wave02/runtime.test.ts:w2-runtime" "wave02/independent-answer-impact.test.ts:w2-independent" "wave02/solution-class-admission.test.ts:w2-admission" \
+            "wave03/runtime.test.ts:w3-runtime" "wave03/independent-saturation.test.ts:w3-independent" "wave03/redundancy-negative-control.test.ts:w3-negative" \
+            "wave03/runtime-v2.test.ts:w3-v2-runtime" "wave03/independent-v2.test.ts:w3-v2-independent"; do
+            file="${spec%%:*}"; name="${spec##*:}"
+            pnpm --dir artifacts/api-server exec esbuild "$root/$file" --bundle --platform=node --format=esm --outfile="dist/quant-v4/num-cp014-$name.mjs"
+          done
+      - name: Run CP014 Wave01-Wave03 audits
+        shell: bash
         run: |
           set -euo pipefail
-          node artifacts/api-server/dist/quant-v4/num-cp014-w1-runtime.mjs
-          node artifacts/api-server/dist/quant-v4/num-cp014-w1-independent.mjs
-          node artifacts/api-server/dist/quant-v4/num-cp014-w1-negative.mjs
-
-      - name: Run Wave02 inverse and answer-impact audits
-        run: |
-          set -euo pipefail
-          node artifacts/api-server/dist/quant-v4/num-cp014-w2-runtime.mjs
-          node artifacts/api-server/dist/quant-v4/num-cp014-w2-independent.mjs
-          node artifacts/api-server/dist/quant-v4/num-cp014-w2-admission.mjs
-
-      - name: Run Wave03 representation and answer-semantic saturation
-        run: |
-          set -euo pipefail
-          node artifacts/api-server/dist/quant-v4/num-cp014-w3-runtime.mjs
-          node artifacts/api-server/dist/quant-v4/num-cp014-w3-independent.mjs
-          node artifacts/api-server/dist/quant-v4/num-cp014-w3-negative.mjs
-          node artifacts/api-server/dist/quant-v4/num-cp014-w3-v2-runtime.mjs
-          node artifacts/api-server/dist/quant-v4/num-cp014-w3-v2-independent.mjs
-
+          for name in w1-runtime w1-independent w1-negative w2-runtime w2-independent w2-admission w3-runtime w3-independent w3-negative w3-v2-runtime w3-v2-independent; do
+            node "artifacts/api-server/dist/quant-v4/num-cp014-$name.mjs"
+          done
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
