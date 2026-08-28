@@ -53,3 +53,5 @@ jobs:
             $(find src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012 -name '*.ts' -print)
       - name: Prove CP012 source saturation and cross-checkpoint disposition
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/source-saturation-proof.test.ts
+      - name: Prove CP012 representation saturation
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/representation-saturation-proof.test.ts
