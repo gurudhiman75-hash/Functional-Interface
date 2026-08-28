@@ -2,9 +2,10 @@ name: Validate NUM-CP-014 Wave01 synthesis foundation
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/**"
-      - ".github/workflows/num-cp014-wave01-synthesis-foundation-v1.yml"
   workflow_dispatch:
 
 concurrency:
@@ -21,18 +22,14 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-
       - name: Enable pnpm
         run: corepack enable
-
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-
       - name: Bundle CP014 Wave01 audits
         shell: bash
         run: |
@@ -41,35 +38,12 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild "$base/runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-wave01-runtime.mjs
           pnpm --dir artifacts/api-server exec esbuild "$base/independent-ablation.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-wave01-independent.mjs
           pnpm --dir artifacts/api-server exec esbuild "$base/redundancy-rejection.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-wave01-redundancy.mjs
-
-      - name: Run synthesis necessity audit
+      - name: Run Wave01 audits
         shell: bash
         run: |
-          set -o pipefail
-          node artifacts/api-server/dist/quant-v4/num-cp014-wave01-runtime.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp014-wave01-runtime.log
-
-      - name: Run independent ablation reconstruction
-        shell: bash
-        run: |
-          set -o pipefail
-          node artifacts/api-server/dist/quant-v4/num-cp014-wave01-independent.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp014-wave01-independent.log
-
-      - name: Reject decorative synthesis pairs
-        shell: bash
-        run: |
-          set -o pipefail
-          node artifacts/api-server/dist/quant-v4/num-cp014-wave01-redundancy.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp014-wave01-redundancy.log
-
+          set -euo pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp014-wave01-runtime.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp014-wave01-independent.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp014-wave01-redundancy.mjs
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-
-      - name: Upload CP014 Wave01 evidence
-        uses: actions/upload-artifact@v4
-        with:
-          name: num-cp014-wave01-synthesis-foundation-v1
-          path: |
-            artifacts/api-server/dist/quant-v4/num-cp014-wave01-runtime.log
-            artifacts/api-server/dist/quant-v4/num-cp014-wave01-independent.log
-            artifacts/api-server/dist/quant-v4/num-cp014-wave01-redundancy.log
-          if-no-files-found: error
-          retention-days: 30
