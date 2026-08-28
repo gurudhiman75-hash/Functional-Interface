@@ -30,12 +30,28 @@ async function installPublicFixtures(page: Page) {
   });
 }
 
-test.describe("CP02 public and app shell split", () => {
-  test("uses acquisition chrome publicly and preparation chrome on dashboard", async ({ page }) => {
-    await installPublicFixtures(page);
-    await page.goto("/about");
+async function expectMinHeight(locator: ReturnType<Page["getByRole"]>) {
+  const box = await locator.boundingBox();
+  expect(box).not.toBeNull();
+  expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
+}
 
-    await expect(page.getByRole("navigation", { name: "Primary navigation" })).toBeVisible();
+test.describe("CP02 public and app shell split", () => {
+  test("uses sidebar-first acquisition chrome publicly and preparation chrome on dashboard", async ({ page }) => {
+    await installPublicFixtures(page);
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/contact");
+
+    await expect(page.getByRole("navigation", { name: "Primary navigation" })).toBeHidden();
+    await expect(page.getByTestId("public-study-sidebar")).toBeVisible();
+    await expect(page.getByTestId("public-study-sidebar").getByRole("link", { name: "Support", exact: true })).toHaveAttribute("aria-current", "page");
+
+    const sidebarExploreCta = page.getByTestId("sidebar-explore-cta");
+    await expect(sidebarExploreCta).toBeVisible();
+    const sidebarExploreBox = await sidebarExploreCta.boundingBox();
+    expect(sidebarExploreBox).not.toBeNull();
+    expect(sidebarExploreBox?.height ?? 0).toBeGreaterThanOrEqual(44);
+
     await expect(page.getByRole("link", { name: "ExamTree home" }).first()).toBeVisible();
     await expect(page.getByText("Built for exam discovery, mock tests, and saved review.")).toBeVisible();
     await expect(page.getByRole("button", { name: /Select Targeted Exam/i })).toHaveCount(0);
@@ -44,16 +60,32 @@ test.describe("CP02 public and app shell split", () => {
 
     await page.goto("/dashboard");
 
+    await expect(page.getByTestId("public-study-sidebar")).toHaveCount(0);
     await expect(page.getByRole("navigation", { name: "Primary navigation" })).toHaveCount(0);
     await expect(page.getByRole("button", { name: /Select Targeted Exam/i })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Your activity follows you across devices/i })).toBeVisible();
   });
 
+  test("keeps non-study desktop header navigation at the 44px interaction contract", async ({ page }) => {
+    await installPublicFixtures(page);
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/privacy-policy");
+
+    const primaryNavigation = page.getByRole("navigation", { name: "Primary navigation" });
+    await expect(primaryNavigation).toBeVisible();
+
+    await expectMinHeight(primaryNavigation.getByRole("link", { name: "Tests", exact: true }));
+    await expectMinHeight(page.getByRole("link", { name: "Sign in", exact: true }));
+    await expectMinHeight(page.getByRole("link", { name: "Browse tests", exact: true }));
+    await expectMinHeight(page.getByRole("link", { name: "ExamTree home" }).first());
+  });
+
   test("keeps the public mobile menu keyboard-operable without horizontal overflow", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await installPublicFixtures(page);
-    await page.goto("/about");
+    await page.goto("/contact");
 
+    await expect(page.getByTestId("public-study-sidebar")).toBeHidden();
     const menuButton = page.getByRole("button", { name: "Open navigation menu" });
     await expect(menuButton).toBeVisible();
     await expect(menuButton).toHaveAttribute("aria-expanded", "false");
@@ -64,7 +96,10 @@ test.describe("CP02 public and app shell split", () => {
     const mobileNavigation = page.getByRole("navigation", { name: "Mobile primary navigation" });
     await expect(mobileNavigation).toBeVisible();
     await expect(mobileNavigation.getByRole("link", { name: "Sign in" })).toBeVisible();
-    await expect(mobileNavigation.getByRole("link", { name: "Browse tests", exact: true })).toBeVisible();
+    await expect(mobileNavigation.getByRole("link", { name: "Explore Exams", exact: true })).toBeVisible();
+    await expect(mobileNavigation.getByTestId("mobile-disabled-analytics")).toHaveAttribute("aria-disabled", "true");
+    await expect(mobileNavigation.getByRole("link", { name: "Analytics", exact: true })).toHaveCount(0);
+    await expect(mobileNavigation.getByRole("link", { name: "Support", exact: true })).toHaveAttribute("aria-current", "page");
 
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow).toBeLessThanOrEqual(1);

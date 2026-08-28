@@ -1,0 +1,49 @@
+name: Validate SPA PFC-001 Polygon Learner Review V1
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-pfc-polygon-learner-review-v1:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle polygon learner-review gate
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-paper-folding-polygon-learner-review-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-paper-folding-polygon-learner-review-v1.test.mjs
+
+      - name: Validate triangular paper learner review
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-polygon-learner-review-v1.test.mjs
+
+      - name: Upload polygon learner-review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-pfc-polygon-triangle-review-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-polygon-triangle-review-v1.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-polygon-triangle-review-v1-evidence.json
+          if-no-files-found: error

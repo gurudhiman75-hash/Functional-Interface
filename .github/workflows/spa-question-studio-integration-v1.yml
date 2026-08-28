@@ -2,7 +2,24 @@ name: Validate SPA-FND-001 Question Studio Integration V1
 
 on:
   pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-*.test.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio.ts"
+      - "artifacts/admin-app/src/features/question-studio/**"
+      - "artifacts/admin-app/src/pages/content/QuestionStudio*.tsx"
+      - "artifacts/api-server/package.json"
+      - "artifacts/admin-app/package.json"
+      - "artifacts/api-server/tsconfig*.json"
+      - "artifacts/admin-app/tsconfig*.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - ".github/workflows/spa-question-studio-integration-v1.yml"
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read

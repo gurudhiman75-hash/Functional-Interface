@@ -23,7 +23,7 @@ assert.deepEqual(
   "Permanent range drift",
 );
 assert.deepEqual(NUM_CP011_QUESTION_STUDIO_QL_IDS, NUM_CP011_PERMANENT_QL_IDS, "Question Studio QL range drift");
-assert.equal(NUM_CP011_ALLOCATION_STATUS.nextAvailableQl, "NUM-QL-226");
+assert.equal(NUM_CP011_ALLOCATION_STATUS.nextAvailableQl, "NUM-QL-226", "Historical CP011 allocation boundary drift");
 
 let permanentChecks = 0;
 let localizedChecks = 0;
@@ -81,10 +81,16 @@ assert.equal(studioChecks, 39);
 
 const num002 = listQuestionStudioPackages().find((pkg: any) => String(pkg.packageId) === "NUM-002") as any;
 assert.ok(num002, "NUM-002 shared capability missing");
-assert.deepEqual(num002.cpIds.slice(-4), ["NUM-CP-008", "NUM-CP-009", "NUM-CP-010", "NUM-CP-011"], "NUM-002 checkpoint aggregate drift");
-assert.equal(num002.permanentQlCount, 60, "NUM-002 aggregate QL count drift");
+assert.deepEqual(
+  num002.cpIds.slice(-5),
+  ["NUM-CP-008", "NUM-CP-009", "NUM-CP-010", "NUM-CP-011", "NUM-CP-012"],
+  "NUM-002 checkpoint aggregate drift through CP012",
+);
+assert.equal(num002.permanentQlCount, 71, "NUM-002 aggregate QL count drift through CP012");
 assert.equal(num002.permanentQlIds[0], "NUM-QL-166");
-assert.equal(num002.permanentQlIds.at(-1), "NUM-QL-225");
+assert.equal(num002.permanentQlIds.at(-1), "NUM-QL-236");
+assert.ok(num002.permanentQlIds.includes("NUM-QL-213"));
+assert.ok(num002.permanentQlIds.includes("NUM-QL-225"));
 assert.equal(num002.questionBankWritable, false);
 assert.equal(num002.testEligible, false);
 assert.equal(num002.publiclyPublishable, false);
@@ -106,7 +112,7 @@ for (const marker of [
 for (const marker of [
   "listNumCp011QuestionStudioPackages",
   "generateNumCp011QuestionStudioBatch",
-  "CP008-CP011-MULTILINGUAL-FROZEN-V1",
+  "CP008-CP012-MULTILINGUAL-FROZEN-V1",
 ]) {
   assert.ok(sharedSource.includes(marker), `Cumulative shared-engine marker missing: ${marker}`);
 }
@@ -122,7 +128,9 @@ console.log(JSON.stringify({
   status: "PASS_NUM_CP011_CUMULATIVE_LANDING",
   permanentAuthorities: 13,
   permanentRange: "NUM-QL-213..225",
-  nextAvailableQl: "NUM-QL-226",
+  historicalNextAvailableQlAfterCp011: "NUM-QL-226",
+  currentAggregateLastQl: "NUM-QL-236",
+  currentGlobalNextAvailableQl: "NUM-QL-237",
   permanentChecks,
   localizedChecks,
   studioChecks,

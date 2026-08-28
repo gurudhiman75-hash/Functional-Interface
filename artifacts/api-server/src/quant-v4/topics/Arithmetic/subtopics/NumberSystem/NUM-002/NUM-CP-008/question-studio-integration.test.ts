@@ -28,12 +28,14 @@ assert.equal(localCapability.automaticStudentPublication, false);
 
 const sharedCapability = listQuestionStudioPackages().find((entry: any) => entry.packageId === "NUM-002");
 assert.ok(sharedCapability);
-assert.deepEqual(sharedCapability.cpIds, ["NUM-CP-008", "NUM-CP-009", "NUM-CP-010", "NUM-CP-011"]);
+assert.deepEqual(sharedCapability.cpIds, ["NUM-CP-008", "NUM-CP-009", "NUM-CP-010", "NUM-CP-011", "NUM-CP-012"]);
 assert.deepEqual(sharedCapability.supportedLanguages, ["en", "hi", "pa"]);
-assert.equal(sharedCapability.permanentQlCount, 60);
-assert.equal(sharedCapability.permanentQlIds.length, 60);
+assert.equal(sharedCapability.permanentQlCount, 71);
+assert.equal(sharedCapability.permanentQlIds.length, 71);
 assert.equal(sharedCapability.permanentQlIds[0], "NUM-QL-166");
-assert.equal(sharedCapability.permanentQlIds.at(-1), "NUM-QL-225");
+assert.equal(sharedCapability.permanentQlIds.at(-1), "NUM-QL-236");
+assert.ok(sharedCapability.permanentQlIds.includes("NUM-QL-166"));
+assert.ok(sharedCapability.permanentQlIds.includes("NUM-QL-184"));
 assert.equal(sharedCapability.questionBankWritable, false);
 assert.equal(sharedCapability.testEligible, false);
 assert.equal(sharedCapability.publiclyPublishable, false);
@@ -68,4 +70,4 @@ for (const language of languages) {
 }
 
 await assert.rejects(() => generateNumCp008QuestionStudioBatch({ packageId: "NUM-002", canonicalProblemId: "NUM-CP-008", questionLanguageId: "NUM-QL-165", language: "en", seed: "bad-owner" }), /not owned by NUM-CP-008/u);
-console.log(JSON.stringify({ status: "PASS_NUM_CP008_QUESTION_STUDIO_INTEGRATION_V1", permanentAuthorities: NUM_CP008_QUESTION_STUDIO_QL_IDS.length, sharedNum002PermanentAuthorities: sharedCapability.permanentQlCount, sharedNum002Checkpoints: sharedCapability.cpIds, languages, packages, sourceLifecycleLocks, integrationLifecycleLocks, multilingualChecks, questionStudioDiscoverable: true, questionBankWritable: false, testEligible: false, publiclyPublishable: false, nextAvailableQl: "NUM-QL-226" }, null, 2));
+console.log(JSON.stringify({ status: "PASS_NUM_CP008_QUESTION_STUDIO_INTEGRATION_V1", permanentAuthorities: NUM_CP008_QUESTION_STUDIO_QL_IDS.length, sharedNum002PermanentAuthorities: sharedCapability.permanentQlCount, sharedNum002Checkpoints: sharedCapability.cpIds, languages, packages, sourceLifecycleLocks, integrationLifecycleLocks, multilingualChecks, questionStudioDiscoverable: true, questionBankWritable: false, testEligible: false, publiclyPublishable: false, currentGlobalNextAvailableQl: "NUM-QL-237" }, null, 2));

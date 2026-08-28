@@ -1,0 +1,224 @@
+@import "./home-hero-premium.css";
+
+/* ExamTree public homepage visual rhythm.
+ * Home is intentionally a marketing/discovery surface; test inventory stays in deeper routes.
+ */
+
+[data-testid="home-hero"] {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 84% 14%, hsl(var(--primary) / 0.16), transparent 31rem),
+    radial-gradient(circle at 10% 2%, hsl(var(--primary) / 0.08), transparent 27rem),
+    linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted) / 0.34) 100%);
+  border-bottom: 0;
+}
+
+[data-testid="home-hero"]::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.3), transparent);
+  pointer-events: none;
+}
+
+[data-testid="home-exam-finder"] > div:last-child {
+  border-color: hsl(var(--primary) / 0.2);
+  background: hsl(var(--card) / 0.96);
+  box-shadow: 0 28px 76px -38px hsl(var(--foreground) / 0.42);
+  backdrop-filter: blur(14px);
+}
+
+[data-testid="home-proof-strip"] {
+  border: 0;
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
+}
+
+[data-testid="home-proof-strip"] > div {
+  border-color: hsl(var(--background) / 0.13);
+}
+
+[data-testid="home-proof-strip"] .text-foreground {
+  color: hsl(var(--background));
+}
+
+[data-testid="home-proof-strip"] .text-muted-foreground {
+  color: hsl(var(--background) / 0.62);
+}
+
+[data-testid="home-exam-families"] {
+  margin-block: clamp(2.5rem, 5vw, 5rem);
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  border: 1px solid hsl(var(--border));
+  border-radius: 2rem;
+  background: hsl(var(--card));
+  box-shadow: 0 22px 66px -54px hsl(var(--foreground) / 0.5);
+}
+
+[data-testid="home-exam-families"] button[class*="min-h-[132px]"] {
+  border-color: transparent;
+  background: hsl(var(--muted) / 0.45);
+  box-shadow: none;
+}
+
+[data-testid="home-exam-families"] button[class*="min-h-[132px]"]:hover {
+  border-color: hsl(var(--primary) / 0.28);
+  background: hsl(var(--primary) / 0.065);
+}
+
+[data-testid="home-why-examtree"] {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(4.5rem, 7vw, 7rem);
+  border: 0;
+  background:
+    radial-gradient(circle at 88% 22%, hsl(var(--primary) / 0.25), transparent 28rem),
+    linear-gradient(120deg, hsl(var(--foreground)), hsl(var(--foreground) / 0.92));
+}
+
+[data-testid="home-why-examtree"] > div > div > div:first-child .text-foreground,
+[data-testid="home-why-examtree"] > div > div > div:first-child .text-muted-foreground {
+  color: hsl(var(--background));
+}
+
+[data-testid="home-why-examtree"] > div > div > div:first-child .text-muted-foreground {
+  opacity: 0.68;
+}
+
+[data-testid="home-why-examtree"] > div > div > div:first-child > p:first-child {
+  color: hsl(var(--primary-foreground));
+  opacity: 0.72;
+}
+
+[data-testid="home-why-examtree"] > div > div > div:first-child button {
+  border-color: hsl(var(--background) / 0.26);
+  background: hsl(var(--background) / 0.08);
+  color: hsl(var(--background));
+}
+
+[data-testid="home-why-examtree"] article {
+  border-color: hsl(var(--background) / 0.12);
+  background: hsl(var(--background));
+  box-shadow: 0 24px 68px -50px hsl(0 0% 0% / 0.55);
+}
+
+[data-testid="home-testimonials"] {
+  position: relative;
+  overflow: hidden;
+  padding-block: clamp(4.5rem, 7vw, 6.5rem);
+  background:
+    radial-gradient(circle at 18% 92%, hsl(var(--primary) / 0.08), transparent 25rem),
+    hsl(var(--secondary) / 0.45);
+}
+
+[data-testid="home-testimonials"] article {
+  border-color: hsl(var(--border) / 0.86);
+  box-shadow: 0 20px 62px -48px hsl(var(--foreground) / 0.5);
+}
+
+[data-testid="home-free-resources"] {
+  position: relative;
+  padding-block: clamp(4.5rem, 7vw, 6.75rem);
+  border-block: 1px solid hsl(var(--primary) / 0.14);
+  background:
+    linear-gradient(135deg, hsl(var(--primary) / 0.065), transparent 48%),
+    hsl(var(--background));
+  scroll-margin-top: 5rem;
+}
+
+[data-testid="home-free-resources"] button[class*="min-h-[172px]"] {
+  box-shadow: 0 16px 48px -44px hsl(var(--foreground) / 0.5);
+}
+
+[data-testid="home-free-resources"] button[class*="min-h-[172px]"]:hover {
+  box-shadow: 0 24px 62px -46px hsl(var(--primary) / 0.42);
+}
+
+[data-testid="home-free-resources"] article {
+  box-shadow: 0 18px 54px -46px hsl(var(--foreground) / 0.48);
+}
+
+[data-testid="home-faq"] {
+  padding-block: clamp(4rem, 7vw, 6rem);
+  border-block: 1px solid hsl(var(--border));
+  background: hsl(var(--muted) / 0.65);
+}
+
+[data-testid="home-faq"] details {
+  border-color: transparent;
+  background: hsl(var(--background));
+  box-shadow: 0 10px 32px -30px hsl(var(--foreground) / 0.62);
+}
+
+[data-testid="home-faq"] details[open] {
+  border-color: hsl(var(--primary) / 0.18);
+  box-shadow: 0 18px 52px -42px hsl(var(--primary) / 0.44);
+}
+
+[data-testid="home-explore-gateway"] {
+  padding-block: clamp(4rem, 7vw, 6rem);
+}
+
+[data-testid="home-explore-gateway"] > div {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  background:
+    radial-gradient(circle at 80% 10%, hsl(var(--background) / 0.16), transparent 20rem),
+    linear-gradient(125deg, hsl(var(--primary)), hsl(var(--primary) / 0.78));
+  box-shadow: 0 30px 85px -54px hsl(var(--primary) / 0.86);
+}
+
+[data-testid="home-explore-gateway"] > div .text-foreground,
+[data-testid="home-explore-gateway"] > div .text-muted-foreground {
+  color: hsl(var(--primary-foreground));
+}
+
+[data-testid="home-explore-gateway"] > div .text-muted-foreground {
+  opacity: 0.76;
+}
+
+[data-testid="home-explore-gateway"] > div > span {
+  background: hsl(var(--primary-foreground) / 0.14);
+  color: hsl(var(--primary-foreground));
+}
+
+[data-testid="home-explore-gateway"] > div > div:last-child svg {
+  color: hsl(var(--primary-foreground));
+}
+
+[data-testid="home-explore-gateway"] > div button:first-child {
+  background: hsl(var(--primary-foreground));
+  color: hsl(var(--primary));
+}
+
+[data-testid="home-explore-gateway"] > div button:last-child {
+  border-color: hsl(var(--primary-foreground) / 0.42);
+  background: transparent;
+  color: hsl(var(--primary-foreground));
+}
+
+@media (max-width: 767px) {
+  [data-testid="home-exam-families"] {
+    margin-inline: 1rem;
+    padding-inline: 1rem;
+    border-radius: 1.5rem;
+  }
+
+  [data-testid="home-why-examtree"],
+  [data-testid="home-testimonials"],
+  [data-testid="home-free-resources"],
+  [data-testid="home-faq"] {
+    padding-block: 3.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-testid="home-exam-families"] button,
+  [data-testid="home-free-resources"] button {
+    transition: none;
+  }
+}

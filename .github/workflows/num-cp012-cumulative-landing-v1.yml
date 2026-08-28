@@ -1,0 +1,145 @@
+name: Validate NUM-CP-012 cumulative landing
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/cumulative-landing.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/question-studio-route-contract.test.ts"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
+      - ".github/workflows/num-cp012-cumulative-landing-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp012-cumulative-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp012-cumulative-landing:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle decisive CP012 and shared audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012"
+          bundle() {
+            pnpm --dir artifacts/api-server exec esbuild "$1" --bundle --platform=node --format=esm --outfile="$2"
+          }
+          bundle "$base/wave01/runtime.test.ts" "dist/quant-v4/num-cp012-cumulative-wave01.mjs"
+          bundle "$base/wave01/independent-minimality.test.ts" "dist/quant-v4/num-cp012-cumulative-wave01-independent.mjs"
+          bundle "$base/wave02/runtime.test.ts" "dist/quant-v4/num-cp012-cumulative-wave02.mjs"
+          bundle "$base/wave03/representation-saturation.test.ts" "dist/quant-v4/num-cp012-cumulative-wave03.mjs"
+          bundle "$base/wave04/saturation.test.ts" "dist/quant-v4/num-cp012-cumulative-wave04.mjs"
+          bundle "$base/permanent-allocation.test.ts" "dist/quant-v4/num-cp012-cumulative-allocation.mjs"
+          bundle "$base/permanent-runtime.test.ts" "dist/quant-v4/num-cp012-cumulative-english.mjs"
+          bundle "$base/localization/runtime-parity.test.ts" "dist/quant-v4/num-cp012-cumulative-hi-pa-parity.mjs"
+          bundle "$base/localization/runtime-human-quality.test.ts" "dist/quant-v4/num-cp012-cumulative-hi-pa-quality.mjs"
+          bundle "$base/question-studio-integration.test.ts" "dist/quant-v4/num-cp012-cumulative-studio.mjs"
+          bundle "$base/question-studio-route-contract.test.ts" "dist/quant-v4/num-cp012-cumulative-route.mjs"
+          bundle "src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/cumulative-landing.test.ts" "dist/quant-v4/num-cp012-cumulative-cp011-regression.mjs"
+          bundle "src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/question-studio-integration.test.ts" "dist/quant-v4/num-cp012-cumulative-cp010-regression.mjs"
+          bundle "src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/question-studio-integration.test.ts" "dist/quant-v4/num-cp012-cumulative-cp009-regression.mjs"
+          bundle "src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/question-studio-integration.test.ts" "dist/quant-v4/num-cp012-cumulative-cp008-regression.mjs"
+          bundle "src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/editorial/number-system-question-studio-release-audit.test.ts" "dist/quant-v4/num-cp012-cumulative-number-system-release.mjs"
+          bundle "$base/cumulative-landing.test.ts" "dist/quant-v4/num-cp012-cumulative-landing.mjs"
+
+      - name: Run Wave 01 foundation
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-wave01.mjs
+
+      - name: Run Wave 01 independent minimality
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-wave01-independent.mjs
+
+      - name: Run Wave 02 edge and inverse
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-wave02.mjs
+
+      - name: Run Wave 03 representation saturation
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-wave03.mjs
+
+      - name: Run Wave 04 final saturation
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-wave04.mjs
+
+      - name: Run permanent allocation proof
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-allocation.mjs
+
+      - name: Run frozen English proof
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-english.mjs
+
+      - name: Run Hindi Punjabi semantic parity
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-hi-pa-parity.mjs
+
+      - name: Run Hindi Punjabi human quality
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-hi-pa-quality.mjs
+
+      - name: Run CP012 Question Studio proof
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-studio.mjs
+
+      - name: Run CP012 shared route proof
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-route.mjs
+
+      - name: Run CP011 cumulative regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-cp011-regression.mjs
+
+      - name: Run CP010 Question Studio regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-cp010-regression.mjs
+
+      - name: Run CP009 Question Studio regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-cp009-regression.mjs
+
+      - name: Run CP008 Question Studio regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-cp008-regression.mjs
+
+      - name: Run Number System shared release audit
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/num-cp012-cumulative-number-system-release.mjs \
+            2>&1 | tee dist/quant-v4/num-cp012-cumulative-number-system-release.log
+
+      - name: Run cumulative CP012 landing audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp012-cumulative-landing.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp012-cumulative-landing.log
+
+      - name: Bundle actual admin Question Studio route
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/routes/admin-question-studio-average.ts
+          --bundle --platform=node --format=esm
+          --packages=external
+          --outfile=dist/quant-v4/admin-question-studio-num-cp012-cumulative-route.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload cumulative CP012 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp012-cumulative-landing-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp012-cumulative-number-system-release.log
+            artifacts/api-server/dist/quant-v4/num-cp012-cumulative-landing.log
+          if-no-files-found: error
+          retention-days: 30

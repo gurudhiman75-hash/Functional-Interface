@@ -1,0 +1,21 @@
+export const PFC_001_BOUNDARY_CLEARANCE_DEFECT_HOLD_V1 = Object.freeze({
+  authorityId: "PFC-001-BOUNDARY-CLEARANCE-DEFECT-HOLD-V1" as const,
+  discoveredAtLocal: "2026-08-22" as const,
+  discoveryAuthority: "PRODUCT_OWNER_VISUAL_REVIEW" as const,
+  defect: "INTERIOR_FOLDED_PUNCH_CAN_RENDER_NEAR_TOUCHING_SOURCE_BOUNDARY_AFTER_UNFOLD" as const,
+  affectedSurface: "CONTROLLED_NOVEL_V1_WITHIN_FINAL_COMBINED_V1" as const,
+  rootCause: "CUT_CENTER_PROBE_VALIDATION_DID_NOT_REQUIRE_FULL_VISIBLE_PUNCH_AND_STROKE_CLEARANCE_AFTER_INVERSE_MAPPING" as const,
+  remediationAuthority: "PFC-001-CONTROLLED-NOVEL-LEARNER-REVIEW-V1.1" as const,
+  supersededForDownstreamUse: [
+    "PFC-001-CONTROLLED-NOVEL-LEARNER-REVIEW-V1",
+    "PFC-001-CONTROLLED-NOVEL-PRODUCT-OWNER-APPROVAL-V1",
+    "PFC-TPF-FINAL-COMBINED-ENGLISH-REVIEW-V1",
+  ] as const,
+  historicalEvidenceRetained: true,
+  permanentQlAllocationAllowed: false,
+  englishFreezeAllowed: false,
+  localizationAllowed: false,
+  questionStudioAllowed: false,
+  publicationAllowed: false,
+  nextGate: "PFC_TPF_FINAL_COMBINED_ENGLISH_REVIEW_V1_1_REMEDIATION" as const,
+} as const);

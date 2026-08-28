@@ -12,6 +12,7 @@ assert.equal(isNumCp011QuestionStudioRequest({ canonicalProblemId: "NUM-CP-011" 
 assert.equal(isNumCp011QuestionStudioRequest({ questionLanguageId: "NUM-QL-213" }), true);
 assert.equal(isNumCp011QuestionStudioRequest({ questionLanguageId: "NUM-QL-225" }), true);
 assert.equal(isNumCp011QuestionStudioRequest({ questionLanguageId: "NUM-QL-212" }), false);
+assert.equal(isNumCp011QuestionStudioRequest({ questionLanguageId: "NUM-QL-226" }), false, "CP011 must not claim CP012 QLs");
 
 const num002 = listQuestionStudioPackages().find((pkg: any) => String(pkg.packageId) === "NUM-002") as any;
 assert.ok(num002, "NUM-002 capability missing");
@@ -19,9 +20,12 @@ assert.ok(num002.cpIds.includes("NUM-CP-008"), "CP008 capability regressed");
 assert.ok(num002.cpIds.includes("NUM-CP-009"), "CP009 capability regressed");
 assert.ok(num002.cpIds.includes("NUM-CP-010"), "CP010 capability regressed");
 assert.ok(num002.cpIds.includes("NUM-CP-011"), "CP011 capability missing");
+assert.ok(num002.cpIds.includes("NUM-CP-012"), "CP012 aggregate extension missing");
 assert.ok(num002.permanentQlIds.includes("NUM-QL-213"), "QL213 capability missing");
 assert.ok(num002.permanentQlIds.includes("NUM-QL-225"), "QL225 capability missing");
-assert.equal(num002.permanentQlCount, 60, "NUM-002 permanent QL aggregate drift through CP011");
+assert.ok(num002.permanentQlIds.includes("NUM-QL-226"), "QL226 CP012 extension missing");
+assert.ok(num002.permanentQlIds.includes("NUM-QL-236"), "QL236 CP012 extension missing");
+assert.equal(num002.permanentQlCount, 71, "NUM-002 permanent QL aggregate drift through CP012");
 assert.deepEqual(num002.supportedLanguages, ["en", "hi", "pa"]);
 assert.equal(num002.questionBankWritable, false);
 assert.equal(num002.testEligible, false);
@@ -72,6 +76,16 @@ const cp010Regression = await generateQuestion({
 assert.equal(cp010Regression.questions[0]?.canonicalProblemId, "NUM-CP-010", "CP011 dispatch stole CP010 request");
 assert.equal(cp010Regression.questions[0]?.questionLanguageId, "NUM-QL-197", "CP010 QL routing regressed");
 
+const cp012Boundary = await generateQuestion({
+  canonicalProblemId: "NUM-CP-012",
+  questionLanguageId: "NUM-QL-226",
+  language: "en",
+  seed: "cp012-boundary-from-cp011-regression",
+  count: 1,
+});
+assert.equal(cp012Boundary.questions[0]?.canonicalProblemId, "NUM-CP-012", "CP011 dispatch stole CP012 request");
+assert.equal(cp012Boundary.questions[0]?.questionLanguageId, "NUM-QL-226", "CP012 boundary routing missing");
+
 const routeSource = readFileSync(resolve(process.cwd(), "artifacts/api-server/src/routes/admin-question-studio-average.ts"), "utf8");
 const sharedSource = readFileSync(resolve(process.cwd(), "artifacts/api-server/src/question-studio/shared-generation-engine.ts"), "utf8");
 
@@ -83,7 +97,7 @@ const requiredRouteMarkers = [
   'requestedNumberSystemCp === "NUM-CP-011"',
   'requestedNumberSystemQlCp === "NUM-CP-011"',
   'targetCp !== "NUM-CP-011"',
-  'NUM-CP-010 and NUM-CP-011',
+  'targetCp !== "NUM-CP-012"',
 ];
 for (const marker of requiredRouteMarkers) {
   assert.ok(routeSource.includes(marker), `Admin Question Studio route missing CP011 marker: ${marker}`);
@@ -96,7 +110,7 @@ const requiredSharedMarkers = [
   "const cp011 = listNumCp011QuestionStudioPackages()[0]!;",
   "...cp011.cpIds",
   "...cp011.permanentQlIds",
-  "CP008-CP011-MULTILINGUAL-FROZEN-V1",
+  "CP008-CP012-MULTILINGUAL-FROZEN-V1",
   "if (isNumCp011QuestionStudioRequest(request))",
   "return generateNumCp011QuestionStudioBatch(request);",
 ];
@@ -109,10 +123,12 @@ console.log(JSON.stringify({
   num002PermanentQlCount: num002.permanentQlCount,
   cp011FirstQl: "NUM-QL-213",
   cp011LastQl: "NUM-QL-225",
+  cp012BoundaryQl: "NUM-QL-226",
   englishQuestions: english.questions.length,
   hindiQuestions: hindi.questions.length,
   punjabiQuestions: punjabi.questions.length,
   cp010RoutingRegression: "PASS",
+  cp012BoundaryRouting: "PASS",
   questionBankWritable: false,
   testEligible: false,
   publiclyPublishable: false,

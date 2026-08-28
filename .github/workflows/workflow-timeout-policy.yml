@@ -1,0 +1,106 @@
+name: Enforce workflow CI hygiene policy
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - .github/workflows/**
+
+permissions:
+  contents: read
+
+concurrency:
+  group: workflow-ci-hygiene-policy-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-changed-workflows:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enforce timeout and PR path-scope policy
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import os
+          import re
+          import subprocess
+          from pathlib import Path
+
+          base = os.environ['BASE_SHA']
+          head = os.environ['HEAD_SHA']
+          changed = subprocess.check_output(
+              [
+                  'git', 'diff', '--name-only', base, head, '--',
+                  '.github/workflows/*.yml', '.github/workflows/*.yaml',
+              ],
+              text=True,
+          ).splitlines()
+
+          failed = False
+          timeout_re = re.compile(
+              r'^\s*timeout-minutes:\s*(20|25)(?:\s*(?:#.*)?)?$',
+              re.MULTILINE,
+          )
+          global_marker = 'CI-FANOUT-ALLOW: global-pr'
+
+          for filename in changed:
+              path = Path(filename)
+              if not path.is_file():
+                  continue
+
+              text = path.read_text()
+
+              if timeout_re.search(text):
+                  print(
+                      f'::error file={filename}::20/25-minute job caps are not allowed in '
+                      'new or modified workflows. Use <=15 for a deliberate fast guard, or '
+                      '>=30 for normal validation; 45 minutes is the default for long chapter validation.'
+                  )
+                  failed = True
+
+              if global_marker in text:
+                  continue
+
+              lines = text.splitlines()
+              for index, line in enumerate(lines):
+                  if not re.fullmatch(r'  pull_request:\s*', line):
+                      continue
+
+                  has_scope = False
+                  cursor = index + 1
+                  while cursor < len(lines):
+                      candidate = lines[cursor]
+                      if not candidate.strip():
+                          cursor += 1
+                          continue
+
+                      indent = len(candidate) - len(candidate.lstrip(' '))
+                      if indent <= 2:
+                          break
+
+                      if re.fullmatch(r'    paths(?:-ignore)?:\s*', candidate):
+                          has_scope = True
+                      cursor += 1
+
+                  if not has_scope:
+                      print(
+                          f'::error file={filename},line={index + 1}::Unscoped pull_request trigger '
+                          'would run on unrelated PRs. Add paths/paths-ignore, or add the explicit '
+                          'comment marker "CI-FANOUT-ALLOW: global-pr" when all-PR execution is intentional.'
+                      )
+                      failed = True
+
+          raise SystemExit(1 if failed else 0)
+          PY

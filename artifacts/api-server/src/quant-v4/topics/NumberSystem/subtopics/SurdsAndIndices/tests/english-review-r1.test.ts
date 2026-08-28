@@ -75,8 +75,8 @@ assert.equal(SRI_ENGLISH_REVIEW_MEMBERS_R1.some((member) => member.memberCandida
 assert.equal(SRI_ENGLISH_REVIEW_MEMBERS_R1.some((member) => member.memberCandidateId === "C010-F"), true, "source-resolved C010-F must enter English review");
 assert.equal(new Set(SRI_ENGLISH_REVIEW_READY_GROUPS_R1.map((group) => group.ownerCheckpointId)).size, 12, "all 12 owner checkpoints must remain represented");
 assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 58);
-assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 0);
-assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen, false);
+assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 58);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen, true);
 assertSriReleaseLocks();
 
 const memberStemSets = new Map<string, Set<string>>();

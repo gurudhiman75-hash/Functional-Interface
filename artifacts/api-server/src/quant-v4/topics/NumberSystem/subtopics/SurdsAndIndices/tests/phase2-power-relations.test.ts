@@ -17,15 +17,15 @@ assert.equal(SRI_001_MANIFEST.provisionalCandidateCount, EXPECTED_TOTAL_SRI001_C
 assert.equal(SRI_001_MANIFEST.discoveryWaves.phase1PowerFoundations, 25);
 assert.equal(SRI_001_MANIFEST.discoveryWaves.phase2PowerRelations, 23);
 assert.equal(SRI_001_MANIFEST.permanentQlCount, 29);
-assert.equal(SRI_001_MANIFEST.frozenSolveModeCount, 0);
+assert.equal(SRI_001_MANIFEST.frozenSolveModeCount, 29);
 assert.deepEqual(SRI_001_MANIFEST.activeExecutableDiscoveryCheckpoints, ["SRI-CP-001", "SRI-CP-002", "SRI-CP-003", "SRI-CP-004", "SRI-CP-005", "SRI-CP-006"]);
 assert.equal(SRI_001_MANIFEST.downstreamEligibility.questionStudio, false);
 assert.equal(SRI_001_MANIFEST.downstreamEligibility.questionBank, false);
 assert.equal(SRI_001_MANIFEST.downstreamEligibility.tests, false);
 assert.equal(SRI_001_MANIFEST.downstreamEligibility.public, false);
 assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, 58);
-assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 0);
-assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.discoveryOpen, true);
+assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, 58);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.discoveryOpen, false);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionStudioDiscoverable, false);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionStudioGenerationEnabled, false);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.questionBankWritesEnabled, false);

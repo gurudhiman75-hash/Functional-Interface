@@ -1,30 +1,41 @@
 import {
-  BookOpen,
-  CircleHelp,
+  BarChart3,
+  Bookmark,
+  CalendarDays,
   ClipboardList,
-  FileText,
+  Download,
+  Gift,
+  Headphones,
   Home,
-  Layers3,
   LayoutDashboard,
-  LogIn,
-  Target,
+  Settings,
 } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
 import { getSessionUser } from "@/lib/session-user";
 
-type SidebarLink = {
-  href: string;
+type SidebarItem = {
+  href?: string;
   label: string;
   icon: typeof Home;
+  authNext?: string;
+  disabled?: boolean;
 };
 
-const studyLinks: SidebarLink[] = [
+const mainItems: SidebarItem[] = [
   { href: "/", label: "Home", icon: Home },
-  { href: "/exams", label: "Tests & Exams", icon: ClipboardList },
-  { href: "/mock-tests", label: "Mock Tests", icon: Target },
-  { href: "/pyqs", label: "PYQs", icon: FileText },
-  { href: "/exams-covered", label: "Exams Covered", icon: Layers3 },
+  { href: "/exams", label: "Explore Exams", icon: ClipboardList },
+  { href: "/dashboard", label: "My Tests", icon: LayoutDashboard, authNext: "/dashboard" },
+  { label: "Analytics", icon: BarChart3, disabled: true },
+  { label: "Bookmarks", icon: Bookmark, disabled: true },
+  { label: "Downloads", icon: Download, disabled: true },
+  { label: "Study Plan", icon: CalendarDays, disabled: true },
+  { label: "Rewards", icon: Gift, disabled: true },
+];
+
+const utilityItems: SidebarItem[] = [
+  { href: "/contact", label: "Support", icon: Headphones },
+  { href: "/profile", label: "Settings", icon: Settings, authNext: "/profile" },
 ];
 
 function isActiveRoute(location: string, href: string) {
@@ -32,6 +43,9 @@ function isActiveRoute(location: string, href: string) {
   if (href === "/exams") {
     return location === "/exams"
       || location === "/tests"
+      || location === "/mock-tests"
+      || location === "/pyqs"
+      || location === "/exams-covered"
       || location.startsWith("/category/")
       || location.startsWith("/subcategory/")
       || location.startsWith("/published-tests/");
@@ -39,80 +53,83 @@ function isActiveRoute(location: string, href: string) {
   return location === href || location.startsWith(`${href}/`);
 }
 
+function SidebarEntry({ item, location, user }: { item: SidebarItem; location: string; user: ReturnType<typeof getSessionUser> }) {
+  const Icon = item.icon;
+
+  if (item.disabled || !item.href) {
+    return (
+      <div
+        className="flex min-h-11 cursor-default items-center gap-3 rounded-lg px-3 py-2 text-[13px] font-semibold text-sidebar-foreground/45"
+        aria-disabled="true"
+        title={`${item.label} is coming soon`}
+        data-testid={`sidebar-disabled-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+      >
+        <Icon className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
+        <span className="min-w-0 flex-1 truncate">{item.label}</span>
+        <span className="rounded-md bg-sidebar-accent px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wide text-sidebar-foreground/65">Soon</span>
+      </div>
+    );
+  }
+
+  const active = isActiveRoute(location, item.href);
+  const target = item.authNext && !user
+    ? `/login/student?next=${encodeURIComponent(item.authNext)}`
+    : item.href;
+
+  return (
+    <Link
+      href={target}
+      aria-current={active ? "page" : undefined}
+      className={`et-interactive group relative flex min-h-11 items-center gap-3 rounded-lg px-3 py-2 text-[13px] font-semibold transition ${
+        active
+          ? "bg-sidebar-accent text-sidebar-accent-foreground"
+          : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+      }`}
+    >
+      {active ? <span className="absolute inset-y-2 left-0 w-[3px] rounded-full bg-sidebar-primary" aria-hidden="true" /> : null}
+      <Icon className={`h-[18px] w-[18px] shrink-0 transition ${active ? "text-sidebar-primary" : "text-sidebar-foreground/65 group-hover:text-sidebar-primary"}`} aria-hidden="true" />
+      <span className="min-w-0 truncate">{item.label}</span>
+    </Link>
+  );
+}
+
 export function PublicHomeSidebar() {
   const [location] = useLocation();
   const user = getSessionUser();
 
   return (
-    <aside className="hidden border-r border-border/80 bg-card/70 lg:block" aria-label="Student navigation">
-      <div className="sticky top-16 flex max-h-[calc(100vh-4rem)] flex-col overflow-y-auto px-3 py-5">
-        <p className="px-3 text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground">Study</p>
-        <nav aria-label="Homepage study navigation" className="mt-2 space-y-1">
-          {studyLinks.map((item) => {
-            const active = isActiveRoute(location, item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={active ? "page" : undefined}
-                className={`et-interactive flex min-h-11 items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold transition ${
-                  active
-                    ? "bg-blue-50 text-blue-700 shadow-sm ring-1 ring-blue-100"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                }`}
-              >
-                <item.icon className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
-                <span className="truncate">{item.label}</span>
-              </Link>
-            );
-          })}
+    <aside
+      className="hidden min-h-[calc(100vh-4rem)] border-r border-sidebar-border bg-sidebar lg:block"
+      aria-label="Student navigation"
+      data-testid="public-study-sidebar"
+    >
+      <div className="sticky top-16 flex max-h-[calc(100vh-4rem)] flex-col overflow-y-auto px-4 py-5">
+        <nav aria-label="Homepage study navigation" className="space-y-1">
+          {mainItems.map((item) => (
+            <SidebarEntry key={item.label} item={item} location={location} user={user} />
+          ))}
         </nav>
 
-        <div className="my-4 border-t border-border/80" />
-        <p className="px-3 text-[11px] font-bold uppercase tracking-[0.16em] text-muted-foreground">Workspace</p>
-        <div className="mt-2 space-y-1">
-          {user ? (
-            <Link
-              href="/dashboard"
-              className="et-interactive flex min-h-11 items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground"
-            >
-              <LayoutDashboard className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
-              <span>My Activity</span>
-            </Link>
-          ) : (
-            <Link
-              href="/login/student"
-              className="et-interactive flex min-h-11 items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground"
-            >
-              <LogIn className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
-              <span>Sign in</span>
-            </Link>
-          )}
-          <Link
-            href="/faq"
-            className="et-interactive flex min-h-11 items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-muted hover:text-foreground"
-          >
-            <CircleHelp className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
-            <span>Help & FAQ</span>
-          </Link>
-        </div>
+        <div className="my-4 border-t border-sidebar-border" />
 
-        <div className="mt-5 rounded-xl border border-blue-100 bg-blue-50/70 p-3">
-          <div className="flex items-start gap-2.5">
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-white">
-              <BookOpen className="h-4 w-4" aria-hidden="true" />
-            </span>
-            <div className="min-w-0">
-              <p className="text-xs font-bold text-slate-950">Ready to practice?</p>
-              <p className="mt-0.5 text-[11px] leading-4 text-slate-600">Open the live test catalog and pick your exam.</p>
-            </div>
+        <nav aria-label="Support navigation" className="space-y-1">
+          {utilityItems.map((item) => (
+            <SidebarEntry key={item.label} item={item} location={location} user={user} />
+          ))}
+        </nav>
+
+        <div className="mt-auto pt-5">
+          <div className="rounded-xl border border-sidebar-border bg-sidebar-accent/60 p-3.5">
+            <p className="text-xs font-black text-sidebar-foreground">Ready to practise?</p>
+            <p className="mt-1 text-[11px] leading-4 text-sidebar-foreground/70">Choose an exam and continue with mocks, PYQs or free practice.</p>
+            <Link
+              href="/exams"
+              className="et-interactive mt-3 flex min-h-11 items-center justify-center rounded-lg bg-sidebar-foreground px-3 py-2 text-xs font-black text-sidebar shadow-sm hover:opacity-90"
+              data-testid="sidebar-explore-cta"
+            >
+              Explore exams
+            </Link>
           </div>
-          <Link
-            href="/exams"
-            className="et-interactive mt-3 flex min-h-10 items-center justify-center rounded-lg bg-blue-600 px-3 py-2 text-xs font-bold text-white hover:bg-blue-700"
-          >
-            Browse tests
-          </Link>
         </div>
       </div>
     </aside>

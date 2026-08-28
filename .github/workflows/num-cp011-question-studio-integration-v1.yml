@@ -96,7 +96,7 @@ jobs:
           grep -Fq 'requestedNumberSystemCp === "NUM-CP-011"' "$route"
           grep -Fq 'requestedNumberSystemQlCp === "NUM-CP-011"' "$route"
           grep -Fq 'targetCp !== "NUM-CP-011"' "$route"
-          grep -Fq 'NUM-CP-010 and NUM-CP-011' "$route"
+          grep -Fq 'targetCp !== "NUM-CP-012"' "$route"
 
       - name: Bundle CP010 Question Studio regression
         run: >-

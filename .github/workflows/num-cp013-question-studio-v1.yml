@@ -1,0 +1,88 @@
+name: Validate NUM-CP-013 Question Studio integration
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-013/**"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine-cp013.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-cp013.ts"
+      - "artifacts/api-server/src/routes/index.ts"
+      - ".github/workflows/num-cp013-question-studio-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp013-question-studio-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp013-question-studio:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP013 frozen and Studio audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-013"
+          pnpm --dir artifacts/api-server exec esbuild "$base/permanent-allocation.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-permanent-allocation.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$base/permanent-runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-permanent-english.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$base/localization/runtime-parity.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-hi-pa-parity.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$base/localization/runtime-human-quality.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-hi-pa-human-quality.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$base/question-studio-integration.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-question-studio.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$base/question-studio-route-contract.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp013-question-studio-route.mjs
+
+      - name: Run CP013 frozen-source audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp013-permanent-allocation.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp013-permanent-english.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp013-hi-pa-parity.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp013-hi-pa-human-quality.mjs
+
+      - name: Run CP013 Question Studio audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp013-question-studio.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp013-question-studio.log
+
+      - name: Run shared facade and admin route contract
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp013-question-studio-route.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp013-question-studio-route.log
+
+      - name: Bundle actual CP013 admin router
+        shell: bash
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/routes/admin-question-studio-cp013.ts --bundle --platform=node --format=esm --packages=external --outfile=dist/quant-v4/admin-question-studio-cp013-route.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload CP013 Question Studio evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp013-question-studio-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp013-question-studio.log
+            artifacts/api-server/dist/quant-v4/num-cp013-question-studio-route.log
+          if-no-files-found: error
+          retention-days: 30
