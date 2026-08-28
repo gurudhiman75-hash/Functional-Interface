@@ -40,6 +40,7 @@ jobs:
           base="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/wave01"
           pnpm --dir artifacts/api-server exec esbuild "$base/runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-wave01-runtime.mjs
           pnpm --dir artifacts/api-server exec esbuild "$base/independent-ablation.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-wave01-independent.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$base/redundancy-rejection.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-wave01-redundancy.mjs
 
       - name: Run synthesis necessity audit
         shell: bash
@@ -53,6 +54,12 @@ jobs:
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/num-cp014-wave01-independent.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp014-wave01-independent.log
 
+      - name: Reject decorative synthesis pairs
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp014-wave01-redundancy.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp014-wave01-redundancy.log
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
@@ -63,5 +70,6 @@ jobs:
           path: |
             artifacts/api-server/dist/quant-v4/num-cp014-wave01-runtime.log
             artifacts/api-server/dist/quant-v4/num-cp014-wave01-independent.log
+            artifacts/api-server/dist/quant-v4/num-cp014-wave01-redundancy.log
           if-no-files-found: error
           retention-days: 30
