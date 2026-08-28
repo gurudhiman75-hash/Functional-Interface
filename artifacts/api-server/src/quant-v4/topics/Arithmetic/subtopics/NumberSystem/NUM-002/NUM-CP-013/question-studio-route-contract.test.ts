@@ -128,7 +128,8 @@ for (const marker of [
   "CP008-CP013-MULTILINGUAL-FROZEN-V1",
   "permanentQlCount: 82",
   "if (isNumCp013QuestionStudioRequest(request))",
-  "return generateNumCp013QuestionStudioBatch(request);",
+  "const result = await generateNumCp013QuestionStudioBatch(request);",
+  "return localizeCp013StudioExplanation(result, request);",
 ]) {
   assert.ok(facadeSource.includes(marker), `CP013 shared facade missing marker: ${marker}`);
 }
@@ -142,6 +143,7 @@ console.log(JSON.stringify({
   packageOnlyFallbackPreserved: true,
   cp008ThroughCp012RoutingRegression: "PASS",
   routeMountOrderGuard: "CP013_BEFORE_LEGACY_NUMBER_SYSTEM",
+  localizedFacadeDispatchGuard: true,
   questionBankWritable: false,
   testEligible: false,
   mockTestEligible: false,
