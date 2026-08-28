@@ -6,7 +6,7 @@ import {
   generateIntCp005QuestionStudioBatch,
   listIntCp005QuestionStudioPackages,
 } from "../quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp005-question-studio-integration-v1";
-import { INT_CP005_V16_1_QL_IDS } from "../quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp005-variable-growth-decay-v16-1-frozen";
+import { INT_CP005_V16_1_QL_IDS } from "../quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/cp005-variable-growth-decay-runtime-v16-1-final-v2";
 import { createInterestFrozenQuestionStudioRouter } from "./admin-question-studio-interest-frozen-review-factory";
 
 export default createInterestFrozenQuestionStudioRouter({
