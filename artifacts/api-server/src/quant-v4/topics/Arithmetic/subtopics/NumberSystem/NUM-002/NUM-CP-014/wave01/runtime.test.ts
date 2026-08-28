@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import {
   NUM_CP014_WAVE01_PROTOTYPE_IDS,
   generateNumCp014Wave01,
-} from "./runtime.ts";
+} from "./runtime-v2.ts";
 
 const SEEDS_PER_PROTOTYPE = 120;
 let packages = 0;
@@ -65,6 +65,7 @@ for (const prototypeId of NUM_CP014_WAVE01_PROTOTYPE_IDS) {
 
 console.log(JSON.stringify({
   status: "PASS_NUM_CP014_WAVE01_SYNTHESIS_FOUNDATION",
+  canonicalRuntime: "runtime-v2.ts",
   prototypes: NUM_CP014_WAVE01_PROTOTYPE_IDS.length,
   packages,
   ablationChecks,
