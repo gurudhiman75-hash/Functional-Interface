@@ -58,6 +58,12 @@ function roundRational(value: Rational): bigint {
 
 function cleanEnglishText(value: string): string {
   return value
+    // The historical inverse explanations deliberately showed both an exact ratio and
+    // an approximate decimal. V10 keeps the exact fraction and removes only that
+    // parenthetical learner convenience so the English surface matches the approved
+    // integer/fraction-first V9 exam policy used by Hindi/Punjabi.
+    .replace(/\s*\(approximately\s+[+-]?\d+(?:\.\d+)?\)/giu, "")
+    .replace(/\s*\(about\s+[+-]?\d+(?:\.\d+)?\)/giu, "")
     .replace(/\bcorrect\s+to\s+two\s+decimal\s+places\b/giu, "")
     .replace(/\bto\s+two\s+decimal\s+places\b/giu, "")
     .replace(/\brounded?\s+to\s+two\s+decimal\s+places\b/giu, "")
