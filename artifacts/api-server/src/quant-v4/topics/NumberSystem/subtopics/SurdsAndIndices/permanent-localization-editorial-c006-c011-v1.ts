@@ -157,17 +157,17 @@ export function localizeSriEditorialC006C011SurfaceV1(
 function localizeIndexLaw(text: string, locale: SriLocalizedLocaleV1): string {
   let match: RegExpMatchArray | null;
 
-  match = text.match(/^For a ≠ 0, (.+)\.$/u);
+  match = text.match(/^For a ≠ 0, (.+?)\.?$/u);
   if (match) return locale === "hi-IN" ? `a ≠ 0 के लिए, ${match[1]}।` : `a ≠ 0 ਲਈ, ${match[1]}।`;
 
-  match = text.match(/^For real a,b and integer n, (.+) whenever both sides are defined\.$/u);
+  match = text.match(/^For real a,b and integer n, (.+?) whenever both sides are defined\.?$/u);
   if (match) {
     return locale === "hi-IN"
       ? `वास्तविक a,b और पूर्णांक n के लिए, ${match[1]}, जब दोनों पक्ष परिभाषित हों।`
       : `ਵਾਸਤਵਿਕ a,b ਅਤੇ ਪੂਰਨ ਅੰਕ n ਲਈ, ${match[1]}, ਜਦੋਂ ਦੋਵੇਂ ਪਾਸੇ ਪਰਿਭਾਸ਼ਿਤ ਹੋਣ।`;
   }
 
-  match = text.match(/^For all real a,b, (.+)\.$/u);
+  match = text.match(/^For all real a,b, (.+?)\.?$/u);
   if (match) return locale === "hi-IN" ? `सभी वास्तविक a,b के लिए, ${match[1]}।` : `ਸਭ ਵਾਸਤਵਿਕ a,b ਲਈ, ${match[1]}।`;
 
   return text;
