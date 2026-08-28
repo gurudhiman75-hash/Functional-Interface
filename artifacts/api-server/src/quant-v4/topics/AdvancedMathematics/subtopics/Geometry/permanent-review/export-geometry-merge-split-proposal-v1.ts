@@ -37,7 +37,7 @@ writeFileSync(
 );
 
 const md = [
-  "# ExamTree Geometry — Strict 81→74 Merge/Split Proposal V1",
+  "# ExamTree Geometry — Strict 81→75 Merge/Split Proposal V1",
   "",
   "**Authority:** Composite Geometry Revision 3",
   "",
@@ -65,7 +65,7 @@ const md = [
   ]),
   "## Lifecycle gate",
   "",
-  "Repository CI must prove exact 81-candidate coverage and the 74-family structure. After proof, explicit human approval is still required before permanent QL allocation.",
+  "Repository CI must prove exact 81-candidate coverage and the 75-family structure. After proof, explicit human approval is still required before permanent QL allocation.",
   "",
 ].join("\n");
 writeFileSync(resolve(outputDirectory, "geometry-merge-split-proposal-v1.md"), md);
