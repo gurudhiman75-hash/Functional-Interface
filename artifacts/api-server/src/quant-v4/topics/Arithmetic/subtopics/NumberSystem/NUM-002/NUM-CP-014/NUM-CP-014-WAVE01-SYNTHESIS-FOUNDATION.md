@@ -26,14 +26,24 @@ Therefore removing either engine restores ambiguity. A decorative secondary prop
 
 - `NUM-CP014-PROT-001` — hidden digit: divisibility + remainder.
 - `NUM-CP014-PROT-002` — hidden integer: HCF + prime structure.
-- `NUM-CP014-PROT-003` — divisor count + perfect square.
+- `NUM-CP014-PROT-003` — divisor count + perfect cube.
 - `NUM-CP014-PROT-004` — factorial valuation + terminal-digit cycle.
 - `NUM-CP014-PROT-005` — positional-base validity + divisibility.
 - `NUM-CP014-PROT-006` — perfect square + remainder.
 
+## Rejected negative control
+
+The first P003 discovery attempt paired an exact divisor count with a perfect-square condition. It was rejected before certification.
+
+Reason: `tau(n)` is odd if and only if `n` is a perfect square. Therefore an exact odd divisor count already implies the square property; an exact even divisor count is incompatible with a square. The two properties cannot serve as independently essential CP014 engines.
+
+P003 was replaced by divisor count + perfect cube, where bounded ablation produces multiple divisor-count candidates, multiple cube candidates, and a unique intersection.
+
+`redundancy-rejection.test.ts` preserves this theorem as a permanent negative control for synthesis admission.
+
 ## Explanation standard
 
-Every prototype uses `FULL_DERIVATION_AND_EXAM_SHORTCUT_V1` from its first discovery wave:
+Every admitted prototype uses `FULL_DERIVATION_AND_EXAM_SHORTCUT_V1` from its first discovery wave:
 
 - show the candidate domain;
 - derive the candidates produced by component A;
@@ -43,7 +53,7 @@ Every prototype uses `FULL_DERIVATION_AND_EXAM_SHORTCUT_V1` from its first disco
 
 ## Independent verifier
 
-The independent audit does not trust runtime candidate arrays. It reconstructs each component from the hidden mathematical state using separate exact routines for gcd, primality, divisor enumeration, factorial valuation, terminal cycles, base validity, perfect-square recognition and modular remainder.
+The independent audit does not trust runtime candidate arrays. It reconstructs each component from the hidden mathematical state using separate exact routines for gcd, primality, divisor enumeration, factorial valuation, terminal cycles, base validity, perfect-square/perfect-cube recognition and modular remainder.
 
 ## Ownership locks
 
