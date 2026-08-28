@@ -14,7 +14,7 @@ function stable(value: unknown): string {
 
 const LOCALES = ["hi-IN", "pa-IN"] as const satisfies readonly IntCp002NativeLocale[];
 const SAMPLES_PER_QL_PER_LOCALE = 50;
-const DEVANAGARI = /[\u0900-\u097F]/u;
+const DEVANAGARI_LETTER_OR_MARK = /[\u0900-\u0963\u0966-\u097F]/u;
 const GURMUKHI = /[\u0A00-\u0A7F]/u;
 const ENGLISH_PROSE = /\b(simple|interest|principal|rate|year|years|deposit|deposits|borrow|borrowing|lend|lending|days|find|amount|total|plan|bank|unknown|first|second|period|duration)\b/iu;
 const INTERNAL_ID = /INT-CP|INT-QL|PROT-|WAVE0|CLOSE-|prototype|authority|freeze id|review candidate/iu;
@@ -99,12 +99,12 @@ for (const locale of LOCALES) {
       assert.equal(INTERNAL_ID.test(learnerText), false, `${locale}/${qlId}/${index}: internal identity leaked`);
       assert.equal(ENGLISH_PROSE.test(learnerText), false, `${locale}/${qlId}/${index}: English prose leaked\n${learnerText}`);
       if (locale === "hi-IN") {
-        assert.equal(DEVANAGARI.test(learnerText), true, `${qlId}/${index}: Hindi script missing`);
+        assert.equal(DEVANAGARI_LETTER_OR_MARK.test(learnerText), true, `${qlId}/${index}: Hindi script missing`);
         assert.equal(GURMUKHI.test(learnerText), false, `${qlId}/${index}: Gurmukhi leaked into Hindi`);
         assert.ok(learnerText.includes("साधारण ब्याज"), `${qlId}/${index}: Hindi simple-interest terminology missing`);
       } else {
         assert.equal(GURMUKHI.test(learnerText), true, `${qlId}/${index}: Punjabi script missing`);
-        assert.equal(DEVANAGARI.test(learnerText), false, `${qlId}/${index}: Devanagari leaked into Punjabi`);
+        assert.equal(DEVANAGARI_LETTER_OR_MARK.test(learnerText), false, `${qlId}/${index}: Devanagari letters or marks leaked into Punjabi`);
         assert.ok(learnerText.includes("ਸਧਾਰਨ ਵਿਆਜ"), `${qlId}/${index}: Punjabi simple-interest terminology missing`);
       }
       languageChecks += 5;
