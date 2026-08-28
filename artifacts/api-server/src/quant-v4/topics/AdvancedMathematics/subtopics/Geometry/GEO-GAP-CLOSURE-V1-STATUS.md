@@ -2,7 +2,7 @@
 
 **Authority:** Composite Geometry Revision 3  
 **Prototype remediation:** Waves 1–13  
-**State:** `IMPLEMENTATION_COMPLETE__FINAL_PROOF_PENDING`  
+**State:** `EXECUTABLE_CLOSURE_PROVEN__MERGE_SPLIT_REVIEW_ACTIVE`  
 **Permanent QLs:** `0`  
 **Frozen solve modes:** `0`
 
@@ -22,7 +22,25 @@ Final temporary executable candidate count = **81**:
 - +25 approved/frozen candidates from Waves 1–7;
 - +18 review candidates from Waves 8–13.
 
-Approved/frozen discovery count remains **63** until the newer review corpora receive an approval decision. Implementation completion must not be confused with approval or permanent allocation.
+The canonical `geometry-temporary-candidate-registry-v1.ts` now derives these 81 candidates directly from baseline Phases 1–5 and remediation Waves 1–13 and rejects ID collisions/count drift before permanent merge/split review.
+
+## Final executable closure proof
+
+Current proven head: `fc0c125e3e040099842fd3cf30c4abb3453db96f`  
+GitHub Actions run: `33133733541`  
+Job: `98728955462` (`validate-geometry-phase5`)  
+Conclusion: `success`
+
+The final retained gate executes:
+
+- Geometry Phases 0–5;
+- remediation Waves 1–13;
+- the immutable source saturation audit;
+- exhaustive 52-gap Closure Ledger V1;
+- canonical 81-candidate review-registry proof;
+- closure-report export.
+
+This proves executable closure and registry integrity. It does **not** constitute product-owner English approval, permanent allocation, solve-mode freeze, localisation approval, or Question Studio activation.
 
 ## Five explicit source deferrals
 
@@ -50,6 +68,9 @@ This closure means **all 52 discovered SSC Geometry gaps are accounted for**. It
 ```text
 prototypeWaveSequenceFinished = true
 allBaselineGapsClassified = true
+executableClosureProven = true
+canonicalTemporaryCandidateRegistryProven = true
+mergeSplitReviewActive = true
 sourceSaturationClaimAllowed = false
 permanentQlAllocationAllowed = false
 solveModeFreezeAllowed = false
@@ -62,4 +83,4 @@ prMergeAuthorized = false
 
 ## Next lifecycle gate
 
-The next Geometry work is **not another remediation wave**. It is final executable/review proof for Waves 8–13 plus Closure Ledger V1, followed by human approval and then permanent merge/split / QL allocation review.
+No additional remediation wave is authorized by this closure. The active work is chapter-wide semantic merge/split compression over the proven 81-candidate registry, followed by a permanent QL proposal. Permanent QL numbering remains forbidden until that proposal is exhaustive, collision-audited, and explicitly approved for allocation.
