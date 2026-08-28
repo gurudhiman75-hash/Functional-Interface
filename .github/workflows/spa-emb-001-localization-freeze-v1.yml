@@ -1,0 +1,50 @@
+name: Validate SPA EMB-001 Hindi Punjabi Localization Freeze V1
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-emb-localization-freeze-v1:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle EMB-001 localization freeze V1 proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-embedded-figure-localization-freeze-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-embedded-figure-localization-freeze-v1.test.mjs
+
+      - name: Validate EMB-001 Hindi Punjabi localization freeze V1
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-embedded-figure-localization-freeze-v1.test.mjs \
+            | tee dist/reasoning-v1/spatial/spa-emb-001-localization-freeze-v1-evidence.json
+
+      - name: Upload EMB-001 localization freeze V1 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-emb-001-localization-freeze-v1
+          path: artifacts/api-server/dist/reasoning-v1/spatial/spa-emb-001-localization-freeze-v1-evidence.json
+          if-no-files-found: error
