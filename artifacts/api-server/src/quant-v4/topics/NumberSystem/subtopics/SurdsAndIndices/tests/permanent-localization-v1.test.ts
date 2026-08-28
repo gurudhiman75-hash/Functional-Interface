@@ -34,7 +34,7 @@ assert.equal(SRI_PERMANENT_ENGLISH_REVIEW_MEMBERS_V1.length, EXPECTED_REVIEW_MEM
 assert.equal(SRI_CHAPTER_MANIFEST.permanentQlCount, EXPECTED_QLS);
 assert.equal(SRI_CHAPTER_MANIFEST.frozenSolveModeCount, EXPECTED_QLS);
 assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.englishFrozen, true);
-assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.multilingualFrozen, false);
+assert.equal(SRI_CHAPTER_MANIFEST.lifecycle.multilingualFrozen, true);
 assertSriReleaseLocks();
 
 let generated = 0;
@@ -132,6 +132,8 @@ for (const allocation of SRI_PERMANENT_ALLOCATION_V1) {
         residualFailures.add(`${allocation.qlId}/${q.candidateId}/${locale}: ${[...new Set(residues)].join(", ")} :: ${learnerText.replaceAll("\n", " | ")}`);
       }
 
+      // The approved localization generator remains the immutable review source.
+      // Frozen product authority is provided by permanent-multilingual-freeze-v1.ts.
       assert.equal(localized.lifecycle.reviewStatus, "LOCALIZATION_REVIEW_READY");
       assert.equal(localized.lifecycle.localizationStatus, "REVIEW_READY");
       assert.equal(localized.lifecycle.active, false);
