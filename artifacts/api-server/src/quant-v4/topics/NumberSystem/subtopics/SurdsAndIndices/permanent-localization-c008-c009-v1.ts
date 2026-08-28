@@ -1,16 +1,20 @@
 import type { SriLocalizedLocaleV1 } from "./permanent-localization-base-v1";
 import { localizeSriC008C009FinalizedSurfaceV1 as localizeSriC008C009CoreV1 } from "./permanent-localization-c008-c009-core-v1";
 import { localizeSriC010C012FinalizedSurfaceV1 } from "./permanent-localization-c010-c012-v1";
+import { localizeSriResidualSurfaceV1 } from "./permanent-localization-residual-v1";
 
 /**
- * Early finalized-surface localization authority for CP008-CP012.
- * CP008/CP009 remain byte-identical in the core module; later checkpoints
- * are delegated only when the proven core has no match.
+ * Early finalized-surface localization authority.
+ * CP008/CP009 remain byte-identical in the core module; later checkpoint and
+ * strict-audit residual surfaces are delegated before generic localization.
  */
 export function localizeSriC008C009FinalizedSurfaceV1(
   text: string,
   locale: SriLocalizedLocaleV1,
 ): string | undefined {
+  const residual = localizeSriResidualSurfaceV1(text, locale);
+  if (residual) return residual;
+
   const knownRadicand = text.match(/^Known radicand = (.+)\.$/u);
   if (knownRadicand) {
     return locale === "hi-IN"
