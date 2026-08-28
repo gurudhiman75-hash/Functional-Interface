@@ -1,0 +1,52 @@
+{
+  "packageId": "TRG-001",
+  "checkpoint": "RUNTIME_PROOF",
+  "status": "IMPLEMENTED_PROOF_ONLY",
+  "proofQlCount": 30,
+  "canonicalProblemCount": 6,
+  "proofQlsPerCanonicalProblem": 5,
+  "implementedQlRanges": {
+    "TRG-CP-001": ["TRG-001-QL-001", "TRG-001-QL-005"],
+    "TRG-CP-002": ["TRG-001-QL-025", "TRG-001-QL-029"],
+    "TRG-CP-003": ["TRG-001-QL-049", "TRG-001-QL-053"],
+    "TRG-CP-004": ["TRG-001-QL-073", "TRG-001-QL-077"],
+    "TRG-CP-005": ["TRG-001-QL-097", "TRG-001-QL-101"],
+    "TRG-CP-006": ["TRG-001-QL-121", "TRG-001-QL-125"]
+  },
+  "contracts": {
+    "permanentQlIds": true,
+    "distinctSolveModes": 30,
+    "seededCanonicalState": true,
+    "exactAnswerAuthority": true,
+    "misconceptionDistractors": true,
+    "mathematicalOptionEquivalenceGuard": true,
+    "independentVerification": true,
+    "generatedExplanation": true,
+    "deterministicFingerprint": true
+  },
+  "implementationHarnessEvidence": {
+    "strictTypeScriptContractCompile": "PASS",
+    "canonicalSeedsPerQl": 12,
+    "canonicalCases": 360,
+    "deterministicRepeat": "PASS",
+    "sweepSeeds": 50,
+    "sweepCases": 1500,
+    "validationSweep": "PASS",
+    "independentVerificationSweep": "PASS",
+    "githubActionsRunClaimed": false
+  },
+  "activation": {
+    "runtimeActivated": false,
+    "questionStudioDiscoverable": false,
+    "testBuilderEligible": false,
+    "questionBankStored": false,
+    "productionPublishable": false,
+    "humanEditorialApproved": false
+  },
+  "completion": {
+    "runtimeProof": "30/30",
+    "mvp": "30/72",
+    "packageProduction": "30/144"
+  },
+  "next": "TRG_001_MVP_72"
+}
