@@ -38,13 +38,13 @@ for (const language of ["hi", "pa"] as const) {
       if (language === "hi") {
         assert.ok(countMatches(text, DEVANAGARI_LETTER) >= 45, `${qlId}/${seed}: Hindi native-script density too low`);
         assert.ok(!GURMUKHI_LETTER.test(text), `${qlId}/${seed}: Gurmukhi leaked into Hindi`);
-        assert.ok(/(?:ज्ञात कीजिए|बताइए|लिखिए)/u.test(q.stem), `${qlId}/${seed}: Hindi question directive missing`);
+        assert.ok(/(?:ज्ञात कीजिए|बताइए|लिखिए|कितने|कितनी|कौन-सा|कौन-सी|कौन सा|कौन सी)/u.test(q.stem), `${qlId}/${seed}: Hindi question directive missing`);
         assert.ok(q.explanation.fullDerivation.at(-1)?.includes("सही उत्तर"), `${qlId}/${seed}: Hindi conclusion missing`);
         assert.ok(q.explanation.examShortcut[0]?.includes("तेज़ विधि"), `${qlId}/${seed}: Hindi shortcut label missing`);
       } else {
         assert.ok(countMatches(text, GURMUKHI_LETTER) >= 45, `${qlId}/${seed}: Punjabi native-script density too low`);
         assert.ok(!DEVANAGARI_LETTER.test(text), `${qlId}/${seed}: Devanagari letters leaked into Punjabi`);
-        assert.ok(/(?:ਪਤਾ ਕਰੋ|ਦੱਸੋ|ਲਿਖੋ)/u.test(q.stem), `${qlId}/${seed}: Punjabi question directive missing`);
+        assert.ok(/(?:ਪਤਾ ਕਰੋ|ਦੱਸੋ|ਲਿਖੋ|ਕਿੰਨੇ|ਕਿੰਨੀ|ਕਿਹੜਾ|ਕਿਹੜੀ)/u.test(q.stem), `${qlId}/${seed}: Punjabi question directive missing`);
         assert.ok(q.explanation.fullDerivation.at(-1)?.includes("ਸਹੀ ਉੱਤਰ"), `${qlId}/${seed}: Punjabi conclusion missing`);
         assert.ok(q.explanation.examShortcut[0]?.includes("ਤੇਜ਼ ਤਰੀਕਾ"), `${qlId}/${seed}: Punjabi shortcut label missing`);
       }
@@ -63,5 +63,6 @@ console.log(JSON.stringify({
   nativeScriptDensityChecked: true,
   crossScriptLeakageRejected: true,
   englishInstructionLeakageRejected: true,
+  nativeImperativeAndInterrogativeDirectivesAccepted: true,
   fullDerivationAndShortcutChecked: true,
 }, null, 2));
