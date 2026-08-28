@@ -1,0 +1,54 @@
+{
+  "packageId": "TRG-001",
+  "checkpoint": "PRODUCTION_144_AUTHORITY_AI_EDITORIAL",
+  "status": "AI_EDITORIAL_PASS_EXECUTION_PENDING_HUMAN_PENDING",
+  "candidateRuntime": "production-authority-candidate-runtime.ts",
+  "editorialStatus": "PRODUCTION_AUTHORITY_EDITORIAL_STATUS.md",
+  "counts": {
+    "totalQl": 144,
+    "aiReviewed": 144,
+    "aiPass": 144,
+    "aiBlockers": 0,
+    "humanReviewed": 0,
+    "humanPending": 144,
+    "reusedMvpTemplatesRechecked": 59,
+    "reusedProductionTemplatesReviewed": 53,
+    "customAuthorityRolesReviewed": 32
+  },
+  "provenance": {
+    "reusedMvpTemplateTargets": [
+      "TRG-001-QL-005", "TRG-001-QL-006", "TRG-001-QL-007", "TRG-001-QL-008", "TRG-001-QL-009", "TRG-001-QL-013", "TRG-001-QL-017", "TRG-001-QL-018", "TRG-001-QL-019", "TRG-001-QL-025", "TRG-001-QL-026", "TRG-001-QL-027", "TRG-001-QL-028", "TRG-001-QL-029", "TRG-001-QL-030", "TRG-001-QL-033", "TRG-001-QL-034", "TRG-001-QL-035", "TRG-001-QL-041", "TRG-001-QL-049", "TRG-001-QL-050", "TRG-001-QL-053", "TRG-001-QL-054", "TRG-001-QL-059", "TRG-001-QL-065", "TRG-001-QL-067", "TRG-001-QL-068", "TRG-001-QL-069", "TRG-001-QL-070", "TRG-001-QL-071", "TRG-001-QL-073", "TRG-001-QL-074", "TRG-001-QL-076", "TRG-001-QL-077", "TRG-001-QL-078", "TRG-001-QL-079", "TRG-001-QL-080", "TRG-001-QL-081", "TRG-001-QL-083", "TRG-001-QL-084", "TRG-001-QL-087", "TRG-001-QL-088", "TRG-001-QL-097", "TRG-001-QL-099", "TRG-001-QL-101", "TRG-001-QL-102", "TRG-001-QL-105", "TRG-001-QL-106", "TRG-001-QL-109", "TRG-001-QL-113", "TRG-001-QL-121", "TRG-001-QL-122", "TRG-001-QL-123", "TRG-001-QL-124", "TRG-001-QL-127", "TRG-001-QL-128", "TRG-001-QL-129", "TRG-001-QL-131", "TRG-001-QL-140"
+    ],
+    "reusedProductionTemplateTargets": [
+      "TRG-001-QL-010", "TRG-001-QL-014", "TRG-001-QL-015", "TRG-001-QL-016", "TRG-001-QL-020", "TRG-001-QL-021", "TRG-001-QL-022", "TRG-001-QL-023", "TRG-001-QL-031", "TRG-001-QL-036", "TRG-001-QL-037", "TRG-001-QL-042", "TRG-001-QL-043", "TRG-001-QL-044", "TRG-001-QL-047", "TRG-001-QL-048", "TRG-001-QL-051", "TRG-001-QL-052", "TRG-001-QL-055", "TRG-001-QL-056", "TRG-001-QL-060", "TRG-001-QL-061", "TRG-001-QL-064", "TRG-001-QL-072", "TRG-001-QL-075", "TRG-001-QL-082", "TRG-001-QL-085", "TRG-001-QL-086", "TRG-001-QL-089", "TRG-001-QL-090", "TRG-001-QL-091", "TRG-001-QL-092", "TRG-001-QL-096", "TRG-001-QL-100", "TRG-001-QL-103", "TRG-001-QL-104", "TRG-001-QL-107", "TRG-001-QL-108", "TRG-001-QL-110", "TRG-001-QL-111", "TRG-001-QL-114", "TRG-001-QL-117", "TRG-001-QL-118", "TRG-001-QL-125", "TRG-001-QL-126", "TRG-001-QL-130", "TRG-001-QL-132", "TRG-001-QL-133", "TRG-001-QL-138", "TRG-001-QL-139", "TRG-001-QL-141", "TRG-001-QL-142", "TRG-001-QL-143"
+    ],
+    "customAuthorityTargets": [
+      "TRG-001-QL-001", "TRG-001-QL-002", "TRG-001-QL-003", "TRG-001-QL-004", "TRG-001-QL-011", "TRG-001-QL-012", "TRG-001-QL-024", "TRG-001-QL-032", "TRG-001-QL-038", "TRG-001-QL-039", "TRG-001-QL-040", "TRG-001-QL-045", "TRG-001-QL-046", "TRG-001-QL-057", "TRG-001-QL-058", "TRG-001-QL-062", "TRG-001-QL-063", "TRG-001-QL-066", "TRG-001-QL-093", "TRG-001-QL-094", "TRG-001-QL-095", "TRG-001-QL-098", "TRG-001-QL-112", "TRG-001-QL-115", "TRG-001-QL-116", "TRG-001-QL-119", "TRG-001-QL-120", "TRG-001-QL-134", "TRG-001-QL-135", "TRG-001-QL-136", "TRG-001-QL-137", "TRG-001-QL-144"
+    ]
+  },
+  "remediations": {
+    "phase0QlFamilyDrift": "FIXED",
+    "TRG-001-QL-066": "GENUINE_270_DEGREE_REDUCTION",
+    "TRG-001-QL-095": "EXPRESSION_FROM_GIVEN_SINE_RATIO",
+    "TRG-001-QL-098": "DERIVED_EXPRESSION_FROM_TANGENT_RATIO",
+    "TRG-001-QL-135": "EQUIVALENT_DISTRACTOR_COLLISION_FIXED",
+    "TRG-001-QL-062": "EXACT_225_OVER_2_DEGREE_HARDENING_PRESERVED"
+  },
+  "execution": {
+    "githubActionsObservedForReviewedHead": false,
+    "localCloneExecutionAvailable": false,
+    "authorityGateExecution": "NOT_CLAIMED",
+    "strictTypeScriptCompile": "NOT_CLAIMED",
+    "canonicalTargetCases": 1728,
+    "sweepTargetCases": 7200
+  },
+  "activation": {
+    "questionStudioDiscoverable": false,
+    "testBuilderEligible": false,
+    "questionBankStored": false,
+    "publiclyPublishable": false,
+    "hindiPunjabiRuntime": false
+  },
+  "freezeEligible": false,
+  "next": "Obtain execution evidence for production-authority.test.ts and complete mandatory human review before any production freeze or activation."
+}
