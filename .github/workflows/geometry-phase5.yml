@@ -70,6 +70,10 @@ jobs:
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/gap-closure-ledger-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-gap-closure-v1.test.mjs
           node artifacts/api-server/dist/quant-v4/geometry-gap-closure-v1.test.mjs
+      - name: Prove canonical Geometry 81-candidate review registry
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/temporary-candidate-registry-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-temporary-candidate-registry-v1.test.mjs
+          node artifacts/api-server/dist/quant-v4/geometry-temporary-candidate-registry-v1.test.mjs
       - name: Export Geometry Phase 5 review evidence
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/GEO-002/discovery/phase5-review-export.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-phase5-review-export.mjs
