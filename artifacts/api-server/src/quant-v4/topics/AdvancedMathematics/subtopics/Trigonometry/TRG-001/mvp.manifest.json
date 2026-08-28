@@ -1,0 +1,56 @@
+{
+  "packageId": "TRG-001",
+  "checkpoint": "MVP_72",
+  "status": "ENGINEERING_MVP_IMPLEMENTED_EDITORIAL_PENDING",
+  "counts": {
+    "runtimeProofAnchors": 30,
+    "mvpExpansion": 42,
+    "mvpTotal": 72,
+    "productionTarget": 144,
+    "humanReviewApproved": 0,
+    "humanReviewPending": 72
+  },
+  "cpCoverage": {
+    "TRG-CP-001": { "count": 12, "firstQl": "TRG-001-QL-001", "lastQl": "TRG-001-QL-012" },
+    "TRG-CP-002": { "count": 12, "firstQl": "TRG-001-QL-025", "lastQl": "TRG-001-QL-036" },
+    "TRG-CP-003": { "count": 12, "firstQl": "TRG-001-QL-049", "lastQl": "TRG-001-QL-060" },
+    "TRG-CP-004": { "count": 12, "firstQl": "TRG-001-QL-073", "lastQl": "TRG-001-QL-084" },
+    "TRG-CP-005": { "count": 12, "firstQl": "TRG-001-QL-097", "lastQl": "TRG-001-QL-108" },
+    "TRG-CP-006": { "count": 12, "firstQl": "TRG-001-QL-121", "lastQl": "TRG-001-QL-132" }
+  },
+  "runtimeContracts": {
+    "deterministicSeededState": true,
+    "exactAnswerAuthority": true,
+    "misconceptionDistractors": true,
+    "mathematicalOptionEquivalenceGuard": true,
+    "independentVerification": true,
+    "generatedExplanations": true,
+    "deterministicFingerprints": true
+  },
+  "committedGateSuite": {
+    "canonicalSeedsPerQl": 12,
+    "canonicalCases": 864,
+    "wholeMvpSweepSeeds": 50,
+    "wholeMvpSweepCases": 3600,
+    "githubActionsExecutionClaimed": false
+  },
+  "implementationAudit": {
+    "strictTypeScriptContractCompile": "PASS",
+    "symbolicOptionAudit": "PASS",
+    "canonicalSeedDiversityPrecheck": "PASS",
+    "defectsCaughtAndCorrectedBeforeCommit": 2
+  },
+  "editorial": {
+    "baselineFile": "mvp-review-baseline.csv",
+    "rows": 72,
+    "initialStatus": "PENDING",
+    "freezeComplete": false
+  },
+  "activation": {
+    "questionStudioDiscoverable": false,
+    "testBuilderEligible": false,
+    "questionBankStored": false,
+    "publiclyPublishable": false
+  },
+  "next": "MVP_EDITORIAL_REVIEW_AND_REMEDIATION"
+}
