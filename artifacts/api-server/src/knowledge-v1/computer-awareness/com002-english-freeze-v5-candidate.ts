@@ -110,15 +110,15 @@ export function computeCom002EnglishV5FreezeCandidateFingerprints() {
 }
 
 export const COM002_ENGLISH_V5_FREEZE_CANDIDATE_PINS = {
-  englishCorpusFingerprint: "PENDING",
-  reviewPackFingerprint: "PENDING",
-  combinedFingerprint: "PENDING",
+  englishCorpusFingerprint: "a481f4899f26ebb7199f565b9683627c43213fba8c358e4a2a151c7811e2bad9",
+  reviewPackFingerprint: "c69aaba609b9f1af7b1e120cf679c748ff4adbe51c6d926e1ea1436b5b014921",
+  combinedFingerprint: "d5109a528cb753b1c00d23864b709c040595ef91b59e776b5ab3510b9ab93b69",
 } as const;
 
 export const COM002_ENGLISH_V5_FREEZE_CANDIDATE = Object.freeze({
   candidateId: "COM-002-ENGLISH-V5-FREEZE-CANDIDATE" as const,
   chapterId: "COM-002" as const,
-  status: "EXPLICITLY_APPROVED_HASH_PROBE_AWAITING_CANONICAL_V5_EXECUTION" as const,
+  status: "EXPLICITLY_APPROVED_CANONICAL_V5_EXECUTED_GREEN_FINGERPRINTS_PINNED" as const,
   englishGeneratorVersion: COM002_ENGLISH_GENERATOR_VERSION_V5,
   integrityAuthorityId: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V4.authorityId,
   fingerprints: COM002_ENGLISH_V5_FREEZE_CANDIDATE_PINS,
@@ -128,11 +128,28 @@ export const COM002_ENGLISH_V5_FREEZE_CANDIDATE = Object.freeze({
     approvedOn: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V4.approvedOn,
     approvedSurface: COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V4.approvedSurface,
   },
-  promotionAllowed: false,
-  promotionBlocker: "CANONICAL_V5_520_AND_EXACT_26_EXECUTION_PLUS_PINNED_FINGERPRINTS_REQUIRED" as const,
+  executionEvidence: {
+    featureHeadSha: "b03f04ef59b5fc34a75b0a2591dfb4244b55049b" as const,
+    pullRequestNumber: 1019,
+    pullRequestMergeSha: "708d171bb83bc271a597ed4a861db1af96023949" as const,
+    workflowName: "Validate Question Studio Content Engine Foundation V1" as const,
+    workflowRunNumber: 502,
+    workflowRunId: 33136710464,
+    workflowJobId: 98738191160,
+    conclusion: "SUCCESS" as const,
+    executedOn: "2026-08-28" as const,
+    englishV5CorpusQuestions: 520,
+    englishV5ReviewQuestions: 26,
+    learnerFacingChangedFromV4: 452,
+    kernelCoreDescriptionCases: 6,
+    semanticProvenancePreserved: true,
+    exactApprovedBrowserPackFingerprint: "afbfa579bb22ca0e8a7663bf58c16bef4fc33aab7fec957d04b6082bc00d1ef7" as const,
+  },
+  promotionAllowed: true,
+  promotionBlocker: null,
   lifecycle: {
-    englishV5MachineAuditExecuted: false,
-    englishV5MachineFingerprintsPinned: false,
+    englishV5MachineAuditExecuted: true,
+    englishV5MachineFingerprintsPinned: true,
     englishV5AuthorityFrozen: false,
     localizationFreezePromotionAllowed: false,
     questionStudioActive: false,
@@ -153,10 +170,14 @@ export function auditCom002EnglishV5FreezeCandidate() {
   if (actual.corpusQuestionCount !== 520) issues.push(`CORPUS_QUESTION_COUNT:${actual.corpusQuestionCount}`);
   if (actual.reviewQuestionCount !== 26) issues.push(`REVIEW_QUESTION_COUNT:${actual.reviewQuestionCount}`);
   if (!COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V4.explicitApprovalVerified) issues.push("EXPLICIT_APPROVAL_MISSING");
-  if (COM002_ENGLISH_HUMAN_REVIEW_INTEGRITY_V4.v5ExecutedGreen) issues.push("INTEGRITY_STATE_SHOULD_REMAIN_PRE_EXECUTION_FOR_HASH_PROBE");
+  if (COM002_ENGLISH_V5_FREEZE_CANDIDATE.executionEvidence.conclusion !== "SUCCESS") issues.push("CANONICAL_EXECUTION_NOT_GREEN");
+  if (COM002_ENGLISH_V5_FREEZE_CANDIDATE.executionEvidence.englishV5CorpusQuestions !== 520) issues.push("CANONICAL_CORPUS_COUNT_MISMATCH");
+  if (COM002_ENGLISH_V5_FREEZE_CANDIDATE.executionEvidence.englishV5ReviewQuestions !== 26) issues.push("CANONICAL_REVIEW_COUNT_MISMATCH");
+  if (!COM002_ENGLISH_V5_FREEZE_CANDIDATE.executionEvidence.semanticProvenancePreserved) issues.push("SEMANTIC_PROVENANCE_NOT_PRESERVED");
 
   for (const key of ["englishCorpusFingerprint", "reviewPackFingerprint", "combinedFingerprint"] as const) {
     if (actual[key] !== pins[key]) issues.push(`FINGERPRINT_MISMATCH:${key}:expected=${pins[key]}:actual=${actual[key]}`);
   }
-  return { actual, pins, issues, promotable: false };
+  const promotable = issues.length === 0 && COM002_ENGLISH_V5_FREEZE_CANDIDATE.promotionAllowed;
+  return { actual, pins, issues, promotable };
 }
