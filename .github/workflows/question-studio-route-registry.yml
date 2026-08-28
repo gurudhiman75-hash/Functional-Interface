@@ -1,0 +1,62 @@
+name: Validate Question Studio route registry
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-*.ts'
+      - 'artifacts/api-server/src/routes/index.ts'
+      - '.github/workflows/question-studio-route-registry.yml'
+  push:
+    paths:
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-*.ts'
+      - 'artifacts/api-server/src/routes/index.ts'
+      - '.github/workflows/question-studio-route-registry.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: question-studio-route-registry-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-route-registry:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Verify global route index uses only the registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          index='artifacts/api-server/src/routes/index.ts'
+          registry='artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+
+          grep -Fq 'import adminQuestionStudioRegistryRouter from "./admin-question-studio-registry";' "$index"
+          grep -Fq 'router.use("/admin/question-studio", adminQuestionStudioRegistryRouter);' "$index"
+
+          if grep -Eq 'import adminQuestionStudio[^R].*from "\./admin-question-studio-' "$index"; then
+            echo 'Direct Question Studio router import found in routes/index.ts; mount packages through the registry instead.' >&2
+            exit 1
+          fi
+
+          direct_mounts=$(grep -Fc 'router.use("/admin/question-studio",' "$index" || true)
+          test "$direct_mounts" -eq 1
+          test -s "$registry"
+
+      - name: Verify legacy catch-all remains last in registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          registry='artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+          last_mount=$(grep '^[[:space:]]*router.use(adminQuestionStudio' "$registry" | tail -n 1 | tr -d '[:space:]')
+          test "$last_mount" = 'router.use(adminQuestionStudioRouter);'
+
+      - name: Report focused CI contract
+        run: echo 'Question Studio route registry contract PASS'
