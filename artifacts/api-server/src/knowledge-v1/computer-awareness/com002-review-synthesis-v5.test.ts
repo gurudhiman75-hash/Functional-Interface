@@ -23,6 +23,7 @@ const bannedHardPhrases = [
 
 let audited = 0;
 let learnerFacingChanged = 0;
+let kernelCoreDescriptionCases = 0;
 
 for (const qlId of qlIds) {
   for (let index = 0; index < 40; index += 1) {
@@ -54,6 +55,20 @@ for (const qlId of qlIds) {
     }
 
     if (
+      question.qlId === "COM-002-QL-004" &&
+      question.surfaceMode === "COMPONENT_TO_ROLE" &&
+      question.targetFactId === "com002-kernel-core"
+    ) {
+      assert.equal(
+        question.stem,
+        "Which statement correctly describes the kernel in an operating system?",
+        `${qlId}/${seed}: kernel-core fact must remain a description question, not a role question`,
+      );
+      assert.equal(question.explanation, "The kernel is the core component of an operating system.");
+      kernelCoreDescriptionCases += 1;
+    }
+
+    if (
       question.stem !== v4.stem ||
       question.explanation !== v4.explanation ||
       question.canonicalAnswer !== v4.canonicalAnswer ||
@@ -68,10 +83,12 @@ for (const qlId of qlIds) {
 
 assert.equal(audited, 520);
 assert.ok(learnerFacingChanged > 100, "V5 simplification must materially affect the learner-facing corpus");
+assert.ok(kernelCoreDescriptionCases > 0, "V5 audit must exercise kernel-core COMPONENT_TO_ROLE cases");
 
 console.log("[COM002-REVIEW-SYNTHESIS-V5] PASS", {
   questions: audited,
   learnerFacingChanged,
+  kernelCoreDescriptionCases,
   semanticProvenancePreserved: true,
   simplifiedLanguage: true,
 });
