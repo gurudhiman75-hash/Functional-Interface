@@ -1,0 +1,46 @@
+name: Validate NUM-CP-014 Question Studio integration
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/**"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine-cp014.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-cp014.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
+      - ".github/workflows/num-cp014-question-studio-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp014-question-studio-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp014-question-studio:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle CP014 Question Studio audit
+        run: |
+          root="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014"
+          pnpm --dir artifacts/api-server exec esbuild "$root/question-studio-integration.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-question-studio.mjs
+      - name: Run CP014 Question Studio audit
+        run: node artifacts/api-server/dist/quant-v4/num-cp014-question-studio.mjs
+      - name: Bundle CP014 admin route
+        run: pnpm --dir artifacts/api-server exec esbuild src/routes/admin-question-studio-cp014.ts --bundle --platform=node --format=esm --outfile=dist/routes/admin-question-studio-cp014.mjs
+      - name: Bundle shared CP014 facade
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/shared-generation-engine-cp014.ts --bundle --platform=node --format=esm --outfile=dist/question-studio/shared-generation-engine-cp014.mjs
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
