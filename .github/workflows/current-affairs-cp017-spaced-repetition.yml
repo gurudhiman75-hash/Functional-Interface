@@ -1,0 +1,145 @@
+name: Validate Current Affairs Studio CP017
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp015-question-bank-promotion
+      - feature/current-affairs-studio-cp016-learner-quiz-delivery
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/current-affairs-quizzes.ts"
+      - "artifacts/api-server/migrations/20260829_current_affairs_spaced_repetition.sql"
+      - ".github/workflows/current-affairs-cp017-spaced-repetition.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp017-spaced-repetition
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/current-affairs-quizzes.ts"
+      - "artifacts/api-server/migrations/20260829_current_affairs_spaced_repetition.sql"
+      - ".github/workflows/current-affairs-cp017-spaced-repetition.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp017-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-spaced-repetition:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Current Affairs CP001-CP017 contracts
+        run: |
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/original-authoring.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-question-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/periodic-rollup-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/story-threading.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/release-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/question-promotion-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/quiz-delivery-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/revision-policy.test.ts
+
+      - name: Verify attempt history and idempotency schema
+        shell: bash
+        run: |
+          set -euo pipefail
+          schema=artifacts/api-server/migrations/20260829_current_affairs_spaced_repetition.sql
+          runtime=artifacts/api-server/src/current-affairs/revision-runtime.ts
+          grep -Fq 'current_affairs_learning_attempts' "$schema"
+          grep -Fq 'current_affairs_learning_attempt_items' "$schema"
+          grep -Fq 'current_affairs_revision_schedule' "$schema"
+          grep -Fq 'client_attempt_id UUID NOT NULL' "$schema"
+          grep -Fq 'UNIQUE (user_id, client_attempt_id)' "$schema"
+          grep -Fq 'attempt_type IN (' "$schema"
+          grep -Fq 'existingAttemptByClientId' "$runtime"
+          grep -Fq 'idempotentReplay: true' "$runtime"
+          grep -Fq 'pg_advisory_xact_lock' "$runtime"
+
+      - name: Verify answer/result integrity at database boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          schema=artifacts/api-server/migrations/20260829_current_affairs_spaced_repetition.sql
+          grep -Fq 'guard_current_affairs_attempt_item' "$schema"
+          grep -Fq "item.english_payload->>'correctIndex'" "$schema"
+          grep -Fq 'NEW.correct_index IS DISTINCT FROM expected_correct_index' "$schema"
+          grep -Fq "WHEN NEW.selected_index = expected_correct_index THEN 'correct'" "$schema"
+          grep -Fq 'NEW.result IS DISTINCT FROM expected_result' "$schema"
+          grep -Fq "delivery.status <> 'published'" "$schema"
+          grep -Fq "release.status <> 'approved'" "$schema"
+
+      - name: Verify D3-D7-D15-D30-D60 scheduling and retake protection
+        shell: bash
+        run: |
+          set -euo pipefail
+          policy=artifacts/api-server/src/current-affairs/revision-policy.ts
+          runtime=artifacts/api-server/src/current-affairs/revision-runtime.ts
+          grep -Fq 'const ADVANCE_INTERVAL_DAYS = [3, 4, 8, 15, 30, 60]' "$policy"
+          grep -Fq 'args.mode === "quiz" && args.currentStage != null' "$policy"
+          grep -Fq 'return { stage: 0, nextReviewAt: addDays(now, 1) }' "$policy"
+          grep -Fq '["Recovery", "D3", "D7", "D15", "D30", "D60"]' "$policy"
+          grep -Fq 'mode: "quiz"' "$runtime"
+          grep -Fq 'mode: "revision"' "$runtime"
+          grep -Fq 'schedule.next_review_at <= now()' "$runtime"
+
+      - name: Verify student identity and authenticated progress endpoints
+        shell: bash
+        run: |
+          set -euo pipefail
+          runtime=artifacts/api-server/src/current-affairs/revision-runtime.ts
+          route=artifacts/api-server/src/routes/current-affairs-quizzes.ts
+          grep -Fq "auth_identity.provider='firebase'" "$runtime"
+          grep -Fq "user_row.status='active'::user_status" "$runtime"
+          grep -Fq '/current-affairs/quizzes/:code/attempts' "$route"
+          grep -Fq '/current-affairs/revision"' "$route"
+          grep -Fq '/current-affairs/revision/attempts' "$route"
+          grep -Fq '/current-affairs/attempts' "$route"
+          auth_count=$(grep -c 'authenticate, async' "$route")
+          test "$auth_count" -ge 4
+
+      - name: Verify public free-practice route remains separate
+        shell: bash
+        run: |
+          set -euo pipefail
+          route=artifacts/api-server/src/routes/current-affairs-quizzes.ts
+          grep -Fq 'router.get("/current-affairs/quizzes"' "$route"
+          grep -Fq 'router.get("/current-affairs/quizzes/:code"' "$route"
+          grep -Fq 'router.post("/current-affairs/quizzes/:code/grade"' "$route"
+
+      - name: Compile all Current Affairs workers
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/current-affairs/feed-worker.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/current-affairs-feed-worker.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/current-affairs/primary-enrichment-worker.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/current-affairs-primary-enrichment-worker.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/current-affairs/daily-worker.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/current-affairs-daily-worker.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
