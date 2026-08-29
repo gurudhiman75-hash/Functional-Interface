@@ -18,6 +18,19 @@ export async function refreshNotesAuthoringReadiness(jobId: string, actorUserId:
           SELECT 1
           FROM content.note_source_claims claim
           JOIN content.note_source_claim_evidence mapping
+            ON mapping.job_id = claim.job_id AND mapping.claim_id = claim.id
+          JOIN content.note_source_evidence_blocks block
+            ON block.job_id = mapping.job_id AND block.id = mapping.evidence_block_id
+          JOIN content.note_authoring_sources link
+            ON link.job_id = block.job_id AND link.source_document_id = block.source_document_id
+          WHERE claim.job_id = ${jobId}::uuid
+            AND claim.state = 'conflict'
+            AND link.inclusion_state = 'included'
+        ) AS has_active_conflict,
+        EXISTS (
+          SELECT 1
+          FROM content.note_source_claims claim
+          JOIN content.note_source_claim_evidence mapping
             ON mapping.job_id = claim.job_id AND mapping.claim_id = claim.id AND mapping.relation = 'supports'
           JOIN content.note_source_evidence_blocks block
             ON block.job_id = mapping.job_id AND block.id = mapping.evidence_block_id
@@ -63,6 +76,7 @@ export async function refreshNotesAuthoringReadiness(jobId: string, actorUserId:
     UPDATE content.note_authoring_jobs job
     SET state = CASE
       WHEN NOT readiness.has_sources THEN 'brief'
+      WHEN readiness.has_active_conflict THEN 'evidence_ready'
       WHEN NOT readiness.has_accepted_evidence THEN 'sources_ready'
       WHEN readiness.has_core_coverage AND readiness.core_covered THEN 'outline_ready'
       ELSE 'evidence_ready'
