@@ -13,6 +13,12 @@ import {
   type Syl001QuestionStudioRequest,
 } from "./topics/Syllogism/SYL-001/question-studio-adapter";
 import {
+  STA_001_QUESTION_STUDIO_REVIEW_PACKAGE,
+  assertSta001QuestionStudioPersistenceAllowed,
+  previewSta001QuestionStudioReview,
+  type PreviewSta001QuestionStudioInput,
+} from "./topics/Statement-and-Assumption/STA-001/question-studio-review";
+import {
   WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   previewWor001QuestionStudioReview,
   type PreviewWor001QuestionStudioInput,
@@ -21,6 +27,7 @@ import {
 export type ReasoningV1QuestionStudioReviewPackageId =
   | typeof BLR_CP007_QUESTION_STUDIO_PACKAGE_ID
   | typeof SYL_001_QUESTION_STUDIO_PACKAGE_ID
+  | typeof STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId
   | typeof WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId;
 
 export type ReasoningV1QuestionStudioReviewRequest =
@@ -30,6 +37,9 @@ export type ReasoningV1QuestionStudioReviewRequest =
   | (Syl001QuestionStudioRequest & Readonly<{
       packageId: typeof SYL_001_QUESTION_STUDIO_PACKAGE_ID;
     }>)
+  | (PreviewSta001QuestionStudioInput & Readonly<{
+      packageId: typeof STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId;
+    }>)
   | (PreviewWor001QuestionStudioInput & Readonly<{
       packageId: typeof WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId;
     }>);
@@ -37,6 +47,7 @@ export type ReasoningV1QuestionStudioReviewRequest =
 const REVIEW_PACKAGES = [
   BLR_CP007_QUESTION_STUDIO_REVIEW_PACKAGE,
   SYL_001_QUESTION_STUDIO_PACKAGE,
+  STA_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE,
 ] as const;
 
@@ -59,6 +70,10 @@ export function previewReasoningV1QuestionStudioReview(
   if (request.packageId === SYL_001_QUESTION_STUDIO_PACKAGE_ID) {
     return previewSyl001QuestionStudio(request);
   }
+  if (request.packageId === STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
+    const { packageId: _packageId, ...input } = request;
+    return previewSta001QuestionStudioReview(input);
+  }
   if (request.packageId === WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
     const { packageId: _packageId, ...input } = request;
     return previewWor001QuestionStudioReview(input);
@@ -74,6 +89,9 @@ export function persistReasoningV1QuestionStudioReview(
   }
   if (request.packageId === SYL_001_QUESTION_STUDIO_PACKAGE_ID) {
     return assertSyl001QuestionStudioPersistenceAllowed();
+  }
+  if (request.packageId === STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
+    return assertSta001QuestionStudioPersistenceAllowed();
   }
   if (request.packageId === WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
     throw new Error(

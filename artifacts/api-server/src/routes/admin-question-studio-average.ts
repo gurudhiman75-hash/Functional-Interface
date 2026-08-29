@@ -5,9 +5,10 @@ import { sqlClient } from "../lib/db";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { authenticate } from "../middlewares/auth";
 // The shared facade keeps Quant requests on the guarded question-studio-review-engine path
-// while adding Reasoning packages such as WOR-001 to the same persistence workflow.
+// while adding frozen Reasoning packages to the same authenticated review persistence workflow.
 import {
   generateQuestion as generateQuestionStudioQuestions,
+  isSta001QuestionStudioRequest,
   isWor001QuestionStudioRequest,
   listQuestionStudioPackages,
 } from "../question-studio/shared-generation-engine";
@@ -171,6 +172,24 @@ router.get(
           : Array.isArray(pkg.canonicalProblems)
             ? pkg.canonicalProblems.map((item: any) => String(item?.id ?? "")).filter(Boolean)
             : [],
+        canonicalProblems: Array.isArray(pkg.canonicalProblems)
+          ? pkg.canonicalProblems.map((item: any) => ({
+              id: String(item?.id ?? ""),
+              label: String(item?.label ?? item?.id ?? ""),
+              checkpointId: asString(item?.checkpointId) || undefined,
+            })).filter((item: any) => item.id)
+          : [],
+        patternIds: Array.isArray(pkg.patternIds) ? pkg.patternIds.map(String) : [],
+        presentationProfiles: Array.isArray(pkg.presentationProfiles)
+          ? pkg.presentationProfiles.map((entry: any) => ({ ...entry }))
+          : [],
+        permanentQlIds: Array.isArray(pkg.permanentQlIds) ? pkg.permanentQlIds.map(String) : [],
+        candidateQlIds: Array.isArray(pkg.candidateQlIds) ? pkg.candidateQlIds.map(String) : [],
+        permanentQlCount: Number.isFinite(Number(pkg.permanentQlCount)) ? Number(pkg.permanentQlCount) : undefined,
+        candidateQlCount: Number.isFinite(Number(pkg.candidateQlCount)) ? Number(pkg.candidateQlCount) : undefined,
+        supportedDifficulties: Array.isArray(pkg.supportedDifficulties)
+          ? pkg.supportedDifficulties.map(String)
+          : ["Easy", "Medium", "Hard"],
         supportedLanguages: Array.isArray(pkg.supportedLanguages)
           ? pkg.supportedLanguages.map(String)
           : ["en"],
@@ -178,11 +197,33 @@ router.get(
         supportedRuntimeModes: Array.isArray(pkg.supportedRuntimeModes)
           ? pkg.supportedRuntimeModes.map(String)
           : [],
+        reviewStatus: asString(pkg.reviewStatus) || undefined,
+        releaseFreezeStatus: asString(pkg.releaseFreezeStatus) || undefined,
         questionBankStatus: asString(pkg.questionBankStatus) || undefined,
+        questionBankWritable:
+          typeof pkg.questionBankWritable === "boolean"
+            ? pkg.questionBankWritable
+            : undefined,
         testEligibility: asString(pkg.testEligibility) || undefined,
+        testEligible:
+          typeof pkg.testEligible === "boolean"
+            ? pkg.testEligible
+            : undefined,
+        mockTestEligible:
+          typeof pkg.mockTestEligible === "boolean"
+            ? pkg.mockTestEligible
+            : undefined,
+        multilingualChapterFrozen:
+          typeof pkg.multilingualChapterFrozen === "boolean"
+            ? pkg.multilingualChapterFrozen
+            : undefined,
         publiclyPublishable:
           typeof pkg.publiclyPublishable === "boolean"
             ? pkg.publiclyPublishable
+            : undefined,
+        automaticStudentPublication:
+          typeof pkg.automaticStudentPublication === "boolean"
+            ? pkg.automaticStudentPublication
             : undefined,
       }));
 
@@ -208,8 +249,9 @@ router.post(
     const numberSystemRequest = isNumberSystemRequest(req.body);
     const averageRequest = isAverageRequest(req.body);
     const timeAndWorkRequest = isTimeAndWorkRequest(req.body);
+    const staRequest = isSta001QuestionStudioRequest(req.body ?? {});
     const worRequest = isWor001QuestionStudioRequest(req.body ?? {});
-    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !worRequest) {
+    if (!averageRequest && !numberSystemRequest && !timeAndWorkRequest && !simplificationRequest && !staRequest && !worRequest) {
       next();
       return;
     }
@@ -234,27 +276,32 @@ router.post(
     const defaultPackageId = numberSystemRequest
       ? num002Request ? "NUM-002" : "NUM-001"
       : "AVG-001";
-    const selectedPackageId = worRequest
-      ? "WOR-001"
-      : simplificationRequest
-        ? "SAP"
-        : timeAndWorkRequest
-          ? "TMW-001"
-          : defaultPackageId;
+    const selectedPackageId = staRequest
+      ? "STA-001"
+      : worRequest
+        ? "WOR-001"
+        : simplificationRequest
+          ? "SAP"
+          : timeAndWorkRequest
+            ? "TMW-001"
+            : defaultPackageId;
     const defaultSubtopic = numberSystemRequest ? "Number System" : "Average";
-    const selectedSubtopic = worRequest
-      ? "Word & Dictionary Order"
-      : simplificationRequest
-        ? "Simplification & Approximation"
-        : timeAndWorkRequest
-          ? "Time & Work"
-          : defaultSubtopic;
+    const selectedSubtopic = staRequest
+      ? "Statement & Assumption"
+      : worRequest
+        ? "Word & Dictionary Order"
+        : simplificationRequest
+          ? "Simplification & Approximation"
+          : timeAndWorkRequest
+            ? "Time & Work"
+            : defaultSubtopic;
     const packageId = asString(req.body?.packageId) || selectedPackageId;
     const patternId = asString(req.body?.patternId) || undefined;
-    const topic = worRequest ? "Reasoning" : asString(req.body?.topic) || "Arithmetic";
+    const reasoningRequest = staRequest || worRequest;
+    const topic = reasoningRequest ? "Reasoning" : asString(req.body?.topic) || "Arithmetic";
     const subtopic = asString(req.body?.subtopic) || selectedSubtopic;
     const exam = asString(req.body?.exam) || "SSC CGL";
-    const subject = worRequest ? "Reasoning Ability" : asString(req.body?.subject) || "Quantitative Aptitude";
+    const subject = reasoningRequest ? "Reasoning Ability" : asString(req.body?.subject) || "Quantitative Aptitude";
     const language = normalizeLanguage(req.body?.language);
     const requestedDifficulty = asString(req.body?.difficulty);
     const difficulty = worRequest && requestedDifficulty.toLowerCase() === "mixed"
@@ -262,6 +309,7 @@ router.post(
       : normalizeDifficulty(requestedDifficulty);
     const seed = asString(req.body?.seed) || undefined;
     const canonicalProblemId = asString(req.body?.canonicalProblemId) || undefined;
+    const cpId = asString(req.body?.cpId) || undefined;
     const questionLanguageId = asString(req.body?.questionLanguageId) || undefined;
     const inferredNumberSystemCp = numberSystemRequest
       ? inferNumberSystemCpFromQl(questionLanguageId)
@@ -310,6 +358,7 @@ router.post(
       topic,
       subtopic,
       canonicalProblemId,
+      cpId,
       questionLanguageId,
       language,
       seed,
@@ -323,6 +372,7 @@ router.post(
         topic,
         subtopic,
         canonicalProblemId,
+        cpId,
         questionLanguageId,
         difficulty,
         language,
@@ -338,6 +388,12 @@ router.post(
         return;
       }
 
+      const providerModel = staRequest
+        ? "reasoning-v1-sta-001"
+        : worRequest
+          ? "reasoning-v1-wor-001"
+          : "quant-v4";
+
       await sqlClient.begin(async (tx) => {
         await tx`
           INSERT INTO content.generation_runs (
@@ -348,7 +404,7 @@ router.post(
           ) VALUES (
             ${runId}::uuid, ${code}, 'review'::generation_run_status, 1,
             ${JSON.stringify(requestSnapshot)}, ${JSON.stringify(requestSnapshot)},
-            'examtree', ${worRequest ? "reasoning-v1-wor-001" : "quant-v4"}, 0, 0, 0, 0,
+            'examtree', ${providerModel}, 0, 0, 0, 0,
             ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
           )
         `;
@@ -415,7 +471,7 @@ router.post(
         publicCode: code,
         status: "review",
         itemCount: generatedQuestions.length,
-        generationSystem: worRequest ? "reasoning-v1" : "quant-v4",
+        generationSystem: reasoningRequest ? "reasoning-v1" : "quant-v4",
       });
     } catch (error) {
       console.error(`${selectedPackageId} Question Studio generation failed`, error);

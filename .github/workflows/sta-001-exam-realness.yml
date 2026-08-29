@@ -1,0 +1,71 @@
+name: STA-001 Historical Exam-Format Regression
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-chapter-proof.test.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/multilingual-pre-freeze-proof.test.ts'
+      - '.github/workflows/sta-001-exam-realness.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sta-001-historical-exam-format-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  historical-exam-format-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Replay QL004 V3 historical learner-realness proof
+        env:
+          STA_QL004_EXAM_REALNESS_CASES_PER_LOCALE: 4096
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-editorial-v3-proof.test.ts
+
+      - name: Replay historical 2/3/4-assumption format matrix
+        env:
+          STA_EXAM_FORMAT_CASES_PER_PROFILE_LOCALE: 512
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-extension-proof.test.ts
+
+      - name: Replay historical five-assumption Banking format proof
+        env:
+          STA_EXAM_FORMAT_FIVE_CASES_PER_LOCALE: 2048
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-five-assumption-proof.test.ts
+
+      - name: Replay historical provenance and overclaim guards
+        run: |
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-provenance-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-provenance-v2-proof.test.ts
+
+      - name: Replay historical presentation saturation
+        env:
+          STA_EXAM_FORMAT_SATURATION_CASES_PER_PROFILE_LOCALE: 1024
+          STA_EXAM_FORMAT_SATURATION_V2_CASES_PER_PROFILE_LOCALE: 1024
+        run: |
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-saturation-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-saturation-v2-proof.test.ts
+
+      - name: Replay legacy Banking coded-answer surface
+        env:
+          STA_LEGACY_BANK_CASES_PER_LOCALE: 1024
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-legacy-bank-proof.test.ts
+
+      - name: Historical-authority boundary
+        run: |
+          echo 'Old format/provenance evidence remains immutable regression evidence.'
+          echo 'This workflow does not certify the current V4.1 learner corpus.'
+          echo 'Current STA release authority belongs exclusively to the V4.1 review gate plus human approval.'

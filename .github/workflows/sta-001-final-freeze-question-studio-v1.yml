@@ -1,0 +1,60 @@
+name: STA-001 Historical V1 Freeze Regression
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql002-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql003-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/multilingual-freeze-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/multilingual-frozen-runtime.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-provenance*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/chapter-closeout-*'
+      - '.github/workflows/sta-001-final-freeze-question-studio-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sta-001-historical-v1-freeze-regression-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  historical-v1-freeze-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Replay immutable English V2 freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-freeze-proof.test.ts
+      - name: Replay immutable QL001 Hindi/Punjabi freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-freeze-proof.test.ts
+      - name: Replay immutable QL002 Hindi/Punjabi freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql002-freeze-proof.test.ts
+      - name: Replay immutable QL003 Hindi/Punjabi freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql003-freeze-proof.test.ts
+      - name: Replay immutable QL004 Hindi/Punjabi V3 freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-freeze-proof.test.ts
+      - name: Replay historical multilingual V1 freeze proof
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/multilingual-freeze-proof.test.ts
+      - name: Replay historical nine-profile provenance proof
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-format-provenance-v2-proof.test.ts
+      - name: Replay historical chapter closeout proof
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/chapter-closeout-proof.test.ts
+
+      - name: Assert historical regression is not current release authority
+        run: |
+          echo 'Historical V1 freeze evidence preserved.'
+          echo 'Current release authority is NOT granted by this workflow.'
+          echo 'STA V4.1 remains review-only and separately gated.'
