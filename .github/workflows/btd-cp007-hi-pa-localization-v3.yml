@@ -1,0 +1,94 @@
+name: Validate BTD-001 CP007 Hindi Punjabi Localization V7
+
+on:
+  push:
+    branches:
+      - feature/btd-cp007-hi-pa-localization-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-007/**'
+      - '.github/workflows/btd-cp007-hi-pa-localization-v3.yml'
+  pull_request:
+    branches:
+      - feature/btd-cp006-question-studio-review-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-007/**'
+      - '.github/workflows/btd-cp007-hi-pa-localization-v3.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: btd-cp007-hi-pa-localization-v7-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-btd-cp007-hi-pa-localization-v7:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out exact head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXPECTED_HEAD }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Re-prove CP005 frozen English authority
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-005/btd-cp005-english-freeze-v1-audit.ts | tee btd-cp007-upstream-freeze.log
+          grep -q 'PASS_BTD_001_CP005_ENGLISH_FREEZE_AUDIT_V1' btd-cp007-upstream-freeze.log
+
+      - name: Re-prove CP006 English Question Studio boundary
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-006/btd-cp006-question-studio-review-v1-audit.ts | tee btd-cp007-upstream-studio.log
+          grep -q 'PASS_BTD_001_CP006_QUESTION_STUDIO_REVIEW_AUDIT_V1' btd-cp007-upstream-studio.log
+
+      - name: Validate Hindi Punjabi localization candidate
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-007/btd-cp007-hi-pa-localization-v7-audit.ts | tee btd-cp007-hi-pa-localization-v7.log
+          grep -q 'PASS_BTD_001_CP007_HI_PA_LOCALIZATION_AUDIT_V6' btd-cp007-hi-pa-localization-v7.log
+          grep -q 'PASS_BTD_001_CP007_HI_PA_LOCALIZATION_AUDIT_V7' btd-cp007-hi-pa-localization-v7.log
+          test -s btd-cp007-hi-pa-review-v7.md
+          test -s btd-cp007-hi-pa-diversity-v6.json
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Record exact validation head
+        shell: bash
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp007-hi-pa-localization-v7-head.log
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+
+      - name: Upload localization review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: btd-cp007-hi-pa-localization-v7
+          path: |
+            btd-cp007-upstream-freeze.log
+            btd-cp007-upstream-studio.log
+            btd-cp007-hi-pa-localization-v7.log
+            btd-cp007-hi-pa-localization-v7-head.log
+            btd-cp007-hi-pa-review-v7.md
+            btd-cp007-hi-pa-diversity-v6.json
+          retention-days: 30
