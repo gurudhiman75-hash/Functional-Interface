@@ -1,16 +1,18 @@
 import { STC_CP001_ALL_AUTHORITIES } from "./cp001-authority-registry.ts";
+import { STC_EXAM_REALNESS_CP001_AUTHORITIES } from "./exam-realness-expansion-cp001-v1.ts";
 import { generateStcCp001Question } from "./cp001-generator.ts";
 import { stcEntails } from "./truth-model-solver.ts";
 import type { StcLocale } from "./types.ts";
 
 const LOCALES: readonly StcLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 const QLS = ["STC-QL-001", "STC-QL-002"] as const;
+const ALL_AUTHORITIES = [...STC_CP001_ALL_AUTHORITIES, ...STC_EXAM_REALNESS_CP001_AUTHORITIES] as const;
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-for (const scenario of STC_CP001_ALL_AUTHORITIES) {
+for (const scenario of ALL_AUTHORITIES) {
   assert(scenario.candidates.length === 4, `${scenario.id}: expected four candidate authorities`);
   const rendered = new Set(scenario.candidates.map((candidate) => candidate.text["en-IN"]));
   assert(rendered.size === 4, `${scenario.id}: duplicate English candidate text`);
@@ -23,7 +25,7 @@ for (const scenario of STC_CP001_ALL_AUTHORITIES) {
 for (const qlId of QLS) {
   const answerClasses = new Set<string>();
   const scenarios = new Set<string>();
-  for (let seed = 0; seed < 1200; seed += 1) {
+  for (let seed = 0; seed < 4096; seed += 1) {
     const canonical = generateStcCp001Question({ qlId, locale: "en-IN", seed });
     const again = generateStcCp001Question({ qlId, locale: "en-IN", seed });
     assert(JSON.stringify(canonical) === JSON.stringify(again), `${qlId}/${seed}: nondeterministic output`);
@@ -48,8 +50,9 @@ for (const qlId of QLS) {
     }
   }
   assert(answerClasses.size === 4, `${qlId}: all four I/II answer classes must be reachable`);
-  const expectedScenarioCount = STC_CP001_ALL_AUTHORITIES.filter((scenario) => scenario.qlId === qlId).length;
-  assert(scenarios.size === expectedScenarioCount, `${qlId}: not all curated scenarios reached`);
+  const expectedIds = new Set(ALL_AUTHORITIES.filter((scenario) => scenario.qlId === qlId).map((scenario) => scenario.id));
+  assert(scenarios.size === expectedIds.size, `${qlId}: expected ${expectedIds.size} scenarios, reached ${scenarios.size}`);
+  for (const scenarioId of expectedIds) assert(scenarios.has(scenarioId), `${qlId}: scenario ${scenarioId} is unreachable`);
 }
 
-console.log(`STC-CP-001 proof passed: ${STC_CP001_ALL_AUTHORITIES.length} authorities, ${QLS.length} QLs, ${LOCALES.length} locales, deterministic/parity/delivery locks green.`);
+console.log(`STC-CP-001 proof passed: ${ALL_AUTHORITIES.length} authorities (${STC_CP001_ALL_AUTHORITIES.length} historical + ${STC_EXAM_REALNESS_CP001_AUTHORITIES.length} expansion), ${QLS.length} QLs, ${LOCALES.length} locales.`);
