@@ -1,0 +1,172 @@
+name: Validate Current Affairs Studio CP016
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp014-editorial-release-control
+      - feature/current-affairs-studio-cp015-question-bank-promotion
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs*.ts"
+      - "artifacts/api-server/src/routes/current-affairs-quizzes.ts"
+      - "artifacts/api-server/src/routes/learning-resources.ts"
+      - "artifacts/api-server/migrations/20260829_current_affairs_quiz_delivery.sql"
+      - ".github/workflows/current-affairs-cp016-learner-quiz-delivery.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp016-learner-quiz-delivery
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs*.ts"
+      - "artifacts/api-server/src/routes/current-affairs-quizzes.ts"
+      - "artifacts/api-server/src/routes/learning-resources.ts"
+      - "artifacts/api-server/migrations/20260829_current_affairs_quiz_delivery.sql"
+      - ".github/workflows/current-affairs-cp016-learner-quiz-delivery.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp016-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-learner-quiz-delivery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Current Affairs CP001-CP016 contracts
+        run: |
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/original-authoring.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-question-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/periodic-rollup-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/story-threading.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/release-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/question-promotion-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/quiz-delivery-policy.test.ts
+
+      - name: Verify quiz delivery requires complete CP014 and CP015 state
+        shell: bash
+        run: |
+          set -euo pipefail
+          schema=artifacts/api-server/migrations/20260829_current_affairs_quiz_delivery.sql
+          runtime=artifacts/api-server/src/current-affairs/quiz-delivery-runtime.ts
+          grep -Fq 'current_affairs_quiz_deliveries' "$schema"
+          grep -Fq 'current_affairs_quiz_delivery_items' "$schema"
+          grep -Fq 'current_affairs_release_question_items' "$schema"
+          grep -Fq 'current_affairs_question_promotions' "$schema"
+          grep -Fq "promotion.status='active'" "$schema"
+          grep -Fq "question.status='approved'::question_status" "$schema"
+          grep -Fq 'question.published_version_id IS NULL' "$schema"
+          grep -Fq 'source_payload_hash IS DISTINCT FROM NEW.source_payload_hash' "$schema"
+          grep -Fq 'promotionPayloadHash(item.sourcePayload)' "$runtime"
+          grep -Fq 'promotionPayloadHash(item.hindiPayload)' "$runtime"
+          grep -Fq 'promotionPayloadHash(item.punjabiPayload)' "$runtime"
+
+      - name: Verify immutable sanitized multilingual snapshots
+        shell: bash
+        run: |
+          set -euo pipefail
+          schema=artifacts/api-server/migrations/20260829_current_affairs_quiz_delivery.sql
+          runtime=artifacts/api-server/src/current-affairs/quiz-delivery-runtime.ts
+          policy=artifacts/api-server/src/current-affairs/quiz-delivery-policy.ts
+          grep -Fq 'english_payload JSONB NOT NULL' "$schema"
+          grep -Fq 'hindi_payload JSONB NOT NULL' "$schema"
+          grep -Fq 'punjabi_payload JSONB NOT NULL' "$schema"
+          grep -Fq 'quizSnapshotPayload(item.sourcePayload)' "$runtime"
+          grep -Fq 'quizSnapshotPayload(item.hindiPayload)' "$runtime"
+          grep -Fq 'quizSnapshotPayload(item.punjabiPayload)' "$runtime"
+          grep -Fq 'stem: args.payload.stem' "$policy"
+          grep -Fq 'options: [...args.payload.options]' "$policy"
+          learner_body=$(awk '/export function learnerQuizQuestion/{flag=1} flag{print} /^}/{if(flag){exit}}' "$policy")
+          if echo "$learner_body" | grep -E 'correctIndex|correctAnswer|explanation'; then
+            echo 'Learner quiz GET serializer must not leak answers or explanations'
+            exit 1
+          fi
+
+      - name: Verify grading is server-side and bounded
+        shell: bash
+        run: |
+          set -euo pipefail
+          policy=artifacts/api-server/src/current-affairs/quiz-delivery-policy.ts
+          route=artifacts/api-server/src/routes/current-affairs-quizzes.ts
+          grep -Fq 'gradeCurrentAffairsQuiz' "$policy"
+          grep -Fq 'correctAnswer: item.payload.options[item.payload.correctIndex]' "$policy"
+          grep -Fq '/current-affairs/quizzes/:code/grade' "$route"
+          grep -Fq 'value.length > 200' "$route"
+          grep -Fq 'selectedIndex > 7' "$route"
+          grep -Fq 'gradeLearnerCurrentAffairsQuiz' "$route"
+
+      - name: Verify delivery publication is explicit and revocable
+        shell: bash
+        run: |
+          set -euo pipefail
+          admin=artifacts/api-server/src/routes/admin-current-affairs-quiz-delivery.ts
+          mount=artifacts/api-server/src/routes/admin-current-affairs-question-promotion.ts
+          schema=artifacts/api-server/migrations/20260829_current_affairs_quiz_delivery.sql
+          worker=artifacts/api-server/src/current-affairs/daily-worker.ts
+          grep -Fq '/quiz-delivery/releases/:id/publish' "$admin"
+          grep -Fq '/quiz-delivery/:id/revoke' "$admin"
+          grep -Fq 'content.questions.publish' "$admin"
+          grep -Fq 'adminCurrentAffairsQuizDeliveryRouter' "$mount"
+          grep -Fq 'revoke_current_affairs_quiz_delivery_with_release' "$schema"
+          if grep -Fq 'publishCurrentAffairsQuizDelivery' "$worker"; then
+            echo 'Scheduled Current Affairs worker must not publish learner quizzes'
+            exit 1
+          fi
+
+      - name: Verify public route is mounted without global router expansion
+        shell: bash
+        run: |
+          set -euo pipefail
+          learning=artifacts/api-server/src/routes/learning-resources.ts
+          grep -Fq 'currentAffairsQuizzesRouter' "$learning"
+          grep -Fq 'router.use(currentAffairsQuizzesRouter)' "$learning"
+          grep -Fq '/current-affairs/quizzes' artifacts/api-server/src/routes/current-affairs-quizzes.ts
+
+      - name: Compile all Current Affairs workers
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/feed-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-feed-worker.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/primary-enrichment-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-primary-enrichment-worker.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/daily-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-daily-worker.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
