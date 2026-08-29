@@ -3,6 +3,8 @@ export type ReleaseLanguageCode = "en" | "hi" | "pa";
 export type ReleaseCompilationManifest = {
   languageCode: ReleaseLanguageCode;
   status: string;
+  resourceStatus: string;
+  declaredEventCount: number;
   eventIds: string[];
 };
 
@@ -33,6 +35,7 @@ export type CurrentAffairsReleaseReadiness = {
   checks: {
     hasAllLanguages: boolean;
     allCompilationsDraft: boolean;
+    manifestIntegrity: boolean;
     eventParity: boolean;
     eventVerification: boolean;
     authoringParity: boolean;
@@ -61,18 +64,29 @@ export function evaluateCurrentAffairsReleaseReadiness(
   const english = byLanguage.get("en");
   const hindi = byLanguage.get("hi");
   const punjabi = byLanguage.get("pa");
-  const hasAllLanguages = Boolean(english && hindi && punjabi);
+  const hasAllLanguages = Boolean(english && hindi && punjabi && input.compilations.length === 3);
   if (!hasAllLanguages) blockers.push("English, Hindi and Punjabi compilation drafts are all required");
 
   const allCompilationsDraft = hasAllLanguages
-    && [english!, hindi!, punjabi!].every((item) => item.status === "draft");
+    && [english!, hindi!, punjabi!].every((item) =>
+      item.status === "draft" && item.resourceStatus === "draft");
   if (hasAllLanguages && !allCompilationsDraft) {
-    blockers.push("All three compilation manifests must still be draft before release approval");
+    blockers.push("All three compilation manifests and learning resources must still be draft before release approval");
   }
 
-  const englishIds = normalizedEventIds(english?.eventIds ?? []);
-  const hindiIds = normalizedEventIds(hindi?.eventIds ?? []);
-  const punjabiIds = normalizedEventIds(punjabi?.eventIds ?? []);
+  const normalizedByLanguage = new Map(
+    input.compilations.map((item) => [item.languageCode, normalizedEventIds(item.eventIds)]),
+  );
+  const manifestIntegrity = hasAllLanguages
+    && [english!, hindi!, punjabi!].every((item) =>
+      item.declaredEventCount === (normalizedByLanguage.get(item.languageCode)?.length ?? 0));
+  if (hasAllLanguages && !manifestIntegrity) {
+    blockers.push("Compilation event_count must match the frozen event manifest in every language");
+  }
+
+  const englishIds = normalizedByLanguage.get("en") ?? [];
+  const hindiIds = normalizedByLanguage.get("hi") ?? [];
+  const punjabiIds = normalizedByLanguage.get("pa") ?? [];
   const eventParity = hasAllLanguages
     && englishIds.length > 0
     && sameIds(englishIds, hindiIds)
@@ -121,6 +135,7 @@ export function evaluateCurrentAffairsReleaseReadiness(
     checks: {
       hasAllLanguages,
       allCompilationsDraft,
+      manifestIntegrity,
       eventParity,
       eventVerification,
       authoringParity,
