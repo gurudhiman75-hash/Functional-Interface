@@ -73,9 +73,9 @@ CREATE TABLE IF NOT EXISTS content.note_generation_events (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   finished_at TIMESTAMPTZ,
   CONSTRAINT note_generation_section_fk FOREIGN KEY (job_id, section_id)
-    REFERENCES content.note_sections(job_id, id) ON DELETE SET NULL,
+    REFERENCES content.note_sections(job_id, id) ON DELETE RESTRICT,
   CONSTRAINT note_generation_coverage_fk FOREIGN KEY (job_id, coverage_item_id)
-    REFERENCES content.note_coverage_plan_items(job_id, id) ON DELETE CASCADE,
+    REFERENCES content.note_coverage_plan_items(job_id, id) ON DELETE RESTRICT,
   CONSTRAINT note_generation_input_hash CHECK (input_fingerprint ~ '^[0-9a-f]{64}$'),
   CONSTRAINT note_generation_output_hash CHECK (output_fingerprint IS NULL OR output_fingerprint ~ '^[0-9a-f]{64}$')
 );
