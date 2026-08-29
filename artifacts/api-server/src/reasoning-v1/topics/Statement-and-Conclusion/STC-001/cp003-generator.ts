@@ -68,44 +68,50 @@ const STEM_PREFIX: Record<StcLocale, string> = {
 
 const ORDER_DEFECT_TEXT: Record<StcOrderDefect, Record<StcLocale, string>> = {
   REVERSED_ORDER: {
-    "en-IN": "it reverses the established order",
-    "hi-IN": "यह स्थापित क्रम को उलट देता है",
-    "pa-IN": "ਇਹ ਸਥਾਪਿਤ ਕ੍ਰਮ ਨੂੰ ਉਲਟ ਦਿੰਦਾ ਹੈ",
+    "en-IN": "this reverses the order given in the statement",
+    "hi-IN": "यह कथन में दिए क्रम को उलट देता है",
+    "pa-IN": "ਇਹ ਕਥਨ ਵਿੱਚ ਦਿੱਤੇ ਕ੍ਰਮ ਨੂੰ ਉਲਟ ਦਿੰਦਾ ਹੈ",
   },
   UNSUPPORTED_RELATION: {
-    "en-IN": "it switches to a relation the statement never establishes",
-    "hi-IN": "यह ऐसे संबंध पर चला जाता है जिसे कथन स्थापित नहीं करता",
-    "pa-IN": "ਇਹ ਐਸੇ ਸੰਬੰਧ ਵੱਲ ਚਲਾ ਜਾਂਦਾ ਹੈ ਜੋ ਕਥਨ ਸਥਾਪਿਤ ਨਹੀਂ ਕਰਦਾ",
+    "en-IN": "the statement gives no information about this different comparison",
+    "hi-IN": "कथन इस अलग तुलना के बारे में कोई जानकारी नहीं देता",
+    "pa-IN": "ਕਥਨ ਇਸ ਵੱਖਰੀ ਤੁਲਨਾ ਬਾਰੇ ਕੋਈ ਜਾਣਕਾਰੀ ਨਹੀਂ ਦਿੰਦਾ",
   },
   UNRELATED_ENTITY: {
-    "en-IN": "it introduces an entity outside the stated comparison chain",
-    "hi-IN": "यह तुलना-श्रृंखला से बाहर की इकाई जोड़ता है",
-    "pa-IN": "ਇਹ ਤੁਲਨਾ-ਲੜੀ ਤੋਂ ਬਾਹਰ ਦੀ ਇਕਾਈ ਜੋੜਦਾ ਹੈ",
+    "en-IN": "this introduces someone or something outside the given comparison",
+    "hi-IN": "यह दी गई तुलना से बाहर की इकाई जोड़ता है",
+    "pa-IN": "ਇਹ ਦਿੱਤੀ ਤੁਲਨਾ ਤੋਂ ਬਾਹਰ ਦੀ ਇਕਾਈ ਜੋੜਦਾ ਹੈ",
   },
 };
 
 const TEMPORAL_DEFECT_TEXT: Record<StcTemporalDefect, Record<StcLocale, string>> = {
   REVERSED_TIME: {
-    "en-IN": "it reverses the established time order",
-    "hi-IN": "यह स्थापित समय-क्रम को उलट देता है",
-    "pa-IN": "ਇਹ ਸਥਾਪਿਤ ਸਮਾਂ-ਕ੍ਰਮ ਨੂੰ ਉਲਟ ਦਿੰਦਾ ਹੈ",
+    "en-IN": "this reverses the order in which the events occur",
+    "hi-IN": "यह घटनाओं का दिया गया समय-क्रम उलट देता है",
+    "pa-IN": "ਇਹ ਘਟਨਾਵਾਂ ਦਾ ਦਿੱਤਾ ਸਮਾਂ-ਕ੍ਰਮ ਉਲਟ ਦਿੰਦਾ ਹੈ",
   },
   REVERSED_TREND: {
-    "en-IN": "it reverses the established direction of change",
-    "hi-IN": "यह स्थापित परिवर्तन-दिशा को उलट देता है",
-    "pa-IN": "ਇਹ ਸਥਾਪਿਤ ਬਦਲਾਅ ਦੀ ਦਿਸ਼ਾ ਨੂੰ ਉਲਟ ਦਿੰਦਾ ਹੈ",
+    "en-IN": "this reverses the stated direction of change",
+    "hi-IN": "यह बताई गई बढ़त या गिरावट की दिशा उलट देता है",
+    "pa-IN": "ਇਹ ਦੱਸੀ ਵਾਧੇ ਜਾਂ ਘਟਾਅ ਦੀ ਦਿਸ਼ਾ ਉਲਟ ਦਿੰਦਾ ਹੈ",
   },
   UNSUPPORTED_EXTRA: {
-    "en-IN": "it adds an event or metric not established by the statement",
-    "hi-IN": "यह ऐसी घटना या माप जोड़ता है जिसे कथन स्थापित नहीं करता",
-    "pa-IN": "ਇਹ ਐਸੀ ਘਟਨਾ ਜਾਂ ਮਾਪ ਜੋੜਦਾ ਹੈ ਜੋ ਕਥਨ ਸਥਾਪਿਤ ਨਹੀਂ ਕਰਦਾ",
+    "en-IN": "the statement gives no information about this extra event or measure",
+    "hi-IN": "कथन इस अतिरिक्त घटना या माप के बारे में कोई जानकारी नहीं देता",
+    "pa-IN": "ਕਥਨ ਇਸ ਵਾਧੂ ਘਟਨਾ ਜਾਂ ਮਾਪ ਬਾਰੇ ਕੋਈ ਜਾਣਕਾਰੀ ਨਹੀਂ ਦਿੰਦਾ",
   },
 };
 
-const FOLLOWS_TEXT: Record<StcLocale, string> = {
-  "en-IN": "it is established by the direct or transitive relation",
-  "hi-IN": "यह प्रत्यक्ष या संक्रमणीय संबंध से स्थापित होता है",
-  "pa-IN": "ਇਹ ਸਿੱਧੇ ਜਾਂ ਸੰਕ੍ਰਾਮਕ ਸੰਬੰਧ ਤੋਂ ਸਥਾਪਿਤ ਹੁੰਦਾ ਹੈ",
+const ORDER_FOLLOWS: Record<StcLocale, string> = {
+  "en-IN": "the given comparison chain establishes this order",
+  "hi-IN": "दी गई तुलना-श्रृंखला से यह क्रम सीधे निकलता है",
+  "pa-IN": "ਦਿੱਤੀ ਤੁਲਨਾ-ਲੜੀ ਤੋਂ ਇਹ ਕ੍ਰਮ ਸਿੱਧਾ ਨਿਕਲਦਾ ਹੈ",
+};
+
+const TEMPORAL_FOLLOWS: Record<StcLocale, string> = {
+  "en-IN": "the stated sequence or trend establishes this conclusion",
+  "hi-IN": "दिए गए समय-क्रम या बदलाव से यह निष्कर्ष निकलता है",
+  "pa-IN": "ਦਿੱਤੇ ਸਮਾਂ-ਕ੍ਰਮ ਜਾਂ ਬਦਲਾਅ ਤੋਂ ਇਹ ਨਤੀਜਾ ਨਿਕਲਦਾ ਹੈ",
 };
 
 export function generateStcCp003Question(input: {
@@ -124,7 +130,7 @@ export function generateStcCp003Question(input: {
     const secondFollows = stcOrderEntails(scenario.premises, second.claim);
     const cls = answerClass(firstFollows, secondFollows);
     const reason = (follows: boolean, defect: StcOrderDefect | undefined) =>
-      follows ? FOLLOWS_TEXT[input.locale] : defect ? ORDER_DEFECT_TEXT[defect][input.locale] : "not entailed";
+      follows ? ORDER_FOLLOWS[input.locale] : defect ? ORDER_DEFECT_TEXT[defect][input.locale] : "the statement does not establish this";
 
     return {
       chapterId: "STC-001",
@@ -159,7 +165,7 @@ export function generateStcCp003Question(input: {
   const secondFollows = stcTemporalEntails(scenario.premises, second.claim);
   const cls = answerClass(firstFollows, secondFollows);
   const reason = (follows: boolean, defect: StcTemporalDefect | undefined) =>
-    follows ? FOLLOWS_TEXT[input.locale] : defect ? TEMPORAL_DEFECT_TEXT[defect][input.locale] : "not entailed";
+    follows ? TEMPORAL_FOLLOWS[input.locale] : defect ? TEMPORAL_DEFECT_TEXT[defect][input.locale] : "the statement does not establish this";
 
   return {
     chapterId: "STC-001",
