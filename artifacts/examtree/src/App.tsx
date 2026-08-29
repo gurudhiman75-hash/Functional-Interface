@@ -27,6 +27,7 @@ const Result = lazy(() => import("@/pages/canonical-result"));
 const Profile = lazy(() => import("@/pages/profile"));
 const Store = lazy(() => import("@/pages/store"));
 const StoreProduct = lazy(() => import("@/pages/store-product"));
+const MyPurchases = lazy(() => import("@/pages/my-purchases"));
 const About = lazy(() => import("@/pages/about"));
 const Contact = lazy(() => import("@/pages/contact"));
 const PrivacyPolicy = lazy(() => import("@/pages/privacy-policy"));
@@ -130,15 +131,6 @@ function AnalyticsUnavailable() {
   );
 }
 
-function PurchaseHistoryUnavailable() {
-  return (
-    <UnavailableFeature
-      title="Purchase history is not available in the student app yet"
-      description="The Store catalog and checkout now use canonical commerce, but a student-facing order and entitlement history API is not exposed yet. Paid test access remains enforced by the server."
-    />
-  );
-}
-
 function LoginRecoveryShortcut({ location }: { location: string }) {
   if (location !== "/login" && !location.startsWith("/login/student")) return null;
   return (
@@ -183,9 +175,10 @@ function Router() {
           <Route path="/packages/success/:id" component={() => renderPublicRoute(StoreProduct)} />
           <Route path="/packages/:id" component={() => renderPublicRoute(StoreProduct)} />
           <Route path="/packages" component={() => renderPublicRoute(Store)} />
-          <Route path="/my-packages" component={() => renderPublicRoute(PurchaseHistoryUnavailable)} />
 
           <Route path="/dashboard" component={() => renderAppRoute(Dashboard)} />
+          <Route path="/my-packages" component={() => <ProtectedRoute component={MyPurchases} />} />
+          <Route path="/purchases" component={() => <ProtectedRoute component={MyPurchases} />} />
           <Route path="/test-series/:id" component={() => <ProtectedRoute component={TestSeries} />} />
           <Route path="/test/:id" component={() => <ProtectedRoute component={Test} layout="none" />} />
           <Route path="/result" component={() => <ProtectedRoute component={Result} />} />
