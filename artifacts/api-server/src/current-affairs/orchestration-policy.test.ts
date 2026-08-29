@@ -9,7 +9,7 @@ import {
 } from "./orchestration-policy";
 
 const primaryPromotion = canAutoPromoteCluster({
-  confidence: 0.84,
+  confidence: 0.72,
   category: "economy_banking",
   memberCount: 1,
   distinctSourceCount: 1,
@@ -19,7 +19,7 @@ const primaryPromotion = canAutoPromoteCluster({
   primaryUrlEvidenceCount: 1,
   maxTrustScore: 0.95,
 });
-assert.equal(primaryPromotion.allowed, true);
+assert.equal(primaryPromotion.allowed, true, "high-trust primary singleton should clear the singleton-safe threshold");
 
 const corroboratedPromotion = canAutoPromoteCluster({
   confidence: 0.81,

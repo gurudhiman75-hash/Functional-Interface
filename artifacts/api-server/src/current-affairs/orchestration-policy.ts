@@ -103,8 +103,6 @@ export function previousIndiaDate(now = new Date()): string {
 }
 
 export function shouldBuildDailyDrafts(now = new Date()): boolean {
-  // CP006 worker is scheduled at minute 20 every three UTC hours.
-  // The 00:20 UTC invocation is 05:50 IST, after the previous India day is closed.
   return now.getUTCMinutes() >= 15 && now.getUTCHours() === 0;
 }
 

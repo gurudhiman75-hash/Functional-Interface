@@ -20,6 +20,16 @@ function sendError(res: Response, error: unknown, fallback: string) {
   res.status(500).json({ error: fallback, code: "CURRENT_AFFAIRS_AUTOMATION_ADMIN_FAILED" });
 }
 
+function isScheduledSource(row: Record<string, unknown>): boolean {
+  if (!Boolean(row.isActive)) return false;
+  const mode = String(row.ingestionMode ?? "");
+  if (["feed", "feed_and_pdf"].includes(mode)) return Boolean(row.feedUrl);
+  if (["listing", "listing_and_pdf"].includes(mode)) {
+    return Boolean(row.listingUrl) && Boolean(row.listingAdapter);
+  }
+  return false;
+}
+
 router.use(authenticate);
 
 router.get("/automation/runs", requireAdminPermission("content.questions.read"), async (req, res) => {
@@ -71,6 +81,8 @@ router.get("/automation/source-health", requireAdminPermission("content.question
         source.content_policy AS "contentPolicy",
         source.ingestion_mode AS "ingestionMode",
         source.feed_url AS "feedUrl",
+        source.listing_url AS "listingUrl",
+        source.listing_adapter AS "listingAdapter",
         source.trust_score::float8 AS "trustScore",
         source.is_primary_source AS "isPrimarySource",
         source.is_active AS "isActive",
@@ -90,27 +102,33 @@ router.get("/automation/source-health", requireAdminPermission("content.question
         WHERE item.source_id = source.id
       ) candidate ON true
       ORDER BY
-        CASE WHEN source.is_active AND source.feed_url IS NOT NULL THEN 0 ELSE 1 END,
+        CASE
+          WHEN source.is_active
+            AND (
+              (source.ingestion_mode IN ('feed', 'feed_and_pdf') AND source.feed_url IS NOT NULL)
+              OR (source.ingestion_mode IN ('listing', 'listing_and_pdf') AND source.listing_url IS NOT NULL AND source.listing_adapter IS NOT NULL)
+            )
+          THEN 0 ELSE 1
+        END,
         CASE WHEN source.last_ingestion_status = 'failure' THEN 0 ELSE 1 END,
         source.is_primary_source DESC,
         source.trust_score DESC,
         source.name
     `;
 
-    const failing = rows.filter((row) => String(row.lastIngestionStatus ?? "") === "failure").length;
-    const scheduled = rows.filter((row) =>
-      Boolean(row.isActive)
-      && Boolean(row.feedUrl)
-      && ["feed", "feed_and_pdf"].includes(String(row.ingestionMode)),
-    ).length;
+    const scheduledRows = rows.filter((row) => isScheduledSource(row as Record<string, unknown>));
+    const failing = scheduledRows.filter((row) => String(row.lastIngestionStatus ?? "") === "failure").length;
 
     res.json({
-      sources: rows,
+      sources: rows.map((row) => ({
+        ...row,
+        scheduled: isScheduledSource(row as Record<string, unknown>),
+      })),
       summary: {
         total: rows.length,
-        scheduled,
+        scheduled: scheduledRows.length,
         failing,
-        healthy: Math.max(0, scheduled - failing),
+        healthy: Math.max(0, scheduledRows.length - failing),
       },
       generatedAt: new Date().toISOString(),
     });
