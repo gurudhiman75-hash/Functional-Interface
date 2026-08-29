@@ -314,7 +314,7 @@ function buildMotif(seed: string, targetShape: CountingFigureTargetShapeV1, rng:
   if (targetShape === "TRIANGLE") {
     const motif = pick(rng, ["FAN", "CROSS"] as const);
     if (motif === "CROSS") {
-      const rotation = chooseAngle(rng, -18, 18);
+      const rotation = 0;
       const skew = chooseAngle(rng, -5, 5);
       return {
         targetShape,
@@ -327,7 +327,7 @@ function buildMotif(seed: string, targetShape: CountingFigureTargetShapeV1, rng:
     }
     const segments = chooseInt(rng, 3, 6);
     const apexOffset = chooseAngle(rng, -7, 7);
-    const rotation = chooseAngle(rng, -12, 12);
+    const rotation = 0;
     return {
       targetShape,
       motifFamily: "TRIANGLE_FAN",
