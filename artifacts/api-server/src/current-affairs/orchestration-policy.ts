@@ -7,7 +7,6 @@ export type AutoPromotionProfile = {
   highTrustSourceCount: number;
   urlEvidenceCount: number;
   primaryUrlEvidenceCount: number;
-  datedEvidenceCount: number;
   maxTrustScore: number;
 };
 
@@ -29,9 +28,6 @@ export function canAutoPromoteCluster(profile: AutoPromotionProfile): {
   }
   if (profile.urlEvidenceCount < 1) {
     return { allowed: false, reason: "Automatic promotion requires URL-backed evidence" };
-  }
-  if (profile.datedEvidenceCount < 1) {
-    return { allowed: false, reason: "Automatic promotion requires at least one source with a reliable publication date" };
   }
 
   const strongPrimary =
