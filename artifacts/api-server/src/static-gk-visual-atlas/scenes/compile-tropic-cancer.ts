@@ -10,6 +10,16 @@ import { assertWestToEastOrder, compileLatitudeSegmentsByState } from "../geomet
 import type { StaticGkMapPathSceneRecipe, StaticGkSceneCue } from "./types";
 
 const TROPIC_CLASSROOM_LATITUDE = 23.5;
+const STATE_TARGET_IDS: Record<(typeof REQUIRED_TROPIC_STATES)[number], string> = {
+  Gujarat: "state.GJ",
+  Rajasthan: "state.RJ",
+  "Madhya Pradesh": "state.MP",
+  Chhattisgarh: "state.CG",
+  Jharkhand: "state.JH",
+  "West Bengal": "state.WB",
+  Tripura: "state.TR",
+  Mizoram: "state.MZ",
+};
 
 function buildCues(): StaticGkSceneCue[] {
   const stateCueStart = 5_000;
@@ -44,7 +54,7 @@ function buildCues(): StaticGkSceneCue[] {
       endMs: startMs + stateCueDuration,
       layer: "state-highlight",
       action: "highlight",
-      targetRef: `state.${stateName}`,
+      targetRef: STATE_TARGET_IDS[stateName],
       text: `${index + 1}. ${stateName}`,
       factIds: ["SGK001-F03"],
     });
