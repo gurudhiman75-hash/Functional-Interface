@@ -66,3 +66,12 @@ export const not = (value: StcExpr): StcExpr => ({ kind: "not", value });
 export const and = (...values: readonly StcExpr[]): StcExpr => ({ kind: "and", values });
 export const or = (...values: readonly StcExpr[]): StcExpr => ({ kind: "or", values });
 export const implies = (ifExpr: StcExpr, thenExpr: StcExpr): StcExpr => ({ kind: "implies", if: ifExpr, then: thenExpr });
+
+export function stcExclusiveEither(
+  premises: readonly StcExpr[],
+  first: StcExpr,
+  second: StcExpr,
+): boolean {
+  if (stcEntails(premises, first) || stcEntails(premises, second)) return false;
+  return stcEntails(premises, or(first, second)) && stcEntails(premises, not(and(first, second)));
+}
