@@ -29,9 +29,6 @@ export function canAutoPromoteCluster(profile: AutoPromotionProfile): {
   if (profile.urlEvidenceCount < 1) {
     return { allowed: false, reason: "Automatic promotion requires URL-backed evidence" };
   }
-  if (profile.confidence < 0.76) {
-    return { allowed: false, reason: "Cluster similarity confidence is below the automation threshold" };
-  }
 
   const strongPrimary =
     profile.primarySourceCount >= 1
@@ -42,7 +39,17 @@ export function canAutoPromoteCluster(profile: AutoPromotionProfile): {
     && profile.highTrustSourceCount >= 2
     && profile.memberCount >= 2;
 
-  if (!strongPrimary && !strongCorroboration) {
+  if (strongPrimary) {
+    if (profile.confidence < 0.68) {
+      return { allowed: false, reason: "Primary-source cluster confidence is below the singleton-safe threshold" };
+    }
+    return { allowed: true, reason: "Strong primary-source-backed cluster" };
+  }
+
+  if (profile.confidence < 0.76) {
+    return { allowed: false, reason: "Secondary-source cluster confidence is below the corroboration threshold" };
+  }
+  if (!strongCorroboration) {
     return {
       allowed: false,
       reason: "Cluster lacks a strong primary source or two independently trusted sources",
@@ -51,9 +58,7 @@ export function canAutoPromoteCluster(profile: AutoPromotionProfile): {
 
   return {
     allowed: true,
-    reason: strongPrimary
-      ? "Strong primary-source-backed cluster"
-      : "Two or more trusted independent sources corroborate the cluster",
+    reason: "Two or more trusted independent sources corroborate the cluster",
   };
 }
 
