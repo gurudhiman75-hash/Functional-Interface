@@ -2,6 +2,7 @@ import { Router, type IRouter } from "express";
 
 import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk-hardening";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
+import adminQuestionStudioDataSufficiencyNormalRouter from "./admin-question-studio-data-sufficiency-normal";
 import adminQuestionStudioSriRouter from "./admin-question-studio-sri";
 import adminQuestionStudioCp014Router from "./admin-question-studio-cp014";
 import adminQuestionStudioTrigonometryRouter from "./admin-question-studio-trigonometry";
@@ -29,15 +30,16 @@ import adminQuestionStudioRouter from "./admin-question-studio";
  * firing whenever one Question Studio package is added or reordered.
  *
  * Order is intentional: hardening/specialized additive routers must run before
- * the legacy catch-all router at the bottom. SRI is mounted before CP014 because
- * its GET /capabilities extends the latest CP014 aggregate, while its POST
- * handler claims only explicit SRI packages/checkpoints/QLs or Surds & Indices
- * selectors. Non-SRI requests fall through unchanged.
+ * the legacy catch-all router at the bottom. The DSF CP017 normal-Studio router
+ * is mounted before SRI because it extends GET /capabilities with DSF-001 and
+ * claims only DSF POST /runs requests. Non-DSF requests fall through to the
+ * existing SRI/CP014/chapter chain unchanged.
  */
 const router: IRouter = Router();
 
 router.use(adminQuestionStudioBulkHardeningRouter);
 router.use(adminQuestionStudioQualityRouter);
+router.use(adminQuestionStudioDataSufficiencyNormalRouter);
 router.use(adminQuestionStudioSriRouter);
 router.use(adminQuestionStudioCp014Router);
 router.use(adminQuestionStudioTrigonometryRouter);
