@@ -21,6 +21,16 @@ pnpm --dir artifacts/api-server exec esbuild \
   --sourcemap \
   --outfile=dist/current-affairs-feed-worker.mjs
 
+echo "[current-affairs-worker] compile primary-source fact enrichment worker"
+pnpm --dir artifacts/api-server exec esbuild \
+  src/current-affairs/primary-enrichment-worker.ts \
+  --bundle \
+  --packages=external \
+  --platform=node \
+  --format=esm \
+  --sourcemap \
+  --outfile=dist/current-affairs-primary-enrichment-worker.mjs
+
 echo "[current-affairs-worker] compile intelligence/daily orchestration worker"
 pnpm --dir artifacts/api-server exec esbuild \
   src/current-affairs/daily-worker.ts \
