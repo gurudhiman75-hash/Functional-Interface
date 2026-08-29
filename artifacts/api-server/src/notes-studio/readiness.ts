@@ -4,6 +4,7 @@ export async function refreshNotesAuthoringReadiness(jobId: string, actorUserId:
   const rows = await sqlClient`
     WITH readiness AS (
       SELECT
+        job.state AS previous_state,
         EXISTS (
           SELECT 1
           FROM content.note_authoring_sources link
@@ -72,21 +73,42 @@ export async function refreshNotesAuthoringReadiness(jobId: string, actorUserId:
                 )
             )
         ) AS core_covered
+      FROM content.note_authoring_jobs job
+      WHERE job.id = ${jobId}::uuid
+    ), decision AS (
+      SELECT
+        previous_state,
+        CASE
+          WHEN NOT has_sources THEN 'brief'
+          WHEN has_active_conflict THEN 'evidence_ready'
+          WHEN NOT has_accepted_evidence THEN 'sources_ready'
+          WHEN NOT has_core_coverage OR NOT core_covered THEN 'evidence_ready'
+          WHEN previous_state IN ('drafting', 'qa_required', 'review_ready', 'approved', 'materialized') THEN previous_state
+          ELSE 'outline_ready'
+        END AS next_state
+      FROM readiness
+    ), updated AS (
+      UPDATE content.note_authoring_jobs job
+      SET state = decision.next_state,
+          updated_by = ${actorUserId}::uuid,
+          updated_at = now()
+      FROM decision
+      WHERE job.id = ${jobId}::uuid
+      RETURNING job.id::text AS id, decision.previous_state, job.state
     )
-    UPDATE content.note_authoring_jobs job
-    SET state = CASE
-      WHEN NOT readiness.has_sources THEN 'brief'
-      WHEN readiness.has_active_conflict THEN 'evidence_ready'
-      WHEN NOT readiness.has_accepted_evidence THEN 'sources_ready'
-      WHEN readiness.has_core_coverage AND readiness.core_covered THEN 'outline_ready'
-      ELSE 'evidence_ready'
-    END,
-    updated_by = ${actorUserId}::uuid,
-    updated_at = now()
-    FROM readiness
-    WHERE job.id = ${jobId}::uuid
-      AND job.state IN ('brief', 'sources_ready', 'evidence_ready', 'outline_ready')
-    RETURNING job.id::text AS id, job.state
+    SELECT * FROM updated
   `;
-  return rows[0] ?? null;
+  const result = rows[0] ?? null;
+  if (result && ['drafting', 'qa_required', 'review_ready', 'approved'].includes(String(result.previous_state))
+    && ['brief', 'sources_ready', 'evidence_ready'].includes(String(result.state))) {
+    await sqlClient`
+      UPDATE content.note_sections
+      SET state = 'needs_editorial',
+          generation_metadata = generation_metadata || ${JSON.stringify({ staleBecauseEvidenceChanged: true })}::jsonb,
+          updated_by = ${actorUserId}::uuid,
+          updated_at = now()
+      WHERE job_id = ${jobId}::uuid AND state <> 'needs_editorial'
+    `;
+  }
+  return result;
 }
