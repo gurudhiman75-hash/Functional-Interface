@@ -1,0 +1,58 @@
+name: Probe BTD-001 CP007 Localization Diversity V1
+
+on:
+  push:
+    branches:
+      - feature/btd-cp007-hi-pa-localization-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-007/**'
+      - '.github/workflows/btd-cp007-localization-diversity-probe-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: btd-cp007-localization-diversity-probe-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      EXPECTED_HEAD: ${{ github.sha }}
+    steps:
+      - name: Check out exact head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXPECTED_HEAD }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Probe localized stem diversity
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-007/btd-cp007-localization-diversity-probe-v1.ts | tee btd-cp007-localization-diversity-probe-v1.log
+          grep -q 'PASS_BTD_001_CP007_LOCALIZATION_DIVERSITY_PROBE_V1' btd-cp007-localization-diversity-probe-v1.log
+      - name: Record exact head
+        shell: bash
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp007-localization-diversity-probe-v1-head.log
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+      - name: Upload probe evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: btd-cp007-localization-diversity-probe-v1
+          path: |
+            btd-cp007-localization-diversity-probe-v1.log
+            btd-cp007-localization-diversity-probe-v1-head.log
+          retention-days: 7
