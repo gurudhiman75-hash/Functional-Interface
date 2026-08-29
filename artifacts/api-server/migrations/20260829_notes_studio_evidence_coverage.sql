@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS content.note_source_evidence_blocks (
   CONSTRAINT note_source_evidence_hash_format CHECK (excerpt_hash ~ '^[0-9a-f]{64}$'),
   CONSTRAINT note_source_evidence_source_fk FOREIGN KEY (job_id, source_document_id)
     REFERENCES content.note_authoring_sources(job_id, source_document_id) ON DELETE CASCADE,
-  UNIQUE (job_id, source_document_id, excerpt_hash)
+  UNIQUE (job_id, source_document_id, excerpt_hash),
+  UNIQUE (job_id, id)
 );
 
 CREATE TABLE IF NOT EXISTS content.note_source_claims (
