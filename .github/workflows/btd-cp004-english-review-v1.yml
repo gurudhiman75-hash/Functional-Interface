@@ -6,11 +6,13 @@ on:
       - feature/btd-cp004-english-review-v1
     paths:
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-004/**'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-003/btd-cp003-permanent-generator-v1.ts'
   pull_request:
     branches:
       - feature/btd-cp003-production-generator-v1
     paths:
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-004/**'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-003/btd-cp003-permanent-generator-v1.ts'
   workflow_dispatch:
 
 permissions:
