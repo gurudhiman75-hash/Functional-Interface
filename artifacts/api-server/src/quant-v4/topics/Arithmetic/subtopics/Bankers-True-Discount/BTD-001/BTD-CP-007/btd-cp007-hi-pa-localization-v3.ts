@@ -25,6 +25,9 @@ export const BTD_CP007_LOCALIZATION_BOUNDARY_V3 = Object.freeze({
   publiclyPublishable: false as const,
 });
 
+const DEVANAGARI = /[\u0904-\u0939\u0950-\u0963]/u;
+const GURMUKHI = /[\u0A05-\u0A39\u0A59-\u0A5E]/u;
+
 function canonicalJson(value: unknown): string {
   if (Array.isArray(value)) return `[${value.map(canonicalJson).join(",")}]`;
   if (value && typeof value === "object") {
@@ -57,6 +60,19 @@ function polishLocalizedStem(stem: string, language: BtdCp007LanguageV3) {
     );
 }
 
+function polishExplanation(explanation: any, language: BtdCp007LanguageV3) {
+  const expectedScript = language === "hi" ? DEVANAGARI : GURMUKHI;
+  const calculationLabel = language === "hi" ? "गणना:" : "ਗਣਨਾ:";
+  const steps = Object.freeze((explanation.steps as readonly string[]).map((rawStep) => {
+    const step = String(rawStep);
+    return expectedScript.test(step) ? step : `${calculationLabel} ${step}`;
+  }));
+  return Object.freeze({
+    ...explanation,
+    steps,
+  });
+}
+
 export function buildBtdLocalizedQuestionV3(
   qlId: BtdPermanentQlId,
   seed: string,
@@ -73,6 +89,7 @@ export function buildBtdLocalizedQuestionV3(
     ...v2.presentation,
     stem: polishLocalizedStem(String(v2.presentation.stem), language),
   });
+  const explanation = polishExplanation(v2.explanation, language);
 
   const fingerprintPayload = Object.freeze({
     qlId: v2.qlId,
@@ -85,7 +102,7 @@ export function buildBtdLocalizedQuestionV3(
     options,
     correctIndex: v2.correctIndex,
     correctAnswer: v2.correctAnswer,
-    explanation: v2.explanation,
+    explanation,
   });
 
   return Object.freeze({
@@ -93,6 +110,7 @@ export function buildBtdLocalizedQuestionV3(
     localizationVersion: BTD_CP007_LOCALIZATION_V3,
     presentation,
     options,
+    explanation,
     localizationFingerprint: fingerprint(fingerprintPayload),
     lifecycle: BTD_CP007_LOCALIZATION_BOUNDARY_V3,
   });
