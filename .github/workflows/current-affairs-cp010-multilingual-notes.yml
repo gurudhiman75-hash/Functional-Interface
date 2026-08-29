@@ -114,8 +114,8 @@ jobs:
           grep -Fq 'evaluateTranslationQuality' "$engine"
           grep -Fq 'missingCanonicalFacts' "$engine"
           grep -Fq 'expectedScriptPresent' "$engine"
-          grep -Fq "languageCode: 'hi'" artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
-          grep -Fq "languageCode: 'pa'" artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
+          grep -Fq 'languageCode: "hi"' artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
+          grep -Fq 'languageCode: "pa"' artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
           grep -Fq "localization.status IN ('ready', 'manual')" "$runtime"
           grep -Fq 'localization.authoring_version_id=event.learner_authoring_version_id' "$runtime"
           grep -Fq 'LOCALIZATION_PARITY_FAILED' "$route"
