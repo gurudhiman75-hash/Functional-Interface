@@ -48,7 +48,8 @@ INSERT INTO content.current_affairs_sources (
   allow_raw_text_persistence, listing_url, listing_adapter, created_at, updated_at
 ) VALUES
   (
-    gen_random_uuid(), 'pib', 'Press Information Bureau', 'official',
+    'ca000001-0000-4000-8000-000000000001'::uuid,
+    'pib', 'Press Information Bureau', 'official',
     'https://pib.gov.in/',
     'https://pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3',
     0.9800, true, true,
@@ -56,7 +57,8 @@ INSERT INTO content.current_affairs_sources (
     'primary_facts', 'feed', false, null, null, now(), now()
   ),
   (
-    gen_random_uuid(), 'rbi', 'Reserve Bank of India', 'regulator',
+    'ca000002-0000-4000-8000-000000000002'::uuid,
+    'rbi', 'Reserve Bank of India', 'regulator',
     'https://www.rbi.org.in/',
     'https://rbi.org.in/pressreleases_rss.xml',
     0.9900, true, true,
@@ -64,7 +66,8 @@ INSERT INTO content.current_affairs_sources (
     'primary_facts', 'feed', false, null, null, now(), now()
   ),
   (
-    gen_random_uuid(), 'sebi', 'Securities and Exchange Board of India', 'regulator',
+    'ca000003-0000-4000-8000-000000000003'::uuid,
+    'sebi', 'Securities and Exchange Board of India', 'regulator',
     'https://www.sebi.gov.in/', null,
     0.9800, true, true,
     '{"sourcePack":"ca-cp007","coverage":"SEBI press releases"}'::jsonb,
@@ -73,7 +76,8 @@ INSERT INTO content.current_affairs_sources (
     'sebi_press_releases', now(), now()
   ),
   (
-    gen_random_uuid(), 'isro', 'Indian Space Research Organisation', 'official',
+    'ca000004-0000-4000-8000-000000000004'::uuid,
+    'isro', 'Indian Space Research Organisation', 'official',
     'https://www.isro.gov.in/', null,
     0.9800, true, true,
     '{"sourcePack":"ca-cp007","coverage":"ISRO latest news and releases"}'::jsonb,
@@ -81,7 +85,8 @@ INSERT INTO content.current_affairs_sources (
     'https://www.isro.gov.in/', 'isro_latest_news', now(), now()
   ),
   (
-    gen_random_uuid(), 'punjab_gov', 'Government of Punjab', 'state_government',
+    'ca000005-0000-4000-8000-000000000005'::uuid,
+    'punjab_gov', 'Government of Punjab', 'state_government',
     'https://punjab.gov.in/', null,
     0.9600, true, true,
     '{"sourcePack":"ca-cp007","coverage":"Punjab Government press release and announcement portal"}'::jsonb,
