@@ -1,4 +1,4 @@
-name: Validate BTD-001 CP007 Hindi Punjabi Localization V3
+name: Validate BTD-001 CP007 Hindi Punjabi Localization V4
 
 on:
   push:
@@ -19,11 +19,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: btd-cp007-hi-pa-localization-v3-${{ github.ref }}
+  group: btd-cp007-hi-pa-localization-v4-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-btd-cp007-hi-pa-localization-v3:
+  validate-btd-cp007-hi-pa-localization-v4:
     runs-on: ubuntu-latest
     timeout-minutes: 35
     env:
@@ -65,9 +65,10 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-007/btd-cp007-hi-pa-localization-v3-audit.ts | tee btd-cp007-hi-pa-localization-v3.log
-          grep -q 'PASS_BTD_001_CP007_HI_PA_LOCALIZATION_AUDIT_V3' btd-cp007-hi-pa-localization-v3.log
-          test -s btd-cp007-hi-pa-review-v3.md
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-007/btd-cp007-hi-pa-localization-v4-audit.ts | tee btd-cp007-hi-pa-localization-v4.log
+          grep -q 'PASS_BTD_001_CP007_HI_PA_LOCALIZATION_AUDIT_V4' btd-cp007-hi-pa-localization-v4.log
+          test -s btd-cp007-hi-pa-review-v4.md
+          test -s btd-cp007-hi-pa-diversity-v4.json
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
@@ -75,17 +76,18 @@ jobs:
       - name: Record exact validation head
         shell: bash
         run: |
-          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp007-hi-pa-localization-v3-head.log
+          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp007-hi-pa-localization-v4-head.log
           test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
 
       - name: Upload localization review evidence
         uses: actions/upload-artifact@v4
         with:
-          name: btd-cp007-hi-pa-localization-v3
+          name: btd-cp007-hi-pa-localization-v4
           path: |
             btd-cp007-upstream-freeze.log
             btd-cp007-upstream-studio.log
-            btd-cp007-hi-pa-localization-v3.log
-            btd-cp007-hi-pa-localization-v3-head.log
-            btd-cp007-hi-pa-review-v3.md
+            btd-cp007-hi-pa-localization-v4.log
+            btd-cp007-hi-pa-localization-v4-head.log
+            btd-cp007-hi-pa-review-v4.md
+            btd-cp007-hi-pa-diversity-v4.json
           retention-days: 30
