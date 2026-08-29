@@ -10,6 +10,7 @@ import adminLearningResourceEditorRouter from "./admin-learning-resource-editor"
 import adminCurrentAffairsRouter from "./admin-current-affairs";
 import adminCurrentAffairsIngestionRouter from "./admin-current-affairs-ingestion";
 import adminCurrentAffairsIntelligenceRouter from "./admin-current-affairs-intelligence";
+import adminCurrentAffairsContentRouter from "./admin-current-affairs-content";
 import adminAuditEventsHardeningRouter from "./admin-audit-events-hardening";
 import adminAccessControlHardeningRouter from "./admin-access-control-hardening";
 import adminAccessControlRouter from "./admin-access-control";
@@ -105,6 +106,7 @@ router.use("/admin/learning-resource-editor", adminLearningResourceEditorRouter)
 router.use("/admin/current-affairs", adminCurrentAffairsRouter);
 router.use("/admin/current-affairs", adminCurrentAffairsIngestionRouter);
 router.use("/admin/current-affairs", adminCurrentAffairsIntelligenceRouter);
+router.use("/admin/current-affairs", adminCurrentAffairsContentRouter);
 router.use("/admin/access-control", adminAuditEventsHardeningRouter);
 router.use("/admin/access-control", adminAccessControlHardeningRouter);
 router.use("/admin/access-control", adminAccessControlRouter);
