@@ -11,6 +11,7 @@ import {
 } from "./localization-runtime";
 import { holdManualAuthorityEventsForReview } from "./manual-enrichment-guard";
 import { previousIndiaDate, shouldBuildDailyDrafts } from "./orchestration-policy";
+import { runCompletedPeriodicRollups } from "./periodic-rollup-runtime";
 import { runCurrentAffairsQuestionLocalization } from "./question-localization-runtime";
 
 const DAILY_EXAM_FAMILIES = ["ssc", "banking", "punjab"] as const;
@@ -26,7 +27,8 @@ async function main() {
   const daily = shouldBuildDailyDrafts(now)
     ? await runDailyDraftGeneration(now)
     : null;
-  const questionLocalization = await runCurrentAffairsQuestionLocalization(500);
+  const periodicRollups = await runCompletedPeriodicRollups(now);
+  const questionLocalization = await runCurrentAffairsQuestionLocalization(1000);
   process.stdout.write(`${JSON.stringify({
     manualAuthority,
     enrichedEvents,
@@ -35,6 +37,7 @@ async function main() {
     localization,
     localizedDaily,
     daily,
+    periodicRollups,
     questionLocalization,
   })}\n`);
 }
