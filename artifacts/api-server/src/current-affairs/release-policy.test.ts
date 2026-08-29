@@ -4,9 +4,27 @@ import { evaluateCurrentAffairsReleaseReadiness } from "./release-policy";
 
 const base = {
   compilations: [
-    { languageCode: "en" as const, status: "draft", eventIds: ["e1", "e2", "e3", "e4", "e5"] },
-    { languageCode: "hi" as const, status: "draft", eventIds: ["e5", "e3", "e1", "e4", "e2"] },
-    { languageCode: "pa" as const, status: "draft", eventIds: ["e2", "e1", "e5", "e3", "e4"] },
+    {
+      languageCode: "en" as const,
+      status: "draft",
+      resourceStatus: "draft",
+      declaredEventCount: 5,
+      eventIds: ["e1", "e2", "e3", "e4", "e5"],
+    },
+    {
+      languageCode: "hi" as const,
+      status: "draft",
+      resourceStatus: "draft",
+      declaredEventCount: 5,
+      eventIds: ["e5", "e3", "e1", "e4", "e2"],
+    },
+    {
+      languageCode: "pa" as const,
+      status: "draft",
+      resourceStatus: "draft",
+      declaredEventCount: 5,
+      eventIds: ["e2", "e1", "e5", "e3", "e4"],
+    },
   ],
   verifiedEventCount: 5,
   expectedEventCount: 5,
@@ -34,14 +52,32 @@ const missingPunjabi = evaluateCurrentAffairsReleaseReadiness({
 assert.equal(missingPunjabi.ready, false);
 assert.ok(missingPunjabi.blockers.some((item) => item.includes("Punjabi compilation")));
 
+const resourceAlreadyPublished = evaluateCurrentAffairsReleaseReadiness({
+  ...base,
+  compilations: base.compilations.map((item) => item.languageCode === "hi"
+    ? { ...item, resourceStatus: "published" }
+    : item),
+});
+assert.equal(resourceAlreadyPublished.ready, false);
+assert.equal(resourceAlreadyPublished.checks.allCompilationsDraft, false);
+
 const eventMismatch = evaluateCurrentAffairsReleaseReadiness({
   ...base,
   compilations: base.compilations.map((item) => item.languageCode === "hi"
-    ? { ...item, eventIds: ["e1", "e2", "e3", "e4"] }
+    ? { ...item, declaredEventCount: 4, eventIds: ["e1", "e2", "e3", "e4"] }
     : item),
 });
 assert.equal(eventMismatch.ready, false);
 assert.equal(eventMismatch.checks.eventParity, false);
+
+const staleDeclaredCount = evaluateCurrentAffairsReleaseReadiness({
+  ...base,
+  compilations: base.compilations.map((item) => item.languageCode === "pa"
+    ? { ...item, declaredEventCount: 4 }
+    : item),
+});
+assert.equal(staleDeclaredCount.ready, false);
+assert.equal(staleDeclaredCount.checks.manifestIntegrity, false);
 
 const unapprovedQuestion = evaluateCurrentAffairsReleaseReadiness({
   ...base,
@@ -66,7 +102,11 @@ assert.equal(duplicateStory.checks.storyConsolidated, false);
 
 const tinyPackWithoutQuiz = evaluateCurrentAffairsReleaseReadiness({
   ...base,
-  compilations: base.compilations.map((item) => ({ ...item, eventIds: ["e1", "e2", "e3"] })),
+  compilations: base.compilations.map((item) => ({
+    ...item,
+    declaredEventCount: 3,
+    eventIds: ["e1", "e2", "e3"],
+  })),
   expectedEventCount: 3,
   verifiedEventCount: 3,
   currentAuthoringCount: 3,
