@@ -1,0 +1,163 @@
+name: Validate Current Affairs Studio CP013
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp001-foundation
+      - feature/current-affairs-studio-cp002-ingestion
+      - feature/current-affairs-studio-cp003-intelligence
+      - feature/current-affairs-studio-cp004-content
+      - feature/current-affairs-studio-cp005-scheduled-ingestion
+      - feature/current-affairs-studio-cp006-daily-orchestration
+      - feature/current-affairs-studio-cp007-official-source-pack
+      - feature/current-affairs-studio-cp008-primary-fact-enrichment
+      - feature/current-affairs-studio-cp009-original-authoring
+      - feature/current-affairs-studio-cp010-multilingual-notes
+      - feature/current-affairs-studio-cp011-multilingual-question-drafts
+      - feature/current-affairs-studio-cp012-periodic-rollups
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/migrations/20260829_current_affairs_story_threads.sql"
+      - ".github/workflows/current-affairs-cp013-story-threading.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp013-story-threading
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/migrations/20260829_current_affairs_story_threads.sql"
+      - ".github/workflows/current-affairs-cp013-story-threading.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp013-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-story-threading:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Current Affairs CP001 contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+      - name: Run Current Affairs CP002 ingestion contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+      - name: Run Current Affairs CP003 intelligence contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+      - name: Run Current Affairs CP004 content contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+      - name: Run Current Affairs CP005/CP007 automation contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+      - name: Run Current Affairs CP006 orchestration policy contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
+      - name: Run Current Affairs CP007 official listing contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
+      - name: Run Current Affairs CP008 primary fact extraction contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
+      - name: Run Current Affairs CP009 original authoring contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/original-authoring.test.ts
+      - name: Run Current Affairs CP010 multilingual note contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
+      - name: Run Current Affairs CP011 multilingual question contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-question-localization.test.ts
+      - name: Run Current Affairs CP012 period policy contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/periodic-rollup-policy.test.ts
+      - name: Run Current Affairs CP013 story threading contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/story-threading.test.ts
+
+      - name: Verify story-thread schema and conservative audit trail
+        shell: bash
+        run: |
+          set -euo pipefail
+          schema=artifacts/api-server/migrations/20260829_current_affairs_story_threads.sql
+          runtime=artifacts/api-server/src/current-affairs/story-threading-runtime.ts
+          grep -Fq 'current_affairs_story_threads' "$schema"
+          grep -Fq 'current_affairs_story_thread_events' "$schema"
+          grep -Fq 'UNIQUE (event_id)' "$schema"
+          grep -Fq 'similarity_score' "$schema"
+          grep -Fq "status IN ('active', 'locked', 'archived')" "$schema"
+          grep -Fq 'threadingVersion' "$runtime"
+          grep -Fq 'sharedTitleTokens' "$runtime"
+          if grep -E "UPDATE content\.current_affairs_events[[:space:][:print:]]*SET[[:space:][:print:]]*status" "$runtime"; then
+            echo 'Story threading must not rewrite canonical event verification status'
+            exit 1
+          fi
+
+      - name: Verify rollup-only consolidation boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          consolidation=artifacts/api-server/src/current-affairs/story-rollup-consolidation.ts
+          grep -Fq "compilation.status='draft'" "$consolidation"
+          grep -Fq "compilation.period_type IN ('weekly', 'monthly')" "$consolidation"
+          grep -Fq 'current_affairs_story_thread_events' "$consolidation"
+          grep -Fq 'DELETE FROM content.current_affairs_compilation_events' "$consolidation"
+          grep -Fq 'UPDATE content.learning_resources' "$consolidation"
+          grep -Fq 'DELETE FROM content.generation_run_items' "$consolidation"
+          if grep -E "period_type[[:space:]]*=[[:space:]]*'daily'|period_type IN \([^)]*daily" "$consolidation"; then
+            echo 'CP013 consolidation must never target daily compilations'
+            exit 1
+          fi
+
+      - name: Verify threading and consolidation worker order
+        shell: bash
+        run: |
+          set -euo pipefail
+          worker=artifacts/api-server/src/current-affairs/daily-worker.ts
+          authoring_line=$(grep -n 'runSourceIndependentAuthoring' "$worker" | tail -1 | cut -d: -f1)
+          threading_line=$(grep -n 'runCurrentAffairsStoryThreading' "$worker" | tail -1 | cut -d: -f1)
+          rollup_line=$(grep -n 'runCompletedPeriodicRollups' "$worker" | tail -1 | cut -d: -f1)
+          consolidation_line=$(grep -n 'consolidateCurrentAffairsPeriodicDrafts' "$worker" | tail -1 | cut -d: -f1)
+          qloc_line=$(grep -n 'runCurrentAffairsQuestionLocalization' "$worker" | tail -1 | cut -d: -f1)
+          test "$authoring_line" -lt "$threading_line"
+          test "$threading_line" -lt "$rollup_line"
+          test "$rollup_line" -lt "$consolidation_line"
+          test "$consolidation_line" -lt "$qloc_line"
+
+      - name: Verify publication remains closed
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -R -E "automaticStudentPublication[^\n]*(true|TRUE)|publiclyPublishable[^\n]*(true|TRUE)" artifacts/api-server/src/current-affairs artifacts/api-server/src/routes/admin-current-affairs*.ts; then
+            echo 'Current Affairs automatic public/student publication must remain closed'
+            exit 1
+          fi
+
+      - name: Compile all Current Affairs workers
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/feed-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-feed-worker.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/primary-enrichment-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-primary-enrichment-worker.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/daily-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-daily-worker.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
