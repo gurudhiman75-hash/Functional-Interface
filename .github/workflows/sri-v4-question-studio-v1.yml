@@ -1,0 +1,57 @@
+name: Validate SRI V4 Question Studio integration
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/**"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine-sri.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-sri.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
+      - ".github/workflows/sri-v4-question-studio-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: sri-v4-question-studio-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-sri-question-studio:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Reject Math.random in SRI
+        run: |
+          if grep -R "Math\\.random" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices artifacts/api-server/src/quant-v4/shared/surds-indices --include='*.ts'; then
+            echo "Math.random is forbidden in SRI V4 code."
+            exit 1
+          fi
+      - name: Bundle SRI Question Studio exhaustive audit
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/sri
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/question-studio-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/question-studio-v1.test.mjs
+      - name: Run 58 QL x 3 language Question Studio audit
+        run: node artifacts/api-server/dist/quant-v4/sri/question-studio-v1.test.mjs
+      - name: Bundle SRI admin route
+        run: pnpm --dir artifacts/api-server exec esbuild src/routes/admin-question-studio-sri.ts --bundle --platform=node --format=esm --outfile=dist/routes/admin-question-studio-sri.mjs
+      - name: Bundle shared SRI facade
+        run: pnpm --dir artifacts/api-server exec esbuild src/question-studio/shared-generation-engine-sri.ts --bundle --platform=node --format=esm --outfile=dist/question-studio/shared-generation-engine-sri.mjs
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
