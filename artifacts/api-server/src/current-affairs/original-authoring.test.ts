@@ -6,7 +6,10 @@ import {
   type AuthoringInput,
 } from "./original-authoring";
 
-assert.equal(titleSimilarity("RBI policy rates: repo rate at 5.50%", "Monetary Policy Statement August 2026"), 0);
+assert.ok(
+  titleSimilarity("RBI policy rates: repo rate at 5.50%", "Monetary Policy Statement August 2026") < 0.2,
+  "generic factual overlap such as policy must remain well below the near-copy gate",
+);
 assert.ok(titleSimilarity("SEBI launches Cyber Suraksha Portal", "SEBI launches the Cyber Suraksha Portal") > 0.7);
 
 const appointment = authorSourceIndependentEvent({
