@@ -23,11 +23,21 @@ const SOURCE_HOSTS: Record<PrimarySourceKey, (host: string) => boolean> = {
 };
 
 const MONTHS: Record<string, string> = {
-  jan: "01", january: "01", feb: "02", february: "02", mar: "03", march: "03",
-  apr: "04", april: "04", may: "05", jun: "06", june: "06", jul: "07", july: "07",
-  aug: "08", august: "08", sep: "09", sept: "09", september: "09", oct: "10", october: "10",
-  nov: "11", november: "11", dec: "12", december: "12",
+  jan: "01", january: "01",
+  feb: "02", february: "02",
+  mar: "03", march: "03",
+  apr: "04", april: "04",
+  may: "05",
+  jun: "06", june: "06",
+  jul: "07", july: "07",
+  aug: "08", august: "08",
+  sep: "09", sept: "09", september: "09",
+  oct: "10", october: "10",
+  nov: "11", november: "11",
+  dec: "12", december: "12",
 };
+
+const ABBREVIATION_MARKER = "\uE000";
 
 function decodeEntities(value: string): string {
   const named: Record<string, string> = {
@@ -136,9 +146,13 @@ function pushFact(target: PrimaryPageFact[], fact: PrimaryPageFact | null) {
 }
 
 function sentenceList(text: string): string[] {
-  return text
+  const protectedText = text.replace(
+    /\b(Shri|Smt|Dr|Mr|Mrs|Ms|Prof|No|Nos)\./gi,
+    (_match, title) => `${title}${ABBREVIATION_MARKER}`,
+  );
+  return protectedText
     .split(/(?<=[.!?])\s+|\n+/)
-    .map((sentence) => sentence.replace(/\s+/g, " ").trim())
+    .map((sentence) => sentence.replaceAll(ABBREVIATION_MARKER, ".").replace(/\s+/g, " ").trim())
     .filter((sentence) => sentence.length >= 15 && sentence.length <= 800);
 }
 
@@ -182,6 +196,21 @@ function extractIndexValue(sentence: string, facts: PrimaryPageFact[]) {
   if (match?.[1]) pushFact(facts, makeFact("index_value", match[1], "number", 0.94, "named_index_value"));
 }
 
+function extractBankingRates(sentence: string, facts: PrimaryPageFact[]) {
+  const rates: Array<[string, RegExp, number]> = [
+    ["policy_repo_rate", /\b(?:policy\s+)?repo rate\b[^%]{0,80}?([0-9]+(?:\.[0-9]+)?)\s*%/i, 0.94],
+    ["standing_deposit_facility_rate", /\bstanding deposit facility(?:\s*\(sdf\))?\s+rate\b[^%]{0,80}?([0-9]+(?:\.[0-9]+)?)\s*%/i, 0.94],
+    ["marginal_standing_facility_rate", /\bmarginal standing facility(?:\s*\(msf\))?\s+rate\b[^%]{0,80}?([0-9]+(?:\.[0-9]+)?)\s*%/i, 0.94],
+    ["bank_rate", /\bbank rate\b[^%]{0,80}?([0-9]+(?:\.[0-9]+)?)\s*%/i, 0.93],
+    ["cash_reserve_ratio", /\b(?:cash reserve ratio|crr)\b[^%]{0,80}?([0-9]+(?:\.[0-9]+)?)\s*%/i, 0.93],
+    ["statutory_liquidity_ratio", /\b(?:statutory liquidity ratio|slr)\b[^%]{0,80}?([0-9]+(?:\.[0-9]+)?)\s*%/i, 0.93],
+  ];
+  for (const [key, pattern, confidence] of rates) {
+    const match = sentence.match(pattern);
+    if (match?.[1]) pushFact(facts, makeFact(key, `${match[1]}%`, "percentage", confidence, "banking_policy_rate"));
+  }
+}
+
 function extractRank(sentence: string, facts: PrimaryPageFact[]) {
   const match = sentence.match(/\b(?:ranked|ranks|placed)\s+(?:at\s+)?(?:the\s+)?([0-9]{1,3})(?:st|nd|rd|th)?\b/i);
   if (match?.[1]) pushFact(facts, makeFact("rank", match[1], "number", 0.88, "rank"));
@@ -195,7 +224,7 @@ function extractOutlay(sentence: string, facts: PrimaryPageFact[]) {
 function extractBeneficiaries(sentence: string, facts: PrimaryPageFact[]) {
   const match = sentence.match(/\b([0-9]+(?:\.[0-9]+)?\s*(?:crore|lakh|million|billion)?)\s+(beneficiaries|farmers|people|persons|households|students|women|families)\b/i);
   if (match?.[1] && /benefit|cover|eligible|reach|provide|scheme|programme|program|support/i.test(sentence)) {
-    pushFact(facts, makeFact("beneficiary_count", `${match[1]} ${match[2]}`, "number", 0.84, "beneficiary_count"));
+    pushFact(facts, makeFact("beneficiary_count", `${match[1]} ${match[2]}`, "string", 0.84, "beneficiary_count"));
   }
 }
 
@@ -223,8 +252,14 @@ function extractMissionFacts(sentence: string, facts: PrimaryPageFact[]) {
 
 function extractMouParties(sentence: string, facts: PrimaryPageFact[]) {
   const match = sentence.match(/\b(?:memorandum of understanding|mou)\b[^.]{0,80}?\bbetween\s+(.{3,220}?)\s+and\s+(.{3,180}?)(?:\.|;|$)/i);
-  if (match?.[1] && match[2]) {
-    pushFact(facts, makeFact("mou_parties", `${displayValue(match[1])} and ${displayValue(match[2])}`, "string", 0.84, "mou_parties"));
+  if (!match?.[1] || !match[2]) return;
+  const firstParty = displayValue(match[1]);
+  const secondParty = displayValue(match[2]).replace(
+    /\s+(?:(?:was|were|is|are|has been|have been)\s+)?(?:signed|executed|entered into|inked)\b.*$/i,
+    "",
+  ).trim();
+  if (firstParty && secondParty) {
+    pushFact(facts, makeFact("mou_parties", `${firstParty} and ${secondParty}`, "string", 0.84, "mou_parties"));
   }
 }
 
@@ -260,6 +295,7 @@ export function extractPrimaryPageFacts(text: string): PrimaryPageFact[] {
   for (const sentence of sentenceList(text)) {
     extractAppointment(sentence, facts);
     extractIndexValue(sentence, facts);
+    extractBankingRates(sentence, facts);
     extractRank(sentence, facts);
     extractOutlay(sentence, facts);
     extractBeneficiaries(sentence, facts);
@@ -269,5 +305,5 @@ export function extractPrimaryPageFacts(text: string): PrimaryPageFact[] {
     extractHeadquarters(sentence, facts);
     extractTarget(sentence, facts);
   }
-  return removeAmbiguousKeys(facts).slice(0, 20);
+  return removeAmbiguousKeys(facts).slice(0, 24);
 }
