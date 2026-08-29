@@ -7,6 +7,7 @@ import {
 } from "../current-affairs/question-promotion-runtime";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { authenticate } from "../middlewares/auth";
+import adminCurrentAffairsQuizDeliveryRouter from "./admin-current-affairs-quiz-delivery";
 
 const router: IRouter = Router();
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -61,6 +62,7 @@ function sendError(res: Response, error: unknown, fallback: string) {
   res.status(500).json({ error: fallback, code: "CURRENT_AFFAIRS_QUESTION_PROMOTION_FAILED" });
 }
 
+router.use(adminCurrentAffairsQuizDeliveryRouter);
 router.use(authenticate);
 
 router.get(
