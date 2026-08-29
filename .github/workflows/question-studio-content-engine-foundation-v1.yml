@@ -60,3 +60,21 @@ jobs:
         run: |
           cd artifacts/api-server
           node dist/content-engine-foundation/content-engine-foundation.test-suite.mjs
+      - name: Bundle COM-002 bilingual V4 review exporter
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com002-localization-human-review-v4-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/content-engine-foundation/com002-localization-human-review-v4-export.mjs
+      - name: Generate COM-002 bilingual V4 review files
+        run: |
+          cd artifacts/api-server
+          node dist/content-engine-foundation/com002-localization-human-review-v4-export.mjs
+      - name: Upload COM-002 bilingual V4 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: COM002-Hindi-Punjabi-V4-Review-Pack
+          path: |
+            artifacts/api-server/dist/review-artifacts/COM002-Hindi-Punjabi-V4-Review-Pack.html
+            artifacts/api-server/dist/review-artifacts/COM002-Hindi-Punjabi-V4-Review-Pack.json
+          if-no-files-found: error
