@@ -1,0 +1,184 @@
+name: Validate Current Affairs Studio CP014
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp001-foundation
+      - feature/current-affairs-studio-cp002-ingestion
+      - feature/current-affairs-studio-cp003-intelligence
+      - feature/current-affairs-studio-cp004-content
+      - feature/current-affairs-studio-cp005-scheduled-ingestion
+      - feature/current-affairs-studio-cp006-daily-orchestration
+      - feature/current-affairs-studio-cp007-official-source-pack
+      - feature/current-affairs-studio-cp008-primary-fact-enrichment
+      - feature/current-affairs-studio-cp009-original-authoring
+      - feature/current-affairs-studio-cp010-multilingual-notes
+      - feature/current-affairs-studio-cp011-multilingual-question-drafts
+      - feature/current-affairs-studio-cp012-periodic-rollups
+      - feature/current-affairs-studio-cp013-story-threading
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs*.ts"
+      - "artifacts/api-server/migrations/20260829_current_affairs_editorial_release.sql"
+      - ".github/workflows/current-affairs-cp014-editorial-release-control.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp014-editorial-release-control
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs*.ts"
+      - "artifacts/api-server/migrations/20260829_current_affairs_editorial_release.sql"
+      - ".github/workflows/current-affairs-cp014-editorial-release-control.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp014-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-editorial-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Current Affairs CP001 contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+      - name: Run Current Affairs CP002 ingestion contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+      - name: Run Current Affairs CP003 intelligence contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+      - name: Run Current Affairs CP004 content contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+      - name: Run Current Affairs CP005/CP007 automation contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+      - name: Run Current Affairs CP006 orchestration policy contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
+      - name: Run Current Affairs CP007 official listing contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
+      - name: Run Current Affairs CP008 primary fact extraction contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
+      - name: Run Current Affairs CP009 original authoring contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/original-authoring.test.ts
+      - name: Run Current Affairs CP010 multilingual note contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
+      - name: Run Current Affairs CP011 multilingual question contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-question-localization.test.ts
+      - name: Run Current Affairs CP012 period policy contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/periodic-rollup-policy.test.ts
+      - name: Run Current Affairs CP013 story threading contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/story-threading.test.ts
+      - name: Run Current Affairs CP014 release policy contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/release-policy.test.ts
+
+      - name: Verify immutable release schema and database publication guards
+        shell: bash
+        run: |
+          set -euo pipefail
+          schema=artifacts/api-server/migrations/20260829_current_affairs_editorial_release.sql
+          grep -Fq 'current_affairs_releases' "$schema"
+          grep -Fq 'current_affairs_release_compilations' "$schema"
+          grep -Fq 'current_affairs_release_question_items' "$schema"
+          grep -Fq "status IN ('approved', 'revoked')" "$schema"
+          grep -Fq 'current_affairs_releases_one_active_idx' "$schema"
+          grep -Fq 'source_generation_version_id' "$schema"
+          grep -Fq 'hindi_localization_id' "$schema"
+          grep -Fq 'punjabi_localization_id' "$schema"
+          grep -Fq 'guard_current_affairs_learning_resource_release' "$schema"
+          grep -Fq 'guard_current_affairs_compilation_release' "$schema"
+          grep -Fq "release.status='approved'" "$schema"
+
+      - name: Verify complete multilingual editorial readiness gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          policy=artifacts/api-server/src/current-affairs/release-policy.ts
+          runtime=artifacts/api-server/src/current-affairs/release-runtime.ts
+          grep -Fq 'English, Hindi and Punjabi compilation drafts are all required' "$policy"
+          grep -Fq 'exact same event manifest' "$policy"
+          grep -Fq 'Every release event must still be verified' "$policy"
+          grep -Fq 'current accepted English learner authoring' "$policy"
+          grep -Fq 'parity-ready Hindi and Punjabi notes' "$policy"
+          grep -Fq 'Open factual conflicts block' "$policy"
+          grep -Fq 'story thread must be consolidated' "$policy"
+          grep -Fq 'Every English Current Affairs quiz item must be editorially approved' "$policy"
+          grep -Fq 'parity-ready Hindi and Punjabi question drafts' "$policy"
+          grep -Fq "item.itemStatus === \"approved\"" "$runtime"
+          grep -Fq "localization.status IN ('ready','manual')" "$runtime"
+          grep -Fq 'sourceFingerprint' "$runtime"
+
+      - name: Verify release approval is atomic and explicit
+        shell: bash
+        run: |
+          set -euo pipefail
+          runtime=artifacts/api-server/src/current-affairs/release-runtime.ts
+          route=artifacts/api-server/src/routes/admin-current-affairs-release.ts
+          mount=artifacts/api-server/src/routes/admin-current-affairs-localization.ts
+          worker=artifacts/api-server/src/current-affairs/daily-worker.ts
+          grep -Fq 'approveCurrentAffairsRelease' "$runtime"
+          grep -Fq "status='published'" "$runtime"
+          grep -Fq 'publishedResources.length !== 3' "$runtime"
+          grep -Fq 'publishedCompilations.length !== 3' "$runtime"
+          grep -Fq 'content.questions.publish' "$route"
+          grep -Fq '/release-control/queue' "$route"
+          grep -Fq '/release-control/approve' "$route"
+          grep -Fq '/release-control/:id/revoke' "$route"
+          grep -Fq 'adminCurrentAffairsReleaseRouter' "$mount"
+          if grep -Fq 'approveCurrentAffairsRelease' "$worker"; then
+            echo 'Scheduled Current Affairs worker must never approve editorial releases'
+            exit 1
+          fi
+
+      - name: Verify CP014 does not publish canonical questions
+        shell: bash
+        run: |
+          set -euo pipefail
+          runtime=artifacts/api-server/src/current-affairs/release-runtime.ts
+          grep -Fq 'canonicalQuestionPromotion: false' "$runtime"
+          grep -Fq 'learnerQuestionsPublished: false' "$runtime"
+          if grep -E 'INSERT INTO content\.questions|UPDATE content\.questions|INSERT INTO content\.question_versions|INSERT INTO content\.question_translations|accepted_question_id[[:space:]]*=' "$runtime"; then
+            echo 'CP014 must not promote or publish canonical questions'
+            exit 1
+          fi
+          if grep -R -E "automaticStudentPublication[^\n]*(true|TRUE)|publiclyPublishable[^\n]*(true|TRUE)" artifacts/api-server/src/current-affairs artifacts/api-server/src/routes/admin-current-affairs*.ts; then
+            echo 'Current Affairs automatic question/student publication must remain closed'
+            exit 1
+          fi
+
+      - name: Compile all Current Affairs workers
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/feed-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-feed-worker.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/primary-enrichment-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-primary-enrichment-worker.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/daily-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-daily-worker.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
