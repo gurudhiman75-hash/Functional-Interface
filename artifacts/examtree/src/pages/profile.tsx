@@ -23,8 +23,8 @@ import {
   UserRound,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { getAnalytics, getUserAttempts } from "@/lib/data";
 import { getFirebaseAuth } from "@/lib/firebase";
@@ -71,10 +71,9 @@ export default function ProfilePage() {
     staleTime: 60_000,
   });
 
-  const orderedAttempts = useMemo(
-    () => [...(attempts ?? [])].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()),
-    [attempts],
-  );
+  // Preserve the canonical order returned by the student attempts endpoint.
+  // Result links must never be re-ranked client-side because the attempt ID is authoritative.
+  const orderedAttempts = useMemo(() => [...(attempts ?? [])], [attempts]);
 
   const summary = useMemo(() => {
     const totalAttempts = analytics?.totalAttempts ?? attempts?.length ?? 0;
@@ -124,11 +123,9 @@ export default function ProfilePage() {
   const handleLogout = async () => {
     const auth = getFirebaseAuth();
     try {
-      if (auth) {
-        await signOut(auth);
-      }
+      if (auth) await signOut(auth);
     } catch {
-      // Sign-out navigation remains available even when the provider cleanup fails.
+      // Navigation remains available if provider cleanup fails.
     } finally {
       setLocation("/");
       toast({ title: "Logged out", description: "You have been signed out successfully." });
@@ -138,13 +135,13 @@ export default function ProfilePage() {
   if (!user) {
     return (
       <div className="min-h-screen bg-background px-4 py-10 sm:px-6">
-        <div className="mx-auto max-w-2xl rounded-[28px] border border-[#e5e2f4] bg-white p-7 text-center shadow-[0_18px_55px_rgba(44,42,76,0.07)] sm:p-10">
-          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f1eeff] text-[#6657e8]">
+        <div className="mx-auto max-w-2xl rounded-[28px] border border-border bg-card p-7 text-center shadow-[0_18px_55px_rgba(44,42,76,0.07)] sm:p-10">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f1eeff] text-[#6657e8] dark:bg-violet-950/50 dark:text-violet-300">
             <User className="h-6 w-6" />
           </div>
-          <p className="mt-5 text-xs font-black uppercase tracking-[0.18em] text-[#6657e8]">My account</p>
-          <h1 className="mt-2 text-2xl font-black tracking-[-0.03em] text-slate-950">Not signed in</h1>
-          <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
+          <p className="mt-5 text-xs font-black uppercase tracking-[0.18em] text-[#6657e8] dark:text-violet-300">My account</p>
+          <h1 className="mt-2 text-2xl font-black tracking-[-0.03em] text-foreground">Not signed in</h1>
+          <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-muted-foreground">
             Sign in to view your account details, saved attempts and preparation summary.
           </p>
           <Button className="mt-6 rounded-xl bg-[#6657e8] px-6 font-bold text-white hover:bg-[#594bd9]" onClick={() => setLocation("/login/student")}>
@@ -162,7 +159,7 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-        <section className="overflow-hidden rounded-[30px] border border-[#e3dff5] bg-[linear-gradient(135deg,#ffffff_0%,#f4f1ff_58%,#faf9ff_100%)] shadow-[0_20px_60px_rgba(45,42,86,0.06)]">
+        <section className="overflow-hidden rounded-[30px] border border-[#e3dff5] bg-[linear-gradient(135deg,#ffffff_0%,#f4f1ff_58%,#faf9ff_100%)] shadow-[0_20px_60px_rgba(45,42,86,0.06)] dark:border-border dark:bg-none dark:bg-card">
           <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div className="flex min-w-0 items-start gap-4 sm:items-center sm:gap-5">
               <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#6657e8] text-xl font-black text-white shadow-[0_10px_26px_rgba(102,87,232,0.2)] sm:h-20 sm:w-20 sm:text-2xl">
@@ -170,18 +167,18 @@ export default function ProfilePage() {
               </div>
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#ded9fa] bg-white/80 px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#6657e8]">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#ded9fa] bg-white/80 px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#6657e8] dark:border-violet-800/70 dark:bg-violet-950/30 dark:text-violet-300">
                     <Sparkles className="h-3 w-3" />
                     My account
                   </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[10px] font-bold text-emerald-700">
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[10px] font-bold text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-300">
                     <CheckCircle2 className="h-3 w-3" />
                     Account status: Signed in
                   </span>
                 </div>
-                <h1 className="mt-3 truncate text-2xl font-black tracking-[-0.04em] text-slate-950 sm:text-3xl">Welcome back, {user.name}</h1>
-                <p className="mt-1 truncate text-sm text-slate-500">{user.email}</p>
-                <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+                <h1 className="mt-3 truncate text-2xl font-black tracking-[-0.04em] text-foreground sm:text-3xl">Welcome back, {user.name}</h1>
+                <p className="mt-1 truncate text-sm text-muted-foreground">{user.email}</p>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
                   Review your saved attempts, package history, and account details.
                 </p>
               </div>
@@ -192,7 +189,7 @@ export default function ProfilePage() {
                 <BookOpen className="h-4 w-4" />
                 Browse tests
               </Link>
-              <Button variant="outline" className="rounded-xl border-[#ddd9ec] bg-white text-slate-700" onClick={handleLogout}>
+              <Button variant="outline" className="rounded-xl" onClick={handleLogout}>
                 <LogOut className="mr-2 h-4 w-4" />
                 Log out
               </Button>
@@ -203,45 +200,45 @@ export default function ProfilePage() {
         <section className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4" aria-label="Preparation summary">
           {isLoading ? (
             Array.from({ length: 4 }).map((_, index) => (
-              <div key={index} className="h-32 animate-pulse rounded-2xl border border-[#e8e6f0] bg-white" />
+              <div key={index} className="h-32 animate-pulse rounded-2xl border border-border bg-card" />
             ))
           ) : error ? (
-            <div className="sm:col-span-2 xl:col-span-4 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-5 text-sm text-rose-700">
+            <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-5 text-sm text-rose-700 dark:border-rose-900 dark:bg-rose-950/30 dark:text-rose-300 sm:col-span-2 xl:col-span-4">
               We could not load your preparation summary right now. Your account details are still available below.
             </div>
           ) : (
             <>
-              <div className="rounded-2xl border border-[#e6e3ef] bg-white p-4 shadow-[0_8px_28px_rgba(47,43,83,0.035)]">
+              <div className="rounded-2xl border border-border bg-card p-4 shadow-[0_8px_28px_rgba(47,43,83,0.035)]">
                 <div className="flex items-center justify-between">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f1eeff] text-[#6657e8]"><Clock3 className="h-4.5 w-4.5" /></span>
-                  <span className="text-[10px] font-black uppercase tracking-[0.13em] text-slate-400">Attempts</span>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f1eeff] text-[#6657e8] dark:bg-violet-950/50 dark:text-violet-300"><Clock3 className="h-4.5 w-4.5" /></span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.13em] text-muted-foreground">Attempts</span>
                 </div>
-                <p className="mt-4 text-3xl font-black tracking-[-0.04em] text-slate-950">{summary.totalAttempts}</p>
-                <p className="mt-1 text-xs text-slate-500">Submitted test attempts</p>
+                <p className="mt-4 text-3xl font-black tracking-[-0.04em] text-foreground">{summary.totalAttempts}</p>
+                <p className="mt-1 text-xs text-muted-foreground">Submitted test attempts</p>
               </div>
-              <div className="rounded-2xl border border-[#e6e3ef] bg-white p-4 shadow-[0_8px_28px_rgba(47,43,83,0.035)]">
+              <div className="rounded-2xl border border-border bg-card p-4 shadow-[0_8px_28px_rgba(47,43,83,0.035)]">
                 <div className="flex items-center justify-between">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#eef7ff] text-sky-700"><BarChart3 className="h-4.5 w-4.5" /></span>
-                  <span className="text-[10px] font-black uppercase tracking-[0.13em] text-slate-400">Average</span>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-50 text-sky-700 dark:bg-sky-950/40 dark:text-sky-300"><BarChart3 className="h-4.5 w-4.5" /></span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.13em] text-muted-foreground">Average</span>
                 </div>
-                <p className="mt-4 text-3xl font-black tracking-[-0.04em] text-slate-950">{summary.averageScore}%</p>
-                <p className="mt-1 text-xs text-slate-500">Across saved attempts</p>
+                <p className="mt-4 text-3xl font-black tracking-[-0.04em] text-foreground">{summary.averageScore}%</p>
+                <p className="mt-1 text-xs text-muted-foreground">Across saved attempts</p>
               </div>
-              <div className="rounded-2xl border border-[#e6e3ef] bg-white p-4 shadow-[0_8px_28px_rgba(47,43,83,0.035)]">
+              <div className="rounded-2xl border border-border bg-card p-4 shadow-[0_8px_28px_rgba(47,43,83,0.035)]">
                 <div className="flex items-center justify-between">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-700"><Trophy className="h-4.5 w-4.5" /></span>
-                  <span className="text-[10px] font-black uppercase tracking-[0.13em] text-slate-400">Best</span>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300"><Trophy className="h-4.5 w-4.5" /></span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.13em] text-muted-foreground">Best</span>
                 </div>
-                <p className="mt-4 text-3xl font-black tracking-[-0.04em] text-slate-950">{summary.bestScore}%</p>
-                <p className="mt-1 text-xs text-slate-500">Highest saved score</p>
+                <p className="mt-4 text-3xl font-black tracking-[-0.04em] text-foreground">{summary.bestScore}%</p>
+                <p className="mt-1 text-xs text-muted-foreground">Highest saved score</p>
               </div>
-              <div className="rounded-2xl border border-[#e6e3ef] bg-white p-4 shadow-[0_8px_28px_rgba(47,43,83,0.035)]">
+              <div className="rounded-2xl border border-border bg-card p-4 shadow-[0_8px_28px_rgba(47,43,83,0.035)]">
                 <div className="flex items-center justify-between">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-orange-700"><Flame className="h-4.5 w-4.5" /></span>
-                  <span className="text-[10px] font-black uppercase tracking-[0.13em] text-slate-400">Streak</span>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50 text-orange-700 dark:bg-orange-950/40 dark:text-orange-300"><Flame className="h-4.5 w-4.5" /></span>
+                  <span className="text-[10px] font-black uppercase tracking-[0.13em] text-muted-foreground">Streak</span>
                 </div>
-                <p className="mt-4 text-3xl font-black tracking-[-0.04em] text-slate-950">{streak.currentStreak}</p>
-                <p className="mt-1 text-xs text-slate-500">Current real-test streak</p>
+                <p className="mt-4 text-3xl font-black tracking-[-0.04em] text-foreground">{streak.currentStreak}</p>
+                <p className="mt-1 text-xs text-muted-foreground">Current real-test streak</p>
               </div>
             </>
           )}
@@ -249,81 +246,81 @@ export default function ProfilePage() {
 
         <div className="mt-5 grid gap-5 xl:grid-cols-[minmax(0,1.12fr)_minmax(340px,0.88fr)]">
           <div className="space-y-5">
-            <section className="rounded-[26px] border border-[#e5e2ef] bg-white p-5 shadow-[0_12px_38px_rgba(47,43,83,0.04)] sm:p-6">
+            <section className="rounded-[26px] border border-border bg-card p-5 shadow-[0_12px_38px_rgba(47,43,83,0.04)] sm:p-6">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6657e8]">Preparation profile</p>
-                  <h2 className="mt-1 text-xl font-black tracking-[-0.025em] text-slate-950">What your recent attempts show</h2>
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6657e8] dark:text-violet-300">Preparation profile</p>
+                  <h2 className="mt-1 text-xl font-black tracking-[-0.025em] text-foreground">What your recent attempts show</h2>
                 </div>
-                <Link href="/dashboard" className="et-interactive inline-flex min-h-11 items-center gap-2 rounded-xl px-3 text-sm font-bold text-[#6657e8] hover:bg-[#f5f2ff]">
+                <Link href="/dashboard" className="et-interactive inline-flex min-h-11 items-center gap-2 rounded-xl px-3 text-sm font-bold text-[#6657e8] hover:bg-[#f5f2ff] dark:text-violet-300 dark:hover:bg-violet-950/30">
                   My activity <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
 
               <div className="mt-5 grid gap-4 md:grid-cols-2">
-                <div className="rounded-2xl border border-[#ece9f4] bg-[#fafafe] p-4">
-                  <div className="flex items-center gap-2 text-sm font-bold text-slate-800">
-                    <Target className="h-4 w-4 text-[#6657e8]" />
+                <div className="rounded-2xl border border-border bg-muted/30 p-4">
+                  <div className="flex items-center gap-2 text-sm font-bold text-foreground">
+                    <Target className="h-4 w-4 text-[#6657e8] dark:text-violet-300" />
                     Preparation focus
                   </div>
                   {focusCategories.length > 0 ? (
                     <div className="mt-3 flex flex-wrap gap-2">
                       {focusCategories.map(([category, count]) => (
-                        <Badge key={category} variant="outline" className="rounded-full border-[#ddd9f5] bg-white px-3 py-1 text-xs font-semibold text-slate-700">
+                        <Badge key={category} variant="outline" className="rounded-full bg-background px-3 py-1 text-xs font-semibold text-foreground">
                           {category} · {count} {count === 1 ? "attempt" : "attempts"}
                         </Badge>
                       ))}
                     </div>
                   ) : (
-                    <p className="mt-3 text-sm leading-6 text-slate-500">Complete a test and your most-practised exam areas will appear here.</p>
+                    <p className="mt-3 text-sm leading-6 text-muted-foreground">Complete a test and your most-practised exam areas will appear here.</p>
                   )}
                 </div>
 
-                <div className="rounded-2xl border border-[#ece9f4] bg-[#fafafe] p-4">
-                  <div className="flex items-center gap-2 text-sm font-bold text-slate-800">
-                    <Languages className="h-4 w-4 text-[#6657e8]" />
+                <div className="rounded-2xl border border-border bg-muted/30 p-4">
+                  <div className="flex items-center gap-2 text-sm font-bold text-foreground">
+                    <Languages className="h-4 w-4 text-[#6657e8] dark:text-violet-300" />
                     Test language
                   </div>
-                  <p className="mt-3 text-sm leading-6 text-slate-500">
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">
                     Language availability follows each published test, so you can use the supported language options where they are provided.
                   </p>
                 </div>
               </div>
 
-              <div className="mt-4 rounded-2xl border border-[#e4dff8] bg-[#f7f5ff] p-4">
+              <div className="mt-4 rounded-2xl border border-[#e4dff8] bg-[#f7f5ff] p-4 dark:border-violet-900/60 dark:bg-violet-950/20">
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <p className="text-xs font-bold text-[#6657e8]">Latest saved activity</p>
-                    <p className="mt-1 text-sm font-bold text-slate-900">{latestAttempt?.testName ?? "No submitted attempt yet"}</p>
-                    <p className="mt-1 text-xs text-slate-500">
+                    <p className="text-xs font-bold text-[#6657e8] dark:text-violet-300">Latest saved activity</p>
+                    <p className="mt-1 text-sm font-bold text-foreground">{latestAttempt?.testName ?? "No submitted attempt yet"}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
                       {latestAttempt ? `${latestAttempt.score}% · ${formatDate(latestAttempt.createdAt)}` : "Start a published test to begin building your preparation history."}
                     </p>
                   </div>
-                  <Link href="/exams" className="et-interactive inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[#dcd6f8] bg-white px-3 text-xs font-bold text-[#6657e8] hover:bg-[#fbfaff]">
+                  <Link href="/exams" className="et-interactive inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[#dcd6f8] bg-background px-3 text-xs font-bold text-[#6657e8] hover:bg-[#fbfaff] dark:border-violet-900/60 dark:text-violet-300 dark:hover:bg-violet-950/30">
                     Find a test <BookOpen className="h-4 w-4" />
                   </Link>
                 </div>
               </div>
             </section>
 
-            <section className="rounded-[26px] border border-[#e5e2ef] bg-white p-5 shadow-[0_12px_38px_rgba(47,43,83,0.04)] sm:p-6">
+            <section className="rounded-[26px] border border-border bg-card p-5 shadow-[0_12px_38px_rgba(47,43,83,0.04)] sm:p-6">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6657e8]">Recent results</p>
-                  <h2 className="mt-1 text-xl font-black tracking-[-0.025em] text-slate-950">Latest attempts</h2>
+                  <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6657e8] dark:text-violet-300">Recent results</p>
+                  <h2 className="mt-1 text-xl font-black tracking-[-0.025em] text-foreground">Latest attempts</h2>
                 </div>
-                {orderedAttempts.length > 0 && <span className="text-xs text-slate-400">Showing up to 4</span>}
+                {orderedAttempts.length > 0 && <span className="text-xs text-muted-foreground">Showing up to 4</span>}
               </div>
 
               {attemptsLoading ? (
                 <div className="mt-5 space-y-3">
-                  {Array.from({ length: 3 }).map((_, index) => <div key={index} className="h-20 animate-pulse rounded-2xl bg-slate-100" />)}
+                  {Array.from({ length: 3 }).map((_, index) => <div key={index} className="h-20 animate-pulse rounded-2xl bg-muted" />)}
                 </div>
               ) : orderedAttempts.length === 0 ? (
-                <div className="mt-5 rounded-2xl border border-dashed border-[#ddd9e8] bg-[#fafafe] p-6 text-center">
-                  <BookOpen className="mx-auto h-6 w-6 text-[#6657e8]" />
-                  <p className="mt-3 text-sm font-bold text-slate-800">No attempts yet</p>
-                  <p className="mt-1 text-xs leading-5 text-slate-500">Your submitted tests will appear here with direct links to their saved results.</p>
+                <div className="mt-5 rounded-2xl border border-dashed border-border bg-muted/30 p-6 text-center">
+                  <BookOpen className="mx-auto h-6 w-6 text-[#6657e8] dark:text-violet-300" />
+                  <p className="mt-3 text-sm font-bold text-foreground">No attempts yet</p>
+                  <p className="mt-1 text-xs leading-5 text-muted-foreground">Your submitted tests will appear here with direct links to their saved results.</p>
                 </div>
               ) : (
                 <div className="mt-5 space-y-2.5">
@@ -331,17 +328,17 @@ export default function ProfilePage() {
                     const params = new URLSearchParams({ attemptId: attempt.id, testId: attempt.testId });
                     return (
                       <Link key={attempt.id} href={`/result?${params.toString()}`}>
-                        <div className="group flex flex-col gap-3 rounded-2xl border border-[#ece9f2] bg-white p-4 transition hover:border-[#d9d3f6] hover:bg-[#fcfbff] sm:flex-row sm:items-center sm:justify-between">
+                        <div className="group flex flex-col gap-3 rounded-2xl border border-border bg-background p-4 transition hover:border-[#d9d3f6] hover:bg-[#fcfbff] dark:hover:border-violet-900 dark:hover:bg-violet-950/20 sm:flex-row sm:items-center sm:justify-between">
                           <div className="min-w-0">
-                            <p className="truncate text-sm font-bold text-slate-900">{attempt.testName}</p>
-                            <p className="mt-1 text-xs text-slate-500">{attempt.category} · {formatDate(attempt.createdAt)}</p>
+                            <p className="truncate text-sm font-bold text-foreground">{attempt.testName}</p>
+                            <p className="mt-1 text-xs text-muted-foreground">{attempt.category} · {formatDate(attempt.createdAt)}</p>
                           </div>
                           <div className="flex shrink-0 items-center gap-3">
                             <div className="text-right">
-                              <p className="text-sm font-black text-slate-950">{attempt.score}%</p>
-                              <p className="text-[10px] text-slate-400">{attempt.correct}/{attempt.totalQuestions} correct</p>
+                              <p className="text-sm font-black text-foreground">{attempt.score}%</p>
+                              <p className="text-[10px] text-muted-foreground">{attempt.correct}/{attempt.totalQuestions} correct</p>
                             </div>
-                            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f3f0ff] text-[#6657e8] transition group-hover:translate-x-0.5"><ArrowRight className="h-4 w-4" /></span>
+                            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f3f0ff] text-[#6657e8] transition group-hover:translate-x-0.5 dark:bg-violet-950/40 dark:text-violet-300"><ArrowRight className="h-4 w-4" /></span>
                           </div>
                         </div>
                       </Link>
@@ -351,7 +348,7 @@ export default function ProfilePage() {
               )}
 
               {orderedAttempts.length > 4 && (
-                <Link href="/dashboard" className="et-interactive mt-4 inline-flex min-h-11 items-center gap-2 rounded-xl px-3 text-sm font-bold text-[#6657e8] hover:bg-[#f5f2ff]">
+                <Link href="/dashboard" className="et-interactive mt-4 inline-flex min-h-11 items-center gap-2 rounded-xl px-3 text-sm font-bold text-[#6657e8] hover:bg-[#f5f2ff] dark:text-violet-300 dark:hover:bg-violet-950/30">
                   View all attempts <ArrowRight className="h-4 w-4" />
                 </Link>
               )}
@@ -359,74 +356,74 @@ export default function ProfilePage() {
           </div>
 
           <div className="space-y-5">
-            <section className="rounded-[26px] border border-[#e5e2ef] bg-white p-5 shadow-[0_12px_38px_rgba(47,43,83,0.04)] sm:p-6">
-              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6657e8]">Personal details</p>
-              <h2 className="mt-1 text-xl font-black tracking-[-0.025em] text-slate-950">Account identity</h2>
+            <section className="rounded-[26px] border border-border bg-card p-5 shadow-[0_12px_38px_rgba(47,43,83,0.04)] sm:p-6">
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6657e8] dark:text-violet-300">Personal details</p>
+              <h2 className="mt-1 text-xl font-black tracking-[-0.025em] text-foreground">Account identity</h2>
 
               <div className="mt-5 space-y-3">
-                <div className="flex items-start gap-3 rounded-2xl border border-[#ece9f2] bg-[#fafafe] p-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#6657e8]"><UserRound className="h-4.5 w-4.5" /></span>
+                <div className="flex items-start gap-3 rounded-2xl border border-border bg-muted/30 p-4">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-background text-[#6657e8] dark:text-violet-300"><UserRound className="h-4.5 w-4.5" /></span>
                   <div className="min-w-0">
-                    <p className="text-[10px] font-black uppercase tracking-[0.13em] text-slate-400">Name</p>
-                    <p className="mt-1 truncate text-sm font-bold text-slate-900">{user.name}</p>
+                    <p className="text-[10px] font-black uppercase tracking-[0.13em] text-muted-foreground">Name</p>
+                    <p className="mt-1 truncate text-sm font-bold text-foreground">{user.name}</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 rounded-2xl border border-[#ece9f2] bg-[#fafafe] p-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#6657e8]"><Mail className="h-4.5 w-4.5" /></span>
+                <div className="flex items-start gap-3 rounded-2xl border border-border bg-muted/30 p-4">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-background text-[#6657e8] dark:text-violet-300"><Mail className="h-4.5 w-4.5" /></span>
                   <div className="min-w-0">
-                    <p className="text-[10px] font-black uppercase tracking-[0.13em] text-slate-400">Email</p>
-                    <p className="mt-1 break-all text-sm font-bold text-slate-900">{user.email}</p>
+                    <p className="text-[10px] font-black uppercase tracking-[0.13em] text-muted-foreground">Email</p>
+                    <p className="mt-1 break-all text-sm font-bold text-foreground">{user.email}</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3 rounded-2xl border border-[#ece9f2] bg-[#fafafe] p-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-[#6657e8]"><ShieldCheck className="h-4.5 w-4.5" /></span>
+                <div className="flex items-start gap-3 rounded-2xl border border-border bg-muted/30 p-4">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-background text-[#6657e8] dark:text-violet-300"><ShieldCheck className="h-4.5 w-4.5" /></span>
                   <div>
-                    <p className="text-[10px] font-black uppercase tracking-[0.13em] text-slate-400">Sign-in method</p>
-                    <p className="mt-1 text-sm font-bold text-slate-900">{providerLabel}</p>
-                    <p className="mt-1 text-xs text-slate-500">Role: {user.role ?? "student"}</p>
+                    <p className="text-[10px] font-black uppercase tracking-[0.13em] text-muted-foreground">Sign-in method</p>
+                    <p className="mt-1 text-sm font-bold text-foreground">{providerLabel}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">Role: {user.role ?? "student"}</p>
                   </div>
                 </div>
               </div>
 
-              <p className="mt-4 text-xs leading-5 text-slate-400">
+              <p className="mt-4 text-xs leading-5 text-muted-foreground">
                 Profile editing is not exposed until the canonical account-update flow is available. This page only displays saved account identity.
               </p>
             </section>
 
-            <section className="rounded-[26px] border border-[#e5e2ef] bg-white p-5 shadow-[0_12px_38px_rgba(47,43,83,0.04)] sm:p-6">
-              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6657e8]">Security & recovery</p>
-              <h2 className="mt-1 text-xl font-black tracking-[-0.025em] text-slate-950">Manage account access</h2>
+            <section className="rounded-[26px] border border-border bg-card p-5 shadow-[0_12px_38px_rgba(47,43,83,0.04)] sm:p-6">
+              <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#6657e8] dark:text-violet-300">Security & recovery</p>
+              <h2 className="mt-1 text-xl font-black tracking-[-0.025em] text-foreground">Manage account access</h2>
 
               <div className="mt-4 space-y-2">
-                <Link href="/account-recovery" className="et-interactive flex min-h-14 items-center gap-3 rounded-2xl border border-[#ece9f2] px-4 transition hover:border-[#dad4f6] hover:bg-[#faf9ff]">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f1eeff] text-[#6657e8]"><KeyRound className="h-4.5 w-4.5" /></span>
+                <Link href="/account-recovery" className="et-interactive flex min-h-14 items-center gap-3 rounded-2xl border border-border px-4 transition hover:border-[#dad4f6] hover:bg-[#faf9ff] dark:hover:border-violet-900 dark:hover:bg-violet-950/20">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f1eeff] text-[#6657e8] dark:bg-violet-950/40 dark:text-violet-300"><KeyRound className="h-4.5 w-4.5" /></span>
                   <span className="min-w-0 flex-1">
-                    <span className="block text-sm font-bold text-slate-900">Password & account recovery</span>
-                    <span className="mt-0.5 block text-xs text-slate-500">Reset access or recover an unavailable account.</span>
+                    <span className="block text-sm font-bold text-foreground">Password & account recovery</span>
+                    <span className="mt-0.5 block text-xs text-muted-foreground">Reset access or recover an unavailable account.</span>
                   </span>
-                  <ArrowRight className="h-4 w-4 shrink-0 text-slate-400" />
+                  <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />
                 </Link>
 
-                <Link href="/account-deletion" className="et-interactive flex min-h-14 items-center gap-3 rounded-2xl border border-[#f0e5e5] px-4 transition hover:border-rose-200 hover:bg-rose-50/40">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-rose-50 text-rose-600"><Trash2 className="h-4.5 w-4.5" /></span>
+                <Link href="/account-deletion" className="et-interactive flex min-h-14 items-center gap-3 rounded-2xl border border-border px-4 transition hover:border-rose-200 hover:bg-rose-50/40 dark:hover:border-rose-900 dark:hover:bg-rose-950/20">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-950/40 dark:text-rose-300"><Trash2 className="h-4.5 w-4.5" /></span>
                   <span className="min-w-0 flex-1">
-                    <span className="block text-sm font-bold text-slate-900">Delete account</span>
-                    <span className="mt-0.5 block text-xs text-slate-500">Open the account-deletion flow and review its consequences.</span>
+                    <span className="block text-sm font-bold text-foreground">Delete account</span>
+                    <span className="mt-0.5 block text-xs text-muted-foreground">Open the account-deletion flow and review its consequences.</span>
                   </span>
-                  <ArrowRight className="h-4 w-4 shrink-0 text-slate-400" />
+                  <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground" />
                 </Link>
               </div>
             </section>
 
-            <section className="rounded-[26px] border border-[#e5e2ef] bg-white p-5 shadow-[0_12px_38px_rgba(47,43,83,0.04)] sm:p-6">
+            <section className="rounded-[26px] border border-border bg-card p-5 shadow-[0_12px_38px_rgba(47,43,83,0.04)] sm:p-6">
               <div className="flex items-start gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f1eeff] text-[#6657e8]"><CreditCard className="h-4.5 w-4.5" /></span>
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f1eeff] text-[#6657e8] dark:bg-violet-950/40 dark:text-violet-300"><CreditCard className="h-4.5 w-4.5" /></span>
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
-                    <h2 className="text-sm font-black text-slate-950">Packages & subscriptions</h2>
-                    <Badge variant="outline" className="rounded-full border-[#ddd9f5] bg-[#faf9ff] text-[10px] font-bold text-[#6657e8]">Not live yet</Badge>
+                    <h2 className="text-sm font-black text-foreground">Packages & subscriptions</h2>
+                    <Badge variant="outline" className="rounded-full bg-muted/30 text-[10px] font-bold text-[#6657e8] dark:text-violet-300">Not live yet</Badge>
                   </div>
-                  <p className="mt-2 text-xs leading-5 text-slate-500">
+                  <p className="mt-2 text-xs leading-5 text-muted-foreground">
                     Commerce is not enabled in the student experience yet, so this account page does not present purchase or subscription status as live data.
                   </p>
                 </div>
