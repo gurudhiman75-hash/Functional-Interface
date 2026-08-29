@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Menu,
   Settings,
+  ShoppingBag,
   X,
 } from "lucide-react";
 import { Link, useLocation } from "wouter";
@@ -32,6 +33,7 @@ const primaryLinks = [
   { label: "Tests", href: "/exams" },
   { label: "Mock Tests", href: "/mock-tests" },
   { label: "PYQs", href: "/pyqs" },
+  { label: "Store", href: "/store" },
   { label: "Exams Covered", href: "/exams-covered" },
   { label: "FAQ", href: "/faq" },
 ];
@@ -41,11 +43,13 @@ const homeLinks = [
   { label: "Test Series", href: "/exams" },
   { label: "Previous Papers", href: "/pyqs" },
   { label: "Practice", href: "/mock-tests" },
+  { label: "Store", href: "/store" },
 ];
 
 const mobileStudyLinks: MobileStudyLink[] = [
   { label: "Home", href: "/", icon: Home },
   { label: "Explore Exams", href: "/exams", icon: LayoutDashboard },
+  { label: "Store", href: "/store", icon: ShoppingBag },
   { label: "My Tests", href: "/dashboard", icon: LayoutDashboard, authNext: "/dashboard" },
   { label: "Analytics", icon: BarChart3, disabled: true },
   { label: "Support", href: "/contact", icon: ArrowRight },
@@ -59,6 +63,7 @@ const footerColumns = [
       { label: "Browse Tests", href: "/exams" },
       { label: "Mock Tests", href: "/mock-tests" },
       { label: "Previous Year Questions", href: "/pyqs" },
+      { label: "Store", href: "/store" },
       { label: "Exams Covered", href: "/exams-covered" },
     ],
   },
@@ -83,6 +88,7 @@ const footerColumns = [
 function routeIsActive(location: string, href: string) {
   if (href === "/") return location === "/";
   if (href === "/exams") return location === "/exams" || location === "/tests" || location === "/mock-tests" || location === "/pyqs" || location === "/exams-covered" || location.startsWith("/category/") || location.startsWith("/subcategory/") || location.startsWith("/published-tests/");
+  if (href === "/store") return location === "/store" || location === "/packages" || location.startsWith("/store/") || location.startsWith("/packages/");
   return location === href || location.startsWith(`${href}/`);
 }
 
@@ -92,9 +98,13 @@ function showStudySidebarForRoute(location: string) {
     || location === "/mock-tests"
     || location === "/pyqs"
     || location === "/exams-covered"
+    || location === "/store"
+    || location === "/packages"
     || location === "/faq"
     || location === "/contact"
     || location === "/about"
+    || location.startsWith("/store/")
+    || location.startsWith("/packages/")
     || location.startsWith("/category/")
     || location.startsWith("/subcategory/")
     || location.startsWith("/published-tests/");
@@ -256,6 +266,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
               <Link href="/exams" className="hover:text-white">Exams</Link>
               <Link href="/exams" className="hover:text-white">Test Series</Link>
               <Link href="/mock-tests" className="hover:text-white">Practice</Link>
+              <Link href="/store" className="hover:text-white">Store</Link>
               <Link href="/faq" className="hover:text-white">Help</Link>
             </nav>
           </div>
