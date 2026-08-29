@@ -1,4 +1,4 @@
-import { STC_CP001_AUTHORITIES } from "./cp001-authorities.ts";
+import { STC_CP001_ALL_AUTHORITIES } from "./cp001-authority-registry.ts";
 import { stcEntails } from "./truth-model-solver.ts";
 import type { GeneratedStcQuestion, StcAnswerClass, StcLocale, StcQlId, StcScenarioAuthority } from "./types.ts";
 
@@ -69,7 +69,7 @@ function scenariosFor(qlId: StcQlId): readonly StcScenarioAuthority[] {
   if (qlId !== "STC-QL-001" && qlId !== "STC-QL-002") {
     throw new Error(`${qlId} is reserved but not yet implemented in STC-CP-001`);
   }
-  return STC_CP001_AUTHORITIES.filter((scenario) => scenario.qlId === qlId);
+  return STC_CP001_ALL_AUTHORITIES.filter((scenario) => scenario.qlId === qlId);
 }
 
 export function generateStcCp001Question(input: {
