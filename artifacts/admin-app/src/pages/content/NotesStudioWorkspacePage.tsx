@@ -114,7 +114,7 @@ const pipelineStages = [
 
 function newPublicCode() {
   const now = new Date();
-  const date = now.toISOString().slice(0, 10).replaceAll('-', '');
+  const date = now.toISOString().slice(0, 10).replace(/-/g, '');
   return `NOTE_${date}_${String(now.getTime()).slice(-5)}`;
 }
 
@@ -469,7 +469,7 @@ export function NotesStudioWorkspacePage() {
               <div className="flex flex-wrap gap-2">
                 {resource.status === 'draft' && canEdit && <Button variant="outline" size="sm" onClick={() => void openEdit(resource)} disabled={working}><Pencil className="mr-1.5 h-3.5 w-3.5" />Edit</Button>}
                 {resource.status === 'draft' && canPublish && <Button size="sm" onClick={() => void publish(resource)} disabled={working}><Rocket className="mr-1.5 h-3.5 w-3.5" />Publish</Button>}
-                {resource.status !== 'archived' && canEdit && <Button variant="outline" size="sm" onClick={() => void archive(resource)} disabled={working}><Archive className="mr-1.5 h-3.5 w-3.5" />Archive</Button>}
+                {resource.status !== 'archived' && canPublish && <Button variant="outline" size="sm" onClick={() => void archive(resource)} disabled={working}><Archive className="mr-1.5 h-3.5 w-3.5" />Archive</Button>}
               </div>
             </div>)}
           </CardContent>
