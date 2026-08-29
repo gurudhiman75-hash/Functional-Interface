@@ -1,6 +1,13 @@
 import type { GeoJsonLineString } from "../geometry/geojson";
 
-export type StaticGkSceneLayer = "base-map" | "latitude-line" | "state-highlight" | "labels" | "quiz";
+export type StaticGkSceneLayer =
+  | "base-map"
+  | "latitude-line"
+  | "longitude-line"
+  | "state-highlight"
+  | "point-marker"
+  | "labels"
+  | "quiz";
 
 export interface StaticGkSceneViewport {
   aspectRatio: "9:16";
@@ -27,6 +34,26 @@ export interface StaticGkResolvedLatitudeSegment {
   geometry: GeoJsonLineString;
 }
 
+export interface StaticGkSceneGeometrySource {
+  geometryId: string;
+  sourceProductCode: string;
+  sourceArchiveSha256?: string;
+  canonicalGeoJsonSha256?: string;
+}
+
+export interface StaticGkSceneQuiz {
+  question: string;
+  options: string[];
+  correctOptionIndex: number;
+  explanation: string;
+}
+
+export interface StaticGkSceneQa {
+  requiredFactIds: string[];
+  requiredGeoTargetIds: string[];
+  assertions: string[];
+}
+
 export interface StaticGkMapPathSceneRecipe {
   schemaVersion: "1.0";
   rendererVersion: "atlas-map-v1";
@@ -35,12 +62,7 @@ export interface StaticGkMapPathSceneRecipe {
   template: "india-map-path";
   status: "geometry-pending" | "render-ready";
   viewport: StaticGkSceneViewport;
-  geometrySource: {
-    geometryId: string;
-    sourceProductCode: string;
-    sourceArchiveSha256?: string;
-    canonicalGeoJsonSha256?: string;
-  };
+  geometrySource: StaticGkSceneGeometrySource;
   route: {
     latitude: number;
     editorialLabel: string;
@@ -49,15 +71,34 @@ export interface StaticGkMapPathSceneRecipe {
   };
   cues: StaticGkSceneCue[];
   narration: Array<{ id: string; text: string; factIds: string[] }>;
-  quiz: {
-    question: string;
-    options: string[];
-    correctOptionIndex: number;
-    explanation: string;
+  quiz: StaticGkSceneQuiz;
+  qa: StaticGkSceneQa;
+}
+
+export interface StaticGkMeridianSceneRecipe {
+  schemaVersion: "1.0";
+  rendererVersion: "atlas-map-v1";
+  visualId: string;
+  title: string;
+  template: "india-map-path";
+  status: "geometry-pending" | "point-verification-pending" | "render-ready";
+  viewport: StaticGkSceneViewport;
+  geometrySource: StaticGkSceneGeometrySource;
+  meridian: {
+    longitude: number;
+    editorialLabel: string;
+    indiaSegments: GeoJsonLineString[];
+    upSegments: GeoJsonLineString[];
   };
-  qa: {
-    requiredFactIds: string[];
-    requiredGeoTargetIds: string[];
-    assertions: string[];
+  pointOfInterest: {
+    id: "point.mirzapur";
+    name: "Mirzapur";
+    latitude?: number;
+    longitude?: number;
+    verificationSource?: string;
   };
+  cues: StaticGkSceneCue[];
+  narration: Array<{ id: string; text: string; factIds: string[] }>;
+  quiz: StaticGkSceneQuiz;
+  qa: StaticGkSceneQa;
 }
