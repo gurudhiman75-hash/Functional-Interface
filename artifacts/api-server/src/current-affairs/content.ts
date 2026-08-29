@@ -80,9 +80,10 @@ export function humanizeFactKey(key: string): string {
 }
 
 export function eventOneLiner(event: CurrentAffairsContentEvent): string {
+  if (event.summary.trim()) return sentence(event.summary);
   const firstFact = event.facts[0];
   if (firstFact) {
-    return `${sentence(event.title)} ${humanizeFactKey(firstFact.key)}: ${sentence(firstFact.value)}`.replace(/\.\s+([^A-Z\p{L}])/u, ". $1");
+    return `${humanizeFactKey(firstFact.key)}: ${sentence(firstFact.value)}`;
   }
   return sentence(event.title);
 }
