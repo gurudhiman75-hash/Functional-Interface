@@ -223,7 +223,7 @@ test.describe("student workflow hardening", () => {
     await page.goto("/profile");
 
     await expect(page.getByRole("heading", { name: "Welcome back, Flow Student" })).toBeVisible();
-    await page.getByRole("button", { name: "Log out", exact: true }).click();
+    await page.locator("#main-content").getByRole("button", { name: "Log out", exact: true }).click();
 
     await expect(page).toHaveURL(/\/$/);
     const savedUser = await page.evaluate(() => window.localStorage.getItem("user"));
