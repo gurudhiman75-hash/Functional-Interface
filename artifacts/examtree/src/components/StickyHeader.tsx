@@ -118,7 +118,7 @@ export function StickyHeader() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => setLocation("/tests")}
+                  onClick={() => setLocation("/exams")}
                   className="et-interactive min-h-11 shrink-0 rounded-xl border border-border bg-card px-3 py-2 text-xs font-semibold text-muted-foreground hover:bg-muted hover:text-primary"
                 >
                   <span className="hidden sm:inline">Open full explorer</span>

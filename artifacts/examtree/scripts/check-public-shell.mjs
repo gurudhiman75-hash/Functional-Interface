@@ -18,7 +18,7 @@ assert.match(appSource, /path="\/category\/:id" component=\{\(\) => renderCatalo
 assert.match(appSource, /path="\/subcategory\/:id" component=\{\(\) => renderCatalogPublicRoute\(Subcategory\)\}/, "exam discovery must use the acquisition shell while retaining catalog context");
 assert.match(appSource, /path="\/login\/student" component=\{\(\) => renderPublicRoute\(Login\)\}/, "student login must not be trapped inside the preparation sidebar");
 assert.match(appSource, /path="\/dashboard" component=\{\(\) => renderAppRoute\(Dashboard\)\}/, "dashboard must stay in the preparation shell");
-assert.match(appSource, /path="\/result" component=\{\(\) => renderAppRoute\(Result\)\}/, "saved results must stay in the preparation shell");
+assert.match(appSource, /path="\/result" component=\{\(\) => <ProtectedRoute component=\{Result\} \/>\}/, "saved results must require a student session and stay in the preparation shell");
 assert.match(appSource, /path="\/profile" component=\{\(\) => renderAppRoute\(Profile\)\}/, "profile must stay in the preparation shell");
 assert.match(appSource, /path="\/performance" component=\{\(\) => renderAppRoute\(AnalyticsUnavailable\)\}/, "direct analytics links must remain truthful until learner analytics is production-ready");
 assert.match(appSource, /ProtectedRoute component=\{TestSeries\}/, "protected Test Series detail must use the default preparation shell");

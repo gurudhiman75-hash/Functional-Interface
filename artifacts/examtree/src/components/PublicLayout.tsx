@@ -37,7 +37,7 @@ const primaryLinks = [
 ];
 
 const homeLinks = [
-  { label: "Exams", href: "/exams", dropdown: true },
+  { label: "Exams", href: "/exams" },
   { label: "Test Series", href: "/exams" },
   { label: "Previous Papers", href: "/pyqs" },
   { label: "Practice", href: "/mock-tests" },
@@ -165,7 +165,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
                 ) : (
                   <>
                     <Link href="/login/student" className="et-interactive inline-flex min-h-[45px] items-center rounded-lg border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50">Log in</Link>
-                    <Link href="/login/student" className="et-interactive inline-flex min-h-[45px] items-center rounded-lg bg-[#6857f5] px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#5b48ed]">Sign up</Link>
+                    <Link href="/login/student?mode=signup" className="et-interactive inline-flex min-h-[45px] items-center rounded-lg bg-[#6857f5] px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#5b48ed]">Sign up</Link>
                   </>
                 )}
               </>

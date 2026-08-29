@@ -20,10 +20,10 @@ assert.match(header, /className="[^"]*h-11 w-11[^"]*"[\s\S]*?aria-label="User pr
 assert.match(header, /className="[^"]*min-h-11 w-full[^"]*"[\s\S]*?subcategory\.name/, "subcategory selector rows must meet the 44px-class touch target");
 
 assert.match(sidebar, /aria-label="ExamTree home"/, "sidebar brand link needs a useful accessible name");
-assert.match(sidebar, /className="min-h-11 rounded-md border border-transparent/, "primary sidebar navigation must use 44px-class targets");
+assert.match(sidebar, /className="min-h-11 [^"]*border border-transparent/, "primary sidebar navigation must use 44px-class targets");
 assert.match(sidebar, /href="\/profile"[\s\S]*?h-11 w-11[\s\S]*?aria-label="Profile"/, "sidebar profile control needs a 44px-class target and correct accessible name");
 assert.match(sidebar, /h-11 w-11[\s\S]*?aria-label="Log out"/, "sidebar logout control needs a 44px-class target and clear accessible name");
 assert.doesNotMatch(sidebar, /aria-label="Settings"/, "profile navigation must not be mislabeled as Settings");
-assert.match(sidebar, /className="min-h-11 rounded-md border border-indigo-800[\s\S]*?>\s*<Link href="\/login\/student">Login<\/Link>/, "signed-out sidebar login must meet the 44px-class touch target");
+assert.match(sidebar, /className="min-h-11 [^"]*border border-sidebar-border[\s\S]*?>\s*<Link href="\/login\/student">Login<\/Link>/, "signed-out sidebar login must meet the 44px-class touch target without depending on a legacy color token");
 
 console.log("App chrome accessibility audit passed (17 assertions).\n");
