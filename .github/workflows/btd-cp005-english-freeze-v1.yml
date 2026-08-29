@@ -47,12 +47,12 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Derive CP005 English freeze fingerprints
+      - name: Enforce immutable CP005 English freeze
         shell: bash
         run: |
           set -o pipefail
-          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-005/btd-cp005-english-freeze-probe-v1.ts | tee btd-cp005-english-freeze-probe-v1.log
-          grep -q 'PASS_BTD_001_CP005_ENGLISH_FREEZE_PROBE_V1' btd-cp005-english-freeze-probe-v1.log
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-005/btd-cp005-english-freeze-v1-audit.ts | tee btd-cp005-english-freeze-v1.log
+          grep -q 'PASS_BTD_001_CP005_ENGLISH_FREEZE_AUDIT_V1' btd-cp005-english-freeze-v1.log
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
@@ -68,6 +68,6 @@ jobs:
         with:
           name: btd-cp005-english-freeze-v1
           path: |
-            btd-cp005-english-freeze-probe-v1.log
+            btd-cp005-english-freeze-v1.log
             btd-cp005-english-freeze-v1-head.log
           retention-days: 30
