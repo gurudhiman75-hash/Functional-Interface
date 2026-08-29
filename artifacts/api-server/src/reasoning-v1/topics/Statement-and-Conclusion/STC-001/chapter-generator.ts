@@ -8,15 +8,16 @@ export function generateStcQuestion(input: {
   readonly locale: StcLocale;
   readonly seed: number;
 }): GeneratedStcQuestion {
-  switch (input.qlId) {
+  const { qlId, locale, seed } = input;
+  switch (qlId) {
     case "STC-QL-001":
     case "STC-QL-002":
-      return generateStcCp001Question(input);
+      return generateStcCp001Question({ qlId, locale, seed });
     case "STC-QL-003":
     case "STC-QL-004":
-      return generateStcCp002Question(input);
+      return generateStcCp002Question({ qlId, locale, seed });
     case "STC-QL-005":
     case "STC-QL-006":
-      return generateStcCp003Question(input);
+      return generateStcCp003Question({ qlId, locale, seed });
   }
 }
