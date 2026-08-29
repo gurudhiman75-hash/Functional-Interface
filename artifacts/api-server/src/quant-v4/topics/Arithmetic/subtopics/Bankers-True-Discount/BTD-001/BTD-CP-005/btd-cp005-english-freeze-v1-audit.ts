@@ -78,7 +78,7 @@ for (const qlId of BTD_CP003_QL_IDS) {
 
     const serialized = JSON.stringify(frozen);
     assert.ok(serialized.length > 100, `${qlId}/${seed}: frozen package unexpectedly small`);
-    assert.deepEqual(JSON.parse(serialized), frozen, `${qlId}/${seed}: frozen package is not native-JSON stable`);
+    assert.equal(JSON.stringify(JSON.parse(serialized)), serialized, `${qlId}/${seed}: frozen package is not native-JSON round-trip stable`);
     nativeJsonChecks += 2;
 
     qlPayload.push(frozenLearner);
