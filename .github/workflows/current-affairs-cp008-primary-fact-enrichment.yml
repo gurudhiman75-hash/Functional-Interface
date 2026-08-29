@@ -15,6 +15,7 @@ on:
       - "artifacts/api-server/src/current-affairs/**"
       - "artifacts/api-server/src/routes/admin-current-affairs*.ts"
       - "artifacts/api-server/migrations/20260829_current_affairs_primary_fact_enrichment.sql"
+      - "artifacts/api-server/migrations/20260829_current_affairs_primary_fact_event_bridge.sql"
       - "build-current-affairs-worker.sh"
       - "render.yaml"
       - ".github/workflows/current-affairs-cp008-primary-fact-enrichment.yml"
@@ -25,6 +26,7 @@ on:
       - "artifacts/api-server/src/current-affairs/**"
       - "artifacts/api-server/src/routes/admin-current-affairs*.ts"
       - "artifacts/api-server/migrations/20260829_current_affairs_primary_fact_enrichment.sql"
+      - "artifacts/api-server/migrations/20260829_current_affairs_primary_fact_event_bridge.sql"
       - "build-current-affairs-worker.sh"
       - "render.yaml"
       - ".github/workflows/current-affairs-cp008-primary-fact-enrichment.yml"
@@ -89,15 +91,29 @@ jobs:
         run: |
           set -euo pipefail
           migration=artifacts/api-server/migrations/20260829_current_affairs_primary_fact_enrichment.sql
+          bridge=artifacts/api-server/migrations/20260829_current_affairs_primary_fact_event_bridge.sql
           grep -Fq "'primary_fact_enrichment'" "$migration"
           grep -Fq 'current_affairs_candidate_enrichments' "$migration"
           grep -Fq 'current_affairs_candidate_fact_claims' "$migration"
           grep -Fq 'trg_materialize_current_affairs_candidate_fact_claim' "$migration"
           grep -Fq 'trg_materialize_current_affairs_cluster_member_fact_claims' "$migration"
-          if grep -Eqi 'body_text|raw_text|page_text|source_text|html_body' "$migration"; then
-            echo 'CP008 migration must not contain source-page body text columns'
+          grep -Fq 'event_id' "$bridge"
+          grep -Fq 'trg_attach_current_affairs_event_to_cluster_claims' "$bridge"
+          grep -Fq 'promoted_event_id' "$bridge"
+          if grep -Eqi 'body_text|raw_text|page_text|source_text|html_body' "$migration" "$bridge"; then
+            echo 'CP008 migrations must not contain source-page body text columns'
             exit 1
           fi
+
+      - name: Verify late-enrichment downgrade path
+        shell: bash
+        run: |
+          set -euo pipefail
+          file=artifacts/api-server/src/current-affairs/enriched-event-reconciliation.ts
+          grep -Fq "status=${verification.allowed ? \"verified\" : \"review\"}" "$file"
+          grep -Fq 'reconciliation_status <> '\''manual'\''' "$file"
+          grep -Fq 'is_verified=${verification.allowed}' "$file"
+          grep -Fq 'reconcilePrimaryEnrichedEvents' artifacts/api-server/src/current-affairs/daily-worker.ts
 
       - name: Compile all Current Affairs workers
         run: |
