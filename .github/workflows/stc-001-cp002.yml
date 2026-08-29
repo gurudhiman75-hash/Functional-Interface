@@ -1,0 +1,72 @@
+name: Validate STC-001 CP002 Conditional Modal
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp002-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/modal-strength-solver.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/types.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-manifest.ts'
+      - '.github/workflows/stc-001-cp002.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stc-001-cp002-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  stc-cp002:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/truth-model-solver.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/modal-strength-solver.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp002-conditional-authorities.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp002-modal-authorities.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp002-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp002-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-manifest.ts
+
+      - name: Replay CP001 regression proof
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp001-proof.test.ts
+
+      - name: Prove CP002 conditional and modal semantics
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp002-proof.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Delivery boundary
+        run: |
+          echo 'STC-CP-001 and CP002 are review candidates only.'
+          echo 'Question Studio remains unregistered.'
+          echo 'Question Bank, test, mock and public-release gates remain closed.'
