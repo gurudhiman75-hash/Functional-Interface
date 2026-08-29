@@ -15,7 +15,7 @@ import { TestDetailPage } from '@/pages/tests/TestDetailPage';
 import { TestQAWorkspacePage } from '@/pages/tests/TestQAWorkspacePage';
 import { TestsPage } from '@/pages/tests/TestsPage';
 const QuestionStudioPage=lazy(()=>import('@/pages/content/QuestionStudioOperationsPage').then(m=>({default:m.QuestionStudioOperationsPage})));
-const NotesStudioPage=lazy(()=>import('@/pages/content/NotesStudioWorkspacePage').then(m=>({default:m.NotesStudioWorkspacePage})));
+const NotesStudioPage=lazy(()=>import('@/pages/content/NotesStudioHubPage').then(m=>({default:m.NotesStudioHubPage})));
 const LearningResourcesPage=lazy(()=>import('@/pages/content/LearningResourcesHubPage').then(m=>({default:m.LearningResourcesHubPage})));
 const TaxonomyPage=lazy(()=>import('@/pages/content/TaxonomyWorkspacePage').then(m=>({default:m.TaxonomyWorkspacePage})));
 const CoveragePage=lazy(()=>import('@/pages/content/CoveragePlannerPage').then(m=>({default:m.CoveragePlannerPage})));
