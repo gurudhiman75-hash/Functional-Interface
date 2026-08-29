@@ -1,0 +1,116 @@
+name: Validate DSF Common-Base Integration
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-011/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-012/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-013/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-014/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-015/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-016/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/foundation/**
+      - artifacts/api-server/src/lib/reasoning/inequality-foundation.ts
+      - artifacts/api-server/src/lib/reasoning/inequality-foundation.test.ts
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-common-base-integration-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dsf-common-base:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server on integrated tree
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Run inequality source-foundation parity audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/api-server/dist/reasoning-v1/data-sufficiency/common-base
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/lib/reasoning/inequality-foundation.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/common-base/inequality-foundation.test.mjs
+          node artifacts/api-server/dist/reasoning-v1/data-sufficiency/common-base/inequality-foundation.test.mjs
+
+      - name: Run every CP011-CP016 executable audit on one tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001"
+          OUT="artifacts/api-server/dist/reasoning-v1/data-sufficiency/common-base"
+          mkdir -p "$OUT"
+
+          count=0
+          while IFS= read -r test_file; do
+            relative="${test_file#artifacts/api-server/}"
+            safe_name="$(printf '%s' "$relative" | tr '/.' '__')"
+            output="dist/reasoning-v1/data-sufficiency/common-base/${safe_name}.mjs"
+            echo "[DSF COMMON BASE] ${relative}"
+            pnpm --dir artifacts/api-server exec esbuild \
+              "$relative" \
+              --bundle --platform=node --format=esm \
+              --outfile="$output"
+            node "artifacts/api-server/$output"
+            count=$((count + 1))
+          done < <(find \
+            "$ROOT/DSF-CP-011" \
+            "$ROOT/DSF-CP-012" \
+            "$ROOT/DSF-CP-013" \
+            "$ROOT/DSF-CP-014" \
+            "$ROOT/DSF-CP-015" \
+            "$ROOT/DSF-CP-016" \
+            -type f -name '*.test.ts' | sort)
+
+          if [ "$count" -lt 20 ]; then
+            echo "Expected at least 20 CP011-CP016 audit files, found $count" >&2
+            exit 1
+          fi
+          echo "PASS_DSF_COMMON_BASE_ALL_CHECKPOINT_AUDITS count=$count"
+
+      - name: Verify review-only runtime lifecycle remains locked
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001"
+          matches="$({
+            find \
+              "$ROOT/DSF-CP-011" \
+              "$ROOT/DSF-CP-012" \
+              "$ROOT/DSF-CP-013" \
+              "$ROOT/DSF-CP-014" \
+              "$ROOT/DSF-CP-015" \
+              "$ROOT/DSF-CP-016" \
+              -type f -name '*.ts' ! -name '*.test.ts' -print0 \
+              | xargs -0 -r grep -n -E 'questionStudioDiscoverable:[[:space:]]*true|questionBankWritable:[[:space:]]*true|testEligible:[[:space:]]*true|mock(Test)?Eligible:[[:space:]]*true|publiclyPublishable:[[:space:]]*true' || true
+          })"
+          if [ -n "$matches" ]; then
+            printf '%s\n' "$matches"
+            echo 'A CP011-CP016 runtime learner-delivery capability was opened on the integration tree.' >&2
+            exit 1
+          fi
+          echo 'PASS_DSF_COMMON_BASE_LIFECYCLE_LOCKS'
