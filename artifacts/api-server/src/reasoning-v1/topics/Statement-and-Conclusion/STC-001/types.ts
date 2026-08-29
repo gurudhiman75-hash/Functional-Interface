@@ -58,10 +58,7 @@ export interface StcModalClaim {
   readonly polarity: StcModalPolarity;
 }
 
-export type StcModalDefect =
-  | "STRONGER_MODALITY"
-  | "POLARITY_FLIP"
-  | "UNSUPPORTED_EXTRA";
+export type StcModalDefect = "STRONGER_MODALITY" | "POLARITY_FLIP" | "UNSUPPORTED_EXTRA";
 
 export interface StcModalCandidateAuthority {
   readonly id: string;
@@ -79,12 +76,58 @@ export interface StcModalScenarioAuthority {
   readonly candidates: readonly [StcModalCandidateAuthority, StcModalCandidateAuthority, StcModalCandidateAuthority, StcModalCandidateAuthority];
 }
 
+export interface StcOrderClaim {
+  readonly relationId: string;
+  readonly higher: string;
+  readonly lower: string;
+}
+
+export type StcOrderDefect = "REVERSED_ORDER" | "UNSUPPORTED_RELATION" | "UNRELATED_ENTITY";
+
+export interface StcOrderCandidateAuthority {
+  readonly id: string;
+  readonly claim: StcOrderClaim;
+  readonly text: LocalizedText;
+  readonly defectIfNotEntailed?: StcOrderDefect;
+}
+
+export interface StcOrderScenarioAuthority {
+  readonly id: string;
+  readonly qlId: "STC-QL-005";
+  readonly difficulty: StcDifficulty;
+  readonly statement: LocalizedText;
+  readonly premises: readonly StcOrderClaim[];
+  readonly candidates: readonly [StcOrderCandidateAuthority, StcOrderCandidateAuthority, StcOrderCandidateAuthority, StcOrderCandidateAuthority];
+}
+
+export type StcTemporalClaim =
+  | { readonly kind: "before"; readonly first: string; readonly second: string }
+  | { readonly kind: "trend"; readonly metric: string; readonly from: string; readonly to: string; readonly direction: "INCREASED" | "DECREASED" };
+
+export type StcTemporalDefect = "REVERSED_TIME" | "REVERSED_TREND" | "UNSUPPORTED_EXTRA";
+
+export interface StcTemporalCandidateAuthority {
+  readonly id: string;
+  readonly claim: StcTemporalClaim;
+  readonly text: LocalizedText;
+  readonly defectIfNotEntailed?: StcTemporalDefect;
+}
+
+export interface StcTemporalScenarioAuthority {
+  readonly id: string;
+  readonly qlId: "STC-QL-006";
+  readonly difficulty: StcDifficulty;
+  readonly statement: LocalizedText;
+  readonly premises: readonly StcTemporalClaim[];
+  readonly candidates: readonly [StcTemporalCandidateAuthority, StcTemporalCandidateAuthority, StcTemporalCandidateAuthority, StcTemporalCandidateAuthority];
+}
+
 export type StcAnswerClass = "ONLY_I" | "ONLY_II" | "BOTH" | "NEITHER";
 
 export interface GeneratedStcQuestion {
   readonly chapterId: "STC-001";
-  readonly checkpointId: "STC-CP-001" | "STC-CP-002";
-  readonly qlId: "STC-QL-001" | "STC-QL-002" | "STC-QL-003" | "STC-QL-004";
+  readonly checkpointId: "STC-CP-001" | "STC-CP-002" | "STC-CP-003";
+  readonly qlId: StcQlId;
   readonly scenarioId: string;
   readonly locale: StcLocale;
   readonly seed: number;
@@ -96,7 +139,7 @@ export interface GeneratedStcQuestion {
   readonly answerClass: StcAnswerClass;
   readonly explanation: string;
   readonly metadata: {
-    readonly solver: "TRUTH_MODEL_ENTAILMENT_V1" | "MODAL_STRENGTH_ENTAILMENT_V1";
+    readonly solver: "TRUTH_MODEL_ENTAILMENT_V1" | "MODAL_STRENGTH_ENTAILMENT_V1" | "STRICT_ORDER_CLOSURE_V1" | "TEMPORAL_TREND_CLOSURE_V1";
     readonly reviewOnly: true;
     readonly questionBankWritable: false;
     readonly testEligible: false;
