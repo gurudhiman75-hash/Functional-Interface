@@ -36,6 +36,21 @@ CREATE TABLE IF NOT EXISTS content.note_evidence_claims (
   CONSTRAINT note_evidence_claim_unique_per_run UNIQUE (run_id, normalized_key)
 );
 
+CREATE OR REPLACE FUNCTION content.force_note_evidence_candidate_on_insert()
+RETURNS trigger AS $$
+BEGIN
+  IF NEW.reviewed_by IS NULL OR NEW.reviewed_at IS NULL THEN
+    NEW.evidence_state := 'candidate';
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS note_evidence_claim_insert_guard ON content.note_evidence_claims;
+CREATE TRIGGER note_evidence_claim_insert_guard
+BEFORE INSERT ON content.note_evidence_claims
+FOR EACH ROW EXECUTE FUNCTION content.force_note_evidence_candidate_on_insert();
+
 CREATE TABLE IF NOT EXISTS content.note_evidence_support (
   id UUID PRIMARY KEY,
   claim_id UUID NOT NULL REFERENCES content.note_evidence_claims(id) ON DELETE CASCADE,
@@ -89,7 +104,7 @@ CREATE INDEX IF NOT EXISTS note_claim_coverage_target_idx
 COMMENT ON TABLE content.note_evidence_runs IS
   'Immutable Notes Studio evidence extraction snapshots keyed by the included retained source-pack and authoring brief.';
 COMMENT ON TABLE content.note_evidence_claims IS
-  'Candidate source-grounded assertions. Automatic extraction never makes these learner-facing facts; reviewers may accept or reject them.';
+  'Candidate source-grounded assertions. Automatic extraction is forced to candidate state; accepted/rejected state requires review.';
 COMMENT ON TABLE content.note_evidence_support IS
   'Exact source provenance for evidence claims. Excerpts are bounded and originate only from rights-retainable extracted source text.';
 COMMENT ON TABLE content.note_coverage_targets IS
