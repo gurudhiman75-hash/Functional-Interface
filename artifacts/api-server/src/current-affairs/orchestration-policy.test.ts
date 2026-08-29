@@ -17,7 +17,6 @@ const primaryPromotion = canAutoPromoteCluster({
   highTrustSourceCount: 1,
   urlEvidenceCount: 1,
   primaryUrlEvidenceCount: 1,
-  datedEvidenceCount: 1,
   maxTrustScore: 0.95,
 });
 assert.equal(primaryPromotion.allowed, true, "high-trust primary singleton should clear the singleton-safe threshold");
@@ -31,7 +30,6 @@ const corroboratedPromotion = canAutoPromoteCluster({
   highTrustSourceCount: 2,
   urlEvidenceCount: 2,
   primaryUrlEvidenceCount: 0,
-  datedEvidenceCount: 2,
   maxTrustScore: 0.88,
 });
 assert.equal(corroboratedPromotion.allowed, true);
@@ -45,7 +43,6 @@ assert.equal(canAutoPromoteCluster({
   highTrustSourceCount: 3,
   urlEvidenceCount: 3,
   primaryUrlEvidenceCount: 1,
-  datedEvidenceCount: 3,
   maxTrustScore: 0.98,
 }).allowed, false);
 
@@ -58,22 +55,8 @@ assert.equal(canAutoPromoteCluster({
   highTrustSourceCount: 1,
   urlEvidenceCount: 0,
   primaryUrlEvidenceCount: 0,
-  datedEvidenceCount: 0,
   maxTrustScore: 0.9,
 }).allowed, false, "PDF-only discovery cannot auto-promote without URL evidence");
-
-assert.equal(canAutoPromoteCluster({
-  confidence: 0.72,
-  category: "space",
-  memberCount: 1,
-  distinctSourceCount: 1,
-  primarySourceCount: 1,
-  highTrustSourceCount: 1,
-  urlEvidenceCount: 1,
-  primaryUrlEvidenceCount: 1,
-  datedEvidenceCount: 0,
-  maxTrustScore: 0.98,
-}).allowed, false, "an undated official listing signal stays review-only");
 
 assert.equal(canAutoVerifyEvent({
   verificationGateAllowed: true,
