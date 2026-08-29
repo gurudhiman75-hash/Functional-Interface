@@ -8,6 +8,7 @@ import type { CurrentAffairsLocalizationLanguage } from "../current-affairs/mult
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
+import adminCurrentAffairsQuestionLocalizationRouter from "./admin-current-affairs-question-localization";
 
 const router: IRouter = Router();
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -67,6 +68,7 @@ function sendError(res: Response, error: unknown, fallback: string) {
   res.status(500).json({ error: fallback, code: "CURRENT_AFFAIRS_LOCALIZATION_FAILED" });
 }
 
+router.use(adminCurrentAffairsQuestionLocalizationRouter);
 router.use(authenticate);
 
 router.get("/localization/queue", requireAdminPermission("content.questions.read"), async (req, res) => {

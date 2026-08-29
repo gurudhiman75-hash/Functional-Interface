@@ -1,0 +1,167 @@
+name: Validate Current Affairs Studio CP011
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp001-foundation
+      - feature/current-affairs-studio-cp002-ingestion
+      - feature/current-affairs-studio-cp003-intelligence
+      - feature/current-affairs-studio-cp004-content
+      - feature/current-affairs-studio-cp005-scheduled-ingestion
+      - feature/current-affairs-studio-cp006-daily-orchestration
+      - feature/current-affairs-studio-cp007-official-source-pack
+      - feature/current-affairs-studio-cp008-primary-fact-enrichment
+      - feature/current-affairs-studio-cp009-original-authoring
+      - feature/current-affairs-studio-cp010-multilingual-notes
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs*.ts"
+      - "artifacts/api-server/migrations/20260829_current_affairs_multilingual_question_drafts.sql"
+      - ".github/workflows/current-affairs-cp011-multilingual-question-drafts.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp011-multilingual-question-drafts
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs*.ts"
+      - "artifacts/api-server/migrations/20260829_current_affairs_multilingual_question_drafts.sql"
+      - ".github/workflows/current-affairs-cp011-multilingual-question-drafts.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp011-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-multilingual-question-drafts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Current Affairs CP001 contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+
+      - name: Run Current Affairs CP002 ingestion contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+
+      - name: Run Current Affairs CP003 intelligence contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+
+      - name: Run Current Affairs CP004 content contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+
+      - name: Run Current Affairs CP005/CP007 automation contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+
+      - name: Run Current Affairs CP006 orchestration policy contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
+
+      - name: Run Current Affairs CP007 official listing contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
+
+      - name: Run Current Affairs CP008 primary fact extraction contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
+
+      - name: Run Current Affairs CP009 original authoring contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/original-authoring.test.ts
+
+      - name: Run Current Affairs CP010 multilingual note contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
+
+      - name: Run Current Affairs CP011 multilingual question contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-question-localization.test.ts
+
+      - name: Verify immutable source-question schema
+        shell: bash
+        run: |
+          set -euo pipefail
+          schema=artifacts/api-server/migrations/20260829_current_affairs_multilingual_question_drafts.sql
+          grep -Fq 'current_affairs_question_localizations' "$schema"
+          grep -Fq 'source_generation_version_id' "$schema"
+          grep -Fq 'REFERENCES content.generation_item_versions' "$schema"
+          grep -Fq "language_code IN ('hi', 'pa')" "$schema"
+          grep -Fq "status IN ('ready', 'needs_editorial', 'manual')" "$schema"
+          grep -Fq 'localized_payload JSONB' "$schema"
+          grep -Fq 'UNIQUE (source_generation_version_id, language_code)' "$schema"
+
+      - name: Verify question parity and lifecycle gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          engine=artifacts/api-server/src/current-affairs/multilingual-question-localization.ts
+          runtime=artifacts/api-server/src/current-affairs/question-localization-runtime.ts
+          route=artifacts/api-server/src/routes/admin-current-affairs-question-localization.ts
+          parent_route=artifacts/api-server/src/routes/admin-current-affairs-localization.ts
+          worker=artifacts/api-server/src/current-affairs/daily-worker.ts
+          grep -Fq 'answerIndexPreserved' "$engine"
+          grep -Fq 'optionCountPreserved' "$engine"
+          grep -Fq 'factValuePreserved' "$engine"
+          grep -Fq 'missingEventTitleOptions' "$engine"
+          grep -Fq 'correctIndex,' "$engine"
+          grep -Fq 'questionBankAcceptanceMode: "BANK_ONLY"' "$engine"
+          grep -Fq 'automaticStudentPublication: false' "$engine"
+          grep -Fq "localization.status IN ('ready', 'manual')" "$runtime"
+          grep -Fq 'localization.authoring_version_id=event.learner_authoring_version_id' "$runtime"
+          grep -Fq 'QUESTION_LOCALIZATION_PARITY_FAILED' "$route"
+          grep -Fq 'adminCurrentAffairsQuestionLocalizationRouter' "$parent_route"
+          daily_line=$(grep -n 'runDailyDraftGeneration' "$worker" | tail -1 | cut -d: -f1)
+          question_localization_line=$(grep -n 'runCurrentAffairsQuestionLocalization' "$worker" | tail -1 | cut -d: -f1)
+          test "$daily_line" -lt "$question_localization_line"
+
+      - name: Verify CP011 remains sidecar only
+        shell: bash
+        run: |
+          set -euo pipefail
+          files=(
+            artifacts/api-server/src/current-affairs/multilingual-question-localization.ts
+            artifacts/api-server/src/current-affairs/question-localization-runtime.ts
+            artifacts/api-server/src/routes/admin-current-affairs-question-localization.ts
+            artifacts/api-server/migrations/20260829_current_affairs_multilingual_question_drafts.sql
+          )
+          if grep -E 'INSERT INTO content\.question_translations|UPDATE content\.question_translations|INSERT INTO content\.question_versions|INSERT INTO content\.questions' "${files[@]}"; then
+            echo 'CP011 must remain a multilingual Current Affairs draft sidecar and not write canonical question tables'
+            exit 1
+          fi
+          if grep -R -E "automaticStudentPublication[^\n]*(true|TRUE)|publiclyPublishable[^\n]*(true|TRUE)" artifacts/api-server/src/current-affairs artifacts/api-server/src/routes/admin-current-affairs*.ts; then
+            echo 'Current Affairs automatic public/student publication must remain closed'
+            exit 1
+          fi
+
+      - name: Compile all Current Affairs workers
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/feed-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-feed-worker.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/primary-enrichment-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-primary-enrichment-worker.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/daily-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-daily-worker.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
