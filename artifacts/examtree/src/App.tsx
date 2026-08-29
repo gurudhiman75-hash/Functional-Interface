@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import { Redirect, Route, Router as WouterRouter, Switch, useLocation } from "wouter";
+import { Redirect, Route, Router as WouterRouter, Switch, useLocation, useSearch } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { AppErrorBoundary } from "@/components/AppErrorBoundary";
@@ -108,7 +108,9 @@ type ProtectedRouteProps = {
 function ProtectedRoute({ component: Component, layout = "app" }: ProtectedRouteProps) {
   const user = getSessionUser();
   const [location] = useLocation();
-  if (!user) return <Redirect to={`/login/student?next=${encodeURIComponent(location)}`} />;
+  const search = useSearch();
+  const returnLocation = search ? `${location}?${search}` : location;
+  if (!user) return <Redirect to={`/login/student?next=${encodeURIComponent(returnLocation)}`} />;
 
   return (
     <RouteCatalogBoundary>
