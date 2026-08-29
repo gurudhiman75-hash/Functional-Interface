@@ -71,7 +71,7 @@ test.describe("CP02 page-level touch targets", () => {
     await expectNoHorizontalOverflow(page);
   });
 
-  test("shared page actions keep 44px targets across preparation and result surfaces", async ({ page }) => {
+  test("shared page actions keep 44px targets across preparation and protected result surfaces", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await installFixtures(page);
 
@@ -84,6 +84,18 @@ test.describe("CP02 page-level touch targets", () => {
     await page.goto("/profile");
     await expectTouchTarget(page.getByRole("button", { name: "Go to Login" }));
     await expectNoHorizontalOverflow(page);
+
+    // Result pages are account-specific. Seed the same lightweight local session
+    // that ProtectedRoute consumes so this test measures the result UI rather
+    // than weakening the production auth boundary just for accessibility coverage.
+    await page.evaluate(() => {
+      window.localStorage.setItem("user", JSON.stringify({
+        id: "e2e-student",
+        email: "student.e2e@examtree.local",
+        name: "E2E Student",
+        role: "student",
+      }));
+    });
 
     await page.goto("/result");
     await expectTouchTarget(page.getByRole("button", { name: "Open My Activity" }));
