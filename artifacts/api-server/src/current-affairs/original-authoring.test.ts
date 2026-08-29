@@ -7,7 +7,7 @@ import {
 } from "./original-authoring";
 
 assert.equal(titleSimilarity("RBI policy rates: repo rate at 5.50%", "Monetary Policy Statement August 2026"), 0);
-assert.ok(titleSimilarity("SEBI launches Cyber Suraksha Portal", "SEBI Launch of Cyber Suraksha Portal") > 0.7);
+assert.ok(titleSimilarity("SEBI launches Cyber Suraksha Portal", "SEBI launches the Cyber Suraksha Portal") > 0.7);
 
 const appointment = authorSourceIndependentEvent({
   eventId: "event-1",
