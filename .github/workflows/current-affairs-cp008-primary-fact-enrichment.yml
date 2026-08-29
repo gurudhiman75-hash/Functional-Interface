@@ -1,0 +1,140 @@
+name: Validate Current Affairs Studio CP008
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp001-foundation
+      - feature/current-affairs-studio-cp002-ingestion
+      - feature/current-affairs-studio-cp003-intelligence
+      - feature/current-affairs-studio-cp004-content
+      - feature/current-affairs-studio-cp005-scheduled-ingestion
+      - feature/current-affairs-studio-cp006-daily-orchestration
+      - feature/current-affairs-studio-cp007-official-source-pack
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs*.ts"
+      - "artifacts/api-server/migrations/20260829_current_affairs_primary_fact_enrichment.sql"
+      - "build-current-affairs-worker.sh"
+      - "render.yaml"
+      - ".github/workflows/current-affairs-cp008-primary-fact-enrichment.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp008-primary-fact-enrichment
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs*.ts"
+      - "artifacts/api-server/migrations/20260829_current_affairs_primary_fact_enrichment.sql"
+      - "build-current-affairs-worker.sh"
+      - "render.yaml"
+      - ".github/workflows/current-affairs-cp008-primary-fact-enrichment.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp008-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-primary-fact-enrichment:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Current Affairs CP001 contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+
+      - name: Run Current Affairs CP002 ingestion contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+
+      - name: Run Current Affairs CP003 intelligence contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+
+      - name: Run Current Affairs CP004 content contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+
+      - name: Run Current Affairs CP005/CP007 automation contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+
+      - name: Run Current Affairs CP006 orchestration policy contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
+
+      - name: Run Current Affairs CP007 official listing contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
+
+      - name: Run Current Affairs CP008 primary fact extraction contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
+
+      - name: Verify CP008 schema privacy and trigger contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          migration=artifacts/api-server/migrations/20260829_current_affairs_primary_fact_enrichment.sql
+          grep -Fq "'primary_fact_enrichment'" "$migration"
+          grep -Fq 'current_affairs_candidate_enrichments' "$migration"
+          grep -Fq 'current_affairs_candidate_fact_claims' "$migration"
+          grep -Fq 'trg_materialize_current_affairs_candidate_fact_claim' "$migration"
+          grep -Fq 'trg_materialize_current_affairs_cluster_member_fact_claims' "$migration"
+          if grep -Eqi 'body_text|raw_text|page_text|source_text|html_body' "$migration"; then
+            echo 'CP008 migration must not contain source-page body text columns'
+            exit 1
+          fi
+
+      - name: Compile all Current Affairs workers
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/feed-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-feed-worker.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/primary-enrichment-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-primary-enrichment-worker.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/daily-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-daily-worker.mjs
+
+      - name: Verify staggered production schedule
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq 'name: examtree-current-affairs-feed-ingestion' render.yaml
+          grep -Fq 'schedule: "0 */3 * * *"' render.yaml
+          grep -Fq 'name: examtree-current-affairs-primary-enrichment' render.yaml
+          grep -Fq 'schedule: "10 */3 * * *"' render.yaml
+          grep -Fq 'current-affairs-primary-enrichment-worker.mjs' render.yaml
+          grep -Fq 'name: examtree-current-affairs-daily-orchestration' render.yaml
+          grep -Fq 'schedule: "20 */3 * * *"' render.yaml
+
+      - name: Verify runtime does not persist primary page text
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq 'rawTextPersisted: false' artifacts/api-server/src/current-affairs/primary-enrichment.ts
+          if grep -Eqi 'INSERT INTO .*?(body_text|raw_text|page_text|source_text|html_body)' artifacts/api-server/src/current-affairs/primary-enrichment.ts; then
+            echo 'Primary enrichment runtime must not persist page body text'
+            exit 1
+          fi
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
