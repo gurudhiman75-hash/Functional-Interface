@@ -3,15 +3,19 @@ import {
   runDailyDraftGeneration,
   runScheduledIntelligenceProcessing,
 } from "./daily-orchestration";
+import { reconcilePrimaryEnrichedEvents } from "./enriched-event-reconciliation";
+import { holdManualAuthorityEventsForReview } from "./manual-enrichment-guard";
 import { shouldBuildDailyDrafts } from "./orchestration-policy";
 
 async function main() {
   const now = new Date();
+  const manualAuthority = await holdManualAuthorityEventsForReview(100);
+  const enrichedEvents = await reconcilePrimaryEnrichedEvents(100);
   const intelligence = await runScheduledIntelligenceProcessing(now);
   const daily = shouldBuildDailyDrafts(now)
     ? await runDailyDraftGeneration(now)
     : null;
-  process.stdout.write(`${JSON.stringify({ intelligence, daily })}\n`);
+  process.stdout.write(`${JSON.stringify({ manualAuthority, enrichedEvents, intelligence, daily })}\n`);
 }
 
 main()
