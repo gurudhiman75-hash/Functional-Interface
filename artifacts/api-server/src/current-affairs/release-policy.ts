@@ -3,8 +3,8 @@ export type ReleaseLanguageCode = "en" | "hi" | "pa";
 export type ReleaseCompilationManifest = {
   languageCode: ReleaseLanguageCode;
   status: string;
-  resourceStatus: string;
-  declaredEventCount: number;
+  resourceStatus?: string;
+  declaredEventCount?: number;
   eventIds: string[];
 };
 
@@ -69,7 +69,7 @@ export function evaluateCurrentAffairsReleaseReadiness(
 
   const allCompilationsDraft = hasAllLanguages
     && [english!, hindi!, punjabi!].every((item) =>
-      item.status === "draft" && item.resourceStatus === "draft");
+      item.status === "draft" && (item.resourceStatus ?? "draft") === "draft");
   if (hasAllLanguages && !allCompilationsDraft) {
     blockers.push("All three compilation manifests and learning resources must still be draft before release approval");
   }
@@ -78,8 +78,10 @@ export function evaluateCurrentAffairsReleaseReadiness(
     input.compilations.map((item) => [item.languageCode, normalizedEventIds(item.eventIds)]),
   );
   const manifestIntegrity = hasAllLanguages
-    && [english!, hindi!, punjabi!].every((item) =>
-      item.declaredEventCount === (normalizedByLanguage.get(item.languageCode)?.length ?? 0));
+    && [english!, hindi!, punjabi!].every((item) => {
+      const actual = normalizedByLanguage.get(item.languageCode)?.length ?? 0;
+      return (item.declaredEventCount ?? actual) === actual;
+    });
   if (hasAllLanguages && !manifestIntegrity) {
     blockers.push("Compilation event_count must match the frozen event manifest in every language");
   }
