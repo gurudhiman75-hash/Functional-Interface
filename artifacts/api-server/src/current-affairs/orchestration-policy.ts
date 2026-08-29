@@ -7,6 +7,7 @@ export type AutoPromotionProfile = {
   highTrustSourceCount: number;
   urlEvidenceCount: number;
   primaryUrlEvidenceCount: number;
+  datedEvidenceCount: number;
   maxTrustScore: number;
 };
 
@@ -28,6 +29,9 @@ export function canAutoPromoteCluster(profile: AutoPromotionProfile): {
   }
   if (profile.urlEvidenceCount < 1) {
     return { allowed: false, reason: "Automatic promotion requires URL-backed evidence" };
+  }
+  if (profile.datedEvidenceCount < 1) {
+    return { allowed: false, reason: "Automatic promotion requires at least one source with a reliable publication date" };
   }
 
   const strongPrimary =
@@ -103,8 +107,6 @@ export function previousIndiaDate(now = new Date()): string {
 }
 
 export function shouldBuildDailyDrafts(now = new Date()): boolean {
-  // CP006 worker is scheduled at minute 20 every three UTC hours.
-  // The 00:20 UTC invocation is 05:50 IST, after the previous India day is closed.
   return now.getUTCMinutes() >= 15 && now.getUTCHours() === 0;
 }
 
