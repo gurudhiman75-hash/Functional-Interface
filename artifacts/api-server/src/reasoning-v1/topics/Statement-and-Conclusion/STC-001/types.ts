@@ -24,28 +24,67 @@ export interface LocalizedText {
   readonly "pa-IN": string;
 }
 
+export type StcLogicalDefect =
+  | "POLARITY_FLIP"
+  | "UNSUPPORTED_EXTRA"
+  | "OVERCLAIM"
+  | "INVALID_COMBINATION"
+  | "CONVERSE"
+  | "INVERSE"
+  | "DENYING_ANTECEDENT";
+
 export interface StcCandidateAuthority {
   readonly id: string;
   readonly expression: StcExpr;
   readonly text: LocalizedText;
-  readonly defectIfNotEntailed?: "POLARITY_FLIP" | "UNSUPPORTED_EXTRA" | "OVERCLAIM" | "INVALID_COMBINATION";
+  readonly defectIfNotEntailed?: StcLogicalDefect;
 }
 
 export interface StcScenarioAuthority {
   readonly id: string;
-  readonly qlId: "STC-QL-001" | "STC-QL-002";
+  readonly qlId: "STC-QL-001" | "STC-QL-002" | "STC-QL-003";
   readonly difficulty: StcDifficulty;
   readonly statement: LocalizedText;
   readonly premises: readonly StcExpr[];
   readonly candidates: readonly [StcCandidateAuthority, StcCandidateAuthority, StcCandidateAuthority, StcCandidateAuthority];
 }
 
+export type StcModalStrength = "POSSIBLE" | "CERTAIN";
+export type StcModalPolarity = "POSITIVE" | "NEGATIVE";
+
+export interface StcModalClaim {
+  readonly atom: string;
+  readonly strength: StcModalStrength;
+  readonly polarity: StcModalPolarity;
+}
+
+export type StcModalDefect =
+  | "STRONGER_MODALITY"
+  | "POLARITY_FLIP"
+  | "UNSUPPORTED_EXTRA";
+
+export interface StcModalCandidateAuthority {
+  readonly id: string;
+  readonly claim: StcModalClaim;
+  readonly text: LocalizedText;
+  readonly defectIfNotEntailed?: StcModalDefect;
+}
+
+export interface StcModalScenarioAuthority {
+  readonly id: string;
+  readonly qlId: "STC-QL-004";
+  readonly difficulty: StcDifficulty;
+  readonly statement: LocalizedText;
+  readonly premise: StcModalClaim;
+  readonly candidates: readonly [StcModalCandidateAuthority, StcModalCandidateAuthority, StcModalCandidateAuthority, StcModalCandidateAuthority];
+}
+
 export type StcAnswerClass = "ONLY_I" | "ONLY_II" | "BOTH" | "NEITHER";
 
 export interface GeneratedStcQuestion {
   readonly chapterId: "STC-001";
-  readonly checkpointId: "STC-CP-001";
-  readonly qlId: "STC-QL-001" | "STC-QL-002";
+  readonly checkpointId: "STC-CP-001" | "STC-CP-002";
+  readonly qlId: "STC-QL-001" | "STC-QL-002" | "STC-QL-003" | "STC-QL-004";
   readonly scenarioId: string;
   readonly locale: StcLocale;
   readonly seed: number;
@@ -57,7 +96,7 @@ export interface GeneratedStcQuestion {
   readonly answerClass: StcAnswerClass;
   readonly explanation: string;
   readonly metadata: {
-    readonly solver: "TRUTH_MODEL_ENTAILMENT_V1";
+    readonly solver: "TRUTH_MODEL_ENTAILMENT_V1" | "MODAL_STRENGTH_ENTAILMENT_V1";
     readonly reviewOnly: true;
     readonly questionBankWritable: false;
     readonly testEligible: false;
