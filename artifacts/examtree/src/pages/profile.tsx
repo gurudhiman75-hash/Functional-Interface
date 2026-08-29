@@ -419,14 +419,22 @@ export default function ProfilePage() {
             <section className="rounded-[26px] border border-border bg-card p-5 shadow-[0_12px_38px_rgba(47,43,83,0.04)] sm:p-6">
               <div className="flex items-start gap-3">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#f1eeff] text-[#6657e8] dark:bg-violet-950/40 dark:text-violet-300"><CreditCard className="h-4.5 w-4.5" /></span>
-                <div>
+                <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <h2 className="text-sm font-black text-foreground">Packages & subscriptions</h2>
-                    <Badge variant="outline" className="rounded-full bg-muted/30 text-[10px] font-bold text-[#6657e8] dark:text-violet-300">Not live yet</Badge>
+                    <h2 className="text-sm font-black text-foreground">Purchases & access</h2>
+                    <Badge variant="outline" className="rounded-full border-[#ddd7fb] bg-[#f8f6ff] text-[10px] font-bold text-[#6657e8] dark:border-violet-900/60 dark:bg-violet-950/30 dark:text-violet-300">Canonical history</Badge>
                   </div>
                   <p className="mt-2 text-xs leading-5 text-muted-foreground">
-                    Commerce is not enabled in the student experience yet, so this account page does not present purchase or subscription status as live data.
+                    Review your server-recorded orders, processed refunds, and the package access currently attached to this account.
                   </p>
+                  <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                    <Link href="/my-packages" className="et-interactive inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#6657e8] px-4 text-xs font-bold text-white shadow-sm hover:bg-[#594bd9]">
+                      My purchases <ArrowRight className="h-4 w-4" />
+                    </Link>
+                    <Link href="/store" className="et-interactive inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-border bg-background px-4 text-xs font-bold text-foreground hover:bg-muted">
+                      Browse Store <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </section>
