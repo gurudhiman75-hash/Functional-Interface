@@ -9,7 +9,6 @@ on:
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/modal-strength-solver.ts'
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/types.ts'
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-manifest.ts'
-      - '.github/workflows/stc-001-cp002.yml'
   workflow_dispatch:
 
 permissions:
