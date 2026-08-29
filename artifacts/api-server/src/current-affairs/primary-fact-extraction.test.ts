@@ -45,6 +45,18 @@ assert.ok(rbiFacts.some((fact) => fact.factKey === "appointee" && /Ananya Rao/.t
 assert.ok(rbiFacts.some((fact) => fact.factKey === "position" && /Executive Director/.test(fact.factValue)));
 assert.ok(rbiFacts.some((fact) => fact.factKey === "index_value" && fact.factValue === "67.0"));
 
+const bankingFacts = extractPrimaryPageFacts(`
+The Monetary Policy Committee decided to keep the policy repo rate at 5.50%.
+The standing deposit facility rate remains at 5.25%, while the marginal standing facility rate and the Bank Rate remain at 5.75%.
+The cash reserve ratio is 4.00% and the statutory liquidity ratio is 18.00%.
+`);
+assert.ok(bankingFacts.some((fact) => fact.factKey === "policy_repo_rate" && fact.factValue === "5.50%"));
+assert.ok(bankingFacts.some((fact) => fact.factKey === "standing_deposit_facility_rate" && fact.factValue === "5.25%"));
+assert.ok(bankingFacts.some((fact) => fact.factKey === "marginal_standing_facility_rate" && fact.factValue === "5.75%"));
+assert.ok(bankingFacts.some((fact) => fact.factKey === "bank_rate" && fact.factValue === "5.75%"));
+assert.ok(bankingFacts.some((fact) => fact.factKey === "cash_reserve_ratio" && fact.factValue === "4.00%"));
+assert.ok(bankingFacts.some((fact) => fact.factKey === "statutory_liquidity_ratio" && fact.factValue === "18.00%"));
+
 const spaceFacts = extractPrimaryPageFacts(`
 The satellite operates in a 747 km Sun-synchronous orbit and provides global observations every 12 days.
 Mission Life: 5 Years.
@@ -69,7 +81,13 @@ assert.ok(schemeFacts.some((fact) => fact.factKey === "target_year" && fact.fact
 const mouFacts = extractPrimaryPageFacts(
   "A Memorandum of Understanding between Securities and Exchange Board of India and National Institute of Securities Markets was signed.",
 );
-assert.ok(mouFacts.some((fact) => fact.factKey === "mou_parties"));
+const mou = mouFacts.find((fact) => fact.factKey === "mou_parties");
+assert.ok(mou);
+assert.equal(
+  mou.factValue,
+  "Securities and Exchange Board of India and National Institute of Securities Markets",
+  "trailing signing prose must not become part of a party name",
+);
 
 const ambiguous = extractPrimaryPageFacts(
   "The state ranked 2nd in one survey. It ranked 4th in another survey.",
