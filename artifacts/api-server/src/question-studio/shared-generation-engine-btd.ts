@@ -2,7 +2,7 @@ import {
   generateQuestion as generatePreviousQuestion,
   listQuestionStudioPackages as listPreviousPackages,
   type SharedQuestionStudioGenerationRequest,
-} from "./shared-generation-engine-sri";
+} from "./shared-generation-engine-cp014";
 import {
   generateBtdCp006QuestionStudioBatch,
   isBtdCp006QuestionStudioRequest,
