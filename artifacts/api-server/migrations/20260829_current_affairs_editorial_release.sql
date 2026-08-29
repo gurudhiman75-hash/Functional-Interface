@@ -76,6 +76,64 @@ CREATE TABLE IF NOT EXISTS content.current_affairs_release_question_items (
 CREATE INDEX IF NOT EXISTS current_affairs_release_question_items_source_idx
   ON content.current_affairs_release_question_items(source_generation_version_id, release_id);
 
+CREATE OR REPLACE FUNCTION content.guard_current_affairs_learning_resource_release()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  IF NEW.status='published' AND OLD.status IS DISTINCT FROM 'published' THEN
+    IF EXISTS (
+      SELECT 1
+      FROM content.current_affairs_compilations compilation
+      WHERE compilation.learning_resource_id=NEW.id
+    ) AND NOT EXISTS (
+      SELECT 1
+      FROM content.current_affairs_release_compilations link
+      JOIN content.current_affairs_releases release ON release.id=link.release_id
+      WHERE link.learning_resource_id=NEW.id
+        AND release.status='approved'
+    ) THEN
+      RAISE EXCEPTION 'Current Affairs Studio resource requires an approved editorial release before publication';
+    END IF;
+  END IF;
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trg_guard_current_affairs_learning_resource_release
+  ON content.learning_resources;
+CREATE TRIGGER trg_guard_current_affairs_learning_resource_release
+BEFORE UPDATE OF status ON content.learning_resources
+FOR EACH ROW
+EXECUTE FUNCTION content.guard_current_affairs_learning_resource_release();
+
+CREATE OR REPLACE FUNCTION content.guard_current_affairs_compilation_release()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  IF NEW.status='published' AND OLD.status IS DISTINCT FROM 'published' THEN
+    IF NOT EXISTS (
+      SELECT 1
+      FROM content.current_affairs_release_compilations link
+      JOIN content.current_affairs_releases release ON release.id=link.release_id
+      WHERE link.compilation_id=NEW.id
+        AND release.status='approved'
+    ) THEN
+      RAISE EXCEPTION 'Current Affairs compilation requires an approved editorial release before publication';
+    END IF;
+  END IF;
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS trg_guard_current_affairs_compilation_release
+  ON content.current_affairs_compilations;
+CREATE TRIGGER trg_guard_current_affairs_compilation_release
+BEFORE UPDATE OF status ON content.current_affairs_compilations
+FOR EACH ROW
+EXECUTE FUNCTION content.guard_current_affairs_compilation_release();
+
 COMMENT ON TABLE content.current_affairs_releases IS
   'Immutable editorial Current Affairs release decisions. Approval snapshots a complete EN/HI/PA note package and its reviewed multilingual quiz sidecars before learner visibility.';
 
