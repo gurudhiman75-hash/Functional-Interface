@@ -97,7 +97,10 @@ function repairLocalizedTextV5(
         .replace(/ता है।$/u, "ती है।");
     }
     if (qlId === "COM-002-QL-006") {
-      repaired = repaired.replace(/ का अर्थ है:\s*/gu, ": ");
+      repaired = repaired.replace(
+        /^(.+?) का अर्थ है:\s*.+$/u,
+        "$1 सही उत्तर है क्योंकि यह प्रश्न में दिए गए सिस्टम कार्य से मेल खाता है।",
+      );
     }
     return repaired;
   }
@@ -119,7 +122,10 @@ function repairLocalizedTextV5(
       .replace(/ਦਾ ਹੈ।$/u, "ਦੀ ਹੈ।");
   }
   if (qlId === "COM-002-QL-006") {
-    repaired = repaired.replace(/ ਦਾ ਅਰਥ ਹੈ:\s*/gu, ": ");
+    repaired = repaired.replace(
+      /^(.+?) ਦਾ ਅਰਥ ਹੈ:\s*.+$/u,
+      "$1 ਸਹੀ ਉੱਤਰ ਹੈ ਕਿਉਂਕਿ ਇਹ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੇ ਸਿਸਟਮ ਕੰਮ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।",
+    );
   }
   return repaired;
 }
