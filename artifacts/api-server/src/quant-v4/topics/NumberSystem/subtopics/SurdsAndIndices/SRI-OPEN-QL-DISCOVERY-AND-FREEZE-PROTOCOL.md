@@ -1,8 +1,18 @@
 # SRI Open QL Discovery and Freeze Protocol
 
-**Permanent QLs:** 0  
-**Frozen solve modes:** 0  
-**Current state:** `DISCOVERY_OPEN`.
+**Permanent QLs:** 58  
+**Frozen solve modes:** 58  
+**Current state:** `MULTILINGUAL_FROZEN_V1`.
+
+**Approved localization artifact:** `9684834606`  
+**Approved artifact digest:** `sha256:a212a40f917e8e91a6d5741fc4acd32a73782885981b2b7f7ef8b4c3bb7251ac`  
+**Approval authority:** explicit product-owner approval in active session on 2026-08-28.  
+**Approved source head:** `a3d24d97221bf94da04e77daa140164dbcdb0e51`.  
+**Base recertification:** run `33176307480` on head `1b96cb213eacb25d9f5372afed77ee4ff286d2f8` against `New-main` `2754618366072250467e4d862caa11525d4e0900` passed English freeze, 2,784-question localization parity, strict editorial quality, reviewer export verification and evidence upload before activation.  
+**Freeze activation certification:** run `33177065943` validated the frozen lifecycle and governed wrapper against the same `New-main` base, including all 2,784 frozen localized runtime packages with downstream release disabled.  
+**Final exact-head certification:** run `33177440135` on head `48bf1235fbb2332375178da90dadab900a1f66c5` and PR merge-ref `137c4529c20c00bcbd9d9a03a2a58f362743621b` passed English freeze, 2,784-question localization parity, strict editorial quality, the 2,784-package multilingual freeze audit, reviewer export verification and artifact upload. Repository workflow-hygiene, branch-topology and Render production-build checks are also green on this exact head.  
+**Final evidence artifact:** `9688237353`, digest `sha256:49bb69ed92558e6e0f326e8268bb6be08d0852b4628f281eb3bb942cb7a1cfef`.  
+**CI fanout policy:** the chapter validator is path-scoped to SRI/shared SRI source only; its own workflow YAML is intentionally not listed in `pull_request.paths`, so workflow-definition edits are governed by the repository-wide workflow-hygiene gate rather than self-triggering chapter validation.
 
 ## 1. What may create a candidate QL
 
@@ -94,15 +104,18 @@ Every retained permanent QL must prove:
 
 Hindi/Punjabi derive from frozen structured English semantic authority. They may not regenerate mathematics independently. Freeze requires terminology, grammar, notation and semantic-parity review.
 
+The Phase-9 multilingual reviewer artifact named above is explicitly approved and frozen. `permanent-multilingual-freeze-v1.ts` is the governed frozen runtime wrapper; it preserves the reviewed localized question byte-for-byte and changes only lifecycle/approval metadata. The underlying reviewed localization generator remains immutable review authority.
+
 ## 7. Product lifecycle gate
 
-Question Studio review registration is independent from Question Bank/test/public release.
+Multilingual freeze is independent from Question Studio, Question Bank, test and public release.
 
 Until explicit later approval, all of the following remain false:
 
+- Question Studio discoverability;
 - Question Studio production generation;
 - Question Bank writes;
 - mock/test eligibility;
 - public publication.
 
-A green mathematical package is not automatically a released product package.
+A multilingual-frozen mathematical package is not automatically a released product package.

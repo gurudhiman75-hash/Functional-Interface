@@ -36,10 +36,31 @@ const SATURATION_ADDITION_IDS = new Set(SRI_SOURCE_SATURATION_ADDITIONS.map((ite
 
 type SriSaturationOverrideId = "C002-F" | "C002-G" | "C007-D" | "C011-H" | "C012-B";
 
+/**
+ * Presentation-only errata applied after source construction and before any
+ * permanent review/runtime consumer sees the question. C011-H saturation
+ * allows zero/negative linear shifts; render x+0 as x and x+-k as x-k while
+ * preserving state, answer keys, verification, proof events and seed identity.
+ */
+function applySriSaturationPresentationErrata(
+  candidateId: string,
+  question: SriDiscoveryQuestion,
+): SriDiscoveryQuestion {
+  if (candidateId !== "C011-H") return question;
+  const stem = question.stem
+    .replace(/x\+0(?=[}=])/gu, "x")
+    .replace(/x\+-(\d+)/gu, "x-$1");
+  if (stem === question.stem) return question;
+  return Object.freeze({ ...question, stem });
+}
+
 export function generateSriExecutableDiscoveryCandidate(candidateId: string, seed: string): SriDiscoveryQuestion {
   if (SATURATION_ADDITION_IDS.has(candidateId)) return generateSriSourceSaturationAddition(candidateId, seed);
   if (SRI_SOURCE_SATURATION_OVERRIDE_IDS.has(candidateId as SriSaturationOverrideId)) {
-    return generateSriSourceSaturationObjectOverride(candidateId, seed);
+    return applySriSaturationPresentationErrata(
+      candidateId,
+      generateSriSourceSaturationObjectOverride(candidateId, seed),
+    );
   }
 
   const checkpointNumber = Number(/^C(\d{3})-/.exec(candidateId)?.[1]);

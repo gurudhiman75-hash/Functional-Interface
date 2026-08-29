@@ -161,7 +161,7 @@ export function generateSriCp012Candidate(candidateId: string, seed: string): Sr
       const target = Number(pow(base, targetExponent));
       const exponentAfterRootNumerator = solution + shift;
       const answer = integerAnswer(solution);
-      const shiftText = shift >= 0 ? `x+${shift}` : `x${shift}`;
+      const shiftText = shift > 0 ? `x+${shift}` : shift < 0 ? `x${shift}` : "x";
       const stem = sriPick(`${seed}:surface`, [
         `Solve \\sqrt{${base}^{${shiftText}}}=${target}.`,
         `Find x if \\sqrt{${base}^{${shiftText}}}=${target}.`,
