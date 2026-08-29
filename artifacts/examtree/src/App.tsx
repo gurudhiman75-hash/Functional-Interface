@@ -177,7 +177,7 @@ function Router() {
           <Route path="/dashboard" component={() => renderAppRoute(Dashboard)} />
           <Route path="/test-series/:id" component={() => <ProtectedRoute component={TestSeries} />} />
           <Route path="/test/:id" component={() => <ProtectedRoute component={Test} layout="none" />} />
-          <Route path="/result" component={() => renderAppRoute(Result)} />
+          <Route path="/result" component={() => <ProtectedRoute component={Result} />} />
           <Route path="/performance" component={() => renderAppRoute(AnalyticsUnavailable)} />
           <Route path="/profile" component={() => renderAppRoute(Profile)} />
           <Route path="/report-question" component={() => renderAppRoute(ReportQuestion)} />
