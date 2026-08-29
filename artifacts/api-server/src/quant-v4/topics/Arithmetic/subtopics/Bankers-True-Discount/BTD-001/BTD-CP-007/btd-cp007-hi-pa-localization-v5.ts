@@ -149,7 +149,7 @@ function exactSteps(
       ];
     case "BTD-CAND-019":
       return [
-        `${c} x = ${money(state.bankersDiscount)}/${money(state.trueDiscount)} − 1।`,
+        `${c} x = BD/TD − 1 = ${money(state.bankersDiscount)}/${money(state.trueDiscount)} − 1।`,
         `${c} ${rateLabel(language)} = (${money(state.bankersDiscount)}/${money(state.trueDiscount)} − 1) × 1200/${state.months} = ${localizedAnswer}।`,
       ];
     case "BTD-CAND-020":
