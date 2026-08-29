@@ -28,7 +28,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { getAnalytics, getUserAttempts } from "@/lib/data";
 import { getFirebaseAuth } from "@/lib/firebase";
-import { getStreak, getUser } from "@/lib/storage";
+import { clearAuth, getStreak, getUser } from "@/lib/storage";
 
 function formatDate(value?: string | Date | null) {
   if (!value) return "No activity yet";
@@ -127,6 +127,7 @@ export default function ProfilePage() {
     } catch {
       // Navigation remains available if provider cleanup fails.
     } finally {
+      clearAuth();
       setLocation("/");
       toast({ title: "Logged out", description: "You have been signed out successfully." });
     }
