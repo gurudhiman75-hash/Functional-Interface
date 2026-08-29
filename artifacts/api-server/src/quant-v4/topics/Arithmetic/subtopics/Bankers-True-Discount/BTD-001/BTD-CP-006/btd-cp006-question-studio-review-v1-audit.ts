@@ -10,8 +10,8 @@ import {
   generateBtdCp006QuestionStudioBatch,
   isBtdCp006QuestionStudioRequest,
 } from "./btd-cp006-question-studio-review-v1";
-import { listQuestionStudioPackages as listPreBtdPackages } from "../../../../../../question-studio/shared-generation-engine-cp014";
-import { listQuestionStudioPackages as listBtdPackages } from "../../../../../../question-studio/shared-generation-engine-btd";
+import { listQuestionStudioPackages as listPreBtdPackages } from "../../../../../../../question-studio/shared-generation-engine-cp014";
+import { listQuestionStudioPackages as listBtdPackages } from "../../../../../../../question-studio/shared-generation-engine-btd";
 
 assert.equal(BTD_CP006_QUESTION_STUDIO_VERSION, "BTD-001-CP006-QUESTION-STUDIO-REVIEW-v1");
 assert.equal(BTD_CP006_QUESTION_STUDIO_PACKAGE.permanentQlCount, 20);
