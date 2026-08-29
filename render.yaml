@@ -44,7 +44,7 @@ services:
       - key: CORS_ORIGINS
         sync: false   # set in Render dashboard
 
-      # ── Razorpay (optional — omit if not using payments) ─────────────────
+      # ── Razorpay (optional — omit if not using payments) ──────────────────
       - key: RAZORPAY_KEY_ID
         sync: false
       - key: RAZORPAY_KEY_SECRET
@@ -61,4 +61,20 @@ services:
       - key: UPSTASH_REDIS_REST_URL
         sync: false
       - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false
+
+  # Pull every configured active RSS/Atom Current Affairs source every three hours.
+  # The worker is database-idempotent per three-hour UTC slot, so overlapping or
+  # retried cron invocations cannot duplicate a scheduled ingestion cycle.
+  - type: cron
+    name: examtree-current-affairs-feed-ingestion
+    runtime: node
+    rootDir: .
+    schedule: "0 */3 * * *"
+    buildCommand: bash build-current-affairs-worker.sh
+    startCommand: NODE_ENV=production node --enable-source-maps artifacts/api-server/dist/current-affairs-feed-worker.mjs
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
         sync: false
