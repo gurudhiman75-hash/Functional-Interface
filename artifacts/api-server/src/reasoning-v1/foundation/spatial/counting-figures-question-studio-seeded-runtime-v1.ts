@@ -90,6 +90,7 @@ export const FCT_001_QUESTION_STUDIO_SEEDED_RUNTIME_AUTHORITY_V1 = Object.freeze
   supportedLanguages: ["en", "hi", "pa"] as const,
   supportedTargetShapes: ["TRIANGLE", "SQUARE", "RECTANGLE", "QUADRILATERAL"] as const,
   generationModel: "EXACT_GRAPH_SOLVER_SEEDED_CLOSED_FIGURE_ENUMERATION" as const,
+  targetResolutionPolicy: "IMPLICIT_TARGET_RESOLVED_ONCE_THEN_EXPLICIT_CANONICAL_REPLAY" as const,
   canonicalReviewCorpusIsGenerationCeiling: false,
   status: "SEEDED_RUNTIME_IMPLEMENTED_OPERATOR_REVIEW_REQUIRED" as const,
   questionStudioDiscoverable: false,
@@ -120,6 +121,17 @@ function exactCount(source: CountingFiguresPermanentEnglishQuestionV1): number {
   }
 }
 
+function canonicalEnglishSource(input: Readonly<{
+  seed: string;
+  targetShape?: CountingFigureTargetShapeV1;
+}>): CountingFiguresPermanentEnglishQuestionV1 {
+  const resolvedTargetShape = input.targetShape ?? generateCountingFiguresPermanentEnglishQuestionV1({ seed: input.seed }).targetShape;
+  return generateCountingFiguresPermanentEnglishQuestionV1({
+    seed: input.seed,
+    targetShape: resolvedTargetShape,
+  });
+}
+
 function localizedSurface(source: CountingFiguresPermanentEnglishQuestionV1, language: CountingFiguresStudioLanguageV1) {
   if (language === "en") {
     return {
@@ -145,7 +157,7 @@ export function generateCountingFiguresQuestionStudioSeededV1(input: Readonly<{
   language: CountingFiguresStudioLanguageV1;
   targetShape?: CountingFigureTargetShapeV1;
 }>): CountingFiguresQuestionStudioQuestionV1 {
-  const source = generateCountingFiguresPermanentEnglishQuestionV1({ seed: input.seed, targetShape: input.targetShape });
+  const source = canonicalEnglishSource({ seed: input.seed, targetShape: input.targetShape });
   if (source.permanentQlId !== "SPA-QL-042" || source.chapterCode !== "FCT-001") {
     throw new Error(`FCT-001 Question Studio source trace mismatch for seed ${input.seed}.`);
   }

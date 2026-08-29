@@ -33,6 +33,7 @@ assert.equal(FCT_001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1.governance.seededQue
 assert.equal(FCT_001_QUESTION_STUDIO_SEEDED_RUNTIME_AUTHORITY_V1.permanentQlId, "SPA-QL-042");
 assert.equal(FCT_001_QUESTION_STUDIO_SEEDED_RUNTIME_AUTHORITY_V1.localizationFreezeAuthorityId, FCT_001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId);
 assert.deepEqual(FCT_001_QUESTION_STUDIO_SEEDED_RUNTIME_AUTHORITY_V1.supportedLanguages, ["en", "hi", "pa"]);
+assert.equal(FCT_001_QUESTION_STUDIO_SEEDED_RUNTIME_AUTHORITY_V1.targetResolutionPolicy, "IMPLICIT_TARGET_RESOLVED_ONCE_THEN_EXPLICIT_CANONICAL_REPLAY");
 assert.equal(FCT_001_QUESTION_STUDIO_SEEDED_RUNTIME_AUTHORITY_V1.questionStudioDiscoverable, false);
 assert.equal(FCT_001_QUESTION_STUDIO_SEEDED_RUNTIME_AUTHORITY_V1.persistenceAllowed, false);
 assert.equal(FCT_001_QUESTION_STUDIO_SEEDED_RUNTIME_AUTHORITY_V1.questionBankWritable, false);
@@ -105,14 +106,41 @@ assert.equal(new Set(surfaces.map((q) => q.difficultyBand)).size, 3);
 assert.equal(new Set(surfaces.map((q) => q.correctIndex)).size, 4);
 assert.equal(new Set(surfaces.map((q) => q.language)).size, 3);
 
+const mixedBatches = LANGUAGES.map((language) => generateCountingFiguresQuestionStudioBatchV1({
+  seed: "FCT-QS-BATCH-MIXED",
+  language,
+  count: 50,
+}));
+const [enBatch, hiBatch, paBatch] = mixedBatches;
 const batchCounts: Record<string, number> = {};
-for (const language of LANGUAGES) {
-  const batch = generateCountingFiguresQuestionStudioBatchV1({ seed: `FCT-QS-BATCH-${language}`, language, count: 50 });
+let implicitTargetLanguageParityChecks = 0;
+for (let languageIndex = 0; languageIndex < LANGUAGES.length; languageIndex += 1) {
+  const language = LANGUAGES[languageIndex]!;
+  const batch = mixedBatches[languageIndex]!;
   assert.equal(batch.length, 50);
   assert.equal(new Set(batch.map((q) => q.geometryFingerprint)).size, 50);
   assert.equal(new Set(batch.map((q) => q.questionLanguageId)).size, 50);
   batchCounts[language] = batch.length;
 }
+for (let index = 0; index < 50; index += 1) {
+  const en = enBatch![index]!;
+  for (const localized of [hiBatch![index]!, paBatch![index]!]) {
+    assert.equal(localized.targetShape, en.targetShape);
+    assert.equal(localized.motifFamily, en.motifFamily);
+    assert.equal(localized.structuralVariant, en.structuralVariant);
+    assert.equal(localized.canonicalItemId, en.canonicalItemId);
+    assert.equal(localized.geometryFingerprint, en.geometryFingerprint);
+    assert.equal(localized.structuralFingerprint, en.structuralFingerprint);
+    assert.equal(localized.contentFingerprint, en.contentFingerprint);
+    assert.deepEqual(localized.stimulusSvgs, en.stimulusSvgs);
+    assert.deepEqual(localized.options, en.options);
+    assert.equal(localized.correctIndex, en.correctIndex);
+    assert.equal(localized.answer, en.answer);
+    implicitTargetLanguageParityChecks += 11;
+  }
+}
+assert.equal(implicitTargetLanguageParityChecks, 1100);
+
 for (const targetShape of TARGETS) {
   const batch = generateCountingFiguresQuestionStudioBatchV1({ seed: `FCT-QS-${targetShape}-25`, language: "en", count: 25, targetShape });
   assert.equal(batch.length, 25);
@@ -128,6 +156,8 @@ const evidence = {
   languageSurfaceCount: surfaces.length,
   exactSolverChecks,
   languageParityChecks,
+  implicitTargetLanguageParityChecks,
+  targetResolutionPolicy: FCT_001_QUESTION_STUDIO_SEEDED_RUNTIME_AUTHORITY_V1.targetResolutionPolicy,
   canonicalItemUniqueCount: new Set(surfaces.map((q) => q.canonicalItemId)).size,
   questionLanguageIdUniqueCount: new Set(surfaces.map((q) => q.questionLanguageId)).size,
   motifFamilyCount: new Set(surfaces.map((q) => q.motifFamily)).size,
