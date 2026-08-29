@@ -44,6 +44,8 @@ jobs:
           grep -F 'CREATE TABLE IF NOT EXISTS content.note_evidence_support' artifacts/api-server/migrations/20260829_notes_studio_evidence_map.sql
           grep -F 'char_length(evidence_excerpt) BETWEEN 1 AND 600' artifacts/api-server/migrations/20260829_notes_studio_evidence_map.sql
           grep -F "evidence_state IN ('candidate', 'accepted', 'rejected')" artifacts/api-server/migrations/20260829_notes_studio_evidence_map.sql
+          grep -F 'force_note_evidence_candidate_on_insert' artifacts/api-server/migrations/20260829_notes_studio_evidence_map.sql
+          grep -F "NEW.evidence_state := 'candidate'" artifacts/api-server/migrations/20260829_notes_studio_evidence_map.sql
       - name: Verify evidence route and learner-publication separation
         run: |
           grep -F 'adminNotesStudioEvidenceRouter' artifacts/api-server/src/routes/index.ts
