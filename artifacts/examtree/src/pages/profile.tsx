@@ -30,7 +30,7 @@ import { getAnalytics, getUserAttempts } from "@/lib/data";
 import { getFirebaseAuth } from "@/lib/firebase";
 import { getStreak, getUser } from "@/lib/storage";
 
-function formatDate(value?: string | null) {
+function formatDate(value?: string | Date | null) {
   if (!value) return "No activity yet";
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return "No activity yet";
