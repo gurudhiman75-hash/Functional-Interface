@@ -2,13 +2,30 @@
 
 ## Status
 
-**FEATURE IMPLEMENTATION CLOSED / STAGING COMMON-BASE CLOSURE IMPLEMENTED / PRODUCTION MERGE AND LEARNER RELEASE SEPARATE**
+**FEATURE IMPLEMENTATION CLOSED / COMMON-BASE CLOSED / PRODUCTION NEW-MAIN MERGE COMPLETE / LEARNER RELEASE SEPARATE**
 
-CP016 distinguishes three different states and does not collapse them:
+CP016 keeps four states distinct:
 
 1. **feature implementation closure** — CP011–CP015 have exact executable-green evidence;
-2. **staging common-base closure** — those reviewed implementations coexist and pass together on one current `New-main`-based integration tree; and
-3. **production / learner release** — remains a separate governed action and is not authorized by this checkpoint.
+2. **staging common-base closure** — those reviewed implementations coexist and pass together on one integration tree;
+3. **production integration** — PR #1148 has been squash-merged into `New-main`; and
+4. **learner release** — remains a separate governed action and is not authorized by this checkpoint.
+
+## Production merge evidence
+
+`production-merge-evidence-v1.ts` is the post-merge evidence layer. It preserves the staging evidence unchanged and records the later production fact:
+
+- source PR: `#1148`
+- validated staging head: `418ea5ddc99d201eed7d0e075c9a3978bcdfd234`
+- validated staging run: `33226512086`
+- production `New-main` integration commit: `18c9b5ee52877a15d5c3c9f74f4bc741318626da`
+- `implementationClosureReady: true`
+- `commonBaseClosureReady: true`
+- `productionNewMainMergeComplete: true`
+- `learnerReleaseReady: false`
+- `productionLearnerReleaseAuthorized: false`
+
+The production merge does not open Question Studio discovery, Question Bank writes, scored tests, mock tests, public publication, or automatic learner delivery.
 
 ## Feature implementation evidence
 
@@ -25,44 +42,30 @@ CP016 distinguishes three different states and does not collapse them:
 The feature ledger independently computes:
 
 - `implementationClosureReady: true`
-- `commonBaseClosureReady: false`
+- historical feature `commonBaseClosureReady: false`
 - `learnerReleaseReady: false`
 
-That historical result remains correct and must not be rewritten.
+That historical result remains correct and is not rewritten.
 
 ## Staging common-base evidence
 
-`common-base-integration-evidence-v1.ts` is an additive integration overlay. It reuses the exact feature authorities but records that CP011–CP015 now coexist on the dedicated common-base staging tree.
-
-Its use of `mergedToCommonBase: true` means **coexisting on this validated staging common base**. It does **not** mean merged into production `New-main`.
-
-The integration closure contract requires:
-
-- all five checkpoint implementations executable-green;
-- QL registry exactly `DSF-QL-001` + `DSF-QL-002`;
-- next semantic identity exactly `DSF-QL-003`;
-- all review-only lifecycle capabilities false;
-- all required checkpoints coexisting on one integration tree; and
-- no closure-policy violations.
-
-The expected staging verdict is:
+`common-base-integration-evidence-v1.ts` is the additive integration overlay proving CP011–CP015 coexisted on the validated staging tree. Its staging verdict remains historical evidence:
 
 - `implementationClosureReady: true`
 - `commonBaseClosureReady: true`
 - `productionNewMainMergeComplete: false`
 - `learnerReleaseReady: false`
 
-`common-base-integration-evidence-v1.test.ts` makes those distinctions executable.
+The later production evidence layer records the subsequent merge rather than mutating this staging record.
 
-## Combined common-base proof
+## Final common-base validation authority
 
-The consolidated workflow `Validate DSF Common-Base Integration` builds the API server, runs the independent inequality parity audit, executes every CP011–CP016 test on one tree, and performs a runtime lifecycle-lock scan.
+The consolidated workflow `Validate DSF Common-Base Integration` passed on staging head `418ea5ddc99d201eed7d0e075c9a3978bcdfd234`:
 
-Established combined evidence before the explicit staging-ledger addition includes:
-
+- run: `33226512086` — SUCCESS
 - API build: PASS
 - inequality source parity: **1,800 scenarios PASS**
-- CP011–CP016 executable audit files: **24 PASS**
+- CP011–CP016 executable audit files: **25 PASS**
 - integrated lifecycle locks: PASS
 - CP014 aggregate Reasoning corpus: **2,100 records PASS**
 - normalized duplicate groups: 0
@@ -72,11 +75,9 @@ Established combined evidence before the explicit staging-ledger addition includ
 - explanation-opening cluster violations: 0
 - permanent `DSF-QL-002`: PASS
 
-The latest current-head consolidated workflow is the final executable authority for this staging closure.
-
 ## Permanent semantic registry
 
-Current integration semantics are:
+Current production semantics are:
 
 - `DSF-QL-001` — two-statement target determinacy;
 - `DSF-QL-002` — three-statement minimal-sufficient-subset reasoning;
@@ -95,7 +96,7 @@ These holds do not invalidate the implemented DSF scope. They remain external so
 
 ## Learner lifecycle remains locked
 
-Common-base closure does not authorize delivery. The integrated expansion remains locked:
+Production integration does not authorize delivery. The merged expansion remains locked:
 
 - Question Studio discoverable: `false`
 - Question Bank writable: `false`
@@ -104,4 +105,4 @@ Common-base closure does not authorize delivery. The integrated expansion remain
 - publicly publishable: `false`
 - automatic learner publication: `false`
 
-Production merge and any learner-facing activation require separate explicit authorization.
+Any learner-facing activation requires a separate explicit release checkpoint and authorization.
