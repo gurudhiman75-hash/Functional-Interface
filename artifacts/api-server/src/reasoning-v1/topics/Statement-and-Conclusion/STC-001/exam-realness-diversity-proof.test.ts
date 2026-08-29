@@ -43,15 +43,17 @@ for (let index = 0; index < 9; index += 1) {
   assert.equal(en.answerClass, "EITHER", `five-way/${seed}: dedicated either-or authority must resolve to EITHER`);
   fiveWayScenarioIds.add(en.scenarioId);
   fiveWayExplanations.add(en.explanation);
+  assert.doesNotMatch(en.explanation, /[.!?।]”[.!?।]/u, `five-way/${seed}: doubled quote punctuation`);
 
   for (const locale of LOCALES.slice(1)) {
     const localized = generateStcFiveWayQuestion({ qlId: "STC-QL-002", locale, seed });
     assert.equal(localized.scenarioId, en.scenarioId, `five-way/${seed}/${locale}: scenario parity drift`);
     assert.equal(localized.answerClass, en.answerClass, `five-way/${seed}/${locale}: answer parity drift`);
     assert.equal(localized.correctIndex, en.correctIndex, `five-way/${seed}/${locale}: option-index parity drift`);
+    assert.doesNotMatch(localized.explanation, /[.!?।]”[.!?।]/u, `five-way/${seed}/${locale}: doubled quote punctuation`);
   }
 }
 assert.equal(fiveWayScenarioIds.size, 9, `five-way: expected all 9 dedicated authorities, got ${fiveWayScenarioIds.size}`);
 assert.equal(fiveWayExplanations.size, 9, `five-way: explanations must be context-specific`);
 
-console.log("STC-001 exam-realness diversity proof passed: >=8 authorities/QL, 9 five-way contexts, EN/HI/PA parity, explanation diversity.");
+console.log("STC-001 exam-realness diversity proof passed: >=8 authorities/QL, 9 five-way contexts, EN/HI/PA parity, explanation diversity, clean quote punctuation.");
