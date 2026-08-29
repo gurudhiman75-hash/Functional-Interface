@@ -130,6 +130,27 @@ function anchorMatches(html: string) {
   }));
 }
 
+function structuralContext(html: string, anchorIndex: number): string {
+  const lower = html.toLowerCase();
+  for (const tag of ["tr", "li", "article"]) {
+    const open = lower.lastIndexOf(`<${tag}`, anchorIndex);
+    const previousClose = lower.lastIndexOf(`</${tag}>`, anchorIndex);
+    if (open < 0 || open < previousClose) continue;
+    const close = lower.indexOf(`</${tag}>`, anchorIndex);
+    if (close >= 0 && close - open <= 4000) {
+      return html.slice(open, close + tag.length + 3);
+    }
+  }
+
+  const lineStart = Math.max(0, html.lastIndexOf("\n", anchorIndex - 1) + 1);
+  const lineEndFound = html.indexOf("\n", anchorIndex);
+  const lineEnd = lineEndFound >= 0 ? lineEndFound : html.length;
+  const line = html.slice(lineStart, lineEnd);
+  if (line.length <= 3000) return line;
+
+  return html.slice(Math.max(0, anchorIndex - 220), Math.min(html.length, anchorIndex + 700));
+}
+
 export function parseOfficialListing(
   html: string,
   listingUrl: string,
@@ -150,9 +171,7 @@ export function parseOfficialListing(
     seen.add(dedupe);
 
     const exactDate = findListingDate(anchor.content);
-    const contextStart = Math.max(0, anchor.index - 600);
-    const contextEnd = Math.min(html.length, anchor.index + anchor.content.length + 600);
-    const contextualDate = exactDate ?? findListingDate(html.slice(contextStart, contextEnd));
+    const contextualDate = exactDate ?? findListingDate(structuralContext(html, anchor.index));
     const classified = classifyCurrentAffairsSignal(title);
     entries.push({
       title,
