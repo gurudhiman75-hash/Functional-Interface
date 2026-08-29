@@ -1,4 +1,4 @@
-import { STC_CP001_AUTHORITIES } from "./cp001-authorities.ts";
+import { STC_CP001_ALL_AUTHORITIES } from "./cp001-authority-registry.ts";
 import { generateStcCp001Question } from "./cp001-generator.ts";
 import { stcEntails } from "./truth-model-solver.ts";
 import type { StcLocale } from "./types.ts";
@@ -10,7 +10,7 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-for (const scenario of STC_CP001_AUTHORITIES) {
+for (const scenario of STC_CP001_ALL_AUTHORITIES) {
   assert(scenario.candidates.length === 4, `${scenario.id}: expected four candidate authorities`);
   const rendered = new Set(scenario.candidates.map((candidate) => candidate.text["en-IN"]));
   assert(rendered.size === 4, `${scenario.id}: duplicate English candidate text`);
@@ -23,7 +23,7 @@ for (const scenario of STC_CP001_AUTHORITIES) {
 for (const qlId of QLS) {
   const answerClasses = new Set<string>();
   const scenarios = new Set<string>();
-  for (let seed = 0; seed < 600; seed += 1) {
+  for (let seed = 0; seed < 1200; seed += 1) {
     const canonical = generateStcCp001Question({ qlId, locale: "en-IN", seed });
     const again = generateStcCp001Question({ qlId, locale: "en-IN", seed });
     assert(JSON.stringify(canonical) === JSON.stringify(again), `${qlId}/${seed}: nondeterministic output`);
@@ -48,8 +48,8 @@ for (const qlId of QLS) {
     }
   }
   assert(answerClasses.size === 4, `${qlId}: all four I/II answer classes must be reachable`);
-  const expectedScenarioCount = STC_CP001_AUTHORITIES.filter((scenario) => scenario.qlId === qlId).length;
+  const expectedScenarioCount = STC_CP001_ALL_AUTHORITIES.filter((scenario) => scenario.qlId === qlId).length;
   assert(scenarios.size === expectedScenarioCount, `${qlId}: not all curated scenarios reached`);
 }
 
-console.log(`STC-CP-001 proof passed: ${STC_CP001_AUTHORITIES.length} authorities, ${QLS.length} QLs, ${LOCALES.length} locales, deterministic/parity/delivery locks green.`);
+console.log(`STC-CP-001 proof passed: ${STC_CP001_ALL_AUTHORITIES.length} authorities, ${QLS.length} QLs, ${LOCALES.length} locales, deterministic/parity/delivery locks green.`);
