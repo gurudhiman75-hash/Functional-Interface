@@ -45,15 +45,15 @@ const STEM_PREFIX: Record<StcLocale, string> = {
 };
 
 const WHY_FOLLOWS: Record<StcLocale, string> = {
-  "en-IN": "is guaranteed by the statement",
-  "hi-IN": "कथन से निश्चित रूप से स्थापित होता है",
-  "pa-IN": "ਕਥਨ ਤੋਂ ਲਾਜ਼ਮੀ ਤੌਰ ਤੇ ਸਥਾਪਿਤ ਹੁੰਦਾ ਹੈ",
+  "en-IN": "this is directly supported by the statement",
+  "hi-IN": "यह निष्कर्ष कथन से सीधे निकलता है",
+  "pa-IN": "ਇਹ ਨਤੀਜਾ ਕਥਨ ਤੋਂ ਸਿੱਧਾ ਨਿਕਲਦਾ ਹੈ",
 };
 
 const WHY_NOT: Record<StcLocale, string> = {
-  "en-IN": "is not guaranteed by the statement",
-  "hi-IN": "कथन से निश्चित रूप से स्थापित नहीं होता",
-  "pa-IN": "ਕਥਨ ਤੋਂ ਲਾਜ਼ਮੀ ਤੌਰ ਤੇ ਸਥਾਪਿਤ ਨਹੀਂ ਹੁੰਦਾ",
+  "en-IN": "the statement does not establish this",
+  "hi-IN": "कथन से यह बात निश्चित नहीं होती",
+  "pa-IN": "ਕਥਨ ਤੋਂ ਇਹ ਗੱਲ ਨਿਸ਼ਚਿਤ ਨਹੀਂ ਹੁੰਦੀ",
 };
 
 function indexForAnswer(value: StcAnswerClass): number {
