@@ -90,9 +90,11 @@ export default function Login() {
   const [location, setLocation] = useLocation();
   const search = useSearch();
   const searchParams = new URLSearchParams(search);
-  const nextPath = searchParams.get("next");
+  const nextPath = searchParams.get("next")?.trim() ?? null;
+  const safeNextPath = nextPath && nextPath.startsWith("/") && !nextPath.startsWith("//") ? nextPath : null;
+  const requestedMode = searchParams.get("mode");
   const initialEmail = searchParams.get("email")?.trim() ?? "";
-  const [tab, setTab] = useState<"login" | "signup">("login");
+  const [tab, setTab] = useState<"login" | "signup">(requestedMode === "signup" ? "signup" : "login");
   const [email, setEmail] = useState(initialEmail);
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -112,8 +114,10 @@ export default function Login() {
   useEffect(() => {
     if (isAdminMode) {
       setTab("login");
+      return;
     }
-  }, [isAdminMode]);
+    setTab(requestedMode === "signup" ? "signup" : "login");
+  }, [isAdminMode, requestedMode]);
 
   useEffect(() => {
     if (initialEmail) setEmail(initialEmail);
@@ -161,7 +165,7 @@ export default function Login() {
     });
 
     return () => unsub();
-  }, [isAdminMode, setLocation, toast]);
+  }, [isAdminMode, safeNextPath, setLocation, toast]);
 
   const routeAfterAuth = (role?: string) => {
     if (isAdminMode && role && role !== "admin") {
@@ -174,11 +178,8 @@ export default function Login() {
       return;
     }
 
-    const destination = nextPath
-      ? decodeURIComponent(nextPath)
-      : role === "admin"
-        ? "/admin/"
-        : "/dashboard";
+    const destination = safeNextPath
+      ?? (role === "admin" ? "/admin/" : "/dashboard");
 
     if (destination === "/admin" || destination.startsWith("/admin/")) {
       window.location.assign(destination === "/admin" ? "/admin/" : destination);
@@ -394,7 +395,7 @@ export default function Login() {
             </div>
             <h1 className="mt-5 text-2xl font-black tracking-[-0.035em] text-slate-950 sm:text-[30px]">{authTitle}</h1>
             <p className="mt-2 text-sm leading-6 text-slate-500">{authDescription}</p>
-            {nextPath && !isAdminMode && (
+            {safeNextPath && !isAdminMode && (
               <div className="mt-4 flex items-start gap-2 rounded-xl border border-[#e3defa] bg-[#f7f5ff] px-3 py-2.5 text-xs leading-5 text-slate-600">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#6657e8]" />
                 After signing in, ExamTree will return you to the page you were opening.
