@@ -10,8 +10,8 @@ export const STC_001_MANIFEST = {
   semanticQlCount: 6,
   qlIds: STC_QL_IDS,
   checkpoints: [
-    { checkpointId: "STC-CP-001", qlIds: ["STC-QL-001", "STC-QL-002"], status: "IMPLEMENTED_REVIEW_CANDIDATE_V1" },
-    { checkpointId: "STC-CP-002", qlIds: ["STC-QL-003", "STC-QL-004"], status: "RESERVED" },
+    { checkpointId: "STC-CP-001", qlIds: ["STC-QL-001", "STC-QL-002"], status: "IMPLEMENTED_PROOF_GREEN_V1" },
+    { checkpointId: "STC-CP-002", qlIds: ["STC-QL-003", "STC-QL-004"], status: "IMPLEMENTED_REVIEW_CANDIDATE_V1" },
     { checkpointId: "STC-CP-003", qlIds: ["STC-QL-005", "STC-QL-006"], status: "RESERVED" },
   ] as const,
   boundary: {
