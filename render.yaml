@@ -63,7 +63,7 @@ services:
       - key: UPSTASH_REDIS_REST_TOKEN
         sync: false
 
-  # Pull every configured active RSS/Atom Current Affairs source every three hours.
+  # Pull every configured active RSS/Atom or curated official listing source.
   - type: cron
     name: examtree-current-affairs-feed-ingestion
     runtime: node
@@ -77,9 +77,26 @@ services:
       - key: DATABASE_URL
         sync: false
 
-  # Run after feed ingestion. Strict gates auto-promote/verify only strong evidence.
-  # The 00:20 UTC run also creates previous-day India-time SSC/Banking/Punjab
-  # compilation drafts and BANK_ONLY quiz-review runs; it never publishes them.
+  # Read high-trust official candidate pages transiently and stage atomic facts.
+  # Page text stays in memory only; the DB stores fact claims, provenance and a
+  # content hash. This runs after discovery but before clustering/promotion.
+  - type: cron
+    name: examtree-current-affairs-primary-enrichment
+    runtime: node
+    rootDir: .
+    schedule: "10 */3 * * *"
+    buildCommand: bash build-current-affairs-worker.sh
+    startCommand: NODE_ENV=production node --enable-source-maps artifacts/api-server/dist/current-affairs-primary-enrichment-worker.mjs
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+
+  # Run after ingestion + primary fact enrichment. Strict gates auto-promote and
+  # verify only strong evidence. The 00:20 UTC run also creates previous-day
+  # India-time SSC/Banking/Punjab draft compilations and BANK_ONLY quiz-review
+  # runs; it never publishes them automatically.
   - type: cron
     name: examtree-current-affairs-daily-orchestration
     runtime: node
