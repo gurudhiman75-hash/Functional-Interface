@@ -126,7 +126,14 @@ export function storyThreadSimilarity(
   const titleJaccard = jaccard(leftTokens, rightTokens);
   const titleContainment = overlapCoefficient(leftTokens, rightTokens);
   const factSimilarity = factValueSimilarity(leftFacts, rightFacts);
-  const score = Math.min(1, titleJaccard * 0.65 + titleContainment * 0.25 + factSimilarity * 0.10);
+  const distinctiveAnchorStrength = Math.min(1, sharedTitleTokens.length / 4);
+  const score = Math.min(
+    1,
+    distinctiveAnchorStrength * 0.50
+      + titleContainment * 0.20
+      + titleJaccard * 0.20
+      + factSimilarity * 0.10,
+  );
   const hasStrongAnchor = sharedTitleTokens.length >= 2 || (sharedTitleTokens.length >= 1 && factSimilarity >= 0.25);
   const allowed = hasStrongAnchor && score >= 0.72;
 
@@ -134,7 +141,7 @@ export function storyThreadSimilarity(
     allowed,
     score: Number(score.toFixed(5)),
     reason: allowed
-      ? "Strong same-category title/fact continuity"
+      ? "Strong same-category distinctive-title/fact continuity"
       : "Similarity is below conservative automatic story-thread threshold",
     sharedTitleTokens,
   };
