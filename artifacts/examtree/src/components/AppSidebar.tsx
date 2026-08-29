@@ -3,6 +3,7 @@ import {
   ClipboardList,
   Home,
   LogOut,
+  ReceiptText,
   Settings,
   ShieldCheck,
   ShoppingBag,
@@ -30,6 +31,7 @@ const primaryLinks = [
   { href: "/", label: "Home", icon: Home },
   { href: "/exams", label: "Tests & Exams", icon: ClipboardList },
   { href: "/store", label: "Store", icon: ShoppingBag },
+  { href: "/my-packages", label: "My Purchases", icon: ReceiptText },
   { href: "/dashboard", label: "My Activity", icon: Target },
 ];
 
@@ -46,8 +48,9 @@ function isLinkActive(location: string, href: string) {
     return location === "/store"
       || location === "/packages"
       || location.startsWith("/store/")
-      || location.startsWith("/packages/");
+      || (location.startsWith("/packages/") && !location.startsWith("/packages/success/"));
   }
+  if (href === "/my-packages") return location === "/my-packages" || location === "/purchases";
   if (href === "/dashboard") return location === "/dashboard" || location === "/result";
   return location === href || location.startsWith(`${href}/`);
 }
