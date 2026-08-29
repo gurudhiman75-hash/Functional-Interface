@@ -1,5 +1,6 @@
 import { STC_CP002_CONDITIONAL_AUTHORITIES } from "./cp002-conditional-authorities.ts";
 import { STC_CP002_MODAL_AUTHORITIES } from "./cp002-modal-authorities.ts";
+import { STC_EXAM_REALNESS_CONDITIONAL_AUTHORITIES, STC_EXAM_REALNESS_MODAL_AUTHORITIES } from "./exam-realness-expansion-cp002-v1.ts";
 import { generateStcCp002Question } from "./cp002-generator.ts";
 import { modalClaim, stcModalEntails } from "./modal-strength-solver.ts";
 import { atom, implies, not, stcEntails } from "./truth-model-solver.ts";
@@ -7,19 +8,19 @@ import type { StcLocale } from "./types.ts";
 
 const LOCALES: readonly StcLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 const QLS = ["STC-QL-003", "STC-QL-004"] as const;
+const CONDITIONAL_AUTHORITIES = [...STC_CP002_CONDITIONAL_AUTHORITIES, ...STC_EXAM_REALNESS_CONDITIONAL_AUTHORITIES] as const;
+const MODAL_AUTHORITIES = [...STC_CP002_MODAL_AUTHORITIES, ...STC_EXAM_REALNESS_MODAL_AUTHORITIES] as const;
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-// Independent conditional rules: modus ponens is valid; converse and inverse are not.
 const a = atom("a");
 const b = atom("b");
 assert(stcEntails([implies(a, b), a], b), "modus ponens must entail consequent");
 assert(!stcEntails([implies(a, b)], implies(b, a)), "converse must not be entailed");
 assert(!stcEntails([implies(a, b)], implies(not(a), not(b))), "inverse must not be entailed");
 
-// Modal-strength lattice: certainty may weaken to possibility, possibility may not strengthen to certainty.
 assert(stcModalEntails(modalClaim("x", "CERTAIN"), modalClaim("x", "CERTAIN")), "certain -> certain");
 assert(stcModalEntails(modalClaim("x", "CERTAIN"), modalClaim("x", "POSSIBLE")), "certain -> possible");
 assert(stcModalEntails(modalClaim("x", "POSSIBLE"), modalClaim("x", "POSSIBLE")), "possible -> possible");
@@ -27,7 +28,7 @@ assert(!stcModalEntails(modalClaim("x", "POSSIBLE"), modalClaim("x", "CERTAIN"))
 assert(!stcModalEntails(modalClaim("x", "CERTAIN"), modalClaim("x", "CERTAIN", "NEGATIVE")), "polarity flip must fail");
 assert(!stcModalEntails(modalClaim("x", "CERTAIN"), modalClaim("y", "POSSIBLE")), "unrelated modal atom must fail");
 
-for (const scenario of STC_CP002_CONDITIONAL_AUTHORITIES) {
+for (const scenario of CONDITIONAL_AUTHORITIES) {
   assert(scenario.candidates.length === 4, `${scenario.id}: expected four candidates`);
   assert(new Set(scenario.candidates.map((candidate) => candidate.text["en-IN"])).size === 4, `${scenario.id}: duplicate English candidate`);
   for (const candidate of scenario.candidates) {
@@ -36,7 +37,7 @@ for (const scenario of STC_CP002_CONDITIONAL_AUTHORITIES) {
   }
 }
 
-for (const scenario of STC_CP002_MODAL_AUTHORITIES) {
+for (const scenario of MODAL_AUTHORITIES) {
   assert(scenario.candidates.length === 4, `${scenario.id}: expected four candidates`);
   assert(new Set(scenario.candidates.map((candidate) => candidate.text["en-IN"])).size === 4, `${scenario.id}: duplicate English candidate`);
   for (const candidate of scenario.candidates) {
@@ -48,7 +49,7 @@ for (const scenario of STC_CP002_MODAL_AUTHORITIES) {
 for (const qlId of QLS) {
   const classes = new Set<string>();
   const scenarios = new Set<string>();
-  for (let seed = 0; seed < 1200; seed += 1) {
+  for (let seed = 0; seed < 4096; seed += 1) {
     const canonical = generateStcCp002Question({ qlId, locale: "en-IN", seed });
     const again = generateStcCp002Question({ qlId, locale: "en-IN", seed });
     assert(JSON.stringify(canonical) === JSON.stringify(again), `${qlId}/${seed}: nondeterministic output`);
@@ -74,8 +75,9 @@ for (const qlId of QLS) {
     }
   }
   assert(classes.size === 4, `${qlId}: all four I/II answer classes must be reachable`);
-  const expected = qlId === "STC-QL-003" ? STC_CP002_CONDITIONAL_AUTHORITIES.length : STC_CP002_MODAL_AUTHORITIES.length;
-  assert(scenarios.size === expected, `${qlId}: not all curated scenarios reached`);
+  const expectedIds = new Set((qlId === "STC-QL-003" ? CONDITIONAL_AUTHORITIES : MODAL_AUTHORITIES).map((scenario) => scenario.id));
+  assert(scenarios.size === expectedIds.size, `${qlId}: expected ${expectedIds.size} scenarios, reached ${scenarios.size}`);
+  for (const scenarioId of expectedIds) assert(scenarios.has(scenarioId), `${qlId}: scenario ${scenarioId} is unreachable`);
 }
 
-console.log(`STC-CP-002 proof passed: ${STC_CP002_CONDITIONAL_AUTHORITIES.length + STC_CP002_MODAL_AUTHORITIES.length} authorities, 2 QLs, 3 locales.`);
+console.log(`STC-CP-002 proof passed: ${CONDITIONAL_AUTHORITIES.length + MODAL_AUTHORITIES.length} authorities (${STC_CP002_CONDITIONAL_AUTHORITIES.length + STC_CP002_MODAL_AUTHORITIES.length} historical + ${STC_EXAM_REALNESS_CONDITIONAL_AUTHORITIES.length + STC_EXAM_REALNESS_MODAL_AUTHORITIES.length} expansion), 2 QLs, 3 locales.`);
