@@ -10,6 +10,7 @@ import {
 } from "../current-affairs/release-runtime";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { authenticate } from "../middlewares/auth";
+import adminCurrentAffairsQuestionPromotionRouter from "./admin-current-affairs-question-promotion";
 
 const router: IRouter = Router();
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -99,6 +100,7 @@ function sendError(res: Response, error: unknown, fallback: string) {
   res.status(500).json({ error: fallback, code: "CURRENT_AFFAIRS_RELEASE_FAILED" });
 }
 
+router.use(adminCurrentAffairsQuestionPromotionRouter);
 router.use(authenticate);
 
 router.get(
