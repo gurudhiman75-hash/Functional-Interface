@@ -9,7 +9,7 @@ on:
       - 'artifacts/api-server/src/routes/admin-notes-studio*.ts'
       - 'artifacts/api-server/src/routes/index.ts'
       - 'artifacts/api-server/migrations/20260829_notes_studio_source_pack.sql'
-      - 'artifacts/api-server/migrations/20260829_notes_studio_evidence_coverage.sql'
+      - 'artifacts/api-server/migrations/20260829_notes_studio_source_pack_ns003_evidence_coverage.sql'
       - 'artifacts/admin-app/src/pages/content/NotesStudio**'
       - 'artifacts/admin-app/src/App.tsx'
   workflow_dispatch:
@@ -39,16 +39,20 @@ jobs:
           node artifacts/api-server/dist/notes-studio-source-pack.test.mjs
           pnpm --dir artifacts/api-server exec esbuild src/notes-studio/evidence-map.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-evidence-map.test.mjs
           node artifacts/api-server/dist/notes-studio-evidence-map.test.mjs
-      - name: Verify evidence provenance schema
+      - name: Verify evidence provenance schema and migration order
         run: |
-          grep -F 'CREATE TABLE IF NOT EXISTS content.note_source_evidence_blocks' artifacts/api-server/migrations/20260829_notes_studio_evidence_coverage.sql
-          grep -F 'REFERENCES content.note_authoring_sources(job_id, source_document_id)' artifacts/api-server/migrations/20260829_notes_studio_evidence_coverage.sql
-          grep -F "state IN ('candidate', 'accepted', 'rejected', 'conflict')" artifacts/api-server/migrations/20260829_notes_studio_evidence_coverage.sql
-          grep -F 'CREATE TABLE IF NOT EXISTS content.note_coverage_plan_items' artifacts/api-server/migrations/20260829_notes_studio_evidence_coverage.sql
+          source_pack='artifacts/api-server/migrations/20260829_notes_studio_source_pack.sql'
+          evidence='artifacts/api-server/migrations/20260829_notes_studio_source_pack_ns003_evidence_coverage.sql'
+          test "$(printf '%s\n%s\n' "$source_pack" "$evidence" | sort | head -n 1)" = "$source_pack"
+          grep -F 'CREATE TABLE IF NOT EXISTS content.note_source_evidence_blocks' "$evidence"
+          grep -F 'REFERENCES content.note_authoring_sources(job_id, source_document_id)' "$evidence"
+          grep -F "state IN ('candidate', 'accepted', 'rejected', 'conflict')" "$evidence"
+          grep -F 'CREATE TABLE IF NOT EXISTS content.note_coverage_plan_items' "$evidence"
       - name: Verify evidence and publication boundaries
         run: |
           grep -F "document.retention_mode = 'extracted_text'" artifacts/api-server/src/routes/admin-notes-studio-evidence.ts
           grep -F "mapping.relation = 'supports'" artifacts/api-server/src/notes-studio/readiness.ts
+          grep -F "claim.state = 'conflict'" artifacts/api-server/src/notes-studio/readiness.ts
           grep -F 'adminNotesStudioEvidenceRouter' artifacts/api-server/src/routes/index.ts
           grep -F 'automaticPublicationEnabled: false' artifacts/api-server/src/routes/admin-notes-studio.ts
       - name: Build API server
