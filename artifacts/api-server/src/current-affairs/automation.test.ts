@@ -28,12 +28,22 @@ assert.throws(() => assertPublicHttpsFeedUrl("https://192.168.1.10/feed"), /priv
 assert.throws(() => assertPublicHttpsFeedUrl("https://metadata.google.internal/feed"), /private-network/);
 
 const complete = summarizeScheduledSourceResults([
-  { sourceKey: "pib", status: "success", entriesSeen: 4, created: 3, updated: 1 },
-  { sourceKey: "rbi", status: "success", entriesSeen: 2, created: 1, updated: 1 },
+  { sourceKey: "pib", channel: "feed", status: "success", entriesSeen: 4, created: 3, updated: 1 },
+  { sourceKey: "rbi", channel: "feed", status: "success", entriesSeen: 2, created: 1, updated: 1 },
+  {
+    sourceKey: "sebi",
+    channel: "official_listing",
+    status: "success",
+    entriesSeen: 5,
+    created: 2,
+    updated: 1,
+    skippedUndated: 2,
+  },
 ]);
 assert.equal(complete.status, "completed");
-assert.equal(complete.candidateCreatedCount, 4);
-assert.equal(complete.candidateUpdatedCount, 2);
+assert.equal(complete.candidateCreatedCount, 6);
+assert.equal(complete.candidateUpdatedCount, 3);
+assert.equal(complete.skippedUndatedCount, 2);
 
 const partial = summarizeScheduledSourceResults([
   { sourceKey: "pib", status: "success", entriesSeen: 4, created: 3, updated: 1 },
@@ -47,4 +57,4 @@ const failed = summarizeScheduledSourceResults([
 ]);
 assert.equal(failed.status, "failed");
 
-console.log("Current Affairs Studio CP005 automation contracts passed");
+console.log("Current Affairs Studio CP005/CP007 automation contracts passed");
