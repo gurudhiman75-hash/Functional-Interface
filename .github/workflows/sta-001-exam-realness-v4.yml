@@ -1,0 +1,114 @@
+name: Validate STA-001 Exam Realness V4.1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-*
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/chapter-reopen-v4-1-*
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-review-v4-1.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-review.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-payload.ts
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-v4-1-integration.test.ts
+      - artifacts/api-server/src/question-studio/shared-generation-engine.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioStatementAssumptionReviewPanel.tsx
+      - .github/workflows/sta-001-exam-realness-v4.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-sta-001-exam-realness-v4-1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  v4-1-exam-realness-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for current STA V4.1 authority
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-types.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-contexts.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-authorities.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-runtime.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-editorial-runtime.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-editorial-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-review-v4-1.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-review.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-payload.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/chapter-reopen-v4-1-manifest.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/chapter-reopen-v4-1-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-review-pack.ts
+
+      - name: Replay historical immutable freeze evidence
+        run: |
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-freeze-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-freeze-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql002-freeze-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql003-freeze-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-freeze-proof.test.ts
+
+      - name: Prove V4.1 chapter reopening governance
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/chapter-reopen-v4-1-proof.test.ts
+
+      - name: Prove V4.1 anti-gaming scale and tri-language semantic identity
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-proof.test.ts
+
+      - name: Prove V4.1 editorial R2 learner surfaces
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-editorial-proof.test.ts
+
+      - name: Prove V4.1 shared Question Studio integration
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-v4-1-integration.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/sta-001-v4-1-question-studio-integration.mjs
+          node dist/sta-001-v4-1-question-studio-integration.mjs
+
+      - name: Export exact-head trilingual human review pack
+        env:
+          STA_V41_REVIEW_OUT: ${{ github.workspace }}/sta-v4-1-review-pack
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-review-pack.ts
+
+      - name: Upload V4.1 human review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: sta-001-v4-1-trilingual-human-review
+          path: sta-v4-1-review-pack
+          if-no-files-found: error
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build

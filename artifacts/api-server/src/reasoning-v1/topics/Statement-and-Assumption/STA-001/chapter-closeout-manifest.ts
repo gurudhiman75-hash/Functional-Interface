@@ -1,0 +1,68 @@
+import { STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST } from "./multilingual-freeze-manifest.ts";
+import { STA_001_QUESTION_STUDIO_REVIEW_PACKAGE } from "./question-studio-review.ts";
+
+export const STA_001_CHAPTER_CLOSEOUT_V1 = Object.freeze({
+  closeoutId: "STA-001-CHAPTER-CLOSEOUT-v1",
+  closedAt: "2026-08-23T20:40:00+05:30",
+  authority: "PRODUCT_OWNER_CONTINUE_STA_FINAL_FREEZE_AND_QUESTION_STUDIO_2026_08_23",
+  status: "CLOSED_FOR_QUESTION_STUDIO_REVIEW__DELIVERY_LOCKED" as const,
+  packageId: "STA-001" as const,
+  chapterId: "REAS-STA" as const,
+  title: "Statement & Assumption",
+  permanentQlIds: [...STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST.permanentQlIds],
+  permanentQlCount: STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST.permanentQlCount,
+  multilingualFreezeId: STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST.freezeId,
+  languages: [...STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST.languages],
+  presentationProfiles: [...STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST.presentationProfiles],
+  presentationProfileCount: STA_001_MULTILINGUAL_FREEZE_V1_MANIFEST.presentationProfiles.length,
+  semanticAuthority: "FROZEN" as const,
+  englishAuthority: "FROZEN_V2" as const,
+  hindiAuthority: "FROZEN" as const,
+  punjabiAuthority: "FROZEN" as const,
+  questionStudio: {
+    status: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioRegistrationStatus,
+    stagingStatus: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionStudioStagingStatus,
+    reviewOnly: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.reviewOnly,
+    manualApprovalRequired: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.manualApprovalRequired,
+    sourceRuntimeQuestionStudioDiscoverable: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.sourceRuntimeQuestionStudioDiscoverable,
+  },
+  delivery: {
+    questionBankStatus: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankStatus,
+    questionBankWritable: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankWritable,
+    testEligibility: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.testEligibility,
+    testEligible: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.testEligible,
+    mockTestEligible: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.mockTestEligible,
+    publiclyPublishable: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.publiclyPublishable,
+    automaticStudentPublication: STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.automaticStudentPublication,
+  },
+  intentionalNonQlDimensions: [
+    "assumption_count",
+    "option_count",
+    "coded_answer_style",
+    "negative_query_wording",
+    "option_order",
+    "exam_presentation_profile",
+    "language",
+  ],
+  deferredSemanticExpansions: [
+    "advertising_or_appeal_assumptions",
+    "comparison_measurement_representativeness_assumptions",
+  ],
+  nextFamily: {
+    packageId: "STC-001",
+    title: "Statement & Conclusion",
+    sequence: "STA -> STC -> ARG -> COA -> CAE -> ASM",
+  },
+  reopeningRule: [
+    "Recurring authoritative source evidence proves a materially new assumption semantic contract not covered by STA-QL-001..004 or another reasoning chapter.",
+    "A correctness defect is proven in frozen semantics, answer authority, approved multilingual learner content, or exam-presentation provenance.",
+    "A chapter-boundary ownership defect requires semantic or QL reassignment.",
+  ],
+  doesNotReopenFor: [
+    "new wording or context alone",
+    "different assumption count alone",
+    "different option count or coded answer order alone",
+    "new exam presentation profile alone",
+    "Question Bank/test/mock/public release activation alone",
+  ],
+} as const);

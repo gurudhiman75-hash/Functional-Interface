@@ -1,0 +1,62 @@
+name: STA-001 Historical Semantic Extension V3 Regression
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/semantic-extension-v3-*
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/STA-001-SEMANTIC-EXTENSION-V3-*
+      - .github/workflows/sta-001-semantic-extension-v3.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sta-001-historical-semantic-extension-v3-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  historical-semantic-extension-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for historical V3 research boundary
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/semantic-extension-v3-types.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/semantic-extension-v3-authorities.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/semantic-extension-v3-router.ts \
+            src/reasoning-v1/topics/Statement-and-Assumption/STA-001/semantic-extension-v3-historical-proof.test.ts
+
+      - name: Replay immutable core freeze evidence
+        run: |
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/english-freeze-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql001-freeze-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql002-freeze-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql003-freeze-proof.test.ts
+          node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/localization-ql004-review-lock-proof.test.ts
+
+      - name: Prove historical QL005/QL006 research evidence is intact
+        run: node --experimental-strip-types ./artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/semantic-extension-v3-historical-proof.test.ts
