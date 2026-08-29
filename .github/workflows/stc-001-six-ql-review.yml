@@ -47,14 +47,19 @@ jobs:
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/modal-strength-solver.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/strict-order-solver.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/temporal-trend-solver.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/exam-realness-expansion-cp001-v1.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/exam-realness-expansion-cp002-v1.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/exam-realness-expansion-cp003-v1.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp001-authority-registry.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp001-generator.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp002-generator.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp003-generator.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-generator.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/five-way-either-authorities.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/five-way-either-expansion-v1.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/five-way-profile.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/five-way-profile-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/exam-realness-diversity-proof.test.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-manifest.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-proof.test.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-review-pack.ts
@@ -67,6 +72,9 @@ jobs:
 
       - name: Prove complete six-QL chapter saturation and tri-language identity
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-proof.test.ts
+
+      - name: Prove exam-realness authority and explanation diversity
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/exam-realness-diversity-proof.test.ts
 
       - name: Prove five-way banking either-or profile
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/five-way-profile-proof.test.ts
@@ -90,6 +98,6 @@ jobs:
       - name: Review boundary
         run: |
           echo 'STC-001 has six executable semantic QLs in EN/HI/PA.'
-          echo 'Four-way and five-way either-or presentation profiles are proved.'
+          echo 'Each QL has at least eight curated scenario authorities; the banking either/or profile has nine.'
           echo 'This is a human-review candidate, not a freeze.'
           echo 'Question Studio remains unregistered; all learner delivery gates remain closed.'
