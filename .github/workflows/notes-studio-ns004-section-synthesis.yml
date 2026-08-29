@@ -1,0 +1,64 @@
+name: Validate Notes Studio NS-004 Section Synthesis
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/notes-studio/**'
+      - 'artifacts/api-server/src/routes/admin-notes-studio*.ts'
+      - 'artifacts/api-server/src/routes/index.ts'
+      - 'artifacts/api-server/migrations/20260829_notes_studio_source_pack*.sql'
+      - 'artifacts/admin-app/src/pages/content/NotesStudio**'
+  workflow_dispatch:
+
+concurrency:
+  group: notes-studio-ns004-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-notes-studio-section-synthesis:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run Notes Studio deterministic contracts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/source-pack.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-source-pack.test.mjs
+          node artifacts/api-server/dist/notes-studio-source-pack.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/evidence-map.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-evidence-map.test.mjs
+          node artifacts/api-server/dist/notes-studio-evidence-map.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/section-synthesis.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-section-synthesis.test.mjs
+          node artifacts/api-server/dist/notes-studio-section-synthesis.test.mjs
+      - name: Verify migration order and section provenance schema
+        run: |
+          ns003='artifacts/api-server/migrations/20260829_notes_studio_source_pack_ns003_evidence_coverage.sql'
+          ns004='artifacts/api-server/migrations/20260829_notes_studio_source_pack_ns004_section_synthesis.sql'
+          test "$(printf '%s\n%s\n' "$ns003" "$ns004" | sort | tail -n 1)" = "$ns004"
+          grep -F 'CREATE TABLE IF NOT EXISTS content.note_sections' "$ns004"
+          grep -F 'CREATE TABLE IF NOT EXISTS content.note_section_claims' "$ns004"
+          grep -F 'CREATE TABLE IF NOT EXISTS content.note_section_blocks' "$ns004"
+          grep -F 'CREATE TABLE IF NOT EXISTS content.note_generation_events' "$ns004"
+      - name: Verify synthesis safety boundaries
+        run: |
+          grep -F 'Use ONLY the accepted claims supplied below as factual authority.' artifacts/api-server/src/notes-studio/section-synthesis.ts
+          grep -F "NOTES_STUDIO_MODEL" artifacts/api-server/src/notes-studio/section-synthesis-provider.ts
+          ! grep -Eq "model: ['\"]gpt-" artifacts/api-server/src/notes-studio/section-synthesis-provider.ts
+          grep -F "claim.state = 'accepted'" artifacts/api-server/src/routes/admin-notes-studio-sections.ts
+          grep -F "mapping.relation = 'supports'" artifacts/api-server/src/routes/admin-notes-studio-sections.ts
+          grep -F 'rawSourceTextSent: false' artifacts/api-server/src/routes/admin-notes-studio-sections.ts
+          grep -F 'Acceptance opens only after the quality-gate checkpoint.' artifacts/api-server/src/routes/admin-notes-studio-sections.ts
+          grep -F 'adminNotesStudioSectionsRouter' artifacts/api-server/src/routes/index.ts
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Typecheck admin app
+        run: pnpm --dir artifacts/admin-app typecheck
