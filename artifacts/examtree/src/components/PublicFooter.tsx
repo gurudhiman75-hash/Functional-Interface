@@ -22,7 +22,8 @@ const footerGroups = [
   {
     title: "Legal",
     links: [
-      { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Delete Account", href: "/account-deletion" },
       { label: "Terms & Conditions", href: "/terms-and-conditions" },
       { label: "Refund Policy", href: "/refund-policy" },
     ],

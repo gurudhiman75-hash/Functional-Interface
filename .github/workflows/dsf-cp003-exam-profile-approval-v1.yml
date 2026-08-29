@@ -1,0 +1,48 @@
+name: Validate DSF-CP-003 Exam Profile approval
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-003/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-001-MANIFEST-AMENDMENT-CP003-APPROVAL.md
+      - .github/workflows/dsf-cp003-exam-profile-approval-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp003-exam-profile-approval-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dsf-cp003-exam-profile-approval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle CP-003 profile approval proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/dsf
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-003/exam-answer-profiles-approval-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp003-exam-profile-review-approval.test.mjs
+      - name: Run CP-003 profile approval proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp003-exam-profile-review-approval.test.mjs

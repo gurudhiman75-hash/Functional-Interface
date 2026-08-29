@@ -20,6 +20,30 @@ on:
     branches:
       - New-main
     types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/admin-app/**
+      - artifacts/examtree/src/**
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/api-server/src/routes/admin-content-review.ts
+      - artifacts/api-server/src/routes/admin-question-studio-quality.ts
+      - artifacts/api-server/src/routes/admin-question-studio-regeneration.ts
+      - artifacts/api-server/src/routes/admin-session.ts
+      - artifacts/api-server/src/routes/admin-taxonomy*.ts
+      - artifacts/api-server/src/routes/admin-test-qa*.ts
+      - artifacts/api-server/src/routes/admin-test-blueprints.ts
+      - artifacts/api-server/src/routes/admin-test-series.ts
+      - artifacts/api-server/src/lib/admin-*.ts
+      - artifacts/api-server/src/lib/question-studio-quality*.ts
+      - artifacts/api-server/src/lib/question-studio-regeneration*.ts
+      - artifacts/api-server/src/lib/db.ts
+      - docs/admin-panel-integration.md
+      - docs/frontend-truth-audit.md
+      - docs/database-migrations/**
+      - package.json
+      - pnpm-lock.yaml
+      - firebase.json
+      - scripts/assemble-hosting.mjs
+      - .github/workflows/vendor-admin-panel.yml
 
 permissions:
   contents: read
@@ -96,8 +120,8 @@ jobs:
           grep -F 'QUESTION_STUDIO_QUALITY_BLOCKED' artifacts/api-server/src/routes/admin-question-studio-quality.ts
           grep -F 'question_studio.generated_item.revised' artifacts/api-server/src/routes/admin-question-studio-quality.ts
           grep -F 'question_studio.generated_item.regenerated' artifacts/api-server/src/routes/admin-question-studio-regeneration.ts
-          grep -F 'adminQuestionStudioRegenerationRouter' artifacts/api-server/src/routes/index.ts
-          grep -F 'adminQuestionStudioQualityRouter' artifacts/api-server/src/routes/index.ts
+          grep -F 'adminQuestionStudioRegenerationRouter' artifacts/api-server/src/routes/admin-question-studio-registry.ts
+          grep -F 'adminQuestionStudioQualityRouter' artifacts/api-server/src/routes/admin-question-studio-registry.ts
 
       - name: Enforce canonical taxonomy and coverage
         run: |

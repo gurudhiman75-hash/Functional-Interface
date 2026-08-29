@@ -4,6 +4,8 @@ import { Router } from "express";
 import { sqlClient } from "../lib/db";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { authenticate } from "../middlewares/auth";
+// The shared facade keeps Quant requests on the guarded question-studio-review-engine path
+// while adding Reasoning packages such as WOR-001 to the same persistence workflow.
 import {
   generateQuestion as generateQuestionStudioQuestions,
   isWor001QuestionStudioRequest,
@@ -61,10 +63,29 @@ function isNumberSystemRequest(body: any) {
   const patternId = normalizeSelector(body?.patternId);
   const topic = normalizeSelector(body?.topic);
   const subtopic = normalizeSelector(body?.subtopic);
+  const checkpointId = asString(body?.canonicalProblemId) || asString(body?.cpId);
+  const inferredQlCp = inferNumberSystemCpFromQl(body?.questionLanguageId);
   const selectors = new Set(["number system", "numbers", "number theory"]);
   return (
     packageId === "num 001" ||
+    packageId === "num 002" ||
     patternId.includes("num 001") ||
+    patternId.includes("num 002") ||
+    patternId.includes("num cp 008") ||
+    patternId.includes("num cp 009") ||
+    patternId.includes("num cp 010") ||
+    patternId.includes("num cp 011") ||
+    patternId.includes("num cp 012") ||
+    checkpointId === "NUM-CP-008" ||
+    checkpointId === "NUM-CP-009" ||
+    checkpointId === "NUM-CP-010" ||
+    checkpointId === "NUM-CP-011" ||
+    checkpointId === "NUM-CP-012" ||
+    inferredQlCp === "NUM-CP-008" ||
+    inferredQlCp === "NUM-CP-009" ||
+    inferredQlCp === "NUM-CP-010" ||
+    inferredQlCp === "NUM-CP-011" ||
+    inferredQlCp === "NUM-CP-012" ||
     (selectors.has(topic) && !subtopic) ||
     (topic === "arithmetic" && selectors.has(subtopic))
   );
@@ -117,6 +138,11 @@ function inferNumberSystemCpFromQl(value: unknown) {
   if (number >= 1 && number <= 17) return "NUM-CP-003";
   if (number >= 18 && number <= 45) return "NUM-CP-004";
   if (number >= 124 && number <= 144) return "NUM-CP-001";
+  if (number >= 166 && number <= 184) return "NUM-CP-008";
+  if (number >= 185 && number <= 196) return "NUM-CP-009";
+  if (number >= 197 && number <= 212) return "NUM-CP-010";
+  if (number >= 213 && number <= 225) return "NUM-CP-011";
+  if (number >= 226 && number <= 236) return "NUM-CP-012";
   return undefined;
 }
 
@@ -189,7 +215,25 @@ router.post(
     }
 
     const count = asPositiveInteger(req.body?.count, 5, 50);
-    const defaultPackageId = numberSystemRequest ? "NUM-001" : "AVG-001";
+    const requestedNumberSystemPackage = normalizeSelector(req.body?.packageId ?? req.body?.archetypeId);
+    const requestedNumberSystemCp = asString(req.body?.canonicalProblemId) || asString(req.body?.cpId);
+    const requestedNumberSystemQlCp = inferNumberSystemCpFromQl(req.body?.questionLanguageId);
+    const num002Request = numberSystemRequest && (
+      requestedNumberSystemPackage === "num 002"
+      || requestedNumberSystemCp === "NUM-CP-008"
+      || requestedNumberSystemCp === "NUM-CP-009"
+      || requestedNumberSystemCp === "NUM-CP-010"
+      || requestedNumberSystemCp === "NUM-CP-011"
+      || requestedNumberSystemCp === "NUM-CP-012"
+      || requestedNumberSystemQlCp === "NUM-CP-008"
+      || requestedNumberSystemQlCp === "NUM-CP-009"
+      || requestedNumberSystemQlCp === "NUM-CP-010"
+      || requestedNumberSystemQlCp === "NUM-CP-011"
+      || requestedNumberSystemQlCp === "NUM-CP-012"
+    );
+    const defaultPackageId = numberSystemRequest
+      ? num002Request ? "NUM-002" : "NUM-001"
+      : "AVG-001";
     const selectedPackageId = worRequest
       ? "WOR-001"
       : simplificationRequest
@@ -212,7 +256,10 @@ router.post(
     const exam = asString(req.body?.exam) || "SSC CGL";
     const subject = worRequest ? "Reasoning Ability" : asString(req.body?.subject) || "Quantitative Aptitude";
     const language = normalizeLanguage(req.body?.language);
-    const difficulty = normalizeDifficulty(req.body?.difficulty);
+    const requestedDifficulty = asString(req.body?.difficulty);
+    const difficulty = worRequest && requestedDifficulty.toLowerCase() === "mixed"
+      ? "Mixed"
+      : normalizeDifficulty(requestedDifficulty);
     const seed = asString(req.body?.seed) || undefined;
     const canonicalProblemId = asString(req.body?.canonicalProblemId) || undefined;
     const questionLanguageId = asString(req.body?.questionLanguageId) || undefined;
@@ -232,11 +279,19 @@ router.post(
       return;
     }
 
+    // Hindi/Punjabi controlled review is available for NUM-CP-001 and NUM-CP-008 through NUM-CP-012.
     if (numberSystemRequest && language !== "en") {
-      const targetCp = canonicalProblemId ?? inferredNumberSystemCp ?? "NUM-CP-001";
-      if (targetCp !== "NUM-CP-001") {
+      const targetCp = canonicalProblemId ?? inferredNumberSystemCp ?? (num002Request ? "NUM-CP-008" : "NUM-CP-001");
+      if (
+        targetCp !== "NUM-CP-001"
+        && targetCp !== "NUM-CP-008"
+        && targetCp !== "NUM-CP-009"
+        && targetCp !== "NUM-CP-010"
+        && targetCp !== "NUM-CP-011"
+        && targetCp !== "NUM-CP-012"
+      ) {
         res.status(400).json({
-          error: "NUM-001 supports English Question Studio generation only for NUM-CP-003 and NUM-CP-004; Hindi/Punjabi controlled review is available for NUM-CP-001.",
+          error: "Hindi/Punjabi Number System Question Studio review is frozen for NUM-CP-001 and NUM-CP-008 through NUM-CP-012; the other currently routed checkpoints remain English-only.",
         });
         return;
       }

@@ -429,18 +429,17 @@ test.describe("canonical student reliability", () => {
     await expect(page).toHaveURL(/\/login\/student\?next=/);
   });
 
-  test("discovers canonical series alongside standalone tests", async ({ page }) => {
+  test("discovers canonical series in the final exams marketplace", async ({ page }) => {
     await installApiFixtures(page, { completedFirst: false, serverDraft: null });
     await openAsStudent(page, "/tests");
 
-    await expect(page.getByRole("heading", { name: "Test series" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "SSC CGL Starter Series" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Live mock tests" })).toBeVisible();
-    await expect(page.getByText("Standalone Speed Mock")).toBeVisible();
+    const featuredSeries = page.getByTestId("featured-series-section");
+    await expect(featuredSeries.getByRole("heading", { name: "Featured Test Series", exact: true })).toBeVisible();
+    await expect(featuredSeries.getByRole("heading", { name: "SSC CGL Starter Series", exact: true })).toBeVisible();
 
-    await page.getByRole("button", { name: "View progress" }).click();
+    await featuredSeries.getByRole("button", { name: "View Series", exact: true }).click();
     await expect(page).toHaveURL(new RegExp(`/test-series/${SERIES_ID}$`));
-    await expect(page.getByRole("heading", { name: "SSC CGL Starter Series" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "SSC CGL Starter Series", exact: true })).toBeVisible();
   });
 
   test("shows server-reported score gates and carries series context into the runner", async ({ page }) => {
@@ -528,6 +527,10 @@ test.describe("canonical student reliability", () => {
     await expect(page.getByText("Foundation Mock")).toBeVisible();
     await expect(page.getByText("1 saved")).toBeVisible();
     await expect(page.getByText(/2 correct, 0 wrong/)).toBeVisible();
-    await expect(page.getByText("Attempt history below is loaded from ExamTree's canonical database.")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Recent attempts" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "View result" })).toHaveAttribute(
+      "href",
+      "/result?attemptId=attempt-result-1&testId=test-1",
+    );
   });
 });

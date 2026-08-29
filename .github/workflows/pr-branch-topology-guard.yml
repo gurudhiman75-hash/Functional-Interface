@@ -1,0 +1,34 @@
+name: Guard pull request branch topology
+
+# CI-FANOUT-ALLOW: global-pr
+# This is intentionally the one tiny all-PR workflow. It performs no checkout,
+# install or build and exists to prevent New-main from becoming a moving PR head.
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review, edited]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-branch-topology-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  enforce-topology:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Reject New-main as a PR head
+        shell: bash
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          set -euo pipefail
+          echo "PR topology: ${HEAD_REF} -> ${BASE_REF}"
+          if [[ "${HEAD_REF}" == "New-main" ]]; then
+            echo "::error::New-main must never be used as a pull-request head. It turns every New-main commit into a synchronize event for the reverse PR and can re-run large historical chapter diffs. Create a temporary sync/<topic> branch from the integration branch, merge New-main into that branch, and PR sync/<topic> -> integration instead."
+            exit 1
+          fi
+          echo "Branch topology is safe."

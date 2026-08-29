@@ -1,6 +1,5 @@
 import {
   GoogleAuthProvider,
-  deleteUser,
   getRedirectResult,
   onAuthStateChanged,
   signInWithPopup,
@@ -24,6 +23,13 @@ type DevelopmentSessionOptions = {
 };
 
 type BlockedAccountCode = "ACCOUNT_SUSPENDED" | "ACCOUNT_UNAVAILABLE" | "ACCOUNT_RECOVERY_COMPLETED";
+
+type StudentAccountDeletionResponse = {
+  status: "deleted" | "pending";
+  attemptsDeleted?: number;
+  entitlementsDeleted?: number;
+  retainedFinancialRecords?: boolean;
+};
 
 export function createDevelopmentSession({
   email,
@@ -97,11 +103,19 @@ async function terminateStudentSession(input: {
     }
   }
 
+  // Canonical account state plus the cleared local student state are the
+  // authority for ejection. Firebase sign-out is best-effort cleanup and must
+  // never hold a revoked/suspended student inside an already-open test runner.
   clearAuth();
   clearStudentLocalData();
   const auth = getFirebaseAuth();
   if (auth?.currentUser) {
-    await signOut(auth).catch(() => undefined);
+    try {
+      void signOut(auth).catch(() => undefined);
+    } catch {
+      // Some partially hydrated auth states can reject synchronously. Ejection
+      // must still continue because canonical session state is authoritative.
+    }
   }
   if (typeof window !== "undefined" && !window.location.pathname.startsWith("/login")) {
     window.location.replace(`/login?reason=${input.reason}`);
@@ -261,17 +275,28 @@ export function syncAuthSession() {
   };
 }
 
-export async function deleteCurrentStudentAccount() {
+export async function deleteCurrentStudentAccount(): Promise<StudentAccountDeletionResponse> {
   const auth = getFirebaseAuth();
   if (!auth?.currentUser) {
-    clearAuth();
-    clearStudentLocalData();
-    return;
+    throw new Error("Sign in before requesting account deletion.");
   }
 
-  await deleteUser(auth.currentUser);
+  // The canonical API owns erasure of ExamTree data and the Firebase identity.
+  // Never delete Firebase first: that can strand canonical learning/commerce data
+  // without a verified identity capable of completing the server-side request.
+  const result = await apiRequest<StudentAccountDeletionResponse>("/users/me", {
+    method: "DELETE",
+    body: JSON.stringify({ confirmation: "DELETE MY ACCOUNT" }),
+  });
+
   clearAuth();
   clearStudentLocalData();
+  try {
+    await signOut(auth);
+  } catch {
+    // The server normally deletes the Firebase user before returning success.
+  }
+  return result;
 }
 
 export async function startGoogleRedirectSignIn() {

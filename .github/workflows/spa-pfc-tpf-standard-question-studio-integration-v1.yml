@@ -1,0 +1,53 @@
+name: Validate SPA PFC TPF Standard Question Studio Integration V1
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-*.test.ts"
+      - "artifacts/admin-app/src/features/question-studio/**"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-spa-pfc-tpf-standard-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-pfc-tpf-standard-question-studio-integration-v1:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Typecheck complete admin application
+        run: pnpm run typecheck:admin
+      - name: Build complete admin application
+        run: pnpm run build:admin
+      - name: Bundle standard PFC TPF Studio integration gate
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-pfc-tpf-question-studio-standard-integration-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-pfc-tpf-question-studio-standard-integration-v1.test.mjs
+      - name: Validate standard PFC TPF Studio integration
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-pfc-tpf-question-studio-standard-integration-v1.test.mjs
+      - name: Upload standard PFC TPF Studio integration evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-pfc-tpf-standard-question-studio-integration-v1
+          path: artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-standard-question-studio-integration-v1-evidence.json
+          if-no-files-found: error

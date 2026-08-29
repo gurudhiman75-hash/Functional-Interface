@@ -78,6 +78,7 @@ async function run() {
   assert.ok(cockpitWor, "WOR-001 must be exposed through the normal Question Studio capabilities list.");
   assert.equal(cockpitWor.enabled, true);
   assert.deepEqual(cockpitWor.supportedLanguages, ["en", "hi", "pa"]);
+  assert.deepEqual(cockpitWor.supportedDifficulties, ["Easy", "Medium", "Hard"]);
   assert.equal(cockpitWor.permanentQlCount, 8);
   assert.equal(cockpitWor.permanentQlAllocationStatus, "ALLOCATED_INACTIVE");
   assert.equal(cockpitWor.questionBankStatus, "NOT_STORED");
@@ -107,12 +108,56 @@ async function run() {
   assert.equal(generationContext.permanentQlAllocationStatus, "ALLOCATED_INACTIVE");
   assert.equal(generationContext.releaseFreezeStatus, WOR_001_QUESTION_STUDIO_RELEASE_FREEZE);
 
+  const smallA = await generateSharedQuestionStudioQuestion({
+    packageId: "WOR-001",
+    difficulty: "Medium",
+    language: "en",
+    count: 5,
+    seed: "small-batch-a",
+  });
+  const smallB = await generateSharedQuestionStudioQuestion({
+    packageId: "WOR-001",
+    difficulty: "Medium",
+    language: "en",
+    count: 5,
+    seed: "small-batch-b",
+  });
+  const prototypesA = (smallA.questionPackages as Array<{ prototypeId: string }>).map((entry) => entry.prototypeId);
+  const prototypesB = (smallB.questionPackages as Array<{ prototypeId: string }>).map((entry) => entry.prototypeId);
+  assert.equal(new Set(prototypesA).size, 5, "A normal five-question WOR batch should not repeat a prototype while enough candidates exist.");
+  assert.equal(new Set(prototypesB).size, 5, "A second normal five-question WOR batch should not repeat a prototype while enough candidates exist.");
+  assert.notDeepEqual(prototypesA, prototypesB, "Changing the batch seed should change prototype sampling instead of always taking the first catalog entries.");
+
+  const checkpointBatch = await generateSharedQuestionStudioQuestion({
+    packageId: "WOR-001",
+    cpId: "WOR-CP-005",
+    difficulty: "Hard",
+    language: "en",
+    count: 5,
+    seed: "checkpoint-filter-contract",
+  });
+  assert.equal(checkpointBatch.questions.length, 5);
+  assert.ok((checkpointBatch.questionPackages as Array<{ checkpointId: string }>).every((entry) => entry.checkpointId === "WOR-CP-005"));
+
+  const mixed = await generateSharedQuestionStudioQuestion({
+    packageId: "WOR-001",
+    difficulty: "Mixed",
+    language: "en",
+    count: 24,
+    seed: "mixed-difficulty-contract",
+  });
+  const mixedBands = new Set((mixed.questionPackages as Array<{ difficultyBand: string }>).map((entry) => entry.difficultyBand));
+  assert.ok(mixedBands.size >= 2, "WOR Mixed generation must not collapse silently to one fixed difficulty band.");
+
   console.log("WOR-001 shared Question Studio contract passed.", {
     reasoningRegistryPackageCount: packages.length,
     cockpitPackageCount: cockpitPackages.length,
     prototypeId: question.prototypeId,
     permanentQlId: payload.permanentQlId,
     canonicalProblemId: payload.canonicalProblemId,
+    smallBatchA: prototypesA,
+    smallBatchB: prototypesB,
+    mixedBands: [...mixedBands].sort(),
   });
 }
 

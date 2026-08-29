@@ -1,0 +1,54 @@
+name: Validate NUM-CP-014 through Wave03 saturation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/**"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp014-through-wave03-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp014-through-wave03:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle CP014 discovery audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          root="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014"
+          for spec in \
+            "wave01/runtime.test.ts:w1-runtime" "wave01/independent-ablation.test.ts:w1-independent" "wave01/redundancy-rejection.test.ts:w1-negative" \
+            "wave02/runtime.test.ts:w2-runtime" "wave02/independent-answer-impact.test.ts:w2-independent" "wave02/solution-class-admission.test.ts:w2-admission" \
+            "wave03/runtime.test.ts:w3-runtime" "wave03/independent-saturation.test.ts:w3-independent" "wave03/redundancy-negative-control.test.ts:w3-negative" \
+            "wave03/runtime-v2.test.ts:w3-v2-runtime" "wave03/independent-v2.test.ts:w3-v2-independent"; do
+            file="${spec%%:*}"; name="${spec##*:}"
+            pnpm --dir artifacts/api-server exec esbuild "$root/$file" --bundle --platform=node --format=esm --outfile="dist/quant-v4/num-cp014-$name.mjs"
+          done
+      - name: Run CP014 Wave01-Wave03 audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in w1-runtime w1-independent w1-negative w2-runtime w2-independent w2-admission w3-runtime w3-independent w3-negative w3-v2-runtime w3-v2-independent; do
+            node "artifacts/api-server/dist/quant-v4/num-cp014-$name.mjs"
+          done
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build

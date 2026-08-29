@@ -1,0 +1,67 @@
+name: Audit Algebra distinctive content V2
+
+on:
+  pull_request:
+    branches: [New-main]
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/**'
+      - '.github/workflows/alg-distinctive-content-audit-v2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: alg-distinctive-content-audit-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit-algebra-distinctive-content-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle Algebra Question Studio V4 proof
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-studio-runtime-v4.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra-question-studio-runtime-v4.test.mjs
+      - name: Run Algebra Question Studio V4 proof
+        run: node artifacts/api-server/dist/quant-v4/algebra-question-studio-runtime-v4.test.mjs
+      - name: Generate calibrated 1744-question distinctiveness corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-distinctive-content-audit-v2.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/quant-v4/algebra-distinctive-content-audit-v2.mjs
+          node artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v2.mjs \
+            | tee artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v2.log
+      - name: Verify calibrated audit evidence
+        run: |
+          test -s artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v2.json
+          test -s artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v2.md
+          test -s artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v2.log
+      - name: Upload calibrated audit evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: algebra-distinctive-content-audit-v2
+          path: |
+            artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v2.json
+            artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v2.md
+            artifacts/api-server/dist/quant-v4/algebra-distinctive-content-audit-v2.log
+          retention-days: 14

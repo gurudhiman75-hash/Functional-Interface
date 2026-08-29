@@ -1,0 +1,59 @@
+name: Validate NUM-CP-012 Wave 02 edge and inverse discovery
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/**"
+      - ".github/workflows/num-cp012-wave02-edge-inverse-discovery-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp012-wave02-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp012-wave02-edge-inverse:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 02 discovery audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/wave02/runtime.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp012-wave02-edge-inverse-audit.mjs
+
+      - name: Run Wave 02 edge and inverse audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp012-wave02-edge-inverse-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp012-wave02-edge-inverse-audit.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload CP012 Wave 02 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp012-wave02-edge-inverse-discovery-v1
+          path: artifacts/api-server/dist/quant-v4/num-cp012-wave02-edge-inverse-audit.log
+          if-no-files-found: error
+          retention-days: 30

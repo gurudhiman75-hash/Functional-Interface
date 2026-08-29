@@ -10,7 +10,10 @@ import {
   type SpatialQuestionStudioChapterCodeV1,
   type SpatialQuestionStudioDifficultyV1,
   type SpatialQuestionStudioPermanentQlIdV1,
-} from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v1";
+} from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v3";
+import {
+  SPATIAL_QUESTION_STUDIO_PACKAGE_V2 as PRE_EMB_SPATIAL_QUESTION_STUDIO_PACKAGE_V2,
+} from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v2";
 import {
   SPATIAL_QUESTION_STUDIO_LANGUAGES_V1,
   type SpatialQuestionStudioLanguageV1,
@@ -18,7 +21,7 @@ import {
 import {
   generateSpatialProductionStudioBatchV1,
   type SpatialProductionStudioQuestionV1,
-} from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v1";
+} from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v3";
 
 const router = Router();
 const QL_IDS = new Set<string>(SPATIAL_QUESTION_STUDIO_PACKAGE_V1.qlIds);
@@ -353,7 +356,11 @@ router.get(
         INNER JOIN content.generation_item_versions v
           ON v.generation_item_id = i.id AND v.version_number = i.current_version_number
         WHERE v.payload ->> 'packageId' = 'SPA-001'
-          AND v.payload ->> 'integrationAuthority' = ${SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority}
+          AND (
+            v.payload ->> 'integrationAuthority' = ${SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority}
+            OR v.payload ->> 'integrationAuthority' = ${PRE_EMB_SPATIAL_QUESTION_STUDIO_PACKAGE_V2.integrationAuthority}
+            OR v.payload ->> 'integrationAuthority' = ${PRE_EMB_SPATIAL_QUESTION_STUDIO_PACKAGE_V2.supersedesIntegrationAuthority}
+          )
       `;
       res.json({
         packageId: "SPA-001",
@@ -363,8 +370,13 @@ router.get(
         approvedItemCount: Number(rows[0]?.approvedItemCount ?? 0),
         questionBankCount: Number(rows[0]?.questionBankCount ?? 0),
         integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
+        supersededIntegrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.supersedesIntegrationAuthority,
+        preEmbeddedFigureIntegrationAuthority: PRE_EMB_SPATIAL_QUESTION_STUDIO_PACKAGE_V2.integrationAuthority,
+        prePfcTpfIntegrationAuthority: PRE_EMB_SPATIAL_QUESTION_STUDIO_PACKAGE_V2.supersedesIntegrationAuthority,
         localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
         fgcLocalizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.fgcLocalizationAuthority,
+        pfcTpfLocalizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.pfcTpfLocalizationAuthority,
+        embeddedFigureLocalizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.embeddedFigureLocalizationAuthority,
         releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
         questionBankConversionEligibleAfterApproval: true,
         testEligibleAfterApproval: true,

@@ -1,0 +1,78 @@
+name: Validate NUM-CP-008 permanent allocation and English freeze
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/**"
+      - ".github/workflows/num-002-cp008-permanent-allocation-en-freeze.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp008-permanent-en-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp008-permanent-en:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle final source saturation proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/post-wave04-authority-proposal.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-permanent-source-proof.mjs
+
+      - name: Run final source saturation proof
+        run: node artifacts/api-server/dist/quant-v4/num-002-cp008-permanent-source-proof.mjs
+
+      - name: Bundle permanent allocation invariant
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/permanent-allocation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-permanent-allocation.mjs
+
+      - name: Run permanent allocation invariant
+        run: node artifacts/api-server/dist/quant-v4/num-002-cp008-permanent-allocation.mjs
+
+      - name: Bundle permanent English runtime proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/permanent-runtime.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-permanent-en.mjs
+
+      - name: Run permanent English runtime proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-002-cp008-permanent-en.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp008-permanent-en.log
+
+      - name: Upload permanent English evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp008-permanent-allocation-en-freeze
+          retention-days: 14
+          path: |
+            artifacts/api-server/dist/quant-v4/num-002-cp008-permanent-en.log
+            artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/permanent-allocation.ts

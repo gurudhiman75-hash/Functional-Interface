@@ -1,0 +1,78 @@
+name: Validate DSF-CP-002 Question Studio
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/**
+      - artifacts/api-server/src/routes/admin-question-studio-data-sufficiency.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/question-studio/data-sufficiency-review-api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioDataSufficiencyReviewPanel.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
+      - .github/workflows/dsf-cp002-question-studio.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp002-question-studio-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dsf-cp002-question-studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
+      - name: Bundle DSF CP-002 proofs
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/dsf
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-002/question-studio-integration-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp002-question-studio-runtime.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-002/question-studio-route-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp002-question-studio-route.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-001/cp001-freeze-authority.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp001-freeze-authority-regression.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-001/cp001-cross-wave-production-audit.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/dsf/dsf-cp001-cross-wave-regression.test.mjs
+      - name: Run DSF CP-002 runtime proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp002-question-studio-runtime.test.mjs
+      - name: Run DSF CP-002 route and UI contract
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp002-question-studio-route.test.mjs
+      - name: Re-prove frozen CP-001 authority
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp001-freeze-authority-regression.test.mjs
+      - name: Re-run 600-question CP-001 cross-wave proof
+        run: |
+          cd artifacts/api-server
+          node dist/reasoning-v1/dsf/dsf-cp001-cross-wave-regression.test.mjs

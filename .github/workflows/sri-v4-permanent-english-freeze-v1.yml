@@ -1,0 +1,62 @@
+name: Validate SRI Quant V4 Permanent English Freeze V1
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sri-v4-permanent-english-freeze-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-sri-permanent-english-freeze-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Reject Math.random in SRI
+        run: |
+          if grep -R "Math\.random" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices artifacts/api-server/src/quant-v4/shared/surds-indices --include='*.ts'; then
+            echo "Math.random is forbidden in SRI V4 code."
+            exit 1
+          fi
+      - name: Reject stale Phase 7 lifecycle assertions
+        run: |
+          ! grep -R "SRI_001_MANIFEST\.frozenSolveModeCount, 0" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests --include='*.test.ts'
+          ! grep -R "SRI_002_MANIFEST\.frozenSolveModeCount, 0" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests --include='*.test.ts'
+          ! grep -R "SRI_CHAPTER_MANIFEST\.frozenSolveModeCount, 0" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests --include='*.test.ts'
+          ! grep -R "SRI_CHAPTER_MANIFEST\.lifecycle\.discoveryOpen, true" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests --include='*.test.ts'
+      - name: Bundle permanent English freeze audit
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/sri
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/permanent-english-freeze-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/permanent-english-freeze-v1.test.mjs
+      - name: Run permanent English freeze audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/permanent-english-freeze-v1.test.mjs
+      - name: Bundle lifecycle lock audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/lifecycle-lock.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/lifecycle-lock.test.mjs
+      - name: Run lifecycle lock audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/lifecycle-lock.test.mjs

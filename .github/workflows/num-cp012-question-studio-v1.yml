@@ -1,0 +1,166 @@
+name: Validate NUM-CP-012 Question Studio integration
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/question-studio-route-contract.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/question-studio-integration.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/question-studio-integration.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/question-studio-integration.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/question-studio-integration.test.ts"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
+      - ".github/workflows/num-cp012-question-studio-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp012-qs-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp012-question-studio:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP012 English and localization regressions
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012"
+          pnpm --dir artifacts/api-server exec esbuild "$base/permanent-runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp012-qs-english.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$base/localization/runtime-parity.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp012-qs-localization.mjs
+
+      - name: Run CP012 English regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-qs-english.mjs
+
+      - name: Run CP012 localization regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp012-qs-localization.mjs
+
+      - name: Bundle CP012 Question Studio proof
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/question-studio-integration.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp012-question-studio-integration.mjs
+
+      - name: Run CP012 Question Studio proof
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp012-question-studio-integration.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp012-question-studio-integration.log
+
+      - name: Bundle CP012 exam-depth explanation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/exam-depth-explanation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp012-exam-depth-explanation.mjs
+
+      - name: Run CP012 exam-depth explanation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-explanation.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-explanation.log
+
+      - name: Bundle shared engine and admin route contract
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/question-studio-route-contract.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp012-question-studio-route-contract.mjs
+
+      - name: Run shared engine and admin route contract
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp012-question-studio-route-contract.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp012-question-studio-route-contract.log
+
+      - name: Bundle CP011 shared-route regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/question-studio-route-contract.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp011-route-cp012-regression.mjs
+
+      - name: Run CP011 shared-route regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp011-route-cp012-regression.mjs
+
+      - name: Bundle CP011 Question Studio regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/question-studio-integration.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp011-question-studio-cp012-regression.mjs
+
+      - name: Run CP011 Question Studio regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp011-question-studio-cp012-regression.mjs
+
+      - name: Bundle CP010 Question Studio regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-010/question-studio-integration.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp010-question-studio-cp012-regression.mjs
+
+      - name: Run CP010 Question Studio regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp010-question-studio-cp012-regression.mjs
+
+      - name: Bundle CP009 Question Studio regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-009/question-studio-integration.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp009-question-studio-cp012-regression.mjs
+
+      - name: Run CP009 Question Studio regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp009-question-studio-cp012-regression.mjs
+
+      - name: Bundle CP008 Question Studio regression
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/question-studio-integration.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp008-question-studio-cp012-regression.mjs
+
+      - name: Run CP008 Question Studio regression
+        run: node artifacts/api-server/dist/quant-v4/num-cp008-question-studio-cp012-regression.mjs
+
+      - name: Bundle actual admin Question Studio route
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/routes/admin-question-studio-average.ts
+          --bundle --platform=node --format=esm
+          --packages=external
+          --outfile=dist/quant-v4/admin-question-studio-num-cp012-route.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload CP012 Question Studio evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp012-question-studio-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp012-question-studio-integration.log
+            artifacts/api-server/dist/quant-v4/num-cp012-exam-depth-explanation.log
+            artifacts/api-server/dist/quant-v4/num-cp012-question-studio-route-contract.log
+          if-no-files-found: error
+          retention-days: 30

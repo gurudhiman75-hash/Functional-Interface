@@ -1,0 +1,49 @@
+name: Validate NUM-CP-014 Wave01 synthesis foundation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/**"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp014-wave01-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp014-wave01:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle CP014 Wave01 audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/wave01"
+          pnpm --dir artifacts/api-server exec esbuild "$base/runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-wave01-runtime.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$base/independent-ablation.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-wave01-independent.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$base/redundancy-rejection.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-wave01-redundancy.mjs
+      - name: Run Wave01 audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp014-wave01-runtime.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp014-wave01-independent.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp014-wave01-redundancy.mjs
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build

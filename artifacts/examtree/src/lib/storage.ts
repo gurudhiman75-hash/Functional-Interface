@@ -44,6 +44,7 @@ export interface ActiveTestSession {
   sectionTimeLeftByName: Record<string, number>;
   updatedAt: number;
   attemptType: "REAL" | "PRACTICE";
+  timerMode?: "overall" | "sectional";
   lockedSections: number[];
   originalAttemptId?: string;
   sectionCompletionTimes?: Record<string, number>;

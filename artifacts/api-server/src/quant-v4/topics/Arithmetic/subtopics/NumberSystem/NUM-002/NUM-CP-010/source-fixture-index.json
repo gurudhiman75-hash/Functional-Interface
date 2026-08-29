@@ -1,0 +1,96 @@
+{
+  "checkpointId": "NUM-CP-010",
+  "packageId": "NUM-002",
+  "status": "DISCOVERY_OPEN",
+  "permanentQlAllocations": 0,
+  "wave01": [
+    {
+      "prototypeId": "NUM-CP010-PROT-001",
+      "sources": ["V2:ns_digit_constraints", "V4_GAP:PLACE_VALUE"],
+      "visibleGivens": ["decimal numeral", "specified digit"],
+      "requestedUnknown": "place value",
+      "invariant": "decimal positional weight",
+      "answerSemantic": "PLACE_VALUE",
+      "owner": "NUM-CP-010",
+      "disposition": "RETAIN_DISCOVERY"
+    },
+    {
+      "prototypeId": "NUM-CP010-PROT-002",
+      "sources": ["V2:ns_sum_of_digits", "V2:ns_digit_sum_reconstruction"],
+      "visibleGivens": ["decimal digit pattern", "total digit sum"],
+      "requestedUnknown": "missing digit",
+      "invariant": "exact decimal digit aggregate",
+      "answerSemantic": "DIGIT",
+      "owner": "NUM-CP-010",
+      "disposition": "RETAIN_DISCOVERY"
+    },
+    {
+      "prototypeId": "NUM-CP010-PROT-003",
+      "sources": ["PYQ:number_reverse_structure", "V2:ns_digit_interchange", "V2:ns_reverse_number_theory"],
+      "visibleGivens": ["two-digit number", "reverse difference", "digit sum"],
+      "requestedUnknown": "original number",
+      "invariant": "10a+b and 10b+a positional equations",
+      "answerSemantic": "DECIMAL_INTEGER",
+      "owner": "NUM-CP-010",
+      "disposition": "RETAIN_DISCOVERY"
+    },
+    {
+      "prototypeId": "NUM-CP010-PROT-004",
+      "sources": ["PYQ:number_reverse_structure", "V2:ns_digit_interchange", "V4_GAP:DIGIT_REVERSAL"],
+      "visibleGivens": ["three-digit number", "middle digit", "reverse difference", "outer-digit sum"],
+      "requestedUnknown": "original number",
+      "invariant": "100a+10b+c reversal equation",
+      "answerSemantic": "DECIMAL_INTEGER",
+      "owner": "NUM-CP-010",
+      "disposition": "RETAIN_DISCOVERY"
+    },
+    {
+      "prototypeId": "NUM-CP010-PROT-005",
+      "sources": ["V2:ns_unknown_digit_equation", "V4_GAP:CARRY_RECONSTRUCTION"],
+      "visibleGivens": ["column addition", "one missing units digit"],
+      "requestedUnknown": "digit",
+      "invariant": "units-column equality plus carry",
+      "answerSemantic": "DIGIT",
+      "owner": "NUM-CP-010",
+      "disposition": "RETAIN_DISCOVERY"
+    },
+    {
+      "prototypeId": "NUM-CP010-PROT-006",
+      "sources": ["V2:ns_unknown_digit_equation", "V4_GAP:BORROW_RECONSTRUCTION"],
+      "visibleGivens": ["column subtraction", "one missing units digit", "borrow required"],
+      "requestedUnknown": "digit",
+      "invariant": "borrowed units-column equality",
+      "answerSemantic": "DIGIT",
+      "owner": "NUM-CP-010",
+      "disposition": "RETAIN_DISCOVERY"
+    },
+    {
+      "prototypeId": "NUM-CP010-PROT-007",
+      "sources": ["V4_GAP:PALINDROME", "V2:ns_digit_constraints"],
+      "visibleGivens": ["four-digit palindrome", "first digit", "digit sum"],
+      "requestedUnknown": "palindrome",
+      "invariant": "abba symmetry",
+      "answerSemantic": "DECIMAL_INTEGER",
+      "owner": "NUM-CP-010",
+      "disposition": "RETAIN_DISCOVERY"
+    },
+    {
+      "prototypeId": "NUM-CP010-PROT-008",
+      "sources": ["V2:ns_consecutive_digit_number", "V2:ns_digit_constraints"],
+      "visibleGivens": ["three-digit number", "consecutive increasing digits", "digit sum"],
+      "requestedUnknown": "number",
+      "invariant": "relative decimal digit equations",
+      "answerSemantic": "DECIMAL_INTEGER",
+      "owner": "NUM-CP-010",
+      "disposition": "RETAIN_DISCOVERY"
+    }
+  ],
+  "explicitReassignments": [
+    {"family": "digit arrangements / formed-number counts", "owner": "P_AND_C"},
+    {"family": "divisibility-led missing digit", "owner": "NUM-CP-003"},
+    {"family": "terminal digits of powers", "owner": "NUM-CP-009"},
+    {"family": "non-decimal base arithmetic or conversion", "owner": "NUM-CP-013"},
+    {"family": "general equations with incidental digit wording", "owner": "ALGEBRA"},
+    {"family": "coded-number or symbol replacement", "owner": "REASONING"}
+  ]
+}

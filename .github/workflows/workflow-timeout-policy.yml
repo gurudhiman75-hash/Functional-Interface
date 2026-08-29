@@ -1,0 +1,178 @@
+name: Enforce workflow CI hygiene policy
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - .github/workflows/**
+
+permissions:
+  contents: read
+
+concurrency:
+  group: workflow-ci-hygiene-policy-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-changed-workflows:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enforce workflow fanout policy
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+
+          python - <<'PY'
+          import os
+          import re
+          import subprocess
+          from pathlib import Path
+
+          base = os.environ['BASE_SHA']
+          head = os.environ['HEAD_SHA']
+          changed = subprocess.check_output(
+              [
+                  'git', 'diff', '--name-only', base, head, '--',
+                  '.github/workflows/*.yml', '.github/workflows/*.yaml',
+              ],
+              text=True,
+          ).splitlines()
+
+          failed = False
+          timeout_re = re.compile(
+              r'^\s*timeout-minutes:\s*(20|25)(?:\s*(?:#.*)?)?$',
+              re.MULTILINE,
+          )
+          cancel_re = re.compile(r'^\s*cancel-in-progress:\s*true\s*(?:#.*)?$', re.MULTILINE)
+          global_pr_marker = 'CI-FANOUT-ALLOW: global-pr'
+          non_main_marker = 'CI-FANOUT-ALLOW: non-main-base'
+          global_push_marker = 'CI-FANOUT-ALLOW: global-push'
+
+          def event_blocks(lines, event_name):
+              blocks = []
+              for index, line in enumerate(lines):
+                  if not re.fullmatch(rf'  {re.escape(event_name)}:\s*', line):
+                      continue
+                  block = []
+                  cursor = index + 1
+                  while cursor < len(lines):
+                      candidate = lines[cursor]
+                      if not candidate.strip():
+                          block.append(candidate)
+                          cursor += 1
+                          continue
+                      indent = len(candidate) - len(candidate.lstrip(' '))
+                      if indent <= 2:
+                          break
+                      block.append(candidate)
+                      cursor += 1
+                  blocks.append((index, block))
+              return blocks
+
+          def has_path_scope(block):
+              return any(re.fullmatch(r'    paths(?:-ignore)?:\s*', line) for line in block)
+
+          def has_new_main_base(block):
+              for index, line in enumerate(block):
+                  if not re.fullmatch(r'    branches:\s*', line):
+                      continue
+                  cursor = index + 1
+                  while cursor < len(block):
+                      candidate = block[cursor]
+                      if not candidate.strip():
+                          cursor += 1
+                          continue
+                      indent = len(candidate) - len(candidate.lstrip(' '))
+                      if indent <= 4:
+                          break
+                      value = candidate.strip().removeprefix('-').strip().strip('"\'')
+                      if value == 'New-main':
+                          return True
+                      cursor += 1
+              return False
+
+          for filename in changed:
+              path = Path(filename)
+              if not path.is_file():
+                  continue
+
+              text = path.read_text()
+              lines = text.splitlines()
+
+              if timeout_re.search(text):
+                  print(
+                      f'::error file={filename}::20/25-minute job caps are not allowed in '
+                      'new or modified workflows. Use <=15 for a deliberate fast guard, or '
+                      '>=30 for normal validation; 45 minutes is the default for long chapter validation.'
+                  )
+                  failed = True
+
+              has_automatic_pr = bool(event_blocks(lines, 'pull_request')) or bool(
+                  re.search(r'^on:\s*\[[^\]]*pull_request[^\]]*\]\s*$', text, re.MULTILINE)
+              )
+              if has_automatic_pr:
+                  if 'concurrency:' not in text or not cancel_re.search(text):
+                      print(
+                          f'::error file={filename}::Automatic PR workflows must define concurrency '
+                          'with cancel-in-progress: true so superseded commits stop consuming runners.'
+                      )
+                      failed = True
+
+              if re.search(r'^on:\s*\[[^\]]*pull_request[^\]]*\]\s*$', text, re.MULTILINE):
+                  if global_pr_marker not in text:
+                      print(
+                          f'::error file={filename}::Shorthand pull_request triggers cannot be safely '
+                          'path/base scoped. Expand the on: block, or mark an intentional tiny all-PR guard '
+                          'with "CI-FANOUT-ALLOW: global-pr".'
+                      )
+                      failed = True
+
+              for index, block in event_blocks(lines, 'pull_request'):
+                  if global_pr_marker not in text and not has_path_scope(block):
+                      print(
+                          f'::error file={filename},line={index + 1}::Unscoped pull_request trigger '
+                          'would run on unrelated PRs. Add paths/paths-ignore, or add the explicit '
+                          'marker "CI-FANOUT-ALLOW: global-pr" only for a deliberately tiny all-PR guard.'
+                      )
+                      failed = True
+
+                  if global_pr_marker not in text and non_main_marker not in text and not has_new_main_base(block):
+                      print(
+                          f'::error file={filename},line={index + 1}::PR validation must target New-main '
+                          'explicitly via branches: [New-main]. Stacked/non-main-base validation requires '
+                          'the documented marker "CI-FANOUT-ALLOW: non-main-base".'
+                      )
+                      failed = True
+
+                  for candidate in block:
+                      effective = candidate.split('#', 1)[0]
+                      if filename in effective:
+                          print(
+                              f'::error file={filename},line={index + 1}::A workflow must not list its own '
+                              'workflow file in pull_request.paths. Editing CI definitions should run only '
+                              'the central workflow-hygiene gate, not every edited chapter validator.'
+                          )
+                          failed = True
+                          break
+
+              for index, block in event_blocks(lines, 'push'):
+                  if global_push_marker not in text and not has_path_scope(block):
+                      print(
+                          f'::error file={filename},line={index + 1}::Automatic push workflows must be '
+                          'path-scoped. Use "CI-FANOUT-ALLOW: global-push" only for a genuinely global '
+                          'and lightweight production guard.'
+                      )
+                      failed = True
+
+          raise SystemExit(1 if failed else 0)
+          PY

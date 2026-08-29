@@ -1,0 +1,47 @@
+name: Validate SRI NS-EXP-001 P0 correctness
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v3/topics/NumberSystem/subtopics/IndicesAndExponents/NS-EXP-001/**
+      - .github/workflows/sri-ns-exp-001-p0.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sri-ns-exp-001-p0-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-ns-exp-001:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle NS-EXP-001 P0 test
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v3/ns-exp-001
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v3/topics/NumberSystem/subtopics/IndicesAndExponents/NS-EXP-001/ns-exp-001.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v3/ns-exp-001/ns-exp-001.test.mjs
+      - name: Run exhaustive NS-EXP-001 P0 test
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v3/ns-exp-001/ns-exp-001.test.mjs

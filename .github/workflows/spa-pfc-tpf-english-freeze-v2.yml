@@ -1,0 +1,45 @@
+name: Validate SPA PFC TPF English Freeze V2
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/**"
+      - "artifacts/api-server/src/reasoning-v1/tests/spatial-*.test.ts"
+      - "artifacts/admin-app/src/features/question-studio/**"
+      - "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-pfc-tpf-english-freeze-v2:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle PFC TPF English freeze V2 gate
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-paper-folding-english-freeze-v2.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-paper-folding-english-freeze-v2.test.mjs
+      - name: Validate PFC TPF English freeze V2
+        run: cd artifacts/api-server && node dist/reasoning-v1/spatial/spatial-paper-folding-english-freeze-v2.test.mjs
+      - name: Upload English freeze V2 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-pfc-tpf-english-freeze-v2
+          path: artifacts/api-server/dist/reasoning-v1/spatial/spa-pfc-tpf-english-freeze-v2-evidence.json
+          if-no-files-found: error

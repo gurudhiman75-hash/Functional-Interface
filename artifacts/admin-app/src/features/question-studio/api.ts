@@ -104,6 +104,7 @@ export interface CreateGenerationRunInput {
   subtopic?: string;
   language: string;
   seed?: string;
+  canonicalProblemId?: string;
 }
 
 export interface ConvertedQuestion {

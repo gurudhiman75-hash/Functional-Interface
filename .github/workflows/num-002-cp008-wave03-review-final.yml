@@ -1,0 +1,84 @@
+name: Validate NUM-CP-008 Wave 03 final learner review
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/num-002-cp008-wave03-review-final.yml"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/wave03/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp008-wave03-review-final-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-wave03-final-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle retained Wave 03 mathematical authority
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/wave03/runtime-authority.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-wave03-authority-regression.mjs
+
+      - name: Run retained Wave 03 mathematical authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-authority-regression.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-authority-regression.log
+
+      - name: Bundle final learner-review parity and quality gate
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/wave03/runtime-review-final.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-wave03-review-final.mjs
+
+      - name: Run final learner-review parity and quality gate
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-review-final.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-review-final.log
+
+      - name: Bundle final review exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-008/wave03/review-final-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-002-cp008-wave03-review-final-export.mjs
+
+      - name: Generate final English review pack
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-002-cp008-wave03-review-final-export.mjs
+
+      - name: Upload final Wave 03 review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp008-wave03-final-learner-review
+          retention-days: 14
+          path: |
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-authority-regression.log
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-review-final.log
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-review-final.json
+            artifacts/api-server/dist/quant-v4/num-002-cp008-wave03-review-final.md
+          if-no-files-found: warn

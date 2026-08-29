@@ -1,0 +1,46 @@
+name: Validate SRI Quant V4 Phase 1 power foundations
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sri-v4-phase1-power-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-sri-phase1-power:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Reject Math.random in SRI Phase 1
+        run: |
+          if grep -R "Math\.random" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices artifacts/api-server/src/quant-v4/shared/surds-indices --include='*.ts'; then
+            echo "Math.random is forbidden in SRI V4 production/discovery code."
+            exit 1
+          fi
+      - name: Bundle Phase 1 discovery audit
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/sri
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/phase1-power-discovery.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/phase1-power-discovery.test.mjs
+      - name: Run Phase 1 discovery audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/phase1-power-discovery.test.mjs

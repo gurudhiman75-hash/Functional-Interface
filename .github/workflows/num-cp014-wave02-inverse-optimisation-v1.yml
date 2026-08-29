@@ -1,0 +1,49 @@
+name: Validate NUM-CP-014 Wave02 inverse optimisation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/**"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp014-wave02-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp014-wave02:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle Wave02 audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-014/wave02"
+          pnpm --dir artifacts/api-server exec esbuild "$base/runtime.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-wave02-runtime.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$base/independent-answer-impact.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-wave02-independent.mjs
+          pnpm --dir artifacts/api-server exec esbuild "$base/solution-class-admission.test.ts" --bundle --platform=node --format=esm --outfile=dist/quant-v4/num-cp014-wave02-class-admission.mjs
+      - name: Run Wave02 audits
+        shell: bash
+        run: |
+          set -euo pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp014-wave02-runtime.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp014-wave02-independent.mjs
+          node artifacts/api-server/dist/quant-v4/num-cp014-wave02-class-admission.mjs
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build

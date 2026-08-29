@@ -1,0 +1,78 @@
+name: Validate NUM-CP-004 Hindi Punjabi Rule-First Localization
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
+      - .github/workflows/num-001-cp004-hi-pa-localization.yml
+      - package.json
+      - pnpm-lock.yaml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-num-cp004-hi-pa-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-num-cp004-hi-pa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle frozen CP004 English Editorial V2 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-004/permanent/editorial-v2-audit.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp004-localization-english-regression.mjs
+
+      - name: Run frozen CP004 English Editorial V2 audit
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/num-cp004-localization-english-regression.mjs
+
+      - name: Bundle Hindi Punjabi rule-first parity audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-001/NUM-CP-004/localization/runtime-parity.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp004-hi-pa-parity.mjs
+
+      - name: Run Hindi Punjabi rule-first parity audit
+        working-directory: artifacts/api-server
+        shell: bash
+        run: |
+          set -o pipefail
+          node dist/quant-v4/num-cp004-hi-pa-parity.mjs \
+            2>&1 | tee dist/quant-v4/num-cp004-hi-pa-parity.log
+
+      - name: Upload Hindi Punjabi review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-001-cp004-hi-pa-rule-first-review
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp004-hi-pa-parity.log
+            artifacts/api-server/dist/quant-v4/num-cp004-hi-pa-localization/num-cp004-hi-pa-review.json
+            artifacts/api-server/dist/quant-v4/num-cp004-hi-pa-localization/num-cp004-hi-pa-review.md
+            artifacts/api-server/dist/quant-v4/num-cp004-hi-pa-localization/num-cp004-hi-pa-audit.json
+          if-no-files-found: warn
+          retention-days: 30

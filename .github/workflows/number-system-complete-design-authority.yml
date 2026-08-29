@@ -7,7 +7,6 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/**
-      - .github/workflows/number-system-complete-design-authority.yml
       - package.json
       - pnpm-lock.yaml
   workflow_dispatch:
@@ -22,7 +21,7 @@ concurrency:
 jobs:
   validate-number-system-complete-design:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -34,22 +33,37 @@ jobs:
         run: corepack enable
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-      - name: Bundle Number System design authority audit
+      - name: Bundle Number System final allocation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/design/number-system-current-allocation-registry.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/number-system-final-allocation-authority.test.mjs
+      - name: Run Number System final allocation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/number-system-final-allocation-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/number-system-final-allocation-authority.log
+      - name: Bundle Number System design reconciliation audit
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/design/number-system-design-registry.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/number-system-complete-design-authority.test.mjs
-      - name: Run Number System design authority audit
+      - name: Run Number System design reconciliation audit
         shell: bash
         run: |
           set -o pipefail
           node artifacts/api-server/dist/quant-v4/number-system-complete-design-authority.test.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/number-system-complete-design-authority.log
-      - name: Upload Number System design evidence
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Upload Number System final authority evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: number-system-complete-design-authority
-          path: artifacts/api-server/dist/quant-v4/number-system-complete-design-authority.log
+          name: number-system-final-implementation-authority
+          path: |
+            artifacts/api-server/dist/quant-v4/number-system-final-allocation-authority.log
+            artifacts/api-server/dist/quant-v4/number-system-complete-design-authority.log
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 30

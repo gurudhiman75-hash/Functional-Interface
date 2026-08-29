@@ -1,0 +1,60 @@
+name: Validate NUM-CP-012 Wave 03 representation saturation
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-001/cp001-number-system-runtime.ts"
+      - ".github/workflows/num-cp012-wave03-representation-saturation-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp012-wave03-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp012-wave03-representation-saturation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle Wave 03 representation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-012/wave03/representation-saturation.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp012-wave03-representation-saturation.mjs
+
+      - name: Run Wave 03 representation saturation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp012-wave03-representation-saturation.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp012-wave03-representation-saturation.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Upload CP012 Wave 03 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp012-wave03-representation-saturation-v1
+          path: artifacts/api-server/dist/quant-v4/num-cp012-wave03-representation-saturation.log
+          if-no-files-found: error
+          retention-days: 30

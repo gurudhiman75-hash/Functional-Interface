@@ -9,27 +9,94 @@ interface PublicPageProps {
   children: ReactNode;
 }
 
-export function usePageMeta(title: string, description: string) {
+type PageMetaOptions = {
+  canonicalPath?: string;
+  robots?: string;
+  imagePath?: string;
+  type?: "website" | "article";
+};
+
+const CANONICAL_ALIASES: Record<string, string> = {
+  "/tests": "/exams",
+  "/privacy": "/privacy-policy",
+  "/login": "/login/student",
+};
+
+function canonicalPathFor(pathname: string) {
+  return CANONICAL_ALIASES[pathname] ?? pathname;
+}
+
+function ensureMetaTag(attribute: "name" | "property", key: string) {
+  let element = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`);
+  const created = !element;
+  if (!element) {
+    element = document.createElement("meta");
+    element.setAttribute(attribute, key);
+    document.head.appendChild(element);
+  }
+  return { element, created, previous: element.getAttribute("content") };
+}
+
+function ensureCanonicalLink() {
+  let element = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  const created = !element;
+  if (!element) {
+    element = document.createElement("link");
+    element.rel = "canonical";
+    document.head.appendChild(element);
+  }
+  return { element, created, previous: element.getAttribute("href") };
+}
+
+export function usePageMeta(title: string, description: string, options: PageMetaOptions = {}) {
+  const canonicalPath = options.canonicalPath;
+  const robots = options.robots ?? "index,follow";
+  const imagePath = options.imagePath ?? "/opengraph.jpg";
+  const type = options.type ?? "website";
+
   useEffect(() => {
     const previousTitle = document.title;
-    const previousDescription = document.querySelector('meta[name="description"]')?.getAttribute("content");
-    document.title = `${title} | ExamTree`;
+    const fullTitle = title.includes("ExamTree") ? title : `${title} | ExamTree`;
+    const resolvedCanonicalPath = canonicalPath ?? canonicalPathFor(window.location.pathname);
+    const canonicalUrl = new URL(resolvedCanonicalPath, window.location.origin).toString();
+    const imageUrl = new URL(imagePath, window.location.origin).toString();
+    document.title = fullTitle;
 
-    let descriptionTag = document.querySelector('meta[name="description"]');
-    if (!descriptionTag) {
-      descriptionTag = document.createElement("meta");
-      descriptionTag.setAttribute("name", "description");
-      document.head.appendChild(descriptionTag);
-    }
-    descriptionTag.setAttribute("content", description);
+    const records = [
+      ["name", "description", description],
+      ["name", "robots", robots],
+      ["name", "twitter:card", "summary_large_image"],
+      ["name", "twitter:title", fullTitle],
+      ["name", "twitter:description", description],
+      ["name", "twitter:image", imageUrl],
+      ["property", "og:title", fullTitle],
+      ["property", "og:description", description],
+      ["property", "og:type", type],
+      ["property", "og:url", canonicalUrl],
+      ["property", "og:image", imageUrl],
+    ] as const;
+
+    const metaRecords = records.map(([attribute, key, value]) => {
+      const record = ensureMetaTag(attribute, key);
+      record.element.setAttribute("content", value);
+      return record;
+    });
+
+    const canonical = ensureCanonicalLink();
+    canonical.element.setAttribute("href", canonicalUrl);
 
     return () => {
       document.title = previousTitle;
-      if (previousDescription) {
-        descriptionTag?.setAttribute("content", previousDescription);
+      for (const record of metaRecords.reverse()) {
+        if (record.created) record.element.remove();
+        else if (record.previous === null) record.element.removeAttribute("content");
+        else record.element.setAttribute("content", record.previous);
       }
+      if (canonical.created) canonical.element.remove();
+      else if (canonical.previous === null) canonical.element.removeAttribute("href");
+      else canonical.element.setAttribute("href", canonical.previous);
     };
-  }, [description, title]);
+  }, [canonicalPath, description, imagePath, robots, title, type]);
 }
 
 export function PublicPage({ eyebrow, title, description, children }: PublicPageProps) {
@@ -88,4 +155,3 @@ export function SeoRouteGrid({ routes }: { routes: { label: string; href: string
     </div>
   );
 }
-

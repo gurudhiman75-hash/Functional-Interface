@@ -28,7 +28,23 @@ export default defineConfig({
   projects: [
     {
       name: "chromium",
+      testIgnore: /student-(timer-mobile-hardening|low-end-performance|cross-browser-polish)\.spec\.ts/,
       use: { ...devices["Desktop Chrome"] },
+    },
+    {
+      name: "mobile-chromium",
+      testMatch: /student-(production-hardening|timer-mobile-hardening|low-end-performance)\.spec\.ts/,
+      use: { ...devices["Pixel 5"] },
+    },
+    {
+      name: "firefox-smoke",
+      testMatch: /student-cross-browser-polish\.spec\.ts/,
+      use: { ...devices["Desktop Firefox"] },
+    },
+    {
+      name: "webkit-smoke",
+      testMatch: /student-cross-browser-polish\.spec\.ts/,
+      use: { ...devices["Desktop Safari"] },
     },
   ],
 });
