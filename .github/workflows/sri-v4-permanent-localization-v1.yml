@@ -1,0 +1,105 @@
+name: Validate SRI Quant V4 Permanent Localization V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/shared/surds-indices/**
+      - artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sri-v4-permanent-localization-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-sri-permanent-localization-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Reject Math.random in SRI
+        run: |
+          if grep -R "Math\.random" artifacts/api-server/src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices artifacts/api-server/src/quant-v4/shared/surds-indices --include='*.ts'; then
+            echo "Math.random is forbidden in SRI V4 code."
+            exit 1
+          fi
+      - name: Bundle English freeze regression
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/sri
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/permanent-english-freeze-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/permanent-english-freeze-v1.test.mjs
+      - name: Run English freeze regression
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/permanent-english-freeze-v1.test.mjs
+      - name: Bundle Hindi Punjabi semantic parity audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/permanent-localization-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/permanent-localization-v1.test.mjs
+      - name: Run 2,784-question localization parity audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/permanent-localization-v1.test.mjs
+      - name: Bundle strict editorial language-quality audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/permanent-localization-editorial-quality-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/permanent-localization-editorial-quality-v1.test.mjs
+      - name: Run strict Hindi Punjabi editorial language-quality audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/permanent-localization-editorial-quality-v1.test.mjs
+      - name: Bundle governed multilingual freeze audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/tests/permanent-multilingual-freeze-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/permanent-multilingual-freeze-v1.test.mjs
+      - name: Run 2,784-package multilingual freeze audit
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/permanent-multilingual-freeze-v1.test.mjs
+      - name: Bundle multilingual review exporter
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/NumberSystem/subtopics/SurdsAndIndices/permanent-localization-review-export-v1.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/quant-v4/sri/permanent-localization-review-export-v1.mjs
+      - name: Generate 368-row Hindi Punjabi reviewer corpus
+        run: |
+          cd artifacts/api-server
+          node dist/quant-v4/sri/permanent-localization-review-export-v1.mjs
+      - name: Verify localization reviewer corpus files
+        run: |
+          test -s artifacts/api-server/dist/quant-v4/sri/sri-permanent-localization-review-v1.json
+          test -s artifacts/api-server/dist/quant-v4/sri/sri-permanent-localization-review-v1.md
+      - name: Upload localization review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: sri-v4-permanent-localization-review-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/sri/sri-permanent-localization-review-v1.json
+            artifacts/api-server/dist/quant-v4/sri/sri-permanent-localization-review-v1.md
+          if-no-files-found: error
