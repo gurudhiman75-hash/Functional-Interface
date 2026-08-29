@@ -2,6 +2,8 @@ name: Validate Notes Studio NS-002 Source Pack
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - 'artifacts/api-server/src/notes-studio/**'
       - 'artifacts/api-server/src/routes/admin-notes-studio.ts'
@@ -9,12 +11,17 @@ on:
       - 'artifacts/api-server/migrations/20260829_notes_studio_source_pack.sql'
       - 'artifacts/admin-app/src/pages/content/NotesStudio**'
       - 'artifacts/admin-app/src/App.tsx'
-      - '.github/workflows/notes-studio-ns002-source-pack.yml'
+      - 'artifacts/admin-app/src/types/es2021-string.d.ts'
   workflow_dispatch:
+
+concurrency:
+  group: notes-studio-ns002-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-notes-studio-source-pack:
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
