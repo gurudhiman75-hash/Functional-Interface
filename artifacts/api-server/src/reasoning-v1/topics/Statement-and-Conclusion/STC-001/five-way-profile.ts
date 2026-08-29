@@ -26,14 +26,20 @@ const STEM: Record<StcLocale, string> = {
   "pa-IN": "ਕਥਨ ਪੜ੍ਹੋ ਅਤੇ ਨਿਰਧਾਰਤ ਕਰੋ ਕਿ ਕਿਹੜਾ/ਕਿਹੜੇ ਨਤੀਜੇ ਤਰਕਸੰਗਤ ਤੌਰ ਤੇ ਅਨੁਸਰਣ ਕਰਦੇ ਹਨ। 'ਜਾਂ I ਜਾਂ II' ਕੇਵਲ ਤਦੋਂ ਚੁਣੋ ਜਦੋਂ ਦੋਵਾਂ ਵਿੱਚੋਂ ਠੀਕ ਇੱਕ ਨਤੀਜਾ ਲਾਜ਼ਮੀ ਸੱਚ ਹੋਵੇ, ਪਰ ਕਥਨ ਇਹ ਨਿਰਧਾਰਤ ਨਾ ਕਰੇ ਕਿ ਕਿਹੜਾ।",
 };
 
+function quoteText(value: string): string {
+  return value.trim().replace(/[.!?।]+$/u, "");
+}
+
 function eitherExplanation(locale: StcLocale, first: string, second: string): string {
+  const firstQuoted = quoteText(first);
+  const secondQuoted = quoteText(second);
   if (locale === "en-IN") {
-    return `The statement guarantees exactly one of these two outcomes: “${first}” or “${second}”. It rules out both occurring together but does not identify which one occurs. Therefore, either I or II follows.`;
+    return `The statement guarantees exactly one of these two outcomes: “${firstQuoted}” or “${secondQuoted}”. It rules out both occurring together but does not identify which one occurs. Therefore, either I or II follows.`;
   }
   if (locale === "hi-IN") {
-    return `कथन इन दो परिणामों में से ठीक एक को अनिवार्य करता है: “${first}” या “${second}”। दोनों एक साथ नहीं हो सकते, लेकिन कथन यह निश्चित नहीं करता कि कौन-सा होगा। इसलिए या तो I या II अनुसरण करता है।`;
+    return `कथन इन दो परिणामों में से ठीक एक को अनिवार्य करता है: “${firstQuoted}” या “${secondQuoted}”। दोनों एक साथ नहीं हो सकते, लेकिन कथन यह निश्चित नहीं करता कि कौन-सा होगा। इसलिए या तो I या II अनुसरण करता है।`;
   }
-  return `ਕਥਨ ਇਨ੍ਹਾਂ ਦੋ ਨਤੀਜਿਆਂ ਵਿੱਚੋਂ ਠੀਕ ਇੱਕ ਨੂੰ ਲਾਜ਼ਮੀ ਕਰਦਾ ਹੈ: “${first}” ਜਾਂ “${second}”। ਦੋਵੇਂ ਇਕੱਠੇ ਨਹੀਂ ਹੋ ਸਕਦੇ, ਪਰ ਕਥਨ ਇਹ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕਰਦਾ ਕਿ ਕਿਹੜਾ ਹੋਵੇਗਾ। ਇਸ ਲਈ ਜਾਂ I ਜਾਂ II ਅਨੁਸਰਣ ਕਰਦਾ ਹੈ।`;
+  return `ਕਥਨ ਇਨ੍ਹਾਂ ਦੋ ਨਤੀਜਿਆਂ ਵਿੱਚੋਂ ਠੀਕ ਇੱਕ ਨੂੰ ਲਾਜ਼ਮੀ ਕਰਦਾ ਹੈ: “${firstQuoted}” ਜਾਂ “${secondQuoted}”। ਦੋਵੇਂ ਇਕੱਠੇ ਨਹੀਂ ਹੋ ਸਕਦੇ, ਪਰ ਕਥਨ ਇਹ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕਰਦਾ ਕਿ ਕਿਹੜਾ ਹੋਵੇਗਾ। ਇਸ ਲਈ ਜਾਂ I ਜਾਂ II ਅਨੁਸਰਣ ਕਰਦਾ ਹੈ।`;
 }
 
 function fiveWayIndex(answerClass: GeneratedStcQuestion["answerClass"]): number {
