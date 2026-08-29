@@ -1,4 +1,4 @@
-name: Validate BTD-001 CP007 Hindi Punjabi Localization V5
+name: Validate BTD-001 CP007 Hindi Punjabi Localization V6
 
 on:
   push:
@@ -19,11 +19,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: btd-cp007-hi-pa-localization-v5-${{ github.ref }}
+  group: btd-cp007-hi-pa-localization-v6-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate-btd-cp007-hi-pa-localization-v5:
+  validate-btd-cp007-hi-pa-localization-v6:
     runs-on: ubuntu-latest
     timeout-minutes: 35
     env:
@@ -65,10 +65,10 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-007/btd-cp007-hi-pa-localization-v5-audit.ts | tee btd-cp007-hi-pa-localization-v5.log
-          grep -q 'PASS_BTD_001_CP007_HI_PA_LOCALIZATION_AUDIT_V5' btd-cp007-hi-pa-localization-v5.log
-          test -s btd-cp007-hi-pa-review-v5.md
-          test -s btd-cp007-hi-pa-diversity-v5.json
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-007/btd-cp007-hi-pa-localization-v6-audit.ts | tee btd-cp007-hi-pa-localization-v6.log
+          grep -q 'PASS_BTD_001_CP007_HI_PA_LOCALIZATION_AUDIT_V6' btd-cp007-hi-pa-localization-v6.log
+          test -s btd-cp007-hi-pa-review-v6.md
+          test -s btd-cp007-hi-pa-diversity-v6.json
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
@@ -76,18 +76,18 @@ jobs:
       - name: Record exact validation head
         shell: bash
         run: |
-          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp007-hi-pa-localization-v5-head.log
+          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp007-hi-pa-localization-v6-head.log
           test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
 
       - name: Upload localization review evidence
         uses: actions/upload-artifact@v4
         with:
-          name: btd-cp007-hi-pa-localization-v5
+          name: btd-cp007-hi-pa-localization-v6
           path: |
             btd-cp007-upstream-freeze.log
             btd-cp007-upstream-studio.log
-            btd-cp007-hi-pa-localization-v5.log
-            btd-cp007-hi-pa-localization-v5-head.log
-            btd-cp007-hi-pa-review-v5.md
-            btd-cp007-hi-pa-diversity-v5.json
+            btd-cp007-hi-pa-localization-v6.log
+            btd-cp007-hi-pa-localization-v6-head.log
+            btd-cp007-hi-pa-review-v6.md
+            btd-cp007-hi-pa-diversity-v6.json
           retention-days: 30
