@@ -25,6 +25,8 @@ const Subcategory = lazy(() => import("@/pages/subcategory"));
 const Test = lazy(() => import("@/pages/test"));
 const Result = lazy(() => import("@/pages/canonical-result"));
 const Profile = lazy(() => import("@/pages/profile"));
+const Store = lazy(() => import("@/pages/store"));
+const StoreProduct = lazy(() => import("@/pages/store-product"));
 const About = lazy(() => import("@/pages/about"));
 const Contact = lazy(() => import("@/pages/contact"));
 const PrivacyPolicy = lazy(() => import("@/pages/privacy-policy"));
@@ -128,11 +130,11 @@ function AnalyticsUnavailable() {
   );
 }
 
-function CommerceUnavailable() {
+function PurchaseHistoryUnavailable() {
   return (
     <UnavailableFeature
-      title="Packages and payments are not live yet"
-      description="Canonical packages, Razorpay verification, orders, coupons, and entitlements are still being implemented. Live tests remain available through the Tests section."
+      title="Purchase history is not available in the student app yet"
+      description="The Store catalog and checkout now use canonical commerce, but a student-facing order and entitlement history API is not exposed yet. Paid test access remains enforced by the server."
     />
   );
 }
@@ -176,6 +178,13 @@ function Router() {
           <Route path="/category/:id" component={() => renderCatalogPublicRoute(Category)} />
           <Route path="/subcategory/:id" component={() => renderCatalogPublicRoute(Subcategory)} />
 
+          <Route path="/store/product/:id" component={() => renderPublicRoute(StoreProduct)} />
+          <Route path="/store" component={() => renderPublicRoute(Store)} />
+          <Route path="/packages/success/:id" component={() => renderPublicRoute(StoreProduct)} />
+          <Route path="/packages/:id" component={() => renderPublicRoute(StoreProduct)} />
+          <Route path="/packages" component={() => renderPublicRoute(Store)} />
+          <Route path="/my-packages" component={() => renderPublicRoute(PurchaseHistoryUnavailable)} />
+
           <Route path="/dashboard" component={() => renderAppRoute(Dashboard)} />
           <Route path="/test-series/:id" component={() => <ProtectedRoute component={TestSeries} />} />
           <Route path="/test/:id" component={() => <ProtectedRoute component={Test} layout="none" />} />
@@ -183,11 +192,6 @@ function Router() {
           <Route path="/performance" component={() => renderAppRoute(AnalyticsUnavailable)} />
           <Route path="/profile" component={() => renderAppRoute(Profile)} />
           <Route path="/report-question" component={() => renderAppRoute(ReportQuestion)} />
-
-          <Route path="/packages/success/:id" component={() => renderPublicRoute(CommerceUnavailable)} />
-          <Route path="/packages/:id" component={() => renderPublicRoute(CommerceUnavailable)} />
-          <Route path="/packages" component={() => renderPublicRoute(CommerceUnavailable)} />
-          <Route path="/my-packages" component={() => renderPublicRoute(CommerceUnavailable)} />
 
           <Route path="/about" component={() => renderPublicRoute(About)} />
           <Route path="/contact" component={() => renderPublicRoute(Contact)} />
