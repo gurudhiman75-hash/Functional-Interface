@@ -71,9 +71,18 @@ export function StickyHeader() {
     return null;
   }, [location, nodes]);
 
-  const selectorLabel = selected
+  const routeContextLabel = location === "/dashboard"
+    ? "My Activity"
+    : location === "/profile"
+      ? "My Account"
+      : location === "/result"
+        ? "Result & Analysis"
+        : location.startsWith("/test-series/")
+          ? "Test Series"
+          : null;
+  const selectorLabel = routeContextLabel ?? (selected
     ? [selected.category.name, selected.subcategory?.name, selected.test?.name].filter(Boolean).join(" > ")
-    : "Select Targeted Exam";
+    : "Select Targeted Exam");
 
   return (
     <header
@@ -118,7 +127,7 @@ export function StickyHeader() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => setLocation("/tests")}
+                  onClick={() => setLocation("/exams")}
                   className="et-interactive min-h-11 shrink-0 rounded-xl border border-border bg-card px-3 py-2 text-xs font-semibold text-muted-foreground hover:bg-muted hover:text-primary"
                 >
                   <span className="hidden sm:inline">Open full explorer</span>
