@@ -5,9 +5,14 @@ import {
   runScheduledIntelligenceProcessing,
 } from "./daily-orchestration";
 import { reconcilePrimaryEnrichedEvents } from "./enriched-event-reconciliation";
-import { runCurrentAffairsLocalization } from "./localization-runtime";
+import {
+  createLocalizedDailyCompilations,
+  runCurrentAffairsLocalization,
+} from "./localization-runtime";
 import { holdManualAuthorityEventsForReview } from "./manual-enrichment-guard";
-import { shouldBuildDailyDrafts } from "./orchestration-policy";
+import { previousIndiaDate, shouldBuildDailyDrafts } from "./orchestration-policy";
+
+const DAILY_EXAM_FAMILIES = ["ssc", "banking", "punjab"] as const;
 
 async function main() {
   const now = new Date();
@@ -16,10 +21,19 @@ async function main() {
   const intelligence = await runScheduledIntelligenceProcessing(now);
   const authoring = await runSourceIndependentAuthoring(200);
   const localization = await runCurrentAffairsLocalization(200);
+  const localizedDaily = await createLocalizedDailyCompilations(previousIndiaDate(now), DAILY_EXAM_FAMILIES);
   const daily = shouldBuildDailyDrafts(now)
     ? await runDailyDraftGeneration(now)
     : null;
-  process.stdout.write(`${JSON.stringify({ manualAuthority, enrichedEvents, intelligence, authoring, localization, daily })}\n`);
+  process.stdout.write(`${JSON.stringify({
+    manualAuthority,
+    enrichedEvents,
+    intelligence,
+    authoring,
+    localization,
+    localizedDaily,
+    daily,
+  })}\n`);
 }
 
 main()
