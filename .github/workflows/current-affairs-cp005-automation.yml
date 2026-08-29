@@ -1,0 +1,97 @@
+name: Validate Current Affairs Studio CP005
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp001-foundation
+      - feature/current-affairs-studio-cp002-ingestion
+      - feature/current-affairs-studio-cp003-intelligence
+      - feature/current-affairs-studio-cp004-content
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs*.ts"
+      - "artifacts/api-server/src/routes/index.ts"
+      - "artifacts/api-server/migrations/20260829_current_affairs_automation.sql"
+      - "build-current-affairs-worker.sh"
+      - "render.yaml"
+      - ".github/workflows/current-affairs-cp005-automation.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp005-scheduled-ingestion
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs*.ts"
+      - "artifacts/api-server/src/routes/index.ts"
+      - "artifacts/api-server/migrations/20260829_current_affairs_automation.sql"
+      - "build-current-affairs-worker.sh"
+      - "render.yaml"
+      - ".github/workflows/current-affairs-cp005-automation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp005-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-automation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Current Affairs CP001 contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+
+      - name: Run Current Affairs CP002 ingestion contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+
+      - name: Run Current Affairs CP003 intelligence contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+
+      - name: Run Current Affairs CP004 content contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+
+      - name: Run Current Affairs CP005 automation contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+
+      - name: Compile scheduled feed worker
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/feed-worker.ts \
+            --bundle \
+            --packages=external \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/current-affairs-feed-worker.mjs
+
+      - name: Verify Render cron blueprint
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq 'name: examtree-current-affairs-feed-ingestion' render.yaml
+          grep -Fq 'schedule: "0 */3 * * *"' render.yaml
+          grep -Fq 'buildCommand: bash build-current-affairs-worker.sh' render.yaml
+          grep -Fq 'artifacts/api-server/dist/current-affairs-feed-worker.mjs' render.yaml
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
