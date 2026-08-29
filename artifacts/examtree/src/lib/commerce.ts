@@ -31,6 +31,69 @@ export type CommerceCheckoutOrder = {
   keyId: string;
 };
 
+export type CommercePurchaseOrder = {
+  id: string;
+  orderNumber: string;
+  status: string;
+  currency: string;
+  subtotalMinor: number;
+  discountMinor: number;
+  taxMinor: number;
+  totalMinor: number;
+  refundedMinor: number;
+  paymentStatus: string | null;
+  createdAt: string;
+  updatedAt: string;
+  paidAt: string | null;
+  cancelledAt: string | null;
+  expiresAt: string | null;
+};
+
+export type CommercePurchaseItem = {
+  id: string;
+  orderId: string;
+  productId: string;
+  productVersionId: string;
+  productCode: string;
+  title: string;
+  description: string;
+  validityDays: number | null;
+  testCount: number;
+  quantity: number;
+  unitPriceMinor: number;
+  discountMinor: number;
+  taxMinor: number;
+  totalMinor: number;
+  createdAt: string;
+};
+
+export type CommerceEntitlement = {
+  id: string;
+  orderItemId: string | null;
+  orderId: string | null;
+  productVersionId: string;
+  productId: string;
+  productCode: string;
+  productTitle: string;
+  productDescription: string;
+  status: string;
+  accessStatus: string;
+  startsAt: string;
+  endsAt: string | null;
+  revokedAt: string | null;
+  revokeReason: string | null;
+  grantSource: string;
+  createdAt: string;
+  testCount: number;
+};
+
+export type CommercePurchasesResponse = {
+  orders: CommercePurchaseOrder[];
+  items: CommercePurchaseItem[];
+  entitlements: CommerceEntitlement[];
+  generatedAt: string;
+};
+
 type RazorpaySuccess = {
   razorpay_payment_id: string;
   razorpay_order_id: string;
@@ -55,6 +118,10 @@ declare global {
 
 export async function getCommerceProducts(): Promise<CommerceProductsResponse> {
   return apiRequest<CommerceProductsResponse>("/commerce/products");
+}
+
+export async function getCommercePurchases(): Promise<CommercePurchasesResponse> {
+  return apiRequest<CommercePurchasesResponse>("/commerce/purchases");
 }
 
 function checkoutStorageKey(productId: string) {

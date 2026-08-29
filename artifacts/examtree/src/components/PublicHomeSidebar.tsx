@@ -8,6 +8,7 @@ import {
   Headphones,
   Home,
   LayoutDashboard,
+  ReceiptText,
   Settings,
   ShoppingBag,
 } from "lucide-react";
@@ -27,6 +28,7 @@ const mainItems: SidebarItem[] = [
   { href: "/", label: "Home", icon: Home },
   { href: "/exams", label: "Explore Exams", icon: ClipboardList },
   { href: "/store", label: "Store", icon: ShoppingBag },
+  { href: "/my-packages", label: "My Purchases", icon: ReceiptText, authNext: "/my-packages" },
   { href: "/dashboard", label: "My Tests", icon: LayoutDashboard, authNext: "/dashboard" },
   { label: "Analytics", icon: BarChart3, disabled: true },
   { label: "Bookmarks", icon: Bookmark, disabled: true },
@@ -58,6 +60,7 @@ function isActiveRoute(location: string, href: string) {
       || location.startsWith("/store/")
       || location.startsWith("/packages/");
   }
+  if (href === "/my-packages") return location === "/my-packages" || location === "/purchases";
   return location === href || location.startsWith(`${href}/`);
 }
 
