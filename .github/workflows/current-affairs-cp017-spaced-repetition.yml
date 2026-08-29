@@ -94,8 +94,8 @@ jobs:
           grep -Fq 'NEW.correct_index IS DISTINCT FROM expected_correct_index' "$schema"
           grep -Fq "WHEN NEW.selected_index = expected_correct_index THEN 'correct'" "$schema"
           grep -Fq 'NEW.result IS DISTINCT FROM expected_result' "$schema"
-          grep -Fq "delivery.status <> 'published'" "$schema"
-          grep -Fq "release.status <> 'approved'" "$schema"
+          grep -Fq "item_row.delivery_status <> 'published'" "$schema"
+          grep -Fq "item_row.release_status <> 'approved'" "$schema"
 
       - name: Verify D3-D7-D15-D30-D60 scheduling and retake protection
         shell: bash
