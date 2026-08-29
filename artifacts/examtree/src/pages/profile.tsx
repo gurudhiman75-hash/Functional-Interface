@@ -137,7 +137,7 @@ export default function ProfilePage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-[#f7f8fc] px-4 py-10 sm:px-6">
+      <div className="min-h-screen bg-background px-4 py-10 sm:px-6">
         <div className="mx-auto max-w-2xl rounded-[28px] border border-[#e5e2f4] bg-white p-7 text-center shadow-[0_18px_55px_rgba(44,42,76,0.07)] sm:p-10">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-[#f1eeff] text-[#6657e8]">
             <User className="h-6 w-6" />
@@ -160,7 +160,7 @@ export default function ProfilePage() {
   const error = analyticsError || attemptsError;
 
   return (
-    <div className="min-h-screen bg-[#f7f8fc] text-slate-950">
+    <div className="min-h-screen bg-background">
       <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
         <section className="overflow-hidden rounded-[30px] border border-[#e3dff5] bg-[linear-gradient(135deg,#ffffff_0%,#f4f1ff_58%,#faf9ff_100%)] shadow-[0_20px_60px_rgba(45,42,86,0.06)]">
           <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center">
@@ -179,10 +179,10 @@ export default function ProfilePage() {
                     Account status: Signed in
                   </span>
                 </div>
-                <h1 className="mt-3 truncate text-2xl font-black tracking-[-0.04em] text-slate-950 sm:text-3xl">{user.name}</h1>
+                <h1 className="mt-3 truncate text-2xl font-black tracking-[-0.04em] text-slate-950 sm:text-3xl">Welcome back, {user.name}</h1>
                 <p className="mt-1 truncate text-sm text-slate-500">{user.email}</p>
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
-                  Keep your account details, recent preparation and recovery options together in one place.
+                  Review your saved attempts, package history, and account details.
                 </p>
               </div>
             </div>
