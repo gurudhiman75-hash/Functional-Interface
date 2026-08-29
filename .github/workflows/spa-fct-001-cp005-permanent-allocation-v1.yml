@@ -1,0 +1,58 @@
+name: Validate SPA FCT-001 CP005 Permanent Allocation V1
+
+on:
+  push:
+    branches:
+      - feat/spa-fct-001-cp005-permanent-allocation-v1
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/counting-figures-product-owner-approval-v1.ts
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v6.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-counting-figures-cp005-permanent-allocation-v1.test.ts
+      - .github/workflows/spa-fct-001-cp005-permanent-allocation-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-fct-cp005-permanent-allocation-v1:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build current API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle FCT-001 CP005 permanent allocation proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-counting-figures-cp005-permanent-allocation-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-counting-figures-cp005-permanent-allocation-v1.test.mjs
+
+      - name: Validate FCT-001 permanent QL allocation
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-counting-figures-cp005-permanent-allocation-v1.test.mjs \
+            | tee dist/reasoning-v1/spatial/spa-fct-001-cp005-permanent-allocation-v1-evidence.json
+
+      - name: Upload FCT-001 CP005 permanent allocation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-fct-001-cp005-permanent-allocation-v1
+          path: artifacts/api-server/dist/reasoning-v1/spatial/spa-fct-001-cp005-permanent-allocation-v1-evidence.json
+          if-no-files-found: error
