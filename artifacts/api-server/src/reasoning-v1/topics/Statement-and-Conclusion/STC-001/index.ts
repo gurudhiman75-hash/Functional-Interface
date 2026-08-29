@@ -15,3 +15,5 @@ export * from "./cp003-order-authorities.ts";
 export * from "./cp003-temporal-authorities.ts";
 export * from "./cp003-generator.ts";
 export * from "./chapter-generator.ts";
+export * from "./five-way-either-authorities.ts";
+export * from "./five-way-profile.ts";
