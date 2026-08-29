@@ -1,0 +1,67 @@
+name: Validate DSF CP-017 Normal Question Studio
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017/**"
+      - "artifacts/api-server/src/routes/admin-question-studio-data-sufficiency-normal.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dsf-cp017-normal-question-studio-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-dsf-cp017-normal-question-studio:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle CP017 normal Question Studio audit
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/data-sufficiency/cp017
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017/question-studio-normal-integration-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/data-sufficiency/cp017/question-studio-normal-integration-v1.test.mjs
+
+      - name: Run CP017 normal Question Studio audit
+        run: node artifacts/api-server/dist/reasoning-v1/data-sufficiency/cp017/question-studio-normal-integration-v1.test.mjs
+
+      - name: Verify CP017 learner release locks
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017"
+          matches="$({
+            find "$ROOT" -type f -name '*.ts' ! -name '*.test.ts' -print0 \
+              | xargs -0 -r grep -n -E 'questionBankWritable:[[:space:]]*true|testEligible:[[:space:]]*true|mock(Test)?Eligible:[[:space:]]*true|publiclyPublishable:[[:space:]]*true|automaticStudentPublication:[[:space:]]*true' || true
+          })"
+          if [ -n "$matches" ]; then
+            printf '%s\n' "$matches"
+            echo 'CP017 opened a learner-release capability.' >&2
+            exit 1
+          fi
+          echo 'PASS_DSF_CP017_LEARNER_RELEASE_LOCKS'
