@@ -25,6 +25,7 @@ router.use(authenticate);
 router.get("/automation/runs", requireAdminPermission("content.questions.read"), async (req, res) => {
   try {
     const status = text(req.query.status, 40).toLowerCase();
+    const jobType = text(req.query.jobType, 60).toLowerCase();
     const limit = positiveInteger(req.query.limit, 100, 500);
     const rows = await sqlClient`
       SELECT
@@ -40,10 +41,16 @@ router.get("/automation/runs", requireAdminPermission("content.questions.read"),
         failure_count AS "failureCount",
         candidate_created_count AS "candidateCreatedCount",
         candidate_updated_count AS "candidateUpdatedCount",
+        cluster_created_count AS "clusterCreatedCount",
+        event_promoted_count AS "eventPromotedCount",
+        event_verified_count AS "eventVerifiedCount",
+        compilation_created_count AS "compilationCreatedCount",
+        question_created_count AS "questionCreatedCount",
         stats,
         failure_reason AS "failureReason"
       FROM content.current_affairs_automation_runs
       WHERE (${status} = '' OR status = ${status})
+        AND (${jobType} = '' OR job_type = ${jobType})
       ORDER BY started_at DESC
       LIMIT ${limit}
     `;
