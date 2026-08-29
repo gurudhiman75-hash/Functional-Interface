@@ -1,0 +1,94 @@
+name: Validate BTD-001 CP006 Question Studio Review V1
+
+on:
+  push:
+    branches:
+      - feature/btd-cp006-question-studio-review-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-006/**'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine-btd.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-btd.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/btd-cp006-question-studio-review-v1.yml'
+  pull_request:
+    branches:
+      - feature/btd-cp005-english-freeze-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-006/**'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine-btd.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-btd.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/btd-cp006-question-studio-review-v1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: btd-cp006-question-studio-review-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-btd-cp006-question-studio-review-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out exact head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXPECTED_HEAD }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Re-prove frozen English authority
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-005/btd-cp005-english-freeze-v1-audit.ts | tee btd-cp006-upstream-freeze.log
+          grep -q 'PASS_BTD_001_CP005_ENGLISH_FREEZE_AUDIT_V1' btd-cp006-upstream-freeze.log
+
+      - name: Validate BTD Question Studio review-only integration
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-006/btd-cp006-question-studio-review-v1-audit.ts | tee btd-cp006-question-studio-review-v1.log
+          grep -q 'PASS_BTD_001_CP006_QUESTION_STUDIO_REVIEW_AUDIT_V1' btd-cp006-question-studio-review-v1.log
+
+      - name: Assert canonical route mounting
+        shell: bash
+        run: |
+          grep -q 'adminQuestionStudioBtdRouter' artifacts/api-server/src/routes/admin-question-studio-registry.ts
+          grep -q 'router.use(adminQuestionStudioBtdRouter)' artifacts/api-server/src/routes/admin-question-studio-registry.ts
+          grep -q 'shared-generation-engine-btd' artifacts/api-server/src/routes/admin-question-studio-btd.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Record exact validation head
+        shell: bash
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp006-question-studio-review-v1-head.log
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+
+      - name: Upload review-integration evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: btd-cp006-question-studio-review-v1
+          path: |
+            btd-cp006-upstream-freeze.log
+            btd-cp006-question-studio-review-v1.log
+            btd-cp006-question-studio-review-v1-head.log
+          retention-days: 30
