@@ -105,15 +105,21 @@ jobs:
             exit 1
           fi
 
-      - name: Verify late-enrichment downgrade path
+      - name: Verify late-enrichment and manual-authority guards
         shell: bash
         run: |
           set -euo pipefail
-          file=artifacts/api-server/src/current-affairs/enriched-event-reconciliation.ts
-          grep -Fq "status=${verification.allowed ? \"verified\" : \"review\"}" "$file"
-          grep -Fq 'reconciliation_status <> '\''manual'\''' "$file"
-          grep -Fq 'is_verified=${verification.allowed}' "$file"
-          grep -Fq 'reconcilePrimaryEnrichedEvents' artifacts/api-server/src/current-affairs/daily-worker.ts
+          reconcile=artifacts/api-server/src/current-affairs/enriched-event-reconciliation.ts
+          guard=artifacts/api-server/src/current-affairs/manual-enrichment-guard.ts
+          worker=artifacts/api-server/src/current-affairs/daily-worker.ts
+          grep -Fq 'verification.allowed ? "verified" : "review"' "$reconcile"
+          grep -Fq "reconciliation_status <> 'manual'" "$reconcile"
+          grep -Fq 'is_verified=${verification.allowed}' "$reconcile"
+          grep -Fq "status='review'" "$guard"
+          grep -Fq 'primaryEnrichmentManualReviewRequired: true' "$guard"
+          grep -Fq 'is_verified=false' "$guard"
+          grep -Fq 'holdManualAuthorityEventsForReview' "$worker"
+          grep -Fq 'reconcilePrimaryEnrichedEvents' "$worker"
 
       - name: Compile all Current Affairs workers
         run: |
