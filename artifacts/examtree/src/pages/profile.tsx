@@ -105,9 +105,9 @@ export default function ProfilePage() {
   }, [attempts]);
 
   const firebaseUser = getFirebaseAuth()?.currentUser ?? null;
-  const providerLabel = firebaseUser?.providerData.some((provider) => provider.providerId === "google.com")
+  const providerLabel = firebaseUser?.providerData?.some((provider) => provider.providerId === "google.com")
     ? "Google"
-    : firebaseUser?.providerData.some((provider) => provider.providerId === "password")
+    : firebaseUser?.providerData?.some((provider) => provider.providerId === "password")
       ? "Email & password"
       : getFirebaseAuth()
         ? "ExamTree account"
