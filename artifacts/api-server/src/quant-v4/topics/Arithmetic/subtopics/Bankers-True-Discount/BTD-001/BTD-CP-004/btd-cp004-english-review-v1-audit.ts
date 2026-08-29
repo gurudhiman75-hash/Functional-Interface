@@ -4,7 +4,18 @@ import { BTD_CP003_QL_IDS } from "../BTD-CP-003/btd-cp003-permanent-generator-v1
 import { BTD_CP004_ENGLISH_REVIEW_VERSION, BTD_CP004_REVIEW_BOUNDARY, buildBtdCp004EnglishReviewCorpusV1, renderBtdCp004EnglishReviewMarkdownV1 } from "./btd-cp004-english-review-v1";
 
 function normalize(text: string) { return text.normalize("NFKC").toLowerCase().replace(/\s+/gu, " ").trim(); }
-const forbiddenLearnerTokens = [/undefined/iu, /\bNaN\b/u, /\bInfinity\b/u, /\[object Object\]/u, /BTD-PROT-/u, /BTD-CAND-/u];
+const forbiddenLearnerTokens = [
+  /undefined/iu,
+  /\bNaN\b/u,
+  /\bInfinity\b/u,
+  /\[object Object\]/u,
+  /BTD-PROT-/u,
+  /BTD-CAND-/u,
+  /\ba invoice\b/iu,
+  /\bTwo bill of exchanges\b/iu,
+  /\bbank-discount bill\b/iu,
+  /₹\d{4,}(?:\.\d+)?\b/u,
+];
 const corpus = buildBtdCp004EnglishReviewCorpusV1();
 assert.equal(BTD_CP004_ENGLISH_REVIEW_VERSION, "BTD-001-CP004-ENGLISH-REVIEW-v1");
 assert.equal(BTD_CP004_REVIEW_BOUNDARY.reviewStatus, "ENGLISH_REVIEW_CANDIDATE");
@@ -15,7 +26,7 @@ assert.equal(corpus.length, 60);
 
 const exactStems = new Set<string>();
 const keyIdeasByQl = new Map<string, Set<string>>();
-let stemChecks = 0, optionChecks = 0, explanationChecks = 0, lifecycleChecks = 0, learnerTokenChecks = 0;
+let stemChecks = 0, optionChecks = 0, explanationChecks = 0, lifecycleChecks = 0, learnerTokenChecks = 0, exactWorkingChecks = 0;
 for (const qlId of BTD_CP003_QL_IDS) {
   const group = corpus.filter((question) => question.qlId === qlId);
   assert.equal(group.length, 3, `${qlId}: expected three review samples`);
@@ -51,6 +62,21 @@ for (const qlId of BTD_CP003_QL_IDS) {
     keyIdeasByQl.get(qlId)!.add(normalize(question.explanation.keyIdea));
     explanationChecks += 10;
 
+    if (["BTD-QL-013", "BTD-QL-015", "BTD-QL-020"].includes(qlId)) {
+      assert.match(question.explanation.steps[0]!, /^x = \d+ × \d+\/1200\.$/u, `${qlId}: interest factor must remain exact instead of a rounded decimal equality`);
+      assert.equal(/= 0\.\d+/u.test(question.explanation.steps[0]!), false, `${qlId}: rounded factor equality reintroduced`);
+      exactWorkingChecks += 2;
+    }
+    if (qlId === "BTD-QL-011") {
+      assert.ok(question.explanation.steps[1]!.includes("/1200"), `${qlId}: weighted BD equation must retain exact month conversion`);
+      assert.equal(/\d+\.\d+% of F/u.test(question.explanation.steps[1]!), false, `${qlId}: rounded weighted percentages reintroduced`);
+      exactWorkingChecks += 2;
+    }
+    if (["BTD-QL-014", "BTD-QL-018", "BTD-QL-019"].includes(qlId)) {
+      assert.equal(/= 0\.\d{4,}/u.test(question.explanation.steps.join("\n")), false, `${qlId}: approximate decimal is presented as an exact intermediate equality`);
+      exactWorkingChecks += 1;
+    }
+
     assert.equal(question.lifecycle.permanentQlAllocated, true);
     assert.equal(question.lifecycle.productionCandidate, true);
     assert.equal(question.lifecycle.contentFreezeStatus, "REVIEW_LOCKED");
@@ -82,6 +108,7 @@ console.log(JSON.stringify({
   optionChecks,
   explanationChecks,
   learnerTokenChecks,
+  exactWorkingChecks,
   lifecycleChecks,
   reviewArtifactBytes: Buffer.byteLength(reviewMarkdown, "utf8"),
   reviewStatus: BTD_CP004_REVIEW_BOUNDARY.reviewStatus,
