@@ -3,6 +3,9 @@ import { STC_CP002_CONDITIONAL_AUTHORITIES } from "./cp002-conditional-authoriti
 import { STC_CP002_MODAL_AUTHORITIES } from "./cp002-modal-authorities.ts";
 import { STC_CP003_ORDER_AUTHORITIES } from "./cp003-order-authorities.ts";
 import { STC_CP003_TEMPORAL_AUTHORITIES } from "./cp003-temporal-authorities.ts";
+import { STC_EXAM_REALNESS_CP001_AUTHORITIES } from "./exam-realness-expansion-cp001-v1.ts";
+import { STC_EXAM_REALNESS_CONDITIONAL_AUTHORITIES, STC_EXAM_REALNESS_MODAL_AUTHORITIES } from "./exam-realness-expansion-cp002-v1.ts";
+import { STC_EXAM_REALNESS_ORDER_AUTHORITIES, STC_EXAM_REALNESS_TEMPORAL_AUTHORITIES } from "./exam-realness-expansion-cp003-v1.ts";
 import { generateStcQuestion } from "./chapter-generator.ts";
 import { STC_001_MANIFEST } from "./chapter-manifest.ts";
 import { STC_QL_IDS, type StcLocale } from "./types.ts";
@@ -13,17 +16,26 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-const authorityCount =
+const historicalAuthorityCount =
   STC_CP001_ALL_AUTHORITIES.length +
   STC_CP002_CONDITIONAL_AUTHORITIES.length +
   STC_CP002_MODAL_AUTHORITIES.length +
   STC_CP003_ORDER_AUTHORITIES.length +
   STC_CP003_TEMPORAL_AUTHORITIES.length;
+const expansionAuthorityCount =
+  STC_EXAM_REALNESS_CP001_AUTHORITIES.length +
+  STC_EXAM_REALNESS_CONDITIONAL_AUTHORITIES.length +
+  STC_EXAM_REALNESS_MODAL_AUTHORITIES.length +
+  STC_EXAM_REALNESS_ORDER_AUTHORITIES.length +
+  STC_EXAM_REALNESS_TEMPORAL_AUTHORITIES.length;
+const authorityCount = historicalAuthorityCount + expansionAuthorityCount;
 
 assert(STC_QL_IDS.length === 6, "STC must expose exactly six semantic QLs");
 assert(STC_001_MANIFEST.semanticQlCount === 6, "manifest semantic QL count drifted");
 assert(STC_001_MANIFEST.lifecycle.semanticQlAllocationComplete, "semantic allocation must be complete");
-assert(authorityCount === 24, `expected 24 curated authorities, got ${authorityCount}`);
+assert(historicalAuthorityCount === 24, `historical 24-authority baseline drifted: ${historicalAuthorityCount}`);
+assert(expansionAuthorityCount === 24, `expected 24 exam-realness expansion authorities, got ${expansionAuthorityCount}`);
+assert(authorityCount === 48, `expected 48 current semantic authorities, got ${authorityCount}`);
 assert(!STC_001_MANIFEST.lifecycle.chapterFrozen, "chapter must not freeze before human review");
 assert(STC_001_MANIFEST.lifecycle.questionStudio === "NOT_REGISTERED", "Question Studio must remain unregistered before review approval");
 assert(!STC_001_MANIFEST.lifecycle.questionBankWritable, "Question Bank must remain locked");
@@ -36,7 +48,7 @@ for (const qlId of STC_QL_IDS) {
   const classes = new Set<string>();
   const scenarios = new Set<string>();
   const solverIds = new Set<string>();
-  for (let seed = 0; seed < 1600; seed += 1) {
+  for (let seed = 0; seed < 4096; seed += 1) {
     const en = generateStcQuestion({ qlId, locale: "en-IN", seed });
     const again = generateStcQuestion({ qlId, locale: "en-IN", seed });
     assert(JSON.stringify(en) === JSON.stringify(again), `${qlId}/${seed}: nondeterministic chapter output`);
@@ -63,8 +75,8 @@ for (const qlId of STC_QL_IDS) {
     }
   }
   assert(classes.size === 4, `${qlId}: all four I/II answer classes must be reachable`);
-  assert(scenarios.size >= 4, `${qlId}: curated scenario reach is too thin (${scenarios.size})`);
+  assert(scenarios.size >= 8, `${qlId}: current authority reach is too thin (${scenarios.size})`);
   assert(solverIds.size === 1, `${qlId}: QL unexpectedly changes solver family`);
 }
 
-console.log(`STC-001 chapter proof passed: 6 QLs, ${authorityCount} curated authorities, 3 locales, 9,600 canonical seeds plus parity surfaces.`);
+console.log(`STC-001 chapter proof passed: 6 QLs, ${authorityCount} semantic authorities (${historicalAuthorityCount} historical + ${expansionAuthorityCount} exam-realness), 3 locales, ${STC_QL_IDS.length * 4096} canonical seeds plus parity surfaces.`);
