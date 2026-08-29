@@ -9,6 +9,7 @@ import {
   Home,
   LayoutDashboard,
   Settings,
+  ShoppingBag,
 } from "lucide-react";
 import { Link, useLocation } from "wouter";
 
@@ -25,6 +26,7 @@ type SidebarItem = {
 const mainItems: SidebarItem[] = [
   { href: "/", label: "Home", icon: Home },
   { href: "/exams", label: "Explore Exams", icon: ClipboardList },
+  { href: "/store", label: "Store", icon: ShoppingBag },
   { href: "/dashboard", label: "My Tests", icon: LayoutDashboard, authNext: "/dashboard" },
   { label: "Analytics", icon: BarChart3, disabled: true },
   { label: "Bookmarks", icon: Bookmark, disabled: true },
@@ -49,6 +51,12 @@ function isActiveRoute(location: string, href: string) {
       || location.startsWith("/category/")
       || location.startsWith("/subcategory/")
       || location.startsWith("/published-tests/");
+  }
+  if (href === "/store") {
+    return location === "/store"
+      || location === "/packages"
+      || location.startsWith("/store/")
+      || location.startsWith("/packages/");
   }
   return location === href || location.startsWith(`${href}/`);
 }
