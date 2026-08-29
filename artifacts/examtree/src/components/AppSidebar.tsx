@@ -5,6 +5,7 @@ import {
   LogOut,
   Settings,
   ShieldCheck,
+  ShoppingBag,
   Target,
   User,
   WandSparkles,
@@ -28,6 +29,7 @@ import {
 const primaryLinks = [
   { href: "/", label: "Home", icon: Home },
   { href: "/exams", label: "Tests & Exams", icon: ClipboardList },
+  { href: "/store", label: "Store", icon: ShoppingBag },
   { href: "/dashboard", label: "My Activity", icon: Target },
 ];
 
@@ -39,6 +41,12 @@ function isLinkActive(location: string, href: string) {
       || location.startsWith("/category/")
       || location.startsWith("/subcategory/")
       || location.startsWith("/test-series/");
+  }
+  if (href === "/store") {
+    return location === "/store"
+      || location === "/packages"
+      || location.startsWith("/store/")
+      || location.startsWith("/packages/");
   }
   if (href === "/dashboard") return location === "/dashboard" || location === "/result";
   return location === href || location.startsWith(`${href}/`);
