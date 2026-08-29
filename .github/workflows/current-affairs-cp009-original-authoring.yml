@@ -1,0 +1,155 @@
+name: Validate Current Affairs Studio CP009
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp001-foundation
+      - feature/current-affairs-studio-cp002-ingestion
+      - feature/current-affairs-studio-cp003-intelligence
+      - feature/current-affairs-studio-cp004-content
+      - feature/current-affairs-studio-cp005-scheduled-ingestion
+      - feature/current-affairs-studio-cp006-daily-orchestration
+      - feature/current-affairs-studio-cp007-official-source-pack
+      - feature/current-affairs-studio-cp008-primary-fact-enrichment
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs*.ts"
+      - "artifacts/api-server/src/routes/index.ts"
+      - "artifacts/api-server/migrations/20260829_current_affairs_original_authoring.sql"
+      - "artifacts/api-server/migrations/20260829_current_affairs_authoring_gate.sql"
+      - ".github/workflows/current-affairs-cp009-original-authoring.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp009-original-authoring
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs*.ts"
+      - "artifacts/api-server/src/routes/index.ts"
+      - "artifacts/api-server/migrations/20260829_current_affairs_original_authoring.sql"
+      - "artifacts/api-server/migrations/20260829_current_affairs_authoring_gate.sql"
+      - ".github/workflows/current-affairs-cp009-original-authoring.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp009-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-original-authoring:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Current Affairs CP001 contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+
+      - name: Run Current Affairs CP002 ingestion contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+
+      - name: Run Current Affairs CP003 intelligence contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+
+      - name: Run Current Affairs CP004 content contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+
+      - name: Run Current Affairs CP005/CP007 automation contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+
+      - name: Run Current Affairs CP006 orchestration policy contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
+
+      - name: Run Current Affairs CP007 official listing contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
+
+      - name: Run Current Affairs CP008 primary fact extraction contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
+
+      - name: Run Current Affairs CP009 original authoring contracts
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/original-authoring.test.ts
+
+      - name: Verify authoring schema and independent eligibility gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          schema=artifacts/api-server/migrations/20260829_current_affairs_original_authoring.sql
+          gate=artifacts/api-server/migrations/20260829_current_affairs_authoring_gate.sql
+          grep -Fq 'current_affairs_authoring_versions' "$schema"
+          grep -Fq "'needs_editorial'" "$schema"
+          grep -Fq 'source_title_similarity' "$schema"
+          grep -Fq 'input_fact_snapshot' "$schema"
+          grep -Fq 'learner_authoring_status' "$schema"
+          grep -Fq 'trg_guard_current_affairs_unwritten_verified_event' "$gate"
+          grep -Fq 'include_recommended = false' "$gate"
+          grep -Fq "learner_authoring_status NOT IN ('ready', 'manual')" "$gate"
+
+      - name: Verify source-independent runtime gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          engine=artifacts/api-server/src/current-affairs/original-authoring.ts
+          runtime=artifacts/api-server/src/current-affairs/authoring-runtime.ts
+          route=artifacts/api-server/src/routes/admin-current-affairs-authoring.ts
+          worker=artifacts/api-server/src/current-affairs/daily-worker.ts
+          grep -Fq 'TITLE_SIMILARITY_LIMIT = 0.72' "$runtime"
+          grep -Fq 'status: "needs_editorial"' "$engine"
+          grep -Fq 'sourceIndependentLearnerCopy: true' "$runtime"
+          grep -Fq 'include_recommended=false' "$runtime"
+          grep -Fq 'SOURCE_TITLE_TOO_SIMILAR' "$route"
+          grep -Fq 'current_affairs.authoring.manual' "$runtime"
+          grep -Fq 'adminCurrentAffairsAuthoringRouter' artifacts/api-server/src/routes/index.ts
+          intelligence_line=$(grep -n 'runScheduledIntelligenceProcessing' "$worker" | tail -1 | cut -d: -f1)
+          authoring_line=$(grep -n 'runSourceIndependentAuthoring' "$worker" | tail -1 | cut -d: -f1)
+          daily_line=$(grep -n 'runDailyDraftGeneration' "$worker" | tail -1 | cut -d: -f1)
+          test "$intelligence_line" -lt "$authoring_line"
+          test "$authoring_line" -lt "$daily_line"
+
+      - name: Verify automated learner content cannot bypass authoring
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq "learner_authoring_status <> 'manual'" artifacts/api-server/src/current-affairs/authoring-runtime.ts
+          grep -Fq "event.status='verified'" artifacts/api-server/src/current-affairs/authoring-runtime.ts
+          grep -Fq "COALESCE((event.metadata->>'autoPromoted')::boolean, false)=true" artifacts/api-server/src/current-affairs/authoring-runtime.ts
+          if grep -R -E "automaticStudentPublication[^\n]*(true|TRUE)|publiclyPublishable[^\n]*(true|TRUE)" artifacts/api-server/src/current-affairs artifacts/api-server/src/routes/admin-current-affairs*.ts; then
+            echo 'Current Affairs automatic public/student publication must remain closed'
+            exit 1
+          fi
+
+      - name: Compile all Current Affairs workers
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/feed-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-feed-worker.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/primary-enrichment-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-primary-enrichment-worker.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/daily-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-daily-worker.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build

@@ -1,4 +1,5 @@
 import { sqlClient } from "../lib/db";
+import { runSourceIndependentAuthoring } from "./authoring-runtime";
 import {
   runDailyDraftGeneration,
   runScheduledIntelligenceProcessing,
@@ -12,10 +13,11 @@ async function main() {
   const manualAuthority = await holdManualAuthorityEventsForReview(100);
   const enrichedEvents = await reconcilePrimaryEnrichedEvents(100);
   const intelligence = await runScheduledIntelligenceProcessing(now);
+  const authoring = await runSourceIndependentAuthoring(200);
   const daily = shouldBuildDailyDrafts(now)
     ? await runDailyDraftGeneration(now)
     : null;
-  process.stdout.write(`${JSON.stringify({ manualAuthority, enrichedEvents, intelligence, daily })}\n`);
+  process.stdout.write(`${JSON.stringify({ manualAuthority, enrichedEvents, intelligence, authoring, daily })}\n`);
 }
 
 main()

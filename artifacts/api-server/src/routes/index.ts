@@ -12,6 +12,7 @@ import adminCurrentAffairsIngestionRouter from "./admin-current-affairs-ingestio
 import adminCurrentAffairsIntelligenceRouter from "./admin-current-affairs-intelligence";
 import adminCurrentAffairsContentRouter from "./admin-current-affairs-content";
 import adminCurrentAffairsAutomationRouter from "./admin-current-affairs-automation";
+import adminCurrentAffairsAuthoringRouter from "./admin-current-affairs-authoring";
 import adminAuditEventsHardeningRouter from "./admin-audit-events-hardening";
 import adminAccessControlHardeningRouter from "./admin-access-control-hardening";
 import adminAccessControlRouter from "./admin-access-control";
@@ -109,6 +110,7 @@ router.use("/admin/current-affairs", adminCurrentAffairsIngestionRouter);
 router.use("/admin/current-affairs", adminCurrentAffairsIntelligenceRouter);
 router.use("/admin/current-affairs", adminCurrentAffairsContentRouter);
 router.use("/admin/current-affairs", adminCurrentAffairsAutomationRouter);
+router.use("/admin/current-affairs", adminCurrentAffairsAuthoringRouter);
 router.use("/admin/access-control", adminAuditEventsHardeningRouter);
 router.use("/admin/access-control", adminAccessControlHardeningRouter);
 router.use("/admin/access-control", adminAccessControlRouter);
