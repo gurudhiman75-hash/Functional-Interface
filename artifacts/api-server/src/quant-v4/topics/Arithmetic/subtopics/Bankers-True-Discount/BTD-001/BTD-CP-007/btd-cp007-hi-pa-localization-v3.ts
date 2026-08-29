@@ -39,6 +39,24 @@ function fingerprint(value: unknown) {
   return createHash("sha256").update(canonicalJson(value)).digest("hex");
 }
 
+function polishLocalizedStem(stem: string, language: BtdCp007LanguageV3) {
+  if (language === "hi") {
+    return stem.replace(
+      /इन जानकारियों से (.+) कितना होगा\?/u,
+      "इन जानकारियों के आधार पर $1 ज्ञात कीजिए।",
+    );
+  }
+  return stem
+    .replace(
+      /ਇਨ੍ਹਾਂ ਜਾਣਕਾਰੀਆਂ ਤੋਂ (.+) ਕਿੰਨਾ ਹੋਵੇਗਾ\?/u,
+      "ਇਨ੍ਹਾਂ ਜਾਣਕਾਰੀਆਂ ਦੇ ਆਧਾਰ 'ਤੇ $1 ਕੱਢੋ।",
+    )
+    .replace(
+      /ਲੋੜੀਂਦਾ (.+) ਨਿਰਧਾਰਤ ਕਰੋ।/u,
+      "ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਤੋਂ $1 ਨਿਰਧਾਰਤ ਕਰੋ।",
+    );
+}
+
 export function buildBtdLocalizedQuestionV3(
   qlId: BtdPermanentQlId,
   seed: string,
@@ -51,6 +69,10 @@ export function buildBtdLocalizedQuestionV3(
     isCorrect: Boolean(option.isCorrect),
     misconceptionId: option.misconceptionId ? String(option.misconceptionId) : undefined,
   })));
+  const presentation = Object.freeze({
+    ...v2.presentation,
+    stem: polishLocalizedStem(String(v2.presentation.stem), language),
+  });
 
   const fingerprintPayload = Object.freeze({
     qlId: v2.qlId,
@@ -59,7 +81,7 @@ export function buildBtdLocalizedQuestionV3(
     answerSemantic: v2.answerSemantic,
     sourceStateFingerprint: v2.sourceStateFingerprint,
     englishContentFingerprint: v2.englishContentFingerprint,
-    presentation: v2.presentation,
+    presentation,
     options,
     correctIndex: v2.correctIndex,
     correctAnswer: v2.correctAnswer,
@@ -69,6 +91,7 @@ export function buildBtdLocalizedQuestionV3(
   return Object.freeze({
     ...v2,
     localizationVersion: BTD_CP007_LOCALIZATION_V3,
+    presentation,
     options,
     localizationFingerprint: fingerprint(fingerprintPayload),
     lifecycle: BTD_CP007_LOCALIZATION_BOUNDARY_V3,
