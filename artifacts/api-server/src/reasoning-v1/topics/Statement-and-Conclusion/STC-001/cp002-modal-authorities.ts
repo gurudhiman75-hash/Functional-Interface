@@ -16,7 +16,7 @@ export const STC_CP002_MODAL_AUTHORITIES: readonly StcModalScenarioAuthority[] =
     premise: modalClaim("schedule_published_today", "CERTAIN"),
     candidates: [
       { id: "C1", claim: modalClaim("schedule_published_today", "CERTAIN"), text: t("The revised schedule will be published today.", "संशोधित समय-सारिणी आज प्रकाशित होगी।", "ਸੋਧਿਆ ਹੋਇਆ ਸਮਾਂ-ਸਾਰਣੀ ਅੱਜ ਪ੍ਰਕਾਸ਼ਿਤ ਹੋਵੇਗੀ।") },
-      { id: "C2", claim: modalClaim("schedule_published_today", "POSSIBLE"), text: t("It is possible that the revised schedule is published today.", "संभव है कि संशोधित समय-सारिणी आज प्रकाशित हो।", "ਸੰਭਵ ਹੈ ਕਿ ਸੋਧਿਆ ਹੋਇਆ ਸਮਾਂ-ਸਾਰਣੀ ਅੱਜ ਪ੍ਰਕਾਸ਼ਿਤ ਹੋਵੇ।") },
+      { id: "C2", claim: modalClaim("schedule_published_today", "POSSIBLE"), text: t("The revised schedule may be published today.", "संभव है कि संशोधित समय-सारिणी आज प्रकाशित हो।", "ਸੰਭਵ ਹੈ ਕਿ ਸੋਧਿਆ ਹੋਇਆ ਸਮਾਂ-ਸਾਰਣੀ ਅੱਜ ਪ੍ਰਕਾਸ਼ਿਤ ਹੋਵੇ।") },
       { id: "C3", claim: modalClaim("schedule_published_today", "CERTAIN", "NEGATIVE"), text: t("The revised schedule definitely will not be published today.", "संशोधित समय-सारिणी आज निश्चित रूप से प्रकाशित नहीं होगी।", "ਸੋਧਿਆ ਹੋਇਆ ਸਮਾਂ-ਸਾਰਣੀ ਅੱਜ ਨਿਸ਼ਚਿਤ ਤੌਰ ਤੇ ਪ੍ਰਕਾਸ਼ਿਤ ਨਹੀਂ ਹੋਵੇਗੀ।"), defectIfNotEntailed: "POLARITY_FLIP" },
       { id: "C4", claim: modalClaim("exam_postponed", "CERTAIN"), text: t("The examination will definitely be postponed.", "परीक्षा निश्चित रूप से स्थगित होगी।", "ਪਰੀਖਿਆ ਨਿਸ਼ਚਿਤ ਤੌਰ ਤੇ ਮੁਲਤਵੀ ਹੋਵੇਗੀ।"), defectIfNotEntailed: "UNSUPPORTED_EXTRA" },
     ],
@@ -33,7 +33,7 @@ export const STC_CP002_MODAL_AUTHORITIES: readonly StcModalScenarioAuthority[] =
     premise: modalClaim("interview_date_changed", "POSSIBLE"),
     candidates: [
       { id: "C1", claim: modalClaim("interview_date_changed", "POSSIBLE"), text: t("The interview date may change.", "साक्षात्कार की तिथि बदल सकती है।", "ਇੰਟਰਵਿਊ ਦੀ ਤਾਰੀਖ ਬਦਲ ਸਕਦੀ ਹੈ।") },
-      { id: "C2", claim: modalClaim("interview_date_changed", "POSSIBLE"), text: t("A change in the interview date remains possible.", "साक्षात्कार की तिथि में परिवर्तन संभव बना हुआ है।", "ਇੰਟਰਵਿਊ ਦੀ ਤਾਰੀਖ ਵਿੱਚ ਬਦਲਾਅ ਸੰਭਵ ਹੈ।") },
+      { id: "C2", claim: modalClaim("interview_date_changed", "POSSIBLE"), text: t("A change in the interview date remains possible.", "साक्षात्कार की तिथि में बदलाव की संभावना बनी हुई है।", "ਇੰਟਰਵਿਊ ਦੀ ਤਾਰੀਖ ਵਿੱਚ ਬਦਲਾਅ ਦੀ ਸੰਭਾਵਨਾ ਬਣੀ ਹੋਈ ਹੈ।") },
       { id: "C3", claim: modalClaim("interview_date_changed", "CERTAIN"), text: t("The interview date will definitely change.", "साक्षात्कार की तिथि निश्चित रूप से बदलेगी।", "ਇੰਟਰਵਿਊ ਦੀ ਤਾਰੀਖ ਨਿਸ਼ਚਿਤ ਤੌਰ ਤੇ ਬਦਲੇਗੀ।"), defectIfNotEntailed: "STRONGER_MODALITY" },
       { id: "C4", claim: modalClaim("interview_cancelled", "POSSIBLE"), text: t("The interview may be cancelled.", "साक्षात्कार रद्द हो सकता है।", "ਇੰਟਰਵਿਊ ਰੱਦ ਹੋ ਸਕਦਾ ਹੈ।"), defectIfNotEntailed: "UNSUPPORTED_EXTRA" },
     ],
@@ -66,8 +66,8 @@ export const STC_CP002_MODAL_AUTHORITIES: readonly StcModalScenarioAuthority[] =
     ),
     premise: modalClaim("merit_list_released_week", "POSSIBLE", "NEGATIVE"),
     candidates: [
-      { id: "C1", claim: modalClaim("merit_list_released_week", "POSSIBLE", "NEGATIVE"), text: t("The merit list may not be released this week.", "मेरिट सूची इस सप्ताह जारी न हो सकती है।", "ਮੈਰਿਟ ਸੂਚੀ ਇਸ ਹਫ਼ਤੇ ਜਾਰੀ ਨਾ ਹੋ ਸਕਦੀ ਹੈ।") },
-      { id: "C2", claim: modalClaim("merit_list_released_week", "POSSIBLE", "NEGATIVE"), text: t("Non-release of the merit list this week remains possible.", "इस सप्ताह मेरिट सूची का जारी न होना संभव है।", "ਇਸ ਹਫ਼ਤੇ ਮੈਰਿਟ ਸੂਚੀ ਦਾ ਜਾਰੀ ਨਾ ਹੋਣਾ ਸੰਭਵ ਹੈ।") },
+      { id: "C1", claim: modalClaim("merit_list_released_week", "POSSIBLE", "NEGATIVE"), text: t("The merit list may not be released this week.", "संभव है कि मेरिट सूची इस सप्ताह जारी न हो।", "ਸੰਭਵ ਹੈ ਕਿ ਮੈਰਿਟ ਸੂਚੀ ਇਸ ਹਫ਼ਤੇ ਜਾਰੀ ਨਾ ਹੋਵੇ।") },
+      { id: "C2", claim: modalClaim("merit_list_released_week", "POSSIBLE", "NEGATIVE"), text: t("Non-release of the merit list this week remains possible.", "इस सप्ताह मेरिट सूची जारी न होने की संभावना बनी हुई है।", "ਇਸ ਹਫ਼ਤੇ ਮੈਰਿਟ ਸੂਚੀ ਜਾਰੀ ਨਾ ਹੋਣ ਦੀ ਸੰਭਾਵਨਾ ਬਣੀ ਹੋਈ ਹੈ।") },
       { id: "C3", claim: modalClaim("merit_list_released_week", "CERTAIN", "NEGATIVE"), text: t("The merit list definitely will not be released this week.", "मेरिट सूची इस सप्ताह निश्चित रूप से जारी नहीं होगी।", "ਮੈਰਿਟ ਸੂਚੀ ਇਸ ਹਫ਼ਤੇ ਨਿਸ਼ਚਿਤ ਤੌਰ ਤੇ ਜਾਰੀ ਨਹੀਂ ਹੋਵੇਗੀ।"), defectIfNotEntailed: "STRONGER_MODALITY" },
       { id: "C4", claim: modalClaim("merit_list_released_week", "CERTAIN"), text: t("The merit list will definitely be released this week.", "मेरिट सूची इस सप्ताह निश्चित रूप से जारी होगी।", "ਮੈਰਿਟ ਸੂਚੀ ਇਸ ਹਫ਼ਤੇ ਨਿਸ਼ਚਿਤ ਤੌਰ ਤੇ ਜਾਰੀ ਹੋਵੇਗੀ।"), defectIfNotEntailed: "POLARITY_FLIP" },
     ],
