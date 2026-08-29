@@ -123,7 +123,7 @@ const KEY='com002-hi-pa-v4-review';const state=JSON.parse(localStorage.getItem(K
 function save(){localStorage.setItem(KEY,JSON.stringify(state));updateProgress()}
 document.querySelectorAll('[data-review]').forEach(el=>{const id=el.dataset.review;el.checked=!!state[id]?.reviewed;el.addEventListener('change',()=>{state[id]={...(state[id]||{}),reviewed:el.checked};save()})});
 document.querySelectorAll('[data-note]').forEach(el=>{const id=el.dataset.note;el.value=state[id]?.note||'';el.addEventListener('input',()=>{state[id]={...(state[id]||{}),note:el.value};save()})});
-function updateProgress(){const n=cards.filter(c=>state[c.dataset.ql]?.reviewed).length;document.getElementById('progress').textContent=`Reviewed ${n}/${cards.length}`}
+function updateProgress(){const n=cards.filter(c=>state[c.dataset.ql]?.reviewed).length;document.getElementById('progress').textContent='Reviewed '+n+'/'+cards.length}
 function filter(){const q=document.getElementById('search').value.trim().toLowerCase();const ql=document.getElementById('ql').value;cards.forEach(c=>c.classList.toggle('hidden',!!((ql&&c.dataset.ql!==ql)||(q&&!c.dataset.search.includes(q))))) }
 document.getElementById('search').addEventListener('input',filter);document.getElementById('ql').addEventListener('change',filter);updateProgress();
 </script>
