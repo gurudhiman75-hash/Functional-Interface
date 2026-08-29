@@ -6,7 +6,6 @@ on:
       - New-main
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/**'
-      - '.github/workflows/stc-001-cp001.yml'
   workflow_dispatch:
 
 permissions:
