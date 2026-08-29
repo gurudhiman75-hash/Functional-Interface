@@ -64,63 +64,69 @@ const STEM_PREFIX: Record<StcLocale, string> = {
 const LOGICAL_DEFECT_TEXT: Record<StcLogicalDefect, Record<StcLocale, string>> = {
   POLARITY_FLIP: {
     "en-IN": "it reverses the stated fact",
-    "hi-IN": "यह कथित तथ्य को उलट देता है",
-    "pa-IN": "ਇਹ ਦਿੱਤੇ ਤੱਥ ਨੂੰ ਉਲਟ ਦਿੰਦਾ ਹੈ",
+    "hi-IN": "यह कथन की बात को उलट देता है",
+    "pa-IN": "ਇਹ ਕਥਨ ਦੀ ਗੱਲ ਨੂੰ ਉਲਟ ਦਿੰਦਾ ਹੈ",
   },
   UNSUPPORTED_EXTRA: {
-    "en-IN": "it adds information not established by the statement",
-    "hi-IN": "यह ऐसी अतिरिक्त जानकारी जोड़ता है जो कथन से स्थापित नहीं होती",
-    "pa-IN": "ਇਹ ਐਸੀ ਵਾਧੂ ਜਾਣਕਾਰੀ ਜੋੜਦਾ ਹੈ ਜੋ ਕਥਨ ਤੋਂ ਸਥਾਪਿਤ ਨਹੀਂ ਹੁੰਦੀ",
+    "en-IN": "it adds information the statement never gives",
+    "hi-IN": "यह ऐसी अतिरिक्त बात जोड़ता है जो कथन में दी ही नहीं गई",
+    "pa-IN": "ਇਹ ਐਸੀ ਵਾਧੂ ਗੱਲ ਜੋੜਦਾ ਹੈ ਜੋ ਕਥਨ ਵਿੱਚ ਦਿੱਤੀ ਹੀ ਨਹੀਂ ਗਈ",
   },
   OVERCLAIM: {
-    "en-IN": "it claims more than the statement guarantees",
-    "hi-IN": "यह कथन की गारंटी से अधिक दावा करता है",
-    "pa-IN": "ਇਹ ਕਥਨ ਦੀ ਗਾਰੰਟੀ ਤੋਂ ਵੱਧ ਦਾਅਵਾ ਕਰਦਾ ਹੈ",
+    "en-IN": "it claims more than the statement proves",
+    "hi-IN": "यह कथन से सिद्ध होने वाली बात से अधिक दावा करता है",
+    "pa-IN": "ਇਹ ਕਥਨ ਤੋਂ ਸਾਬਤ ਹੋਣ ਵਾਲੀ ਗੱਲ ਨਾਲੋਂ ਵੱਧ ਦਾਅਵਾ ਕਰਦਾ ਹੈ",
   },
   INVALID_COMBINATION: {
     "en-IN": "it treats an alternative as if every part were compulsory",
-    "hi-IN": "यह विकल्प को ऐसे मानता है जैसे प्रत्येक भाग अनिवार्य हो",
+    "hi-IN": "यह विकल्प को ऐसे मानता है जैसे हर भाग अनिवार्य हो",
     "pa-IN": "ਇਹ ਵਿਕਲਪ ਨੂੰ ਇਸ ਤਰ੍ਹਾਂ ਮੰਨਦਾ ਹੈ ਜਿਵੇਂ ਹਰ ਹਿੱਸਾ ਲਾਜ਼ਮੀ ਹੋਵੇ",
   },
   CONVERSE: {
-    "en-IN": "it reverses the direction of the stated conditional rule",
-    "hi-IN": "यह दी गई शर्त का दिशा-विपरीत निष्कर्ष निकालता है",
-    "pa-IN": "ਇਹ ਦਿੱਤੀ ਸ਼ਰਤ ਦੀ ਦਿਸ਼ਾ ਉਲਟ ਕੇ ਨਤੀਜਾ ਕੱਢਦਾ ਹੈ",
+    "en-IN": "it reverses the direction of the given if-then rule",
+    "hi-IN": "यह दी गई यदि-तो शर्त की दिशा उलट देता है",
+    "pa-IN": "ਇਹ ਦਿੱਤੀ ਜੇ-ਤਾਂ ਸ਼ਰਤ ਦੀ ਦਿਸ਼ਾ ਉਲਟ ਦਿੰਦਾ ਹੈ",
   },
   INVERSE: {
-    "en-IN": "it assumes the inverse of the stated conditional rule",
-    "hi-IN": "यह दी गई शर्त के व्युत्क्रम को मान लेता है",
-    "pa-IN": "ਇਹ ਦਿੱਤੀ ਸ਼ਰਤ ਦੇ ਇਨਵਰਸ ਨੂੰ ਮੰਨ ਲੈਂਦਾ ਹੈ",
+    "en-IN": "the rule does not say that failure of the condition guarantees the opposite result",
+    "hi-IN": "शर्त पूरी न होने पर विपरीत परिणाम निश्चित होगा, ऐसा कथन नहीं कहता",
+    "pa-IN": "ਸ਼ਰਤ ਪੂਰੀ ਨਾ ਹੋਣ ਤੇ ਉਲਟ ਨਤੀਜਾ ਲਾਜ਼ਮੀ ਹੋਵੇਗਾ, ਕਥਨ ਇਹ ਨਹੀਂ ਕਹਿੰਦਾ",
   },
   DENYING_ANTECEDENT: {
-    "en-IN": "it denies the antecedent and incorrectly fixes the result",
-    "hi-IN": "यह पूर्वशर्त के न होने से परिणाम को गलत रूप से निश्चित मानता है",
-    "pa-IN": "ਇਹ ਪੂਰਵ-ਸ਼ਰਤ ਨਾ ਹੋਣ ਤੋਂ ਨਤੀਜੇ ਨੂੰ ਗਲਤ ਤਰੀਕੇ ਨਾਲ ਨਿਸ਼ਚਿਤ ਮੰਨਦਾ ਹੈ",
+    "en-IN": "it wrongly fixes the result just because the stated condition is absent",
+    "hi-IN": "यह केवल शर्त के न होने से परिणाम को गलत रूप से निश्चित मानता है",
+    "pa-IN": "ਇਹ ਕੇਵਲ ਸ਼ਰਤ ਨਾ ਹੋਣ ਕਰਕੇ ਨਤੀਜੇ ਨੂੰ ਗਲਤ ਤਰੀਕੇ ਨਾਲ ਨਿਸ਼ਚਿਤ ਮੰਨਦਾ ਹੈ",
   },
 };
 
 const MODAL_DEFECT_TEXT: Record<StcModalDefect, Record<StcLocale, string>> = {
   STRONGER_MODALITY: {
-    "en-IN": "it turns a possibility into certainty",
-    "hi-IN": "यह संभावना को निश्चितता में बदल देता है",
-    "pa-IN": "ਇਹ ਸੰਭਾਵਨਾ ਨੂੰ ਨਿਸ਼ਚਿਤਤਾ ਵਿੱਚ ਬਦਲ ਦਿੰਦਾ ਹੈ",
+    "en-IN": "the statement says this may happen, not that it definitely will",
+    "hi-IN": "कथन केवल संभावना बताता है, निश्चितता नहीं",
+    "pa-IN": "ਕਥਨ ਸਿਰਫ਼ ਸੰਭਾਵਨਾ ਦੱਸਦਾ ਹੈ, ਨਿਸ਼ਚਿਤਤਾ ਨਹੀਂ",
   },
   POLARITY_FLIP: {
-    "en-IN": "it reverses the stated possibility or certainty",
-    "hi-IN": "यह बताई गई संभावना या निश्चितता को उलट देता है",
-    "pa-IN": "ਇਹ ਦੱਸੀ ਸੰਭਾਵਨਾ ਜਾਂ ਨਿਸ਼ਚਿਤਤਾ ਨੂੰ ਉਲਟ ਦਿੰਦਾ ਹੈ",
+    "en-IN": "it says the opposite of the stated possibility or certainty",
+    "hi-IN": "यह बताई गई संभावना या निश्चितता के विपरीत बात कहता है",
+    "pa-IN": "ਇਹ ਦੱਸੀ ਸੰਭਾਵਨਾ ਜਾਂ ਨਿਸ਼ਚਿਤਤਾ ਦੇ ਉਲਟ ਗੱਲ ਕਹਿੰਦਾ ਹੈ",
   },
   UNSUPPORTED_EXTRA: {
-    "en-IN": "it introduces an event not mentioned by the statement",
+    "en-IN": "it introduces an event the statement never mentions",
     "hi-IN": "यह ऐसी घटना जोड़ता है जिसका कथन में उल्लेख नहीं है",
     "pa-IN": "ਇਹ ਐਸੀ ਘਟਨਾ ਜੋੜਦਾ ਹੈ ਜਿਸਦਾ ਕਥਨ ਵਿੱਚ ਜ਼ਿਕਰ ਨਹੀਂ ਹੈ",
   },
 };
 
-const FOLLOWS_TEXT: Record<StcLocale, string> = {
-  "en-IN": "it is guaranteed at the same or weaker logical strength",
-  "hi-IN": "यह समान या कमजोर तार्किक शक्ति पर कथन से सुनिश्चित है",
-  "pa-IN": "ਇਹ ਸਮਾਨ ਜਾਂ ਕਮਜ਼ੋਰ ਤਰਕ-ਸ਼ਕਤੀ ਤੇ ਕਥਨ ਤੋਂ ਯਕੀਨੀ ਹੈ",
+const CONDITIONAL_FOLLOWS: Record<StcLocale, string> = {
+  "en-IN": "the given condition(s) lead directly to this conclusion",
+  "hi-IN": "दी गई शर्तों से यह निष्कर्ष सीधे निकलता है",
+  "pa-IN": "ਦਿੱਤੀਆਂ ਸ਼ਰਤਾਂ ਤੋਂ ਇਹ ਨਤੀਜਾ ਸਿੱਧਾ ਨਿਕਲਦਾ ਹੈ",
+};
+
+const MODAL_FOLLOWS: Record<StcLocale, string> = {
+  "en-IN": "this does not claim more certainty than the statement provides",
+  "hi-IN": "यह निष्कर्ष कथन से अधिक निश्चितता का दावा नहीं करता",
+  "pa-IN": "ਇਹ ਨਤੀਜਾ ਕਥਨ ਨਾਲੋਂ ਵੱਧ ਨਿਸ਼ਚਿਤਤਾ ਦਾ ਦਾਅਵਾ ਨਹੀਂ ਕਰਦਾ",
 };
 
 function choosePair(seedBase: number): readonly [number, number] {
@@ -144,7 +150,7 @@ export function generateStcCp002Question(input: {
     const secondFollows = stcEntails(scenario.premises, second.expression);
     const cls = answerClass(firstFollows, secondFollows);
     const reason = (follows: boolean, defect: StcLogicalDefect | undefined) =>
-      follows ? FOLLOWS_TEXT[input.locale] : defect ? LOGICAL_DEFECT_TEXT[defect][input.locale] : "not entailed";
+      follows ? CONDITIONAL_FOLLOWS[input.locale] : defect ? LOGICAL_DEFECT_TEXT[defect][input.locale] : "the statement does not establish this";
 
     return {
       chapterId: "STC-001",
@@ -179,7 +185,7 @@ export function generateStcCp002Question(input: {
   const secondFollows = stcModalEntails(scenario.premise, second.claim);
   const cls = answerClass(firstFollows, secondFollows);
   const reason = (follows: boolean, defect: StcModalDefect | undefined) =>
-    follows ? FOLLOWS_TEXT[input.locale] : defect ? MODAL_DEFECT_TEXT[defect][input.locale] : "not entailed";
+    follows ? MODAL_FOLLOWS[input.locale] : defect ? MODAL_DEFECT_TEXT[defect][input.locale] : "the statement does not establish this";
 
   return {
     chapterId: "STC-001",
