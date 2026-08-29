@@ -1,9 +1,15 @@
 import { STC_CP001_ALL_AUTHORITIES } from "./cp001-authority-registry.ts";
+import { STC_EXAM_REALNESS_CP001_AUTHORITIES } from "./exam-realness-expansion-cp001-v1.ts";
 import { stcEntails } from "./truth-model-solver.ts";
-import type { GeneratedStcQuestion, StcAnswerClass, StcLocale, StcQlId, StcScenarioAuthority } from "./types.ts";
+import type { GeneratedStcQuestion, StcAnswerClass, StcLocale, StcLogicalDefect, StcQlId, StcScenarioAuthority } from "./types.ts";
 
 const PAIRS = [
   [0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3],
+] as const;
+
+const GENERATION_AUTHORITIES = [
+  ...STC_CP001_ALL_AUTHORITIES,
+  ...STC_EXAM_REALNESS_CP001_AUTHORITIES,
 ] as const;
 
 function mix32(value: number): number {
@@ -56,6 +62,44 @@ const WHY_NOT: Record<StcLocale, string> = {
   "pa-IN": "ਕਥਨ ਤੋਂ ਇਹ ਗੱਲ ਨਿਸ਼ਚਿਤ ਨਹੀਂ ਹੁੰਦੀ",
 };
 
+const DEFECT_TEXT: Record<StcLogicalDefect, Record<StcLocale, string>> = {
+  POLARITY_FLIP: {
+    "en-IN": "this says the opposite of the stated fact",
+    "hi-IN": "यह कथन में दी गई बात के विपरीत है",
+    "pa-IN": "ਇਹ ਕਥਨ ਵਿੱਚ ਦਿੱਤੀ ਗੱਲ ਦੇ ਉਲਟ ਹੈ",
+  },
+  UNSUPPORTED_EXTRA: {
+    "en-IN": "this adds a fact that the statement never gives",
+    "hi-IN": "यह ऐसी अतिरिक्त बात जोड़ता है जो कथन में दी ही नहीं गई",
+    "pa-IN": "ਇਹ ਐਸੀ ਵਾਧੂ ਗੱਲ ਜੋੜਦਾ ਹੈ ਜੋ ਕਥਨ ਵਿੱਚ ਦਿੱਤੀ ਹੀ ਨਹੀਂ ਗਈ",
+  },
+  OVERCLAIM: {
+    "en-IN": "this goes beyond what the statement actually says",
+    "hi-IN": "यह कथन में दी गई जानकारी से अधिक दावा करता है",
+    "pa-IN": "ਇਹ ਕਥਨ ਵਿੱਚ ਦਿੱਤੀ ਜਾਣਕਾਰੀ ਨਾਲੋਂ ਵੱਧ ਦਾਅਵਾ ਕਰਦਾ ਹੈ",
+  },
+  INVALID_COMBINATION: {
+    "en-IN": "this treats an alternative as though every part were compulsory",
+    "hi-IN": "यह विकल्प को ऐसे मानता है जैसे हर भाग अनिवार्य हो",
+    "pa-IN": "ਇਹ ਵਿਕਲਪ ਨੂੰ ਇਸ ਤਰ੍ਹਾਂ ਮੰਨਦਾ ਹੈ ਜਿਵੇਂ ਹਰ ਹਿੱਸਾ ਲਾਜ਼ਮੀ ਹੋਵੇ",
+  },
+  CONVERSE: {
+    "en-IN": "this reverses the direction of the stated rule",
+    "hi-IN": "यह दी गई शर्त की दिशा उलट देता है",
+    "pa-IN": "ਇਹ ਦਿੱਤੀ ਸ਼ਰਤ ਦੀ ਦਿਸ਼ਾ ਉਲਟ ਦਿੰਦਾ ਹੈ",
+  },
+  INVERSE: {
+    "en-IN": "the statement does not guarantee the opposite result when the condition is absent",
+    "hi-IN": "शर्त न होने पर विपरीत परिणाम निश्चित होगा, ऐसा कथन नहीं कहता",
+    "pa-IN": "ਸ਼ਰਤ ਨਾ ਹੋਣ ਤੇ ਉਲਟ ਨਤੀਜਾ ਲਾਜ਼ਮੀ ਹੋਵੇਗਾ, ਕਥਨ ਇਹ ਨਹੀਂ ਕਹਿੰਦਾ",
+  },
+  DENYING_ANTECEDENT: {
+    "en-IN": "the result cannot be fixed merely because the stated condition is absent",
+    "hi-IN": "केवल शर्त न होने से परिणाम निश्चित नहीं किया जा सकता",
+    "pa-IN": "ਕੇਵਲ ਸ਼ਰਤ ਨਾ ਹੋਣ ਕਰਕੇ ਨਤੀਜਾ ਨਿਸ਼ਚਿਤ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ",
+  },
+};
+
 function indexForAnswer(value: StcAnswerClass): number {
   switch (value) {
     case "ONLY_I": return 0;
@@ -69,7 +113,7 @@ function scenariosFor(qlId: StcQlId): readonly StcScenarioAuthority[] {
   if (qlId !== "STC-QL-001" && qlId !== "STC-QL-002") {
     throw new Error(`${qlId} is reserved but not yet implemented in STC-CP-001`);
   }
-  return STC_CP001_ALL_AUTHORITIES.filter((scenario) => scenario.qlId === qlId);
+  return GENERATION_AUTHORITIES.filter((scenario) => scenario.qlId === qlId);
 }
 
 export function generateStcCp001Question(input: {
@@ -90,10 +134,12 @@ export function generateStcCp001Question(input: {
   const firstFollows = stcEntails(scenario.premises, first.expression);
   const secondFollows = stcEntails(scenario.premises, second.expression);
   const cls = answerClass(firstFollows, secondFollows);
+  const reason = (follows: boolean, defect: StcLogicalDefect | undefined) =>
+    follows ? WHY_FOLLOWS[input.locale] : defect ? DEFECT_TEXT[defect][input.locale] : WHY_NOT[input.locale];
 
   const explanation = [
-    `I: ${first.text[input.locale]} — ${firstFollows ? WHY_FOLLOWS[input.locale] : WHY_NOT[input.locale]}.`,
-    `II: ${second.text[input.locale]} — ${secondFollows ? WHY_FOLLOWS[input.locale] : WHY_NOT[input.locale]}.`,
+    `I: ${first.text[input.locale]} — ${reason(firstFollows, first.defectIfNotEntailed)}.`,
+    `II: ${second.text[input.locale]} — ${reason(secondFollows, second.defectIfNotEntailed)}.`,
   ].join(" ");
 
   return {
