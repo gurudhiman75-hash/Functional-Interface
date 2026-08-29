@@ -71,18 +71,9 @@ export function StickyHeader() {
     return null;
   }, [location, nodes]);
 
-  const routeContextLabel = location === "/dashboard"
-    ? "My Activity"
-    : location === "/profile"
-      ? "My Account"
-      : location === "/result"
-        ? "Result & Analysis"
-        : location.startsWith("/test-series/")
-          ? "Test Series"
-          : null;
-  const selectorLabel = routeContextLabel ?? (selected
+  const selectorLabel = selected
     ? [selected.category.name, selected.subcategory?.name, selected.test?.name].filter(Boolean).join(" > ")
-    : "Select Targeted Exam");
+    : "Select Targeted Exam";
 
   return (
     <header
