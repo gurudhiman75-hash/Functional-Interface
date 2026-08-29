@@ -2,31 +2,17 @@
 
 ## Status
 
-**FEATURE IMPLEMENTATION CLOSURE — EXECUTABLE GREEN / COMMON-BASE INTEGRATION PENDING**
+**FEATURE IMPLEMENTATION CLOSED / STAGING COMMON-BASE CLOSURE IMPLEMENTED / PRODUCTION MERGE AND LEARNER RELEASE SEPARATE**
 
-CP016 has two layers:
+CP016 distinguishes three different states and does not collapse them:
 
-1. a generic executable closure policy; and
-2. an exact implementation-evidence ledger for CP011–CP015.
+1. **feature implementation closure** — CP011–CP015 have exact executable-green evidence;
+2. **staging common-base closure** — those reviewed implementations coexist and pass together on one current `New-main`-based integration tree; and
+3. **production / learner release** — remains a separate governed action and is not authorized by this checkpoint.
 
-The generic policy foundation passed on exact head `d82880e92521b3369acc703a5e04782e7653c745`, workflow run `33059141963`.
+## Feature implementation evidence
 
-The final exact live-ledger head `fd3c2e2cf2bcf0494bc019c364df93587372d380` passed workflow run `33134335543` against the current `New-main` merge preview. That run completed the API build, generic closure-policy audit, and exact implementation-evidence ledger audit successfully.
-
-Final executable ledger output:
-
-- `PASS_DSF_CP016_IMPLEMENTATION_EVIDENCE_LEDGER_V1`
-- checkpoint count: 5
-- implementation closure ready: `true`
-- common-base closure ready: `false`
-- learner release ready: `false`
-- external source holds: 2
-
-This documentation-only freeze commit changes no closure-policy or ledger semantics.
-
-## Exact feature evidence
-
-`implementation-evidence-ledger-v1.ts` records the executable authority for each additive checkpoint:
+`implementation-evidence-ledger-v1.ts` preserves the original feature evidence and deliberately keeps `mergedToCommonBase: false` because those historical feature heads did not coexist when their evidence was recorded.
 
 | Checkpoint | PR | Exact executable head | Green run | Scope |
 | --- | ---: | --- | ---: | --- |
@@ -36,86 +22,86 @@ This documentation-only freeze commit changes no closure-policy or ledger semant
 | DSF-CP-014 | #1117 | `45da4eeae73ce3894ccfe20a486e762347a2d568` | `33057329390` | Editorial / anti-duplicate foundation |
 | DSF-CP-015 | #1120 | `166b8d691ce0c042d44fbed06295712e6f8ee85a` | `33058818772` | Permanent three-statement `DSF-QL-002` semantics |
 
-Every entry remains explicitly `mergedToCommonBase: false` because these PRs remain separate feature work. Green feature evidence is not treated as proof of common-base coexistence.
+The feature ledger independently computes:
 
-## Two closure levels
+- `implementationClosureReady: true`
+- `commonBaseClosureReady: false`
+- `learnerReleaseReady: false`
 
-### 1. Implementation closure
+That historical result remains correct and must not be rewritten.
 
-`implementationClosureReady` requires:
+## Staging common-base evidence
 
-- exact evidence for DSF-CP-011 through DSF-CP-015;
-- every required checkpoint `EXECUTABLE_GREEN`;
-- a positive executable run id and full 40-character exact head for every green checkpoint;
-- feature semantic-registry evidence exactly `DSF-QL-001` and `DSF-QL-002`;
-- next available semantic identity exactly `DSF-QL-003`; and
-- all learner-delivery lifecycle capabilities locked false.
+`common-base-integration-evidence-v1.ts` is an additive integration overlay. It reuses the exact feature authorities but records that CP011–CP015 now coexist on the dedicated common-base staging tree.
 
-The final live-ledger run proves this verdict is **true**.
+Its use of `mergedToCommonBase: true` means **coexisting on this validated staging common base**. It does **not** mean merged into production `New-main`.
 
-### 2. Common-base closure
+The integration closure contract requires:
 
-`commonBaseClosureReady` additionally requires all five required checkpoint implementations to actually coexist on one common base and be recorded as `mergedToCommonBase: true`.
+- all five checkpoint implementations executable-green;
+- QL registry exactly `DSF-QL-001` + `DSF-QL-002`;
+- next semantic identity exactly `DSF-QL-003`;
+- all review-only lifecycle capabilities false;
+- all required checkpoints coexisting on one integration tree; and
+- no closure-policy violations.
 
-With the current separate draft branches, the verified common-base verdict remains **false**.
+The expected staging verdict is:
 
-This is intentional. CP016 refuses to convert feature-branch evidence into a false `New-main` closure claim.
+- `implementationClosureReady: true`
+- `commonBaseClosureReady: true`
+- `productionNewMainMergeComplete: false`
+- `learnerReleaseReady: false`
 
-## CP014 integration boundary
+`common-base-integration-evidence-v1.test.ts` makes those distinctions executable.
 
-CP014's reusable anti-duplicate foundation is executable-green. Its **aggregate** CP012+CP013 Reasoning corpus audit cannot honestly be performed while those two checkpoint implementations remain on separate branches.
+## Combined common-base proof
 
-Therefore common-base integration must include a combined CP014 pass over the integrated Reasoning DS corpus. Thresholds remain evidence-driven and must not be weakened merely to obtain green CI.
+The consolidated workflow `Validate DSF Common-Base Integration` builds the API server, runs the independent inequality parity audit, executes every CP011–CP016 test on one tree, and performs a runtime lifecycle-lock scan.
 
-## Permanent semantic registry boundary
+Established combined evidence before the explicit staging-ledger addition includes:
 
-Feature implementation evidence after CP015 is:
+- API build: PASS
+- inequality source parity: **1,800 scenarios PASS**
+- CP011–CP016 executable audit files: **24 PASS**
+- integrated lifecycle locks: PASS
+- CP014 aggregate Reasoning corpus: **2,100 records PASS**
+- normalized duplicate groups: 0
+- Statement-I/II swap groups: 0
+- semantic near-duplicate pairs: 0
+- structural-cluster violations: 0
+- explanation-opening cluster violations: 0
+- permanent `DSF-QL-002`: PASS
+
+The latest current-head consolidated workflow is the final executable authority for this staging closure.
+
+## Permanent semantic registry
+
+Current integration semantics are:
 
 - `DSF-QL-001` — two-statement target determinacy;
 - `DSF-QL-002` — three-statement minimal-sufficient-subset reasoning;
 - next available identity — `DSF-QL-003`.
 
-This is CP015 feature authority, not a claim that current `New-main` already contains QL002. Common-base closure must independently verify the integrated registry.
+The CP000 historical registry remains untouched and continues to record the earlier one-QL state truthfully.
 
 ## External source-authority holds
 
-Two source holds remain explicitly documented:
+Two transparent source holds remain outside this DSF closure:
 
-- **Geometry DS** — current `New-main` exposes no canonical merged `GEO-001`/Geometry solver authority. DSF must not create an unofficial duplicate geometry formula engine.
-- **Generic puzzle DS** — current `New-main` exposes no standalone floor/box/scheduling puzzle solver/oracle outside Seating/generic infrastructure.
+- **Geometry DS** — no canonical merged Geometry solver authority has been established for the relevant source base; DSF must not invent a duplicate geometry truth engine.
+- **Generic floor/box/scheduling puzzle DS** — no standalone canonical solver/oracle has been established outside current Seating/generic infrastructure.
 
-These are external source-authority dependencies, not hidden unfinished DS implementations. Both must be re-searched at common-base closure rather than copied forward blindly.
+These holds do not invalidate the implemented DSF scope. They remain external source dependencies to reopen when authoritative source solvers exist.
 
-## Learner release remains separate
+## Learner lifecycle remains locked
 
-`learnerReleaseReady` is deliberately hard-coded to `false`.
+Common-base closure does not authorize delivery. The integrated expansion remains locked:
 
-Neither implementation closure nor future common-base chapter closure authorizes:
+- Question Studio discoverable: `false`
+- Question Bank writable: `false`
+- scored/test eligible: `false`
+- mock-test eligible: `false`
+- publicly publishable: `false`
+- automatic learner publication: `false`
 
-- Question Studio discovery;
-- Question Bank writes;
-- scored tests;
-- mock tests;
-- public publication; or
-- automatic student delivery.
-
-Those require separate governed release checkpoints.
-
-## Required common-base work
-
-Before `commonBaseClosureReady` may become true:
-
-1. integrate CP011, CP012, CP013, CP014 and CP015 on one common base without weakening frozen semantics to resolve conflicts;
-2. run CP014 anti-duplicate/editorial auditing over the combined CP012+CP013 Reasoning DS corpus;
-3. re-run source-authority discovery for Geometry and generic puzzles;
-4. verify the integrated permanent semantic registry exposes QL001 + QL002 with QL003 next; and
-5. re-run CP016 with every `mergedToCommonBase` flag set true only from real integration evidence.
-
-## CI
-
-The CP016 workflow runs both:
-
-- `closure-policy.test.ts` — generic policy/invariant audit; and
-- `implementation-evidence-ledger-v1.test.ts` — exact live CP011–CP015 evidence audit.
-
-Final executable authority: head `fd3c2e2cf2bcf0494bc019c364df93587372d380`, run `33134335543`, conclusion **SUCCESS**.
+Production merge and any learner-facing activation require separate explicit authorization.
