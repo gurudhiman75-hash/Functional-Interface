@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Link, useParams } from "wouter";
 
+import CurrentAffairsSaveActions from "@/components/CurrentAffairsSaveActions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -91,6 +92,7 @@ export default function CurrentAffairsQuizPage() {
         await Promise.all([
           queryClient.invalidateQueries({ queryKey: ["current-affairs-learner-dashboard"] }),
           queryClient.invalidateQueries({ queryKey: ["current-affairs-revision"] }),
+          queryClient.invalidateQueries({ queryKey: ["current-affairs-personalization"] }),
         ]);
       }
     },
@@ -204,6 +206,9 @@ export default function CurrentAffairsQuizPage() {
                   <p className="mt-1 text-sm leading-6 text-slate-700"><strong>Answer:</strong> {result.correctAnswer ?? question.options[result.correctIndex] ?? "—"}</p>
                   {result.explanation ? <p className="mt-2 text-sm leading-6 text-slate-600">{result.explanation}</p> : null}
                   {result.nextReviewAt ? <p className="mt-2 text-[10px] font-semibold uppercase tracking-wide text-slate-400">Next revision scheduled automatically</p> : null}
+                  <div className="mt-3">
+                    <CurrentAffairsSaveActions targetType="quiz_delivery_item" targetId={question.id} compact />
+                  </div>
                 </div>
               ) : null}
             </article>
