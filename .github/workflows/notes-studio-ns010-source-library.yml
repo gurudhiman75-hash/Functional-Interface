@@ -1,0 +1,65 @@
+name: Validate Notes Studio NS-010 Source Library
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/notes-studio/source-library.ts
+      - artifacts/api-server/src/notes-studio/source-library.test.ts
+      - artifacts/api-server/src/routes/admin-notes-studio-source-library.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/content/NotesStudioSourceLibraryPage.tsx
+      - artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
+      - docs/notes-studio-ns010-source-library.md
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notes-studio-ns010-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-notes-studio-source-library:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run NS-010 source-library contracts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/source-library.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-source-library.test.mjs
+          node artifacts/api-server/dist/notes-studio-source-library.test.mjs
+
+      - name: Verify source-reuse boundaries
+        run: |
+          grep -F 'rawSourceBodiesReturned: false' artifacts/api-server/src/routes/admin-notes-studio-source-library.ts
+          grep -F 'sourceBodyCopied: false' artifacts/api-server/src/routes/admin-notes-studio-source-library.ts
+          grep -F 'automaticEvidenceAcceptance: false' artifacts/api-server/src/routes/admin-notes-studio-source-library.ts
+          grep -F 'automaticGeneration: false' artifacts/api-server/src/routes/admin-notes-studio-source-library.ts
+          grep -F 'adminNotesStudioSourceLibraryRouter' artifacts/api-server/src/routes/index.ts
+          grep -F 'Source library' artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
+          grep -F 'Reuse preserves governance' artifacts/admin-app/src/pages/content/NotesStudioSourceLibraryPage.tsx
+          if grep -F 'INSERT INTO content.source_documents' artifacts/api-server/src/routes/admin-notes-studio-source-library.ts; then exit 1; fi
+          if grep -F 'fetch(' artifacts/api-server/src/routes/admin-notes-studio-source-library.ts; then exit 1; fi
+          if grep -F 'extracted_text AS' artifacts/api-server/src/routes/admin-notes-studio-source-library.ts; then exit 1; fi
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin app
+        run: pnpm --dir artifacts/admin-app typecheck
