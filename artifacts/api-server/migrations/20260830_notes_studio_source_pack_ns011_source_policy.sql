@@ -15,6 +15,19 @@ BEGIN
   END IF;
 END $$;
 
+UPDATE content.note_authoring_jobs
+SET brief = jsonb_set(
+      COALESCE(brief, '{}'::jsonb),
+      '{sourcePackTemplate}',
+      to_jsonb(CASE
+        WHEN state IN ('brief', 'sources_ready') THEN 'balanced'::text
+        ELSE 'quick_revision'::text
+      END),
+      true
+    ),
+    updated_at = now()
+WHERE NOT COALESCE(brief, '{}'::jsonb) ? 'sourcePackTemplate';
+
 CREATE INDEX IF NOT EXISTS note_authoring_sources_role_idx
   ON content.note_authoring_sources(job_id, inclusion_state, source_role, position);
 
