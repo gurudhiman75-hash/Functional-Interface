@@ -18,6 +18,7 @@ test('Notes Studio migration manifest preserves the cumulative chain in order', 
     '20260830_notes_studio_source_pack_ns006_approval_localization.sql',
     '20260830_notes_studio_source_pack_ns007_release_lineage.sql',
     '20260830_notes_studio_source_pack_ns009_planning.sql',
+    '20260830_notes_studio_source_pack_ns011_source_policy.sql',
   ]);
   assert.equal(new Set(NOTES_STUDIO_MIGRATIONS).size, NOTES_STUDIO_MIGRATIONS.length);
   assert.equal(new Set(NOTES_STUDIO_REQUIRED_RELATIONS).size, NOTES_STUDIO_REQUIRED_RELATIONS.length);
