@@ -1,0 +1,142 @@
+name: Validate Current Affairs Studio CP020
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp018-learner-dashboard
+      - feature/current-affairs-studio-cp019-learner-hub
+    paths:
+      - "artifacts/api-server/migrations/20260830_current_affairs_personalization.sql"
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/current-affairs-personalization.ts"
+      - "artifacts/api-server/src/routes/learning-resources.ts"
+      - "artifacts/examtree/src/components/CurrentAffairsPersonalizationPanel.tsx"
+      - "artifacts/examtree/src/components/CurrentAffairsSaveActions.tsx"
+      - "artifacts/examtree/src/lib/current-affairs-personalization.ts"
+      - "artifacts/examtree/src/pages/current-affairs-note.tsx"
+      - "artifacts/examtree/src/pages/current-affairs-quiz.tsx"
+      - "artifacts/examtree/src/pages/dashboard.tsx"
+      - ".github/workflows/current-affairs-cp020-personalization.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp020-personalization
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp020-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-personalization:
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Current Affairs CP001-CP020 contracts
+        run: |
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/original-authoring.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-question-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/periodic-rollup-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/story-threading.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/release-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/question-promotion-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/quiz-delivery-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/revision-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/dashboard-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/personalization-policy.test.ts
+
+      - name: Verify canonical saved-item schema and bounded preferences
+        shell: bash
+        run: |
+          set -euo pipefail
+          migration=artifacts/api-server/migrations/20260830_current_affairs_personalization.sql
+          grep -Fq 'daily_question_target BETWEEN 5 AND 100' "$migration"
+          grep -Fq "target_type IN ('learning_resource', 'quiz_delivery_item')" "$migration"
+          grep -Fq "save_mode IN ('bookmark', 'revise_later')" "$migration"
+          grep -Fq 'current_affairs_saved_items_target_shape' "$migration"
+          grep -Fq 'current_affairs_saved_items_review_shape' "$migration"
+          grep -Fq 'REFERENCES content.learning_resources' "$migration"
+          grep -Fq 'REFERENCES content.current_affairs_quiz_delivery_items' "$migration"
+
+      - name: Verify personalization APIs are authenticated and revocation-safe
+        shell: bash
+        run: |
+          set -euo pipefail
+          route=artifacts/api-server/src/routes/current-affairs-personalization.ts
+          runtime=artifacts/api-server/src/current-affairs/personalization-runtime.ts
+          grep -Fq 'router.get("/current-affairs/personalization", authenticate' "$route"
+          grep -Fq 'router.patch("/current-affairs/personalization/preferences", authenticate' "$route"
+          grep -Fq 'router.put("/current-affairs/saved-items", authenticate' "$route"
+          grep -Fq 'router.delete("/current-affairs/saved-items/:id", authenticate' "$route"
+          grep -Fq "release.status='approved'" "$runtime"
+          grep -Fq "delivery.status='published'" "$runtime"
+          grep -Fq "resource.status='published'" "$runtime"
+          grep -Fq "AT TIME ZONE 'Asia/Kolkata'" "$runtime"
+
+      - name: Verify notification-ready signals do not send notifications
+        shell: bash
+        run: |
+          set -euo pipefail
+          policy=artifacts/api-server/src/current-affairs/personalization-policy.ts
+          runtime=artifacts/api-server/src/current-affairs/personalization-runtime.ts
+          grep -Fq 'buildCurrentAffairsEngagementSignals' "$policy"
+          if grep -E 'sendMail|nodemailer|twilio|firebase-admin.*messaging|sendEachForMulticast|web-push|pushSubscription|SMS' "$policy" "$runtime"; then
+            echo 'CP020 may produce notification-ready signals but must not send notifications'
+            exit 1
+          fi
+
+      - name: Verify saved quiz metadata and personalization UI are answer-safe
+        shell: bash
+        run: |
+          set -euo pipefail
+          runtime=artifacts/api-server/src/current-affairs/personalization-runtime.ts
+          client=artifacts/examtree/src/lib/current-affairs-personalization.ts
+          panel=artifacts/examtree/src/components/CurrentAffairsPersonalizationPanel.tsx
+          actions=artifacts/examtree/src/components/CurrentAffairsSaveActions.tsx
+          grep -Fq "english_payload->>'stem'" "$runtime"
+          grep -Fq 'CurrentAffairsSaveActions' artifacts/examtree/src/pages/current-affairs-note.tsx
+          grep -Fq 'CurrentAffairsSaveActions' artifacts/examtree/src/pages/current-affairs-quiz.tsx
+          grep -Fq 'CurrentAffairsPersonalizationPanel' artifacts/examtree/src/pages/dashboard.tsx
+          grep -Fq 'Daily question goal' "$panel"
+          grep -Fq 'Notification-ready signals' "$panel"
+          if grep -E 'correctIndex|correctAnswer|explanation' "$client" "$panel" "$actions"; then
+            echo 'Personalization client surfaces must not expose answer-key fields'
+            exit 1
+          fi
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck learner frontend
+        run: pnpm --dir artifacts/examtree typecheck
+
+      - name: Build learner frontend
+        run: pnpm --dir artifacts/examtree build
