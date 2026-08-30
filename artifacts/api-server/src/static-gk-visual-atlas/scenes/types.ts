@@ -5,6 +5,7 @@ export type StaticGkSceneLayer =
   | "latitude-line"
   | "longitude-line"
   | "state-highlight"
+  | "district-highlight"
   | "point-marker"
   | "labels"
   | "quiz";
@@ -81,7 +82,7 @@ export interface StaticGkMeridianSceneRecipe {
   visualId: string;
   title: string;
   template: "india-map-path";
-  status: "geometry-pending" | "point-verification-pending" | "render-ready";
+  status: "geometry-pending" | "district-verification-pending" | "render-ready";
   viewport: StaticGkSceneViewport;
   geometrySource: StaticGkSceneGeometrySource;
   meridian: {
@@ -90,12 +91,12 @@ export interface StaticGkMeridianSceneRecipe {
     indiaSegments: GeoJsonLineString[];
     upSegments: GeoJsonLineString[];
   };
-  pointOfInterest: {
-    id: "point.mirzapur";
+  districtOfInterest: {
+    id: "district.mirzapur";
     name: "Mirzapur";
-    latitude?: number;
-    longitude?: number;
-    verificationSource?: string;
+    stateName: "Uttar Pradesh";
+    featureCount: number;
+    meridianSegments: GeoJsonLineString[];
   };
   cues: StaticGkSceneCue[];
   narration: Array<{ id: string; text: string; factIds: string[] }>;
