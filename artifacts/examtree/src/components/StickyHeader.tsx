@@ -3,6 +3,7 @@ import { BarChart3, ChevronDown, CircleUserRound, Compass, Search } from "lucide
 import { useLocation } from "wouter";
 
 import { CategoryIcon } from "@/components/CategoryIcon";
+import CurrentAffairsNotificationBell from "@/components/CurrentAffairsNotificationBell";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { buildExamTreeNodes } from "@/lib/exam-tree";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
@@ -170,6 +171,7 @@ export function StickyHeader() {
         </div>
 
         <div className="ml-auto flex shrink-0 items-center gap-2">
+          <CurrentAffairsNotificationBell />
           <button
             type="button"
             onClick={() => setLocation("/dashboard")}
