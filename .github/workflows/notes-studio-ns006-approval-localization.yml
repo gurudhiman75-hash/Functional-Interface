@@ -11,7 +11,6 @@ on:
       - 'artifacts/api-server/migrations/20260829_notes_studio_source_pack*.sql'
       - 'artifacts/api-server/migrations/20260830_notes_studio_source_pack*.sql'
       - 'artifacts/admin-app/src/pages/content/NotesStudio**'
-      - '.github/workflows/notes-studio-ns006-approval-localization.yml'
   workflow_dispatch:
 
 concurrency:
