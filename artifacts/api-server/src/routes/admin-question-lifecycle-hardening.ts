@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { Router, type Response } from "express";
 
+import { getGeneratedQuestionDeliveryIssues } from "../lib/admin-question-delivery-policy";
 import { QuestionManagementError } from "../lib/admin-question-management";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
@@ -92,12 +93,16 @@ router.post(
         if (!String(question.explanation ?? "").trim()) issues.push("Question explanation is required.");
         if (Number(question.optionCount ?? 0) < 2) issues.push("At least two options are required.");
         if (Number(question.correctOptionCount ?? 0) !== 1) issues.push("Exactly one correct option is required.");
-        if (question.generationTestEligible === false) {
-          issues.push("Generation lifecycle has not enabled scored-test eligibility.");
-        }
-        if (question.generationPubliclyPublishable === false) {
-          issues.push("Generation lifecycle has not enabled public publication.");
-        }
+        issues.push(...getGeneratedQuestionDeliveryIssues({
+          testEligible:
+            typeof question.generationTestEligible === "boolean"
+              ? question.generationTestEligible
+              : null,
+          publiclyPublishable:
+            typeof question.generationPubliclyPublishable === "boolean"
+              ? question.generationPubliclyPublishable
+              : null,
+        }));
         if (issues.length > 0) {
           throw new QuestionManagementError(
             "QUESTION_NOT_PUBLISHABLE",
