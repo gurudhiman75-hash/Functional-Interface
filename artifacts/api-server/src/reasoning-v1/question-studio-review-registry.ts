@@ -6,6 +6,11 @@ import {
   type BlrCp007QuestionStudioReviewRequest,
 } from "./topics/Blood-Relations/BLR-001/BLR-CP-007/question-studio-review-adapter";
 import {
+  DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE,
+  previewDsf001NormalQuestionStudioReview,
+  type DsfCp017QuestionStudioInput,
+} from "./topics/Data-Sufficiency/DSF-001/DSF-CP-017/question-studio-review-v1";
+import {
   SYL_001_QUESTION_STUDIO_PACKAGE,
   SYL_001_QUESTION_STUDIO_PACKAGE_ID,
   assertSyl001QuestionStudioPersistenceAllowed,
@@ -32,6 +37,7 @@ import {
 
 export type ReasoningV1QuestionStudioReviewPackageId =
   | typeof BLR_CP007_QUESTION_STUDIO_PACKAGE_ID
+  | typeof DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.packageId
   | typeof SYL_001_QUESTION_STUDIO_PACKAGE_ID
   | typeof STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId
   | typeof STC_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId
@@ -40,6 +46,9 @@ export type ReasoningV1QuestionStudioReviewPackageId =
 export type ReasoningV1QuestionStudioReviewRequest =
   | (BlrCp007QuestionStudioReviewRequest & Readonly<{
       packageId: typeof BLR_CP007_QUESTION_STUDIO_PACKAGE_ID;
+    }>)
+  | (DsfCp017QuestionStudioInput & Readonly<{
+      packageId: typeof DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.packageId;
     }>)
   | (Syl001QuestionStudioRequest & Readonly<{
       packageId: typeof SYL_001_QUESTION_STUDIO_PACKAGE_ID;
@@ -56,6 +65,7 @@ export type ReasoningV1QuestionStudioReviewRequest =
 
 const REVIEW_PACKAGES = [
   BLR_CP007_QUESTION_STUDIO_REVIEW_PACKAGE,
+  DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE,
   SYL_001_QUESTION_STUDIO_PACKAGE,
   STA_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   STC_001_QUESTION_STUDIO_REVIEW_PACKAGE,
@@ -77,6 +87,10 @@ export function previewReasoningV1QuestionStudioReview(
 ) {
   if (request.packageId === BLR_CP007_QUESTION_STUDIO_PACKAGE_ID) {
     return previewBlrCp007QuestionStudioReview(request);
+  }
+  if (request.packageId === DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
+    const { packageId: _packageId, ...input } = request;
+    return previewDsf001NormalQuestionStudioReview(input);
   }
   if (request.packageId === SYL_001_QUESTION_STUDIO_PACKAGE_ID) {
     return previewSyl001QuestionStudio(request);
@@ -101,6 +115,11 @@ export function persistReasoningV1QuestionStudioReview(
 ): never {
   if (request.packageId === BLR_CP007_QUESTION_STUDIO_PACKAGE_ID) {
     return assertBlrCp007QuestionStudioPersistenceAllowed();
+  }
+  if (request.packageId === DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
+    throw new Error(
+      "DSF-001 persistence is enabled only through the authenticated shared Question Studio /runs route so RBAC, audit events, review status and downstream release locks are preserved.",
+    );
   }
   if (request.packageId === SYL_001_QUESTION_STUDIO_PACKAGE_ID) {
     return assertSyl001QuestionStudioPersistenceAllowed();
