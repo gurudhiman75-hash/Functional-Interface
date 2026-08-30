@@ -14,6 +14,9 @@ function withoutFreezeTag<T extends { readonly editorialStatus: "FROZEN" }>(valu
   const { editorialStatus: _editorialStatus, ...rest } = value;
   return rest;
 }
+function canonicalJson(value: unknown): string {
+  return JSON.stringify(value, (_key, item) => typeof item === "bigint" ? `bigint:${item.toString()}` : item);
+}
 
 assert(TSD_CP010_ENGLISH_FREEZE_APPROVAL.status === "PRODUCT_OWNER_APPROVED_ENGLISH_FREEZE", "freeze approval status changed");
 assert(TSD_CP010_ENGLISH_FREEZE_APPROVAL.approvedSourceHead === "78768014443ca76e606f063b73ead667af86d375", "approved V3 source head changed");
@@ -27,8 +30,8 @@ assert(TSD_CP010_FROZEN_ENGLISH_REVIEW.length === 60, "frozen English family cou
 assert(new Set(TSD_CP010_FROZEN_ENGLISH_REVIEW.map((question) => question.stem)).size === 60, "frozen English stems are no longer unique");
 assert(TSD_CP010_FROZEN_ENGLISH_REVIEW.every((question) => question.editorialStatus === "FROZEN"), "frozen English row lost FROZEN status");
 
-const sourceJson = JSON.stringify(TSD_CP010_EXAM_PAPER_V3_ENGLISH_REVIEW);
-const frozenJson = JSON.stringify(TSD_CP010_FROZEN_ENGLISH_REVIEW.map(withoutFreezeTag));
+const sourceJson = canonicalJson(TSD_CP010_EXAM_PAPER_V3_ENGLISH_REVIEW);
+const frozenJson = canonicalJson(TSD_CP010_FROZEN_ENGLISH_REVIEW.map(withoutFreezeTag));
 assert(frozenJson === sourceJson, "frozen English learner content differs from approved V3 source");
 
 for (const qlId of TSD_CP010_PERMANENT_QL_IDS) {
