@@ -19,6 +19,7 @@ const TOOLS = {
 
 const TESTS = [
   "tests/lesson-manifests.test.ts",
+  "tests/runtime-admin-loader.test.ts",
   "tests/tropic-cancer-compiler.test.ts",
   "tests/standard-meridian-compiler.test.ts",
   "tests/tropic-svg-renderer.test.ts",
