@@ -115,6 +115,101 @@ export type CurrentAffairsLocalizationQueue = {
   generatedAt: string;
 };
 
+export type CurrentAffairsEditorialWorkbench = {
+  event: {
+    id: string;
+    publicCode: string;
+    canonicalTitle: string;
+    canonicalSummary: string;
+    importanceReason: string;
+    eventDate: string;
+    category: string;
+    subcategory: string | null;
+    eventStatus: string;
+    verificationConfidence: number;
+    authoringStatus: string;
+    authoringVersionId: string | null;
+    authoringVersionNumber: number | null;
+    authoringVersionStatus: string | null;
+    learnerTitle: string | null;
+    learnerSummary: string | null;
+    learnerOneLiner: string | null;
+    authoringTemplateId: string | null;
+    authoringMethod: string | null;
+    sourceTitleSimilarity: number | null;
+    authoringReasons: unknown;
+    authoringCreatedAt: string | null;
+    eventUpdatedAt: string;
+  };
+  sources: Array<{
+    sourceId: string;
+    sourceKey: string;
+    sourceName: string;
+    trustScore: number;
+    registeredPrimarySource: boolean;
+    sourceUrl: string;
+    sourceTitle: string;
+    sourcePublishedAt: string | null;
+    isPrimaryEvidence: boolean;
+    evidenceConfidence: number;
+    createdAt: string;
+  }>;
+  facts: Array<{
+    id: string;
+    factKey: string;
+    factValue: string;
+    factType: string;
+    isVerified: boolean;
+    confidence: number;
+    reconciliationStatus: string;
+    supportCount: number;
+    primarySupportCount: number;
+    provenance: unknown;
+    sortOrder: number;
+  }>;
+  conflicts: Array<{
+    id: string;
+    factKey: string;
+    competingValues: unknown;
+    status: string;
+    preferredValue: string | null;
+    resolutionReason: string | null;
+    updatedAt: string;
+  }>;
+  localizations: Array<{
+    id: string;
+    languageCode: 'hi' | 'pa';
+    status: string;
+    localizedTitle: string | null;
+    localizedSummary: string | null;
+    localizedOneLiner: string | null;
+    localizationMethod: string;
+    qualitySnapshot: unknown;
+    reasons: unknown;
+    reviewedBy: string | null;
+    updatedAt: string;
+  }>;
+  authoringHistory: Array<{
+    id: string;
+    versionNumber: number;
+    status: string;
+    learnerTitle: string | null;
+    learnerSummary: string | null;
+    learnerOneLiner: string | null;
+    authoringMethod: string;
+    sourceTitleSimilarity: number;
+    reasons: unknown;
+    createdAt: string;
+  }>;
+  gates: {
+    eventVerified: boolean;
+    hasVerifiedFacts: boolean;
+    hasOpenConflict: boolean;
+    authoringCurrent: boolean;
+  };
+  generatedAt: string;
+};
+
 export type CurrentAffairsReleaseCandidate = {
   key: { periodType: 'daily' | 'weekly' | 'monthly'; periodStart: string; periodEnd: string; examFamily: 'ssc' | 'banking' | 'punjab' | 'railways' | 'general' };
   compilations: Array<{ id: string; publicCode: string; languageCode: 'en' | 'hi' | 'pa'; status: string; eventCount: number; learningResourceStatus: string }>;
@@ -192,6 +287,24 @@ export function getCurrentAffairsAuthoringQueue(status = 'needs_editorial') {
 
 export function getCurrentAffairsLocalizationQueue(languageCode: 'hi' | 'pa') {
   return adminRequest<CurrentAffairsLocalizationQueue>(`/admin/current-affairs/localization/queue?languageCode=${languageCode}&limit=100`);
+}
+
+export function getCurrentAffairsEditorialEvent(eventId: string) {
+  return adminRequest<CurrentAffairsEditorialWorkbench>(`/admin/current-affairs/editorial/events/${encodeURIComponent(eventId)}`);
+}
+
+export function saveCurrentAffairsEnglishAuthoring(eventId: string, input: { title: string; summary: string; oneLiner: string; reason: string }) {
+  return adminRequest<{ eventId: string; versionId: string; status: string; title: string; summary: string; sourceTitleSimilarity: number }>(
+    `/admin/current-affairs/events/${encodeURIComponent(eventId)}/authoring/manual`,
+    { method: 'POST', body: JSON.stringify(input) },
+  );
+}
+
+export function saveCurrentAffairsLocalization(eventId: string, languageCode: 'hi' | 'pa', input: { title: string; summary: string; oneLiner: string; reason: string }) {
+  return adminRequest<Record<string, unknown>>(
+    `/admin/current-affairs/events/${encodeURIComponent(eventId)}/localization/${languageCode}/manual`,
+    { method: 'POST', body: JSON.stringify(input) },
+  );
 }
 
 export function getCurrentAffairsReleaseQueue() {

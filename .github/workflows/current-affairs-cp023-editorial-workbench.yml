@@ -1,0 +1,150 @@
+name: Validate Current Affairs Studio CP023
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp021-inapp-notifications
+      - feature/current-affairs-studio-cp022-admin-control-center
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs-*.ts"
+      - "artifacts/api-server/src/routes/index.ts"
+      - "artifacts/admin-app/src/features/current-affairs/**"
+      - "artifacts/admin-app/src/pages/content/CurrentAffairsStudioPage.tsx"
+      - "artifacts/admin-app/src/pages/content/CurrentAffairsEditorialWorkbenchPage.tsx"
+      - "artifacts/admin-app/src/App.tsx"
+      - ".github/workflows/current-affairs-cp023-editorial-workbench.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp023-editorial-workbench
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp023-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-editorial-workbench:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Current Affairs CP001-CP021 contracts
+        run: |
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/original-authoring.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-question-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/periodic-rollup-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/story-threading.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/release-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/question-promotion-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/quiz-delivery-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/revision-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/dashboard-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/personalization-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/notification-policy.test.ts
+
+      - name: Verify editorial detail endpoint is authenticated and read only
+        shell: bash
+        run: |
+          set -euo pipefail
+          route=artifacts/api-server/src/routes/admin-current-affairs-editorial-workbench.ts
+          index=artifacts/api-server/src/routes/index.ts
+          grep -Fq 'router.get(' "$route"
+          grep -Fq '"/editorial/events/:id"' "$route"
+          grep -Fq 'requireAdminPermission("content.questions.read")' "$route"
+          grep -Fq 'current_affairs_event_sources' "$route"
+          grep -Fq 'current_affairs_facts' "$route"
+          grep -Fq 'current_affairs_fact_conflicts' "$route"
+          grep -Fq 'current_affairs_localizations' "$route"
+          grep -Fq 'current_affairs_authoring_versions' "$route"
+          grep -Fq 'adminCurrentAffairsEditorialWorkbenchRouter' "$index"
+          if grep -E 'INSERT INTO|UPDATE content\.|DELETE FROM|router\.(post|patch|put|delete)' "$route"; then
+            echo 'CP023 editorial read model must remain read-only'
+            exit 1
+          fi
+
+      - name: Verify editor reuses canonical CP009 and CP010 mutation gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          api=artifacts/admin-app/src/features/current-affairs/api.ts
+          page=artifacts/admin-app/src/pages/content/CurrentAffairsEditorialWorkbenchPage.tsx
+          authoring=artifacts/api-server/src/routes/admin-current-affairs-authoring.ts
+          localization=artifacts/api-server/src/routes/admin-current-affairs-localization.ts
+          grep -Fq '/authoring/manual' "$api"
+          grep -Fq '/localization/${languageCode}/manual' "$api"
+          grep -Fq 'createManualAuthoringVersion' "$authoring"
+          grep -Fq 'sourceTitleSimilarityGate' "$authoring"
+          grep -Fq 'createManualCurrentAffairsLocalization' "$localization"
+          grep -Fq "hasPermission('content.questions.update')" "$page"
+          grep -Fq 'hasOpenConflict' "$page"
+          grep -Fq 'Source-title similarity must remain below the canonical 0.72 limit' "$page"
+          grep -Fq 'Parity and target-script checks passed through the canonical localization runtime' "$page"
+          if grep -E 'fetch\(|current_affairs_.*(INSERT|UPDATE|DELETE)|learning_resources.*status' "$page"; then
+            echo 'CP023 UI must use canonical admin API helpers instead of direct lifecycle mutation'
+            exit 1
+          fi
+
+      - name: Verify triage to workbench navigation
+        shell: bash
+        run: |
+          set -euo pipefail
+          app=artifacts/admin-app/src/App.tsx
+          studio=artifacts/admin-app/src/pages/content/CurrentAffairsStudioPage.tsx
+          page=artifacts/admin-app/src/pages/content/CurrentAffairsEditorialWorkbenchPage.tsx
+          grep -Fq "path:'/content/current-affairs/editorial/:eventId'" "$app"
+          grep -Fq 'to={`/content/current-affairs/editorial/${event.id}`}' "$studio"
+          grep -Fq 'Verified fact sheet' "$page"
+          grep -Fq 'Evidence sources' "$page"
+          grep -Fq 'English authoring history' "$page"
+          grep -Fq 'All edits create audited canonical versions' "$page"
+
+      - name: Verify immutable authoring and localization schema assumptions
+        shell: bash
+        run: |
+          set -euo pipefail
+          authoring=artifacts/api-server/migrations/20260829_current_affairs_original_authoring.sql
+          localization=artifacts/api-server/migrations/20260829_current_affairs_multilingual_notes.sql
+          intelligence=artifacts/api-server/migrations/20260829_current_affairs_intelligence.sql
+          grep -Fq 'UNIQUE (event_id, version_number)' "$authoring"
+          grep -Fq 'learner_authoring_version_id UUID' "$authoring"
+          grep -Fq 'UNIQUE (authoring_version_id, language_code)' "$localization"
+          grep -Fq "language_code TEXT NOT NULL CHECK (language_code IN ('hi', 'pa'))" "$localization"
+          grep -Fq "status = 'open'" "$intelligence"
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin frontend
+        run: pnpm --dir artifacts/admin-app typecheck
+
+      - name: Build admin frontend
+        run: pnpm --dir artifacts/admin-app build
