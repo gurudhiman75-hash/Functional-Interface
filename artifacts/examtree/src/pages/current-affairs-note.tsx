@@ -3,6 +3,7 @@ import { ArrowLeft, CalendarDays, Languages, ShieldCheck } from "lucide-react";
 import { Link, useParams } from "wouter";
 
 import CurrentAffairsMarkdown from "@/components/CurrentAffairsMarkdown";
+import CurrentAffairsSaveActions from "@/components/CurrentAffairsSaveActions";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getCurrentAffairsResource } from "@/lib/current-affairs";
@@ -68,6 +69,9 @@ export default function CurrentAffairsNotePage() {
         <div className="mt-5 flex flex-wrap items-center gap-4 text-xs text-slate-400">
           <span className="flex items-center gap-1.5"><CalendarDays className="h-4 w-4" />{formatDate(resource.contentDate)}</span>
           <span className="flex items-center gap-1.5"><ShieldCheck className="h-4 w-4 text-emerald-500" />Editorially released</span>
+        </div>
+        <div className="mt-5">
+          <CurrentAffairsSaveActions targetType="learning_resource" targetId={resource.id} />
         </div>
       </header>
 
