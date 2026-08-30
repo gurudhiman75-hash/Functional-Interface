@@ -16,7 +16,8 @@ for (const executableCase of cases) {
   assert(provenance, `${executableCase.caseId}: cross-authority provenance missing`);
   assert(provenance.engineA !== provenance.engineB, `${executableCase.caseId}: both equations cannot come from the same authority`);
   assert(provenance.variableMeaning === "TWO_SPEEDS_METRES_PER_SECOND", `${executableCase.caseId}: unknowns must remain dimensionally compatible speeds`);
-  assert(provenance.note.length >= 100, `${executableCase.caseId}: provenance note is too thin to preserve ownership meaning`);
+  assert(/independent/i.test(provenance.note), `${executableCase.caseId}: provenance note must state that the two evidence sources are independently constraining`);
+  assert(/speed/i.test(provenance.note), `${executableCase.caseId}: provenance note must preserve the hidden speed-state meaning`);
   assert(executableCase.input.target === "X" || executableCase.input.target === "Y", `${executableCase.caseId}: unsupported inverse target`);
   assert(executableCase.expected.kind === "SCALAR", `${executableCase.caseId}: expected scalar speed state`);
   assert(compare(executableCase.expected.answer, rational(0)) > 0, `${executableCase.caseId}: recovered speed must be positive`);
@@ -26,12 +27,15 @@ assert(TSD_CP012_TWO_ENGINE_PROVENANCE.every((x) => cases.some((candidate) => ca
 
 const enginePairs = TSD_CP012_TWO_ENGINE_PROVENANCE.map((x) => [x.engineA, x.engineB].sort().join("|"));
 assert(new Set(enginePairs).size >= 7, "two-engine evidence pool is too repetitive across earlier authorities");
+assert(new Set(TSD_CP012_TWO_ENGINE_PROVENANCE.flatMap((x) => [x.engineA, x.engineB])).size >= 6, "two-engine provenance must draw from a broad set of earlier TSD authorities");
 
 console.log("TSD-CP-012 TWO-ENGINE CROSS-AUTHORITY PROVENANCE PROOF: PASS");
 console.log(JSON.stringify({
   executableCases: cases.length,
   provenanceRows: TSD_CP012_TWO_ENGINE_PROVENANCE.length,
   distinctAuthorityPairs: new Set(enginePairs).size,
+  distinctEarlierAuthorities: new Set(TSD_CP012_TWO_ENGINE_PROVENANCE.flatMap((x) => [x.engineA, x.engineB])).size,
   variableMeaning: "TWO_SPEEDS_METRES_PER_SECOND",
+  provenanceGuard: "SEMANTIC_INDEPENDENCE_NOT_CHARACTER_COUNT",
   abstractAlgebraOnly: false,
 }, null, 2));
