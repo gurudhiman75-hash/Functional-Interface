@@ -29,6 +29,6 @@ for (const question of TSD_CP012_ENGLISH_REVIEW_FINAL) {
   }
 }
 
-if (scalarFamilies + setFamilies + routeFamilies !== 66) throw new Error("CP012 distractor coverage proof did not visit all 66 reviewed families");
+if (scalarFamilies + setFamilies + routeFamilies !== 270) throw new Error("CP012 distractor coverage proof did not visit all 270 reviewed families");
 console.log("TSD-CP-012 PER-FAMILY DISTRACTOR COVERAGE PROOF: PASS");
-console.log(JSON.stringify({ scalarFamilies, setFamilies, routeFamilies, reviewedFamilies: 66 }, null, 2));
+console.log(JSON.stringify({ scalarFamilies, setFamilies, routeFamilies, reviewedFamilies: 270 }, null, 2));
