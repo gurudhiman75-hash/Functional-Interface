@@ -88,7 +88,7 @@ export function generateStcV2EditorialQuestion(input: {
 
   return {
     chapterId: "STC-001",
-    version: "V2",
+    version: "V2.1",
     checkpointId: checkpointFor(input.qlId),
     qlId: input.qlId,
     scenarioId: authority.id,
