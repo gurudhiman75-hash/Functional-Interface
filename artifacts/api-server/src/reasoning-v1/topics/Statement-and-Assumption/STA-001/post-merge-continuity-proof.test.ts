@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 const shared = await import("../../../../question-studio/shared-generation-engine.ts");
 
@@ -97,10 +98,13 @@ for (const qlId of ALL_QLS) {
   }
 }
 
-const routeSource = readFileSync(
-  new URL("../../../../routes/admin-question-studio-average.ts", import.meta.url),
-  "utf8",
-);
+const routeCandidates = [
+  resolve(process.cwd(), "artifacts/api-server/src/routes/admin-question-studio-average.ts"),
+  resolve(process.cwd(), "src/routes/admin-question-studio-average.ts"),
+];
+const routePath = routeCandidates.find((candidate) => existsSync(candidate));
+assert.ok(routePath, "Unable to locate the shared admin Question Studio route source.");
+const routeSource = readFileSync(routePath, "utf8");
 assert.match(routeSource, /const\s+staRequest\s*=\s*isSta001QuestionStudioRequest\(/u);
 assert.match(routeSource, /staRequest\s*\?\s*"STA-001"/u);
 assert.match(routeSource, /const\s+reasoningRequest\s*=\s*staRequest\s*\|\|\s*worRequest/u);
