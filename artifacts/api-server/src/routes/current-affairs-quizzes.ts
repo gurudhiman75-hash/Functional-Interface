@@ -2,6 +2,11 @@ import { Router, type IRouter, type Response } from "express";
 
 import { loadCurrentAffairsLearnerDashboard } from "../current-affairs/dashboard-runtime";
 import {
+  listCurrentAffairsLearnerHub,
+  type CurrentAffairsHubFamily,
+  type CurrentAffairsHubPeriod,
+} from "../current-affairs/learner-hub-runtime";
+import {
   gradeLearnerCurrentAffairsQuiz,
   listPublishedCurrentAffairsQuizzes,
   loadLearnerCurrentAffairsQuiz,
@@ -21,6 +26,8 @@ import { authenticate } from "../middlewares/auth";
 const router: IRouter = Router();
 const QUIZ_CODE_PATTERN = /^CA-QZ-(D|W|M)-\d{8}-[A-Z0-9_-]{2,24}-V\d+$/;
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const HUB_PERIODS = new Set<CurrentAffairsHubPeriod>(["daily", "weekly", "monthly"]);
+const HUB_FAMILIES = new Set<CurrentAffairsHubFamily>(["ssc", "banking", "punjab", "railways", "general"]);
 
 function text(value: unknown, max: number): string {
   return typeof value === "string" ? value.replace(/\s+/g, " ").trim().slice(0, max) : "";
@@ -40,6 +47,18 @@ function listLimit(value: unknown): number | null {
   if (value == null || value === "") return 50;
   const parsed = Number(value);
   return Number.isInteger(parsed) && parsed >= 1 && parsed <= 100 ? parsed : null;
+}
+
+function optionalHubPeriod(value: unknown): CurrentAffairsHubPeriod | null | undefined {
+  if (value == null || value === "") return null;
+  const normalized = text(value, 20).toLowerCase() as CurrentAffairsHubPeriod;
+  return HUB_PERIODS.has(normalized) ? normalized : undefined;
+}
+
+function optionalHubFamily(value: unknown): CurrentAffairsHubFamily | null | undefined {
+  if (value == null || value === "") return null;
+  const normalized = text(value, 24).toLowerCase() as CurrentAffairsHubFamily;
+  return HUB_FAMILIES.has(normalized) ? normalized : undefined;
 }
 
 function answers(value: unknown): CurrentAffairsQuizGradeInput[] | null {
@@ -82,6 +101,24 @@ function sendError(res: Response, error: unknown, fallback: string) {
   console.error(fallback, error);
   res.status(500).json({ error: fallback, code: "CURRENT_AFFAIRS_QUIZ_FAILED" });
 }
+
+router.get("/current-affairs/hub", async (req, res) => {
+  try {
+    const periodType = optionalHubPeriod(req.query.period);
+    const examFamily = optionalHubFamily(req.query.family);
+    const limit = listLimit(req.query.limit);
+    if (periodType === undefined || examFamily === undefined || limit == null) {
+      res.status(400).json({
+        error: "Choose valid Current Affairs hub filters.",
+        code: "INVALID_CURRENT_AFFAIRS_HUB_FILTER",
+      });
+      return;
+    }
+    res.json(await listCurrentAffairsLearnerHub({ periodType, examFamily, limit }));
+  } catch (error) {
+    sendError(res, error, "Unable to load Current Affairs hub");
+  }
+});
 
 router.get("/current-affairs/quizzes", async (req, res) => {
   try {
