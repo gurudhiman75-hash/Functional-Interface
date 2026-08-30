@@ -1,0 +1,72 @@
+import { TSD_CP012_PROVISIONAL_QL_IDS } from "./ql-allocation";
+import {
+  TSD_CP012_STUDIO_CANDIDATE_PACKAGE,
+  TSD_CP012_STUDIO_REVIEWED_COMBINATIONS_PER_LOCALE,
+  TSD_CP012_STUDIO_REVIEWED_MULTILINGUAL_COMBINATIONS,
+  previewTsdCp012StudioCandidate,
+} from "./question-studio-candidate";
+
+function assert(condition: unknown, message: string): asserts condition {
+  if (!condition) throw new Error(`TSD-CP-012 Studio candidate proof failed: ${message}`);
+}
+
+assert(TSD_CP012_STUDIO_REVIEWED_COMBINATIONS_PER_LOCALE === 66, "expected 66 reviewed combinations per locale");
+assert(TSD_CP012_STUDIO_REVIEWED_MULTILINGUAL_COMBINATIONS === 198, "expected 198 reviewed multilingual combinations");
+assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.productOwnerApprovalStatus === "NOT_APPROVED", "product-owner approval must remain absent");
+assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.questionStudioRegistrationStatus === "NOT_REGISTERED", "Studio must remain unregistered");
+assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.productionSelectorVisible === false, "production selector must remain hidden");
+assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.routeMounted === false, "route must remain unmounted");
+assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.persistenceAllowed === false, "persistence must remain disabled");
+assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.questionBankWritable === false, "Question Bank must remain read-locked");
+assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.testEligible === false, "test eligibility must remain disabled");
+assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.publiclyPublishable === false, "public publishing must remain disabled");
+assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.distractorStatus === "REVIEW_REQUIRED_BEFORE_FREEZE", "distractors must remain explicitly unfrozen");
+
+for (const language of ["en", "hi", "pa"] as const) {
+  const preview = previewTsdCp012StudioCandidate({ language, count: 66, seed: `cp012-full-${language}` });
+  assert(preview.questions.length === 66, `${language}: expected 66 Studio questions`);
+  assert(preview.availableCombinationsUnderFilters === 66, `${language}: availability mismatch`);
+  assert(new Set(preview.questions.map((question) => question.familyId)).size === 66, `${language}: duplicate family IDs`);
+  assert(new Set(preview.questions.map((question) => question.stem)).size === 66, `${language}: duplicate learner stems`);
+  assert(new Set(preview.questions.map((question) => question.questionId)).size === 66, `${language}: duplicate question IDs`);
+  for (const question of preview.questions) {
+    assert(question.options.length === 4, `${language}/${question.familyId}: expected four options`);
+    assert(new Set(question.options).size === 4, `${language}/${question.familyId}: duplicate option`);
+    assert(question.correctIndex >= 0 && question.correctIndex < 4, `${language}/${question.familyId}: invalid correct index`);
+    assert(question.validation.exactSolverOrSourceExtensionBacked, `${language}/${question.familyId}: exact source flag missing`);
+    assert(question.validation.independentVerifierAccepted, `${language}/${question.familyId}: verifier flag missing`);
+    assert(question.validation.fourUniqueOptions, `${language}/${question.familyId}: option validation flag missing`);
+    assert(question.validation.distractorsFrozen === false, `${language}/${question.familyId}: distractor review lock missing`);
+    assert(question.reviewStatus === "REVIEW_CANDIDATE_NOT_APPROVED", `${language}/${question.familyId}: review lock missing`);
+    assert(question.persistenceAllowed === false, `${language}/${question.familyId}: persistence escaped lock`);
+    assert(question.publiclyPublishable === false, `${language}/${question.familyId}: publication escaped lock`);
+  }
+  for (const qlId of TSD_CP012_PROVISIONAL_QL_IDS) {
+    const byQl = preview.questions.filter((question) => question.qlId === qlId);
+    assert(byQl.length === 6, `${language}/${qlId}: expected six reviewed families`);
+  }
+  const setQuestions = preview.questions.filter((question) => question.solution.kind === "SET");
+  assert(setQuestions.length >= 2, `${language}: complete-set review questions missing`);
+  assert(setQuestions.every((question) => question.optionModel === "COMPLETE_SET_REVIEW_SCAFFOLD"), `${language}: set-valued answer escaped set-valued option model`);
+  const routeQuestions = preview.questions.filter((question) => question.solution.kind === "SCALAR" && question.solution.unit === "INDEX");
+  assert(routeQuestions.length >= 1, `${language}: finite route-choice question missing`);
+  assert(routeQuestions.every((question) => question.optionModel === "FINITE_ROUTE_CHOICE"), `${language}: route index escaped finite-route option model`);
+}
+
+const deterministicA = previewTsdCp012StudioCandidate({ language: "en", count: 20, seed: "same-seed" });
+const deterministicB = previewTsdCp012StudioCandidate({ language: "en", count: 20, seed: "same-seed" });
+assert(JSON.stringify(deterministicA.questions.map((question) => [question.familyId, question.options, question.correctIndex])) === JSON.stringify(deterministicB.questions.map((question) => [question.familyId, question.options, question.correctIndex])), "same seed must be deterministic");
+
+console.log("TSD-CP-012 LOCKED QUESTION STUDIO REVIEW CANDIDATE PROOF: PASS");
+console.log(JSON.stringify({
+  combinationsPerLocale: 66,
+  multilingualCombinations: 198,
+  languages: 3,
+  optionsPerQuestion: 4,
+  syntheticCapacityExpansion: false,
+  distractorsFrozen: false,
+  registrationStatus: TSD_CP012_STUDIO_CANDIDATE_PACKAGE.questionStudioRegistrationStatus,
+  persistenceAllowed: TSD_CP012_STUDIO_CANDIDATE_PACKAGE.persistenceAllowed,
+  testEligible: TSD_CP012_STUDIO_CANDIDATE_PACKAGE.testEligible,
+  publiclyPublishable: TSD_CP012_STUDIO_CANDIDATE_PACKAGE.publiclyPublishable,
+}, null, 2));
