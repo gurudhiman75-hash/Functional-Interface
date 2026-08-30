@@ -4,6 +4,7 @@ import {
   ClipboardList,
   Home,
   LogOut,
+  Newspaper,
   ReceiptText,
   Settings,
   ShieldCheck,
@@ -31,6 +32,7 @@ import {
 const primaryLinks = [
   { href: "/", label: "Home", icon: Home },
   { href: "/exams", label: "Tests & Exams", icon: ClipboardList },
+  { href: "/resources", label: "Free Resources", icon: Newspaper },
   { href: "/store", label: "Store", icon: ShoppingBag },
   { href: "/my-packages", label: "My Purchases", icon: ReceiptText },
   { href: "/dashboard", label: "My Activity", icon: Target },
@@ -46,6 +48,7 @@ function isLinkActive(location: string, href: string) {
       || location.startsWith("/subcategory/")
       || location.startsWith("/test-series/");
   }
+  if (href === "/resources") return location === "/current-affairs" || location === "/resources" || location.startsWith("/resources/");
   if (href === "/store") {
     return location === "/store"
       || location === "/packages"
