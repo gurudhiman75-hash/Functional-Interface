@@ -2,9 +2,7 @@ import { rational, toMixedString, type Rational } from "../../TSD-001/foundation
 import { verifyTsdCp012 } from "./executable-verifier";
 import type { TsdCp012ExecutableSolution } from "./executable-types";
 import { TSD_CP012_ENGLISH_REVIEW_FINAL } from "./english-review-editorial-final";
-import type { TsdCp012EnglishReviewQuestion } from "./english-review-final";
 import { TSD_CP012_NATIVE_HINDI_REVIEW_FINAL, TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL } from "./native-review-editorial-final";
-import type { TsdCp012NativeReviewQuestion } from "./native-review-final";
 import type { TsdCp012QlId } from "./ql-allocation";
 import {
   buildTsdCp012ScalarDistractors,
@@ -54,7 +52,10 @@ export const TSD_CP012_STUDIO_CANDIDATE_PACKAGE = Object.freeze({
   variationPolicy: "REVIEWED_HUMAN_FAMILY_ONLY_NO_SYNTHETIC_CAPACITY_EXPANSION" as const,
 });
 
-type ReviewQuestion = TsdCp012EnglishReviewQuestion | TsdCp012NativeReviewQuestion;
+type ReviewQuestion =
+  | (typeof TSD_CP012_ENGLISH_REVIEW_FINAL)[number]
+  | (typeof TSD_CP012_NATIVE_HINDI_REVIEW_FINAL)[number]
+  | (typeof TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL)[number];
 type InternalOptionAudit = Readonly<{
   text: string;
   isCorrect: boolean;
