@@ -25,8 +25,11 @@ const INSTRUCTION_BOILERPLATE = [
 ];
 
 assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.reviewOnly, true);
-assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.localizationStatus, "PENDING_AFTER_ENGLISH_EDITORIAL_APPROVAL");
-assert.deepEqual(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.presentationProfiles, ["FOUR_WAY"]);
+assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.localizationStatus, "TRILINGUAL_REVIEW_READY");
+assert.deepEqual(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.locales, ["en-IN", "hi-IN", "pa-IN"]);
+assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.localizedReviewSurfaceCount, 144);
+assert.deepEqual(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.presentationProfiles, ["FOUR_WAY", "FIVE_WAY_EITHER"]);
+assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.dedicatedFiveWayEitherAuthorityCount, 8);
 assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankWritable, false);
 assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.testEligible, false);
 assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.mockTestEligible, false);
@@ -111,4 +114,4 @@ const stemLengths = allGenerated.map((question) => question.stem.length);
 assert.ok(Math.min(...stemLengths) >= 45);
 assert.ok(Math.max(...stemLengths) <= 280);
 
-console.log("PASS_STC_001_V2_ENGLISH_EDITORIAL_REVIEW_READINESS questions=48 conclusions=96");
+console.log("PASS_STC_001_V2_ENGLISH_SURFACE_REVIEW_READINESS questions=48 conclusions=96 trilingualPackage=true");
