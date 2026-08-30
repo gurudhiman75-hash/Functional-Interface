@@ -133,6 +133,11 @@ async function buildPlan(
         AND q.deleted_at IS NULL
         AND v.exam_version_id = ${String(detail.blueprint.examVersionId)}::uuid
         AND lower(v.difficulty) = ANY(${["easy", "medium", "hard"]}::text[])
+        AND CASE
+          WHEN v.answer_model #>> '{generation,testEligible}' IN ('true', 'false')
+          THEN (v.answer_model #>> '{generation,testEligible}')::boolean
+          ELSE true
+        END
         AND EXISTS (
           SELECT 1
           FROM content.question_taxonomy_links qtl

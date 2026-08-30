@@ -1,0 +1,99 @@
+name: Validate BTD-001 CP013 Scored Test Projection Readiness V1
+
+on:
+  push:
+    branches:
+      - feature/btd-cp013-test-eligibility-readiness-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-013/**'
+      - 'artifacts/api-server/src/lib/admin-question-delivery-policy.ts'
+      - 'artifacts/api-server/src/lib/admin-question-management.ts'
+      - 'artifacts/api-server/src/routes/admin-question-lifecycle-hardening.ts'
+      - 'artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts'
+  pull_request:
+    branches:
+      - feature/btd-cp012-question-bank-admission-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-013/**'
+      - 'artifacts/api-server/src/lib/admin-question-delivery-policy.ts'
+      - 'artifacts/api-server/src/lib/admin-question-management.ts'
+      - 'artifacts/api-server/src/routes/admin-question-lifecycle-hardening.ts'
+      - 'artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: btd-cp013-scored-test-projection-readiness-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-btd-cp013-scored-test-projection-readiness-v1:
+    runs-on: ubuntu-24.04
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out exact head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXPECTED_HEAD }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.33.0'
+          run_install: false
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Re-prove CP012 Question Bank admission authority
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-012/btd-cp012-question-bank-admission-v1-audit.ts | tee btd-cp013-upstream-cp012.log
+          grep -q 'PASS_BTD_001_CP012_QUESTION_BANK_ADMISSION_AUDIT_V1' btd-cp013-upstream-cp012.log
+
+      - name: Audit CP013 scored-test projection readiness
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-013/btd-cp013-scored-test-projection-readiness-v1-audit.ts | tee btd-cp013-scored-test-projection-readiness-v1.log
+          grep -q 'PASS_BTD_001_CP013_SCORED_TEST_PROJECTION_READINESS_AUDIT_V1' btd-cp013-scored-test-projection-readiness-v1.log
+
+      - name: Verify delivery-gate decoupling and blueprint filter
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'getGeneratedQuestionDeliveryIssues' artifacts/api-server/src/lib/admin-question-management.ts
+          grep -q 'getGeneratedQuestionDeliveryIssues' artifacts/api-server/src/routes/admin-question-lifecycle-hardening.ts
+          grep -q "generation,testEligible" artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts
+          grep -q 'ELSE true' artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts
+          grep -q 'testProjectionMaterializationApproved: false' artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-013/btd-cp013-scored-test-projection-readiness-v1.ts
+          grep -q 'testEligibilityApprovalGranted: false' artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-013/btd-cp013-scored-test-projection-readiness-v1.ts
+          grep -q 'testEligible: false' artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-013/btd-cp013-scored-test-projection-readiness-v1.ts
+          grep -q 'publiclyPublishable: false' artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-013/btd-cp013-scored-test-projection-readiness-v1.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Record exact validation head
+        shell: bash
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp013-scored-test-projection-readiness-v1-head.log
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+
+      - name: Upload CP013 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: btd-cp013-scored-test-projection-readiness-v1
+          path: |
+            btd-cp013-upstream-cp012.log
+            btd-cp013-scored-test-projection-readiness-v1.log
+            btd-cp013-scored-test-projection-readiness-v1-head.log
+          retention-days: 30
