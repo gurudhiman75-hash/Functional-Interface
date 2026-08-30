@@ -8,8 +8,8 @@ on:
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-014/**'
       - 'artifacts/api-server/src/lib/admin-btd-test-projection-materialization.ts'
       - 'artifacts/api-server/src/routes/admin-btd-test-projections.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
       - 'artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts'
-      - 'artifacts/api-server/src/routes/index.ts'
   pull_request:
     branches:
       - feature/btd-cp013-test-eligibility-readiness-v1
@@ -17,8 +17,8 @@ on:
       - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-014/**'
       - 'artifacts/api-server/src/lib/admin-btd-test-projection-materialization.ts'
       - 'artifacts/api-server/src/routes/admin-btd-test-projections.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
       - 'artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts'
-      - 'artifacts/api-server/src/routes/index.ts'
 
 permissions:
   contents: read
@@ -66,14 +66,15 @@ jobs:
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-014/btd-cp014-test-projection-materialization-v1-audit.ts | tee btd-cp014-test-projection-materialization-v1.log
           grep -q 'PASS_BTD_001_CP014_TEST_PROJECTION_MATERIALIZATION_AUDIT_V1' btd-cp014-test-projection-materialization-v1.log
 
-      - name: Verify materialization and multilingual delivery guards
+      - name: Verify materialization, route isolation and multilingual delivery guards
         shell: bash
         run: |
           set -euo pipefail
           SERVICE='artifacts/api-server/src/lib/admin-btd-test-projection-materialization.ts'
           ROUTE='artifacts/api-server/src/routes/admin-btd-test-projections.ts'
-          BLUEPRINT='artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts'
+          REGISTRY='artifacts/api-server/src/routes/admin-question-studio-registry.ts'
           INDEX='artifacts/api-server/src/routes/index.ts'
+          BLUEPRINT='artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts'
           RUNTIME='artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-014/btd-cp014-test-projection-materialization-v1.ts'
           grep -q 'pg_advisory_xact_lock' "$SERVICE"
           grep -q 'sourceQuestionBankAdmissionKeys' "$SERVICE"
@@ -85,7 +86,9 @@ jobs:
           ! grep -q 'published_version_id =' "$SERVICE"
           grep -q 'content.questions.approve' "$ROUTE"
           grep -q 'materializeBtdCp014TestProjectionV1' "$ROUTE"
-          grep -q 'adminBtdTestProjectionsRouter' "$INDEX"
+          grep -q 'adminBtdTestProjectionsRouter' "$REGISTRY"
+          grep -q 'router.use(adminBtdTestProjectionsRouter)' "$REGISTRY"
+          ! grep -q 'adminBtdTestProjectionsRouter' "$INDEX"
           grep -q "generation,language" "$BLUEPRINT"
           grep -q "= 'en'" "$BLUEPRINT"
           grep -q 'testProjectionMaterializationApproved: true' "$RUNTIME"
