@@ -1,6 +1,6 @@
 import { verifyTsdCp012 } from "./executable-verifier";
 import { TSD_CP012_ENGLISH_REVIEW_FINAL } from "./english-review-editorial-final";
-import { TSD_CP012_NATIVE_HINDI_REVIEW, TSD_CP012_NATIVE_PUNJABI_REVIEW } from "./native-review-final";
+import { TSD_CP012_NATIVE_HINDI_REVIEW_FINAL, TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL } from "./native-review-editorial-final";
 import { TSD_CP012_PROVISIONAL_QL_IDS, TSD_CP012_QL_LIFECYCLE } from "./ql-allocation";
 import { verifyTsdCp012SourceExtension } from "./source-executable-extensions";
 
@@ -16,10 +16,10 @@ const LATIN = /[A-Za-z]/;
 const extensionTargets = new Set(["EXACT_TIME_TO_DISTANCE_IN_REPEATING_CYCLE", "DISTANCE_REMAINING_AFTER_STAGES", "CLOSED_ROUTE_OPPOSITE_MEETING_TIME"]);
 
 assert(TSD_CP012_ENGLISH_REVIEW_FINAL.length === 66, "expected 66 English parity questions");
-assert(TSD_CP012_NATIVE_HINDI_REVIEW.length === 66, "expected 66 Hindi review questions");
-assert(TSD_CP012_NATIVE_PUNJABI_REVIEW.length === 66, "expected 66 Punjabi review questions");
+assert(TSD_CP012_NATIVE_HINDI_REVIEW_FINAL.length === 66, "expected 66 Hindi review questions");
+assert(TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL.length === 66, "expected 66 Punjabi review questions");
 
-for (const [language, questions] of [["hi", TSD_CP012_NATIVE_HINDI_REVIEW], ["pa", TSD_CP012_NATIVE_PUNJABI_REVIEW]] as const) {
+for (const [language, questions] of [["hi", TSD_CP012_NATIVE_HINDI_REVIEW_FINAL], ["pa", TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL]] as const) {
   assert(new Set(questions.map((x) => x.familyId)).size === 66, `${language}: family IDs must be unique`);
   assert(new Set(questions.map((x) => x.stem)).size === 66, `${language}: learner stems must be unique`);
 
@@ -81,8 +81,8 @@ const semanticEvidence = {
   "TSD-QL-142": { hi: /(पूर्णांक|अनुमत|सभी|संख्या)/, pa: /(ਪੂਰਨ ਅੰਕ|ਮਨਜ਼ੂਰ|ਸਾਰੀਆਂ|ਗਿਣਤੀ)/ },
 } as const;
 for (const qlId of TSD_CP012_PROVISIONAL_QL_IDS) {
-  const hi = TSD_CP012_NATIVE_HINDI_REVIEW.filter((x) => x.qlId === qlId);
-  const pa = TSD_CP012_NATIVE_PUNJABI_REVIEW.filter((x) => x.qlId === qlId);
+  const hi = TSD_CP012_NATIVE_HINDI_REVIEW_FINAL.filter((x) => x.qlId === qlId);
+  const pa = TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL.filter((x) => x.qlId === qlId);
   const evidence = semanticEvidence[qlId];
   assert(hi.every((x) => evidence.hi.test(x.stem)), `hi/${qlId}: authority-defining evidence missing`);
   assert(pa.every((x) => evidence.pa.test(x.stem)), `pa/${qlId}: authority-defining evidence missing`);
@@ -98,8 +98,8 @@ assert(TSD_CP012_QL_LIFECYCLE.publiclyPublishable === false, "native review must
 console.log("TSD-CP-012 NATIVE HINDI/PUNJABI LOCALIZATION PROOF: PASS");
 console.log(JSON.stringify({
   englishQuestions: TSD_CP012_ENGLISH_REVIEW_FINAL.length,
-  hindiQuestions: TSD_CP012_NATIVE_HINDI_REVIEW.length,
-  punjabiQuestions: TSD_CP012_NATIVE_PUNJABI_REVIEW.length,
+  hindiQuestions: TSD_CP012_NATIVE_HINDI_REVIEW_FINAL.length,
+  punjabiQuestions: TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL.length,
   familiesPerQl: 6,
   qls: TSD_CP012_PROVISIONAL_QL_IDS.length,
   inputSolutionParity: "IDENTICAL_OBJECT_REFERENCES",

@@ -22,6 +22,16 @@ function feasibilityStem(question: TsdCp012EnglishReviewQuestion, index: number)
   return variants[index % variants.length]!;
 }
 
+function routeProfileSplitStem(question: TsdCp012EnglishReviewQuestion, index: number): string | undefined {
+  const input = question.input;
+  if (input.authorityKey !== "routeProfileProgramState" || input.target !== "DISTANCE_SPLIT_A") return undefined;
+  const variants = [
+    `A fixed ${metres(input.totalDistance)} route has two successive terrain sections. The first section is travelled at ${speed(input.speedA)} and the remaining section at ${speed(input.speedB)}. The complete route takes ${seconds(input.totalTime)}. Find the length of the first terrain section.`,
+    `On a ${metres(input.totalDistance)} service route, the speed limit is ${speed(input.speedA)} up to one unknown route boundary and ${speed(input.speedB)} after that boundary. Total travel time is ${seconds(input.totalTime)}. How far from the start is the speed-change boundary?`,
+  ];
+  return variants[index % variants.length]!;
+}
+
 function raceGapStem(question: TsdCp012EnglishReviewQuestion, index: number): string | undefined {
   const input = question.input;
   if (input.authorityKey !== "closedTrackRaceSynthesisState" || input.target !== "TRACK_GAP_AT_FASTER_FINISH") return undefined;
@@ -58,6 +68,7 @@ function movingSurfaceStem(question: TsdCp012EnglishReviewQuestion, index: numbe
 function editorialStem(question: TsdCp012EnglishReviewQuestion): string {
   const index = familyIndex(question);
   return feasibilityStem(question, index)
+    ?? routeProfileSplitStem(question, index)
     ?? raceGapStem(question, index)
     ?? trainMeetingStem(question, index)
     ?? movingSurfaceStem(question, index)
