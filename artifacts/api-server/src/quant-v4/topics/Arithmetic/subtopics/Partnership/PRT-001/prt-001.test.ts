@@ -216,7 +216,7 @@ assert.throws(
 );
 
 const expectedPilotIds = Array.from(
-  { length: 56 },
+  { length: 70 },
   (_, index) => `PRT-QL-${String(index + 1).padStart(3, "0")}`,
 );
 assert.deepEqual(getPrt001QuestionLanguageIds(), expectedPilotIds);
@@ -275,6 +275,20 @@ const expectedModes = new Set([
   "findUnknownJoinTimeWithCapitalChangeHistory",
   "findTotalProfitFromMixedTimelineFinalReceipt",
   "findDifferenceBetweenFinalReceiptsInMixedSystem",
+  "findTotalProfitFromShareDifferenceAndWeights",
+  "findUnknownPercentageCapitalChange",
+  "findInitialCapitalFromFinalShareAndChangeHistory",
+  "findDurationRatioFromPartnerShareRelations",
+  "findUnknownCommissionPercentFromFinalReceipt",
+  "findUnknownDeductionFromPartnerShare",
+  "findProfitRatioFromFinalReceiptsWhenOnePartnerGetsSalary",
+  "findEqualFinalReceiptsConditionWithRemuneration",
+  "findReverseContributionFromMixedPartnerRelations",
+  "findUnknownCapitalFromProfitRatio",
+  "findTotalProfitFromPartnerShareCapitalDuration",
+  "findUnknownJoinTimeFromPartnerShare",
+  "findUnknownWithdrawnCapitalFromProfitRatio",
+  "findTotalProfitFromDifferenceBetweenTwoShares",
 ]);
 const observedModes = new Set<string>();
 const observedCanonicalProblems = new Set<string>();
@@ -376,6 +390,27 @@ assert.equal(
   }).answerType,
   "MONEY",
 );
+assert.equal(
+  runPrt001PilotPipeline({
+    questionLanguageId: "PRT-QL-058",
+    seed: "e3-percentage-change-proof",
+  }).answerType,
+  "PERCENT",
+);
+assert.equal(
+  runPrt001PilotPipeline({
+    questionLanguageId: "PRT-QL-061",
+    seed: "e3-commission-percent-proof",
+  }).answerType,
+  "PERCENT",
+);
+assert.equal(
+  runPrt001PilotPipeline({
+    questionLanguageId: "PRT-QL-068",
+    seed: "e3-join-time-proof",
+  }).answerType,
+  "DURATION",
+);
 assert.throws(
   () => runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-999" }),
   /unknown or inactive/,
@@ -390,7 +425,7 @@ console.log(
       pilotQuestionLanguages: expectedPilotIds.length,
       activeSolveModes: expectedModes.size,
       generatedPilotQuestions,
-      expansionWave: "E2",
+      expansionWave: "E3",
       status: "PASS",
     },
     null,
