@@ -7,7 +7,7 @@ import type { TsdCp012QlId } from "./ql-allocation";
 import {
   buildTsdCp012ScalarDistractors,
   buildTsdCp012SetDistractors,
-} from "./question-studio-distractors";
+} from "./question-studio-distractors-expanded";
 import { verifyTsdCp012SourceExtension } from "./source-executable-extensions";
 
 export type TsdCp012StudioLanguage = "en" | "hi" | "pa";
