@@ -8,8 +8,7 @@ import {
 
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-type SqlExecutor = typeof sqlClient | any;
-
+type SqlExecutor = any;
 type QuestionRow = Record<string, unknown>;
 
 function record(value: unknown): Record<string, unknown> {
@@ -22,10 +21,12 @@ function normalizeText(value: unknown): string {
   return String(value ?? "").replace(/\s+/g, " ").trim();
 }
 
+function stringArray(value: unknown): string[] {
+  return Array.isArray(value) ? value.map((item) => normalizeText(item)).filter(Boolean) : [];
+}
+
 function sourceOptions(payload: Record<string, unknown>): string[] {
-  return Array.isArray(payload.options)
-    ? payload.options.map((item) => normalizeText(item)).filter(Boolean)
-    : [];
+  return stringArray(payload.options);
 }
 
 function assertGenerationItemId(value: string): string {
@@ -45,6 +46,65 @@ function localizationSnapshot(row: QuestionRow, languageCode: "hi" | "pa"): Ques
     sourceGenerationVersionId: String(row[`${prefix}SourceGenerationVersionId`] ?? ""),
     payload: record(row[`${prefix}Payload`]),
   };
+}
+
+async function expectedAssociationOptions(
+  client: SqlExecutor,
+  payload: Record<string, unknown>,
+  family: string,
+): Promise<{ hindi: string[]; punjabi: string[] }> {
+  if (family !== "CA-QL-002") return { hindi: [], punjabi: [] };
+  const englishOptions = sourceOptions(payload);
+  if (englishOptions.length === 0) return { hindi: [], punjabi: [] };
+
+  const rows = await client`
+    SELECT
+      authoring.learner_title AS "englishTitle",
+      hi.localized_title AS "hindiTitle",
+      pa.localized_title AS "punjabiTitle"
+    FROM content.current_affairs_events event
+    JOIN content.current_affairs_authoring_versions authoring
+      ON authoring.id=event.learner_authoring_version_id
+    LEFT JOIN content.current_affairs_localizations hi
+      ON hi.event_id=event.id
+      AND hi.authoring_version_id=event.learner_authoring_version_id
+      AND hi.language_code='hi'
+      AND hi.status IN ('ready','manual')
+    LEFT JOIN content.current_affairs_localizations pa
+      ON pa.event_id=event.id
+      AND pa.authoring_version_id=event.learner_authoring_version_id
+      AND pa.language_code='pa'
+      AND pa.status IN ('ready','manual')
+    WHERE event.status='verified'
+      AND event.learner_authoring_status IN ('ready','manual')
+      AND authoring.status IN ('ready','manual')
+      AND authoring.learner_title = ANY(${englishOptions}::text[])
+    ORDER BY event.updated_at DESC
+  `;
+
+  const translations = new Map<string, { hindi: Set<string>; punjabi: Set<string> }>();
+  for (const row of rows) {
+    const englishTitle = normalizeText(row.englishTitle);
+    if (!englishTitle) continue;
+    const entry = translations.get(englishTitle) ?? { hindi: new Set<string>(), punjabi: new Set<string>() };
+    const hindiTitle = normalizeText(row.hindiTitle);
+    const punjabiTitle = normalizeText(row.punjabiTitle);
+    if (hindiTitle) entry.hindi.add(hindiTitle);
+    if (punjabiTitle) entry.punjabi.add(punjabiTitle);
+    translations.set(englishTitle, entry);
+  }
+
+  const hindi: string[] = [];
+  const punjabi: string[] = [];
+  for (const englishTitle of englishOptions) {
+    const entry = translations.get(englishTitle);
+    if (!entry || entry.hindi.size !== 1 || entry.punjabi.size !== 1) {
+      return { hindi: [], punjabi: [] };
+    }
+    hindi.push([...entry.hindi][0]!);
+    punjabi.push([...entry.punjabi][0]!);
+  }
+  return { hindi, punjabi };
 }
 
 async function loadQuestionRow(client: SqlExecutor, generationItemId: string): Promise<QuestionRow | null> {
@@ -130,7 +190,18 @@ async function loadQuestionRow(client: SqlExecutor, generationItemId: string): P
       AND version.payload->'generationContext'->>'questionBankAcceptanceMode'='BANK_ONLY'
     LIMIT 1
   `;
-  return rows[0] ?? null;
+  const row = rows[0] as QuestionRow | undefined;
+  if (!row) return null;
+  const expected = await expectedAssociationOptions(
+    client,
+    record(row.sourcePayload),
+    String(row.questionFamily),
+  );
+  return {
+    ...row,
+    expectedHindiOptions: expected.hindi,
+    expectedPunjabiOptions: expected.punjabi,
+  };
 }
 
 function readinessFromRow(row: QuestionRow) {
@@ -146,6 +217,8 @@ function readinessFromRow(row: QuestionRow) {
     acceptedQuestionId: row.acceptedQuestionId ? String(row.acceptedQuestionId) : null,
     activePromotion: Boolean(row.promotionId),
     activeApprovedRelease: Boolean(row.activeReleaseId),
+    expectedHindiOptions: stringArray(row.expectedHindiOptions),
+    expectedPunjabiOptions: stringArray(row.expectedPunjabiOptions),
     hindi: localizationSnapshot(row, "hi"),
     punjabi: localizationSnapshot(row, "pa"),
   });
@@ -157,6 +230,8 @@ function publicRow(row: QuestionRow) {
     sourcePayload: record(row.sourcePayload),
     hindiPayload: row.hindiId ? record(row.hindiPayload) : null,
     punjabiPayload: row.punjabiId ? record(row.punjabiPayload) : null,
+    expectedHindiOptions: stringArray(row.expectedHindiOptions),
+    expectedPunjabiOptions: stringArray(row.expectedPunjabiOptions),
     readiness: readinessFromRow(row),
   };
 }
@@ -399,6 +474,7 @@ export async function approveCurrentAffairsQuestionEditorialItem(args: {
           hindiLocalizationId: row.hindiId ? String(row.hindiId) : null,
           punjabiLocalizationId: row.punjabiId ? String(row.punjabiId) : null,
           correctIndexFrozen: Number(record(row.sourcePayload).correctIndex),
+          optionSemanticParity: true,
           bankOnly: true,
           automaticStudentPublication: false,
         })}::jsonb
