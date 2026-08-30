@@ -10,76 +10,20 @@ import {
   compileLongitudeSegmentsForDistrict,
   compileLongitudeSegmentsForState,
 } from "../geometry/longitude-compiler";
-import type { StaticGkMeridianSceneRecipe, StaticGkSceneCue } from "./types";
+import { STANDARD_MERIDIAN_LESSON_MANIFEST } from "../lesson-manifests/SGK-VIS-IND-GEO-002.manifest";
+import { compileLessonManifest } from "../lesson-manifests/compile";
+import type { StaticGkMeridianSceneRecipe } from "./types";
 
 const STANDARD_MERIDIAN_LONGITUDE = 82.5;
 const MIRZAPUR_STATE = "Uttar Pradesh";
 const MIRZAPUR_DISTRICT = "Mirzapur";
+const STANDARD_MERIDIAN_LESSON_CUES = compileLessonManifest(
+  STANDARD_MERIDIAN_LESSON_MANIFEST,
+  STANDARD_MERIDIAN_FACT_LOCK,
+);
 
 function normalizeAdminLabel(value: string): string {
   return value.trim().replace(/\s+/g, " ").toLocaleLowerCase("en-IN");
-}
-
-function buildCues(): StaticGkSceneCue[] {
-  return [
-    {
-      id: "SGK002-CUE-01",
-      startMs: 0,
-      endMs: 3_000,
-      layer: "base-map",
-      action: "show",
-      targetRef: "geo.india",
-      factIds: ["SGK002-F01", "SGK002-F03"],
-    },
-    {
-      id: "SGK002-CUE-02",
-      startMs: 2_000,
-      endMs: 8_000,
-      layer: "longitude-line",
-      action: "trace",
-      targetRef: "line.standard-meridian",
-      text: "82°30′E",
-      factIds: ["SGK002-F01"],
-    },
-    {
-      id: "SGK002-CUE-03",
-      startMs: 7_000,
-      endMs: 14_000,
-      layer: "state-highlight",
-      action: "highlight",
-      targetRef: "state.UP",
-      text: "Uttar Pradesh",
-      factIds: ["SGK002-F02"],
-    },
-    {
-      id: "SGK002-CUE-04",
-      startMs: 10_000,
-      endMs: 17_000,
-      layer: "district-highlight",
-      action: "highlight",
-      targetRef: "district.mirzapur",
-      text: "Mirzapur district",
-      factIds: ["SGK002-F02"],
-    },
-    {
-      id: "SGK002-CUE-05",
-      startMs: 17_000,
-      endMs: 24_000,
-      layer: "labels",
-      action: "hold",
-      text: "IST · GMT +5:30",
-      factIds: ["SGK002-F03", "SGK002-F04"],
-    },
-    {
-      id: "SGK002-CUE-QUIZ",
-      startMs: 24_000,
-      endMs: 31_000,
-      layer: "quiz",
-      action: "quiz",
-      text: STANDARD_MERIDIAN_FACT_LOCK.quiz.question,
-      factIds: STANDARD_MERIDIAN_FACT_LOCK.quiz.factIds,
-    },
-  ];
 }
 
 export function compileStandardMeridianScene(
@@ -131,16 +75,10 @@ export function compileStandardMeridianScene(
     schemaVersion: "1.0",
     rendererVersion: "atlas-map-v1",
     visualId: STANDARD_MERIDIAN_FACT_LOCK.visualId,
-    title: STANDARD_MERIDIAN_FACT_LOCK.title,
+    title: STANDARD_MERIDIAN_LESSON_MANIFEST.title,
     template: "india-map-path",
     status,
-    viewport: {
-      aspectRatio: "9:16",
-      width: 1080,
-      height: 1920,
-      safeArea: { top: 170, right: 80, bottom: 230, left: 80 },
-      projection: "geoMercator",
-    },
+    viewport: STANDARD_MERIDIAN_LESSON_MANIFEST.viewport,
     geometrySource: {
       geometryId: SOI_ADMIN_GEOMETRY_ID,
       sourceProductCode: SOI_ADMIN_PRODUCT_CODE,
@@ -160,7 +98,7 @@ export function compileStandardMeridianScene(
       featureCount: mirzapurFeatureCount,
       meridianSegments: mirzapurSegments,
     },
-    cues: buildCues(),
+    cues: STANDARD_MERIDIAN_LESSON_CUES.map((cue) => ({ ...cue, factIds: [...cue.factIds] })),
     narration: STANDARD_MERIDIAN_FACT_LOCK.narration.map(({ id, text, factIds }) => ({ id, text, factIds })),
     quiz: {
       question: STANDARD_MERIDIAN_FACT_LOCK.quiz.question,
@@ -176,6 +114,7 @@ export function compileStandardMeridianScene(
         "The meridian must intersect canonical India geometry and canonical Uttar Pradesh geometry.",
         "Mirzapur must resolve from official district-level Survey of India geometry before render-ready status.",
         "The canonical Mirzapur district polygon must itself intersect longitude 82.5.",
+        "Lesson timing and on-screen actions must come from the validated SGK-VIS-IND-GEO-002 lesson manifest.",
         "No city marker may be cosmetically snapped onto the meridian to satisfy the locked lesson claim.",
       ],
     },
