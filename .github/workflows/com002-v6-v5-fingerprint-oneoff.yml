@@ -1,0 +1,49 @@
+name: COM-002 V6 V5 Fingerprint One-Off
+
+on:
+  push:
+    branches:
+      - feature/content-engine-foundation-v1
+    paths:
+      - .github/workflows/com002-v6-v5-fingerprint-oneoff.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: com002-v6-v5-fingerprint-oneoff
+  cancel-in-progress: true
+
+jobs:
+  export-approved-fingerprints:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle approved V6 V5 fingerprint exporter
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com002-v6-v5-approved-fingerprint-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/content-engine-foundation/com002-v6-v5-approved-fingerprint-export.mjs
+      - name: Generate approved V6 V5 fingerprint manifest
+        run: |
+          cd artifacts/api-server
+          node dist/content-engine-foundation/com002-v6-v5-approved-fingerprint-export.mjs
+      - name: Print approved fingerprint manifest
+        run: cat artifacts/api-server/dist/review-artifacts/COM002-V6-V5-Approved-Fingerprint-Manifest.json
+      - name: Upload approved fingerprint manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: COM002-V6-V5-Approved-Fingerprint-Manifest-OneOff
+          path: artifacts/api-server/dist/review-artifacts/COM002-V6-V5-Approved-Fingerprint-Manifest.json
+          if-no-files-found: error
