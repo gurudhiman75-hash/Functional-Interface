@@ -1,6 +1,7 @@
 import { generatePrt001AdvancedParameters } from "./advanced-parameter-generator";
 import { generatePrt001E1Parameters, isPrt001E1SolveMode } from "./e1-parameter-generator";
 import { generatePrt001E2Parameters, isPrt001E2SolveMode } from "./e2-parameter-generator";
+import { normalizePrt001E2ProductionMoney } from "./e2-production-normalizer";
 import { generatePrt001Options } from "./distractor-generator";
 import { renderPrt001E1Explanation } from "./e1-explanation-renderer";
 import { renderPrt001E2Explanation } from "./e2-explanation-renderer";
@@ -54,7 +55,7 @@ export function runPrt001PilotPipeline(
   const entry = getPrt001TaskEntry(questionLanguageId);
   const isE2 = isPrt001E2SolveMode(entry.solveMode);
   const isE1 = !isE2 && isPrt001E1SolveMode(entry.solveMode);
-  const parameters = isE2
+  const generatedParameters = isE2
     ? generatePrt001E2Parameters({
         questionLanguageId,
         seed,
@@ -81,6 +82,9 @@ export function runPrt001PilotPipeline(
             entry,
             language,
           });
+  const parameters = isE2
+    ? normalizePrt001E2ProductionMoney(generatedParameters)
+    : generatedParameters;
   const solution = solvePrt001State(parameters.state);
   const verification = verifyPrt001Independently(parameters.state);
   const taskAnswer = isE2
