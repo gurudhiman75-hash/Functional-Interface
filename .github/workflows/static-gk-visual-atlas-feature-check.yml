@@ -6,12 +6,19 @@ on:
       - feature/static-gk-visual-atlas-mvp
     paths:
       - '.github/workflows/static-gk-visual-atlas-feature-check.yml'
+      - 'artifacts/api-server/src/static-gk-visual-atlas/**'
+      - 'artifacts/api-server/src/routes/admin-static-gk-visual-atlas.ts'
+      - 'artifacts/api-server/src/routes/index.ts'
+      - 'artifacts/api-server/static-gk-atlas-tool.mjs'
+      - 'artifacts/admin-app/src/pages/content/StaticGkVisualAtlasWorkspacePage.tsx'
+      - 'artifacts/admin-app/src/pages/content/LearningResourcesHubPage.tsx'
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: static-gk-visual-atlas-feature-check
+  group: static-gk-visual-atlas-feature-check-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -26,7 +33,7 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
-      - name: Run Visual Atlas compiler and renderer tests
+      - name: Run Visual Atlas compiler, manifest and renderer tests
         run: node static-gk-atlas-tool.mjs test
         working-directory: artifacts/api-server
 
