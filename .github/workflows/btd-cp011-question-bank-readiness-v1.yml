@@ -1,0 +1,91 @@
+name: Validate BTD-001 CP011 Question Bank Readiness V1
+
+on:
+  push:
+    branches:
+      - feature/btd-cp011-question-bank-readiness-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-011/**'
+      - '.github/workflows/btd-cp011-question-bank-readiness-v1.yml'
+  pull_request:
+    branches:
+      - feature/btd-cp010-hi-pa-studio-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-011/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: btd-cp011-question-bank-readiness-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-btd-cp011-question-bank-readiness-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out exact head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXPECTED_HEAD }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Re-prove CP010 multilingual Question Studio authority
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-010/btd-cp010-multilingual-question-studio-v1-audit.ts | tee btd-cp011-upstream-cp010.log
+          grep -q 'PASS_BTD_001_CP010_MULTILINGUAL_QUESTION_STUDIO_AUDIT_V1' btd-cp011-upstream-cp010.log
+
+      - name: Audit Question Bank admission readiness
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-011/btd-cp011-question-bank-readiness-v1-audit.ts | tee btd-cp011-question-bank-readiness-v1.log
+          grep -q 'PASS_BTD_001_CP011_QUESTION_BANK_READINESS_AUDIT_V1' btd-cp011-question-bank-readiness-v1.log
+
+      - name: Prove no Question Bank write path is activated
+        shell: bash
+        run: |
+          if grep -R -n -E 'BTD-CP-011|QUESTION_BANK_READINESS' artifacts/api-server/src/routes artifacts/api-server/src/question-studio; then
+            echo 'CP011 readiness leaked into an executable route or shared Studio engine.' >&2
+            exit 1
+          fi
+          grep -q 'questionBankWritable: false' artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-011/btd-cp011-question-bank-readiness-v1.ts
+          grep -q 'questionBankWriteRouteEnabled: false' artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-011/btd-cp011-question-bank-readiness-v1.ts
+          grep -q 'questionBankAdmissionApproved: false' artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-011/btd-cp011-question-bank-readiness-v1.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Record exact validation head
+        shell: bash
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp011-question-bank-readiness-v1-head.log
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+
+      - name: Upload CP011 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: btd-cp011-question-bank-readiness-v1
+          path: |
+            btd-cp011-upstream-cp010.log
+            btd-cp011-question-bank-readiness-v1.log
+            btd-cp011-question-bank-readiness-v1-head.log
+          retention-days: 30
