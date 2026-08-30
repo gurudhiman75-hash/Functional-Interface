@@ -155,8 +155,9 @@ test.describe("student Performance analytics", () => {
     await expect(page.getByText("Banking", { exact: true }).first()).toBeVisible();
     await expect(page.getByTestId("performance-trend-chart")).toBeVisible();
     await expect(page.getByText(/Banking Full Mock 04/)).toBeVisible();
-    await expect(page.getByText(/rank/i)).toHaveCount(0);
-    await expect(page.getByText(/percentile/i)).toHaveCount(0);
+    await expect(page.getByText(/Your rank/i)).toHaveCount(0);
+    await expect(page.getByText(/National average/i)).toHaveCount(0);
+    await expect(page.getByText(/Leaderboard/i)).toHaveCount(0);
   });
 
   test("Performance history and actions stay usable on mobile", async ({ page }) => {
