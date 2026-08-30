@@ -36,6 +36,9 @@ jobs:
       - name: Re-prove V2.1 English surface diversity
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-diversity-proof.test.ts
 
+      - name: Prove canonical English learner-surface quality
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-review-readiness-proof.test.ts
+
       - name: Prove EN-HI-PA semantic parity across 144 canonical four-way surfaces
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-proof.test.ts
 
