@@ -16,6 +16,7 @@ import adminCurrentAffairsAuthoringRouter from "./admin-current-affairs-authorin
 import adminCurrentAffairsLocalizationRouter from "./admin-current-affairs-localization";
 import adminCurrentAffairsControlCenterRouter from "./admin-current-affairs-control-center";
 import adminCurrentAffairsEditorialWorkbenchRouter from "./admin-current-affairs-editorial-workbench";
+import adminCurrentAffairsQuestionEditorialWorkbenchRouter from "./admin-current-affairs-question-editorial-workbench";
 import adminAuditEventsHardeningRouter from "./admin-audit-events-hardening";
 import adminAccessControlHardeningRouter from "./admin-access-control-hardening";
 import adminAccessControlRouter from "./admin-access-control";
@@ -117,6 +118,7 @@ router.use("/admin/current-affairs", adminCurrentAffairsAuthoringRouter);
 router.use("/admin/current-affairs", adminCurrentAffairsLocalizationRouter);
 router.use("/admin/current-affairs", adminCurrentAffairsControlCenterRouter);
 router.use("/admin/current-affairs", adminCurrentAffairsEditorialWorkbenchRouter);
+router.use("/admin/current-affairs", adminCurrentAffairsQuestionEditorialWorkbenchRouter);
 router.use("/admin/access-control", adminAuditEventsHardeningRouter);
 router.use("/admin/access-control", adminAccessControlHardeningRouter);
 router.use("/admin/access-control", adminAccessControlRouter);
