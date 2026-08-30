@@ -1,0 +1,104 @@
+name: Validate TRG-001 localization Final5
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final4.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final4-5seed.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final5.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final5-5seed.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/export-localization-native-v5-pedagogic-review-final5.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-human-approved-runtime.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: trg-001-localization-final5-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-trg-001-localization-final5:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle frozen English authority audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-human-approved.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-human-approved-final5-audit.mjs
+
+      - name: Revalidate frozen English authority
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trg-001-human-approved-final5-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-human-approved-final5-audit.log
+
+      - name: Bundle Final4 regression audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final4-5seed.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-localization-final4-regression.mjs
+
+      - name: Run Final4 five-seed regression
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trg-001-localization-final4-regression.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-localization-final4-regression.log
+
+      - name: Bundle Final5 five-seed audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final5-5seed.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-localization-final5-audit.mjs
+
+      - name: Run Final5 five-seed audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trg-001-localization-final5-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-localization-final5-audit.log
+
+      - name: Bundle Final5 review-pack exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/export-localization-native-v5-pedagogic-review-final5.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-localization-final5-exporter.mjs
+
+      - name: Generate Final5 review pack
+        run: node artifacts/api-server/dist/quant-v4/trg-001-localization-final5-exporter.mjs
+
+      - name: Upload Final5 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-001-localization-final5-review
+          path: |
+            artifacts/api-server/dist/quant-v4/trg-001-human-approved-final5-audit.log
+            artifacts/api-server/dist/quant-v4/trg-001-localization-final4-regression.log
+            artifacts/api-server/dist/quant-v4/trg-001-localization-final5-audit.log
+            artifacts/api-server/dist/quant-v4/trg-001-localization-native-review-final5.json
+          if-no-files-found: error
+          retention-days: 30
