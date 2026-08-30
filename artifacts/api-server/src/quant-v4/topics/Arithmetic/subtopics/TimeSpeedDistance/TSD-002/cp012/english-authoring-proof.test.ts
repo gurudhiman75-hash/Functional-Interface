@@ -20,14 +20,17 @@ function hasLearnerRequest(stem: string): boolean {
 assert(TSD_CP012_ENGLISH_REVIEW_FINAL.length === 66, `expected 66 English review questions, found ${TSD_CP012_ENGLISH_REVIEW_FINAL.length}`);
 assert(new Set(TSD_CP012_ENGLISH_REVIEW_FINAL.map((x) => x.familyId)).size === 66, "family IDs must be unique");
 assert(new Set(TSD_CP012_ENGLISH_REVIEW_FINAL.map((x) => x.stem)).size === 66, "learner stems must be unique");
+assert(TSD_CP012_ENGLISH_REVIEW_FINAL.every((x) => x.difficulty === "EASY" || x.difficulty === "MEDIUM"), "final English review must expose only calibrated EASY/MEDIUM bands");
+assert(TSD_CP012_ENGLISH_REVIEW_FINAL.filter((x) => x.difficulty === "EASY").length === 22, "final English review must contain exactly 22 EASY families");
+assert(TSD_CP012_ENGLISH_REVIEW_FINAL.filter((x) => x.difficulty === "MEDIUM").length === 44, "final English review must contain exactly 44 MEDIUM families");
 
 for (const qlId of TSD_CP012_PROVISIONAL_QL_IDS) {
   const questions = TSD_CP012_ENGLISH_REVIEW_FINAL.filter((x) => x.qlId === qlId);
   assert(questions.length === 6, `${qlId}: expected six human review families`);
   assert(new Set(questions.map((x) => x.input.target)).size >= 2, `${qlId}: target variety is too thin`);
   assert(new Set(questions.map((x) => stemShape(x.stem))).size >= 3, `${qlId}: stems are structurally too repetitive after normalizing numbers`);
-  assert(questions.some((x) => x.difficulty === "EASY"), `${qlId}: easy review evidence missing`);
-  assert(questions.some((x) => x.difficulty === "MEDIUM"), `${qlId}: medium review evidence missing`);
+  assert(questions.filter((x) => x.difficulty === "EASY").length === 2, `${qlId}: expected exactly two EASY review families`);
+  assert(questions.filter((x) => x.difficulty === "MEDIUM").length === 4, `${qlId}: expected exactly four MEDIUM review families`);
 }
 
 const extensionTargets = new Set(["EXACT_TIME_TO_DISTANCE_IN_REPEATING_CYCLE", "DISTANCE_REMAINING_AFTER_STAGES", "CLOSED_ROUTE_OPPOSITE_MEETING_TIME"]);
@@ -71,6 +74,7 @@ console.log(JSON.stringify({
   familiesPerQl: 6,
   uniqueStems: new Set(TSD_CP012_ENGLISH_REVIEW_FINAL.map((x) => x.stem)).size,
   minimumNormalizedStemShapesPerQl: 3,
+  difficultyBands: { easy: 22, medium: 44, hard: 0 },
   sourceExtensionTargetsInReview: [...extensionTargets],
   explanationStyle: "TWO_CONCISE_QUESTION_SPECIFIC_STEPS_PLUS_CONCLUSION",
   editorialGuard: "EXPLICIT_MOTION_EVIDENCE_CLEAR_REQUEST_COMPLETE_SENTENCES",
