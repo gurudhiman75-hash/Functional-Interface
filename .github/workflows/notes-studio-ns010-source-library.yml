@@ -13,7 +13,6 @@ on:
       - artifacts/admin-app/src/pages/content/NotesStudioSourceLibraryPage.tsx
       - artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
       - docs/notes-studio-ns010-source-library.md
-      - .github/workflows/notes-studio-ns010-source-library.yml
 
 permissions:
   contents: read
