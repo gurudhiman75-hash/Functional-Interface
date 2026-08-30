@@ -1,0 +1,103 @@
+name: Validate STC-001 Six-QL Review Candidate
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stc-001-six-ql-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  six-ql-review-candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for complete STC chapter authority
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/truth-model-solver.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/modal-strength-solver.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/strict-order-solver.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/temporal-trend-solver.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/exam-realness-expansion-cp001-v1.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/exam-realness-expansion-cp002-v1.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/exam-realness-expansion-cp003-v1.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp001-authority-registry.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp001-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp002-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp003-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/five-way-either-authorities.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/five-way-either-expansion-v1.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/five-way-profile.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/five-way-profile-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/exam-realness-diversity-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-manifest.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-review-pack.ts
+
+      - name: Replay all checkpoint proofs
+        run: |
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp001-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp002-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp003-proof.test.ts
+
+      - name: Prove complete six-QL chapter saturation and tri-language identity
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-proof.test.ts
+
+      - name: Prove exam-realness authority and explanation diversity
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/exam-realness-diversity-proof.test.ts
+
+      - name: Prove five-way banking either-or profile
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/five-way-profile-proof.test.ts
+
+      - name: Export exact-head trilingual human review pack
+        env:
+          STC_REVIEW_OUT: ${{ github.workspace }}/stc-001-review-pack
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-review-pack.ts
+
+      - name: Upload STC human review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: stc-001-six-ql-trilingual-human-review
+          path: stc-001-review-pack
+          if-no-files-found: error
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Review boundary
+        run: |
+          echo 'STC-001 has six executable semantic QLs in EN/HI/PA.'
+          echo 'Each QL has at least eight curated scenario authorities; the banking either/or profile has nine.'
+          echo 'This is a human-review candidate, not a freeze.'
+          echo 'Question Studio remains unregistered; all learner delivery gates remain closed.'

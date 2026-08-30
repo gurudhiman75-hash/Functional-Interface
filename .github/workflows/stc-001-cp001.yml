@@ -1,0 +1,63 @@
+name: Validate STC-001 CP001 Foundation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stc-001-cp001-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  stc-cp001-foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/truth-model-solver.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp001-authorities.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp001-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp001-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-manifest.ts
+
+      - name: Prove deterministic entailment foundation and multilingual parity
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp001-proof.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Delivery boundary
+        run: |
+          echo 'STC-CP-001 is review-candidate content only.'
+          echo 'Question Studio is not registered yet.'
+          echo 'Question Bank, test, mock and public-release gates remain closed.'
