@@ -17,6 +17,10 @@ const Login = lazy(() => import("@/pages/login"));
 const AccountRecovery = lazy(() => import("@/pages/account-recovery"));
 const AccountDeletion = lazy(() => import("@/pages/account-deletion"));
 const Dashboard = lazy(() => import("@/pages/dashboard"));
+const CurrentAffairs = lazy(() => import("@/pages/current-affairs"));
+const CurrentAffairsNote = lazy(() => import("@/pages/current-affairs-note"));
+const CurrentAffairsQuiz = lazy(() => import("@/pages/current-affairs-quiz"));
+const CurrentAffairsRevision = lazy(() => import("@/pages/current-affairs-revision"));
 const Tests = lazy(() => import("@/pages/tests"));
 const TestSeries = lazy(() => import("@/pages/test-series"));
 const PublishedTest = lazy(() => import("@/pages/published-test"));
@@ -173,6 +177,11 @@ function Router() {
           <Route path="/published-tests/:id" component={() => renderPublicRoute(PublishedTest)} />
           <Route path="/category/:id" component={() => renderCatalogPublicRoute(Category)} />
           <Route path="/subcategory/:id" component={() => renderCatalogPublicRoute(Subcategory)} />
+
+          <Route path="/current-affairs/notes/:code" component={() => renderPublicRoute(CurrentAffairsNote)} />
+          <Route path="/current-affairs/quiz/:code" component={() => renderPublicRoute(CurrentAffairsQuiz)} />
+          <Route path="/current-affairs/revision" component={() => <ProtectedRoute component={CurrentAffairsRevision} />} />
+          <Route path="/current-affairs" component={() => renderPublicRoute(CurrentAffairs)} />
 
           <Route path="/dashboard" component={() => renderAppRoute(Dashboard)} />
           <Route path="/test-series/:id" component={() => <ProtectedRoute component={TestSeries} />} />
