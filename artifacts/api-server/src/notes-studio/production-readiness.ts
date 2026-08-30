@@ -7,6 +7,7 @@ export const NOTES_STUDIO_MIGRATIONS = [
   '20260830_notes_studio_source_pack_ns006_approval_localization.sql',
   '20260830_notes_studio_source_pack_ns007_release_lineage.sql',
   '20260830_notes_studio_source_pack_ns009_planning.sql',
+  '20260830_notes_studio_source_pack_ns011_source_policy.sql',
 ] as const;
 
 export const NOTES_STUDIO_REQUIRED_RELATIONS = [
