@@ -39,12 +39,18 @@ function machineOrderArtifacts(text: string, locale: Locale) {
         /^पर\s+\d+°/u,
         /समतुल्य व्यंजक है\s+/u,
         /^अतः व्यंजक है\s+/u,
+        /^भाग से शून्य अपरिभाषित है/u,
+        /^पूरा चक्कर tan का मान अपरिवर्तित रखता है।$/u,
+        /^tanθ=sinθ\/cosθ अपरिवर्तित रखता है से भाग देने पर/u,
       ]
     : [
         /^ਤੇ\s+\d+°/u,
         /ਬਰਾਬਰ ਵਿਅੰਜਕ ਹੈ\s+/u,
         /^ਇਸ ਲਈ ਵਿਅੰਜਕ ਹੈ\s+/u,
         /^ਘਟਾਓ ਦਾ ਚਿੰਨ੍ਹ ਕਾਇਮ ਰੱਖੋ।$/u,
+        /^ਭਾਗ ਨਾਲ ਸਿਫ਼ਰ ਅਪਰਿਭਾਸ਼ਿਤ ਹੈ/u,
+        /^ਪੂਰਾ ਚੱਕਰ tan ਦਾ ਮਾਨ ਬਿਨਾਂ ਬਦਲੇ ਰੱਖਦਾ ਹੈ।$/u,
+        /^tanθ=sinθ\/cosθ ਬਿਨਾਂ ਬਦਲੇ ਰੱਖਦਾ ਹੈ ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ/u,
       ];
   return patterns.filter((pattern) => pattern.test(text)).map((pattern) => pattern.source);
 }
@@ -116,9 +122,32 @@ for (const qlId of TRG_001_LOCALIZATION_QL_IDS) {
       if (qlId === "TRG-001-QL-047") {
         degreeMovedToNativeOrder(final4.explanation.steps?.[0]?.body, final5.explanation.steps?.[0]?.body, locale);
         targetedCorrections += 1;
+        assert.match(
+          String(final5.explanation.steps?.[1]?.body ?? ""),
+          locale === "hi-IN" ? /^शून्य से भाग देना अपरिभाषित है,/u : /^ਸਿਫ਼ਰ ਨਾਲ ਭਾਗ ਦੇਣਾ ਅਪਰਿਭਾਸ਼ਿਤ ਹੈ,/u,
+          `${id}: QL047 division-by-zero wording not corrected.`,
+        );
+        targetedCorrections += 1;
+      }
+      if (qlId === "TRG-001-QL-070") {
+        const expected = locale === "hi-IN"
+          ? "एक पूरा चक्कर जोड़ने या घटाने पर tan का मान नहीं बदलता।"
+          : "ਇੱਕ ਪੂਰਾ ਚੱਕਰ ਜੋੜਣ ਜਾਂ ਘਟਾਉਣ ਤੇ tan ਦਾ ਮਾਨ ਨਹੀਂ ਬਦਲਦਾ।";
+        assert.equal(final5.explanation.steps?.[0]?.body, expected, `${id}: QL070 periodicity wording not corrected.`);
+        targetedCorrections += 1;
+        assert.equal(final5.explanation.shortcut, expected, `${id}: QL070 shortcut periodicity wording not corrected.`);
+        targetedCorrections += 1;
       }
       if (qlId === "TRG-001-QL-091") {
         degreeMovedToNativeOrder(final4.explanation.steps?.[2]?.body, final5.explanation.steps?.[2]?.body, locale);
+        targetedCorrections += 1;
+        assert.equal(
+          final5.explanation.steps?.[1]?.body,
+          locale === "hi-IN"
+            ? "tanθ=sinθ/cosθ से भाग देने पर केवल sinθ बचता है।"
+            : "tanθ=sinθ/cosθ ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ ਕੇਵਲ sinθ ਬਚਦਾ ਹੈ।",
+          `${id}: QL091 tan-division wording not corrected.`,
+        );
         targetedCorrections += 1;
       }
       if (qlId === "TRG-001-QL-096") {
@@ -177,4 +206,4 @@ console.log(JSON.stringify(inventory, null, 2));
 assert.equal(failures.length, 0, `Final5 has ${failures.length} preservation/editorial failures.`);
 assert.equal(cases, 144 * 2 * seedsPerQl);
 assert.equal(fingerprints.size, cases);
-assert.equal(targetedCorrections, 35, "Expected 35 targeted correction checks: QL047/091/096 both locales x 5 seeds plus QL043 Punjabi x 5 seeds.");
+assert.equal(targetedCorrections, 75, "Expected 75 targeted Final5 correction assertions across QL043/047/070/091/096.");
