@@ -105,9 +105,9 @@ async function loadQualityInput(jobId: string, sectionId: string): Promise<{ inp
           AND coverage_claim.coverage_item_id = ${String(section.coverageItemId)}::uuid
           AND coverage_claim.claim_id = claim.id
       ) AS "coverageLinked",
-      block.source_document_id::text AS "sourceId",
-      block.excerpt,
-      block.excerpt_hash AS "excerptHash"
+      CASE WHEN source_link.source_document_id IS NOT NULL THEN block.source_document_id::text ELSE NULL END AS "sourceId",
+      CASE WHEN source_link.source_document_id IS NOT NULL THEN block.excerpt ELSE NULL END AS excerpt,
+      CASE WHEN source_link.source_document_id IS NOT NULL THEN block.excerpt_hash ELSE NULL END AS "excerptHash"
     FROM content.note_section_claims section_claim
     JOIN content.note_source_claims claim
       ON claim.job_id = section_claim.job_id AND claim.id = section_claim.claim_id
@@ -123,8 +123,7 @@ async function loadQualityInput(jobId: string, sectionId: string): Promise<{ inp
       AND source_link.inclusion_state = 'included'
     WHERE section_claim.job_id = ${jobId}::uuid
       AND section_claim.section_id = ${sectionId}::uuid
-      AND (block.id IS NULL OR source_link.source_document_id IS NOT NULL)
-    ORDER BY section_claim.position, block.block_index
+    ORDER BY section_claim.position, block.block_index NULLS LAST
   `;
 
   const claimsById = new Map<string, QualityClaimInput>();
@@ -264,7 +263,7 @@ async function runSectionQuality(jobId: string, sectionId: string, actorUserId: 
         )
       `;
     }
-    await tx`
+    const updated = await tx`
       UPDATE content.note_sections
       SET state = ${evaluation.passed ? 'qa_passed' : 'needs_editorial'},
           updated_by = ${actorUserId}::uuid,
@@ -272,7 +271,11 @@ async function runSectionQuality(jobId: string, sectionId: string, actorUserId: 
       WHERE job_id = ${jobId}::uuid
         AND id = ${sectionId}::uuid
         AND output_fingerprint = ${outputFingerprint}
+      RETURNING id::text AS id
     `;
+    if (!updated[0]) {
+      throw new NotesStudioQualityError('SECTION_CHANGED_DURING_QA', 'The section changed while QA was running. Refresh and run the gates again.', 409);
+    }
   });
 
   const jobState = await refreshQualityReadiness(jobId, actorUserId);
@@ -338,7 +341,7 @@ async function loadQualityWorkspace(jobId: string) {
     WHERE run_id = ANY(${runIds}::uuid[])
     ORDER BY run_id, check_code
   `;
-  const checksByRun = new Map<string, typeof checkRows>();
+  const checksByRun = new Map<string, Array<(typeof checkRows)[number]>>();
   for (const check of checkRows) {
     const key = String(check.runId);
     const bucket = checksByRun.get(key) ?? [];
@@ -369,7 +372,9 @@ async function loadQualityWorkspace(jobId: string) {
   const conflicts = await activeConflictCount(jobId);
   const enriched = sections.map((section) => ({
     ...section,
-    qualityCurrent: Boolean(section.latestRunId) && String(section.outputFingerprint) === String(section.qualityOutputFingerprint),
+    qualityCurrent: Boolean(section.latestRunId)
+      && String(section.outputFingerprint) === String(section.qualityOutputFingerprint)
+      && (String(section.qualityStatus) !== 'passed' || String(section.state) === 'qa_passed'),
     checks: checksByRun.get(String(section.latestRunId ?? '')) ?? [],
   }));
   const failedSections = enriched.filter((section) => section.qualityStatus === 'failed' && section.qualityCurrent).length;
