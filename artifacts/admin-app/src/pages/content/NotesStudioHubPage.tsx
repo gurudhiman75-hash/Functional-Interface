@@ -6,6 +6,7 @@ import { NotesStudioPlanningPage } from './NotesStudioPlanningPage';
 import { NotesStudioQualityGatesPage } from './NotesStudioQualityGatesPage';
 import { NotesStudioReleaseRevisionPage } from './NotesStudioReleaseRevisionPage';
 import { NotesStudioSectionDraftsPage } from './NotesStudioSectionDraftsPage';
+import { NotesStudioSourceLibraryPage } from './NotesStudioSourceLibraryPage';
 import { NotesStudioSourcePackPage } from './NotesStudioSourcePackPage';
 import { NotesStudioWorkspacePage } from './NotesStudioWorkspacePage';
 
@@ -13,6 +14,7 @@ export function NotesStudioHubPage() {
   return <Tabs defaultValue="planning" className="space-y-3">
     <TabsList aria-label="Notes Studio workspace views">
       <TabsTrigger value="planning">Syllabus planning</TabsTrigger>
+      <TabsTrigger value="library">Source library</TabsTrigger>
       <TabsTrigger value="authoring">Brief & sources</TabsTrigger>
       <TabsTrigger value="evidence">Evidence & coverage</TabsTrigger>
       <TabsTrigger value="sections">Section drafts</TabsTrigger>
@@ -24,6 +26,9 @@ export function NotesStudioHubPage() {
     </TabsList>
     <TabsContent value="planning" className="mt-0">
       <NotesStudioPlanningPage />
+    </TabsContent>
+    <TabsContent value="library" className="mt-0">
+      <NotesStudioSourceLibraryPage />
     </TabsContent>
     <TabsContent value="authoring" className="mt-0">
       <NotesStudioSourcePackPage />
