@@ -1,4 +1,4 @@
-import { add, compare, rational, subtract, toMixedString, type Rational } from "../../TSD-001/foundation/rational";
+import { rational, toMixedString, type Rational } from "../../TSD-001/foundation/rational";
 import { verifyTsdCp012 } from "./executable-verifier";
 import type { TsdCp012ExecutableSolution } from "./executable-types";
 import { TSD_CP012_ENGLISH_REVIEW_FINAL } from "./english-review-editorial-final";
@@ -6,6 +6,10 @@ import type { TsdCp012EnglishReviewQuestion } from "./english-review-final";
 import { TSD_CP012_NATIVE_HINDI_REVIEW_FINAL, TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL } from "./native-review-editorial-final";
 import type { TsdCp012NativeReviewQuestion } from "./native-review-final";
 import type { TsdCp012QlId } from "./ql-allocation";
+import {
+  buildTsdCp012ScalarDistractors,
+  buildTsdCp012SetDistractors,
+} from "./question-studio-distractors";
 import { verifyTsdCp012SourceExtension } from "./source-executable-extensions";
 
 export type TsdCp012StudioLanguage = "en" | "hi" | "pa";
@@ -18,7 +22,7 @@ export type TsdCp012StudioRequest = Readonly<{
   difficulty?: TsdCp012StudioDifficulty;
 }>;
 
-export const TSD_CP012_STUDIO_CANDIDATE_RUNTIME_MODE = "TSD-CP-012-MULTILINGUAL-REVIEW-CANDIDATE-v1" as const;
+export const TSD_CP012_STUDIO_CANDIDATE_RUNTIME_MODE = "TSD-CP-012-MULTILINGUAL-REVIEW-CANDIDATE-v2" as const;
 export const TSD_CP012_STUDIO_CANDIDATE_PACKAGE_ID = "TSD-CP012-STUDIO-REVIEW-CANDIDATE" as const;
 export const TSD_CP012_STUDIO_REVIEWED_COMBINATIONS_PER_LOCALE = 66 as const;
 export const TSD_CP012_STUDIO_REVIEWED_MULTILINGUAL_COMBINATIONS = 198 as const;
@@ -44,13 +48,19 @@ export const TSD_CP012_STUDIO_CANDIDATE_PACKAGE = Object.freeze({
   mockTestEligible: false as const,
   publiclyPublishable: false as const,
   automaticStudentPublication: false as const,
-  optionPolicy: "FOUR_UNIQUE_REVIEW_SCAFFOLD_OPTIONS_NOT_FROZEN" as const,
-  distractorStatus: "REVIEW_REQUIRED_BEFORE_FREEZE" as const,
+  optionPolicy: "FOUR_UNIQUE_MISCONCEPTION_BACKED_REVIEW_OPTIONS_NOT_FROZEN" as const,
+  distractorStatus: "MISCONCEPTION_BACKED_REVIEW_CANDIDATE_NOT_FROZEN" as const,
   verificationPolicy: "EXACT_SOLVER_OR_SOURCE_EXTENSION_PLUS_INDEPENDENT_VERIFIER" as const,
   variationPolicy: "REVIEWED_HUMAN_FAMILY_ONLY_NO_SYNTHETIC_CAPACITY_EXPANSION" as const,
 });
 
 type ReviewQuestion = TsdCp012EnglishReviewQuestion | TsdCp012NativeReviewQuestion;
+type InternalOptionAudit = Readonly<{
+  text: string;
+  isCorrect: boolean;
+  misconceptionId?: string;
+  wrongWorking?: Readonly<{ calculation: string }>;
+}>;
 const EXTENSION_TARGETS = new Set(["EXACT_TIME_TO_DISTANCE_IN_REPEATING_CYCLE", "DISTANCE_REMAINING_AFTER_STAGES", "CLOSED_ROUTE_OPPOSITE_MEETING_TIME"]);
 
 function source(language: TsdCp012StudioLanguage): readonly ReviewQuestion[] {
@@ -116,41 +126,63 @@ function shuffled<T>(items: readonly T[], seed: string): T[] {
   }
   return out;
 }
-function scalarOptions(solution: Extract<TsdCp012ExecutableSolution, { kind: "SCALAR" }>, language: TsdCp012StudioLanguage, seed: string) {
+function finalize(records: readonly InternalOptionAudit[], seed: string, optionModel: string) {
+  const shuffledRecords = shuffled(records, seed);
+  const options = shuffledRecords.map((record) => record.text);
+  const correctIndex = shuffledRecords.findIndex((record) => record.isCorrect);
+  if (new Set(options).size !== 4 || correctIndex < 0 || shuffledRecords.filter((record) => record.isCorrect).length !== 1) throw new Error("CP012 Studio option construction failed uniqueness/correct-answer guard");
+  return Object.freeze({
+    options: Object.freeze(options),
+    correctIndex,
+    optionModel,
+    internalOptionAudit: Object.freeze(shuffledRecords),
+  });
+}
+function routeOptions(solution: Extract<TsdCp012ExecutableSolution, { kind: "SCALAR" }>, language: TsdCp012StudioLanguage, seed: string) {
+  const correct = formatScalar(solution.answer, "INDEX", language);
+  const routeRecords: InternalOptionAudit[] = [1, 2, 3].map((route) => {
+    const text = formatScalar(rational(route), "INDEX", language);
+    return text === correct
+      ? Object.freeze({ text, isCorrect: true })
+      : Object.freeze({ text, isCorrect: false, misconceptionId: `ROUTE_${route}_SELECTED_WITHOUT_EXACT_TIME_COMPARISON`, wrongWorking: Object.freeze({ calculation: `Select Route ${route} without comparing the exact sum of segment times for every route.` }) });
+  });
+  routeRecords.push(Object.freeze({
+    text: equalRouteOption(language),
+    isCorrect: false,
+    misconceptionId: "FALSE_EQUAL_ROUTE_TIME_ASSUMPTION",
+    wrongWorking: Object.freeze({ calculation: "Assume the three route profiles take equal time instead of summing each route's exact segment times." }),
+  }));
+  return finalize(routeRecords, seed, "FINITE_ROUTE_CHOICE");
+}
+function scalarOptions(question: ReviewQuestion, solution: Extract<TsdCp012ExecutableSolution, { kind: "SCALAR" }>, language: TsdCp012StudioLanguage, seed: string) {
+  if (solution.unit === "INDEX") return routeOptions(solution, language, seed);
   const correct = formatScalar(solution.answer, solution.unit, language);
-  if (solution.unit === "INDEX") {
-    const raw = [formatScalar(rational(1), "INDEX", language), formatScalar(rational(2), "INDEX", language), formatScalar(rational(3), "INDEX", language), equalRouteOption(language)];
-    const options = shuffled(raw, seed);
-    const correctIndex = options.indexOf(correct);
-    if (new Set(options).size !== 4 || correctIndex < 0) throw new Error("CP012 Studio route-option construction failed");
-    return Object.freeze({ options: Object.freeze(options), correctIndex, optionModel: "FINITE_ROUTE_CHOICE" as const });
-  }
-  const minusOne = subtract(solution.answer, rational(1));
-  const third = compare(minusOne, rational(0)) > 0 ? minusOne : add(solution.answer, rational(3));
-  const values = [solution.answer, add(solution.answer, rational(1)), add(solution.answer, rational(2)), third];
-  const options = shuffled(values.map((value) => formatScalar(value, solution.unit, language)), seed);
-  const correctIndex = options.indexOf(correct);
-  if (new Set(options).size !== 4 || correctIndex < 0) throw new Error("CP012 Studio scalar-option construction failed");
-  return Object.freeze({ options: Object.freeze(options), correctIndex, optionModel: "SCALAR_REVIEW_SCAFFOLD" as const });
+  const wrongs = buildTsdCp012ScalarDistractors(question.input, solution);
+  const records: InternalOptionAudit[] = [Object.freeze({ text: correct, isCorrect: true })];
+  for (const wrong of wrongs) records.push(Object.freeze({
+    text: formatScalar(wrong.value, solution.unit, language),
+    isCorrect: false,
+    misconceptionId: wrong.misconceptionId,
+    wrongWorking: Object.freeze({ calculation: wrong.calculation }),
+  }));
+  return finalize(records, seed, "MISCONCEPTION_BACKED_SCALAR_REVIEW");
 }
-function setOptions(solution: Extract<TsdCp012ExecutableSolution, { kind: "SET" }>, language: TsdCp012StudioLanguage, seed: string) {
-  const values = [...solution.values];
-  if (values.length < 3) throw new Error("CP012 Studio set option model requires at least three valid values");
-  const last = values.at(-1)!;
-  const correct = formatSet(values, language);
-  const variants = [
-    values,
-    values.slice(0, -1),
-    [values[0]!, ...values.slice(2)],
-    [...values, add(last, rational(1))],
-  ];
-  const options = shuffled(variants.map((candidate) => formatSet(candidate, language)), seed);
-  const correctIndex = options.indexOf(correct);
-  if (new Set(options).size !== 4 || correctIndex < 0) throw new Error("CP012 Studio set-option construction failed");
-  return Object.freeze({ options: Object.freeze(options), correctIndex, optionModel: "COMPLETE_SET_REVIEW_SCAFFOLD" as const });
+function setOptions(question: ReviewQuestion, solution: Extract<TsdCp012ExecutableSolution, { kind: "SET" }>, language: TsdCp012StudioLanguage, seed: string) {
+  const correct = formatSet(solution.values, language);
+  const wrongs = buildTsdCp012SetDistractors(question.input, solution);
+  const records: InternalOptionAudit[] = [Object.freeze({ text: correct, isCorrect: true })];
+  for (const wrong of wrongs) records.push(Object.freeze({
+    text: formatSet(wrong.values, language),
+    isCorrect: false,
+    misconceptionId: wrong.misconceptionId,
+    wrongWorking: Object.freeze({ calculation: wrong.calculation }),
+  }));
+  return finalize(records, seed, "MISCONCEPTION_BACKED_COMPLETE_SET_REVIEW");
 }
-function optionsFor(solution: TsdCp012ExecutableSolution, language: TsdCp012StudioLanguage, seed: string) {
-  return solution.kind === "SET" ? setOptions(solution, language, seed) : scalarOptions(solution, language, seed);
+function optionsFor(question: ReviewQuestion, language: TsdCp012StudioLanguage, seed: string) {
+  return question.solution.kind === "SET"
+    ? setOptions(question, question.solution, language, seed)
+    : scalarOptions(question, question.solution, language, seed);
 }
 
 export function previewTsdCp012StudioCandidate(request: TsdCp012StudioRequest = {}) {
@@ -166,7 +198,7 @@ export function previewTsdCp012StudioCandidate(request: TsdCp012StudioRequest = 
   const questions = shuffled(selected, `${seed}:${language}`).slice(0, count).map((question, index) => {
     const verification = verify(question);
     if (!verification.accepted) throw new Error(`${language}/${question.familyId}: independent verifier rejected Studio candidate (${verification.reason})`);
-    const optionModel = optionsFor(question.solution, language, `${seed}:${language}:${question.familyId}:${index}`);
+    const optionModel = optionsFor(question, language, `${seed}:${language}:${question.familyId}:${index}`);
     return Object.freeze({
       questionId: `TSD-CP012-${language}-${question.familyId}-${hash(`${seed}:${index}`).toString(16)}`,
       canonicalItemId: question.familyId,
@@ -184,6 +216,7 @@ export function previewTsdCp012StudioCandidate(request: TsdCp012StudioRequest = 
       options: optionModel.options,
       correctIndex: optionModel.correctIndex,
       optionModel: optionModel.optionModel,
+      internalOptionAudit: optionModel.internalOptionAudit,
       runtimeMode: TSD_CP012_STUDIO_CANDIDATE_RUNTIME_MODE,
       reviewStatus: "REVIEW_CANDIDATE_NOT_APPROVED" as const,
       questionStudioRegistrationStatus: "NOT_REGISTERED" as const,
@@ -196,6 +229,7 @@ export function previewTsdCp012StudioCandidate(request: TsdCp012StudioRequest = 
         independentVerifierAccepted: true,
         fourUniqueOptions: true,
         humanReviewedFamily: true,
+        misconceptionBackedDistractors: true,
         distractorsFrozen: false,
       }),
     });
