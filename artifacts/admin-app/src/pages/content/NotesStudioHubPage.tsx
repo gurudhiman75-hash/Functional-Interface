@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { NotesStudioApprovalLocalizationPage } from './NotesStudioApprovalLocalizationPage';
 import { NotesStudioEvidenceCoveragePage } from './NotesStudioEvidenceCoveragePage';
+import { NotesStudioOperationsPage } from './NotesStudioOperationsPage';
 import { NotesStudioQualityGatesPage } from './NotesStudioQualityGatesPage';
 import { NotesStudioReleaseRevisionPage } from './NotesStudioReleaseRevisionPage';
 import { NotesStudioSectionDraftsPage } from './NotesStudioSectionDraftsPage';
@@ -17,6 +18,7 @@ export function NotesStudioHubPage() {
       <TabsTrigger value="approval">Approval & localization</TabsTrigger>
       <TabsTrigger value="release">Release & revisions</TabsTrigger>
       <TabsTrigger value="canonical">Canonical notes</TabsTrigger>
+      <TabsTrigger value="operations">Production readiness</TabsTrigger>
     </TabsList>
     <TabsContent value="authoring" className="mt-0">
       <NotesStudioSourcePackPage />
@@ -38,6 +40,9 @@ export function NotesStudioHubPage() {
     </TabsContent>
     <TabsContent value="canonical" className="mt-0">
       <NotesStudioWorkspacePage />
+    </TabsContent>
+    <TabsContent value="operations" className="mt-0">
+      <NotesStudioOperationsPage />
     </TabsContent>
   </Tabs>;
 }
