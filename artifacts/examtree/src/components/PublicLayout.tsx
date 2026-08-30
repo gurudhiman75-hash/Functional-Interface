@@ -7,6 +7,7 @@ import {
   Languages,
   LayoutDashboard,
   Menu,
+  Newspaper,
   Settings,
   ShoppingBag,
   X,
@@ -33,6 +34,7 @@ const primaryLinks = [
   { label: "Tests", href: "/exams" },
   { label: "Mock Tests", href: "/mock-tests" },
   { label: "PYQs", href: "/pyqs" },
+  { label: "Resources", href: "/resources" },
   { label: "Store", href: "/store" },
   { label: "Exams Covered", href: "/exams-covered" },
   { label: "FAQ", href: "/faq" },
@@ -43,12 +45,14 @@ const homeLinks = [
   { label: "Test Series", href: "/exams" },
   { label: "Previous Papers", href: "/pyqs" },
   { label: "Practice", href: "/mock-tests" },
+  { label: "Resources", href: "/resources" },
   { label: "Store", href: "/store" },
 ];
 
 const mobileStudyLinks: MobileStudyLink[] = [
   { label: "Home", href: "/", icon: Home },
   { label: "Explore Exams", href: "/exams", icon: LayoutDashboard },
+  { label: "Free Resources", href: "/resources", icon: Newspaper },
   { label: "Store", href: "/store", icon: ShoppingBag },
   { label: "My Tests", href: "/dashboard", icon: LayoutDashboard, authNext: "/dashboard" },
   { label: "Analytics", icon: BarChart3, disabled: true },
@@ -63,6 +67,7 @@ const footerColumns = [
       { label: "Browse Tests", href: "/exams" },
       { label: "Mock Tests", href: "/mock-tests" },
       { label: "Previous Year Questions", href: "/pyqs" },
+      { label: "Free Resources", href: "/resources" },
       { label: "Store", href: "/store" },
       { label: "Exams Covered", href: "/exams-covered" },
     ],
@@ -88,6 +93,7 @@ const footerColumns = [
 function routeIsActive(location: string, href: string) {
   if (href === "/") return location === "/";
   if (href === "/exams") return location === "/exams" || location === "/tests" || location === "/mock-tests" || location === "/pyqs" || location === "/exams-covered" || location.startsWith("/category/") || location.startsWith("/subcategory/") || location.startsWith("/published-tests/");
+  if (href === "/resources") return location === "/current-affairs" || location === "/resources" || location.startsWith("/resources/");
   if (href === "/store") return location === "/store" || location === "/packages" || location.startsWith("/store/") || location.startsWith("/packages/");
   return location === href || location.startsWith(`${href}/`);
 }
@@ -266,6 +272,7 @@ export function PublicLayout({ children }: PublicLayoutProps) {
               <Link href="/exams" className="hover:text-white">Exams</Link>
               <Link href="/exams" className="hover:text-white">Test Series</Link>
               <Link href="/mock-tests" className="hover:text-white">Practice</Link>
+              <Link href="/resources" className="hover:text-white">Resources</Link>
               <Link href="/store" className="hover:text-white">Store</Link>
               <Link href="/faq" className="hover:text-white">Help</Link>
             </nav>

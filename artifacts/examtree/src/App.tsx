@@ -29,6 +29,7 @@ const Bookmarks = lazy(() => import("@/pages/bookmarks"));
 const Store = lazy(() => import("@/pages/store"));
 const StoreProduct = lazy(() => import("@/pages/store-product"));
 const MyPurchases = lazy(() => import("@/pages/my-purchases"));
+const Resources = lazy(() => import("@/pages/resources"));
 const About = lazy(() => import("@/pages/about"));
 const Contact = lazy(() => import("@/pages/contact"));
 const PrivacyPolicy = lazy(() => import("@/pages/privacy-policy"));
@@ -170,6 +171,15 @@ function Router() {
           <Route path="/published-tests/:id" component={() => renderPublicRoute(PublishedTest)} />
           <Route path="/category/:id" component={() => renderCatalogPublicRoute(Category)} />
           <Route path="/subcategory/:id" component={() => renderCatalogPublicRoute(Subcategory)} />
+
+          <Route path="/resources/current-affairs" component={() => renderPublicRoute(Resources)} />
+          <Route path="/resources/notes" component={() => renderPublicRoute(Resources)} />
+          <Route path="/resources/papers" component={() => renderPublicRoute(Resources)} />
+          <Route path="/resources/quizzes" component={() => renderPublicRoute(Resources)} />
+          <Route path="/resources/vocabulary" component={() => renderPublicRoute(Resources)} />
+          <Route path="/resources/updates" component={() => renderPublicRoute(Resources)} />
+          <Route path="/resources" component={() => renderPublicRoute(Resources)} />
+          <Route path="/current-affairs" component={() => renderPublicRoute(Resources)} />
 
           <Route path="/store/product/:id" component={() => renderPublicRoute(StoreProduct)} />
           <Route path="/store" component={() => renderPublicRoute(Store)} />
