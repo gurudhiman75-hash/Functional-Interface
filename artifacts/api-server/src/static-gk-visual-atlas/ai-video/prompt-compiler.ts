@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import type { StaticGkAiShotPlan, CompiledStaticGkAiShotPrompt } from "./types";
 
 const FORBIDDEN_FACT_TERMS = [
-  "23½", "23.5", "23°", "82°", "82.5", "82°30", "+5:30", "gmt", "ist",
+  "23½", "23.5", "23°", "82°", "82.5", "82°30", "+5:30", "greenwich mean time", "indian standard time",
   "gujarat", "rajasthan", "madhya pradesh", "chhattisgarh", "jharkhand", "west bengal", "tripura", "mizoram",
   "mirzapur", "uttar pradesh",
 ] as const;
