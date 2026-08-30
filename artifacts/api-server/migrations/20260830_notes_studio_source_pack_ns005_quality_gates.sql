@@ -74,9 +74,17 @@ RETURNS trigger
 LANGUAGE plpgsql
 AS $$
 DECLARE
-  affected_job_id UUID := COALESCE(NEW.job_id, OLD.job_id);
-  affected_claim_id UUID := COALESCE(NEW.id, OLD.id);
+  affected_job_id UUID;
+  affected_claim_id UUID;
 BEGIN
+  IF TG_OP = 'DELETE' THEN
+    affected_job_id := OLD.job_id;
+    affected_claim_id := OLD.id;
+  ELSE
+    affected_job_id := NEW.job_id;
+    affected_claim_id := NEW.id;
+  END IF;
+
   IF TG_OP = 'UPDATE'
      AND OLD.claim_text IS NOT DISTINCT FROM NEW.claim_text
      AND OLD.state IS NOT DISTINCT FROM NEW.state THEN
@@ -116,9 +124,17 @@ RETURNS trigger
 LANGUAGE plpgsql
 AS $$
 DECLARE
-  affected_job_id UUID := COALESCE(NEW.job_id, OLD.job_id);
-  affected_claim_id UUID := COALESCE(NEW.claim_id, OLD.claim_id);
+  affected_job_id UUID;
+  affected_claim_id UUID;
 BEGIN
+  IF TG_OP = 'DELETE' THEN
+    affected_job_id := OLD.job_id;
+    affected_claim_id := OLD.claim_id;
+  ELSE
+    affected_job_id := NEW.job_id;
+    affected_claim_id := NEW.claim_id;
+  END IF;
+
   UPDATE content.note_sections section
   SET state = 'needs_editorial',
       generation_metadata = section.generation_metadata || '{"staleBecauseClaimEvidenceChanged":true}'::jsonb,
@@ -186,9 +202,17 @@ RETURNS trigger
 LANGUAGE plpgsql
 AS $$
 DECLARE
-  affected_job_id UUID := COALESCE(NEW.job_id, OLD.job_id);
-  affected_coverage_id UUID := COALESCE(NEW.coverage_item_id, OLD.coverage_item_id);
+  affected_job_id UUID;
+  affected_coverage_id UUID;
 BEGIN
+  IF TG_OP = 'DELETE' THEN
+    affected_job_id := OLD.job_id;
+    affected_coverage_id := OLD.coverage_item_id;
+  ELSE
+    affected_job_id := NEW.job_id;
+    affected_coverage_id := NEW.coverage_item_id;
+  END IF;
+
   UPDATE content.note_sections
   SET state = 'needs_editorial',
       generation_metadata = generation_metadata || '{"staleBecauseCoverageClaimsChanged":true}'::jsonb,
