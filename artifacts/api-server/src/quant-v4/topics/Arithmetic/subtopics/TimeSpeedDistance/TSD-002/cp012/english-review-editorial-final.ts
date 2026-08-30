@@ -1,0 +1,70 @@
+import { toMixedString, type Rational } from "../../TSD-001/foundation/rational";
+import { TSD_CP012_ENGLISH_REVIEW, type TsdCp012EnglishReviewQuestion } from "./english-review-final";
+
+function v(value: Rational): string { return toMixedString(value); }
+function seconds(value: Rational): string { return `${v(value)} seconds`; }
+function metres(value: Rational): string { return `${v(value)} m`; }
+function speed(value: Rational): string { return `${v(value)} m/s`; }
+function familyIndex(question: TsdCp012EnglishReviewQuestion): number {
+  const suffix = question.familyId.at(-1) ?? "A";
+  return Math.max(0, suffix.charCodeAt(0) - 65);
+}
+
+function feasibilityStem(question: TsdCp012EnglishReviewQuestion, index: number): string | undefined {
+  const input = question.input;
+  if (input.authorityKey !== "feasibleParameterSetState") return undefined;
+  const request = input.target === "VALID_SET" ? "List every allowed speed that works." : "How many allowed speeds work?";
+  const variants = [
+    `An emergency van must cover ${metres(input.distance)}. Its speed must be an integer from ${input.minimumCandidate} to ${input.maximumCandidate} m/s. A fixed delay of ${seconds(input.fixedDelay)} is included, and total elapsed time cannot exceed ${seconds(input.deadline)}. ${request}`,
+    `For a timed inspection run of ${metres(input.distance)}, the driver may select only an integer speed between ${input.minimumCandidate} and ${input.maximumCandidate} m/s. After adding a compulsory ${seconds(input.fixedDelay)} non-travel delay, the run must finish within ${seconds(input.deadline)}. ${request}`,
+    `A service vehicle has ${metres(input.distance)} to travel and a total deadline of ${seconds(input.deadline)}, including a fixed ${seconds(input.fixedDelay)} halt. Only integer speeds from ${input.minimumCandidate} through ${input.maximumCandidate} m/s are permitted. ${request}`,
+  ];
+  return variants[index % variants.length]!;
+}
+
+function raceGapStem(question: TsdCp012EnglishReviewQuestion, index: number): string | undefined {
+  const input = question.input;
+  if (input.authorityKey !== "closedTrackRaceSynthesisState" || input.target !== "TRACK_GAP_AT_FASTER_FINISH") return undefined;
+  const raceDistance = `${input.raceLaps} lap${input.raceLaps === 1 ? "" : "s"}`;
+  const variants = [
+    `On a circular track of length ${metres(input.trackLength)}, two runners race for ${raceDistance}. The faster runner moves at ${speed(input.fasterSpeed)}; the slower runner moves at ${speed(input.slowerSpeed)} and starts ${metres(input.slowerHeadStart)} ahead. When the faster runner finishes, how much track distance does the slower runner still have to cover to reach the finish point?`,
+    `A ${raceDistance} race is held on a ${metres(input.trackLength)} circular track. One runner runs at ${speed(input.fasterSpeed)} and the other at ${speed(input.slowerSpeed)}, with the slower runner given a ${metres(input.slowerHeadStart)} head start. At the instant the faster runner finishes, find the slower runner's remaining distance to that same finish point along the track.`,
+    `Two athletes use a ${metres(input.trackLength)} closed track for a ${raceDistance} race. Their speeds are ${speed(input.fasterSpeed)} and ${speed(input.slowerSpeed)}, and the slower athlete begins ${metres(input.slowerHeadStart)} ahead. Determine the forward distance the slower athlete must still run to arrive at the finish when the faster athlete has just finished.`,
+  ];
+  return variants[index % variants.length]!;
+}
+
+function trainMeetingStem(question: TsdCp012EnglishReviewQuestion, index: number): string | undefined {
+  const input = question.input;
+  if (input.authorityKey !== "trainScheduleSynthesisState" || input.target !== "MEETING_TIME_FROM_FIRST_DEPARTURE") return undefined;
+  const variants = [
+    `Two trains start from stations ${metres(input.stationDistance)} apart and move toward each other. Train A starts first at ${speed(input.speedA)}; Train B starts ${seconds(input.delayB)} later at ${speed(input.speedB)}. Find the meeting time measured from Train A's departure.`,
+    `Train A leaves station P at ${speed(input.speedA)} toward station Q, ${metres(input.stationDistance)} away. Train B leaves Q toward P ${seconds(input.delayB)} later at ${speed(input.speedB)}. How long after Train A's departure do they meet?`,
+    `At time zero a train begins a ${metres(input.stationDistance)} station-to-station run at ${speed(input.speedA)}. From the opposite station, a second train starts ${seconds(input.delayB)} later at ${speed(input.speedB)} toward the first. Find the meeting time counted from time zero.`,
+  ];
+  return variants[index % variants.length]!;
+}
+
+function movingSurfaceStem(question: TsdCp012EnglishReviewQuestion, index: number): string | undefined {
+  const input = question.input;
+  if (input.authorityKey !== "movingSurfaceScheduleSynthesisState") return undefined;
+  if (index % 2 === 0) return undefined;
+  if (input.target === "TIME_WITH_STOP_AFTER") return `A ${metres(input.length)} airport walkway initially moves with a passenger. The passenger walks at ${speed(input.personRate)} relative to it and the belt contributes another ${speed(input.surfaceRate)} for ${seconds(input.surfaceActiveTime)} before stopping. Find the passenger's complete end-to-end time.`;
+  if (input.target === "TIME_WITH_DELAYED_ACTIVATION") return `A traveller starts walking along a ${metres(input.length)} conveyor walkway at ${speed(input.personRate)} while the belt is stationary. After ${seconds(input.activationDelay)} the belt starts in the same direction at ${speed(input.surfaceRate)}. How long after the traveller starts is the far end reached?`;
+  if (input.target === "TIME_WITH_DIRECTION_REVERSAL") return `A person crosses a ${metres(input.length)} moving surface while walking at ${speed(input.personRate)} relative to it. For the first ${seconds(input.reversalTime)} the surface assists at ${speed(input.surfaceRate)}; it then runs at the same speed in the opposite direction. Find the total crossing time.`;
+  return undefined;
+}
+
+function editorialStem(question: TsdCp012EnglishReviewQuestion): string {
+  const index = familyIndex(question);
+  return feasibilityStem(question, index)
+    ?? raceGapStem(question, index)
+    ?? trainMeetingStem(question, index)
+    ?? movingSurfaceStem(question, index)
+    ?? question.stem;
+}
+
+export const TSD_CP012_ENGLISH_REVIEW_FINAL = Object.freeze(TSD_CP012_ENGLISH_REVIEW.map((question) => Object.freeze({
+  ...question,
+  stem: editorialStem(question),
+})));

@@ -1,0 +1,71 @@
+import { verifyTsdCp012 } from "./executable-verifier";
+import { TSD_CP012_ENGLISH_REVIEW_FINAL } from "./english-review-editorial-final";
+import { TSD_CP012_PROVISIONAL_QL_IDS } from "./ql-allocation";
+import { verifyTsdCp012SourceExtension } from "./source-executable-extensions";
+import { TSD_CP012_TWO_ENGINE_PROVENANCE } from "./two-engine-provenance";
+
+function assert(condition: unknown, message: string): asserts condition {
+  if (!condition) throw new Error(`TSD-CP-012 English authoring proof failed: ${message}`);
+}
+function stemShape(stem: string): string {
+  return stem.toLowerCase().replace(/\d+(?:\s+\d+\/\d+|\/\d+)?/g, "#").replace(/\s+/g, " ").trim();
+}
+
+assert(TSD_CP012_ENGLISH_REVIEW_FINAL.length === 66, `expected 66 English review questions, found ${TSD_CP012_ENGLISH_REVIEW_FINAL.length}`);
+assert(new Set(TSD_CP012_ENGLISH_REVIEW_FINAL.map((x) => x.familyId)).size === 66, "family IDs must be unique");
+assert(new Set(TSD_CP012_ENGLISH_REVIEW_FINAL.map((x) => x.stem)).size === 66, "learner stems must be unique");
+
+for (const qlId of TSD_CP012_PROVISIONAL_QL_IDS) {
+  const questions = TSD_CP012_ENGLISH_REVIEW_FINAL.filter((x) => x.qlId === qlId);
+  assert(questions.length === 6, `${qlId}: expected six human review families`);
+  assert(new Set(questions.map((x) => x.input.target)).size >= 2, `${qlId}: target variety is too thin`);
+  assert(new Set(questions.map((x) => stemShape(x.stem))).size >= 3, `${qlId}: stems are structurally too repetitive after normalizing numbers`);
+  assert(questions.some((x) => x.difficulty === "EASY"), `${qlId}: easy review evidence missing`);
+  assert(questions.some((x) => x.difficulty === "MEDIUM"), `${qlId}: medium review evidence missing`);
+}
+
+const extensionTargets = new Set(["EXACT_TIME_TO_DISTANCE_IN_REPEATING_CYCLE", "DISTANCE_REMAINING_AFTER_STAGES", "CLOSED_ROUTE_OPPOSITE_MEETING_TIME"]);
+for (const target of extensionTargets) assert(TSD_CP012_ENGLISH_REVIEW_FINAL.some((x) => x.input.target === target), `${target}: source-backed extension is absent from English review`);
+
+for (const question of TSD_CP012_ENGLISH_REVIEW_FINAL) {
+  assert(question.stem.length >= 70, `${question.familyId}: stem lacks enough explicit motion evidence`);
+  assert(question.explanation.steps.length === 2, `${question.familyId}: explanation must contain exactly two concise steps`);
+  assert(question.explanation.steps.every((step) => step.trim().length >= 24), `${question.familyId}: explanation contains a fragment rather than a substantive step`);
+  assert(question.explanation.steps.every((step) => !step.includes(question.stem)), `${question.familyId}: explanation repeats the question stem`);
+  assert(question.explanation.steps.some((step) => /\d|m\/s|seconds|distance|time|speed|route|track|rest|delay|stage/i.test(step)), `${question.familyId}: explanation is not problem-specific`);
+  assert(question.explanation.conclusion.startsWith("Answer: "), `${question.familyId}: concise answer conclusion missing`);
+  assert(!/\{[A-Za-z0-9_]+\}/.test(question.stem), `${question.familyId}: unresolved placeholder in stem`);
+
+  if (extensionTargets.has(question.input.target)) {
+    const verification = verifyTsdCp012SourceExtension(question.input as Parameters<typeof verifyTsdCp012SourceExtension>[0], question.solution as Parameters<typeof verifyTsdCp012SourceExtension>[1]);
+    assert(verification.accepted, `${question.familyId}: source-extension verifier rejected English review case (${verification.reason})`);
+  } else {
+    const verification = verifyTsdCp012(question.input as Parameters<typeof verifyTsdCp012>[0], question.solution);
+    assert(verification.accepted, `${question.familyId}: independent verifier rejected English review case (${verification.reason})`);
+  }
+}
+
+const ql139 = TSD_CP012_ENGLISH_REVIEW_FINAL.filter((x) => x.qlId === "TSD-QL-139" && x.input.target === "TRACK_GAP_AT_FASTER_FINISH");
+assert(ql139.every((x) => /remaining distance|still have to cover|must still run/i.test(x.stem)), "TSD-QL-139 finish-gap wording must describe the slower runner's remaining distance to finish");
+
+const ql141 = TSD_CP012_ENGLISH_REVIEW_FINAL.filter((x) => x.qlId === "TSD-QL-141");
+assert(ql141.length === 6, "TSD-QL-141 must expose six cross-authority review families");
+assert(ql141.every((x) => TSD_CP012_TWO_ENGINE_PROVENANCE.some((row) => row.caseId === x.caseId && row.engineA !== row.engineB)), "TSD-QL-141 review case lost two-engine provenance");
+assert(ql141.every((x) => /independent|Independently/.test(x.stem)), "TSD-QL-141 stems must make independent evidence explicit");
+
+const ql142 = TSD_CP012_ENGLISH_REVIEW_FINAL.filter((x) => x.qlId === "TSD-QL-142");
+assert(ql142.some((x) => x.solution.kind === "SET"), "TSD-QL-142 must review complete-set output");
+assert(ql142.some((x) => x.solution.kind === "SCALAR" && x.input.target === "COUNT"), "TSD-QL-142 must review valid-state count output");
+
+console.log("TSD-CP-012 ENGLISH REVIEW AUTHORING PROOF: PASS");
+console.log(JSON.stringify({
+  questions: TSD_CP012_ENGLISH_REVIEW_FINAL.length,
+  qls: TSD_CP012_PROVISIONAL_QL_IDS.length,
+  familiesPerQl: 6,
+  uniqueStems: new Set(TSD_CP012_ENGLISH_REVIEW_FINAL.map((x) => x.stem)).size,
+  minimumNormalizedStemShapesPerQl: 3,
+  sourceExtensionTargetsInReview: [...extensionTargets],
+  explanationStyle: "TWO_CONCISE_QUESTION_SPECIFIC_STEPS_PLUS_CONCLUSION",
+  explanationGuard: "SUBSTANTIVE_AND_PROBLEM_SPECIFIC",
+  lifecycle: "REVIEW_ONLY_NOT_FROZEN",
+}, null, 2));
