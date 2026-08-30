@@ -10,6 +10,9 @@ import type { StcV2AnswerClass } from "./editorial-v2-types.ts";
  * saturation-ready; the finite 16-presentation ceiling per QL is explicitly
  * governed elsewhere until a variableized surface engine is added.
  */
+export const STC_V2_PRESENTATION_SLOTS_PER_QL = 16 as const;
+export const STC_V2_AUTHORITIES_PER_QL = 8 as const;
+
 const BASE_SLOT_PERMUTATION = [3, 13, 15, 0, 4, 6, 8, 11, 2, 7, 14, 9, 12, 1, 10, 5] as const;
 
 const QL_OFFSETS: Readonly<Record<StcQlId, number>> = Object.freeze({
@@ -48,23 +51,35 @@ export function scheduleStcV2Presentation(input: {
   readonly seed: number;
 }): StcV2ScheduledPresentation {
   const integerSeed = Number.isFinite(input.seed) ? Math.trunc(input.seed) : 0;
-  const seedWithinBlock = positiveModulo(integerSeed, 16);
-  const block = Math.floor(integerSeed / 16);
+  const seedWithinBlock = positiveModulo(integerSeed, STC_V2_PRESENTATION_SLOTS_PER_QL);
+  const block = Math.floor(integerSeed / STC_V2_PRESENTATION_SLOTS_PER_QL);
   const offset = QL_OFFSETS[input.qlId];
   const mixed = mixBlock(block, offset);
-  const rotation = positiveModulo(offset + (mixed & 15), 16);
+  const rotation = positiveModulo(offset + (mixed & 15), STC_V2_PRESENTATION_SLOTS_PER_QL);
   const reverseSchedule = Boolean(mixed & 16);
   const scheduledIndex = reverseSchedule
-    ? positiveModulo(rotation - seedWithinBlock, 16)
-    : positiveModulo(rotation + seedWithinBlock, 16);
+    ? positiveModulo(rotation - seedWithinBlock, STC_V2_PRESENTATION_SLOTS_PER_QL)
+    : positiveModulo(rotation + seedWithinBlock, STC_V2_PRESENTATION_SLOTS_PER_QL);
   const presentationSlot = BASE_SLOT_PERMUTATION[scheduledIndex]!;
 
   return Object.freeze({
-    authorityIndex: presentationSlot % 8,
-    reverseConclusions: presentationSlot >= 8,
+    authorityIndex: presentationSlot % STC_V2_AUTHORITIES_PER_QL,
+    reverseConclusions: presentationSlot >= STC_V2_AUTHORITIES_PER_QL,
     presentationSlot,
     scheduleBlock: block,
   });
+}
+
+/** Returns the seed in the first schedule block that presents one authority in canonical conclusion order. */
+export function canonicalReviewSeedForAuthorityIndex(qlId: StcQlId, authorityIndex: number): number {
+  if (!Number.isInteger(authorityIndex) || authorityIndex < 0 || authorityIndex >= STC_V2_AUTHORITIES_PER_QL) {
+    throw new Error(`STC V2 authority index out of range: ${authorityIndex}`);
+  }
+  for (let seed = 0; seed < STC_V2_PRESENTATION_SLOTS_PER_QL; seed += 1) {
+    const scheduled = scheduleStcV2Presentation({ qlId, seed });
+    if (scheduled.authorityIndex === authorityIndex && !scheduled.reverseConclusions) return seed;
+  }
+  throw new Error(`${qlId}: no canonical review seed found for authority index ${authorityIndex}`);
 }
 
 export function reverseStcV2AnswerClass(answerClass: StcV2AnswerClass): StcV2AnswerClass {
