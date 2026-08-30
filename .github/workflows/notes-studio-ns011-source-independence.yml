@@ -55,7 +55,7 @@ jobs:
           grep -F 'document.content_hash AS "contentHash"' artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
           grep -F 'noteSourceIdentity(source.publisher, source.sourceUri)' artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
           grep -F 'status.policy.integrity.findings' artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
-          grep -F "requirementCode: 'source_integrity'" artifacts/api-server/src/notes-studio/source-pack-proposal.ts
+          grep -F "addWinner(winner, 'source_integrity'" artifacts/api-server/src/notes-studio/source-pack-proposal.ts
           grep -F 'existingContentHashes' artifacts/api-server/src/routes/admin-notes-studio-source-pack-proposals.ts
           grep -F 'existingSourceIdentities' artifacts/api-server/src/routes/admin-notes-studio-source-pack-proposals.ts
           grep -F 'Independent content' artifacts/admin-app/src/pages/content/NotesStudioSourcePolicyPage.tsx
