@@ -30,6 +30,8 @@ export function QuestionStudioRecoveryDock() {
   const queue = useMemo(() => buildRegenerationQueue(dashboard.runs), [dashboard.runs]);
   const queueItems = useMemo(() => queue.flatMap((entry) => entry.items), [queue]);
   const needsFixCount = queueItems.filter((entry) => entry.item.status === 'needs_fix').length;
+  const sourceControlledCount = queueItems.filter((entry) => entry.regenerationLocked).length;
+  const retryableNeedsFixCount = queue.reduce((total, entry) => total + entry.needsFixItemIds.length, 0);
   const [open, setOpen] = useState(false);
   const [reason, setReason] = useState('Generate a fresh replacement after editorial review feedback');
   const [activeIds, setActiveIds] = useState<Set<string>>(() => new Set());
@@ -101,7 +103,7 @@ export function QuestionStudioRecoveryDock() {
               <WandSparkles className="h-4 w-4 text-primary" /> Regeneration recovery queue
             </CardTitle>
             <p className="mt-1 text-xs text-muted-foreground">
-              Create fresh immutable replacements without overwriting reviewer history.
+              Create fresh immutable replacements without overwriting reviewer history. Source-controlled packages must be fixed at their generator/localization authority.
             </p>
           </div>
           <Button type="button" variant="ghost" size="icon" onClick={() => setOpen(false)} aria-label="Close recovery queue">
@@ -111,9 +113,14 @@ export function QuestionStudioRecoveryDock() {
 
         <div className="flex flex-wrap gap-2">
           <Badge variant="outline">{queueItems.length} surfaced</Badge>
-          <Badge variant="outline" className={needsFixCount > 0 ? 'border-warning/30 text-warning' : 'border-success/30 text-success'}>
-            {needsFixCount} needs fix
+          <Badge variant="outline" className={retryableNeedsFixCount > 0 ? 'border-warning/30 text-warning' : 'border-success/30 text-success'}>
+            {retryableNeedsFixCount} retryable needs fix
           </Badge>
+          {sourceControlledCount > 0 && (
+            <Badge variant="outline" className="border-info/30 text-info">
+              {sourceControlledCount} source-controlled
+            </Badge>
+          )}
           <Badge variant="outline">{queue.length} run(s)</Badge>
         </div>
 
@@ -121,13 +128,14 @@ export function QuestionStudioRecoveryDock() {
           <Input value={reason} onChange={(event) => setReason(event.target.value)} placeholder="Reason for regeneration" />
           <Button
             type="button"
+            aria-label="Retry all needs fix"
             onClick={() => void regenerate(allNeedsFixIds, 'Retry all needs-fix items')}
             disabled={!canRegenerate || busy || allNeedsFixIds.length === 0}
           >
             {busy && allNeedsFixIds.some((id) => activeIds.has(id))
               ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />
               : <RotateCcw className="mr-1.5 h-4 w-4" />}
-            Retry all needs fix
+            Retry {retryableNeedsFixCount} needs fix
           </Button>
         </div>
       </CardHeader>
@@ -202,7 +210,7 @@ function RecoveryRun({
 
       {expanded && (
         <div className="divide-y">
-          {items.map(({ item, stem, blockerCount, warningCount, reasons }) => {
+          {items.map(({ item, stem, blockerCount, warningCount, reasons, regenerationLocked }) => {
             const itemBusy = activeIds.has(item.id);
             return (
               <div key={item.id} className="px-4 py-3">
@@ -213,15 +221,16 @@ function RecoveryRun({
                       <Badge variant="outline" className={item.status === 'needs_fix' ? 'border-warning/30 text-warning' : item.status === 'rejected' ? 'border-destructive/30 text-destructive' : ''}>
                         {item.status.replace(/_/g, ' ')}
                       </Badge>
+                      {regenerationLocked && <Badge variant="outline" className="border-info/30 text-info">Source controlled</Badge>}
                       {blockerCount > 0 && <Badge variant="outline" className="border-destructive/30 text-destructive">{blockerCount} blocker(s)</Badge>}
                       {warningCount > 0 && <Badge variant="outline">{warningCount} warning(s)</Badge>}
                     </div>
                     <p className="mt-2 line-clamp-2 text-xs leading-relaxed">{stem}</p>
                     {reasons[0] && <p className="mt-1 line-clamp-2 text-[10px] text-muted-foreground">{reasons[0]}</p>}
                   </div>
-                  <Button type="button" size="sm" onClick={() => onRetryItem(item.id, item.itemNumber)} disabled={disabled}>
+                  <Button type="button" size="sm" onClick={() => onRetryItem(item.id, item.itemNumber)} disabled={disabled || regenerationLocked}>
                     {itemBusy ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <RotateCcw className="mr-1.5 h-3.5 w-3.5" />}
-                    Regenerate
+                    {regenerationLocked ? 'Source controlled' : 'Regenerate'}
                   </Button>
                 </div>
               </div>

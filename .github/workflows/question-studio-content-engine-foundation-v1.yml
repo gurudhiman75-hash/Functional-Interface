@@ -1,0 +1,96 @@
+name: Validate Question Studio Content Engine Foundation V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/question-studio/**
+      - artifacts/api-server/src/knowledge-v1/**
+      - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
+      - artifacts/api-server/src/routes/admin-question-studio-mixed-difficulty.ts
+      - artifacts/api-server/src/routes/index.ts
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: question-studio-content-engine-foundation-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-content-engine-foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle content engine foundation suite
+        run: |
+          mkdir -p artifacts/api-server/dist/content-engine-foundation
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/content-engine-foundation.test-suite.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/content-engine-foundation/content-engine-foundation.test-suite.mjs
+      - name: Run content engine foundation suite
+        run: |
+          cd artifacts/api-server
+          node dist/content-engine-foundation/content-engine-foundation.test-suite.mjs
+      - name: Bundle COM-002 V6/V5 editorial errata suite
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com002-v6-v5-errata.test-suite.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/content-engine-foundation/com002-v6-v5-errata.test-suite.mjs
+      - name: Run COM-002 V6/V5 editorial errata suite
+        run: |
+          cd artifacts/api-server
+          node dist/content-engine-foundation/com002-v6-v5-errata.test-suite.mjs
+      - name: Bundle COM-002 bilingual V4 review exporter
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com002-localization-human-review-v4-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/content-engine-foundation/com002-localization-human-review-v4-export.mjs
+      - name: Generate COM-002 bilingual V4 review files
+        run: |
+          cd artifacts/api-server
+          node dist/content-engine-foundation/com002-localization-human-review-v4-export.mjs
+      - name: Upload COM-002 bilingual V4 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: COM002-Hindi-Punjabi-V4-Review-Pack
+          path: |
+            artifacts/api-server/dist/review-artifacts/COM002-Hindi-Punjabi-V4-Review-Pack.html
+            artifacts/api-server/dist/review-artifacts/COM002-Hindi-Punjabi-V4-Review-Pack.json
+          if-no-files-found: error
+      - name: Bundle COM-002 bilingual V5 review exporter
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com002-localization-human-review-v5-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/content-engine-foundation/com002-localization-human-review-v5-export.mjs
+      - name: Generate COM-002 bilingual V5 review files
+        run: |
+          cd artifacts/api-server
+          node dist/content-engine-foundation/com002-localization-human-review-v5-export.mjs
+      - name: Upload COM-002 bilingual V5 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: COM002-Hindi-Punjabi-V5-Review-Pack
+          path: |
+            artifacts/api-server/dist/review-artifacts/COM002-Hindi-Punjabi-V5-Review-Pack.html
+            artifacts/api-server/dist/review-artifacts/COM002-Hindi-Punjabi-V5-Review-Pack.json
+          if-no-files-found: error

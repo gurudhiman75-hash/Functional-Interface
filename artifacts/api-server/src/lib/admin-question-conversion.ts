@@ -210,6 +210,8 @@ export function normalizeGeneratedQuestionPayload(
 ): NormalizedGeneratedQuestion {
   const payload = asRecord(value);
   const generationContext = asRecord(payload.generationContext);
+  const questionStudioReview = asRecord(payload.questionStudioReview);
+  const difficultyDecision = asRecord(payload.difficultyDecisionV2);
   assertGeneratedQuestionBankEligible(payload);
   const baseStem = asText(payload.text) || asText(payload.stem);
   const explanation =
@@ -272,6 +274,22 @@ export function normalizeGeneratedQuestionPayload(
         language: payload.language ?? "en",
         locale: payload.locale ?? generationContext.locale ?? null,
         visualContent: visualContent ? "spatial_svg_data_image_v1" : null,
+        lifecycleId:
+          lifecycleValue(payload, generationContext, "lifecycleId") ?? null,
+        lifecycleStage:
+          payload.lifecycleStage ??
+          payload.stage ??
+          generationContext.lifecycleStage ??
+          generationContext.stage ??
+          null,
+        reviewSurfaceRequired:
+          lifecycleValue(payload, generationContext, "reviewSurfaceRequired") ?? null,
+        reviewRunPersistenceAllowed:
+          lifecycleValue(payload, generationContext, "reviewRunPersistenceAllowed") ?? null,
+        canonicalQuestionPersistenceAllowed:
+          lifecycleValue(payload, generationContext, "canonicalQuestionPersistenceAllowed") ?? null,
+        manualApprovalRequired:
+          lifecycleValue(payload, generationContext, "manualApprovalRequired") ?? null,
         questionBankStatus: lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
         questionBankWritable: lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
         questionBankAcceptanceMode: getGeneratedQuestionBankAcceptanceMode(payload),
@@ -283,10 +301,62 @@ export function normalizeGeneratedQuestionPayload(
         publiclyPublishable: lifecycleValue(payload, generationContext, "publiclyPublishable") ?? null,
         automaticStudentPublication:
           lifecycleValue(payload, generationContext, "automaticStudentPublication") ?? null,
+        productionReleaseAuthorized:
+          lifecycleValue(payload, generationContext, "productionReleaseAuthorized") ?? null,
         integrationAuthority: payload.integrationAuthority ?? generationContext.integrationAuthority ?? null,
         deliveryProfileAuthority:
           payload.deliveryProfileAuthority ?? generationContext.deliveryProfileAuthority ?? null,
         sourceFreezeAuthority: payload.sourceFreezeAuthority ?? generationContext.sourceFreezeAuthority ?? null,
+        sourceIds: payload.sourceIds ?? generationContext.sourceIds ?? null,
+        sourceFactIds: payload.sourceFactIds ?? generationContext.sourceFactIds ?? null,
+        solverAuthority: payload.solverAuthority ?? generationContext.solverAuthority ?? null,
+        contentAuthorityVersion:
+          payload.contentAuthorityVersion ??
+          questionStudioReview.contentAuthorityVersion ??
+          generationContext.contentAuthorityVersion ??
+          null,
+        englishFreezeAuthorityId:
+          payload.englishFreezeAuthorityId ??
+          questionStudioReview.englishFreezeAuthorityId ??
+          generationContext.englishFreezeAuthorityId ??
+          null,
+        englishCombinedFingerprint:
+          payload.englishCombinedFingerprint ??
+          questionStudioReview.englishCombinedFingerprint ??
+          generationContext.englishCombinedFingerprint ??
+          null,
+        localizationFreezeAuthorityId:
+          payload.localizationFreezeAuthorityId ??
+          questionStudioReview.localizationFreezeAuthorityId ??
+          generationContext.localizationFreezeAuthorityId ??
+          null,
+        localizationCombinedFingerprint:
+          payload.localizationCombinedFingerprint ??
+          questionStudioReview.localizationCombinedFingerprint ??
+          generationContext.localizationCombinedFingerprint ??
+          null,
+        difficultyClassifierVersion:
+          payload.difficultyClassifierVersion ??
+          questionStudioReview.difficultyClassifierVersion ??
+          difficultyDecision.classifierVersion ??
+          generationContext.difficultyClassifierVersion ??
+          null,
+        difficultyTopology:
+          payload.difficultyTopology ??
+          questionStudioReview.difficultyTopology ??
+          difficultyDecision.topology ??
+          generationContext.difficultyTopology ??
+          null,
+        difficultyRationale:
+          payload.difficultyRationale ??
+          questionStudioReview.difficultyRationale ??
+          difficultyDecision.rationale ??
+          generationContext.difficultyRationale ??
+          null,
+        relationalSurfaceMode:
+          payload.relationalSurfaceMode ?? generationContext.relationalSurfaceMode ?? null,
+        capacityConvention:
+          payload.capacityConvention ?? generationContext.capacityConvention ?? null,
       },
     },
   };
