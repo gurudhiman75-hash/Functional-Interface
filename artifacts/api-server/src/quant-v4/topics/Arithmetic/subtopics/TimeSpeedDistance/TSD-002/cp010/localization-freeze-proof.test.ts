@@ -18,6 +18,9 @@ function withoutFreezeTag<T extends { readonly editorialStatus: "FROZEN" }>(valu
   const { editorialStatus: _editorialStatus, ...rest } = value;
   return rest;
 }
+function canonicalJson(value: unknown): string {
+  return JSON.stringify(value, (_key, item) => typeof item === "bigint" ? `bigint:${item.toString()}` : item);
+}
 
 assert(TSD_CP010_LOCALIZATION_FREEZE_APPROVAL.status === "PRODUCT_OWNER_APPROVED_LOCALIZATION_FREEZE", "localization freeze approval status changed");
 assert(TSD_CP010_LOCALIZATION_FREEZE_APPROVAL.approvedSourceHead === "78768014443ca76e606f063b73ead667af86d375", "approved V3 native source head changed");
@@ -35,14 +38,14 @@ for (const [locale, frozen, source] of [
   assert(frozen.length === 60, `${locale}: frozen family count changed`);
   assert(new Set(frozen.map((question) => question.stem)).size === 60, `${locale}: frozen stems are no longer unique`);
   assert(frozen.every((question) => question.editorialStatus === "FROZEN"), `${locale}: frozen row lost FROZEN status`);
-  assert(JSON.stringify(frozen.map(withoutFreezeTag)) === JSON.stringify(source), `${locale}: frozen learner content differs from approved V3 source`);
+  assert(canonicalJson(frozen.map(withoutFreezeTag)) === canonicalJson(source), `${locale}: frozen learner content differs from approved V3 source`);
   for (const qlId of TSD_CP010_PERMANENT_QL_IDS) {
     assert(frozen.filter((question) => question.qlId === qlId).length === 6, `${locale}/${qlId}: expected six frozen families`);
   }
 }
 
-const hindi = JSON.stringify(TSD_CP010_FROZEN_HINDI_REVIEW);
-const punjabi = JSON.stringify(TSD_CP010_FROZEN_PUNJABI_REVIEW);
+const hindi = canonicalJson(TSD_CP010_FROZEN_HINDI_REVIEW);
+const punjabi = canonicalJson(TSD_CP010_FROZEN_PUNJABI_REVIEW);
 assert(!/[A-Za-z]{4,}/.test(TSD_CP010_FROZEN_HINDI_REVIEW.map((question) => question.stem).join("\n")), "Hindi learner stems contain unexpected Latin prose");
 assert(!/[A-Za-z]{4,}/.test(TSD_CP010_FROZEN_PUNJABI_REVIEW.map((question) => question.stem).join("\n")), "Punjabi learner stems contain unexpected Latin prose");
 for (const rejected of ["समय-बढ़त", "दूरी-अंतर", "जीत-अंतर", "समय-अंतर"]) assert(!hindi.includes(rejected), `Hindi synthetic wording '${rejected}' returned after freeze`);
