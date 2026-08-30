@@ -11,6 +11,8 @@ on:
       - 'artifacts/api-server/src/routes/admin-static-gk-visual-atlas.ts'
       - 'artifacts/api-server/src/routes/index.ts'
       - 'artifacts/api-server/static-gk-atlas-tool.mjs'
+      - 'artifacts/admin-app/src/App.tsx'
+      - 'artifacts/admin-app/src/app/nav/navigation.ts'
       - 'artifacts/admin-app/src/lib/admin-request.ts'
       - 'artifacts/admin-app/src/pages/content/StaticGkVisualAtlasWorkspacePage.tsx'
       - 'artifacts/admin-app/src/pages/content/LearningResourcesHubPage.tsx'
