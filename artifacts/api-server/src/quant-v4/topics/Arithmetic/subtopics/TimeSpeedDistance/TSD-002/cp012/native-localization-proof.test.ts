@@ -15,18 +15,20 @@ const GURMUKHI = /\p{Script=Gurmukhi}/u;
 const LATIN = /[A-Za-z]/;
 const extensionTargets = new Set(["EXACT_TIME_TO_DISTANCE_IN_REPEATING_CYCLE", "DISTANCE_REMAINING_AFTER_STAGES", "CLOSED_ROUTE_OPPOSITE_MEETING_TIME"]);
 
-assert(TSD_CP012_ENGLISH_REVIEW_FINAL.length === 66, "expected 66 English parity questions");
-assert(TSD_CP012_NATIVE_HINDI_REVIEW_FINAL.length === 66, "expected 66 Hindi review questions");
-assert(TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL.length === 66, "expected 66 Punjabi review questions");
+assert(TSD_CP012_ENGLISH_REVIEW_FINAL.length === 270, "expected 270 English parity questions");
+assert(TSD_CP012_NATIVE_HINDI_REVIEW_FINAL.length === 270, "expected 270 Hindi review questions");
+assert(TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL.length === 270, "expected 270 Punjabi review questions");
 
 for (const [language, questions] of [["hi", TSD_CP012_NATIVE_HINDI_REVIEW_FINAL], ["pa", TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL]] as const) {
-  assert(new Set(questions.map((x) => x.familyId)).size === 66, `${language}: family IDs must be unique`);
-  assert(new Set(questions.map((x) => x.stem)).size === 66, `${language}: learner stems must be unique`);
+  assert(new Set(questions.map((x) => x.familyId)).size === 270, `${language}: family IDs must be unique`);
+  assert(new Set(questions.map((x) => x.stem)).size === 270, `${language}: learner stems must be unique`);
 
   for (const qlId of TSD_CP012_PROVISIONAL_QL_IDS) {
     const localized = questions.filter((x) => x.qlId === qlId);
-    assert(localized.length === 6, `${language}/${qlId}: expected six families`);
-    assert(new Set(localized.map((x) => x.input.target)).size >= 2, `${language}/${qlId}: target variety is too thin`);
+    const english = TSD_CP012_ENGLISH_REVIEW_FINAL.filter((x) => x.qlId === qlId);
+    assert(localized.length === english.length, `${language}/${qlId}: localized family count must equal English (${english.length})`);
+    assert(localized.length === 24 || localized.length === 26, `${language}/${qlId}: unexpected expanded family count ${localized.length}`);
+    assert(new Set(localized.map((x) => x.input.target)).size === new Set(english.map((x) => x.input.target)).size, `${language}/${qlId}: target variety drifted from English`);
     assert(new Set(localized.map((x) => shape(x.stem))).size >= 3, `${language}/${qlId}: normalized stem structures are too repetitive`);
   }
 
@@ -90,6 +92,7 @@ for (const qlId of TSD_CP012_PROVISIONAL_QL_IDS) {
 
 const hi141 = TSD_CP012_NATIVE_HINDI_REVIEW_FINAL.filter((x) => x.qlId === "TSD-QL-141");
 const pa141 = TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL.filter((x) => x.qlId === "TSD-QL-141");
+assert(hi141.length === 24 && pa141.length === 24, "TSD-QL-141: expected 24 two-engine families per native locale");
 assert(hi141.every((x) => /एक स्वतंत्र निरीक्षण/.test(x.stem) && /दूसरे स्वतंत्र निरीक्षण/.test(x.stem)), "hi/TSD-QL-141: two concrete observations must remain explicit");
 assert(pa141.every((x) => /ਇੱਕ ਸੁਤੰਤਰ ਨਿਰੀਖਣ/.test(x.stem) && /ਦੂਜੇ ਸੁਤੰਤਰ ਨਿਰੀਖਣ/.test(x.stem)), "pa/TSD-QL-141: two concrete observations must remain explicit");
 assert(hi141.every((x) => !/समीकरण|=/.test(x.stem)), "hi/TSD-QL-141: learner stem must not expose the internal equation model");
@@ -99,7 +102,7 @@ assert(pa141.every((x) => /ਦੂਰੀ/.test(x.stem) && /ਸਕਿੰਟ/.test(
 
 const hi142Sets = TSD_CP012_NATIVE_HINDI_REVIEW_FINAL.filter((x) => x.qlId === "TSD-QL-142" && x.input.target === "VALID_SET");
 const pa142Sets = TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL.filter((x) => x.qlId === "TSD-QL-142" && x.input.target === "VALID_SET");
-assert(hi142Sets.length === 3 && pa142Sets.length === 3, "TSD-QL-142: expected three complete-set MCQ families per native locale");
+assert(hi142Sets.length === 12 && pa142Sets.length === 12, "TSD-QL-142: expected 12 complete-set MCQ families per native locale");
 assert(hi142Sets.every((x) => /कौन-सा सभी मान्य चालों का पूरा समूह/.test(x.stem)), "hi/TSD-QL-142: complete-set stem must be option-selection MCQ wording");
 assert(pa142Sets.every((x) => /ਕਿਹੜਾ ਸਾਰੀਆਂ ਮਨਜ਼ੂਰ ਚਾਲਾਂ ਦਾ ਪੂਰਾ ਸਮੂਹ/.test(x.stem)), "pa/TSD-QL-142: complete-set stem must be option-selection MCQ wording");
 assert(hi142Sets.every((x) => !/सभी अनुमत चालें लिखिए|पूरा समूह लिखिए/.test(x.stem)), "hi/TSD-QL-142: worksheet-style list instruction leaked back in");
@@ -117,7 +120,7 @@ console.log(JSON.stringify({
   englishQuestions: TSD_CP012_ENGLISH_REVIEW_FINAL.length,
   hindiQuestions: TSD_CP012_NATIVE_HINDI_REVIEW_FINAL.length,
   punjabiQuestions: TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL.length,
-  familiesPerQl: 6,
+  familiesPerQl: "24_OR_26_TARGET_EXHAUSTIVE",
   qls: TSD_CP012_PROVISIONAL_QL_IDS.length,
   inputSolutionParity: "IDENTICAL_OBJECT_REFERENCES",
   minimumNormalizedStemShapesPerQl: 3,
