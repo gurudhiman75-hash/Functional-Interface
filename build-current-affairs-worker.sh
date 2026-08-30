@@ -41,4 +41,14 @@ pnpm --dir artifacts/api-server exec esbuild \
   --sourcemap \
   --outfile=dist/current-affairs-daily-worker.mjs
 
+echo "[current-affairs-worker] compile in-app notification scheduler"
+pnpm --dir artifacts/api-server exec esbuild \
+  src/current-affairs/notification-worker.ts \
+  --bundle \
+  --packages=external \
+  --platform=node \
+  --format=esm \
+  --sourcemap \
+  --outfile=dist/current-affairs-notification-worker.mjs
+
 echo "[current-affairs-worker] complete"
