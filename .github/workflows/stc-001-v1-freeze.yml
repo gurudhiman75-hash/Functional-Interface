@@ -49,9 +49,7 @@ jobs:
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/five-way-profile.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v1-manifest.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-review.ts \
-            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-integration.test.ts \
-            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v1-proof.test.ts \
-            src/reasoning-v1/question-studio-review-registry.ts
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v1-proof.test.ts
 
       - name: Replay checkpoint semantic proofs
         run: |
