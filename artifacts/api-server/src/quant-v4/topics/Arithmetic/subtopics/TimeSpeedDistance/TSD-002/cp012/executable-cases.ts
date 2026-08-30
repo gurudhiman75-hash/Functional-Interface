@@ -5,6 +5,23 @@ import { TSD_CP012_LEARNER_AUTHORITIES } from "./source-saturation";
 
 const q = (n: number, d = 1) => rational(BigInt(n), BigInt(d));
 
+function isRational(value: unknown): value is Rational {
+  return !!value && typeof value === "object" && typeof (value as Rational).numerator === "bigint" && typeof (value as Rational).denominator === "bigint";
+}
+
+function scaleSemanticValue(value: unknown, key: string, factor: Rational): unknown {
+  if (isRational(value)) return /speed|rate/i.test(key) ? value : multiply(value, factor);
+  if (Array.isArray(value)) return value.map((item) => scaleSemanticValue(item, key, factor));
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([childKey, childValue]) => [childKey, scaleSemanticValue(childValue, childKey, factor)]));
+  }
+  return value;
+}
+
+function scaleSemanticInput(input: TsdCp012ExecutableInput, factorValue: 2 | 3): TsdCp012ExecutableInput {
+  return scaleSemanticValue(input, "input", q(factorValue)) as TsdCp012ExecutableInput;
+}
+
 export function generateTsdCp012ExecutableCases(): readonly TsdCp012ExecutableCase[] {
   const out: TsdCp012ExecutableCase[] = [];
   const counts = new Map<string, number>();
@@ -136,8 +153,13 @@ export function generateTsdCp012ExecutableCases(): readonly TsdCp012ExecutableCa
   addCase({ authorityKey: "feasibleParameterSetState", target: "VALID_SET", minimumCandidate: 6, maximumCandidate: 20, distance: q(180), deadline: q(15), fixedDelay: q(3) });
   addCase({ authorityKey: "feasibleParameterSetState", target: "COUNT", minimumCandidate: 6, maximumCandidate: 20, distance: q(180), deadline: q(15), fixedDelay: q(3) });
 
+  const originalCases = [...out];
+  for (const factor of [2, 3] as const) {
+    for (const original of originalCases) addCase(scaleSemanticInput(original.input, factor));
+  }
+
   for (const authorityKey of TSD_CP012_LEARNER_AUTHORITIES) {
-    if ((counts.get(authorityKey) ?? 0) !== 8) throw new Error(`${authorityKey}: expected exactly 8 deterministic discovery cases`);
+    if ((counts.get(authorityKey) ?? 0) !== 24) throw new Error(`${authorityKey}: expected exactly 24 deterministic executable cases after semantic scaling`);
   }
   return Object.freeze(out);
 }
