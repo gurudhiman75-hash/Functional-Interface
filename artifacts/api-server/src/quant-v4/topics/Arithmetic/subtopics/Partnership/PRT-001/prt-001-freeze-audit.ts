@@ -4,6 +4,7 @@ import {
   auditPrt001ContextRealism,
   auditPrt001Coverage,
   auditPrt001E1MathDiversity,
+  auditPrt001E2MathDiversity,
   auditPrt001Multilingual,
   auditPrt001OptionQuality,
 } from "./foundation/coverage-auditor";
@@ -13,6 +14,7 @@ const reports = [
   auditPrt001Coverage(),
   auditPrt001ContextRealism(),
   auditPrt001E1MathDiversity(),
+  auditPrt001E2MathDiversity(),
   auditPrt001Multilingual(),
   auditPrt001OptionQuality(),
 ];
@@ -49,7 +51,7 @@ for (const cpId of PRT_001_CP_IDS) {
 reports.push({
   audit: "question-studio-integration",
   cases: studioCases,
-  metrics: { canonicalProblems: 7, languages: 3, expansionWave: "E1" },
+  metrics: { canonicalProblems: 7, languages: 3, expansionWave: "E2" },
 });
 
 console.log(JSON.stringify({ packageId: "PRT-001", status: "PASS", reports }, null, 2));
