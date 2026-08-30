@@ -1,0 +1,93 @@
+name: Validate TRG-001 localization review readiness
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-v2.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-v2-final.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-v3.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-v3-final.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-v3-final-readiness.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final2.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final3.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final3.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final3-human.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final3-human.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final4.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final4-5seed.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/export-localization-native-v5-pedagogic-review-final4.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: trg-001-localization-review-readiness-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle frozen English audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-human-approved.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-human-approved-audit.mjs
+      - name: Run frozen English audit
+        run: node artifacts/api-server/dist/quant-v4/trg-001-human-approved-audit.mjs
+      - name: Bundle V3 semantic and pedagogic readiness audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-v3-final-readiness.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-localization-review-readiness-audit.mjs
+      - name: Run 864-case V3 semantic and pedagogic readiness audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trg-001-localization-review-readiness-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-localization-review-readiness-audit.log
+      - name: Bundle Final3 human-polish editorial sweep
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final3-human.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-localization-native-review-final3-human-audit.mjs
+      - name: Run 864-case Final3 human-polish editorial sweep
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trg-001-localization-native-review-final3-human-audit.mjs 2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-localization-native-review-final3-human-audit.log
+      - name: Bundle Final4 review-pack exporter
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/export-localization-native-v5-pedagogic-review-final4.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-native-review-final4-exporter.mjs
+      - name: Generate Final4 canonical-angle review pack
+        run: node artifacts/api-server/dist/quant-v4/trg-001-native-review-final4-exporter.mjs
+      - name: Upload Final4 review-readiness evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-001-localization-native-review-final4
+          path: |
+            artifacts/api-server/dist/quant-v4/trg-001-localization-review-readiness-audit.log
+            artifacts/api-server/dist/quant-v4/trg-001-localization-native-review-final3-human-audit.log
+            artifacts/api-server/dist/quant-v4/trg-001-localization-native-review-final4.json
+          if-no-files-found: error
+          retention-days: 30
