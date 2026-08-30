@@ -1,7 +1,7 @@
-import { rename, writeFile } from "node:fs/promises";
+import { mkdir, rename, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 
-import type { SupportedStaticGkRenderVisualId } from "../render-job-contract";
+import type { StaticGkRenderableVisualId } from "../render-job-contract";
 import { compileStaticGkAiShotPrompts } from "./prompt-compiler";
 import { RunwayStaticGkAiVideoProvider } from "./providers/runway";
 import { getStaticGkAiShotPlan } from "./shot-plans";
@@ -16,10 +16,7 @@ export interface StaticGkAiVideoCapability {
   enabled: boolean;
   ready: boolean;
   provider: StaticGkAiVideoProviderId;
-  configured: {
-    apiSecret: boolean;
-    model: boolean;
-  };
+  configured: { apiSecret: boolean; model: boolean };
   blockers: string[];
 }
 
@@ -27,9 +24,7 @@ function takesPerShot(): number {
   const raw = process.env.STATIC_GK_AI_VIDEO_TAKES_PER_SHOT?.trim();
   if (!raw) return 2;
   const value = Number(raw);
-  if (!Number.isInteger(value) || value < 1 || value > 4) {
-    throw new Error("STATIC_GK_AI_VIDEO_TAKES_PER_SHOT must be an integer from 1 to 4");
-  }
+  if (!Number.isInteger(value) || value < 1 || value > 4) throw new Error("STATIC_GK_AI_VIDEO_TAKES_PER_SHOT must be an integer from 1 to 4");
   return value;
 }
 
@@ -39,9 +34,7 @@ function selectedProviderId(): StaticGkAiVideoProviderId {
   return raw;
 }
 
-export function staticGkAiVideoEnabled(): boolean {
-  return process.env.STATIC_GK_AI_VIDEO_ENABLED?.trim() === "1";
-}
+export function staticGkAiVideoEnabled(): boolean { return process.env.STATIC_GK_AI_VIDEO_ENABLED?.trim() === "1"; }
 
 export function getStaticGkAiVideoCapability(): StaticGkAiVideoCapability {
   const enabled = staticGkAiVideoEnabled();
@@ -66,7 +59,7 @@ async function writeJsonAtomic(path: string, value: unknown): Promise<void> {
 }
 
 export async function generateStaticGkAiVideoPlates(
-  visualId: SupportedStaticGkRenderVisualId,
+  visualId: StaticGkRenderableVisualId,
   outputDirectoryArg: string,
   provider: StaticGkAiVideoProvider = createProvider(),
 ): Promise<StaticGkAiVideoGenerationReceipt> {
@@ -75,16 +68,12 @@ export async function generateStaticGkAiVideoPlates(
   if (!capability.ready) throw new Error(`Static GK AI video generation is not ready: ${capability.blockers.join("; ")}`);
 
   const outputDirectory = resolve(outputDirectoryArg);
+  await mkdir(outputDirectory, { recursive: true });
   const shots = getStaticGkAiShotPlan(visualId);
   const prompts = compileStaticGkAiShotPrompts(shots);
   const takeCount = takesPerShot();
   const generatedAt = new Date().toISOString();
-  await writeJsonAtomic(join(outputDirectory, `${visualId}.ai-shot-prompts.json`), {
-    schemaVersion: 1,
-    visualId,
-    generatedAt,
-    prompts: prompts.map(({ promptText, ...rest }) => ({ ...rest, promptText })),
-  });
+  await writeJsonAtomic(join(outputDirectory, `${visualId}.ai-shot-prompts.json`), { schemaVersion: 1, visualId, generatedAt, prompts });
 
   const shotReceipts: StaticGkAiVideoShotReceipt[] = [];
   const partialPath = join(outputDirectory, `${visualId}.ai-generation.partial.json`);
@@ -95,46 +84,13 @@ export async function generateStaticGkAiVideoPlates(
     for (let takeNumber = 1; takeNumber <= takeCount; takeNumber += 1) {
       process.stdout.write(`[static-gk-ai-video] generating ${prompt.shotId} take ${takeNumber}/${takeCount}\n`);
       takes.push(await provider.generateTake({ prompt, takeNumber, outputDirectory }));
-      await writeJsonAtomic(partialPath, {
-        schemaVersion: 1,
-        visualId,
-        provider: provider.id,
-        model: provider.model,
-        generatedAt,
-        completedShots: shotReceipts,
-        activeShot: { shotId: prompt.shotId, takes },
-      });
+      await writeJsonAtomic(partialPath, { schemaVersion: 1, visualId, provider: provider.id, model: provider.model, generatedAt, completedShots: shotReceipts, activeShot: { shotId: prompt.shotId, takes } });
     }
-    shotReceipts.push({
-      shotId: prompt.shotId,
-      order: prompt.order,
-      purpose: shot.purpose,
-      promptSha256: prompt.promptSha256,
-      takes,
-      selectedTakeNumber: takes[0].takeNumber,
-      selectionStrategy: "first-successful-v1",
-    });
-    await writeJsonAtomic(partialPath, {
-      schemaVersion: 1,
-      visualId,
-      provider: provider.id,
-      model: provider.model,
-      generatedAt,
-      completedShots: shotReceipts,
-    });
+    shotReceipts.push({ shotId: prompt.shotId, order: prompt.order, purpose: shot.purpose, promptSha256: prompt.promptSha256, takes, selectedTakeNumber: takes[0].takeNumber, selectionStrategy: "first-successful-v1" });
+    await writeJsonAtomic(partialPath, { schemaVersion: 1, visualId, provider: provider.id, model: provider.model, generatedAt, completedShots: shotReceipts });
   }
 
-  const receipt: StaticGkAiVideoGenerationReceipt = {
-    schemaVersion: 1,
-    visualId,
-    kind: "ai-video-plates",
-    provider: provider.id,
-    model: provider.model,
-    ratio: "720:1280",
-    takesPerShot: takeCount,
-    generatedAt,
-    shots: shotReceipts,
-  };
+  const receipt: StaticGkAiVideoGenerationReceipt = { schemaVersion: 1, visualId, kind: "ai-video-plates", provider: provider.id, model: provider.model, ratio: "720:1280", takesPerShot: takeCount, generatedAt, shots: shotReceipts };
   await writeJsonAtomic(join(outputDirectory, `${visualId}.ai-generation-receipt.json`), receipt);
   process.stdout.write(`[static-gk-ai-video] generated ${shotReceipts.length} AI plates with ${takeCount} take(s) each\n`);
   return receipt;
