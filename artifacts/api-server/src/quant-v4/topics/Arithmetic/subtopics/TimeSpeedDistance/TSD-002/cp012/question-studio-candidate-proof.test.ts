@@ -17,8 +17,8 @@ function wrongPathKey(question: ReturnType<typeof previewTsdCp012StudioCandidate
     .join("||");
 }
 
-assert(TSD_CP012_STUDIO_REVIEWED_COMBINATIONS_PER_LOCALE === 66, "expected 66 reviewed combinations per locale");
-assert(TSD_CP012_STUDIO_REVIEWED_MULTILINGUAL_COMBINATIONS === 198, "expected 198 reviewed multilingual combinations");
+assert(TSD_CP012_STUDIO_REVIEWED_COMBINATIONS_PER_LOCALE === 270, "expected 270 reviewed combinations per locale");
+assert(TSD_CP012_STUDIO_REVIEWED_MULTILINGUAL_COMBINATIONS === 810, "expected 810 reviewed multilingual combinations");
 assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.productOwnerApprovalStatus === "NOT_APPROVED", "product-owner approval must remain absent");
 assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.questionStudioRegistrationStatus === "NOT_REGISTERED", "Studio must remain unregistered");
 assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.productionSelectorVisible === false, "production selector must remain hidden");
@@ -29,17 +29,18 @@ assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.testEligible === false, "test eligibil
 assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.publiclyPublishable === false, "public publishing must remain disabled");
 assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.distractorStatus === "MISCONCEPTION_BACKED_REVIEW_CANDIDATE_NOT_FROZEN", "misconception distractors must remain explicitly unfrozen");
 assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.optionPolicy === "FOUR_UNIQUE_MISCONCEPTION_BACKED_REVIEW_OPTIONS_NOT_FROZEN", "misconception-backed option policy missing");
+assert(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.variationPolicy === "TARGET_EXHAUSTIVE_REVIEWED_SEMANTIC_SCALE_BANDS_NO_BLIND_RANDOMIZATION", "safe semantic expansion policy missing");
 assert(JSON.stringify(TSD_CP012_STUDIO_CANDIDATE_PACKAGE.supportedDifficulties) === JSON.stringify(["EASY", "MEDIUM"]), "Studio must advertise only reviewed difficulty bands");
 
 const previews = new Map<string, ReturnType<typeof previewTsdCp012StudioCandidate>>();
 for (const language of ["en", "hi", "pa"] as const) {
-  const preview = previewTsdCp012StudioCandidate({ language, count: 66, seed: `cp012-full-${language}` });
+  const preview = previewTsdCp012StudioCandidate({ language, count: 270, seed: `cp012-full-${language}` });
   previews.set(language, preview);
-  assert(preview.questions.length === 66, `${language}: expected 66 Studio questions`);
-  assert(preview.availableCombinationsUnderFilters === 66, `${language}: availability mismatch`);
-  assert(new Set(preview.questions.map((question) => question.familyId)).size === 66, `${language}: duplicate family IDs`);
-  assert(new Set(preview.questions.map((question) => question.stem)).size === 66, `${language}: duplicate learner stems`);
-  assert(new Set(preview.questions.map((question) => question.questionId)).size === 66, `${language}: duplicate question IDs`);
+  assert(preview.questions.length === 270, `${language}: expected 270 Studio questions`);
+  assert(preview.availableCombinationsUnderFilters === 270, `${language}: availability mismatch`);
+  assert(new Set(preview.questions.map((question) => question.familyId)).size === 270, `${language}: duplicate family IDs`);
+  assert(new Set(preview.questions.map((question) => question.stem)).size === 270, `${language}: duplicate learner stems`);
+  assert(new Set(preview.questions.map((question) => question.questionId)).size === 270, `${language}: duplicate question IDs`);
 
   for (const question of preview.questions) {
     assert(question.options.length === 4, `${language}/${question.familyId}: expected four options`);
@@ -68,13 +69,13 @@ for (const language of ["en", "hi", "pa"] as const) {
 
   for (const qlId of TSD_CP012_PROVISIONAL_QL_IDS) {
     const byQl = preview.questions.filter((question) => question.qlId === qlId);
-    assert(byQl.length === 6, `${language}/${qlId}: expected six reviewed families`);
+    assert(byQl.length === 24 || byQl.length === 26, `${language}/${qlId}: expected 24 or 26 target-exhaustive reviewed families, found ${byQl.length}`);
   }
   const setQuestions = preview.questions.filter((question) => question.solution.kind === "SET");
-  assert(setQuestions.length >= 2, `${language}: complete-set review questions missing`);
+  assert(setQuestions.length === 12, `${language}: expected 12 complete-set review questions`);
   assert(setQuestions.every((question) => question.optionModel === "MISCONCEPTION_BACKED_COMPLETE_SET_REVIEW"), `${language}: set-valued answer escaped misconception-backed set option model`);
   const routeQuestions = preview.questions.filter((question) => question.solution.kind === "SCALAR" && question.solution.unit === "INDEX");
-  assert(routeQuestions.length >= 1, `${language}: finite route-choice question missing`);
+  assert(routeQuestions.length >= 3, `${language}: finite route-choice questions missing`);
   assert(routeQuestions.every((question) => question.optionModel === "FINITE_ROUTE_CHOICE"), `${language}: route index escaped finite-route option model`);
   const scalarQuestions = preview.questions.filter((question) => question.solution.kind === "SCALAR" && question.solution.unit !== "INDEX");
   assert(scalarQuestions.every((question) => question.optionModel === "MISCONCEPTION_BACKED_SCALAR_REVIEW"), `${language}: scalar answer escaped misconception-backed option model`);
@@ -91,19 +92,21 @@ for (const language of ["hi", "pa"] as const) {
   }
 }
 
-const deterministicA = previewTsdCp012StudioCandidate({ language: "en", count: 20, seed: "same-seed" });
-const deterministicB = previewTsdCp012StudioCandidate({ language: "en", count: 20, seed: "same-seed" });
+const deterministicA = previewTsdCp012StudioCandidate({ language: "en", count: 40, seed: "same-seed" });
+const deterministicB = previewTsdCp012StudioCandidate({ language: "en", count: 40, seed: "same-seed" });
 assert(JSON.stringify(deterministicA.questions.map((question) => [question.familyId, question.options, question.correctIndex, wrongPathKey(question)])) === JSON.stringify(deterministicB.questions.map((question) => [question.familyId, question.options, question.correctIndex, wrongPathKey(question)])), "same seed must be deterministic");
 
 console.log("TSD-CP-012 LOCKED QUESTION STUDIO MISCONCEPTION DISTRACTOR PROOF: PASS");
 console.log(JSON.stringify({
-  combinationsPerLocale: 66,
-  multilingualCombinations: 198,
+  combinationsPerLocale: 270,
+  multilingualCombinations: 810,
   languages: 3,
   optionsPerQuestion: 4,
   wrongPathsPerQuestion: 3,
   misconceptionBackedDistractors: true,
-  syntheticCapacityExpansion: false,
+  semanticScaleExpansion: true,
+  blindRandomization: false,
+  targetExhaustive: true,
   distractorsFrozen: false,
   registrationStatus: TSD_CP012_STUDIO_CANDIDATE_PACKAGE.questionStudioRegistrationStatus,
   persistenceAllowed: TSD_CP012_STUDIO_CANDIDATE_PACKAGE.persistenceAllowed,
