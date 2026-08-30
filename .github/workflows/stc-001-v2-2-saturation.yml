@@ -7,6 +7,7 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v2-2-*'
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-review-v2-2.ts'
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-v2-integration.test.ts'
       - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
@@ -72,6 +73,17 @@ jobs:
             --outfile=dist/stc-001-v2-2-saturation-proof.mjs
           node dist/stc-001-v2-2-saturation-proof.mjs
 
+      - name: Prove V2.2 Question Studio review freeze boundary
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v2-2-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/stc-001-v2-2-freeze-proof.mjs
+          node dist/stc-001-v2-2-freeze-proof.mjs
+
       - name: Preserve V2.1 anti-gaming/saturation-boundary audit snapshot
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-1-saturation-boundary-proof.test.ts
 
@@ -89,5 +101,6 @@ jobs:
       - name: Lifecycle boundary
         run: |
           echo 'STC-001 V2.2: >=2048 unique semantic surfaces per QL, trilingual template parity, generation-ready in Question Studio review.'
+          echo 'V2.2 Question Studio generation-ready review authority is frozen; learner release is not approved.'
           echo 'V2.1 and V1 remain audit baselines.'
           echo 'Question Bank/test/mock/public/automatic publication remain locked pending separate explicit learner-release approval.'
