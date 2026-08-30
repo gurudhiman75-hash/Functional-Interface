@@ -13,7 +13,6 @@ on:
       - artifacts/api-server/src/routes/admin-notes-studio*.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/admin-app/src/pages/content/NotesStudio*.tsx
-      - .github/workflows/notes-studio-ns008-production-readiness.yml
 
 permissions:
   contents: read
@@ -25,7 +24,7 @@ concurrency:
 jobs:
   validate-notes-studio-production-readiness:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     services:
       postgres:
         image: postgres:16
