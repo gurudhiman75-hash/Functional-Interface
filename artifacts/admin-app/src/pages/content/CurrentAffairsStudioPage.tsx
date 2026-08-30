@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   Activity,
   AlertTriangle,
@@ -6,7 +6,6 @@ import {
   Bell,
   BookOpenCheck,
   CheckCircle2,
-  CircleDot,
   Clock3,
   ExternalLink,
   FileQuestion,
@@ -71,7 +70,7 @@ function formatTime(value: string | null | undefined) {
 }
 
 function titleCase(value: string) {
-  return value.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
+  return value.replace(/_/g, ' ').replace(/\b\w/g, (letter: string) => letter.toUpperCase());
 }
 
 function statusTone(status: string) {
@@ -166,11 +165,6 @@ export function CurrentAffairsStudioPage() {
   useEffect(() => {
     void refresh();
   }, [refresh]);
-
-  const activeReleases = useMemo(
-    () => data?.releaseHistory.releases.filter((release) => release.status === 'approved') ?? [],
-    [data?.releaseHistory.releases],
-  );
 
   const pullSource = async (sourceKey: string) => {
     setMutatingKey(`pull:${sourceKey}`);
