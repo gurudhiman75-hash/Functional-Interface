@@ -1,4 +1,4 @@
-name: COM-002 V6 V5 Freeze Verification One-Off
+name: COM-002 V6 V5 Final Review-Only Verification One-Off
 
 on:
   push:
@@ -11,12 +11,12 @@ permissions:
   contents: read
 
 concurrency:
-  group: com002-v6-v5-freeze-verification-oneoff
+  group: com002-v6-v5-final-review-only-verification
   cancel-in-progress: true
 
 # Narrow verification only; intentionally avoids restoring broad branch-push CI fanout.
 jobs:
-  verify-approved-freeze:
+  verify-com002-review-only:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -42,24 +42,31 @@ jobs:
           node dist/content-engine-foundation/com002-v6-v5-approved-fingerprint-export.mjs
       - name: Verify approved freeze candidate
         run: |
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/computer-awareness/com002-v6-v5-approved-freeze-candidate.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/content-engine-foundation/com002-v6-v5-approved-freeze-candidate.test.mjs
-          node artifacts/api-server/dist/content-engine-foundation/com002-v6-v5-approved-freeze-candidate.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/computer-awareness/com002-v6-v5-approved-freeze-candidate.test.ts --bundle --platform=node --format=esm --outfile=dist/content-engine-foundation/com002-freeze-candidate.test.mjs
+          node artifacts/api-server/dist/content-engine-foundation/com002-freeze-candidate.test.mjs
       - name: Verify operational freeze
         run: |
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/computer-awareness/com002-v6-v5-operational-freeze.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/content-engine-foundation/com002-v6-v5-operational-freeze.test.mjs
-          node artifacts/api-server/dist/content-engine-foundation/com002-v6-v5-operational-freeze.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/computer-awareness/com002-v6-v5-operational-freeze.test.ts --bundle --platform=node --format=esm --outfile=dist/content-engine-foundation/com002-operational-freeze.test.mjs
+          node artifacts/api-server/dist/content-engine-foundation/com002-operational-freeze.test.mjs
       - name: Audit standard review-only adapter
         run: |
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/question-studio/engines/knowledge-v1-com002-adapter-v3.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/content-engine-foundation/knowledge-v1-com002-adapter-v3.test.mjs
-          node artifacts/api-server/dist/content-engine-foundation/knowledge-v1-com002-adapter-v3.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/knowledge-v1-com002-adapter-v3.test.ts --bundle --platform=node --format=esm --outfile=dist/content-engine-foundation/com002-adapter-v3.test.mjs
+          node artifacts/api-server/dist/content-engine-foundation/com002-adapter-v3.test.mjs
+      - name: Verify activation authority
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/com002-question-studio-activation-gate-v5.test.ts --bundle --platform=node --format=esm --outfile=dist/content-engine-foundation/com002-activation-v5.test.mjs
+          node artifacts/api-server/dist/content-engine-foundation/com002-activation-v5.test.mjs
+      - name: Verify engine registry integration
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/engine-registry.test.ts --bundle --platform=node --format=esm --outfile=dist/content-engine-foundation/engine-registry.test.mjs
+          node artifacts/api-server/dist/content-engine-foundation/engine-registry.test.mjs
+      - name: Verify engine route integration
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/engine-route-integration.test.ts --bundle --platform=node --format=esm --outfile=dist/content-engine-foundation/engine-route-integration.test.mjs
+          node artifacts/api-server/dist/content-engine-foundation/engine-route-integration.test.mjs
+      - name: Verify standard lifecycle
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/standard-lifecycle.test.ts --bundle --platform=node --format=esm --outfile=dist/content-engine-foundation/standard-lifecycle.test.mjs
+          node artifacts/api-server/dist/content-engine-foundation/standard-lifecycle.test.mjs
       - name: Print approved fingerprint manifest
         run: cat artifacts/api-server/dist/review-artifacts/COM002-V6-V5-Approved-Fingerprint-Manifest.json
