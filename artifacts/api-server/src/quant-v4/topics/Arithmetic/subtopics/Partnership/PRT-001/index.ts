@@ -10,6 +10,7 @@ export * from "./foundation/parameter-generator";
 export * from "./foundation/advanced-parameter-generator";
 export * from "./foundation/e1-parameter-generator";
 export * from "./foundation/e2-parameter-generator";
+export * from "./foundation/e2-topology-refiner";
 export * from "./foundation/e2-production-normalizer";
 export * from "./foundation/task-solver";
 export * from "./foundation/e1-task-solver";
