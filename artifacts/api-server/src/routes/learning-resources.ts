@@ -1,6 +1,7 @@
 import { Router, type IRouter } from "express";
 
 import { sqlClient } from "../lib/db";
+import currentAffairsPersonalizationRouter from "./current-affairs-personalization";
 import currentAffairsQuizzesRouter from "./current-affairs-quizzes";
 
 const router: IRouter = Router();
@@ -44,6 +45,7 @@ function resourceIdentifier(value: unknown): { id: string | null; code: string |
 }
 
 router.use(currentAffairsQuizzesRouter);
+router.use(currentAffairsPersonalizationRouter);
 
 router.get("/learning-resources", async (req, res) => {
   const category = optionalFilter(req.query.category, resourceCategories);
