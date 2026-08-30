@@ -344,11 +344,16 @@ export function buildTsdCp012ScalarDistractors(input: TsdCp012ReviewInput, solut
         const finishTime = divide(raceDistance, input.fasterSpeed);
         const slowerTravel = multiply(input.slowerSpeed, finishTime);
         const position = modulo(add(input.slowerHeadStart, slowerTravel), input.trackLength);
+        const subtractHeadStartPosition = modulo(subtract(slowerTravel, input.slowerHeadStart), input.trackLength);
+        const oneLapFinishTime = divide(input.trackLength, input.fasterSpeed);
+        const oneLapSlowerPosition = modulo(add(input.slowerHeadStart, multiply(input.slowerSpeed, oneLapFinishTime)), input.trackLength);
         candidates = [
           c("HEAD_START_IGNORED", "Omit the initial head start when locating the slower runner.", modulo(subtract(ZERO, modulo(slowerTravel, input.trackLength)), input.trackLength)),
           c("POSITION_REPORTED_AS_GAP", "Report track position instead of forward gap to the finish.", position),
           c("INITIAL_HEAD_START_AS_FINAL_GAP", "Use the initial head-start complement as the final gap.", modulo(subtract(input.trackLength, input.slowerHeadStart), input.trackLength)),
           c("LAP_WRAP_IGNORED", "Use straight-line distance difference without track wrapping.", absRational(subtract(raceDistance, add(input.slowerHeadStart, slowerTravel)))),
+          c("HEAD_START_SUBTRACTED", "Subtract the head start from the slower runner's travelled distance instead of adding it before locating the runner on the track.", modulo(subtract(ZERO, subtractHeadStartPosition), input.trackLength)),
+          c("ONE_LAP_RACE_ASSUMED", "Treat the race as one lap when finding the faster runner's finish time, even though the stated race lasts more laps.", modulo(subtract(ZERO, oneLapSlowerPosition), input.trackLength)),
         ];
       } else if (input.target === "HEAD_START_FOR_DEAD_HEAT") {
         const raceDistance = multiply(input.trackLength, q(input.raceLaps));
