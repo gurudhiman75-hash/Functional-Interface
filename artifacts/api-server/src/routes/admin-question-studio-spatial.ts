@@ -10,6 +10,9 @@ import {
   type SpatialQuestionStudioChapterCodeV1,
   type SpatialQuestionStudioDifficultyV1,
   type SpatialQuestionStudioPermanentQlIdV1,
+} from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v4";
+import {
+  SPATIAL_QUESTION_STUDIO_PACKAGE_V3 as PRE_FCT_SPATIAL_QUESTION_STUDIO_PACKAGE_V3,
 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v3";
 import {
   SPATIAL_QUESTION_STUDIO_PACKAGE_V2 as PRE_EMB_SPATIAL_QUESTION_STUDIO_PACKAGE_V2,
@@ -21,7 +24,7 @@ import {
 import {
   generateSpatialProductionStudioBatchV1,
   type SpatialProductionStudioQuestionV1,
-} from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v3";
+} from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v4";
 
 const router = Router();
 const QL_IDS = new Set<string>(SPATIAL_QUESTION_STUDIO_PACKAGE_V1.qlIds);
@@ -57,18 +60,42 @@ function explanationText(question: SpatialProductionStudioQuestionV1): string {
   ].join("\n\n");
 }
 
+function isNumericOptionSpatialQuestion(
+  question: SpatialProductionStudioQuestionV1,
+): question is SpatialProductionStudioQuestionV1 & {
+  renderer: { kind: "SVG_WITH_NUMERIC_OPTIONS" };
+  options: readonly [number, number, number, number];
+} {
+  return (
+    question.renderer.kind === "SVG_WITH_NUMERIC_OPTIONS" &&
+    "options" in question &&
+    Array.isArray(question.options)
+  );
+}
+
 function productionPayload(question: SpatialProductionStudioQuestionV1) {
+  const numericOptions = isNumericOptionSpatialQuestion(question);
+  const persistedOptions = numericOptions
+    ? [...question.options]
+    : [...question.optionLabels];
+  const optionSvgs = "optionSvgs" in question && Array.isArray(question.optionSvgs)
+    ? question.optionSvgs
+    : undefined;
+  const canonicalAnswer = numericOptions
+    ? question.options[question.correctIndex]
+    : question.answer;
+
   return {
     text: question.stem,
     stem: question.stem,
     stimulusSvgs: question.stimulusSvgs,
-    optionSvgs: question.optionSvgs,
+    ...(optionSvgs ? { optionSvgs } : {}),
     optionLabels: question.optionLabels,
-    options: [...question.optionLabels],
+    options: persistedOptions,
     correct: question.correctIndex,
     correctIndex: question.correctIndex,
     answer: question.answer,
-    canonicalAnswer: question.answer,
+    canonicalAnswer,
     explanation: explanationText(question),
     richExplanation: question.explanation,
     renderer: question.renderer,
@@ -280,6 +307,7 @@ router.get(
         ...result,
         integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
         localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
+        countingFiguresLocalizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.countingFiguresLocalizationAuthority,
         localizationAuthorities,
         releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
         productionEligible: true,
@@ -317,6 +345,7 @@ router.post(
         seed,
         integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
         localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
+        countingFiguresLocalizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.countingFiguresLocalizationAuthority,
         localizationAuthorities,
         releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
         manualApprovalRequired: true,
@@ -330,6 +359,7 @@ router.post(
         packageId: "SPA-001",
         language: filters.language,
         localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
+        countingFiguresLocalizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.countingFiguresLocalizationAuthority,
         localizationAuthorities,
         releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
       });
@@ -358,6 +388,7 @@ router.get(
         WHERE v.payload ->> 'packageId' = 'SPA-001'
           AND (
             v.payload ->> 'integrationAuthority' = ${SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority}
+            OR v.payload ->> 'integrationAuthority' = ${PRE_FCT_SPATIAL_QUESTION_STUDIO_PACKAGE_V3.integrationAuthority}
             OR v.payload ->> 'integrationAuthority' = ${PRE_EMB_SPATIAL_QUESTION_STUDIO_PACKAGE_V2.integrationAuthority}
             OR v.payload ->> 'integrationAuthority' = ${PRE_EMB_SPATIAL_QUESTION_STUDIO_PACKAGE_V2.supersedesIntegrationAuthority}
           )
@@ -371,12 +402,14 @@ router.get(
         questionBankCount: Number(rows[0]?.questionBankCount ?? 0),
         integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
         supersededIntegrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.supersedesIntegrationAuthority,
+        preCountingFiguresIntegrationAuthority: PRE_FCT_SPATIAL_QUESTION_STUDIO_PACKAGE_V3.integrationAuthority,
         preEmbeddedFigureIntegrationAuthority: PRE_EMB_SPATIAL_QUESTION_STUDIO_PACKAGE_V2.integrationAuthority,
         prePfcTpfIntegrationAuthority: PRE_EMB_SPATIAL_QUESTION_STUDIO_PACKAGE_V2.supersedesIntegrationAuthority,
         localizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.localizationAuthority,
         fgcLocalizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.fgcLocalizationAuthority,
         pfcTpfLocalizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.pfcTpfLocalizationAuthority,
         embeddedFigureLocalizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.embeddedFigureLocalizationAuthority,
+        countingFiguresLocalizationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.countingFiguresLocalizationAuthority,
         releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
         questionBankConversionEligibleAfterApproval: true,
         testEligibleAfterApproval: true,
