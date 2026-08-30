@@ -12,6 +12,7 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-014/**
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-015/**
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-016/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017/**
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/foundation/**
       - artifacts/api-server/src/lib/reasoning/inequality-foundation.ts
       - artifacts/api-server/src/lib/reasoning/inequality-foundation.test.ts
@@ -57,7 +58,7 @@ jobs:
             --outfile=dist/reasoning-v1/data-sufficiency/common-base/inequality-foundation.test.mjs
           node artifacts/api-server/dist/reasoning-v1/data-sufficiency/common-base/inequality-foundation.test.mjs
 
-      - name: Run every CP011-CP016 executable audit on one tree
+      - name: Run every CP011-CP017 executable audit on one tree
         shell: bash
         run: |
           set -euo pipefail
@@ -84,15 +85,16 @@ jobs:
             "$ROOT/DSF-CP-014" \
             "$ROOT/DSF-CP-015" \
             "$ROOT/DSF-CP-016" \
+            "$ROOT/DSF-CP-017" \
             -type f -name '*.test.ts' | sort)
 
-          if [ "$count" -lt 20 ]; then
-            echo "Expected at least 20 CP011-CP016 audit files, found $count" >&2
+          if [ "$count" -lt 22 ]; then
+            echo "Expected at least 22 CP011-CP017 audit files, found $count" >&2
             exit 1
           fi
           echo "PASS_DSF_COMMON_BASE_ALL_CHECKPOINT_AUDITS count=$count"
 
-      - name: Verify review-only runtime lifecycle remains locked
+      - name: Verify CP011-CP016 source runtime lifecycle remains locked
         shell: bash
         run: |
           set -euo pipefail
@@ -110,7 +112,26 @@ jobs:
           })"
           if [ -n "$matches" ]; then
             printf '%s\n' "$matches"
-            echo 'A CP011-CP016 runtime learner-delivery capability was opened on the integration tree.' >&2
+            echo 'A CP011-CP016 source runtime lifecycle capability was opened on the integration tree.' >&2
             exit 1
           fi
-          echo 'PASS_DSF_COMMON_BASE_LIFECYCLE_LOCKS'
+          echo 'PASS_DSF_COMMON_BASE_SOURCE_LIFECYCLE_LOCKS'
+
+      - name: Verify CP017 opens Studio only and keeps downstream release locked
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROOT="artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017"
+          matches="$({
+            find "$ROOT" -type f -name '*.ts' ! -name '*.test.ts' -print0 \
+              | xargs -0 -r grep -n -E 'questionBankWritable:[[:space:]]*true|testEligible:[[:space:]]*true|mock(Test)?Eligible:[[:space:]]*true|publiclyPublishable:[[:space:]]*true|automaticStudentPublication:[[:space:]]*true' || true
+          })"
+          if [ -n "$matches" ]; then
+            printf '%s\n' "$matches"
+            echo 'CP017 opened a downstream learner-release capability.' >&2
+            exit 1
+          fi
+          grep -q -E 'questionStudioDiscoverable:[[:space:]]*true' "$ROOT/question-studio-normal-workflow-v1.ts"
+          grep -q -E 'questionStudioGenerationEnabled:[[:space:]]*true' "$ROOT/question-studio-normal-workflow-v1.ts"
+          grep -q -E 'persistenceAllowed:[[:space:]]*true' "$ROOT/question-studio-normal-workflow-v1.ts"
+          echo 'PASS_DSF_CP017_STUDIO_ONLY_LIFECYCLE_BOUNDARY'
