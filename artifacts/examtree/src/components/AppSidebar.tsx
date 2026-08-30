@@ -1,5 +1,6 @@
 import { Link, useLocation } from "wouter";
 import {
+  Bookmark,
   ClipboardList,
   Home,
   LogOut,
@@ -33,6 +34,7 @@ const primaryLinks = [
   { href: "/store", label: "Store", icon: ShoppingBag },
   { href: "/my-packages", label: "My Purchases", icon: ReceiptText },
   { href: "/dashboard", label: "My Activity", icon: Target },
+  { href: "/bookmarks", label: "Bookmarks", icon: Bookmark },
 ];
 
 function isLinkActive(location: string, href: string) {
