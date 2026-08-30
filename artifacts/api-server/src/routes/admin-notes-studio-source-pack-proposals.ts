@@ -88,6 +88,16 @@ async function loadProposal(jobId: string) {
     sourceIdentity: noteSourceIdentity(source.publisher, source.sourceUri),
   }));
   const policy = evaluateSourcePackPolicy(templateKey, attachedPolicySources);
+  const participatingRoles = new Set(policy.requirements.flatMap((requirement) => requirement.roles));
+  const attachedIntegritySources = attachedPolicySources.filter((source) =>
+    source.inclusionState === 'included' && participatingRoles.has(source.sourceRole),
+  );
+  const proposalOptions = {
+    existingContentHashes: attachedIntegritySources.map((source) => source.contentHash).filter(Boolean),
+    existingSourceIdentities: attachedIntegritySources.map((source) => source.sourceIdentity).filter((value): value is string => Boolean(value)),
+    minUniqueContent: policy.integrity.minUniqueContent,
+    minDistinctIdentities: policy.integrity.minDistinctIdentities,
+  };
 
   const targetTaxonomyNodeId = briefField(brief, 'taxonomyNodeId');
   const targetTaxonomyCode = briefField(brief, 'taxonomyCode');
@@ -96,10 +106,7 @@ async function loadProposal(jobId: string) {
     return {
       job: { id: String(job.id), title: String(job.title), state: String(job.state), sourcePackTemplate: templateKey },
       policy,
-      proposal: buildSourcePackProposal(policy.requirements, [], {
-        minUniqueContent: policy.integrity.minUniqueContent,
-        minDistinctIdentities: policy.integrity.minDistinctIdentities,
-      }),
+      proposal: buildSourcePackProposal(policy.requirements, [], proposalOptions),
       candidateCount: 0,
     };
   }
@@ -210,16 +217,7 @@ async function loadProposal(jobId: string) {
     };
   }).filter((candidate) => candidate.relevanceScore > 0);
 
-  const participatingRoles = new Set(policy.requirements.flatMap((requirement) => requirement.roles));
-  const attachedIntegritySources = attachedPolicySources.filter((source) =>
-    source.inclusionState === 'included' && participatingRoles.has(source.sourceRole),
-  );
-  const proposal = buildSourcePackProposal(policy.requirements, candidates, {
-    existingContentHashes: attachedIntegritySources.map((source) => source.contentHash).filter(Boolean),
-    existingSourceIdentities: attachedIntegritySources.map((source) => source.sourceIdentity).filter((value): value is string => Boolean(value)),
-    minUniqueContent: policy.integrity.minUniqueContent,
-    minDistinctIdentities: policy.integrity.minDistinctIdentities,
-  });
+  const proposal = buildSourcePackProposal(policy.requirements, candidates, proposalOptions);
 
   return {
     job: { id: String(job.id), title: String(job.title), state: String(job.state), sourcePackTemplate: templateKey },
