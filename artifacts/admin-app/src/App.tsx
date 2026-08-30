@@ -25,7 +25,7 @@ const ExamBlueprintsPage=lazy(()=>import('@/pages/tests/ExamBlueprintsWorkspaceP
 const TestSeriesPage=lazy(()=>import('@/pages/tests/TestSeriesWorkspacePage').then(m=>({default:m.TestSeriesWorkspacePage})));
 const PackagesPage=lazy(()=>import('@/pages/commerce/PackagesWorkspacePage').then(m=>({default:m.PackagesWorkspacePage})));
 const PackageDetailPage=lazy(()=>import('@/pages/commerce/PackagesWorkspacePage').then(m=>({default:m.PackageDetailPage})));
-const OrdersPaymentsPage=lazy(()=>import('@/pages/commerce/OrdersPaymentsWorkspacePage').then(m=>({default:m.OrdersPaymentsPage})));
+const OrdersPaymentsPage=lazy(()=>import('@/pages/commerce/OrdersPaymentsWorkspacePage').then(m=>({default:m.OrdersPaymentsWorkspacePage})));
 const OrderPaymentDetailPage=lazy(()=>import('@/pages/commerce/OrdersPaymentsWorkspacePage').then(m=>({default:m.OrderPaymentDetailPage})));
 const CouponsPage=lazy(()=>import('@/pages/commerce/CouponsWorkspacePage').then(m=>({default:m.CouponsWorkspacePage})));
 const EntitlementsPage=lazy(()=>import('@/pages/commerce/EntitlementsWorkspacePage').then(m=>({default:m.EntitlementsWorkspacePage})));
