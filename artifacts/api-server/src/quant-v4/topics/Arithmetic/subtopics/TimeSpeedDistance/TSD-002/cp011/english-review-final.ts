@@ -29,6 +29,7 @@ function directionText(direction: "SAME" | "OPPOSITE") { return direction === "S
 function qlFor(authorityKey: TsdCp011AuthorityKey): TsdCp011QlId {
   return TSD_CP011_QL_ALLOCATION.find((x) => x.authorityKey === authorityKey)!.qlId;
 }
+function alternatingVariant(familyIndex: number) { return Math.floor(familyIndex / 2) % 2 === 0; }
 
 function stem(input: TsdCp011ExecutableInput, familyIndex: number): string {
   switch (input.authorityKey) {
@@ -49,10 +50,10 @@ function stem(input: TsdCp011ExecutableInput, familyIndex: number): string {
       return `An escalator has ${v(input.totalSteps)} stationary steps. A person walking at ${v(input.personStepRate)} steps/s actually takes ${v(input.walkedSteps)} steps to reach the end while moving ${input.direction === "SAME" ? "with" : "against"} the escalator. Find the escalator's speed in steps per second.`;
     }
     case "dualEscalatorObservationState": {
-      if (input.target === "STOPPED_TIME") return familyIndex % 2 === 0
+      if (input.target === "STOPPED_TIME") return alternatingVariant(familyIndex)
         ? `A person takes ${seconds(input.upTime)} to walk up a moving escalator and ${seconds(input.downTime)} to walk down the same escalator against its motion. The person's walking speed is unchanged. How long would the person take to walk the escalator if it were stopped?`
         : `On the same upward-moving escalator, a person needs ${seconds(input.upTime)} while walking upward and ${seconds(input.downTime)} while walking downward. If the walking pace remains the same, find the time needed when the escalator is stationary.`;
-      return familyIndex % 2 === 0
+      return alternatingVariant(familyIndex)
         ? `A person takes ${seconds(input.upTime)} moving with an escalator and ${seconds(input.downTime)} moving against it over the same length. Find the ratio of the person's own speed to the escalator's speed.`
         : `For the same escalator length, the travel times with and against the escalator are ${seconds(input.upTime)} and ${seconds(input.downTime)}. The person's walking speed is constant. Find person speed : escalator speed.`;
     }
@@ -78,7 +79,7 @@ function stem(input: TsdCp011ExecutableInput, familyIndex: number): string {
       return `A wheel of circumference ${metres(input.circumference)} rotates at ${v(input.rpm)} rpm and covers ${metres(input.distance)}. Find the time taken in minutes.`;
     }
     case "twoWheelComparisonState": {
-      if (input.target === "REVOLUTION_RATIO") return familyIndex % 2 === 0
+      if (input.target === "REVOLUTION_RATIO") return alternatingVariant(familyIndex)
         ? `Two wheels of circumferences ${metres(input.circumferenceA)} and ${metres(input.circumferenceB)} cover the same distance without slipping. Find the ratio of revolutions made by the first wheel to those made by the second.`
         : `Wheel A and wheel B have circumferences ${metres(input.circumferenceA)} and ${metres(input.circumferenceB)}. Over an equal distance, what is the ratio of A's revolution count to B's?`;
       return `Two wheels with circumferences ${metres(input.circumferenceA)} and ${metres(input.circumferenceB)} each travel ${metres(input.distance)} without slipping. By how many revolutions do their counts differ?`;
