@@ -1,0 +1,11 @@
+{
+  "chapterId": "PRT-001",
+  "answerPositions": {
+    "count": 4,
+    "minimumObservedShare": 0.18
+  },
+  "canonicalProblemSelection": "deterministic-balanced-cycle",
+  "questionLanguageSelection": "deterministic-seeded",
+  "localeMathParityRequired": true,
+  "duplicateOptionsAllowed": false
+}

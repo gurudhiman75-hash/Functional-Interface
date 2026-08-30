@@ -1,0 +1,30 @@
+{
+  "status": "ENGLISH_PILOT",
+  "samePeriodRatios": [
+    [2, 3],
+    [3, 5],
+    [4, 7],
+    [5, 8],
+    [7, 9]
+  ],
+  "capitalScaleRupees": [5000, 6000, 7500, 9000],
+  "shareUnitRupees": [4000, 6000, 7500, 9000, 12000],
+  "durationsMonths": [4, 6, 8, 9, 10, 12],
+  "unequalDurationScenarios": [
+    { "capitalA": 30000, "durationA": 12, "capitalB": 45000, "durationB": 8 },
+    { "capitalA": 24000, "durationA": 10, "capitalB": 30000, "durationB": 6 },
+    { "capitalA": 36000, "durationA": 8, "capitalB": 24000, "durationB": 12 },
+    { "capitalA": 42000, "durationA": 6, "capitalB": 28000, "durationB": 9 },
+    { "capitalA": 25000, "durationA": 12, "capitalB": 40000, "durationB": 6 }
+  ],
+  "unknownCapitalScenarios": [
+    { "capitalA": 36000, "durationA": 8, "capitalB": 24000, "durationB": 12 },
+    { "capitalA": 72000, "durationA": 6, "capitalB": 24000, "durationB": 9 },
+    { "capitalA": 36000, "durationA": 12, "capitalB": 36000, "durationB": 8 }
+  ],
+  "unknownDurationScenarios": [
+    { "capitalA": 45000, "durationA": 8, "capitalB": 30000, "durationB": 12 },
+    { "capitalA": 36000, "durationA": 12, "capitalB": 48000, "durationB": 9 },
+    { "capitalA": 40000, "durationA": 9, "capitalB": 30000, "durationB": 12 }
+  ]
+}

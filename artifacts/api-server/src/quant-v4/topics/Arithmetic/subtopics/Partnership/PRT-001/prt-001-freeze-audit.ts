@@ -1,0 +1,53 @@
+import { strict as assert } from "node:assert";
+import { generateQuestion, listQuantV4Packages } from "../../../../../generation-engine-core";
+import {
+  auditPrt001ContextRealism,
+  auditPrt001Coverage,
+  auditPrt001Multilingual,
+  auditPrt001OptionQuality,
+} from "./foundation/coverage-auditor";
+import { PRT_001_CP_IDS } from "./foundation/types";
+
+const reports = [
+  auditPrt001Coverage(),
+  auditPrt001ContextRealism(),
+  auditPrt001Multilingual(),
+  auditPrt001OptionQuality(),
+];
+
+const definition = listQuantV4Packages().find((item) => item.packageId === "PRT-001");
+assert.ok(definition, "Question Studio package discovery is missing PRT-001");
+assert.deepEqual(
+  definition.canonicalProblems.map((item) => item.id),
+  [...PRT_001_CP_IDS],
+);
+
+let studioCases = 0;
+for (const cpId of PRT_001_CP_IDS) {
+  for (const language of ["en", "hi", "pa"] as const) {
+    const result = await generateQuestion({
+      packageId: "PRT-001",
+      cpId,
+      language,
+      count: 2,
+      seed: `prt-001:studio:${cpId}:${language}`,
+    });
+    assert.equal(result.questionPackages.length, 2);
+    assert.equal(result.questions.length, 2);
+    for (const pkg of result.questionPackages) {
+      assert.equal(pkg.packageId, "PRT-001");
+      assert.equal(pkg.canonicalProblemId, cpId);
+      assert.equal(pkg.language, language);
+      assert.equal(pkg.validation.valid, true);
+    }
+    studioCases += 2;
+  }
+}
+
+reports.push({
+  audit: "question-studio-integration",
+  cases: studioCases,
+  metrics: { canonicalProblems: 7, languages: 3 },
+});
+
+console.log(JSON.stringify({ packageId: "PRT-001", status: "PASS", reports }, null, 2));

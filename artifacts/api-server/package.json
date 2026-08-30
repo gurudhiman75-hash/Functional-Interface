@@ -52,6 +52,8 @@
     "production:compare": "pnpm exec esbuild src/quant-v2/production-freeze/compare-production-goldens.ts --bundle --platform=node --format=esm --outfile=dist/quant-v2/production-compare.mjs && node dist/quant-v2/production-compare.mjs",
     "localization:export-references": "pnpm exec esbuild src/quant-v2/localization/renderers/export-multilingual-references.ts --bundle --platform=node --format=esm --outfile=dist/quant-v2/export-multilingual-references.mjs && node dist/quant-v2/export-multilingual-references.mjs",
     "svg:export-references": "pnpm exec esbuild src/quant-v2/svg/examples/export-reference-svgs.ts --bundle --platform=node --format=esm --outfile=dist/quant-v2/export-reference-svgs.mjs && node dist/quant-v2/export-reference-svgs.mjs",
+    "test:prt-001": "pnpm exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/prt-001.test.mjs && node dist/quant-v4/prt-001.test.mjs",
+    "audit:prt-001": "pnpm exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001-freeze-audit.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/prt-001-freeze-audit.mjs && node dist/quant-v4/prt-001-freeze-audit.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {

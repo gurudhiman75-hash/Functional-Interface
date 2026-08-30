@@ -1,0 +1,17 @@
+{
+  "status": "ENGLISH_PILOT",
+  "partnerPairs": [
+    ["Aman", "Bharat"],
+    ["Kiran", "Meera"],
+    ["Ravi", "Simran"],
+    ["Neha", "Pooja"],
+    ["Arjun", "Kabir"]
+  ],
+  "businesses": [
+    "trading business",
+    "retail shop",
+    "small manufacturing unit",
+    "dealership",
+    "wholesale firm"
+  ]
+}

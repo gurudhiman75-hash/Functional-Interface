@@ -50,15 +50,12 @@ import {
   type Rap003CanonicalProblemId,
 } from "./topics/Arithmetic/subtopics/RatioAndProportion/RAP-003";
 import {
-  existsSync,
-  readFileSync,
-  readdirSync,
-} from "node:fs";
-import {
-  basename,
-  dirname,
-  join,
-} from "node:path";
+  getPrt001ActiveCanonicalProblemIds,
+  runPrt001Pipeline,
+  type Prt001PilotCanonicalProblemId,
+} from "./topics/Arithmetic/subtopics/Partnership/PRT-001";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { basename, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildQuantV4AnswerOptions } from "./shared/answers/option-generation";
 import { isArchivedQuantV4PackageDir } from "./shared/packages/archive";
@@ -76,7 +73,8 @@ export type QuantV4PackageId =
   | "PCT-007"
   | "RAP-001"
   | "RAP-002"
-  | "RAP-003";
+  | "RAP-003"
+  | "PRT-001";
 
 export type QuantV4GenerationRequest = {
   packageId?: QuantV4PackageId;
@@ -122,7 +120,11 @@ class QuantV4RequestError extends Error {
   }
 }
 
-const MULTILINGUAL_PREVIEW_LANGUAGES: readonly QuantV4Language[] = ["en", "hi", "pa"];
+const MULTILINGUAL_PREVIEW_LANGUAGES: readonly QuantV4Language[] = [
+  "en",
+  "hi",
+  "pa",
+];
 const ENGLISH_ONLY_PREVIEW_LANGUAGES: readonly QuantV4Language[] = ["en"];
 export const QUANT_V4_PERCENTAGE_ALL_PATTERN_ID = "PCT-ALL";
 const QUANT_V4_PERCENTAGE_ALL_PATTERN_LABEL = "All Percentage Packages";
@@ -281,6 +283,21 @@ const RUNTIME_PACKAGES: readonly QuantV4PackageDefinition[] = [
         seed: input.seed,
       }),
   },
+  {
+    packageId: "PRT-001",
+    topic: "Arithmetic",
+    subtopic: "Partnership",
+    label: "Partnership",
+    cpIds: getPrt001ActiveCanonicalProblemIds(),
+    supportedLanguages: MULTILINGUAL_PREVIEW_LANGUAGES,
+    run: (cpId, input) =>
+      runPrt001Pipeline(cpId as Prt001PilotCanonicalProblemId, {
+        difficultyBand: input.difficulty,
+        language: input.language,
+        questionLanguageId: input.questionLanguageId,
+        seed: input.seed,
+      }),
+  },
 ];
 
 function normalizeDifficulty(value: any): QuantV4Difficulty | undefined {
@@ -321,7 +338,10 @@ function shuffleDeterministically<T>(items: readonly T[], seed: string) {
   for (let index = shuffled.length - 1; index > 0; index--) {
     state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
     const swapIndex = state % (index + 1);
-    [shuffled[index], shuffled[swapIndex]] = [shuffled[swapIndex]!, shuffled[index]!];
+    [shuffled[index], shuffled[swapIndex]] = [
+      shuffled[swapIndex]!,
+      shuffled[index]!,
+    ];
   }
   return shuffled;
 }
@@ -330,11 +350,14 @@ function isPercentageChapterRequest(request: QuantV4GenerationRequest) {
   const topic = normalizeSelectorText(request.topic);
   const subtopic = normalizeSelectorText(request.subtopic);
   const pattern = normalizeSelectorText(request.patternId);
-  const requestedPackage = normalizeSelectorText(request.packageId ?? request.archetypeId);
+  const requestedPackage = normalizeSelectorText(
+    request.packageId ?? request.archetypeId,
+  );
 
   return (
     pattern === normalizeSelectorText(QUANT_V4_PERCENTAGE_ALL_PATTERN_ID) ||
-    requestedPackage === normalizeSelectorText(QUANT_V4_PERCENTAGE_ALL_PATTERN_ID) ||
+    requestedPackage ===
+      normalizeSelectorText(QUANT_V4_PERCENTAGE_ALL_PATTERN_ID) ||
     (topic === "percentage" && !subtopic) ||
     (topic === "arithmetic" && subtopic === "percentage")
   );
@@ -412,7 +435,9 @@ export function listQuantV4Packages() {
       label: cpId,
     })),
     supportedDifficulties: ["easy", "medium", "hard"],
-    supportedLanguages: [...(pkg.supportedLanguages ?? MULTILINGUAL_PREVIEW_LANGUAGES)],
+    supportedLanguages: [
+      ...(pkg.supportedLanguages ?? MULTILINGUAL_PREVIEW_LANGUAGES),
+    ],
     enabled: pkg.enabled,
   }));
 
@@ -470,7 +495,10 @@ function readPackageLabel(packageDir: string, packageId: string) {
     .find((line) => /^#\s+/.test(line) || /^Name\s*:/i.test(line));
 
   return nameLine
-    ? nameLine.replace(/^#\s+/, "").replace(/^Name\s*:\s*/i, "").trim() || packageId
+    ? nameLine
+        .replace(/^#\s+/, "")
+        .replace(/^Name\s*:\s*/i, "")
+        .trim() || packageId
     : packageId;
 }
 
@@ -530,11 +558,7 @@ function discoverQuantV4Packages(): DiscoveredQuantV4Package[] {
     RUNTIME_PACKAGES.map((pkg) => [pkg.packageId, pkg]),
   );
   const packageDirs = [
-    ...new Set(
-      quantV4TopicRoots.flatMap((root) =>
-        discoverPackageDirs(root),
-      ),
-    ),
+    ...new Set(quantV4TopicRoots.flatMap((root) => discoverPackageDirs(root))),
   ];
   const discovered = packageDirs.map((packageDir) => {
     const packageId = basename(packageDir);
@@ -595,14 +619,18 @@ function formatPreviewNumber(value: number) {
   const rounded = Math.round(value * 10000) / 10000;
   return Number.isInteger(rounded)
     ? String(rounded)
-    : String(rounded).replace(/(\.\d*?)0+$/, "$1").replace(/\.$/, "");
+    : String(rounded)
+        .replace(/(\.\d*?)0+$/, "$1")
+        .replace(/\.$/, "");
 }
 
 function polishGeneratedEnglishText(value: string) {
   return String(value ?? "")
     .replace(/\b-?\d+\.\d{10,}\b/g, (rawValue: string) => {
       const numericValue = Number(rawValue);
-      return Number.isFinite(numericValue) ? formatPreviewNumber(numericValue) : rawValue;
+      return Number.isFinite(numericValue)
+        ? formatPreviewNumber(numericValue)
+        : rawValue;
     })
     .replace(/([A-Za-z0-9%])\.{2,}/g, "$1.")
     .replace(/\b([A-Za-z]+)\s+\1\b/gi, "$1")
@@ -628,47 +656,105 @@ function polishGeneratedEnglishText(value: string) {
     .replace(/\bhas a asset value\b/g, "has an asset value")
     .replace(/\bA inventory is\b/g, "An inventory is")
     .replace(/\ba inventory is\b/g, "an inventory is")
-    .replace(/\bFrom A (vessel|container|tank)\b/g, (_match, noun: string) => `From a ${noun}`)
+    .replace(
+      /\bFrom A (vessel|container|tank)\b/g,
+      (_match, noun: string) => `From a ${noun}`,
+    )
     .replace(/\bA rent is\b/g, "The rent is")
     .replace(/\ba rent is\b/g, "the rent is")
     .replace(/\bA sales of\b/g, "Sales of")
     .replace(/\bA sales is\b/g, "Sales are")
-    .replace(/\b(A|a)\s+(Product|Warehouse|Branch|Fund|Asset|Unit|Machine)\s+([A-Z])\b/g, (_match, _article: string, entity: string, suffix: string) => `${entity} ${suffix}`)
-    .replace(/\b(salary|production|product|warehouse|branch|fund|asset|unit|machine)\s+([A-Z])\b/g, (_match, entity: string, suffix: string) => `${entity.charAt(0).toUpperCase()}${entity.slice(1)} ${suffix}`)
+    .replace(
+      /\b(A|a)\s+(Product|Warehouse|Branch|Fund|Asset|Unit|Machine)\s+([A-Z])\b/g,
+      (_match, _article: string, entity: string, suffix: string) =>
+        `${entity} ${suffix}`,
+    )
+    .replace(
+      /\b(salary|production|product|warehouse|branch|fund|asset|unit|machine)\s+([A-Z])\b/g,
+      (_match, entity: string, suffix: string) =>
+        `${entity.charAt(0).toUpperCase()}${entity.slice(1)} ${suffix}`,
+    )
     .replace(/\bSchool A attendance\b/g, "School A's attendance")
     .replace(/\bschool A attendance\b/g, "school A's attendance")
     .replace(/\bA train has (\d+) students\b/gi, "A school has $1 students")
-    .replace(/\bThe current internet users is\b/g, "The current number of internet users is")
+    .replace(
+      /\bThe current internet users is\b/g,
+      "The current number of internet users is",
+    )
     .replace(/\bthe internet users\b/gi, "the number of internet users")
-    .replace(/\boriginal internet users\b/gi, "original number of internet users")
+    .replace(
+      /\boriginal internet users\b/gi,
+      "original number of internet users",
+    )
     .replace(/\bNew internet users\b/g, "New number of internet users")
-    .replace(/\bthe new internet users is\b/gi, "the new number of internet users is")
+    .replace(
+      /\bthe new internet users is\b/gi,
+      "the new number of internet users is",
+    )
     .replace(/\bnew internet users is\b/gi, "new number of internet users is")
-    .replace(/\bextra internet users is needed\b/gi, "extra internet users are needed")
-    .replace(/\bhow much extra (applicants|students|passengers|residents|voters|cartons|boxes|units|bags|accounts) is needed\b/gi, (_match, noun: string) => `how many extra ${noun} are needed`)
+    .replace(
+      /\bextra internet users is needed\b/gi,
+      "extra internet users are needed",
+    )
+    .replace(
+      /\bhow much extra (applicants|students|passengers|residents|voters|cartons|boxes|units|bags|accounts) is needed\b/gi,
+      (_match, noun: string) => `how many extra ${noun} are needed`,
+    )
     .replace(/\bSection A attendance\b/g, "Section A's attendance")
     .replace(/\bSection B attendance\b/g, "Section B's attendance")
     .replace(/\bRoute A passengers starts\b/g, "Route A passenger count starts")
     .replace(/\bRoute B passengers starts\b/g, "Route B passenger count starts")
     .replace(/\bthere are (\d+) population\b/gi, "the population is $1")
     .replace(/\bproduction production\b/gi, "production batch")
-    .replace(/\bThe whole (students|employees|passengers|respondents|applicants|users|people|books|cartons|boxes|bags|patients|voters|accounts|forms|invoices|seats|items|units|residents)\b/gi, (_match, noun: string) => `The total number of ${noun}`)
-    .replace(/\b(employees|students|residents|passengers|workers) was\b/gi, (_match, noun: string) => `${noun} were`)
-    .replace(/\b(students|employees|passengers|respondents|applicants|users|people|books|cartons|boxes|bags|patients|voters|accounts|forms|invoices|seats|items|units|residents) represents\b/gi, (_match, noun: string) => `${noun} represent`)
-    .replace(/\bthe (units|cartons|boxes|bags|students|passengers|residents|employees) becomes\b/gi, (_match, noun: string) => `the ${noun} become`)
-    .replace(/\b(the|Therefore the|So the) total (students|employees|passengers|respondents|applicants|users|people|books|cartons|boxes|bags|patients|voters|accounts|forms|invoices|seats|items|units|residents) is\b/gi, (_match, prefix: string, noun: string) => `${prefix} total number of ${noun} is`)
-    .replace(/\b(the|So the|Therefore the) new (households|passengers|users|active users|students|residents|employees|workers|applicants|cartons|boxes|bags|units) is\b/gi, (_match, prefix: string, noun: string) => `${prefix} new number of ${noun} is`)
-    .replace(/\b(the|So the) (units|cartons|boxes|bags|students|passengers|residents|employees) after both (increases|decreases) is\b/gi, (_match, prefix: string, noun: string, change: string) => `${prefix} ${noun} after both ${change} are`)
-    .replace(/\bSo the final (units|cartons|boxes|bags|students|passengers|residents|employees) is\b/gi, (_match, noun: string) => `So the final number of ${noun} is`)
-    .replace(/\bthe final (units|cartons|boxes|bags|students|passengers|residents|employees) is\b/gi, (_match, noun: string) => `the final number of ${noun} is`)
+    .replace(
+      /\bThe whole (students|employees|passengers|respondents|applicants|users|people|books|cartons|boxes|bags|patients|voters|accounts|forms|invoices|seats|items|units|residents)\b/gi,
+      (_match, noun: string) => `The total number of ${noun}`,
+    )
+    .replace(
+      /\b(employees|students|residents|passengers|workers) was\b/gi,
+      (_match, noun: string) => `${noun} were`,
+    )
+    .replace(
+      /\b(students|employees|passengers|respondents|applicants|users|people|books|cartons|boxes|bags|patients|voters|accounts|forms|invoices|seats|items|units|residents) represents\b/gi,
+      (_match, noun: string) => `${noun} represent`,
+    )
+    .replace(
+      /\bthe (units|cartons|boxes|bags|students|passengers|residents|employees) becomes\b/gi,
+      (_match, noun: string) => `the ${noun} become`,
+    )
+    .replace(
+      /\b(the|Therefore the|So the) total (students|employees|passengers|respondents|applicants|users|people|books|cartons|boxes|bags|patients|voters|accounts|forms|invoices|seats|items|units|residents) is\b/gi,
+      (_match, prefix: string, noun: string) =>
+        `${prefix} total number of ${noun} is`,
+    )
+    .replace(
+      /\b(the|So the|Therefore the) new (households|passengers|users|active users|students|residents|employees|workers|applicants|cartons|boxes|bags|units) is\b/gi,
+      (_match, prefix: string, noun: string) =>
+        `${prefix} new number of ${noun} is`,
+    )
+    .replace(
+      /\b(the|So the) (units|cartons|boxes|bags|students|passengers|residents|employees) after both (increases|decreases) is\b/gi,
+      (_match, prefix: string, noun: string, change: string) =>
+        `${prefix} ${noun} after both ${change} are`,
+    )
+    .replace(
+      /\bSo the final (units|cartons|boxes|bags|students|passengers|residents|employees) is\b/gi,
+      (_match, noun: string) => `So the final number of ${noun} is`,
+    )
+    .replace(
+      /\bthe final (units|cartons|boxes|bags|students|passengers|residents|employees) is\b/gi,
+      (_match, noun: string) => `the final number of ${noun} is`,
+    )
     .replace(/\bnew marks is\b/g, "new marks are")
     .replace(/\bfinal marks is\b/g, "final marks are")
     .replace(/\bfinal residents is\b/gi, "final number of residents is");
 }
 
-function extractExplanationBlock(
-  line: string,
-): { label?: string; math?: string; text?: string } {
+function extractExplanationBlock(line: string): {
+  label?: string;
+  math?: string;
+  text?: string;
+} {
   const trimmed = String(line ?? "").trim();
   if (!trimmed) {
     return { text: "" };
@@ -691,7 +777,9 @@ function extractExplanationBlock(
 
 function formatExplanationForQuestionStudio(explanation: unknown) {
   const lines = Array.isArray((explanation as { lines?: unknown[] })?.lines)
-    ? ((explanation as { lines: unknown[] }).lines.map((line) => String(line ?? "")) as string[])
+    ? ((explanation as { lines: unknown[] }).lines.map((line) =>
+        String(line ?? ""),
+      ) as string[])
     : typeof explanation === "string"
       ? explanation.split(/\r?\n/)
       : [];
@@ -699,7 +787,10 @@ function formatExplanationForQuestionStudio(explanation: unknown) {
   const formatted: string[] = [];
   for (let index = 0; index < lines.length; index++) {
     const current = extractExplanationBlock(lines[index] ?? "");
-    const next = index + 1 < lines.length ? extractExplanationBlock(lines[index + 1] ?? "") : undefined;
+    const next =
+      index + 1 < lines.length
+        ? extractExplanationBlock(lines[index + 1] ?? "")
+        : undefined;
 
     if (current.label && current.math) {
       if (
@@ -709,7 +800,9 @@ function formatExplanationForQuestionStudio(explanation: unknown) {
       ) {
         formatted.push(
           `${current.label}:`,
-          toDisplayMath(`${normalizeMathBody(current.math)}=${normalizeMathBody(next.math)}`),
+          toDisplayMath(
+            `${normalizeMathBody(current.math)}=${normalizeMathBody(next.math)}`,
+          ),
         );
         index++;
         continue;
@@ -856,7 +949,9 @@ export function toQuestionStudioPreview(
     options: options.map((option) => polishGeneratedEnglishText(option)),
     correct,
     correctIndex: correct,
-    explanation: polishGeneratedEnglishText(formatExplanationForQuestionStudio(pkg.explanation)),
+    explanation: polishGeneratedEnglishText(
+      formatExplanationForQuestionStudio(pkg.explanation),
+    ),
     packageExplanation: pkg.explanation,
     difficulty: pkg.difficultyBand,
     difficultyLabel: pkg.difficultyBand,
@@ -931,9 +1026,7 @@ export function toQuestionStudioPreview(
  * Single public entry point for Quant V4 generation.
  * Question Studio calls only this.
  */
-export async function generateQuestion(
-  request: QuantV4GenerationRequest = {},
-) {
+export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
   const count = Math.min(
     1000,
     Math.max(1, Math.floor(Number(request.count ?? 1) || 1)),
@@ -956,8 +1049,14 @@ export async function generateQuestion(
 
   if (
     isPercentageChapterRequest(request) &&
-    !(request.packageId && request.packageId !== QUANT_V4_PERCENTAGE_ALL_PATTERN_ID) &&
-    !(request.archetypeId && request.archetypeId !== QUANT_V4_PERCENTAGE_ALL_PATTERN_ID)
+    !(
+      request.packageId &&
+      request.packageId !== QUANT_V4_PERCENTAGE_ALL_PATTERN_ID
+    ) &&
+    !(
+      request.archetypeId &&
+      request.archetypeId !== QUANT_V4_PERCENTAGE_ALL_PATTERN_ID
+    )
   ) {
     const explicitCp = request.canonicalProblemId ?? request.cpId;
     const eligiblePackages = getPercentageRuntimePackages().filter(
@@ -991,7 +1090,8 @@ export async function generateQuestion(
         pkg.cpIds,
         `${batchSeed}:${pkg.packageId}:cp-order`,
       );
-      const canonicalProblemId = explicitCp ?? cpOrder[packageUsage % cpOrder.length]!;
+      const canonicalProblemId =
+        explicitCp ?? cpOrder[packageUsage % cpOrder.length]!;
       const seed = `${batchSeed}:${pkg.packageId}:${canonicalProblemId}:${packageUsage}:${i}`;
       const questionPackage = await pkg.run(canonicalProblemId, {
         language,
@@ -1026,8 +1126,7 @@ export async function generateQuestion(
       `${pkg.packageId} supports English generation only in Question Studio.`,
     );
   }
-  const explicitCanonicalProblemId =
-    request.canonicalProblemId ?? request.cpId;
+  const explicitCanonicalProblemId = request.canonicalProblemId ?? request.cpId;
   const canonicalProblemId = resolveCpId(pkg, request);
   const cpOrder = explicitCanonicalProblemId
     ? [canonicalProblemId]
@@ -1041,8 +1140,7 @@ export async function generateQuestion(
     if (i > 0 && i % 100 === 0) {
       await new Promise((resolve) => setImmediate(resolve));
     }
-    const currentCanonicalProblemId =
-      cpOrder[i % cpOrder.length]!;
+    const currentCanonicalProblemId = cpOrder[i % cpOrder.length]!;
     const seed = `${batchSeed}:${currentCanonicalProblemId}:${i}`;
     const questionPackage = await pkg.run(currentCanonicalProblemId, {
       language,
