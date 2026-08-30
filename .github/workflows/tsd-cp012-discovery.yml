@@ -5,6 +5,7 @@ on:
     branches:
       - feat/tsd-cp012-executable-discovery-v1
     paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/**
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/**
       - .github/workflows/tsd-cp012-discovery.yml
   workflow_dispatch:
@@ -44,6 +45,8 @@ jobs:
             --skipLibCheck \
             --types node \
             $(find src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012 -name '*.ts' -print)
+      - name: Prove CP011 to CP012 stack compatibility
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/upstream-stack-compatibility-proof.test.ts
       - name: Prove CP012 source saturation and cross-checkpoint disposition
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/source-saturation-proof.test.ts
       - name: Prove CP012 representation saturation
