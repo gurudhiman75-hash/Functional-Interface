@@ -13,7 +13,7 @@ Create the canonical India administrative geometry bundle used by Static GK Visu
 - Coverage: Entire country up to district level with headquarters
 - Portal: `https://onlinemaps.surveyofindia.gov.in/Digital_Products.aspx`
 
-The portal currently lists this product at zero price, but acquisition may require a Survey of India portal session. The source archive is therefore acquired operationally, not vendored from an unofficial mirror.
+Survey of India currently lists this product at zero price. Its current FAQ also states that the Administrative Boundary Database is available through **Quick Access without registration or login**. Acquisition is still an interactive official-portal step: do not replace it with an unofficial mirror merely because a stable machine-download URL is not exposed to the renderer pipeline.
 
 ## Never do this
 
@@ -25,10 +25,11 @@ The portal currently lists this product at zero price, but acquisition may requi
 
 ## Acquisition
 
-1. Sign in to the official Survey of India online maps portal if required.
-2. Download product `OVSF/1M/7` directly from the official portal.
-3. Record the acquisition date and original archive filename.
-4. Calculate the archive SHA-256 before conversion.
+1. Open the official Survey of India Online Maps Portal.
+2. Use **Quick Access → Administrative Boundary Database**; the current Survey of India FAQ says this dataset can be downloaded without registration/login.
+3. Download product `OVSF/1M/7` directly from the official portal.
+4. Record the acquisition date and original archive filename.
+5. Calculate the archive SHA-256 before conversion.
 
 Example:
 
@@ -92,7 +93,21 @@ Bundle and run the validator against the normalized GeoJSON and receipt. The val
 - one of the eight required Tropic-of-Cancer states is missing;
 - the canonical GeoJSON digest differs from the receipt.
 
+The **same checksum verification is repeated inside the scene-compiler gate**, so a caller cannot bypass integrity checks by invoking the compiler directly with a mutated geometry object.
+
 The `SGK-VIS-IND-GEO-001` scene compiler then performs an additional spatial gate: latitude `23.5` must intersect every locked state and the resulting segments must preserve the fact-locked west-to-east sequence.
+
+## Visual QA output
+
+Once the bundle passes validation, run the Tropic scene/contact-sheet exporters. They generate the render-ready scene JSON plus 1080×1920 SVG frames at representative timestamps. This is the first visual QA stage before animation/video rendering.
+
+The SVG renderer:
+
+- uses a deterministic Mercator projection;
+- fits only the supplied official geometry into the vertical-video safe area;
+- renders the computed latitude segments rather than a screen-positioned line;
+- highlights states according to the locked cue timeline;
+- displays the final quiz card from the fact pack.
 
 ## QA reference
 
@@ -109,6 +124,7 @@ CP-003 is complete only when all of the following are true:
 5. canonical checksum recorded and verified;
 6. all eight Tropic-state intersections pass;
 7. west-to-east order passes;
-8. independent official-map visual QA passes;
-9. ingest receipt reviewed;
-10. geometry registry status promoted from `source-selected` to `validated`/`approved`.
+8. SVG contact-sheet visual QA passes;
+9. independent official-map visual QA passes;
+10. ingest receipt reviewed;
+11. geometry registry status promoted from `source-selected` to `validated`/`approved`.
