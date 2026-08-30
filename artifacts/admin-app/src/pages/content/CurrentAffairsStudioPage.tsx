@@ -337,11 +337,12 @@ export function CurrentAffairsStudioPage() {
         </TabsContent>
 
         <TabsContent value="editorial" className="space-y-4">
+          <p className="text-xs text-muted-foreground">Open any queue card to inspect verified facts and source evidence, then edit English, Hindi and Punjabi in the fact-anchored workbench.</p>
           <div className="grid gap-4 xl:grid-cols-3">
             <Card>
               <CardHeader><CardTitle className="flex items-center gap-2 text-base"><Newspaper className="h-4 w-4 text-primary" />English authoring · {data.authoring.events.length}</CardTitle></CardHeader>
               <CardContent className="space-y-3">
-                {data.authoring.events.slice(0, 8).map((event) => <div key={event.id} className="rounded-lg border p-3"><div className="flex items-start justify-between gap-2"><p className="text-sm font-medium leading-5">{event.currentTitle || event.primarySourceTitle || event.publicCode}</p><StatusBadge status={event.authoringStatus} /></div><p className="mt-1 text-xs text-muted-foreground">{event.eventDate} · {titleCase(event.category)} · {event.facts.length} verified facts</p>{event.primarySourceTitle ? <p className="mt-2 line-clamp-2 text-xs text-muted-foreground">Source: {event.primarySourceTitle}</p> : null}</div>)}
+                {data.authoring.events.slice(0, 8).map((event) => <Link key={event.id} to={`/content/current-affairs/editorial/${event.id}`} className="block rounded-lg border p-3 transition-colors hover:border-primary/40 hover:bg-accent/40"><div className="flex items-start justify-between gap-2"><p className="text-sm font-medium leading-5">{event.currentTitle || event.primarySourceTitle || event.publicCode}</p><StatusBadge status={event.authoringStatus} /></div><p className="mt-1 text-xs text-muted-foreground">{event.eventDate} · {titleCase(event.category)} · {event.facts.length} verified facts</p>{event.primarySourceTitle ? <p className="mt-2 line-clamp-2 text-xs text-muted-foreground">Source: {event.primarySourceTitle}</p> : null}</Link>)}
                 {data.authoring.events.length === 0 ? <p className="text-sm text-muted-foreground">No English authoring items need editorial work.</p> : null}
               </CardContent>
             </Card>
@@ -349,7 +350,7 @@ export function CurrentAffairsStudioPage() {
               <Card key={label}>
                 <CardHeader><CardTitle className="flex items-center gap-2 text-base"><Languages className="h-4 w-4 text-primary" />{label} · {queue.events.length}</CardTitle></CardHeader>
                 <CardContent className="space-y-3">
-                  {queue.events.slice(0, 8).map((event) => <div key={`${label}-${event.id}`} className="rounded-lg border p-3"><div className="flex items-start justify-between gap-2"><p className="text-sm font-medium leading-5">{event.englishTitle}</p><StatusBadge status={event.localizationStatus} /></div><p className="mt-1 text-xs text-muted-foreground">{event.eventDate} · {titleCase(event.category)} · {event.facts.length} protected facts</p></div>)}
+                  {queue.events.slice(0, 8).map((event) => <Link key={`${label}-${event.id}`} to={`/content/current-affairs/editorial/${event.id}`} className="block rounded-lg border p-3 transition-colors hover:border-primary/40 hover:bg-accent/40"><div className="flex items-start justify-between gap-2"><p className="text-sm font-medium leading-5">{event.englishTitle}</p><StatusBadge status={event.localizationStatus} /></div><p className="mt-1 text-xs text-muted-foreground">{event.eventDate} · {titleCase(event.category)} · {event.facts.length} protected facts</p></Link>)}
                   {queue.events.length === 0 ? <p className="text-sm text-muted-foreground">No {label.toLowerCase()} localization items need work.</p> : null}
                 </CardContent>
               </Card>
