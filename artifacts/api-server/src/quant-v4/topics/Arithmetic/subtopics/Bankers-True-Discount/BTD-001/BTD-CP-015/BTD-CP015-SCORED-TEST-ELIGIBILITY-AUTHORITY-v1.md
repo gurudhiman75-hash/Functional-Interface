@@ -9,6 +9,7 @@ This is not a blanket chapter release. The admin must identify a concrete CP014 
 ## Upstream authority
 
 - CP014 materialization authority: `BTD-001-CP014-TEST-PROJECTION-MATERIALIZATION-v1`
+- certified isolated CP014 head: `e77c6d84051d9d7b6b0e366f086daf1e112cc18b`
 - CP014 source state: approved, unpublished, `testEligible=false`
 - CP012 Question Bank source rows remain immutable provenance authorities.
 
@@ -45,21 +46,36 @@ CP015 authority state:
 
 No production BTD projection was activated while certifying this checkpoint.
 
-## Certified implementation run
+## Original implementation certification
 
-Validated implementation head before this authority note:
+The original CP015 implementation was certified before CP014 route-isolation remediation:
 
-`879eeb923a02ebdb6c1bcf55fc0b8d3588326d8c`
-
-GitHub Actions:
-
+- implementation head: `879eeb923a02ebdb6c1bcf55fc0b8d3588326d8c`
 - run: `33303257946`
 - job: `99235159829`
-- conclusion: **SUCCESS**
+- result: **SUCCESS**
 - artifact: `9729632550`
 - artifact digest: `sha256:20d39e9adbe2c27dc62f98a6f902f51018015530d87d4f1785e502d0ff47e0b8`
 
-The cumulative workflow first re-proved CP014, then certified CP015.
+## CP014-isolated restack certification
+
+After CP014 moved its projection route out of the global route index and into the canonical Question Studio registry, CP015 was restacked as a **single seven-file eligibility overlay** directly on exact CP014 head `e77c6d84051d9d7b6b0e366f086daf1e112cc18b`.
+
+Restacked implementation head before this authority-note update:
+
+`a39bfc24a8878a0ef96eec299ad4a886ba20cb28`
+
+GitHub Actions:
+
+- PR-context run: `33318610900`
+- job: `99276484894`
+- conclusion: **SUCCESS**
+- artifact: `9734225338`
+- artifact digest: `sha256:27c2ccdc2eccc4a32a07365e501f6afa8f0939c61dd214394d715d33745b8b95`
+- topology guard: **SUCCESS**
+- unrelated NUM workflows triggered: **none**
+
+The cumulative workflow first re-proved the corrected CP014 authority, then certified CP015.
 
 ### CP015 measured audit
 
