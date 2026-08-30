@@ -1,4 +1,9 @@
-import { normalizeRatio, subtractRational } from "./math";
+import {
+  addRational,
+  divideRational,
+  normalizeRatio,
+  subtractRational,
+} from "./math";
 import { formatPrt001Duration, formatPrt001Money } from "./parameter-generator";
 import type {
   Prt001IndependentVerification,
@@ -81,22 +86,16 @@ export function independentlySolvePrt001E1Task(
     case "findTotalProfitFromActivePartnerFinalReceipt": {
       const finalReceipt = verification.finalPartnerReceipts[parameters.targetPartnerId!]!;
       const salary = parameters.state.allocations.find((item) => item.kind === "SALARY")!.value;
-      const targetWeight = verification.weights.find((item) => item.partnerId === parameters.targetPartnerId)!.effectiveCapital;
-      const otherWeight = verification.weights.find((item) => item.partnerId !== parameters.targetPartnerId)!.effectiveCapital;
-      const targetNum = targetWeight.numerator * otherWeight.denominator;
-      const otherNum = otherWeight.numerator * targetWeight.denominator;
-      const shareNumerator = targetNum;
-      const shareDenominator = targetNum + otherNum;
-      const receiptMinusSalary = subtractRational(finalReceipt, salary);
-      const distributable = {
-        numerator: receiptMinusSalary.numerator * BigInt(shareDenominator),
-        denominator: receiptMinusSalary.denominator * BigInt(shareNumerator),
-      };
-      const gross = {
-        numerator: distributable.numerator * salary.denominator + salary.numerator * distributable.denominator,
-        denominator: distributable.denominator * salary.denominator,
-      };
-      return rationalAnswer(parameters, gross);
+      const targetWeight = verification.weights.find(
+        (item) => item.partnerId === parameters.targetPartnerId,
+      )!.effectiveCapital;
+      const totalWeight = verification.weights
+        .map((item) => item.effectiveCapital)
+        .reduce(addRational);
+      const targetFraction = divideRational(targetWeight, totalWeight);
+      const ratioShare = subtractRational(finalReceipt, salary);
+      const distributable = divideRational(ratioShare, targetFraction);
+      return rationalAnswer(parameters, addRational(distributable, salary));
     }
     case "findUnknownLeaveTimeFromProfitRatio":
     case "findUnknownCapitalOfLateJoiningPartner":
