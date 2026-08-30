@@ -42,6 +42,17 @@ function paObservation(nameA: string, nameB: string, a: Rational, b: Rational, c
 
 function hiStem(question: TsdCp012NativeReviewQuestion): string {
   const input = question.input;
+  if (input.authorityKey === "feasibleParameterSetState") {
+    const request = input.target === "VALID_SET"
+      ? "निम्न विकल्पों में से कौन-सा सभी मान्य चालों का पूरा समूह देता है?"
+      : "कितनी अनुमत चालें शर्त पूरी करती हैं?";
+    const variants = [
+      `एक आपात वाहन को ${hiMetres(input.distance)} दूरी तय करनी है। चाल ${input.minimumCandidate} से ${input.maximumCandidate} मीटर/सेकंड के बीच पूर्णांक होनी चाहिए। ${hiSeconds(input.fixedDelay)} की निश्चित देरी सहित कुल समय ${hiSeconds(input.deadline)} से अधिक नहीं हो सकता। ${request}`,
+      `${hiMetres(input.distance)} की निरीक्षण यात्रा में चालक केवल ${input.minimumCandidate} से ${input.maximumCandidate} मीटर/सेकंड के बीच की पूर्णांक चाल चुन सकता है। ${hiSeconds(input.fixedDelay)} का अनिवार्य ठहराव जोड़ने के बाद यात्रा ${hiSeconds(input.deadline)} के भीतर पूरी होनी चाहिए। ${request}`,
+      `एक सेवा वाहन को ${hiMetres(input.distance)} दूरी तय करनी है और कुल समय-सीमा ${hiSeconds(input.deadline)} है, जिसमें ${hiSeconds(input.fixedDelay)} की निश्चित देरी शामिल है। केवल ${input.minimumCandidate} से ${input.maximumCandidate} मीटर/सेकंड तक की पूर्णांक चालें मान्य हैं। ${request}`,
+    ];
+    return variants[familyIndex(question) % variants.length]!;
+  }
   if (input.authorityKey === "routeProfileProgramState" && input.target === "DISTANCE_SPLIT_A") {
     const variants = [
       `एक निश्चित ${hiMetres(input.totalDistance)} मार्ग में लगातार दो अलग भू-खंड हैं। पहले खंड पर चाल ${hiSpeed(input.speedA)} और शेष खंड पर ${hiSpeed(input.speedB)} है। पूरा मार्ग ${hiSeconds(input.totalTime)} में तय होता है। पहले भू-खंड की लंबाई ज्ञात कीजिए।`,
@@ -60,6 +71,17 @@ function hiStem(question: TsdCp012NativeReviewQuestion): string {
 }
 function paStem(question: TsdCp012NativeReviewQuestion): string {
   const input = question.input;
+  if (input.authorityKey === "feasibleParameterSetState") {
+    const request = input.target === "VALID_SET"
+      ? "ਹੇਠਾਂ ਦਿੱਤੇ ਵਿਕਲਪਾਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਸਾਰੀਆਂ ਮਨਜ਼ੂਰ ਚਾਲਾਂ ਦਾ ਪੂਰਾ ਸਮੂਹ ਦਿੰਦਾ ਹੈ?"
+      : "ਕਿੰਨੀਆਂ ਮਨਜ਼ੂਰ ਚਾਲਾਂ ਸ਼ਰਤ ਪੂਰੀ ਕਰਦੀਆਂ ਹਨ?";
+    const variants = [
+      `ਇੱਕ ਐਮਰਜੈਂਸੀ ਵਾਹਨ ਨੇ ${paMetres(input.distance)} ਦੂਰੀ ਤੈਅ ਕਰਨੀ ਹੈ। ਚਾਲ ${input.minimumCandidate} ਤੋਂ ${input.maximumCandidate} ਮੀਟਰ/ਸਕਿੰਟ ਵਿਚਕਾਰ ਪੂਰਨ ਅੰਕ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ। ${paSeconds(input.fixedDelay)} ਦੀ ਨਿਸ਼ਚਿਤ ਦੇਰੀ ਸਮੇਤ ਕੁੱਲ ਸਮਾਂ ${paSeconds(input.deadline)} ਤੋਂ ਵੱਧ ਨਹੀਂ ਹੋ ਸਕਦਾ। ${request}`,
+      `${paMetres(input.distance)} ਦੀ ਜਾਂਚ ਯਾਤਰਾ ਵਿੱਚ ਚਾਲਕ ਸਿਰਫ਼ ${input.minimumCandidate} ਤੋਂ ${input.maximumCandidate} ਮੀਟਰ/ਸਕਿੰਟ ਵਿਚਕਾਰ ਪੂਰਨ ਅੰਕ ਚਾਲ ਚੁਣ ਸਕਦਾ ਹੈ। ${paSeconds(input.fixedDelay)} ਦਾ ਲਾਜ਼ਮੀ ਠਹਿਰਾਅ ਜੋੜਨ ਤੋਂ ਬਾਅਦ ਯਾਤਰਾ ${paSeconds(input.deadline)} ਦੇ ਅੰਦਰ ਪੂਰੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ। ${request}`,
+      `ਇੱਕ ਸੇਵਾ ਵਾਹਨ ਨੇ ${paMetres(input.distance)} ਦੂਰੀ ਤੈਅ ਕਰਨੀ ਹੈ ਅਤੇ ਕੁੱਲ ਸਮਾਂ-ਸੀਮਾ ${paSeconds(input.deadline)} ਹੈ, ਜਿਸ ਵਿੱਚ ${paSeconds(input.fixedDelay)} ਦੀ ਨਿਸ਼ਚਿਤ ਦੇਰੀ ਸ਼ਾਮਲ ਹੈ। ਸਿਰਫ਼ ${input.minimumCandidate} ਤੋਂ ${input.maximumCandidate} ਮੀਟਰ/ਸਕਿੰਟ ਤੱਕ ਦੀਆਂ ਪੂਰਨ ਅੰਕ ਚਾਲਾਂ ਮਨਜ਼ੂਰ ਹਨ। ${request}`,
+    ];
+    return variants[familyIndex(question) % variants.length]!;
+  }
   if (input.authorityKey === "routeProfileProgramState" && input.target === "DISTANCE_SPLIT_A") {
     const variants = [
       `ਇੱਕ ਨਿਸ਼ਚਿਤ ${paMetres(input.totalDistance)} ਰਸਤੇ ਵਿੱਚ ਲਗਾਤਾਰ ਦੋ ਵੱਖ ਭੂ-ਖੰਡ ਹਨ। ਪਹਿਲੇ ਖੰਡ ਤੇ ਚਾਲ ${paSpeed(input.speedA)} ਅਤੇ ਬਾਕੀ ਖੰਡ ਤੇ ${paSpeed(input.speedB)} ਹੈ। ਪੂਰਾ ਰਸਤਾ ${paSeconds(input.totalTime)} ਵਿੱਚ ਤੈਅ ਹੁੰਦਾ ਹੈ। ਪਹਿਲੇ ਭੂ-ਖੰਡ ਦੀ ਲੰਬਾਈ ਕੱਢੋ।`,
