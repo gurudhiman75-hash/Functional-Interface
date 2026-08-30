@@ -32,7 +32,7 @@ export interface StcV2EditorialAuthority {
 
 export interface GeneratedStcV2EditorialQuestion {
   readonly chapterId: "STC-001";
-  readonly version: "V2";
+  readonly version: "V2.1";
   readonly checkpointId: "STC-CP-001" | "STC-CP-002" | "STC-CP-003";
   readonly qlId: StcQlId;
   readonly scenarioId: string;
