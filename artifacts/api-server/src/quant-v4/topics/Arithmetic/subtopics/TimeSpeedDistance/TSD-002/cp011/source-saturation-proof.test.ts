@@ -37,11 +37,12 @@ assert(TSD_CP011_SOURCE_TO_AUTHORITY.wheelRollState.length === 4, "wheel-roll so
 assert(TSD_CP011_SOURCE_TO_AUTHORITY.wheelRateTranslationState.length === 2, "wheel-rate source breadth regressed");
 assert(TSD_CP011_SOURCE_TO_AUTHORITY.twoWheelComparisonState.length === 2, "two-wheel source breadth regressed");
 
-assert(!TSD_CP011_DISCOVERY_STATUS.frozen, "discovery must not freeze CP011");
-assert(!TSD_CP011_DISCOVERY_STATUS.questionStudioRegistered, "discovery must not register CP011 in Studio");
-assert(!TSD_CP011_DISCOVERY_STATUS.bankWritable, "discovery must not enable bank writes");
-assert(!TSD_CP011_DISCOVERY_STATUS.testEligible, "discovery must not enable tests");
-assert(!TSD_CP011_DISCOVERY_STATUS.publiclyPublishable, "discovery must not enable publication");
+assert(TSD_CP011_DISCOVERY_STATUS.permanentAllocationStatus === "FROZEN_APPROVED", "approved freeze status missing");
+assert(TSD_CP011_DISCOVERY_STATUS.frozen, "CP011 source authority must be frozen after lifecycle approval");
+assert(!TSD_CP011_DISCOVERY_STATUS.questionStudioRegistered, "content freeze must not register CP011 in Studio");
+assert(!TSD_CP011_DISCOVERY_STATUS.bankWritable, "content freeze must not enable bank writes");
+assert(!TSD_CP011_DISCOVERY_STATUS.testEligible, "content freeze must not enable tests");
+assert(!TSD_CP011_DISCOVERY_STATUS.publiclyPublishable, "content freeze must not enable publication");
 
-console.log("TSD-CP-011 SOURCE SATURATION PROOF: PASS");
+console.log("TSD-CP-011 FROZEN SOURCE SATURATION PROOF: PASS");
 console.log(JSON.stringify(TSD_CP011_DISCOVERY_STATUS, null, 2));
