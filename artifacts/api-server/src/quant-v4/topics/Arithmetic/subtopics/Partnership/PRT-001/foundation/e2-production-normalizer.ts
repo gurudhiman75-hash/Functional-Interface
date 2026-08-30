@@ -1,18 +1,23 @@
+import { refinePrt001E2Topology } from "./e2-topology-refiner";
 import { addRational, normalizeRatio, rational, subtractRational, ZERO } from "./math";
 import { formatPrt001Money } from "./parameter-generator";
 import { solvePrt001State } from "./solver";
 import type { Prt001PilotParameters } from "./types";
 
 /**
- * E2 intentionally varies mathematical topology, but allocation questions must
- * still look like competitive-exam arithmetic. This normalizer chooses a gross
- * profit that leaves an integer amount per ratio part after the stated fixed
- * allocations or gross-percentage commission, preventing ugly rational-rupee
- * answer surfaces without changing the capital/time topology.
+ * E2 production normalization has two bounded responsibilities:
+ *
+ * 1. refine the relational three-partner QLs so equal-contribution examples do
+ *    not collapse into one repeated 1:1:1 topology across seeds;
+ * 2. for allocation questions, choose a gross profit that leaves clean whole-
+ *    rupee ratio parts after fixed allocations or gross-percentage commission.
+ *
+ * Neither step changes the solve authority or answer contract.
  */
 export function normalizePrt001E2ProductionMoney(
-  parameters: Prt001PilotParameters,
+  input: Prt001PilotParameters,
 ): Prt001PilotParameters {
+  const parameters = refinePrt001E2Topology(input);
   if (parameters.state.allocations.length === 0) return parameters;
 
   const initial = solvePrt001State(parameters.state);
