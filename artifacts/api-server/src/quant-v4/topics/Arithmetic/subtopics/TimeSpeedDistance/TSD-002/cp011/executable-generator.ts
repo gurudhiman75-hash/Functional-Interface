@@ -89,7 +89,9 @@ function wheelRateInput(index: number): TsdCp011ExecutableInput {
 
 function twoWheelInput(index: number): TsdCp011ExecutableInput {
   const circumferenceA = rational(2 + (index % 3));
-  const circumferenceB = rational(5 + (index % 4));
+  // Keep the second circumference monotonic so the expanded ratio cases do not
+  // cycle back to an identical learner-visible pair after twelve states.
+  const circumferenceB = rational(5 + index);
   const distance = multiply(multiply(circumferenceA, circumferenceB), rational(20 + index));
   return index % 2 === 0
     ? { authorityKey: "twoWheelComparisonState", target: "REVOLUTION_RATIO", circumferenceA, circumferenceB }
