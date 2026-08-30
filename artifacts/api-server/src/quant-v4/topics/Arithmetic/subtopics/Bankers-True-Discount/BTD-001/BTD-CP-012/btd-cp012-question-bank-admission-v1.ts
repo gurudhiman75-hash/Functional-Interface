@@ -105,9 +105,12 @@ function bankOnlyQuestion(
 
   return Object.freeze({
     ...question,
+    sourceStudioQuestionId: question.questionId,
+    questionId: candidate.admissionKey,
     ...lifecycle,
     generationMetadata: Object.freeze({
       ...(question.generationMetadata ?? {}),
+      sourceStudioQuestionId: question.questionId,
       ...lifecycle,
     }),
   });
