@@ -69,6 +69,149 @@ AFTER UPDATE OF output_fingerprint, state ON content.note_sections
 FOR EACH ROW
 EXECUTE FUNCTION content.invalidate_notes_quality_after_section_change();
 
+CREATE OR REPLACE FUNCTION content.invalidate_notes_quality_for_claim()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+DECLARE
+  affected_job_id UUID := COALESCE(NEW.job_id, OLD.job_id);
+  affected_claim_id UUID := COALESCE(NEW.id, OLD.id);
+BEGIN
+  IF TG_OP = 'UPDATE'
+     AND OLD.claim_text IS NOT DISTINCT FROM NEW.claim_text
+     AND OLD.state IS NOT DISTINCT FROM NEW.state THEN
+    RETURN NEW;
+  END IF;
+
+  UPDATE content.note_sections section
+  SET state = 'needs_editorial',
+      generation_metadata = section.generation_metadata || '{"staleBecauseClaimChanged":true}'::jsonb,
+      updated_at = now()
+  WHERE section.job_id = affected_job_id
+    AND section.state = 'qa_passed'
+    AND EXISTS (
+      SELECT 1 FROM content.note_section_claims section_claim
+      WHERE section_claim.job_id = section.job_id
+        AND section_claim.section_id = section.id
+        AND section_claim.claim_id = affected_claim_id
+    );
+
+  UPDATE content.note_authoring_jobs
+  SET state = 'qa_required', updated_at = now()
+  WHERE id = affected_job_id AND state = 'review_ready';
+
+  IF TG_OP = 'DELETE' THEN RETURN OLD; END IF;
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS note_claims_invalidate_quality_trg ON content.note_source_claims;
+CREATE TRIGGER note_claims_invalidate_quality_trg
+AFTER UPDATE OF claim_text, state OR DELETE ON content.note_source_claims
+FOR EACH ROW
+EXECUTE FUNCTION content.invalidate_notes_quality_for_claim();
+
+CREATE OR REPLACE FUNCTION content.invalidate_notes_quality_for_claim_evidence()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+DECLARE
+  affected_job_id UUID := COALESCE(NEW.job_id, OLD.job_id);
+  affected_claim_id UUID := COALESCE(NEW.claim_id, OLD.claim_id);
+BEGIN
+  UPDATE content.note_sections section
+  SET state = 'needs_editorial',
+      generation_metadata = section.generation_metadata || '{"staleBecauseClaimEvidenceChanged":true}'::jsonb,
+      updated_at = now()
+  WHERE section.job_id = affected_job_id
+    AND section.state = 'qa_passed'
+    AND EXISTS (
+      SELECT 1 FROM content.note_section_claims section_claim
+      WHERE section_claim.job_id = section.job_id
+        AND section_claim.section_id = section.id
+        AND section_claim.claim_id = affected_claim_id
+    );
+
+  UPDATE content.note_authoring_jobs
+  SET state = 'qa_required', updated_at = now()
+  WHERE id = affected_job_id AND state = 'review_ready';
+
+  IF TG_OP = 'DELETE' THEN RETURN OLD; END IF;
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS note_claim_evidence_invalidate_quality_trg ON content.note_source_claim_evidence;
+CREATE TRIGGER note_claim_evidence_invalidate_quality_trg
+AFTER INSERT OR UPDATE OF relation, evidence_block_id OR DELETE ON content.note_source_claim_evidence
+FOR EACH ROW
+EXECUTE FUNCTION content.invalidate_notes_quality_for_claim_evidence();
+
+CREATE OR REPLACE FUNCTION content.invalidate_notes_quality_for_coverage_item()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  IF OLD.title IS NOT DISTINCT FROM NEW.title
+     AND OLD.syllabus_ref IS NOT DISTINCT FROM NEW.syllabus_ref
+     AND OLD.priority IS NOT DISTINCT FROM NEW.priority
+     AND OLD.planned_depth IS NOT DISTINCT FROM NEW.planned_depth
+     AND OLD.exam_rationale IS NOT DISTINCT FROM NEW.exam_rationale THEN
+    RETURN NEW;
+  END IF;
+
+  UPDATE content.note_sections
+  SET state = 'needs_editorial',
+      generation_metadata = generation_metadata || '{"staleBecauseCoverageChanged":true}'::jsonb,
+      updated_at = now()
+  WHERE job_id = NEW.job_id
+    AND coverage_item_id = NEW.id
+    AND state = 'qa_passed';
+
+  UPDATE content.note_authoring_jobs
+  SET state = 'qa_required', updated_at = now()
+  WHERE id = NEW.job_id AND state = 'review_ready';
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS note_coverage_items_invalidate_quality_trg ON content.note_coverage_plan_items;
+CREATE TRIGGER note_coverage_items_invalidate_quality_trg
+AFTER UPDATE OF title, syllabus_ref, priority, planned_depth, exam_rationale ON content.note_coverage_plan_items
+FOR EACH ROW
+EXECUTE FUNCTION content.invalidate_notes_quality_for_coverage_item();
+
+CREATE OR REPLACE FUNCTION content.invalidate_notes_quality_for_coverage_claim()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+DECLARE
+  affected_job_id UUID := COALESCE(NEW.job_id, OLD.job_id);
+  affected_coverage_id UUID := COALESCE(NEW.coverage_item_id, OLD.coverage_item_id);
+BEGIN
+  UPDATE content.note_sections
+  SET state = 'needs_editorial',
+      generation_metadata = generation_metadata || '{"staleBecauseCoverageClaimsChanged":true}'::jsonb,
+      updated_at = now()
+  WHERE job_id = affected_job_id
+    AND coverage_item_id = affected_coverage_id
+    AND state = 'qa_passed';
+
+  UPDATE content.note_authoring_jobs
+  SET state = 'qa_required', updated_at = now()
+  WHERE id = affected_job_id AND state = 'review_ready';
+
+  IF TG_OP = 'DELETE' THEN RETURN OLD; END IF;
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS note_coverage_claims_invalidate_quality_trg ON content.note_coverage_item_claims;
+CREATE TRIGGER note_coverage_claims_invalidate_quality_trg
+AFTER INSERT OR DELETE ON content.note_coverage_item_claims
+FOR EACH ROW
+EXECUTE FUNCTION content.invalidate_notes_quality_for_coverage_claim();
+
 COMMENT ON TABLE content.note_quality_runs IS
   'Immutable Notes Studio QA runs tied to the exact section output and evidence fingerprints, including bounded semantic-grounding verifier metadata.';
 COMMENT ON TABLE content.note_quality_checks IS
