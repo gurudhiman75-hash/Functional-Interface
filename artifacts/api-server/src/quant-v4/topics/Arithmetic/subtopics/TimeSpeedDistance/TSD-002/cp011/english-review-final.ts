@@ -155,7 +155,7 @@ const allCases = generateTsdCp011ExecutableCases();
 const questions: TsdCp011EnglishReviewQuestion[] = [];
 for (const authorityKey of TSD_CP011_LEARNER_AUTHORITIES) {
   const qlId = qlFor(authorityKey);
-  const selected = allCases.filter((x) => x.authorityKey === authorityKey).slice(0, 6);
+  const selected = allCases.filter((x) => x.authorityKey === authorityKey).slice(0, 24);
   selected.forEach((testCase, index) => {
     const familyId = `TSD-CP011-${qlId.replace("TSD-QL-", "QL")}-${String.fromCharCode(65 + index)}`;
     const steps = explanation(testCase.input, testCase.expected);
