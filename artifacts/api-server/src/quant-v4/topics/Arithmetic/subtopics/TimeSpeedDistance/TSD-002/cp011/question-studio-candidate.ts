@@ -56,6 +56,7 @@ function source(language: TsdCp011StudioLanguage): readonly ReviewQuestion[] {
 
 function formatValue(value: Rational, unit: TsdCp011ExecutableSolution["unit"], language: TsdCp011StudioLanguage): string {
   const n = toMixedString(value);
+  if (unit === "RATIO") return `${value.numerator}:${value.denominator}`;
   if (language === "hi") {
     switch (unit) {
       case "SECOND": return `${n} सेकंड`;
@@ -67,7 +68,7 @@ function formatValue(value: Rational, unit: TsdCp011ExecutableSolution["unit"], 
       case "REVOLUTION": return `${n} चक्कर`;
       case "METRE_PER_MINUTE": return `${n} मीटर/मिनट`;
       case "REVOLUTION_PER_MINUTE": return `${n} चक्कर प्रति मिनट`;
-      case "RATIO": return n;
+      case "RATIO": return `${value.numerator}:${value.denominator}`;
     }
   }
   if (language === "pa") {
@@ -81,7 +82,7 @@ function formatValue(value: Rational, unit: TsdCp011ExecutableSolution["unit"], 
       case "REVOLUTION": return `${n} ਚੱਕਰ`;
       case "METRE_PER_MINUTE": return `${n} ਮੀਟਰ/ਮਿੰਟ`;
       case "REVOLUTION_PER_MINUTE": return `${n} ਚੱਕਰ ਪ੍ਰਤੀ ਮਿੰਟ`;
-      case "RATIO": return n;
+      case "RATIO": return `${value.numerator}:${value.denominator}`;
     }
   }
   switch (unit) {
@@ -94,7 +95,7 @@ function formatValue(value: Rational, unit: TsdCp011ExecutableSolution["unit"], 
     case "REVOLUTION": return `${n} revolutions`;
     case "METRE_PER_MINUTE": return `${n} m/min`;
     case "REVOLUTION_PER_MINUTE": return `${n} rpm`;
-    case "RATIO": return n;
+    case "RATIO": return `${value.numerator}:${value.denominator}`;
   }
 }
 
@@ -171,6 +172,21 @@ function misconceptionValues(input: TsdCp011ExecutableInput, solution: TsdCp011E
           multiply(input.totalSteps, divide(input.personStepRate, add(input.personStepRate, input.escalatorStepRate))),
           multiply(input.totalSteps, divide(input.personStepRate, subtract(input.personStepRate, input.escalatorStepRate))),
         );
+      } else if (input.target === "PERSON_RATE") {
+        const gap = positiveDifference(input.totalSteps, input.walkedSteps);
+        push(
+          input.escalatorStepRate,
+          multiply(input.escalatorStepRate, divide(input.totalSteps, input.walkedSteps)),
+          divide(input.walkedSteps, gap),
+        );
+      } else {
+        const gap = positiveDifference(input.totalSteps, input.walkedSteps);
+        push(
+          input.personStepRate,
+          gap,
+          divide(gap, input.personStepRate),
+          multiply(gap, divide(input.personStepRate, input.totalSteps)),
+        );
       }
       break;
     }
@@ -213,10 +229,17 @@ function misconceptionValues(input: TsdCp011ExecutableInput, solution: TsdCp011E
       break;
     }
     case "wheelRollState": {
-      if (input.target === "REVOLUTIONS") push(multiply(input.distance, input.circumference));
-      else if (input.target === "CIRCUMFERENCE") push(multiply(input.distance, input.revolutions));
-      else if (input.target === "DIAMETER") push(multiply(solution.answer, input.pi));
-      else if (input.target === "RADIUS") push(multiply(solution.answer, rational(4)));
+      if (input.target === "DISTANCE") {
+        push(input.circumference, input.revolutions, add(input.circumference, input.revolutions));
+      } else if (input.target === "REVOLUTIONS") {
+        push(multiply(input.distance, input.circumference), input.distance, input.circumference);
+      } else if (input.target === "CIRCUMFERENCE") {
+        push(multiply(input.distance, input.revolutions), input.distance, input.revolutions);
+      } else if (input.target === "DIAMETER") {
+        push(multiply(solution.answer, input.pi), multiply(solution.answer, rational(2)));
+      } else {
+        push(multiply(solution.answer, rational(2)), multiply(solution.answer, input.pi));
+      }
       break;
     }
     case "wheelRateTranslationState": {
