@@ -56,7 +56,6 @@ function source(language: TsdCp011StudioLanguage): readonly ReviewQuestion[] {
 
 function formatValue(value: Rational, unit: TsdCp011ExecutableSolution["unit"], language: TsdCp011StudioLanguage): string {
   const n = toMixedString(value);
-  if (unit === "RATIO") return `${value.numerator}:${value.denominator}`;
   if (language === "hi") {
     switch (unit) {
       case "SECOND": return `${n} सेकंड`;
