@@ -1,5 +1,6 @@
 import { Router, type IRouter, type Response } from "express";
 
+import { loadCurrentAffairsLearnerDashboard } from "../current-affairs/dashboard-runtime";
 import {
   gradeLearnerCurrentAffairsQuiz,
   listPublishedCurrentAffairsQuizzes,
@@ -92,6 +93,19 @@ router.get("/current-affairs/quizzes", async (req, res) => {
     res.json({ quizzes: await listPublishedCurrentAffairsQuizzes(limit), generatedAt: new Date().toISOString() });
   } catch (error) {
     sendError(res, error, "Unable to load Current Affairs quizzes");
+  }
+});
+
+router.get("/current-affairs/dashboard", authenticate, async (req, res) => {
+  try {
+    const firebaseUid = req.user?.id ?? "";
+    if (!firebaseUid) {
+      res.status(401).json({ error: "Authentication is required.", code: "AUTH_TOKEN_REQUIRED" });
+      return;
+    }
+    res.json(await loadCurrentAffairsLearnerDashboard(firebaseUid));
+  } catch (error) {
+    sendError(res, error, "Unable to load Current Affairs learner dashboard");
   }
 });
 

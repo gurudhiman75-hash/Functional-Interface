@@ -1,0 +1,132 @@
+name: Validate Current Affairs Studio CP018
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp016-learner-quiz-delivery
+      - feature/current-affairs-studio-cp017-spaced-repetition
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/current-affairs-quizzes.ts"
+      - "artifacts/examtree/src/components/CurrentAffairsDashboardSection.tsx"
+      - "artifacts/examtree/src/lib/current-affairs.ts"
+      - "artifacts/examtree/src/pages/dashboard.tsx"
+      - ".github/workflows/current-affairs-cp018-learner-dashboard.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp018-learner-dashboard
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/current-affairs-quizzes.ts"
+      - "artifacts/examtree/src/components/CurrentAffairsDashboardSection.tsx"
+      - "artifacts/examtree/src/lib/current-affairs.ts"
+      - "artifacts/examtree/src/pages/dashboard.tsx"
+      - ".github/workflows/current-affairs-cp018-learner-dashboard.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp018-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-learner-dashboard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Current Affairs CP001-CP018 contracts
+        run: |
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/original-authoring.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-question-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/periodic-rollup-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/story-threading.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/release-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/question-promotion-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/quiz-delivery-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/revision-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/dashboard-policy.test.ts
+
+      - name: Verify analytics are derived from active learner state
+        shell: bash
+        run: |
+          set -euo pipefail
+          runtime=artifacts/api-server/src/current-affairs/dashboard-runtime.ts
+          grep -Fq 'current_affairs_learning_attempts' "$runtime"
+          grep -Fq 'current_affairs_revision_schedule' "$runtime"
+          grep -Fq 'current_affairs_learning_attempt_items' "$runtime"
+          grep -Fq 'current_affairs_question_links' "$runtime"
+          grep -Fq "delivery.status='published'" "$runtime"
+          grep -Fq "release.status='approved'" "$runtime"
+          grep -Fq "AT TIME ZONE 'Asia/Kolkata'" "$runtime"
+          grep -Fq 'currentAffairsWeaknessScore' "$runtime"
+          grep -Fq 'currentAffairsStudyStreak' "$runtime"
+
+      - name: Verify Current Affairs dashboard remains authenticated and read-only
+        shell: bash
+        run: |
+          set -euo pipefail
+          route=artifacts/api-server/src/routes/current-affairs-quizzes.ts
+          runtime=artifacts/api-server/src/current-affairs/dashboard-runtime.ts
+          grep -Fq 'router.get("/current-affairs/dashboard", authenticate' "$route"
+          grep -Fq 'loadCurrentAffairsLearnerDashboard' "$route"
+          if grep -E 'INSERT INTO|UPDATE .*current_affairs|DELETE FROM' "$runtime"; then
+            echo 'CP018 dashboard runtime must remain read-only'
+            exit 1
+          fi
+
+      - name: Verify dashboard UI is additive and answer-safe
+        shell: bash
+        run: |
+          set -euo pipefail
+          page=artifacts/examtree/src/pages/dashboard.tsx
+          component=artifacts/examtree/src/components/CurrentAffairsDashboardSection.tsx
+          client=artifacts/examtree/src/lib/current-affairs.ts
+          grep -Fq '<ActivityPage />' "$page"
+          grep -Fq '<CurrentAffairsDashboardSection />' "$page"
+          grep -Fq 'getCurrentAffairsDashboard' "$component"
+          grep -Fq 'Today focus' "$component"
+          grep -Fq 'Revision ladder' "$component"
+          grep -Fq 'Weak areas' "$component"
+          grep -Fq 'CA streak' "$component"
+          grep -Fq '"/current-affairs/dashboard"' "$client"
+          if grep -E 'correctIndex|correctAnswer|explanation' "$client" "$component"; then
+            echo 'Dashboard client must not request or render answer-key payloads'
+            exit 1
+          fi
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck learner frontend
+        run: pnpm --dir artifacts/examtree typecheck
+
+      - name: Build learner frontend
+        run: pnpm --dir artifacts/examtree build
