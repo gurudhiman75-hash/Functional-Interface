@@ -19,6 +19,7 @@ assert.match(appSource, /path="\/subcategory\/:id" component=\{\(\) => renderCat
 assert.match(appSource, /path="\/login\/student" component=\{\(\) => renderPublicRoute\(Login\)\}/, "student login must not be trapped inside the preparation sidebar");
 assert.match(appSource, /path="\/dashboard" component=\{\(\) => renderAppRoute\(Dashboard\)\}/, "dashboard must stay in the preparation shell");
 assert.match(appSource, /path="\/result" component=\{\(\) => <ProtectedRoute component=\{Result\} \/>\}/, "saved results must require a student session and stay in the preparation shell");
+assert.match(appSource, /path="\/bookmarks" component=\{\(\) => <ProtectedRoute component=\{Bookmarks\} \/>\}/, "bookmarks must require a student session and stay in the preparation shell");
 assert.match(appSource, /path="\/profile" component=\{\(\) => renderAppRoute\(Profile\)\}/, "profile must stay in the preparation shell");
 assert.match(appSource, /path="\/performance" component=\{\(\) => renderAppRoute\(AnalyticsUnavailable\)\}/, "direct analytics links must remain truthful until learner analytics is production-ready");
 assert.match(appSource, /ProtectedRoute component=\{TestSeries\}/, "protected Test Series detail must use the default preparation shell");
@@ -64,14 +65,16 @@ assert.match(publicHomeSidebar, /hidden[^"]*lg:block/, "public sidebar must stay
 assert.match(publicHomeSidebar, /sticky top-16/, "public sidebar must sit below the unchanged 64px public header");
 assert.match(publicHomeSidebar, /aria-label="Homepage study navigation"/, "public sidebar navigation needs an accessible name");
 
-for (const href of ["/", "/exams", "/dashboard", "/profile", "/contact"]) {
+for (const href of ["/", "/exams", "/dashboard", "/bookmarks", "/profile", "/contact"]) {
   assert.match(publicHomeSidebar, new RegExp(`href: "${href.replaceAll("/", "\\/")}"|href="${href.replaceAll("/", "\\/")}"`), `public sidebar must preserve route: ${href}`);
 }
+assert.match(publicHomeSidebar, /href: "\/bookmarks"[\s\S]{0,120}label: "Bookmarks"[\s\S]{0,120}authNext: "\/bookmarks"/, "Bookmarks must be a live protected study-sidebar destination once implemented");
+assert.doesNotMatch(publicHomeSidebar, /label: "Bookmarks"[\s\S]{0,80}disabled: true/, "implemented Bookmarks must not remain disabled in the public study sidebar");
 assert.doesNotMatch(publicHomeSidebar, /href: "\/performance"/, "learner analytics must not be advertised as a live sidebar destination while its route is unavailable");
 for (const label of ["Home", "Explore Exams", "My Tests", "Analytics", "Bookmarks", "Downloads", "Study Plan", "Rewards", "Support", "Settings"]) {
   assert.match(publicHomeSidebar, new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `public sidebar must expose reference navigation label: ${label}`);
 }
-for (const futureFeature of ["Analytics", "Bookmarks", "Downloads", "Study Plan", "Rewards"]) {
+for (const futureFeature of ["Analytics", "Downloads", "Study Plan", "Rewards"]) {
   assert.match(publicHomeSidebar, new RegExp(`label: "${futureFeature}"[\\s\\S]{0,80}disabled: true`), `${futureFeature} must be visible but non-navigating until implemented`);
 }
 assert.match(publicHomeSidebar, /aria-disabled="true"/, "future sidebar features must expose disabled semantics");
