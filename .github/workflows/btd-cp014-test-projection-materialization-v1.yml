@@ -1,0 +1,117 @@
+name: Validate BTD-001 CP014 Test Projection Materialization V1
+
+on:
+  push:
+    branches:
+      - feature/btd-cp014-test-projection-materialization-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-014/**'
+      - 'artifacts/api-server/src/lib/admin-btd-test-projection-materialization.ts'
+      - 'artifacts/api-server/src/routes/admin-btd-test-projections.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - 'artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts'
+  pull_request:
+    branches:
+      - feature/btd-cp013-test-eligibility-readiness-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-014/**'
+      - 'artifacts/api-server/src/lib/admin-btd-test-projection-materialization.ts'
+      - 'artifacts/api-server/src/routes/admin-btd-test-projections.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - 'artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: btd-cp014-test-projection-materialization-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-btd-cp014-test-projection-materialization-v1:
+    runs-on: ubuntu-24.04
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out exact head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXPECTED_HEAD }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.33.0'
+          run_install: false
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Re-prove CP013 scored-test projection readiness
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-013/btd-cp013-scored-test-projection-readiness-v1-audit.ts | tee btd-cp014-upstream-cp013.log
+          grep -q 'PASS_BTD_001_CP013_SCORED_TEST_PROJECTION_READINESS_AUDIT_V1' btd-cp014-upstream-cp013.log
+
+      - name: Audit CP014 multilingual test projection materialization
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-014/btd-cp014-test-projection-materialization-v1-audit.ts | tee btd-cp014-test-projection-materialization-v1.log
+          grep -q 'PASS_BTD_001_CP014_TEST_PROJECTION_MATERIALIZATION_AUDIT_V1' btd-cp014-test-projection-materialization-v1.log
+
+      - name: Verify materialization, route isolation and multilingual delivery guards
+        shell: bash
+        run: |
+          set -euo pipefail
+          SERVICE='artifacts/api-server/src/lib/admin-btd-test-projection-materialization.ts'
+          ROUTE='artifacts/api-server/src/routes/admin-btd-test-projections.ts'
+          REGISTRY='artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+          INDEX='artifacts/api-server/src/routes/index.ts'
+          BLUEPRINT='artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts'
+          RUNTIME='artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-014/btd-cp014-test-projection-materialization-v1.ts'
+          grep -q 'pg_advisory_xact_lock' "$SERVICE"
+          grep -q 'sourceQuestionBankAdmissionKeys' "$SERVICE"
+          grep -q "'approved'::question_status" "$SERVICE"
+          grep -q 'question_translations' "$SERVICE"
+          grep -q "'approved'" "$SERVICE"
+          grep -q 'testEligible: false' "$SERVICE"
+          grep -q 'publiclyPublishable: false' "$SERVICE"
+          ! grep -q 'published_version_id =' "$SERVICE"
+          grep -q 'content.questions.approve' "$ROUTE"
+          grep -q 'materializeBtdCp014TestProjectionV1' "$ROUTE"
+          grep -q 'adminBtdTestProjectionsRouter' "$REGISTRY"
+          grep -q 'router.use(adminBtdTestProjectionsRouter)' "$REGISTRY"
+          ! grep -q 'adminBtdTestProjectionsRouter' "$INDEX"
+          grep -q "generation,language" "$BLUEPRINT"
+          grep -q "= 'en'" "$BLUEPRINT"
+          grep -q 'testProjectionMaterializationApproved: true' "$RUNTIME"
+          grep -q 'testEligibilityApprovalGranted: false' "$RUNTIME"
+          grep -q 'testEligible: false' "$RUNTIME"
+          grep -q 'mockTestEligible: false' "$RUNTIME"
+          grep -q 'publiclyPublishable: false' "$RUNTIME"
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Record exact validation head
+        shell: bash
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp014-test-projection-materialization-v1-head.log
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+
+      - name: Upload CP014 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: btd-cp014-test-projection-materialization-v1
+          path: |
+            btd-cp014-upstream-cp013.log
+            btd-cp014-test-projection-materialization-v1.log
+            btd-cp014-test-projection-materialization-v1-head.log
+          retention-days: 30

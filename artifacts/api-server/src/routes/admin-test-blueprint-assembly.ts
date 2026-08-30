@@ -138,6 +138,10 @@ async function buildPlan(
           THEN (v.answer_model #>> '{generation,testEligible}')::boolean
           ELSE true
         END
+        AND (
+          v.answer_model #>> '{generation,packageId}' IS NULL
+          OR lower(COALESCE(v.answer_model #>> '{generation,language}', 'en')) = 'en'
+        )
         AND EXISTS (
           SELECT 1
           FROM content.question_taxonomy_links qtl
