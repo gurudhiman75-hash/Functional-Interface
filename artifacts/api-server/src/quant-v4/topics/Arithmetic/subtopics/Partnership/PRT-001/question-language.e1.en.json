@@ -1,0 +1,16 @@
+{
+  "language": "en",
+  "status": "HUMAN_AUTHORED_E1",
+  "entries": {
+    "PRT-QL-033": "In a one-year {business}, {partnerA} invested {capitalA} from the start and left after {leaveAfterA}. {partnerB} joined after {joinAfterB} with {capitalB} and stayed until year-end. Find their profit-sharing ratio.",
+    "PRT-QL-034": "{partnerA} invested {capitalA} from the beginning of a one-year {business}, while {partnerB} kept {capitalB} invested throughout. If their profit ratio was {profitRatioA}:{profitRatioB}, after how many months did {partnerA} leave the business?",
+    "PRT-QL-035": "{partnerA} invested {capitalA} for the full year in a {business}. {partnerB} joined after {joinAfterB} with some capital. If their profit ratio was {profitRatioA}:{profitRatioB}, how much did {partnerB} invest?",
+    "PRT-QL-036": "{partnerA} invested {initialCapitalA} in a one-year {business} and increased the capital by {percentageChangeA}% after {changeMonthA}. {partnerB} kept {capitalB} invested throughout. Find their profit ratio.",
+    "PRT-QL-037": "In a one-year {business}, {partnerA} started with {initialCapitalA} and increased it by {percentageChangeA}% after {changeMonthA}. {partnerB} started with {initialCapitalB} and reduced it by {percentageDecreaseB}% after {changeMonthB}. Find their profit-sharing ratio.",
+    "PRT-QL-038": "In a {business}, {partnerA} invested {capitalA} for {durationA}. {partnerB}'s capital was {capitalRelationB} and remained for {durationB}, while {partnerC}'s capital was {capitalRelationC} and remained for {durationC}. If total profit was {totalProfit}, find {targetPartner}'s share.",
+    "PRT-QL-039": "{partnerA} and {partnerB} invested {capitalA} and {capitalB} for equal periods in a {business}. {partnerA} received a salary of {salary} before the remaining profit was shared in their capital ratio. If {partnerA}'s final receipt was {finalReceipt}, find the gross profit.",
+    "PRT-QL-040": "{partnerA} and {partnerB} invested {capitalA} and {capitalB} for equal periods in a {business}. From gross profit of {totalProfit}, {reserve} was first kept as reserve. Then {partnerA} received {commissionPercent}% of the remaining pool as commission before the balance was shared. Find {targetPartner}'s final receipt.",
+    "PRT-QL-041": "In a one-year {business}, {partnerA} started with {initialCapitalA}, added {addedCapitalA} after {changeMonthA}, and left after {leaveAfterA}. {partnerB} joined after {joinAfterB} with {capitalB} and stayed until year-end. Find their profit ratio.",
+    "PRT-QL-042": "In a one-year {business}, {partnerA} invested {capitalA} from the start and {partnerB} joined after {joinAfterB} with {capitalB}. {partnerC} joined after {joinAfterC} with an unknown capital. If their profit ratio was {profitRatioA}:{profitRatioB}:{profitRatioC}, find {partnerC}'s capital."
+  }
+}
