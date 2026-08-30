@@ -1,13 +1,28 @@
 import { STC_V2_EDITORIAL_AUTHORITIES } from "./editorial-v2-authorities.ts";
-import type { StcQlId } from "./types.ts";
+import { getStcV2LocalizedText } from "./editorial-v2-localization.ts";
+import type { StcLocale, StcQlId } from "./types.ts";
 import type { GeneratedStcV2EditorialQuestion, StcV2AnswerClass } from "./editorial-v2-types.ts";
 
-const OPTIONS = [
-  "Only conclusion I follows",
-  "Only conclusion II follows",
-  "Both conclusions I and II follow",
-  "Neither conclusion I nor II follows",
-] as const;
+const OPTIONS: Record<StcLocale, readonly [string, string, string, string]> = {
+  "en-IN": [
+    "Only conclusion I follows",
+    "Only conclusion II follows",
+    "Both conclusions I and II follow",
+    "Neither conclusion I nor II follows",
+  ],
+  "hi-IN": [
+    "केवल निष्कर्ष I अनुसरण करता है",
+    "केवल निष्कर्ष II अनुसरण करता है",
+    "निष्कर्ष I और II दोनों अनुसरण करते हैं",
+    "न तो निष्कर्ष I और न ही II अनुसरण करता है",
+  ],
+  "pa-IN": [
+    "ਕੇਵਲ ਨਤੀਜਾ I ਅਨੁਸਰਣ ਕਰਦਾ ਹੈ",
+    "ਕੇਵਲ ਨਤੀਜਾ II ਅਨੁਸਰਣ ਕਰਦਾ ਹੈ",
+    "ਨਤੀਜੇ I ਅਤੇ II ਦੋਵੇਂ ਅਨੁਸਰਣ ਕਰਦੇ ਹਨ",
+    "ਨਾ ਨਤੀਜਾ I ਅਤੇ ਨਾ ਹੀ II ਅਨੁਸਰਣ ਕਰਦਾ ਹੈ",
+  ],
+};
 
 function indexForAnswer(answerClass: StcV2AnswerClass): number {
   switch (answerClass) {
@@ -38,9 +53,15 @@ function positiveModulo(value: number, divisor: number): number {
   return ((integer % divisor) + divisor) % divisor;
 }
 
+function explanationLine(locale: StcLocale, label: "I" | "II", follows: boolean, reason: string): string {
+  if (locale === "en-IN") return `${label} ${follows ? "follows" : "does not follow"}: ${reason}`;
+  if (locale === "hi-IN") return `निष्कर्ष ${label} ${follows ? "अनुसरण करता है" : "अनुसरण नहीं करता है"}: ${reason}`;
+  return `ਨਤੀਜਾ ${label} ${follows ? "ਅਨੁਸਰਣ ਕਰਦਾ ਹੈ" : "ਅਨੁਸਰਣ ਨਹੀਂ ਕਰਦਾ"}: ${reason}`;
+}
+
 export function generateStcV2EditorialQuestion(input: {
   readonly qlId: StcQlId;
-  readonly locale: "en-IN";
+  readonly locale: StcLocale;
   readonly seed: number;
 }): GeneratedStcV2EditorialQuestion {
   const pool = STC_V2_EDITORIAL_AUTHORITIES.filter((authority) => authority.qlId === input.qlId);
@@ -49,10 +70,13 @@ export function generateStcV2EditorialQuestion(input: {
   }
 
   const authority = pool[positiveModulo(input.seed, pool.length)]!;
+  const text = input.locale === "en-IN"
+    ? { statement: authority.statement, conclusions: authority.conclusions, explanation: authority.explanation }
+    : getStcV2LocalizedText(authority.id, input.locale);
   const [firstFollows, secondFollows] = followsFlags(authority.answerClass);
   const explanation = [
-    `I ${firstFollows ? "follows" : "does not follow"}: ${authority.explanation[0]}`,
-    `II ${secondFollows ? "follows" : "does not follow"}: ${authority.explanation[1]}`,
+    explanationLine(input.locale, "I", firstFollows, text.explanation[0]),
+    explanationLine(input.locale, "II", secondFollows, text.explanation[1]),
   ].join(" ");
 
   return {
@@ -65,9 +89,9 @@ export function generateStcV2EditorialQuestion(input: {
     seed: input.seed,
     difficulty: authority.difficulty,
     surfaceArchetype: authority.surfaceArchetype,
-    stem: authority.statement,
-    conclusions: authority.conclusions,
-    options: OPTIONS,
+    stem: text.statement,
+    conclusions: text.conclusions,
+    options: OPTIONS[input.locale],
     correctIndex: indexForAnswer(authority.answerClass),
     answerClass: authority.answerClass,
     explanation,
@@ -75,6 +99,7 @@ export function generateStcV2EditorialQuestion(input: {
       authority: "CURATED_EDITORIAL_ENTAILMENT_V2",
       surfaceArchetype: authority.surfaceArchetype,
       repeatedInstructionEmbeddedInStem: false,
+      localizedByScenarioId: true,
       reviewOnly: true,
       questionBankWritable: false,
       testEligible: false,

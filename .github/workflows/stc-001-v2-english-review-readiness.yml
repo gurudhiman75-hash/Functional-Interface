@@ -1,4 +1,4 @@
-name: Validate STC-001 V2 English Review Readiness
+name: Validate STC-001 V2 Trilingual Review Readiness
 
 on:
   pull_request:
@@ -15,13 +15,13 @@ permissions:
   contents: read
 
 concurrency:
-  group: stc-001-v2-english-review-readiness-${{ github.ref }}
+  group: stc-001-v2-trilingual-review-readiness-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  english-review-readiness:
+  trilingual-review-readiness:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -33,37 +33,43 @@ jobs:
       - name: Preserve immutable V1 audit baseline
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v1-proof.test.ts
 
-      - name: Re-prove V2 surface diversity
+      - name: Re-prove V2 English surface diversity
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-diversity-proof.test.ts
 
-      - name: Re-prove V2 Question Studio review routing
+      - name: Prove EN-HI-PA semantic parity across 144 four-way surfaces
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-proof.test.ts
+
+      - name: Prove 8-surface solver-backed Banking five-way profile
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-five-way-proof.test.ts
+
+      - name: Re-prove shared V2 Question Studio routing and V1 compatibility
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-v2-integration.test.ts --bundle --platform=node --format=esm --outfile=dist/stc-001/question-studio-v2-integration.test.mjs
           node artifacts/api-server/dist/stc-001/question-studio-v2-integration.test.mjs
 
-      - name: Prove learner-facing English review readiness
-        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-review-readiness-proof.test.ts
-
-      - name: Export exact 48-question English human-review pack
+      - name: Export exact 168-surface trilingual human-review pack
         env:
-          STC_V2_REVIEW_OUT: stc-001-v2-english-review-pack
-        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-review-pack.ts
+          STC_V2_REVIEW_OUT: stc-001-v2-trilingual-review-pack
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-trilingual-review-pack.ts
 
-      - name: Upload English review artifact
+      - name: Upload trilingual review artifact
         uses: actions/upload-artifact@v4
         with:
-          name: stc-001-v2-english-review-pack
-          path: stc-001-v2-english-review-pack
+          name: stc-001-v2-trilingual-review-pack
+          path: stc-001-v2-trilingual-review-pack
           if-no-files-found: error
           retention-days: 30
 
       - name: Build production API server
         run: pnpm --dir artifacts/api-server build
 
+      - name: Build production admin app
+        run: pnpm --dir artifacts/admin-app build
+
       - name: Assert lifecycle boundary
         run: |
-          echo 'STC-001 V2 status: READY_FOR_EXPLICIT_ENGLISH_EDITORIAL_REVIEW'
-          echo 'English frozen: false'
-          echo 'Hindi/Punjabi localization: pending'
-          echo 'V2 Banking five-way: pending'
+          echo 'STC-001 V2 status: TRILINGUAL_REVIEW_READY'
+          echo 'English/Hindi/Punjabi: scenario-ID and answer parity locked for review'
+          echo 'V2 Banking five-way: 8 dedicated solver-validated authorities ready for review'
+          echo 'V1: preserved frozen audit baseline'
           echo 'Question Bank/test/mock/public/automatic publication: locked'

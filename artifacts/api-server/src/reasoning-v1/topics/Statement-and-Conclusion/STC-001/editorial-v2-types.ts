@@ -1,4 +1,4 @@
-import type { StcDifficulty, StcQlId } from "./types.ts";
+import type { StcDifficulty, StcLocale, StcQlId } from "./types.ts";
 
 export const STC_V2_SURFACE_ARCHETYPES = [
   "ADVICE_WARNING",
@@ -36,7 +36,7 @@ export interface GeneratedStcV2EditorialQuestion {
   readonly checkpointId: "STC-CP-001" | "STC-CP-002" | "STC-CP-003";
   readonly qlId: StcQlId;
   readonly scenarioId: string;
-  readonly locale: "en-IN";
+  readonly locale: StcLocale;
   readonly seed: number;
   readonly difficulty: StcDifficulty;
   readonly surfaceArchetype: StcV2SurfaceArchetype;
@@ -50,6 +50,7 @@ export interface GeneratedStcV2EditorialQuestion {
     authority: "CURATED_EDITORIAL_ENTAILMENT_V2";
     surfaceArchetype: StcV2SurfaceArchetype;
     repeatedInstructionEmbeddedInStem: false;
+    localizedByScenarioId: true;
     reviewOnly: true;
     questionBankWritable: false;
     testEligible: false;
