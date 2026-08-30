@@ -2,7 +2,17 @@ import { spawnSync } from "node:child_process";
 import { mkdir, rm, writeFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 
+import {
+  compileNarrationWindows,
+  renderNarrationWindowsSrt,
+  renderNarrationWindowsVtt,
+  type StaticGkNarrationWindow,
+} from "../audio/narration-timeline";
+import { TROPIC_OF_CANCER_FACT_LOCK } from "../fact-packs/SGK-VIS-IND-GEO-001";
+import { STANDARD_MERIDIAN_FACT_LOCK } from "../fact-packs/SGK-VIS-IND-GEO-002";
 import { loadValidatedRuntimeAdminGeometry } from "../geometry/runtime-admin-loader";
+import { TROPIC_OF_CANCER_LESSON_MANIFEST } from "../lesson-manifests/SGK-VIS-IND-GEO-001.manifest";
+import { STANDARD_MERIDIAN_LESSON_MANIFEST } from "../lesson-manifests/SGK-VIS-IND-GEO-002.manifest";
 import { renderStandardMeridianSvgFrame, renderTropicCancerSvgFrame } from "../renderers/svg-map";
 import {
   buildFfmpegSilentMasterArgs,
@@ -46,11 +56,13 @@ async function main(): Promise<void> {
 
   let scene: SupportedScene;
   let renderFrame: (timeMs: number) => string;
+  let narrationWindows: StaticGkNarrationWindow[];
   if (visualId === "SGK-VIS-IND-GEO-001") {
     const compiled = compileTropicCancerScene(bundle);
     if (compiled.status !== "render-ready") throw new Error(`Tropic scene is ${compiled.status}, not render-ready`);
     scene = compiled;
     renderFrame = (timeMs) => renderTropicCancerSvgFrame(compiled, bundle.geometry, timeMs);
+    narrationWindows = compileNarrationWindows(TROPIC_OF_CANCER_LESSON_MANIFEST, TROPIC_OF_CANCER_FACT_LOCK);
   } else {
     const compiled = compileStandardMeridianScene(bundle);
     if (compiled.status !== "render-ready") {
@@ -58,6 +70,7 @@ async function main(): Promise<void> {
     }
     scene = compiled;
     renderFrame = (timeMs) => renderStandardMeridianSvgFrame(compiled, bundle.geometry, timeMs);
+    narrationWindows = compileNarrationWindows(STANDARD_MERIDIAN_LESSON_MANIFEST, STANDARD_MERIDIAN_FACT_LOCK);
   }
 
   const plan = createVerticalVideoRenderPlan(scene.viewport, scene.cues, fps);
@@ -91,6 +104,28 @@ async function main(): Promise<void> {
     }, null, 2)}\n`,
     "utf8",
   );
+  await writeFile(
+    join(outputDirectory, `${visualId}.narration-plan.json`),
+    `${JSON.stringify({ visualId, locale: "en-IN", status: "tts-pending", windows: narrationWindows }, null, 2)}\n`,
+    "utf8",
+  );
+  await writeFile(
+    join(outputDirectory, `${visualId}.captions.draft.vtt`),
+    renderNarrationWindowsVtt(narrationWindows),
+    "utf8",
+  );
+  await writeFile(
+    join(outputDirectory, `${visualId}.captions.draft.srt`),
+    renderNarrationWindowsSrt(narrationWindows),
+    "utf8",
+  );
+
+  const speedReviewCount = narrationWindows.filter((window) => window.speedQa === "review").length;
+  if (speedReviewCount > 0) {
+    process.stdout.write(
+      `[static-gk-visual-atlas] narration timing QA: ${speedReviewCount} window(s) exceed the draft 210 WPM review threshold\n`,
+    );
+  }
 
   const ffmpegBinary = process.env.STATIC_GK_ATLAS_FFMPEG_PATH?.trim() || "ffmpeg";
   const ffmpegArgs = buildFfmpegSilentMasterArgs(

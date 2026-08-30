@@ -26,6 +26,7 @@ const TESTS = [
   "tests/tropic-svg-renderer.test.ts",
   "tests/standard-meridian-svg-renderer.test.ts",
   "tests/vertical-video-renderer.test.ts",
+  "tests/narration-timeline.test.ts",
 ];
 
 async function bundle(entryRelative, outputName) {

@@ -1,8 +1,8 @@
 # CP005 — Deterministic Vertical Silent Master
 
-Status: first render-worker slice implemented on `feature/static-gk-visual-atlas-mvp`.
+Status: silent render worker + deterministic narration-window/caption-draft slice implemented on `feature/static-gk-visual-atlas-mvp`.
 
-This slice converts a render-ready Static GK map scene into a reproducible 1080×1920 H.264 MP4. It intentionally does **not** add TTS, captions, music, or generative video. Those remain downstream layers after the visual master passes QA.
+This slice converts a render-ready Static GK map scene into a reproducible 1080×1920 H.264 MP4. It also compiles fact-locked English narration into deterministic timing windows and draft subtitle artifacts. It intentionally does **not** synthesize audio yet: TTS remains a downstream operation that must fit inside these reviewed windows.
 
 ## Preconditions
 
@@ -49,19 +49,27 @@ For `SGK-VIS-IND-GEO-001` the worker writes:
 - `SGK-VIS-IND-GEO-001.silent-master.mp4`
 - `SGK-VIS-IND-GEO-001.scene.json`
 - `SGK-VIS-IND-GEO-001.render-plan.json`
+- `SGK-VIS-IND-GEO-001.narration-plan.json`
+- `SGK-VIS-IND-GEO-001.captions.draft.vtt`
+- `SGK-VIS-IND-GEO-001.captions.draft.srt`
 
-The render plan records the exact frame count, FPS, duration, geometry ID, Survey of India product code, source archive digest, and canonical GeoJSON digest used for the master.
+The render plan records exact frame count, FPS, duration, geometry ID, Survey of India product code, source archive digest, and canonical GeoJSON digest used for the master.
 
-SVG frame intermediates are deleted after a successful FFmpeg assembly. Set `STATIC_GK_ATLAS_KEEP_FRAMES=1` to retain them for forensic/visual QA. Frames are always preserved when FFmpeg fails.
+The narration plan maps each locked narration beat to a non-overlapping visual window. It expands narration across adjacent shots that teach the same locked facts rather than assuming the single shot containing `narrationRef` is the whole speech duration. Windows above 210 required words/minute are flagged for editorial timing review.
+
+The VTT/SRT files are **draft timing artifacts**. Final subtitle timings must be retimed to the measured TTS audio while remaining inside the approved narration windows.
+
+SVG frame intermediates are deleted after successful FFmpeg assembly. Set `STATIC_GK_ATLAS_KEEP_FRAMES=1` to retain them for forensic/visual QA. Frames are always preserved when FFmpeg fails.
 
 ## Quality boundary
 
-This is a **silent visual master**, not a publishable short. Publication remains blocked until CP005 adds and verifies:
+This is not yet a publishable short. Publication remains blocked until CP005 adds and verifies:
 
-1. English TTS aligned to fact-locked narration.
-2. Captions/subtitles with narration parity.
-3. Audio loudness/intelligibility checks.
-4. Thumbnail generation.
-5. Final MP4 QA receipt tying video checksum to scene + geometry digests.
+1. English TTS generated from the locked narration text only.
+2. Measured audio durations constrained to approved narration windows.
+3. Final caption timings with narration parity.
+4. Audio loudness/intelligibility checks.
+5. Thumbnail generation.
+6. Final MP4 QA receipt tying video checksum to scene, narration and geometry digests.
 
 The map itself remains deterministic. No AI/video model is allowed to redraw India, state boundaries, the Tropic line, the Standard Meridian, or Mirzapur geometry.
