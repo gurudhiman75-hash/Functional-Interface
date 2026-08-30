@@ -1,0 +1,20 @@
+{
+  "language": "hi",
+  "status": "HUMAN_AUTHORED_E2",
+  "entries": {
+    "PRT-QL-043": "{partnerA} और {partnerB} ने एक {business} में समान अवधि के लिए {capitalA} और {capitalB} लगाए। उनके लाभांशों का अंतर {shareDifference} था। कुल लाभ ज्ञात कीजिए।",
+    "PRT-QL-044": "एक {business} में {partnerA} और {partnerB} का लाभ अनुपात {profitRatioA}:{profitRatioB} था, जबकि उनकी निवेश अवधियों का अनुपात {timeRatioA}:{timeRatioB} था। उनकी पूंजी का अनुपात ज्ञात कीजिए।",
+    "PRT-QL-045": "एक {business} में {partnerA} और {partnerB} का लाभ अनुपात {profitRatioA}:{profitRatioB} था, जबकि उनकी पूंजी का अनुपात {capitalRatioA}:{capitalRatioB} था। उनकी निवेश अवधियों का अनुपात ज्ञात कीजिए।",
+    "PRT-QL-046": "{partnerA} ने एक वर्ष के {business} की शुरुआत {initialCapitalA} से की। {firstChangeMonthA} बाद पूंजी {firstChangedCapitalA} और {secondChangeMonthA} बाद {secondChangedCapitalA} हो गई। {partnerB} ने पूरे वर्ष {capitalB} लगाए रखे। लाभ-विभाजन अनुपात ज्ञात कीजिए।",
+    "PRT-QL-047": "{partnerA} ने एक वर्ष के {business} की शुरुआत {initialCapitalA} से की और बाद में पूंजी बदलकर {finalCapitalA} कर दी। {partnerB} ने पूरे वर्ष {capitalB} लगाए रखे। यदि लाभ अनुपात {profitRatioA}:{profitRatioB} था, तो {partnerA} ने कितने महीने बाद पूंजी बदली?",
+    "PRT-QL-048": "एक {business} में {partnerA}, {partnerB}, {partnerC} और {partnerD} ने क्रमशः {capitalA}, {capitalB}, {capitalC} और {capitalD}, {durationA}, {durationB}, {durationC} और {durationD} के लिए लगाए। लाभ-विभाजन अनुपात ज्ञात कीजिए।",
+    "PRT-QL-049": "एक {business} में {partnerA}, {partnerB} और {partnerC} ने {capitalA}, {capitalB} और {capitalC} लगाए। {partnerA} ने {durationA} और {partnerB} ने {durationB} के लिए निवेश किया; {partnerC} की अवधि अज्ञात है। लाभ अनुपात {profitRatioA}:{profitRatioB}:{profitRatioC} था। {partnerC} ने कितने समय के लिए निवेश किया?",
+    "PRT-QL-050": "एक {business} में {partnerA}, {partnerB} और {partnerC} ने लाभ को {profitRatioA}:{profitRatioB}:{profitRatioC} के अनुपात में बाँटा। उनकी निवेश अवधियाँ {durationA}, {durationB} और {durationC} थीं। उनकी पूंजी का अनुपात ज्ञात कीजिए।",
+    "PRT-QL-051": "{partnerA} और {partnerB} ने एक {business} में समान अवधि के लिए {capitalA} और {capitalB} लगाए। कार्यकारी भागीदार {partnerA} को लाभ बाँटने से पहले {salary} वेतन मिला। यदि निष्क्रिय भागीदार {partnerB} को अंत में {sleepingPartnerReceipt} मिला, तो सकल लाभ ज्ञात कीजिए।",
+    "PRT-QL-052": "{partnerA} और {partnerB} ने एक {business} में समान अवधि के लिए {capitalA} और {capitalB} लगाए। {partnerA} को {salary} वेतन मिलता है और शेष लाभ बाँटने से पहले {deduction} भी काटे जाते हैं। सकल लाभ {totalProfit} होने पर {targetPartner} की अंतिम प्राप्ति ज्ञात कीजिए।",
+    "PRT-QL-053": "{partnerA} ने एक वर्ष के {business} की शुरुआत {initialCapitalA} से की और {changeMonthA} बाद इसे {finalCapitalA} कर दिया। {partnerB} ने पूरे वर्ष {capitalB} लगाए रखे। {partnerA} को वितरण से पहले सकल लाभ का {commissionPercent}% कमीशन भी मिलता है। सकल लाभ {totalProfit} होने पर {targetPartner} की अंतिम प्राप्ति ज्ञात कीजिए।",
+    "PRT-QL-054": "{partnerA} ने एक वर्ष के {business} की शुरुआत {initialCapitalA} से की और {changeMonthA} बाद इसे {finalCapitalA} कर दिया। {partnerB} बाद में {capitalB} के साथ शामिल हुआ। यदि लाभ अनुपात {profitRatioA}:{profitRatioB} था, तो {partnerB} कितने महीने बाद शामिल हुआ?",
+    "PRT-QL-055": "{partnerA} ने एक वर्ष के {business} की शुरुआत {initialCapitalA} से की और {changeMonthA} बाद इसे {finalCapitalA} कर दिया; {partnerB} ने पूरे वर्ष {capitalB} लगाए रखे। {partnerA} को वितरण से पहले {salary} वेतन मिलता है। यदि {partnerA} की अंतिम प्राप्ति {finalReceipt} थी, तो सकल लाभ ज्ञात कीजिए।",
+    "PRT-QL-056": "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} से शुरुआत की और {changeMonthA} बाद इसे {finalCapitalA} कर दिया। {partnerB}, {joinAfterB} बाद {capitalB} के साथ शामिल हुआ। {partnerA} को वितरण से पहले {salary} वेतन भी मिलता है। सकल लाभ {totalProfit} होने पर उनकी अंतिम प्राप्तियों का अंतर ज्ञात कीजिए।"
+  }
+}
