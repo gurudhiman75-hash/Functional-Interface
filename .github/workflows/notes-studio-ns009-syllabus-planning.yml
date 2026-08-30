@@ -57,7 +57,8 @@ jobs:
           grep -F "automaticSourceIngestion: false" artifacts/api-server/src/routes/admin-notes-studio-planning.ts
           grep -F "automaticGeneration: false" artifacts/api-server/src/routes/admin-notes-studio-planning.ts
           grep -F "automaticPublication: false" artifacts/api-server/src/routes/admin-notes-studio-planning.ts
-          grep -F "${jobId}::uuid, ${jobTitle}, ${String(batch.sourceLanguage)}, 'brief'" artifacts/api-server/src/routes/admin-notes-studio-planning.ts
+          grep -F "source_language, state, brief, target_resource_id" artifacts/api-server/src/routes/admin-notes-studio-planning.ts
+          grep -F "'brief'" artifacts/api-server/src/routes/admin-notes-studio-planning.ts
           grep -F 'adminNotesStudioPlanningRouter' artifacts/api-server/src/routes/index.ts
           grep -F 'Syllabus planning' artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
           grep -F 'Automatic publication' artifacts/admin-app/src/pages/content/NotesStudioPlanningPage.tsx
