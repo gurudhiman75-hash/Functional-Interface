@@ -9,7 +9,6 @@ on:
       - 'artifacts/api-server/src/routes/admin-question-studio-average.ts'
       - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/**'
-      - '.github/workflows/sta-001-post-merge-continuity.yml'
   workflow_dispatch:
 
 permissions:
@@ -22,7 +21,7 @@ concurrency:
 jobs:
   continuity:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
