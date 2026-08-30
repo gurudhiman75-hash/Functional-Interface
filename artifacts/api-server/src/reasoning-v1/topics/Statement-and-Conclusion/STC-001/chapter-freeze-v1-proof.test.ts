@@ -25,10 +25,11 @@ function assertBlobLocks(locks: Readonly<Record<string, string>>, label: string)
   }
 }
 
+// V1 freezes STC-owned governance. The shared Reasoning registry is intentionally
+// not blob-locked here because other chapters legitimately extend that file.
 const GOVERNANCE_BLOB_LOCKS = Object.freeze({
   "./question-studio-review.ts": "919df5303dbe248ff600ab3bb222354e7ae32d0e",
   "./question-studio-integration.test.ts": "1ee5e18b91d7b643b0497f0e2fe94d1befd70df0",
-  "../../../question-studio-review-registry.ts": "4b7a89d960826f9e4ec27654b1687db2b74e5e26",
 });
 
 const freeze = STC_001_CHAPTER_FREEZE_V1;
