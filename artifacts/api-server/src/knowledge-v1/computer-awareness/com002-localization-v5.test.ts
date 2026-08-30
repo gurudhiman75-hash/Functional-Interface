@@ -21,6 +21,7 @@ const badHindi = [
   /रीनेम क्रिया मूल आइटम को वहीं छोड़ने के बजाय उसका स्थान बदलती है/u,
   /इसलिए केवल [^।\n]+ सही उत्तर है।/u,
   /सही उत्तर है क्योंकि यह प्रश्न में दिए गए सिस्टम कार्य से मेल खाता है/u,
+  /इस वर्णन से मेल खाता है:/u,
 ];
 const badPunjabi = [
   /ਫ਼ਾਈਲ-ਸਟੋਰੇਜ ਸਰੋਤ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਦਾ ਕੰਮ ਹੈ।/u,
@@ -31,9 +32,26 @@ const badPunjabi = [
   /ਰੀਨੇਮ ਕਾਰਵਾਈ ਮੂਲ ਆਈਟਮ ਨੂੰ ਥਾਂ ਤੇ ਛੱਡਣ ਦੀ ਬਜਾਇ ਉਸਦੀ ਥਾਂ ਬਦਲਦੀ ਹੈ/u,
   /ਇਸ ਲਈ ਕੇਵਲ [^।\n]+ ਸਹੀ ਉੱਤਰ ਹੈ।/u,
   /ਸਹੀ ਉੱਤਰ ਹੈ ਕਿਉਂਕਿ ਇਹ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੇ ਸਿਸਟਮ ਕੰਮ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ/u,
+  /ਇਸ ਵਰਣਨ ਨਾਲ ਮੇਲ ਖਾਂਦੀ ਹੈ:/u,
 ];
 
 const strictTranslations = {
+  "supports one user at a time": {
+    hi: "एक समय में एक उपयोगकर्ता का समर्थन करता है",
+    pa: "ਇੱਕ ਸਮੇਂ ਇੱਕ ਵਰਤੋਂਕਾਰ ਦਾ ਸਮਰਥਨ ਕਰਦਾ ਹੈ",
+  },
+  "shares processor time among many users or tasks": {
+    hi: "कई उपयोगकर्ताओं या कार्यों के बीच प्रोसेसर समय साझा करता है",
+    pa: "ਕਈ ਵਰਤੋਂਕਾਰਾਂ ਜਾਂ ਟਾਸਕਾਂ ਵਿਚਕਾਰ ਪ੍ਰੋਸੈਸਰ ਸਮਾਂ ਸਾਂਝਾ ਕਰਦਾ ਹੈ",
+  },
+  "responds to events within strict time limits": {
+    hi: "कठोर समय सीमाओं के भीतर घटनाओं पर प्रतिक्रिया करता है",
+    pa: "ਸਖ਼ਤ ਸਮਾਂ ਸੀਮਾਵਾਂ ਅੰਦਰ ਘਟਨਾਵਾਂ ਤੇ ਪ੍ਰਤੀਕਿਰਿਆ ਕਰਦਾ ਹੈ",
+  },
+  "allows many programs to run during the same period": {
+    hi: "एक ही अवधि में कई प्रोग्राम चलने देता है",
+    pa: "ਇੱਕੋ ਸਮੇਂ ਦੌਰਾਨ ਕਈ ਪ੍ਰੋਗਰਾਮ ਚੱਲਣ ਦਿੰਦਾ ਹੈ",
+  },
   "gives CPU time to processes": {
     hi: "प्रक्रियाओं को CPU समय देता है",
     pa: "ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ CPU ਸਮਾਂ ਦਿੰਦਾ ਹੈ",
@@ -41,6 +59,34 @@ const strictTranslations = {
   "gives memory to processes": {
     hi: "प्रक्रियाओं को मेमोरी देता है",
     pa: "ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ ਮੈਮੋਰੀ ਦਿੰਦਾ ਹੈ",
+  },
+  "uses buttons, icons, windows, and other graphical controls": {
+    hi: "बटन, आइकन, विंडो और अन्य ग्राफिकल कंट्रोल का उपयोग करता है",
+    pa: "ਬਟਨ, ਆਇਕਨ, ਵਿੰਡੋ ਅਤੇ ਹੋਰ ਗ੍ਰਾਫਿਕਲ ਕੰਟਰੋਲ ਵਰਤਦਾ ਹੈ",
+  },
+  "open apps, settings, files, and search": {
+    hi: "ऐप, सेटिंग्स, फ़ाइलें और सर्च खोलना",
+    pa: "ਐਪ, ਸੈਟਿੰਗਾਂ, ਫ਼ਾਈਲਾਂ ਅਤੇ ਸਰਚ ਖੋਲ੍ਹਣਾ",
+  },
+  "help launch apps, switch open windows and access system features": {
+    hi: "ऐप लॉन्च करने, खुली विंडो बदलने और सिस्टम सुविधाओं तक पहुँचने में मदद करना",
+    pa: "ਐਪ ਖੋਲ੍ਹਣ, ਖੁੱਲ੍ਹੀਆਂ ਵਿੰਡੋਆਂ ਵਿਚਕਾਰ ਬਦਲਣ ਅਤੇ ਸਿਸਟਮ ਸੁਵਿਧਾਵਾਂ ਤੱਕ ਪਹੁੰਚ ਵਿੱਚ ਮਦਦ ਕਰਨਾ",
+  },
+  "change display settings": {
+    hi: "डिस्प्ले सेटिंग्स बदलना",
+    pa: "ਡਿਸਪਲੇ ਸੈਟਿੰਗਾਂ ਬਦਲਣਾ",
+  },
+  "change mouse settings": {
+    hi: "माउस सेटिंग्स बदलना",
+    pa: "ਮਾਊਸ ਸੈਟਿੰਗਾਂ ਬਦਲਣਾ",
+  },
+  "change date and time settings": {
+    hi: "दिनांक और समय सेटिंग्स बदलना",
+    pa: "ਮਿਤੀ ਅਤੇ ਸਮਾਂ ਸੈਟਿੰਗਾਂ ਬਦਲਣਾ",
+  },
+  "add, remove or manage printers": {
+    hi: "प्रिंटर जोड़ना, हटाना या प्रबंधित करना",
+    pa: "ਪ੍ਰਿੰਟਰ ਜੋੜਨਾ, ਹਟਾਉਣਾ ਜਾਂ ਪ੍ਰਬੰਧਿਤ ਕਰਨਾ",
   },
   "changes the item's name": {
     hi: "आइटम का नाम बदलता है",
@@ -184,7 +230,21 @@ for (const qlId of qlIds) {
       );
       assert.doesNotMatch(question.explanation, language === "hi" ? /का अर्थ है:/u : /ਦਾ ਅਰਥ ਹੈ:/u);
     }
-    if (qlId === "COM-002-QL-007" || qlId === "COM-002-QL-008") {
+    if (qlId === "COM-002-QL-007") {
+      assert.equal(
+        question.options[english.correctIndex],
+        language === "hi"
+          ? "ऐप लॉन्च करने, खुली विंडो बदलने और सिस्टम सुविधाओं तक पहुँचने में मदद करना"
+          : "ਐਪ ਖੋਲ੍ਹਣ, ਖੁੱਲ੍ਹੀਆਂ ਵਿੰਡੋਆਂ ਵਿਚਕਾਰ ਬਦਲਣ ਅਤੇ ਸਿਸਟਮ ਸੁਵਿਧਾਵਾਂ ਤੱਕ ਪਹੁੰਚ ਵਿੱਚ ਮਦਦ ਕਰਨਾ",
+      );
+    }
+    if (qlId === "COM-002-QL-008") {
+      assert.equal(
+        question.stem,
+        language === "hi"
+          ? "संबंधित व्यू विकल्प चालू होने पर छिपे आइटम दिखाने के लिए इनमें से किसका उपयोग किया जाता है?"
+          : "ਸੰਬੰਧਿਤ ਵਿਊ ਵਿਕਲਪ ਚਾਲੂ ਹੋਣ ਤੇ ਲੁਕੀਆਂ ਆਈਟਮਾਂ ਦਿਖਾਉਣ ਲਈ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸਦੀ ਵਰਤੋਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?",
+      );
       assert.doesNotMatch(question.explanation, /^[^:।\n]+:\s+/u);
     }
     if (qlId === "COM-002-QL-011") {
@@ -208,5 +268,6 @@ console.log("[com002-localization-v5] PASS", {
   semanticProvenancePreserved: true,
   exactExportSeedsCovered: true,
   directSemanticExplanations: true,
+  parallelLocalizedOptions: true,
   knownEditorialDefectsRemoved: true,
 });
