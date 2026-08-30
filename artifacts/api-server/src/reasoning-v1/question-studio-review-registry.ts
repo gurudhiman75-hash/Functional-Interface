@@ -103,7 +103,7 @@ export function previewReasoningV1QuestionStudioReview(request: ReasoningV1Quest
   }
   if (request.packageId === STC_001_V22_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
     const { packageId: _packageId, ...input } = request;
-    return previewStc001V22QuestionStudioReview(input);
+    return previewStc001V22QuestionStudioReview(input as PreviewStc001V22QuestionStudioInput);
   }
   if (request.packageId === STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
     const { packageId: _packageId, ...input } = request;
