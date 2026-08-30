@@ -42,16 +42,30 @@ export function sha256Utf8(value: string): string {
   return createHash("sha256").update(value, "utf8").digest("hex");
 }
 
+export function createCanonicalGeometryDigest(geometry: IndiaAdminFeatureCollection): string {
+  return sha256Utf8(JSON.stringify(geometry));
+}
+
 export function validateAdminIngestBundle(bundle: StaticGkAdminIngestBundle): void {
   const { receipt, geometry } = bundle;
   if (receipt.geometryId !== SOI_ADMIN_GEOMETRY_ID) throw new Error("Unexpected geometry id");
   if (receipt.sourcePublisher !== "Survey of India") throw new Error("Production India boundary source must be Survey of India");
-  if (receipt.sourceProductCode !== SOI_ADMIN_PRODUCT_CODE) throw new Error(`Expected Survey of India product ${SOI_ADMIN_PRODUCT_CODE}`);
+  if (receipt.sourceProductCode !== SOI_ADMIN_PRODUCT_CODE) {
+    throw new Error(`Expected Survey of India product ${SOI_ADMIN_PRODUCT_CODE}`);
+  }
   if (receipt.canonicalCrs !== "EPSG:4326") throw new Error("Canonical geometry must use EPSG:4326");
-  if (!/^[a-f0-9]{64}$/i.test(receipt.sourceArchiveSha256)) throw new Error("Missing/invalid source archive SHA-256");
-  if (!/^[a-f0-9]{64}$/i.test(receipt.canonicalGeoJsonSha256)) throw new Error("Missing/invalid canonical GeoJSON SHA-256");
-  if (geometry.type !== "FeatureCollection" || geometry.features.length === 0) throw new Error("Canonical admin geometry is empty");
-  if (receipt.featureCount !== geometry.features.length) throw new Error("Receipt feature count does not match canonical geometry");
+  if (!/^[a-f0-9]{64}$/i.test(receipt.sourceArchiveSha256)) {
+    throw new Error("Missing/invalid source archive SHA-256");
+  }
+  if (!/^[a-f0-9]{64}$/i.test(receipt.canonicalGeoJsonSha256)) {
+    throw new Error("Missing/invalid canonical GeoJSON SHA-256");
+  }
+  if (geometry.type !== "FeatureCollection" || geometry.features.length === 0) {
+    throw new Error("Canonical admin geometry is empty");
+  }
+  if (receipt.featureCount !== geometry.features.length) {
+    throw new Error("Receipt feature count does not match canonical geometry");
+  }
 
   const states = new Set<string>();
   geometry.features.forEach((feature, index) => {
@@ -65,8 +79,9 @@ export function validateAdminIngestBundle(bundle: StaticGkAdminIngestBundle): vo
   for (const stateName of REQUIRED_TROPIC_STATES) {
     if (!states.has(stateName)) throw new Error(`Canonical geometry is missing required state: ${stateName}`);
   }
-}
 
-export function createCanonicalGeometryDigest(geometry: IndiaAdminFeatureCollection): string {
-  return sha256Utf8(JSON.stringify(geometry));
+  const computedDigest = createCanonicalGeometryDigest(geometry);
+  if (computedDigest.toLowerCase() !== receipt.canonicalGeoJsonSha256.toLowerCase()) {
+    throw new Error("Canonical GeoJSON SHA-256 does not match supplied geometry");
+  }
 }
