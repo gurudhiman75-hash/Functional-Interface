@@ -9,7 +9,7 @@ import type { TsdCp012QlId } from "./ql-allocation";
 import { verifyTsdCp012SourceExtension } from "./source-executable-extensions";
 
 export type TsdCp012StudioLanguage = "en" | "hi" | "pa";
-export type TsdCp012StudioDifficulty = "EASY" | "MEDIUM" | "HARD";
+export type TsdCp012StudioDifficulty = "EASY" | "MEDIUM";
 export type TsdCp012StudioRequest = Readonly<{
   language?: TsdCp012StudioLanguage;
   count?: number;
@@ -28,7 +28,7 @@ export const TSD_CP012_STUDIO_CANDIDATE_PACKAGE = Object.freeze({
   checkpointId: "TSD-CP-012" as const,
   runtimeMode: TSD_CP012_STUDIO_CANDIDATE_RUNTIME_MODE,
   supportedLanguages: Object.freeze(["en", "hi", "pa"] as const),
-  supportedDifficulties: Object.freeze(["EASY", "MEDIUM", "HARD"] as const),
+  supportedDifficulties: Object.freeze(["EASY", "MEDIUM"] as const),
   reviewedCombinationsPerLocale: TSD_CP012_STUDIO_REVIEWED_COMBINATIONS_PER_LOCALE,
   reviewedMultilingualCombinations: TSD_CP012_STUDIO_REVIEWED_MULTILINGUAL_COMBINATIONS,
   sourceStatus: "MULTILINGUAL_REVIEW_CANDIDATE" as const,
