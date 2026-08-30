@@ -5,6 +5,8 @@ import {
   type TsdCp011NativeReviewQuestion,
 } from "./native-review-final";
 
+export type { TsdCp011NativeLanguage, TsdCp011NativeReviewQuestion } from "./native-review-final";
+
 function ratioText(question: TsdCp011NativeReviewQuestion) {
   return `${question.solution.answer.numerator}:${question.solution.answer.denominator}`;
 }
@@ -47,3 +49,8 @@ export const TSD_CP011_RELEASE_NATIVE_REVIEW = Object.freeze([
   ...TSD_CP011_RELEASE_HINDI_REVIEW,
   ...TSD_CP011_RELEASE_PUNJABI_REVIEW,
 ]);
+
+// Canonical aliases for consumers that should read the release-polished native surface.
+export const TSD_CP011_NATIVE_HINDI_REVIEW = TSD_CP011_RELEASE_HINDI_REVIEW;
+export const TSD_CP011_NATIVE_PUNJABI_REVIEW = TSD_CP011_RELEASE_PUNJABI_REVIEW;
+export const TSD_CP011_NATIVE_REVIEW = TSD_CP011_RELEASE_NATIVE_REVIEW;
