@@ -38,7 +38,9 @@ function statusFor(id: string): Pick<StaticGkAtlasStatusItem, "readiness" | "sce
     return {
       readiness: TROPIC_CANCER_SCENE_PENDING_GEOMETRY.status,
       sceneCompiler: "tropic-v1",
-      blockers: ["Ingest and approve checksummed Survey of India OVSF/1M/7 administrative geometry."],
+      blockers: [
+        "SOI OVSF/1M/7 geometry is validated. Place canonical digest ab3ef2d51a6c326f7e75a7d6e4fea1386476cb8c1f02599564af76f340f12001 in approved runtime object storage, wire the geometry loader, then complete contact-sheet visual QA.",
+      ],
     };
   }
   if (id === STANDARD_MERIDIAN_FACT_LOCK.visualId) {
@@ -46,7 +48,7 @@ function statusFor(id: string): Pick<StaticGkAtlasStatusItem, "readiness" | "sce
       readiness: STANDARD_MERIDIAN_SCENE_PENDING_GEOMETRY.status,
       sceneCompiler: "standard-meridian-v1",
       blockers: [
-        "Ingest checksummed Survey of India OVSF/1M/7 geometry with normalized Mirzapur district properties.",
+        "SOI OVSF/1M/7 geometry and Mirzapur DIST_LGD 199 are validated. Place the canonical bundle in approved runtime object storage, wire the geometry loader, then complete contact-sheet visual QA.",
       ],
     };
   }
