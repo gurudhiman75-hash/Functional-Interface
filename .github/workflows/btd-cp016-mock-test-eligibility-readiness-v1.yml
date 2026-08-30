@@ -1,0 +1,98 @@
+name: Validate BTD-001 CP016 Mock Test Eligibility Readiness V1
+
+on:
+  push:
+    branches:
+      - feature/btd-cp016-mock-test-eligibility-readiness-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-016/**'
+      - 'artifacts/api-server/src/routes/admin-test-series.ts'
+      - '.github/workflows/btd-cp016-mock-test-eligibility-readiness-v1.yml'
+  pull_request:
+    branches:
+      - feature/btd-cp015-scored-test-eligibility-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-016/**'
+      - 'artifacts/api-server/src/routes/admin-test-series.ts'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: btd-cp016-mock-test-eligibility-readiness-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-btd-cp016-mock-test-eligibility-readiness-v1:
+    runs-on: ubuntu-24.04
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out exact head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXPECTED_HEAD }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.33.0'
+          run_install: false
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Re-prove CP015 scored-test eligibility authority
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-015/btd-cp015-scored-test-eligibility-v1-audit.ts | tee btd-cp016-upstream-cp015.log
+          grep -q 'PASS_BTD_001_CP015_SCORED_TEST_ELIGIBILITY_AUDIT_V1' btd-cp016-upstream-cp015.log
+
+      - name: Audit CP016 mock-test eligibility readiness
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-016/btd-cp016-mock-test-eligibility-readiness-v1-audit.ts | tee btd-cp016-mock-test-eligibility-readiness-v1.log
+          grep -q 'PASS_BTD_001_CP016_MOCK_TEST_ELIGIBILITY_READINESS_AUDIT_V1' btd-cp016-mock-test-eligibility-readiness-v1.log
+
+      - name: Verify test-series mock eligibility enforcement and locks
+        shell: bash
+        run: |
+          set -euo pipefail
+          ROUTE='artifacts/api-server/src/routes/admin-test-series.ts'
+          RUNTIME='artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-016/btd-cp016-mock-test-eligibility-readiness-v1.ts'
+          grep -q 'TEST_SERIES_MOCK_QUESTION_INELIGIBLE' "$ROUTE"
+          grep -q "generation,mockTestEligible" "$ROUTE"
+          grep -q "= 'false'" "$ROUTE"
+          grep -q 'mockIneligibleQuestionCount' "$ROUTE"
+          grep -q 'withMockEligibilityBlocker' "$ROUTE"
+          grep -q 'READY_FOR_EXPLICIT_MOCK_TEST_ELIGIBILITY_APPROVAL' "$RUNTIME"
+          grep -q 'mockTestEligibilityApprovalGranted: false' "$RUNTIME"
+          grep -q 'mockTestEligible: false' "$RUNTIME"
+          grep -q 'publiclyPublishable: false' "$RUNTIME"
+          grep -q 'projectionMockEligibilityMutationAuthorized: false' "$RUNTIME"
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Record exact validation head
+        shell: bash
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp016-mock-test-eligibility-readiness-v1-head.log
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+
+      - name: Upload CP016 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: btd-cp016-mock-test-eligibility-readiness-v1
+          path: |
+            btd-cp016-upstream-cp015.log
+            btd-cp016-mock-test-eligibility-readiness-v1.log
+            btd-cp016-mock-test-eligibility-readiness-v1-head.log
+          retention-days: 30
