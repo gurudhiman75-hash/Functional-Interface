@@ -88,6 +88,25 @@ assert.equal(new Set(allGenerated.map((question) => question.scenarioId)).size, 
 assert.equal(new Set(allGenerated.map((question) => question.stem)).size, 48);
 assert.equal(new Set(allGenerated.flatMap((question) => question.conclusions)).size, 96, "All 96 V2 conclusions should be editorially distinct");
 
+const byScenario = new Map(allGenerated.map((question) => [question.scenarioId, question]));
+const sc039 = byScenario.get("STC-V2-SC-039")!;
+assert.deepEqual(sc039.conclusions, [
+  "Grade A carries more weight than Grade C.",
+  "Grade B carries less weight than Grade A.",
+]);
+assert.notEqual(sc039.conclusions[0], "Grade C carries less weight than Grade A.");
+
+const sc040 = byScenario.get("STC-V2-SC-040")!;
+assert.deepEqual(sc040.conclusions, [
+  "Arjun was faster than Karan.",
+  "Mohit's time was lower than Karan's.",
+]);
+assert.notEqual(sc040.conclusions[1], "Karan was slower than Arjun.");
+
+const sc047 = byScenario.get("STC-V2-SC-047")!;
+assert.match(sc047.stem, /including the latest quarter/u);
+assert.match(sc047.explanation, /In the latest quarter, disposal time fell/u);
+
 const stemLengths = allGenerated.map((question) => question.stem.length);
 assert.ok(Math.min(...stemLengths) >= 45);
 assert.ok(Math.max(...stemLengths) <= 280);
