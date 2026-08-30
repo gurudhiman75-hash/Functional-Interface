@@ -94,7 +94,8 @@ function headingCount(value: string): number {
 }
 
 function urls(value: string): string[] {
-  return [...new Set(value.match(/https:\/\/[^\s)\]>]+/g) ?? [])].sort();
+  const matches = value.match(/https:\/\/[^\s)\]>]+/g) ?? [];
+  return [...new Set(matches.map((url) => url.replace(/[.,;:!?]+$/g, '')).filter(Boolean))].sort();
 }
 
 export function evaluateNotesLocalization(args: {
