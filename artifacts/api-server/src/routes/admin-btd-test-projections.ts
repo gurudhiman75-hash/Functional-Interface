@@ -1,6 +1,7 @@
 import { Router, type Response } from "express";
 
 import { materializeBtdCp014TestProjectionV1 } from "../lib/admin-btd-test-projection-materialization";
+import { enableBtdCp015ScoredTestEligibilityV1 } from "../lib/admin-btd-scored-test-eligibility";
 import { QuestionManagementError } from "../lib/admin-question-management";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
@@ -15,6 +16,9 @@ function asText(value: unknown): string {
 function asStringArray(value: unknown): string[] {
   return Array.isArray(value) ? value.map(asText).filter(Boolean) : [];
 }
+function isUuid(value: string): boolean {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+}
 function sendError(res: Response, error: unknown): void {
   if (error instanceof QuestionManagementError) {
     res.status(error.statusCode).json({ error: error.message, code: error.code, details: error.details });
@@ -25,8 +29,8 @@ function sendError(res: Response, error: unknown): void {
     res.status(statusCode).json({ error: error instanceof Error ? error.message : "Invalid BTD projection request" });
     return;
   }
-  console.error("Unable to materialize BTD test projection", error);
-  res.status(500).json({ error: "Unable to materialize BTD test projection" });
+  console.error("Unable to update BTD test projection", error);
+  res.status(500).json({ error: "Unable to update BTD test projection" });
 }
 
 router.use(authenticate);
@@ -59,6 +63,34 @@ router.post(
         actorUserId,
       ));
       res.status(result.reused ? 200 : 201).json(result);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+);
+
+router.post(
+  "/btd-test-projections/:id/enable-scored-test",
+  requireAdminPermission("tests.create"),
+  async (req, res) => {
+    try {
+      const actorUserId = req.adminSession?.user.id;
+      if (!actorUserId) {
+        res.status(403).json({ error: "Administrator session required" });
+        return;
+      }
+      const questionId = asText(req.params.id);
+      if (!isUuid(questionId)) {
+        throw new QuestionManagementError("INVALID_QUESTION_ID", "Invalid BTD projection identifier.", 400);
+      }
+      const expectedLockVersion = Number(req.body?.expectedLockVersion);
+      const result = await sqlClient.begin((tx) => enableBtdCp015ScoredTestEligibilityV1(
+        tx,
+        questionId,
+        expectedLockVersion,
+        actorUserId,
+      ));
+      res.json(result);
     } catch (error) {
       sendError(res, error);
     }
