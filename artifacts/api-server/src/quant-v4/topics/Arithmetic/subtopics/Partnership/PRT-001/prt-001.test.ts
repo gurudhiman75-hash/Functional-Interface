@@ -216,7 +216,7 @@ assert.throws(
 );
 
 const expectedPilotIds = Array.from(
-  { length: 42 },
+  { length: 56 },
   (_, index) => `PRT-QL-${String(index + 1).padStart(3, "0")}`,
 );
 assert.deepEqual(getPrt001QuestionLanguageIds(), expectedPilotIds);
@@ -261,6 +261,20 @@ const expectedModes = new Set([
   "findPartnerReceiptsWithMultipleOrderedAllocations",
   "findProfitRatioWithJoinLeaveAndCapitalChange",
   "findUnknownCapitalWithStaggeredParticipation",
+  "findTotalProfitFromShareDifferenceAndCapitals",
+  "findCapitalRatioFromProfitRatioAndTimeRatio",
+  "findTimeRatioFromProfitRatioAndCapitalRatio",
+  "findProfitRatioWithMultipleChangesForOnePartner",
+  "findUnknownCapitalChangeTimeFromProfitRatio",
+  "findFourPartnerProfitRatio",
+  "findUnknownDurationInThreePartnerSystem",
+  "findCapitalRatioFromPartnerShareRelations",
+  "findTotalProfitFromSleepingPartnerReceipt",
+  "findPartnerReceiptWithSalaryAndDeduction",
+  "findShareWithDynamicCapitalAndPercentCommission",
+  "findUnknownJoinTimeWithCapitalChangeHistory",
+  "findTotalProfitFromMixedTimelineFinalReceipt",
+  "findDifferenceBetweenFinalReceiptsInMixedSystem",
 ]);
 const observedModes = new Set<string>();
 const observedCanonicalProblems = new Set<string>();
@@ -341,6 +355,27 @@ assert.equal(
   }).answerType,
   "DURATION",
 );
+assert.equal(
+  runPrt001PilotPipeline({
+    questionLanguageId: "PRT-QL-047",
+    seed: "e2-change-time-proof",
+  }).answerType,
+  "DURATION",
+);
+assert.equal(
+  runPrt001PilotPipeline({
+    questionLanguageId: "PRT-QL-049",
+    seed: "e2-third-duration-proof",
+  }).answerType,
+  "DURATION",
+);
+assert.equal(
+  runPrt001PilotPipeline({
+    questionLanguageId: "PRT-QL-055",
+    seed: "e2-reverse-gross-proof",
+  }).answerType,
+  "MONEY",
+);
 assert.throws(
   () => runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-999" }),
   /unknown or inactive/,
@@ -355,7 +390,7 @@ console.log(
       pilotQuestionLanguages: expectedPilotIds.length,
       activeSolveModes: expectedModes.size,
       generatedPilotQuestions,
-      expansionWave: "E1",
+      expansionWave: "E2",
       status: "PASS",
     },
     null,
