@@ -7,9 +7,9 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 const cases = generateTsdCp012ExecutableCases().filter((x) => x.authorityKey === "twoEngineInverseState");
-assert(cases.length === 8, `expected eight two-engine executable cases, found ${cases.length}`);
-assert(TSD_CP012_TWO_ENGINE_PROVENANCE.length === 8, "every two-engine executable case must have provenance");
-assert(new Set(TSD_CP012_TWO_ENGINE_PROVENANCE.map((x) => x.caseId)).size === 8, "provenance case IDs must be unique");
+assert(cases.length === 24, `expected 24 two-engine executable cases, found ${cases.length}`);
+assert(TSD_CP012_TWO_ENGINE_PROVENANCE.length === 24, "every two-engine executable case must have provenance");
+assert(new Set(TSD_CP012_TWO_ENGINE_PROVENANCE.map((x) => x.caseId)).size === 24, "provenance case IDs must be unique");
 
 for (const executableCase of cases) {
   const provenance = TSD_CP012_TWO_ENGINE_PROVENANCE.find((x) => x.caseId === executableCase.caseId);
@@ -29,13 +29,23 @@ const enginePairs = TSD_CP012_TWO_ENGINE_PROVENANCE.map((x) => [x.engineA, x.eng
 assert(new Set(enginePairs).size >= 7, "two-engine evidence pool is too repetitive across earlier authorities");
 assert(new Set(TSD_CP012_TWO_ENGINE_PROVENANCE.flatMap((x) => [x.engineA, x.engineB])).size >= 6, "two-engine provenance must draw from a broad set of earlier TSD authorities");
 
+for (let baseIndex = 0; baseIndex < 8; baseIndex += 1) {
+  const base = TSD_CP012_TWO_ENGINE_PROVENANCE[baseIndex]!;
+  const scaled2 = TSD_CP012_TWO_ENGINE_PROVENANCE[baseIndex + 8]!;
+  const scaled3 = TSD_CP012_TWO_ENGINE_PROVENANCE[baseIndex + 16]!;
+  assert(base.engineA === scaled2.engineA && base.engineB === scaled2.engineB, `${base.caseId}: x2 provenance changed semantic engine pair`);
+  assert(base.engineA === scaled3.engineA && base.engineB === scaled3.engineB, `${base.caseId}: x3 provenance changed semantic engine pair`);
+}
+
 console.log("TSD-CP-012 TWO-ENGINE CROSS-AUTHORITY PROVENANCE PROOF: PASS");
 console.log(JSON.stringify({
   executableCases: cases.length,
   provenanceRows: TSD_CP012_TWO_ENGINE_PROVENANCE.length,
+  baseSemanticPairs: 8,
+  scaleBands: 3,
   distinctAuthorityPairs: new Set(enginePairs).size,
   distinctEarlierAuthorities: new Set(TSD_CP012_TWO_ENGINE_PROVENANCE.flatMap((x) => [x.engineA, x.engineB])).size,
   variableMeaning: "TWO_SPEEDS_METRES_PER_SECOND",
-  provenanceGuard: "SEMANTIC_INDEPENDENCE_NOT_CHARACTER_COUNT",
+  provenanceGuard: "SEMANTIC_INDEPENDENCE_PRESERVED_ACROSS_NUMERIC_SCALE",
   abstractAlgebraOnly: false,
 }, null, 2));
