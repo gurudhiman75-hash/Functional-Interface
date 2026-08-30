@@ -22,7 +22,7 @@ function answerText(solution: TsdCp011ExecutableSolution) {
     case "REVOLUTION": return revs(solution.answer);
     case "METRE_PER_MINUTE": return `${v(solution.answer)} m/min`;
     case "REVOLUTION_PER_MINUTE": return `${v(solution.answer)} rpm`;
-    case "RATIO": return v(solution.answer);
+    case "RATIO": return `${solution.answer.numerator}:${solution.answer.denominator}`;
   }
 }
 function directionText(direction: "SAME" | "OPPOSITE") { return direction === "SAME" ? "in the same direction as the moving surface" : "against the direction of the moving surface"; }
@@ -114,7 +114,7 @@ function explanation(input: TsdCp011ExecutableInput, solution: TsdCp011Executabl
     }
     case "dualEscalatorObservationState": {
       if (input.target === "STOPPED_TIME") return Object.freeze([`With and against the escalator, the same length is covered at person speed plus and minus escalator speed.`, `Eliminating the escalator speed gives stopped time = 2 × up time × down time ÷ (up time + down time), which is ${answer}.`]);
-      return Object.freeze([`For the same length, reciprocal travel times are proportional to person speed plus and minus escalator speed.`, `Solving the pair gives person speed : escalator speed = (down time + up time) : (down time − up time) = ${answer}:1.`]);
+      return Object.freeze([`For the same length, reciprocal travel times are proportional to person speed plus and minus escalator speed.`, `Solving the pair gives person speed : escalator speed = ${answer}.`]);
     }
     case "movingSurfaceStateComparison": {
       const relation = `For a fixed length, walking rate = 1/${input.target === "STOPPED_WALKING_TIME" ? v(solution.answer) : "stopped time"} and surface rate = 1/${input.target === "CARRIED_STANDING_TIME" ? v(solution.answer) : "carried time"} in length-units per second.`;
@@ -135,7 +135,7 @@ function explanation(input: TsdCp011ExecutableInput, solution: TsdCp011Executabl
       return Object.freeze([`The wheel covers circumference × rpm metres each minute.`, `Time = distance ÷ that linear rate = ${answer}.`]);
     }
     case "twoWheelComparisonState": {
-      if (input.target === "REVOLUTION_RATIO") return Object.freeze([`For the same distance, revolution count is inversely proportional to circumference.`, `Therefore first : second revolutions = second circumference : first circumference = ${answer}:1.`]);
+      if (input.target === "REVOLUTION_RATIO") return Object.freeze([`For the same distance, revolution count is inversely proportional to circumference.`, `Therefore first : second revolutions = second circumference : first circumference = ${answer}.`]);
       return Object.freeze([`For each wheel, revolutions = common distance ÷ its circumference.`, `Subtract the two revolution counts; the difference is ${answer}.`]);
     }
   }
