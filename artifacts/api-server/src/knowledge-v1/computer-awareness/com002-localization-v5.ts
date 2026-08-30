@@ -12,9 +12,9 @@ import {
 } from "./com002-review-synthesis-v6";
 
 export const COM002_LOCALIZATION_VERSION_V5 =
-  "COM-002-LOCALIZATION-V5-EDITORIAL-ERRATA-REVIEW-CANDIDATE-2" as const;
+  "COM-002-LOCALIZATION-V5-EDITORIAL-ERRATA-REVIEW-CANDIDATE-3" as const;
 export const COM002_LOCALIZATION_DRAFT_AUTHORITY_V5 =
-  "COM002_HI_PA_LOCALIZATION_V5_EDITORIAL_ERRATA_REVIEW_CANDIDATE_2" as const;
+  "COM002_HI_PA_LOCALIZATION_V5_EDITORIAL_ERRATA_REVIEW_CANDIDATE_3" as const;
 
 export type Com002LocalizedQuestionV5 = Omit<
   Com002LocalizedQuestionV4,
@@ -87,6 +87,10 @@ const STRICT_SIMPLIFIED_OPTION_TRANSLATIONS: Readonly<
   "gives memory to processes": Object.freeze({
     hi: "प्रक्रियाओं को मेमोरी देता है",
     pa: "ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ ਮੈਮੋਰੀ ਦਿੰਦਾ ਹੈ",
+  }),
+  "provides a user-facing command/interface layer for interacting with operating-system services": Object.freeze({
+    hi: "ऑपरेटिंग सिस्टम की सेवाओं के उपयोग के लिए कमांड/इंटरफेस देता है",
+    pa: "ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਦੀਆਂ ਸੇਵਾਵਾਂ ਵਰਤਣ ਲਈ ਕਮਾਂਡ/ਇੰਟਰਫੇਸ ਦਿੰਦਾ ਹੈ",
   }),
   "uses buttons, icons, windows, and other graphical controls": Object.freeze({
     hi: "बटन, आइकन, विंडो और अन्य ग्राफिकल कंट्रोल का उपयोग करता है",
@@ -212,6 +216,24 @@ function repairLocalizedStemV5(input: {
     return input.language === "hi"
       ? "संबंधित व्यू विकल्प चालू होने पर छिपे आइटम दिखाने के लिए इनमें से किसका उपयोग किया जाता है?"
       : "ਸੰਬੰਧਿਤ ਵਿਊ ਵਿਕਲਪ ਚਾਲੂ ਹੋਣ ਤੇ ਲੁਕੀਆਂ ਆਈਟਮਾਂ ਦਿਖਾਉਣ ਲਈ ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਸਦੀ ਵਰਤੋਂ ਕੀਤੀ ਜਾਂਦੀ ਹੈ?";
+  }
+
+  if (input.qlId === "COM-002-QL-010") {
+    if (input.language === "hi" && stem === "रीनेम क्रिया का प्रभाव क्या है?") {
+      return "रीनेम करने पर क्या होता है?";
+    }
+    if (input.language === "pa" && stem === "ਰੀਨੇਮ ਕਾਰਵਾਈ ਦਾ ਪ੍ਰਭਾਵ ਕੀ ਹੈ?") {
+      return "ਰੀਨੇਮ ਕਰਨ ਨਾਲ ਕੀ ਹੁੰਦਾ ਹੈ?";
+    }
+  }
+
+  if (input.qlId === "COM-002-QL-011") {
+    if (input.language === "hi" && stem === "Windows रीसायकल बिन में मौजूद आइटम के लिए Restore क्रिया का उद्देश्य क्या है?") {
+      return "रीसायकल बिन में मौजूद आइटम को Restore करने पर क्या होता है?";
+    }
+    if (input.language === "pa" && stem === "Windows ਰੀਸਾਈਕਲ ਬਿਨ ਵਿੱਚ ਮੌਜੂਦ ਆਈਟਮ ਲਈ Restore ਕਾਰਵਾਈ ਦਾ ਉਦੇਸ਼ ਕੀ ਹੈ?") {
+      return "ਰੀਸਾਈਕਲ ਬਿਨ ਵਿੱਚ ਮੌਜੂਦ ਆਈਟਮ ਨੂੰ Restore ਕਰਨ ਨਾਲ ਕੀ ਹੁੰਦਾ ਹੈ?";
+    }
   }
 
   return stem;
