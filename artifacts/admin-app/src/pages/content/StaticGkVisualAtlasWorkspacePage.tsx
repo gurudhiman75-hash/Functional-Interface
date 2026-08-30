@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { CheckCircle2, CircleAlert, Film, Loader2, Map, Play, RefreshCw, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, CircleAlert, Film, Loader2, Map as MapIcon, Play, RefreshCw, ShieldCheck } from 'lucide-react';
 
 import { PageHeader } from '@/components/shared/PageHeader';
 import { showToast } from '@/components/shared/toast';
@@ -195,7 +195,7 @@ export function StaticGkVisualAtlasWorkspacePage() {
     <PageHeader
       title="Static GK Visual Atlas"
       description="Source-locked, geometry-verified visual lessons for Static GK. Production maps fail closed until authoritative geometry is ingested."
-      icon={<Map className="h-5 w-5" />}
+      icon={<MapIcon className="h-5 w-5" />}
       actions={<Button variant="outline" onClick={() => void load()} disabled={loading}>
         {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <RefreshCw className="mr-2 h-4 w-4" />}
         Refresh
