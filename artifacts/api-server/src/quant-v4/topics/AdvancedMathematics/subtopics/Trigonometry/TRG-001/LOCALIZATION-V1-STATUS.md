@@ -1,4 +1,4 @@
-# TRG-001 Hindi/Punjab Localization Status
+# TRG-001 Hindi/Punjabi Localization Status
 
 Status: **FINAL4 ENGINEERING REVIEW-READY — HUMAN REVIEW PENDING — NOT FROZEN — NOT ACTIVATED**
 
