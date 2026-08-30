@@ -89,7 +89,9 @@ function wheelRateInput(index: number): TsdCp011ExecutableInput {
 
 function twoWheelInput(index: number): TsdCp011ExecutableInput {
   const circumferenceA = rational(2 + (index % 3));
-  const circumferenceB = rational(5 + (index % 4));
+  // Keep the second circumference monotonic so the expanded ratio cases do not
+  // cycle back to an identical learner-visible pair after twelve states.
+  const circumferenceB = rational(5 + index);
   const distance = multiply(multiply(circumferenceA, circumferenceB), rational(20 + index));
   return index % 2 === 0
     ? { authorityKey: "twoWheelComparisonState", target: "REVOLUTION_RATIO", circumferenceA, circumferenceB }
@@ -111,7 +113,7 @@ function buildInput(authorityKey: TsdCp011AuthorityKey, index: number): TsdCp011
 export function generateTsdCp011ExecutableCases(): readonly TsdCp011ExecutableCase[] {
   const out: TsdCp011ExecutableCase[] = [];
   for (const authorityKey of TSD_CP011_LEARNER_AUTHORITIES) {
-    for (let index = 0; index < 12; index += 1) {
+    for (let index = 0; index < 24; index += 1) {
       const input = buildInput(authorityKey, index);
       out.push(Object.freeze({
         caseId: `TSD-CP011-${authorityKey}-${String(index + 1).padStart(2, "0")}`,

@@ -6,15 +6,28 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(`TSD-CP-011 English authoring proof failed: ${message}`);
 }
 
-assert(TSD_CP011_ENGLISH_REVIEW.length === 42, "expected 42 English review questions");
-assert(new Set(TSD_CP011_ENGLISH_REVIEW.map((x) => x.familyId)).size === 42, "family IDs must be unique");
-assert(new Set(TSD_CP011_ENGLISH_REVIEW.map((x) => x.stem)).size === 42, "rendered stems must be unique");
+function stemShape(stem: string) {
+  return stem
+    .replace(/\d+(?:\s+\d+\/\d+|\/\d+)?/g, "#")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+assert(TSD_CP011_ENGLISH_REVIEW.length === 168, "expected 168 English review questions");
+assert(new Set(TSD_CP011_ENGLISH_REVIEW.map((x) => x.familyId)).size === 168, "family IDs must be unique");
+assert(new Set(TSD_CP011_ENGLISH_REVIEW.map((x) => x.stem)).size === 168, "rendered stems must be unique");
 
 for (const qlId of TSD_CP011_PROVISIONAL_QL_IDS) {
   const questions = TSD_CP011_ENGLISH_REVIEW.filter((x) => x.qlId === qlId);
-  assert(questions.length === 6, `${qlId}: expected six review families`);
+  assert(questions.length === 24, `${qlId}: expected 24 reviewed families`);
   assert(new Set(questions.map((x) => x.input.target)).size >= 2, `${qlId}: target diversity is too thin`);
-  assert(questions.some((x) => x.difficulty === "EASY") && questions.some((x) => x.difficulty === "MEDIUM"), `${qlId}: difficulty spread missing`);
+  assert(new Set(questions.map((x) => stemShape(x.stem))).size >= 3, `${qlId}: normalized stem-shape variety is too thin`);
+  assert(questions.filter((x) => x.difficulty === "EASY").length === 2, `${qlId}: expected two calibrated EASY families`);
+  assert(questions.filter((x) => x.difficulty === "MEDIUM").length === 22, `${qlId}: expected twenty-two calibrated MEDIUM families`);
+
+  for (const target of new Set(questions.map((x) => x.input.target))) {
+    assert(questions.filter((x) => x.input.target === target).length >= 4, `${qlId}/${target}: target evidence is too thin`);
+  }
 }
 
 const EXPLANATION_EVIDENCE = /(rate|speed|time|distance|length|step|escalator|surface|walk|wheel|revolution|circumference|radius|diameter|rpm|minute|ratio)/i;
@@ -49,8 +62,11 @@ console.log("TSD-CP-011 ENGLISH REVIEW AUTHORING PROOF: PASS");
 console.log(JSON.stringify({
   questions: TSD_CP011_ENGLISH_REVIEW.length,
   qls: TSD_CP011_PROVISIONAL_QL_IDS.length,
-  familiesPerQl: 6,
+  familiesPerQl: 24,
   uniqueStems: new Set(TSD_CP011_ENGLISH_REVIEW.map((x) => x.stem)).size,
+  minimumNormalizedStemShapesPerQl: 3,
+  targetEvidenceFloor: 4,
+  difficultyPerQl: { easy: 2, medium: 22 },
   explanationStyle: "TWO_CONCISE_CUSTOM_STEPS_PLUS_CONCLUSION",
   explanationGuard: "SUBSTANTIVE_AND_PROBLEM_SPECIFIC",
 }, null, 2));

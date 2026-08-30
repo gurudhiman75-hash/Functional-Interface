@@ -1,6 +1,6 @@
 import { writeFileSync } from "node:fs";
 import { TSD_CP011_ENGLISH_REVIEW } from "./english-review-final";
-import { TSD_CP011_NATIVE_HINDI_REVIEW, TSD_CP011_NATIVE_PUNJABI_REVIEW } from "./native-review-final";
+import { TSD_CP011_RELEASE_HINDI_REVIEW, TSD_CP011_RELEASE_PUNJABI_REVIEW } from "./native-review-release";
 
 export function buildTsdCp011MultilingualQuestionsReview(): string {
   const lines: string[] = [
@@ -12,8 +12,8 @@ export function buildTsdCp011MultilingualQuestionsReview(): string {
 
   const sections = [
     ["English", TSD_CP011_ENGLISH_REVIEW],
-    ["Hindi", TSD_CP011_NATIVE_HINDI_REVIEW],
-    ["Punjabi", TSD_CP011_NATIVE_PUNJABI_REVIEW],
+    ["Hindi", TSD_CP011_RELEASE_HINDI_REVIEW],
+    ["Punjabi", TSD_CP011_RELEASE_PUNJABI_REVIEW],
   ] as const;
 
   for (const [label, questions] of sections) {

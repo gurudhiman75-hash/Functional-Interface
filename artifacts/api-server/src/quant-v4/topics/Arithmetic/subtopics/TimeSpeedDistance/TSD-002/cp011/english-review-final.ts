@@ -22,13 +22,14 @@ function answerText(solution: TsdCp011ExecutableSolution) {
     case "REVOLUTION": return revs(solution.answer);
     case "METRE_PER_MINUTE": return `${v(solution.answer)} m/min`;
     case "REVOLUTION_PER_MINUTE": return `${v(solution.answer)} rpm`;
-    case "RATIO": return v(solution.answer);
+    case "RATIO": return `${solution.answer.numerator}:${solution.answer.denominator}`;
   }
 }
 function directionText(direction: "SAME" | "OPPOSITE") { return direction === "SAME" ? "in the same direction as the moving surface" : "against the direction of the moving surface"; }
 function qlFor(authorityKey: TsdCp011AuthorityKey): TsdCp011QlId {
   return TSD_CP011_QL_ALLOCATION.find((x) => x.authorityKey === authorityKey)!.qlId;
 }
+function alternatingVariant(familyIndex: number) { return Math.floor(familyIndex / 2) % 2 === 0; }
 
 function stem(input: TsdCp011ExecutableInput, familyIndex: number): string {
   switch (input.authorityKey) {
@@ -49,10 +50,10 @@ function stem(input: TsdCp011ExecutableInput, familyIndex: number): string {
       return `An escalator has ${v(input.totalSteps)} stationary steps. A person walking at ${v(input.personStepRate)} steps/s actually takes ${v(input.walkedSteps)} steps to reach the end while moving ${input.direction === "SAME" ? "with" : "against"} the escalator. Find the escalator's speed in steps per second.`;
     }
     case "dualEscalatorObservationState": {
-      if (input.target === "STOPPED_TIME") return familyIndex % 2 === 0
+      if (input.target === "STOPPED_TIME") return alternatingVariant(familyIndex)
         ? `A person takes ${seconds(input.upTime)} to walk up a moving escalator and ${seconds(input.downTime)} to walk down the same escalator against its motion. The person's walking speed is unchanged. How long would the person take to walk the escalator if it were stopped?`
         : `On the same upward-moving escalator, a person needs ${seconds(input.upTime)} while walking upward and ${seconds(input.downTime)} while walking downward. If the walking pace remains the same, find the time needed when the escalator is stationary.`;
-      return familyIndex % 2 === 0
+      return alternatingVariant(familyIndex)
         ? `A person takes ${seconds(input.upTime)} moving with an escalator and ${seconds(input.downTime)} moving against it over the same length. Find the ratio of the person's own speed to the escalator's speed.`
         : `For the same escalator length, the travel times with and against the escalator are ${seconds(input.upTime)} and ${seconds(input.downTime)}. The person's walking speed is constant. Find person speed : escalator speed.`;
     }
@@ -78,7 +79,7 @@ function stem(input: TsdCp011ExecutableInput, familyIndex: number): string {
       return `A wheel of circumference ${metres(input.circumference)} rotates at ${v(input.rpm)} rpm and covers ${metres(input.distance)}. Find the time taken in minutes.`;
     }
     case "twoWheelComparisonState": {
-      if (input.target === "REVOLUTION_RATIO") return familyIndex % 2 === 0
+      if (input.target === "REVOLUTION_RATIO") return alternatingVariant(familyIndex)
         ? `Two wheels of circumferences ${metres(input.circumferenceA)} and ${metres(input.circumferenceB)} cover the same distance without slipping. Find the ratio of revolutions made by the first wheel to those made by the second.`
         : `Wheel A and wheel B have circumferences ${metres(input.circumferenceA)} and ${metres(input.circumferenceB)}. Over an equal distance, what is the ratio of A's revolution count to B's?`;
       return `Two wheels with circumferences ${metres(input.circumferenceA)} and ${metres(input.circumferenceB)} each travel ${metres(input.distance)} without slipping. By how many revolutions do their counts differ?`;
@@ -113,7 +114,7 @@ function explanation(input: TsdCp011ExecutableInput, solution: TsdCp011Executabl
     }
     case "dualEscalatorObservationState": {
       if (input.target === "STOPPED_TIME") return Object.freeze([`With and against the escalator, the same length is covered at person speed plus and minus escalator speed.`, `Eliminating the escalator speed gives stopped time = 2 × up time × down time ÷ (up time + down time), which is ${answer}.`]);
-      return Object.freeze([`For the same length, reciprocal travel times are proportional to person speed plus and minus escalator speed.`, `Solving the pair gives person speed : escalator speed = (down time + up time) : (down time − up time) = ${answer}:1.`]);
+      return Object.freeze([`For the same length, reciprocal travel times are proportional to person speed plus and minus escalator speed.`, `Solving the pair gives person speed : escalator speed = ${answer}.`]);
     }
     case "movingSurfaceStateComparison": {
       const relation = `For a fixed length, walking rate = 1/${input.target === "STOPPED_WALKING_TIME" ? v(solution.answer) : "stopped time"} and surface rate = 1/${input.target === "CARRIED_STANDING_TIME" ? v(solution.answer) : "carried time"} in length-units per second.`;
@@ -134,7 +135,7 @@ function explanation(input: TsdCp011ExecutableInput, solution: TsdCp011Executabl
       return Object.freeze([`The wheel covers circumference × rpm metres each minute.`, `Time = distance ÷ that linear rate = ${answer}.`]);
     }
     case "twoWheelComparisonState": {
-      if (input.target === "REVOLUTION_RATIO") return Object.freeze([`For the same distance, revolution count is inversely proportional to circumference.`, `Therefore first : second revolutions = second circumference : first circumference = ${answer}:1.`]);
+      if (input.target === "REVOLUTION_RATIO") return Object.freeze([`For the same distance, revolution count is inversely proportional to circumference.`, `Therefore first : second revolutions = second circumference : first circumference = ${answer}.`]);
       return Object.freeze([`For each wheel, revolutions = common distance ÷ its circumference.`, `Subtract the two revolution counts; the difference is ${answer}.`]);
     }
   }
@@ -155,7 +156,7 @@ const allCases = generateTsdCp011ExecutableCases();
 const questions: TsdCp011EnglishReviewQuestion[] = [];
 for (const authorityKey of TSD_CP011_LEARNER_AUTHORITIES) {
   const qlId = qlFor(authorityKey);
-  const selected = allCases.filter((x) => x.authorityKey === authorityKey).slice(0, 6);
+  const selected = allCases.filter((x) => x.authorityKey === authorityKey).slice(0, 24);
   selected.forEach((testCase, index) => {
     const familyId = `TSD-CP011-${qlId.replace("TSD-QL-", "QL")}-${String.fromCharCode(65 + index)}`;
     const steps = explanation(testCase.input, testCase.expected);

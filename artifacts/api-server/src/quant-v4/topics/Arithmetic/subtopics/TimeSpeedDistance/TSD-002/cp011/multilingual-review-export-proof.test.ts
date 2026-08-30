@@ -5,8 +5,8 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 const output = buildTsdCp011MultilingualQuestionsReview();
-const questionHeaders = output.match(/^### \d+\. TSD-QL-\d+ · TSD-CP011-QL\d+-[A-F]$/gm) ?? [];
-assert(questionHeaders.length === 126, `expected 126 question headers, found ${questionHeaders.length}`);
+const questionHeaders = output.match(/^### \d+\. TSD-QL-\d+ · TSD-CP011-QL\d+-[A-X]$/gm) ?? [];
+assert(questionHeaders.length === 504, `expected 504 question headers, found ${questionHeaders.length}`);
 assert((output.match(/^## English$/gm) ?? []).length === 1, "English section missing or duplicated");
 assert((output.match(/^## Hindi$/gm) ?? []).length === 1, "Hindi section missing or duplicated");
 assert((output.match(/^## Punjabi$/gm) ?? []).length === 1, "Punjabi section missing or duplicated");
@@ -17,9 +17,9 @@ assert(!/correctIndex|solution|expected/i.test(output), "internal solution metad
 console.log("TSD-CP-011 MULTILINGUAL QUESTIONS-ONLY EXPORT PROOF: PASS");
 console.log(JSON.stringify({
   questions: questionHeaders.length,
-  english: 42,
-  hindi: 42,
-  punjabi: 42,
+  english: 168,
+  hindi: 168,
+  punjabi: 168,
   answersPresent: false,
   explanationsPresent: false,
 }, null, 2));
