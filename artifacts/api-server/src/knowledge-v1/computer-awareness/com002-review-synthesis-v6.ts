@@ -16,7 +16,8 @@ function indefiniteArticleFor(text: string) {
 function repairEnglishTextV6(text: string) {
   let repaired = text
     .replace(/\bA executable program file\b/g, "An executable program file")
-    .replace(/\ba executable program file\b/g, "an executable program file");
+    .replace(/\ba executable program file\b/g, "an executable program file")
+    .replace(/\bA Real-time operating system\b/g, "A real-time operating system");
 
   repaired = repaired.replace(
     /\bis classified as ((?!an?\s)[^.\n]+ operating system)\./gi,
@@ -53,9 +54,18 @@ function applyLearnerSurfaceErrataV6(question: Com002ReviewQuestion): Com002Revi
   const explanation = repairEnglishTextV6(question.explanation);
 
   if (question.qlId === "COM-002-QL-003" && question.surfaceMode === "TYPE_TO_PROPERTY") {
+    stem = stem
+      .replace(
+        /^What is a (.+ operating system)\?$/i,
+        "Which statement describes a $1?",
+      )
+      .replace(/a Real-time operating system/i, "a real-time operating system");
+  }
+
+  if (question.qlId === "COM-002-QL-005") {
     stem = stem.replace(
-      /^What is a (.+ operating system)\?$/i,
-      "Which statement describes a $1?",
+      /^How does Command-line interface \(CLI\) work\?$/i,
+      "How does a command-line interface (CLI) work?",
     );
   }
 
