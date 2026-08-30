@@ -1,4 +1,4 @@
-import { toMixedString, type Rational } from "../../TSD-001/foundation/rational";
+import { absRational, toMixedString, type Rational } from "../../TSD-001/foundation/rational";
 import { TSD_CP012_ENGLISH_REVIEW, type TsdCp012EnglishReviewQuestion } from "./english-review-final";
 import { calibrateTsdCp012ReviewedDifficulty } from "./reviewed-difficulty";
 
@@ -66,6 +66,48 @@ function movingSurfaceStem(question: TsdCp012EnglishReviewQuestion, index: numbe
   return undefined;
 }
 
+const RUNNER_NAMES = Object.freeze([
+  Object.freeze(["Aman", "Bharat"] as const),
+  Object.freeze(["Ravi", "Karan"] as const),
+  Object.freeze(["Neeraj", "Vikas"] as const),
+  Object.freeze(["Arun", "Mohan"] as const),
+  Object.freeze(["Kabir", "Sahil"] as const),
+  Object.freeze(["Deepak", "Rohit"] as const),
+]);
+function motionObservation(nameA: string, nameB: string, a: Rational, b: Rational, c: Rational): string {
+  if (b.numerator < 0n) {
+    return `${nameA}'s distance in ${seconds(a)} is ${metres(c)} more than ${nameB}'s distance in ${seconds(absRational(b))}`;
+  }
+  return `${nameA} runs for ${seconds(a)} and ${nameB} for ${seconds(b)}; together they cover ${metres(c)}`;
+}
+function twoEngineStem(question: TsdCp012EnglishReviewQuestion, index: number): string | undefined {
+  const input = question.input;
+  if (input.authorityKey !== "twoEngineInverseState") return undefined;
+  const [nameA, nameB] = RUNNER_NAMES[index % RUNNER_NAMES.length]!;
+  const first = motionObservation(nameA, nameB, input.a1, input.b1, input.c1);
+  const second = motionObservation(nameA, nameB, input.a2, input.b2, input.c2);
+  const asked = input.target === "X" ? nameA : nameB;
+  return `${nameA} and ${nameB} run at constant but unknown speeds. In one observation, ${first}. In another independent observation, ${second}. Find ${asked}'s speed.`;
+}
+function twoEngineExplanation(question: TsdCp012EnglishReviewQuestion): Readonly<{ steps: readonly string[]; conclusion: string }> | undefined {
+  const input = question.input;
+  if (input.authorityKey !== "twoEngineInverseState" || question.solution.kind !== "SCALAR") return undefined;
+  const [nameA, nameB] = RUNNER_NAMES[familyIndex(question) % RUNNER_NAMES.length]!;
+  const firstSign = input.b1.numerator < 0n ? "−" : "+";
+  const secondSign = input.b2.numerator < 0n ? "−" : "+";
+  const firstB = absRational(input.b1);
+  const secondB = absRational(input.b2);
+  const asked = input.target === "X" ? nameA : nameB;
+  const answer = speed(question.solution.answer);
+  return Object.freeze({
+    steps: Object.freeze([
+      `Let ${nameA}'s speed be x and ${nameB}'s speed be y. From distance = speed × time, the two observations give ${v(input.a1)}x ${firstSign} ${v(firstB)}y = ${v(input.c1)} and ${v(input.a2)}x ${secondSign} ${v(secondB)}y = ${v(input.c2)}.`,
+      `Solving these two independent distance relations gives ${asked}'s speed as ${answer}.`,
+    ]),
+    conclusion: `Answer: ${answer}.`,
+  });
+}
+
 function editorialStem(question: TsdCp012EnglishReviewQuestion): string {
   const index = familyIndex(question);
   return feasibilityStem(question, index)
@@ -73,6 +115,7 @@ function editorialStem(question: TsdCp012EnglishReviewQuestion): string {
     ?? raceGapStem(question, index)
     ?? trainMeetingStem(question, index)
     ?? movingSurfaceStem(question, index)
+    ?? twoEngineStem(question, index)
     ?? question.stem;
 }
 
@@ -80,4 +123,5 @@ export const TSD_CP012_ENGLISH_REVIEW_FINAL = Object.freeze(TSD_CP012_ENGLISH_RE
   ...question,
   difficulty: calibrateTsdCp012ReviewedDifficulty(question.difficulty),
   stem: editorialStem(question),
+  explanation: twoEngineExplanation(question) ?? question.explanation,
 })));
