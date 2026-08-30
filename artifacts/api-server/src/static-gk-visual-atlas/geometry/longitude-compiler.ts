@@ -22,8 +22,12 @@ function collectRingIntersections(ring: Position[], longitude: number): number[]
 }
 
 function clipLongitudeToPolygon(polygon: Position[][], longitude: number): Array<[number, number]> {
-  const intersections = polygon.flatMap((ring) => collectRingIntersections(ring, longitude)).sort((a, b) => a - b);
-  const deduped = intersections.filter((value, index) => index === 0 || Math.abs(value - intersections[index - 1]) > EPSILON);
+  const intersections = polygon
+    .flatMap((ring) => collectRingIntersections(ring, longitude))
+    .sort((a, b) => a - b);
+  const deduped = intersections.filter(
+    (value, index) => index === 0 || Math.abs(value - intersections[index - 1]) > EPSILON,
+  );
   if (deduped.length % 2 !== 0) {
     throw new Error(`Invalid polygon scanline intersection count ${deduped.length} at longitude ${longitude}`);
   }
@@ -55,6 +59,10 @@ function mergeIntervals(intervals: Array<[number, number]>): Array<[number, numb
   return merged;
 }
 
+function normalizeAdminLabel(value: string): string {
+  return value.trim().replace(/\s+/g, " ").toLocaleLowerCase("en-IN");
+}
+
 export interface LongitudeStateSegment {
   stateName: string;
   stateCode: string;
@@ -62,12 +70,26 @@ export interface LongitudeStateSegment {
   line: GeoJsonFeature<GeoJsonLineString, { stateName: string; stateCode: string }>;
 }
 
+export interface LongitudeDistrictSegment {
+  stateName: string;
+  stateCode: string;
+  districtName: string;
+  districtCode?: string;
+  longitude: number;
+  line: GeoJsonFeature<
+    GeoJsonLineString,
+    { stateName: string; stateCode: string; districtName: string; districtCode?: string }
+  >;
+}
+
 export function compileLongitudeSegmentsForState(
   geometry: IndiaAdminFeatureCollection,
   longitude: number,
   stateName: string,
 ): LongitudeStateSegment[] {
-  if (!Number.isFinite(longitude) || longitude < -180 || longitude > 180) throw new Error(`Invalid longitude ${longitude}`);
+  if (!Number.isFinite(longitude) || longitude < -180 || longitude > 180) {
+    throw new Error(`Invalid longitude ${longitude}`);
+  }
   const features = geometry.features.filter((feature) => feature.properties.stateName.trim() === stateName);
   if (features.length === 0) throw new Error(`No geometry found for state ${stateName}`);
 
@@ -93,6 +115,62 @@ export function compileLongitudeSegmentsForState(
   }));
 }
 
+export function compileLongitudeSegmentsForDistrict(
+  geometry: IndiaAdminFeatureCollection,
+  longitude: number,
+  stateName: string,
+  districtName: string,
+): LongitudeDistrictSegment[] {
+  if (!Number.isFinite(longitude) || longitude < -180 || longitude > 180) {
+    throw new Error(`Invalid longitude ${longitude}`);
+  }
+
+  const stateKey = normalizeAdminLabel(stateName);
+  const districtKey = normalizeAdminLabel(districtName);
+  const features = geometry.features.filter(
+    (feature) =>
+      normalizeAdminLabel(feature.properties.stateName) === stateKey &&
+      typeof feature.properties.districtName === "string" &&
+      normalizeAdminLabel(feature.properties.districtName) === districtKey,
+  );
+  if (features.length === 0) {
+    throw new Error(`No geometry found for district ${districtName} in ${stateName}`);
+  }
+
+  const intervals = mergeIntervals(features.flatMap((feature) => clipLongitudeToArea(feature.geometry, longitude)));
+  if (intervals.length === 0) {
+    throw new Error(`Longitude ${longitude} does not intersect district ${districtName} in ${stateName}`);
+  }
+
+  const stateCode = features[0].properties.stateCode;
+  const canonicalDistrictName = features[0].properties.districtName ?? districtName;
+  const districtCode = features[0].properties.districtCode;
+
+  return intervals.map(([south, north]) => ({
+    stateName,
+    stateCode,
+    districtName: canonicalDistrictName,
+    districtCode,
+    longitude,
+    line: {
+      type: "Feature",
+      properties: {
+        stateName,
+        stateCode,
+        districtName: canonicalDistrictName,
+        ...(districtCode ? { districtCode } : {}),
+      },
+      geometry: {
+        type: "LineString",
+        coordinates: [
+          [longitude, south],
+          [longitude, north],
+        ],
+      },
+    },
+  }));
+}
+
 export function compileLongitudeAcrossIndia(
   geometry: IndiaAdminFeatureCollection,
   longitude: number,
@@ -100,7 +178,9 @@ export function compileLongitudeAcrossIndia(
   const intervals = mergeIntervals(
     geometry.features.flatMap((feature) => clipLongitudeToArea(feature.geometry, longitude)),
   );
-  if (intervals.length === 0) throw new Error(`Longitude ${longitude} does not intersect canonical India geometry`);
+  if (intervals.length === 0) {
+    throw new Error(`Longitude ${longitude} does not intersect canonical India geometry`);
+  }
   return intervals.map(([south, north]) => ({
     type: "LineString",
     coordinates: [
