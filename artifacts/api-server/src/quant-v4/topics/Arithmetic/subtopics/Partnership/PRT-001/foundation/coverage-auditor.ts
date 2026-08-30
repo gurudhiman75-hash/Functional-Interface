@@ -27,24 +27,24 @@ export function auditPrt001Coverage(): Prt001AuditReport {
     ]),
   );
   const expectedByCp: Record<string, number> = {
-    "PRT-CP-001": 7,
-    "PRT-CP-002": 8,
-    "PRT-CP-003": 7,
-    "PRT-CP-004": 8,
-    "PRT-CP-005": 8,
-    "PRT-CP-006": 8,
-    "PRT-CP-007": 10,
+    "PRT-CP-001": 8,
+    "PRT-CP-002": 10,
+    "PRT-CP-003": 8,
+    "PRT-CP-004": 11,
+    "PRT-CP-005": 10,
+    "PRT-CP-006": 11,
+    "PRT-CP-007": 12,
   };
-  requireAudit(entries.length === 56, `expected 56 active QLs, got ${entries.length}`);
+  requireAudit(entries.length === 70, `expected 70 active QLs, got ${entries.length}`);
   requireAudit(JSON.stringify(byCp) === JSON.stringify(expectedByCp), "CP coverage changed");
-  requireAudit(new Set(entries.map(({ entry }) => entry.solveMode)).size === 52, "solve-mode coverage changed");
+  requireAudit(new Set(entries.map(({ entry }) => entry.solveMode)).size === 66, "solve-mode coverage changed");
   for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
     requireAudit(entries.some(({ entry }) => entry.difficulty === difficulty), `missing ${difficulty}`);
   }
   return {
     audit: "coverage",
     cases: entries.length,
-    metrics: { byCp, solveModes: 52, languages: 3, expansionWave: "E2" },
+    metrics: { byCp, solveModes: 66, languages: 3, expansionWave: "E3" },
   };
 }
 
@@ -65,12 +65,12 @@ export function auditPrt001ContextRealism(): Prt001AuditReport {
       cases += 1;
     }
   }
-  requireAudit(contexts.size >= 40, `expected at least 40 context families, got ${contexts.size}`);
+  requireAudit(contexts.size >= 54, `expected at least 54 context families, got ${contexts.size}`);
   return { audit: "context-realism", cases, metrics: { contextFamilies: contexts.size } };
 }
 
 function auditExpansionMathDiversity(input: {
-  wave: "E1" | "E2";
+  wave: "E1" | "E2" | "E3";
   startId: number;
   count: number;
 }): Prt001AuditReport {
@@ -117,6 +117,10 @@ export function auditPrt001E1MathDiversity(): Prt001AuditReport {
 
 export function auditPrt001E2MathDiversity(): Prt001AuditReport {
   return auditExpansionMathDiversity({ wave: "E2", startId: 43, count: 14 });
+}
+
+export function auditPrt001E3MathDiversity(): Prt001AuditReport {
+  return auditExpansionMathDiversity({ wave: "E3", startId: 57, count: 14 });
 }
 
 export function auditPrt001Multilingual(): Prt001AuditReport {
