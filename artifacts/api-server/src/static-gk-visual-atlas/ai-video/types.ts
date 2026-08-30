@@ -1,12 +1,12 @@
-import type { SupportedStaticGkRenderVisualId } from "../render-job-contract";
+import type { StaticGkRenderableVisualId } from "../render-job-contract";
 
 export const STATIC_GK_AI_VIDEO_PROVIDER_IDS = ["runway"] as const;
 export type StaticGkAiVideoProviderId = (typeof STATIC_GK_AI_VIDEO_PROVIDER_IDS)[number];
 
-export type StaticGkAiShotId = `${SupportedStaticGkRenderVisualId}:shot-${number}`;
+export type StaticGkAiShotId = `${StaticGkRenderableVisualId}:shot-${number}`;
 
 export interface StaticGkAiShotPlan {
-  visualId: SupportedStaticGkRenderVisualId;
+  visualId: StaticGkRenderableVisualId;
   shotId: StaticGkAiShotId;
   order: number;
   durationSeconds: 5;
@@ -20,7 +20,7 @@ export interface StaticGkAiShotPlan {
 }
 
 export interface CompiledStaticGkAiShotPrompt {
-  visualId: SupportedStaticGkRenderVisualId;
+  visualId: StaticGkRenderableVisualId;
   shotId: StaticGkAiShotId;
   order: number;
   durationSeconds: 5;
@@ -54,7 +54,7 @@ export interface StaticGkAiVideoShotReceipt {
 
 export interface StaticGkAiVideoGenerationReceipt {
   schemaVersion: 1;
-  visualId: SupportedStaticGkRenderVisualId;
+  visualId: StaticGkRenderableVisualId;
   kind: "ai-video-plates";
   provider: StaticGkAiVideoProviderId;
   model: string;
