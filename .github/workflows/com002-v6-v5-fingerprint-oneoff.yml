@@ -14,6 +14,7 @@ concurrency:
   group: com002-v6-v5-freeze-verification-oneoff
   cancel-in-progress: true
 
+# Narrow verification only; intentionally avoids restoring broad branch-push CI fanout.
 jobs:
   verify-approved-freeze:
     runs-on: ubuntu-latest
