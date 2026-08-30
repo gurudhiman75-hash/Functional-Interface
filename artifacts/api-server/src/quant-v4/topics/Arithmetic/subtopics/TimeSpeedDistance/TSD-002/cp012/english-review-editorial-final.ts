@@ -14,7 +14,7 @@ function familyIndex(question: TsdCp012EnglishReviewQuestion): number {
 function feasibilityStem(question: TsdCp012EnglishReviewQuestion, index: number): string | undefined {
   const input = question.input;
   if (input.authorityKey !== "feasibleParameterSetState") return undefined;
-  const request = input.target === "VALID_SET" ? "List every allowed speed that works." : "How many allowed speeds work?";
+  const request = input.target === "VALID_SET" ? "Which option gives the complete set of allowed speeds that satisfy the condition?" : "How many allowed speeds work?";
   const variants = [
     `An emergency van must cover ${metres(input.distance)}. Its speed must be an integer from ${input.minimumCandidate} to ${input.maximumCandidate} m/s. A fixed delay of ${seconds(input.fixedDelay)} is included, and total elapsed time cannot exceed ${seconds(input.deadline)}. ${request}`,
     `For a timed inspection run of ${metres(input.distance)}, the driver may select only an integer speed between ${input.minimumCandidate} and ${input.maximumCandidate} m/s. After adding a compulsory ${seconds(input.fixedDelay)} non-travel delay, the run must finish within ${seconds(input.deadline)}. ${request}`,
