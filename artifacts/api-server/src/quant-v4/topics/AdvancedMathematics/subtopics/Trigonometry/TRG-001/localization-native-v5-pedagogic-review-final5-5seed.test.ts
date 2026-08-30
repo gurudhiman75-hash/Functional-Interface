@@ -42,6 +42,14 @@ function machineOrderArtifacts(text: string, locale: Locale) {
         /^भाग से शून्य अपरिभाषित है/u,
         /^पूरा चक्कर tan का मान अपरिवर्तित रखता है।$/u,
         /^tanθ=sinθ\/cosθ अपरिवर्तित रखता है से भाग देने पर/u,
+        /(?:^|[,\s])(?:योग|कुल|गुणनफल|अनुपात) है\s+/u,
+        /^उसका व्युत्क्रम है\s+/u,
+        /,\s*उसका व्युत्क्रम है\s+/u,
+        /^(?:वह|यह) बराबर है\s+/u,
+        /व्यंजक बराबर है\s+/u,
+        /^सहफलन परिमाण है\s+/u,
+        /^त्रिभुज है\s+/u,
+        /उनका योग ([0-9√π/+\-]+)=\1/u,
       ]
     : [
         /^ਤੇ\s+\d+°/u,
@@ -51,6 +59,16 @@ function machineOrderArtifacts(text: string, locale: Locale) {
         /^ਭਾਗ ਨਾਲ ਸਿਫ਼ਰ ਅਪਰਿਭਾਸ਼ਿਤ ਹੈ/u,
         /^ਪੂਰਾ ਚੱਕਰ tan ਦਾ ਮਾਨ ਬਿਨਾਂ ਬਦਲੇ ਰੱਖਦਾ ਹੈ।$/u,
         /^tanθ=sinθ\/cosθ ਬਿਨਾਂ ਬਦਲੇ ਰੱਖਦਾ ਹੈ ਨਾਲ ਭਾਗ ਦੇਣ ਤੇ/u,
+        /^\d+ ਅਨੁਪਾਤ-ਭਾਗ ਦੇ ਬਰਾਬਰ ਹਨ\s+/u,
+        /ਇਸ ਲਈ ਸਕੇਲ ਹੈ\s+/u,
+        /(?:^|[,\s])(?:ਜੋੜ|ਕੁੱਲ|ਗੁਣਨਫਲ|ਅਨੁਪਾਤ) ਹੈ\s+/u,
+        /^ਇਸਦਾ ਪਰਸਪਰ ਹੈ\s+/u,
+        /,\s*ਇਸਦਾ ਪਰਸਪਰ ਹੈ\s+/u,
+        /^(?:ਉਹ|ਇਹ) ਬਰਾਬਰ ਹੈ\s+/u,
+        /ਵਿਅੰਜਕ ਬਰਾਬਰ ਹੈ\s+/u,
+        /^ਸਹਿ-ਫੰਕਸ਼ਨ ਪਰਿਮਾਣ ਹੈ\s+/u,
+        /^ਤਿਕੋਣ ਹੈ\s+/u,
+        /ਉਨ੍ਹਾਂ ਦਾ ਜੋੜ ([0-9√π/+\-]+)=\1/u,
       ];
   return patterns.filter((pattern) => pattern.test(text)).map((pattern) => pattern.source);
 }
@@ -69,6 +87,25 @@ assert.equal(
   TRG_001_FREEZE.approvedContentFingerprint,
   "31772b314a4d9f1f47b85a54e0596eab9a0dd450a14c380b001376099ac50611",
 );
+
+const extendedBothLocalePolish = new Set([
+  "TRG-001-QL-032",
+  "TRG-001-QL-041",
+  "TRG-001-QL-042",
+  "TRG-001-QL-044",
+  "TRG-001-QL-062",
+  "TRG-001-QL-080",
+  "TRG-001-QL-085",
+  "TRG-001-QL-095",
+  "TRG-001-QL-098",
+  "TRG-001-QL-125",
+  "TRG-001-QL-137",
+  "TRG-001-QL-142",
+]);
+const extendedPunjabiOnlyPolish = new Set([
+  "TRG-001-QL-013",
+  "TRG-001-QL-014",
+]);
 
 const failures: Array<{ id: string; field: string; issue: string; text: string }> = [];
 const fingerprints = new Set<string>();
@@ -164,6 +201,13 @@ for (const qlId of TRG_001_LOCALIZATION_QL_IDS) {
         targetedCorrections += 1;
       }
 
+      const expectsExtendedPolish = extendedBothLocalePolish.has(qlId)
+        || (locale === "pa-IN" && extendedPunjabiOnlyPolish.has(qlId));
+      if (expectsExtendedPolish) {
+        assert.notDeepEqual(final5.explanation, final4.explanation, `${id}: expected extended Final5 native polish was not exercised.`);
+        targetedCorrections += 1;
+      }
+
       assert.equal(final5.reviewStatus, "LOCALIZATION_NATIVE_REVIEW_CANDIDATE_V5_PEDAGOGIC_REVIEW_FINAL5", `${id}: Final5 review status drift.`);
       assert.equal(final5.localizationProof?.final5NativeWordOrderPolish, true, `${id}: Final5 proof flag missing.`);
       assert.equal(final5.humanReviewStatus, "PENDING", `${id}: human review must remain pending.`);
@@ -206,4 +250,4 @@ console.log(JSON.stringify(inventory, null, 2));
 assert.equal(failures.length, 0, `Final5 has ${failures.length} preservation/editorial failures.`);
 assert.equal(cases, 144 * 2 * seedsPerQl);
 assert.equal(fingerprints.size, cases);
-assert.equal(targetedCorrections, 75, "Expected 75 targeted Final5 correction assertions across QL043/047/070/091/096.");
+assert.equal(targetedCorrections, 205, "Expected 205 targeted Final5 correction assertions including the extended result-order polish families.");
