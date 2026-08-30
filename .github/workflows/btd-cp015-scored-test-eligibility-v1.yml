@@ -1,0 +1,115 @@
+name: Validate BTD-001 CP015 Scored Test Eligibility V1
+
+on:
+  push:
+    branches:
+      - feature/btd-cp015-scored-test-eligibility-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-015/**'
+      - 'artifacts/api-server/src/lib/admin-btd-scored-test-eligibility.ts'
+      - 'artifacts/api-server/src/routes/admin-btd-test-projections.ts'
+      - 'artifacts/api-server/src/lib/admin-question-delivery-policy.ts'
+      - 'artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts'
+  pull_request:
+    branches:
+      - feature/btd-cp014-test-projection-materialization-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-015/**'
+      - 'artifacts/api-server/src/lib/admin-btd-scored-test-eligibility.ts'
+      - 'artifacts/api-server/src/routes/admin-btd-test-projections.ts'
+      - 'artifacts/api-server/src/lib/admin-question-delivery-policy.ts'
+      - 'artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: btd-cp015-scored-test-eligibility-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-btd-cp015-scored-test-eligibility-v1:
+    runs-on: ubuntu-24.04
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out exact head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXPECTED_HEAD }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.33.0'
+          run_install: false
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Re-prove CP014 test projection materialization authority
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-014/btd-cp014-test-projection-materialization-v1-audit.ts | tee btd-cp015-upstream-cp014.log
+          grep -q 'PASS_BTD_001_CP014_TEST_PROJECTION_MATERIALIZATION_AUDIT_V1' btd-cp015-upstream-cp014.log
+
+      - name: Audit CP015 scored-test eligibility authority
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-015/btd-cp015-scored-test-eligibility-v1-audit.ts | tee btd-cp015-scored-test-eligibility-v1.log
+          grep -q 'PASS_BTD_001_CP015_SCORED_TEST_ELIGIBILITY_AUDIT_V1' btd-cp015-scored-test-eligibility-v1.log
+
+      - name: Verify activation boundary and downstream locks
+        shell: bash
+        run: |
+          set -euo pipefail
+          SERVICE='artifacts/api-server/src/lib/admin-btd-scored-test-eligibility.ts'
+          ROUTE='artifacts/api-server/src/routes/admin-btd-test-projections.ts'
+          RUNTIME='artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-015/btd-cp015-scored-test-eligibility-v1.ts'
+          BLUEPRINT='artifacts/api-server/src/routes/admin-test-blueprint-assembly.ts'
+          POLICY='artifacts/api-server/src/lib/admin-question-delivery-policy.ts'
+          grep -q 'BTD_CP014_TEST_PROJECTION_MATERIALIZATION_VERSION' "$SERVICE"
+          grep -q 'testProjectionMaterialized' "$SERVICE"
+          grep -q 'questionBankAcceptanceMode' "$SERVICE"
+          grep -q 'TEST_PROJECTION' "$SERVICE"
+          grep -q 'testEligibility: "ELIGIBLE"' "$SERVICE"
+          grep -q 'testEligible: true' "$SERVICE"
+          grep -q 'mockTestEligible: false' "$SERVICE"
+          grep -q 'publiclyPublishable: false' "$SERVICE"
+          grep -q "status = 'published'::question_status" "$SERVICE"
+          grep -q 'published_version_id = approved_version_id' "$SERVICE"
+          grep -q 'content.question.btd_scored_test_eligibility_enabled' "$SERVICE"
+          grep -q 'tests.create' "$ROUTE"
+          grep -q 'enableBtdCp015ScoredTestEligibilityV1' "$ROUTE"
+          grep -q 'testEligibilityApprovalGranted: true' "$RUNTIME"
+          grep -q 'testEligible: true' "$RUNTIME"
+          grep -q 'mockTestEligible: false' "$RUNTIME"
+          grep -q 'publiclyPublishable: false' "$RUNTIME"
+          grep -q 'isGeneratedQuestionBlueprintEligible' "$POLICY"
+          grep -q "generation,testEligible" "$BLUEPRINT"
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Record exact validation head
+        shell: bash
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp015-scored-test-eligibility-v1-head.log
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+
+      - name: Upload CP015 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: btd-cp015-scored-test-eligibility-v1
+          path: |
+            btd-cp015-upstream-cp014.log
+            btd-cp015-scored-test-eligibility-v1.log
+            btd-cp015-scored-test-eligibility-v1-head.log
+          retention-days: 30
