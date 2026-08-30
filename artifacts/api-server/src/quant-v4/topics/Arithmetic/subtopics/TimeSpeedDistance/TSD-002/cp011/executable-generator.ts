@@ -111,7 +111,7 @@ function buildInput(authorityKey: TsdCp011AuthorityKey, index: number): TsdCp011
 export function generateTsdCp011ExecutableCases(): readonly TsdCp011ExecutableCase[] {
   const out: TsdCp011ExecutableCase[] = [];
   for (const authorityKey of TSD_CP011_LEARNER_AUTHORITIES) {
-    for (let index = 0; index < 12; index += 1) {
+    for (let index = 0; index < 24; index += 1) {
       const input = buildInput(authorityKey, index);
       out.push(Object.freeze({
         caseId: `TSD-CP011-${authorityKey}-${String(index + 1).padStart(2, "0")}`,
