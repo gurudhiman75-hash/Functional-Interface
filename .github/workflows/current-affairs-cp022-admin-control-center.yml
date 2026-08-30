@@ -1,0 +1,144 @@
+name: Validate Current Affairs Studio CP022
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp020-personalization
+      - feature/current-affairs-studio-cp021-inapp-notifications
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs-*.ts"
+      - "artifacts/api-server/src/routes/index.ts"
+      - "artifacts/admin-app/src/features/current-affairs/**"
+      - "artifacts/admin-app/src/pages/content/CurrentAffairsStudioPage.tsx"
+      - "artifacts/admin-app/src/app/nav/navigation.ts"
+      - "artifacts/admin-app/src/App.tsx"
+      - ".github/workflows/current-affairs-cp022-admin-control-center.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp022-admin-control-center
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp022-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-admin-control-center:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Current Affairs CP001-CP021 contracts
+        run: |
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/original-authoring.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-question-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/periodic-rollup-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/story-threading.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/release-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/question-promotion-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/quiz-delivery-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/revision-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/dashboard-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/personalization-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/notification-policy.test.ts
+
+      - name: Verify control center is authenticated read-only aggregation
+        shell: bash
+        run: |
+          set -euo pipefail
+          route=artifacts/api-server/src/routes/admin-current-affairs-control-center.ts
+          index=artifacts/api-server/src/routes/index.ts
+          grep -Fq 'router.get("/control-center", requireAdminPermission("content.questions.read")' "$route"
+          grep -Fq 'loadCurrentAffairsReleaseQueue(200)' "$route"
+          grep -Fq 'current_affairs_notification_runs' "$route"
+          grep -Fq 'current_affairs_question_promotions' "$route"
+          grep -Fq 'adminCurrentAffairsControlCenterRouter' "$index"
+          if grep -E 'INSERT INTO|UPDATE content\.|DELETE FROM|router\.(post|patch|put|delete)' "$route"; then
+            echo 'CP022 control-center summary route must remain read-only'
+            exit 1
+          fi
+
+      - name: Verify admin UI reuses guarded mutation endpoints
+        shell: bash
+        run: |
+          set -euo pipefail
+          api=artifacts/admin-app/src/features/current-affairs/api.ts
+          page=artifacts/admin-app/src/pages/content/CurrentAffairsStudioPage.tsx
+          grep -Fq '/admin/current-affairs/control-center' "$api"
+          grep -Fq '/admin/current-affairs/ingestion/pull/' "$api"
+          grep -Fq '/admin/current-affairs/release-control/approve' "$api"
+          grep -Fq '/revoke' "$api"
+          grep -Fq "['feed', 'feed_and_pdf'].includes(source.ingestionMode)" "$page"
+          grep -Fq "hasPermission('content.questions.update')" "$page"
+          grep -Fq "hasPermission('content.questions.publish')" "$page"
+          grep -Fq 'Approval atomically publishes the EN/HI/PA note package' "$page"
+          if grep -E 'fetch\(|learning_resources.*status|current_affairs_releases.*status' "$page"; then
+            echo 'Admin page must use canonical admin API helpers instead of direct lifecycle mutation'
+            exit 1
+          fi
+
+      - name: Verify Current Affairs admin route and navigation are live
+        shell: bash
+        run: |
+          set -euo pipefail
+          app=artifacts/admin-app/src/App.tsx
+          nav=artifacts/admin-app/src/app/nav/navigation.ts
+          page=artifacts/admin-app/src/pages/content/CurrentAffairsStudioPage.tsx
+          grep -Fq "path:'/content/current-affairs'" "$app"
+          grep -Fq "label: 'Current Affairs Studio'" "$nav"
+          grep -Fq "permission: 'content.questions.read'" "$nav"
+          grep -Fq 'Official source health' "$page"
+          grep -Fq 'Release queue' "$page"
+          grep -Fq 'In-app notification worker' "$page"
+          grep -Fq 'Open System Health' "$page"
+
+      - name: Verify control center table assumptions match canonical migrations
+        shell: bash
+        run: |
+          set -euo pipefail
+          promotion=artifacts/api-server/migrations/20260829_current_affairs_question_bank_promotion.sql
+          notification=artifacts/api-server/migrations/20260830_current_affairs_inapp_notifications.sql
+          release=artifacts/api-server/migrations/20260829_current_affairs_editorial_release.sql
+          grep -Fq 'CREATE TABLE IF NOT EXISTS content.current_affairs_question_promotions' "$promotion"
+          grep -Fq "status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'revoked'))" "$promotion"
+          grep -Fq 'CREATE TABLE IF NOT EXISTS content.current_affairs_notification_runs' "$notification"
+          grep -Fq 'CREATE TABLE IF NOT EXISTS content.current_affairs_inapp_notifications' "$notification"
+          grep -Fq 'CREATE TABLE IF NOT EXISTS content.current_affairs_releases' "$release"
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin frontend
+        run: pnpm --dir artifacts/admin-app typecheck
+
+      - name: Build admin frontend
+        run: pnpm --dir artifacts/admin-app build
