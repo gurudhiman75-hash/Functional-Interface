@@ -12,6 +12,10 @@ CREATE TABLE IF NOT EXISTS content.note_quality_runs (
   section_output_fingerprint TEXT NOT NULL,
   evidence_fingerprint TEXT NOT NULL,
   policy_version TEXT NOT NULL,
+  verifier_provider TEXT,
+  verifier_model TEXT,
+  verifier_prompt_version TEXT,
+  verifier_metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
   status TEXT NOT NULL CHECK (status IN ('passed', 'failed')),
   warning_count INTEGER NOT NULL DEFAULT 0 CHECK (warning_count >= 0),
   fail_count INTEGER NOT NULL DEFAULT 0 CHECK (fail_count >= 0),
@@ -66,6 +70,6 @@ FOR EACH ROW
 EXECUTE FUNCTION content.invalidate_notes_quality_after_section_change();
 
 COMMENT ON TABLE content.note_quality_runs IS
-  'Immutable Notes Studio deterministic QA runs tied to the exact section output fingerprint and current evidence fingerprint.';
+  'Immutable Notes Studio QA runs tied to the exact section output and evidence fingerprints, including bounded semantic-grounding verifier metadata.';
 COMMENT ON TABLE content.note_quality_checks IS
-  'Per-gate QA results for evidence support, contradiction state, source overlap, duplication, readability, formatting and planned depth.';
+  'Per-gate QA results for evidence support, semantic grounding, contradiction state, source overlap, duplication, readability, formatting and planned depth.';
