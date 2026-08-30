@@ -1,0 +1,24 @@
+import { STC_V2_QL001_AUTHORITIES } from "./editorial-v2-ql001.ts";
+import { STC_V2_QL002_AUTHORITIES } from "./editorial-v2-ql002.ts";
+import { STC_V2_QL003_AUTHORITIES } from "./editorial-v2-ql003.ts";
+import { STC_V2_QL004_AUTHORITIES } from "./editorial-v2-ql004.ts";
+import { STC_V2_QL005_AUTHORITIES } from "./editorial-v2-ql005.ts";
+import { STC_V2_QL006_AUTHORITIES } from "./editorial-v2-ql006.ts";
+
+export const STC_V2_EDITORIAL_AUTHORITIES = [
+  ...STC_V2_QL001_AUTHORITIES,
+  ...STC_V2_QL002_AUTHORITIES,
+  ...STC_V2_QL003_AUTHORITIES,
+  ...STC_V2_QL004_AUTHORITIES,
+  ...STC_V2_QL005_AUTHORITIES,
+  ...STC_V2_QL006_AUTHORITIES,
+] as const;
+
+export {
+  STC_V2_QL001_AUTHORITIES,
+  STC_V2_QL002_AUTHORITIES,
+  STC_V2_QL003_AUTHORITIES,
+  STC_V2_QL004_AUTHORITIES,
+  STC_V2_QL005_AUTHORITIES,
+  STC_V2_QL006_AUTHORITIES,
+};
