@@ -1,4 +1,4 @@
-import { GANGA_FACT_LOCK } from "./fact-packs/SGK-VIS-IND-GEO-003";
+import { GANGA_JOURNEY_FACT_LOCK } from "./fact-packs/SGK-VIS-IND-GEO-003";
 import { STANDARD_MERIDIAN_FACT_LOCK } from "./fact-packs/SGK-VIS-IND-GEO-002";
 import { TROPIC_OF_CANCER_FACT_LOCK } from "./fact-packs/SGK-VIS-IND-GEO-001";
 import { STATIC_GK_GEOMETRY_REGISTRY } from "./geometry-registry";
@@ -10,6 +10,7 @@ export type StaticGkAtlasReadiness =
   | "backlog"
   | "fact-lock"
   | "geometry-pending"
+  | "district-verification-pending"
   | "scene-compiler-pending"
   | "render-ready";
 
@@ -20,7 +21,7 @@ export interface StaticGkAtlasStatusItem {
   category: string;
   subcategory: string;
   template: string;
-  factLockStatus: "none" | "source-locked" | "review-approved";
+  factLockStatus: "none" | "draft" | "source-locked" | "review-approved";
   readiness: StaticGkAtlasReadiness;
   sceneCompiler: "none" | "tropic-v1" | "standard-meridian-v1";
   blockers: string[];
@@ -29,7 +30,7 @@ export interface StaticGkAtlasStatusItem {
 const factLocks = new Map([
   [TROPIC_OF_CANCER_FACT_LOCK.visualId, TROPIC_OF_CANCER_FACT_LOCK],
   [STANDARD_MERIDIAN_FACT_LOCK.visualId, STANDARD_MERIDIAN_FACT_LOCK],
-  [GANGA_FACT_LOCK.visualId, GANGA_FACT_LOCK],
+  [GANGA_JOURNEY_FACT_LOCK.visualId, GANGA_JOURNEY_FACT_LOCK],
 ]);
 
 function statusFor(id: string): Pick<StaticGkAtlasStatusItem, "readiness" | "sceneCompiler" | "blockers"> {
@@ -49,7 +50,7 @@ function statusFor(id: string): Pick<StaticGkAtlasStatusItem, "readiness" | "sce
       ],
     };
   }
-  if (id === GANGA_FACT_LOCK.visualId) {
+  if (id === GANGA_JOURNEY_FACT_LOCK.visualId) {
     return {
       readiness: "scene-compiler-pending",
       sceneCompiler: "none",
@@ -69,7 +70,6 @@ function statusFor(id: string): Pick<StaticGkAtlasStatusItem, "readiness" | "sce
 export function getStaticGkAtlasStatus() {
   const items: StaticGkAtlasStatusItem[] = STATIC_GK_VISUAL_ATLAS_PILOT.map((candidate) => {
     const factLock = factLocks.get(candidate.id);
-    const status = statusFor(candidate.id);
     return {
       id: candidate.id,
       title: candidate.title,
@@ -78,7 +78,7 @@ export function getStaticGkAtlasStatus() {
       subcategory: candidate.subcategory,
       template: candidate.template,
       factLockStatus: factLock?.status ?? "none",
-      ...status,
+      ...statusFor(candidate.id),
     };
   });
 
