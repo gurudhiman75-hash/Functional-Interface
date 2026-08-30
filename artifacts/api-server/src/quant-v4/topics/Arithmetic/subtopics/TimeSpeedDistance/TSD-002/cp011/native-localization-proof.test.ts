@@ -10,21 +10,24 @@ function assert(condition: unknown, message: string): asserts condition {
 const DEVANAGARI = /\p{Script=Devanagari}/u;
 const GURMUKHI = /\p{Script=Gurmukhi}/u;
 
-assert(TSD_CP011_NATIVE_HINDI_REVIEW.length === 42, "expected 42 Hindi review questions");
-assert(TSD_CP011_NATIVE_PUNJABI_REVIEW.length === 42, "expected 42 Punjabi review questions");
-assert(TSD_CP011_ENGLISH_REVIEW.length === 42, "expected 42 English parity questions");
+assert(TSD_CP011_NATIVE_HINDI_REVIEW.length === 168, "expected 168 Hindi review questions");
+assert(TSD_CP011_NATIVE_PUNJABI_REVIEW.length === 168, "expected 168 Punjabi review questions");
+assert(TSD_CP011_ENGLISH_REVIEW.length === 168, "expected 168 English parity questions");
 
 for (const [language, questions] of [
   ["hi", TSD_CP011_NATIVE_HINDI_REVIEW],
   ["pa", TSD_CP011_NATIVE_PUNJABI_REVIEW],
 ] as const) {
-  assert(new Set(questions.map((x) => x.familyId)).size === 42, `${language}: family IDs must be unique`);
-  assert(new Set(questions.map((x) => x.stem)).size === 42, `${language}: learner stems must be unique`);
+  assert(new Set(questions.map((x) => x.familyId)).size === 168, `${language}: family IDs must be unique`);
+  assert(new Set(questions.map((x) => x.stem)).size === 168, `${language}: learner stems must be unique`);
 
   for (const qlId of TSD_CP011_PROVISIONAL_QL_IDS) {
     const localized = questions.filter((x) => x.qlId === qlId);
-    assert(localized.length === 6, `${language}/${qlId}: expected six families`);
+    assert(localized.length === 24, `${language}/${qlId}: expected 24 families`);
     assert(new Set(localized.map((x) => x.input.target)).size >= 2, `${language}/${qlId}: target variety is too thin`);
+    for (const target of new Set(localized.map((x) => x.input.target))) {
+      assert(localized.filter((x) => x.input.target === target).length >= 4, `${language}/${qlId}/${target}: target evidence is too thin`);
+    }
   }
 
   for (const question of questions) {
@@ -72,8 +75,9 @@ console.log("TSD-CP-011 NATIVE HINDI/PUNJABI LOCALIZATION PROOF: PASS");
 console.log(JSON.stringify({
   hindiQuestions: TSD_CP011_NATIVE_HINDI_REVIEW.length,
   punjabiQuestions: TSD_CP011_NATIVE_PUNJABI_REVIEW.length,
-  familiesPerQl: 6,
+  familiesPerQl: 24,
   qls: TSD_CP011_PROVISIONAL_QL_IDS.length,
+  targetEvidenceFloor: 4,
   latinScriptInLearnerStems: "ABSENT",
   crossScriptLetters: "ABSENT",
   avoidableTranslatedJargon: "ABSENT",
