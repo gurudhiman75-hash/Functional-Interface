@@ -37,10 +37,14 @@ jobs:
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-proof.test.ts
 
       - name: Re-prove frozen shared Question Studio integration
-        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-v4-1-integration.test.ts
+        run: |
+          pnpm exec esbuild artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-v4-1-integration.test.ts --bundle --platform=node --format=esm --outfile=/tmp/sta-v41-integration.mjs
+          node /tmp/sta-v41-integration.mjs
 
       - name: Prove current shared-engine and admin-route continuity
-        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/post-merge-continuity-proof.test.ts
+        run: |
+          pnpm exec esbuild artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/post-merge-continuity-proof.test.ts --bundle --platform=node --format=esm --outfile=/tmp/sta-post-merge-continuity.mjs
+          node /tmp/sta-post-merge-continuity.mjs
 
       - name: Build production API server
         run: pnpm --dir artifacts/api-server build
