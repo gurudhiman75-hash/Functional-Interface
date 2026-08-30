@@ -1,7 +1,8 @@
 import { add, divide, multiply, rational, subtract, toMixedString, type Rational } from "../../TSD-001/foundation/rational";
 import { verifyTsdCp011 } from "./executable-verifier";
 import { TSD_CP011_ENGLISH_REVIEW, type TsdCp011EnglishReviewQuestion } from "./english-review-final";
-import { TSD_CP011_NATIVE_HINDI_REVIEW, TSD_CP011_NATIVE_PUNJABI_REVIEW, type TsdCp011NativeReviewQuestion } from "./native-review-final";
+import { TSD_CP011_RELEASE_HINDI_REVIEW as TSD_CP011_NATIVE_HINDI_REVIEW, TSD_CP011_RELEASE_PUNJABI_REVIEW as TSD_CP011_NATIVE_PUNJABI_REVIEW } from "./native-review-release";
+import type { TsdCp011NativeReviewQuestion } from "./native-review-final";
 import type { TsdCp011ExecutableInput, TsdCp011ExecutableSolution } from "./executable-types";
 import type { TsdCp011QlId } from "./ql-allocation";
 
