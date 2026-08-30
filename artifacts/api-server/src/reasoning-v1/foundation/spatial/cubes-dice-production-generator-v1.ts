@@ -17,6 +17,13 @@ import {
   type DiceObservationV1,
   type VoxelViewV1,
 } from "./cubes-dice-foundation-v1";
+import {
+  CND_001_EXAM_RENDERER_AUTHORITY_V1,
+  renderCubeNetExamSvgV1,
+  renderDiceObservationPairExamSvgV1,
+  renderPaintedCubeExamSvgV1,
+  renderVoxelStackExamSvgV1,
+} from "./cubes-dice-exam-renderer-v1";
 
 export type CubesDiceTaskKindV1 =
   | "DICE_OPPOSITE_FROM_TWO_VIEWS"
@@ -40,11 +47,19 @@ export interface CubesDiceCandidateQuestionV1 {
   seed: string;
   difficulty: CubesDiceDifficultyV1;
   stem: string;
+  stimulusSvgs: readonly [string];
   options: readonly (string | number)[];
   correctIndex: number;
   answer: string | number;
   scene: Readonly<Record<string, unknown>>;
   solverEvidence: Readonly<Record<string, unknown>>;
+  renderer: Readonly<{
+    authority: typeof CND_001_EXAM_RENDERER_AUTHORITY_V1.authorityId;
+    kind: "SVG";
+    whiteBackground: true;
+    canonicalCamera: true;
+    randomWholeFigureTiltAllowed: false;
+  }>;
   lifecycle: Readonly<{
     reviewOnly: true;
     permanentQlAllocated: false;
@@ -60,6 +75,7 @@ export interface CubesDiceCandidateQuestionV1 {
 export const CND_001_PRODUCTION_GENERATOR_AUTHORITY_V1 = Object.freeze({
   authorityId: "CND-001-PRODUCTION-GENERATOR-V1" as const,
   foundationAuthorityId: CND_001_FOUNDATION_AUTHORITY_V1.authorityId,
+  rendererAuthorityId: CND_001_EXAM_RENDERER_AUTHORITY_V1.authorityId,
   chapterCode: "CND-001" as const,
   nextPermanentQlId: "SPA-QL-043" as const,
   implementedCandidateFamilies: [
@@ -68,7 +84,8 @@ export const CND_001_PRODUCTION_GENERATOR_AUTHORITY_V1 = Object.freeze({
     "CND-CAND-C-PAINTED-CUBE",
     "CND-CAND-D-ORTHOGRAPHIC-VIEW",
   ] as const,
-  status: "SEEDED_REVIEW_RUNTIME_BEFORE_SOURCE_SATURATION_AND_QL_ALLOCATION" as const,
+  status: "SEEDED_REVIEW_RUNTIME_WITH_EXAM_RENDERER_PRE_QL_ALLOCATION" as const,
+  permanentQlAllocationAuthorized: false,
   automaticStudentPublication: false,
 });
 
@@ -124,6 +141,16 @@ function lifecycle() {
   });
 }
 
+function rendererMetadata() {
+  return Object.freeze({
+    authority: CND_001_EXAM_RENDERER_AUTHORITY_V1.authorityId,
+    kind: "SVG" as const,
+    whiteBackground: true as const,
+    canonicalCamera: true as const,
+    randomWholeFigureTiltAllowed: false as const,
+  });
+}
+
 function assignmentFromLabels(labels: readonly string[], random: () => number): CubeLabelAssignmentV1 {
   const shuffled = shuffle(labels, random);
   const faces: readonly CubeFaceV1[] = ["U", "D", "F", "B", "R", "L"];
@@ -148,7 +175,7 @@ function diceQuestion(seed: string): CubesDiceCandidateQuestionV1 {
     const assignment = assignmentFromLabels(labels, random);
     const targetLabel = pick(labels, random);
     const orientations = shuffle(CUBE_ORIENTATIONS_V1, random);
-    const observations: readonly DiceObservationV1[] = [
+    const observations: readonly [DiceObservationV1, DiceObservationV1] = [
       observeCubeV1(assignment, orientations[0]!),
       observeCubeV1(assignment, orientations[1]!),
     ];
@@ -167,11 +194,13 @@ function diceQuestion(seed: string): CubesDiceCandidateQuestionV1 {
       seed,
       difficulty: retry < 10 ? "EASY" : "MODERATE",
       stem: `Two positions of the same die are shown. Which face is opposite to ${targetLabel}?`,
+      stimulusSvgs: Object.freeze([renderDiceObservationPairExamSvgV1(observations)]) as readonly [string],
       options,
       correctIndex: options.indexOf(correct),
       answer: correct,
       scene: Object.freeze({ labels: [...labels], observations }),
       solverEvidence: Object.freeze({ compatibleOppositeLabels: candidates, exactRotationGroupSize: CUBE_ORIENTATIONS_V1.length }),
+      renderer: rendererMetadata(),
       lifecycle: lifecycle(),
     });
   }
@@ -207,11 +236,13 @@ function netQuestion(seed: string): CubesDiceCandidateQuestionV1 {
     seed,
     difficulty: "MODERATE",
     stem: `The given net is folded to form a cube. Which face will be opposite to ${target}?`,
+    stimulusSvgs: Object.freeze([renderCubeNetExamSvgV1(cells)]) as readonly [string],
     options,
     correctIndex: options.indexOf(correct),
     answer: correct,
     scene: Object.freeze({ cells }),
     solverEvidence: Object.freeze({ foldedValid: true, normalByCellId: folded.normalByCellId }),
+    renderer: rendererMetadata(),
     lifecycle: lifecycle(),
   });
 }
@@ -235,11 +266,13 @@ function paintedCubeQuestion(seed: string): CubesDiceCandidateQuestionV1 {
     seed,
     difficulty: paintedFaceCount === 0 ? "MODERATE" : "EASY",
     stem: `A cube is painted on all six faces and divided into ${n ** 3} equal smaller cubes. How many smaller cubes have exactly ${paintedFaceCount} painted face${paintedFaceCount === 1 ? "" : "s"}?`,
+    stimulusSvgs: Object.freeze([renderPaintedCubeExamSvgV1(n)]) as readonly [string],
     options,
     correctIndex: options.indexOf(correct),
     answer: correct,
     scene: Object.freeze({ subdivisionsPerEdge: n, paintedFaces: ALL_CUBE_FACES_V1 }),
     solverEvidence: Object.freeze({ coordinateEnumerationCount: cells.length, distribution }),
+    renderer: rendererMetadata(),
     lifecycle: lifecycle(),
   });
 }
@@ -262,11 +295,13 @@ function voxelQuestion(seed: string): CubesDiceCandidateQuestionV1 {
     seed,
     difficulty: view === "TOP" ? "EASY" : "MODERATE",
     stem: `A stack of unit cubes is shown. How many unit squares appear in its ${view.toLowerCase()} orthographic view?`,
+    stimulusSvgs: Object.freeze([renderVoxelStackExamSvgV1(heights)]) as readonly [string],
     options,
     correctIndex: options.indexOf(correct),
     answer: correct,
     scene: Object.freeze({ heights, view }),
     solverEvidence: Object.freeze({ voxelCount: voxels.length, projectionCount: correct }),
+    renderer: rendererMetadata(),
     lifecycle: lifecycle(),
   });
 }
