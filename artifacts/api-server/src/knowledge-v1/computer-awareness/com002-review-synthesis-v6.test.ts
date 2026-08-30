@@ -17,6 +17,8 @@ const bannedEditorialDefects = [
   /is associated with Portable Document Format file\./i,
   /is commonly used for executable program file\./i,
   /Therefore, [IVX, ]+(?:and [IVX]+ )?only is correct\./i,
+  /^Which function best matches Windows taskbar\?$/i,
+  /^Which file-management item matches this description: can display hidden items when the relevant view option is enabled\?$/i,
 ];
 
 let audited = 0;
@@ -72,7 +74,7 @@ for (const qlId of qlIds) {
 
 // Exact review/export seeds are regression surfaces because human-readable
 // packs exposed grammar that the original structural audit did not catch.
-for (const qlId of ["COM-002-QL-009", "COM-002-QL-013"] as const) {
+for (const qlId of ["COM-002-QL-007", "COM-002-QL-008", "COM-002-QL-009", "COM-002-QL-013"] as const) {
   const seeds = [
     `human-review-wave1:${qlId}:A`,
     `human-review-wave1:${qlId}:B`,
@@ -87,12 +89,28 @@ for (const qlId of ["COM-002-QL-009", "COM-002-QL-013"] as const) {
   }
 }
 
+const ql007Export = generateCom002ReviewQuestionV6({
+  qlId: "COM-002-QL-007",
+  seed: "localization-human-review-v4:COM-002-QL-007",
+});
+assert.notEqual(ql007Export.stem, "Which function best matches Windows taskbar?");
+
+const ql008Export = generateCom002ReviewQuestionV6({
+  qlId: "COM-002-QL-008",
+  seed: "localization-human-review-v4:COM-002-QL-008",
+});
+assert.notEqual(
+  ql008Export.stem,
+  "Which file-management item matches this description: can display hidden items when the relevant view option is enabled?",
+);
+
 assert.equal(audited, 520);
 assert.ok(ql003PropertyStems > 0, "V6 audit must exercise QL-003 property stems");
 console.log("[COM002-REVIEW-SYNTHESIS-V6] PASS", {
   questions: audited,
   repairedSurfaces,
   ql003PropertyStems,
+  exactExportStemRegressions: true,
   semanticProvenancePreserved: true,
   candidateOnly: true,
 });
