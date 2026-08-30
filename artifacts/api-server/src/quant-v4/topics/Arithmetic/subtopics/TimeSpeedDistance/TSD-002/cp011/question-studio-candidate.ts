@@ -1,8 +1,8 @@
-import { add, rational, toMixedString, type Rational } from "../../TSD-001/foundation/rational";
+import { add, divide, multiply, rational, subtract, toMixedString, type Rational } from "../../TSD-001/foundation/rational";
 import { verifyTsdCp011 } from "./executable-verifier";
 import { TSD_CP011_ENGLISH_REVIEW, type TsdCp011EnglishReviewQuestion } from "./english-review-final";
 import { TSD_CP011_NATIVE_HINDI_REVIEW, TSD_CP011_NATIVE_PUNJABI_REVIEW, type TsdCp011NativeReviewQuestion } from "./native-review-final";
-import type { TsdCp011ExecutableSolution } from "./executable-types";
+import type { TsdCp011ExecutableInput, TsdCp011ExecutableSolution } from "./executable-types";
 import type { TsdCp011QlId } from "./ql-allocation";
 
 export type TsdCp011StudioLanguage = "en" | "hi" | "pa";
@@ -15,10 +15,10 @@ export type TsdCp011StudioRequest = Readonly<{
   difficulty?: TsdCp011StudioDifficulty;
 }>;
 
-export const TSD_CP011_STUDIO_CANDIDATE_RUNTIME_MODE = "TSD-CP-011-MULTILINGUAL-REVIEW-CANDIDATE-v1" as const;
+export const TSD_CP011_STUDIO_CANDIDATE_RUNTIME_MODE = "TSD-CP-011-MULTILINGUAL-TARGET-EXHAUSTIVE-REVIEW-CANDIDATE-v2" as const;
 export const TSD_CP011_STUDIO_CANDIDATE_PACKAGE_ID = "TSD-CP011-STUDIO-REVIEW-CANDIDATE" as const;
-export const TSD_CP011_STUDIO_REVIEWED_COMBINATIONS_PER_LOCALE = 42 as const;
-export const TSD_CP011_STUDIO_REVIEWED_MULTILINGUAL_COMBINATIONS = 126 as const;
+export const TSD_CP011_STUDIO_REVIEWED_COMBINATIONS_PER_LOCALE = 168 as const;
+export const TSD_CP011_STUDIO_REVIEWED_MULTILINGUAL_COMBINATIONS = 504 as const;
 
 export const TSD_CP011_STUDIO_CANDIDATE_PACKAGE = Object.freeze({
   packageId: TSD_CP011_STUDIO_CANDIDATE_PACKAGE_ID,
@@ -28,7 +28,7 @@ export const TSD_CP011_STUDIO_CANDIDATE_PACKAGE = Object.freeze({
   supportedDifficulties: Object.freeze(["EASY", "MEDIUM"] as const),
   reviewedCombinationsPerLocale: TSD_CP011_STUDIO_REVIEWED_COMBINATIONS_PER_LOCALE,
   reviewedMultilingualCombinations: TSD_CP011_STUDIO_REVIEWED_MULTILINGUAL_COMBINATIONS,
-  sourceStatus: "MULTILINGUAL_REVIEW_CANDIDATE" as const,
+  sourceStatus: "MULTILINGUAL_TARGET_EXHAUSTIVE_REVIEW_CANDIDATE" as const,
   questionStudioRegistrationStatus: "NOT_REGISTERED" as const,
   productionSelectorVisible: false as const,
   routeMounted: false as const,
@@ -40,9 +40,10 @@ export const TSD_CP011_STUDIO_CANDIDATE_PACKAGE = Object.freeze({
   mockTestEligible: false as const,
   publiclyPublishable: false as const,
   automaticStudentPublication: false as const,
-  optionPolicy: "EXACTLY_FOUR_UNIQUE_OPTIONS" as const,
+  optionPolicy: "EXACTLY_FOUR_UNIQUE_OPTIONS_WITH_THREE_MISCONCEPTION_PATHS" as const,
   verificationPolicy: "EXACT_SOLVER_PLUS_INDEPENDENT_VERIFIER" as const,
-  variationPolicy: "REVIEWED_HUMAN_FAMILY_ONLY_UNTIL_CAPACITY_EXPANSION_IS_SEPARATELY_PROVEN" as const,
+  variationPolicy: "FULL_24_CASE_PER_AUTHORITY_REVIEW_SURFACE" as const,
+  arbitraryOffsetDistractors: false as const,
 });
 
 type ReviewQuestion = TsdCp011EnglishReviewQuestion | TsdCp011NativeReviewQuestion;
@@ -117,12 +118,153 @@ function shuffled<T>(items: readonly T[], seed: string): T[] {
   return out;
 }
 
-function optionsFor(solution: TsdCp011ExecutableSolution, language: TsdCp011StudioLanguage, seed: string) {
-  const values = [solution.answer, add(solution.answer, rational(1)), add(solution.answer, rational(2)), add(solution.answer, rational(3))];
+function rationalKey(value: Rational) {
+  return `${value.numerator}/${value.denominator}`;
+}
+
+function positiveDifference(left: Rational, right: Rational) {
+  const diff = subtract(left, right);
+  return diff.numerator < 0n ? rational(-diff.numerator, diff.denominator) : diff;
+}
+
+function fallbackMisconceptions(answer: Rational): readonly Rational[] {
+  return Object.freeze([
+    multiply(answer, rational(2)),
+    divide(answer, rational(2)),
+    multiply(answer, rational(3, 2)),
+    multiply(answer, rational(3)),
+  ]);
+}
+
+function misconceptionValues(input: TsdCp011ExecutableInput, solution: TsdCp011ExecutableSolution): readonly Rational[] {
+  const out: Rational[] = [];
+  const push = (...values: Rational[]) => out.push(...values);
+
+  switch (input.authorityKey) {
+    case "movingSurfaceTravelState": {
+      if (input.target === "TIME") {
+        const reverseNet = input.direction === "SAME" ? subtract(input.personRate, input.surfaceRate) : add(input.personRate, input.surfaceRate);
+        push(divide(input.length, input.personRate), divide(input.length, input.surfaceRate), divide(input.length, reverseNet));
+      } else if (input.target === "LENGTH") {
+        const reverseNet = input.direction === "SAME" ? subtract(input.personRate, input.surfaceRate) : add(input.personRate, input.surfaceRate);
+        push(multiply(input.personRate, input.time), multiply(input.surfaceRate, input.time), multiply(reverseNet, input.time));
+      } else if (input.target === "PERSON_RATE") {
+        const ground = divide(input.length, input.time);
+        push(ground, add(ground, input.surfaceRate), positiveDifference(ground, input.surfaceRate));
+      } else {
+        const ground = divide(input.length, input.time);
+        push(ground, input.personRate, add(ground, input.personRate));
+      }
+      break;
+    }
+    case "stationaryStepCountState": {
+      if (input.target === "TOTAL_STEPS") {
+        const time = divide(input.walkedSteps, input.personStepRate);
+        push(
+          input.walkedSteps,
+          multiply(add(input.personStepRate, input.escalatorStepRate), time),
+          multiply(subtract(input.personStepRate, input.escalatorStepRate), time),
+        );
+      } else if (input.target === "WALKED_STEPS") {
+        push(
+          input.totalSteps,
+          multiply(input.totalSteps, divide(input.personStepRate, add(input.personStepRate, input.escalatorStepRate))),
+          multiply(input.totalSteps, divide(input.personStepRate, subtract(input.personStepRate, input.escalatorStepRate))),
+        );
+      }
+      break;
+    }
+    case "dualEscalatorObservationState": {
+      if (input.target === "STOPPED_TIME") {
+        push(
+          divide(add(input.upTime, input.downTime), rational(2)),
+          positiveDifference(input.downTime, input.upTime),
+          divide(multiply(input.upTime, input.downTime), add(input.upTime, input.downTime)),
+        );
+      } else {
+        push(
+          divide(input.downTime, input.upTime),
+          divide(input.upTime, input.downTime),
+          divide(add(input.downTime, input.upTime), input.downTime),
+        );
+      }
+      break;
+    }
+    case "movingSurfaceStateComparison": {
+      if (input.target === "COMBINED_TIME" || input.target === "TIME_SAVED") {
+        push(
+          add(input.stoppedWalkingTime, input.carriedStandingTime),
+          divide(add(input.stoppedWalkingTime, input.carriedStandingTime), rational(2)),
+          positiveDifference(input.carriedStandingTime, input.stoppedWalkingTime),
+        );
+      } else if (input.target === "STOPPED_WALKING_TIME") {
+        push(
+          add(input.combinedTime, input.carriedStandingTime),
+          positiveDifference(input.carriedStandingTime, input.combinedTime),
+          divide(add(input.combinedTime, input.carriedStandingTime), rational(2)),
+        );
+      } else {
+        push(
+          add(input.combinedTime, input.stoppedWalkingTime),
+          positiveDifference(input.stoppedWalkingTime, input.combinedTime),
+          divide(add(input.combinedTime, input.stoppedWalkingTime), rational(2)),
+        );
+      }
+      break;
+    }
+    case "wheelRollState": {
+      if (input.target === "REVOLUTIONS") push(multiply(input.distance, input.circumference));
+      else if (input.target === "CIRCUMFERENCE") push(multiply(input.distance, input.revolutions));
+      else if (input.target === "DIAMETER") push(multiply(solution.answer, input.pi));
+      else if (input.target === "RADIUS") push(multiply(solution.answer, rational(4)));
+      break;
+    }
+    case "wheelRateTranslationState": {
+      if (input.target === "LINEAR_SPEED") push(input.circumference, input.rpm);
+      else if (input.target === "RPM") push(input.linearSpeedPerMinute, input.circumference);
+      else if (input.target === "DISTANCE") push(
+        multiply(input.circumference, input.rpm),
+        multiply(input.circumference, input.timeMinutes),
+        multiply(input.rpm, input.timeMinutes),
+      );
+      else push(divide(input.distance, input.circumference), divide(input.distance, input.rpm));
+      break;
+    }
+    case "twoWheelComparisonState": {
+      if (input.target === "REVOLUTION_RATIO") {
+        push(
+          divide(input.circumferenceA, input.circumferenceB),
+          divide(add(input.circumferenceA, input.circumferenceB), input.circumferenceA),
+        );
+      } else {
+        const countA = divide(input.distance, input.circumferenceA);
+        const countB = divide(input.distance, input.circumferenceB);
+        push(countA, countB, add(countA, countB));
+      }
+      break;
+    }
+  }
+
+  push(...fallbackMisconceptions(solution.answer));
+  const answerKey = rationalKey(solution.answer);
+  const seen = new Set<string>([answerKey]);
+  const distinct = out.filter((value) => {
+    if (value.numerator <= 0n) return false;
+    const key = rationalKey(value);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  if (distinct.length < 3) throw new Error(`${input.authorityKey}/${input.target}: fewer than three distinct misconception distractors`);
+  return Object.freeze(distinct.slice(0, 3));
+}
+
+function optionsFor(input: TsdCp011ExecutableInput, solution: TsdCp011ExecutableSolution, language: TsdCp011StudioLanguage, seed: string) {
+  const values = [solution.answer, ...misconceptionValues(input, solution)];
   const correct = formatValue(solution.answer, solution.unit, language);
   const options = shuffled(values.map((value) => formatValue(value, solution.unit, language)), seed);
   const correctIndex = options.indexOf(correct);
-  if (new Set(options).size !== 4 || correctIndex < 0) throw new Error("CP011 Studio option construction failed uniqueness/correct-answer guard");
+  if (new Set(options).size !== 4 || correctIndex < 0) throw new Error(`${input.authorityKey}/${input.target}: CP011 Studio option construction failed uniqueness/correct-answer guard`);
   return Object.freeze({ options: Object.freeze(options), correctIndex });
 }
 
@@ -140,7 +282,7 @@ export function previewTsdCp011StudioCandidate(request: TsdCp011StudioRequest = 
   const questions = shuffled(selected, `${seed}:${language}`).slice(0, count).map((q, index) => {
     const verification = verifyTsdCp011(q.input, q.solution);
     if (!verification.accepted) throw new Error(`${language}/${q.familyId}: independent verifier rejected Studio candidate`);
-    const optionModel = optionsFor(q.solution, language, `${seed}:${language}:${q.familyId}:${index}`);
+    const optionModel = optionsFor(q.input, q.solution, language, `${seed}:${language}:${q.familyId}:${index}`);
     return Object.freeze({
       questionId: `TSD-CP011-${language}-${q.familyId}-${hash(`${seed}:${index}`).toString(16)}`,
       canonicalItemId: q.familyId,
@@ -169,6 +311,8 @@ export function previewTsdCp011StudioCandidate(request: TsdCp011StudioRequest = 
         independentVerifierAccepted: true,
         fourUniqueOptions: true,
         humanReviewedFamily: true,
+        misconceptionBackedDistractors: true,
+        arbitraryOffsetDistractors: false,
       }),
     });
   });
