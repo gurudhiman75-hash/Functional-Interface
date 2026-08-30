@@ -6,12 +6,12 @@ export * from "./cp001/discovery-registry";
 export * from "./cp001/canonical-solver";
 export * from "./cp001/independent-verifier";
 export * from "./cp001/runtime";
-export * from "./cp001/freeze-registry";
+// CP001/CP002 historical freeze registries remain path-addressable for audit,
+// but are intentionally excluded from this canonical barrel after the remodel.
 export * from "./cp002/discovery-registry";
 export * from "./cp002/solver";
 export * from "./cp002/verifier";
 export * from "./cp002/public-runtime";
-export * from "./cp002/freeze-registry";
 export * from "./cp003/discovery-registry";
 export * from "./cp003/types";
 export * from "./cp003/solver";
