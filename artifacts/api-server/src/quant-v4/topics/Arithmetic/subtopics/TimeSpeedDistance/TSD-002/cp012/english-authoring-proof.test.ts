@@ -69,6 +69,10 @@ assert(ql141.every((x) => x.explanation.steps[0]?.includes("distance = speed × 
 const ql142 = TSD_CP012_ENGLISH_REVIEW_FINAL.filter((x) => x.qlId === "TSD-QL-142");
 assert(ql142.some((x) => x.solution.kind === "SET"), "TSD-QL-142 must review complete-set output");
 assert(ql142.some((x) => x.solution.kind === "SCALAR" && x.input.target === "COUNT"), "TSD-QL-142 must review valid-state count output");
+const ql142Sets = ql142.filter((x) => x.input.target === "VALID_SET");
+assert(ql142Sets.length === 3, "TSD-QL-142 must expose three reviewed complete-set MCQ families");
+assert(ql142Sets.every((x) => /Which option gives the complete set/.test(x.stem)), "TSD-QL-142 complete-set stems must be phrased as option-selection MCQs");
+assert(ql142Sets.every((x) => !/List every|List the complete set/i.test(x.stem)), "TSD-QL-142 complete-set stems must not regress to worksheet-style list instructions");
 
 console.log("TSD-CP-012 ENGLISH REVIEW AUTHORING PROOF: PASS");
 console.log(JSON.stringify({
@@ -80,6 +84,7 @@ console.log(JSON.stringify({
   difficultyBands: { easy: 22, medium: 44, hard: 0 },
   sourceExtensionTargetsInReview: [...extensionTargets],
   ql141LearnerSurface: "CONCRETE_MOTION_OBSERVATIONS_DERIVE_ALGEBRA_IN_EXPLANATION",
+  ql142SetSurface: "FOUR_OPTION_COMPLETE_SET_MCQ",
   explanationStyle: "TWO_CONCISE_QUESTION_SPECIFIC_STEPS_PLUS_CONCLUSION",
   editorialGuard: "EXPLICIT_MOTION_EVIDENCE_CLEAR_REQUEST_COMPLETE_SENTENCES",
   lifecycle: "REVIEW_ONLY_NOT_FROZEN",
