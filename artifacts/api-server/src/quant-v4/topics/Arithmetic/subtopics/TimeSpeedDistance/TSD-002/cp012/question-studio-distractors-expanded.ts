@@ -3,6 +3,7 @@ import {
   add,
   compare,
   divide,
+  modulo,
   multiply,
   rational,
   subtract,
@@ -130,6 +131,22 @@ function expandedCandidates(
       c("UPSTREAM_BOAT_GROUND_SPEED_USED", "Use boat speed minus current as the object's drift speed.", multiply(subtract(input.boatStillWaterSpeed, input.currentSpeed), input.detectionDelay)),
       c("BOAT_ROUND_TRIP_AT_STILL_WATER_SPEED", "Use twice the boat's still-water distance during the detection interval as the recovery displacement.", multiply(TWO, stillWaterDelayDistance)),
       c("DOWNSTREAM_BOAT_DISTANCE_PLUS_OBJECT_DRIFT", "Add the downstream boat distance during the delay to one extra interval of object drift.", multiply(add(input.boatStillWaterSpeed, multiply(TWO, input.currentSpeed)), input.detectionDelay)),
+    ];
+  }
+
+  if (input.authorityKey === "closedTrackRaceSynthesisState" && input.target === "FIRST_OVERTAKE_TIME") {
+    const relativeSpeed = subtract(input.fasterSpeed, input.slowerSpeed);
+    const wrappedHeadStart = modulo(input.slowerHeadStart, input.trackLength);
+    const effectiveGap = compare(wrappedHeadStart, ZERO) === 0 ? input.trackLength : wrappedHeadStart;
+    const complementaryGap = subtract(input.trackLength, wrappedHeadStart);
+    return [
+      c("OPPOSITE_DIRECTION_RATE", "Use the speed sum for a same-direction overtake while keeping the effective forward gap.", divide(effectiveGap, add(input.fasterSpeed, input.slowerSpeed))),
+      c("FASTER_SPEED_ALONE", "Close the effective gap using only the faster runner's speed instead of relative speed.", divide(effectiveGap, input.fasterSpeed)),
+      c("SLOWER_SPEED_AS_CLOSING_RATE", "Treat the slower runner's speed as the closing rate.", divide(effectiveGap, input.slowerSpeed)),
+      c("COMPLEMENTARY_GAP", "Use the complementary track arc instead of the forward gap that must actually be gained.", divide(complementaryGap, relativeSpeed)),
+      c("ONE_EXTRA_LAP_BEFORE_OVERTAKE", "Require the faster runner to gain one additional full lap beyond the actual overtake gap.", divide(add(effectiveGap, input.trackLength), relativeSpeed)),
+      c("TWO_EXTRA_LAPS_BEFORE_OVERTAKE", "Require two unnecessary additional full laps before calling the first pass an overtake.", divide(add(effectiveGap, multiply(TWO, input.trackLength)), relativeSpeed)),
+      c("FULL_LAP_AT_FASTER_SPEED", "Use one full track length divided by the faster runner's own speed.", divide(input.trackLength, input.fasterSpeed)),
     ];
   }
 
