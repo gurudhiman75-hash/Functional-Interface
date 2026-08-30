@@ -12,7 +12,12 @@ on:
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-014/**
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-015/**
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-016/**
+      - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017/**
       - artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/foundation/**
+      - artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts
+      - artifacts/api-server/src/question-studio/shared-generation-engine-sri.ts
+      - artifacts/api-server/src/routes/admin-question-studio-data-sufficiency-current.ts
+      - artifacts/api-server/src/routes/admin-question-studio-registry.ts
       - artifacts/api-server/src/lib/reasoning/inequality-foundation.ts
       - artifacts/api-server/src/lib/reasoning/inequality-foundation.test.ts
   workflow_dispatch:
@@ -57,7 +62,7 @@ jobs:
             --outfile=dist/reasoning-v1/data-sufficiency/common-base/inequality-foundation.test.mjs
           node artifacts/api-server/dist/reasoning-v1/data-sufficiency/common-base/inequality-foundation.test.mjs
 
-      - name: Run every CP011-CP016 executable audit on one tree
+      - name: Run every CP011-CP017 executable audit on one tree
         shell: bash
         run: |
           set -euo pipefail
@@ -84,15 +89,16 @@ jobs:
             "$ROOT/DSF-CP-014" \
             "$ROOT/DSF-CP-015" \
             "$ROOT/DSF-CP-016" \
+            "$ROOT/DSF-CP-017" \
             -type f -name '*.test.ts' | sort)
 
-          if [ "$count" -lt 20 ]; then
-            echo "Expected at least 20 CP011-CP016 audit files, found $count" >&2
+          if [ "$count" -lt 22 ]; then
+            echo "Expected at least 22 CP011-CP017 audit files, found $count" >&2
             exit 1
           fi
           echo "PASS_DSF_COMMON_BASE_ALL_CHECKPOINT_AUDITS count=$count"
 
-      - name: Verify review-only runtime lifecycle remains locked
+      - name: Verify pre-CP017 source/runtime learner lifecycle remains locked
         shell: bash
         run: |
           set -euo pipefail
@@ -110,7 +116,31 @@ jobs:
           })"
           if [ -n "$matches" ]; then
             printf '%s\n' "$matches"
-            echo 'A CP011-CP016 runtime learner-delivery capability was opened on the integration tree.' >&2
+            echo 'A CP011-CP016 source/runtime learner-delivery capability was opened outside the CP017 adapter boundary.' >&2
             exit 1
           fi
-          echo 'PASS_DSF_COMMON_BASE_LIFECYCLE_LOCKS'
+          echo 'PASS_DSF_COMMON_BASE_SOURCE_LIFECYCLE_LOCKS'
+
+      - name: Verify CP017 opens Studio review only
+        shell: bash
+        run: |
+          set -euo pipefail
+          adapter='artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017/question-studio-review-v1.ts'
+          route='artifacts/api-server/src/routes/admin-question-studio-data-sufficiency-current.ts'
+
+          grep -Fq 'questionStudioDiscoverable: true as const' "$adapter"
+          grep -Fq 'persistenceAllowed: true as const' "$adapter"
+          grep -Fq 'reviewOnly: true as const' "$adapter"
+          grep -Fq 'questionBankWritable: false as const' "$adapter"
+          grep -Fq 'testEligible: false as const' "$adapter"
+          grep -Fq 'mockTestEligible: false as const' "$adapter"
+          grep -Fq 'publiclyPublishable: false as const' "$adapter"
+          grep -Fq 'automaticStudentPublication: false as const' "$adapter"
+
+          grep -Fq 'questionBankWritable !== false' "$route"
+          grep -Fq 'testEligible !== false' "$route"
+          grep -Fq 'mockTestEligible !== false' "$route"
+          grep -Fq 'publiclyPublishable !== false' "$route"
+          grep -Fq 'automaticStudentPublication !== false' "$route"
+
+          echo 'PASS_DSF_CP017_STUDIO_REVIEW_ONLY_PROMOTION_BOUNDARY'
