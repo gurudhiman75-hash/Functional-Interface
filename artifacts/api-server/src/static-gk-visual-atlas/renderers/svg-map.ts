@@ -4,7 +4,13 @@ import type {
   IndiaAdminFeatureCollection,
   Position,
 } from "../geometry/geojson";
-import type { StaticGkMapPathSceneRecipe, StaticGkSceneViewport } from "../scenes/types";
+import type {
+  StaticGkMapPathSceneRecipe,
+  StaticGkMeridianSceneRecipe,
+  StaticGkSceneCue,
+  StaticGkSceneQuiz,
+  StaticGkSceneViewport,
+} from "../scenes/types";
 
 interface ProjectedPoint {
   x: number;
@@ -30,10 +36,7 @@ function mercatorRaw([longitude, latitude]: Position): ProjectedPoint {
   const lambda = (longitude * Math.PI) / 180;
   const clampedLatitude = Math.max(-MERCATOR_MAX_LATITUDE, Math.min(MERCATOR_MAX_LATITUDE, latitude));
   const phi = (clampedLatitude * Math.PI) / 180;
-  return {
-    x: lambda,
-    y: Math.log(Math.tan(Math.PI / 4 + phi / 2)),
-  };
+  return { x: lambda, y: Math.log(Math.tan(Math.PI / 4 + phi / 2)) };
 }
 
 function forEachPosition(geometry: GeoJsonAreaGeometry, visit: (position: Position) => void): void {
@@ -55,7 +58,6 @@ export function createIndiaMercatorProjector(
   let maxX = -Infinity;
   let minY = Infinity;
   let maxY = -Infinity;
-
   for (const feature of geometry.features) {
     forEachPosition(feature.geometry, (position) => {
       const point = mercatorRaw(position);
@@ -87,10 +89,7 @@ export function createIndiaMercatorProjector(
   return {
     project(position: Position): ProjectedPoint {
       const raw = mercatorRaw(position);
-      return {
-        x: raw.x * scale + offsetX,
-        y: offsetY - raw.y * scale,
-      };
+      return { x: raw.x * scale + offsetX, y: offsetY - raw.y * scale };
     },
   };
 }
@@ -105,9 +104,7 @@ function ringPath(ring: Position[], projector: Projector): string {
 
 function areaPath(geometry: GeoJsonAreaGeometry, projector: Projector): string {
   const polygons = geometry.type === "Polygon" ? [geometry.coordinates] : geometry.coordinates;
-  return polygons
-    .flatMap((polygon) => polygon.map((ring) => ringPath(ring, projector)))
-    .join(" ");
+  return polygons.flatMap((polygon) => polygon.map((ring) => ringPath(ring, projector))).join(" ");
 }
 
 function linePath(geometry: GeoJsonLineString, projector: Projector): string {
@@ -119,23 +116,34 @@ function linePath(geometry: GeoJsonLineString, projector: Projector): string {
     .join(" ");
 }
 
-function activeStateName(scene: StaticGkMapPathSceneRecipe, timeMs: number): string | undefined {
-  const active = scene.cues.find(
-    (cue) =>
-      cue.layer === "state-highlight" &&
-      cue.startMs <= timeMs &&
-      timeMs < cue.endMs &&
-      cue.targetRef,
-  );
-  if (!active?.targetRef) return undefined;
-  const prefix = "state.";
-  return active.targetRef.startsWith(prefix) ? active.targetRef.slice(prefix.length) : undefined;
+function activeCue(cues: readonly StaticGkSceneCue[], layer: StaticGkSceneCue["layer"], timeMs: number) {
+  return cues.find((cue) => cue.layer === layer && cue.startMs <= timeMs && timeMs < cue.endMs);
 }
 
-function currentCueText(scene: StaticGkMapPathSceneRecipe, timeMs: number): string | undefined {
-  return [...scene.cues]
+function currentCueText(cues: readonly StaticGkSceneCue[], timeMs: number): string | undefined {
+  return [...cues]
     .filter((cue) => cue.startMs <= timeMs && timeMs < cue.endMs && cue.text)
     .sort((a, b) => b.startMs - a.startMs)[0]?.text;
+}
+
+function quizCard(quiz: StaticGkSceneQuiz, visible: boolean): string {
+  if (!visible) return "";
+  return `<g><rect x="90" y="1450" width="900" height="310" rx="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/><text x="540" y="1535" text-anchor="middle" font-size="34" font-weight="700" fill="#0F172A">${escapeXml(quiz.question)}</text>${quiz.options
+    .map(
+      (option, index) =>
+        `<text x="160" y="${1605 + index * 38}" font-size="27" fill="#334155">${String.fromCharCode(65 + index)}. ${escapeXml(option)}</text>`,
+    )
+    .join("")}</g>`;
+}
+
+function svgShell(
+  viewport: StaticGkSceneViewport,
+  title: string,
+  subtitle: string,
+  body: string,
+  overlay: string,
+): string {
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${viewport.width}" height="${viewport.height}" viewBox="0 0 ${viewport.width} ${viewport.height}"><rect width="100%" height="100%" fill="#FFFFFF"/><text x="540" y="130" text-anchor="middle" font-size="48" font-weight="800" fill="#0F172A">${escapeXml(title)}</text><text x="540" y="205" text-anchor="middle" font-size="30" font-weight="600" fill="#475569">${escapeXml(subtitle)}</text><g>${body}</g>${overlay}<text x="540" y="1840" text-anchor="middle" font-size="22" fill="#64748B">Examtree Visual Atlas · Survey of India geometry</text></svg>`;
 }
 
 export function renderTropicCancerSvgFrame(
@@ -148,14 +156,11 @@ export function renderTropicCancerSvgFrame(
   if (!Number.isFinite(timeMs) || timeMs < 0) throw new Error("Invalid frame timestamp");
 
   const projector = createIndiaMercatorProjector(geometry, scene.viewport);
-  const selectedState = activeStateName(scene, timeMs);
-  const cueText = currentCueText(scene, timeMs);
-  const routeVisible = scene.cues.some(
-    (cue) => cue.layer === "latitude-line" && cue.startMs <= timeMs,
-  );
-  const quizVisible = scene.cues.some(
-    (cue) => cue.layer === "quiz" && cue.startMs <= timeMs && timeMs < cue.endMs,
-  );
+  const stateCue = activeCue(scene.cues, "state-highlight", timeMs);
+  const selectedState = stateCue?.text;
+  const cueText = currentCueText(scene.cues, timeMs);
+  const routeVisible = scene.cues.some((cue) => cue.layer === "latitude-line" && cue.startMs <= timeMs);
+  const quizVisible = Boolean(activeCue(scene.cues, "quiz", timeMs));
 
   const boundaries = geometry.features
     .map((feature) => {
@@ -172,23 +177,81 @@ export function renderTropicCancerSvgFrame(
         )
         .join("")
     : "";
-
   const selectedLabel = selectedState
     ? `<text x="540" y="1540" text-anchor="middle" font-size="58" font-weight="700" fill="#0F172A">${escapeXml(selectedState)}</text>`
     : "";
-
-  const info = cueText
+  const info = !quizVisible && cueText
     ? `<text x="540" y="1630" text-anchor="middle" font-size="34" font-weight="600" fill="#334155">${escapeXml(cueText)}</text>`
     : "";
 
-  const quiz = quizVisible
-    ? `<g><rect x="90" y="1450" width="900" height="310" rx="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2"/><text x="540" y="1535" text-anchor="middle" font-size="34" font-weight="700" fill="#0F172A">${escapeXml(scene.quiz.question)}</text>${scene.quiz.options
+  return svgShell(
+    scene.viewport,
+    scene.title,
+    scene.route.editorialLabel,
+    `${boundaries}${route}`,
+    `${selectedLabel}${info}${quizCard(scene.quiz, quizVisible)}`,
+  );
+}
+
+export function renderStandardMeridianSvgFrame(
+  scene: StaticGkMeridianSceneRecipe,
+  geometry: IndiaAdminFeatureCollection,
+  timeMs: number,
+): string {
+  if (scene.status !== "render-ready") throw new Error("Standard Meridian scene is not render-ready");
+  if (!scene.meridian.indiaSegments.length) throw new Error("Standard Meridian scene has no India segments");
+  if (!scene.districtOfInterest.meridianSegments.length) {
+    throw new Error("Standard Meridian scene has no verified Mirzapur district intersection");
+  }
+  if (!Number.isFinite(timeMs) || timeMs < 0) throw new Error("Invalid frame timestamp");
+
+  const projector = createIndiaMercatorProjector(geometry, scene.viewport);
+  const stateVisible = Boolean(activeCue(scene.cues, "state-highlight", timeMs));
+  const districtVisible = Boolean(activeCue(scene.cues, "district-highlight", timeMs));
+  const meridianVisible = scene.cues.some((cue) => cue.layer === "longitude-line" && cue.startMs <= timeMs);
+  const quizVisible = Boolean(activeCue(scene.cues, "quiz", timeMs));
+  const cueText = currentCueText(scene.cues, timeMs);
+
+  const boundaries = geometry.features
+    .map((feature) => {
+      const districtName = typeof feature.properties.districtName === "string" ? feature.properties.districtName.trim() : "";
+      const isDistrict = districtVisible && feature.properties.stateName === "Uttar Pradesh" && districtName.toLocaleLowerCase("en-IN") === "mirzapur";
+      const isState = stateVisible && feature.properties.stateName === "Uttar Pradesh";
+      const fill = isDistrict ? "#FDE68A" : isState ? "#DCE7FF" : "#F8FAFC";
+      const stroke = isDistrict ? "#92400E" : isState ? "#334155" : "#94A3B8";
+      const strokeWidth = isDistrict ? "3.2" : isState ? "2.2" : "1.1";
+      return `<path d="${areaPath(feature.geometry, projector)}" fill="${fill}" stroke="${stroke}" stroke-width="${strokeWidth}" fill-rule="evenodd"/>`;
+    })
+    .join("");
+
+  const meridian = meridianVisible
+    ? scene.meridian.indiaSegments
         .map(
-          (option, index) =>
-            `<text x="160" y="${1605 + index * 38}" font-size="27" fill="#334155">${String.fromCharCode(65 + index)}. ${escapeXml(option)}</text>`,
+          (segment) =>
+            `<path d="${linePath(segment, projector)}" fill="none" stroke="#B42318" stroke-width="7" stroke-linecap="round"/>`,
         )
-        .join("")}</g>`
+        .join("")
+    : "";
+  const verifiedDistrictLine = districtVisible
+    ? scene.districtOfInterest.meridianSegments
+        .map(
+          (segment) =>
+            `<path d="${linePath(segment, projector)}" fill="none" stroke="#7C2D12" stroke-width="12" stroke-linecap="round"/>`,
+        )
+        .join("")
+    : "";
+  const districtLabel = districtVisible
+    ? `<text x="540" y="1540" text-anchor="middle" font-size="54" font-weight="700" fill="#0F172A">Mirzapur district</text>`
+    : "";
+  const info = !quizVisible && cueText
+    ? `<text x="540" y="1630" text-anchor="middle" font-size="34" font-weight="600" fill="#334155">${escapeXml(cueText)}</text>`
     : "";
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${scene.viewport.width}" height="${scene.viewport.height}" viewBox="0 0 ${scene.viewport.width} ${scene.viewport.height}"><rect width="100%" height="100%" fill="#FFFFFF"/><text x="540" y="130" text-anchor="middle" font-size="48" font-weight="800" fill="#0F172A">${escapeXml(scene.title)}</text><text x="540" y="205" text-anchor="middle" font-size="30" font-weight="600" fill="#475569">${escapeXml(scene.route.editorialLabel)}</text><g>${boundaries}${route}</g>${selectedLabel}${quizVisible ? "" : info}${quiz}<text x="540" y="1840" text-anchor="middle" font-size="22" fill="#64748B">Examtree Visual Atlas · Survey of India geometry</text></svg>`;
+  return svgShell(
+    scene.viewport,
+    scene.title,
+    scene.meridian.editorialLabel,
+    `${boundaries}${meridian}${verifiedDistrictLine}`,
+    `${districtLabel}${info}${quizCard(scene.quiz, quizVisible)}`,
+  );
 }
