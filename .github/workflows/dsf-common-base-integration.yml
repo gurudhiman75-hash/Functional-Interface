@@ -20,7 +20,6 @@ on:
       - artifacts/api-server/src/routes/admin-question-studio-registry.ts
       - artifacts/api-server/src/lib/reasoning/inequality-foundation.ts
       - artifacts/api-server/src/lib/reasoning/inequality-foundation.test.ts
-      - .github/workflows/dsf-common-base-integration.yml
   workflow_dispatch:
 
 permissions:
