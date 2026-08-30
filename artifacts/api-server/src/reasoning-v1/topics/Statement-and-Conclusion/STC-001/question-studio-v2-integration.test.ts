@@ -13,9 +13,10 @@ import {
 import { STC_QL_IDS } from "./types.ts";
 
 const packages = listReasoningV1QuestionStudioReviewPackages();
-const activeStcPackages = packages.filter((entry) => entry.chapterId === "STC-001");
-assert.equal(activeStcPackages.length, 1, "only one STC package should be visible in the active review registry");
-assert.equal(activeStcPackages[0]!.packageId, STC_001_V2_QUESTION_STUDIO_PACKAGE_ID);
+const stcPackages = packages.filter((entry) => entry.chapterId === "STC-001");
+assert.equal(stcPackages.length, 2, "V1 audit baseline and V2 editorial candidate should both remain reviewable");
+assert.equal(stcPackages[0]!.packageId, STC_001_V2_QUESTION_STUDIO_PACKAGE_ID, "V2 should be listed before the V1 baseline");
+assert.ok(stcPackages.some((entry) => entry.packageId === "STC-001-V1-FROZEN-REVIEW"), "V1 audit baseline must remain available");
 assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.editorialAuthorityCount, 48);
 assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.editorialAuthoritiesPerQl, 8);
 assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.requiredDistinctSurfaceArchetypesPerQl, 8);
@@ -49,6 +50,15 @@ for (const qlId of STC_QL_IDS) {
     assert.equal(shared.question.metadata.publicEligible, false);
   }
 }
+
+const v1CompatibilityPreview = previewReasoningV1QuestionStudioReview({
+  packageId: "STC-001-V1-FROZEN-REVIEW",
+  qlId: "STC-QL-001",
+  locale: "en-IN",
+  seed: 0,
+});
+assert.equal(v1CompatibilityPreview.packageId, "STC-001-V1-FROZEN-REVIEW");
+assert.equal(v1CompatibilityPreview.lifecycleStatus, "REVIEW_ONLY");
 
 assert.throws(
   () => assertStc001V2QuestionStudioPersistenceAllowed(),
