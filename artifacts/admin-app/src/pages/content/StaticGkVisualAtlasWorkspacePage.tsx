@@ -43,7 +43,7 @@ type AtlasStatus = {
 };
 
 function readinessLabel(value: AtlasItem['readiness']) {
-  return value.replaceAll('-', ' ');
+  return value.replace(/-/g, ' ');
 }
 
 function readinessClass(value: AtlasItem['readiness']) {
@@ -101,7 +101,7 @@ export function StaticGkVisualAtlasWorkspacePage() {
             <div className="font-medium">{asset.name}</div>
             <div className="mt-1 text-xs text-muted-foreground">{asset.sourcePublisher}{asset.sourceProductCode ? ` · ${asset.sourceProductCode}` : ''} · {asset.kind}</div>
           </div>
-          <Badge variant="outline">{asset.status.replaceAll('-', ' ')}</Badge>
+          <Badge variant="outline">{asset.status.replace(/-/g, ' ')}</Badge>
         </div>)}
       </CardContent>
     </Card>
@@ -116,7 +116,7 @@ export function StaticGkVisualAtlasWorkspacePage() {
               <tbody>{(data?.items ?? []).map((item) => <tr key={item.id} className="border-b align-top last:border-0">
                 <td className="px-3 py-4"><div className="font-medium">{item.title}</div><div className="mt-1 font-mono text-xs text-muted-foreground">{item.id} · P{item.priority}</div></td>
                 <td className="px-3 py-4"><div>{item.subcategory}</div><div className="mt-1 text-xs text-muted-foreground">{item.category}</div></td>
-                <td className="px-3 py-4"><Badge variant="outline">{item.factLockStatus.replaceAll('-', ' ')}</Badge></td>
+                <td className="px-3 py-4"><Badge variant="outline">{item.factLockStatus.replace(/-/g, ' ')}</Badge></td>
                 <td className="px-3 py-4 font-mono text-xs">{item.sceneCompiler}</td>
                 <td className="px-3 py-4"><Badge variant="outline" className={readinessClass(item.readiness)}>{readinessLabel(item.readiness)}</Badge></td>
                 <td className="max-w-sm px-3 py-4 text-xs leading-5 text-muted-foreground">{item.blockers[0] ?? '—'}</td>
