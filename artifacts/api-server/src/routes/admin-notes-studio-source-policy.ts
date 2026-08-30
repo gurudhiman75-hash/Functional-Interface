@@ -7,13 +7,14 @@ import { authenticate } from '../middlewares/auth';
 import {
   NOTE_SOURCE_ROLES,
   evaluateSourcePackPolicy,
+  noteSourceIdentity,
   noteSourcePackTemplateKey,
   noteSourceRole,
   sourcePackTemplateOptions,
 } from '../notes-studio/source-pack-policy';
 
 const router: IRouter = Router();
-const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{12}$/i;
+const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 class SourcePolicyError extends Error {
   constructor(readonly code: string, message: string, readonly statusCode = 400) {
@@ -65,6 +66,8 @@ async function loadSourcePolicy(jobId: string) {
       document.id::text AS id,
       document.title,
       document.publisher,
+      document.source_uri AS "sourceUri",
+      document.content_hash AS "contentHash",
       document.rights_basis AS "rightsBasis",
       document.retention_mode AS "retentionMode",
       document.extraction_status AS "extractionStatus",
@@ -84,6 +87,7 @@ async function loadSourcePolicy(jobId: string) {
   const hydrated = sources.map((source) => ({
     ...source,
     sourceRole: noteSourceRole(source.sourceRole),
+    sourceIdentity: noteSourceIdentity(source.publisher, source.sourceUri),
     generationReady: source.retentionMode === 'extracted_text'
       && source.extractionStatus === 'processed'
       && Number(source.retainedCharCount ?? 0) >= 100,
@@ -95,6 +99,8 @@ async function loadSourcePolicy(jobId: string) {
       sourceRole: source.sourceRole,
       inclusionState: String(source.inclusionState),
       generationReady: source.generationReady,
+      contentHash: String(source.contentHash ?? ''),
+      sourceIdentity: source.sourceIdentity,
     }))),
     policyLocked: !['brief', 'sources_ready'].includes(String(job.state)),
   };
@@ -187,10 +193,12 @@ router.post(
       const jobId = uuid(req.params.jobId, 'Authoring job ID');
       const status = await loadSourcePolicy(jobId);
       if (!status.policy.ready) {
-        const missing = status.policy.missing.map((item) => `${item.label} (${item.currentCount}/${item.minCount})`).join('; ');
+        const requirementGaps = status.policy.missing.map((item) => `${item.label} (${item.currentCount}/${item.minCount})`);
+        const integrityGaps = status.policy.integrity.findings.map((item) => `${item.label} (${item.currentCount}/${item.minCount})`);
+        const gaps = [...requirementGaps, ...integrityGaps].join('; ');
         throw new SourcePolicyError(
           'SOURCE_PACK_POLICY_INCOMPLETE',
-          `Complete the ${status.policy.name} source-pack requirements before building evidence: ${missing}.`,
+          `Complete the ${status.policy.name} source-pack requirements before building evidence: ${gaps}.`,
           409,
         );
       }
