@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import type { IndiaAdminFeatureCollection } from "../geometry/geojson";
 import type { StaticGkAdminIngestBundle } from "../geometry/ingest-contract";
-import { REQUIRED_TROPIC_STATES } from "../geometry/ingest-contract";
+import { createCanonicalGeometryDigest, REQUIRED_TROPIC_STATES } from "../geometry/ingest-contract";
 import { compileStandardMeridianScene } from "../scenes/compile-standard-meridian";
 
 function rectangle(minLon: number, maxLon: number, minLat: number, maxLat: number) {
@@ -45,7 +45,7 @@ function makeFixture(): StaticGkAdminIngestBundle {
       acquiredAt: "2026-08-29",
       sourceArchiveFilename: "fixture.zip",
       sourceArchiveSha256: "c".repeat(64),
-      canonicalGeoJsonSha256: "d".repeat(64),
+      canonicalGeoJsonSha256: createCanonicalGeometryDigest(geometry),
       canonicalCrs: "EPSG:4326",
       featureCount: geometry.features.length,
       stateCount: geometry.features.length,
@@ -76,6 +76,12 @@ test("standard meridian becomes render-ready with a plausible point inside UP", 
   assert.equal(scene.status, "render-ready");
   assert.equal(scene.meridian.longitude, 82.5);
   assert.equal(scene.quiz.correctOptionIndex, 1);
+});
+
+test("standard meridian rejects a canonical geometry checksum mismatch", () => {
+  const bundle = makeFixture();
+  bundle.receipt.canonicalGeoJsonSha256 = "d".repeat(64);
+  assert.throws(() => compileStandardMeridianScene(bundle), /SHA-256 does not match supplied geometry/);
 });
 
 test("standard meridian rejects a Mirzapur point outside UP", () => {
