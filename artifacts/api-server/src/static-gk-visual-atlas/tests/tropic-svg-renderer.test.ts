@@ -9,6 +9,8 @@ import {
 import { renderTropicCancerSvgFrame } from "../renderers/svg-map";
 import { compileTropicCancerScene } from "../scenes/compile-tropic-cancer";
 
+const STATE_CODES = ["GJ", "RJ", "MP", "CG", "JH", "WB", "TR", "MZ"] as const;
+
 function rectangle(minLon: number, maxLon: number, minLat = 20, maxLat = 27) {
   return {
     type: "Polygon" as const,
@@ -27,7 +29,7 @@ function makeFixture(): StaticGkAdminIngestBundle {
     type: "FeatureCollection",
     features: REQUIRED_TROPIC_STATES.map((stateName, index) => ({
       type: "Feature",
-      properties: { stateName, stateCode: `S${index + 1}` },
+      properties: { stateName, stateCode: STATE_CODES[index] },
       geometry: rectangle(68 + index * 3, 70 + index * 3),
     })),
   };
@@ -56,7 +58,7 @@ function makeFixture(): StaticGkAdminIngestBundle {
 test("renderer refuses a geometry-pending scene", () => {
   const bundle = makeFixture();
   assert.throws(
-    () => renderTropicCancerSvgFrame(compileTropicCancerScene(), bundle.geometry, 5_500),
+    () => renderTropicCancerSvgFrame(compileTropicCancerScene(), bundle.geometry, 10_500),
     /not render-ready/,
   );
 });
@@ -64,20 +66,22 @@ test("renderer refuses a geometry-pending scene", () => {
 test("renderer produces a 9:16 SVG with the active state and deterministic latitude route", () => {
   const bundle = makeFixture();
   const scene = compileTropicCancerScene(bundle);
-  const svg = renderTropicCancerSvgFrame(scene, bundle.geometry, 5_500);
+  const svg = renderTropicCancerSvgFrame(scene, bundle.geometry, 10_500);
 
   assert.match(svg, /<svg/);
   assert.match(svg, /width="1080" height="1920"/);
   assert.match(svg, /Gujarat/);
+  assert.match(svg, /1\. Gujarat/);
+  assert.match(svg, /#DCE7FF/);
   assert.match(svg, /Tropic of Cancer/);
   assert.match(svg, /#B42318/);
   assert.match(svg, /Survey of India geometry/);
 });
 
-test("renderer switches to the quiz card during the quiz cue", () => {
+test("renderer switches to the quiz card during the manifest quiz shot", () => {
   const bundle = makeFixture();
   const scene = compileTropicCancerScene(bundle);
-  const svg = renderTropicCancerSvgFrame(scene, bundle.geometry, 29_000);
+  const svg = renderTropicCancerSvgFrame(scene, bundle.geometry, 32_000);
 
   assert.match(svg, /How many Indian states does the Tropic of Cancer pass through\?/);
   assert.match(svg, /C\. 8/);
