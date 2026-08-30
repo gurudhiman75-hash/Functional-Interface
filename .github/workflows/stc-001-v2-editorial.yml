@@ -1,0 +1,93 @@
+name: Validate STC-001 V2 Editorial Surface Diversity
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-*.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-review-v2.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-v2-integration.test.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v1-proof.test.ts'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-stc-001-v2-editorial-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  editorial-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for STC V2 editorial authority
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-types.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-ql001.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-ql002.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-ql003.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-ql004.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-ql005.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-ql006.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-authorities.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-review-v2.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-diversity-proof.test.ts
+
+      - name: Prove eight surfaces per QL and balanced answer classes
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-diversity-proof.test.ts
+
+      - name: Re-prove immutable STC V1 chapter-owned authority
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v1-proof.test.ts
+
+      - name: Prove shared Question Studio V2 integration and V1 compatibility
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-v2-integration.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/stc-001-v2-question-studio-integration.mjs
+          node dist/stc-001-v2-question-studio-integration.mjs
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build
+
+      - name: Review boundary
+        run: |
+          echo 'STC-001 V2 is an English editorial review candidate with 8 distinct surfaces per QL.'
+          echo 'V1 remains preserved as the frozen audit baseline.'
+          echo 'Hindi/Punjabi localization and V2 five-way Banking profile remain pending editorial approval.'
+          echo 'Question Bank, test, mock, public and automatic publication gates remain closed.'
