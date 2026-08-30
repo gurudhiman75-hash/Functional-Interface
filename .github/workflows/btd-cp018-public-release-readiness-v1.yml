@@ -1,0 +1,83 @@
+name: Validate BTD-001 CP018 Public Release Readiness V1
+
+on:
+  push:
+    branches:
+      - feature/btd-cp018-public-release-readiness-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-018/**'
+      - '.github/workflows/btd-cp018-public-release-readiness-v1.yml'
+  pull_request:
+    branches:
+      - feature/btd-cp017-mock-test-eligibility-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-018/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: btd-cp018-public-release-readiness-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-btd-cp018-public-release-readiness-v1:
+    runs-on: ubuntu-24.04
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out exact head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXPECTED_HEAD }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.33.0'
+          run_install: false
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Re-prove CP017 mock-test eligibility authority
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-017/btd-cp017-mock-test-eligibility-v1-audit.ts | tee btd-cp018-upstream-cp017.log
+          grep -q 'PASS_BTD_001_CP017_MOCK_TEST_ELIGIBILITY_AUDIT_V1' btd-cp018-upstream-cp017.log
+      - name: Audit CP018 public release readiness
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-018/btd-cp018-public-release-readiness-v1-audit.ts | tee btd-cp018-public-release-readiness-v1.log
+          grep -q 'PASS_BTD_001_CP018_PUBLIC_RELEASE_READINESS_AUDIT_V1' btd-cp018-public-release-readiness-v1.log
+      - name: Verify public release remains locked
+        shell: bash
+        run: |
+          set -euo pipefail
+          RUNTIME='artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-018/btd-cp018-public-release-readiness-v1.ts'
+          grep -q 'READY_FOR_EXPLICIT_PUBLIC_RELEASE_APPROVAL' "$RUNTIME"
+          grep -q 'publicReleaseApprovalGranted: false' "$RUNTIME"
+          grep -q 'testEligible: true' "$RUNTIME"
+          grep -q 'mockTestEligible: true' "$RUNTIME"
+          grep -q 'publiclyPublishable: false' "$RUNTIME"
+          grep -q 'automaticStudentPublication: false' "$RUNTIME"
+          grep -q 'projectionPublicEligibilityMutationAuthorized: false' "$RUNTIME"
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Record exact validation head
+        shell: bash
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp018-public-release-readiness-v1-head.log
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+      - name: Upload CP018 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: btd-cp018-public-release-readiness-v1
+          path: |
+            btd-cp018-upstream-cp017.log
+            btd-cp018-public-release-readiness-v1.log
+            btd-cp018-public-release-readiness-v1-head.log
+          retention-days: 30
