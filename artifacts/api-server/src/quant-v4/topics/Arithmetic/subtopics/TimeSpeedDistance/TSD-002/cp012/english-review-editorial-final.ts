@@ -1,5 +1,6 @@
 import { toMixedString, type Rational } from "../../TSD-001/foundation/rational";
 import { TSD_CP012_ENGLISH_REVIEW, type TsdCp012EnglishReviewQuestion } from "./english-review-final";
+import { calibrateTsdCp012ReviewedDifficulty } from "./reviewed-difficulty";
 
 function v(value: Rational): string { return toMixedString(value); }
 function seconds(value: Rational): string { return `${v(value)} seconds`; }
@@ -77,5 +78,6 @@ function editorialStem(question: TsdCp012EnglishReviewQuestion): string {
 
 export const TSD_CP012_ENGLISH_REVIEW_FINAL = Object.freeze(TSD_CP012_ENGLISH_REVIEW.map((question) => Object.freeze({
   ...question,
+  difficulty: calibrateTsdCp012ReviewedDifficulty(question.difficulty),
   stem: editorialStem(question),
 })));
