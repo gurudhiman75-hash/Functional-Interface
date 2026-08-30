@@ -45,10 +45,10 @@ export const STC_V2_QL006_AUTHORITIES: readonly StcV2EditorialAuthority[] = [
   },
   {
     id: "STC-V2-SC-047", qlId: "STC-QL-006", difficulty: "HARD", surfaceArchetype: "CONTRAST_CONCESSION",
-    statement: "Average disposal time fell for three consecutive quarters, but the number of new cases rose sharply in the latest quarter.",
+    statement: "Average disposal time fell in each of the last three quarters, including the latest quarter, while the number of new cases rose sharply in the latest quarter.",
     conclusions: ["The latest quarter combined a lower disposal time with a higher inflow of new cases.", "The two measures moved in opposite directions in the latest quarter."],
     answerClass: "BOTH",
-    explanation: ["Both movements are stated together.", "Disposal time fell while new-case inflow rose."],
+    explanation: ["In the latest quarter, disposal time fell while the number of new cases rose.", "The two measures therefore moved in opposite directions in that quarter."],
   },
   {
     id: "STC-V2-SC-048", qlId: "STC-QL-006", difficulty: "HARD", surfaceArchetype: "FORECAST_OUTLOOK",
