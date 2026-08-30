@@ -5,6 +5,7 @@ on:
     branches:
       - feature/static-gk-visual-atlas-mvp
       - feature/static-gk-admin-render-jobs
+      - feature/static-gk-ai-video-generation
     paths:
       - '.github/workflows/static-gk-visual-atlas-feature-check.yml'
       - 'artifacts/api-server/src/static-gk-visual-atlas/**'
