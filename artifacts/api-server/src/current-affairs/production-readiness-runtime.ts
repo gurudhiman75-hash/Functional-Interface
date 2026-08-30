@@ -1,0 +1,189 @@
+import { sqlClient } from "../lib/db";
+import { previousIndiaDate } from "./orchestration-policy";
+import { evaluateCurrentAffairsProductionReadiness } from "./production-readiness-policy";
+import { loadCurrentAffairsReleaseQueue } from "./release-runtime";
+
+const FAMILIES = ["ssc", "banking", "punjab"] as const;
+
+function deadlineForTargetDate(targetDate: string): string {
+  const date = new Date(`${targetDate}T00:00:00.000Z`);
+  date.setUTCDate(date.getUTCDate() + 1);
+  date.setUTCHours(1, 30, 0, 0); // 07:00 IST on the next calendar day.
+  return date.toISOString();
+}
+
+function text(value: unknown): string | null {
+  return value === null || value === undefined || value === "" ? null : String(value);
+}
+
+export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
+  const targetDate = previousIndiaDate(now);
+  const deadlineIso = deadlineForTargetDate(targetDate);
+  const releaseQueue = await loadCurrentAffairsReleaseQueue(300);
+  const [sources, runs, queue, conflicts, compilations, approvedReleases, missingDays] = await Promise.all([
+    sqlClient`
+      SELECT
+        source_key AS "sourceKey", name, is_primary_source AS "isPrimarySource",
+        ingestion_mode AS "ingestionMode", last_ingested_at::text AS "lastIngestedAt",
+        last_ingestion_status AS "lastIngestionStatus", last_ingestion_error AS "lastIngestionError",
+        CASE WHEN last_ingested_at IS NOT NULL AND last_ingested_at >= now() - interval '6 hours' THEN true ELSE false END AS fresh,
+        CASE WHEN is_active=true AND is_primary_source=true AND (
+          (ingestion_mode IN ('feed','feed_and_pdf') AND feed_url IS NOT NULL)
+          OR (ingestion_mode IN ('listing','listing_and_pdf') AND listing_url IS NOT NULL AND listing_adapter IS NOT NULL)
+        ) THEN true ELSE false END AS scheduled
+      FROM content.current_affairs_sources
+      WHERE is_active=true
+      ORDER BY is_primary_source DESC, trust_score DESC, source_key
+    `,
+    sqlClient`
+      SELECT DISTINCT ON (job_type)
+        job_type AS "jobType", status, started_at::text AS "startedAt", completed_at::text AS "completedAt",
+        failure_reason AS "failureReason", stats
+      FROM content.current_affairs_automation_runs
+      WHERE job_type IN ('feed_ingestion','intelligence_processing','daily_compilation')
+      ORDER BY job_type, started_at DESC
+    `,
+    sqlClient`SELECT count(*)::int AS count FROM content.current_affairs_ingestion_candidates WHERE status='queued'`,
+    sqlClient`SELECT count(*)::int AS count FROM content.current_affairs_fact_conflicts WHERE status='open'`,
+    sqlClient`
+      SELECT
+        id::text AS id, public_code AS "publicCode", exam_family_key AS family,
+        language_code AS language, status, event_count::int AS "eventCount",
+        learning_resource_id::text AS "learningResourceId", question_run_id::text AS "questionRunId"
+      FROM content.current_affairs_compilations
+      WHERE period_type='daily' AND period_start=${targetDate}::date AND period_end=${targetDate}::date
+        AND exam_family_key IN ('ssc','banking','punjab')
+      ORDER BY exam_family_key, language_code
+    `,
+    sqlClient`
+      SELECT id::text AS id, public_code AS "publicCode", exam_family_key AS family,
+             status, approved_at::text AS "approvedAt"
+      FROM content.current_affairs_releases
+      WHERE period_type='daily' AND period_start=${targetDate}::date AND period_end=${targetDate}::date
+        AND exam_family_key IN ('ssc','banking','punjab') AND status='approved'
+    `,
+    sqlClient`
+      WITH expected AS (
+        SELECT DISTINCT event.event_date AS day, score.exam_family_key AS family
+        FROM content.current_affairs_events event
+        JOIN content.current_affairs_exam_scores score ON score.event_id=event.id
+        WHERE event.status='verified' AND score.include_recommended=true
+          AND event.event_date BETWEEN ${targetDate}::date - interval '6 days' AND ${targetDate}::date
+          AND score.exam_family_key IN ('ssc','banking','punjab')
+      )
+      SELECT expected.day::text AS day, expected.family
+      FROM expected
+      LEFT JOIN content.current_affairs_compilations compilation
+        ON compilation.period_type='daily'
+       AND compilation.period_start=expected.day AND compilation.period_end=expected.day
+       AND compilation.exam_family_key=expected.family AND compilation.language_code='en'
+      WHERE compilation.id IS NULL
+      ORDER BY expected.day DESC, expected.family
+    `,
+  ]);
+
+  const scheduledPrimary = sources.filter((row) => Boolean(row.scheduled));
+  const freshSuccessfulPrimary = scheduledPrimary.filter((row) => Boolean(row.fresh) && String(row.lastIngestionStatus) === "success");
+  const stalePrimary = scheduledPrimary.filter((row) => !Boolean(row.fresh));
+  const failingPrimary = scheduledPrimary.filter((row) => String(row.lastIngestionStatus) === "failure");
+  const criticalSourceFailures = scheduledPrimary.filter((row) =>
+    !Boolean(row.fresh) || String(row.lastIngestionStatus) !== "success").length;
+  const runByType = new Map(runs.map((row) => [String(row.jobType), row]));
+  const feedRun = runByType.get("feed_ingestion");
+  const intelligenceRun = runByType.get("intelligence_processing");
+  const feedRunHealthy = Boolean(feedRun) && ["completed", "completed_with_errors"].includes(String(feedRun?.status));
+  const intelligenceRunHealthy = Boolean(intelligenceRun) && String(intelligenceRun?.status) === "completed";
+  const compilationByFamily = new Map<string, Record<string, any>[] >();
+  for (const row of compilations) {
+    const list = compilationByFamily.get(String(row.family)) ?? [];
+    list.push(row as Record<string, any>);
+    compilationByFamily.set(String(row.family), list);
+  }
+  const approvedReleaseByFamily = new Map(approvedReleases.map((row) => [String(row.family), row]));
+
+  const families = [];
+  for (const family of FAMILIES) {
+    const familyCompilations = compilationByFamily.get(family) ?? [];
+    const english = familyCompilations.find((row) => String(row.language) === "en");
+    const hindi = familyCompilations.find((row) => String(row.language) === "hi");
+    const punjabi = familyCompilations.find((row) => String(row.language) === "pa");
+    const candidate = releaseQueue.find((item) =>
+      item.key.periodType === "daily"
+      && item.key.periodStart === targetDate
+      && item.key.periodEnd === targetDate
+      && item.key.examFamily === family);
+    const approvedRelease = approvedReleaseByFamily.get(family);
+    let learnerQuizPublished = false;
+    if (approvedRelease?.id) {
+      const quizRows = await sqlClient`
+        SELECT count(*)::int AS count
+        FROM content.current_affairs_quiz_deliveries
+        WHERE release_id=${String(approvedRelease.id)}::uuid AND status='published'
+      `;
+      learnerQuizPublished = Number(quizRows[0]?.count ?? 0) > 0;
+    }
+    const totalEnglishQuestions = candidate?.questions.length ?? 0;
+    const approvedEnglishQuestions = candidate?.questions.filter((item) => item.itemStatus === "approved").length ?? 0;
+    families.push({
+      family,
+      englishDraftPresent: Boolean(english),
+      hindiDraftPresent: Boolean(hindi),
+      punjabiDraftPresent: Boolean(punjabi),
+      eventCount: Number(english?.eventCount ?? 0),
+      approvedEnglishQuestions,
+      totalEnglishQuestions,
+      releaseReady: Boolean(candidate?.readiness.ready),
+      approvedRelease: Boolean(approvedRelease),
+      learnerQuizPublished,
+      compilations: familyCompilations,
+      blockers: candidate?.readiness.blockers ?? [],
+      releaseCode: approvedRelease?.publicCode ? String(approvedRelease.publicCode) : null,
+    });
+  }
+
+  const evaluation = evaluateCurrentAffairsProductionReadiness({
+    now,
+    targetDate,
+    deadlineIso,
+    scheduledPrimarySources: scheduledPrimary.length,
+    freshSuccessfulPrimarySources: freshSuccessfulPrimary.length,
+    failingPrimarySources: failingPrimary.length,
+    stalePrimarySources: stalePrimary.length,
+    criticalSourceFailures,
+    latestFeedRunAt: feedRunHealthy ? text(feedRun?.completedAt ?? feedRun?.startedAt) : null,
+    latestIntelligenceRunAt: intelligenceRunHealthy ? text(intelligenceRun?.completedAt ?? intelligenceRun?.startedAt) : null,
+    queuedCandidates: Number(queue[0]?.count ?? 0),
+    openConflicts: Number(conflicts[0]?.count ?? 0),
+    families,
+  });
+
+  return {
+    targetDate,
+    deadlineIso,
+    generatedAt: now.toISOString(),
+    evaluation,
+    sourceCoverage: {
+      scheduledPrimarySources: scheduledPrimary.length,
+      freshSuccessfulPrimarySources: freshSuccessfulPrimary.length,
+      failingPrimarySources: failingPrimary.length,
+      stalePrimarySources: stalePrimary.length,
+      criticalSourceFailures,
+      sources: scheduledPrimary.map((row) => ({
+        sourceKey: String(row.sourceKey),
+        name: String(row.name),
+        fresh: Boolean(row.fresh),
+        status: text(row.lastIngestionStatus),
+        lastIngestedAt: text(row.lastIngestedAt),
+        error: text(row.lastIngestionError),
+      })),
+    },
+    pipeline: {
+      queuedCandidates: Number(queue[0]?.count ?? 0),
+      openConflicts: Number(conflicts[0]?.count ?? 0),
+      feedRun: feedRun ? { status: String(feedRun.status), startedAt: text(feedRun.startedAt), completedAt: text(feedRun.completedAt), failureReason: text(feedRun.failureReason) } : null,
+      intelligenceRun: intelligenceRun ? { status: String(intelligenceRun.status), startedAt: text(intelligenceRun.startedAt), completedAt: text(intelligenceRun.completedAt), failureReason: text(intelligenceRun.failureReason) } : null,
+    },
+    families,
+    missingDays: missingDays.map((row) => ({ day: String(row.day).slice(0, 10), family: String(row.family) })),
+  };
+}
