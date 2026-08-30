@@ -1,6 +1,6 @@
 import type { TsdCp011AuthorityKey } from "./source-saturation";
 
-export const TSD_CP011_QL_ALLOCATION_STATUS = "PROVISIONAL_EXECUTABLE_DISCOVERY_CANDIDATE" as const;
+export const TSD_CP011_QL_ALLOCATION_STATUS = "PERMANENT_FROZEN" as const;
 
 export const TSD_CP011_QL_ALLOCATION = Object.freeze([
   Object.freeze({ qlId: "TSD-QL-125", authorityKey: "movingSurfaceTravelState", learnerContract: "Solve direct or inverse travel state on an escalator, moving walkway or conveyor using signed net surface speed." }),
@@ -13,13 +13,17 @@ export const TSD_CP011_QL_ALLOCATION = Object.freeze([
 ] as const satisfies readonly Readonly<{ qlId: string; authorityKey: TsdCp011AuthorityKey; learnerContract: string }>[]);
 
 export type TsdCp011QlId = (typeof TSD_CP011_QL_ALLOCATION)[number]["qlId"];
-export const TSD_CP011_PROVISIONAL_QL_IDS = Object.freeze(TSD_CP011_QL_ALLOCATION.map((x) => x.qlId));
-export const TSD_CP011_NEXT_QL_ID = "TSD-QL-132" as const;
+export const TSD_CP011_PERMANENT_QL_IDS = Object.freeze(TSD_CP011_QL_ALLOCATION.map((x) => x.qlId));
+export const TSD_CP011_NEXT_PERMANENT_QL = "TSD-QL-132" as const;
+
+// Compatibility aliases retained while CP012 is still a stacked review branch.
+export const TSD_CP011_PROVISIONAL_QL_IDS = TSD_CP011_PERMANENT_QL_IDS;
+export const TSD_CP011_NEXT_QL_ID = TSD_CP011_NEXT_PERMANENT_QL;
 
 export const TSD_CP011_QL_LIFECYCLE = Object.freeze({
   allocationStatus: TSD_CP011_QL_ALLOCATION_STATUS,
-  productOwnerApproved: false,
-  frozen: false,
+  productOwnerApproved: true,
+  frozen: true,
   productionRegistered: false,
   questionBankWritable: false,
   testEligible: false,
