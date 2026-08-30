@@ -1,5 +1,6 @@
 import { toMixedString, type Rational } from "../../TSD-001/foundation/rational";
 import { TSD_CP012_NATIVE_HINDI_REVIEW, TSD_CP012_NATIVE_PUNJABI_REVIEW, type TsdCp012NativeReviewQuestion } from "./native-review-final";
+import { calibrateTsdCp012ReviewedDifficulty } from "./reviewed-difficulty";
 
 function v(value: Rational): string { return toMixedString(value); }
 function hiSeconds(value: Rational): string { return `${v(value)} सेकंड`; }
@@ -32,5 +33,13 @@ function paStem(question: TsdCp012NativeReviewQuestion): string {
   return variants[familyIndex(question) % variants.length]!;
 }
 
-export const TSD_CP012_NATIVE_HINDI_REVIEW_FINAL = Object.freeze(TSD_CP012_NATIVE_HINDI_REVIEW.map((question) => Object.freeze({ ...question, stem: hiStem(question) })));
-export const TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL = Object.freeze(TSD_CP012_NATIVE_PUNJABI_REVIEW.map((question) => Object.freeze({ ...question, stem: paStem(question) })));
+export const TSD_CP012_NATIVE_HINDI_REVIEW_FINAL = Object.freeze(TSD_CP012_NATIVE_HINDI_REVIEW.map((question) => Object.freeze({
+  ...question,
+  difficulty: calibrateTsdCp012ReviewedDifficulty(question.difficulty),
+  stem: hiStem(question),
+})));
+export const TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL = Object.freeze(TSD_CP012_NATIVE_PUNJABI_REVIEW.map((question) => Object.freeze({
+  ...question,
+  difficulty: calibrateTsdCp012ReviewedDifficulty(question.difficulty),
+  stem: paStem(question),
+})));
