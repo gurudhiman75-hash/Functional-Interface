@@ -89,9 +89,27 @@ test("standard meridian rejects a canonical geometry checksum mismatch", () => {
 
 test("standard meridian rejects Mirzapur district geometry that does not intersect 82.5E", () => {
   const bundle = makeFixture();
-  const up = bundle.geometry.features.find((feature) => feature.properties.stateName === "Uttar Pradesh");
-  assert.ok(up);
-  up.geometry = rectangle(80, 82, 24, 28);
+  const mirzapur = bundle.geometry.features.find(
+    (feature) => feature.properties.stateName === "Uttar Pradesh" && feature.properties.districtName === "Mirzapur",
+  );
+  assert.ok(mirzapur);
+
+  // Keep Uttar Pradesh / India intersecting 82.5E through another synthetic district,
+  // while moving only Mirzapur west of the meridian. This exercises the district gate
+  // instead of failing earlier at the India/state intersection gate.
+  mirzapur.geometry = rectangle(80, 82, 24, 28);
+  bundle.geometry.features.push({
+    type: "Feature",
+    properties: {
+      stateName: "Uttar Pradesh",
+      stateCode: "UP",
+      districtName: "Prayagraj",
+      districtCode: "PRY",
+    },
+    geometry: rectangle(82, 84, 24, 28),
+  });
+  bundle.receipt.featureCount = bundle.geometry.features.length;
   bundle.receipt.canonicalGeoJsonSha256 = createCanonicalGeometryDigest(bundle.geometry);
+
   assert.throws(() => compileStandardMeridianScene(bundle), /does not intersect district Mirzapur/);
 });
