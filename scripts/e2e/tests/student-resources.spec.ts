@@ -46,7 +46,7 @@ async function fulfillJson(route: Route, body: unknown, status = 200) {
 }
 
 async function installResourceFixtures(page: Page, resources = [currentAffairs, studyNote]) {
-  await page.route("**/api/learning-resources**", async (route) => {
+  const handleResourceRequest = async (route: Route) => {
     const url = new URL(route.request().url());
     const suffix = url.pathname.replace(/^\/api\/learning-resources\/?/, "");
     if (!suffix) {
@@ -57,7 +57,8 @@ async function installResourceFixtures(page: Page, resources = [currentAffairs, 
       });
     }
 
-    const resource = resources.find((item) => item.id === decodeURIComponent(suffix) || item.publicCode === decodeURIComponent(suffix));
+    const identifier = decodeURIComponent(suffix);
+    const resource = resources.find((item) => item.id === identifier || item.publicCode === identifier);
     if (!resource) return fulfillJson(route, { error: "Learning resource not found", code: "LEARNING_RESOURCE_NOT_FOUND" }, 404);
     return fulfillJson(route, {
       resource: {
@@ -68,7 +69,12 @@ async function installResourceFixtures(page: Page, resources = [currentAffairs, 
           : "## Quick revision\n\nThese are the published Notes Studio learner notes.",
       },
     });
-  });
+  };
+
+  // Playwright's glob semantics do not let the trailing ** reliably cross the
+  // slash between the collection and detail endpoint, so intercept both forms.
+  await page.route("**/api/learning-resources/**", handleResourceRequest);
+  await page.route("**/api/learning-resources**", handleResourceRequest);
 }
 
 async function expectTouchTarget(locator: ReturnType<Page["locator"]>) {
