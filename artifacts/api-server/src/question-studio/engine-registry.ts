@@ -5,12 +5,12 @@ import type {
   QuestionStudioGenerationResult,
   QuestionStudioPackageDefinition,
 } from "./engine-types";
-import { knowledgeV1Com001QuestionStudioAdapter } from "./engines/knowledge-v1-com001-adapter";
+import { knowledgeV1QuestionStudioAdapter } from "./engines/knowledge-v1-adapter";
 import { quantV4QuestionStudioAdapter } from "./engines/quant-v4-adapter";
 
 const adapters = new Map<QuestionStudioEngineId, QuestionStudioEngineAdapter>([
   [quantV4QuestionStudioAdapter.engineId, quantV4QuestionStudioAdapter],
-  [knowledgeV1Com001QuestionStudioAdapter.engineId, knowledgeV1Com001QuestionStudioAdapter],
+  [knowledgeV1QuestionStudioAdapter.engineId, knowledgeV1QuestionStudioAdapter],
 ]);
 
 export function listQuestionStudioEngines(): QuestionStudioEngineId[] {
