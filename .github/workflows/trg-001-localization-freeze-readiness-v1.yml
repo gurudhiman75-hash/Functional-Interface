@@ -1,0 +1,77 @@
+name: Validate TRG-001 localization freeze readiness
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/LOCALIZATION-V1-STATUS.md"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-freeze-readiness.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-freeze-readiness.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final4.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-human-approved-runtime.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: trg-001-localization-freeze-readiness-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-trg-001-localization-freeze-readiness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle frozen English authority audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-human-approved.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-freeze-readiness-english-audit.mjs
+
+      - name: Run frozen English authority audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trg-001-freeze-readiness-english-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-freeze-readiness-english-audit.log
+
+      - name: Bundle Final4 freeze-readiness guard
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-freeze-readiness.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-localization-freeze-readiness-audit.mjs
+
+      - name: Run 144 x 2 Final4 freeze-readiness guard
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trg-001-localization-freeze-readiness-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-localization-freeze-readiness-audit.log
+
+      - name: Upload TRG-001 localization freeze-readiness evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-001-localization-freeze-readiness-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/trg-001-freeze-readiness-english-audit.log
+            artifacts/api-server/dist/quant-v4/trg-001-localization-freeze-readiness-audit.log
+          if-no-files-found: error
+          retention-days: 30
