@@ -76,9 +76,9 @@ for (const entry of BTD_PERMANENT_QL_REGISTRY) {
       scoredSourceChecks += 6;
 
       assert(Object.keys(plan.sourceAdmissionKeys).sort().join(",") === "en,hi,pa", `${entry.qlId}: multilingual source authority incomplete`);
-      assert(String(plan.sourceAdmissionKeys.en).startsWith("BTD-BANK-"), `${entry.qlId}: English admission key invalid`);
-      assert(String(plan.sourceAdmissionKeys.hi).startsWith("BTD-BANK-"), `${entry.qlId}: Hindi admission key invalid`);
-      assert(String(plan.sourceAdmissionKeys.pa).startsWith("BTD-BANK-"), `${entry.qlId}: Punjabi admission key invalid`);
+      assert(/^BTD-QB-[0-9a-f]{32}$/u.test(String(plan.sourceAdmissionKeys.en)), `${entry.qlId}: English admission key invalid`);
+      assert(/^BTD-QB-[0-9a-f]{32}$/u.test(String(plan.sourceAdmissionKeys.hi)), `${entry.qlId}: Hindi admission key invalid`);
+      assert(/^BTD-QB-[0-9a-f]{32}$/u.test(String(plan.sourceAdmissionKeys.pa)), `${entry.qlId}: Punjabi admission key invalid`);
       multilingualSourceChecks += 4;
 
       assert(plan.mockSeriesPolicy.explicitFalseMustBlockMembership === true, `${entry.qlId}: explicit false policy drift`);
