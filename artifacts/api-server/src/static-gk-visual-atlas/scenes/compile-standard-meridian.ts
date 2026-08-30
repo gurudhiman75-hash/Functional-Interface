@@ -5,16 +5,19 @@ import {
   SOI_ADMIN_PRODUCT_CODE,
   validateAdminIngestBundle,
 } from "../geometry/ingest-contract";
-import { compileLongitudeAcrossIndia, compileLongitudeSegmentsForState } from "../geometry/longitude-compiler";
-import { pointInArea } from "../geometry/point-in-area";
+import {
+  compileLongitudeAcrossIndia,
+  compileLongitudeSegmentsForDistrict,
+  compileLongitudeSegmentsForState,
+} from "../geometry/longitude-compiler";
 import type { StaticGkMeridianSceneRecipe, StaticGkSceneCue } from "./types";
 
 const STANDARD_MERIDIAN_LONGITUDE = 82.5;
+const MIRZAPUR_STATE = "Uttar Pradesh";
+const MIRZAPUR_DISTRICT = "Mirzapur";
 
-export interface VerifiedStaticGkPoint {
-  latitude: number;
-  longitude: number;
-  source: string;
+function normalizeAdminLabel(value: string): string {
+  return value.trim().replace(/\s+/g, " ").toLocaleLowerCase("en-IN");
 }
 
 function buildCues(): StaticGkSceneCue[] {
@@ -52,10 +55,10 @@ function buildCues(): StaticGkSceneCue[] {
       id: "SGK002-CUE-04",
       startMs: 10_000,
       endMs: 17_000,
-      layer: "point-marker",
-      action: "label",
-      targetRef: "point.mirzapur",
-      text: "Mirzapur",
+      layer: "district-highlight",
+      action: "highlight",
+      targetRef: "district.mirzapur",
+      text: "Mirzapur district",
       factIds: ["SGK002-F02"],
     },
     {
@@ -81,35 +84,45 @@ function buildCues(): StaticGkSceneCue[] {
 
 export function compileStandardMeridianScene(
   bundle?: StaticGkAdminIngestBundle,
-  mirzapur?: VerifiedStaticGkPoint,
 ): StaticGkMeridianSceneRecipe {
   let status: StaticGkMeridianSceneRecipe["status"] = "geometry-pending";
   let sourceArchiveSha256: string | undefined;
   let canonicalGeoJsonSha256: string | undefined;
   let indiaSegments: StaticGkMeridianSceneRecipe["meridian"]["indiaSegments"] = [];
   let upSegments: StaticGkMeridianSceneRecipe["meridian"]["upSegments"] = [];
+  let mirzapurSegments: StaticGkMeridianSceneRecipe["districtOfInterest"]["meridianSegments"] = [];
+  let mirzapurFeatureCount = 0;
 
   if (bundle) {
     validateAdminIngestBundle(bundle);
     indiaSegments = compileLongitudeAcrossIndia(bundle.geometry, STANDARD_MERIDIAN_LONGITUDE);
-    upSegments = compileLongitudeSegmentsForState(bundle.geometry, STANDARD_MERIDIAN_LONGITUDE, "Uttar Pradesh").map(
-      (segment) => segment.line.geometry,
-    );
+    upSegments = compileLongitudeSegmentsForState(
+      bundle.geometry,
+      STANDARD_MERIDIAN_LONGITUDE,
+      MIRZAPUR_STATE,
+    ).map((segment) => segment.line.geometry);
     sourceArchiveSha256 = bundle.receipt.sourceArchiveSha256;
     canonicalGeoJsonSha256 = bundle.receipt.canonicalGeoJsonSha256;
-    status = "point-verification-pending";
 
-    if (mirzapur) {
-      if (!Number.isFinite(mirzapur.latitude) || !Number.isFinite(mirzapur.longitude)) {
-        throw new Error("Mirzapur point contains non-finite coordinates");
-      }
-      if (!mirzapur.source.trim()) throw new Error("Mirzapur point requires a verification source");
-      const upFeatures = bundle.geometry.features.filter((feature) => feature.properties.stateName === "Uttar Pradesh");
-      const insideUttarPradesh = upFeatures.some((feature) => pointInArea([mirzapur.longitude, mirzapur.latitude], feature.geometry));
-      if (!insideUttarPradesh) throw new Error("Verified Mirzapur point does not lie inside canonical Uttar Pradesh geometry");
-      if (Math.abs(mirzapur.longitude - STANDARD_MERIDIAN_LONGITUDE) > 0.5) {
-        throw new Error("Verified Mirzapur point is implausibly far from 82°30′E for the locked lesson claim");
-      }
+    const mirzapurStateKey = normalizeAdminLabel(MIRZAPUR_STATE);
+    const mirzapurDistrictKey = normalizeAdminLabel(MIRZAPUR_DISTRICT);
+    const mirzapurFeatures = bundle.geometry.features.filter(
+      (feature) =>
+        normalizeAdminLabel(feature.properties.stateName) === mirzapurStateKey &&
+        typeof feature.properties.districtName === "string" &&
+        normalizeAdminLabel(feature.properties.districtName) === mirzapurDistrictKey,
+    );
+
+    if (mirzapurFeatures.length === 0) {
+      status = "district-verification-pending";
+    } else {
+      mirzapurSegments = compileLongitudeSegmentsForDistrict(
+        bundle.geometry,
+        STANDARD_MERIDIAN_LONGITUDE,
+        MIRZAPUR_STATE,
+        MIRZAPUR_DISTRICT,
+      ).map((segment) => segment.line.geometry);
+      mirzapurFeatureCount = mirzapurFeatures.length;
       status = "render-ready";
     }
   }
@@ -140,12 +153,12 @@ export function compileStandardMeridianScene(
       indiaSegments,
       upSegments,
     },
-    pointOfInterest: {
-      id: "point.mirzapur",
-      name: "Mirzapur",
-      latitude: mirzapur?.latitude,
-      longitude: mirzapur?.longitude,
-      verificationSource: mirzapur?.source,
+    districtOfInterest: {
+      id: "district.mirzapur",
+      name: MIRZAPUR_DISTRICT,
+      stateName: MIRZAPUR_STATE,
+      featureCount: mirzapurFeatureCount,
+      meridianSegments: mirzapurSegments,
     },
     cues: buildCues(),
     narration: STANDARD_MERIDIAN_FACT_LOCK.narration.map(({ id, text, factIds }) => ({ id, text, factIds })),
@@ -161,9 +174,9 @@ export function compileStandardMeridianScene(
       assertions: [
         "82°30′E must be compiled as longitude 82.5 and never hand-positioned.",
         "The meridian must intersect canonical India geometry and canonical Uttar Pradesh geometry.",
-        "Mirzapur must be independently source-verified before render-ready status.",
-        "The Mirzapur point must lie inside canonical Uttar Pradesh geometry.",
-        "The Mirzapur marker must not be snapped onto the meridian for cosmetic alignment.",
+        "Mirzapur must resolve from official district-level Survey of India geometry before render-ready status.",
+        "The canonical Mirzapur district polygon must itself intersect longitude 82.5.",
+        "No city marker may be cosmetically snapped onto the meridian to satisfy the locked lesson claim.",
       ],
     },
   };
