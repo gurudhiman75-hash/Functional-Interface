@@ -1,0 +1,68 @@
+name: Validate Notes Studio NS-011 Source Policy
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/migrations/20260830_notes_studio_source_pack_ns011_source_policy.sql
+      - artifacts/api-server/src/notes-studio/source-pack-policy.ts
+      - artifacts/api-server/src/notes-studio/source-pack-policy.test.ts
+      - artifacts/api-server/src/notes-studio/production-readiness.ts
+      - artifacts/api-server/src/notes-studio/production-readiness.test.ts
+      - artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/pages/content/NotesStudioSourcePolicyPage.tsx
+      - artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
+      - docs/notes-studio-ns011-source-pack-policy.md
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notes-studio-ns011-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-notes-studio-source-policy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run NS-011 source-policy contracts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/source-pack-policy.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-source-pack-policy.test.mjs
+          node artifacts/api-server/dist/notes-studio-source-pack-policy.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/production-readiness.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-production-readiness.test.mjs
+          node artifacts/api-server/dist/notes-studio-production-readiness.test.mjs
+
+      - name: Verify source-policy evidence gate
+        run: |
+          grep -F "ADD COLUMN IF NOT EXISTS source_role" artifacts/api-server/migrations/20260830_notes_studio_source_pack_ns011_source_policy.sql
+          grep -F "sourcePackTemplate" artifacts/api-server/migrations/20260830_notes_studio_source_pack_ns011_source_policy.sql
+          grep -F "SOURCE_PACK_POLICY_INCOMPLETE" artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
+          grep -F "Source-pack template and research roles freeze once evidence work begins" artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
+          grep -F "adminNotesStudioSourcePolicyRouter" artifacts/api-server/src/routes/index.ts
+          grep -F "Source policy" artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
+          grep -F "Evidence gate blocked by source mix" artifacts/admin-app/src/pages/content/NotesStudioSourcePolicyPage.tsx
+          node -e "const fs=require('fs');const s=fs.readFileSync('artifacts/api-server/src/routes/index.ts','utf8');const policy=s.indexOf('router.use(\"/admin/notes-studio\", adminNotesStudioSourcePolicyRouter)');const evidence=s.indexOf('router.use(\"/admin/notes-studio\", adminNotesStudioEvidenceRouter)');if(policy<0||evidence<0||policy>evidence)process.exit(1)"
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin app
+        run: pnpm --dir artifacts/admin-app typecheck
