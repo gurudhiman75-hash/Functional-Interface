@@ -16,12 +16,16 @@ import questionLanguageE3BPaSource from "../question-language.e3b.pa.json" asser
 import questionLanguageE4Source from "../question-language.e4.en.json" assert { type: "json" };
 import questionLanguageE4HiSource from "../question-language.e4.hi.json" assert { type: "json" };
 import questionLanguageE4PaSource from "../question-language.e4.pa.json" assert { type: "json" };
+import questionLanguageE5Source from "../question-language.e5.en.json" assert { type: "json" };
+import questionLanguageE5HiSource from "../question-language.e5.hi.json" assert { type: "json" };
+import questionLanguageE5PaSource from "../question-language.e5.pa.json" assert { type: "json" };
 import taskRegistrySource from "../task-registry.library.json" assert { type: "json" };
 import taskRegistryE1Source from "../task-registry.e1.library.json" assert { type: "json" };
 import taskRegistryE2Source from "../task-registry.e2.library.json" assert { type: "json" };
 import taskRegistryE3ASource from "../task-registry.e3.library.json" assert { type: "json" };
 import taskRegistryE3BSource from "../task-registry.e3b.library.json" assert { type: "json" };
 import taskRegistryE4Source from "../task-registry.e4.library.json" assert { type: "json" };
+import taskRegistryE5Source from "../task-registry.e5.library.json" assert { type: "json" };
 import type { Prt001Language, Prt001TaskRegistryEntry } from "./types";
 
 interface QuestionLanguageSource {
@@ -47,9 +51,9 @@ function mergeQuestionLanguages(base: QuestionLanguageSource, ...overlays: Quest
 }
 
 const questionLanguages = {
-  en: mergeQuestionLanguages(questionLanguageSource as QuestionLanguageSource, questionLanguageE1Source as QuestionLanguageSource, questionLanguageE2Source as QuestionLanguageSource, questionLanguageE3ASource as QuestionLanguageSource, questionLanguageE3BSource as QuestionLanguageSource, questionLanguageE4Source as QuestionLanguageSource),
-  hi: mergeQuestionLanguages(questionLanguageHiSource as QuestionLanguageSource, questionLanguageE1HiSource as QuestionLanguageSource, questionLanguageE2HiSource as QuestionLanguageSource, questionLanguageE3AHiSource as QuestionLanguageSource, questionLanguageE3BHiSource as QuestionLanguageSource, questionLanguageE4HiSource as QuestionLanguageSource),
-  pa: mergeQuestionLanguages(questionLanguagePaSource as QuestionLanguageSource, questionLanguageE1PaSource as QuestionLanguageSource, questionLanguageE2PaSource as QuestionLanguageSource, questionLanguageE3APaSource as QuestionLanguageSource, questionLanguageE3BPaSource as QuestionLanguageSource, questionLanguageE4PaSource as QuestionLanguageSource),
+  en: mergeQuestionLanguages(questionLanguageSource as QuestionLanguageSource, questionLanguageE1Source as QuestionLanguageSource, questionLanguageE2Source as QuestionLanguageSource, questionLanguageE3ASource as QuestionLanguageSource, questionLanguageE3BSource as QuestionLanguageSource, questionLanguageE4Source as QuestionLanguageSource, questionLanguageE5Source as QuestionLanguageSource),
+  hi: mergeQuestionLanguages(questionLanguageHiSource as QuestionLanguageSource, questionLanguageE1HiSource as QuestionLanguageSource, questionLanguageE2HiSource as QuestionLanguageSource, questionLanguageE3AHiSource as QuestionLanguageSource, questionLanguageE3BHiSource as QuestionLanguageSource, questionLanguageE4HiSource as QuestionLanguageSource, questionLanguageE5HiSource as QuestionLanguageSource),
+  pa: mergeQuestionLanguages(questionLanguagePaSource as QuestionLanguageSource, questionLanguageE1PaSource as QuestionLanguageSource, questionLanguageE2PaSource as QuestionLanguageSource, questionLanguageE3APaSource as QuestionLanguageSource, questionLanguageE3BPaSource as QuestionLanguageSource, questionLanguageE4PaSource as QuestionLanguageSource, questionLanguageE5PaSource as QuestionLanguageSource),
 };
 
 const registries = [
@@ -59,6 +63,7 @@ const registries = [
   taskRegistryE3ASource as TaskRegistrySource,
   taskRegistryE3BSource as TaskRegistrySource,
   taskRegistryE4Source as TaskRegistrySource,
+  taskRegistryE5Source as TaskRegistrySource,
 ];
 const [baseTaskRegistry, ...overlayRegistries] = registries;
 if (!baseTaskRegistry) throw new Error("PRT-001 base task registry is missing");
