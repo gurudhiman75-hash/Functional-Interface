@@ -1,5 +1,5 @@
 import { TSD_CP012_ENGLISH_REVIEW_FINAL } from "./english-review-editorial-final";
-import { buildTsdCp012ScalarDistractors, buildTsdCp012SetDistractors } from "./question-studio-distractors";
+import { buildTsdCp012ScalarDistractors, buildTsdCp012SetDistractors } from "./question-studio-distractors-expanded";
 
 function fail(question: (typeof TSD_CP012_ENGLISH_REVIEW_FINAL)[number], error: unknown): never {
   const message = error instanceof Error ? error.message : String(error);
