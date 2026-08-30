@@ -8,6 +8,7 @@ import { NotesStudioReleaseRevisionPage } from './NotesStudioReleaseRevisionPage
 import { NotesStudioSectionDraftsPage } from './NotesStudioSectionDraftsPage';
 import { NotesStudioSourceLibraryPage } from './NotesStudioSourceLibraryPage';
 import { NotesStudioSourcePackPage } from './NotesStudioSourcePackPage';
+import { NotesStudioSourcePolicyPage } from './NotesStudioSourcePolicyPage';
 import { NotesStudioWorkspacePage } from './NotesStudioWorkspacePage';
 
 export function NotesStudioHubPage() {
@@ -16,6 +17,7 @@ export function NotesStudioHubPage() {
       <TabsTrigger value="planning">Syllabus planning</TabsTrigger>
       <TabsTrigger value="library">Source library</TabsTrigger>
       <TabsTrigger value="authoring">Brief & sources</TabsTrigger>
+      <TabsTrigger value="source-policy">Source policy</TabsTrigger>
       <TabsTrigger value="evidence">Evidence & coverage</TabsTrigger>
       <TabsTrigger value="sections">Section drafts</TabsTrigger>
       <TabsTrigger value="quality">Quality gates</TabsTrigger>
@@ -32,6 +34,9 @@ export function NotesStudioHubPage() {
     </TabsContent>
     <TabsContent value="authoring" className="mt-0">
       <NotesStudioSourcePackPage />
+    </TabsContent>
+    <TabsContent value="source-policy" className="mt-0">
+      <NotesStudioSourcePolicyPage />
     </TabsContent>
     <TabsContent value="evidence" className="mt-0">
       <NotesStudioEvidenceCoveragePage />
