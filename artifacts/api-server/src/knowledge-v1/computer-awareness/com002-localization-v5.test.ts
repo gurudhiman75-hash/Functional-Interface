@@ -20,6 +20,7 @@ const badHindi = [
   /कौन-सी सिस्टम क्रिया यह काम करती है:/u,
   /रीनेम क्रिया मूल आइटम को वहीं छोड़ने के बजाय उसका स्थान बदलती है/u,
   /इसलिए केवल [^।\n]+ सही उत्तर है।/u,
+  /सही उत्तर है क्योंकि यह प्रश्न में दिए गए सिस्टम कार्य से मेल खाता है/u,
 ];
 const badPunjabi = [
   /ਫ਼ਾਈਲ-ਸਟੋਰੇਜ ਸਰੋਤ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਦਾ ਕੰਮ ਹੈ।/u,
@@ -29,6 +30,7 @@ const badPunjabi = [
   /ਕਿਹੜੀ ਸਿਸਟਮ ਕਾਰਵਾਈ ਇਹ ਕੰਮ ਕਰਦੀ ਹੈ:/u,
   /ਰੀਨੇਮ ਕਾਰਵਾਈ ਮੂਲ ਆਈਟਮ ਨੂੰ ਥਾਂ ਤੇ ਛੱਡਣ ਦੀ ਬਜਾਇ ਉਸਦੀ ਥਾਂ ਬਦਲਦੀ ਹੈ/u,
   /ਇਸ ਲਈ ਕੇਵਲ [^।\n]+ ਸਹੀ ਉੱਤਰ ਹੈ।/u,
+  /ਸਹੀ ਉੱਤਰ ਹੈ ਕਿਉਂਕਿ ਇਹ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੇ ਸਿਸਟਮ ਕੰਮ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ/u,
 ];
 
 const strictTranslations = {
@@ -108,7 +110,7 @@ for (const qlId of qlIds) {
       const learnerText = `${question.stem}\n${question.options.join("\n")}\n${question.explanation}`;
       const badPatterns = language === "hi" ? badHindi : badPunjabi;
       for (const pattern of badPatterns) {
-        assert.doesNotMatch(learnerText, pattern, `${qlId}/${seed}/${language}: known V4 editorial defect survived V5`);
+        assert.doesNotMatch(learnerText, pattern, `${qlId}/${seed}/${language}: known V4/editorial defect survived V5`);
       }
 
       if (language === "hi") {
@@ -174,6 +176,13 @@ for (const qlId of qlIds) {
     }
     if (qlId === "COM-002-QL-006") {
       assert.doesNotMatch(question.stem, /:/u);
+      assert.doesNotMatch(
+        question.explanation,
+        language === "hi"
+          ? /सही उत्तर है क्योंकि यह प्रश्न में दिए गए सिस्टम कार्य से मेल खाता है/u
+          : /ਸਹੀ ਉੱਤਰ ਹੈ ਕਿਉਂਕਿ ਇਹ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੇ ਸਿਸਟਮ ਕੰਮ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ/u,
+      );
+      assert.doesNotMatch(question.explanation, language === "hi" ? /का अर्थ है:/u : /ਦਾ ਅਰਥ ਹੈ:/u);
     }
     if (qlId === "COM-002-QL-007" || qlId === "COM-002-QL-008") {
       assert.doesNotMatch(question.explanation, /^[^:।\n]+:\s+/u);
@@ -198,5 +207,6 @@ console.log("[com002-localization-v5] PASS", {
   candidateOnly: true,
   semanticProvenancePreserved: true,
   exactExportSeedsCovered: true,
+  directSemanticExplanations: true,
   knownEditorialDefectsRemoved: true,
 });
