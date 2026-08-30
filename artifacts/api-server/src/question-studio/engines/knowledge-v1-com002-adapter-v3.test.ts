@@ -42,7 +42,7 @@ for (const qlId of qlIds) {
       assert.equal(new Set(question.options).size, 4);
       assert.equal(question.options[question.correctIndex], question.canonicalAnswer);
       assert.equal(question.lifecycleId, lifecycle.lifecycleId);
-      assert.equal(question.lifecycleStage, lifecycle.stage);
+      assert.equal(question.stage, lifecycle.stage);
       assert.equal(question.reviewRunPersistenceAllowed, true);
       assert.equal(question.canonicalQuestionPersistenceAllowed, false);
       assert.equal(question.questionBankWritable, false);
@@ -75,7 +75,7 @@ for (const language of languages) {
   });
   assert.equal(batch.questions.length, 13);
   assert.equal(batch.generationContext.packageId, "COM-002");
-  assert.equal(batch.generationContext.lifecycleStage, "REVIEW_ONLY");
+  assert.equal(batch.generationContext.stage, "REVIEW_ONLY");
   assert.equal(batch.generationContext.reviewRunPersistenceAllowed, true);
   assert.equal(batch.generationContext.canonicalQuestionPersistenceAllowed, false);
   assert.equal(batch.generationContext.questionBankWritable, false);
