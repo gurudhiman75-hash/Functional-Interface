@@ -8,11 +8,20 @@ import {
 } from "./com002-review-synthesis-v6";
 
 const qlIds = listCom002ReviewV6QlIds();
-assert.equal(COM002_ENGLISH_GENERATOR_VERSION_V6, "COM-002-ENGLISH-GENERATOR-V6-ERRATA-REVIEW-CANDIDATE-1");
+assert.equal(COM002_ENGLISH_GENERATOR_VERSION_V6, "COM-002-ENGLISH-GENERATOR-V6-ERRATA-REVIEW-CANDIDATE-2");
 assert.equal(qlIds.length, 13);
+
+const bannedEditorialDefects = [
+  /\ba executable program file\b/i,
+  /is classified as open-source operating system\./i,
+  /is associated with Portable Document Format file\./i,
+  /is commonly used for executable program file\./i,
+  /Therefore, [IVX, ]+(?:and [IVX]+ )?only is correct\./i,
+];
 
 let audited = 0;
 let repairedSurfaces = 0;
+let ql003PropertyStems = 0;
 
 for (const qlId of qlIds) {
   for (let index = 0; index < 40; index += 1) {
@@ -40,7 +49,14 @@ for (const qlId of qlIds) {
     assert.equal(question.runtimeRegistered, false);
 
     const learnerText = `${question.stem}\n${question.options.join("\n")}\n${question.explanation}`;
-    assert.doesNotMatch(learnerText, /\ba executable program file\b/i, `${qlId}/${seed}: bad article survived V6`);
+    for (const pattern of bannedEditorialDefects) {
+      assert.doesNotMatch(learnerText, pattern, `${qlId}/${seed}: known English editorial defect survived V6`);
+    }
+
+    if (qlId === "COM-002-QL-003" && question.surfaceMode === "TYPE_TO_PROPERTY") {
+      assert.doesNotMatch(question.stem, /^What is a .+ operating system\?$/i);
+      ql003PropertyStems += 1;
+    }
 
     if (
       question.stem !== v5.stem ||
@@ -54,19 +70,29 @@ for (const qlId of qlIds) {
   }
 }
 
-// The approved review-wave seeds are part of the regression surface because
-// QL-009 exposed the original article defect in the bilingual review artifact.
-for (const suffix of ["A", "B"] as const) {
-  const seed = `human-review-wave1:COM-002-QL-009:${suffix}`;
-  const question = generateCom002ReviewQuestionV6({ qlId: "COM-002-QL-009", seed });
-  const learnerText = `${question.stem}\n${question.options.join("\n")}\n${question.explanation}`;
-  assert.doesNotMatch(learnerText, /\ba executable program file\b/i, `${seed}: approved review seed kept bad article`);
+// Exact review/export seeds are regression surfaces because human-readable
+// packs exposed grammar that the original structural audit did not catch.
+for (const qlId of ["COM-002-QL-009", "COM-002-QL-013"] as const) {
+  const seeds = [
+    `human-review-wave1:${qlId}:A`,
+    `human-review-wave1:${qlId}:B`,
+    `localization-human-review-v4:${qlId}`,
+  ];
+  for (const seed of seeds) {
+    const question = generateCom002ReviewQuestionV6({ qlId, seed });
+    const learnerText = `${question.stem}\n${question.options.join("\n")}\n${question.explanation}`;
+    for (const pattern of bannedEditorialDefects) {
+      assert.doesNotMatch(learnerText, pattern, `${seed}: known English editorial defect survived V6`);
+    }
+  }
 }
 
 assert.equal(audited, 520);
+assert.ok(ql003PropertyStems > 0, "V6 audit must exercise QL-003 property stems");
 console.log("[COM002-REVIEW-SYNTHESIS-V6] PASS", {
   questions: audited,
   repairedSurfaces,
+  ql003PropertyStems,
   semanticProvenancePreserved: true,
   candidateOnly: true,
 });
