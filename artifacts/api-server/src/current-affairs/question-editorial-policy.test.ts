@@ -131,4 +131,71 @@ const publicQuestion = evaluateCurrentAffairsQuestionEditorialReadiness({
 assert.equal(publicQuestion.editable, false);
 assert.equal(publicQuestion.approvable, false);
 
+const associationSource = {
+  ...sourcePayload,
+  stem: "Which current-affairs event is associated with the value 5.50%?",
+  explanation: "Event Alpha is associated with 5.50%.",
+  options: ["Event Alpha", "Event Beta", "Event Gamma", "Event Delta"],
+  correctIndex: 0,
+};
+const hiExpected = ["घटना अल्फा", "घटना बीटा", "घटना गामा", "घटना डेल्टा"];
+const paExpected = ["ਘਟਨਾ ਅਲਫਾ", "ਘਟਨਾ ਬੀਟਾ", "ਘਟਨਾ ਗਾਮਾ", "ਘਟਨਾ ਡੈਲਟਾ"];
+const associationLocalization = (languageCode: "hi" | "pa", optionValues: string[]) => ({
+  id: `${languageCode}-association`,
+  languageCode,
+  status: "manual",
+  generationItemId: "item-1",
+  sourceGenerationVersionId: "v1",
+  payload: {
+    language: languageCode,
+    stem: languageCode === "hi" ? "कौन सी घटना 5.50% से जुड़ी है?" : "ਕਿਹੜੀ ਘਟਨਾ 5.50% ਨਾਲ ਜੁੜੀ ਹੈ?",
+    explanation: languageCode === "hi" ? "सही घटना 5.50% से जुड़ी है।" : "ਸਹੀ ਘਟਨਾ 5.50% ਨਾਲ ਜੁੜੀ ਹੈ।",
+    options: optionValues,
+    correctIndex: 0,
+    generationContext: {
+      questionBankAcceptanceMode: "BANK_ONLY",
+      publiclyPublishable: false,
+      automaticStudentPublication: false,
+    },
+  },
+});
+const badAssociation = evaluateCurrentAffairsQuestionEditorialReadiness({
+  generationItemId: "item-1",
+  generationItemStatus: "unreviewed",
+  currentSourceGenerationVersionId: "v1",
+  sourcePayload: associationSource,
+  questionFamily: "CA-QL-002",
+  factValue: "5.50%",
+  eventVerified: true,
+  hasOpenConflict: false,
+  activePromotion: false,
+  activeApprovedRelease: false,
+  expectedHindiOptions: hiExpected,
+  expectedPunjabiOptions: paExpected,
+  hindi: associationLocalization("hi", [hiExpected[0]!, "गलत बीटा", hiExpected[2]!, hiExpected[3]!]),
+  punjabi: associationLocalization("pa", paExpected),
+});
+assert.equal(badAssociation.approvable, false);
+assert.equal(badAssociation.checks.answerParity, true);
+assert.equal(badAssociation.checks.optionSemanticParity, false);
+
+const goodAssociation = evaluateCurrentAffairsQuestionEditorialReadiness({
+  generationItemId: "item-1",
+  generationItemStatus: "unreviewed",
+  currentSourceGenerationVersionId: "v1",
+  sourcePayload: associationSource,
+  questionFamily: "CA-QL-002",
+  factValue: "5.50%",
+  eventVerified: true,
+  hasOpenConflict: false,
+  activePromotion: false,
+  activeApprovedRelease: false,
+  expectedHindiOptions: hiExpected,
+  expectedPunjabiOptions: paExpected,
+  hindi: associationLocalization("hi", hiExpected),
+  punjabi: associationLocalization("pa", paExpected),
+});
+assert.equal(goodAssociation.approvable, true);
+assert.equal(goodAssociation.checks.optionSemanticParity, true);
+
 console.log("current-affairs question editorial policy contracts passed");
