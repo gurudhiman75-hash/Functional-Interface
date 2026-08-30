@@ -1,4 +1,4 @@
-name: Validate STC-001 V2 Editorial Surface Diversity
+name: Validate STC-001 V2 Trilingual Surface Diversity
 
 on:
   pull_request:
@@ -17,7 +17,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: validate-stc-001-v2-editorial-${{ github.ref }}
+  group: validate-stc-001-v2-trilingual-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -32,7 +32,7 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
-      - name: Strict TypeScript check for STC V2 editorial authority
+      - name: Strict TypeScript check for STC V2 trilingual authority
         working-directory: artifacts/api-server
         run: |
           pnpm exec tsc \
@@ -48,6 +48,7 @@ jobs:
             --skipLibCheck \
             --types node \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/truth-model-solver.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-types.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-ql001.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-ql002.ts \
@@ -56,12 +57,30 @@ jobs:
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-ql005.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-ql006.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-authorities.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-types.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-ql001.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-ql002.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-ql003.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-ql004.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-ql005.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-ql006.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-five-way-either-authorities.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-five-way-profile.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-review-v2.ts \
-            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-diversity-proof.test.ts
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-diversity-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-five-way-proof.test.ts
 
       - name: Prove eight surfaces per QL and balanced answer classes
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-diversity-proof.test.ts
+
+      - name: Prove 48-authority EN-HI-PA semantic parity
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-proof.test.ts
+
+      - name: Prove solver-backed Banking five-way profile
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-five-way-proof.test.ts
 
       - name: Re-prove immutable STC V1 chapter-owned authority
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v1-proof.test.ts
@@ -87,7 +106,8 @@ jobs:
 
       - name: Review boundary
         run: |
-          echo 'STC-001 V2 is an English editorial review candidate with 8 distinct surfaces per QL.'
+          echo 'STC-001 V2 is trilingual review-ready with 8 distinct surfaces per QL.'
+          echo 'English/Hindi/Punjabi are scenario-ID, answer-class, index and surface locked.'
+          echo 'Banking FIVE_WAY_EITHER uses 8 dedicated solver-validated authorities.'
           echo 'V1 remains preserved as the frozen audit baseline.'
-          echo 'Hindi/Punjabi localization and V2 five-way Banking profile remain pending editorial approval.'
           echo 'Question Bank, test, mock, public and automatic publication gates remain closed.'
