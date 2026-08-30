@@ -1,6 +1,6 @@
 import { verifyTsdCp011 } from "./executable-verifier";
 import { TSD_CP011_ENGLISH_REVIEW } from "./english-review-final";
-import { TSD_CP011_NATIVE_HINDI_REVIEW, TSD_CP011_NATIVE_PUNJABI_REVIEW } from "./native-review-final";
+import { TSD_CP011_RELEASE_HINDI_REVIEW, TSD_CP011_RELEASE_PUNJABI_REVIEW } from "./native-review-release";
 import { TSD_CP011_PROVISIONAL_QL_IDS } from "./ql-allocation";
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -10,13 +10,13 @@ function assert(condition: unknown, message: string): asserts condition {
 const DEVANAGARI = /\p{Script=Devanagari}/u;
 const GURMUKHI = /\p{Script=Gurmukhi}/u;
 
-assert(TSD_CP011_NATIVE_HINDI_REVIEW.length === 168, "expected 168 Hindi review questions");
-assert(TSD_CP011_NATIVE_PUNJABI_REVIEW.length === 168, "expected 168 Punjabi review questions");
+assert(TSD_CP011_RELEASE_HINDI_REVIEW.length === 168, "expected 168 Hindi review questions");
+assert(TSD_CP011_RELEASE_PUNJABI_REVIEW.length === 168, "expected 168 Punjabi review questions");
 assert(TSD_CP011_ENGLISH_REVIEW.length === 168, "expected 168 English parity questions");
 
 for (const [language, questions] of [
-  ["hi", TSD_CP011_NATIVE_HINDI_REVIEW],
-  ["pa", TSD_CP011_NATIVE_PUNJABI_REVIEW],
+  ["hi", TSD_CP011_RELEASE_HINDI_REVIEW],
+  ["pa", TSD_CP011_RELEASE_PUNJABI_REVIEW],
 ] as const) {
   assert(new Set(questions.map((x) => x.familyId)).size === 168, `${language}: family IDs must be unique`);
   assert(new Set(questions.map((x) => x.stem)).size === 168, `${language}: learner stems must be unique`);
@@ -44,6 +44,12 @@ for (const [language, questions] of [
     assert(!/\{[A-Za-z0-9]+\}/.test(question.stem), `${language}/${question.familyId}: unresolved placeholder`);
     assert(verifyTsdCp011(question.input, question.solution).accepted, `${language}/${question.familyId}: independent verifier rejected`);
 
+    if (question.solution.unit === "RATIO") {
+      const ratio = `${question.solution.answer.numerator}:${question.solution.answer.denominator}`;
+      assert(question.explanation.conclusion.includes(ratio), `${language}/${question.familyId}: ratio conclusion is not rendered as a:b`);
+      assert(question.explanation.steps.some((step) => step.includes(ratio)), `${language}/${question.familyId}: ratio working does not show a:b`);
+    }
+
     if (language === "hi") {
       assert(DEVANAGARI.test(question.stem), `${question.familyId}: Devanagari script missing`);
       assert(!GURMUKHI.test(question.stem), `${question.familyId}: Hindi stem contains Gurmukhi letters`);
@@ -56,7 +62,7 @@ for (const [language, questions] of [
   }
 }
 
-for (const [language, questions] of [["hi", TSD_CP011_NATIVE_HINDI_REVIEW], ["pa", TSD_CP011_NATIVE_PUNJABI_REVIEW]] as const) {
+for (const [language, questions] of [["hi", TSD_CP011_RELEASE_HINDI_REVIEW], ["pa", TSD_CP011_RELEASE_PUNJABI_REVIEW]] as const) {
   const ql126 = questions.filter((x) => x.qlId === "TSD-QL-126");
   const ql127 = questions.filter((x) => x.qlId === "TSD-QL-127");
   const ql128 = questions.filter((x) => x.qlId === "TSD-QL-128");
@@ -73,11 +79,12 @@ for (const [language, questions] of [["hi", TSD_CP011_NATIVE_HINDI_REVIEW], ["pa
 
 console.log("TSD-CP-011 NATIVE HINDI/PUNJABI LOCALIZATION PROOF: PASS");
 console.log(JSON.stringify({
-  hindiQuestions: TSD_CP011_NATIVE_HINDI_REVIEW.length,
-  punjabiQuestions: TSD_CP011_NATIVE_PUNJABI_REVIEW.length,
+  hindiQuestions: TSD_CP011_RELEASE_HINDI_REVIEW.length,
+  punjabiQuestions: TSD_CP011_RELEASE_PUNJABI_REVIEW.length,
   familiesPerQl: 24,
   qls: TSD_CP011_PROVISIONAL_QL_IDS.length,
   targetEvidenceFloor: 4,
+  ratioPresentation: "A_COLON_B",
   latinScriptInLearnerStems: "ABSENT",
   crossScriptLetters: "ABSENT",
   avoidableTranslatedJargon: "ABSENT",
