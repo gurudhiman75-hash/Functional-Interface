@@ -12,9 +12,9 @@ import {
 } from "./com002-review-synthesis-v6";
 
 export const COM002_LOCALIZATION_VERSION_V5 =
-  "COM-002-LOCALIZATION-V5-EDITORIAL-ERRATA-REVIEW-CANDIDATE-1" as const;
+  "COM-002-LOCALIZATION-V5-EDITORIAL-ERRATA-REVIEW-CANDIDATE-2" as const;
 export const COM002_LOCALIZATION_DRAFT_AUTHORITY_V5 =
-  "COM002_HI_PA_LOCALIZATION_V5_EDITORIAL_ERRATA_REVIEW_CANDIDATE" as const;
+  "COM002_HI_PA_LOCALIZATION_V5_EDITORIAL_ERRATA_REVIEW_CANDIDATE_2" as const;
 
 export type Com002LocalizedQuestionV5 = Omit<
   Com002LocalizedQuestionV4,
@@ -72,6 +72,26 @@ const STRICT_SIMPLIFIED_OPTION_TRANSLATIONS: Readonly<
     hi: "प्रक्रियाओं को मेमोरी देता है",
     pa: "ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ ਮੈਮੋਰੀ ਦਿੰਦਾ ਹੈ",
   }),
+  "changes the item's name": Object.freeze({
+    hi: "आइटम का नाम बदलता है",
+    pa: "ਆਈਟਮ ਦਾ ਨਾਂ ਬਦਲਦਾ ਹੈ",
+  }),
+  "finds matching files or folders": Object.freeze({
+    hi: "मेल खाने वाली फ़ाइलें या फ़ोल्डर ढूँढता है",
+    pa: "ਮੇਲ ਖਾਂਦੀਆਂ ਫ਼ਾਈਲਾਂ ਜਾਂ ਫ਼ੋਲਡਰ ਲੱਭਦਾ ਹੈ",
+  }),
+  "removes the selected item from its current location": Object.freeze({
+    hi: "चुने गए आइटम को उसकी मौजूदा जगह से हटाता है",
+    pa: "ਚੁਣੀ ਆਈਟਮ ਨੂੰ ਉਸਦੀ ਮੌਜੂਦਾ ਥਾਂ ਤੋਂ ਹਟਾਉਂਦਾ ਹੈ",
+  }),
+  "moves the item to another location": Object.freeze({
+    hi: "आइटम को दूसरी जगह ले जाता है",
+    pa: "ਆਈਟਮ ਨੂੰ ਕਿਸੇ ਹੋਰ ਥਾਂ ਲੈ ਜਾਂਦਾ ਹੈ",
+  }),
+  "brings the deleted item back": Object.freeze({
+    hi: "डिलीट किए गए आइटम को वापस लाता है",
+    pa: "ਡਿਲੀਟ ਕੀਤੀ ਆਈਟਮ ਨੂੰ ਵਾਪਸ ਲਿਆਉਂਦਾ ਹੈ",
+  }),
 });
 
 function repairLocalizedTextV5(
@@ -85,22 +105,16 @@ function repairLocalizedTextV5(
         /फ़ाइल-स्टोरेज संसाधन ऑपरेटिंग सिस्टम का कार्य है।/gu,
         "फ़ाइल-स्टोरेज संसाधनों का प्रबंधन ऑपरेटिंग सिस्टम का कार्य है।",
       )
+      .replace(/रीनेम क्रिया([^।\n?]*?)बदलता है/gu, "रीनेम क्रिया$1बदलती है")
       .replace(
-        /कौन-सी सिस्टम क्रिया यह काम करती है:\s*Windows को बंद करके फिर से चालू करता है\?/gu,
-        "कौन-सी सिस्टम क्रिया Windows को बंद करके फिर से चालू करती है?",
-      )
-      .replace(/रीनेम क्रिया([^।\n?]*?)बदलता है/gu, "रीनेम क्रिया$1बदलती है");
+        /रीनेम क्रिया मूल आइटम को वहीं छोड़ने के बजाय उसका स्थान बदलती है/gu,
+        "रीनेम क्रिया आइटम को दूसरी जगह ले जाती है",
+      );
 
     if (qlId === "COM-002-QL-010") {
       repaired = repaired
         .replace(/ क्रिया का प्रभाव है:\s*/gu, " क्रिया ")
         .replace(/ता है।$/u, "ती है।");
-    }
-    if (qlId === "COM-002-QL-006") {
-      repaired = repaired.replace(
-        /^(.+?) का अर्थ है:\s*.+$/u,
-        "$1 सही उत्तर है क्योंकि यह प्रश्न में दिए गए सिस्टम कार्य से मेल खाता है।",
-      );
     }
     return repaired;
   }
@@ -110,24 +124,95 @@ function repairLocalizedTextV5(
       /ਫ਼ਾਈਲ-ਸਟੋਰੇਜ ਸਰੋਤ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਦਾ ਕੰਮ ਹੈ।/gu,
       "ਫ਼ਾਈਲ-ਸਟੋਰੇਜ ਸਰੋਤਾਂ ਦਾ ਪ੍ਰਬੰਧ ਕਰਨਾ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਦਾ ਕੰਮ ਹੈ।",
     )
+    .replace(/ਰੀਨੇਮ ਕਾਰਵਾਈ([^।\n?]*?)ਬਦਲਦਾ ਹੈ/gu, "ਰੀਨੇਮ ਕਾਰਵਾਈ$1ਬਦਲਦੀ ਹੈ")
     .replace(
-      /ਕਿਹੜੀ ਸਿਸਟਮ ਕਾਰਵਾਈ ਇਹ ਕੰਮ ਕਰਦੀ ਹੈ:\s*Windows ਨੂੰ ਬੰਦ ਕਰਕੇ ਫਿਰ ਚਾਲੂ ਕਰਦਾ ਹੈ\?/gu,
-      "ਕਿਹੜੀ ਸਿਸਟਮ ਕਾਰਵਾਈ Windows ਨੂੰ ਬੰਦ ਕਰਕੇ ਫਿਰ ਚਾਲੂ ਕਰਦੀ ਹੈ?",
-    )
-    .replace(/ਰੀਨੇਮ ਕਾਰਵਾਈ([^।\n?]*?)ਬਦਲਦਾ ਹੈ/gu, "ਰੀਨੇਮ ਕਾਰਵਾਈ$1ਬਦਲਦੀ ਹੈ");
+      /ਰੀਨੇਮ ਕਾਰਵਾਈ ਮੂਲ ਆਈਟਮ ਨੂੰ ਥਾਂ ਤੇ ਛੱਡਣ ਦੀ ਬਜਾਇ ਉਸਦੀ ਥਾਂ ਬਦਲਦੀ ਹੈ/gu,
+      "ਰੀਨੇਮ ਕਾਰਵਾਈ ਆਈਟਮ ਨੂੰ ਕਿਸੇ ਹੋਰ ਥਾਂ ਲੈ ਜਾਂਦੀ ਹੈ",
+    );
 
   if (qlId === "COM-002-QL-010") {
     repaired = repaired
       .replace(/ ਕਾਰਵਾਈ ਦਾ ਪ੍ਰਭਾਵ ਹੈ:\s*/gu, " ਕਾਰਵਾਈ ")
       .replace(/ਦਾ ਹੈ।$/u, "ਦੀ ਹੈ।");
   }
-  if (qlId === "COM-002-QL-006") {
-    repaired = repaired.replace(
-      /^(.+?) ਦਾ ਅਰਥ ਹੈ:\s*.+$/u,
-      "$1 ਸਹੀ ਉੱਤਰ ਹੈ ਕਿਉਂਕਿ ਇਹ ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਦਿੱਤੇ ਸਿਸਟਮ ਕੰਮ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ।",
+  return repaired;
+}
+
+function repairLocalizedStemV5(input: {
+  stem: string;
+  qlId: string;
+  surfaceMode: string;
+  language: Com002TargetLanguageV1;
+}) {
+  let stem = repairLocalizedTextV5(input.stem, input.qlId, input.language);
+
+  if (input.qlId === "COM-002-QL-001" && input.surfaceMode === "ENTITY_TO_FUNCTION") {
+    return input.language === "hi"
+      ? "इनमें से कौन-सा ऑपरेटिंग सिस्टम का कार्य है?"
+      : "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਦਾ ਕੰਮ ਹੈ?";
+  }
+
+  if (input.qlId === "COM-002-QL-006") {
+    if (input.language === "hi") {
+      stem = stem
+        .replace(/^कौन-सी सिस्टम क्रिया यह काम करती है:\s*/u, "कौन-सी सिस्टम क्रिया ")
+        .replace(/करता है\?$/u, "करती है?");
+    } else {
+      stem = stem
+        .replace(/^ਕਿਹੜੀ ਸਿਸਟਮ ਕਾਰਵਾਈ ਇਹ ਕੰਮ ਕਰਦੀ ਹੈ:\s*/u, "ਕਿਹੜੀ ਸਿਸਟਮ ਕਾਰਵਾਈ ")
+        .replace(/ਕਰਦਾ ਹੈ\?$/u, "ਕਰਦੀ ਹੈ?");
+    }
+  }
+
+  return stem;
+}
+
+function repairLocalizedExplanationV5(input: {
+  explanation: string;
+  qlId: string;
+  language: Com002TargetLanguageV1;
+}) {
+  let explanation = repairLocalizedTextV5(input.explanation, input.qlId, input.language);
+
+  if (input.language === "hi") {
+    if (input.qlId === "COM-002-QL-006") {
+      explanation = explanation.replace(/^(.+?) का अर्थ है:\s*(.+)$/u, "$1 $2");
+    }
+    if (input.qlId === "COM-002-QL-007" || input.qlId === "COM-002-QL-008") {
+      explanation = explanation.replace(/^([^:।\n]+):\s+/u, "$1 ");
+    }
+    if (input.qlId === "COM-002-QL-011") {
+      explanation = explanation.replace(
+        /^रीसायकल बिन से रीस्टोर रीसायकल बिन में अभी उपलब्ध डिलीट किए गए आइटम को वापस लाता है।$/u,
+        "रीस्टोर रीसायकल बिन में मौजूद डिलीट किए गए आइटम को वापस लाता है।",
+      );
+    }
+    if (input.qlId === "COM-002-QL-013") {
+      explanation = explanation
+        .replace(/इसलिए केवल ([IVX, ]+ और [IVX]+) सही उत्तर है।/u, "इसलिए केवल $1 सही हैं।")
+        .replace(/इसलिए केवल ([IVX]+) सही उत्तर है।/u, "इसलिए केवल $1 सही है।");
+    }
+    return explanation;
+  }
+
+  if (input.qlId === "COM-002-QL-006") {
+    explanation = explanation.replace(/^(.+?) ਦਾ ਅਰਥ ਹੈ:\s*(.+)$/u, "$1 $2");
+  }
+  if (input.qlId === "COM-002-QL-007" || input.qlId === "COM-002-QL-008") {
+    explanation = explanation.replace(/^([^:।\n]+):\s+/u, "$1 ");
+  }
+  if (input.qlId === "COM-002-QL-011") {
+    explanation = explanation.replace(
+      /^ਰੀਸਾਈਕਲ ਬਿਨ ਤੋਂ ਰੀਸਟੋਰ ਰੀਸਾਈਕਲ ਬਿਨ ਵਿੱਚ ਹਾਲੇ ਮੌਜੂਦ ਡਿਲੀਟ ਕੀਤੀ ਆਈਟਮ ਨੂੰ ਵਾਪਸ ਲਿਆਉਂਦਾ ਹੈ।$/u,
+      "ਰੀਸਟੋਰ ਰੀਸਾਈਕਲ ਬਿਨ ਵਿੱਚ ਮੌਜੂਦ ਡਿਲੀਟ ਕੀਤੀ ਆਈਟਮ ਨੂੰ ਵਾਪਸ ਲਿਆਉਂਦਾ ਹੈ।",
     );
   }
-  return repaired;
+  if (input.qlId === "COM-002-QL-013") {
+    explanation = explanation
+      .replace(/ਇਸ ਲਈ ਕੇਵਲ ([IVX, ]+ ਅਤੇ [IVX]+) ਸਹੀ ਉੱਤਰ ਹੈ।/u, "ਇਸ ਲਈ ਕੇਵਲ $1 ਸਹੀ ਹਨ।")
+      .replace(/ਇਸ ਲਈ ਕੇਵਲ ([IVX]+) ਸਹੀ ਉੱਤਰ ਹੈ।/u, "ਇਸ ਲਈ ਕੇਵਲ $1 ਸਹੀ ਹੈ।");
+  }
+  return explanation;
 }
 
 function repairLocalizedOptionsV5(input: {
@@ -191,8 +276,17 @@ export function localizeCom002QuestionV5(input: {
     qlId: english.qlId,
     language: input.language,
   });
-  const stem = repairLocalizedTextV5(historical.stem, english.qlId, input.language);
-  const explanation = repairLocalizedTextV5(historical.explanation, english.qlId, input.language);
+  const stem = repairLocalizedStemV5({
+    stem: historical.stem,
+    qlId: english.qlId,
+    surfaceMode: english.surfaceMode,
+    language: input.language,
+  });
+  const explanation = repairLocalizedExplanationV5({
+    explanation: historical.explanation,
+    qlId: english.qlId,
+    language: input.language,
+  });
 
   const question: Com002LocalizedQuestionV5 = {
     ...base,
