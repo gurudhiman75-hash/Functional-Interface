@@ -1,0 +1,20 @@
+{
+  "language": "pa",
+  "status": "HUMAN_AUTHORED_E2",
+  "entries": {
+    "PRT-QL-043": "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਸਮੇਂ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਉਨ੍ਹਾਂ ਦੇ ਮੁਨਾਫ਼ੇ ਦੇ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ {shareDifference} ਸੀ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+    "PRT-QL-044": "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਦਾ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ, ਜਦਕਿ ਉਨ੍ਹਾਂ ਦੇ ਨਿਵੇਸ਼ ਸਮਿਆਂ ਦਾ ਅਨੁਪਾਤ {timeRatioA}:{timeRatioB} ਸੀ। ਉਨ੍ਹਾਂ ਦੀ ਪੂੰਜੀ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-045": "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਦਾ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ, ਜਦਕਿ ਉਨ੍ਹਾਂ ਦੀ ਪੂੰਜੀ ਦਾ ਅਨੁਪਾਤ {capitalRatioA}:{capitalRatioB} ਸੀ। ਉਨ੍ਹਾਂ ਦੇ ਨਿਵੇਸ਼ ਸਮਿਆਂ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-046": "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਦੀ ਸ਼ੁਰੂਆਤ {initialCapitalA} ਨਾਲ ਕੀਤੀ। {firstChangeMonthA} ਬਾਅਦ ਪੂੰਜੀ {firstChangedCapitalA} ਅਤੇ {secondChangeMonthA} ਬਾਅਦ {secondChangedCapitalA} ਹੋ ਗਈ। {partnerB} ਨੇ ਪੂਰਾ ਸਾਲ {capitalB} ਲਗਾਏ ਰੱਖੇ। ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-047": "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਦੀ ਸ਼ੁਰੂਆਤ {initialCapitalA} ਨਾਲ ਕੀਤੀ ਅਤੇ ਬਾਅਦ ਵਿੱਚ ਪੂੰਜੀ ਨੂੰ {finalCapitalA} ਕਰ ਦਿੱਤਾ। {partnerB} ਨੇ ਪੂਰਾ ਸਾਲ {capitalB} ਲਗਾਏ ਰੱਖੇ। ਜੇ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ, ਤਾਂ {partnerA} ਨੇ ਕਿੰਨੇ ਮਹੀਨੇ ਬਾਅਦ ਪੂੰਜੀ ਬਦਲੀ?",
+    "PRT-QL-048": "ਇੱਕ {business} ਵਿੱਚ {partnerA}, {partnerB}, {partnerC} ਅਤੇ {partnerD} ਨੇ ਕ੍ਰਮਵਾਰ {capitalA}, {capitalB}, {capitalC} ਅਤੇ {capitalD}, {durationA}, {durationB}, {durationC} ਅਤੇ {durationD} ਲਈ ਲਗਾਏ। ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-049": "ਇੱਕ {business} ਵਿੱਚ {partnerA}, {partnerB} ਅਤੇ {partnerC} ਨੇ {capitalA}, {capitalB} ਅਤੇ {capitalC} ਲਗਾਏ। {partnerA} ਨੇ {durationA} ਅਤੇ {partnerB} ਨੇ {durationB} ਲਈ ਨਿਵੇਸ਼ ਕੀਤਾ; {partnerC} ਦਾ ਸਮਾਂ ਅਣਜਾਣ ਹੈ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB}:{profitRatioC} ਸੀ। {partnerC} ਨੇ ਕਿੰਨੇ ਸਮੇਂ ਲਈ ਨਿਵੇਸ਼ ਕੀਤਾ?",
+    "PRT-QL-050": "ਇੱਕ {business} ਵਿੱਚ {partnerA}, {partnerB} ਅਤੇ {partnerC} ਨੇ ਮੁਨਾਫ਼ਾ {profitRatioA}:{profitRatioB}:{profitRatioC} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ। ਉਨ੍ਹਾਂ ਦੇ ਨਿਵੇਸ਼ ਸਮੇਂ {durationA}, {durationB} ਅਤੇ {durationC} ਸਨ। ਉਨ੍ਹਾਂ ਦੀ ਪੂੰਜੀ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-051": "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਸਮੇਂ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਕੰਮਕਾਜੀ ਭਾਗੀਦਾਰ {partnerA} ਨੂੰ ਮੁਨਾਫ਼ਾ ਵੰਡਣ ਤੋਂ ਪਹਿਲਾਂ {salary} ਤਨਖਾਹ ਮਿਲੀ। ਜੇ ਸੁੱਤਾ ਭਾਗੀਦਾਰ {partnerB} ਨੂੰ ਅੰਤ ਵਿੱਚ {sleepingPartnerReceipt} ਮਿਲਿਆ, ਤਾਂ ਕੁੱਲ ਸਕਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+    "PRT-QL-052": "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਸਮੇਂ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। {partnerA} ਨੂੰ {salary} ਤਨਖਾਹ ਮਿਲਦੀ ਹੈ ਅਤੇ ਬਾਕੀ ਮੁਨਾਫ਼ਾ ਵੰਡਣ ਤੋਂ ਪਹਿਲਾਂ {deduction} ਵੀ ਕੱਟੇ ਜਾਂਦੇ ਹਨ। ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ {targetPartner} ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ ਕੱਢੋ।",
+    "PRT-QL-053": "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਦੀ ਸ਼ੁਰੂਆਤ {initialCapitalA} ਨਾਲ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ ਇਸਨੂੰ {finalCapitalA} ਕਰ ਦਿੱਤਾ। {partnerB} ਨੇ ਪੂਰਾ ਸਾਲ {capitalB} ਲਗਾਏ ਰੱਖੇ। {partnerA} ਨੂੰ ਵੰਡ ਤੋਂ ਪਹਿਲਾਂ ਸਕਲ ਮੁਨਾਫ਼ੇ ਦਾ {commissionPercent}% ਕਮਿਸ਼ਨ ਵੀ ਮਿਲਦਾ ਹੈ। ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ {targetPartner} ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ ਕੱਢੋ।",
+    "PRT-QL-054": "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਦੀ ਸ਼ੁਰੂਆਤ {initialCapitalA} ਨਾਲ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ ਇਸਨੂੰ {finalCapitalA} ਕਰ ਦਿੱਤਾ। {partnerB} ਬਾਅਦ ਵਿੱਚ {capitalB} ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ। ਜੇ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ, ਤਾਂ {partnerB} ਕਿੰਨੇ ਮਹੀਨੇ ਬਾਅਦ ਸ਼ਾਮਲ ਹੋਇਆ?",
+    "PRT-QL-055": "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਦੀ ਸ਼ੁਰੂਆਤ {initialCapitalA} ਨਾਲ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ ਇਸਨੂੰ {finalCapitalA} ਕਰ ਦਿੱਤਾ; {partnerB} ਨੇ ਪੂਰਾ ਸਾਲ {capitalB} ਲਗਾਏ ਰੱਖੇ। {partnerA} ਨੂੰ ਵੰਡ ਤੋਂ ਪਹਿਲਾਂ {salary} ਤਨਖਾਹ ਮਿਲਦੀ ਹੈ। ਜੇ {partnerA} ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ {finalReceipt} ਸੀ, ਤਾਂ ਸਕਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+    "PRT-QL-056": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ ਇਸਨੂੰ {finalCapitalA} ਕਰ ਦਿੱਤਾ। {partnerB}, {joinAfterB} ਬਾਅਦ {capitalB} ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ। {partnerA} ਨੂੰ ਵੰਡ ਤੋਂ ਪਹਿਲਾਂ {salary} ਤਨਖਾਹ ਵੀ ਮਿਲਦੀ ਹੈ। ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ ਉਨ੍ਹਾਂ ਦੀਆਂ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀਆਂ ਦਾ ਫਰਕ ਕੱਢੋ।"
+  }
+}
