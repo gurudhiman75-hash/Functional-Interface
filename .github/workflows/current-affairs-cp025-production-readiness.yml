@@ -1,0 +1,148 @@
+name: Validate Current Affairs Studio CP025
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp023-editorial-workbench
+      - feature/current-affairs-studio-cp024-question-editorial-workbench
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/admin-current-affairs-*.ts"
+      - "artifacts/api-server/src/routes/index.ts"
+      - "artifacts/api-server/migrations/20260830_current_affairs_production_ops.sql"
+      - "artifacts/admin-app/src/features/current-affairs/**"
+      - "artifacts/admin-app/src/pages/content/CurrentAffairsProductionReadinessPage.tsx"
+      - "artifacts/admin-app/src/app/nav/navigation.ts"
+      - "artifacts/admin-app/src/App.tsx"
+      - "build-current-affairs-worker.sh"
+      - "render.yaml"
+      - ".github/workflows/current-affairs-cp025-production-readiness.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp025-production-readiness
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp025-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-production-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run cumulative Current Affairs contracts
+        run: |
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/original-authoring.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-question-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/periodic-rollup-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/story-threading.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/release-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/question-promotion-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/quiz-delivery-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/revision-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/dashboard-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/personalization-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/notification-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/question-editorial-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/production-readiness-policy.test.ts
+
+      - name: Verify readiness gate and SLA semantics
+        shell: bash
+        run: |
+          set -euo pipefail
+          policy=artifacts/api-server/src/current-affairs/production-readiness-policy.ts
+          runtime=artifacts/api-server/src/current-affairs/production-readiness-runtime.ts
+          grep -Fq 'sourceCoveragePercent >= 80' "$policy"
+          grep -Fq 'ageHours(input.now, input.latestFeedRunAt) <= 4' "$policy"
+          grep -Fq 'ageHours(input.now, input.latestIntelligenceRunAt) <= 4' "$policy"
+          grep -Fq 'deadlinePassed' "$policy"
+          grep -Fq 'learnerReady' "$policy"
+          grep -Fq "event.event_date BETWEEN" "$runtime"
+          grep -Fq "compilation.language_code='en'" "$runtime"
+          grep -Fq 'feedRunHealthy' "$runtime"
+          grep -Fq 'intelligenceRunHealthy' "$runtime"
+
+      - name: Verify bounded recovery has no publication authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          recovery=artifacts/api-server/src/current-affairs/production-recovery-runtime.ts
+          migration=artifacts/api-server/migrations/20260830_current_affairs_production_ops.sql
+          grep -Fq "'draft'" "$recovery"
+          grep -Fq 'questionBankAcceptanceMode: "BANK_ONLY"' "$recovery"
+          grep -Fq 'automaticStudentPublication: false' "$recovery"
+          grep -Fq 'current_affairs_ops_runs' "$migration"
+          grep -Fq "trigger_mode IN ('scheduled', 'manual')" "$migration"
+          if grep -E "release-control/approve|SET[[:space:]]+status='published'|accepted_question_id|INSERT INTO content\.questions|INSERT INTO content\.question_versions|INSERT INTO content\.question_translations" "$recovery"; then
+            echo 'CP025 recovery must remain draft/BANK_ONLY and must not publish or promote canonical questions'
+            exit 1
+          fi
+
+      - name: Verify admin authorization and production route wiring
+        shell: bash
+        run: |
+          set -euo pipefail
+          route=artifacts/api-server/src/routes/admin-current-affairs-production-ops.ts
+          index=artifacts/api-server/src/routes/index.ts
+          app=artifacts/admin-app/src/App.tsx
+          nav=artifacts/admin-app/src/app/nav/navigation.ts
+          page=artifacts/admin-app/src/pages/content/CurrentAffairsProductionReadinessPage.tsx
+          grep -Fq '"/production/readiness"' "$route"
+          grep -Fq 'requireAdminPermission("content.questions.read")' "$route"
+          grep -Fq 'requireAdminPermission("jobs.manage")' "$route"
+          grep -Fq 'adminCurrentAffairsProductionOpsRouter' "$index"
+          grep -Fq "path:'/content/current-affairs/production-readiness'" "$app"
+          grep -Fq "label: 'CA Production Readiness'" "$nav"
+          grep -Fq 'Is {readiness.targetDate} Current Affairs ready?' "$page"
+          grep -Fq 'Run bounded recovery' "$page"
+
+      - name: Verify 0/10/20/50 production schedule and worker bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq 'schedule: "0 */3 * * *"' render.yaml
+          grep -Fq 'schedule: "10 */3 * * *"' render.yaml
+          grep -Fq 'schedule: "20 */3 * * *"' render.yaml
+          grep -Fq 'schedule: "50 */3 * * *"' render.yaml
+          grep -Fq 'current-affairs-production-ops-worker.mjs' render.yaml
+          grep -Fq 'src/current-affairs/production-ops-worker.ts' build-current-affairs-worker.sh
+          pnpm --dir artifacts/api-server exec esbuild src/current-affairs/production-ops-worker.ts --bundle --packages=external --platform=node --format=esm --outfile=/tmp/current-affairs-production-ops-worker.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin frontend
+        run: pnpm --dir artifacts/admin-app typecheck
+
+      - name: Build admin frontend
+        run: pnpm --dir artifacts/admin-app build
