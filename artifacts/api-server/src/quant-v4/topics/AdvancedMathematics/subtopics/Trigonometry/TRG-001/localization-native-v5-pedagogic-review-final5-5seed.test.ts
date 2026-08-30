@@ -10,7 +10,6 @@ import { generateLocalizedTrg001QuestionNativeReviewFinal4 } from "./localizatio
 import { generateLocalizedTrg001QuestionNativeReviewFinal5 } from "./localization-native-v5-pedagogic-review-final5";
 
 type Locale = "hi-IN" | "pa-IN";
-
 type Field = [string, unknown];
 
 function fields(question: any): Field[] {
@@ -48,6 +47,15 @@ function machineOrderArtifacts(text: string, locale: Locale) {
         /^ਘਟਾਓ ਦਾ ਚਿੰਨ੍ਹ ਕਾਇਮ ਰੱਖੋ।$/u,
       ];
   return patterns.filter((pattern) => pattern.test(text)).map((pattern) => pattern.source);
+}
+
+function degreeMovedToNativeOrder(before: unknown, after: unknown, locale: Locale) {
+  const source = String(before ?? "");
+  const match = source.match(locale === "hi-IN" ? /^पर\s+(\d+)°,/u : /^ਤੇ\s+(\d+)°,/u);
+  assert(match, `Expected Final4 degree-first machine order, got: ${source}`);
+  const angle = match[1];
+  const expectedPrefix = locale === "hi-IN" ? `${angle}° पर,` : `${angle}° ਤੇ,`;
+  assert(String(after ?? "").startsWith(expectedPrefix), `Expected ${expectedPrefix}, got: ${String(after ?? "")}`);
 }
 
 assert.equal(TRG_001_LOCALIZATION_QL_IDS.length, 144);
@@ -106,13 +114,11 @@ for (const qlId of TRG_001_LOCALIZATION_QL_IDS) {
       }
 
       if (qlId === "TRG-001-QL-047") {
-        const step1 = String(final5.explanation.steps?.[0]?.body ?? "");
-        assert.match(step1, locale === "hi-IN" ? /^90° पर,/u : /^90° ਤੇ,/u, `${id}: QL047 native degree order not corrected.`);
+        degreeMovedToNativeOrder(final4.explanation.steps?.[0]?.body, final5.explanation.steps?.[0]?.body, locale);
         targetedCorrections += 1;
       }
       if (qlId === "TRG-001-QL-091") {
-        const step3 = String(final5.explanation.steps?.[2]?.body ?? "");
-        assert.match(step3, locale === "hi-IN" ? /^60° पर,/u : /^60° ਤੇ,/u, `${id}: QL091 native degree order not corrected.`);
+        degreeMovedToNativeOrder(final4.explanation.steps?.[2]?.body, final5.explanation.steps?.[2]?.body, locale);
         targetedCorrections += 1;
       }
       if (qlId === "TRG-001-QL-096") {
