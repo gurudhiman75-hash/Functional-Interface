@@ -44,6 +44,27 @@ CREATE INDEX IF NOT EXISTS note_quality_runs_status_idx
 CREATE INDEX IF NOT EXISTS note_quality_checks_status_idx
   ON content.note_quality_checks(status, blocking, created_at DESC);
 
+CREATE OR REPLACE FUNCTION content.invalidate_notes_quality_after_section_change()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  IF OLD.output_fingerprint IS DISTINCT FROM NEW.output_fingerprint
+     OR (OLD.state = 'qa_passed' AND NEW.state <> 'qa_passed') THEN
+    UPDATE content.note_authoring_jobs
+    SET state = 'qa_required', updated_at = now()
+    WHERE id = NEW.job_id AND state = 'review_ready';
+  END IF;
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS note_sections_invalidate_quality_trg ON content.note_sections;
+CREATE TRIGGER note_sections_invalidate_quality_trg
+AFTER UPDATE OF output_fingerprint, state ON content.note_sections
+FOR EACH ROW
+EXECUTE FUNCTION content.invalidate_notes_quality_after_section_change();
+
 COMMENT ON TABLE content.note_quality_runs IS
   'Immutable Notes Studio deterministic QA runs tied to the exact section output fingerprint and current evidence fingerprint.';
 COMMENT ON TABLE content.note_quality_checks IS
