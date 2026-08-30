@@ -4,8 +4,12 @@ import questionLanguagePaSource from "../question-language.pa.json" assert { typ
 import questionLanguageE1Source from "../question-language.e1.en.json" assert { type: "json" };
 import questionLanguageE1HiSource from "../question-language.e1.hi.json" assert { type: "json" };
 import questionLanguageE1PaSource from "../question-language.e1.pa.json" assert { type: "json" };
+import questionLanguageE2Source from "../question-language.e2.en.json" assert { type: "json" };
+import questionLanguageE2HiSource from "../question-language.e2.hi.json" assert { type: "json" };
+import questionLanguageE2PaSource from "../question-language.e2.pa.json" assert { type: "json" };
 import taskRegistrySource from "../task-registry.library.json" assert { type: "json" };
 import taskRegistryE1Source from "../task-registry.e1.library.json" assert { type: "json" };
+import taskRegistryE2Source from "../task-registry.e2.library.json" assert { type: "json" };
 import type { Prt001Language, Prt001TaskRegistryEntry } from "./types";
 
 interface QuestionLanguageSource {
@@ -21,47 +25,61 @@ interface TaskRegistrySource {
   entries: Record<string, Prt001TaskRegistryEntry>;
 }
 
-function mergeQuestionLanguage(
+function mergeQuestionLanguages(
   base: QuestionLanguageSource,
-  overlay: QuestionLanguageSource,
+  ...overlays: QuestionLanguageSource[]
 ): QuestionLanguageSource {
-  if (base.language !== overlay.language)
-    throw new Error(`PRT-001 language overlay mismatch: ${base.language}/${overlay.language}`);
-  return {
-    language: base.language,
-    status: `${base.status}+${overlay.status}`,
-    entries: { ...base.entries, ...overlay.entries },
-  };
+  let current = base;
+  for (const overlay of overlays) {
+    if (current.language !== overlay.language)
+      throw new Error(`PRT-001 language overlay mismatch: ${current.language}/${overlay.language}`);
+    current = {
+      language: current.language,
+      status: `${current.status}+${overlay.status}`,
+      entries: { ...current.entries, ...overlay.entries },
+    };
+  }
+  return current;
 }
 
 const questionLanguages = {
-  en: mergeQuestionLanguage(
+  en: mergeQuestionLanguages(
     questionLanguageSource as QuestionLanguageSource,
     questionLanguageE1Source as QuestionLanguageSource,
+    questionLanguageE2Source as QuestionLanguageSource,
   ),
-  hi: mergeQuestionLanguage(
+  hi: mergeQuestionLanguages(
     questionLanguageHiSource as QuestionLanguageSource,
     questionLanguageE1HiSource as QuestionLanguageSource,
+    questionLanguageE2HiSource as QuestionLanguageSource,
   ),
-  pa: mergeQuestionLanguage(
+  pa: mergeQuestionLanguages(
     questionLanguagePaSource as QuestionLanguageSource,
     questionLanguageE1PaSource as QuestionLanguageSource,
+    questionLanguageE2PaSource as QuestionLanguageSource,
   ),
 };
 
-const baseTaskRegistry = taskRegistrySource as TaskRegistrySource;
-const e1TaskRegistry = taskRegistryE1Source as TaskRegistrySource;
-if (
-  baseTaskRegistry.chapterId !== e1TaskRegistry.chapterId ||
-  baseTaskRegistry.ownership !== e1TaskRegistry.ownership
-) {
-  throw new Error("PRT-001 task registry overlay metadata mismatch");
+const registries = [
+  taskRegistrySource as TaskRegistrySource,
+  taskRegistryE1Source as TaskRegistrySource,
+  taskRegistryE2Source as TaskRegistrySource,
+];
+const [baseTaskRegistry, ...overlayRegistries] = registries;
+if (!baseTaskRegistry) throw new Error("PRT-001 base task registry is missing");
+for (const overlay of overlayRegistries) {
+  if (
+    baseTaskRegistry.chapterId !== overlay.chapterId ||
+    baseTaskRegistry.ownership !== overlay.ownership
+  ) {
+    throw new Error("PRT-001 task registry overlay metadata mismatch");
+  }
 }
 const taskRegistry: TaskRegistrySource = {
   chapterId: baseTaskRegistry.chapterId,
   ownership: baseTaskRegistry.ownership,
-  status: `${baseTaskRegistry.status}+${e1TaskRegistry.status}`,
-  entries: { ...baseTaskRegistry.entries, ...e1TaskRegistry.entries },
+  status: registries.map((item) => item.status).join("+"),
+  entries: Object.assign({}, ...registries.map((item) => item.entries)),
 };
 
 export function extractPrt001Placeholders(template: string): string[] {
