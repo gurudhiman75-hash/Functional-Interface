@@ -1,4 +1,4 @@
-name: COM-002 V6 V5 Fingerprint One-Off
+name: COM-002 V6 V5 Freeze Verification One-Off
 
 on:
   push:
@@ -11,11 +11,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: com002-v6-v5-fingerprint-oneoff
+  group: com002-v6-v5-freeze-verification-oneoff
   cancel-in-progress: true
 
 jobs:
-  export-approved-fingerprints:
+  verify-approved-freeze:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -35,15 +35,30 @@ jobs:
             src/knowledge-v1/computer-awareness/com002-v6-v5-approved-fingerprint-export.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/content-engine-foundation/com002-v6-v5-approved-fingerprint-export.mjs
-      - name: Generate approved V6 V5 fingerprint manifest
+      - name: Regenerate approved V6 V5 fingerprint manifest
         run: |
           cd artifacts/api-server
           node dist/content-engine-foundation/com002-v6-v5-approved-fingerprint-export.mjs
+      - name: Verify approved freeze candidate
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com002-v6-v5-approved-freeze-candidate.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/content-engine-foundation/com002-v6-v5-approved-freeze-candidate.test.mjs
+          node artifacts/api-server/dist/content-engine-foundation/com002-v6-v5-approved-freeze-candidate.test.mjs
+      - name: Verify operational freeze
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com002-v6-v5-operational-freeze.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/content-engine-foundation/com002-v6-v5-operational-freeze.test.mjs
+          node artifacts/api-server/dist/content-engine-foundation/com002-v6-v5-operational-freeze.test.mjs
+      - name: Audit standard review-only adapter
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/engines/knowledge-v1-com002-adapter-v3.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/content-engine-foundation/knowledge-v1-com002-adapter-v3.test.mjs
+          node artifacts/api-server/dist/content-engine-foundation/knowledge-v1-com002-adapter-v3.test.mjs
       - name: Print approved fingerprint manifest
         run: cat artifacts/api-server/dist/review-artifacts/COM002-V6-V5-Approved-Fingerprint-Manifest.json
-      - name: Upload approved fingerprint manifest
-        uses: actions/upload-artifact@v4
-        with:
-          name: COM002-V6-V5-Approved-Fingerprint-Manifest-OneOff
-          path: artifacts/api-server/dist/review-artifacts/COM002-V6-V5-Approved-Fingerprint-Manifest.json
-          if-no-files-found: error
