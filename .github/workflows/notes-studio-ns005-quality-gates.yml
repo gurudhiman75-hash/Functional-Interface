@@ -57,6 +57,10 @@ jobs:
           grep -F 'evidence_fingerprint' "$ns005"
           grep -F 'verifier_prompt_version' "$ns005"
           grep -F 'invalidate_notes_quality_after_section_change' "$ns005"
+          grep -F 'invalidate_notes_quality_for_claim' "$ns005"
+          grep -F 'invalidate_notes_quality_for_claim_evidence' "$ns005"
+          grep -F 'invalidate_notes_quality_for_coverage_item' "$ns005"
+          grep -F 'invalidate_notes_quality_for_coverage_claim' "$ns005"
       - name: Verify quality gate safety boundaries
         run: |
           grep -F "code: 'evidence_support'" artifacts/api-server/src/notes-studio/quality-gates.ts
