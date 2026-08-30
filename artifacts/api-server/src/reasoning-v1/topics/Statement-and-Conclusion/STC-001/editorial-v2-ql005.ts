@@ -46,15 +46,15 @@ export const STC_V2_QL005_AUTHORITIES: readonly StcV2EditorialAuthority[] = [
   {
     id: "STC-V2-SC-039", qlId: "STC-QL-005", difficulty: "MEDIUM", surfaceArchetype: "RULE_ELIGIBILITY",
     statement: "For promotion points, Grade A carries more weight than Grade B, and Grade B carries more weight than Grade C.",
-    conclusions: ["Grade A carries more weight than Grade C.", "Grade C carries less weight than Grade A."],
+    conclusions: ["Grade A carries more weight than Grade C.", "Grade B carries less weight than Grade A."],
     answerClass: "BOTH",
-    explanation: ["The stated order A > B > C implies A > C.", "The same order also implies C < A."],
+    explanation: ["The stated order A > B > C implies A > C.", "The statement directly places Grade B below Grade A."],
   },
   {
     id: "STC-V2-SC-040", qlId: "STC-QL-005", difficulty: "HARD", surfaceArchetype: "EVENT_SEQUENCE",
     statement: "In the three heats, Karan's time was lower than Mohit's, and Mohit's time was lower than Arjun's. Lower time means faster performance.",
-    conclusions: ["Arjun was faster than Karan.", "Karan was slower than Arjun."],
+    conclusions: ["Arjun was faster than Karan.", "Mohit's time was lower than Karan's."],
     answerClass: "NEITHER",
-    explanation: ["Karan has the lower time and is therefore faster.", "The second conclusion also reverses the established comparison."],
+    explanation: ["Karan has the lowest stated time and is therefore faster than Arjun.", "The statement says Karan's time was lower than Mohit's, not the other way round."],
   },
 ] as const;
