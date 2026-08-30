@@ -20,6 +20,12 @@ import {
 const router: IRouter = Router();
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
+type GroundingContext = {
+  coverageTitle: string;
+  syllabusRef: string;
+  examRationale: string;
+};
+
 class NotesStudioQualityError extends Error {
   constructor(readonly code: string, message: string, readonly statusCode = 400) {
     super(message);
@@ -81,7 +87,11 @@ async function activeConflictCount(jobId: string): Promise<number> {
   return Number(rows[0]?.count ?? 0);
 }
 
-async function loadQualityInput(jobId: string, sectionId: string): Promise<{ input: NotesSectionQualityInput; outputFingerprint: string }> {
+async function loadQualityInput(jobId: string, sectionId: string): Promise<{
+  input: NotesSectionQualityInput;
+  outputFingerprint: string;
+  groundingContext: GroundingContext;
+}> {
   const sectionRows = await sqlClient`
     SELECT
       section.id::text AS id,
@@ -89,6 +99,9 @@ async function loadQualityInput(jobId: string, sectionId: string): Promise<{ inp
       section.state,
       section.output_fingerprint AS "outputFingerprint",
       section.coverage_item_id::text AS "coverageItemId",
+      coverage.title AS "coverageTitle",
+      coverage.syllabus_ref AS "syllabusRef",
+      coverage.exam_rationale AS "examRationale",
       coverage.priority AS "coveragePriority",
       coverage.planned_depth AS "plannedDepth"
     FROM content.note_sections section
@@ -179,6 +192,11 @@ async function loadQualityInput(jobId: string, sectionId: string): Promise<{ inp
       siblingSections: siblingRows.map((row) => ({ id: String(row.id), markdown: String(row.markdown ?? '') })),
     },
     outputFingerprint: String(section.outputFingerprint ?? ''),
+    groundingContext: {
+      coverageTitle: String(section.coverageTitle ?? ''),
+      syllabusRef: String(section.syllabusRef ?? ''),
+      examRationale: String(section.examRationale ?? ''),
+    },
   };
 }
 
@@ -239,12 +257,23 @@ async function audit(actorUserId: string, actionKey: string, jobId: string, summ
   `;
 }
 
+function blockedSemanticCheck(code: string, label: string): QualityCheck {
+  return {
+    code,
+    label,
+    status: 'fail',
+    blocking: true,
+    summary: `${label} cannot pass until evidence support and contradiction prerequisites are green.`,
+    metrics: { verifierModel: null, promptVersion: NOTES_QUALITY_GROUNDING_PROMPT_VERSION },
+  };
+}
+
 async function runSectionQuality(jobId: string, sectionId: string, actorUserId: string) {
   const job = await loadJob(jobId);
   if (['approved', 'materialized'].includes(String(job.state))) {
     throw new NotesStudioQualityError('QUALITY_STATE_LOCKED', 'Approved or materialized jobs cannot be re-opened by NS-005 QA.', 409);
   }
-  const { input, outputFingerprint } = await loadQualityInput(jobId, sectionId);
+  const { input, outputFingerprint, groundingContext } = await loadQualityInput(jobId, sectionId);
   if (!/^[0-9a-f]{64}$/.test(outputFingerprint)) {
     throw new NotesStudioQualityError('SECTION_FINGERPRINT_INVALID', 'Section output fingerprint is missing or invalid.', 409);
   }
@@ -257,16 +286,25 @@ async function runSectionQuality(jobId: string, sectionId: string, actorUserId: 
   let verifierModel: string | null = null;
   let verifierMetadata: Record<string, unknown> = { rawSourceTextSent: false, acceptedClaimsOnly: true };
   let semanticCheck: QualityCheck;
+  let consistencyCheck: QualityCheck;
+  let relevanceCheck: QualityCheck;
+  let recencyCheck: QualityCheck;
 
   if (evidenceGatePass && contradictionGatePass) {
     const grounding = await verifyNotesSectionGrounding({
       languageCode: String(job.sourceLanguage ?? 'en'),
+      coverageTitle: groundingContext.coverageTitle,
+      syllabusRef: groundingContext.syllabusRef,
+      examRationale: groundingContext.examRationale,
       sectionMarkdown: input.markdown,
       claims: input.claims.map((claim) => ({ id: claim.id, text: claim.text })),
     });
     verifierProvider = grounding.provider;
     verifierModel = grounding.model;
     const unsupportedCount = grounding.result.unsupportedStatements.length;
+    const conflictCount = grounding.result.internalConflicts.length;
+    const offScopeCount = grounding.result.offScopeStatements.length;
+    const timeSensitiveCount = grounding.result.timeSensitiveStatements.length;
     const usedClaimCount = grounding.result.usedClaimIds.length;
     const semanticPassed = unsupportedCount === 0 && usedClaimCount > 0;
     semanticCheck = {
@@ -287,40 +325,84 @@ async function runSectionQuality(jobId: string, sectionId: string, actorUserId: 
         unsupportedSample: grounding.result.unsupportedStatements.slice(0, 3).map((item) => item.excerpt).join(' | '),
       },
     };
+    consistencyCheck = {
+      code: 'internal_consistency',
+      label: 'Internal consistency',
+      status: conflictCount === 0 ? 'pass' : 'fail',
+      blocking: true,
+      summary: conflictCount === 0
+        ? 'No clear factual conflicts were found within the section or against its accepted claims.'
+        : 'The verifier found factual statements that conflict internally or with accepted claims.',
+      metrics: {
+        conflictCount,
+        conflictSample: grounding.result.internalConflicts.slice(0, 3).map((item) => item.excerpt).join(' | '),
+      },
+    };
+    relevanceCheck = {
+      code: 'exam_relevance',
+      label: 'Exam relevance',
+      status: offScopeCount === 0 ? 'pass' : 'fail',
+      blocking: true,
+      summary: offScopeCount === 0
+        ? 'No clearly irrelevant factual tangents were found against the coverage target and exam rationale.'
+        : 'The verifier found factual tangents that are clearly outside the stated coverage target or exam rationale.',
+      metrics: {
+        offScopeCount,
+        coverageTitle: groundingContext.coverageTitle,
+        offScopeSample: grounding.result.offScopeStatements.slice(0, 3).map((item) => item.excerpt).join(' | '),
+      },
+    };
+    recencyCheck = {
+      code: 'recency_review',
+      label: 'Recency review',
+      status: timeSensitiveCount > 0 ? 'warning' : 'pass',
+      blocking: false,
+      summary: timeSensitiveCount > 0
+        ? 'Time-sensitive factual statements are present; a reviewer should confirm freshness before approval.'
+        : 'No inherently time-sensitive factual statements were identified in this section.',
+      metrics: {
+        timeSensitiveCount,
+        timeSensitiveSample: grounding.result.timeSensitiveStatements.slice(0, 3).map((item) => item.excerpt).join(' | '),
+      },
+    };
     verifierMetadata = {
       responseId: grounding.responseId,
       usage: grounding.usage,
       unsupportedCount,
+      conflictCount,
+      offScopeCount,
+      timeSensitiveCount,
       usedClaimCount,
       rawSourceTextSent: false,
       acceptedClaimsOnly: true,
     };
   } else {
-    semanticCheck = {
-      code: 'semantic_grounding',
-      label: 'Semantic re-grounding',
-      status: 'fail',
-      blocking: true,
-      summary: 'Semantic grounding cannot pass until evidence support and contradiction prerequisites are green.',
-      metrics: {
-        unsupportedCount: 0,
-        usedClaimCount: 0,
-        verifierModel: null,
-        promptVersion: NOTES_QUALITY_GROUNDING_PROMPT_VERSION,
-        unsupportedSample: '',
-      },
+    semanticCheck = blockedSemanticCheck('semantic_grounding', 'Semantic re-grounding');
+    consistencyCheck = blockedSemanticCheck('internal_consistency', 'Internal consistency');
+    relevanceCheck = blockedSemanticCheck('exam_relevance', 'Exam relevance');
+    recencyCheck = {
+      code: 'recency_review',
+      label: 'Recency review',
+      status: 'warning',
+      blocking: false,
+      summary: 'Recency review was not evaluated because evidence prerequisites are not green.',
+      metrics: { timeSensitiveCount: 0, promptVersion: NOTES_QUALITY_GROUNDING_PROMPT_VERSION },
     };
   }
 
-  const checks = [...deterministic.checks, semanticCheck];
+  const checks = [...deterministic.checks, semanticCheck, consistencyCheck, relevanceCheck, recencyCheck];
   const passed = !checks.some((check) => check.blocking && check.status === 'fail');
   const warningCount = checks.filter((check) => check.status === 'warning').length;
   const failCount = checks.filter((check) => check.status === 'fail').length;
 
   const latest = await loadQualityInput(jobId, sectionId);
   const latestEvidenceFingerprint = notesQualityEvidenceFingerprint(latest.input);
-  if (latest.outputFingerprint !== outputFingerprint || latestEvidenceFingerprint !== evidenceFingerprint) {
-    throw new NotesStudioQualityError('SECTION_OR_EVIDENCE_CHANGED_DURING_QA', 'The section or evidence graph changed while QA was running. Refresh and run the gates again.', 409);
+  if (
+    latest.outputFingerprint !== outputFingerprint
+    || latestEvidenceFingerprint !== evidenceFingerprint
+    || JSON.stringify(latest.groundingContext) !== JSON.stringify(groundingContext)
+  ) {
+    throw new NotesStudioQualityError('SECTION_OR_EVIDENCE_CHANGED_DURING_QA', 'The section, evidence graph, or coverage context changed while QA was running. Refresh and run the gates again.', 409);
   }
 
   const runId = randomUUID();
@@ -372,6 +454,7 @@ async function runSectionQuality(jobId: string, sectionId: string, actorUserId: 
     verifierPromptVersion: NOTES_QUALITY_GROUNDING_PROMPT_VERSION,
     sectionOutputFingerprint: outputFingerprint,
     evidenceFingerprint,
+    coverageContext: groundingContext,
     warningCount,
     failCount,
     rawSourceTextSent: false,
