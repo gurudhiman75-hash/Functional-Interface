@@ -1,0 +1,92 @@
+name: Certify STC-001 V1 Six-QL Freeze
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/**'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: certify-stc-001-v1-six-ql-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  immutable-v1-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for frozen STC V1 authority
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/five-way-profile.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v1-manifest.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-review.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v1-proof.test.ts
+
+      - name: Replay checkpoint semantic proofs
+        run: |
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp001-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp002-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/cp003-proof.test.ts
+
+      - name: Replay chapter saturation, multilingual and diversity proofs
+        run: |
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/exam-realness-diversity-proof.test.ts
+          node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/five-way-profile-proof.test.ts
+
+      - name: Replay immutable content and governance locks
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v1-proof.test.ts
+
+      - name: Replay frozen shared Question Studio integration
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-integration.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/stc-001-v1-frozen-question-studio-integration.mjs
+          node dist/stc-001-v1-frozen-question-studio-integration.mjs
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build
+
+      - name: Freeze boundary
+        run: |
+          echo 'STC-001 V1 is frozen with six permanent semantic QLs in EN/HI/PA.'
+          echo 'Question Studio is registered for review only.'
+          echo 'Question Bank, test, mock, public and automatic publication gates remain closed.'
