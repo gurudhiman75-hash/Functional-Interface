@@ -64,5 +64,7 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/native-localization-proof.test.ts
       - name: Prove CP012 multilingual questions-only review export
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/multilingual-review-export-proof.test.ts
+      - name: Prove CP012 per-family misconception distractor coverage
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/question-studio-distractor-coverage-proof.test.ts
       - name: Prove CP012 locked Question Studio review candidate
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp012/question-studio-candidate-proof.test.ts
