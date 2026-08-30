@@ -26,7 +26,7 @@ const p = (
   note,
 });
 
-export const TSD_CP012_TWO_ENGINE_PROVENANCE = Object.freeze([
+const BASE_PROVENANCE = Object.freeze([
   p("TSD-CP012-twoEngineInverseState-01", "trainScheduleSynthesisState", "routeProfileProgramState", "Two unknown speeds are constrained independently by a train-schedule event and a segmented-route event."),
   p("TSD-CP012-twoEngineInverseState-02", "mediumPursuitSynthesisState", "terminalConstraintProgramState", "Two unknown speeds are constrained independently by a signed-medium pursuit state and a deadline state."),
   p("TSD-CP012-twoEngineInverseState-03", "closedTrackRaceSynthesisState", "movingSurfaceScheduleSynthesisState", "Two unknown speeds are constrained independently by a closed-track race outcome and a moving-surface schedule state."),
@@ -36,3 +36,16 @@ export const TSD_CP012_TWO_ENGINE_PROVENANCE = Object.freeze([
   p("TSD-CP012-twoEngineInverseState-07", "movingSurfaceScheduleSynthesisState", "terminalConstraintProgramState", "Two unknown speeds are constrained independently by a surface-switch schedule and a deadline state."),
   p("TSD-CP012-twoEngineInverseState-08", "trainScheduleSynthesisState", "closedTrackRaceSynthesisState", "Two unknown speeds are constrained independently by a finite-train schedule event and a closed-track race outcome."),
 ] as const satisfies readonly TsdCp012TwoEngineProvenance[]);
+
+function scaledCaseId(baseIndex: number, scaleBand: 0 | 1 | 2): string {
+  return `TSD-CP012-twoEngineInverseState-${String(baseIndex + (scaleBand * 8)).padStart(2, "0")}`;
+}
+
+export const TSD_CP012_TWO_ENGINE_PROVENANCE = Object.freeze(
+  ([0, 1, 2] as const).flatMap((scaleBand) => BASE_PROVENANCE.map((row, index) => p(
+    scaledCaseId(index + 1, scaleBand),
+    row.engineA,
+    row.engineB,
+    scaleBand === 0 ? row.note : `${row.note} This executable state is a semantics-preserving numeric scale of the same independent evidence pair.`,
+  ))),
+);
