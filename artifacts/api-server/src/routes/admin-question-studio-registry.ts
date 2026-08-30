@@ -15,6 +15,7 @@ import adminQuestionStudioInterestRouter from "./admin-question-studio-interest"
 import adminQuestionStudioMensurationRouter from "./admin-question-studio-mensuration";
 import adminQuestionStudioMensurationFullRouter from "./admin-question-studio-mensuration-full";
 import adminQuestionStudioAlgebraRouter from "./admin-question-studio-algebra";
+import adminQuestionStudioDataSufficiencyExpandedRouter from "./admin-question-studio-data-sufficiency-expanded";
 import adminQuestionStudioDataSufficiencyRouter from "./admin-question-studio-data-sufficiency";
 import adminQuestionStudioProbabilityRouter from "./admin-question-studio-probability";
 import adminQuestionStudioCalendarRouter from "./admin-question-studio-calendar";
@@ -32,7 +33,9 @@ import adminQuestionStudioRouter from "./admin-question-studio";
  * the legacy catch-all router at the bottom. SRI is mounted before CP014 because
  * its GET /capabilities extends the latest CP014 aggregate, while its POST
  * handler claims only explicit SRI packages/checkpoints/QLs or Surds & Indices
- * selectors. Non-SRI requests fall through unchanged.
+ * selectors. The CP017 Data Sufficiency expansion router is mounted immediately
+ * before the historical CP010 Data Sufficiency router so expanded review-only
+ * requests can never inherit CP010 Question Bank/test/mock release authorities.
  */
 const router: IRouter = Router();
 
@@ -51,6 +54,7 @@ router.use(adminQuestionStudioInterestRouter);
 router.use(adminQuestionStudioMensurationRouter);
 router.use(adminQuestionStudioMensurationFullRouter);
 router.use(adminQuestionStudioAlgebraRouter);
+router.use(adminQuestionStudioDataSufficiencyExpandedRouter);
 router.use(adminQuestionStudioDataSufficiencyRouter);
 router.use(adminQuestionStudioProbabilityRouter);
 router.use(adminQuestionStudioCalendarRouter);
