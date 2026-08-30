@@ -83,7 +83,7 @@ function advancedStructuralAnswer(parameters: Prt001PilotParameters): Rational {
       return salary.value;
     }
     default:
-      throw new Error(`no structural answer for ${parameters.entry.solveMode}`);
+      throw new Error(`no baseline structural answer for ${parameters.entry.solveMode}`);
   }
 }
 
@@ -162,6 +162,8 @@ export function solvePrt001Task(
         parameters.entry.answerType,
         parameters.language,
       );
+    default:
+      throw new Error(`baseline task solver does not support ${parameters.entry.solveMode}`);
   }
 }
 
@@ -269,6 +271,8 @@ export function independentlySolvePrt001Task(
         parameters.entry.answerType,
         parameters.language,
       );
+    default:
+      throw new Error(`baseline independent task solver does not support ${parameters.entry.solveMode}`);
   }
 }
 
