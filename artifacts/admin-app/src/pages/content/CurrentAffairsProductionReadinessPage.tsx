@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Activity, AlertTriangle, CheckCircle2, Clock3, Loader2, RefreshCw, RotateCcw, ShieldAlert } from 'lucide-react';
+import { Activity, AlertTriangle, CheckCircle2, Clock3, Loader2, Play, RefreshCw, RotateCcw, ShieldAlert } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { PageHeader } from '@/components/shared/PageHeader';
@@ -8,11 +8,13 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
+  generateYesterdayCurrentAffairs,
   getCurrentAffairsProductionReadiness,
   getCurrentAffairsRecoveryRuns,
   runCurrentAffairsProductionRecovery,
   type CurrentAffairsProductionReadiness,
   type CurrentAffairsRecoveryRuns,
+  type GenerateYesterdayCurrentAffairsResult,
 } from '@/features/current-affairs/production-ops-api';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { cn } from '@/lib/utils';
@@ -45,6 +47,8 @@ export function CurrentAffairsProductionReadinessPage() {
   const [runs, setRuns] = useState<CurrentAffairsRecoveryRuns | null>(null);
   const [loading, setLoading] = useState(true);
   const [recovering, setRecovering] = useState(false);
+  const [generatingYesterday, setGeneratingYesterday] = useState(false);
+  const [lastGeneration, setLastGeneration] = useState<GenerateYesterdayCurrentAffairsResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
@@ -65,6 +69,30 @@ export function CurrentAffairsProductionReadinessPage() {
   }, []);
 
   useEffect(() => { void refresh(); }, [refresh]);
+
+  const generateYesterday = async () => {
+    setGeneratingYesterday(true);
+    try {
+      const result = await generateYesterdayCurrentAffairs();
+      setLastGeneration(result);
+      if (result.summary.allEnglishDraftsPresent) {
+        showToast.success(
+          `Yesterday's Current Affairs is available`,
+          `${result.targetDate}: ${result.summary.verifiedEvents} verified events · ${result.summary.englishDraftCount} English packs · ${result.summary.localizedDraftCount} localized packs.`,
+        );
+      } else {
+        showToast.error(
+          `Yesterday could not be fully materialized`,
+          result.summary.blockers[0] ?? `No eligible verified events were available for all exam families on ${result.targetDate}.`,
+        );
+      }
+      await refresh();
+    } catch (caught) {
+      showToast.error('Generate yesterday failed', caught instanceof Error ? caught.message : 'Unable to generate yesterday’s Current Affairs.');
+    } finally {
+      setGeneratingYesterday(false);
+    }
+  };
 
   const recover = async () => {
     setRecovering(true);
@@ -99,11 +127,73 @@ export function CurrentAffairsProductionReadinessPage() {
         actions={(
           <>
             <Button variant="outline" asChild><Link to="/content/current-affairs">Back to Studio</Link></Button>
-            {canRecover ? <Button variant="outline" onClick={() => void recover()} disabled={recovering}><RotateCcw className={cn('mr-2 h-4 w-4', recovering && 'animate-spin')} />Run bounded recovery</Button> : null}
-            <Button onClick={() => void refresh()} disabled={loading}><RefreshCw className={cn('mr-2 h-4 w-4', loading && 'animate-spin')} />Refresh</Button>
+            {canRecover ? (
+              <Button onClick={() => void generateYesterday()} disabled={generatingYesterday || recovering}>
+                {generatingYesterday ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Play className="mr-2 h-4 w-4" />}
+                Generate Yesterday Now
+              </Button>
+            ) : null}
+            {canRecover ? <Button variant="outline" onClick={() => void recover()} disabled={recovering || generatingYesterday}><RotateCcw className={cn('mr-2 h-4 w-4', recovering && 'animate-spin')} />Run bounded recovery</Button> : null}
+            <Button variant="outline" onClick={() => void refresh()} disabled={loading || generatingYesterday}><RefreshCw className={cn('mr-2 h-4 w-4', loading && 'animate-spin')} />Refresh</Button>
           </>
         )}
       />
+
+      <Card className="border-primary/30 bg-primary/5">
+        <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p className="text-base font-semibold">Need yesterday’s Current Affairs immediately?</p>
+            <p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">
+              Generate Yesterday Now refreshes the configured official sources, enriches primary facts, reruns clustering and strict verification,
+              then creates any missing SSC, Banking and Punjab EN/HI/PA draft packs and BANK_ONLY review questions for {readiness.targetDate}.
+              It never publishes or approves content.
+            </p>
+          </div>
+          <Button variant="outline" asChild><Link to="/content/learning-resources">View Current Affairs drafts</Link></Button>
+        </CardContent>
+      </Card>
+
+      {generatingYesterday ? (
+        <Card>
+          <CardContent className="flex items-center gap-3 p-5 text-sm">
+            <Loader2 className="h-5 w-5 animate-spin text-primary" />
+            <div><p className="font-medium">Generating {readiness.targetDate} now…</p><p className="text-muted-foreground">Official sources → primary facts → intelligence → verified events → multilingual drafts → review questions.</p></div>
+          </CardContent>
+        </Card>
+      ) : null}
+
+      {lastGeneration ? (
+        <Card className={lastGeneration.summary.allEnglishDraftsPresent ? 'border-success/30' : 'border-warning/30'}>
+          <CardHeader><CardTitle className="text-base">Last on-demand generation · {lastGeneration.targetDate}</CardTitle></CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              <div className="rounded-lg border p-3"><p className="text-xs text-muted-foreground">Candidates</p><p className="mt-1 text-xl font-bold">{lastGeneration.after.candidateCount}</p></div>
+              <div className="rounded-lg border p-3"><p className="text-xs text-muted-foreground">Verified events</p><p className="mt-1 text-xl font-bold">{lastGeneration.summary.verifiedEvents}</p></div>
+              <div className="rounded-lg border p-3"><p className="text-xs text-muted-foreground">Needs review</p><p className="mt-1 text-xl font-bold">{lastGeneration.summary.reviewEvents}</p></div>
+              <div className="rounded-lg border p-3"><p className="text-xs text-muted-foreground">English packs</p><p className="mt-1 text-xl font-bold">{lastGeneration.summary.englishDraftCount}/3</p></div>
+              <div className="rounded-lg border p-3"><p className="text-xs text-muted-foreground">HI + PA packs</p><p className="mt-1 text-xl font-bold">{lastGeneration.summary.localizedDraftCount}/6</p></div>
+            </div>
+            <div className="grid gap-2 md:grid-cols-3">
+              {(['ssc', 'banking', 'punjab'] as const).map((family) => {
+                const familyArtifacts = lastGeneration.artifacts.filter((item) => item.family === family);
+                return (
+                  <div key={family} className="rounded-lg border p-3">
+                    <p className="font-semibold uppercase">{family}</p>
+                    <div className="mt-2 flex flex-wrap gap-2">
+                      {(['en', 'hi', 'pa'] as const).map((language) => {
+                        const artifact = familyArtifacts.find((item) => item.language === language);
+                        return <Badge key={language} variant="outline" className={artifact ? 'border-success/30 bg-success/10 text-success' : 'border-warning/30 bg-warning/10 text-warning'}>{language.toUpperCase()} {artifact ? 'ready' : 'missing'}</Badge>;
+                      })}
+                    </div>
+                    {familyArtifacts.find((item) => item.language === 'en')?.title ? <p className="mt-2 text-xs text-muted-foreground">{familyArtifacts.find((item) => item.language === 'en')?.title}</p> : null}
+                  </div>
+                );
+              })}
+            </div>
+            {!lastGeneration.summary.allEnglishDraftsPresent ? <p className="text-sm text-warning">{lastGeneration.summary.blockers[0] ?? 'Some exam-family drafts are still blocked because no eligible verified content is available.'}</p> : null}
+          </CardContent>
+        </Card>
+      ) : null}
 
       <Card className={cn('border-2', tone(evaluation.color))}>
         <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between">

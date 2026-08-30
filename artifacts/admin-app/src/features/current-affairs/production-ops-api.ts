@@ -63,12 +63,49 @@ export type CurrentAffairsRecoveryRuns = {
   generatedAt: string;
 };
 
+export type GenerateYesterdayCurrentAffairsResult = {
+  targetDate: string;
+  startedAt: string;
+  completedAt: string;
+  before: { candidateCount: number; eventCount: number; verifiedEventCount: number; reviewEventCount: number };
+  after: { candidateCount: number; eventCount: number; verifiedEventCount: number; reviewEventCount: number };
+  artifacts: Array<{
+    family: string;
+    language: string;
+    publicCode: string;
+    status: string;
+    eventCount: number;
+    learningResourceId: string;
+    title: string;
+    learningResourceStatus: string;
+    questionRunId: string | null;
+  }>;
+  summary: {
+    allEnglishDraftsPresent: boolean;
+    englishDraftCount: number;
+    localizedDraftCount: number;
+    verifiedEvents: number;
+    reviewEvents: number;
+    readinessColor: 'green' | 'amber' | 'red';
+    learnerReady: boolean;
+    blockers: string[];
+    warnings: string[];
+  };
+  publicationAuthority: false;
+  canonicalQuestionPromotion: false;
+  automaticStudentPublication: false;
+};
+
 export function getCurrentAffairsProductionReadiness() {
   return adminRequest<CurrentAffairsProductionReadiness>('/admin/current-affairs/production/readiness');
 }
 
 export function getCurrentAffairsRecoveryRuns() {
   return adminRequest<CurrentAffairsRecoveryRuns>('/admin/current-affairs/production/recovery-runs?limit=30');
+}
+
+export function generateYesterdayCurrentAffairs() {
+  return adminRequest<GenerateYesterdayCurrentAffairsResult>('/admin/current-affairs/production/generate-yesterday', { method: 'POST' });
 }
 
 export function runCurrentAffairsProductionRecovery() {

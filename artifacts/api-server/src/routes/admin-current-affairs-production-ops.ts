@@ -1,5 +1,7 @@
+import { randomUUID } from "node:crypto";
 import { Router, type IRouter, type Response } from "express";
 
+import { generateYesterdayCurrentAffairsOnDemand } from "../current-affairs/on-demand-yesterday-runtime";
 import { loadCurrentAffairsProductionReadiness } from "../current-affairs/production-readiness-runtime";
 import { runCurrentAffairsProductionRecovery } from "../current-affairs/production-recovery-runtime";
 import { requireAdminPermission } from "../lib/admin-rbac";
@@ -41,6 +43,42 @@ router.get("/production/recovery-runs", requireAdminPermission("jobs.read"), asy
     res.json({ runs: rows, generatedAt: new Date().toISOString() });
   } catch (error) {
     sendError(res, error, "Unable to load Current Affairs recovery history");
+  }
+});
+
+router.post("/production/generate-yesterday", requireAdminPermission("jobs.manage"), async (req, res) => {
+  try {
+    const actorUserId = req.adminSession?.user.id;
+    if (!actorUserId) {
+      res.status(403).json({ error: "Administrator session required.", code: "ADMIN_SESSION_REQUIRED" });
+      return;
+    }
+    const result = await generateYesterdayCurrentAffairsOnDemand();
+    await sqlClient`
+      INSERT INTO platform.audit_events (
+        id, actor_type, actor_user_id, effective_role_key, action_key,
+        entity_type, reason, summary, metadata
+      ) VALUES (
+        ${randomUUID()}::uuid,
+        'user'::audit_actor_type,
+        ${actorUserId}::uuid,
+        ${req.adminSession?.effectiveRoleKey ?? null},
+        'current_affairs.yesterday.generate_on_demand',
+        'current_affairs_operating_day',
+        'Administrator requested complete previous-day Current Affairs generation',
+        ${`Generated/ensured Current Affairs for ${result.targetDate}`},
+        ${JSON.stringify({
+          targetDate: result.targetDate,
+          before: result.before,
+          after: result.after,
+          summary: result.summary,
+          publicationAuthority: false,
+        })}::jsonb
+      )
+    `;
+    res.status(201).json(result);
+  } catch (error) {
+    sendError(res, error, "Unable to generate yesterday's Current Affairs");
   }
 });
 
