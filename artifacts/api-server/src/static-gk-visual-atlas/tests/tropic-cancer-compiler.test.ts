@@ -3,7 +3,7 @@ import test from "node:test";
 import { compileTropicCancerScene } from "../scenes/compile-tropic-cancer";
 import type { IndiaAdminFeatureCollection } from "../geometry/geojson";
 import type { StaticGkAdminIngestBundle } from "../geometry/ingest-contract";
-import { REQUIRED_TROPIC_STATES } from "../geometry/ingest-contract";
+import { createCanonicalGeometryDigest, REQUIRED_TROPIC_STATES } from "../geometry/ingest-contract";
 
 function rectangle(minLon: number, maxLon: number, minLat = 20, maxLat = 27) {
   return {
@@ -38,7 +38,7 @@ function makeFixture(): StaticGkAdminIngestBundle {
       acquiredAt: "2026-08-29",
       sourceArchiveFilename: "fixture.zip",
       sourceArchiveSha256: "a".repeat(64),
-      canonicalGeoJsonSha256: "b".repeat(64),
+      canonicalGeoJsonSha256: createCanonicalGeometryDigest(geometry),
       canonicalCrs: "EPSG:4326",
       featureCount: geometry.features.length,
       stateCount: geometry.features.length,
@@ -64,8 +64,15 @@ test("tropic scene resolves all eight states in locked west-to-east order", () =
   assert.equal(scene.quiz.correctOptionIndex, 2);
 });
 
+test("tropic scene rejects a canonical geometry checksum mismatch", () => {
+  const bundle = makeFixture();
+  bundle.receipt.canonicalGeoJsonSha256 = "b".repeat(64);
+  assert.throws(() => compileTropicCancerScene(bundle), /SHA-256 does not match supplied geometry/);
+});
+
 test("tropic scene rejects geometry that does not intersect a locked state", () => {
   const bundle = makeFixture();
   bundle.geometry.features[3].geometry = rectangle(77, 79, 30, 31);
+  bundle.receipt.canonicalGeoJsonSha256 = createCanonicalGeometryDigest(bundle.geometry);
   assert.throws(() => compileTropicCancerScene(bundle), /does not intersect Chhattisgarh/);
 });
