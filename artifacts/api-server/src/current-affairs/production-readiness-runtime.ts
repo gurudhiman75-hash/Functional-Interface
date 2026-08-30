@@ -63,9 +63,7 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
         AND exam_family_key IN ('ssc','banking','punjab') AND status='approved'
     `,
     sqlClient`
-      WITH days AS (
-        SELECT generate_series(${targetDate}::date - interval '6 days', ${targetDate}::date, interval '1 day')::date AS day
-      ), expected AS (
+      WITH expected AS (
         SELECT DISTINCT event.event_date AS day, score.exam_family_key AS family
         FROM content.current_affairs_events event
         JOIN content.current_affairs_exam_scores score ON score.event_id=event.id
@@ -93,6 +91,8 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
   const runByType = new Map(runs.map((row) => [String(row.jobType), row]));
   const feedRun = runByType.get("feed_ingestion");
   const intelligenceRun = runByType.get("intelligence_processing");
+  const feedRunHealthy = Boolean(feedRun) && ["completed", "completed_with_errors"].includes(String(feedRun?.status));
+  const intelligenceRunHealthy = Boolean(intelligenceRun) && String(intelligenceRun?.status) === "completed";
   const compilationByFamily = new Map<string, Record<string, any>[] >();
   for (const row of compilations) {
     const list = compilationByFamily.get(String(row.family)) ?? [];
@@ -150,8 +150,8 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
     failingPrimarySources: failingPrimary.length,
     stalePrimarySources: stalePrimary.length,
     criticalSourceFailures,
-    latestFeedRunAt: text(feedRun?.completedAt ?? feedRun?.startedAt),
-    latestIntelligenceRunAt: text(intelligenceRun?.completedAt ?? intelligenceRun?.startedAt),
+    latestFeedRunAt: feedRunHealthy ? text(feedRun?.completedAt ?? feedRun?.startedAt) : null,
+    latestIntelligenceRunAt: intelligenceRunHealthy ? text(intelligenceRun?.completedAt ?? intelligenceRun?.startedAt) : null,
     queuedCandidates: Number(queue[0]?.count ?? 0),
     openConflicts: Number(conflicts[0]?.count ?? 0),
     families,
