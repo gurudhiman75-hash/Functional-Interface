@@ -25,7 +25,7 @@ CP016 keeps four states distinct:
 - `learnerReleaseReady: false`
 - `productionLearnerReleaseAuthorized: false`
 
-The production merge does not open Question Studio discovery, Question Bank writes, scored tests, mock tests, public publication, or automatic learner delivery.
+The production merge does not by itself open Question Studio discovery, Question Bank writes, scored tests, mock tests, public publication, or automatic learner delivery.
 
 ## Feature implementation evidence
 
@@ -94,9 +94,9 @@ Two transparent source holds remain outside this DSF closure:
 
 These holds do not invalidate the implemented DSF scope. They remain external source dependencies to reopen when authoritative source solvers exist.
 
-## Learner lifecycle remains locked
+## CP016 lifecycle state at closure
 
-Production integration does not authorize delivery. The merged expansion remains locked:
+At the instant CP016 closed the implementation/common-base work, delivery remained locked:
 
 - Question Studio discoverable: `false`
 - Question Bank writable: `false`
@@ -105,4 +105,16 @@ Production integration does not authorize delivery. The merged expansion remains
 - publicly publishable: `false`
 - automatic learner publication: `false`
 
-Any learner-facing activation requires a separate explicit release checkpoint and authorization.
+Those values are historical CP016 closure evidence and are not rewritten retroactively.
+
+## Post-closure handoff to CP017
+
+`DSF-CP-017` is the separate, explicit Question Studio authoring activation checkpoint. It promotes only what the normal authoring workflow needs:
+
+- Question Studio discoverability: `true`
+- review-run persistence: `true`
+- review/manual approval requirement: `true`
+
+It does **not** authorize learner delivery. Under CP017, Question Bank writes, scored tests, mock tests, public publication and automatic student publication remain `false`.
+
+This preserves the CP016 rule that learner-facing release is a separate governed action while allowing the production-integrated DSF corpus to participate in ordinary Question Studio authoring.
