@@ -4,10 +4,16 @@ import { Router, type IRouter, type Response } from 'express';
 import { requireAdminPermission } from '../lib/admin-rbac';
 import { sqlClient } from '../lib/db';
 import { authenticate } from '../middlewares/auth';
+import { NOTES_QUALITY_GROUNDING_PROMPT_VERSION } from '../notes-studio/quality-grounding';
+import {
+  NotesStudioQualityModelConfigurationError,
+  verifyNotesSectionGrounding,
+} from '../notes-studio/quality-grounding-provider';
 import {
   evaluateNotesSectionQuality,
   notesQualityEvidenceFingerprint,
   type NotesSectionQualityInput,
+  type QualityCheck,
   type QualityClaimInput,
 } from '../notes-studio/quality-gates';
 
@@ -33,6 +39,10 @@ function uuid(value: unknown, label: string): string {
 function sendError(res: Response, error: unknown, fallback: string) {
   if (error instanceof NotesStudioQualityError) {
     res.status(error.statusCode).json({ error: error.message, code: error.code });
+    return;
+  }
+  if (error instanceof NotesStudioQualityModelConfigurationError) {
+    res.status(503).json({ error: error.message, code: 'NOTES_STUDIO_QA_MODEL_NOT_CONFIGURED' });
     return;
   }
   console.error(fallback, error);
@@ -238,22 +248,95 @@ async function runSectionQuality(jobId: string, sectionId: string, actorUserId: 
   if (!/^[0-9a-f]{64}$/.test(outputFingerprint)) {
     throw new NotesStudioQualityError('SECTION_FINGERPRINT_INVALID', 'Section output fingerprint is missing or invalid.', 409);
   }
-  const evaluation = evaluateNotesSectionQuality(input);
+  const deterministic = evaluateNotesSectionQuality(input);
   const evidenceFingerprint = notesQualityEvidenceFingerprint(input);
-  const runId = randomUUID();
+  const evidenceGatePass = deterministic.checks.find((check) => check.code === 'evidence_support')?.status === 'pass';
+  const contradictionGatePass = deterministic.checks.find((check) => check.code === 'contradiction_state')?.status === 'pass';
 
+  let verifierProvider: string | null = null;
+  let verifierModel: string | null = null;
+  let verifierMetadata: Record<string, unknown> = { rawSourceTextSent: false, acceptedClaimsOnly: true };
+  let semanticCheck: QualityCheck;
+
+  if (evidenceGatePass && contradictionGatePass) {
+    const grounding = await verifyNotesSectionGrounding({
+      languageCode: String(job.sourceLanguage ?? 'en'),
+      sectionMarkdown: input.markdown,
+      claims: input.claims.map((claim) => ({ id: claim.id, text: claim.text })),
+    });
+    verifierProvider = grounding.provider;
+    verifierModel = grounding.model;
+    const unsupportedCount = grounding.result.unsupportedStatements.length;
+    const usedClaimCount = grounding.result.usedClaimIds.length;
+    const semanticPassed = unsupportedCount === 0 && usedClaimCount > 0;
+    semanticCheck = {
+      code: 'semantic_grounding',
+      label: 'Semantic re-grounding',
+      status: semanticPassed ? 'pass' : 'fail',
+      blocking: true,
+      summary: semanticPassed
+        ? 'The claim-only verifier found no unsupported factual statements.'
+        : unsupportedCount > 0
+          ? 'The claim-only verifier found factual statements that are not supported by the accepted claims.'
+          : 'The verifier could not ground any factual content in the accepted claim set.',
+      metrics: {
+        unsupportedCount,
+        usedClaimCount,
+        verifierModel: grounding.model,
+        promptVersion: NOTES_QUALITY_GROUNDING_PROMPT_VERSION,
+        unsupportedSample: grounding.result.unsupportedStatements.slice(0, 3).map((item) => item.excerpt).join(' | '),
+      },
+    };
+    verifierMetadata = {
+      responseId: grounding.responseId,
+      usage: grounding.usage,
+      unsupportedCount,
+      usedClaimCount,
+      rawSourceTextSent: false,
+      acceptedClaimsOnly: true,
+    };
+  } else {
+    semanticCheck = {
+      code: 'semantic_grounding',
+      label: 'Semantic re-grounding',
+      status: 'fail',
+      blocking: true,
+      summary: 'Semantic grounding cannot pass until evidence support and contradiction prerequisites are green.',
+      metrics: {
+        unsupportedCount: 0,
+        usedClaimCount: 0,
+        verifierModel: null,
+        promptVersion: NOTES_QUALITY_GROUNDING_PROMPT_VERSION,
+        unsupportedSample: '',
+      },
+    };
+  }
+
+  const checks = [...deterministic.checks, semanticCheck];
+  const passed = !checks.some((check) => check.blocking && check.status === 'fail');
+  const warningCount = checks.filter((check) => check.status === 'warning').length;
+  const failCount = checks.filter((check) => check.status === 'fail').length;
+
+  const latest = await loadQualityInput(jobId, sectionId);
+  const latestEvidenceFingerprint = notesQualityEvidenceFingerprint(latest.input);
+  if (latest.outputFingerprint !== outputFingerprint || latestEvidenceFingerprint !== evidenceFingerprint) {
+    throw new NotesStudioQualityError('SECTION_OR_EVIDENCE_CHANGED_DURING_QA', 'The section or evidence graph changed while QA was running. Refresh and run the gates again.', 409);
+  }
+
+  const runId = randomUUID();
   await sqlClient.begin(async (tx) => {
     await tx`
       INSERT INTO content.note_quality_runs (
         id, job_id, section_id, section_output_fingerprint, evidence_fingerprint,
-        policy_version, status, warning_count, fail_count, created_by, created_at
+        policy_version, verifier_provider, verifier_model, verifier_prompt_version, verifier_metadata,
+        status, warning_count, fail_count, created_by, created_at
       ) VALUES (
         ${runId}::uuid, ${jobId}::uuid, ${sectionId}::uuid, ${outputFingerprint}, ${evidenceFingerprint},
-        ${evaluation.policyVersion}, ${evaluation.passed ? 'passed' : 'failed'},
-        ${evaluation.warningCount}, ${evaluation.failCount}, ${actorUserId}::uuid, now()
+        ${deterministic.policyVersion}, ${verifierProvider}, ${verifierModel}, ${NOTES_QUALITY_GROUNDING_PROMPT_VERSION}, ${JSON.stringify(verifierMetadata)},
+        ${passed ? 'passed' : 'failed'}, ${warningCount}, ${failCount}, ${actorUserId}::uuid, now()
       )
     `;
-    for (const check of evaluation.checks) {
+    for (const check of checks) {
       await tx`
         INSERT INTO content.note_quality_checks (
           run_id, check_code, label, status, blocking, summary, metrics, created_at
@@ -265,7 +348,7 @@ async function runSectionQuality(jobId: string, sectionId: string, actorUserId: 
     }
     const updated = await tx`
       UPDATE content.note_sections
-      SET state = ${evaluation.passed ? 'qa_passed' : 'needs_editorial'},
+      SET state = ${passed ? 'qa_passed' : 'needs_editorial'},
           updated_by = ${actorUserId}::uuid,
           updated_at = now()
       WHERE job_id = ${jobId}::uuid
@@ -274,23 +357,28 @@ async function runSectionQuality(jobId: string, sectionId: string, actorUserId: 
       RETURNING id::text AS id
     `;
     if (!updated[0]) {
-      throw new NotesStudioQualityError('SECTION_CHANGED_DURING_QA', 'The section changed while QA was running. Refresh and run the gates again.', 409);
+      throw new NotesStudioQualityError('SECTION_CHANGED_DURING_QA', 'The section changed while QA was being committed. Refresh and run the gates again.', 409);
     }
   });
 
   const jobState = await refreshQualityReadiness(jobId, actorUserId);
-  await audit(actorUserId, 'notes_studio.quality.run', jobId, evaluation.passed ? 'Notes Studio section passed deterministic quality gates' : 'Notes Studio section failed deterministic quality gates', {
+  await audit(actorUserId, 'notes_studio.quality.run', jobId, passed ? 'Notes Studio section passed quality gates' : 'Notes Studio section failed quality gates', {
     sectionId,
     runId,
-    status: evaluation.passed ? 'passed' : 'failed',
-    policyVersion: evaluation.policyVersion,
+    status: passed ? 'passed' : 'failed',
+    policyVersion: deterministic.policyVersion,
+    verifierProvider,
+    verifierModel,
+    verifierPromptVersion: NOTES_QUALITY_GROUNDING_PROMPT_VERSION,
     sectionOutputFingerprint: outputFingerprint,
     evidenceFingerprint,
-    warningCount: evaluation.warningCount,
-    failCount: evaluation.failCount,
+    warningCount,
+    failCount,
+    rawSourceTextSent: false,
+    acceptedClaimsOnly: true,
     learnerPublished: false,
   });
-  return { runId, evaluation, jobState };
+  return { runId, passed, checks, jobState };
 }
 
 async function loadQualityWorkspace(jobId: string) {
@@ -311,6 +399,9 @@ async function loadQualityWorkspace(jobId: string) {
       latest.policy_version AS "policyVersion",
       latest.section_output_fingerprint AS "qualityOutputFingerprint",
       latest.evidence_fingerprint AS "evidenceFingerprint",
+      latest.verifier_provider AS "verifierProvider",
+      latest.verifier_model AS "verifierModel",
+      latest.verifier_prompt_version AS "verifierPromptVersion",
       latest.warning_count AS "warningCount",
       latest.fail_count AS "failCount",
       latest.created_at AS "qualityRanAt"
