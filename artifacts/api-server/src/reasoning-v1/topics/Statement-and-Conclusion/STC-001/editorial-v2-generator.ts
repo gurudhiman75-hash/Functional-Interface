@@ -1,5 +1,6 @@
 import { STC_V2_EDITORIAL_AUTHORITIES } from "./editorial-v2-authorities.ts";
 import { getStcV2LocalizedText } from "./editorial-v2-localization.ts";
+import { reverseStcV2AnswerClass, scheduleStcV2Presentation } from "./editorial-v2-scheduler.ts";
 import type { StcLocale, StcQlId } from "./types.ts";
 import type { GeneratedStcV2EditorialQuestion, StcV2AnswerClass } from "./editorial-v2-types.ts";
 
@@ -48,11 +49,6 @@ function checkpointFor(qlId: StcQlId): "STC-CP-001" | "STC-CP-002" | "STC-CP-003
   return "STC-CP-003";
 }
 
-function positiveModulo(value: number, divisor: number): number {
-  const integer = Number.isFinite(value) ? Math.trunc(value) : 0;
-  return ((integer % divisor) + divisor) % divisor;
-}
-
 function explanationLine(locale: StcLocale, label: "I" | "II", follows: boolean, reason: string): string {
   if (locale === "en-IN") return `${label} ${follows ? "follows" : "does not follow"}: ${reason}`;
   if (locale === "hi-IN") return `निष्कर्ष ${label} ${follows ? "अनुसरण करता है" : "अनुसरण नहीं करता है"}: ${reason}`;
@@ -69,14 +65,25 @@ export function generateStcV2EditorialQuestion(input: {
     throw new Error(`STC V2 requires exactly 8 editorial authorities for ${input.qlId}; found ${pool.length}.`);
   }
 
-  const authority = pool[positiveModulo(input.seed, pool.length)]!;
-  const text = input.locale === "en-IN"
+  const schedule = scheduleStcV2Presentation({ qlId: input.qlId, seed: input.seed });
+  const authority = pool[schedule.authorityIndex]!;
+  const localized = input.locale === "en-IN"
     ? { statement: authority.statement, conclusions: authority.conclusions, explanation: authority.explanation }
     : getStcV2LocalizedText(authority.id, input.locale);
-  const [firstFollows, secondFollows] = followsFlags(authority.answerClass);
+
+  const answerClass = schedule.reverseConclusions
+    ? reverseStcV2AnswerClass(authority.answerClass)
+    : authority.answerClass;
+  const conclusions = schedule.reverseConclusions
+    ? [localized.conclusions[1], localized.conclusions[0]] as const
+    : localized.conclusions;
+  const reasons = schedule.reverseConclusions
+    ? [localized.explanation[1], localized.explanation[0]] as const
+    : localized.explanation;
+  const [firstFollows, secondFollows] = followsFlags(answerClass);
   const explanation = [
-    explanationLine(input.locale, "I", firstFollows, text.explanation[0]),
-    explanationLine(input.locale, "II", secondFollows, text.explanation[1]),
+    explanationLine(input.locale, "I", firstFollows, reasons[0]),
+    explanationLine(input.locale, "II", secondFollows, reasons[1]),
   ].join(" ");
 
   return {
@@ -89,17 +96,22 @@ export function generateStcV2EditorialQuestion(input: {
     seed: input.seed,
     difficulty: authority.difficulty,
     surfaceArchetype: authority.surfaceArchetype,
-    stem: text.statement,
-    conclusions: text.conclusions,
+    stem: localized.statement,
+    conclusions,
     options: OPTIONS[input.locale],
-    correctIndex: indexForAnswer(authority.answerClass),
-    answerClass: authority.answerClass,
+    correctIndex: indexForAnswer(answerClass),
+    answerClass,
     explanation,
     metadata: {
       authority: "CURATED_EDITORIAL_ENTAILMENT_V2",
       surfaceArchetype: authority.surfaceArchetype,
       repeatedInstructionEmbeddedInStem: false,
       localizedByScenarioId: true,
+      antiGamingScheduler: "STC_V2_1_NON_PERIODIC_16_SLOT",
+      presentationSlot: schedule.presentationSlot,
+      scheduleBlock: schedule.scheduleBlock,
+      conclusionsReversed: schedule.reverseConclusions,
+      saturationReady: false,
       reviewOnly: true,
       questionBankWritable: false,
       testEligible: false,
