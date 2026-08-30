@@ -73,16 +73,17 @@ for (const question of TSD_CP012_ENGLISH_REVIEW_FINAL) {
 }
 
 for (const language of ["hi", "pa"] as const) {
-  const preview = previewTsdCp012StudioCandidate({ language, count: 66, seed: `cp012-native-option-purity-${language}` });
+  const preview = previewTsdCp012StudioCandidate({ language, count: 270, seed: `cp012-native-option-purity-${language}` });
   for (const question of preview.questions) {
     assert(question.options.every((option) => !/[A-Za-z]/.test(option)), `${language}/${question.familyId}: Latin learner text leaked into localized options`);
   }
 }
 
+assert(scalarFamilies + setFamilies + TSD_CP012_ENGLISH_REVIEW_FINAL.filter((question) => question.solution.kind === "SCALAR" && question.solution.unit === "INDEX").length === 270, "option-realness audit did not visit the complete English surface");
 assert(scalarFamilies > 0 && setFamilies > 0 && boundedFamilies > 0, "option-realness audit did not exercise all expected surfaces");
 console.log("TSD-CP-012 OPTION REALNESS + NATIVE OPTION PURITY PROOF: PASS");
 console.log(JSON.stringify({
-  reviewedFamilies: 66,
+  reviewedFamilies: 270,
   scalarFamilies,
   setFamilies,
   boundedFamilies,
