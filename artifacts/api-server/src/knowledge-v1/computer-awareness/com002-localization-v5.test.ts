@@ -17,17 +17,53 @@ const badHindi = [
   / क्रिया का प्रभाव है:/u,
   / का अर्थ है:/u,
   /रीनेम क्रिया[^।\n?]*बदलता है/u,
+  /कौन-सी सिस्टम क्रिया यह काम करती है:/u,
+  /रीनेम क्रिया मूल आइटम को वहीं छोड़ने के बजाय उसका स्थान बदलती है/u,
+  /इसलिए केवल [^।\n]+ सही उत्तर है।/u,
 ];
 const badPunjabi = [
   /ਫ਼ਾਈਲ-ਸਟੋਰੇਜ ਸਰੋਤ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਦਾ ਕੰਮ ਹੈ।/u,
   / ਕਾਰਵਾਈ ਦਾ ਪ੍ਰਭਾਵ ਹੈ:/u,
   / ਦਾ ਅਰਥ ਹੈ:/u,
   /ਰੀਨੇਮ ਕਾਰਵਾਈ[^।\n?]*ਬਦਲਦਾ ਹੈ/u,
+  /ਕਿਹੜੀ ਸਿਸਟਮ ਕਾਰਵਾਈ ਇਹ ਕੰਮ ਕਰਦੀ ਹੈ:/u,
+  /ਰੀਨੇਮ ਕਾਰਵਾਈ ਮੂਲ ਆਈਟਮ ਨੂੰ ਥਾਂ ਤੇ ਛੱਡਣ ਦੀ ਬਜਾਇ ਉਸਦੀ ਥਾਂ ਬਦਲਦੀ ਹੈ/u,
+  /ਇਸ ਲਈ ਕੇਵਲ [^।\n]+ ਸਹੀ ਉੱਤਰ ਹੈ।/u,
 ];
 
+const strictTranslations = {
+  "gives CPU time to processes": {
+    hi: "प्रक्रियाओं को CPU समय देता है",
+    pa: "ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ CPU ਸਮਾਂ ਦਿੰਦਾ ਹੈ",
+  },
+  "gives memory to processes": {
+    hi: "प्रक्रियाओं को मेमोरी देता है",
+    pa: "ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ ਮੈਮੋਰੀ ਦਿੰਦਾ ਹੈ",
+  },
+  "changes the item's name": {
+    hi: "आइटम का नाम बदलता है",
+    pa: "ਆਈਟਮ ਦਾ ਨਾਂ ਬਦਲਦਾ ਹੈ",
+  },
+  "finds matching files or folders": {
+    hi: "मेल खाने वाली फ़ाइलें या फ़ोल्डर ढूँढता है",
+    pa: "ਮੇਲ ਖਾਂਦੀਆਂ ਫ਼ਾਈਲਾਂ ਜਾਂ ਫ਼ੋਲਡਰ ਲੱਭਦਾ ਹੈ",
+  },
+  "removes the selected item from its current location": {
+    hi: "चुने गए आइटम को उसकी मौजूदा जगह से हटाता है",
+    pa: "ਚੁਣੀ ਆਈਟਮ ਨੂੰ ਉਸਦੀ ਮੌਜੂਦਾ ਥਾਂ ਤੋਂ ਹਟਾਉਂਦਾ ਹੈ",
+  },
+  "moves the item to another location": {
+    hi: "आइटम को दूसरी जगह ले जाता है",
+    pa: "ਆਈਟਮ ਨੂੰ ਕਿਸੇ ਹੋਰ ਥਾਂ ਲੈ ਜਾਂਦਾ ਹੈ",
+  },
+  "brings the deleted item back": {
+    hi: "डिलीट किए गए आइटम को वापस लाता है",
+    pa: "ਡਿਲੀਟ ਕੀਤੀ ਆਈਟਮ ਨੂੰ ਵਾਪਸ ਲਿਆਉਂਦਾ ਹੈ",
+  },
+} as const;
+
 let audited = 0;
-let strictCpuParity = 0;
-let strictMemoryParity = 0;
+let strictParityAudited = 0;
 
 for (const qlId of qlIds) {
   for (let index = 0; index < 40; index += 1) {
@@ -40,7 +76,7 @@ for (const qlId of qlIds) {
 
       assert.deepEqual(replay, question, `${qlId}/${seed}/${language}: V5 replay drift`);
       assert.equal(question.localizationV5.version, COM002_LOCALIZATION_VERSION_V5);
-      assert.equal(question.localizationV5.englishGeneratorVersion, "COM-002-ENGLISH-GENERATOR-V6-ERRATA-REVIEW-CANDIDATE-1");
+      assert.equal(question.localizationV5.englishGeneratorVersion, "COM-002-ENGLISH-GENERATOR-V6-ERRATA-REVIEW-CANDIDATE-2");
       assert.equal(question.localizationV5.englishQuestionId, english.questionId);
       assert.equal(question.qlId, english.qlId);
       assert.equal(question.cpId, english.cpId);
@@ -84,20 +120,10 @@ for (const qlId of qlIds) {
       }
 
       english.options.forEach((option, optionIndex) => {
-        if (option === "gives CPU time to processes") {
-          assert.equal(
-            question.options[optionIndex],
-            language === "hi" ? "प्रक्रियाओं को CPU समय देता है" : "ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ CPU ਸਮਾਂ ਦਿੰਦਾ ਹੈ",
-          );
-          strictCpuParity += 1;
-        }
-        if (option === "gives memory to processes") {
-          assert.equal(
-            question.options[optionIndex],
-            language === "hi" ? "प्रक्रियाओं को मेमोरी देता है" : "ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ ਮੈਮੋਰੀ ਦਿੰਦਾ ਹੈ",
-          );
-          strictMemoryParity += 1;
-        }
+        const expected = strictTranslations[option as keyof typeof strictTranslations]?.[language];
+        if (!expected) return;
+        assert.equal(question.options[optionIndex], expected, `${qlId}/${seed}/${language}: simplified option parity drift`);
+        strictParityAudited += 1;
       });
 
       audited += 1;
@@ -105,7 +131,7 @@ for (const qlId of qlIds) {
   }
 }
 
-// Re-run the exact human-review wave seeds that exposed the defects in V4.
+// Re-run the exact historical human-review seeds that first exposed defects.
 for (const qlId of [
   "COM-002-QL-001",
   "COM-002-QL-004",
@@ -126,14 +152,51 @@ for (const qlId of [
   }
 }
 
+// Exercise the exact 13 seeds used by the interactive V5 export. These checks
+// make the rendered review pack itself part of the regression contract.
+for (const qlId of qlIds) {
+  const seed = `localization-human-review-v4:${qlId}`;
+  const english = generateCom002ReviewQuestionV6({ qlId, seed });
+  for (const language of languages) {
+    const question = localizeCom002QuestionV5({ qlId, seed, language });
+    const learnerText = `${question.stem}\n${question.options.join("\n")}\n${question.explanation}`;
+    for (const pattern of language === "hi" ? badHindi : badPunjabi) {
+      assert.doesNotMatch(learnerText, pattern, `${qlId}/${language}: exported review-pack defect survived V5`);
+    }
+
+    if (qlId === "COM-002-QL-001" && english.surfaceMode === "ENTITY_TO_FUNCTION") {
+      assert.equal(
+        question.stem,
+        language === "hi"
+          ? "इनमें से कौन-सा ऑपरेटिंग सिस्टम का कार्य है?"
+          : "ਇਨ੍ਹਾਂ ਵਿੱਚੋਂ ਕਿਹੜਾ ਓਪਰੇਟਿੰਗ ਸਿਸਟਮ ਦਾ ਕੰਮ ਹੈ?",
+      );
+    }
+    if (qlId === "COM-002-QL-006") {
+      assert.doesNotMatch(question.stem, /:/u);
+    }
+    if (qlId === "COM-002-QL-007" || qlId === "COM-002-QL-008") {
+      assert.doesNotMatch(question.explanation, /^[^:।\n]+:\s+/u);
+    }
+    if (qlId === "COM-002-QL-011") {
+      assert.equal(
+        question.canonicalAnswer,
+        language === "hi" ? "डिलीट किए गए आइटम को वापस लाता है" : "ਡਿਲੀਟ ਕੀਤੀ ਆਈਟਮ ਨੂੰ ਵਾਪਸ ਲਿਆਉਂਦਾ ਹੈ",
+      );
+    }
+    if (qlId === "COM-002-QL-013") {
+      assert.doesNotMatch(question.explanation, language === "hi" ? /सही उत्तर है।/u : /ਸਹੀ ਉੱਤਰ ਹੈ।/u);
+    }
+  }
+}
+
 assert.equal(audited, 1040);
-assert.ok(strictCpuParity > 0, "V5 corpus must exercise strict CPU-time option parity override");
-assert.ok(strictMemoryParity > 0, "V5 corpus must exercise strict memory option parity override");
+assert.ok(strictParityAudited > 0, "V5 corpus must exercise strict simplified-option parity overrides");
 console.log("[com002-localization-v5] PASS", {
   questions: audited,
-  strictCpuParity,
-  strictMemoryParity,
+  strictParityAudited,
   candidateOnly: true,
   semanticProvenancePreserved: true,
+  exactExportSeedsCovered: true,
   knownEditorialDefectsRemoved: true,
 });
