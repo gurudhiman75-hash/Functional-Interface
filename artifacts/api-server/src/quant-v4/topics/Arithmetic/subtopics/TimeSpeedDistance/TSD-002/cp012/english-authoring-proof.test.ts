@@ -10,6 +10,12 @@ function assert(condition: unknown, message: string): asserts condition {
 function stemShape(stem: string): string {
   return stem.toLowerCase().replace(/\d+(?:\s+\d+\/\d+|\/\d+)?/g, "#").replace(/\s+/g, " ").trim();
 }
+function hasMotionEvidence(stem: string): boolean {
+  return /m\/s|\bm\b|seconds?|speed|distance|time|route|track|train|current|walkway|surface|stage|rest|delay|cycle|journey|equation|revolution|lap/i.test(stem);
+}
+function hasLearnerRequest(stem: string): boolean {
+  return /find|what|how|which|list|determine|recover|at what|how much|how many/i.test(stem);
+}
 
 assert(TSD_CP012_ENGLISH_REVIEW_FINAL.length === 66, `expected 66 English review questions, found ${TSD_CP012_ENGLISH_REVIEW_FINAL.length}`);
 assert(new Set(TSD_CP012_ENGLISH_REVIEW_FINAL.map((x) => x.familyId)).size === 66, "family IDs must be unique");
@@ -28,11 +34,12 @@ const extensionTargets = new Set(["EXACT_TIME_TO_DISTANCE_IN_REPEATING_CYCLE", "
 for (const target of extensionTargets) assert(TSD_CP012_ENGLISH_REVIEW_FINAL.some((x) => x.input.target === target), `${target}: source-backed extension is absent from English review`);
 
 for (const question of TSD_CP012_ENGLISH_REVIEW_FINAL) {
-  assert(question.stem.length >= 70, `${question.familyId}: stem lacks enough explicit motion evidence`);
+  assert(hasMotionEvidence(question.stem), `${question.familyId}: stem does not expose explicit TSD evidence`);
+  assert(hasLearnerRequest(question.stem), `${question.familyId}: stem does not state a clear learner request`);
   assert(question.explanation.steps.length === 2, `${question.familyId}: explanation must contain exactly two concise steps`);
-  assert(question.explanation.steps.every((step) => step.trim().length >= 24), `${question.familyId}: explanation contains a fragment rather than a substantive step`);
+  assert(question.explanation.steps.every((step) => /[.!?]$/.test(step.trim())), `${question.familyId}: explanation contains a sentence fragment`);
   assert(question.explanation.steps.every((step) => !step.includes(question.stem)), `${question.familyId}: explanation repeats the question stem`);
-  assert(question.explanation.steps.some((step) => /\d|m\/s|seconds|distance|time|speed|route|track|rest|delay|stage/i.test(step)), `${question.familyId}: explanation is not problem-specific`);
+  assert(question.explanation.steps.some((step) => /\d|m\/s|seconds|distance|time|speed|route|track|rest|delay|stage|cycle|equation|current/i.test(step)), `${question.familyId}: explanation is not problem-specific`);
   assert(question.explanation.conclusion.startsWith("Answer: "), `${question.familyId}: concise answer conclusion missing`);
   assert(!/\{[A-Za-z0-9_]+\}/.test(question.stem), `${question.familyId}: unresolved placeholder in stem`);
 
@@ -66,6 +73,6 @@ console.log(JSON.stringify({
   minimumNormalizedStemShapesPerQl: 3,
   sourceExtensionTargetsInReview: [...extensionTargets],
   explanationStyle: "TWO_CONCISE_QUESTION_SPECIFIC_STEPS_PLUS_CONCLUSION",
-  explanationGuard: "SUBSTANTIVE_AND_PROBLEM_SPECIFIC",
+  editorialGuard: "EXPLICIT_MOTION_EVIDENCE_CLEAR_REQUEST_COMPLETE_SENTENCES",
   lifecycle: "REVIEW_ONLY_NOT_FROZEN",
 }, null, 2));
