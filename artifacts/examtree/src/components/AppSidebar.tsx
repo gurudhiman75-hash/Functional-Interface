@@ -3,6 +3,7 @@ import {
   ClipboardList,
   Home,
   LogOut,
+  Newspaper,
   Settings,
   ShieldCheck,
   Target,
@@ -28,6 +29,7 @@ import {
 const primaryLinks = [
   { href: "/", label: "Home", icon: Home },
   { href: "/tests", label: "Tests & Exams", icon: ClipboardList },
+  { href: "/current-affairs", label: "Current Affairs", icon: Newspaper },
   { href: "/dashboard", label: "My Activity", icon: Target },
 ];
 
@@ -80,6 +82,7 @@ export function AppSidebar() {
             const active =
               location === link.href
               || (link.href === "/tests" && (location.startsWith("/category") || location.startsWith("/subcategory")))
+              || (link.href === "/current-affairs" && location.startsWith("/current-affairs"))
               || (link.href === "/dashboard" && location.startsWith("/test/"));
             return (
               <SidebarMenuItem key={link.href}>
