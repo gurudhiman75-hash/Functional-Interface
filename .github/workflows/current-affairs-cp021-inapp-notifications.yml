@@ -1,0 +1,159 @@
+name: Validate Current Affairs Studio CP021
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp019-learner-hub
+      - feature/current-affairs-studio-cp020-personalization
+    paths:
+      - "artifacts/api-server/migrations/20260830_current_affairs_inapp_notifications.sql"
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/current-affairs-notifications.ts"
+      - "artifacts/api-server/src/routes/learning-resources.ts"
+      - "artifacts/examtree/src/components/CurrentAffairsNotificationBell.tsx"
+      - "artifacts/examtree/src/components/StickyHeader.tsx"
+      - "artifacts/examtree/src/lib/current-affairs-notifications.ts"
+      - "build-current-affairs-worker.sh"
+      - "render.yaml"
+      - ".github/workflows/current-affairs-cp021-inapp-notifications.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp021-inapp-notifications
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp021-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-inapp-notifications:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Current Affairs CP001-CP021 contracts
+        run: |
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/original-authoring.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-question-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/periodic-rollup-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/story-threading.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/release-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/question-promotion-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/quiz-delivery-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/revision-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/dashboard-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/personalization-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/notification-policy.test.ts
+
+      - name: Verify inbox schema, dedupe and anti-nag controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          migration=artifacts/api-server/migrations/20260830_current_affairs_inapp_notifications.sql
+          policy=artifacts/api-server/src/current-affairs/notification-policy.ts
+          grep -Fq 'UNIQUE (user_id, signal_key)' "$migration"
+          grep -Fq "status IN ('unread', 'read', 'dismissed')" "$migration"
+          grep -Fq 'daily_notification_cap BETWEEN 1 AND 8' "$migration"
+          grep -Fq 'notification_gap_minutes BETWEEN 60 AND 720' "$migration"
+          grep -Fq 'notifications_muted_until' "$migration"
+          grep -Fq 'quiet_hours_start' "$migration"
+          grep -Fq 'quiet_hours_end' "$migration"
+          grep -Fq 'canDeliverCurrentAffairsNotification' "$policy"
+          grep -Fq 'quiet_hours' "$policy"
+          grep -Fq 'daily_cap' "$policy"
+          grep -Fq 'minimum_gap' "$policy"
+
+      - name: Verify authenticated inbox and active-release delivery
+        shell: bash
+        run: |
+          set -euo pipefail
+          route=artifacts/api-server/src/routes/current-affairs-notifications.ts
+          runtime=artifacts/api-server/src/current-affairs/notification-runtime.ts
+          grep -Fq 'router.get("/current-affairs/notifications", authenticate' "$route"
+          grep -Fq 'router.patch("/current-affairs/notifications/preferences", authenticate' "$route"
+          grep -Fq 'router.patch("/current-affairs/notifications/:id", authenticate' "$route"
+          grep -Fq 'router.post("/current-affairs/notifications/read-all", authenticate' "$route"
+          grep -Fq "delivery.status='published'" "$runtime"
+          grep -Fq "release.status='approved'" "$runtime"
+          grep -Fq "AT TIME ZONE 'Asia/Kolkata'" "$runtime"
+          grep -Fq 'ON CONFLICT (user_id, signal_key) DO NOTHING' "$runtime"
+          grep -Fq 'MAX_SCHEDULED_USERS_PER_RUN = 250' "$runtime"
+
+      - name: Verify scheduler is in-app only and hourly bounded
+        shell: bash
+        run: |
+          set -euo pipefail
+          runtime=artifacts/api-server/src/current-affairs/notification-runtime.ts
+          worker=artifacts/api-server/src/current-affairs/notification-worker.ts
+          build=build-current-affairs-worker.sh
+          render=render.yaml
+          grep -Fq 'runScheduledCurrentAffairsNotifications' "$worker"
+          grep -Fq 'current-affairs-notification-worker.mjs' "$build"
+          grep -Fq 'examtree-current-affairs-inapp-notifications' "$render"
+          grep -Fq 'schedule: "35 * * * *"' "$render"
+          if grep -E 'sendMail|nodemailer|twilio|firebase-admin.*messaging|sendEachForMulticast|web-push|pushSubscription|SMS' "$runtime" "$worker"; then
+            echo 'CP021 must remain in-app only; external notification providers are not allowed'
+            exit 1
+          fi
+
+      - name: Verify learner bell exposes controls without answer data
+        shell: bash
+        run: |
+          set -euo pipefail
+          bell=artifacts/examtree/src/components/CurrentAffairsNotificationBell.tsx
+          client=artifacts/examtree/src/lib/current-affairs-notifications.ts
+          header=artifacts/examtree/src/components/StickyHeader.tsx
+          grep -Fq 'CurrentAffairsNotificationBell' "$header"
+          grep -Fq 'Mute 24h' "$bell"
+          grep -Fq 'Quiet from' "$bell"
+          grep -Fq 'Daily cap' "$bell"
+          grep -Fq 'Minimum gap' "$bell"
+          grep -Fq 'markAllCurrentAffairsNotificationsRead' "$bell"
+          if grep -E 'correctIndex|correctAnswer|explanation' "$client" "$bell"; then
+            echo 'Notification client and inbox UI must never expose answer-key fields'
+            exit 1
+          fi
+
+      - name: Compile Current Affairs notification worker
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/current-affairs/notification-worker.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/current-affairs-notification-worker.mjs
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck learner frontend
+        run: pnpm --dir artifacts/examtree typecheck
+
+      - name: Build learner frontend
+        run: pnpm --dir artifacts/examtree build
