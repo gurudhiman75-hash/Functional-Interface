@@ -1,17 +1,29 @@
 {
-  "status": "ENGLISH_PILOT",
+  "status": "PRODUCTION_DIVERSITY_E6",
   "partnerPairs": [
     ["Aman", "Bharat"],
     ["Kiran", "Meera"],
     ["Ravi", "Simran"],
     ["Neha", "Pooja"],
-    ["Arjun", "Kabir"]
+    ["Arjun", "Kabir"],
+    ["Rohit", "Priya"],
+    ["Deepak", "Anjali"],
+    ["Vikas", "Sonia"],
+    ["Rahul", "Nisha"],
+    ["Mohit", "Ritu"]
   ],
   "businesses": [
     "trading business",
     "retail shop",
     "small manufacturing unit",
     "dealership",
-    "wholesale firm"
+    "wholesale firm",
+    "logistics firm",
+    "online retail venture",
+    "food processing unit",
+    "construction supplies business",
+    "garment wholesaling business",
+    "electronics dealership",
+    "book distribution business"
   ]
 }
