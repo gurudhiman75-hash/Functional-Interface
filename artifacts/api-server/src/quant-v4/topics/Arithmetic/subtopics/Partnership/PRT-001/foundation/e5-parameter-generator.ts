@@ -114,7 +114,7 @@ export function generatePrt001E5Parameters(input: { questionLanguageId: string; 
       break;
     }
     case "findCapitalChangeForEqualProfitShares": {
-      const s = random.pick([{a0:40_000,a1:60_000,change:6,b:50_000},{a0:60_000,a1:45_000,change:4,b:50_000},{a0:30_000,a1:60_000,change:8,b:40_000},{a0:80_000,a1:64_000,change:3,b:60_000}]);
+      const s = random.pick([{a0:40_000,a1:60_000,change:6,b:50_000},{a0:60_000,a1:45_000,change:4,b:50_000},{a0:30_000,a1:60_000,change:8,b:40_000},{a0:60_000,a1:50_000,change:6,b:55_000}]);
       state = makeState([partner(partnerA,[segment(0,s.change,money(s.a0)),segment(s.change,12,money(s.a1))]), partner(partnerB,[segment(0,12,money(s.b))])], money(100_000));
       targetPartnerId = partnerA;
       break;
@@ -206,7 +206,6 @@ export function generatePrt001E5Parameters(input: { questionLanguageId: string; 
   const a0 = a!.capitalSegments[0]!;
   const aLast = a!.capitalSegments[a!.capitalSegments.length - 1]!;
   const b0 = b!.capitalSegments[0]!;
-  const bLast = b!.capitalSegments[b!.capitalSegments.length - 1]!;
   const c0 = c?.capitalSegments[0];
   const renderVariables: Record<string, string | number> = {
     partnerA, partnerB, partnerC, business,
