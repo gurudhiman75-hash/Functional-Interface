@@ -1,4 +1,4 @@
-name: Validate STC-001 V2 Trilingual Review Readiness
+name: Validate STC-001 V2.1 Trilingual Review Readiness
 
 on:
   pull_request:
@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: stc-001-v2-trilingual-review-readiness-${{ github.ref }}
+  group: stc-001-v2-1-trilingual-review-readiness-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -33,30 +33,36 @@ jobs:
       - name: Preserve immutable V1 audit baseline
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v1-proof.test.ts
 
-      - name: Re-prove V2 English surface diversity
+      - name: Re-prove V2.1 English surface diversity
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-diversity-proof.test.ts
 
-      - name: Prove EN-HI-PA semantic parity across 144 four-way surfaces
+      - name: Prove canonical English learner-surface quality
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-review-readiness-proof.test.ts
+
+      - name: Prove EN-HI-PA semantic parity across 144 canonical four-way surfaces
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-proof.test.ts
 
-      - name: Prove 8-surface solver-backed Banking five-way profile
+      - name: Prove anti-gaming scheduler and explicit saturation block
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-1-saturation-boundary-proof.test.ts
+
+      - name: Re-prove archived either-or solver authorities remain logically valid
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-five-way-proof.test.ts
 
-      - name: Re-prove shared V2 Question Studio routing and V1 compatibility
+      - name: Re-prove shared V2.1 Question Studio routing and V1 compatibility
         run: |
-          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-v2-integration.test.ts --bundle --platform=node --format=esm --outfile=dist/stc-001/question-studio-v2-integration.test.mjs
-          node artifacts/api-server/dist/stc-001/question-studio-v2-integration.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-v2-integration.test.ts --bundle --platform=node --format=esm --outfile=dist/stc-001/question-studio-v2-1-integration.test.mjs
+          node artifacts/api-server/dist/stc-001/question-studio-v2-1-integration.test.mjs
 
-      - name: Export exact 168-surface trilingual human-review pack
+      - name: Export exact 144-surface active trilingual human-review pack
         env:
-          STC_V2_REVIEW_OUT: stc-001-v2-trilingual-review-pack
+          STC_V2_REVIEW_OUT: stc-001-v2-1-trilingual-review-pack
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-trilingual-review-pack.ts
 
-      - name: Upload trilingual review artifact
+      - name: Upload V2.1 trilingual review artifact
         uses: actions/upload-artifact@v4
         with:
-          name: stc-001-v2-trilingual-review-pack
-          path: stc-001-v2-trilingual-review-pack
+          name: stc-001-v2-1-trilingual-review-pack
+          path: stc-001-v2-1-trilingual-review-pack
           if-no-files-found: error
           retention-days: 30
 
@@ -68,8 +74,10 @@ jobs:
 
       - name: Assert lifecycle boundary
         run: |
-          echo 'STC-001 V2 status: TRILINGUAL_REVIEW_READY'
-          echo 'English/Hindi/Punjabi: scenario-ID and answer parity locked for review'
-          echo 'V2 Banking five-way: 8 dedicated solver-validated authorities ready for review'
+          echo 'STC-001 V2.1 status: TRILINGUAL_EDITORIAL_REVIEW_READY_BUT_SATURATION_BLOCKED'
+          echo 'English/Hindi/Punjabi: canonical scenario-ID and answer parity locked for review'
+          echo 'Runtime anti-gaming: 16-slot non-periodic authority/order scheduler'
+          echo 'Generation-ready: false; current curated ceiling 16 presentations/QL vs required >=1000 distinct questions/QL'
+          echo 'Banking five-way either/or: inactive in non-syllogistic STC; solver pool retained for audit only'
           echo 'V1: preserved frozen audit baseline'
           echo 'Question Bank/test/mock/public/automatic publication: locked'

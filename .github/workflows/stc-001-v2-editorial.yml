@@ -1,4 +1,4 @@
-name: Validate STC-001 V2 Trilingual Surface Diversity
+name: Validate STC-001 V2.1 Anti-Gaming Review Boundary
 
 on:
   pull_request:
@@ -17,11 +17,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: validate-stc-001-v2-trilingual-${{ github.ref }}
+  group: validate-stc-001-v2-1-antigaming-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  editorial-v2:
+  editorial-v2-1:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -32,7 +32,7 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
-      - name: Strict TypeScript check for STC V2 trilingual authority
+      - name: Strict TypeScript check for STC V2.1 trilingual review authority
         working-directory: artifacts/api-server
         run: |
           pnpm exec tsc \
@@ -65,27 +65,32 @@ jobs:
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-ql005.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-ql006.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-scheduler.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-generator.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-five-way-either-authorities.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-five-way-profile.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-review-v2.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-diversity-proof.test.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-proof.test.ts \
-            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-five-way-proof.test.ts
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-five-way-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-1-saturation-boundary-proof.test.ts
 
-      - name: Prove eight surfaces per QL and balanced answer classes
+      - name: Prove eight surfaces per QL and canonical answer balance
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-diversity-proof.test.ts
 
       - name: Prove 48-authority EN-HI-PA semantic parity
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-localization-proof.test.ts
 
-      - name: Prove solver-backed Banking five-way profile
+      - name: Prove anti-gaming scheduler and explicit saturation block
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-1-saturation-boundary-proof.test.ts
+
+      - name: Re-prove archived solver-backed either-or authorities remain logically valid
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-five-way-proof.test.ts
 
       - name: Re-prove immutable STC V1 chapter-owned authority
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v1-proof.test.ts
 
-      - name: Prove shared Question Studio V2 integration and V1 compatibility
+      - name: Prove shared Question Studio V2.1 integration and V1 compatibility
         working-directory: artifacts/api-server
         run: |
           pnpm exec esbuild \
@@ -93,8 +98,8 @@ jobs:
             --bundle \
             --platform=node \
             --format=esm \
-            --outfile=dist/stc-001-v2-question-studio-integration.mjs
-          node dist/stc-001-v2-question-studio-integration.mjs
+            --outfile=dist/stc-001-v2-1-question-studio-integration.mjs
+          node dist/stc-001-v2-1-question-studio-integration.mjs
 
       - name: Build production API
         working-directory: artifacts/api-server
@@ -106,8 +111,10 @@ jobs:
 
       - name: Review boundary
         run: |
-          echo 'STC-001 V2 is trilingual review-ready with 8 distinct surfaces per QL.'
-          echo 'English/Hindi/Punjabi are scenario-ID, answer-class, index and surface locked.'
-          echo 'Banking FIVE_WAY_EITHER uses 8 dedicated solver-validated authorities.'
+          echo 'STC-001 V2.1 is trilingual editorial review-ready with 8 distinct surfaces per QL.'
+          echo 'Seed-to-answer modulo leakage is removed by the 16-slot anti-gaming scheduler.'
+          echo 'Current curated ceiling remains only 16 authority/order presentations per QL; generation-ready=false.'
+          echo 'A variableized surface engine must prove >=1000 distinct questions per QL before saturation can pass.'
+          echo 'Banking FIVE_WAY_EITHER is inactive in non-syllogistic STC; archived solver authorities remain audit-only.'
           echo 'V1 remains preserved as the frozen audit baseline.'
           echo 'Question Bank, test, mock, public and automatic publication gates remain closed.'

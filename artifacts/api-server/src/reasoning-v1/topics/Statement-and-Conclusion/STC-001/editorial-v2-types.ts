@@ -32,7 +32,7 @@ export interface StcV2EditorialAuthority {
 
 export interface GeneratedStcV2EditorialQuestion {
   readonly chapterId: "STC-001";
-  readonly version: "V2";
+  readonly version: "V2.1";
   readonly checkpointId: "STC-CP-001" | "STC-CP-002" | "STC-CP-003";
   readonly qlId: StcQlId;
   readonly scenarioId: string;
@@ -51,6 +51,11 @@ export interface GeneratedStcV2EditorialQuestion {
     surfaceArchetype: StcV2SurfaceArchetype;
     repeatedInstructionEmbeddedInStem: false;
     localizedByScenarioId: true;
+    antiGamingScheduler: "STC_V2_1_NON_PERIODIC_16_SLOT";
+    presentationSlot: number;
+    scheduleBlock: number;
+    conclusionsReversed: boolean;
+    saturationReady: false;
     reviewOnly: true;
     questionBankWritable: false;
     testEligible: false;

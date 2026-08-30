@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 
 import { STC_V2_EDITORIAL_AUTHORITIES } from "./editorial-v2-authorities.ts";
 import { generateStcV2EditorialQuestion } from "./editorial-v2-generator.ts";
+import { canonicalReviewSeedForAuthorityIndex } from "./editorial-v2-scheduler.ts";
 import { STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE } from "./question-studio-review-v2.ts";
 import { STC_QL_IDS } from "./types.ts";
 
@@ -24,12 +25,14 @@ const INSTRUCTION_BOILERPLATE = [
   /given below/iu,
 ];
 
+assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.version, "V2.1");
 assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.reviewOnly, true);
 assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.localizationStatus, "TRILINGUAL_REVIEW_READY");
 assert.deepEqual(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.locales, ["en-IN", "hi-IN", "pa-IN"]);
-assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.localizedReviewSurfaceCount, 144);
-assert.deepEqual(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.presentationProfiles, ["FOUR_WAY", "FIVE_WAY_EITHER"]);
-assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.dedicatedFiveWayEitherAuthorityCount, 8);
+assert.deepEqual(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.presentationProfiles, ["FOUR_WAY"]);
+assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.bankingFiveWayEitherStatus, "REMOVED_FROM_ACTIVE_NON_SYLLOGISTIC_STC");
+assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.currentGenerationReady, false);
+assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.saturationStatus, "BLOCKED_NEEDS_VARIABLEIZED_SURFACE_ENGINE");
 assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.questionBankWritable, false);
 assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.testEligible, false);
 assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.mockTestEligible, false);
@@ -46,10 +49,13 @@ for (const qlId of STC_QL_IDS) {
   assert.equal(new Set(pool.map((entry) => entry.surfaceArchetype)).size, 8, `${qlId}: eight distinct surface archetypes required`);
 
   const answerCounts = new Map<string, number>();
-  for (let seed = 0; seed < 8; seed += 1) {
+  for (let authorityIndex = 0; authorityIndex < pool.length; authorityIndex += 1) {
+    const seed = canonicalReviewSeedForAuthorityIndex(qlId, authorityIndex);
     const question = generateStcV2EditorialQuestion({ qlId, locale: "en-IN", seed });
     const replay = generateStcV2EditorialQuestion({ qlId, locale: "en-IN", seed });
     assert.deepEqual(question, replay, `${qlId}/${seed}: deterministic replay failed`);
+    assert.equal(question.scenarioId, pool[authorityIndex]!.id);
+    assert.equal(question.metadata.conclusionsReversed, false);
     allGenerated.push(question);
 
     answerCounts.set(question.answerClass, (answerCounts.get(question.answerClass) ?? 0) + 1);
@@ -71,6 +77,8 @@ for (const qlId of STC_QL_IDS) {
       assert.doesNotMatch(question.stem, pattern, `${question.scenarioId}: repeated instruction boilerplate returned`);
     }
 
+    assert.equal(question.metadata.antiGamingScheduler, "STC_V2_1_NON_PERIODIC_16_SLOT");
+    assert.equal(question.metadata.saturationReady, false);
     assert.equal(question.metadata.reviewOnly, true);
     assert.equal(question.metadata.questionBankWritable, false);
     assert.equal(question.metadata.testEligible, false);
@@ -82,7 +90,7 @@ for (const qlId of STC_QL_IDS) {
   assert.deepEqual(
     Object.fromEntries([...answerCounts.entries()].sort()),
     { BOTH: 2, NEITHER: 2, ONLY_I: 2, ONLY_II: 2 },
-    `${qlId}: answer classes must remain balanced 2/2/2/2`,
+    `${qlId}: canonical authority answers must remain balanced 2/2/2/2`,
   );
 }
 
@@ -97,14 +105,12 @@ assert.deepEqual(sc039.conclusions, [
   "Grade A carries more weight than Grade C.",
   "Grade B carries less weight than Grade A.",
 ]);
-assert.notEqual(sc039.conclusions[0], "Grade C carries less weight than Grade A.");
 
 const sc040 = byScenario.get("STC-V2-SC-040")!;
 assert.deepEqual(sc040.conclusions, [
   "Arjun was faster than Karan.",
   "Mohit's time was lower than Karan's.",
 ]);
-assert.notEqual(sc040.conclusions[1], "Karan was slower than Arjun.");
 
 const sc047 = byScenario.get("STC-V2-SC-047")!;
 assert.match(sc047.stem, /including the latest quarter/u);
@@ -114,4 +120,4 @@ const stemLengths = allGenerated.map((question) => question.stem.length);
 assert.ok(Math.min(...stemLengths) >= 45);
 assert.ok(Math.max(...stemLengths) <= 280);
 
-console.log("PASS_STC_001_V2_ENGLISH_SURFACE_REVIEW_READINESS questions=48 conclusions=96 trilingualPackage=true");
+console.log("PASS_STC_001_V2_1_ENGLISH_SURFACE_REVIEW_READY_BUT_SATURATION_BLOCKED questions=48 conclusions=96");
