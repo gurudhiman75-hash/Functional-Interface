@@ -153,7 +153,13 @@ export function buildTsdCp012ScalarDistractors(
   input: TsdCp012ReviewInput,
   solution: Extract<TsdCp012ExecutableSolution, { kind: "SCALAR" }>,
 ): readonly TsdCp012ScalarDistractor[] {
+  const context = `${input.authorityKey}/${input.target}`;
   const expanded = expandedCandidates(input, solution);
-  if (expanded) return pickScalar(solution.answer, expanded, `${input.authorityKey}/${input.target}`);
-  return buildLegacyScalarDistractors(input, solution);
+  if (expanded) return pickScalar(solution.answer, expanded, context);
+  try {
+    return buildLegacyScalarDistractors(input, solution);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`CP012 legacy distractor fallback failed for ${context}: ${message}`);
+  }
 }
