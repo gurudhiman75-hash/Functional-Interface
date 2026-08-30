@@ -4,42 +4,42 @@ import {
   assertBlrCp007QuestionStudioPersistenceAllowed,
   previewBlrCp007QuestionStudioReview,
   type BlrCp007QuestionStudioReviewRequest,
-} from "./topics/Blood-Relations/BLR-001/BLR-CP-007/question-studio-review-adapter.ts";
+} from "./topics/Blood-Relations/BLR-001/BLR-CP-007/question-studio-review-adapter";
 import {
   DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE,
   previewDsf001NormalQuestionStudioReview,
   type DsfCp017QuestionStudioInput,
-} from "./topics/Data-Sufficiency/DSF-001/DSF-CP-017/question-studio-review-v1.ts";
+} from "./topics/Data-Sufficiency/DSF-001/DSF-CP-017/question-studio-review-v1";
 import {
   SYL_001_QUESTION_STUDIO_PACKAGE,
   SYL_001_QUESTION_STUDIO_PACKAGE_ID,
   assertSyl001QuestionStudioPersistenceAllowed,
   previewSyl001QuestionStudio,
   type Syl001QuestionStudioRequest,
-} from "./topics/Syllogism/SYL-001/question-studio-adapter.ts";
+} from "./topics/Syllogism/SYL-001/question-studio-adapter";
 import {
   STA_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   assertSta001QuestionStudioPersistenceAllowed,
   previewSta001QuestionStudioReview,
   type PreviewSta001QuestionStudioInput,
-} from "./topics/Statement-and-Assumption/STA-001/question-studio-review.ts";
+} from "./topics/Statement-and-Assumption/STA-001/question-studio-review";
 import {
   STC_001_QUESTION_STUDIO_REVIEW_PACKAGE as STC_001_V1_QUESTION_STUDIO_REVIEW_PACKAGE,
   assertStc001QuestionStudioPersistenceAllowed as assertStc001V1QuestionStudioPersistenceAllowed,
   previewStc001QuestionStudioReview as previewStc001V1QuestionStudioReview,
   type PreviewStc001QuestionStudioInput as PreviewStc001V1QuestionStudioInput,
-} from "./topics/Statement-and-Conclusion/STC-001/question-studio-review.ts";
+} from "./topics/Statement-and-Conclusion/STC-001/question-studio-review";
 import {
   STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE,
   assertStc001V2QuestionStudioPersistenceAllowed,
   previewStc001V2QuestionStudioReview,
   type PreviewStc001V2QuestionStudioInput,
-} from "./topics/Statement-and-Conclusion/STC-001/question-studio-review-v2.ts";
+} from "./topics/Statement-and-Conclusion/STC-001/question-studio-review-v2";
 import {
   WOR_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   previewWor001QuestionStudioReview,
   type PreviewWor001QuestionStudioInput,
-} from "./topics/Word-Dictionary-Order/WOR-001/question-studio-review.ts";
+} from "./topics/Word-Dictionary-Order/WOR-001/question-studio-review";
 
 export type ReasoningV1QuestionStudioReviewPackageId =
   | typeof BLR_CP007_QUESTION_STUDIO_PACKAGE_ID
