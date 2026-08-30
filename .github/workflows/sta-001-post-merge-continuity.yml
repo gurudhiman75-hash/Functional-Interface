@@ -1,0 +1,50 @@
+name: STA-001 Post-Merge Continuity Guard
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-average.ts'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sta-001-post-merge-continuity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  continuity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Re-prove STA V4.1 frozen chapter authority
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/chapter-reopen-v4-1-proof.test.ts
+
+      - name: Re-prove STA V4.1 exam-realness authority
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/exam-realness-v4-1-proof.test.ts
+
+      - name: Re-prove frozen shared Question Studio integration
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-v4-1-integration.test.ts --bundle --platform=node --format=esm --outfile=/tmp/sta-v41-integration.mjs
+          node /tmp/sta-v41-integration.mjs
+
+      - name: Prove current shared-engine and admin-route continuity
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Statement-and-Assumption/STA-001/post-merge-continuity-proof.test.ts --bundle --platform=node --format=esm --outfile=/tmp/sta-post-merge-continuity.mjs
+          node /tmp/sta-post-merge-continuity.mjs
+
+      - name: Build production API server
+        run: pnpm --dir artifacts/api-server build
