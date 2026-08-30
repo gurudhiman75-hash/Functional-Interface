@@ -7,81 +7,15 @@ import {
   validateAdminIngestBundle,
 } from "../geometry/ingest-contract";
 import { assertWestToEastOrder, compileLatitudeSegmentsByState } from "../geometry/latitude-compiler";
-import type { StaticGkMapPathSceneRecipe, StaticGkSceneCue } from "./types";
+import { TROPIC_OF_CANCER_LESSON_MANIFEST } from "../lesson-manifests/SGK-VIS-IND-GEO-001.manifest";
+import { compileLessonManifest } from "../lesson-manifests/compile";
+import type { StaticGkMapPathSceneRecipe } from "./types";
 
 const TROPIC_CLASSROOM_LATITUDE = 23.5;
-const STATE_TARGET_IDS: Record<(typeof REQUIRED_TROPIC_STATES)[number], string> = {
-  Gujarat: "state.GJ",
-  Rajasthan: "state.RJ",
-  "Madhya Pradesh": "state.MP",
-  Chhattisgarh: "state.CG",
-  Jharkhand: "state.JH",
-  "West Bengal": "state.WB",
-  Tripura: "state.TR",
-  Mizoram: "state.MZ",
-};
-
-function buildCues(): StaticGkSceneCue[] {
-  const stateCueStart = 5_000;
-  const stateCueDuration = 2_250;
-  const cues: StaticGkSceneCue[] = [
-    {
-      id: "SGK001-CUE-01",
-      startMs: 0,
-      endMs: 2_000,
-      layer: "base-map",
-      action: "show",
-      targetRef: "geo.india",
-      factIds: ["SGK001-F01"],
-    },
-    {
-      id: "SGK001-CUE-02",
-      startMs: 1_500,
-      endMs: 5_000,
-      layer: "latitude-line",
-      action: "trace",
-      targetRef: "line.tropic-cancer.india",
-      text: "Tropic of Cancer · ≈23½°N",
-      factIds: ["SGK001-F01", "SGK001-F04"],
-    },
-  ];
-
-  REQUIRED_TROPIC_STATES.forEach((stateName, index) => {
-    const startMs = stateCueStart + index * stateCueDuration;
-    cues.push({
-      id: `SGK001-CUE-STATE-${String(index + 1).padStart(2, "0")}`,
-      startMs,
-      endMs: startMs + stateCueDuration,
-      layer: "state-highlight",
-      action: "highlight",
-      targetRef: STATE_TARGET_IDS[stateName],
-      text: `${index + 1}. ${stateName}`,
-      factIds: ["SGK001-F03"],
-    });
-  });
-
-  cues.push(
-    {
-      id: "SGK001-CUE-RECAP",
-      startMs: 23_000,
-      endMs: 28_000,
-      layer: "labels",
-      action: "hold",
-      text: "8 states · west → east",
-      factIds: ["SGK001-F02", "SGK001-F03"],
-    },
-    {
-      id: "SGK001-CUE-QUIZ",
-      startMs: 28_000,
-      endMs: 34_000,
-      layer: "quiz",
-      action: "quiz",
-      text: TROPIC_OF_CANCER_FACT_LOCK.quiz.question,
-      factIds: TROPIC_OF_CANCER_FACT_LOCK.quiz.factIds,
-    },
-  );
-  return cues;
-}
+const TROPIC_LESSON_CUES = compileLessonManifest(
+  TROPIC_OF_CANCER_LESSON_MANIFEST,
+  TROPIC_OF_CANCER_FACT_LOCK,
+);
 
 export function compileTropicCancerScene(bundle?: StaticGkAdminIngestBundle): StaticGkMapPathSceneRecipe {
   const resolvedSegments: StaticGkMapPathSceneRecipe["route"]["resolvedSegments"] = [];
@@ -109,16 +43,10 @@ export function compileTropicCancerScene(bundle?: StaticGkAdminIngestBundle): St
     schemaVersion: "1.0",
     rendererVersion: "atlas-map-v1",
     visualId: TROPIC_OF_CANCER_FACT_LOCK.visualId,
-    title: TROPIC_OF_CANCER_FACT_LOCK.title,
+    title: TROPIC_OF_CANCER_LESSON_MANIFEST.title,
     template: "india-map-path",
     status,
-    viewport: {
-      aspectRatio: "9:16",
-      width: 1080,
-      height: 1920,
-      safeArea: { top: 170, right: 80, bottom: 230, left: 80 },
-      projection: "geoMercator",
-    },
+    viewport: TROPIC_OF_CANCER_LESSON_MANIFEST.viewport,
     geometrySource: {
       geometryId: SOI_ADMIN_GEOMETRY_ID,
       sourceProductCode: SOI_ADMIN_PRODUCT_CODE,
@@ -131,7 +59,7 @@ export function compileTropicCancerScene(bundle?: StaticGkAdminIngestBundle): St
       orderedStateNames: [...REQUIRED_TROPIC_STATES],
       resolvedSegments,
     },
-    cues: buildCues(),
+    cues: TROPIC_LESSON_CUES.map((cue) => ({ ...cue, factIds: [...cue.factIds] })),
     narration: TROPIC_OF_CANCER_FACT_LOCK.narration.map(({ id, text, factIds }) => ({ id, text, factIds })),
     quiz: {
       question: TROPIC_OF_CANCER_FACT_LOCK.quiz.question,
@@ -147,6 +75,7 @@ export function compileTropicCancerScene(bundle?: StaticGkAdminIngestBundle): St
         "The line is computed at 23.5 degrees north; it is not screen-positioned by hand.",
         "All eight fact-locked states must produce a non-empty latitude intersection.",
         "Resolved segments must preserve the fact-locked west-to-east sequence.",
+        "Lesson timing and on-screen actions must come from the validated SGK-VIS-IND-GEO-001 lesson manifest.",
         "No third-party political boundary geometry may satisfy the production ingest gate.",
       ],
     },
