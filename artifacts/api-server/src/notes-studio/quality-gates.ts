@@ -50,6 +50,8 @@ export type NotesSectionQualityEvaluation = {
 };
 
 const WORD_RE = /[\p{L}\p{N}]+/gu;
+const MAX_SECTION_OVERLAP_TOKENS = 5000;
+const MAX_EVIDENCE_OVERLAP_TOKENS = 300;
 
 function words(value: string): string[] {
   return (value.normalize('NFKC').toLowerCase().match(WORD_RE) ?? []).filter(Boolean);
@@ -125,14 +127,14 @@ function contradictionCheck(input: NotesSectionQualityInput): QualityCheck {
 }
 
 function sourceOverlapCheck(input: NotesSectionQualityInput): QualityCheck {
-  const sectionTokens = words(input.markdown);
+  const sectionTokens = words(input.markdown).slice(0, MAX_SECTION_OVERLAP_TOKENS);
   const sectionShingles = shingles(sectionTokens, 8);
   let maxShingleSimilarity = 0;
   let longestRun = 0;
   let evidenceCount = 0;
   for (const claim of input.claims) {
     for (const evidence of claim.supportEvidence) {
-      const evidenceTokens = words(evidence.excerpt);
+      const evidenceTokens = words(evidence.excerpt).slice(0, MAX_EVIDENCE_OVERLAP_TOKENS);
       evidenceCount += 1;
       maxShingleSimilarity = Math.max(maxShingleSimilarity, jaccard(sectionShingles, shingles(evidenceTokens, 8)));
       longestRun = Math.max(longestRun, longestSharedRun(sectionTokens, evidenceTokens));
@@ -288,8 +290,10 @@ export function notesQualityEvidenceFingerprint(input: NotesSectionQualityInput)
       .sort((a, b) => a.id.localeCompare(b.id))
       .map((claim) => ({
         id: claim.id,
+        text: claim.text.normalize('NFC').trim(),
         state: claim.state,
         coverageLinked: claim.coverageLinked,
+        activeSupportCount: claim.activeSupportCount,
         supports: [...claim.supportEvidence]
           .sort((a, b) => `${a.sourceId}:${a.excerptHash}`.localeCompare(`${b.sourceId}:${b.excerptHash}`))
           .map((evidence) => ({ sourceId: evidence.sourceId, excerptHash: evidence.excerptHash })),
