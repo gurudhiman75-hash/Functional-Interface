@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS content.current_affairs_inapp_notifications (
   title TEXT NOT NULL,
   body TEXT NOT NULL,
   deep_link TEXT NOT NULL,
+  source_quiz_code TEXT,
   signal_count INTEGER NOT NULL DEFAULT 1 CHECK (signal_count >= 0),
   status TEXT NOT NULL DEFAULT 'unread' CHECK (status IN ('unread', 'read', 'dismissed')),
   delivered_at TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -37,6 +38,10 @@ CREATE TABLE IF NOT EXISTS content.current_affairs_inapp_notifications (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE (user_id, signal_key),
+  CONSTRAINT current_affairs_inapp_notification_source_shape CHECK (
+    (signal_type='daily_pack' AND source_quiz_code IS NOT NULL)
+    OR (signal_type<>'daily_pack' AND source_quiz_code IS NULL)
+  ),
   CONSTRAINT current_affairs_inapp_notification_state_shape CHECK (
     (status='unread' AND read_at IS NULL AND dismissed_at IS NULL)
     OR (status='read' AND read_at IS NOT NULL AND dismissed_at IS NULL)
