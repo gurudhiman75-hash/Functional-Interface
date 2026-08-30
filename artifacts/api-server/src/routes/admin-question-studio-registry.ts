@@ -2,6 +2,7 @@ import { Router, type IRouter } from "express";
 
 import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk-hardening";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
+import adminBtdTestProjectionsRouter from "./admin-btd-test-projections";
 import adminQuestionStudioBtdRouter from "./admin-question-studio-btd";
 import adminQuestionStudioCp014Router from "./admin-question-studio-cp014";
 import adminQuestionStudioTrigonometryRouter from "./admin-question-studio-trigonometry";
@@ -29,15 +30,15 @@ import adminQuestionStudioRouter from "./admin-question-studio";
  * firing whenever one Question Studio package is added or reordered.
  *
  * Order is intentional: hardening/specialized additive routers must run before
- * the legacy catch-all router at the bottom. BTD is mounted before CP014 because
- * its GET /capabilities extends the current CP014 aggregate and its POST handler
- * claims only explicit BTD packages/checkpoints/QLs or Banker/True Discount
- * selectors. Non-BTD requests fall through unchanged.
+ * the legacy catch-all router at the bottom. The BTD test-projection route is
+ * mounted alongside the existing BTD Studio router so CP014 does not mutate the
+ * global route index or disturb unrelated chapter route contracts.
  */
 const router: IRouter = Router();
 
 router.use(adminQuestionStudioBulkHardeningRouter);
 router.use(adminQuestionStudioQualityRouter);
+router.use(adminBtdTestProjectionsRouter);
 router.use(adminQuestionStudioBtdRouter);
 router.use(adminQuestionStudioCp014Router);
 router.use(adminQuestionStudioTrigonometryRouter);
