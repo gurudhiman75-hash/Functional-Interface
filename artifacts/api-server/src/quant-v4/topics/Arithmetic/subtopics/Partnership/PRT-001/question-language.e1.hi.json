@@ -1,0 +1,16 @@
+{
+  "language": "hi",
+  "status": "HUMAN_AUTHORED_E1",
+  "entries": {
+    "PRT-QL-033": "एक वर्ष के {business} में {partnerA} ने शुरुआत से {capitalA} लगाए और {leaveAfterA} बाद व्यवसाय छोड़ दिया। {partnerB}, {joinAfterB} बाद {capitalB} के साथ शामिल हुआ और वर्ष के अंत तक रहा। उनका लाभ-विभाजन अनुपात ज्ञात कीजिए।",
+    "PRT-QL-034": "{partnerA} ने एक वर्ष के {business} में शुरुआत से {capitalA} लगाए, जबकि {partnerB} ने पूरे वर्ष {capitalB} लगाए रखे। यदि उनका लाभ अनुपात {profitRatioA}:{profitRatioB} था, तो {partnerA} कितने महीने बाद व्यवसाय से बाहर हुआ?",
+    "PRT-QL-035": "{partnerA} ने एक {business} में पूरे वर्ष {capitalA} लगाए। {partnerB}, {joinAfterB} बाद कुछ पूंजी के साथ शामिल हुआ। यदि लाभ अनुपात {profitRatioA}:{profitRatioB} था, तो {partnerB} ने कितनी पूंजी लगाई?",
+    "PRT-QL-036": "{partnerA} ने एक वर्ष के {business} में {initialCapitalA} लगाए और {changeMonthA} बाद अपनी पूंजी {percentageChangeA}% बढ़ा दी। {partnerB} ने पूरे वर्ष {capitalB} लगाए रखे। उनका लाभ अनुपात ज्ञात कीजिए।",
+    "PRT-QL-037": "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} से शुरुआत की और {changeMonthA} बाद पूंजी {percentageChangeA}% बढ़ा दी। {partnerB} ने {initialCapitalB} से शुरुआत की और {changeMonthB} बाद पूंजी {percentageDecreaseB}% घटा दी। उनका लाभ-विभाजन अनुपात ज्ञात कीजिए।",
+    "PRT-QL-038": "एक {business} में {partnerA} ने {capitalA}, {durationA} के लिए लगाए। {partnerB} की पूंजी {capitalRelationB} थी और {durationB} तक लगी रही, जबकि {partnerC} की पूंजी {capitalRelationC} थी और {durationC} तक लगी रही। कुल लाभ {totalProfit} होने पर {targetPartner} का हिस्सा ज्ञात कीजिए।",
+    "PRT-QL-039": "{partnerA} और {partnerB} ने एक {business} में समान अवधि के लिए {capitalA} और {capitalB} लगाए। शेष लाभ को पूंजी अनुपात में बाँटने से पहले {partnerA} को {salary} वेतन मिला। यदि {partnerA} की अंतिम प्राप्ति {finalReceipt} थी, तो सकल लाभ ज्ञात कीजिए।",
+    "PRT-QL-040": "{partnerA} और {partnerB} ने एक {business} में समान अवधि के लिए {capitalA} और {capitalB} लगाए। {totalProfit} के सकल लाभ में से पहले {reserve} रिज़र्व रखा गया। फिर शेष राशि में से {partnerA} को {commissionPercent}% कमीशन दिया गया और बाकी लाभ बाँटा गया। {targetPartner} की अंतिम प्राप्ति ज्ञात कीजिए।",
+    "PRT-QL-041": "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} से शुरुआत की, {changeMonthA} बाद {addedCapitalA} और जोड़े तथा {leaveAfterA} बाद व्यवसाय छोड़ दिया। {partnerB}, {joinAfterB} बाद {capitalB} के साथ शामिल हुआ और वर्ष के अंत तक रहा। उनका लाभ अनुपात ज्ञात कीजिए।",
+    "PRT-QL-042": "एक वर्ष के {business} में {partnerA} ने शुरुआत से {capitalA} लगाए और {partnerB}, {joinAfterB} बाद {capitalB} के साथ शामिल हुआ। {partnerC}, {joinAfterC} बाद अज्ञात पूंजी के साथ शामिल हुआ। यदि लाभ अनुपात {profitRatioA}:{profitRatioB}:{profitRatioC} था, तो {partnerC} की पूंजी ज्ञात कीजिए।"
+  }
+}
