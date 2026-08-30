@@ -1,0 +1,16 @@
+{
+  "geometryId": "geo.india.admin-boundaries.v1",
+  "sourcePublisher": "Survey of India",
+  "sourceProductCode": "OVSF/1M/7",
+  "sourcePortalUrl": "https://onlinemaps.surveyofindia.gov.in/Digital_Products.aspx",
+  "acquiredAt": "2026-08-30",
+  "sourceArchiveFilename": "File_608117_7801054a2dcc4afcb41263d8e030b55c.zip",
+  "sourceArchiveSha256": "f44d665e6fa5e2102497799050e66f57369c11d9486ecfaec23ffcb7004ef38d",
+  "canonicalGeoJsonSha256": "ab3ef2d51a6c326f7e75a7d6e4fea1386476cb8c1f02599564af76f340f12001",
+  "canonicalCrs": "EPSG:4326",
+  "featureCount": 37,
+  "stateCount": 36,
+  "conversionTool": "GeoPandas 1.1.2 + pyproj 3.7.2 + Shapely 2.1.2 + Node.js 22 JSON.stringify",
+  "conversionCommandOrNotes": "Derived from the official DISTRICT_BOUNDARY layer: reprojected LCC_WGS84 to EPSG:4326; forced 2D; dissolved districts by STATE_UT + STATE_LGD into 36 clean state/UT display outlines; retained the original MIRZAPUR district feature (DIST_LGD 199) for district verification; preserved official source properties; sorted state features by normalized stateName; serialized the canonical object with Node JSON.stringify. The raw Survey of India archive and canonical geometry are intentionally not committed to Git pending redistribution/storage review.",
+  "reviewer": "Examtree Static GK Visual Atlas assisted ingest"
+}
