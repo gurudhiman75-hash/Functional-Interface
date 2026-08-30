@@ -25,6 +25,7 @@ const Subcategory = lazy(() => import("@/pages/subcategory"));
 const Test = lazy(() => import("@/pages/test"));
 const Result = lazy(() => import("@/pages/canonical-result"));
 const Profile = lazy(() => import("@/pages/profile"));
+const Bookmarks = lazy(() => import("@/pages/bookmarks"));
 const Store = lazy(() => import("@/pages/store"));
 const StoreProduct = lazy(() => import("@/pages/store-product"));
 const MyPurchases = lazy(() => import("@/pages/my-purchases"));
@@ -179,6 +180,7 @@ function Router() {
           <Route path="/dashboard" component={() => renderAppRoute(Dashboard)} />
           <Route path="/my-packages" component={() => <ProtectedRoute component={MyPurchases} />} />
           <Route path="/purchases" component={() => <ProtectedRoute component={MyPurchases} />} />
+          <Route path="/bookmarks" component={() => <ProtectedRoute component={Bookmarks} />} />
           <Route path="/test-series/:id" component={() => <ProtectedRoute component={TestSeries} />} />
           <Route path="/test/:id" component={() => <ProtectedRoute component={Test} layout="none" />} />
           <Route path="/result" component={() => <ProtectedRoute component={Result} />} />
