@@ -10,7 +10,6 @@ on:
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-review-v2-2.ts'
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-v2-integration.test.ts'
       - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
-      - '.github/workflows/stc-001-v2-2-saturation.yml'
   workflow_dispatch:
 
 permissions:
