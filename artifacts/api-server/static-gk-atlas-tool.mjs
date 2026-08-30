@@ -19,6 +19,7 @@ const TOOLS = {
   "synthesize-narration": "devtools/synthesize-narration.ts",
   "assemble-narrated-master": "devtools/assemble-narrated-master.ts",
   "verify-narrated-master": "devtools/verify-narrated-master.ts",
+  "run-prepublication-job": "devtools/run-prepublication-job.ts",
 };
 
 const TESTS = [
@@ -36,6 +37,7 @@ const TESTS = [
   "tests/narrated-master.test.ts",
   "tests/loudness-qa.test.ts",
   "tests/thumbnail.test.ts",
+  "tests/render-job-contract.test.ts",
 ];
 
 async function bundle(entryRelative, outputName) {
@@ -61,6 +63,7 @@ function runNode(args) {
 }
 
 async function runTests() {
+  await bundle(TOOLS["run-prepublication-job"], "run-prepublication-job-build-check");
   const outputs = [];
   for (const testPath of TESTS) {
     const outputName = path.basename(testPath, ".ts");
