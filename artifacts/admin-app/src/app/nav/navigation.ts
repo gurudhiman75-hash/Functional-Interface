@@ -1,7 +1,7 @@
 import {
   Activity, AlertTriangle, BarChart3, Bell, Box, CalendarClock, ClipboardCheck, ClipboardList, FileJson, FileQuestion,
   FileText, HeartPulse, Image as ImageIcon, KeyRound, Languages, LayoutDashboard,
-  Layers, LifeBuoy, ListChecks, Lock, Network, Palette, Plug, ScrollText, Settings,
+  Layers, LifeBuoy, ListChecks, Lock, Network, Newspaper, Palette, Plug, ScrollText, Settings,
   ShieldCheck, ShoppingCart, Sparkles, Target, Ticket, TrendingUp, Users,
   type LucideIcon,
 } from 'lucide-react';
@@ -27,6 +27,7 @@ export const NAV_GROUPS: NavGroup[] = [
     { label: 'Question Bank', path: '/content/questions', icon: FileQuestion, status: 'live', summary: 'Canonical question search, editing, lifecycle management and test-usage workspace.' },
     { label: 'Content Review', path: '/content/review', icon: ClipboardCheck, status: 'live', permission: 'content.questions.read', summary: 'Unified reviewer queue with collaboration, duplicate intelligence, chapter readiness reports and audited freeze governance.' },
     { label: 'Learning Resources', path: '/content/learning-resources', icon: FileText, status: 'live', permission: 'content.questions.read', summary: 'Create, target, publish and archive learner-facing current affairs, notes, formula sheets and secure document resources.' },
+    { label: 'Current Affairs Studio', path: '/content/current-affairs', icon: Newspaper, status: 'live', permission: 'content.questions.read', summary: 'Operate verified-source ingestion, editorial queues, multilingual release control and Current Affairs learner-delivery health.' },
     { label: 'Coverage Planner', path: '/content/coverage', icon: Target, status: 'live', permission: 'content.taxonomy.read', summary: 'Plan exam-version targets and measure canonical Question Bank readiness across the taxonomy hierarchy.' },
     { label: 'Sections & Topics', path: '/content/taxonomy', icon: Network, status: 'live', permission: 'content.taxonomy.read', summary: 'Manage canonical taxonomy nodes, parent edges, exam-version mappings and activation state.' },
     { label: 'DI & Passage Sets', path: '/content/sets', icon: Layers, status: 'planned', summary: 'Create shared passages, data sets and grouped questions with reusable source material.', milestone: 'Passage/set schema, media references and grouped-question delivery.' },
