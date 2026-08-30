@@ -61,7 +61,10 @@ assert(ql139.every((x) => /remaining distance|still have to cover|must still run
 const ql141 = TSD_CP012_ENGLISH_REVIEW_FINAL.filter((x) => x.qlId === "TSD-QL-141");
 assert(ql141.length === 6, "TSD-QL-141 must expose six cross-authority review families");
 assert(ql141.every((x) => TSD_CP012_TWO_ENGINE_PROVENANCE.some((row) => row.caseId === x.caseId && row.engineA !== row.engineB)), "TSD-QL-141 review case lost two-engine provenance");
-assert(ql141.every((x) => /independent|Independently/.test(x.stem)), "TSD-QL-141 stems must make independent evidence explicit");
+assert(ql141.every((x) => /In one observation/.test(x.stem) && /another independent observation/.test(x.stem)), "TSD-QL-141 learner stems must present two concrete independent observations");
+assert(ql141.every((x) => /runs for|distance in|together they cover/i.test(x.stem)), "TSD-QL-141 learner stems must expose observable distance/time evidence");
+assert(ql141.every((x) => !/equation|relation|unknown speeds x|x and y|=/.test(x.stem)), "TSD-QL-141 learner stems must not hand learners the internal algebra model");
+assert(ql141.every((x) => x.explanation.steps[0]?.includes("distance = speed × time")), "TSD-QL-141 explanations must derive equations from motion evidence rather than begin from abstract algebra");
 
 const ql142 = TSD_CP012_ENGLISH_REVIEW_FINAL.filter((x) => x.qlId === "TSD-QL-142");
 assert(ql142.some((x) => x.solution.kind === "SET"), "TSD-QL-142 must review complete-set output");
@@ -76,6 +79,7 @@ console.log(JSON.stringify({
   minimumNormalizedStemShapesPerQl: 3,
   difficultyBands: { easy: 22, medium: 44, hard: 0 },
   sourceExtensionTargetsInReview: [...extensionTargets],
+  ql141LearnerSurface: "CONCRETE_MOTION_OBSERVATIONS_DERIVE_ALGEBRA_IN_EXPLANATION",
   explanationStyle: "TWO_CONCISE_QUESTION_SPECIFIC_STEPS_PLUS_CONCLUSION",
   editorialGuard: "EXPLICIT_MOTION_EVIDENCE_CLEAR_REQUEST_COMPLETE_SENTENCES",
   lifecycle: "REVIEW_ONLY_NOT_FROZEN",
