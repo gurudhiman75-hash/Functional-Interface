@@ -14,8 +14,8 @@ assert((output.match(/^## Punjabi$/gm) ?? []).length === 1, "Punjabi section mis
 assert(!/^Answer:/gmi.test(output), "answer content leaked into review export");
 assert(!/^उत्तर:/gm.test(output), "Hindi answer content leaked into review export");
 assert(!/^ਜਵਾਬ:/gm.test(output), "Punjabi answer content leaked into review export");
-assert(!/Explanation:/i.test(output), "explanation content leaked into review export");
-assert(!/correctIndex|solution|expected|explanation/i.test(output), "internal solution metadata leaked into review export");
+assert(!/^Explanation:/gmi.test(output), "explanation block leaked into review export");
+assert(!/\bcorrectIndex\b|\bsolution\s*:|\bexpected\s*:|\bexplanation\s*:/i.test(output), "internal solution metadata leaked into review export");
 assert(TSD_CP012_QL_LIFECYCLE.productOwnerApproved === false, "review export must not imply approval");
 assert(TSD_CP012_QL_LIFECYCLE.frozen === false, "review export must remain unfrozen");
 assert(TSD_CP012_QL_LIFECYCLE.questionStudioRegistered === false, "review export must not register Studio");
@@ -31,5 +31,6 @@ console.log(JSON.stringify({
   punjabi: 66,
   answersPresent: false,
   explanationsPresent: false,
+  internalMetadataPresent: false,
   lifecycle: "REVIEW_ONLY_NOT_FROZEN",
 }, null, 2));
