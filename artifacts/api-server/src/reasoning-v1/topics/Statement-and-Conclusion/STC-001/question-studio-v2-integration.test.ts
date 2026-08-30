@@ -15,8 +15,8 @@ import { STC_QL_IDS, type StcLocale } from "./types.ts";
 const LOCALES: readonly StcLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 const packages = listReasoningV1QuestionStudioReviewPackages();
 const stcPackages = packages.filter((entry) => entry.chapterId === "STC-001");
-assert.equal(stcPackages.length, 2, "V1 audit baseline and V2.1 review candidate should both remain reviewable");
-assert.equal(stcPackages[0]!.packageId, STC_001_V2_QUESTION_STUDIO_PACKAGE_ID, "V2.1 should be listed before the V1 baseline");
+assert.equal(stcPackages.length, 3, "V1, V2.1 and V2.2 review packages should remain available for audit/review");
+assert.equal(stcPackages[1]!.packageId, STC_001_V2_QUESTION_STUDIO_PACKAGE_ID, "V2.1 should remain immediately behind active V2.2");
 assert.ok(stcPackages.some((entry) => entry.packageId === "STC-001-V1-FROZEN-REVIEW"), "V1 audit baseline must remain available");
 
 assert.equal(STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.version, "V2.1");
@@ -46,18 +46,11 @@ for (const qlId of STC_QL_IDS) {
   for (let seed = 0; seed < 32; seed += 1) {
     const en = previewStc001V2QuestionStudioReview({ qlId, locale: "en-IN", seed });
     answerSequence.push(en.question.answerClass);
-    if (seed < 16) {
-      presentationKeys.add(`${en.question.scenarioId}|${en.question.conclusions.join("||")}`);
-    }
+    if (seed < 16) presentationKeys.add(`${en.question.scenarioId}|${en.question.conclusions.join("||")}`);
 
     for (const locale of LOCALES) {
       const direct = previewStc001V2QuestionStudioReview({ qlId, locale, seed });
-      const shared = previewReasoningV1QuestionStudioReview({
-        packageId: STC_001_V2_QUESTION_STUDIO_PACKAGE_ID,
-        qlId,
-        locale,
-        seed,
-      });
+      const shared = previewReasoningV1QuestionStudioReview({ packageId: STC_001_V2_QUESTION_STUDIO_PACKAGE_ID, qlId, locale, seed });
       assert.equal(shared.packageId, STC_001_V2_QUESTION_STUDIO_PACKAGE_ID);
       assert.equal(shared.lifecycleStatus, "REVIEW_ONLY");
       assert.equal(shared.generationReady, false);
@@ -89,37 +82,13 @@ for (const qlId of STC_QL_IDS) {
   assert.notDeepEqual(answerSequence.slice(0, 8), answerSequence.slice(8, 16), `${qlId}: answer sequence must not repeat every eight seeds`);
 }
 
-assert.throws(
-  () => previewStc001V2QuestionStudioReview({
-    qlId: "STC-QL-002",
-    locale: "en-IN",
-    seed: 0,
-    presentationProfile: "FIVE_WAY_EITHER" as never,
-  }),
-  /only the non-syllogistic FOUR_WAY profile/i,
-);
+assert.throws(() => previewStc001V2QuestionStudioReview({ qlId: "STC-QL-002", locale: "en-IN", seed: 0, presentationProfile: "FIVE_WAY_EITHER" as never }), /only the non-syllogistic FOUR_WAY profile/i);
 
-const v1CompatibilityPreview = previewReasoningV1QuestionStudioReview({
-  packageId: "STC-001-V1-FROZEN-REVIEW",
-  qlId: "STC-QL-001",
-  locale: "en-IN",
-  seed: 0,
-});
+const v1CompatibilityPreview = previewReasoningV1QuestionStudioReview({ packageId: "STC-001-V1-FROZEN-REVIEW", qlId: "STC-QL-001", locale: "en-IN", seed: 0 });
 assert.equal(v1CompatibilityPreview.packageId, "STC-001-V1-FROZEN-REVIEW");
 assert.equal(v1CompatibilityPreview.lifecycleStatus, "REVIEW_ONLY");
 
-assert.throws(
-  () => assertStc001V2QuestionStudioPersistenceAllowed(),
-  /not saturation-ready.*delivery remains locked/i,
-);
-assert.throws(
-  () => persistReasoningV1QuestionStudioReview({
-    packageId: STC_001_V2_QUESTION_STUDIO_PACKAGE_ID,
-    qlId: "STC-QL-001",
-    locale: "pa-IN",
-    seed: 0,
-  }),
-  /not saturation-ready.*delivery remains locked/i,
-);
+assert.throws(() => assertStc001V2QuestionStudioPersistenceAllowed(), /not saturation-ready.*delivery remains locked/i);
+assert.throws(() => persistReasoningV1QuestionStudioReview({ packageId: STC_001_V2_QUESTION_STUDIO_PACKAGE_ID, qlId: "STC-QL-001", locale: "pa-IN", seed: 0 }), /not saturation-ready.*delivery remains locked/i);
 
 console.log("PASS_STC_001_V2_1_ANTIGAMING_SATURATION_BOUNDARY");

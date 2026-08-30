@@ -1,0 +1,106 @@
+name: Validate STC-001 V2.2 Variableized Saturation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v2-2-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-review-v2-2.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-v2-integration.test.ts'
+      - 'artifacts/api-server/src/reasoning-v1/question-studio-review-registry.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: stc-001-v2-2-saturation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  saturation-v2-2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for V2.2 variableized engine
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-types.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-scheduler.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-saturation-types.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-saturation-helpers.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-ql001-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-ql002-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-ql003-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-ql004-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-ql005-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-ql006-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-review-v2-2.ts
+
+      - name: Prove 2048 unique semantic surfaces per QL with trilingual parity
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-saturation-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/stc-001-v2-2-saturation-proof.mjs
+          node dist/stc-001-v2-2-saturation-proof.mjs
+
+      - name: Prove V2.2 Question Studio review freeze boundary
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v2-2-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/stc-001-v2-2-freeze-proof.mjs
+          node dist/stc-001-v2-2-freeze-proof.mjs
+
+      - name: Preserve V2.1 anti-gaming/saturation-boundary audit snapshot
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-1-saturation-boundary-proof.test.ts
+
+      - name: Preserve V1 immutable audit baseline
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/chapter-freeze-v1-proof.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build
+
+      - name: Lifecycle boundary
+        run: |
+          echo 'STC-001 V2.2: >=2048 unique semantic surfaces per QL, trilingual template parity, generation-ready in Question Studio review.'
+          echo 'V2.2 Question Studio generation-ready review authority is frozen; learner release is not approved.'
+          echo 'V2.1 and V1 remain audit baselines.'
+          echo 'Question Bank/test/mock/public/automatic publication remain locked pending separate explicit learner-release approval.'
