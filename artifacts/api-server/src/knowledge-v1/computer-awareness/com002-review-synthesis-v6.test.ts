@@ -13,6 +13,8 @@ assert.equal(qlIds.length, 13);
 
 const bannedEditorialDefects = [
   /\ba executable program file\b/i,
+  /\bA Real-time operating system\b/,
+  /^How does Command-line interface \(CLI\) work\?$/i,
   /is classified as open-source operating system\./i,
   /is associated with Portable Document Format file\./i,
   /is commonly used for executable program file\./i,
@@ -74,7 +76,14 @@ for (const qlId of qlIds) {
 
 // Exact review/export seeds are regression surfaces because human-readable
 // packs exposed grammar that the original structural audit did not catch.
-for (const qlId of ["COM-002-QL-007", "COM-002-QL-008", "COM-002-QL-009", "COM-002-QL-013"] as const) {
+for (const qlId of [
+  "COM-002-QL-003",
+  "COM-002-QL-005",
+  "COM-002-QL-007",
+  "COM-002-QL-008",
+  "COM-002-QL-009",
+  "COM-002-QL-013",
+] as const) {
   const seeds = [
     `human-review-wave1:${qlId}:A`,
     `human-review-wave1:${qlId}:B`,
@@ -89,19 +98,33 @@ for (const qlId of ["COM-002-QL-007", "COM-002-QL-008", "COM-002-QL-009", "COM-0
   }
 }
 
-const ql007Export = generateCom002ReviewQuestionV6({
-  qlId: "COM-002-QL-007",
-  seed: "localization-human-review-v4:COM-002-QL-007",
-});
-assert.notEqual(ql007Export.stem, "Which function best matches Windows taskbar?");
-
-const ql008Export = generateCom002ReviewQuestionV6({
-  qlId: "COM-002-QL-008",
-  seed: "localization-human-review-v4:COM-002-QL-008",
-});
-assert.notEqual(
-  ql008Export.stem,
-  "Which file-management item matches this description: can display hidden items when the relevant view option is enabled?",
+assert.equal(
+  generateCom002ReviewQuestionV6({
+    qlId: "COM-002-QL-003",
+    seed: "localization-human-review-v4:COM-002-QL-003",
+  }).stem,
+  "Which statement describes a real-time operating system?",
+);
+assert.equal(
+  generateCom002ReviewQuestionV6({
+    qlId: "COM-002-QL-005",
+    seed: "localization-human-review-v4:COM-002-QL-005",
+  }).stem,
+  "How does a command-line interface (CLI) work?",
+);
+assert.equal(
+  generateCom002ReviewQuestionV6({
+    qlId: "COM-002-QL-007",
+    seed: "localization-human-review-v4:COM-002-QL-007",
+  }).stem,
+  "Which function best matches the Windows taskbar?",
+);
+assert.equal(
+  generateCom002ReviewQuestionV6({
+    qlId: "COM-002-QL-008",
+    seed: "localization-human-review-v4:COM-002-QL-008",
+  }).stem,
+  "Which file-management item can display hidden items when the relevant view option is enabled?",
 );
 
 assert.equal(audited, 520);
