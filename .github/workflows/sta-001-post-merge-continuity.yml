@@ -38,12 +38,12 @@ jobs:
 
       - name: Re-prove frozen shared Question Studio integration
         run: |
-          pnpm exec esbuild artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-v4-1-integration.test.ts --bundle --platform=node --format=esm --outfile=/tmp/sta-v41-integration.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Statement-and-Assumption/STA-001/question-studio-v4-1-integration.test.ts --bundle --platform=node --format=esm --outfile=/tmp/sta-v41-integration.mjs
           node /tmp/sta-v41-integration.mjs
 
       - name: Prove current shared-engine and admin-route continuity
         run: |
-          pnpm exec esbuild artifacts/api-server/src/reasoning-v1/topics/Statement-and-Assumption/STA-001/post-merge-continuity-proof.test.ts --bundle --platform=node --format=esm --outfile=/tmp/sta-post-merge-continuity.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Statement-and-Assumption/STA-001/post-merge-continuity-proof.test.ts --bundle --platform=node --format=esm --outfile=/tmp/sta-post-merge-continuity.mjs
           node /tmp/sta-post-merge-continuity.mjs
 
       - name: Build production API server
