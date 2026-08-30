@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
+import { resolve } from "node:path";
 
 import {
   generateQuestion,
@@ -56,11 +56,9 @@ async function main() {
     assert.equal(question.automaticStudentPublication, false);
   }
 
-  const currentFile = fileURLToPath(import.meta.url);
-  const checkpointDir = currentFile.slice(0, currentFile.lastIndexOf("/reasoning-v1/topics/Data-Sufficiency/"));
-  const apiSrc = checkpointDir;
-  const routeRegistry = readFileSync(`${apiSrc}/routes/admin-question-studio-registry.ts`, "utf8");
-  const currentRoute = readFileSync(`${apiSrc}/routes/admin-question-studio-data-sufficiency-current.ts`, "utf8");
+  const apiSrc = resolve(process.cwd(), "artifacts/api-server/src");
+  const routeRegistry = readFileSync(resolve(apiSrc, "routes/admin-question-studio-registry.ts"), "utf8");
+  const currentRoute = readFileSync(resolve(apiSrc, "routes/admin-question-studio-data-sufficiency-current.ts"), "utf8");
   const sriIndex = routeRegistry.indexOf("router.use(adminQuestionStudioSriRouter)");
   const dsfIndex = routeRegistry.indexOf("router.use(adminQuestionStudioDataSufficiencyCurrentRouter)");
   const legacyIndex = routeRegistry.indexOf("router.use(adminQuestionStudioDataSufficiencyRouter)");
