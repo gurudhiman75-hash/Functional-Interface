@@ -216,7 +216,7 @@ assert.throws(
 );
 
 const expectedPilotIds = Array.from(
-  { length: 32 },
+  { length: 42 },
   (_, index) => `PRT-QL-${String(index + 1).padStart(3, "0")}`,
 );
 assert.deepEqual(getPrt001QuestionLanguageIds(), expectedPilotIds);
@@ -251,6 +251,16 @@ const expectedModes = new Set([
   "findShareWithDynamicCapitalAndWorkingPartnerSalary",
   "findMultiPartnerSharesWithStaggeredEvents",
   "findUnknownJoinTimeWithPreDistributionDeduction",
+  "findProfitRatioWithJoinAndLeaveEvents",
+  "findUnknownLeaveTimeFromProfitRatio",
+  "findUnknownCapitalOfLateJoiningPartner",
+  "findProfitRatioAfterPercentageCapitalIncrease",
+  "findProfitRatioWithChangesForMultiplePartners",
+  "findSharesFromCapitalMultiplesAndDurations",
+  "findTotalProfitFromActivePartnerFinalReceipt",
+  "findPartnerReceiptsWithMultipleOrderedAllocations",
+  "findProfitRatioWithJoinLeaveAndCapitalChange",
+  "findUnknownCapitalWithStaggeredParticipation",
 ]);
 const observedModes = new Set<string>();
 const observedCanonicalProblems = new Set<string>();
@@ -317,6 +327,20 @@ assert.equal(
   }).answerType,
   "DURATION",
 );
+assert.equal(
+  runPrt001PilotPipeline({
+    questionLanguageId: "PRT-QL-035",
+    seed: "e1-late-capital-proof",
+  }).answerType,
+  "CAPITAL",
+);
+assert.equal(
+  runPrt001PilotPipeline({
+    questionLanguageId: "PRT-QL-034",
+    seed: "e1-leave-time-proof",
+  }).answerType,
+  "DURATION",
+);
 assert.throws(
   () => runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-999" }),
   /unknown or inactive/,
@@ -329,7 +353,9 @@ console.log(
       foundationCases: 18,
       verifierParityCases: 4,
       pilotQuestionLanguages: expectedPilotIds.length,
+      activeSolveModes: expectedModes.size,
       generatedPilotQuestions,
+      expansionWave: "E1",
       status: "PASS",
     },
     null,
