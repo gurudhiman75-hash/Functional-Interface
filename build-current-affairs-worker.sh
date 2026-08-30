@@ -51,4 +51,14 @@ pnpm --dir artifacts/api-server exec esbuild \
   --sourcemap \
   --outfile=dist/current-affairs-notification-worker.mjs
 
+echo "[current-affairs-worker] compile production readiness/recovery worker"
+pnpm --dir artifacts/api-server exec esbuild \
+  src/current-affairs/production-ops-worker.ts \
+  --bundle \
+  --packages=external \
+  --platform=node \
+  --format=esm \
+  --sourcemap \
+  --outfile=dist/current-affairs-production-ops-worker.mjs
+
 echo "[current-affairs-worker] complete"
