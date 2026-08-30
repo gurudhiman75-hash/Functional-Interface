@@ -73,6 +73,16 @@ function machineOrderArtifacts(text: string, locale: Locale) {
   return patterns.filter((pattern) => pattern.test(text)).map((pattern) => pattern.source);
 }
 
+function questionArtifacts(question: any, locale: Locale) {
+  return fields(question).flatMap(([field, raw]) =>
+    machineOrderArtifacts(String(raw ?? ""), locale).map((artifact) => ({
+      field,
+      artifact,
+      text: String(raw ?? ""),
+    })),
+  );
+}
+
 function degreeMovedToNativeOrder(before: unknown, after: unknown, locale: Locale) {
   const source = String(before ?? "");
   const match = source.match(locale === "hi-IN" ? /^पर\s+(\d+)°,/u : /^ਤੇ\s+(\d+)°,/u);
@@ -88,7 +98,7 @@ assert.equal(
   "31772b314a4d9f1f47b85a54e0596eab9a0dd450a14c380b001376099ac50611",
 );
 
-const extendedBothLocalePolish = new Set([
+const extendedBothLocaleQls = [
   "TRG-001-QL-032",
   "TRG-001-QL-041",
   "TRG-001-QL-042",
@@ -101,11 +111,15 @@ const extendedBothLocalePolish = new Set([
   "TRG-001-QL-125",
   "TRG-001-QL-137",
   "TRG-001-QL-142",
-]);
-const extendedPunjabiOnlyPolish = new Set([
-  "TRG-001-QL-013",
-  "TRG-001-QL-014",
-]);
+] as const;
+const reviewPolishCases: Array<{ qlId: string; locale: Locale }> = [
+  ...extendedBothLocaleQls.flatMap((qlId) => [
+    { qlId, locale: "hi-IN" as const },
+    { qlId, locale: "pa-IN" as const },
+  ]),
+  { qlId: "TRG-001-QL-013", locale: "pa-IN" },
+  { qlId: "TRG-001-QL-014", locale: "pa-IN" },
+];
 
 const failures: Array<{ id: string; field: string; issue: string; text: string }> = [];
 const fingerprints = new Set<string>();
@@ -114,6 +128,7 @@ let cases = 0;
 let inspectedFields = 0;
 let preservedMathAtoms = 0;
 let targetedCorrections = 0;
+let reviewCorrectionCases = 0;
 
 for (const qlId of TRG_001_LOCALIZATION_QL_IDS) {
   for (const locale of TRG_001_LOCALIZATION_LOCALES) {
@@ -201,13 +216,6 @@ for (const qlId of TRG_001_LOCALIZATION_QL_IDS) {
         targetedCorrections += 1;
       }
 
-      const expectsExtendedPolish = extendedBothLocalePolish.has(qlId)
-        || (locale === "pa-IN" && extendedPunjabiOnlyPolish.has(qlId));
-      if (expectsExtendedPolish) {
-        assert.notDeepEqual(final5.explanation, final4.explanation, `${id}: expected extended Final5 native polish was not exercised.`);
-        targetedCorrections += 1;
-      }
-
       assert.equal(final5.reviewStatus, "LOCALIZATION_NATIVE_REVIEW_CANDIDATE_V5_PEDAGOGIC_REVIEW_FINAL5", `${id}: Final5 review status drift.`);
       assert.equal(final5.localizationProof?.final5NativeWordOrderPolish, true, `${id}: Final5 proof flag missing.`);
       assert.equal(final5.humanReviewStatus, "PENDING", `${id}: human review must remain pending.`);
@@ -228,6 +236,20 @@ for (const qlId of TRG_001_LOCALIZATION_QL_IDS) {
   }
 }
 
+for (const { qlId, locale } of reviewPolishCases) {
+  const seed = `trg001-final5-review-${qlId}`;
+  const final4 = generateLocalizedTrg001QuestionNativeReviewFinal4(qlId, seed, locale) as any;
+  const final5 = generateLocalizedTrg001QuestionNativeReviewFinal5(qlId, seed, locale) as any;
+  const beforeArtifacts = questionArtifacts(final4, locale);
+  const afterArtifacts = questionArtifacts(final5, locale);
+  const id = `${qlId}:${locale}:review-seed`;
+
+  assert(beforeArtifacts.length > 0, `${id}: expected pinned Final4 machine-order defect was not reproduced.`);
+  assert.equal(afterArtifacts.length, 0, `${id}: Final5 left pinned machine-order defects: ${JSON.stringify(afterArtifacts)}`);
+  assert.notDeepEqual(final5.explanation, final4.explanation, `${id}: pinned Final5 correction was not exercised.`);
+  reviewCorrectionCases += 1;
+}
+
 const inventory = {
   status: failures.length ? "TRG001_FINAL5_DEFECT_INVENTORY" : "TRG001_FINAL5_PASS",
   frozenEnglishQls: 144,
@@ -237,6 +259,7 @@ const inventory = {
   inspectedFields,
   preservedMathAtoms,
   targetedCorrections,
+  reviewCorrectionCases,
   failures: failures.length,
   failureSamples: failures.slice(0, 100),
   englishAuthorityFingerprint: TRG_001_FREEZE.approvedContentFingerprint,
@@ -250,4 +273,5 @@ console.log(JSON.stringify(inventory, null, 2));
 assert.equal(failures.length, 0, `Final5 has ${failures.length} preservation/editorial failures.`);
 assert.equal(cases, 144 * 2 * seedsPerQl);
 assert.equal(fingerprints.size, cases);
-assert.equal(targetedCorrections, 205, "Expected 205 targeted Final5 correction assertions including the extended result-order polish families.");
+assert.equal(targetedCorrections, 75, "Expected 75 original targeted Final5 correction assertions across QL043/047/070/091/096.");
+assert.equal(reviewCorrectionCases, 26, "Expected all 26 pinned extended Final5 review-surface corrections to be exercised.");
