@@ -77,7 +77,7 @@ const semanticEvidence = {
   "TSD-QL-138": { hi: /(धारा|नाव|बेड़ा|पकड़)/, pa: /(ਧਾਰਾ|ਕਿਸ਼ਤੀ|ਬੇੜਾ|ਫੜ)/ },
   "TSD-QL-139": { hi: /(वृत्ताकार|दौड़|धावक|बढ़त)/, pa: /(ਗੋਲ|ਦੌੜ|ਅਗਵਾਈ|ਦੌੜਾਕ)/ },
   "TSD-QL-140": { hi: /(चलती|पट्टी|सतह|दिशा)/, pa: /(ਚੱਲਦੀ|ਪੱਟੀ|ਸਤਹ|ਦਿਸ਼ਾ)/ },
-  "TSD-QL-141": { hi: /(स्वतंत्र|समीकरण|अज्ञात चाल)/, pa: /(ਸੁਤੰਤਰ|ਸਮੀਕਰਨ|ਅਣਜਾਣ ਚਾਲ)/ },
+  "TSD-QL-141": { hi: /(स्वतंत्र|अज्ञात चाल|धावक)/, pa: /(ਸੁਤੰਤਰ|ਅਣਜਾਣ ਚਾਲ|ਦੌੜਾਕ)/ },
   "TSD-QL-142": { hi: /(पूर्णांक|अनुमत|सभी|संख्या)/, pa: /(ਪੂਰਨ ਅੰਕ|ਮਨਜ਼ੂਰ|ਸਾਰੀਆਂ|ਗਿਣਤੀ)/ },
 } as const;
 for (const qlId of TSD_CP012_PROVISIONAL_QL_IDS) {
@@ -87,6 +87,15 @@ for (const qlId of TSD_CP012_PROVISIONAL_QL_IDS) {
   assert(hi.every((x) => evidence.hi.test(x.stem)), `hi/${qlId}: authority-defining evidence missing`);
   assert(pa.every((x) => evidence.pa.test(x.stem)), `pa/${qlId}: authority-defining evidence missing`);
 }
+
+const hi141 = TSD_CP012_NATIVE_HINDI_REVIEW_FINAL.filter((x) => x.qlId === "TSD-QL-141");
+const pa141 = TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL.filter((x) => x.qlId === "TSD-QL-141");
+assert(hi141.every((x) => /एक स्वतंत्र निरीक्षण/.test(x.stem) && /दूसरे स्वतंत्र निरीक्षण/.test(x.stem)), "hi/TSD-QL-141: two concrete observations must remain explicit");
+assert(pa141.every((x) => /ਇੱਕ ਸੁਤੰਤਰ ਨਿਰੀਖਣ/.test(x.stem) && /ਦੂਜੇ ਸੁਤੰਤਰ ਨਿਰੀਖਣ/.test(x.stem)), "pa/TSD-QL-141: two concrete observations must remain explicit");
+assert(hi141.every((x) => !/समीकरण|=/.test(x.stem)), "hi/TSD-QL-141: learner stem must not expose the internal equation model");
+assert(pa141.every((x) => !/ਸਮੀਕਰਨ|=/.test(x.stem)), "pa/TSD-QL-141: learner stem must not expose the internal equation model");
+assert(hi141.every((x) => /दूरी/.test(x.stem) && /सेकंड/.test(x.stem)), "hi/TSD-QL-141: observable distance/time evidence missing");
+assert(pa141.every((x) => /ਦੂਰੀ/.test(x.stem) && /ਸਕਿੰਟ/.test(x.stem)), "pa/TSD-QL-141: observable distance/time evidence missing");
 
 assert(TSD_CP012_QL_LIFECYCLE.productOwnerApproved === false, "native review must not imply approval");
 assert(TSD_CP012_QL_LIFECYCLE.frozen === false, "native review must remain unfrozen");
@@ -104,6 +113,7 @@ console.log(JSON.stringify({
   qls: TSD_CP012_PROVISIONAL_QL_IDS.length,
   inputSolutionParity: "IDENTICAL_OBJECT_REFERENCES",
   minimumNormalizedStemShapesPerQl: 3,
+  ql141LearnerSurface: "NATIVE_CONCRETE_MOTION_OBSERVATIONS",
   latinScriptInLearnerText: "ABSENT",
   lifecycle: "REVIEW_ONLY_NOT_FROZEN",
 }, null, 2));
