@@ -1,6 +1,6 @@
 import { compare, multiply, rational, type Rational } from "../../TSD-001/foundation/rational";
 import { TSD_CP012_ENGLISH_REVIEW_FINAL } from "./english-review-editorial-final";
-import { buildTsdCp012ScalarDistractors, buildTsdCp012SetDistractors } from "./question-studio-distractors";
+import { buildTsdCp012ScalarDistractors, buildTsdCp012SetDistractors } from "./question-studio-distractors-expanded";
 import { previewTsdCp012StudioCandidate } from "./question-studio-candidate";
 
 function assert(condition: unknown, message: string): asserts condition {
