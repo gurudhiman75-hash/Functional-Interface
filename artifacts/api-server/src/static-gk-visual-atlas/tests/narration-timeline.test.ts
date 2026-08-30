@@ -24,11 +24,14 @@ test("Tropic narration expands the state-sequence beat across all eight state sh
   assert.ok(hook);
   assert.equal(hook.startMs, 0);
   assert.equal(hook.endMs, 3_000);
-  assert.equal(hook.speedQa, "review");
+  assert.equal(hook.speedQa, "ok");
 });
 
 test("Standard Meridian narration claims the map-intro through Mirzapur teaching window without overlap", () => {
   const windows = compileNarrationWindows(STANDARD_MERIDIAN_LESSON_MANIFEST, STANDARD_MERIDIAN_FACT_LOCK);
+  const hook = windows.find((window) => window.id === "SGK002-N01");
+  assert.ok(hook);
+  assert.equal(hook.speedQa, "ok");
   const concept = windows.find((window) => window.id === "SGK002-N02");
   assert.ok(concept);
   assert.equal(concept.startMs, 3_000);

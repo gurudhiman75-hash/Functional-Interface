@@ -77,7 +77,7 @@ export const STANDARD_MERIDIAN_FACT_LOCK: StaticGkFactLockPack = {
     {
       id: "SGK002-N01",
       purpose: "hook",
-      text: "One longitude gives the whole of India its standard clock time. Which one?",
+      text: "Which longitude sets Indian Standard Time?",
       factIds: ["SGK002-F01", "SGK002-F03"],
       targetIds: ["geo.india"],
     },

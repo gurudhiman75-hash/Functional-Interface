@@ -83,7 +83,7 @@ export const TROPIC_OF_CANCER_FACT_LOCK: StaticGkFactLockPack = {
     {
       id: "SGK001-N01",
       purpose: "hook",
-      text: "Can you name all eight Indian states crossed by the Tropic of Cancer—in order?",
+      text: "Which eight Indian states does the Tropic of Cancer cross?",
       factIds: ["SGK001-F02"],
       targetIds: ["geo.india", "line.tropic-cancer.india"],
     },
