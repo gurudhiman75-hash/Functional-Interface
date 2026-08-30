@@ -26,6 +26,8 @@ type TemplateOption = {
   key: TemplateKey;
   name: string;
   description: string;
+  minUniqueContent: number;
+  minDistinctIdentities: number;
   requirements: Array<{ code: string; label: string; roles: SourceRole[]; minCount: number; generationReadyOnly: boolean }>;
 };
 
@@ -33,6 +35,9 @@ type PolicySource = {
   id: string;
   title: string;
   publisher: string;
+  sourceUri: string;
+  contentHash: string;
+  sourceIdentity?: string | null;
   rightsBasis: string;
   retentionMode: string;
   extractionStatus: string;
@@ -61,6 +66,14 @@ type PolicyStatus = {
       satisfied: boolean;
     }>;
     missing: Array<{ code: string; label: string; currentCount: number; minCount: number }>;
+    integrity: {
+      minUniqueContent: number;
+      minDistinctIdentities: number;
+      uniqueContentCount: number;
+      distinctIdentityCount: number;
+      ready: boolean;
+      findings: Array<{ code: string; label: string; currentCount: number; minCount: number }>;
+    };
   };
   policyLocked: boolean;
 };
@@ -197,14 +210,14 @@ export function NotesStudioSourcePolicyPage() {
             {status.policy.ready ? <CheckCircle2 className="mt-0.5 h-5 w-5 text-emerald-600" /> : <ShieldAlert className="mt-0.5 h-5 w-5 text-amber-600" />}
             <div>
               <div className="font-semibold">{status.policy.ready ? 'Evidence gate ready' : 'Evidence gate blocked by source mix'}</div>
-              <div className="mt-1 text-sm text-muted-foreground">{status.policy.ready ? 'This source pack satisfies the selected research template.' : 'Classify or add the missing sources before rebuilding evidence.'}</div>
+              <div className="mt-1 text-sm text-muted-foreground">{status.policy.ready ? 'This source pack satisfies the selected research template and independence checks.' : 'Classify, replace, or add the missing independent sources before rebuilding evidence.'}</div>
             </div>
           </div>
           <Badge variant={status.policy.ready ? 'default' : 'outline'}>{status.policy.ready ? 'READY' : 'BLOCKED'}</Badge>
         </CardContent>
       </Card>
 
-      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
         {status.policy.requirements.map((requirement) => <Card key={requirement.code}>
           <CardContent className="flex items-start gap-3 p-4">
             {requirement.satisfied ? <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600" /> : <XCircle className="mt-0.5 h-4 w-4 text-destructive" />}
@@ -214,7 +227,35 @@ export function NotesStudioSourcePolicyPage() {
             </div>
           </CardContent>
         </Card>)}
+        <Card>
+          <CardContent className="flex items-start gap-3 p-4">
+            {status.policy.integrity.uniqueContentCount >= status.policy.integrity.minUniqueContent ? <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600" /> : <XCircle className="mt-0.5 h-4 w-4 text-destructive" />}
+            <div>
+              <div className="text-sm font-medium">Independent content</div>
+              <div className="mt-1 text-xs text-muted-foreground">{status.policy.integrity.uniqueContentCount}/{status.policy.integrity.minUniqueContent} unique content hashes · duplicate copies do not add evidence breadth</div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="flex items-start gap-3 p-4">
+            {status.policy.integrity.distinctIdentityCount >= status.policy.integrity.minDistinctIdentities ? <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600" /> : <XCircle className="mt-0.5 h-4 w-4 text-destructive" />}
+            <div>
+              <div className="text-sm font-medium">Independent identities</div>
+              <div className="mt-1 text-xs text-muted-foreground">{status.policy.integrity.distinctIdentityCount}/{status.policy.integrity.minDistinctIdentities} publisher/domain identities · same-publisher copies cannot satisfy an independence promise</div>
+            </div>
+          </CardContent>
+        </Card>
       </div>
+
+      {status.policy.integrity.findings.length > 0 && <Card className="border-amber-200">
+        <CardHeader><CardTitle className="text-base">Independence gaps</CardTitle></CardHeader>
+        <CardContent className="space-y-2">
+          {status.policy.integrity.findings.map((finding) => <div key={finding.code} className="flex items-center justify-between gap-3 rounded-lg border p-3 text-sm">
+            <span>{finding.label}</span><Badge variant="outline">{finding.currentCount}/{finding.minCount}</Badge>
+          </div>)}
+          <p className="text-sm text-muted-foreground">Use Source Pack Proposals or Source Library to add a genuinely different governed source. Evidence extraction remains server-blocked until these checks pass.</p>
+        </CardContent>
+      </Card>}
 
       <Card>
         <CardHeader><div className="flex flex-wrap items-start justify-between gap-3"><div><CardTitle className="text-base">Research roles</CardTitle><p className="mt-1 text-sm text-muted-foreground">Roles describe how a source serves this note. They do not change the source's rights basis or retained-text policy.</p></div>{status.policyLocked && <Badge variant="outline">Frozen after evidence begins</Badge>}</div></CardHeader>
@@ -236,7 +277,7 @@ export function NotesStudioSourcePolicyPage() {
 
       <Card>
         <CardContent className="p-4 text-sm text-muted-foreground">
-          <strong className="text-foreground">Lifecycle lock:</strong> template and role edits freeze as soon as the job moves beyond Brief/Sources Ready. The evidence rebuild endpoint independently re-evaluates this policy server-side; the UI cannot bypass the gate.
+          <strong className="text-foreground">Lifecycle lock:</strong> template and role edits freeze as soon as the job moves beyond Brief/Sources Ready. The evidence rebuild endpoint independently re-evaluates role counts, unique content hashes, and publisher/domain independence server-side; the UI cannot bypass the gate.
         </CardContent>
       </Card>
     </>}
