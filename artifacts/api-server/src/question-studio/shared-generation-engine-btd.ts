@@ -4,18 +4,18 @@ import {
   type SharedQuestionStudioGenerationRequest,
 } from "./shared-generation-engine-cp014";
 import {
-  generateBtdCp010QuestionStudioBatch,
-  isBtdCp010QuestionStudioRequest,
-  listBtdCp010QuestionStudioPackages,
-  type BtdCp010QuestionStudioRequest,
-} from "../quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-010/btd-cp010-multilingual-question-studio-v1";
+  generateBtdCp012QuestionBankAdmissionBatchV1,
+  isBtdCp012QuestionStudioRequest,
+  listBtdCp012QuestionStudioPackages,
+  type BtdCp012QuestionStudioRequest,
+} from "../quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-012/btd-cp012-question-bank-admission-v1";
 
-export { isBtdCp010QuestionStudioRequest };
-export type { BtdCp010QuestionStudioRequest };
+export { isBtdCp012QuestionStudioRequest };
+export type { BtdCp012QuestionStudioRequest };
 
 export function listQuestionStudioPackages() {
   const previous = [...listPreviousPackages()] as any[];
-  for (const pkg of listBtdCp010QuestionStudioPackages()) {
+  for (const pkg of listBtdCp012QuestionStudioPackages()) {
     if (previous.some((entry) => String(entry.packageId) === pkg.packageId)) {
       throw new Error(`Question Studio package ${pkg.packageId} already exists before BTD activation.`);
     }
@@ -24,7 +24,7 @@ export function listQuestionStudioPackages() {
   return previous;
 }
 
-export async function generateQuestion(request: SharedQuestionStudioGenerationRequest | BtdCp010QuestionStudioRequest = {}) {
-  if (isBtdCp010QuestionStudioRequest(request)) return generateBtdCp010QuestionStudioBatch(request);
+export async function generateQuestion(request: SharedQuestionStudioGenerationRequest | BtdCp012QuestionStudioRequest = {}) {
+  if (isBtdCp012QuestionStudioRequest(request)) return generateBtdCp012QuestionBankAdmissionBatchV1(request);
   return generatePreviousQuestion(request as SharedQuestionStudioGenerationRequest);
 }
