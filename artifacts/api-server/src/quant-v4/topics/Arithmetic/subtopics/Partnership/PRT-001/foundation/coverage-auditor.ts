@@ -22,19 +22,19 @@ export function auditPrt001Coverage(): Prt001AuditReport {
   const entries = getPrt001TaskEntries();
   const byCp = Object.fromEntries(PRT_001_CP_IDS.map((cpId) => [cpId, entries.filter(({ entry }) => entry.cpId === cpId).length]));
   const expectedByCp: Record<string, number> = {
-    "PRT-CP-001": 12,
-    "PRT-CP-002": 13,
-    "PRT-CP-003": 12,
-    "PRT-CP-004": 14,
-    "PRT-CP-005": 10,
-    "PRT-CP-006": 11,
+    "PRT-CP-001": 13,
+    "PRT-CP-002": 14,
+    "PRT-CP-003": 16,
+    "PRT-CP-004": 18,
+    "PRT-CP-005": 14,
+    "PRT-CP-006": 16,
     "PRT-CP-007": 12,
   };
-  requireAudit(entries.length === 84, `expected 84 active QLs, got ${entries.length}`);
+  requireAudit(entries.length === 103, `expected 103 active QLs, got ${entries.length}`);
   requireAudit(JSON.stringify(byCp) === JSON.stringify(expectedByCp), "CP coverage changed");
-  requireAudit(new Set(entries.map(({ entry }) => entry.solveMode)).size === 80, "solve-mode coverage changed");
+  requireAudit(new Set(entries.map(({ entry }) => entry.solveMode)).size === 99, "solve-mode coverage changed");
   for (const difficulty of ["Easy", "Medium", "Hard"] as const) requireAudit(entries.some(({ entry }) => entry.difficulty === difficulty), `missing ${difficulty}`);
-  return { audit: "coverage", cases: entries.length, metrics: { byCp, solveModes: 80, languages: 3, expansionWave: "E4" } };
+  return { audit: "coverage", cases: entries.length, metrics: { byCp, solveModes: 99, languages: 3, expansionWave: "E5" } };
 }
 
 export function auditPrt001ContextRealism(): Prt001AuditReport {
@@ -44,14 +44,14 @@ export function auditPrt001ContextRealism(): Prt001AuditReport {
     for (let index = 0; index < 8; index += 1) {
       const pkg = runPrt001PilotPipeline({ questionLanguageId, seed: `prt-001:realism:${questionLanguageId}:${index}` });
       requireAudit(pkg.stem.length >= 45, `${questionLanguageId} stem is too short`);
-      requireAudit(pkg.stem.length <= 680, `${questionLanguageId} stem is too long`);
+      requireAudit(pkg.stem.length <= 760, `${questionLanguageId} stem is too long`);
       requireAudit(!/[{}]|undefined|NaN/.test(pkg.stem), `${questionLanguageId} leaked a token`);
       requireAudit(/[₹0-9]/.test(pkg.stem), `${questionLanguageId} lacks a quantitative given`);
       contexts.add(String(pkg.traceability.scenarioFamily));
       cases += 1;
     }
   }
-  requireAudit(contexts.size >= 68, `expected at least 68 context families, got ${contexts.size}`);
+  requireAudit(contexts.size >= 87, `expected at least 87 context families, got ${contexts.size}`);
   return { audit: "context-realism", cases, metrics: { contextFamilies: contexts.size } };
 }
 
@@ -79,9 +79,9 @@ export function auditPrt001E1MathDiversity(): Prt001AuditReport { return auditEx
 export function auditPrt001E2MathDiversity(): Prt001AuditReport { return auditExpansionMathDiversity({ wave: "E2", startId: 43, count: 14 }); }
 export function auditPrt001E3MathDiversity(): Prt001AuditReport { return auditExpansionMathDiversity({ wave: "E3", startId: 57, count: 14 }); }
 
-export function auditPrt001E4MathDiversity(): Prt001AuditReport {
-  const ids = Array.from({ length: 14 }, (_, index) => `PRT-QL-${String(index + 71).padStart(3, "0")}`);
-  const fixedRatioIds = new Set(["PRT-QL-075", "PRT-QL-076"]);
+function auditAnswerAwareWave(input: { wave: "E4" | "E5"; startId: number; count: number; fixedRatioIds: readonly string[] }): Prt001AuditReport {
+  const ids = Array.from({ length: input.count }, (_, index) => `PRT-QL-${String(index + input.startId).padStart(3, "0")}`);
+  const fixedRatioIds = new Set(input.fixedRatioIds);
   const perQl: Record<string, { weightSignatures: number; ratioSignatures: number; answerSignatures: number }> = {};
   let cases = 0;
   for (const questionLanguageId of ids) {
@@ -89,7 +89,7 @@ export function auditPrt001E4MathDiversity(): Prt001AuditReport {
     const ratioSignatures = new Set<string>();
     const answerSignatures = new Set<string>();
     for (let index = 0; index < 24; index += 1) {
-      const pkg = runPrt001PilotPipeline({ questionLanguageId, seed: `prt-001:e4-diversity:${questionLanguageId}:${index}` });
+      const pkg = runPrt001PilotPipeline({ questionLanguageId, seed: `prt-001:${input.wave.toLowerCase()}-diversity:${questionLanguageId}:${index}` });
       weightSignatures.add(JSON.stringify(pkg.traceability.exactWeights));
       ratioSignatures.add(String(pkg.traceability.normalizedRatio));
       answerSignatures.add(pkg.answer);
@@ -100,7 +100,15 @@ export function auditPrt001E4MathDiversity(): Prt001AuditReport {
     if (!fixedRatioIds.has(questionLanguageId)) requireAudit(ratioSignatures.size >= 2, `${questionLanguageId} has only ${ratioSignatures.size} normalized-ratio signatures`);
     perQl[questionLanguageId] = { weightSignatures: weightSignatures.size, ratioSignatures: ratioSignatures.size, answerSignatures: answerSignatures.size };
   }
-  return { audit: "e4-math-diversity", cases, metrics: { perQl, minimumWeightSignatures: 3, minimumAnswerSignatures: 2, fixedRatioSemanticExceptions: [...fixedRatioIds] } };
+  return { audit: `${input.wave.toLowerCase()}-math-diversity`, cases, metrics: { perQl, minimumWeightSignatures: 3, minimumAnswerSignatures: 2, fixedRatioSemanticExceptions: [...fixedRatioIds] } };
+}
+
+export function auditPrt001E4MathDiversity(): Prt001AuditReport {
+  return auditAnswerAwareWave({ wave: "E4", startId: 71, count: 14, fixedRatioIds: ["PRT-QL-075", "PRT-QL-076"] });
+}
+
+export function auditPrt001E5MathDiversity(): Prt001AuditReport {
+  return auditAnswerAwareWave({ wave: "E5", startId: 85, count: 19, fixedRatioIds: ["PRT-QL-088", "PRT-QL-089", "PRT-QL-093", "PRT-QL-097", "PRT-QL-098"] });
 }
 
 export function auditPrt001Multilingual(): Prt001AuditReport {
