@@ -320,7 +320,7 @@ const extensionCases: readonly TsdCp012ReviewCase[] = generateTsdCp012SourceExte
 function selectedCases(authorityKey: TsdCp012AuthorityKey): readonly TsdCp012ReviewCase[] {
   const base = baseCases.filter((candidate) => candidate.authorityKey === authorityKey);
   const extensions = extensionCases.filter((candidate) => candidate.authorityKey === authorityKey);
-  return extensions.length > 0 ? Object.freeze([...base.slice(0, 5), extensions[0]!]) : Object.freeze(base.slice(0, 6));
+  return Object.freeze([...base, ...extensions]);
 }
 
 const questions: TsdCp012EnglishReviewQuestion[] = [];
