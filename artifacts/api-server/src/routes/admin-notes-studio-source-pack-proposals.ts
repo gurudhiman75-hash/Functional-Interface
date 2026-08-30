@@ -8,6 +8,7 @@ import { isGenerationReadySource, sourceRecommendationReason, sourceRecommendati
 import { buildSourcePackProposal, type SourcePackProposalCandidate } from '../notes-studio/source-pack-proposal';
 import {
   evaluateSourcePackPolicy,
+  noteSourceIdentity,
   noteSourcePackTemplateKey,
   noteSourceRole,
   type NoteSourceRole,
@@ -59,6 +60,9 @@ async function loadProposal(jobId: string) {
   const attached = await sqlClient`
     SELECT
       document.id::text AS id,
+      document.publisher,
+      document.source_uri AS "sourceUri",
+      document.content_hash AS "contentHash",
       document.retention_mode AS "retentionMode",
       document.extraction_status AS "extractionStatus",
       LENGTH(COALESCE(document.extracted_text, ''))::int AS "retainedCharCount",
@@ -72,7 +76,7 @@ async function loadProposal(jobId: string) {
     ? job.brief as Record<string, unknown>
     : {};
   const templateKey = noteSourcePackTemplateKey(brief.sourcePackTemplate);
-  const policy = evaluateSourcePackPolicy(templateKey, attached.map((source) => ({
+  const attachedPolicySources = attached.map((source) => ({
     sourceRole: noteSourceRole(source.sourceRole),
     inclusionState: String(source.inclusionState ?? ''),
     generationReady: isGenerationReadySource({
@@ -80,7 +84,10 @@ async function loadProposal(jobId: string) {
       extractionStatus: String(source.extractionStatus ?? ''),
       retainedCharCount: Number(source.retainedCharCount ?? 0),
     }),
-  })));
+    contentHash: String(source.contentHash ?? ''),
+    sourceIdentity: noteSourceIdentity(source.publisher, source.sourceUri),
+  }));
+  const policy = evaluateSourcePackPolicy(templateKey, attachedPolicySources);
 
   const targetTaxonomyNodeId = briefField(brief, 'taxonomyNodeId');
   const targetTaxonomyCode = briefField(brief, 'taxonomyCode');
@@ -89,7 +96,10 @@ async function loadProposal(jobId: string) {
     return {
       job: { id: String(job.id), title: String(job.title), state: String(job.state), sourcePackTemplate: templateKey },
       policy,
-      proposal: buildSourcePackProposal(policy.requirements, []),
+      proposal: buildSourcePackProposal(policy.requirements, [], {
+        minUniqueContent: policy.integrity.minUniqueContent,
+        minDistinctIdentities: policy.integrity.minDistinctIdentities,
+      }),
       candidateCount: 0,
     };
   }
@@ -99,6 +109,8 @@ async function loadProposal(jobId: string) {
       document.id::text AS id,
       document.title,
       document.publisher,
+      document.source_uri AS "sourceUri",
+      document.content_hash AS "contentHash",
       document.retention_mode AS "retentionMode",
       document.extraction_status AS "extractionStatus",
       LENGTH(COALESCE(document.extracted_text, ''))::int AS "retainedCharCount",
@@ -126,6 +138,8 @@ async function loadProposal(jobId: string) {
     sourceId: string;
     title: string;
     publisher: string;
+    sourceUri: string;
+    contentHash: string;
     retentionMode: string;
     extractionStatus: string;
     retainedCharCount: number;
@@ -144,6 +158,8 @@ async function loadProposal(jobId: string) {
         sourceId,
         title: String(row.title ?? 'Untitled source'),
         publisher: String(row.publisher ?? ''),
+        sourceUri: String(row.sourceUri ?? ''),
+        contentHash: String(row.contentHash ?? ''),
         retentionMode: String(row.retentionMode ?? ''),
         extractionStatus: String(row.extractionStatus ?? ''),
         retainedCharCount: Number(row.retainedCharCount ?? 0),
@@ -189,13 +205,26 @@ async function loadProposal(jobId: string) {
       relevanceReason: sourceRecommendationReason(signals),
       approvedUses: aggregate.approvedUses,
       roleUses: aggregate.roleUses,
+      contentHash: aggregate.contentHash,
+      sourceIdentity: noteSourceIdentity(aggregate.publisher, aggregate.sourceUri),
     };
   }).filter((candidate) => candidate.relevanceScore > 0);
+
+  const participatingRoles = new Set(policy.requirements.flatMap((requirement) => requirement.roles));
+  const attachedIntegritySources = attachedPolicySources.filter((source) =>
+    source.inclusionState === 'included' && participatingRoles.has(source.sourceRole),
+  );
+  const proposal = buildSourcePackProposal(policy.requirements, candidates, {
+    existingContentHashes: attachedIntegritySources.map((source) => source.contentHash).filter(Boolean),
+    existingSourceIdentities: attachedIntegritySources.map((source) => source.sourceIdentity).filter((value): value is string => Boolean(value)),
+    minUniqueContent: policy.integrity.minUniqueContent,
+    minDistinctIdentities: policy.integrity.minDistinctIdentities,
+  });
 
   return {
     job: { id: String(job.id), title: String(job.title), state: String(job.state), sourcePackTemplate: templateKey },
     policy,
-    proposal: buildSourcePackProposal(policy.requirements, candidates),
+    proposal,
     candidateCount: candidates.length,
   };
 }
