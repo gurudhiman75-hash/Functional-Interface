@@ -120,7 +120,7 @@ test.describe("student bookmarks", () => {
     const note = page.getByPlaceholder("Add why you want to revisit this question…");
     await note.fill("Revisit the setup before the next banking mock.");
     await page.reload();
-    await expect(page.getByDisplayValue("Revisit the setup before the next banking mock.")).toBeVisible();
+    await expect(page.getByPlaceholder("Add why you want to revisit this question…")).toHaveValue("Revisit the setup before the next banking mock.");
   });
 
   test("Bookmarks filters and result links stay usable on mobile", async ({ page }) => {
