@@ -35,6 +35,21 @@ function assertSeriesId(value: string): string {
   return value;
 }
 
+function withMockEligibilityBlocker(
+  readiness: ReturnType<typeof seriesReadiness>,
+  mockIneligibleQuestionCount: number,
+) {
+  if (mockIneligibleQuestionCount <= 0) return readiness;
+  return {
+    ready: false,
+    blockers: [
+      ...readiness.blockers,
+      `${mockIneligibleQuestionCount} generated question(s) are explicitly ineligible for mock-test use`,
+    ],
+    warnings: readiness.warnings,
+  };
+}
+
 async function assertReferences(client: SqlExecutor, input: NormalizedTestSeriesInput): Promise<void> {
   const exam = await client`
     SELECT id::text AS id
@@ -48,10 +63,20 @@ async function assertReferences(client: SqlExecutor, input: NormalizedTestSeries
 
   const testIds = input.items.map((item) => item.testId);
   const tests = await client`
-    SELECT id::text AS id, exam_version_id::text AS "examVersionId", status::text AS status
-    FROM assessment.tests
-    WHERE id = ANY(${testIds}::uuid[])
-      AND deleted_at IS NULL
+    SELECT
+      t.id::text AS id,
+      t.exam_version_id::text AS "examVersionId",
+      t.status::text AS status,
+      COALESCE((
+        SELECT COUNT(*)::int
+        FROM assessment.test_questions tq
+        JOIN content.question_versions qv ON qv.id = tq.question_version_id
+        WHERE tq.test_version_id = COALESCE(t.published_version_id, t.current_draft_version_id)
+          AND qv.answer_model #>> '{generation,mockTestEligible}' = 'false'
+      ), 0)::int AS "mockIneligibleQuestionCount"
+    FROM assessment.tests t
+    WHERE t.id = ANY(${testIds}::uuid[])
+      AND t.deleted_at IS NULL
   `;
   const found = new Map(tests.map((row) => [String(row.id), row]));
   const missing = testIds.filter((id) => !found.has(id));
@@ -70,6 +95,17 @@ async function assertReferences(client: SqlExecutor, input: NormalizedTestSeries
       "Every series member must belong to the selected exam version",
       409,
       { testIds: mismatched },
+    );
+  }
+  const mockBlocked = tests
+    .filter((row) => Number(row.mockIneligibleQuestionCount ?? 0) > 0)
+    .map((row) => ({ testId: String(row.id), questionCount: Number(row.mockIneligibleQuestionCount) }));
+  if (mockBlocked.length > 0) {
+    throw new TestSeriesError(
+      "TEST_SERIES_MOCK_QUESTION_INELIGIBLE",
+      "A selected test contains generated questions that have not been enabled for mock-test use",
+      409,
+      { tests: mockBlocked },
     );
   }
 }
@@ -120,8 +156,7 @@ async function insertSeriesVersion(
         ${item.isRequired},
         ${client.json(item.configuration)},
         now()
-      )
-    `;
+      `;
   }
   return versionId;
 }
@@ -190,7 +225,14 @@ async function loadSeriesDetail(seriesId: string, client: SqlExecutor = sqlClien
           t.status::text AS status,
           COALESCE(tv.title, t.public_code) AS title,
           tv.duration_seconds AS "durationSeconds",
-          tv.total_marks::float8 AS "totalMarks"
+          tv.total_marks::float8 AS "totalMarks",
+          COALESCE((
+            SELECT COUNT(*)::int
+            FROM assessment.test_questions tq
+            JOIN content.question_versions qv ON qv.id = tq.question_version_id
+            WHERE tq.test_version_id = COALESCE(t.published_version_id, t.current_draft_version_id)
+              AND qv.answer_model #>> '{generation,mockTestEligible}' = 'false'
+          ), 0)::int AS "mockIneligibleQuestionCount"
         FROM assessment.test_series_items i
         JOIN assessment.tests t ON t.id = i.test_id
         LEFT JOIN assessment.test_versions tv
@@ -200,13 +242,17 @@ async function loadSeriesDetail(seriesId: string, client: SqlExecutor = sqlClien
       `
     : [];
 
-  const readiness = seriesReadiness({
+  const mockIneligibleQuestionCount = items.reduce(
+    (sum, item) => sum + Number(item.mockIneligibleQuestionCount ?? 0),
+    0,
+  );
+  const readiness = withMockEligibilityBlocker(seriesReadiness({
     deletedAt: series.deletedAt ? String(series.deletedAt) : null,
     itemCount: items.length,
     availabilityStartAt: currentVersion?.availabilityStartAt ? String(currentVersion.availabilityStartAt) : null,
     availabilityEndAt: currentVersion?.availabilityEndAt ? String(currentVersion.availabilityEndAt) : null,
     memberStatuses: items.map((item) => String(item.status)),
-  });
+  }), mockIneligibleQuestionCount);
 
   return { series, versions, currentVersion, items, readiness, generatedAt: new Date().toISOString() };
 }
@@ -238,7 +284,14 @@ router.get("/catalog", requireAdminPermission("tests.read"), async (_req, res) =
           COALESCE(tv.title, t.public_code) AS title,
           tv.duration_seconds AS "durationSeconds",
           tv.total_marks::float8 AS "totalMarks",
-          t.updated_at AS "updatedAt"
+          t.updated_at AS "updatedAt",
+          COALESCE((
+            SELECT COUNT(*)::int
+            FROM assessment.test_questions tq
+            JOIN content.question_versions qv ON qv.id = tq.question_version_id
+            WHERE tq.test_version_id = COALESCE(t.published_version_id, t.current_draft_version_id)
+              AND qv.answer_model #>> '{generation,mockTestEligible}' = 'false'
+          ), 0)::int AS "mockIneligibleQuestionCount"
         FROM assessment.tests t
         LEFT JOIN assessment.test_versions tv
           ON tv.id = COALESCE(t.published_version_id, t.current_draft_version_id)
@@ -274,7 +327,8 @@ router.get("/", requireAdminPermission("tests.read"), async (_req, res) => {
         v.progression_mode AS "progressionMode",
         v.completion_threshold::float8 AS "completionThreshold",
         COALESCE(stats.item_count, 0)::int AS "itemCount",
-        COALESCE(stats.member_statuses, '{}') AS "memberStatuses"
+        COALESCE(stats.member_statuses, '{}') AS "memberStatuses",
+        COALESCE(stats.mock_ineligible_question_count, 0)::int AS "mockIneligibleQuestionCount"
       FROM assessment.test_series s
       JOIN catalog.exam_versions ev ON ev.id = s.exam_version_id
       JOIN catalog.exams e ON e.id = ev.exam_id
@@ -285,7 +339,14 @@ router.get("/", requireAdminPermission("tests.read"), async (_req, res) => {
       LEFT JOIN LATERAL (
         SELECT
           COUNT(*)::int AS item_count,
-          COALESCE(array_agg(t.status::text ORDER BY i.sort_order), '{}') AS member_statuses
+          COALESCE(array_agg(t.status::text ORDER BY i.sort_order), '{}') AS member_statuses,
+          COALESCE(SUM((
+            SELECT COUNT(*)::int
+            FROM assessment.test_questions tq
+            JOIN content.question_versions qv ON qv.id = tq.question_version_id
+            WHERE tq.test_version_id = COALESCE(t.published_version_id, t.current_draft_version_id)
+              AND qv.answer_model #>> '{generation,mockTestEligible}' = 'false'
+          )), 0)::int AS mock_ineligible_question_count
         FROM assessment.test_series_items i
         JOIN assessment.tests t ON t.id = i.test_id
         WHERE i.series_version_id = v.id
@@ -295,13 +356,13 @@ router.get("/", requireAdminPermission("tests.read"), async (_req, res) => {
     `;
     const series = rows.map((row) => ({
       ...row,
-      readiness: seriesReadiness({
+      readiness: withMockEligibilityBlocker(seriesReadiness({
         deletedAt: row.deletedAt ? String(row.deletedAt) : null,
         itemCount: Number(row.itemCount),
         availabilityStartAt: row.availabilityStartAt ? String(row.availabilityStartAt) : null,
         availabilityEndAt: row.availabilityEndAt ? String(row.availabilityEndAt) : null,
         memberStatuses: Array.isArray(row.memberStatuses) ? row.memberStatuses.map(String) : [],
-      }),
+      }), Number(row.mockIneligibleQuestionCount ?? 0)),
     }));
     res.json({ series, generatedAt: new Date().toISOString() });
   } catch (error) {
