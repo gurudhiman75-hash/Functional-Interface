@@ -2,9 +2,10 @@ import { GANGA_JOURNEY_FACT_LOCK } from "./fact-packs/SGK-VIS-IND-GEO-003";
 import { STANDARD_MERIDIAN_FACT_LOCK } from "./fact-packs/SGK-VIS-IND-GEO-002";
 import { TROPIC_OF_CANCER_FACT_LOCK } from "./fact-packs/SGK-VIS-IND-GEO-001";
 import { STATIC_GK_GEOMETRY_REGISTRY } from "./geometry-registry";
+import type { StaticGkAdminIngestBundle } from "./geometry/ingest-contract";
 import { STATIC_GK_VISUAL_ATLAS_PILOT } from "./pilot-backlog";
-import { STANDARD_MERIDIAN_SCENE_PENDING_GEOMETRY } from "./scenes/compile-standard-meridian";
-import { TROPIC_CANCER_SCENE_PENDING_GEOMETRY } from "./scenes/compile-tropic-cancer";
+import { compileStandardMeridianScene } from "./scenes/compile-standard-meridian";
+import { compileTropicCancerScene } from "./scenes/compile-tropic-cancer";
 
 export type StaticGkAtlasReadiness =
   | "backlog"
@@ -33,23 +34,40 @@ const factLocks = new Map([
   [GANGA_JOURNEY_FACT_LOCK.visualId, GANGA_JOURNEY_FACT_LOCK],
 ]);
 
-function statusFor(id: string): Pick<StaticGkAtlasStatusItem, "readiness" | "sceneCompiler" | "blockers"> {
+type CompiledPilotScenes = {
+  tropic: ReturnType<typeof compileTropicCancerScene>;
+  standardMeridian: ReturnType<typeof compileStandardMeridianScene>;
+};
+
+function statusFor(
+  id: string,
+  scenes: CompiledPilotScenes,
+): Pick<StaticGkAtlasStatusItem, "readiness" | "sceneCompiler" | "blockers"> {
   if (id === TROPIC_OF_CANCER_FACT_LOCK.visualId) {
     return {
-      readiness: TROPIC_CANCER_SCENE_PENDING_GEOMETRY.status,
+      readiness: scenes.tropic.status,
       sceneCompiler: "tropic-v1",
-      blockers: [
-        "SOI OVSF/1M/7 geometry is validated. Place canonical digest ab3ef2d51a6c326f7e75a7d6e4fea1386476cb8c1f02599564af76f340f12001 in approved runtime object storage, wire the geometry loader, then complete contact-sheet visual QA.",
-      ],
+      blockers: scenes.tropic.status === "render-ready"
+        ? []
+        : [
+            "Survey of India OVSF/1M/7 geometry is source-validated but no verified runtime bundle is currently loaded. Configure one approved runtime geometry source and complete contact-sheet visual QA.",
+          ],
     };
   }
   if (id === STANDARD_MERIDIAN_FACT_LOCK.visualId) {
+    const blockers = scenes.standardMeridian.status === "render-ready"
+      ? []
+      : scenes.standardMeridian.status === "district-verification-pending"
+        ? [
+            "Runtime Survey of India geometry loaded, but the canonical Mirzapur district polygon did not satisfy the 82°30′E verification gate.",
+          ]
+        : [
+            "Survey of India OVSF/1M/7 geometry and Mirzapur DIST_LGD 199 are source-validated but no verified runtime bundle is currently loaded. Configure one approved runtime geometry source and complete contact-sheet visual QA.",
+          ];
     return {
-      readiness: STANDARD_MERIDIAN_SCENE_PENDING_GEOMETRY.status,
+      readiness: scenes.standardMeridian.status,
       sceneCompiler: "standard-meridian-v1",
-      blockers: [
-        "SOI OVSF/1M/7 geometry and Mirzapur DIST_LGD 199 are validated. Place the canonical bundle in approved runtime object storage, wire the geometry loader, then complete contact-sheet visual QA.",
-      ],
+      blockers,
     };
   }
   if (id === GANGA_JOURNEY_FACT_LOCK.visualId) {
@@ -69,7 +87,12 @@ function statusFor(id: string): Pick<StaticGkAtlasStatusItem, "readiness" | "sce
   };
 }
 
-export function getStaticGkAtlasStatus() {
+export function getStaticGkAtlasStatus(bundle?: StaticGkAdminIngestBundle) {
+  const scenes: CompiledPilotScenes = {
+    tropic: compileTropicCancerScene(bundle),
+    standardMeridian: compileStandardMeridianScene(bundle),
+  };
+
   const items: StaticGkAtlasStatusItem[] = STATIC_GK_VISUAL_ATLAS_PILOT.map((candidate) => {
     const factLock = factLocks.get(candidate.id);
     return {
@@ -80,7 +103,7 @@ export function getStaticGkAtlasStatus() {
       subcategory: candidate.subcategory,
       template: candidate.template,
       factLockStatus: factLock?.status ?? "none",
-      ...statusFor(candidate.id),
+      ...statusFor(candidate.id, scenes),
     };
   });
 

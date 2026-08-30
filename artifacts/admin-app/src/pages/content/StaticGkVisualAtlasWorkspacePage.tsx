@@ -30,6 +30,16 @@ type GeometryAsset = {
   status: string;
 };
 
+type RuntimeGeometryState = {
+  configured: boolean;
+  loaded: boolean;
+  source: 'none' | 'path' | 'https' | 'invalid';
+  geometryId?: string;
+  sourceProductCode?: string;
+  canonicalGeoJsonSha256?: string;
+  error?: string;
+};
+
 type AtlasStatus = {
   program: string;
   schemaVersion: string;
@@ -38,6 +48,7 @@ type AtlasStatus = {
   compilerCount: number;
   renderReadyCount: number;
   geometryAssets: GeometryAsset[];
+  runtimeGeometry: RuntimeGeometryState;
   items: AtlasItem[];
   generatedAt: string;
 };
@@ -96,6 +107,25 @@ export function StaticGkVisualAtlasWorkspacePage() {
         <CardTitle className="flex items-center gap-2 text-base"><ShieldCheck className="h-4 w-4" /> Geometry authority</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
+        {data?.runtimeGeometry && <div className="rounded-lg border p-3">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <div className="font-medium">Runtime geometry bundle</div>
+              <div className="mt-1 text-xs text-muted-foreground">
+                {data.runtimeGeometry.loaded
+                  ? `${data.runtimeGeometry.sourceProductCode ?? data.runtimeGeometry.geometryId ?? 'validated source'} · ${data.runtimeGeometry.source}`
+                  : data.runtimeGeometry.configured
+                    ? `Configured via ${data.runtimeGeometry.source}, validation not available`
+                    : 'No runtime path/URL configured'}
+              </div>
+            </div>
+            <Badge variant="outline" className={data.runtimeGeometry.loaded ? 'border-success/30 bg-success/5 text-success' : 'border-warning/30 bg-warning/5 text-warning'}>
+              {data.runtimeGeometry.loaded ? 'verified runtime' : 'not loaded'}
+            </Badge>
+          </div>
+          {data.runtimeGeometry.canonicalGeoJsonSha256 && <div className="mt-2 font-mono text-[11px] text-muted-foreground">SHA-256 {data.runtimeGeometry.canonicalGeoJsonSha256.slice(0, 16)}…</div>}
+          {data.runtimeGeometry.error && <div className="mt-2 text-xs leading-5 text-destructive">{data.runtimeGeometry.error}</div>}
+        </div>}
         {(data?.geometryAssets ?? []).map((asset) => <div key={asset.id} className="flex flex-col gap-2 rounded-lg border p-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="min-w-0">
             <div className="font-medium">{asset.name}</div>
@@ -119,7 +149,7 @@ export function StaticGkVisualAtlasWorkspacePage() {
                 <td className="px-3 py-4"><Badge variant="outline">{item.factLockStatus.replace(/-/g, ' ')}</Badge></td>
                 <td className="px-3 py-4 font-mono text-xs">{item.sceneCompiler}</td>
                 <td className="px-3 py-4"><Badge variant="outline" className={readinessClass(item.readiness)}>{readinessLabel(item.readiness)}</Badge></td>
-                <td className="max-w-sm px-3 py-4 text-xs leading-5 text-muted-foreground">{item.blockers[0] ?? '—'}</td>
+                <td className="max-w-sm px-3 py-4 text-xs leading-5 text-muted-foreground">{item.blockers[0] ?? 'No current blocker.'}</td>
               </tr>)}</tbody>
             </table>
           </div>}

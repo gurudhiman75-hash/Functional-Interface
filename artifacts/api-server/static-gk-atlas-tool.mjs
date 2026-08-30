@@ -15,6 +15,7 @@ const TOOLS = {
   "export-tropic-scene": "devtools/export-tropic-scene.ts",
   "export-tropic-contact-sheet": "devtools/export-tropic-contact-sheet.ts",
   "export-standard-meridian-contact-sheet": "devtools/export-standard-meridian-contact-sheet.ts",
+  "render-vertical-video": "devtools/render-vertical-video.ts",
 };
 
 const TESTS = [
@@ -24,6 +25,7 @@ const TESTS = [
   "tests/standard-meridian-compiler.test.ts",
   "tests/tropic-svg-renderer.test.ts",
   "tests/standard-meridian-svg-renderer.test.ts",
+  "tests/vertical-video-renderer.test.ts",
 ];
 
 async function bundle(entryRelative, outputName) {
