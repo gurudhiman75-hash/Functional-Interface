@@ -85,7 +85,7 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
     const canonicalProblemId = asString(req.body?.canonicalProblemId) || undefined;
     const cpId = asString(req.body?.cpId) || undefined;
     const exam = asString(req.body?.exam) || "SSC CGL";
-    const subject = asString(req.body?.subject) || "Reasoning Ability";
+    const subject = "Reasoning Ability";
     const topic = "Reasoning";
     const subtopic = "Data Sufficiency";
 
