@@ -84,16 +84,20 @@ export function renderTropicCancerSvgFrame(scene: StaticGkMapPathSceneRecipe, ge
   if (!scene.route.resolvedSegments.length) throw new Error("Tropic scene has no resolved route segments");
   if (!Number.isFinite(timeMs) || timeMs < 0) throw new Error("Invalid frame timestamp");
   const projector = createIndiaMercatorProjector(geometry, scene.viewport);
-  const selectedState = targetName(activeCue(scene.cues, "state-highlight", timeMs), "state.");
+  const stateCue = activeCue(scene.cues, "state-highlight", timeMs);
+  const selectedStateCode = targetName(stateCue, "state.");
+  const selectedStateName = selectedStateCode
+    ? scene.route.resolvedSegments.find((segment) => segment.stateCode === selectedStateCode)?.stateName ?? selectedStateCode
+    : undefined;
   const cueText = currentCueText(scene.cues, timeMs);
   const routeVisible = scene.cues.some((cue) => cue.layer === "latitude-line" && cue.startMs <= timeMs);
   const quizVisible = Boolean(activeCue(scene.cues, "quiz", timeMs));
   const boundaries = geometry.features.map((feature) => {
-    const isSelected = feature.properties.stateName === selectedState;
+    const isSelected = feature.properties.stateCode === selectedStateCode;
     return `<path d="${areaPath(feature.geometry, projector)}" fill="${isSelected ? "#DCE7FF" : "#F8FAFC"}" stroke="${isSelected ? "#334155" : "#94A3B8"}" stroke-width="${isSelected ? "2.4" : "1.1"}" fill-rule="evenodd"/>`;
   }).join("");
   const route = routeVisible ? scene.route.resolvedSegments.map((segment) => `<path d="${linePath(segment.geometry, projector)}" fill="none" stroke="#B42318" stroke-width="7" stroke-linecap="round"/>`).join("") : "";
-  const selectedLabel = selectedState ? `<text x="540" y="1540" text-anchor="middle" font-size="58" font-weight="700" fill="#0F172A">${escapeXml(selectedState)}</text>` : "";
+  const selectedLabel = selectedStateName ? `<text x="540" y="1540" text-anchor="middle" font-size="58" font-weight="700" fill="#0F172A">${escapeXml(selectedStateName)}</text>` : "";
   const info = !quizVisible && cueText ? `<text x="540" y="1630" text-anchor="middle" font-size="34" font-weight="600" fill="#334155">${escapeXml(cueText)}</text>` : "";
   return svgShell(scene.viewport, scene.title, scene.route.editorialLabel, `${boundaries}${route}`, `${selectedLabel}${info}${quizCard(scene.quiz, quizVisible)}`);
 }
