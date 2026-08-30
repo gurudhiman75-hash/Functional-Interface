@@ -14,15 +14,20 @@ const FAMILIES = ["ssc", "banking", "punjab"] as const;
 const MAX_ENRICHMENT_PASSES = 3;
 const MAX_INTELLIGENCE_PASSES = 3;
 
-function stageRunKey(stage: "feed_ingestion" | "primary_fact_enrichment" | "intelligence_processing", now: Date) {
-  const slot = scheduleSlotStart(now, 3).toISOString();
-  return `${stage}:${slot}`;
+type AutomationStage = "feed_ingestion" | "primary_fact_enrichment" | "intelligence_processing";
+
+function slotIso(now: Date) {
+  return scheduleSlotStart(now, 3).toISOString();
 }
 
-async function supersedeCompletedSlot(stage: "feed_ingestion" | "primary_fact_enrichment" | "intelligence_processing", now: Date) {
+function stageRunKey(stage: AutomationStage, now: Date) {
+  return `${stage}:${slotIso(now)}`;
+}
+
+async function supersedeCompletedSlot(stage: AutomationStage, now: Date) {
   const runKey = stageRunKey(stage, now);
   const rows = await sqlClient`
-    SELECT id::text AS id, status, started_at::text AS "startedAt"
+    SELECT id::text AS id, status
     FROM content.current_affairs_automation_runs
     WHERE run_key=${runKey}
     LIMIT 1
@@ -40,6 +45,33 @@ async function supersedeCompletedSlot(stage: "feed_ingestion" | "primary_fact_en
           supersededBy: "current_affairs_cp026_on_demand_yesterday",
           supersededAt: new Date().toISOString(),
         })}::jsonb,
+        updated_at=now()
+    WHERE id=${String(existing.id)}::uuid
+      AND status <> 'running'
+  `;
+  return { superseded: true, runKey, previousStatus: String(existing.status) };
+}
+
+async function supersedeManualRecoverySlot(targetDate: string, now: Date) {
+  const runKey = `production_recovery:manual:${targetDate}:${slotIso(now)}`;
+  const rows = await sqlClient`
+    SELECT id::text AS id, status
+    FROM content.current_affairs_ops_runs
+    WHERE run_key=${runKey}
+    LIMIT 1
+  `;
+  const existing = rows[0];
+  if (!existing) return { superseded: false, runKey, previousStatus: null };
+  if (String(existing.status) === "running") {
+    throw new Error("A Current Affairs recovery pass is already running. Try Generate Yesterday again after it finishes.");
+  }
+  await sqlClient`
+    UPDATE content.current_affairs_ops_runs
+    SET run_key = run_key || ':superseded:on_demand:' || id::text,
+        actions = COALESCE(actions, '[]'::jsonb) || ${JSON.stringify([{
+          action: "superseded_for_on_demand_yesterday",
+          at: new Date().toISOString(),
+        }])}::jsonb,
         updated_at=now()
     WHERE id=${String(existing.id)}::uuid
       AND status <> 'running'
@@ -107,13 +139,15 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
   const startedAt = new Date().toISOString();
   const before = await countTargetDateState(targetDate);
 
+  // Force a fresh official-source pass while preserving the prior slot record as history.
   const sourceSupersede = await supersedeCompletedSlot("feed_ingestion", now);
   const sourceRefresh = await runScheduledFeedIngestion(now);
 
+  // Enrichment is bounded to three 100-candidate passes so a backlog cannot create
+  // an unbounded admin request, while still covering substantially more than a cron run.
   const enrichmentPasses: unknown[] = [];
   for (let pass = 0; pass < MAX_ENRICHMENT_PASSES; pass += 1) {
-    if (pass > 0) await supersedeCompletedSlot("primary_fact_enrichment", now);
-    else await supersedeCompletedSlot("primary_fact_enrichment", now);
+    await supersedeCompletedSlot("primary_fact_enrichment", now);
     const result = await runScheduledPrimaryFactEnrichment(now, 100);
     enrichmentPasses.push(result);
     const seen = Number((result as any)?.candidatesSeen ?? 0);
@@ -139,6 +173,7 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
 
   // CP025 recovery is deliberately draft-only. It performs authoring/localization,
   // builds missing EN/HI/PA daily packs and BANK_ONLY question-review runs.
+  const recoverySupersede = await supersedeManualRecoverySlot(targetDate, now);
   const recovery = await runCurrentAffairsProductionRecovery({ now, triggerMode: "manual" });
 
   const artifacts = await loadYesterdayArtifacts(targetDate);
@@ -162,7 +197,10 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
     intelligencePasses,
     enrichedAfterIntelligence,
     manualAuthority: { before: manualAuthorityBefore, after: manualAuthorityAfter },
-    recovery,
+    recovery: {
+      supersededPreviousSlot: recoverySupersede.superseded,
+      result: recovery,
+    },
     artifacts,
     summary: {
       allEnglishDraftsPresent,
