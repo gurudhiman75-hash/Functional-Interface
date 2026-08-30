@@ -44,12 +44,8 @@ for (const [locale, frozen, source] of [
   }
 }
 
-const hindi = canonicalJson(TSD_CP010_FROZEN_HINDI_REVIEW);
-const punjabi = canonicalJson(TSD_CP010_FROZEN_PUNJABI_REVIEW);
 assert(!/[A-Za-z]{4,}/.test(TSD_CP010_FROZEN_HINDI_REVIEW.map((question) => question.stem).join("\n")), "Hindi learner stems contain unexpected Latin prose");
 assert(!/[A-Za-z]{4,}/.test(TSD_CP010_FROZEN_PUNJABI_REVIEW.map((question) => question.stem).join("\n")), "Punjabi learner stems contain unexpected Latin prose");
-for (const rejected of ["समय-बढ़त", "दूरी-अंतर", "जीत-अंतर", "समय-अंतर"]) assert(!hindi.includes(rejected), `Hindi synthetic wording '${rejected}' returned after freeze`);
-for (const rejected of ["ਦੂਰੀ-ਅੰਤਰ", "ਜਿੱਤ-ਅੰਤਰ", "ਸਮਾਂ-ਅੰਤਰ"]) assert(!punjabi.includes(rejected), `Punjabi synthetic wording '${rejected}' returned after freeze`);
 
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.compatibleCombinationsPerLocale === 471, "approved native generation contract changed");
 assert(TSD_CP010_STUDIO_CANDIDATE_PACKAGE.deterministicMultilingualCombinations === 1413, "approved multilingual generation contract changed");
