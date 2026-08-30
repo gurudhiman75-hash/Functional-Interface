@@ -6,7 +6,7 @@ import { requireAdminPermission } from "../lib/admin-rbac";
 import { authenticate } from "../middlewares/auth";
 import {
   generateQuestion,
-  isBtdCp010QuestionStudioRequest,
+  isBtdCp012QuestionStudioRequest,
   listQuestionStudioPackages,
 } from "../question-studio/shared-generation-engine-btd";
 
@@ -41,10 +41,14 @@ router.get("/capabilities", requireAdminPermission("content.generation.read"), a
       supportedDifficulties: Array.isArray(pkg.supportedDifficulties) ? pkg.supportedDifficulties.map(String) : [],
       runtimeMode: asString(pkg.runtimeMode) || undefined,
       reviewStatus: asString(pkg.reviewStatus) || undefined,
+      manualApprovalRequired: typeof pkg.manualApprovalRequired === "boolean" ? pkg.manualApprovalRequired : undefined,
       questionStudioDiscoverable: typeof pkg.questionStudioDiscoverable === "boolean" ? pkg.questionStudioDiscoverable : undefined,
       questionStudioGenerationEnabled: typeof pkg.questionStudioGenerationEnabled === "boolean" ? pkg.questionStudioGenerationEnabled : undefined,
+      questionBankAdmissionApproved: typeof pkg.questionBankAdmissionApproved === "boolean" ? pkg.questionBankAdmissionApproved : undefined,
       questionBankStatus: asString(pkg.questionBankStatus) || undefined,
       questionBankWritable: typeof pkg.questionBankWritable === "boolean" ? pkg.questionBankWritable : undefined,
+      questionBankAcceptanceMode: asString(pkg.questionBankAcceptanceMode) || undefined,
+      questionBankAcceptanceAuthority: asString(pkg.questionBankAcceptanceAuthority) || undefined,
       testEligibility: asString(pkg.testEligibility) || undefined,
       testEligible: typeof pkg.testEligible === "boolean" ? pkg.testEligible : undefined,
       mockTestEligible: typeof pkg.mockTestEligible === "boolean" ? pkg.mockTestEligible : undefined,
@@ -61,7 +65,7 @@ router.get("/capabilities", requireAdminPermission("content.generation.read"), a
 });
 
 router.post("/runs", requireAdminPermission("content.generation.run"), async (req, res, next) => {
-  if (!isBtdCp010QuestionStudioRequest(req.body ?? {})) { next(); return; }
+  if (!isBtdCp012QuestionStudioRequest(req.body ?? {})) { next(); return; }
 
   const count = positiveInt(req.body?.count, 5, 50);
   const packageId = asString(req.body?.packageId) || "BTD-001";
@@ -100,7 +104,7 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
         prompt_tokens, completion_tokens, estimated_cost_paise, actual_cost_paise, started_at, completed_at, created_at, updated_at
       ) VALUES (
         ${runId}::uuid, ${code}, 'review'::generation_run_status, 1, ${JSON.stringify(requestSnapshot)}, ${JSON.stringify(requestSnapshot)},
-        'examtree', 'quant-v4-btd-review', 0, 0, 0, 0, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
+        'examtree', 'quant-v4-btd-bank-only-review', 0, 0, 0, 0, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
       )`;
 
       for (let index = 0; index < generatedQuestions.length; index += 1) {
@@ -108,13 +112,20 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
         if (
           question.questionStudioDiscoverable !== true
           || question.questionStudioGenerationEnabled !== true
-          || question.questionBankWritable !== false
+          || question.manualApprovalRequired !== true
+          || question.questionBankAdmissionApproved !== true
+          || question.questionBankStatus !== "READY_FOR_STORAGE"
+          || question.questionBankWritable !== true
+          || question.questionBankAcceptanceMode !== "BANK_ONLY"
+          || !asString(question.questionBankAcceptanceAuthority)
+          || !asString(question.questionBankAdmissionKey)
           || question.testEligible !== false
           || question.mockTestEligible !== false
           || question.publiclyPublishable !== false
           || question.automaticStudentPublication !== false
+          || question.contentMutationAuthorized !== false
         ) {
-          throw new Error("BTD Question Studio attempted to persist a package outside the review-only lifecycle boundary.");
+          throw new Error("BTD Question Studio attempted to persist a package outside the CP012 bank-only lifecycle boundary.");
         }
         const itemId = randomUUID();
         const versionId = randomUUID();
@@ -132,18 +143,31 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
       ) VALUES (
         ${randomUUID()}::uuid, 'user'::audit_actor_type, ${req.adminSession?.user.id ?? null}::uuid,
         'question_studio.generation_run.created', 'generation_run', ${runId}::uuid,
-        'Admin generated a review-only Question Studio batch', ${`Generated ${generatedQuestions.length} BTD-001 review questions in ${code}`},
-        ${JSON.stringify({ firebaseUid: req.user?.id, requestSnapshot, lifecycle: "QUESTION_STUDIO_MULTILINGUAL_REVIEW_ONLY" })}
+        'Admin generated a bank-only Question Studio review batch', ${`Generated ${generatedQuestions.length} BTD-001 bank-only review questions in ${code}`},
+        ${JSON.stringify({ firebaseUid: req.user?.id, requestSnapshot, lifecycle: "QUESTION_STUDIO_REVIEW_BANK_ONLY", manualApprovalRequired: true })}
       )`;
       await tx`INSERT INTO platform.outbox_events (
         id, aggregate_type, aggregate_id, event_type, payload
       ) VALUES (
         ${randomUUID()}::uuid, 'generation_run', ${runId}::uuid, 'question_studio.generation_run.created',
-        ${JSON.stringify({ runId, publicCode: code, itemCount: generatedQuestions.length, chapter: "BTD-001", lifecycle: "QUESTION_STUDIO_MULTILINGUAL_REVIEW_ONLY" })}
+        ${JSON.stringify({ runId, publicCode: code, itemCount: generatedQuestions.length, chapter: "BTD-001", lifecycle: "QUESTION_STUDIO_REVIEW_BANK_ONLY", questionBankAdmissionAfterApproval: true })}
       )`;
     });
 
-    res.status(201).json({ id: runId, publicCode: code, status: "review", itemCount: generatedQuestions.length, generationSystem: "quant-v4", chapter: "BTD-001", questionStudioReviewOnly: true });
+    res.status(201).json({
+      id: runId,
+      publicCode: code,
+      status: "review",
+      itemCount: generatedQuestions.length,
+      generationSystem: "quant-v4",
+      chapter: "BTD-001",
+      manualApprovalRequired: true,
+      questionBankAdmissionAfterApproval: true,
+      questionBankAcceptanceMode: "BANK_ONLY",
+      testEligible: false,
+      mockTestEligible: false,
+      publiclyPublishable: false,
+    });
   } catch (error: any) {
     console.error("BTD Question Studio generation failed", error);
     const status = Number(error?.statusCode) || 500;

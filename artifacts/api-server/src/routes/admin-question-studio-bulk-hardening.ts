@@ -2,10 +2,10 @@ import { randomUUID } from "node:crypto";
 import { Router } from "express";
 
 import {
-  convertApprovedGenerationItem,
   type ConvertedQuestion,
   type QuestionSqlExecutor,
 } from "../lib/admin-question-conversion";
+import { convertApprovedGenerationItemDedupSafe } from "../lib/admin-question-conversion-bank-dedup";
 import {
   getGeneratedItemApprovalDisposition,
   type GeneratedItemApprovalMode,
@@ -138,7 +138,7 @@ router.patch("/items/bulk", requireAdminPermission("content.generation.review"),
           conversionSkippedReason = disposition.reason;
 
           if (disposition.mode === "question_bank") {
-            convertedQuestion = await convertApprovedGenerationItem(
+            convertedQuestion = await convertApprovedGenerationItemDedupSafe(
               tx as QuestionSqlExecutor,
               itemId,
               actorUserId,
