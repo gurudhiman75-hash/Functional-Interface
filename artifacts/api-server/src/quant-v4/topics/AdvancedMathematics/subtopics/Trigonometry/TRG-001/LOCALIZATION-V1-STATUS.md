@@ -1,6 +1,6 @@
-# TRG-001 Hindi/Punjabi Localization Status
+# TRG-001 Hindi/Punjab Localization Status
 
-Status: **ENGINEERING REVIEW-READY CANDIDATE — HUMAN REVIEW PENDING — NOT FROZEN — NOT ACTIVATED**
+Status: **FINAL4 ENGINEERING REVIEW-READY — HUMAN REVIEW PENDING — NOT FROZEN — NOT ACTIVATED**
 
 ## Scope
 
@@ -12,46 +12,60 @@ Status: **ENGINEERING REVIEW-READY CANDIDATE — HUMAN REVIEW PENDING — NOT FR
 
 ## Authoritative candidate
 
-The authoritative Hindi/Punjabi review candidate is the **Final3 human-polish** localization path. It combines mandatory QL-bound native V5 stems with question-specific pedagogic working and a final native-language editorial polish. Superseded experimental Final/Final2 renderers are not part of the candidate path.
+The authoritative Hindi/Punjabi review candidate is **Final4**:
 
-Localization is an additive presentation layer over `generateHumanApprovedTrg001Question`; the frozen English runtime is not edited. Every localized question retains the canonical QL/CP/seed/family/solve-mode/difficulty/target/answer/option semantics/canonical state/verification and carries independent localization provenance/fingerprints.
+`TRG001_HI_PA_LOCALIZATION_NATIVE_REVIEW_FINAL4`
 
-## Engineering evidence
+It is an additive presentation layer over the frozen English authority. Final4 combines the Final3 human-polish path with canonical trig-degree provenance repair, exact native key-rule overrides for the affected QLs, and the QL121 pedagogic correction. The frozen English runtime is not edited.
 
-### Final3 semantic and pedagogic readiness
+Canonical QL/CP/seed/family/solve-mode/difficulty/target/answer/option semantics/canonical state/verification remain unchanged.
 
-Workflow run `33230486231` passed on the Final3 candidate:
+The exact reviewed candidate source head was:
 
-- 864 / 864 generated Hindi/Punjabi cases (`144 QLs × 2 languages × 3 seeds`).
-- 11,860 learner-facing fields inspected.
-- 8,392 notation atoms preserved.
-- 192 pedagogic sign/quadrant fidelity checks.
-- 0 failures.
-- Final3 human-polish sweep: 864 / 864 cases, 11,864 fields, 0 failures.
-- Review artifact: `9708341837`.
-- Artifact digest: `sha256:ec7ed472b4fd05289af43078948dced6e2c87ecd1f3d67dea95a4f034184bfa8`.
+`f42b5c6b26edfcb16c07a2b5a3f8620b976ac083`
 
-The artifact contains 144 side-by-side English/Hindi/Punjabi review rows (288 localized surfaces) and is the editorial review pack for this candidate.
+It was merged through PR #1221. Subsequent `New-main` work is unrelated to the TRG-001 Final4 localization content.
 
-### Final3 five-seed stress cross-check
+## Final4 engineering evidence
 
-Workflow run `33230738741` independently stress-tested the same Final3 human-polish runtime:
+### Five-seed cross-check
 
-- 1,440 / 1,440 generated cases (`144 QLs × 2 languages × 5 seeds`).
-- 19,772 learner-facing fields inspected.
-- 13,971 notation atoms preserved.
-- 150 quadrant-fidelity checks.
-- 0 failures.
-- Evidence artifact: `9708409470`.
-- Artifact digest: `sha256:2e43d5d35b88e32608f6be07156a0521e65700301fc560ab5b8189800794cfb0`.
+Workflow run `33298656944` passed on the exact Final4 candidate head.
 
-The frozen-English authority audit, V1 semantic-parity audit, V5 native-template audit and question-specific pedagogic-preservation audit also pass before the five-seed Final3 cross-check.
+- 1,440 / 1,440 generated localized cases (`144 QLs × 2 languages × 5 seeds`).
+- 19,768 learner-facing fields inspected.
+- 1,676 trig-degree provenance checks.
+- 16 provenance corrections exercised.
+- 480 exact-key-rule checks across 48 override QLs.
+- QL121 pedagogic checks: 10.
+- QL124 provenance checks: 10.
+- Failures: 0.
+- Evidence artifact: `9728219257`.
+- Artifact digest: `sha256:5c149ea3bd15af66c83c1d072aa38bad3f2823a05ad698800f337589aed5677c`.
 
-## Editorial review observations
+### Review-readiness pack
 
-The Final3 review pack was inspected after CI rather than relying only on automated gates. Previously identified defects around mixed English, generic explanations, quadrant/sign wording, and machine-like Hindi/Punjabi constructions were removed from the authoritative candidate. In particular, third-quadrant semantics in the affected quadrant questions now agree with the frozen English authority, and localized explanations retain question-specific calculation steps instead of generic filler.
+Workflow run `33298656954` passed on the same exact Final4 head.
 
-Engineering review readiness is **not** the same as human language approval. Human/editorial approval remains pending.
+- 144 side-by-side English/Hindi/Punjabi review rows.
+- 288 localized review surfaces.
+- Review artifact: `9728215685`.
+- Artifact digest: `sha256:9a0af17bb3682a438ba9f2bb4a6ac109c25c425556511e416157bd152ad1264a`.
+
+### Other exact-head gates
+
+The same Final4 head also passed:
+
+- Trigonometry family Question Studio regression.
+- Render production build.
+- CI hygiene policy.
+- pull-request branch-topology guard.
+
+## Review conclusion
+
+Final4 is **engineering/editorial review-ready**. Automated semantic, mathematical, notation, provenance, multi-seed and known-language-defect gates are green. The generated review pack was also manually inspected during remediation of the identified mixed-English, generic-solution, quadrant/sign, machine-order and quotient-wording defects.
+
+This status does **not** manufacture human language approval. An explicit approval record is still required before multilingual freeze or runtime activation.
 
 ## Lifecycle lock
 
