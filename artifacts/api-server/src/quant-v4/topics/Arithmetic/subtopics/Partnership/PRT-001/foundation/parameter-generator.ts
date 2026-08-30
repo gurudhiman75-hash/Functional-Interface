@@ -76,6 +76,13 @@ export function localizePrt001Business(
     "small manufacturing unit": ["लघु निर्माण इकाई", "ਛੋਟੀ ਨਿਰਮਾਣ ਇਕਾਈ"],
     dealership: ["डीलरशिप", "ਡੀਲਰਸ਼ਿਪ"],
     "wholesale firm": ["थोक फर्म", "ਥੋਕ ਫਰਮ"],
+    "logistics firm": ["लॉजिस्टिक्स फर्म", "ਲੋਜਿਸਟਿਕਸ ਫਰਮ"],
+    "online retail venture": ["ऑनलाइन खुदरा उद्यम", "ਆਨਲਾਈਨ ਖੁਦਰਾ ਕਾਰੋਬਾਰ"],
+    "food processing unit": ["खाद्य प्रसंस्करण इकाई", "ਖਾਦ ਪ੍ਰੋਸੈਸਿੰਗ ਇਕਾਈ"],
+    "construction supplies business": ["निर्माण सामग्री व्यवसाय", "ਨਿਰਮਾਣ ਸਮੱਗਰੀ ਕਾਰੋਬਾਰ"],
+    "garment wholesaling business": ["परिधान थोक व्यवसाय", "ਕੱਪੜਾ ਥੋਕ ਕਾਰੋਬਾਰ"],
+    "electronics dealership": ["इलेक्ट्रॉनिक्स डीलरशिप", "ਇਲੈਕਟ੍ਰਾਨਿਕਸ ਡੀਲਰਸ਼ਿਪ"],
+    "book distribution business": ["पुस्तक वितरण व्यवसाय", "ਕਿਤਾਬ ਵੰਡ ਕਾਰੋਬਾਰ"],
   };
   return translations[business]?.[language === "hi" ? 0 : 1] ?? business;
 }
