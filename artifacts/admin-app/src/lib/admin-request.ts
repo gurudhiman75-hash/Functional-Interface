@@ -32,11 +32,7 @@ function withQuestionStudioMix(path: string, init?: RequestInit): RequestInit | 
   }
 }
 
-export async function adminRequest<T>(
-  path: string,
-  init?: RequestInit,
-  options?: { fallbackMessage?: string; affectedRecord?: string | null },
-): Promise<T> {
+function requireAdminUser() {
   const user = getFirebaseAuth()?.currentUser;
   if (!user) {
     throw new AdminApiError({
@@ -45,10 +41,18 @@ export async function adminRequest<T>(
       status: 401,
       details: null,
       correlationId: null,
-      affectedRecord: options?.affectedRecord ?? null,
+      affectedRecord: null,
     });
   }
+  return user;
+}
 
+export async function adminRequest<T>(
+  path: string,
+  init?: RequestInit,
+  options?: { fallbackMessage?: string; affectedRecord?: string | null },
+): Promise<T> {
+  const user = requireAdminUser();
   const requestInit = withQuestionStudioMix(path, init);
   const response = await fetch(`${apiBase}${path}`, {
     ...requestInit,
@@ -84,4 +88,29 @@ export async function adminRequest<T>(
     });
   }
   return body;
+}
+
+export async function adminBlobRequest(
+  path: string,
+  options?: { fallbackMessage?: string; affectedRecord?: string | null },
+): Promise<Blob> {
+  const user = requireAdminUser();
+  const response = await fetch(`${apiBase}${path}`, {
+    headers: { Authorization: `Bearer ${await user.getIdToken()}` },
+  });
+  if (!response.ok) {
+    const body = await response.json().catch(() => null) as {
+      error?: string;
+      message?: string;
+      code?: string;
+      details?: unknown;
+    } | null;
+    throw adminApiErrorFromResponse(
+      response,
+      body,
+      options?.fallbackMessage || `Admin file request failed (${response.status}).`,
+      options?.affectedRecord ?? null,
+    );
+  }
+  return response.blob();
 }
