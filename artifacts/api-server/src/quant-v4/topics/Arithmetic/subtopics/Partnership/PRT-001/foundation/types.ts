@@ -41,7 +41,17 @@ export type Prt001PilotSolveMode =
   | "findShareWithLateJoinAndCapitalChange"
   | "findShareWithDynamicCapitalAndWorkingPartnerSalary"
   | "findMultiPartnerSharesWithStaggeredEvents"
-  | "findUnknownJoinTimeWithPreDistributionDeduction";
+  | "findUnknownJoinTimeWithPreDistributionDeduction"
+  | "findProfitRatioWithJoinAndLeaveEvents"
+  | "findUnknownLeaveTimeFromProfitRatio"
+  | "findUnknownCapitalOfLateJoiningPartner"
+  | "findProfitRatioAfterPercentageCapitalIncrease"
+  | "findProfitRatioWithChangesForMultiplePartners"
+  | "findSharesFromCapitalMultiplesAndDurations"
+  | "findTotalProfitFromActivePartnerFinalReceipt"
+  | "findPartnerReceiptsWithMultipleOrderedAllocations"
+  | "findProfitRatioWithJoinLeaveAndCapitalChange"
+  | "findUnknownCapitalWithStaggeredParticipation";
 
 export type MoneyUnit = "RUPEE";
 export type TimeUnit = "MONTH" | "YEAR";
