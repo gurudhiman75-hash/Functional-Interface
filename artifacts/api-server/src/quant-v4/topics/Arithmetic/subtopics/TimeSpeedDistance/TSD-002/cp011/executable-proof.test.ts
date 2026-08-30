@@ -8,14 +8,14 @@ function assert(condition: unknown, message: string): asserts condition {
 }
 
 const cases = generateTsdCp011ExecutableCases();
-assert(cases.length === 84, "expected 84 deterministic executable cases");
-assert(new Set(cases.map((x) => x.caseId)).size === 84, "case IDs must be unique");
+assert(cases.length === 168, "expected 168 deterministic executable cases");
+assert(new Set(cases.map((x) => x.caseId)).size === 168, "case IDs must be unique");
 
 let accepted = 0;
 let tamperRejected = 0;
 for (const authorityKey of TSD_CP011_LEARNER_AUTHORITIES) {
   const authorityCases = cases.filter((x) => x.authorityKey === authorityKey);
-  assert(authorityCases.length === 12, `${authorityKey}: expected 12 cases`);
+  assert(authorityCases.length === 24, `${authorityKey}: expected 24 cases`);
   assert(new Set(authorityCases.map((x) => x.input.target)).size >= 2, `${authorityKey}: target diversity is too thin`);
 }
 
@@ -46,6 +46,7 @@ assert((targetCoverage.twoWheelComparisonState as string[]).length === 2, "two-w
 console.log("TSD-CP-011 EXECUTABLE + INDEPENDENT VERIFIER PROOF: PASS");
 console.log(JSON.stringify({
   authorities: TSD_CP011_LEARNER_AUTHORITIES.length,
+  casesPerAuthority: 24,
   deterministicCases: cases.length,
   verifierAccepts: accepted,
   deliberateTamperRejects: tamperRejected,
