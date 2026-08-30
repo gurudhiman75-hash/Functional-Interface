@@ -59,8 +59,7 @@ jobs:
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-ql006-templates.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-templates.ts \
             src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-generator.ts \
-            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-review-v2-2.ts \
-            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/editorial-v2-2-saturation-proof.test.ts
+            src/reasoning-v1/topics/Statement-and-Conclusion/STC-001/question-studio-review-v2-2.ts
 
       - name: Prove 2048 unique semantic surfaces per QL with trilingual parity
         working-directory: artifacts/api-server
