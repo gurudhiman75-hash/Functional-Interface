@@ -4,18 +4,21 @@ import { join } from "node:path";
 
 import { STC_V2_EDITORIAL_AUTHORITIES } from "./editorial-v2-authorities.ts";
 import { generateStcV2EditorialQuestion } from "./editorial-v2-generator.ts";
+import { canonicalReviewSeedForAuthorityIndex } from "./editorial-v2-scheduler.ts";
 import { STC_QL_IDS } from "./types.ts";
 
-const outDir = process.env.STC_V2_REVIEW_OUT ?? "stc-001-v2-english-review-pack";
+const outDir = process.env.STC_V2_REVIEW_OUT ?? "stc-001-v2-1-english-review-pack";
 await mkdir(outDir, { recursive: true });
 
 const rows: Array<Record<string, unknown>> = [];
 const markdown: string[] = [
-  "# STC-001 V2 English Editorial Human Review Pack",
+  "# STC-001 V2.1 English Editorial Human Review Pack",
   "",
-  "Status: ENGLISH_EDITORIAL_REVIEW_CANDIDATE — not frozen and not learner-release approved.",
+  "Status: EDITORIAL_REVIEW_READY_BUT_SATURATION_BLOCKED — not frozen and not learner-release approved.",
   "",
-  "This pack contains every V2 editorial authority exactly once: 6 permanent QLs × 8 distinct surface archetypes = 48 English learner-facing questions.",
+  "This pack contains every curated V2 authority exactly once in canonical conclusion order: 6 permanent QLs × 8 distinct surface archetypes = 48 English learner-facing questions.",
+  "",
+  "The runtime preview uses a non-periodic 16-slot anti-gaming scheduler. This canonical audit pack deliberately de-schedules the questions so every authority is reviewed once without duplication.",
   "",
   "Review focus: exam-natural stem, plausible conclusions, semantic correctness, answer ownership, concise human explanation, and absence of repetitive/synthetic boilerplate.",
   "",
@@ -26,11 +29,15 @@ for (const qlId of STC_QL_IDS) {
   const authorities = STC_V2_EDITORIAL_AUTHORITIES.filter((entry) => entry.qlId === qlId);
   if (authorities.length !== 8) throw new Error(`${qlId}: expected 8 V2 authorities, found ${authorities.length}.`);
 
-  for (let seed = 0; seed < 8; seed += 1) {
+  for (let authorityIndex = 0; authorityIndex < authorities.length; authorityIndex += 1) {
+    const seed = canonicalReviewSeedForAuthorityIndex(qlId, authorityIndex);
     const question = generateStcV2EditorialQuestion({ qlId, locale: "en-IN", seed });
-    rows.push({ presentationProfile: "FOUR_WAY", ...question });
+    if (question.scenarioId !== authorities[authorityIndex]!.id || question.metadata.conclusionsReversed) {
+      throw new Error(`${qlId}/${authorityIndex}: canonical review seed failed authority-order contract.`);
+    }
+    rows.push({ presentationProfile: "FOUR_WAY", canonicalReviewSeed: seed, ...question });
     markdown.push(
-      `### ${seed + 1}. ${question.scenarioId} — ${question.surfaceArchetype} — ${question.difficulty}`,
+      `### ${authorityIndex + 1}. ${question.scenarioId} — ${question.surfaceArchetype} — ${question.difficulty}`,
       "",
       question.stem,
       "",
@@ -52,22 +59,26 @@ const markdownText = `${markdown.join("\n")}\n`;
 const jsonSha256 = createHash("sha256").update(jsonText).digest("hex");
 const markdownSha256 = createHash("sha256").update(markdownText).digest("hex");
 
-await writeFile(join(outDir, "stc-001-v2-english-review.json"), jsonText, "utf8");
-await writeFile(join(outDir, "stc-001-v2-english-review.md"), markdownText, "utf8");
+await writeFile(join(outDir, "stc-001-v2-1-english-review.json"), jsonText, "utf8");
+await writeFile(join(outDir, "stc-001-v2-1-english-review.md"), markdownText, "utf8");
 await writeFile(
-  join(outDir, "stc-001-v2-english-review-summary.json"),
+  join(outDir, "stc-001-v2-1-english-review-summary.json"),
   `${JSON.stringify({
     chapterId: "STC-001",
-    version: "V2",
+    version: "V2.1",
     locale: "en-IN",
-    status: "READY_FOR_EXPLICIT_ENGLISH_EDITORIAL_REVIEW",
+    status: "EDITORIAL_REVIEW_READY_BUT_SATURATION_BLOCKED",
     frozen: false,
     questionCount: rows.length,
     permanentQlCount: STC_QL_IDS.length,
     authoritiesPerQl: 8,
+    maximumDistinctCuratedPresentationsPerQlBeforeVariableization: 16,
+    minimumDistinctQuestionsPerQlForGenerationReady: 1000,
+    generationReady: false,
+    bankingFiveWayEitherActive: false,
     jsonSha256,
     markdownSha256,
-    localizationEnabled: false,
+    localizationEnabled: true,
     questionBankWritable: false,
     testEligible: false,
     mockEligible: false,
@@ -77,6 +88,6 @@ await writeFile(
   "utf8",
 );
 
-console.log(`PASS_STC_001_V2_ENGLISH_REVIEW_EXPORT questions=${rows.length}`);
+console.log(`PASS_STC_001_V2_1_ENGLISH_REVIEW_EXPORT questions=${rows.length} generationReady=false`);
 console.log(`JSON_SHA256=${jsonSha256}`);
 console.log(`MARKDOWN_SHA256=${markdownSha256}`);
