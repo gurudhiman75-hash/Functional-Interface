@@ -14,7 +14,6 @@ on:
   pull_request:
     branches:
       - New-main
-      - feature/content-engine-foundation-v1
     types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - artifacts/api-server/src/question-studio/**
@@ -22,7 +21,6 @@ on:
       - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
       - artifacts/api-server/src/routes/admin-question-studio-mixed-difficulty.ts
       - artifacts/api-server/src/routes/index.ts
-      - .github/workflows/question-studio-content-engine-foundation-v1.yml
   workflow_dispatch:
 
 permissions:
