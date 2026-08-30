@@ -29,8 +29,8 @@ export const STANDARD_MERIDIAN_FACT_LOCK: StaticGkFactLockPack = {
       title: "Administrative Boundary Database",
       publisher: "Survey of India",
       url: "https://onlinemaps.surveyofindia.gov.in/Digital_Products.aspx",
-      checkedAt: "2026-08-29",
-      notes: "Approved source family for deterministic India/state render geometry; geometry ingestion is CP-003.",
+      checkedAt: "2026-08-30",
+      notes: "Approved source for India, state and district render geometry. Product OVSF/1M/7 includes administrative boundaries up to district level.",
     },
   ],
   facts: [
@@ -70,7 +70,7 @@ export const STANDARD_MERIDIAN_FACT_LOCK: StaticGkFactLockPack = {
   geoTargets: [
     { id: "geo.india", name: "India", kind: "country", geometryRef: "geo.india.outline.v1" },
     { id: "state.UP", name: "Uttar Pradesh", kind: "state", geometryRef: "geo.india.state.UP.v1" },
-    { id: "point.mirzapur", name: "Mirzapur", kind: "city", geometryRef: "geo.india.point.mirzapur.v1", label: "Mirzapur" },
+    { id: "district.mirzapur", name: "Mirzapur", kind: "region", geometryRef: "geo.india.district.mirzapur.v1", label: "Mirzapur" },
     { id: "line.standard-meridian", name: "Standard Meridian of India", kind: "region", geometryRef: "geo.longitude.82-30E.india.v1", label: "82°30′E" },
   ],
   narration: [
@@ -86,14 +86,14 @@ export const STANDARD_MERIDIAN_FACT_LOCK: StaticGkFactLockPack = {
       purpose: "teach",
       text: "India's Standard Meridian is 82 degrees 30 minutes east. It passes through Mirzapur in Uttar Pradesh.",
       factIds: ["SGK002-F01", "SGK002-F02"],
-      targetIds: ["line.standard-meridian", "state.UP", "point.mirzapur"],
+      targetIds: ["line.standard-meridian", "state.UP", "district.mirzapur"],
     },
     {
       id: "SGK002-N03",
       purpose: "reinforce",
       text: "Time along this reference meridian is Indian Standard Time—five hours thirty minutes ahead of GMT.",
       factIds: ["SGK002-F03", "SGK002-F04"],
-      targetIds: ["line.standard-meridian", "point.mirzapur"],
+      targetIds: ["line.standard-meridian", "district.mirzapur"],
     },
   ],
   quiz: {
@@ -106,9 +106,10 @@ export const STANDARD_MERIDIAN_FACT_LOCK: StaticGkFactLockPack = {
   },
   renderConstraints: [
     "The 82°30′E meridian must be computed from geographic coordinates rather than hand-positioned on the India silhouette.",
-    "Mirzapur placement must come from a verified geometry/coordinate registry entry before render-ready status.",
+    "Mirzapur must resolve from the official district-level Survey of India administrative geometry before render-ready status.",
+    "The canonical Mirzapur district geometry must itself intersect longitude 82.5; do not cosmetically snap a label or marker onto the line.",
     "The scene must visually distinguish a longitude line from a political boundary.",
-    "Use Survey of India-backed boundary geometry for the India/state context.",
+    "Use Survey of India-backed boundary geometry for the India/state/district context.",
   ],
   exclusions: [
     "Do not teach a memorized list of every state crossed by the Standard Meridian in this first short; the core exam targets are longitude, Mirzapur, and IST.",
@@ -116,6 +117,7 @@ export const STANDARD_MERIDIAN_FACT_LOCK: StaticGkFactLockPack = {
   ],
   reviewNotes: [
     "KVS provides direct government educational support for all four core facts.",
+    "Using the official Mirzapur district polygon removes the need to invent or independently source a cosmetic city-point coordinate for this visual lesson.",
     "Editorial copy may say UTC+5:30 in app metadata, but the locked source language here is GMT+5:30; any terminology normalization should be explicit.",
   ],
 };
