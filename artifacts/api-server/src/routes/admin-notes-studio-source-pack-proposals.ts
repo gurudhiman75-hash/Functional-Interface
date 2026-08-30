@@ -5,7 +5,7 @@ import { requireAdminPermission } from '../lib/admin-rbac';
 import { sqlClient } from '../lib/db';
 import { authenticate } from '../middlewares/auth';
 import { isGenerationReadySource, sourceRecommendationReason, sourceRecommendationScore } from '../notes-studio/source-library';
-import { buildSourcePackProposal, type SourcePackProposalCandidate } from '../notes-studio/source-pack-proposal';
+import { buildSourcePackProposal, type SourcePackProposalCandidate, type SourcePackProposalItem } from '../notes-studio/source-pack-proposal';
 import {
   evaluateSourcePackPolicy,
   noteSourcePackTemplateKey,
@@ -46,7 +46,7 @@ function sendError(res: Response, error: unknown) {
   res.status(500).json({ error: 'Unable to build Notes Studio source-pack proposal', code: 'NOTES_STUDIO_SOURCE_PROPOSAL_FAILED' });
 }
 
-async function loadProposal(jobId: string) {
+export async function loadNotesStudioSourcePackProposal(jobId: string) {
   const jobRows = await sqlClient`
     SELECT id::text AS id, title, state, brief
     FROM content.note_authoring_jobs
@@ -206,7 +206,7 @@ router.get('/jobs/:id/source-pack-proposal', requireAdminPermission('content.que
   try {
     const jobId = uuid(req.params.id, 'Authoring job ID');
     res.json({
-      ...(await loadProposal(jobId)),
+      ...(await loadNotesStudioSourcePackProposal(jobId)),
       rawSourceBodiesReturned: false,
       externalNetworkSearch: false,
       automaticAttachment: false,
@@ -221,7 +221,7 @@ router.post('/jobs/:id/source-pack-proposal/apply', requireAdminPermission('cont
     const actorUserId = req.adminSession?.user.id;
     if (!actorUserId) throw new SourceProposalError('ADMIN_SESSION_REQUIRED', 'Administrator session required.', 403);
     const jobId = uuid(req.params.id, 'Authoring job ID');
-    const current = await loadProposal(jobId);
+    const current = await loadNotesStudioSourcePackProposal(jobId);
     if (!['brief', 'sources_ready'].includes(current.job.state)) {
       throw new SourceProposalError('SOURCE_POLICY_FROZEN', 'Source packs freeze once evidence work begins. Create a successor revision before applying a proposal.', 409);
     }
@@ -230,7 +230,7 @@ router.post('/jobs/:id/source-pack-proposal/apply', requireAdminPermission('cont
       return;
     }
 
-    let appliedCount = 0;
+    const appliedItems: SourcePackProposalItem[] = [];
     await sqlClient.begin(async (tx) => {
       for (const item of current.proposal.items) {
         const rows = await tx`
@@ -248,18 +248,18 @@ router.post('/jobs/:id/source-pack-proposal/apply', requireAdminPermission('cont
           )
           RETURNING source_document_id::text AS id
         `;
-        if (rows[0]) appliedCount += 1;
+        if (rows[0]) appliedItems.push(item);
       }
-      if (appliedCount > 0) {
+      if (appliedItems.length > 0) {
         await tx`
           INSERT INTO platform.audit_events (
             id, actor_type, actor_user_id, action_key, entity_type, entity_id, summary, metadata
           ) VALUES (
             ${randomUUID()}::uuid, 'user'::audit_actor_type, ${actorUserId}::uuid,
             'notes_studio.source_pack.proposal.applied', 'note_authoring_job', ${jobId}::uuid,
-            ${`Applied ${appliedCount} governed source-pack proposal item${appliedCount === 1 ? '' : 's'}`},
+            ${`Applied ${appliedItems.length} governed source-pack proposal item${appliedItems.length === 1 ? '' : 's'}`},
             ${JSON.stringify({
-              proposedItems: current.proposal.items.map((item) => ({ sourceId: item.sourceId, sourceRole: item.suggestedRole, requirementCode: item.requirementCode })),
+              proposedItems: appliedItems.map((item) => ({ sourceId: item.sourceId, sourceRole: item.suggestedRole, requirementCode: item.requirementCode })),
               sourceBodyCopied: false,
               externalNetworkSearch: false,
               automaticEvidenceGeneration: false,
@@ -269,7 +269,7 @@ router.post('/jobs/:id/source-pack-proposal/apply', requireAdminPermission('cont
       }
     });
 
-    if (appliedCount > 0) {
+    if (appliedItems.length > 0) {
       await sqlClient`
         UPDATE content.note_authoring_jobs job
         SET state = CASE
@@ -292,8 +292,8 @@ router.post('/jobs/:id/source-pack-proposal/apply', requireAdminPermission('cont
     }
 
     res.json({
-      appliedCount,
-      applied: current.proposal.items.slice(0, appliedCount),
+      appliedCount: appliedItems.length,
+      applied: appliedItems,
       sourceBodyCopied: false,
       externalNetworkSearch: false,
       automaticAttachment: false,
