@@ -11,18 +11,40 @@ It also closes a platform enforcement gap in the canonical test-series path: gen
 ## Upstream authority
 
 - CP015 scored-test authority: `BTD-001-CP015-SCORED-TEST-ELIGIBILITY-v1`
-- CP015 exact head: `3b9e2c6282ee7f3ee09e163a4862381807802779`
+- final CP015 exact head: `5fffcbd095847945c4e439c4ade59312dc9d4583`
 - CP015 is scored-test eligible and internally published while remaining mock-ineligible and non-public.
 
-## Certified readiness corpus
+## Original readiness certification
 
-Exact executable head before this authority note: `f8f710492831f785e1bbc403361727bdb650c62b`
+The original CP016 implementation was certified before CP014/CP015 route-stack isolation was completed:
 
-Workflow run: `33308802299`
-Job: `99249992349`
-Result: **SUCCESS**
+- executable head: `f8f710492831f785e1bbc403361727bdb650c62b`
+- workflow run: `33308802299`
+- job: `99249992349`
+- result: **SUCCESS**
+- artifact: `9731340998`
+- digest: `sha256:4658ab845b3d34b5d0e09d1157bc2d4c9c540718da0789c591e083ca395423fc`
 
-Audit results:
+## Final-stack restack certification
+
+CP016 was restacked as a **six-file readiness overlay** directly on final CP015 head `5fffcbd095847945c4e439c4ade59312dc9d4583`.
+
+Restacked executable head before this authority-note update:
+
+`4cc01b22091ff0a551cf517430695ad7c7052f58`
+
+Certification:
+- run: `33318931077`
+- job: `99277338793`
+- result: **SUCCESS**
+- artifact: `9734320576`
+- digest: `sha256:d94f8afc096102bcfdca5e2d66b5279845b101bee158d25b4aa10f0ca5b8415f`
+- topology guard: **SUCCESS**
+
+The cumulative workflow re-proved final CP015 before CP016.
+
+### Certified readiness corpus
+
 - 20 permanent QLs
 - 2 independent exam scopes
 - 50 seeds per QL per exam
@@ -40,12 +62,9 @@ Audit results:
 - API build: PASS
 - exact-head assertion: PASS
 
-Evidence artifact: `9731340998`
-Digest: `sha256:4658ab845b3d34b5d0e09d1157bc2d4c9c540718da0789c591e083ca395423fc`
-
 ## Canonical test-series enforcement
 
-`admin-test-series.ts` now treats generated mock eligibility as an explicit release gate:
+`admin-test-series.ts` treats generated mock eligibility as an explicit release gate:
 
 - `mockTestEligible=false` on any generated question in a member test blocks test-series create/update;
 - series detail/list readiness reports the count of explicitly mock-ineligible generated questions;
