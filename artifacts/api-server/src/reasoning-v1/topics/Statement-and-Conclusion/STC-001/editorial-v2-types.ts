@@ -33,6 +33,7 @@ export interface StcV2EditorialAuthority {
 export interface GeneratedStcV2EditorialQuestion {
   readonly chapterId: "STC-001";
   readonly version: "V2";
+  readonly checkpointId: "STC-CP-001" | "STC-CP-002" | "STC-CP-003";
   readonly qlId: StcQlId;
   readonly scenarioId: string;
   readonly locale: "en-IN";
@@ -47,6 +48,8 @@ export interface GeneratedStcV2EditorialQuestion {
   readonly explanation: string;
   readonly metadata: Readonly<{
     authority: "CURATED_EDITORIAL_ENTAILMENT_V2";
+    surfaceArchetype: StcV2SurfaceArchetype;
+    repeatedInstructionEmbeddedInStem: false;
     reviewOnly: true;
     questionBankWritable: false;
     testEligible: false;
