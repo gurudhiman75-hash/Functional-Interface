@@ -59,15 +59,15 @@ function makeFixture(): StaticGkAdminIngestBundle {
 test("Standard Meridian renderer refuses a pending scene", () => {
   const bundle = makeFixture();
   assert.throws(
-    () => renderStandardMeridianSvgFrame(compileStandardMeridianScene(), bundle.geometry, 12_000),
+    () => renderStandardMeridianSvgFrame(compileStandardMeridianScene(), bundle.geometry, 15_000),
     /not render-ready/,
   );
 });
 
-test("Standard Meridian renderer highlights verified Mirzapur district", () => {
+test("Standard Meridian renderer highlights verified Mirzapur district during the manifest district shot", () => {
   const bundle = makeFixture();
   const scene = compileStandardMeridianScene(bundle);
-  const svg = renderStandardMeridianSvgFrame(scene, bundle.geometry, 12_000);
+  const svg = renderStandardMeridianSvgFrame(scene, bundle.geometry, 15_000);
   assert.match(svg, /width="1080" height="1920"/);
   assert.match(svg, /82°30′E/);
   assert.match(svg, /Mirzapur district/);
@@ -75,10 +75,10 @@ test("Standard Meridian renderer highlights verified Mirzapur district", () => {
   assert.match(svg, /#7C2D12/);
 });
 
-test("Standard Meridian renderer displays IST quiz cue", () => {
+test("Standard Meridian renderer displays quiz during the manifest quiz shot", () => {
   const bundle = makeFixture();
   const scene = compileStandardMeridianScene(bundle);
-  const svg = renderStandardMeridianSvgFrame(scene, bundle.geometry, 25_000);
+  const svg = renderStandardMeridianSvgFrame(scene, bundle.geometry, 30_000);
   assert.match(svg, /Which longitude is India&apos;s Standard Meridian\?/);
   assert.match(svg, /B\. 82°30′E/);
 });
