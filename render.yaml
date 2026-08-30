@@ -110,6 +110,22 @@ services:
       - key: DATABASE_URL
         sync: false
 
+  # Bounded production recovery. Runs after the canonical 0/10/20 pipeline and
+  # may only backfill draft notes, localizations and BANK_ONLY review questions.
+  # It never approves releases, promotes Question Bank items or publishes content.
+  - type: cron
+    name: examtree-current-affairs-production-recovery
+    runtime: node
+    rootDir: .
+    schedule: "50 */3 * * *"
+    buildCommand: bash build-current-affairs-worker.sh
+    startCommand: NODE_ENV=production node --enable-source-maps artifacts/api-server/dist/current-affairs-production-ops-worker.mjs
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+
   # Materialize bounded, deduplicated in-app Current Affairs notifications.
   # This writes only the learner inbox. It does not call push/email/SMS providers.
   - type: cron
