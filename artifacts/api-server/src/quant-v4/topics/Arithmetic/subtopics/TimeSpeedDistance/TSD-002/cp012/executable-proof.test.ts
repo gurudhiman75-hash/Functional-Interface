@@ -15,15 +15,19 @@ function tamper(solution: TsdCp012ExecutableSolution): TsdCp012ExecutableSolutio
 }
 
 const cases = generateTsdCp012ExecutableCases();
-assert(cases.length === 88, `expected 88 deterministic executable cases, found ${cases.length}`);
-assert(new Set(cases.map((x) => x.caseId)).size === 88, "case IDs must be unique");
+assert(cases.length === 264, `expected 264 deterministic executable cases, found ${cases.length}`);
+assert(new Set(cases.map((x) => x.caseId)).size === 264, "case IDs must be unique");
 
 let accepts = 0;
 let tamperRejects = 0;
 for (const authorityKey of TSD_CP012_LEARNER_AUTHORITIES) {
   const owned = cases.filter((x) => x.authorityKey === authorityKey);
-  assert(owned.length === 8, `${authorityKey}: expected eight deterministic cases`);
-  assert(new Set(owned.map((x) => x.input.target)).size >= 2, `${authorityKey}: target coverage is too thin`);
+  assert(owned.length === 24, `${authorityKey}: expected 24 deterministic cases`);
+  const bands = [owned.slice(0, 8), owned.slice(8, 16), owned.slice(16, 24)];
+  const baseTargets = bands[0]!.map((x) => x.input.target).join("|");
+  assert(new Set(bands[0]!.map((x) => x.input.target)).size >= 2, `${authorityKey}: target coverage is too thin`);
+  assert(bands[1]!.map((x) => x.input.target).join("|") === baseTargets, `${authorityKey}: x2 scale band changed target structure`);
+  assert(bands[2]!.map((x) => x.input.target).join("|") === baseTargets, `${authorityKey}: x3 scale band changed target structure`);
 }
 
 for (const executableCase of cases) {
@@ -38,14 +42,15 @@ for (const executableCase of cases) {
 }
 
 const setCases = cases.filter((x) => x.expected.kind === "SET");
-assert(setCases.length === 4, `expected four complete-set cases, found ${setCases.length}`);
+assert(setCases.length === 12, `expected 12 complete-set cases across three scale bands, found ${setCases.length}`);
 assert(setCases.every((x) => x.expected.kind === "SET" && x.expected.values.length > 0), "complete-set cases should expose non-empty finite sets in discovery proof");
 
 console.log("TSD-CP-012 EXACT EXECUTABLE + INDEPENDENT VERIFIER PROOF: PASS");
 console.log(JSON.stringify({
   authorities: TSD_CP012_LEARNER_AUTHORITIES.length,
   cases: cases.length,
-  casesPerAuthority: 8,
+  casesPerAuthority: 24,
+  semanticScaleBands: [1, 2, 3],
   verifierAccepts: accepts,
   deliberateTamperRejects: tamperRejects,
   setValuedCases: setCases.length,
