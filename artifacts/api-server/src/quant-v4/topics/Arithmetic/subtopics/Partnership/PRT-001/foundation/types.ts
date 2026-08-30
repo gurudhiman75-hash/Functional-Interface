@@ -12,7 +12,7 @@ export const PRT_001_CP_IDS = [
 export type Prt001PilotCanonicalProblemId = (typeof PRT_001_CP_IDS)[number];
 export type Prt001Language = "en" | "hi" | "pa";
 export type Prt001Difficulty = "Easy" | "Medium" | "Hard";
-export type Prt001AnswerType = "RATIO" | "MONEY" | "CAPITAL" | "DURATION";
+export type Prt001AnswerType = "RATIO" | "MONEY" | "CAPITAL" | "DURATION" | "PERCENT";
 export type Prt001PilotSolveMode =
   | "findProfitRatioFromCapitals"
   | "findPartnerShareFromTotalProfitAndCapitals"
@@ -65,7 +65,21 @@ export type Prt001PilotSolveMode =
   | "findShareWithDynamicCapitalAndPercentCommission"
   | "findUnknownJoinTimeWithCapitalChangeHistory"
   | "findTotalProfitFromMixedTimelineFinalReceipt"
-  | "findDifferenceBetweenFinalReceiptsInMixedSystem";
+  | "findDifferenceBetweenFinalReceiptsInMixedSystem"
+  | "findTotalProfitFromShareDifferenceAndWeights"
+  | "findUnknownPercentageCapitalChange"
+  | "findInitialCapitalFromFinalShareAndChangeHistory"
+  | "findDurationRatioFromPartnerShareRelations"
+  | "findUnknownCommissionPercentFromFinalReceipt"
+  | "findUnknownDeductionFromPartnerShare"
+  | "findProfitRatioFromFinalReceiptsWhenOnePartnerGetsSalary"
+  | "findEqualFinalReceiptsConditionWithRemuneration"
+  | "findReverseContributionFromMixedPartnerRelations"
+  | "findUnknownCapitalFromProfitRatio"
+  | "findTotalProfitFromPartnerShareCapitalDuration"
+  | "findUnknownJoinTimeFromPartnerShare"
+  | "findUnknownWithdrawnCapitalFromProfitRatio"
+  | "findTotalProfitFromDifferenceBetweenTwoShares";
 
 export type MoneyUnit = "RUPEE";
 export type TimeUnit = "MONTH" | "YEAR";
