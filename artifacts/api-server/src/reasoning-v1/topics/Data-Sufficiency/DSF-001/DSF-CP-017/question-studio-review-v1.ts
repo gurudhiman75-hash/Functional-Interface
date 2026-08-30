@@ -70,6 +70,9 @@ export type DsfCp017Difficulty = (typeof DSF_CP017_SUPPORTED_DIFFICULTIES)[numbe
 type AnyQuestion = Readonly<Record<string, any>>;
 type LaneEntry = (typeof DSF_CP017_LANES)[number];
 
+type NormalizedStatement = Readonly<{ id: "I" | "II"; text: string }>;
+type NormalizedOption = Readonly<{ label: string; text: string; isCorrect: boolean; semanticClass: string }>;
+
 export interface DsfCp017QuestionStudioInput {
   readonly seed?: string;
   readonly count?: number;
@@ -205,13 +208,12 @@ function candidateLanes(input: DsfCp017QuestionStudioInput): readonly LaneEntry[
 }
 
 function legacyQuestion(domain: DsfStudioDomainId, seed: number): AnyQuestion {
-  const result = generateDsfQuestionStudioBatch({
+  return generateDsfQuestionStudioBatch({
     seed: `${DSF_CP017_QUESTION_STUDIO_AUTHORITY}:${seed}`,
     count: 1,
     domain,
     language: "en",
-  });
-  return result.questions[0]! as AnyQuestion;
+  }).questions[0]! as AnyQuestion;
 }
 
 function reasoningSurface(lane: DsfReasoningEditorialLane, question: AnyQuestion): AnyQuestion {
@@ -251,7 +253,7 @@ function generateLaneQuestion(lane: LaneEntry, seed: number): AnyQuestion {
 }
 
 function stemOnly(stem: unknown): string {
-  return String(stem ?? "").split(/\n\nStatement I:/u, 1)[0]!.trim();
+  return String(stem ?? "").split(/\n+\s*Statement I:/u, 1)[0]!.trim();
 }
 
 function explanationBody(value: unknown): string {
@@ -289,49 +291,96 @@ function normalQuestionId(lane: LaneEntry, question: AnyQuestion): string {
     .slice(0, 24)}`;
 }
 
-function normalizeQuestion(lane: LaneEntry, question: AnyQuestion) {
-  const statements = Array.isArray(question.statements) ? question.statements : [];
-  if (statements.length !== 2 || typeof statements[0]?.text !== "string" || typeof statements[1]?.text !== "string") {
-    throw new Error(`${lane.laneId}: source question does not expose two valid statements.`);
-  }
-  const optionDetails = Array.isArray(question.options)
-    ? question.options.map((option: any, index: number) => ({
-        label: String(option.key ?? String.fromCharCode(65 + index)),
-        text: String(option.value ?? option.text ?? ""),
-        isCorrect: Boolean(option.isCorrect),
-        semanticClass: String(option.semanticClass ?? ""),
-      }))
-    : [];
-  if (optionDetails.length !== 5) throw new Error(`${lane.laneId}: source question does not expose the five-option DS contract.`);
-  const derivedCorrectIndex = optionDetails.findIndex((option) => option.isCorrect);
-  const correctIndex = Number.isInteger(question.correctIndex) && question.correctIndex >= 0
-    ? Number(question.correctIndex)
-    : derivedCorrectIndex;
-  if (correctIndex < 0 || correctIndex >= optionDetails.length || optionDetails.filter((option) => option.isCorrect).length !== 1) {
-    throw new Error(`${lane.laneId}: source question does not have exactly one correct option.`);
+function normalizeStatements(lane: LaneEntry, question: AnyQuestion): readonly [NormalizedStatement, NormalizedStatement] {
+  if (Array.isArray(question.statements) && question.statements.length === 2) {
+    const first = question.statements[0];
+    const second = question.statements[1];
+    if (typeof first?.text === "string" && typeof second?.text === "string") {
+      return Object.freeze([
+        Object.freeze({ ...first, id: "I" as const, text: first.text.trim() }),
+        Object.freeze({ ...second, id: "II" as const, text: second.text.trim() }),
+      ] as const);
+    }
   }
 
+  if (typeof question.statementI === "string" && typeof question.statementII === "string") {
+    return Object.freeze([
+      Object.freeze({ id: "I" as const, text: question.statementI.trim() }),
+      Object.freeze({ id: "II" as const, text: question.statementII.trim() }),
+    ] as const);
+  }
+
+  throw new Error(`${lane.laneId}: source question does not expose two valid statements.`);
+}
+
+function normalizeOptions(lane: LaneEntry, question: AnyQuestion): readonly NormalizedOption[] {
+  if (!Array.isArray(question.options) || question.options.length !== 5) {
+    throw new Error(`${lane.laneId}: source question does not expose the five-option DS contract.`);
+  }
+
+  const declaredCorrectIndices = question.options
+    .map((option: any, index: number) => typeof option === "object" && option !== null && option.isCorrect === true ? index : -1)
+    .filter((index: number) => index >= 0);
+  if (declaredCorrectIndices.length > 1) {
+    throw new Error(`${lane.laneId}: source question declares more than one correct option.`);
+  }
+
+  const explicitCorrectIndex = Number.isInteger(question.correctIndex) ? Number(question.correctIndex) : -1;
+  const correctIndex = explicitCorrectIndex >= 0 ? explicitCorrectIndex : (declaredCorrectIndices[0] ?? -1);
+  if (correctIndex < 0 || correctIndex >= 5) {
+    throw new Error(`${lane.laneId}: source question does not identify one correct option.`);
+  }
+  if (declaredCorrectIndices.length === 1 && declaredCorrectIndices[0] !== correctIndex) {
+    throw new Error(`${lane.laneId}: source correctIndex conflicts with the declared correct option.`);
+  }
+
+  const canonicalClass = String(question.canonicalAnswer ?? question.correctClass ?? "");
+  const normalized = question.options.map((option: any, index: number) => {
+    const record = typeof option === "object" && option !== null ? option : undefined;
+    const text = typeof option === "string"
+      ? option.trim()
+      : String(record?.value ?? record?.text ?? "").trim();
+    if (!text) throw new Error(`${lane.laneId}: option ${index + 1} has no display text.`);
+    return Object.freeze({
+      label: String(record?.key ?? String.fromCharCode(65 + index)),
+      text,
+      isCorrect: index === correctIndex,
+      semanticClass: String(record?.semanticClass ?? (index === correctIndex ? canonicalClass : "")),
+    });
+  });
+
+  if (normalized.filter((option) => option.isCorrect).length !== 1) {
+    throw new Error(`${lane.laneId}: source question does not normalize to exactly one correct option.`);
+  }
+  return Object.freeze(normalized);
+}
+
+function normalizeQuestion(lane: LaneEntry, question: AnyQuestion) {
+  const statements = normalizeStatements(lane, question);
+  const optionDetails = normalizeOptions(lane, question);
+  const correctIndex = optionDetails.findIndex((option) => option.isCorrect);
   const cleanStem = stemOnly(question.stem);
+  if (!cleanStem) throw new Error(`${lane.laneId}: source question has an empty stem.`);
+
   const text = `${cleanStem}\nI. ${statements[0].text}\nII. ${statements[1].text}`;
   const explanation = [String(question.studioExplanationLead ?? "").trim(), explanationBody(question.explanation)]
     .filter(Boolean)
     .join("\n");
+  if (!explanation) throw new Error(`${lane.laneId}: source question has no explanation text.`);
+
   const questionId = normalQuestionId(lane, question);
   const sourceCheckpointId = String(question.checkpointId ?? question.sourceCheckpointId ?? lane.checkpointId);
   const sourceChapterId = String(question.sourceChapterId ?? lane.sourceChapter);
   const solveMode = String(question.solveModeId ?? question.solveMode ?? "");
-  const canonicalAnswer = String(question.canonicalAnswer ?? optionDetails[correctIndex]!.semanticClass);
+  const canonicalAnswer = String(question.canonicalAnswer ?? question.correctClass ?? optionDetails[correctIndex]!.semanticClass);
 
   return Object.freeze({
     text,
     stem: cleanStem,
     questionPrompt: String(question.questionPrompt ?? "Determine whether the given statements are sufficient to answer the question."),
-    statements: Object.freeze([
-      Object.freeze({ ...statements[0], id: "I" as const, text: String(statements[0].text) }),
-      Object.freeze({ ...statements[1], id: "II" as const, text: String(statements[1].text) }),
-    ] as const),
+    statements,
     options: Object.freeze(optionDetails.map((option) => option.text)),
-    optionDetails: Object.freeze(optionDetails),
+    optionDetails,
     correct: correctIndex,
     correctIndex,
     answer: optionDetails[correctIndex]!.text,
