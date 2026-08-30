@@ -1,0 +1,98 @@
+name: Validate SPA FCT-001 Current Main Integration V1
+
+on:
+  push:
+    branches:
+      - feat/spa-fct-001-current-main-integration-v1
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/counting-figures-*.ts
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v6.ts
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v4.ts
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v4.ts
+      - artifacts/api-server/src/routes/admin-question-studio-spatial.ts
+      - artifacts/api-server/src/lib/admin-question-conversion.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-counting-figures-question-studio-standard-integration-v1.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-counting-figures-question-studio-route-activation-v1.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-counting-figures-exam-renderer-v1.test.ts
+      - .github/workflows/spa-fct-001-current-main-integration-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-fct-current-main-integration-v1:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build current API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle FCT exam-standard renderer proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-counting-figures-exam-renderer-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-counting-figures-exam-renderer-v1.test.mjs
+
+      - name: Validate FCT exam-standard geometry rendering
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-counting-figures-exam-renderer-v1.test.mjs \
+            | tee dist/reasoning-v1/spatial/spa-fct-001-exam-renderer-v1-run.log
+
+      - name: Bundle FCT standard Question Studio proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-counting-figures-question-studio-standard-integration-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-counting-figures-question-studio-standard-integration-v1.test.mjs
+
+      - name: Validate FCT standard Question Studio integration
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-counting-figures-question-studio-standard-integration-v1.test.mjs \
+            | tee dist/reasoning-v1/spatial/spa-fct-001-current-main-standard-run.log
+
+      - name: Bundle FCT admin route proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-counting-figures-question-studio-route-activation-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-counting-figures-question-studio-route-activation-v1.test.mjs
+
+      - name: Validate FCT route and numeric-option conversion
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-counting-figures-question-studio-route-activation-v1.test.mjs \
+            | tee dist/reasoning-v1/spatial/spa-fct-001-current-main-route-run.log
+
+      - name: Upload FCT current-main evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-fct-001-current-main-integration-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fct-001-exam-renderer-v1-run.log
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fct-001-exam-renderer-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fct-001-current-main-standard-run.log
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fct-001-current-main-route-run.log
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fct-001-question-studio-standard-integration-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-fct-001-admin-question-studio-route-activation-v1-evidence.json
+          if-no-files-found: error

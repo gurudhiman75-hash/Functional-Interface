@@ -181,27 +181,59 @@ export function encodeGeneratedSpatialSvgImage(
   return `<img src="data:image/svg+xml;base64,${encoded}" alt="${escapeHtmlAttribute(alt)}" loading="lazy" />`;
 }
 
-function spatialVisualContent(payload: Record<string, unknown>): {
+type SpatialVisualContent = {
   stimulus: string[];
-  options: string[];
-} | null {
+  optionImages: string[] | null;
+  kind: "spatial_svg_data_image_v1" | "spatial_svg_stimulus_numeric_options_v1";
+};
+
+function spatialVisualContent(payload: Record<string, unknown>): SpatialVisualContent | null {
   const packageId = asText(payload.packageId).toUpperCase();
   const hasSpatialFields = Array.isArray(payload.optionSvgs) || Array.isArray(payload.stimulusSvgs);
   if (packageId !== "SPA-001" && !hasSpatialFields) return null;
 
-  const optionSvgs = Array.isArray(payload.optionSvgs) ? payload.optionSvgs : [];
-  if (optionSvgs.length !== 4) {
-    throw new Error("SPA-001 approval requires exactly four rendered SVG options");
-  }
   const stimulusSvgs = Array.isArray(payload.stimulusSvgs) ? payload.stimulusSvgs : [];
-  return {
-    stimulus: stimulusSvgs.map((svg, index) =>
-      encodeGeneratedSpatialSvgImage(svg, `Spatial question figure ${index + 1}`),
-    ),
-    options: optionSvgs.map((svg, index) =>
-      encodeGeneratedSpatialSvgImage(svg, `Spatial option ${optionKey(index)}`),
-    ),
-  };
+  const stimulus = stimulusSvgs.map((svg, index) =>
+    encodeGeneratedSpatialSvgImage(svg, `Spatial question figure ${index + 1}`),
+  );
+  const optionSvgs = Array.isArray(payload.optionSvgs) ? payload.optionSvgs : [];
+  if (optionSvgs.length > 0) {
+    if (optionSvgs.length !== 4) {
+      throw new Error("SPA-001 approval requires exactly four rendered SVG options");
+    }
+    return {
+      stimulus,
+      optionImages: optionSvgs.map((svg, index) =>
+        encodeGeneratedSpatialSvgImage(svg, `Spatial option ${optionKey(index)}`),
+      ),
+      kind: "spatial_svg_data_image_v1",
+    };
+  }
+
+  const rendererKind = asText(asRecord(payload.renderer).kind).toUpperCase();
+  if (rendererKind === "SVG_WITH_NUMERIC_OPTIONS") {
+    if (stimulusSvgs.length !== 1) {
+      throw new Error("SPA-001 numeric-option approval requires exactly one rendered SVG stimulus");
+    }
+    const rawOptions = Array.isArray(payload.options) ? payload.options : [];
+    if (
+      rawOptions.length !== 4 ||
+      !rawOptions.every((entry) => typeof entry === "number" && Number.isFinite(entry))
+    ) {
+      throw new Error("SPA-001 numeric-option approval requires exactly four finite numeric options");
+    }
+    const numericOptions = rawOptions.map((entry) => String(entry));
+    if (new Set(numericOptions).size !== 4) {
+      throw new Error("SPA-001 numeric-option approval requires four unique numeric options");
+    }
+    return {
+      stimulus,
+      optionImages: null,
+      kind: "spatial_svg_stimulus_numeric_options_v1",
+    };
+  }
+
+  throw new Error("SPA-001 approval requires exactly four rendered SVG options");
 }
 
 export function normalizeGeneratedQuestionPayload(
@@ -217,8 +249,8 @@ export function normalizeGeneratedQuestionPayload(
   const difficulty =
     asText(payload.difficultyLabel) || asText(payload.difficulty) || "Medium";
   const visualContent = spatialVisualContent(payload);
-  const options = visualContent
-    ? visualContent.options
+  const options = visualContent?.optionImages
+    ? visualContent.optionImages
     : Array.isArray(payload.options)
       ? payload.options.map((entry) => String(entry ?? "").trim()).filter(Boolean)
       : [];
@@ -271,7 +303,7 @@ export function normalizeGeneratedQuestionPayload(
         subtopic: payload.subtopic ?? null,
         language: payload.language ?? "en",
         locale: payload.locale ?? generationContext.locale ?? null,
-        visualContent: visualContent ? "spatial_svg_data_image_v1" : null,
+        visualContent: visualContent?.kind ?? null,
         questionBankStatus: lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
         questionBankWritable: lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
         questionBankAcceptanceMode: getGeneratedQuestionBankAcceptanceMode(payload),
