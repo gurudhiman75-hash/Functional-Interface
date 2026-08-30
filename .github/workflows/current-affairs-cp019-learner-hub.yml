@@ -1,0 +1,163 @@
+name: Validate Current Affairs Studio CP019
+
+on:
+  pull_request:
+    branches:
+      - New-main
+      - feature/current-affairs-studio-cp017-spaced-repetition
+      - feature/current-affairs-studio-cp018-learner-dashboard
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/current-affairs-quizzes.ts"
+      - "artifacts/examtree/src/App.tsx"
+      - "artifacts/examtree/src/components/AppSidebar.tsx"
+      - "artifacts/examtree/src/components/CurrentAffairsMarkdown.tsx"
+      - "artifacts/examtree/src/lib/current-affairs.ts"
+      - "artifacts/examtree/src/pages/current-affairs*.tsx"
+      - ".github/workflows/current-affairs-cp019-learner-hub.yml"
+  push:
+    branches:
+      - feature/current-affairs-studio-cp019-learner-hub
+    paths:
+      - "artifacts/api-server/src/current-affairs/**"
+      - "artifacts/api-server/src/routes/current-affairs-quizzes.ts"
+      - "artifacts/examtree/src/App.tsx"
+      - "artifacts/examtree/src/components/AppSidebar.tsx"
+      - "artifacts/examtree/src/components/CurrentAffairsMarkdown.tsx"
+      - "artifacts/examtree/src/lib/current-affairs.ts"
+      - "artifacts/examtree/src/pages/current-affairs*.tsx"
+      - ".github/workflows/current-affairs-cp019-learner-hub.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-cp019-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-current-affairs-learner-hub:
+    runs-on: ubuntu-latest
+    timeout-minutes: 80
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run Current Affairs CP001-CP018 contracts
+        run: |
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/core.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/ingestion.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/original-authoring.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/multilingual-question-localization.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/periodic-rollup-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/story-threading.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/release-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/question-promotion-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/quiz-delivery-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/revision-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/dashboard-policy.test.ts
+
+      - name: Verify learner hub manifest is release-safe
+        shell: bash
+        run: |
+          set -euo pipefail
+          runtime=artifacts/api-server/src/current-affairs/learner-hub-runtime.ts
+          route=artifacts/api-server/src/routes/current-affairs-quizzes.ts
+          grep -Fq "release.status='approved'" "$runtime"
+          grep -Fq "resource.status='published'" "$runtime"
+          grep -Fq "quiz.status='published'" "$runtime"
+          grep -Fq "HAVING count(DISTINCT link.language_code)" "$runtime"
+          grep -Fq "IN ('en','hi','pa')" "$runtime"
+          grep -Fq 'router.get("/current-affairs/hub"' "$route"
+          if grep -F 'router.get("/current-affairs/hub", authenticate' "$route"; then
+            echo 'Hub manifest should remain public because it only lists already-published resources'
+            exit 1
+          fi
+
+      - name: Verify note reader is safe and release-backed
+        shell: bash
+        run: |
+          set -euo pipefail
+          reader=artifacts/examtree/src/pages/current-affairs-note.tsx
+          markdown=artifacts/examtree/src/components/CurrentAffairsMarkdown.tsx
+          client=artifacts/examtree/src/lib/current-affairs.ts
+          grep -Fq '/learning-resources/' "$client"
+          grep -Fq 'CurrentAffairsMarkdown' "$reader"
+          if grep -Fq 'dangerouslySetInnerHTML' "$reader" "$markdown"; then
+            echo 'Current Affairs note reader must not render raw HTML'
+            exit 1
+          fi
+
+      - name: Verify tracked quiz and anonymous practice split
+        shell: bash
+        run: |
+          set -euo pipefail
+          page=artifacts/examtree/src/pages/current-affairs-quiz.tsx
+          client=artifacts/examtree/src/lib/current-affairs.ts
+          policy=artifacts/api-server/src/current-affairs/quiz-delivery-policy.ts
+          grep -Fq 'if (user)' "$page"
+          grep -Fq 'submitTrackedCurrentAffairsQuiz' "$page"
+          grep -Fq 'gradeCurrentAffairsQuiz' "$page"
+          grep -Fq '/attempts' "$client"
+          grep -Fq '/grade' "$client"
+          grep -Fq 'learnerQuizQuestion' "$policy"
+          grep -Fq 'stem: args.payload.stem' "$policy"
+          grep -Fq 'options: [...args.payload.options]' "$policy"
+
+      - name: Verify revision is authenticated due-only learning
+        shell: bash
+        run: |
+          set -euo pipefail
+          app=artifacts/examtree/src/App.tsx
+          page=artifacts/examtree/src/pages/current-affairs-revision.tsx
+          route=artifacts/api-server/src/routes/current-affairs-quizzes.ts
+          runtime=artifacts/api-server/src/current-affairs/revision-runtime.ts
+          grep -Fq '<ProtectedRoute component={CurrentAffairsRevision}' "$app"
+          grep -Fq 'router.get("/current-affairs/revision", authenticate' "$route"
+          grep -Fq 'router.post("/current-affairs/revision/attempts", authenticate' "$route"
+          grep -Fq 'schedule.next_review_at <= now()' "$runtime"
+          grep -Fq 'submitCurrentAffairsRevision' "$page"
+
+      - name: Verify hub routes and navigation are registered
+        shell: bash
+        run: |
+          set -euo pipefail
+          app=artifacts/examtree/src/App.tsx
+          sidebar=artifacts/examtree/src/components/AppSidebar.tsx
+          hub=artifacts/examtree/src/pages/current-affairs.tsx
+          grep -Fq 'path="/current-affairs"' "$app"
+          grep -Fq 'path="/current-affairs/notes/:code"' "$app"
+          grep -Fq 'path="/current-affairs/quiz/:code"' "$app"
+          grep -Fq 'path="/current-affairs/revision"' "$app"
+          grep -Fq 'label: "Current Affairs"' "$sidebar"
+          grep -Fq 'data-testid="current-affairs-hub"' "$hub"
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck learner frontend
+        run: pnpm --dir artifacts/examtree typecheck
+
+      - name: Build learner frontend
+        run: pnpm --dir artifacts/examtree build
