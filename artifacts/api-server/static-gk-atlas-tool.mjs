@@ -15,6 +15,7 @@ const TOOLS = {
   "export-tropic-scene": "devtools/export-tropic-scene.ts",
   "export-tropic-contact-sheet": "devtools/export-tropic-contact-sheet.ts",
   "export-standard-meridian-contact-sheet": "devtools/export-standard-meridian-contact-sheet.ts",
+  "generate-ai-video-plates": "devtools/generate-ai-video-plates.ts",
   "render-vertical-video": "devtools/render-vertical-video.ts",
   "synthesize-narration": "devtools/synthesize-narration.ts",
   "assemble-narrated-master": "devtools/assemble-narrated-master.ts",
@@ -38,20 +39,14 @@ const TESTS = [
   "tests/loudness-qa.test.ts",
   "tests/thumbnail.test.ts",
   "tests/render-job-contract.test.ts",
+  "tests/ai-video.test.ts",
 ];
 
 async function bundle(entryRelative, outputName) {
   await mkdir(outRoot, { recursive: true });
   const outfile = path.join(outRoot, `${outputName}.mjs`);
   await build({
-    entryPoints: [path.join(srcRoot, entryRelative)],
-    outfile,
-    bundle: true,
-    platform: "node",
-    format: "esm",
-    target: "node22",
-    sourcemap: false,
-    logLevel: "warning",
+    entryPoints: [path.join(srcRoot, entryRelative)], outfile, bundle: true, platform: "node", format: "esm", target: "node22", sourcemap: false, logLevel: "warning",
   });
   return outfile;
 }
@@ -64,6 +59,7 @@ function runNode(args) {
 
 async function runTests() {
   await bundle(TOOLS["run-prepublication-job"], "run-prepublication-job-build-check");
+  await bundle(TOOLS["generate-ai-video-plates"], "generate-ai-video-plates-build-check");
   const outputs = [];
   for (const testPath of TESTS) {
     const outputName = path.basename(testPath, ".ts");
@@ -74,15 +70,8 @@ async function runTests() {
 
 async function main() {
   const [, , command, ...args] = process.argv;
-  if (!command) {
-    throw new Error(
-      `Usage: node static-gk-atlas-tool.mjs <${[...Object.keys(TOOLS), "test"].join("|")}> [arguments...]`,
-    );
-  }
-  if (command === "test") {
-    await runTests();
-    return;
-  }
+  if (!command) throw new Error(`Usage: node static-gk-atlas-tool.mjs <${[...Object.keys(TOOLS), "test"].join("|")}> [arguments...]`);
+  if (command === "test") { await runTests(); return; }
   const entry = TOOLS[command];
   if (!entry) throw new Error(`Unknown Static GK Visual Atlas tool: ${command}`);
   const outfile = await bundle(entry, command);
