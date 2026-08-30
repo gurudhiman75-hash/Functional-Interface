@@ -21,6 +21,8 @@ export type CurrentAffairsQuestionEditorialInput = {
   acceptedQuestionId?: string | null;
   activePromotion: boolean;
   activeApprovedRelease: boolean;
+  expectedHindiOptions?: string[];
+  expectedPunjabiOptions?: string[];
   hindi?: QuestionEditorialLocalizationSnapshot | null;
   punjabi?: QuestionEditorialLocalizationSnapshot | null;
 };
@@ -39,6 +41,7 @@ export type CurrentAffairsQuestionEditorialReadiness = {
     hindiCurrent: boolean;
     punjabiCurrent: boolean;
     answerParity: boolean;
+    optionSemanticParity: boolean;
   };
 };
 
@@ -106,6 +109,29 @@ function localizationAnswerParity(
     && bankOnly(snapshot.payload);
 }
 
+function exactOptions(actual: string[], expected: string[]): boolean {
+  return actual.length === expected.length && actual.every((value, index) => value === expected[index]);
+}
+
+function semanticOptionParity(input: CurrentAffairsQuestionEditorialInput): boolean {
+  if (!input.hindi?.payload || !input.punjabi?.payload) return false;
+  const source = options(input.sourcePayload);
+  const hindi = options(input.hindi.payload);
+  const punjabi = options(input.punjabi.payload);
+  if (input.questionFamily === "CA-QL-001") {
+    return exactOptions(hindi, source) && exactOptions(punjabi, source);
+  }
+  if (input.questionFamily === "CA-QL-002") {
+    const expectedHindi = input.expectedHindiOptions ?? [];
+    const expectedPunjabi = input.expectedPunjabiOptions ?? [];
+    return expectedHindi.length === source.length
+      && expectedPunjabi.length === source.length
+      && exactOptions(hindi, expectedHindi)
+      && exactOptions(punjabi, expectedPunjabi);
+  }
+  return false;
+}
+
 export function evaluateCurrentAffairsQuestionEditorialReadiness(
   input: CurrentAffairsQuestionEditorialInput,
 ): CurrentAffairsQuestionEditorialReadiness {
@@ -160,13 +186,21 @@ export function evaluateCurrentAffairsQuestionEditorialReadiness(
     && factPreserved(input.punjabi!.payload!, input.factValue);
   if (!answerParity) blockers.push("English, Hindi and Punjabi must preserve option count, correct index and canonical fact value");
 
+  const optionSemanticParity = hindiCurrent && punjabiCurrent && semanticOptionParity(input);
+  if (!optionSemanticParity) {
+    blockers.push(input.questionFamily === "CA-QL-002"
+      ? "Every localized event-title option must match the current approved event-title localization"
+      : "Fact-recall option values must remain exactly canonical in every language");
+  }
+
   const editable = lifecycleUnlocked && eventVerified && conflictFree && englishBankOnly;
   const approvable = editable
     && englishAnswerValid
     && canonicalFactPreserved
     && hindiCurrent
     && punjabiCurrent
-    && answerParity;
+    && answerParity
+    && optionSemanticParity;
 
   return {
     editable,
@@ -182,6 +216,7 @@ export function evaluateCurrentAffairsQuestionEditorialReadiness(
       hindiCurrent,
       punjabiCurrent,
       answerParity,
+      optionSemanticParity,
     },
   };
 }
