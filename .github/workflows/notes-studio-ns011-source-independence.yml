@@ -1,0 +1,69 @@
+name: Validate Notes Studio NS-011 Source Independence
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/notes-studio/source-pack-policy.ts
+      - artifacts/api-server/src/notes-studio/source-pack-policy.test.ts
+      - artifacts/api-server/src/notes-studio/source-pack-proposal.ts
+      - artifacts/api-server/src/notes-studio/source-pack-proposal.test.ts
+      - artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
+      - artifacts/api-server/src/routes/admin-notes-studio-source-pack-proposals.ts
+      - artifacts/admin-app/src/pages/content/NotesStudioSourcePolicyPage.tsx
+      - docs/notes-studio-ns011-source-independence.md
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notes-studio-ns011-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-notes-studio-source-independence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run source policy and proposal contracts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/source-pack-policy.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-source-pack-policy.test.mjs
+          node artifacts/api-server/dist/notes-studio-source-pack-policy.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/source-pack-proposal.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-source-pack-proposal.test.mjs
+          node artifacts/api-server/dist/notes-studio-source-pack-proposal.test.mjs
+
+      - name: Verify independence boundaries
+        run: |
+          grep -F 'INSUFFICIENT_UNIQUE_CONTENT' artifacts/api-server/src/notes-studio/source-pack-policy.ts
+          grep -F 'INSUFFICIENT_SOURCE_IDENTITIES' artifacts/api-server/src/notes-studio/source-pack-policy.ts
+          grep -F 'document.content_hash AS "contentHash"' artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
+          grep -F 'noteSourceIdentity(source.publisher, source.sourceUri)' artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
+          grep -F 'status.policy.integrity.findings' artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
+          grep -F "addWinner(winner, 'source_integrity'" artifacts/api-server/src/notes-studio/source-pack-proposal.ts
+          grep -F 'existingContentHashes' artifacts/api-server/src/routes/admin-notes-studio-source-pack-proposals.ts
+          grep -F 'existingSourceIdentities' artifacts/api-server/src/routes/admin-notes-studio-source-pack-proposals.ts
+          grep -F 'Independent content' artifacts/admin-app/src/pages/content/NotesStudioSourcePolicyPage.tsx
+          grep -F 'Independent identities' artifacts/admin-app/src/pages/content/NotesStudioSourcePolicyPage.tsx
+          grep -F '[89ab][0-9a-f]{3}-[0-9a-f]{12}' artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin app
+        run: pnpm --dir artifacts/admin-app typecheck
