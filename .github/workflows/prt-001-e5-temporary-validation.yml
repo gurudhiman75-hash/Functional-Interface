@@ -1,0 +1,52 @@
+name: Temporary PRT-001 E5 validation
+
+on:
+  pull_request:
+    branches:
+      - feat/prt-001-exhaustiveness-e4
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/**
+      - .github/workflows/prt-001-e5-temporary-validation.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: prt-001-e5-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-prt-001-e5:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck PRT-001 package
+        run: |
+          cat > artifacts/api-server/tsconfig.prt001-e5.json <<'EOF'
+          {
+            "extends": "./tsconfig.json",
+            "compilerOptions": { "noEmit": true },
+            "include": [
+              "src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/foundation/**/*.ts",
+              "src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/index.ts",
+              "src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001.test.ts"
+            ],
+            "exclude": []
+          }
+          EOF
+          pnpm --dir artifacts/api-server exec tsc -p tsconfig.prt001-e5.json --noEmit
+      - name: Run PRT-001 seeded corpus
+        run: pnpm --dir artifacts/api-server run test:prt-001
+      - name: Run PRT-001 freeze audit
+        run: pnpm --dir artifacts/api-server run audit:prt-001
