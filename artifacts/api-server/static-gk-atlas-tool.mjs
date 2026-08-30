@@ -17,6 +17,7 @@ const TOOLS = {
   "export-standard-meridian-contact-sheet": "devtools/export-standard-meridian-contact-sheet.ts",
   "render-vertical-video": "devtools/render-vertical-video.ts",
   "synthesize-narration": "devtools/synthesize-narration.ts",
+  "assemble-narrated-master": "devtools/assemble-narrated-master.ts",
 };
 
 const TESTS = [
@@ -30,6 +31,8 @@ const TESTS = [
   "tests/narration-timeline.test.ts",
   "tests/openai-tts-provider.test.ts",
   "tests/wav-duration.test.ts",
+  "tests/tts-manifest.test.ts",
+  "tests/narrated-master.test.ts",
 ];
 
 async function bundle(entryRelative, outputName) {
