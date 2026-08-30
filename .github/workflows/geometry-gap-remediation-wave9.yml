@@ -1,0 +1,63 @@
+name: Validate Geometry Gap Remediation Wave 9
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/shared/geometry/**
+      - artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/**
+      - .github/workflows/geometry-gap-remediation-wave9.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geometry-gap-remediation-wave9-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-geometry-gap-remediation-wave9:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Validate retained source audit
+        run: node artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/source-audit/validate-source-saturation-audit-v1.mjs
+      - name: Run retained Geometry Phases 0 through 5
+        run: |
+          set -euo pipefail
+          for phase in 0 1 2 3 4 5; do
+            pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/run-phase${phase}.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-phase${phase}-retained-for-gap-wave9.test.mjs
+            node artifacts/api-server/dist/quant-v4/geometry-phase${phase}-retained-for-gap-wave9.test.mjs
+          done
+      - name: Run retained Geometry Gap Remediation Waves 1 through 8
+        run: |
+          set -euo pipefail
+          for wave in 1 2 3 4 5 6 7 8; do
+            pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/gap-remediation-wave${wave}.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-gap-remediation-wave${wave}-retained-for-wave9.test.mjs
+            node artifacts/api-server/dist/quant-v4/geometry-gap-remediation-wave${wave}-retained-for-wave9.test.mjs
+          done
+      - name: Run Wave 9 proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/tests/gap-remediation-wave9.test.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-gap-remediation-wave9.test.mjs
+          node artifacts/api-server/dist/quant-v4/geometry-gap-remediation-wave9.test.mjs
+      - name: Export Wave 9 review
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/AdvancedMathematics/subtopics/Geometry/source-remediation/wave9-review-export.ts --bundle --platform=node --format=esm --outfile=dist/quant-v4/geometry-gap-remediation-wave9-review-export.mjs
+          (cd artifacts/api-server && node dist/quant-v4/geometry-gap-remediation-wave9-review-export.mjs)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: geometry-gap-remediation-wave9-review
+          path: artifacts/api-server/dist/quant-v4/geometry-gap-remediation-wave9-review
+          if-no-files-found: error
+          retention-days: 30

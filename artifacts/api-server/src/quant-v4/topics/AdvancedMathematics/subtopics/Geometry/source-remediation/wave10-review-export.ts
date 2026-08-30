@@ -1,0 +1,11 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { GEO_GAP_REMEDIATION_WAVE10_PROTOTYPES } from "./wave10-prototypes";
+import { GEO_GAP_REMEDIATION_WAVE10_SOURCE_EVIDENCE } from "./wave10-source-evidence";
+const out = resolve(process.cwd(), "dist/quant-v4/geometry-gap-remediation-wave10-review"); mkdirSync(out,{recursive:true});
+const seeds=["wave10-a","wave10-b","wave10-c"] as const; const questions=GEO_GAP_REMEDIATION_WAVE10_PROTOTYPES.flatMap(p=>seeds.map(s=>p.generate(s)));
+const json=(v:unknown)=>JSON.stringify(v,(_k,x)=>typeof x==="bigint"?x.toString():x,2);
+writeFileSync(resolve(out,"geometry-gap-remediation-wave10-review.json"),`${json({status:"SOURCE_GAP_REMEDIATION_WAVE10_REVIEW_CANDIDATE",scope:"GEO-CP-004..005 congruence and similarity closure",approvedTemporaryPrototypeCountBeforeWave8:63,wave8Candidates:3,wave9Candidates:4,wave10Candidates:GEO_GAP_REMEDIATION_WAVE10_PROTOTYPES.length,currentTemporaryPrototypeCandidateCount:75,permanentQlCount:0,frozenSolveModeCount:0,sourceEvidence:GEO_GAP_REMEDIATION_WAVE10_SOURCE_EVIDENCE,questions})}\n`);
+const esc=(s:string)=>s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+writeFileSync(resolve(out,"geometry-gap-remediation-wave10-review.html"),`<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:Arial;margin:24px;color:#111}.q{border:1px solid #ddd;padding:16px;margin:18px 0;border-radius:9px}.d{max-width:500px;margin:auto}.e{background:#f7f7f7;padding:10px}svg{width:100%;height:auto}</style></head><body><h1>Geometry Wave 10 Review</h1><p>Review candidate only; no permanent QLs or product activation.</p>${questions.map((q,i)=>`<section class="q"><small>${i+1}. ${esc(q.temporaryPrototypeId)} · ${esc(q.seed)}</small><h3>${esc(q.stem)}</h3>${q.stemSvg?`<div class="d">${q.stemSvg}</div>`:""}${q.options.map((o,j)=>`<div>${String.fromCharCode(65+j)}. ${esc(o)}</div>`).join("")}<p><b>Answer:</b> ${esc(q.answer)}</p><div class="e">${q.explanation.lines.map(esc).join("<br>")}</div></section>`).join("")}</body></html>`);
+console.log(JSON.stringify({status:"EXPORTED_GEO_GAP_REMEDIATION_WAVE10_REVIEW",questionCount:questions.length,outputDirectory:out}));

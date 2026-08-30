@@ -29,6 +29,12 @@ import {
   listMal001StandardQuestionStudioPackages,
   type Mal001StandardQuestionStudioRequest,
 } from "./topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-standard-integration";
+import {
+  generateGeo001StandardQuestionStudioBatch,
+  isGeo001StandardQuestionStudioRequest,
+  listGeo001StandardQuestionStudioPackages,
+  type Geo001StandardQuestionStudioRequest,
+} from "./topics/AdvancedMathematics/subtopics/Geometry/question-studio-standard-integration";
 
 export type {
   QuantV4Difficulty,
@@ -52,12 +58,22 @@ export function listQuantV4Packages() {
     ...listProbabilityStandardQuestionStudioPackages(),
     ...listBlr001StandardQuestionStudioPackages(),
     ...listIop001StandardQuestionStudioPackages(),
+    ...listGeo001StandardQuestionStudioPackages(),
   ].sort((left, right) => left.packageId.localeCompare(right.packageId));
 }
 
 export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
   if (isIop001StandardQuestionStudioRequest(request as Iop001QuestionStudioRequest)) {
     return generateIop001StandardQuestionStudioBatch(request as Iop001QuestionStudioRequest);
+  }
+  if (
+    isGeo001StandardQuestionStudioRequest(
+      request as Geo001StandardQuestionStudioRequest,
+    )
+  ) {
+    return generateGeo001StandardQuestionStudioBatch(
+      request as Geo001StandardQuestionStudioRequest,
+    );
   }
   if (
     isMal001StandardQuestionStudioRequest(

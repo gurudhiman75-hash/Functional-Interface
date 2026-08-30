@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "geo-source-saturation-audit-v1",
+  "auditId": "GEO-SOURCE-SATURATION-AUDIT-V1",
+  "authority": {
+    "revision": 3,
+    "baseRevision2Sha256": "1790e494167121d2541145deea128d202feb125496ac72533a3340f09edf10d8",
+    "diagramPolicyAmendmentSha256": "08b8560c195b0bc090ef1c9c5ced5d0723c076db3bf7096fb01a108df2b06bf2",
+    "headBeforeAudit": "49f6256a43027f78c7aaf42d4fb6847faa07069e",
+    "currentTemporaryPrototypeCount": 38,
+    "permanentQlCount": 0,
+    "frozenSolveModeCount": 0
+  },
+  "principles": {
+    "sourceFrequencyDoesNotCreatePermanentQl": true,
+    "mergeOnlyWhenLearnerDecisionAndVerifierRouteAreMateriallySame": true,
+    "directInverseMaySplitWhenLearnerDecisionChanges": true,
+    "diagramDispositionIsQlRepresentationContract": true,
+    "diagramDispositionIsProvisionalUntilFreeze": true,
+    "mensurationMeasurementOwnershipSeparate": true,
+    "trigonometricSolveOwnershipSeparate": true,
+    "coordinateGeometryExcluded": true,
+    "bankingEligibilityRequiresContemporaryEvidence": true,
+    "punjabEligibilityRequiresRecruitmentPyqEvidence": true
+  },
+  "sources": [
+    {"id":"SRC-SSC-CPO-SYLLABUS-SATHEE-2026","kind":"SSC_SYLLABUS_REFERENCE","url":"https://sathee.iitk.ac.in/or/sathee-ssc/ssc-exams/ssc-cpo/ssc-details/syllabus-of-exam/","coverage":["TRIANGLE_CENTRES","CONGRUENCE","SIMILARITY","CIRCLE_CHORDS","TANGENTS","CHORD_ANGLES","COMMON_TANGENTS"]},
+    {"id":"SRC-SSC-CHSL-SYLLABUS-SATHEE-2026","kind":"SSC_SYLLABUS_REFERENCE","url":"https://sathee.iitk.ac.in/sathee-ssc/ssc-exams/ssc-chsl/ssc-details/syllabus-of-exam//","coverage":["TRIANGLE_CENTRES","CONGRUENCE","SIMILARITY","CIRCLE_CHORDS","TANGENTS","CHORD_ANGLES","COMMON_TANGENTS"]},
+    {"id":"SRC-TESTBOOK-SSC-CGL-GEOMETRY-PYQ-2026","kind":"SSC_CGL_PYQ_COMPILATION","url":"https://testbook.com/questions/ssc-cgl-geometry-questions--637ef1e339bc1b0746b95aa8","coverage":["CENTRAL_INSCRIBED","TANGENT_CHORD","EQUAL_TANGENTS","COMMON_TANGENT","BPT","SIMILARITY_SCALE","CIRCUMCENTRE","POWER_OF_POINT","MIXED_CIRCLE"]},
+    {"id":"SRC-TESTBOOK-SSC-CHSL-GEOMETRY-PYQ-2026","kind":"SSC_CHSL_PYQ_COMPILATION","url":"https://testbook.com/questions/ssc-chsl-geometry-questions--63914de83b9fef3bff98ae36","coverage":["TRIANGLE_CENTRES","INCIRCLE_EQUAL_TANGENTS","COMMON_TANGENT_SIMILARITY","CYCLIC_CHAIN"]},
+    {"id":"SRC-OLIVEBOARD-CGL-TANGENT-PYQ-2024","kind":"SSC_CGL_PYQ","url":"https://www.oliveboard.in/question-answer/pyq-let-c-be-a-circle-with-centre-o-and-p-be-an-external-point-to-c-let","coverage":["ANGLE_BETWEEN_TANGENTS","TANGENT_RADIUS","EQUAL_TANGENTS"]},
+    {"id":"SRC-OLIVEBOARD-CGL-CYCLIC-PYQ-2023","kind":"SSC_CGL_PYQ","url":"https://www.oliveboard.in/question-answer/pyq-abcd-is-a-cyclic-quadrilateral-and-bc-is-a-diameter-of-the-related","coverage":["SEMICIRCLE","CYCLIC_OPPOSITE","MIXED_CYCLIC_CHAIN"]},
+    {"id":"SRC-TESTBOOK-SSC-GEOMETRY-TAXONOMY-2026","kind":"COMPETITIVE_EXAM_REFERENCE","url":"https://testbook.com/ssc-cgl-exam/geometry-notes","coverage":["LINES_ANGLES","TRIANGLES","CONGRUENCE","SIMILARITY","CENTRES","QUADRILATERALS","POLYGONS","CIRCLES"]},
+    {"id":"SRC-PUNJAB-EDUCARE-MATH-CURRICULUM","kind":"PUNJAB_SCHOOL_CURRICULUM_REFERENCE","url":"https://www.punjabeducare.org/10th-math","coverage":["TRIANGLES","CIRCLES","PUNJABI_TERMINOLOGY"]}
+  ],
+  "examScope": {
+    "SSC": {"status":"DIRECT_SYLLABUS_AND_PYQ_EVIDENCE_PRESENT__SATURATION_NOT_CLOSED"},
+    "BANKING": {"status":"NOT_ESTABLISHED"},
+    "PUNJAB_STATE": {"status":"RECRUITMENT_PYQ_SATURATION_NOT_ESTABLISHED"}
+  },
+  "diagramPolicy": {
+    "allowedDispositions": ["NO_DIAGRAM","OPTIONAL_STEM_DIAGRAM","REQUIRED_STEM_DIAGRAM","REQUIRED_SOLUTION_DIAGRAM","REQUIRED_BOTH"],
+    "status": "PROVISIONAL_DISPOSITIONS_ASSIGNED__FREEZE_REVIEW_REQUIRED"
+  },
+  "chapterAudits": [
+    {"chapterId":"GEO-CP-001","verdict":"REMEDIATION_REQUIRED_BEFORE_EXAM_SATURATION","currentTechnicalAnchors":2,"normalizedLearnerArchetypes":[
+      {"id":"GEO001-LA-01","name":"Vertical-angle recovery","maps":["GEO-TMP-CP001-VERTICAL-ANGLE-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"},
+      {"id":"GEO001-LA-02","name":"Linear-pair recovery","maps":["GEO-TMP-CP001-LINEAR-PAIR-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"}
+    ],"newGapCandidates":["AROUND_POINT_SUM","ALGEBRAIC_X_INTERSECTION","COMPLEMENTARY_SUPPLEMENTARY_IDENTIFICATION"],"mergeSplitFindings":["Vertical equality and linear-pair supplementation remain separate learner decisions."]},
+
+    {"chapterId":"GEO-CP-002","verdict":"REMEDIATION_REQUIRED_BEFORE_EXAM_SATURATION","currentTechnicalAnchors":2,"normalizedLearnerArchetypes":[
+      {"id":"GEO002-LA-01","name":"Parallel-transversal angle transfer","maps":["GEO-TMP-CP002-CORRESPONDING-V1","GEO-TMP-CP002-COINTERIOR-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"}
+    ],"newGapCandidates":["ALTERNATE_ANGLE_TRANSFER","CONVERSE_PARALLELISM","MULTI_TRANSVERSAL_OR_TRIANGLE_PARALLEL_CHAIN"],"mergeSplitFindings":["Corresponding and co-interior direct forms are merge candidates under relationKind; converse parallelism remains split."]},
+
+    {"chapterId":"GEO-CP-003","verdict":"REMEDIATION_REQUIRED_BEFORE_EXAM_SATURATION","currentTechnicalAnchors":4,"normalizedLearnerArchetypes":[
+      {"id":"GEO003-LA-01","name":"Triangle angle completion","maps":["GEO-TMP-CP003-THIRD-ANGLE-V1","GEO-TMP-CP003-EXTERIOR-ANGLE-V1"],"diagramDisposition":"OPTIONAL_STEM_DIAGRAM"},
+      {"id":"GEO003-LA-02","name":"Isosceles property","maps":["GEO-TMP-CP003-ISOSCELES-BASE-V1"],"diagramDisposition":"OPTIONAL_STEM_DIAGRAM"},
+      {"id":"GEO003-LA-03","name":"Triangle inequality range","maps":["GEO-TMP-CP003-TRIANGLE-INEQUALITY-RANGE-V1"],"diagramDisposition":"NO_DIAGRAM"}
+    ],"newGapCandidates":["ISOSCELES_CONVERSE","SIDE_ANGLE_ORDERING","INTEGER_TRIANGLE_INEQUALITY_COUNT_OR_VALIDITY","TRIANGLE_CLASSIFICATION_OR_CLAIM"],"mergeSplitFindings":["Interior and exterior angle completion may parameterize one authority; inequality remains separate."]},
+
+    {"chapterId":"GEO-CP-004","verdict":"REMEDIATION_REQUIRED_BEFORE_EXAM_SATURATION","currentTechnicalAnchors":2,"normalizedLearnerArchetypes":[
+      {"id":"GEO004-LA-01","name":"Congruence-criterion selection","maps":["GEO-TMP-CP004-RHS-CRITERION-V1"],"diagramDisposition":"OPTIONAL_STEM_DIAGRAM"},
+      {"id":"GEO004-LA-02","name":"CPCT/correspondence consequence","maps":["GEO-TMP-CP004-CPCT-CORRESPONDENCE-V1"],"diagramDisposition":"OPTIONAL_STEM_DIAGRAM"}
+    ],"newGapCandidates":["SSS_SAS_ASA_AAS_VARIANTS","SSA_AAA_INSUFFICIENCY","CONGRUENCE_EVIDENCE_SUFFICIENCY","CPCT_MISSING_SIDE_OR_ANGLE"],"mergeSplitFindings":["Criterion selection and CPCT consequence stay split; valid criteria may parameterize criterion selection."]},
+
+    {"chapterId":"GEO-CP-005","verdict":"REMEDIATION_REQUIRED_BEFORE_EXAM_SATURATION","currentTechnicalAnchors":3,"normalizedLearnerArchetypes":[
+      {"id":"GEO005-LA-01","name":"Similarity correspondence","maps":["GEO-TMP-CP005-AA-CORRESPONDENCE-V1"],"diagramDisposition":"OPTIONAL_STEM_DIAGRAM"},
+      {"id":"GEO005-LA-02","name":"Similarity-scale measure recovery","maps":["GEO-TMP-CP005-MISSING-SIDE-V1"],"diagramDisposition":"OPTIONAL_STEM_DIAGRAM"},
+      {"id":"GEO005-LA-03","name":"BPT direct segment recovery","maps":["GEO-TMP-CP005-BPT-DIRECT-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"}
+    ],"newGapCandidates":["SAS_SSS_SIMILARITY","BPT_CONVERSE","PERIMETER_RATIO_SIMILARITY_SCALE","AREA_RATIO_SIMILARITY_SCALE_OWNERSHIP_REVIEW","NESTED_SIMILARITY_CHAIN"],"mergeSplitFindings":["AA/SAS/SSS are evidence modes, not automatic QL splits; BPT direct and converse remain directionally distinct."]},
+
+    {"chapterId":"GEO-CP-006","verdict":"SOURCE_OBSERVED_REMEDIATION_REQUIRED","currentTechnicalAnchors":3,"normalizedLearnerArchetypes":[
+      {"id":"GEO006-LA-01","name":"Centroid median division","maps":["GEO-TMP-CP006-CENTROID-2TO1-V1"],"diagramDisposition":"OPTIONAL_STEM_DIAGRAM"},
+      {"id":"GEO006-LA-02","name":"Angle-bisector theorem","maps":["GEO-TMP-CP006-ANGLE-BISECTOR-RATIO-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"},
+      {"id":"GEO006-LA-03","name":"Midpoint theorem","maps":["GEO-TMP-CP006-MIDPOINT-THEOREM-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"}
+    ],"newGapCandidates":["CENTRE_IDENTIFICATION","CIRCUMCENTRE_OR_INCENTRE_ANGLE_PROPERTY","PERPENDICULAR_BISECTOR_EQUAL_DISTANCE_AND_CONVERSE","CENTROID_INVERSE","MIDPOINT_CONVERSE"],"mergeSplitFindings":["Centre identification is distinct from metric centre theorems; equilateral centre coincidence is an edge representation."]},
+
+    {"chapterId":"GEO-CP-007","verdict":"REMEDIATION_REQUIRED_BEFORE_EXAM_SATURATION","currentTechnicalAnchors":2,"normalizedLearnerArchetypes":[
+      {"id":"GEO007-LA-01","name":"Pythagorean-converse classification","maps":["GEO-TMP-CP007-PYTHAGOREAN-CONVERSE-V1"],"diagramDisposition":"NO_DIAGRAM"},
+      {"id":"GEO007-LA-02","name":"Median to hypotenuse","maps":["GEO-TMP-CP007-HYPOTENUSE-MEDIAN-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"}
+    ],"newGapCandidates":["RIGHT_TRIANGLE_CIRCUMCENTRE_MIDPOINT_RELATION","RIGHT_TRIANGLE_PROPERTY_REVERSE_OR_CLAIM"],"mergeSplitFindings":["Routine missing-side Pythagoras remains outside CP-007."]},
+
+    {"chapterId":"GEO-CP-008","verdict":"REMEDIATION_REQUIRED_BEFORE_EXAM_SATURATION","currentTechnicalAnchors":3,"normalizedLearnerArchetypes":[
+      {"id":"GEO008-LA-01","name":"Quadrilateral angle completion","maps":["GEO-TMP-CP008-FOURTH-ANGLE-V1"],"diagramDisposition":"NO_DIAGRAM"},
+      {"id":"GEO008-LA-02","name":"Parallelogram diagonal property","maps":["GEO-TMP-CP008-PARALLELOGRAM-DIAGONAL-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"},
+      {"id":"GEO008-LA-03","name":"Rhombus diagonal property","maps":["GEO-TMP-CP008-RHOMBUS-DIAGONAL-ANGLE-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"}
+    ],"newGapCandidates":["RECTANGLE_PROPERTIES","SQUARE_STRONGER_SUBTYPE","KITE_TRAPEZIUM_PROPERTY_RECOGNITION","CONVERSE_QUADRILATERAL_CLASSIFICATION","INSUFFICIENT_PROPERTY_SETS"],"mergeSplitFindings":["Property evaluation and converse classification stay split; measurement targets remain Mensuration-owned."]},
+
+    {"chapterId":"GEO-CP-009","verdict":"REMEDIATION_REQUIRED_BEFORE_EXAM_SATURATION","currentTechnicalAnchors":4,"normalizedLearnerArchetypes":[
+      {"id":"GEO009-LA-01","name":"Regular polygon angle/side-count inversion","maps":["GEO-TMP-CP009-EXTERIOR-FROM-N-V1","GEO-TMP-CP009-N-FROM-EXTERIOR-V1","GEO-TMP-CP009-N-FROM-INTERIOR-V1"],"diagramDisposition":"NO_DIAGRAM"},
+      {"id":"GEO009-LA-02","name":"Polygon diagonal count","maps":["GEO-TMP-CP009-DIAGONAL-COUNT-V1"],"diagramDisposition":"NO_DIAGRAM"}
+    ],"newGapCandidates":["INTERIOR_SUM_AND_INVERSE","GENERAL_EXTERIOR_SUM_OR_MISSING_ANGLE","MIXED_POLYGON_ANGLE_CHAIN_OR_CLAIM"],"mergeSplitFindings":["Regular angle/side-count inversions are merge candidates under direction and angleKind; diagonal counting stays separate."]},
+
+    {"chapterId":"GEO-CP-010","verdict":"SOURCE_OBSERVED_REMEDIATION_REQUIRED","currentTechnicalAnchors":2,"normalizedLearnerArchetypes":[
+      {"id":"GEO010-LA-01","name":"Centre-perpendicular chord bisection","maps":["GEO-TMP-CP010-CENTRE-PERP-CHORD-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"},
+      {"id":"GEO010-LA-02","name":"Equal centre-distance/equal-chord relation","maps":["GEO-TMP-CP010-EQUAL-CENTRE-DISTANCE-CHORD-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"}
+    ],"newGapCandidates":["EQUAL_CHORDS_EQUAL_CENTRAL_ANGLES_OR_ARCS_AND_CONVERSE","CHORD_DISTANCE_RELATION_BOTH_DIRECTIONS","CENTRE_PERP_CONFIGURATION_INVERSE"],"mergeSplitFindings":["Equal chord/distance directions may parameterize one equivalence authority; central-angle/arc equality remains separate."]},
+
+    {"chapterId":"GEO-CP-011","verdict":"SOURCE_OBSERVED_REMEDIATION_REQUIRED","currentTechnicalAnchors":2,"normalizedLearnerArchetypes":[
+      {"id":"GEO011-LA-01","name":"Central/inscribed same-arc angle","maps":["GEO-TMP-CP011-CENTRAL-FROM-INSCRIBED-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"},
+      {"id":"GEO011-LA-02","name":"Cyclic opposite angles","maps":["GEO-TMP-CP011-CYCLIC-OPPOSITE-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"}
+    ],"newGapCandidates":["ANGLE_IN_SEMICIRCLE","SAME_SEGMENT_ANGLE","CYCLIC_EXTERIOR_ANGLE","CYCLIC_CONVERSE","SEMICIRCLE_PLUS_CYCLIC_CHAIN"],"mergeSplitFindings":["Same-segment and central/inscribed relations share arc semantics but remain separate pending representation testing."]},
+
+    {"chapterId":"GEO-CP-012","verdict":"SOURCE_OBSERVED_REMEDIATION_REQUIRED","currentTechnicalAnchors":2,"normalizedLearnerArchetypes":[
+      {"id":"GEO012-LA-01","name":"Radius perpendicular tangent","maps":["GEO-TMP-CP012-RADIUS-TANGENT-ANGLE-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"},
+      {"id":"GEO012-LA-02","name":"Equal tangents from external point","maps":["GEO-TMP-CP012-EQUAL-TANGENTS-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"}
+    ],"newGapCandidates":["ANGLE_BETWEEN_TANGENTS","TANGENT_CHORD_ALTERNATE_SEGMENT","COMMON_TANGENT_TWO_CIRCLES","INCIRCLE_CONTACT_SEGMENT_REPRESENTATION"],"mergeSplitFindings":["Incircle contact lengths parameterize equal tangents; common-tangent geometry between two circles remains a separate candidate."]},
+
+    {"chapterId":"GEO-CP-013","verdict":"INVARIANT_TOPOLOGY_COVERED__SOURCE_AND_REPRESENTATION_REVIEW_OPEN","currentTechnicalAnchors":3,"normalizedLearnerArchetypes":[
+      {"id":"GEO013-LA-01","name":"Power of a point","maps":["GEO-TMP-CP013-INTERSECTING-CHORDS-V1","GEO-TMP-CP013-SECANT-SECANT-V1","GEO-TMP-CP013-TANGENT-SECANT-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"}
+    ],"newGapCandidates":["REVERSE_UNKNOWN_POSITION_POWER_TOPOLOGIES","POWER_TOPOLOGY_CLAIM_OR_RECOGNITION"],"mergeSplitFindings":["The three current topologies are merge candidates under topology, subject to distractor and diagram-contract comparison."]},
+
+    {"chapterId":"GEO-CP-014","verdict":"SOURCE_OBSERVED_REMEDIATION_REQUIRED","currentTechnicalAnchors":4,"normalizedLearnerArchetypes":[
+      {"id":"GEO014-LA-01","name":"Chord plus right-triangle synthesis","maps":["GEO-TMP-CP014-CHORD-PYTHAGORAS-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"},
+      {"id":"GEO014-LA-02","name":"Cyclic plus isosceles synthesis","maps":["GEO-TMP-CP014-CYCLIC-ISOSCELES-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"},
+      {"id":"GEO014-LA-03","name":"Tangent plus triangle-angle synthesis","maps":["GEO-TMP-CP014-TANGENT-TRIANGLE-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"},
+      {"id":"GEO014-LA-04","name":"BPT plus angle-bisector synthesis","maps":["GEO-TMP-CP014-BPT-BISECTOR-V1"],"diagramDisposition":"REQUIRED_STEM_DIAGRAM"}
+    ],"newGapCandidates":["CENTRAL_OR_INSCRIBED_PLUS_TANGENT_SYNTHESIS","COMMON_TANGENT_PLUS_SIMILARITY_SYNTHESIS","CONGRUENCE_PLUS_PARALLEL_SYNTHESIS","MULTI_THEOREM_STATEMENT_COMPARISON_OR_DATA_SUFFICIENCY"],"mergeSplitFindings":["CP-014 is a synthesis container; materially different theorem graphs must not collapse into one permanent QL."]}
+  ],
+  "crossChapterFindings": [
+    "Coordinate Geometry stays outside GEO-001/GEO-002.",
+    "Mensuration owns requested area/perimeter/surface/volume computation unless the geometry theorem itself is the learner decision.",
+    "Trigonometry owns trigonometric-ratio solves and heights/distances.",
+    "SSC scope is established but source saturation is not.",
+    "Banking Geometry scope is not established.",
+    "Punjab recruitment Geometry saturation is not established."
+  ],
+  "declaredCounts": {
+    "controlledCheckpoints": 14,
+    "currentTemporaryPrototypeCount": 38,
+    "permanentQls": 0,
+    "frozenSolveModes": 0,
+    "newGapCandidates": 52
+  },
+  "gateResult": {
+    "externalSourceAuditWave1": "COMPLETED_WITH_GAPS",
+    "archetypeMergeSplitAudit": "COMPLETED_PROVISIONAL",
+    "diagramDispositionAudit": "PROVISIONAL_COMPLETE_FREEZE_REVIEW_REQUIRED",
+    "sourceSaturationClaimAllowed": false,
+    "permanentQlAllocationAllowed": false,
+    "solveModeFreezeAllowed": false,
+    "questionStudioActivationAllowed": false,
+    "questionBankWriteAllowed": false,
+    "testEligibilityAllowed": false,
+    "publicPublicationAllowed": false,
+    "nextGate": "GEO-GAP-AUTHORITY-AND-RUNTIME-REMEDIATION-V1"
+  }
+}
