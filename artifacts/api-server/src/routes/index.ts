@@ -10,6 +10,7 @@ import adminLearningResourceEditorRouter from "./admin-learning-resource-editor"
 import adminNotesStudioRouter from "./admin-notes-studio";
 import adminNotesStudioEvidenceRouter from "./admin-notes-studio-evidence";
 import adminNotesStudioSectionsRouter from "./admin-notes-studio-sections";
+import adminNotesStudioQualityRouter from "./admin-notes-studio-quality";
 import adminAuditEventsHardeningRouter from "./admin-audit-events-hardening";
 import adminAccessControlHardeningRouter from "./admin-access-control-hardening";
 import adminAccessControlRouter from "./admin-access-control";
@@ -105,6 +106,7 @@ router.use("/admin/learning-resource-editor", adminLearningResourceEditorRouter)
 router.use("/admin/notes-studio", adminNotesStudioRouter);
 router.use("/admin/notes-studio", adminNotesStudioEvidenceRouter);
 router.use("/admin/notes-studio", adminNotesStudioSectionsRouter);
+router.use("/admin/notes-studio", adminNotesStudioQualityRouter);
 router.use("/admin/access-control", adminAuditEventsHardeningRouter);
 router.use("/admin/access-control", adminAccessControlHardeningRouter);
 router.use("/admin/access-control", adminAccessControlRouter);
