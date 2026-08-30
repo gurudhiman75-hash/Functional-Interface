@@ -1,0 +1,100 @@
+name: Validate BTD-001 CP010 Multilingual Question Studio V1
+
+on:
+  push:
+    branches:
+      - feature/btd-cp010-hi-pa-studio-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-010/**'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine-btd.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-btd.ts'
+      - '.github/workflows/btd-cp010-multilingual-question-studio-v1.yml'
+  pull_request:
+    branches:
+      - feature/btd-cp009-hi-pa-freeze-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-010/**'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine-btd.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-btd.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: btd-cp010-multilingual-question-studio-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-btd-cp010-multilingual-question-studio-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out exact head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXPECTED_HEAD }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Re-prove CP009 frozen Hindi Punjabi authority
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-009/btd-cp009-hi-pa-freeze-v1-audit.ts | tee btd-cp010-upstream-cp009.log
+          grep -q 'PASS_BTD_001_CP009_HI_PA_FREEZE_AUDIT_V1' btd-cp010-upstream-cp009.log
+
+      - name: Re-prove CP006 English Question Studio baseline
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-006/btd-cp006-question-studio-review-v1-audit.ts | tee btd-cp010-upstream-cp006.log
+          grep -q 'PASS_BTD_001_CP006_QUESTION_STUDIO_REVIEW_AUDIT_V1' btd-cp010-upstream-cp006.log
+
+      - name: Audit CP010 multilingual Question Studio
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-010/btd-cp010-multilingual-question-studio-v1-audit.ts | tee btd-cp010-multilingual-question-studio-v1.log
+          grep -q 'PASS_BTD_001_CP010_MULTILINGUAL_QUESTION_STUDIO_AUDIT_V1' btd-cp010-multilingual-question-studio-v1.log
+
+      - name: Verify canonical Question Studio routing
+        shell: bash
+        run: |
+          grep -q 'isBtdCp010QuestionStudioRequest' artifacts/api-server/src/routes/admin-question-studio-btd.ts
+          grep -q 'admin-question-studio-btd' artifacts/api-server/src/routes/admin-question-studio-registry.ts
+          grep -q 'generateBtdCp010QuestionStudioBatch' artifacts/api-server/src/question-studio/shared-generation-engine-btd.ts
+          grep -q 'listBtdCp010QuestionStudioPackages' artifacts/api-server/src/question-studio/shared-generation-engine-btd.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Record exact validation head
+        shell: bash
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp010-multilingual-question-studio-v1-head.log
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+
+      - name: Upload CP010 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: btd-cp010-multilingual-question-studio-v1
+          path: |
+            btd-cp010-upstream-cp009.log
+            btd-cp010-upstream-cp006.log
+            btd-cp010-multilingual-question-studio-v1.log
+            btd-cp010-multilingual-question-studio-v1-head.log
+          retention-days: 30

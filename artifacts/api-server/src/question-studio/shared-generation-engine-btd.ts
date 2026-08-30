@@ -4,18 +4,18 @@ import {
   type SharedQuestionStudioGenerationRequest,
 } from "./shared-generation-engine-cp014";
 import {
-  generateBtdCp006QuestionStudioBatch,
-  isBtdCp006QuestionStudioRequest,
-  listBtdCp006QuestionStudioPackages,
-  type BtdCp006QuestionStudioRequest,
-} from "../quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-006/btd-cp006-question-studio-review-v1";
+  generateBtdCp010QuestionStudioBatch,
+  isBtdCp010QuestionStudioRequest,
+  listBtdCp010QuestionStudioPackages,
+  type BtdCp010QuestionStudioRequest,
+} from "../quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-010/btd-cp010-multilingual-question-studio-v1";
 
-export { isBtdCp006QuestionStudioRequest };
-export type { BtdCp006QuestionStudioRequest };
+export { isBtdCp010QuestionStudioRequest };
+export type { BtdCp010QuestionStudioRequest };
 
 export function listQuestionStudioPackages() {
   const previous = [...listPreviousPackages()] as any[];
-  for (const pkg of listBtdCp006QuestionStudioPackages()) {
+  for (const pkg of listBtdCp010QuestionStudioPackages()) {
     if (previous.some((entry) => String(entry.packageId) === pkg.packageId)) {
       throw new Error(`Question Studio package ${pkg.packageId} already exists before BTD activation.`);
     }
@@ -24,7 +24,7 @@ export function listQuestionStudioPackages() {
   return previous;
 }
 
-export async function generateQuestion(request: SharedQuestionStudioGenerationRequest | BtdCp006QuestionStudioRequest = {}) {
-  if (isBtdCp006QuestionStudioRequest(request)) return generateBtdCp006QuestionStudioBatch(request);
+export async function generateQuestion(request: SharedQuestionStudioGenerationRequest | BtdCp010QuestionStudioRequest = {}) {
+  if (isBtdCp010QuestionStudioRequest(request)) return generateBtdCp010QuestionStudioBatch(request);
   return generatePreviousQuestion(request as SharedQuestionStudioGenerationRequest);
 }

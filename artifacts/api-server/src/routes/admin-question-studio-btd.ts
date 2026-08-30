@@ -6,7 +6,7 @@ import { requireAdminPermission } from "../lib/admin-rbac";
 import { authenticate } from "../middlewares/auth";
 import {
   generateQuestion,
-  isBtdCp006QuestionStudioRequest,
+  isBtdCp010QuestionStudioRequest,
   listQuestionStudioPackages,
 } from "../question-studio/shared-generation-engine-btd";
 
@@ -61,7 +61,7 @@ router.get("/capabilities", requireAdminPermission("content.generation.read"), a
 });
 
 router.post("/runs", requireAdminPermission("content.generation.run"), async (req, res, next) => {
-  if (!isBtdCp006QuestionStudioRequest(req.body ?? {})) { next(); return; }
+  if (!isBtdCp010QuestionStudioRequest(req.body ?? {})) { next(); return; }
 
   const count = positiveInt(req.body?.count, 5, 50);
   const packageId = asString(req.body?.packageId) || "BTD-001";
@@ -133,13 +133,13 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
         ${randomUUID()}::uuid, 'user'::audit_actor_type, ${req.adminSession?.user.id ?? null}::uuid,
         'question_studio.generation_run.created', 'generation_run', ${runId}::uuid,
         'Admin generated a review-only Question Studio batch', ${`Generated ${generatedQuestions.length} BTD-001 review questions in ${code}`},
-        ${JSON.stringify({ firebaseUid: req.user?.id, requestSnapshot, lifecycle: "QUESTION_STUDIO_REVIEW_ONLY" })}
+        ${JSON.stringify({ firebaseUid: req.user?.id, requestSnapshot, lifecycle: "QUESTION_STUDIO_MULTILINGUAL_REVIEW_ONLY" })}
       )`;
       await tx`INSERT INTO platform.outbox_events (
         id, aggregate_type, aggregate_id, event_type, payload
       ) VALUES (
         ${randomUUID()}::uuid, 'generation_run', ${runId}::uuid, 'question_studio.generation_run.created',
-        ${JSON.stringify({ runId, publicCode: code, itemCount: generatedQuestions.length, chapter: "BTD-001", lifecycle: "QUESTION_STUDIO_REVIEW_ONLY" })}
+        ${JSON.stringify({ runId, publicCode: code, itemCount: generatedQuestions.length, chapter: "BTD-001", lifecycle: "QUESTION_STUDIO_MULTILINGUAL_REVIEW_ONLY" })}
       )`;
     });
 
