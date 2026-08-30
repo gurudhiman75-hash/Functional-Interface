@@ -2,6 +2,7 @@ import { Router, type Response } from "express";
 
 import { materializeBtdCp014TestProjectionV1 } from "../lib/admin-btd-test-projection-materialization";
 import { enableBtdCp015ScoredTestEligibilityV1 } from "../lib/admin-btd-scored-test-eligibility";
+import { enableBtdCp017MockTestEligibilityV1 } from "../lib/admin-btd-mock-test-eligibility";
 import { QuestionManagementError } from "../lib/admin-question-management";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
@@ -85,6 +86,34 @@ router.post(
       }
       const expectedLockVersion = Number(req.body?.expectedLockVersion);
       const result = await sqlClient.begin((tx) => enableBtdCp015ScoredTestEligibilityV1(
+        tx,
+        questionId,
+        expectedLockVersion,
+        actorUserId,
+      ));
+      res.json(result);
+    } catch (error) {
+      sendError(res, error);
+    }
+  },
+);
+
+router.post(
+  "/btd-test-projections/:id/enable-mock-test",
+  requireAdminPermission("tests.update"),
+  async (req, res) => {
+    try {
+      const actorUserId = req.adminSession?.user.id;
+      if (!actorUserId) {
+        res.status(403).json({ error: "Administrator session required" });
+        return;
+      }
+      const questionId = asText(req.params.id);
+      if (!isUuid(questionId)) {
+        throw new QuestionManagementError("INVALID_QUESTION_ID", "Invalid BTD projection identifier.", 400);
+      }
+      const expectedLockVersion = Number(req.body?.expectedLockVersion);
+      const result = await sqlClient.begin((tx) => enableBtdCp017MockTestEligibilityV1(
         tx,
         questionId,
         expectedLockVersion,

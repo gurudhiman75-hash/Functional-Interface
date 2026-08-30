@@ -1,0 +1,110 @@
+name: Validate BTD-001 CP017 Mock Test Eligibility V1
+
+on:
+  push:
+    branches:
+      - feature/btd-cp017-mock-test-eligibility-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-017/**'
+      - 'artifacts/api-server/src/lib/admin-btd-mock-test-eligibility.ts'
+      - 'artifacts/api-server/src/routes/admin-btd-test-projections.ts'
+      - '.github/workflows/btd-cp017-mock-test-eligibility-v1.yml'
+  pull_request:
+    branches:
+      - feature/btd-cp016-mock-test-eligibility-readiness-v1
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-017/**'
+      - 'artifacts/api-server/src/lib/admin-btd-mock-test-eligibility.ts'
+      - 'artifacts/api-server/src/routes/admin-btd-test-projections.ts'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: btd-cp017-mock-test-eligibility-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-btd-cp017-mock-test-eligibility-v1:
+    runs-on: ubuntu-24.04
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out exact head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXPECTED_HEAD }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: '10.33.0'
+          run_install: false
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Re-prove CP016 mock-test eligibility readiness
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-016/btd-cp016-mock-test-eligibility-readiness-v1-audit.ts | tee btd-cp017-upstream-cp016.log
+          grep -q 'PASS_BTD_001_CP016_MOCK_TEST_ELIGIBILITY_READINESS_AUDIT_V1' btd-cp017-upstream-cp016.log
+
+      - name: Audit CP017 mock-test eligibility authority
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-017/btd-cp017-mock-test-eligibility-v1-audit.ts | tee btd-cp017-mock-test-eligibility-v1.log
+          grep -q 'PASS_BTD_001_CP017_MOCK_TEST_ELIGIBILITY_AUDIT_V1' btd-cp017-mock-test-eligibility-v1.log
+
+      - name: Verify guarded activation and downstream locks
+        shell: bash
+        run: |
+          set -euo pipefail
+          SERVICE='artifacts/api-server/src/lib/admin-btd-mock-test-eligibility.ts'
+          ROUTE='artifacts/api-server/src/routes/admin-btd-test-projections.ts'
+          RUNTIME='artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-017/btd-cp017-mock-test-eligibility-v1.ts'
+          grep -q 'FOR UPDATE OF q' "$SERVICE"
+          grep -q 'testProjectionBundleKey' "$SERVICE"
+          grep -q 'BTD_CP014_TEST_PROJECTION_MATERIALIZATION_VERSION' "$SERVICE"
+          grep -q 'BTD_CP015_SCORED_TEST_ELIGIBILITY_VERSION' "$SERVICE"
+          grep -q 'assertActivePlacement' "$SERVICE"
+          grep -q 'assertApprovedTranslations' "$SERVICE"
+          grep -q 'mockTestEligible: true' "$SERVICE"
+          grep -q 'publiclyPublishable: false' "$SERVICE"
+          grep -q 'automaticStudentPublication: false' "$SERVICE"
+          grep -q 'content.question.btd_mock_test_eligibility_enabled' "$SERVICE"
+          grep -q '/btd-test-projections/:id/enable-mock-test' "$ROUTE"
+          grep -q 'enableBtdCp017MockTestEligibilityV1' "$ROUTE"
+          grep -q 'requireAdminPermission("tests.update")' "$ROUTE"
+          grep -q 'mockTestEligibilityApprovalGranted: true' "$RUNTIME"
+          grep -q 'testEligible: true' "$RUNTIME"
+          grep -q 'mockTestEligible: true' "$RUNTIME"
+          grep -q 'publiclyPublishable: false' "$RUNTIME"
+          grep -q 'automaticStudentPublication: false' "$RUNTIME"
+          grep -q 'projectionContentMutationAuthorized: false' "$RUNTIME"
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Record exact validation head
+        shell: bash
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee btd-cp017-mock-test-eligibility-v1-head.log
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+
+      - name: Upload CP017 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: btd-cp017-mock-test-eligibility-v1
+          path: |
+            btd-cp017-upstream-cp016.log
+            btd-cp017-mock-test-eligibility-v1.log
+            btd-cp017-mock-test-eligibility-v1-head.log
+          retention-days: 30
