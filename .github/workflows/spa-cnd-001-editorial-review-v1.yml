@@ -1,0 +1,62 @@
+name: Validate SPA CND-001 Editorial Review V1
+
+on:
+  push:
+    branches:
+      - feat/spa-cnd-001-cp003-review-v1
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/cubes-dice-merge-split-v1.ts
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/cubes-dice-editorial-runtime-v2.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-cubes-dice-editorial-review-v1.test.ts
+      - .github/workflows/spa-cnd-001-editorial-review-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cnd-editorial-review-v1:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build current API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle CND editorial review proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-cubes-dice-editorial-review-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-cubes-dice-editorial-review-v1.test.mjs
+
+      - name: Validate CND merge split and learner surfaces
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-cubes-dice-editorial-review-v1.test.mjs \
+            | tee dist/reasoning-v1/spatial/spa-cnd-001-editorial-review-v1-run.log
+
+      - name: Upload CND editorial review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-cnd-001-editorial-review-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-cnd-001-editorial-review-v1-run.log
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-cnd-001-editorial-review-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-cnd-001-editorial-review-v1.html
+          if-no-files-found: error
