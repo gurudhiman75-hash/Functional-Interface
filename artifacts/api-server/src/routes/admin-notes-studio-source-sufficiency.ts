@@ -1,4 +1,4 @@
-import { Router, type IRouter, type Response } from 'express';
+import { Router, type IRouter, type NextFunction, type Response } from 'express';
 
 import { requireAdminPermission } from '../lib/admin-rbac';
 import { sqlClient } from '../lib/db';
@@ -38,40 +38,69 @@ function briefDepth(brief: unknown): string {
   return text((brief as Record<string, unknown>).depth, 40) || 'standard';
 }
 
+async function loadSufficiency(jobId: string) {
+  const jobRows = await sqlClient`
+    SELECT id::text AS id, title, state, brief
+    FROM content.note_authoring_jobs
+    WHERE id = ${jobId}::uuid
+    LIMIT 1
+  `;
+  const job = jobRows[0];
+  if (!job) throw new SourceSufficiencyError('JOB_NOT_FOUND', 'Notes Studio authoring job not found.', 404);
+
+  const rows = await sqlClient`
+    SELECT
+      document.id::text AS id,
+      document.source_type AS "sourceType",
+      document.source_uri AS "sourceUri",
+      document.title,
+      document.publisher,
+      document.content_hash AS "contentHash",
+      document.rights_basis AS "rightsBasis",
+      document.retention_mode AS "retentionMode",
+      document.extraction_status AS "extractionStatus",
+      LENGTH(COALESCE(document.extracted_text, ''))::int AS "retainedCharCount",
+      document.captured_at AS "capturedAt"
+    FROM content.note_authoring_sources link
+    JOIN content.source_documents document ON document.id = link.source_document_id
+    WHERE link.job_id = ${jobId}::uuid
+      AND link.inclusion_state = 'included'
+    ORDER BY link.position, link.added_at
+  `;
+  const sufficiency = evaluateSourceSufficiency(briefDepth(job.brief), rows as unknown as SourceSufficiencyInput[]);
+  return { job, sufficiency };
+}
+
 router.use(authenticate);
+
+router.post(
+  '/jobs/:jobId/evidence/rebuild',
+  requireAdminPermission('content.questions.update'),
+  async (req, res, next: NextFunction) => {
+    try {
+      const jobId = uuid(req.params.jobId, 'Authoring job ID');
+      const { sufficiency } = await loadSufficiency(jobId);
+      if (sufficiency.status === 'insufficient') {
+        res.status(409).json({
+          error: 'The source pack does not meet the minimum evidence-build policy for this note depth.',
+          code: 'SOURCE_PACK_INSUFFICIENT',
+          sufficiency,
+          automaticSourceAttachment: false,
+          automaticSourceFetch: false,
+        });
+        return;
+      }
+      next();
+    } catch (error) {
+      sendError(res, error, 'Unable to validate Notes Studio source-pack sufficiency');
+    }
+  },
+);
 
 router.get('/jobs/:jobId/source-sufficiency', requireAdminPermission('content.questions.read'), async (req, res) => {
   try {
     const jobId = uuid(req.params.jobId, 'Authoring job ID');
-    const jobRows = await sqlClient`
-      SELECT id::text AS id, title, state, brief
-      FROM content.note_authoring_jobs
-      WHERE id = ${jobId}::uuid
-      LIMIT 1
-    `;
-    const job = jobRows[0];
-    if (!job) throw new SourceSufficiencyError('JOB_NOT_FOUND', 'Notes Studio authoring job not found.', 404);
-
-    const rows = await sqlClient`
-      SELECT
-        document.id::text AS id,
-        document.source_type AS "sourceType",
-        document.source_uri AS "sourceUri",
-        document.title,
-        document.publisher,
-        document.content_hash AS "contentHash",
-        document.rights_basis AS "rightsBasis",
-        document.retention_mode AS "retentionMode",
-        document.extraction_status AS "extractionStatus",
-        LENGTH(COALESCE(document.extracted_text, ''))::int AS "retainedCharCount",
-        document.captured_at AS "capturedAt"
-      FROM content.note_authoring_sources link
-      JOIN content.source_documents document ON document.id = link.source_document_id
-      WHERE link.job_id = ${jobId}::uuid
-        AND link.inclusion_state = 'included'
-      ORDER BY link.position, link.added_at
-    `;
-    const sufficiency = evaluateSourceSufficiency(briefDepth(job.brief), rows as unknown as SourceSufficiencyInput[]);
+    const { job, sufficiency } = await loadSufficiency(jobId);
     res.json({
       job: { id: job.id, title: job.title, state: job.state, depth: sufficiency.depth },
       sufficiency,
