@@ -1,0 +1,135 @@
+name: Validate TRG-001 Final4 five-seed cross-check
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-v1.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-editorial-v2.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-editorial-v3.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v4.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-registry.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-final.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final3-human.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final3-human.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final4.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final4-5seed.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/LOCALIZATION-V1-STATUS.md"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-human-approved-runtime.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-authority-runtime.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: trg-001-final4-five-seed-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-final4-five-seed:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle frozen English authority audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-human-approved.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-human-approved-audit.mjs
+
+      - name: Run frozen English authority audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trg-001-human-approved-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-human-approved-audit.log
+
+      - name: Bundle V1 semantic-parity audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-localization-v1-audit.mjs
+
+      - name: Run V1 144 x 2 semantic-parity audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trg-001-localization-v1-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-localization-v1-audit.log
+
+      - name: Bundle native V5 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-localization-native-v5-audit.mjs
+
+      - name: Run V5 144 x 2 x 5-seed native audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trg-001-localization-native-v5-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-localization-native-v5-audit.log
+
+      - name: Bundle base pedagogic V5 audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-localization-native-v5-pedagogic-audit.mjs
+
+      - name: Run base pedagogic V5 144 x 2 x 3-seed audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trg-001-localization-native-v5-pedagogic-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-localization-native-v5-pedagogic-audit.log
+
+      - name: Bundle Final4 five-seed provenance cross-check
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final4-5seed.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-final4-five-seed-audit.mjs
+
+      - name: Run Final4 144 x 2 x 5-seed provenance cross-check
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/trg-001-final4-five-seed-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-final4-five-seed-audit.log
+
+      - name: Upload Final4 five-seed cross-check evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: trg-001-final4-five-seed-cross-check
+          path: |
+            artifacts/api-server/dist/quant-v4/trg-001-human-approved-audit.log
+            artifacts/api-server/dist/quant-v4/trg-001-localization-v1-audit.log
+            artifacts/api-server/dist/quant-v4/trg-001-localization-native-v5-audit.log
+            artifacts/api-server/dist/quant-v4/trg-001-localization-native-v5-pedagogic-audit.log
+            artifacts/api-server/dist/quant-v4/trg-001-final4-five-seed-audit.log
+          if-no-files-found: error
+          retention-days: 30
