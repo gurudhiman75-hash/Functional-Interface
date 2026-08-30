@@ -14,6 +14,8 @@ export type SourcePackPolicySource = {
   sourceRole: NoteSourceRole;
   inclusionState: string;
   generationReady: boolean;
+  contentHash?: string | null;
+  sourceIdentity?: string | null;
 };
 
 type RequirementDefinition = {
@@ -29,6 +31,13 @@ export type SourcePackRequirementStatus = RequirementDefinition & {
   satisfied: boolean;
 };
 
+export type SourcePackIntegrityFinding = {
+  code: 'INSUFFICIENT_UNIQUE_CONTENT' | 'INSUFFICIENT_SOURCE_IDENTITIES';
+  label: string;
+  currentCount: number;
+  minCount: number;
+};
+
 export type SourcePackPolicyEvaluation = {
   templateKey: NoteSourcePackTemplateKey;
   name: string;
@@ -36,16 +45,28 @@ export type SourcePackPolicyEvaluation = {
   ready: boolean;
   requirements: SourcePackRequirementStatus[];
   missing: SourcePackRequirementStatus[];
+  integrity: {
+    minUniqueContent: number;
+    minDistinctIdentities: number;
+    uniqueContentCount: number;
+    distinctIdentityCount: number;
+    findings: SourcePackIntegrityFinding[];
+    ready: boolean;
+  };
 };
 
 const TEMPLATES: Record<NoteSourcePackTemplateKey, {
   name: string;
   description: string;
+  minUniqueContent: number;
+  minDistinctIdentities: number;
   requirements: RequirementDefinition[];
 }> = {
   balanced: {
     name: 'Balanced static note',
     description: 'Requires two independent generation-ready core sources. Use for most static syllabus notes.',
+    minUniqueContent: 2,
+    minDistinctIdentities: 2,
     requirements: [
       {
         code: 'two_core_sources',
@@ -59,6 +80,8 @@ const TEMPLATES: Record<NoteSourcePackTemplateKey, {
   official_first: {
     name: 'Official-first',
     description: 'Requires a generation-ready primary authority plus an independent generation-ready reference.',
+    minUniqueContent: 2,
+    minDistinctIdentities: 2,
     requirements: [
       {
         code: 'primary_authority',
@@ -79,6 +102,8 @@ const TEMPLATES: Record<NoteSourcePackTemplateKey, {
   reference_led: {
     name: 'Reference-led',
     description: 'Requires two generation-ready standard references where no single official primary authority is appropriate.',
+    minUniqueContent: 2,
+    minDistinctIdentities: 2,
     requirements: [
       {
         code: 'two_references',
@@ -92,6 +117,8 @@ const TEMPLATES: Record<NoteSourcePackTemplateKey, {
   exam_focused: {
     name: 'Exam-focused',
     description: 'Requires an explicit syllabus/PYQ/notification context source plus one generation-ready authority or reference.',
+    minUniqueContent: 2,
+    minDistinctIdentities: 1,
     requirements: [
       {
         code: 'exam_context',
@@ -112,6 +139,8 @@ const TEMPLATES: Record<NoteSourcePackTemplateKey, {
   quick_revision: {
     name: 'Quick revision',
     description: 'Requires one generation-ready authority or reference for deliberately narrow revision notes.',
+    minUniqueContent: 1,
+    minDistinctIdentities: 1,
     requirements: [
       {
         code: 'one_core_source',
@@ -138,6 +167,18 @@ export function noteSourcePackTemplateKey(value: unknown): NoteSourcePackTemplat
     : 'balanced';
 }
 
+export function noteSourceIdentity(publisherValue: unknown, sourceUriValue: unknown): string | null {
+  const publisher = String(publisherValue ?? '').trim().toLowerCase().replace(/\s+/g, ' ');
+  if (publisher) return `publisher:${publisher}`;
+  const sourceUri = String(sourceUriValue ?? '').trim();
+  try {
+    const host = new URL(sourceUri).hostname.trim().toLowerCase().replace(/^www\./, '');
+    return host ? `host:${host}` : null;
+  } catch {
+    return null;
+  }
+}
+
 export function sourcePackTemplateOptions() {
   return NOTE_SOURCE_PACK_TEMPLATES.map((key) => ({ key, ...TEMPLATES[key] }));
 }
@@ -161,12 +202,50 @@ export function evaluateSourcePackPolicy(
     };
   });
   const missing = requirements.filter((requirement) => !requirement.satisfied);
+
+  const participatingRoles = new Set(template.requirements.flatMap((requirement) => requirement.roles));
+  const integritySources = included.filter((source) => participatingRoles.has(source.sourceRole));
+  const uniqueContentKeys = new Set(integritySources.map((source, index) => {
+    const hash = String(source.contentHash ?? '').trim().toLowerCase();
+    return hash || `unkeyed-content:${index}`;
+  }));
+  const distinctIdentityKeys = new Set(integritySources.map((source, index) => {
+    const identity = String(source.sourceIdentity ?? '').trim().toLowerCase();
+    return identity || `unidentified-source:${index}`;
+  }));
+  const integrityFindings: SourcePackIntegrityFinding[] = [];
+  if (uniqueContentKeys.size < template.minUniqueContent) {
+    integrityFindings.push({
+      code: 'INSUFFICIENT_UNIQUE_CONTENT',
+      label: 'Independent content copies',
+      currentCount: uniqueContentKeys.size,
+      minCount: template.minUniqueContent,
+    });
+  }
+  if (distinctIdentityKeys.size < template.minDistinctIdentities) {
+    integrityFindings.push({
+      code: 'INSUFFICIENT_SOURCE_IDENTITIES',
+      label: 'Independent publisher/domain identities',
+      currentCount: distinctIdentityKeys.size,
+      minCount: template.minDistinctIdentities,
+    });
+  }
+  const integrity = {
+    minUniqueContent: template.minUniqueContent,
+    minDistinctIdentities: template.minDistinctIdentities,
+    uniqueContentCount: uniqueContentKeys.size,
+    distinctIdentityCount: distinctIdentityKeys.size,
+    findings: integrityFindings,
+    ready: integrityFindings.length === 0,
+  };
+
   return {
     templateKey,
     name: template.name,
     description: template.description,
-    ready: missing.length === 0,
+    ready: missing.length === 0 && integrity.ready,
     requirements,
     missing,
+    integrity,
   };
 }
