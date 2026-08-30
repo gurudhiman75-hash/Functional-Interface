@@ -329,7 +329,7 @@ export function buildTsdCp012ScalarDistractors(input: TsdCp012ReviewInput, solut
       } else if (input.target === "CURRENT_SPEED") {
         const extra = subtract(input.catchTimeFromRaftStart, input.boatStartDelay);
         candidates = [
-          c("TOTAL_TIME_IN_NUMERATOR", "Use total catch time where only the post-delay interval belongs.", divide(multiply(input.boatStillWaterSpeed, input.catchTimeFromRaftStart), input.boatStartDelay)),
+          c("DELAY_PLUS_TOTAL_IN_DENOMINATOR", "Add the start delay and total catch time in the denominator instead of using the correct time relation.", divide(multiply(input.boatStillWaterSpeed, input.boatStartDelay), add(input.catchTimeFromRaftStart, input.boatStartDelay))),
           c("REVERSED_TIME_RATIO", "Reverse the start-delay and catch-time ratio.", divide(multiply(input.boatStillWaterSpeed, input.boatStartDelay), input.catchTimeFromRaftStart)),
           c("EXTRA_OVER_TOTAL_TIME", "Scale boat speed by extra time over total catch time.", divide(multiply(input.boatStillWaterSpeed, extra), input.catchTimeFromRaftStart)),
           c("EXTRA_TIME_AS_SPEED", "Use extra catch-time magnitude as speed.", extra),
