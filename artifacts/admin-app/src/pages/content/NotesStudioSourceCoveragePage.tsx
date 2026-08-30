@@ -143,7 +143,7 @@ export function NotesStudioSourceCoveragePage() {
             <div className="rounded-lg border p-3"><div className="text-xs uppercase tracking-wide text-muted-foreground">Publishers/domains</div><div className="mt-1 text-xl font-semibold">{coverage.assessment.counts.independentPublishersOrDomains}</div></div>
             <div className="rounded-lg border p-3"><div className="text-xs uppercase tracking-wide text-muted-foreground">Source types</div><div className="mt-1 text-xl font-semibold">{coverage.assessment.counts.sourceTypes}</div></div>
           </div>
-          <div className="text-sm text-muted-foreground">This checkpoint is advisory in NS-011. It does not silently block evidence extraction and never discovers or attaches sources automatically.</div>
+          <div className="text-sm text-muted-foreground">This NS-012 checkpoint is advisory. It does not silently block evidence extraction and never discovers or attaches sources automatically.</div>
         </CardContent>
       </Card>
 
