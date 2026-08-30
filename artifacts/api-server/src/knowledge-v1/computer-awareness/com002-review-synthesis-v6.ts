@@ -59,6 +59,20 @@ function applyLearnerSurfaceErrataV6(question: Com002ReviewQuestion): Com002Revi
     );
   }
 
+  if (question.qlId === "COM-002-QL-007") {
+    stem = stem.replace(
+      /^Which function best matches Windows taskbar\?$/i,
+      "Which function best matches the Windows taskbar?",
+    );
+  }
+
+  if (question.qlId === "COM-002-QL-008") {
+    stem = stem.replace(
+      /^Which file-management item matches this description: can display hidden items when the relevant view option is enabled\?$/i,
+      "Which file-management item can display hidden items when the relevant view option is enabled?",
+    );
+  }
+
   const canonicalAnswer = options[question.correctIndex]!;
   return {
     ...question,
