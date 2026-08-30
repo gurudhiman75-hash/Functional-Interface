@@ -109,3 +109,18 @@ services:
         value: production
       - key: DATABASE_URL
         sync: false
+
+  # Materialize bounded, deduplicated in-app Current Affairs notifications.
+  # This writes only the learner inbox. It does not call push/email/SMS providers.
+  - type: cron
+    name: examtree-current-affairs-inapp-notifications
+    runtime: node
+    rootDir: .
+    schedule: "35 * * * *"
+    buildCommand: bash build-current-affairs-worker.sh
+    startCommand: NODE_ENV=production node --enable-source-maps artifacts/api-server/dist/current-affairs-notification-worker.mjs
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
