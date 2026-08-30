@@ -17,6 +17,12 @@ pnpm install \
   --filter @workspace/examtree-admin... \
   --filter @workspace/api-server...
 
+# Production code already depends on content.learning_resources. Verify that
+# foundation before compiling the deployed apps. If an older production DB is
+# missing it, apply the existing idempotent checked-in migration and verify it.
+echo "[render-build] verify learning resources schema"
+pnpm --dir artifacts/api-server exec node ensure-learning-resources.mjs
+
 # Build the student app. Its build also generates the public prerender files.
 echo "[render-build] build student app"
 pnpm --dir artifacts/examtree build
