@@ -9,6 +9,7 @@ on:
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-freeze-readiness.ts"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-freeze-readiness.test.ts"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final4.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final5.ts"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-human-approved-runtime.ts"
   workflow_dispatch:
 
@@ -52,14 +53,14 @@ jobs:
           node artifacts/api-server/dist/quant-v4/trg-001-freeze-readiness-english-audit.mjs \
             2>&1 | tee artifacts/api-server/dist/quant-v4/trg-001-freeze-readiness-english-audit.log
 
-      - name: Bundle Final4 freeze-readiness guard
+      - name: Bundle Final5 freeze-readiness guard
         run: >-
           pnpm --dir artifacts/api-server exec esbuild
           src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-freeze-readiness.test.ts
           --bundle --platform=node --format=esm
           --outfile=dist/quant-v4/trg-001-localization-freeze-readiness-audit.mjs
 
-      - name: Run 144 x 2 Final4 freeze-readiness guard
+      - name: Run 144 x 2 Final5 freeze-readiness guard
         shell: bash
         run: |
           set -o pipefail
@@ -69,7 +70,7 @@ jobs:
       - name: Upload TRG-001 localization freeze-readiness evidence
         uses: actions/upload-artifact@v4
         with:
-          name: trg-001-localization-freeze-readiness-v1
+          name: trg-001-localization-freeze-readiness-v2
           path: |
             artifacts/api-server/dist/quant-v4/trg-001-freeze-readiness-english-audit.log
             artifacts/api-server/dist/quant-v4/trg-001-localization-freeze-readiness-audit.log
