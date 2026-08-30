@@ -1,16 +1,6 @@
 name: Validate Question Studio Content Engine Foundation V1
 
 on:
-  push:
-    branches:
-      - feature/content-engine-foundation-v1
-    paths:
-      - artifacts/api-server/src/question-studio/**
-      - artifacts/api-server/src/knowledge-v1/**
-      - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
-      - artifacts/api-server/src/routes/admin-question-studio-mixed-difficulty.ts
-      - artifacts/api-server/src/routes/index.ts
-      - .github/workflows/question-studio-content-engine-foundation-v1.yml
   pull_request:
     branches:
       - New-main
