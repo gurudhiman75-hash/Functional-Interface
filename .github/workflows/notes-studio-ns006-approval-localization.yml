@@ -1,0 +1,84 @@
+name: Validate Notes Studio NS-006 Approval Localization
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/notes-studio/**'
+      - 'artifacts/api-server/src/routes/admin-notes-studio*.ts'
+      - 'artifacts/api-server/src/routes/index.ts'
+      - 'artifacts/api-server/migrations/20260829_notes_studio_source_pack*.sql'
+      - 'artifacts/api-server/migrations/20260830_notes_studio_source_pack*.sql'
+      - 'artifacts/admin-app/src/pages/content/NotesStudio**'
+  workflow_dispatch:
+
+concurrency:
+  group: notes-studio-ns006-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-notes-studio-approval-localization:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run cumulative Notes Studio contracts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/source-pack.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-source-pack.test.mjs
+          node artifacts/api-server/dist/notes-studio-source-pack.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/evidence-map.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-evidence-map.test.mjs
+          node artifacts/api-server/dist/notes-studio-evidence-map.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/section-synthesis.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-section-synthesis.test.mjs
+          node artifacts/api-server/dist/notes-studio-section-synthesis.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/quality-gates.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-quality-gates.test.mjs
+          node artifacts/api-server/dist/notes-studio-quality-gates.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/quality-grounding.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-quality-grounding.test.mjs
+          node artifacts/api-server/dist/notes-studio-quality-grounding.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/approval-versioning.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-approval-versioning.test.mjs
+          node artifacts/api-server/dist/notes-studio-approval-versioning.test.mjs
+      - name: Verify immutable approval schema
+        run: |
+          ns006='artifacts/api-server/migrations/20260830_notes_studio_source_pack_ns006_approval_localization.sql'
+          grep -F 'CREATE TABLE IF NOT EXISTS content.note_approved_versions' "$ns006"
+          grep -F 'CREATE TABLE IF NOT EXISTS content.note_materializations' "$ns006"
+          grep -F 'CREATE TABLE IF NOT EXISTS content.note_localizations' "$ns006"
+          grep -F 'prevent_note_approved_version_mutation' "$ns006"
+          grep -F 'prevent_materialized_note_localization_edit' "$ns006"
+          grep -F "language_code IN ('hi', 'pa')" "$ns006"
+          grep -F "state IN ('needs_editorial', 'ready', 'materialized')" "$ns006"
+      - name: Verify approval and publication boundaries
+        run: |
+          route='artifacts/api-server/src/routes/admin-notes-studio-approval.ts'
+          grep -F "String(job.state) !== 'review_ready'" "$route"
+          grep -F "String(section.state) !== 'qa_passed'" "$route"
+          grep -F "String(section.qualityStatus) !== 'passed'" "$route"
+          grep -F "'notes', 'article'" "$route"
+          grep -F "null, 'draft', null" "$route"
+          grep -F 'automaticPublication: false' "$route"
+          grep -F "requireAdminPermission('content.questions.publish')" "$route"
+          grep -F 'adminNotesStudioApprovalRouter' artifacts/api-server/src/routes/index.ts
+          ! grep -F "status = 'published'" "$route"
+      - name: Verify localization safety boundary
+        run: |
+          grep -F 'NOTES_STUDIO_LOCALIZATION_MODEL' artifacts/api-server/src/notes-studio/localization-provider.ts
+          ! grep -Eq "model: ['\"]gpt-" artifacts/api-server/src/notes-studio/localization-provider.ts
+          grep -F 'The approved source text below is the only authority.' artifacts/api-server/src/notes-studio/localization-provider.ts
+          grep -F 'rawResearchSourcesSent: false' artifacts/api-server/src/routes/admin-notes-studio-approval.ts
+          grep -F 'sourceContentHash' artifacts/api-server/src/routes/admin-notes-studio-approval.ts
+          grep -F 'headingCountMatches' artifacts/api-server/src/notes-studio/approval-versioning.ts
+          grep -F 'missingUrls' artifacts/api-server/src/notes-studio/approval-versioning.ts
+          grep -F 'evaluateTranslationQuality' artifacts/api-server/src/notes-studio/approval-versioning.ts
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Typecheck admin app
+        run: pnpm --dir artifacts/admin-app typecheck

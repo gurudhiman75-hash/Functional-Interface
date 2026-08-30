@@ -1,0 +1,84 @@
+name: Validate Notes Studio NS-005 Quality Gates
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/notes-studio/**'
+      - 'artifacts/api-server/src/routes/admin-notes-studio*.ts'
+      - 'artifacts/api-server/src/routes/index.ts'
+      - 'artifacts/api-server/migrations/20260829_notes_studio_source_pack*.sql'
+      - 'artifacts/api-server/migrations/20260830_notes_studio_source_pack*.sql'
+      - 'artifacts/admin-app/src/pages/content/NotesStudio**'
+  workflow_dispatch:
+
+concurrency:
+  group: notes-studio-ns005-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-notes-studio-quality-gates:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run cumulative Notes Studio contracts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/source-pack.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-source-pack.test.mjs
+          node artifacts/api-server/dist/notes-studio-source-pack.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/evidence-map.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-evidence-map.test.mjs
+          node artifacts/api-server/dist/notes-studio-evidence-map.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/section-synthesis.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-section-synthesis.test.mjs
+          node artifacts/api-server/dist/notes-studio-section-synthesis.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/quality-gates.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-quality-gates.test.mjs
+          node artifacts/api-server/dist/notes-studio-quality-gates.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/quality-grounding.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-quality-grounding.test.mjs
+          node artifacts/api-server/dist/notes-studio-quality-grounding.test.mjs
+      - name: Verify NS-005 migration and fingerprint-bound QA schema
+        run: |
+          ns004='artifacts/api-server/migrations/20260829_notes_studio_source_pack_ns004_section_synthesis.sql'
+          ns005='artifacts/api-server/migrations/20260830_notes_studio_source_pack_ns005_quality_gates.sql'
+          test "$(printf '%s\n%s\n' "$ns004" "$ns005" | sort | tail -n 1)" = "$ns005"
+          grep -F 'CREATE TABLE IF NOT EXISTS content.note_quality_runs' "$ns005"
+          grep -F 'CREATE TABLE IF NOT EXISTS content.note_quality_checks' "$ns005"
+          grep -F "'qa_passed'" "$ns005"
+          grep -F 'section_output_fingerprint' "$ns005"
+          grep -F 'evidence_fingerprint' "$ns005"
+          grep -F 'verifier_prompt_version' "$ns005"
+          grep -F 'invalidate_notes_quality_after_section_change' "$ns005"
+          grep -F 'invalidate_notes_quality_for_claim' "$ns005"
+          grep -F 'invalidate_notes_quality_for_claim_evidence' "$ns005"
+          grep -F 'invalidate_notes_quality_for_coverage_item' "$ns005"
+          grep -F 'invalidate_notes_quality_for_coverage_claim' "$ns005"
+      - name: Verify quality gate safety boundaries
+        run: |
+          grep -F "code: 'evidence_support'" artifacts/api-server/src/notes-studio/quality-gates.ts
+          grep -F "code: 'contradiction_state'" artifacts/api-server/src/notes-studio/quality-gates.ts
+          grep -F "code: 'source_overlap'" artifacts/api-server/src/notes-studio/quality-gates.ts
+          grep -F "code: 'duplication'" artifacts/api-server/src/notes-studio/quality-gates.ts
+          grep -F 'Use ONLY the accepted claims supplied below as factual authority.' artifacts/api-server/src/notes-studio/quality-grounding.ts
+          grep -F 'NOTES_STUDIO_QA_MODEL' artifacts/api-server/src/notes-studio/quality-grounding-provider.ts
+          ! grep -Eq "model: ['\"]gpt-" artifacts/api-server/src/notes-studio/quality-grounding-provider.ts
+          grep -F "code: 'semantic_grounding'" artifacts/api-server/src/routes/admin-notes-studio-quality.ts
+          grep -F 'rawSourceTextSent: false' artifacts/api-server/src/routes/admin-notes-studio-quality.ts
+          grep -F 'acceptedClaimsOnly: true' artifacts/api-server/src/routes/admin-notes-studio-quality.ts
+          grep -F "section.state = 'qa_passed'" artifacts/api-server/src/routes/admin-notes-studio-quality.ts
+          grep -F "'review_ready'" artifacts/api-server/src/routes/admin-notes-studio-quality.ts
+          grep -F "job.state NOT IN ('approved', 'materialized')" artifacts/api-server/src/routes/admin-notes-studio-quality.ts
+          grep -F 'learnerPublished: false' artifacts/api-server/src/routes/admin-notes-studio-quality.ts
+          grep -F 'adminNotesStudioQualityRouter' artifacts/api-server/src/routes/index.ts
+          ! grep -Eq 'learning_resources.*(INSERT|UPDATE)|INSERT INTO content.learning_resources|UPDATE content.learning_resources' artifacts/api-server/src/routes/admin-notes-studio-quality.ts
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Typecheck admin app
+        run: pnpm --dir artifacts/admin-app typecheck

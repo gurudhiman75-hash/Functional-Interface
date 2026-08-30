@@ -15,15 +15,15 @@ describe('admin navigation roadmap', () => {
     expect(NAV_GROUPS.map((group) => group.id)).toEqual([
       'overview', 'content', 'tests', 'commerce', 'users', 'analytics', 'settings',
     ]);
-    expect(items).toHaveLength(41);
+    expect(items).toHaveLength(42);
     expect(items.map((item) => item.label)).toEqual(expect.arrayContaining([
-      'Question Studio', 'Content Review', 'Learning Resources', 'Coverage Planner', 'Sections & Topics',
+      'Question Studio', 'Notes Studio', 'Content Review', 'Learning Resources', 'Coverage Planner', 'Sections & Topics',
       'Test QA', 'Test Series', 'Exam Blueprints', 'Publishing Calendar', 'Packages', 'Students', 'Admin Team',
       'Question Analytics', 'System Health', 'Request Failures', 'Languages', 'Roles & Permissions', 'Audit Logs',
     ]));
   });
 
-  it('supports every roadmap status without inventing current occupancy', () => {
+  it('supports every roadmap status with explicit occupancy', () => {
     expect(WORKSPACE_STATUS_OPTIONS.map((entry) => entry.status)).toEqual([
       'live', 'in_progress', 'planned',
     ]);
@@ -83,10 +83,14 @@ describe('admin navigation roadmap', () => {
       '/settings/roles',
       '/settings/audit-logs',
     ]);
-    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 35, in_progress: 0, planned: 6 });
+    expect(items.filter((item) => item.status === 'in_progress').map((item) => item.path)).toEqual([
+      '/content/notes-studio',
+    ]);
+    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 35, in_progress: 1, planned: 6 });
   });
 
   it('protects canonical operations with read permissions', () => {
+    expect(NAV_LOOKUP['/content/notes-studio']?.permission).toBe('content.questions.read');
     expect(NAV_LOOKUP['/content/review']?.permission).toBe('content.questions.read');
     expect(NAV_LOOKUP['/content/learning-resources']?.permission).toBe('content.questions.read');
     expect(NAV_LOOKUP['/content/coverage']?.permission).toBe('content.taxonomy.read');
