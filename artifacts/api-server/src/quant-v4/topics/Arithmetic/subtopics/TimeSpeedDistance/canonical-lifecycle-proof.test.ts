@@ -10,7 +10,9 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(`TSD canonical lifecycle proof failed: ${message}`);
 }
 
-const root = "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance";
+// The proof executes with artifacts/api-server as cwd, matching the rest of the
+// API-server validation suite and the dedicated lifecycle workflow.
+const root = "src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance";
 const checkpoints = TSD_CANONICAL_LIFECYCLE.map((entry) => entry.checkpoint);
 
 assert(TSD_CANONICAL_LIFECYCLE.length === 12, `expected CP001..CP012 lifecycle entries, received ${TSD_CANONICAL_LIFECYCLE.length}`);
