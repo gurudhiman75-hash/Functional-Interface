@@ -97,6 +97,14 @@ assert(pa141.every((x) => !/ਸਮੀਕਰਨ|=/.test(x.stem)), "pa/TSD-QL-141:
 assert(hi141.every((x) => /दूरी/.test(x.stem) && /सेकंड/.test(x.stem)), "hi/TSD-QL-141: observable distance/time evidence missing");
 assert(pa141.every((x) => /ਦੂਰੀ/.test(x.stem) && /ਸਕਿੰਟ/.test(x.stem)), "pa/TSD-QL-141: observable distance/time evidence missing");
 
+const hi142Sets = TSD_CP012_NATIVE_HINDI_REVIEW_FINAL.filter((x) => x.qlId === "TSD-QL-142" && x.input.target === "VALID_SET");
+const pa142Sets = TSD_CP012_NATIVE_PUNJABI_REVIEW_FINAL.filter((x) => x.qlId === "TSD-QL-142" && x.input.target === "VALID_SET");
+assert(hi142Sets.length === 3 && pa142Sets.length === 3, "TSD-QL-142: expected three complete-set MCQ families per native locale");
+assert(hi142Sets.every((x) => /कौन-सा सभी मान्य चालों का पूरा समूह/.test(x.stem)), "hi/TSD-QL-142: complete-set stem must be option-selection MCQ wording");
+assert(pa142Sets.every((x) => /ਕਿਹੜਾ ਸਾਰੀਆਂ ਮਨਜ਼ੂਰ ਚਾਲਾਂ ਦਾ ਪੂਰਾ ਸਮੂਹ/.test(x.stem)), "pa/TSD-QL-142: complete-set stem must be option-selection MCQ wording");
+assert(hi142Sets.every((x) => !/सभी अनुमत चालें लिखिए|पूरा समूह लिखिए/.test(x.stem)), "hi/TSD-QL-142: worksheet-style list instruction leaked back in");
+assert(pa142Sets.every((x) => !/ਸਾਰੀਆਂ ਮਨਜ਼ੂਰ ਚਾਲਾਂ ਲਿਖੋ|ਪੂਰਾ ਸਮੂਹ ਲਿਖੋ/.test(x.stem)), "pa/TSD-QL-142: worksheet-style list instruction leaked back in");
+
 assert(TSD_CP012_QL_LIFECYCLE.productOwnerApproved === false, "native review must not imply approval");
 assert(TSD_CP012_QL_LIFECYCLE.frozen === false, "native review must remain unfrozen");
 assert(TSD_CP012_QL_LIFECYCLE.questionStudioRegistered === false, "native review must not register Question Studio");
@@ -114,6 +122,7 @@ console.log(JSON.stringify({
   inputSolutionParity: "IDENTICAL_OBJECT_REFERENCES",
   minimumNormalizedStemShapesPerQl: 3,
   ql141LearnerSurface: "NATIVE_CONCRETE_MOTION_OBSERVATIONS",
+  ql142SetSurface: "NATIVE_FOUR_OPTION_COMPLETE_SET_MCQ",
   latinScriptInLearnerText: "ABSENT",
   lifecycle: "REVIEW_ONLY_NOT_FROZEN",
 }, null, 2));
