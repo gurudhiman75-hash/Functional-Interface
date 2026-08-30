@@ -55,12 +55,12 @@ jobs:
           grep -q 'PASS_BTD_001_CP007_HI_PA_LOCALIZATION_AUDIT_V6' btd-cp008-upstream-cp007.log
           grep -q 'PASS_BTD_001_CP007_HI_PA_LOCALIZATION_AUDIT_V7' btd-cp008-upstream-cp007.log
 
-      - name: Derive multilingual freeze-readiness fingerprints
+      - name: Enforce multilingual freeze-readiness manifest
         shell: bash
         run: |
           set -o pipefail
-          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-008/btd-cp008-hi-pa-freeze-readiness-probe-v1.ts | tee btd-cp008-hi-pa-freeze-readiness-probe-v1.log
-          grep -q 'PASS_BTD_001_CP008_HI_PA_FREEZE_READINESS_PROBE_V1' btd-cp008-hi-pa-freeze-readiness-probe-v1.log
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Bankers-True-Discount/BTD-001/BTD-CP-008/btd-cp008-hi-pa-freeze-readiness-v1-audit.ts | tee btd-cp008-hi-pa-freeze-readiness-v1.log
+          grep -q 'PASS_BTD_001_CP008_HI_PA_FREEZE_READINESS_AUDIT_V1' btd-cp008-hi-pa-freeze-readiness-v1.log
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
@@ -77,6 +77,6 @@ jobs:
           name: btd-cp008-hi-pa-freeze-readiness-v1
           path: |
             btd-cp008-upstream-cp007.log
-            btd-cp008-hi-pa-freeze-readiness-probe-v1.log
+            btd-cp008-hi-pa-freeze-readiness-v1.log
             btd-cp008-hi-pa-freeze-readiness-v1-head.log
           retention-days: 30
