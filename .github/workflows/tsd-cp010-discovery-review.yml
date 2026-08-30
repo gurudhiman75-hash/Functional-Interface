@@ -65,12 +65,16 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/localization-proof.test.ts
       - name: Prove CP010 official-paper multilingual representation V3
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/exam-paper-v3-proof.test.ts
+      - name: Prove CP010 official-paper V3 English freeze
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/english-freeze-proof.test.ts
+      - name: Prove CP010 official-paper V3 native localization freeze
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/localization-freeze-proof.test.ts
       - name: Prove CP010 locked Question Studio candidate scaffold
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-candidate-proof.test.ts
       - name: Audit all 1413 CP010 Studio official-paper V3 learner stems
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-exam-paper-v3-proof.test.ts
-      - name: Prove CP010 pre-freeze production registration lock
-        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-prefreeze-registration-proof.test.ts
+      - name: Prove CP010 frozen-content production preregistration lock
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-preregistration-lock-proof.test.ts
       - name: Export one multilingual questions-only review file
         run: |
           mkdir -p /tmp/tsd-cp010-review
