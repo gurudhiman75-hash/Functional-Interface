@@ -2,6 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { NotesStudioApprovalLocalizationPage } from './NotesStudioApprovalLocalizationPage';
 import { NotesStudioEvidenceCoveragePage } from './NotesStudioEvidenceCoveragePage';
 import { NotesStudioOperationsPage } from './NotesStudioOperationsPage';
+import { NotesStudioPlanningPage } from './NotesStudioPlanningPage';
 import { NotesStudioQualityGatesPage } from './NotesStudioQualityGatesPage';
 import { NotesStudioReleaseRevisionPage } from './NotesStudioReleaseRevisionPage';
 import { NotesStudioSectionDraftsPage } from './NotesStudioSectionDraftsPage';
@@ -9,8 +10,9 @@ import { NotesStudioSourcePackPage } from './NotesStudioSourcePackPage';
 import { NotesStudioWorkspacePage } from './NotesStudioWorkspacePage';
 
 export function NotesStudioHubPage() {
-  return <Tabs defaultValue="authoring" className="space-y-3">
+  return <Tabs defaultValue="planning" className="space-y-3">
     <TabsList aria-label="Notes Studio workspace views">
+      <TabsTrigger value="planning">Syllabus planning</TabsTrigger>
       <TabsTrigger value="authoring">Brief & sources</TabsTrigger>
       <TabsTrigger value="evidence">Evidence & coverage</TabsTrigger>
       <TabsTrigger value="sections">Section drafts</TabsTrigger>
@@ -20,6 +22,9 @@ export function NotesStudioHubPage() {
       <TabsTrigger value="canonical">Canonical notes</TabsTrigger>
       <TabsTrigger value="operations">Production readiness</TabsTrigger>
     </TabsList>
+    <TabsContent value="planning" className="mt-0">
+      <NotesStudioPlanningPage />
+    </TabsContent>
     <TabsContent value="authoring" className="mt-0">
       <NotesStudioSourcePackPage />
     </TabsContent>

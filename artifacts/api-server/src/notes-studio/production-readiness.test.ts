@@ -8,7 +8,7 @@ import {
   assessNotesStudioProductionReadiness,
 } from './production-readiness';
 
-test('NS-008 migration manifest preserves the complete V1 chain in order', () => {
+test('Notes Studio migration manifest preserves the cumulative chain in order', () => {
   assert.deepEqual([...NOTES_STUDIO_MIGRATIONS], [
     '20260829_notes_studio_source_pack.sql',
     '20260829_notes_studio_source_pack_ns003_evidence_coverage.sql',
@@ -17,10 +17,13 @@ test('NS-008 migration manifest preserves the complete V1 chain in order', () =>
     '20260830_notes_studio_source_pack_ns005_quality_gates.sql',
     '20260830_notes_studio_source_pack_ns006_approval_localization.sql',
     '20260830_notes_studio_source_pack_ns007_release_lineage.sql',
+    '20260830_notes_studio_source_pack_ns009_planning.sql',
   ]);
   assert.equal(new Set(NOTES_STUDIO_MIGRATIONS).size, NOTES_STUDIO_MIGRATIONS.length);
   assert.equal(new Set(NOTES_STUDIO_REQUIRED_RELATIONS).size, NOTES_STUDIO_REQUIRED_RELATIONS.length);
   assert.equal(new Set(NOTES_STUDIO_REQUIRED_TRIGGERS).size, NOTES_STUDIO_REQUIRED_TRIGGERS.length);
+  assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_planning_batches'), true);
+  assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_planning_items'), true);
 });
 
 test('editor traffic is blocked when schema or model configuration is incomplete', () => {

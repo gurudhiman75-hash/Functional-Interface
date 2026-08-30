@@ -6,6 +6,7 @@ export const NOTES_STUDIO_MIGRATIONS = [
   '20260830_notes_studio_source_pack_ns005_quality_gates.sql',
   '20260830_notes_studio_source_pack_ns006_approval_localization.sql',
   '20260830_notes_studio_source_pack_ns007_release_lineage.sql',
+  '20260830_notes_studio_source_pack_ns009_planning.sql',
 ] as const;
 
 export const NOTES_STUDIO_REQUIRED_RELATIONS = [
@@ -27,6 +28,8 @@ export const NOTES_STUDIO_REQUIRED_RELATIONS = [
   'content.note_materializations',
   'content.note_localizations',
   'content.note_publish_handoffs',
+  'content.note_planning_batches',
+  'content.note_planning_items',
 ] as const;
 
 export const NOTES_STUDIO_REQUIRED_TRIGGERS = [
