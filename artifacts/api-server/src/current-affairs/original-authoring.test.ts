@@ -90,6 +90,56 @@ assert.equal(programme.status, "ready");
 assert.match(programme.title ?? "", /Punjab Government programme update/);
 assert.match(programme.summary ?? "", /25 lakh farmers/);
 
+const officialAction = authorSourceIndependentEvent({
+  eventId: "event-action",
+  eventDate: "2026-08-30",
+  category: "national",
+  sourceKey: "pib",
+  sourceTitle: "Department of Consumer Affairs Notifies Legal Metrology Indian Standard Time Rules 2026",
+  facts: [
+    { key: "acting_entity", value: "Department of Consumer Affairs" },
+    { key: "official_action", value: "notifies" },
+    { key: "action_subject", value: "Legal Metrology Indian Standard Time Rules 2026" },
+  ],
+});
+assert.equal(officialAction.status, "ready");
+assert.equal(officialAction.templateId, "verified_official_action_v1");
+assert.match(officialAction.title ?? "", /Government of India update/);
+assert.ok(officialAction.sourceTitleSimilarity < 0.72);
+assert.match(officialAction.summary ?? "", /acting body/);
+
+const initiative = authorSourceIndependentEvent({
+  eventId: "event-launch",
+  eventDate: "2026-08-30",
+  category: "science_technology",
+  sourceKey: "pib",
+  sourceTitle: "Government launches National Research Fellowship Portal",
+  facts: [
+    { key: "launching_entity", value: "Government" },
+    { key: "initiative", value: "National Research Fellowship Portal" },
+  ],
+});
+assert.equal(initiative.status, "ready");
+assert.equal(initiative.templateId, "verified_initiative_v1");
+assert.match(initiative.summary ?? "", /launching entity/);
+
+const genericGraph = authorSourceIndependentEvent({
+  eventId: "event-generic",
+  eventDate: "2026-08-30",
+  category: "environment",
+  sourceKey: "pib",
+  sourceTitle: "National programme sets ambitious climate targets",
+  facts: [
+    { key: "target_percentage", value: "45%" },
+    { key: "target_year", value: "2030" },
+    { key: "amount", value: "₹500 crore" },
+  ],
+});
+assert.equal(genericGraph.status, "ready");
+assert.equal(genericGraph.templateId, "generic_verified_fact_graph_v1");
+assert.match(genericGraph.summary ?? "", /target: 45%/);
+assert.match(genericGraph.summary ?? "", /target year: 2030/);
+
 const thin = authorSourceIndependentEvent({
   eventId: "event-6",
   eventDate: "2026-08-29",
@@ -115,4 +165,4 @@ const tooClose = authorSourceIndependentEvent({
 assert.equal(tooClose.status, "needs_editorial", "near-copy learner titles must be rejected");
 assert.ok(tooClose.sourceTitleSimilarity >= 0.72);
 
-console.log("Current Affairs Studio CP009 source-independent authoring contracts passed");
+console.log("Current Affairs CP030 source-independent authoring contracts passed");
