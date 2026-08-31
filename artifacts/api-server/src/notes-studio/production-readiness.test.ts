@@ -13,6 +13,13 @@ import {
   researchRestartDiscardTotal,
   researchRestartTargetState,
 } from './research-restart';
+import {
+  buildSourceDiscoveryQueries,
+  normalizeDiscoveredSourceUrl,
+  rankDiscoveredSourceUrls,
+  sourceDiscoveryAllowed,
+} from './source-discovery';
+import { sourceDiscoveryProviderInternals } from './source-discovery-provider';
 
 test('Notes Studio migration manifest preserves the cumulative chain in order', () => {
   assert.deepEqual([...NOTES_STUDIO_MIGRATIONS], [
@@ -58,6 +65,60 @@ test('NS-018 research restart remains bounded to progressed pre-approval work', 
     qualityRuns: 1,
     generationEvents: 2,
   }), 17);
+});
+
+test('NS-019 source discovery produces bounded public URL candidates without creating facts', () => {
+  for (const state of ['brief', 'sources_ready', 'evidence_ready', 'outline_ready', 'drafting', 'qa_required', 'review_ready']) {
+    assert.equal(sourceDiscoveryAllowed(state), true, state);
+  }
+  for (const state of ['approved', 'materialized']) assert.equal(sourceDiscoveryAllowed(state), false, state);
+
+  assert.deepEqual(buildSourceDiscoveryQueries({
+    topicLabel: 'Punjab River System',
+    syllabusEmphasis: 'Static GK / Punjab Geography',
+    focus: 'Ravi Beas Sutlej official basin sources',
+  }), [
+    'Ravi Beas Sutlej official basin sources',
+    'Punjab River System Static GK / Punjab Geography',
+    'Punjab River System official government source',
+    'Punjab River System authoritative reference India',
+  ]);
+
+  assert.equal(normalizeDiscoveredSourceUrl('http://example.com/reference'), null);
+  assert.equal(normalizeDiscoveredSourceUrl('https://127.0.0.1/internal'), null);
+  assert.equal(normalizeDiscoveredSourceUrl('https://[::1]/internal'), null);
+  assert.equal(normalizeDiscoveredSourceUrl('https://[fd00::1]/internal'), null);
+  assert.equal(normalizeDiscoveredSourceUrl('https://example.com/page?utm_source=x&a=1#part'), 'https://example.com/page?a=1');
+  const ranked = rankDiscoveredSourceUrls([
+    'https://example.com/reference',
+    'https://punjab.gov.in/know-punjab/',
+    'https://example.com/reference',
+    'file:///etc/passwd',
+  ]);
+  assert.equal(ranked.length, 2);
+  assert.equal(ranked[0]?.domain, 'punjab.gov.in');
+  assert.equal(ranked[0]?.authorityClass, 'government_primary');
+
+  const extracted = sourceDiscoveryProviderInternals.sourceUrlsFromResponse({
+    output: [
+      {
+        type: 'web_search_call',
+        action: {
+          type: 'search',
+          sources: [
+            { type: 'url', url: 'https://punjab.gov.in/know-punjab/' },
+            { type: 'url', url: 'https://cwc.gov.in/en/ibo/about-basins' },
+          ],
+        },
+      },
+      { type: 'message', content: [{ type: 'output_text', text: 'Discarded prose.' }] },
+    ],
+  });
+  assert.equal(extracted.searchCallCount, 1);
+  assert.deepEqual(extracted.urls, [
+    'https://punjab.gov.in/know-punjab/',
+    'https://cwc.gov.in/en/ibo/about-basins',
+  ]);
 });
 
 test('editor traffic is blocked when schema or model configuration is incomplete', () => {
