@@ -1,0 +1,68 @@
+name: Validate Notes Studio NS-014 Candidate Claim Extraction
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/notes-studio/candidate-claim-extraction.ts
+      - artifacts/api-server/src/notes-studio/candidate-claim-extraction-provider.ts
+      - artifacts/api-server/src/notes-studio/candidate-claim-extraction.test.ts
+      - artifacts/api-server/src/routes/admin-notes-studio-candidate-claims.ts
+      - artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
+      - artifacts/admin-app/src/pages/content/NotesStudioCandidateClaimsPage.tsx
+      - artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
+      - docs/notes-studio-ns014-candidate-claim-extraction.md
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notes-studio-ns014-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-notes-studio-candidate-claim-extraction:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run NS-014 deterministic contracts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/candidate-claim-extraction.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-candidate-claim-extraction.test.mjs
+          node artifacts/api-server/dist/notes-studio-candidate-claim-extraction.test.mjs
+
+      - name: Verify candidate-only safety boundaries
+        run: |
+          grep -F "state, confidence, contradiction_key" artifacts/api-server/src/routes/admin-notes-studio-candidate-claims.ts
+          grep -F "'candidate'" artifacts/api-server/src/routes/admin-notes-studio-candidate-claims.ts
+          grep -F "automaticAcceptance: false" artifacts/api-server/src/routes/admin-notes-studio-candidate-claims.ts
+          grep -F "automaticCoverageLinking: false" artifacts/api-server/src/routes/admin-notes-studio-candidate-claims.ts
+          grep -F "automaticSectionGeneration: false" artifacts/api-server/src/routes/admin-notes-studio-candidate-claims.ts
+          grep -F "fullSourceDocumentsSent: false" artifacts/api-server/src/routes/admin-notes-studio-candidate-claims.ts
+          grep -F "adminNotesStudioCandidateClaimsRouter" artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
+          grep -F "Candidate claims" artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
+          grep -F "Nothing was accepted automatically" artifacts/admin-app/src/pages/content/NotesStudioCandidateClaimsPage.tsx
+          if grep -F "UPDATE content.note_source_claims" artifacts/api-server/src/routes/admin-notes-studio-candidate-claims.ts; then exit 1; fi
+          if grep -F "INSERT INTO content.note_coverage_item_claims" artifacts/api-server/src/routes/admin-notes-studio-candidate-claims.ts; then exit 1; fi
+          if grep -F "INSERT INTO content.note_sections" artifacts/api-server/src/routes/admin-notes-studio-candidate-claims.ts; then exit 1; fi
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin app
+        run: pnpm --dir artifacts/admin-app typecheck
