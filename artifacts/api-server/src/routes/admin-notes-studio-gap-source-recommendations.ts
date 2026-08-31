@@ -106,6 +106,8 @@ type Aggregate = {
   source: Record<string, unknown>;
   exactCoverageIds: Set<string>;
   acceptedClaimIds: Set<string>;
+  retainedAcceptedClaimIds: Set<string>;
+  referenceAcceptedClaimIds: Set<string>;
   priorJobIds: Set<string>;
   approvedJobIds: Set<string>;
   sameTaxonomyNodeJobIds: Set<string>;
@@ -134,6 +136,7 @@ router.get('/jobs/:jobId/gap-source-recommendations', requireAdminPermission('co
         automaticAttachment: false,
         automaticEvidenceAcceptance: false,
         automaticGeneration: false,
+        historicalReferenceEvidenceTransferred: false,
         sourcePackMutable: sourcePackEditableState(String(job.state)),
       });
       return;
@@ -161,6 +164,7 @@ router.get('/jobs/:jobId/gap-source-recommendations', requireAdminPermission('co
         document.retention_mode AS "retentionMode",
         document.extraction_status AS "extractionStatus",
         LENGTH(COALESCE(document.extracted_text, ''))::int AS "retainedCharCount",
+        block.evidence_kind AS "evidenceKind",
         source_link.source_role AS "sourceRole",
         prior_job.id::text AS "priorJobId",
         prior_job.title AS "priorJobTitle",
@@ -187,9 +191,20 @@ router.get('/jobs/:jobId/gap-source-recommendations', requireAdminPermission('co
       JOIN content.source_documents document ON document.id = block.source_document_id
       JOIN content.note_authoring_jobs prior_job ON prior_job.id = claim.job_id
       WHERE prior_job.id <> ${jobId}::uuid
-        AND document.retention_mode = 'extracted_text'
-        AND document.extraction_status = 'processed'
-        AND LENGTH(COALESCE(document.extracted_text, '')) >= 100
+        AND (
+          (
+            block.evidence_kind = 'retained_excerpt'
+            AND document.retention_mode = 'extracted_text'
+            AND document.extraction_status = 'processed'
+            AND LENGTH(COALESCE(document.extracted_text, '')) >= 100
+          )
+          OR (
+            block.evidence_kind = 'editor_reference_note'
+            AND block.reviewed_at IS NOT NULL
+            AND document.rights_basis = 'reference_only'
+            AND document.retention_mode = 'metadata_only'
+          )
+        )
       LIMIT 5000
     `;
 
@@ -239,6 +254,8 @@ router.get('/jobs/:jobId/gap-source-recommendations', requireAdminPermission('co
             },
             exactCoverageIds: new Set(),
             acceptedClaimIds: new Set(),
+            retainedAcceptedClaimIds: new Set(),
+            referenceAcceptedClaimIds: new Set(),
             priorJobIds: new Set(),
             approvedJobIds: new Set(),
             sameTaxonomyNodeJobIds: new Set(),
@@ -249,8 +266,11 @@ router.get('/jobs/:jobId/gap-source-recommendations', requireAdminPermission('co
           aggregates.set(sourceId, aggregate);
         }
         const priorJobId = String(row.priorJobId);
+        const claimId = String(row.claimId);
         if (exactRef) aggregate.exactCoverageIds.add(String(row.priorCoverageItemId));
-        aggregate.acceptedClaimIds.add(String(row.claimId));
+        aggregate.acceptedClaimIds.add(claimId);
+        if (String(row.evidenceKind) === 'retained_excerpt') aggregate.retainedAcceptedClaimIds.add(claimId);
+        if (String(row.evidenceKind) === 'editor_reference_note') aggregate.referenceAcceptedClaimIds.add(claimId);
         aggregate.priorJobIds.add(priorJobId);
         if (row.approvedUse === true || ['approved', 'materialized'].includes(String(row.priorJobState))) aggregate.approvedJobIds.add(priorJobId);
         if (sameNode) aggregate.sameTaxonomyNodeJobIds.add(priorJobId);
@@ -263,6 +283,8 @@ router.get('/jobs/:jobId/gap-source-recommendations', requireAdminPermission('co
       const recommendations = [...aggregates.values()].map((aggregate) => {
         const contentHash = String(aggregate.source.contentHash ?? '').trim().toLowerCase();
         const identity = noteSourceIdentity(aggregate.source.publisher, aggregate.source.sourceUri);
+        const generationReady = aggregate.retainedAcceptedClaimIds.size > 0;
+        const referenceReviewEligible = !generationReady && aggregate.referenceAcceptedClaimIds.size > 0;
         const signals = {
           exactSyllabusRefHits: aggregate.exactCoverageIds.size,
           maxCoverageSimilarity: aggregate.maxCoverageSimilarity,
@@ -271,7 +293,8 @@ router.get('/jobs/:jobId/gap-source-recommendations', requireAdminPermission('co
           approvedUseCount: aggregate.approvedJobIds.size,
           sameTaxonomyNodeUses: aggregate.sameTaxonomyNodeJobIds.size,
           sameTaxonomyCodeUses: aggregate.sameTaxonomyCodeJobIds.size,
-          generationReady: true,
+          generationReady,
+          referenceReviewEligible,
           identityNovel: Boolean(identity && !attachedIdentities.has(identity)),
           duplicateContent: Boolean(contentHash && attachedHashes.has(contentHash)),
         };
@@ -285,11 +308,16 @@ router.get('/jobs/:jobId/gap-source-recommendations', requireAdminPermission('co
           exactSyllabusRefHits: signals.exactSyllabusRefHits,
           coverageSimilarity: signals.maxCoverageSimilarity,
           acceptedClaimCount: signals.acceptedClaimCount,
+          retainedAcceptedClaimCount: aggregate.retainedAcceptedClaimIds.size,
+          referenceAcceptedClaimCount: aggregate.referenceAcceptedClaimIds.size,
           priorJobCount: signals.priorJobCount,
           approvedUseCount: signals.approvedUseCount,
           sameTaxonomyNodeUses: signals.sameTaxonomyNodeUses,
           sameTaxonomyCodeUses: signals.sameTaxonomyCodeUses,
           identityNovel: signals.identityNovel,
+          evidencePath: generationReady ? 'retained_ready' : 'reference_review_required',
+          referenceReviewRequired: referenceReviewEligible,
+          historicalReferenceEvidenceTransferred: false,
           recommendedRole: mostCommonRole(aggregate.historicalRoleCounts),
           historicalRoles,
         };
@@ -309,6 +337,7 @@ router.get('/jobs/:jobId/gap-source-recommendations', requireAdminPermission('co
       automaticAttachment: false,
       automaticEvidenceAcceptance: false,
       automaticGeneration: false,
+      historicalReferenceEvidenceTransferred: false,
       sourcePackMutable: sourcePackEditableState(String(job.state)),
       progressedJobAction: sourcePackEditableState(String(job.state))
         ? 'Review the recommendation, then reuse it explicitly through Source Library.'
