@@ -21,7 +21,7 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
   const targetDate = previousIndiaDate(now);
   const deadlineIso = deadlineForTargetDate(targetDate);
   const releaseQueue = await loadCurrentAffairsReleaseQueue(300);
-  const [sources, runs, queue, conflicts, compilations, approvedReleases, missingDays] = await Promise.all([
+  const [sources, runs, queue, conflicts, compilations, approvedReleases, missingDays, targetInventoryRows] = await Promise.all([
     sqlClient`
       SELECT
         source_key AS "sourceKey", name, source_type AS "sourceType",
@@ -93,6 +93,48 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
       WHERE compilation.id IS NULL
       ORDER BY expected.day DESC, expected.family
     `,
+    sqlClient`
+      SELECT
+        (SELECT count(*) FROM content.current_affairs_ingestion_candidates candidate
+          WHERE candidate.published_at::date=${targetDate}::date)::int AS "candidateCount",
+        (SELECT count(*) FROM content.current_affairs_ingestion_candidates candidate
+          JOIN content.current_affairs_sources source ON source.id=candidate.source_id
+          WHERE candidate.published_at::date=${targetDate}::date AND source.is_primary_source=true)::int AS "primaryCandidateCount",
+        (SELECT count(*) FROM content.current_affairs_clusters cluster
+          WHERE cluster.event_date_guess=${targetDate}::date AND cluster.status='open')::int AS "openClusterCount",
+        (SELECT count(*) FROM content.current_affairs_clusters cluster
+          WHERE cluster.event_date_guess=${targetDate}::date AND cluster.status='open' AND cluster.category_guess='other')::int AS "openOtherClusterCount",
+        (SELECT count(*) FROM content.current_affairs_events event
+          WHERE event.event_date=${targetDate}::date)::int AS "eventCount",
+        (SELECT count(*) FROM content.current_affairs_events event
+          WHERE event.event_date=${targetDate}::date AND event.status='verified')::int AS "verifiedEventCount",
+        (SELECT count(*) FROM content.current_affairs_events event
+          WHERE event.event_date=${targetDate}::date AND event.status='review')::int AS "reviewEventCount",
+        (SELECT count(*) FROM content.current_affairs_events event
+          WHERE event.event_date=${targetDate}::date AND event.status='verified'
+            AND event.learner_authoring_status IN ('ready','manual'))::int AS "authoringReadyCount",
+        (SELECT count(DISTINCT event.id)
+          FROM content.current_affairs_events event
+          JOIN content.current_affairs_exam_scores score ON score.event_id=event.id
+          WHERE event.event_date=${targetDate}::date AND event.status='verified'
+            AND event.learner_authoring_status IN ('ready','manual')
+            AND score.exam_family_key='ssc' AND score.include_recommended=true
+            AND NOT EXISTS (SELECT 1 FROM content.current_affairs_fact_conflicts conflict WHERE conflict.event_id=event.id AND conflict.status='open'))::int AS "sscEligibleCount",
+        (SELECT count(DISTINCT event.id)
+          FROM content.current_affairs_events event
+          JOIN content.current_affairs_exam_scores score ON score.event_id=event.id
+          WHERE event.event_date=${targetDate}::date AND event.status='verified'
+            AND event.learner_authoring_status IN ('ready','manual')
+            AND score.exam_family_key='banking' AND score.include_recommended=true
+            AND NOT EXISTS (SELECT 1 FROM content.current_affairs_fact_conflicts conflict WHERE conflict.event_id=event.id AND conflict.status='open'))::int AS "bankingEligibleCount",
+        (SELECT count(DISTINCT event.id)
+          FROM content.current_affairs_events event
+          JOIN content.current_affairs_exam_scores score ON score.event_id=event.id
+          WHERE event.event_date=${targetDate}::date AND event.status='verified'
+            AND event.learner_authoring_status IN ('ready','manual')
+            AND score.exam_family_key='punjab' AND score.include_recommended=true
+            AND NOT EXISTS (SELECT 1 FROM content.current_affairs_fact_conflicts conflict WHERE conflict.event_id=event.id AND conflict.status='open'))::int AS "punjabEligibleCount"
+    `,
   ]);
 
   const sourceFamilyCoverage = evaluateCurrentAffairsSourceFamilyCoverage(sources.map((row) => ({
@@ -107,6 +149,7 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
   })));
   const coreOfficialSources = sources.filter((row) => String(row.sourceTier) === "core_official" && Boolean(row.scheduled));
   const discoverySources = sources.filter((row) => String(row.sourceTier) === "trusted_news");
+  const targetInventory = targetInventoryRows[0] ?? {};
 
   const runByType = new Map(runs.map((row) => [String(row.jobType), row]));
   const feedRun = runByType.get("feed_ingestion");
@@ -183,6 +226,21 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
     deadlineIso,
     generatedAt: now.toISOString(),
     evaluation,
+    targetInventory: {
+      candidateCount: Number(targetInventory.candidateCount ?? 0),
+      primaryCandidateCount: Number(targetInventory.primaryCandidateCount ?? 0),
+      openClusterCount: Number(targetInventory.openClusterCount ?? 0),
+      openOtherClusterCount: Number(targetInventory.openOtherClusterCount ?? 0),
+      eventCount: Number(targetInventory.eventCount ?? 0),
+      verifiedEventCount: Number(targetInventory.verifiedEventCount ?? 0),
+      reviewEventCount: Number(targetInventory.reviewEventCount ?? 0),
+      authoringReadyCount: Number(targetInventory.authoringReadyCount ?? 0),
+      familyEligible: {
+        ssc: Number(targetInventory.sscEligibleCount ?? 0),
+        banking: Number(targetInventory.bankingEligibleCount ?? 0),
+        punjab: Number(targetInventory.punjabEligibleCount ?? 0),
+      },
+    },
     sourceCoverage: {
       scheduledPrimarySources: sourceFamilyCoverage.requiredSourceFamilies,
       freshSuccessfulPrimarySources: sourceFamilyCoverage.healthyRequiredSourceFamilies,

@@ -82,9 +82,13 @@ export function CurrentAffairsProductionReadinessPage() {
           `${result.targetDate}: ${result.summary.verifiedEvents} verified events · ${result.summary.englishDraftCount}/3 English packs · ${result.summary.localizedDraftCount}/6 localized packs.`,
         );
       } else {
+        const prep = result.officialCandidatePreparation;
+        const diagnostic = prep && (prep.candidateUpdated > 0 || prep.clusterUpdated > 0)
+          ? `Reclassified ${prep.candidateUpdated} official candidates and ${prep.clusterUpdated} open clusters. `
+          : '';
         showToast.error(
           'Generation completed with blockers',
-          result.summary.blockers[0] ?? 'Some exam-family drafts could not be materialized from verified source evidence.',
+          `${diagnostic}${result.summary.blockers[0] ?? 'Some exam-family drafts could not be materialized from verified source evidence.'}`,
         );
       }
       await refresh();
@@ -117,6 +121,7 @@ export function CurrentAffairsProductionReadinessPage() {
   }
 
   const { evaluation } = readiness;
+  const inventory = readiness.targetInventory;
   return (
     <div className="space-y-5">
       <PageHeader
@@ -127,15 +132,37 @@ export function CurrentAffairsProductionReadinessPage() {
       />
 
       <Card className="border-primary/30 bg-primary/5">
-        <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between"><div><p className="font-semibold">Yesterday should exist on demand.</p><p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">Generate Yesterday Now refreshes official sources, enriches primary facts, reruns clustering and strict verification, and materializes missing SSC, Banking and Punjab EN/HI/PA drafts plus BANK_ONLY review questions. Trusted-news sources are discovery-only and never replace official verification.</p></div><Button variant="outline" asChild><Link to="/content/learning-resources">Open Learning Resources</Link></Button></CardContent>
+        <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between"><div><p className="font-semibold">Yesterday should exist on demand.</p><p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">Generate Yesterday Now refreshes official sources, reclassifies safe primary-source stories that were stranded as uncategorized, enriches primary facts, reruns clustering and strict verification, and materializes missing SSC, Banking and Punjab EN/HI/PA drafts plus BANK_ONLY review questions. Trusted-news sources are discovery-only and never replace official verification.</p></div><Button variant="outline" asChild><Link to="/content/learning-resources">Open Learning Resources</Link></Button></CardContent>
       </Card>
 
-      {generating ? <Card><CardContent className="flex items-center gap-3 p-5 text-sm"><Loader2 className="h-5 w-5 animate-spin text-primary" /><div><p className="font-medium">Generating {readiness.targetDate}…</p><p className="text-muted-foreground">Official sources → facts → verification → notes → translations → review questions.</p></div></CardContent></Card> : null}
+      {generating ? <Card><CardContent className="flex items-center gap-3 p-5 text-sm"><Loader2 className="h-5 w-5 animate-spin text-primary" /><div><p className="font-medium">Generating {readiness.targetDate}…</p><p className="text-muted-foreground">Official sources → safe classification → facts → verification → notes → translations → review questions.</p></div></CardContent></Card> : null}
 
-      {lastGeneration ? <Card className={lastGeneration.summary.allEnglishDraftsPresent ? 'border-success/30' : 'border-warning/30'}><CardHeader><CardTitle className="text-base">Last on-demand result · {lastGeneration.targetDate}</CardTitle></CardHeader><CardContent className="space-y-4"><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5"><Metric label="Candidates" value={lastGeneration.after.candidateCount} /><Metric label="Verified events" value={lastGeneration.summary.verifiedEvents} /><Metric label="Needs review" value={lastGeneration.summary.reviewEvents} /><Metric label="English packs" value={`${lastGeneration.summary.englishDraftCount}/3`} /><Metric label="HI + PA packs" value={`${lastGeneration.summary.localizedDraftCount}/6`} /></div>{lastGeneration.summary.blockers.length > 0 ? <p className="text-sm text-warning">{lastGeneration.summary.blockers[0]}</p> : null}</CardContent></Card> : null}
+      {lastGeneration ? <Card className={lastGeneration.summary.allEnglishDraftsPresent ? 'border-success/30' : 'border-warning/30'}><CardHeader><CardTitle className="text-base">Last on-demand result · {lastGeneration.targetDate}</CardTitle></CardHeader><CardContent className="space-y-4"><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5"><Metric label="Candidates" value={lastGeneration.after.candidateCount} /><Metric label="Verified events" value={lastGeneration.summary.verifiedEvents} /><Metric label="Needs review" value={lastGeneration.summary.reviewEvents} /><Metric label="English packs" value={`${lastGeneration.summary.englishDraftCount}/3`} /><Metric label="HI + PA packs" value={`${lastGeneration.summary.localizedDraftCount}/6`} /></div>{lastGeneration.officialCandidatePreparation ? <p className="text-xs text-muted-foreground">Official reclassification: {lastGeneration.officialCandidatePreparation.candidateUpdated} candidate(s), {lastGeneration.officialCandidatePreparation.clusterUpdated} open cluster(s) updated before intelligence.</p> : null}{lastGeneration.summary.blockers.length > 0 ? <p className="text-sm text-warning">{lastGeneration.summary.blockers[0]}</p> : null}</CardContent></Card> : null}
 
       <Card className={cn('border-2', statusTone(evaluation.color))}>
         <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between"><div><div className="flex items-center gap-2"><Badge variant="outline" className={cn('uppercase', statusTone(evaluation.color))}>{evaluation.color}</Badge><span className="text-sm font-semibold">Is {readiness.targetDate} ready?</span></div><p className="mt-2 text-2xl font-bold">{evaluation.learnerReady ? 'Learner ready' : evaluation.releaseReady ? 'Ready for editorial release' : evaluation.draftReady ? 'Drafts ready · editorial pending' : 'Not ready'}</p><p className="mt-1 text-sm text-muted-foreground">Core official family coverage {evaluation.sourceCoveragePercent}% · {readiness.sourceCoverage.freshSuccessfulPrimarySources}/{readiness.sourceCoverage.scheduledPrimarySources} families healthy · {readiness.pipeline.queuedCandidates} queued · {readiness.pipeline.openConflicts} conflicts</p></div><div className="text-sm text-muted-foreground"><Clock3 className="mr-2 inline h-4 w-4" />Checked {fmt(readiness.generatedAt)}</div></CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader><CardTitle className="text-base">Target-date pipeline · {readiness.targetDate}</CardTitle></CardHeader>
+        <CardContent className="space-y-4">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8">
+            <Metric label="Candidates" value={inventory.candidateCount} />
+            <Metric label="Official candidates" value={inventory.primaryCandidateCount} />
+            <Metric label="Open clusters" value={inventory.openClusterCount} />
+            <Metric label="Still uncategorized" value={inventory.openOtherClusterCount} />
+            <Metric label="Events" value={inventory.eventCount} />
+            <Metric label="Verified" value={inventory.verifiedEventCount} />
+            <Metric label="Needs review" value={inventory.reviewEventCount} />
+            <Metric label="Authoring ready" value={inventory.authoringReadyCount} />
+          </div>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <Metric label="SSC eligible" value={inventory.familyEligible.ssc} />
+            <Metric label="Banking eligible" value={inventory.familyEligible.banking} />
+            <Metric label="Punjab eligible" value={inventory.familyEligible.punjab} />
+          </div>
+          {inventory.candidateCount === 0 ? <p className="rounded-md border border-destructive/20 bg-destructive/5 p-2 text-sm text-destructive">No source candidates are dated {readiness.targetDate}; the next issue is historical source discovery rather than pack generation.</p> : inventory.openOtherClusterCount > 0 ? <p className="rounded-md border border-warning/20 bg-warning/5 p-2 text-sm text-warning">{inventory.openOtherClusterCount} target-date cluster(s) are still uncategorized and cannot auto-promote.</p> : inventory.verifiedEventCount > 0 && inventory.authoringReadyCount === 0 ? <p className="rounded-md border border-warning/20 bg-warning/5 p-2 text-sm text-warning">Verified events exist, but none has reached learner-authoring readiness.</p> : null}
+        </CardContent>
       </Card>
 
       <div className="grid gap-4 lg:grid-cols-3">{readiness.families.map((family) => <Card key={family.family}><CardHeader><CardTitle className="flex items-center justify-between text-base"><span className="uppercase">{family.family}</span><Badge variant="outline">{family.eventCount} events</Badge></CardTitle></CardHeader><CardContent className="space-y-2 text-sm"><CheckRow label="English draft" ok={family.englishDraftPresent} /><CheckRow label="Hindi draft" ok={family.hindiDraftPresent} /><CheckRow label="Punjabi draft" ok={family.punjabiDraftPresent} /><CheckRow label={`Questions approved ${family.approvedEnglishQuestions}/${family.totalEnglishQuestions}`} ok={family.totalEnglishQuestions === 0 || family.approvedEnglishQuestions === family.totalEnglishQuestions} /><CheckRow label="Release ready" ok={family.releaseReady} /><CheckRow label="Learner quiz published" ok={family.learnerQuizPublished} />{family.blockers.slice(0, 2).map((blocker) => <p key={blocker} className="text-xs text-warning">• {blocker}</p>)}</CardContent></Card>)}</div>

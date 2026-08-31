@@ -5,6 +5,7 @@ import { onDemandFeedRunKey, runScheduledFeedIngestion, scheduleSlotStart } from
 import { runScheduledIntelligenceProcessing } from "./daily-orchestration";
 import { reconcilePrimaryEnrichedEvents } from "./enriched-event-reconciliation";
 import { holdManualAuthorityEventsForReview } from "./manual-enrichment-guard";
+import { prepareOfficialYesterdayCandidates } from "./official-candidate-reclassification";
 import { previousIndiaDate } from "./orchestration-policy";
 import { runScheduledPrimaryFactEnrichment } from "./primary-enrichment";
 import { loadCurrentAffairsProductionReadiness } from "./production-readiness-runtime";
@@ -147,6 +148,12 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
     trigger: "on_demand",
   });
 
+  // Existing primary-source candidates and open clusters from the target date may
+  // predate newer classification rules. Reclassify only official primary evidence
+  // before enrichment/intelligence so valid PIB/Punjab/RBI/SEBI/ISRO stories are
+  // not stranded as `other`. Specific categories are never overwritten.
+  const officialCandidatePreparation = await prepareOfficialYesterdayCandidates(targetDate);
+
   const enrichmentPasses: unknown[] = [];
   for (let pass = 0; pass < MAX_ENRICHMENT_PASSES; pass += 1) {
     await supersedeCompletedSlot("primary_fact_enrichment", now);
@@ -192,6 +199,7 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
       runKey: sourceRunKey,
       result: sourceRefresh,
     },
+    officialCandidatePreparation,
     enrichmentPasses,
     enrichedBeforeIntelligence,
     intelligencePasses,
