@@ -1,0 +1,89 @@
+name: Validate ARG-001 CP009 English Editorial Remediation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/POST-CP008-*'
+      - '.github/workflows/arg-001-cp009-english-remediation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp009-en-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp009-english-remediation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for CP009 English remediation
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-saturation-types.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-saturation-helpers.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-english-remediated-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-english-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-english-remediation-proof.test.ts
+
+      - name: Exhaustively prove all 12,288 English surfaces
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-english-remediation-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp009-english-remediation-proof.mjs
+          node dist/arg-001-cp009-english-remediation-proof.mjs
+
+      - name: Preserve exact CP006 historical core freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts
+
+      - name: Preserve exact CP008 historical real-paper freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-byte-freeze-proof.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build
+
+      - name: Lifecycle boundary
+        run: |
+          echo 'ARG-001 CP009 is an additive English editorial remediation authority.'
+          echo 'Historical CP006 and CP008 frozen authorities are preserved byte-for-byte.'
+          echo 'Hindi/Punjabi remediation remains pending.'
+          echo 'Question Bank/test/mock/public/automatic learner publication remain locked.'
