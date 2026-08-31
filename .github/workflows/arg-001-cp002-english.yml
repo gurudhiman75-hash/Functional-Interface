@@ -1,4 +1,4 @@
-name: Validate ARG-001 CP001 Foundation
+name: Validate ARG-001 CP002 English Expansion
 
 on:
   pull_request:
@@ -6,18 +6,21 @@ on:
       - New-main
     types: [opened, reopened, synchronize]
     paths:
-      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/**'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp002-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/english-authorities.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/strength-model.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/types.ts'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: arg-001-cp001-${{ github.ref }}
+  group: arg-001-cp002-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  arg-cp001-foundation:
+  arg-cp002-english:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -28,7 +31,7 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
-      - name: Strict TypeScript check
+      - name: Strict TypeScript check for active English corpus
         working-directory: artifacts/api-server
         run: |
           pnpm exec tsc \
@@ -46,9 +49,16 @@ jobs:
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/types.ts \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/strength-model.ts \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp001-english-authorities.ts \
-            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp001-foundation-proof.test.ts
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp002-english-expansion.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp002-editorial-replacements.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/english-authorities.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp002-archetype-ledger.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp002-english-proof.test.ts
 
-      - name: Run ARG-001 CP001 executable proof
+      - name: Prove CP002 English breadth and exam-realness contracts
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp002-english-proof.test.ts
+
+      - name: Preserve CP001 semantic foundation
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp001-foundation-proof.test.ts
 
       - name: Build production API
@@ -57,6 +67,6 @@ jobs:
 
       - name: Lifecycle boundary
         run: |
-          echo 'ARG-001 CP001 is taxonomy/English calibration only.'
-          echo 'Question Studio registration is not opened by this checkpoint.'
+          echo 'ARG-001 CP002: 48 active English authorities, 8 per QL, 8 archetypes per QL.'
+          echo 'Localization remains pending CP004; Question Studio registration remains closed until CP005.'
           echo 'Question Bank/test/mock/public/automatic learner publication remain locked.'
