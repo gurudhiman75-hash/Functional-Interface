@@ -11,6 +11,7 @@ import { NotesStudioQualityGatesPage } from './NotesStudioQualityGatesPage';
 import { NotesStudioReleaseRevisionPage } from './NotesStudioReleaseRevisionPage';
 import { NotesStudioSectionDraftsPage } from './NotesStudioSectionDraftsPage';
 import { NotesStudioSourceCoveragePage } from './NotesStudioSourceCoveragePage';
+import { NotesStudioSourceDiscoveryPage } from './NotesStudioSourceDiscoveryPage';
 import { NotesStudioSourceLibraryPage } from './NotesStudioSourceLibraryPage';
 import { NotesStudioSourcePackPage } from './NotesStudioSourcePackPage';
 import { NotesStudioSourcePackProposalPage } from './NotesStudioSourcePackProposalPage';
@@ -23,6 +24,7 @@ export function NotesStudioHubPage() {
       <TabsTrigger value="planning">Syllabus planning</TabsTrigger>
       <TabsTrigger value="library">Source library</TabsTrigger>
       <TabsTrigger value="authoring">Brief & sources</TabsTrigger>
+      <TabsTrigger value="source-discovery">Web discovery</TabsTrigger>
       <TabsTrigger value="source-policy">Source policy</TabsTrigger>
       <TabsTrigger value="source-coverage">Source diagnostics</TabsTrigger>
       <TabsTrigger value="source-proposals">Pack proposals</TabsTrigger>
@@ -46,6 +48,9 @@ export function NotesStudioHubPage() {
     </TabsContent>
     <TabsContent value="authoring" className="mt-0">
       <NotesStudioSourcePackPage />
+    </TabsContent>
+    <TabsContent value="source-discovery" className="mt-0">
+      <NotesStudioSourceDiscoveryPage />
     </TabsContent>
     <TabsContent value="source-policy" className="mt-0">
       <NotesStudioSourcePolicyPage />
