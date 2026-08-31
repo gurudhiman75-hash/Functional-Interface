@@ -8,6 +8,7 @@ import { materializeDailyMasterPack } from "./daily-master-pack";
 import { reconcilePrimaryEnrichedEvents } from "./enriched-event-reconciliation";
 import { holdManualAuthorityEventsForReview } from "./manual-enrichment-guard";
 import { prepareOfficialYesterdayCandidates } from "./official-candidate-reclassification";
+import { runOpenNewsDiscovery } from "./open-news-discovery";
 import { previousIndiaDate } from "./orchestration-policy";
 import { ensurePibHistoricalCandidates } from "./pib-historical-backfill";
 import { runScheduledPrimaryFactEnrichment } from "./primary-enrichment";
@@ -155,6 +156,12 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
   // official PIB archive as a completeness pass for the exact target date.
   const historicalSourceBackfill = await ensurePibHistoricalCandidates(targetDate);
 
+  // CP-037 expands discovery without scraping publisher sites. GDELT's open DOC
+  // dataset contributes title/link/date metadata only. Known registered publishers
+  // are mapped back to their own discovery source; everything else remains under
+  // the non-primary GDELT provider. Article bodies are never fetched or persisted.
+  const openNewsDiscovery = await runOpenNewsDiscovery(targetDate);
+
   // Existing primary-source candidates and open clusters from the target date may
   // predate newer classification rules. Reclassify only official primary evidence
   // before enrichment/intelligence so valid PIB/Punjab/RBI/SEBI/ISRO stories are
@@ -189,9 +196,6 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
   const recoverySupersede = await supersedeManualRecoverySlot(targetDate, now);
   const recovery = await runCurrentAffairsProductionRecovery({ now, triggerMode: "manual" });
 
-  // CP-036 turns the target-date pipeline into one auditable daily universe.
-  // The census measures discovery/evidence breadth; the master pack is the one
-  // canonical draft text that future web/PDF renderers must share.
   const discoveryCensus = await refreshDailyDiscoveryCensus(targetDate);
   const dailyMasterPack = await materializeDailyMasterPack(targetDate, String(discoveryCensus.id));
 
@@ -213,6 +217,7 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
       result: sourceRefresh,
     },
     historicalSourceBackfill,
+    openNewsDiscovery,
     officialCandidatePreparation,
     enrichmentPasses,
     enrichedBeforeIntelligence,
@@ -232,6 +237,7 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
       localizedDraftCount: artifacts.filter((item) => item.language === "hi" || item.language === "pa").length,
       verifiedEvents: after.verifiedEventCount,
       reviewEvents: after.reviewEventCount,
+      discoveredNewsArticles: Number(openNewsDiscovery.uniqueArticles ?? 0),
       masterPackEventCount: Number((dailyMasterPack as any)?.eventCount ?? 0),
       coverageConfidenceScore: Number((discoveryCensus as any)?.coverageConfidenceScore ?? 0),
       readinessColor: readiness.evaluation.color,
@@ -240,6 +246,9 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
       warnings: [
         ...(historicalSourceBackfill.status === "failed" && historicalSourceBackfill.error
           ? [`PIB historical backfill failed: ${historicalSourceBackfill.error}`]
+          : []),
+        ...(openNewsDiscovery.queryResults.every((item) => item.status === "failed")
+          ? ["Open-news discovery provider was unavailable for all target-date queries."]
           : []),
         ...((discoveryCensus as any)?.warnings ?? []),
         ...readiness.evaluation.warnings,
