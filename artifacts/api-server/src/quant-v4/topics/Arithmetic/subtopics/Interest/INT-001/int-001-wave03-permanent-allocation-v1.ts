@@ -1,10 +1,12 @@
 import { hash, type Rational } from "./cp003-exam-model";
 import {
   constructIntCp010SequentialReopenState,
+  type IntCp010SequentialReopenState,
+} from "./cp010-sequential-mixed-source-reopen-v1";
+import {
   solveIntCp010SequentialReopen,
   verifyIntCp010SequentialReopen,
   type IntCp010SequentialReopenPrototypeId,
-  type IntCp010SequentialReopenState,
 } from "./cp010-sequential-mixed-source-reopen-v2";
 
 export const INT_001_WAVE03_PERMANENT_ALLOCATION_VERSION = "INT-001-WAVE03-PERMANENT-ALLOCATION-v1" as const;
