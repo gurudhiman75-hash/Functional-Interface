@@ -43,6 +43,14 @@ async function main() {
   assert.deepEqual(arg.blockedDifficulties, ["Easy"]);
   assert.equal(arg.difficultyCoverageStatus, "CERTIFIED_MEDIUM_HARD_EASY_GAP");
   assert.equal(arg.permanentQlCount, 6);
+  assert.deepEqual(
+    arg.canonicalProblems.find((problem: any) => problem.id === "ARG-QL-001")?.supportedDifficulties,
+    ["Medium", "Hard"],
+  );
+  assert.deepEqual(
+    arg.canonicalProblems.find((problem: any) => problem.id === "ARG-QL-006")?.supportedDifficulties,
+    ["Hard"],
+  );
 
   const result = await generateArgAggregateQuestion({
     packageId: "ARG-001",
