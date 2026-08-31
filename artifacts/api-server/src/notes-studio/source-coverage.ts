@@ -13,6 +13,7 @@ export type SourceCoverageSource = {
   extractionStatus: string;
   retainedCharCount: number;
   inclusionState: string;
+  referenceEvidenceCount?: number;
 };
 
 export type SourceCoverageFinding = {
@@ -21,10 +22,10 @@ export type SourceCoverageFinding = {
   message: string;
 };
 
-const depthTargets: Record<SourceCoverageDepth, { included: number; generationReady: number }> = {
-  quick_revision: { included: 1, generationReady: 1 },
-  standard: { included: 2, generationReady: 2 },
-  comprehensive: { included: 3, generationReady: 3 },
+const depthTargets: Record<SourceCoverageDepth, { included: number; evidenceReady: number }> = {
+  quick_revision: { included: 1, evidenceReady: 1 },
+  standard: { included: 2, evidenceReady: 2 },
+  comprehensive: { included: 3, evidenceReady: 3 },
 };
 
 function publisherIdentity(source: SourceCoverageSource): string | null {
@@ -38,6 +39,18 @@ function publisherIdentity(source: SourceCoverageSource): string | null {
   }
 }
 
+function retainedEvidenceReady(source: SourceCoverageSource): boolean {
+  return isGenerationReadySource({
+    retentionMode: source.retentionMode,
+    extractionStatus: source.extractionStatus,
+    retainedCharCount: source.retainedCharCount,
+  });
+}
+
+function reviewedReferenceEvidenceReady(source: SourceCoverageSource): boolean {
+  return Number(source.referenceEvidenceCount ?? 0) > 0;
+}
+
 export function normalizeSourceCoverageDepth(value: unknown): SourceCoverageDepth {
   return value === 'quick_revision' || value === 'comprehensive' ? value : 'standard';
 }
@@ -45,12 +58,11 @@ export function normalizeSourceCoverageDepth(value: unknown): SourceCoverageDept
 export function assessSourceCoverage(depth: SourceCoverageDepth, sources: SourceCoverageSource[]) {
   const target = depthTargets[depth];
   const included = sources.filter((source) => source.inclusionState === 'included');
-  const generationReady = included.filter((source) => isGenerationReadySource({
-    retentionMode: source.retentionMode,
-    extractionStatus: source.extractionStatus,
-    retainedCharCount: source.retainedCharCount,
-  }));
+  const generationReady = included.filter(retainedEvidenceReady);
+  const referenceEvidenceReady = included.filter(reviewedReferenceEvidenceReady);
+  const evidenceReady = included.filter((source) => retainedEvidenceReady(source) || reviewedReferenceEvidenceReady(source));
   const referenceOnly = included.filter((source) => source.rightsBasis === 'reference_only');
+  const referenceOnlyWithoutEvidence = referenceOnly.filter((source) => !reviewedReferenceEvidenceReady(source));
   const failedExtraction = included.filter((source) => source.extractionStatus === 'failed');
   const publisherKeys = new Set(included.map(publisherIdentity).filter((value): value is string => Boolean(value)));
   const sourceTypes = new Set(included.map((source) => source.sourceType).filter(Boolean));
@@ -63,11 +75,11 @@ export function assessSourceCoverage(depth: SourceCoverageDepth, sources: Source
       message: `${depth === 'quick_revision' ? 'Quick revision' : depth === 'comprehensive' ? 'Comprehensive' : 'Standard'} notes should include at least ${target.included} governed source${target.included === 1 ? '' : 's'}.`,
     });
   }
-  if (generationReady.length < target.generationReady) {
+  if (evidenceReady.length < target.evidenceReady) {
     findings.push({
-      code: 'INSUFFICIENT_GENERATION_READY_SOURCES',
+      code: 'INSUFFICIENT_EVIDENCE_READY_SOURCES',
       severity: 'blocker',
-      message: `Add ${Math.max(0, target.generationReady - generationReady.length)} more source${target.generationReady - generationReady.length === 1 ? '' : 's'} whose rights and extraction state permit evidence generation.`,
+      message: `Add ${Math.max(0, target.evidenceReady - evidenceReady.length)} more source${target.evidenceReady - evidenceReady.length === 1 ? '' : 's'} with either authorized retained evidence text or reviewed reference evidence.`,
     });
   }
   if (included.length >= 2 && publisherKeys.size < 2) {
@@ -84,11 +96,18 @@ export function assessSourceCoverage(depth: SourceCoverageDepth, sources: Source
       message: 'All included sources use the same source type. A second source type can improve cross-checking when appropriate.',
     });
   }
-  if (referenceOnly.length > 0) {
+  if (referenceEvidenceReady.length > 0) {
     findings.push({
-      code: 'REFERENCE_ONLY_PRESENT',
+      code: 'REFERENCE_EVIDENCE_PRESENT',
       severity: 'info',
-      message: `${referenceOnly.length} included source${referenceOnly.length === 1 ? ' is' : 's are'} provenance-only and cannot supply retained evidence text.`,
+      message: `${referenceEvidenceReady.length} included source${referenceEvidenceReady.length === 1 ? ' has' : 's have'} reviewed editor reference evidence without retaining publisher wording.`,
+    });
+  }
+  if (referenceOnlyWithoutEvidence.length > 0) {
+    findings.push({
+      code: 'REFERENCE_ONLY_WITHOUT_EVIDENCE',
+      severity: 'info',
+      message: `${referenceOnlyWithoutEvidence.length} included reference-only source${referenceOnlyWithoutEvidence.length === 1 ? ' still needs' : 's still need'} reviewed reference evidence before counting toward evidence sufficiency.`,
     });
   }
   if (failedExtraction.length > 0) {
@@ -109,21 +128,29 @@ export function assessSourceCoverage(depth: SourceCoverageDepth, sources: Source
 
   const recommendedNeeds = new Set<string>();
   if (included.length < target.included) recommendedNeeds.add('more_governed_sources');
-  if (generationReady.length < target.generationReady) recommendedNeeds.add('generation_ready_source');
+  if (evidenceReady.length < target.evidenceReady) recommendedNeeds.add('evidence_ready_source');
+  if (referenceOnlyWithoutEvidence.length > 0) recommendedNeeds.add('review_reference_only_source');
   if (included.length >= 2 && publisherKeys.size < 2) recommendedNeeds.add('independent_publisher_or_domain');
   if (depth !== 'quick_revision' && included.length >= 2 && sourceTypes.size < 2) recommendedNeeds.add('alternate_source_type_if_appropriate');
-  if (referenceOnly.length > 0 && generationReady.length < target.generationReady) recommendedNeeds.add('rights_permitting_extraction');
   if (failedExtraction.length > 0) recommendedNeeds.add('extraction_recovery_or_replacement');
 
   return {
     status,
     depth,
-    targets: target,
+    targets: {
+      included: target.included,
+      evidenceReady: target.evidenceReady,
+      // Backward-compatible alias for older admin clients. New UI should use evidenceReady.
+      generationReady: target.evidenceReady,
+    },
     counts: {
       totalAttached: sources.length,
       included: included.length,
+      evidenceReady: evidenceReady.length,
       generationReady: generationReady.length,
+      referenceEvidenceReady: referenceEvidenceReady.length,
       referenceOnly: referenceOnly.length,
+      referenceOnlyWithoutEvidence: referenceOnlyWithoutEvidence.length,
       failedExtraction: failedExtraction.length,
       independentPublishersOrDomains: publisherKeys.size,
       sourceTypes: sourceTypes.size,
