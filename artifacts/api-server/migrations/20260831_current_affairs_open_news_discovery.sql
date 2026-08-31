@@ -7,7 +7,9 @@ ALTER TABLE content.current_affairs_sources
 
 ALTER TABLE content.current_affairs_sources
   ADD CONSTRAINT current_affairs_sources_ingestion_mode_check
-  CHECK (ingestion_mode IN ('manual', 'feed', 'pdf', 'feed_and_pdf', 'api'));
+  CHECK (ingestion_mode IN (
+    'manual', 'feed', 'pdf', 'feed_and_pdf', 'listing', 'listing_and_pdf', 'api'
+  ));
 
 INSERT INTO content.current_affairs_sources (
   id, source_key, name, source_type, base_url, feed_url, trust_score,
