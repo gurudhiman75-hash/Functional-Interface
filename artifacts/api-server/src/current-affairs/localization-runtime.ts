@@ -10,7 +10,7 @@ import {
   type LocalizationFact,
 } from "./multilingual-localization";
 
-const LOCALIZATION_VERSION = "ca-cp010-multilingual-notes-v1";
+const LOCALIZATION_VERSION = "ca-cp035-generic-multilingual-recovery-v1";
 export const CURRENT_AFFAIRS_LOCALIZATION_LANGUAGES = ["hi", "pa"] as const;
 
 const FACT_LABELS: Record<CurrentAffairsLocalizationLanguage, Record<string, string>> = {
@@ -32,6 +32,20 @@ const FACT_LABELS: Record<CurrentAffairsLocalizationLanguage, Record<string, str
     scheme_outlay: "परिव्यय",
     beneficiary_count: "लाभार्थी",
     effective_date: "प्रभावी तिथि",
+    acting_entity: "आधिकारिक निकाय",
+    official_action: "आधिकारिक कार्रवाई",
+    action_subject: "विषय",
+    winner: "विजेता",
+    award_or_title: "पुरस्कार या उपाधि",
+    launching_entity: "आरंभ करने वाला निकाय",
+    initiative: "पहल",
+    event_status: "स्थिति",
+    amount: "राशि",
+    percentage: "प्रतिशत",
+    rank: "रैंक",
+    headquarters: "मुख्यालय",
+    target_percentage: "लक्ष्य",
+    target_year: "लक्ष्य वर्ष",
   },
   pa: {
     appointee: "ਨਿਯੁਕਤ ਵਿਅਕਤੀ",
@@ -51,6 +65,20 @@ const FACT_LABELS: Record<CurrentAffairsLocalizationLanguage, Record<string, str
     scheme_outlay: "ਖਰਚਾ",
     beneficiary_count: "ਲਾਭਪਾਤਰੀ",
     effective_date: "ਲਾਗੂ ਮਿਤੀ",
+    acting_entity: "ਅਧਿਕਾਰਤ ਸੰਸਥਾ",
+    official_action: "ਅਧਿਕਾਰਤ ਕਾਰਵਾਈ",
+    action_subject: "ਵਿਸ਼ਾ",
+    winner: "ਜੇਤੂ",
+    award_or_title: "ਇਨਾਮ ਜਾਂ ਖਿਤਾਬ",
+    launching_entity: "ਸ਼ੁਰੂ ਕਰਨ ਵਾਲੀ ਸੰਸਥਾ",
+    initiative: "ਪਹਿਲ",
+    event_status: "ਸਥਿਤੀ",
+    amount: "ਰਕਮ",
+    percentage: "ਪ੍ਰਤੀਸ਼ਤ",
+    rank: "ਰੈਂਕ",
+    headquarters: "ਮੁੱਖ ਦਫ਼ਤਰ",
+    target_percentage: "ਟੀਚਾ",
+    target_year: "ਟੀਚਾ ਸਾਲ",
   },
 };
 
@@ -157,6 +185,9 @@ async function storeLocalization(
       AND language_code=${languageCode}
     LIMIT 1
   `;
+  if (existing[0] && String(existing[0].status) === "manual") {
+    return { id: String(existing[0].id), unchanged: true, status: "manual" };
+  }
   if (existing[0] && String(existing[0].inputFingerprint) === output.inputFingerprint) {
     return { id: String(existing[0].id), unchanged: true, status: String(existing[0].status) };
   }
