@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 
 import {
   getGeneratedQuestionBankAcceptanceMode,
@@ -131,13 +131,35 @@ assert.match(routeSource, /testEligible: false/);
 assert.match(routeSource, /publiclyPublishable: false/);
 assert.doesNotMatch(routeSource, /res\.status\(409\)/);
 
-console.log("PASS_CND_001_BANK_ONLY_ACTIVATION_V1", {
+const evidence = {
+  status: "PASS_CND_001_BANK_ONLY_ACTIVATION_V1",
+  activationAuthority: activation.authorityId,
+  permanentQlIds: [...activation.permanentQlIds],
+  languages: [...activation.supportedLanguages],
   generatedCanonicalLanguageCases: generated,
   stackTaskCases: STACK_TASKS.length * LANGUAGES.length,
   projectionTaskCases: PROJECTION_TASKS.length * LANGUAGES.length,
   persistenceAllowed: activation.persistenceAllowed,
+  internalReviewRunsWritable: activation.internalReviewRunsWritable,
+  questionBankStatus: activation.questionBankStatus,
+  questionBankWritable: activation.questionBankWritable,
   questionBankAcceptanceMode: activation.questionBankAcceptanceMode,
+  manualApprovalRequired: activation.manualApprovalRequired,
+  testEligibility: activation.testEligibility,
   testEligible: activation.testEligible,
+  testBuilderEligible: activation.testBuilderEligible,
+  mockTestEligible: activation.mockTestEligible,
   publiclyPublishable: activation.publiclyPublishable,
+  publicReleaseAuthorized: activation.publicReleaseAuthorized,
+  automaticStudentPublication: activation.automaticStudentPublication,
+  scalarOptionFigurePersistence: "SANITIZED_SVG_DATA_IMAGE_EMBEDDED_IN_STEM",
   nextGate: activation.nextGate,
-});
+};
+
+writeFileSync(
+  new URL("./cnd-001-bank-only-activation-v1-evidence.json", import.meta.url),
+  `${JSON.stringify(evidence, null, 2)}\n`,
+  "utf8",
+);
+
+console.log("PASS_CND_001_BANK_ONLY_ACTIVATION_V1", evidence);
