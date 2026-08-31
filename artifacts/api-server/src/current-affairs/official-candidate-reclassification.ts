@@ -29,14 +29,16 @@ export function classifyOfficialCandidate(input: OfficialClassificationInput): {
 
   const sourceKey = input.sourceKey.toLowerCase();
   const sourceFamily = String(input.sourceFamily ?? sourceKey).toLowerCase();
-  const classified = classifyCurrentAffairsSignal(input.title);
-  if (classified.category !== "other") {
-    return { category: classified.category, reason: "headline_classifier" };
-  }
   if (!input.isPrimarySource) {
-    return { category: "other", reason: "secondary_source_requires_explicit_category" };
+    const classified = classifyCurrentAffairsSignal(input.title);
+    return classified.category !== "other"
+      ? { category: classified.category, reason: "headline_classifier" }
+      : { category: "other", reason: "secondary_source_requires_explicit_category" };
   }
 
+  // For institutions whose subject domain is intrinsically authoritative, the
+  // official-source identity is a stronger and safer classification signal than
+  // incidental headline words (for example, "Governor" on Punjab Lok Bhavan).
   if (sourceKey === "rbi" || sourceKey === "sebi" || sourceFamily === "rbi" || sourceFamily === "sebi") {
     return { category: "economy_banking", reason: "official_financial_institution" };
   }
@@ -45,6 +47,11 @@ export function classifyOfficialCandidate(input: OfficialClassificationInput): {
   }
   if (sourceKey.startsWith("punjab_") || sourceFamily.startsWith("punjab")) {
     return { category: "punjab", reason: "official_punjab_institution" };
+  }
+
+  const classified = classifyCurrentAffairsSignal(input.title);
+  if (classified.category !== "other") {
+    return { category: classified.category, reason: "headline_classifier" };
   }
 
   const isPib = sourceKey === "pib" || sourceFamily === "pib";
