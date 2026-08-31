@@ -58,6 +58,13 @@ async function proveReusePath(sample: AnyRecord) {
     itemId: SOURCE_ITEM,
     generationRunCode: "GEN-CP014-AUDIT",
   });
+  const expectedPlan = buildBtdCp014ScoredTestProjectionMaterializationPlanV1({
+    qlId: sample.qlId,
+    seed: sample.seed,
+    examVersionId: EXAM_A,
+    primaryTaxonomyNodeId: TAX_A,
+    supportedLanguages: ["en", "hi", "pa"],
+  });
   const calls: string[] = [];
   let invocation = 0;
   const fakeClient = (async (strings: TemplateStringsArray, ..._values: unknown[]) => {
@@ -97,8 +104,47 @@ async function proveReusePath(sample: AnyRecord) {
       ];
     }
     if (invocation === 6) return [];
-    if (invocation === 7) return [{ questionId: PROJECTED_Q, questionVersionId: PROJECTED_V, publicCode: "Q-CP014-REUSE" }];
-    if (invocation === 8) return [{ code: "hi" }, { code: "pa" }];
+    if (invocation === 7) {
+      return [{
+        questionId: PROJECTED_Q,
+        questionVersionId: PROJECTED_V,
+        publicCode: "Q-CP014-REUSE",
+        status: "approved",
+        approvedVersionId: PROJECTED_V,
+        primaryTaxonomyNodeId: TAX_A,
+        examVersionId: EXAM_A,
+        primaryTaxonomyBound: true,
+        answerModel: {
+          generation: {
+            projectionAuthority: BTD_CP014_MATERIALIZATION_AUTHORITY,
+            testProjectionKey: expectedPlan.projectionKey,
+            sourceQuestionBankAdmissionKey: sample.questionBankAdmissionKey,
+            sourceGenerationItemId: SOURCE_ITEM,
+            testProjectionMaterializationApproved: true,
+            testProjectionMaterialized: true,
+            testEligibilityApprovalGranted: false,
+            testEligible: false,
+            mockTestEligible: false,
+            publiclyPublishable: false,
+          },
+        },
+      }];
+    }
+    if (invocation === 8) {
+      return [...expectedPlan.translations]
+        .sort((a, b) => a.language.localeCompare(b.language))
+        .map((translation) => ({
+          code: translation.language,
+          stem: translation.learner.stem,
+          explanation: translation.learner.explanation,
+          qualitySnapshot: {
+            authority: BTD_CP014_MATERIALIZATION_AUTHORITY,
+            sourceFrozenContentFingerprint: translation.frozenContentFingerprint,
+            sourceQuestionBankAdmissionKey: translation.sourceQuestionBankAdmissionKey,
+          },
+          options: translation.learner.options.map((text: string, index: number) => ({ text, sortOrder: index + 1 })),
+        }));
+    }
     throw new Error(`Unexpected fake SQL call ${invocation}: ${sql.slice(0, 120)}`);
   }) as any;
 
@@ -118,6 +164,8 @@ async function proveReusePath(sample: AnyRecord) {
   assert.equal(result.publiclyPublishable, false);
   assert.equal(calls.some((sql) => sql.includes("pg_advisory_xact_lock")), true);
   assert.equal(calls.some((sql) => sql.includes("testProjectionKey")), true);
+  assert.equal(calls.some((sql) => sql.includes("primaryTaxonomyBound") || sql.includes("question_taxonomy_links")), true);
+  assert.equal(calls.some((sql) => sql.includes("quality_snapshot")), true);
   assert.equal(calls.some((sql) => sql.includes("INSERT INTO content.questions")), false);
   return calls.length;
 }
@@ -293,6 +341,7 @@ async function main() {
     minimumQlExamScopeUnique,
     languageScopeCases: 3,
     reusePathSqlCalls,
+    existingProjectionIntegrityChecks: 5,
     testProjectionMaterializationApproved: true,
     projectedQuestionStatus: "approved",
     testEligibilityApprovalGranted: false,
