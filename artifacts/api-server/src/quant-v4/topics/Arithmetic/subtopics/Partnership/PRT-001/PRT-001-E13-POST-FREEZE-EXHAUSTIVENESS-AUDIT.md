@@ -7,25 +7,26 @@
 
 ## Executive verdict
 
-E12 remains a valid validation result for the surface and source families that its permanent gates actually covered. The new E13 source sweep shows, however, that **closing the original 102-candidate ledger did not prove open-world exam exhaustiveness**. Fresh official/PYQ evidence exposes material Partnership families that were not present in that original candidate universe.
+E12 remains a valid validation result for the surface and source families that its permanent gates actually covered. The E13 source sweep shows, however, that **closing the original 102-candidate ledger did not prove open-world exam exhaustiveness**. Fresh official/PYQ evidence exposes material Partnership families that were not present in that original candidate universe, plus two target-exam ownership boundaries whose current delegation does not actually provide product coverage.
 
 Therefore:
 
 - the current 99-mode / 105-QL runtime remains internally validated and must not be discarded;
 - the **chapter-level technical exhaustiveness freeze is reopened**;
-- previously granted product/publication approval is recorded as satisfied, but publication must remain technically blocked until the E13 gaps are implemented and the full freeze chain is rerun;
+- previously granted product/publication approval is recorded as satisfied, but publication must remain technically blocked until the E13 gaps are resolved and the full freeze chain is rerun;
 - no existing runtime or audit threshold is weakened by this finding.
 
 ## Audit method
 
-The audit reconciled four evidence layers:
+The audit reconciled five evidence layers:
 
 1. the accepted 102-candidate Partnership solve-mode ledger and its E1-E5 closure;
 2. all 105 active Question Studio QLs and the current typed capital-timeline/allocation state model;
 3. E8 source provenance and E9 ownership boundaries;
-4. a fresh source sweep across SSC, state CGL/police, defence and comparable aptitude papers, prioritising official-paper-tagged previous-year questions and 2024-2026 evidence while retaining older SSC evidence when it demonstrates a distinct topology.
+4. neighbouring `INT-001` / Ratio & Proportion ownership evidence, to test whether delegated source families are truly covered elsewhere;
+5. a fresh adversarial source sweep across SSC, Banking, Punjab Police, state CGL/police, defence and comparable aptitude papers, prioritising official-paper-tagged previous-year questions and 2024-2026 evidence while retaining older SSC evidence when it demonstrates a distinct topology.
 
-A source pattern is classified as a new authority only when the current state/solver cannot truthfully represent the mathematics. If the solver can already execute the mathematics but Question Studio cannot author/seed-reach the source topology, it is classified as an exposure/generalisation gap instead.
+A source pattern is classified as a new authority only when the current state/solver cannot truthfully represent the mathematics. If the solver can already execute the mathematics but Question Studio cannot author/seed-reach the source topology, it is classified as an exposure/generalisation gap. If a source is deliberately delegated but no neighbouring chapter actually produces the mixed contract, it is classified as an ownership-routing gap rather than silently counted as covered.
 
 ## Baseline that remains valid
 
@@ -52,8 +53,10 @@ Those facts show strong depth **inside the implemented universe**. They do not e
 | E13-G03 | Two or more partners each receive separate gross-profit percentages before residual capital-ratio sharing | **EXPOSE / GENERALISE** | Allocation engine already supports multiple recipient gross allocations, but no active authored QL seed-reaches this topology; QL-040 is reserve -> one post-pool commission. |
 | E13-G04 | Partners invest fractions of total capital for fractions of total duration, with the final partner taking residual capital | **EXPOSE / GENERALISE** | Capital×time solver is sufficient after materialisation, but Question Studio lacks a source-real residual-fraction parameter topology. |
 | E13-G05 | Aggregate relational capital equation yielding a coefficient such as `A + B = 1.5C` | **EXPOSE / GENERALISE** | Current QL-096 only seed-reaches the special identity `one weight = exact sum of the others`; the generic aggregate coefficient family is not reachable. |
-| E13-W01 | Commission equal to x% of profit *after charging that same commission* | **WATCHLIST / OUT-OF-SCOPE FOR NOW** | This is a self-referential basis absent from the engine, but the official evidence found in this sweep is accounting/commerce/manager material rather than target aptitude Partnership. Do not promote without target SSC/Banking/Punjab/comparable aptitude evidence. |
-| E13-M01 | `coverage-targets.library.json` still says `E9_LEGACY_OWNERSHIP_VALIDATED_NOT_FINAL` | **METADATA DEBT** | Runtime counts are current but lifecycle label predates E10-E12 and is stale. |
+| E13-G06 | Each partner first earns interest on invested capital, then the remaining business profit is divided by partnership ratio | **OWNERSHIP / ALLOCATION-BASIS GAP** | Target Banking evidence exists. PRT previously delegated interest-on-capital to Interest, but current `INT-001` ownership does not implement this mixed partnership distribution contract, and PRT lacks a truthful `% of partner capital` allocation basis. |
+| E13-G07 | Incoming partner acquires a stated profit fraction from existing partners in a stated sacrifice ratio; ask the new profit-sharing ratio | **OWNERSHIP / PRODUCT GAP** | Target Punjab Police aptitude evidence exists. Broad “accounting reconstitution” exclusion is too coarse for this arithmetic-only profit-share reallocation, and no current PRT/RAP surface generates it. |
+| E13-W01 | Commission equal to x% of profit *after charging that same commission* | **WATCHLIST / OUT-OF-SCOPE FOR NOW** | Self-referential basis is absent from the engine, but official evidence found is accounting/commerce/manager material rather than target aptitude Partnership. Do not promote without target SSC/Banking/Punjab/comparable aptitude evidence. |
+| E13-M01 | `coverage-targets.library.json` still said `E9_LEGACY_OWNERSHIP_VALIDATED_NOT_FINAL` | **METADATA DEBT — FIXED IN E13** | Runtime counts were current but lifecycle label predated E10-E12. E13 replaces it with `E13_POST_FREEZE_EXHAUSTIVENESS_REOPENED`. |
 
 ## E13-G01 — reduced sleeping-partner entitlement
 
@@ -163,6 +166,56 @@ Current `PRT-QL-096 / findPartnerShareWhenOneWeightIsSumOfOthers` is hard-wired 
 
 Generalise the relational aggregate family to rational coefficients, or add an adjacent product QL on the same mathematical authority if that keeps authored semantics clearer. This should not become a new solve mode if a generic aggregate-relation resolver can share the existing final-share mathematics.
 
+## E13-G06 — interest on partners' capital before residual profit distribution
+
+### Source evidence
+
+**IBPS Clerk Mains — 28 Feb 2021 memory-based test, Shift 1**
+
+Three partners invest Rs 48,000, Rs 52,000 and Rs 36,000. The partnership condition states that **each gets 8% per annum on capital**, then the remaining profit is divided in the ratio of capitals. The question asks the first partner's final share.
+
+Source: https://testbook.com/question-answer/three-friends-invested-rs-48000-rs-52000-and-36--603b79a25ece44e569a86b4f
+
+### Ownership comparison
+
+E8 deliberately treated interest-on-capital as an Interest boundary. That is reasonable for **pure interest computation**, but it does not by itself cover a Banking Partnership question whose mathematical contract is:
+
+1. compute partner-specific capital interest;
+2. deduct those allocations from business profit;
+3. divide the remainder by partnership ratio;
+4. add the interest entitlement back to the target partner's final receipt.
+
+The current `INT-001` ownership audit says Partnership owns profit sharing by capital/time and does not claim this mixed distribution contract. Current PRT allocation bases also have no truthful `PERCENT_OF_PARTNER_CAPITAL` semantic basis. Treating capital interest as a salary/fixed arbitrary amount would be mathematically possible only after hiding the source relation and would be semantically wrong.
+
+### Required closure
+
+Reopen the ownership boundary. Preferred architecture: pure SI/CI remains INT-owned, while this **mixed Partnership allocation contract** is PRT-owned (likely CP6/CP7) with a first-class capital-interest allocation semantic. If architecture instead assigns the whole mixed contract to INT, Question Studio must still expose it under the Partnership product taxonomy and ownership tests must prove there is no gap. Do not leave it as a paper delegation with no generator.
+
+## E13-G07 — incoming partner acquires profit share from existing partners
+
+### Source evidence
+
+**Punjab Police Constable Official Paper-I & II — 10 Aug 2023 Shift 2**
+
+Bhavya and Chirag share profits 2:1. Rahul joins with a **one-fourth share**, acquired from Bhavya and Chirag in the ratio 1:2. The question asks the new profit-sharing ratio.
+
+Source: https://testbook.com/question-answer/ques--69ea07e10639cc52d17aa343
+
+### Ownership comparison
+
+The E8 boundary broadly excluded accounting partnership admission/reconstitution. That exclusion is still correct for goodwill, revaluation, capital accounts, journal entries and legal/accounting mechanics. This Punjab Police item is different: it is a compact arithmetic profit-share reallocation problem with no accounting ledger knowledge.
+
+No current PRT/RAP source found in the repo exposes an incoming-partner share acquisition/sacrifice topology. Therefore broad exclusion currently creates a target-Punjab product gap.
+
+### Required closure
+
+Split the boundary more precisely:
+
+- **include or explicitly cross-route** arithmetic-only old-share -> sacrifice -> new-share ratio questions;
+- continue excluding goodwill, reserves, revaluation, capital-account adjustments, admission accounting and legal doctrine.
+
+Do not automatically import the entire accounting “reconstitution” syllabus. Build only the source-backed aptitude ratio topology.
+
 ## E13-W01 — self-referential commission basis
 
 The current allocation basis supports fixed amounts, percent of gross profit, and percent of the current post-deduction pool. It does not support a clause such as “commission is 10% of profit after charging this commission,” which requires solving `C = p(P-C)`.
@@ -171,19 +224,22 @@ The sweep found official accounting/commerce-style examples of this basis, but n
 
 ## Already-covered source spot checks
 
-The sweep also reconfirmed that the current chapter already covers representative families including:
+The adversarial sweep also reconfirmed current coverage for representative target families including:
 
+- Punjab Police 2025 multi-event capital withdrawal/addition + late third join;
+- Punjab Police 2025 three-partner unequal durations;
+- Punjab Police 2025 half-capital withdrawal after six months;
+- Punjab Police 2023 equal effective weights despite different join/leave timings;
+- DSSSB MTS 2026 late third join;
+- DSSSB MTS 2026 active partner 12.5% gross remuneration with reverse total-profit recovery;
+- OSSSC 2026 active partner 20% gross remuneration with reverse final-receipt difference;
 - same-period direct/reverse shares and unknown capital;
 - unequal capital-duration direct and inverse questions;
-- late joins, early exits and staggered three-partner participation;
 - dynamic additions/withdrawals, percentage/fraction changes and multi-event histories;
 - three/four-partner and relational systems;
-- active-partner fixed salary and gross-profit commission;
 - reserve/charity/business-expense deductions;
-- reverse gross profit from a working partner's final receipt;
 - combined timeline + remuneration systems;
 - multi-year stated withdrawal histories;
-- Punjab Police dynamic-capital + third-join patterns;
 - legacy RAP ownership without duplicate product exposure.
 
 These remain valid and should not be duplicated under E13.
@@ -192,13 +248,14 @@ These remain valid and should not be duplicated under E13.
 
 E13 is an audit, not an implementation wave, so **current runtime counts remain 99 solve modes / 105 QLs per locale**.
 
-The likely implementation impact after a second merge/split pass is:
+The implementation impact is intentionally not frozen yet. The second merge/split pass currently starts from:
 
-- **+2 core authorities** if G01 and G02 remain distinct after executable design;
-- **+3 product-facing QL/topology families** for G03-G05, preferably reusing/generalising existing authorities;
+- **2 definite new core authorities**: G01, G02;
+- **3 exposure/generalisation families** that should preferably reuse/generalise existing authorities: G03-G05;
+- **2 ownership-routing gaps** requiring explicit owner decisions and executable coverage: G06-G07;
 - no promotion of W01 without target aptitude evidence.
 
-Do not pre-allocate final QL IDs or claim final counts until executable prototypes prove the merge/split decisions.
+G06 may require a new first-class allocation basis/authority if PRT owns the mixed contract. G07 may be implemented inside PRT or through a cross-routed ratio authority, but in either case the Partnership product surface must generate it. Do not pre-allocate final QL IDs or claim final solve-mode counts until executable prototypes prove these decisions.
 
 ## Required E13 closure plan
 
@@ -214,7 +271,13 @@ Do not pre-allocate final QL IDs or claim final counts until executable prototyp
 2. residual fractions of total capital / total duration;
 3. aggregate relational coefficient family.
 
-### E13C — production/editorial depth
+### E13C — ownership resolution
+
+1. resolve G06 so the Banking interest-on-capital + residual Partnership contract is executable somewhere and product-routed to Partnership;
+2. resolve G07 so arithmetic incoming-partner share acquisition is executable/product-visible without importing accounting reconstitution;
+3. add cross-chapter ownership regression tests for both boundaries.
+
+### E13D — production/editorial depth
 
 For every accepted new QL:
 
@@ -225,7 +288,7 @@ For every accepted new QL:
 - misconception-aware distractors;
 - structural duplicate/collision checks against all existing 105 QLs.
 
-### E13D — full revalidation
+### E13E — full revalidation
 
 After implementation:
 
@@ -234,9 +297,11 @@ After implementation:
 3. independent-answer parity;
 4. E1-E13 math/source/diversity/editorial audits;
 5. RAP historical regression + multilingual Question Studio smoke + ownership audit;
-6. full structural/near-duplicate audit;
-7. option-quality and Question Studio integration;
-8. final release/freeze rerun from a cleaned head.
+6. Interest/Partnership ownership regression for G06;
+7. Ratio/Partnership ownership regression for G07 if cross-routed;
+8. full structural/near-duplicate audit;
+9. option-quality and Question Studio integration;
+10. final release/freeze rerun from a cleaned head.
 
 Only after all accepted E13 gaps close should chapter-level technical exhaustiveness/publication freeze be restored.
 
@@ -248,11 +313,12 @@ Product/publication approval was granted after E12. That approval is **recorded 
 
 **PRT-001 does not pass a fresh open-world exhaustiveness freeze at 99 modes / 105 QLs.**
 
-The existing surface is strong and fully validated against its defined gates, but the new source sweep found:
+The existing surface is strong and fully validated against its defined gates, but the final E13 sweep found:
 
 - **2 confirmed new authority gaps** — reduced sleeping-partner entitlement; prior-profit reinvestment into next-period capital;
 - **3 confirmed exposure/generalisation gaps** — multiple gross-profit recipient allocations; residual total-capital/time fractions; aggregate relational coefficient;
+- **2 confirmed ownership/product-routing gaps** — Banking interest-on-capital + residual partnership distribution; Punjab Police arithmetic incoming-partner share acquisition;
 - **1 watchlist/out-of-scope basis** — self-referential commission after charging itself;
-- **1 lifecycle metadata inconsistency**.
+- **1 lifecycle metadata inconsistency, fixed in E13**.
 
 Accordingly, E13 reopens the chapter exhaustiveness freeze without invalidating the correctness of the already-implemented 105 QLs.
