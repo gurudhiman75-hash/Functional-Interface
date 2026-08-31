@@ -66,7 +66,8 @@ async function main() {
 
     for (let index = 0; index < templates.length; index += 1) {
       const template = templates[index]!;
-      assert.equal(template.id, `ARG-CP003-${qlId.slice(4)}-T${String(index + 1).padStart(2, "0")}`, `${qlId}: frozen template-id ordering drift`);
+      const qlToken = qlId.replace("ARG-QL-", "QL");
+      assert.equal(template.id, `ARG-CP003-${qlToken}-T${String(index + 1).padStart(2, "0")}`, `${qlId}: frozen template-id ordering drift`);
       assert.equal(template.qlId, qlId, `${template.id}: QL ownership drift`);
       assert.ok(!archetypes.has(template.archetype), `${template.id}: duplicate frozen archetype`);
       archetypes.add(template.archetype);
