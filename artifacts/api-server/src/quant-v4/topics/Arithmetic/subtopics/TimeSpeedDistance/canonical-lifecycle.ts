@@ -30,7 +30,10 @@ export interface TsdCanonicalLifecycleEntry {
  * - CP001/CP002 historical freeze registries remain in the repository for
  *   audit history but were superseded by the remodeled TSD-001 English freeze;
  * - checkpoint-specific freeze/Studio proofs remain authoritative within a
- *   checkpoint once that checkpoint is classified FROZEN here.
+ *   checkpoint once that checkpoint is classified FROZEN here;
+ * - FROZEN means learner-content/QL authority is permanent. It does not imply
+ *   Question Studio registration, Question Bank writes, test eligibility or
+ *   public publication; those remain governed by checkpoint proofs.
  */
 export const TSD_CANONICAL_LIFECYCLE = Object.freeze([
   {
@@ -126,32 +129,32 @@ export const TSD_CANONICAL_LIFECYCLE = Object.freeze([
   {
     checkpoint: "CP010",
     sourceTree: "TSD-002",
-    lifecycle: "PREFREEZE_REVIEW",
-    qlAuthority: "PROVISIONAL",
-    canonicalFreezeAuthorityPath: null,
+    lifecycle: "FROZEN",
+    qlAuthority: "PERMANENT",
+    canonicalFreezeAuthorityPath: "TSD-002/cp010/english-freeze-registry.ts",
     historicalFreezeArtifactPath: null,
-    studioEligibility: "NOT_AUTHORITATIVE",
-    note: "QL allocation and Studio candidate files are pre-freeze scaffold only; the registration proof explicitly keeps production registration locked.",
+    studioEligibility: "GOVERNED_BY_CHECKPOINT_PROOFS",
+    note: "Official-paper V3 English/native content and QLs are frozen; Studio/Bank/tests/publication remain locked by CP010 preregistration proofs.",
   },
   {
     checkpoint: "CP011",
     sourceTree: "TSD-002",
-    lifecycle: "PREFREEZE_REVIEW",
-    qlAuthority: "PROVISIONAL",
-    canonicalFreezeAuthorityPath: null,
+    lifecycle: "FROZEN",
+    qlAuthority: "PERMANENT",
+    canonicalFreezeAuthorityPath: "TSD-002/cp011/english-freeze-registry.ts",
     historicalFreezeArtifactPath: null,
-    studioEligibility: "NOT_AUTHORITATIVE",
-    note: "Review/candidate artifacts exist, but no checkpoint freeze registry exists yet.",
+    studioEligibility: "GOVERNED_BY_CHECKPOINT_PROOFS",
+    note: "The 168-per-locale polished English/Hindi/Punjabi surface and QLs 125–131 are frozen; production capabilities remain locked pending explicit promotion.",
   },
   {
     checkpoint: "CP012",
     sourceTree: "TSD-002",
-    lifecycle: "PREFREEZE_REVIEW",
-    qlAuthority: "PROVISIONAL",
-    canonicalFreezeAuthorityPath: null,
+    lifecycle: "FROZEN",
+    qlAuthority: "PERMANENT",
+    canonicalFreezeAuthorityPath: "TSD-002/cp012/english-freeze-registry.ts",
     historicalFreezeArtifactPath: null,
-    studioEligibility: "NOT_AUTHORITATIVE",
-    note: "Current executable/review candidate remains pre-freeze; provisional IDs do not constitute freeze authority.",
+    studioEligibility: "GOVERNED_BY_CHECKPOINT_PROOFS",
+    note: "The 270-per-locale target-exhaustive English/Hindi/Punjabi surface and QLs 132–142 are frozen; Studio distractor/options and all production capabilities remain separately locked.",
   },
 ] as const satisfies readonly TsdCanonicalLifecycleEntry[]);
 

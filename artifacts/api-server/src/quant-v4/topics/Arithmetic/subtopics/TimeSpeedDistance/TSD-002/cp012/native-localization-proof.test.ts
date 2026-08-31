@@ -108,12 +108,12 @@ assert(pa142Sets.every((x) => /ਕਿਹੜਾ ਸਾਰੀਆਂ ਮਨਜ਼�
 assert(hi142Sets.every((x) => !/सभी अनुमत चालें लिखिए|पूरा समूह लिखिए/.test(x.stem)), "hi/TSD-QL-142: worksheet-style list instruction leaked back in");
 assert(pa142Sets.every((x) => !/ਸਾਰੀਆਂ ਮਨਜ਼ੂਰ ਚਾਲਾਂ ਲਿਖੋ|ਪੂਰਾ ਸਮੂਹ ਲਿਖੋ/.test(x.stem)), "pa/TSD-QL-142: worksheet-style list instruction leaked back in");
 
-assert(TSD_CP012_QL_LIFECYCLE.productOwnerApproved === false, "native review must not imply approval");
-assert(TSD_CP012_QL_LIFECYCLE.frozen === false, "native review must remain unfrozen");
-assert(TSD_CP012_QL_LIFECYCLE.questionStudioRegistered === false, "native review must not register Question Studio");
-assert(TSD_CP012_QL_LIFECYCLE.questionBankWritable === false, "native review must not enable Bank writes");
-assert(TSD_CP012_QL_LIFECYCLE.testEligible === false, "native review must not enable tests");
-assert(TSD_CP012_QL_LIFECYCLE.publiclyPublishable === false, "native review must not enable public publishing");
+assert(TSD_CP012_QL_LIFECYCLE.productOwnerApproved === true, "native frozen review must retain approval");
+assert(TSD_CP012_QL_LIFECYCLE.frozen === true, "native frozen review must retain freeze authority");
+assert(TSD_CP012_QL_LIFECYCLE.questionStudioRegistered === false, "native freeze must not register Question Studio");
+assert(TSD_CP012_QL_LIFECYCLE.questionBankWritable === false, "native freeze must not enable Bank writes");
+assert(TSD_CP012_QL_LIFECYCLE.testEligible === false, "native freeze must not enable tests");
+assert(TSD_CP012_QL_LIFECYCLE.publiclyPublishable === false, "native freeze must not enable public publishing");
 
 console.log("TSD-CP-012 NATIVE HINDI/PUNJABI LOCALIZATION PROOF: PASS");
 console.log(JSON.stringify({
@@ -127,5 +127,5 @@ console.log(JSON.stringify({
   ql141LearnerSurface: "NATIVE_CONCRETE_MOTION_OBSERVATIONS",
   ql142SetSurface: "NATIVE_FOUR_OPTION_COMPLETE_SET_MCQ",
   latinScriptInLearnerText: "ABSENT",
-  lifecycle: "REVIEW_ONLY_NOT_FROZEN",
+  lifecycle: "FROZEN_CONTENT_PRODUCTION_LOCKED",
 }, null, 2));
