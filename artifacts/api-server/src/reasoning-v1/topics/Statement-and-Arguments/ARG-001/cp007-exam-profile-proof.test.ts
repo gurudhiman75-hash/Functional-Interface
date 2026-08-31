@@ -76,7 +76,7 @@ for (const profile of profiles) {
           }
 
           if (profile === "SSC_RECENT_2X4" && locale === "en-IN") {
-            assert.ok(wordCount(question.statement) <= 22, `${question.questionId ?? question.scenarioId}: SSC statement is too long`);
+            assert.ok(wordCount(question.statement) <= 22, `${question.scenarioId}: SSC statement is too long`);
             for (const argument of question.arguments) {
               assert.ok(wordCount(argument) <= 30, `${question.scenarioId}: SSC argument is too long`);
             }
