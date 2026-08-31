@@ -4,6 +4,7 @@ export const ON_DEMAND_YESTERDAY_STAGES = [
   "manual_authority_guard",
   "intelligence_and_strict_verification",
   "post_promotion_enrichment_reconciliation",
+  "historical_claim_rebuild_and_reverification",
   "draft_authoring_localization_and_questions",
 ] as const;
 

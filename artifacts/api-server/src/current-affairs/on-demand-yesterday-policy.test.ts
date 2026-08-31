@@ -12,8 +12,14 @@ assert.deepEqual(ON_DEMAND_YESTERDAY_STAGES, [
   "manual_authority_guard",
   "intelligence_and_strict_verification",
   "post_promotion_enrichment_reconciliation",
+  "historical_claim_rebuild_and_reverification",
   "draft_authoring_localization_and_questions",
 ]);
+assert.ok(
+  ON_DEMAND_YESTERDAY_STAGES.indexOf("historical_claim_rebuild_and_reverification")
+    < ON_DEMAND_YESTERDAY_STAGES.indexOf("draft_authoring_localization_and_questions"),
+  "historical claims must be rebuilt and reverified before learner authoring",
+);
 
 assert.equal(shouldContinueBoundedPass({ seen: 100, batchLimit: 100 }), true);
 assert.equal(shouldContinueBoundedPass({ seen: 99, batchLimit: 100 }), false);
@@ -39,4 +45,4 @@ assert.equal(complete.allLocalizedDraftsPresent, true);
 assert.equal(complete.allNineDraftsPresent, true);
 assert.deepEqual(complete.missing, []);
 
-console.log("CP026 on-demand yesterday policy contracts passed");
+console.log("CP031 on-demand yesterday policy contracts passed");
