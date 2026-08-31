@@ -10,7 +10,7 @@ import {
   listReasoningV1QuestionStudioReviewPackages,
   persistReasoningV1QuestionStudioReview,
   previewReasoningV1QuestionStudioReview,
-} from "../../question-studio-review-registry.ts";
+} from "../../../question-studio-review-registry.ts";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
