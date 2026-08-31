@@ -8,6 +8,7 @@ import {
   getCom003EditorialDecision,
 } from "./com003-editorial-fact-review";
 
+// One-off CI trigger for distractor + editorial review readiness.
 const audit = auditCom003EditorialFactReview();
 assert.equal(audit.valid, true, audit.issues.join("\n"));
 assert.equal(audit.candidateCount, 119);
