@@ -8,7 +8,7 @@ on:
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-*'
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-*'
-      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp007.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp007-v2.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
       - '.github/workflows/arg-001-cp007-real-paper-parity.yml'
   workflow_dispatch:
@@ -34,7 +34,7 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
-      - name: Strict TypeScript check for CP007 profile generator
+      - name: Strict TypeScript check for CP007 V2 profile generator
         working-directory: artifacts/api-server
         run: |
           pnpm exec tsc \
@@ -51,19 +51,19 @@ jobs:
             --types node \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/types.ts \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-freeze-manifest.ts \
-            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-generator.ts \
-            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-proof.test.ts
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-generator-v2.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-proof-v2.test.ts
 
       - name: Prove sourced profile coverage and trilingual semantics
         working-directory: artifacts/api-server
         run: |
           pnpm exec esbuild \
-            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-proof-v2.test.ts \
             --bundle \
             --platform=node \
             --format=esm \
-            --outfile=dist/arg-001-cp007-real-paper-proof.mjs
-          node dist/arg-001-cp007-real-paper-proof.mjs
+            --outfile=dist/arg-001-cp007-real-paper-proof-v2.mjs
+          node dist/arg-001-cp007-real-paper-proof-v2.mjs
 
       - name: Preserve exact CP006 frozen blobs
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts
@@ -100,6 +100,6 @@ jobs:
 
       - name: Lifecycle boundary
         run: |
-          echo 'ARG-001 CP007 adds sourced real-paper review profiles only.'
+          echo 'ARG-001 CP007 V2 adds sourced real-paper review profiles only.'
           echo 'The 29-file CP006 semantic/localization/runtime authority remains byte-identical.'
           echo 'Question Bank/test/mock/public/automatic learner publication remain locked.'
