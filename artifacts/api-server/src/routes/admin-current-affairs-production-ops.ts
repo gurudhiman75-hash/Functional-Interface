@@ -53,21 +53,25 @@ router.post("/production/generate-yesterday", requireAdminPermission("jobs.manag
       res.status(403).json({ error: "Administrator session required.", code: "ADMIN_SESSION_REQUIRED" });
       return;
     }
+
+    const generationRequestId = randomUUID();
     const result = await generateYesterdayCurrentAffairsOnDemand();
     await sqlClient`
       INSERT INTO platform.audit_events (
         id, actor_type, actor_user_id, effective_role_key, action_key,
-        entity_type, reason, summary, metadata
+        entity_type, entity_id, reason, summary, metadata
       ) VALUES (
         ${randomUUID()}::uuid,
         'user'::audit_actor_type,
         ${actorUserId}::uuid,
         ${req.adminSession?.effectiveRoleKey ?? null},
         'current_affairs.yesterday.generate_on_demand',
-        'current_affairs_operating_day',
+        'current_affairs_generation_request',
+        ${generationRequestId}::uuid,
         'Administrator requested complete previous-day Current Affairs generation',
         ${`Generated/ensured Current Affairs for ${result.targetDate}`},
         ${JSON.stringify({
+          generationRequestId,
           targetDate: result.targetDate,
           before: result.before,
           after: result.after,
