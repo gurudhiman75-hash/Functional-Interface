@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { evaluateCurrentAffairsProductionReadiness } from "./production-readiness-policy";
+import { evaluateCurrentAffairsSourceFamilyCoverage } from "./source-family-policy";
 
 const now = new Date("2026-08-30T08:30:00.000Z");
 const deadlineIso = "2026-08-30T01:30:00.000Z";
@@ -16,7 +17,8 @@ const family = (name: "ssc" | "banking" | "punjab") => ({
   learnerQuizPublished: true,
 });
 
-const green = evaluateCurrentAffairsProductionReadiness({
+const healthyFamilies = [family("ssc"), family("banking"), family("punjab")];
+const base = {
   now,
   targetDate: "2026-08-29",
   deadlineIso,
@@ -25,70 +27,117 @@ const green = evaluateCurrentAffairsProductionReadiness({
   failingPrimarySources: 0,
   stalePrimarySources: 0,
   criticalSourceFailures: 0,
+  criticalSourceFailureLabels: [] as string[],
   latestFeedRunAt: "2026-08-30T06:00:00.000Z",
   latestIntelligenceRunAt: "2026-08-30T06:20:00.000Z",
   queuedCandidates: 40,
   openConflicts: 0,
-  families: [family("ssc"), family("banking"), family("punjab")],
-});
+  families: healthyFamilies,
+};
+
+const green = evaluateCurrentAffairsProductionReadiness(base);
 assert.equal(green.color, "green");
 assert.equal(green.learnerReady, true);
 assert.equal(green.sourceCoveragePercent, 100);
 
 const missingPack = evaluateCurrentAffairsProductionReadiness({
-  now,
-  targetDate: "2026-08-29",
-  deadlineIso,
-  scheduledPrimarySources: 5,
-  freshSuccessfulPrimarySources: 5,
-  failingPrimarySources: 0,
-  stalePrimarySources: 0,
-  criticalSourceFailures: 0,
-  latestFeedRunAt: "2026-08-30T06:00:00.000Z",
-  latestIntelligenceRunAt: "2026-08-30T06:20:00.000Z",
-  queuedCandidates: 40,
-  openConflicts: 0,
+  ...base,
   families: [{ ...family("ssc"), englishDraftPresent: false }, family("banking"), family("punjab")],
 });
 assert.equal(missingPack.color, "red");
 assert.equal(missingPack.checks.allEnglishDrafts, false);
 
 const weakCoverage = evaluateCurrentAffairsProductionReadiness({
-  now,
-  targetDate: "2026-08-29",
-  deadlineIso,
-  scheduledPrimarySources: 5,
+  ...base,
   freshSuccessfulPrimarySources: 3,
   failingPrimarySources: 1,
   stalePrimarySources: 2,
-  criticalSourceFailures: 1,
-  latestFeedRunAt: "2026-08-30T06:00:00.000Z",
-  latestIntelligenceRunAt: "2026-08-30T06:20:00.000Z",
-  queuedCandidates: 40,
-  openConflicts: 0,
-  families: [family("ssc"), family("banking"), family("punjab")],
 });
 assert.equal(weakCoverage.color, "red");
+assert.equal(weakCoverage.sourceCoveragePercent, 60);
 assert.equal(weakCoverage.checks.sourceCoverageHealthy, false);
-assert.equal(weakCoverage.checks.criticalSourcesHealthy, false);
+
+const eightyPercentWithRedundantDomain = evaluateCurrentAffairsProductionReadiness({
+  ...base,
+  freshSuccessfulPrimarySources: 4,
+  failingPrimarySources: 1,
+  stalePrimarySources: 1,
+});
+assert.equal(eightyPercentWithRedundantDomain.sourceCoveragePercent, 80);
+assert.equal(eightyPercentWithRedundantDomain.checks.sourceCoverageHealthy, true);
+assert.equal(eightyPercentWithRedundantDomain.checks.criticalSourcesHealthy, true);
+assert.equal(eightyPercentWithRedundantDomain.blockers.some((value) => value.includes("source-family coverage")), false);
+
+const mandatoryDomainMissing = evaluateCurrentAffairsProductionReadiness({
+  ...base,
+  freshSuccessfulPrimarySources: 4,
+  failingPrimarySources: 1,
+  criticalSourceFailures: 1,
+  criticalSourceFailureLabels: ["punjab"],
+});
+assert.equal(mandatoryDomainMissing.sourceCoveragePercent, 80);
+assert.equal(mandatoryDomainMissing.checks.sourceCoverageHealthy, true);
+assert.equal(mandatoryDomainMissing.checks.criticalSourcesHealthy, false);
+assert.ok(mandatoryDomainMissing.blockers.some((value) => value.includes("Punjab")));
 
 const editorialPending = evaluateCurrentAffairsProductionReadiness({
-  now,
-  targetDate: "2026-08-29",
-  deadlineIso,
-  scheduledPrimarySources: 5,
-  freshSuccessfulPrimarySources: 5,
-  failingPrimarySources: 0,
-  stalePrimarySources: 0,
-  criticalSourceFailures: 0,
-  latestFeedRunAt: "2026-08-30T06:00:00.000Z",
-  latestIntelligenceRunAt: "2026-08-30T06:20:00.000Z",
-  queuedCandidates: 40,
-  openConflicts: 0,
+  ...base,
   families: [{ ...family("ssc"), approvedEnglishQuestions: 8, approvedRelease: false, learnerQuizPublished: false }, family("banking"), family("punjab")],
 });
 assert.equal(editorialPending.color, "amber");
 assert.equal(editorialPending.draftReady, true);
 assert.equal(editorialPending.learnerReady, false);
 
-console.log("current-affairs CP025 production readiness policy contracts passed");
+const sourceEndpoint = (
+  sourceKey: string,
+  sourceFamily: string,
+  coverageDomain: string,
+  healthy: boolean,
+  sourceTier = "core_official",
+) => ({
+  sourceKey,
+  name: sourceKey,
+  sourceFamily,
+  sourceTier,
+  coverageDomain,
+  scheduled: sourceTier === "core_official",
+  fresh: healthy,
+  status: healthy ? "success" : "failure",
+});
+
+const redundantPunjabCoverage = evaluateCurrentAffairsSourceFamilyCoverage([
+  sourceEndpoint("pib", "pib", "national", true),
+  sourceEndpoint("rbi", "rbi", "economy_banking", true),
+  sourceEndpoint("sebi", "sebi", "economy_banking", true),
+  sourceEndpoint("isro", "isro", "science_space", true),
+  sourceEndpoint("punjab_notifications", "punjab_government", "punjab", false),
+  sourceEndpoint("punjab_press", "punjab_government", "punjab", true),
+  sourceEndpoint("tribune_punjab", "tribune", "punjab", false, "trusted_news"),
+]);
+assert.equal(redundantPunjabCoverage.requiredSourceFamilies, 5, "Punjab endpoints must count once and news must not inflate coverage");
+assert.equal(redundantPunjabCoverage.healthyRequiredSourceFamilies, 5);
+assert.equal(redundantPunjabCoverage.sourceCoveragePercent, 100);
+assert.deepEqual(redundantPunjabCoverage.degradedSourceFamilies, ["punjab_government"]);
+assert.deepEqual(redundantPunjabCoverage.criticalDomainFailures, []);
+
+const optionalFamilyDownCoverage = evaluateCurrentAffairsSourceFamilyCoverage([
+  sourceEndpoint("pib", "pib", "national", true),
+  sourceEndpoint("rbi", "rbi", "economy_banking", true),
+  sourceEndpoint("sebi", "sebi", "economy_banking", false),
+  sourceEndpoint("isro", "isro", "science_space", true),
+  sourceEndpoint("punjab_notifications", "punjab_government", "punjab", true),
+]);
+assert.equal(optionalFamilyDownCoverage.sourceCoveragePercent, 80);
+assert.deepEqual(optionalFamilyDownCoverage.criticalDomainFailures, []);
+
+const nationalDomainDownCoverage = evaluateCurrentAffairsSourceFamilyCoverage([
+  sourceEndpoint("pib", "pib", "national", false),
+  sourceEndpoint("rbi", "rbi", "economy_banking", true),
+  sourceEndpoint("sebi", "sebi", "economy_banking", true),
+  sourceEndpoint("isro", "isro", "science_space", true),
+  sourceEndpoint("punjab_notifications", "punjab_government", "punjab", true),
+]);
+assert.equal(nationalDomainDownCoverage.sourceCoveragePercent, 80);
+assert.deepEqual(nationalDomainDownCoverage.criticalDomainFailures, ["national"]);
+
+console.log("Current Affairs CP028 production readiness and source-family contracts passed");

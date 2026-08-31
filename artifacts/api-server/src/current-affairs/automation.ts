@@ -72,6 +72,16 @@ export function summarizeScheduledSourceResults(results: ScheduledSourceResult[]
   };
 }
 
+function sourceProvenance(source: Record<string, unknown>) {
+  return {
+    sourceFamily: source.sourceFamily ?? null,
+    sourceTier: source.sourceTier ?? null,
+    coverageDomain: source.coverageDomain ?? null,
+    sourceContentPolicy: source.contentPolicy,
+    rawTextPersisted: false,
+  };
+}
+
 async function upsertCandidate(args: {
   source: Record<string, unknown>;
   sourceUrl: string;
@@ -146,8 +156,7 @@ async function ingestFeedSource(source: Record<string, unknown>, trigger: FeedIn
       payload: {
         ingestionChannel: trigger === "on_demand" ? "on_demand_feed" : "scheduled_feed",
         discoveryKeywords: discoveryKeywords(`${entry.title} ${entry.discoveryText ?? ""}`),
-        sourceContentPolicy: source.contentPolicy,
-        rawTextPersisted: false,
+        ...sourceProvenance(source),
       },
     });
     if (inserted) created += 1;
@@ -189,8 +198,7 @@ async function ingestOfficialListingSource(source: Record<string, unknown>, trig
         listingAdapter: adapter,
         dateConfidence: entry.dateConfidence,
         discoveryKeywords: entry.discoveryKeywords,
-        sourceContentPolicy: source.contentPolicy,
-        rawTextPersisted: false,
+        ...sourceProvenance(source),
       },
     });
     if (inserted) created += 1;
@@ -250,6 +258,9 @@ export async function runScheduledFeedIngestion(now = new Date(), options: FeedI
       SELECT
         id::text AS id,
         source_key AS "sourceKey",
+        source_family AS "sourceFamily",
+        source_tier AS "sourceTier",
+        coverage_domain AS "coverageDomain",
         feed_url AS "feedUrl",
         listing_url AS "listingUrl",
         listing_adapter AS "listingAdapter",
