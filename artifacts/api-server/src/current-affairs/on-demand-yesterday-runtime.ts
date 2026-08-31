@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 
 import { sqlClient } from "../lib/db";
-import { runScheduledFeedIngestion, scheduleSlotStart } from "./automation";
+import { onDemandFeedRunKey, runScheduledFeedIngestion, scheduleSlotStart } from "./automation";
 import { runScheduledIntelligenceProcessing } from "./daily-orchestration";
 import { reconcilePrimaryEnrichedEvents } from "./enriched-event-reconciliation";
 import { holdManualAuthorityEventsForReview } from "./manual-enrichment-guard";
@@ -14,7 +14,7 @@ const FAMILIES = ["ssc", "banking", "punjab"] as const;
 const MAX_ENRICHMENT_PASSES = 3;
 const MAX_INTELLIGENCE_PASSES = 3;
 
-type AutomationStage = "feed_ingestion" | "primary_fact_enrichment" | "intelligence_processing";
+type AutomationStage = "primary_fact_enrichment" | "intelligence_processing";
 
 function slotIso(now: Date) {
   return scheduleSlotStart(now, 3).toISOString();
@@ -42,7 +42,7 @@ async function supersedeCompletedSlot(stage: AutomationStage, now: Date) {
     UPDATE content.current_affairs_automation_runs
     SET run_key = run_key || ':' || ${suffix},
         stats = COALESCE(stats, '{}'::jsonb) || ${JSON.stringify({
-          supersededBy: "current_affairs_cp026_on_demand_yesterday",
+          supersededBy: "current_affairs_on_demand_yesterday",
           supersededAt: new Date().toISOString(),
         })}::jsonb,
         updated_at=now()
@@ -139,12 +139,14 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
   const startedAt = new Date().toISOString();
   const before = await countTargetDateState(targetDate);
 
-  // Force a fresh official-source pass while preserving the prior slot record as history.
-  const sourceSupersede = await supersedeCompletedSlot("feed_ingestion", now);
-  const sourceRefresh = await runScheduledFeedIngestion(now);
+  // A manual click gets its own unique run key and never shares the 3-hour cron key.
+  // Scheduled cron dedupe remains unchanged; Generate Yesterday can poll immediately at any time.
+  const sourceRunKey = onDemandFeedRunKey(now, randomUUID());
+  const sourceRefresh = await runScheduledFeedIngestion(now, {
+    runKey: sourceRunKey,
+    trigger: "on_demand",
+  });
 
-  // Enrichment is bounded to three 100-candidate passes so a backlog cannot create
-  // an unbounded admin request, while still covering substantially more than a cron run.
   const enrichmentPasses: unknown[] = [];
   for (let pass = 0; pass < MAX_ENRICHMENT_PASSES; pass += 1) {
     await supersedeCompletedSlot("primary_fact_enrichment", now);
@@ -167,12 +169,9 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
     if ((result as any)?.skipped || (queuedSeen < 500 && examined < 300)) break;
   }
 
-  // Newly promoted events can now be linked to primary-page enrichments; reconcile once more.
   const enrichedAfterIntelligence = await reconcilePrimaryEnrichedEvents(300);
   const manualAuthorityAfter = await holdManualAuthorityEventsForReview(200);
 
-  // CP025 recovery is deliberately draft-only. It performs authoring/localization,
-  // builds missing EN/HI/PA daily packs and BANK_ONLY question-review runs.
   const recoverySupersede = await supersedeManualRecoverySlot(targetDate, now);
   const recovery = await runCurrentAffairsProductionRecovery({ now, triggerMode: "manual" });
 
@@ -189,7 +188,8 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
     before,
     after,
     sourceRefresh: {
-      supersededPreviousSlot: sourceSupersede.superseded,
+      onDemand: true,
+      runKey: sourceRunKey,
       result: sourceRefresh,
     },
     enrichmentPasses,
