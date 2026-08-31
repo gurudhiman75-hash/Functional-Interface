@@ -3,6 +3,21 @@
 -- independent official Punjab source family on a separate host so a transient
 -- punjab.gov.in outage does not erase the entire Punjab official domain.
 
+ALTER TABLE content.current_affairs_sources
+  DROP CONSTRAINT IF EXISTS current_affairs_sources_listing_adapter_check;
+
+ALTER TABLE content.current_affairs_sources
+  ADD CONSTRAINT current_affairs_sources_listing_adapter_check
+  CHECK (
+    listing_adapter IS NULL
+    OR listing_adapter IN (
+      'sebi_press_releases',
+      'isro_latest_news',
+      'punjab_press_releases',
+      'punjab_lok_bhavan_press'
+    )
+  );
+
 INSERT INTO content.current_affairs_sources (
   id, source_key, name, source_type, base_url, feed_url, trust_score,
   is_primary_source, is_active, metadata, content_policy, ingestion_mode,
