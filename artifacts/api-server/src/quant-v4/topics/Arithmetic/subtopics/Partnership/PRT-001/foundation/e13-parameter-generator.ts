@@ -157,10 +157,10 @@ export function generatePrt001E13Parameters(input: { questionLanguageId: string;
       targetPartnerId = random.pick([partnerA, partnerB]);
       const interestA = (m(s.a) * s.rate) / 100;
       const interestB = (m(s.b) * s.rate) / 100;
-      const allocations = [
-        { kind: "INTEREST_ON_CAPITAL", basis: "FIXED_AMOUNT", value: rational(interestA), recipientPartnerId: partnerA, sequence: 1 },
-        { kind: "INTEREST_ON_CAPITAL", basis: "FIXED_AMOUNT", value: rational(interestB), recipientPartnerId: partnerB, sequence: 2 },
-      ] as unknown as PreDistributionAllocation[];
+      const allocations: PreDistributionAllocation[] = [
+        { kind: "INTEREST_ON_CAPITAL", basis: "PERCENT_OF_PARTNER_CAPITAL", value: rational(s.rate), recipientPartnerId: partnerA, sequence: 1 },
+        { kind: "INTEREST_ON_CAPITAL", basis: "PERCENT_OF_PARTNER_CAPITAL", value: rational(s.rate), recipientPartnerId: partnerB, sequence: 2 },
+      ];
       state = makeState([partner(partnerA, [segment(0, 12, m(s.a))]), partner(partnerB, [segment(0, 12, m(s.b))])], m(s.gross), allocations);
       Object.assign(renderVariables, { capitalA: moneyRaw(rational(m(s.a))), capitalB: moneyRaw(rational(m(s.b))), interestRatePercent: s.rate, totalProfit: moneyRaw(rational(m(s.gross))), targetPartner: targetPartnerId, interestANumeric: interestA, interestBNumeric: interestB });
       break;
