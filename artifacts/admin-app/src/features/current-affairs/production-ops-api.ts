@@ -20,7 +20,47 @@ export type CurrentAffairsProductionReadiness = {
     failingPrimarySources: number;
     stalePrimarySources: number;
     criticalSourceFailures: number;
-    sources: Array<{ sourceKey: string; name: string; fresh: boolean; status: string | null; lastIngestedAt: string | null; error: string | null }>;
+    requiredDomains: string[];
+    criticalDomainFailures: string[];
+    degradedSourceFamilies: string[];
+    unhealthySourceFamilies: string[];
+    sourceFamilies: Array<{
+      sourceFamily: string;
+      coverageDomain: string | null;
+      healthy: boolean;
+      degraded: boolean;
+      endpointCount: number;
+      freshSuccessfulEndpointCount: number;
+      endpointKeys: string[];
+    }>;
+    sources: Array<{
+      sourceKey: string;
+      name: string;
+      sourceFamily: string;
+      sourceTier: string;
+      coverageDomain: string | null;
+      fresh: boolean;
+      status: string | null;
+      lastIngestedAt: string | null;
+      error: string | null;
+    }>;
+    discoverySources: Array<{
+      sourceKey: string;
+      name: string;
+      sourceFamily: string;
+      sourceTier: string;
+      coverageDomain: string | null;
+      contentPolicy: string | null;
+      ingestionMode: string;
+      scheduled: boolean;
+      fresh: boolean;
+      status: string | null;
+      lastIngestedAt: string | null;
+      baseUrl: string | null;
+      feedUrl: string | null;
+      automationStatus: string | null;
+      usagePolicy: string | null;
+    }>;
   };
   pipeline: {
     queuedCandidates: number;
