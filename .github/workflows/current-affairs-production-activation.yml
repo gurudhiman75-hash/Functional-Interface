@@ -71,6 +71,7 @@ jobs:
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/on-demand-yesterday-policy.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/daily-discovery-census.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/daily-master-pack.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/open-news-discovery.test.ts
 
       - name: Verify ordered production schema bootstrap
         shell: bash
@@ -79,23 +80,32 @@ jobs:
           runner=artifacts/api-server/ensure-current-affairs.mjs
           recovery=artifacts/api-server/migrations/20260831_current_affairs_primary_source_recovery.sql
           census=artifacts/api-server/migrations/20260831_current_affairs_daily_discovery_census.sql
+          opennews=artifacts/api-server/migrations/20260831_current_affairs_open_news_discovery.sql
           test -f "$runner"
           test -f "$recovery"
           test -f "$census"
+          test -f "$opennews"
           grep -Fq 'pg_advisory_lock' "$runner"
           grep -Fq 'platform.current_affairs_schema_migrations' "$runner"
           grep -Fq '20260828_current_affairs_studio.sql' "$runner"
           grep -Fq '20260830_current_affairs_production_ops.sql' "$runner"
           grep -Fq '20260831_current_affairs_primary_source_recovery.sql' "$runner"
           grep -Fq '20260831_current_affairs_daily_discovery_census.sql' "$runner"
+          grep -Fq '20260831_current_affairs_open_news_discovery.sql' "$runner"
           grep -Fq 'current_affairs_daily_discovery_census' "$runner"
           grep -Fq 'current_affairs_daily_master_packs' "$runner"
+          grep -Fq 'gdelt_open_news' "$runner"
           grep -Fq 'Current Affairs schema verified' "$runner"
           grep -Fq 'https://www.pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3' "$recovery"
           grep -Fq 'https://punjab.gov.in/impnotifications/' "$recovery"
           grep -Fq "'the_hindu_national'" "$census"
-          grep -Fq "'reuters_india'" "$census"
+          grep -Fq "'reuters_india', 'Reuters — India', 'newswire'" "$census"
           grep -Fq "'discovery_only', 'manual'" "$census"
+          grep -Fq "'gdelt_open_news'" "$opennews"
+          grep -Fq "'discovery_only'" "$opennews"
+          grep -Fq "'api'" "$opennews"
+          grep -Fq "'specialist'" "$opennews"
+          grep -Fq 'allow_raw_text_persistence=false' "$opennews"
           for file in $(grep -oE '20[0-9]{6}_current_affairs_[a-z0-9_]+\.sql' "$runner" | sort -u); do
             test -f "artifacts/api-server/migrations/$file"
           done
@@ -109,6 +119,7 @@ jobs:
           runtime=artifacts/api-server/src/current-affairs/on-demand-yesterday-runtime.ts
           route=artifacts/api-server/src/routes/admin-current-affairs-production-ops.ts
           grep -Fq 'runScheduledFeedIngestion' "$runtime"
+          grep -Fq 'runOpenNewsDiscovery' "$runtime"
           grep -Fq 'runScheduledPrimaryFactEnrichment' "$runtime"
           grep -Fq 'runScheduledIntelligenceProcessing' "$runtime"
           grep -Fq 'runCurrentAffairsProductionRecovery' "$runtime"
@@ -118,6 +129,23 @@ jobs:
           grep -Fq 'canonicalQuestionPromotion: false' "$runtime"
           grep -Fq 'automaticStudentPublication: false' "$runtime"
           grep -Fq 'requireAdminPermission("jobs.manage")' "$route"
+
+      - name: Verify open-news discovery boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          discovery=artifacts/api-server/src/current-affairs/open-news-discovery.ts
+          policy=artifacts/api-server/src/current-affairs/on-demand-yesterday-policy.ts
+          grep -Fq 'https://api.gdeltproject.org/api/v2/doc/doc' "$discovery"
+          grep -Fq 'sourcecountry:india sourcelang:english' "$discovery"
+          grep -Fq 'dateSemantics: "gdelt_discovery_seen_at_not_publication_date"' "$discovery"
+          grep -Fq 'publisherArticleBodiesFetched: false' "$discovery"
+          grep -Fq 'rawArticlePersistence: false' "$discovery"
+          grep -Fq 'verificationAuthority: false' "$discovery"
+          grep -Fq 'publicationAuthority: false' "$discovery"
+          grep -Fq '"open_news_discovery"' "$policy"
+          ! grep -Fq 'fetch(article.url' "$discovery"
+          ! grep -Fq 'fetch(article.domain' "$discovery"
 
       - name: Verify daily census and master-pack boundary
         shell: bash
@@ -186,6 +214,9 @@ jobs:
 
       - name: Bundle Generate Yesterday runtime
         run: pnpm --dir artifacts/api-server exec esbuild src/current-affairs/on-demand-yesterday-runtime.ts --bundle --packages=external --platform=node --format=esm --outfile=/tmp/current-affairs-on-demand-yesterday.mjs
+
+      - name: Bundle Open News discovery runtime
+        run: pnpm --dir artifacts/api-server exec esbuild src/current-affairs/open-news-discovery.ts --bundle --packages=external --platform=node --format=esm --outfile=/tmp/current-affairs-open-news-discovery.mjs
 
       - name: Bundle Current Affairs editorial activation
         run: pnpm --dir artifacts/api-server exec esbuild src/routes/admin-current-affairs-editorial-activation.ts --bundle --packages=external --platform=node --format=esm --outfile=/tmp/current-affairs-editorial-activation.mjs
