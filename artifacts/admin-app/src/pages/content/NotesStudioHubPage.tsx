@@ -9,6 +9,7 @@ import { NotesStudioGapSourceRecommendationsPage } from './NotesStudioGapSourceR
 import { NotesStudioOperationsPage } from './NotesStudioOperationsPage';
 import { NotesStudioPlanningPage } from './NotesStudioPlanningPage';
 import { NotesStudioQualityGatesPage } from './NotesStudioQualityGatesPage';
+import { NotesStudioReferenceEvidencePage } from './NotesStudioReferenceEvidencePage';
 import { NotesStudioReleaseRevisionPage } from './NotesStudioReleaseRevisionPage';
 import { NotesStudioSectionDraftsPage } from './NotesStudioSectionDraftsPage';
 import { NotesStudioSourceCoveragePage } from './NotesStudioSourceCoveragePage';
@@ -27,6 +28,7 @@ export function NotesStudioHubPage() {
       <TabsTrigger value="authoring">Brief & sources</TabsTrigger>
       <TabsTrigger value="source-discovery">Web discovery</TabsTrigger>
       <TabsTrigger value="source-policy">Source policy</TabsTrigger>
+      <TabsTrigger value="reference-evidence">Reference evidence</TabsTrigger>
       <TabsTrigger value="source-coverage">Source diagnostics</TabsTrigger>
       <TabsTrigger value="source-proposals">Pack proposals</TabsTrigger>
       <TabsTrigger value="coverage-import">Coverage import</TabsTrigger>
@@ -42,63 +44,26 @@ export function NotesStudioHubPage() {
       <TabsTrigger value="canonical">Canonical notes</TabsTrigger>
       <TabsTrigger value="operations">Production readiness</TabsTrigger>
     </TabsList>
-    <TabsContent value="planning" className="mt-0">
-      <NotesStudioPlanningPage />
-    </TabsContent>
-    <TabsContent value="library" className="mt-0">
-      <NotesStudioSourceLibraryPage />
-    </TabsContent>
-    <TabsContent value="authoring" className="mt-0">
-      <NotesStudioSourcePackPage />
-    </TabsContent>
-    <TabsContent value="source-discovery" className="mt-0">
-      <NotesStudioSourceDiscoveryPage />
-    </TabsContent>
-    <TabsContent value="source-policy" className="mt-0">
-      <NotesStudioSourcePolicyPage />
-    </TabsContent>
-    <TabsContent value="source-coverage" className="mt-0">
-      <NotesStudioSourceCoveragePage />
-    </TabsContent>
-    <TabsContent value="source-proposals" className="mt-0">
-      <NotesStudioSourcePackProposalPage />
-    </TabsContent>
-    <TabsContent value="coverage-import" className="mt-0">
-      <NotesStudioCoverageImportPage />
-    </TabsContent>
-    <TabsContent value="candidate-claims" className="mt-0">
-      <NotesStudioCandidateClaimsPage />
-    </TabsContent>
-    <TabsContent value="coverage-proposals" className="mt-0">
-      <NotesStudioCoverageProposalPage />
-    </TabsContent>
-    <TabsContent value="coverage-gap-research" className="mt-0">
-      <NotesStudioCoverageGapResearchPage />
-    </TabsContent>
-    <TabsContent value="gap-sources" className="mt-0">
-      <NotesStudioGapSourceRecommendationsPage />
-    </TabsContent>
-    <TabsContent value="evidence" className="mt-0">
-      <NotesStudioEvidenceCoveragePage />
-    </TabsContent>
-    <TabsContent value="sections" className="mt-0">
-      <NotesStudioSectionDraftsPage />
-    </TabsContent>
-    <TabsContent value="quality" className="mt-0">
-      <NotesStudioQualityGatesPage />
-    </TabsContent>
-    <TabsContent value="approval" className="mt-0">
-      <NotesStudioApprovalLocalizationPage />
-    </TabsContent>
-    <TabsContent value="release" className="mt-0">
-      <NotesStudioReleaseRevisionPage />
-    </TabsContent>
-    <TabsContent value="canonical" className="mt-0">
-      <NotesStudioWorkspacePage />
-    </TabsContent>
-    <TabsContent value="operations" className="mt-0">
-      <NotesStudioOperationsPage />
-    </TabsContent>
+    <TabsContent value="planning" className="mt-0"><NotesStudioPlanningPage /></TabsContent>
+    <TabsContent value="library" className="mt-0"><NotesStudioSourceLibraryPage /></TabsContent>
+    <TabsContent value="authoring" className="mt-0"><NotesStudioSourcePackPage /></TabsContent>
+    <TabsContent value="source-discovery" className="mt-0"><NotesStudioSourceDiscoveryPage /></TabsContent>
+    <TabsContent value="source-policy" className="mt-0"><NotesStudioSourcePolicyPage /></TabsContent>
+    <TabsContent value="reference-evidence" className="mt-0"><NotesStudioReferenceEvidencePage /></TabsContent>
+    <TabsContent value="source-coverage" className="mt-0"><NotesStudioSourceCoveragePage /></TabsContent>
+    <TabsContent value="source-proposals" className="mt-0"><NotesStudioSourcePackProposalPage /></TabsContent>
+    <TabsContent value="coverage-import" className="mt-0"><NotesStudioCoverageImportPage /></TabsContent>
+    <TabsContent value="candidate-claims" className="mt-0"><NotesStudioCandidateClaimsPage /></TabsContent>
+    <TabsContent value="coverage-proposals" className="mt-0"><NotesStudioCoverageProposalPage /></TabsContent>
+    <TabsContent value="coverage-gap-research" className="mt-0"><NotesStudioCoverageGapResearchPage /></TabsContent>
+    <TabsContent value="gap-sources" className="mt-0"><NotesStudioGapSourceRecommendationsPage /></TabsContent>
+    <TabsContent value="evidence" className="mt-0"><NotesStudioEvidenceCoveragePage /></TabsContent>
+    <TabsContent value="sections" className="mt-0"><NotesStudioSectionDraftsPage /></TabsContent>
+    <TabsContent value="quality" className="mt-0"><NotesStudioQualityGatesPage /></TabsContent>
+    <TabsContent value="approval" className="mt-0"><NotesStudioApprovalLocalizationPage /></TabsContent>
+    <TabsContent value="release" className="mt-0"><NotesStudioReleaseRevisionPage /></TabsContent>
+    <TabsContent value="canonical" className="mt-0"><NotesStudioWorkspacePage /></TabsContent>
+    <TabsContent value="operations" className="mt-0"><NotesStudioOperationsPage /></TabsContent>
   </Tabs>;
 }
 
