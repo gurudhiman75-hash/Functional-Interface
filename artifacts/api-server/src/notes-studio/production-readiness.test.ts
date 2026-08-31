@@ -13,6 +13,11 @@ import {
   assessNotesStudioProductionReadiness,
 } from './production-readiness';
 import {
+  referenceEvidenceAllowed,
+  referenceEvidenceFingerprint,
+  validateReferenceEvidenceInput,
+} from './reference-evidence';
+import {
   normalizeResearchRestartReason,
   researchRestartAllowed,
   researchRestartDiscardTotal,
@@ -39,6 +44,7 @@ test('Notes Studio migration manifest preserves the cumulative chain in order', 
     '20260830_notes_studio_source_pack_ns011_source_policy.sql',
     '20260831_notes_studio_ns017_source_pack_freeze.sql',
     '20260831_notes_studio_ns018_research_restart.sql',
+    '20260831_notes_studio_ns021_reference_evidence.sql',
   ]);
   assert.equal(new Set(NOTES_STUDIO_MIGRATIONS).size, NOTES_STUDIO_MIGRATIONS.length);
   assert.equal(new Set(NOTES_STUDIO_REQUIRED_RELATIONS).size, NOTES_STUDIO_REQUIRED_RELATIONS.length);
@@ -160,6 +166,36 @@ test('NS-020 bulk coverage import is bounded, deterministic and pre-drafting onl
   ]), /duplicate/i);
   assert.throws(() => normalizeCoveragePlanBulk([]), /between 1 and 50/i);
   assert.throws(() => normalizeCoveragePlanBulk([{ title: 'Valid title', priority: 'critical' }]), /invalid priority/i);
+});
+
+test('NS-021 reference evidence is explicit, locator-bearing and pre-drafting only', () => {
+  for (const state of ['brief', 'sources_ready', 'evidence_ready', 'outline_ready']) {
+    assert.equal(referenceEvidenceAllowed(state), true, state);
+  }
+  for (const state of ['drafting', 'qa_required', 'review_ready', 'approved', 'materialized']) {
+    assert.equal(referenceEvidenceAllowed(state), false, state);
+  }
+
+  const normalized = validateReferenceEvidenceInput({
+    noteText: '  The source identifies Ravi, Beas and Sutlej as rivers flowing through present-day Punjab.  ',
+    locatorLabel: ' Know Punjab — Geography section ',
+    paraphrasedByEditor: true,
+  });
+  assert.equal(normalized.noteText, 'The source identifies Ravi, Beas and Sutlej as rivers flowing through present-day Punjab.');
+  assert.equal(normalized.locatorLabel, 'Know Punjab — Geography section');
+  assert.equal(normalized.excerptHash, referenceEvidenceFingerprint(normalized.noteText));
+  assert.match(normalized.excerptHash, /^[0-9a-f]{64}$/);
+
+  assert.throws(() => validateReferenceEvidenceInput({
+    noteText: 'This is a sufficiently long factual paraphrase.',
+    locatorLabel: '',
+    paraphrasedByEditor: true,
+  }), /locator/i);
+  assert.throws(() => validateReferenceEvidenceInput({
+    noteText: 'This is a sufficiently long factual paraphrase.',
+    locatorLabel: 'Section 2',
+    paraphrasedByEditor: false,
+  }), /confirm/i);
 });
 
 test('editor traffic is blocked when schema or model configuration is incomplete', () => {

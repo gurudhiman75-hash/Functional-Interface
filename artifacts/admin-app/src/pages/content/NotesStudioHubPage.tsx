@@ -9,6 +9,7 @@ import { NotesStudioGapSourceRecommendationsPage } from './NotesStudioGapSourceR
 import { NotesStudioOperationsPage } from './NotesStudioOperationsPage';
 import { NotesStudioPlanningPage } from './NotesStudioPlanningPage';
 import { NotesStudioQualityGatesPage } from './NotesStudioQualityGatesPage';
+import { NotesStudioReferenceEvidencePage } from './NotesStudioReferenceEvidencePage';
 import { NotesStudioReleaseRevisionPage } from './NotesStudioReleaseRevisionPage';
 import { NotesStudioSectionDraftsPage } from './NotesStudioSectionDraftsPage';
 import { NotesStudioSourceCoveragePage } from './NotesStudioSourceCoveragePage';
@@ -27,6 +28,7 @@ export function NotesStudioHubPage() {
       <TabsTrigger value="authoring">Brief & sources</TabsTrigger>
       <TabsTrigger value="source-discovery">Web discovery</TabsTrigger>
       <TabsTrigger value="source-policy">Source policy</TabsTrigger>
+      <TabsTrigger value="reference-evidence">Reference evidence</TabsTrigger>
       <TabsTrigger value="source-coverage">Source diagnostics</TabsTrigger>
       <TabsTrigger value="source-proposals">Pack proposals</TabsTrigger>
       <TabsTrigger value="coverage-import">Coverage import</TabsTrigger>
@@ -56,6 +58,9 @@ export function NotesStudioHubPage() {
     </TabsContent>
     <TabsContent value="source-policy" className="mt-0">
       <NotesStudioSourcePolicyPage />
+    </TabsContent>
+    <TabsContent value="reference-evidence" className="mt-0">
+      <NotesStudioReferenceEvidencePage />
     </TabsContent>
     <TabsContent value="source-coverage" className="mt-0">
       <NotesStudioSourceCoveragePage />

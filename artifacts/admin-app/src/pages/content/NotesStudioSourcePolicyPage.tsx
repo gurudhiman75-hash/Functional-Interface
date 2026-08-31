@@ -46,6 +46,9 @@ type PolicySource = {
   sourceRole: SourceRole;
   position: number;
   generationReady: boolean;
+  referenceEvidenceCount: number;
+  referenceEvidenceReady: boolean;
+  evidenceReady: boolean;
 };
 
 type PolicyStatus = {
@@ -89,6 +92,13 @@ const roleLabels: Record<SourceRole, string> = {
 
 function prettyState(value: string) {
   return value.split('_').map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
+}
+
+function evidenceBadge(source: PolicySource) {
+  if (source.generationReady) return { label: 'Retained evidence', ready: true };
+  if (source.referenceEvidenceReady) return { label: `Reference evidence (${source.referenceEvidenceCount})`, ready: true };
+  if (source.retentionMode === 'metadata_only') return { label: 'Reference only · needs review note', ready: false };
+  return { label: 'Not evidence-ready', ready: false };
 }
 
 export function NotesStudioSourcePolicyPage() {
@@ -149,7 +159,7 @@ export function NotesStudioSourcePolicyPage() {
         method: 'PATCH',
         body: JSON.stringify({ templateKey }),
       }));
-      showToast.success('Source-pack template updated', 'Evidence extraction now uses the selected research requirements.');
+      showToast.success('Source-pack template updated', 'The evidence gate now uses the selected research requirements.');
     } catch (error) {
       showToast.error('Unable to change source-pack template', error instanceof Error ? error.message : 'Request failed.');
     } finally {
@@ -175,7 +185,7 @@ export function NotesStudioSourcePolicyPage() {
   return <div className="space-y-5">
     <PageHeader
       title="Source Policy"
-      description="Choose the research recipe for a note, classify every source by its job-specific role, and satisfy the source-pack gate before evidence extraction."
+      description="Choose the research recipe for a note, classify every source by its job-specific role, and satisfy the evidence gate using authorized retained excerpts or explicitly reviewed reference evidence."
       icon={<ClipboardCheck className="h-5 w-5" />}
       actions={<Button variant="outline" onClick={() => void load()} disabled={loading || working}>
         {loading ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <RefreshCw className="mr-1.5 h-4 w-4" />}Refresh
@@ -210,7 +220,7 @@ export function NotesStudioSourcePolicyPage() {
             {status.policy.ready ? <CheckCircle2 className="mt-0.5 h-5 w-5 text-emerald-600" /> : <ShieldAlert className="mt-0.5 h-5 w-5 text-amber-600" />}
             <div>
               <div className="font-semibold">{status.policy.ready ? 'Evidence gate ready' : 'Evidence gate blocked by source mix'}</div>
-              <div className="mt-1 text-sm text-muted-foreground">{status.policy.ready ? 'This source pack satisfies the selected research template and independence checks.' : 'Classify, replace, or add the missing independent sources before rebuilding evidence.'}</div>
+              <div className="mt-1 text-sm text-muted-foreground">{status.policy.ready ? 'This source pack satisfies the selected research template and independence checks.' : 'Add retained evidence or explicit editor reference notes for the missing independent sources.'}</div>
             </div>
           </div>
           <Badge variant={status.policy.ready ? 'default' : 'outline'}>{status.policy.ready ? 'READY' : 'BLOCKED'}</Badge>
@@ -223,63 +233,48 @@ export function NotesStudioSourcePolicyPage() {
             {requirement.satisfied ? <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600" /> : <XCircle className="mt-0.5 h-4 w-4 text-destructive" />}
             <div>
               <div className="text-sm font-medium">{requirement.label}</div>
-              <div className="mt-1 text-xs text-muted-foreground">{requirement.currentCount}/{requirement.minCount} present · {requirement.generationReadyOnly ? 'retained evidence text required' : 'provenance source accepted'}</div>
+              <div className="mt-1 text-xs text-muted-foreground">{requirement.currentCount}/{requirement.minCount} present · {requirement.generationReadyOnly ? 'evidence-ready source required' : 'provenance source accepted'}</div>
             </div>
           </CardContent>
         </Card>)}
-        <Card>
-          <CardContent className="flex items-start gap-3 p-4">
-            {status.policy.integrity.uniqueContentCount >= status.policy.integrity.minUniqueContent ? <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600" /> : <XCircle className="mt-0.5 h-4 w-4 text-destructive" />}
-            <div>
-              <div className="text-sm font-medium">Independent content</div>
-              <div className="mt-1 text-xs text-muted-foreground">{status.policy.integrity.uniqueContentCount}/{status.policy.integrity.minUniqueContent} unique content hashes · duplicate copies do not add evidence breadth</div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="flex items-start gap-3 p-4">
-            {status.policy.integrity.distinctIdentityCount >= status.policy.integrity.minDistinctIdentities ? <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600" /> : <XCircle className="mt-0.5 h-4 w-4 text-destructive" />}
-            <div>
-              <div className="text-sm font-medium">Independent identities</div>
-              <div className="mt-1 text-xs text-muted-foreground">{status.policy.integrity.distinctIdentityCount}/{status.policy.integrity.minDistinctIdentities} publisher/domain identities · same-publisher copies cannot satisfy an independence promise</div>
-            </div>
-          </CardContent>
-        </Card>
+        <Card><CardContent className="flex items-start gap-3 p-4">
+          {status.policy.integrity.uniqueContentCount >= status.policy.integrity.minUniqueContent ? <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600" /> : <XCircle className="mt-0.5 h-4 w-4 text-destructive" />}
+          <div><div className="text-sm font-medium">Independent content</div><div className="mt-1 text-xs text-muted-foreground">{status.policy.integrity.uniqueContentCount}/{status.policy.integrity.minUniqueContent} unique content hashes</div></div>
+        </CardContent></Card>
+        <Card><CardContent className="flex items-start gap-3 p-4">
+          {status.policy.integrity.distinctIdentityCount >= status.policy.integrity.minDistinctIdentities ? <CheckCircle2 className="mt-0.5 h-4 w-4 text-emerald-600" /> : <XCircle className="mt-0.5 h-4 w-4 text-destructive" />}
+          <div><div className="text-sm font-medium">Independent identities</div><div className="mt-1 text-xs text-muted-foreground">{status.policy.integrity.distinctIdentityCount}/{status.policy.integrity.minDistinctIdentities} publisher/domain identities</div></div>
+        </CardContent></Card>
       </div>
 
       {status.policy.integrity.findings.length > 0 && <Card className="border-amber-200">
         <CardHeader><CardTitle className="text-base">Independence gaps</CardTitle></CardHeader>
         <CardContent className="space-y-2">
-          {status.policy.integrity.findings.map((finding) => <div key={finding.code} className="flex items-center justify-between gap-3 rounded-lg border p-3 text-sm">
-            <span>{finding.label}</span><Badge variant="outline">{finding.currentCount}/{finding.minCount}</Badge>
-          </div>)}
-          <p className="text-sm text-muted-foreground">Use Source Pack Proposals or Source Library to add a genuinely different governed source. Evidence extraction remains server-blocked until these checks pass.</p>
+          {status.policy.integrity.findings.map((finding) => <div key={finding.code} className="flex items-center justify-between gap-3 rounded-lg border p-3 text-sm"><span>{finding.label}</span><Badge variant="outline">{finding.currentCount}/{finding.minCount}</Badge></div>)}
         </CardContent>
       </Card>}
 
       <Card>
-        <CardHeader><div className="flex flex-wrap items-start justify-between gap-3"><div><CardTitle className="text-base">Research roles</CardTitle><p className="mt-1 text-sm text-muted-foreground">Roles describe how a source serves this note. They do not change the source's rights basis or retained-text policy.</p></div>{status.policyLocked && <Badge variant="outline">Frozen after evidence begins</Badge>}</div></CardHeader>
+        <CardHeader><div className="flex flex-wrap items-start justify-between gap-3"><div><CardTitle className="text-base">Research roles</CardTitle><p className="mt-1 text-sm text-muted-foreground">Roles describe how a source serves this note. They do not change the source's rights basis or grant permission to retain publisher wording.</p></div>{status.policyLocked && <Badge variant="outline">Frozen after evidence begins</Badge>}</div></CardHeader>
         <CardContent className="space-y-2">
           {status.sources.length === 0 && <div className="rounded-lg border border-dashed p-5 text-sm text-muted-foreground">No sources attached. Add or reuse sources in Source Library / Brief & Sources first.</div>}
-          {status.sources.map((source) => <div key={source.id} className="grid gap-3 rounded-lg border p-3 lg:grid-cols-[minmax(0,1fr)_180px_auto] lg:items-center">
-            <div className="min-w-0">
-              <div className="font-medium">{source.title}</div>
-              <div className="mt-1 text-xs text-muted-foreground">{source.publisher || 'Publisher not recorded'} · {source.rightsBasis.replaceAll('_', ' ')} · {source.inclusionState}</div>
-            </div>
-            <Select value={source.sourceRole} onValueChange={(value) => void changeRole(source.id, value as SourceRole)} disabled={!canEdit || status.policyLocked || working}>
-              <SelectTrigger><SelectValue /></SelectTrigger>
-              <SelectContent>{options.roles.map((role) => <SelectItem key={role} value={role}>{roleLabels[role]}</SelectItem>)}</SelectContent>
-            </Select>
-            <Badge variant={source.generationReady ? 'default' : 'outline'}>{source.generationReady ? 'Generation-ready' : source.retentionMode === 'metadata_only' ? 'Provenance only' : 'Not ready'}</Badge>
-          </div>)}
+          {status.sources.map((source) => {
+            const evidence = evidenceBadge(source);
+            return <div key={source.id} className="grid gap-3 rounded-lg border p-3 lg:grid-cols-[minmax(0,1fr)_180px_auto] lg:items-center">
+              <div className="min-w-0"><div className="font-medium">{source.title}</div><div className="mt-1 text-xs text-muted-foreground">{source.publisher || 'Publisher not recorded'} · {source.rightsBasis.replaceAll('_', ' ')} · {source.inclusionState}</div></div>
+              <Select value={source.sourceRole} onValueChange={(value) => void changeRole(source.id, value as SourceRole)} disabled={!canEdit || status.policyLocked || working}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent>{options.roles.map((role) => <SelectItem key={role} value={role}>{roleLabels[role]}</SelectItem>)}</SelectContent>
+              </Select>
+              <Badge variant={evidence.ready ? 'default' : 'outline'}>{evidence.label}</Badge>
+            </div>;
+          })}
         </CardContent>
       </Card>
 
-      <Card>
-        <CardContent className="p-4 text-sm text-muted-foreground">
-          <strong className="text-foreground">Lifecycle lock:</strong> template and role edits freeze as soon as the job moves beyond Brief/Sources Ready. The evidence rebuild endpoint independently re-evaluates role counts, unique content hashes, and publisher/domain independence server-side; the UI cannot bypass the gate.
-        </CardContent>
-      </Card>
+      <Card><CardContent className="p-4 text-sm text-muted-foreground">
+        <strong className="text-foreground">Lifecycle lock:</strong> template and role edits freeze after Brief/Sources Ready. Evidence readiness and source independence are always re-evaluated server-side; a reference-only source qualifies for evidence requirements only after at least one explicit editor reference note exists.
+      </CardContent></Card>
     </>}
   </div>;
 }

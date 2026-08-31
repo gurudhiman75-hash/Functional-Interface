@@ -10,6 +10,7 @@ export const NOTES_STUDIO_MIGRATIONS = [
   '20260830_notes_studio_source_pack_ns011_source_policy.sql',
   '20260831_notes_studio_ns017_source_pack_freeze.sql',
   '20260831_notes_studio_ns018_research_restart.sql',
+  '20260831_notes_studio_ns021_reference_evidence.sql',
 ] as const;
 
 export const NOTES_STUDIO_REQUIRED_RELATIONS = [
