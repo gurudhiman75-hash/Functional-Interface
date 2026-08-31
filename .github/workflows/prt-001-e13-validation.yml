@@ -50,7 +50,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          pnpm exec tsc --noEmit --target es2022 --module nodenext --moduleResolution nodenext --resolveJsonModule --allowSyntheticDefaultImports --skipLibCheck \
+          pnpm exec tsc --noEmit --target es2022 --module esnext --moduleResolution bundler --resolveJsonModule --allowSyntheticDefaultImports --skipLibCheck --strictNullChecks --noImplicitAny --noImplicitReturns --noFallthroughCasesInSwitch \
             src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/index.ts \
             src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001.test.ts \
             | tee prt-001-e13-typecheck.log
