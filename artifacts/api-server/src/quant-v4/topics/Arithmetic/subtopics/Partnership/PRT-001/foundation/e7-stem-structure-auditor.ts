@@ -11,17 +11,31 @@ function requireAudit(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function roleSuffix(normalized: string): string {
+  const match = normalized.match(/([abcd])$/);
+  return match ? `-${match[1]}` : "";
+}
+
 function semanticSlot(key: string): string {
   const normalized = key.toLowerCase();
+  const role = roleSuffix(normalized);
   if (normalized === "business") return "<business>";
-  if (normalized.includes("profitratio")) return "<profit-ratio>";
-  if (normalized.includes("capitalratio")) return "<capital-ratio>";
-  if (normalized.includes("timeratio")) return "<time-ratio>";
-  if (normalized.includes("capitalrelation")) return "<capital-relation>";
+  if (normalized.includes("profitratio")) return `<profit-ratio${role}>`;
+  if (normalized.includes("capitalratio")) return `<capital-ratio${role}>`;
+  if (normalized.includes("timeratio")) return `<time-ratio${role}>`;
+  if (normalized.includes("capitalrelation")) return `<capital-relation${role}>`;
   if (normalized === "totalcapital") return "<total-capital>";
-  if (normalized.includes("capital")) return "<capital>";
-  if (normalized.includes("duration") || normalized.includes("month") || normalized.includes("joinafter") || normalized.includes("leaveafter")) return "<time>";
-  if (normalized.includes("percentage") || normalized.includes("fractionalchange")) return "<change-rate>";
+  if (normalized.includes("initialcapital")) return `<initial-capital${role}>`;
+  if (normalized.includes("finalcapital")) return `<final-capital${role}>`;
+  if (normalized.includes("addedcapital")) return `<added-capital${role}>`;
+  if (normalized.includes("withdrawncapital")) return `<withdrawn-capital${role}>`;
+  if (normalized.includes("changedcapital")) return `<changed-capital${role}>`;
+  if (normalized.includes("capital")) return `<capital${role}>`;
+  if (normalized.includes("duration")) return `<duration${role}>`;
+  if (normalized.includes("joinafter")) return `<join-time${role}>`;
+  if (normalized.includes("leaveafter")) return `<leave-time${role}>`;
+  if (normalized.includes("month")) return `<event-time${role}>`;
+  if (normalized.includes("percentage") || normalized.includes("fractionalchange")) return `<change-rate${role}>`;
   if (normalized.includes("commissionpercent")) return "<commission-rate>";
   if (normalized.includes("salary")) return "<salary>";
   if (normalized.includes("allowance")) return "<allowance>";
@@ -30,8 +44,8 @@ function semanticSlot(key: string): string {
   if (normalized.includes("expense")) return "<expense>";
   if (normalized.includes("totalloss")) return "<loss>";
   if (normalized.includes("totalprofit")) return "<profit-pool>";
-  if (normalized.includes("share") || normalized.includes("receipt")) return "<share>";
-  if (normalized.includes("partner")) return "<partner>";
+  if (normalized.includes("share") || normalized.includes("receipt")) return `<share${role}>`;
+  if (normalized.includes("partner")) return `<partner${role}>`;
   return `<${normalized.replace(/[^a-z0-9]+/g, "-")}>`;
 }
 
@@ -140,6 +154,7 @@ export function auditPrt001CrossQlStemStructure(): Prt001E7AuditReport {
       normalizedExactDuplicates: exactDuplicates.length,
       severeNearIdenticalPairs: severeNearPairs.length,
       semanticSlotNormalization: true,
+      partnerCardinalityPreserved: true,
       editorialNearSimilarityThreshold: 0.88,
       blockingNearIdentityThreshold: 0.985,
       nearSimilarityPairs: nearPairs.length,
