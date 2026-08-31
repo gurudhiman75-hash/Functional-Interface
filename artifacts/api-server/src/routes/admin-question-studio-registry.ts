@@ -2,6 +2,7 @@ import { Router, type IRouter } from "express";
 
 import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk-hardening";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
+import adminQuestionStudioArgumentsCp007Router from "./admin-question-studio-arguments-cp007";
 import adminQuestionStudioArgumentsRouter from "./admin-question-studio-arguments";
 import adminQuestionStudioSriRouter from "./admin-question-studio-sri";
 import adminQuestionStudioDataSufficiencyCurrentRouter from "./admin-question-studio-data-sufficiency-current";
@@ -31,16 +32,17 @@ import adminQuestionStudioRouter from "./admin-question-studio";
  * firing whenever one Question Studio package is added or reordered.
  *
  * Order is intentional: hardening/specialized additive routers must run before
- * the legacy catch-all router at the bottom. ARG-001 CP005 owns the newest
- * aggregate GET /capabilities surface and its review-only POST /runs selector.
- * SRI remains the immediate fallback so every previously registered package is
- * preserved unchanged. DSF CP017 and older package-specific routers remain
- * behind that aggregate layer.
+ * the legacy catch-all router at the bottom. ARG-001 CP007 is an additive
+ * real-paper profile layer mounted before the frozen CP005 adapter. It handles
+ * only explicit CP007/profile requests and augments capabilities; all ordinary
+ * ARG-001 requests continue to the unchanged CP005 route. SRI remains the
+ * immediate fallback for every previously registered package.
  */
 const router: IRouter = Router();
 
 router.use(adminQuestionStudioBulkHardeningRouter);
 router.use(adminQuestionStudioQualityRouter);
+router.use(adminQuestionStudioArgumentsCp007Router);
 router.use(adminQuestionStudioArgumentsRouter);
 router.use(adminQuestionStudioSriRouter);
 router.use(adminQuestionStudioDataSufficiencyCurrentRouter);
