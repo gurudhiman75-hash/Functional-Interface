@@ -15,7 +15,6 @@ on:
       - artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
       - artifacts/admin-app/src/pages/content/NotesStudioGapSourceRecommendationsPage.tsx
       - docs/notes-studio-ns018-research-restart.md
-      - .github/workflows/notes-studio-ns018-research-restart.yml
 
 permissions:
   contents: read
