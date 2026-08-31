@@ -1,0 +1,105 @@
+name: Validate ARG-001 CP007 Real-Paper Parity
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp007.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/arg-001-cp007-real-paper-parity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp007-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp007-real-paper-parity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for CP007 profile generator
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-freeze-manifest.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-proof.test.ts
+
+      - name: Prove sourced profile coverage and trilingual semantics
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp007-real-paper-proof.mjs
+          node dist/arg-001-cp007-real-paper-proof.mjs
+
+      - name: Preserve exact CP006 frozen blobs
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts
+
+      - name: Preserve CP006 behavioral freeze
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-freeze-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp006-freeze-proof.mjs
+          node dist/arg-001-cp006-freeze-proof.mjs
+
+      - name: Preserve CP005 Question Studio core
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp005-question-studio-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp005-question-studio-proof.mjs
+          node dist/arg-001-cp005-question-studio-proof.mjs
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build
+
+      - name: Lifecycle boundary
+        run: |
+          echo 'ARG-001 CP007 adds sourced real-paper review profiles only.'
+          echo 'The 29-file CP006 semantic/localization/runtime authority remains byte-identical.'
+          echo 'Question Bank/test/mock/public/automatic learner publication remain locked.'
