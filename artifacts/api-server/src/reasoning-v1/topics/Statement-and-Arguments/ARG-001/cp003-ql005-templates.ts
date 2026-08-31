@@ -2,7 +2,7 @@ import type { ArgCp003Template } from "./cp003-saturation-types.ts";
 
 export const ARG_CP003_QL005_TEMPLATES: readonly ArgCp003Template[] = [
   {
-    id: "ARG-CP003-QL005-T01", qlId: "ARG-QL-005", archetype: "DISABILITY_ACCESS_RIGHTS", difficulty: "MEDIUM", answerClass: "ONLY_I",
+    id: "ARG-CP003-QL005-T01", qlId: "ARG-QL-005", archetype: "DISABILITY_ACCESS_RIGHTS", difficulty: "EASY", answerClass: "ONLY_I",
     dimensions: [
       ["government service portals", "public university portals", "municipal payment portals", "public recruitment portals"],
       ["screen-reader compatibility", "keyboard-only navigation", "high-contrast display support", "accessible form labels"],
@@ -72,7 +72,7 @@ export const ARG_CP003_QL005_TEMPLATES: readonly ArgCp003Template[] = [
     ],
   },
   {
-    id: "ARG-CP003-QL005-T06", qlId: "ARG-QL-005", archetype: "MOBILITY_ACCOMMODATION", difficulty: "MEDIUM", answerClass: "ONLY_II",
+    id: "ARG-CP003-QL005-T06", qlId: "ARG-QL-005", archetype: "MOBILITY_ACCOMMODATION", difficulty: "EASY", answerClass: "ONLY_II",
     dimensions: [
       ["a priority queue", "seated priority waiting", "an assisted-service lane", "scheduled priority slots"],
       ["citizens with severe mobility limitations", "visitors using mobility aids", "people unable to stand for long periods", "users with significant movement impairment"],
