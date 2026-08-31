@@ -7,6 +7,7 @@ import { reconcilePrimaryEnrichedEvents } from "./enriched-event-reconciliation"
 import { holdManualAuthorityEventsForReview } from "./manual-enrichment-guard";
 import { prepareOfficialYesterdayCandidates } from "./official-candidate-reclassification";
 import { previousIndiaDate } from "./orchestration-policy";
+import { ensurePibHistoricalCandidates } from "./pib-historical-backfill";
 import { runScheduledPrimaryFactEnrichment } from "./primary-enrichment";
 import { loadCurrentAffairsProductionReadiness } from "./production-readiness-runtime";
 import { runCurrentAffairsProductionRecovery } from "./production-recovery-runtime";
@@ -148,6 +149,12 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
     trigger: "on_demand",
   });
 
+  // RSS/latest listings can legitimately omit the previous calendar day. When PIB
+  // has no target-date candidate, use its official ASP.NET All Releases archive,
+  // select the exact target date, require the returned page to echo that date, and
+  // ingest only canonical PIB release links. This remains primary-source evidence.
+  const historicalSourceBackfill = await ensurePibHistoricalCandidates(targetDate);
+
   // Existing primary-source candidates and open clusters from the target date may
   // predate newer classification rules. Reclassify only official primary evidence
   // before enrichment/intelligence so valid PIB/Punjab/RBI/SEBI/ISRO stories are
@@ -199,6 +206,7 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
       runKey: sourceRunKey,
       result: sourceRefresh,
     },
+    historicalSourceBackfill,
     officialCandidatePreparation,
     enrichmentPasses,
     enrichedBeforeIntelligence,
@@ -219,7 +227,12 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
       readinessColor: readiness.evaluation.color,
       learnerReady: readiness.evaluation.learnerReady,
       blockers: readiness.evaluation.blockers,
-      warnings: readiness.evaluation.warnings,
+      warnings: [
+        ...(historicalSourceBackfill.status === "failed" && historicalSourceBackfill.error
+          ? [`PIB historical backfill failed: ${historicalSourceBackfill.error}`]
+          : []),
+        ...readiness.evaluation.warnings,
+      ],
     },
     publicationAuthority: false,
     canonicalQuestionPromotion: false,
