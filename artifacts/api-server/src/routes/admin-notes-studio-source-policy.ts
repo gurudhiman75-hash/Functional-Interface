@@ -17,6 +17,7 @@ import adminNotesStudioCoverageGapResearchRouter from './admin-notes-studio-cove
 import adminNotesStudioCoverageProposalsRouter from './admin-notes-studio-coverage-proposals';
 import adminNotesStudioGapSourceRecommendationsRouter from './admin-notes-studio-gap-source-recommendations';
 import adminNotesStudioResearchRestartRouter from './admin-notes-studio-research-restart';
+import adminNotesStudioSourceDiscoveryRouter from './admin-notes-studio-source-discovery';
 
 const router: IRouter = Router();
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -134,6 +135,7 @@ router.use(adminNotesStudioCoverageProposalsRouter);
 router.use(adminNotesStudioCoverageGapResearchRouter);
 router.use(adminNotesStudioGapSourceRecommendationsRouter);
 router.use(adminNotesStudioResearchRestartRouter);
+router.use(adminNotesStudioSourceDiscoveryRouter);
 
 router.get('/source-policy/options', requireAdminPermission('content.questions.read'), (_req, res) => {
   res.json({ roles: NOTE_SOURCE_ROLES, templates: sourcePackTemplateOptions(), defaultTemplate: 'balanced' });
