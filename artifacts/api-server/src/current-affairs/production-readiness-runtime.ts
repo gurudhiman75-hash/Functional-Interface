@@ -2,6 +2,7 @@ import { sqlClient } from "../lib/db";
 import { previousIndiaDate } from "./orchestration-policy";
 import { evaluateCurrentAffairsProductionReadiness } from "./production-readiness-policy";
 import { loadCurrentAffairsReleaseQueue } from "./release-runtime";
+import { evaluateCurrentAffairsSourceFamilyCoverage } from "./source-family-policy";
 
 const FAMILIES = ["ssc", "banking", "punjab"] as const;
 
@@ -23,17 +24,29 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
   const [sources, runs, queue, conflicts, compilations, approvedReleases, missingDays] = await Promise.all([
     sqlClient`
       SELECT
-        source_key AS "sourceKey", name, is_primary_source AS "isPrimarySource",
-        ingestion_mode AS "ingestionMode", last_ingested_at::text AS "lastIngestedAt",
+        source_key AS "sourceKey", name, source_type AS "sourceType",
+        source_family AS "sourceFamily", source_tier AS "sourceTier",
+        coverage_domain AS "coverageDomain", content_policy AS "contentPolicy",
+        is_primary_source AS "isPrimarySource", ingestion_mode AS "ingestionMode",
+        base_url AS "baseUrl", feed_url AS "feedUrl", listing_url AS "listingUrl",
+        metadata,
+        last_ingested_at::text AS "lastIngestedAt",
         last_ingestion_status AS "lastIngestionStatus", last_ingestion_error AS "lastIngestionError",
         CASE WHEN last_ingested_at IS NOT NULL AND last_ingested_at >= now() - interval '6 hours' THEN true ELSE false END AS fresh,
-        CASE WHEN is_active=true AND is_primary_source=true AND (
+        CASE WHEN is_active=true AND (
           (ingestion_mode IN ('feed','feed_and_pdf') AND feed_url IS NOT NULL)
           OR (ingestion_mode IN ('listing','listing_and_pdf') AND listing_url IS NOT NULL AND listing_adapter IS NOT NULL)
         ) THEN true ELSE false END AS scheduled
       FROM content.current_affairs_sources
       WHERE is_active=true
-      ORDER BY is_primary_source DESC, trust_score DESC, source_key
+      ORDER BY
+        CASE source_tier
+          WHEN 'core_official' THEN 0
+          WHEN 'supplementary_official' THEN 1
+          WHEN 'trusted_news' THEN 2
+          ELSE 3
+        END,
+        is_primary_source DESC, trust_score DESC, source_key
     `,
     sqlClient`
       SELECT DISTINCT ON (job_type)
@@ -82,12 +95,19 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
     `,
   ]);
 
-  const scheduledPrimary = sources.filter((row) => Boolean(row.scheduled));
-  const freshSuccessfulPrimary = scheduledPrimary.filter((row) => Boolean(row.fresh) && String(row.lastIngestionStatus) === "success");
-  const stalePrimary = scheduledPrimary.filter((row) => !Boolean(row.fresh));
-  const failingPrimary = scheduledPrimary.filter((row) => String(row.lastIngestionStatus) === "failure");
-  const criticalSourceFailures = scheduledPrimary.filter((row) =>
-    !Boolean(row.fresh) || String(row.lastIngestionStatus) !== "success").length;
+  const sourceFamilyCoverage = evaluateCurrentAffairsSourceFamilyCoverage(sources.map((row) => ({
+    sourceKey: String(row.sourceKey),
+    name: String(row.name),
+    sourceFamily: String(row.sourceFamily ?? row.sourceKey),
+    sourceTier: String(row.sourceTier ?? "supplementary_official"),
+    coverageDomain: text(row.coverageDomain),
+    scheduled: Boolean(row.scheduled),
+    fresh: Boolean(row.fresh),
+    status: text(row.lastIngestionStatus),
+  })));
+  const coreOfficialSources = sources.filter((row) => String(row.sourceTier) === "core_official" && Boolean(row.scheduled));
+  const discoverySources = sources.filter((row) => String(row.sourceTier) === "trusted_news");
+
   const runByType = new Map(runs.map((row) => [String(row.jobType), row]));
   const feedRun = runByType.get("feed_ingestion");
   const intelligenceRun = runByType.get("intelligence_processing");
@@ -145,11 +165,12 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
     now,
     targetDate,
     deadlineIso,
-    scheduledPrimarySources: scheduledPrimary.length,
-    freshSuccessfulPrimarySources: freshSuccessfulPrimary.length,
-    failingPrimarySources: failingPrimary.length,
-    stalePrimarySources: stalePrimary.length,
-    criticalSourceFailures,
+    scheduledPrimarySources: sourceFamilyCoverage.requiredSourceFamilies,
+    freshSuccessfulPrimarySources: sourceFamilyCoverage.healthyRequiredSourceFamilies,
+    failingPrimarySources: sourceFamilyCoverage.failingPrimaryEndpoints,
+    stalePrimarySources: sourceFamilyCoverage.stalePrimaryEndpoints,
+    criticalSourceFailures: sourceFamilyCoverage.criticalDomainFailures.length,
+    criticalSourceFailureLabels: sourceFamilyCoverage.criticalDomainFailures,
     latestFeedRunAt: feedRunHealthy ? text(feedRun?.completedAt ?? feedRun?.startedAt) : null,
     latestIntelligenceRunAt: intelligenceRunHealthy ? text(intelligenceRun?.completedAt ?? intelligenceRun?.startedAt) : null,
     queuedCandidates: Number(queue[0]?.count ?? 0),
@@ -163,19 +184,47 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
     generatedAt: now.toISOString(),
     evaluation,
     sourceCoverage: {
-      scheduledPrimarySources: scheduledPrimary.length,
-      freshSuccessfulPrimarySources: freshSuccessfulPrimary.length,
-      failingPrimarySources: failingPrimary.length,
-      stalePrimarySources: stalePrimary.length,
-      criticalSourceFailures,
-      sources: scheduledPrimary.map((row) => ({
+      scheduledPrimarySources: sourceFamilyCoverage.requiredSourceFamilies,
+      freshSuccessfulPrimarySources: sourceFamilyCoverage.healthyRequiredSourceFamilies,
+      failingPrimarySources: sourceFamilyCoverage.failingPrimaryEndpoints,
+      stalePrimarySources: sourceFamilyCoverage.stalePrimaryEndpoints,
+      criticalSourceFailures: sourceFamilyCoverage.criticalDomainFailures.length,
+      requiredDomains: ["national", "economy_banking", "punjab"],
+      criticalDomainFailures: sourceFamilyCoverage.criticalDomainFailures,
+      degradedSourceFamilies: sourceFamilyCoverage.degradedSourceFamilies,
+      unhealthySourceFamilies: sourceFamilyCoverage.unhealthySourceFamilies,
+      sourceFamilies: sourceFamilyCoverage.families,
+      sources: coreOfficialSources.map((row) => ({
         sourceKey: String(row.sourceKey),
         name: String(row.name),
+        sourceFamily: String(row.sourceFamily ?? row.sourceKey),
+        sourceTier: String(row.sourceTier ?? "core_official"),
+        coverageDomain: text(row.coverageDomain),
         fresh: Boolean(row.fresh),
         status: text(row.lastIngestionStatus),
         lastIngestedAt: text(row.lastIngestedAt),
         error: text(row.lastIngestionError),
       })),
+      discoverySources: discoverySources.map((row) => {
+        const metadata = row.metadata && typeof row.metadata === "object" ? row.metadata as Record<string, unknown> : {};
+        return {
+          sourceKey: String(row.sourceKey),
+          name: String(row.name),
+          sourceFamily: String(row.sourceFamily ?? row.sourceKey),
+          sourceTier: String(row.sourceTier),
+          coverageDomain: text(row.coverageDomain),
+          contentPolicy: text(row.contentPolicy),
+          ingestionMode: String(row.ingestionMode ?? "manual"),
+          scheduled: Boolean(row.scheduled),
+          fresh: Boolean(row.fresh),
+          status: text(row.lastIngestionStatus),
+          lastIngestedAt: text(row.lastIngestedAt),
+          baseUrl: text(row.baseUrl),
+          feedUrl: text(row.feedUrl),
+          automationStatus: text(metadata.automationStatus),
+          usagePolicy: text(metadata.usagePolicy),
+        };
+      }),
     },
     pipeline: {
       queuedCandidates: Number(queue[0]?.count ?? 0),
