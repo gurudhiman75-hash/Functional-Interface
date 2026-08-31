@@ -85,10 +85,16 @@ export function auditPrt001E13SourceOwnership(): Prt001E13SourceAuditReport {
       if (questionLanguageId === "PRT-QL-111") {
         const interestAllocations = parameters.state.allocations.filter((allocation) => allocation.kind === "INTEREST_ON_CAPITAL");
         requireAudit(interestAllocations.length === 2, "QL-111 must credit capital interest to both partners");
-        requireAudit(interestAllocations.every((allocation) => allocation.basis === "FIXED_AMOUNT" && Boolean(allocation.recipientPartnerId)), "QL-111 capital-interest allocations must be explicit recipient credits");
-        const capitalA = Number(String(parameters.renderVariables.capitalA).replace(/,/g, ""));
+        requireAudit(
+          interestAllocations.every((allocation) => allocation.basis === "PERCENT_OF_PARTNER_CAPITAL" && Boolean(allocation.recipientPartnerId)),
+          "QL-111 must preserve the stated partner-capital percentage basis",
+        );
         const rate = Number(parameters.renderVariables.interestRatePercent);
-        requireAudit(equalRational(interestAllocations[0]!.value, rational((capitalA * rate) / 100)), "QL-111 interest amount no longer equals stated rate × partner capital");
+        requireAudit(
+          interestAllocations.every((allocation) => equalRational(allocation.value, rational(rate))),
+          "QL-111 allocation rate no longer equals the stated interest-on-capital percentage",
+        );
+        requireAudit(new Set(interestAllocations.map((allocation) => allocation.recipientPartnerId)).size === 2, "QL-111 must credit two distinct partners");
       }
       if (questionLanguageId === "PRT-QL-112") {
         requireAudit(String(parameters.renderVariables.oldRatio).includes(":"), "QL-112 lost old profit ratio");
@@ -111,10 +117,11 @@ export function auditPrt001E13SourceOwnership(): Prt001E13SourceAuditReport {
       sourceRecords: provenance.sources.length,
       sourceBackedQls: expectedQls,
       newSolveModes: 3,
-      reusedAuthorities: 2,
+      reusedAuthorities: 4,
       resolvedOwnership: provenance.ownership,
       topologySignatures: Object.fromEntries(expectedQls.map((id) => [id, topologySignatures[id]!.size])),
       answerSignatures: Object.fromEntries(expectedQls.map((id) => [id, answerSignatures[id]!.size])),
+      capitalInterestBasis: "PERCENT_OF_PARTNER_CAPITAL",
     },
   };
 }
