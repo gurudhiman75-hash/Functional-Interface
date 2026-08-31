@@ -26,15 +26,15 @@ export function auditPrt001Coverage(): Prt001AuditReport {
     "PRT-CP-002": 14,
     "PRT-CP-003": 16,
     "PRT-CP-004": 19,
-    "PRT-CP-005": 14,
-    "PRT-CP-006": 17,
-    "PRT-CP-007": 12,
+    "PRT-CP-005": 17,
+    "PRT-CP-006": 20,
+    "PRT-CP-007": 13,
   };
-  requireAudit(entries.length === 105, `expected 105 active QLs, got ${entries.length}`);
+  requireAudit(entries.length === 112, `expected 112 active QLs, got ${entries.length}`);
   requireAudit(JSON.stringify(byCp) === JSON.stringify(expectedByCp), "CP coverage changed");
-  requireAudit(new Set(entries.map(({ entry }) => entry.solveMode)).size === 99, "solve-mode coverage changed");
+  requireAudit(new Set(entries.map(({ entry }) => entry.solveMode)).size === 102, "solve-mode coverage changed");
   for (const difficulty of ["Easy", "Medium", "Hard"] as const) requireAudit(entries.some(({ entry }) => entry.difficulty === difficulty), `missing ${difficulty}`);
-  return { audit: "coverage", cases: entries.length, metrics: { byCp, solveModes: 99, languages: 3, sourceWave: "E8" } };
+  return { audit: "coverage", cases: entries.length, metrics: { byCp, solveModes: 102, languages: 3, sourceWave: "E13" } };
 }
 
 export function auditPrt001ContextRealism(): Prt001AuditReport {
@@ -51,7 +51,7 @@ export function auditPrt001ContextRealism(): Prt001AuditReport {
       cases += 1;
     }
   }
-  requireAudit(contexts.size >= 89, `expected at least 89 context families, got ${contexts.size}`);
+  requireAudit(contexts.size >= 96, `expected at least 96 context families, got ${contexts.size}`);
   return { audit: "context-realism", cases, metrics: { contextFamilies: contexts.size } };
 }
 
@@ -79,7 +79,7 @@ export function auditPrt001E1MathDiversity(): Prt001AuditReport { return auditEx
 export function auditPrt001E2MathDiversity(): Prt001AuditReport { return auditExpansionMathDiversity({ wave: "E2", startId: 43, count: 14 }); }
 export function auditPrt001E3MathDiversity(): Prt001AuditReport { return auditExpansionMathDiversity({ wave: "E3", startId: 57, count: 14 }); }
 
-function auditAnswerAwareWave(input: { wave: "E4" | "E5"; startId: number; count: number; fixedRatioIds: readonly string[] }): Prt001AuditReport {
+function auditAnswerAwareWave(input: { wave: "E4" | "E5" | "E13"; startId: number; count: number; fixedRatioIds: readonly string[] }): Prt001AuditReport {
   const ids = Array.from({ length: input.count }, (_, index) => `PRT-QL-${String(index + input.startId).padStart(3, "0")}`);
   const fixedRatioIds = new Set(input.fixedRatioIds);
   const perQl: Record<string, { weightSignatures: number; ratioSignatures: number; answerSignatures: number }> = {};
@@ -109,6 +109,10 @@ export function auditPrt001E4MathDiversity(): Prt001AuditReport {
 
 export function auditPrt001E5MathDiversity(): Prt001AuditReport {
   return auditAnswerAwareWave({ wave: "E5", startId: 85, count: 19, fixedRatioIds: ["PRT-QL-088", "PRT-QL-089", "PRT-QL-093", "PRT-QL-097", "PRT-QL-098"] });
+}
+
+export function auditPrt001E13MathDiversity(): Prt001AuditReport {
+  return auditAnswerAwareWave({ wave: "E13", startId: 106, count: 7, fixedRatioIds: [] });
 }
 
 export function auditPrt001Multilingual(): Prt001AuditReport {
