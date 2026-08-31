@@ -38,7 +38,10 @@ async function main() {
   assert.equal(arg.publiclyPublishable, false);
   assert.equal(arg.automaticStudentPublication, false);
   assert.deepEqual(arg.supportedLanguages, ["en", "hi", "pa"]);
-  assert.deepEqual(arg.supportedDifficulties, ["Easy", "Medium", "Hard"]);
+  assert.deepEqual(arg.designTargetDifficulties, ["Easy", "Medium", "Hard"]);
+  assert.deepEqual(arg.supportedDifficulties, ["Medium", "Hard"]);
+  assert.deepEqual(arg.blockedDifficulties, ["Easy"]);
+  assert.equal(arg.difficultyCoverageStatus, "CERTIFIED_MEDIUM_HARD_EASY_GAP");
   assert.equal(arg.permanentQlCount, 6);
 
   const result = await generateArgAggregateQuestion({
@@ -67,6 +70,17 @@ async function main() {
     assert.equal(question.publiclyPublishable, false);
     assert.equal(question.automaticStudentPublication, false);
   }
+
+  await assert.rejects(
+    generateArgAggregateQuestion({
+      packageId: "ARG-001",
+      difficulty: "Easy",
+      language: "en",
+      seed: "easy-gap-proof",
+      count: 1,
+    }),
+    /no certified Easy authorities/i,
+  );
 
   const nonArg = await generateArgAggregateQuestion({
     packageId: "STA-001",
