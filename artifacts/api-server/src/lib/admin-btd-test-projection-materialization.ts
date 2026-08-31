@@ -79,6 +79,10 @@ function stringOptions(value: unknown): Array<{ key: string; text: string; isCor
     };
   });
 }
+function translationOptionTexts(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value.map((entry) => asText(asRecord(entry).text));
+}
 function generationOf(answerModel: unknown) { return asRecord(asRecord(answerModel).generation); }
 
 async function loadApprovedEnglishSource(client: QuestionSqlExecutor, generationItemId: string) {
@@ -312,7 +316,19 @@ export async function materializeBtdCp014ScoredTestProjectionV1(
     SELECT
       q.id::text AS "questionId",
       v.id::text AS "questionVersionId",
-      q.public_code AS "publicCode"
+      q.public_code AS "publicCode",
+      q.status::text AS status,
+      q.approved_version_id::text AS "approvedVersionId",
+      q.primary_taxonomy_node_id::text AS "primaryTaxonomyNodeId",
+      v.exam_version_id::text AS "examVersionId",
+      v.answer_model AS "answerModel",
+      EXISTS (
+        SELECT 1
+        FROM content.question_taxonomy_links qtl
+        WHERE qtl.question_version_id = v.id
+          AND qtl.taxonomy_node_id = ${primaryTaxonomyNodeId}::uuid
+          AND qtl.is_primary = true
+      ) AS "primaryTaxonomyBound"
     FROM content.question_versions v
     JOIN content.questions q ON q.id = v.question_id
     WHERE v.answer_model #>> '{generation,testProjectionKey}' = ${plan.projectionKey}
@@ -322,14 +338,78 @@ export async function materializeBtdCp014ScoredTestProjectionV1(
   `;
   if (existingRows[0]) {
     const existing = existingRows[0];
+    const existingGeneration = generationOf(existing.answerModel);
+    const existingIntegrityOk =
+      String(existing.status) === "approved"
+      && String(existing.approvedVersionId) === String(existing.questionVersionId)
+      && String(existing.examVersionId) === examVersionId
+      && String(existing.primaryTaxonomyNodeId) === primaryTaxonomyNodeId
+      && existing.primaryTaxonomyBound === true
+      && existingGeneration.projectionAuthority === BTD_CP014_MATERIALIZATION_AUTHORITY
+      && existingGeneration.testProjectionKey === plan.projectionKey
+      && existingGeneration.sourceQuestionBankAdmissionKey === source.payload.questionBankAdmissionKey
+      && existingGeneration.sourceGenerationItemId === generationItemId
+      && existingGeneration.testProjectionMaterializationApproved === true
+      && existingGeneration.testProjectionMaterialized === true
+      && existingGeneration.testEligibilityApprovalGranted === false
+      && existingGeneration.testEligible === false
+      && existingGeneration.mockTestEligible === false
+      && existingGeneration.publiclyPublishable === false;
+    if (!existingIntegrityOk) {
+      throw new BtdTestProjectionMaterializationError(
+        "EXISTING_PROJECTION_INTEGRITY_DRIFT",
+        "An existing BTD projection key was found, but its exam/taxonomy/lifecycle state no longer matches CP014 authority.",
+      );
+    }
+
     const translationRows = await client`
-      SELECT lower(l.code) AS code
+      SELECT
+        lower(l.code) AS code,
+        qt.stem,
+        qt.explanation,
+        qt.quality_snapshot AS "qualitySnapshot",
+        COALESCE((
+          SELECT json_agg(json_build_object('text', qto.text, 'sortOrder', qto.sort_order) ORDER BY qto.sort_order)
+          FROM content.question_translation_options qto
+          WHERE qto.question_translation_id = qt.id
+        ), '[]'::json) AS options
       FROM content.question_translations qt
       JOIN catalog.languages l ON l.id = qt.language_id
       WHERE qt.question_version_id = ${String(existing.questionVersionId)}::uuid
         AND qt.status = 'approved'
+        AND lower(l.code) = ANY(${["hi", "pa"]}::text[])
       ORDER BY lower(l.code)
     `;
+    const expectedTranslations = [...plan.translations].sort((a, b) => a.language.localeCompare(b.language));
+    if (translationRows.length !== expectedTranslations.length) {
+      throw new BtdTestProjectionMaterializationError(
+        "EXISTING_PROJECTION_TRANSLATION_DRIFT",
+        "Existing BTD projection translations no longer match the target exam language scope.",
+      );
+    }
+    for (let index = 0; index < expectedTranslations.length; index += 1) {
+      const expected = expectedTranslations[index]!;
+      const actual = translationRows[index]!;
+      const quality = asRecord(actual.qualitySnapshot);
+      const learner = expected.learner as AnyRecord;
+      const actualOptions = translationOptionTexts(actual.options);
+      const expectedOptions = Array.isArray(learner.options) ? learner.options.map(String) : [];
+      if (
+        String(actual.code) !== expected.language
+        || String(actual.stem) !== String(learner.stem)
+        || String(actual.explanation ?? "") !== String(learner.explanation ?? "")
+        || JSON.stringify(actualOptions) !== JSON.stringify(expectedOptions)
+        || quality.authority !== BTD_CP014_MATERIALIZATION_AUTHORITY
+        || quality.sourceFrozenContentFingerprint !== expected.frozenContentFingerprint
+        || quality.sourceQuestionBankAdmissionKey !== expected.sourceQuestionBankAdmissionKey
+      ) {
+        throw new BtdTestProjectionMaterializationError(
+          "EXISTING_PROJECTION_TRANSLATION_DRIFT",
+          `${expected.language}: existing BTD projection translation drifted from the frozen source.`,
+        );
+      }
+    }
+
     return Object.freeze({
       projectionKey: plan.projectionKey,
       questionId: String(existing.questionId),
@@ -337,7 +417,7 @@ export async function materializeBtdCp014ScoredTestProjectionV1(
       publicCode: String(existing.publicCode),
       examVersionId,
       primaryTaxonomyNodeId,
-      translationLanguages: Object.freeze(translationRows.map((row) => String(row.code))),
+      translationLanguages: Object.freeze(expectedTranslations.map((entry) => entry.language)),
       reused: true,
       testEligible: false,
       mockTestEligible: false,
@@ -414,7 +494,7 @@ export async function materializeBtdCp014ScoredTestProjectionV1(
       ) VALUES (
         ${translationId}::uuid, ${questionVersionId}::uuid, ${languageId}::uuid,
         ${String(learner.stem)}, ${String(learner.explanation ?? "")}, 'approved',
-        NULL, now(), ${actorUserId}::uuid, now(),
+        ${actorUserId}::uuid, now(), ${actorUserId}::uuid, now(),
         ${JSON.stringify({
           approvable: true,
           authority: BTD_CP014_MATERIALIZATION_AUTHORITY,
