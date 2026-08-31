@@ -133,6 +133,7 @@ router.get('/jobs/:jobId/gap-source-recommendations', requireAdminPermission('co
         rawSourceBodiesReturned: false,
         automaticAttachment: false,
         automaticEvidenceAcceptance: false,
+        automaticGeneration: false,
         sourcePackMutable: sourcePackEditableState(String(job.state)),
       });
       return;
@@ -189,7 +190,6 @@ router.get('/jobs/:jobId/gap-source-recommendations', requireAdminPermission('co
         AND document.retention_mode = 'extracted_text'
         AND document.extraction_status = 'processed'
         AND LENGTH(COALESCE(document.extracted_text, '')) >= 100
-      ORDER BY prior_job.id, coverage.id, claim.id, document.id
       LIMIT 5000
     `;
 
