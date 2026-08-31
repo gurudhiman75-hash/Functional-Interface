@@ -5,6 +5,7 @@ import {
   auditCom003CorpusSaturation,
 } from "./com003-corpus-saturation-audit";
 
+// This test is the one-off CI trigger for the completed atomic-corpus checkpoint.
 const audit = auditCom003CorpusSaturation();
 assert.equal(audit.valid, true, audit.issues.join("\n"));
 assert.equal(audit.factCount, 119);
