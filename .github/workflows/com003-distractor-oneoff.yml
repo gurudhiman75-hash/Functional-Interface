@@ -31,18 +31,20 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Bundle COM-003 distractor audits
+      - name: Bundle COM-003 checkpoint audits
         run: |
           mkdir -p artifacts/api-server/dist/com003-distractor-oneoff
           for test in \
             com003-distractor-readiness.test \
-            com003-controlled-distractor-pools.test; do
+            com003-controlled-distractor-pools.test \
+            com003-editorial-fact-review.test; do
             pnpm --dir artifacts/api-server exec esbuild \
               src/knowledge-v1/computer-awareness/${test}.ts \
               --bundle --platform=node --format=esm \
               --outfile=dist/com003-distractor-oneoff/${test}.mjs
           done
-      - name: Run COM-003 distractor audits
+      - name: Run COM-003 checkpoint audits
         run: |
           node artifacts/api-server/dist/com003-distractor-oneoff/com003-distractor-readiness.test.mjs
           node artifacts/api-server/dist/com003-distractor-oneoff/com003-controlled-distractor-pools.test.mjs
+          node artifacts/api-server/dist/com003-distractor-oneoff/com003-editorial-fact-review.test.mjs
