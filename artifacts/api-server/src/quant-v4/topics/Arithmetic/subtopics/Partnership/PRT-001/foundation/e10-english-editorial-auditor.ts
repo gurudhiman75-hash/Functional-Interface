@@ -38,12 +38,23 @@ function requireAudit(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
-function assertCleanEnglishText(text: string, label: string): void {
+function assertEnglishSurface(text: string, label: string): void {
   requireAudit(text.trim() === text, `${label} has leading/trailing whitespace`);
   requireAudit(!/\s{2,}/.test(text), `${label} has repeated whitespace`);
-  requireAudit(!/[{}]|undefined|NaN|Infinity/.test(text), `${label} leaks an internal token`);
+  requireAudit(!/undefined|NaN|Infinity/.test(text), `${label} leaks an internal token`);
   requireAudit(!/\ba\s+(?:electronics|online)\b/i.test(text), `${label} has an article error: ${text}`);
   requireAudit(!/\ban\s+(?:trading|retail|small|dealership|wholesale|logistics|digital|food|construction|garment|consumer|book)\b/i.test(text), `${label} has an article error: ${text}`);
+}
+
+function assertCleanAuthoredTemplate(text: string, label: string): void {
+  assertEnglishSurface(text, label);
+  const withoutPlaceholders = text.replace(/\{[A-Za-z][A-Za-z0-9]*\}/g, "");
+  requireAudit(!/[{}]/.test(withoutPlaceholders), `${label} contains a malformed authored placeholder`);
+}
+
+function assertCleanRenderedText(text: string, label: string): void {
+  assertEnglishSurface(text, label);
+  requireAudit(!/[{}]/.test(text), `${label} contains an unresolved authored placeholder`);
 }
 
 export function auditPrt001E10EnglishEditorial(): Prt001E10EditorialReport {
@@ -65,7 +76,7 @@ export function auditPrt001E10EnglishEditorial(): Prt001E10EditorialReport {
     const templates = getPrt001QuestionTemplates(questionLanguageId, "en");
     requireAudit(templates.length === 3, `${questionLanguageId} does not have exactly 3 English authored stems`);
     for (const [variantIndex, template] of templates.entries()) {
-      assertCleanEnglishText(template, `${questionLanguageId}#${variantIndex + 1}`);
+      assertCleanAuthoredTemplate(template, `${questionLanguageId}#${variantIndex + 1}`);
       requireAudit(template.length >= 45 && template.length <= 780, `${questionLanguageId}#${variantIndex + 1} has implausible authored stem length ${template.length}`);
       stemSkeletons += 1;
       cases += 1;
@@ -78,11 +89,11 @@ export function auditPrt001E10EnglishEditorial(): Prt001E10EditorialReport {
         language: "en",
       });
       requireAudit(pkg.validation.valid, `${questionLanguageId} failed generation at E10 seed ${seedIndex}`);
-      assertCleanEnglishText(pkg.stem, `${questionLanguageId}:rendered:${seedIndex}`);
+      assertCleanRenderedText(pkg.stem, `${questionLanguageId}:rendered:${seedIndex}`);
       requireAudit(pkg.stem.length >= 45 && pkg.stem.length <= 900, `${questionLanguageId} rendered stem length ${pkg.stem.length} is outside editorial bounds`);
       requireAudit(pkg.explanation.lines.length >= 2 && pkg.explanation.lines.length <= 5, `${questionLanguageId} explanation has ${pkg.explanation.lines.length} lines`);
       const explanation = pkg.explanation.lines.join(" ");
-      assertCleanEnglishText(explanation, `${questionLanguageId}:explanation:${seedIndex}`);
+      assertCleanRenderedText(explanation, `${questionLanguageId}:explanation:${seedIndex}`);
       requireAudit(pkg.explanation.lines.every((line) => line.length <= 430), `${questionLanguageId} has an overlong explanation line`);
       for (const phrase of GENERIC_EXPLANATION_PHRASES) {
         requireAudit(!explanation.includes(phrase), `${questionLanguageId} still uses generic explanation phrase: ${phrase}`);
