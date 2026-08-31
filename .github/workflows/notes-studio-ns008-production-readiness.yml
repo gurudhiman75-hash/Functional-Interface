@@ -9,6 +9,7 @@ on:
       - build-api.sh
       - artifacts/api-server/migrations/20260829_notes_studio_source_pack*.sql
       - artifacts/api-server/migrations/20260830_notes_studio_source_pack*.sql
+      - artifacts/api-server/migrations/20260831_notes_studio*.sql
       - artifacts/api-server/notes-studio-migrate.ts
       - artifacts/api-server/src/notes-studio/**
       - artifacts/api-server/src/routes/admin-notes-studio*.ts
@@ -86,6 +87,35 @@ jobs:
           (cd artifacts/api-server && node dist/notes-studio-migrate.mjs)
           (cd artifacts/api-server && node dist/notes-studio-migrate.mjs)
 
+      - name: Reconcile unledgered partial Notes Studio schema
+        env:
+          PARTIAL_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/notes_studio_partial_ci
+        run: |
+          set -euo pipefail
+          psql "postgresql://postgres:postgres@127.0.0.1:5432/postgres" -v ON_ERROR_STOP=1 -c 'CREATE DATABASE notes_studio_partial_ci'
+          psql "$PARTIAL_DATABASE_URL" -v ON_ERROR_STOP=1 -f artifacts/api-server/src/notes-studio/production-readiness-bootstrap.sql
+          for migration in \
+            20260829_notes_studio_source_pack.sql \
+            20260829_notes_studio_source_pack_ns003_evidence_coverage.sql \
+            20260829_notes_studio_source_pack_ns004_section_synthesis.sql \
+            20260829_notes_studio_source_pack_ns004_section_synthesis_hardening.sql \
+            20260830_notes_studio_source_pack_ns005_quality_gates.sql \
+            20260830_notes_studio_source_pack_ns006_approval_localization.sql \
+            20260830_notes_studio_source_pack_ns007_release_lineage.sql \
+            20260830_notes_studio_source_pack_ns009_planning.sql \
+            20260830_notes_studio_source_pack_ns011_source_policy.sql \
+            20260831_notes_studio_ns017_source_pack_freeze.sql \
+            20260831_notes_studio_ns018_research_restart.sql
+          do
+            psql "$PARTIAL_DATABASE_URL" -v ON_ERROR_STOP=1 -f "artifacts/api-server/migrations/$migration"
+          done
+          (cd artifacts/api-server && DATABASE_URL="$PARTIAL_DATABASE_URL" node dist/notes-studio-migrate.mjs)
+          test "$(psql "$PARTIAL_DATABASE_URL" -Atc 'SELECT count(*) FROM platform.notes_studio_schema_migrations')" = "12"
+          test "$(psql "$PARTIAL_DATABASE_URL" -Atc "SELECT to_regclass('content.note_authoring_jobs')::text")" = "content.note_authoring_jobs"
+          psql "$PARTIAL_DATABASE_URL" -v ON_ERROR_STOP=1 -c 'DELETE FROM platform.notes_studio_schema_migrations'
+          (cd artifacts/api-server && DATABASE_URL="$PARTIAL_DATABASE_URL" node dist/notes-studio-migrate.mjs)
+          test "$(psql "$PARTIAL_DATABASE_URL" -Atc 'SELECT count(*) FROM platform.notes_studio_schema_migrations')" = "12"
+
       - name: Run seeded PostgreSQL lifecycle
         run: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f artifacts/api-server/src/notes-studio/production-readiness-smoke.sql
 
@@ -96,6 +126,7 @@ jobs:
         run: |
           grep -F 'pg_advisory_xact_lock' artifacts/api-server/notes-studio-migrate.ts
           grep -F 'notes_studio_schema_migrations' artifacts/api-server/notes-studio-migrate.ts
+          grep -F 'reconciling unledgered schema by replaying ordered migrations' artifacts/api-server/notes-studio-migrate.ts
           grep -F 'automaticProductionMigration: true' artifacts/api-server/src/routes/admin-notes-studio-operations.ts
           grep -F '[render-build] verify Notes Studio schema' build-api.sh
           grep -F 'notes-studio-migrate.ts' build-api.sh
