@@ -45,10 +45,13 @@ export const COM003_ENGLISH_FREEZE_AUTHORITY_V1 = Object.freeze({
     "sourceIds",
     "correctIndex",
     "versionScoped",
-    "versionScope",
     "reviewOnly",
     "runtimeRegistered",
   ] as const),
+  versionScopeContract: Object.freeze({
+    representation: "versionScoped boolean plus protected platform/version wording in stem and source fact" as const,
+    standaloneVersionScopeFieldPresent: false,
+  }),
   governance: Object.freeze({
     englishFrozen: true,
     englishContentMutationAllowed: false,
