@@ -22,6 +22,8 @@ import questionLanguageE5PaSource from "../question-language.e5.pa.json" assert 
 import questionLanguageE8Source from "../question-language.e8.en.json" assert { type: "json" };
 import questionLanguageE8HiSource from "../question-language.e8.hi.json" assert { type: "json" };
 import questionLanguageE8PaSource from "../question-language.e8.pa.json" assert { type: "json" };
+import questionLanguageE11HiSource from "../question-language.e11.hi.json" assert { type: "json" };
+import questionLanguageE11PaSource from "../question-language.e11.pa.json" assert { type: "json" };
 import stemVariantsE6Source from "../stem-variants.e6.en.json" assert { type: "json" };
 import stemVariantsE6HiSource from "../stem-variants.e6.hi.json" assert { type: "json" };
 import stemVariantsE6PaSource from "../stem-variants.e6.pa.json" assert { type: "json" };
@@ -82,8 +84,8 @@ function mergeStemVariants(base: StemVariantSource, ...overlays: StemVariantSour
 
 const questionLanguages = {
   en: mergeQuestionLanguages(questionLanguageSource as QuestionLanguageSource, questionLanguageE1Source as QuestionLanguageSource, questionLanguageE2Source as QuestionLanguageSource, questionLanguageE3ASource as QuestionLanguageSource, questionLanguageE3BSource as QuestionLanguageSource, questionLanguageE4Source as QuestionLanguageSource, questionLanguageE5Source as QuestionLanguageSource, questionLanguageE8Source as QuestionLanguageSource),
-  hi: mergeQuestionLanguages(questionLanguageHiSource as QuestionLanguageSource, questionLanguageE1HiSource as QuestionLanguageSource, questionLanguageE2HiSource as QuestionLanguageSource, questionLanguageE3AHiSource as QuestionLanguageSource, questionLanguageE3BHiSource as QuestionLanguageSource, questionLanguageE4HiSource as QuestionLanguageSource, questionLanguageE5HiSource as QuestionLanguageSource, questionLanguageE8HiSource as QuestionLanguageSource),
-  pa: mergeQuestionLanguages(questionLanguagePaSource as QuestionLanguageSource, questionLanguageE1PaSource as QuestionLanguageSource, questionLanguageE2PaSource as QuestionLanguageSource, questionLanguageE3APaSource as QuestionLanguageSource, questionLanguageE3BPaSource as QuestionLanguageSource, questionLanguageE4PaSource as QuestionLanguageSource, questionLanguageE5PaSource as QuestionLanguageSource, questionLanguageE8PaSource as QuestionLanguageSource),
+  hi: mergeQuestionLanguages(questionLanguageHiSource as QuestionLanguageSource, questionLanguageE1HiSource as QuestionLanguageSource, questionLanguageE2HiSource as QuestionLanguageSource, questionLanguageE3AHiSource as QuestionLanguageSource, questionLanguageE3BHiSource as QuestionLanguageSource, questionLanguageE4HiSource as QuestionLanguageSource, questionLanguageE5HiSource as QuestionLanguageSource, questionLanguageE8HiSource as QuestionLanguageSource, questionLanguageE11HiSource as QuestionLanguageSource),
+  pa: mergeQuestionLanguages(questionLanguagePaSource as QuestionLanguageSource, questionLanguageE1PaSource as QuestionLanguageSource, questionLanguageE2PaSource as QuestionLanguageSource, questionLanguageE3APaSource as QuestionLanguageSource, questionLanguageE3BPaSource as QuestionLanguageSource, questionLanguageE4PaSource as QuestionLanguageSource, questionLanguageE5PaSource as QuestionLanguageSource, questionLanguageE8PaSource as QuestionLanguageSource, questionLanguageE11PaSource as QuestionLanguageSource),
 };
 
 const stemVariants = {
