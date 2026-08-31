@@ -1,7 +1,8 @@
 import objectPoolsSource from "../object-pools.library.json" assert { type: "json" };
-import { rational } from "./math";
+import { rational, subtractRational } from "./math";
 import { formatPrt001Money, localizePrt001Business } from "./parameter-generator";
 import { createPrt001Random } from "./random";
+import { solvePrt001State } from "./solver";
 import type {
   CapitalSegment,
   Partner,
@@ -10,6 +11,7 @@ import type {
   Prt001Language,
   Prt001PilotParameters,
   Prt001TaskRegistryEntry,
+  Rational,
 } from "./types";
 
 interface ObjectPools {
@@ -31,11 +33,15 @@ const partner = (
   role: Partner["role"] = "UNSPECIFIED",
 ): Partner => ({ partnerId, role, capitalSegments });
 
+function abs(value: Rational): Rational {
+  return value.numerator < 0n ? rational(-value.numerator, value.denominator) : value;
+}
+
 function longDuration(months: number, language: Prt001Language): string {
   if (months % 12 === 0) {
     const years = months / 12;
-    if (language === "hi") return `${years} ${years === 1 ? "वर्ष" : "वर्ष"}`;
-    if (language === "pa") return `${years} ${years === 1 ? "ਸਾਲ" : "ਸਾਲ"}`;
+    if (language === "hi") return `${years} वर्ष`;
+    if (language === "pa") return `${years} ਸਾਲ`;
     return `${years} ${years === 1 ? "year" : "years"}`;
   }
   if (language === "hi") return `${months} महीने`;
@@ -65,29 +71,30 @@ export function generatePrt001E8Parameters(input: {
   const scale = random.pick([1, 2, 3]);
   const money = (value: number) => value * scale;
   let state: PartnershipState;
-  let targetPartnerId: string;
+  let targetPartnerId: string | undefined;
   const renderVariables: Record<string, string | number> = { partnerA, partnerB, partnerC, business };
 
   if (input.questionLanguageId === "PRT-QL-104") {
     const scenario = random.pick([
-      { a: 20_000, b: 30_000, gross: 200_000, allowanceA: 20, allowanceB: 10 },
-      { a: 30_000, b: 45_000, gross: 300_000, allowanceA: 15, allowanceB: 10 },
-      { a: 40_000, b: 60_000, gross: 400_000, allowanceA: 20, allowanceB: 15 },
-      { a: 50_000, b: 40_000, gross: 360_000, allowanceA: 10, allowanceB: 20 },
-      { a: 125_000, b: 85_000, gross: 315_000, allowanceA: 30, allowanceB: 30 },
+      { a: 20_000, b: 30_000, gross: 100_000, equalSplit: 60 },
+      { a: 30_000, b: 45_000, gross: 120_000, equalSplit: 50 },
+      { a: 40_000, b: 60_000, gross: 150_000, equalSplit: 40 },
+      { a: 50_000, b: 40_000, gross: 180_000, equalSplit: 60 },
+      { a: 125_000, b: 85_000, gross: 39_375, equalSplit: 60 },
     ]);
+    const equalAllowancePercent = scenario.equalSplit / 2;
     const allocations: PreDistributionAllocation[] = [
       {
         kind: "BONUS",
         basis: "PERCENT_OF_GROSS_PROFIT",
-        value: rational(scenario.allowanceA),
+        value: rational(equalAllowancePercent),
         recipientPartnerId: partnerA,
         sequence: 1,
       },
       {
         kind: "BONUS",
         basis: "PERCENT_OF_GROSS_PROFIT",
-        value: rational(scenario.allowanceB),
+        value: rational(equalAllowancePercent),
         recipientPartnerId: partnerB,
         sequence: 2,
       },
@@ -96,21 +103,21 @@ export function generatePrt001E8Parameters(input: {
       totalDuration: rational(12),
       grossProfitOrLoss: rational(money(scenario.gross)),
       partners: [
-        partner(partnerA, [segment(0, 12, money(scenario.a))], "ACTIVE"),
-        partner(partnerB, [segment(0, 12, money(scenario.b))], "ACTIVE"),
+        partner(partnerA, [segment(0, 12, money(scenario.a))]),
+        partner(partnerB, [segment(0, 12, money(scenario.b))]),
       ],
       allocations,
       moneyUnit: "RUPEE",
       timeUnit: "MONTH",
     };
-    targetPartnerId = random.pick([partnerA, partnerB]);
+    const solution = solvePrt001State(state);
+    const shareDifference = abs(subtractRational(solution.finalPartnerReceipts[partnerA]!, solution.finalPartnerReceipts[partnerB]!));
     Object.assign(renderVariables, {
       capitalA: formatPrt001Money(rational(money(scenario.a))),
       capitalB: formatPrt001Money(rational(money(scenario.b))),
-      allowancePercentA: scenario.allowanceA,
-      allowancePercentB: scenario.allowanceB,
-      totalProfit: formatPrt001Money(rational(money(scenario.gross))),
-      targetPartner: targetPartnerId,
+      equalSplitPercent: scenario.equalSplit,
+      capitalSplitPercent: 100 - scenario.equalSplit,
+      shareDifference: formatPrt001Money(shareDifference),
     });
   } else {
     const scenario = random.pick([
