@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 
 import {
   assertPublicHttpsFeedUrl,
+  onDemandFeedRunKey,
   scheduledFeedRunKey,
   scheduleSlotStart,
   summarizeScheduledSourceResults,
@@ -17,6 +18,13 @@ assert.equal(
   scheduledFeedRunKey(new Date("2026-08-29T12:00:00Z"), 3),
   "feed_ingestion:2026-08-29T12:00:00.000Z",
 );
+
+const manualNow = new Date("2026-08-29T10:47:12Z");
+const manualRunA = onDemandFeedRunKey(manualNow, "request-a");
+const manualRunB = onDemandFeedRunKey(manualNow, "request-b");
+assert.equal(manualRunA, "feed_ingestion:on_demand:2026-08-29T10:47:12.000Z:request-a");
+assert.notEqual(manualRunA, manualRunB, "every manual click must have a distinct source-refresh run key");
+assert.notEqual(manualRunA, scheduledFeedRunKey(manualNow, 3), "manual generation must never share the cron slot key");
 
 assert.equal(
   assertPublicHttpsFeedUrl("https://example.gov.in/feed.xml#latest"),
@@ -57,4 +65,4 @@ const failed = summarizeScheduledSourceResults([
 ]);
 assert.equal(failed.status, "failed");
 
-console.log("Current Affairs Studio CP005/CP007 automation contracts passed");
+console.log("Current Affairs automation and true on-demand source contracts passed");
