@@ -37,6 +37,11 @@ export function noteSourceContentHash(value: string | Buffer): string {
   return createHash('sha256').update(value).digest('hex');
 }
 
+export function referenceOnlyUrlContentHash(value: string): string {
+  const normalizedUrl = assertPublicHttpsUrl(value);
+  return noteSourceContentHash(`notes-reference-url-v1:${normalizedUrl}`);
+}
+
 function decodeHtmlEntities(value: string): string {
   return value
     .replace(/&#(\d+);/g, (_match, digits) => String.fromCodePoint(Number(digits)))
