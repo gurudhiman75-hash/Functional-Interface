@@ -99,12 +99,18 @@ jobs:
           grep -Fq 'automaticStudentPublication: false' "$runtime"
           grep -Fq 'requireAdminPermission("jobs.manage")' "$route"
 
-      - name: Verify production route and admin action
+      - name: Verify production route, audit entity, and admin action
         shell: bash
         run: |
           set -euo pipefail
+          route=artifacts/api-server/src/routes/admin-current-affairs-production-ops.ts
           grep -Fq '/api/admin/current-affairs' artifacts/api-server/src/app.ts
-          grep -Fq '"/production/generate-yesterday"' artifacts/api-server/src/routes/admin-current-affairs-production-ops.ts
+          grep -Fq '"/production/generate-yesterday"' "$route"
+          grep -Fq 'const generationRequestId = randomUUID();' "$route"
+          grep -Fq 'entity_type, entity_id, reason, summary, metadata' "$route"
+          grep -Fq "'current_affairs_generation_request'" "$route"
+          grep -Fq '${generationRequestId}::uuid' "$route"
+          grep -Fq 'generationRequestId,' "$route"
           grep -Fq '/admin/current-affairs/production/generate-yesterday' artifacts/admin-app/src/features/current-affairs/production-ops-api.ts
           grep -Fq 'Generate Yesterday Now' artifacts/admin-app/src/pages/content/CurrentAffairsProductionReadinessPage.tsx
           grep -Fq "/content/current-affairs/production-readiness" artifacts/admin-app/src/App.tsx
