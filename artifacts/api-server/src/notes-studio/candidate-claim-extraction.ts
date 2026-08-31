@@ -1,13 +1,16 @@
 import { createHash } from 'node:crypto';
 
-export const NOTES_CLAIM_EXTRACTION_PROMPT_VERSION = 'notes-claim-extraction-v1';
+export const NOTES_CLAIM_EXTRACTION_PROMPT_VERSION = 'notes-claim-extraction-v2';
 export const MAX_CLAIM_EXTRACTION_BLOCKS = 40;
 export const MAX_CLAIM_EXTRACTION_OUTPUTS = 60;
+
+export type ClaimExtractionEvidenceKind = 'retained_excerpt' | 'editor_reference_note';
 
 export type ClaimExtractionEvidenceBlock = {
   id: string;
   sourceDocumentId: string;
   sourceTitle: string;
+  evidenceKind: ClaimExtractionEvidenceKind;
   excerpt: string;
 };
 
@@ -29,6 +32,13 @@ export type CandidateClaimExtraction = {
   claims: ExtractedCandidateClaim[];
 };
 
+export type CandidateEvidenceEligibilityInput = {
+  evidenceKind: unknown;
+  reviewedAt?: unknown;
+  retentionMode?: unknown;
+  extractionStatus?: unknown;
+};
+
 function stableObject(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(stableObject);
   if (value && typeof value === 'object') {
@@ -39,6 +49,16 @@ function stableObject(value: unknown): unknown {
     );
   }
   return value;
+}
+
+export function candidateEvidenceBlockEligible(input: CandidateEvidenceEligibilityInput): boolean {
+  const evidenceKind = String(input.evidenceKind ?? '').trim();
+  if (evidenceKind === 'editor_reference_note') return Boolean(input.reviewedAt);
+  if (evidenceKind === 'retained_excerpt') {
+    return String(input.retentionMode ?? '') === 'extracted_text'
+      && String(input.extractionStatus ?? '') === 'processed';
+  }
+  return false;
 }
 
 export function candidateClaimInputFingerprint(input: ClaimExtractionInput): string {
@@ -54,15 +74,18 @@ export function candidateClaimOutputFingerprint(output: CandidateClaimExtraction
 export function buildCandidateClaimInstruction(input: ClaimExtractionInput): string {
   return [
     'You are extracting atomic factual claims for an exam-preparation research workflow.',
-    'Use ONLY the supplied evidence excerpts. Do not use outside knowledge or infer facts that are not directly supported.',
+    'Use ONLY the supplied evidence blocks. Do not use outside knowledge or infer facts that are not directly supported.',
+    'Evidence kind retained_excerpt means publisher text retained under the governed source rights policy.',
+    'Evidence kind editor_reference_note means an editor-reviewed factual paraphrase tied to the cited source; it is NOT publisher wording.',
+    'Treat both evidence kinds as bounded governed evidence, but never claim that an editor_reference_note is a quotation or verbatim source text.',
     'Return candidate claims for human editorial review; nothing you return is automatically accepted.',
     'Each claim must express one checkable factual proposition in concise wording.',
-    'Preserve names, dates, numbers, percentages, constitutional/article numbers, formulas, official terms and proper nouns exactly when they appear in evidence.',
+    'Preserve names, dates, numbers, percentages, constitutional/article numbers, formulas, official terms and proper nouns exactly when they appear in the supplied evidence text.',
     'Avoid advice, opinions, learner-facing prose, questions, memory tricks, examples invented by you, or broad summaries.',
     'Every claim must cite one or more evidenceBlockIds from the supplied block IDs. Never invent an ID.',
     'Use multiple evidenceBlockIds only when every cited block directly supports the same factual proposition.',
-    'If two excerpts make incompatible claims about the same factual field, emit separate candidate claims and give them the same short contradictionKey. Otherwise contradictionKey must be null.',
-    'Confidence measures only how directly the cited excerpt supports the exact claim, not whether you believe the real-world fact is true.',
+    'If two evidence blocks make incompatible claims about the same factual field, emit separate candidate claims and give them the same short contradictionKey. Otherwise contradictionKey must be null.',
+    'Confidence measures only how directly the cited evidence supports the exact claim, not whether you believe the real-world fact is true.',
     `The note source language is ${input.languageCode}; write claimText in that language unless the evidence is an official proper noun/term that should remain unchanged.`,
     `Return at most ${MAX_CLAIM_EXTRACTION_OUTPUTS} claims as strict JSON matching the requested schema.`,
     '',

@@ -8,6 +8,8 @@ import {
   NOTES_CLAIM_EXTRACTION_PROMPT_VERSION,
   candidateClaimInputFingerprint,
   candidateClaimOutputFingerprint,
+  candidateEvidenceBlockEligible,
+  type ClaimExtractionEvidenceKind,
   type ClaimExtractionInput,
 } from '../notes-studio/candidate-claim-extraction';
 import {
@@ -54,6 +56,10 @@ function sendError(res: Response, error: unknown, fallback: string) {
   res.status(500).json({ error: fallback, code: 'NOTES_STUDIO_CANDIDATE_CLAIM_EXTRACTION_FAILED' });
 }
 
+function evidenceKind(value: unknown): ClaimExtractionEvidenceKind {
+  return String(value ?? '') === 'editor_reference_note' ? 'editor_reference_note' : 'retained_excerpt';
+}
+
 async function loadJobAndPolicy(jobId: string) {
   const jobRows = await sqlClient`
     SELECT id::text AS id, title, source_language AS "sourceLanguage", state, brief
@@ -80,7 +86,15 @@ async function loadJobAndPolicy(jobId: string) {
       document.extraction_status AS "extractionStatus",
       LENGTH(COALESCE(document.extracted_text, ''))::int AS "retainedCharCount",
       link.inclusion_state AS "inclusionState",
-      link.source_role AS "sourceRole"
+      link.source_role AS "sourceRole",
+      EXISTS (
+        SELECT 1
+        FROM content.note_source_evidence_blocks block
+        WHERE block.job_id = link.job_id
+          AND block.source_document_id = link.source_document_id
+          AND block.evidence_kind = 'editor_reference_note'
+          AND block.reviewed_at IS NOT NULL
+      ) AS "referenceEvidenceReady"
     FROM content.note_authoring_sources link
     JOIN content.source_documents document ON document.id = link.source_document_id
     WHERE link.job_id = ${jobId}::uuid
@@ -95,6 +109,7 @@ async function loadJobAndPolicy(jobId: string) {
     generationReady: source.retentionMode === 'extracted_text'
       && source.extractionStatus === 'processed'
       && Number(source.retainedCharCount ?? 0) >= 100,
+    referenceEvidenceReady: Boolean(source.referenceEvidenceReady),
     contentHash: String(source.contentHash ?? ''),
     sourceIdentity: noteSourceIdentity(source.publisher, source.sourceUri),
   })));
@@ -141,7 +156,11 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
         block.id::text AS id,
         block.source_document_id::text AS "sourceDocumentId",
         block.excerpt,
+        block.evidence_kind AS "evidenceKind",
+        block.reviewed_at AS "reviewedAt",
         document.title AS "sourceTitle",
+        document.retention_mode AS "retentionMode",
+        document.extraction_status AS "extractionStatus",
         link.position,
         block.block_index AS "blockIndex"
       FROM content.note_source_evidence_blocks block
@@ -151,14 +170,18 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
       WHERE block.job_id = ${jobId}::uuid
         AND block.id = ANY(${blockIds}::uuid[])
         AND link.inclusion_state = 'included'
-        AND document.retention_mode = 'extracted_text'
-        AND document.extraction_status = 'processed'
       ORDER BY link.position, block.source_document_id, block.block_index
     `;
-    if (rows.length !== blockIds.length) {
+    const eligibleRows = rows.filter((row) => candidateEvidenceBlockEligible({
+      evidenceKind: row.evidenceKind,
+      reviewedAt: row.reviewedAt,
+      retentionMode: row.retentionMode,
+      extractionStatus: row.extractionStatus,
+    }));
+    if (eligibleRows.length !== blockIds.length) {
       throw new CandidateClaimError(
         'EVIDENCE_SELECTION_STALE',
-        'One or more selected evidence blocks are no longer active generation-ready evidence for this source pack.',
+        'One or more selected evidence blocks are no longer active governed evidence for this source pack.',
         409,
       );
     }
@@ -167,10 +190,11 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
       jobId,
       noteTitle: String(job.title),
       languageCode: String(job.sourceLanguage || 'en'),
-      blocks: rows.map((row) => ({
+      blocks: eligibleRows.map((row) => ({
         id: String(row.id),
         sourceDocumentId: String(row.sourceDocumentId),
         sourceTitle: String(row.sourceTitle),
+        evidenceKind: evidenceKind(row.evidenceKind),
         excerpt: String(row.excerpt),
       })),
     };
@@ -192,7 +216,7 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
           ) VALUES (
             ${claimId}::uuid, ${jobId}::uuid, ${candidate.claimText}, ${claimHash}, 'candidate',
             ${candidate.confidence}, ${candidate.contradictionKey},
-            'NS-014 model-extracted candidate; editorial acceptance required.',
+            'NS-014/NS-023 model-extracted candidate; editorial acceptance required.',
             ${actorUserId}::uuid, ${actorUserId}::uuid, now(), now()
           )
           ON CONFLICT (job_id, claim_hash) DO NOTHING
@@ -217,6 +241,8 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
       }
     });
 
+    const selectedReferenceEvidenceCount = input.blocks.filter((block) => block.evidenceKind === 'editor_reference_note').length;
+    const selectedRetainedEvidenceCount = input.blocks.length - selectedReferenceEvidenceCount;
     await audit(actorUserId, jobId, {
       provider: generated.provider,
       model: generated.model,
@@ -227,10 +253,13 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
       outputFingerprint,
       sourcePackTemplate: policy.templateKey,
       selectedBlockCount: input.blocks.length,
+      selectedRetainedEvidenceCount,
+      selectedReferenceEvidenceCount,
       generatedClaimCount: generated.extraction.claims.length,
       createdClaimCount: created,
       duplicateClaimCount: duplicatesSkipped,
-      boundedEvidenceExcerptsSent: true,
+      boundedEvidenceBlocksSent: true,
+      publisherTextAssumedForReferenceNotes: false,
       fullSourceDocumentsSent: false,
       automaticAcceptance: false,
       automaticCoverageLinking: false,
@@ -248,7 +277,9 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
       promptVersion: NOTES_CLAIM_EXTRACTION_PROMPT_VERSION,
       inputFingerprint,
       outputFingerprint,
-      boundedEvidenceExcerptsSent: true,
+      selectedRetainedEvidenceCount,
+      selectedReferenceEvidenceCount,
+      boundedEvidenceBlocksSent: true,
       fullSourceDocumentsSent: false,
       automaticAcceptance: false,
       automaticCoverageLinking: false,
