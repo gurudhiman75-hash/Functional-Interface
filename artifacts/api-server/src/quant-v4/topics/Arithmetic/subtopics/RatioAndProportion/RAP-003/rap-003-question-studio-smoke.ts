@@ -2,7 +2,6 @@ import { strict as assert } from "node:assert";
 import { generateQuestion, listQuantV4Packages } from "../../../../../generation-engine";
 
 const EXPECTED_CP_IDS = [
-  "RAP-CP-013",
   "RAP-CP-014",
   "RAP-CP-015",
   "RAP-CP-016",
@@ -26,10 +25,28 @@ assert.equal(rap003Discovery.enabled, true, "RAP-003 should be enabled for Engli
 assert.deepEqual(rap003Discovery.supportedLanguages, ["en"], "RAP-003 must be English-only in Question Studio.");
 assert.equal(rap003Discovery.topic, "Arithmetic");
 assert.equal(rap003Discovery.subtopic, "Ratio & Proportion");
-assert.equal(rap003Discovery.canonicalProblems.length, 10);
+assert.equal(rap003Discovery.canonicalProblems.length, 9);
 assert.deepEqual(
   rap003Discovery.canonicalProblems.map((cp) => cp.id).sort(),
   EXPECTED_CP_IDS,
+);
+assert.equal(
+  rap003Discovery.canonicalProblems.some((cp) => cp.id === "RAP-CP-013"),
+  false,
+  "Legacy Partnership CP013 must not be exposed by RAP-003 discovery.",
+);
+
+await assert.rejects(
+  () =>
+    generateQuestion({
+      packageId: "RAP-003",
+      cpId: "RAP-CP-013",
+      language: "en",
+      count: 1,
+      seed: "rap-003-retired-partnership-block",
+    }),
+  /Unknown canonical problem|RAP-CP-013/i,
+  "Question Studio must reject retired RAP-CP-013 product generation.",
 );
 
 const generated = await generateQuestion({
@@ -64,6 +81,7 @@ for (const [index, question] of generated.questions.entries()) {
   assert.equal(hasUnresolvedPlaceholder(combinedText), false, `Unresolved placeholder in generated text: ${combinedText}`);
   assert.equal(/\b(undefined|null|NaN|Infinity)\b/i.test(combinedText), false, `Internal value leaked: ${combinedText}`);
   assert.equal(pkg.validation.valid, true, pkg.validation.checks.filter((check: any) => !check.passed).map((check: any) => check.message).join("; "));
+  assert.notEqual(pkg.canonicalProblemId, "RAP-CP-013", "Random RAP-003 generation must not emit legacy Partnership CP013.");
   coveredCpIds.add(pkg.canonicalProblemId);
 }
 
@@ -82,8 +100,9 @@ for (const language of ["hi", "pa"] as const) {
   );
 }
 
-console.log("RAP-003 Question Studio English-only smoke passed.");
-console.log("Discovery: enabled=true, supportedLanguages=en");
+console.log("RAP-003 Question Studio English-only smoke passed after CP013 retirement.");
+console.log("Discovery: enabled=true, supportedLanguages=en, activeCPs=9");
+console.log("Legacy RAP-CP-013 product exposure: blocked");
 console.log("Generated questions: 20");
 console.log(`Covered CPs: ${[...coveredCpIds].sort().join(", ")}`);
 console.log("Hindi/Punjabi exposure: blocked by runtime");
