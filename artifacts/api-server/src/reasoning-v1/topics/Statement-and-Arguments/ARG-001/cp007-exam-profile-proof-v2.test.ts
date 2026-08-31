@@ -38,7 +38,6 @@ for (const profile of profiles) {
   for (const difficulty of profileMeta.supportedDifficulties as readonly ArgCp007Difficulty[]) {
     for (const qlId of ARG_QL_IDS) {
       for (const locale of locales) {
-        let englishSemanticReference: ReturnType<typeof generateArgCp007ExamProfileQuestion> | undefined;
         for (const seed of seeds) {
           const question = generateArgCp007ExamProfileQuestion({ qlId, locale, seed, profile, difficulty });
           const replay = generateArgCp007ExamProfileQuestion({ qlId, locale, seed, profile, difficulty });
@@ -84,14 +83,19 @@ for (const profile of profiles) {
             assert.ok(words(question.statement) <= 20, `${question.scenarioId}: concise statement exceeded 20 words`);
             assert.ok(question.arguments.every((value) => words(value) <= 28), `${question.scenarioId}: concise argument exceeded 28 words`);
           }
+        }
+      }
 
-          if (locale === "en-IN") {
-            englishSemanticReference = question;
-          } else if (englishSemanticReference?.seed === question.seed) {
-            assert.deepEqual(question.argumentStrengths, englishSemanticReference.argumentStrengths);
-            assert.deepEqual(question.strongArgumentIndices, englishSemanticReference.strongArgumentIndices);
-            assert.equal(question.correctIndex, englishSemanticReference.correctIndex);
-          }
+      for (const seed of seeds) {
+        const en = generateArgCp007ExamProfileQuestion({ qlId, locale: "en-IN", seed, profile, difficulty });
+        const hi = generateArgCp007ExamProfileQuestion({ qlId, locale: "hi-IN", seed, profile, difficulty });
+        const pa = generateArgCp007ExamProfileQuestion({ qlId, locale: "pa-IN", seed, profile, difficulty });
+        for (const localizedQuestion of [hi, pa]) {
+          assert.deepEqual(localizedQuestion.argumentStrengths, en.argumentStrengths, `${profile}/${difficulty}/${qlId}/${seed}: strength parity drift`);
+          assert.deepEqual(localizedQuestion.strongArgumentIndices, en.strongArgumentIndices, `${profile}/${difficulty}/${qlId}/${seed}: strong-index parity drift`);
+          assert.equal(localizedQuestion.correctIndex, en.correctIndex, `${profile}/${difficulty}/${qlId}/${seed}: correct-index parity drift`);
+          assert.equal(localizedQuestion.arguments.length, en.arguments.length, `${profile}/${difficulty}/${qlId}/${seed}: argument-count parity drift`);
+          assert.equal(localizedQuestion.options.length, en.options.length, `${profile}/${difficulty}/${qlId}/${seed}: option-count parity drift`);
         }
       }
     }
@@ -136,6 +140,7 @@ console.log(JSON.stringify({
   qls: ARG_QL_IDS.length,
   locales,
   proofQuestions: generated,
+  explicitTrilingualParity: true,
   cp006Core: "BYTE_FREEZE_PRESERVED_BY_SEPARATE_CP006_PROOF",
   learnerRelease: "LOCKED",
 }, null, 2));
