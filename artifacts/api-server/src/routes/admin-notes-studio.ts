@@ -11,6 +11,7 @@ import {
   extractReadableWebText,
   extractWebTitle,
   noteSourceContentHash,
+  referenceOnlyUrlContentHash,
   retentionModeForRights,
   sourcePreview,
   type NoteSourceRightsBasis,
@@ -364,6 +365,37 @@ router.post('/jobs/:id/sources/url', requireAdminPermission('content.questions.u
     const declaredTitle = text(req.body?.title, 300);
     const publisher = text(req.body?.publisher, 240);
     const basis = rightsBasis(req.body?.rightsBasis);
+
+    if (basis === 'reference_only') {
+      const hash = referenceOnlyUrlContentHash(url);
+      const duplicate = await sourceAlreadyAttached(jobId, hash);
+      if (duplicate) {
+        res.json({ source: duplicate, duplicate: true, job: await loadJob(jobId) });
+        return;
+      }
+      const sourceId = await attachSource({
+        jobId,
+        actorUserId,
+        sourceType: 'web',
+        sourceUri: url,
+        title: declaredTitle || new URL(url).hostname,
+        publisher,
+        mimeType: null,
+        contentHash: hash,
+        rightsBasis: basis,
+        retainedText: null,
+        extractionMetadata: {
+          extractorVersion: 'notes-web-reference-metadata-v1',
+          fingerprintVersion: 'notes-reference-url-v1',
+          fetchAttempted: false,
+          bodyRetained: false,
+          rawHtmlPersisted: false,
+          retainedCharCount: 0,
+        },
+      });
+      res.status(201).json({ sourceId, job: await loadJob(jobId), duplicate: false });
+      return;
+    }
 
     const response = await fetch(url, {
       headers: { accept: 'text/html,application/xhtml+xml,text/plain;q=0.9', 'user-agent': 'Examtree-Notes-Studio/1.0' },
