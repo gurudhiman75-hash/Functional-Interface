@@ -36,15 +36,16 @@ Duplicate or empty queries are removed.
 
 ## Candidate URL boundary
 
-Only public HTTP/HTTPS candidates are retained.
+Only public HTTPS candidates are retained, matching the existing governed URL-intake contract.
 
 The deterministic filter rejects:
 
+- plain HTTP and non-web schemes;
 - localhost / loopback;
-- `.local` hosts;
+- `.local` and metadata-service hosts;
 - RFC1918-style private IPv4 ranges;
 - link-local IPv4;
-- non-web schemes such as `file:`.
+- local/link-local IPv6 ranges.
 
 Fragments and common tracking parameters are removed before deduplication.
 
