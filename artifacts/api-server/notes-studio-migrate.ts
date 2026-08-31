@@ -70,27 +70,13 @@ async function run() {
       throw new Error('Notes Studio migration ledger is not a contiguous prefix of the ordered migration manifest.');
     }
 
-    const before = await inspectNotesStudioSchema(tx);
-
-    if (recorded.size === 0 && before.ready) {
-      console.log('[notes-studio:migrate] adopting already-complete pre-ledger Notes Studio schema');
-      for (const migration of migrations) {
-        await tx`
-          INSERT INTO platform.notes_studio_schema_migrations (filename, content_sha256)
-          VALUES (${migration.fileName}, ${migration.digest})
-        `;
+    if (recorded.size === 0) {
+      const before = await inspectNotesStudioSchema(tx);
+      if (before.presentRelations.length > 0 || before.presentTriggers.length > 0) {
+        console.log(
+          `[notes-studio:migrate] reconciling unledgered schema by replaying ordered migrations: ${before.presentRelations.length} known relations, ${before.presentTriggers.length} known triggers`,
+        );
       }
-      return;
-    }
-
-    if (
-      recorded.size === 0
-      && !before.ready
-      && (before.presentRelations.length > 0 || before.presentTriggers.length > 0)
-    ) {
-      console.log(
-        `[notes-studio:migrate] reconciling unledgered partial schema: ${before.presentRelations.length} known relations, ${before.presentTriggers.length} known triggers`,
-      );
     }
 
     for (const migration of migrations.slice(recorded.size)) {
