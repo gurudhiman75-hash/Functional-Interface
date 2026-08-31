@@ -59,20 +59,17 @@ function privateIpv4(host: string): boolean {
 }
 
 function blockedHost(host: string): boolean {
-  const normalized = host.toLowerCase();
+  const normalized = host.toLowerCase().replace(/^\[/, '').replace(/\]$/, '');
+  const localIpv6 = normalized === '::1'
+    || ((normalized.startsWith('fc') || normalized.startsWith('fd')) && normalized.includes(':'))
+    || (/^fe[89ab]/.test(normalized) && normalized.includes(':'));
   return !normalized
     || normalized === 'localhost'
     || normalized === '0.0.0.0'
-    || normalized === '::1'
     || normalized === '169.254.169.254'
     || normalized === 'metadata.google.internal'
     || normalized.endsWith('.local')
-    || normalized.startsWith('fc') && normalized.includes(':')
-    || normalized.startsWith('fd') && normalized.includes(':')
-    || normalized.startsWith('fe8') && normalized.includes(':')
-    || normalized.startsWith('fe9') && normalized.includes(':')
-    || normalized.startsWith('fea') && normalized.includes(':')
-    || normalized.startsWith('feb') && normalized.includes(':')
+    || localIpv6
     || privateIpv4(normalized);
 }
 
