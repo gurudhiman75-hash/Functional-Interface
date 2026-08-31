@@ -6,6 +6,7 @@ import {
   generateIntCp010PermanentLocalized,
   type IntCp010PermanentQlId,
 } from "./cp010-final-registry-v1";
+import { retrofitInterestDirectCalculationLines } from "./interest-direct-calculation-explanation-policy-v1";
 
 export const INT_CP010_QUESTION_STUDIO_INTEGRATION_VERSION = "INT-CP-010-QS-v1-json-safe" as const;
 export const INT_CP010_QUESTION_STUDIO_PACKAGE_ID = "INT-001" as const;
@@ -75,7 +76,8 @@ function normalizeFrozen(source: any, qlId: IntCp010PermanentQlId, language: Int
   const authority = authorityFor(qlId);
   const identity = createHash("sha256").update(`${qlId}:${language}:${requestSeed}:${INT_CP010_FINAL_REGISTRY_VERSION}`).digest("hex").slice(0, 20);
   const explanation = source.explanation ?? {};
-  const lines = [explanation.keyIdea, ...(explanation.steps ?? []), explanation.finalAnswer].filter(Boolean).map(String);
+  const rawLines = [explanation.keyIdea, ...(explanation.steps ?? []), explanation.finalAnswer].filter(Boolean).map(String);
+  const lines = retrofitInterestDirectCalculationLines({ qlId, language, lines: rawLines, answer });
   const safeHidden = toJsonSafe(source.mathematicalState ?? source.hiddenState ?? {});
   const normalized = Object.freeze({
     packageId: INT_CP010_QUESTION_STUDIO_PACKAGE_ID,
@@ -90,7 +92,8 @@ function normalizeFrozen(source: any, qlId: IntCp010PermanentQlId, language: Int
     difficultyBand: String(source.difficultyBand ?? source.baselineDifficulty ?? "Hard"),
     language,
     locale: language === "en" ? "en-IN" : language === "hi" ? "hi-IN" : "pa-IN",
-    explanation: Object.freeze({ lines: Object.freeze(lines) }),
+    explanation: Object.freeze({ lines }),
+    explanationPresentationPolicy: "INT-001-DIRECT-CALCULATION-EXPLANATION-POLICY-v1" as const,
     runtimeMode: "QUESTION_STUDIO_ACTIVE" as const,
     reviewStatus: "FROZEN_MULTILINGUAL_CONTENT_AUTHORITY" as const,
     questionStudioDiscoverable: true as const,
@@ -171,6 +174,7 @@ function preview(pkg: ReturnType<typeof normalizeFrozen>, index: number, count: 
     questionIndex: index + 1,
     questionCount: count,
     integrationAuthority: pkg.integrationAuthority,
+    explanationPresentationPolicy: pkg.explanationPresentationPolicy,
   });
 }
 
