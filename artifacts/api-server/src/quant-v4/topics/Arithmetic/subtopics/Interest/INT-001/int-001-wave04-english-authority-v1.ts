@@ -103,19 +103,28 @@ export function generateInt001Wave04EnglishCandidate(qlId: Int001Wave03QlId, see
     throw new Error(`${qlId}/${requestedSeed}: incomplete learner package`);
   }
   if (!Number.isInteger(source.correctIndex) || source.correctIndex < 0 || source.correctIndex > 3) {
-    throw new Error(`${qlId}/${requestedSeed}: invalid answer index`);
+    throw new Error(`${qlId}/${requestedSeed}: invalid source answer index`);
   }
 
-  const options = Object.freeze(source.options.map((option: any) => deepFreeze({
+  const normalizedSourceOptions = source.options.map((option: any) => deepFreeze({
     text: String(option.text),
     value: option.value,
     misconceptionId: String(option.misconceptionId),
     isCorrect: Boolean(option.isCorrect),
-  })));
+  }));
+  const correctOption = normalizedSourceOptions.find((option: any) => option.isCorrect);
+  const wrongOptions = normalizedSourceOptions.filter((option: any) => !option.isCorrect);
+  if (!correctOption || wrongOptions.length !== 3) {
+    throw new Error(`${qlId}/${requestedSeed}: source answer ownership drift`);
+  }
+  const correctIndex = hash(`${qlId}:${requestedSeed}:wave04-independent-correct-position`) % 4;
+  const arrangedOptions = [...wrongOptions];
+  arrangedOptions.splice(correctIndex, 0, correctOption);
+  const options = Object.freeze(arrangedOptions);
   if (new Set(options.map((option) => option.text)).size !== 4) {
     throw new Error(`${qlId}/${requestedSeed}: duplicate displayed option text`);
   }
-  if (options.filter((option) => option.isCorrect).length !== 1 || !options[source.correctIndex]?.isCorrect) {
+  if (options.filter((option) => option.isCorrect).length !== 1 || !options[correctIndex]?.isCorrect) {
     throw new Error(`${qlId}/${requestedSeed}: displayed answer ownership drift`);
   }
 
@@ -146,7 +155,7 @@ export function generateInt001Wave04EnglishCandidate(qlId: Int001Wave03QlId, see
     stemFamilyId: String(source.presentation.stemFamilyId),
     stem: String(source.presentation.prompt),
     options,
-    correctIndex: source.correctIndex as number,
+    correctIndex,
     answer: source.answer,
     mathematicalState: source.state,
     mathematicalFingerprint: String(source.mathematicalFingerprint),
@@ -157,6 +166,8 @@ export function generateInt001Wave04EnglishCandidate(qlId: Int001Wave03QlId, see
       sourceAuthorityContract: contract.givenUnknown,
       packagingRemediationVersion: String(source.packagingRemediationVersion ?? "NONE"),
       seedResolutionAttempts: Number(source.seedResolutionAttempts ?? 1),
+      sourceCorrectIndex: Number(source.correctIndex),
+      learnerOptionOrderRemediated: true as const,
     }),
     lifecycle: deepFreeze({
       permanentIdentityFrozen: true as const,
