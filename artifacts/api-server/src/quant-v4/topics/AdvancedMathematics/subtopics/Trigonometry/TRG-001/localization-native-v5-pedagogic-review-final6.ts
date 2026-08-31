@@ -29,6 +29,26 @@ function sha256(value: unknown) {
     .digest("hex");
 }
 
+function ql142Shortcut(explanation: AnyQuestion, locale: Locale) {
+  const workedText = (explanation.steps ?? []).map((step: AnyQuestion) => String(step?.body ?? "")).join(" ");
+  const usesSinConjugate = workedText.includes("1−sin²");
+  const usesCosConjugate = workedText.includes("1−cos²");
+
+  if (usesSinConjugate === usesCosConjugate) {
+    throw new Error("TRG-001-QL-142: unable to identify exactly one generated conjugate variant from worked steps.");
+  }
+
+  if (locale === "hi-IN") {
+    return usesSinConjugate
+      ? "संयुग्मी गुणनफल (1+sinα)(1−sinα)=1−sin²α=cos²α का प्रयोग करें।"
+      : "संयुग्मी गुणनफल (1+cosα)(1−cosα)=1−cos²α=sin²α का प्रयोग करें।";
+  }
+
+  return usesSinConjugate
+    ? "ਸੰਯੁਗਮੀ ਗੁਣਨਫਲ (1+sinα)(1−sinα)=1−sin²α=cos²α ਵਰਤੋ।"
+    : "ਸੰਯੁਗਮੀ ਗੁਣਨਫਲ (1+cosα)(1−cosα)=1−cos²α=sin²α ਵਰਤੋ।";
+}
+
 function correctedExplanation(question: AnyQuestion, locale: Locale) {
   const explanation = {
     ...question.explanation,
@@ -70,9 +90,7 @@ function correctedExplanation(question: AnyQuestion, locale: Locale) {
         : "ਰੇਖੀ ਸੰਬੰਧ ਨੂੰ tan ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲੋ, ਫਿਰ cot ਲਈ ਪਰਸਪਰ ਲਓ।";
       break;
     case "TRG-001-QL-142":
-      explanation.shortcut = hi
-        ? "संयुग्मी गुणनफल (1+sinα)(1−sinα)=1−sin²α=cos²α का प्रयोग करें।"
-        : "ਸੰਯੁਗਮੀ ਗੁਣਨਫਲ (1+sinα)(1−sinα)=1−sin²α=cos²α ਵਰਤੋ।";
+      explanation.shortcut = ql142Shortcut(explanation, locale);
       break;
     default:
       break;
