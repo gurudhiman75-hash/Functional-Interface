@@ -24,6 +24,8 @@ type AuthoringJob = {
   };
 };
 
+type EvidencePath = 'retained_ready' | 'reference_review_required' | 'provenance_only';
+
 type LibrarySource = {
   id: string;
   sourceType: string;
@@ -41,7 +43,10 @@ type LibrarySource = {
   retainedCharCount: number;
   usageCount: number;
   approvedUsageCount: number;
+  reviewedReferenceUseCount: number;
   generationReady: boolean;
+  referenceReviewEligible: boolean;
+  evidencePath: EvidencePath;
 };
 
 type SourceRecommendation = LibrarySource & {
@@ -52,11 +57,21 @@ type SourceRecommendation = LibrarySource & {
   sameTopicUses: number;
   approvedUses: number;
   priorJobs: Array<{ id: string; title: string; state: string }>;
+  historicalReferenceEvidenceTransferred: false;
 };
 
 type SourcePreview = LibrarySource & {
   preview: string;
   previewAvailable: boolean;
+};
+
+type ReuseResponse = {
+  reused: boolean;
+  duplicate: boolean;
+  evidencePath: EvidencePath;
+  referenceReviewRequired: boolean;
+  historicalReferenceEvidenceTransferred: false;
+  nextAction: string | null;
 };
 
 function prettyState(value: string) {
@@ -72,10 +87,18 @@ function sourceHost(value: string) {
   }
 }
 
-function sourceBadge(source: Pick<LibrarySource, 'generationReady' | 'retentionMode'>) {
-  if (source.generationReady) return <Badge>Generation-ready</Badge>;
-  if (source.retentionMode === 'metadata_only') return <Badge variant="outline">Provenance only</Badge>;
-  return <Badge variant="outline">Not generation-ready</Badge>;
+function sourceBadge(source: Pick<LibrarySource, 'generationReady' | 'referenceReviewEligible' | 'rightsBasis' | 'retentionMode'>) {
+  if (source.generationReady) return <Badge>Retained evidence ready</Badge>;
+  if (source.referenceReviewEligible) return <Badge variant="secondary">Prior reference review</Badge>;
+  if (source.rightsBasis === 'reference_only' || source.retentionMode === 'metadata_only') return <Badge variant="outline">Reference / provenance only</Badge>;
+  return <Badge variant="outline">Not evidence-ready</Badge>;
+}
+
+function evidencePathNote(source: Pick<LibrarySource, 'generationReady' | 'referenceReviewEligible' | 'rightsBasis'>) {
+  if (source.generationReady) return 'Retained evidence can be rebuilt normally after reuse.';
+  if (source.referenceReviewEligible) return 'This source has prior reviewed-reference history. Reuse does not copy that evidence; review it again in the target job.';
+  if (source.rightsBasis === 'reference_only') return 'Reference-only source. Reuse attaches metadata only; fresh Reference Evidence is required before factual use.';
+  return 'This source is reusable as governed provenance but is not currently evidence-ready.';
 }
 
 export function NotesStudioSourceLibraryPage() {
@@ -94,7 +117,7 @@ export function NotesStudioSourceLibraryPage() {
     () => jobs.find((job) => job.id === selectedJobId) ?? null,
     [jobs, selectedJobId],
   );
-  const frozen = selectedJob ? ['approved', 'materialized'].includes(selectedJob.state) : false;
+  const frozen = selectedJob ? !['brief', 'sources_ready'].includes(selectedJob.state) : false;
 
   const loadLibrary = async (search = query) => {
     const params = new URLSearchParams({ limit: '75' });
@@ -110,6 +133,13 @@ export function NotesStudioSourceLibraryPage() {
     }
     const result = await adminRequest<{ recommendations: SourceRecommendation[] }>(`/admin/notes-studio/jobs/${jobId}/source-recommendations`);
     setRecommendations(result.recommendations ?? []);
+  };
+
+  const loadJobs = async () => {
+    const jobResult = await adminRequest<{ jobs: AuthoringJob[] }>('/admin/notes-studio/jobs');
+    const nextJobs = jobResult.jobs ?? [];
+    setJobs(nextJobs);
+    setSelectedJobId((current) => current && nextJobs.some((job) => job.id === current) ? current : nextJobs[0]?.id ?? '');
   };
 
   const load = async () => {
@@ -161,14 +191,18 @@ export function NotesStudioSourceLibraryPage() {
     }
     setWorkingId(source.id);
     try {
-      const result = await adminRequest<{ reused: boolean; duplicate: boolean }>(`/admin/notes-studio/jobs/${selectedJobId}/sources/${source.id}/reuse`, {
+      const result = await adminRequest<ReuseResponse>(`/admin/notes-studio/jobs/${selectedJobId}/sources/${source.id}/reuse`, {
         method: 'POST',
         body: JSON.stringify({}),
       });
-      await Promise.all([loadRecommendations(selectedJobId), loadLibrary(query)]);
+      await Promise.all([loadRecommendations(selectedJobId), loadLibrary(query), loadJobs()]);
       showToast.success(
         result.reused ? 'Governed source reused' : 'Source already attached',
-        result.reused ? 'The existing source record is now included in this job without copying or refetching its source body.' : 'No duplicate source-pack link was created.',
+        result.reused
+          ? result.referenceReviewRequired
+            ? 'The governed source record is attached without copied evidence. Open Reference Evidence and perform a fresh target-job review before factual use.'
+            : 'The existing governed source record is now included without copying or refetching its source body.'
+          : 'No duplicate source-pack link was created.',
       );
     } catch (error) {
       showToast.error('Unable to reuse source', error instanceof Error ? error.message : 'Request failed.');
@@ -192,7 +226,7 @@ export function NotesStudioSourceLibraryPage() {
   return <div className="space-y-5">
     <PageHeader
       title="Source Library"
-      description="Reuse governed Notes Studio sources, rank prior successful sources against the current taxonomy target, and avoid duplicate uploads or refetches."
+      description="Reuse governed Notes Studio sources, rank prior successful sources against the current taxonomy target, and preserve the evidence/rights path explicitly."
       icon={<BookOpen className="h-5 w-5" />}
       actions={<Button variant="outline" onClick={() => void load()} disabled={loading || Boolean(workingId)}>
         {loading ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <RefreshCw className="mr-1.5 h-4 w-4" />}Refresh
@@ -215,7 +249,7 @@ export function NotesStudioSourceLibraryPage() {
           <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
           <div>
             <div className="font-medium">Reuse preserves governance</div>
-            <p className="mt-1 text-muted-foreground">The library never returns raw source bodies. Reuse links the existing governed source record to a new job, preserves its rights and retention mode, and never accepts evidence or starts generation automatically.</p>
+            <p className="mt-1 text-muted-foreground">The library never returns raw source bodies. Reuse links the existing governed source record, preserves its rights and retention mode, and never transfers prior reference notes, accepts evidence, or starts generation automatically.</p>
           </div>
         </div>
       </CardContent>
@@ -230,16 +264,17 @@ export function NotesStudioSourceLibraryPage() {
           {recommendations.map((source) => <div key={source.id} className="rounded-lg border p-3">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div className="min-w-0"><div className="font-medium">{source.title}</div><div className="mt-0.5 text-xs text-muted-foreground">{source.publisher || sourceHost(source.sourceUri)}</div></div>
-              <div className="flex gap-1.5">{sourceBadge(source)}<Badge variant="outline">Score {source.score}</Badge></div>
+              <div className="flex flex-wrap gap-1.5">{sourceBadge(source)}<Badge variant="outline">Score {source.score}</Badge></div>
             </div>
             <div className="mt-2 text-sm">{source.reason}</div>
-            <div className="mt-1 text-xs text-muted-foreground">{source.approvedUses} approved use(s) · {source.priorJobs.length} prior job(s) shown · {source.rightsBasis.replaceAll('_', ' ')}</div>
+            <div className="mt-1 text-xs text-muted-foreground">{source.approvedUses} approved use(s) · {source.priorJobs.length} prior job(s) shown · {source.reviewedReferenceUseCount} prior reviewed-reference use(s) · {source.rightsBasis.replaceAll('_', ' ')}</div>
+            <div className="mt-2 rounded-md bg-muted/40 p-2 text-xs text-muted-foreground">{evidencePathNote(source)}</div>
             <div className="mt-3 flex flex-wrap gap-2">
               <Button size="sm" variant="outline" onClick={() => void openPreview(source)} disabled={workingId === source.id}><Eye className="mr-1.5 h-3.5 w-3.5" />Preview</Button>
               {canEdit && <Button size="sm" onClick={() => void reuseSource(source)} disabled={workingId === source.id || frozen}>{workingId === source.id ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <Recycle className="mr-1.5 h-3.5 w-3.5" />}Reuse source</Button>}
             </div>
           </div>)}
-          {frozen && <div className="rounded-lg border border-amber-200 p-3 text-sm text-muted-foreground">This job is approved/materialized and its source pack is frozen. Create a successor revision before reusing another source.</div>}
+          {frozen && <div className="rounded-lg border border-amber-200 p-3 text-sm text-muted-foreground">This source pack is frozen because evidence work has begun or the job has progressed further. Use the governed research-restart/successor workflow before reusing another source.</div>}
         </CardContent>
       </Card>
 
@@ -254,7 +289,8 @@ export function NotesStudioSourceLibraryPage() {
                 <div className="min-w-0"><div className="font-medium">{source.title}</div><div className="mt-0.5 text-xs text-muted-foreground">{source.publisher || sourceHost(source.sourceUri)}</div></div>
                 {sourceBadge(source)}
               </div>
-              <div className="mt-2 text-xs text-muted-foreground">{source.usageCount} use(s) · {source.approvedUsageCount} approved use(s) · {source.rightsBasis.replaceAll('_', ' ')}</div>
+              <div className="mt-2 text-xs text-muted-foreground">{source.usageCount} use(s) · {source.approvedUsageCount} approved use(s) · {source.reviewedReferenceUseCount} prior reviewed-reference use(s) · {source.rightsBasis.replaceAll('_', ' ')}</div>
+              <div className="mt-2 text-xs text-muted-foreground">{evidencePathNote(source)}</div>
               <div className="mt-3 flex flex-wrap gap-2">
                 <Button size="sm" variant="outline" onClick={() => void openPreview(source)} disabled={workingId === source.id}><Eye className="mr-1.5 h-3.5 w-3.5" />Preview</Button>
                 {canEdit && selectedJob && <Button size="sm" onClick={() => void reuseSource(source)} disabled={workingId === source.id || frozen}>{workingId === source.id ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <Recycle className="mr-1.5 h-3.5 w-3.5" />}Reuse</Button>}
@@ -268,7 +304,8 @@ export function NotesStudioSourceLibraryPage() {
     {preview && <Card className="border-primary/30">
       <CardHeader><div className="flex flex-wrap items-start justify-between gap-3"><div><CardTitle className="text-base">{preview.title}</CardTitle><div className="mt-1 text-xs text-muted-foreground">{preview.publisher || sourceHost(preview.sourceUri)} · {preview.rightsBasis.replaceAll('_', ' ')}</div></div>{sourceBadge(preview)}</div></CardHeader>
       <CardContent>
-        {preview.previewAvailable ? <pre className="max-h-80 overflow-auto whitespace-pre-wrap rounded-lg bg-muted/40 p-4 text-xs leading-relaxed">{preview.preview}</pre> : <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">No retained text is available. This source can still serve as provenance when its retention policy is metadata-only.</div>}
+        {preview.previewAvailable ? <pre className="max-h-80 overflow-auto whitespace-pre-wrap rounded-lg bg-muted/40 p-4 text-xs leading-relaxed">{preview.preview}</pre> : <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">No retained text is available. If this is a reference-only source, prior reviewed notes remain in their original jobs and are never exposed or copied here; perform a fresh target-job review after reuse.</div>}
+        <div className="mt-3 text-xs text-muted-foreground">{evidencePathNote(preview)}</div>
         <div className="mt-3 flex justify-end"><Button variant="outline" onClick={() => setPreview(null)}>Close preview</Button></div>
       </CardContent>
     </Card>}
