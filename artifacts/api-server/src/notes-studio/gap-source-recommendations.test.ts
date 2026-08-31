@@ -23,6 +23,7 @@ test('exact syllabus evidence outranks loose taxonomy history', () => {
     sameTaxonomyNodeUses: 0,
     sameTaxonomyCodeUses: 0,
     generationReady: true,
+    referenceReviewEligible: false,
     identityNovel: true,
     duplicateContent: false,
   });
@@ -35,6 +36,7 @@ test('exact syllabus evidence outranks loose taxonomy history', () => {
     sameTaxonomyNodeUses: 1,
     sameTaxonomyCodeUses: 0,
     generationReady: true,
+    referenceReviewEligible: false,
     identityNovel: true,
     duplicateContent: false,
   });
@@ -48,12 +50,13 @@ test('exact syllabus evidence outranks loose taxonomy history', () => {
     sameTaxonomyNodeUses: 0,
     sameTaxonomyCodeUses: 0,
     generationReady: true,
+    referenceReviewEligible: false,
     identityNovel: true,
     duplicateContent: false,
   }), 'Previously supported accepted claims for the same syllabus reference');
 });
 
-test('non-generatable and duplicate-content sources cannot be research-gap recommendations', () => {
+test('source with neither retained evidence nor reviewed reference evidence is excluded', () => {
   const base = {
     exactSyllabusRefHits: 2,
     maxCoverageSimilarity: 1,
@@ -63,9 +66,63 @@ test('non-generatable and duplicate-content sources cannot be research-gap recom
     sameTaxonomyNodeUses: 2,
     sameTaxonomyCodeUses: 0,
     identityNovel: true,
+    duplicateContent: false,
   };
-  assert.equal(gapSourceRecommendationScore({ ...base, generationReady: false, duplicateContent: false }), 0);
-  assert.equal(gapSourceRecommendationScore({ ...base, generationReady: true, duplicateContent: true }), 0);
+  assert.equal(gapSourceRecommendationScore({
+    ...base,
+    generationReady: false,
+    referenceReviewEligible: false,
+  }), 0);
+});
+
+test('reviewed reference evidence can produce a governed gap-source recommendation', () => {
+  const score = gapSourceRecommendationScore({
+    exactSyllabusRefHits: 1,
+    maxCoverageSimilarity: 0.7,
+    acceptedClaimCount: 4,
+    priorJobCount: 2,
+    approvedUseCount: 1,
+    sameTaxonomyNodeUses: 1,
+    sameTaxonomyCodeUses: 0,
+    generationReady: false,
+    referenceReviewEligible: true,
+    identityNovel: true,
+    duplicateContent: false,
+  });
+  assert.ok(score > 0);
+});
+
+test('retained-ready evidence gets a small operational preference over equivalent reference review', () => {
+  const base = {
+    exactSyllabusRefHits: 1,
+    maxCoverageSimilarity: 0.7,
+    acceptedClaimCount: 4,
+    priorJobCount: 2,
+    approvedUseCount: 1,
+    sameTaxonomyNodeUses: 1,
+    sameTaxonomyCodeUses: 0,
+    identityNovel: true,
+    duplicateContent: false,
+  };
+  const retained = gapSourceRecommendationScore({ ...base, generationReady: true, referenceReviewEligible: false });
+  const reference = gapSourceRecommendationScore({ ...base, generationReady: false, referenceReviewEligible: true });
+  assert.equal(retained - reference, 12);
+});
+
+test('duplicate-content source is excluded on either evidence path', () => {
+  const base = {
+    exactSyllabusRefHits: 2,
+    maxCoverageSimilarity: 1,
+    acceptedClaimCount: 5,
+    priorJobCount: 2,
+    approvedUseCount: 2,
+    sameTaxonomyNodeUses: 2,
+    sameTaxonomyCodeUses: 0,
+    identityNovel: true,
+    duplicateContent: true,
+  };
+  assert.equal(gapSourceRecommendationScore({ ...base, generationReady: true, referenceReviewEligible: false }), 0);
+  assert.equal(gapSourceRecommendationScore({ ...base, generationReady: false, referenceReviewEligible: true }), 0);
 });
 
 test('source-pack mutation is intentionally pre-evidence only', () => {

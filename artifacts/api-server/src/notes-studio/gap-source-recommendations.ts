@@ -15,6 +15,7 @@ export type GapSourceRecommendationSignals = {
   sameTaxonomyNodeUses: number;
   sameTaxonomyCodeUses: number;
   generationReady: boolean;
+  referenceReviewEligible?: boolean;
   identityNovel: boolean;
   duplicateContent: boolean;
 };
@@ -39,7 +40,8 @@ export function coverageTextSimilarity(left: string, right: string): number {
 }
 
 export function gapSourceRecommendationScore(signals: GapSourceRecommendationSignals): number {
-  if (signals.duplicateContent || !signals.generationReady) return 0;
+  const evidenceReusable = signals.generationReady || signals.referenceReviewEligible === true;
+  if (signals.duplicateContent || !evidenceReusable) return 0;
   const relevance =
     signals.exactSyllabusRefHits * 220
     + Math.round(Math.max(0, Math.min(1, signals.maxCoverageSimilarity)) * 140)
@@ -50,6 +52,7 @@ export function gapSourceRecommendationScore(signals: GapSourceRecommendationSig
     + Math.min(signals.acceptedClaimCount, 20) * 8
     + Math.min(signals.priorJobCount, 10) * 5
     + Math.min(signals.approvedUseCount, 10) * 10
+    + (signals.generationReady ? 12 : 0)
     + (signals.identityNovel ? 18 : 0);
 }
 
