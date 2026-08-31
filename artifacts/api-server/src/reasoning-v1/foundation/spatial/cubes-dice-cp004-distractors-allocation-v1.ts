@@ -71,7 +71,7 @@ const TASK_TO_QL: Readonly<Record<CubesDiceCp004TaskKindV1, CubesDicePermanentQl
 });
 
 function paintedFaceCountFromStem(stem: string): number {
-  const match = stem.match(/exactly (\d+) painted face/i);
+  const match = stem.match(/exactly\s+(\d+)\s+(?:painted\s+)?faces?/i);
   if (!match) throw new Error(`CND CP004 could not resolve painted-face count from stem: ${stem}`);
   return Number(match[1]);
 }
