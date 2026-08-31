@@ -1,7 +1,7 @@
 import {
-  generateSpatialProductionStudioQuestionV4,
-  type SpatialProductionStudioQuestionV4,
-} from "./spatial-question-studio-production-v4";
+  generateSpatialProductionStudioQuestionV3,
+  type SpatialProductionStudioQuestionV3,
+} from "./spatial-question-studio-production-v3";
 import {
   SPATIAL_QUESTION_STUDIO_PACKAGE_V5,
   SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1,
@@ -14,12 +14,24 @@ import {
   SPATIAL_PERMANENT_QL_ALLOCATIONS_V7,
   type CubesDicePermanentQlIdV7,
 } from "./spatial-permanent-ql-allocation-v7";
+import type { CountingFiguresPermanentQlIdV6 } from "./spatial-permanent-ql-allocation-v6";
+import {
+  generateCountingFiguresQuestionStudioSeededV1,
+  type CountingFiguresQuestionStudioQuestionV1,
+} from "./counting-figures-question-studio-seeded-runtime-v1";
+import { FCT_001_QUESTION_STUDIO_PRODUCT_OWNER_APPROVAL_V1 } from "./counting-figures-question-studio-product-owner-approval-v1";
 import {
   generateCubesDiceQuestionStudioSeededV1,
   type CubesDiceQuestionStudioQuestionV1,
 } from "./cubes-dice-question-studio-seeded-runtime-v1";
 import { CND_001_QUESTION_STUDIO_PRODUCT_OWNER_APPROVAL_V1 } from "./cubes-dice-question-studio-product-owner-approval-v1";
 import type { SpatialQuestionStudioLanguageV1 } from "./spatial-question-studio-localization-v1";
+
+export function isSpatialCountingFiguresQuestionStudioQlIdV5(
+  qlId: string,
+): qlId is CountingFiguresPermanentQlIdV6 {
+  return qlId === "SPA-QL-042";
+}
 
 export function isSpatialCubesDiceQuestionStudioQlIdV5(
   qlId: string,
@@ -45,6 +57,14 @@ type WithCurrentIntegrationAuthority<T> = Omit<T, "integrationAuthority"> & {
   integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V5.integrationAuthority;
 };
 
+export type SpatialCountingFiguresProductionStudioQuestionV5 =
+  Omit<CountingFiguresQuestionStudioQuestionV1, "lifecycle"> & {
+    mode: "SYSTEMATIC_CLOSED_FIGURE_ENUMERATION";
+    questionId: string;
+    integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V5.integrationAuthority;
+    lifecycle: StandardLifecycleV5;
+  };
+
 export type SpatialCubesDiceProductionStudioQuestionV5 =
   Omit<CubesDiceQuestionStudioQuestionV1, "lifecycle"> & {
     mode: "CUBE_RELATION_NET_FOLD_PAINTED_EXPOSURE";
@@ -54,7 +74,8 @@ export type SpatialCubesDiceProductionStudioQuestionV5 =
   };
 
 export type SpatialProductionStudioQuestionV5 =
-  | WithCurrentIntegrationAuthority<SpatialProductionStudioQuestionV4>
+  | WithCurrentIntegrationAuthority<SpatialProductionStudioQuestionV3>
+  | SpatialCountingFiguresProductionStudioQuestionV5
   | SpatialCubesDiceProductionStudioQuestionV5;
 
 export interface SpatialProductionStudioBatchRequestV5 {
@@ -79,6 +100,26 @@ function standardLifecycleV5(): StandardLifecycleV5 {
     manualApprovalRequired: true,
     automaticStudentPublication: false,
     releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
+  };
+}
+
+function generateCountingFiguresProductionQuestionV5(input: {
+  seed: string;
+  language: SpatialQuestionStudioLanguageV1;
+}): SpatialCountingFiguresProductionStudioQuestionV5 {
+  if (!FCT_001_QUESTION_STUDIO_PRODUCT_OWNER_APPROVAL_V1.governance.questionStudioIntegrationApproved) {
+    throw new Error("FCT-001 production adapter requires product-owner Question Studio approval.");
+  }
+  const base = generateCountingFiguresQuestionStudioSeededV1({
+    seed: input.seed,
+    language: input.language,
+  });
+  return {
+    ...base,
+    mode: "SYSTEMATIC_CLOSED_FIGURE_ENUMERATION",
+    questionId: `fct-001:${base.questionLanguageId}`,
+    integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V5.integrationAuthority,
+    lifecycle: standardLifecycleV5(),
   };
 }
 
@@ -110,22 +151,21 @@ export function generateSpatialProductionStudioQuestionV5(input: {
   language?: SpatialQuestionStudioLanguageV1;
 }): SpatialProductionStudioQuestionV5 {
   const language = input.language ?? "en";
-  if (isSpatialCubesDiceQuestionStudioQlIdV5(input.qlId)) {
-    return generateCubesDiceProductionQuestionV5({
-      qlId: input.qlId,
-      seed: input.seed,
-      language,
-    });
+  if (isSpatialCountingFiguresQuestionStudioQlIdV5(input.qlId)) {
+    return generateCountingFiguresProductionQuestionV5({ seed: input.seed, language });
   }
-  const legacy = generateSpatialProductionStudioQuestionV4({
-    qlId: input.qlId as Parameters<typeof generateSpatialProductionStudioQuestionV4>[0]["qlId"],
+  if (isSpatialCubesDiceQuestionStudioQlIdV5(input.qlId)) {
+    return generateCubesDiceProductionQuestionV5({ qlId: input.qlId, seed: input.seed, language });
+  }
+  const legacy = generateSpatialProductionStudioQuestionV3({
+    qlId: input.qlId as Parameters<typeof generateSpatialProductionStudioQuestionV3>[0]["qlId"],
     seed: input.seed,
     language,
   });
   return {
     ...legacy,
     integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V5.integrationAuthority,
-  } as WithCurrentIntegrationAuthority<SpatialProductionStudioQuestionV4>;
+  } as WithCurrentIntegrationAuthority<SpatialProductionStudioQuestionV3>;
 }
 
 function hash32(value: string): number {
@@ -175,9 +215,7 @@ export function generateSpatialProductionStudioBatchV5(request: SpatialProductio
       seen.add(question.contentFingerprint);
       accepted = question;
     }
-    if (!accepted) {
-      throw new Error(`${allocation.permanentQlId}: unable to produce a unique batch item at index ${index}.`);
-    }
+    if (!accepted) throw new Error(`${allocation.permanentQlId}: unable to produce a unique batch item at index ${index}.`);
     questions.push(accepted);
   }
 
