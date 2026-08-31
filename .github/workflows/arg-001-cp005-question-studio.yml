@@ -10,8 +10,8 @@ on:
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp004-*'
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-*'
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/types.ts'
-      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
-      - '.github/workflows/arg-001-cp005-question-studio.yml'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine-arg.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments.ts'
   workflow_dispatch:
 
 permissions:
