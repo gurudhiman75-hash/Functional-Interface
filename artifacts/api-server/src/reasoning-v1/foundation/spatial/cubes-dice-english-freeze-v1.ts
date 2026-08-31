@@ -1,0 +1,101 @@
+import { CND_001_CP004_AUTHORITY_V1 } from "./cubes-dice-cp004-distractors-allocation-v1";
+import { CND_001_PERMANENT_ENGLISH_RUNTIME_AUTHORITY_V1 } from "./cubes-dice-permanent-english-runtime-v1";
+import { SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V7 } from "./spatial-permanent-ql-allocation-v7";
+
+if (!CND_001_CP004_AUTHORITY_V1.permanentQlAllocationAuthorized) {
+  throw new Error("CND-001 CP004 does not authorize the permanent English freeze chain.");
+}
+if (!CND_001_PERMANENT_ENGLISH_RUNTIME_AUTHORITY_V1.governance.englishRuntimeImplemented) {
+  throw new Error("CND-001 permanent English runtime is not implemented.");
+}
+
+export const CND_001_ENGLISH_FREEZE_AUTHORITY_V1 = Object.freeze({
+  authorityId: "CND-001-ENGLISH-FREEZE-V1" as const,
+  chapterCode: "CND-001" as const,
+  permanentQlIds: ["SPA-QL-043", "SPA-QL-044", "SPA-QL-045"] as const,
+  permanentQlRange: "SPA-QL-043..SPA-QL-045" as const,
+  allocationAuthorityId: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V7.authorityId,
+  cp004AuthorityId: CND_001_CP004_AUTHORITY_V1.authorityId,
+  runtimeAuthorityId: CND_001_PERMANENT_ENGLISH_RUNTIME_AUTHORITY_V1.authorityId,
+  status: "CND_001_PERMANENT_ENGLISH_RUNTIME_V1_FROZEN" as const,
+  freezeRecordedOn: "2026-08-31" as const,
+  exactAllocationGate: Object.freeze({
+    headSha: "9c99e6a4eecee655cb1aab9836544666789e2e3b" as const,
+    workflowName: "Validate SPA CND-001 CP004 Distractors Allocation V1" as const,
+    workflowRunId: 33348599315,
+    artifactId: 9742830130,
+    artifactDigest: "sha256:078e057f2b4d356cac853202331c2ae2c9fbdccbf666503e0bd710fd710d591c" as const,
+    conclusion: "success" as const,
+    reviewedQuestions: 192,
+  }),
+  exactRuntimeGate: Object.freeze({
+    headSha: "8968c6bba0aecfda3694b5522970cae5534740a1" as const,
+    workflowName: "Validate SPA CND-001 Permanent English Runtime V1" as const,
+    workflowRunId: 33348831804,
+    artifactId: 9742903480,
+    artifactDigest: "sha256:e47005e53b0e9ffdce3cddb868ef88d7ef290d1ab08cec9cddb2dcbd088128f2" as const,
+    conclusion: "success" as const,
+    reviewedQuestions: 240,
+    reviewedPerPermanentQl: 80,
+    allFourAnswerPositionsPerQl: true,
+    allSixStemVariantsPerQl: true,
+  }),
+  frozenRuntime: Object.freeze({
+    language: "en" as const,
+    locale: "en-IN" as const,
+    permanentQlRangeAfterAllocation: "SPA-QL-001..SPA-QL-045" as const,
+    nextAvailablePermanentQlId: "SPA-QL-046" as const,
+    allocatedCubesDiceQlCount: 3,
+  }),
+  frozenFields: [
+    "permanentQlId",
+    "permanentQlTitle",
+    "chapterCode",
+    "taskKind",
+    "candidateId",
+    "difficulty",
+    "scene",
+    "solverEvidence",
+    "stimulusSvgs",
+    "renderer",
+    "options",
+    "correctIndex",
+    "answer",
+    "distractorEvidence",
+    "stemVariantId",
+    "stem",
+    "explanation",
+    "language",
+    "locale",
+  ] as const,
+  localizationContract: Object.freeze({
+    permanentQlIdInvariant: true,
+    chapterCodeInvariant: true,
+    taskKindInvariant: true,
+    candidateIdInvariant: true,
+    difficultyInvariant: true,
+    sceneInvariant: true,
+    solverEvidenceInvariant: true,
+    diagramInvariant: true,
+    rendererInvariant: true,
+    optionOrderInvariant: true,
+    optionValuesInvariant: true,
+    correctIndexInvariant: true,
+    answerInvariant: true,
+    distractorEvidenceInvariant: true,
+    stemVariantInvariant: true,
+    localizedFieldsOnly: ["permanentQlTitle", "stem", "explanation", "language", "locale"] as const,
+  }),
+  governance: Object.freeze({
+    englishFrozen: true,
+    hindiPunjabiGenerationAllowed: true,
+    localizationFrozen: false,
+    questionStudioRegistrationAuthorized: false,
+    persistenceAllowed: false,
+    questionBankWritesAuthorized: false,
+    testEligibilityAuthorized: false,
+    automaticPublicationAuthorized: false,
+    generatedItemManualApprovalRequired: true,
+  }),
+  nextGate: "CND_001_HINDI_PUNJABI_LOCALIZATION_V1_REVIEW" as const,
+});
