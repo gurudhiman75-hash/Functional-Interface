@@ -4,7 +4,7 @@ export const INT_001_DIRECT_CALCULATION_EXPLANATION_POLICY_VERSION =
 const NUMERIC = /[0-9०-९੦-੯]/u;
 const MATH = /[=×÷+−^/]|\\(?:frac|times|left|right)|₹|%/u;
 const FORBIDDEN = /\b(multiplier|combined\s+factor|amount\s+factor|return[-\s]difference\s+factor|multiplication\s+factor|growth\s+factor|depreciation\s+factor)\b|गुणक|ਗੁਣਕ/iu;
-const STOP_SECTION = /(?:common mistakes?|option analysis|exam shortcut|quick method|सामान्य गलत|विकल्प विश्लेषण|परीक्षा में तेज|आम गलत|वਿਕਲਪ|ਪ੍ਰੀਖਿਆ ਵਾਲਾ ਤੇਜ਼)/iu;
+const STOP_SECTION = /(?:common mistakes?|option analysis|exam shortcut|quick method|सामान्य गलत|विकल्प विश्लेषण|परीक्षा में तेज|आम गलत|ਵਿਕਲਪ|ਪ੍ਰੀਖਿਆ ਵਾਲਾ ਤੇਜ਼)/iu;
 const HEADING = /^\s*(?:#{1,6}\s*)?(?:[📌📝⚡⚠️]\s*)?(?:मुख्य अवधारणा|चरणबद्ध हल|ਮੁੱਖ ਧਾਰਨਾ|ਕਦਮ-ਦਰ-ਕਦਮ|key idea|worked solution|solution|formula)\s*[:：]?\s*$/iu;
 const GENERIC_FORMULA = /^\s*(?:सूत्र|ਸੂਤਰ|formula)\s*:/iu;
 
@@ -125,7 +125,6 @@ export function retrofitInterestDirectCalculationLines(
     return true;
   });
 
-  // Keep the worked solution short enough to read like an exam solution sheet.
   const compact = unique.length > 6 ? [...unique.slice(0, 5), unique[unique.length - 1]!] : unique;
   const final = answerLine(input.answer, input.language);
   if (final && !compact.some((line) => line.includes(String(input.answer)))) compact.push(final);
@@ -137,6 +136,76 @@ export function retrofitInterestDirectCalculationLines(
     throw new Error(`${input.qlId}/${input.language}: abstract factor/multiplier narration survived retrofit.`);
   }
   return Object.freeze(compact);
+}
+
+function explanationSourceLines(explanation: any): readonly string[] {
+  if (typeof explanation === "string") return Object.freeze([explanation]);
+  if (!explanation || typeof explanation !== "object") return Object.freeze([]);
+  return Object.freeze([
+    explanation.whatAsked,
+    explanation.keyIdea,
+    explanation.mainRule,
+    ...(explanation.steps ?? []),
+    ...(explanation.workedSteps ?? []),
+    explanation.examShortcut,
+    explanation.verification,
+    explanation.conclusion,
+    explanation.finalAnswer,
+  ].filter(Boolean).map(String));
+}
+
+export function retrofitInterestFrozenSourceExplanation(
+  source: any,
+  qlId: string,
+  language: InterestDirectCalculationLanguage,
+) {
+  const answer = String(source?.correctAnswer ?? source?.answer ?? source?.options?.[source?.correctIndex]?.text ?? "").trim();
+  const lines = retrofitInterestDirectCalculationLines({
+    qlId,
+    language,
+    lines: explanationSourceLines(source?.explanation),
+    answer,
+  });
+  const original = source?.explanation && typeof source.explanation === "object" ? source.explanation : {};
+  return {
+    ...source,
+    explanation: Object.freeze({
+      ...original,
+      whatAsked: "",
+      keyIdea: "",
+      mainRule: "",
+      steps: lines,
+      workedSteps: lines,
+      examShortcut: "",
+      verification: "",
+      conclusion: "",
+      finalAnswer: "",
+      commonMistake: "",
+    }),
+    explanationPresentationPolicy: INT_001_DIRECT_CALCULATION_EXPLANATION_POLICY_VERSION,
+  };
+}
+
+export function retrofitInterestPreviewExplanation(
+  question: any,
+  qlId: string,
+  language: InterestDirectCalculationLanguage,
+) {
+  const rawLines = Array.isArray(question?.packageExplanation?.lines)
+    ? question.packageExplanation.lines
+    : [String(question?.explanation ?? "")];
+  const lines = retrofitInterestDirectCalculationLines({
+    qlId,
+    language,
+    lines: rawLines,
+    answer: String(question?.answer ?? question?.canonicalAnswer?.display ?? ""),
+  });
+  return Object.freeze({
+    ...question,
+    explanation: lines.join("\n\n"),
+    packageExplanation: Object.freeze({ ...(question?.packageExplanation ?? {}), lines }),
+    explanationPresentationPolicy: INT_001_DIRECT_CALCULATION_EXPLANATION_POLICY_VERSION,
+  });
 }
 
 export function assertInterestDirectCalculationExplanation(
