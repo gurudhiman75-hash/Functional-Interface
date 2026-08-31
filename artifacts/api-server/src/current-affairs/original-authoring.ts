@@ -26,6 +26,8 @@ export type AuthoringOutput = {
   inputFingerprint: string;
 };
 
+const AUTHORING_POLICY_VERSION = "ca-cp030-generic-verified-fact-authoring-v1";
+
 const SOURCE_NAMES: Record<string, string> = {
   pib: "Government of India",
   rbi: "Reserve Bank of India",
@@ -264,6 +266,7 @@ function result(args: {
 
 export function authoringInputFingerprint(input: AuthoringInput): string {
   const stable = JSON.stringify({
+    authoringPolicyVersion: AUTHORING_POLICY_VERSION,
     eventId: input.eventId,
     eventDate: input.eventDate,
     category: input.category,
