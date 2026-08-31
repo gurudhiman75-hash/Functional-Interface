@@ -28,6 +28,11 @@ type EvidenceBlock = {
   sourceTitle: string;
   sourcePublisher: string;
   inclusionState: 'included' | 'excluded';
+  locator?: {
+    kind?: string;
+    locatorLabel?: string;
+    publisherTextRetained?: boolean;
+  };
 };
 
 type EvidenceClaim = {
@@ -62,6 +67,8 @@ type ExtractionResult = {
   duplicatesSkipped: number;
   model: string;
   promptVersion: string;
+  selectedRetainedEvidenceCount: number;
+  selectedReferenceEvidenceCount: number;
   automaticAcceptance: false;
   automaticCoverageLinking: false;
   automaticSectionGeneration: false;
@@ -71,6 +78,10 @@ const MAX_BLOCKS = 40;
 
 function prettyState(value: string) {
   return value.split('_').map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
+}
+
+function isReferenceEvidence(block: EvidenceBlock) {
+  return block.locator?.kind === 'editor_reference_note';
 }
 
 export function NotesStudioCandidateClaimsPage() {
@@ -90,7 +101,7 @@ export function NotesStudioCandidateClaimsPage() {
   const filteredBlocks = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     if (!normalized) return activeBlocks;
-    return activeBlocks.filter((block) => [block.sourceTitle, block.sourcePublisher, block.excerpt]
+    return activeBlocks.filter((block) => [block.sourceTitle, block.sourcePublisher, block.excerpt, block.locator?.locatorLabel]
       .some((value) => String(value ?? '').toLowerCase().includes(normalized)));
   }, [activeBlocks, query]);
 
@@ -169,7 +180,7 @@ export function NotesStudioCandidateClaimsPage() {
       setSelectedBlocks([]);
       showToast.success(
         'Candidate claims extracted',
-        `${result.created} new candidate claims created; ${result.duplicatesSkipped} duplicates skipped. Nothing was accepted automatically.`,
+        `${result.created} new candidate claims created; ${result.duplicatesSkipped} duplicates skipped. Input used ${result.selectedRetainedEvidenceCount} retained and ${result.selectedReferenceEvidenceCount} reference-evidence block(s). Nothing was accepted automatically.`,
       );
     } catch (error) {
       showToast.error('Unable to extract candidate claims', error instanceof Error ? error.message : 'Request failed.');
@@ -195,14 +206,14 @@ export function NotesStudioCandidateClaimsPage() {
   return <div className="space-y-4">
     <PageHeader
       title="Candidate claim extraction"
-      description="Turn editor-selected evidence excerpts into provenance-bound candidate facts. Every proposal remains unaccepted until editorial review in Evidence & coverage."
+      description="Turn editor-selected governed evidence blocks into provenance-bound candidate facts. Retained excerpts and reviewed reference notes remain explicitly distinguishable; every proposal still requires editorial review."
       actions={<Button variant="outline" onClick={() => void refresh()} disabled={working}><RefreshCw className="mr-2 h-4 w-4" />Refresh</Button>}
     />
 
     <Card>
       <CardHeader><CardTitle className="flex items-center gap-2"><ShieldCheck className="h-5 w-5" />Trust boundary</CardTitle></CardHeader>
       <CardContent className="grid gap-3 md:grid-cols-4">
-        <div><p className="text-xs text-muted-foreground">Input</p><p className="font-medium">Selected evidence excerpts only</p></div>
+        <div><p className="text-xs text-muted-foreground">Input</p><p className="font-medium">Selected evidence blocks only</p></div>
         <div><p className="text-xs text-muted-foreground">Maximum</p><p className="font-medium">40 blocks per run</p></div>
         <div><p className="text-xs text-muted-foreground">Persistence</p><p className="font-medium">Candidate claims only</p></div>
         <div><p className="text-xs text-muted-foreground">Automation</p><p className="font-medium">No acceptance / coverage / sections</p></div>
@@ -231,7 +242,7 @@ export function NotesStudioCandidateClaimsPage() {
               ? 'The job must be in Evidence ready state.'
               : policyGaps.length > 0
                 ? `Resolve source-policy gaps: ${policyGaps.map((item) => item.label).join(', ')}.`
-                : 'Build the evidence index first.'}
+                : 'Create retained evidence or reviewed reference evidence first.'}
           </p>
         </div>}
       </CardContent>
@@ -241,7 +252,7 @@ export function NotesStudioCandidateClaimsPage() {
       <CardHeader><CardTitle className="flex items-center gap-2"><FileSearch className="h-5 w-5" />Evidence selection</CardTitle></CardHeader>
       <CardContent className="space-y-3">
         <div className="flex flex-col gap-2 sm:flex-row">
-          <Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Filter by source or excerpt text" />
+          <Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Filter by source, locator or evidence text" />
           <Button variant="outline" onClick={selectVisible} disabled={!ready || filteredBlocks.length === 0}>Select first {Math.min(MAX_BLOCKS, filteredBlocks.length)}</Button>
           <Button variant="ghost" onClick={() => setSelectedBlocks([])} disabled={selectedBlocks.length === 0}>Clear</Button>
         </div>
@@ -256,11 +267,17 @@ export function NotesStudioCandidateClaimsPage() {
           : filteredBlocks.length === 0 ? <div className="rounded-md border border-dashed p-6 text-center text-sm text-muted-foreground">No active evidence blocks match this view.</div>
             : <div className="grid gap-2 lg:grid-cols-2">{filteredBlocks.map((block) => {
               const checked = selectedBlocks.includes(block.id);
+              const referenceEvidence = isReferenceEvidence(block);
               return <Label key={block.id} className="flex cursor-pointer items-start gap-3 rounded-md border p-3 font-normal">
                 <Checkbox checked={checked} onCheckedChange={(value) => toggleBlock(block.id, value === true)} disabled={!ready || (!checked && selectedBlocks.length >= MAX_BLOCKS)} />
                 <div className="min-w-0 space-y-1">
-                  <div className="flex flex-wrap items-center gap-2"><span className="font-medium">{block.sourceTitle}</span><Badge variant="outline">Block {block.blockIndex + 1}</Badge></div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="font-medium">{block.sourceTitle}</span>
+                    <Badge variant="outline">{referenceEvidence ? 'Reference note' : `Block ${block.blockIndex + 1}`}</Badge>
+                    {referenceEvidence && <Badge variant="secondary">Publisher text not retained</Badge>}
+                  </div>
                   {block.sourcePublisher && <p className="text-xs text-muted-foreground">{block.sourcePublisher}</p>}
+                  {referenceEvidence && block.locator?.locatorLabel && <p className="text-xs text-muted-foreground">Locator: {block.locator.locatorLabel}</p>}
                   <p className="line-clamp-5 text-sm leading-6">{block.excerpt}</p>
                 </div>
               </Label>;
