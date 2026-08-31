@@ -1,5 +1,6 @@
 import { strict as assert } from "node:assert";
 
+// Branch-scoped execution gate for the 228-question COM-003 English review corpus.
 import {
   COM003_ENGLISH_REVIEW_CORPUS_V1,
   auditCom003EnglishReviewSynthesisV1,
