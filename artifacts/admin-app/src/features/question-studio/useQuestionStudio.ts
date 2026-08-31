@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
   TSD_CP009_SELECTOR_PACKAGE_ID,
+  TSD_CP010_SELECTOR_PACKAGE_ID,
   createGenerationRun,
   createTsdCp009GenerationRun,
+  createTsdCp010GenerationRun,
   getQuestionStudioCapabilities,
   getQuestionStudioDashboard,
   getTsdCp009QuestionStudioPackage,
+  getTsdCp010QuestionStudioPackage,
   reviseGenerationItem,
   updateGenerationItems,
   type CreateGenerationRunInput,
@@ -14,6 +17,7 @@ import {
   type QuestionStudioDashboard,
   type ReviseGenerationItemInput,
   type TsdCp009QuestionStudioPackageResponse,
+  type TsdCp010QuestionStudioPackageResponse,
 } from './api';
 import { QUESTION_STUDIO_REFRESH_EVENT } from './events';
 
@@ -66,6 +70,34 @@ function withTsdCp009ReviewPackage(
   return { ...capabilities, packages };
 }
 
+function withTsdCp010ReviewPackage(
+  capabilities: QuestionStudioCapabilities,
+  response: TsdCp010QuestionStudioPackageResponse | null,
+): QuestionStudioCapabilities {
+  if (!response) return capabilities;
+  const reviewPackage = {
+    packageId: TSD_CP010_SELECTOR_PACKAGE_ID,
+    topic: 'Arithmetic',
+    subtopic: 'Time, Speed & Distance',
+    label: 'TSD-CP-010 · Races & Finish Relationships · Review only (Easy/Medium)',
+    enabled: true,
+    cpIds: ['TSD-CP-010'],
+    supportedLanguages: [...response.supportedLanguages],
+    supportedDifficulties: response.supportedDifficulties.map((entry) =>
+      entry.charAt(0).toUpperCase() + entry.slice(1).toLowerCase()),
+    runtimeMode: response.package.runtimeMode,
+    questionBankStatus: 'NOT_STORED',
+    testEligibility: 'INELIGIBLE',
+    publiclyPublishable: false,
+    selectorKind: 'tsd-cp010-review' as const,
+  };
+  const packages = capabilities.packages
+    .filter((entry) => entry.packageId !== TSD_CP010_SELECTOR_PACKAGE_ID)
+    .concat(reviewPackage)
+    .sort((left, right) => left.packageId.localeCompare(right.packageId));
+  return { ...capabilities, packages };
+}
+
 type BulkReviewResult = Awaited<ReturnType<typeof updateGenerationItems>> & {
   attempted?: number;
   succeeded?: number;
@@ -91,13 +123,16 @@ export function useQuestionStudio() {
     setLoading(true);
     setError(null);
     try {
-      const [nextDashboard, nextCapabilities, tsdCp009Package] = await Promise.all([
+      const [nextDashboard, nextCapabilities, tsdCp009Package, tsdCp010Package] = await Promise.all([
         getQuestionStudioDashboard(),
         getQuestionStudioCapabilities(),
         getTsdCp009QuestionStudioPackage().catch(() => null),
+        getTsdCp010QuestionStudioPackage().catch(() => null),
       ]);
       setDashboard(nextDashboard);
-      setCapabilities(withTsdCp009ReviewPackage(withMixedDifficulty(nextCapabilities), tsdCp009Package));
+      const mixed = withMixedDifficulty(nextCapabilities);
+      const withCp009 = withTsdCp009ReviewPackage(mixed, tsdCp009Package);
+      setCapabilities(withTsdCp010ReviewPackage(withCp009, tsdCp010Package));
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Unable to load Question Studio.');
     } finally {
@@ -121,7 +156,9 @@ export function useQuestionStudio() {
     try {
       const result = input.packageId === TSD_CP009_SELECTOR_PACKAGE_ID
         ? await createTsdCp009GenerationRun(input)
-        : await createGenerationRun(input);
+        : input.packageId === TSD_CP010_SELECTOR_PACKAGE_ID
+          ? await createTsdCp010GenerationRun(input)
+          : await createGenerationRun(input);
       setGenerating(false);
       await refresh();
       return result;
