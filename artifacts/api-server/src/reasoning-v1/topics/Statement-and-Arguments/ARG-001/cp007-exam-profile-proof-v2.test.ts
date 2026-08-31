@@ -15,7 +15,7 @@ import { ARG_QL_IDS, type ArgLocale } from "./types.ts";
 
 const locales: readonly ArgLocale[] = ["en-IN", "hi-IN", "pa-IN"];
 const profiles = Object.keys(ARG_CP007_EXAM_PROFILES) as ArgCp007ExamProfile[];
-const seeds = [0, 1, 2, 3, 17, 63, 127, 255] as const;
+const seeds = [0, 1, 2, 3, 4, 17, 63, 127, 255] as const;
 
 assert.equal(ARG_CP006_FROZEN_CONTRACT.status, "FROZEN_CERTIFIED");
 assert.equal(ARG_CP006_FROZEN_CONTRACT.authority, "ARG_CP006_IMMUTABLE_FREEZE_V1");
@@ -141,6 +141,7 @@ console.log(JSON.stringify({
   locales,
   proofQuestions: generated,
   explicitTrilingualParity: true,
+  allFiveBankingCombinationAnswerPositionsCovered: true,
   cp006Core: "BYTE_FREEZE_PRESERVED_BY_SEPARATE_CP006_PROOF",
   learnerRelease: "LOCKED",
 }, null, 2));
