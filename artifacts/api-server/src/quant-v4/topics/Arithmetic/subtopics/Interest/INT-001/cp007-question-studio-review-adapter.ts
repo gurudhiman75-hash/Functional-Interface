@@ -13,6 +13,10 @@ import {
   INT_CP007_QL_IDS,
   type IntCp007QlId,
 } from "./cp007-scheme-equivalence-runtime-v3-final";
+import {
+  INT_001_DIRECT_CALCULATION_EXPLANATION_POLICY_VERSION,
+  retrofitInterestFrozenSourceExplanation,
+} from "./interest-direct-calculation-explanation-policy-v1";
 
 export const INT_CP007_QUESTION_STUDIO_PACKAGE_ID = "INT-001" as const;
 export const INT_CP007_QUESTION_STUDIO_CHECKPOINT_ID = "INT-CP-007" as const;
@@ -79,6 +83,7 @@ export const INT_CP007_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   manualApprovalRequired: true,
   automaticStudentPublication: false,
   integrationAuthority: INT_CP007_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
+  explanationPresentationPolicy: INT_001_DIRECT_CALCULATION_EXPLANATION_POLICY_VERSION,
   englishFreezeId: INT_CP007_ENGLISH_FREEZE_ID,
   localizedFreezeId: INT_CP007_LOCALIZED_FREEZE_ID,
   frozenQlCount: INT_CP007_QL_IDS.length,
@@ -170,6 +175,7 @@ function assertFrozenSource(source: any, language: IntCp007QuestionStudioLanguag
 
 function toReviewPreview(source: any, language: IntCp007QuestionStudioLanguage) {
   assertFrozenSource(source, language);
+  const presented = retrofitInterestFrozenSourceExplanation(source, source.qlId, language);
   const locale = localeForLanguage(language);
   const questionId = [INT_CP007_QUESTION_STUDIO_CHECKPOINT_ID, source.qlId, locale, source.seed].join(":");
   const explanationId = `${questionId}:EXPLANATION`;
@@ -201,12 +207,13 @@ function toReviewPreview(source: any, language: IntCp007QuestionStudioLanguage) 
     explanation: Object.freeze({
       explanationId,
       whatAsked: "",
-      keyIdea: source.explanation.keyIdea,
-      steps: [...source.explanation.steps],
-      conclusion: source.explanation.finalAnswer,
+      keyIdea: "",
+      steps: [...presented.explanation.steps],
+      conclusion: "",
       shortcut: "",
-      commonTrap: source.explanation.commonMistake,
+      commonTrap: "",
     }),
+    explanationPresentationPolicy: INT_001_DIRECT_CALCULATION_EXPLANATION_POLICY_VERSION,
     renderer: Object.freeze({
       kind: "text-mathjax",
       renderingContract: "markdown-inline-latex-v1",
@@ -237,6 +244,7 @@ function toReviewPreview(source: any, language: IntCp007QuestionStudioLanguage) 
       runtimeMode: INT_CP007_QUESTION_STUDIO_RUNTIME_MODE,
       reviewStatus: "APPROVED_EN_HI_PA_FROZEN",
       integrationAuthority: INT_CP007_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
+      explanationPresentationPolicy: INT_001_DIRECT_CALCULATION_EXPLANATION_POLICY_VERSION,
       sourceFreezeId: sourceFreezeId(source, language),
       sourceApprovalAuthority: sourceApproval(source, language),
       questionBankStatus: "NOT_STORED",
@@ -255,6 +263,7 @@ function toReviewPreview(source: any, language: IntCp007QuestionStudioLanguage) 
       localizedFreezeId: INT_CP007_LOCALIZED_FREEZE_ID,
       activeSourceFreezeId: sourceFreezeId(source, language),
       sourceApprovalAuthority: sourceApproval(source, language),
+      explanationPresentationPolicy: INT_001_DIRECT_CALCULATION_EXPLANATION_POLICY_VERSION,
       qlTitle: INT_CP007_QL_CONTRACTS[source.qlId as IntCp007QlId].title,
     }),
     safety: Object.freeze({
@@ -273,6 +282,7 @@ function toReviewPreview(source: any, language: IntCp007QuestionStudioLanguage) 
       valid: true as const,
       frozenAuthority: true as const,
       learnerPayloadPreserved: true as const,
+      explanationPresentationRetrofitted: true as const,
       latexPreserved: true as const,
       sourceLifecycleLocked: true as const,
       blockedCiDefinitionAbsent: true as const,
@@ -326,6 +336,7 @@ export function previewIntCp007QuestionStudioReview(request: IntCp007QuestionStu
       runtimeMode: INT_CP007_QUESTION_STUDIO_RUNTIME_MODE,
       reviewStatus: "APPROVED_EN_HI_PA_FROZEN" as const,
       integrationAuthority: INT_CP007_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
+      explanationPresentationPolicy: INT_001_DIRECT_CALCULATION_EXPLANATION_POLICY_VERSION,
       englishFreezeId: INT_CP007_ENGLISH_FREEZE_ID,
       localizedFreezeId: INT_CP007_LOCALIZED_FREEZE_ID,
       questionStudioRegistrationStatus: "REGISTERED_REVIEW_ONLY" as const,
