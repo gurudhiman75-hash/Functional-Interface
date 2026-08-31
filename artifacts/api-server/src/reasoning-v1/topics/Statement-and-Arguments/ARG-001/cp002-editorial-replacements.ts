@@ -2,6 +2,16 @@ import type { ArgArgumentAuthority, ArgScenarioAuthority, ArgStance, ArgWeakness
 
 type AuthorityOverrides = Partial<Omit<ArgArgumentAuthority, "id" | "stance" | "text" | "expectedStrength" | "weaknessDefects">>;
 
+function strong(id: string, stance: ArgStance, text: string, overrides: AuthorityOverrides = {}): ArgArgumentAuthority {
+  return Object.freeze({
+    id, stance, text, expectedStrength: "STRONG" as const,
+    relevance: "DIRECT" as const, materiality: "MAJOR" as const,
+    support: "PLAUSIBLE" as const, feasibility: "REALISTIC" as const,
+    scope: "CALIBRATED" as const, stakeholderLegitimacy: "LEGITIMATE" as const,
+    issueMatch: "EXACT" as const, weaknessDefects: Object.freeze([]), ...overrides,
+  });
+}
+
 function weak(id: string, stance: ArgStance, text: string, defect: ArgWeaknessDefect, overrides: AuthorityOverrides = {}): ArgArgumentAuthority {
   return Object.freeze({
     id, stance, text, expectedStrength: "WEAK" as const,
@@ -13,6 +23,18 @@ function weak(id: string, stance: ArgStance, text: string, defect: ArgWeaknessDe
 }
 
 export const ARG_CP002_EDITORIAL_REPLACEMENTS: readonly ArgScenarioAuthority[] = Object.freeze([
+  {
+    id: "ARG-SC-001",
+    qlId: "ARG-QL-001",
+    difficulty: "MEDIUM",
+    domain: "TRANSPORT",
+    statement: "Should helmets be made compulsory for riders of electric two-wheelers on public roads?",
+    arguments: [
+      strong("ARG-SC-001-I", "SUPPORTS", "Yes. Riders of electric two-wheelers can suffer serious head injury in a road accident, so protective headgear addresses a material safety risk."),
+      weak("ARG-SC-001-II", "OPPOSES", "No. Electric two-wheelers are often used for shorter local trips, so riders on such trips do not need protection from head injury.", "UNSUPPORTED_CAUSAL_LEAP", { support: "ASSERTED", scope: "OVERBROAD" }),
+    ],
+    expectedAnswerClass: "ONLY_I",
+  },
   {
     id: "ARG-SC-004",
     qlId: "ARG-QL-001",
