@@ -2,7 +2,7 @@ import { Router, type IRouter } from "express";
 
 import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk-hardening";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
-import adminQuestionStudioArgumentsCp007Router from "./admin-question-studio-arguments-cp007";
+import adminQuestionStudioArgumentsCp007Router from "./admin-question-studio-arguments-cp007-v2";
 import adminQuestionStudioArgumentsRouter from "./admin-question-studio-arguments";
 import adminQuestionStudioSriRouter from "./admin-question-studio-sri";
 import adminQuestionStudioDataSufficiencyCurrentRouter from "./admin-question-studio-data-sufficiency-current";
@@ -32,7 +32,7 @@ import adminQuestionStudioRouter from "./admin-question-studio";
  * firing whenever one Question Studio package is added or reordered.
  *
  * Order is intentional: hardening/specialized additive routers must run before
- * the legacy catch-all router at the bottom. ARG-001 CP007 is an additive
+ * the legacy catch-all router at the bottom. ARG-001 CP007 V2 is an additive
  * real-paper profile layer mounted before the frozen CP005 adapter. It handles
  * only explicit CP007/profile requests and augments capabilities; all ordinary
  * ARG-001 requests continue to the unchanged CP005 route. SRI remains the
