@@ -14,6 +14,21 @@ export type CurrentAffairsProductionReadiness = {
     warnings: string[];
     checks: Record<string, boolean>;
   };
+  targetInventory: {
+    candidateCount: number;
+    primaryCandidateCount: number;
+    openClusterCount: number;
+    openOtherClusterCount: number;
+    eventCount: number;
+    verifiedEventCount: number;
+    reviewEventCount: number;
+    authoringReadyCount: number;
+    familyEligible: {
+      ssc: number;
+      banking: number;
+      punjab: number;
+    };
+  };
   sourceCoverage: {
     scheduledPrimarySources: number;
     freshSuccessfulPrimarySources: number;
@@ -109,6 +124,15 @@ export type GenerateYesterdayCurrentAffairsResult = {
   completedAt: string;
   before: { candidateCount: number; eventCount: number; verifiedEventCount: number; reviewEventCount: number };
   after: { candidateCount: number; eventCount: number; verifiedEventCount: number; reviewEventCount: number };
+  officialCandidatePreparation?: {
+    targetDate: string;
+    candidateExamined: number;
+    candidateUpdated: number;
+    candidateCategories: Record<string, number>;
+    openOtherClustersExamined: number;
+    clusterUpdated: number;
+    clusterCategories: Record<string, number>;
+  };
   artifacts: Array<{
     family: string;
     language: string;
