@@ -42,6 +42,12 @@ export function validateReferenceEvidenceInput(input: {
       'Write a factual paraphrase of at least 20 characters.',
     );
   }
+  if (locatorLabel.length < 2) {
+    throw new NotesReferenceEvidenceValidationError(
+      'REFERENCE_EVIDENCE_LOCATOR_REQUIRED',
+      'Identify the page heading, section, table, paragraph, or other locator you reviewed.',
+    );
+  }
   if (input.paraphrasedByEditor !== true) {
     throw new NotesReferenceEvidenceValidationError(
       'REFERENCE_EVIDENCE_ATTESTATION_REQUIRED',
