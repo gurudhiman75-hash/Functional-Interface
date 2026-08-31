@@ -92,13 +92,13 @@ export function buildBtdCp014ScoredTestProjectionMaterializationPlanV1(input: {
     throw new Error("BTD CP014 source must still be locked from scored tests and public release.");
   }
 
-  const projection = buildBtdCp013ScoredTestProjectionReadinessV1({
-    qlId: input.qlId,
-    seed: input.seed,
-    language: "en",
+  const projection = buildBtdCp013ScoredTestProjectionReadinessV1(
+    input.qlId,
+    input.seed,
+    "en",
     examVersionId,
     primaryTaxonomyNodeId,
-  }) as Record<string, any>;
+  ) as Record<string, any>;
   if (projection.sourceQuestionBankAdmissionKey !== english.questionBankAdmissionKey) {
     throw new Error("BTD CP014 projection identity drifted from the CP012 English bank source.");
   }
