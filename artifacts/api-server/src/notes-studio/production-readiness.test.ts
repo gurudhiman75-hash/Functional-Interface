@@ -2,6 +2,11 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 
 import {
+  coveragePlanBulkAllowed,
+  coveragePlanItemKey,
+  normalizeCoveragePlanBulk,
+} from './coverage-plan-bulk';
+import {
   NOTES_STUDIO_MIGRATIONS,
   NOTES_STUDIO_REQUIRED_RELATIONS,
   NOTES_STUDIO_REQUIRED_TRIGGERS,
@@ -119,6 +124,42 @@ test('NS-019 source discovery produces bounded public URL candidates without cre
     'https://punjab.gov.in/know-punjab/',
     'https://cwc.gov.in/en/ibo/about-basins',
   ]);
+});
+
+test('NS-020 bulk coverage import is bounded, deterministic and pre-drafting only', () => {
+  for (const state of ['brief', 'sources_ready', 'evidence_ready', 'outline_ready']) {
+    assert.equal(coveragePlanBulkAllowed(state), true, state);
+  }
+  for (const state of ['drafting', 'qa_required', 'review_ready', 'approved', 'materialized']) {
+    assert.equal(coveragePlanBulkAllowed(state), false, state);
+  }
+
+  const plan = normalizeCoveragePlanBulk([
+    {
+      title: 'Historic five rivers',
+      syllabusRef: 'Punjab Geography → River System → Historic five',
+      priority: 'required',
+      plannedDepth: 'standard',
+      examRationale: 'High-yield enumeration fact.',
+      sortOrder: 2,
+    },
+    {
+      title: 'Present-day Punjab rivers',
+      syllabusRef: 'Punjab Geography → River System → Present-day Punjab',
+    },
+  ]);
+  assert.equal(plan.length, 2);
+  assert.equal(plan[0]?.priority, 'required');
+  assert.equal(plan[1]?.plannedDepth, 'standard');
+  assert.equal(plan[1]?.sortOrder, 1);
+  assert.notEqual(coveragePlanItemKey(plan[0]!), coveragePlanItemKey(plan[1]!));
+
+  assert.throws(() => normalizeCoveragePlanBulk([
+    { title: 'Same', syllabusRef: 'Path' },
+    { title: ' same ', syllabusRef: ' path ' },
+  ]), /duplicate/i);
+  assert.throws(() => normalizeCoveragePlanBulk([]), /between 1 and 50/i);
+  assert.throws(() => normalizeCoveragePlanBulk([{ title: 'Valid title', priority: 'critical' }]), /invalid priority/i);
 });
 
 test('editor traffic is blocked when schema or model configuration is incomplete', () => {
