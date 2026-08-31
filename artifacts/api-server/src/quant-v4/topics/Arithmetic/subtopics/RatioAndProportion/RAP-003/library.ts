@@ -18,8 +18,14 @@ const questionLibraries: Record<Rap003Language, QuestionLanguageLibrary> = {
 };
 const registryEntries = taskRegistry.entries as Record<string, Rap003TaskRegistryEntry>;
 
+/**
+ * RAP-CP-013 is retained as historical runtime data but is no longer an active
+ * Ratio & Proportion product surface. Standalone PRT-001 owns aptitude
+ * Partnership generation. Direct legacy CP013 helpers remain available for
+ * regression/history tests only.
+ */
 export function getRap003ActiveCanonicalProblemIds(): Rap003CanonicalProblemId[] {
-  return ["RAP-CP-013", "RAP-CP-014", "RAP-CP-015", "RAP-CP-016", "RAP-CP-017", "RAP-CP-018", "RAP-CP-019", "RAP-CP-020", "RAP-CP-021", "RAP-CP-022"];
+  return ["RAP-CP-014", "RAP-CP-015", "RAP-CP-016", "RAP-CP-017", "RAP-CP-018", "RAP-CP-019", "RAP-CP-020", "RAP-CP-021", "RAP-CP-022"];
 }
 
 export function getRap003QuestionLanguageIds(cpId: Rap003CanonicalProblemId) {
