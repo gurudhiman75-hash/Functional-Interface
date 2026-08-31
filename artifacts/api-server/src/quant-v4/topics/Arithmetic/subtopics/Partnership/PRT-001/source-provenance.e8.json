@@ -3,113 +3,17 @@
   "wave": "E8",
   "status": "SOURCE_REVIEWED",
   "sources": [
-    {
-      "id": "SRC-PSSSB-EXCISE-2023-SPLIT",
-      "exam": "PSSSB Excise Inspector",
-      "heldOn": "2023-05-21",
-      "url": "https://testbook.com/question-answer/two-partners-invested-125000-and-85000-respectivel--6896f70bd425ec84db182c62",
-      "family": "gross-profit fixed percentage allocations followed by capital-ratio distribution",
-      "disposition": "E8_EXPOSED",
-      "mappedQuestionLanguageIds": ["PRT-QL-104"]
-    },
-    {
-      "id": "SRC-PUNJAB-POLICE-2025-DYNAMIC",
-      "exam": "Punjab Police Constable",
-      "heldOn": "2025-06-07",
-      "url": "https://testbook.com/question-answer/amits-share-of-the-profit-is--68f87049fffa9aaff182d1c3",
-      "family": "simultaneous capital withdrawal/addition plus later third-partner join",
-      "disposition": "COVERED",
-      "mappedQuestionLanguageIds": ["PRT-QL-037", "PRT-QL-090", "PRT-QL-094"]
-    },
-    {
-      "id": "SRC-SSC-CGL-2025-JOIN-LEAVE-CHANGE",
-      "exam": "SSC CGL",
-      "heldOn": "2025-09-16",
-      "url": "https://testbook.com/question-answer/alok-starts-a-business-with-90000-after-3-month--6909f917d9de8466e62d5ba5",
-      "family": "late join plus capital increase plus early leave",
-      "disposition": "COVERED",
-      "mappedQuestionLanguageIds": ["PRT-QL-041"]
-    },
-    {
-      "id": "SRC-SSC-CHSL-2025-MULTIYEAR",
-      "exam": "SSC CHSL Tier-1",
-      "heldOn": "2025-11-14",
-      "url": "https://testbook.com/question-answer/in-a-partnership-a-invested-rs-75000-b-investe--6943bab0d18ade61cbbe40e9",
-      "family": "three-year three-partner capital withdrawal timeline",
-      "disposition": "E8_EXPOSED",
-      "mappedQuestionLanguageIds": ["PRT-QL-105"]
-    },
-    {
-      "id": "SRC-SSC-CHSL-2024-WORKING",
-      "exam": "SSC CHSL Tier-II",
-      "heldOn": "2024-11-18",
-      "url": "https://testbook.com/question-answer/a-band-c-jointly-started-a-business-in-which-a-in--6749c7378de40d8f7f227821",
-      "family": "working partner gross-profit remuneration plus unequal capital durations",
-      "disposition": "COVERED",
-      "mappedQuestionLanguageIds": ["PRT-QL-030", "PRT-QL-101"]
-    },
-    {
-      "id": "SRC-OSSSC-2026-WORKING-REVERSE",
-      "exam": "OSSSC Forester, Forest Guard & Excise Constable",
-      "heldOn": "2026-04-16",
-      "url": "https://testbook.com/question-answer/a-b-and-c-enter-into-partnership-with-capitals-of--6a0ab1c6ae47cdb701eae251",
-      "family": "working partner percentage remuneration with reverse gross profit from receipt difference",
-      "disposition": "COVERED",
-      "mappedQuestionLanguageIds": ["PRT-QL-039", "PRT-QL-054", "PRT-QL-063"]
-    },
-    {
-      "id": "SRC-SSC-CGL-2025-STAGGERED-DIFF",
-      "exam": "SSC CGL",
-      "heldOn": "2025-09-21",
-      "url": "https://testbook.com/question-answer/x-y-and-z-enter-into-partnership-with-capital-con--5c651a5efdb8bb4544751a17",
-      "family": "multi-partner final-receipt relation and reverse total profit",
-      "disposition": "COVERED",
-      "mappedQuestionLanguageIds": ["PRT-QL-064", "PRT-QL-090"]
-    },
-    {
-      "id": "SRC-PSSSB-CLERK-2023-SAME-PERIOD",
-      "exam": "PSSSB Clerk",
-      "heldOn": "2023-08-06",
-      "url": "https://testbook.com/question-answer/ram-and-mansi-started-a-business-with-capitals-of--68ada777ff7e1a4d23eb81a2",
-      "family": "same-period capital ratio and direct partner share",
-      "disposition": "COVERED",
-      "mappedQuestionLanguageIds": ["PRT-QL-001", "PRT-QL-003"]
-    },
-    {
-      "id": "SRC-DSSSB-2026-JOIN-LEAVE-INVERSE",
-      "exam": "DSSSB MTS",
-      "heldOn": "2026-03-08",
-      "url": "https://testbook.com/question-answer/a-and-b-enter-into-a-partnership-with-%E2%82%B950000-an--6a1678540863722a6f66a7ab",
-      "family": "shared unknown controlling one later join and one early leave",
-      "disposition": "COVERED_BY_GENERALIZED_AUTHORITY",
-      "mappedQuestionLanguageIds": ["PRT-QL-033", "PRT-QL-034", "PRT-QL-057"]
-    },
-    {
-      "id": "SRC-PUNJAB-POLICE-2023-EQUAL-WEIGHTS",
-      "exam": "Punjab Police",
-      "heldOn": "2023-08-06",
-      "url": "https://testbook.com/question-answer/partnership-profit-ratio-question--placeholder-source-family",
-      "family": "one full-period partner, one early leaver and one late joiner with equal effective weights",
-      "disposition": "COVERED_BY_GENERALIZED_AUTHORITY",
-      "mappedQuestionLanguageIds": ["PRT-QL-031", "PRT-QL-088", "PRT-QL-089"]
-    },
-    {
-      "id": "SRC-SSC-SELECTION-INTEREST-ON-CAPITAL",
-      "exam": "SSC Selection Post",
-      "heldOn": null,
-      "url": "https://testbook.com/question-answer/m-and-n-invest-%E2%82%B980000-and-%E2%82%B9120000-after-a--69ca13988866a270c78d6c8b",
-      "family": "interest on capital before residual profit sharing",
-      "disposition": "DELEGATED_INTEREST",
-      "mappedQuestionLanguageIds": []
-    },
-    {
-      "id": "SRC-PUNJAB-PATWARI-2016-ADMISSION",
-      "exam": "Punjab Patwari",
-      "heldOn": "2016-01-24",
-      "url": "https://testbook.com/question-answer/a-and-b-are-partners-sharing-profits-in-the-ratio--602cfae20e9f4b01b9a8af69",
-      "family": "accounting partnership admission and new profit-sharing ratio",
-      "disposition": "EXCLUDED_ACCOUNTING_RECONSTITUTION",
-      "mappedQuestionLanguageIds": []
-    }
+    {"id":"SRC-PSSSB-EXCISE-2023-SPLIT","exam":"PSSSB Excise Inspector","heldOn":"2023-05-21","url":"https://testbook.com/question-answer/two-partners-invested-125000-and-85000-respectivel--6896f70bd425ec84db182c62","family":"gross-profit fixed percentage allocations followed by capital-ratio distribution","disposition":"E8_EXPOSED","mappedQuestionLanguageIds":["PRT-QL-104"]},
+    {"id":"SRC-PUNJAB-POLICE-2025-DYNAMIC","exam":"Punjab Police Constable","heldOn":"2025-06-07","url":"https://testbook.com/question-answer/amits-share-of-the-profit-is--68f87049fffa9aaff182d1c3","family":"simultaneous capital withdrawal/addition plus later third-partner join","disposition":"COVERED","mappedQuestionLanguageIds":["PRT-QL-037","PRT-QL-090","PRT-QL-094"]},
+    {"id":"SRC-SSC-CGL-2025-JOIN-LEAVE-CHANGE","exam":"SSC CGL","heldOn":"2025-09-16","url":"https://testbook.com/question-answer/alok-starts-a-business-with-90000-after-3-month--6909f917d9de8466e62d5ba5","family":"late join plus capital increase plus early leave","disposition":"COVERED","mappedQuestionLanguageIds":["PRT-QL-041"]},
+    {"id":"SRC-SSC-CHSL-2025-MULTIYEAR","exam":"SSC CHSL Tier-1","heldOn":"2025-11-14","url":"https://testbook.com/question-answer/in-a-partnership-a-invested-rs-75000-b-investe--6943bab0d18ade61cbbe40e9","family":"three-year three-partner capital withdrawal timeline","disposition":"E8_EXPOSED","mappedQuestionLanguageIds":["PRT-QL-105"]},
+    {"id":"SRC-SSC-CHSL-2024-WORKING","exam":"SSC CHSL Tier-II","heldOn":"2024-11-18","url":"https://testbook.com/question-answer/a-band-c-jointly-started-a-business-in-which-a-in--6749c7378de40d8f7f227821","family":"working partner gross-profit remuneration plus unequal capital durations","disposition":"COVERED","mappedQuestionLanguageIds":["PRT-QL-030","PRT-QL-101"]},
+    {"id":"SRC-OSSSC-2026-WORKING-REVERSE","exam":"OSSSC Forester, Forest Guard & Excise Constable","heldOn":"2026-04-16","url":"https://testbook.com/question-answer/a-b-and-c-enter-into-partnership-with-capitals-of--6a0ab1c6ae47cdb701eae251","family":"working partner percentage remuneration with reverse gross profit from receipt difference","disposition":"COVERED","mappedQuestionLanguageIds":["PRT-QL-039","PRT-QL-054","PRT-QL-063"]},
+    {"id":"SRC-SBI-PO-WORKING-RELATION","exam":"SBI PO","heldOn":null,"url":"https://testbook.com/question-answer/x-y-and-z-enter-into-partnership-with-capital-con--5c651a5efdb8bb4544751a17","family":"working-partner percentage remuneration with final-receipt relation","disposition":"COVERED","mappedQuestionLanguageIds":["PRT-QL-054","PRT-QL-063"]},
+    {"id":"SRC-PSSSB-CLERK-2023-SAME-PERIOD","exam":"PSSSB Clerk","heldOn":"2023-08-06","url":"https://testbook.com/question-answer/ram-and-mansi-started-a-business-with-capitals-of--68ada777ff7e1a4d23eb81a2","family":"same-period capital ratio and direct partner share","disposition":"COVERED","mappedQuestionLanguageIds":["PRT-QL-001","PRT-QL-003"]},
+    {"id":"SRC-DSSSB-2026-JOIN-LEAVE-INVERSE","exam":"DSSSB MTS","heldOn":"2026-03-08","url":"https://testbook.com/question-answer/a-and-b-enter-into-a-partnership-with-%E2%82%B950000-an--6a1678540863722a6f66a7ab","family":"shared unknown controlling one later join and one early leave","disposition":"COVERED_BY_GENERALIZED_AUTHORITY","mappedQuestionLanguageIds":["PRT-QL-033","PRT-QL-034","PRT-QL-057"]},
+    {"id":"SRC-PUNJAB-POLICE-2023-EQUAL-WEIGHTS","exam":"Punjab Police Constable","heldOn":"2023-08-06","url":"https://testbook.com/question-answer/anish-and-shobh-entered-into-a-partnership-for-a-y--69e0ca83fee1fe09ab8e981b","family":"one full-period partner, one early leaver and one late joiner with equal effective weights","disposition":"COVERED_BY_GENERALIZED_AUTHORITY","mappedQuestionLanguageIds":["PRT-QL-031","PRT-QL-088","PRT-QL-089"]},
+    {"id":"SRC-SSC-SELECTION-INTEREST-ON-CAPITAL","exam":"SSC Selection Post","heldOn":null,"url":"https://testbook.com/question-answer/m-and-n-invest-%E2%82%B980000-and-%E2%82%B9120000-after-a--69ca13988866a270c78d6c8b","family":"interest on capital before residual profit sharing","disposition":"DELEGATED_INTEREST","mappedQuestionLanguageIds":[]},
+    {"id":"SRC-PUNJAB-PATWARI-2016-ADMISSION","exam":"Punjab Patwari","heldOn":"2016-01-24","url":"https://testbook.com/question-answer/a-and-b-are-partners-sharing-profits-in-the-ratio--602cfae20e9f4b01b9a8af69","family":"accounting partnership admission and new profit-sharing ratio","disposition":"EXCLUDED_ACCOUNTING_RECONSTITUTION","mappedQuestionLanguageIds":[]}
   ]
 }
