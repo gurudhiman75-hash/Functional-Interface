@@ -40,8 +40,7 @@ jobs:
             "include": [
               "src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/foundation/**/*.ts",
               "src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/index.ts",
-              "src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001.test.ts",
-              "src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001-freeze-audit.ts"
+              "src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001.test.ts"
             ],
             "exclude": []
           }
