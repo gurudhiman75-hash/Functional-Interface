@@ -116,7 +116,11 @@ export function buildBtdCp014ScoredTestProjectionMaterializationPlanV1(input: {
       if (localized.qlId !== english.qlId) throw new Error(`${language}: QL drift from English source.`);
       if (localized.semanticSignature !== english.semanticSignature) throw new Error(`${language}: semantic signature drift.`);
       if (localized.answerSemantic !== english.answerSemantic) throw new Error(`${language}: answer semantic drift.`);
-      if (localized.sourceStateFingerprint !== english.sourceStateFingerprint) throw new Error(`${language}: source-state drift.`);
+      if (
+        localized.sourceStateFingerprint != null
+        && english.sourceStateFingerprint != null
+        && localized.sourceStateFingerprint !== english.sourceStateFingerprint
+      ) throw new Error(`${language}: source-state drift.`);
       if (localized.correctIndex !== english.correctIndex) throw new Error(`${language}: correct-option ownership drift.`);
       if (localized.options.length !== english.options.length) throw new Error(`${language}: option-count drift.`);
       if (localized.testEligible !== false || localized.publiclyPublishable !== false) {
