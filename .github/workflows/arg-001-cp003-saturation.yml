@@ -1,0 +1,77 @@
+name: Validate ARG-001 CP003 Saturation and Anti-Gaming
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp002-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/english-authorities.ts'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/types.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp003-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp003-saturation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for CP003 engine
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-saturation-types.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-saturation-helpers.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-ql001-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-ql002-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-ql003-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-ql004-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-ql005-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-ql006-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-saturation-proof.test.ts
+
+      - name: Prove full 2048-surface cycle per QL
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-saturation-proof.test.ts
+
+      - name: Preserve CP002 English authority certification
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp002-english-proof.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Lifecycle boundary
+        run: |
+          echo 'ARG-001 CP003: 2048 unique English semantic surfaces per QL with anti-gaming scheduler.'
+          echo 'Hindi/Punjabi localization remains pending CP004.'
+          echo 'Question Studio registration remains closed until CP005.'
+          echo 'Question Bank/test/mock/public/automatic learner publication remain locked.'
