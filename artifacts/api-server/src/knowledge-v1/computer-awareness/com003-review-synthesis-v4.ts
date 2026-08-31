@@ -40,12 +40,69 @@ function explanationTail(question: Com003ReviewQuestion, index: number) {
   return variants[index % variants.length]!;
 }
 
+function curateQl004V4(question: Com003ReviewQuestion, index: number) {
+  if (question.qlId !== "COM-003-QL-004") return question;
+
+  if (question.surfaceMode === "DOCUMENT_CONCEPT" && question.targetFactId === "com003-word-word-processor") {
+    const stems = [
+      "Which Microsoft application is primarily used for word processing?",
+      "Which Office application is designed mainly for creating and editing text documents?",
+      "A word-processing application for creating and editing documents is which of the following?",
+      "Which Microsoft Office program is associated with word-processing tasks?",
+      "Which application would you use primarily to create and edit a text document?",
+      "Which Office program belongs to the word-processing category?",
+      "Which Microsoft Office application is intended for document writing and editing?",
+      "Which program is most closely associated with preparing text-based documents in Microsoft Office?",
+      "For creating letters and other text documents, which Office application is normally used?",
+      "Which Microsoft program is classified as a word processor?",
+      "Which Office application is used mainly to compose and format written documents?",
+      "Which Microsoft Office program provides standard word-processing tools?",
+    ];
+    return {
+      ...question,
+      stem: stems[index % stems.length]!,
+      explanation: "Microsoft Word is a word-processing application used to create, edit, and format text documents.",
+    };
+  }
+
+  if (question.surfaceMode === "FORMAT_CONTROL_FROM_EFFECT") {
+    const answer = question.canonicalAnswer.toLowerCase();
+    const stemsByAnswer: Record<string, readonly string[]> = {
+      bold: [
+        "In Microsoft Word, which formatting command makes selected text appear heavier and darker than surrounding text?",
+        "Which Word text-formatting control emphasizes selected characters by increasing their visual weight?",
+        "Which formatting option gives selected text a thicker, more prominent appearance?",
+      ],
+      italic: [
+        "In Microsoft Word, which formatting command slants selected text to the right?",
+        "Which Word text-formatting control gives selected characters a slanted appearance?",
+        "Which formatting option is used when selected text should appear inclined rather than upright?",
+      ],
+      underline: [
+        "In Microsoft Word, which formatting command places a line beneath selected text?",
+        "Which Word text-formatting control adds a line below the selected characters?",
+        "Which formatting option marks selected text with a line directly underneath it?",
+      ],
+    };
+    const stems = stemsByAnswer[answer];
+    if (stems) {
+      return {
+        ...question,
+        stem: stems[index % stems.length]!,
+      };
+    }
+  }
+
+  return question;
+}
+
 export function generateCom003ReviewQuestionV4(qlId: string, seed: string, index = 0) {
   const base = generateCom003ReviewQuestionV3(qlId, seed, index);
+  const curated = curateQl004V4(base, index);
   return {
-    ...base,
-    questionId: base.questionId.replace("COM003-REVIEW-V3-", "COM003-REVIEW-V4-"),
-    explanation: `${ensureTerminalPeriod(base.explanation)} ${explanationTail(base, index)}`,
+    ...curated,
+    questionId: curated.questionId.replace("COM003-REVIEW-V3-", "COM003-REVIEW-V4-"),
+    explanation: `${ensureTerminalPeriod(curated.explanation)} ${explanationTail(curated, index)}`,
   };
 }
 
