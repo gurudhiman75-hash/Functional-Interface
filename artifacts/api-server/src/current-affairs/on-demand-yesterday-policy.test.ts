@@ -9,6 +9,7 @@ import {
 import {
   buildPibArchivePostBody,
   parsePibHistoricalListing,
+  parsePibPostedDateListing,
   pibDisplayedDate,
 } from "./pib-historical-backfill";
 
@@ -64,6 +65,28 @@ assert.equal(pibEntries.length, 2);
 assert.equal(pibEntries[0]?.externalId, "2304654");
 assert.equal(pibEntries[0]?.publishedAt, "2026-08-30T00:00:00.000Z");
 assert.equal(parsePibHistoricalListing(pibFiltered, "2026-08-29").length, 0);
+
+const pibMonthly = `
+<div>Displaying 939 Press Releases All Ministry for ALL dates of August-2026</div>
+<ul>
+  <li>
+    <a href="/PressReleasePage.aspx?PRID=2304613&amp;lang=1&amp;reg=3">Department of Consumer Affairs Notifies Legal Metrology (Indian Standard Time) Rules, 2026</a>
+    <span>Posted on: 30 Aug 2026</span>
+  </li>
+  <li>
+    <a href="/PressReleaseDetail.aspx?PRID=2304654&amp;lang=1&amp;reg=3">NEET-PG 2026 Successfully Conducted Nationwide with Robust Security and Real-Time Monitoring</a>
+    <span>Posted on: 30 Aug 2026</span>
+  </li>
+  <li>
+    <a href="/PressReleasePage.aspx?PRID=2304000&amp;lang=1&amp;reg=3">Earlier official release</a>
+    <span>Posted on: 29 Aug 2026</span>
+  </li>
+</ul>`;
+const postedEntries = parsePibPostedDateListing(pibMonthly, "2026-08-30");
+assert.equal(postedEntries.length, 2);
+assert.deepEqual(postedEntries.map((entry) => entry.externalId), ["2304613", "2304654"]);
+assert.ok(postedEntries.every((entry) => entry.publishedAt === "2026-08-30T00:00:00.000Z"));
+assert.equal(parsePibPostedDateListing(pibMonthly, "2026-08-28").length, 0);
 
 assert.equal(
   classifyOfficialCandidate({
@@ -150,4 +173,4 @@ assert.equal(complete.allLocalizedDraftsPresent, true);
 assert.equal(complete.allNineDraftsPresent, true);
 assert.deepEqual(complete.missing, []);
 
-console.log("CP033 on-demand yesterday historical discovery contracts passed");
+console.log("CP034 on-demand yesterday historical discovery contracts passed");
