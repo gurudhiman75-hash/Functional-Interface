@@ -88,8 +88,8 @@ async function run() {
       && !before.ready
       && (before.presentRelations.length > 0 || before.presentTriggers.length > 0)
     ) {
-      throw new Error(
-        `Refusing to auto-migrate an unledgered partial Notes Studio schema. Present relations: ${before.presentRelations.join(', ') || 'none'}; present triggers: ${before.presentTriggers.join(', ') || 'none'}`,
+      console.log(
+        `[notes-studio:migrate] reconciling unledgered partial schema: ${before.presentRelations.length} known relations, ${before.presentTriggers.length} known triggers`,
       );
     }
 
