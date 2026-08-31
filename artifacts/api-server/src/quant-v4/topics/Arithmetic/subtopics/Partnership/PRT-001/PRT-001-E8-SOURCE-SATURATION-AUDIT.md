@@ -2,11 +2,13 @@
 
 ## Verdict
 
-The E1-E5 solve-contract expansion is substantially aligned with observed SSC, Banking, Punjab-state and comparable state-exam Partnership questions. The E8 source sweep did **not** identify a new core capital-time mathematical authority that requires a 100th solve mode.
+E8 is **automated-runtime validated**.
 
-It did identify two exam-facing production gaps that were not represented strongly enough in the 103-QL runtime:
+The E1-E5 solve-contract expansion is substantially aligned with observed SSC, Banking/RRB, Punjab-state and comparable state-exam Partnership questions. The E8 source sweep did **not** identify a new core capital-time mathematical authority that requires a 100th solve mode.
 
-1. **reverse total profit after a fixed gross-profit split**, where one percentage is shared equally and the remainder is distributed by capital ratio;
+It identified two exam-facing production gaps that were not represented strongly enough in the 103-QL runtime:
+
+1. **reverse total profit after a fixed gross-profit split**, where one portion is shared equally and the remainder is distributed by capital ratio;
 2. **multi-year dynamic-capital timelines**, especially three-partner withdrawal cases running for 2–4 years rather than the dominant 12-month surface.
 
 E8 therefore adds two source-backed QLs while reusing generalized existing authorities:
@@ -14,7 +16,7 @@ E8 therefore adds two source-backed QLs while reusing generalized existing autho
 - `PRT-QL-104` → `findTotalProfitFromShareDifferenceAndCapitals`
 - `PRT-QL-105` → `findShareAfterCapitalWithdrawal`
 
-Resulting intended runtime: **105 active QLs / 99 solve modes**.
+Validated runtime: **105 active QLs / 99 solve modes**.
 
 ## Reviewed source families
 
@@ -55,6 +57,30 @@ The capital timeline engine already supports arbitrary rational boundaries, so E
 
 `variable-ranges.library.json` is widened to include source-real duration values above one year, with a configured maximum of at least 36 months for general CP002 generation in addition to QL-105's dedicated 48-month topology.
 
+## Automated validation evidence
+
+Validated runtime head: `1538eadf0bf514ae95e29d0a26f4418b6138476c`  
+GitHub Actions run: `33366682849`
+
+Passed:
+
+- package-scoped PRT-001 TypeScript;
+- `test:prt-001`: **3,150 deterministic EN/HI/PA generated questions**, 105 QLs / 99 solve modes;
+- `audit:prt-001`:
+  - source-realness: **60 cases / 12 reviewed source families**;
+  - QL-104: **5 split-allocation signatures / 12 reverse-total answer signatures**;
+  - QL-105: **24 long-horizon signatures / 16 answer signatures**;
+  - configured duration maximum: **36 months**, with QL-105 extending to **48 months**;
+  - chapter stem depth: **7,560 seed-selection cases** over **315 QL/locale pairs**, all 3/3 authored and reachable;
+  - cross-QL structure: **147,420 comparisons**, 0 exact normalized duplicates, 0 severe near-identical pairs at 0.985;
+  - E6 baseline advanced math diversity: 720 cases;
+  - E1/E2/E3/E4/E5 math diversity: 240 / 336 / 336 / 336 / 456 cases;
+  - multilingual parity: **1,260 cases**;
+  - option quality: **1,680 cases**, answer positions 433 / 437 / 388 / 422;
+  - Question Studio integration: **42 cases**.
+
+No existing E1-E7 threshold was weakened.
+
 ## Ownership decisions retained
 
 ### Interest on capital
@@ -67,7 +93,7 @@ Questions about admission of a partner, sacrifice ratio and new accounting profi
 
 ## What E8 proves / does not prove
 
-E8 is intended to prove that the chapter's mathematical surface is source-saturated against the reviewed Partnership families and that the two remaining exam-facing scenario gaps are executable, localized and audited.
+E8 closes the reviewed English source/PYQ saturation and exam-realness gate for the current PRT-001 mathematical surface and proves that the two identified source-realness gaps are executable, localized and audited.
 
 E8 does **not** constitute final chapter publication freeze. Remaining gates after E8 are:
 
