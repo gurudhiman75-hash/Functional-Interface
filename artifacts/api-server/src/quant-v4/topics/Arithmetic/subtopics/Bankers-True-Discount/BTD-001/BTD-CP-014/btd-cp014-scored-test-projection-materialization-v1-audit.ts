@@ -158,12 +158,13 @@ async function main() {
         const english = buildBtdCp012QuestionBankAdmissionPreviewV1(allocation.qlId, seed, "en") as AnyRecord;
         const hindi = buildBtdCp012QuestionBankAdmissionPreviewV1(allocation.qlId, seed, "hi") as AnyRecord;
         const punjabi = buildBtdCp012QuestionBankAdmissionPreviewV1(allocation.qlId, seed, "pa") as AnyRecord;
-        const readiness = buildBtdCp013ScoredTestProjectionReadinessV1({
-          qlId: allocation.qlId,
+        const readiness = buildBtdCp013ScoredTestProjectionReadinessV1(
+          allocation.qlId,
           seed,
-          language: "en",
-          ...scope,
-        }) as AnyRecord;
+          "en",
+          scope.examVersionId,
+          scope.primaryTaxonomyNodeId,
+        ) as AnyRecord;
         const plan = buildBtdCp014ScoredTestProjectionMaterializationPlanV1({
           qlId: allocation.qlId,
           seed,
