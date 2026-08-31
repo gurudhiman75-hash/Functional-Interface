@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 
+import { ARG_CP003_TEMPLATES_BY_QL } from "./cp003-templates.ts";
 import { generateArgCp004Question } from "./cp004-generator.ts";
 import { ARG_QL_IDS, type ArgDifficulty, type ArgLocale, type ArgQlId } from "./types.ts";
 
@@ -8,10 +9,12 @@ export const ARG_CP005_CHECKPOINT_ID = "ARG-CP-005" as const;
 export const ARG_CP005_PACKAGE_ID = "ARG-001" as const;
 export const ARG_CP005_CHAPTER_ID = "REAS-ARG" as const;
 export const ARG_CP005_SUPPORTED_LANGUAGES = ["en", "hi", "pa"] as const;
-export const ARG_CP005_SUPPORTED_DIFFICULTIES = ["Easy", "Medium", "Hard"] as const;
+export const ARG_CP005_DESIGN_TARGET_DIFFICULTIES = ["Easy", "Medium", "Hard"] as const;
+export const ARG_CP005_SUPPORTED_DIFFICULTIES = ["Medium", "Hard"] as const;
+export const ARG_CP005_BLOCKED_DIFFICULTIES = ["Easy"] as const;
 
 export type ArgCp005Language = (typeof ARG_CP005_SUPPORTED_LANGUAGES)[number];
-export type ArgCp005Difficulty = (typeof ARG_CP005_SUPPORTED_DIFFICULTIES)[number];
+export type ArgCp005Difficulty = (typeof ARG_CP005_DESIGN_TARGET_DIFFICULTIES)[number];
 
 export interface ArgCp005QuestionStudioInput {
   readonly seed?: string;
@@ -23,6 +26,21 @@ export interface ArgCp005QuestionStudioInput {
   readonly patternId?: string;
   readonly cpId?: string;
 }
+
+function displayDifficulty(value: ArgDifficulty): ArgCp005Difficulty {
+  if (value === "EASY") return "Easy";
+  if (value === "MEDIUM") return "Medium";
+  return "Hard";
+}
+
+export const ARG_CP005_DIFFICULTIES_BY_QL: Readonly<Record<ArgQlId, readonly ArgCp005Difficulty[]>> = Object.freeze(
+  ARG_QL_IDS.reduce<Record<ArgQlId, readonly ArgCp005Difficulty[]>>((coverage, qlId) => {
+    coverage[qlId] = Object.freeze([
+      ...new Set(ARG_CP003_TEMPLATES_BY_QL[qlId].map((template) => displayDifficulty(template.difficulty))),
+    ]);
+    return coverage;
+  }, {} as Record<ArgQlId, readonly ArgCp005Difficulty[]>),
+);
 
 export const ARG_CP005_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   id: ARG_CP005_PACKAGE_ID,
@@ -39,11 +57,20 @@ export const ARG_CP005_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   integrationAuthority: ARG_CP005_QUESTION_STUDIO_AUTHORITY,
   integrationCheckpointId: ARG_CP005_CHECKPOINT_ID,
   cpIds: Object.freeze(["ARG-CP-001", "ARG-CP-002", "ARG-CP-003", "ARG-CP-004", ARG_CP005_CHECKPOINT_ID] as const),
-  canonicalProblems: Object.freeze(ARG_QL_IDS.map((qlId) => Object.freeze({ id: qlId, label: qlId, checkpointId: ARG_CP005_CHECKPOINT_ID }))),
+  canonicalProblems: Object.freeze(ARG_QL_IDS.map((qlId) => Object.freeze({
+    id: qlId,
+    label: qlId,
+    checkpointId: ARG_CP005_CHECKPOINT_ID,
+    supportedDifficulties: ARG_CP005_DIFFICULTIES_BY_QL[qlId],
+  }))),
   permanentQlCount: ARG_QL_IDS.length,
   permanentQlIds: ARG_QL_IDS,
   supportedLanguages: ARG_CP005_SUPPORTED_LANGUAGES,
+  designTargetDifficulties: ARG_CP005_DESIGN_TARGET_DIFFICULTIES,
   supportedDifficulties: ARG_CP005_SUPPORTED_DIFFICULTIES,
+  blockedDifficulties: ARG_CP005_BLOCKED_DIFFICULTIES,
+  difficultyCoverageByQl: ARG_CP005_DIFFICULTIES_BY_QL,
+  difficultyCoverageStatus: "CERTIFIED_MEDIUM_HARD_EASY_GAP" as const,
   enabled: true as const,
   questionStudioVisible: true as const,
   questionStudioDiscoverable: true as const,
@@ -175,8 +202,8 @@ function normalizePayload(question: ReturnType<typeof generateArgCp004Question>,
     canonicalAnswer: question.answerClass,
     argumentStrengths: question.argumentStrengths,
     explanation: question.explanation,
-    difficulty: question.difficulty === "EASY" ? "Easy" : question.difficulty === "MEDIUM" ? "Medium" : "Hard",
-    difficultyLabel: question.difficulty === "EASY" ? "Easy" : question.difficulty === "MEDIUM" ? "Medium" : "Hard",
+    difficulty: displayDifficulty(question.difficulty),
+    difficultyLabel: displayDifficulty(question.difficulty),
     qlId: question.qlId,
     permanentQlId: question.qlId,
     patternId: question.templateId,
@@ -252,14 +279,13 @@ function normalizePayload(question: ReturnType<typeof generateArgCp004Question>,
 
 export function isArg001QuestionStudioRequest(input: ArgCp005QuestionStudioInput): boolean {
   const normalize = (value: unknown) => String(value ?? "").trim().toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-  const packageId = normalize(input.canonicalProblemId?.startsWith("ARG-QL-") ? "" : undefined);
+  const record = input as Readonly<Record<string, unknown>>;
   const ql = String(input.qlId ?? input.canonicalProblemId ?? input.patternId ?? "").toUpperCase();
   const checkpoint = String(input.cpId ?? "").toUpperCase();
-  const raw = normalize((input as Readonly<Record<string, unknown>>).packageId ?? (input as Readonly<Record<string, unknown>>).archetypeId);
-  const topic = normalize((input as Readonly<Record<string, unknown>>).topic);
-  const subtopic = normalize((input as Readonly<Record<string, unknown>>).subtopic);
+  const raw = normalize(record.packageId ?? record.archetypeId);
+  const topic = normalize(record.topic);
+  const subtopic = normalize(record.subtopic);
   return raw === "arg 001"
-    || packageId === "arg 001"
     || ql.startsWith("ARG-QL-")
     || checkpoint.startsWith("ARG-CP-")
     || subtopic === "statement arguments"
@@ -281,10 +307,26 @@ export async function generateArg001QuestionStudioBatch(input: ArgCp005QuestionS
   const explicitQl = requestedQl(input);
   const count = Math.min(50, Math.max(1, Math.floor(Number(input.count ?? 1) || 1)));
   const batchSeed = String(input.seed ?? "").trim() || `question-studio:ARG-001:${language}:default`;
-  const qls = explicitQl ? [explicitQl] as const : ARG_QL_IDS;
+
+  if (difficulty === "Easy") {
+    throw new Error(
+      "ARG-001 Easy generation is blocked: CP003/CP004 contain no certified Easy authorities. Easy coverage must be authored and re-certified before CP006 freeze.",
+    );
+  }
+
+  const candidateQls: readonly ArgQlId[] = explicitQl ? [explicitQl] : ARG_QL_IDS;
+  const eligibleQls = difficulty
+    ? candidateQls.filter((qlId) => ARG_CP005_DIFFICULTIES_BY_QL[qlId].includes(difficulty))
+    : [...candidateQls];
+
+  if (eligibleQls.length === 0) {
+    throw new Error(
+      `${explicitQl ?? "ARG-001"} has no certified ${difficulty ?? "requested"} authority in CP003/CP004.`,
+    );
+  }
 
   const questionPackages = Array.from({ length: count }, (_, index) => {
-    const qlId = qls[stableHash(`${batchSeed}:ql:${index}`) % qls.length]!;
+    const qlId = eligibleQls[stableHash(`${batchSeed}:ql:${index}`) % eligibleQls.length]!;
     return generateMatchingQuestion({ qlId, locale, batchSeed, itemIndex: index, difficulty });
   });
   const questions = questionPackages.map((question) => normalizePayload(question, language));
@@ -305,6 +347,11 @@ export async function generateArg001QuestionStudioBatch(input: ArgCp005QuestionS
       locale,
       difficulty: difficulty ?? null,
       qlId: explicitQl ?? null,
+      eligibleQlIds: Object.freeze([...eligibleQls]),
+      designTargetDifficulties: ARG_CP005_DESIGN_TARGET_DIFFICULTIES,
+      supportedDifficulties: ARG_CP005_SUPPORTED_DIFFICULTIES,
+      blockedDifficulties: ARG_CP005_BLOCKED_DIFFICULTIES,
+      difficultyCoverageStatus: ARG_CP005_QUESTION_STUDIO_REVIEW_PACKAGE.difficultyCoverageStatus,
       revisionPolicy: "SOURCE_GENERATOR_ONLY" as const,
       manualApprovalRequired: true as const,
       persistenceAllowed: false as const,
