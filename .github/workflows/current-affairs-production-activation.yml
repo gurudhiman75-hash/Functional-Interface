@@ -2,7 +2,8 @@ name: Validate Current Affairs Production Activation
 
 on:
   pull_request:
-    branches: [New-main]
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/current-affairs/**"
       - "artifacts/api-server/src/routes/admin-current-affairs-production-ops.ts"
@@ -15,7 +16,6 @@ on:
       - "artifacts/admin-app/src/pages/content/CurrentAffairsEditorial*.tsx"
       - "artifacts/admin-app/src/App.tsx"
       - "build-api.sh"
-      - ".github/workflows/current-affairs-production-activation.yml"
   workflow_dispatch:
 
 permissions:
