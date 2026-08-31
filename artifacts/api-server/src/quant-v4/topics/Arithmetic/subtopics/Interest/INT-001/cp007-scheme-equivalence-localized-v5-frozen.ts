@@ -3,7 +3,6 @@ import {
   type IntCp007LocalizedLocale,
 } from "./cp007-scheme-equivalence-localized-v5";
 import type { IntCp007QlId } from "./cp007-scheme-equivalence-runtime-v3-final";
-import { retrofitInterestFrozenSourceExplanation } from "./interest-direct-calculation-explanation-policy-v1";
 
 export const INT_CP007_LOCALIZED_FREEZE_ID = "INT-CP-007-HI-PA-v5-frozen" as const;
 export const INT_CP007_LOCALIZED_FREEZE_APPROVAL = "PRODUCT_OWNER_APPROVED_CP007_HI_PA_V5_2026_08_20" as const;
@@ -31,13 +30,8 @@ export function generateIntCp007LocalizedFrozenQuestion(
   locale: IntCp007LocalizedLocale,
 ) {
   const source = generateV5(qlId, seed, locale) as any;
-  const retrofitted = retrofitInterestFrozenSourceExplanation(
-    source,
-    qlId,
-    locale === "hi-IN" ? "hi" : "pa",
-  );
   return deepFreeze({
-    ...retrofitted,
+    ...source,
     localizedVersion: INT_CP007_LOCALIZED_FREEZE_ID,
     editorialStatus: "MULTILINGUAL_FROZEN" as const,
     approvalStatus: INT_CP007_LOCALIZED_FREEZE_APPROVAL,
