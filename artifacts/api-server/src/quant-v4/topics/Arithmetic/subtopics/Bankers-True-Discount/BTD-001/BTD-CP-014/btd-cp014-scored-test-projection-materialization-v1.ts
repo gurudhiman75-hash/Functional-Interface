@@ -46,24 +46,18 @@ function assertUuid(value: string, label: string): string {
 
 function frozenLearnerSurface(question: Record<string, any>) {
   return Object.freeze({
-    packageId: question.packageId,
     qlId: question.qlId,
-    cpId: question.cpId,
     language: question.language,
-    locale: question.locale,
-    semanticSignature: question.semanticSignature,
-    answerSemantic: question.answerSemantic,
     stem: question.stem,
     options: question.options,
     correctIndex: question.correctIndex,
     answer: question.answer,
     explanation: question.explanation,
-    packageExplanation: question.packageExplanation,
-    difficulty: question.difficulty,
+    semanticSignature: question.semanticSignature,
+    answerSemantic: question.answerSemantic,
     frozenContentFingerprint: question.frozenContentFingerprint,
     frozenChapterFingerprint: question.frozenChapterFingerprint,
     freezeVersion: question.freezeVersion,
-    sourceStateFingerprint: question.sourceStateFingerprint,
   });
 }
 
