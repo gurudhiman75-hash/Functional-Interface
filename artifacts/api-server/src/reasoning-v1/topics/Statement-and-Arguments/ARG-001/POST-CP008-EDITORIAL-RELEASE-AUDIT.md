@@ -2,163 +2,220 @@
 
 Status: **RELEASE BLOCKED / REMEDIATION REQUIRED**
 
+Audit revision: **V2 — exhaustive structural pass**
+
 This audit is intentionally downstream of `ARG_CP008_REAL_PAPER_CLOSURE_V1`. It does **not** mutate or supersede either frozen authority:
 
 - core freeze: `ARG_CP006_IMMUTABLE_FREEZE_V1`
 - real-paper closure: `ARG_CP008_REAL_PAPER_CLOSURE_V1`
 
-The chapter remains available for Question Studio review only. Learner release must remain locked until a separately versioned remediation authority is reviewed, tested and frozen.
+The chapter remains Question Studio review-only. Learner release must remain locked until a separately versioned remediation authority is reviewed, tested and frozen.
 
-## Audit scope
+## Scope
 
 Reviewed all 48 CP003 source templates across the six permanent QLs for:
 
-- grammar after slot substitution
-- semantic coherence under the 4 x 4 x 4 x 4 Cartesian variant model
+- part-of-speech compatibility of every placeholder in every sentence position
+- grammar after 4 x 4 x 4 x 4 Cartesian substitution
+- semantic compatibility between independently varied dimensions
 - answer/strength integrity
-- SSC/Banking exam naturalness
 - explanation-to-argument alignment
+- SSC/Banking exam naturalness
 - release ambiguity risk
 
-The audit distinguishes **mechanical blockers** (a generated surface can be objectively malformed or semantically wrong) from **editorial naturalness debt** (understandable but below the desired paper standard).
+The counts below are deliberately conservative. A surface is counted as a hard blocker only where the generated wording or intended strength can be shown to fail mechanically. Softer context/naturalness defects are listed separately.
 
-## Release-blocking findings
+## Definite release blockers
 
-### B01 — `ARG-CP003-QL001-T07` — plural benchmark composition
+### B01 — `ARG-CP003-QL001-T01` — plural subject with singular verb
 
-Current opposing argument contains:
+The strong argument ends `{d} addresses a material safety risk`. Three of four `{d}` values are plural (`certified helmets`, `protective helmets`, `standard-compliant helmets`), yielding forms such as `certified helmets addresses ...`.
 
-`If one fixed {b} is shown ...`
+**Impact:** 192 / 256 variants.
 
-Every `{b}` value is plural (`expected response times`, `target resolution windows`, `expected acknowledgement periods`, `service-response benchmarks`). This yields surfaces such as `one fixed expected response times`.
+**Fix:** make the predicate number-neutral, e.g. `{d} can address a material safety risk`.
 
-**Impact:** 256 / 256 semantic variants in the template.
+### B02 — `ARG-CP003-QL001-T03` — verb phrase used as noun subject
 
-**Required remediation:** replace the compositional phrase with a number-neutral noun such as `If one fixed benchmark is shown ...` while retaining the same reasoning and answer class.
+The strong opposing argument contains `If {c} is too easy to trigger ...`, while every `{c}` value is an action phrase such as `temporarily disable transactions` or `pause outgoing digital payments`.
 
-### B02 — `ARG-CP003-QL002-T07` — answer-polarity defect for `student stress`
+Example: `If temporarily disable transactions is too easy to trigger ...`
 
-The strong opposing argument says frequent/high-pressure practice can **reduce {d}**. This is an opposing consequence for `teaching time`, `breadth of learning`, and `time for discussion-based learning`, but when `{d} = student stress`, reducing stress is beneficial and therefore does not support the stated opposition.
+**Impact:** 256 / 256 variants.
 
-**Impact:** 64 / 256 semantic variants in the template.
+**Fix:** use a noun/action construction such as `If the {c} control is too easy to trigger` with noun-compatible slots, or rewrite the sentence around `If customers can trigger this action too easily ...`.
 
-**Required remediation:** replace the dimension value with a genuinely adverse quantity (for example `time for rest and recovery`) or change the argument construction so the polarity remains adverse for every slot value.
+### B03 — `ARG-CP003-QL001-T07` — singular quantifier with plural benchmark slot
 
-### B03 — `ARG-CP003-QL003-T04` — `every` + plural exam noun
+The opposing argument contains `If one fixed {b} is shown ...`; every `{b}` value is plural (`expected response times`, `target resolution windows`, etc.).
 
-Current stem:
+**Impact:** 256 / 256 variants.
 
-`Should every {a} move entirely to {b} {c}?`
+**Fix:** use `If one fixed benchmark is shown ...`.
 
-All `{a}` values are plural (`recruitment examinations`, `licensing examinations`, etc.), yielding `Should every recruitment examinations ...`.
+### B04 — `ARG-CP003-QL001-T08` — `every` with plural enquiry slot
 
-**Impact:** 256 / 256 semantic variants in the template.
+The weak supporting argument says `every {c} ... will be resolved`, while every `{c}` value is plural (`application status enquiries`, `payment queries`, etc.).
 
-**Required remediation:** use a plural-compatible quantifier such as `Should all {a} ...` or singularise the slot bank.
+**Impact:** 256 / 256 variants.
 
-### B04 — `ARG-CP003-QL004-T01` — malformed learner-group phrase
+**Fix:** use `all {c}` or singularise the slot.
 
-Current weak argument contains:
+### B05 — `ARG-CP003-QL002-T07` — answer-polarity defect for `student stress`
 
-`Every student in {c} who attends ...`
+The strong opposing argument says excessive practice can `reduce {d}`. That is adverse for `teaching time`, `breadth of learning`, and `time for discussion-based learning`, but beneficial when `{d} = student stress`.
 
-Every `{c}` value is already a plural learner phrase (`students with identified learning gaps`, `students falling behind in assessment`, etc.), yielding forms such as `Every student in students with identified learning gaps ...`.
+**Impact:** 64 / 256 variants.
 
-**Impact:** 256 / 256 semantic variants in the template.
+**Fix:** replace the slot value with an adverse quantity or use polarity-safe wording.
 
-**Required remediation:** use `{c} who attend ...` or introduce a singular learner slot.
+### B06 — `ARG-CP003-QL003-T02` — pronoun/number disagreement
 
-### B05 — `ARG-CP003-QL004-T06` — duplicated temporal connector
+The weak supporting argument says `Once {d} is introduced, it requires ...`. Two `{d}` values are plural (`digital-only channels`, `self-service digital terminals`).
 
-Current stem:
+**Impact:** 128 / 256 variants.
 
-`Should an online service send {c} before {a} becomes {b}?`
+**Fix:** use number-neutral wording such as `Using {d} supposedly requires ...`.
 
-Two `{c}` values already end in a `before conversion` construction:
+### B07 — `ARG-CP003-QL003-T04` — `every` with plural examination slot
 
-- `a reminder twenty-four hours before conversion`
-- `a reminder three days before conversion`
+Stem: `Should every {a} move entirely to {b} {c}?`
 
-This produces `... before conversion before a free trial becomes ...`.
+All `{a}` values are plural (`recruitment examinations`, `licensing examinations`, etc.).
 
-**Impact:** at least 128 / 256 semantic variants are mechanically awkward; `a notice before the first charge` creates additional naturalness debt.
+**Impact:** 256 / 256 variants.
 
-**Required remediation:** make `{c}` a noun phrase without its own `before ...` complement, or move the timing into a separate slot.
+**Fix:** use `Should all {a} ...` or singular slots.
 
-### B06 — `ARG-CP003-QL005-T01` — accessibility feature/user Cartesian mismatch
+### B08 — `ARG-CP003-QL004-T01` — duplicated learner noun
 
-The feature slot and affected-user slot are independently varied, but several combinations do not address the stated barrier. Definite examples include:
+The weak argument contains `Every student in {c} who attends ...`, while `{c}` is already a plural learner phrase such as `students with identified learning gaps`.
+
+Example: `Every student in students with identified learning gaps ...`
+
+**Impact:** 256 / 256 variants.
+
+**Fix:** use `{c} who attend ...` or a singular learner slot.
+
+### B09 — `ARG-CP003-QL004-T06` — duplicated temporal connector
+
+Stem: `Should an online service send {c} before {a} becomes {b}?`
+
+Two `{c}` values already contain `before conversion`, producing `... before conversion before ...`.
+
+**Impact:** at least 128 / 256 variants.
+
+**Fix:** separate reminder type from timing or use a timing-neutral notification noun.
+
+### B10 — `ARG-CP003-QL004-T08` — location noun incorrectly made policy actor
+
+The opposing argument says `{b} should never regulate it ...`, but `{b}` contains locations such as `school premises`, `training centres`, `examination campuses`, and `college classrooms`.
+
+Example: `school premises should never regulate mobile phones ...`
+
+**Impact:** 256 / 256 variants.
+
+**Fix:** make the actor explicit (`the institution should never regulate ...`) rather than using `{b}` as the policy-making subject.
+
+### B11 — `ARG-CP003-QL005-T01` — accessibility feature/user Cartesian mismatch
+
+The feature slot and affected-user slot vary independently. Definite mismatches include:
 
 - `keyboard-only navigation` × `users needing high-contrast interfaces`
 - `high-contrast display support` × `users unable to operate a mouse`
 - `accessible form labels` × `users unable to operate a mouse`
 - `accessible form labels` × `users needing high-contrast interfaces`
 
-The strong argument claims the selected feature reduces the selected group's access barrier, so these combinations can invalidate the intended `STRONG` judgement.
+The strong argument claims the selected feature reduces the selected group's access barrier, which is not true for these pairs.
 
-**Impact:** at least 64 / 256 semantic variants are definite semantic mismatches; additional pairs require editorial review.
+**Impact:** at least 64 / 256 variants; additional pairs need editorial judgement.
 
-**Required remediation:** use correlated feature/user pairs rather than independent Cartesian slots, or rewrite the affected-user slot generically enough that every feature is genuinely relevant.
+**Fix:** use correlated feature/user pairs or a genuinely generic affected-user slot.
 
-### B07 — `ARG-CP003-QL006-T07` — contradictory fee label
+### B12 — `ARG-CP003-QL006-T04` — verb phrase placed after `without` and used as clause subject
 
-One `{b}` value is `a reusable-option surcharge`, while the statement applies `{b}` **to single-use items**. This yields surfaces such as `charge a reusable-option surcharge for single-use shopping bags`, which reverses/obscures the intended incentive.
+The `{d}` values are verbs (`investigate the affected centre`, `verify evidence and scope`, etc.). The arguments use them as:
 
-**Impact:** 64 / 256 semantic variants in the template.
+- `without {d}` → `without investigate the affected centre`
+- `{d} cannot be considered` → `investigate the affected centre cannot be considered`
 
-**Required remediation:** replace with a single-use-compatible fee label such as `a single-use surcharge` while retaining the same incentive logic.
+**Impact:** 256 / 256 variants.
 
-## Minimum mechanically affected surface count
+**Fix:** convert `{d}` to gerund/noun phrases or rewrite both argument frames.
 
-The seven blockers above expose **at least 1,088 of the 12,288 English CP003 semantic variants** to an objective grammar or semantic-integrity defect, before counting softer naturalness issues. This is a lower bound, not a claim that every affected variant would necessarily reach a learner under a future scheduler.
+### B13 — `ARG-CP003-QL006-T05` — `exist` agreement failure
 
-Do **not** mechanically multiply this number by three for EN/HI/PA; localized overlays must be checked separately because grammar can differ by locale even when semantic slot pairing is shared.
+Both arguments use `where {d} exist`. Two `{d}` values are singular/mass (`parallel road capacity`, `reliable bus and metro access`).
 
-## High-priority editorial naturalness debt
+**Impact:** 128 / 256 variants.
 
-These items are not used in the minimum blocker count but should be repaired in the same editorial pass:
+**Fix:** use number-neutral `where {d} is available` with compatible slot wording.
 
-- `ARG-CP003-QL001-T03`: `{c} for {a}` can produce redundant payment phrasing such as `temporarily disable transactions for online card payments`.
-- `ARG-CP003-QL001-T08`: several `for {d} about {c}` combinations are syntactically serviceable but unlike concise exam prose.
-- `ARG-CP003-QL003-T02`: `Once {d} is introduced, it ...` has number agreement problems when `{d}` is plural (`digital-only channels`, `self-service digital terminals`).
-- `ARG-CP003-QL003-T03`: a road/street `use {c}` is less natural than applying or imposing a traffic rule on the road.
-- `ARG-CP003-QL004-T03`: independent policy/window slots permit combinations such as `limited flexible departure times within two defined start bands`.
-- `ARG-CP003-QL004-T04`: constructions such as `attending a single session on basic digital-literacy workshops` are structurally awkward because the intervention slot itself already names a workshop/session.
-- `ARG-CP003-QL005-T08`: `Any one of {b}` becomes awkward with values such as `all employees`.
-- `ARG-CP003-QL006-T02`: some blanket-control nouns do not combine naturally with `apply {b} to every instance of {a}` (for example an account hold applied to an individual transaction instance).
+### B14 — `ARG-CP003-QL006-T07` — contradictory fee label
+
+One `{b}` value is `a reusable-option surcharge`, but the statement applies the fee to single-use goods, yielding forms such as `a reusable-option surcharge for single-use shopping bags`.
+
+**Impact:** 64 / 256 variants.
+
+**Fix:** replace with `a single-use surcharge` or another fee label whose object is the disposable item.
+
+## Definite minimum affected count
+
+The fourteen hard blockers above affect distinct template/variant regions and expose at least:
+
+**2,560 / 12,288 English CP003 semantic variants = 20.83%**
+
+to an objective grammar or semantic-strength defect.
+
+This remains a lower bound. It excludes plausible-but-not-certain semantic pair mismatches and general exam-naturalness debt.
+
+Do **not** multiply the English count mechanically by three. Hindi and Punjabi preserve much of the semantic pairing but can differ grammatically; they require their own exhaustive rendered audit.
+
+## Additional semantic/naturalness debt not included in 2,560
+
+- `ARG-CP003-QL001-T03`: `{c} for {a}` also creates redundant payment wording in the stem.
+- `ARG-CP003-QL001-T08`: `for {d} about {c}` is frequently unlike concise exam prose even after the `every` defect is fixed.
+- `ARG-CP003-QL002-T05`: the changed field `{a}` and enabled consequence `{d}` are independently crossed; combinations involving `mailing address` or `transaction-limit setting` can weaken the claimed fraud mechanism.
+- `ARG-CP003-QL003-T03`: a street/road `use {c}` is unnatural policy wording.
+- `ARG-CP003-QL004-T03`: policy/window slots can create combinations such as `limited flexible departure times within two defined start bands`.
+- `ARG-CP003-QL004-T04`: `attending {d} on {a}` is awkward because `{a}` itself already names a workshop/session.
+- `ARG-CP003-QL005-T08`: `Any one of all employees/trainees/...` is below the desired exam prose standard.
+- `ARG-CP003-QL006-T02`: some blanket-control nouns do not naturally fit `apply {b} to every instance of {a}`, especially an account hold applied to an individual transaction instance.
 
 ## What remains strong
 
-The audit does **not** find a coverage failure. The chapter still has:
+This is not a chapter-coverage failure. ARG-001 still has:
 
 - six distinct reasoning QLs
-- balanced core answer classes
+- balanced core truth classes
 - 48 source templates
-- broad scenario diversity
-- strong weak-argument defect taxonomy
+- broad domains and scenario diversity
+- a useful weak-argument defect taxonomy
 - deterministic replay
-- CP007 real-paper profile shapes
+- substantial semantic capacity
+- trilingual review infrastructure
 - review-only lifecycle safeguards
 
-The release blocker is **surface reliability under saturation**, not conceptual breadth.
+The principal defect is **compositional reliability under saturation**.
 
-## Required next checkpoint
+## Required remediation architecture
 
-Do not edit the CP006 files in place under the existing freeze authority.
+Do not edit frozen CP006 files in place under `ARG_CP006_IMMUTABLE_FREEZE_V1`.
 
-The next implementation should be an explicit superseding editorial remediation checkpoint that:
+The superseding remediation should:
 
-1. records every changed frozen source authority and why it changed;
-2. repairs the seven release blockers plus high-priority naturalness debt;
-3. adds exhaustive 256-variant grammar/semantic assertions for every remediated template;
-4. adds correlated-slot support where independent Cartesian composition is unsafe;
-5. re-runs EN/HI/PA localization parity;
-6. re-runs CP007 real-paper profiles against the remediated content contract;
-7. issues a new byte freeze only after the exhaustive review gate is green;
-8. keeps Question Bank/test/mock/public/automatic learner publication locked until explicit manual release approval.
+1. build corrected template authorities from the frozen sources under a new versioned authority;
+2. add explicit correlated-slot support where dimensions are not safely Cartesian;
+3. eliminate part-of-speech-sensitive slot frames (`every {plural}`, `without {verb}`, `{plural} addresses`, etc.);
+4. render and inspect all 256 variants for every remediated template;
+5. exhaustively validate EN/HI/PA rather than assuming grammar parity;
+6. re-run answer/strength invariants after every semantic slot correction;
+7. re-run CP007 real-paper profiles against the new editorial contract;
+8. issue a new byte freeze only after the full remediation gate is green;
+9. keep persistence, Question Bank writes, tests, mocks, public publication and automatic learner publication locked until explicit manual release approval.
 
 ## Release verdict
 
 **NOT READY FOR LEARNER RELEASE.**
 
-`ARG_CP008_REAL_PAPER_CLOSURE_V1` remains a valid record of the previously frozen review/runtime layer, but this post-freeze editorial audit identifies defects that must be fixed under a new explicit authority before learner publication is considered.
+`ARG_CP008_REAL_PAPER_CLOSURE_V1` remains a valid historical freeze record, but the post-freeze editorial audit proves that a new explicit remediation authority is required before learner delivery can be considered.
