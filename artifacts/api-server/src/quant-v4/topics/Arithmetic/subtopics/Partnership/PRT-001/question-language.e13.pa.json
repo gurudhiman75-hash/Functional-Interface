@@ -1,0 +1,13 @@
+{
+  "language": "pa",
+  "status": "E13_SOURCE_BACKED",
+  "entries": {
+    "PRT-QL-106": "{partnerA}, {partnerB} ਅਤੇ {partnerC} {business} ਵਿੱਚ ਕ੍ਰਮਵਾਰ ₹{capitalA}, ₹{capitalB} ਅਤੇ ₹{capitalC} ਨਿਵੇਸ਼ ਕਰਦੇ ਹਨ। {sleepingPartner} ਨਿਸ਼ਕ੍ਰਿਆ ਭਾਗੀਦਾਰ ਹੈ ਅਤੇ ਉਸਨੂੰ ਪੂੰਜੀ ਦੇ ਆਧਾਰ 'ਤੇ ਮਿਲਣ ਵਾਲੇ ਆਮ ਲਾਭ-ਹੱਕ ਦਾ ਕੇਵਲ {entitlementFraction} ਮਿਲਦਾ ਹੈ। ₹{totalProfit} ਦੇ ਕੁੱਲ ਲਾਭ ਵਿੱਚੋਂ {retainedPercent}% ਕਾਰੋਬਾਰ ਵਿੱਚ ਰੱਖਿਆ ਜਾਂਦਾ ਹੈ। ਵੰਡੇ ਜਾਣ ਵਾਲੇ ਲਾਭ ਵਿੱਚ {targetPartner} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+    "PRT-QL-107": "{partnerA} ਅਤੇ {partnerB} {business} ਵਿੱਚ ਕ੍ਰਮਵਾਰ ₹{initialCapitalA} ਅਤੇ ₹{initialCapitalB} ਨਿਵੇਸ਼ ਕਰਦੇ ਹਨ। ਪਹਿਲੇ ਸਾਲ ਦਾ ਲਾਭ ₹{firstYearProfit} ਹੈ। {reinvestPartner} ਆਪਣੇ ਪਹਿਲੇ ਸਾਲ ਦੇ ਪੂਰੇ ਲਾਭ-ਹਿੱਸੇ ਨੂੰ ਵਾਧੂ ਪੂੰਜੀ ਵਜੋਂ ਮੁੜ ਨਿਵੇਸ਼ ਕਰਦਾ ਹੈ, ਜਦਕਿ ਦੂਜਾ ਭਾਗੀਦਾਰ ਆਪਣਾ ਹਿੱਸਾ ਕੱਢ ਲੈਂਦਾ ਹੈ। ਹੋਰ ਕੋਈ ਪੂੰਜੀ ਬਦਲਾਅ ਨਾ ਹੋਵੇ ਤਾਂ ਦੂਜੇ ਸਾਲ ਦਾ ਲਾਭ-ਵੰਡ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?",
+    "PRT-QL-108": "{partnerA} ਅਤੇ {partnerB} {business} ਵਿੱਚ ਕ੍ਰਮਵਾਰ ₹{capitalA} ਅਤੇ ₹{capitalB} ਨਿਵੇਸ਼ ਕਰਦੇ ਹਨ। ₹{totalProfit} ਦੇ ਕੁੱਲ ਲਾਭ ਵਿੱਚੋਂ ਪਹਿਲਾਂ {partnerA} ਨੂੰ ਕੁੱਲ ਲਾਭ ਦਾ {grossPercentA}% ਅਤੇ {partnerB} ਨੂੰ ਕੁੱਲ ਲਾਭ ਦਾ {grossPercentB}% ਮਿਲਦਾ ਹੈ। ਬਾਕੀ ਲਾਭ ਪੂੰਜੀ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPartner} ਦੀ ਕੁੱਲ ਪ੍ਰਾਪਤੀ ਕਿੰਨੀ ਹੋਵੇਗੀ?",
+    "PRT-QL-109": "{business} ਵਿੱਚ ਕੁੱਲ ਪੂੰਜੀ ₹{totalCapital} ਹੈ ਅਤੇ ਭਾਗੀਦਾਰੀ ਦੀ ਮਿਆਦ {totalDuration} ਹੈ। {partnerA} ਕੁੱਲ ਪੂੰਜੀ ਦਾ {capitalFractionA} ਹਿੱਸਾ ਕੁੱਲ ਮਿਆਦ ਦੇ {durationFractionA} ਹਿੱਸੇ ਲਈ, {partnerB} ਕੁੱਲ ਪੂੰਜੀ ਦਾ {capitalFractionB} ਹਿੱਸਾ ਕੁੱਲ ਮਿਆਦ ਦੇ {durationFractionB} ਹਿੱਸੇ ਲਈ ਨਿਵੇਸ਼ ਕਰਦਾ ਹੈ ਅਤੇ {partnerC} ਬਾਕੀ ਪੂੰਜੀ ਪੂਰੀ ਮਿਆਦ ਲਈ ਨਿਵੇਸ਼ ਕਰਦਾ ਹੈ। ਕੁੱਲ ਲਾਭ ₹{totalProfit} ਹੋਵੇ ਤਾਂ {targetPartner} ਦਾ ਹਿੱਸਾ ਲੱਭੋ।",
+    "PRT-QL-110": "{partnerA}, {partnerB} ਅਤੇ {partnerC} {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਲਈ ਭਾਗੀਦਾਰ ਰਹਿੰਦੇ ਹਨ। ਉਨ੍ਹਾਂ ਦੀ ਪੂੰਜੀ ਦਾ ਸੰਬੰਧ ਹੈ: {relationStatement}। ਜੇ ਕੁੱਲ ਲਾਭ ₹{totalProfit} ਹੈ ਤਾਂ {targetPartner} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੋਵੇਗਾ?",
+    "PRT-QL-111": "{partnerA} ਅਤੇ {partnerB} {business} ਵਿੱਚ ਇੱਕ ਸਾਲ ਲਈ ਕ੍ਰਮਵਾਰ ₹{capitalA} ਅਤੇ ₹{capitalB} ਨਿਵੇਸ਼ ਕਰਦੇ ਹਨ। ਬਾਕੀ ਲਾਭ ਵੰਡਣ ਤੋਂ ਪਹਿਲਾਂ ਹਰ ਭਾਗੀਦਾਰ ਨੂੰ ਉਸਦੀ ਪੂੰਜੀ 'ਤੇ {interestRatePercent}% ਸਾਲਾਨਾ ਦੀ ਦਰ ਨਾਲ ਬਿਆਜ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਕੁੱਲ ਲਾਭ ₹{totalProfit} ਹੋਵੇ ਤਾਂ ਪੂੰਜੀ ਦੇ ਬਿਆਜ ਸਮੇਤ {targetPartner} ਦੀ ਕੁੱਲ ਪ੍ਰਾਪਤੀ ਕਿੰਨੀ ਹੋਵੇਗੀ?",
+    "PRT-QL-112": "{partnerA} ਅਤੇ {partnerB} {business} ਦਾ ਲਾਭ ਇਸ ਵੇਲੇ {oldRatio} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਦੇ ਹਨ। {partnerC} ਭਾਗੀਦਾਰੀ ਵਿੱਚ ਆਉਂਦਾ ਹੈ ਅਤੇ ਕੁੱਲ ਲਾਭ ਦਾ {acquiredFraction} ਹਿੱਸਾ {partnerA} ਅਤੇ {partnerB} ਤੋਂ ਲੈਂਦਾ ਹੈ; ਦੋਵੇਂ ਇਹ ਹਿੱਸਾ {sacrificeRatio} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਛੱਡਦੇ ਹਨ। {partnerA}, {partnerB} ਅਤੇ {partnerC} ਦਾ ਨਵਾਂ ਲਾਭ-ਵੰਡ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?"
+  }
+}
