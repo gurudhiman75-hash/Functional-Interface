@@ -3,7 +3,8 @@ import { classifyCurrentAffairsSignal } from "./ingestion";
 export type OfficialListingAdapter =
   | "sebi_press_releases"
   | "isro_latest_news"
-  | "punjab_press_releases";
+  | "punjab_press_releases"
+  | "punjab_lok_bhavan_press";
 
 export type OfficialListingEntry = {
   title: string;
@@ -99,13 +100,16 @@ function hostAllowed(url: string, adapter: OfficialListingAdapter) {
   const host = new URL(url).hostname.toLowerCase();
   if (adapter === "sebi_press_releases") return host === "www.sebi.gov.in" || host === "sebi.gov.in";
   if (adapter === "isro_latest_news") return host === "www.isro.gov.in" || host === "isro.gov.in";
+  if (adapter === "punjab_lok_bhavan_press") {
+    return host === "www.punjabrajbhavan.gov.in" || host === "punjabrajbhavan.gov.in";
+  }
   return host === "punjab.gov.in" || host.endsWith(".punjab.gov.in");
 }
 
 function adapterAccepts(title: string, link: string, adapter: OfficialListingAdapter) {
   const normalized = title.toLowerCase();
   if (title.length < 10 || title.length > 500) return false;
-  if (/^(home|more|more info|read more|next|last|first|previous|top|search|login|contact|about us)$/i.test(title)) return false;
+  if (/^(home|more|more info|read more|read more\.*|next|last|first|previous|top|search|login|contact|about us)$/i.test(title)) return false;
   const classified = classifyCurrentAffairsSignal(title);
 
   if (adapter === "sebi_press_releases") {
@@ -116,6 +120,10 @@ function adapterAccepts(title: string, link: string, adapter: OfficialListingAda
   if (adapter === "isro_latest_news") {
     return classified.score >= 35
       || /isro|satellite|space|gaganyaan|chandrayaan|aditya|nisar|pslv|gslv|lvm|launch|mission/i.test(normalized);
+  }
+  if (adapter === "punjab_lok_bhavan_press") {
+    return classified.score >= 24
+      || /punjab|governor|lok bhavan|minister|army|university|award|appointment|memorandum|farmer|government/i.test(normalized);
   }
   return classified.score >= 30
     || /punjab|cabinet|chief minister|government|scheme|policy|launch|approved|appointment|award/i.test(normalized)
@@ -151,6 +159,51 @@ function structuralContext(html: string, anchorIndex: number): string {
   return html.slice(Math.max(0, anchorIndex - 220), Math.min(html.length, anchorIndex + 700));
 }
 
+function normalizedPath(url: string) {
+  return new URL(url).pathname.replace(/\/+$/, "") || "/";
+}
+
+function parsePunjabLokBhavanRows(
+  html: string,
+  listingUrl: string,
+  maxEntries: number,
+): OfficialListingEntry[] {
+  const entries: OfficialListingEntry[] = [];
+  const seen = new Set<string>();
+  const listingPath = normalizedPath(listingUrl);
+
+  for (const match of html.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)) {
+    if (entries.length >= maxEntries) break;
+    const row = match[1] ?? "";
+    const rowText = cleanText(row);
+    const titleMatch = rowText.match(/^\s*\d+\s+(.+?)\s+(20\d{2}-[01]?\d-[0-3]?\d)(?:\s+\d{1,2}:\d{2})?\s+(?:Read\s+More\.*|View|Details)/i);
+    if (!titleMatch?.[1]) continue;
+
+    const title = titleMatch[1].trim();
+    const link = anchorMatches(row)
+      .map((anchor) => safeResolvedUrl(hrefFromAttributes(anchor.attributes), listingUrl))
+      .find((candidate): candidate is string => Boolean(
+        candidate
+        && hostAllowed(candidate, "punjab_lok_bhavan_press")
+        && normalizedPath(candidate) !== listingPath,
+      ));
+    if (!link || !adapterAccepts(title, link, "punjab_lok_bhavan_press")) continue;
+
+    const dedupe = `${title.toLowerCase()}|${link}`;
+    if (seen.has(dedupe)) continue;
+    seen.add(dedupe);
+    const classified = classifyCurrentAffairsSignal(title);
+    entries.push({
+      title,
+      link,
+      publishedAt: findListingDate(titleMatch[2] ?? rowText),
+      dateConfidence: "explicit",
+      discoveryKeywords: classified.keywords,
+    });
+  }
+  return entries;
+}
+
 export function parseOfficialListing(
   html: string,
   listingUrl: string,
@@ -158,6 +211,10 @@ export function parseOfficialListing(
   maxEntries = 80,
 ): OfficialListingEntry[] {
   if (html.length > 5_000_000) throw new Error("Official listing payload is too large");
+  if (adapter === "punjab_lok_bhavan_press") {
+    return parsePunjabLokBhavanRows(html, listingUrl, maxEntries);
+  }
+
   const entries: OfficialListingEntry[] = [];
   const seen = new Set<string>();
 
