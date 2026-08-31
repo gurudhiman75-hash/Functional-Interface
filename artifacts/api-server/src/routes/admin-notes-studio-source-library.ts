@@ -5,12 +5,14 @@ import { requireAdminPermission } from '../lib/admin-rbac';
 import { sqlClient } from '../lib/db';
 import { authenticate } from '../middlewares/auth';
 import { sourcePackEditableState } from '../notes-studio/gap-source-recommendations';
+import { refreshNotesAuthoringReadiness } from '../notes-studio/readiness';
 import {
   MAX_SOURCE_RECOMMENDATIONS,
   isGenerationReadySource,
   sourceLibraryLimit,
   sourceRecommendationReason,
   sourceRecommendationScore,
+  sourceReuseEvidencePath,
 } from '../notes-studio/source-library';
 
 const router: IRouter = Router();
@@ -46,29 +48,6 @@ function briefField(brief: unknown, key: string): string {
   return text((brief as Record<string, unknown>)[key], 300).toLowerCase();
 }
 
-async function refreshSourceReadiness(jobId: string, actorUserId: string) {
-  await sqlClient`
-    UPDATE content.note_authoring_jobs job
-    SET state = CASE
-      WHEN EXISTS (
-        SELECT 1
-        FROM content.note_authoring_sources link
-        JOIN content.source_documents document ON document.id = link.source_document_id
-        WHERE link.job_id = job.id
-          AND link.inclusion_state = 'included'
-          AND document.retention_mode = 'extracted_text'
-          AND document.extraction_status = 'processed'
-          AND LENGTH(COALESCE(document.extracted_text, '')) >= 100
-      ) THEN 'sources_ready'
-      ELSE 'brief'
-    END,
-    updated_by = ${actorUserId}::uuid,
-    updated_at = now()
-    WHERE job.id = ${jobId}::uuid
-      AND job.state IN ('brief', 'sources_ready')
-  `;
-}
-
 router.use(authenticate);
 
 router.get('/source-library', requireAdminPermission('content.questions.read'), async (req, res) => {
@@ -95,13 +74,20 @@ router.get('/source-library', requireAdminPermission('content.questions.read'), 
         COUNT(DISTINCT link.job_id) FILTER (
           WHERE job.state IN ('approved', 'materialized')
             OR approved.id IS NOT NULL
-        )::int AS "approvedUsageCount"
+        )::int AS "approvedUsageCount",
+        COUNT(DISTINCT block.job_id) FILTER (
+          WHERE block.evidence_kind = 'editor_reference_note'
+            AND block.reviewed_at IS NOT NULL
+        )::int AS "reviewedReferenceUseCount"
       FROM content.source_documents document
       LEFT JOIN content.note_authoring_sources link
         ON link.source_document_id = document.id
         AND link.inclusion_state = 'included'
       LEFT JOIN content.note_authoring_jobs job ON job.id = link.job_id
       LEFT JOIN content.note_approved_versions approved ON approved.job_id = job.id
+      LEFT JOIN content.note_source_evidence_blocks block
+        ON block.job_id = link.job_id
+        AND block.source_document_id = document.id
       WHERE ${query} = ''
         OR lower(document.title) LIKE ${`%${query}%`}
         OR lower(COALESCE(document.publisher, '')) LIKE ${`%${query}%`}
@@ -114,17 +100,31 @@ router.get('/source-library', requireAdminPermission('content.questions.read'), 
       LIMIT ${limit}
     `;
     res.json({
-      sources: rows.map((row) => ({
-        ...row,
-        generationReady: isGenerationReadySource({
+      sources: rows.map((row) => {
+        const generationReady = isGenerationReadySource({
           retentionMode: String(row.retentionMode ?? ''),
           extractionStatus: String(row.extractionStatus ?? ''),
           retainedCharCount: Number(row.retainedCharCount ?? 0),
-        }),
-      })),
+        });
+        const reviewedReferenceUseCount = Number(row.reviewedReferenceUseCount ?? 0);
+        const evidencePath = sourceReuseEvidencePath({
+          generationReady,
+          rightsBasis: String(row.rightsBasis ?? ''),
+          retentionMode: String(row.retentionMode ?? ''),
+          reviewedReferenceUseCount,
+        });
+        return {
+          ...row,
+          generationReady,
+          reviewedReferenceUseCount,
+          referenceReviewEligible: evidencePath === 'reference_review_required',
+          evidencePath,
+        };
+      }),
       query,
       limit,
       rawSourceBodiesReturned: false,
+      historicalReferenceEvidenceTransferred: false,
     });
   } catch (error) {
     sendError(res, error, 'Unable to load Notes Studio source library');
@@ -147,7 +147,13 @@ router.get('/jobs/:id/source-recommendations', requireAdminPermission('content.q
     const targetTaxonomyCode = briefField(job.brief, 'taxonomyCode');
     const targetTopicLabel = briefField(job.brief, 'topicLabel');
     if (!targetTaxonomyNodeId && !targetTaxonomyCode && !targetTopicLabel) {
-      res.json({ job, recommendations: [], reason: 'The job has no canonical taxonomy or topic label yet.', rawSourceBodiesReturned: false });
+      res.json({
+        job,
+        recommendations: [],
+        reason: 'The job has no canonical taxonomy or topic label yet.',
+        rawSourceBodiesReturned: false,
+        historicalReferenceEvidenceTransferred: false,
+      });
       return;
     }
 
@@ -169,7 +175,15 @@ router.get('/jobs/:id/source-recommendations', requireAdminPermission('content.q
         prior_job.state AS "priorJobState",
         EXISTS (
           SELECT 1 FROM content.note_approved_versions version WHERE version.job_id = prior_job.id
-        ) AS "approvedUse"
+        ) AS "approvedUse",
+        EXISTS (
+          SELECT 1
+          FROM content.note_source_evidence_blocks block
+          WHERE block.job_id = prior_job.id
+            AND block.source_document_id = document.id
+            AND block.evidence_kind = 'editor_reference_note'
+            AND block.reviewed_at IS NOT NULL
+        ) AS "reviewedReferenceUse"
       FROM content.source_documents document
       JOIN content.note_authoring_sources link
         ON link.source_document_id = document.id
@@ -192,6 +206,7 @@ router.get('/jobs/:id/source-recommendations', requireAdminPermission('content.q
       sameTaxonomyCodeUses: number;
       sameTopicUses: number;
       approvedUses: number;
+      reviewedReferenceUses: number;
       priorJobs: Map<string, { id: string; title: string; state: string }>;
     };
     const aggregates = new Map<string, Aggregate>();
@@ -216,6 +231,7 @@ router.get('/jobs/:id/source-recommendations', requireAdminPermission('content.q
           sameTaxonomyCodeUses: 0,
           sameTopicUses: 0,
           approvedUses: 0,
+          reviewedReferenceUses: 0,
           priorJobs: new Map(),
         };
         aggregates.set(sourceId, aggregate);
@@ -227,6 +243,7 @@ router.get('/jobs/:id/source-recommendations', requireAdminPermission('content.q
       else if (targetTaxonomyCode && priorCode === targetTaxonomyCode) aggregate.sameTaxonomyCodeUses += 1;
       else if (targetTopicLabel && priorTopic === targetTopicLabel) aggregate.sameTopicUses += 1;
       if (row.approvedUse === true || ['approved', 'materialized'].includes(String(row.priorJobState))) aggregate.approvedUses += 1;
+      if (row.reviewedReferenceUse === true) aggregate.reviewedReferenceUses += 1;
       aggregate.priorJobs.set(String(row.priorJobId), {
         id: String(row.priorJobId),
         title: String(row.priorJobTitle),
@@ -241,17 +258,28 @@ router.get('/jobs/:id/source-recommendations', requireAdminPermission('content.q
           extractionStatus: String(aggregate.source.extractionStatus ?? ''),
           retainedCharCount: Number(aggregate.source.retainedCharCount ?? 0),
         });
+        const evidencePath = sourceReuseEvidencePath({
+          generationReady,
+          rightsBasis: String(aggregate.source.rightsBasis ?? ''),
+          retentionMode: String(aggregate.source.retentionMode ?? ''),
+          reviewedReferenceUseCount: aggregate.reviewedReferenceUses,
+        });
+        const referenceReviewEligible = evidencePath === 'reference_review_required';
         const signals = {
           exactTaxonomyUses: aggregate.exactTaxonomyUses,
           sameTaxonomyCodeUses: aggregate.sameTaxonomyCodeUses,
           sameTopicUses: aggregate.sameTopicUses,
           approvedUses: aggregate.approvedUses,
           generatable: generationReady,
+          referenceReviewEligible,
           alreadyAttached: false,
         };
         return {
           ...aggregate.source,
           generationReady,
+          reviewedReferenceUseCount: aggregate.reviewedReferenceUses,
+          referenceReviewEligible,
+          evidencePath,
           score: sourceRecommendationScore(signals),
           reason: sourceRecommendationReason(signals),
           exactTaxonomyUses: aggregate.exactTaxonomyUses,
@@ -259,13 +287,20 @@ router.get('/jobs/:id/source-recommendations', requireAdminPermission('content.q
           sameTopicUses: aggregate.sameTopicUses,
           approvedUses: aggregate.approvedUses,
           priorJobs: [...aggregate.priorJobs.values()].slice(0, 5),
+          historicalReferenceEvidenceTransferred: false,
         };
       })
       .filter((item) => item.score > 0)
       .sort((left, right) => right.score - left.score || String(left.title).localeCompare(String(right.title)))
       .slice(0, MAX_SOURCE_RECOMMENDATIONS);
 
-    res.json({ job, recommendations, rawSourceBodiesReturned: false, automaticAttachment: false });
+    res.json({
+      job,
+      recommendations,
+      rawSourceBodiesReturned: false,
+      automaticAttachment: false,
+      historicalReferenceEvidenceTransferred: false,
+    });
   } catch (error) {
     sendError(res, error, 'Unable to load Notes Studio source recommendations');
   }
@@ -282,10 +317,22 @@ router.post('/jobs/:jobId/sources/:sourceId/reuse', requireAdminPermission('cont
       sqlClient`SELECT id::text AS id, title, state FROM content.note_authoring_jobs WHERE id = ${jobId}::uuid LIMIT 1`,
       sqlClient`
         SELECT
-          id::text AS id, title, content_hash AS "contentHash", rights_basis AS "rightsBasis",
-          retention_mode AS "retentionMode", extraction_status AS "extractionStatus"
-        FROM content.source_documents
-        WHERE id = ${sourceId}::uuid
+          document.id::text AS id,
+          document.title,
+          document.content_hash AS "contentHash",
+          document.rights_basis AS "rightsBasis",
+          document.retention_mode AS "retentionMode",
+          document.extraction_status AS "extractionStatus",
+          LENGTH(COALESCE(document.extracted_text, ''))::int AS "retainedCharCount",
+          (
+            SELECT COUNT(DISTINCT block.job_id)::int
+            FROM content.note_source_evidence_blocks block
+            WHERE block.source_document_id = document.id
+              AND block.evidence_kind = 'editor_reference_note'
+              AND block.reviewed_at IS NOT NULL
+          ) AS "reviewedReferenceUseCount"
+        FROM content.source_documents document
+        WHERE document.id = ${sourceId}::uuid
         LIMIT 1
       `,
     ]);
@@ -300,6 +347,20 @@ router.post('/jobs/:jobId/sources/:sourceId/reuse', requireAdminPermission('cont
         409,
       );
     }
+
+    const generationReady = isGenerationReadySource({
+      retentionMode: String(source.retentionMode ?? ''),
+      extractionStatus: String(source.extractionStatus ?? ''),
+      retainedCharCount: Number(source.retainedCharCount ?? 0),
+    });
+    const evidencePath = sourceReuseEvidencePath({
+      generationReady,
+      rightsBasis: String(source.rightsBasis ?? ''),
+      retentionMode: String(source.retentionMode ?? ''),
+      reviewedReferenceUseCount: Number(source.reviewedReferenceUseCount ?? 0),
+    });
+    const referenceReviewRequired = String(source.rightsBasis ?? '') === 'reference_only'
+      && String(source.retentionMode ?? '') === 'metadata_only';
 
     const inserted = await sqlClient.begin(async (tx) => {
       const rows = await tx`
@@ -331,21 +392,29 @@ router.post('/jobs/:jobId/sources/:sourceId/reuse', requireAdminPermission('cont
             rightsBasis: source.rightsBasis,
             retentionMode: source.retentionMode,
             extractionStatus: source.extractionStatus,
+            evidencePath,
+            referenceReviewRequired,
             sourceBodyCopied: false,
+            historicalReferenceEvidenceTransferred: false,
           })}
-        )
-      `;
+        `;
       return true;
     });
-    if (inserted) await refreshSourceReadiness(jobId, actorUserId);
+    if (inserted) await refreshNotesAuthoringReadiness(jobId, actorUserId);
     res.status(inserted ? 201 : 200).json({
       reused: inserted,
       duplicate: !inserted,
       jobId,
       sourceId,
+      evidencePath,
+      referenceReviewRequired,
       sourceBodyCopied: false,
+      historicalReferenceEvidenceTransferred: false,
       automaticEvidenceAcceptance: false,
       automaticGeneration: false,
+      nextAction: referenceReviewRequired
+        ? 'Open Reference Evidence and record a fresh target-job factual paraphrase with an exact locator before treating this source as evidence-ready.'
+        : null,
     });
   } catch (error) {
     sendError(res, error, 'Unable to reuse Notes Studio source');
