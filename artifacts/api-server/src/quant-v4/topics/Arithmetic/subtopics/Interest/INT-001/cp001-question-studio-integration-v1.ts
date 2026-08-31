@@ -8,6 +8,7 @@ import {
   runIntCp001QuestionStudioPreRegistration,
   type IntCp001QuestionStudioDifficulty,
 } from "./int-001-cp001-question-studio-pre-registration-adapter";
+import { retrofitInterestPreviewExplanation } from "./interest-direct-calculation-explanation-policy-v1";
 
 export const INT_CP001_QUESTION_STUDIO_INTEGRATION_VERSION = "INT-CP-001-QS-v1" as const;
 export const INT_CP001_QUESTION_STUDIO_PACKAGE_ID = "INT-001" as const;
@@ -57,8 +58,11 @@ function activatePackage<T extends Record<string, any>>(pkg: T) {
   });
 }
 
-function activatePreview<T extends Record<string, any>>(question: T) {
-  return Object.freeze({
+function activatePreview<T extends Record<string, any>>(
+  question: T,
+  language: IntCp001QuestionStudioLanguage,
+) {
+  const active = Object.freeze({
     ...question,
     runtimeMode: "QUESTION_STUDIO_ACTIVE" as const,
     reviewStatus: "FROZEN_MULTILINGUAL_CONTENT_AUTHORITY" as const,
@@ -76,6 +80,8 @@ function activatePreview<T extends Record<string, any>>(question: T) {
     manualApprovalRequired: true as const,
     integrationAuthority: INT_CP001_QUESTION_STUDIO_INTEGRATION_VERSION,
   });
+  const qlId = String(question.qlId ?? question.questionLanguageId ?? "");
+  return retrofitInterestPreviewExplanation(active, qlId, language);
 }
 
 export function listIntCp001QuestionStudioPackages() {
@@ -117,7 +123,7 @@ export async function generateIntCp001QuestionStudioBatch(request: IntCp001Quest
   });
 
   const questionPackages = Object.freeze(source.questionPackages.map((pkg: any) => activatePackage(pkg)));
-  const questions = Object.freeze(source.questions.map((question: any) => activatePreview(question)));
+  const questions = Object.freeze(source.questions.map((question: any) => activatePreview(question, language)));
   const result = Object.freeze({
     ok: true as const,
     packageId: INT_CP001_QUESTION_STUDIO_PACKAGE_ID,
