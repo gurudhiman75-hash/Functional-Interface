@@ -1,0 +1,67 @@
+name: Validate Computer Awareness Mainline Integration
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/knowledge-v1/**
+      - artifacts/api-server/src/question-studio/**
+      - artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts
+      - artifacts/api-server/src/routes/admin-question-studio-mixed-difficulty.ts
+      - artifacts/api-server/src/lib/question-studio-regeneration.ts
+      - artifacts/admin-app/src/features/question-studio/**
+      - artifacts/admin-app/src/pages/content/QuestionStudioComputerAwarenessReviewPanel.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: computer-awareness-mainline-integration-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle and run content-engine foundation
+        run: |
+          mkdir -p artifacts/api-server/dist/computer-mainline
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/content-engine-foundation.test-suite.ts --bundle --platform=node --format=esm --outfile=dist/computer-mainline/content-engine-foundation.mjs
+          node artifacts/api-server/dist/computer-mainline/content-engine-foundation.mjs
+      - name: Verify frozen COM-002 operational authority
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/computer-awareness/com002-v6-v5-operational-freeze.test.ts --bundle --platform=node --format=esm --outfile=dist/computer-mainline/com002-operational-freeze.mjs
+          node artifacts/api-server/dist/computer-mainline/com002-operational-freeze.mjs
+      - name: Verify COM-002 review-only adapter and activation
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/knowledge-v1-com002-adapter-v3.test.ts --bundle --platform=node --format=esm --outfile=dist/computer-mainline/com002-adapter-v3.mjs
+          node artifacts/api-server/dist/computer-mainline/com002-adapter-v3.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/engines/com002-question-studio-activation-gate-v5.test.ts --bundle --platform=node --format=esm --outfile=dist/computer-mainline/com002-activation-v5.mjs
+          node artifacts/api-server/dist/computer-mainline/com002-activation-v5.mjs
+      - name: Verify engine registry and lifecycle
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/engine-registry.test.ts --bundle --platform=node --format=esm --outfile=dist/computer-mainline/engine-registry.mjs
+          node artifacts/api-server/dist/computer-mainline/engine-registry.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/engine-route-integration.test.ts --bundle --platform=node --format=esm --outfile=dist/computer-mainline/engine-route.mjs
+          node artifacts/api-server/dist/computer-mainline/engine-route.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/question-studio/standard-lifecycle.test.ts --bundle --platform=node --format=esm --outfile=dist/computer-mainline/standard-lifecycle.mjs
+          node artifacts/api-server/dist/computer-mainline/standard-lifecycle.mjs
+      - name: Typecheck admin app
+        run: pnpm --dir artifacts/admin-app typecheck

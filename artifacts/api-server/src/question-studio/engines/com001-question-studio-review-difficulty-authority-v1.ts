@@ -1,0 +1,131 @@
+import { COM001_DIFFICULTY_CLASSIFIER_VERSION_V2 } from "../../knowledge-v1/computer-awareness/com001-difficulty-routing-v2";
+import { COM001_ENGLISH_FREEZE_AUTHORITY_V2 } from "../../knowledge-v1/computer-awareness/com001-english-freeze-v2";
+import { COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V2 } from "../../knowledge-v1/computer-awareness/com001-hi-pa-localization-freeze-v2";
+import { COM001_QUESTION_STUDIO_REVIEW_INTEGRATION_AUTHORITY_V2 } from "./com001-question-studio-review-integration-v2";
+
+export const COM001_QUESTION_STUDIO_REVIEW_DIFFICULTY_AUTHORITY_V1 = Object.freeze({
+  authorityId: "COM-001-QUESTION-STUDIO-REVIEW-DIFFICULTY-V1" as const,
+  chapterId: "COM-001" as const,
+  cpId: "COM-001-CP-001" as const,
+  status: "REVIEW_ONLY_DIFFICULTY_ROUTING_APPROVED" as const,
+  engineId: "knowledge-v1" as const,
+  packageId: "COM-001" as const,
+  runtimeMode: "review-only" as const,
+  contentAuthorityVersion: "V2" as const,
+  supersedesDifficultyStateFromAuthorityId:
+    COM001_QUESTION_STUDIO_REVIEW_INTEGRATION_AUTHORITY_V2.authorityId,
+  contentAuthorities: {
+    englishFreezeAuthorityId: COM001_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
+    englishCombinedFingerprint:
+      COM001_ENGLISH_FREEZE_AUTHORITY_V2.fingerprints.combinedFingerprint,
+    localizationFreezeAuthorityId:
+      COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V2.authorityId,
+    localizationCombinedFingerprint:
+      COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V2.fingerprints.combinedFingerprint,
+    learnerFacingContentChangedForDifficultyRouting: false,
+  },
+  classifier: {
+    version: COM001_DIFFICULTY_CLASSIFIER_VERSION_V2,
+    method: "COGNITIVE_TOPOLOGY_OVER_FROZEN_V2_QUESTION_STATE" as const,
+    supportedDifficulties: ["Easy", "Medium", "Hard"] as const,
+    mixedModeSupported: true,
+    mixedModeMeaning: "UNFILTERED_DETERMINISTIC_V2_REVIEW_GENERATION" as const,
+    reviewOnlyDifficultyFilterAuthorized: true,
+    productionDifficultyClaimsAuthorized: false,
+    unsupportedQlDifficultyCombinationMustFail: true,
+    qlSupport: {
+      "COM-001-QL-001": ["Easy", "Medium"],
+      "COM-001-QL-002": ["Easy", "Medium"],
+      "COM-001-QL-003": ["Easy", "Medium"],
+      "COM-001-QL-004": ["Easy", "Medium"],
+      "COM-001-QL-005": ["Easy", "Medium"],
+      "COM-001-QL-006": ["Medium"],
+      "COM-001-QL-007": ["Hard"],
+      "COM-001-QL-008": ["Hard"],
+      "COM-001-QL-009": ["Easy", "Medium"],
+    } as const,
+  },
+  classifierAudit: {
+    workflowName: "Validate Question Studio Content Engine Foundation V1" as const,
+    runNumber: 162,
+    runId: 32739512875,
+    jobId: 97470327681,
+    auditedEnglishV2Questions: 360,
+    distribution: {
+      Easy: 146,
+      Medium: 134,
+      Hard: 80,
+    } as const,
+    verdict: "TOPOLOGY_CLASSIFIER_DISTRIBUTION_ACCEPTED_FOR_REVIEW_FILTERING" as const,
+  },
+  exactActivationProof: {
+    headSha: "3d1232f99c5449ac4a08dd473caa4f2de61ca13d" as const,
+    contentEngineWorkflowName:
+      "Validate Question Studio Content Engine Foundation V1" as const,
+    contentEngineRunNumber: 168,
+    contentEngineRunId: 32742129395,
+    contentEngineJobId: 97478840315,
+    integratedAdminWorkflowName: "Validate integrated admin panel" as const,
+    integratedAdminRunNumber: 8970,
+    integratedAdminRunId: 32742129455,
+    integratedAdminJobId: 97478840907,
+    verifiedBehavior: [
+      "DETERMINISTIC_MIXED_UNFILTERED_REPLAY",
+      "DETERMINISTIC_EASY_FILTER",
+      "DETERMINISTIC_MEDIUM_FILTER",
+      "DETERMINISTIC_HARD_FILTER",
+      "UNSUPPORTED_FIXED_QL_DIFFICULTY_REJECTION",
+      "DIFFICULTY_TOPOLOGY_METADATA",
+      "V2_SURFACE_METADATA_VISIBLE_IN_ADMIN_REVIEW",
+      "QUESTION_STUDIO_PRODUCTION_GATE",
+      "ADMIN_TYPESCRIPT_TYPECHECK",
+      "ADMIN_APPLICATION_TESTS",
+      "ADMIN_APPLICATION_BUILD",
+      "STUDENT_APPLICATION_BUILD",
+      "SINGLE_SITE_HOSTING_ASSEMBLY",
+    ] as const,
+    reviewVerdict:
+      "APPROVED_REVIEW_ONLY_DIFFICULTY_FILTER_WITH_PRODUCTION_LIFECYCLE_LOCKS" as const,
+  },
+  reviewerSurface: {
+    difficultySelectorVisible: true,
+    qlAwareDifficultyChoices: true,
+    classifiedDifficultyVisiblePerItem: true,
+    topologyVisiblePerItem: true,
+    rationaleVisiblePerItem: true,
+    relationalSurfaceModeVisibleWhenApplicable: true,
+    capacityConventionVisibleWhenApplicable: true,
+    productionAuthorizationWarningVisible: true,
+  },
+  editorSafety: {
+    approvalDisposition: "REVIEW_ONLY" as const,
+    revisionPolicy: "SOURCE_GENERATOR_ONLY" as const,
+    manualFreeTextRevisionAllowed: false,
+    regenerationAllowed: false,
+    reviewRunPersistenceAllowed: true,
+    canonicalQuestionPersistenceAllowed: false,
+    questionBankStatus: "NOT_STORED" as const,
+    questionBankWritable: false,
+    testEligible: false,
+    mockTestEligible: false,
+    publiclyPublishable: false,
+    automaticStudentPublication: false,
+    productionDifficultyClaimsAuthorized: false,
+    productionReleaseAuthorized: false,
+  },
+  invariants: {
+    frozenEnglishV2ContentImmutable: true,
+    frozenHindiPunjabiV2ContentImmutable: true,
+    sourceFactsImmutableForDifficultyRouting: true,
+    optionOrderImmutableForDifficultyRouting: true,
+    correctIndexImmutableForDifficultyRouting: true,
+    deterministicReplayRequired: true,
+    difficultyDerivedAfterCanonicalGeneration: true,
+    noDifficultyLabelWithoutClassifierDecision: true,
+    noSilentUnsupportedQlFallback: true,
+  },
+  invalidationRule:
+    "Any material change to the COM-001 topology classifier, difficulty-to-QL support map, deterministic filter stream, reviewer-visible difficulty rationale, frozen V2 authority binding, or production lifecycle locks requires a new review-difficulty authority version.",
+  nextGate:
+    "COM001_EDITORIAL_REVIEW_OF_DIFFICULTY_FILTERED_STUDIO_BATCHES_THEN_SEPARATE_PRODUCTION_DIFFICULTY_DECISION" as const,
+});
