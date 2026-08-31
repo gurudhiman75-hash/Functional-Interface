@@ -67,7 +67,7 @@ export const ARG_CP002_EDITORIAL_REPLACEMENTS: readonly ArgScenarioAuthority[] =
     statement: "Should application acknowledgement receipts include the service helpline number?",
     arguments: [
       weak("ARG-SC-028-I", "SUPPORTS", "Yes. Printing the helpline number on a receipt guarantees that every future service complaint will be resolved immediately.", "UNSUPPORTED_CAUSAL_LEAP", { support: "ASSERTED", scope: "ABSOLUTE_UNJUSTIFIED" }),
-      weak("ARG-SC-028-II", "OPPOSES", "No. Adding the helpline number would make the printed receipt a few characters longer.", "TRIVIAL_CONSIDERATION", { materiality: "TRIVIAL" }),
+      weak("ARG-SC-028-II", "OPPOSES", "No. The helpline number should not be printed because acknowledgement receipts should not contain helpline numbers.", "RESTATES_ISSUE", { support: "ASSERTED" }),
     ],
     expectedAnswerClass: "NEITHER",
   },
