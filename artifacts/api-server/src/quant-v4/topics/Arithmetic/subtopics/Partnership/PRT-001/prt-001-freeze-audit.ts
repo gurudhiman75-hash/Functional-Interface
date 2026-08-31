@@ -20,11 +20,13 @@ import {
   auditPrt001ChapterStemSkeletonDepth,
   auditPrt001CrossQlStemStructure,
 } from "./foundation/e7-stem-structure-auditor";
+import { auditPrt001E8SourceRealness } from "./foundation/e8-source-realness-auditor";
 import { PRT_001_CP_IDS } from "./foundation/types";
 
 const reports = [
   auditPrt001Coverage(),
   auditPrt001ContextRealism(),
+  auditPrt001E8SourceRealness(),
   auditPrt001ChapterStemSkeletonDepth(),
   auditPrt001CrossQlStemStructure(),
   auditPrt001BaselineAdvancedMathDiversity(),
@@ -59,5 +61,5 @@ for (const cpId of PRT_001_CP_IDS) {
   }
 }
 
-reports.push({ audit: "question-studio-integration", cases: studioCases, metrics: { canonicalProblems: 7, languages: 3, productionWave: "E7" } });
-console.log(JSON.stringify({ packageId: "PRT-001", status: "PASS", productionWave: "E7", reports }, null, 2));
+reports.push({ audit: "question-studio-integration", cases: studioCases, metrics: { canonicalProblems: 7, languages: 3, productionWave: "E8" } });
+console.log(JSON.stringify({ packageId: "PRT-001", status: "PASS", productionWave: "E8", reports }, null, 2));
