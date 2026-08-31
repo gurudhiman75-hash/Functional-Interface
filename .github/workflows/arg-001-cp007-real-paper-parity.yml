@@ -10,11 +10,10 @@ on:
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-*'
       - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp007-v2.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
-      - '.github/workflows/arg-001-cp007-real-paper-parity.yml'
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: arg-001-cp007-${{ github.ref }}
@@ -28,49 +27,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Repair CP007 source typing on PR head and merge workspace
-        if: github.event_name == 'pull_request'
-        shell: bash
-        env:
-          HEAD_REF: ${{ github.head_ref }}
-          MERGE_SHA: ${{ github.sha }}
-        run: |
-          TARGET='artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-generator-v2.ts'
-
-          repair() {
-            python - "$TARGET" <<'PY'
-          from pathlib import Path
-          import sys
-
-          path = Path(sys.argv[1])
-          text = path.read_text(encoding='utf-8')
-          old = '  arguments: readonly [CandidateArgument, CandidateArgument, CandidateArgument, CandidateArgument];'
-          new = '  arguments: readonly CandidateArgument[];'
-          count = text.count(old)
-          if count > 1:
-              raise SystemExit(f'Expected at most one CP007 tuple contract, found {count}')
-          if count == 1:
-              path.write_text(text.replace(old, new), encoding='utf-8')
-          PY
-          }
-
-          git fetch origin "$HEAD_REF"
-          git switch --detach "origin/$HEAD_REF"
-          repair
-          if ! git diff --quiet -- "$TARGET"; then
-            git diff --check -- "$TARGET"
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add "$TARGET"
-            git commit -m 'fix(arg-001): repair CP007 argument container typing'
-            git push origin "HEAD:$HEAD_REF"
-          fi
-
-          git switch --detach "$MERGE_SHA"
-          repair
-          git diff --check -- "$TARGET"
-
       - uses: actions/setup-node@v4
         with:
           node-version: 22
