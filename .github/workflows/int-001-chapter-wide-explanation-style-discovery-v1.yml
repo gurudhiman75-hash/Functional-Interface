@@ -1,0 +1,62 @@
+name: Discover INT-001 Chapter-wide Explanation Style V1
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**'
+      - '.github/workflows/int-001-chapter-wide-explanation-style-discovery-v1.yml'
+
+concurrency:
+  group: int-001-chapter-wide-explanation-style-discovery-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  discover-int-001-explanation-style:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXPECTED_HEAD }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Discover chapter-wide explanation style gaps
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-chapter-wide-explanation-style-discovery-v1.ts | tee int-001-chapter-wide-explanation-style-discovery-v1.log
+          grep -q 'PASS_INT_001_CHAPTER_WIDE_EXPLANATION_STYLE_DISCOVERY_V1' int-001-chapter-wide-explanation-style-discovery-v1.log
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Record exact validation head
+        shell: bash
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-001-chapter-wide-explanation-style-discovery-v1-head.log
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+
+      - name: Upload discovery evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-001-chapter-wide-explanation-style-discovery-v1
+          path: |
+            int-001-chapter-wide-explanation-style-discovery-v1.log
+            int-001-chapter-wide-explanation-style-discovery-v1-head.log
+          retention-days: 30
