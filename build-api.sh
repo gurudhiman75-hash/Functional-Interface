@@ -45,8 +45,13 @@ pnpm --dir artifacts/examtree build
 # package's `tsc -b --force` here: that is a CI/development validation concern
 # and is one of the highest-heap Node phases in the production deploy path.
 # Source maps are also disabled for this deploy-only Vite build.
+#
+# The Render service serves both the admin SPA and the API. Force the production
+# admin bundle to use same-origin /api even if the Render environment still has
+# a legacy VITE_API_URL configured. Otherwise the SPA can load successfully
+# while browser requests fail at DNS/CORS before reaching this deployment.
 echo "[render-build] build admin app"
-EXAMTREE_RENDER_BUILD=1 pnpm --dir artifacts/admin-app exec vite build
+VITE_API_URL=/api EXAMTREE_RENDER_BUILD=1 pnpm --dir artifacts/admin-app exec vite build
 
 # Assemble the single static tree served by the API service.
 echo "[render-build] assemble hosting tree"
