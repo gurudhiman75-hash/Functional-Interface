@@ -45,5 +45,18 @@
     "automatedValidationRun": 33366682849,
     "runtimeHead": "1538eadf0bf514ae95e29d0a26f4418b6138476c"
   },
-  "exhaustivenessStatus": "E8_SOURCE_SATURATION_VALIDATED_NOT_FINAL"
+  "legacyOwnership": {
+    "wave": "E9",
+    "legacyPackage": "RAP-003",
+    "retiredCanonicalProblemId": "RAP-CP-013",
+    "legacyQuestionLanguages": 16,
+    "retiredToPrt": 15,
+    "delegatedToTimeAndWork": ["RAP-QL-812"],
+    "activeRapCanonicalProblems": 9,
+    "partnershipProductOwner": "PRT-001",
+    "automatedValidationRun": 33370753041,
+    "validationJob": 99421096301,
+    "runtimeHead": "d8ac563c60238c2c4463aaf37fc10bd882cae6dc"
+  },
+  "exhaustivenessStatus": "E9_LEGACY_OWNERSHIP_VALIDATED_NOT_FINAL"
 }
