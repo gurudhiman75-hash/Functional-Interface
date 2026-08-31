@@ -1,0 +1,72 @@
+name: Validate Notes Studio NS-017 Gap Source Recommendations
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/migrations/20260831_notes_studio_ns017_source_pack_freeze.sql
+      - artifacts/api-server/src/notes-studio/gap-source-recommendations.ts
+      - artifacts/api-server/src/notes-studio/gap-source-recommendations.test.ts
+      - artifacts/api-server/src/notes-studio/production-readiness.ts
+      - artifacts/api-server/src/notes-studio/production-readiness.test.ts
+      - artifacts/api-server/src/routes/admin-notes-studio-gap-source-recommendations.ts
+      - artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
+      - artifacts/admin-app/src/pages/content/NotesStudioGapSourceRecommendationsPage.tsx
+      - artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
+      - docs/notes-studio-ns017-gap-source-recommendations.md
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notes-studio-ns017-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-notes-studio-gap-source-recommendations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run NS-017 deterministic contracts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/gap-source-recommendations.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-gap-source-recommendations.test.mjs
+          node artifacts/api-server/dist/notes-studio-gap-source-recommendations.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/production-readiness.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-production-readiness.test.mjs
+          node artifacts/api-server/dist/notes-studio-production-readiness.test.mjs
+
+      - name: Verify recommendation and freeze boundaries
+        run: |
+          grep -F 'rawSourceBodiesReturned: false' artifacts/api-server/src/routes/admin-notes-studio-gap-source-recommendations.ts
+          grep -F 'automaticAttachment: false' artifacts/api-server/src/routes/admin-notes-studio-gap-source-recommendations.ts
+          grep -F 'automaticEvidenceAcceptance: false' artifacts/api-server/src/routes/admin-notes-studio-gap-source-recommendations.ts
+          grep -F 'automaticGeneration: false' artifacts/api-server/src/routes/admin-notes-studio-gap-source-recommendations.ts
+          if grep -F 'fetch(' artifacts/api-server/src/routes/admin-notes-studio-gap-source-recommendations.ts; then exit 1; fi
+          if grep -F 'INSERT INTO content.note_authoring_sources' artifacts/api-server/src/routes/admin-notes-studio-gap-source-recommendations.ts; then exit 1; fi
+          if grep -F 'INSERT INTO content.source_documents' artifacts/api-server/src/routes/admin-notes-studio-gap-source-recommendations.ts; then exit 1; fi
+          grep -F "target_state NOT IN ('brief', 'sources_ready')" artifacts/api-server/migrations/20260831_notes_studio_ns017_source_pack_freeze.sql
+          grep -F 'note_authoring_sources_pre_evidence_freeze' artifacts/api-server/migrations/20260831_notes_studio_ns017_source_pack_freeze.sql
+          grep -F 'adminNotesStudioGapSourceRecommendationsRouter' artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
+          grep -F 'Gap sources' artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
+          grep -F 'Evidence history, not source guessing' artifacts/admin-app/src/pages/content/NotesStudioGapSourceRecommendationsPage.tsx
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin app
+        run: pnpm --dir artifacts/admin-app typecheck

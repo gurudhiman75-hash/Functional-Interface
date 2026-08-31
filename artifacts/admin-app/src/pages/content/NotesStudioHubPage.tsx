@@ -4,6 +4,7 @@ import { NotesStudioCandidateClaimsPage } from './NotesStudioCandidateClaimsPage
 import { NotesStudioCoverageGapResearchPage } from './NotesStudioCoverageGapResearchPage';
 import { NotesStudioCoverageProposalPage } from './NotesStudioCoverageProposalPage';
 import { NotesStudioEvidenceCoveragePage } from './NotesStudioEvidenceCoveragePage';
+import { NotesStudioGapSourceRecommendationsPage } from './NotesStudioGapSourceRecommendationsPage';
 import { NotesStudioOperationsPage } from './NotesStudioOperationsPage';
 import { NotesStudioPlanningPage } from './NotesStudioPlanningPage';
 import { NotesStudioQualityGatesPage } from './NotesStudioQualityGatesPage';
@@ -28,6 +29,7 @@ export function NotesStudioHubPage() {
       <TabsTrigger value="candidate-claims">Candidate claims</TabsTrigger>
       <TabsTrigger value="coverage-proposals">Coverage proposals</TabsTrigger>
       <TabsTrigger value="coverage-gap-research">Coverage-gap research</TabsTrigger>
+      <TabsTrigger value="gap-sources">Gap sources</TabsTrigger>
       <TabsTrigger value="evidence">Evidence & coverage</TabsTrigger>
       <TabsTrigger value="sections">Section drafts</TabsTrigger>
       <TabsTrigger value="quality">Quality gates</TabsTrigger>
@@ -62,6 +64,9 @@ export function NotesStudioHubPage() {
     </TabsContent>
     <TabsContent value="coverage-gap-research" className="mt-0">
       <NotesStudioCoverageGapResearchPage />
+    </TabsContent>
+    <TabsContent value="gap-sources" className="mt-0">
+      <NotesStudioGapSourceRecommendationsPage />
     </TabsContent>
     <TabsContent value="evidence" className="mt-0">
       <NotesStudioEvidenceCoveragePage />

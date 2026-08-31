@@ -4,6 +4,7 @@ import { Router, type IRouter, type Response } from 'express';
 import { requireAdminPermission } from '../lib/admin-rbac';
 import { sqlClient } from '../lib/db';
 import { authenticate } from '../middlewares/auth';
+import { sourcePackEditableState } from '../notes-studio/gap-source-recommendations';
 import {
   MAX_SOURCE_RECOMMENDATIONS,
   isGenerationReadySource,
@@ -292,8 +293,12 @@ router.post('/jobs/:jobId/sources/:sourceId/reuse', requireAdminPermission('cont
     const source = sourceRows[0];
     if (!job) throw new SourceLibraryError('JOB_NOT_FOUND', 'Notes Studio authoring job not found.', 404);
     if (!source) throw new SourceLibraryError('SOURCE_NOT_FOUND', 'Governed source document not found.', 404);
-    if (['approved', 'materialized'].includes(String(job.state))) {
-      throw new SourceLibraryError('JOB_FROZEN', 'Approved/materialized jobs are immutable. Create a successor revision before changing its source pack.', 409);
+    if (!sourcePackEditableState(String(job.state))) {
+      throw new SourceLibraryError(
+        'SOURCE_PACK_FROZEN',
+        'The source pack freezes once evidence work begins. Create a successor revision before reusing another source.',
+        409,
+      );
     }
 
     const inserted = await sqlClient.begin(async (tx) => {
