@@ -1,5 +1,6 @@
 export const ON_DEMAND_YESTERDAY_STAGES = [
   "official_source_refresh",
+  "historical_official_source_backfill",
   "official_candidate_reclassification",
   "primary_fact_enrichment",
   "manual_authority_guard",
