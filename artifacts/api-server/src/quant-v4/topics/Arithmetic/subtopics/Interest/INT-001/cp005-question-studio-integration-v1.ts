@@ -5,6 +5,7 @@ import {
   createInterestFrozenQuestionStudioAdapter,
   type InterestQuestionStudioRequest,
 } from "./interest-question-studio-frozen-adapter-v1";
+import { retrofitInterestFrozenSourceExplanation } from "./interest-direct-calculation-explanation-policy-v1";
 
 export const INT_CP005_QUESTION_STUDIO_INTEGRATION_VERSION = "INT-CP-005-QS-v1" as const;
 export const INT_CP005_QUESTION_STUDIO_PACKAGE_ID = "INT-001" as const;
@@ -20,10 +21,14 @@ const adapter = createInterestFrozenQuestionStudioAdapter({
   name: "INT-001 Interest — Variable Growth and Decay",
   qlIds: INT_CP005_V16_1_QL_IDS,
   languages: INT_CP005_QUESTION_STUDIO_LANGUAGES,
-  generateSource: (qlId, seed, language) => generateIntCp005V16_1FrozenQuestion(
-    qlId as IntCp005QlId,
-    seed,
-    language === "en" ? "en-IN" : language === "hi" ? "hi-IN" : "pa-IN",
+  generateSource: (qlId, seed, language) => retrofitInterestFrozenSourceExplanation(
+    generateIntCp005V16_1FrozenQuestion(
+      qlId as IntCp005QlId,
+      seed,
+      language === "en" ? "en-IN" : language === "hi" ? "hi-IN" : "pa-IN",
+    ),
+    qlId,
+    language,
   ),
 });
 
