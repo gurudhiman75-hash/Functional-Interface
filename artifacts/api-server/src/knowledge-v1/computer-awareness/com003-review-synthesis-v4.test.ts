@@ -1,5 +1,6 @@
 import { strict as assert } from "node:assert";
 
+// Final English review-corpus gate before any freeze authority is considered.
 import { COM003_ENGLISH_REVIEW_CORPUS_V4, buildCom003EnglishReviewCorpusV4 } from "./com003-review-synthesis-v4";
 import { COM003_PERMANENT_QLS } from "./com003-permanent-ql-allocation";
 
