@@ -3,6 +3,7 @@ import { Router, type IRouter, type Response } from "express";
 
 import { loadDailyDiscoveryCensus } from "../current-affairs/daily-discovery-census";
 import { loadDailyMasterPack } from "../current-affairs/daily-master-pack";
+import { renderDailyMasterPackPdf } from "../current-affairs/daily-master-pack-pdf";
 import { generateYesterdayCurrentAffairsOnDemand } from "../current-affairs/on-demand-yesterday-runtime";
 import { previousIndiaDate } from "../current-affairs/orchestration-policy";
 import { loadCurrentAffairsProductionReadiness } from "../current-affairs/production-readiness-runtime";
@@ -63,9 +64,29 @@ router.get("/production/master-pack/text", requireAdminPermission("content.quest
     }
     res.setHeader("Content-Type", "text/markdown; charset=utf-8");
     res.setHeader("Content-Disposition", `attachment; filename="examtree-current-affairs-${targetDate}.md"`);
+    res.setHeader("Cache-Control", "private, no-store");
     res.send(String(masterPack.bodyMarkdown ?? ""));
   } catch (error) {
     sendError(res, error, "Unable to download Current Affairs master text");
+  }
+});
+
+router.get("/production/master-pack/pdf", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const targetDate = requestedDate(req.query.date);
+    const masterPack = await loadDailyMasterPack(targetDate);
+    if (!masterPack) {
+      res.status(404).json({ error: "Daily Current Affairs master pack has not been materialized yet.", code: "CURRENT_AFFAIRS_MASTER_PACK_NOT_FOUND" });
+      return;
+    }
+    const rendered = renderDailyMasterPackPdf(masterPack.payload);
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Length", String(rendered.buffer.length));
+    res.setHeader("Content-Disposition", `attachment; filename="examtree-current-affairs-${targetDate}.pdf"`);
+    res.setHeader("Cache-Control", "private, no-store");
+    res.send(rendered.buffer);
+  } catch (error) {
+    sendError(res, error, "Unable to render Current Affairs master PDF");
   }
 });
 
