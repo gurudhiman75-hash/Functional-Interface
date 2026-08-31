@@ -12,6 +12,7 @@ import {
   noteSourceRole,
   sourcePackTemplateOptions,
 } from '../notes-studio/source-pack-policy';
+import adminNotesStudioCandidateClaimsRouter from './admin-notes-studio-candidate-claims';
 
 const router: IRouter = Router();
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -124,6 +125,7 @@ async function assertPolicyEditable(jobId: string) {
 }
 
 router.use(authenticate);
+router.use(adminNotesStudioCandidateClaimsRouter);
 
 router.get('/source-policy/options', requireAdminPermission('content.questions.read'), (_req, res) => {
   res.json({ roles: NOTE_SOURCE_ROLES, templates: sourcePackTemplateOptions(), defaultTemplate: 'balanced' });
