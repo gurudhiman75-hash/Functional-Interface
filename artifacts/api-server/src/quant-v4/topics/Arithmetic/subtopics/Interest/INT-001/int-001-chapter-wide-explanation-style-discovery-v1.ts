@@ -39,7 +39,7 @@ import {
   generateIntCp010QuestionStudioBatch,
   listIntCp010QuestionStudioPackages,
 } from "./cp010-question-studio-integration-v1";
-import { generateInt001Wave04EnglishCandidate } from "./int-001-wave04-english-authority-v1";
+import { generateInt001Wave04DirectCalculationCandidate } from "./int-001-wave04-direct-calculation-presentation-v2";
 
 const SEEDS_PER_QL_LANGUAGE = 8;
 const EXPECTED_BASE_QL_COUNT = 130;
@@ -196,7 +196,7 @@ for (const surface of surfaces) {
 for (const qlId of NEW_QL_IDS) {
   for (let index = 0; index < SEEDS_PER_QL_LANGUAGE; index += 1) {
     const seed = `INT-001-EXPLANATION-DISCOVERY:WAVE04:${qlId}:en:${index}`;
-    await inspect("WAVE04", qlId, "en", seed, async () => Object.freeze({ question: generateInt001Wave04EnglishCandidate(qlId, seed) }));
+    await inspect("WAVE04", qlId, "en", seed, async () => Object.freeze({ question: generateInt001Wave04DirectCalculationCandidate(qlId, seed) }));
   }
 }
 
