@@ -32,6 +32,7 @@ import adminQuestionStudioRegistryRouter from "./admin-question-studio-registry"
 import adminQuestionBulkWorkflowRouter from "./admin-question-bulk-workflow";
 import adminQuestionLifecycleHardeningRouter from "./admin-question-lifecycle-hardening";
 import adminQuestionTaxonomyHardeningRouter from "./admin-question-taxonomy-hardening";
+import adminBtdTestProjectionMaterializationRouter from "./admin-btd-test-projection-materialization";
 import adminQuestionsRouter from "./admin-questions";
 import adminStudentDirectoryResilientRouter from "./admin-student-directory-resilient";
 import adminStudentDirectoryHardeningRouter from "./admin-student-directory-hardening";
@@ -134,6 +135,7 @@ router.use("/admin/question-studio", adminQuestionStudioRegistryRouter);
 router.use("/admin/questions", adminQuestionBulkWorkflowRouter);
 router.use("/admin/questions", adminQuestionLifecycleHardeningRouter);
 router.use("/admin/questions", adminQuestionTaxonomyHardeningRouter);
+router.use("/admin/questions", adminBtdTestProjectionMaterializationRouter);
 router.use("/admin/questions", adminQuestionsRouter);
 router.use("/admin/translations", adminTranslationHardeningRouter);
 router.use("/admin/translations", adminTranslationActionsRouter);
