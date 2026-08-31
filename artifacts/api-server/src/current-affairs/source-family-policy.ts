@@ -46,7 +46,7 @@ function endpointHealthy(endpoint: CurrentAffairsSourceHealthEndpoint) {
 export function evaluateCurrentAffairsSourceFamilyCoverage(
   endpoints: CurrentAffairsSourceHealthEndpoint[],
 ): CurrentAffairsSourceFamilyCoverage {
-  const coreEndpoints = endpoints.filter((endpoint) => endpoint.sourceTier === "core_official" && endpoint.scheduled);
+  const coreEndpoints = endpoints.filter((endpoint) => endpoint.sourceTier === "core_official");
   const byFamily = new Map<string, CurrentAffairsSourceHealthEndpoint[]>();
 
   for (const endpoint of coreEndpoints) {
