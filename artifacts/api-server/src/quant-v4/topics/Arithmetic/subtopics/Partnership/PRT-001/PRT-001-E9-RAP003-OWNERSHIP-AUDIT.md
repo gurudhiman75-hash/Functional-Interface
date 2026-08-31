@@ -31,7 +31,7 @@ No legacy Partnership QL remains a product-generation owner under RAP-003.
 
 `RAP-CP-013` is deliberately absent.
 
-Question Studio therefore continues to expose RAP-003 for its genuine advanced Ratio & Proportion applications while refusing explicit `RAP-CP-013` generation. PRT-001 remains independently discoverable with its seven Partnership CPs.
+Question Studio therefore continues to expose RAP-003 for its genuine advanced Ratio & Proportion applications while refusing explicit `RAP-CP-013` generation. Its current EN/HI/PA product surface is preserved. PRT-001 remains independently discoverable with its seven Partnership CPs.
 
 ## Historical runtime policy
 
@@ -58,8 +58,30 @@ Those assets remain useful for regression evidence and history. The ownership bo
 7. explicit `RAP-003 + RAP-CP-013` generation is rejected;
 8. PRT-001 remains discoverable and successfully generates validated Partnership questions.
 
+## Validation — PASS
+
+Validated runtime head: `d8ac563c60238c2c4463aaf37fc10bd882cae6dc`  
+GitHub Actions run: `33370753041`  
+Job: `99421096301`
+
+All five E9 gates passed:
+
+1. **RAP-003 legacy regression tests** — PASS. Retained CP013 historical math still works.
+2. **RAP-003 Question Studio smoke** — PASS. RAP exposes nine active non-Partnership CPs, preserves EN/HI/PA, and blocks `RAP-CP-013` product generation.
+3. **E9 ownership audit** — PASS. All 16 legacy QLs are dispositioned exactly once; 15 retire to PRT and QL812 delegates to Time & Work.
+4. **Full PRT seeded corpus** — PASS. **3,150** deterministic questions across 105 QLs / 99 solve modes / EN-HI-PA.
+5. **Full PRT freeze audit** — PASS. E8 source-realness, E7/E6 diversity, E1-E5 math, multilingual parity, option quality and Question Studio integration all remain green.
+
+E9 therefore closes the legacy ownership/de-duplication gate without deleting historical RAP assets or reducing RAP's unrelated product capability.
+
 ## Freeze impact
 
-Once the E9 ownership audit, RAP Question Studio smoke, RAP package regression tests and the full PRT-001 test/audit suite pass together, the legacy ownership/de-duplication gate can be considered closed.
+**Legacy ownership/de-duplication is CLOSED.**
 
-Remaining PRT-001 publication gates after E9 are human English editorial review, Hindi/Punjabi editorial parity, and the final release rerun after any editorial changes.
+Remaining PRT-001 publication gates are:
+
+1. human English editorial review of all 105 QLs, including the six non-blocking E7 similarity signals;
+2. Hindi/Punjabi human editorial parity against the frozen English surface;
+3. a final full release rerun after any editorial changes.
+
+Only after those gates pass should final chapter/publication freeze be restored.
