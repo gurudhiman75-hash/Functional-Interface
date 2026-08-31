@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 
 import {
+  ARG_CP005_DIFFICULTIES_BY_QL,
   ARG_CP005_QUESTION_STUDIO_REVIEW_PACKAGE,
   generateArg001QuestionStudioBatch,
   isArg001QuestionStudioRequest,
@@ -15,7 +16,10 @@ async function main() {
   assert.equal(pkg.permanentQlCount, 6);
   assert.deepEqual(pkg.permanentQlIds, ARG_QL_IDS);
   assert.deepEqual(pkg.supportedLanguages, ["en", "hi", "pa"]);
-  assert.deepEqual(pkg.supportedDifficulties, ["Easy", "Medium", "Hard"]);
+  assert.deepEqual(pkg.designTargetDifficulties, ["Easy", "Medium", "Hard"]);
+  assert.deepEqual(pkg.supportedDifficulties, ["Medium", "Hard"]);
+  assert.deepEqual(pkg.blockedDifficulties, ["Easy"]);
+  assert.equal(pkg.difficultyCoverageStatus, "CERTIFIED_MEDIUM_HARD_EASY_GAP");
   assert.equal(pkg.questionStudioVisible, true);
   assert.equal(pkg.questionStudioDiscoverable, true);
   assert.equal(pkg.questionStudioGenerationEnabled, true);
@@ -29,6 +33,11 @@ async function main() {
   assert.equal(pkg.automaticStudentPublication, false);
   assert.equal(pkg.learnerRelease, "LOCKED");
   assert.equal(listArg001QuestionStudioPackages()[0], pkg);
+
+  for (const qlId of ARG_QL_IDS.slice(0, 5)) {
+    assert.deepEqual(ARG_CP005_DIFFICULTIES_BY_QL[qlId], ["Medium", "Hard"], `${qlId}: unexpected authority difficulty coverage`);
+  }
+  assert.deepEqual(ARG_CP005_DIFFICULTIES_BY_QL["ARG-QL-006"], ["Hard"]);
 
   assert.equal(isArg001QuestionStudioRequest({ qlId: "ARG-QL-003" }), true);
   assert.equal(isArg001QuestionStudioRequest({ cpId: "ARG-CP-005" }), true);
@@ -82,7 +91,7 @@ async function main() {
     }
   }
 
-  for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
+  for (const difficulty of ["Medium", "Hard"] as const) {
     const batch = await generateArg001QuestionStudioBatch({
       language: "en",
       difficulty,
@@ -92,8 +101,21 @@ async function main() {
     assert.equal(batch.questions.length, 24);
     for (const question of batch.questions) {
       assert.equal(question.difficulty, difficulty, `${difficulty}: filter leaked ${question.difficulty}`);
+      assert.ok(
+        ARG_CP005_DIFFICULTIES_BY_QL[question.qlId].includes(difficulty),
+        `${difficulty}: scheduler selected ineligible ${question.qlId}`,
+      );
     }
   }
+
+  await assert.rejects(
+    generateArg001QuestionStudioBatch({ language: "en", difficulty: "Easy", count: 1 }),
+    /no certified Easy authorities/i,
+  );
+  await assert.rejects(
+    generateArg001QuestionStudioBatch({ language: "en", qlId: "ARG-QL-006", difficulty: "Medium", count: 1 }),
+    /ARG-QL-006 has no certified Medium authority/i,
+  );
 
   const trilingualSeeds = Array.from({ length: 18 }, (_, index) => index * 97 + 11);
   for (const qlId of ARG_QL_IDS) {
