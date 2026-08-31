@@ -58,13 +58,30 @@ function privateIpv4(host: string): boolean {
     || (a === 192 && b === 168);
 }
 
+function blockedHost(host: string): boolean {
+  const normalized = host.toLowerCase();
+  return !normalized
+    || normalized === 'localhost'
+    || normalized === '0.0.0.0'
+    || normalized === '::1'
+    || normalized === '169.254.169.254'
+    || normalized === 'metadata.google.internal'
+    || normalized.endsWith('.local')
+    || normalized.startsWith('fc') && normalized.includes(':')
+    || normalized.startsWith('fd') && normalized.includes(':')
+    || normalized.startsWith('fe8') && normalized.includes(':')
+    || normalized.startsWith('fe9') && normalized.includes(':')
+    || normalized.startsWith('fea') && normalized.includes(':')
+    || normalized.startsWith('feb') && normalized.includes(':')
+    || privateIpv4(normalized);
+}
+
 export function normalizeDiscoveredSourceUrl(value: unknown): string | null {
   if (typeof value !== 'string' || !value.trim()) return null;
   try {
     const url = new URL(value.trim());
-    if (!['http:', 'https:'].includes(url.protocol)) return null;
-    const host = url.hostname.toLowerCase();
-    if (!host || host === 'localhost' || host === '::1' || host.endsWith('.local') || privateIpv4(host)) return null;
+    if (url.protocol !== 'https:') return null;
+    if (blockedHost(url.hostname)) return null;
     url.hash = '';
     for (const key of [...url.searchParams.keys()]) {
       if (/^(utm_|gclid$|fbclid$)/i.test(key)) url.searchParams.delete(key);
