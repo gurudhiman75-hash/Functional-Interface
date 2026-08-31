@@ -225,7 +225,7 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
       promptVersion: NOTES_CLAIM_EXTRACTION_PROMPT_VERSION,
       inputFingerprint,
       outputFingerprint,
-      sourcePackTemplate: policy.key,
+      sourcePackTemplate: policy.templateKey,
       selectedBlockCount: input.blocks.length,
       generatedClaimCount: generated.extraction.claims.length,
       createdClaimCount: created,
