@@ -14,6 +14,7 @@ export const TRG_001_LOCALIZATION_NATIVE_REVIEW_FINAL6_VERSION =
   "TRG001_HI_PA_LOCALIZATION_NATIVE_REVIEW_FINAL6" as const;
 
 export const TRG_001_LOCALIZATION_FINAL6_REMEDIATED_IDS = [
+  "TRG-001-QL-069",
   "TRG-001-QL-093",
   "TRG-001-QL-098",
   "TRG-001-QL-100",
@@ -59,6 +60,15 @@ function correctedExplanation(question: AnyQuestion, locale: Locale) {
   const hi = locale === "hi-IN";
 
   switch (question.qlId) {
+    case "TRG-001-QL-069":
+      if (!hi) {
+        const corrected = "ਕੋਣ ਨੂੰ ਘਟਾ ਕੇ ਸਰਲ ਕਰੋ, cos ਦਾ ਸਹੀ ਚਿੰਨ੍ਹ ਲਗਾਓ ਅਤੇ ਫਿਰ ਪਰਸਪਰ ਲਓ।";
+        explanation.shortcut = corrected;
+        if (explanation.steps[0]) {
+          explanation.steps[0] = { ...explanation.steps[0], body: corrected };
+        }
+      }
+      break;
     case "TRG-001-QL-093":
       explanation.shortcut = hi
         ? "sin θ के अनुपात से cos θ ज्ञात करें, फिर माँगे गए व्यंजक में मान रखें।"
