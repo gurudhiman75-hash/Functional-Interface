@@ -123,7 +123,8 @@ export type PartnerRole = "ACTIVE" | "SLEEPING" | "UNSPECIFIED";
 export type AllocationBasis =
   | "FIXED_AMOUNT"
   | "PERCENT_OF_GROSS_PROFIT"
-  | "PERCENT_OF_POST_DEDUCTION_POOL";
+  | "PERCENT_OF_POST_DEDUCTION_POOL"
+  | "PERCENT_OF_PARTNER_CAPITAL";
 export type AllocationKind =
   | "SALARY"
   | "COMMISSION"
