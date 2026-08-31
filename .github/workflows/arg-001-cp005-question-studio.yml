@@ -1,0 +1,112 @@
+name: Validate ARG-001 CP005 Question Studio Review Integration
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp005-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp004-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/types.ts'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine.ts'
+      - '.github/workflows/arg-001-cp005-question-studio.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp005-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp005-question-studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for CP005 review adapter
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-saturation-types.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-saturation-helpers.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-ql001-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-ql002-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-ql003-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-ql004-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-ql005-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-ql006-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp004-localization-types.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp004-localization-helpers.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp004-ql001-localized.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp004-ql002-localized.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp004-ql003-localized.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp004-ql004-localized.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp004-ql005-localized.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp004-ql006-localized.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp004-localized-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp004-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp005-question-studio-integration.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp005-question-studio-proof.test.ts
+
+      - name: Prove review-only Question Studio adapter
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp005-question-studio-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp005-question-studio-proof.mjs
+          node dist/arg-001-cp005-question-studio-proof.mjs
+
+      - name: Preserve CP004 trilingual parity
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp004-localization-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp004-localization-proof.mjs
+          node dist/arg-001-cp004-localization-proof.mjs
+
+      - name: Preserve CP003 saturation and anti-gaming authority
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-saturation-proof.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build
+
+      - name: Lifecycle boundary
+        run: |
+          echo 'ARG-001 CP005 may expose certified CP004 content only inside Question Studio review.'
+          echo 'Manual approval remains required.'
+          echo 'Question Bank writes/test/mock/public/automatic learner publication remain locked.'
