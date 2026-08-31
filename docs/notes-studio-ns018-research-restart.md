@@ -109,4 +109,4 @@ NS-018 is part of the ordered Notes Studio migration manifest. Production schema
 - relation `content.note_research_restarts`;
 - trigger `note_research_restarts_immutable`.
 
-The existing fresh-PostgreSQL Notes Studio readiness workflow therefore exercises the cumulative migration chain including NS-018, while the dedicated NS-018 workflow checks restart-state rules, discard accounting, route safety boundaries, API build and admin typecheck.
+The existing NS-008 fresh-PostgreSQL production-readiness workflow is the cumulative validation authority for NS-018. It runs the restart-state deterministic contract, applies the ordered migration chain including NS-018, executes the seeded database lifecycle, then builds the API server and typechecks the admin app. Keeping NS-018 inside that cumulative authority avoids adding another overlapping automatic Notes Studio workflow and reduces CI fan-out.
