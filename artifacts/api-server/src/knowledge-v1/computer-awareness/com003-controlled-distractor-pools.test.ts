@@ -5,6 +5,7 @@ import {
   auditCom003ControlledDistractorPools,
 } from "./com003-controlled-distractor-pools";
 
+// One-off CI trigger for the governed distractor checkpoint.
 const audit = auditCom003ControlledDistractorPools();
 assert.equal(audit.valid, true, audit.issues.join("\n"));
 assert.equal(audit.poolCount, 23);
