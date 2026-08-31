@@ -19,6 +19,9 @@ import questionLanguageE4PaSource from "../question-language.e4.pa.json" assert 
 import questionLanguageE5Source from "../question-language.e5.en.json" assert { type: "json" };
 import questionLanguageE5HiSource from "../question-language.e5.hi.json" assert { type: "json" };
 import questionLanguageE5PaSource from "../question-language.e5.pa.json" assert { type: "json" };
+import stemVariantsE6Source from "../stem-variants.e6.en.json" assert { type: "json" };
+import stemVariantsE6HiSource from "../stem-variants.e6.hi.json" assert { type: "json" };
+import stemVariantsE6PaSource from "../stem-variants.e6.pa.json" assert { type: "json" };
 import taskRegistrySource from "../task-registry.library.json" assert { type: "json" };
 import taskRegistryE1Source from "../task-registry.e1.library.json" assert { type: "json" };
 import taskRegistryE2Source from "../task-registry.e2.library.json" assert { type: "json" };
@@ -32,6 +35,12 @@ interface QuestionLanguageSource {
   language: Prt001Language;
   status: string;
   entries: Record<string, string>;
+}
+
+interface StemVariantSource {
+  language: Prt001Language;
+  status: string;
+  entries: Record<string, string[]>;
 }
 
 interface TaskRegistrySource {
@@ -54,6 +63,12 @@ const questionLanguages = {
   en: mergeQuestionLanguages(questionLanguageSource as QuestionLanguageSource, questionLanguageE1Source as QuestionLanguageSource, questionLanguageE2Source as QuestionLanguageSource, questionLanguageE3ASource as QuestionLanguageSource, questionLanguageE3BSource as QuestionLanguageSource, questionLanguageE4Source as QuestionLanguageSource, questionLanguageE5Source as QuestionLanguageSource),
   hi: mergeQuestionLanguages(questionLanguageHiSource as QuestionLanguageSource, questionLanguageE1HiSource as QuestionLanguageSource, questionLanguageE2HiSource as QuestionLanguageSource, questionLanguageE3AHiSource as QuestionLanguageSource, questionLanguageE3BHiSource as QuestionLanguageSource, questionLanguageE4HiSource as QuestionLanguageSource, questionLanguageE5HiSource as QuestionLanguageSource),
   pa: mergeQuestionLanguages(questionLanguagePaSource as QuestionLanguageSource, questionLanguageE1PaSource as QuestionLanguageSource, questionLanguageE2PaSource as QuestionLanguageSource, questionLanguageE3APaSource as QuestionLanguageSource, questionLanguageE3BPaSource as QuestionLanguageSource, questionLanguageE4PaSource as QuestionLanguageSource, questionLanguageE5PaSource as QuestionLanguageSource),
+};
+
+const stemVariants = {
+  en: stemVariantsE6Source as StemVariantSource,
+  hi: stemVariantsE6HiSource as StemVariantSource,
+  pa: stemVariantsE6PaSource as StemVariantSource,
 };
 
 const registries = [
@@ -103,10 +118,25 @@ export function getPrt001TaskEntry(questionLanguageId: string): Prt001TaskRegist
   return entry;
 }
 
-export function getPrt001QuestionTemplate(questionLanguageId: string, language: Prt001Language = "en"): string {
-  const template = questionLanguages[language].entries[questionLanguageId];
-  if (!template) throw new Error(`missing ${language} PRT-001 QL: ${questionLanguageId}`);
-  return template;
+function hashStemSeed(value: string): number {
+  let hash = 2166136261;
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return hash >>> 0;
+}
+
+export function getPrt001QuestionTemplates(questionLanguageId: string, language: Prt001Language = "en"): string[] {
+  const baseTemplate = questionLanguages[language].entries[questionLanguageId];
+  if (!baseTemplate) throw new Error(`missing ${language} PRT-001 QL: ${questionLanguageId}`);
+  return [baseTemplate, ...(stemVariants[language].entries[questionLanguageId] ?? [])];
+}
+
+export function getPrt001QuestionTemplate(questionLanguageId: string, language: Prt001Language = "en", seed?: string): string {
+  const templates = getPrt001QuestionTemplates(questionLanguageId, language);
+  if (!seed || templates.length === 1) return templates[0]!;
+  return templates[hashStemSeed(`${seed}:${language}:${questionLanguageId}:stem`) % templates.length]!;
 }
 
 function sameStrings(left: readonly string[], right: readonly string[]): boolean {
@@ -120,17 +150,24 @@ export function validatePrt001PilotLibraries(): string[] {
   if (taskRegistry.chapterId !== "PRT-001") failures.push("task registry chapter mismatch");
   if (taskRegistry.ownership !== "HUMAN_OWNED") failures.push("task registry must be human-owned");
   const registryIds = Object.keys(taskRegistry.entries).sort();
+  const expectedE6VariantIds = Array.from({ length: 20 }, (_, index) => `PRT-QL-${String(index + 13).padStart(3, "0")}`).sort();
   for (const language of ["en", "hi", "pa"] as const) {
     const library = questionLanguages[language];
+    const variants = stemVariants[language];
     if (library.language !== language) failures.push(`${language} library language mismatch`);
+    if (variants.language !== language) failures.push(`${language} E6 stem-variant language mismatch`);
     const questionIds = Object.keys(library.entries).sort();
     if (!sameStrings(registryIds, questionIds)) failures.push(`task registry and ${language} QL IDs differ`);
+    if (!sameStrings(Object.keys(variants.entries).sort(), expectedE6VariantIds)) failures.push(`${language} E6 stem variants must cover exactly PRT-QL-013..032`);
     for (const questionLanguageId of registryIds) {
       const entry = taskRegistry.entries[questionLanguageId]!;
-      const template = library.entries[questionLanguageId];
-      if (!template) continue;
-      const placeholders = extractPrt001Placeholders(template);
-      if (!sameStrings(placeholders, entry.requiredVariables)) failures.push(`${language}:${questionLanguageId} required variables do not match its template`);
+      const templates = getPrt001QuestionTemplates(questionLanguageId, language);
+      if (new Set(templates).size !== templates.length) failures.push(`${language}:${questionLanguageId} has duplicate stem skeletons`);
+      if (expectedE6VariantIds.includes(questionLanguageId) && templates.length < 3) failures.push(`${language}:${questionLanguageId} needs at least three stem skeletons`);
+      for (const template of templates) {
+        const placeholders = extractPrt001Placeholders(template);
+        if (!sameStrings(placeholders, entry.requiredVariables)) failures.push(`${language}:${questionLanguageId} required variables do not match a stem template`);
+      }
     }
   }
   return failures;
