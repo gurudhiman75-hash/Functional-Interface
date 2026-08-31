@@ -20,13 +20,16 @@ test('Notes Studio migration manifest preserves the cumulative chain in order', 
     '20260830_notes_studio_source_pack_ns009_planning.sql',
     '20260830_notes_studio_source_pack_ns011_source_policy.sql',
     '20260831_notes_studio_ns017_source_pack_freeze.sql',
+    '20260831_notes_studio_ns018_research_restart.sql',
   ]);
   assert.equal(new Set(NOTES_STUDIO_MIGRATIONS).size, NOTES_STUDIO_MIGRATIONS.length);
   assert.equal(new Set(NOTES_STUDIO_REQUIRED_RELATIONS).size, NOTES_STUDIO_REQUIRED_RELATIONS.length);
   assert.equal(new Set(NOTES_STUDIO_REQUIRED_TRIGGERS).size, NOTES_STUDIO_REQUIRED_TRIGGERS.length);
   assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_planning_batches'), true);
   assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_planning_items'), true);
+  assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_research_restarts'), true);
   assert.equal(NOTES_STUDIO_REQUIRED_TRIGGERS.includes('note_authoring_sources_pre_evidence_freeze'), true);
+  assert.equal(NOTES_STUDIO_REQUIRED_TRIGGERS.includes('note_research_restarts_immutable'), true);
 });
 
 test('editor traffic is blocked when schema or model configuration is incomplete', () => {
