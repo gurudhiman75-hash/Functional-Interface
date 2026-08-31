@@ -159,7 +159,7 @@ test('NS-020 bulk coverage import is bounded, deterministic and pre-drafting onl
     { title: ' same ', syllabusRef: ' path ' },
   ]), /duplicate/i);
   assert.throws(() => normalizeCoveragePlanBulk([]), /between 1 and 50/i);
-  assert.throws(() => normalizeCoveragePlanBulk([{ title: 'X', priority: 'critical' }]), /invalid priority/i);
+  assert.throws(() => normalizeCoveragePlanBulk([{ title: 'Valid title', priority: 'critical' }]), /invalid priority/i);
 });
 
 test('editor traffic is blocked when schema or model configuration is incomplete', () => {
