@@ -154,7 +154,6 @@ export function runPrt001PilotPipeline(input: { questionLanguageId?: string; see
     explanation: { lines: explanationLines },
     parameters: parameters.renderVariables,
     reasoningGraph,
-    validation: undefined as never,
     maturity: "RUNTIME_PROOF",
     publiclyPublishable: false,
     traceability: {
@@ -178,10 +177,9 @@ export function runPrt001PilotPipeline(input: { questionLanguageId?: string; see
       expansionWave,
     },
   };
-  const { validation: _ignored, ...withoutValidation } = base;
-  const validation = validatePrt001QuestionPackage({ package: withoutValidation, parameters, solution, verification, taskAnswer, independentTaskAnswer });
+  const validation = validatePrt001QuestionPackage({ package: base, parameters, solution, verification, taskAnswer, independentTaskAnswer });
   if (!validation.valid) throw new Error(validation.checks.filter((check) => !check.passed).map((check) => `${check.name}: ${check.message}`).join("\n"));
-  return { ...withoutValidation, validation };
+  return { ...base, validation };
 }
 
 export function getPrt001ActiveCanonicalProblemIds(): readonly Prt001PilotCanonicalProblemId[] { return PRT_001_CP_IDS; }
