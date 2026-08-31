@@ -3,8 +3,8 @@
   "status": "HUMAN_AUTHORED_E8_SOURCE_BACKED_VARIANTS",
   "entries": {
     "PRT-QL-104": [
-      "From gross profit {totalProfit} in a {business}, {partnerA} first received {allowancePercentA}% and {partnerB} received {allowancePercentB}%. The balance was then divided according to their equal-period capitals {capitalA} and {capitalB}. Find {targetPartner}'s total receipt.",
-      "{partnerA} and {partnerB} invested {capitalA} and {capitalB} for the same duration in a {business}. Out of gross profit {totalProfit}, they were first allotted {allowancePercentA}% and {allowancePercentB}% respectively; the rest was shared by capital ratio. How much did {targetPartner} receive altogether?"
+      "{partnerA} and {partnerB} put {capitalA} and {capitalB} for equal periods into a {business}. Of the profit, {equalSplitPercent}% was divided equally and the other {capitalSplitPercent}% according to capital. Their final receipts differed by {shareDifference}. Determine the whole profit.",
+      "A {business} had equal-duration capitals {capitalA} and {capitalB} from {partnerA} and {partnerB}. They shared {equalSplitPercent}% of profit equally, then split the remaining {capitalSplitPercent}% by capital ratio. If one finally received {shareDifference} more than the other, what was the total profit?"
     ],
     "PRT-QL-105": [
       "Over {totalDuration} in a {business}, {partnerA} maintained {capitalA}. {partnerB} invested {initialCapitalB} initially and withdrew {withdrawnCapitalB} after {changeAfterB}, while {partnerC} maintained {capitalC}. If profit was {totalProfit}, calculate {targetPartner}'s share.",
