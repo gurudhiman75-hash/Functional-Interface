@@ -184,7 +184,10 @@ export function encodeGeneratedSpatialSvgImage(
 type SpatialVisualContent = {
   stimulus: string[];
   optionImages: string[] | null;
-  kind: "spatial_svg_data_image_v1" | "spatial_svg_stimulus_numeric_options_v1";
+  kind:
+    | "spatial_svg_data_image_v1"
+    | "spatial_svg_stimulus_numeric_options_v1"
+    | "spatial_svg_stimulus_scalar_options_v1";
 };
 
 function spatialVisualContent(payload: Record<string, unknown>): SpatialVisualContent | null {
@@ -233,7 +236,29 @@ function spatialVisualContent(payload: Record<string, unknown>): SpatialVisualCo
     };
   }
 
-  throw new Error("SPA-001 approval requires exactly four rendered SVG options");
+  if (rendererKind === "SVG_WITH_SCALAR_OPTIONS") {
+    if (stimulusSvgs.length !== 1) {
+      throw new Error("SPA-001 scalar-option approval requires exactly one rendered SVG stimulus");
+    }
+    const rawOptions = Array.isArray(payload.options) ? payload.options : [];
+    if (
+      rawOptions.length !== 4 ||
+      !rawOptions.every((entry) => typeof entry === "string" && entry.trim().length > 0 && entry.trim().length <= 200)
+    ) {
+      throw new Error("SPA-001 scalar-option approval requires exactly four bounded non-empty text options");
+    }
+    const scalarOptions = rawOptions.map((entry) => String(entry).trim());
+    if (new Set(scalarOptions).size !== 4) {
+      throw new Error("SPA-001 scalar-option approval requires four unique text options");
+    }
+    return {
+      stimulus,
+      optionImages: null,
+      kind: "spatial_svg_stimulus_scalar_options_v1",
+    };
+  }
+
+  throw new Error("SPA-001 approval requires exactly four rendered SVG options or an approved scalar-option renderer");
 }
 
 export function normalizeGeneratedQuestionPayload(
