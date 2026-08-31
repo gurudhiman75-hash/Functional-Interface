@@ -42,6 +42,13 @@ jobs:
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-wave04-english-authority-v1-audit.ts | tee int-001-wave04-english-authority-v1.log
           grep -q 'PASS_INT_001_WAVE04_ENGLISH_AUTHORITY_V1_AUDIT' int-001-wave04-english-authority-v1.log
 
+      - name: Run Wave04 English editorial-remediation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-wave04-english-editorial-remediation-v1-audit.ts | tee int-001-wave04-english-editorial-remediation-v1.log
+          grep -q 'PASS_INT_001_WAVE04_ENGLISH_EDITORIAL_REMEDIATION_V1_AUDIT' int-001-wave04-english-editorial-remediation-v1.log
+
       - name: Export English human-review pack
         shell: bash
         run: |
@@ -80,6 +87,7 @@ jobs:
           name: int-001-wave04-english-authority-v1
           path: |
             int-001-wave04-english-authority-v1.log
+            int-001-wave04-english-editorial-remediation-v1.log
             int-001-wave04-english-review-export.log
             int-001-wave04-wave03-regression.log
             int-001-wave04-wave02-regression.log
