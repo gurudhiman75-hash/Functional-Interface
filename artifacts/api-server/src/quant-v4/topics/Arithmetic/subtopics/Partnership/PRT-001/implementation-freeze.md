@@ -22,7 +22,7 @@
 
 ## Why E12 is not being erased
 
-E12 remains a valid validation result for the exact 99-mode / 105-QL surface and the permanent source/audit gates that existed at that time. The E13 audit did not find a correctness regression inside those 105 QLs. It found **new official/PYQ source families outside the original 102-candidate design universe and outside the E8 source set**.
+E12 remains a valid validation result for the exact 99-mode / 105-QL surface and the permanent source/audit gates that existed at that time. The E13 audit did not find a correctness regression inside those 105 QLs. It found **new official/PYQ source families outside the original 102-candidate design universe and outside the E8 source set**, plus two delegated boundaries where current neighbouring chapters do not actually provide the mixed target-exam contract.
 
 The correct lifecycle response is therefore to reopen technical exhaustiveness, not to rewrite history and call E12 a failed run.
 
@@ -81,22 +81,27 @@ That checkpoint is historical evidence for the pre-E13 surface, not evidence tha
 
 See `PRT-001-E13-POST-FREEZE-EXHAUSTIVENESS-AUDIT.md` for source provenance and the full disposition ledger.
 
-E13 found:
+E13 found **seven confirmed coverage gaps** plus one watchlist basis:
 
 ### Confirmed new authorities
 
-1. **Reduced sleeping-partner entitlement** — official SSC CGL questions where a sleeping partner receives only 1/2 or 3/4 of the normal capital-based entitlement. Current state has sleeping/active roles but no truthful partner-specific entitlement multiplier.
-2. **Prior-profit reinvestment into next-period capital** — official OSSC CGL question where a computed first-year profit share becomes second-year capital. Current timeline accepts stated capital histories but no active authority performs the endogenous prior-distribution -> next-period-capital transition.
+1. **Reduced sleeping-partner entitlement** — SSC CGL questions where a sleeping partner receives only 1/2 or 3/4 of the normal capital-based entitlement. Current state has sleeping/active roles but no truthful partner-specific entitlement multiplier.
+2. **Prior-profit reinvestment into next-period capital** — OSSC CGL question where a computed first-year profit share becomes second-year capital. Current timeline accepts stated capital histories but no active authority performs the endogenous prior-distribution -> next-period-capital transition.
 
 ### Confirmed exposure/generalisation gaps
 
-3. **Multiple gross-profit recipients before residual sharing** — official OSSSC 2026 paper gives X 20% and Y 10% of gross before residual capital-ratio distribution. The allocation engine can execute it, but no active authored QL seed-reaches the topology.
-4. **Residual fractions of total capital/time** — official UP Police 2024 and UPSC CSAT 2026 papers use fractions of total capital and duration, with the final partner taking residual capital. Solver math exists; authored parameter semantics do not.
+3. **Multiple gross-profit recipients before residual sharing** — OSSSC 2026 paper gives X 20% and Y 10% of gross before residual capital-ratio distribution. The allocation engine can execute it, but no active authored QL seed-reaches the topology.
+4. **Residual fractions of total capital/time** — UP Police 2024 and UPSC CSAT 2026 papers use fractions of total capital and duration, with the final partner taking residual capital. Solver math exists; authored parameter semantics do not.
 5. **Aggregate relational coefficient** — AFCAT 31 Jan 2026 gives `B=(3C-2A)/2`, hence `A+B=1.5C`. QL-096 only reaches the special exact-sum relation.
+
+### Confirmed ownership/product-routing gaps
+
+6. **Interest on partners' capital before residual profit sharing** — IBPS Clerk Mains 2021 memory-based Partnership asks for 8% p.a. on each capital, then residual profit by capital ratio. E8's Interest delegation does not currently produce this mixed contract, and PRT lacks a truthful `% of partner capital` allocation semantic.
+7. **Incoming partner acquires a stated profit share from old partners** — Punjab Police 10 Aug 2023 asks the new profit-sharing ratio after a new partner acquires 1/4 share from old partners in a stated ratio. This is arithmetic-only share reallocation, not full accounting reconstitution, and no current PRT/RAP surface generates it.
 
 ### Watchlist, not promoted
 
-6. **Commission after charging that same commission** is mathematically distinct and currently unsupported, but source evidence found in this sweep is accounting/commerce-oriented rather than target aptitude Partnership. Keep out of PRT-001 until target SSC/Banking/Punjab/comparable aptitude evidence justifies it.
+8. **Commission after charging that same commission** is mathematically distinct and currently unsupported, but source evidence found in this sweep is accounting/commerce-oriented rather than target aptitude Partnership. Keep out of PRT-001 until target SSC/Banking/Punjab/comparable aptitude evidence justifies it.
 
 ### Metadata debt fixed by E13
 
@@ -106,7 +111,7 @@ E13 found:
 
 External product/publication approval was received after the E12 checkpoint. That approval is now recorded as **satisfied**.
 
-E13 subsequently created a new technical blocker. Therefore publication remains disabled for a different reason: **the new source-backed exhaustiveness gaps must be closed and the expanded runtime must pass the complete release chain**.
+E13 subsequently created a new technical blocker. Therefore publication remains disabled for a different reason: **the new source-backed exhaustiveness and ownership-routing gaps must be closed and the expanded runtime must pass the complete release chain**.
 
 No further product-approval step should be treated as the immediate blocker unless the expanded product surface itself requires a new human approval after implementation. The current blocking condition is technical E13 closure.
 
@@ -124,9 +129,15 @@ No further product-approval step should be treated as the immediate blocker unle
 - residual total-capital / total-duration fraction topology;
 - rational aggregate-relational coefficient topology.
 
-Do not assign final permanent QL counts before executable merge/split review.
+### E13C — ownership resolution
 
-### E13C — production/editorial parity
+- resolve the Banking capital-interest + residual-profit contract so it is executable and visible in the Partnership product surface, with pure interest arithmetic still cleanly owned by Interest;
+- resolve arithmetic incoming-partner share acquisition without importing goodwill/revaluation/accounting mechanics;
+- add cross-chapter ownership regression gates so neither family can silently disappear again.
+
+Do not assign final permanent QL or solve-mode counts before executable merge/split review.
+
+### E13D — production/editorial parity
 
 For every accepted new QL:
 
@@ -137,7 +148,7 @@ For every accepted new QL:
 - misconception-aware distractors;
 - collision/near-duplicate audit against the existing 105 QLs.
 
-### E13D — full revalidation
+### E13E — full revalidation
 
 Before technical/publication freeze is restored:
 
@@ -146,9 +157,11 @@ Before technical/publication freeze is restored:
 3. independent-answer parity;
 4. E1-E13 mathematical/source/diversity/editorial gates;
 5. retained RAP regression + RAP multilingual Studio smoke + ownership audit;
-6. chapter-wide structural/near-duplicate audit;
-7. option-quality and Question Studio integration;
-8. final release/freeze rerun from a cleaned branch head.
+6. Interest/Partnership ownership regression for the mixed capital-interest contract;
+7. Ratio/Partnership ownership regression if incoming-partner share acquisition is cross-routed;
+8. chapter-wide structural/near-duplicate audit;
+9. option-quality and Question Studio integration;
+10. final release/freeze rerun from a cleaned branch head.
 
 ## Freeze invalidation rule
 
@@ -156,4 +169,4 @@ Any change to CP ownership, solve-mode contract, QL registry, generator/paramete
 
 ## Current conclusion
 
-**The existing 99-mode / 105-QL surface remains validated but is no longer considered exhaustive.** E13 reopens the chapter technical freeze until the two new authorities and three exposure/generalisation gaps are resolved and the complete expanded surface is revalidated.
+**The existing 99-mode / 105-QL surface remains validated but is no longer considered exhaustive.** E13 reopens the chapter technical freeze until the two definite new authorities, three exposure/generalisation gaps and two ownership/product-routing gaps are resolved and the complete expanded surface is revalidated.
