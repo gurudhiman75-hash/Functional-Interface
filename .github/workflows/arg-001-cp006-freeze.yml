@@ -1,0 +1,90 @@
+name: Validate ARG-001 CP006 Immutable Freeze
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/**'
+      - 'artifacts/api-server/src/question-studio/shared-generation-engine-arg.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments.ts'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp006-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp006-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Prove exact frozen Git blobs
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts
+
+      - name: Prove CP006 behavioral freeze contract
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-freeze-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp006-freeze-proof.mjs
+          node dist/arg-001-cp006-freeze-proof.mjs
+
+      - name: Preserve CP005 Question Studio certification
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp005-question-studio-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp005-question-studio-proof.mjs
+          node dist/arg-001-cp005-question-studio-proof.mjs
+
+      - name: Preserve CP004 exhaustive trilingual parity
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp004-localization-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp004-localization-proof.mjs
+          node dist/arg-001-cp004-localization-proof.mjs
+
+      - name: Preserve CP003 saturation and anti-gaming
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp003-saturation-proof.test.ts
+
+      - name: Preserve CP002 English editorial authority
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp002-english-proof.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build
+
+      - name: Freeze boundary
+        run: |
+          echo 'ARG-001 CP006 freezes the certified chapter/runtime authority.'
+          echo 'Question Studio remains review-only with manual approval.'
+          echo 'Question Bank/test/mock/public/automatic learner publication remain locked.'
+          echo 'Learner release requires a later explicit approval and is not granted by CP006.'
