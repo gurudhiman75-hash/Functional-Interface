@@ -7,6 +7,12 @@ on:
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/**
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/**
+      - artifacts/api-server/src/routes/admin-question-studio-time-speed-distance-cp010.ts
+      - artifacts/api-server/src/routes/admin-question-studio-time-speed-distance-cp011.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/question-studio/api.ts
+      - artifacts/admin-app/src/features/question-studio/useQuestionStudio.ts
+      - .github/workflows/tsd-cp010-discovery-review.yml
       - .github/workflows/tsd-cp011-discovery.yml
   pull_request:
     branches:
@@ -15,6 +21,12 @@ on:
     paths:
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/**
       - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/**
+      - artifacts/api-server/src/routes/admin-question-studio-time-speed-distance-cp010.ts
+      - artifacts/api-server/src/routes/admin-question-studio-time-speed-distance-cp011.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/question-studio/api.ts
+      - artifacts/admin-app/src/features/question-studio/useQuestionStudio.ts
+      - .github/workflows/tsd-cp010-discovery-review.yml
       - .github/workflows/tsd-cp011-discovery.yml
   workflow_dispatch:
 
@@ -28,7 +40,7 @@ concurrency:
 jobs:
   executable-discovery:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -53,6 +65,8 @@ jobs:
             --skipLibCheck \
             --types node \
             $(find src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011 -name '*.ts' -print)
+      - name: Prove CP010 registered review-only upstream integration
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-registration-proof.test.ts
       - name: Prove CP011 frozen source saturation and disposition
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/source-saturation-proof.test.ts
       - name: Prove CP011 representation saturation
@@ -71,8 +85,12 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/localization-freeze-proof.test.ts
       - name: Prove CP011 locked Question Studio review candidate
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/question-studio-candidate-proof.test.ts
-      - name: Prove CP011 frozen-content production preregistration lock
-        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/question-studio-preregistration-lock-proof.test.ts
+      - name: Prove CP011 registered review-only Question Studio integration
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/question-studio-registration-proof.test.ts
+      - name: Build API server with CP010 and CP011 registered routes
+        run: pnpm --filter @workspace/api-server build
+      - name: Typecheck admin Question Studio CP010/CP011 selector integration
+        run: pnpm --filter @workspace/examtree-admin typecheck
       - name: Prove CP011 multilingual questions-only review export
         run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/multilingual-review-export-proof.test.ts
       - name: Export CP011 multilingual questions-only review file
