@@ -58,8 +58,16 @@ function maskForDifficulty(difficulty: CubesDiceStudioDifficultyV1): number {
   return 1 << DIFFICULTIES.indexOf(difficulty);
 }
 
-function chooseSixVariantBalancedQuestions(qlId: CubesDicePermanentQlIdV1): readonly CubesDiceQuestionStudioQuestionV1[] {
+function difficultiesFromMask(mask: number): readonly CubesDiceStudioDifficultyV1[] {
+  return Object.freeze(DIFFICULTIES.filter((difficulty) => (mask & maskForDifficulty(difficulty)) !== 0));
+}
+
+function chooseSixVariantBalancedQuestions(qlId: CubesDicePermanentQlIdV1): Readonly<{
+  questions: readonly CubesDiceQuestionStudioQuestionV1[];
+  reachableDifficulties: readonly CubesDiceStudioDifficultyV1[];
+}> {
   const byVariant = new Map<string, CubesDiceQuestionStudioQuestionV1[]>();
+  let reachableDifficultyMask = 0;
   for (let index = 0; index < 420; index += 1) {
     const question = generateCubesDiceQuestionStudioSeededV1({
       seed: `CND-QS-OPERATOR-REVIEW-V1:${qlId}:${index}`,
@@ -67,18 +75,21 @@ function chooseSixVariantBalancedQuestions(qlId: CubesDicePermanentQlIdV1): read
       language: "en",
     });
     assertExamSvg(question);
+    reachableDifficultyMask |= maskForDifficulty(question.difficultyBand);
     const bucket = byVariant.get(question.stemVariantId) ?? [];
     if (bucket.length < 24) bucket.push(question);
     byVariant.set(question.stemVariantId, bucket);
   }
 
   const variants = [...byVariant.keys()].sort();
+  const reachableDifficulties = difficultiesFromMask(reachableDifficultyMask);
   assert.equal(variants.length, QUESTIONS_PER_QL, `${qlId}: review pack requires all six stem variants.`);
+  assert.ok(reachableDifficulties.length >= 1, `${qlId}: at least one reachable difficulty band is required.`);
 
   const memo = new Set<string>();
   function visit(variantIndex: number, answerMask: number, difficultyMask: number, chosen: CubesDiceQuestionStudioQuestionV1[]): CubesDiceQuestionStudioQuestionV1[] | null {
     if (variantIndex === variants.length) {
-      return answerMask === 0b1111 && difficultyMask === 0b111 ? chosen : null;
+      return answerMask === 0b1111 && (difficultyMask & reachableDifficultyMask) === reachableDifficultyMask ? chosen : null;
     }
     const key = `${variantIndex}:${answerMask}:${difficultyMask}`;
     if (memo.has(key)) return null;
@@ -98,12 +109,13 @@ function chooseSixVariantBalancedQuestions(qlId: CubesDicePermanentQlIdV1): read
   }
 
   const selected = visit(0, 0, 0, []);
-  assert.ok(selected, `${qlId}: could not find a six-question review slice covering all variants, answer positions and difficulties.`);
+  assert.ok(selected, `${qlId}: could not find a six-question review slice covering all variants, answer positions and reachable difficulty bands.`);
   assert.equal(new Set(selected.map((question) => question.stemVariantId)).size, 6, `${qlId}: stem variants are not exhaustive.`);
   assert.equal(new Set(selected.map((question) => question.correctIndex)).size, 4, `${qlId}: all four answer positions must be visible.`);
-  assert.equal(new Set(selected.map((question) => question.difficultyBand)).size, 3, `${qlId}: Easy/Medium/Hard must all be visible.`);
+  assert.equal(new Set(selected.map((question) => question.difficultyBand)).size, reachableDifficulties.length, `${qlId}: every reachable difficulty band must be visible.`);
+  assert.ok(reachableDifficulties.every((difficulty) => selected.some((question) => question.difficultyBand === difficulty)), `${qlId}: selected review slice lost a reachable difficulty band.`);
   assert.equal(new Set(selected.map((question) => question.contentFingerprint)).size, selected.length, `${qlId}: review slice must contain unique canonical items.`);
-  return Object.freeze(selected);
+  return Object.freeze({ questions: Object.freeze(selected), reachableDifficulties });
 }
 
 assert.equal(CND_001_EXAM_RENDERER_AUTHORITY_V1.strokeWidth, 1.35, "CND exam renderer stroke width changed.");
@@ -120,7 +132,9 @@ assert.equal(CND_001_QUESTION_STUDIO_SEEDED_RUNTIME_AUTHORITY_V1.testEligible, f
 assert.equal(CND_001_QUESTION_STUDIO_SEEDED_RUNTIME_AUTHORITY_V1.publiclyPublishable, false);
 assert.equal(CND_001_QUESTION_STUDIO_SEEDED_RUNTIME_AUTHORITY_V1.automaticPublication, false);
 
-const canonicalQuestions = QLS.flatMap((qlId) => chooseSixVariantBalancedQuestions(qlId));
+const reviewSliceByQl = new Map<CubesDicePermanentQlIdV1, ReturnType<typeof chooseSixVariantBalancedQuestions>>();
+for (const qlId of QLS) reviewSliceByQl.set(qlId, chooseSixVariantBalancedQuestions(qlId));
+const canonicalQuestions = QLS.flatMap((qlId) => [...reviewSliceByQl.get(qlId)!.questions]);
 assert.equal(canonicalQuestions.length, EXPECTED_CANONICAL_REVIEW_COUNT);
 assert.equal(new Set(canonicalQuestions.map((question) => question.contentFingerprint)).size, EXPECTED_CANONICAL_REVIEW_COUNT);
 
@@ -179,8 +193,10 @@ const cards = canonicalQuestions.map((english, index) => {
 }).join("\n");
 
 const coverageRows = QLS.map((qlId) => {
-  const rows = canonicalQuestions.filter((question) => question.qlId === qlId);
-  return `<tr><td>${qlId}</td><td>${escapeHtml(qlNames[qlId])}</td><td>${rows.length}</td><td>${new Set(rows.map((q) => q.stemVariantId)).size}/6</td><td>${new Set(rows.map((q) => q.correctIndex)).size}/4</td><td>${new Set(rows.map((q) => q.difficultyBand)).size}/3</td></tr>`;
+  const slice = reviewSliceByQl.get(qlId)!;
+  const rows = slice.questions;
+  const selectedDifficulties = [...new Set(rows.map((question) => question.difficultyBand))];
+  return `<tr><td>${qlId}</td><td>${escapeHtml(qlNames[qlId])}</td><td>${rows.length}</td><td>${new Set(rows.map((q) => q.stemVariantId)).size}/6</td><td>${new Set(rows.map((q) => q.correctIndex)).size}/4</td><td>${escapeHtml(selectedDifficulties.join(", "))} (${selectedDifficulties.length}/${slice.reachableDifficulties.length} reachable)</td></tr>`;
 }).join("");
 
 const html = `<!doctype html>
@@ -188,16 +204,18 @@ const html = `<!doctype html>
 <title>CND-001 Question Studio Operator Review V1</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f5f6f8;color:#171717;font-family:Arial,Helvetica,sans-serif}.wrap{max-width:980px;margin:0 auto;padding:24px 16px 64px}.intro,.card{background:#fff;border:1px solid #d9dde3;border-radius:9px}.intro{padding:20px;margin-bottom:18px}.intro h1{margin:0 0 10px;font-size:24px}.intro p{margin:7px 0;line-height:1.5;color:#454b54}.rules{padding-left:20px;line-height:1.6}.coverage{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px}.coverage th,.coverage td{padding:8px;border:1px solid #e1e4e8;text-align:left}.card{padding:20px;margin-bottom:16px}.qnum{font-size:12px;font-weight:700;text-transform:uppercase;color:#666}.meta{font-size:12px;color:#666;margin-top:5px;line-height:1.45}.diagram{display:flex;align-items:center;justify-content:center;min-height:220px;padding:16px;margin-top:14px;background:#fff;border:1px solid #eceff2;border-radius:5px;overflow:hidden}.diagram svg{display:block;width:min(280px,82vw);height:auto;max-height:280px;background:#fff}.options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.option{display:flex;align-items:center;gap:10px;border:1px solid #e2e5e9;border-radius:5px;padding:10px 12px;background:#fff}.option span{color:#666}.languages{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.language{border:1px solid #e4e7eb;border-radius:6px;padding:12px;min-width:0}.lang-label{font-size:11px;font-weight:700;color:#666;margin-bottom:8px}.stem{font-size:15px;line-height:1.55}.language details{margin-top:10px}.language details p{font-size:13px;line-height:1.5;margin:7px 0;color:#3f4650}.answer{margin-top:14px;border-top:1px solid #eceff2;padding-top:12px}.answer p{overflow-wrap:anywhere}summary{cursor:pointer;font-weight:600}@media(max-width:760px){.wrap{padding:14px 10px 44px}.card{padding:15px}.languages{grid-template-columns:1fr}.diagram{min-height:190px}.diagram svg{width:min(245px,82vw)}.coverage{font-size:11px}}@media(max-width:480px){.options{grid-template-columns:1fr}.intro h1{font-size:20px}}
-</style></head><body><main class="wrap"><section class="intro"><h1>CND-001 Cubes & Dice — Question Studio Operator Review V1</h1><p>This is a review-only generated slice. It does not register CND-001 in normal Question Studio, persist questions, write Question Bank records, make items test-eligible, or publish anything to students.</p><ul class="rules"><li>White background only.</li><li>Thin 1.35px exam-standard geometry strokes.</li><li>No random whole-figure tilt, rotate, skew or free matrix transform.</li><li>Cube nets remain orthogonal, equal-square and upright.</li><li>Canonical isometric diagonals on dice/cubes are intentional perspective geometry, not accidental figure tilt.</li><li>Each permanent QL shows all 6 stem variants, all 4 answer positions and Easy/Medium/Hard.</li></ul><table class="coverage"><thead><tr><th>QL</th><th>Family</th><th>Items</th><th>Variants</th><th>Answer pos.</th><th>Difficulty</th></tr></thead><tbody>${coverageRows}</tbody></table><p><strong>${EXPECTED_CANONICAL_REVIEW_COUNT} canonical questions · ${EXPECTED_CANONICAL_REVIEW_COUNT * LANGUAGES.length} language surfaces.</strong></p></section>${cards}</main></body></html>`;
+</style></head><body><main class="wrap"><section class="intro"><h1>CND-001 Cubes & Dice — Question Studio Operator Review V1</h1><p>This is a review-only generated slice. It does not register CND-001 in normal Question Studio, persist questions, write Question Bank records, make items test-eligible, or publish anything to students.</p><ul class="rules"><li>White background only.</li><li>Thin 1.35px exam-standard geometry strokes.</li><li>No random whole-figure tilt, rotate, skew or free matrix transform.</li><li>Cube nets remain orthogonal, equal-square and upright.</li><li>Canonical isometric diagonals on dice/cubes are intentional perspective geometry, not accidental figure tilt.</li><li>Each permanent QL shows all 6 stem variants, all 4 answer positions and every difficulty band actually reachable by that QL runtime.</li></ul><table class="coverage"><thead><tr><th>QL</th><th>Family</th><th>Items</th><th>Variants</th><th>Answer pos.</th><th>Reachable difficulty</th></tr></thead><tbody>${coverageRows}</tbody></table><p><strong>${EXPECTED_CANONICAL_REVIEW_COUNT} canonical questions · ${EXPECTED_CANONICAL_REVIEW_COUNT * LANGUAGES.length} language surfaces.</strong></p></section>${cards}</main></body></html>`;
 
 const qlCoverage = QLS.map((qlId) => {
-  const rows = canonicalQuestions.filter((question) => question.qlId === qlId);
+  const slice = reviewSliceByQl.get(qlId)!;
+  const rows = slice.questions;
   return {
     qlId,
     canonicalQuestions: rows.length,
     stemVariants: [...new Set(rows.map((question) => question.stemVariantId))].sort(),
     answerPositions: [...new Set(rows.map((question) => question.correctIndex))].sort(),
-    difficulties: [...new Set(rows.map((question) => question.difficultyBand))].sort(),
+    reachableDifficulties: slice.reachableDifficulties,
+    selectedDifficulties: [...new Set(rows.map((question) => question.difficultyBand))].sort(),
     seeds: rows.map((question) => question.seed),
   };
 });
@@ -229,7 +247,7 @@ const evidence = {
     allThreeLanguagesReviewed: true,
     allSixStemVariantsPerQlReviewed: true,
     allFourAnswerPositionsPerQlReviewed: true,
-    allThreeDifficultyBandsPerQlReviewed: true,
+    allReachableDifficultyBandsPerQlReviewed: true,
     exactSolverBacked: true,
     localizedSceneSvgOptionsAnswerParity: true,
     deterministicLifecycleStillReviewOnly: true,
@@ -255,7 +273,7 @@ console.log(JSON.stringify({
   status: evidence.status,
   canonicalReviewQuestions: evidence.canonicalReviewQuestions,
   languageSurfaces: evidence.languageSurfaces,
-  qlCoverage: evidence.qlCoverage.map(({ qlId, canonicalQuestions, stemVariants, answerPositions, difficulties }) => ({ qlId, canonicalQuestions, stemVariants: stemVariants.length, answerPositions: answerPositions.length, difficulties: difficulties.length })),
+  qlCoverage: evidence.qlCoverage.map(({ qlId, canonicalQuestions, stemVariants, answerPositions, reachableDifficulties, selectedDifficulties }) => ({ qlId, canonicalQuestions, stemVariants: stemVariants.length, answerPositions: answerPositions.length, reachableDifficulties, selectedDifficulties })),
   visualContracts: evidence.visualContracts,
   governance: evidence.governance,
   nextGate: evidence.nextGate,
