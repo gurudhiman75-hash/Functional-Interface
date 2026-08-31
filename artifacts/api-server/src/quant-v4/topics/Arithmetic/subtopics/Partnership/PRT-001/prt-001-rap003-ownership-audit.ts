@@ -1,7 +1,7 @@
 import { strict as assert } from "node:assert";
 import ownershipSource from "./rap003-ownership.e9.json" assert { type: "json" };
 import { generateQuestion, listQuantV4Packages } from "../../../../../generation-engine-core";
-import { getRap003ActiveCanonicalProblemIds } from "../RatioAndProportion/RAP-003";
+import { getRap003ActiveCanonicalProblemIds } from "../../RatioAndProportion/RAP-003";
 import { getPrt001QuestionLanguageIds } from "./foundation/library";
 
 interface OwnershipEntry {
