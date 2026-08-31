@@ -9,6 +9,7 @@ export const NOTES_STUDIO_MIGRATIONS = [
   '20260830_notes_studio_source_pack_ns009_planning.sql',
   '20260830_notes_studio_source_pack_ns011_source_policy.sql',
   '20260831_notes_studio_ns017_source_pack_freeze.sql',
+  '20260831_notes_studio_ns018_research_restart.sql',
 ] as const;
 
 export const NOTES_STUDIO_REQUIRED_RELATIONS = [
@@ -32,12 +33,14 @@ export const NOTES_STUDIO_REQUIRED_RELATIONS = [
   'content.note_publish_handoffs',
   'content.note_planning_batches',
   'content.note_planning_items',
+  'content.note_research_restarts',
 ] as const;
 
 export const NOTES_STUDIO_REQUIRED_TRIGGERS = [
   'note_source_pack_insert_delete_invalidation',
   'note_source_pack_inclusion_invalidation',
   'note_authoring_sources_pre_evidence_freeze',
+  'note_research_restarts_immutable',
   'note_sections_invalidate_quality_trg',
   'note_claims_invalidate_quality_trg',
   'note_claim_evidence_invalidate_quality_trg',

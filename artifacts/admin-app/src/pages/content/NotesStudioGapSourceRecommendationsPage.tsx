@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Eye, LibraryBig, Loader2, RefreshCw, ShieldCheck } from 'lucide-react';
+import { Eye, LibraryBig, Loader2, RefreshCw, RotateCcw, ShieldCheck } from 'lucide-react';
 
 import { PageHeader } from '@/components/shared/PageHeader';
 import { showToast } from '@/components/shared/toast';
@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { adminRequest } from '@/lib/admin-request';
 
 type AuthoringJob = {
@@ -77,6 +79,22 @@ type SourcePreview = {
   previewAvailable: boolean;
 };
 
+type ResearchRestartResponse = {
+  restart: {
+    restartId: string;
+    restartNumber: number;
+    fromState: string;
+    toState: string;
+    discardedTotal: number;
+    coveragePlanPreserved: boolean;
+    sourcePackPreserved: boolean;
+    recommendedSourceAttachedAutomatically: boolean;
+  };
+  nextAction: string;
+};
+
+const researchRestartStates = new Set(['evidence_ready', 'outline_ready', 'drafting', 'qa_required', 'review_ready']);
+
 function pretty(value: string) {
   return value.split('_').map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
 }
@@ -96,14 +114,18 @@ function sourceHost(value: string) {
 }
 
 export function NotesStudioGapSourceRecommendationsPage() {
+  const { hasPermission } = useAdminPermissions();
+  const canEdit = hasPermission('content.questions.update');
   const [jobs, setJobs] = useState<AuthoringJob[]>([]);
   const [selectedJobId, setSelectedJobId] = useState('');
   const [data, setData] = useState<GapResponse | null>(null);
   const [preview, setPreview] = useState<SourcePreview | null>(null);
+  const [restartReason, setRestartReason] = useState('');
   const [loading, setLoading] = useState(true);
   const [workingId, setWorkingId] = useState<string | null>(null);
 
   const selectedJob = useMemo(() => jobs.find((job) => job.id === selectedJobId) ?? null, [jobs, selectedJobId]);
+  const canResearchRestart = Boolean(data && researchRestartStates.has(data.job.state));
 
   const loadJobs = async () => {
     const result = await adminRequest<{ jobs: AuthoringJob[] }>('/admin/notes-studio/jobs');
@@ -135,6 +157,7 @@ export function NotesStudioGapSourceRecommendationsPage() {
   useEffect(() => { void load(); }, []);
   useEffect(() => {
     setPreview(null);
+    setRestartReason('');
     if (!selectedJobId) {
       setData(null);
       return;
@@ -149,7 +172,7 @@ export function NotesStudioGapSourceRecommendationsPage() {
   }, [selectedJobId]);
 
   const openPreview = async (source: Recommendation) => {
-    setWorkingId(source.id);
+    setWorkingId(`preview:${source.id}`);
     try {
       const result = await adminRequest<{ source: SourcePreview }>(`/admin/notes-studio/sources/${source.id}/preview`);
       setPreview(result.source);
@@ -159,6 +182,42 @@ export function NotesStudioGapSourceRecommendationsPage() {
       setWorkingId(null);
     }
   };
+
+  const restartResearch = async (gap: CoverageGap, source?: Recommendation) => {
+    if (!selectedJobId || !data) return;
+    if (restartReason.trim().length < 4) {
+      showToast.warning('Research restart reason required', 'Explain why the current evidence pass needs to return to source collection.');
+      return;
+    }
+    const actionKey = `restart:${gap.id}:${source?.id ?? 'none'}`;
+    setWorkingId(actionKey);
+    try {
+      const result = await adminRequest<ResearchRestartResponse>(`/admin/notes-studio/jobs/${selectedJobId}/research-restart`, {
+        method: 'POST',
+        body: JSON.stringify({
+          reason: restartReason,
+          coverageItemId: gap.id,
+          recommendedSourceId: source?.id ?? null,
+        }),
+      });
+      await Promise.all([loadJobs(), loadRecommendations(selectedJobId)]);
+      setRestartReason('');
+      showToast.success(
+        `Research restart ${result.restart.restartNumber} created`,
+        `${result.restart.discardedTotal} derived record(s) were discarded; coverage targets and the governed source pack were preserved. No source was attached automatically.`,
+      );
+    } catch (error) {
+      showToast.error('Unable to restart research', error instanceof Error ? error.message : 'Request failed.');
+    } finally {
+      setWorkingId(null);
+    }
+  };
+
+  const sourceMutationLabel = data?.sourcePackMutable
+    ? 'Pre-evidence: editable'
+    : canResearchRestart
+      ? 'Frozen: restart required'
+      : 'Frozen: successor required';
 
   return <div className="space-y-5">
     <PageHeader
@@ -195,11 +254,20 @@ export function NotesStudioGapSourceRecommendationsPage() {
     {data && <div className="grid gap-3 md:grid-cols-3">
       <Card><CardContent className="p-4"><div className="text-xs text-muted-foreground">Unresolved core gaps</div><div className="mt-1 text-2xl font-semibold">{data.gaps.length}</div></CardContent></Card>
       <Card><CardContent className="p-4"><div className="text-xs text-muted-foreground">Governed recommendations</div><div className="mt-1 text-2xl font-semibold">{data.recommendationCount}</div></CardContent></Card>
-      <Card><CardContent className="p-4"><div className="text-xs text-muted-foreground">Source-pack mutation</div><div className="mt-1 text-sm font-semibold">{data.sourcePackMutable ? 'Pre-evidence: editable' : 'Frozen: successor required'}</div></CardContent></Card>
+      <Card><CardContent className="p-4"><div className="text-xs text-muted-foreground">Source-pack mutation</div><div className="mt-1 text-sm font-semibold">{sourceMutationLabel}</div></CardContent></Card>
     </div>}
 
     {data && !data.sourcePackMutable && <Card className="border-amber-200">
-      <CardContent className="p-4 text-sm"><strong>Research handoff:</strong> {data.progressedJobAction}</CardContent>
+      <CardContent className="space-y-3 p-4 text-sm">
+        <div><strong>Research handoff:</strong> {canResearchRestart
+          ? 'This unapproved job can be explicitly restarted to source collection. The coverage plan and current source pack stay; derived evidence, claim mappings, sections and QA are discarded and must be rebuilt.'
+          : data.progressedJobAction}</div>
+        {canResearchRestart && canEdit && <div className="space-y-1.5">
+          <Label>Restart reason</Label>
+          <Textarea value={restartReason} onChange={(event) => setRestartReason(event.target.value)} placeholder="Example: The river-system gap still lacks an official basin source; return to source collection before further drafting." />
+          <p className="text-xs text-muted-foreground">The chosen source below is recorded only as research intent. You must attach it explicitly after restart.</p>
+        </div>}
+      </CardContent>
     </Card>}
 
     {data && data.gaps.length === 0 && <Card><CardContent className="p-6 text-sm text-muted-foreground">No unresolved required/high coverage items remain for this job.</CardContent></Card>}
@@ -214,7 +282,12 @@ export function NotesStudioGapSourceRecommendationsPage() {
           {gap.examRationale && <p className="text-sm text-muted-foreground">{gap.examRationale}</p>}
         </CardHeader>
         <CardContent className="space-y-3">
-          {gap.recommendations.length === 0 && <div className="rounded-lg border border-dashed p-4 text-sm text-muted-foreground">No governed source has enough prior accepted-evidence signal for this gap. Use the Coverage-gap research brief to find a new governed source rather than weakening the recommendation threshold.</div>}
+          {gap.recommendations.length === 0 && <div className="space-y-3 rounded-lg border border-dashed p-4 text-sm text-muted-foreground">
+            <p>No governed source has enough prior accepted-evidence signal for this gap. Use the Coverage-gap research brief to find a new governed source rather than weakening the recommendation threshold.</p>
+            {canResearchRestart && canEdit && <Button size="sm" variant="outline" onClick={() => void restartResearch(gap)} disabled={workingId !== null}>
+              {workingId === `restart:${gap.id}:none` ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <RotateCcw className="mr-1.5 h-3.5 w-3.5" />}Restart research for this gap
+            </Button>}
+          </div>}
           {gap.recommendations.map((source) => <div key={source.id} className="rounded-lg border p-3">
             <div className="flex flex-wrap items-start justify-between gap-2">
               <div className="min-w-0"><div className="font-medium">{source.title}</div><div className="mt-0.5 text-xs text-muted-foreground">{source.publisher || sourceHost(source.sourceUri)} · {pretty(source.recommendedRole)}</div></div>
@@ -225,9 +298,12 @@ export function NotesStudioGapSourceRecommendationsPage() {
               {source.acceptedClaimCount} accepted claim(s) · {source.priorJobCount} prior job(s) · {source.approvedUseCount} approved use(s) · similarity {Math.round(source.coverageSimilarity * 100)}%
             </div>
             <div className="mt-3 flex flex-wrap gap-2">
-              <Button size="sm" variant="outline" onClick={() => void openPreview(source)} disabled={workingId === source.id}>
-                {workingId === source.id ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <Eye className="mr-1.5 h-3.5 w-3.5" />}Preview governed source
+              <Button size="sm" variant="outline" onClick={() => void openPreview(source)} disabled={workingId !== null}>
+                {workingId === `preview:${source.id}` ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <Eye className="mr-1.5 h-3.5 w-3.5" />}Preview governed source
               </Button>
+              {canResearchRestart && canEdit && <Button size="sm" onClick={() => void restartResearch(gap, source)} disabled={workingId !== null}>
+                {workingId === `restart:${gap.id}:${source.id}` ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <RotateCcw className="mr-1.5 h-3.5 w-3.5" />}Restart with source intent
+              </Button>}
               <Badge variant="outline">{pretty(source.rightsBasis)}</Badge>
             </div>
           </div>)}

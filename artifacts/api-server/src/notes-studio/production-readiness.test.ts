@@ -7,6 +7,12 @@ import {
   NOTES_STUDIO_REQUIRED_TRIGGERS,
   assessNotesStudioProductionReadiness,
 } from './production-readiness';
+import {
+  normalizeResearchRestartReason,
+  researchRestartAllowed,
+  researchRestartDiscardTotal,
+  researchRestartTargetState,
+} from './research-restart';
 
 test('Notes Studio migration manifest preserves the cumulative chain in order', () => {
   assert.deepEqual([...NOTES_STUDIO_MIGRATIONS], [
@@ -20,13 +26,38 @@ test('Notes Studio migration manifest preserves the cumulative chain in order', 
     '20260830_notes_studio_source_pack_ns009_planning.sql',
     '20260830_notes_studio_source_pack_ns011_source_policy.sql',
     '20260831_notes_studio_ns017_source_pack_freeze.sql',
+    '20260831_notes_studio_ns018_research_restart.sql',
   ]);
   assert.equal(new Set(NOTES_STUDIO_MIGRATIONS).size, NOTES_STUDIO_MIGRATIONS.length);
   assert.equal(new Set(NOTES_STUDIO_REQUIRED_RELATIONS).size, NOTES_STUDIO_REQUIRED_RELATIONS.length);
   assert.equal(new Set(NOTES_STUDIO_REQUIRED_TRIGGERS).size, NOTES_STUDIO_REQUIRED_TRIGGERS.length);
   assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_planning_batches'), true);
   assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_planning_items'), true);
+  assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_research_restarts'), true);
   assert.equal(NOTES_STUDIO_REQUIRED_TRIGGERS.includes('note_authoring_sources_pre_evidence_freeze'), true);
+  assert.equal(NOTES_STUDIO_REQUIRED_TRIGGERS.includes('note_research_restarts_immutable'), true);
+});
+
+test('NS-018 research restart remains bounded to progressed pre-approval work', () => {
+  for (const state of ['evidence_ready', 'outline_ready', 'drafting', 'qa_required', 'review_ready']) {
+    assert.equal(researchRestartAllowed(state), true, state);
+  }
+  for (const state of ['brief', 'sources_ready', 'approved', 'materialized']) {
+    assert.equal(researchRestartAllowed(state), false, state);
+  }
+  assert.equal(researchRestartTargetState(0), 'brief');
+  assert.equal(researchRestartTargetState(1), 'sources_ready');
+  assert.equal(researchRestartTargetState(4), 'sources_ready');
+  assert.equal(normalizeResearchRestartReason('  add a newly reviewed source  '), 'add a newly reviewed source');
+  assert.equal(normalizeResearchRestartReason('x'.repeat(1200)).length, 1000);
+  assert.equal(researchRestartDiscardTotal({
+    evidenceBlocks: 3,
+    claims: 4,
+    coverageMappings: 2,
+    sections: 5,
+    qualityRuns: 1,
+    generationEvents: 2,
+  }), 17);
 });
 
 test('editor traffic is blocked when schema or model configuration is incomplete', () => {
