@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { INT_CP009_PERMANENT_ALLOCATION, INT_CP009_PERMANENT_QL_IDS, type IntCp009PermanentQlId } from "./cp009-permanent-allocation-v1";
 import { generateIntCp009Frozen, INT_CP009_RELEASE_ID } from "./cp009-final-freeze-v1";
 import type { IntCp009Language } from "./cp009-localization-v1";
+import { retrofitInterestDirectCalculationLines } from "./interest-direct-calculation-explanation-policy-v1";
 
 export const INT_CP009_QUESTION_STUDIO_PACKAGE_ID = "INT-001" as const;
 export const INT_CP009_QUESTION_STUDIO_CP_ID = "INT-CP-009" as const;
@@ -76,7 +77,13 @@ function normalizePackage(pkg: any, language: IntCp009Language, requestSeed: str
   const identity = createHash("sha256")
     .update(JSON.stringify({ qlId: pkg.permanentQlId, language, requestSeed, freeze: pkg.freezeFingerprint }))
     .digest("hex").slice(0, 20);
-  const explanationLines = [pkg.explanation.keyIdea, ...pkg.explanation.steps, pkg.explanation.finalAnswer];
+  const rawExplanationLines = [pkg.explanation.keyIdea, ...pkg.explanation.steps, pkg.explanation.finalAnswer];
+  const explanationLines = retrofitInterestDirectCalculationLines({
+    qlId: pkg.permanentQlId,
+    language,
+    lines: rawExplanationLines,
+    answer,
+  });
   return Object.freeze({
     packageId: INT_CP009_QUESTION_STUDIO_PACKAGE_ID,
     canonicalProblemId: INT_CP009_QUESTION_STUDIO_CP_ID,
@@ -94,7 +101,8 @@ function normalizePackage(pkg: any, language: IntCp009Language, requestSeed: str
     difficultyBand: pkg.difficultyBand,
     language,
     locale: language === "en" ? "en-IN" : language === "hi" ? "hi-IN" : "pa-IN",
-    explanation: Object.freeze({ lines: Object.freeze(explanationLines) }),
+    explanation: Object.freeze({ lines: explanationLines }),
+    explanationPresentationPolicy: "INT-001-DIRECT-CALCULATION-EXPLANATION-POLICY-v1" as const,
     runtimeMode: "QUESTION_STUDIO_ACTIVE" as const,
     reviewStatus: "FROZEN_MULTILINGUAL_CONTENT_AUTHORITY" as const,
     questionStudioDiscoverable: true as const,
@@ -182,6 +190,7 @@ function preview(pkg: ReturnType<typeof normalizePackage>, index: number, count:
     mathematicalFingerprint: pkg.mathematicalFingerprint,
     questionIndex: index + 1,
     questionCount: count,
+    explanationPresentationPolicy: pkg.explanationPresentationPolicy,
   });
 }
 
