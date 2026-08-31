@@ -108,7 +108,7 @@ function allocationAmount(
       basis = fullHorizonPartnerCapital(state, allocation.recipientPartnerId);
       break;
     default:
-      throw new Error(`unsupported allocation basis: ${allocation.basis satisfies never}`);
+      throw new Error("unsupported allocation basis");
   }
   return multiplyRational(basis, divideRational(allocation.value, HUNDRED));
 }
