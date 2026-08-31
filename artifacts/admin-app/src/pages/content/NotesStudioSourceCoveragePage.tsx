@@ -25,12 +25,15 @@ type Finding = {
 type Assessment = {
   status: 'ready' | 'usable_with_warnings' | 'needs_sources';
   depth: string;
-  targets: { included: number; generationReady: number };
+  targets: { included: number; evidenceReady: number; generationReady: number };
   counts: {
     totalAttached: number;
     included: number;
+    evidenceReady: number;
     generationReady: number;
+    referenceEvidenceReady: number;
     referenceOnly: number;
+    referenceOnlyWithoutEvidence: number;
     failedExtraction: number;
     independentPublishersOrDomains: number;
     sourceTypes: number;
@@ -51,7 +54,9 @@ type CoverageResponse = {
 
 const needLabels: Record<string, string> = {
   more_governed_sources: 'Add another governed source',
-  generation_ready_source: 'Add a generation-ready source',
+  evidence_ready_source: 'Add another evidence-ready source',
+  review_reference_only_source: 'Review a reference-only source in Reference Evidence',
+  generation_ready_source: 'Add a retained-text evidence source',
   independent_publisher_or_domain: 'Add an independent publisher/domain',
   alternate_source_type_if_appropriate: 'Add a second source type when useful',
   rights_permitting_extraction: 'Add a source whose rights permit retained extraction',
@@ -107,7 +112,7 @@ export function NotesStudioSourceCoveragePage() {
   return <div className="space-y-5">
     <PageHeader
       title="Source coverage"
-      description="Depth-aware source-pack intelligence before evidence authoring: retained-evidence sufficiency, publisher diversity, extraction problems and concrete source gaps."
+      description="Depth-aware source-pack intelligence before claim authoring: governed-evidence sufficiency, publisher diversity, extraction problems and concrete source gaps."
       icon={<ShieldCheck className="h-5 w-5" />}
       actions={<Button variant="outline" onClick={() => selectedJobId ? void loadCoverage(selectedJobId) : void loadJobs()} disabled={loading}>
         <RefreshCw className={`mr-1.5 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh
@@ -139,11 +144,12 @@ export function NotesStudioSourceCoveragePage() {
         <CardContent className="space-y-3">
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-lg border p-3"><div className="text-xs uppercase tracking-wide text-muted-foreground">Included</div><div className="mt-1 text-xl font-semibold">{coverage.assessment.counts.included} / {coverage.assessment.targets.included}</div></div>
-            <div className="rounded-lg border p-3"><div className="text-xs uppercase tracking-wide text-muted-foreground">Generation-ready</div><div className="mt-1 text-xl font-semibold">{coverage.assessment.counts.generationReady} / {coverage.assessment.targets.generationReady}</div></div>
+            <div className="rounded-lg border p-3"><div className="text-xs uppercase tracking-wide text-muted-foreground">Evidence-ready</div><div className="mt-1 text-xl font-semibold">{coverage.assessment.counts.evidenceReady} / {coverage.assessment.targets.evidenceReady}</div></div>
             <div className="rounded-lg border p-3"><div className="text-xs uppercase tracking-wide text-muted-foreground">Publishers/domains</div><div className="mt-1 text-xl font-semibold">{coverage.assessment.counts.independentPublishersOrDomains}</div></div>
             <div className="rounded-lg border p-3"><div className="text-xs uppercase tracking-wide text-muted-foreground">Source types</div><div className="mt-1 text-xl font-semibold">{coverage.assessment.counts.sourceTypes}</div></div>
           </div>
-          <div className="text-sm text-muted-foreground">This NS-012 checkpoint is advisory. It does not silently block evidence extraction and never discovers or attaches sources automatically.</div>
+          <div className="text-sm text-muted-foreground">Evidence-ready means either authorized retained extracted text or reviewed editor reference evidence. The two paths remain separately counted below so source-rights status stays visible.</div>
+          <div className="text-sm text-muted-foreground">This diagnostics checkpoint is advisory. It does not silently block evidence work and never discovers or attaches sources automatically.</div>
         </CardContent>
       </Card>
 
@@ -164,7 +170,9 @@ export function NotesStudioSourceCoveragePage() {
           <CardContent className="space-y-2">
             {coverage.assessment.recommendedNeeds.length === 0 && <div className="text-sm text-muted-foreground">No additional source class is currently recommended.</div>}
             {coverage.assessment.recommendedNeeds.map((need) => <div key={need} className="rounded-lg border p-3 text-sm">{needLabels[need] ?? readable(need)}</div>)}
-            <div className="pt-2 text-xs text-muted-foreground">Reference-only: {coverage.assessment.counts.referenceOnly} · Extraction failures: {coverage.assessment.counts.failedExtraction} · Raw source bodies returned here: no.</div>
+            <div className="pt-2 text-xs text-muted-foreground">
+              Retained-text ready: {coverage.assessment.counts.generationReady} · Reference-evidence ready: {coverage.assessment.counts.referenceEvidenceReady} · Reference-only: {coverage.assessment.counts.referenceOnly} · Reference-only awaiting review: {coverage.assessment.counts.referenceOnlyWithoutEvidence} · Extraction failures: {coverage.assessment.counts.failedExtraction} · Raw source bodies returned here: no.
+            </div>
           </CardContent>
         </Card>
       </div>

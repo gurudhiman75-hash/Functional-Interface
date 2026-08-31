@@ -57,10 +57,20 @@ router.get('/jobs/:id/source-coverage', requireAdminPermission('content.question
         document.retention_mode AS "retentionMode",
         document.extraction_status AS "extractionStatus",
         LENGTH(COALESCE(document.extracted_text, ''))::int AS "retainedCharCount",
-        link.inclusion_state AS "inclusionState"
+        link.inclusion_state AS "inclusionState",
+        COUNT(block.id) FILTER (WHERE block.evidence_kind = 'editor_reference_note')::int AS "referenceEvidenceCount"
       FROM content.note_authoring_sources link
       JOIN content.source_documents document ON document.id = link.source_document_id
+      LEFT JOIN content.note_source_evidence_blocks block
+        ON block.job_id = link.job_id AND block.source_document_id = link.source_document_id
       WHERE link.job_id = ${jobId}::uuid
+      GROUP BY
+        document.id,
+        link.job_id,
+        link.source_document_id,
+        link.inclusion_state,
+        link.position,
+        link.added_at
       ORDER BY link.position, link.added_at
     `;
 
@@ -78,6 +88,7 @@ router.get('/jobs/:id/source-coverage', requireAdminPermission('content.question
       extractionStatus: String(row.extractionStatus ?? ''),
       retainedCharCount: Number(row.retainedCharCount ?? 0),
       inclusionState: String(row.inclusionState ?? ''),
+      referenceEvidenceCount: Number(row.referenceEvidenceCount ?? 0),
     })));
 
     res.json({
