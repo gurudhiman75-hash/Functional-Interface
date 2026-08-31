@@ -11,6 +11,8 @@ This audit is intentionally downstream of `ARG_CP008_REAL_PAPER_CLOSURE_V1`. It 
 
 The chapter remains Question Studio review-only. Learner release must remain locked until a separately versioned remediation authority is reviewed, tested and frozen.
 
+A separate CP007-specific audit is recorded in `POST-CP008-CP007-REAL-PAPER-AUDIT.md`; it confirms that the real-paper layer also has independently composed slot pairs that require remediation.
+
 ## Scope
 
 Reviewed all 48 CP003 source templates across the six permanent QLs for:
@@ -43,7 +45,7 @@ Example: `If temporarily disable transactions is too easy to trigger ...`
 
 **Impact:** 256 / 256 variants.
 
-**Fix:** use a noun/action construction such as `If the {c} control is too easy to trigger` with noun-compatible slots, or rewrite the sentence around `If customers can trigger this action too easily ...`.
+**Fix:** use a noun/action construction such as `If the transaction-control action is too easy to trigger ...` or rewrite the sentence around `If customers can trigger this action too easily ...`.
 
 ### B03 — `ARG-CP003-QL001-T07` — singular quantifier with plural benchmark slot
 
