@@ -41,7 +41,9 @@
     "sourceBackedQuestionLanguageIds": ["PRT-QL-104", "PRT-QL-105"],
     "newSolveModes": 0,
     "minimumConfiguredDurationMonths": 36,
-    "requiredDelegatedBoundaries": ["interest-on-capital", "accounting-reconstitution"]
+    "requiredDelegatedBoundaries": ["interest-on-capital", "accounting-reconstitution"],
+    "automatedValidationRun": 33366682849,
+    "runtimeHead": "1538eadf0bf514ae95e29d0a26f4418b6138476c"
   },
-  "exhaustivenessStatus": "E8_SOURCE_SATURATION_RUNTIME_CANDIDATE_NOT_FINAL"
+  "exhaustivenessStatus": "E8_SOURCE_SATURATION_VALIDATED_NOT_FINAL"
 }
