@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 
+import { ARG_CP003_TEMPLATES_BY_QL } from "./cp003-templates.ts";
 import {
   ARG_CP005_DIFFICULTIES_BY_QL,
   ARG_CP005_QUESTION_STUDIO_REVIEW_PACKAGE,
@@ -36,10 +37,27 @@ async function main() {
   assert.equal(pkg.learnerRelease, "LOCKED");
   assert.equal(listArg001QuestionStudioPackages()[0], pkg);
 
+  const sourceDifficultyCounts = { EASY: 0, MEDIUM: 0, HARD: 0 };
   for (const qlId of ARG_QL_IDS) {
+    const templates = ARG_CP003_TEMPLATES_BY_QL[qlId];
+    assert.equal(templates.length, 8, `${qlId}: expected exactly eight certified source templates`);
+    for (const template of templates) {
+      sourceDifficultyCounts[template.difficulty] += 1;
+    }
+
     const coverage = [...ARG_CP005_DIFFICULTIES_BY_QL[qlId]].sort();
     assert.deepEqual(coverage, EXPECTED_DIFFICULTIES, `${qlId}: incomplete authority difficulty coverage`);
   }
+  assert.deepEqual(
+    sourceDifficultyCounts,
+    { EASY: 13, MEDIUM: 15, HARD: 20 },
+    "ARG-001 source difficulty distribution drifted from the CP005-certified 13/15/20 calibration",
+  );
+  assert.equal(
+    sourceDifficultyCounts.EASY + sourceDifficultyCounts.MEDIUM + sourceDifficultyCounts.HARD,
+    48,
+    "ARG-001 must preserve exactly 48 certified source templates",
+  );
 
   assert.equal(isArg001QuestionStudioRequest({ qlId: "ARG-QL-003" }), true);
   assert.equal(isArg001QuestionStudioRequest({ cpId: "ARG-CP-005" }), true);
