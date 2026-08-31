@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { CheckCircle2, Eye, Loader2, LockKeyhole, Boxes } from 'lucide-react';
+import { Boxes, CheckCircle2, Database, Eye, Loader2, LockKeyhole } from 'lucide-react';
 
 import { showToast } from '@/components/shared/toast';
 import { Badge } from '@/components/ui/badge';
@@ -14,7 +14,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { QUESTION_STUDIO_REFRESH_EVENT } from '@/features/question-studio/events';
 import {
+  createCubesDiceReviewRun,
   getCubesDiceReviewPackage,
   getCubesDiceReviewStatus,
   previewCubesDiceReview,
@@ -22,6 +24,7 @@ import {
   type CubesDiceReviewPackage,
   type CubesDiceReviewQlId,
   type CubesDiceReviewQuestion,
+  type CubesDiceReviewStatus,
 } from '@/features/question-studio/cubes-dice-review-api';
 
 const ALL = 'all';
@@ -30,6 +33,15 @@ const LANGUAGE_LABELS: Record<CubesDiceReviewLanguage, string> = {
   hi: 'हिन्दी',
   pa: 'ਪੰਜਾਬੀ',
 };
+
+function Metric({ label, value }: { label: string; value: number | string }) {
+  return (
+    <div className="rounded-lg border bg-background p-3">
+      <p className="text-xs text-muted-foreground">{label}</p>
+      <p className="mt-1 text-xl font-semibold">{value}</p>
+    </div>
+  );
+}
 
 function SvgFigure({ svg }: { svg: string }) {
   return (
@@ -75,7 +87,7 @@ function QuestionCard({ question }: { question: CubesDiceReviewQuestion }) {
           <Badge className="gap-1 bg-success/10 text-success hover:bg-success/10">
             <CheckCircle2 className="h-3 w-3" /> Solver-backed
           </Badge>
-          <Badge variant="outline" className="gap-1"><LockKeyhole className="h-3 w-3" /> Review only</Badge>
+          <Badge variant="outline" className="gap-1"><Database className="h-3 w-3" /> Bank after approval</Badge>
         </div>
         <p className="text-sm font-semibold">{question.qlName}</p>
         <p className="text-xs text-muted-foreground">{question.taskKind} · {question.contentFingerprint}</p>
@@ -121,20 +133,29 @@ function QuestionCard({ question }: { question: CubesDiceReviewQuestion }) {
 
 export function QuestionStudioCubesDiceReviewPanel() {
   const [pkg, setPkg] = useState<CubesDiceReviewPackage | null>(null);
+  const [status, setStatus] = useState<CubesDiceReviewStatus | null>(null);
   const [language, setLanguage] = useState<CubesDiceReviewLanguage>('en');
   const [qlId, setQlId] = useState(ALL);
   const [count, setCount] = useState(5);
   const [seed, setSeed] = useState('');
   const [questions, setQuestions] = useState<CubesDiceReviewQuestion[]>([]);
   const [loading, setLoading] = useState(true);
-  const [previewing, setPreviewing] = useState(false);
+  const [working, setWorking] = useState<'preview' | 'run' | null>(null);
+
+  const refreshStatus = async () => {
+    const next = await getCubesDiceReviewStatus();
+    setStatus(next);
+    return next;
+  };
 
   useEffect(() => {
     let active = true;
     setLoading(true);
     void Promise.all([getCubesDiceReviewPackage(), getCubesDiceReviewStatus()])
-      .then(([packageResponse]) => {
-        if (active) setPkg(packageResponse.package);
+      .then(([packageResponse, statusResponse]) => {
+        if (!active) return;
+        setPkg(packageResponse.package);
+        setStatus(statusResponse);
       })
       .catch((error) => {
         showToast.error('Cubes & Dice package unavailable', error instanceof Error ? error.message : 'Unable to load CND-001.');
@@ -148,21 +169,40 @@ export function QuestionStudioCubesDiceReviewPanel() {
     [qlId],
   );
 
+  const request = useMemo(() => ({
+    language,
+    qlId: selectedQl,
+    count: Math.min(50, Math.max(1, count)),
+    seed: seed.trim() || undefined,
+  }), [count, language, seed, selectedQl]);
+
   const handlePreview = async () => {
-    setPreviewing(true);
+    setWorking('preview');
     try {
-      const result = await previewCubesDiceReview({
-        language,
-        qlId: selectedQl,
-        count: Math.min(20, Math.max(1, count)),
-        seed: seed.trim() || undefined,
-      });
+      const result = await previewCubesDiceReview({ ...request, count: Math.min(20, request.count) });
       setQuestions(result.questions);
       showToast.success('Cubes & Dice preview loaded', `${result.questions.length} ${LANGUAGE_LABELS[language]} question(s) generated.`);
     } catch (error) {
       showToast.error('Preview failed', error instanceof Error ? error.message : 'Unable to preview CND-001 questions.');
     } finally {
-      setPreviewing(false);
+      setWorking(null);
+    }
+  };
+
+  const handleCreateRun = async () => {
+    setWorking('run');
+    try {
+      const result = await createCubesDiceReviewRun(request);
+      window.dispatchEvent(new Event(QUESTION_STUDIO_REFRESH_EVENT));
+      await refreshStatus();
+      showToast.success(
+        'Cubes & Dice review run created',
+        `${result.publicCode} contains ${result.itemCount} item(s). Manual approval can move them into Question Bank; tests and publication remain locked.`,
+      );
+    } catch (error) {
+      showToast.error('Run creation failed', error instanceof Error ? error.message : 'Unable to create the CND-001 review run.');
+    } finally {
+      setWorking(null);
     }
   };
 
@@ -175,20 +215,29 @@ export function QuestionStudioCubesDiceReviewPanel() {
           </CardTitle>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline">5 permanent QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
-            <Badge variant="outline" className="gap-1"><LockKeyhole className="h-3 w-3" /> Registered review-only</Badge>
+            <Badge variant="outline" className="gap-1"><Database className="h-3 w-3" /> Internal Bank-only active</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Generate solver-backed dice, cube-net, painted-cube, unit-cube-stack and orthographic-view questions with the approved detailed-solution format. The package is visible in Question Studio for review and preview only; database writes, Question Bank conversion, test use and publication remain locked.
+          Generate solver-backed dice, cube-net, painted-cube, unit-cube-stack and orthographic-view questions with the approved detailed-solution format. Review runs now use the standard Question Studio queue; manually approved items may enter Question Bank.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="rounded-lg border border-warning/30 bg-background/70 p-3 text-sm">
-          <div className="flex items-center gap-2 font-medium"><LockKeyhole className="h-4 w-4" /> Activation boundary</div>
+          <div className="flex items-center gap-2 font-medium"><LockKeyhole className="h-4 w-4" /> Downstream boundary remains closed</div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            Review-only registration is active. There is intentionally no “Create review run” action at this gate, so CND-001 cannot write generation items or leak into Question Bank/tests before the next explicit activation.
+            Question Studio persistence and Question Bank acceptance are enabled. Every item still requires manual approval. CND-001 remains ineligible for Test Builder/mock tests and cannot be publicly published or automatically released to students.
           </p>
         </div>
+
+        {status && (
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <Metric label="Review runs" value={status.generationRunCount} />
+            <Metric label="Generated items" value={status.generationItemCount} />
+            <Metric label="Approved items" value={status.approvedItemCount} />
+            <Metric label="Question Bank" value={status.questionBankCount} />
+          </div>
+        )}
 
         {loading ? (
           <div className="flex items-center gap-2 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" /> Loading CND-001…</div>
@@ -217,7 +266,7 @@ export function QuestionStudioCubesDiceReviewPanel() {
             </div>
             <div className="space-y-2">
               <Label>Count</Label>
-              <Input type="number" min={1} max={20} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} />
+              <Input type="number" min={1} max={50} value={count} onChange={(event) => setCount(Number(event.target.value) || 1)} />
             </div>
             <div className="space-y-2">
               <Label>Seed</Label>
@@ -226,10 +275,16 @@ export function QuestionStudioCubesDiceReviewPanel() {
           </div>
         )}
 
-        <Button onClick={handlePreview} disabled={loading || previewing} className="gap-2">
-          {previewing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Eye className="h-4 w-4" />}
-          Preview questions
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button onClick={handlePreview} disabled={loading || working !== null} variant="outline" className="gap-2">
+            {working === 'preview' ? <Loader2 className="h-4 w-4 animate-spin" /> : <Eye className="h-4 w-4" />}
+            Preview questions
+          </Button>
+          <Button onClick={handleCreateRun} disabled={loading || working !== null} className="gap-2">
+            {working === 'run' ? <Loader2 className="h-4 w-4 animate-spin" /> : <Database className="h-4 w-4" />}
+            Create review run
+          </Button>
+        </div>
 
         {questions.length > 0 && (
           <div className="space-y-4">
