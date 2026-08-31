@@ -1,0 +1,63 @@
+name: Validate ARG-001 CP001 Foundation
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/**'
+      - '.github/workflows/arg-001-cp001-foundation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp001-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp001-foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/strength-model.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp001-english-authorities.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp001-foundation-proof.test.ts
+
+      - name: Run ARG-001 CP001 executable proof
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp001-foundation-proof.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Lifecycle boundary
+        run: |
+          echo 'ARG-001 CP001 is taxonomy/English calibration only.'
+          echo 'Question Studio registration is not opened by this checkpoint.'
+          echo 'Question Bank/test/mock/public/automatic learner publication remain locked.'
