@@ -6,6 +6,7 @@ on:
       - New-main
     types: [opened, reopened, synchronize]
     paths:
+      - build-api.sh
       - artifacts/api-server/migrations/20260829_notes_studio_source_pack*.sql
       - artifacts/api-server/migrations/20260830_notes_studio_source_pack*.sql
       - artifacts/api-server/notes-studio-migrate.ts
@@ -83,6 +84,7 @@ jobs:
         run: |
           pnpm --dir artifacts/api-server exec esbuild notes-studio-migrate.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-migrate.mjs
           (cd artifacts/api-server && node dist/notes-studio-migrate.mjs)
+          (cd artifacts/api-server && node dist/notes-studio-migrate.mjs)
 
       - name: Run seeded PostgreSQL lifecycle
         run: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f artifacts/api-server/src/notes-studio/production-readiness-smoke.sql
@@ -93,7 +95,10 @@ jobs:
       - name: Verify production-readiness boundaries
         run: |
           grep -F 'pg_advisory_xact_lock' artifacts/api-server/notes-studio-migrate.ts
-          grep -F 'automaticProductionMigration: false' artifacts/api-server/src/routes/admin-notes-studio-operations.ts
+          grep -F 'notes_studio_schema_migrations' artifacts/api-server/notes-studio-migrate.ts
+          grep -F 'automaticProductionMigration: true' artifacts/api-server/src/routes/admin-notes-studio-operations.ts
+          grep -F '[render-build] verify Notes Studio schema' build-api.sh
+          grep -F 'notes-studio-migrate.ts' build-api.sh
           grep -F 'rawSourceBodiesSentToSectionWriter: false' artifacts/api-server/src/routes/admin-notes-studio-operations.ts
           grep -F 'rawResearchSourcesSentToLocalization: false' artifacts/api-server/src/routes/admin-notes-studio-operations.ts
           grep -F 'handoffPublishesResource: false' artifacts/api-server/src/routes/admin-notes-studio-operations.ts
