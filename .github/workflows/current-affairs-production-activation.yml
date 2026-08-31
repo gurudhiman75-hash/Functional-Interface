@@ -69,6 +69,8 @@ jobs:
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/question-editorial-policy.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/production-readiness-policy.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/on-demand-yesterday-policy.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/daily-discovery-census.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/daily-master-pack.test.ts
 
       - name: Verify ordered production schema bootstrap
         shell: bash
@@ -76,16 +78,24 @@ jobs:
           set -euo pipefail
           runner=artifacts/api-server/ensure-current-affairs.mjs
           recovery=artifacts/api-server/migrations/20260831_current_affairs_primary_source_recovery.sql
+          census=artifacts/api-server/migrations/20260831_current_affairs_daily_discovery_census.sql
           test -f "$runner"
           test -f "$recovery"
+          test -f "$census"
           grep -Fq 'pg_advisory_lock' "$runner"
           grep -Fq 'platform.current_affairs_schema_migrations' "$runner"
           grep -Fq '20260828_current_affairs_studio.sql' "$runner"
           grep -Fq '20260830_current_affairs_production_ops.sql' "$runner"
           grep -Fq '20260831_current_affairs_primary_source_recovery.sql' "$runner"
+          grep -Fq '20260831_current_affairs_daily_discovery_census.sql' "$runner"
+          grep -Fq 'current_affairs_daily_discovery_census' "$runner"
+          grep -Fq 'current_affairs_daily_master_packs' "$runner"
           grep -Fq 'Current Affairs schema verified' "$runner"
           grep -Fq 'https://www.pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3' "$recovery"
           grep -Fq 'https://punjab.gov.in/impnotifications/' "$recovery"
+          grep -Fq "'the_hindu_national'" "$census"
+          grep -Fq "'reuters_india'" "$census"
+          grep -Fq "'discovery_only', 'manual'" "$census"
           for file in $(grep -oE '20[0-9]{6}_current_affairs_[a-z0-9_]+\.sql' "$runner" | sort -u); do
             test -f "artifacts/api-server/migrations/$file"
           done
@@ -102,10 +112,32 @@ jobs:
           grep -Fq 'runScheduledPrimaryFactEnrichment' "$runtime"
           grep -Fq 'runScheduledIntelligenceProcessing' "$runtime"
           grep -Fq 'runCurrentAffairsProductionRecovery' "$runtime"
+          grep -Fq 'refreshDailyDiscoveryCensus' "$runtime"
+          grep -Fq 'materializeDailyMasterPack' "$runtime"
           grep -Fq 'publicationAuthority: false' "$runtime"
           grep -Fq 'canonicalQuestionPromotion: false' "$runtime"
           grep -Fq 'automaticStudentPublication: false' "$runtime"
           grep -Fq 'requireAdminPermission("jobs.manage")' "$route"
+
+      - name: Verify daily census and master-pack boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          census=artifacts/api-server/src/current-affairs/daily-discovery-census.ts
+          master=artifacts/api-server/src/current-affairs/daily-master-pack.ts
+          route=artifacts/api-server/src/routes/admin-current-affairs-production-ops.ts
+          grep -Fq 'coverageConfidenceScore' "$census"
+          grep -Fq 'trustedNewsCandidateCount' "$census"
+          grep -Fq 'highPriorityUnresolvedCount' "$census"
+          grep -Fq 'status IN (' "$master"
+          grep -Fq 'approved_or_published_master_pack_is_immutable' "$master"
+          grep -Fq '["web","text","pdf"]' "$master"
+          grep -Fq 'Draft only. Publication and Question Bank promotion require separate editorial authority.' "$master"
+          grep -Fq '"/production/discovery-census"' "$route"
+          grep -Fq '"/production/master-pack"' "$route"
+          grep -Fq '"/production/master-pack/text"' "$route"
+          ! grep -Fq "status='published'" "$master"
+          ! grep -Fq 'question-promotion' "$master"
 
       - name: Verify production route, audit entity, and admin action
         shell: bash
