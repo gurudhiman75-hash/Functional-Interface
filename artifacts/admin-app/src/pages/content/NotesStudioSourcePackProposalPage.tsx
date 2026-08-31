@@ -32,8 +32,18 @@ type ProposalItem = {
   publisher: string;
   suggestedRole: string;
   generationReady: boolean;
+  referenceReviewRequired: boolean;
+  satisfiesRequirementNow: boolean;
+  evidencePath: 'retained_ready' | 'reference_review_required' | 'provenance_only';
   score: number;
   reason: string;
+};
+
+type PendingReferenceReview = {
+  sourceId: string;
+  title: string;
+  publisher: string;
+  sourceRole: string;
 };
 
 type ProposalResponse = {
@@ -48,15 +58,18 @@ type ProposalResponse = {
   };
   proposal: {
     items: ProposalItem[];
-    unresolved: Array<{ requirementCode: string; label: string; missingCount: number }>;
+    unresolved: Array<{ requirementCode: string; label: string; missingCount: number; pendingReferenceReviewCount?: number }>;
     complete: boolean;
     automaticAttachment: boolean;
     requiresExplicitEditorApply: boolean;
+    historicalReferenceEvidenceTransferred: boolean;
   };
   candidateCount: number;
+  pendingReferenceReviews: PendingReferenceReview[];
   rawSourceBodiesReturned: boolean;
   externalNetworkSearch: boolean;
   automaticAttachment: boolean;
+  historicalReferenceEvidenceTransferred: boolean;
 };
 
 function pretty(value: string) {
@@ -74,6 +87,8 @@ export function NotesStudioSourcePackProposalPage() {
 
   const selectedJob = useMemo(() => jobs.find((job) => job.id === selectedJobId) ?? null, [jobs, selectedJobId]);
   const editableState = proposal ? ['brief', 'sources_ready'].includes(proposal.job.state) : false;
+  const stagedReferenceCount = proposal?.proposal.items.filter((item) => item.referenceReviewRequired).length ?? 0;
+  const pendingAttachedReferenceCount = proposal?.pendingReferenceReviews.length ?? 0;
 
   const loadProposal = async (jobId: string) => {
     if (!jobId) {
@@ -112,12 +127,17 @@ export function NotesStudioSourcePackProposalPage() {
     if (!selectedJobId || !proposal || proposal.proposal.items.length === 0) return;
     setWorking(true);
     try {
-      const result = await adminRequest<{ appliedCount: number }>(`/admin/notes-studio/jobs/${selectedJobId}/source-pack-proposal/apply`, {
+      const result = await adminRequest<{ appliedCount: number; referenceReviewRequiredCount: number }>(`/admin/notes-studio/jobs/${selectedJobId}/source-pack-proposal/apply`, {
         method: 'POST',
         body: JSON.stringify({ editorApproved: true }),
       });
       await Promise.all([loadProposal(selectedJobId), adminRequest<{ jobs: AuthoringJob[] }>('/admin/notes-studio/jobs').then((value) => setJobs(value.jobs ?? []))]);
-      showToast.success('Governed proposal applied', `${result.appliedCount} source${result.appliedCount === 1 ? '' : 's'} attached with their proposed research roles.`);
+      showToast.success(
+        'Governed proposal applied',
+        result.referenceReviewRequiredCount > 0
+          ? `${result.appliedCount} source${result.appliedCount === 1 ? '' : 's'} attached; ${result.referenceReviewRequiredCount} require fresh review in Reference Evidence before they satisfy evidence-ready policy roles.`
+          : `${result.appliedCount} source${result.appliedCount === 1 ? '' : 's'} attached with their proposed research roles.`,
+      );
     } catch (error) {
       showToast.error('Unable to apply source-pack proposal', error instanceof Error ? error.message : 'Request failed.');
     } finally {
@@ -152,34 +172,60 @@ export function NotesStudioSourcePackProposalPage() {
     </Card>
 
     {proposal && <>
-      <Card className={proposal.policy.ready ? 'border-emerald-200' : proposal.proposal.complete ? 'border-blue-200' : 'border-amber-300'}>
+      <Card className={proposal.policy.ready ? 'border-emerald-200' : proposal.proposal.complete ? 'border-blue-200' : stagedReferenceCount > 0 || pendingAttachedReferenceCount > 0 ? 'border-violet-300' : 'border-amber-300'}>
         <CardContent className="flex flex-col gap-3 p-4 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <div className="flex items-center gap-2 font-semibold">
               {proposal.policy.ready && <CheckCircle2 className="h-4 w-4" />}
-              {proposal.policy.ready ? 'Source Policy already satisfied' : proposal.proposal.complete ? 'Complete governed proposal available' : 'Partial proposal only'}
+              {proposal.policy.ready
+                ? 'Source Policy already satisfied'
+                : proposal.proposal.complete
+                  ? 'Complete governed proposal available'
+                  : stagedReferenceCount > 0 || pendingAttachedReferenceCount > 0
+                    ? 'Reference review required before policy completion'
+                    : 'Partial proposal only'}
             </div>
-            <div className="mt-1 text-sm text-muted-foreground">{proposal.policy.name} · {proposal.candidateCount} eligible governed candidate{proposal.candidateCount === 1 ? '' : 's'} considered.</div>
+            <div className="mt-1 text-sm text-muted-foreground">
+              {proposal.policy.name} · {proposal.candidateCount} eligible governed candidate{proposal.candidateCount === 1 ? '' : 's'} considered.
+              {pendingAttachedReferenceCount > 0 ? ` ${pendingAttachedReferenceCount} attached reference source${pendingAttachedReferenceCount === 1 ? '' : 's'} await fresh review.` : ''}
+            </div>
           </div>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline">External search: off</Badge>
             <Badge variant="outline">Auto-attach: off</Badge>
-            <Badge variant="outline">Auto-evidence: off</Badge>
+            <Badge variant="outline">Historical evidence transfer: off</Badge>
           </div>
         </CardContent>
       </Card>
+
+      {proposal.pendingReferenceReviews.length > 0 && <Card className="border-violet-200">
+        <CardHeader><CardTitle className="text-base">Attached sources awaiting Reference Evidence review</CardTitle></CardHeader>
+        <CardContent className="space-y-2">
+          {proposal.pendingReferenceReviews.map((item) => <div key={item.sourceId} className="rounded-lg border p-3">
+            <div className="flex flex-wrap items-start justify-between gap-2">
+              <div><div className="font-medium">{item.title}</div><div className="mt-0.5 text-xs text-muted-foreground">{item.publisher || 'Publisher not recorded'}</div></div>
+              <Badge variant="outline">{pretty(item.sourceRole)}</Badge>
+            </div>
+            <div className="mt-2 text-xs text-muted-foreground">Open Reference Evidence, review this source for the current job, and record a fresh bounded factual paraphrase with an exact locator. Prior-job reference notes are not copied.</div>
+          </div>)}
+        </CardContent>
+      </Card>}
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader><CardTitle className="text-base">Proposed additions</CardTitle></CardHeader>
           <CardContent className="space-y-2">
-            {proposal.proposal.items.length === 0 && <div className="rounded-lg border border-dashed p-5 text-sm text-muted-foreground">{proposal.policy.ready ? 'Nothing to add: the current pack already satisfies Source Policy.' : 'No prior governed source has both the required topic relevance and a proven prior role for the missing requirement.'}</div>}
+            {proposal.proposal.items.length === 0 && <div className="rounded-lg border border-dashed p-5 text-sm text-muted-foreground">{proposal.policy.ready ? 'Nothing to add: the current pack already satisfies Source Policy.' : proposal.pendingReferenceReviews.length > 0 ? 'The relevant governed reference source is already attached. Complete its fresh review in Reference Evidence.' : 'No prior governed source has both the required topic relevance and a proven prior role for the missing requirement.'}</div>}
             {proposal.proposal.items.map((item) => <div key={`${item.requirementCode}:${item.sourceId}`} className="rounded-lg border p-3">
               <div className="flex flex-wrap items-start justify-between gap-2">
                 <div><div className="font-medium">{item.title}</div><div className="mt-0.5 text-xs text-muted-foreground">{item.publisher || 'Publisher not recorded'}</div></div>
-                <Badge variant={item.generationReady ? 'default' : 'outline'}>{pretty(item.suggestedRole)}</Badge>
+                <div className="flex flex-wrap gap-1.5">
+                  <Badge variant={item.generationReady ? 'default' : 'outline'}>{pretty(item.suggestedRole)}</Badge>
+                  {item.referenceReviewRequired && <Badge variant="secondary">Fresh reference review</Badge>}
+                </div>
               </div>
-              <div className="mt-2 text-xs text-muted-foreground">Fills: {pretty(item.requirementCode)} · score {Math.round(item.score)} · {item.reason}</div>
+              <div className="mt-2 text-xs text-muted-foreground">{item.satisfiesRequirementNow ? 'Fills' : 'Stages'}: {pretty(item.requirementCode)} · score {Math.round(item.score)} · {item.reason}</div>
+              {item.referenceReviewRequired && <div className="mt-2 rounded-md bg-muted/50 p-2 text-xs text-muted-foreground">This source was reviewed successfully in prior Notes Studio work, but that evidence does not transfer. Attaching it only stages the source; a fresh editor reference note is required for this job.</div>}
             </div>)}
           </CardContent>
         </Card>
@@ -190,7 +236,10 @@ export function NotesStudioSourcePackProposalPage() {
             {proposal.proposal.unresolved.length === 0 && <div className="rounded-lg border border-dashed p-5 text-sm text-muted-foreground">No unresolved proposal requirement.</div>}
             {proposal.proposal.unresolved.map((item) => <div key={item.requirementCode} className="rounded-lg border p-3">
               <div className="font-medium">{item.label}</div>
-              <div className="mt-1 text-xs text-muted-foreground">Still missing {item.missingCount}. Use Source Library or Brief & Sources to add/review an appropriate governed source manually.</div>
+              <div className="mt-1 text-xs text-muted-foreground">
+                Still needs {item.missingCount} evidence-ready source{item.missingCount === 1 ? '' : 's'}.
+                {item.pendingReferenceReviewCount ? ` ${item.pendingReferenceReviewCount} staged governed reference source${item.pendingReferenceReviewCount === 1 ? '' : 's'} can satisfy this after fresh Reference Evidence review.` : ' Use Source Library or Brief & Sources to add/review an appropriate governed source manually.'}
+              </div>
             </div>)}
           </CardContent>
         </Card>
@@ -198,7 +247,7 @@ export function NotesStudioSourcePackProposalPage() {
 
       <Card>
         <CardContent className="p-4 text-sm text-muted-foreground">
-          <strong className="text-foreground">Governance boundary:</strong> proposals only reuse existing `content.source_documents` records and only suggest roles proven by prior Notes Studio usage. Applying a proposal records an editor-approved audit event; it does not fetch URLs, copy source bodies, build evidence, draft sections, approve or publish content.
+          <strong className="text-foreground">Governance boundary:</strong> proposals only reuse existing `content.source_documents` records and only suggest roles proven by prior Notes Studio usage. A previously reviewed reference-only source may be staged, but prior-job reference evidence is never transferred. Applying a proposal records an editor-approved audit event; it does not fetch URLs, copy source bodies, build evidence, draft sections, approve or publish content.
         </CardContent>
       </Card>
     </>}
