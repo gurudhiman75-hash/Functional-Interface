@@ -8,6 +8,7 @@ import {
   createInterestFrozenQuestionStudioAdapter,
   type InterestQuestionStudioRequest,
 } from "./interest-question-studio-frozen-adapter-v1";
+import { retrofitInterestFrozenSourceExplanation } from "./interest-direct-calculation-explanation-policy-v1";
 
 export const INT_CP006_QUESTION_STUDIO_INTEGRATION_VERSION = "INT-CP-006-QS-v1" as const;
 export const INT_CP006_QUESTION_STUDIO_PACKAGE_ID = "INT-001" as const;
@@ -23,13 +24,17 @@ const adapter = createInterestFrozenQuestionStudioAdapter({
   name: "INT-001 Interest — SI/CI Relations",
   qlIds: INT_CP006_QL_IDS,
   languages: INT_CP006_QUESTION_STUDIO_LANGUAGES,
-  generateSource: (qlId, seed, language) => language === "en"
-    ? generateIntCp006EnglishFrozenQuestion(qlId as IntCp006QlId, seed)
-    : generateIntCp006LocalizedV7FrozenQuestion(
-        qlId as IntCp006QlId,
-        seed,
-        language === "hi" ? "hi-IN" : "pa-IN",
-      ),
+  generateSource: (qlId, seed, language) => retrofitInterestFrozenSourceExplanation(
+    language === "en"
+      ? generateIntCp006EnglishFrozenQuestion(qlId as IntCp006QlId, seed)
+      : generateIntCp006LocalizedV7FrozenQuestion(
+          qlId as IntCp006QlId,
+          seed,
+          language === "hi" ? "hi-IN" : "pa-IN",
+        ),
+    qlId,
+    language,
+  ),
 });
 
 export function listIntCp006QuestionStudioPackages() {
