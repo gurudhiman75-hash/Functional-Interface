@@ -19,12 +19,18 @@ import questionLanguageE4PaSource from "../question-language.e4.pa.json" assert 
 import questionLanguageE5Source from "../question-language.e5.en.json" assert { type: "json" };
 import questionLanguageE5HiSource from "../question-language.e5.hi.json" assert { type: "json" };
 import questionLanguageE5PaSource from "../question-language.e5.pa.json" assert { type: "json" };
+import questionLanguageE8Source from "../question-language.e8.en.json" assert { type: "json" };
+import questionLanguageE8HiSource from "../question-language.e8.hi.json" assert { type: "json" };
+import questionLanguageE8PaSource from "../question-language.e8.pa.json" assert { type: "json" };
 import stemVariantsE6Source from "../stem-variants.e6.en.json" assert { type: "json" };
 import stemVariantsE6HiSource from "../stem-variants.e6.hi.json" assert { type: "json" };
 import stemVariantsE6PaSource from "../stem-variants.e6.pa.json" assert { type: "json" };
 import stemVariantsE7Source from "../stem-variants.e7.en.json" assert { type: "json" };
 import stemVariantsE7HiSource from "../stem-variants.e7.hi.json" assert { type: "json" };
 import stemVariantsE7PaSource from "../stem-variants.e7.pa.json" assert { type: "json" };
+import stemVariantsE8Source from "../stem-variants.e8.en.json" assert { type: "json" };
+import stemVariantsE8HiSource from "../stem-variants.e8.hi.json" assert { type: "json" };
+import stemVariantsE8PaSource from "../stem-variants.e8.pa.json" assert { type: "json" };
 import taskRegistrySource from "../task-registry.library.json" assert { type: "json" };
 import taskRegistryE1Source from "../task-registry.e1.library.json" assert { type: "json" };
 import taskRegistryE2Source from "../task-registry.e2.library.json" assert { type: "json" };
@@ -32,6 +38,7 @@ import taskRegistryE3ASource from "../task-registry.e3.library.json" assert { ty
 import taskRegistryE3BSource from "../task-registry.e3b.library.json" assert { type: "json" };
 import taskRegistryE4Source from "../task-registry.e4.library.json" assert { type: "json" };
 import taskRegistryE5Source from "../task-registry.e5.library.json" assert { type: "json" };
+import taskRegistryE8Source from "../task-registry.e8.library.json" assert { type: "json" };
 import type { Prt001Language, Prt001TaskRegistryEntry } from "./types";
 
 interface QuestionLanguageSource {
@@ -62,23 +69,27 @@ function mergeQuestionLanguages(base: QuestionLanguageSource, ...overlays: Quest
   return current;
 }
 
-function mergeStemVariants(base: StemVariantSource, overlay: StemVariantSource): StemVariantSource {
-  if (base.language !== overlay.language) throw new Error(`PRT-001 stem-variant language mismatch: ${base.language}/${overlay.language}`);
-  const overlap = Object.keys(base.entries).filter((id) => Object.prototype.hasOwnProperty.call(overlay.entries, id));
-  if (overlap.length > 0) throw new Error(`PRT-001 stem-variant ownership overlap: ${overlap.join(", ")}`);
-  return { language: base.language, status: `${base.status}+${overlay.status}`, entries: { ...base.entries, ...overlay.entries } };
+function mergeStemVariants(base: StemVariantSource, ...overlays: StemVariantSource[]): StemVariantSource {
+  let current = base;
+  for (const overlay of overlays) {
+    if (current.language !== overlay.language) throw new Error(`PRT-001 stem-variant language mismatch: ${current.language}/${overlay.language}`);
+    const overlap = Object.keys(current.entries).filter((id) => Object.prototype.hasOwnProperty.call(overlay.entries, id));
+    if (overlap.length > 0) throw new Error(`PRT-001 stem-variant ownership overlap: ${overlap.join(", ")}`);
+    current = { language: current.language, status: `${current.status}+${overlay.status}`, entries: { ...current.entries, ...overlay.entries } };
+  }
+  return current;
 }
 
 const questionLanguages = {
-  en: mergeQuestionLanguages(questionLanguageSource as QuestionLanguageSource, questionLanguageE1Source as QuestionLanguageSource, questionLanguageE2Source as QuestionLanguageSource, questionLanguageE3ASource as QuestionLanguageSource, questionLanguageE3BSource as QuestionLanguageSource, questionLanguageE4Source as QuestionLanguageSource, questionLanguageE5Source as QuestionLanguageSource),
-  hi: mergeQuestionLanguages(questionLanguageHiSource as QuestionLanguageSource, questionLanguageE1HiSource as QuestionLanguageSource, questionLanguageE2HiSource as QuestionLanguageSource, questionLanguageE3AHiSource as QuestionLanguageSource, questionLanguageE3BHiSource as QuestionLanguageSource, questionLanguageE4HiSource as QuestionLanguageSource, questionLanguageE5HiSource as QuestionLanguageSource),
-  pa: mergeQuestionLanguages(questionLanguagePaSource as QuestionLanguageSource, questionLanguageE1PaSource as QuestionLanguageSource, questionLanguageE2PaSource as QuestionLanguageSource, questionLanguageE3APaSource as QuestionLanguageSource, questionLanguageE3BPaSource as QuestionLanguageSource, questionLanguageE4PaSource as QuestionLanguageSource, questionLanguageE5PaSource as QuestionLanguageSource),
+  en: mergeQuestionLanguages(questionLanguageSource as QuestionLanguageSource, questionLanguageE1Source as QuestionLanguageSource, questionLanguageE2Source as QuestionLanguageSource, questionLanguageE3ASource as QuestionLanguageSource, questionLanguageE3BSource as QuestionLanguageSource, questionLanguageE4Source as QuestionLanguageSource, questionLanguageE5Source as QuestionLanguageSource, questionLanguageE8Source as QuestionLanguageSource),
+  hi: mergeQuestionLanguages(questionLanguageHiSource as QuestionLanguageSource, questionLanguageE1HiSource as QuestionLanguageSource, questionLanguageE2HiSource as QuestionLanguageSource, questionLanguageE3AHiSource as QuestionLanguageSource, questionLanguageE3BHiSource as QuestionLanguageSource, questionLanguageE4HiSource as QuestionLanguageSource, questionLanguageE5HiSource as QuestionLanguageSource, questionLanguageE8HiSource as QuestionLanguageSource),
+  pa: mergeQuestionLanguages(questionLanguagePaSource as QuestionLanguageSource, questionLanguageE1PaSource as QuestionLanguageSource, questionLanguageE2PaSource as QuestionLanguageSource, questionLanguageE3APaSource as QuestionLanguageSource, questionLanguageE3BPaSource as QuestionLanguageSource, questionLanguageE4PaSource as QuestionLanguageSource, questionLanguageE5PaSource as QuestionLanguageSource, questionLanguageE8PaSource as QuestionLanguageSource),
 };
 
 const stemVariants = {
-  en: mergeStemVariants(stemVariantsE6Source as StemVariantSource, stemVariantsE7Source as StemVariantSource),
-  hi: mergeStemVariants(stemVariantsE6HiSource as StemVariantSource, stemVariantsE7HiSource as StemVariantSource),
-  pa: mergeStemVariants(stemVariantsE6PaSource as StemVariantSource, stemVariantsE7PaSource as StemVariantSource),
+  en: mergeStemVariants(stemVariantsE6Source as StemVariantSource, stemVariantsE7Source as StemVariantSource, stemVariantsE8Source as StemVariantSource),
+  hi: mergeStemVariants(stemVariantsE6HiSource as StemVariantSource, stemVariantsE7HiSource as StemVariantSource, stemVariantsE8HiSource as StemVariantSource),
+  pa: mergeStemVariants(stemVariantsE6PaSource as StemVariantSource, stemVariantsE7PaSource as StemVariantSource, stemVariantsE8PaSource as StemVariantSource),
 };
 
 const registries = [
@@ -89,6 +100,7 @@ const registries = [
   taskRegistryE3BSource as TaskRegistrySource,
   taskRegistryE4Source as TaskRegistrySource,
   taskRegistryE5Source as TaskRegistrySource,
+  taskRegistryE8Source as TaskRegistrySource,
 ];
 const [baseTaskRegistry, ...overlayRegistries] = registries;
 if (!baseTaskRegistry) throw new Error("PRT-001 base task registry is missing");
@@ -161,18 +173,21 @@ export function validatePrt001PilotLibraries(): string[] {
   if (taskRegistry.ownership !== "HUMAN_OWNED") failures.push("task registry must be human-owned");
   const registryIds = Object.keys(taskRegistry.entries).sort();
   const expectedE6VariantIds = Array.from({ length: 20 }, (_, index) => `PRT-QL-${String(index + 13).padStart(3, "0")}`).sort();
-  const expectedE7VariantIds = registryIds.filter((id) => !expectedE6VariantIds.includes(id));
+  const expectedE8VariantIds = ["PRT-QL-104", "PRT-QL-105"];
+  const expectedE7VariantIds = registryIds.filter((id) => !expectedE6VariantIds.includes(id) && !expectedE8VariantIds.includes(id));
   for (const language of ["en", "hi", "pa"] as const) {
     const library = questionLanguages[language];
     const variants = stemVariants[language];
     const e6Source = language === "en" ? stemVariantsE6Source as StemVariantSource : language === "hi" ? stemVariantsE6HiSource as StemVariantSource : stemVariantsE6PaSource as StemVariantSource;
     const e7Source = language === "en" ? stemVariantsE7Source as StemVariantSource : language === "hi" ? stemVariantsE7HiSource as StemVariantSource : stemVariantsE7PaSource as StemVariantSource;
+    const e8Source = language === "en" ? stemVariantsE8Source as StemVariantSource : language === "hi" ? stemVariantsE8HiSource as StemVariantSource : stemVariantsE8PaSource as StemVariantSource;
     if (library.language !== language) failures.push(`${language} library language mismatch`);
     if (variants.language !== language) failures.push(`${language} combined stem-variant language mismatch`);
     const questionIds = Object.keys(library.entries).sort();
     if (!sameStrings(registryIds, questionIds)) failures.push(`task registry and ${language} QL IDs differ`);
     if (!sameStrings(Object.keys(e6Source.entries).sort(), expectedE6VariantIds)) failures.push(`${language} E6 stem variants must cover exactly PRT-QL-013..032`);
-    if (!sameStrings(Object.keys(e7Source.entries).sort(), expectedE7VariantIds)) failures.push(`${language} E7 stem variants must cover every remaining active QL`);
+    if (!sameStrings(Object.keys(e7Source.entries).sort(), expectedE7VariantIds)) failures.push(`${language} E7 stem variants must cover every pre-E8 active QL outside E6`);
+    if (!sameStrings(Object.keys(e8Source.entries).sort(), expectedE8VariantIds)) failures.push(`${language} E8 stem variants must cover exactly PRT-QL-104..105`);
     if (!sameStrings(Object.keys(variants.entries).sort(), registryIds)) failures.push(`${language} combined stem variants must cover every active QL`);
     for (const questionLanguageId of registryIds) {
       const entry = taskRegistry.entries[questionLanguageId]!;
