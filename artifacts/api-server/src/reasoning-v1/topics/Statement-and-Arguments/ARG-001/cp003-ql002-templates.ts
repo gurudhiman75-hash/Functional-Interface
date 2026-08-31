@@ -16,7 +16,7 @@ export const ARG_CP003_QL002_TEMPLATES: readonly ArgCp003Template[] = [
     ],
   },
   {
-    id: "ARG-CP003-QL002-T02", qlId: "ARG-QL-002", archetype: "EDUCATION_CAUSAL_OVERCLAIM", difficulty: "MEDIUM", answerClass: "ONLY_II",
+    id: "ARG-CP003-QL002-T02", qlId: "ARG-QL-002", archetype: "EDUCATION_CAUSAL_OVERCLAIM", difficulty: "EASY", answerClass: "ONLY_II",
     dimensions: [
       ["academic-integrity rules", "citation rules", "collaboration rules", "examination-conduct rules"],
       ["first-year students", "new postgraduate students", "newly admitted trainees", "students entering a professional course"],
@@ -72,7 +72,7 @@ export const ARG_CP003_QL002_TEMPLATES: readonly ArgCp003Template[] = [
     ],
   },
   {
-    id: "ARG-CP003-QL002-T06", qlId: "ARG-QL-002", archetype: "ACCESSIBILITY_MECHANISM", difficulty: "MEDIUM", answerClass: "ONLY_II",
+    id: "ARG-CP003-QL002-T06", qlId: "ARG-QL-002", archetype: "ACCESSIBILITY_MECHANISM", difficulty: "EASY", answerClass: "ONLY_II",
     dimensions: [
       ["city buses", "intercity buses", "metro feeder buses", "airport shuttle buses"],
       ["the next major stop", "the upcoming interchange", "the terminal stop", "the next route landmark"],
