@@ -11,12 +11,14 @@ import {
   noteSourcePackTemplateKey,
   noteSourceRole,
   sourcePackTemplateOptions,
+  sourcePolicyEvidenceReady,
 } from '../notes-studio/source-pack-policy';
 import adminNotesStudioCandidateClaimsRouter from './admin-notes-studio-candidate-claims';
 import adminNotesStudioCoverageGapResearchRouter from './admin-notes-studio-coverage-gap-research';
 import adminNotesStudioCoveragePlanBulkRouter from './admin-notes-studio-coverage-plan-bulk';
 import adminNotesStudioCoverageProposalsRouter from './admin-notes-studio-coverage-proposals';
 import adminNotesStudioGapSourceRecommendationsRouter from './admin-notes-studio-gap-source-recommendations';
+import adminNotesStudioReferenceEvidenceRouter from './admin-notes-studio-reference-evidence';
 import adminNotesStudioResearchRestartRouter from './admin-notes-studio-research-restart';
 import adminNotesStudioSourceDiscoveryRouter from './admin-notes-studio-source-discovery';
 
@@ -81,24 +83,34 @@ async function loadSourcePolicy(jobId: string) {
       LENGTH(COALESCE(document.extracted_text, ''))::int AS "retainedCharCount",
       link.inclusion_state AS "inclusionState",
       link.source_role AS "sourceRole",
-      link.position
+      link.position,
+      COUNT(block.id) FILTER (WHERE block.evidence_kind = 'editor_reference_note')::int AS "referenceEvidenceCount"
     FROM content.note_authoring_sources link
     JOIN content.source_documents document ON document.id = link.source_document_id
+    LEFT JOIN content.note_source_evidence_blocks block
+      ON block.job_id = link.job_id AND block.source_document_id = link.source_document_id
     WHERE link.job_id = ${jobId}::uuid
+    GROUP BY document.id, link.job_id, link.source_document_id, link.inclusion_state, link.source_role, link.position, link.added_at
     ORDER BY link.position, link.added_at
   `;
   const brief = job.brief && typeof job.brief === 'object' && !Array.isArray(job.brief)
     ? job.brief as Record<string, unknown>
     : {};
   const templateKey = noteSourcePackTemplateKey(brief.sourcePackTemplate);
-  const hydrated = sources.map((source) => ({
-    ...source,
-    sourceRole: noteSourceRole(source.sourceRole),
-    sourceIdentity: noteSourceIdentity(source.publisher, source.sourceUri),
-    generationReady: source.retentionMode === 'extracted_text'
+  const hydrated = sources.map((source) => {
+    const generationReady = source.retentionMode === 'extracted_text'
       && source.extractionStatus === 'processed'
-      && Number(source.retainedCharCount ?? 0) >= 100,
-  }));
+      && Number(source.retainedCharCount ?? 0) >= 100;
+    const referenceEvidenceReady = Number(source.referenceEvidenceCount ?? 0) > 0;
+    return {
+      ...source,
+      sourceRole: noteSourceRole(source.sourceRole),
+      sourceIdentity: noteSourceIdentity(source.publisher, source.sourceUri),
+      generationReady,
+      referenceEvidenceReady,
+      evidenceReady: sourcePolicyEvidenceReady({ generationReady, referenceEvidenceReady }),
+    };
+  });
   return {
     job: { ...job, sourcePackTemplate: templateKey },
     sources: hydrated,
@@ -106,6 +118,7 @@ async function loadSourcePolicy(jobId: string) {
       sourceRole: source.sourceRole,
       inclusionState: String(source.inclusionState),
       generationReady: source.generationReady,
+      referenceEvidenceReady: source.referenceEvidenceReady,
       contentHash: String(source.contentHash ?? ''),
       sourceIdentity: source.sourceIdentity,
     }))),
@@ -136,6 +149,7 @@ router.use(adminNotesStudioCoveragePlanBulkRouter);
 router.use(adminNotesStudioCoverageProposalsRouter);
 router.use(adminNotesStudioCoverageGapResearchRouter);
 router.use(adminNotesStudioGapSourceRecommendationsRouter);
+router.use(adminNotesStudioReferenceEvidenceRouter);
 router.use(adminNotesStudioResearchRestartRouter);
 router.use(adminNotesStudioSourceDiscoveryRouter);
 
