@@ -2,7 +2,7 @@ import type { ArgCp003Template } from "./cp003-saturation-types.ts";
 
 export const ARG_CP003_QL004_TEMPLATES: readonly ArgCp003Template[] = [
   {
-    id: "ARG-CP003-QL004-T01", qlId: "ARG-QL-004", archetype: "TARGETED_REMEDIAL_SUPPORT", difficulty: "MEDIUM", answerClass: "ONLY_I",
+    id: "ARG-CP003-QL004-T01", qlId: "ARG-QL-004", archetype: "TARGETED_REMEDIAL_SUPPORT", difficulty: "EASY", answerClass: "ONLY_I",
     dimensions: [
       ["mathematics", "language skills", "basic accounting", "computer fundamentals"],
       ["optional remedial classes", "small-group support sessions", "extra guided practice", "targeted tutorial sessions"],
@@ -58,7 +58,7 @@ export const ARG_CP003_QL004_TEMPLATES: readonly ArgCp003Template[] = [
     ],
   },
   {
-    id: "ARG-CP003-QL004-T05", qlId: "ARG-QL-004", archetype: "TIME_LIMITED_RESTRICTION", difficulty: "MEDIUM", answerClass: "ONLY_I",
+    id: "ARG-CP003-QL004-T05", qlId: "ARG-QL-004", archetype: "TIME_LIMITED_RESTRICTION", difficulty: "EASY", answerClass: "ONLY_I",
     dimensions: [
       ["heavy goods vehicles", "large delivery trucks", "tour buses", "construction vehicles"],
       ["a narrow market street", "a school-zone road", "a station-front corridor", "a dense shopping lane"],
