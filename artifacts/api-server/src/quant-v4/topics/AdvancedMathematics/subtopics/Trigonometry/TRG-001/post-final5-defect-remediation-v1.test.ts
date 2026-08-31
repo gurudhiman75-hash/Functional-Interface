@@ -89,9 +89,11 @@ const expectedLocalizedCorrections: Record<string, Record<Locale, { field: "keyR
   },
 };
 
+const ql069PunjabiCorrection = "ਕੋਣ ਨੂੰ ਘਟਾ ਕੇ ਸਰਲ ਕਰੋ, cos ਦਾ ਸਹੀ ਚਿੰਨ੍ਹ ਲਗਾਓ ਅਤੇ ਫਿਰ ਪਰਸਪਰ ਲਓ।";
+
 assert.equal(TRG_001_LOCALIZATION_QL_IDS.length, 144);
 assert.deepEqual(TRG_001_POST_FREEZE_REMEDIATION_V1_IDS, ["TRG-001-QL-093"]);
-assert.equal(TRG_001_LOCALIZATION_FINAL6_REMEDIATED_IDS.length, 7);
+assert.equal(TRG_001_LOCALIZATION_FINAL6_REMEDIATED_IDS.length, 8);
 
 let englishCases = 0;
 let localizedCases = 0;
@@ -149,7 +151,13 @@ for (const qlId of TRG_001_LOCALIZATION_QL_IDS) {
       );
       assertLifecycleLocked(final6, label);
 
-      if (qlId === "TRG-001-QL-142") {
+      if (qlId === "TRG-001-QL-069" && locale === "pa-IN") {
+        assert.equal(final6.explanation.shortcut, ql069PunjabiCorrection, `${label}: Punjabi native-order shortcut correction missing.`);
+        assert.equal(final6.explanation.steps?.[0]?.body, ql069PunjabiCorrection, `${label}: Punjabi native-order step correction missing.`);
+        correctionAssertions += 1;
+      } else if (qlId === "TRG-001-QL-069" && locale === "hi-IN") {
+        assert.deepEqual(final6.explanation, final5.explanation, `${label}: Hindi QL069 must remain unchanged.`);
+      } else if (qlId === "TRG-001-QL-142") {
         assert.equal(final6.explanation.shortcut, expectedQl142Shortcut(final5, locale), `${label}: variant-aware QL142 correction missing.`);
         correctionAssertions += 1;
       } else {
@@ -169,6 +177,7 @@ for (const qlId of TRG_001_LOCALIZATION_QL_IDS) {
         || text.includes("sec θ ਅਤੇ cos θ ਦੀ ਮਦਦ ਨਾਲ tan θ ਮੁੜ ਬਣਾਓ।")
         || text.includes("पहले sin²θ और cos²θ का अंतर निकालें, फिर tan θ का अनुपात बनाएँ।")
         || text.includes("ਪਹਿਲਾਂ sin²θ ਅਤੇ cos²θ ਦਾ ਅੰਤਰ ਕੱਢੋ, ਫਿਰ tan θ ਦਾ ਅਨੁਪਾਤ ਬਣਾਓ।")
+        || text.includes("ਲਓ ਲਾਗੂ ਕਰੋ")
       );
       assert.equal(badTexts.length, 0, `${label}: known post-Final5 defect remains: ${badTexts.join(" | ")}`);
       localizedCases += 1;
@@ -196,7 +205,7 @@ assert.deepEqual([...ql142Variants].sort(), ["cos", "sin"], "QL142 dedicated see
 
 assert.equal(englishCases, 144 * seedsPerQl);
 assert.equal(localizedCases, 144 * 2 * seedsPerQl);
-assert.equal(correctionAssertions, seedsPerQl * (1 + 7 * 2));
+assert.equal(correctionAssertions, seedsPerQl * (1 + 7 * 2 + 1));
 
 console.log(JSON.stringify({
   status: "PASS",
