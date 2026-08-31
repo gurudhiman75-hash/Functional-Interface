@@ -1,0 +1,74 @@
+name: Validate TRG-001 post-Final5 human approval boundary
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-freeze-readiness.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-freeze-readiness.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-human-approval-boundary.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-human-approval-boundary.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/POST-FINAL5-HUMAN-APPROVAL-BOUNDARY.md"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-human-approval-boundary.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-human-approval-boundary.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/LOCALIZATION-HUMAN-APPROVAL-BOUNDARY.md"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-post-freeze-remediation-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final6.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: trg-001-post-final5-human-approval-boundary-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-post-final5-approval-boundary:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle post-Final5 freeze-readiness audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-freeze-readiness.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-post-final5-freeze-readiness-audit.mjs
+
+      - name: Run post-Final5 freeze-readiness audit
+        run: node artifacts/api-server/dist/quant-v4/trg-001-post-final5-freeze-readiness-audit.mjs
+
+      - name: Bundle superseded Final5 boundary audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-human-approval-boundary.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-final5-boundary-superseded-audit.mjs
+
+      - name: Verify Final5 approval path is disabled
+        run: node artifacts/api-server/dist/quant-v4/trg-001-final5-boundary-superseded-audit.mjs
+
+      - name: Bundle post-Final5 human approval boundary audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-human-approval-boundary.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-post-final5-human-approval-boundary-audit.mjs
+
+      - name: Run post-Final5 human approval boundary audit
+        run: node artifacts/api-server/dist/quant-v4/trg-001-post-final5-human-approval-boundary-audit.mjs
