@@ -11,10 +11,12 @@
 **Legacy RAP-003 ownership/de-duplication:** E9 AUTOMATED VALIDATED  
 **English editorial engineering gate:** E10 VALIDATED  
 **Hindi/Punjabi editorial engineering gate:** E11 VALIDATED  
-**Chapter exhaustiveness status:** AUTOMATED EXHAUSTIVENESS / SOURCE / OWNERSHIP / MULTILINGUAL-EDITORIAL GATES CLOSED  
+**Final automated release/freeze rerun:** E12 VALIDATED / PASS  
+**Chapter exhaustiveness status:** AUTOMATED EXHAUSTIVENESS / SOURCE / OWNERSHIP / MULTILINGUAL-EDITORIAL / FINAL-RELEASE GATES CLOSED  
+**Automated chapter freeze status:** RESTORED for the validated PRT-001 surface  
 **English editorial surface:** E10 AUTOMATED/EDITORIAL VALIDATION PASS; external product/editorial sign-off is not asserted  
 **Hindi/Punjabi editorial surface:** E11 AUTOMATED/EDITORIAL VALIDATION PASS; external product/editorial sign-off is not asserted  
-**Public publication status:** BLOCKED pending final release/freeze rerun and normal product approval
+**Public publication status:** BLOCKED pending normal external product/publication approval
 
 ## Runtime contract currently implemented
 
@@ -27,6 +29,7 @@
 - Arithmetic: exact rational operations
 - Verification: independent parity required for active task contracts
 - Output: deterministic Question Studio-compatible MCQ package
+- Runtime production-wave label: `E11`; E12 is validation-only and does not introduce a new generation wave
 - E1/E2/E3 diversity gates: at least 3 effective-weight signatures and 2 normalized-ratio signatures per expansion QL across the audit corpus
 - E4/E5 diversity gates: at least 3 effective-weight signatures and 2 answer signatures per QL; ratio diversity is also required except where an equal-profit semantic condition necessarily fixes the normalized ratio at 1:1
 - E2 allocation-money normalization: salary/commission/deduction questions normalize gross pools to clean exam-style answer surfaces while preserving topology
@@ -55,8 +58,9 @@
 - E11 inverse-working parity: all eight baseline inverse QLs expose concrete working in Hindi and Punjabi, 8/8 per locale
 - E11 localized structural/editorial uniqueness: remaining cross-QL editorial near-similarity pairs at threshold >= 0.88 are zero
 - E11 permanent gate: `auditPrt001E11LocalizedEditorial()` runs inside the full PRT freeze audit
+- E12 final release validation: package-scoped TypeScript, retained RAP historical regression, RAP multilingual Question Studio smoke, E9 ownership audit, full 3,150-question PRT corpus and full freeze audit all passed together
 
-The capital-timeline, ordered-allocation, solver, independent-verifier, reasoning, distractor, localization, and Question Studio foundations remain reusable. E1-E5 established and exposed the inverse, multi-event, relational, remuneration, mixed-system, joining/leaving, piecewise-capital, and final reconciliation authorities. E6 deepened mathematical/contextual production diversity, E7 closed chapter-wide wording-depth and severe structural-duplication debt, E8 closed the identified source-realness gaps without creating a 100th mathematical solve mode, E9 eliminated duplicate user-facing Partnership ownership without deleting useful historical RAP regression assets, E10 closed English editorial engineering debt, and E11 closed the remaining Hindi/Punjabi editorial parity debt and six localized similarity signals.
+The capital-timeline, ordered-allocation, solver, independent-verifier, reasoning, distractor, localization, and Question Studio foundations remain reusable. E1-E5 established and exposed the inverse, multi-event, relational, remuneration, mixed-system, joining/leaving, piecewise-capital, and final reconciliation authorities. E6 deepened mathematical/contextual production diversity, E7 closed chapter-wide wording-depth and severe structural-duplication debt, E8 closed the identified source-realness gaps without creating a 100th mathematical solve mode, E9 eliminated duplicate user-facing Partnership ownership without deleting useful historical RAP regression assets, E10 closed English editorial engineering debt, E11 closed the remaining Hindi/Punjabi editorial parity debt and six localized similarity signals, and E12 re-ran the complete release/freeze chain from the cleaned post-E11 state.
 
 ## Automated evidence
 
@@ -114,7 +118,18 @@ E11 Hindi/Punjabi editorial metrics:
 - baseline inverse QLs with concrete working: **Hindi 8 / 8; Punjabi 8 / 8**;
 - remaining cross-QL editorial near-similarity pairs >= 0.88: **0**.
 
-The complete current PRT audit remains:
+### E12 final release/freeze checkpoint
+
+The E12 validation head `2bd483c4657362a96963c8d29acd6567423207a5`, built from cleaned E11 head `730a2b97d56b0060c665ae1aa482dc39be3ac0b9`, passed the complete final release chain in GitHub Actions run `33376551129`, job `99439227255`:
+
+1. Partnership-scoped TypeScript — **PASS**.
+2. retained RAP-003 historical regression — **PASS**.
+3. RAP-003 Question Studio multilingual smoke — **PASS**; nine active RAP non-Partnership CPs and EN/HI/PA generation preserved, while legacy `RAP-CP-013` product exposure remains blocked.
+4. E9 PRT/RAP ownership audit — **PASS**; 16 legacy Partnership QLs remain fully dispositioned, 15 retire to PRT authorities, `RAP-QL-812` delegates to Time & Work, and `PRT-001` remains the aptitude-Partnership product owner.
+5. full PRT-001 seeded corpus — **PASS**; **3,150 questions / 105 QLs / 99 solve modes**.
+6. full PRT-001 freeze audit — **PASS**; every E1-E11 runtime, diversity, source, ownership, multilingual, editorial, option and Question Studio gate remained green.
+
+The complete E12-preserved PRT audit is:
 
 - coverage: **105 active QLs**, CP distribution **13 / 14 / 16 / 19 / 14 / 17 / 12**, 99 solve modes;
 - context realism: **840 cases / 105 context families**;
@@ -133,20 +148,18 @@ The complete current PRT audit remains:
 - option quality: **1,680 cases**, answer positions **433 / 437 / 388 / 422**;
 - Question Studio integration: **42 cases** across all 7 PRT CPs and all 3 languages.
 
-No E1-E10 runtime or audit threshold was weakened by E11.
+No runtime or permanent audit threshold was changed by E12. The temporary E12 CI workflow was removed after the exact validation run passed.
 
-This record does **not** yet mark final publication freeze. Automated exhaustiveness, production diversity, chapter-wide stem structure, English source/PYQ realness, legacy ownership/de-duplication, and multilingual editorial engineering gates are now closed. Remaining work is the final release/freeze rerun from the cleaned E11 state, followed by normal product/publication approval.
+## Freeze conclusion
 
-## Automated runtime gates
+The automated final release/freeze gate is now **closed** and the chapter-level automated freeze is **restored** for the validated PRT-001 surface.
 
-Run `pnpm --dir artifacts/api-server run test:prt-001` for foundation, solver, serialization, localization, independent-answer parity and seeded corpus checks. Run `pnpm --dir artifacts/api-server run audit:prt-001` for coverage, E8 source-realness, E10 English editorial quality, E11 Hindi/Punjabi editorial quality, E7 chapter-wide stem structure, E6 production diversity, E1-E5 mathematical diversity, locale structural parity, option distribution and Question Studio routing. E9 additionally requires the RAP legacy regression, RAP Question Studio smoke and `prt-001-rap003-ownership-audit.ts` ownership gate.
+This record still does **not** assert public/product approval. Publication remains blocked until normal external product/publication approval is granted.
 
-## Re-freeze requirements
+## Runtime gates for future changes
 
-Before restoring chapter-level/publication freeze status:
+Run `pnpm --dir artifacts/api-server run test:prt-001` for foundation, solver, serialization, localization, independent-answer parity and seeded corpus checks. Run `pnpm --dir artifacts/api-server run audit:prt-001` for coverage, E8 source-realness, E10 English editorial quality, E11 Hindi/Punjabi editorial quality, E7 chapter-wide stem structure, E6 production diversity, E1-E5 mathematical diversity, locale structural parity, option distribution and Question Studio routing. Ownership-sensitive changes additionally require the retained RAP regression, RAP Question Studio multilingual smoke and `prt-001-rap003-ownership-audit.ts`.
 
-1. rerun the full PRT corpus, E9 ownership, Question Studio, option, structural-duplicate, localization, verification and release gates from the cleaned post-E11 branch head;
-2. complete normal product/publication approval;
-3. only then restore public publication freeze.
+## Freeze invalidation rule
 
-Any change to CP ownership, a solve-mode contract, template placeholders, allocation ordering, localization overlays, editorial post-processing, or the output schema requires the applicable runtime tests and audits to pass before this record is updated again.
+Any future change to CP ownership, a solve-mode contract, QL registry, generator/parameter authority, source mapping, template placeholders, allocation ordering, localization overlays, editorial post-processing, distractor behavior, validation thresholds, or the output schema invalidates this checkpoint for the affected surface and requires the applicable runtime tests/audits to pass before this record is updated again.
