@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   assertPublicHttpsSourceUrl,
   fetchBoundedOfficialText,
+  officialHostVariants,
   resolveSafeOfficialRedirect,
 } from "./source-fetch";
 
@@ -12,6 +13,20 @@ assert.equal(
 );
 assert.throws(() => assertPublicHttpsSourceUrl("http://pib.gov.in/feed"), /HTTPS/);
 assert.throws(() => assertPublicHttpsSourceUrl("https://127.0.0.1/feed"), /private-network/);
+
+assert.deepEqual(
+  officialHostVariants("https://punjab.gov.in/impnotifications/"),
+  ["https://punjab.gov.in/impnotifications/", "https://www.punjab.gov.in/impnotifications/"],
+);
+assert.deepEqual(
+  officialHostVariants("https://www.pib.gov.in/RssMain.aspx?ModId=6"),
+  ["https://www.pib.gov.in/RssMain.aspx?ModId=6", "https://pib.gov.in/RssMain.aspx?ModId=6"],
+);
+assert.deepEqual(
+  officialHostVariants("https://ipr.punjab.gov.in/"),
+  ["https://ipr.punjab.gov.in/"],
+  "nested department hosts must not receive invented www aliases",
+);
 
 assert.equal(
   resolveSafeOfficialRedirect(
@@ -72,6 +87,28 @@ const retried = await fetchBoundedOfficialText(
 );
 assert.equal(retried, "ok");
 assert.equal(transientCalls, 2);
+
+const aliasCalls: string[] = [];
+const aliasFallbackFetch = async (input: string | URL | Request) => {
+  const url = String(input);
+  aliasCalls.push(url);
+  if (new URL(url).hostname === "punjab.gov.in") {
+    const error = new TypeError("fetch failed") as TypeError & { cause?: Record<string, unknown> };
+    error.cause = { code: "UND_ERR_CONNECT_TIMEOUT", hostname: "punjab.gov.in" };
+    throw error;
+  }
+  return new Response("<html>Punjab official alias reached</html>", { status: 200 });
+};
+const aliasRecovered = await fetchBoundedOfficialText(
+  "https://punjab.gov.in/impnotifications/",
+  { accept: "text/html", maxBytes: 100_000, label: "Official listing" },
+  aliasFallbackFetch,
+);
+assert.match(aliasRecovered, /alias reached/);
+assert.deepEqual(aliasCalls, [
+  "https://punjab.gov.in/impnotifications/",
+  "https://www.punjab.gov.in/impnotifications/",
+]);
 
 await assert.rejects(
   () => fetchBoundedOfficialText(
