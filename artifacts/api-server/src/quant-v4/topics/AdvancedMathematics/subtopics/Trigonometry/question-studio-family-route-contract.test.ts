@@ -20,8 +20,10 @@ assert.equal(packages.filter((entry: any) => entry.packageId === "TRG-002").leng
 const trg001 = packages.find((entry: any) => entry.packageId === "TRG-001") as any;
 assert.deepEqual(trg001.supportedLanguages, ["en", "hi", "pa"]);
 assert.equal(trg001.questionStudioDiscoverable, true);
-assert.equal(trg001.questionBankWritable, false);
-assert.equal(trg001.testEligible, false);
+assert.equal(trg001.questionBankWritable, true);
+assert.equal(trg001.testEligible, true);
+assert.equal(trg001.testBuilderEligible, true);
+assert.equal(trg001.mockTestEligible, true);
 assert.equal(trg001.publicReleaseAuthorized, false);
 assert.equal(trg001.localizationStatus, "MULTILINGUAL_FROZEN_ACTIVE");
 
@@ -84,6 +86,7 @@ assert.ok(trigIndex < legacyIndex, "Trigonometry aggregate must be mounted befor
 for (const marker of [
   "TRG_001_QUESTION_STUDIO_PACKAGE",
   "TRG_002_V4_QUESTION_STUDIO_PACKAGE",
+  "TRG_001_POST_FINAL5_FULL_INTERNAL_ACTIVATION_V1",
   "if (isTrg001QuestionStudioRequest(request))",
   "generateTrg001QuestionStudioBatch",
   "if (isTrg002V4GenerationRequest(request))",
@@ -99,8 +102,10 @@ console.log(JSON.stringify({
   routeArchitecture: "QUESTION_STUDIO_REGISTRY",
   trg001PermanentQlCount: 144,
   trg001Languages: ["en", "hi", "pa"],
-  trg001QuestionBankWritable: false,
-  trg001TestEligible: false,
+  trg001QuestionBankWritable: true,
+  trg001TestEligible: true,
+  trg001TestBuilderEligible: true,
+  trg001MockTestEligible: true,
   trg002QlCount: 96,
   trg002Languages: ["en", "hi", "pa"],
   publicReleaseAuthorized: false,

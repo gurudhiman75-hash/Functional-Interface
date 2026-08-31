@@ -7,6 +7,7 @@ import {
 import { generateLocalizedTrg001QuestionNativeReviewFinal6 } from "./TRG-001/localization-native-v5-pedagogic-review-final6";
 import { TRG_001_POST_FINAL5_FREEZE_V1 } from "./TRG-001/post-final5-freeze-v1";
 import { TRG_001_POST_FINAL5_QUESTION_STUDIO_ACTIVATION_V1 } from "./TRG-001/post-final5-question-studio-activation-v1";
+import { TRG_001_POST_FINAL5_FULL_INTERNAL_ACTIVATION_V1 } from "./TRG-001/post-final5-full-internal-activation-v1";
 import { generatePostFreezeRemediatedTrg001Question } from "./TRG-001/production-post-freeze-remediation-v1";
 import { generateHumanApprovedTrg001Question } from "./TRG-001/production-human-approved-runtime";
 import { TRG_002_V4_HUMAN_APPROVAL } from "./TRG-002/exam-readiness-v4-approved-governance";
@@ -17,18 +18,19 @@ async function main() {
   const trg002 = packages.find((entry: any) => entry.packageId === "TRG-002") as any;
   const freeze = TRG_001_POST_FINAL5_FREEZE_V1;
   const activation = TRG_001_POST_FINAL5_QUESTION_STUDIO_ACTIVATION_V1;
+  const fullInternal = TRG_001_POST_FINAL5_FULL_INTERNAL_ACTIVATION_V1;
 
   assert.ok(trg001, "TRG-001 must be exposed through the aggregate Question Studio capability surface");
   assert.equal(trg001.permanentQlCount, 144);
   assert.deepEqual(trg001.supportedLanguages, ["en", "hi", "pa"]);
   assert.equal(trg001.enabled, true);
   assert.equal(trg001.questionStudioDiscoverable, true);
-  assert.equal(trg001.questionBankStatus, "LOCKED");
-  assert.equal(trg001.questionBankWritable, false);
-  assert.equal(trg001.testEligibility, "INELIGIBLE");
-  assert.equal(trg001.testEligible, false);
-  assert.equal(trg001.testBuilderEligible, false);
-  assert.equal(trg001.mockTestEligible, false);
+  assert.equal(trg001.questionBankStatus, "WRITABLE");
+  assert.equal(trg001.questionBankWritable, true);
+  assert.equal(trg001.testEligibility, "ELIGIBLE");
+  assert.equal(trg001.testEligible, true);
+  assert.equal(trg001.testBuilderEligible, true);
+  assert.equal(trg001.mockTestEligible, true);
   assert.equal(trg001.publiclyPublishable, false);
   assert.equal(trg001.publicReleaseAuthorized, false);
   assert.equal(trg001.automaticStudentPublication, false);
@@ -51,6 +53,11 @@ async function main() {
   assert.equal(activation.execution.questionBankWritable, false);
   assert.equal(activation.execution.testBuilderEligible, false);
   assert.equal(activation.execution.publicReleaseAuthorized, false);
+  assert.equal(fullInternal.status, "ACTIVE_INTERNAL_FULL");
+  assert.equal(fullInternal.execution.questionBankWritable, true);
+  assert.equal(fullInternal.execution.testBuilderEligible, true);
+  assert.equal(fullInternal.execution.mockTestEligible, true);
+  assert.equal(fullInternal.execution.publicReleaseAuthorized, false);
 
   // Historical authority remains provenance-only and is not mutated by the new activation.
   const historicalSource: any = generateHumanApprovedTrg001Question("TRG-001-QL-001", "family-integration:historical-source");
@@ -124,11 +131,12 @@ async function main() {
     assert.equal(result.generationContext.multilingualFreezeGranted, true);
     assert.equal(result.generationContext.questionStudioDiscoverable, true);
     assert.equal(result.generationContext.internalReviewRunsWritable, true);
-    assert.equal(result.generationContext.questionBankStatus, "LOCKED");
-    assert.equal(result.generationContext.questionBankWritable, false);
-    assert.equal(result.generationContext.testEligibility, "INELIGIBLE");
-    assert.equal(result.generationContext.testEligible, false);
-    assert.equal(result.generationContext.testBuilderEligible, false);
+    assert.equal(result.generationContext.questionBankStatus, "WRITABLE");
+    assert.equal(result.generationContext.questionBankWritable, true);
+    assert.equal(result.generationContext.testEligibility, "ELIGIBLE");
+    assert.equal(result.generationContext.testEligible, true);
+    assert.equal(result.generationContext.testBuilderEligible, true);
+    assert.equal(result.generationContext.mockTestEligible, true);
     assert.equal(result.generationContext.publiclyPublishable, false);
     assert.equal(result.generationContext.publicReleaseAuthorized, false);
     assert.equal(result.generationContext.localizationStatus, "MULTILINGUAL_FROZEN_ACTIVE");
@@ -137,13 +145,17 @@ async function main() {
     for (const question of result.questions) {
       assert.equal(question.packageId, "TRG-001");
       assert.equal(question.questionStudioDiscoverable, true);
-      assert.equal(question.questionBankStatus, "LOCKED");
-      assert.equal(question.questionBankWritable, false);
-      assert.equal(question.testEligibility, "INELIGIBLE");
-      assert.equal(question.testEligible, false);
-      assert.equal(question.testBuilderEligible, false);
+      assert.equal(question.questionBankStatus, "WRITABLE");
+      assert.equal(question.questionBankWritable, true);
+      assert.equal(question.testEligibility, "ELIGIBLE");
+      assert.equal(question.testEligible, true);
+      assert.equal(question.testBuilderEligible, true);
+      assert.equal(question.mockTestEligible, true);
       assert.equal(question.publiclyPublishable, false);
       assert.equal(question.publicReleaseAuthorized, false);
+      assert.equal(question.proceduralLogic.questionBankWritable, true);
+      assert.equal(question.proceduralLogic.testBuilderEligible, true);
+      assert.equal(question.proceduralLogic.publicReleaseAuthorized, false);
       assert.equal(question.proceduralLogic.contentMutationAuthorized, false);
       assert.equal(question.proceduralLogic.freezeVersion, freeze.version);
       assert.equal(question.proceduralLogic.freezeFingerprint, freeze.evidence.artifactDigest);
@@ -179,7 +191,7 @@ async function main() {
   assert.equal(trg002Result.questions[0].packageId, "TRG-002");
   assert.equal(trg002Result.questions[0].solutionDiagram.kind, "TRG002_HEIGHTS_DISTANCES");
 
-  console.log("Trigonometry family Question Studio integration: PASS TRG-001=144/en-hi-pa question-studio-only TRG-002=96/en-hi-pa public=OFF");
+  console.log("Trigonometry family Question Studio integration: PASS TRG-001=144/en-hi-pa full-internal TRG-002=96/en-hi-pa public=OFF");
 }
 
 void main();
