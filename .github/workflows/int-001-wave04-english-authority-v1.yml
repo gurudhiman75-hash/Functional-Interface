@@ -49,12 +49,20 @@ jobs:
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-wave04-english-editorial-remediation-v1-audit.ts | tee int-001-wave04-english-editorial-remediation-v1.log
           grep -q 'PASS_INT_001_WAVE04_ENGLISH_EDITORIAL_REMEDIATION_V1_AUDIT' int-001-wave04-english-editorial-remediation-v1.log
 
+      - name: Enforce direct calculation explanations
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-wave04-direct-calculation-explanation-v2-audit.ts | tee int-001-wave04-direct-calculation-explanation-v2.log
+          grep -q 'PASS_INT_001_WAVE04_DIRECT_CALCULATION_EXPLANATION_V2_AUDIT' int-001-wave04-direct-calculation-explanation-v2.log
+
       - name: Export English human-review pack
         shell: bash
         run: |
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-wave04-english-review-export.ts | tee int-001-wave04-english-review-export.log
           grep -q 'PASS_INT_001_WAVE04_ENGLISH_REVIEW_EXPORT' int-001-wave04-english-review-export.log
+          grep -q 'Explanation style: \*\*DIRECT CALCULATION\*\*' int-001-wave04-english-review/INT-001-WAVE04-ENGLISH-REVIEW.md
           test -f int-001-wave04-english-review/INT-001-WAVE04-ENGLISH-REVIEW.md
           test -f int-001-wave04-english-review/INT-001-WAVE04-ENGLISH-REVIEW.json
 
@@ -88,6 +96,7 @@ jobs:
           path: |
             int-001-wave04-english-authority-v1.log
             int-001-wave04-english-editorial-remediation-v1.log
+            int-001-wave04-direct-calculation-explanation-v2.log
             int-001-wave04-english-review-export.log
             int-001-wave04-wave03-regression.log
             int-001-wave04-wave02-regression.log
