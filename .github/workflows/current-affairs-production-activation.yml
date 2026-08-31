@@ -2,18 +2,20 @@ name: Validate Current Affairs Production Activation
 
 on:
   pull_request:
-    branches: [New-main]
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/current-affairs/**"
       - "artifacts/api-server/src/routes/admin-current-affairs-production-ops.ts"
+      - "artifacts/api-server/src/routes/admin-current-affairs-editorial-activation.ts"
       - "artifacts/api-server/src/app.ts"
       - "artifacts/api-server/migrations/*current_affairs*.sql"
       - "artifacts/api-server/ensure-current-affairs.mjs"
       - "artifacts/admin-app/src/features/current-affairs/**"
       - "artifacts/admin-app/src/pages/content/CurrentAffairsProductionReadinessPage.tsx"
+      - "artifacts/admin-app/src/pages/content/CurrentAffairsEditorial*.tsx"
       - "artifacts/admin-app/src/App.tsx"
       - "build-api.sh"
-      - ".github/workflows/current-affairs-production-activation.yml"
   workflow_dispatch:
 
 permissions:
@@ -120,8 +122,40 @@ jobs:
           grep -Fq 'Generate Yesterday Now' artifacts/admin-app/src/pages/content/CurrentAffairsProductionReadinessPage.tsx
           grep -Fq "/content/current-affairs/production-readiness" artifacts/admin-app/src/App.tsx
 
+      - name: Verify bounded editorial activation authority
+        shell: bash
+        run: |
+          set -euo pipefail
+          route=artifacts/api-server/src/routes/admin-current-affairs-editorial-activation.ts
+          client=artifacts/admin-app/src/features/current-affairs/editorial-api.ts
+          app=artifacts/api-server/src/app.ts
+          admin=artifacts/admin-app/src/App.tsx
+          grep -Fq 'adminCurrentAffairsEditorialActivationRouter' "$app"
+          grep -Fq 'requireAdminPermission("content.questions.read")' "$route"
+          grep -Fq 'requireAdminPermission("content.questions.update")' "$route"
+          grep -Fq 'createManualAuthoringVersion' "$route"
+          grep -Fq 'createManualCurrentAffairsLocalization' "$route"
+          grep -Fq 'createManualCurrentAffairsEnglishQuestionRevision' "$route"
+          grep -Fq 'createManualCurrentAffairsQuestionLocalization' "$route"
+          grep -Fq 'approveCurrentAffairsQuestionEditorialItem' "$route"
+          grep -Fq 'MANUAL_TITLE_SIMILARITY_LIMIT = 0.72' "$route"
+          grep -Fq 'BANK_ONLY' artifacts/admin-app/src/pages/content/CurrentAffairsEditorialQuestionPage.tsx
+          grep -Fq "/content/current-affairs/events/:eventId" "$admin"
+          grep -Fq "/content/current-affairs/questions/:generationItemId" "$admin"
+          grep -Fq "/content/current-affairs'" "$admin"
+          ! grep -Fq '/release' "$client"
+          ! grep -Fq '/promotion' "$client"
+          ! grep -Fq '/learner' "$client"
+          ! grep -Fq 'admin-current-affairs-release' "$route"
+          ! grep -Fq 'question-promotion' "$route"
+          ! grep -Fq 'quiz-delivery' "$route"
+          ! grep -Fq 'notification' "$route"
+
       - name: Bundle Generate Yesterday runtime
         run: pnpm --dir artifacts/api-server exec esbuild src/current-affairs/on-demand-yesterday-runtime.ts --bundle --packages=external --platform=node --format=esm --outfile=/tmp/current-affairs-on-demand-yesterday.mjs
+
+      - name: Bundle Current Affairs editorial activation
+        run: pnpm --dir artifacts/api-server exec esbuild src/routes/admin-current-affairs-editorial-activation.ts --bundle --packages=external --platform=node --format=esm --outfile=/tmp/current-affairs-editorial-activation.mjs
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
