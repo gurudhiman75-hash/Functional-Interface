@@ -12,7 +12,6 @@ on:
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/POST-FINAL5-DEFECT-REMEDIATION-V1-STATUS.md"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/production-human-approved-runtime.ts"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-native-v5-pedagogic-review-final5.ts"
-      - ".github/workflows/trg-001-post-final5-defect-remediation-v1.yml"
   workflow_dispatch:
 
 concurrency:
