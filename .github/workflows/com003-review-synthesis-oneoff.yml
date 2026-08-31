@@ -9,6 +9,14 @@ on:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-editorial-*.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-controlled-*.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-permanent-*.ts'
+  pull_request:
+    branches:
+      - integration/computer-content-engine-mainline-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-editorial-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-controlled-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-permanent-*.ts'
 
 permissions:
   contents: read
