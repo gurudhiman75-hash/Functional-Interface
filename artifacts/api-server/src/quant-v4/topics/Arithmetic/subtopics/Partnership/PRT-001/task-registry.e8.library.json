@@ -1,0 +1,31 @@
+{
+  "chapterId": "PRT-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "E8_SOURCE_BACKED_EXAM_REALNESS",
+  "entries": {
+    "PRT-QL-104": {
+      "cpId": "PRT-CP-006",
+      "taskKind": "multipleGrossPercentAllocations",
+      "solveMode": "findPartnerReceiptsWithMultipleOrderedAllocations",
+      "answerType": "MONEY",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "capitalA", "capitalB", "allowancePercentA", "allowancePercentB", "totalProfit", "targetPartner", "business"],
+      "scenarioFamily": "multiRecipientGrossPercentAllowances",
+      "distractorProfile": "applyAllowancesAfterRatioOrToWrongPool",
+      "explanationStrategy": "grossAllowancesThenCapitalShare",
+      "active": true
+    },
+    "PRT-QL-105": {
+      "cpId": "PRT-CP-004",
+      "taskKind": "multiYearWithdrawalShare",
+      "solveMode": "findShareAfterCapitalWithdrawal",
+      "answerType": "MONEY",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "partnerC", "capitalA", "initialCapitalB", "withdrawnCapitalB", "changeAfterB", "capitalC", "totalDuration", "totalProfit", "targetPartner", "business"],
+      "scenarioFamily": "multiYearThreePartnerWithdrawal",
+      "distractorProfile": "applyWithdrawalWholeHorizonOrIgnoreThirdPartner",
+      "explanationStrategy": "multiYearPiecewiseWithdrawalThenShare",
+      "active": true
+    }
+  }
+}
