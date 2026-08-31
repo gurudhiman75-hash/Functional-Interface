@@ -116,8 +116,10 @@ for (const language of LANGUAGES) {
   }
 }
 
+// The bundled proof runs from artifacts/api-server. Read the route directly
+// from src/ so bundling cannot redirect this static-governance check to dist/.
 const routeSource = readFileSync(
-  new URL("../../routes/admin-question-studio-cubes-dice.ts", import.meta.url),
+  `${process.cwd()}/src/routes/admin-question-studio-cubes-dice.ts`,
   "utf8",
 );
 assert.match(routeSource, /content\.generation\.run/);
