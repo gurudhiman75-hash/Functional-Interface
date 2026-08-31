@@ -550,6 +550,7 @@ export const COM003_OFFICE_PRODUCTIVITY_DISCOVERY: Com003DiscoveryCandidate[] = 
       "Which shortcut starts the show from the current slide?",
     ],
     evidence: ["VENDOR_AUTHORITY", "PYQ_REQUIRED"],
+    ambiguityRisks: ["PowerPoint shortcut behavior differs by platform/web app; generation must use the explicitly verified Windows desktop context."],
     productionState: "DISCOVERY_ONLY",
   },
   {
