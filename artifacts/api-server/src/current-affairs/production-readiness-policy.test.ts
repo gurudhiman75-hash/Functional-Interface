@@ -114,11 +114,39 @@ const redundantPunjabCoverage = evaluateCurrentAffairsSourceFamilyCoverage([
   sourceEndpoint("punjab_press", "punjab_government", "punjab", true),
   sourceEndpoint("tribune_punjab", "tribune", "punjab", false, "trusted_news"),
 ]);
-assert.equal(redundantPunjabCoverage.requiredSourceFamilies, 5, "Punjab endpoints must count once and news must not inflate coverage");
+assert.equal(redundantPunjabCoverage.requiredSourceFamilies, 5, "Punjab Government endpoints must count once and news must not inflate coverage");
 assert.equal(redundantPunjabCoverage.healthyRequiredSourceFamilies, 5);
 assert.equal(redundantPunjabCoverage.sourceCoveragePercent, 100);
 assert.deepEqual(redundantPunjabCoverage.degradedSourceFamilies, ["punjab_government"]);
 assert.deepEqual(redundantPunjabCoverage.criticalDomainFailures, []);
+
+const independentPunjabResilience = evaluateCurrentAffairsSourceFamilyCoverage([
+  sourceEndpoint("pib", "pib", "national", true),
+  sourceEndpoint("rbi", "rbi", "economy_banking", true),
+  sourceEndpoint("sebi", "sebi", "economy_banking", true),
+  sourceEndpoint("isro", "isro", "science_space", true),
+  sourceEndpoint("punjab_notifications", "punjab_government", "punjab", false),
+  sourceEndpoint("punjab_press", "punjab_government", "punjab", false),
+  sourceEndpoint("punjab_lok_bhavan_press", "punjab_lok_bhavan", "punjab", true),
+]);
+assert.equal(independentPunjabResilience.requiredSourceFamilies, 6);
+assert.equal(independentPunjabResilience.healthyRequiredSourceFamilies, 5);
+assert.equal(independentPunjabResilience.sourceCoveragePercent, 83);
+assert.deepEqual(independentPunjabResilience.unhealthySourceFamilies, ["punjab_government"]);
+assert.deepEqual(independentPunjabResilience.criticalDomainFailures, [], "independent official Punjab family must preserve the Punjab domain");
+
+const allPunjabOfficialFamiliesDown = evaluateCurrentAffairsSourceFamilyCoverage([
+  sourceEndpoint("pib", "pib", "national", true),
+  sourceEndpoint("rbi", "rbi", "economy_banking", true),
+  sourceEndpoint("sebi", "sebi", "economy_banking", true),
+  sourceEndpoint("isro", "isro", "science_space", true),
+  sourceEndpoint("punjab_notifications", "punjab_government", "punjab", false),
+  sourceEndpoint("punjab_press", "punjab_government", "punjab", false),
+  sourceEndpoint("punjab_lok_bhavan_press", "punjab_lok_bhavan", "punjab", false),
+  sourceEndpoint("tribune_punjab", "tribune", "punjab", true, "trusted_news"),
+]);
+assert.equal(allPunjabOfficialFamiliesDown.sourceCoveragePercent, 67);
+assert.deepEqual(allPunjabOfficialFamiliesDown.criticalDomainFailures, ["punjab"]);
 
 const optionalFamilyDownCoverage = evaluateCurrentAffairsSourceFamilyCoverage([
   sourceEndpoint("pib", "pib", "national", true),
@@ -140,4 +168,4 @@ const nationalDomainDownCoverage = evaluateCurrentAffairsSourceFamilyCoverage([
 assert.equal(nationalDomainDownCoverage.sourceCoveragePercent, 80);
 assert.deepEqual(nationalDomainDownCoverage.criticalDomainFailures, ["national"]);
 
-console.log("Current Affairs CP028 production readiness and source-family contracts passed");
+console.log("Current Affairs CP029 production readiness and Punjab official resilience contracts passed");

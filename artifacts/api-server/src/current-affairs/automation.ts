@@ -18,6 +18,7 @@ const LISTING_ADAPTERS = new Set<OfficialListingAdapter>([
   "sebi_press_releases",
   "isro_latest_news",
   "punjab_press_releases",
+  "punjab_lok_bhavan_press",
 ]);
 
 export type ScheduledSourceResult = {
