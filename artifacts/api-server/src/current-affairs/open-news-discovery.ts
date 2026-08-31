@@ -39,7 +39,7 @@ function assertDateOnly(date: string) {
 }
 
 function gdeltTimestamp(date: Date) {
-  return date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "");
+  return date.toISOString().replace(/[-:T]/g, "").replace(/\.\d{3}Z$/, "");
 }
 
 function targetWindow(date: string) {
