@@ -1,0 +1,52 @@
+name: ARG-001 CP007 One-Time Tuple Typing Repair
+
+on:
+  push:
+    branches:
+      - feature/arg-001-cp005-question-studio-v1
+    paths:
+      - .github/workflows/arg-001-cp007-tuple-repair-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/arg-001-cp005-question-studio-v1
+          fetch-depth: 0
+
+      - name: Repair CP007 container typing without semantic changes
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-generator-v2.ts')
+          text = path.read_text(encoding='utf-8')
+          old = '  arguments: readonly [CandidateArgument, CandidateArgument, CandidateArgument, CandidateArgument];'
+          new = '  arguments: readonly CandidateArgument[];'
+          count = text.count(old)
+          if count != 1:
+              raise SystemExit(f'Expected exactly one tuple contract to repair, found {count}')
+          path.write_text(text.replace(old, new), encoding='utf-8')
+          PY
+
+          git diff --check
+          git diff -- artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-generator-v2.ts
+
+      - name: Commit repair to PR head
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo 'No repair required.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp007-exam-profile-generator-v2.ts
+          git commit -m 'fix(arg-001): repair CP007 argument container typing'
+          git push origin HEAD:feature/arg-001-cp005-question-studio-v1
