@@ -1,0 +1,8 @@
+{
+  "language": "en",
+  "status": "HUMAN_AUTHORED_E8_SOURCE_BACKED",
+  "entries": {
+    "PRT-QL-104": "A {business} earned {totalProfit}. Before the remaining profit was shared, {partnerA} received {allowancePercentA}% of gross profit and {partnerB} received {allowancePercentB}% of gross profit. Their equal-period capitals were {capitalA} and {capitalB}. What was {targetPartner}'s final receipt?",
+    "PRT-QL-105": "A {business} ran for {totalDuration}. {partnerA} kept {capitalA} invested throughout; {partnerB} started with {initialCapitalB} but withdrew {withdrawnCapitalB} after {changeAfterB}; and {partnerC} kept {capitalC} throughout. From total profit {totalProfit}, find {targetPartner}'s share."
+  }
+}
