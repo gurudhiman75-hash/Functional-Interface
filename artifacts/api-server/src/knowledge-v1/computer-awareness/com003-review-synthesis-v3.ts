@@ -1,9 +1,6 @@
-import { COM003_EDITORIALLY_APPROVED_FACTS } from "./com003-editorial-fact-review";
 import { COM003_PERMANENT_QLS } from "./com003-permanent-ql-allocation";
 import { generateCom003ReviewQuestionV2 } from "./com003-review-synthesis-v2";
 import type { Com003ReviewQuestion } from "./com003-review-types";
-
-const factById = new Map(COM003_EDITORIALLY_APPROVED_FACTS.map((fact) => [fact.factId, fact]));
 
 const QL_CONTEXT: Record<string, readonly string[]> = {
   "COM-003-QL-001": ["In Microsoft Office", "For Office productivity software", "Within a desktop Office suite"],
@@ -27,31 +24,42 @@ const QL_CONTEXT: Record<string, readonly string[]> = {
   "COM-003-QL-019": ["In Windows desktop PowerPoint", "For Windows desktop PowerPoint", "When presenting with Windows desktop PowerPoint"],
 };
 
+const QL008_DEFINITIONS: Record<string, string> = {
+  Workbook: "an Excel file that can contain one or more worksheets",
+  Worksheet: "one spreadsheet sheet contained within an Excel file",
+  Row: "a horizontal series of cells in a worksheet",
+  Column: "a vertical series of cells in a worksheet",
+  Cell: "the box formed at the intersection of a row and a column",
+};
+
 function lowerFirst(value: string) {
   return value ? `${value.charAt(0).toLowerCase()}${value.slice(1)}` : value;
 }
 
-function normalizeExamInstruction(stem: string) {
-  const trimmed = stem.trim();
-  if (/^(Identify|Select|Choose)\b/i.test(trimmed)) return trimmed;
-  return trimmed;
+function stripExistingWindowsLead(stem: string) {
+  return stem
+    .replace(/^In Windows desktop Excel,\s*/i, "")
+    .replace(/^For Windows desktop Excel,\s*/i, "")
+    .replace(/^When using Windows desktop Excel,\s*/i, "")
+    .replace(/^In Windows desktop PowerPoint,\s*/i, "")
+    .replace(/^For Windows desktop PowerPoint,\s*/i, "")
+    .replace(/^When presenting with Windows desktop PowerPoint,\s*/i, "")
+    .replace(/^In Windows desktop context,\s*/i, "");
 }
 
 function contextualize(question: Com003ReviewQuestion, index: number) {
   const contexts = QL_CONTEXT[question.qlId] ?? ["In this computer-awareness context"];
-  const context = contexts[index % contexts.length]!;
-  const stem = normalizeExamInstruction(question.stem);
-  if (new RegExp(`^${context.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\b`, "i").test(stem)) return stem;
-  if (/^In Windows desktop/i.test(stem) && /Windows desktop/i.test(context)) return stem;
-  return `${context}, ${lowerFirst(stem)}`;
+  const cycle = Math.floor(index / 6);
+  const context = contexts[(index + cycle) % contexts.length]!;
+  const bareStem = stripExistingWindowsLead(question.stem.trim());
+  return `${context}, ${lowerFirst(bareStem)}`;
 }
 
 function remediateQl008Leak(question: Com003ReviewQuestion) {
   if (question.qlId !== "COM-003-QL-008" || question.surfaceMode !== "STRUCTURE_TERM_FROM_DEFINITION") return question;
-  const fact = factById.get(question.targetFactId);
-  if (!fact || fact.value.kind !== "text") return question;
-  const stem = `Which Excel structure term matches this definition: ${fact.value.text.en.trim()}?`;
-  return { ...question, stem };
+  const definition = QL008_DEFINITIONS[question.canonicalAnswer];
+  if (!definition) return question;
+  return { ...question, stem: `Which Excel structure term means ${definition}?` };
 }
 
 export function generateCom003ReviewQuestionV3(qlId: string, seed: string, index = 0) {
