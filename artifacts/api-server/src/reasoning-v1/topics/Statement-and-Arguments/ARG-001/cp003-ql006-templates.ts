@@ -2,7 +2,7 @@ import type { ArgCp003Template } from "./cp003-saturation-types.ts";
 
 export const ARG_CP003_QL006_TEMPLATES: readonly ArgCp003Template[] = [
   {
-    id: "ARG-CP003-QL006-T01", qlId: "ARG-QL-006", archetype: "LESS_RESTRICTIVE_ALTERNATIVE", difficulty: "HARD", answerClass: "ONLY_I",
+    id: "ARG-CP003-QL006-T01", qlId: "ARG-QL-006", archetype: "LESS_RESTRICTIVE_ALTERNATIVE", difficulty: "EASY", answerClass: "ONLY_I",
     dimensions: [
       ["street vendors", "cycle-rickshaw stands", "temporary market stalls", "food carts"],
       ["a busy railway-station approach", "a crowded bus-terminal frontage", "a dense market entrance", "a pedestrian-heavy hospital approach"],
@@ -16,7 +16,7 @@ export const ARG_CP003_QL006_TEMPLATES: readonly ArgCp003Template[] = [
     ],
   },
   {
-    id: "ARG-CP003-QL006-T02", qlId: "ARG-QL-006", archetype: "RISK_BASED_ALTERNATIVE", difficulty: "HARD", answerClass: "ONLY_II",
+    id: "ARG-CP003-QL006-T02", qlId: "ARG-QL-006", archetype: "RISK_BASED_ALTERNATIVE", difficulty: "EASY", answerClass: "ONLY_II",
     dimensions: [
       ["card transactions outside the home state", "unusual high-value transfers", "first-time overseas card use", "payments from a newly added device"],
       ["automatic blocking", "mandatory pre-authorisation", "a blanket decline rule", "an automatic account hold"],
@@ -44,7 +44,7 @@ export const ARG_CP003_QL006_TEMPLATES: readonly ArgCp003Template[] = [
     ],
   },
   {
-    id: "ARG-CP003-QL006-T04", qlId: "ARG-QL-006", archetype: "PROPORTIONAL_RESPONSE_FALSE_DILEMMA", difficulty: "HARD", answerClass: "NEITHER",
+    id: "ARG-CP003-QL006-T04", qlId: "ARG-QL-006", archetype: "PROPORTIONAL_RESPONSE_FALSE_DILEMMA", difficulty: "MEDIUM", answerClass: "NEITHER",
     dimensions: [
       ["a cheating complaint", "an impersonation complaint", "a paper-leak allegation", "a technical-tampering complaint"],
       ["a recruitment examination", "an entrance examination", "a licensing test", "a departmental test"],
@@ -72,7 +72,7 @@ export const ARG_CP003_QL006_TEMPLATES: readonly ArgCp003Template[] = [
     ],
   },
   {
-    id: "ARG-CP003-QL006-T06", qlId: "ARG-QL-006", archetype: "INTERIM_SAFEGUARD_DUE_PROCESS", difficulty: "HARD", answerClass: "ONLY_II",
+    id: "ARG-CP003-QL006-T06", qlId: "ARG-QL-006", archetype: "INTERIM_SAFEGUARD_DUE_PROCESS", difficulty: "MEDIUM", answerClass: "ONLY_II",
     dimensions: [
       ["an unverified buyer complaint", "one unverified fraud report", "a single misconduct allegation", "one disputed transaction complaint"],
       ["permanently ban the seller", "permanently close the account", "irreversibly suspend the service provider", "permanently remove the participant"],
