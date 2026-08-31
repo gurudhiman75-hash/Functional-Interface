@@ -1,5 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { NotesStudioApprovalLocalizationPage } from './NotesStudioApprovalLocalizationPage';
+import { NotesStudioCandidateClaimsPage } from './NotesStudioCandidateClaimsPage';
 import { NotesStudioEvidenceCoveragePage } from './NotesStudioEvidenceCoveragePage';
 import { NotesStudioOperationsPage } from './NotesStudioOperationsPage';
 import { NotesStudioPlanningPage } from './NotesStudioPlanningPage';
@@ -22,6 +23,7 @@ export function NotesStudioHubPage() {
       <TabsTrigger value="source-policy">Source policy</TabsTrigger>
       <TabsTrigger value="source-coverage">Source diagnostics</TabsTrigger>
       <TabsTrigger value="source-proposals">Pack proposals</TabsTrigger>
+      <TabsTrigger value="candidate-claims">Candidate claims</TabsTrigger>
       <TabsTrigger value="evidence">Evidence & coverage</TabsTrigger>
       <TabsTrigger value="sections">Section drafts</TabsTrigger>
       <TabsTrigger value="quality">Quality gates</TabsTrigger>
@@ -47,6 +49,9 @@ export function NotesStudioHubPage() {
     </TabsContent>
     <TabsContent value="source-proposals" className="mt-0">
       <NotesStudioSourcePackProposalPage />
+    </TabsContent>
+    <TabsContent value="candidate-claims" className="mt-0">
+      <NotesStudioCandidateClaimsPage />
     </TabsContent>
     <TabsContent value="evidence" className="mt-0">
       <NotesStudioEvidenceCoveragePage />
