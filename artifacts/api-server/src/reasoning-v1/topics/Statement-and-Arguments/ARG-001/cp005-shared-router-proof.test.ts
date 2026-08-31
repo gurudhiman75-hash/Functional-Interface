@@ -8,6 +8,8 @@ import {
   listQuestionStudioPackages as listPreviousPackages,
 } from "../../../../question-studio/shared-generation-engine-sri.ts";
 
+const EXPECTED_DIFFICULTIES = ["Easy", "Hard", "Medium"];
+
 async function main() {
   const previous = listPreviousPackages();
   const aggregate = listArgAggregatePackages();
@@ -39,18 +41,14 @@ async function main() {
   assert.equal(arg.automaticStudentPublication, false);
   assert.deepEqual(arg.supportedLanguages, ["en", "hi", "pa"]);
   assert.deepEqual(arg.designTargetDifficulties, ["Easy", "Medium", "Hard"]);
-  assert.deepEqual(arg.supportedDifficulties, ["Medium", "Hard"]);
-  assert.deepEqual(arg.blockedDifficulties, ["Easy"]);
-  assert.equal(arg.difficultyCoverageStatus, "CERTIFIED_MEDIUM_HARD_EASY_GAP");
+  assert.deepEqual(arg.supportedDifficulties, ["Easy", "Medium", "Hard"]);
+  assert.deepEqual(arg.blockedDifficulties, []);
+  assert.equal(arg.difficultyCoverageStatus, "CERTIFIED_EASY_MEDIUM_HARD");
   assert.equal(arg.permanentQlCount, 6);
-  assert.deepEqual(
-    arg.canonicalProblems.find((problem: any) => problem.id === "ARG-QL-001")?.supportedDifficulties,
-    ["Medium", "Hard"],
-  );
-  assert.deepEqual(
-    arg.canonicalProblems.find((problem: any) => problem.id === "ARG-QL-006")?.supportedDifficulties,
-    ["Hard"],
-  );
+
+  for (const problem of arg.canonicalProblems) {
+    assert.deepEqual([...problem.supportedDifficulties].sort(), EXPECTED_DIFFICULTIES, `${problem.id}: incomplete difficulty capabilities`);
+  }
 
   const result = await generateArgAggregateQuestion({
     packageId: "ARG-001",
@@ -79,16 +77,36 @@ async function main() {
     assert.equal(question.automaticStudentPublication, false);
   }
 
-  await assert.rejects(
-    generateArgAggregateQuestion({
-      packageId: "ARG-001",
-      difficulty: "Easy",
-      language: "en",
-      seed: "easy-gap-proof",
-      count: 1,
-    }),
-    /no certified Easy authorities/i,
-  );
+  const easy = await generateArgAggregateQuestion({
+    packageId: "ARG-001",
+    canonicalProblemId: "ARG-QL-006",
+    cpId: "ARG-CP-005",
+    difficulty: "Easy",
+    language: "hi",
+    seed: "easy-routing-proof",
+    count: 5,
+  });
+  assert.equal(easy.questions.length, 5);
+  for (const question of easy.questions) {
+    assert.equal(question.qlId, "ARG-QL-006");
+    assert.equal(question.language, "hi");
+    assert.equal(question.difficulty, "Easy");
+  }
+
+  const medium = await generateArgAggregateQuestion({
+    packageId: "ARG-001",
+    canonicalProblemId: "ARG-QL-006",
+    cpId: "ARG-CP-005",
+    difficulty: "Medium",
+    language: "en",
+    seed: "medium-routing-proof",
+    count: 5,
+  });
+  assert.equal(medium.questions.length, 5);
+  for (const question of medium.questions) {
+    assert.equal(question.qlId, "ARG-QL-006");
+    assert.equal(question.difficulty, "Medium");
+  }
 
   const nonArg = await generateArgAggregateQuestion({
     packageId: "STA-001",
