@@ -25,26 +25,31 @@ The Final6 remediation corrects seven QLs in both locales:
 4. `QL-113` — generic key rule instructed add/subtract operations although the actual solve is divide by cosine and isolate tangent.
 5. `QL-114` — generic key rule is replaced with the actual sine:cosine ratio route used by the worked solution.
 6. `QL-115` — generic key rule instructed add/subtract operations instead of converting to tangent and reciprocating for cotangent.
-7. `QL-142` — shortcut used the wrong conjugate identity, `(1+cosα)(1−cosα)`, while the actual expression requires `(1+sinα)(1−sinα)=cos²α`.
+7. `QL-142` — Final5 hard-coded the cosine-conjugate shortcut even though this QL has seed-dependent `sec+tan` and `cosec+cot` variants. Final6 now derives the shortcut from the generated worked steps so `sec+tan` uses `(1+sinα)(1−sinα)=cos²α` and `cosec+cot` uses `(1+cosα)(1−cosα)=sin²α`.
+
+### Post-remediation review hardening
+
+The first green remediation artifact exposed that a static QL-142 replacement would still be wrong for the alternate conjugate variant. The implementation was therefore changed to be variant-aware, and the gate now includes two dedicated QL-142 seeds that must exercise both `sin` and `cos` conjugate paths.
 
 ## Candidate architecture
 
 - historical frozen English authority: unchanged and retained only as provenance;
 - `production-post-freeze-remediation-v1.ts`: English correction overlay with freeze inheritance explicitly invalidated;
-- `localization-native-v5-pedagogic-review-final6.ts`: targeted Hindi/Punjabi correction overlay over Final5;
-- `post-final5-defect-remediation-v1.test.ts`: canonical-semantics, placeholder, targeted-copy and lifecycle-lock regression;
+- `localization-native-v5-pedagogic-review-final6.ts`: targeted Hindi/Punjabi correction overlay over Final5, including variant-aware QL-142 handling;
+- `post-final5-defect-remediation-v1.test.ts`: canonical-semantics, placeholder, targeted-copy, QL-142 dual-variant and lifecycle-lock regression;
 - `export-post-final5-defect-remediation-v1.ts`: side-by-side 144-row English/Hindi/Punjabi review pack.
 
 ## Automated target
 
-The focused remediation gate checks three seeds per permanent QL:
+The focused remediation gate checks three seeds per permanent QL plus dedicated QL-142 variant seeds:
 
 - English remediation cases: `144 × 3 = 432`;
 - localized cases: `144 × 2 × 3 = 864`;
+- dedicated QL-142 dual-variant coverage: `sec+tan` and `cosec+cot`;
 - canonical answer, correct-index, canonical-state and verification parity;
 - canonical semantic fingerprint parity;
 - no unresolved `${...}` learner-facing placeholders in the remediated English candidate;
-- exact correction text for all seven localized remediation QLs in both locales;
+- exact correction logic for all seven localized remediation QLs in both locales;
 - no unrelated explanation drift;
 - all Question Studio, Bank, Test Builder and public gates remain closed.
 
