@@ -3,8 +3,8 @@
   "status": "HUMAN_AUTHORED_E8_SOURCE_BACKED_VARIANTS",
   "entries": {
     "PRT-QL-104": [
-      "एक {business} के {totalProfit} सकल लाभ में से पहले {partnerA} को {allowancePercentA}% और {partnerB} को {allowancePercentB}% दिया गया। बची राशि उनकी समान अवधि की पूंजी {capitalA} और {capitalB} के अनुपात में बाँटी गई। {targetPartner} की कुल प्राप्ति ज्ञात कीजिए।",
-      "{partnerA} और {partnerB} ने एक {business} में समान अवधि के लिए {capitalA} और {capitalB} लगाए। सकल लाभ {totalProfit} में से उन्हें क्रमशः {allowancePercentA}% और {allowancePercentB}% पहले मिला; बाकी लाभ पूंजी अनुपात में बाँटा गया। {targetPartner} को कुल कितना मिला?"
+      "{partnerA} और {partnerB} ने एक {business} में समान अवधि के लिए {capitalA} और {capitalB} लगाए। लाभ का {equalSplitPercent}% बराबर और बाकी {capitalSplitPercent}% पूंजी अनुपात में बाँटा गया। उनकी अंतिम प्राप्तियों में {shareDifference} का अंतर था। कुल लाभ ज्ञात कीजिए।",
+      "एक {business} में {partnerA} और {partnerB} की समान-अवधि पूंजी {capitalA} और {capitalB} थी। लाभ का {equalSplitPercent}% दोनों ने बराबर बाँटा और शेष {capitalSplitPercent}% पूंजी के अनुपात में। यदि अंत में एक को दूसरे से {shareDifference} अधिक मिला, तो कुल लाभ कितना था?"
     ],
     "PRT-QL-105": [
       "एक {business} {totalDuration} तक चला। {partnerA} ने {capitalA} पूरे समय रखे। {partnerB} ने शुरू में {initialCapitalB} लगाए और {changeAfterB} बाद {withdrawnCapitalB} निकाल लिए, जबकि {partnerC} ने {capitalC} पूरे समय लगाए। लाभ {totalProfit} में {targetPartner} का हिस्सा निकालिए।",
