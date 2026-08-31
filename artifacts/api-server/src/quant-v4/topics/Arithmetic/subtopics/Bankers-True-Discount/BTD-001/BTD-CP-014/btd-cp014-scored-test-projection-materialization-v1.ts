@@ -57,6 +57,7 @@ function frozenLearnerSurface(question: Record<string, any>) {
     options: question.options,
     correctIndex: question.correctIndex,
     answer: question.answer,
+    explanation: question.explanation,
     packageExplanation: question.packageExplanation,
     difficulty: question.difficulty,
     frozenContentFingerprint: question.frozenContentFingerprint,
