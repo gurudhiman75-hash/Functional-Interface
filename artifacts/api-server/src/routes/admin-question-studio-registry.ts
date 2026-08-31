@@ -19,6 +19,7 @@ import adminQuestionStudioAlgebraRouter from "./admin-question-studio-algebra";
 import adminQuestionStudioDataSufficiencyRouter from "./admin-question-studio-data-sufficiency";
 import adminQuestionStudioProbabilityRouter from "./admin-question-studio-probability";
 import adminQuestionStudioCalendarRouter from "./admin-question-studio-calendar";
+import adminQuestionStudioCubesDiceRouter from "./admin-question-studio-cubes-dice";
 import adminQuestionStudioSpatialRouter from "./admin-question-studio-spatial";
 import adminQuestionStudioRouter from "./admin-question-studio";
 
@@ -56,6 +57,7 @@ router.use(adminQuestionStudioAlgebraRouter);
 router.use(adminQuestionStudioDataSufficiencyRouter);
 router.use(adminQuestionStudioProbabilityRouter);
 router.use(adminQuestionStudioCalendarRouter);
+router.use(adminQuestionStudioCubesDiceRouter);
 router.use(adminQuestionStudioSpatialRouter);
 router.use(adminQuestionStudioRouter);
 
