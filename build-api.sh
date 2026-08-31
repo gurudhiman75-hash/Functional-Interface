@@ -35,6 +35,15 @@ else
   # before any runtime that can generate yesterday's packs is deployed.
   echo "[render-build] verify Current Affairs schema"
   pnpm --dir artifacts/api-server exec node ensure-current-affairs.mjs
+
+  # Notes Studio also has an ordered migration authority. Compile and execute the
+  # same ledgered migrator used by NS-008 so the admin/API bundle is never
+  # deployed ahead of the production Notes Studio database schema.
+  echo "[render-build] verify Notes Studio schema"
+  pnpm --dir artifacts/api-server exec esbuild notes-studio-migrate.ts \
+    --bundle --packages=external --platform=node --format=esm \
+    --outfile=dist/notes-studio-migrate.mjs
+  (cd artifacts/api-server && node dist/notes-studio-migrate.mjs)
 fi
 
 # Build the student app. Its build also generates the public prerender files.
