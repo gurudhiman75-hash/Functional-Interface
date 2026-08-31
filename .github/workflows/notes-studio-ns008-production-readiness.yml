@@ -87,6 +87,9 @@ jobs:
       - name: Run seeded PostgreSQL lifecycle
         run: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f artifacts/api-server/src/notes-studio/production-readiness-smoke.sql
 
+      - name: Run reference-evidence PostgreSQL lifecycle
+        run: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f artifacts/api-server/src/notes-studio/reference-evidence-production-smoke.sql
+
       - name: Verify production-readiness boundaries
         run: |
           grep -F 'pg_advisory_xact_lock' artifacts/api-server/notes-studio-migrate.ts
