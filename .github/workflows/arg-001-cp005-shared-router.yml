@@ -10,7 +10,6 @@ on:
       - 'artifacts/api-server/src/question-studio/shared-generation-engine-arg.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-arguments.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
-      - '.github/workflows/arg-001-cp005-shared-router.yml'
   workflow_dispatch:
 
 permissions:
