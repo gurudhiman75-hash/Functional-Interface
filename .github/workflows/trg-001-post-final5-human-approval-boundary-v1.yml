@@ -9,6 +9,9 @@ on:
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-freeze-readiness.test.ts"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-human-approval-boundary.ts"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-human-approval-boundary.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-human-review-packet-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-human-review-packet-v1.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/POST-FINAL5-HUMAN-REVIEW-PACKET-V1.md"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/POST-FINAL5-HUMAN-APPROVAL-BOUNDARY.md"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-human-approval-boundary.ts"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-human-approval-boundary.test.ts"
@@ -72,3 +75,13 @@ jobs:
 
       - name: Run post-Final5 human approval boundary audit
         run: node artifacts/api-server/dist/quant-v4/trg-001-post-final5-human-approval-boundary-audit.mjs
+
+      - name: Bundle post-Final5 human review packet audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-human-review-packet-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-post-final5-human-review-packet-v1-audit.mjs
+
+      - name: Run post-Final5 human review packet audit
+        run: node artifacts/api-server/dist/quant-v4/trg-001-post-final5-human-review-packet-v1-audit.mjs
