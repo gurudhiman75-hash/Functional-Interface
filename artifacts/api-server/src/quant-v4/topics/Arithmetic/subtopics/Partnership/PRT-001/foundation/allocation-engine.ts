@@ -16,7 +16,12 @@ import type {
   Rational,
 } from "./types";
 
-const PARTNER_REMUNERATION_KINDS = new Set(["SALARY", "COMMISSION", "BONUS"]);
+const PARTNER_REMUNERATION_KINDS = new Set([
+  "SALARY",
+  "COMMISSION",
+  "BONUS",
+  "INTEREST_ON_CAPITAL",
+]);
 
 function validateAllocation(
   allocation: PreDistributionAllocation,
