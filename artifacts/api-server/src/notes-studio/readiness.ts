@@ -11,9 +11,20 @@ export async function refreshNotesAuthoringReadiness(jobId: string, actorUserId:
           JOIN content.source_documents document ON document.id = link.source_document_id
           WHERE link.job_id = ${jobId}::uuid
             AND link.inclusion_state = 'included'
-            AND document.retention_mode = 'extracted_text'
-            AND document.extraction_status = 'processed'
-            AND LENGTH(COALESCE(document.extracted_text, '')) >= 100
+            AND (
+              (
+                document.retention_mode = 'extracted_text'
+                AND document.extraction_status = 'processed'
+                AND LENGTH(COALESCE(document.extracted_text, '')) >= 100
+              )
+              OR EXISTS (
+                SELECT 1
+                FROM content.note_source_evidence_blocks block
+                WHERE block.job_id = link.job_id
+                  AND block.source_document_id = link.source_document_id
+                  AND block.evidence_kind = 'editor_reference_note'
+              )
+            )
         ) AS has_sources,
         EXISTS (
           SELECT 1
