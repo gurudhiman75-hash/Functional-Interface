@@ -65,25 +65,25 @@ function questionTypeFor(qlId: Int001Wave03QlId) {
 
 function whatAskedFor(qlId: Int001Wave03QlId) {
   switch (qlId) {
-    case "INT-QL-132": return "Find the final amount after the two stated interest stages.";
-    case "INT-QL-133": return "Find the opening principal that leads to the stated final amount.";
-    case "INT-QL-134": return "Find the common principal from the known difference between the two scheme returns.";
+    case "INT-QL-132": return "Find the amount after both interest stages.";
+    case "INT-QL-133": return "Find the original principal.";
+    case "INT-QL-134": return "Find the common principal.";
   }
 }
 
 function shortcutFor(qlId: Int001Wave03QlId) {
   switch (qlId) {
-    case "INT-QL-132": return "Use one multiplier for each stage and multiply the stage factors; the maturity of the first stage is the principal of the second.";
-    case "INT-QL-133": return "Build the SI and CI multipliers separately, multiply them once, and divide the final amount by that combined multiplier.";
-    case "INT-QL-134": return "Because both schemes use the same principal, divide the known return difference by the difference of their exact amount factors.";
+    case "INT-QL-132": return "Finish stage 1 numerically first; use that amount directly as the principal for stage 2.";
+    case "INT-QL-133": return "Work backward: undo the last interest stage first, then undo the first stage.";
+    case "INT-QL-134": return "Calculate the SI and CI amounts on ₹100, find their difference, then scale ₹100 to the given difference.";
   }
 }
 
 function commonTrapFor(qlId: Int001Wave03QlId) {
   switch (qlId) {
-    case "INT-QL-132": return "Do not apply one interest method to the entire duration or stop after the first stage.";
-    case "INT-QL-133": return "Do not reverse only one stage or treat all years as simple/compound interest.";
-    case "INT-QL-134": return "Do not subtract the nominal annual rates directly; compare the complete SI and CI amount factors for the stated duration and frequency.";
+    case "INT-QL-132": return "Do not calculate both stages independently on the original principal when one stage follows the other.";
+    case "INT-QL-133": return "When working backward, undo the second stage before the first stage.";
+    case "INT-QL-134": return "Do not subtract the annual rates directly; calculate the two actual amounts on ₹100 first.";
   }
 }
 
@@ -123,6 +123,9 @@ function nominalCompoundFactor(ratePercent: Rational, years: number, periodsPerY
   const perPeriod = div(ratePercent, rat(BigInt(100 * periodsPerYear)));
   return pow(add(rat(1n), perPeriod), years * periodsPerYear);
 }
+function simpleInterest(principal: Rational, ratePercent: Rational, years: number): Rational {
+  return div(mul(mul(principal, ratePercent), rat(BigInt(years))), rat(100n));
+}
 
 function isEditoriallyDistinctState(qlId: Int001Wave03QlId, state: any): boolean {
   if (qlId === "INT-QL-132" || qlId === "INT-QL-133") {
@@ -146,58 +149,107 @@ function buildReviewedSource(qlId: Int001Wave03QlId, prototypeId: IntCp010Sequen
 
 function explanationFor(qlId: Int001Wave03QlId, source: any) {
   const state = source.state as any;
+
   if (qlId === "INT-QL-132") {
-    const siFactor = simpleFactor(state.simpleRatePercent, state.simpleYears);
+    const ciRate = decimal(state.compoundRatePercent);
+    const siRate = decimal(state.simpleRatePercent);
     const ciFactor = compoundFactor(state.compoundRatePercent, state.compoundYears);
-    const combined = mul(siFactor, ciFactor);
-    const orderText = state.stageOrder === "SI_THEN_CI" ? "SI first, then CI" : "CI first, then SI";
+
+    if (state.stageOrder === "SI_THEN_CI") {
+      const si = simpleInterest(state.principal, state.simpleRatePercent, state.simpleYears);
+      const afterSi = add(state.principal, si);
+      const final = mul(afterSi, ciFactor);
+      return deepFreeze({
+        whatAsked: whatAskedFor(qlId),
+        keyIdea: "Calculate the first stage completely, then use that amount directly in the second stage.",
+        steps: Object.freeze([
+          `SI = ${money(state.principal)} × ${siRate} × ${state.simpleYears} / 100 = ${money(si)}.`,
+          `Amount after SI = ${money(state.principal)} + ${money(si)} = ${money(afterSi)}.`,
+          `Now apply CI on ${money(afterSi)}: ${money(afterSi)} × (1 + ${ciRate}/100)^${state.compoundYears} = ${money(final)}.`,
+          `Therefore, final amount = ${money(source.answer)}.`,
+        ]),
+        shortcut: shortcutFor(qlId),
+        commonTrap: commonTrapFor(qlId),
+        finalAnswer: money(source.answer),
+      });
+    }
+
+    const afterCi = mul(state.principal, ciFactor);
+    const si = simpleInterest(afterCi, state.simpleRatePercent, state.simpleYears);
+    const final = add(afterCi, si);
     return deepFreeze({
       whatAsked: whatAskedFor(qlId),
-      keyIdea: "Treat the two interest methods as consecutive stages. The maturity amount of stage 1 becomes the principal of stage 2.",
+      keyIdea: "Calculate the first stage completely, then use that amount directly in the second stage.",
       steps: Object.freeze([
-        `SI multiplier = 1 + (${decimal(state.simpleRatePercent)} × ${state.simpleYears})/100 = ${decimal(siFactor)}.`,
-        `CI multiplier = (1 + ${decimal(state.compoundRatePercent)}/100)^${state.compoundYears} = ${decimal(ciFactor)}.`,
-        `Stage 1 → Stage 2 order is ${orderText}; the first-stage maturity becomes the second-stage principal.`,
-        `Combined multiplier = ${decimal(siFactor)} × ${decimal(ciFactor)} = ${decimal(combined)}.`,
-        `Final amount = ${money(state.principal)} × ${decimal(combined)} = ${money(source.answer)}.`,
+        `Amount after CI = ${money(state.principal)} × (1 + ${ciRate}/100)^${state.compoundYears} = ${money(afterCi)}.`,
+        `SI on ${money(afterCi)} = ${money(afterCi)} × ${siRate} × ${state.simpleYears} / 100 = ${money(si)}.`,
+        `Final amount = ${money(afterCi)} + ${money(si)} = ${money(final)}.`,
+        `Therefore, final amount = ${money(source.answer)}.`,
       ]),
       shortcut: shortcutFor(qlId),
       commonTrap: commonTrapFor(qlId),
       finalAnswer: money(source.answer),
     });
   }
+
   if (qlId === "INT-QL-133") {
     const siFactor = simpleFactor(state.simpleRatePercent, state.simpleYears);
     const ciFactor = compoundFactor(state.compoundRatePercent, state.compoundYears);
-    const combined = mul(siFactor, ciFactor);
+    const siRate = decimal(state.simpleRatePercent);
+    const ciRate = decimal(state.compoundRatePercent);
+
+    if (state.stageOrder === "SI_THEN_CI") {
+      const beforeCi = div(state.finalAmount, ciFactor);
+      return deepFreeze({
+        whatAsked: whatAskedFor(qlId),
+        keyIdea: "Work backward from the final amount and undo the second stage first.",
+        steps: Object.freeze([
+          `Before the CI stage = ${money(state.finalAmount)} ÷ (1 + ${ciRate}/100)^${state.compoundYears} = ${money(beforeCi)}.`,
+          `This ${money(beforeCi)} is the amount after ${state.simpleYears} year(s) of SI at ${siRate}%.`,
+          `Original principal = ${money(beforeCi)} × 100 / (100 + ${siRate} × ${state.simpleYears}) = ${money(source.answer)}.`,
+          `Therefore, original principal = ${money(source.answer)}.`,
+        ]),
+        shortcut: shortcutFor(qlId),
+        commonTrap: commonTrapFor(qlId),
+        finalAnswer: money(source.answer),
+      });
+    }
+
+    const beforeSi = div(state.finalAmount, siFactor);
     return deepFreeze({
       whatAsked: whatAskedFor(qlId),
-      keyIdea: "The two stages contribute separate exact multipliers. Multiply those multipliers once and reverse the combined multiplier to recover the opening principal.",
+      keyIdea: "Work backward from the final amount and undo the second stage first.",
       steps: Object.freeze([
-        `SI multiplier = 1 + (${decimal(state.simpleRatePercent)} × ${state.simpleYears})/100 = ${decimal(siFactor)}.`,
-        `CI multiplier = (1 + ${decimal(state.compoundRatePercent)}/100)^${state.compoundYears} = ${decimal(ciFactor)}.`,
-        `Combined multiplier = ${decimal(siFactor)} × ${decimal(ciFactor)} = ${decimal(combined)}.`,
-        `Opening principal = ${money(state.finalAmount)} ÷ ${decimal(combined)} = ${money(source.answer)}.`,
-        `Check: ${money(source.answer)} × ${decimal(combined)} = ${money(state.finalAmount)}.`,
+        `Before the SI stage = ${money(state.finalAmount)} × 100 / (100 + ${siRate} × ${state.simpleYears}) = ${money(beforeSi)}.`,
+        `This ${money(beforeSi)} is the amount after ${state.compoundYears} year(s) of CI at ${ciRate}%.`,
+        `Original principal = ${money(beforeSi)} ÷ (1 + ${ciRate}/100)^${state.compoundYears} = ${money(source.answer)}.`,
+        `Therefore, original principal = ${money(source.answer)}.`,
       ]),
       shortcut: shortcutFor(qlId),
       commonTrap: commonTrapFor(qlId),
       finalAnswer: money(source.answer),
     });
   }
+
+  const hundred = rat(100n);
   const borrowFactor = simpleFactor(state.borrowSimpleRatePercent, state.years);
   const lendFactor = nominalCompoundFactor(state.lendNominalCompoundRatePercent, state.years, state.compoundPeriodsPerYear);
-  const spreadFactor = sub(lendFactor, borrowFactor);
+  const siAmountOnHundred = mul(hundred, borrowFactor);
+  const ciAmountOnHundred = mul(hundred, lendFactor);
+  const differenceOnHundred = sub(ciAmountOnHundred, siAmountOnHundred);
   const periods = state.years * state.compoundPeriodsPerYear;
-  const periodRateDivisor = 100 * state.compoundPeriodsPerYear;
+  const periodRate = div(state.lendNominalCompoundRatePercent, rat(BigInt(state.compoundPeriodsPerYear)));
+
   return deepFreeze({
     whatAsked: whatAskedFor(qlId),
-    keyIdea: "The same principal is used in both schemes, so the known return difference equals the principal multiplied by the difference between the complete CI and SI amount factors.",
+    keyIdea: "Use ₹100 as a trial principal, find the return difference on ₹100, then scale it to the actual difference.",
     steps: Object.freeze([
-      `SI borrowing factor = 1 + (${decimal(state.borrowSimpleRatePercent)} × ${state.years})/100 = ${decimal(borrowFactor)}.`,
-      `CI lending factor = (1 + ${decimal(state.lendNominalCompoundRatePercent)}/${periodRateDivisor})^${periods} = ${decimal(lendFactor)}.`,
-      `Return-difference factor = ${decimal(lendFactor)} − ${decimal(borrowFactor)} = ${decimal(spreadFactor)}.`,
-      `Principal = ${money(state.netGain)} ÷ ${decimal(spreadFactor)} = ${money(source.answer)}.`,
+      `For ₹100, SI amount = ₹100 + (₹100 × ${decimal(state.borrowSimpleRatePercent)} × ${state.years} / 100) = ${money(siAmountOnHundred)}.`,
+      `CI rate per period = ${decimal(state.lendNominalCompoundRatePercent)} / ${state.compoundPeriodsPerYear} = ${decimal(periodRate)}%; number of periods = ${periods}.`,
+      `For ₹100, CI amount = ₹100 × (1 + ${decimal(periodRate)}/100)^${periods} = ${money(ciAmountOnHundred)}.`,
+      `Difference on ₹100 = ${money(ciAmountOnHundred)} − ${money(siAmountOnHundred)} = ${money(differenceOnHundred)}.`,
+      `Actual difference is ${money(state.netGain)}, so principal = ${money(state.netGain)} × 100 / ${decimal(differenceOnHundred)} = ${money(source.answer)}.`,
+      `Therefore, principal = ${money(source.answer)}.`,
     ]),
     shortcut: shortcutFor(qlId),
     commonTrap: commonTrapFor(qlId),
@@ -298,6 +350,7 @@ export function generateInt001Wave04EnglishCandidate(qlId: Int001Wave03QlId, see
     mathematicalState: source.state,
     mathematicalFingerprint: String(source.mathematicalFingerprint),
     explanation,
+    explanationStyle: "DIRECT_CALCULATION" as const,
     provenance: deepFreeze({
       wave03PermanentAuthority: true as const,
       sourcePrototypeId: prototypeId,
