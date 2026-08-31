@@ -20,14 +20,20 @@ export interface CubesDiceReviewPackage {
   supportedLanguages: CubesDiceReviewLanguage[];
   supportedDifficulties: ['Easy', 'Medium', 'Hard'];
   registrationAuthority: string;
-  activationMode: 'REGISTERED_REVIEW_ONLY';
+  activationAuthority: string;
+  activationMode: 'ACTIVE_INTERNAL_BANK_ONLY';
   questionStudioVisible: true;
   questionStudioDiscoverable: true;
   previewGenerationAuthorized: true;
-  persistenceAllowed: false;
-  databaseWriteEnabled: false;
-  questionBankWritable: false;
+  persistenceAllowed: true;
+  databaseWriteEnabled: true;
+  questionBankStatus: 'READY_FOR_STORAGE';
+  questionBankWritable: true;
+  questionBankAcceptanceMode: 'BANK_ONLY';
+  manualApprovalRequired: true;
+  testEligibility: 'INELIGIBLE';
   testEligible: false;
+  mockTestEligible: false;
   publiclyPublishable: false;
   automaticStudentPublication: false;
 }
@@ -40,7 +46,7 @@ export interface CubesDiceSolutionTable {
 }
 
 export interface CubesDiceReviewQuestion {
-  version: 'CND-001-QUESTION-STUDIO-REGISTERED-QUESTION-V1';
+  version: 'CND-001-QUESTION-STUDIO-BANK-QUESTION-V1';
   packageId: 'SPA-001';
   qlId: CubesDiceReviewQlId;
   permanentQlId: CubesDiceReviewQlId;
@@ -74,14 +80,20 @@ export interface CubesDiceReviewQuestion {
   questionLanguageId: string;
   contentFingerprint: string;
   registrationAuthority: string;
+  bankActivationAuthority: string;
   lifecycle: {
     reviewOnly: true;
     questionStudioDiscoverable: true;
-    registrationStatus: 'REGISTERED_REVIEW_ONLY';
-    persistenceAllowed: false;
-    questionBankStatus: 'NOT_STORED';
-    questionBankWritable: false;
+    registrationStatus: 'REGISTERED_BANK_ONLY_INTERNAL';
+    persistenceAllowed: true;
+    questionBankStatus: 'READY_FOR_STORAGE';
+    questionBankWritable: true;
+    questionBankAcceptanceMode: 'BANK_ONLY';
+    manualApprovalRequired: true;
+    testEligibility: 'INELIGIBLE';
     testEligible: false;
+    testBuilderEligible: false;
+    mockTestEligible: false;
     publiclyPublishable: false;
     automaticStudentPublication: false;
   };
@@ -92,6 +104,33 @@ export interface CubesDiceReviewInput {
   qlId?: CubesDiceReviewQlId;
   count: number;
   seed?: string;
+}
+
+export interface CubesDiceReviewStatus {
+  packageId: 'SPA-001-CND-001-REVIEW';
+  chapterCode: 'CND-001';
+  permanentQlCount: 5;
+  supportedLanguages: CubesDiceReviewLanguage[];
+  registrationStatus: 'REGISTERED_BANK_ONLY_INTERNAL';
+  registrationAuthority: string;
+  activationAuthority: string;
+  questionStudioDiscoverable: true;
+  previewGenerationAuthorized: true;
+  persistenceAllowed: true;
+  questionBankStatus: 'READY_FOR_STORAGE';
+  questionBankWritable: true;
+  questionBankAcceptanceMode: 'BANK_ONLY';
+  manualApprovalRequired: true;
+  testEligibility: 'INELIGIBLE';
+  testEligible: false;
+  mockTestEligible: false;
+  publiclyPublishable: false;
+  automaticStudentPublication: false;
+  generationRunCount: number;
+  generationItemCount: number;
+  approvedItemCount: number;
+  questionBankCount: number;
+  nextGate: string;
 }
 
 function paramsFor(input: CubesDiceReviewInput) {
@@ -106,10 +145,12 @@ export function getCubesDiceReviewPackage() {
     generationSystem: 'reasoning-v1';
     package: CubesDiceReviewPackage;
     maxPreviewBatchSize: number;
-    registrationStatus: 'REGISTERED_REVIEW_ONLY';
-    databaseWriteEnabled: false;
-    persistenceAllowed: false;
-    questionBankConversionEligibleAfterApproval: false;
+    maxRunBatchSize: number;
+    registrationStatus: 'REGISTERED_BANK_ONLY_INTERNAL';
+    databaseWriteEnabled: true;
+    persistenceAllowed: true;
+    questionBankConversionEligibleAfterApproval: true;
+    questionBankAcceptanceMode: 'BANK_ONLY';
     testEligibleAfterApproval: false;
     publiclyPublishableAfterApproval: false;
     automaticStudentPublication: false;
@@ -124,12 +165,14 @@ export function previewCubesDiceReview(input: CubesDiceReviewInput) {
   return adminRequest<{
     generationSystem: 'reasoning-v1';
     packageId: 'SPA-001-CND-001-REVIEW';
-    activationMode: 'REGISTERED_REVIEW_ONLY';
+    activationMode: 'ACTIVE_INTERNAL_BANK_ONLY';
     registrationAuthority: string;
+    activationAuthority: string;
     questions: CubesDiceReviewQuestion[];
-    productionEligible: false;
-    persistenceAllowed: false;
-    questionBankWritable: false;
+    internalReviewEligible: true;
+    persistenceAllowed: true;
+    questionBankWritable: true;
+    questionBankAcceptanceMode: 'BANK_ONLY';
     testEligible: false;
     publiclyPublishable: false;
   }>(
@@ -139,23 +182,30 @@ export function previewCubesDiceReview(input: CubesDiceReviewInput) {
   );
 }
 
-export function getCubesDiceReviewStatus() {
+export function createCubesDiceReviewRun(input: CubesDiceReviewInput) {
   return adminRequest<{
+    id: string;
+    publicCode: string;
+    status: 'review';
+    itemCount: number;
+    generationSystem: 'reasoning-v1';
     packageId: 'SPA-001-CND-001-REVIEW';
     chapterCode: 'CND-001';
-    permanentQlCount: 5;
-    supportedLanguages: CubesDiceReviewLanguage[];
-    registrationStatus: 'REGISTERED_REVIEW_ONLY';
-    registrationAuthority: string;
-    questionStudioDiscoverable: true;
-    previewGenerationAuthorized: true;
-    persistenceAllowed: false;
-    questionBankWritable: false;
+    activationAuthority: string;
+    questionBankConversionEligibleAfterApproval: true;
+    questionBankAcceptanceMode: 'BANK_ONLY';
     testEligible: false;
     publiclyPublishable: false;
     automaticStudentPublication: false;
-    nextGate: string;
   }>(
+    '/admin/question-studio/reasoning/spatial/cubes-dice/runs',
+    { method: 'POST', body: JSON.stringify(input) },
+    { fallbackMessage: 'Unable to create the Cubes & Dice review run.' },
+  );
+}
+
+export function getCubesDiceReviewStatus() {
+  return adminRequest<CubesDiceReviewStatus>(
     '/admin/question-studio/reasoning/spatial/cubes-dice/status',
     undefined,
     { fallbackMessage: 'Unable to load Cubes & Dice review status.' },
