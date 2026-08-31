@@ -99,6 +99,8 @@ const emptyJobDraft: JobDraft = {
   examIds: [],
 };
 
+const nativeSelectClassName = 'h-10 w-full touch-manipulation rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground shadow-sm outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50';
+
 function prettyState(value: string) {
   return value.split('_').map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
 }
@@ -317,9 +319,45 @@ export function NotesStudioSourcePackPage() {
           <div className="space-y-1.5"><Label>Canonical topic / syllabus target</Label><Input value={jobDraft.topicLabel} onChange={(event) => setJobDraft((current) => ({ ...current, topicLabel: event.target.value }))} placeholder="Polity → Fundamental Rights" /></div>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
-          <div className="space-y-1.5"><Label>Source language</Label><Select value={jobDraft.sourceLanguage} onValueChange={(value) => setJobDraft((current) => ({ ...current, sourceLanguage: value }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{options.languages.map((language) => <SelectItem key={language.id} value={language.code}>{language.name}</SelectItem>)}</SelectContent></Select></div>
-          <div className="space-y-1.5"><Label>Depth</Label><Select value={jobDraft.depth} onValueChange={(value) => setJobDraft((current) => ({ ...current, depth: value }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="quick_revision">Quick revision</SelectItem><SelectItem value="standard">Standard</SelectItem><SelectItem value="comprehensive">Comprehensive</SelectItem></SelectContent></Select></div>
-          <div className="space-y-1.5"><Label>Learner level</Label><Select value={jobDraft.learnerLevel} onValueChange={(value) => setJobDraft((current) => ({ ...current, learnerLevel: value }))}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="foundation">Foundation</SelectItem><SelectItem value="standard">Standard</SelectItem><SelectItem value="advanced">Advanced</SelectItem></SelectContent></Select></div>
+          <div className="space-y-1.5">
+            <Label htmlFor="notes-job-source-language">Source language</Label>
+            <select
+              id="notes-job-source-language"
+              className={nativeSelectClassName}
+              value={jobDraft.sourceLanguage}
+              onChange={(event) => setJobDraft((current) => ({ ...current, sourceLanguage: event.target.value }))}
+            >
+              {options.languages.length === 0
+                ? <option value="en">English</option>
+                : options.languages.map((language) => <option key={language.id} value={language.code}>{language.name}</option>)}
+            </select>
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="notes-job-depth">Depth</Label>
+            <select
+              id="notes-job-depth"
+              className={nativeSelectClassName}
+              value={jobDraft.depth}
+              onChange={(event) => setJobDraft((current) => ({ ...current, depth: event.target.value }))}
+            >
+              <option value="quick_revision">Quick revision</option>
+              <option value="standard">Standard</option>
+              <option value="comprehensive">Comprehensive</option>
+            </select>
+          </div>
+          <div className="space-y-1.5">
+            <Label htmlFor="notes-job-learner-level">Learner level</Label>
+            <select
+              id="notes-job-learner-level"
+              className={nativeSelectClassName}
+              value={jobDraft.learnerLevel}
+              onChange={(event) => setJobDraft((current) => ({ ...current, learnerLevel: event.target.value }))}
+            >
+              <option value="foundation">Foundation</option>
+              <option value="standard">Standard</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </div>
         </div>
         <div className="space-y-1.5"><Label>Syllabus / PYQ emphasis</Label><Textarea value={jobDraft.syllabusEmphasis} onChange={(event) => setJobDraft((current) => ({ ...current, syllabusEmphasis: event.target.value }))} placeholder="Emphasize articles, writ jurisdiction, restrictions, amendment-related traps and frequently confused pairs." /></div>
         <div className="space-y-2"><Label>Exam targets <span className="text-muted-foreground">({jobDraft.examIds.length}/{options.maxExamTargets})</span></Label><div className="max-h-56 overflow-auto rounded-lg border p-3">{examGroups.map(([family, exams]) => <div key={family} className="mb-3 last:mb-0"><div className="mb-1 text-xs font-semibold text-muted-foreground">{family}</div><div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">{exams.map((exam) => <label key={exam.id} className="flex items-center gap-2 text-sm"><Checkbox checked={jobDraft.examIds.includes(exam.id)} onCheckedChange={(checked) => toggleJobExam(exam.id, Boolean(checked))} />{exam.name}</label>)}</div></div>)}</div></div>
