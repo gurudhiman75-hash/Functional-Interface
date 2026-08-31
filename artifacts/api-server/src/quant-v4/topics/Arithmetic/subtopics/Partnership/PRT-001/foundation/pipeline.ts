@@ -16,6 +16,7 @@ import { renderPrt001E3BExplanation } from "./e3b-explanation-renderer";
 import { renderPrt001E4Explanation } from "./e4-explanation-renderer";
 import { renderPrt001E5Explanation } from "./e5-explanation-renderer";
 import { renderPrt001E8Explanation } from "./e8-explanation-renderer";
+import { polishPrt001LocalizedExplanation } from "./e11-localized-editorial";
 import { renderPrt001Explanation } from "./explanation-renderer";
 import { verifyPrt001Independently } from "./independent-verifier";
 import {
@@ -116,7 +117,7 @@ export function runPrt001PilotPipeline(input: { questionLanguageId?: string; see
                 ? independentlySolvePrt001E1Task(parameters, verification)
                 : independentlySolvePrt001Task(parameters, verification);
   const stem = renderPrt001Template(getPrt001QuestionTemplate(questionLanguageId, language, seed), parameters.renderVariables);
-  const explanationLines = isE8
+  const rawExplanationLines = isE8
     ? renderPrt001E8Explanation({ parameters, solution, answer: taskAnswer })
     : isE5
       ? renderPrt001E5Explanation({ parameters, solution, answer: taskAnswer })
@@ -131,6 +132,7 @@ export function runPrt001PilotPipeline(input: { questionLanguageId?: string; see
               : isE1
                 ? renderPrt001E1Explanation({ parameters, solution, answer: taskAnswer })
                 : renderPrt001Explanation({ parameters, solution, answer: taskAnswer });
+  const explanationLines = polishPrt001LocalizedExplanation({ parameters, solution, answer: taskAnswer, lines: rawExplanationLines });
   const reasoningGraph = buildPrt001ReasoningGraph({ parameters, solution, answer: taskAnswer });
   const { options, correctIndex } = generatePrt001Options({ parameters, solution, answer: taskAnswer, random: createPrt001Random(`${seed}:options`) });
   const expansionWave = isE8 ? "E8" : isE5 ? "E5" : isE4 ? "E4" : isE3 ? "E3" : isE2 ? "E2" : isE1 ? "E1" : "BASELINE";
