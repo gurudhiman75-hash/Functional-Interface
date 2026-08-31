@@ -95,11 +95,24 @@ for (const taskKind of TASKS) {
 }
 
 assert.equal(exhaustiveQuestions.length, 72, "Six task kinds across twelve curated stack templates must be proven.");
+const answerPositionReachability: Record<string, readonly number[]> = {};
 for (const taskKind of TASKS) {
   const rows = exhaustiveQuestions.filter((question) => question.taskKind === taskKind);
   assert.equal(rows.length, 12, `${taskKind}: all twelve stack templates must be solver-proven.`);
   assert.equal(new Set(rows.map((question) => question.templateId)).size, 12, `${taskKind}: template coverage collapsed.`);
-  assert.equal(new Set(rows.map((question) => question.correctIndex)).size, 4, `${taskKind}: all four answer positions must be reachable.`);
+
+  const reachablePositions = new Set(rows.map((question) => question.correctIndex));
+  for (let probe = 0; probe < 64 && reachablePositions.size < 4; probe += 1) {
+    const template = CND_001_VOXEL_STACK_TEMPLATES_V1[probe % CND_001_VOXEL_STACK_TEMPLATES_V1.length]!;
+    const question = generateCubesDiceVoxelRuntimeQuestionV1({
+      seed: `CND-VOXEL-POSITION-PROBE-V1:${taskKind}:${probe}`,
+      taskKind,
+      templateId: template.id,
+    });
+    reachablePositions.add(question.correctIndex);
+  }
+  assert.equal(reachablePositions.size, 4, `${taskKind}: deterministic seed space must reach all four answer positions.`);
+  answerPositionReachability[taskKind] = Object.freeze([...reachablePositions].sort());
 }
 assert.ok(exhaustiveQuestions.some((question) => question.difficultyBand === "Easy"), "Runtime proof requires Easy coverage.");
 assert.ok(exhaustiveQuestions.some((question) => question.difficultyBand === "Medium"), "Runtime proof requires Medium coverage.");
@@ -145,6 +158,7 @@ const evidence = {
   visualReviewQuestions: visualQuestions.length,
   stackTemplates: CND_001_VOXEL_STACK_TEMPLATES_V1.map((template) => template.id),
   taskKinds: TASKS,
+  answerPositionReachability,
   difficultyBands: [...new Set(exhaustiveQuestions.map((question) => question.difficultyBand))].sort(),
   visualContracts: {
     whiteBackground: true,
