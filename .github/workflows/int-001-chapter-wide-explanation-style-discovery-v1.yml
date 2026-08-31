@@ -1,4 +1,4 @@
-name: Discover INT-001 Chapter-wide Explanation Style V1
+name: Validate INT-001 Chapter-wide Direct Calculation Explanations V1
 
 on:
   workflow_dispatch:
@@ -8,11 +8,11 @@ on:
       - '.github/workflows/int-001-chapter-wide-explanation-style-discovery-v1.yml'
 
 concurrency:
-  group: int-001-chapter-wide-explanation-style-discovery-v1-${{ github.event.pull_request.number || github.ref }}
+  group: int-001-chapter-wide-direct-calculation-v1-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  discover-int-001-explanation-style:
+  validate-int-001-direct-calculation-explanations:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
@@ -36,12 +36,30 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Discover chapter-wide explanation style gaps
+      - name: Enforce chapter-wide direct calculation explanations
         shell: bash
         run: |
           set -o pipefail
-          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-chapter-wide-explanation-style-discovery-v1.ts | tee int-001-chapter-wide-explanation-style-discovery-v1.log
-          grep -q 'PASS_INT_001_CHAPTER_WIDE_EXPLANATION_STYLE_DISCOVERY_V1' int-001-chapter-wide-explanation-style-discovery-v1.log
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-chapter-wide-explanation-style-discovery-v1.ts | tee int-001-chapter-wide-direct-calculation-v1.log
+          grep -q 'PASS_INT_001_CHAPTER_WIDE_EXPLANATION_STYLE_DISCOVERY_V1' int-001-chapter-wide-direct-calculation-v1.log
+          grep -q '"issueQlCount": 0' int-001-chapter-wide-direct-calculation-v1.log
+          grep -q '"issueQlLanguageSurfaceCount": 0' int-001-chapter-wide-direct-calculation-v1.log
+          grep -q '"abstractNarrationHits": 0' int-001-chapter-wide-direct-calculation-v1.log
+          grep -q '"lowArithmeticDensityQuestions": 0' int-001-chapter-wide-direct-calculation-v1.log
+
+      - name: Preserve Wave04 English authority audit
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-wave04-english-authority-v1-audit.ts | tee int-001-wave04-regression.log
+          grep -q 'PASS_INT_001_WAVE04_ENGLISH_AUTHORITY_V1_AUDIT' int-001-wave04-regression.log
+
+      - name: Preserve Wave04 editorial remediation audit
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-wave04-english-editorial-remediation-v1-audit.ts | tee int-001-wave04-editorial-regression.log
+          grep -q 'PASS_INT_001_WAVE04_ENGLISH_EDITORIAL_REMEDIATION_V1_AUDIT' int-001-wave04-editorial-regression.log
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
@@ -49,14 +67,16 @@ jobs:
       - name: Record exact validation head
         shell: bash
         run: |
-          echo "validated_head=$(git rev-parse HEAD)" | tee int-001-chapter-wide-explanation-style-discovery-v1-head.log
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-001-chapter-wide-direct-calculation-v1-head.log
           test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
 
-      - name: Upload discovery evidence
+      - name: Upload validation evidence
         uses: actions/upload-artifact@v4
         with:
-          name: int-001-chapter-wide-explanation-style-discovery-v1
+          name: int-001-chapter-wide-direct-calculation-v1
           path: |
-            int-001-chapter-wide-explanation-style-discovery-v1.log
-            int-001-chapter-wide-explanation-style-discovery-v1-head.log
+            int-001-chapter-wide-direct-calculation-v1.log
+            int-001-wave04-regression.log
+            int-001-wave04-editorial-regression.log
+            int-001-chapter-wide-direct-calculation-v1-head.log
           retention-days: 30
