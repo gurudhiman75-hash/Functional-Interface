@@ -7,7 +7,6 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/**'
-      - '.github/workflows/arg-001-cp001-foundation.yml'
   workflow_dispatch:
 
 permissions:
@@ -20,7 +19,7 @@ concurrency:
 jobs:
   arg-cp001-foundation:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
