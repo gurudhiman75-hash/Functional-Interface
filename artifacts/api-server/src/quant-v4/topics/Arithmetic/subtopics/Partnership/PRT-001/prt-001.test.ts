@@ -6,8 +6,10 @@ import {
   formatDuration,
   formatMoney,
   formatRatio,
+  generatePrt001E8Parameters,
   getPrt001QuestionLanguageIds,
   getPrt001TaskEntries,
+  getPrt001TaskEntry,
   intervalForLastDuration,
   intervalForPartnerJoiningAfter,
   intervalForPartnerLeavingAfter,
@@ -106,11 +108,11 @@ for (const state of [equalJoinState, capitalChangeState, salaryState, orderedAll
 assert.throws(() => buildCapitalTimeline({ totalDuration, grossProfitOrLoss: r(1_000), partners: [partner("A", [segment(0, 8, 10_000), segment(7, 12, 12_000)]), partner("B", [segment(0, 12, 10_000)])], allocations: [] }), /must not overlap/);
 assert.throws(() => solvePrt001State({ ...salaryState, allocations: [salaryState.allocations[0]!, { kind: "RESERVE", basis: "FIXED_AMOUNT", value: r(1_000), sequence: 1 }] }), /sequence values must be unique/);
 
-const expectedIds = Array.from({ length: 103 }, (_, index) => `PRT-QL-${String(index + 1).padStart(3, "0")}`);
+const expectedIds = Array.from({ length: 105 }, (_, index) => `PRT-QL-${String(index + 1).padStart(3, "0")}`);
 assert.deepEqual(getPrt001QuestionLanguageIds(), expectedIds);
 assert.deepEqual(validatePrt001PilotLibraries(), []);
 const taskEntries = getPrt001TaskEntries();
-assert.equal(taskEntries.length, 103);
+assert.equal(taskEntries.length, 105);
 assert.equal(new Set(taskEntries.map(({ entry }) => entry.solveMode)).size, 99);
 
 const expectedE5Modes = new Set([
@@ -134,7 +136,18 @@ const expectedE5Modes = new Set([
   "findSharesAfterReserveDeduction",
   "findSharesAfterExplicitBusinessExpenseDeduction",
 ]);
-assert.deepEqual(new Set(taskEntries.filter(({ questionLanguageId }) => Number(questionLanguageId.slice(-3)) >= 85).map(({ entry }) => entry.solveMode)), expectedE5Modes);
+assert.deepEqual(new Set(taskEntries.filter(({ questionLanguageId }) => Number(questionLanguageId.slice(-3)) >= 85 && Number(questionLanguageId.slice(-3)) <= 103).map(({ entry }) => entry.solveMode)), expectedE5Modes);
+
+const ql104Params = generatePrt001E8Parameters({ questionLanguageId: "PRT-QL-104", seed: "e8-split-proof", entry: getPrt001TaskEntry("PRT-QL-104"), language: "en" });
+assert.equal(ql104Params.state.allocations.length, 2);
+assert.equal(ql104Params.state.allocations.every((item) => item.basis === "PERCENT_OF_GROSS_PROFIT"), true);
+const ql104 = runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-104", seed: "e8-split-proof", language: "en" });
+assert.equal(ql104.solveMode, "findTotalProfitFromShareDifferenceAndCapitals");
+assert.equal(ql104.traceability.expansionWave, "E8");
+const ql105Params = generatePrt001E8Parameters({ questionLanguageId: "PRT-QL-105", seed: "e8-multiyear-proof", entry: getPrt001TaskEntry("PRT-QL-105"), language: "en" });
+assert.equal(ql105Params.state.totalDuration.numerator > 12n * ql105Params.state.totalDuration.denominator, true);
+assert.equal(ql105Params.state.partners.length, 3);
+assert.equal(ql105Params.state.partners[1]!.capitalSegments.length, 2);
 
 const observedCanonicalProblems = new Set<string>();
 let generatedPilotQuestions = 0;
@@ -168,5 +181,6 @@ assert.deepEqual(observedCanonicalProblems, new Set(["PRT-CP-001","PRT-CP-002","
 assert.equal(runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-087", seed: "e5-leave-proof" }).answerType, "DURATION");
 assert.equal(runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-093", seed: "e5-change-capital-proof" }).answerType, "CAPITAL");
 assert.throws(() => runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-999" }), /unknown or inactive/);
+assert.equal(generatedPilotQuestions, 3150);
 
-console.log(JSON.stringify({ packageId: "PRT-001", foundationCases: 18, pilotQuestionLanguages: expectedIds.length, activeSolveModes: 99, generatedPilotQuestions, expansionWave: "E5", status: "PASS" }, null, 2));
+console.log(JSON.stringify({ packageId: "PRT-001", foundationCases: 18, pilotQuestionLanguages: expectedIds.length, activeSolveModes: 99, generatedPilotQuestions, sourceWave: "E8", status: "PASS" }, null, 2));
