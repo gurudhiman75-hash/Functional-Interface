@@ -49,7 +49,9 @@ async function run() {
       FROM platform.notes_studio_schema_migrations
       ORDER BY applied_at, filename
     `;
-    const recorded = new Map(ledgerRows.map((row) => [String(row.filename), String(row.contentSha256)]));
+    const recorded = new Map<string, string>(
+      ledgerRows.map((row) => [String(row.filename), String(row.contentSha256)] as const),
+    );
     const manifestNames = new Set(migrations.map((migration) => migration.fileName));
 
     for (const [fileName, digest] of recorded) {
