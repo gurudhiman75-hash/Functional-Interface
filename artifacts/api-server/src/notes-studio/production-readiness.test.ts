@@ -84,7 +84,10 @@ test('NS-019 source discovery produces bounded public URL candidates without cre
     'Punjab River System authoritative reference India',
   ]);
 
-  assert.equal(normalizeDiscoveredSourceUrl('http://127.0.0.1/internal'), null);
+  assert.equal(normalizeDiscoveredSourceUrl('http://example.com/reference'), null);
+  assert.equal(normalizeDiscoveredSourceUrl('https://127.0.0.1/internal'), null);
+  assert.equal(normalizeDiscoveredSourceUrl('https://[::1]/internal'), null);
+  assert.equal(normalizeDiscoveredSourceUrl('https://[fd00::1]/internal'), null);
   assert.equal(normalizeDiscoveredSourceUrl('https://example.com/page?utm_source=x&a=1#part'), 'https://example.com/page?a=1');
   const ranked = rankDiscoveredSourceUrls([
     'https://example.com/reference',
