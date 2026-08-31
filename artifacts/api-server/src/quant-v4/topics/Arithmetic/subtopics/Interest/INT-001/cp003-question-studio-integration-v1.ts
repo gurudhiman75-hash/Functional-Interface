@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { INT_CP003_QL_IDS, type IntCp003QlId } from "./cp003-exam-model";
 import { generateIntCp003EnglishFrozenQuestion } from "./cp003-english-frozen-runtime";
 import { generateIntCp003HiPaV3FrozenQuestion } from "./cp003-localized-v3-frozen";
+import { retrofitInterestDirectCalculationLines } from "./interest-direct-calculation-explanation-policy-v1";
 
 export const INT_CP003_QUESTION_STUDIO_INTEGRATION_VERSION = "INT-CP-003-QS-v1" as const;
 export const INT_CP003_QUESTION_STUDIO_PACKAGE_ID = "INT-001" as const;
@@ -63,7 +64,8 @@ function normalize(source: any, qlId: IntCp003QlId, language: IntCp003QuestionSt
   }
   const stem = String(source.presentation?.markdown ?? source.presentation?.prompt ?? "");
   if (!stem) throw new Error(`${qlId}: empty frozen stem`);
-  const explanationLines = [source.explanation?.keyIdea, ...(source.explanation?.steps ?? []), source.explanation?.finalAnswer].filter(Boolean).map(String);
+  const rawExplanationLines = [source.explanation?.keyIdea, ...(source.explanation?.steps ?? []), source.explanation?.finalAnswer].filter(Boolean).map(String);
+  const explanationLines = retrofitInterestDirectCalculationLines({ qlId, language, lines: rawExplanationLines, answer });
   const identity = createHash("sha256").update(`${qlId}:${language}:${requestSeed}`).digest("hex").slice(0, 20);
   const normalized = Object.freeze({
     packageId: INT_CP003_QUESTION_STUDIO_PACKAGE_ID,
@@ -78,7 +80,8 @@ function normalize(source: any, qlId: IntCp003QlId, language: IntCp003QuestionSt
     difficultyBand: String(source.difficulty ?? "Medium"),
     language,
     locale: language === "en" ? "en-IN" : language === "hi" ? "hi-IN" : "pa-IN",
-    explanation: Object.freeze({ lines: Object.freeze(explanationLines) }),
+    explanation: Object.freeze({ lines: explanationLines }),
+    explanationPresentationPolicy: "INT-001-DIRECT-CALCULATION-EXPLANATION-POLICY-v1" as const,
     runtimeMode: "QUESTION_STUDIO_ACTIVE" as const,
     reviewStatus: "FROZEN_MULTILINGUAL_CONTENT_AUTHORITY" as const,
     questionStudioDiscoverable: true as const,
@@ -158,6 +161,7 @@ function preview(pkg: ReturnType<typeof normalize>, index: number, count: number
     questionIndex: index + 1,
     questionCount: count,
     integrationAuthority: pkg.integrationAuthority,
+    explanationPresentationPolicy: pkg.explanationPresentationPolicy,
   });
 }
 
