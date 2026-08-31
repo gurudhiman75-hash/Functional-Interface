@@ -27,12 +27,21 @@ for (const requiredSource of [
 }
 
 const pyqSources = COM003_SOURCE_AUTHORITIES.filter((source) => source.authorityClass === "PYQ_EVIDENCE");
-for (const source of pyqSources) {
-  assert.equal(
-    source.notes.some((note) => /canonical|source|truth|version/i.test(note)),
-    true,
-    `${source.sourceId} must preserve the PYQ-vs-truth authority boundary`,
-  );
-}
+assert.equal(pyqSources.every((source) => source.supports.some((scope) => scope.startsWith("pyq:"))), true);
+assert.equal(
+  COM003_SOURCE_AUTHORITIES.some((source) => source.authorityClass === "VENDOR_TECHNICAL" && source.supports.includes("mail-merge")),
+  true,
+  "Mail merge must have first-party technical truth authority in addition to PYQ evidence",
+);
+assert.equal(
+  COM003_SOURCE_AUTHORITIES.some((source) => source.authorityClass === "VENDOR_TECHNICAL" && source.supports.includes("excel-shortcuts")),
+  true,
+  "Excel shortcuts must have first-party technical truth authority in addition to PYQ evidence",
+);
+assert.equal(
+  COM003_SOURCE_AUTHORITIES.some((source) => source.authorityClass === "VENDOR_TECHNICAL" && source.supports.includes("powerpoint-transition")),
+  true,
+  "PowerPoint transition facts must have first-party technical truth authority in addition to PYQ evidence",
+);
 
 console.log("[COM003-SOURCE-MANIFEST]", audit);
