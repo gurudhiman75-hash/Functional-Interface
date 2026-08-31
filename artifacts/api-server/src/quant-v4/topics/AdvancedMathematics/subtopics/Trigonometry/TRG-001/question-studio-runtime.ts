@@ -2,15 +2,14 @@ import {
   TRG_001_AUTHORITY_ALIGNED_IDS,
   authorityFamilyForTrg001Ql,
 } from "./production-authority-runtime";
-import {
-  generateHumanApprovedTrg001Question,
-  TRG_001_FREEZE,
-  TRG_001_HUMAN_APPROVAL,
-} from "./production-human-approved-runtime";
+import { generatePostFreezeRemediatedTrg001Question } from "./production-post-freeze-remediation-v1";
+import { generateLocalizedTrg001QuestionNativeReviewFinal6 } from "./localization-native-v5-pedagogic-review-final6";
+import { TRG_001_POST_FINAL5_FREEZE_V1 } from "./post-final5-freeze-v1";
+import { TRG_001_POST_FINAL5_QUESTION_STUDIO_ACTIVATION_V1 } from "./post-final5-question-studio-activation-v1";
 
-export type Trg001QuestionStudioLanguage = "en";
+export type Trg001QuestionStudioLanguage = "en" | "hi" | "pa";
 
-export const TRG_001_QUESTION_STUDIO_LANGUAGES = ["en"] as const;
+export const TRG_001_QUESTION_STUDIO_LANGUAGES = ["en", "hi", "pa"] as const;
 export const TRG_001_QUESTION_STUDIO_CP_IDS = [
   "TRG-CP-001",
   "TRG-CP-002",
@@ -20,22 +19,29 @@ export const TRG_001_QUESTION_STUDIO_CP_IDS = [
   "TRG-CP-006",
 ] as const;
 
+const ACTIVATION = TRG_001_POST_FINAL5_QUESTION_STUDIO_ACTIVATION_V1;
+const FREEZE = TRG_001_POST_FINAL5_FREEZE_V1;
+const FREEZE_BINDING_FINGERPRINT = ACTIVATION.authority.evidenceArtifactDigest;
+
 export const TRG_001_INTERNAL_ACTIVATION = Object.freeze({
-  status: "APPROVED_INTERNAL_ENGLISH" as const,
-  runtimeMode: "RELEASED" as const,
-  activationAuthorized: true,
-  questionStudioDiscoverable: true,
-  questionBankStatus: "WRITABLE" as const,
-  questionBankWritable: true,
-  testEligibility: "ELIGIBLE" as const,
-  testEligible: true,
-  mockTestEligible: true,
-  publiclyPublishable: false,
-  publicReleaseAuthorized: false,
-  automaticStudentPublication: false,
-  localizationStatus: "ENGLISH_ONLY" as const,
-  contentMutationAuthorized: false,
-  frozenContentFingerprint: TRG_001_FREEZE.approvedContentFingerprint,
+  status: ACTIVATION.status,
+  runtimeMode: "INTERNAL_REVIEW" as const,
+  activationAuthorized: true as const,
+  questionStudioDiscoverable: ACTIVATION.execution.questionStudioDiscoverable,
+  questionBankStatus: "LOCKED" as const,
+  questionBankWritable: ACTIVATION.execution.questionBankWritable,
+  testEligibility: "INELIGIBLE" as const,
+  testEligible: false as const,
+  testBuilderEligible: ACTIVATION.execution.testBuilderEligible,
+  mockTestEligible: ACTIVATION.execution.mockTestEligible,
+  publiclyPublishable: ACTIVATION.execution.publiclyPublishable,
+  publicReleaseAuthorized: ACTIVATION.execution.publicReleaseAuthorized,
+  automaticStudentPublication: ACTIVATION.execution.automaticStudentPublication,
+  localizationStatus: "MULTILINGUAL_FROZEN_ACTIVE" as const,
+  multilingualFreezeGranted: true as const,
+  contentMutationAuthorized: ACTIVATION.execution.contentMutationAuthorized,
+  frozenContentFingerprint: FREEZE_BINDING_FINGERPRINT,
+  frozenContentFingerprintKind: "POST_FINAL5_EVIDENCE_ARTIFACT_DIGEST" as const,
 });
 
 export const TRG_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
@@ -56,24 +62,30 @@ export const TRG_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
   permanentQlIds: [...TRG_001_AUTHORITY_ALIGNED_IDS],
   supportedDifficulties: ["Easy", "Medium", "Hard"],
   supportedLanguages: [...TRG_001_QUESTION_STUDIO_LANGUAGES],
-  enabled: true,
+  enabled: ACTIVATION.execution.questionStudioEnabled,
   runtimeMode: TRG_001_INTERNAL_ACTIVATION.runtimeMode,
-  reviewStatus: "HUMAN_APPROVED",
-  humanReviewStatus: "APPROVED_144_OF_144_ENGLISH",
-  multilingualFreezeGranted: false,
-  activationAuthorized: TRG_001_INTERNAL_ACTIVATION.activationAuthorized,
+  reviewStatus: "HUMAN_APPROVED_POST_FINAL5",
+  humanReviewStatus: "APPROVED_144_ENGLISH_288_LOCALIZED_SURFACES",
+  multilingualFreezeGranted: true,
+  activationAuthorized: true,
   questionStudioDiscoverable: TRG_001_INTERNAL_ACTIVATION.questionStudioDiscoverable,
   questionBankStatus: TRG_001_INTERNAL_ACTIVATION.questionBankStatus,
   questionBankWritable: TRG_001_INTERNAL_ACTIVATION.questionBankWritable,
   testEligibility: TRG_001_INTERNAL_ACTIVATION.testEligibility,
   testEligible: TRG_001_INTERNAL_ACTIVATION.testEligible,
+  testBuilderEligible: TRG_001_INTERNAL_ACTIVATION.testBuilderEligible,
   mockTestEligible: TRG_001_INTERNAL_ACTIVATION.mockTestEligible,
   publiclyPublishable: false,
   publicReleaseAuthorized: false,
   automaticStudentPublication: false,
-  freezeStatus: TRG_001_FREEZE.status,
+  freezeStatus: FREEZE.status,
+  freezeVersion: FREEZE.version,
   localizationStatus: TRG_001_INTERNAL_ACTIVATION.localizationStatus,
-  approvedContentFingerprint: TRG_001_HUMAN_APPROVAL.approvedContentFingerprint,
+  englishRemediationVersion: ACTIVATION.authority.englishRemediationVersion,
+  localizationVersion: ACTIVATION.authority.localizationVersion,
+  reviewedSourceHead: ACTIVATION.authority.reviewedSourceHead,
+  approvedContentFingerprint: FREEZE_BINDING_FINGERPRINT,
+  approvedContentFingerprintKind: "POST_FINAL5_EVIDENCE_ARTIFACT_DIGEST",
 } as const);
 
 export type Trg001QuestionStudioRequest = {
@@ -98,8 +110,10 @@ function normalizeText(value: unknown) {
 function normalizeLanguage(value: unknown): Trg001QuestionStudioLanguage {
   const language = String(value ?? "en").trim().toLowerCase();
   if (["en", "en-in", "en-us", "english"].includes(language)) return "en";
+  if (["hi", "hi-in", "hindi"].includes(language)) return "hi";
+  if (["pa", "pa-in", "punjabi", "panjabi"].includes(language)) return "pa";
   throw Object.assign(
-    new Error(`TRG-001 frozen authority is English-only in Question Studio; '${String(value)}' is not activated.`),
+    new Error(`TRG-001 Question Studio supports en, hi and pa; '${String(value)}' is not activated.`),
     { statusCode: 400 },
   );
 }
@@ -167,18 +181,30 @@ function requestedQlIds(request: Trg001QuestionStudioRequest) {
   if (!selector) return TRG_001_AUTHORITY_ALIGNED_IDS;
   if (TRG_001_AUTHORITY_ALIGNED_IDS.includes(selector)) return [selector];
   if ((TRG_001_QUESTION_STUDIO_CP_IDS as readonly string[]).includes(selector)) {
-    return TRG_001_AUTHORITY_ALIGNED_IDS.filter((qlId) => cpForQlId(qlId) === selector);
+    return TRG_001_AUTHORITY_ALIGNED_IDS.filter((candidateQlId) => cpForQlId(candidateQlId) === selector);
   }
   throw Object.assign(new Error(`Unknown TRG-001 canonical problem or CP '${selector}'.`), { statusCode: 400 });
 }
 
-function explanationText(question: any) {
+function sourceQuestion(qlId: string, seed: string, language: Trg001QuestionStudioLanguage) {
+  if (language === "hi") return generateLocalizedTrg001QuestionNativeReviewFinal6(qlId, seed, "hi-IN");
+  if (language === "pa") return generateLocalizedTrg001QuestionNativeReviewFinal6(qlId, seed, "pa-IN");
+  return generatePostFreezeRemediatedTrg001Question(qlId, seed);
+}
+
+function explanationText(question: any, language: Trg001QuestionStudioLanguage) {
   const explanation = question.explanation ?? {};
+  const labels = language === "hi"
+    ? { rule: "मुख्य नियम", step: "चरण", shortcut: "शॉर्टकट", trap: "सामान्य गलती" }
+    : language === "pa"
+      ? { rule: "ਮੁੱਖ ਨਿਯਮ", step: "ਕਦਮ", shortcut: "ਸ਼ਾਰਟਕੱਟ", trap: "ਆਮ ਗਲਤੀ" }
+      : { rule: "Core rule", step: "Step", shortcut: "Shortcut", trap: "Common trap" };
+
   return [
-    explanation.keyRule ? `Core rule: ${explanation.keyRule}` : "",
-    ...(explanation.steps ?? []).map((step: any) => `${String(step.title ?? "Step")}: ${String(step.body ?? "")}`),
-    explanation.shortcut ? `Shortcut: ${explanation.shortcut}` : "",
-    (explanation.traps ?? []).length ? `Common trap: ${(explanation.traps ?? []).join(" ")}` : "",
+    explanation.keyRule ? `${labels.rule}: ${explanation.keyRule}` : "",
+    ...(explanation.steps ?? []).map((step: any) => `${String(step.title ?? labels.step)}: ${String(step.body ?? "")}`),
+    explanation.shortcut ? `${labels.shortcut}: ${explanation.shortcut}` : "",
+    (explanation.traps ?? []).length ? `${labels.trap}: ${(explanation.traps ?? []).join(" ")}` : "",
   ].filter(Boolean).join("\n\n");
 }
 
@@ -186,23 +212,30 @@ function optionDisplay(option: any) {
   return String(option?.display ?? option?.text ?? option?.value ?? option?.label ?? option);
 }
 
-function questionStudioPreview(qlId: string, seed: string, index: number, count: number) {
-  const source: any = generateHumanApprovedTrg001Question(qlId, seed);
+function questionStudioPreview(
+  qlId: string,
+  seed: string,
+  index: number,
+  count: number,
+  language: Trg001QuestionStudioLanguage,
+) {
+  const source: any = sourceQuestion(qlId, seed, language);
   const cpId = cpForQlId(qlId);
   const options = (source.options ?? []).map(optionDisplay);
   const family = authorityFamilyForTrg001Ql(qlId);
-  const explanation = explanationText(source);
+  const explanation = explanationText(source, language);
+  const localizedAnswer = source.localizedAnswerDisplay ?? options[source.correctIndex] ?? source.answer;
 
   return Object.freeze({
-    id: `${qlId}:en:${seed}`,
-    questionId: `${qlId}:en:${seed}`,
+    id: `${qlId}:${language}:${seed}`,
+    questionId: `${qlId}:${language}:${seed}`,
     text: source.stem,
     stem: source.stem,
     options,
     correct: source.correctIndex,
     correctIndex: source.correctIndex,
-    answer: source.answer,
-    canonicalAnswer: source.exactAnswer,
+    answer: language === "en" ? source.answer : localizedAnswer,
+    canonicalAnswer: source.exactAnswer ?? source.answer,
     answerModel: Object.freeze({
       kind: "single_choice",
       options,
@@ -217,29 +250,33 @@ function questionStudioPreview(qlId: string, seed: string, index: number, count:
     difficulty: source.difficulty,
     difficultyLabel: source.difficulty,
     packageId: "TRG-001",
-    language: "en",
+    language,
+    locale: ACTIVATION.localeMap[language],
     seed,
     patternId: "TRG-001",
     runtimeMode: TRG_001_INTERNAL_ACTIVATION.runtimeMode,
-    reviewStatus: "HUMAN_APPROVED",
+    reviewStatus: "HUMAN_APPROVED_POST_FINAL5",
+    sourceReviewStatus: source.reviewStatus,
     humanReviewStatus: "APPROVED",
-    multilingualFreezeGranted: false,
+    multilingualFreezeGranted: true,
     activationAuthorized: true,
     questionStudioDiscoverable: true,
-    questionBankStatus: "WRITABLE",
-    questionBankWritable: true,
-    testEligibility: "ELIGIBLE",
-    testEligible: true,
-    mockTestEligible: true,
+    questionBankStatus: "LOCKED",
+    questionBankWritable: false,
+    testEligibility: "INELIGIBLE",
+    testEligible: false,
+    testBuilderEligible: false,
+    mockTestEligible: false,
     publiclyPublishable: false,
     publicReleaseAuthorized: false,
     automaticStudentPublication: false,
-    freezeStatus: "FROZEN",
-    localizationStatus: "ENGLISH_ONLY",
+    freezeStatus: FREEZE.status,
+    freezeVersion: FREEZE.version,
+    localizationStatus: TRG_001_INTERNAL_ACTIVATION.localizationStatus,
     canonicalProblemId: cpId,
     cpId,
     questionLanguageId: qlId,
-    explanationId: `${qlId}-EXP-EN`,
+    explanationId: `${qlId}-EXP-${language.toUpperCase()}`,
     taskKind: source.solveMode,
     proceduralLogic: Object.freeze({
       generationSystem: "quant-v4",
@@ -250,15 +287,24 @@ function questionStudioPreview(qlId: string, seed: string, index: number, count:
       solveMode: String(source.solveMode ?? ""),
       target: String(source.target ?? ""),
       seed,
-      approvedContentFingerprint: TRG_001_HUMAN_APPROVAL.approvedContentFingerprint,
-      freezeFingerprint: TRG_001_FREEZE.approvedContentFingerprint,
+      language,
+      locale: ACTIVATION.localeMap[language],
+      freezeVersion: FREEZE.version,
+      freezeFingerprint: FREEZE_BINDING_FINGERPRINT,
+      freezeFingerprintKind: "POST_FINAL5_EVIDENCE_ARTIFACT_DIGEST",
+      englishRemediationVersion: ACTIVATION.authority.englishRemediationVersion,
+      localizationVersion: ACTIVATION.authority.localizationVersion,
+      reviewedSourceHead: ACTIVATION.authority.reviewedSourceHead,
       humanReviewStatus: "APPROVED",
       activationAuthorized: true,
+      questionStudioEnabled: true,
+      questionBankWritable: false,
+      testBuilderEligible: false,
       publicReleaseAuthorized: false,
       contentMutationAuthorized: false,
     }),
     motifs: ["TRG-001", cpId, qlId, family],
-    languages: ["en"],
+    languages: [language],
     generationMetadata: Object.freeze({
       packageId: "TRG-001",
       cpId,
@@ -266,33 +312,45 @@ function questionStudioPreview(qlId: string, seed: string, index: number, count:
       questionIndex: index + 1,
       questionCount: count,
       seed,
-      language: "en",
-      reviewStatus: "HUMAN_APPROVED",
+      language,
+      locale: ACTIVATION.localeMap[language],
+      reviewStatus: "HUMAN_APPROVED_POST_FINAL5",
       humanReviewStatus: "APPROVED",
+      multilingualFreezeGranted: true,
       activationAuthorized: true,
       questionStudioDiscoverable: true,
-      questionBankStatus: "WRITABLE",
-      testEligibility: "ELIGIBLE",
+      questionBankStatus: "LOCKED",
+      questionBankWritable: false,
+      testEligibility: "INELIGIBLE",
+      testEligible: false,
+      testBuilderEligible: false,
       publiclyPublishable: false,
       publicReleaseAuthorized: false,
       automaticStudentPublication: false,
-      localizationStatus: "ENGLISH_ONLY",
-      approvedContentFingerprint: TRG_001_HUMAN_APPROVAL.approvedContentFingerprint,
-      freezeFingerprint: TRG_001_FREEZE.approvedContentFingerprint,
+      localizationStatus: TRG_001_INTERNAL_ACTIVATION.localizationStatus,
+      freezeVersion: FREEZE.version,
+      freezeFingerprint: FREEZE_BINDING_FINGERPRINT,
+      freezeFingerprintKind: "POST_FINAL5_EVIDENCE_ARTIFACT_DIGEST",
     }),
   });
 }
 
-export function generateApprovedTrg001QuestionStudioQuestion(qlId: string, seed: string) {
-  return questionStudioPreview(qlId, seed, 0, 1);
+export function generateApprovedTrg001QuestionStudioQuestion(
+  qlId: string,
+  seed: string,
+  language: Trg001QuestionStudioLanguage = "en",
+) {
+  return questionStudioPreview(qlId, seed, 0, 1, normalizeLanguage(language));
 }
 
 export function generateTrg001QuestionStudioBatch(request: Trg001QuestionStudioRequest = {}) {
-  if (TRG_001_HUMAN_APPROVAL.status !== "APPROVED" || TRG_001_FREEZE.status !== "FROZEN") {
-    throw new Error("TRG-001 Question Studio activation requires the frozen human-approved 144-QL authority.");
+  if (FREEZE.status !== "FROZEN"
+    || !FREEZE.execution.newEnglishFreezeGranted
+    || !FREEZE.execution.multilingualFreezeGranted) {
+    throw new Error("TRG-001 Question Studio activation requires the frozen post-Final5 English and multilingual authority.");
   }
-  if (!TRG_001_INTERNAL_ACTIVATION.activationAuthorized) {
-    throw new Error("TRG-001 internal Question Studio activation is not authorized.");
+  if (!ACTIVATION.execution.questionStudioActivationExecuted || !ACTIVATION.execution.questionStudioEnabled) {
+    throw new Error("TRG-001 post-Final5 Question Studio activation is not executed.");
   }
 
   const language = normalizeLanguage(request.language);
@@ -300,7 +358,7 @@ export function generateTrg001QuestionStudioBatch(request: Trg001QuestionStudioR
   const batchSeed = request.seed ?? `trg-001-question-studio:${Date.now()}:${Math.random().toString(36).slice(2)}`;
   const pool = requestedQlIds(request);
   const difficultyPool = pool.filter((qlId, index) => {
-    const probe: any = generateHumanApprovedTrg001Question(qlId, `${batchSeed}:difficulty:${index}`);
+    const probe: any = generatePostFreezeRemediatedTrg001Question(qlId, `${batchSeed}:difficulty:${index}`);
     return difficultyMatches(String(probe.difficulty ?? ""), request.difficulty);
   });
   if (!difficultyPool.length) {
@@ -313,7 +371,7 @@ export function generateTrg001QuestionStudioBatch(request: Trg001QuestionStudioR
   for (let index = 0; index < count; index += 1) {
     const qlId = order[index % order.length]!;
     const seed = `${batchSeed}:${language}:${qlId}:${index}`;
-    const preview = questionStudioPreview(qlId, seed, index, count);
+    const preview = questionStudioPreview(qlId, seed, index, count, language);
     questions.push(preview);
     questionPackages.push(Object.freeze({
       packageId: "TRG-001",
@@ -321,28 +379,33 @@ export function generateTrg001QuestionStudioBatch(request: Trg001QuestionStudioR
       qlId,
       seed,
       language,
+      locale: preview.locale,
       stem: preview.stem,
       options: preview.options,
       correctIndex: preview.correctIndex,
       answer: preview.answer,
+      canonicalAnswer: preview.canonicalAnswer,
       difficulty: preview.difficulty,
       explanation: preview.packageExplanation,
       answerModel: preview.answerModel,
       runtimeMode: preview.runtimeMode,
       reviewStatus: preview.reviewStatus,
       humanReviewStatus: preview.humanReviewStatus,
+      multilingualFreezeGranted: true,
       activationAuthorized: true,
       questionStudioDiscoverable: true,
-      questionBankStatus: "WRITABLE",
-      questionBankWritable: true,
-      testEligibility: "ELIGIBLE",
-      testEligible: true,
-      mockTestEligible: true,
+      questionBankStatus: "LOCKED",
+      questionBankWritable: false,
+      testEligibility: "INELIGIBLE",
+      testEligible: false,
+      testBuilderEligible: false,
+      mockTestEligible: false,
       publiclyPublishable: false,
       publicReleaseAuthorized: false,
       automaticStudentPublication: false,
-      localizationStatus: "ENGLISH_ONLY",
-      freezeStatus: "FROZEN",
+      localizationStatus: TRG_001_INTERNAL_ACTIVATION.localizationStatus,
+      freezeStatus: FREEZE.status,
+      freezeVersion: FREEZE.version,
     }));
   }
 
@@ -353,25 +416,34 @@ export function generateTrg001QuestionStudioBatch(request: Trg001QuestionStudioR
       seed: batchSeed,
       timestamp: Date.now(),
       runtimeMode: TRG_001_INTERNAL_ACTIVATION.runtimeMode,
-      reviewStatus: "HUMAN_APPROVED",
-      humanReviewStatus: "APPROVED_144_OF_144_ENGLISH",
-      humanReviewed: 144,
-      supportedLanguages: ["en"],
-      multilingualFreezeGranted: false,
+      reviewStatus: "HUMAN_APPROVED_POST_FINAL5",
+      humanReviewStatus: "APPROVED_144_ENGLISH_288_LOCALIZED_SURFACES",
+      humanReviewedEnglishQls: 144,
+      humanReviewedLocalizedSurfaces: 288,
+      supportedLanguages: [...TRG_001_QUESTION_STUDIO_LANGUAGES],
+      requestedLanguage: language,
+      requestedLocale: ACTIVATION.localeMap[language],
+      multilingualFreezeGranted: true,
       activationAuthorized: true,
       questionStudioDiscoverable: true,
-      questionBankStatus: "WRITABLE",
-      questionBankWritable: true,
-      testEligibility: "ELIGIBLE",
-      testEligible: true,
-      mockTestEligible: true,
+      internalReviewRunsWritable: true,
+      questionBankStatus: "LOCKED",
+      questionBankWritable: false,
+      testEligibility: "INELIGIBLE",
+      testEligible: false,
+      testBuilderEligible: false,
+      mockTestEligible: false,
       publiclyPublishable: false,
       publicReleaseAuthorized: false,
       automaticStudentPublication: false,
-      freezeStatus: "FROZEN",
-      localizationStatus: "ENGLISH_ONLY",
-      approvedContentFingerprint: TRG_001_HUMAN_APPROVAL.approvedContentFingerprint,
-      freezeFingerprint: TRG_001_FREEZE.approvedContentFingerprint,
+      freezeStatus: FREEZE.status,
+      freezeVersion: FREEZE.version,
+      localizationStatus: TRG_001_INTERNAL_ACTIVATION.localizationStatus,
+      englishRemediationVersion: ACTIVATION.authority.englishRemediationVersion,
+      localizationVersion: ACTIVATION.authority.localizationVersion,
+      reviewedSourceHead: ACTIVATION.authority.reviewedSourceHead,
+      freezeFingerprint: FREEZE_BINDING_FINGERPRINT,
+      freezeFingerprintKind: "POST_FINAL5_EVIDENCE_ARTIFACT_DIGEST",
       contentMutationAuthorized: false,
     }),
     questionPackages: Object.freeze(questionPackages),
