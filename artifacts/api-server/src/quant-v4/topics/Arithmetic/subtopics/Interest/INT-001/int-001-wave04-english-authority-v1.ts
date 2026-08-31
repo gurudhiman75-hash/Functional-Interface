@@ -147,13 +147,23 @@ function buildReviewedSource(qlId: Int001Wave03QlId, prototypeId: IntCp010Sequen
 function explanationFor(qlId: Int001Wave03QlId, source: any) {
   const state = source.state as any;
   if (qlId === "INT-QL-132") {
+    const siFactor = simpleFactor(state.simpleRatePercent, state.simpleYears);
+    const ciFactor = compoundFactor(state.compoundRatePercent, state.compoundYears);
+    const combined = mul(siFactor, ciFactor);
+    const orderText = state.stageOrder === "SI_THEN_CI" ? "SI first, then CI" : "CI first, then SI";
     return deepFreeze({
       whatAsked: whatAskedFor(qlId),
       keyIdea: "Treat the two interest methods as consecutive stages. The maturity amount of stage 1 becomes the principal of stage 2.",
-      steps: Object.freeze([...source.explanation.steps].map(String)),
+      steps: Object.freeze([
+        `SI multiplier = 1 + (${decimal(state.simpleRatePercent)} × ${state.simpleYears})/100 = ${decimal(siFactor)}.`,
+        `CI multiplier = (1 + ${decimal(state.compoundRatePercent)}/100)^${state.compoundYears} = ${decimal(ciFactor)}.`,
+        `The stated order is ${orderText}, so apply the two multipliers consecutively to the same running amount.`,
+        `Combined multiplier = ${decimal(siFactor)} × ${decimal(ciFactor)} = ${decimal(combined)}.`,
+        `Final amount = ${money(state.principal)} × ${decimal(combined)} = ${money(source.answer)}.`,
+      ]),
       shortcut: shortcutFor(qlId),
       commonTrap: commonTrapFor(qlId),
-      finalAnswer: String(source.explanation.finalAnswer),
+      finalAnswer: money(source.answer),
     });
   }
   if (qlId === "INT-QL-133") {
