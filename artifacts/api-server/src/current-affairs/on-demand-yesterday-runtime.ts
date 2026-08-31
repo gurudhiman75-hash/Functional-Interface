@@ -3,6 +3,8 @@ import { randomUUID } from "node:crypto";
 import { sqlClient } from "../lib/db";
 import { onDemandFeedRunKey, runScheduledFeedIngestion, scheduleSlotStart } from "./automation";
 import { runScheduledIntelligenceProcessing } from "./daily-orchestration";
+import { refreshDailyDiscoveryCensus } from "./daily-discovery-census";
+import { materializeDailyMasterPack } from "./daily-master-pack";
 import { reconcilePrimaryEnrichedEvents } from "./enriched-event-reconciliation";
 import { holdManualAuthorityEventsForReview } from "./manual-enrichment-guard";
 import { prepareOfficialYesterdayCandidates } from "./official-candidate-reclassification";
@@ -149,10 +151,8 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
     trigger: "on_demand",
   });
 
-  // RSS/latest listings can legitimately omit the previous calendar day. When PIB
-  // has no target-date candidate, use its official ASP.NET All Releases archive,
-  // select the exact target date, require the returned page to echo that date, and
-  // ingest only canonical PIB release links. This remains primary-source evidence.
+  // RSS/latest listings can legitimately omit the previous calendar day. Use the
+  // official PIB archive as a completeness pass for the exact target date.
   const historicalSourceBackfill = await ensurePibHistoricalCandidates(targetDate);
 
   // Existing primary-source candidates and open clusters from the target date may
@@ -189,6 +189,12 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
   const recoverySupersede = await supersedeManualRecoverySlot(targetDate, now);
   const recovery = await runCurrentAffairsProductionRecovery({ now, triggerMode: "manual" });
 
+  // CP-036 turns the target-date pipeline into one auditable daily universe.
+  // The census measures discovery/evidence breadth; the master pack is the one
+  // canonical draft text that future web/PDF renderers must share.
+  const discoveryCensus = await refreshDailyDiscoveryCensus(targetDate);
+  const dailyMasterPack = await materializeDailyMasterPack(targetDate, String(discoveryCensus.id));
+
   const artifacts = await loadYesterdayArtifacts(targetDate);
   const after = await countTargetDateState(targetDate);
   const readiness = await loadCurrentAffairsProductionReadiness(now);
@@ -217,6 +223,8 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
       supersededPreviousSlot: recoverySupersede.superseded,
       result: recovery,
     },
+    discoveryCensus,
+    dailyMasterPack,
     artifacts,
     summary: {
       allEnglishDraftsPresent,
@@ -224,6 +232,8 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
       localizedDraftCount: artifacts.filter((item) => item.language === "hi" || item.language === "pa").length,
       verifiedEvents: after.verifiedEventCount,
       reviewEvents: after.reviewEventCount,
+      masterPackEventCount: Number((dailyMasterPack as any)?.eventCount ?? 0),
+      coverageConfidenceScore: Number((discoveryCensus as any)?.coverageConfidenceScore ?? 0),
       readinessColor: readiness.evaluation.color,
       learnerReady: readiness.evaluation.learnerReady,
       blockers: readiness.evaluation.blockers,
@@ -231,6 +241,7 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
         ...(historicalSourceBackfill.status === "failed" && historicalSourceBackfill.error
           ? [`PIB historical backfill failed: ${historicalSourceBackfill.error}`]
           : []),
+        ...((discoveryCensus as any)?.warnings ?? []),
         ...readiness.evaluation.warnings,
       ],
     },
