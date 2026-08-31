@@ -57,7 +57,7 @@ jobs:
             com003-english-freeze-v1.test \
             com003-localization-packet-v1.test \
             com003-localization-wave1-audit-v3.test \
-            com003-localization-wave2-audit-v2.test; do
+            com003-localization-wave2-audit-v3.test; do
             pnpm --dir artifacts/api-server exec esbuild \
               src/knowledge-v1/computer-awareness/${test}.ts \
               --bundle --platform=node --format=esm \
@@ -70,4 +70,4 @@ jobs:
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-english-freeze-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-packet-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-wave1-audit-v3.test.mjs
-          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-wave2-audit-v2.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-wave2-audit-v3.test.mjs
