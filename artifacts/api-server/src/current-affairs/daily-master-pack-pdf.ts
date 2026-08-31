@@ -1,6 +1,9 @@
-import { PDFDocument } from "@napi-rs/canvas";
+import { createRequire } from "node:module";
 
 import type { DailyMasterPackEvent, DailyMasterPackPayload } from "./daily-master-pack";
+
+const nativeRequire = createRequire(import.meta.url);
+const { PDFDocument } = nativeRequire("@napi-rs/canvas") as typeof import("@napi-rs/canvas");
 
 const A4_WIDTH = 595.28;
 const A4_HEIGHT = 841.89;
@@ -23,7 +26,7 @@ export type DailyMasterPackPdfRenderResult = {
 type PdfContext = any;
 
 type RendererState = {
-  doc: PDFDocument;
+  doc: InstanceType<typeof PDFDocument>;
   ctx: PdfContext;
   y: number;
   page: number;
