@@ -7,6 +7,7 @@ import {
   auditCom003PermanentAllocation,
 } from "./com003-permanent-ql-allocation";
 
+// One-off CI trigger for the permanent allocation checkpoint.
 const audit = auditCom003PermanentAllocation();
 assert.equal(audit.valid, true, audit.issues.join("\n"));
 assert.equal(audit.chapterId, "COM-003");
