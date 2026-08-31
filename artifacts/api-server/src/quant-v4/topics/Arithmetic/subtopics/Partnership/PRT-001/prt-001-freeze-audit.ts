@@ -24,12 +24,14 @@ import {
 import { auditPrt001E8SourceRealness } from "./foundation/e8-source-realness-auditor";
 import { auditPrt001E10EnglishEditorial } from "./foundation/e10-english-editorial-auditor";
 import { auditPrt001E11LocalizedEditorial } from "./foundation/e11-localized-editorial-auditor";
+import { auditPrt001E13SourceOwnership } from "./foundation/e13-source-ownership-auditor";
 import { PRT_001_CP_IDS } from "./foundation/types";
 
 const reports = [
   auditPrt001Coverage(),
   auditPrt001ContextRealism(),
   auditPrt001E8SourceRealness(),
+  auditPrt001E13SourceOwnership(),
   auditPrt001E10EnglishEditorial(),
   auditPrt001E11LocalizedEditorial(),
   auditPrt001ChapterStemSkeletonDepth(),
