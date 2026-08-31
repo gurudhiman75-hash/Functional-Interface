@@ -7,6 +7,7 @@ const GDELT_API = "https://api.gdeltproject.org/api/v2/doc/doc";
 const PROVIDER_SOURCE_KEY = "gdelt_open_news";
 const REQUEST_TIMEOUT_MS = 18_000;
 const MAX_RECORDS_PER_QUERY = 250;
+const INDIA_OFFSET_MINUTES = 330;
 
 export const OPEN_NEWS_DISCOVERY_QUERIES = [
   { key: "india_press_broad", query: "sourcecountry:india sourcelang:english" },
@@ -26,13 +27,35 @@ export type OpenNewsDiscoveryArticle = {
   sourceCountry: string | null;
 };
 
+function assertDateOnly(date: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    throw new Error("Open-news discovery requires YYYY-MM-DD target date");
+  }
+  const parsed = new Date(`${date}T00:00:00Z`);
+  if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== date) {
+    throw new Error("Open-news discovery target date is invalid");
+  }
+  return date;
+}
+
+function gdeltTimestamp(date: Date) {
+  return date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "");
+}
+
 function targetWindow(date: string) {
-  const compact = date.replaceAll("-", "");
-  if (!/^\d{8}$/.test(compact)) throw new Error("Open-news discovery requires YYYY-MM-DD target date");
+  assertDateOnly(date);
+  const start = new Date(`${date}T00:00:00+05:30`);
+  const end = new Date(`${date}T23:59:59+05:30`);
   return {
-    start: `${compact}000000`,
-    end: `${compact}235959`,
+    start: gdeltTimestamp(start),
+    end: gdeltTimestamp(end),
   };
+}
+
+function indiaDateForInstant(value: string) {
+  const instant = new Date(value);
+  if (Number.isNaN(instant.getTime())) return null;
+  return new Date(instant.getTime() + INDIA_OFFSET_MINUTES * 60_000).toISOString().slice(0, 10);
 }
 
 function clean(value: unknown, max = 500) {
@@ -63,6 +86,7 @@ function normalizeSeenDate(value: unknown): string | null {
 }
 
 export function parseGdeltArticleList(payload: unknown, targetDate: string): OpenNewsDiscoveryArticle[] {
+  assertDateOnly(targetDate);
   const root = payload && typeof payload === "object" ? payload as Record<string, unknown> : {};
   const rawArticles = Array.isArray(root.articles) ? root.articles : [];
   const seen = new Set<string>();
@@ -74,7 +98,7 @@ export function parseGdeltArticleList(payload: unknown, targetDate: string): Ope
     const title = clean(article.title, 500);
     const url = clean(article.url, 2000);
     const seenAt = normalizeSeenDate(article.seendate ?? article.seenDate ?? article.date);
-    if (title.length < 8 || !seenAt || seenAt.slice(0, 10) !== targetDate) continue;
+    if (title.length < 8 || !seenAt || indiaDateForInstant(seenAt) !== targetDate) continue;
     let parsed: URL;
     try {
       parsed = new URL(url);
@@ -146,17 +170,20 @@ async function loadDiscoverySources() {
   `;
   const provider = rows.find((row) => String(row.sourceKey) === PROVIDER_SOURCE_KEY);
   if (!provider) throw new Error("GDELT open-news discovery source is not registered");
-  const domainMap = new Map<string, (typeof rows)[number]>();
-  for (const row of rows) {
-    if (String(row.sourceKey) === PROVIDER_SOURCE_KEY) continue;
-    const domain = normalizeDomain(String(row.baseUrl ?? ""));
-    if (domain) domainMap.set(domain, row);
-  }
-  return { provider, domainMap };
+  const publisherDomains = rows
+    .filter((row) => String(row.sourceKey) !== PROVIDER_SOURCE_KEY)
+    .map((row) => ({ row, domain: normalizeDomain(String(row.baseUrl ?? "")) }))
+    .filter((item) => item.domain);
+  return { provider, publisherDomains };
+}
+
+function mappedPublisher<T extends { row: unknown; domain: string }>(domain: string, publishers: T[]) {
+  return publishers.find((item) => domain === item.domain || domain.endsWith(`.${item.domain}`))?.row;
 }
 
 export async function runOpenNewsDiscovery(targetDate: string) {
-  const { provider, domainMap } = await loadDiscoverySources();
+  assertDateOnly(targetDate);
+  const { provider, publisherDomains } = await loadDiscoverySources();
   const queryResults: Array<{ key: string; status: "success" | "failed"; count: number; error: string | null }> = [];
   const byUrl = new Map<string, OpenNewsDiscoveryArticle & { queryKeys: string[] }>();
 
@@ -189,7 +216,7 @@ export async function runOpenNewsDiscovery(targetDate: string) {
   const categoryCounts: Record<string, number> = {};
 
   for (const article of byUrl.values()) {
-    const mapped = domainMap.get(article.domain);
+    const mapped = mappedPublisher(article.domain, publisherDomains) as typeof provider | undefined;
     const source = mapped ?? provider;
     if (mapped) knownPublisherMapped += 1;
     else providerFallback += 1;
@@ -205,6 +232,8 @@ export async function runOpenNewsDiscovery(targetDate: string) {
       categoryGuess: classified.category,
       discoveryScore: classified.score,
       discoveryKeywords: classified.keywords,
+      dateSemantics: "gdelt_discovery_seen_at_not_publication_date",
+      dateConfidence: "discovery_only",
       rawArticlePersistence: false,
       fetchedPublisherBody: false,
       evidenceRole: "discovery_only",
