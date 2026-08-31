@@ -24,6 +24,13 @@ const QL_CONTEXT: Record<string, readonly string[]> = {
   "COM-003-QL-019": ["In Windows desktop PowerPoint", "For Windows desktop PowerPoint", "When presenting with Windows desktop PowerPoint"],
 };
 
+const VERSION_CONTEXT_BY_QL: Record<string, readonly string[]> = {
+  "COM-003-QL-003": ["In Windows desktop Office", "For a Windows desktop Office application", "When using Office on Windows desktop"],
+  "COM-003-QL-004": ["In Windows desktop Word", "For Windows desktop Word", "When formatting text in Windows desktop Word"],
+  "COM-003-QL-015": ["In Windows desktop Excel", "For Windows desktop Excel", "When using Windows desktop Excel"],
+  "COM-003-QL-019": ["In Windows desktop PowerPoint", "For Windows desktop PowerPoint", "When presenting with Windows desktop PowerPoint"],
+};
+
 const QL008_DEFINITIONS: Record<string, string> = {
   Workbook: "an Excel file that can contain one or more worksheets",
   Worksheet: "one spreadsheet sheet contained within an Excel file",
@@ -38,17 +45,16 @@ function lowerFirst(value: string) {
 
 function stripExistingWindowsLead(stem: string) {
   return stem
-    .replace(/^In Windows desktop Excel,\s*/i, "")
-    .replace(/^For Windows desktop Excel,\s*/i, "")
-    .replace(/^When using Windows desktop Excel,\s*/i, "")
-    .replace(/^In Windows desktop PowerPoint,\s*/i, "")
-    .replace(/^For Windows desktop PowerPoint,\s*/i, "")
-    .replace(/^When presenting with Windows desktop PowerPoint,\s*/i, "")
-    .replace(/^In Windows desktop context,\s*/i, "");
+    .replace(/^In Windows desktop (?:Excel|Word|PowerPoint|Office|context),\s*/i, "")
+    .replace(/^For (?:a )?Windows desktop (?:Excel|Word|PowerPoint|Office application),\s*/i, "")
+    .replace(/^When (?:using|presenting with|formatting text in) Windows desktop (?:Excel|Word|PowerPoint|Office),\s*/i, "");
 }
 
 function contextualize(question: Com003ReviewQuestion, index: number) {
-  const contexts = QL_CONTEXT[question.qlId] ?? ["In this computer-awareness context"];
+  const versionScopedSurface = question.versionScoped && /SHORTCUT|ACCESS|SLIDESHOW/i.test(question.surfaceMode);
+  const contexts = versionScopedSurface
+    ? VERSION_CONTEXT_BY_QL[question.qlId] ?? ["In Windows desktop context", "For a Windows desktop application", "When using the application on Windows desktop"]
+    : QL_CONTEXT[question.qlId] ?? ["In this computer-awareness context"];
   const cycle = Math.floor(index / 6);
   const context = contexts[(index + cycle) % contexts.length]!;
   const bareStem = stripExistingWindowsLead(question.stem.trim());
