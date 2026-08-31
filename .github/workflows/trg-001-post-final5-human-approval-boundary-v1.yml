@@ -18,6 +18,9 @@ on:
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-freeze-v1.ts"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-freeze-v1.test.ts"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/POST-FINAL5-FREEZE-V1.md"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-question-studio-activation-v1.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-question-studio-activation-v1.test.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/question-studio-runtime.ts"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/POST-FINAL5-HUMAN-APPROVAL-BOUNDARY.md"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-human-approval-boundary.ts"
       - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/localization-human-approval-boundary.test.ts"
@@ -111,3 +114,13 @@ jobs:
 
       - name: Run post-Final5 freeze audit
         run: node artifacts/api-server/dist/quant-v4/trg-001-post-final5-freeze-v1-audit.mjs
+
+      - name: Bundle post-Final5 Question Studio activation audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/AdvancedMathematics/subtopics/Trigonometry/TRG-001/post-final5-question-studio-activation-v1.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/trg-001-post-final5-question-studio-activation-v1-audit.mjs
+
+      - name: Run post-Final5 Question Studio activation audit
+        run: node artifacts/api-server/dist/quant-v4/trg-001-post-final5-question-studio-activation-v1-audit.mjs
