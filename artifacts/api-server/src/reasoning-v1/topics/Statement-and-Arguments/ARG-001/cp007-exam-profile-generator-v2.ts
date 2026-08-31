@@ -53,7 +53,7 @@ type ProfileTemplate = Readonly<{
   slotA: LocalizedSlot;
   slotB: LocalizedSlot;
   statement: Localized;
-  arguments: readonly [CandidateArgument, CandidateArgument, CandidateArgument, CandidateArgument];
+  arguments: readonly CandidateArgument[];
 }>;
 
 const LOCALES = ["en-IN", "hi-IN", "pa-IN"] as const;
