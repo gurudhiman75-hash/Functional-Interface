@@ -17,11 +17,17 @@ export type CurrentAffairsProductionReadinessInput = {
   now: Date;
   targetDate: string;
   deadlineIso: string;
+  /** Institution-level core-official source families, not raw endpoint count. */
   scheduledPrimarySources: number;
+  /** Healthy institution-level core-official source families. */
   freshSuccessfulPrimarySources: number;
+  /** Failed core-official endpoints; warnings only when their family remains covered. */
   failingPrimarySources: number;
+  /** Stale core-official endpoints; warnings only when their family remains covered. */
   stalePrimarySources: number;
+  /** Missing mandatory coverage domains such as national/economy_banking/punjab. */
   criticalSourceFailures: number;
+  criticalSourceFailureLabels?: string[];
   latestFeedRunAt?: string | null;
   latestIntelligenceRunAt?: string | null;
   queuedCandidates: number;
@@ -61,6 +67,10 @@ function ageHours(now: Date, value?: string | null): number {
   return Math.max(0, (now.getTime() - parsed.getTime()) / 3_600_000);
 }
 
+function domainLabel(value: string) {
+  return value.replace(/_/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
 export function evaluateCurrentAffairsProductionReadiness(
   input: CurrentAffairsProductionReadinessInput,
 ): CurrentAffairsProductionReadiness {
@@ -86,8 +96,13 @@ export function evaluateCurrentAffairsProductionReadiness(
   const deadline = new Date(input.deadlineIso);
   const deadlinePassed = !Number.isNaN(deadline.getTime()) && input.now.getTime() >= deadline.getTime();
 
-  if (!sourceCoverageHealthy) blockers.push(`Primary-source polling coverage is ${sourceCoveragePercent}%; at least 80% is required`);
-  if (!criticalSourcesHealthy) blockers.push(`${input.criticalSourceFailures} critical primary source(s) are failing or stale`);
+  if (!sourceCoverageHealthy) blockers.push(`Core official source-family coverage is ${sourceCoveragePercent}%; at least 80% is required`);
+  if (!criticalSourcesHealthy) {
+    const labels = (input.criticalSourceFailureLabels ?? []).map(domainLabel);
+    blockers.push(labels.length > 0
+      ? `Required official coverage unavailable: ${labels.join(", ")}`
+      : `${input.criticalSourceFailures} required official coverage domain(s) are unavailable`);
+  }
   if (!feedFresh) blockers.push("Feed/listing ingestion has not completed successfully within four hours");
   if (!intelligenceFresh) blockers.push("Intelligence processing has not completed successfully within four hours");
   if (!queueHealthy) warnings.push(`Discovery queue has ${input.queuedCandidates} candidates; investigate backlog before it exceeds the operating envelope`);
@@ -98,8 +113,8 @@ export function evaluateCurrentAffairsProductionReadiness(
   if (allQuestionReviewsComplete && !allReleaseReady) warnings.push("Daily packs are not yet release-ready");
   if (allReleaseReady && !allReleased) warnings.push("Daily packs are ready but still require explicit CP014 release approval");
   if (allReleased && !allLearnerQuizzesPublished) warnings.push("Notes are released but one or more learner quiz deliveries are not published");
-  if (input.failingPrimarySources > 0) warnings.push(`${input.failingPrimarySources} primary source(s) report their last poll as failed`);
-  if (input.stalePrimarySources > 0) warnings.push(`${input.stalePrimarySources} primary source(s) have not been polled within six hours`);
+  if (input.failingPrimarySources > 0) warnings.push(`${input.failingPrimarySources} core official endpoint(s) report their last poll as failed`);
+  if (input.stalePrimarySources > 0) warnings.push(`${input.stalePrimarySources} core official endpoint(s) have not been polled within six hours`);
 
   const draftReady = allEnglishDrafts && allLocalizedDrafts;
   const releaseReady = draftReady && allQuestionReviewsComplete && allReleaseReady && conflictFree;
