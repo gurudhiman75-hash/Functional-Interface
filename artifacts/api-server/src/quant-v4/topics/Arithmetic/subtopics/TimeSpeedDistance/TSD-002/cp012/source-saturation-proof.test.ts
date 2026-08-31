@@ -13,7 +13,7 @@ assert(TSD_CP012_SOURCE_SUMMARY.inventoryCandidates === 40, "design inventory mu
 assert(TSD_CP012_SOURCE_SUMMARY.inheritedCrossCheckpointCandidates === 2, "expected two inherited CP011 holds");
 assert(TSD_CP012_SOURCE_SUMMARY.rawCandidates === 42, "expected 42 total discovery sources after CP011 transfers");
 assert(TSD_CP012_SOURCE_SUMMARY.learnerSourceForms === 38, "expected 38 learner-source forms");
-assert(TSD_CP012_SOURCE_SUMMARY.learnerAuthorities === 11, "expected eleven provisional mathematical authorities after synthesis split");
+assert(TSD_CP012_SOURCE_SUMMARY.learnerAuthorities === 11, "expected eleven mathematical authorities after synthesis split");
 assert(TSD_CP012_SOURCE_SUMMARY.internalQaModes === 4, "expected four internal QA modes");
 assert(new Set(TSD_CP012_SOURCE_CANDIDATES.map((x) => x.sourceId)).size === 42, "source IDs must be unique");
 assert(new Set(TSD_CP012_SOURCE_CANDIDATES.map((x) => x.candidate)).size === 42, "candidate names must be unique");
@@ -25,7 +25,7 @@ for (const authorityKey of TSD_CP012_LEARNER_AUTHORITIES) {
   if (!singleSourceAllowed.has(authorityKey)) {
     assert(owned.length >= 2, `${authorityKey}: merged authority should have at least two independent source forms`);
   } else {
-    assert(owned.length === 1, `${authorityKey}: source-backed distinct authority should remain exactly one explicit inventory form until executable proof adds evidence`);
+    assert(owned.length === 1, `${authorityKey}: source-backed distinct authority should remain exactly one explicit inventory form`);
   }
 }
 
@@ -43,13 +43,13 @@ assert(TSD_CP012_SOURCE_CANDIDATES.find((x) => x.candidate === "findBoatPlusPurs
 assert(TSD_CP012_SOURCE_CANDIDATES.find((x) => x.candidate === "findCircularRaceSynthesis")?.authorityKey === "closedTrackRaceSynthesisState", "circular race synthesis must remain modular-track specific");
 assert(TSD_CP012_SOURCE_CANDIDATES.find((x) => x.candidate === "findTwoEngineInverseState")?.authorityKey === "twoEngineInverseState", "generic two-engine inverse must not be collapsed into a context-specific synthesis engine");
 
-assert(TSD_CP012_SOURCE_SUMMARY.frozen === false, "CP012 must remain unfrozen");
-assert(TSD_CP012_SOURCE_SUMMARY.questionStudioRegistered === false, "CP012 must not be Studio registered");
+assert(TSD_CP012_SOURCE_SUMMARY.frozen === true, "CP012 source authority must be frozen");
+assert(TSD_CP012_SOURCE_SUMMARY.questionStudioRegistered === false, "content freeze must not Studio-register CP012");
 assert(TSD_CP012_SOURCE_SUMMARY.bankWritable === false, "CP012 Bank writes must remain disabled");
 assert(TSD_CP012_SOURCE_SUMMARY.testEligible === false, "CP012 test eligibility must remain disabled");
 assert(TSD_CP012_SOURCE_SUMMARY.publiclyPublishable === false, "CP012 public publishing must remain disabled");
 
-console.log("TSD-CP-012 SOURCE SATURATION + SYNTHESIS SPLIT PROOF: PASS");
+console.log("TSD-CP-012 FROZEN SOURCE SATURATION + SYNTHESIS SPLIT PROOF: PASS");
 console.log(JSON.stringify({
   ...TSD_CP012_SOURCE_SUMMARY,
   singleSourceDistinctAuthorities: TSD_CP012_SINGLE_SOURCE_DISTINCT_AUTHORITIES,

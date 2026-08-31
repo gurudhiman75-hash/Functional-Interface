@@ -16,14 +16,14 @@ assert(!/^उत्तर:/gm.test(output), "Hindi answer content leaked into re
 assert(!/^ਜਵਾਬ:/gm.test(output), "Punjabi answer content leaked into review export");
 assert(!/^Explanation:/gmi.test(output), "explanation block leaked into review export");
 assert(!/\bcorrectIndex\b|\bsolution\s*:|\bexpected\s*:|\bexplanation\s*:/i.test(output), "internal solution metadata leaked into review export");
-assert(TSD_CP012_QL_LIFECYCLE.productOwnerApproved === false, "review export must not imply approval");
-assert(TSD_CP012_QL_LIFECYCLE.frozen === false, "review export must remain unfrozen");
-assert(TSD_CP012_QL_LIFECYCLE.questionStudioRegistered === false, "review export must not register Studio");
-assert(TSD_CP012_QL_LIFECYCLE.questionBankWritable === false, "review export must not enable Bank writes");
-assert(TSD_CP012_QL_LIFECYCLE.testEligible === false, "review export must not enable tests");
-assert(TSD_CP012_QL_LIFECYCLE.publiclyPublishable === false, "review export must not enable publishing");
+assert(TSD_CP012_QL_LIFECYCLE.productOwnerApproved === true, "frozen export authority must retain content approval");
+assert(TSD_CP012_QL_LIFECYCLE.frozen === true, "frozen export authority must remain frozen");
+assert(TSD_CP012_QL_LIFECYCLE.questionStudioRegistered === false, "questions-only export must not register Studio");
+assert(TSD_CP012_QL_LIFECYCLE.questionBankWritable === false, "questions-only export must not enable Bank writes");
+assert(TSD_CP012_QL_LIFECYCLE.testEligible === false, "questions-only export must not enable tests");
+assert(TSD_CP012_QL_LIFECYCLE.publiclyPublishable === false, "questions-only export must not enable publishing");
 
-console.log("TSD-CP-012 MULTILINGUAL QUESTIONS-ONLY EXPORT PROOF: PASS");
+console.log("TSD-CP-012 FROZEN MULTILINGUAL QUESTIONS-ONLY EXPORT PROOF: PASS");
 console.log(JSON.stringify({
   questions: questionHeaders.length,
   english: 270,
@@ -32,5 +32,5 @@ console.log(JSON.stringify({
   answersPresent: false,
   explanationsPresent: false,
   internalMetadataPresent: false,
-  lifecycle: "REVIEW_ONLY_NOT_FROZEN",
+  lifecycle: "FROZEN_CONTENT_PRODUCTION_LOCKED",
 }, null, 2));

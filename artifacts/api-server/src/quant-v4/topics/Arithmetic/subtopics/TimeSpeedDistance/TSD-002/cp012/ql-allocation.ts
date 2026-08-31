@@ -1,6 +1,6 @@
 import type { TsdCp012AuthorityKey } from "./source-saturation";
 
-export const TSD_CP012_QL_ALLOCATION_STATUS = "PROVISIONAL_EXECUTABLE_DISCOVERY_CANDIDATE" as const;
+export const TSD_CP012_QL_ALLOCATION_STATUS = "PERMANENT_FROZEN" as const;
 
 export const TSD_CP012_QL_ALLOCATION = Object.freeze([
   Object.freeze({ qlId: "TSD-QL-132", authorityKey: "discreteSpeedProgramState", learnerContract: "Solve finite, alternating or repeating speed-stage programs, including inverse final-rate and exact partial-terminal-cycle states." }),
@@ -17,13 +17,17 @@ export const TSD_CP012_QL_ALLOCATION = Object.freeze([
 ] as const satisfies readonly Readonly<{ qlId: string; authorityKey: TsdCp012AuthorityKey; learnerContract: string }>[]);
 
 export type TsdCp012QlId = (typeof TSD_CP012_QL_ALLOCATION)[number]["qlId"];
-export const TSD_CP012_PROVISIONAL_QL_IDS = Object.freeze(TSD_CP012_QL_ALLOCATION.map((x) => x.qlId));
-export const TSD_CP012_NEXT_QL_ID = "TSD-QL-143" as const;
+export const TSD_CP012_PERMANENT_QL_IDS = Object.freeze(TSD_CP012_QL_ALLOCATION.map((x) => x.qlId));
+export const TSD_CP012_NEXT_PERMANENT_QL = "TSD-QL-143" as const;
+
+// Compatibility aliases retained for stacked consumers until Studio promotion cleanup.
+export const TSD_CP012_PROVISIONAL_QL_IDS = TSD_CP012_PERMANENT_QL_IDS;
+export const TSD_CP012_NEXT_QL_ID = TSD_CP012_NEXT_PERMANENT_QL;
 
 export const TSD_CP012_QL_LIFECYCLE = Object.freeze({
   allocationStatus: TSD_CP012_QL_ALLOCATION_STATUS,
-  productOwnerApproved: false,
-  frozen: false,
+  productOwnerApproved: true,
+  frozen: true,
   productionRegistered: false,
   questionStudioRegistered: false,
   questionBankWritable: false,

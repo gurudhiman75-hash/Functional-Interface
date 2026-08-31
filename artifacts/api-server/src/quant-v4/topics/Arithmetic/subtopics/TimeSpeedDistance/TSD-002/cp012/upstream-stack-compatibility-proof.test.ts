@@ -1,6 +1,6 @@
 import {
-  TSD_CP011_NEXT_QL_ID,
-  TSD_CP011_PROVISIONAL_QL_IDS,
+  TSD_CP011_NEXT_PERMANENT_QL,
+  TSD_CP011_PERMANENT_QL_IDS,
   TSD_CP011_QL_LIFECYCLE,
 } from "../cp011/ql-allocation";
 import {
@@ -14,8 +14,8 @@ import {
   previewTsdCp011StudioCandidate,
 } from "../cp011/question-studio-candidate";
 import {
-  TSD_CP012_NEXT_QL_ID,
-  TSD_CP012_PROVISIONAL_QL_IDS,
+  TSD_CP012_NEXT_PERMANENT_QL,
+  TSD_CP012_PERMANENT_QL_IDS,
   TSD_CP012_QL_LIFECYCLE,
 } from "./ql-allocation";
 import {
@@ -28,19 +28,19 @@ function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(`TSD CP011→CP012 stack compatibility proof failed: ${message}`);
 }
 
-assert(TSD_CP011_PROVISIONAL_QL_IDS.length === 7, "CP011 must own seven review QLs");
-assert(TSD_CP011_PROVISIONAL_QL_IDS[0] === "TSD-QL-125", "CP011 must start at TSD-QL-125");
-assert(TSD_CP011_PROVISIONAL_QL_IDS.at(-1) === "TSD-QL-131", "CP011 must end at TSD-QL-131");
-assert(TSD_CP011_NEXT_QL_ID === "TSD-QL-132", "CP011 next QL must remain TSD-QL-132");
+assert(TSD_CP011_PERMANENT_QL_IDS.length === 7, "CP011 must own seven permanent QLs");
+assert(TSD_CP011_PERMANENT_QL_IDS[0] === "TSD-QL-125", "CP011 must start at TSD-QL-125");
+assert(TSD_CP011_PERMANENT_QL_IDS.at(-1) === "TSD-QL-131", "CP011 must end at TSD-QL-131");
+assert(TSD_CP011_NEXT_PERMANENT_QL === "TSD-QL-132", "CP011 next permanent QL must remain TSD-QL-132");
 
-assert(TSD_CP012_PROVISIONAL_QL_IDS.length === 11, "CP012 must own eleven review QLs");
-assert(TSD_CP012_PROVISIONAL_QL_IDS[0] === "TSD-QL-132", "CP012 must start at TSD-QL-132");
-assert(TSD_CP012_PROVISIONAL_QL_IDS.at(-1) === "TSD-QL-142", "CP012 must end at TSD-QL-142");
-assert(TSD_CP012_NEXT_QL_ID === "TSD-QL-143", "CP012 next QL must remain TSD-QL-143");
-assert(TSD_CP011_NEXT_QL_ID === TSD_CP012_PROVISIONAL_QL_IDS[0], "CP011→CP012 QL continuity is broken");
+assert(TSD_CP012_PERMANENT_QL_IDS.length === 11, "CP012 must own eleven permanent QLs");
+assert(TSD_CP012_PERMANENT_QL_IDS[0] === "TSD-QL-132", "CP012 must start at TSD-QL-132");
+assert(TSD_CP012_PERMANENT_QL_IDS.at(-1) === "TSD-QL-142", "CP012 must end at TSD-QL-142");
+assert(TSD_CP012_NEXT_PERMANENT_QL === "TSD-QL-143", "CP012 next permanent QL must remain TSD-QL-143");
+assert(TSD_CP011_NEXT_PERMANENT_QL === TSD_CP012_PERMANENT_QL_IDS[0], "CP011→CP012 QL continuity is broken");
 
-const qlOverlap = TSD_CP011_PROVISIONAL_QL_IDS.filter((qlId) =>
-  (TSD_CP012_PROVISIONAL_QL_IDS as readonly string[]).includes(qlId));
+const qlOverlap = TSD_CP011_PERMANENT_QL_IDS.filter((qlId) =>
+  (TSD_CP012_PERMANENT_QL_IDS as readonly string[]).includes(qlId));
 assert(qlOverlap.length === 0, `CP011/CP012 QL overlap detected: ${qlOverlap.join(", ")}`);
 
 assert(TSD_CP011_RELEASE_HINDI_REVIEW.length === 168, "CP011 Hindi release surface must contain 168 questions");
@@ -79,8 +79,8 @@ for (const [checkpoint, lifecycle] of [
   ["CP011", TSD_CP011_QL_LIFECYCLE],
   ["CP012", TSD_CP012_QL_LIFECYCLE],
 ] as const) {
-  assert(lifecycle.productOwnerApproved === false, `${checkpoint}: product-owner approval lock unexpectedly opened`);
-  assert(lifecycle.frozen === false, `${checkpoint}: freeze lock unexpectedly opened`);
+  assert(lifecycle.productOwnerApproved === true, `${checkpoint}: approved content lifecycle lost product-owner approval`);
+  assert(lifecycle.frozen === true, `${checkpoint}: content lifecycle is no longer frozen`);
   assert(lifecycle.questionBankWritable === false, `${checkpoint}: Question Bank write lock unexpectedly opened`);
   assert(lifecycle.testEligible === false, `${checkpoint}: test eligibility unexpectedly opened`);
   assert(lifecycle.publiclyPublishable === false, `${checkpoint}: public publication unexpectedly opened`);
@@ -99,19 +99,21 @@ for (const [checkpoint, studio] of [
   assert(studio.publiclyPublishable === false, `${checkpoint}: public publishing unexpectedly enabled`);
 }
 
-console.log("TSD CP011→CP012 STACK COMPATIBILITY PROOF: PASS");
+console.log("TSD CP011→CP012 FROZEN STACK COMPATIBILITY PROOF: PASS");
 console.log(JSON.stringify({
   cp011: {
-    qls: `${TSD_CP011_PROVISIONAL_QL_IDS[0]}..${TSD_CP011_PROVISIONAL_QL_IDS.at(-1)}`,
+    qls: `${TSD_CP011_PERMANENT_QL_IDS[0]}..${TSD_CP011_PERMANENT_QL_IDS.at(-1)}`,
     perLocale: TSD_CP011_STUDIO_REVIEWED_COMBINATIONS_PER_LOCALE,
     multilingual: TSD_CP011_STUDIO_REVIEWED_MULTILINGUAL_COMBINATIONS,
     nativeRatioPresentation: "STANDARD_A_COLON_B",
+    frozen: TSD_CP011_QL_LIFECYCLE.frozen,
   },
   cp012: {
-    qls: `${TSD_CP012_PROVISIONAL_QL_IDS[0]}..${TSD_CP012_PROVISIONAL_QL_IDS.at(-1)}`,
+    qls: `${TSD_CP012_PERMANENT_QL_IDS[0]}..${TSD_CP012_PERMANENT_QL_IDS.at(-1)}`,
     perLocale: TSD_CP012_STUDIO_REVIEWED_COMBINATIONS_PER_LOCALE,
     multilingual: TSD_CP012_STUDIO_REVIEWED_MULTILINGUAL_COMBINATIONS,
+    frozen: TSD_CP012_QL_LIFECYCLE.frozen,
   },
-  qlContinuity: `${TSD_CP011_PROVISIONAL_QL_IDS.at(-1)} -> ${TSD_CP012_PROVISIONAL_QL_IDS[0]}`,
-  lifecycle: "REVIEW_LOCKS_PRESERVED",
+  qlContinuity: `${TSD_CP011_PERMANENT_QL_IDS.at(-1)} -> ${TSD_CP012_PERMANENT_QL_IDS[0]}`,
+  lifecycle: "CONTENT_FROZEN_PRODUCTION_LOCKS_PRESERVED",
 }, null, 2));

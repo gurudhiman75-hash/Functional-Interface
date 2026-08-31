@@ -91,7 +91,7 @@ export const TSD_CP012_SOURCE_SUMMARY = Object.freeze({
   learnerSourceForms: TSD_CP012_SOURCE_CANDIDATES.filter((x) => x.disposition === "LEARNER_AUTHORITY").length,
   learnerAuthorities: TSD_CP012_LEARNER_AUTHORITIES.length,
   internalQaModes: TSD_CP012_SOURCE_CANDIDATES.filter((x) => x.disposition === "INTERNAL_QA").length,
-  frozen: false as const,
+  frozen: true as const,
   questionStudioRegistered: false as const,
   bankWritable: false as const,
   testEligible: false as const,
