@@ -12,6 +12,8 @@ on:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-english-*.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-*.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-studio-*.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-com003.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
       - '.github/workflows/com003-review-synthesis-oneoff.yml'
   pull_request:
     branches:
@@ -24,6 +26,8 @@ on:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-english-*.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-*.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-studio-*.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-com003.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
       - '.github/workflows/com003-review-synthesis-oneoff.yml'
 
 permissions:
@@ -67,7 +71,9 @@ jobs:
             com003-localization-wave4-audit-v2.test \
             com003-localization-wave4-freeze-v1.test \
             com003-localization-chapter-freeze-v1.test \
-            com003-question-studio-pre-registration-audit-v1.test; do
+            com003-question-studio-pre-registration-audit-v1.test \
+            com003-question-studio-pre-registration-freeze-v1.test \
+            com003-question-studio-read-only-route-contract-v1.test; do
             pnpm --dir artifacts/api-server exec esbuild \
               src/knowledge-v1/computer-awareness/${test}.ts \
               --bundle --platform=node --format=esm \
@@ -89,3 +95,5 @@ jobs:
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-wave4-freeze-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-chapter-freeze-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-pre-registration-audit-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-pre-registration-freeze-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-read-only-route-contract-v1.test.mjs
