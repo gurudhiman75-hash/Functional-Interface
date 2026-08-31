@@ -33,6 +33,7 @@ import adminQuestionStudioMixedDifficultyRouter from "./admin-question-studio-mi
 import adminQuestionStudioTimeSpeedDistanceRouter from "./admin-question-studio-time-speed-distance";
 import adminQuestionStudioTimeSpeedDistanceCp008Router from "./admin-question-studio-time-speed-distance-cp008";
 import adminQuestionStudioTimeSpeedDistanceCp009Router from "./admin-question-studio-time-speed-distance-cp009";
+import adminQuestionStudioTimeSpeedDistanceCp010Router from "./admin-question-studio-time-speed-distance-cp010";
 import adminQuestionStudioReasoningRouter from "./admin-question-studio-reasoning";
 import adminQuestionStudioCalendarRouter from "./admin-question-studio-calendar";
 import adminQuestionStudioRouter from "./admin-question-studio";
@@ -138,6 +139,7 @@ router.use("/admin/question-studio", adminQuestionStudioMixedDifficultyRouter);
 router.use("/admin/question-studio", adminQuestionStudioTimeSpeedDistanceRouter);
 router.use("/admin/question-studio", adminQuestionStudioTimeSpeedDistanceCp008Router);
 router.use("/admin/question-studio", adminQuestionStudioTimeSpeedDistanceCp009Router);
+router.use("/admin/question-studio", adminQuestionStudioTimeSpeedDistanceCp010Router);
 router.use("/admin/question-studio", adminQuestionStudioReasoningRouter);
 router.use("/admin/question-studio", adminQuestionStudioCalendarRouter);
 router.use("/admin/question-studio", adminQuestionStudioRouter);

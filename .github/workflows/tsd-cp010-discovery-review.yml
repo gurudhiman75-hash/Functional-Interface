@@ -1,0 +1,99 @@
+name: Validate TSD CP010 executable discovery and multilingual review
+
+on:
+  push:
+    branches:
+      - feat/tsd-cp010-executable-discovery-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/**
+      - artifacts/api-server/src/routes/admin-question-studio-time-speed-distance-cp010.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/question-studio/api.ts
+      - artifacts/admin-app/src/features/question-studio/useQuestionStudio.ts
+      - .github/workflows/tsd-cp010-discovery-review.yml
+  pull_request:
+    branches:
+      - feat/tsd-cp009-executable-discovery-v1
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/**
+      - artifacts/api-server/src/routes/admin-question-studio-time-speed-distance-cp010.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/question-studio/api.ts
+      - artifacts/admin-app/src/features/question-studio/useQuestionStudio.ts
+      - .github/workflows/tsd-cp010-discovery-review.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tsd-cp010-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  discovery-and-multilingual-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check for CP010 package
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010 -name '*.ts' -print)
+      - name: Prove CP010 source saturation
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/source-saturation-proof.test.ts
+      - name: Prove CP010 representation saturation
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/final-ownership-proof.test.ts
+      - name: Prove CP010 executable feasibility and independent verification
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/executable-proof.test.ts
+      - name: Prove CP010 permanent QL allocation
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/allocation-proof.test.ts
+      - name: Prove CP010 final English base authoring
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/english-authoring-proof.test.ts
+      - name: Prove CP010 native base localization
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/localization-proof.test.ts
+      - name: Prove CP010 official-paper multilingual representation V3
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/exam-paper-v3-proof.test.ts
+      - name: Prove CP010 official-paper V3 English freeze
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/english-freeze-proof.test.ts
+      - name: Prove CP010 official-paper V3 native localization freeze
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/localization-freeze-proof.test.ts
+      - name: Prove CP010 locked Question Studio candidate scaffold
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-candidate-proof.test.ts
+      - name: Audit all 1413 CP010 Studio official-paper V3 learner stems
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-exam-paper-v3-proof.test.ts
+      - name: Prove CP010 registered review-only Question Studio integration
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-registration-proof.test.ts
+      - name: Build API server with CP010 registered route
+        run: pnpm --filter @workspace/api-server build
+      - name: Typecheck admin Question Studio CP010 selector integration
+        run: pnpm --filter @workspace/examtree-admin typecheck
+      - name: Export one multilingual questions-only review file
+        run: |
+          mkdir -p /tmp/tsd-cp010-review
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/multilingual-review-export.ts /tmp/tsd-cp010-review/TSD-CP010-MULTILINGUAL-QUESTIONS.md
+      - name: Upload CP010 multilingual question review
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp010-multilingual-question-review
+          path: /tmp/tsd-cp010-review/TSD-CP010-MULTILINGUAL-QUESTIONS.md
+          if-no-files-found: error
