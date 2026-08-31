@@ -8,6 +8,7 @@ on:
     paths:
       - artifacts/api-server/migrations/20260829_notes_studio_source_pack*.sql
       - artifacts/api-server/migrations/20260830_notes_studio_source_pack*.sql
+      - artifacts/api-server/migrations/20260831_notes_studio*.sql
       - artifacts/api-server/notes-studio-migrate.ts
       - artifacts/api-server/src/notes-studio/**
       - artifacts/api-server/src/routes/admin-notes-studio*.ts
@@ -69,6 +70,7 @@ jobs:
             quality-grounding \
             approval-versioning \
             release-lineage \
+            research-restart \
             production-readiness
           do
             pnpm --dir artifacts/api-server exec esbuild "src/notes-studio/${test_file}.test.ts" --bundle --packages=external --platform=node --format=esm --outfile="dist/notes-studio-${test_file}.test.mjs"
