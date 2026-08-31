@@ -9,14 +9,6 @@ on:
       - artifacts/api-server/src/reasoning-v1/foundation/spatial/cubes-dice-question-studio-seeded-runtime-v1.ts
       - artifacts/api-server/src/reasoning-v1/tests/spatial-cubes-dice-question-studio-operator-review-v1.test.ts
       - .github/workflows/spa-cnd-001-question-studio-operator-review-v1.yml
-  pull_request:
-    branches:
-      - New-main
-    paths:
-      - artifacts/api-server/src/reasoning-v1/foundation/spatial/cubes-dice-exam-renderer-v1.ts
-      - artifacts/api-server/src/reasoning-v1/foundation/spatial/cubes-dice-question-studio-seeded-runtime-v1.ts
-      - artifacts/api-server/src/reasoning-v1/tests/spatial-cubes-dice-question-studio-operator-review-v1.test.ts
-      - .github/workflows/spa-cnd-001-question-studio-operator-review-v1.yml
   workflow_dispatch:
 
 permissions:
