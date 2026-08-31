@@ -14,6 +14,7 @@ import {
 } from '../notes-studio/source-pack-policy';
 import adminNotesStudioCandidateClaimsRouter from './admin-notes-studio-candidate-claims';
 import adminNotesStudioCoverageGapResearchRouter from './admin-notes-studio-coverage-gap-research';
+import adminNotesStudioCoveragePlanBulkRouter from './admin-notes-studio-coverage-plan-bulk';
 import adminNotesStudioCoverageProposalsRouter from './admin-notes-studio-coverage-proposals';
 import adminNotesStudioGapSourceRecommendationsRouter from './admin-notes-studio-gap-source-recommendations';
 import adminNotesStudioResearchRestartRouter from './admin-notes-studio-research-restart';
@@ -131,6 +132,7 @@ async function assertPolicyEditable(jobId: string) {
 
 router.use(authenticate);
 router.use(adminNotesStudioCandidateClaimsRouter);
+router.use(adminNotesStudioCoveragePlanBulkRouter);
 router.use(adminNotesStudioCoverageProposalsRouter);
 router.use(adminNotesStudioCoverageGapResearchRouter);
 router.use(adminNotesStudioGapSourceRecommendationsRouter);
