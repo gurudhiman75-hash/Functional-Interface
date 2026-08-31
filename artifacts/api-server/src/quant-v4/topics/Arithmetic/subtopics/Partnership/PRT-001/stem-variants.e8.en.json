@@ -1,0 +1,14 @@
+{
+  "language": "en",
+  "status": "HUMAN_AUTHORED_E8_SOURCE_BACKED_VARIANTS",
+  "entries": {
+    "PRT-QL-104": [
+      "From gross profit {totalProfit} in a {business}, {partnerA} first received {allowancePercentA}% and {partnerB} received {allowancePercentB}%. The balance was then divided according to their equal-period capitals {capitalA} and {capitalB}. Find {targetPartner}'s total receipt.",
+      "{partnerA} and {partnerB} invested {capitalA} and {capitalB} for the same duration in a {business}. Out of gross profit {totalProfit}, they were first allotted {allowancePercentA}% and {allowancePercentB}% respectively; the rest was shared by capital ratio. How much did {targetPartner} receive altogether?"
+    ],
+    "PRT-QL-105": [
+      "Over {totalDuration} in a {business}, {partnerA} maintained {capitalA}. {partnerB} invested {initialCapitalB} initially and withdrew {withdrawnCapitalB} after {changeAfterB}, while {partnerC} maintained {capitalC}. If profit was {totalProfit}, calculate {targetPartner}'s share.",
+      "A {business} continued for {totalDuration}. Capitals of {partnerA} and {partnerC} remained {capitalA} and {capitalC} throughout, whereas {partnerB} reduced {initialCapitalB} by {withdrawnCapitalB} after {changeAfterB}. From {totalProfit} profit, how much belonged to {targetPartner}?"
+    ]
+  }
+}
