@@ -68,6 +68,34 @@ const numericClaims = extractHeadlineFactClaims(
 assert.ok(numericClaims.some((claim) => claim.factKey === "amount"));
 assert.ok(numericClaims.some((claim) => claim.factKey === "percentage" && claim.factValue === "12.5%"));
 
+const notificationClaims = extractHeadlineFactClaims(
+  "Department of Consumer Affairs Notifies Legal Metrology Indian Standard Time Rules 2026",
+);
+assert.ok(notificationClaims.some((claim) => claim.factKey === "acting_entity" && /Consumer Affairs/.test(claim.factValue)));
+assert.ok(notificationClaims.some((claim) => claim.factKey === "official_action" && claim.factValue === "notifies"));
+assert.ok(notificationClaims.some((claim) => claim.factKey === "action_subject" && /Legal Metrology/.test(claim.factValue)));
+
+const plannedClaims = extractHeadlineFactClaims(
+  "Vice President to Release Mission Rangeen Machhli 2031 Strategic Action Plan",
+);
+assert.ok(plannedClaims.some((claim) => claim.factKey === "acting_entity" && claim.factValue === "Vice President"));
+assert.ok(plannedClaims.some((claim) => claim.factKey === "official_action" && claim.factValue === "scheduled release"));
+assert.ok(plannedClaims.some((claim) => claim.factKey === "action_subject" && /Mission Rangeen/.test(claim.factValue)));
+
+const conductedClaims = extractHeadlineFactClaims(
+  "NEET-PG 2026 Successfully Conducted Nationwide with Robust Security and Real-Time Monitoring",
+);
+assert.ok(conductedClaims.some((claim) => claim.factKey === "initiative" && claim.factValue === "NEET-PG 2026"));
+assert.ok(conductedClaims.some((claim) => claim.factKey === "official_action" && claim.factValue === "conducted"));
+assert.ok(conductedClaims.some((claim) => claim.factKey === "event_status" && /Nationwide/.test(claim.factValue)));
+
+const inaugurationClaims = extractHeadlineFactClaims(
+  "Vice President inaugurates Aranmula Uthrittathi Vallamkali",
+);
+assert.ok(inaugurationClaims.some((claim) => claim.factKey === "acting_entity" && claim.factValue === "Vice President"));
+assert.ok(inaugurationClaims.some((claim) => claim.factKey === "official_action" && claim.factValue === "inaugurates"));
+assert.ok(inaugurationClaims.some((claim) => claim.factKey === "action_subject" && /Vallamkali/.test(claim.factValue)));
+
 const corroborated: ClaimEvidence[] = [
   {
     factKey: "percentage",
@@ -140,4 +168,4 @@ assert.equal(unresolved.conflicts.length, 1);
 assert.equal(unresolved.conflicts[0]?.autoResolution, undefined);
 assert.equal(unresolved.facts.length, 0, "unresolved contradictions must not materialize a canonical fact");
 
-console.log("Current Affairs Studio CP003 intelligence contracts passed");
+console.log("Current Affairs CP030 intelligence contracts passed");

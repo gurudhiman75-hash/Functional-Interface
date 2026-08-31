@@ -26,13 +26,76 @@ export type AuthoringOutput = {
   inputFingerprint: string;
 };
 
+const AUTHORING_POLICY_VERSION = "ca-cp030-generic-verified-fact-authoring-v1";
+
 const SOURCE_NAMES: Record<string, string> = {
   pib: "Government of India",
   rbi: "Reserve Bank of India",
   sebi: "SEBI",
   isro: "ISRO",
   punjab_gov: "Punjab Government",
+  punjab_gov_press: "Punjab Government",
+  punjab_lok_bhavan_press: "Punjab Lok Bhavan",
 };
+
+const CATEGORY_LABELS: Record<string, string> = {
+  national: "national affairs",
+  economy_banking: "economy and banking",
+  international: "international affairs",
+  appointments: "appointment",
+  awards: "award",
+  reports_indices: "report and index",
+  sports: "sports",
+  science_technology: "science and technology",
+  space: "space",
+  defence: "defence",
+  environment: "environment",
+  books_authors: "books and authors",
+  important_days: "important day",
+  summits: "summit",
+  obituaries: "obituary",
+  punjab: "Punjab affairs",
+  other: "current affairs",
+};
+
+const FACT_LABELS: Record<string, string> = {
+  appointee: "appointee",
+  position: "position",
+  winner: "winner",
+  award_or_title: "award or title",
+  launching_entity: "launching entity",
+  initiative: "initiative",
+  acting_entity: "official body",
+  official_action: "official action",
+  action_subject: "subject",
+  event_status: "status",
+  amount: "amount",
+  percentage: "percentage",
+  rank: "rank",
+  scheme_outlay: "outlay",
+  beneficiary_count: "beneficiaries",
+  effective_date: "effective date",
+  headquarters: "headquarters",
+  target_percentage: "target",
+  target_year: "target year",
+  mou_parties: "parties",
+  orbit_altitude: "orbit altitude",
+  repeat_cycle: "repeat cycle",
+  mission_life: "mission life",
+  launcher: "launcher",
+  index_value: "index value",
+};
+
+const SUBJECT_FACT_PRIORITY = [
+  "action_subject",
+  "initiative",
+  "award_or_title",
+  "appointee",
+  "mou_parties",
+  "headquarters",
+  "scheme_outlay",
+  "rank",
+] as const;
 
 const ACRONYM_STOP = new Set([
   "RBI", "SEBI", "ISRO", "PIB", "NASA", "GOVT", "INDIA", "PRESS", "RELEASE",
@@ -96,6 +159,87 @@ function factualSubjectFromSourceTitle(sourceTitle: string): string | undefined 
   return subject;
 }
 
+function cleanFactValue(value: string): string | undefined {
+  const clean = value.replace(/\s+/g, " ").trim();
+  if (!clean || clean.length > 220 || /https?:\/\//i.test(clean)) return undefined;
+  return clean;
+}
+
+function factLabel(key: string): string {
+  return FACT_LABELS[key] ?? key.replace(/_/g, " ");
+}
+
+function compact(value: string, max = 112): string {
+  const clean = value.replace(/\s+/g, " ").trim();
+  return clean.length <= max ? clean : `${clean.slice(0, max - 1).trimEnd()}…`;
+}
+
+function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, string>, sourceName: string): AuthoringOutput | null {
+  const useful = [...facts.entries()]
+    .map(([key, value]) => [key, cleanFactValue(value)] as const)
+    .filter((entry): entry is readonly [string, string] => Boolean(entry[1]));
+  if (useful.length < 2) return null;
+
+  const actionEntity = facts.get("acting_entity");
+  const officialAction = facts.get("official_action");
+  const actionSubject = facts.get("action_subject");
+  if (actionEntity && officialAction && actionSubject) {
+    return result({
+      input,
+      title: `${sourceName} update: ${compact(actionSubject)}`,
+      summary: `Verified official facts identify ${actionEntity} as the acting body, the action as ${officialAction}, and the subject as ${actionSubject}.`,
+      oneLiner: `${factLabel("action_subject")}: ${compact(actionSubject, 150)}`,
+      templateId: "verified_official_action_v1",
+      reasons: ["Learner wording is composed from reconciled atomic facts rather than source-headline wording"],
+    });
+  }
+
+  const winner = facts.get("winner");
+  const award = facts.get("award_or_title");
+  if (winner && award) {
+    return result({
+      input,
+      title: `${sourceName} award update: ${compact(award)}`,
+      summary: `Verified facts record ${winner} as the winner and ${award} as the award or title.`,
+      oneLiner: `${winner} — ${award}`,
+      templateId: "verified_award_result_v1",
+      reasons: ["Winner and award are rendered from reconciled factual fields"],
+    });
+  }
+
+  const launchingEntity = facts.get("launching_entity");
+  const initiative = facts.get("initiative");
+  if (launchingEntity && initiative) {
+    return result({
+      input,
+      title: `${sourceName} initiative update: ${compact(initiative)}`,
+      summary: `Verified facts identify ${launchingEntity} as the launching entity and ${initiative} as the initiative.`,
+      oneLiner: `Initiative: ${compact(initiative, 150)}`,
+      templateId: "verified_initiative_v1",
+      reasons: ["Initiative wording is composed from reconciled factual fields"],
+    });
+  }
+
+  const categoryLabel = CATEGORY_LABELS[input.category] ?? CATEGORY_LABELS.other;
+  const subject = SUBJECT_FACT_PRIORITY
+    .map((key) => facts.get(key))
+    .map((value) => value ? cleanFactValue(value) : undefined)
+    .find(Boolean);
+  const selected = useful.slice(0, 4);
+  const detail = selected.map(([key, value]) => `${factLabel(key)}: ${value}`).join("; ");
+  const title = subject
+    ? `${sourceName} ${categoryLabel} update: ${compact(subject)}`
+    : `${sourceName} ${categoryLabel} verified-fact update`;
+  return result({
+    input,
+    title,
+    summary: `Verified facts for this ${categoryLabel} development are ${detail}.`,
+    oneLiner: selected.slice(0, 2).map(([key, value]) => `${factLabel(key)}: ${value}`).join("; "),
+    templateId: "generic_verified_fact_graph_v1",
+    reasons: ["Fallback requires at least two reconciled atomic facts and does not reuse the source headline as learner copy"],
+  });
+}
+
 function result(args: {
   input: AuthoringInput;
   title: string;
@@ -122,6 +266,7 @@ function result(args: {
 
 export function authoringInputFingerprint(input: AuthoringInput): string {
   const stable = JSON.stringify({
+    authoringPolicyVersion: AUTHORING_POLICY_VERSION,
     eventId: input.eventId,
     eventDate: input.eventDate,
     category: input.category,
@@ -224,6 +369,9 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
       templateId: "programme_outlay_v1",
     });
   }
+
+  const generic = genericVerifiedFactAuthoring(input, facts, sourceName);
+  if (generic) return generic;
 
   return {
     status: "needs_editorial",
