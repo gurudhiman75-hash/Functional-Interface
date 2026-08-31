@@ -1,7 +1,10 @@
 import { randomUUID } from "node:crypto";
 import { Router, type IRouter, type Response } from "express";
 
+import { loadDailyDiscoveryCensus } from "../current-affairs/daily-discovery-census";
+import { loadDailyMasterPack } from "../current-affairs/daily-master-pack";
 import { generateYesterdayCurrentAffairsOnDemand } from "../current-affairs/on-demand-yesterday-runtime";
+import { previousIndiaDate } from "../current-affairs/orchestration-policy";
 import { loadCurrentAffairsProductionReadiness } from "../current-affairs/production-readiness-runtime";
 import { runCurrentAffairsProductionRecovery } from "../current-affairs/production-recovery-runtime";
 import { requireAdminPermission } from "../lib/admin-rbac";
@@ -9,11 +12,17 @@ import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 
 const router: IRouter = Router();
+const DATE_ONLY = /^\d{4}-\d{2}-\d{2}$/;
 
 function sendError(res: Response, error: unknown, fallback: string) {
   const message = error instanceof Error ? error.message : fallback;
   console.error(fallback, error);
   res.status(500).json({ error: message, code: "CURRENT_AFFAIRS_PRODUCTION_OPS_FAILED" });
+}
+
+function requestedDate(value: unknown) {
+  const text = typeof value === "string" ? value.trim() : "";
+  return DATE_ONLY.test(text) ? text : previousIndiaDate(new Date());
 }
 
 router.use(authenticate);
@@ -23,6 +32,40 @@ router.get("/production/readiness", requireAdminPermission("content.questions.re
     res.json(await loadCurrentAffairsProductionReadiness());
   } catch (error) {
     sendError(res, error, "Unable to load Current Affairs production readiness");
+  }
+});
+
+router.get("/production/discovery-census", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const targetDate = requestedDate(req.query.date);
+    res.json({ targetDate, census: await loadDailyDiscoveryCensus(targetDate) });
+  } catch (error) {
+    sendError(res, error, "Unable to load Current Affairs daily discovery census");
+  }
+});
+
+router.get("/production/master-pack", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const targetDate = requestedDate(req.query.date);
+    res.json({ targetDate, masterPack: await loadDailyMasterPack(targetDate) });
+  } catch (error) {
+    sendError(res, error, "Unable to load Current Affairs daily master pack");
+  }
+});
+
+router.get("/production/master-pack/text", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const targetDate = requestedDate(req.query.date);
+    const masterPack = await loadDailyMasterPack(targetDate);
+    if (!masterPack) {
+      res.status(404).json({ error: "Daily Current Affairs master pack has not been materialized yet.", code: "CURRENT_AFFAIRS_MASTER_PACK_NOT_FOUND" });
+      return;
+    }
+    res.setHeader("Content-Type", "text/markdown; charset=utf-8");
+    res.setHeader("Content-Disposition", `attachment; filename="examtree-current-affairs-${targetDate}.md"`);
+    res.send(String(masterPack.bodyMarkdown ?? ""));
+  } catch (error) {
+    sendError(res, error, "Unable to download Current Affairs master text");
   }
 });
 
@@ -76,6 +119,8 @@ router.post("/production/generate-yesterday", requireAdminPermission("jobs.manag
           before: result.before,
           after: result.after,
           summary: result.summary,
+          discoveryCensus: result.discoveryCensus,
+          dailyMasterPack: result.dailyMasterPack,
           publicationAuthority: false,
         })}::jsonb
       )

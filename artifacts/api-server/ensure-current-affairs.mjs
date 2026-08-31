@@ -35,6 +35,7 @@ const migrationFiles = [
   "20260831_current_affairs_primary_source_recovery.sql",
   "20260831_current_affairs_source_families_discovery.sql",
   "20260831_current_affairs_punjab_official_resilience.sql",
+  "20260831_current_affairs_daily_discovery_census.sql",
 ];
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -94,10 +95,13 @@ try {
       to_regclass('content.current_affairs_sources')::text AS sources,
       to_regclass('content.current_affairs_events')::text AS events,
       to_regclass('content.current_affairs_compilations')::text AS compilations,
-      to_regclass('content.current_affairs_ops_runs')::text AS ops_runs
+      to_regclass('content.current_affairs_ops_runs')::text AS ops_runs,
+      to_regclass('content.current_affairs_daily_discovery_census')::text AS discovery_census,
+      to_regclass('content.current_affairs_daily_master_packs')::text AS master_packs
   `;
 
-  if (!verified?.sources || !verified?.events || !verified?.compilations || !verified?.ops_runs) {
+  if (!verified?.sources || !verified?.events || !verified?.compilations || !verified?.ops_runs
+    || !verified?.discovery_census || !verified?.master_packs) {
     throw new Error("Current Affairs schema bootstrap finished without all required production tables");
   }
 
