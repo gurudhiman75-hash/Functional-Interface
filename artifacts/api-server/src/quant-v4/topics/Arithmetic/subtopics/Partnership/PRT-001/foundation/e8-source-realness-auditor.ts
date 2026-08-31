@@ -1,5 +1,8 @@
 import sourceProvenance from "../source-provenance.e8.json" assert { type: "json" };
 import variableRangesSource from "../variable-ranges.library.json" assert { type: "json" };
+import { generatePrt001E8Parameters } from "./e8-parameter-generator";
+import { getPrt001TaskEntry } from "./library";
+import { equalRational } from "./math";
 import { runPrt001PilotPipeline } from "./pipeline";
 
 interface SourceItem {
@@ -58,30 +61,42 @@ export function auditPrt001E8SourceRealness(): Prt001E8SourceAuditReport {
   const maxConfiguredDuration = Math.max(...configuredDurations);
   requireAudit(maxConfiguredDuration >= 36, `source-backed duration pool does not reach 36 months; max=${maxConfiguredDuration}`);
 
-  const allowanceSignatures = new Set<string>();
-  const allowanceAnswers = new Set<string>();
+  const splitSignatures = new Set<string>();
+  const reverseTotalAnswers = new Set<string>();
   const horizonSignatures = new Set<string>();
   const horizonAnswers = new Set<string>();
   let cases = provenance.sources.length;
 
+  const ql104Entry = getPrt001TaskEntry("PRT-QL-104");
   for (let index = 0; index < 24; index += 1) {
-    const pkg = runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-104", seed: `prt-001:e8-source:104:${index}`, language: "en" });
+    const seed = `prt-001:e8-source:104:${index}`;
+    const parameters = generatePrt001E8Parameters({ questionLanguageId: "PRT-QL-104", seed, entry: ql104Entry, language: "en" });
+    requireAudit(parameters.state.allocations.length === 2, `QL-104 seed ${index} does not have exactly two equal-split allocations`);
+    requireAudit(parameters.state.allocations.every((item) => item.basis === "PERCENT_OF_GROSS_PROFIT"), `QL-104 seed ${index} allocation basis drifted`);
+    requireAudit(parameters.state.allocations[0]!.recipientPartnerId !== parameters.state.allocations[1]!.recipientPartnerId, `QL-104 seed ${index} allocations do not target distinct partners`);
+    requireAudit(equalRational(parameters.state.allocations[0]!.value, parameters.state.allocations[1]!.value), `QL-104 seed ${index} equal split is not equal`);
+    const pkg = runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-104", seed, language: "en" });
     requireAudit(pkg.validation.valid, `QL-104 failed validation at seed ${index}`);
-    const allowances = (pkg.parameters.allowancePercentA ?? "") + ":" + (pkg.parameters.allowancePercentB ?? "");
-    allowanceSignatures.add(String(allowances));
-    allowanceAnswers.add(pkg.answer);
+    requireAudit(pkg.solveMode === "findTotalProfitFromShareDifferenceAndCapitals", "QL-104 lost the generalized reverse-total authority");
     requireAudit(pkg.traceability.expansionWave === "E8", "QL-104 is not routed through E8");
+    splitSignatures.add(`${pkg.parameters.equalSplitPercent}:${pkg.parameters.capitalSplitPercent}:${pkg.traceability.normalizedRatio}`);
+    reverseTotalAnswers.add(pkg.answer);
     cases += 1;
   }
-  requireAudit(allowanceSignatures.size >= 4, `QL-104 reached only ${allowanceSignatures.size} allowance signatures`);
-  requireAudit(allowanceAnswers.size >= 4, `QL-104 reached only ${allowanceAnswers.size} answer signatures`);
+  requireAudit(splitSignatures.size >= 4, `QL-104 reached only ${splitSignatures.size} split-allocation signatures`);
+  requireAudit(reverseTotalAnswers.size >= 4, `QL-104 reached only ${reverseTotalAnswers.size} reverse-total answers`);
 
+  const ql105Entry = getPrt001TaskEntry("PRT-QL-105");
   for (let index = 0; index < 24; index += 1) {
-    const pkg = runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-105", seed: `prt-001:e8-source:105:${index}`, language: "en" });
+    const seed = `prt-001:e8-source:105:${index}`;
+    const parameters = generatePrt001E8Parameters({ questionLanguageId: "PRT-QL-105", seed, entry: ql105Entry, language: "en" });
+    requireAudit(parameters.state.totalDuration.numerator > 12n * parameters.state.totalDuration.denominator, `QL-105 seed ${index} is not longer than one year`);
+    requireAudit(parameters.state.partners.length === 3, `QL-105 seed ${index} is not a three-partner timeline`);
+    requireAudit(parameters.state.partners[1]!.capitalSegments.length === 2, `QL-105 seed ${index} does not contain a withdrawal boundary`);
+    const pkg = runPrt001PilotPipeline({ questionLanguageId: "PRT-QL-105", seed, language: "en" });
     requireAudit(pkg.validation.valid, `QL-105 failed validation at seed ${index}`);
     const totalDurationText = String(pkg.parameters.totalDuration ?? "");
-    const traceWeights = JSON.stringify(pkg.traceability.exactWeights);
-    horizonSignatures.add(`${totalDurationText}|${traceWeights}`);
+    horizonSignatures.add(`${totalDurationText}|${JSON.stringify(pkg.traceability.exactWeights)}`);
     horizonAnswers.add(pkg.answer);
     requireAudit(pkg.traceability.expansionWave === "E8", "QL-105 is not routed through E8");
     requireAudit(/2 years|30 months|3 years|4 years/.test(totalDurationText), `QL-105 emitted a non-multi-year horizon: ${totalDurationText}`);
@@ -99,8 +114,8 @@ export function auditPrt001E8SourceRealness(): Prt001E8SourceAuditReport {
       solveModesAdded: 0,
       delegatedBoundaries: ["interest-on-capital", "accounting-reconstitution"],
       maxConfiguredDurationMonths: maxConfiguredDuration,
-      ql104AllowanceSignatures: allowanceSignatures.size,
-      ql104AnswerSignatures: allowanceAnswers.size,
+      ql104SplitAllocationSignatures: splitSignatures.size,
+      ql104ReverseTotalAnswers: reverseTotalAnswers.size,
       ql105LongHorizonSignatures: horizonSignatures.size,
       ql105AnswerSignatures: horizonAnswers.size,
     },
