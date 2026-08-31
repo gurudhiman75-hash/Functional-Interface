@@ -73,7 +73,7 @@ INSERT INTO content.current_affairs_sources (
 ),
 (
   'ca000013-0000-4000-8000-000000000013'::uuid,
-  'reuters_india', 'Reuters — India', 'news_agency',
+  'reuters_india', 'Reuters — India', 'newswire',
   'https://www.reuters.com/world/india/', null, 0.90,
   false, true,
   '{"discoveryScope":"India and international developments","automationStatus":"disabled_pending_license_or_permitted_feed","usagePolicy":"registry_headline_link_metadata_only","verificationAuthority":false,"rawArticlePersistence":false}'::jsonb,
@@ -113,6 +113,7 @@ INSERT INTO content.current_affairs_sources (
 )
 ON CONFLICT (source_key) DO UPDATE
 SET name=EXCLUDED.name,
+    source_type=EXCLUDED.source_type,
     base_url=EXCLUDED.base_url,
     trust_score=EXCLUDED.trust_score,
     is_primary_source=false,
