@@ -1,6 +1,7 @@
 export const ON_DEMAND_YESTERDAY_STAGES = [
   "official_source_refresh",
   "historical_official_source_backfill",
+  "open_news_discovery",
   "official_candidate_reclassification",
   "primary_fact_enrichment",
   "manual_authority_guard",
@@ -8,6 +9,7 @@ export const ON_DEMAND_YESTERDAY_STAGES = [
   "post_promotion_enrichment_reconciliation",
   "historical_claim_rebuild_and_reverification",
   "draft_authoring_localization_and_questions",
+  "daily_discovery_census_and_master_pack",
 ] as const;
 
 export type YesterdayArtifactIdentity = {

@@ -16,6 +16,7 @@ import {
 assert.deepEqual(ON_DEMAND_YESTERDAY_STAGES, [
   "official_source_refresh",
   "historical_official_source_backfill",
+  "open_news_discovery",
   "official_candidate_reclassification",
   "primary_fact_enrichment",
   "manual_authority_guard",
@@ -23,11 +24,17 @@ assert.deepEqual(ON_DEMAND_YESTERDAY_STAGES, [
   "post_promotion_enrichment_reconciliation",
   "historical_claim_rebuild_and_reverification",
   "draft_authoring_localization_and_questions",
+  "daily_discovery_census_and_master_pack",
 ]);
 assert.ok(
   ON_DEMAND_YESTERDAY_STAGES.indexOf("historical_official_source_backfill")
-    < ON_DEMAND_YESTERDAY_STAGES.indexOf("official_candidate_reclassification"),
-  "historical official discovery must run before candidate reclassification",
+    < ON_DEMAND_YESTERDAY_STAGES.indexOf("open_news_discovery"),
+  "official historical recovery must run before broad open-news discovery",
+);
+assert.ok(
+  ON_DEMAND_YESTERDAY_STAGES.indexOf("open_news_discovery")
+    < ON_DEMAND_YESTERDAY_STAGES.indexOf("intelligence_and_strict_verification"),
+  "open-news discovery must feed the candidate universe before clustering/intelligence",
 );
 assert.ok(
   ON_DEMAND_YESTERDAY_STAGES.indexOf("official_candidate_reclassification")
@@ -38,6 +45,11 @@ assert.ok(
   ON_DEMAND_YESTERDAY_STAGES.indexOf("historical_claim_rebuild_and_reverification")
     < ON_DEMAND_YESTERDAY_STAGES.indexOf("draft_authoring_localization_and_questions"),
   "historical claims must be rebuilt and reverified before learner authoring",
+);
+assert.ok(
+  ON_DEMAND_YESTERDAY_STAGES.indexOf("draft_authoring_localization_and_questions")
+    < ON_DEMAND_YESTERDAY_STAGES.indexOf("daily_discovery_census_and_master_pack"),
+  "daily census/master pack must snapshot the completed draft recovery state",
 );
 
 const pibInitial = `
@@ -173,4 +185,4 @@ assert.equal(complete.allLocalizedDraftsPresent, true);
 assert.equal(complete.allNineDraftsPresent, true);
 assert.deepEqual(complete.missing, []);
 
-console.log("CP034 on-demand yesterday historical discovery contracts passed");
+console.log("CP037 on-demand yesterday discovery and historical contracts passed");
