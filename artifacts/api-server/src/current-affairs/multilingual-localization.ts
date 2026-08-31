@@ -40,6 +40,14 @@ export type CurrentAffairsLocalizationOutput = {
   reasons: string[];
 };
 
+const GENERIC_LOCALIZATION_POLICY_VERSION = "ca-cp035-generic-multilingual-recovery-v1";
+const GENERIC_TEMPLATES = new Set([
+  "verified_official_action_v1",
+  "verified_award_result_v1",
+  "verified_initiative_v1",
+  "generic_verified_fact_graph_v1",
+]);
+
 const SOURCE_NAMES: Record<CurrentAffairsLocalizationLanguage, Record<string, string>> = {
   hi: {
     pib: "भारत सरकार",
@@ -47,6 +55,8 @@ const SOURCE_NAMES: Record<CurrentAffairsLocalizationLanguage, Record<string, st
     sebi: "SEBI",
     isro: "ISRO",
     punjab_gov: "पंजाब सरकार",
+    punjab_gov_press: "पंजाब सरकार",
+    punjab_lok_bhavan_press: "पंजाब लोक भवन",
   },
   pa: {
     pib: "ਭਾਰਤ ਸਰਕਾਰ",
@@ -54,8 +64,74 @@ const SOURCE_NAMES: Record<CurrentAffairsLocalizationLanguage, Record<string, st
     sebi: "SEBI",
     isro: "ISRO",
     punjab_gov: "ਪੰਜਾਬ ਸਰਕਾਰ",
+    punjab_gov_press: "ਪੰਜਾਬ ਸਰਕਾਰ",
+    punjab_lok_bhavan_press: "ਪੰਜਾਬ ਲੋਕ ਭਵਨ",
   },
 };
+
+const GENERIC_FACT_LABELS: Record<CurrentAffairsLocalizationLanguage, Record<string, string>> = {
+  hi: {
+    acting_entity: "आधिकारिक निकाय",
+    official_action: "आधिकारिक कार्रवाई",
+    action_subject: "विषय",
+    winner: "विजेता",
+    award_or_title: "पुरस्कार या उपाधि",
+    launching_entity: "आरंभ करने वाला निकाय",
+    initiative: "पहल",
+    event_status: "स्थिति",
+    amount: "राशि",
+    percentage: "प्रतिशत",
+    rank: "रैंक",
+    scheme_outlay: "परिव्यय",
+    beneficiary_count: "लाभार्थी",
+    effective_date: "प्रभावी तिथि",
+    headquarters: "मुख्यालय",
+    target_percentage: "लक्ष्य",
+    target_year: "लक्ष्य वर्ष",
+    mou_parties: "MoU के पक्ष",
+    orbit_altitude: "कक्षा ऊंचाई",
+    repeat_cycle: "पुनरावृत्ति चक्र",
+    mission_life: "मिशन अवधि",
+    launcher: "प्रक्षेपण यान",
+    index_value: "सूचकांक मान",
+  },
+  pa: {
+    acting_entity: "ਅਧਿਕਾਰਤ ਸੰਸਥਾ",
+    official_action: "ਅਧਿਕਾਰਤ ਕਾਰਵਾਈ",
+    action_subject: "ਵਿਸ਼ਾ",
+    winner: "ਜੇਤੂ",
+    award_or_title: "ਇਨਾਮ ਜਾਂ ਖਿਤਾਬ",
+    launching_entity: "ਸ਼ੁਰੂ ਕਰਨ ਵਾਲੀ ਸੰਸਥਾ",
+    initiative: "ਪਹਿਲ",
+    event_status: "ਸਥਿਤੀ",
+    amount: "ਰਕਮ",
+    percentage: "ਪ੍ਰਤੀਸ਼ਤ",
+    rank: "ਰੈਂਕ",
+    scheme_outlay: "ਖਰਚਾ",
+    beneficiary_count: "ਲਾਭਪਾਤਰੀ",
+    effective_date: "ਲਾਗੂ ਮਿਤੀ",
+    headquarters: "ਮੁੱਖ ਦਫ਼ਤਰ",
+    target_percentage: "ਟੀਚਾ",
+    target_year: "ਟੀਚਾ ਸਾਲ",
+    mou_parties: "MoU ਦੇ ਪੱਖ",
+    orbit_altitude: "ਕਕਸ਼ ਉਚਾਈ",
+    repeat_cycle: "ਦੁਹਰਾਵਾ ਚੱਕਰ",
+    mission_life: "ਮਿਸ਼ਨ ਅਵਧੀ",
+    launcher: "ਲਾਂਚ ਵਾਹਨ",
+    index_value: "ਸੂਚਕਾਂਕ ਮੁੱਲ",
+  },
+};
+
+const GENERIC_SUBJECT_PRIORITY = [
+  "action_subject",
+  "initiative",
+  "award_or_title",
+  "appointee",
+  "mou_parties",
+  "headquarters",
+  "scheme_outlay",
+  "rank",
+] as const;
 
 function factMap(facts: LocalizationFact[]): Map<string, string> {
   const map = new Map<string, string>();
@@ -75,7 +151,7 @@ function sentence(value: string, language: CurrentAffairsLocalizationLanguage): 
   const clean = normalized(value);
   if (!clean) return "";
   if (/[.!?।]$/u.test(clean)) return clean;
-  return `${clean}${language === "pa" ? "।" : "।"}`;
+  return `${clean}।`;
 }
 
 function authoringSubject(sourceTitle: string): string | undefined {
@@ -85,6 +161,19 @@ function authoringSubject(sourceTitle: string): string | undefined {
     if (subject.length >= 2 && subject.length <= 80) return subject;
   }
   return undefined;
+}
+
+function usableFactValue(value: string | undefined): value is string {
+  if (!value) return false;
+  const clean = value.replace(/\s+/g, " ").trim();
+  return Boolean(clean) && clean.length <= 220 && !/https?:\/\//i.test(clean);
+}
+
+function genericGraphKeys(facts: Map<string, string>): string[] {
+  return [...facts.entries()]
+    .filter(([, value]) => usableFactValue(value))
+    .slice(0, 4)
+    .map(([key]) => key);
 }
 
 function requiredFactKeys(templateId: string | undefined, facts: Map<string, string>): string[] {
@@ -108,6 +197,14 @@ function requiredFactKeys(templateId: string | undefined, facts: Map<string, str
       return ["orbit_altitude", "repeat_cycle", "mission_life", "launcher"].filter((key) => facts.has(key));
     case "programme_outlay_v1":
       return ["scheme_outlay", "beneficiary_count", "effective_date"].filter((key) => facts.has(key));
+    case "verified_official_action_v1":
+      return ["acting_entity", "official_action", "action_subject"];
+    case "verified_award_result_v1":
+      return ["winner", "award_or_title"];
+    case "verified_initiative_v1":
+      return ["launching_entity", "initiative"];
+    case "generic_verified_fact_graph_v1":
+      return genericGraphKeys(facts);
     default:
       return [];
   }
@@ -120,6 +217,9 @@ function expectedScriptPresent(value: string, language: CurrentAffairsLocalizati
 
 export function localizationInputFingerprint(input: CurrentAffairsLocalizationInput): string {
   const stable = JSON.stringify({
+    ...(GENERIC_TEMPLATES.has(input.templateId ?? "")
+      ? { localizationPolicyVersion: GENERIC_LOCALIZATION_POLICY_VERSION }
+      : {}),
     eventId: input.eventId,
     authoringVersionId: input.authoringVersionId,
     languageCode: input.languageCode,
@@ -232,6 +332,21 @@ function joinRateFacts(language: CurrentAffairsLocalizationLanguage, facts: Map<
       ];
   return labels
     .map(([key, label]) => facts.get(key) ? `${label} ${facts.get(key)}` : "")
+    .filter(Boolean)
+    .join("; ");
+}
+
+function genericFactLabel(language: CurrentAffairsLocalizationLanguage, key: string): string {
+  return GENERIC_FACT_LABELS[language][key] ?? key.replace(/_/g, " ");
+}
+
+function genericFactDetails(
+  language: CurrentAffairsLocalizationLanguage,
+  facts: Map<string, string>,
+  keys: string[],
+): string {
+  return keys
+    .map((key) => facts.get(key) ? `${genericFactLabel(language, key)}: ${facts.get(key)}` : "")
     .filter(Boolean)
     .join("; ");
 }
@@ -399,6 +514,98 @@ export function localizeCurrentAffairsAuthoring(input: CurrentAffairsLocalizatio
     }
   }
 
+  if (input.templateId === "verified_official_action_v1") {
+    const actingEntity = facts.get("acting_entity");
+    const officialAction = facts.get("official_action");
+    const actionSubject = facts.get("action_subject");
+    if (actingEntity && officialAction && actionSubject) {
+      return language === "hi"
+        ? rendered({
+            input,
+            title: `${sourceName} अपडेट: ${actionSubject}`,
+            summary: `सत्यापित आधिकारिक तथ्यों के अनुसार आधिकारिक निकाय ${actingEntity}, कार्रवाई ${officialAction}, और विषय ${actionSubject} है`,
+            oneLiner: `विषय: ${actionSubject}`,
+            requiredKeys: ["acting_entity", "official_action", "action_subject"],
+          })
+        : rendered({
+            input,
+            title: `${sourceName} ਅਪਡੇਟ: ${actionSubject}`,
+            summary: `ਪ੍ਰਮਾਣਿਤ ਅਧਿਕਾਰਤ ਤੱਥਾਂ ਅਨੁਸਾਰ ਅਧਿਕਾਰਤ ਸੰਸਥਾ ${actingEntity}, ਕਾਰਵਾਈ ${officialAction}, ਅਤੇ ਵਿਸ਼ਾ ${actionSubject} ਹੈ`,
+            oneLiner: `ਵਿਸ਼ਾ: ${actionSubject}`,
+            requiredKeys: ["acting_entity", "official_action", "action_subject"],
+          });
+    }
+  }
+
+  if (input.templateId === "verified_award_result_v1") {
+    const winner = facts.get("winner");
+    const award = facts.get("award_or_title");
+    if (winner && award) {
+      return language === "hi"
+        ? rendered({
+            input,
+            title: `${sourceName} पुरस्कार अपडेट: ${award}`,
+            summary: `सत्यापित तथ्यों में ${winner} विजेता और ${award} पुरस्कार या उपाधि के रूप में दर्ज है`,
+            oneLiner: `${winner} — ${award}`,
+            requiredKeys: ["winner", "award_or_title"],
+          })
+        : rendered({
+            input,
+            title: `${sourceName} ਇਨਾਮ ਅਪਡੇਟ: ${award}`,
+            summary: `ਪ੍ਰਮਾਣਿਤ ਤੱਥਾਂ ਵਿੱਚ ${winner} ਜੇਤੂ ਅਤੇ ${award} ਇਨਾਮ ਜਾਂ ਖਿਤਾਬ ਵਜੋਂ ਦਰਜ ਹੈ`,
+            oneLiner: `${winner} — ${award}`,
+            requiredKeys: ["winner", "award_or_title"],
+          });
+    }
+  }
+
+  if (input.templateId === "verified_initiative_v1") {
+    const launchingEntity = facts.get("launching_entity");
+    const initiative = facts.get("initiative");
+    if (launchingEntity && initiative) {
+      return language === "hi"
+        ? rendered({
+            input,
+            title: `${sourceName} पहल अपडेट: ${initiative}`,
+            summary: `सत्यापित तथ्यों के अनुसार ${launchingEntity} आरंभ करने वाला निकाय है और पहल ${initiative} है`,
+            oneLiner: `पहल: ${initiative}`,
+            requiredKeys: ["launching_entity", "initiative"],
+          })
+        : rendered({
+            input,
+            title: `${sourceName} ਪਹਿਲ ਅਪਡੇਟ: ${initiative}`,
+            summary: `ਪ੍ਰਮਾਣਿਤ ਤੱਥਾਂ ਅਨੁਸਾਰ ${launchingEntity} ਸ਼ੁਰੂ ਕਰਨ ਵਾਲੀ ਸੰਸਥਾ ਹੈ ਅਤੇ ਪਹਿਲ ${initiative} ਹੈ`,
+            oneLiner: `ਪਹਿਲ: ${initiative}`,
+            requiredKeys: ["launching_entity", "initiative"],
+          });
+    }
+  }
+
+  if (input.templateId === "generic_verified_fact_graph_v1") {
+    const requiredKeys = requiredFactKeys(input.templateId, facts);
+    if (requiredKeys.length >= 2) {
+      const subject = GENERIC_SUBJECT_PRIORITY
+        .map((key) => facts.get(key))
+        .find((value) => usableFactValue(value));
+      const details = genericFactDetails(language, facts, requiredKeys);
+      return language === "hi"
+        ? rendered({
+            input,
+            title: subject ? `${sourceName} सत्यापित अपडेट: ${subject}` : `${sourceName} सत्यापित करेंट अफेयर्स अपडेट`,
+            summary: `इस विकास के सत्यापित तथ्य हैं: ${details}`,
+            oneLiner: genericFactDetails(language, facts, requiredKeys.slice(0, 2)),
+            requiredKeys,
+          })
+        : rendered({
+            input,
+            title: subject ? `${sourceName} ਪ੍ਰਮਾਣਿਤ ਅਪਡੇਟ: ${subject}` : `${sourceName} ਪ੍ਰਮਾਣਿਤ ਕਰੰਟ ਅਫੇਅਰਜ਼ ਅਪਡੇਟ`,
+            summary: `ਇਸ ਵਿਕਾਸ ਦੇ ਪ੍ਰਮਾਣਿਤ ਤੱਥ ਹਨ: ${details}`,
+            oneLiner: genericFactDetails(language, facts, requiredKeys.slice(0, 2)),
+            requiredKeys,
+          });
+    }
+  }
+
   const emptyQuality = evaluateCurrentAffairsLocalization({
     input,
     localizedTitle: language === "hi" ? "संपादकीय समीक्षा आवश्यक" : "ਸੰਪਾਦਕੀ ਸਮੀਖਿਆ ਲੋੜੀਂਦੀ",
@@ -411,6 +618,6 @@ export function localizeCurrentAffairsAuthoring(input: CurrentAffairsLocalizatio
     templateId: input.templateId,
     inputFingerprint: localizationInputFingerprint(input),
     quality: emptyQuality,
-    reasons: ["CP009 authoring template is not supported by deterministic Hindi/Punjabi localization"],
+    reasons: ["Current authoring template is not supported by deterministic Hindi/Punjabi localization"],
   };
 }
