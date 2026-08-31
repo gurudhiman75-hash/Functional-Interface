@@ -4,6 +4,7 @@ import { Router, type IRouter, type Response } from 'express';
 import { requireAdminPermission } from '../lib/admin-rbac';
 import { sqlClient } from '../lib/db';
 import { authenticate } from '../middlewares/auth';
+import { refreshNotesAuthoringReadiness } from '../notes-studio/readiness';
 import { isGenerationReadySource, sourceRecommendationReason, sourceRecommendationScore } from '../notes-studio/source-library';
 import { buildSourcePackProposal, type SourcePackProposalCandidate } from '../notes-studio/source-pack-proposal';
 import {
@@ -60,12 +61,22 @@ async function loadProposal(jobId: string) {
   const attached = await sqlClient`
     SELECT
       document.id::text AS id,
+      document.title,
       document.publisher,
       document.source_uri AS "sourceUri",
       document.content_hash AS "contentHash",
+      document.rights_basis AS "rightsBasis",
       document.retention_mode AS "retentionMode",
       document.extraction_status AS "extractionStatus",
       LENGTH(COALESCE(document.extracted_text, ''))::int AS "retainedCharCount",
+      (
+        SELECT COUNT(*)::int
+        FROM content.note_source_evidence_blocks block
+        WHERE block.job_id = link.job_id
+          AND block.source_document_id = document.id
+          AND block.evidence_kind = 'editor_reference_note'
+          AND block.reviewed_at IS NOT NULL
+      ) AS "referenceEvidenceCount",
       link.inclusion_state AS "inclusionState",
       link.source_role AS "sourceRole"
     FROM content.note_authoring_sources link
@@ -84,14 +95,32 @@ async function loadProposal(jobId: string) {
       extractionStatus: String(source.extractionStatus ?? ''),
       retainedCharCount: Number(source.retainedCharCount ?? 0),
     }),
+    referenceEvidenceReady: Number(source.referenceEvidenceCount ?? 0) > 0,
     contentHash: String(source.contentHash ?? ''),
     sourceIdentity: noteSourceIdentity(source.publisher, source.sourceUri),
   }));
   const policy = evaluateSourcePackPolicy(templateKey, attachedPolicySources);
   const participatingRoles = new Set(policy.requirements.flatMap((requirement) => requirement.roles));
+  const evidenceRequiredRoles = new Set(
+    policy.requirements.filter((requirement) => requirement.generationReadyOnly).flatMap((requirement) => requirement.roles),
+  );
   const attachedIntegritySources = attachedPolicySources.filter((source) =>
     source.inclusionState === 'included' && participatingRoles.has(source.sourceRole),
   );
+  const pendingReferenceReviews = attached
+    .filter((source) =>
+      String(source.inclusionState ?? '') === 'included'
+      && evidenceRequiredRoles.has(noteSourceRole(source.sourceRole))
+      && String(source.rightsBasis ?? '') === 'reference_only'
+      && String(source.retentionMode ?? '') === 'metadata_only'
+      && Number(source.referenceEvidenceCount ?? 0) < 1,
+    )
+    .map((source) => ({
+      sourceId: String(source.id),
+      title: String(source.title ?? 'Untitled source'),
+      publisher: String(source.publisher ?? ''),
+      sourceRole: noteSourceRole(source.sourceRole),
+    }));
   const proposalOptions = {
     existingContentHashes: attachedIntegritySources.map((source) => source.contentHash).filter(Boolean),
     existingSourceIdentities: attachedIntegritySources.map((source) => source.sourceIdentity).filter((value): value is string => Boolean(value)),
@@ -108,6 +137,7 @@ async function loadProposal(jobId: string) {
       policy,
       proposal: buildSourcePackProposal(policy.requirements, [], proposalOptions),
       candidateCount: 0,
+      pendingReferenceReviews,
     };
   }
 
@@ -118,6 +148,7 @@ async function loadProposal(jobId: string) {
       document.publisher,
       document.source_uri AS "sourceUri",
       document.content_hash AS "contentHash",
+      document.rights_basis AS "rightsBasis",
       document.retention_mode AS "retentionMode",
       document.extraction_status AS "extractionStatus",
       LENGTH(COALESCE(document.extracted_text, ''))::int AS "retainedCharCount",
@@ -127,7 +158,15 @@ async function loadProposal(jobId: string) {
       link.source_role AS "priorRole",
       EXISTS (
         SELECT 1 FROM content.note_approved_versions version WHERE version.job_id = prior_job.id
-      ) AS "approvedUse"
+      ) AS "approvedUse",
+      EXISTS (
+        SELECT 1
+        FROM content.note_source_evidence_blocks block
+        WHERE block.job_id = prior_job.id
+          AND block.source_document_id = document.id
+          AND block.evidence_kind = 'editor_reference_note'
+          AND block.reviewed_at IS NOT NULL
+      ) AS "reviewedReferenceUse"
     FROM content.source_documents document
     JOIN content.note_authoring_sources link
       ON link.source_document_id = document.id AND link.inclusion_state = 'included'
@@ -147,6 +186,7 @@ async function loadProposal(jobId: string) {
     publisher: string;
     sourceUri: string;
     contentHash: string;
+    rightsBasis: string;
     retentionMode: string;
     extractionStatus: string;
     retainedCharCount: number;
@@ -154,6 +194,7 @@ async function loadProposal(jobId: string) {
     sameTaxonomyCodeUses: number;
     sameTopicUses: number;
     approvedUses: number;
+    reviewedReferenceUses: number;
     roleUses: Partial<Record<NoteSourceRole, number>>;
   };
   const aggregates = new Map<string, Aggregate>();
@@ -167,6 +208,7 @@ async function loadProposal(jobId: string) {
         publisher: String(row.publisher ?? ''),
         sourceUri: String(row.sourceUri ?? ''),
         contentHash: String(row.contentHash ?? ''),
+        rightsBasis: String(row.rightsBasis ?? ''),
         retentionMode: String(row.retentionMode ?? ''),
         extractionStatus: String(row.extractionStatus ?? ''),
         retainedCharCount: Number(row.retainedCharCount ?? 0),
@@ -174,6 +216,7 @@ async function loadProposal(jobId: string) {
         sameTaxonomyCodeUses: 0,
         sameTopicUses: 0,
         approvedUses: 0,
+        reviewedReferenceUses: 0,
         roleUses: {},
       };
       aggregates.set(sourceId, aggregate);
@@ -185,6 +228,7 @@ async function loadProposal(jobId: string) {
     else if (targetTaxonomyCode && priorCode === targetTaxonomyCode) aggregate.sameTaxonomyCodeUses += 1;
     else if (targetTopicLabel && priorTopic === targetTopicLabel) aggregate.sameTopicUses += 1;
     if (row.approvedUse === true || ['approved', 'materialized'].includes(String(row.priorJobState))) aggregate.approvedUses += 1;
+    if (row.reviewedReferenceUse === true) aggregate.reviewedReferenceUses += 1;
     const priorRole = noteSourceRole(row.priorRole);
     aggregate.roleUses[priorRole] = (aggregate.roleUses[priorRole] ?? 0) + 1;
   }
@@ -195,6 +239,10 @@ async function loadProposal(jobId: string) {
       extractionStatus: aggregate.extractionStatus,
       retainedCharCount: aggregate.retainedCharCount,
     });
+    const referenceReviewEligible = !generationReady
+      && aggregate.rightsBasis === 'reference_only'
+      && aggregate.retentionMode === 'metadata_only'
+      && aggregate.reviewedReferenceUses > 0;
     const signals = {
       exactTaxonomyUses: aggregate.exactTaxonomyUses,
       sameTaxonomyCodeUses: aggregate.sameTaxonomyCodeUses,
@@ -208,6 +256,7 @@ async function loadProposal(jobId: string) {
       title: aggregate.title,
       publisher: aggregate.publisher,
       generationReady,
+      referenceReviewEligible,
       relevanceScore: sourceRecommendationScore(signals),
       relevanceReason: sourceRecommendationReason(signals),
       approvedUses: aggregate.approvedUses,
@@ -224,6 +273,7 @@ async function loadProposal(jobId: string) {
     policy,
     proposal,
     candidateCount: candidates.length,
+    pendingReferenceReviews,
   };
 }
 
@@ -237,6 +287,7 @@ router.get('/jobs/:id/source-pack-proposal', requireAdminPermission('content.que
       rawSourceBodiesReturned: false,
       externalNetworkSearch: false,
       automaticAttachment: false,
+      historicalReferenceEvidenceTransferred: false,
     });
   } catch (error) {
     sendError(res, error);
@@ -286,8 +337,16 @@ router.post('/jobs/:id/source-pack-proposal/apply', requireAdminPermission('cont
             'notes_studio.source_pack.proposal.applied', 'note_authoring_job', ${jobId}::uuid,
             ${`Applied ${appliedCount} governed source-pack proposal item${appliedCount === 1 ? '' : 's'}`},
             ${JSON.stringify({
-              proposedItems: current.proposal.items.map((item) => ({ sourceId: item.sourceId, sourceRole: item.suggestedRole, requirementCode: item.requirementCode })),
+              proposedItems: current.proposal.items.map((item) => ({
+                sourceId: item.sourceId,
+                sourceRole: item.suggestedRole,
+                requirementCode: item.requirementCode,
+                evidencePath: item.evidencePath,
+                referenceReviewRequired: item.referenceReviewRequired,
+                satisfiesRequirementNow: item.satisfiesRequirementNow,
+              })),
               sourceBodyCopied: false,
+              historicalReferenceEvidenceTransferred: false,
               externalNetworkSearch: false,
               automaticEvidenceGeneration: false,
             })}
@@ -296,32 +355,14 @@ router.post('/jobs/:id/source-pack-proposal/apply', requireAdminPermission('cont
       }
     });
 
-    if (appliedCount > 0) {
-      await sqlClient`
-        UPDATE content.note_authoring_jobs job
-        SET state = CASE
-          WHEN EXISTS (
-            SELECT 1
-            FROM content.note_authoring_sources link
-            JOIN content.source_documents document ON document.id = link.source_document_id
-            WHERE link.job_id = job.id
-              AND link.inclusion_state = 'included'
-              AND document.retention_mode = 'extracted_text'
-              AND document.extraction_status = 'processed'
-              AND LENGTH(COALESCE(document.extracted_text, '')) >= 100
-          ) THEN 'sources_ready'
-          ELSE 'brief'
-        END,
-        updated_by = ${actorUserId}::uuid,
-        updated_at = now()
-        WHERE job.id = ${jobId}::uuid AND job.state IN ('brief', 'sources_ready')
-      `;
-    }
+    if (appliedCount > 0) await refreshNotesAuthoringReadiness(jobId, actorUserId);
 
     res.json({
       appliedCount,
       applied: current.proposal.items.slice(0, appliedCount),
+      referenceReviewRequiredCount: current.proposal.items.filter((item) => item.referenceReviewRequired).length,
       sourceBodyCopied: false,
+      historicalReferenceEvidenceTransferred: false,
       externalNetworkSearch: false,
       automaticAttachment: false,
       editorApprovedAttachment: true,
