@@ -1,0 +1,69 @@
+name: Temporary PRT-001 E12 final freeze validation
+
+on:
+  pull_request:
+    branches:
+      - editorial/prt-001-hi-pa-e11
+    paths:
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/**'
+      - 'artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/**'
+      - 'artifacts/api-server/src/quant-v4/generation-engine-core/**'
+      - '.github/workflows/prt-001-e12-final-freeze-validation.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-prt-001-final-freeze:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck PRT-001 package
+        run: |
+          cat > artifacts/api-server/tsconfig.prt001-e12.json <<'EOF'
+          {
+            "extends": "./tsconfig.json",
+            "compilerOptions": { "noEmit": true },
+            "include": [
+              "src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/foundation/**/*.ts",
+              "src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/index.ts",
+              "src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001.test.ts"
+            ],
+            "exclude": []
+          }
+          EOF
+          pnpm --dir artifacts/api-server exec tsc -p tsconfig.prt001-e12.json --noEmit
+
+      - name: Re-run RAP-003 historical regression
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/rap-003.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/rap-003.test.mjs
+          node artifacts/api-server/dist/quant-v4/rap-003.test.mjs
+
+      - name: Re-run RAP-003 Question Studio multilingual smoke
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/RatioAndProportion/RAP-003/rap-003-question-studio-smoke.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/rap-003-question-studio-smoke.mjs
+          node artifacts/api-server/dist/quant-v4/rap-003-question-studio-smoke.mjs
+
+      - name: Re-run E9 ownership gate
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001-rap003-ownership-audit.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/quant-v4/prt-001-rap003-ownership-audit.mjs
+          node artifacts/api-server/dist/quant-v4/prt-001-rap003-ownership-audit.mjs
+
+      - name: Run full PRT-001 seeded corpus
+        run: pnpm --dir artifacts/api-server run test:prt-001
+
+      - name: Run final PRT-001 freeze audit
+        run: pnpm --dir artifacts/api-server run audit:prt-001
