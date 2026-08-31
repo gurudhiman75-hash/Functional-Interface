@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
 import router from "./routes";
 import { logger } from "./lib/logger";
 import billingWebhookHandler from "./routes/billing-webhook";
+import adminCurrentAffairsProductionOpsRouter from "./routes/admin-current-affairs-production-ops";
 import { webhookRateLimit } from "./middlewares/rateLimit";
 import { adminRequestObservability } from "./middlewares/admin-request-observability";
 
@@ -84,6 +85,10 @@ app.get("/health", (_req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
+// Production-activation mount kept separate from the large legacy router so
+// the validated Current Affairs operations surface can land without replacing
+// newer Notes Studio/admin route registrations on New-main.
+app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAffairsProductionOpsRouter);
 app.use("/api", adminRequestObservability, router);
 
 // ── Serve frontend static files ───────────────────────────────────────────────

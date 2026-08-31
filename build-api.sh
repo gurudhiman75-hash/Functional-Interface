@@ -23,6 +23,12 @@ pnpm install \
 echo "[render-build] verify learning resources schema"
 pnpm --dir artifacts/api-server exec node ensure-learning-resources.mjs
 
+# Current Affairs has a cumulative, explicitly ordered schema. Apply only its
+# checked-in migrations through a dedicated ledger, under an advisory lock,
+# before any runtime that can generate yesterday's packs is deployed.
+echo "[render-build] verify Current Affairs schema"
+pnpm --dir artifacts/api-server exec node ensure-current-affairs.mjs
+
 # Build the student app. Its build also generates the public prerender files.
 echo "[render-build] build student app"
 pnpm --dir artifacts/examtree build
