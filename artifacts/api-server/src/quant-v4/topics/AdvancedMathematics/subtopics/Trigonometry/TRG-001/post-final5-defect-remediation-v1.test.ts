@@ -17,6 +17,7 @@ import {
 } from "./production-post-freeze-remediation-v1";
 
 type Locale = "hi-IN" | "pa-IN";
+type ConjugateVariant = "sin" | "cos";
 
 function learnerStrings(question: any) {
   return [
@@ -39,6 +40,26 @@ function assertLifecycleLocked(question: any, label: string) {
   assert.equal(question.questionBankStatus, "NOT_STORED", `${label}: Question Bank writes must remain off.`);
   assert.equal(question.testEligibility, "INELIGIBLE", `${label}: Test Builder must remain off.`);
   assert.equal(question.publiclyPublishable, false, `${label}: public publication must remain off.`);
+}
+
+function ql142ConjugateVariant(question: any): ConjugateVariant {
+  const workedText = (question.explanation?.steps ?? []).map((step: any) => String(step?.body ?? "")).join(" ");
+  const usesSinConjugate = workedText.includes("1−sin²");
+  const usesCosConjugate = workedText.includes("1−cos²");
+  assert.notEqual(usesSinConjugate, usesCosConjugate, "QL142 must expose exactly one conjugate variant in worked steps.");
+  return usesSinConjugate ? "sin" : "cos";
+}
+
+function expectedQl142Shortcut(question: any, locale: Locale) {
+  const variant = ql142ConjugateVariant(question);
+  if (locale === "hi-IN") {
+    return variant === "sin"
+      ? "संयुग्मी गुणनफल (1+sinα)(1−sinα)=1−sin²α=cos²α का प्रयोग करें।"
+      : "संयुग्मी गुणनफल (1+cosα)(1−cosα)=1−cos²α=sin²α का प्रयोग करें।";
+  }
+  return variant === "sin"
+    ? "ਸੰਯੁਗਮੀ ਗੁਣਨਫਲ (1+sinα)(1−sinα)=1−sin²α=cos²α ਵਰਤੋ।"
+    : "ਸੰਯੁਗਮੀ ਗੁਣਨਫਲ (1+cosα)(1−cosα)=1−cos²α=sin²α ਵਰਤੋ।";
 }
 
 const expectedLocalizedCorrections: Record<string, Record<Locale, { field: "keyRule" | "shortcut"; text: string }>> = {
@@ -65,10 +86,6 @@ const expectedLocalizedCorrections: Record<string, Record<Locale, { field: "keyR
   "TRG-001-QL-115": {
     "hi-IN": { field: "keyRule", text: "रैखिक संबंध को tan अनुपात में बदलें, फिर cot के लिए व्युत्क्रम लें।" },
     "pa-IN": { field: "keyRule", text: "ਰੇਖੀ ਸੰਬੰਧ ਨੂੰ tan ਅਨੁਪਾਤ ਵਿੱਚ ਬਦਲੋ, ਫਿਰ cot ਲਈ ਪਰਸਪਰ ਲਓ।" },
-  },
-  "TRG-001-QL-142": {
-    "hi-IN": { field: "shortcut", text: "संयुग्मी गुणनफल (1+sinα)(1−sinα)=1−sin²α=cos²α का प्रयोग करें।" },
-    "pa-IN": { field: "shortcut", text: "ਸੰਯੁਗਮੀ ਗੁਣਨਫਲ (1+sinα)(1−sinα)=1−sin²α=cos²α ਵਰਤੋ।" },
   },
 };
 
@@ -132,12 +149,17 @@ for (const qlId of TRG_001_LOCALIZATION_QL_IDS) {
       );
       assertLifecycleLocked(final6, label);
 
-      const expected = expectedLocalizedCorrections[qlId]?.[locale];
-      if (expected) {
-        assert.equal(final6.explanation[expected.field], expected.text, `${label}: targeted Final6 correction missing.`);
+      if (qlId === "TRG-001-QL-142") {
+        assert.equal(final6.explanation.shortcut, expectedQl142Shortcut(final5, locale), `${label}: variant-aware QL142 correction missing.`);
         correctionAssertions += 1;
       } else {
-        assert.deepEqual(final6.explanation, final5.explanation, `${label}: unrelated localization explanation drift.`);
+        const expected = expectedLocalizedCorrections[qlId]?.[locale];
+        if (expected) {
+          assert.equal(final6.explanation[expected.field], expected.text, `${label}: targeted Final6 correction missing.`);
+          correctionAssertions += 1;
+        } else {
+          assert.deepEqual(final6.explanation, final5.explanation, `${label}: unrelated localization explanation drift.`);
+        }
       }
 
       const badTexts = learnerStrings(final6).filter((text) =>
@@ -147,13 +169,30 @@ for (const qlId of TRG_001_LOCALIZATION_QL_IDS) {
         || text.includes("sec θ ਅਤੇ cos θ ਦੀ ਮਦਦ ਨਾਲ tan θ ਮੁੜ ਬਣਾਓ।")
         || text.includes("पहले sin²θ और cos²θ का अंतर निकालें, फिर tan θ का अनुपात बनाएँ।")
         || text.includes("ਪਹਿਲਾਂ sin²θ ਅਤੇ cos²θ ਦਾ ਅੰਤਰ ਕੱਢੋ, ਫਿਰ tan θ ਦਾ ਅਨੁਪਾਤ ਬਣਾਓ।")
-        || text.includes("(1+cosα)(1−cosα)=1−cos²α=sin²α")
       );
       assert.equal(badTexts.length, 0, `${label}: known post-Final5 defect remains: ${badTexts.join(" | ")}`);
       localizedCases += 1;
     }
   }
 }
+
+const ql142Variants = new Set<ConjugateVariant>();
+for (const seed of [
+  "trg001-final5-review-TRG-001-QL-142",
+  "trg001-post-final5-review-TRG-001-QL-142",
+]) {
+  for (const locale of TRG_001_LOCALIZATION_LOCALES as readonly Locale[]) {
+    const final5 = generateLocalizedTrg001QuestionNativeReviewFinal5("TRG-001-QL-142", seed, locale) as any;
+    const final6 = generateLocalizedTrg001QuestionNativeReviewFinal6("TRG-001-QL-142", seed, locale) as any;
+    ql142Variants.add(ql142ConjugateVariant(final5));
+    assert.equal(
+      final6.explanation.shortcut,
+      expectedQl142Shortcut(final5, locale),
+      `TRG-001-QL-142:${locale}:${seed}: seed-dependent conjugate shortcut mismatch.`,
+    );
+  }
+}
+assert.deepEqual([...ql142Variants].sort(), ["cos", "sin"], "QL142 dedicated seeds must exercise both conjugate variants.");
 
 assert.equal(englishCases, 144 * seedsPerQl);
 assert.equal(localizedCases, 144 * 2 * seedsPerQl);
@@ -164,6 +203,7 @@ console.log(JSON.stringify({
   englishCases,
   localizedCases,
   correctionAssertions,
+  ql142ConjugateVariants: [...ql142Variants].sort(),
   englishRemediationIds: TRG_001_POST_FREEZE_REMEDIATION_V1_IDS,
   localizedRemediationIds: TRG_001_LOCALIZATION_FINAL6_REMEDIATED_IDS,
   humanReview: "PENDING",
