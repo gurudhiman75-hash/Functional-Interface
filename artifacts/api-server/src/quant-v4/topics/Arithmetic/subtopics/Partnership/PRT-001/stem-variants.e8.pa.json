@@ -1,0 +1,14 @@
+{
+  "language": "pa",
+  "status": "HUMAN_AUTHORED_E8_SOURCE_BACKED_VARIANTS",
+  "entries": {
+    "PRT-QL-104": [
+      "ਇੱਕ {business} ਦੇ {totalProfit} ਸਕਲ ਮੁਨਾਫ਼ੇ ਵਿੱਚੋਂ ਪਹਿਲਾਂ {partnerA} ਨੂੰ {allowancePercentA}% ਅਤੇ {partnerB} ਨੂੰ {allowancePercentB}% ਦਿੱਤਾ ਗਿਆ। ਬਾਕੀ ਰਕਮ ਉਨ੍ਹਾਂ ਦੀ ਇੱਕੋ ਮਿਆਦ ਦੀ ਪੂੰਜੀ {capitalA} ਅਤੇ {capitalB} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡੀ ਗਈ। {targetPartner} ਦੀ ਕੁੱਲ ਪ੍ਰਾਪਤੀ ਕੱਢੋ।",
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਸਕਲ ਮੁਨਾਫ਼ੇ {totalProfit} ਵਿੱਚੋਂ ਉਨ੍ਹਾਂ ਨੂੰ ਕ੍ਰਮਵਾਰ {allowancePercentA}% ਅਤੇ {allowancePercentB}% ਪਹਿਲਾਂ ਮਿਲਿਆ; ਬਾਕੀ ਮੁਨਾਫ਼ਾ ਪੂੰਜੀ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ। {targetPartner} ਨੂੰ ਕੁੱਲ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ],
+    "PRT-QL-105": [
+      "ਇੱਕ {business} {totalDuration} ਤੱਕ ਚੱਲਿਆ। {partnerA} ਨੇ {capitalA} ਪੂਰੇ ਸਮੇਂ ਰੱਖੇ। {partnerB} ਨੇ ਸ਼ੁਰੂ ਵਿੱਚ {initialCapitalB} ਲਗਾਏ ਅਤੇ {changeAfterB} ਬਾਅਦ {withdrawnCapitalB} ਕੱਢ ਲਏ, ਜਦਕਿ {partnerC} ਨੇ {capitalC} ਪੂਰੇ ਸਮੇਂ ਲਗਾਏ। ਮੁਨਾਫ਼ੇ {totalProfit} ਵਿੱਚ {targetPartner} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "{totalDuration} ਚੱਲਣ ਵਾਲੇ ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerC} ਦੀ ਪੂੰਜੀ ਕ੍ਰਮਵਾਰ {capitalA} ਅਤੇ {capitalC} ਪੂਰੇ ਸਮੇਂ ਰਹੀ। {partnerB} ਨੇ {initialCapitalB} ਵਿੱਚੋਂ {changeAfterB} ਬਾਅਦ {withdrawnCapitalB} ਕੱਢ ਲਏ। ਕੁੱਲ ਮੁਨਾਫ਼ੇ {totalProfit} ਵਿੱਚੋਂ {targetPartner} ਨੂੰ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ]
+  }
+}
