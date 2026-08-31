@@ -1,0 +1,60 @@
+name: Validate SPA CND-001 Hindi Punjabi Localization V1
+
+on:
+  push:
+    branches:
+      - feat/spa-cnd-001-hi-pa-localization-v1
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/cubes-dice-localization-v1.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-cubes-dice-localization-v1.test.ts
+      - .github/workflows/spa-cnd-001-hi-pa-localization-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cnd-hi-pa-localization:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build current API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle CND localization proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-cubes-dice-localization-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-cubes-dice-localization-v1.test.mjs
+
+      - name: Validate CND Hindi Punjabi localization
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-cubes-dice-localization-v1.test.mjs \
+            | tee dist/reasoning-v1/spatial/spa-cnd-001-localization-v1-run.log
+
+      - name: Upload CND localization evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-cnd-001-hi-pa-localization-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-cnd-001-localization-v1-run.log
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-cnd-001-localization-v1-evidence.json
+          if-no-files-found: error
