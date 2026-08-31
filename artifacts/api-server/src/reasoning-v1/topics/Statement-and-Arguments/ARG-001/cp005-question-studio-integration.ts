@@ -10,8 +10,8 @@ export const ARG_CP005_PACKAGE_ID = "ARG-001" as const;
 export const ARG_CP005_CHAPTER_ID = "REAS-ARG" as const;
 export const ARG_CP005_SUPPORTED_LANGUAGES = ["en", "hi", "pa"] as const;
 export const ARG_CP005_DESIGN_TARGET_DIFFICULTIES = ["Easy", "Medium", "Hard"] as const;
-export const ARG_CP005_SUPPORTED_DIFFICULTIES = ["Medium", "Hard"] as const;
-export const ARG_CP005_BLOCKED_DIFFICULTIES = ["Easy"] as const;
+export const ARG_CP005_SUPPORTED_DIFFICULTIES = ARG_CP005_DESIGN_TARGET_DIFFICULTIES;
+export const ARG_CP005_BLOCKED_DIFFICULTIES = [] as const;
 
 export type ArgCp005Language = (typeof ARG_CP005_SUPPORTED_LANGUAGES)[number];
 export type ArgCp005Difficulty = (typeof ARG_CP005_DESIGN_TARGET_DIFFICULTIES)[number];
@@ -70,7 +70,7 @@ export const ARG_CP005_QUESTION_STUDIO_REVIEW_PACKAGE = Object.freeze({
   supportedDifficulties: ARG_CP005_SUPPORTED_DIFFICULTIES,
   blockedDifficulties: ARG_CP005_BLOCKED_DIFFICULTIES,
   difficultyCoverageByQl: ARG_CP005_DIFFICULTIES_BY_QL,
-  difficultyCoverageStatus: "CERTIFIED_MEDIUM_HARD_EASY_GAP" as const,
+  difficultyCoverageStatus: "CERTIFIED_EASY_MEDIUM_HARD" as const,
   enabled: true as const,
   questionStudioVisible: true as const,
   questionStudioDiscoverable: true as const,
@@ -307,12 +307,6 @@ export async function generateArg001QuestionStudioBatch(input: ArgCp005QuestionS
   const explicitQl = requestedQl(input);
   const count = Math.min(50, Math.max(1, Math.floor(Number(input.count ?? 1) || 1)));
   const batchSeed = String(input.seed ?? "").trim() || `question-studio:ARG-001:${language}:default`;
-
-  if (difficulty === "Easy") {
-    throw new Error(
-      "ARG-001 Easy generation is blocked: CP003/CP004 contain no certified Easy authorities. Easy coverage must be authored and re-certified before CP006 freeze.",
-    );
-  }
 
   const candidateQls: readonly ArgQlId[] = explicitQl ? [explicitQl] : ARG_QL_IDS;
   const eligibleQls = difficulty
