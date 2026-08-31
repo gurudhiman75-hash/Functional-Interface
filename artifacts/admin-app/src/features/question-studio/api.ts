@@ -88,7 +88,7 @@ export interface GenerationPackage {
   questionBankStatus?: string;
   testEligibility?: string;
   publiclyPublishable?: boolean;
-  selectorKind?: 'standard' | 'tsd-cp009-review' | 'tsd-cp010-review';
+  selectorKind?: 'standard' | 'tsd-cp009-review' | 'tsd-cp010-review' | 'tsd-cp011-review';
 }
 
 export interface QuestionStudioCapabilities {
@@ -170,6 +170,7 @@ export interface RegenerateGenerationItemsResult {
 
 export const TSD_CP009_SELECTOR_PACKAGE_ID = 'TSD-002::CP009-REVIEW' as const;
 export const TSD_CP010_SELECTOR_PACKAGE_ID = 'TSD-002::CP010-REVIEW' as const;
+export const TSD_CP011_SELECTOR_PACKAGE_ID = 'TSD-002::CP011-REVIEW' as const;
 
 export interface TsdCp009QuestionStudioPackageResponse {
   generationSystem: 'quant-v4';
@@ -223,6 +224,33 @@ export interface TsdCp010QuestionStudioPackageResponse {
   publiclyPublishable: false;
 }
 
+export interface TsdCp011QuestionStudioPackageResponse {
+  generationSystem: 'quant-v4';
+  activationMode: 'REVIEW_ONLY';
+  package: {
+    packageId: 'TSD-002';
+    checkpointId: 'TSD-CP-011';
+    runtimeMode: string;
+    permanentQlIds: readonly string[];
+    supportedLanguages: readonly string[];
+    supportedDifficulties: readonly string[];
+    reviewedCombinationsPerLocale: number;
+    deterministicReviewCombinations: number;
+    questionBankStatus: 'NOT_STORED';
+    testEligibility: 'INELIGIBLE';
+    publiclyPublishable: false;
+  };
+  maxBatchSize: number;
+  permanentQlCount: number;
+  reviewedCombinationsPerLocale: number;
+  deterministicReviewCombinations: number;
+  supportedLanguages: readonly string[];
+  supportedDifficulties: readonly string[];
+  questionBankWriteEnabled: false;
+  testEligible: false;
+  publiclyPublishable: false;
+}
+
 export function getQuestionStudioCapabilities() {
   return adminRequest<QuestionStudioCapabilities>(
     '/admin/question-studio/capabilities',
@@ -244,6 +272,14 @@ export function getTsdCp010QuestionStudioPackage() {
     '/admin/question-studio/quant/time-speed-distance/cp010/package',
     undefined,
     { fallbackMessage: 'Unable to load TSD CP010 Question Studio package.' },
+  );
+}
+
+export function getTsdCp011QuestionStudioPackage() {
+  return adminRequest<TsdCp011QuestionStudioPackageResponse>(
+    '/admin/question-studio/quant/time-speed-distance/cp011/package',
+    undefined,
+    { fallbackMessage: 'Unable to load TSD CP011 Question Studio package.' },
   );
 }
 
@@ -334,6 +370,39 @@ export function createTsdCp010GenerationRun(input: CreateGenerationRunInput) {
       }),
     },
     { fallbackMessage: 'Unable to create the TSD CP010 review run.' },
+  );
+}
+
+export function createTsdCp011GenerationRun(input: CreateGenerationRunInput) {
+  const difficulty = input.difficulty.trim().toUpperCase();
+  if (difficulty !== 'EASY' && difficulty !== 'MEDIUM') {
+    throw new Error('TSD CP011 currently supports Easy and Medium review questions only.');
+  }
+  return adminRequest<{
+    id: string;
+    publicCode: string;
+    status: GenerationRunStatus;
+    itemCount: number;
+    generationSystem: string;
+    packageId: 'TSD-002';
+    checkpointId: 'TSD-CP-011';
+    reviewOnly: true;
+    questionBankWritable: false;
+    testEligible: false;
+    publiclyPublishable: false;
+  }>(
+    '/admin/question-studio/quant/time-speed-distance/cp011/runs',
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        language: input.language,
+        difficulty,
+        count: input.count,
+        seed: input.seed,
+        qlId: input.qlId,
+      }),
+    },
+    { fallbackMessage: 'Unable to create the TSD CP011 review run.' },
   );
 }
 

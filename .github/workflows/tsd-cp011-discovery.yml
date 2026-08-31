@@ -1,0 +1,105 @@
+name: Validate TSD CP011 executable discovery
+
+on:
+  push:
+    branches:
+      - feat/tsd-cp011-executable-discovery-v1
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/**
+      - artifacts/api-server/src/routes/admin-question-studio-time-speed-distance-cp010.ts
+      - artifacts/api-server/src/routes/admin-question-studio-time-speed-distance-cp011.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/question-studio/api.ts
+      - artifacts/admin-app/src/features/question-studio/useQuestionStudio.ts
+      - .github/workflows/tsd-cp010-discovery-review.yml
+      - .github/workflows/tsd-cp011-discovery.yml
+  pull_request:
+    branches:
+      - feat/tsd-cp010-executable-discovery-v1
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/**
+      - artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/**
+      - artifacts/api-server/src/routes/admin-question-studio-time-speed-distance-cp010.ts
+      - artifacts/api-server/src/routes/admin-question-studio-time-speed-distance-cp011.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/admin-app/src/features/question-studio/api.ts
+      - artifacts/admin-app/src/features/question-studio/useQuestionStudio.ts
+      - .github/workflows/tsd-cp010-discovery-review.yml
+      - .github/workflows/tsd-cp011-discovery.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-tsd-cp011-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  executable-discovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Strict TypeScript check for CP011 discovery package
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --allowSyntheticDefaultImports \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            $(find src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011 -name '*.ts' -print)
+      - name: Prove CP010 registered review-only upstream integration
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp010/question-studio-registration-proof.test.ts
+      - name: Prove CP011 frozen source saturation and disposition
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/source-saturation-proof.test.ts
+      - name: Prove CP011 representation saturation
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/representation-saturation-proof.test.ts
+      - name: Prove CP011 exact executable feasibility and independent verification
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/executable-proof.test.ts
+      - name: Prove CP011 permanent frozen QL allocation and lifecycle locks
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/allocation-proof.test.ts
+      - name: Prove CP011 English review authoring
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/english-authoring-proof.test.ts
+      - name: Prove CP011 native Hindi Punjabi localization
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/native-localization-proof.test.ts
+      - name: Prove CP011 English freeze
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/english-freeze-proof.test.ts
+      - name: Prove CP011 native localization freeze
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/localization-freeze-proof.test.ts
+      - name: Prove CP011 locked Question Studio review candidate
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/question-studio-candidate-proof.test.ts
+      - name: Prove CP011 registered review-only Question Studio integration
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/question-studio-registration-proof.test.ts
+      - name: Build API server with CP010 and CP011 registered routes
+        run: pnpm --filter @workspace/api-server build
+      - name: Typecheck admin Question Studio CP010/CP011 selector integration
+        run: pnpm --filter @workspace/examtree-admin typecheck
+      - name: Prove CP011 multilingual questions-only review export
+        run: pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/multilingual-review-export-proof.test.ts
+      - name: Export CP011 multilingual questions-only review file
+        run: |
+          mkdir -p /tmp/tsd-cp011-review
+          pnpm dlx tsx ./artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/TimeSpeedDistance/TSD-002/cp011/multilingual-review-export.ts /tmp/tsd-cp011-review/TSD-CP011-MULTILINGUAL-QUESTIONS.md
+      - name: Upload CP011 multilingual question review
+        uses: actions/upload-artifact@v4
+        with:
+          name: tsd-cp011-multilingual-question-review
+          path: /tmp/tsd-cp011-review/TSD-CP011-MULTILINGUAL-QUESTIONS.md
+          if-no-files-found: error
