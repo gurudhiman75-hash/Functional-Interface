@@ -33,6 +33,9 @@ function explanationTail(question: Com003ReviewQuestion, index: number) {
     `Therefore, the required ${role} is ${answer}.`,
     `So ${answer} is the ${role} that matches the question.`,
     `Hence, select ${answer} as the correct ${role}.`,
+    `This makes ${answer} the appropriate ${role} for the given prompt.`,
+    `Accordingly, ${answer} is the ${role} identified by the stated condition.`,
+    `For this question, the matching ${role} is ${answer}.`,
   ];
   return variants[index % variants.length]!;
 }
