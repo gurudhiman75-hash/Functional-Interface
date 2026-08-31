@@ -42,12 +42,12 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Bundle COM-003 review synthesis
+      - name: Bundle COM-003 review synthesis V2
         run: |
           mkdir -p artifacts/api-server/dist/com003-review-synthesis-oneoff
           pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/computer-awareness/com003-review-synthesis-v1.test.ts \
+            src/knowledge-v1/computer-awareness/com003-review-synthesis-v2.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=dist/com003-review-synthesis-oneoff/com003-review-synthesis-v1.test.mjs
-      - name: Run COM-003 review synthesis audit
-        run: node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-synthesis-v1.test.mjs
+            --outfile=dist/com003-review-synthesis-oneoff/com003-review-synthesis-v2.test.mjs
+      - name: Run COM-003 review synthesis V2 audit
+        run: node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-synthesis-v2.test.mjs
