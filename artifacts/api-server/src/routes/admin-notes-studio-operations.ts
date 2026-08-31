@@ -93,7 +93,7 @@ router.get('/operations/readiness', requireAdminPermission('content.questions.re
       migrations: {
         orderedFiles: NOTES_STUDIO_MIGRATIONS,
         operatorCommand: 'pnpm --dir artifacts/api-server exec esbuild notes-studio-migrate.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-migrate.mjs && node artifacts/api-server/dist/notes-studio-migrate.mjs',
-        automaticProductionMigration: false,
+        automaticProductionMigration: true,
       },
       modelConfiguration,
       assessment,
