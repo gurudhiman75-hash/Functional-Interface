@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { NotesStudioApprovalLocalizationPage } from './NotesStudioApprovalLocalizationPage';
 import { NotesStudioCandidateClaimsPage } from './NotesStudioCandidateClaimsPage';
@@ -16,11 +18,15 @@ import { NotesStudioSourceLibraryPage } from './NotesStudioSourceLibraryPage';
 import { NotesStudioSourcePackPage } from './NotesStudioSourcePackPage';
 import { NotesStudioSourcePackProposalPage } from './NotesStudioSourcePackProposalPage';
 import { NotesStudioSourcePolicyPage } from './NotesStudioSourcePolicyPage';
+import { NotesStudioWorkflowPage } from './NotesStudioWorkflowPage';
 import { NotesStudioWorkspacePage } from './NotesStudioWorkspacePage';
 
 export function NotesStudioHubPage() {
-  return <Tabs defaultValue="planning" className="space-y-3">
+  const [activeTab, setActiveTab] = useState('workflow');
+
+  return <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-3">
     <TabsList aria-label="Notes Studio workspace views">
+      <TabsTrigger value="workflow">Workflow</TabsTrigger>
       <TabsTrigger value="planning">Syllabus planning</TabsTrigger>
       <TabsTrigger value="library">Source library</TabsTrigger>
       <TabsTrigger value="authoring">Brief & sources</TabsTrigger>
@@ -40,6 +46,9 @@ export function NotesStudioHubPage() {
       <TabsTrigger value="canonical">Canonical notes</TabsTrigger>
       <TabsTrigger value="operations">Production readiness</TabsTrigger>
     </TabsList>
+    <TabsContent value="workflow" className="mt-0">
+      <NotesStudioWorkflowPage onNavigate={setActiveTab} />
+    </TabsContent>
     <TabsContent value="planning" className="mt-0">
       <NotesStudioPlanningPage />
     </TabsContent>
