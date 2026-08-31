@@ -3,10 +3,10 @@ import assert from "node:assert/strict";
 import {
   generateQuestion as generateArgAggregateQuestion,
   listQuestionStudioPackages as listArgAggregatePackages,
-} from "../../../question-studio/shared-generation-engine-arg.ts";
+} from "../../../../question-studio/shared-generation-engine-arg.ts";
 import {
   listQuestionStudioPackages as listPreviousPackages,
-} from "../../../question-studio/shared-generation-engine-sri.ts";
+} from "../../../../question-studio/shared-generation-engine-sri.ts";
 
 async function main() {
   const previous = listPreviousPackages();
