@@ -157,7 +157,7 @@ function explanationFor(qlId: Int001Wave03QlId, source: any) {
       steps: Object.freeze([
         `SI multiplier = 1 + (${decimal(state.simpleRatePercent)} × ${state.simpleYears})/100 = ${decimal(siFactor)}.`,
         `CI multiplier = (1 + ${decimal(state.compoundRatePercent)}/100)^${state.compoundYears} = ${decimal(ciFactor)}.`,
-        `The stated order is ${orderText}, so apply the two multipliers consecutively to the same running amount.`,
+        `Stage 1 → Stage 2 order is ${orderText}; the first-stage maturity becomes the second-stage principal.`,
         `Combined multiplier = ${decimal(siFactor)} × ${decimal(ciFactor)} = ${decimal(combined)}.`,
         `Final amount = ${money(state.principal)} × ${decimal(combined)} = ${money(source.answer)}.`,
       ]),
