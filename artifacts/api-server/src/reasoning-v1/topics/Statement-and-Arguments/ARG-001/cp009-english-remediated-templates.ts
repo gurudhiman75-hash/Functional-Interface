@@ -206,7 +206,7 @@ function patchEnglishTemplate(template: ArgCp003Template): ArgCp003Template {
         arguments: replaceArguments(
           template,
           undefined,
-          "No. Anyone among {b} who wants {a} kept out of {c} must be hiding something and therefore cannot contribute to {d}.",
+          "No. Anyone who wants {a} kept out of {c} must be hiding something and therefore cannot contribute to {d}.",
         ),
       });
     }
@@ -214,7 +214,7 @@ function patchEnglishTemplate(template: ArgCp003Template): ArgCp003Template {
     case "ARG-CP003-QL006-T02":
       return Object.freeze({
         ...template,
-        statement: "Should a bank use {b} for every {a}?",
+        statement: "Should a bank use {b} for all {a}?",
       });
 
     case "ARG-CP003-QL006-T04":
