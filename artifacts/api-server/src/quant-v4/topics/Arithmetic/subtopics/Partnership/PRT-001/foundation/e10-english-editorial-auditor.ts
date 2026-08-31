@@ -48,7 +48,7 @@ function assertCleanEnglishText(text: string, label: string): void {
 
 export function auditPrt001E10EnglishEditorial(): Prt001E10EditorialReport {
   const ids = getPrt001QuestionLanguageIds();
-  const objectPools = objectPoolsSource as ObjectPools;
+  const objectPools = objectPoolsSource as unknown as ObjectPools;
   let cases = 0;
   let stemSkeletons = 0;
   let generatedQuestions = 0;
