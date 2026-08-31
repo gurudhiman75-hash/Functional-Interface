@@ -101,13 +101,16 @@ async function loadProposal(jobId: string) {
   }));
   const policy = evaluateSourcePackPolicy(templateKey, attachedPolicySources);
   const participatingRoles = new Set(policy.requirements.flatMap((requirement) => requirement.roles));
+  const evidenceRequiredRoles = new Set(
+    policy.requirements.filter((requirement) => requirement.generationReadyOnly).flatMap((requirement) => requirement.roles),
+  );
   const attachedIntegritySources = attachedPolicySources.filter((source) =>
     source.inclusionState === 'included' && participatingRoles.has(source.sourceRole),
   );
   const pendingReferenceReviews = attached
     .filter((source) =>
       String(source.inclusionState ?? '') === 'included'
-      && participatingRoles.has(noteSourceRole(source.sourceRole))
+      && evidenceRequiredRoles.has(noteSourceRole(source.sourceRole))
       && String(source.rightsBasis ?? '') === 'reference_only'
       && String(source.retentionMode ?? '') === 'metadata_only'
       && Number(source.referenceEvidenceCount ?? 0) < 1,
