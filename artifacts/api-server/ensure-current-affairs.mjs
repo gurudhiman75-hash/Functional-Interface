@@ -33,6 +33,7 @@ const migrationFiles = [
   "20260830_current_affairs_question_editorial_guard.sql",
   "20260830_current_affairs_production_ops.sql",
   "20260831_current_affairs_primary_source_recovery.sql",
+  "20260831_current_affairs_source_families_discovery.sql",
 ];
 
 const here = path.dirname(fileURLToPath(import.meta.url));
