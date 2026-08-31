@@ -78,6 +78,127 @@ Create the following items in this order. Priorities/depths are deliberately bou
 | 13 | Majha, Doaba and Malwa: only river-related regional facts directly supported by retained evidence | Punjab Geography → Physiographic/Cultural Regions | supporting | brief | Preserve the official three-region framing but do not invent river boundaries from memory. |
 | 14 | High-yield comparison / revision table | Punjab Geography → River System → Revision | high | standard | Consolidate river, system, major project and one-line exam associations entirely from accepted claims. |
 
+### Bulk coverage import payload
+
+After NS-020 is deployed, paste this JSON array into **Notes Studio → Coverage Import** for the pilot job. The action is an atomic append and creates only coverage targets.
+
+```json
+[
+  {
+    "title": "Why Punjab is called the land of five rivers",
+    "syllabusRef": "Punjab Geography → River System → Identity",
+    "priority": "required",
+    "plannedDepth": "standard",
+    "examRationale": "Foundational definition; anchors the note and prevents confusion between historic and present-day Punjab.",
+    "sortOrder": 0
+  },
+  {
+    "title": "Historic five rivers: Jhelum, Chenab, Ravi, Beas and Sutlej",
+    "syllabusRef": "Punjab Geography → River System → Historic five",
+    "priority": "required",
+    "plannedDepth": "standard",
+    "examRationale": "High-yield enumeration and classification fact.",
+    "sortOrder": 1
+  },
+  {
+    "title": "Rivers flowing through present-day Indian Punjab: Ravi, Beas and Sutlej",
+    "syllabusRef": "Punjab Geography → River System → Present-day Punjab",
+    "priority": "required",
+    "plannedDepth": "standard",
+    "examRationale": "Essential distinction repeatedly confused in revision material.",
+    "sortOrder": 2
+  },
+  {
+    "title": "Punjab rivers within the wider Indus river system",
+    "syllabusRef": "Indian Geography → Indus System → Punjab rivers",
+    "priority": "required",
+    "plannedDepth": "standard",
+    "examRationale": "Connects state GK with national geography and provides the correct basin hierarchy.",
+    "sortOrder": 3
+  },
+  {
+    "title": "Eastern vs western rivers under the Indus Waters Treaty",
+    "syllabusRef": "Indian Geography → Indus Waters Treaty → River groups",
+    "priority": "high",
+    "plannedDepth": "standard",
+    "examRationale": "Common competitive-exam classification; include only treaty facts supported by authoritative evidence.",
+    "sortOrder": 4
+  },
+  {
+    "title": "Sutlej: exam-relevant course and Punjab significance",
+    "syllabusRef": "Punjab Geography → Rivers → Sutlej",
+    "priority": "required",
+    "plannedDepth": "deep",
+    "examRationale": "Major river for Punjab; supports Bhakra-Nangal and water-management questions.",
+    "sortOrder": 5
+  },
+  {
+    "title": "Beas: exam-relevant course and Punjab significance",
+    "syllabusRef": "Punjab Geography → Rivers → Beas",
+    "priority": "required",
+    "plannedDepth": "deep",
+    "examRationale": "Major river for Punjab; supports Pong/Beas project questions.",
+    "sortOrder": 6
+  },
+  {
+    "title": "Ravi: exam-relevant course and Punjab significance",
+    "syllabusRef": "Punjab Geography → Rivers → Ravi",
+    "priority": "required",
+    "plannedDepth": "deep",
+    "examRationale": "Major river for Punjab; supports Ravi-project and treaty questions.",
+    "sortOrder": 7
+  },
+  {
+    "title": "Bhakra-Nangal project and Sutlej linkage",
+    "syllabusRef": "Punjab Geography → River Projects → Bhakra-Nangal",
+    "priority": "high",
+    "plannedDepth": "standard",
+    "examRationale": "Frequently examined river-project pairing and irrigation/power significance.",
+    "sortOrder": 8
+  },
+  {
+    "title": "Beas Project: Beas-Sutlej Link and Pong Dam",
+    "syllabusRef": "Punjab Geography → River Projects → Beas Project",
+    "priority": "high",
+    "plannedDepth": "standard",
+    "examRationale": "High-yield project/river associations; useful for matching questions.",
+    "sortOrder": 9
+  },
+  {
+    "title": "Ravi development context including Thein/Ranjit Sagar only if adequately supported",
+    "syllabusRef": "Punjab Geography → River Projects → Ravi",
+    "priority": "supporting",
+    "plannedDepth": "brief",
+    "examRationale": "Include only if authoritative retained evidence supports the exact naming/project relationship; otherwise leave uncovered rather than infer.",
+    "sortOrder": 10
+  },
+  {
+    "title": "BBMB role in regulation of Ravi, Beas and Sutlej water / project power",
+    "syllabusRef": "Punjab Geography → Water Management → BBMB",
+    "priority": "high",
+    "plannedDepth": "standard",
+    "examRationale": "Links rivers with the institution candidates are often asked to identify.",
+    "sortOrder": 11
+  },
+  {
+    "title": "Majha, Doaba and Malwa: only river-related regional facts directly supported by retained evidence",
+    "syllabusRef": "Punjab Geography → Physiographic/Cultural Regions",
+    "priority": "supporting",
+    "plannedDepth": "brief",
+    "examRationale": "Preserve the official three-region framing but do not invent river boundaries from memory.",
+    "sortOrder": 12
+  },
+  {
+    "title": "High-yield comparison / revision table",
+    "syllabusRef": "Punjab Geography → River System → Revision",
+    "priority": "high",
+    "plannedDepth": "standard",
+    "examRationale": "Consolidate river, system, major project and one-line exam associations entirely from accepted claims.",
+    "sortOrder": 13
+  }
+]
+```
+
 ### Explicit exclusions for the first pilot
 
 Do not pad the note with facts merely because they are commonly found in coaching notes. Exclude unless separately supported and exam-relevant:
@@ -170,7 +291,7 @@ Any repeated structural gap should become a generic Notes Studio checkpoint. A o
 3. In Web discovery, search for the Government of Punjab and BBMB sources above and inspect the actual returned URLs.
 4. Explicitly ingest the two mandatory sources with reviewed rights bases; assign `primary_authority` and `core_reference` roles.
 5. Confirm source-policy readiness and source independence.
-6. Add the 14 coverage targets above.
+6. Open **Coverage Import**, paste the 14-item payload above and import it atomically.
 7. Rebuild evidence.
 8. Run candidate-claim extraction on evidence blocks in bounded batches.
 9. Accept/reject/conflict claims editorially.
