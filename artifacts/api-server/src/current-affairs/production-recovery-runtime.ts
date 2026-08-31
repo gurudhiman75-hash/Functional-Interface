@@ -9,6 +9,7 @@ import {
   type CurrentAffairsFact,
   type CurrentAffairsGeneratedQuestion,
 } from "./content";
+import { rebuildHistoricalHeadlineClaims } from "./historical-claim-rebuild";
 import { createLocalizedDailyCompilations, runCurrentAffairsLocalization } from "./localization-runtime";
 import { previousIndiaDate } from "./orchestration-policy";
 import { runCurrentAffairsQuestionLocalization } from "./question-localization-runtime";
@@ -204,6 +205,9 @@ export async function runCurrentAffairsProductionRecovery(args: {
 
   const actions: Array<Record<string, unknown>> = [];
   try {
+    const historicalClaimRebuild = await rebuildHistoricalHeadlineClaims(targetDate, 600);
+    actions.push({ action: "historical_headline_claim_rebuild", result: historicalClaimRebuild });
+
     const authoring = await runSourceIndependentAuthoring(200);
     actions.push({ action: "authoring_backfill", result: authoring });
     const localization = await runCurrentAffairsLocalization(200);
@@ -242,6 +246,7 @@ export async function runCurrentAffairsProductionRecovery(args: {
       runId,
       runKey,
       targetDate,
+      historicalClaimRebuild,
       englishBackfillCount,
       localizedBackfillCount,
       recoveredQuestionCount,
