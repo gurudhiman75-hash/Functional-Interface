@@ -15,5 +15,15 @@
   },
   "requiredDifficultyBands": ["Easy", "Medium", "Hard"],
   "independentVerificationRequired": true,
-  "exhaustivenessStatus": "E5_SOLVE_CONTRACT_RECONCILIATION_CLOSED_NOT_FINAL"
+  "baselineAdvancedProductionDiversity": {
+    "questionLanguageIds": "PRT-QL-013..032",
+    "minimumMathWeightSignatures": 6,
+    "minimumAnswerSignatures": 3,
+    "minimumRatioSignatures": 3,
+    "fixedRatioSemanticExceptions": ["PRT-QL-020"],
+    "minimumStemSkeletonsPerQlPerLocale": 3,
+    "minimumPartnerPairs": 10,
+    "minimumBusinessContexts": 12
+  },
+  "exhaustivenessStatus": "E6_BASELINE_ADVANCED_PRODUCTION_DIVERSITY_VALIDATED_NOT_FINAL"
 }
