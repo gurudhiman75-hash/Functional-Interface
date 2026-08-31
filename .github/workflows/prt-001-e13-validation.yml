@@ -60,7 +60,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          pnpm exec tsx src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001.test.ts \
+          pnpm dlx tsx@4.20.6 src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001.test.ts \
             | tee prt-001-e13-corpus.log
 
       - name: Run full PRT-001 freeze audit chain
@@ -68,7 +68,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
-          pnpm exec tsx src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001-freeze-audit.ts \
+          pnpm dlx tsx@4.20.6 src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001-freeze-audit.ts \
             | tee prt-001-e13-freeze-audit.log
 
       - name: Upload PRT-001 E13 validation logs
