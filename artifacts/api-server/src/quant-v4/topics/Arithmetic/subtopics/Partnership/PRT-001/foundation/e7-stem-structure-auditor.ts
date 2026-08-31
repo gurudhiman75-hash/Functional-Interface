@@ -11,12 +11,36 @@ function requireAudit(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
 }
 
+function semanticSlot(key: string): string {
+  const normalized = key.toLowerCase();
+  if (normalized === "business") return "<business>";
+  if (normalized.includes("profitratio")) return "<profit-ratio>";
+  if (normalized.includes("capitalratio")) return "<capital-ratio>";
+  if (normalized.includes("timeratio")) return "<time-ratio>";
+  if (normalized.includes("capitalrelation")) return "<capital-relation>";
+  if (normalized === "totalcapital") return "<total-capital>";
+  if (normalized.includes("capital")) return "<capital>";
+  if (normalized.includes("duration") || normalized.includes("month") || normalized.includes("joinafter") || normalized.includes("leaveafter")) return "<time>";
+  if (normalized.includes("percentage") || normalized.includes("fractionalchange")) return "<change-rate>";
+  if (normalized.includes("commissionpercent")) return "<commission-rate>";
+  if (normalized.includes("salary")) return "<salary>";
+  if (normalized.includes("allowance")) return "<allowance>";
+  if (normalized.includes("deduction")) return "<deduction>";
+  if (normalized.includes("reserve")) return "<reserve>";
+  if (normalized.includes("expense")) return "<expense>";
+  if (normalized.includes("totalloss")) return "<loss>";
+  if (normalized.includes("totalprofit")) return "<profit-pool>";
+  if (normalized.includes("share") || normalized.includes("receipt")) return "<share>";
+  if (normalized.includes("partner")) return "<partner>";
+  return `<${normalized.replace(/[^a-z0-9]+/g, "-")}>`;
+}
+
 function normalizedSkeleton(template: string): string {
   return template
     .toLocaleLowerCase("en")
-    .replace(/\{[^}]+\}/g, " <slot> ")
+    .replace(/\{([^}]+)\}/g, (_match, key: string) => ` ${semanticSlot(key)} `)
     .replace(/\bone[- ]year\b/g, " <period> ")
-    .replace(/[^\p{L}\p{N}<>]+/gu, " ")
+    .replace(/[^\p{L}\p{N}<>-]+/gu, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -115,6 +139,7 @@ export function auditPrt001CrossQlStemStructure(): Prt001E7AuditReport {
     metrics: {
       normalizedExactDuplicates: exactDuplicates.length,
       severeNearIdenticalPairs: severeNearPairs.length,
+      semanticSlotNormalization: true,
       editorialNearSimilarityThreshold: 0.88,
       blockingNearIdentityThreshold: 0.985,
       nearSimilarityPairs: nearPairs.length,
