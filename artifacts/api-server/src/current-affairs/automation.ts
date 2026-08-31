@@ -27,6 +27,13 @@ export type ScheduledSourceResult = {
   error?: string;
 };
 
+export type FeedIngestionTrigger = "scheduled" | "on_demand";
+
+export type FeedIngestionOptions = {
+  runKey?: string;
+  trigger?: FeedIngestionTrigger;
+};
+
 export function scheduleSlotStart(now = new Date(), slotHours = 3): Date {
   const safeHours = Number.isInteger(slotHours) && slotHours > 0 && slotHours <= 24 ? slotHours : 3;
   const date = new Date(now);
@@ -37,6 +44,10 @@ export function scheduleSlotStart(now = new Date(), slotHours = 3): Date {
 
 export function scheduledFeedRunKey(now = new Date(), slotHours = 3): string {
   return `feed_ingestion:${scheduleSlotStart(now, slotHours).toISOString()}`;
+}
+
+export function onDemandFeedRunKey(now = new Date(), requestId = randomUUID()): string {
+  return `feed_ingestion:on_demand:${now.toISOString()}:${requestId}`;
 }
 
 export function assertPublicHttpsFeedUrl(value: string): string {
@@ -79,18 +90,44 @@ export function summarizeScheduledSourceResults(results: ScheduledSourceResult[]
   };
 }
 
+function networkFailureMessage(label: string, sourceUrl: string, error: unknown): string {
+  const cause = (error as { cause?: Record<string, unknown> } | null)?.cause;
+  const details = [
+    cause?.code,
+    cause?.errno,
+    cause?.syscall,
+    cause?.hostname,
+  ]
+    .filter((value) => value !== undefined && value !== null && String(value).trim().length > 0)
+    .map((value) => String(value));
+  const host = (() => {
+    try {
+      return new URL(sourceUrl).hostname;
+    } catch {
+      return "official source";
+    }
+  })();
+  return `${label} fetch failed for ${host}${details.length > 0 ? ` (${details.join(", ")})` : ""}`;
+}
+
 async function fetchBoundedText(
   sourceUrl: string,
   args: { accept: string; maxBytes: number; label: string },
 ): Promise<string> {
-  const response = await fetch(sourceUrl, {
-    headers: {
-      accept: args.accept,
-      "user-agent": "Examtree-Current-Affairs-Studio/1.0",
-    },
-    redirect: "error",
-    signal: AbortSignal.timeout(15_000),
-  });
+  let response: Response;
+  try {
+    response = await fetch(sourceUrl, {
+      headers: {
+        accept: args.accept,
+        "accept-language": "en-IN,en;q=0.9",
+        "user-agent": "Mozilla/5.0 (compatible; ExamtreeCurrentAffairs/1.0; +https://examtree.in)",
+      },
+      redirect: "error",
+      signal: AbortSignal.timeout(15_000),
+    });
+  } catch (error) {
+    throw new Error(networkFailureMessage(args.label, sourceUrl, error));
+  }
   if (!response.ok) throw new Error(`${args.label} returned HTTP ${response.status}`);
   const declaredLength = Number(response.headers.get("content-length") ?? 0);
   if (declaredLength > args.maxBytes) throw new Error(`${args.label} is larger than the ingestion limit`);
@@ -151,7 +188,7 @@ async function markSourceResult(sourceId: string, status: "success" | "failure",
   `;
 }
 
-async function ingestFeedSource(source: Record<string, unknown>): Promise<ScheduledSourceResult> {
+async function ingestFeedSource(source: Record<string, unknown>, trigger: FeedIngestionTrigger): Promise<ScheduledSourceResult> {
   const sourceKey = String(source.sourceKey);
   const feedUrl = assertPublicHttpsFeedUrl(String(source.feedUrl ?? ""));
   const xml = await fetchBoundedText(feedUrl, {
@@ -171,7 +208,7 @@ async function ingestFeedSource(source: Record<string, unknown>): Promise<Schedu
       publishedAt: entry.publishedAt,
       externalId: entry.id,
       payload: {
-        ingestionChannel: "scheduled_feed",
+        ingestionChannel: trigger === "on_demand" ? "on_demand_feed" : "scheduled_feed",
         discoveryKeywords: discoveryKeywords(`${entry.title} ${entry.discoveryText ?? ""}`),
         sourceContentPolicy: source.contentPolicy,
         rawTextPersisted: false,
@@ -184,7 +221,7 @@ async function ingestFeedSource(source: Record<string, unknown>): Promise<Schedu
   return { sourceKey, channel: "feed", status: "success", entriesSeen: entries.length, created, updated };
 }
 
-async function ingestOfficialListingSource(source: Record<string, unknown>): Promise<ScheduledSourceResult> {
+async function ingestOfficialListingSource(source: Record<string, unknown>, trigger: FeedIngestionTrigger): Promise<ScheduledSourceResult> {
   const sourceKey = String(source.sourceKey);
   const listingUrl = assertPublicHttpsFeedUrl(String(source.listingUrl ?? ""));
   const adapter = String(source.listingAdapter ?? "") as OfficialListingAdapter;
@@ -202,8 +239,6 @@ async function ingestOfficialListingSource(source: Record<string, unknown>): Pro
   let skippedUndated = 0;
 
   for (const entry of entries) {
-    // Listing-page parsers may discover useful items without a trustworthy date.
-    // Do not guess that such an item is current: leave it out of the candidate queue.
     if (!entry.publishedAt) {
       skippedUndated += 1;
       continue;
@@ -214,7 +249,7 @@ async function ingestOfficialListingSource(source: Record<string, unknown>): Pro
       title: entry.title,
       publishedAt: entry.publishedAt,
       payload: {
-        ingestionChannel: "scheduled_official_listing",
+        ingestionChannel: trigger === "on_demand" ? "on_demand_official_listing" : "scheduled_official_listing",
         listingAdapter: adapter,
         dateConfidence: entry.dateConfidence,
         discoveryKeywords: entry.discoveryKeywords,
@@ -237,14 +272,14 @@ async function ingestOfficialListingSource(source: Record<string, unknown>): Pro
   };
 }
 
-async function ingestScheduledSource(source: Record<string, unknown>): Promise<ScheduledSourceResult> {
+async function ingestScheduledSource(source: Record<string, unknown>, trigger: FeedIngestionTrigger): Promise<ScheduledSourceResult> {
   const sourceKey = String(source.sourceKey);
   try {
     const mode = String(source.ingestionMode ?? "manual");
     const result = mode === "feed" || mode === "feed_and_pdf"
-      ? await ingestFeedSource(source)
+      ? await ingestFeedSource(source, trigger)
       : mode === "listing" || mode === "listing_and_pdf"
-        ? await ingestOfficialListingSource(source)
+        ? await ingestOfficialListingSource(source, trigger)
         : (() => { throw new Error(`Unsupported scheduled ingestion mode: ${mode}`); })();
     await markSourceResult(String(source.id), "success");
     return result;
@@ -255,9 +290,10 @@ async function ingestScheduledSource(source: Record<string, unknown>): Promise<S
   }
 }
 
-export async function runScheduledFeedIngestion(now = new Date()) {
+export async function runScheduledFeedIngestion(now = new Date(), options: FeedIngestionOptions = {}) {
   const slot = scheduleSlotStart(now, 3);
-  const runKey = scheduledFeedRunKey(now, 3);
+  const trigger = options.trigger ?? "scheduled";
+  const runKey = options.runKey ?? scheduledFeedRunKey(now, 3);
   const runId = randomUUID();
   const inserted = await sqlClient`
     INSERT INTO content.current_affairs_automation_runs (
@@ -270,7 +306,7 @@ export async function runScheduledFeedIngestion(now = new Date()) {
   `;
 
   if (!inserted[0]) {
-    return { skipped: true, runKey, reason: "schedule slot already processed" };
+    return { skipped: true, runKey, trigger, reason: "run key already processed" };
   }
 
   try {
@@ -295,7 +331,7 @@ export async function runScheduledFeedIngestion(now = new Date()) {
 
     const results: ScheduledSourceResult[] = [];
     for (const source of sources) {
-      results.push(await ingestScheduledSource(source as Record<string, unknown>));
+      results.push(await ingestScheduledSource(source as Record<string, unknown>, trigger));
     }
     const summary = summarizeScheduledSourceResults(results);
 
@@ -306,13 +342,13 @@ export async function runScheduledFeedIngestion(now = new Date()) {
           failure_count = ${summary.failureCount},
           candidate_created_count = ${summary.candidateCreatedCount},
           candidate_updated_count = ${summary.candidateUpdatedCount},
-          stats = ${JSON.stringify({ results, skippedUndatedCount: summary.skippedUndatedCount })}::jsonb,
-          failure_reason = ${summary.status === "failed" ? "All configured scheduled source ingestions failed" : null},
+          stats = ${JSON.stringify({ trigger, results, skippedUndatedCount: summary.skippedUndatedCount })}::jsonb,
+          failure_reason = ${summary.status === "failed" ? "All configured source ingestions failed" : null},
           updated_at = now()
       WHERE id = ${runId}::uuid
     `;
 
-    return { skipped: false, runId, runKey, ...summary, results };
+    return { skipped: false, runId, runKey, trigger, ...summary, results };
   } catch (error) {
     const message = error instanceof Error ? error.message.slice(0, 4000) : "Unknown automation failure";
     await sqlClient`
