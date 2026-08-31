@@ -1,5 +1,5 @@
 import { mkdirSync, writeFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { resolve } from "node:path";
 import { INT_001_WAVE03_QL_IDS } from "./int-001-wave03-permanent-allocation-v1";
 import { generateInt001Wave04EnglishCandidate } from "./int-001-wave04-english-authority-v1";
 
