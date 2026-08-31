@@ -2,7 +2,7 @@
   "language": "pa",
   "status": "HUMAN_AUTHORED_E8_SOURCE_BACKED",
   "entries": {
-    "PRT-QL-104": "ਇੱਕ {business} ਨੇ {totalProfit} ਸਕਲ ਮੁਨਾਫ਼ਾ ਕਮਾਇਆ। ਬਾਕੀ ਮੁਨਾਫ਼ਾ ਵੰਡਣ ਤੋਂ ਪਹਿਲਾਂ {partnerA} ਨੂੰ ਸਕਲ ਮੁਨਾਫ਼ੇ ਦਾ {allowancePercentA}% ਅਤੇ {partnerB} ਨੂੰ {allowancePercentB}% ਮਿਲਿਆ। ਉਨ੍ਹਾਂ ਦੀ ਇੱਕੋ ਮਿਆਦ ਦੀ ਪੂੰਜੀ {capitalA} ਅਤੇ {capitalB} ਸੀ। {targetPartner} ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ ਕਿੰਨੀ ਸੀ?",
+    "PRT-QL-104": "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਉਨ੍ਹਾਂ ਨੇ ਮੁਨਾਫ਼ੇ ਦਾ {equalSplitPercent}% ਬਰਾਬਰ ਵੰਡਿਆ ਅਤੇ ਬਾਕੀ {capitalSplitPercent}% ਪੂੰਜੀ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ। ਜੇ ਉਨ੍ਹਾਂ ਦੀਆਂ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀਆਂ ਦਾ ਫਰਕ {shareDifference} ਸੀ, ਤਾਂ ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
     "PRT-QL-105": "ਇੱਕ {business} {totalDuration} ਤੱਕ ਚੱਲਿਆ। {partnerA} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalA} ਲਗਾਏ; {partnerB} ਨੇ {initialCapitalB} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਪਰ {changeAfterB} ਬਾਅਦ {withdrawnCapitalB} ਕੱਢ ਲਏ; ਅਤੇ {partnerC} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalC} ਲਗਾਏ। ਕੁੱਲ ਮੁਨਾਫ਼ੇ {totalProfit} ਵਿੱਚੋਂ {targetPartner} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।"
   }
 }
