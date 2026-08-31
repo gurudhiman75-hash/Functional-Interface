@@ -5,14 +5,14 @@
   "entries": {
     "PRT-QL-104": {
       "cpId": "PRT-CP-006",
-      "taskKind": "multipleGrossPercentAllocations",
-      "solveMode": "findPartnerReceiptsWithMultipleOrderedAllocations",
+      "taskKind": "totalProfitFromSplitAllocationDifference",
+      "solveMode": "findTotalProfitFromShareDifferenceAndCapitals",
       "answerType": "MONEY",
       "difficulty": "Hard",
-      "requiredVariables": ["partnerA", "partnerB", "capitalA", "capitalB", "allowancePercentA", "allowancePercentB", "totalProfit", "targetPartner", "business"],
-      "scenarioFamily": "multiRecipientGrossPercentAllowances",
-      "distractorProfile": "applyAllowancesAfterRatioOrToWrongPool",
-      "explanationStrategy": "grossAllowancesThenCapitalShare",
+      "requiredVariables": ["partnerA", "partnerB", "capitalA", "capitalB", "equalSplitPercent", "capitalSplitPercent", "shareDifference", "business"],
+      "scenarioFamily": "reverseSplitGrossProfitFromReceiptDifference",
+      "distractorProfile": "ignoreEqualSplitOrApplyDifferenceToGross",
+      "explanationStrategy": "equalSplitCancelsThenReverseCapitalPool",
       "active": true
     },
     "PRT-QL-105": {
