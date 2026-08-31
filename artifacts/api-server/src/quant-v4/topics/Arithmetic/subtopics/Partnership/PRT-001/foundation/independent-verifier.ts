@@ -1,5 +1,6 @@
 import {
   HUNDRED,
+  ONE,
   ZERO,
   addRational,
   compareRational,
@@ -9,11 +10,14 @@ import {
   subtractRational,
 } from "./math";
 import type {
+  Partner,
   PartnerWeight,
   PartnershipState,
   Prt001IndependentVerification,
   Rational,
 } from "./types";
+
+type EntitledPartner = Partner & { readonly profitShareMultiplier?: Rational };
 
 function key(value: Rational): string {
   const normalized = rational(value.numerator, value.denominator);
@@ -35,8 +39,9 @@ function reconstructWeightsByBoundarySweep(
     }
   }
   const boundaries = [...boundariesByKey.values()].sort(compareRational);
-  return state.partners.map((partner) => {
-    let effectiveCapital = ZERO;
+  return state.partners.map((rawPartner) => {
+    const partner = rawPartner as EntitledPartner;
+    let contributionWeight = ZERO;
     for (let index = 0; index < boundaries.length - 1; index += 1) {
       const start = boundaries[index]!;
       const end = boundaries[index + 1]!;
@@ -55,17 +60,24 @@ function reconstructWeightsByBoundarySweep(
       if (compareRational(segment.capital, ZERO) <= 0) {
         throw new Error("verifier encountered non-positive capital");
       }
-      effectiveCapital = addRational(
-        effectiveCapital,
+      contributionWeight = addRational(
+        contributionWeight,
         multiplyRational(segment.capital, subtractRational(end, start)),
       );
     }
-    if (compareRational(effectiveCapital, ZERO) <= 0) {
+    if (compareRational(contributionWeight, ZERO) <= 0) {
       throw new Error(
         `verifier found no effective contribution for ${partner.partnerId}`,
       );
     }
-    return { partnerId: partner.partnerId, effectiveCapital };
+    const multiplier = partner.profitShareMultiplier ?? ONE;
+    if (compareRational(multiplier, ZERO) <= 0) {
+      throw new Error("verifier encountered non-positive entitlement multiplier");
+    }
+    return {
+      partnerId: partner.partnerId,
+      effectiveCapital: multiplyRational(contributionWeight, multiplier),
+    };
   });
 }
 
@@ -123,7 +135,7 @@ export function verifyPrt001Independently(
   return {
     supported: true,
     method:
-      "Independent boundary-sweep reconstruction and sequential pool ledger",
+      "Independent boundary-sweep reconstruction with entitlement multipliers and sequential pool ledger",
     weights,
     distributablePool,
     distributedShares,
