@@ -14,7 +14,6 @@ on:
       - artifacts/admin-app/src/features/question-studio/**
       - artifacts/admin-app/src/pages/content/QuestionStudioComputerAwarenessReviewPanel.tsx
       - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
-      - .github/workflows/computer-awareness-mainline-integration.yml
   workflow_dispatch:
 
 permissions:
