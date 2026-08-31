@@ -2,6 +2,7 @@ import { Router, type IRouter } from "express";
 
 import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk-hardening";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
+import adminQuestionStudioCom003Router from "./admin-question-studio-com003";
 import adminQuestionStudioSriRouter from "./admin-question-studio-sri";
 import adminQuestionStudioDataSufficiencyCurrentRouter from "./admin-question-studio-data-sufficiency-current";
 import adminQuestionStudioCp014Router from "./admin-question-studio-cp014";
@@ -33,12 +34,15 @@ import adminQuestionStudioRouter from "./admin-question-studio";
  * the legacy catch-all router at the bottom. SRI owns the newest aggregate GET
  * /capabilities surface. The DSF CP017 router is mounted immediately after it so
  * normal POST /runs requests for DSF-001 enter the standard review-run lifecycle
- * before older package-specific/legacy fallbacks are considered.
+ * before older package-specific/legacy fallbacks are considered. COM-003 is a
+ * read-only pre-registration preview integration and must also remain ahead of
+ * the legacy router so its explicit non-persistence contract cannot be bypassed.
  */
 const router: IRouter = Router();
 
 router.use(adminQuestionStudioBulkHardeningRouter);
 router.use(adminQuestionStudioQualityRouter);
+router.use(adminQuestionStudioCom003Router);
 router.use(adminQuestionStudioSriRouter);
 router.use(adminQuestionStudioDataSufficiencyCurrentRouter);
 router.use(adminQuestionStudioCp014Router);
