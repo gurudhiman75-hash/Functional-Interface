@@ -30,6 +30,7 @@ const Store = lazy(() => import("@/pages/store"));
 const StoreProduct = lazy(() => import("@/pages/store-product"));
 const MyPurchases = lazy(() => import("@/pages/my-purchases"));
 const Resources = lazy(() => import("@/pages/resources"));
+const ResourceDetail = lazy(() => import("@/pages/resource-detail"));
 const About = lazy(() => import("@/pages/about"));
 const Contact = lazy(() => import("@/pages/contact"));
 const PrivacyPolicy = lazy(() => import("@/pages/privacy-policy"));
@@ -172,6 +173,7 @@ function Router() {
           <Route path="/category/:id" component={() => renderCatalogPublicRoute(Category)} />
           <Route path="/subcategory/:id" component={() => renderCatalogPublicRoute(Subcategory)} />
 
+          <Route path="/resources/item/:id" component={() => renderPublicRoute(ResourceDetail)} />
           <Route path="/resources/current-affairs" component={() => renderPublicRoute(Resources)} />
           <Route path="/resources/notes" component={() => renderPublicRoute(Resources)} />
           <Route path="/resources/papers" component={() => renderPublicRoute(Resources)} />
