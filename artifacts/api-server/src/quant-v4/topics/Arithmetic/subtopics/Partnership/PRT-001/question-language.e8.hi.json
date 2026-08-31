@@ -1,0 +1,8 @@
+{
+  "language": "hi",
+  "status": "HUMAN_AUTHORED_E8_SOURCE_BACKED",
+  "entries": {
+    "PRT-QL-104": "एक {business} ने {totalProfit} सकल लाभ कमाया। शेष लाभ बाँटने से पहले {partnerA} को सकल लाभ का {allowancePercentA}% और {partnerB} को {allowancePercentB}% मिला। उनकी समान अवधि की पूंजी {capitalA} और {capitalB} थी। {targetPartner} की अंतिम प्राप्ति कितनी थी?",
+    "PRT-QL-105": "एक {business} {totalDuration} तक चला। {partnerA} ने पूरे समय {capitalA} लगाए; {partnerB} ने {initialCapitalB} से शुरुआत की लेकिन {changeAfterB} बाद {withdrawnCapitalB} निकाल लिए; और {partnerC} ने पूरे समय {capitalC} लगाए। कुल लाभ {totalProfit} में से {targetPartner} का हिस्सा ज्ञात कीजिए।"
+  }
+}
