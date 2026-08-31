@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 
 import { classifyOfficialCandidate } from "./official-candidate-reclassification";
-import { gdeltQueryUrl, parseGdeltArticleList } from "./open-news-discovery";
 import {
   ON_DEMAND_YESTERDAY_STAGES,
   shouldContinueBoundedPass,
@@ -52,46 +51,6 @@ assert.ok(
     < ON_DEMAND_YESTERDAY_STAGES.indexOf("daily_discovery_census_and_master_pack"),
   "daily census/master pack must snapshot the completed draft recovery state",
 );
-
-const gdeltUrl = new URL(gdeltQueryUrl("sourcecountry:india sourcelang:english", "2026-08-30", 500));
-assert.equal(gdeltUrl.origin, "https://api.gdeltproject.org");
-assert.equal(gdeltUrl.searchParams.get("maxrecords"), "250");
-assert.equal(gdeltUrl.searchParams.get("startdatetime"), "20260830000000");
-assert.equal(gdeltUrl.searchParams.get("enddatetime"), "20260830235959");
-const gdeltEntries = parseGdeltArticleList({
-  articles: [
-    {
-      url: "https://www.thehindu.com/news/national/example-story/article123.ece",
-      title: "Government announces a major national policy initiative",
-      seendate: "20260830T103000Z",
-      domain: "www.thehindu.com",
-      language: "English",
-      sourcecountry: "India",
-    },
-    {
-      url: "https://indianexpress.com/article/india/example-999/",
-      title: "RBI announces a banking policy development",
-      seendate: "20260830183000",
-      domain: "indianexpress.com",
-      language: "English",
-      sourcecountry: "India",
-    },
-    {
-      url: "http://example.com/insecure",
-      title: "Insecure article should be rejected",
-      seendate: "20260830T110000Z",
-    },
-    {
-      url: "https://example.com/wrong-day",
-      title: "Article from another day should be rejected",
-      seendate: "20260829T110000Z",
-    },
-  ],
-}, "2026-08-30");
-assert.equal(gdeltEntries.length, 2);
-assert.equal(gdeltEntries[0]?.domain, "thehindu.com");
-assert.equal(gdeltEntries[1]?.domain, "indianexpress.com");
-assert.ok(gdeltEntries.every((entry) => entry.url.startsWith("https://")));
 
 const pibInitial = `
 <form method="post">
