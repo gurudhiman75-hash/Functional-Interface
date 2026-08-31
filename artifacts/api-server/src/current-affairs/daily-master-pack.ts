@@ -106,7 +106,7 @@ export function renderDailyMasterPackMarkdown(payload: DailyMasterPackPayload): 
   const lines: string[] = [
     `# Examtree Daily Current Affairs — ${dateLabel}`,
     "",
-    `**${payload.eventCount} verified, authoring-ready developments · ${payload.categoryCount} sections**`,
+    `**${payload.eventCount} verified, authoring-ready, exam-relevant developments · ${payload.categoryCount} sections**`,
     "",
     "> Canonical draft generated from Examtree's verified Current Affairs event graph. This text is the shared source for web, text and future PDF distribution. Editorial approval remains separate.",
     "",
@@ -126,9 +126,7 @@ export function renderDailyMasterPackMarkdown(payload: DailyMasterPackPayload): 
         lines.push("");
       }
       if (event.oneLiner) lines.push(`**Remember:** ${markdownSafe(event.oneLiner)}`, "");
-      if (event.examFamilies.length > 0) {
-        lines.push(`**Exam relevance:** ${event.examFamilies.map((item) => item.toUpperCase()).join(" · ")}`, "");
-      }
+      lines.push(`**Exam relevance:** ${event.examFamilies.map((item) => item.toUpperCase()).join(" · ")}`, "");
       if (event.sources.length > 0) {
         lines.push("**Evidence**", "");
         for (const source of event.sources.slice(0, 4)) {
@@ -188,6 +186,11 @@ async function loadMasterPackEvents(contentDate: string): Promise<DailyMasterPac
     WHERE event.event_date=${contentDate}::date
       AND event.status='verified'
       AND event.learner_authoring_status IN ('ready','manual')
+      AND EXISTS (
+        SELECT 1
+        FROM content.current_affairs_exam_scores relevance
+        WHERE relevance.event_id=event.id AND relevance.include_recommended=true
+      )
       AND NOT EXISTS (
         SELECT 1 FROM content.current_affairs_fact_conflicts conflict
         WHERE conflict.event_id=event.id AND conflict.status='open'
@@ -245,13 +248,13 @@ export async function materializeDailyMasterPack(contentDate: string, censusId?:
 
   const events = await loadMasterPackEvents(contentDate);
   if (events.length === 0) {
-    return { created: false, updated: false, locked: false, reason: "no_verified_authoring_ready_events", eventCount: 0 };
+    return { created: false, updated: false, locked: false, reason: "no_verified_authoring_ready_exam_relevant_events", eventCount: 0 };
   }
   const payload = buildDailyMasterPackPayload(contentDate, events);
   const bodyMarkdown = renderDailyMasterPackMarkdown(payload);
   const code = publicCode(contentDate);
   const title = `Examtree Daily Current Affairs — ${contentDate}`;
-  const summary = `${payload.eventCount} verified Current Affairs developments across ${payload.categoryCount} sections. Canonical draft for text and PDF distribution.`;
+  const summary = `${payload.eventCount} verified exam-relevant Current Affairs developments across ${payload.categoryCount} sections. Canonical draft for text and PDF distribution.`;
   const resourceId = existing[0]?.learningResourceId ? String(existing[0].learningResourceId) : randomUUID();
   const packId = existing[0]?.id ? String(existing[0].id) : randomUUID();
 
