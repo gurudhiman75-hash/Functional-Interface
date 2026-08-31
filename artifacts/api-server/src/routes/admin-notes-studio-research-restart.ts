@@ -8,6 +8,7 @@ import {
   normalizeResearchRestartReason,
   researchRestartAllowed,
   researchRestartDiscardTotal,
+  researchRestartSourceIntentPath,
   researchRestartTargetState,
   type ResearchRestartDiscardCounts,
 } from '../notes-studio/research-restart';
@@ -160,6 +161,14 @@ router.post('/jobs/:jobId/research-restart', requireAdminPermission('content.que
             document.retention_mode AS "retentionMode",
             document.extraction_status AS "extractionStatus",
             LENGTH(COALESCE(document.extracted_text, ''))::int AS "retainedCharCount",
+            COALESCE((
+              SELECT COUNT(*)
+              FROM content.note_source_evidence_blocks block
+              WHERE block.source_document_id = document.id
+                AND block.job_id <> ${jobId}::uuid
+                AND block.evidence_kind = 'editor_reference_note'
+                AND block.reviewed_at IS NOT NULL
+            ), 0)::int AS "reviewedReferenceUseCount",
             EXISTS (
               SELECT 1 FROM content.note_authoring_sources link
               WHERE link.job_id = ${jobId}::uuid AND link.source_document_id = document.id
@@ -173,8 +182,18 @@ router.post('/jobs/:jobId/research-restart', requireAdminPermission('content.que
         const generationReady = source.retentionMode === 'extracted_text'
           && source.extractionStatus === 'processed'
           && Number(source.retainedCharCount ?? 0) >= 100;
-        if (!generationReady) {
-          throw new ResearchRestartError('SOURCE_NOT_GENERATION_READY', 'Research restart intent must reference a governed generation-ready source.', 409);
+        const evidencePath = researchRestartSourceIntentPath({
+          generationReady,
+          rightsBasis: String(source.rightsBasis ?? ''),
+          retentionMode: String(source.retentionMode ?? ''),
+          reviewedReferenceUseCount: Number(source.reviewedReferenceUseCount ?? 0),
+        });
+        if (!evidencePath) {
+          throw new ResearchRestartError(
+            'SOURCE_NOT_REUSABLE_FOR_RESEARCH',
+            'Research restart intent must reference either a governed retained-evidence source or a reference-only source with prior reviewed Reference Evidence.',
+            409,
+          );
         }
         sourceIntent = {
           id: source.id,
@@ -184,7 +203,11 @@ router.post('/jobs/:jobId/research-restart', requireAdminPermission('content.que
           contentHash: source.contentHash,
           rightsBasis: source.rightsBasis,
           alreadyAttached: source.alreadyAttached === true,
-          generationReady: true,
+          generationReady,
+          evidencePath,
+          referenceReviewRequired: evidencePath === 'reference_review_required',
+          reviewedReferenceUseCount: Number(source.reviewedReferenceUseCount ?? 0),
+          historicalReferenceEvidenceTransferred: false,
         };
       }
 
@@ -209,6 +232,7 @@ router.post('/jobs/:jobId/research-restart', requireAdminPermission('content.que
         coverage: coverageIntent,
         recommendedSource: sourceIntent,
         recommendedSourceAttachedAutomatically: false,
+        historicalReferenceEvidenceTransferred: false,
         coveragePlanPreserved: true,
       };
 
@@ -250,6 +274,9 @@ router.post('/jobs/:jobId/research-restart', requireAdminPermission('content.que
             toState: targetState,
             coverageItemId,
             recommendedSourceId,
+            recommendedSourceEvidencePath: sourceIntent?.evidencePath ?? null,
+            referenceReviewRequired: sourceIntent?.referenceReviewRequired === true,
+            historicalReferenceEvidenceTransferred: false,
             discardCounts: counts,
             coveragePlanPreserved: true,
             sourcePackPreserved: true,
@@ -270,6 +297,9 @@ router.post('/jobs/:jobId/research-restart', requireAdminPermission('content.que
         coveragePlanPreserved: true,
         sourcePackPreserved: true,
         recommendedSourceAttachedAutomatically: false,
+        historicalReferenceEvidenceTransferred: false,
+        recommendedSourceEvidencePath: sourceIntent?.evidencePath ?? null,
+        referenceReviewRequired: sourceIntent?.referenceReviewRequired === true,
         recommendedSourceId,
         coverageItemId,
       };
@@ -278,9 +308,12 @@ router.post('/jobs/:jobId/research-restart', requireAdminPermission('content.que
     res.status(201).json({
       restart: result,
       automaticSourceAttachment: false,
+      historicalReferenceEvidenceTransferred: false,
       automaticEvidenceAcceptance: false,
       automaticGeneration: false,
-      nextAction: 'Review the preserved source pack, explicitly attach any new governed source, then rebuild evidence from the complete pack.',
+      nextAction: result.referenceReviewRequired
+        ? 'Review the preserved source pack, explicitly reuse the governed reference source if needed, create fresh target-job Reference Evidence, then rebuild claims and coverage.'
+        : 'Review the preserved source pack, explicitly attach any new governed source, then rebuild evidence from the complete pack.',
     });
   } catch (error) {
     sendError(res, error, 'Unable to restart Notes Studio research');
