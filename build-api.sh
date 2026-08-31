@@ -17,17 +17,25 @@ pnpm install \
   --filter @workspace/examtree-admin... \
   --filter @workspace/api-server...
 
-# Production code already depends on content.learning_resources. Verify that
-# foundation before compiling the deployed apps. If an older production DB is
-# missing it, apply the existing idempotent checked-in migration and verify it.
-echo "[render-build] verify learning resources schema"
-pnpm --dir artifacts/api-server exec node ensure-learning-resources.mjs
+# The GitHub Render-equivalent build intentionally has no production database
+# credentials. Skip DB mutation only in that exact environment. Real Render is
+# not GITHUB_ACTIONS, so a missing DATABASE_URL still fails closed inside the
+# bootstrap scripts instead of silently deploying against an unknown schema.
+if [[ "${GITHUB_ACTIONS:-}" == "true" && -z "${DATABASE_URL:-}" ]]; then
+  echo "[render-build] GitHub Actions without DATABASE_URL; skip production schema bootstrap"
+else
+  # Production code already depends on content.learning_resources. Verify that
+  # foundation before compiling the deployed apps. If an older production DB is
+  # missing it, apply the existing idempotent checked-in migration and verify it.
+  echo "[render-build] verify learning resources schema"
+  pnpm --dir artifacts/api-server exec node ensure-learning-resources.mjs
 
-# Current Affairs has a cumulative, explicitly ordered schema. Apply only its
-# checked-in migrations through a dedicated ledger, under an advisory lock,
-# before any runtime that can generate yesterday's packs is deployed.
-echo "[render-build] verify Current Affairs schema"
-pnpm --dir artifacts/api-server exec node ensure-current-affairs.mjs
+  # Current Affairs has a cumulative, explicitly ordered schema. Apply only its
+  # checked-in migrations through a dedicated ledger, under an advisory lock,
+  # before any runtime that can generate yesterday's packs is deployed.
+  echo "[render-build] verify Current Affairs schema"
+  pnpm --dir artifacts/api-server exec node ensure-current-affairs.mjs
+fi
 
 # Build the student app. Its build also generates the public prerender files.
 echo "[render-build] build student app"
