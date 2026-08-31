@@ -7,6 +7,10 @@ import {
   parseOfficialListing,
   type OfficialListingAdapter,
 } from "./official-listing";
+import {
+  assertPublicHttpsSourceUrl,
+  fetchBoundedOfficialText,
+} from "./source-fetch";
 
 const MAX_FEED_BYTES = 2_500_000;
 const MAX_LISTING_BYTES = 5_000_000;
@@ -51,29 +55,7 @@ export function onDemandFeedRunKey(now = new Date(), requestId = randomUUID()): 
 }
 
 export function assertPublicHttpsFeedUrl(value: string): string {
-  let parsed: URL;
-  try {
-    parsed = new URL(value);
-  } catch {
-    throw new Error("Feed URL must be a valid HTTPS URL");
-  }
-  if (parsed.protocol !== "https:") throw new Error("Feed URL must use HTTPS");
-  const host = parsed.hostname.toLowerCase();
-  const blocked =
-    host === "localhost" ||
-    host === "0.0.0.0" ||
-    host === "::1" ||
-    host.endsWith(".local") ||
-    host === "169.254.169.254" ||
-    host === "metadata.google.internal" ||
-    /^127\./.test(host) ||
-    /^10\./.test(host) ||
-    /^192\.168\./.test(host) ||
-    /^169\.254\./.test(host) ||
-    /^172\.(1[6-9]|2\d|3[01])\./.test(host);
-  if (blocked) throw new Error("Feed URL cannot point to a private-network host");
-  parsed.hash = "";
-  return parsed.toString();
+  return assertPublicHttpsSourceUrl(value);
 }
 
 export function summarizeScheduledSourceResults(results: ScheduledSourceResult[]) {
@@ -88,52 +70,6 @@ export function summarizeScheduledSourceResults(results: ScheduledSourceResult[]
     skippedUndatedCount: results.reduce((sum, result) => sum + Number(result.skippedUndated ?? 0), 0),
     status: failureCount === 0 ? "completed" as const : successCount > 0 ? "completed_with_errors" as const : "failed" as const,
   };
-}
-
-function networkFailureMessage(label: string, sourceUrl: string, error: unknown): string {
-  const cause = (error as { cause?: Record<string, unknown> } | null)?.cause;
-  const details = [
-    cause?.code,
-    cause?.errno,
-    cause?.syscall,
-    cause?.hostname,
-  ]
-    .filter((value) => value !== undefined && value !== null && String(value).trim().length > 0)
-    .map((value) => String(value));
-  const host = (() => {
-    try {
-      return new URL(sourceUrl).hostname;
-    } catch {
-      return "official source";
-    }
-  })();
-  return `${label} fetch failed for ${host}${details.length > 0 ? ` (${details.join(", ")})` : ""}`;
-}
-
-async function fetchBoundedText(
-  sourceUrl: string,
-  args: { accept: string; maxBytes: number; label: string },
-): Promise<string> {
-  let response: Response;
-  try {
-    response = await fetch(sourceUrl, {
-      headers: {
-        accept: args.accept,
-        "accept-language": "en-IN,en;q=0.9",
-        "user-agent": "Mozilla/5.0 (compatible; ExamtreeCurrentAffairs/1.0; +https://examtree.in)",
-      },
-      redirect: "error",
-      signal: AbortSignal.timeout(15_000),
-    });
-  } catch (error) {
-    throw new Error(networkFailureMessage(args.label, sourceUrl, error));
-  }
-  if (!response.ok) throw new Error(`${args.label} returned HTTP ${response.status}`);
-  const declaredLength = Number(response.headers.get("content-length") ?? 0);
-  if (declaredLength > args.maxBytes) throw new Error(`${args.label} is larger than the ingestion limit`);
-  const buffer = Buffer.from(await response.arrayBuffer());
-  if (buffer.byteLength > args.maxBytes) throw new Error(`${args.label} is larger than the ingestion limit`);
-  return buffer.toString("utf8");
 }
 
 async function upsertCandidate(args: {
@@ -191,7 +127,7 @@ async function markSourceResult(sourceId: string, status: "success" | "failure",
 async function ingestFeedSource(source: Record<string, unknown>, trigger: FeedIngestionTrigger): Promise<ScheduledSourceResult> {
   const sourceKey = String(source.sourceKey);
   const feedUrl = assertPublicHttpsFeedUrl(String(source.feedUrl ?? ""));
-  const xml = await fetchBoundedText(feedUrl, {
+  const xml = await fetchBoundedOfficialText(feedUrl, {
     accept: "application/rss+xml, application/atom+xml, application/xml, text/xml;q=0.9, text/plain;q=0.5",
     maxBytes: MAX_FEED_BYTES,
     label: "Feed",
@@ -228,7 +164,7 @@ async function ingestOfficialListingSource(source: Record<string, unknown>, trig
   if (!LISTING_ADAPTERS.has(adapter)) {
     throw new Error(`Unsupported official listing adapter: ${String(source.listingAdapter ?? "")}`);
   }
-  const html = await fetchBoundedText(listingUrl, {
+  const html = await fetchBoundedOfficialText(listingUrl, {
     accept: "text/html,application/xhtml+xml;q=0.9,text/plain;q=0.5",
     maxBytes: MAX_LISTING_BYTES,
     label: "Official listing",

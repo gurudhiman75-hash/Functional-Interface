@@ -50,6 +50,7 @@ jobs:
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/intelligence.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/content.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/automation.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/source-fetch.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/orchestration-policy.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/official-listing.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/primary-fact-extraction.test.ts
