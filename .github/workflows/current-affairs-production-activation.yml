@@ -72,12 +72,17 @@ jobs:
         run: |
           set -euo pipefail
           runner=artifacts/api-server/ensure-current-affairs.mjs
+          recovery=artifacts/api-server/migrations/20260831_current_affairs_primary_source_recovery.sql
           test -f "$runner"
+          test -f "$recovery"
           grep -Fq 'pg_advisory_lock' "$runner"
           grep -Fq 'platform.current_affairs_schema_migrations' "$runner"
           grep -Fq '20260828_current_affairs_studio.sql' "$runner"
           grep -Fq '20260830_current_affairs_production_ops.sql' "$runner"
+          grep -Fq '20260831_current_affairs_primary_source_recovery.sql' "$runner"
           grep -Fq 'Current Affairs schema verified' "$runner"
+          grep -Fq 'https://www.pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3' "$recovery"
+          grep -Fq 'https://punjab.gov.in/impnotifications/' "$recovery"
           for file in $(grep -oE '20[0-9]{6}_current_affairs_[a-z0-9_]+\.sql' "$runner" | sort -u); do
             test -f "artifacts/api-server/migrations/$file"
           done
