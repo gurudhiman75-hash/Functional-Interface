@@ -112,7 +112,7 @@ export function auditPrt001E5MathDiversity(): Prt001AuditReport {
 }
 
 export function auditPrt001E13MathDiversity(): Prt001AuditReport {
-  return auditAnswerAwareWave({ wave: "E13", startId: 106, count: 7, fixedRatioIds: [] });
+  return auditAnswerAwareWave({ wave: "E13", startId: 106, count: 7, fixedRatioIds: ["PRT-QL-111"] });
 }
 
 export function auditPrt001Multilingual(): Prt001AuditReport {
