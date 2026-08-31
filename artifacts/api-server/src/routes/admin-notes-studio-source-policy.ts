@@ -13,6 +13,7 @@ import {
   sourcePackTemplateOptions,
 } from '../notes-studio/source-pack-policy';
 import adminNotesStudioCandidateClaimsRouter from './admin-notes-studio-candidate-claims';
+import adminNotesStudioCoverageGapResearchRouter from './admin-notes-studio-coverage-gap-research';
 import adminNotesStudioCoverageProposalsRouter from './admin-notes-studio-coverage-proposals';
 
 const router: IRouter = Router();
@@ -128,6 +129,7 @@ async function assertPolicyEditable(jobId: string) {
 router.use(authenticate);
 router.use(adminNotesStudioCandidateClaimsRouter);
 router.use(adminNotesStudioCoverageProposalsRouter);
+router.use(adminNotesStudioCoverageGapResearchRouter);
 
 router.get('/source-policy/options', requireAdminPermission('content.questions.read'), (_req, res) => {
   res.json({ roles: NOTE_SOURCE_ROLES, templates: sourcePackTemplateOptions(), defaultTemplate: 'balanced' });
