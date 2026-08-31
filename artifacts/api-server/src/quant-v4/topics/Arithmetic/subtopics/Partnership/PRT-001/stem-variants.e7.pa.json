@@ -1,0 +1,338 @@
+{
+  "language": "pa",
+  "status": "HUMAN_AUTHORED_E7_CHAPTER_STEM_DIVERSITY",
+  "entries": {
+    "PRT-QL-001": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} ਅਤੇ {partnerB} ਨੇ {capitalB} ਇੱਕੋ ਮਿਆਦ ਲਈ ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਕਿਸ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਵੇਗਾ?",
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਕ੍ਰਮਵਾਰ {capitalA} ਅਤੇ {capitalB} ਇੱਕੋ ਸਮੇਂ ਲਈ ਨਿਵੇਸ਼ ਕੀਤੇ। ਉਨ੍ਹਾਂ ਦਾ ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-002": [
+      "ਪੂਰਾ ਸਾਲ {partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ ਰੱਖੇ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਪੂਰਾ ਸਾਲ {partnerA} ਅਤੇ {partnerB} ਨੇ ਚਲਾਇਆ ਅਤੇ ਉਨ੍ਹਾਂ ਦੀ ਪੂੰਜੀ {capitalA} ਅਤੇ {capitalB} ਸੀ। ਮੁਨਾਫ਼ਾ ਕਿਸ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਵੇਗਾ?"
+    ],
+    "PRT-QL-003": [
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ {capitalA} ਅਤੇ {capitalB} ਇੱਕੋ ਮਿਆਦ ਲਈ ਲਗਾਏ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਸੀ। {targetPartner} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਨੇ {totalProfit} ਮੁਨਾਫ਼ਾ ਕਮਾਇਆ। ਇੱਕੋ ਮਿਆਦ ਲਈ {partnerA} ਦੀ ਪੂੰਜੀ {capitalA} ਅਤੇ {partnerB} ਦੀ {capitalB} ਸੀ। {targetPartner} ਨੂੰ ਕਿੰਨਾ ਮੁਨਾਫ਼ਾ ਮਿਲਿਆ?"
+    ],
+    "PRT-QL-004": [
+      "ਇੱਕ {business} ਦਾ ਮੁਨਾਫ਼ਾ {totalProfit} ਸੀ। {partnerA} ਅਤੇ {partnerB} ਨੇ {capitalA} ਅਤੇ {capitalB} ਇੱਕੋ ਸਮੇਂ ਲਈ ਲਗਾਏ ਸਨ। {targetPartner} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ {capitalA} ਅਤੇ {capitalB} ਬਰਾਬਰ ਮਿਆਦ ਲਈ ਲਗਾਏ। ਜੇ ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਸੀ, ਤਾਂ {targetPartner} ਨੂੰ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ],
+    "PRT-QL-005": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਨੇ {capitalA} ਅਤੇ {capitalB} ਇੱਕੋ ਮਿਆਦ ਲਈ ਲਗਾਏ। {targetPartner} ਨੂੰ {knownShare} ਮਿਲਿਆ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+      "{targetPartner} ਦਾ ਮੁਨਾਫ਼ਾ ਹਿੱਸਾ {knownShare} ਸੀ। ਜੇ {partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ {capitalA} ਅਤੇ {capitalB} ਇੱਕੋ ਸਮੇਂ ਲਈ ਲਗਾਏ ਸਨ, ਤਾਂ ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-006": [
+      "ਇੱਕ {business} ਨੇ {totalProfit} ਮੁਨਾਫ਼ਾ ਕਮਾਇਆ। {partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਉਨ੍ਹਾਂ ਦੇ ਮੁਨਾਫ਼ੇ ਦੇ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ ਕੱਢੋ।",
+      "{partnerA} ਨੇ {capitalA} ਅਤੇ {partnerB} ਨੇ {capitalB} ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਸਮੇਂ ਲਈ ਲਗਾਏ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ ਦੋਵਾਂ ਦੇ ਹਿੱਸਿਆਂ ਵਿੱਚ ਕਿੰਨਾ ਫਰਕ ਸੀ?"
+    ],
+    "PRT-QL-007": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} ਨੂੰ {durationA} ਅਤੇ {partnerB} ਨੇ {capitalB} ਨੂੰ {durationB} ਲਈ ਲਗਾਇਆ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "{partnerA} ਦਾ ਨਿਵੇਸ਼ {capitalA} {durationA} ਲਈ ਅਤੇ {partnerB} ਦਾ {capitalB} {durationB} ਲਈ ਇੱਕ {business} ਵਿੱਚ ਸੀ। ਮੁਨਾਫ਼ਾ ਕਿਸ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਵੇਗਾ?"
+    ],
+    "PRT-QL-008": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} {durationA} ਲਈ ਅਤੇ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ ਲਗਾਏ। ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "{partnerA} ਨੇ ਇੱਕ {business} ਵਿੱਚ {capitalA} ਨੂੰ {durationA} ਅਤੇ {partnerB} ਨੇ {capitalB} ਨੂੰ {durationB} ਤੱਕ ਲਗਾਇਆ। ਉਨ੍ਹਾਂ ਦੇ ਮੁਨਾਫ਼ੇ ਦੇ ਹਿੱਸਿਆਂ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-009": [
+      "{partnerA} ਨੇ {capitalA} {durationA} ਲਈ ਅਤੇ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ ਇੱਕ {business} ਵਿੱਚ ਲਗਾਏ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚੋਂ {targetPartner} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਦਾ ਮੁਨਾਫ਼ਾ {totalProfit} ਸੀ। {partnerA} ਨੇ {capitalA} {durationA} ਲਈ ਅਤੇ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ ਲਗਾਏ। {targetPartner} ਨੂੰ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ],
+    "PRT-QL-010": [
+      "ਇੱਕ {business} ਦਾ ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਸੀ। {partnerA} ਦੀ ਪੂੰਜੀ {capitalA} {durationA} ਅਤੇ {partnerB} ਦੀ {capitalB} {durationB} ਲਈ ਲੱਗੀ ਸੀ। {targetPartner} ਦਾ ਮੁਨਾਫ਼ਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} {durationA} ਲਈ ਅਤੇ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ ਨਿਵੇਸ਼ ਕੀਤਾ। ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ {targetPartner} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੈ?"
+    ],
+    "PRT-QL-011": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ ਅਣਜਾਣ ਪੂੰਜੀ {durationA} ਲਈ ਅਤੇ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ ਲਗਾਈ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ। {partnerA} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+      "{partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ {capitalB} {durationB} ਲਈ ਲਗਾਇਆ, ਜਦਕਿ {partnerA} ਨੇ ਅਣਜਾਣ ਰਕਮ {durationA} ਲਈ ਲਗਾਈ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਹੋਣ ਤੇ {partnerA} ਦਾ ਨਿਵੇਸ਼ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-012": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} ਅਣਜਾਣ ਮਿਆਦ ਲਈ ਅਤੇ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ। {partnerA} ਦੀ ਨਿਵੇਸ਼ ਮਿਆਦ ਕੱਢੋ।",
+      "{partnerA} ਨੇ ਇੱਕ {business} ਵਿੱਚ {capitalA} ਕੁਝ ਸਮੇਂ ਲਈ ਲਗਾਇਆ, ਜਦਕਿ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ ਲਗਾਇਆ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਹੋਣ ਤੇ {partnerA} ਨੇ ਕਿੰਨੇ ਸਮੇਂ ਲਈ ਨਿਵੇਸ਼ ਕੀਤਾ?"
+    ],
+    "PRT-QL-033": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ ਅਤੇ {leaveAfterA} ਬਾਅਦ ਬਾਹਰ ਹੋ ਗਿਆ; {partnerB} {joinAfterB} ਬਾਅਦ {capitalB} ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ ਅਤੇ ਸਾਲ ਦੇ ਅੰਤ ਤੱਕ ਰਿਹਾ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ ਪਰ {leaveAfterA} ਬਾਅਦ ਚਲਾ ਗਿਆ। {partnerB} ਨੇ {joinAfterB} ਬਾਅਦ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਕਿਸ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਵੇਗਾ?"
+    ],
+    "PRT-QL-034": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ ਰੱਖੇ। {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ ਪਰ ਜਲਦੀ ਬਾਹਰ ਹੋ ਗਿਆ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ। {partnerA} ਕਿੰਨੇ ਮਹੀਨੇ ਬਾਅਦ ਗਿਆ?",
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {capitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ; {partnerB} ਨੇ ਪੂਰਾ ਸਾਲ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਹੋਣ ਤੇ {partnerA} ਦੇ ਬਾਹਰ ਜਾਣ ਦਾ ਸਮਾਂ ਕੱਢੋ।"
+    ],
+    "PRT-QL-035": [
+      "{partnerA} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਪੂਰਾ ਸਾਲ {capitalA} ਲਗਾਏ। {partnerB} {joinAfterB} ਬਾਅਦ ਅਣਜਾਣ ਪੂੰਜੀ ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ। {partnerB} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalA} ਲਗਾਏ ਅਤੇ {partnerB} {joinAfterB} ਬਾਅਦ ਸ਼ਾਮਲ ਹੋਇਆ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਹੋਣ ਤੇ {partnerB} ਨੇ ਕਿੰਨੀ ਪੂੰਜੀ ਲਗਾਈ?"
+    ],
+    "PRT-QL-036": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ ਪੂੰਜੀ {percentageChangeA}% ਵਧਾਈ। {partnerB} ਨੇ ਪੂਰਾ ਸਾਲ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "{partnerB} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ ਇਸਨੂੰ {percentageChangeA}% ਵਧਾਇਆ। ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-037": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂ ਕਰਕੇ {changeMonthA} ਬਾਅਦ {percentageChangeA}% ਵਧਾਇਆ, ਜਦਕਿ {partnerB} ਨੇ {initialCapitalB} ਨਾਲ ਸ਼ੁਰੂ ਕਰਕੇ {changeMonthB} ਬਾਅਦ {percentageDecreaseB}% ਘਟਾਇਆ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "{partnerA} ਦੀ ਪੂੰਜੀ {initialCapitalA} ਤੋਂ {changeMonthA} ਬਾਅਦ {percentageChangeA}% ਵਧੀ ਅਤੇ {partnerB} ਦੀ {initialCapitalB} ਤੋਂ {changeMonthB} ਬਾਅਦ {percentageDecreaseB}% ਘਟੀ। ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਉਨ੍ਹਾਂ ਦਾ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-038": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} {durationA} ਲਈ ਲਗਾਇਆ; {partnerB} ਦੀ ਪੂੰਜੀ {capitalRelationB} {durationB} ਲਈ ਅਤੇ {partnerC} ਦੀ {capitalRelationC} {durationC} ਲਈ ਸੀ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚ {targetPartner} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਨੇ {totalProfit} ਮੁਨਾਫ਼ਾ ਕਮਾਇਆ। {partnerA} ਨੇ {capitalA} {durationA}, {partnerB} ਨੇ {capitalRelationB} {durationB} ਅਤੇ {partnerC} ਨੇ {capitalRelationC} {durationC} ਲਈ ਲਗਾਇਆ। {targetPartner} ਨੂੰ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ],
+    "PRT-QL-039": [
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਬਾਕੀ ਮੁਨਾਫ਼ਾ ਵੰਡਣ ਤੋਂ ਪਹਿਲਾਂ {partnerA} ਨੂੰ {salary} ਤਨਖਾਹ ਮਿਲੀ। ਜੇ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ {finalReceipt} ਸੀ, ਤਾਂ ਸਕਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਦੀ ਇੱਕੋ ਮਿਆਦ ਦੀ ਪੂੰਜੀ {capitalA} ਅਤੇ {capitalB} ਸੀ। {partnerA} ਨੂੰ ਪਹਿਲਾਂ {salary} ਤਨਖਾਹ ਮਿਲੀ ਅਤੇ ਅੰਤ ਵਿੱਚ {finalReceipt} ਪ੍ਰਾਪਤ ਹੋਏ। ਸਕਲ ਮੁਨਾਫ਼ਾ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-040": [
+      "ਇੱਕ {business} ਦਾ ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਸੀ। ਪਹਿਲਾਂ {reserve} ਰਿਜ਼ਰਵ ਰੱਖਿਆ ਗਿਆ, ਫਿਰ {partnerA} ਨੂੰ ਬਾਕੀ ਰਕਮ ਦਾ {commissionPercent}% ਕਮਿਸ਼ਨ ਮਿਲਿਆ ਅਤੇ ਬਚੀ ਰਕਮ {capitalA} ਅਤੇ {capitalB} ਦੀ ਪੂੰਜੀ ਵਾਲੇ {partnerA} ਅਤੇ {partnerB} ਵਿੱਚ ਵੰਡੀ ਗਈ। {targetPartner} ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ ਕੱਢੋ।",
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚੋਂ {reserve} ਰਿਜ਼ਰਵ ਘਟਾ ਕੇ {partnerA} ਨੂੰ ਬਾਕੀ ਦਾ {commissionPercent}% ਕਮਿਸ਼ਨ ਮਿਲਿਆ। {targetPartner} ਨੂੰ ਅੰਤ ਵਿੱਚ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ],
+    "PRT-QL-041": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ, {changeMonthA} ਬਾਅਦ {addedCapitalA} ਜੋੜੇ ਅਤੇ {leaveAfterA} ਬਾਅਦ ਬਾਹਰ ਹੋ ਗਿਆ। {partnerB} {joinAfterB} ਬਾਅਦ {capitalB} ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਲਗਾਏ, {changeMonthA} ਬਾਅਦ {addedCapitalA} ਵਧਾਏ ਅਤੇ {leaveAfterA} ਬਾਅਦ ਚਲਾ ਗਿਆ; {partnerB} {joinAfterB} ਬਾਅਦ {capitalB} ਨਾਲ ਆਇਆ। ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-042": [
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ। {partnerB} {joinAfterB} ਬਾਅਦ {capitalB} ਅਤੇ {partnerC} {joinAfterC} ਬਾਅਦ ਅਣਜਾਣ ਪੂੰਜੀ ਨਾਲ ਸ਼ਾਮਲ ਹੋਏ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB}:{profitRatioC} ਸੀ। {partnerC} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਦੀ ਪੂੰਜੀ {capitalA} ਸ਼ੁਰੂ ਤੋਂ ਸੀ, {partnerB} ਨੇ {joinAfterB} ਬਾਅਦ {capitalB} ਲਗਾਏ ਅਤੇ {partnerC} {joinAfterC} ਬਾਅਦ ਜੁੜਿਆ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB}:{profitRatioC} ਹੋਣ ਤੇ {partnerC} ਦਾ ਨਿਵੇਸ਼ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-043": [
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ {capitalA} ਅਤੇ {capitalB} ਇੱਕੋ ਮਿਆਦ ਲਈ ਲਗਾਏ। ਉਨ੍ਹਾਂ ਦੇ ਮੁਨਾਫ਼ੇ ਦੇ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ {shareDifference} ਸੀ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਦੀ ਪੂੰਜੀ {capitalA} ਅਤੇ {capitalB} ਕ੍ਰਮਵਾਰ {partnerA} ਅਤੇ {partnerB} ਦੀ ਸੀ। ਜੇ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ {shareDifference} ਸੀ, ਤਾਂ ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-044": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਦਾ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਅਤੇ ਨਿਵੇਸ਼-ਮਿਆਦ ਅਨੁਪਾਤ {timeRatioA}:{timeRatioB} ਸੀ। ਪੂੰਜੀ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਮੁਨਾਫ਼ਾ {profitRatioA}:{profitRatioB} ਵਿੱਚ ਵੰਡਿਆ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਨਿਵੇਸ਼ ਮਿਆਦਾਂ {timeRatioA}:{timeRatioB} ਵਿੱਚ ਸਨ। ਪੂੰਜੀ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-045": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਦਾ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਅਤੇ ਪੂੰਜੀ ਅਨੁਪਾਤ {capitalRatioA}:{capitalRatioB} ਸੀ। ਨਿਵੇਸ਼ ਮਿਆਦਾਂ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਦੀ ਪੂੰਜੀ {capitalRatioA}:{capitalRatioB} ਵਿੱਚ ਅਤੇ ਮੁਨਾਫ਼ਾ {profitRatioA}:{profitRatioB} ਵਿੱਚ ਸੀ। ਨਿਵੇਸ਼ ਸਮੇਂ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-046": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਦੀ ਪੂੰਜੀ ਪਹਿਲਾਂ {initialCapitalA}, {firstChangeMonthA} ਬਾਅਦ {firstChangedCapitalA} ਅਤੇ {secondChangeMonthA} ਬਾਅਦ {secondChangedCapitalA} ਹੋ ਗਈ। {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ, {firstChangeMonthA} ਬਾਅਦ {firstChangedCapitalA} ਅਤੇ {secondChangeMonthA} ਬਾਅਦ {secondChangedCapitalA} ਕਰ ਦਿੱਤਾ। {partnerB} ਨੇ {capitalB} ਬਣਾਏ ਰੱਖੇ। ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-047": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਦੀ ਪੂੰਜੀ {initialCapitalA} ਤੋਂ {finalCapitalA} ਅਣਜਾਣ ਸਮੇਂ ਤੇ ਬਦਲੀ; {partnerB} ਨੇ ਪੂਰਾ ਸਾਲ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ। ਤਬਦੀਲੀ ਕਿੰਨੇ ਮਹੀਨੇ ਬਾਅਦ ਹੋਈ?",
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਅਤੇ ਬਾਅਦ ਵਿੱਚ {finalCapitalA} ਕਰ ਦਿੱਤਾ। {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਹੋਣ ਤੇ ਤਬਦੀਲੀ ਦਾ ਸਮਾਂ ਕੱਢੋ।"
+    ],
+    "PRT-QL-048": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA}, {partnerB}, {partnerC} ਅਤੇ {partnerD} ਨੇ ਕ੍ਰਮਵਾਰ {capitalA}, {capitalB}, {capitalC}, {capitalD} ਨੂੰ {durationA}, {durationB}, {durationC}, {durationD} ਲਈ ਲਗਾਇਆ। ਚਾਰਾਂ ਦਾ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਵਿੱਚ ਚਾਰ ਨਿਵੇਸ਼ ਸਨ: {partnerA}—{capitalA} {durationA}, {partnerB}—{capitalB} {durationB}, {partnerC}—{capitalC} {durationC}, ਅਤੇ {partnerD}—{capitalD} {durationD} ਲਈ। ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-049": [
+      "{partnerA}, {partnerB} ਅਤੇ {partnerC} ਨੇ ਇੱਕ {business} ਵਿੱਚ {capitalA}, {capitalB}, {capitalC} ਲਗਾਏ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਮਿਆਦਾਂ {durationA}, {durationB} ਅਤੇ {partnerC} ਲਈ ਅਣਜਾਣ ਸਨ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB}:{profitRatioC} ਸੀ। {partnerC} ਦੀ ਮਿਆਦ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} {durationA}, {partnerB} ਨੇ {capitalB} {durationB} ਅਤੇ {partnerC} ਨੇ {capitalC} ਕੁਝ ਸਮੇਂ ਲਈ ਲਗਾਇਆ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB}:{profitRatioC} ਹੋਣ ਤੇ {partnerC} ਨੇ ਕਿੰਨੇ ਸਮੇਂ ਲਈ ਨਿਵੇਸ਼ ਕੀਤਾ?"
+    ],
+    "PRT-QL-050": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA}, {partnerB}, {partnerC} ਨੇ {durationA}, {durationB}, {durationC} ਲਈ ਨਿਵੇਸ਼ ਕੀਤਾ ਅਤੇ ਮੁਨਾਫ਼ਾ {profitRatioA}:{profitRatioB}:{profitRatioC} ਵਿੱਚ ਵੰਡਿਆ। ਪੂੰਜੀ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "{partnerA}, {partnerB}, {partnerC} ਦੀਆਂ ਨਿਵੇਸ਼ ਮਿਆਦਾਂ ਇੱਕ {business} ਵਿੱਚ {durationA}, {durationB}, {durationC} ਸਨ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB}:{profitRatioC} ਹੋਣ ਤੇ ਪੂੰਜੀ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-051": [
+      "ਇੱਕ {business} ਵਿੱਚ ਸਰਗਰਮ ਭਾਗੀਦਾਰ {partnerA} ਅਤੇ ਸੁੱਤਾ ਭਾਗੀਦਾਰ {partnerB} ਨੇ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। {partnerA} ਨੂੰ ਪਹਿਲਾਂ {salary} ਤਨਖਾਹ ਮਿਲੀ। ਜੇ {partnerB} ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ {sleepingPartnerReceipt} ਸੀ, ਤਾਂ ਸਕਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+      "{partnerA} ਇੱਕ {business} ਵਿੱਚ ਸਰਗਰਮ ਅਤੇ {partnerB} ਸੁੱਤਾ ਭਾਗੀਦਾਰ ਸੀ। ਇੱਕੋ ਮਿਆਦ ਦੀ ਪੂੰਜੀ {capitalA} ਅਤੇ {capitalB} ਸੀ। {partnerA} ਨੂੰ {salary} ਤਨਖਾਹ ਮਿਲਣ ਤੋਂ ਬਾਅਦ {partnerB} ਨੂੰ {sleepingPartnerReceipt} ਮਿਲੇ। ਸਕਲ ਮੁਨਾਫ਼ਾ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-052": [
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਸਮੇਂ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਬਾਕੀ ਵੰਡਣ ਤੋਂ ਪਹਿਲਾਂ {partnerA} ਨੂੰ {salary} ਮਿਲਦਾ ਹੈ ਅਤੇ {deduction} ਦੀ ਕਟੌਤੀ ਹੁੰਦੀ ਹੈ। ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ {targetPartner} ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਦਾ ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੈ। {partnerA} ਅਤੇ {partnerB} ਦੀ ਇੱਕੋ ਮਿਆਦ ਦੀ ਪੂੰਜੀ {capitalA}, {capitalB} ਹੈ; {partnerA} ਨੂੰ ਪਹਿਲਾਂ {salary} ਮਿਲਦਾ ਹੈ ਅਤੇ {deduction} ਵੀ ਘਟਦਾ ਹੈ। {targetPartner} ਨੂੰ ਅੰਤ ਵਿੱਚ ਕਿੰਨਾ ਮਿਲਦਾ ਹੈ?"
+    ],
+    "PRT-QL-053": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਦੀ ਪੂੰਜੀ {initialCapitalA} ਤੋਂ {finalCapitalA} {changeMonthA} ਬਾਅਦ ਹੋਈ; {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। {partnerA} ਨੂੰ ਸਕਲ ਮੁਨਾਫ਼ੇ ਦਾ {commissionPercent}% ਕਮਿਸ਼ਨ ਪਹਿਲਾਂ ਮਿਲਦਾ ਹੈ। ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ {targetPartner} ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ ਕੱਢੋ।",
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕਰਕੇ {changeMonthA} ਬਾਅਦ {finalCapitalA} ਕਰ ਦਿੱਤਾ; {partnerB} ਨੇ {capitalB} ਬਣਾਏ ਰੱਖੇ। {partnerA} ਨੂੰ ਪਹਿਲਾਂ {commissionPercent}% ਸਕਲ-ਮੁਨਾਫ਼ਾ ਕਮਿਸ਼ਨ ਮਿਲਦਾ ਹੈ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚ {targetPartner} ਨੂੰ ਕਿੰਨਾ ਮਿਲੇਗਾ?"
+    ],
+    "PRT-QL-054": [
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਪਹਿਲਾਂ {initialCapitalA} ਅਤੇ {changeMonthA} ਬਾਅਦ {finalCapitalA} ਲਗਾਏ। {partnerB} ਬਾਅਦ ਵਿੱਚ {capitalB} ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਹੋਣ ਤੇ {partnerB} ਕਿੰਨੇ ਮਹੀਨੇ ਬਾਅਦ ਜੁੜਿਆ?",
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਦੀ ਪੂੰਜੀ {initialCapitalA} ਤੋਂ {changeMonthA} ਬਾਅਦ {finalCapitalA} ਹੋਈ। {partnerB} ਅਣਜਾਣ ਸਮੇਂ ਤੇ {capitalB} ਨਾਲ ਆਇਆ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ। ਸ਼ਾਮਲ ਹੋਣ ਦਾ ਸਮਾਂ ਕੱਢੋ।"
+    ],
+    "PRT-QL-055": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਨੂੰ {changeMonthA} ਬਾਅਦ {finalCapitalA} ਕੀਤਾ; {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। {partnerA} ਨੂੰ ਪਹਿਲਾਂ {salary} ਤਨਖਾਹ ਮਿਲਦੀ ਹੈ। ਜੇ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ {finalReceipt} ਸੀ, ਤਾਂ ਸਕਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕਰਕੇ {changeMonthA} ਬਾਅਦ {finalCapitalA} ਕਰ ਦਿੱਤਾ ਅਤੇ ਪਹਿਲਾਂ {salary} ਤਨਖਾਹ ਲੈਂਦਾ ਹੈ। {partnerB} ਨੇ {capitalB} ਬਣਾਏ ਰੱਖੇ। {partnerA} ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ {finalReceipt} ਹੋਣ ਤੇ ਸਕਲ ਮੁਨਾਫ਼ਾ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-056": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਦੀ ਪੂੰਜੀ {initialCapitalA} ਤੋਂ {finalCapitalA} {changeMonthA} ਬਾਅਦ ਹੋਈ; {partnerB} {joinAfterB} ਬਾਅਦ {capitalB} ਨਾਲ ਆਇਆ। {partnerA} ਨੂੰ ਪਹਿਲਾਂ {salary} ਤਨਖਾਹ ਮਿਲਦੀ ਹੈ। ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀਆਂ ਦਾ ਫਰਕ ਕੱਢੋ।",
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕਰਕੇ {changeMonthA} ਬਾਅਦ {finalCapitalA} ਕੀਤਾ, ਜਦਕਿ {partnerB} {joinAfterB} ਬਾਅਦ {capitalB} ਨਾਲ ਜੁੜਿਆ। {partnerA} ਨੂੰ {salary} ਤਨਖਾਹ ਮਿਲਣ ਤੋਂ ਬਾਅਦ ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੈ। ਦੋਵਾਂ ਦੀਆਂ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀਆਂ ਵਿੱਚ ਕਿੰਨਾ ਫਰਕ ਹੈ?"
+    ],
+    "PRT-QL-057": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} {durationA} ਅਤੇ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ ਲਗਾਏ। ਉਨ੍ਹਾਂ ਦੇ ਮੁਨਾਫ਼ੇ ਦੇ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ {shareDifference} ਸੀ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+      "{partnerA} ਨੇ {capitalA} {durationA} ਲਈ ਅਤੇ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ ਇੱਕ {business} ਵਿੱਚ ਲਗਾਏ। ਜੇ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ {shareDifference} ਸੀ, ਤਾਂ ਪੂਰਾ ਮੁਨਾਫ਼ਾ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-058": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕਰਕੇ {changeMonthA} ਬਾਅਦ ਪੂੰਜੀ ਵਧਾਈ; {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ। {partnerA} ਨੇ ਪੂੰਜੀ ਕਿੰਨੇ ਪ੍ਰਤੀਸ਼ਤ ਵਧਾਈ?",
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {initialCapitalA} ਲਗਾਏ ਅਤੇ {changeMonthA} ਬਾਅਦ ਇਸਨੂੰ ਵਧਾਇਆ। {partnerB} ਨੇ {capitalB} ਬਣਾਏ ਰੱਖੇ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਹੋਣ ਤੇ ਪੂੰਜੀ ਵਾਧਾ ਪ੍ਰਤੀਸ਼ਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-059": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਅਣਜਾਣ ਪੂੰਜੀ ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ {addedCapitalA} ਜੋੜੇ; {partnerB} ਨੇ {capitalB} ਲਗਾਏ ਰੱਖੇ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚ {partnerA} ਨੂੰ {knownShare} ਮਿਲਿਆ। ਸ਼ੁਰੂਆਤੀ ਪੂੰਜੀ ਕੱਢੋ।",
+      "{partnerB} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। {partnerA} ਨੇ ਅਣਜਾਣ ਪੂੰਜੀ ਨਾਲ ਸ਼ੁਰੂ ਕਰਕੇ {changeMonthA} ਬਾਅਦ {addedCapitalA} ਜੋੜੇ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚ ਉਸਦਾ ਹਿੱਸਾ {knownShare} ਸੀ। ਸ਼ੁਰੂ ਦੀ ਪੂੰਜੀ ਕਿੰਨੀ ਸੀ?"
+    ],
+    "PRT-QL-060": [
+      "{partnerA}, {partnerB}, {partnerC} ਨੇ ਇੱਕ {business} ਵਿੱਚ {capitalA}, {capitalB}, {capitalC} ਲਗਾਏ ਅਤੇ ਮੁਨਾਫ਼ਾ {profitRatioA}:{profitRatioB}:{profitRatioC} ਵਿੱਚ ਵੰਡਿਆ। ਨਿਵੇਸ਼ ਮਿਆਦਾਂ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA}, {partnerB}, {partnerC} ਦੀ ਪੂੰਜੀ {capitalA}, {capitalB}, {capitalC} ਸੀ ਅਤੇ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB}:{profitRatioC} ਰਿਹਾ। ਨਿਵੇਸ਼ ਸਮੇਂ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-061": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA}, {capitalB} ਲਗਾਏ। ਬਾਕੀ ਮੁਨਾਫ਼ਾ ਵੰਡਣ ਤੋਂ ਪਹਿਲਾਂ {partnerA} ਨੂੰ ਸਕਲ ਮੁਨਾਫ਼ੇ ਦਾ ਅਣਜਾਣ ਪ੍ਰਤੀਸ਼ਤ ਕਮਿਸ਼ਨ ਮਿਲਦਾ ਹੈ। ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਅਤੇ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ {finalReceipt} ਹੋਣ ਤੇ ਕਮਿਸ਼ਨ ਪ੍ਰਤੀਸ਼ਤ ਕੱਢੋ।",
+      "{partnerA} ਅਤੇ {partnerB} ਦੀ ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਦੀ ਪੂੰਜੀ {capitalA}, {capitalB} ਸੀ। {partnerA} ਨੂੰ ਪਹਿਲਾਂ ਅਣਜਾਣ ਦਰ ਨਾਲ ਸਕਲ-ਮੁਨਾਫ਼ਾ ਕਮਿਸ਼ਨ ਮਿਲਦਾ ਹੈ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਅਤੇ {partnerA} ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ {finalReceipt} ਤੋਂ ਕਮਿਸ਼ਨ ਪ੍ਰਤੀਸ਼ਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-062": [
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA}, {capitalB} ਲਗਾਏ। ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚੋਂ ਅਣਜਾਣ ਨਿਸ਼ਚਿਤ ਰਕਮ ਘਟਾਈ ਗਈ। ਜੇ {partnerB} ਦਾ ਹਿੱਸਾ {knownShare} ਸੀ, ਤਾਂ ਕਟੌਤੀ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਦਾ ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਸੀ। {partnerA}, {partnerB} ਦੀ ਇੱਕੋ ਮਿਆਦ ਦੀ ਪੂੰਜੀ {capitalA}, {capitalB} ਸੀ। ਅਣਜਾਣ ਨਿਸ਼ਚਿਤ ਕਟੌਤੀ ਤੋਂ ਬਾਅਦ {partnerB} ਨੂੰ {knownShare} ਮਿਲਿਆ। ਕਿੰਨੀ ਰਕਮ ਘਟਾਈ ਗਈ?"
+    ],
+    "PRT-QL-063": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੂੰ ਪਹਿਲਾਂ {salary} ਤਨਖਾਹ ਮਿਲੀ; ਬਾਕੀ ਮੁਨਾਫ਼ਾ {partnerA} ਅਤੇ {partnerB} ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀਆਂ {finalReceiptA} ਅਤੇ {finalReceiptB} ਸਨ। ਬਾਕੀ ਮੁਨਾਫ਼ਾ ਕਿਸ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ?",
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਦਾ ਬਾਕੀ ਮੁਨਾਫ਼ਾ ਵੰਡਿਆ, ਜਦਕਿ {partnerA} ਪਹਿਲਾਂ {salary} ਤਨਖਾਹ ਲੈ ਚੁੱਕਾ ਸੀ। ਅੰਤਿਮ ਪ੍ਰਾਪਤੀਆਂ {finalReceiptA}, {finalReceiptB} ਸਨ। ਮੂਲ ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-064": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਦੀ ਇੱਕੋ ਮਿਆਦ ਦੀ ਪੂੰਜੀ {capitalA}, {capitalB} ਸੀ। ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੈ। ਦੋਵਾਂ ਦੀਆਂ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀਆਂ ਬਰਾਬਰ ਕਰਨ ਲਈ {partnerA} ਨੂੰ ਪਹਿਲਾਂ ਕਿੰਨੀ ਨਿਸ਼ਚਿਤ ਤਨਖਾਹ ਮਿਲਣੀ ਚਾਹੀਦੀ ਹੈ?",
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਇੱਕੋ ਸਮੇਂ ਲਈ {capitalA}, {capitalB} ਲਗਾਏ। ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ {partnerA} ਨੂੰ ਕਿੰਨੀ ਤਨਖਾਹ ਪਹਿਲਾਂ ਦਿੱਤੀ ਜਾਵੇ ਤਾਂ ਦੋਵਾਂ ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ ਬਰਾਬਰ ਹੋਵੇ?"
+    ],
+    "PRT-QL-065": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਦੀ ਪੂੰਜੀ {initialCapitalA} ਤੋਂ {changeMonthA} ਬਾਅਦ {finalCapitalA} ਹੋਈ। {partnerB} {joinAfterB} ਬਾਅਦ ਅਣਜਾਣ ਪੂੰਜੀ ਨਾਲ ਆਇਆ। {partnerA} ਨੂੰ ਪਹਿਲਾਂ {salary} ਤਨਖਾਹ ਮਿਲੀ। ਅੰਤਿਮ ਪ੍ਰਾਪਤੀਆਂ {finalReceiptA}, {finalReceiptB} ਹੋਣ ਤੇ {partnerB} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕਰਕੇ {changeMonthA} ਬਾਅਦ {finalCapitalA} ਕੀਤਾ ਅਤੇ {salary} ਤਨਖਾਹ ਲੈਂਦਾ ਹੈ। {partnerB} {joinAfterB} ਬਾਅਦ ਅਣਜਾਣ ਨਿਵੇਸ਼ ਨਾਲ ਜੁੜਿਆ। ਅੰਤਿਮ ਪ੍ਰਾਪਤੀਆਂ {finalReceiptA}, {finalReceiptB} ਸਨ। {partnerB} ਨੇ ਕਿੰਨਾ ਲਗਾਇਆ?"
+    ],
+    "PRT-QL-066": [
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਲਈ ਨਿਵੇਸ਼ ਕੀਤਾ। {partnerB} ਦੀ ਪੂੰਜੀ {capitalB} ਸੀ ਅਤੇ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ। {partnerA} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਵਿੱਚ {partnerB} ਨੇ {capitalB} ਉਤਨੀ ਹੀ ਮਿਆਦ ਲਈ ਲਗਾਇਆ ਜਿੰਨੀ {partnerA} ਨੇ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਹੋਣ ਤੇ {partnerA} ਦਾ ਨਿਵੇਸ਼ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-067": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} {durationA} ਅਤੇ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ ਲਗਾਏ। ਜੇ {partnerA} ਨੂੰ {knownShare} ਮਿਲਿਆ, ਤਾਂ ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਦਾ ਹਿੱਸਾ {knownShare} ਸੀ। {partnerA} ਨੇ {capitalA} {durationA} ਅਤੇ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ ਲਗਾਏ ਸਨ। ਪੂਰਾ ਮੁਨਾਫ਼ਾ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-068": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ ਅਤੇ {partnerB} ਬਾਅਦ ਵਿੱਚ {capitalB} ਨਾਲ ਜੁੜਿਆ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚ {partnerB} ਨੂੰ {knownShare} ਮਿਲਿਆ। ਉਹ ਕਿੰਨੇ ਮਹੀਨੇ ਬਾਅਦ ਸ਼ਾਮਲ ਹੋਇਆ?",
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ। {partnerB} ਬਾਅਦ ਵਿੱਚ {capitalB} ਨਾਲ ਆਇਆ। ਜੇ ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਅਤੇ {partnerB} ਦਾ ਹਿੱਸਾ {knownShare} ਸੀ, ਤਾਂ ਸ਼ਾਮਲ ਹੋਣ ਦਾ ਸਮਾਂ ਕੱਢੋ।"
+    ],
+    "PRT-QL-069": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂ ਕਰਕੇ {changeMonthA} ਬਾਅਦ ਅਣਜਾਣ ਰਕਮ ਕੱਢੀ; {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ। ਕੱਢੀ ਗਈ ਪੂੰਜੀ ਕੱਢੋ।",
+      "{partnerB} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂ ਕਰਕੇ {changeMonthA} ਬਾਅਦ ਪੂੰਜੀ ਘਟਾਈ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਹੋਣ ਤੇ {partnerA} ਨੇ ਕਿੰਨਾ ਕੱਢਿਆ?"
+    ],
+    "PRT-QL-070": [
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA}, {partnerB}, {partnerC} ਨੇ {capitalA}, {capitalB}, {capitalC} ਨੂੰ {durationA}, {durationB}, {durationC} ਲਈ ਲਗਾਇਆ। {partnerA} ਅਤੇ {partnerB} ਦੇ ਮੁਨਾਫ਼ੇ ਦੇ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ {shareDifference} ਸੀ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} {durationA}, {partnerB} ਨੇ {capitalB} {durationB}, ਅਤੇ {partnerC} ਨੇ {capitalC} {durationC} ਲਈ ਲਗਾਏ। ਜੇ ਪਹਿਲੇ ਦੋ ਦੇ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ {shareDifference} ਸੀ, ਤਾਂ ਪੂਰਾ ਮੁਨਾਫ਼ਾ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-071": [
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA}, {capitalB} ਲਗਾਏ। ਜੇ {partnerA} ਨੂੰ {knownShare} ਮਿਲਿਆ, ਤਾਂ {partnerB} ਦਾ ਮੁਨਾਫ਼ਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "{business} ਵਿੱਚ {partnerA}, {partnerB} ਦੀ ਇੱਕੋ ਮਿਆਦ ਦੀ ਪੂੰਜੀ {capitalA}, {capitalB} ਸੀ। {partnerA} ਦਾ ਮੁਨਾਫ਼ਾ {knownShare} ਸੀ। {partnerB} ਨੂੰ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ],
+    "PRT-QL-072": [
+      "{business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕੋ ਸਮੇਂ ਲਈ ਨਿਵੇਸ਼ ਕੀਤਾ ਅਤੇ {shareA}, {shareB} ਮੁਨਾਫ਼ੇ ਪ੍ਰਾਪਤ ਕੀਤੇ। ਪੂੰਜੀ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "{partnerA} ਅਤੇ {partnerB} ਦੀ ਨਿਵੇਸ਼ ਮਿਆਦ {business} ਵਿੱਚ ਇੱਕੋ ਸੀ। ਉਨ੍ਹਾਂ ਦੇ ਮੁਨਾਫ਼ੇ ਦੇ ਹਿੱਸੇ {shareA} ਅਤੇ {shareB} ਸਨ। ਪੂੰਜੀ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-073": [
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA}, {capitalB} ਲਗਾਏ। ਕੁੱਲ ਨੁਕਸਾਨ {totalLoss} ਹੋਇਆ। {targetPartner} ਨੂੰ ਕਿੰਨਾ ਨੁਕਸਾਨ ਝੱਲਣਾ ਚਾਹੀਦਾ ਹੈ?",
+      "{business} ਵਿੱਚ {partnerA}, {partnerB} ਨੇ {capitalA}, {capitalB} ਇੱਕੋ ਸਮੇਂ ਲਈ ਲਗਾਏ। ਜੇ ਕੁੱਲ ਨੁਕਸਾਨ {totalLoss} ਸੀ, ਤਾਂ {targetPartner} ਦਾ ਨੁਕਸਾਨ ਹਿੱਸਾ ਕੱਢੋ।"
+    ],
+    "PRT-QL-074": [
+      "{business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਦੀ ਕੁੱਲ ਪੂੰਜੀ {totalCapital} ਸੀ ਅਤੇ ਮਿਆਦ ਇੱਕੋ ਸੀ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ। {partnerA} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ {business} ਵਿੱਚ ਕੁੱਲ {totalCapital} ਇੱਕੋ ਮਿਆਦ ਲਈ ਲਗਾਏ ਅਤੇ ਮੁਨਾਫ਼ਾ {profitRatioA}:{profitRatioB} ਵਿੱਚ ਵੰਡਿਆ। {partnerA} ਦਾ ਨਿਵੇਸ਼ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-075": [
+      "{business} ਵਿੱਚ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ ਲਗਾਇਆ। {partnerA} ਨੇ ਅਣਜਾਣ ਪੂੰਜੀ {durationA} ਲਈ ਲਗਾਈ। ਦੋਵਾਂ ਨੂੰ ਇੱਕੋ ਮੁਨਾਫ਼ਾ ਮਿਲਿਆ। {partnerA} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+      "{partnerA} ਨੇ {durationA} ਅਤੇ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ {business} ਵਿੱਚ ਨਿਵੇਸ਼ ਕੀਤਾ। ਮੁਨਾਫ਼ਾ ਬਰਾਬਰ ਹੋਣ ਤੇ {partnerA} ਦੀ ਅਣਜਾਣ ਪੂੰਜੀ ਕੱਢੋ।"
+    ],
+    "PRT-QL-076": [
+      "{business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} ਅਣਜਾਣ ਸਮੇਂ ਲਈ, ਜਦਕਿ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ ਲਗਾਇਆ। ਦੋਵਾਂ ਦਾ ਮੁਨਾਫ਼ਾ ਬਰਾਬਰ ਸੀ। {partnerA} ਦੀ ਮਿਆਦ ਕੱਢੋ।",
+      "{partnerB} ਨੇ {business} ਵਿੱਚ {capitalB} {durationB} ਲਈ ਲਗਾਏ। {partnerA} ਨੇ {capitalA} ਕੁਝ ਸਮੇਂ ਲਈ ਲਗਾਏ। ਇੱਕੋ ਮੁਨਾਫ਼ਾ ਹੋਣ ਤੇ {partnerA} ਨੇ ਕਿੰਨੀ ਮਿਆਦ ਲਈ ਨਿਵੇਸ਼ ਕੀਤਾ?"
+    ],
+    "PRT-QL-077": [
+      "{partnerA} ਨੇ {business} ਵਿੱਚ {capitalA} {durationA} ਅਤੇ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ ਲਗਾਏ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚ ਦੋਵਾਂ ਦੇ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ ਕੱਢੋ।",
+      "{business} ਵਿੱਚ ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਸੀ। {partnerA} ਦਾ ਨਿਵੇਸ਼ {capitalA} {durationA} ਅਤੇ {partnerB} ਦਾ {capitalB} {durationB} ਲਈ ਸੀ। ਉਨ੍ਹਾਂ ਦੇ ਮੁਨਾਫ਼ੇ ਦੇ ਹਿੱਸੇ ਕਿੰਨੇ ਨਾਲ ਵੱਖ ਸਨ?"
+    ],
+    "PRT-QL-078": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ ਅਤੇ {leaveAfterA} ਬਾਅਦ ਬਾਹਰ ਹੋ ਗਿਆ; {partnerB} ਨੇ ਪੂਰਾ ਸਾਲ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "{partnerB} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। {partnerA} ਨੇ {capitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਪਰ {leaveAfterA} ਬਾਅਦ ਚਲਾ ਗਿਆ। ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-079": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ ਅਤੇ {partnerB} {joinAfterB} ਬਾਅਦ {capitalB} ਨਾਲ ਜੁੜਿਆ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ {targetPartner} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ; {partnerB} {joinAfterB} ਬਾਅਦ {capitalB} ਨਾਲ ਆਇਆ। ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚ {targetPartner} ਨੂੰ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ],
+    "PRT-QL-080": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਅਣਜਾਣ ਪੂੰਜੀ ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਅਤੇ {leaveAfterA} ਬਾਅਦ ਬਾਹਰ ਹੋ ਗਿਆ; {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ। {partnerA} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+      "{partnerB} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। {partnerA} ਨੇ ਅਣਜਾਣ ਪੂੰਜੀ ਲਗਾਈ ਪਰ {leaveAfterA} ਬਾਅਦ ਚਲਾ ਗਿਆ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਹੋਣ ਤੇ ਉਸਦਾ ਨਿਵੇਸ਼ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-081": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA}, {partnerB} ਨੇ {joinAfterB} ਬਾਅਦ {capitalB}, ਅਤੇ {partnerC} ਨੇ {joinAfterC} ਬਾਅਦ {capitalC} ਲਗਾਏ। ਜੇ {targetPartner} ਨੂੰ {knownShare} ਮਿਲਿਆ, ਤਾਂ ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਲੜੀਵਾਰ ਨਿਵੇਸ਼ ਸਨ: {partnerA}—{capitalA} ਸ਼ੁਰੂ ਤੋਂ, {partnerB}—{capitalB} {joinAfterB} ਬਾਅਦ, ਅਤੇ {partnerC}—{capitalC} {joinAfterC} ਬਾਅਦ। {targetPartner} ਦਾ ਹਿੱਸਾ {knownShare} ਹੋਣ ਤੇ ਪੂਰਾ ਮੁਨਾਫ਼ਾ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-082": [
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕਰਕੇ {changeMonthA} ਬਾਅਦ {percentageDecreaseA}% ਘਟਾਇਆ; {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਦੀ ਪੂੰਜੀ ਪਹਿਲਾਂ {initialCapitalA} ਸੀ ਅਤੇ {changeMonthA} ਬਾਅਦ {percentageDecreaseA}% ਘੱਟ ਹੋਈ। {partnerB} ਨੇ {capitalB} ਬਣਾਏ ਰੱਖੇ। ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-083": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ {fractionalChangeA}; {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {initialCapitalA} ਲਗਾਏ, ਫਿਰ {changeMonthA} ਬਾਅਦ {fractionalChangeA}। {partnerB} ਨੇ ਪੂਰਾ ਸਾਲ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-084": [
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂ ਕਰਕੇ ਬਾਅਦ ਵਿੱਚ {finalCapitalA} ਕੀਤਾ; {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚ {partnerA} ਨੂੰ {knownShare} ਮਿਲਿਆ। ਤਬਦੀਲੀ ਕਿੰਨੇ ਮਹੀਨੇ ਬਾਅਦ ਹੋਈ?",
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਦੀ ਪੂੰਜੀ {initialCapitalA} ਤੋਂ {finalCapitalA} ਅਣਜਾਣ ਸਮੇਂ ਤੇ ਬਦਲੀ, ਜਦਕਿ {partnerB} ਨੇ {capitalB} ਲਗਾਏ ਰੱਖੇ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਅਤੇ {partnerA} ਦਾ ਹਿੱਸਾ {knownShare} ਹੋਣ ਤੇ ਤਬਦੀਲੀ ਦਾ ਸਮਾਂ ਕੱਢੋ।"
+    ],
+    "PRT-QL-085": [
+      "{business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕੋ ਮਿਆਦ ਲਈ ਨਿਵੇਸ਼ ਕੀਤਾ ਅਤੇ ਮੁਨਾਫ਼ੇ ਦੇ ਹਿੱਸੇ {shareA}, {shareB} ਮਿਲੇ। ਜੇ {partnerB} ਦੀ ਪੂੰਜੀ {capitalB} ਸੀ, ਤਾਂ {partnerA} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+      "{partnerA} ਅਤੇ {partnerB} ਦੀ ਨਿਵੇਸ਼ ਮਿਆਦ {business} ਵਿੱਚ ਇੱਕੋ ਸੀ। ਉਨ੍ਹਾਂ ਦੇ ਮੁਨਾਫ਼ੇ ਦੇ ਹਿੱਸੇ {shareA}, {shareB} ਅਤੇ {partnerB} ਦੀ ਪੂੰਜੀ {capitalB} ਸੀ। {partnerA} ਨੇ ਕਿੰਨਾ ਲਗਾਇਆ?"
+    ],
+    "PRT-QL-086": [
+      "{partnerA} ਨੇ {capitalA} {durationA} ਅਤੇ {partnerB} ਨੇ {capitalB} {durationB} ਲਈ {business} ਵਿੱਚ ਲਗਾਏ। ਜੇ {partnerA} ਨੂੰ {knownShare} ਮਿਲਿਆ, ਤਾਂ {partnerB} ਦਾ ਮੁਨਾਫ਼ਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "{business} ਵਿੱਚ {partnerA} ਦੀ ਪੂੰਜੀ {capitalA} {durationA} ਅਤੇ {partnerB} ਦੀ {capitalB} {durationB} ਲਈ ਸੀ। {partnerA} ਦਾ ਹਿੱਸਾ {knownShare} ਹੋਣ ਤੇ {partnerB} ਨੂੰ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ],
+    "PRT-QL-087": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਪੂਰਾ ਸਾਲ {capitalA} ਲਗਾਏ; {partnerB} ਨੇ {capitalB} ਲਗਾਏ ਪਰ ਜਲਦੀ ਬਾਹਰ ਹੋ ਗਿਆ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਅਤੇ {partnerB} ਦਾ ਹਿੱਸਾ {knownShare} ਸੀ। ਉਹ ਕਿੰਨੇ ਮਹੀਨੇ ਬਾਅਦ ਗਿਆ?",
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਪੂਰੇ ਸਮੇਂ {capitalA} ਲਗਾਏ। {partnerB} ਨੇ {capitalB} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਅਤੇ ਸਾਲ ਦੇ ਅੰਤ ਤੋਂ ਪਹਿਲਾਂ ਚਲਾ ਗਿਆ। ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚ ਉਸਦਾ ਹਿੱਸਾ {knownShare} ਸੀ। ਬਾਹਰ ਜਾਣ ਦਾ ਸਮਾਂ ਕੱਢੋ।"
+    ],
+    "PRT-QL-088": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ ਅਤੇ {partnerB} ਬਾਅਦ ਵਿੱਚ {capitalB} ਨਾਲ ਜੁੜਿਆ। ਦੋਵਾਂ ਨੂੰ ਬਰਾਬਰ ਮੁਨਾਫ਼ਾ ਮਿਲਿਆ। {partnerB} ਕਿੰਨੇ ਮਹੀਨੇ ਬਾਅਦ ਸ਼ਾਮਲ ਹੋਇਆ?",
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਪੂਰੇ ਸਮੇਂ {capitalA} ਲਗਾਏ; {partnerB} ਬਾਅਦ ਵਿੱਚ {capitalB} ਨਾਲ ਆਇਆ। ਇੱਕੋ ਮੁਨਾਫ਼ਾ ਹੋਣ ਤੇ {partnerB} ਦੇ ਸ਼ਾਮਲ ਹੋਣ ਦਾ ਸਮਾਂ ਕੱਢੋ।"
+    ],
+    "PRT-QL-089": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} ਨਾਲ ਸ਼ੁਰੂ ਕਰਕੇ ਸਾਲ ਦੇ ਅੰਤ ਤੋਂ ਪਹਿਲਾਂ ਬਾਹਰ ਹੋ ਗਿਆ, ਜਦਕਿ {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। ਦੋਵਾਂ ਨੂੰ ਇੱਕੋ ਮੁਨਾਫ਼ਾ ਮਿਲਿਆ। {partnerA} ਕਦੋਂ ਬਾਹਰ ਹੋਇਆ?",
+      "{partnerB} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ ਪਰ ਜਲਦੀ ਚਲਾ ਗਿਆ। ਬਰਾਬਰ ਮੁਨਾਫ਼ਾ ਹੋਣ ਤੇ {partnerA} ਕਿੰਨੇ ਮਹੀਨੇ ਬਾਅਦ ਬਾਹਰ ਹੋਇਆ?"
+    ],
+    "PRT-QL-090": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA}, {partnerB} ਨੇ {joinAfterB} ਬਾਅਦ {capitalB}, ਅਤੇ {partnerC} ਨੇ {joinAfterC} ਬਾਅਦ {capitalC} ਲਗਾਏ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਦੇ ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ ਕੱਢੋ।",
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA}—{capitalA} ਸ਼ੁਰੂ ਤੋਂ, {partnerB}—{capitalB} {joinAfterB} ਬਾਅਦ, ਅਤੇ {partnerC}—{capitalC} {joinAfterC} ਬਾਅਦ ਜੁੜੇ। ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ {partnerA} ਅਤੇ {partnerB} ਦੇ ਹਿੱਸਿਆਂ ਵਿੱਚ ਕਿੰਨਾ ਫਰਕ ਸੀ?"
+    ],
+    "PRT-QL-091": [
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ {withdrawnCapital} ਕੱਢ ਲਏ; {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਦੀ ਸ਼ੁਰੂਆਤੀ ਪੂੰਜੀ {initialCapitalA} ਸੀ, ਜਿਸ ਵਿੱਚੋਂ {changeMonthA} ਬਾਅਦ {withdrawnCapital} ਕੱਢੇ ਗਏ। {partnerB} ਨੇ {capitalB} ਬਣਾਏ ਰੱਖੇ। ਮੁਨਾਫ਼ਾ-ਵੰਡ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-092": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂ ਕਰਕੇ {changeMonthA} ਬਾਅਦ {addedCapital} ਜੋੜੇ; {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚ {partnerA} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "{partnerB} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂ ਕਰਕੇ {changeMonthA} ਬਾਅਦ {addedCapital} ਜੋੜੇ। ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ {partnerA} ਨੂੰ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ],
+    "PRT-QL-093": [
+      "{partnerA} ਨੇ ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ; {changeMonthA} ਬਾਅਦ ਪੂੰਜੀ ਅਣਜਾਣ ਨਵੀਂ ਰਕਮ ਵਿੱਚ ਬਦਲੀ। {partnerB} ਨੇ ਪੂਰੇ ਸਮੇਂ {capitalB} ਲਗਾਏ। ਬਰਾਬਰ ਮੁਨਾਫ਼ੇ ਲਈ {partnerA} ਦੀ ਨਵੀਂ ਪੂੰਜੀ ਕਿੰਨੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ?",
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerB} ਨੇ {capitalB} ਬਣਾਏ ਰੱਖੇ। {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂ ਕਰਕੇ {changeMonthA} ਬਾਅਦ ਪੂੰਜੀ ਬਦਲੀ। ਦੋਵਾਂ ਨੂੰ ਇੱਕੋ ਮੁਨਾਫ਼ਾ ਦੇਣ ਵਾਲੀ ਨਵੀਂ ਪੂੰਜੀ ਕੱਢੋ।"
+    ],
+    "PRT-QL-094": [
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਦੀ ਪੂੰਜੀ {initialCapitalA} ਤੋਂ {changeMonthA} ਬਾਅਦ {finalCapitalA} ਅਤੇ {partnerB} ਦੀ {initialCapitalB} ਤੋਂ {changeMonthB} ਬਾਅਦ {finalCapitalB} ਹੋਈ। ਪ੍ਰਭਾਵੀ ਪੂੰਜੀ-ਸਮਾਂ ਅਨੁਪਾਤ ਕੱਢੋ।",
+      "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA}, ਫਿਰ {changeMonthA} ਬਾਅਦ {finalCapitalA}; {partnerB} ਨੇ {initialCapitalB}, ਫਿਰ {changeMonthB} ਬਾਅਦ {finalCapitalB} ਲਗਾਇਆ। ਪ੍ਰਭਾਵੀ ਯੋਗਦਾਨਾਂ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।"
+    ],
+    "PRT-QL-095": [
+      "{business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} {durationA} ਲਈ ਲਗਾਇਆ। {partnerB} ਨੇ {capitalB} ਉਸ ਤੋਂ ਦੋਗੁਣੀ ਮਿਆਦ ਅਤੇ {partnerC} ਨੇ {capitalC} ਡੇਢ ਗੁਣੀ ਮਿਆਦ ਲਈ ਲਗਾਇਆ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚ {targetPartner} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} {durationA} ਲਈ, {partnerB} ਨੇ {capitalB} {partnerA} ਦੀ ਮਿਆਦ ਤੋਂ ਦੋਗੁਣੇ ਸਮੇਂ ਅਤੇ {partnerC} ਨੇ {capitalC} ਡੇਢ ਗੁਣੇ ਸਮੇਂ ਲਈ ਲਗਾਏ। ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ {targetPartner} ਨੂੰ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ],
+    "PRT-QL-096": [
+      "{business} ਵਿੱਚ {partnerA}, {partnerB}, {partnerC} ਨੇ {capitalA} {durationA}, {capitalB} {durationB}, {capitalC} {durationC} ਲਈ ਲਗਾਏ। {partnerC} ਦਾ ਪ੍ਰਭਾਵੀ ਯੋਗਦਾਨ ਪਹਿਲੇ ਦੋ ਦੇ ਮਿਲੇ ਯੋਗਦਾਨ ਦੇ ਬਰਾਬਰ ਹੈ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚ {partnerC} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} {durationA}, {partnerB} ਨੇ {capitalB} {durationB}, ਅਤੇ {partnerC} ਨੇ {capitalC} {durationC} ਲਈ ਲਗਾਇਆ। ਕਿਉਂਕਿ {partnerC} ਦਾ ਪੂੰਜੀ-ਸਮਾਂ ਯੋਗਦਾਨ ਪਹਿਲੇ ਦੋ ਦੇ ਜੋੜ ਦੇ ਬਰਾਬਰ ਹੈ, {totalProfit} ਵਿੱਚ ਉਸਦਾ ਹਿੱਸਾ ਕੱਢੋ।"
+    ],
+    "PRT-QL-097": [
+      "{business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} {durationA}, {partnerB} ਨੇ {capitalB} {durationB}, ਅਤੇ {partnerC} ਨੇ ਅਣਜਾਣ ਪੂੰਜੀ {durationC} ਲਈ ਲਗਾਈ। ਤਿੰਨਾਂ ਨੂੰ ਬਰਾਬਰ ਮੁਨਾਫ਼ਾ ਮਿਲਿਆ। {partnerC} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+      "{partnerA}, {partnerB}, {partnerC} ਨੂੰ {business} ਵਿੱਚ ਇੱਕੋ ਮੁਨਾਫ਼ਾ ਮਿਲਿਆ। ਨਿਵੇਸ਼ ਕ੍ਰਮਵਾਰ {capitalA} {durationA}, {capitalB} {durationB}, ਅਤੇ ਅਣਜਾਣ ਪੂੰਜੀ {durationC} ਲਈ ਸੀ। {partnerC} ਦੀ ਪੂੰਜੀ ਕਿੰਨੀ ਸੀ?"
+    ],
+    "PRT-QL-098": [
+      "{business} ਵਿੱਚ {partnerA} ਨੇ {capitalA} {durationA}, {partnerB} ਨੇ {capitalB} {durationB}, ਅਤੇ {partnerC} ਨੇ {capitalC} ਅਣਜਾਣ ਮਿਆਦ ਲਈ ਲਗਾਏ। ਤਿੰਨਾਂ ਨੂੰ ਬਰਾਬਰ ਮੁਨਾਫ਼ਾ ਮਿਲਿਆ। {partnerC} ਦੀ ਮਿਆਦ ਕੱਢੋ।",
+      "{partnerA}, {partnerB}, {partnerC} ਨੇ {business} ਵਿੱਚ ਇੱਕੋ ਮੁਨਾਫ਼ਾ ਵੰਡਿਆ। ਪਹਿਲੇ ਦੋ ਦਾ ਨਿਵੇਸ਼ {capitalA} {durationA}, {capitalB} {durationB} ਸੀ; {partnerC} ਨੇ {capitalC} ਕੁਝ ਸਮੇਂ ਲਈ ਲਗਾਇਆ। ਉਹ ਮਿਆਦ ਕਿੰਨੀ ਸੀ?"
+    ],
+    "PRT-QL-099": [
+      "{business} ਵਿੱਚ ਸਰਗਰਮ ਭਾਗੀਦਾਰ {partnerA} ਅਤੇ ਸੁੱਤਾ ਭਾਗੀਦਾਰ {partnerB} ਨੇ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA}, {capitalB} ਲਗਾਏ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚ {partnerA} ਨੂੰ ਪਹਿਲਾਂ {salary} ਤਨਖਾਹ ਮਿਲੀ ਅਤੇ ਬਾਕੀ ਪੂੰਜੀ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ। {partnerB} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "{partnerA} {business} ਵਿੱਚ ਸਰਗਰਮ ਅਤੇ {partnerB} ਸੁੱਤਾ ਭਾਗੀਦਾਰ ਸੀ, ਜਿਨ੍ਹਾਂ ਦੀ ਇੱਕੋ ਮਿਆਦ ਦੀ ਪੂੰਜੀ {capitalA}, {capitalB} ਸੀ। {totalProfit} ਵਿੱਚੋਂ {partnerA} ਨੂੰ {salary} ਤਨਖਾਹ ਦੇਣ ਤੋਂ ਬਾਅਦ ਬਾਕੀ ਪੂੰਜੀ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ। {partnerB} ਨੂੰ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ],
+    "PRT-QL-100": [
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA}, {capitalB} ਲਗਾਏ। {partnerA} ਨੂੰ ਪਹਿਲਾਂ {allowance} ਪ੍ਰਬੰਧਕੀ ਭੱਤਾ ਮਿਲਿਆ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ ਬਾਕੀ ਵਿੱਚ {partnerB} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਨੇ {totalProfit} ਕਮਾਇਆ। {partnerA}, {partnerB} ਦੀ ਇੱਕੋ ਮਿਆਦ ਦੀ ਪੂੰਜੀ {capitalA}, {capitalB} ਸੀ। ਵੰਡ ਤੋਂ ਪਹਿਲਾਂ {partnerA} ਨੂੰ {allowance} ਨਿਸ਼ਚਿਤ ਭੱਤਾ ਦਿੱਤਾ ਗਿਆ। {partnerB} ਨੂੰ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ],
+    "PRT-QL-101": [
+      "{business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA}, {capitalB} ਲਗਾਏ। ਸਰਗਰਮ ਭਾਗੀਦਾਰ {partnerA} ਨੂੰ ਪਹਿਲਾਂ ਸਕਲ ਮੁਨਾਫ਼ੇ ਦਾ {commissionPercent}% ਕਮਿਸ਼ਨ ਮਿਲਦਾ ਹੈ। ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਹੋਣ ਤੇ ਬਾਕੀ ਨੂੰ ਪੂੰਜੀ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡ ਕੇ {partnerA} ਦੀ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀ ਕੱਢੋ।",
+      "{partnerA}, ਸਰਗਰਮ ਭਾਗੀਦਾਰ, ਅਤੇ {partnerB} ਨੇ {business} ਵਿੱਚ ਇੱਕੋ ਸਮੇਂ ਲਈ {capitalA}, {capitalB} ਲਗਾਏ। {totalProfit} ਸਕਲ ਮੁਨਾਫ਼ੇ ਵਿੱਚ {partnerA} ਨੂੰ ਪਹਿਲਾਂ {commissionPercent}% ਕਮਿਸ਼ਨ ਮਿਲਦਾ ਹੈ ਅਤੇ ਫਿਰ ਬਾਕੀ ਪੂੰਜੀ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਦਾ ਹੈ। {partnerA} ਨੂੰ ਕੁੱਲ ਕਿੰਨਾ ਮਿਲੇਗਾ?"
+    ],
+    "PRT-QL-102": [
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA}, {capitalB} ਲਗਾਏ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚੋਂ {reserve} ਰਿਜ਼ਰਵ ਰੱਖ ਕੇ ਬਾਕੀ ਪੂੰਜੀ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ। {targetPartner} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਨੇ {totalProfit} ਕਮਾਇਆ। {reserve} ਰਿਜ਼ਰਵ ਰੱਖਣ ਤੋਂ ਬਾਅਦ ਬਾਕੀ ਰਕਮ {capitalA}, {capitalB} ਇੱਕੋ ਮਿਆਦ ਲਈ ਲਗਾਉਣ ਵਾਲੇ {partnerA}, {partnerB} ਵਿੱਚ ਪੂੰਜੀ ਅਨੁਪਾਤ ਨਾਲ ਵੰਡੀ ਗਈ। {targetPartner} ਨੂੰ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ],
+    "PRT-QL-103": [
+      "{business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA}, {capitalB} ਲਗਾਏ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਵਿੱਚੋਂ {expense} ਕਾਰੋਬਾਰੀ ਖਰਚ ਪਹਿਲਾਂ ਘਟਾਇਆ ਗਿਆ। ਬਾਕੀ ਵਿੱਚ {targetPartner} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਨੇ {totalProfit} ਕਮਾਇਆ। ਵੰਡ ਤੋਂ ਪਹਿਲਾਂ {expense} ਖਰਚ ਘਟਾਇਆ ਗਿਆ। {partnerA}, {partnerB} ਦੀ ਇੱਕੋ ਮਿਆਦ ਦੀ ਪੂੰਜੀ {capitalA}, {capitalB} ਸੀ। ਬਾਕੀ ਮੁਨਾਫ਼ੇ ਵਿੱਚ {targetPartner} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੈ?"
+    ]
+  }
+}
