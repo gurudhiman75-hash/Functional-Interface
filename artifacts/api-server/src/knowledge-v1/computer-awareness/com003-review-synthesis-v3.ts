@@ -43,6 +43,11 @@ function lowerFirst(value: string) {
   return value ? `${value.charAt(0).toLowerCase()}${value.slice(1)}` : value;
 }
 
+function rotatedTemplateIndex(index: number, length: number) {
+  const cycle = Math.floor(index / length);
+  return (index + cycle) % length;
+}
+
 function stripExistingWindowsLead(stem: string) {
   return stem
     .replace(/^In Windows desktop (?:Excel|Word|PowerPoint|Office|context),\s*/i, "")
@@ -74,7 +79,7 @@ function curateQl004(question: Com003ReviewQuestion, index: number) {
   ];
   return {
     ...question,
-    stem: stems[index % stems.length]!,
+    stem: stems[rotatedTemplateIndex(index, stems.length)]!,
     explanation: "Microsoft Word is a word-processing application used to create and edit text documents.",
   };
 }
@@ -91,7 +96,7 @@ function curateQl007(question: Com003ReviewQuestion, index: number) {
   ];
   return {
     ...question,
-    stem: stems[index % stems.length]!,
+    stem: stems[rotatedTemplateIndex(index, stems.length)]!,
     explanation: "Mail merge combines a main document with recipient or data-source information to create personalized output.",
   };
 }
@@ -109,7 +114,7 @@ function curateQl008(question: Com003ReviewQuestion, index: number) {
       `Which Excel item is best described as ${definition}?`,
       `Select the spreadsheet term that refers to ${definition}.`,
     ];
-    return { ...question, stem: stems[index % stems.length]! };
+    return { ...question, stem: stems[rotatedTemplateIndex(index, stems.length)]! };
   }
   if (question.surfaceMode === "CELL_ADDRESS_INTERPRETATION") {
     const isRow = question.targetFactId === "com003-excel-address-row-part";
@@ -132,7 +137,7 @@ function curateQl008(question: Com003ReviewQuestion, index: number) {
         ];
     return {
       ...question,
-      stem: stems[index % stems.length]!,
+      stem: stems[rotatedTemplateIndex(index, stems.length)]!,
       explanation: isRow
         ? "In B7, 7 identifies the row number, while B identifies the column label."
         : "In B7, B identifies the column label, while 7 identifies the row number.",
@@ -163,7 +168,7 @@ function curateQl016(question: Com003ReviewQuestion, index: number) {
       ];
   return {
     ...question,
-    stem: stems[index % stems.length]!,
+    stem: stems[rotatedTemplateIndex(index, stems.length)]!,
     explanation: isSlide
       ? "A slide is an individual page or screen within a PowerPoint presentation."
       : "A PowerPoint presentation is the overall sequence or collection of slides used to present information.",
