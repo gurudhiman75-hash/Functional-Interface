@@ -124,6 +124,16 @@ export type GenerateYesterdayCurrentAffairsResult = {
   completedAt: string;
   before: { candidateCount: number; eventCount: number; verifiedEventCount: number; reviewEventCount: number };
   after: { candidateCount: number; eventCount: number; verifiedEventCount: number; reviewEventCount: number };
+  historicalSourceBackfill?: {
+    status: 'completed' | 'skipped_existing' | 'failed';
+    targetDate: string;
+    existing: number;
+    archiveEntries: number;
+    created: number;
+    updated: number;
+    displayedDate: string | null;
+    error: string | null;
+  };
   officialCandidatePreparation?: {
     targetDate: string;
     candidateExamined: number;
