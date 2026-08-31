@@ -7,10 +7,10 @@ import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
 import { CND_001_QUESTION_STUDIO_BANK_ONLY_ACTIVATION_AUTHORITY_V1 } from "../reasoning-v1/foundation/spatial/cubes-dice-question-studio-bank-activation-v1";
 import {
-  CND_001_QUESTION_STUDIO_REVIEW_ONLY_REGISTRATION_AUTHORITY_V1,
-  generateCubesDiceQuestionStudioRegisteredBatchV1,
-  type CubesDiceRegisteredQuestionV1,
-} from "../reasoning-v1/foundation/spatial/cubes-dice-question-studio-registered-runtime-v1";
+  generateCubesDiceQuestionStudioBankBatchV1,
+  type CubesDiceBankQuestionV1,
+} from "../reasoning-v1/foundation/spatial/cubes-dice-question-studio-bank-runtime-v1";
+import { CND_001_QUESTION_STUDIO_REVIEW_ONLY_REGISTRATION_AUTHORITY_V1 } from "../reasoning-v1/foundation/spatial/cubes-dice-question-studio-registered-runtime-v1";
 import type {
   CubesDiceQuestionStudioLanguageV2,
   CubesDiceQuestionStudioQlIdV2,
@@ -86,7 +86,7 @@ function publicRunCode(): string {
   return `CND-${date}-${randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase()}`;
 }
 
-function detailedSolutionText(question: CubesDiceRegisteredQuestionV1): string {
+function detailedSolutionText(question: CubesDiceBankQuestionV1): string {
   const blocks: string[] = [`Logic / Rule: ${question.solution.logicRule}`];
   for (const table of question.solution.tables) {
     blocks.push(table.title);
@@ -99,7 +99,7 @@ function detailedSolutionText(question: CubesDiceRegisteredQuestionV1): string {
   return blocks.join("\n");
 }
 
-export function buildCndQuestionBankPayloadV1(question: CubesDiceRegisteredQuestionV1) {
+export function buildCndQuestionBankPayloadV1(question: CubesDiceBankQuestionV1) {
   const stimulusImage = encodeGeneratedSpatialSvgImage(
     question.stimulusSvgs[0],
     `${question.qlId} Cubes and Dice figure`,
@@ -192,7 +192,7 @@ export function buildCndQuestionBankPayloadV1(question: CubesDiceRegisteredQuest
 }
 
 async function persistRun(
-  questions: readonly CubesDiceRegisteredQuestionV1[],
+  questions: readonly CubesDiceBankQuestionV1[],
   requestSnapshot: Record<string, unknown>,
   actorUserId: string,
 ) {
@@ -310,7 +310,7 @@ router.get(
   (req, res) => {
     try {
       const input = filters(req.query as Record<string, unknown>, 20);
-      const questions = generateCubesDiceQuestionStudioRegisteredBatchV1(input);
+      const questions = generateCubesDiceQuestionStudioBankBatchV1(input);
       res.json({
         generationSystem: "reasoning-v1",
         packageId: PACKAGE.packageId,
@@ -390,7 +390,7 @@ router.post(
     }
     try {
       const input = filters((req.body ?? {}) as Record<string, unknown>, 50);
-      const questions = generateCubesDiceQuestionStudioRegisteredBatchV1(input);
+      const questions = generateCubesDiceQuestionStudioBankBatchV1(input);
       const persisted = await persistRun(questions, {
         chapterCode: "CND-001",
         packageId: PACKAGE.packageId,
