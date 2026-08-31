@@ -23,11 +23,7 @@ export type CurrentAffairsProductionReadiness = {
     verifiedEventCount: number;
     reviewEventCount: number;
     authoringReadyCount: number;
-    familyEligible: {
-      ssc: number;
-      banking: number;
-      punjab: number;
-    };
+    familyEligible: { ssc: number; banking: number; punjab: number };
   };
   sourceCoverage: {
     scheduledPrimarySources: number;
@@ -100,6 +96,51 @@ export type CurrentAffairsProductionReadiness = {
   missingDays: Array<{ day: string; family: string }>;
 };
 
+export type DailyDiscoveryCensus = {
+  id: string;
+  targetDate: string;
+  status: 'draft' | 'review' | 'complete' | 'blocked';
+  coverageConfidenceScore: number;
+  rawCandidateCount: number;
+  distinctSourceCount: number;
+  distinctSourceFamilyCount: number;
+  officialCandidateCount: number;
+  trustedNewsCandidateCount: number;
+  specialistCandidateCount: number;
+  clusterCount: number;
+  unresolvedClusterCount: number;
+  eventCount: number;
+  verifiedEventCount: number;
+  reviewEventCount: number;
+  authoringReadyCount: number;
+  highPriorityUnresolvedCount: number;
+  domainSnapshot: {
+    sourceDomains?: Record<string, { registered: number; active: number; automated: number; fresh: number }>;
+    eventCategories?: Record<string, { events: number; verified: number }>;
+  };
+  sourceSnapshot: { sourceTiers?: Record<string, { registered: number; active: number; automated: number; fresh: number }> };
+  evidenceSnapshot: { grades?: Record<string, number> };
+  blockers: string[];
+  warnings: string[];
+  generatedAt: string;
+};
+
+export type DailyMasterPack = {
+  id: string;
+  publicCode: string;
+  contentDate: string;
+  language: string;
+  status: string;
+  eventCount: number;
+  categoryCount: number;
+  bodyMarkdown: string;
+  payload: unknown;
+  renderTargets: string[];
+  learningResourceId: string;
+  learningResourceStatus: string;
+  generatedAt: string;
+};
+
 export type CurrentAffairsRecoveryRuns = {
   runs: Array<{
     id: string;
@@ -143,6 +184,8 @@ export type GenerateYesterdayCurrentAffairsResult = {
     clusterUpdated: number;
     clusterCategories: Record<string, number>;
   };
+  discoveryCensus: DailyDiscoveryCensus;
+  dailyMasterPack: (DailyMasterPack & { created?: boolean; updated?: boolean; locked?: boolean }) | Record<string, unknown>;
   artifacts: Array<{
     family: string;
     language: string;
@@ -160,6 +203,8 @@ export type GenerateYesterdayCurrentAffairsResult = {
     localizedDraftCount: number;
     verifiedEvents: number;
     reviewEvents: number;
+    masterPackEventCount: number;
+    coverageConfidenceScore: number;
     readinessColor: 'green' | 'amber' | 'red';
     learnerReady: boolean;
     blockers: string[];
@@ -172,6 +217,20 @@ export type GenerateYesterdayCurrentAffairsResult = {
 
 export function getCurrentAffairsProductionReadiness() {
   return adminRequest<CurrentAffairsProductionReadiness>('/admin/current-affairs/production/readiness');
+}
+
+export function getCurrentAffairsDiscoveryCensus(date?: string) {
+  const suffix = date ? `?date=${encodeURIComponent(date)}` : '';
+  return adminRequest<{ targetDate: string; census: DailyDiscoveryCensus | null }>(`/admin/current-affairs/production/discovery-census${suffix}`);
+}
+
+export function getCurrentAffairsDailyMasterPack(date?: string) {
+  const suffix = date ? `?date=${encodeURIComponent(date)}` : '';
+  return adminRequest<{ targetDate: string; masterPack: DailyMasterPack | null }>(`/admin/current-affairs/production/master-pack${suffix}`);
+}
+
+export function currentAffairsDailyMasterTextPath(date: string) {
+  return `/api/admin/current-affairs/production/master-pack/text?date=${encodeURIComponent(date)}`;
 }
 
 export function getCurrentAffairsRecoveryRuns() {
