@@ -14,6 +14,9 @@ on:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-studio-*.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-com003.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - 'artifacts/admin-app/src/features/question-studio/com003-preview-api.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioCom003PreviewPanel.tsx'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx'
       - '.github/workflows/com003-review-synthesis-oneoff.yml'
   pull_request:
     branches:
@@ -28,6 +31,9 @@ on:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-studio-*.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-com003.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - 'artifacts/admin-app/src/features/question-studio/com003-preview-api.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioCom003PreviewPanel.tsx'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx'
       - '.github/workflows/com003-review-synthesis-oneoff.yml'
 
 permissions:
@@ -54,6 +60,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
       - name: Bundle COM-003 English freeze, localization and Question Studio gates
         run: |
           mkdir -p artifacts/api-server/dist/com003-review-synthesis-oneoff
@@ -74,7 +82,8 @@ jobs:
             com003-question-studio-pre-registration-audit-v1.test \
             com003-question-studio-pre-registration-freeze-v1.test \
             com003-question-studio-read-only-route-contract-v1.test \
-            com003-question-studio-read-only-preview-freeze-v1.test; do
+            com003-question-studio-read-only-preview-freeze-v1.test \
+            com003-question-studio-admin-preview-ui-contract-v1.test; do
             pnpm --dir artifacts/api-server exec esbuild \
               src/knowledge-v1/computer-awareness/${test}.ts \
               --bundle --platform=node --format=esm \
@@ -99,3 +108,4 @@ jobs:
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-pre-registration-freeze-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-read-only-route-contract-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-read-only-preview-freeze-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-admin-preview-ui-contract-v1.test.mjs
