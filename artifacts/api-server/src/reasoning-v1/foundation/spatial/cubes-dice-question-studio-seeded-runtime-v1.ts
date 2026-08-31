@@ -13,7 +13,7 @@ import {
 
 export type CubesDiceStudioLanguageV1 = "en" | CubesDiceLocalizedLanguageV1;
 export type CubesDiceStudioDifficultyV1 = "Easy" | "Medium" | "Hard";
-export type CubesDiceStudioAnswerLabelV1 = "A" | "B" | "C" | "D";
+export type CubesDiceStudioScalarOptionV1 = string | number;
 
 const QL_TO_TASK: Readonly<Record<CubesDicePermanentQlIdV1, CubesDiceCp004TaskKindV1>> = Object.freeze({
   "SPA-QL-043": "DICE_OPPOSITE_FROM_TWO_VIEWS",
@@ -25,7 +25,6 @@ const QL_TO_PROPOSAL = Object.freeze({
   "SPA-QL-044": "CND-CAN-B-CUBE-NET-FOLDING",
   "SPA-QL-045": "CND-CAN-C-PAINTED-CUBE-EXPOSURE",
 } as const);
-const OPTION_LABELS = Object.freeze(["A", "B", "C", "D"] as const);
 
 export interface CubesDiceQuestionStudioQuestionV1 {
   version: "CND-001-QUESTION-STUDIO-QUESTION-V1";
@@ -45,21 +44,25 @@ export interface CubesDiceQuestionStudioQuestionV1 {
   stemVariantId: string;
   stem: string;
   stimulusSvgs: readonly [string];
-  options: readonly [string | number, string | number, string | number, string | number];
-  optionLabels: typeof OPTION_LABELS;
+  options: readonly [CubesDiceStudioScalarOptionV1, CubesDiceStudioScalarOptionV1, CubesDiceStudioScalarOptionV1, CubesDiceStudioScalarOptionV1];
+  optionLabels: readonly [CubesDiceStudioScalarOptionV1, CubesDiceStudioScalarOptionV1, CubesDiceStudioScalarOptionV1, CubesDiceStudioScalarOptionV1];
   correctIndex: number;
-  answer: CubesDiceStudioAnswerLabelV1;
-  canonicalAnswer: string | number;
+  answer: CubesDiceStudioScalarOptionV1;
+  canonicalAnswer: CubesDiceStudioScalarOptionV1;
   explanation: Readonly<{
     whatIsGiven: string;
     howToReason: string;
     conclusion: string;
+    observation: string;
+    rule: string;
+    application: string;
+    check: string;
   }>;
   canonicalItemId: string;
   questionLanguageId: string;
   contentFingerprint: string;
   renderer: Readonly<{
-    kind: "SVG_WITH_SCALAR_OPTIONS";
+    kind: "SVG_WITH_SCALAR_OPTIONS" | "SVG_WITH_NUMERIC_OPTIONS";
     sourceKind: "SVG";
     sourceAuthority: string;
     whiteBackground: true;
@@ -80,6 +83,7 @@ export interface CubesDiceQuestionStudioQuestionV1 {
     uniqueOptions: true;
     uniqueAnswer: true;
     deterministicReplay: true;
+    nativeScalarOptionsPreserved: true;
   }>;
   lifecycle: Readonly<{
     reviewOnly: true;
@@ -101,7 +105,7 @@ export const CND_001_QUESTION_STUDIO_SEEDED_RUNTIME_AUTHORITY_V1 = Object.freeze
   chapterCode: "CND-001" as const,
   supportedLanguages: ["en", "hi", "pa"] as const,
   generationModel: "EXACT_CUBE_ROTATION_NET_FOLD_AND_COORDINATE_EXPOSURE_SOLVER" as const,
-  rendererModel: "ONE_EXAM_SVG_STIMULUS_WITH_FOUR_SCALAR_OPTIONS" as const,
+  rendererModel: "ONE_EXAM_SVG_STIMULUS_WITH_FOUR_NATIVE_SCALAR_OPTIONS" as const,
   canonicalReviewCorpusIsGenerationCeiling: false,
   status: "SEEDED_RUNTIME_IMPLEMENTED_OPERATOR_REVIEW_REQUIRED" as const,
   questionStudioDiscoverable: false,
@@ -142,25 +146,43 @@ function fingerprint(source: CubesDicePermanentEnglishQuestionV1): string {
 }
 
 function localizedSurface(source: CubesDicePermanentEnglishQuestionV1, language: CubesDiceStudioLanguageV1) {
-  if (language === "en") {
-    return {
-      qlName: source.permanentQlTitle,
-      locale: "en-IN" as const,
-      stem: source.stem,
-      explanation: source.explanation,
-    };
-  }
-  const localized = freezeCubesDiceLocalizedQuestionV1({
-    seed: source.seed,
-    taskKind: source.taskKind,
-    language,
-  });
+  const sourceSurface = language === "en"
+    ? {
+        qlName: source.permanentQlTitle,
+        locale: "en-IN" as const,
+        stem: source.stem,
+        explanation: source.explanation,
+      }
+    : (() => {
+        const localized = freezeCubesDiceLocalizedQuestionV1({
+          seed: source.seed,
+          taskKind: source.taskKind,
+          language,
+        });
+        return {
+          qlName: localized.permanentQlTitle,
+          locale: localized.locale,
+          stem: localized.stem,
+          explanation: localized.explanation,
+        };
+      })();
+
   return {
-    qlName: localized.permanentQlTitle,
-    locale: localized.locale,
-    stem: localized.stem,
-    explanation: localized.explanation,
+    qlName: sourceSurface.qlName,
+    locale: sourceSurface.locale,
+    stem: sourceSurface.stem,
+    explanation: Object.freeze({
+      ...sourceSurface.explanation,
+      observation: sourceSurface.explanation.whatIsGiven,
+      rule: sourceSurface.explanation.howToReason,
+      application: sourceSurface.explanation.howToReason,
+      check: sourceSurface.explanation.conclusion,
+    }),
   };
+}
+
+function isNumericQuestion(source: CubesDicePermanentEnglishQuestionV1): boolean {
+  return source.options.every((option) => typeof option === "number" && Number.isFinite(option));
 }
 
 export function generateCubesDiceQuestionStudioSeededV1(input: Readonly<{
@@ -186,11 +208,17 @@ export function generateCubesDiceQuestionStudioSeededV1(input: Readonly<{
     throw new Error(`${input.seed}: CND Question Studio requires one rendered SVG stimulus.`);
   }
 
+  const numeric = isNumericQuestion(source);
+  if (!numeric && !source.options.every((option) => typeof option === "string" && option.trim().length > 0)) {
+    throw new Error(`${input.seed}: CND scalar choices must be uniformly textual or numeric.`);
+  }
+
   const surface = localizedSurface(source, input.language);
   const contentFingerprint = fingerprint(source);
   const canonicalItemId = `cnd-001:${input.qlId}:${contentFingerprint}`;
   const questionLanguageId = `${canonicalItemId}:${input.language}`;
   const sourceRenderer = source.renderer;
+  const options = Object.freeze([...source.options]) as readonly [CubesDiceStudioScalarOptionV1, CubesDiceStudioScalarOptionV1, CubesDiceStudioScalarOptionV1, CubesDiceStudioScalarOptionV1];
 
   return Object.freeze({
     version: "CND-001-QUESTION-STUDIO-QUESTION-V1",
@@ -210,17 +238,17 @@ export function generateCubesDiceQuestionStudioSeededV1(input: Readonly<{
     stemVariantId: source.stemVariantId,
     stem: surface.stem,
     stimulusSvgs: Object.freeze([...source.stimulusSvgs]) as readonly [string],
-    options: Object.freeze([...source.options]) as readonly [string | number, string | number, string | number, string | number],
-    optionLabels: OPTION_LABELS,
+    options,
+    optionLabels: options,
     correctIndex: source.correctIndex,
-    answer: OPTION_LABELS[source.correctIndex]!,
+    answer: source.answer,
     canonicalAnswer: source.answer,
     explanation: surface.explanation,
     canonicalItemId,
     questionLanguageId,
     contentFingerprint,
     renderer: Object.freeze({
-      kind: "SVG_WITH_SCALAR_OPTIONS",
+      kind: numeric ? "SVG_WITH_NUMERIC_OPTIONS" as const : "SVG_WITH_SCALAR_OPTIONS" as const,
       sourceKind: sourceRenderer.kind,
       sourceAuthority: sourceRenderer.authority,
       whiteBackground: sourceRenderer.whiteBackground,
@@ -241,6 +269,7 @@ export function generateCubesDiceQuestionStudioSeededV1(input: Readonly<{
       uniqueOptions: true,
       uniqueAnswer: true,
       deterministicReplay: true,
+      nativeScalarOptionsPreserved: true,
     }),
     lifecycle: Object.freeze({
       reviewOnly: true,
