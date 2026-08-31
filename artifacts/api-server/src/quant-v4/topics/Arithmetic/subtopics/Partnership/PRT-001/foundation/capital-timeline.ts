@@ -1,4 +1,5 @@
 import {
+  ONE,
   ZERO,
   addRational,
   compareRational,
@@ -12,6 +13,8 @@ import type {
   PartnershipState,
   Rational,
 } from "./types";
+
+type EntitledPartner = Partner & { readonly profitShareMultiplier?: Rational };
 
 function validateSegment(
   segment: CapitalSegment,
@@ -68,6 +71,12 @@ function validatePartners(partners: readonly Partner[]): void {
   }
   if (new Set(ids).size !== ids.length)
     throw new Error("partnerId values must be unique");
+  for (const partner of partners as readonly EntitledPartner[]) {
+    const multiplier = partner.profitShareMultiplier ?? ONE;
+    if (compareRational(multiplier, ZERO) <= 0) {
+      throw new Error("profit-share entitlement multiplier must be positive");
+    }
+  }
 }
 
 export function buildCapitalTimeline(state: PartnershipState): CapitalTimeline {
@@ -77,13 +86,20 @@ export function buildCapitalTimeline(state: PartnershipState): CapitalTimeline {
   validatePartners(state.partners);
   return {
     totalDuration: state.totalDuration,
-    weights: state.partners.map((partner) => ({
-      partnerId: partner.partnerId,
-      effectiveCapital: sumCapitalTimeSegments(
+    weights: state.partners.map((rawPartner) => {
+      const partner = rawPartner as EntitledPartner;
+      const contributionWeight = sumCapitalTimeSegments(
         partner.capitalSegments,
         state.totalDuration,
-      ),
-    })),
+      );
+      return {
+        partnerId: partner.partnerId,
+        effectiveCapital: multiplyRational(
+          contributionWeight,
+          partner.profitShareMultiplier ?? ONE,
+        ),
+      };
+    }),
   };
 }
 
