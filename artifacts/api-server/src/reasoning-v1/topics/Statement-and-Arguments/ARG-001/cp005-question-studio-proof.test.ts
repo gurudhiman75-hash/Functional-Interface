@@ -9,6 +9,8 @@ import {
 } from "./cp005-question-studio-integration.ts";
 import { ARG_QL_IDS } from "./types.ts";
 
+const EXPECTED_DIFFICULTIES = ["Easy", "Hard", "Medium"] as const;
+
 async function main() {
   const pkg = ARG_CP005_QUESTION_STUDIO_REVIEW_PACKAGE;
   assert.equal(pkg.packageId, "ARG-001");
@@ -17,9 +19,9 @@ async function main() {
   assert.deepEqual(pkg.permanentQlIds, ARG_QL_IDS);
   assert.deepEqual(pkg.supportedLanguages, ["en", "hi", "pa"]);
   assert.deepEqual(pkg.designTargetDifficulties, ["Easy", "Medium", "Hard"]);
-  assert.deepEqual(pkg.supportedDifficulties, ["Medium", "Hard"]);
-  assert.deepEqual(pkg.blockedDifficulties, ["Easy"]);
-  assert.equal(pkg.difficultyCoverageStatus, "CERTIFIED_MEDIUM_HARD_EASY_GAP");
+  assert.deepEqual(pkg.supportedDifficulties, ["Easy", "Medium", "Hard"]);
+  assert.deepEqual(pkg.blockedDifficulties, []);
+  assert.equal(pkg.difficultyCoverageStatus, "CERTIFIED_EASY_MEDIUM_HARD");
   assert.equal(pkg.questionStudioVisible, true);
   assert.equal(pkg.questionStudioDiscoverable, true);
   assert.equal(pkg.questionStudioGenerationEnabled, true);
@@ -34,10 +36,10 @@ async function main() {
   assert.equal(pkg.learnerRelease, "LOCKED");
   assert.equal(listArg001QuestionStudioPackages()[0], pkg);
 
-  for (const qlId of ARG_QL_IDS.slice(0, 5)) {
-    assert.deepEqual(ARG_CP005_DIFFICULTIES_BY_QL[qlId], ["Medium", "Hard"], `${qlId}: unexpected authority difficulty coverage`);
+  for (const qlId of ARG_QL_IDS) {
+    const coverage = [...ARG_CP005_DIFFICULTIES_BY_QL[qlId]].sort();
+    assert.deepEqual(coverage, EXPECTED_DIFFICULTIES, `${qlId}: incomplete authority difficulty coverage`);
   }
-  assert.deepEqual(ARG_CP005_DIFFICULTIES_BY_QL["ARG-QL-006"], ["Hard"]);
 
   assert.equal(isArg001QuestionStudioRequest({ qlId: "ARG-QL-003" }), true);
   assert.equal(isArg001QuestionStudioRequest({ cpId: "ARG-CP-005" }), true);
@@ -91,7 +93,7 @@ async function main() {
     }
   }
 
-  for (const difficulty of ["Medium", "Hard"] as const) {
+  for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
     const batch = await generateArg001QuestionStudioBatch({
       language: "en",
       difficulty,
@@ -108,14 +110,22 @@ async function main() {
     }
   }
 
-  await assert.rejects(
-    generateArg001QuestionStudioBatch({ language: "en", difficulty: "Easy", count: 1 }),
-    /no certified Easy authorities/i,
-  );
-  await assert.rejects(
-    generateArg001QuestionStudioBatch({ language: "en", qlId: "ARG-QL-006", difficulty: "Medium", count: 1 }),
-    /ARG-QL-006 has no certified Medium authority/i,
-  );
+  for (const qlId of ARG_QL_IDS) {
+    for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
+      const batch = await generateArg001QuestionStudioBatch({
+        language: "en",
+        qlId,
+        difficulty,
+        seed: `cp005-explicit:${qlId}:${difficulty}`,
+        count: 2,
+      });
+      assert.equal(batch.questions.length, 2);
+      for (const question of batch.questions) {
+        assert.equal(question.qlId, qlId);
+        assert.equal(question.difficulty, difficulty);
+      }
+    }
+  }
 
   const trilingualSeeds = Array.from({ length: 18 }, (_, index) => index * 97 + 11);
   for (const qlId of ARG_QL_IDS) {
@@ -134,6 +144,8 @@ async function main() {
       assert.equal(p.correctIndex, e.correctIndex);
       assert.equal(h.answerClass, e.answerClass);
       assert.equal(p.answerClass, e.answerClass);
+      assert.equal(h.difficulty, e.difficulty);
+      assert.equal(p.difficulty, e.difficulty);
       assert.deepEqual(h.argumentStrengths, e.argumentStrengths);
       assert.deepEqual(p.argumentStrengths, e.argumentStrengths);
     }
