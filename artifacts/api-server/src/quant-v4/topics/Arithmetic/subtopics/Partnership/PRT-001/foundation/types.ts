@@ -112,7 +112,10 @@ export type Prt001PilotSolveMode =
   | "findPartnerSharesAfterFixedManagementAllowance"
   | "findActivePartnerReceiptWithPercentOfGrossProfitCommission"
   | "findSharesAfterReserveDeduction"
-  | "findSharesAfterExplicitBusinessExpenseDeduction";
+  | "findSharesAfterExplicitBusinessExpenseDeduction"
+  | "findSleepingPartnerAdjustedEntitlementShare"
+  | "findNextPeriodProfitRatioAfterProfitShareReinvestment"
+  | "findProfitRatioAfterNewPartnerAcquiresShare";
 
 export type MoneyUnit = "RUPEE";
 export type TimeUnit = "MONTH" | "YEAR";
@@ -125,6 +128,7 @@ export type AllocationKind =
   | "SALARY"
   | "COMMISSION"
   | "BONUS"
+  | "INTEREST_ON_CAPITAL"
   | "CHARITY"
   | "RESERVE"
   | "EXPENSE";
@@ -144,6 +148,8 @@ export interface Partner {
   readonly partnerId: string;
   readonly role: PartnerRole;
   readonly capitalSegments: readonly CapitalSegment[];
+  /** Optional exact multiplier applied to capital-time weight when the agreement changes a partner's profit entitlement. */
+  readonly profitShareMultiplier?: Rational;
 }
 
 export interface PreDistributionAllocation {
