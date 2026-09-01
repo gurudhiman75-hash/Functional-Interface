@@ -42,7 +42,7 @@ export function evaluateDailyDiscoveryCensus(input: DailyDiscoveryCensusInput): 
     warnings.push(`${input.highPriorityUnresolvedCount} high-priority target-date event(s) still require verification or conflict resolution.`);
   }
   if (input.unresolvedClusterCount > 0) {
-    warnings.push(`${input.unresolvedClusterCount} target-date cluster(s) remain unresolved or uncategorized.`);
+    warnings.push(`${input.unresolvedClusterCount} actionable target-date cluster(s) remain unresolved or uncategorized.`);
   }
   if (input.distinctSourceFamilyCount < 3) {
     warnings.push(`Discovery breadth is narrow: only ${input.distinctSourceFamilyCount} source family/families contributed target-date candidates.`);
@@ -70,9 +70,9 @@ export function evaluateDailyDiscoveryCensus(input: DailyDiscoveryCensusInput): 
     + evidenceStrong * 10,
   );
 
-  // CP-043: a day is complete only after all clustering decisions are resolved.
+  // CP-043: a day is complete only after all actionable clustering decisions are resolved.
   // Low-value discovery noise can be explicitly rejected by bounded triage, but an
-  // open cluster must never be silently treated as completed coverage.
+  // open cluster with any non-rejected member must never be silently treated as complete.
   const status: DailyDiscoveryCensusEvaluation["status"] = blockers.length > 0
     ? "blocked"
     : score >= 80 && input.highPriorityUnresolvedCount === 0 && input.unresolvedClusterCount === 0
@@ -123,9 +123,19 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
     sqlClient`
       SELECT
         count(*)::int AS "clusterCount",
-        count(*) FILTER (WHERE status='open')::int AS "unresolvedClusterCount"
-      FROM content.current_affairs_clusters
-      WHERE event_date_guess=${targetDate}::date
+        count(*) FILTER (
+          WHERE cluster.status='open'
+            AND EXISTS (
+              SELECT 1
+              FROM content.current_affairs_cluster_members actionable_member
+              JOIN content.current_affairs_ingestion_candidates actionable_candidate
+                ON actionable_candidate.id=actionable_member.candidate_id
+              WHERE actionable_member.cluster_id=cluster.id
+                AND actionable_candidate.status NOT IN ('rejected','error')
+            )
+        )::int AS "unresolvedClusterCount"
+      FROM content.current_affairs_clusters cluster
+      WHERE cluster.event_date_guess=${targetDate}::date
     `,
     sqlClient`
       SELECT
