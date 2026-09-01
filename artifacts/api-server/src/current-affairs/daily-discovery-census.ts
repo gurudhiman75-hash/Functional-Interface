@@ -70,9 +70,12 @@ export function evaluateDailyDiscoveryCensus(input: DailyDiscoveryCensusInput): 
     + evidenceStrong * 10,
   );
 
+  // CP-043: a day is complete only after all clustering decisions are resolved.
+  // Low-value discovery noise can be explicitly rejected by bounded triage, but an
+  // open cluster must never be silently treated as completed coverage.
   const status: DailyDiscoveryCensusEvaluation["status"] = blockers.length > 0
     ? "blocked"
-    : score >= 80 && input.highPriorityUnresolvedCount === 0
+    : score >= 80 && input.highPriorityUnresolvedCount === 0 && input.unresolvedClusterCount === 0
       ? "complete"
       : warnings.length > 0
         ? "review"
@@ -111,7 +114,11 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
         count(*) FILTER (WHERE source.source_tier='specialist')::int AS "specialistCandidateCount"
       FROM content.current_affairs_ingestion_candidates candidate
       JOIN content.current_affairs_sources source ON source.id=candidate.source_id
-      WHERE candidate.published_at::date=${targetDate}::date
+      WHERE COALESCE(
+        NULLIF(candidate.payload->>'historicalTargetDate',''),
+        NULLIF(candidate.payload->>'discoveryTargetDate',''),
+        (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+      )=${targetDate}
     `,
     sqlClient`
       SELECT
@@ -135,6 +142,7 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
       LEFT JOIN content.current_affairs_sources source ON source.id=evidence.source_id
       LEFT JOIN content.current_affairs_fact_conflicts conflict ON conflict.event_id=event.id AND conflict.status='open'
       WHERE event.event_date=${targetDate}::date
+        AND event.status IN ('review','verified')
       GROUP BY event.id
     `,
     sqlClient`
@@ -154,6 +162,7 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
              count(*) FILTER (WHERE status='verified')::int AS "verifiedCount"
       FROM content.current_affairs_events
       WHERE event_date=${targetDate}::date
+        AND status IN ('review','verified')
       GROUP BY category
       ORDER BY count(*) DESC, category
     `,
@@ -188,7 +197,7 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
     const tier = String(row.sourceTier ?? "unknown");
     sourceDomains[domain] ??= { registered: 0, active: 0, automated: 0, fresh: 0 };
     sourceTiers[tier] ??= { registered: 0, active: 0, automated: 0, fresh: 0 };
-    for (const [target, prefix] of [[sourceDomains[domain], ""], [sourceTiers[tier], ""]] as const) {
+    for (const target of [sourceDomains[domain], sourceTiers[tier]]) {
       target.registered += number(row.registeredCount);
       target.active += number(row.activeCount);
       target.automated += number(row.automatedCount);
