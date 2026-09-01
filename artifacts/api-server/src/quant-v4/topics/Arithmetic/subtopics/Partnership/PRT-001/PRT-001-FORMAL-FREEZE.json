@@ -1,7 +1,9 @@
 {
   "chapterId": "PRT-001",
   "freezeStatus": "FROZEN",
+  "chapterStatus": "CLOSED",
   "freezeDate": "2026-09-01",
+  "closureDate": "2026-09-01",
   "approvedRuntimeHead": "f4fe65366aab2fc8e60ed1f0420231d4b9ed72db",
   "approvedValidation": {
     "workflowRun": 33472771514,
@@ -28,8 +30,15 @@
   },
   "release": {
     "mergeAuthorizedByFreeze": false,
+    "mergeAuthorizedByUser": true,
+    "mergeCompleted": true,
+    "mergedIntoBranch": "New-main",
+    "mergeCommit": "7a767646f6d7eb1c61d603c98887defdad3d46bc",
+    "allPartnershipPullRequestsClosed": true,
     "publicationAuthorizedByFreeze": false,
+    "publicationAuthorizedByUser": false,
     "publicActivationAuthorizedByFreeze": false,
+    "publicActivationAuthorizedByUser": false,
     "publiclyPublishable": false
   },
   "scopeStatement": "No known unresolved PRT-001 gap remains from the E1-E13 reviewed source/audit universe.",
