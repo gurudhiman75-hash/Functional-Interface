@@ -21,7 +21,7 @@ export interface CubesDiceReviewPackage {
   supportedDifficulties: ['Easy', 'Medium', 'Hard'];
   registrationAuthority: string;
   activationAuthority: string;
-  activationMode: 'ACTIVE_INTERNAL_BANK_ONLY';
+  activationMode: 'ACTIVE_INTERNAL_TEST_BUILDER';
   questionStudioVisible: true;
   questionStudioDiscoverable: true;
   previewGenerationAuthorized: true;
@@ -29,12 +29,17 @@ export interface CubesDiceReviewPackage {
   databaseWriteEnabled: true;
   questionBankStatus: 'READY_FOR_STORAGE';
   questionBankWritable: true;
-  questionBankAcceptanceMode: 'BANK_ONLY';
+  questionBankAcceptanceMode: 'FULL_RELEASE';
   manualApprovalRequired: true;
-  testEligibility: 'INELIGIBLE';
-  testEligible: false;
+  manualQuestionPublicationRequired: true;
+  testEligibility: 'ELIGIBLE';
+  testEligible: true;
+  testBuilderEligible: true;
+  questionPublicationTarget: 'INTERNAL_TEST_BUILDER';
   mockTestEligible: false;
-  publiclyPublishable: false;
+  publiclyPublishable: true;
+  publicReleaseAuthorized: false;
+  studentDeliveryAuthorized: false;
   automaticStudentPublication: false;
 }
 
@@ -46,7 +51,7 @@ export interface CubesDiceSolutionTable {
 }
 
 export interface CubesDiceReviewQuestion {
-  version: 'CND-001-QUESTION-STUDIO-BANK-QUESTION-V1';
+  version: 'CND-001-QUESTION-STUDIO-TEST-BUILDER-QUESTION-V1';
   packageId: 'SPA-001';
   qlId: CubesDiceReviewQlId;
   permanentQlId: CubesDiceReviewQlId;
@@ -81,20 +86,24 @@ export interface CubesDiceReviewQuestion {
   contentFingerprint: string;
   registrationAuthority: string;
   bankActivationAuthority: string;
+  testBuilderActivationAuthority: string;
   lifecycle: {
-    reviewOnly: true;
+    reviewOnly: false;
     questionStudioDiscoverable: true;
-    registrationStatus: 'REGISTERED_BANK_ONLY_INTERNAL';
+    registrationStatus: 'REGISTERED_INTERNAL_TEST_BUILDER';
     persistenceAllowed: true;
     questionBankStatus: 'READY_FOR_STORAGE';
     questionBankWritable: true;
-    questionBankAcceptanceMode: 'BANK_ONLY';
+    questionBankAcceptanceMode: 'FULL_RELEASE';
     manualApprovalRequired: true;
-    testEligibility: 'INELIGIBLE';
-    testEligible: false;
-    testBuilderEligible: false;
+    manualQuestionPublicationRequired: true;
+    testEligibility: 'ELIGIBLE';
+    testEligible: true;
+    testBuilderEligible: true;
     mockTestEligible: false;
-    publiclyPublishable: false;
+    publiclyPublishable: true;
+    publicReleaseAuthorized: false;
+    studentDeliveryAuthorized: false;
     automaticStudentPublication: false;
   };
 }
@@ -111,7 +120,7 @@ export interface CubesDiceReviewStatus {
   chapterCode: 'CND-001';
   permanentQlCount: 5;
   supportedLanguages: CubesDiceReviewLanguage[];
-  registrationStatus: 'REGISTERED_BANK_ONLY_INTERNAL';
+  registrationStatus: 'REGISTERED_INTERNAL_TEST_BUILDER';
   registrationAuthority: string;
   activationAuthority: string;
   questionStudioDiscoverable: true;
@@ -119,12 +128,16 @@ export interface CubesDiceReviewStatus {
   persistenceAllowed: true;
   questionBankStatus: 'READY_FOR_STORAGE';
   questionBankWritable: true;
-  questionBankAcceptanceMode: 'BANK_ONLY';
+  questionBankAcceptanceMode: 'FULL_RELEASE';
   manualApprovalRequired: true;
-  testEligibility: 'INELIGIBLE';
-  testEligible: false;
+  manualQuestionPublicationRequired: true;
+  testEligibility: 'ELIGIBLE';
+  testEligible: true;
+  testBuilderEligible: true;
   mockTestEligible: false;
-  publiclyPublishable: false;
+  publiclyPublishable: true;
+  publicReleaseAuthorized: false;
+  studentDeliveryAuthorized: false;
   automaticStudentPublication: false;
   generationRunCount: number;
   generationItemCount: number;
@@ -146,18 +159,21 @@ export function getCubesDiceReviewPackage() {
     package: CubesDiceReviewPackage;
     maxPreviewBatchSize: number;
     maxRunBatchSize: number;
-    registrationStatus: 'REGISTERED_BANK_ONLY_INTERNAL';
+    registrationStatus: 'REGISTERED_INTERNAL_TEST_BUILDER';
     databaseWriteEnabled: true;
     persistenceAllowed: true;
     questionBankConversionEligibleAfterApproval: true;
-    questionBankAcceptanceMode: 'BANK_ONLY';
-    testEligibleAfterApproval: false;
-    publiclyPublishableAfterApproval: false;
+    questionBankAcceptanceMode: 'FULL_RELEASE';
+    testEligibleAfterApproval: true;
+    testBuilderEligibleAfterQuestionPublication: true;
+    mockTestEligibleAfterApproval: false;
+    publicReleaseAuthorized: false;
+    studentDeliveryAuthorized: false;
     automaticStudentPublication: false;
   }>(
     '/admin/question-studio/reasoning/spatial/cubes-dice/package',
     undefined,
-    { fallbackMessage: 'Unable to load the Cubes & Dice review package.' },
+    { fallbackMessage: 'Unable to load the Cubes & Dice package.' },
   );
 }
 
@@ -165,16 +181,20 @@ export function previewCubesDiceReview(input: CubesDiceReviewInput) {
   return adminRequest<{
     generationSystem: 'reasoning-v1';
     packageId: 'SPA-001-CND-001-REVIEW';
-    activationMode: 'ACTIVE_INTERNAL_BANK_ONLY';
+    activationMode: 'ACTIVE_INTERNAL_TEST_BUILDER';
     registrationAuthority: string;
     activationAuthority: string;
     questions: CubesDiceReviewQuestion[];
     internalReviewEligible: true;
     persistenceAllowed: true;
     questionBankWritable: true;
-    questionBankAcceptanceMode: 'BANK_ONLY';
-    testEligible: false;
-    publiclyPublishable: false;
+    questionBankAcceptanceMode: 'FULL_RELEASE';
+    testEligible: true;
+    testBuilderEligible: true;
+    mockTestEligible: false;
+    publiclyPublishable: true;
+    publicReleaseAuthorized: false;
+    studentDeliveryAuthorized: false;
   }>(
     `/admin/question-studio/reasoning/spatial/cubes-dice/preview?${paramsFor(input).toString()}`,
     undefined,
@@ -193,9 +213,13 @@ export function createCubesDiceReviewRun(input: CubesDiceReviewInput) {
     chapterCode: 'CND-001';
     activationAuthority: string;
     questionBankConversionEligibleAfterApproval: true;
-    questionBankAcceptanceMode: 'BANK_ONLY';
-    testEligible: false;
-    publiclyPublishable: false;
+    questionBankAcceptanceMode: 'FULL_RELEASE';
+    testEligible: true;
+    testBuilderEligible: true;
+    mockTestEligible: false;
+    publiclyPublishable: true;
+    publicReleaseAuthorized: false;
+    studentDeliveryAuthorized: false;
     automaticStudentPublication: false;
   }>(
     '/admin/question-studio/reasoning/spatial/cubes-dice/runs',
@@ -208,6 +232,6 @@ export function getCubesDiceReviewStatus() {
   return adminRequest<CubesDiceReviewStatus>(
     '/admin/question-studio/reasoning/spatial/cubes-dice/status',
     undefined,
-    { fallbackMessage: 'Unable to load Cubes & Dice review status.' },
+    { fallbackMessage: 'Unable to load Cubes & Dice status.' },
   );
 }
