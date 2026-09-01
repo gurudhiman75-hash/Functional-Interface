@@ -5,21 +5,22 @@ import { encodeGeneratedSpatialSvgImage } from "../lib/admin-question-conversion
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
-import { CND_001_QUESTION_STUDIO_BANK_ONLY_ACTIVATION_AUTHORITY_V1 } from "../reasoning-v1/foundation/spatial/cubes-dice-question-studio-bank-activation-v1";
-import {
-  generateCubesDiceQuestionStudioBankBatchV1,
-  type CubesDiceBankQuestionV1,
-} from "../reasoning-v1/foundation/spatial/cubes-dice-question-studio-bank-runtime-v1";
 import { CND_001_QUESTION_STUDIO_REVIEW_ONLY_REGISTRATION_AUTHORITY_V1 } from "../reasoning-v1/foundation/spatial/cubes-dice-question-studio-registered-runtime-v1";
+import {
+  generateCubesDiceQuestionStudioTestBuilderBatchV1,
+  type CubesDiceTestBuilderQuestionV1,
+} from "../reasoning-v1/foundation/spatial/cubes-dice-question-studio-test-builder-runtime-v1";
 import type {
   CubesDiceQuestionStudioLanguageV2,
   CubesDiceQuestionStudioQlIdV2,
 } from "../reasoning-v1/foundation/spatial/cubes-dice-question-studio-seeded-runtime-v2";
+import { CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1 } from "../reasoning-v1/foundation/spatial/cubes-dice-test-builder-activation-v1";
 
 const router = Router();
 const LANGUAGES = new Set(["en", "hi", "pa"]);
 const QL_IDS = new Set(["SPA-QL-043", "SPA-QL-044", "SPA-QL-045", "SPA-QL-046", "SPA-QL-047"]);
-const RUN_MODEL = "reasoning-v1-cnd-001-bank-only" as const;
+const RUN_MODEL = "reasoning-v1-cnd-001-test-builder-v1" as const;
+const LEGACY_BANK_MODEL = "reasoning-v1-cnd-001-bank-only" as const;
 
 const QLS = Object.freeze([
   Object.freeze({ permanentQlId: "SPA-QL-043", proposalId: "CND-CAN-A-DIE-FACE-RELATIONS", name: "Die face relations from two views", baseDifficulty: "Medium" }),
@@ -29,12 +30,12 @@ const QLS = Object.freeze([
   Object.freeze({ permanentQlId: "SPA-QL-047", proposalId: "CND-CAN-E-ORTHOGRAPHIC-PROJECTION", name: "Top, front and right projections", baseDifficulty: "Medium" }),
 ] as const);
 
-const ACTIVATION = CND_001_QUESTION_STUDIO_BANK_ONLY_ACTIVATION_AUTHORITY_V1;
+const ACTIVATION = CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1;
 
 const PACKAGE = Object.freeze({
   packageId: "SPA-001-CND-001-REVIEW" as const,
   chapterCode: "CND-001" as const,
-  label: "Cubes & Dice — Internal Question Studio + Question Bank" as const,
+  label: "Cubes & Dice — Internal Question Studio + Test Builder" as const,
   qlIds: Object.freeze(QLS.map((entry) => entry.permanentQlId)),
   qls: QLS,
   permanentQlCount: 5,
@@ -42,7 +43,7 @@ const PACKAGE = Object.freeze({
   supportedDifficulties: Object.freeze(["Easy", "Medium", "Hard"] as const),
   registrationAuthority: CND_001_QUESTION_STUDIO_REVIEW_ONLY_REGISTRATION_AUTHORITY_V1.authorityId,
   activationAuthority: ACTIVATION.authorityId,
-  activationMode: "ACTIVE_INTERNAL_BANK_ONLY" as const,
+  activationMode: "ACTIVE_INTERNAL_TEST_BUILDER" as const,
   questionStudioVisible: true,
   questionStudioDiscoverable: true,
   previewGenerationAuthorized: true,
@@ -50,12 +51,17 @@ const PACKAGE = Object.freeze({
   databaseWriteEnabled: true,
   questionBankStatus: "READY_FOR_STORAGE" as const,
   questionBankWritable: true,
-  questionBankAcceptanceMode: "BANK_ONLY" as const,
+  questionBankAcceptanceMode: "FULL_RELEASE" as const,
   manualApprovalRequired: true,
-  testEligibility: "INELIGIBLE" as const,
-  testEligible: false,
+  manualQuestionPublicationRequired: true,
+  testEligibility: "ELIGIBLE" as const,
+  testEligible: true,
+  testBuilderEligible: true,
+  questionPublicationTarget: "INTERNAL_TEST_BUILDER" as const,
   mockTestEligible: false,
-  publiclyPublishable: false,
+  publiclyPublishable: true,
+  publicReleaseAuthorized: false,
+  studentDeliveryAuthorized: false,
   automaticStudentPublication: false,
 });
 
@@ -77,7 +83,7 @@ function filters(source: Record<string, unknown>, max = 20) {
     language: language as CubesDiceQuestionStudioLanguageV2,
     qlId: qlId ? qlId as CubesDiceQuestionStudioQlIdV2 : undefined,
     count: asCount(source.count, 5, max),
-    seed: asString(source.seed) || "cnd-question-studio-review",
+    seed: asString(source.seed) || "cnd-question-studio-test-builder",
   };
 }
 
@@ -86,7 +92,7 @@ function publicRunCode(): string {
   return `CND-${date}-${randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase()}`;
 }
 
-function detailedSolutionText(question: CubesDiceBankQuestionV1): string {
+function detailedSolutionText(question: CubesDiceTestBuilderQuestionV1): string {
   const blocks: string[] = [`Logic / Rule: ${question.solution.logicRule}`];
   for (const table of question.solution.tables) {
     blocks.push(table.title);
@@ -99,7 +105,7 @@ function detailedSolutionText(question: CubesDiceBankQuestionV1): string {
   return blocks.join("\n");
 }
 
-export function buildCndQuestionBankPayloadV1(question: CubesDiceBankQuestionV1) {
+export function buildCndQuestionBankPayloadV2(question: CubesDiceTestBuilderQuestionV1) {
   const stimulusImage = encodeGeneratedSpatialSvgImage(
     question.stimulusSvgs[0],
     `${question.qlId} Cubes and Dice figure`,
@@ -145,19 +151,22 @@ export function buildCndQuestionBankPayloadV1(question: CubesDiceBankQuestionV1)
     contentFingerprint: question.contentFingerprint,
     runtimeMode: "CANONICAL_REVIEW" as const,
     reviewStatus: "APPROVED_EDITORIAL_CANONICAL" as const,
-    questionStudioRegistrationStatus: "REGISTERED_BANK_ONLY_INTERNAL" as const,
+    questionStudioRegistrationStatus: "REGISTERED_INTERNAL_TEST_BUILDER" as const,
     persistenceAllowed: true as const,
     questionBankStatus: ACTIVATION.questionBankStatus,
     questionBankWritable: true as const,
     questionBankAcceptanceMode: ACTIVATION.questionBankAcceptanceMode,
     questionBankAcceptanceAuthority: ACTIVATION.authorityId,
+    testReleaseAuthority: ACTIVATION.authorityId,
     testEligibility: ACTIVATION.testEligibility,
-    testEligible: false as const,
-    testBuilderEligible: false as const,
+    testEligible: true as const,
+    testBuilderEligible: true as const,
     mockTestEligible: false as const,
-    publiclyPublishable: false as const,
+    publiclyPublishable: true as const,
     publicReleaseAuthorized: false as const,
+    studentDeliveryAuthorized: false as const,
     manualApprovalRequired: true as const,
+    manualQuestionPublicationRequired: true as const,
     automaticStudentPublication: false as const,
     integrationAuthority: ACTIVATION.authorityId,
     sourceRegistrationAuthority:
@@ -173,26 +182,29 @@ export function buildCndQuestionBankPayloadV1(question: CubesDiceBankQuestionV1)
       reviewStatus: "APPROVED_EDITORIAL_CANONICAL" as const,
       integrationAuthority: ACTIVATION.authorityId,
       questionStudioDiscoverable: true as const,
-      registrationStatus: "REGISTERED_BANK_ONLY_INTERNAL" as const,
+      registrationStatus: "REGISTERED_INTERNAL_TEST_BUILDER" as const,
       persistenceAllowed: true as const,
       questionBankStatus: ACTIVATION.questionBankStatus,
       questionBankWritable: true as const,
       questionBankAcceptanceMode: ACTIVATION.questionBankAcceptanceMode,
       questionBankAcceptanceAuthority: ACTIVATION.authorityId,
+      testReleaseAuthority: ACTIVATION.authorityId,
       testEligibility: ACTIVATION.testEligibility,
-      testEligible: false as const,
-      testBuilderEligible: false as const,
+      testEligible: true as const,
+      testBuilderEligible: true as const,
       mockTestEligible: false as const,
-      publiclyPublishable: false as const,
+      publiclyPublishable: true as const,
       publicReleaseAuthorized: false as const,
+      studentDeliveryAuthorized: false as const,
       manualApprovalRequired: true as const,
+      manualQuestionPublicationRequired: true as const,
       automaticStudentPublication: false as const,
     },
   } as const;
 }
 
 async function persistRun(
-  questions: readonly CubesDiceBankQuestionV1[],
+  questions: readonly CubesDiceTestBuilderQuestionV1[],
   requestSnapshot: Record<string, unknown>,
   actorUserId: string,
 ) {
@@ -219,7 +231,7 @@ async function persistRun(
       const question = questions[index]!;
       const itemId = randomUUID();
       const versionId = randomUUID();
-      const payload = buildCndQuestionBankPayloadV1(question);
+      const payload = buildCndQuestionBankPayloadV2(question);
       await tx`
         INSERT INTO content.generation_run_items (
           id, generation_run_id, item_number, status, current_version_number,
@@ -245,16 +257,19 @@ async function persistRun(
         reason, summary, metadata
       ) VALUES (
         ${randomUUID()}::uuid, 'user'::audit_actor_type, ${actorUserId}::uuid,
-        'question_studio.cnd_001_run.created', 'generation_run', ${runId}::uuid,
-        'CND-001 entered the standard manual review lifecycle with BANK_ONLY Question Bank acceptance',
-        ${`Created ${questions.length} CND-001 review items in ${publicCode}`},
+        'question_studio.cnd_001_test_builder_run.created', 'generation_run', ${runId}::uuid,
+        'CND-001 entered manual review with Question Bank and internal Test Builder eligibility enabled',
+        ${`Created ${questions.length} CND-001 Test Builder eligible review items in ${publicCode}`},
         ${JSON.stringify({
           requestSnapshot,
           activationAuthority: ACTIVATION.authorityId,
           questionBankAcceptanceMode: ACTIVATION.questionBankAcceptanceMode,
           questionBankWritable: true,
-          testEligible: false,
-          publiclyPublishable: false,
+          testEligible: true,
+          testBuilderEligible: true,
+          mockTestEligible: false,
+          publicReleaseAuthorized: false,
+          studentDeliveryAuthorized: false,
           automaticStudentPublication: false,
         })}::jsonb
       )
@@ -265,7 +280,7 @@ async function persistRun(
         id, aggregate_type, aggregate_id, event_type, payload
       ) VALUES (
         ${randomUUID()}::uuid, 'generation_run', ${runId}::uuid,
-        'question_studio.cnd_001_run.created',
+        'question_studio.cnd_001_test_builder_run.created',
         ${JSON.stringify({
           runId,
           publicCode,
@@ -273,6 +288,8 @@ async function persistRun(
           chapterCode: "CND-001",
           activationAuthority: ACTIVATION.authorityId,
           questionBankAcceptanceMode: ACTIVATION.questionBankAcceptanceMode,
+          testBuilderEligible: true,
+          mockTestEligible: false,
         })}::jsonb
       )
     `;
@@ -292,13 +309,16 @@ router.get(
       package: PACKAGE,
       maxPreviewBatchSize: 20,
       maxRunBatchSize: 50,
-      registrationStatus: "REGISTERED_BANK_ONLY_INTERNAL",
+      registrationStatus: "REGISTERED_INTERNAL_TEST_BUILDER",
       databaseWriteEnabled: true,
       persistenceAllowed: true,
       questionBankConversionEligibleAfterApproval: true,
       questionBankAcceptanceMode: ACTIVATION.questionBankAcceptanceMode,
-      testEligibleAfterApproval: false,
-      publiclyPublishableAfterApproval: false,
+      testEligibleAfterApproval: true,
+      testBuilderEligibleAfterQuestionPublication: true,
+      mockTestEligibleAfterApproval: false,
+      publicReleaseAuthorized: false,
+      studentDeliveryAuthorized: false,
       automaticStudentPublication: false,
     });
   },
@@ -310,7 +330,7 @@ router.get(
   (req, res) => {
     try {
       const input = filters(req.query as Record<string, unknown>, 20);
-      const questions = generateCubesDiceQuestionStudioBankBatchV1(input);
+      const questions = generateCubesDiceQuestionStudioTestBuilderBatchV1(input);
       res.json({
         generationSystem: "reasoning-v1",
         packageId: PACKAGE.packageId,
@@ -322,8 +342,12 @@ router.get(
         persistenceAllowed: true,
         questionBankWritable: true,
         questionBankAcceptanceMode: ACTIVATION.questionBankAcceptanceMode,
-        testEligible: false,
-        publiclyPublishable: false,
+        testEligible: true,
+        testBuilderEligible: true,
+        mockTestEligible: false,
+        publiclyPublishable: true,
+        publicReleaseAuthorized: false,
+        studentDeliveryAuthorized: false,
       });
     } catch (error) {
       res.status(400).json({ error: error instanceof Error ? error.message : "Unable to preview CND questions." });
@@ -344,7 +368,7 @@ router.get(
           COUNT(i.accepted_question_id)::int AS "questionBankCount"
         FROM content.generation_runs r
         LEFT JOIN content.generation_run_items i ON i.generation_run_id = r.id
-        WHERE r.model = ${RUN_MODEL}
+        WHERE r.model IN (${LEGACY_BANK_MODEL}, ${RUN_MODEL})
       `;
       const counts = runRows[0] ?? {};
       res.json({
@@ -352,7 +376,7 @@ router.get(
         chapterCode: PACKAGE.chapterCode,
         permanentQlCount: PACKAGE.permanentQlCount,
         supportedLanguages: PACKAGE.supportedLanguages,
-        registrationStatus: "REGISTERED_BANK_ONLY_INTERNAL",
+        registrationStatus: "REGISTERED_INTERNAL_TEST_BUILDER",
         registrationAuthority: PACKAGE.registrationAuthority,
         activationAuthority: ACTIVATION.authorityId,
         questionStudioDiscoverable: true,
@@ -362,10 +386,14 @@ router.get(
         questionBankWritable: true,
         questionBankAcceptanceMode: ACTIVATION.questionBankAcceptanceMode,
         manualApprovalRequired: true,
+        manualQuestionPublicationRequired: true,
         testEligibility: ACTIVATION.testEligibility,
-        testEligible: false,
+        testEligible: true,
+        testBuilderEligible: true,
         mockTestEligible: false,
-        publiclyPublishable: false,
+        publiclyPublishable: true,
+        publicReleaseAuthorized: false,
+        studentDeliveryAuthorized: false,
         automaticStudentPublication: false,
         generationRunCount: Number(counts.generationRunCount ?? 0),
         generationItemCount: Number(counts.generationItemCount ?? 0),
@@ -390,7 +418,7 @@ router.post(
     }
     try {
       const input = filters((req.body ?? {}) as Record<string, unknown>, 50);
-      const questions = generateCubesDiceQuestionStudioBankBatchV1(input);
+      const questions = generateCubesDiceQuestionStudioTestBuilderBatchV1(input);
       const persisted = await persistRun(questions, {
         chapterCode: "CND-001",
         packageId: PACKAGE.packageId,
@@ -402,8 +430,11 @@ router.post(
         questionBankAcceptanceMode: ACTIVATION.questionBankAcceptanceMode,
         persistenceAllowed: true,
         questionBankWritable: true,
-        testEligible: false,
-        publiclyPublishable: false,
+        testEligible: true,
+        testBuilderEligible: true,
+        mockTestEligible: false,
+        publicReleaseAuthorized: false,
+        studentDeliveryAuthorized: false,
         automaticStudentPublication: false,
         requestedByFirebaseUid: req.user?.id,
       }, actorUserId);
@@ -415,8 +446,12 @@ router.post(
         activationAuthority: ACTIVATION.authorityId,
         questionBankConversionEligibleAfterApproval: true,
         questionBankAcceptanceMode: ACTIVATION.questionBankAcceptanceMode,
-        testEligible: false,
-        publiclyPublishable: false,
+        testEligible: true,
+        testBuilderEligible: true,
+        mockTestEligible: false,
+        publiclyPublishable: true,
+        publicReleaseAuthorized: false,
+        studentDeliveryAuthorized: false,
         automaticStudentPublication: false,
       });
     } catch (error) {
