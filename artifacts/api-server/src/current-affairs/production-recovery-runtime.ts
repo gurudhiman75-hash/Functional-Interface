@@ -11,7 +11,7 @@ import {
 } from "./content";
 import { rebuildHistoricalHeadlineClaims } from "./historical-claim-rebuild";
 import { createLocalizedDailyCompilations, runCurrentAffairsLocalization } from "./localization-runtime";
-import { previousIndiaDate } from "./orchestration-policy";
+import { resolveHistoricalIndiaDate } from "./orchestration-policy";
 import { runCurrentAffairsQuestionLocalization } from "./question-localization-runtime";
 
 const FAMILIES = ["ssc", "banking", "punjab"] as const;
@@ -189,10 +189,11 @@ async function backfillEnglishCompilation(date: string, family: string) {
 export async function runCurrentAffairsProductionRecovery(args: {
   now?: Date;
   triggerMode?: "scheduled" | "manual";
+  targetDate?: string;
 } = {}) {
   const now = args.now ?? new Date();
   const triggerMode = args.triggerMode ?? "scheduled";
-  const targetDate = previousIndiaDate(now);
+  const targetDate = resolveHistoricalIndiaDate(args.targetDate, now);
   const runKey = `production_recovery:${triggerMode}:${targetDate}:${slotKey(now)}`;
   const runId = randomUUID();
   const inserted = await sqlClient`
