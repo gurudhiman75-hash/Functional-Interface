@@ -59,12 +59,13 @@ const publishedResource = evaluateDailyMasterPackApprovalReadiness({
 assert.equal(publishedResource.ready, false);
 assert.equal(publishedResource.checks.resourcesRemainDraft, false);
 
-const noPdf = evaluateDailyMasterPackApprovalReadiness({
+const legacyNoPdfMetadata = evaluateDailyMasterPackApprovalReadiness({
   ...base,
   packs: [pack("en"), { ...pack("hi"), renderTargets: ["web", "text"] }, pack("pa")],
 });
-assert.equal(noPdf.ready, false);
-assert.equal(noPdf.checks.allRenderTargetsAvailable, false);
+assert.equal(legacyNoPdfMetadata.ready, true);
+assert.equal(legacyNoPdfMetadata.checks.allRenderTargetsAvailable, false);
+assert.match(legacyNoPdfMetadata.warnings.join(" "), /render-target manifests predate multilingual PDF support/);
 
 const wrongPayloadLanguage = evaluateDailyMasterPackApprovalReadiness({
   ...base,
