@@ -1,0 +1,115 @@
+name: Validate ARG-001 CP010 Remediated Question Studio
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp010.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/arg-001-cp010-question-studio.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp010-question-studio-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp010-remediated-question-studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for CP010 Question Studio adapter and route
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/types.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-english-remediated-templates.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-english-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-localized-remediated-templates-v2.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-localized-generator-v2.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-correlated-real-paper-generator.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-question-studio-adapter.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-question-studio-proof.test.ts \
+            src/routes/admin-question-studio-arguments-cp010.ts \
+            src/routes/admin-question-studio-registry.ts
+
+      - name: Preserve exhaustive CP009 trilingual remediation
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-trilingual-remediation-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp009-trilingual-proof.mjs
+          node dist/arg-001-cp009-trilingual-proof.mjs
+
+      - name: Preserve CP010 correlated real-paper remediation
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-correlated-real-paper-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp010-correlated-proof.mjs
+          node dist/arg-001-cp010-correlated-proof.mjs
+
+      - name: Prove current Question Studio routing and lifecycle locks
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-question-studio-proof.test.ts \
+            --bundle \
+            --platform=node \
+            --format=esm \
+            --outfile=dist/arg-001-cp010-question-studio-proof.mjs
+          node dist/arg-001-cp010-question-studio-proof.mjs
+
+      - name: Preserve exact CP006 historical core freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts
+
+      - name: Preserve exact CP008 historical real-paper freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-byte-freeze-proof.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build
+
+      - name: Lifecycle boundary
+        run: |
+          echo 'ARG-001 ordinary Question Studio review uses CP009 remediation.'
+          echo 'ARG-001 real-paper review uses CP010 correlated scenarios.'
+          echo 'Historical CP005/CP007 routers remain behind the current router and are not active for recognized ARG requests.'
+          echo 'Question Bank/test/mock/public/automatic learner publication remain locked.'
