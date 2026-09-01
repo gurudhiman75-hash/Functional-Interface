@@ -1,6 +1,8 @@
-import OpenAI from 'openai';
-
 import type { NotesLocalizationLanguage } from './approval-versioning';
+import {
+  NotesStudioSharedAIConfigurationError,
+  runNotesStudioStructuredAI,
+} from './shared-ai-provider';
 
 export type NotesLocalizationProviderInput = {
   languageCode: NotesLocalizationLanguage;
@@ -10,7 +12,7 @@ export type NotesLocalizationProviderInput = {
 };
 
 export type NotesLocalizationProviderResult = {
-  provider: 'openai';
+  provider: 'openai' | 'gemini' | 'claude';
   model: string;
   responseId: string | null;
   usage: Record<string, unknown>;
@@ -20,18 +22,6 @@ export type NotesLocalizationProviderResult = {
 };
 
 export class NotesStudioLocalizationModelConfigurationError extends Error {}
-
-function configuredModel(): string {
-  const model = String(process.env.NOTES_STUDIO_LOCALIZATION_MODEL ?? '').trim();
-  if (!model) throw new NotesStudioLocalizationModelConfigurationError('NOTES_STUDIO_LOCALIZATION_MODEL is not configured.');
-  return model;
-}
-
-function configuredApiKey(): string {
-  const apiKey = String(process.env.NOTES_STUDIO_OPENAI_API_KEY ?? process.env.OPENAI_API_KEY ?? '').trim();
-  if (!apiKey) throw new NotesStudioLocalizationModelConfigurationError('Notes Studio model API key is not configured.');
-  return apiKey;
-}
 
 const outputSchema = {
   type: 'object',
@@ -64,46 +54,37 @@ function instruction(input: NotesLocalizationProviderInput): string {
 }
 
 export async function generateNotesLocalization(input: NotesLocalizationProviderInput): Promise<NotesLocalizationProviderResult> {
-  const model = configuredModel();
-  const client = new OpenAI({ apiKey: configuredApiKey() });
-  const response = await client.responses.create({
-    model,
-    input: instruction(input),
-    text: {
-      format: {
-        type: 'json_schema',
-        name: 'examtree_note_localization',
-        strict: true,
-        schema: outputSchema,
-      },
-    },
-  });
-  const outputText = response.output_text?.trim();
-  if (!outputText) throw new Error('Notes Studio localization model returned no output.');
-  let parsed: unknown;
   try {
-    parsed = JSON.parse(outputText);
-  } catch {
-    throw new Error('Notes Studio localization model returned invalid structured JSON.');
+    const response = await runNotesStudioStructuredAI({
+      instruction: instruction(input),
+      schema: outputSchema,
+      schemaName: 'examtree_note_localization',
+      modelEnvKeys: ['NOTES_STUDIO_LOCALIZATION_MODEL', 'NOTES_STUDIO_MODEL'],
+      timeoutMs: 90_000,
+    });
+    if (!response.json || typeof response.json !== 'object' || Array.isArray(response.json)) {
+      throw new Error('Notes Studio localization model returned an invalid result object.');
+    }
+    const row = response.json as Record<string, unknown>;
+    const localizedTitle = typeof row.title === 'string' ? row.title.trim() : '';
+    const localizedSummary = typeof row.summary === 'string' ? row.summary.trim() : '';
+    const localizedBodyMarkdown = typeof row.bodyMarkdown === 'string' ? row.bodyMarkdown.trim() : '';
+    if (!localizedTitle || !localizedSummary || !localizedBodyMarkdown) {
+      throw new Error('Notes Studio localization model returned incomplete localized content.');
+    }
+    return {
+      provider: response.provider,
+      model: response.model,
+      responseId: response.responseId,
+      usage: response.usage,
+      localizedTitle,
+      localizedSummary,
+      localizedBodyMarkdown,
+    };
+  } catch (error) {
+    if (error instanceof NotesStudioSharedAIConfigurationError) {
+      throw new NotesStudioLocalizationModelConfigurationError(error.message);
+    }
+    throw error;
   }
-  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
-    throw new Error('Notes Studio localization model returned an invalid result object.');
-  }
-  const row = parsed as Record<string, unknown>;
-  const localizedTitle = typeof row.title === 'string' ? row.title.trim() : '';
-  const localizedSummary = typeof row.summary === 'string' ? row.summary.trim() : '';
-  const localizedBodyMarkdown = typeof row.bodyMarkdown === 'string' ? row.bodyMarkdown.trim() : '';
-  if (!localizedTitle || !localizedSummary || !localizedBodyMarkdown) {
-    throw new Error('Notes Studio localization model returned incomplete localized content.');
-  }
-  const raw = response as unknown as Record<string, unknown>;
-  return {
-    provider: 'openai',
-    model,
-    responseId: typeof raw.id === 'string' ? raw.id : null,
-    usage: raw.usage && typeof raw.usage === 'object' ? raw.usage as Record<string, unknown> : {},
-    localizedTitle,
-    localizedSummary,
-    localizedBodyMarkdown,
-  };
 }
