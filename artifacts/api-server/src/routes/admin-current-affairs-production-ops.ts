@@ -2,7 +2,12 @@ import { randomUUID } from "node:crypto";
 import { Router, type IRouter, type Response } from "express";
 
 import { loadDailyDiscoveryCensus } from "../current-affairs/daily-discovery-census";
-import { loadDailyMasterPack } from "../current-affairs/daily-master-pack";
+import {
+  assertDailyMasterPackLanguage,
+  loadDailyMasterPack,
+  loadDailyMasterPacks,
+  type DailyMasterPackLanguage,
+} from "../current-affairs/daily-master-pack";
 import { renderDailyMasterPackPdf } from "../current-affairs/daily-master-pack-pdf";
 import { generateYesterdayCurrentAffairsOnDemand } from "../current-affairs/on-demand-yesterday-runtime";
 import { previousIndiaDate } from "../current-affairs/orchestration-policy";
@@ -26,6 +31,15 @@ function requestedDate(value: unknown) {
   return DATE_ONLY.test(text) ? text : previousIndiaDate(new Date());
 }
 
+function requestedLanguage(value: unknown): DailyMasterPackLanguage {
+  return assertDailyMasterPackLanguage(typeof value === "string" ? value : "en");
+}
+
+function artifactFilename(targetDate: string, language: DailyMasterPackLanguage, extension: "md" | "pdf") {
+  const languageSuffix = language === "en" ? "" : `-${language}`;
+  return `examtree-current-affairs-${targetDate}${languageSuffix}.${extension}`;
+}
+
 router.use(authenticate);
 
 router.get("/production/readiness", requireAdminPermission("content.questions.read"), async (_req, res) => {
@@ -45,10 +59,20 @@ router.get("/production/discovery-census", requireAdminPermission("content.quest
   }
 });
 
+router.get("/production/master-packs", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const targetDate = requestedDate(req.query.date);
+    res.json({ targetDate, masterPacks: await loadDailyMasterPacks(targetDate) });
+  } catch (error) {
+    sendError(res, error, "Unable to load Current Affairs multilingual daily master packs");
+  }
+});
+
 router.get("/production/master-pack", requireAdminPermission("content.questions.read"), async (req, res) => {
   try {
     const targetDate = requestedDate(req.query.date);
-    res.json({ targetDate, masterPack: await loadDailyMasterPack(targetDate) });
+    const language = requestedLanguage(req.query.lang);
+    res.json({ targetDate, language, masterPack: await loadDailyMasterPack(targetDate, language) });
   } catch (error) {
     sendError(res, error, "Unable to load Current Affairs daily master pack");
   }
@@ -57,13 +81,17 @@ router.get("/production/master-pack", requireAdminPermission("content.questions.
 router.get("/production/master-pack/text", requireAdminPermission("content.questions.read"), async (req, res) => {
   try {
     const targetDate = requestedDate(req.query.date);
-    const masterPack = await loadDailyMasterPack(targetDate);
+    const language = requestedLanguage(req.query.lang);
+    const masterPack = await loadDailyMasterPack(targetDate, language);
     if (!masterPack) {
-      res.status(404).json({ error: "Daily Current Affairs master pack has not been materialized yet.", code: "CURRENT_AFFAIRS_MASTER_PACK_NOT_FOUND" });
+      res.status(404).json({
+        error: `Daily Current Affairs ${language.toUpperCase()} master pack has not been materialized yet.`,
+        code: "CURRENT_AFFAIRS_MASTER_PACK_NOT_FOUND",
+      });
       return;
     }
     res.setHeader("Content-Type", "text/markdown; charset=utf-8");
-    res.setHeader("Content-Disposition", `attachment; filename="examtree-current-affairs-${targetDate}.md"`);
+    res.setHeader("Content-Disposition", `attachment; filename="${artifactFilename(targetDate, language, "md")}"`);
     res.setHeader("Cache-Control", "private, no-store");
     res.send(String(masterPack.bodyMarkdown ?? ""));
   } catch (error) {
@@ -74,7 +102,17 @@ router.get("/production/master-pack/text", requireAdminPermission("content.quest
 router.get("/production/master-pack/pdf", requireAdminPermission("content.questions.read"), async (req, res) => {
   try {
     const targetDate = requestedDate(req.query.date);
-    const masterPack = await loadDailyMasterPack(targetDate);
+    const language = requestedLanguage(req.query.lang);
+    if (language !== "en") {
+      res.status(422).json({
+        error: "Hindi and Punjabi PDF rendering remains disabled until the server passes an explicit Devanagari/Gurmukhi font-coverage gate. Download the canonical Markdown for these languages meanwhile.",
+        code: "CURRENT_AFFAIRS_MULTILINGUAL_PDF_FONT_GATE",
+        language,
+        textAvailable: true,
+      });
+      return;
+    }
+    const masterPack = await loadDailyMasterPack(targetDate, language);
     if (!masterPack) {
       res.status(404).json({ error: "Daily Current Affairs master pack has not been materialized yet.", code: "CURRENT_AFFAIRS_MASTER_PACK_NOT_FOUND" });
       return;
@@ -82,7 +120,7 @@ router.get("/production/master-pack/pdf", requireAdminPermission("content.questi
     const rendered = renderDailyMasterPackPdf(masterPack.payload);
     res.setHeader("Content-Type", "application/pdf");
     res.setHeader("Content-Length", String(rendered.buffer.length));
-    res.setHeader("Content-Disposition", `attachment; filename="examtree-current-affairs-${targetDate}.pdf"`);
+    res.setHeader("Content-Disposition", `attachment; filename="${artifactFilename(targetDate, language, "pdf")}"`);
     res.setHeader("Cache-Control", "private, no-store");
     res.send(rendered.buffer);
   } catch (error) {
@@ -142,6 +180,7 @@ router.post("/production/generate-yesterday", requireAdminPermission("jobs.manag
           summary: result.summary,
           discoveryCensus: result.discoveryCensus,
           dailyMasterPack: result.dailyMasterPack,
+          dailyMasterPacks: result.dailyMasterPacks,
           publicationAuthority: false,
         })}::jsonb
       )
