@@ -107,7 +107,8 @@ const officialAction = authorSourceIndependentEvent({
   ],
 });
 assert.equal(officialAction.status, "ready");
-assert.equal(officialAction.templateId, "learner_official_action_v2");
+assert.equal(officialAction.templateId, "verified_official_action_v1");
+assert.match(officialAction.title ?? "", /^Government of India:/);
 assert.match(officialAction.title ?? "", /Legal Metrology Indian Standard Time Rules 2026/);
 assert.match(officialAction.summary ?? "", /^On 30 August 2026,/);
 assert.match(officialAction.summary ?? "", /Department of Consumer Affairs notifies/);
@@ -147,7 +148,8 @@ const initiative = authorSourceIndependentEvent({
   ],
 });
 assert.equal(initiative.status, "ready");
-assert.equal(initiative.templateId, "learner_initiative_v2");
+assert.equal(initiative.templateId, "verified_initiative_v1");
+assert.match(initiative.title ?? "", /^Government of India:/);
 assert.match(initiative.summary ?? "", /Government launched National Research Fellowship Portal/);
 assert.doesNotMatch(initiative.summary ?? "", /launching entity|Verified facts identify/i);
 
@@ -164,7 +166,7 @@ const genericGraph = authorSourceIndependentEvent({
   ],
 });
 assert.equal(genericGraph.status, "ready");
-assert.equal(genericGraph.templateId, "learner_generic_fact_graph_v2");
+assert.equal(genericGraph.templateId, "generic_verified_fact_graph_v1");
 assert.match(genericGraph.summary ?? "", /Target: 45%/);
 assert.match(genericGraph.summary ?? "", /Target year: 2030/);
 assert.doesNotMatch(genericGraph.summary ?? "", /Verified facts for this|fact graph/i);
