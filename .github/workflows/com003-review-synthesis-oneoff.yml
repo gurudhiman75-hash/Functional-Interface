@@ -100,7 +100,8 @@ jobs:
           done
           for test in \
             com003-question-bank-readiness-candidate-v1.test \
-            knowledge-v1-com003-adapter-v1.test; do
+            knowledge-v1-com003-adapter-v1.test \
+            com003-review-only-registry-contract-v1.test; do
             pnpm --dir artifacts/api-server exec esbuild \
               src/question-studio/engines/${test}.ts \
               --bundle --platform=node --format=esm \
@@ -129,3 +130,4 @@ jobs:
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-admin-preview-ui-freeze-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-bank-readiness-candidate-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/knowledge-v1-com003-adapter-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-only-registry-contract-v1.test.mjs
