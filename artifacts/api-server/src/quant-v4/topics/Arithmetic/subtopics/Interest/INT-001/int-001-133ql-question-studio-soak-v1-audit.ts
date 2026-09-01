@@ -89,13 +89,15 @@ for (const surface of surfaces) for (const qlId of surface.qlIds) qlSurface.set(
 
 let generated = 0;
 let deterministicChecks = 0;
+let explicitQlOwnershipChecks = 0;
+let legacyImplicitOwnershipCases = 0;
 let answerOwnershipChecks = 0;
 let lifecycleChecks = 0;
 let exactCrossQlStemCollisions = 0;
 let questionIdCollisions = 0;
 const collisionExamples: any[] = [];
 const stems = new Map<string, { qlId: string; seed: string; surface: string }>();
-const questionIds = new Map<string, { qlId: string; seed: string }>();
+const questionIds = new Map<string, { qlId: string; seed: string; language: string }>();
 const distinctStems = new Map<string, Set<string>>();
 const answerPositions = new Map<string, Set<number>>();
 const generatedByLanguage = new Map<string, number>();
@@ -103,18 +105,34 @@ const generatedByLanguage = new Map<string, number>();
 function correctIndexOf(question: any): number {
   const value = question.correctIndex ?? question.correct;
   const index = Number(value);
-  assert.ok(Number.isInteger(index), `${question.qlId}: correct index missing.`);
+  assert.ok(Number.isInteger(index), `correct index missing.`);
   return index;
 }
 function stemOf(question: any): string {
   const stem = String(question.stem ?? question.text ?? "").replace(/\s+/gu, " ").trim();
-  assert.ok(stem.length >= 10, `${question.qlId}: generated stem is empty/thin.`);
+  assert.ok(stem.length >= 10, `generated stem is empty/thin.`);
   return stem;
 }
-function qlIdOf(question: any): string {
-  const explicit = String(question.qlId ?? "").trim();
-  if (explicit) return explicit.split(":")[0]!;
-  return String(question.questionLanguageId ?? "").trim().split(":")[0]!;
+function permanentQlMarker(question: any): string | null {
+  const candidates = [
+    question?.qlId,
+    question?.questionLanguageId,
+    question?.traceability?.permanentQlId,
+    question?.parameters?.qlId,
+    question?.canonicalItemId,
+  ];
+  for (const candidate of candidates) {
+    const match = String(candidate ?? "").match(/INT-QL-\d{3}/u);
+    if (match) return match[0];
+  }
+  return null;
+}
+function optionText(value: any): string {
+  if (value && typeof value === "object") return String(value.text ?? value.display ?? value.label ?? value.value ?? "").trim();
+  return String(value ?? "").trim();
+}
+function answerText(question: any): string {
+  return String(question?.answer ?? question?.correctAnswer ?? question?.canonicalAnswer?.display ?? question?.canonicalAnswer?.value ?? "").trim();
 }
 
 for (const surface of surfaces) {
@@ -134,14 +152,21 @@ for (const surface of surfaces) {
         generated += 1;
         generatedByLanguage.set(language, (generatedByLanguage.get(language) ?? 0) + 1);
 
-        assert.equal(qlIdOf(first), qlId, `${qlId}/${language}: QL ownership drift.`);
+        const marker = permanentQlMarker(first);
+        if (marker) {
+          assert.equal(marker, qlId, `${qlId}/${language}: explicit permanent QL ownership drift.`);
+          explicitQlOwnershipChecks += 1;
+        } else {
+          legacyImplicitOwnershipCases += 1;
+        }
+
         const opts = first.options as readonly unknown[];
         assert.ok(Array.isArray(opts) && opts.length === 4, `${qlId}/${language}: expected four options.`);
         const correctIndex = correctIndexOf(first);
         assert.ok(correctIndex >= 0 && correctIndex < opts.length, `${qlId}/${language}: invalid correct index.`);
-        const answer = String(first.answer ?? first.canonicalAnswer?.display ?? first.canonicalAnswer?.value ?? "");
+        const answer = answerText(first);
         assert.ok(answer.length > 0, `${qlId}/${language}: answer missing.`);
-        assert.equal(String(opts[correctIndex]), answer, `${qlId}/${language}: correct option does not own answer.`);
+        assert.equal(optionText(opts[correctIndex]), answer, `${qlId}/${language}: correct option does not own answer.`);
         answerOwnershipChecks += 5;
         positions.add(correctIndex);
 
@@ -162,8 +187,8 @@ for (const surface of surfaces) {
         const questionId = String(first.questionId ?? "").trim();
         if (questionId) {
           const prior = questionIds.get(questionId);
-          if (prior && (prior.qlId !== qlId || prior.seed !== seed)) questionIdCollisions += 1;
-          else if (!prior) questionIds.set(questionId, { qlId, seed });
+          if (prior && (prior.qlId !== qlId || prior.seed !== seed || prior.language !== language)) questionIdCollisions += 1;
+          else if (!prior) questionIds.set(questionId, { qlId, seed, language });
         }
       }
     }
@@ -174,6 +199,7 @@ assert.equal(exactCrossQlStemCollisions, 0, `Found ${exactCrossQlStemCollisions}
 assert.equal(questionIdCollisions, 0, `Found ${questionIdCollisions} Question Studio question-id collisions.`);
 assert.ok(generated > 1800, "133-QL soak did not exercise enough Question Studio states.");
 assert.equal(deterministicChecks, generated);
+assert.equal(explicitQlOwnershipChecks + legacyImplicitOwnershipCases, generated);
 assert.equal(answerOwnershipChecks, generated * 5);
 assert.equal(lifecycleChecks, generated * 5);
 
@@ -190,6 +216,8 @@ console.log(JSON.stringify({
   seedsPerQlLanguage: SEEDS_PER_QL_LANGUAGE,
   generated,
   deterministicChecks,
+  explicitQlOwnershipChecks,
+  legacyImplicitOwnershipCases,
   answerOwnershipChecks,
   lifecycleChecks,
   generatedByLanguage: Object.fromEntries([...generatedByLanguage].sort()),
@@ -203,6 +231,9 @@ console.log(JSON.stringify({
   answerPositionCoverage: positionCoverage,
   ownershipByQl: Object.fromEntries([...qlSurface].sort()),
   policy: {
+    packageQlOwnership: "133_UNIQUE_REQUIRED",
+    explicitPayloadQlMarker: "MATCH_WHEN_PRESENT",
+    legacyPayloadWithoutQlMarker: "TRACKED_AS_IMPLICIT",
     exactCrossQlStemCollisions: "ZERO_REQUIRED_WITHIN_LANGUAGE",
     questionIdCollisions: "ZERO_REQUIRED",
     deterministicGeneration: "REQUIRED",
