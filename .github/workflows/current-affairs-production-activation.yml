@@ -76,6 +76,7 @@ jobs:
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/on-demand-yesterday-policy.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/daily-discovery-census.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/daily-master-pack.test.ts
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/daily-master-pack-approval-policy.test.ts
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/open-news-discovery.test.ts
 
       - name: Verify ordered production schema bootstrap
@@ -86,10 +87,12 @@ jobs:
           recovery=artifacts/api-server/migrations/20260831_current_affairs_primary_source_recovery.sql
           census=artifacts/api-server/migrations/20260831_current_affairs_daily_discovery_census.sql
           opennews=artifacts/api-server/migrations/20260831_current_affairs_open_news_discovery.sql
+          masterapproval=artifacts/api-server/migrations/20260901_current_affairs_master_pack_editorial_approval.sql
           test -f "$runner"
           test -f "$recovery"
           test -f "$census"
           test -f "$opennews"
+          test -f "$masterapproval"
           grep -Fq 'pg_advisory_lock' "$runner"
           grep -Fq 'platform.current_affairs_schema_migrations' "$runner"
           grep -Fq '20260828_current_affairs_studio.sql' "$runner"
@@ -97,8 +100,11 @@ jobs:
           grep -Fq '20260831_current_affairs_primary_source_recovery.sql' "$runner"
           grep -Fq '20260831_current_affairs_daily_discovery_census.sql' "$runner"
           grep -Fq '20260831_current_affairs_open_news_discovery.sql' "$runner"
+          grep -Fq '20260901_current_affairs_master_pack_editorial_approval.sql' "$runner"
           grep -Fq 'current_affairs_daily_discovery_census' "$runner"
           grep -Fq 'current_affairs_daily_master_packs' "$runner"
+          grep -Fq 'current_affairs_daily_master_pack_approvals' "$runner"
+          grep -Fq 'current_affairs_daily_master_pack_approval_packs' "$runner"
           grep -Fq 'gdelt_open_news' "$runner"
           grep -Fq 'Current Affairs schema verified' "$runner"
           grep -Fq 'https://www.pib.gov.in/RssMain.aspx?ModId=6&Lang=1&Regid=3' "$recovery"
@@ -111,6 +117,10 @@ jobs:
           grep -Fq "'api'" "$opennews"
           grep -Fq "'specialist'" "$opennews"
           grep -Fq 'allow_raw_text_persistence=false' "$opennews"
+          grep -Fq 'current_affairs_daily_master_pack_approvals' "$masterapproval"
+          grep -Fq 'current_affairs_daily_master_pack_approval_packs' "$masterapproval"
+          grep -Fq 'guard_current_affairs_master_pack_resource_publication' "$masterapproval"
+          grep -Fq 'editorial approval alone is not publication' "$masterapproval"
           for file in $(grep -oE '20[0-9]{6}_current_affairs_[a-z0-9_]+\.sql' "$runner" | sort -u); do
             test -f "artifacts/api-server/migrations/$file"
           done
@@ -194,6 +204,38 @@ jobs:
           ! grep -Fq "status='published'" "$master"
           ! grep -Fq 'question-promotion' "$master"
 
+      - name: Verify canonical master-pack editorial approval boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          runtime=artifacts/api-server/src/current-affairs/daily-master-pack-approval-runtime.ts
+          policy=artifacts/api-server/src/current-affairs/daily-master-pack-approval-policy.ts
+          route=artifacts/api-server/src/routes/admin-current-affairs-production-ops.ts
+          client=artifacts/admin-app/src/features/current-affairs/production-ops-api.ts
+          card=artifacts/admin-app/src/features/current-affairs/CurrentAffairsMasterPackApprovalCard.tsx
+          migration=artifacts/api-server/migrations/20260901_current_affairs_master_pack_editorial_approval.sql
+          grep -Fq 'evaluateDailyMasterPackApprovalReadiness' "$runtime"
+          grep -Fq 'currentEligibleEventIds' "$policy"
+          grep -Fq 'currentEligibilityParity' "$policy"
+          grep -Fq 'resourcesRemainDraft' "$policy"
+          grep -Fq 'noteLocalizationParity' "$policy"
+          grep -Fq 'conflictFree' "$policy"
+          grep -Fq 'learnerPublicationAuthorized: false' "$runtime"
+          grep -Fq 'learningResourcesRemainDraft: true' "$runtime"
+          grep -Fq 'canonicalQuestionPromotion: false' "$runtime"
+          grep -Fq 'automaticStudentPublication: false' "$runtime"
+          ! grep -Fq "SET status='published'" "$runtime"
+          grep -Fq 'guard_current_affairs_master_pack_resource_publication' "$migration"
+          grep -Fq '"/production/master-pack-approval"' "$route"
+          grep -Fq '"/production/master-pack-approval/approve"' "$route"
+          grep -Fq '"/production/master-pack-approval/revoke"' "$route"
+          grep -Fq 'requireAdminPermission("content.questions.update")' "$route"
+          grep -Fq '/admin/current-affairs/production/master-pack-approval/approve' "$client"
+          grep -Fq '/admin/current-affairs/production/master-pack-approval/revoke' "$client"
+          grep -Fq 'Approve & lock EN/HI/PA' "$card"
+          grep -Fq 'Return to review' "$card"
+          grep -Fq 'learner publication remains disabled' "$card"
+
       - name: Verify production route, audit entity, and admin action
         shell: bash
         run: |
@@ -244,6 +286,9 @@ jobs:
 
       - name: Bundle Open News discovery runtime
         run: pnpm --dir artifacts/api-server exec esbuild src/current-affairs/open-news-discovery.ts --bundle --packages=external --platform=node --format=esm --outfile=/tmp/current-affairs-open-news-discovery.mjs
+
+      - name: Bundle canonical master-pack editorial approval
+        run: pnpm --dir artifacts/api-server exec esbuild src/current-affairs/daily-master-pack-approval-runtime.ts --bundle --packages=external --platform=node --format=esm --outfile=/tmp/current-affairs-master-pack-approval.mjs
 
       - name: Bundle Current Affairs editorial activation
         run: pnpm --dir artifacts/api-server exec esbuild src/routes/admin-current-affairs-editorial-activation.ts --bundle --packages=external --platform=node --format=esm --outfile=/tmp/current-affairs-editorial-activation.mjs
