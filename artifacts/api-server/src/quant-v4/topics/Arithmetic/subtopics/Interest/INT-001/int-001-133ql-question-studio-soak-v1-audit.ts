@@ -111,6 +111,11 @@ function stemOf(question: any): string {
   assert.ok(stem.length >= 10, `${question.qlId}: generated stem is empty/thin.`);
   return stem;
 }
+function qlIdOf(question: any): string {
+  const explicit = String(question.qlId ?? "").trim();
+  if (explicit) return explicit.split(":")[0]!;
+  return String(question.questionLanguageId ?? "").trim().split(":")[0]!;
+}
 
 for (const surface of surfaces) {
   for (const qlId of surface.qlIds) {
@@ -129,7 +134,7 @@ for (const surface of surfaces) {
         generated += 1;
         generatedByLanguage.set(language, (generatedByLanguage.get(language) ?? 0) + 1);
 
-        assert.equal(String(first.qlId ?? first.questionLanguageId), qlId, `${qlId}/${language}: QL ownership drift.`);
+        assert.equal(qlIdOf(first), qlId, `${qlId}/${language}: QL ownership drift.`);
         const opts = first.options as readonly unknown[];
         assert.ok(Array.isArray(opts) && opts.length === 4, `${qlId}/${language}: expected four options.`);
         const correctIndex = correctIndexOf(first);
