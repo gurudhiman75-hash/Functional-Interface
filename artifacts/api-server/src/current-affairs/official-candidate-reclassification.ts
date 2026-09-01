@@ -3,7 +3,7 @@ import type { CurrentAffairsCategory } from "./core";
 import { classifyCurrentAffairsSignal } from "./ingestion";
 
 const PIB_NATIONAL_MARKERS = /\b(vice president|prime minister|president|union minister|ministry|department|secretary|government|commission|authority|notifies?|rules?|regulations?|mission|scheme|policy|action plan|convocation|inaugurates?|conducts?|releases?|launches?|approves?|adopts?|opens?|meets?|negotiations?)\b/i;
-const PIB_ECONOMY_MARKERS = /\b(gdp|gross domestic product|upi|npci|payment(?:s)?|fiscal|tax revenue|non-tax revenue|capital expenditure|government accounts|union government.*accounts|receipts|banking|insurance|monetary)\b/i;
+const PIB_ECONOMY_MARKERS = /\b(gdp|gross domestic product|upi|npci|payment(?:s)?|fiscal|tax revenue|non-tax revenue|capital expenditure|government accounts|union government.*accounts|monthly review of accounts|receipts|banking|insurance|monetary)\b/i;
 const INTERNATIONAL_MARKERS = /\b(cepa|bilateral|foreign|international|state visit|brics|sco|g20|wto|mercosur|summit|treaty|agreement|joint statement|trade monitoring mechanism|uzbekistan|chile|argentina)\b|\bindia\s*[-–—]\s*[a-z]{3,}/i;
 const DEFENCE_MARKERS = /\b(defence|army|navy|naval|air force|iaf|missile|military|cantonment|raksha mantri|drdo|diving support vessel)\b|\bins\s+[a-z0-9-]+\b/i;
 const SPORTS_MARKERS = /\b(sports|fit india|championship|tournament|world cup|medal|cricket|hockey|badminton|athletics|run & ride|cycle|squash)\b/i;
@@ -42,9 +42,6 @@ export function classifyOfficialCandidate(input: OfficialClassificationInput): {
       : { category: "other", reason: "secondary_source_requires_explicit_category" };
   }
 
-  // For institutions whose subject domain is intrinsically authoritative, the
-  // official-source identity is a stronger and safer classification signal than
-  // incidental headline words (for example, "Governor" on Punjab Lok Bhavan).
   if (sourceKey === "rbi" || sourceKey === "sebi" || sourceFamily === "rbi" || sourceFamily === "sebi") {
     return { category: "economy_banking", reason: "official_financial_institution" };
   }
@@ -58,9 +55,8 @@ export function classifyOfficialCandidate(input: OfficialClassificationInput): {
   const isPib = sourceKey === "pib" || sourceFamily === "pib";
   const title = input.title.replace(/\s+/g, " ").trim();
 
-  // CP-043: for PIB, bounded subject-specific markers must run before the generic
-  // headline classifier. Otherwise words such as "government" can incorrectly
-  // flatten a precise economy/report/defence/international item into `national`.
+  // PIB-specific subject markers take precedence over generic words such as
+  // `government`, so a fiscal/accounts release cannot be flattened to `national`.
   if (isPib) {
     if (PIB_ECONOMY_MARKERS.test(title)) return { category: "economy_banking", reason: "pib_economy_marker" };
     if (DEFENCE_MARKERS.test(title)) return { category: "defence", reason: "pib_defence_marker" };
@@ -75,7 +71,6 @@ export function classifyOfficialCandidate(input: OfficialClassificationInput): {
   if (classified.category !== "other") {
     return { category: classified.category, reason: "headline_classifier" };
   }
-
   if (!isPib) return { category: "other", reason: "no_safe_official_fallback" };
   if (PIB_NATIONAL_MARKERS.test(title) || classified.score >= 31) {
     return { category: "national", reason: "pib_official_exam_signal" };
