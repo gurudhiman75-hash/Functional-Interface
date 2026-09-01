@@ -32,35 +32,99 @@ function replaceDimension(
   return Object.freeze(dimensions) as ArgCp004LocalizedTemplate["dimensions"];
 }
 
-function patchV2(locale: ArgCp004LocalizedLocale, template: ArgCp004LocalizedTemplate): ArgCp004LocalizedTemplate {
-  if (template.id !== "ARG-CP003-QL006-T04") return template;
+function patchHindi(template: ArgCp004LocalizedTemplate): ArgCp004LocalizedTemplate {
+  switch (template.id) {
+    case "ARG-CP003-QL001-T08":
+      return Object.freeze({
+        ...template,
+        arguments: replaceArguments(
+          template,
+          "हाँ। {a} पर {b} छापने से {d} के दौरान {c} से जुड़ी हर समस्या तुरंत हल होने की गारंटी मिल जाएगी।",
+        ),
+      });
 
-  if (locale === "hi-IN") {
-    return Object.freeze({
-      ...template,
-      dimensions: replaceDimension(template, 3, [
-        "प्रभावित केंद्र की जाँच",
-        "प्रमाण और दायरे का सत्यापन",
-        "प्रभावित सत्रों का पृथक्करण",
-        "अनुपातिक सुधार प्रक्रिया",
-      ]),
-    });
+    case "ARG-CP003-QL005-T01":
+      return Object.freeze({
+        ...template,
+        dimensions: replaceDimension(template, 3, [
+          "आवेदन जमा करने",
+          "सरकारी शुल्क चुकाने",
+          "सेवा अनुरोध ट्रैक करने",
+          "आधिकारिक जानकारी प्राप्त करने",
+        ]),
+        arguments: replaceArguments(
+          template,
+          "हाँ। {b} की मदद से {c} के लिए {a} के माध्यम से {d} में आने वाली अनावश्यक बाधाएँ कम हो सकती हैं।",
+          "नहीं। क्योंकि {c} अन्य उपयोगकर्ताओं से कम संख्या में हैं, इसलिए {b} तय करते समय उनकी {a} के माध्यम से {d} की जरूरत पर विचार करना जरूरी नहीं।",
+        ),
+      });
+
+    case "ARG-CP003-QL006-T04":
+      return Object.freeze({
+        ...template,
+        dimensions: replaceDimension(template, 3, [
+          "प्रभावित केंद्र की जाँच",
+          "प्रमाण और दायरे का सत्यापन",
+          "प्रभावित सत्रों का पृथक्करण",
+          "अनुपातिक सुधार प्रक्रिया",
+        ]),
+      });
+
+    default:
+      return template;
   }
+}
 
-  return Object.freeze({
-    ...template,
-    dimensions: replaceDimension(template, 3, [
-      "ਪ੍ਰਭਾਵਿਤ ਕੇਂਦਰ ਦੀ ਜਾਂਚ",
-      "ਸਬੂਤ ਅਤੇ ਦਾਇਰੇ ਦੀ ਤਸਦੀਕ",
-      "ਪ੍ਰਭਾਵਿਤ ਸੈਸ਼ਨਾਂ ਦੀ ਵੱਖਰੀ ਪਛਾਣ",
-      "ਅਨੁਪਾਤਿਕ ਸੁਧਾਰ ਪ੍ਰਕਿਰਿਆ",
-    ]),
-    arguments: replaceArguments(
-      template,
-      undefined,
-      "ਨਹੀਂ। ਅਥਾਰਟੀ ਨੂੰ ਜਾਂ ਹਰ {a} ਅਣਡਿੱਠੀ ਕਰਨੀ ਪਵੇਗੀ ਜਾਂ {b} ਸਦਾ ਲਈ ਬੰਦ ਕਰਨਾ ਪਵੇਗਾ; {d} ਬਾਰੇ ਵਿਚਾਰ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।",
-    ),
-  });
+function patchPunjabi(template: ArgCp004LocalizedTemplate): ArgCp004LocalizedTemplate {
+  switch (template.id) {
+    case "ARG-CP003-QL001-T08":
+      return Object.freeze({
+        ...template,
+        arguments: replaceArguments(
+          template,
+          "ਹਾਂ। {a} ਉੱਤੇ {b} ਛਾਪਣ ਨਾਲ {d} ਦੌਰਾਨ {c} ਨਾਲ ਜੁੜੀ ਹਰ ਸਮੱਸਿਆ ਤੁਰੰਤ ਹੱਲ ਹੋਣ ਦੀ ਗਾਰੰਟੀ ਮਿਲ ਜਾਵੇਗੀ।",
+        ),
+      });
+
+    case "ARG-CP003-QL005-T01":
+      return Object.freeze({
+        ...template,
+        dimensions: replaceDimension(template, 3, [
+          "ਅਰਜ਼ੀਆਂ ਜਮ੍ਹਾਂ ਕਰਨ",
+          "ਸਰਕਾਰੀ ਫੀਸਾਂ ਭਰਨ",
+          "ਸੇਵਾ ਬੇਨਤੀਆਂ ਟ੍ਰੈਕ ਕਰਨ",
+          "ਅਧਿਕਾਰਤ ਜਾਣਕਾਰੀ ਲੈਣ",
+        ]),
+        arguments: replaceArguments(
+          template,
+          "ਹਾਂ। {b} ਦੀ ਮਦਦ ਨਾਲ {c} ਲਈ {a} ਰਾਹੀਂ {d} ਵਿੱਚ ਆਉਣ ਵਾਲੀਆਂ ਬੇਲੋੜੀਆਂ ਰੁਕਾਵਟਾਂ ਘੱਟ ਹੋ ਸਕਦੀਆਂ ਹਨ।",
+          "ਨਹੀਂ। ਕਿਉਂਕਿ {c} ਹੋਰ ਵਰਤੋਂਕਾਰਾਂ ਨਾਲੋਂ ਘੱਟ ਹਨ, ਇਸ ਲਈ {b} ਬਾਰੇ ਫੈਸਲਾ ਕਰਦੇ ਸਮੇਂ ਉਹਨਾਂ ਦੀ {a} ਰਾਹੀਂ {d} ਦੀ ਲੋੜ ਨੂੰ ਵਿਚਾਰਨਾ ਜ਼ਰੂਰੀ ਨਹੀਂ।",
+        ),
+      });
+
+    case "ARG-CP003-QL006-T04":
+      return Object.freeze({
+        ...template,
+        dimensions: replaceDimension(template, 3, [
+          "ਪ੍ਰਭਾਵਿਤ ਕੇਂਦਰ ਦੀ ਜਾਂਚ",
+          "ਸਬੂਤ ਅਤੇ ਦਾਇਰੇ ਦੀ ਤਸਦੀਕ",
+          "ਪ੍ਰਭਾਵਿਤ ਸੈਸ਼ਨਾਂ ਦੀ ਵੱਖਰੀ ਪਛਾਣ",
+          "ਅਨੁਪਾਤਿਕ ਸੁਧਾਰ ਪ੍ਰਕਿਰਿਆ",
+        ]),
+        arguments: replaceArguments(
+          template,
+          undefined,
+          "ਨਹੀਂ। ਅਥਾਰਟੀ ਨੂੰ ਜਾਂ ਹਰ {a} ਅਣਡਿੱਠੀ ਕਰਨੀ ਪਵੇਗੀ ਜਾਂ {b} ਸਦਾ ਲਈ ਬੰਦ ਕਰਨਾ ਪਵੇਗਾ; {d} ਬਾਰੇ ਵਿਚਾਰ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।",
+        ),
+      });
+
+    default:
+      return template;
+  }
+}
+
+function patchV2(locale: ArgCp004LocalizedLocale, template: ArgCp004LocalizedTemplate): ArgCp004LocalizedTemplate {
+  return locale === "hi-IN" ? patchHindi(template) : patchPunjabi(template);
 }
 
 function buildLocale(locale: ArgCp004LocalizedLocale): Readonly<Record<ArgQlId, readonly ArgCp004LocalizedTemplate[]>> {
