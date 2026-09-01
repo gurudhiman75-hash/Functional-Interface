@@ -51,10 +51,31 @@ assert.equal(
 const scores = scoreExamRelevance(baseCandidate);
 const banking = scores.find((score) => score.examFamily === "banking");
 const general = scores.find((score) => score.examFamily === "general");
+const punjabForBankingStory = scores.find((score) => score.examFamily === "punjab");
 assert.ok(banking);
 assert.ok(general);
+assert.ok(punjabForBankingStory);
 assert.ok(banking.score > general.score, "banking events should receive a banking-specific relevance lift");
 assert.equal(banking.includeRecommended, true);
+assert.equal(punjabForBankingStory.includeRecommended, false, "strong official evidence must not make every banking story Punjab-relevant");
+
+const environmentScores = scoreExamRelevance({
+  ...baseCandidate,
+  title: "National biodiversity forum announces a new conservation initiative",
+  category: "environment",
+});
+assert.equal(environmentScores.find((score) => score.examFamily === "ssc")?.includeRecommended, true);
+assert.equal(environmentScores.find((score) => score.examFamily === "banking")?.includeRecommended, false);
+assert.equal(environmentScores.find((score) => score.examFamily === "punjab")?.includeRecommended, false);
+
+const punjabScores = scoreExamRelevance({
+  ...baseCandidate,
+  title: "Punjab government announces a state examination initiative",
+  category: "punjab",
+});
+assert.equal(punjabScores.find((score) => score.examFamily === "punjab")?.includeRecommended, true);
+assert.equal(punjabScores.find((score) => score.examFamily === "banking")?.includeRecommended, false);
+assert.equal(punjabScores.find((score) => score.examFamily === "ssc")?.includeRecommended, false);
 
 const primaryDecision = canAutoVerify({
   evidence: [{ isPrimaryEvidence: true, trustScore: 0.95 }],
@@ -80,4 +101,4 @@ assert.match(markdown, /## Key facts/);
 assert.match(markdown, /\*\*Organisation:\*\* Example Authority/);
 assert.match(markdown, /## Why it matters for exams/);
 
-console.log("Current Affairs Studio core contracts passed");
+console.log("Current Affairs Studio core + CP-043 relevance contracts passed");
