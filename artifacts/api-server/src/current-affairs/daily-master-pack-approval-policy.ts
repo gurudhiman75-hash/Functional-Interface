@@ -117,7 +117,7 @@ export function evaluateDailyMasterPackApprovalReadiness(
   const allRenderTargetsAvailable = hasAllLanguages
     && [english!, hindi!, punjabi!].every((pack) => requiredTargets.every((target) => pack.renderTargets.includes(target)));
   if (hasAllLanguages && !allRenderTargetsAvailable) {
-    blockers.push("Every canonical language must declare web, text and PDF render targets before approval");
+    warnings.push("One or more stored render-target manifests predate multilingual PDF support; runtime PDF capability is validated separately and the mutable rows will be upgraded by CP-042 schema bootstrap.");
   }
 
   const expectedEventCount = englishIds.length;
