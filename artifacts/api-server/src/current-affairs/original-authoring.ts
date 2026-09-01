@@ -26,7 +26,7 @@ export type AuthoringOutput = {
   inputFingerprint: string;
 };
 
-const AUTHORING_POLICY_VERSION = "ca-cp030-generic-verified-fact-authoring-v1";
+const AUTHORING_POLICY_VERSION = "ca-cp044-learner-writing-quality-v1";
 
 const SOURCE_NAMES: Record<string, string> = {
   pib: "Government of India",
@@ -59,31 +59,31 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 const FACT_LABELS: Record<string, string> = {
-  appointee: "appointee",
-  position: "position",
-  winner: "winner",
-  award_or_title: "award or title",
-  launching_entity: "launching entity",
-  initiative: "initiative",
-  acting_entity: "official body",
-  official_action: "official action",
-  action_subject: "subject",
-  event_status: "status",
-  amount: "amount",
-  percentage: "percentage",
-  rank: "rank",
-  scheme_outlay: "outlay",
-  beneficiary_count: "beneficiaries",
-  effective_date: "effective date",
-  headquarters: "headquarters",
-  target_percentage: "target",
-  target_year: "target year",
-  mou_parties: "parties",
-  orbit_altitude: "orbit altitude",
-  repeat_cycle: "repeat cycle",
-  mission_life: "mission life",
-  launcher: "launcher",
-  index_value: "index value",
+  appointee: "Appointee",
+  position: "Position",
+  winner: "Winner",
+  award_or_title: "Award / title",
+  launching_entity: "Organisation",
+  initiative: "Initiative",
+  acting_entity: "Organisation",
+  official_action: "Action",
+  action_subject: "Topic",
+  event_status: "Status",
+  amount: "Amount",
+  percentage: "Percentage",
+  rank: "Rank",
+  scheme_outlay: "Outlay",
+  beneficiary_count: "Beneficiaries",
+  effective_date: "Effective date",
+  headquarters: "Headquarters",
+  target_percentage: "Target",
+  target_year: "Target year",
+  mou_parties: "Parties",
+  orbit_altitude: "Orbit altitude",
+  repeat_cycle: "Repeat cycle",
+  mission_life: "Mission life",
+  launcher: "Launch vehicle",
+  index_value: "Index value",
 };
 
 const SUBJECT_FACT_PRIORITY = [
@@ -155,8 +155,7 @@ function factualSubjectFromSourceTitle(sourceTitle: string): string | undefined 
   if (quoted?.[1]) return quoted[1].trim();
 
   const acronyms = sourceTitle.match(/\b[A-Z][A-Z0-9-]{2,14}\b/g) ?? [];
-  const subject = acronyms.find((token) => !ACRONYM_STOP.has(token) && !/^\d/.test(token));
-  return subject;
+  return acronyms.find((token) => !ACRONYM_STOP.has(token) && !/^\d/.test(token));
 }
 
 function cleanFactValue(value: string): string | undefined {
@@ -166,12 +165,36 @@ function cleanFactValue(value: string): string | undefined {
 }
 
 function factLabel(key: string): string {
-  return FACT_LABELS[key] ?? key.replace(/_/g, " ");
+  return FACT_LABELS[key] ?? key.replace(/_/g, " ").replace(/^./, (char) => char.toUpperCase());
 }
 
 function compact(value: string, max = 112): string {
   const clean = value.replace(/\s+/g, " ").trim();
   return clean.length <= max ? clean : `${clean.slice(0, max - 1).trimEnd()}…`;
+}
+
+function humanDate(date: string): string {
+  const parsed = new Date(`${date}T00:00:00Z`);
+  if (Number.isNaN(parsed.getTime())) return date;
+  return new Intl.DateTimeFormat("en-IN", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(parsed);
+}
+
+function lowerFirst(value: string) {
+  const clean = value.trim();
+  return clean ? `${clean[0]!.toLowerCase()}${clean.slice(1)}` : clean;
+}
+
+function readableAction(action: string) {
+  return action.replace(/[_-]+/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function naturalFactDetail(items: ReadonlyArray<readonly [string, string]>) {
+  return items.map(([key, value]) => `${factLabel(key)}: ${value}`).join("; ");
 }
 
 function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, string>, sourceName: string): AuthoringOutput | null {
@@ -180,43 +203,44 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
     .filter((entry): entry is readonly [string, string] => Boolean(entry[1]));
   if (useful.length < 2) return null;
 
-  const actionEntity = facts.get("acting_entity");
-  const officialAction = facts.get("official_action");
-  const actionSubject = facts.get("action_subject");
+  const actionEntity = cleanFactValue(facts.get("acting_entity") ?? "");
+  const officialAction = cleanFactValue(facts.get("official_action") ?? "");
+  const actionSubject = cleanFactValue(facts.get("action_subject") ?? "");
   if (actionEntity && officialAction && actionSubject) {
+    const action = readableAction(officialAction);
     return result({
       input,
-      title: `${sourceName} update: ${compact(actionSubject)}`,
-      summary: `Verified official facts identify ${actionEntity} as the acting body, the action as ${officialAction}, and the subject as ${actionSubject}.`,
-      oneLiner: `${factLabel("action_subject")}: ${compact(actionSubject, 150)}`,
-      templateId: "verified_official_action_v1",
-      reasons: ["Learner wording is composed from reconciled atomic facts rather than source-headline wording"],
+      title: `${compact(actionSubject, 118)} — ${compact(actionEntity, 58)}`,
+      summary: `On ${humanDate(input.eventDate)}, ${actionEntity} ${lowerFirst(action)} ${actionSubject}.`,
+      oneLiner: `${compact(actionSubject, 118)} — ${compact(actionEntity, 58)}`,
+      templateId: "learner_official_action_v2",
+      reasons: ["Learner copy states the event directly and anchors it to the Current Affairs date"],
     });
   }
 
-  const winner = facts.get("winner");
-  const award = facts.get("award_or_title");
+  const winner = cleanFactValue(facts.get("winner") ?? "");
+  const award = cleanFactValue(facts.get("award_or_title") ?? "");
   if (winner && award) {
     return result({
       input,
-      title: `${sourceName} award update: ${compact(award)}`,
-      summary: `Verified facts record ${winner} as the winner and ${award} as the award or title.`,
+      title: `${winner} wins ${award}`,
+      summary: `On ${humanDate(input.eventDate)}, ${winner} was recorded as the winner of ${award}.`,
       oneLiner: `${winner} — ${award}`,
-      templateId: "verified_award_result_v1",
-      reasons: ["Winner and award are rendered from reconciled factual fields"],
+      templateId: "learner_award_result_v2",
+      reasons: ["Winner and award are rendered as a direct learner-facing fact"],
     });
   }
 
-  const launchingEntity = facts.get("launching_entity");
-  const initiative = facts.get("initiative");
+  const launchingEntity = cleanFactValue(facts.get("launching_entity") ?? "");
+  const initiative = cleanFactValue(facts.get("initiative") ?? "");
   if (launchingEntity && initiative) {
     return result({
       input,
-      title: `${sourceName} initiative update: ${compact(initiative)}`,
-      summary: `Verified facts identify ${launchingEntity} as the launching entity and ${initiative} as the initiative.`,
-      oneLiner: `Initiative: ${compact(initiative, 150)}`,
-      templateId: "verified_initiative_v1",
-      reasons: ["Initiative wording is composed from reconciled factual fields"],
+      title: `${compact(initiative, 118)} launched by ${compact(launchingEntity, 58)}`,
+      summary: `On ${humanDate(input.eventDate)}, ${launchingEntity} launched ${initiative}.`,
+      oneLiner: `${initiative} — launched by ${launchingEntity}`,
+      templateId: "learner_initiative_v2",
+      reasons: ["Initiative wording is expressed as a direct event rather than extraction metadata"],
     });
   }
 
@@ -226,17 +250,20 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
     .map((value) => value ? cleanFactValue(value) : undefined)
     .find(Boolean);
   const selected = useful.slice(0, 4);
-  const detail = selected.map(([key, value]) => `${factLabel(key)}: ${value}`).join("; ");
+  const detail = naturalFactDetail(selected);
   const title = subject
-    ? `${sourceName} ${categoryLabel} update: ${compact(subject)}`
-    : `${sourceName} ${categoryLabel} verified-fact update`;
+    ? `${compact(subject, 118)} — key ${categoryLabel} development`
+    : `${sourceName}: key ${categoryLabel} development`;
+  const memory = selected.length >= 2
+    ? `${compact(selected[0]![1], 85)} · ${compact(selected[1]![1], 85)}`
+    : compact(selected[0]?.[1] ?? subject ?? sourceName, 150);
   return result({
     input,
     title,
-    summary: `Verified facts for this ${categoryLabel} development are ${detail}.`,
-    oneLiner: selected.slice(0, 2).map(([key, value]) => `${factLabel(key)}: ${value}`).join("; "),
-    templateId: "generic_verified_fact_graph_v1",
-    reasons: ["Fallback requires at least two reconciled atomic facts and does not reuse the source headline as learner copy"],
+    summary: `On ${humanDate(input.eventDate)}, this ${categoryLabel} development was recorded with these key details: ${detail}.`,
+    oneLiner: memory,
+    templateId: "learner_generic_fact_graph_v2",
+    reasons: ["Fallback uses only reconciled atomic facts while avoiding internal extraction terminology"],
   });
 }
 
@@ -288,9 +315,9 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
     return result({
       input,
       title: `${appointee} appointed ${position}`,
-      summary: `${appointee} has been appointed ${position}.`,
-      oneLiner: `${appointee} was appointed ${position}`,
-      templateId: "appointment_v1",
+      summary: `On ${humanDate(input.eventDate)}, ${appointee} was appointed ${position}.`,
+      oneLiner: `${appointee} — ${position}`,
+      templateId: "appointment_v2",
     });
   }
 
@@ -299,9 +326,9 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
     return result({
       input,
       title: `RBI Financial Inclusion Index stands at ${fiIndex}`,
-      summary: `The Reserve Bank of India reported its Financial Inclusion Index at ${fiIndex}.`,
-      oneLiner: `RBI's Financial Inclusion Index is ${fiIndex}`,
-      templateId: "rbi_financial_inclusion_index_v1",
+      summary: `On ${humanDate(input.eventDate)}, the Reserve Bank of India reported its Financial Inclusion Index at ${fiIndex}.`,
+      oneLiner: `RBI Financial Inclusion Index — ${fiIndex}`,
+      templateId: "rbi_financial_inclusion_index_v2",
     });
   }
 
@@ -318,9 +345,9 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
     return result({
       input,
       title: `RBI policy rates: repo rate at ${repo}`,
-      summary: `The Reserve Bank of India policy-rate snapshot is: ${detail}.`,
-      oneLiner: `RBI repo rate is ${repo}`,
-      templateId: "rbi_policy_rates_v1",
+      summary: `On ${humanDate(input.eventDate)}, the RBI policy-rate snapshot showed ${detail}.`,
+      oneLiner: `RBI repo rate — ${repo}`,
+      templateId: "rbi_policy_rates_v2",
     });
   }
 
@@ -329,9 +356,9 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
     return result({
       input,
       title: `MoU between ${mouParties}`,
-      summary: `A Memorandum of Understanding involves ${mouParties}.`,
-      oneLiner: `MoU parties: ${mouParties}`,
-      templateId: "mou_v1",
+      summary: `On ${humanDate(input.eventDate)}, a Memorandum of Understanding was recorded between ${mouParties}.`,
+      oneLiner: `MoU parties — ${mouParties}`,
+      templateId: "mou_v2",
     });
   }
 
@@ -347,9 +374,9 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
     return result({
       input,
       title: `${subject}: key ISRO mission facts`,
-      summary: `Key verified facts for ${subject} include ${detail}.`,
+      summary: `For ${subject}, the key mission details are ${detail}.`,
       oneLiner: `${subject} — ${detail}`,
-      templateId: "isro_mission_facts_v1",
+      templateId: "isro_mission_facts_v2",
       reasons: ["Subject name is extracted as a factual acronym/entity from source evidence; source wording is not reused"],
     });
   }
@@ -363,10 +390,10 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
     ]);
     return result({
       input,
-      title: `${sourceName} programme update: ${outlay} outlay`,
-      summary: `Verified programme facts from ${sourceName}: ${detail}.`,
+      title: `${sourceName} programme: ${outlay} outlay`,
+      summary: `On ${humanDate(input.eventDate)}, the programme details included ${detail}.`,
       oneLiner: `${sourceName} programme — ${detail}`,
-      templateId: "programme_outlay_v1",
+      templateId: "programme_outlay_v2",
     });
   }
 
