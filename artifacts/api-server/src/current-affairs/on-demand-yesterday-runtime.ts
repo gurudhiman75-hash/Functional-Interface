@@ -6,6 +6,7 @@ import { runScheduledIntelligenceProcessing } from "./daily-orchestration";
 import { refreshDailyDiscoveryCensus } from "./daily-discovery-census";
 import { materializeDailyMasterPacks } from "./daily-master-pack";
 import { reconcilePrimaryEnrichedEvents } from "./enriched-event-reconciliation";
+import { refreshTargetDateExamRelevance } from "./exam-relevance-runtime";
 import { holdManualAuthorityEventsForReview } from "./manual-enrichment-guard";
 import { prepareOfficialYesterdayCandidates } from "./official-candidate-reclassification";
 import { runOpenNewsDiscovery } from "./open-news-discovery";
@@ -122,7 +123,11 @@ async function countTargetDateState(targetDate: string) {
   const rows = await sqlClient`
     SELECT
       (SELECT count(*) FROM content.current_affairs_ingestion_candidates candidate
-        WHERE candidate.published_at::date=${targetDate}::date)::int AS "candidateCount",
+        WHERE COALESCE(
+          NULLIF(candidate.payload->>'historicalTargetDate',''),
+          NULLIF(candidate.payload->>'discoveryTargetDate',''),
+          (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+        )=${targetDate})::int AS "candidateCount",
       (SELECT count(*) FROM content.current_affairs_events event
         WHERE event.event_date=${targetDate}::date)::int AS "eventCount",
       (SELECT count(*) FROM content.current_affairs_events event
@@ -145,27 +150,21 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
   const before = await countTargetDateState(targetDate);
 
   // A manual click gets its own unique run key and never shares the 3-hour cron key.
-  // Scheduled cron dedupe remains unchanged; Generate Yesterday can poll immediately at any time.
   const sourceRunKey = onDemandFeedRunKey(now, randomUUID());
   const sourceRefresh = await runScheduledFeedIngestion(now, {
     runKey: sourceRunKey,
     trigger: "on_demand",
   });
 
-  // RSS/latest listings can legitimately omit the previous calendar day. Use the
-  // official PIB archive as a completeness pass for the exact target date.
+  // RSS/latest listings can legitimately omit the previous calendar day.
   const historicalSourceBackfill = await ensurePibHistoricalCandidates(targetDate);
 
-  // CP-037 expands discovery without scraping publisher sites. GDELT's open DOC
-  // dataset contributes title/link/date metadata only. Known registered publishers
-  // are mapped back to their own discovery source; everything else remains under
-  // the non-primary GDELT provider. Article bodies are never fetched or persisted.
+  // Rights-safe broad discovery. CP-043 keeps broad low-signal results in the
+  // discovery accounting while withholding them from clustering unless a targeted
+  // query or sufficient exam signal makes them clustering-eligible.
   const openNewsDiscovery = await runOpenNewsDiscovery(targetDate);
 
-  // Existing primary-source candidates and open clusters from the target date may
-  // predate newer classification rules. Reclassify only official primary evidence
-  // before enrichment/intelligence so valid PIB/Punjab/RBI/SEBI/ISRO stories are
-  // not stranded as `other`. Specific categories are never overwritten.
+  // Reclassify bounded official evidence before intelligence.
   const officialCandidatePreparation = await prepareOfficialYesterdayCandidates(targetDate);
 
   const enrichmentPasses: unknown[] = [];
@@ -195,6 +194,11 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
 
   const recoverySupersede = await supersedeManualRecoverySlot(targetDate, now);
   const recovery = await runCurrentAffairsProductionRecovery({ now, triggerMode: "manual" });
+
+  // CP-043 recomputes product fit for already-authored target-date events. This
+  // separates exam relevance from evidence strength and prevents an official source
+  // from making every event relevant to every exam family.
+  const examRelevanceRefresh = await refreshTargetDateExamRelevance(targetDate);
 
   const discoveryCensus = await refreshDailyDiscoveryCensus(targetDate);
   const dailyMasterPacks = await materializeDailyMasterPacks(targetDate, String(discoveryCensus.id));
@@ -232,6 +236,7 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
       supersededPreviousSlot: recoverySupersede.superseded,
       result: recovery,
     },
+    examRelevanceRefresh,
     discoveryCensus,
     dailyMasterPack,
     dailyMasterPacks,
@@ -245,6 +250,9 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
       verifiedEvents: after.verifiedEventCount,
       reviewEvents: after.reviewEventCount,
       discoveredNewsArticles: Number(openNewsDiscovery.uniqueArticles ?? 0),
+      clusteringEligibleNewsArticles: Number(openNewsDiscovery.eligibleArticles ?? 0),
+      withheldBroadLowSignalNewsArticles: Number(openNewsDiscovery.withheldBroadLowSignal ?? 0),
+      rejectedLowSignalClusters: Number(openNewsDiscovery.rejectedLowSignalClusters ?? 0),
       masterPackEventCount: Number((dailyMasterPack as any)?.eventCount ?? 0),
       coverageConfidenceScore: Number((discoveryCensus as any)?.coverageConfidenceScore ?? 0),
       readinessColor: readiness.evaluation.color,
