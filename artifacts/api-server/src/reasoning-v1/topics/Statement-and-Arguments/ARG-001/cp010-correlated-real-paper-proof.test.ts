@@ -28,42 +28,46 @@ const PROFILE_DIFFICULTIES: readonly [ArgCp007ExamProfile, ArgCp007Difficulty][]
   ["BANKING_COMBO_4X5", "Hard"],
 ];
 
-const EXPECTED_ENGLISH_PAIR_TEXT: Readonly<Record<ArgQlId, readonly [string, string][]>> = Object.freeze({
+function pair(first: string, second: string): readonly [string, string] {
+  return [first, second] as const;
+}
+
+const EXPECTED_ENGLISH_PAIR_TEXT: Readonly<Record<ArgQlId, readonly (readonly [string, string])[]>> = Object.freeze({
   "ARG-QL-001": Object.freeze([
-    ["a recruitment board", "model answer points"],
-    ["a university", "evaluation criteria"],
-    ["a licensing authority", "a grievance contact"],
-    ["a scholarship authority", "a grievance contact"],
+    pair("a recruitment board", "model answer points"),
+    pair("a university", "evaluation criteria"),
+    pair("a licensing authority", "a grievance contact"),
+    pair("a scholarship authority", "a grievance contact"),
   ]),
   "ARG-QL-002": Object.freeze([
-    ["a bank", "the registered mobile number"],
-    ["a payment wallet", "the recovery email"],
-    ["an insurance portal", "the payout account"],
-    ["a brokerage app", "the transaction limit"],
+    pair("a bank", "the registered mobile number"),
+    pair("a payment wallet", "the recovery email"),
+    pair("an insurance portal", "the payout account"),
+    pair("a brokerage app", "the transaction limit"),
   ]),
   "ARG-QL-003": Object.freeze([
-    ["a passport centre", "routine document services"],
-    ["a district hospital", "registration services"],
-    ["a municipal office", "fee-payment services"],
-    ["a citizen-service centre", "standard certificate services"],
+    pair("a passport centre", "routine document services"),
+    pair("a district hospital", "registration services"),
+    pair("a municipal office", "fee-payment services"),
+    pair("a citizen-service centre", "standard certificate services"),
   ]),
   "ARG-QL-004": Object.freeze([
-    ["a market street", "the evening peak"],
-    ["a school-zone road", "school closing time"],
-    ["a station-front road", "the evening peak"],
-    ["a hospital approach road", "the morning rush"],
+    pair("a market street", "the evening peak"),
+    pair("a school-zone road", "school closing time"),
+    pair("a station-front road", "the evening peak"),
+    pair("a hospital approach road", "the morning rush"),
   ]),
   "ARG-QL-005": Object.freeze([
-    ["office employees", "continuous screen recording"],
-    ["remote employees", "keystroke logging"],
-    ["field staff", "location tracking"],
-    ["contract workers", "webcam activity monitoring"],
+    pair("office employees", "continuous screen recording"),
+    pair("remote employees", "keystroke logging"),
+    pair("field staff", "location tracking"),
+    pair("contract workers", "webcam activity monitoring"),
   ]),
   "ARG-QL-006": Object.freeze([
-    ["an online marketplace", "one buyer complaint"],
-    ["an examination authority", "one cheating complaint"],
-    ["a bank", "one automated fraud flag"],
-    ["a college", "one misconduct allegation"],
+    pair("an online marketplace", "one buyer complaint"),
+    pair("an examination authority", "one cheating complaint"),
+    pair("a bank", "one automated fraud flag"),
+    pair("a college", "one misconduct allegation"),
   ]),
 });
 
