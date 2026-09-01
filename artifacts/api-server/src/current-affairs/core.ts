@@ -61,7 +61,7 @@ export type ExamRelevanceScore = {
   reasons: string[];
 };
 
-const CATEGORY_BASE: Record<CurrentAffairsCategory, number> = {
+const GENERAL_CATEGORY_BASE: Record<CurrentAffairsCategory, number> = {
   national: 70,
   economy_banking: 76,
   international: 62,
@@ -81,41 +81,88 @@ const CATEGORY_BASE: Record<CurrentAffairsCategory, number> = {
   other: 40,
 };
 
-const EXAM_ADJUSTMENTS: Record<CurrentAffairsExamFamily, Partial<Record<CurrentAffairsCategory, number>>> = {
+// CP-043: relevance is a product-fit decision, not a proxy for source quality.
+// These baselines deliberately differ by exam family. Evidence trust may nudge a
+// score a few points, but it can no longer turn an unrelated category into a
+// recommended Banking/Punjab/SSC story merely because the source is official.
+const EXAM_CATEGORY_BASE: Record<CurrentAffairsExamFamily, Record<CurrentAffairsCategory, number>> = {
   ssc: {
-    national: 8,
-    appointments: 6,
-    awards: 5,
-    reports_indices: 5,
-    sports: 5,
-    science_technology: 5,
-    space: 7,
-    defence: 7,
-    important_days: 4,
+    national: 72,
+    economy_banking: 66,
+    international: 66,
+    appointments: 74,
+    awards: 70,
+    reports_indices: 70,
+    sports: 68,
+    science_technology: 68,
+    space: 72,
+    defence: 72,
+    environment: 64,
+    books_authors: 52,
+    important_days: 64,
+    summits: 66,
+    obituaries: 48,
+    punjab: 52,
+    other: 35,
   },
   banking: {
-    economy_banking: 18,
-    reports_indices: 10,
-    appointments: 7,
-    national: 5,
-    international: 5,
+    national: 66,
+    economy_banking: 80,
+    international: 66,
+    appointments: 70,
+    awards: 62,
+    reports_indices: 76,
+    sports: 54,
+    science_technology: 54,
+    space: 54,
+    defence: 54,
+    environment: 52,
+    books_authors: 48,
+    important_days: 52,
+    summits: 62,
+    obituaries: 44,
+    punjab: 46,
+    other: 35,
   },
   punjab: {
-    punjab: 24,
-    national: 5,
-    appointments: 5,
-    awards: 4,
-    sports: 4,
+    national: 66,
+    economy_banking: 58,
+    international: 54,
+    appointments: 68,
+    awards: 64,
+    reports_indices: 60,
+    sports: 64,
+    science_technology: 56,
+    space: 56,
+    defence: 58,
+    environment: 56,
+    books_authors: 50,
+    important_days: 56,
+    summits: 54,
+    obituaries: 46,
+    punjab: 82,
+    other: 35,
   },
   railways: {
-    national: 7,
-    appointments: 5,
-    awards: 4,
-    sports: 5,
-    science_technology: 5,
-    defence: 4,
+    national: 70,
+    economy_banking: 62,
+    international: 60,
+    appointments: 72,
+    awards: 68,
+    reports_indices: 66,
+    sports: 68,
+    science_technology: 68,
+    space: 70,
+    defence: 68,
+    environment: 60,
+    books_authors: 50,
+    important_days: 62,
+    summits: 62,
+    obituaries: 46,
+    punjab: 48,
+    other: 35,
   },
-  general: {},
+  general: GENERAL_CATEGORY_BASE,
 };
 
 function bounded(value: number, min = 0, max = 100): number {
@@ -226,31 +273,26 @@ export function validateEventCandidate(input: EventCandidateInput): EventCandida
 
 export function scoreExamRelevance(input: EventCandidateInput): ExamRelevanceScore[] {
   const candidate = validateEventCandidate(input);
-  const trustBoost = Math.round(((candidate.sourceTrustScore ?? 0.7) - 0.5) * 20);
-  const primaryBoost = candidate.isPrimarySource ? 8 : 0;
-  const factBoost = Math.min(6, Math.floor((candidate.facts?.length ?? 0) / 2));
+  const trustAdjustment = Math.round(((candidate.sourceTrustScore ?? 0.7) - 0.5) * 4);
+  const primaryEvidenceAdjustment = candidate.isPrimarySource ? 2 : 0;
+  const structuredFactAdjustment = Math.min(2, Math.floor((candidate.facts?.length ?? 0) / 3));
 
   return CURRENT_AFFAIRS_EXAM_FAMILIES.map((examFamily) => {
     const reasons: string[] = [];
-    let score = CATEGORY_BASE[candidate.category];
-    reasons.push(`Category baseline: ${candidate.category}`);
+    let score = EXAM_CATEGORY_BASE[examFamily][candidate.category];
+    reasons.push(`Exam-family category fit: ${examFamily}/${candidate.category} = ${score}`);
 
-    const examAdjustment = EXAM_ADJUSTMENTS[examFamily][candidate.category] ?? 0;
-    if (examAdjustment) {
-      score += examAdjustment;
-      reasons.push(`${examFamily} category emphasis +${examAdjustment}`);
+    if (trustAdjustment) {
+      score += trustAdjustment;
+      reasons.push(`Evidence trust relevance nudge ${trustAdjustment >= 0 ? "+" : ""}${trustAdjustment}`);
     }
-    if (trustBoost) {
-      score += trustBoost;
-      reasons.push(`Source trust adjustment ${trustBoost >= 0 ? "+" : ""}${trustBoost}`);
+    if (primaryEvidenceAdjustment) {
+      score += primaryEvidenceAdjustment;
+      reasons.push("Primary evidence relevance nudge +2");
     }
-    if (primaryBoost) {
-      score += primaryBoost;
-      reasons.push("Primary-source evidence +8");
-    }
-    if (factBoost) {
-      score += factBoost;
-      reasons.push(`Structured fact density +${factBoost}`);
+    if (structuredFactAdjustment) {
+      score += structuredFactAdjustment;
+      reasons.push(`Structured-fact relevance nudge +${structuredFactAdjustment}`);
     }
 
     const normalized = bounded(score);
@@ -272,7 +314,7 @@ export function verificationConfidence(input: {
     const trust = Math.max(0, Math.min(1, Number(item.trustScore ?? 0.5)));
     return Math.min(1, trust + (item.isPrimaryEvidence ? 0.15 : 0));
   });
-  const evidenceAverage = evidenceScores.reduce((sum, value) => sum + value, 0) / evidenceScores.length;
+  const evidenceAverage = evidenceScores.reduce((sum, value) => sum + value, 0) / input.evidence.length;
   const corroborationBoost = Math.min(0.12, Math.max(0, input.evidence.length - 1) * 0.04);
   const facts = (input.factConfidences ?? []).filter((value) => Number.isFinite(value));
   const factAverage = facts.length > 0
