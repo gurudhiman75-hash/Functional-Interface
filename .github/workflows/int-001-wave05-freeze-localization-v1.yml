@@ -39,15 +39,27 @@ jobs:
           set -o pipefail
           pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-wave06-question-studio-registration-v1-audit.ts | tee int-001-wave06-registration-v1.log
           grep -q 'PASS_INT_001_WAVE06_QUESTION_STUDIO_REGISTRATION_V1_AUDIT' int-001-wave06-registration-v1.log
-      - name: Soak all 133 permanent QLs across Question Studio
+      - name: Audit final trilingual chapter closure
         shell: bash
         run: |
           set -o pipefail
-          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-133ql-question-studio-soak-v1-audit.ts | tee int-001-133ql-question-studio-soak-v1.log
-          grep -q 'PASS_INT_001_133QL_QUESTION_STUDIO_SOAK_V1_AUDIT' int-001-133ql-question-studio-soak-v1.log
-          grep -q '"permanentQlCount": 133' int-001-133ql-question-studio-soak-v1.log
-          grep -q '"exactCrossQlStemCollisions": 0' int-001-133ql-question-studio-soak-v1.log
-          grep -q '"questionIdCollisions": 0' int-001-133ql-question-studio-soak-v1.log
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-final-trilingual-closure-v1-audit.ts | tee int-001-final-trilingual-closure-v1.log
+          grep -q 'PASS_INT_001_FINAL_TRILINGUAL_CLOSURE_V1_AUDIT' int-001-final-trilingual-closure-v1.log
+          grep -q '"qlLanguageSurfaceCount": 399' int-001-final-trilingual-closure-v1.log
+          grep -q '"implicitOwnershipCases": 0' int-001-final-trilingual-closure-v1.log
+      - name: Soak all 399 permanent QL-language surfaces
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-399-surface-question-studio-soak-v2-audit.ts | tee int-001-399-surface-question-studio-soak-v2.log
+          grep -q 'PASS_INT_001_399_SURFACE_QUESTION_STUDIO_SOAK_V2_AUDIT' int-001-399-surface-question-studio-soak-v2.log
+          grep -q '"permanentQlCount": 133' int-001-399-surface-question-studio-soak-v2.log
+          grep -q '"qlLanguageSurfaceCount": 399' int-001-399-surface-question-studio-soak-v2.log
+          grep -q '"generated": 2394' int-001-399-surface-question-studio-soak-v2.log
+          grep -q '"explicitQlOwnershipChecks": 2394' int-001-399-surface-question-studio-soak-v2.log
+          grep -q '"legacyImplicitOwnershipCases": 0' int-001-399-surface-question-studio-soak-v2.log
+          grep -q '"exactCrossQlStemCollisions": 0' int-001-399-surface-question-studio-soak-v2.log
+          grep -q '"questionIdCollisions": 0' int-001-399-surface-question-studio-soak-v2.log
       - name: Preserve chapter-wide direct calculation gate
         shell: bash
         run: |
@@ -72,11 +84,12 @@ jobs:
       - name: Upload validation evidence
         uses: actions/upload-artifact@v4
         with:
-          name: int-001-wave05-freeze-localization-v1
+          name: int-001-final-trilingual-closure-v1
           path: |
             int-001-wave05-freeze-localization-v1.log
             int-001-wave06-registration-v1.log
-            int-001-133ql-question-studio-soak-v1.log
+            int-001-final-trilingual-closure-v1.log
+            int-001-399-surface-question-studio-soak-v2.log
             int-001-wave05-chapter-direct-calc-regression.log
             int-001-wave05-wave03-regression.log
             int-001-wave05-head.log
