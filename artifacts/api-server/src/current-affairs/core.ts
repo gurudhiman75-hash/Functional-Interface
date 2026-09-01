@@ -1,5 +1,10 @@
 import { createHash, randomUUID } from "node:crypto";
 
+import {
+  evaluateCurrentAffairsEditorialPriority,
+  examFamilySignalAdjustment,
+} from "./editorial-priority";
+
 export const CURRENT_AFFAIRS_CATEGORIES = [
   "national",
   "economy_banking",
@@ -81,10 +86,10 @@ const GENERAL_CATEGORY_BASE: Record<CurrentAffairsCategory, number> = {
   other: 40,
 };
 
-// CP-043: relevance is a product-fit decision, not a proxy for source quality.
-// These baselines deliberately differ by exam family. Evidence trust may nudge a
-// score a few points, but it can no longer turn an unrelated category into a
-// recommended Banking/Punjab/SSC story merely because the source is official.
+// CP-045: category alone may make a story generally exam-relevant, but it must
+// not manufacture Banking/Punjab relevance. Family-specific signals are added
+// below from the actual event text/facts. Routine recurring notices also receive
+// an editorial-priority penalty before the recommendation threshold is applied.
 const EXAM_CATEGORY_BASE: Record<CurrentAffairsExamFamily, Record<CurrentAffairsCategory, number>> = {
   ssc: {
     national: 72,
@@ -106,42 +111,42 @@ const EXAM_CATEGORY_BASE: Record<CurrentAffairsExamFamily, Record<CurrentAffairs
     other: 35,
   },
   banking: {
-    national: 66,
-    economy_banking: 80,
-    international: 66,
-    appointments: 70,
-    awards: 62,
-    reports_indices: 76,
-    sports: 54,
-    science_technology: 54,
-    space: 54,
-    defence: 54,
-    environment: 52,
-    books_authors: 48,
-    important_days: 52,
-    summits: 62,
-    obituaries: 44,
-    punjab: 46,
-    other: 35,
+    national: 50,
+    economy_banking: 72,
+    international: 54,
+    appointments: 56,
+    awards: 48,
+    reports_indices: 56,
+    sports: 40,
+    science_technology: 44,
+    space: 42,
+    defence: 42,
+    environment: 42,
+    books_authors: 38,
+    important_days: 40,
+    summits: 50,
+    obituaries: 36,
+    punjab: 38,
+    other: 30,
   },
   punjab: {
-    national: 66,
-    economy_banking: 58,
-    international: 54,
-    appointments: 68,
-    awards: 64,
-    reports_indices: 60,
-    sports: 64,
-    science_technology: 56,
-    space: 56,
-    defence: 58,
-    environment: 56,
-    books_authors: 50,
-    important_days: 56,
-    summits: 54,
-    obituaries: 46,
-    punjab: 82,
-    other: 35,
+    national: 52,
+    economy_banking: 48,
+    international: 42,
+    appointments: 54,
+    awards: 52,
+    reports_indices: 48,
+    sports: 54,
+    science_technology: 48,
+    space: 44,
+    defence: 46,
+    environment: 48,
+    books_authors: 44,
+    important_days: 46,
+    summits: 46,
+    obituaries: 42,
+    punjab: 78,
+    other: 30,
   },
   railways: {
     national: 70,
@@ -276,12 +281,33 @@ export function scoreExamRelevance(input: EventCandidateInput): ExamRelevanceSco
   const trustAdjustment = Math.round(((candidate.sourceTrustScore ?? 0.7) - 0.5) * 4);
   const primaryEvidenceAdjustment = candidate.isPrimarySource ? 2 : 0;
   const structuredFactAdjustment = Math.min(2, Math.floor((candidate.facts?.length ?? 0) / 3));
+  const editorialPriority = evaluateCurrentAffairsEditorialPriority({
+    title: candidate.title,
+    summary: candidate.summary,
+    category: candidate.category,
+    facts: candidate.facts,
+  });
 
   return CURRENT_AFFAIRS_EXAM_FAMILIES.map((examFamily) => {
     const reasons: string[] = [];
     let score = EXAM_CATEGORY_BASE[examFamily][candidate.category];
     reasons.push(`Exam-family category fit: ${examFamily}/${candidate.category} = ${score}`);
 
+    const familySignal = examFamilySignalAdjustment(examFamily, {
+      title: candidate.title,
+      summary: candidate.summary,
+      category: candidate.category,
+      facts: candidate.facts,
+    });
+    if (familySignal.adjustment) {
+      score += familySignal.adjustment;
+      reasons.push(...familySignal.reasons.map((reason) => `${reason} ${familySignal.adjustment >= 0 ? "+" : ""}${familySignal.adjustment}`));
+    }
+
+    if (editorialPriority.scoreAdjustment) {
+      score += editorialPriority.scoreAdjustment;
+      reasons.push(`Editorial priority ${editorialPriority.tier} ${editorialPriority.scoreAdjustment >= 0 ? "+" : ""}${editorialPriority.scoreAdjustment}: ${editorialPriority.reasons.join(", ")}`);
+    }
     if (trustAdjustment) {
       score += trustAdjustment;
       reasons.push(`Evidence trust relevance nudge ${trustAdjustment >= 0 ? "+" : ""}${trustAdjustment}`);
