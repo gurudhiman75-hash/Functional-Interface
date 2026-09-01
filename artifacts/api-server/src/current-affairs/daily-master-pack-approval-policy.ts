@@ -135,10 +135,17 @@ export function evaluateDailyMasterPackApprovalReadiness(
   const conflictFree = input.openConflictCount === 0;
   if (!conflictFree) blockers.push("Open factual conflicts block canonical master-pack approval");
 
-  const censusNotBlocked = input.censusStatus !== "blocked" && input.censusBlockerCount === 0;
-  if (!censusNotBlocked) blockers.push("The target-date discovery census has a hard blocker");
-  if (censusNotBlocked && input.censusStatus && input.censusStatus !== "complete") {
-    warnings.push(`Discovery census remains ${input.censusStatus}; editorial approval may proceed only as an explicit manual decision.`);
+  // CP-043: a canonical day cannot be locked while discovery is still only in review.
+  // Manual approval remains powerful, but it does not override an incomplete census.
+  const censusNotBlocked = input.censusStatus === "complete" && input.censusBlockerCount === 0;
+  if (!censusNotBlocked) {
+    blockers.push(
+      input.censusStatus === "review"
+        ? "The target-date discovery census is still in review and must reach complete before canonical approval"
+        : input.censusStatus
+          ? `The target-date discovery census is ${input.censusStatus} and must reach complete before canonical approval`
+          : "The target-date discovery census is missing and must be materialized as complete before canonical approval",
+    );
   }
 
   return {

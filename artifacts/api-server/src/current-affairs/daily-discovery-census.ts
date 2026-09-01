@@ -42,7 +42,7 @@ export function evaluateDailyDiscoveryCensus(input: DailyDiscoveryCensusInput): 
     warnings.push(`${input.highPriorityUnresolvedCount} high-priority target-date event(s) still require verification or conflict resolution.`);
   }
   if (input.unresolvedClusterCount > 0) {
-    warnings.push(`${input.unresolvedClusterCount} target-date cluster(s) remain unresolved or uncategorized.`);
+    warnings.push(`${input.unresolvedClusterCount} actionable target-date cluster(s) remain unresolved or uncategorized.`);
   }
   if (input.distinctSourceFamilyCount < 3) {
     warnings.push(`Discovery breadth is narrow: only ${input.distinctSourceFamilyCount} source family/families contributed target-date candidates.`);
@@ -70,9 +70,12 @@ export function evaluateDailyDiscoveryCensus(input: DailyDiscoveryCensusInput): 
     + evidenceStrong * 10,
   );
 
+  // CP-043: a day is complete only after all actionable clustering decisions are resolved.
+  // Low-value discovery noise can be explicitly rejected by bounded triage, but an
+  // open cluster with any non-rejected member must never be silently treated as complete.
   const status: DailyDiscoveryCensusEvaluation["status"] = blockers.length > 0
     ? "blocked"
-    : score >= 80 && input.highPriorityUnresolvedCount === 0
+    : score >= 80 && input.highPriorityUnresolvedCount === 0 && input.unresolvedClusterCount === 0
       ? "complete"
       : warnings.length > 0
         ? "review"
@@ -111,14 +114,28 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
         count(*) FILTER (WHERE source.source_tier='specialist')::int AS "specialistCandidateCount"
       FROM content.current_affairs_ingestion_candidates candidate
       JOIN content.current_affairs_sources source ON source.id=candidate.source_id
-      WHERE candidate.published_at::date=${targetDate}::date
+      WHERE COALESCE(
+        NULLIF(candidate.payload->>'historicalTargetDate',''),
+        NULLIF(candidate.payload->>'discoveryTargetDate',''),
+        (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+      )=${targetDate}
     `,
     sqlClient`
       SELECT
         count(*)::int AS "clusterCount",
-        count(*) FILTER (WHERE status='open')::int AS "unresolvedClusterCount"
-      FROM content.current_affairs_clusters
-      WHERE event_date_guess=${targetDate}::date
+        count(*) FILTER (
+          WHERE cluster.status='open'
+            AND EXISTS (
+              SELECT 1
+              FROM content.current_affairs_cluster_members actionable_member
+              JOIN content.current_affairs_ingestion_candidates actionable_candidate
+                ON actionable_candidate.id=actionable_member.candidate_id
+              WHERE actionable_member.cluster_id=cluster.id
+                AND actionable_candidate.status NOT IN ('rejected','error')
+            )
+        )::int AS "unresolvedClusterCount"
+      FROM content.current_affairs_clusters cluster
+      WHERE cluster.event_date_guess=${targetDate}::date
     `,
     sqlClient`
       SELECT
@@ -135,6 +152,7 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
       LEFT JOIN content.current_affairs_sources source ON source.id=evidence.source_id
       LEFT JOIN content.current_affairs_fact_conflicts conflict ON conflict.event_id=event.id AND conflict.status='open'
       WHERE event.event_date=${targetDate}::date
+        AND event.status IN ('review','verified')
       GROUP BY event.id
     `,
     sqlClient`
@@ -154,6 +172,7 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
              count(*) FILTER (WHERE status='verified')::int AS "verifiedCount"
       FROM content.current_affairs_events
       WHERE event_date=${targetDate}::date
+        AND status IN ('review','verified')
       GROUP BY category
       ORDER BY count(*) DESC, category
     `,
@@ -188,7 +207,7 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
     const tier = String(row.sourceTier ?? "unknown");
     sourceDomains[domain] ??= { registered: 0, active: 0, automated: 0, fresh: 0 };
     sourceTiers[tier] ??= { registered: 0, active: 0, automated: 0, fresh: 0 };
-    for (const [target, prefix] of [[sourceDomains[domain], ""], [sourceTiers[tier], ""]] as const) {
+    for (const target of [sourceDomains[domain], sourceTiers[tier]]) {
       target.registered += number(row.registeredCount);
       target.active += number(row.activeCount);
       target.automated += number(row.automatedCount);

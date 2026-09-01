@@ -96,16 +96,25 @@ export async function loadCurrentAffairsProductionReadiness(now = new Date()) {
     sqlClient`
       SELECT
         (SELECT count(*) FROM content.current_affairs_ingestion_candidates candidate
-          WHERE candidate.published_at::date=${targetDate}::date)::int AS "candidateCount",
+          WHERE COALESCE(
+            NULLIF(candidate.payload->>'historicalTargetDate',''),
+            NULLIF(candidate.payload->>'discoveryTargetDate',''),
+            (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+          )=${targetDate})::int AS "candidateCount",
         (SELECT count(*) FROM content.current_affairs_ingestion_candidates candidate
           JOIN content.current_affairs_sources source ON source.id=candidate.source_id
-          WHERE candidate.published_at::date=${targetDate}::date AND source.is_primary_source=true)::int AS "primaryCandidateCount",
+          WHERE COALESCE(
+            NULLIF(candidate.payload->>'historicalTargetDate',''),
+            NULLIF(candidate.payload->>'discoveryTargetDate',''),
+            (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+          )=${targetDate}
+            AND source.is_primary_source=true)::int AS "primaryCandidateCount",
         (SELECT count(*) FROM content.current_affairs_clusters cluster
           WHERE cluster.event_date_guess=${targetDate}::date AND cluster.status='open')::int AS "openClusterCount",
         (SELECT count(*) FROM content.current_affairs_clusters cluster
           WHERE cluster.event_date_guess=${targetDate}::date AND cluster.status='open' AND cluster.category_guess='other')::int AS "openOtherClusterCount",
         (SELECT count(*) FROM content.current_affairs_events event
-          WHERE event.event_date=${targetDate}::date)::int AS "eventCount",
+          WHERE event.event_date=${targetDate}::date AND event.status IN ('review','verified'))::int AS "eventCount",
         (SELECT count(*) FROM content.current_affairs_events event
           WHERE event.event_date=${targetDate}::date AND event.status='verified')::int AS "verifiedEventCount",
         (SELECT count(*) FROM content.current_affairs_events event

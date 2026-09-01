@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 
-import { classifyOfficialCandidate } from "./official-candidate-reclassification";
+import { classifyOfficialCandidate, triageResidualOfficialCandidate } from "./official-candidate-reclassification";
 import {
   ON_DEMAND_YESTERDAY_STAGES,
   shouldContinueBoundedPass,
@@ -24,6 +24,7 @@ assert.deepEqual(ON_DEMAND_YESTERDAY_STAGES, [
   "post_promotion_enrichment_reconciliation",
   "historical_claim_rebuild_and_reverification",
   "draft_authoring_localization_and_questions",
+  "bounded_discovery_triage_and_exam_relevance_refresh",
   "daily_discovery_census_and_master_pack",
 ]);
 assert.ok(
@@ -48,8 +49,13 @@ assert.ok(
 );
 assert.ok(
   ON_DEMAND_YESTERDAY_STAGES.indexOf("draft_authoring_localization_and_questions")
+    < ON_DEMAND_YESTERDAY_STAGES.indexOf("bounded_discovery_triage_and_exam_relevance_refresh"),
+  "legacy discovery cleanup and product-fit refresh must use the completed draft recovery state",
+);
+assert.ok(
+  ON_DEMAND_YESTERDAY_STAGES.indexOf("bounded_discovery_triage_and_exam_relevance_refresh")
     < ON_DEMAND_YESTERDAY_STAGES.indexOf("daily_discovery_census_and_master_pack"),
-  "daily census/master pack must snapshot the completed draft recovery state",
+  "daily census/master pack must snapshot the triaged and relevance-refreshed state",
 );
 
 const pibInitial = `
@@ -100,35 +106,45 @@ assert.deepEqual(postedEntries.map((entry) => entry.externalId), ["2304613", "23
 assert.ok(postedEntries.every((entry) => entry.publishedAt === "2026-08-30T00:00:00.000Z"));
 assert.equal(parsePibPostedDateListing(pibMonthly, "2026-08-28").length, 0);
 
+const official = (title: string, existingCategory = "other") => classifyOfficialCandidate({
+  title,
+  sourceKey: "pib",
+  sourceFamily: "pib",
+  isPrimarySource: true,
+  existingCategory,
+});
+
 assert.equal(
-  classifyOfficialCandidate({
-    title: "Department of Consumer Affairs Notifies Legal Metrology (Indian Standard Time) Rules, 2026",
-    sourceKey: "pib",
-    sourceFamily: "pib",
-    isPrimarySource: true,
-    existingCategory: "other",
-  }).category,
+  official("Department of Consumer Affairs Notifies Legal Metrology (Indian Standard Time) Rules, 2026").category,
   "national",
 );
 assert.equal(
-  classifyOfficialCandidate({
-    title: "India-Chile CEPA Negotiations Advance as Commerce Secretary Meets Chilean Vice-Minister",
-    sourceKey: "pib",
-    sourceFamily: "pib",
-    isPrimarySource: true,
-    existingCategory: "other",
-  }).category,
+  official("India-Chile CEPA Negotiations Advance as Commerce Secretary Meets Chilean Vice-Minister").category,
   "international",
 );
 assert.equal(
-  classifyOfficialCandidate({
-    title: "Raksha Mantri performs Bhoomi Pujan for development projects at Lucknow Cantonment",
-    sourceKey: "pib",
-    sourceFamily: "pib",
-    isPrimarySource: true,
-    existingCategory: "other",
-  }).category,
+  official("Raksha Mantri performs Bhoomi Pujan for development projects at Lucknow Cantonment").category,
   "defence",
+);
+assert.equal(
+  official("QUARTERLY ESTIMATES OF GROSS DOMESTIC PRODUCT FOR THE FIRST QUARTER OF 2026-27").category,
+  "economy_banking",
+);
+assert.equal(
+  official("Monthly Review of Accounts of Union Government of India upto the month of July 2026").category,
+  "economy_banking",
+);
+assert.equal(
+  official("NATIONAL ACCOUNTS STATISTICS - 2026 PUBLICATION").category,
+  "reports_indices",
+);
+assert.equal(
+  official("INS NIPUN COMMISSIONED INTO THE INDIAN NAVY").category,
+  "defence",
+);
+assert.equal(
+  official("Commerce Secretary Co-Chairs India-Brazil 8th Trade Monitoring Mechanism Meeting").category,
+  "international",
 );
 assert.equal(
   classifyOfficialCandidate({
@@ -150,15 +166,37 @@ assert.equal(
   }).category,
   "other",
 );
-assert.equal(
-  classifyOfficialCandidate({
-    title: "Official item that already has a precise category",
+assert.equal(official("Official item that already has a precise category", "sports").category, "sports");
+
+assert.deepEqual(
+  triageResidualOfficialCandidate({
+    title: "Prime Minister extends greetings on a commemorative occasion",
     sourceKey: "pib",
     sourceFamily: "pib",
     isPrimarySource: true,
-    existingCategory: "sports",
-  }).category,
-  "sports",
+    existingCategory: "other",
+  }),
+  { action: "exclude", reason: "pib_ceremonial_low_value_title" },
+);
+assert.deepEqual(
+  triageResidualOfficialCandidate({
+    title: "Prime Minister shares Sanskrit Subhashitam emphasising positive thoughts",
+    sourceKey: "pib",
+    sourceFamily: "pib",
+    isPrimarySource: true,
+    existingCategory: "other",
+  }),
+  { action: "exclude", reason: "pib_ceremonial_low_value_title" },
+);
+assert.equal(
+  triageResidualOfficialCandidate({
+    title: "Official development with no bounded category marker",
+    sourceKey: "pib",
+    sourceFamily: "pib",
+    isPrimarySource: true,
+    existingCategory: "other",
+  }).action,
+  "review",
 );
 
 assert.equal(shouldContinueBoundedPass({ seen: 100, batchLimit: 100 }), true);
@@ -185,4 +223,4 @@ assert.equal(complete.allLocalizedDraftsPresent, true);
 assert.equal(complete.allNineDraftsPresent, true);
 assert.deepEqual(complete.missing, []);
 
-console.log("CP037 on-demand yesterday discovery and historical contracts passed");
+console.log("CP043 on-demand yesterday discovery, historical and official triage contracts passed");

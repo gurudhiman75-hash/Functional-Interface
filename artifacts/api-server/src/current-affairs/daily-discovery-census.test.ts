@@ -10,7 +10,7 @@ const healthy = evaluateDailyDiscoveryCensus({
   trustedNewsCandidateCount: 30,
   specialistCandidateCount: 10,
   clusterCount: 42,
-  unresolvedClusterCount: 1,
+  unresolvedClusterCount: 0,
   eventCount: 36,
   verifiedEventCount: 32,
   reviewEventCount: 4,
@@ -22,6 +22,28 @@ const healthy = evaluateDailyDiscoveryCensus({
 assert.equal(healthy.status, "complete");
 assert.ok(healthy.coverageConfidenceScore >= 80);
 assert.equal(healthy.blockers.length, 0);
+
+const unresolvedEvenWithHighScore = evaluateDailyDiscoveryCensus({
+  ...{
+    rawCandidateCount: 80,
+    distinctSourceCount: 8,
+    distinctSourceFamilyCount: 6,
+    officialCandidateCount: 40,
+    trustedNewsCandidateCount: 30,
+    specialistCandidateCount: 10,
+    clusterCount: 42,
+    eventCount: 36,
+    verifiedEventCount: 34,
+    reviewEventCount: 2,
+    authoringReadyCount: 33,
+    highPriorityUnresolvedCount: 0,
+    evidenceGrades: { A: 28, B: 6, C: 2, D: 0 } as const,
+    eventCategoryCount: 10,
+  },
+  unresolvedClusterCount: 1,
+});
+assert.equal(unresolvedEvenWithHighScore.status, "review");
+assert.match(unresolvedEvenWithHighScore.warnings.join(" "), /cluster\(s\) remain unresolved/);
 
 const empty = evaluateDailyDiscoveryCensus({
   rawCandidateCount: 0,
@@ -65,4 +87,4 @@ assert.match(narrow.warnings.join(" "), /Discovery breadth is narrow/);
 assert.match(narrow.warnings.join(" "), /No trusted-news candidates/);
 assert.match(narrow.warnings.join(" "), /high-priority/);
 
-console.log("CP-036 daily discovery census policy tests passed");
+console.log("CP-043 daily discovery census completeness contracts passed");

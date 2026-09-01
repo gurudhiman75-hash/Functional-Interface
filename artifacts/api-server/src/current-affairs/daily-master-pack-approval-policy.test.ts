@@ -79,8 +79,13 @@ assert.equal(blockedCensus.ready, false);
 assert.equal(blockedCensus.checks.censusNotBlocked, false);
 
 const reviewCensus = evaluateDailyMasterPackApprovalReadiness({ ...base, censusStatus: "review" });
-assert.equal(reviewCensus.ready, true);
-assert.equal(reviewCensus.warnings.length, 1);
+assert.equal(reviewCensus.ready, false);
+assert.equal(reviewCensus.checks.censusNotBlocked, false);
+assert.match(reviewCensus.blockers.join(" "), /still in review/);
+
+const missingCensus = evaluateDailyMasterPackApprovalReadiness({ ...base, censusStatus: null });
+assert.equal(missingCensus.ready, false);
+assert.match(missingCensus.blockers.join(" "), /census is missing/);
 
 const duplicatePayloadEvent = evaluateDailyMasterPackApprovalReadiness({
   ...base,
@@ -89,4 +94,4 @@ const duplicatePayloadEvent = evaluateDailyMasterPackApprovalReadiness({
 assert.equal(duplicatePayloadEvent.ready, false);
 assert.equal(duplicatePayloadEvent.checks.payloadIntegrity, false);
 
-console.log("CP-042 canonical Daily Master Pack editorial approval policy contracts passed");
+console.log("CP-043 canonical Daily Master Pack complete-census approval contracts passed");
