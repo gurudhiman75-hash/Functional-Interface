@@ -127,7 +127,7 @@ for (const qlId of INT_001_WAVE03_QL_IDS) {
 }
 
 assert.equal(localizationQuestions, 900);
-assert.equal(englishFreezeChecks, 2700);
+assert.equal(englishFreezeChecks, 8100);
 assert.equal(englishPayloadParityChecks, 6300);
 assert.equal(localizationSemanticParityChecks, 9000);
 assert.equal(localizationLanguageChecks, 2700);
