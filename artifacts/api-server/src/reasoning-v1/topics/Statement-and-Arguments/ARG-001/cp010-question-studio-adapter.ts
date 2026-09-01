@@ -120,12 +120,12 @@ export function isArgCp010RealPaperRequest(input: ArgCp010QuestionStudioInput): 
   return cpId === "ARG-CP-007" || cpId === ARG_CP010_CHECKPOINT_ID || profileMode === "real-paper";
 }
 
-export function isArgCp010CurrentReviewRequest(input: ArgCp010QuestionStudioInput & Readonly<Record<string, unknown>>): boolean {
-  const cpId = text(input.cpId).toUpperCase();
-  const ql = text(input.qlId ?? input.canonicalProblemId ?? input.patternId).toUpperCase();
-  const packageId = text(input.packageId ?? input.archetypeId).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-  const topic = text(input.topic).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
-  const subtopic = text(input.subtopic).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+export function isArgCp010CurrentReviewRequest(input: Readonly<Record<string, unknown>>): boolean {
+  const cpId = text(input["cpId"]).toUpperCase();
+  const ql = text(input["qlId"] ?? input["canonicalProblemId"] ?? input["patternId"]).toUpperCase();
+  const packageId = text(input["packageId"] ?? input["archetypeId"]).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  const topic = text(input["topic"]).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  const subtopic = text(input["subtopic"]).toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
   return packageId === "arg 001"
     || ql.startsWith("ARG-QL-")
     || cpId.startsWith("ARG-CP-")
@@ -178,6 +178,9 @@ function normalizeCoreQuestion(question: ReturnType<typeof generateArgCp009Engli
     question.options,
     question.correctIndex,
   ]);
+  const sourceAuthority = language === "en"
+    ? ARG_CP009_ENGLISH_REMEDIATION_AUTHORITY
+    : ARG_CP009_LOCALIZATION_AUTHORITY_V2;
   return Object.freeze({
     text: stem,
     stem,
@@ -205,7 +208,7 @@ function normalizeCoreQuestion(question: ReturnType<typeof generateArgCp009Engli
     chapterId: "REAS-ARG" as const,
     checkpointId: ARG_CP010_CHECKPOINT_ID,
     sourceCheckpointId: ARG_CP009_CHECKPOINT_ID,
-    sourceAuthority: question.authority,
+    sourceAuthority,
     currentQuestionStudioAuthority: ARG_CP010_QUESTION_STUDIO_AUTHORITY,
     topic: "Reasoning" as const,
     subtopic: "Statement & Arguments" as const,
@@ -237,17 +240,20 @@ function normalizeCoreQuestion(question: ReturnType<typeof generateArgCp009Engli
 
 function normalizeRealPaperQuestion(question: ReturnType<typeof generateArgCp010RealPaperBatch>["questions"][number], language: ArgCp010Language) {
   const stem = displayStem(question.locale, question.statement, question.arguments);
+  const options: readonly string[] = question.options as readonly string[];
+  const correctIndex: number = question.correctIndex;
+  const answer = options[correctIndex] ?? "";
   return Object.freeze({
     text: stem,
     stem,
     instruction: instruction(question.locale),
     statement: question.statement,
     arguments: question.arguments,
-    options: question.options,
-    correct: question.correctIndex,
-    correctIndex: question.correctIndex,
-    answer: question.answer,
-    canonicalAnswer: question.answer,
+    options,
+    correct: correctIndex,
+    correctIndex,
+    answer,
+    canonicalAnswer: answer,
     argumentStrengths: question.argumentStrengths,
     explanation: question.explanation,
     difficulty: question.difficulty,
