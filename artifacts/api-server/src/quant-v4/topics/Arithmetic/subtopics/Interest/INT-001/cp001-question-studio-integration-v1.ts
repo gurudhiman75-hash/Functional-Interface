@@ -10,7 +10,7 @@ import {
 } from "./int-001-cp001-question-studio-pre-registration-adapter";
 import { retrofitInterestPreviewExplanation } from "./interest-direct-calculation-explanation-policy-v1";
 
-export const INT_CP001_QUESTION_STUDIO_INTEGRATION_VERSION = "INT-CP-001-QS-v1" as const;
+export const INT_CP001_QUESTION_STUDIO_INTEGRATION_VERSION = "INT-CP-001-QS-v2-explicit-ql" as const;
 export const INT_CP001_QUESTION_STUDIO_PACKAGE_ID = "INT-001" as const;
 export const INT_CP001_QUESTION_STUDIO_CP_ID = "INT-CP-001" as const;
 export const INT_CP001_QUESTION_STUDIO_LANGUAGES = Object.freeze(["en", "hi", "pa"] as const);
@@ -38,6 +38,25 @@ function normalizeQl(value: unknown): IntCp001FinalQlId | undefined {
   throw new Error(`${qlId} is not owned by INT-CP-001.`);
 }
 
+function permanentQlFromPreview(question: Record<string, any>): IntCp001FinalQlId {
+  const candidates = [
+    question?.selectorTrace?.selectedQlId,
+    question?.traceability?.permanentQlId,
+    question?.parameters?.qlId,
+    question?.patternId,
+    question?.canonicalItemId,
+    question?.questionLanguageId,
+    question?.qlId,
+  ];
+  for (const candidate of candidates) {
+    const match = String(candidate ?? "").match(/INT-QL-\d{3}/u)?.[0];
+    if (match && (INT_CP001_FINAL_QL_IDS as readonly string[]).includes(match)) {
+      return match as IntCp001FinalQlId;
+    }
+  }
+  throw new Error("INT-CP-001 Question Studio preview is missing its permanent QL identity.");
+}
+
 function activatePackage<T extends Record<string, any>>(pkg: T) {
   return Object.freeze({
     ...pkg,
@@ -62,8 +81,17 @@ function activatePreview<T extends Record<string, any>>(
   question: T,
   language: IntCp001QuestionStudioLanguage,
 ) {
+  const permanentQlId = permanentQlFromPreview(question);
   const active = Object.freeze({
     ...question,
+    qlId: permanentQlId,
+    permanentQlId,
+    questionLanguageId: `${permanentQlId}:${language}`,
+    traceability: Object.freeze({
+      ...(question.traceability ?? {}),
+      permanentQlId,
+      permanentIdentityExplicit: true as const,
+    }),
     runtimeMode: "QUESTION_STUDIO_ACTIVE" as const,
     reviewStatus: "FROZEN_MULTILINGUAL_CONTENT_AUTHORITY" as const,
     questionStudioDiscoverable: true as const,
@@ -80,8 +108,7 @@ function activatePreview<T extends Record<string, any>>(
     manualApprovalRequired: true as const,
     integrationAuthority: INT_CP001_QUESTION_STUDIO_INTEGRATION_VERSION,
   });
-  const qlId = String(question.qlId ?? question.questionLanguageId ?? "");
-  return retrofitInterestPreviewExplanation(active, qlId, language);
+  return retrofitInterestPreviewExplanation(active, permanentQlId, language);
 }
 
 export function listIntCp001QuestionStudioPackages() {
