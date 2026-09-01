@@ -68,14 +68,14 @@ jobs:
           mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
           pnpm --dir artifacts/api-server exec esbuild \
             src/reasoning-v1/tests/spatial-final-held-gap-freeze-question-studio-v1.test.ts \
-            --bundle --platform=node --format=cjs \
-            --outfile=dist/reasoning-v1/spatial/spatial-final-held-gap-freeze-question-studio-v1.test.cjs
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-final-held-gap-freeze-question-studio-v1.test.mjs
 
       - name: Run final held-gap activation proof
         run: |
           set -o pipefail
           cd artifacts/api-server
-          node dist/reasoning-v1/spatial/spatial-final-held-gap-freeze-question-studio-v1.test.cjs 2>&1 \
+          node dist/reasoning-v1/spatial/spatial-final-held-gap-freeze-question-studio-v1.test.mjs 2>&1 \
             | tee dist/reasoning-v1/spatial/spa-final-held-gap-freeze-question-studio-v1-run.log
 
       - name: Upload final held-gap activation evidence
