@@ -51,12 +51,15 @@ services:
       # All Notes Studio model-backed stages use the shared provider layer.
       - key: NOTES_STUDIO_AI_PROVIDER
         value: gemini
-      # Common production fallback for candidate claims, coverage, research,
+      # Common production model for candidate claims, coverage, research,
       # section synthesis, QA and localization. Stage-specific overrides remain optional.
       - key: NOTES_STUDIO_MODEL
         value: gemini-3.7-flash
       - key: NOTES_STUDIO_EVIDENCE_MODEL
         value: gemini-3.7-flash
+      # Capacity fallback used only after retryable 429/5xx failures on the primary model.
+      - key: GEMINI_FALLBACK_MODEL
+        value: gemini-3.6-flash
 
       # ── Razorpay (optional — omit if not using payments) ─────────────────
       - key: RAZORPAY_KEY_ID

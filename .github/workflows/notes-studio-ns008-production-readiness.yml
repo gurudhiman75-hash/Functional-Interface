@@ -11,6 +11,7 @@ on:
       - artifacts/api-server/migrations/20260830_notes_studio_source_pack*.sql
       - artifacts/api-server/migrations/20260831_notes_studio*.sql
       - artifacts/api-server/notes-studio-migrate.ts
+      - artifacts/api-server/src/lib/ai-providers/**
       - artifacts/api-server/src/notes-studio/**
       - artifacts/api-server/src/routes/admin-notes-studio*.ts
       - artifacts/api-server/src/routes/index.ts
@@ -63,6 +64,7 @@ jobs:
         run: |
           set -euo pipefail
           for test_file in \
+            gemini-adapter \
             source-pack \
             source-pack-policy \
             evidence-map \
