@@ -148,11 +148,11 @@ export function evaluateDailyMasterPackEditorialQuality(
       });
     }
 
-    if (/[.…]\s*$/.test(event.title.trim()) || /(?:…|\.\.\.)\s*(?:[—-].*)?$/.test(event.oneLiner.trim())) {
+    if (/(?:…|\.\.\.)\s*$/.test(event.title.trim()) || /(?:…|\.\.\.)\s*(?:[—-].*)?$/.test(event.oneLiner.trim())) {
       add({
         eventId: event.id,
         kind: "truncated_copy",
-        detail: event.title.includes("…") || event.title.endsWith("...") ? event.title : event.oneLiner,
+        detail: /(?:…|\.\.\.)\s*$/.test(event.title.trim()) ? event.title : event.oneLiner,
       });
     }
 
