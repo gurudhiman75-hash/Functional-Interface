@@ -67,7 +67,7 @@ export function evaluateCurrentAffairsEditorialPriority(
   for (const [pattern, reason] of ROUTINE_PATTERNS) {
     if (pattern.test(text)) {
       reasons.push(reason);
-      return { tier: "routine", scoreAdjustment: -25, reasons };
+      return { tier: "routine", scoreAdjustment: -30, reasons };
     }
   }
   return { tier: "standard", scoreAdjustment: 0, reasons: ["standard editorial priority"] };
