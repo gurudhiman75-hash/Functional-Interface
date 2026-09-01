@@ -4,7 +4,7 @@ import { sqlClient } from "../lib/db";
 import { onDemandFeedRunKey, runScheduledFeedIngestion, scheduleSlotStart } from "./automation";
 import { runScheduledIntelligenceProcessing } from "./daily-orchestration";
 import { refreshDailyDiscoveryCensus } from "./daily-discovery-census";
-import { materializeDailyMasterPack } from "./daily-master-pack";
+import { materializeDailyMasterPacks } from "./daily-master-pack";
 import { reconcilePrimaryEnrichedEvents } from "./enriched-event-reconciliation";
 import { holdManualAuthorityEventsForReview } from "./manual-enrichment-guard";
 import { prepareOfficialYesterdayCandidates } from "./official-candidate-reclassification";
@@ -197,13 +197,17 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
   const recovery = await runCurrentAffairsProductionRecovery({ now, triggerMode: "manual" });
 
   const discoveryCensus = await refreshDailyDiscoveryCensus(targetDate);
-  const dailyMasterPack = await materializeDailyMasterPack(targetDate, String(discoveryCensus.id));
+  const dailyMasterPacks = await materializeDailyMasterPacks(targetDate, String(discoveryCensus.id));
+  const dailyMasterPack = dailyMasterPacks.en;
 
   const artifacts = await loadYesterdayArtifacts(targetDate);
   const after = await countTargetDateState(targetDate);
   const readiness = await loadCurrentAffairsProductionReadiness(now);
   const englishFamilies = new Set(artifacts.filter((item) => item.language === "en").map((item) => item.family));
   const allEnglishDraftsPresent = FAMILIES.every((family) => englishFamilies.has(family));
+  const localizedMasterPackCount = [dailyMasterPacks.hi, dailyMasterPacks.pa]
+    .filter((pack) => Boolean((pack as any)?.id) && (pack as any)?.reason !== "localized_event_parity_incomplete")
+    .length;
 
   return {
     targetDate,
@@ -230,11 +234,14 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
     },
     discoveryCensus,
     dailyMasterPack,
+    dailyMasterPacks,
     artifacts,
     summary: {
       allEnglishDraftsPresent,
       englishDraftCount: artifacts.filter((item) => item.language === "en").length,
       localizedDraftCount: artifacts.filter((item) => item.language === "hi" || item.language === "pa").length,
+      localizedMasterPackCount,
+      localizedMasterPacksParityReady: dailyMasterPacks.allLocalizedParityReady,
       verifiedEvents: after.verifiedEventCount,
       reviewEvents: after.reviewEventCount,
       discoveredNewsArticles: Number(openNewsDiscovery.uniqueArticles ?? 0),
@@ -249,6 +256,12 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
           : []),
         ...(openNewsDiscovery.queryResults.every((item) => item.status === "failed")
           ? ["Open-news discovery provider was unavailable for all target-date queries."]
+          : []),
+        ...((dailyMasterPacks.hi as any)?.reason === "localized_event_parity_incomplete"
+          ? [`Hindi canonical master pack withheld: ${(dailyMasterPacks.hi as any)?.parity?.missingPublicCodes?.length ?? 0} event localization(s) are missing.`]
+          : []),
+        ...((dailyMasterPacks.pa as any)?.reason === "localized_event_parity_incomplete"
+          ? [`Punjabi canonical master pack withheld: ${(dailyMasterPacks.pa as any)?.parity?.missingPublicCodes?.length ?? 0} event localization(s) are missing.`]
           : []),
         ...((discoveryCensus as any)?.warnings ?? []),
         ...readiness.evaluation.warnings,
