@@ -64,7 +64,7 @@ jobs:
           pnpm dlx tsx@4.20.6 src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001.test.ts \
             | tee prt-001-e13-corpus.log
 
-      - name: Run full PRT-001 freeze audit chain
+      - name: Run full PRT-001 freeze audit chain (includes E13 cross-chapter ownership)
         working-directory: artifacts/api-server
         shell: bash
         run: |
@@ -80,14 +80,6 @@ jobs:
           pnpm dlx tsx@4.20.6 src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001-rap003-ownership-audit.ts \
             | tee prt-001-e13-rap-ownership.log
 
-      - name: Run E13 G06/G07 cross-chapter ownership regression
-        working-directory: artifacts/api-server
-        shell: bash
-        run: |
-          set -o pipefail
-          pnpm dlx tsx@4.20.6 src/quant-v4/topics/Arithmetic/subtopics/Partnership/PRT-001/prt-001-e13-cross-chapter-ownership-audit.ts \
-            | tee prt-001-e13-cross-chapter-ownership.log
-
       - name: Upload PRT-001 E13 validation logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -98,5 +90,4 @@ jobs:
             artifacts/api-server/prt-001-e13-corpus.log
             artifacts/api-server/prt-001-e13-freeze-audit.log
             artifacts/api-server/prt-001-e13-rap-ownership.log
-            artifacts/api-server/prt-001-e13-cross-chapter-ownership.log
           retention-days: 14
