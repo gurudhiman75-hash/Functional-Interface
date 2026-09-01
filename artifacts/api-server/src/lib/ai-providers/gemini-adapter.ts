@@ -15,6 +15,10 @@ function isGemini3Model(model: string) {
   return /^gemini-3(?:\.|-|$)/i.test(model);
 }
 
+function usesGemini36ResponseFormat(model: string) {
+  return /^gemini-3\.6-flash(?:$|-)/i.test(model);
+}
+
 export function buildGeminiGenerationConfig(input: {
   model: string;
   temperature?: number;
@@ -25,12 +29,21 @@ export function buildGeminiGenerationConfig(input: {
     generationConfig.temperature = input.temperature ?? 0;
   }
   if (input.responseSchema) {
-    generationConfig.responseMimeType = "application/json";
-    // Gemini's REST API has two distinct schema fields. responseSchema expects
-    // the narrower protobuf/OpenAPI Schema shape, while responseJsonSchema
-    // accepts JSON Schema features used by Notes Studio such as
-    // additionalProperties and union type arrays.
-    generationConfig.responseJsonSchema = input.responseSchema;
+    if (usesGemini36ResponseFormat(input.model)) {
+      // Current Gemini 3.6 generateContent REST contract nests structured
+      // output under responseFormat.text. This is the shape documented by
+      // Google for Gemini 3.6 and avoids the generic INVALID_ARGUMENT returned
+      // when the older flat responseJsonSchema field is used with this model.
+      generationConfig.responseFormat = {
+        text: {
+          mimeType: "application/json",
+          schema: input.responseSchema,
+        },
+      };
+    } else {
+      generationConfig.responseMimeType = "application/json";
+      generationConfig.responseJsonSchema = input.responseSchema;
+    }
   }
   return generationConfig;
 }
