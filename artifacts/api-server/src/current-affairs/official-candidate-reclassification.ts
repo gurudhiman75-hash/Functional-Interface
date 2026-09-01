@@ -55,22 +55,28 @@ export function classifyOfficialCandidate(input: OfficialClassificationInput): {
     return { category: "punjab", reason: "official_punjab_institution" };
   }
 
+  const isPib = sourceKey === "pib" || sourceFamily === "pib";
+  const title = input.title.replace(/\s+/g, " ").trim();
+
+  // CP-043: for PIB, bounded subject-specific markers must run before the generic
+  // headline classifier. Otherwise words such as "government" can incorrectly
+  // flatten a precise economy/report/defence/international item into `national`.
+  if (isPib) {
+    if (PIB_ECONOMY_MARKERS.test(title)) return { category: "economy_banking", reason: "pib_economy_marker" };
+    if (DEFENCE_MARKERS.test(title)) return { category: "defence", reason: "pib_defence_marker" };
+    if (SPORTS_MARKERS.test(title)) return { category: "sports", reason: "pib_sports_marker" };
+    if (APPOINTMENT_MARKERS.test(title)) return { category: "appointments", reason: "pib_appointment_marker" };
+    if (REPORT_MARKERS.test(title)) return { category: "reports_indices", reason: "pib_report_marker" };
+    if (SCIENCE_MARKERS.test(title)) return { category: "science_technology", reason: "pib_science_marker" };
+    if (INTERNATIONAL_MARKERS.test(title)) return { category: "international", reason: "pib_international_marker" };
+  }
+
   const classified = classifyCurrentAffairsSignal(input.title);
   if (classified.category !== "other") {
     return { category: classified.category, reason: "headline_classifier" };
   }
 
-  const isPib = sourceKey === "pib" || sourceFamily === "pib";
   if (!isPib) return { category: "other", reason: "no_safe_official_fallback" };
-
-  const title = input.title.replace(/\s+/g, " ").trim();
-  if (PIB_ECONOMY_MARKERS.test(title)) return { category: "economy_banking", reason: "pib_economy_marker" };
-  if (DEFENCE_MARKERS.test(title)) return { category: "defence", reason: "pib_defence_marker" };
-  if (SPORTS_MARKERS.test(title)) return { category: "sports", reason: "pib_sports_marker" };
-  if (APPOINTMENT_MARKERS.test(title)) return { category: "appointments", reason: "pib_appointment_marker" };
-  if (REPORT_MARKERS.test(title)) return { category: "reports_indices", reason: "pib_report_marker" };
-  if (SCIENCE_MARKERS.test(title)) return { category: "science_technology", reason: "pib_science_marker" };
-  if (INTERNATIONAL_MARKERS.test(title)) return { category: "international", reason: "pib_international_marker" };
   if (PIB_NATIONAL_MARKERS.test(title) || classified.score >= 31) {
     return { category: "national", reason: "pib_official_exam_signal" };
   }
@@ -95,10 +101,6 @@ function increment(map: Record<string, number>, key: string) {
   map[key] = (map[key] ?? 0) + 1;
 }
 
-function targetDateSql(targetDate: string) {
-  return targetDate;
-}
-
 export async function prepareOfficialYesterdayCandidates(targetDate: string) {
   const candidateRows = await sqlClient`
     SELECT candidate.id::text AS id,
@@ -113,7 +115,7 @@ export async function prepareOfficialYesterdayCandidates(targetDate: string) {
         NULLIF(candidate.payload->>'historicalTargetDate',''),
         NULLIF(candidate.payload->>'discoveryTargetDate',''),
         (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
-      )=${targetDateSql(targetDate)}
+      )=${targetDate}
       AND source.is_active=true
       AND source.is_primary_source=true
     ORDER BY candidate.published_at, candidate.id
