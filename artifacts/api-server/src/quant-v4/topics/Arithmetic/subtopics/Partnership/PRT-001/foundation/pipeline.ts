@@ -6,12 +6,14 @@ import { generatePrt001E3AParameters, isPrt001E3ASolveMode } from "./e3a-paramet
 import { generatePrt001E3BParameters, isPrt001E3BSolveMode } from "./e3b-parameter-generator";
 import { generatePrt001E4Parameters, isPrt001E4SolveMode } from "./e4-parameter-generator";
 import { refinePrt001E4ProductionState } from "./e4-production-refiner";
+import { generatePrt001E5Parameters, isPrt001E5SolveMode } from "./e5-parameter-generator";
 import { generatePrt001Options } from "./distractor-generator";
 import { renderPrt001E1Explanation } from "./e1-explanation-renderer";
 import { renderPrt001E2Explanation } from "./e2-explanation-renderer";
 import { renderPrt001E3AExplanation } from "./e3a-explanation-renderer";
 import { renderPrt001E3BExplanation } from "./e3b-explanation-renderer";
 import { renderPrt001E4Explanation } from "./e4-explanation-renderer";
+import { renderPrt001E5Explanation } from "./e5-explanation-renderer";
 import { renderPrt001Explanation } from "./explanation-renderer";
 import { verifyPrt001Independently } from "./independent-verifier";
 import {
@@ -33,6 +35,7 @@ import { independentlySolvePrt001E2Task, solvePrt001E2Task } from "./e2-task-sol
 import { independentlySolvePrt001E3ATask, solvePrt001E3ATask } from "./e3a-task-solver";
 import { independentlySolvePrt001E3BTask, solvePrt001E3BTask } from "./e3b-task-solver";
 import { independentlySolvePrt001E4Task, solvePrt001E4Task } from "./e4-task-solver";
+import { independentlySolvePrt001E5Task, solvePrt001E5Task } from "./e5-task-solver";
 import { independentlySolvePrt001Task, solvePrt001Task } from "./task-solver";
 import {
   PRT_001_CP_IDS,
@@ -50,66 +53,75 @@ export function runPrt001PilotPipeline(input: { questionLanguageId?: string; see
   const questionLanguageId = input.questionLanguageId ?? getPrt001QuestionLanguageIds()[0]!;
   const seed = input.seed ?? `prt-001:${questionLanguageId}:default`;
   const entry = getPrt001TaskEntry(questionLanguageId);
-  const isE4 = isPrt001E4SolveMode(entry.solveMode);
-  const isE3A = !isE4 && isPrt001E3ASolveMode(entry.solveMode);
-  const isE3B = !isE4 && !isE3A && isPrt001E3BSolveMode(entry.solveMode);
+  const isE5 = isPrt001E5SolveMode(entry.solveMode);
+  const isE4 = !isE5 && isPrt001E4SolveMode(entry.solveMode);
+  const isE3A = !isE5 && !isE4 && isPrt001E3ASolveMode(entry.solveMode);
+  const isE3B = !isE5 && !isE4 && !isE3A && isPrt001E3BSolveMode(entry.solveMode);
   const isE3 = isE3A || isE3B;
-  const isE2 = !isE4 && !isE3 && isPrt001E2SolveMode(entry.solveMode);
-  const isE1 = !isE4 && !isE3 && !isE2 && isPrt001E1SolveMode(entry.solveMode);
-  const generatedParameters = isE4
-    ? generatePrt001E4Parameters({ questionLanguageId, seed, entry, language })
-    : isE3A
-      ? generatePrt001E3AParameters({ questionLanguageId, seed, entry, language })
-      : isE3B
-        ? generatePrt001E3BParameters({ questionLanguageId, seed, entry, language })
-        : isE2
-          ? generatePrt001E2Parameters({ questionLanguageId, seed, entry, language })
-          : isE1
-            ? generatePrt001E1Parameters({ questionLanguageId, seed, entry, language })
-            : entry.cpId === "PRT-CP-001" || entry.cpId === "PRT-CP-002"
-              ? generatePrt001PilotParameters({ questionLanguageId, seed, entry, language })
-              : generatePrt001AdvancedParameters({ questionLanguageId, seed, entry, language });
+  const isE2 = !isE5 && !isE4 && !isE3 && isPrt001E2SolveMode(entry.solveMode);
+  const isE1 = !isE5 && !isE4 && !isE3 && !isE2 && isPrt001E1SolveMode(entry.solveMode);
+  const generatedParameters = isE5
+    ? generatePrt001E5Parameters({ questionLanguageId, seed, entry, language })
+    : isE4
+      ? generatePrt001E4Parameters({ questionLanguageId, seed, entry, language })
+      : isE3A
+        ? generatePrt001E3AParameters({ questionLanguageId, seed, entry, language })
+        : isE3B
+          ? generatePrt001E3BParameters({ questionLanguageId, seed, entry, language })
+          : isE2
+            ? generatePrt001E2Parameters({ questionLanguageId, seed, entry, language })
+            : isE1
+              ? generatePrt001E1Parameters({ questionLanguageId, seed, entry, language })
+              : entry.cpId === "PRT-CP-001" || entry.cpId === "PRT-CP-002"
+                ? generatePrt001PilotParameters({ questionLanguageId, seed, entry, language })
+                : generatePrt001AdvancedParameters({ questionLanguageId, seed, entry, language });
   const e4RefinedParameters = isE4 ? refinePrt001E4ProductionState(generatedParameters) : generatedParameters;
   const parameters = isE2 ? normalizePrt001E2ProductionMoney(e4RefinedParameters) : e4RefinedParameters;
   const solution = solvePrt001State(parameters.state);
   const verification = verifyPrt001Independently(parameters.state);
-  const taskAnswer = isE4
-    ? solvePrt001E4Task(parameters, solution)
-    : isE3A
-      ? solvePrt001E3ATask(parameters, solution)
-      : isE3B
-        ? solvePrt001E3BTask(parameters, solution)
-        : isE2
-          ? solvePrt001E2Task(parameters, solution)
-          : isE1
-            ? solvePrt001E1Task(parameters, solution)
-            : solvePrt001Task(parameters, solution);
-  const independentTaskAnswer = isE4
-    ? independentlySolvePrt001E4Task(parameters, verification)
-    : isE3A
-      ? independentlySolvePrt001E3ATask(parameters, verification)
-      : isE3B
-        ? independentlySolvePrt001E3BTask(parameters, verification)
-        : isE2
-          ? independentlySolvePrt001E2Task(parameters, verification)
-          : isE1
-            ? independentlySolvePrt001E1Task(parameters, verification)
-            : independentlySolvePrt001Task(parameters, verification);
+  const taskAnswer = isE5
+    ? solvePrt001E5Task(parameters, solution)
+    : isE4
+      ? solvePrt001E4Task(parameters, solution)
+      : isE3A
+        ? solvePrt001E3ATask(parameters, solution)
+        : isE3B
+          ? solvePrt001E3BTask(parameters, solution)
+          : isE2
+            ? solvePrt001E2Task(parameters, solution)
+            : isE1
+              ? solvePrt001E1Task(parameters, solution)
+              : solvePrt001Task(parameters, solution);
+  const independentTaskAnswer = isE5
+    ? independentlySolvePrt001E5Task(parameters, verification)
+    : isE4
+      ? independentlySolvePrt001E4Task(parameters, verification)
+      : isE3A
+        ? independentlySolvePrt001E3ATask(parameters, verification)
+        : isE3B
+          ? independentlySolvePrt001E3BTask(parameters, verification)
+          : isE2
+            ? independentlySolvePrt001E2Task(parameters, verification)
+            : isE1
+              ? independentlySolvePrt001E1Task(parameters, verification)
+              : independentlySolvePrt001Task(parameters, verification);
   const stem = renderPrt001Template(getPrt001QuestionTemplate(questionLanguageId, language), parameters.renderVariables);
-  const explanationLines = isE4
-    ? renderPrt001E4Explanation({ parameters, solution, answer: taskAnswer })
-    : isE3A
-      ? renderPrt001E3AExplanation({ parameters, solution, answer: taskAnswer })
-      : isE3B
-        ? renderPrt001E3BExplanation({ parameters, solution, answer: taskAnswer })
-        : isE2
-          ? renderPrt001E2Explanation({ parameters, solution, answer: taskAnswer })
-          : isE1
-            ? renderPrt001E1Explanation({ parameters, solution, answer: taskAnswer })
-            : renderPrt001Explanation({ parameters, solution, answer: taskAnswer });
+  const explanationLines = isE5
+    ? renderPrt001E5Explanation({ parameters, solution, answer: taskAnswer })
+    : isE4
+      ? renderPrt001E4Explanation({ parameters, solution, answer: taskAnswer })
+      : isE3A
+        ? renderPrt001E3AExplanation({ parameters, solution, answer: taskAnswer })
+        : isE3B
+          ? renderPrt001E3BExplanation({ parameters, solution, answer: taskAnswer })
+          : isE2
+            ? renderPrt001E2Explanation({ parameters, solution, answer: taskAnswer })
+            : isE1
+              ? renderPrt001E1Explanation({ parameters, solution, answer: taskAnswer })
+              : renderPrt001Explanation({ parameters, solution, answer: taskAnswer });
   const reasoningGraph = buildPrt001ReasoningGraph({ parameters, solution, answer: taskAnswer });
   const { options, correctIndex } = generatePrt001Options({ parameters, solution, answer: taskAnswer, random: createPrt001Random(`${seed}:options`) });
-  const expansionWave = isE4 ? "E4" : isE3 ? "E3" : isE2 ? "E2" : isE1 ? "E1" : "BASELINE";
+  const expansionWave = isE5 ? "E5" : isE4 ? "E4" : isE3 ? "E3" : isE2 ? "E2" : isE1 ? "E1" : "BASELINE";
   const base: Omit<Prt001QuestionPackage, "validation"> = {
     packageId: PRT_001_PACKAGE_ID,
     archetypeId: PRT_001_PACKAGE_ID,

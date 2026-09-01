@@ -93,7 +93,26 @@ export type Prt001PilotSolveMode =
   | "findTotalProfitFromStaggeredPartnerShare"
   | "findProfitRatioAfterPercentageCapitalDecrease"
   | "findProfitRatioAfterFractionalCapitalChange"
-  | "findUnknownCapitalChangeTimeFromPartnerShare";
+  | "findUnknownCapitalChangeTimeFromPartnerShare"
+  | "findUnknownCapitalFromPartnerShares"
+  | "findMissingPartnerShareFromKnownShareAndWeights"
+  | "findUnknownLeaveTimeFromPartnerShare"
+  | "findJoinTimeForEqualProfitShares"
+  | "findLeaveTimeForEqualProfitShares"
+  | "findShareDifferenceWithStaggeredParticipation"
+  | "findProfitRatioAfterCapitalWithdrawal"
+  | "findShareAfterCapitalAddition"
+  | "findCapitalChangeForEqualProfitShares"
+  | "compareEffectiveCapitalsAfterDifferentChanges"
+  | "findSharesFromTimeMultiplesAndCapitals"
+  | "findPartnerShareWhenOneWeightIsSumOfOthers"
+  | "findUnknownCapitalFromEqualShareConditionInMultiPartnerSystem"
+  | "findUnknownDurationFromEqualShareConditionInMultiPartnerSystem"
+  | "findSleepingPartnerShareWithActivePartnerSalary"
+  | "findPartnerSharesAfterFixedManagementAllowance"
+  | "findActivePartnerReceiptWithPercentOfGrossProfitCommission"
+  | "findSharesAfterReserveDeduction"
+  | "findSharesAfterExplicitBusinessExpenseDeduction";
 
 export type MoneyUnit = "RUPEE";
 export type TimeUnit = "MONTH" | "YEAR";
