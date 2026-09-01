@@ -6,6 +6,7 @@ import {
   auditPrt001E1MathDiversity,
   auditPrt001E2MathDiversity,
   auditPrt001E3MathDiversity,
+  auditPrt001E4MathDiversity,
   auditPrt001Multilingual,
   auditPrt001OptionQuality,
 } from "./foundation/coverage-auditor";
@@ -17,27 +18,19 @@ const reports = [
   auditPrt001E1MathDiversity(),
   auditPrt001E2MathDiversity(),
   auditPrt001E3MathDiversity(),
+  auditPrt001E4MathDiversity(),
   auditPrt001Multilingual(),
   auditPrt001OptionQuality(),
 ];
 
 const definition = listQuantV4Packages().find((item) => item.packageId === "PRT-001");
 assert.ok(definition, "Question Studio package discovery is missing PRT-001");
-assert.deepEqual(
-  definition.canonicalProblems.map((item) => item.id),
-  [...PRT_001_CP_IDS],
-);
+assert.deepEqual(definition.canonicalProblems.map((item) => item.id), [...PRT_001_CP_IDS]);
 
 let studioCases = 0;
 for (const cpId of PRT_001_CP_IDS) {
   for (const language of ["en", "hi", "pa"] as const) {
-    const result = await generateQuestion({
-      packageId: "PRT-001",
-      cpId,
-      language,
-      count: 2,
-      seed: `prt-001:studio:${cpId}:${language}`,
-    });
+    const result = await generateQuestion({ packageId: "PRT-001", cpId, language, count: 2, seed: `prt-001:studio:${cpId}:${language}` });
     assert.equal(result.questionPackages.length, 2);
     assert.equal(result.questions.length, 2);
     for (const pkg of result.questionPackages) {
@@ -50,10 +43,5 @@ for (const cpId of PRT_001_CP_IDS) {
   }
 }
 
-reports.push({
-  audit: "question-studio-integration",
-  cases: studioCases,
-  metrics: { canonicalProblems: 7, languages: 3, expansionWave: "E3" },
-});
-
+reports.push({ audit: "question-studio-integration", cases: studioCases, metrics: { canonicalProblems: 7, languages: 3, expansionWave: "E4" } });
 console.log(JSON.stringify({ packageId: "PRT-001", status: "PASS", reports }, null, 2));
