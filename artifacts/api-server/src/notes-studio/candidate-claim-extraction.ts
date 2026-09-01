@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 export const NOTES_CLAIM_EXTRACTION_PROMPT_VERSION = 'notes-claim-extraction-v2';
 export const MAX_CLAIM_EXTRACTION_BLOCKS = 40;
 export const MAX_CLAIM_EXTRACTION_OUTPUTS = 60;
+export const CANDIDATE_CLAIM_EXTRACTION_STATES = ['sources_ready', 'evidence_ready'] as const;
 
 export type ClaimExtractionEvidenceKind = 'retained_excerpt' | 'editor_reference_note';
 
@@ -49,6 +50,10 @@ function stableObject(value: unknown): unknown {
     );
   }
   return value;
+}
+
+export function candidateClaimExtractionStateEligible(value: unknown): boolean {
+  return (CANDIDATE_CLAIM_EXTRACTION_STATES as readonly string[]).includes(String(value ?? '').trim());
 }
 
 export function candidateEvidenceBlockEligible(input: CandidateEvidenceEligibilityInput): boolean {
