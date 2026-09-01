@@ -1,7 +1,17 @@
 import { adminRequest } from '@/lib/admin-request';
 
 export type SpatialReviewDifficulty = 'Easy' | 'Medium' | 'Hard';
-export type SpatialReviewChapter = 'MIR-001' | 'WAT-001' | 'FAN-001' | 'FCL-001' | 'FSR-001' | 'FGC-001' | 'PFC-001' | 'TPF-001';
+export type SpatialReviewChapter =
+  | 'MIR-001'
+  | 'WAT-001'
+  | 'FAN-001'
+  | 'FCL-001'
+  | 'FSR-001'
+  | 'FGC-001'
+  | 'PFC-001'
+  | 'TPF-001'
+  | 'FCT-001'
+  | 'EMB-001';
 export type SpatialReviewLanguage = 'en' | 'hi' | 'pa';
 
 export interface SpatialReviewQl {
@@ -26,21 +36,23 @@ export interface SpatialReviewPackage {
   reviewStatus: 'APPROVED_EDITORIAL_CANONICAL';
   integrationAuthority: string;
   localizationAuthority: string;
-  fgcLocalizationAuthority?: string;
-  pfcTpfLocalizationAuthority?: string;
-  pfcTpfProductOwnerApprovalAuthority?: string;
-  pfcTpfVisualRemediationAuthority?: string;
-  releaseAuthority: string;
+  finalHeldGapFreezeAuthority?: string;
+  finalHeldGapActivationAuthority?: string;
+  releaseAuthority?: string;
   permanentQlCount: number;
   questionStudioVisible: true;
   questionStudioDiscoverable: true;
   registrationStatus: 'REGISTERED';
   questionBankStatus: 'READY_FOR_STORAGE';
   questionBankEligible: true;
+  questionBankWritable?: true;
   testEligibility: 'ELIGIBLE';
   testEligible: true;
-  mockTestEligible: true;
+  testBuilderEligible?: true;
+  mockTestEligible: boolean;
   publiclyPublishable: true;
+  publicReleaseAuthorized?: false;
+  studentDeliveryAuthorized?: false;
   manualApprovalRequired: true;
   automaticStudentPublication: false;
 }
@@ -60,6 +72,7 @@ export interface SpatialReviewQuestion {
   stem: string;
   stimulusSvgs: string[];
   optionSvgs: string[];
+  options?: Array<number | string>;
   optionLabels: ['A', 'B', 'C', 'D'];
   correctIndex: 0 | 1 | 2 | 3;
   answer: 'A' | 'B' | 'C' | 'D';
@@ -77,17 +90,22 @@ export interface SpatialReviewQuestion {
     authority: string;
     canonicalLanguage: 'en';
     targetLanguage: SpatialReviewLanguage;
-    semanticParity: 'GEOMETRY_AND_ANSWER_EXACT';
+    semanticParity: string;
   };
   lifecycle: {
     questionStudioDiscoverable?: true;
     registrationStatus?: 'REGISTERED';
     persistenceAllowed?: true;
     questionBankStatus: 'READY_FOR_STORAGE';
+    questionBankWritable?: true;
+    questionBankAcceptanceMode?: 'FULL_RELEASE';
     testEligibility: 'ELIGIBLE';
     testEligible?: true;
+    testBuilderEligible?: true;
     publiclyPublishable: true;
-    mockTestEligible: true;
+    mockTestEligible: boolean;
+    publicReleaseAuthorized?: false;
+    studentDeliveryAuthorized?: false;
     manualApprovalRequired: true;
     automaticStudentPublication: false;
     releaseAuthority: string;
@@ -122,11 +140,14 @@ export interface SpatialReviewStatus {
   approvedItemCount: number;
   questionBankCount: number;
   integrationAuthority: string;
-  localizationAuthority: string;
-  releaseAuthority: string;
+  finalHeldGapFreezeAuthority?: string;
+  finalHeldGapActivationAuthority?: string;
   questionBankConversionEligibleAfterApproval: true;
   testEligibleAfterApproval: true;
-  publiclyPublishableAfterApproval: true;
+  testBuilderEligibleAfterApproval?: true;
+  mockTestEligible?: false;
+  publicReleaseAuthorized?: false;
+  studentDeliveryAuthorized?: false;
   automaticStudentPublication: false;
 }
 
@@ -150,7 +171,10 @@ export function getSpatialReviewPackage() {
     persistenceAllowed: true;
     questionBankConversionEligibleAfterApproval: true;
     testEligibleAfterApproval: true;
-    publiclyPublishableAfterApproval: true;
+    testBuilderEligibleAfterApproval?: true;
+    mockTestEligible?: false;
+    publicReleaseAuthorized?: false;
+    studentDeliveryAuthorized?: false;
     automaticStudentPublication: false;
     bulkSyncSupported: false;
   }>(
@@ -166,7 +190,8 @@ export function previewSpatialReview(input: SpatialReviewInput) {
     productionEligible: true;
     integrationAuthority: string;
     localizationAuthority: string;
-    releaseAuthority: string;
+    finalHeldGapFreezeAuthority?: string;
+    finalHeldGapActivationAuthority?: string;
   }>(
     `/admin/question-studio/reasoning/spatial/preview?${paramsFor(input).toString()}`,
     undefined,
@@ -183,8 +208,8 @@ export function createSpatialReviewRun(input: SpatialReviewInput) {
     generationSystem: 'reasoning-v1';
     packageId: 'SPA-001';
     language: SpatialReviewLanguage;
-    localizationAuthority: string;
-    releaseAuthority: string;
+    integrationAuthority: string;
+    automaticStudentPublication: false;
   }>(
     '/admin/question-studio/reasoning/spatial/runs',
     { method: 'POST', body: JSON.stringify(input) },
