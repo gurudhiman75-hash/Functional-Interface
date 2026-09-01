@@ -72,6 +72,10 @@ jobs:
             --outfile=dist/reasoning-v1/spatial/spatial-final-held-gap-freeze-question-studio-v1.test.mjs
 
       - name: Run final held-gap activation proof
+        env:
+          # Importing the real admin route initializes the lazy postgres.js client.
+          # No database query is executed by this proof; use a non-routable local URL only to satisfy module construction.
+          DATABASE_URL: postgresql://examtree_test:examtree_test@127.0.0.1:65432/examtree_test
         run: |
           set -o pipefail
           cd artifacts/api-server
