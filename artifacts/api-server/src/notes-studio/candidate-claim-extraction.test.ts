@@ -5,6 +5,7 @@ import {
   MAX_CLAIM_EXTRACTION_BLOCKS,
   NOTES_CLAIM_EXTRACTION_PROMPT_VERSION,
   buildCandidateClaimInstruction,
+  candidateClaimExtractionStateEligible,
   candidateClaimInputFingerprint,
   candidateEvidenceBlockEligible,
   validateCandidateClaimExtraction,
@@ -40,6 +41,14 @@ test('candidate extraction input is fingerprinted deterministically and uses the
   assert.match(first, /^[0-9a-f]{64}$/);
   assert.equal(NOTES_CLAIM_EXTRACTION_PROMPT_VERSION, 'notes-claim-extraction-v2');
   assert.equal(MAX_CLAIM_EXTRACTION_BLOCKS, 40);
+});
+
+test('candidate extraction may start from governed Sources Ready staging and continues in Evidence Ready only', () => {
+  assert.equal(candidateClaimExtractionStateEligible('sources_ready'), true);
+  assert.equal(candidateClaimExtractionStateEligible('evidence_ready'), true);
+  assert.equal(candidateClaimExtractionStateEligible('brief'), false);
+  assert.equal(candidateClaimExtractionStateEligible('outline_ready'), false);
+  assert.equal(candidateClaimExtractionStateEligible('drafting'), false);
 });
 
 test('candidate evidence eligibility accepts governed retained excerpts and reviewed reference notes only', () => {
