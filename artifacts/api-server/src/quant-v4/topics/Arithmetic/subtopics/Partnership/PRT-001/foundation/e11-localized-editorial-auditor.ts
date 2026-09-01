@@ -23,7 +23,7 @@ const BASELINE_INVERSE_QLS = new Set([
   "PRT-QL-028",
   "PRT-QL-032",
 ]);
-const INTERNAL_ALLOCATION_ENUMS = /\b(?:SALARY|COMMISSION|RESERVE|CHARITY|EXPENSE|BONUS)\b/;
+const INTERNAL_ALLOCATION_ENUMS = /\b(?:SALARY|COMMISSION|RESERVE|CHARITY|EXPENSE|BONUS|INTEREST_ON_CAPITAL)\b/;
 const HINDI_GENERIC = /प्रश्न में दी गई शर्त लागू|अज्ञात राशि या समय इसी संबंध/;
 const PUNJABI_GENERIC = /ਸਵਾਲ ਦੀ ਦਿੱਤੀ ਸ਼ਰਤ ਲਾਗੂ|ਅਣਜਾਣ ਰਕਮ ਜਾਂ ਸਮਾਂ ਇਸੇ ਸੰਬੰਧ/;
 
@@ -64,7 +64,7 @@ export function auditPrt001E11LocalizedEditorial(): Prt001E11EditorialReport {
     pa: new Set<string>(),
   };
 
-  requireAudit(ids.length === 105, `E11 expects 105 active QLs, got ${ids.length}`);
+  requireAudit(ids.length === 112, `E11/E13 expects 112 active QLs, got ${ids.length}`);
 
   for (const language of LOCALIZED_LANGUAGES) {
     for (const questionLanguageId of ids) {
@@ -110,7 +110,7 @@ export function auditPrt001E11LocalizedEditorial(): Prt001E11EditorialReport {
 
   const structural = auditPrt001CrossQlStemStructure();
   const nearSimilarityPairs = Number(structural.metrics.nearSimilarityPairs ?? -1);
-  requireAudit(nearSimilarityPairs === 0, `E11 leaves ${nearSimilarityPairs} cross-QL editorial near-similarity pairs >= 0.88`);
+  requireAudit(nearSimilarityPairs === 0, `E11/E13 leaves ${nearSimilarityPairs} cross-QL editorial near-similarity pairs >= 0.88`);
 
   return {
     audit: "e11-localized-editorial-parity",

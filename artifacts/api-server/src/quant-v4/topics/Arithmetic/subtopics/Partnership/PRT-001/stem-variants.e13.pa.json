@@ -1,0 +1,34 @@
+{
+  "language": "pa",
+  "status": "E13_THREE_SKELETONS",
+  "entries": {
+    "PRT-QL-106": [
+      "{business} ਵਿੱਚ {partnerA}, {partnerB} ਅਤੇ {partnerC} ਦੀ ਪੂੰਜੀ ਕ੍ਰਮਵਾਰ ₹{capitalA}, ₹{capitalB} ਅਤੇ ₹{capitalC} ਹੈ। {sleepingPartner} ਨੂੰ ਨਿਸ਼ਕ੍ਰਿਆ ਭਾਗੀਦਾਰ ਹੋਣ ਕਰਕੇ ਆਮ ਪੂੰਜੀ-ਅਧਾਰਿਤ ਲਾਭ-ਹੱਕ ਦਾ ਕੇਵਲ {entitlementFraction} ਮਿਲਦਾ ਹੈ। ₹{totalProfit} ਵਿੱਚੋਂ {retainedPercent}% ਰੱਖਣ ਤੋਂ ਬਾਅਦ {targetPartner} ਨੂੰ ਕਿੰਨਾ ਮਿਲੇਗਾ?",
+      "{partnerA}, {partnerB} ਅਤੇ {partnerC} ਨੇ {business} ਵਿੱਚ ₹{capitalA}, ₹{capitalB} ਅਤੇ ₹{capitalC} ਲਗਾਏ। ਸਮਝੌਤੇ ਅਨੁਸਾਰ {sleepingPartner} ਦਾ ਲਾਭ-ਭਾਰ ਆਮ ਭਾਰ ਦਾ ਕੇਵਲ {entitlementFraction} ਹੈ। ਕੁੱਲ ₹{totalProfit} ਲਾਭ ਦਾ {retainedPercent}% ਕਾਰੋਬਾਰ ਵਿੱਚ ਰੱਖਿਆ ਜਾਂਦਾ ਹੈ। ਬਾਕੀ ਵਿੱਚ {targetPartner} ਦਾ ਹਿੱਸਾ ਲੱਭੋ।"
+    ],
+    "PRT-QL-107": [
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ {business} ਵਿੱਚ ₹{initialCapitalA} ਅਤੇ ₹{initialCapitalB} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ। ਪਹਿਲੇ ਸਾਲ ₹{firstYearProfit} ਲਾਭ ਹੋਇਆ। {reinvestPartner} ਆਪਣਾ ਪੂਰਾ ਲਾਭ-ਹਿੱਸਾ ਵਾਧੂ ਪੂੰਜੀ ਵਿੱਚ ਜੋੜਦਾ ਹੈ, ਜਦਕਿ ਦੂਜਾ ਭਾਗੀਦਾਰ ਆਪਣਾ ਹਿੱਸਾ ਕੱਢ ਲੈਂਦਾ ਹੈ। ਦੂਜੇ ਸਾਲ ਦਾ ਲਾਭ ਅਨੁਪਾਤ ਕੀ ਹੋਵੇਗਾ?",
+      "{business} ਵਿੱਚ ਸ਼ੁਰੂਆਤੀ ਪੂੰਜੀ {partnerA} ਦੀ ₹{initialCapitalA} ਅਤੇ {partnerB} ਦੀ ₹{initialCapitalB} ਹੈ। ਪਹਿਲੇ ਸਾਲ ਦਾ ਲਾਭ ₹{firstYearProfit} ਹੈ। ਕੇਵਲ {reinvestPartner} ਆਪਣੇ ਪੂਰੇ ਲਾਭ-ਹਿੱਸੇ ਨੂੰ ਮੁੜ ਪੂੰਜੀ ਬਣਾਉਂਦਾ ਹੈ। ਦੂਜੇ ਸਾਲ ਦਾ ਲਾਭ-ਵੰਡ ਅਨੁਪਾਤ ਲੱਭੋ।"
+    ],
+    "PRT-QL-108": [
+      "{business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਦੀ ਪੂੰਜੀ ₹{capitalA} ਅਤੇ ₹{capitalB} ਹੈ। ₹{totalProfit} ਵਿੱਚੋਂ ਪਹਿਲਾਂ {partnerA} ਨੂੰ {grossPercentA}% ਅਤੇ {partnerB} ਨੂੰ {grossPercentB}% ਕੁੱਲ ਲਾਭ ਮਿਲਦਾ ਹੈ; ਬਾਕੀ ਲਾਭ ਪੂੰਜੀ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPartner} ਦੀ ਕੁੱਲ ਪ੍ਰਾਪਤੀ ਕਿੰਨੀ ਹੈ?",
+      "{partnerA} ਅਤੇ {partnerB} {business} ਵਿੱਚ ₹{capitalA}:₹{capitalB} ਨਿਵੇਸ਼ ਕਰਦੇ ਹਨ। ਕੁੱਲ ₹{totalProfit} ਲਾਭ ਵਿੱਚੋਂ {partnerA} ਨੂੰ {grossPercentA}% ਅਤੇ {partnerB} ਨੂੰ {grossPercentB}% ਪਹਿਲਾਂ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ। ਬਾਕੀ ਲਾਭ ਪੂੰਜੀ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। {targetPartner} ਨੂੰ ਕੁੱਲ ਕਿੰਨਾ ਮਿਲੇਗਾ?"
+    ],
+    "PRT-QL-109": [
+      "{business} ਦੀ ਕੁੱਲ ਮਿਆਦ {totalDuration} ਅਤੇ ਕੁੱਲ ਪੂੰਜੀ ₹{totalCapital} ਹੈ। {partnerA} ਪੂੰਜੀ ਦਾ {capitalFractionA} ਹਿੱਸਾ ਮਿਆਦ ਦੇ {durationFractionA} ਹਿੱਸੇ ਲਈ, {partnerB} {capitalFractionB} ਹਿੱਸਾ {durationFractionB} ਮਿਆਦ ਲਈ ਅਤੇ {partnerC} ਬਾਕੀ ਪੂੰਜੀ ਪੂਰੀ ਮਿਆਦ ਲਈ ਲਗਾਉਂਦਾ ਹੈ। ₹{totalProfit} ਲਾਭ ਵਿੱਚ {targetPartner} ਦਾ ਹਿੱਸਾ ਲੱਭੋ।",
+      "₹{totalCapital} ਦੀ ਕੁੱਲ ਪੂੰਜੀ ਵਾਲੇ {business} ਵਿੱਚ ਭਾਗੀਦਾਰੀ {totalDuration} ਚੱਲਦੀ ਹੈ। {partnerA} ਕੁੱਲ ਪੂੰਜੀ ਦਾ {capitalFractionA} ਹਿੱਸਾ ਕੁੱਲ ਸਮੇਂ ਦੇ {durationFractionA} ਹਿੱਸੇ ਤੱਕ, {partnerB} {capitalFractionB} ਹਿੱਸਾ {durationFractionB} ਸਮੇਂ ਤੱਕ ਅਤੇ {partnerC} ਬਚੀ ਪੂੰਜੀ ਪੂਰੇ ਸਮੇਂ ਲਈ ਲਗਾਉਂਦਾ ਹੈ। ₹{totalProfit} ਵਿੱਚ {targetPartner} ਦਾ ਹਿੱਸਾ ਕਿੰਨਾ ਹੈ?"
+    ],
+    "PRT-QL-110": [
+      "{business} ਵਿੱਚ {partnerA}, {partnerB} ਅਤੇ {partnerC} ਇੱਕੋ ਸਮੇਂ ਲਈ ਨਿਵੇਸ਼ ਕਰਦੇ ਹਨ ਅਤੇ ਪੂੰਜੀ ਦਾ ਸੰਬੰਧ ਹੈ: {relationStatement}। ਕੁੱਲ ਲਾਭ ₹{totalProfit} ਹੋਵੇ ਤਾਂ {targetPartner} ਦਾ ਹਿੱਸਾ ਲੱਭੋ।",
+      "{partnerA}, {partnerB} ਅਤੇ {partnerC} {business} ਵਿੱਚ ਬਰਾਬਰ ਮਿਆਦ ਦੇ ਭਾਗੀਦਾਰ ਹਨ। ਵੱਖ-ਵੱਖ ਪੂੰਜੀਆਂ ਦੀ ਥਾਂ ਦਿੱਤਾ ਹੈ ਕਿ {relationStatement}। ₹{totalProfit} ਦੇ ਲਾਭ ਵਿੱਚ {targetPartner} ਨੂੰ ਕਿੰਨਾ ਮਿਲੇਗਾ?"
+    ],
+    "PRT-QL-111": [
+      "{business} ਵਿੱਚ {partnerA} ₹{capitalA} ਅਤੇ {partnerB} ₹{capitalB} ਇੱਕ ਸਾਲ ਲਈ ਲਗਾਉਂਦੇ ਹਨ। ਪਹਿਲਾਂ ਦੋਹਾਂ ਨੂੰ ਪੂੰਜੀ 'ਤੇ {interestRatePercent}% ਸਾਲਾਨਾ ਬਿਆਜ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ ਅਤੇ ਫਿਰ ਬਾਕੀ ਲਾਭ ਪੂੰਜੀ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ₹{totalProfit} ਕੁੱਲ ਲਾਭ ਵਿੱਚ {targetPartner} ਦੀ ਕੁੱਲ ਪ੍ਰਾਪਤੀ ਕੀ ਹੈ?",
+      "{partnerA} ਅਤੇ {partnerB} ਦੀ ਸਾਲਾਨਾ ਪੂੰਜੀ {business} ਵਿੱਚ ₹{capitalA} ਅਤੇ ₹{capitalB} ਹੈ। ਸਮਝੌਤੇ ਅਨੁਸਾਰ ਲਾਭ ਵਿੱਚੋਂ ਪਹਿਲਾਂ ਦੋਹਾਂ ਨੂੰ ਪੂੰਜੀ 'ਤੇ {interestRatePercent}% ਬਿਆਜ ਮਿਲਦਾ ਹੈ, ਫਿਰ ਬਾਕੀ ਪੂੰਜੀ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਜਾਂਦਾ ਹੈ। ₹{totalProfit} ਵਿੱਚ {targetPartner} ਕੁੱਲ ਕਿੰਨਾ ਲਵੇਗਾ?"
+    ],
+    "PRT-QL-112": [
+      "{business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਦਾ ਪੁਰਾਣਾ ਲਾਭ ਅਨੁਪਾਤ {oldRatio} ਹੈ। {partnerC} ਨੂੰ ਦਾਖਲੇ 'ਤੇ ਕੁੱਲ ਲਾਭ ਦਾ {acquiredFraction} ਹਿੱਸਾ ਦਿੱਤਾ ਜਾਂਦਾ ਹੈ, ਜਿਸਨੂੰ ਪੁਰਾਣੇ ਭਾਗੀਦਾਰ {sacrificeRatio} ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ ਛੱਡਦੇ ਹਨ। ਨਵਾਂ ਅਨੁਪਾਤ ਲੱਭੋ।",
+      "{partnerA}:{partnerB} {business} ਦਾ ਲਾਭ {oldRatio} ਵਿੱਚ ਵੰਡਦੇ ਹਨ। {partnerC} ਆਉਂਦਾ ਹੈ ਅਤੇ ਕੁੱਲ ਲਾਭ ਦਾ {acquiredFraction} ਹਿੱਸਾ ਲੈਂਦਾ ਹੈ; ਇਹ ਹਿੱਸਾ {partnerA} ਅਤੇ {partnerB} ਤੋਂ {sacrificeRatio} ਤਿਆਗ ਅਨੁਪਾਤ ਵਿੱਚ ਲਿਆ ਜਾਂਦਾ ਹੈ। ਨਵਾਂ {partnerA}:{partnerB}:{partnerC} ਅਨੁਪਾਤ ਕੀ ਹੈ?"
+    ]
+  }
+}

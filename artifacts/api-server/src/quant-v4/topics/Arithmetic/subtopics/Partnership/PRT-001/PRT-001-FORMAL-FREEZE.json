@@ -1,0 +1,38 @@
+{
+  "chapterId": "PRT-001",
+  "freezeStatus": "FROZEN",
+  "freezeDate": "2026-09-01",
+  "approvedRuntimeHead": "f4fe65366aab2fc8e60ed1f0420231d4b9ed72db",
+  "approvedValidation": {
+    "workflowRun": 33472771514,
+    "job": 99745764110,
+    "artifact": 9787117264,
+    "branchTopologyRun": 33472771501,
+    "generatedCorpusQuestions": 3360,
+    "activeQuestionLanguagesPerLocale": 112,
+    "activeSolveModes": 102,
+    "canonicalProblems": 7,
+    "cpDistribution": [13, 14, 16, 19, 17, 20, 13],
+    "locales": ["en", "hi", "pa"],
+    "crossQlStructuralComparisons": 167832,
+    "crossChapterOwnershipCases": 208,
+    "questionStudioIntegrationCases": 42
+  },
+  "ownershipBoundaries": {
+    "pureInterest": "INT-001",
+    "partnerCapitalInterestInsidePartnershipDistribution": "PRT-001",
+    "arithmeticIncomingPartnerShareAcquisition": "PRT-001",
+    "fullAccountingAdmissionReconstitution": "EXCLUDED_FROM_APTITUDE_PRT",
+    "legacyRapPartnershipProduct": "RETIRED",
+    "rapQl812": "DELEGATED_TO_TIME_AND_WORK"
+  },
+  "release": {
+    "mergeAuthorizedByFreeze": false,
+    "publicationAuthorizedByFreeze": false,
+    "publicActivationAuthorizedByFreeze": false,
+    "publiclyPublishable": false
+  },
+  "scopeStatement": "No known unresolved PRT-001 gap remains from the E1-E13 reviewed source/audit universe.",
+  "openWorldCaveat": "A genuinely new future source-backed topology may reopen exhaustiveness and invalidate the affected freeze gates.",
+  "invalidationRule": "Any behavioral or editorial change to the frozen PRT-001 surface requires reopening the applicable freeze gates; lifecycle-only metadata changes do not change the approved runtime fingerprint."
+}

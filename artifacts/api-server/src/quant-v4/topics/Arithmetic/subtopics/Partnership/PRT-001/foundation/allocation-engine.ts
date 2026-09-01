@@ -16,7 +16,12 @@ import type {
   Rational,
 } from "./types";
 
-const PARTNER_REMUNERATION_KINDS = new Set(["SALARY", "COMMISSION", "BONUS"]);
+const PARTNER_REMUNERATION_KINDS = new Set([
+  "SALARY",
+  "COMMISSION",
+  "BONUS",
+  "INTEREST_ON_CAPITAL",
+]);
 
 function validateAllocation(
   allocation: PreDistributionAllocation,
@@ -44,6 +49,14 @@ function validateAllocation(
     );
   }
   if (
+    allocation.basis === "PERCENT_OF_PARTNER_CAPITAL" &&
+    allocation.kind !== "INTEREST_ON_CAPITAL"
+  ) {
+    throw new Error(
+      "PERCENT_OF_PARTNER_CAPITAL is reserved for interest-on-capital allocations",
+    );
+  }
+  if (
     allocation.basis !== "FIXED_AMOUNT" &&
     compareRational(allocation.value, HUNDRED) > 0
   ) {
@@ -51,14 +64,52 @@ function validateAllocation(
   }
 }
 
+function fullHorizonPartnerCapital(
+  state: PartnershipState,
+  partnerId: string,
+): Rational {
+  const partner = state.partners.find((item) => item.partnerId === partnerId);
+  if (!partner) throw new Error(`unknown capital-interest recipient: ${partnerId}`);
+  if (partner.capitalSegments.length !== 1) {
+    throw new Error(
+      "partner-capital percentage basis requires one unambiguous full-horizon capital segment",
+    );
+  }
+  const segment = partner.capitalSegments[0]!;
+  if (
+    compareRational(segment.start, ZERO) !== 0 ||
+    compareRational(segment.end, state.totalDuration) !== 0
+  ) {
+    throw new Error(
+      "partner-capital percentage basis requires capital invested for the full partnership horizon",
+    );
+  }
+  return segment.capital;
+}
+
 function allocationAmount(
   allocation: PreDistributionAllocation,
-  grossProfit: Rational,
+  state: PartnershipState,
   currentPool: Rational,
 ): Rational {
   if (allocation.basis === "FIXED_AMOUNT") return allocation.value;
-  const basis =
-    allocation.basis === "PERCENT_OF_GROSS_PROFIT" ? grossProfit : currentPool;
+  let basis: Rational;
+  switch (allocation.basis) {
+    case "PERCENT_OF_GROSS_PROFIT":
+      basis = state.grossProfitOrLoss;
+      break;
+    case "PERCENT_OF_POST_DEDUCTION_POOL":
+      basis = currentPool;
+      break;
+    case "PERCENT_OF_PARTNER_CAPITAL":
+      if (!allocation.recipientPartnerId) {
+        throw new Error("partner-capital percentage basis requires a recipient partner");
+      }
+      basis = fullHorizonPartnerCapital(state, allocation.recipientPartnerId);
+      break;
+    default:
+      throw new Error("unsupported allocation basis");
+  }
   return multiplyRational(basis, divideRational(allocation.value, HUNDRED));
 }
 
@@ -88,11 +139,7 @@ export function computeDistributablePool(
   );
   for (const allocation of ordered) {
     validateAllocation(allocation, partnerIds);
-    const amount = allocationAmount(
-      allocation,
-      state.grossProfitOrLoss,
-      currentPool,
-    );
+    const amount = allocationAmount(allocation, state, currentPool);
     const poolAfter = subtractRational(currentPool, amount);
     if (compareRational(poolAfter, ZERO) < 0) {
       throw new Error("allocations must not exceed gross profit");

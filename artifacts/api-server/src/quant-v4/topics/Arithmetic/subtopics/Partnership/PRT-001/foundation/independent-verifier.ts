@@ -1,5 +1,6 @@
 import {
   HUNDRED,
+  ONE,
   ZERO,
   addRational,
   compareRational,
@@ -9,11 +10,14 @@ import {
   subtractRational,
 } from "./math";
 import type {
+  Partner,
   PartnerWeight,
   PartnershipState,
   Prt001IndependentVerification,
   Rational,
 } from "./types";
+
+type EntitledPartner = Partner & { readonly profitShareMultiplier?: Rational };
 
 function key(value: Rational): string {
   const normalized = rational(value.numerator, value.denominator);
@@ -35,8 +39,9 @@ function reconstructWeightsByBoundarySweep(
     }
   }
   const boundaries = [...boundariesByKey.values()].sort(compareRational);
-  return state.partners.map((partner) => {
-    let effectiveCapital = ZERO;
+  return state.partners.map((rawPartner) => {
+    const partner = rawPartner as EntitledPartner;
+    let contributionWeight = ZERO;
     for (let index = 0; index < boundaries.length - 1; index += 1) {
       const start = boundaries[index]!;
       const end = boundaries[index + 1]!;
@@ -55,18 +60,48 @@ function reconstructWeightsByBoundarySweep(
       if (compareRational(segment.capital, ZERO) <= 0) {
         throw new Error("verifier encountered non-positive capital");
       }
-      effectiveCapital = addRational(
-        effectiveCapital,
+      contributionWeight = addRational(
+        contributionWeight,
         multiplyRational(segment.capital, subtractRational(end, start)),
       );
     }
-    if (compareRational(effectiveCapital, ZERO) <= 0) {
+    if (compareRational(contributionWeight, ZERO) <= 0) {
       throw new Error(
         `verifier found no effective contribution for ${partner.partnerId}`,
       );
     }
-    return { partnerId: partner.partnerId, effectiveCapital };
+    const multiplier = partner.profitShareMultiplier ?? ONE;
+    if (compareRational(multiplier, ZERO) <= 0) {
+      throw new Error("verifier encountered non-positive entitlement multiplier");
+    }
+    return {
+      partnerId: partner.partnerId,
+      effectiveCapital: multiplyRational(contributionWeight, multiplier),
+    };
   });
+}
+
+function reconstructFullHorizonCapital(
+  state: PartnershipState,
+  partnerId: string,
+): Rational {
+  const partner = state.partners.find((item) => item.partnerId === partnerId);
+  if (!partner) throw new Error("verifier encountered an unknown capital-interest recipient");
+  if (partner.capitalSegments.length !== 1) {
+    throw new Error(
+      "verifier requires one full-horizon capital segment for partner-capital percentage allocations",
+    );
+  }
+  const segment = partner.capitalSegments[0]!;
+  if (
+    compareRational(segment.start, ZERO) !== 0 ||
+    compareRational(segment.end, state.totalDuration) !== 0
+  ) {
+    throw new Error(
+      "verifier found an ambiguous partner-capital percentage horizon",
+    );
+  }
+  return segment.capital;
 }
 
 export function verifyPrt001Independently(
@@ -80,15 +115,26 @@ export function verifyPrt001Independently(
   for (const allocation of [...state.allocations].sort(
     (a, b) => a.sequence - b.sequence,
   )) {
-    const amount =
-      allocation.basis === "FIXED_AMOUNT"
-        ? allocation.value
-        : multiplyRational(
-            allocation.basis === "PERCENT_OF_GROSS_PROFIT"
-              ? state.grossProfitOrLoss
-              : distributablePool,
-            divideRational(allocation.value, HUNDRED),
-          );
+    let amount: Rational;
+    if (allocation.basis === "FIXED_AMOUNT") {
+      amount = allocation.value;
+    } else {
+      let basis: Rational;
+      if (allocation.basis === "PERCENT_OF_GROSS_PROFIT") {
+        basis = state.grossProfitOrLoss;
+      } else if (allocation.basis === "PERCENT_OF_POST_DEDUCTION_POOL") {
+        basis = distributablePool;
+      } else {
+        if (!allocation.recipientPartnerId) {
+          throw new Error("verifier requires a recipient for partner-capital percentage allocations");
+        }
+        basis = reconstructFullHorizonCapital(state, allocation.recipientPartnerId);
+      }
+      amount = multiplyRational(
+        basis,
+        divideRational(allocation.value, HUNDRED),
+      );
+    }
     distributablePool = subtractRational(distributablePool, amount);
     if (allocation.recipientPartnerId) {
       const previous = remuneration[allocation.recipientPartnerId];
@@ -123,7 +169,7 @@ export function verifyPrt001Independently(
   return {
     supported: true,
     method:
-      "Independent boundary-sweep reconstruction and sequential pool ledger",
+      "Independent boundary-sweep reconstruction with entitlement multipliers, partner-capital interest reconstruction and sequential pool ledger",
     weights,
     distributablePool,
     distributedShares,

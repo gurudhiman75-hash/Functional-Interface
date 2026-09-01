@@ -1,17 +1,17 @@
 {
   "chapterId": "PRT-001",
   "canonicalProblems": 7,
-  "solveModes": 99,
-  "activeQuestionLanguages": 105,
+  "solveModes": 102,
+  "activeQuestionLanguages": 112,
   "locales": ["en", "hi", "pa"],
   "minimumQuestionLanguagesByCanonicalProblem": {
     "PRT-CP-001": 13,
     "PRT-CP-002": 14,
     "PRT-CP-003": 16,
     "PRT-CP-004": 19,
-    "PRT-CP-005": 14,
-    "PRT-CP-006": 17,
-    "PRT-CP-007": 12
+    "PRT-CP-005": 17,
+    "PRT-CP-006": 20,
+    "PRT-CP-007": 13
   },
   "requiredDifficultyBands": ["Easy", "Medium", "Hard"],
   "independentVerificationRequired": true,
@@ -26,7 +26,7 @@
     "minimumBusinessContexts": 12
   },
   "chapterStemStructure": {
-    "activeQuestionLanguages": 105,
+    "activeQuestionLanguages": 112,
     "locales": 3,
     "requiredAuthoredSkeletonsPerQlPerLocale": 3,
     "requiredSeedReachableSkeletonsPerQlPerLocale": 3,
@@ -41,9 +41,61 @@
     "sourceBackedQuestionLanguageIds": ["PRT-QL-104", "PRT-QL-105"],
     "newSolveModes": 0,
     "minimumConfiguredDurationMonths": 36,
-    "requiredDelegatedBoundaries": ["interest-on-capital", "accounting-reconstitution"],
+    "historicalDelegatedBoundaries": ["interest-on-capital", "accounting-reconstitution"],
     "automatedValidationRun": 33366682849,
     "runtimeHead": "1538eadf0bf514ae95e29d0a26f4418b6138476c"
+  },
+  "e13ExhaustivenessClosure": {
+    "wave": "E13",
+    "questionLanguageIds": ["PRT-QL-106", "PRT-QL-107", "PRT-QL-108", "PRT-QL-109", "PRT-QL-110", "PRT-QL-111", "PRT-QL-112"],
+    "newSolveModes": [
+      "findSleepingPartnerAdjustedEntitlementShare",
+      "findNextPeriodProfitRatioAfterProfitShareReinvestment",
+      "findProfitRatioAfterNewPartnerAcquiresShare"
+    ],
+    "reusedAuthorities": [
+      "findPartnerReceiptsWithMultipleOrderedAllocations",
+      "findMultiPartnerSharesFromTotalProfit"
+    ],
+    "minimumMathWeightSignaturesPerQl": 3,
+    "minimumAnswerSignaturesPerQl": 2,
+    "minimumRatioSignaturesPerQl": 2,
+    "resolvedOwnershipBoundaries": {
+      "pureInterest": "INT-001",
+      "interestOnCapitalInsidePartnershipDistribution": "PRT-001",
+      "accountingReconstitution": "EXCLUDED",
+      "arithmeticIncomingPartnerShareAcquisition": "PRT-001"
+    },
+    "validationStatus": "FULL_REVALIDATION_PASS",
+    "freezeReadiness": "APPROVED_AND_FROZEN",
+    "formalFreezeStatus": "FROZEN",
+    "publicationStatus": "BLOCKED",
+    "approvedRuntimeHead": "f4fe65366aab2fc8e60ed1f0420231d4b9ed72db",
+    "formalFreezeDate": "2026-09-01",
+    "automatedValidationRun": 33472771514,
+    "validationJob": 99745764110,
+    "validationArtifact": 9787117264,
+    "validatedCorpusQuestions": 3360,
+    "validatedOwnershipRegressions": [
+      "RAP-003 legacy Partnership retirement",
+      "G06 INT-001 vs PRT-001 capital-interest boundary",
+      "G07 RAP/PRT incoming-partner share boundary"
+    ]
+  },
+  "formalFreeze": {
+    "status": "FROZEN",
+    "approvedRuntimeHead": "f4fe65366aab2fc8e60ed1f0420231d4b9ed72db",
+    "approvalDate": "2026-09-01",
+    "runtimeShape": {
+      "canonicalProblems": 7,
+      "solveModes": 102,
+      "activeQuestionLanguagesPerLocale": 112,
+      "locales": ["en", "hi", "pa"],
+      "cpDistribution": [13, 14, 16, 19, 17, 20, 13]
+    },
+    "releaseAuthorization": false,
+    "publiclyPublishable": false,
+    "invalidationRule": "Any behavioral or editorial change to the frozen chapter surface requires reopening the affected freeze gates."
   },
   "legacyOwnership": {
     "wave": "E9",
@@ -58,5 +110,6 @@
     "validationJob": 99421096301,
     "runtimeHead": "d8ac563c60238c2c4463aaf37fc10bd882cae6dc"
   },
-  "exhaustivenessStatus": "E13_POST_FREEZE_EXHAUSTIVENESS_REOPENED"
+  "exhaustivenessStatus": "FROZEN_AT_E13_REVIEWED_SOURCE_UNIVERSE",
+  "publicationStatus": "BLOCKED_PENDING_SEPARATE_RELEASE_AUTHORIZATION"
 }

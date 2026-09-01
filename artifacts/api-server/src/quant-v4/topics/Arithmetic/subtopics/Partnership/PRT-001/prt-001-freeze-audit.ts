@@ -8,6 +8,7 @@ import {
   auditPrt001E3MathDiversity,
   auditPrt001E4MathDiversity,
   auditPrt001E5MathDiversity,
+  auditPrt001E13MathDiversity,
   auditPrt001Multilingual,
   auditPrt001OptionQuality,
 } from "./foundation/coverage-auditor";
@@ -23,12 +24,16 @@ import {
 import { auditPrt001E8SourceRealness } from "./foundation/e8-source-realness-auditor";
 import { auditPrt001E10EnglishEditorial } from "./foundation/e10-english-editorial-auditor";
 import { auditPrt001E11LocalizedEditorial } from "./foundation/e11-localized-editorial-auditor";
+import { auditPrt001E13SourceOwnership } from "./foundation/e13-source-ownership-auditor";
 import { PRT_001_CP_IDS } from "./foundation/types";
+import { auditPrt001E13CrossChapterOwnership } from "./prt-001-e13-cross-chapter-ownership-audit";
 
 const reports = [
   auditPrt001Coverage(),
   auditPrt001ContextRealism(),
   auditPrt001E8SourceRealness(),
+  auditPrt001E13SourceOwnership(),
+  auditPrt001E13CrossChapterOwnership(),
   auditPrt001E10EnglishEditorial(),
   auditPrt001E11LocalizedEditorial(),
   auditPrt001ChapterStemSkeletonDepth(),
@@ -41,6 +46,7 @@ const reports = [
   auditPrt001E3MathDiversity(),
   auditPrt001E4MathDiversity(),
   auditPrt001E5MathDiversity(),
+  auditPrt001E13MathDiversity(),
   auditPrt001Multilingual(),
   auditPrt001OptionQuality(),
 ];
@@ -65,5 +71,5 @@ for (const cpId of PRT_001_CP_IDS) {
   }
 }
 
-reports.push({ audit: "question-studio-integration", cases: studioCases, metrics: { canonicalProblems: 7, languages: 3, productionWave: "E11" } });
-console.log(JSON.stringify({ packageId: "PRT-001", status: "PASS", productionWave: "E11", reports }, null, 2));
+reports.push({ audit: "question-studio-integration", cases: studioCases, metrics: { canonicalProblems: 7, languages: 3, productionWave: "E13" } });
+console.log(JSON.stringify({ packageId: "PRT-001", status: "PASS", productionWave: "E13", reports }, null, 2));

@@ -66,7 +66,7 @@ export function auditPrt001E10EnglishEditorial(): Prt001E10EditorialReport {
   let explanationLines = 0;
   const inverseEquationQls = new Set<string>();
 
-  requireAudit(ids.length === 105, `E10 expects 105 active QLs, got ${ids.length}`);
+  requireAudit(ids.length === 112, `E10/E13 expects 112 active QLs, got ${ids.length}`);
   requireAudit(objectPools.businesses.length >= 12, "E10 requires at least 12 business contexts");
   for (const business of objectPools.businesses) {
     requireAudit(!/^[aeiou]/i.test(business), `business context is unsafe after the authored article "a": ${business}`);
@@ -98,7 +98,7 @@ export function auditPrt001E10EnglishEditorial(): Prt001E10EditorialReport {
       for (const phrase of GENERIC_EXPLANATION_PHRASES) {
         requireAudit(!explanation.includes(phrase), `${questionLanguageId} still uses generic explanation phrase: ${phrase}`);
       }
-      requireAudit(!/\b(?:SALARY|COMMISSION|RESERVE|CHARITY|EXPENSE|BONUS)\b/.test(explanation), `${questionLanguageId} exposes an internal allocation enum in English prose`);
+      requireAudit(!/\b(?:SALARY|COMMISSION|RESERVE|CHARITY|EXPENSE|BONUS|INTEREST_ON_CAPITAL)\b/.test(explanation), `${questionLanguageId} exposes an internal allocation enum in English prose`);
       requireAudit(explanation.includes(pkg.answer), `${questionLanguageId} explanation does not state the computed answer`);
       if (BASELINE_INVERSE_QLS.has(questionLanguageId)) {
         requireAudit(/[×=]/.test(explanation), `${questionLanguageId} inverse explanation lacks an explicit equation/working marker`);
