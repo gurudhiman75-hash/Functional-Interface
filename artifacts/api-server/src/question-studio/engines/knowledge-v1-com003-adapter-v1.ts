@@ -21,8 +21,8 @@ export const COM003_REVISION_POLICY_V1 = "FROZEN_CORPUS_REPLACEMENT_ONLY" as con
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const capability = COM003_QUESTION_STUDIO_PRE_REGISTRATION_CAPABILITY_V1;
 const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
-const qlIds = [...capability.qlIds];
-const cpIds = [...capability.cpIds];
+const qlIds: string[] = [...capability.qlIds];
+const cpIds: string[] = [...capability.cpIds];
 
 export const COM003_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefinition = {
   engineId: "knowledge-v1",
@@ -110,9 +110,9 @@ function normalizeQlSelector(request: QuestionStudioGenerationRequest): string |
     .filter(Boolean);
 
   const qlSelectors = candidates.filter((value) => qlIds.includes(value));
-  const cpSelectors = candidates.filter((value) => cpIds.includes(value as (typeof cpIds)[number]));
+  const cpSelectors = candidates.filter((value) => cpIds.includes(value));
   const unknown = candidates.filter(
-    (value) => value !== COM003_QUESTION_STUDIO_PACKAGE_ID_V1 && !qlIds.includes(value) && !cpIds.includes(value as (typeof cpIds)[number]),
+    (value) => value !== COM003_QUESTION_STUDIO_PACKAGE_ID_V1 && !qlIds.includes(value) && !cpIds.includes(value),
   );
   if (unknown.length) throw new Error(`Unknown COM-003 selector ${unknown[0]}`);
   if (new Set(qlSelectors).size > 1) throw new Error(`Conflicting COM-003 QL selectors ${qlSelectors.join(", ")}`);
@@ -123,7 +123,7 @@ function normalizeQlSelector(request: QuestionStudioGenerationRequest): string |
 function normalizeCpSelector(request: QuestionStudioGenerationRequest): string | undefined {
   const candidates = [request.canonicalProblemId, request.patternId]
     .map((value) => String(value ?? "").trim().toUpperCase())
-    .filter((value) => cpIds.includes(value as (typeof cpIds)[number]));
+    .filter((value) => cpIds.includes(value));
   return candidates[0];
 }
 
