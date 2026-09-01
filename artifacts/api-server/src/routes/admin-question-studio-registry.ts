@@ -11,6 +11,7 @@ import adminQuestionStudioAverageRouter from "./admin-question-studio-average";
 import adminQuestionStudioRegenerationRouter from "./admin-question-studio-regeneration";
 import adminQuestionStudioCalibrationRouter from "./admin-question-studio-calibration";
 import adminQuestionStudioMixedDifficultyRouter from "./admin-question-studio-mixed-difficulty";
+import adminQuestionStudioSeriesWorkflowRouter from "./admin-question-studio-series-workflow";
 import adminQuestionStudioSeriesRouter from "./admin-question-studio-series";
 import adminQuestionStudioInterestRouter from "./admin-question-studio-interest";
 import adminQuestionStudioMensurationRouter from "./admin-question-studio-mensuration";
@@ -24,19 +25,7 @@ import adminQuestionStudioCubesDiceRouter from "./admin-question-studio-cubes-di
 import adminQuestionStudioSpatialRouter from "./admin-question-studio-spatial";
 import adminQuestionStudioRouter from "./admin-question-studio";
 
-/**
- * Canonical Question Studio route registry.
- *
- * Chapter/package integrations belong here instead of routes/index.ts. Keeping
- * the global route index stable prevents unrelated chapter workflows from
- * firing whenever one Question Studio package is added or reordered.
- *
- * Order is intentional: hardening/specialized additive routers must run before
- * the legacy catch-all router at the bottom. SRI owns the newest aggregate GET
- * /capabilities surface. The DSF CP017 router is mounted immediately after it so
- * normal POST /runs requests for DSF-001 enter the standard review-run lifecycle
- * before older package-specific/legacy fallbacks are considered.
- */
+/** Canonical Question Studio route registry. Specialized run adapters precede chapter routers and the legacy catch-all. */
 const router: IRouter = Router();
 
 router.use(adminQuestionStudioBulkHardeningRouter);
@@ -50,6 +39,7 @@ router.use(adminQuestionStudioAverageRouter);
 router.use(adminQuestionStudioRegenerationRouter);
 router.use(adminQuestionStudioCalibrationRouter);
 router.use(adminQuestionStudioMixedDifficultyRouter);
+router.use(adminQuestionStudioSeriesWorkflowRouter);
 router.use(adminQuestionStudioSeriesRouter);
 router.use(adminQuestionStudioInterestRouter);
 router.use(adminQuestionStudioMensurationRouter);
