@@ -8,11 +8,14 @@ const PROVIDER_SOURCE_KEY = "gdelt_open_news";
 const REQUEST_TIMEOUT_MS = 18_000;
 const MAX_RECORDS_PER_QUERY = 250;
 const INDIA_OFFSET_MINUTES = 330;
+const MIN_CLUSTER_DISCOVERY_SCORE = 38;
+const BROAD_QUERY_KEYS = new Set(["india_press_broad", "india_global"]);
 
 export const OPEN_NEWS_DISCOVERY_QUERIES = [
   { key: "india_press_broad", query: "sourcecountry:india sourcelang:english" },
   { key: "india_global", query: "(India OR Indian OR \"New Delhi\") sourcelang:english" },
   { key: "economy_banking", query: "sourcecountry:india (RBI OR SEBI OR economy OR banking OR inflation OR GDP OR finance OR monetary)" },
+  { key: "international_diplomacy", query: "sourcecountry:india (bilateral OR summit OR treaty OR agreement OR diplomacy OR foreign minister OR prime minister OR president)" },
   { key: "punjab", query: "sourcecountry:india (Punjab OR Chandigarh OR Ludhiana OR Amritsar OR Jalandhar OR Patiala)" },
   { key: "science_defence_sports", query: "sourcecountry:india (ISRO OR DRDO OR defence OR space OR science OR technology OR sports OR cricket OR hockey OR badminton OR chess)" },
   { key: "exam_signals", query: "sourcecountry:india (summit OR election OR treaty OR award OR report OR index OR appointed OR launches OR approves OR signs)" },
@@ -181,6 +184,46 @@ function mappedPublisher<T extends { row: unknown; domain: string }>(domain: str
   return publishers.find((item) => domain === item.domain || domain.endsWith(`.${item.domain}`))?.row;
 }
 
+export function isOpenNewsClusterEligible(input: { discoveryScore: number; queryKeys: string[] }) {
+  const targetedQueryHit = input.queryKeys.some((key) => !BROAD_QUERY_KEYS.has(key));
+  return {
+    eligible: input.discoveryScore >= MIN_CLUSTER_DISCOVERY_SCORE || targetedQueryHit,
+    targetedQueryHit,
+    reason: input.discoveryScore >= MIN_CLUSTER_DISCOVERY_SCORE
+      ? "exam_signal_score"
+      : targetedQueryHit
+        ? "targeted_discovery_query"
+        : "broad_only_low_signal",
+  };
+}
+
+async function rejectExistingBroadOnlyLowSignalClusters(targetDate: string) {
+  const rows = await sqlClient`
+    WITH low_signal_clusters AS (
+      SELECT cluster.id
+      FROM content.current_affairs_clusters cluster
+      JOIN content.current_affairs_cluster_members member ON member.cluster_id=cluster.id
+      JOIN content.current_affairs_ingestion_candidates candidate ON candidate.id=member.candidate_id
+      WHERE cluster.status='open'
+      GROUP BY cluster.id
+      HAVING bool_and(COALESCE(candidate.payload->>'discoveryProvider','')='gdelt_doc_2')
+         AND bool_and(COALESCE(candidate.payload->>'discoveryTargetDate','')=${targetDate})
+         AND bool_and(COALESCE((candidate.payload->>'discoveryEligible')::boolean, false)=false)
+    )
+    UPDATE content.current_affairs_clusters cluster
+    SET status='rejected',
+        metadata=cluster.metadata || ${JSON.stringify({
+          rejectedBy: "cp043_open_news_triage",
+          rejectionReason: "gdelt_broad_only_low_signal",
+          reversibleEditorialExclusion: true,
+        })}::jsonb,
+        updated_at=now()
+    WHERE cluster.id IN (SELECT id FROM low_signal_clusters)
+    RETURNING cluster.id::text AS id
+  `;
+  return rows.length;
+}
+
 export async function runOpenNewsDiscovery(targetDate: string) {
   assertDateOnly(targetDate);
   const { provider, publisherDomains } = await loadDiscoverySources();
@@ -211,6 +254,8 @@ export async function runOpenNewsDiscovery(targetDate: string) {
 
   let created = 0;
   let updated = 0;
+  let eligibleArticles = 0;
+  let withheldBroadLowSignal = 0;
   let knownPublisherMapped = 0;
   let providerFallback = 0;
   const categoryCounts: Record<string, number> = {};
@@ -221,10 +266,15 @@ export async function runOpenNewsDiscovery(targetDate: string) {
     if (mapped) knownPublisherMapped += 1;
     else providerFallback += 1;
     const classified = classifyCurrentAffairsSignal(article.title);
+    const triage = isOpenNewsClusterEligible({ discoveryScore: classified.score, queryKeys: article.queryKeys });
+    if (triage.eligible) eligibleArticles += 1;
+    else withheldBroadLowSignal += 1;
     categoryCounts[classified.category] = (categoryCounts[classified.category] ?? 0) + 1;
     const payload = {
       discoveryProvider: "gdelt_doc_2",
       discoveryProviderSourceKey: PROVIDER_SOURCE_KEY,
+      discoveryTargetDate: targetDate,
+      discoverySeenAt: article.seenAt,
       publisherDomain: article.domain,
       queryKeys: article.queryKeys,
       language: article.language,
@@ -232,6 +282,9 @@ export async function runOpenNewsDiscovery(targetDate: string) {
       categoryGuess: classified.category,
       discoveryScore: classified.score,
       discoveryKeywords: classified.keywords,
+      discoveryEligible: triage.eligible,
+      discoveryTriageReason: triage.reason,
+      targetedQueryHit: triage.targetedQueryHit,
       dateSemantics: "gdelt_discovery_seen_at_not_publication_date",
       dateConfidence: "discovery_only",
       rawArticlePersistence: false,
@@ -249,18 +302,24 @@ export async function runOpenNewsDiscovery(targetDate: string) {
         ${`gdelt:${article.domain}:${article.seenAt}`.slice(0, 500)},
         ${article.title}, '', ${article.seenAt}::timestamptz,
         ${dedupeKey(String(source.sourceKey), article.url, article.title)},
-        'queued', ${JSON.stringify(payload)}::jsonb, now(), now()
+        ${triage.eligible ? "queued" : "rejected"}, ${JSON.stringify(payload)}::jsonb, now(), now()
       )
       ON CONFLICT (source_url) DO UPDATE SET
         raw_title=EXCLUDED.raw_title,
-        published_at=COALESCE(content.current_affairs_ingestion_candidates.published_at, EXCLUDED.published_at),
         payload=content.current_affairs_ingestion_candidates.payload || EXCLUDED.payload,
+        status=CASE
+          WHEN content.current_affairs_ingestion_candidates.status='queued'
+            AND EXCLUDED.status='rejected' THEN 'rejected'
+          ELSE content.current_affairs_ingestion_candidates.status
+        END,
         updated_at=now()
       RETURNING (xmax = 0) AS inserted
     `;
     if (rows[0]?.inserted) created += 1;
     else updated += 1;
   }
+
+  const rejectedLowSignalClusters = await rejectExistingBroadOnlyLowSignalClusters(targetDate);
 
   await sqlClient`
     UPDATE content.current_affairs_sources
@@ -273,6 +332,9 @@ export async function runOpenNewsDiscovery(targetDate: string) {
           lastDiscoveryDate: targetDate,
           lastQueryResults: queryResults,
           lastUniqueArticleCount: byUrl.size,
+          lastEligibleArticleCount: eligibleArticles,
+          lastWithheldBroadLowSignalCount: withheldBroadLowSignal,
+          lastRejectedLowSignalClusterCount: rejectedLowSignalClusters,
         })}::jsonb,
         updated_at=now()
     WHERE source_key=${PROVIDER_SOURCE_KEY}
@@ -283,6 +345,9 @@ export async function runOpenNewsDiscovery(targetDate: string) {
     provider: "gdelt_doc_2",
     queryResults,
     uniqueArticles: byUrl.size,
+    eligibleArticles,
+    withheldBroadLowSignal,
+    rejectedLowSignalClusters,
     created,
     updated,
     knownPublisherMapped,
