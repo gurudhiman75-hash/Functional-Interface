@@ -1,0 +1,81 @@
+name: Validate SPA Final Held-Gap Review V1
+
+on:
+  push:
+    branches:
+      - audit/spa-final-held-gap-saturation-v1
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-final-held-gap-saturation-v1.ts
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v9.ts
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-final-held-gap-review-runtime-v1.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-final-held-gap-review-runtime-v1.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-final-held-gap-review-pack-v1.ts
+      - .github/workflows/spa-final-held-gap-review-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+timeout-minutes: 30
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle final held-gap runtime proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-final-held-gap-review-runtime-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-final-held-gap-review-runtime-v1.test.mjs
+
+      - name: Run final held-gap runtime proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-final-held-gap-review-runtime-v1.test.mjs \
+            | tee dist/reasoning-v1/spatial/spa-final-held-gap-review-runtime-v1-run.log
+
+      - name: Bundle visual review pack generator
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-final-held-gap-review-pack-v1.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/reasoning-v1/spatial/spatial-final-held-gap-review-pack-v1.mjs
+
+      - name: Generate visual review pack
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-final-held-gap-review-pack-v1.mjs \
+            | tee dist/reasoning-v1/spatial/spa-final-held-gap-review-pack-v1-run.log
+
+      - name: Upload final held-gap review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-final-held-gap-review-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-runtime-v1-run.log
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-runtime-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-pack-v1-run.log
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-v1.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-v1.json
+          if-no-files-found: error
