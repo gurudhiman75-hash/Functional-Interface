@@ -250,7 +250,7 @@ export function NotesStudioCandidateClaimsPage() {
                   : 'Refresh the workspace after completing the source policy.'}
           </p>
         </div>}
-        {ready && selectedJob.state === 'sources_ready' && <div className="rounded-md border border-primary/20 bg-primary/[0.03] p-3 text-sm text-muted-foreground">
+        {ready && selectedJob?.state === 'sources_ready' && <div className="rounded-md border border-primary/20 bg-primary/[0.03] p-3 text-sm text-muted-foreground">
           The governed source pack is ready. The first successful candidate-extraction run will move this job into <strong className="text-foreground">Evidence Ready</strong> and freeze source-policy changes for this research cycle.
         </div>}
       </CardContent>
