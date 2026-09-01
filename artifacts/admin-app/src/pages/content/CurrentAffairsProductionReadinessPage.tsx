@@ -10,18 +10,29 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   downloadCurrentAffairsMasterPackArtifact,
   generateYesterdayCurrentAffairs,
-  getCurrentAffairsDailyMasterPack,
+  getCurrentAffairsDailyMasterPacks,
   getCurrentAffairsProductionReadiness,
   getCurrentAffairsRecoveryRuns,
   runCurrentAffairsProductionRecovery,
   type CurrentAffairsMasterPackArtifact,
   type CurrentAffairsProductionReadiness,
   type CurrentAffairsRecoveryRuns,
-  type DailyMasterPack,
+  type DailyMasterPackLanguage,
+  type DailyMasterPackSet,
   type GenerateYesterdayCurrentAffairsResult,
 } from '@/features/current-affairs/production-ops-api';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { cn } from '@/lib/utils';
+
+const MASTER_PACK_LANGUAGES: Array<{ code: DailyMasterPackLanguage; label: string }> = [
+  { code: 'en', label: 'English' },
+  { code: 'hi', label: 'हिंदी' },
+  { code: 'pa', label: 'ਪੰਜਾਬੀ' },
+];
+
+function emptyMasterPacks(): DailyMasterPackSet {
+  return { en: null, hi: null, pa: null };
+}
 
 function fmt(value: string | null | undefined) {
   if (!value) return 'Not observed';
@@ -56,25 +67,26 @@ export function CurrentAffairsProductionReadinessPage() {
   const canRun = hasPermission('jobs.manage');
   const [readiness, setReadiness] = useState<CurrentAffairsProductionReadiness | null>(null);
   const [runs, setRuns] = useState<CurrentAffairsRecoveryRuns | null>(null);
-  const [masterPack, setMasterPack] = useState<DailyMasterPack | null>(null);
+  const [masterPacks, setMasterPacks] = useState<DailyMasterPackSet>(emptyMasterPacks);
+  const [selectedMasterLanguage, setSelectedMasterLanguage] = useState<DailyMasterPackLanguage>('en');
   const [lastGeneration, setLastGeneration] = useState<GenerateYesterdayCurrentAffairsResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [recovering, setRecovering] = useState(false);
-  const [downloading, setDownloading] = useState<CurrentAffairsMasterPackArtifact | null>(null);
+  const [downloading, setDownloading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
     setLoading(true);
     try {
-      const [nextReadiness, nextRuns, nextMasterPack] = await Promise.all([
+      const [nextReadiness, nextRuns, nextMasterPacks] = await Promise.all([
         getCurrentAffairsProductionReadiness(),
         getCurrentAffairsRecoveryRuns(),
-        getCurrentAffairsDailyMasterPack(),
+        getCurrentAffairsDailyMasterPacks(),
       ]);
       setReadiness(nextReadiness);
       setRuns(nextRuns);
-      setMasterPack(nextMasterPack.masterPack);
+      setMasterPacks(nextMasterPacks.masterPacks);
       setError(null);
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Unable to load Current Affairs readiness.');
@@ -127,10 +139,17 @@ export function CurrentAffairsProductionReadinessPage() {
   };
 
   const downloadMasterPack = async (artifact: CurrentAffairsMasterPackArtifact) => {
-    if (!readiness || !masterPack) return;
-    setDownloading(artifact);
+    if (!readiness) return;
+    const masterPack = masterPacks[selectedMasterLanguage];
+    if (!masterPack) return;
+    const downloadKey = `${selectedMasterLanguage}:${artifact}`;
+    setDownloading(downloadKey);
     try {
-      const result = await downloadCurrentAffairsMasterPackArtifact(readiness.targetDate, artifact);
+      const result = await downloadCurrentAffairsMasterPackArtifact(
+        readiness.targetDate,
+        artifact,
+        selectedMasterLanguage,
+      );
       showToast.success(
         artifact === 'pdf' ? 'Current Affairs PDF downloaded' : 'Current Affairs text downloaded',
         `${result.filename} · ${fmtBytes(result.bytes)} · canonical master pack ${masterPack.publicCode}.`,
@@ -155,6 +174,9 @@ export function CurrentAffairsProductionReadinessPage() {
 
   const { evaluation } = readiness;
   const inventory = readiness.targetInventory;
+  const masterPack = masterPacks[selectedMasterLanguage];
+  const materializedMasterPackCount = Object.values(masterPacks).filter(Boolean).length;
+  const localizedPdfBlocked = selectedMasterLanguage !== 'en';
   return (
     <div className="space-y-5">
       <PageHeader
@@ -165,25 +187,38 @@ export function CurrentAffairsProductionReadinessPage() {
       />
 
       <Card className="border-primary/30 bg-primary/5">
-        <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between"><div><p className="font-semibold">Yesterday should exist on demand.</p><p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">Generate Yesterday Now refreshes official sources, performs exact-day historical recovery and broad rights-safe discovery, enriches primary facts, reruns clustering and strict verification, and materializes missing SSC, Banking and Punjab EN/HI/PA drafts plus BANK_ONLY review questions. Trusted-news sources remain discovery-only and never replace official verification.</p></div><Button variant="outline" asChild><Link to="/content/learning-resources">Open Learning Resources</Link></Button></CardContent>
+        <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between"><div><p className="font-semibold">Yesterday should exist on demand.</p><p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">Generate Yesterday Now refreshes official sources, performs exact-day historical recovery and broad rights-safe discovery, enriches primary facts, reruns clustering and strict verification, and materializes SSC, Banking and Punjab EN/HI/PA drafts plus parity-locked canonical daily master packs. Trusted-news sources remain discovery-only and never replace official verification.</p></div><Button variant="outline" asChild><Link to="/content/learning-resources">Open Learning Resources</Link></Button></CardContent>
       </Card>
 
-      <Card className={masterPack ? 'border-primary/25' : 'border-warning/30'}>
-        <CardHeader><CardTitle className="flex flex-wrap items-center justify-between gap-2 text-base"><span>Canonical Daily Master Pack · {readiness.targetDate}</span>{masterPack ? <Badge variant="outline">{masterPack.status}</Badge> : <Badge variant="outline" className="border-warning/30 text-warning">not materialized</Badge>}</CardTitle></CardHeader>
-        <CardContent className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <div className="space-y-1 text-sm">
-            {masterPack ? <><p><span className="font-semibold">{masterPack.eventCount}</span> verified exam-relevant events · <span className="font-semibold">{masterPack.categoryCount}</span> sections · {masterPack.language.toUpperCase()}</p><p className="text-muted-foreground">{masterPack.publicCode} · generated {fmt(masterPack.generatedAt)}. Markdown and PDF render from this same stored payload.</p></> : <p className="text-warning">No canonical master pack exists yet. Run Generate Yesterday Now after source discovery and verification complete.</p>}
-          </div>
+      <Card className={masterPacks.en ? 'border-primary/25' : 'border-warning/30'}>
+        <CardHeader>
+          <CardTitle className="flex flex-wrap items-center justify-between gap-2 text-base">
+            <span>Canonical Daily Master Packs · {readiness.targetDate}</span>
+            <Badge variant="outline">{materializedMasterPackCount}/3 materialized</Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
           <div className="flex flex-wrap gap-2">
-            <Button variant="outline" onClick={() => void downloadMasterPack('text')} disabled={!masterPack || downloading !== null}>{downloading === 'text' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}Download Markdown</Button>
-            <Button onClick={() => void downloadMasterPack('pdf')} disabled={!masterPack || downloading !== null}>{downloading === 'pdf' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}Download PDF</Button>
+            {MASTER_PACK_LANGUAGES.map((language) => {
+              const pack = masterPacks[language.code];
+              return <Button key={language.code} size="sm" variant={selectedMasterLanguage === language.code ? 'default' : 'outline'} onClick={() => setSelectedMasterLanguage(language.code)}><span>{language.label}</span><Badge variant="outline" className={cn('ml-2', pack ? 'border-success/30 bg-success/10 text-success' : 'border-warning/30 bg-warning/10 text-warning')}>{pack ? 'ready' : 'withheld'}</Badge></Button>;
+            })}
+          </div>
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="space-y-1 text-sm">
+              {masterPack ? <><p><span className="font-semibold">{masterPack.eventCount}</span> verified exam-relevant events · <span className="font-semibold">{masterPack.categoryCount}</span> sections · {masterPack.language.toUpperCase()}</p><p className="text-muted-foreground">{masterPack.publicCode} · generated {fmt(masterPack.generatedAt)}. The localized packs are created only when their event IDs exactly match the English canonical set.</p>{localizedPdfBlocked ? <p className="text-xs text-warning">PDF font gate pending: Devanagari/Gurmukhi PDF output stays disabled until server glyph coverage is explicitly verified. The canonical Markdown is available now.</p> : <p className="text-xs text-muted-foreground">English Markdown and PDF render from this same stored payload; the PDF performs no independent research or rewriting.</p>}</> : <p className="text-warning">{selectedMasterLanguage === 'en' ? 'No English canonical master pack exists yet. Run Generate Yesterday Now after source discovery and verification complete.' : `${selectedMasterLanguage === 'hi' ? 'Hindi' : 'Punjabi'} master pack is withheld until every English canonical event has an accepted matching localization. Run localization recovery, then Generate Yesterday Now again.`}</p>}
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Button variant="outline" onClick={() => void downloadMasterPack('text')} disabled={!masterPack || downloading !== null}>{downloading === `${selectedMasterLanguage}:text` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}Download Markdown</Button>
+              <Button onClick={() => void downloadMasterPack('pdf')} disabled={!masterPack || localizedPdfBlocked || downloading !== null} title={localizedPdfBlocked ? 'Localized PDF disabled until the Devanagari/Gurmukhi font-coverage gate passes.' : undefined}>{downloading === `${selectedMasterLanguage}:pdf` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}{localizedPdfBlocked ? 'PDF font gate' : 'Download PDF'}</Button>
+            </div>
           </div>
         </CardContent>
       </Card>
 
-      {generating ? <Card><CardContent className="flex items-center gap-3 p-5 text-sm"><Loader2 className="h-5 w-5 animate-spin text-primary" /><div><p className="font-medium">Generating {readiness.targetDate}…</p><p className="text-muted-foreground">Official sources → historical backfill → open-news discovery → facts → verification → notes → translations → review questions → canonical master pack.</p></div></CardContent></Card> : null}
+      {generating ? <Card><CardContent className="flex items-center gap-3 p-5 text-sm"><Loader2 className="h-5 w-5 animate-spin text-primary" /><div><p className="font-medium">Generating {readiness.targetDate}…</p><p className="text-muted-foreground">Official sources → historical backfill → open-news discovery → facts → verification → notes → translations → review questions → EN/HI/PA parity-locked canonical master packs.</p></div></CardContent></Card> : null}
 
-      {lastGeneration ? <Card className={lastGeneration.summary.allEnglishDraftsPresent ? 'border-success/30' : 'border-warning/30'}><CardHeader><CardTitle className="text-base">Last on-demand result · {lastGeneration.targetDate}</CardTitle></CardHeader><CardContent className="space-y-4"><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5"><Metric label="Candidates" value={lastGeneration.after.candidateCount} /><Metric label="Verified events" value={lastGeneration.summary.verifiedEvents} /><Metric label="Needs review" value={lastGeneration.summary.reviewEvents} /><Metric label="English packs" value={`${lastGeneration.summary.englishDraftCount}/3`} /><Metric label="HI + PA packs" value={`${lastGeneration.summary.localizedDraftCount}/6`} /></div>{lastGeneration.officialCandidatePreparation ? <p className="text-xs text-muted-foreground">Official reclassification: {lastGeneration.officialCandidatePreparation.candidateUpdated} candidate(s), {lastGeneration.officialCandidatePreparation.clusterUpdated} open cluster(s) updated before intelligence.</p> : null}{lastGeneration.summary.blockers.length > 0 ? <p className="text-sm text-warning">{lastGeneration.summary.blockers[0]}</p> : null}</CardContent></Card> : null}
+      {lastGeneration ? <Card className={lastGeneration.summary.allEnglishDraftsPresent ? 'border-success/30' : 'border-warning/30'}><CardHeader><CardTitle className="text-base">Last on-demand result · {lastGeneration.targetDate}</CardTitle></CardHeader><CardContent className="space-y-4"><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6"><Metric label="Candidates" value={lastGeneration.after.candidateCount} /><Metric label="Verified events" value={lastGeneration.summary.verifiedEvents} /><Metric label="Needs review" value={lastGeneration.summary.reviewEvents} /><Metric label="English packs" value={`${lastGeneration.summary.englishDraftCount}/3`} /><Metric label="HI + PA packs" value={`${lastGeneration.summary.localizedDraftCount}/6`} /><Metric label="Master packs" value={`${(lastGeneration.summary.masterPackEventCount > 0 ? 1 : 0) + (lastGeneration.summary.localizedMasterPackCount ?? 0)}/3`} /></div>{lastGeneration.officialCandidatePreparation ? <p className="text-xs text-muted-foreground">Official reclassification: {lastGeneration.officialCandidatePreparation.candidateUpdated} candidate(s), {lastGeneration.officialCandidatePreparation.clusterUpdated} open cluster(s) updated before intelligence.</p> : null}{lastGeneration.summary.localizedMasterPacksParityReady === false ? <p className="text-xs text-warning">One or more localized canonical master packs were withheld because exact event-ID parity with English was not yet available.</p> : null}{lastGeneration.summary.blockers.length > 0 ? <p className="text-sm text-warning">{lastGeneration.summary.blockers[0]}</p> : null}</CardContent></Card> : null}
 
       <Card className={cn('border-2', statusTone(evaluation.color))}>
         <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between"><div><div className="flex items-center gap-2"><Badge variant="outline" className={cn('uppercase', statusTone(evaluation.color))}>{evaluation.color}</Badge><span className="text-sm font-semibold">Is {readiness.targetDate} ready?</span></div><p className="mt-2 text-2xl font-bold">{evaluation.learnerReady ? 'Learner ready' : evaluation.releaseReady ? 'Ready for editorial release' : evaluation.draftReady ? 'Drafts ready · editorial pending' : 'Not ready'}</p><p className="mt-1 text-sm text-muted-foreground">Core official family coverage {evaluation.sourceCoveragePercent}% · {readiness.sourceCoverage.freshSuccessfulPrimarySources}/{readiness.sourceCoverage.scheduledPrimarySources} families healthy · {readiness.pipeline.queuedCandidates} queued · {readiness.pipeline.openConflicts} conflicts</p></div><div className="text-sm text-muted-foreground"><Clock3 className="mr-2 inline h-4 w-4" />Checked {fmt(readiness.generatedAt)}</div></CardContent>
