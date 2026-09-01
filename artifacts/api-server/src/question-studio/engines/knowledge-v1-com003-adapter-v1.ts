@@ -16,7 +16,7 @@ import { COM003_REVIEW_ONLY_ACTIVATION_AUTHORITY_V1 } from "./com003-review-only
 
 export const COM003_QUESTION_STUDIO_PACKAGE_ID_V1 = "COM-003" as const;
 export const COM003_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
-export const COM003_REVISION_POLICY_V1 = "FROZEN_CORPUS_REPLACEMENT_ONLY" as const;
+export const COM003_REVISION_POLICY_V1 = "SOURCE_GENERATOR_ONLY" as const;
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const capability = COM003_QUESTION_STUDIO_PRE_REGISTRATION_CAPABILITY_V1;
@@ -183,7 +183,7 @@ export const knowledgeV1Com003QuestionStudioAdapterV1: QuestionStudioEngineAdapt
       preRegistrationOnly: false,
       questionStudioDiscoverable: true,
       questionStudioGenerationEnabled: true,
-      readOnly: false,
+      readOnly: true,
       revisionPolicy: COM003_REVISION_POLICY_V1,
       productionReleased: false,
       questionStudioReview: {
