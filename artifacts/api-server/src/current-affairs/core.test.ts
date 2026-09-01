@@ -81,9 +81,12 @@ function familyRecommended(title: string, category: EventCandidateInput["categor
   const result = scoreExamRelevance({
     ...baseCandidate,
     title,
+    summary: "",
+    importanceReason: "",
     category,
     sourceKey: category === "economy_banking" ? "rbi" : "pib",
     sourceUrl: category === "economy_banking" ? "https://www.rbi.org.in/example" : "https://www.pib.gov.in/example",
+    facts: [{ key: "Topic", value: title, type: "string", confidence: 0.98 }],
   });
   return result.find((score) => score.examFamily === family)?.includeRecommended ?? false;
 }
