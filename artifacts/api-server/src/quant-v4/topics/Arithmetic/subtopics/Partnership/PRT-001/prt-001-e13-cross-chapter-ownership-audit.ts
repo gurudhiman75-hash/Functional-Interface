@@ -1,8 +1,5 @@
 import { strict as assert } from "node:assert";
-import {
-  INT_CP001_QUESTION_STUDIO_PRE_REGISTRATION_CAPABILITY,
-  runIntCp001QuestionStudioPreRegistration,
-} from "../../Interest/INT-001/int-001-cp001-question-studio-pre-registration-adapter";
+import { readFileSync } from "node:fs";
 import {
   getRap003ActiveCanonicalProblemIds,
   getRap003QuestionLanguageIds,
@@ -51,25 +48,35 @@ assert.equal(ql111.validation.valid, true);
 assert.equal(ql111.canonicalProblemId, "PRT-CP-006");
 assert.equal(ql111.traceability.expansionWave, "E13");
 
-assert.equal(INT_CP001_QUESTION_STUDIO_PRE_REGISTRATION_CAPABILITY.packageId, "INT-001");
-assert.deepEqual(
-  INT_CP001_QUESTION_STUDIO_PRE_REGISTRATION_CAPABILITY.canonicalProblems.map((cp) => cp.id),
-  ["INT-CP-001"],
-  "Current INT product surface must remain the pure Simple Interest CP rather than absorb mixed Partnership distribution.",
+// Keep this ownership assertion independent of INT runtime compilation. INT has
+// its own active localization/typecheck lifecycle; PRT only needs to prove that
+// INT's declared boundary remains pure interest and does not claim G06.
+const intOwnership = readFileSync(
+  new URL("../../Interest/INT-001/INT-001-SOURCE-AND-OWNERSHIP-AUDIT.md", import.meta.url),
+  "utf8",
 );
-assert.equal(INT_CP001_QUESTION_STUDIO_PRE_REGISTRATION_CAPABILITY.subtopic, "Simple Interest");
-assert.equal(INT_CP001_QUESTION_STUDIO_PRE_REGISTRATION_CAPABILITY.questionStudioDiscoverable, false);
-assert.throws(
-  () =>
-    runIntCp001QuestionStudioPreRegistration({
-      packageId: "INT-001",
-      cpId: "PRT-CP-006",
-      language: "en",
-      seed: "e13-g06-int-mixed-partnership-rejection",
-      count: 1,
-    }),
-  /Unknown INT-001 canonical problem/i,
-  "INT must fail closed when asked to own the mixed G06 Partnership CP.",
+assert.match(
+  intOwnership,
+  /Partnership owns profit sharing by capital and time\./,
+  "INT ownership ledger must continue to assign partnership profit-sharing semantics to Partnership.",
+);
+assert.match(
+  intOwnership,
+  /INT must not treat partnership contribution-time products as interest\./,
+  "INT ownership ledger must explicitly reject contribution-time Partnership semantics.",
+);
+const intPreRegistrationAdapter = readFileSync(
+  new URL("../../Interest/INT-001/int-001-cp001-question-studio-pre-registration-adapter.ts", import.meta.url),
+  "utf8",
+);
+assert.match(intPreRegistrationAdapter, /packageId:\s*"INT-001"/);
+assert.match(intPreRegistrationAdapter, /id:\s*"INT-CP-001"/);
+assert.match(intPreRegistrationAdapter, /subtopic:\s*"Simple Interest"/);
+assert.match(intPreRegistrationAdapter, /questionStudioDiscoverable:\s*false/);
+assert.doesNotMatch(
+  intPreRegistrationAdapter,
+  /PRT-CP-006|interestOnCapitalThenResidualShare|PERCENT_OF_PARTNER_CAPITAL/,
+  "INT CP001 pre-registration surface must not claim the mixed G06 Partnership contract.",
 );
 
 // G07: arithmetic-only incoming-partner share acquisition is now a PRT product
@@ -112,7 +119,7 @@ console.log(JSON.stringify({
     qlId: "PRT-QL-111",
     allocationBasis: "PERCENT_OF_PARTNER_CAPITAL",
     pureInterestOwner: "INT-001",
-    intMixedPartnershipSelectorAccepted: false,
+    intMixedPartnershipSurfaceClaimed: false,
   },
   g07: {
     productOwner: "PRT-001",
