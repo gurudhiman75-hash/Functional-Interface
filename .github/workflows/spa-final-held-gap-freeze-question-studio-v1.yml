@@ -15,6 +15,7 @@ on:
       - artifacts/api-server/src/question-studio/shared-generation-engine-sri.ts
       - artifacts/api-server/src/reasoning-v1/tests/spatial-final-held-gap-freeze-question-studio-v1.test.ts
       - artifacts/admin-app/src/features/question-studio/spatial-review-api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx
       - .github/workflows/spa-final-held-gap-freeze-question-studio-v1.yml
   pull_request:
     branches:
@@ -30,6 +31,7 @@ on:
       - artifacts/api-server/src/question-studio/shared-generation-engine-sri.ts
       - artifacts/api-server/src/reasoning-v1/tests/spatial-final-held-gap-freeze-question-studio-v1.test.ts
       - artifacts/admin-app/src/features/question-studio/spatial-review-api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx
       - .github/workflows/spa-final-held-gap-freeze-question-studio-v1.yml
   workflow_dispatch:
 
