@@ -1,0 +1,72 @@
+export const COM003_QUESTION_STUDIO_REVIEW_ONLY_FREEZE_V1 = {
+  authorityId: "COM-003-QUESTION-STUDIO-REVIEW-ONLY-FREEZE-V1",
+  packageId: "COM-003",
+  chapterTitle: "Office & Productivity Software",
+  frozenAt: "2026-09-01",
+  validatedHeadSha: "9475e3def9c17d2bd4635e09e1068cf4d49de7b5",
+  validation: {
+    workflow: "COM-003 Review Synthesis One-Off",
+    runId: 33464545614,
+    jobId: 99721580146,
+    conclusion: "success",
+    apiBuild: true,
+    adminBuild: true,
+    englishFreezePassed: true,
+    localizationFreezePassed: true,
+    questionStudioGateChainPassed: true,
+    reviewOnlyAdapterPassed: true,
+    reviewOnlyRegistryPassed: true,
+    reviewOnlyRouteContractPassed: true,
+    sourceControlledReviewContractPassed: true,
+    approvalNoConversionContractPassed: true,
+    regenerationLockContractPassed: true,
+  },
+  corpus: {
+    permanentQlCount: 19,
+    canonicalCpCount: 4,
+    englishQuestions: 228,
+    hindiQuestions: 228,
+    punjabiQuestions: 228,
+    frozenQuestionLanguageArtifacts: 684,
+    languages: ["en", "hi", "pa"] as const,
+    sourceMode: "FROZEN_CANONICAL_CORPUS" as const,
+  },
+  questionStudio: {
+    engineId: "knowledge-v1" as const,
+    lifecycle: "REVIEW_ONLY" as const,
+    registered: true,
+    reviewRunGenerationAuthorized: true,
+    reviewRunPersistenceAuthorized: true,
+    deterministicReplayRequired: true,
+    immutableFrozenArtifacts: true,
+    revisionPolicy: "SOURCE_GENERATOR_ONLY" as const,
+    inlineRevisionAllowed: false,
+    regenerationAllowed: false,
+    approvalMode: "review_only" as const,
+    expectedQuestionBankConversionCount: 0,
+  },
+  difficulty: {
+    auditedAuthorityPresent: false,
+    supported: false,
+    implicitMediumFallbackAllowed: false,
+    explicitEasyMediumHardRequestsAllowed: false,
+  },
+  downstreamLocks: {
+    questionBankWritable: false,
+    bankOnlyLifecycleAuthorized: false,
+    testEligible: false,
+    mockTestEligible: false,
+    publiclyPublishable: false,
+    automaticStudentPublication: false,
+    productionReleased: false,
+  },
+  correctionRule:
+    "Review findings that require content changes must be corrected in the governed source corpus and re-frozen into a fresh review batch; frozen COM-003 artifacts are not editable or regenerable in place.",
+  replacementRule:
+    "Any change to the frozen corpus, REVIEW_ONLY adapter, registry, persistence route, revision/regeneration policy, approval conversion policy, difficulty capability, or downstream release locks requires a new versioned authority and a new green validation lineage.",
+  nextGate:
+    "Build and audit an explicit COM-003 difficulty authority before considering BANK_ONLY or Question Bank write eligibility. REVIEW_ONLY does not authorize Question Bank, test/mock, publication, or production release.",
+} as const;
+
+export type Com003QuestionStudioReviewOnlyFreezeV1 =
+  typeof COM003_QUESTION_STUDIO_REVIEW_ONLY_FREEZE_V1;
