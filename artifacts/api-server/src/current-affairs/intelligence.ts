@@ -257,6 +257,16 @@ function pushClaim(claims: FactClaim[], claim: Omit<FactClaim, "normalizedValue"
   if (!duplicate) claims.push({ ...claim, normalizedValue });
 }
 
+function plannedPassiveBaseVerb(participle: string) {
+  const normalized = participle.toLowerCase();
+  if (normalized === "held") return "hold";
+  if (normalized === "conducted") return "conduct";
+  if (normalized === "inaugurated") return "inaugurate";
+  if (normalized === "launched") return "launch";
+  if (normalized === "opened") return "open";
+  return normalized;
+}
+
 export function extractHeadlineFactClaims(title: string): FactClaim[] {
   const claims: FactClaim[] = [];
   const cleaned = title.replace(/\s+/g, " ").trim();
@@ -279,6 +289,38 @@ export function extractHeadlineFactClaims(title: string): FactClaim[] {
       confidence: 0.68,
       extractionMethod: "rule",
     });
+  }
+
+  // CP-045: planned passive headlines must be recognized before the completed-
+  // event passive rule. Otherwise "Forum to be held in New Delhi" is misread as
+  // an organisation named "Forum to be" with a completed action "held".
+  const plannedPassive = cleaned.match(/^(.{3,140}?)\s+to be\s+(held|conducted|inaugurated|launched|opened)\b\s*(.{0,160})$/i);
+  if (plannedPassive?.[1] && plannedPassive[2]) {
+    const initiative = plannedPassive[1].trim();
+    const participle = plannedPassive[2].toLowerCase();
+    const tail = plannedPassive[3]?.trim() ?? "";
+    pushClaim(claims, {
+      factKey: "initiative",
+      factValue: initiative,
+      factType: "entity",
+      confidence: 0.72,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "official_action",
+      factValue: `scheduled ${plannedPassiveBaseVerb(participle)}`,
+      factType: "string",
+      confidence: 0.70,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "event_status",
+      factValue: `to be ${participle}${tail ? ` ${tail}` : ""}`,
+      factType: "string",
+      confidence: 0.66,
+      extractionMethod: "rule",
+    });
+    return claims;
   }
 
   const appointment = cleaned.match(/^(.{2,100}?)\s+(?:is\s+)?appointed\s+(?:as\s+)?(.{3,140}?)(?:\s+(?:of|at)\s+.+)?$/i);
