@@ -161,9 +161,6 @@ export interface RegenerateGenerationItemsResult {
   failed: Array<{ itemId: string; message: string }>;
 }
 
-const CND_001_QUESTION_STUDIO_PACKAGE_ID = 'SPA-001-CND-001-REVIEW';
-const CND_001_QL_IDS = new Set(['SPA-QL-043', 'SPA-QL-044', 'SPA-QL-045', 'SPA-QL-046', 'SPA-QL-047']);
-
 function probabilityExamProfile(exam: string) {
   const value = exam.trim().toLowerCase();
   if (/ibps|sbi|bank|rrb/.test(value)) {
@@ -192,24 +189,9 @@ export function getQuestionStudioDashboard() {
 }
 
 export function createGenerationRun(input: CreateGenerationRunInput) {
-  const isCnd001 = input.packageId === CND_001_QUESTION_STUDIO_PACKAGE_ID;
-  const path = isCnd001
-    ? '/admin/question-studio/reasoning/spatial/cubes-dice/runs'
-    : '/admin/question-studio/runs';
-  const cndQlId = input.canonicalProblemId && CND_001_QL_IDS.has(input.canonicalProblemId)
-    ? input.canonicalProblemId
-    : undefined;
-  const body = isCnd001
-    ? {
-        language: input.language,
-        count: input.count,
-        seed: input.seed,
-        qlId: cndQlId,
-      }
-    : input.packageId === 'PRB-001' || input.packageId === 'PRB-002'
-      ? { ...input, runtimeMode: probabilityExamProfile(input.exam) }
-      : input;
-
+  const body = input.packageId === 'PRB-001' || input.packageId === 'PRB-002'
+    ? { ...input, runtimeMode: probabilityExamProfile(input.exam) }
+    : input;
   return adminRequest<{
     id: string;
     publicCode: string;
@@ -217,7 +199,7 @@ export function createGenerationRun(input: CreateGenerationRunInput) {
     itemCount: number;
     generationSystem: string;
   }>(
-    path,
+    '/admin/question-studio/runs',
     { method: 'POST', body: JSON.stringify(body) },
     { fallbackMessage: 'Unable to create the generation run.' },
   );
