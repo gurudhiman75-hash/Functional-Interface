@@ -1,0 +1,20 @@
+{
+  "language": "en",
+  "status": "HUMAN_AUTHORED_E2",
+  "entries": {
+    "PRT-QL-043": "{partnerA} and {partnerB} invested {capitalA} and {capitalB} for the same period in a {business}. The difference between their profit shares was {shareDifference}. Find the total profit.",
+    "PRT-QL-044": "In a {business}, {partnerA} and {partnerB} shared profit in the ratio {profitRatioA}:{profitRatioB}, while their investment periods were in the ratio {timeRatioA}:{timeRatioB}. Find the ratio of their capitals.",
+    "PRT-QL-045": "In a {business}, {partnerA} and {partnerB} shared profit in the ratio {profitRatioA}:{profitRatioB}, while their capitals were in the ratio {capitalRatioA}:{capitalRatioB}. Find the ratio of their investment periods.",
+    "PRT-QL-046": "{partnerA} started a one-year {business} with {initialCapitalA}. After {firstChangeMonthA} the capital became {firstChangedCapitalA}, and after {secondChangeMonthA} it became {secondChangedCapitalA}. {partnerB} kept {capitalB} invested throughout. Find their profit-sharing ratio.",
+    "PRT-QL-047": "{partnerA} started a one-year {business} with {initialCapitalA} and later changed the capital to {finalCapitalA}. {partnerB} kept {capitalB} invested throughout. If their profit ratio was {profitRatioA}:{profitRatioB}, after how many months did {partnerA} change the capital?",
+    "PRT-QL-048": "In a {business}, {partnerA}, {partnerB}, {partnerC}, and {partnerD} invested {capitalA}, {capitalB}, {capitalC}, and {capitalD} for {durationA}, {durationB}, {durationC}, and {durationD}, respectively. Find their profit-sharing ratio.",
+    "PRT-QL-049": "In a {business}, {partnerA}, {partnerB}, and {partnerC} invested {capitalA}, {capitalB}, and {capitalC}. {partnerA} invested for {durationA} and {partnerB} for {durationB}; {partnerC}'s period is unknown. Their profit ratio was {profitRatioA}:{profitRatioB}:{profitRatioC}. For how long did {partnerC} invest?",
+    "PRT-QL-050": "In a {business}, {partnerA}, {partnerB}, and {partnerC} shared profit in the ratio {profitRatioA}:{profitRatioB}:{profitRatioC}. Their investment periods were {durationA}, {durationB}, and {durationC}. Find the ratio of their capitals.",
+    "PRT-QL-051": "{partnerA} and {partnerB} invested {capitalA} and {capitalB} for equal periods in a {business}. {partnerA}, the working partner, received a salary of {salary} before profit distribution. If sleeping partner {partnerB} finally received {sleepingPartnerReceipt}, find the gross profit.",
+    "PRT-QL-052": "{partnerA} and {partnerB} invested {capitalA} and {capitalB} for equal periods in a {business}. {partnerA} receives a salary of {salary}, and {deduction} is also deducted before the remaining profit is shared. If gross profit is {totalProfit}, find {targetPartner}'s final receipt.",
+    "PRT-QL-053": "{partnerA} began a one-year {business} with {initialCapitalA} and changed it to {finalCapitalA} after {changeMonthA}. {partnerB} kept {capitalB} invested throughout. {partnerA} also receives {commissionPercent}% of gross profit as commission before distribution. If gross profit is {totalProfit}, find {targetPartner}'s final receipt.",
+    "PRT-QL-054": "{partnerA} began a one-year {business} with {initialCapitalA} and changed it to {finalCapitalA} after {changeMonthA}. {partnerB} joined later with {capitalB}. If their profit ratio was {profitRatioA}:{profitRatioB}, after how many months did {partnerB} join?",
+    "PRT-QL-055": "{partnerA} began a one-year {business} with {initialCapitalA} and changed it to {finalCapitalA} after {changeMonthA}; {partnerB} kept {capitalB} invested throughout. {partnerA} receives a salary of {salary} before distribution. If {partnerA}'s final receipt was {finalReceipt}, find the gross profit.",
+    "PRT-QL-056": "In a one-year {business}, {partnerA} began with {initialCapitalA} and changed it to {finalCapitalA} after {changeMonthA}. {partnerB} joined after {joinAfterB} with {capitalB}. {partnerA} also receives a salary of {salary} before distribution. If gross profit was {totalProfit}, find the difference between their final receipts."
+  }
+}

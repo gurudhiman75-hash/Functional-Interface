@@ -1,7 +1,10 @@
 import { generatePrt001AdvancedParameters } from "./advanced-parameter-generator";
 import { generatePrt001E1Parameters, isPrt001E1SolveMode } from "./e1-parameter-generator";
+import { generatePrt001E2Parameters, isPrt001E2SolveMode } from "./e2-parameter-generator";
+import { normalizePrt001E2ProductionMoney } from "./e2-production-normalizer";
 import { generatePrt001Options } from "./distractor-generator";
 import { renderPrt001E1Explanation } from "./e1-explanation-renderer";
+import { renderPrt001E2Explanation } from "./e2-explanation-renderer";
 import { renderPrt001Explanation } from "./explanation-renderer";
 import { verifyPrt001Independently } from "./independent-verifier";
 import {
@@ -22,6 +25,10 @@ import {
   independentlySolvePrt001E1Task,
   solvePrt001E1Task,
 } from "./e1-task-solver";
+import {
+  independentlySolvePrt001E2Task,
+  solvePrt001E2Task,
+} from "./e2-task-solver";
 import { independentlySolvePrt001Task, solvePrt001Task } from "./task-solver";
 import {
   PRT_001_CP_IDS,
@@ -46,42 +53,59 @@ export function runPrt001PilotPipeline(
     input.questionLanguageId ?? getPrt001QuestionLanguageIds()[0]!;
   const seed = input.seed ?? `prt-001:${questionLanguageId}:default`;
   const entry = getPrt001TaskEntry(questionLanguageId);
-  const isE1 = isPrt001E1SolveMode(entry.solveMode);
-  const parameters = isE1
-    ? generatePrt001E1Parameters({
+  const isE2 = isPrt001E2SolveMode(entry.solveMode);
+  const isE1 = !isE2 && isPrt001E1SolveMode(entry.solveMode);
+  const generatedParameters = isE2
+    ? generatePrt001E2Parameters({
         questionLanguageId,
         seed,
         entry,
         language,
       })
-    : entry.cpId === "PRT-CP-001" || entry.cpId === "PRT-CP-002"
-      ? generatePrt001PilotParameters({
+    : isE1
+      ? generatePrt001E1Parameters({
           questionLanguageId,
           seed,
           entry,
           language,
         })
-      : generatePrt001AdvancedParameters({
-          questionLanguageId,
-          seed,
-          entry,
-          language,
-        });
+      : entry.cpId === "PRT-CP-001" || entry.cpId === "PRT-CP-002"
+        ? generatePrt001PilotParameters({
+            questionLanguageId,
+            seed,
+            entry,
+            language,
+          })
+        : generatePrt001AdvancedParameters({
+            questionLanguageId,
+            seed,
+            entry,
+            language,
+          });
+  const parameters = isE2
+    ? normalizePrt001E2ProductionMoney(generatedParameters)
+    : generatedParameters;
   const solution = solvePrt001State(parameters.state);
   const verification = verifyPrt001Independently(parameters.state);
-  const taskAnswer = isE1
-    ? solvePrt001E1Task(parameters, solution)
-    : solvePrt001Task(parameters, solution);
-  const independentTaskAnswer = isE1
-    ? independentlySolvePrt001E1Task(parameters, verification)
-    : independentlySolvePrt001Task(parameters, verification);
+  const taskAnswer = isE2
+    ? solvePrt001E2Task(parameters, solution)
+    : isE1
+      ? solvePrt001E1Task(parameters, solution)
+      : solvePrt001Task(parameters, solution);
+  const independentTaskAnswer = isE2
+    ? independentlySolvePrt001E2Task(parameters, verification)
+    : isE1
+      ? independentlySolvePrt001E1Task(parameters, verification)
+      : independentlySolvePrt001Task(parameters, verification);
   const stem = renderPrt001Template(
     getPrt001QuestionTemplate(questionLanguageId, language),
     parameters.renderVariables,
   );
-  const explanationLines = isE1
-    ? renderPrt001E1Explanation({ parameters, solution, answer: taskAnswer })
-    : renderPrt001Explanation({ parameters, solution, answer: taskAnswer });
+  const explanationLines = isE2
+    ? renderPrt001E2Explanation({ parameters, solution, answer: taskAnswer })
+    : isE1
+      ? renderPrt001E1Explanation({ parameters, solution, answer: taskAnswer })
+      : renderPrt001Explanation({ parameters, solution, answer: taskAnswer });
   const reasoningGraph = buildPrt001ReasoningGraph({
     parameters,
     solution,
@@ -93,6 +117,7 @@ export function runPrt001PilotPipeline(
     answer: taskAnswer,
     random: createPrt001Random(`${seed}:options`),
   });
+  const expansionWave = isE2 ? "E2" : isE1 ? "E1" : "BASELINE";
   const base: Omit<Prt001QuestionPackage, "validation"> = {
     packageId: PRT_001_PACKAGE_ID,
     archetypeId: PRT_001_PACKAGE_ID,
@@ -138,7 +163,7 @@ export function runPrt001PilotPipeline(
       normalizedRatio: solution.normalizedRatio.map(String).join(":"),
       grossProfitOrLoss: formatRational(parameters.state.grossProfitOrLoss),
       verifierMethod: verification.method,
-      expansionWave: isE1 ? "E1" : "BASELINE",
+      expansionWave,
     },
   };
   const validation = validatePrt001QuestionPackage({

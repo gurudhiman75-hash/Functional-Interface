@@ -27,24 +27,24 @@ export function auditPrt001Coverage(): Prt001AuditReport {
     ]),
   );
   const expectedByCp: Record<string, number> = {
-    "PRT-CP-001": 6,
-    "PRT-CP-002": 6,
+    "PRT-CP-001": 7,
+    "PRT-CP-002": 8,
     "PRT-CP-003": 7,
-    "PRT-CP-004": 6,
-    "PRT-CP-005": 5,
-    "PRT-CP-006": 6,
-    "PRT-CP-007": 6,
+    "PRT-CP-004": 8,
+    "PRT-CP-005": 8,
+    "PRT-CP-006": 8,
+    "PRT-CP-007": 10,
   };
-  requireAudit(entries.length === 42, `expected 42 active QLs, got ${entries.length}`);
+  requireAudit(entries.length === 56, `expected 56 active QLs, got ${entries.length}`);
   requireAudit(JSON.stringify(byCp) === JSON.stringify(expectedByCp), "CP coverage changed");
-  requireAudit(new Set(entries.map(({ entry }) => entry.solveMode)).size === 38, "solve-mode coverage changed");
+  requireAudit(new Set(entries.map(({ entry }) => entry.solveMode)).size === 52, "solve-mode coverage changed");
   for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
     requireAudit(entries.some(({ entry }) => entry.difficulty === difficulty), `missing ${difficulty}`);
   }
   return {
     audit: "coverage",
     cases: entries.length,
-    metrics: { byCp, solveModes: 38, languages: 3, expansionWave: "E1" },
+    metrics: { byCp, solveModes: 52, languages: 3, expansionWave: "E2" },
   };
 }
 
@@ -58,30 +58,34 @@ export function auditPrt001ContextRealism(): Prt001AuditReport {
         seed: `prt-001:realism:${questionLanguageId}:${index}`,
       });
       requireAudit(pkg.stem.length >= 45, `${questionLanguageId} stem is too short`);
-      requireAudit(pkg.stem.length <= 620, `${questionLanguageId} stem is too long`);
+      requireAudit(pkg.stem.length <= 680, `${questionLanguageId} stem is too long`);
       requireAudit(!/[{}]|undefined|NaN/.test(pkg.stem), `${questionLanguageId} leaked a token`);
       requireAudit(/[₹0-9]/.test(pkg.stem), `${questionLanguageId} lacks a quantitative given`);
       contexts.add(String(pkg.traceability.scenarioFamily));
       cases += 1;
     }
   }
-  requireAudit(contexts.size >= 30, `expected at least 30 context families, got ${contexts.size}`);
+  requireAudit(contexts.size >= 40, `expected at least 40 context families, got ${contexts.size}`);
   return { audit: "context-realism", cases, metrics: { contextFamilies: contexts.size } };
 }
 
-export function auditPrt001E1MathDiversity(): Prt001AuditReport {
-  const e1Ids = Array.from({ length: 10 }, (_, index) =>
-    `PRT-QL-${String(index + 33).padStart(3, "0")}`,
+function auditExpansionMathDiversity(input: {
+  wave: "E1" | "E2";
+  startId: number;
+  count: number;
+}): Prt001AuditReport {
+  const ids = Array.from({ length: input.count }, (_, index) =>
+    `PRT-QL-${String(index + input.startId).padStart(3, "0")}`,
   );
   const perQl: Record<string, { weightSignatures: number; ratioSignatures: number }> = {};
   let cases = 0;
-  for (const questionLanguageId of e1Ids) {
+  for (const questionLanguageId of ids) {
     const weightSignatures = new Set<string>();
     const ratioSignatures = new Set<string>();
-    for (let index = 0; index < 20; index += 1) {
+    for (let index = 0; index < 24; index += 1) {
       const pkg = runPrt001PilotPipeline({
         questionLanguageId,
-        seed: `prt-001:e1-diversity:${questionLanguageId}:${index}`,
+        seed: `prt-001:${input.wave.toLowerCase()}-diversity:${questionLanguageId}:${index}`,
       });
       weightSignatures.add(JSON.stringify(pkg.traceability.exactWeights));
       ratioSignatures.add(String(pkg.traceability.normalizedRatio));
@@ -101,10 +105,18 @@ export function auditPrt001E1MathDiversity(): Prt001AuditReport {
     };
   }
   return {
-    audit: "e1-math-diversity",
+    audit: `${input.wave.toLowerCase()}-math-diversity`,
     cases,
     metrics: { perQl, minimumWeightSignatures: 3, minimumRatioSignatures: 2 },
   };
+}
+
+export function auditPrt001E1MathDiversity(): Prt001AuditReport {
+  return auditExpansionMathDiversity({ wave: "E1", startId: 33, count: 10 });
+}
+
+export function auditPrt001E2MathDiversity(): Prt001AuditReport {
+  return auditExpansionMathDiversity({ wave: "E2", startId: 43, count: 14 });
 }
 
 export function auditPrt001Multilingual(): Prt001AuditReport {
