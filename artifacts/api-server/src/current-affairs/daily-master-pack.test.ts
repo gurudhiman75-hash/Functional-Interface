@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 
 import { buildDailyMasterPackPayload, renderDailyMasterPackMarkdown } from "./daily-master-pack";
+import "./daily-master-pack-pdf.test";
 
 const payload = buildDailyMasterPackPayload("2026-08-30", [
   {
@@ -50,4 +51,4 @@ assert.match(markdown, /Reserve Bank of India/);
 assert.match(markdown, /Exam relevance/);
 assert.match(markdown, /Draft only/);
 
-console.log("CP-036 daily master pack rendering tests passed");
+console.log("CP-036/038 daily master pack text + PDF rendering tests passed");
