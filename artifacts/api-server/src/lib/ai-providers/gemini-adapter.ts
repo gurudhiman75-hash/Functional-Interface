@@ -35,6 +35,45 @@ export function buildGeminiGenerationConfig(input: {
   return generationConfig;
 }
 
+export function isTransientGeminiStatus(status: number) {
+  return status === 408
+    || status === 429
+    || status === 500
+    || status === 502
+    || status === 503
+    || status === 504;
+}
+
+export function geminiRetryDelayMs(retryIndex: number) {
+  const bounded = Math.max(0, Math.min(Math.trunc(retryIndex), 4));
+  return Math.min(500 * (2 ** bounded), 4_000);
+}
+
+export function geminiFallbackModel(primaryModel: string) {
+  const configured = String(process.env["GEMINI_FALLBACK_MODEL"] ?? "").trim();
+  if (configured && configured !== primaryModel) return configured;
+  if (/^gemini-3\.7-flash(?:$|-)/i.test(primaryModel)) return "gemini-3.6-flash";
+  return null;
+}
+
+function wait(ms: number) {
+  return new Promise<void>((resolve) => setTimeout(resolve, ms));
+}
+
+type GeminiCallSuccess = {
+  ok: true;
+  model: string;
+  raw: any;
+};
+
+type GeminiCallFailure = {
+  ok: false;
+  model: string;
+  status: number | null;
+  errorText: string;
+  transient: boolean;
+};
+
 export const geminiProvider: AIProviderAdapter = {
   name: "gemini",
   defaultModel:
@@ -53,65 +92,129 @@ export const geminiProvider: AIProviderAdapter = {
   },
   async extract(request) {
     this.assertConfigured();
-    const model =
+    const primaryModel =
       request.model ?? this.defaultModel;
-    const endpoint = `${
-      process.env["GEMINI_BASE_URL"] ??
-      "https://generativelanguage.googleapis.com/v1beta"
-    }/models/${encodeURIComponent(model)}:generateContent`;
-
-    const controller =
-      new AbortController();
+    const maxRetries = Math.max(
+      0,
+      Math.min(Math.trunc(request.maxRetries ?? 0), 4),
+    );
+    const controller = new AbortController();
     const timeout = setTimeout(
       () => controller.abort(),
       request.timeoutMs ?? 60_000,
     );
+    const warnings: string[] = [];
 
-    const generationConfig = buildGeminiGenerationConfig({
-      model,
-      temperature: request.temperature,
-      responseSchema: request.responseSchema,
-    });
-
-    try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        signal: controller.signal,
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key":
-            getGeminiApiKey() ?? "",
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              role: "user",
-              parts: [
-                {
-                  text: [
-                    request.prompt.system,
-                    request.prompt.user,
-                    request.input ?? "",
-                  ]
-                    .filter(Boolean)
-                    .join("\n\n"),
-                },
-              ],
-            },
-          ],
-          ...(Object.keys(generationConfig).length > 0
-            ? { generationConfig }
-            : {}),
-        }),
+    const callModel = async (
+      model: string,
+      attempts: number,
+    ): Promise<GeminiCallSuccess | GeminiCallFailure> => {
+      const endpoint = `${
+        process.env["GEMINI_BASE_URL"] ??
+        "https://generativelanguage.googleapis.com/v1beta"
+      }/models/${encodeURIComponent(model)}:generateContent`;
+      const generationConfig = buildGeminiGenerationConfig({
+        model,
+        temperature: request.temperature,
+        responseSchema: request.responseSchema as Record<string, unknown> | undefined,
+      });
+      const body = JSON.stringify({
+        contents: [
+          {
+            role: "user",
+            parts: [
+              {
+                text: [
+                  request.prompt.system,
+                  request.prompt.user,
+                  request.input ?? "",
+                ]
+                  .filter(Boolean)
+                  .join("\n\n"),
+              },
+            ],
+          },
+        ],
+        ...(Object.keys(generationConfig).length > 0
+          ? { generationConfig }
+          : {}),
       });
 
-      if (!response.ok) {
+      let lastFailure: GeminiCallFailure = {
+        ok: false,
+        model,
+        status: null,
+        errorText: "Gemini request failed before receiving a response.",
+        transient: true,
+      };
+
+      for (let attempt = 0; attempt < attempts; attempt += 1) {
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            signal: controller.signal,
+            headers: {
+              "Content-Type": "application/json",
+              "x-goog-api-key": getGeminiApiKey() ?? "",
+            },
+            body,
+          });
+
+          if (response.ok) {
+            return {
+              ok: true,
+              model,
+              raw: await response.json(),
+            };
+          }
+
+          const errorText = await response.text();
+          lastFailure = {
+            ok: false,
+            model,
+            status: response.status,
+            errorText,
+            transient: isTransientGeminiStatus(response.status),
+          };
+          if (!lastFailure.transient || attempt >= attempts - 1) break;
+        } catch (error) {
+          if (controller.signal.aborted) throw error;
+          lastFailure = {
+            ok: false,
+            model,
+            status: null,
+            errorText: error instanceof Error ? error.message : String(error),
+            transient: true,
+          };
+          if (attempt >= attempts - 1) break;
+        }
+
+        await wait(geminiRetryDelayMs(attempt));
+      }
+
+      return lastFailure;
+    };
+
+    try {
+      let result = await callModel(primaryModel, maxRetries + 1);
+      if (!result.ok && result.transient) {
+        const fallbackModel = geminiFallbackModel(primaryModel);
+        if (fallbackModel) {
+          warnings.push(
+            `Gemini ${primaryModel} was temporarily unavailable after ${maxRetries + 1} attempt(s); used fallback ${fallbackModel}.`,
+          );
+          result = await callModel(fallbackModel, 1);
+        }
+      }
+
+      if (!result.ok) {
+        const status = result.status === null ? "network error" : `status ${result.status}`;
         throw new Error(
-          `Gemini request failed with status ${response.status}: ${await response.text()}`,
+          `Gemini request failed with ${status} on ${result.model}: ${result.errorText}`,
         );
       }
 
-      const raw = await response.json();
+      const raw = result.raw;
       const text =
         raw?.candidates?.[0]?.content
           ?.parts?.map(
@@ -131,7 +234,7 @@ export const geminiProvider: AIProviderAdapter = {
 
       return {
         provider: "gemini",
-        model,
+        model: result.model,
         text,
         json: parseJsonFromText(text),
         usage: {
@@ -145,7 +248,7 @@ export const geminiProvider: AIProviderAdapter = {
               outputTokens,
         },
         raw,
-        warnings: [],
+        warnings,
       };
     } finally {
       clearTimeout(timeout);
