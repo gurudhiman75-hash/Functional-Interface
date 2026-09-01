@@ -1,4 +1,5 @@
 import { adminRequest } from '@/lib/admin-request';
+import { createGenerationRun } from './api';
 
 export type CubesDiceReviewLanguage = 'en' | 'hi' | 'pa';
 export type CubesDiceReviewQlId = 'SPA-QL-043' | 'SPA-QL-044' | 'SPA-QL-045' | 'SPA-QL-046' | 'SPA-QL-047';
@@ -203,29 +204,18 @@ export function previewCubesDiceReview(input: CubesDiceReviewInput) {
 }
 
 export function createCubesDiceReviewRun(input: CubesDiceReviewInput) {
-  return adminRequest<{
-    id: string;
-    publicCode: string;
-    status: 'review';
-    itemCount: number;
-    generationSystem: 'reasoning-v1';
-    packageId: 'SPA-001-CND-001-REVIEW';
-    chapterCode: 'CND-001';
-    activationAuthority: string;
-    questionBankConversionEligibleAfterApproval: true;
-    questionBankAcceptanceMode: 'FULL_RELEASE';
-    testEligible: true;
-    testBuilderEligible: true;
-    mockTestEligible: false;
-    publiclyPublishable: true;
-    publicReleaseAuthorized: false;
-    studentDeliveryAuthorized: false;
-    automaticStudentPublication: false;
-  }>(
-    '/admin/question-studio/reasoning/spatial/cubes-dice/runs',
-    { method: 'POST', body: JSON.stringify(input) },
-    { fallbackMessage: 'Unable to create the Cubes & Dice review run.' },
-  );
+  return createGenerationRun({
+    exam: 'General Competitive Exams',
+    subject: 'Reasoning Ability',
+    difficulty: 'Mixed',
+    count: input.count,
+    packageId: 'SPA-001-CND-001-REVIEW',
+    canonicalProblemId: input.qlId,
+    topic: 'Reasoning',
+    subtopic: 'Cubes & Dice',
+    language: input.language,
+    seed: input.seed,
+  });
 }
 
 export function getCubesDiceReviewStatus() {
