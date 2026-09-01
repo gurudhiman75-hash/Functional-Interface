@@ -24,6 +24,7 @@ assert.deepEqual(ON_DEMAND_YESTERDAY_STAGES, [
   "post_promotion_enrichment_reconciliation",
   "historical_claim_rebuild_and_reverification",
   "draft_authoring_localization_and_questions",
+  "bounded_discovery_triage_and_exam_relevance_refresh",
   "daily_discovery_census_and_master_pack",
 ]);
 assert.ok(
@@ -48,8 +49,13 @@ assert.ok(
 );
 assert.ok(
   ON_DEMAND_YESTERDAY_STAGES.indexOf("draft_authoring_localization_and_questions")
+    < ON_DEMAND_YESTERDAY_STAGES.indexOf("bounded_discovery_triage_and_exam_relevance_refresh"),
+  "legacy discovery cleanup and product-fit refresh must use the completed draft recovery state",
+);
+assert.ok(
+  ON_DEMAND_YESTERDAY_STAGES.indexOf("bounded_discovery_triage_and_exam_relevance_refresh")
     < ON_DEMAND_YESTERDAY_STAGES.indexOf("daily_discovery_census_and_master_pack"),
-  "daily census/master pack must snapshot the completed draft recovery state",
+  "daily census/master pack must snapshot the triaged and relevance-refreshed state",
 );
 
 const pibInitial = `
