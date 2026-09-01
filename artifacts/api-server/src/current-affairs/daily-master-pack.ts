@@ -86,7 +86,42 @@ const CATEGORY_LABELS: Record<DailyMasterPackLanguage, Record<string, string>> =
   },
 };
 
-const FACT_LABELS: Record<Exclude<DailyMasterPackLanguage, "en">, Record<string, string>> = {
+const FACT_LABELS: Record<DailyMasterPackLanguage, Record<string, string>> = {
+  en: {
+    appointee: "Appointee",
+    position: "Position",
+    index_value: "Index value",
+    policy_repo_rate: "Repo rate",
+    standing_deposit_facility_rate: "SDF",
+    marginal_standing_facility_rate: "MSF",
+    bank_rate: "Bank Rate",
+    cash_reserve_ratio: "CRR",
+    statutory_liquidity_ratio: "SLR",
+    mou_parties: "MoU parties",
+    orbit_altitude: "Orbit altitude",
+    repeat_cycle: "Repeat cycle",
+    mission_life: "Mission life",
+    launcher: "Launch vehicle",
+    scheme_outlay: "Outlay",
+    beneficiary_count: "Beneficiaries",
+    effective_date: "Effective date",
+    acting_entity: "Organisation",
+    official_action: "Action",
+    action_subject: "Topic",
+    winner: "Winner",
+    award_or_title: "Award / title",
+    launching_entity: "Organisation",
+    initiative: "Initiative",
+    event_status: "Status",
+    amount: "Amount",
+    percentage: "Percentage",
+    rank: "Rank",
+    headquarters: "Headquarters",
+    target_percentage: "Target",
+    target_year: "Target year",
+    regulator: "Regulator",
+    state: "State",
+  },
   hi: {
     appointee: "नियुक्त व्यक्ति",
     position: "पद",
@@ -105,12 +140,12 @@ const FACT_LABELS: Record<Exclude<DailyMasterPackLanguage, "en">, Record<string,
     scheme_outlay: "परिव्यय",
     beneficiary_count: "लाभार्थी",
     effective_date: "प्रभावी तिथि",
-    acting_entity: "आधिकारिक निकाय",
-    official_action: "आधिकारिक कार्रवाई",
+    acting_entity: "संगठन",
+    official_action: "कार्रवाई",
     action_subject: "विषय",
     winner: "विजेता",
     award_or_title: "पुरस्कार या उपाधि",
-    launching_entity: "आरंभ करने वाला निकाय",
+    launching_entity: "संगठन",
     initiative: "पहल",
     event_status: "स्थिति",
     amount: "राशि",
@@ -140,12 +175,12 @@ const FACT_LABELS: Record<Exclude<DailyMasterPackLanguage, "en">, Record<string,
     scheme_outlay: "ਖਰਚਾ",
     beneficiary_count: "ਲਾਭਪਾਤਰੀ",
     effective_date: "ਲਾਗੂ ਮਿਤੀ",
-    acting_entity: "ਅਧਿਕਾਰਤ ਸੰਸਥਾ",
-    official_action: "ਅਧਿਕਾਰਤ ਕਾਰਵਾਈ",
+    acting_entity: "ਸੰਸਥਾ",
+    official_action: "ਕਾਰਵਾਈ",
     action_subject: "ਵਿਸ਼ਾ",
     winner: "ਜੇਤੂ",
     award_or_title: "ਇਨਾਮ ਜਾਂ ਖਿਤਾਬ",
-    launching_entity: "ਸ਼ੁਰੂ ਕਰਨ ਵਾਲੀ ਸੰਸਥਾ",
+    launching_entity: "ਸੰਸਥਾ",
     initiative: "ਪਹਿਲ",
     event_status: "ਸਥਿਤੀ",
     amount: "ਰਕਮ",
@@ -258,8 +293,7 @@ export function assertDailyMasterPackLanguage(value: unknown): DailyMasterPackLa
 }
 
 function factLabel(language: DailyMasterPackLanguage, key: string) {
-  if (language === "en") return key.replace(/_/g, " ");
-  return FACT_LABELS[language][key] ?? key.replace(/_/g, " ");
+  return FACT_LABELS[language][key] ?? key.replace(/_/g, " ").replace(/^./, (char) => char.toUpperCase());
 }
 
 function dateLabel(contentDate: string, language: DailyMasterPackLanguage) {
