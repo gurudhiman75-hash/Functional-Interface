@@ -210,7 +210,8 @@ router.post("/production/generate-yesterday", requireAdminPermission("jobs.manag
     }
 
     const generationRequestId = randomUUID();
-    const result = await generateYesterdayCurrentAffairsOnDemand();
+    const requestedTargetDate = typeof req.body?.date === "string" ? req.body.date.trim() || undefined : undefined;
+    const result = await generateYesterdayCurrentAffairsOnDemand(new Date(), requestedTargetDate);
     await sqlClient`
       INSERT INTO platform.audit_events (
         id, actor_type, actor_user_id, effective_role_key, action_key,
@@ -223,10 +224,11 @@ router.post("/production/generate-yesterday", requireAdminPermission("jobs.manag
         'current_affairs.yesterday.generate_on_demand',
         'current_affairs_generation_request',
         ${generationRequestId}::uuid,
-        'Administrator requested complete previous-day Current Affairs generation',
+        'Administrator requested bounded past-date Current Affairs generation',
         ${`Generated/ensured Current Affairs for ${result.targetDate}`},
         ${JSON.stringify({
           generationRequestId,
+          requestedTargetDate: requestedTargetDate ?? null,
           targetDate: result.targetDate,
           before: result.before,
           after: result.after,
@@ -240,7 +242,7 @@ router.post("/production/generate-yesterday", requireAdminPermission("jobs.manag
     `;
     res.status(201).json(result);
   } catch (error) {
-    sendError(res, error, "Unable to generate yesterday's Current Affairs");
+    sendError(res, error, "Unable to generate requested Current Affairs date");
   }
 });
 
