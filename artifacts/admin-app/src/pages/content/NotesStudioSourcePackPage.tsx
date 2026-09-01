@@ -5,9 +5,12 @@ import {
   FileUp,
   Globe2,
   Loader2,
+  Pencil,
   Plus,
   RefreshCw,
+  Save,
   ShieldCheck,
+  X,
 } from 'lucide-react';
 
 import { PageHeader } from '@/components/shared/PageHeader';
@@ -82,6 +85,12 @@ type JobDraft = {
   examIds: string[];
 };
 
+type SourceMetadataResult = {
+  source: { id: string; title: string; publisher: string };
+  linkedJobCount: number;
+  sharedMetadata: boolean;
+};
+
 const rightsOptions = [
   { value: 'user_supplied', label: 'User supplied / owned' },
   { value: 'licensed', label: 'Licensed' },
@@ -127,6 +136,8 @@ export function NotesStudioSourcePackPage() {
   const [pdfMeta, setPdfMeta] = useState({ title: '', publisher: '', originUrl: '', rightsBasis: 'user_supplied' });
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<SourcePreview | null>(null);
+  const [editingSourceId, setEditingSourceId] = useState<string | null>(null);
+  const [sourceDraft, setSourceDraft] = useState({ title: '', publisher: '' });
 
   const selectedJob = jobs.find((job) => job.id === selectedJobId) ?? null;
   const sourcePackEditable = Boolean(selectedJob && sourcePackEditableStates.has(selectedJob.state));
@@ -175,6 +186,7 @@ export function NotesStudioSourcePackPage() {
   useEffect(() => { void load(); }, []);
   useEffect(() => {
     setPreview(null);
+    setEditingSourceId(null);
     if (selectedJobId) void loadSources(selectedJobId);
     else setSources([]);
   }, [selectedJobId]);
@@ -273,6 +285,45 @@ export function NotesStudioSourcePackPage() {
       await Promise.all([load(), loadSources(selectedJobId)]);
     } catch (error) {
       showToast.error('Unable to update source', error instanceof Error ? error.message : 'Request failed.');
+    } finally {
+      setWorking(false);
+    }
+  };
+
+  const beginSourceEdit = (source: SourceItem) => {
+    setEditingSourceId(source.id);
+    setSourceDraft({ title: source.title, publisher: source.publisher || '' });
+  };
+
+  const cancelSourceEdit = () => {
+    setEditingSourceId(null);
+    setSourceDraft({ title: '', publisher: '' });
+  };
+
+  const saveSourceMetadata = async (source: SourceItem) => {
+    if (!selectedJobId || !sourcePackEditable) return;
+    if (sourceDraft.title.trim().length < 2) {
+      showToast.warning('Source title required', 'Enter a clear source title before saving.');
+      return;
+    }
+    setWorking(true);
+    try {
+      const result = await adminRequest<SourceMetadataResult>(`/admin/notes-studio/jobs/${selectedJobId}/sources/${source.id}/metadata`, {
+        method: 'PATCH',
+        body: JSON.stringify(sourceDraft),
+      });
+      setEditingSourceId(null);
+      setSourceDraft({ title: '', publisher: '' });
+      if (preview?.id === source.id) setPreview(null);
+      await Promise.all([load(), loadSources(selectedJobId)]);
+      showToast.success(
+        'Source details updated',
+        result.sharedMetadata
+          ? `Title/publisher were corrected on the shared governed source used by ${result.linkedJobCount} authoring jobs.`
+          : 'Title and publisher were updated. URL, rights basis and content fingerprint were left unchanged.',
+      );
+    } catch (error) {
+      showToast.error('Unable to update source details', error instanceof Error ? error.message : 'Request failed.');
     } finally {
       setWorking(false);
     }
@@ -382,16 +433,42 @@ export function NotesStudioSourcePackPage() {
             <CardHeader><CardTitle className="text-base">Attached sources ({sources.length})</CardTitle></CardHeader>
             <CardContent className="space-y-3">
               {sources.length === 0 && <div className="rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">Attach authoritative sources, then classify their research roles in Source Policy. Reference-only sources become factual evidence through reviewed Reference Evidence notes.</div>}
-              {sources.map((source) => <div key={source.id} className="rounded-lg border p-4">
-                <div className="flex flex-col justify-between gap-3 md:flex-row md:items-start">
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2"><div className="font-medium">{source.title}</div><Badge variant="outline">{source.sourceType === 'uploaded_pdf' ? 'PDF' : 'Web'}</Badge><Badge variant="outline" className={source.retentionMode === 'extracted_text' ? 'border-success/30 text-success' : 'border-warning/30 text-warning'}>{source.retentionMode === 'extracted_text' ? 'Text retained' : 'Metadata only'}</Badge>{source.inclusionState === 'excluded' && <Badge variant="outline">Excluded</Badge>}</div>
-                    <div className="mt-1 truncate text-xs text-muted-foreground">{source.publisher || 'Publisher not specified'} · {source.rightsBasis.replaceAll('_', ' ')} · {source.contentHash.slice(0, 12)}…</div>
-                    {source.sourceUri.startsWith('https://') && <div className="mt-1 truncate text-xs text-muted-foreground">{source.sourceUri}</div>}
-                  </div>
-                  <div className="flex shrink-0 gap-2"><Button size="sm" variant="outline" onClick={() => void openPreview(source)} disabled={working}><Eye className="mr-1.5 h-4 w-4" />Preview</Button>{canEdit && sourcePackEditable && <Button size="sm" variant="outline" onClick={() => void toggleSource(source)} disabled={working}>{source.inclusionState === 'included' ? 'Exclude' : 'Include'}</Button>}</div>
-                </div>
-              </div>)}
+              {sources.map((source) => {
+                const editing = editingSourceId === source.id;
+                return <div key={source.id} className={`rounded-lg border p-4 ${editing ? 'border-primary/30 bg-primary/[0.02]' : ''}`}>
+                  {editing ? <div className="space-y-4">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="font-medium">Edit source details</div>
+                      <Badge variant="outline">Metadata only</Badge>
+                    </div>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <div className="space-y-1.5"><Label>Source title</Label><Input value={sourceDraft.title} onChange={(event) => setSourceDraft((current) => ({ ...current, title: event.target.value }))} maxLength={300} /></div>
+                      <div className="space-y-1.5"><Label>Publisher / authority</Label><Input value={sourceDraft.publisher} onChange={(event) => setSourceDraft((current) => ({ ...current, publisher: event.target.value }))} maxLength={240} /></div>
+                    </div>
+                    <div className="rounded-lg border bg-muted/20 p-3 text-xs text-muted-foreground">
+                      <div className="font-medium text-foreground">Protected source identity</div>
+                      <div className="mt-1 break-all">{source.sourceUri}</div>
+                      <div className="mt-1">Rights: {source.rightsBasis.replaceAll('_', ' ')} · Retention: {source.retentionMode.replaceAll('_', ' ')} · Fingerprint: {source.contentHash.slice(0, 16)}…</div>
+                      <div className="mt-2">URL, rights basis, retention mode and content fingerprint are not rewritten in place. If one of those is wrong, exclude this source and attach the corrected replacement before evidence work begins.</div>
+                    </div>
+                    <div className="flex justify-end gap-2">
+                      <Button size="sm" variant="outline" onClick={cancelSourceEdit} disabled={working}><X className="mr-1.5 h-4 w-4" />Cancel</Button>
+                      <Button size="sm" onClick={() => void saveSourceMetadata(source)} disabled={working}>{working ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <Save className="mr-1.5 h-4 w-4" />}Save source</Button>
+                    </div>
+                  </div> : <div className="flex flex-col justify-between gap-3 md:flex-row md:items-start">
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2"><div className="font-medium">{source.title}</div><Badge variant="outline">{source.sourceType === 'uploaded_pdf' ? 'PDF' : 'Web'}</Badge><Badge variant="outline" className={source.retentionMode === 'extracted_text' ? 'border-success/30 text-success' : 'border-warning/30 text-warning'}>{source.retentionMode === 'extracted_text' ? 'Text retained' : 'Metadata only'}</Badge>{source.inclusionState === 'excluded' && <Badge variant="outline">Excluded</Badge>}</div>
+                      <div className="mt-1 truncate text-xs text-muted-foreground">{source.publisher || 'Publisher not specified'} · {source.rightsBasis.replaceAll('_', ' ')} · {source.contentHash.slice(0, 12)}…</div>
+                      {source.sourceUri.startsWith('https://') && <div className="mt-1 truncate text-xs text-muted-foreground">{source.sourceUri}</div>}
+                    </div>
+                    <div className="flex shrink-0 flex-wrap gap-2">
+                      <Button size="sm" variant="outline" onClick={() => void openPreview(source)} disabled={working}><Eye className="mr-1.5 h-4 w-4" />Preview</Button>
+                      {canEdit && sourcePackEditable && <Button size="sm" variant="outline" onClick={() => beginSourceEdit(source)} disabled={working}><Pencil className="mr-1.5 h-4 w-4" />Edit source</Button>}
+                      {canEdit && sourcePackEditable && <Button size="sm" variant="outline" onClick={() => void toggleSource(source)} disabled={working}>{source.inclusionState === 'included' ? 'Exclude' : 'Include'}</Button>}
+                    </div>
+                  </div>}
+                </div>;
+              })}
             </CardContent>
           </Card>
 
