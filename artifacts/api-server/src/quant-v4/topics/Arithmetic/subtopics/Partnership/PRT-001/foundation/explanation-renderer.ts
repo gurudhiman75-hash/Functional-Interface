@@ -169,17 +169,63 @@ export function renderPrt001Explanation(input: {
         `Therefore, the total receipt is ${answer.display}.`,
       ];
     }
-    case "findUnknownJoinTimeFromProfitRatio":
-    case "findUnknownAddedCapitalFromProfitRatio":
-    case "findEventTimeForEqualProfitShares":
-    case "findUnknownCapitalInThreePartnerSystem":
-    case "findUnknownSalaryFromFinalPartnerReceipts":
-    case "findUnknownJoinTimeWithPreDistributionDeduction":
+    case "findUnknownJoinTimeFromProfitRatio": {
+      const totalDuration = parameters.state.totalDuration;
       return [
-        `Translate the stated profit or final-receipt condition into the effective-contribution ratio ${ratio}.`,
-        "Substituting the known capitals, active periods, and any prior allocation leaves one linear unknown.",
-        `Solving and substituting back gives ${answer.display}.`,
+        `${partnerA!.partnerId} contributes ${formatPrt001Money(segmentA!.capital)} × ${formatPrt001Duration(totalDuration)}. If ${partnerB!.partnerId} joins after x months, its active time is ${formatPrt001Duration(totalDuration)} − x.`,
+        `So ${formatPrt001Money(segmentA!.capital)} × ${formatPrt001Duration(totalDuration)} : ${formatPrt001Money(segmentB!.capital)} × (${formatPrt001Duration(totalDuration)} − x) = ${ratio}. Solving gives x = ${answer.display}.`,
+        `Therefore, ${partnerB!.partnerId} joined after ${answer.display}.`,
       ];
+    }
+    case "findUnknownAddedCapitalFromProfitRatio": {
+      const [firstA, secondA] = partnerA!.capitalSegments;
+      const changeTime = firstA!.end;
+      const remainingTime = subtractRational(parameters.state.totalDuration, changeTime);
+      return [
+        `${partnerA!.partnerId}'s weight is ${formatPrt001Money(firstA!.capital)} × ${formatPrt001Duration(changeTime)} + (${formatPrt001Money(firstA!.capital)} + x) × ${formatPrt001Duration(remainingTime)}.`,
+        `${partnerB!.partnerId}'s full-period weight is ${formatPrt001Money(segmentB!.capital)} × ${formatPrt001Duration(parameters.state.totalDuration)}; setting the two weights in profit ratio ${ratio} gives x = ${answer.display}.`,
+        `Therefore, ${partnerA!.partnerId} added ${answer.display}.`,
+      ];
+    }
+    case "findEventTimeForEqualProfitShares": {
+      const [firstA, secondA] = partnerA!.capitalSegments;
+      const totalDuration = parameters.state.totalDuration;
+      return [
+        `Equal profit shares require equal capital-time weights. If the change occurs after x months, ${partnerA!.partnerId}'s weight is ${formatPrt001Money(firstA!.capital)} × x + ${formatPrt001Money(secondA!.capital)} × (${formatPrt001Duration(totalDuration)} − x).`,
+        `${partnerB!.partnerId}'s weight is ${formatPrt001Money(segmentB!.capital)} × ${formatPrt001Duration(totalDuration)}. Equating the two gives x = ${answer.display}.`,
+        `Therefore, the capital change occurred after ${answer.display}.`,
+      ];
+    }
+    case "findUnknownCapitalInThreePartnerSystem": {
+      const partnerC = parameters.state.partners[2]!;
+      const segmentC = partnerC.capitalSegments[0]!;
+      const durationC = subtractRational(segmentC.end, segmentC.start);
+      const ratioA = solution.normalizedRatio[0]!;
+      const ratioC = solution.normalizedRatio[2]!;
+      return [
+        `${partnerA!.partnerId}'s known contribution is ${formatPrt001Money(segmentA!.capital)} × ${formatPrt001Duration(durationA)} = ${formatWhole(solution.timeline.weights[0]!.effectiveCapital.numerator)}.`,
+        `Since ${partnerA!.partnerId}:${partnerC.partnerId} profit parts are ${ratioA}:${ratioC}, x × ${formatPrt001Duration(durationC)} must have the same ratio to that known contribution. Solving gives x = ${answer.display}.`,
+        `Therefore, ${partnerC.partnerId}'s capital is ${answer.display}.`,
+      ];
+    }
+    case "findUnknownSalaryFromFinalPartnerReceipts": {
+      const partA = solution.normalizedRatio[0]!;
+      const totalParts = solution.normalizedRatio.reduce((sum, part) => sum + part, 0n);
+      return [
+        `Equal investment periods make the residual-profit ratio ${ratio}. Let the working-partner salary be s; then ${partnerA!.partnerId}'s final receipt is s + ${partA}/${totalParts} × (${parameters.renderVariables.totalProfit} − s).`,
+        `This final receipt is given as ${parameters.renderVariables.finalReceipt}. Solving the equation gives s = ${answer.display}.`,
+        `Therefore, the salary is ${answer.display}.`,
+      ];
+    }
+    case "findUnknownJoinTimeWithPreDistributionDeduction": {
+      const totalDuration = parameters.state.totalDuration;
+      const deduction = solution.pool.executions[0]?.amount;
+      return [
+        `First deduct ${deduction ? formatPrt001Money(deduction) : String(parameters.renderVariables.deduction)} from ${parameters.renderVariables.totalProfit}; ${formatPrt001Money(solution.pool.distributablePool)} remains for profit sharing.`,
+        `${partnerB!.partnerId}'s known share ${parameters.renderVariables.knownShare} fixes its fraction of that pool. With ${partnerA!.partnerId} invested for ${formatPrt001Duration(totalDuration)} and ${partnerB!.partnerId} contributing ${formatPrt001Money(segmentB!.capital)} × (${formatPrt001Duration(totalDuration)} − x), the capital-time equation gives x = ${answer.display}.`,
+        `Therefore, ${partnerB!.partnerId} joined after ${answer.display}.`,
+      ];
+    }
     default:
       throw new Error(`baseline explanation renderer does not support ${parameters.entry.solveMode}`);
   }

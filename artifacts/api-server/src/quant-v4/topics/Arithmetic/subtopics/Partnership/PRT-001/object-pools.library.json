@@ -1,5 +1,5 @@
 {
-  "status": "PRODUCTION_DIVERSITY_E6",
+  "status": "PRODUCTION_DIVERSITY_E6_ENGLISH_EDITORIAL_E10",
   "partnerPairs": [
     ["Aman", "Bharat"],
     ["Kiran", "Meera"],
@@ -19,11 +19,11 @@
     "dealership",
     "wholesale firm",
     "logistics firm",
-    "online retail venture",
+    "digital retail venture",
     "food processing unit",
     "construction supplies business",
     "garment wholesaling business",
-    "electronics dealership",
+    "consumer electronics dealership",
     "book distribution business"
   ]
 }

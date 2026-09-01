@@ -9,10 +9,11 @@
 **Chapter-wide stem-structure depth:** E7 VALIDATED for all active QLs in EN / HI / PA  
 **English source/PYQ saturation:** E8 AUTOMATED SOURCE-REALNESS VALIDATED  
 **Legacy RAP-003 ownership/de-duplication:** E9 AUTOMATED VALIDATED  
-**Chapter exhaustiveness status:** REOPENED  
-**English editorial freeze:** NOT FROZEN  
+**English editorial engineering gate:** E10 VALIDATED  
+**Chapter exhaustiveness status:** AUTOMATED EXHAUSTIVENESS / SOURCE / OWNERSHIP / ENGLISH-EDITORIAL GATES CLOSED  
+**English editorial surface:** E10 AUTOMATED/EDITORIAL VALIDATION PASS; external product/editorial sign-off is not asserted  
 **Hindi/Punjabi editorial freeze:** NOT FROZEN  
-**Public publication status:** BLOCKED pending human editorial/parity approval and final release rerun
+**Public publication status:** BLOCKED pending E11 Hindi/Punjabi editorial parity, final release rerun, and normal product approval
 
 ## Runtime contract currently implemented
 
@@ -44,8 +45,12 @@
 - E9 legacy retirement: `RAP-003 / RAP-CP-013` is absent from active RAP discovery/generation but retained for historical regression
 - E9 legacy QL disposition: all `RAP-QL-801..816` are accounted for; 15 retire to PRT authorities and `RAP-QL-812 / workContributionShare` delegates to Time & Work
 - E9 RAP product surface: RAP-003 remains active for nine non-Partnership CPs (`RAP-CP-014..022`) with current EN/HI/PA generation preserved
+- E10 English stem review: 315 authored English stem skeletons plus 840 generated English questions were checked across all 105 active QLs
+- E10 English explanation review: 2,520 explanation lines were checked; generic baseline inverse fallback language was removed and all eight baseline inverse QLs now show concrete equation/working markers
+- E10 context grammar guard: all 12 human-owned business contexts are article-safe for current English authored stem contracts
+- E10 permanent gate: `auditPrt001E10EnglishEditorial()` runs inside the full PRT freeze audit
 
-The capital-timeline, ordered-allocation, solver, independent-verifier, reasoning, distractor, localization, and Question Studio foundations remain reusable. E1-E5 established and exposed the inverse, multi-event, relational, remuneration, mixed-system, joining/leaving, piecewise-capital, and final reconciliation authorities. E6 deepened mathematical/contextual production diversity, E7 closed chapter-wide wording-depth and severe structural-duplication debt, E8 closed the identified source-realness gaps without creating a 100th mathematical solve mode, and E9 eliminated duplicate user-facing Partnership ownership without deleting useful historical RAP regression assets.
+The capital-timeline, ordered-allocation, solver, independent-verifier, reasoning, distractor, localization, and Question Studio foundations remain reusable. E1-E5 established and exposed the inverse, multi-event, relational, remuneration, mixed-system, joining/leaving, piecewise-capital, and final reconciliation authorities. E6 deepened mathematical/contextual production diversity, E7 closed chapter-wide wording-depth and severe structural-duplication debt, E8 closed the identified source-realness gaps without creating a 100th mathematical solve mode, E9 eliminated duplicate user-facing Partnership ownership without deleting useful historical RAP regression assets, and E10 closed the English editorial engineering debt identified in the baseline inverse explanations and article-sensitive contexts.
 
 ## Automated evidence
 
@@ -63,6 +68,26 @@ The E9 runtime head `d8ac563c60238c2c4463aaf37fc10bd882cae6dc` passed all five o
 4. full PRT-001 seeded corpus — PASS; **3,150** deterministic EN/HI/PA questions across **105 QLs / 99 solve modes**.
 5. full PRT-001 freeze audit — PASS; E8 source-realness, E7 stem structure, E6 diversity, E1-E5 math diversity, multilingual parity, option quality and Question Studio integration remain green.
 
+### E10 English editorial checkpoint
+
+The E10 runtime head `6144d0b5761e34556d3e3c4053570a9b745a8b16` passed all four E10 validation gates in GitHub Actions run `33373818494`, job `99430645630`:
+
+1. Partnership-scoped TypeScript — PASS.
+2. full PRT-001 seeded corpus — PASS; **3,150** deterministic questions / **105 QLs / 99 solve modes**.
+3. E9 RAP-003 ownership regression — PASS; Partnership remains PRT-owned and legacy RAP-CP-013 remains product-retired.
+4. full PRT-001 freeze audit including E10 English editorial validation — PASS.
+
+E10 English editorial metrics:
+
+- audit cases: **1,155**;
+- authored English stem skeletons reviewed: **315**;
+- generated English questions reviewed: **840**;
+- explanation lines reviewed: **2,520**;
+- generic explanation phrases found: **0**;
+- raw internal allocation enums found in English prose: **0**;
+- article-unsafe business contexts: **0**;
+- baseline inverse QLs with concrete working: **8 / 8**.
+
 The complete current PRT audit remains:
 
 - coverage: **105 active QLs**, CP distribution **13 / 14 / 16 / 19 / 14 / 17 / 12**, 99 solve modes;
@@ -70,32 +95,33 @@ The complete current PRT audit remains:
 - E8 source-realness: **60 cases / 12 reviewed source families / 0 new solve modes**;
 - E8 QL-104: **5 split-allocation signatures / 12 reverse-total answer signatures**;
 - E8 QL-105: **24 long-horizon signatures / 16 answer signatures**;
+- E10 English editorial: **1,155 cases / 315 authored stems / 840 rendered English questions / 2,520 explanation lines**;
 - E7 stem depth: **7,560 seed-selection cases / 315 QL-locale pairs**, all 3 authored / 3 reachable;
 - E7 cross-QL structural audit: **147,420 comparisons / 0 exact normalized duplicates / 0 severe pairs >= 0.985**;
-- E7 editorial similarity signals: 6 non-blocking pairs >= 0.88, maximum 0.933;
+- E7 editorial similarity signals: 6 non-blocking pairs >= 0.88, maximum 0.933; all six are Hindi/Punjabi and are assigned to E11;
 - E6 baseline advanced mathematical diversity: 720 cases;
 - E6 advanced stem-skeleton diversity: 1,440 cases;
 - E6 object-pool depth: 10 partner pairs / 12 business contexts;
 - E1 / E2 / E3 / E4 / E5 math diversity: 240 / 336 / 336 / 336 / 456 cases;
-- multilingual parity: **1,260 cases**;
+- multilingual structural parity: **1,260 cases**;
 - option quality: **1,680 cases**, answer positions **433 / 437 / 388 / 422**;
 - Question Studio integration: **42 cases** across all 7 PRT CPs and all 3 languages.
 
-No E1-E8 runtime or audit threshold was weakened by E9.
+No E1-E9 runtime or audit threshold was weakened by E10.
 
-This record does **not** yet mark final publication freeze. Automated exhaustiveness, production diversity, chapter-wide stem structure, English source/PYQ realness and legacy ownership/de-duplication gates are now closed. Remaining work is editorial: English human review, Hindi/Punjabi human parity, followed by a final release rerun after any editorial changes.
+This record does **not** yet mark final publication freeze. Automated exhaustiveness, production diversity, chapter-wide stem structure, English source/PYQ realness, legacy ownership/de-duplication, and English editorial engineering gates are now closed. Remaining work is E11 Hindi/Punjabi editorial parity, followed by a final release rerun and normal product/publication approval.
 
 ## Automated runtime gates
 
-Run `pnpm --dir artifacts/api-server run test:prt-001` for foundation, solver, serialization, localization, independent-answer parity and seeded corpus checks. Run `pnpm --dir artifacts/api-server run audit:prt-001` for coverage, E8 source-realness, E7 chapter-wide stem structure, E6 production diversity, E1-E5 mathematical diversity, locale parity, option distribution and Question Studio routing. E9 additionally requires the RAP legacy regression, RAP Question Studio smoke and `prt-001-rap003-ownership-audit.ts` ownership gate.
+Run `pnpm --dir artifacts/api-server run test:prt-001` for foundation, solver, serialization, localization, independent-answer parity and seeded corpus checks. Run `pnpm --dir artifacts/api-server run audit:prt-001` for coverage, E8 source-realness, E10 English editorial quality, E7 chapter-wide stem structure, E6 production diversity, E1-E5 mathematical diversity, locale structural parity, option distribution and Question Studio routing. E9 additionally requires the RAP legacy regression, RAP Question Studio smoke and `prt-001-rap003-ownership-audit.ts` ownership gate.
 
 ## Re-freeze requirements
 
 Before restoring chapter-level/publication freeze status:
 
-1. perform human English editorial review of all 105 QLs, including stems, explanations, contexts, options and the six non-blocking E7 near-similarity pairs;
-2. complete Hindi/Punjabi human editorial parity review against the editorially frozen English surface;
-3. rerun full PRT corpus, ownership, Question Studio, option, structural-duplicate, localization, verification and release gates after any editorial changes;
+1. complete E11 Hindi/Punjabi editorial parity against the E10-validated English surface, including the six non-blocking localized E7 near-similarity pairs and localized explanation naturalness/internal-token cleanup;
+2. rerun full PRT corpus, E9 ownership, Question Studio, option, structural-duplicate, localization, verification and release gates after E11 changes;
+3. complete normal product/publication approval;
 4. only then restore final chapter/publication freeze.
 
 Any change to CP ownership, a solve-mode contract, template placeholders, allocation ordering, or the output schema requires the applicable runtime tests and audits to pass before this record is updated again.
