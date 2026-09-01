@@ -11,7 +11,7 @@ import { refreshTargetDateExamRelevance } from "./exam-relevance-runtime";
 import { holdManualAuthorityEventsForReview } from "./manual-enrichment-guard";
 import { prepareOfficialYesterdayCandidates } from "./official-candidate-reclassification";
 import { runOpenNewsDiscovery } from "./open-news-discovery";
-import { previousIndiaDate } from "./orchestration-policy";
+import { resolveHistoricalIndiaDate } from "./orchestration-policy";
 import { ensurePibHistoricalCandidates } from "./pib-historical-backfill";
 import { runScheduledPrimaryFactEnrichment } from "./primary-enrichment";
 import { loadCurrentAffairsProductionReadiness } from "./production-readiness-runtime";
@@ -145,8 +145,8 @@ async function countTargetDateState(targetDate: string) {
   };
 }
 
-export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) {
-  const targetDate = previousIndiaDate(now);
+export async function generateYesterdayCurrentAffairsOnDemand(now = new Date(), requestedTargetDate?: string) {
+  const targetDate = resolveHistoricalIndiaDate(requestedTargetDate, now);
   const startedAt = new Date().toISOString();
   const before = await countTargetDateState(targetDate);
 
@@ -157,7 +157,7 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
     trigger: "on_demand",
   });
 
-  // RSS/latest listings can legitimately omit the previous calendar day.
+  // RSS/latest listings can legitimately omit the requested historical calendar day.
   const historicalSourceBackfill = await ensurePibHistoricalCandidates(targetDate);
 
   // Rights-safe broad discovery. CP-043 keeps broad low-signal results in the
@@ -201,7 +201,7 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
   const discoveryTriage = await rejectBroadOnlyLowSignalDiscoveryEvents(targetDate);
 
   const recoverySupersede = await supersedeManualRecoverySlot(targetDate, now);
-  const recovery = await runCurrentAffairsProductionRecovery({ now, triggerMode: "manual" });
+  const recovery = await runCurrentAffairsProductionRecovery({ now, triggerMode: "manual", targetDate });
 
   // CP-043 recomputes product fit for already-authored target-date events. This
   // separates exam relevance from verification authority and prevents an official
