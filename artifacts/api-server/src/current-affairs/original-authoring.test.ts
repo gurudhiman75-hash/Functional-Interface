@@ -25,7 +25,9 @@ const appointment = authorSourceIndependentEvent({
 });
 assert.equal(appointment.status, "ready");
 assert.equal(appointment.title, "Shri Ravi Shankar appointed Executive Director");
-assert.match(appointment.summary ?? "", /has been appointed/);
+assert.match(appointment.summary ?? "", /29 August 2026/);
+assert.match(appointment.summary ?? "", /was appointed/);
+assert.equal(appointment.oneLiner, "Shri Ravi Shankar — Executive Director.");
 assert.ok(appointment.sourceTitleSimilarity < 0.72);
 
 const index = authorSourceIndependentEvent({
@@ -38,6 +40,7 @@ const index = authorSourceIndependentEvent({
 });
 assert.equal(index.status, "ready");
 assert.equal(index.title, "RBI Financial Inclusion Index stands at 67.0");
+assert.match(index.summary ?? "", /29 August 2026/);
 
 const rates = authorSourceIndependentEvent({
   eventId: "event-3",
@@ -87,8 +90,9 @@ const programme = authorSourceIndependentEvent({
   ],
 });
 assert.equal(programme.status, "ready");
-assert.match(programme.title ?? "", /Punjab Government programme update/);
+assert.match(programme.title ?? "", /Punjab Government programme/);
 assert.match(programme.summary ?? "", /25 lakh farmers/);
+assert.doesNotMatch(programme.summary ?? "", /Verified programme facts/i);
 
 const officialAction = authorSourceIndependentEvent({
   eventId: "event-action",
@@ -103,10 +107,33 @@ const officialAction = authorSourceIndependentEvent({
   ],
 });
 assert.equal(officialAction.status, "ready");
-assert.equal(officialAction.templateId, "verified_official_action_v1");
-assert.match(officialAction.title ?? "", /Government of India update/);
+assert.equal(officialAction.templateId, "learner_official_action_v2");
+assert.match(officialAction.title ?? "", /Legal Metrology Indian Standard Time Rules 2026/);
+assert.match(officialAction.summary ?? "", /^On 30 August 2026,/);
+assert.match(officialAction.summary ?? "", /Department of Consumer Affairs notifies/);
+assert.doesNotMatch(officialAction.summary ?? "", /Verified official facts identify|acting body|official action/i);
+assert.equal(
+  officialAction.oneLiner,
+  "Legal Metrology Indian Standard Time Rules 2026 — Department of Consumer Affairs.",
+);
 assert.ok(officialAction.sourceTitleSimilarity < 0.72);
-assert.match(officialAction.summary ?? "", /acting body/);
+
+const nextDayAnnouncement = authorSourceIndependentEvent({
+  eventId: "event-next-day",
+  eventDate: "2026-08-31",
+  category: "economy_banking",
+  sourceKey: "rbi",
+  sourceTitle: "7-day Variable Rate Reverse Repo auction under LAF on September 01, 2026",
+  facts: [
+    { key: "acting_entity", value: "Reserve Bank of India" },
+    { key: "official_action", value: "announces" },
+    { key: "action_subject", value: "7-day Variable Rate Reverse Repo auction under LAF on September 01, 2026" },
+  ],
+});
+assert.equal(nextDayAnnouncement.status, "ready");
+assert.match(nextDayAnnouncement.summary ?? "", /^On 31 August 2026,/);
+assert.match(nextDayAnnouncement.summary ?? "", /September 01, 2026/);
+assert.doesNotMatch(nextDayAnnouncement.summary ?? "", /happened on September 01/i);
 
 const initiative = authorSourceIndependentEvent({
   eventId: "event-launch",
@@ -120,8 +147,9 @@ const initiative = authorSourceIndependentEvent({
   ],
 });
 assert.equal(initiative.status, "ready");
-assert.equal(initiative.templateId, "verified_initiative_v1");
-assert.match(initiative.summary ?? "", /launching entity/);
+assert.equal(initiative.templateId, "learner_initiative_v2");
+assert.match(initiative.summary ?? "", /Government launched National Research Fellowship Portal/);
+assert.doesNotMatch(initiative.summary ?? "", /launching entity|Verified facts identify/i);
 
 const genericGraph = authorSourceIndependentEvent({
   eventId: "event-generic",
@@ -136,9 +164,11 @@ const genericGraph = authorSourceIndependentEvent({
   ],
 });
 assert.equal(genericGraph.status, "ready");
-assert.equal(genericGraph.templateId, "generic_verified_fact_graph_v1");
-assert.match(genericGraph.summary ?? "", /target: 45%/);
-assert.match(genericGraph.summary ?? "", /target year: 2030/);
+assert.equal(genericGraph.templateId, "learner_generic_fact_graph_v2");
+assert.match(genericGraph.summary ?? "", /Target: 45%/);
+assert.match(genericGraph.summary ?? "", /Target year: 2030/);
+assert.doesNotMatch(genericGraph.summary ?? "", /Verified facts for this|fact graph/i);
+assert.doesNotMatch(genericGraph.oneLiner ?? "", /target:/i);
 
 const thin = authorSourceIndependentEvent({
   eventId: "event-6",
@@ -165,4 +195,4 @@ const tooClose = authorSourceIndependentEvent({
 assert.equal(tooClose.status, "needs_editorial", "near-copy learner titles must be rejected");
 assert.ok(tooClose.sourceTitleSimilarity >= 0.72);
 
-console.log("Current Affairs CP030 source-independent authoring contracts passed");
+console.log("Current Affairs CP-044 learner-writing quality contracts passed");
