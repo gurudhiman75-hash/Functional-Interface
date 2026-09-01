@@ -109,7 +109,8 @@ jobs:
             knowledge-v1-com003-adapter-v1.test \
             com003-review-only-registry-contract-v1.test \
             com003-source-controlled-review-contract-v1.test \
-            com003-review-only-approval-contract-v1.test; do
+            com003-review-only-approval-contract-v1.test \
+            com003-regeneration-lock-contract-v1.test; do
             pnpm --dir artifacts/api-server exec esbuild \
               src/question-studio/engines/${test}.ts \
               --bundle --platform=node --format=esm \
@@ -143,3 +144,4 @@ jobs:
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-only-registry-contract-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-source-controlled-review-contract-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-only-approval-contract-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-regeneration-lock-contract-v1.test.mjs
