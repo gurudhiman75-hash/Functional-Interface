@@ -1,3 +1,5 @@
+import { evaluateCurrentAffairsEditorialPriority } from "./editorial-priority";
+
 export type DailyMasterPackApprovalLanguage = "en" | "hi" | "pa";
 
 export type DailyMasterPackApprovalManifest = {
@@ -12,6 +14,28 @@ export type DailyMasterPackApprovalManifest = {
   renderTargets: string[];
 };
 
+export type DailyMasterPackEditorialEvent = {
+  id: string;
+  title: string;
+  summary: string;
+  oneLiner: string;
+  category: string;
+  facts: Array<{ key: string; value: string }>;
+};
+
+export type DailyMasterPackEditorialQualityIssue = {
+  eventId: string;
+  kind: "routine_event" | "malformed_planned_action" | "malformed_entity" | "truncated_copy" | "internal_authoring_artifact" | "generic_placeholder_title";
+  detail: string;
+};
+
+export type DailyMasterPackEditorialQuality = {
+  ready: boolean;
+  blockers: string[];
+  warnings: string[];
+  issues: DailyMasterPackEditorialQualityIssue[];
+};
+
 export type DailyMasterPackApprovalReadinessInput = {
   packs: DailyMasterPackApprovalManifest[];
   currentEligibleEventIds: string[];
@@ -22,6 +46,7 @@ export type DailyMasterPackApprovalReadinessInput = {
   openConflictCount: number;
   censusStatus: string | null;
   censusBlockerCount: number;
+  editorialQuality: DailyMasterPackEditorialQuality;
 };
 
 export type DailyMasterPackApprovalReadiness = {
@@ -41,8 +66,13 @@ export type DailyMasterPackApprovalReadiness = {
     noteLocalizationParity: boolean;
     conflictFree: boolean;
     censusNotBlocked: boolean;
+    editorialQuality: boolean;
   };
 };
+
+const MALFORMED_SCHEDULED_ACTION = /\bscheduled\s+(?:launch|conduct|inaugurat(?:e|ion)|hold|held|open|unveil|release)\b/i;
+const INTERNAL_AUTHORING_ARTIFACT = /\b(?:verified official facts|acting body|reconciled atomic facts|verified fact graph|source-independent learner wording|extraction metadata)\b/i;
+const GENERIC_PLACEHOLDER_TITLE = /^(?:government of india|reserve bank of india|sebi|isro|official source|punjab government):\s+(?:key\s+)?(?:national affairs|economy and banking|international affairs|appointment|award|report and index|sports|science and technology|space|defence|environment|punjab affairs|current affairs)\s+(?:development|announcement|initiative|update)$/i;
 
 function normalizedIds(values: string[]) {
   return [...new Set(values.map((value) => value.trim()).filter(Boolean))].sort();
@@ -51,6 +81,105 @@ function normalizedIds(values: string[]) {
 function sameIds(left: string[], right: string[]) {
   if (left.length !== right.length) return false;
   return left.every((value, index) => value === right[index]);
+}
+
+function normalizedFactKey(value: string) {
+  return value.trim().toLowerCase().replace(/\s+/g, "_");
+}
+
+function issueLabel(issue: DailyMasterPackEditorialQualityIssue) {
+  switch (issue.kind) {
+    case "routine_event": return `Routine/recurring item remains in canonical pack (${issue.eventId}): ${issue.detail}`;
+    case "malformed_planned_action": return `Malformed planned-event wording remains in canonical pack (${issue.eventId}): ${issue.detail}`;
+    case "malformed_entity": return `Malformed event entity remains in canonical pack (${issue.eventId}): ${issue.detail}`;
+    case "truncated_copy": return `Mechanically truncated learner copy remains in canonical pack (${issue.eventId}): ${issue.detail}`;
+    case "internal_authoring_artifact": return `Internal extraction/authoring wording leaked into learner copy (${issue.eventId}): ${issue.detail}`;
+    case "generic_placeholder_title": return `Generic placeholder title remains in canonical pack (${issue.eventId}): ${issue.detail}`;
+  }
+}
+
+export function evaluateDailyMasterPackEditorialQuality(
+  events: DailyMasterPackEditorialEvent[],
+): DailyMasterPackEditorialQuality {
+  const issues: DailyMasterPackEditorialQualityIssue[] = [];
+  const seen = new Set<string>();
+
+  const add = (issue: DailyMasterPackEditorialQualityIssue) => {
+    const key = `${issue.eventId}:${issue.kind}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    issues.push(issue);
+  };
+
+  for (const event of events) {
+    const priority = evaluateCurrentAffairsEditorialPriority({
+      title: event.title,
+      summary: event.summary,
+      category: event.category,
+      facts: event.facts,
+    });
+    if (priority.tier === "routine") {
+      add({
+        eventId: event.id,
+        kind: "routine_event",
+        detail: priority.reasons.join(", ") || event.title,
+      });
+    }
+
+    const learnerCopy = `${event.title} ${event.summary} ${event.oneLiner}`.replace(/\s+/g, " ").trim();
+    const actionFact = event.facts.find((fact) => normalizedFactKey(fact.key) === "official_action");
+    if (MALFORMED_SCHEDULED_ACTION.test(learnerCopy) || (actionFact && MALFORMED_SCHEDULED_ACTION.test(actionFact.value))) {
+      add({
+        eventId: event.id,
+        kind: "malformed_planned_action",
+        detail: actionFact?.value || event.summary,
+      });
+    }
+
+    const entityArtifact = event.facts.find((fact) => {
+      const key = normalizedFactKey(fact.key);
+      return (key === "acting_entity" || key === "launching_entity") && /\bto be\s*$/i.test(fact.value.trim());
+    });
+    if (entityArtifact) {
+      add({
+        eventId: event.id,
+        kind: "malformed_entity",
+        detail: `${entityArtifact.key}: ${entityArtifact.value}`,
+      });
+    }
+
+    if (/[.…]\s*$/.test(event.title.trim()) || /(?:…|\.\.\.)\s*(?:[—-].*)?$/.test(event.oneLiner.trim())) {
+      add({
+        eventId: event.id,
+        kind: "truncated_copy",
+        detail: event.title.includes("…") || event.title.endsWith("...") ? event.title : event.oneLiner,
+      });
+    }
+
+    if (INTERNAL_AUTHORING_ARTIFACT.test(learnerCopy)) {
+      add({
+        eventId: event.id,
+        kind: "internal_authoring_artifact",
+        detail: event.summary,
+      });
+    }
+
+    if (GENERIC_PLACEHOLDER_TITLE.test(event.title.trim())) {
+      add({
+        eventId: event.id,
+        kind: "generic_placeholder_title",
+        detail: event.title,
+      });
+    }
+  }
+
+  const blockers = issues.map(issueLabel);
+  return {
+    ready: blockers.length === 0,
+    blockers,
+    warnings: [],
+    issues,
+  };
 }
 
 export function evaluateDailyMasterPackApprovalReadiness(
@@ -148,6 +277,10 @@ export function evaluateDailyMasterPackApprovalReadiness(
     );
   }
 
+  const editorialQuality = input.editorialQuality.ready;
+  if (!editorialQuality) blockers.push(...input.editorialQuality.blockers);
+  warnings.push(...input.editorialQuality.warnings);
+
   return {
     ready: blockers.length === 0,
     blockers,
@@ -165,6 +298,7 @@ export function evaluateDailyMasterPackApprovalReadiness(
       noteLocalizationParity,
       conflictFree,
       censusNotBlocked,
+      editorialQuality,
     },
   };
 }
