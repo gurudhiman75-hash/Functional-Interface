@@ -98,7 +98,8 @@ jobs:
             com003-question-studio-admin-preview-ui-contract-v1.test \
             com003-question-studio-admin-preview-ui-freeze-v1.test \
             com003-question-studio-review-run-ui-contract-v1.test \
-            com003-question-studio-review-only-route-contract-v1.test; do
+            com003-question-studio-review-only-route-contract-v1.test \
+            com003-question-studio-review-only-freeze-v1.test; do
             pnpm --dir artifacts/api-server exec esbuild \
               src/knowledge-v1/computer-awareness/${test}.ts \
               --bundle --platform=node --format=esm \
@@ -139,6 +140,7 @@ jobs:
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-admin-preview-ui-freeze-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-review-run-ui-contract-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-review-only-route-contract-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-review-only-freeze-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-bank-readiness-candidate-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/knowledge-v1-com003-adapter-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-only-registry-contract-v1.test.mjs
