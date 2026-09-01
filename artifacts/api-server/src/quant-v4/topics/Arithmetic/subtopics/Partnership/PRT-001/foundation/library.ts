@@ -1,7 +1,11 @@
 import questionLanguageSource from "../question-language.en.json" assert { type: "json" };
 import questionLanguageHiSource from "../question-language.hi.json" assert { type: "json" };
 import questionLanguagePaSource from "../question-language.pa.json" assert { type: "json" };
+import questionLanguageE1Source from "../question-language.e1.en.json" assert { type: "json" };
+import questionLanguageE1HiSource from "../question-language.e1.hi.json" assert { type: "json" };
+import questionLanguageE1PaSource from "../question-language.e1.pa.json" assert { type: "json" };
 import taskRegistrySource from "../task-registry.library.json" assert { type: "json" };
+import taskRegistryE1Source from "../task-registry.e1.library.json" assert { type: "json" };
 import type { Prt001Language, Prt001TaskRegistryEntry } from "./types";
 
 interface QuestionLanguageSource {
@@ -17,12 +21,48 @@ interface TaskRegistrySource {
   entries: Record<string, Prt001TaskRegistryEntry>;
 }
 
+function mergeQuestionLanguage(
+  base: QuestionLanguageSource,
+  overlay: QuestionLanguageSource,
+): QuestionLanguageSource {
+  if (base.language !== overlay.language)
+    throw new Error(`PRT-001 language overlay mismatch: ${base.language}/${overlay.language}`);
+  return {
+    language: base.language,
+    status: `${base.status}+${overlay.status}`,
+    entries: { ...base.entries, ...overlay.entries },
+  };
+}
+
 const questionLanguages = {
-  en: questionLanguageSource as QuestionLanguageSource,
-  hi: questionLanguageHiSource as QuestionLanguageSource,
-  pa: questionLanguagePaSource as QuestionLanguageSource,
+  en: mergeQuestionLanguage(
+    questionLanguageSource as QuestionLanguageSource,
+    questionLanguageE1Source as QuestionLanguageSource,
+  ),
+  hi: mergeQuestionLanguage(
+    questionLanguageHiSource as QuestionLanguageSource,
+    questionLanguageE1HiSource as QuestionLanguageSource,
+  ),
+  pa: mergeQuestionLanguage(
+    questionLanguagePaSource as QuestionLanguageSource,
+    questionLanguageE1PaSource as QuestionLanguageSource,
+  ),
 };
-const taskRegistry = taskRegistrySource as TaskRegistrySource;
+
+const baseTaskRegistry = taskRegistrySource as TaskRegistrySource;
+const e1TaskRegistry = taskRegistryE1Source as TaskRegistrySource;
+if (
+  baseTaskRegistry.chapterId !== e1TaskRegistry.chapterId ||
+  baseTaskRegistry.ownership !== e1TaskRegistry.ownership
+) {
+  throw new Error("PRT-001 task registry overlay metadata mismatch");
+}
+const taskRegistry: TaskRegistrySource = {
+  chapterId: baseTaskRegistry.chapterId,
+  ownership: baseTaskRegistry.ownership,
+  status: `${baseTaskRegistry.status}+${e1TaskRegistry.status}`,
+  entries: { ...baseTaskRegistry.entries, ...e1TaskRegistry.entries },
+};
 
 export function extractPrt001Placeholders(template: string): string[] {
   return [...template.matchAll(/\{([^}]+)\}/g)].map((match) => match[1]!);

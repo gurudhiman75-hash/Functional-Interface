@@ -3,6 +3,7 @@ import { generateQuestion, listQuantV4Packages } from "../../../../../generation
 import {
   auditPrt001ContextRealism,
   auditPrt001Coverage,
+  auditPrt001E1MathDiversity,
   auditPrt001Multilingual,
   auditPrt001OptionQuality,
 } from "./foundation/coverage-auditor";
@@ -11,6 +12,7 @@ import { PRT_001_CP_IDS } from "./foundation/types";
 const reports = [
   auditPrt001Coverage(),
   auditPrt001ContextRealism(),
+  auditPrt001E1MathDiversity(),
   auditPrt001Multilingual(),
   auditPrt001OptionQuality(),
 ];
@@ -47,7 +49,7 @@ for (const cpId of PRT_001_CP_IDS) {
 reports.push({
   audit: "question-studio-integration",
   cases: studioCases,
-  metrics: { canonicalProblems: 7, languages: 3 },
+  metrics: { canonicalProblems: 7, languages: 3, expansionWave: "E1" },
 });
 
 console.log(JSON.stringify({ packageId: "PRT-001", status: "PASS", reports }, null, 2));

@@ -1,0 +1,127 @@
+{
+  "chapterId": "PRT-001",
+  "ownership": "HUMAN_OWNED",
+  "status": "E1_EXHAUSTIVENESS_EXPANSION",
+  "entries": {
+    "PRT-QL-033": {
+      "cpId": "PRT-CP-003",
+      "taskKind": "joinAndLeaveCombinedRatio",
+      "solveMode": "findProfitRatioWithJoinAndLeaveEvents",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "capitalA", "capitalB", "leaveAfterA", "joinAfterB", "business"],
+      "scenarioFamily": "joinLeaveCombined",
+      "distractorProfile": "joinLeaveComplements",
+      "explanationStrategy": "twoEventTimeline",
+      "active": true
+    },
+    "PRT-QL-034": {
+      "cpId": "PRT-CP-003",
+      "taskKind": "reverseLeaveTime",
+      "solveMode": "findUnknownLeaveTimeFromProfitRatio",
+      "answerType": "DURATION",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "capitalA", "capitalB", "profitRatioA", "profitRatioB", "business"],
+      "scenarioFamily": "reverseLeaveTime",
+      "distractorProfile": "leaveTimeComplement",
+      "explanationStrategy": "solveLeaveFromWeightRatio",
+      "active": true
+    },
+    "PRT-QL-035": {
+      "cpId": "PRT-CP-003",
+      "taskKind": "reverseLateJoinCapital",
+      "solveMode": "findUnknownCapitalOfLateJoiningPartner",
+      "answerType": "CAPITAL",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "capitalA", "joinAfterB", "profitRatioA", "profitRatioB", "business"],
+      "scenarioFamily": "reverseLateJoinCapital",
+      "distractorProfile": "lateJoinCapitalTimeError",
+      "explanationStrategy": "solveLateJoinCapital",
+      "active": true
+    },
+    "PRT-QL-036": {
+      "cpId": "PRT-CP-004",
+      "taskKind": "percentageCapitalIncreaseRatio",
+      "solveMode": "findProfitRatioAfterPercentageCapitalIncrease",
+      "answerType": "RATIO",
+      "difficulty": "Medium",
+      "requiredVariables": ["partnerA", "partnerB", "initialCapitalA", "percentageChangeA", "changeMonthA", "capitalB", "business"],
+      "scenarioFamily": "percentageCapitalIncrease",
+      "distractorProfile": "percentageChangeWholePeriod",
+      "explanationStrategy": "percentagePiecewiseCapital",
+      "active": true
+    },
+    "PRT-QL-037": {
+      "cpId": "PRT-CP-004",
+      "taskKind": "multiplePartnerCapitalChanges",
+      "solveMode": "findProfitRatioWithChangesForMultiplePartners",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "initialCapitalA", "percentageChangeA", "changeMonthA", "initialCapitalB", "percentageDecreaseB", "changeMonthB", "business"],
+      "scenarioFamily": "twoPartnerPercentageChanges",
+      "distractorProfile": "multipleChangeTimingErrors",
+      "explanationStrategy": "twoPartnerPiecewiseWeights",
+      "active": true
+    },
+    "PRT-QL-038": {
+      "cpId": "PRT-CP-005",
+      "taskKind": "relationalThreePartnerShare",
+      "solveMode": "findSharesFromCapitalMultiplesAndDurations",
+      "answerType": "MONEY",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "partnerC", "capitalA", "capitalRelationB", "capitalRelationC", "durationA", "durationB", "durationC", "totalProfit", "targetPartner", "business"],
+      "scenarioFamily": "relationalThreePartnerSystem",
+      "distractorProfile": "relationToWeightErrors",
+      "explanationStrategy": "resolveCapitalRelationsThenWeights",
+      "active": true
+    },
+    "PRT-QL-039": {
+      "cpId": "PRT-CP-006",
+      "taskKind": "reverseGrossProfitFromWorkingReceipt",
+      "solveMode": "findTotalProfitFromActivePartnerFinalReceipt",
+      "answerType": "MONEY",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "capitalA", "capitalB", "salary", "finalReceipt", "business"],
+      "scenarioFamily": "reverseGrossFromWorkingReceipt",
+      "distractorProfile": "reverseSalaryPoolErrors",
+      "explanationStrategy": "reverseSalaryThenShare",
+      "active": true
+    },
+    "PRT-QL-040": {
+      "cpId": "PRT-CP-006",
+      "taskKind": "multipleOrderedAllocationsReceipt",
+      "solveMode": "findPartnerReceiptsWithMultipleOrderedAllocations",
+      "answerType": "MONEY",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "capitalA", "capitalB", "reserve", "commissionPercent", "totalProfit", "targetPartner", "business"],
+      "scenarioFamily": "reserveThenPostPoolCommission",
+      "distractorProfile": "allocationOrderingErrors",
+      "explanationStrategy": "orderedReserveCommissionShare",
+      "active": true
+    },
+    "PRT-QL-041": {
+      "cpId": "PRT-CP-007",
+      "taskKind": "joinLeaveCapitalChangeRatio",
+      "solveMode": "findProfitRatioWithJoinLeaveAndCapitalChange",
+      "answerType": "RATIO",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "initialCapitalA", "addedCapitalA", "changeMonthA", "leaveAfterA", "capitalB", "joinAfterB", "business"],
+      "scenarioFamily": "joinLeaveCapitalChange",
+      "distractorProfile": "compoundTimelineBoundaryErrors",
+      "explanationStrategy": "threeMechanismTimeline",
+      "active": true
+    },
+    "PRT-QL-042": {
+      "cpId": "PRT-CP-007",
+      "taskKind": "reverseStaggeredThirdCapital",
+      "solveMode": "findUnknownCapitalWithStaggeredParticipation",
+      "answerType": "CAPITAL",
+      "difficulty": "Hard",
+      "requiredVariables": ["partnerA", "partnerB", "partnerC", "capitalA", "capitalB", "joinAfterB", "joinAfterC", "profitRatioA", "profitRatioB", "profitRatioC", "business"],
+      "scenarioFamily": "reverseStaggeredThirdCapital",
+      "distractorProfile": "staggeredCapitalInverseErrors",
+      "explanationStrategy": "solveThirdCapitalFromStaggeredWeights",
+      "active": true
+    }
+  }
+}

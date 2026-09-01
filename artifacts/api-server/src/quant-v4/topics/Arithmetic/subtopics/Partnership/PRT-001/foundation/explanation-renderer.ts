@@ -180,5 +180,7 @@ export function renderPrt001Explanation(input: {
         "Substituting the known capitals, active periods, and any prior allocation leaves one linear unknown.",
         `Solving and substituting back gives ${answer.display}.`,
       ];
+    default:
+      throw new Error(`baseline explanation renderer does not support ${parameters.entry.solveMode}`);
   }
 }

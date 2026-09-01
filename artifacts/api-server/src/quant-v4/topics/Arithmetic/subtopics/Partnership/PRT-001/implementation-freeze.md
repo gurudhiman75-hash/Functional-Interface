@@ -2,42 +2,45 @@
 
 **Runtime foundation status:** complete  
 **Seven-CP routing status:** complete  
-**Current pilot runtime:** 28 solve modes / 32 active QLs per locale  
+**Current expanded runtime:** 38 solve modes / 42 active QLs per locale  
+**Exhaustiveness expansion:** E1 IMPLEMENTED  
 **Chapter exhaustiveness status:** REOPENED  
 **English editorial/source freeze:** NOT FROZEN  
 **Hindi/Punjabi editorial freeze:** NOT FROZEN  
-**Public publication status:** BLOCKED pending exhaustiveness, source, diversity, and editorial approval
+**Public publication status:** BLOCKED pending remaining exhaustiveness, source, diversity, and editorial approval
 
 ## Runtime-proof contract currently implemented
 
 - Package: `PRT-001`
 - Canonical problems: 7
-- Active solve modes: 28
-- Active question languages: 32 per locale
+- Active solve modes: 38
+- Active question languages: 42 per locale
 - Locales: English, Hindi, Punjabi
 - Arithmetic: exact rational operations
 - Verification: independent boundary-sweep parity required
 - Output: deterministic Question Studio-compatible MCQ package
+- E1 diversity gate: each E1 QL must produce at least 3 weight signatures and 2 normalized-ratio signatures across the audit seed corpus
 
-The runtime foundation is valid and reusable, but this record no longer treats the current 28-mode / 32-QL surface as the exhaustive chapter freeze. The chapter has been reopened by `PRT-001-EXHAUSTIVENESS-RECONCILIATION-AUDIT.md` because the original 102-candidate discovery inventory was not dispositioned before the runtime-complete label was applied, and production-grade same-QL diversity/source saturation is not yet demonstrated.
+The runtime foundation remains valid and reusable. E1 adds 10 high-value authorities identified by `PRT-001-EXHAUSTIVENESS-RECONCILIATION-AUDIT.md`: combined join/leave events, reverse leave time, reverse late-join capital, percentage capital increase, changes for multiple partners, relational three-partner sharing, reverse gross profit from an active partner's final receipt, multiple ordered allocations, join+leave+capital-change compound timelines, and reverse capital under staggered participation.
+
+This record still does **not** treat the 38-mode / 42-QL surface as the exhaustive chapter freeze. Additional accepted gaps from the 102-candidate reconciliation remain for later waves.
 
 ## Automated runtime gates
 
-Run `pnpm --dir artifacts/api-server run test:prt-001` for foundation, solver, serialization, localization, and seeded corpus checks. Run `pnpm --dir artifacts/api-server run audit:prt-001` for current coverage, context checks, locale parity, option distribution, and Question Studio routing.
+Run `pnpm --dir artifacts/api-server run test:prt-001` for foundation, solver, serialization, localization, and seeded corpus checks. Run `pnpm --dir artifacts/api-server run audit:prt-001` for coverage, context checks, E1 mathematical diversity, locale parity, option distribution, and Question Studio routing.
 
-These commands validate the **currently implemented runtime surface**. They do not by themselves prove chapter exhaustiveness, PYQ/source saturation, same-QL structural diversity, or human editorial quality.
+These commands validate the **currently implemented runtime surface**. They do not by themselves prove final chapter exhaustiveness, complete PYQ/source saturation, legacy-Ql de-duplication, or human editorial quality.
 
 ## Re-freeze requirements
 
 Before restoring chapter-level freeze status:
 
-1. disposition every original discovery contract as active, merged, delegated, or rejected;
-2. implement the accepted missing Partnership-facing authorities and QLs;
-3. replace pilot-thin fixed advanced scenarios with production-depth variable/topology libraries;
-4. add same-QL mathematical-state and stem-skeleton diversity gates;
-5. run English source/exam-realness and editorial review;
-6. localize only the frozen English expansion and complete Hindi/Punjabi editorial parity review;
-7. reconcile and de-duplicate legacy RAP-003 Partnership exposure;
-8. rerun the full Question Studio / options / duplicate / localization / verification gates.
+1. complete the remaining accepted `MERGE/EXPOSE` and `NEW AUTHORITY` dispositions from the 102-candidate audit;
+2. deepen legacy CP-003..007 fixed scenario generators to production-level same-QL diversity, not only the new E1 authorities;
+3. add stem-skeleton similarity/duplicate gates in addition to mathematical-state diversity;
+4. run English source/exam-realness and human editorial review;
+5. localize only the frozen English expansion and complete Hindi/Punjabi editorial parity review;
+6. reconcile and de-duplicate legacy RAP-003 Partnership exposure;
+7. rerun the full Question Studio / options / duplicate / localization / verification gates.
 
 Any change to CP ownership, a solve-mode contract, template placeholders, allocation ordering, or the output schema requires the applicable runtime tests and audits to pass before this record is updated again.

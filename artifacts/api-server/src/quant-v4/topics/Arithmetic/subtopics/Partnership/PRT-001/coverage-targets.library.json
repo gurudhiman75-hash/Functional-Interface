@@ -1,18 +1,19 @@
 {
   "chapterId": "PRT-001",
   "canonicalProblems": 7,
-  "solveModes": 28,
-  "activeQuestionLanguages": 32,
+  "solveModes": 38,
+  "activeQuestionLanguages": 42,
   "locales": ["en", "hi", "pa"],
   "minimumQuestionLanguagesByCanonicalProblem": {
     "PRT-CP-001": 6,
     "PRT-CP-002": 6,
-    "PRT-CP-003": 4,
-    "PRT-CP-004": 4,
-    "PRT-CP-005": 4,
-    "PRT-CP-006": 4,
-    "PRT-CP-007": 4
+    "PRT-CP-003": 7,
+    "PRT-CP-004": 6,
+    "PRT-CP-005": 5,
+    "PRT-CP-006": 6,
+    "PRT-CP-007": 6
   },
   "requiredDifficultyBands": ["Easy", "Medium", "Hard"],
-  "independentVerificationRequired": true
+  "independentVerificationRequired": true,
+  "exhaustivenessStatus": "E1_EXPANDED_NOT_FINAL"
 }
