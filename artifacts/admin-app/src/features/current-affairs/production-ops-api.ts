@@ -129,11 +129,13 @@ export type DailyDiscoveryCensus = {
   generatedAt: string;
 };
 
+export type DailyMasterPackLanguage = 'en' | 'hi' | 'pa';
+
 export type DailyMasterPack = {
   id: string;
   publicCode: string;
   contentDate: string;
-  language: string;
+  language: DailyMasterPackLanguage;
   status: string;
   eventCount: number;
   categoryCount: number;
@@ -144,6 +146,8 @@ export type DailyMasterPack = {
   learningResourceStatus: string;
   generatedAt: string;
 };
+
+export type DailyMasterPackSet = Record<DailyMasterPackLanguage, DailyMasterPack | null>;
 
 export type CurrentAffairsRecoveryRuns = {
   runs: Array<{
@@ -190,6 +194,12 @@ export type GenerateYesterdayCurrentAffairsResult = {
   };
   discoveryCensus: DailyDiscoveryCensus;
   dailyMasterPack: (DailyMasterPack & { created?: boolean; updated?: boolean; locked?: boolean }) | Record<string, unknown>;
+  dailyMasterPacks?: {
+    en: Record<string, unknown>;
+    hi: Record<string, unknown>;
+    pa: Record<string, unknown>;
+    allLocalizedParityReady: boolean;
+  };
   artifacts: Array<{
     family: string;
     language: string;
@@ -205,6 +215,8 @@ export type GenerateYesterdayCurrentAffairsResult = {
     allEnglishDraftsPresent: boolean;
     englishDraftCount: number;
     localizedDraftCount: number;
+    localizedMasterPackCount?: number;
+    localizedMasterPacksParityReady?: boolean;
     verifiedEvents: number;
     reviewEvents: number;
     masterPackEventCount: number;
@@ -236,25 +248,41 @@ export function getCurrentAffairsDiscoveryCensus(date?: string) {
   return adminRequest<{ targetDate: string; census: DailyDiscoveryCensus | null }>(`/admin/current-affairs/production/discovery-census${suffix}`);
 }
 
-export function getCurrentAffairsDailyMasterPack(date?: string) {
+export function getCurrentAffairsDailyMasterPack(date?: string, language: DailyMasterPackLanguage = 'en') {
+  const params = new URLSearchParams();
+  if (date) params.set('date', date);
+  params.set('lang', language);
+  return adminRequest<{ targetDate: string; language: DailyMasterPackLanguage; masterPack: DailyMasterPack | null }>(
+    `/admin/current-affairs/production/master-pack?${params.toString()}`,
+  );
+}
+
+export function getCurrentAffairsDailyMasterPacks(date?: string) {
   const suffix = date ? `?date=${encodeURIComponent(date)}` : '';
-  return adminRequest<{ targetDate: string; masterPack: DailyMasterPack | null }>(`/admin/current-affairs/production/master-pack${suffix}`);
+  return adminRequest<{ targetDate: string; masterPacks: DailyMasterPackSet }>(
+    `/admin/current-affairs/production/master-packs${suffix}`,
+  );
 }
 
-export function currentAffairsDailyMasterTextPath(date: string) {
-  return `/api/admin/current-affairs/production/master-pack/text?date=${encodeURIComponent(date)}`;
+export function currentAffairsDailyMasterTextPath(date: string, language: DailyMasterPackLanguage = 'en') {
+  return `/api/admin/current-affairs/production/master-pack/text?date=${encodeURIComponent(date)}&lang=${language}`;
 }
 
-export function currentAffairsDailyMasterPdfPath(date: string) {
-  return `/api/admin/current-affairs/production/master-pack/pdf?date=${encodeURIComponent(date)}`;
+export function currentAffairsDailyMasterPdfPath(date: string, language: DailyMasterPackLanguage = 'en') {
+  return `/api/admin/current-affairs/production/master-pack/pdf?date=${encodeURIComponent(date)}&lang=${language}`;
 }
 
-function artifactEndpoint(date: string, artifact: CurrentAffairsMasterPackArtifact) {
-  return `${apiBase}/admin/current-affairs/production/master-pack/${artifact}?date=${encodeURIComponent(date)}`;
+function artifactEndpoint(date: string, artifact: CurrentAffairsMasterPackArtifact, language: DailyMasterPackLanguage) {
+  return `${apiBase}/admin/current-affairs/production/master-pack/${artifact}?date=${encodeURIComponent(date)}&lang=${language}`;
 }
 
-function fallbackArtifactFilename(date: string, artifact: CurrentAffairsMasterPackArtifact) {
-  return `examtree-current-affairs-${date}.${artifact === 'pdf' ? 'pdf' : 'md'}`;
+function fallbackArtifactFilename(
+  date: string,
+  artifact: CurrentAffairsMasterPackArtifact,
+  language: DailyMasterPackLanguage,
+) {
+  const languageSuffix = language === 'en' ? '' : `-${language}`;
+  return `examtree-current-affairs-${date}${languageSuffix}.${artifact === 'pdf' ? 'pdf' : 'md'}`;
 }
 
 function dispositionFilename(disposition: string | null, fallback: string) {
@@ -271,11 +299,12 @@ function dispositionFilename(disposition: string | null, fallback: string) {
 export async function downloadCurrentAffairsMasterPackArtifact(
   date: string,
   artifact: CurrentAffairsMasterPackArtifact,
+  language: DailyMasterPackLanguage = 'en',
 ): Promise<CurrentAffairsMasterPackDownload> {
   const user = getFirebaseAuth()?.currentUser;
   if (!user) throw new Error('Your ExamTree admin session has expired. Sign in again.');
 
-  const response = await fetch(artifactEndpoint(date, artifact), {
+  const response = await fetch(artifactEndpoint(date, artifact, language), {
     headers: { Authorization: `Bearer ${await user.getIdToken()}` },
   });
   if (!response.ok) {
@@ -286,7 +315,7 @@ export async function downloadCurrentAffairsMasterPackArtifact(
   const blob = await response.blob();
   const filename = dispositionFilename(
     response.headers.get('Content-Disposition'),
-    fallbackArtifactFilename(date, artifact),
+    fallbackArtifactFilename(date, artifact, language),
   );
   const objectUrl = URL.createObjectURL(blob);
   const anchor = document.createElement('a');
