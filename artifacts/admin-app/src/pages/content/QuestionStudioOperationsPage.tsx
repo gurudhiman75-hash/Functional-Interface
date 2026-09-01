@@ -2,6 +2,7 @@ import { QuestionStudioAlgebraReviewPanel } from './QuestionStudioAlgebraReviewP
 import { QuestionStudioCalendarReviewPanel } from './QuestionStudioCalendarReviewPanel';
 import { QuestionStudioCockpitPage } from './QuestionStudioCockpitPage';
 import { QuestionStudioCom003PreviewPanel } from './QuestionStudioCom003PreviewPanel';
+import { QuestionStudioCom003ReviewPanel } from './QuestionStudioCom003ReviewPanel';
 import { QuestionStudioComputerAwarenessReviewPanel } from './QuestionStudioComputerAwarenessReviewPanel';
 import { QuestionStudioDataSufficiencyReviewPanel } from './QuestionStudioDataSufficiencyReviewPanel';
 import { QuestionStudioDifficultyMixControls } from './QuestionStudioDifficultyMixControls';
@@ -19,6 +20,7 @@ export function QuestionStudioOperationsPage() {
     <>
       <QuestionStudioComputerAwarenessReviewPanel />
       <QuestionStudioCom003PreviewPanel />
+      <QuestionStudioCom003ReviewPanel />
       <QuestionStudioDataSufficiencyReviewPanel />
       <QuestionStudioAlgebraReviewPanel />
       <QuestionStudioSpatialReviewPanel />
