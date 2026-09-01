@@ -304,9 +304,16 @@ export function scoreExamRelevance(input: EventCandidateInput): ExamRelevanceSco
       reasons.push(...familySignal.reasons.map((reason) => `${reason} ${familySignal.adjustment >= 0 ? "+" : ""}${familySignal.adjustment}`));
     }
 
-    if (editorialPriority.scoreAdjustment) {
+    const priorityCanAffectFamily = editorialPriority.scoreAdjustment < 0
+      || examFamily === "ssc"
+      || examFamily === "railways"
+      || examFamily === "general"
+      || familySignal.adjustment > 0;
+    if (editorialPriority.scoreAdjustment && priorityCanAffectFamily) {
       score += editorialPriority.scoreAdjustment;
       reasons.push(`Editorial priority ${editorialPriority.tier} ${editorialPriority.scoreAdjustment >= 0 ? "+" : ""}${editorialPriority.scoreAdjustment}: ${editorialPriority.reasons.join(", ")}`);
+    } else if (editorialPriority.scoreAdjustment > 0) {
+      reasons.push(`Editorial priority ${editorialPriority.tier} boost withheld: no explicit ${examFamily} signal`);
     }
     if (trustAdjustment) {
       score += trustAdjustment;
