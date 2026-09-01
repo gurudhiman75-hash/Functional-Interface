@@ -2,22 +2,19 @@ import assert from "node:assert/strict";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
+import {
+  getGeneratedQuestionBankAcceptanceMode,
+  getGeneratedQuestionBankEligibilityIssue,
+  normalizeGeneratedQuestionPayload,
+} from "../../lib/admin-question-conversion";
+import { getPublicationIssues } from "../../lib/admin-question-management";
+import { getGeneratedItemApprovalDisposition } from "../../lib/admin-question-studio-approval-policy";
+import { buildCndQuestionBankPayloadV2 } from "../../routes/admin-question-studio-cubes-dice";
 import { CND_001_QUESTION_STUDIO_BANK_ONLY_ACTIVATION_AUTHORITY_V1 } from "../foundation/spatial/cubes-dice-question-studio-bank-activation-v1";
 import { generateCubesDiceQuestionStudioBankV1 } from "../foundation/spatial/cubes-dice-question-studio-bank-runtime-v1";
 import { generateCubesDiceQuestionStudioTestBuilderV1 } from "../foundation/spatial/cubes-dice-question-studio-test-builder-runtime-v1";
 import { CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1 } from "../foundation/spatial/cubes-dice-test-builder-activation-v1";
 import type { CubesDiceVoxelRuntimeTaskKindV2 } from "../foundation/spatial/cubes-dice-voxel-projection-runtime-v2";
-
-process.env.DATABASE_URL ??= "postgresql://test:test@127.0.0.1:5432/cnd_test_builder_proof";
-
-const {
-  getGeneratedQuestionBankAcceptanceMode,
-  getGeneratedQuestionBankEligibilityIssue,
-  normalizeGeneratedQuestionPayload,
-} = await import("../../lib/admin-question-conversion");
-const { getPublicationIssues } = await import("../../lib/admin-question-management");
-const { getGeneratedItemApprovalDisposition } = await import("../../lib/admin-question-studio-approval-policy");
-const { buildCndQuestionBankPayloadV2 } = await import("../../routes/admin-question-studio-cubes-dice");
 
 const QLS = ["SPA-QL-043", "SPA-QL-044", "SPA-QL-045", "SPA-QL-046", "SPA-QL-047"] as const;
 const LANGUAGES = ["en", "hi", "pa"] as const;
@@ -184,6 +181,7 @@ const cwd = process.cwd();
 const questionPublishRoute = readFileSync(resolve(cwd, "src/routes/admin-question-lifecycle-hardening.ts"), "utf8");
 const testsRoute = readFileSync(resolve(cwd, "src/routes/admin-tests.ts"), "utf8");
 const cndRoute = readFileSync(resolve(cwd, "src/routes/admin-question-studio-cubes-dice.ts"), "utf8");
+const seriesLib = readFileSync(resolve(cwd, "src/lib/admin-test-series.ts"), "utf8");
 
 assert.match(questionPublishRoute, /generationTestEligible === false/);
 assert.match(questionPublishRoute, /generationPubliclyPublishable === false/);
@@ -192,6 +190,8 @@ assert.match(questionPublishRoute, /published_version_id = approved_version_id/)
 assert.match(testsRoute, /QUESTION_NOT_PUBLISHED/);
 assert.match(testsRoute, /String\(row\.status\) !== "published"/);
 assert.match(testsRoute, /String\(row\.publishedVersionId \?\? ""\) !== questionVersionId/);
+assert.match(seriesLib, /\["qa_approved", "scheduled", "live", "completed"\]\.includes\(status\)/);
+assert.match(seriesLib, /test\(s\) are not QA approved or released/);
 assert.match(cndRoute, /REGISTERED_INTERNAL_TEST_BUILDER/);
 assert.match(cndRoute, /questionBankAcceptanceMode: ACTIVATION\.questionBankAcceptanceMode/);
 assert.match(cndRoute, /testBuilderEligible: true/);
@@ -219,6 +219,7 @@ const evidence = {
   publicReleaseAuthorized: ACTIVATION.publicReleaseAuthorized,
   studentDeliveryAuthorized: ACTIVATION.studentDeliveryAuthorized,
   automaticStudentPublication: ACTIVATION.automaticStudentPublication,
+  seriesQaOrReleaseStillRequired: true,
   legacyBankOnlyRuntimePreserved: true,
   nextGate: ACTIVATION.nextGate,
 };
