@@ -1,6 +1,8 @@
 import { randomUUID } from "node:crypto";
 
 import { sqlClient } from "../lib/db";
+import { isHighYieldDiscoveryCandidate } from "./editorial-priority";
+import { classifyCurrentAffairsSignal } from "./ingestion";
 
 export type DailyDiscoveryCensusInput = {
   rawCandidateCount: number;
@@ -27,6 +29,22 @@ export type DailyDiscoveryCensusEvaluation = {
   warnings: string[];
 };
 
+export type HighYieldDiscoveryCandidateRow = {
+  id: string;
+  resolutionKey?: string | null;
+  title: string;
+  category?: string | null;
+  resolvedIntoLearnerEvent?: boolean;
+  linkedEventIds?: string[];
+};
+
+export type HighYieldDiscoveryGap = {
+  resolutionKey: string;
+  title: string;
+  category: string;
+  linkedEventIds: string[];
+};
+
 function ratio(numerator: number, denominator: number): number {
   if (denominator <= 0) return 0;
   return Math.max(0, Math.min(1, numerator / denominator));
@@ -39,7 +57,7 @@ export function evaluateDailyDiscoveryCensus(input: DailyDiscoveryCensusInput): 
   if (input.rawCandidateCount === 0) blockers.push("No target-date source candidates were discovered.");
   if (input.eventCount > 0 && input.verifiedEventCount === 0) blockers.push("Target-date events exist, but none is verified.");
   if (input.highPriorityUnresolvedCount > 0) {
-    warnings.push(`${input.highPriorityUnresolvedCount} high-priority target-date event(s) still require verification or conflict resolution.`);
+    warnings.push(`${input.highPriorityUnresolvedCount} high-priority target-date event/discovery gap(s) still require verification, learner authoring, relevance recovery, or conflict resolution.`);
   }
   if (input.unresolvedClusterCount > 0) {
     warnings.push(`${input.unresolvedClusterCount} actionable target-date cluster(s) remain unresolved or uncategorized.`);
@@ -70,9 +88,9 @@ export function evaluateDailyDiscoveryCensus(input: DailyDiscoveryCensusInput): 
     + evidenceStrong * 10,
   );
 
-  // CP-043: a day is complete only after all actionable clustering decisions are resolved.
-  // Low-value discovery noise can be explicitly rejected by bounded triage, but an
-  // open cluster with any non-rejected member must never be silently treated as complete.
+  // CP-045: "complete" means both cluster resolution and editorial-priority
+  // resolution. A high-yield discovered story cannot disappear between discovery
+  // and the learner-eligible event set merely because lower-value stories passed.
   const status: DailyDiscoveryCensusEvaluation["status"] = blockers.length > 0
     ? "blocked"
     : score >= 80 && input.highPriorityUnresolvedCount === 0 && input.unresolvedClusterCount === 0
@@ -102,8 +120,55 @@ function evidenceGrade(event: {
   return "D";
 }
 
+export function evaluateHighYieldDiscoveryGaps(rows: HighYieldDiscoveryCandidateRow[]): HighYieldDiscoveryGap[] {
+  const grouped = new Map<string, {
+    title: string;
+    category: string;
+    resolved: boolean;
+    linkedEventIds: Set<string>;
+    highYield: boolean;
+  }>();
+
+  for (const row of rows) {
+    const resolutionKey = String(row.resolutionKey || row.id).trim();
+    if (!resolutionKey) continue;
+    const title = String(row.title ?? "").trim();
+    if (!title) continue;
+    const category = String(row.category || classifyCurrentAffairsSignal(title).category || "other");
+    const highYield = isHighYieldDiscoveryCandidate({ title, category });
+    const existing = grouped.get(resolutionKey) ?? {
+      title,
+      category,
+      resolved: false,
+      linkedEventIds: new Set<string>(),
+      highYield: false,
+    };
+    existing.highYield ||= highYield;
+    existing.resolved ||= Boolean(row.resolvedIntoLearnerEvent);
+    for (const eventId of row.linkedEventIds ?? []) {
+      const clean = String(eventId ?? "").trim();
+      if (clean) existing.linkedEventIds.add(clean);
+    }
+    if (highYield) {
+      existing.title = title;
+      existing.category = category;
+    }
+    grouped.set(resolutionKey, existing);
+  }
+
+  return [...grouped.entries()]
+    .filter(([, item]) => item.highYield && !item.resolved)
+    .map(([resolutionKey, item]) => ({
+      resolutionKey,
+      title: item.title,
+      category: item.category,
+      linkedEventIds: [...item.linkedEventIds].sort(),
+    }))
+    .sort((a, b) => a.resolutionKey.localeCompare(b.resolutionKey));
+}
+
 export async function refreshDailyDiscoveryCensus(targetDate: string) {
-  const [candidateRows, clusterRows, eventRows, sourceRows, categoryRows] = await Promise.all([
+  const [candidateRows, clusterRows, eventRows, sourceRows, categoryRows, priorityCandidateRows] = await Promise.all([
     sqlClient`
       SELECT
         count(*)::int AS "rawCandidateCount",
@@ -176,6 +241,44 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
       GROUP BY category
       ORDER BY count(*) DESC, category
     `,
+    sqlClient`
+      SELECT
+        candidate.id::text AS id,
+        COALESCE(member.cluster_id::text, candidate.id::text) AS "resolutionKey",
+        candidate.raw_title AS title,
+        COALESCE(NULLIF(candidate.payload->>'categoryGuess',''), '') AS category,
+        array_remove(array_agg(DISTINCT event.id::text), NULL) AS "linkedEventIds",
+        bool_or(
+          CASE WHEN event.id IS NULL THEN false ELSE
+            event.status='verified'
+            AND event.learner_authoring_status IN ('ready','manual')
+            AND NOT EXISTS (
+              SELECT 1 FROM content.current_affairs_fact_conflicts open_conflict
+              WHERE open_conflict.event_id=event.id AND open_conflict.status='open'
+            )
+            AND EXISTS (
+              SELECT 1 FROM content.current_affairs_exam_scores eligible_score
+              WHERE eligible_score.event_id=event.id
+                AND eligible_score.include_recommended=true
+                AND eligible_score.exam_family_key IN ('ssc','banking','punjab')
+            )
+          END
+        ) AS "resolvedIntoLearnerEvent"
+      FROM content.current_affairs_ingestion_candidates candidate
+      JOIN content.current_affairs_sources source ON source.id=candidate.source_id
+      LEFT JOIN content.current_affairs_cluster_members member ON member.candidate_id=candidate.id
+      LEFT JOIN content.current_affairs_event_candidates event_link ON event_link.candidate_id=candidate.id
+      LEFT JOIN content.current_affairs_events event ON event.id=event_link.event_id
+      WHERE COALESCE(
+        NULLIF(candidate.payload->>'historicalTargetDate',''),
+        NULLIF(candidate.payload->>'discoveryTargetDate',''),
+        (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+      )=${targetDate}
+        AND candidate.status NOT IN ('rejected','error')
+        AND source.source_tier <> 'specialist'
+        AND (source.is_primary_source=true OR source.trust_score >= 0.75)
+      GROUP BY candidate.id, member.cluster_id
+    `,
   ]);
 
   const candidates = candidateRows[0] ?? {};
@@ -184,7 +287,7 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
   let verifiedEventCount = 0;
   let reviewEventCount = 0;
   let authoringReadyCount = 0;
-  let highPriorityUnresolvedCount = 0;
+  const highPriorityUnresolvedKeys = new Set<string>();
 
   for (const row of eventRows) {
     const event = {
@@ -197,8 +300,28 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
     if (event.status === "verified") verifiedEventCount += 1;
     if (event.status === "review") reviewEventCount += 1;
     if (event.status === "verified" && ["ready", "manual"].includes(String(row.authoringStatus))) authoringReadyCount += 1;
-    if (number(row.maxExamScore) >= 65 && (event.status !== "verified" || event.hasOpenConflict)) highPriorityUnresolvedCount += 1;
+    if (number(row.maxExamScore) >= 65 && (
+      event.status !== "verified"
+      || event.hasOpenConflict
+      || !["ready", "manual"].includes(String(row.authoringStatus))
+    )) {
+      highPriorityUnresolvedKeys.add(`event:${String(row.id)}`);
+    }
   }
+
+  const highYieldDiscoveryGaps = evaluateHighYieldDiscoveryGaps(priorityCandidateRows.map((row) => ({
+    id: String(row.id),
+    resolutionKey: row.resolutionKey ? String(row.resolutionKey) : String(row.id),
+    title: String(row.title ?? ""),
+    category: row.category ? String(row.category) : undefined,
+    resolvedIntoLearnerEvent: Boolean(row.resolvedIntoLearnerEvent),
+    linkedEventIds: Array.isArray(row.linkedEventIds) ? row.linkedEventIds.map(String) : [],
+  })));
+  for (const gap of highYieldDiscoveryGaps) {
+    const linkedEventId = gap.linkedEventIds[0];
+    highPriorityUnresolvedKeys.add(linkedEventId ? `event:${linkedEventId}` : `discovery:${gap.resolutionKey}`);
+  }
+  const highPriorityUnresolvedCount = highPriorityUnresolvedKeys.size;
 
   const sourceDomains: Record<string, Record<string, number>> = {};
   const sourceTiers: Record<string, Record<string, number>> = {};
@@ -239,6 +362,14 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
   };
   const evaluation = evaluateDailyDiscoveryCensus(input);
   const id = randomUUID();
+  const highYieldGapSnapshot = {
+    count: highYieldDiscoveryGaps.length,
+    samples: highYieldDiscoveryGaps.slice(0, 20).map((gap) => ({
+      title: gap.title,
+      category: gap.category,
+      linkedEventIds: gap.linkedEventIds,
+    })),
+  };
 
   const rows = await sqlClient`
     INSERT INTO content.current_affairs_daily_discovery_census (
@@ -257,7 +388,7 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
       ${input.reviewEventCount}, ${input.authoringReadyCount}, ${input.highPriorityUnresolvedCount},
       ${JSON.stringify({ sourceDomains, eventCategories })}::jsonb,
       ${JSON.stringify({ sourceTiers })}::jsonb,
-      ${JSON.stringify({ grades: evidenceGrades })}::jsonb,
+      ${JSON.stringify({ grades: evidenceGrades, highYieldDiscoveryGaps: highYieldGapSnapshot })}::jsonb,
       ${JSON.stringify(evaluation.blockers)}::jsonb,
       ${JSON.stringify(evaluation.warnings)}::jsonb,
       now(), now(), now()
@@ -293,7 +424,7 @@ export async function refreshDailyDiscoveryCensus(targetDate: string) {
     ...input,
     domainSnapshot: { sourceDomains, eventCategories },
     sourceSnapshot: { sourceTiers },
-    evidenceSnapshot: { grades: evidenceGrades },
+    evidenceSnapshot: { grades: evidenceGrades, highYieldDiscoveryGaps: highYieldGapSnapshot },
     blockers: evaluation.blockers,
     warnings: evaluation.warnings,
   };
