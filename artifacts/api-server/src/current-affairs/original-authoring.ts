@@ -210,10 +210,10 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
     const action = readableAction(officialAction);
     return result({
       input,
-      title: `${compact(actionSubject, 118)} — ${compact(actionEntity, 58)}`,
+      title: `${sourceName}: ${compact(actionSubject, 118)}`,
       summary: `On ${humanDate(input.eventDate)}, ${actionEntity} ${lowerFirst(action)} ${actionSubject}.`,
       oneLiner: `${compact(actionSubject, 118)} — ${compact(actionEntity, 58)}`,
-      templateId: "learner_official_action_v2",
+      templateId: "verified_official_action_v1",
       reasons: ["Learner copy states the event directly and anchors it to the Current Affairs date"],
     });
   }
@@ -223,10 +223,10 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
   if (winner && award) {
     return result({
       input,
-      title: `${winner} wins ${award}`,
+      title: `${sourceName}: ${compact(award, 105)} — ${compact(winner, 60)}`,
       summary: `On ${humanDate(input.eventDate)}, ${winner} was recorded as the winner of ${award}.`,
       oneLiner: `${winner} — ${award}`,
-      templateId: "learner_award_result_v2",
+      templateId: "verified_award_result_v1",
       reasons: ["Winner and award are rendered as a direct learner-facing fact"],
     });
   }
@@ -236,10 +236,10 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
   if (launchingEntity && initiative) {
     return result({
       input,
-      title: `${compact(initiative, 118)} launched by ${compact(launchingEntity, 58)}`,
+      title: `${sourceName}: ${compact(initiative, 118)}`,
       summary: `On ${humanDate(input.eventDate)}, ${launchingEntity} launched ${initiative}.`,
       oneLiner: `${initiative} — launched by ${launchingEntity}`,
-      templateId: "learner_initiative_v2",
+      templateId: "verified_initiative_v1",
       reasons: ["Initiative wording is expressed as a direct event rather than extraction metadata"],
     });
   }
@@ -252,7 +252,7 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
   const selected = useful.slice(0, 4);
   const detail = naturalFactDetail(selected);
   const title = subject
-    ? `${compact(subject, 118)} — key ${categoryLabel} development`
+    ? `${sourceName}: ${compact(subject, 118)}`
     : `${sourceName}: key ${categoryLabel} development`;
   const memory = selected.length >= 2
     ? `${compact(selected[0]![1], 85)} · ${compact(selected[1]![1], 85)}`
@@ -262,7 +262,7 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
     title,
     summary: `On ${humanDate(input.eventDate)}, this ${categoryLabel} development was recorded with these key details: ${detail}.`,
     oneLiner: memory,
-    templateId: "learner_generic_fact_graph_v2",
+    templateId: "generic_verified_fact_graph_v1",
     reasons: ["Fallback uses only reconciled atomic facts while avoiding internal extraction terminology"],
   });
 }
@@ -317,7 +317,7 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
       title: `${appointee} appointed ${position}`,
       summary: `On ${humanDate(input.eventDate)}, ${appointee} was appointed ${position}.`,
       oneLiner: `${appointee} — ${position}`,
-      templateId: "appointment_v2",
+      templateId: "appointment_v1",
     });
   }
 
@@ -328,7 +328,7 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
       title: `RBI Financial Inclusion Index stands at ${fiIndex}`,
       summary: `On ${humanDate(input.eventDate)}, the Reserve Bank of India reported its Financial Inclusion Index at ${fiIndex}.`,
       oneLiner: `RBI Financial Inclusion Index — ${fiIndex}`,
-      templateId: "rbi_financial_inclusion_index_v2",
+      templateId: "rbi_financial_inclusion_index_v1",
     });
   }
 
@@ -347,7 +347,7 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
       title: `RBI policy rates: repo rate at ${repo}`,
       summary: `On ${humanDate(input.eventDate)}, the RBI policy-rate snapshot showed ${detail}.`,
       oneLiner: `RBI repo rate — ${repo}`,
-      templateId: "rbi_policy_rates_v2",
+      templateId: "rbi_policy_rates_v1",
     });
   }
 
@@ -358,7 +358,7 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
       title: `MoU between ${mouParties}`,
       summary: `On ${humanDate(input.eventDate)}, a Memorandum of Understanding was recorded between ${mouParties}.`,
       oneLiner: `MoU parties — ${mouParties}`,
-      templateId: "mou_v2",
+      templateId: "mou_v1",
     });
   }
 
@@ -376,7 +376,7 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
       title: `${subject}: key ISRO mission facts`,
       summary: `For ${subject}, the key mission details are ${detail}.`,
       oneLiner: `${subject} — ${detail}`,
-      templateId: "isro_mission_facts_v2",
+      templateId: "isro_mission_facts_v1",
       reasons: ["Subject name is extracted as a factual acronym/entity from source evidence; source wording is not reused"],
     });
   }
@@ -393,7 +393,7 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
       title: `${sourceName} programme: ${outlay} outlay`,
       summary: `On ${humanDate(input.eventDate)}, the programme details included ${detail}.`,
       oneLiner: `${sourceName} programme — ${detail}`,
-      templateId: "programme_outlay_v2",
+      templateId: "programme_outlay_v1",
     });
   }
 
