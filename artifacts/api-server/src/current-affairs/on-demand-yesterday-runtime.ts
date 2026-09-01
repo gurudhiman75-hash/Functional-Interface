@@ -5,6 +5,7 @@ import { onDemandFeedRunKey, runScheduledFeedIngestion, scheduleSlotStart } from
 import { runScheduledIntelligenceProcessing } from "./daily-orchestration";
 import { refreshDailyDiscoveryCensus } from "./daily-discovery-census";
 import { materializeDailyMasterPacks } from "./daily-master-pack";
+import { rejectBroadOnlyLowSignalDiscoveryEvents } from "./discovery-triage-runtime";
 import { reconcilePrimaryEnrichedEvents } from "./enriched-event-reconciliation";
 import { refreshTargetDateExamRelevance } from "./exam-relevance-runtime";
 import { holdManualAuthorityEventsForReview } from "./manual-enrichment-guard";
@@ -129,7 +130,7 @@ async function countTargetDateState(targetDate: string) {
           (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
         )=${targetDate})::int AS "candidateCount",
       (SELECT count(*) FROM content.current_affairs_events event
-        WHERE event.event_date=${targetDate}::date)::int AS "eventCount",
+        WHERE event.event_date=${targetDate}::date AND event.status IN ('review','verified'))::int AS "eventCount",
       (SELECT count(*) FROM content.current_affairs_events event
         WHERE event.event_date=${targetDate}::date AND event.status='verified')::int AS "verifiedEventCount",
       (SELECT count(*) FROM content.current_affairs_events event
@@ -149,22 +150,20 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
   const startedAt = new Date().toISOString();
   const before = await countTargetDateState(targetDate);
 
-  // A manual click gets its own unique run key and never shares the 3-hour cron key.
   const sourceRunKey = onDemandFeedRunKey(now, randomUUID());
   const sourceRefresh = await runScheduledFeedIngestion(now, {
     runKey: sourceRunKey,
     trigger: "on_demand",
   });
 
-  // RSS/latest listings can legitimately omit the previous calendar day.
   const historicalSourceBackfill = await ensurePibHistoricalCandidates(targetDate);
 
-  // Rights-safe broad discovery. CP-043 keeps broad low-signal results in the
-  // discovery accounting while withholding them from clustering unless a targeted
-  // query or sufficient exam signal makes them clustering-eligible.
+  // Rights-safe broad discovery. CP-043 keeps broad low-signal results in discovery
+  // accounting but prevents them from entering clustering unless a targeted query
+  // or sufficient exam signal makes them clustering-eligible.
   const openNewsDiscovery = await runOpenNewsDiscovery(targetDate);
+  const discoveryTriage = await rejectBroadOnlyLowSignalDiscoveryEvents(targetDate);
 
-  // Reclassify bounded official evidence before intelligence.
   const officialCandidatePreparation = await prepareOfficialYesterdayCandidates(targetDate);
 
   const enrichmentPasses: unknown[] = [];
@@ -195,9 +194,6 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
   const recoverySupersede = await supersedeManualRecoverySlot(targetDate, now);
   const recovery = await runCurrentAffairsProductionRecovery({ now, triggerMode: "manual" });
 
-  // CP-043 recomputes product fit for already-authored target-date events. This
-  // separates exam relevance from evidence strength and prevents an official source
-  // from making every event relevant to every exam family.
   const examRelevanceRefresh = await refreshTargetDateExamRelevance(targetDate);
 
   const discoveryCensus = await refreshDailyDiscoveryCensus(targetDate);
@@ -226,6 +222,7 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
     },
     historicalSourceBackfill,
     openNewsDiscovery,
+    discoveryTriage,
     officialCandidatePreparation,
     enrichmentPasses,
     enrichedBeforeIntelligence,
@@ -253,6 +250,7 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
       clusteringEligibleNewsArticles: Number(openNewsDiscovery.eligibleArticles ?? 0),
       withheldBroadLowSignalNewsArticles: Number(openNewsDiscovery.withheldBroadLowSignal ?? 0),
       rejectedLowSignalClusters: Number(openNewsDiscovery.rejectedLowSignalClusters ?? 0),
+      rejectedLowSignalReviewEvents: Number(discoveryTriage.rejectedReviewEvents ?? 0),
       masterPackEventCount: Number((dailyMasterPack as any)?.eventCount ?? 0),
       coverageConfidenceScore: Number((discoveryCensus as any)?.coverageConfidenceScore ?? 0),
       readinessColor: readiness.evaluation.color,
