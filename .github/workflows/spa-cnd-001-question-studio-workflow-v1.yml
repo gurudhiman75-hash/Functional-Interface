@@ -1,0 +1,70 @@
+name: Validate SPA CND-001 Question Studio Workflow V1
+
+on:
+  push:
+    branches:
+      - feat/spa-cnd-001-question-studio-workflow-v1
+    paths:
+      - artifacts/api-server/src/question-studio/shared-generation-engine-sri.ts
+      - artifacts/api-server/src/routes/admin-question-studio-cubes-dice-workflow.ts
+      - artifacts/api-server/src/routes/admin-question-studio-cubes-dice.ts
+      - artifacts/api-server/src/routes/admin-question-studio-registry.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-cubes-dice-question-studio-workflow-v1.test.ts
+      - artifacts/admin-app/src/features/question-studio/api.ts
+      - artifacts/admin-app/src/features/question-studio/cubes-dice-review-api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioLivePage.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
+      - .github/workflows/spa-cnd-001-question-studio-workflow-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cnd-question-studio-workflow:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin Question Studio UI
+        run: pnpm --dir artifacts/admin-app typecheck
+
+      - name: Bundle CND shared workflow proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-cubes-dice-question-studio-workflow-v1.test.ts \
+            --bundle --platform=node --format=cjs \
+            --outfile=dist/reasoning-v1/spatial/spatial-cubes-dice-question-studio-workflow-v1.test.cjs
+
+      - name: Validate shared Question Studio workflow
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-cubes-dice-question-studio-workflow-v1.test.cjs \
+            | tee dist/reasoning-v1/spatial/cnd-001-question-studio-workflow-v1-run.log
+
+      - name: Upload Question Studio workflow evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-cnd-001-question-studio-workflow-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/cnd-001-question-studio-workflow-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/cnd-001-question-studio-workflow-v1-run.log
+          if-no-files-found: error
