@@ -69,12 +69,14 @@ type ExtractionResult = {
   promptVersion: string;
   selectedRetainedEvidenceCount: number;
   selectedReferenceEvidenceCount: number;
+  jobState?: string;
   automaticAcceptance: false;
   automaticCoverageLinking: false;
   automaticSectionGeneration: false;
 };
 
 const MAX_BLOCKS = 40;
+const EXTRACTION_STAGING_STATES = new Set(['sources_ready', 'evidence_ready']);
 
 function prettyState(value: string) {
   return value.split('_').map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(' ');
@@ -180,7 +182,7 @@ export function NotesStudioCandidateClaimsPage() {
       setSelectedBlocks([]);
       showToast.success(
         'Candidate claims extracted',
-        `${result.created} new candidate claims created; ${result.duplicatesSkipped} duplicates skipped. Input used ${result.selectedRetainedEvidenceCount} retained and ${result.selectedReferenceEvidenceCount} reference-evidence block(s). Nothing was accepted automatically.`,
+        `${result.created} new candidate claims created; ${result.duplicatesSkipped} duplicates skipped. Input used ${result.selectedRetainedEvidenceCount} retained and ${result.selectedReferenceEvidenceCount} reference-evidence block(s). Nothing was accepted automatically.${result.jobState === 'evidence_ready' ? ' The job is now in Evidence Ready.' : ''}`,
       );
     } catch (error) {
       showToast.error('Unable to extract candidate claims', error instanceof Error ? error.message : 'Request failed.');
@@ -200,7 +202,8 @@ export function NotesStudioCandidateClaimsPage() {
     }
   };
 
-  const ready = Boolean(selectedJob?.state === 'evidence_ready' && policy?.policy.ready && activeBlocks.length > 0);
+  const stageReady = Boolean(selectedJob && EXTRACTION_STAGING_STATES.has(selectedJob.state));
+  const ready = Boolean(stageReady && policy?.policy.ready && activeBlocks.length > 0);
   const policyGaps = [...(policy?.policy.missing ?? []), ...(policy?.policy.integrity.findings ?? [])];
 
   return <div className="space-y-4">
@@ -238,12 +241,17 @@ export function NotesStudioCandidateClaimsPage() {
         {!ready && selectedJob && <div className="rounded-md border border-warning/30 bg-warning/5 p-3 text-sm">
           <p className="font-medium">Extraction is not ready.</p>
           <p className="text-muted-foreground">
-            {selectedJob.state !== 'evidence_ready'
-              ? 'The job must be in Evidence ready state.'
-              : policyGaps.length > 0
-                ? `Resolve source-policy gaps: ${policyGaps.map((item) => item.label).join(', ')}.`
-                : 'Create retained evidence or reviewed reference evidence first.'}
+            {policyGaps.length > 0
+              ? `Resolve source-policy gaps: ${policyGaps.map((item) => item.label).join(', ')}.`
+              : activeBlocks.length === 0
+                ? 'Create retained evidence or reviewed reference evidence first.'
+                : !stageReady
+                  ? 'Candidate extraction is available only from Sources Ready or Evidence Ready. Finish source/evidence setup or use the governed revision workflow.'
+                  : 'Refresh the workspace after completing the source policy.'}
           </p>
+        </div>}
+        {ready && selectedJob.state === 'sources_ready' && <div className="rounded-md border border-primary/20 bg-primary/[0.03] p-3 text-sm text-muted-foreground">
+          The governed source pack is ready. The first successful candidate-extraction run will move this job into <strong className="text-foreground">Evidence Ready</strong> and freeze source-policy changes for this research cycle.
         </div>}
       </CardContent>
     </Card>
