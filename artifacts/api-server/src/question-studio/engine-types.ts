@@ -17,6 +17,8 @@ export type QuestionStudioPackageDefinition = {
   enabled: boolean;
   cpIds: string[];
   supportedLanguages: QuestionStudioLanguage[];
+  supportedDifficulties?: QuestionStudioDifficulty[];
+  difficultyFilterSupported?: boolean;
   runtimeMode?: string;
   supportedRuntimeModes?: string[];
   dynamicCandidateCpIds?: string[];
@@ -41,7 +43,7 @@ export type QuestionStudioGenerationRequest = {
   engineId?: QuestionStudioEngineId;
   exam?: string;
   subject?: string;
-  difficulty?: QuestionStudioDifficulty | string;
+  difficulty?: QuestionStudioDifficulty | "Mixed" | string;
   count?: number;
   packageId?: string;
   patternId?: string;
