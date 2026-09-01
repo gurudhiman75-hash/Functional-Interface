@@ -6,6 +6,7 @@ import { sqlClient } from '../lib/db';
 import {
   MAX_CLAIM_EXTRACTION_BLOCKS,
   NOTES_CLAIM_EXTRACTION_PROMPT_VERSION,
+  candidateClaimExtractionStateEligible,
   candidateClaimInputFingerprint,
   candidateClaimOutputFingerprint,
   candidateEvidenceBlockEligible,
@@ -69,10 +70,10 @@ async function loadJobAndPolicy(jobId: string) {
   `;
   const job = jobRows[0];
   if (!job) throw new CandidateClaimError('JOB_NOT_FOUND', 'Notes Studio authoring job not found.', 404);
-  if (String(job.state) !== 'evidence_ready') {
+  if (!candidateClaimExtractionStateEligible(job.state)) {
     throw new CandidateClaimError(
       'CANDIDATE_EXTRACTION_NOT_READY',
-      'Candidate claim extraction is available only while the job is in evidence review. Finish source/evidence setup before extraction, or use a successor revision after downstream drafting begins.',
+      'Candidate claim extraction can start from Sources Ready once the governed source policy and reviewed evidence are ready, and then continues only in Evidence Ready. Finish source/evidence setup before extraction, or use a successor revision after downstream drafting begins.',
       409,
     );
   }
@@ -116,7 +117,7 @@ async function loadJobAndPolicy(jobId: string) {
   if (!policy.ready) {
     throw new CandidateClaimError(
       'SOURCE_PACK_POLICY_INCOMPLETE',
-      'The governed source-pack policy is no longer complete. Resolve source policy before extracting candidate claims.',
+      'The governed source-pack policy is not complete. Resolve source policy before extracting candidate claims.',
       409,
     );
   }
@@ -141,6 +142,7 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
     if (!actorUserId) throw new CandidateClaimError('ADMIN_SESSION_REQUIRED', 'Administrator session required.', 403);
     const jobId = uuid(req.params.jobId, 'Authoring job ID');
     const { job, policy } = await loadJobAndPolicy(jobId);
+    const stagedFromSourcesReady = String(job.state) === 'sources_ready';
 
     const rawBlockIds = Array.isArray(req.body?.blockIds) ? req.body.blockIds : [];
     const blockIds = [...new Set(rawBlockIds.map((value: unknown) => uuid(value, 'Evidence block ID')))];
@@ -239,6 +241,22 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
           `;
         }
       }
+
+      if (stagedFromSourcesReady) {
+        const transitioned = await tx`
+          UPDATE content.note_authoring_jobs
+          SET state = 'evidence_ready', updated_by = ${actorUserId}::uuid, updated_at = now()
+          WHERE id = ${jobId}::uuid AND state = 'sources_ready'
+          RETURNING id::text AS id
+        `;
+        if (!transitioned[0]) {
+          throw new CandidateClaimError(
+            'CANDIDATE_EXTRACTION_STATE_CHANGED',
+            'The authoring job changed state while candidate claims were being extracted. Refresh the workspace and try again.',
+            409,
+          );
+        }
+      }
     });
 
     const selectedReferenceEvidenceCount = input.blocks.filter((block) => block.evidenceKind === 'editor_reference_note').length;
@@ -258,6 +276,8 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
       generatedClaimCount: generated.extraction.claims.length,
       createdClaimCount: created,
       duplicateClaimCount: duplicatesSkipped,
+      stagedFromSourcesReady,
+      resultingJobState: stagedFromSourcesReady ? 'evidence_ready' : String(job.state),
       boundedEvidenceBlocksSent: true,
       publisherTextAssumedForReferenceNotes: false,
       fullSourceDocumentsSent: false,
@@ -279,6 +299,7 @@ router.post('/jobs/:jobId/candidate-claims/extract', requireAdminPermission('con
       outputFingerprint,
       selectedRetainedEvidenceCount,
       selectedReferenceEvidenceCount,
+      jobState: stagedFromSourcesReady ? 'evidence_ready' : String(job.state),
       boundedEvidenceBlocksSent: true,
       fullSourceDocumentsSent: false,
       automaticAcceptance: false,
