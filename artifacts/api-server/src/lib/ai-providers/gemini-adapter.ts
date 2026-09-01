@@ -15,6 +15,26 @@ function isGemini3Model(model: string) {
   return /^gemini-3(?:\.|-|$)/i.test(model);
 }
 
+export function buildGeminiGenerationConfig(input: {
+  model: string;
+  temperature?: number;
+  responseSchema?: Record<string, unknown>;
+}) {
+  const generationConfig: Record<string, unknown> = {};
+  if (!isGemini3Model(input.model)) {
+    generationConfig.temperature = input.temperature ?? 0;
+  }
+  if (input.responseSchema) {
+    generationConfig.responseMimeType = "application/json";
+    // Gemini's REST API has two distinct schema fields. responseSchema expects
+    // the narrower protobuf/OpenAPI Schema shape, while responseJsonSchema
+    // accepts JSON Schema features used by Notes Studio such as
+    // additionalProperties and union type arrays.
+    generationConfig.responseJsonSchema = input.responseSchema;
+  }
+  return generationConfig;
+}
+
 export const geminiProvider: AIProviderAdapter = {
   name: "gemini",
   defaultModel:
@@ -47,17 +67,11 @@ export const geminiProvider: AIProviderAdapter = {
       request.timeoutMs ?? 60_000,
     );
 
-    const generationConfig: Record<string, unknown> = {};
-    if (!isGemini3Model(model)) {
-      generationConfig.temperature =
-        request.temperature ?? 0;
-    }
-    if (request.responseSchema) {
-      generationConfig.responseMimeType =
-        "application/json";
-      generationConfig.responseSchema =
-        request.responseSchema;
-    }
+    const generationConfig = buildGeminiGenerationConfig({
+      model,
+      temperature: request.temperature,
+      responseSchema: request.responseSchema,
+    });
 
     try {
       const response = await fetch(endpoint, {
