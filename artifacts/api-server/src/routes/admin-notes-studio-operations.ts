@@ -8,6 +8,11 @@ import {
   assessNotesStudioProductionReadiness,
   inspectNotesStudioSchema,
 } from '../notes-studio/production-readiness';
+import {
+  notesStudioAIConfigured,
+  resolveNotesStudioAIProvider,
+  resolveNotesStudioModel,
+} from '../notes-studio/shared-ai-provider';
 
 const router: IRouter = Router();
 
@@ -16,12 +21,17 @@ router.use(authenticate);
 router.get('/operations/readiness', requireAdminPermission('content.questions.read'), async (_req, res) => {
   try {
     const schema = await inspectNotesStudioSchema(sqlClient);
+    const provider = resolveNotesStudioAIProvider();
+    const providerConfigured = notesStudioAIConfigured(provider);
+    const sectionModel = resolveNotesStudioModel(provider, ['NOTES_STUDIO_SECTION_MODEL', 'NOTES_STUDIO_MODEL']);
+    const localizationModel = resolveNotesStudioModel(provider, ['NOTES_STUDIO_LOCALIZATION_MODEL', 'NOTES_STUDIO_MODEL']);
     const modelConfiguration = {
-      sectionModelConfigured: Boolean(String(process.env.NOTES_STUDIO_MODEL ?? '').trim()),
-      sectionModel: String(process.env.NOTES_STUDIO_MODEL ?? '').trim() || null,
-      localizationModelConfigured: Boolean(String(process.env.NOTES_STUDIO_LOCALIZATION_MODEL ?? '').trim()),
-      localizationModel: String(process.env.NOTES_STUDIO_LOCALIZATION_MODEL ?? '').trim() || null,
-      modelApiKeyConfigured: Boolean(String(process.env.NOTES_STUDIO_OPENAI_API_KEY ?? process.env.OPENAI_API_KEY ?? '').trim()),
+      provider,
+      sectionModelConfigured: providerConfigured && Boolean(sectionModel),
+      sectionModel: sectionModel || null,
+      localizationModelConfigured: providerConfigured && Boolean(localizationModel),
+      localizationModel: localizationModel || null,
+      modelApiKeyConfigured: providerConfigured,
     };
 
     let stateCounts: Array<Record<string, unknown>> = [];
@@ -57,8 +67,7 @@ router.get('/operations/readiness', requireAdminPermission('content.questions.re
           LIMIT 20
         `,
         sqlClient`
-          SELECT run.id::text AS id, run.job_id::text AS "jobId", job.title AS "jobTitle",
-                 section.title AS "sectionTitle", run.fail_count AS "failCount",
+          SELECT run.id::text AS id, run.job_id::text AS "jobId", job.title AS "jobTitle", section.title AS "sectionTitle", run.fail_count AS "failCount",
                  run.warning_count AS "warningCount", run.created_at AS "createdAt"
           FROM content.note_quality_runs run
           JOIN content.note_authoring_jobs job ON job.id = run.job_id

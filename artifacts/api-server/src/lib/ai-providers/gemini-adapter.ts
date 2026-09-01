@@ -11,12 +11,16 @@ function getGeminiApiKey() {
   );
 }
 
+function isGemini3Model(model: string) {
+  return /^gemini-3(?:\.|-|$)/i.test(model);
+}
+
 export const geminiProvider: AIProviderAdapter = {
   name: "gemini",
   defaultModel:
     process.env[
       "GEMINI_KNOWLEDGE_EXTRACTION_MODEL"
-    ] ?? "gemini-1.5-flash",
+    ] ?? "gemini-3.7-flash",
   isConfigured() {
     return Boolean(getGeminiApiKey());
   },
@@ -34,7 +38,7 @@ export const geminiProvider: AIProviderAdapter = {
     const endpoint = `${
       process.env["GEMINI_BASE_URL"] ??
       "https://generativelanguage.googleapis.com/v1beta"
-    }/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(getGeminiApiKey() ?? "")}`;
+    }/models/${encodeURIComponent(model)}:generateContent`;
 
     const controller =
       new AbortController();
@@ -43,12 +47,26 @@ export const geminiProvider: AIProviderAdapter = {
       request.timeoutMs ?? 60_000,
     );
 
+    const generationConfig: Record<string, unknown> = {};
+    if (!isGemini3Model(model)) {
+      generationConfig.temperature =
+        request.temperature ?? 0;
+    }
+    if (request.responseSchema) {
+      generationConfig.responseMimeType =
+        "application/json";
+      generationConfig.responseSchema =
+        request.responseSchema;
+    }
+
     try {
       const response = await fetch(endpoint, {
         method: "POST",
         signal: controller.signal,
         headers: {
           "Content-Type": "application/json",
+          "x-goog-api-key":
+            getGeminiApiKey() ?? "",
         },
         body: JSON.stringify({
           contents: [
@@ -67,12 +85,9 @@ export const geminiProvider: AIProviderAdapter = {
               ],
             },
           ],
-          generationConfig: {
-            temperature:
-              request.temperature ?? 0,
-            responseMimeType:
-              "application/json",
-          },
+          ...(Object.keys(generationConfig).length > 0
+            ? { generationConfig }
+            : {}),
         }),
       });
 
@@ -125,4 +140,3 @@ export const geminiProvider: AIProviderAdapter = {
 };
 
 export const geminiEmptyUsage = emptyUsage;
-
