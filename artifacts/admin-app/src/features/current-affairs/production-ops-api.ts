@@ -1,4 +1,8 @@
+import { getFirebaseAuth } from '@/integrations/firebase';
 import { adminRequest } from '@/lib/admin-request';
+
+const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
+const apiBase = (configuredBase || '/api').replace(/\/$/, '');
 
 export type CurrentAffairsProductionReadiness = {
   targetDate: string;
@@ -215,6 +219,14 @@ export type GenerateYesterdayCurrentAffairsResult = {
   automaticStudentPublication: false;
 };
 
+export type CurrentAffairsMasterPackArtifact = 'text' | 'pdf';
+
+export type CurrentAffairsMasterPackDownload = {
+  filename: string;
+  bytes: number;
+  contentType: string;
+};
+
 export function getCurrentAffairsProductionReadiness() {
   return adminRequest<CurrentAffairsProductionReadiness>('/admin/current-affairs/production/readiness');
 }
@@ -231,6 +243,66 @@ export function getCurrentAffairsDailyMasterPack(date?: string) {
 
 export function currentAffairsDailyMasterTextPath(date: string) {
   return `/api/admin/current-affairs/production/master-pack/text?date=${encodeURIComponent(date)}`;
+}
+
+export function currentAffairsDailyMasterPdfPath(date: string) {
+  return `/api/admin/current-affairs/production/master-pack/pdf?date=${encodeURIComponent(date)}`;
+}
+
+function artifactEndpoint(date: string, artifact: CurrentAffairsMasterPackArtifact) {
+  return `${apiBase}/admin/current-affairs/production/master-pack/${artifact}?date=${encodeURIComponent(date)}`;
+}
+
+function fallbackArtifactFilename(date: string, artifact: CurrentAffairsMasterPackArtifact) {
+  return `examtree-current-affairs-${date}.${artifact === 'pdf' ? 'pdf' : 'md'}`;
+}
+
+function dispositionFilename(disposition: string | null, fallback: string) {
+  if (!disposition) return fallback;
+  const utf8 = disposition.match(/filename\*=UTF-8''([^;]+)/i)?.[1];
+  if (utf8) {
+    try { return decodeURIComponent(utf8.replace(/^"|"$/g, '')); } catch { return utf8; }
+  }
+  return disposition.match(/filename="([^"]+)"/i)?.[1]
+    ?? disposition.match(/filename=([^;]+)/i)?.[1]?.trim()
+    ?? fallback;
+}
+
+export async function downloadCurrentAffairsMasterPackArtifact(
+  date: string,
+  artifact: CurrentAffairsMasterPackArtifact,
+): Promise<CurrentAffairsMasterPackDownload> {
+  const user = getFirebaseAuth()?.currentUser;
+  if (!user) throw new Error('Your ExamTree admin session has expired. Sign in again.');
+
+  const response = await fetch(artifactEndpoint(date, artifact), {
+    headers: { Authorization: `Bearer ${await user.getIdToken()}` },
+  });
+  if (!response.ok) {
+    const body = await response.json().catch(() => null) as { error?: string } | null;
+    throw new Error(body?.error || `Current Affairs ${artifact.toUpperCase()} download failed (${response.status}).`);
+  }
+
+  const blob = await response.blob();
+  const filename = dispositionFilename(
+    response.headers.get('Content-Disposition'),
+    fallbackArtifactFilename(date, artifact),
+  );
+  const objectUrl = URL.createObjectURL(blob);
+  const anchor = document.createElement('a');
+  anchor.href = objectUrl;
+  anchor.download = filename;
+  anchor.rel = 'noopener';
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  window.setTimeout(() => URL.revokeObjectURL(objectUrl), 0);
+
+  return {
+    filename,
+    bytes: blob.size,
+    contentType: blob.type || response.headers.get('Content-Type') || 'application/octet-stream',
+  };
 }
 
 export function getCurrentAffairsRecoveryRuns() {

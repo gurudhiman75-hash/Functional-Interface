@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Activity, AlertTriangle, CheckCircle2, Clock3, ExternalLink, Loader2, Newspaper, Play, RefreshCw, RotateCcw, ShieldCheck } from 'lucide-react';
+import { Activity, AlertTriangle, CheckCircle2, Clock3, Download, ExternalLink, Loader2, Newspaper, Play, RefreshCw, RotateCcw, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { PageHeader } from '@/components/shared/PageHeader';
@@ -8,12 +8,16 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
+  downloadCurrentAffairsMasterPackArtifact,
   generateYesterdayCurrentAffairs,
+  getCurrentAffairsDailyMasterPack,
   getCurrentAffairsProductionReadiness,
   getCurrentAffairsRecoveryRuns,
   runCurrentAffairsProductionRecovery,
+  type CurrentAffairsMasterPackArtifact,
   type CurrentAffairsProductionReadiness,
   type CurrentAffairsRecoveryRuns,
+  type DailyMasterPack,
   type GenerateYesterdayCurrentAffairsResult,
 } from '@/features/current-affairs/production-ops-api';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
@@ -23,6 +27,12 @@ function fmt(value: string | null | undefined) {
   if (!value) return 'Not observed';
   const date = new Date(value);
   return Number.isNaN(date.getTime()) ? value : date.toLocaleString();
+}
+
+function fmtBytes(value: number) {
+  if (value < 1024) return `${value} B`;
+  if (value < 1024 * 1024) return `${(value / 1024).toFixed(1)} KB`;
+  return `${(value / (1024 * 1024)).toFixed(1)} MB`;
 }
 
 function titleCase(value: string | null | undefined) {
@@ -46,21 +56,25 @@ export function CurrentAffairsProductionReadinessPage() {
   const canRun = hasPermission('jobs.manage');
   const [readiness, setReadiness] = useState<CurrentAffairsProductionReadiness | null>(null);
   const [runs, setRuns] = useState<CurrentAffairsRecoveryRuns | null>(null);
+  const [masterPack, setMasterPack] = useState<DailyMasterPack | null>(null);
   const [lastGeneration, setLastGeneration] = useState<GenerateYesterdayCurrentAffairsResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [recovering, setRecovering] = useState(false);
+  const [downloading, setDownloading] = useState<CurrentAffairsMasterPackArtifact | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
     setLoading(true);
     try {
-      const [nextReadiness, nextRuns] = await Promise.all([
+      const [nextReadiness, nextRuns, nextMasterPack] = await Promise.all([
         getCurrentAffairsProductionReadiness(),
         getCurrentAffairsRecoveryRuns(),
+        getCurrentAffairsDailyMasterPack(),
       ]);
       setReadiness(nextReadiness);
       setRuns(nextRuns);
+      setMasterPack(nextMasterPack.masterPack);
       setError(null);
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'Unable to load Current Affairs readiness.');
@@ -112,6 +126,25 @@ export function CurrentAffairsProductionReadinessPage() {
     }
   };
 
+  const downloadMasterPack = async (artifact: CurrentAffairsMasterPackArtifact) => {
+    if (!readiness || !masterPack) return;
+    setDownloading(artifact);
+    try {
+      const result = await downloadCurrentAffairsMasterPackArtifact(readiness.targetDate, artifact);
+      showToast.success(
+        artifact === 'pdf' ? 'Current Affairs PDF downloaded' : 'Current Affairs text downloaded',
+        `${result.filename} · ${fmtBytes(result.bytes)} · canonical master pack ${masterPack.publicCode}.`,
+      );
+    } catch (caught) {
+      showToast.error(
+        artifact === 'pdf' ? 'PDF download failed' : 'Text download failed',
+        caught instanceof Error ? caught.message : `Unable to download Current Affairs ${artifact}.`,
+      );
+    } finally {
+      setDownloading(null);
+    }
+  };
+
   if (loading && !readiness) {
     return <div className="flex min-h-[360px] items-center justify-center gap-2 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" />Loading Current Affairs production state…</div>;
   }
@@ -132,10 +165,23 @@ export function CurrentAffairsProductionReadinessPage() {
       />
 
       <Card className="border-primary/30 bg-primary/5">
-        <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between"><div><p className="font-semibold">Yesterday should exist on demand.</p><p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">Generate Yesterday Now refreshes official sources, reclassifies safe primary-source stories that were stranded as uncategorized, enriches primary facts, reruns clustering and strict verification, and materializes missing SSC, Banking and Punjab EN/HI/PA drafts plus BANK_ONLY review questions. Trusted-news sources are discovery-only and never replace official verification.</p></div><Button variant="outline" asChild><Link to="/content/learning-resources">Open Learning Resources</Link></Button></CardContent>
+        <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between"><div><p className="font-semibold">Yesterday should exist on demand.</p><p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">Generate Yesterday Now refreshes official sources, performs exact-day historical recovery and broad rights-safe discovery, enriches primary facts, reruns clustering and strict verification, and materializes missing SSC, Banking and Punjab EN/HI/PA drafts plus BANK_ONLY review questions. Trusted-news sources remain discovery-only and never replace official verification.</p></div><Button variant="outline" asChild><Link to="/content/learning-resources">Open Learning Resources</Link></Button></CardContent>
       </Card>
 
-      {generating ? <Card><CardContent className="flex items-center gap-3 p-5 text-sm"><Loader2 className="h-5 w-5 animate-spin text-primary" /><div><p className="font-medium">Generating {readiness.targetDate}…</p><p className="text-muted-foreground">Official sources → safe classification → facts → verification → notes → translations → review questions.</p></div></CardContent></Card> : null}
+      <Card className={masterPack ? 'border-primary/25' : 'border-warning/30'}>
+        <CardHeader><CardTitle className="flex flex-wrap items-center justify-between gap-2 text-base"><span>Canonical Daily Master Pack · {readiness.targetDate}</span>{masterPack ? <Badge variant="outline">{masterPack.status}</Badge> : <Badge variant="outline" className="border-warning/30 text-warning">not materialized</Badge>}</CardTitle></CardHeader>
+        <CardContent className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="space-y-1 text-sm">
+            {masterPack ? <><p><span className="font-semibold">{masterPack.eventCount}</span> verified exam-relevant events · <span className="font-semibold">{masterPack.categoryCount}</span> sections · {masterPack.language.toUpperCase()}</p><p className="text-muted-foreground">{masterPack.publicCode} · generated {fmt(masterPack.generatedAt)}. Markdown and PDF render from this same stored payload.</p></> : <p className="text-warning">No canonical master pack exists yet. Run Generate Yesterday Now after source discovery and verification complete.</p>}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Button variant="outline" onClick={() => void downloadMasterPack('text')} disabled={!masterPack || downloading !== null}>{downloading === 'text' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}Download Markdown</Button>
+            <Button onClick={() => void downloadMasterPack('pdf')} disabled={!masterPack || downloading !== null}>{downloading === 'pdf' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}Download PDF</Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {generating ? <Card><CardContent className="flex items-center gap-3 p-5 text-sm"><Loader2 className="h-5 w-5 animate-spin text-primary" /><div><p className="font-medium">Generating {readiness.targetDate}…</p><p className="text-muted-foreground">Official sources → historical backfill → open-news discovery → facts → verification → notes → translations → review questions → canonical master pack.</p></div></CardContent></Card> : null}
 
       {lastGeneration ? <Card className={lastGeneration.summary.allEnglishDraftsPresent ? 'border-success/30' : 'border-warning/30'}><CardHeader><CardTitle className="text-base">Last on-demand result · {lastGeneration.targetDate}</CardTitle></CardHeader><CardContent className="space-y-4"><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5"><Metric label="Candidates" value={lastGeneration.after.candidateCount} /><Metric label="Verified events" value={lastGeneration.summary.verifiedEvents} /><Metric label="Needs review" value={lastGeneration.summary.reviewEvents} /><Metric label="English packs" value={`${lastGeneration.summary.englishDraftCount}/3`} /><Metric label="HI + PA packs" value={`${lastGeneration.summary.localizedDraftCount}/6`} /></div>{lastGeneration.officialCandidatePreparation ? <p className="text-xs text-muted-foreground">Official reclassification: {lastGeneration.officialCandidatePreparation.candidateUpdated} candidate(s), {lastGeneration.officialCandidatePreparation.clusterUpdated} open cluster(s) updated before intelligence.</p> : null}{lastGeneration.summary.blockers.length > 0 ? <p className="text-sm text-warning">{lastGeneration.summary.blockers[0]}</p> : null}</CardContent></Card> : null}
 
