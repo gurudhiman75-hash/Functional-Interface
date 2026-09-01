@@ -77,6 +77,58 @@ assert.equal(punjabScores.find((score) => score.examFamily === "punjab")?.includ
 assert.equal(punjabScores.find((score) => score.examFamily === "banking")?.includeRecommended, false);
 assert.equal(punjabScores.find((score) => score.examFamily === "ssc")?.includeRecommended, false);
 
+function familyRecommended(title: string, category: EventCandidateInput["category"], family: "ssc" | "banking" | "punjab") {
+  const result = scoreExamRelevance({
+    ...baseCandidate,
+    title,
+    category,
+    sourceKey: category === "economy_banking" ? "rbi" : "pib",
+    sourceUrl: category === "economy_banking" ? "https://www.rbi.org.in/example" : "https://www.pib.gov.in/example",
+  });
+  return result.find((score) => score.examFamily === family)?.includeRecommended ?? false;
+}
+
+// CP-045 regression set from the real 31-Aug-2026 master-pack audit.
+const greenForge = "Union Minister inaugurates first of its kind Green Forge Complex at National Agri-food & Biomanufacturing Institute Mohali";
+assert.equal(familyRecommended(greenForge, "national", "ssc"), true);
+assert.equal(familyRecommended(greenForge, "national", "punjab"), true, "Mohali must create explicit Punjab fit");
+assert.equal(familyRecommended(greenForge, "national", "banking"), false, "official national stories must not inherit Banking relevance");
+
+const fisheries = "Union Minister to launch fisheries infrastructure projects worth Rs 36.49 Crore";
+assert.equal(familyRecommended(fisheries, "national", "ssc"), true);
+assert.equal(familyRecommended(fisheries, "national", "banking"), false);
+assert.equal(familyRecommended(fisheries, "national", "punjab"), false);
+
+const cenjowsLecture = "Raksha Rajya Mantri to inaugurate second Annual Trident Lecture of CENJOWS";
+assert.equal(familyRecommended(cenjowsLecture, "defence", "ssc"), false, "routine lecture notices should not consume the daily pack");
+assert.equal(familyRecommended(cenjowsLecture, "defence", "banking"), false);
+assert.equal(familyRecommended(cenjowsLecture, "defence", "punjab"), false);
+
+const cpgrams = "51st Monthly Report on CPGRAMS for Central Ministries Departments performance for July 2026";
+assert.equal(familyRecommended(cpgrams, "reports_indices", "ssc"), false, "recurring administrative monthly reports require a substantive result signal");
+assert.equal(familyRecommended(cpgrams, "reports_indices", "banking"), false);
+assert.equal(familyRecommended(cpgrams, "reports_indices", "punjab"), false);
+
+const vrrr = "7-day Variable Rate Reverse Repo (VRRR) auction under LAF on September 01, 2026";
+assert.equal(familyRecommended(vrrr, "economy_banking", "banking"), false, "recurring liquidity-operation notices should not crowd the learner pack");
+assert.equal(familyRecommended(vrrr, "economy_banking", "ssc"), false);
+
+const gdp = "Quarterly Estimates of Gross Domestic Product for the First Quarter of 2026-27 record 7.8% growth";
+assert.equal(familyRecommended(gdp, "economy_banking", "banking"), true);
+assert.equal(familyRecommended(gdp, "economy_banking", "ssc"), true);
+
+const upi = "NIPL agreement expands UPI merchant acceptance in Uzbekistan";
+assert.equal(familyRecommended(upi, "economy_banking", "banking"), true);
+assert.equal(familyRecommended(upi, "economy_banking", "ssc"), true);
+
+const insNipun = "INS Nipun commissioned into the Indian Navy as the second Nistar-class Diving Support Vessel";
+assert.equal(familyRecommended(insNipun, "defence", "ssc"), true);
+assert.equal(familyRecommended(insNipun, "defence", "banking"), false);
+
+const census2027 = "First phase of Census 2027 completed in Tamil Nadu";
+assert.equal(familyRecommended(census2027, "national", "ssc"), true);
+assert.equal(familyRecommended(census2027, "national", "banking"), false);
+
 const primaryDecision = canAutoVerify({
   evidence: [{ isPrimaryEvidence: true, trustScore: 0.95 }],
   factConfidences: [0.95, 0.94],
@@ -101,4 +153,4 @@ assert.match(markdown, /## Key facts/);
 assert.match(markdown, /\*\*Organisation:\*\* Example Authority/);
 assert.match(markdown, /## Why it matters for exams/);
 
-console.log("Current Affairs Studio core + CP-043 relevance contracts passed");
+console.log("Current Affairs Studio core + CP-045 editorial-priority relevance contracts passed");
