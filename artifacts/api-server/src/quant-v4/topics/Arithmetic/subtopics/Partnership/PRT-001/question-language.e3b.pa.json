@@ -1,0 +1,13 @@
+{
+  "language": "pa",
+  "status": "E3_EXPANSION_B",
+  "entries": {
+    "PRT-QL-064": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਸਕਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਸੀ। ਵੰਡ ਤੋਂ ਪਹਿਲਾਂ {partnerA} ਨੂੰ ਕਿੰਨੀ ਨਿਰਧਾਰਤ ਤਨਖਾਹ ਮਿਲਣੀ ਚਾਹੀਦੀ ਹੈ ਤਾਂ ਜੋ ਦੋਹਾਂ ਦੀਆਂ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀਆਂ ਬਰਾਬਰ ਹੋਣ?",
+    "PRT-QL-065": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ ਇਸਨੂੰ {finalCapitalA} ਕਰ ਦਿੱਤਾ। {partnerB}, {joinAfterB} ਬਾਅਦ ਅਣਜਾਣ ਪੂੰਜੀ ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ। ਵੰਡ ਤੋਂ ਪਹਿਲਾਂ {partnerA} ਨੂੰ {salary} ਤਨਖਾਹ ਵੀ ਮਿਲੀ। ਜੇ ਉਨ੍ਹਾਂ ਦੀਆਂ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀਆਂ {finalReceiptA} ਅਤੇ {finalReceiptB} ਸਨ, ਤਾਂ {partnerB} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+    "PRT-QL-066": "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕੋ ਮਿਆਦ ਲਈ ਨਿਵੇਸ਼ ਕੀਤਾ। {partnerB} ਨੇ {capitalB} ਲਗਾਏ ਅਤੇ ਉਨ੍ਹਾਂ ਦਾ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ। {partnerA} ਦੀ ਪੂੰਜੀ ਕੱਢੋ।",
+    "PRT-QL-067": "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਨੇ {capitalA}, {durationA} ਲਈ ਅਤੇ {partnerB} ਨੇ {capitalB}, {durationB} ਲਈ ਲਗਾਏ। ਜੇ {partnerA} ਦਾ ਮੁਨਾਫ਼ਾ-ਹਿੱਸਾ {knownShare} ਸੀ, ਤਾਂ ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+    "PRT-QL-068": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ ਸ਼ੁਰੂ ਤੋਂ {capitalA} ਲਗਾਏ। {partnerB} ਬਾਅਦ ਵਿੱਚ {capitalB} ਨਾਲ ਸ਼ਾਮਲ ਹੋਇਆ। ਜੇ ਕੁੱਲ ਮੁਨਾਫ਼ਾ {totalProfit} ਅਤੇ {partnerB} ਦਾ ਹਿੱਸਾ {knownShare} ਸੀ, ਤਾਂ {partnerB} ਕਿੰਨੇ ਮਹੀਨੇ ਬਾਅਦ ਸ਼ਾਮਲ ਹੋਇਆ?",
+    "PRT-QL-069": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਨੇ {initialCapitalA} ਨਾਲ ਸ਼ੁਰੂਆਤ ਕੀਤੀ ਅਤੇ {changeMonthA} ਬਾਅਦ ਕੁਝ ਪੂੰਜੀ ਕੱਢ ਲਈ। {partnerB} ਨੇ ਪੂਰਾ ਸਾਲ {capitalB} ਲਗਾਏ ਰੱਖੇ। ਜੇ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਸੀ, ਤਾਂ {partnerA} ਨੇ ਕਿੰਨੀ ਪੂੰਜੀ ਕੱਢੀ?",
+    "PRT-QL-070": "ਇੱਕ {business} ਵਿੱਚ {partnerA}, {partnerB} ਅਤੇ {partnerC} ਨੇ {capitalA}, {capitalB} ਅਤੇ {capitalC}, ਕ੍ਰਮਵਾਰ {durationA}, {durationB} ਅਤੇ {durationC} ਲਈ ਲਗਾਏ। {partnerA} ਅਤੇ {partnerB} ਦੇ ਮੁਨਾਫ਼ਾ-ਹਿੱਸਿਆਂ ਦਾ ਫਰਕ {shareDifference} ਸੀ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।"
+  }
+}

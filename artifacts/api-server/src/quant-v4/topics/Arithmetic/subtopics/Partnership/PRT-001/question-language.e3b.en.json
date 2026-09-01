@@ -1,0 +1,13 @@
+{
+  "language": "en",
+  "status": "E3_EXPANSION_B",
+  "entries": {
+    "PRT-QL-064": "In a one-year {business}, {partnerA} and {partnerB} invested {capitalA} and {capitalB} for equal periods. The gross profit was {totalProfit}. What fixed salary should {partnerA} receive before distribution so that their final receipts are equal?",
+    "PRT-QL-065": "In a one-year {business}, {partnerA} started with {initialCapitalA} and changed it to {finalCapitalA} after {changeMonthA}. {partnerB} joined after {joinAfterB} with an unknown capital. {partnerA} also received a salary of {salary} before distribution. If their final receipts were {finalReceiptA} and {finalReceiptB}, find {partnerB}'s capital.",
+    "PRT-QL-066": "In a {business}, {partnerA} and {partnerB} invested for the same period. {partnerB} invested {capitalB}, and their profit ratio was {profitRatioA}:{profitRatioB}. Find {partnerA}'s capital.",
+    "PRT-QL-067": "In a {business}, {partnerA} invested {capitalA} for {durationA}, while {partnerB} invested {capitalB} for {durationB}. If {partnerA}'s profit share was {knownShare}, find the total profit.",
+    "PRT-QL-068": "In a one-year {business}, {partnerA} invested {capitalA} from the beginning. {partnerB} joined later with {capitalB}. If total profit was {totalProfit} and {partnerB}'s share was {knownShare}, after how many months did {partnerB} join?",
+    "PRT-QL-069": "In a one-year {business}, {partnerA} started with {initialCapitalA} and withdrew some capital after {changeMonthA}. {partnerB} kept {capitalB} invested throughout. If their profit ratio was {profitRatioA}:{profitRatioB}, how much capital did {partnerA} withdraw?",
+    "PRT-QL-070": "In a {business}, {partnerA}, {partnerB} and {partnerC} invested {capitalA}, {capitalB} and {capitalC} for {durationA}, {durationB} and {durationC}. The difference between {partnerA}'s and {partnerB}'s profit shares was {shareDifference}. Find the total profit."
+  }
+}

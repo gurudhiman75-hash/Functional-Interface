@@ -1,0 +1,13 @@
+{
+  "language": "hi",
+  "status": "E3_EXPANSION_B",
+  "entries": {
+    "PRT-QL-064": "एक वर्ष के {business} में {partnerA} और {partnerB} ने समान अवधि के लिए {capitalA} और {capitalB} लगाए। सकल लाभ {totalProfit} था। वितरण से पहले {partnerA} को कितना निश्चित वेतन मिलना चाहिए ताकि दोनों की अंतिम प्राप्तियाँ बराबर हों?",
+    "PRT-QL-065": "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} से शुरुआत की और {changeMonthA} बाद इसे {finalCapitalA} कर दिया। {partnerB}, {joinAfterB} बाद अज्ञात पूंजी के साथ शामिल हुआ। वितरण से पहले {partnerA} को {salary} वेतन भी मिला। यदि उनकी अंतिम प्राप्तियाँ {finalReceiptA} और {finalReceiptB} थीं, तो {partnerB} की पूंजी ज्ञात कीजिए।",
+    "PRT-QL-066": "एक {business} में {partnerA} और {partnerB} ने समान अवधि के लिए निवेश किया। {partnerB} ने {capitalB} लगाए और उनका लाभ अनुपात {profitRatioA}:{profitRatioB} था। {partnerA} की पूंजी ज्ञात कीजिए।",
+    "PRT-QL-067": "एक {business} में {partnerA} ने {capitalA}, {durationA} के लिए और {partnerB} ने {capitalB}, {durationB} के लिए लगाए। यदि {partnerA} का लाभांश {knownShare} था, तो कुल लाभ ज्ञात कीजिए।",
+    "PRT-QL-068": "एक वर्ष के {business} में {partnerA} ने शुरुआत से {capitalA} लगाए। {partnerB} बाद में {capitalB} के साथ शामिल हुआ। यदि कुल लाभ {totalProfit} और {partnerB} का हिस्सा {knownShare} था, तो {partnerB} कितने महीने बाद शामिल हुआ?",
+    "PRT-QL-069": "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} से शुरुआत की और {changeMonthA} बाद कुछ पूंजी निकाल ली। {partnerB} ने पूरे वर्ष {capitalB} लगाए रखे। यदि लाभ अनुपात {profitRatioA}:{profitRatioB} था, तो {partnerA} ने कितनी पूंजी निकाली?",
+    "PRT-QL-070": "एक {business} में {partnerA}, {partnerB} और {partnerC} ने {capitalA}, {capitalB} और {capitalC}, क्रमशः {durationA}, {durationB} और {durationC} के लिए लगाए। {partnerA} और {partnerB} के लाभांशों का अंतर {shareDifference} था। कुल लाभ ज्ञात कीजिए।"
+  }
+}

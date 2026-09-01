@@ -2,6 +2,7 @@ import {
   ZERO,
   compareRational,
   divideRational,
+  formatRational,
   multiplyRational,
   normalizeRatio,
   rational,
@@ -26,7 +27,9 @@ function formatCandidate(
 ): string {
   return parameters.entry.answerType === "DURATION"
     ? formatPrt001Duration(value, parameters.language)
-    : formatPrt001Money(value);
+    : parameters.entry.answerType === "PERCENT"
+      ? `${formatRational(value)}%`
+      : formatPrt001Money(value);
 }
 
 function addRatioCandidate(

@@ -7,9 +7,17 @@ import questionLanguageE1PaSource from "../question-language.e1.pa.json" assert 
 import questionLanguageE2Source from "../question-language.e2.en.json" assert { type: "json" };
 import questionLanguageE2HiSource from "../question-language.e2.hi.json" assert { type: "json" };
 import questionLanguageE2PaSource from "../question-language.e2.pa.json" assert { type: "json" };
+import questionLanguageE3ASource from "../question-language.e3a.en.json" assert { type: "json" };
+import questionLanguageE3AHiSource from "../question-language.e3a.hi.json" assert { type: "json" };
+import questionLanguageE3APaSource from "../question-language.e3a.pa.json" assert { type: "json" };
+import questionLanguageE3BSource from "../question-language.e3b.en.json" assert { type: "json" };
+import questionLanguageE3BHiSource from "../question-language.e3b.hi.json" assert { type: "json" };
+import questionLanguageE3BPaSource from "../question-language.e3b.pa.json" assert { type: "json" };
 import taskRegistrySource from "../task-registry.library.json" assert { type: "json" };
 import taskRegistryE1Source from "../task-registry.e1.library.json" assert { type: "json" };
 import taskRegistryE2Source from "../task-registry.e2.library.json" assert { type: "json" };
+import taskRegistryE3ASource from "../task-registry.e3.library.json" assert { type: "json" };
+import taskRegistryE3BSource from "../task-registry.e3b.library.json" assert { type: "json" };
 import type { Prt001Language, Prt001TaskRegistryEntry } from "./types";
 
 interface QuestionLanguageSource {
@@ -47,16 +55,22 @@ const questionLanguages = {
     questionLanguageSource as QuestionLanguageSource,
     questionLanguageE1Source as QuestionLanguageSource,
     questionLanguageE2Source as QuestionLanguageSource,
+    questionLanguageE3ASource as QuestionLanguageSource,
+    questionLanguageE3BSource as QuestionLanguageSource,
   ),
   hi: mergeQuestionLanguages(
     questionLanguageHiSource as QuestionLanguageSource,
     questionLanguageE1HiSource as QuestionLanguageSource,
     questionLanguageE2HiSource as QuestionLanguageSource,
+    questionLanguageE3AHiSource as QuestionLanguageSource,
+    questionLanguageE3BHiSource as QuestionLanguageSource,
   ),
   pa: mergeQuestionLanguages(
     questionLanguagePaSource as QuestionLanguageSource,
     questionLanguageE1PaSource as QuestionLanguageSource,
     questionLanguageE2PaSource as QuestionLanguageSource,
+    questionLanguageE3APaSource as QuestionLanguageSource,
+    questionLanguageE3BPaSource as QuestionLanguageSource,
   ),
 };
 
@@ -64,6 +78,8 @@ const registries = [
   taskRegistrySource as TaskRegistrySource,
   taskRegistryE1Source as TaskRegistrySource,
   taskRegistryE2Source as TaskRegistrySource,
+  taskRegistryE3ASource as TaskRegistrySource,
+  taskRegistryE3BSource as TaskRegistrySource,
 ];
 const [baseTaskRegistry, ...overlayRegistries] = registries;
 if (!baseTaskRegistry) throw new Error("PRT-001 base task registry is missing");
