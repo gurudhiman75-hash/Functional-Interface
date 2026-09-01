@@ -26,12 +26,14 @@ import { auditPrt001E10EnglishEditorial } from "./foundation/e10-english-editori
 import { auditPrt001E11LocalizedEditorial } from "./foundation/e11-localized-editorial-auditor";
 import { auditPrt001E13SourceOwnership } from "./foundation/e13-source-ownership-auditor";
 import { PRT_001_CP_IDS } from "./foundation/types";
+import { auditPrt001E13CrossChapterOwnership } from "./prt-001-e13-cross-chapter-ownership-audit";
 
 const reports = [
   auditPrt001Coverage(),
   auditPrt001ContextRealism(),
   auditPrt001E8SourceRealness(),
   auditPrt001E13SourceOwnership(),
+  auditPrt001E13CrossChapterOwnership(),
   auditPrt001E10EnglishEditorial(),
   auditPrt001E11LocalizedEditorial(),
   auditPrt001ChapterStemSkeletonDepth(),
