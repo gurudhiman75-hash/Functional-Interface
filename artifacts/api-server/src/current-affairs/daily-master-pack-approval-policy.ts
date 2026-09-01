@@ -2,6 +2,7 @@ export type DailyMasterPackApprovalLanguage = "en" | "hi" | "pa";
 
 export type DailyMasterPackApprovalManifest = {
   language: DailyMasterPackApprovalLanguage;
+  payloadLanguage: string;
   status: string;
   resourceStatus: string;
   declaredEventCount: number;
@@ -83,14 +84,15 @@ export function evaluateDailyMasterPackApprovalReadiness(
   const payloadIntegrity = hasAllLanguages
     && [english!, hindi!, punjabi!].every((pack) => {
       const ids = normalizedByLanguage.get(pack.language) ?? [];
-      return ids.length > 0
+      return pack.payloadLanguage === pack.language
+        && ids.length > 0
         && pack.payloadEventIds.length === ids.length
         && pack.declaredEventCount === ids.length
         && pack.declaredCategoryCount === pack.payloadCategoryCount
         && pack.payloadCategoryCount > 0;
     });
   if (hasAllLanguages && !payloadIntegrity) {
-    blockers.push("Each canonical master-pack payload must have unique events and matching declared event/category counts");
+    blockers.push("Each canonical master-pack payload must match its language, contain unique events, and match declared event/category counts");
   }
 
   const englishIds = normalizedByLanguage.get("en") ?? [];
