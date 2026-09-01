@@ -105,7 +105,7 @@ export function runPrt001PilotPipeline(input: { questionLanguageId?: string; see
             : isE1
               ? independentlySolvePrt001E1Task(parameters, verification)
               : independentlySolvePrt001Task(parameters, verification);
-  const stem = renderPrt001Template(getPrt001QuestionTemplate(questionLanguageId, language), parameters.renderVariables);
+  const stem = renderPrt001Template(getPrt001QuestionTemplate(questionLanguageId, language, seed), parameters.renderVariables);
   const explanationLines = isE5
     ? renderPrt001E5Explanation({ parameters, solution, answer: taskAnswer })
     : isE4

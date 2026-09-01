@@ -1,0 +1,86 @@
+{
+  "language": "en",
+  "status": "HUMAN_AUTHORED_E6_STEM_DIVERSITY",
+  "entries": {
+    "PRT-QL-013": [
+      "A one-year {business} was started by {partnerA} with {capitalA}. After {joinAfter}, {partnerB} entered with {capitalB}. What was their profit-sharing ratio?",
+      "{partnerA} kept {capitalA} invested throughout a year in a {business}, whereas {partnerB} brought in {capitalB} only after {joinAfter}. Determine the ratio in which they should share profit."
+    ],
+    "PRT-QL-014": [
+      "In a one-year {business}, {partnerA} put in {capitalA} but withdrew from the business after {leaveAfter}. {partnerB} kept {capitalB} invested for the whole year. From total profit {totalProfit}, how much did {targetPartner} receive?",
+      "{partnerB} remained in a {business} for the full year with {capitalB}. {partnerA}, who had invested {capitalA}, left after {leaveAfter}. If the business earned {totalProfit}, find {targetPartner}'s profit share."
+    ],
+    "PRT-QL-015": [
+      "{partnerA} had {capitalA} invested throughout a year in a {business}. {partnerB} joined later with {capitalB}, and their profit ratio became {profitRatioA}:{profitRatioB}. Find how many months after the start {partnerB} joined.",
+      "A {business} ran for one year. {partnerA} invested {capitalA} from day one, while {partnerB} entered later with {capitalB}. If their profit shares were in the ratio {profitRatioA}:{profitRatioB}, after how many months did {partnerB} enter?"
+    ],
+    "PRT-QL-016": [
+      "{partnerA} started a one-year {business} with {capitalA}. {partnerB} came in after {joinAfterB} with {capitalB}, and {partnerC} after {joinAfterC} with {capitalC}. Find the ratio of their profit shares.",
+      "During a one-year {business}, {partnerA} invested {capitalA} from the beginning; {partnerB} joined after {joinAfterB} investing {capitalB}; and {partnerC} joined after {joinAfterC} investing {capitalC}. Determine their profit ratio."
+    ],
+    "PRT-QL-017": [
+      "In a one-year {business}, {partnerA} first invested {initialCapitalA} and increased the investment by {addedCapital} after {changeMonth}. {partnerB} kept {capitalB} invested throughout. Find their profit-sharing ratio.",
+      "{partnerB} maintained {capitalB} for the full year in a {business}. {partnerA} began with {initialCapitalA} and added {addedCapital} after {changeMonth}. In what ratio should the profit be divided?"
+    ],
+    "PRT-QL-018": [
+      "A one-year {business} had {partnerA} investing {initialCapitalA}; after {changeMonth}, {partnerA} withdrew {withdrawnCapital}. {partnerB} kept {capitalB} throughout. If total profit was {totalProfit}, calculate {targetPartner}'s share.",
+      "{partnerB} invested {capitalB} for the full year in a {business}. {partnerA} started with {initialCapitalA} but took out {withdrawnCapital} after {changeMonth}. The profit was {totalProfit}. How much profit went to {targetPartner}?"
+    ],
+    "PRT-QL-019": [
+      "{partnerA} started a one-year {business} with {initialCapitalA} and increased the capital by an unknown amount after {changeMonth}. {partnerB} kept {capitalB} for the whole year. If the profit ratio was {profitRatioA}:{profitRatioB}, find the amount added by {partnerA}.",
+      "In a {business}, {partnerB} invested {capitalB} throughout the year. {partnerA} began with {initialCapitalA} and added some capital after {changeMonth}. Their profits were divided in the ratio {profitRatioA}:{profitRatioB}. How much extra capital did {partnerA} add?"
+    ],
+    "PRT-QL-020": [
+      "In a one-year {business}, {partnerA}'s capital changed from {initialCapitalA} to {finalCapitalA} at some point, while {partnerB} kept {capitalB} invested throughout. Their profit shares were equal. After how many months was {partnerA}'s capital changed?",
+      "{partnerB} kept {capitalB} in a {business} for the entire year. {partnerA} began with {initialCapitalA} and later made the capital {finalCapitalA}. If both partners earned equal profit, determine the month of the change."
+    ],
+    "PRT-QL-021": [
+      "{partnerA}, {partnerB}, and {partnerC} invested in a {business}: {capitalA} for {durationA}, {capitalB} for {durationB}, and {capitalC} for {durationC}. Determine their profit-sharing ratio.",
+      "A {business} had three partners. {partnerA}'s investment was {capitalA} for {durationA}; {partnerB}'s was {capitalB} for {durationB}; and {partnerC}'s was {capitalC} for {durationC}. In what ratio should profit be shared?"
+    ],
+    "PRT-QL-022": [
+      "In a {business}, {partnerA} invested {capitalA} for {durationA}, {partnerB} invested {capitalB} for {durationB}, and {partnerC} invested {capitalC} for {durationC}. If the total profit was {totalProfit}, what was {targetPartner}'s share?",
+      "A profit of {totalProfit} was earned by a {business}. The investments were {capitalA} for {durationA} by {partnerA}, {capitalB} for {durationB} by {partnerB}, and {capitalC} for {durationC} by {partnerC}. Find the amount received by {targetPartner}."
+    ],
+    "PRT-QL-023": [
+      "In a {business}, {partnerA} invested {capitalA} for {durationA} and {partnerB} invested {capitalB} for {durationB}. {partnerC} invested an unknown amount for {durationC}. If the profit ratio was {profitRatioA}:{profitRatioB}:{profitRatioC}, determine {partnerC}'s capital.",
+      "The profit ratio of {partnerA}, {partnerB}, and {partnerC} in a {business} was {profitRatioA}:{profitRatioB}:{profitRatioC}. {partnerA} had {capitalA} for {durationA}, {partnerB} had {capitalB} for {durationB}, and {partnerC} invested for {durationC}. Find {partnerC}'s investment."
+    ],
+    "PRT-QL-024": [
+      "{partnerA}, {partnerB}, and {partnerC} invested {capitalA} for {durationA}, {capitalB} for {durationB}, and {capitalC} for {durationC} in a {business}. If {targetPartner} received {knownShare}, determine the total profit.",
+      "In a {business}, the investments were {capitalA} for {durationA} by {partnerA}, {capitalB} for {durationB} by {partnerB}, and {capitalC} for {durationC} by {partnerC}. {targetPartner}'s profit share was {knownShare}. What was the total profit?"
+    ],
+    "PRT-QL-025": [
+      "{partnerA} and {partnerB} invested {capitalA} and {capitalB} for equal periods in a {business}. Before the remaining profit is shared, {partnerA} is paid a salary of {salary}. If gross profit was {totalProfit}, calculate {partnerA}'s final receipt.",
+      "A {business} earned gross profit of {totalProfit}. {partnerA} and {partnerB} had equal investment periods with capitals {capitalA} and {capitalB}. {partnerA} first receives {salary} as salary, and the balance is shared. Find {partnerA}'s total receipt."
+    ],
+    "PRT-QL-026": [
+      "In a {business}, {partnerA} and {partnerB} invested {capitalA} and {capitalB} for the same period. {partnerA} first gets a commission of {commissionPercent}% of gross profit. If gross profit was {totalProfit}, find {partnerB}'s share from the remaining profit.",
+      "Gross profit of a {business} was {totalProfit}. {partnerA} and {partnerB} invested {capitalA} and {capitalB} for equal periods. A {commissionPercent}% commission on gross profit is paid to {partnerA} before distribution. How much does {partnerB} receive?"
+    ],
+    "PRT-QL-027": [
+      "{partnerA} and {partnerB} put {capitalA} and {capitalB} into a {business} for equal periods. The gross profit was {totalProfit}, from which {deduction} was donated before sharing. Find {targetPartner}'s profit share.",
+      "A {business} earned {totalProfit} gross profit. After donating {deduction}, the balance was divided between {partnerA} and {partnerB}, whose equal-period investments were {capitalA} and {capitalB}. How much did {targetPartner} get?"
+    ],
+    "PRT-QL-028": [
+      "In a {business}, {partnerA} and {partnerB} invested {capitalA} and {capitalB} for equal periods. {partnerA} receives an unknown salary before the balance is shared. If gross profit was {totalProfit} and {partnerA}'s final receipt was {finalReceipt}, find the salary.",
+      "The gross profit of a {business} was {totalProfit}. {partnerA} and {partnerB} invested {capitalA} and {capitalB} for the same period. After receiving a salary first, {partnerA}'s total receipt became {finalReceipt}. Determine that salary."
+    ],
+    "PRT-QL-029": [
+      "During a one-year {business}, {partnerA} began with {initialCapitalA} and added {addedCapital} after {changeMonth}. {partnerB} entered after {joinAfter} with {capitalB}. If profit was {totalProfit}, calculate {targetPartner}'s share.",
+      "A one-year {business} had {partnerA} investing {initialCapitalA} from the start and adding {addedCapital} after {changeMonth}; {partnerB} joined after {joinAfter} with {capitalB}. From profit {totalProfit}, how much did {targetPartner} receive?"
+    ],
+    "PRT-QL-030": [
+      "{partnerA} started a {business} with {initialCapitalA}, added {addedCapital} after {changeMonth}, and is paid a salary of {salary} before profit distribution. {partnerB} kept {capitalB} invested throughout. If gross profit was {totalProfit}, find {partnerA}'s total receipt.",
+      "In a {business}, {partnerB} maintained {capitalB} throughout the year. {partnerA} began with {initialCapitalA}, increased it by {addedCapital} after {changeMonth}, and first receives salary {salary}. For gross profit {totalProfit}, calculate {partnerA}'s final receipt."
+    ],
+    "PRT-QL-031": [
+      "In a one-year {business}, {partnerA} started with {capitalA}; {partnerB} joined after {joinAfterB} with {capitalB}; and {partnerC} joined after {joinAfterC} with {capitalC}. If total profit was {totalProfit}, find {targetPartner}'s share.",
+      "A {business} ran for one year. {partnerA} invested {capitalA} from the beginning, {partnerB} entered after {joinAfterB} with {capitalB}, and {partnerC} entered after {joinAfterC} with {capitalC}. From profit {totalProfit}, how much did {targetPartner} get?"
+    ],
+    "PRT-QL-032": [
+      "{partnerA} invested {capitalA} from the start of a one-year {business}; {partnerB} entered later with {capitalB}. Before distribution, {deduction} was deducted from gross profit {totalProfit}. If {partnerB}'s share was {knownShare}, after how many months did {partnerB} join?",
+      "A one-year {business} earned gross profit {totalProfit}. {partnerA} had {capitalA} invested from the beginning, while {partnerB} joined later with {capitalB}. After a prior deduction of {deduction}, {partnerB} received {knownShare}. Find the joining time of {partnerB}."
+    ]
+  }
+}

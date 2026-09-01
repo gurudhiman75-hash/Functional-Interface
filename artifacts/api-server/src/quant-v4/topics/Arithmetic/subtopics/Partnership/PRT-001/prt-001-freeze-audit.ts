@@ -11,11 +11,19 @@ import {
   auditPrt001Multilingual,
   auditPrt001OptionQuality,
 } from "./foundation/coverage-auditor";
+import {
+  auditPrt001AdvancedStemSkeletonDiversity,
+  auditPrt001BaselineAdvancedMathDiversity,
+  auditPrt001ObjectPoolDepth,
+} from "./foundation/e6-production-diversity-auditor";
 import { PRT_001_CP_IDS } from "./foundation/types";
 
 const reports = [
   auditPrt001Coverage(),
   auditPrt001ContextRealism(),
+  auditPrt001BaselineAdvancedMathDiversity(),
+  auditPrt001AdvancedStemSkeletonDiversity(),
+  auditPrt001ObjectPoolDepth(),
   auditPrt001E1MathDiversity(),
   auditPrt001E2MathDiversity(),
   auditPrt001E3MathDiversity(),
@@ -45,5 +53,5 @@ for (const cpId of PRT_001_CP_IDS) {
   }
 }
 
-reports.push({ audit: "question-studio-integration", cases: studioCases, metrics: { canonicalProblems: 7, languages: 3, expansionWave: "E5" } });
-console.log(JSON.stringify({ packageId: "PRT-001", status: "PASS", reports }, null, 2));
+reports.push({ audit: "question-studio-integration", cases: studioCases, metrics: { canonicalProblems: 7, languages: 3, productionWave: "E6" } });
+console.log(JSON.stringify({ packageId: "PRT-001", status: "PASS", productionWave: "E6", reports }, null, 2));
