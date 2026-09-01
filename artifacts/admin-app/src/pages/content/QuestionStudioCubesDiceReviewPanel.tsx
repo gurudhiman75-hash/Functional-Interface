@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Boxes, CheckCircle2, Database, Eye, Loader2, LockKeyhole } from 'lucide-react';
+import { Boxes, CheckCircle2, Database, Eye, Loader2, LockKeyhole, Rocket } from 'lucide-react';
 
 import { showToast } from '@/components/shared/toast';
 import { Badge } from '@/components/ui/badge';
@@ -88,6 +88,7 @@ function QuestionCard({ question }: { question: CubesDiceReviewQuestion }) {
             <CheckCircle2 className="h-3 w-3" /> Solver-backed
           </Badge>
           <Badge variant="outline" className="gap-1"><Database className="h-3 w-3" /> Bank after approval</Badge>
+          <Badge variant="outline" className="gap-1"><Rocket className="h-3 w-3" /> Test Builder eligible</Badge>
         </div>
         <p className="text-sm font-semibold">{question.qlName}</p>
         <p className="text-xs text-muted-foreground">{question.taskKind} · {question.contentFingerprint}</p>
@@ -197,7 +198,7 @@ export function QuestionStudioCubesDiceReviewPanel() {
       await refreshStatus();
       showToast.success(
         'Cubes & Dice review run created',
-        `${result.publicCode} contains ${result.itemCount} item(s). Manual approval can move them into Question Bank; tests and publication remain locked.`,
+        `${result.publicCode} contains ${result.itemCount} item(s). Manual approval can move them into Question Bank; the approved question can then be published to Test Builder. Mock-test and student release remain locked.`,
       );
     } catch (error) {
       showToast.error('Run creation failed', error instanceof Error ? error.message : 'Unable to create the CND-001 review run.');
@@ -215,18 +216,18 @@ export function QuestionStudioCubesDiceReviewPanel() {
           </CardTitle>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline">5 permanent QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
-            <Badge variant="outline" className="gap-1"><Database className="h-3 w-3" /> Internal Bank-only active</Badge>
+            <Badge variant="outline" className="gap-1"><Rocket className="h-3 w-3" /> Internal Test Builder active</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Generate solver-backed dice, cube-net, painted-cube, unit-cube-stack and orthographic-view questions with the approved detailed-solution format. Review runs now use the standard Question Studio queue; manually approved items may enter Question Bank.
+          Generate solver-backed dice, cube-net, painted-cube, unit-cube-stack and orthographic-view questions with the approved detailed-solution format. Review runs use the standard Question Studio queue; approved items may enter Question Bank and then be manually published to Test Builder.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="rounded-lg border border-warning/30 bg-background/70 p-3 text-sm">
-          <div className="flex items-center gap-2 font-medium"><LockKeyhole className="h-4 w-4" /> Downstream boundary remains closed</div>
+          <div className="flex items-center gap-2 font-medium"><LockKeyhole className="h-4 w-4" /> Student-release boundary remains closed</div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            Question Studio persistence and Question Bank acceptance are enabled. Every item still requires manual approval. CND-001 remains ineligible for Test Builder/mock tests and cannot be publicly published or automatically released to students.
+            Question Studio persistence, Question Bank conversion and manual publication to Test Builder are enabled. Every generated item still requires manual approval, and the Question Bank record still requires an explicit Publish to Test Builder action. Mock-test eligibility, student delivery and automatic student publication remain disabled.
           </p>
         </div>
 
