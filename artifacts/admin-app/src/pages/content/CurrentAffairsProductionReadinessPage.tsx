@@ -7,6 +7,7 @@ import { showToast } from '@/components/shared/toast';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { CurrentAffairsMasterPackApprovalCard } from '@/features/current-affairs/CurrentAffairsMasterPackApprovalCard';
 import {
   downloadCurrentAffairsMasterPackArtifact,
   generateYesterdayCurrentAffairs,
@@ -214,6 +215,8 @@ export function CurrentAffairsProductionReadinessPage() {
           </div>
         </CardContent>
       </Card>
+
+      <CurrentAffairsMasterPackApprovalCard targetDate={readiness.targetDate} />
 
       {generating ? <Card><CardContent className="flex items-center gap-3 p-5 text-sm"><Loader2 className="h-5 w-5 animate-spin text-primary" /><div><p className="font-medium">Generating {readiness.targetDate}…</p><p className="text-muted-foreground">Official sources → historical backfill → open-news discovery → facts → verification → notes → translations → review questions → EN/HI/PA parity-locked canonical master packs.</p></div></CardContent></Card> : null}
 
