@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Activity, AlertTriangle, CheckCircle2, Clock3, Download, ExternalLink, Loader2, Newspaper, Play, RefreshCw, RotateCcw, ShieldCheck } from 'lucide-react';
+import { Activity, AlertTriangle, CalendarDays, CheckCircle2, Clock3, Download, ExternalLink, Loader2, Newspaper, Play, RefreshCw, RotateCcw, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { PageHeader } from '@/components/shared/PageHeader';
@@ -7,7 +7,9 @@ import { showToast } from '@/components/shared/toast';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { CurrentAffairsMasterPackApprovalCard } from '@/features/current-affairs/CurrentAffairsMasterPackApprovalCard';
+import { generateHistoricalCurrentAffairs } from '@/features/current-affairs/historical-replay-api';
 import {
   downloadCurrentAffairsMasterPackArtifact,
   generateYesterdayCurrentAffairs,
@@ -18,6 +20,7 @@ import {
   type CurrentAffairsMasterPackArtifact,
   type CurrentAffairsProductionReadiness,
   type CurrentAffairsRecoveryRuns,
+  type DailyMasterPack,
   type DailyMasterPackLanguage,
   type DailyMasterPackSet,
   type GenerateYesterdayCurrentAffairsResult,
@@ -63,6 +66,29 @@ function ReadyMark({ ok }: { ok: boolean }) {
     : <AlertTriangle className="h-4 w-4 text-warning" />;
 }
 
+function shiftDate(value: string, days: number) {
+  const date = new Date(`${value}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + days);
+  return date.toISOString().slice(0, 10);
+}
+
+function masterPackSignature(pack: DailyMasterPack | null) {
+  if (!pack) return null;
+  return JSON.stringify({
+    eventCount: pack.eventCount,
+    categoryCount: pack.categoryCount,
+    bodyMarkdown: pack.bodyMarkdown,
+    payload: pack.payload,
+  });
+}
+
+function replayChange(before: DailyMasterPack | null, after: DailyMasterPack | null) {
+  if (!before && !after) return 'withheld';
+  if (!before && after) return 'new';
+  if (before && !after) return 'withheld';
+  return masterPackSignature(before) === masterPackSignature(after) ? 'unchanged' : 'changed';
+}
+
 export function CurrentAffairsProductionReadinessPage() {
   const { hasPermission } = useAdminPermissions();
   const canRun = hasPermission('jobs.manage');
@@ -71,6 +97,10 @@ export function CurrentAffairsProductionReadinessPage() {
   const [masterPacks, setMasterPacks] = useState<DailyMasterPackSet>(emptyMasterPacks);
   const [selectedMasterLanguage, setSelectedMasterLanguage] = useState<DailyMasterPackLanguage>('en');
   const [lastGeneration, setLastGeneration] = useState<GenerateYesterdayCurrentAffairsResult | null>(null);
+  const [historicalDate, setHistoricalDate] = useState('');
+  const [historicalTargetDate, setHistoricalTargetDate] = useState<string | null>(null);
+  const [historicalBefore, setHistoricalBefore] = useState<DailyMasterPackSet | null>(null);
+  const [historicalAfter, setHistoricalAfter] = useState<DailyMasterPackSet | null>(null);
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [recovering, setRecovering] = useState(false);
@@ -97,6 +127,9 @@ export function CurrentAffairsProductionReadinessPage() {
   }, []);
 
   useEffect(() => { void refresh(); }, [refresh]);
+  useEffect(() => {
+    if (readiness && !historicalDate) setHistoricalDate(readiness.targetDate);
+  }, [historicalDate, readiness]);
 
   const generateYesterday = async () => {
     setGenerating(true);
@@ -126,6 +159,35 @@ export function CurrentAffairsProductionReadinessPage() {
     }
   };
 
+  const replayHistorical = async () => {
+    if (!historicalDate) return;
+    setGenerating(true);
+    try {
+      const before = await getCurrentAffairsDailyMasterPacks(historicalDate);
+      setHistoricalBefore(before.masterPacks);
+      setHistoricalAfter(null);
+      setHistoricalTargetDate(historicalDate);
+
+      const result = await generateHistoricalCurrentAffairs(historicalDate);
+      const after = await getCurrentAffairsDailyMasterPacks(result.targetDate);
+      setLastGeneration(result);
+      setHistoricalTargetDate(result.targetDate);
+      setHistoricalAfter(after.masterPacks);
+
+      const changed = MASTER_PACK_LANGUAGES.filter(({ code }) => replayChange(before.masterPacks[code], after.masterPacks[code]) === 'changed').length;
+      const created = MASTER_PACK_LANGUAGES.filter(({ code }) => replayChange(before.masterPacks[code], after.masterPacks[code]) === 'new').length;
+      showToast.success(
+        `Historical replay complete · ${result.targetDate}`,
+        `${result.summary.verifiedEvents} verified events · ${changed} canonical pack(s) changed · ${created} newly materialized. Review before approval.`,
+      );
+      await refresh();
+    } catch (caught) {
+      showToast.error('Historical replay failed', caught instanceof Error ? caught.message : 'Unable to replay the selected Current Affairs date.');
+    } finally {
+      setGenerating(false);
+    }
+  };
+
   const recover = async () => {
     setRecovering(true);
     try {
@@ -139,21 +201,20 @@ export function CurrentAffairsProductionReadinessPage() {
     }
   };
 
-  const downloadMasterPack = async (artifact: CurrentAffairsMasterPackArtifact) => {
-    if (!readiness) return;
-    const masterPack = masterPacks[selectedMasterLanguage];
-    if (!masterPack) return;
-    const downloadKey = `${selectedMasterLanguage}:${artifact}`;
+  const downloadPack = async (
+    date: string,
+    artifact: CurrentAffairsMasterPackArtifact,
+    language: DailyMasterPackLanguage,
+    pack: DailyMasterPack | null,
+  ) => {
+    if (!pack) return;
+    const downloadKey = `${date}:${language}:${artifact}`;
     setDownloading(downloadKey);
     try {
-      const result = await downloadCurrentAffairsMasterPackArtifact(
-        readiness.targetDate,
-        artifact,
-        selectedMasterLanguage,
-      );
+      const result = await downloadCurrentAffairsMasterPackArtifact(date, artifact, language);
       showToast.success(
         artifact === 'pdf' ? 'Current Affairs PDF downloaded' : 'Current Affairs text downloaded',
-        `${result.filename} · ${fmtBytes(result.bytes)} · canonical master pack ${masterPack.publicCode}.`,
+        `${result.filename} · ${fmtBytes(result.bytes)} · canonical master pack ${pack.publicCode}.`,
       );
     } catch (caught) {
       showToast.error(
@@ -163,6 +224,16 @@ export function CurrentAffairsProductionReadinessPage() {
     } finally {
       setDownloading(null);
     }
+  };
+
+  const downloadMasterPack = async (artifact: CurrentAffairsMasterPackArtifact) => {
+    if (!readiness) return;
+    await downloadPack(readiness.targetDate, artifact, selectedMasterLanguage, masterPacks[selectedMasterLanguage]);
+  };
+
+  const downloadHistoricalPack = async (artifact: CurrentAffairsMasterPackArtifact) => {
+    if (!historicalTargetDate || !historicalAfter) return;
+    await downloadPack(historicalTargetDate, artifact, selectedMasterLanguage, historicalAfter[selectedMasterLanguage]);
   };
 
   if (loading && !readiness) {
@@ -177,6 +248,8 @@ export function CurrentAffairsProductionReadinessPage() {
   const inventory = readiness.targetInventory;
   const masterPack = masterPacks[selectedMasterLanguage];
   const materializedMasterPackCount = Object.values(masterPacks).filter(Boolean).length;
+  const historicalMinDate = shiftDate(readiness.targetDate, -30);
+  const historicalSelectedPack = historicalAfter?.[selectedMasterLanguage] ?? null;
   return (
     <div className="space-y-5">
       <PageHeader
@@ -189,6 +262,24 @@ export function CurrentAffairsProductionReadinessPage() {
       <Card className="border-primary/30 bg-primary/5">
         <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between"><div><p className="font-semibold">Yesterday should exist on demand.</p><p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">Generate Yesterday Now refreshes official sources, performs exact-day historical recovery and broad rights-safe discovery, enriches primary facts, reruns clustering and strict verification, and materializes SSC, Banking and Punjab EN/HI/PA drafts plus parity-locked canonical daily master packs. Trusted-news sources remain discovery-only and never replace official verification.</p></div><Button variant="outline" asChild><Link to="/content/learning-resources">Open Learning Resources</Link></Button></CardContent>
       </Card>
+
+      {canRun ? <Card className="border-primary/30">
+        <CardHeader><CardTitle className="flex items-center gap-2 text-base"><CalendarDays className="h-4 w-4" />Historical replay · governed date selection</CardTitle></CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-end">
+            <div className="w-full max-w-xs space-y-1.5"><label htmlFor="ca-historical-date" className="text-sm font-medium">Target date</label><Input id="ca-historical-date" type="date" min={historicalMinDate} max={readiness.targetDate} value={historicalDate} onChange={(event) => setHistoricalDate(event.target.value)} disabled={generating || recovering} /><p className="text-xs text-muted-foreground">Past India calendar dates only · bounded to the previous 31 days.</p></div>
+            <Button onClick={() => void replayHistorical()} disabled={!historicalDate || generating || recovering}>{generating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <RotateCcw className="mr-2 h-4 w-4" />}Replay selected date</Button>
+          </div>
+          <p className="text-sm text-muted-foreground">The replay snapshots the canonical EN/HI/PA packs before generation, runs the same strict source → verification → authoring → localization path for the selected day, then compares the stored canonical outputs after generation. It does not publish learners or promote questions.</p>
+          {historicalTargetDate && historicalBefore && historicalAfter ? <div className="space-y-3 rounded-lg border p-4">
+            <div className="flex flex-wrap items-center justify-between gap-2"><div><p className="font-semibold">Replay comparison · {historicalTargetDate}</p><p className="text-xs text-muted-foreground">Review changes before using the separate editorial approval control.</p></div><div className="flex flex-wrap gap-2">{MASTER_PACK_LANGUAGES.map((language) => <Button key={language.code} size="sm" variant={selectedMasterLanguage === language.code ? 'default' : 'outline'} onClick={() => setSelectedMasterLanguage(language.code)}>{language.label}</Button>)}</div></div>
+            <div className="grid gap-3 md:grid-cols-3">{MASTER_PACK_LANGUAGES.map((language) => { const before = historicalBefore[language.code]; const after = historicalAfter[language.code]; const change = replayChange(before, after); return <div key={language.code} className="rounded-lg border p-3 text-sm"><div className="flex items-center justify-between gap-2"><span className="font-medium">{language.label}</span><Badge variant="outline" className={change === 'changed' || change === 'new' ? 'border-warning/30 bg-warning/10 text-warning' : change === 'unchanged' ? 'border-success/30 bg-success/10 text-success' : ''}>{change}</Badge></div><p className="mt-2 text-xs text-muted-foreground">Before: {before ? `${before.eventCount} events · ${fmt(before.generatedAt)}` : 'not materialized'}</p><p className="mt-1 text-xs text-muted-foreground">After: {after ? `${after.eventCount} events · ${fmt(after.generatedAt)}` : 'withheld'}</p></div>; })}</div>
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t pt-3"><p className="text-xs text-muted-foreground">Selected output: {historicalSelectedPack ? `${historicalSelectedPack.publicCode} · ${historicalSelectedPack.eventCount} events` : 'withheld'}</p><div className="flex gap-2"><Button size="sm" variant="outline" onClick={() => void downloadHistoricalPack('text')} disabled={!historicalSelectedPack || downloading !== null}>{downloading === `${historicalTargetDate}:${selectedMasterLanguage}:text` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}Markdown</Button><Button size="sm" onClick={() => void downloadHistoricalPack('pdf')} disabled={!historicalSelectedPack || downloading !== null}>{downloading === `${historicalTargetDate}:${selectedMasterLanguage}:pdf` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}PDF</Button></div></div>
+          </div> : null}
+        </CardContent>
+      </Card> : null}
+
+      {historicalTargetDate && historicalTargetDate !== readiness.targetDate && historicalAfter ? <CurrentAffairsMasterPackApprovalCard targetDate={historicalTargetDate} /> : null}
 
       <Card className={masterPacks.en ? 'border-primary/25' : 'border-warning/30'}>
         <CardHeader>
@@ -209,8 +300,8 @@ export function CurrentAffairsProductionReadinessPage() {
               {masterPack ? <><p><span className="font-semibold">{masterPack.eventCount}</span> verified exam-relevant events · <span className="font-semibold">{masterPack.categoryCount}</span> sections · {masterPack.language.toUpperCase()}</p><p className="text-muted-foreground">{masterPack.publicCode} · generated {fmt(masterPack.generatedAt)}. The localized packs are created only when their event IDs exactly match the English canonical set.</p><p className="text-xs text-muted-foreground">Markdown and PDF render from this same stored payload. Hindi/Punjabi PDF rendering uses pinned Noto fonts that are checksum-verified at build/runtime and checked against every required Devanagari/Gurmukhi glyph before rendering.</p></> : <p className="text-warning">{selectedMasterLanguage === 'en' ? 'No English canonical master pack exists yet. Run Generate Yesterday Now after source discovery and verification complete.' : `${selectedMasterLanguage === 'hi' ? 'Hindi' : 'Punjabi'} master pack is withheld until every English canonical event has an accepted matching localization. Run localization recovery, then Generate Yesterday Now again.`}</p>}
             </div>
             <div className="flex flex-wrap gap-2">
-              <Button variant="outline" onClick={() => void downloadMasterPack('text')} disabled={!masterPack || downloading !== null}>{downloading === `${selectedMasterLanguage}:text` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}Download Markdown</Button>
-              <Button onClick={() => void downloadMasterPack('pdf')} disabled={!masterPack || downloading !== null} title="Localized PDFs fail closed if the pinned server font or a required glyph is unavailable.">{downloading === `${selectedMasterLanguage}:pdf` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}Download PDF</Button>
+              <Button variant="outline" onClick={() => void downloadMasterPack('text')} disabled={!masterPack || downloading !== null}>{downloading === `${readiness.targetDate}:${selectedMasterLanguage}:text` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}Download Markdown</Button>
+              <Button onClick={() => void downloadMasterPack('pdf')} disabled={!masterPack || downloading !== null} title="Localized PDFs fail closed if the pinned server font or a required glyph is unavailable.">{downloading === `${readiness.targetDate}:${selectedMasterLanguage}:pdf` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}Download PDF</Button>
             </div>
           </div>
         </CardContent>
@@ -218,7 +309,7 @@ export function CurrentAffairsProductionReadinessPage() {
 
       <CurrentAffairsMasterPackApprovalCard targetDate={readiness.targetDate} />
 
-      {generating ? <Card><CardContent className="flex items-center gap-3 p-5 text-sm"><Loader2 className="h-5 w-5 animate-spin text-primary" /><div><p className="font-medium">Generating {readiness.targetDate}…</p><p className="text-muted-foreground">Official sources → historical backfill → open-news discovery → facts → verification → notes → translations → review questions → EN/HI/PA parity-locked canonical master packs.</p></div></CardContent></Card> : null}
+      {generating ? <Card><CardContent className="flex items-center gap-3 p-5 text-sm"><Loader2 className="h-5 w-5 animate-spin text-primary" /><div><p className="font-medium">Generating bounded Current Affairs replay…</p><p className="text-muted-foreground">Official sources → historical backfill → open-news discovery → facts → verification → notes → translations → review questions → EN/HI/PA parity-locked canonical master packs.</p></div></CardContent></Card> : null}
 
       {lastGeneration ? <Card className={lastGeneration.summary.allEnglishDraftsPresent ? 'border-success/30' : 'border-warning/30'}><CardHeader><CardTitle className="text-base">Last on-demand result · {lastGeneration.targetDate}</CardTitle></CardHeader><CardContent className="space-y-4"><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6"><Metric label="Candidates" value={lastGeneration.after.candidateCount} /><Metric label="Verified events" value={lastGeneration.summary.verifiedEvents} /><Metric label="Needs review" value={lastGeneration.summary.reviewEvents} /><Metric label="English packs" value={`${lastGeneration.summary.englishDraftCount}/3`} /><Metric label="HI + PA packs" value={`${lastGeneration.summary.localizedDraftCount}/6`} /><Metric label="Master packs" value={`${(lastGeneration.summary.masterPackEventCount > 0 ? 1 : 0) + (lastGeneration.summary.localizedMasterPackCount ?? 0)}/3`} /></div>{lastGeneration.officialCandidatePreparation ? <p className="text-xs text-muted-foreground">Official reclassification: {lastGeneration.officialCandidatePreparation.candidateUpdated} candidate(s), {lastGeneration.officialCandidatePreparation.clusterUpdated} open cluster(s) updated before intelligence.</p> : null}{lastGeneration.summary.localizedMasterPacksParityReady === false ? <p className="text-xs text-warning">One or more localized canonical master packs were withheld because exact event-ID parity with English was not yet available.</p> : null}{lastGeneration.summary.blockers.length > 0 ? <p className="text-sm text-warning">{lastGeneration.summary.blockers[0]}</p> : null}</CardContent></Card> : null}
 
