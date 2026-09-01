@@ -3,15 +3,16 @@ import {
   type IntCp002FinalQlId,
 } from "./cp002-final-registry";
 import { generateIntCp002EnglishFrozenQuestion } from "./cp002-english-frozen-runtime";
+import { generateIntCp002LocalizedFrozenQuestionV1 } from "./cp002-multilingual-frozen-runtime-v1";
 import {
   createInterestFrozenQuestionStudioAdapter,
   type InterestQuestionStudioRequest,
 } from "./interest-question-studio-frozen-adapter-v1";
 
-export const INT_CP002_QUESTION_STUDIO_INTEGRATION_VERSION = "INT-CP-002-QS-v1" as const;
+export const INT_CP002_QUESTION_STUDIO_INTEGRATION_VERSION = "INT-CP-002-QS-v2-trilingual" as const;
 export const INT_CP002_QUESTION_STUDIO_PACKAGE_ID = "INT-001" as const;
 export const INT_CP002_QUESTION_STUDIO_CP_ID = "INT-CP-002" as const;
-export const INT_CP002_QUESTION_STUDIO_LANGUAGES = Object.freeze(["en"] as const);
+export const INT_CP002_QUESTION_STUDIO_LANGUAGES = Object.freeze(["en", "hi", "pa"] as const);
 export type IntCp002QuestionStudioLanguage = (typeof INT_CP002_QUESTION_STUDIO_LANGUAGES)[number];
 export type IntCp002QuestionStudioRequest = InterestQuestionStudioRequest;
 
@@ -23,8 +24,9 @@ const adapter = createInterestFrozenQuestionStudioAdapter({
   qlIds: INT_CP002_FINAL_QL_IDS,
   languages: INT_CP002_QUESTION_STUDIO_LANGUAGES,
   generateSource: (qlId, seed, language) => {
-    if (language !== "en") throw new Error(`INT-CP-002 does not support language '${language}'.`);
-    return generateIntCp002EnglishFrozenQuestion(qlId as IntCp002FinalQlId, seed);
+    const permanentQlId = qlId as IntCp002FinalQlId;
+    if (language === "en") return generateIntCp002EnglishFrozenQuestion(permanentQlId, seed);
+    return generateIntCp002LocalizedFrozenQuestionV1(permanentQlId, seed, language);
   },
 });
 
