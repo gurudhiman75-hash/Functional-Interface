@@ -25,5 +25,15 @@
     "minimumPartnerPairs": 10,
     "minimumBusinessContexts": 12
   },
-  "exhaustivenessStatus": "E6_BASELINE_ADVANCED_PRODUCTION_DIVERSITY_VALIDATED_NOT_FINAL"
+  "chapterStemStructure": {
+    "activeQuestionLanguages": 103,
+    "locales": 3,
+    "requiredAuthoredSkeletonsPerQlPerLocale": 3,
+    "requiredSeedReachableSkeletonsPerQlPerLocale": 3,
+    "normalizedExactDuplicatesAllowed": 0,
+    "blockingNearIdentityThreshold": 0.985,
+    "semanticSlotNormalizationRequired": true,
+    "partnerCardinalityPreservationRequired": true
+  },
+  "exhaustivenessStatus": "E7_CHAPTER_WIDE_STEM_STRUCTURE_VALIDATED_NOT_FINAL"
 }

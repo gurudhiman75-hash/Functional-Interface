@@ -1,0 +1,338 @@
+{
+  "language": "hi",
+  "status": "HUMAN_AUTHORED_E7_CHAPTER_STEM_DIVERSITY",
+  "entries": {
+    "PRT-QL-001": [
+      "एक {business} में {partnerA} ने {capitalA} और {partnerB} ने {capitalB} समान अवधि के लिए लगाए। लाभ किस अनुपात में बाँटा जाएगा?",
+      "{partnerA} और {partnerB} ने एक {business} में क्रमशः {capitalA} और {capitalB} समान समय के लिए निवेश किए। उनका लाभ-विभाजन अनुपात ज्ञात कीजिए।"
+    ],
+    "PRT-QL-002": [
+      "पूरे वर्ष {partnerA} और {partnerB} ने एक {business} में {capitalA} और {capitalB} लगाए रखे। लाभ अनुपात ज्ञात कीजिए।",
+      "एक {business} पूरे वर्ष {partnerA} और {partnerB} ने चलाया और उनकी पूंजी {capitalA} तथा {capitalB} थी। लाभ किस अनुपात में बाँटा जाएगा?"
+    ],
+    "PRT-QL-003": [
+      "{partnerA} और {partnerB} ने एक {business} में {capitalA} और {capitalB} समान अवधि के लिए लगाए। कुल लाभ {totalProfit} था। {targetPartner} का हिस्सा ज्ञात कीजिए।",
+      "एक {business} ने {totalProfit} लाभ कमाया। समान अवधि के लिए {partnerA} की पूंजी {capitalA} और {partnerB} की {capitalB} थी। {targetPartner} को कितना लाभ मिला?"
+    ],
+    "PRT-QL-004": [
+      "एक {business} का लाभ {totalProfit} था। {partnerA} और {partnerB} ने {capitalA} और {capitalB} समान समय के लिए लगाए थे। {targetPartner} का हिस्सा निकालिए।",
+      "{partnerA} और {partnerB} ने एक {business} में {capitalA} और {capitalB} बराबर अवधि के लिए लगाए। यदि कुल लाभ {totalProfit} था, तो {targetPartner} को कितना मिला?"
+    ],
+    "PRT-QL-005": [
+      "एक {business} में {partnerA} और {partnerB} ने {capitalA} और {capitalB} समान अवधि के लिए लगाए। {targetPartner} को {knownShare} मिला। कुल लाभ ज्ञात कीजिए।",
+      "{targetPartner} का लाभांश {knownShare} था। यदि {partnerA} और {partnerB} ने एक {business} में {capitalA} और {capitalB} समान समय के लिए लगाए थे, तो कुल लाभ कितना था?"
+    ],
+    "PRT-QL-006": [
+      "एक {business} ने {totalProfit} लाभ कमाया। {partnerA} और {partnerB} ने समान अवधि के लिए {capitalA} और {capitalB} लगाए। उनके लाभांशों का अंतर ज्ञात कीजिए।",
+      "{partnerA} ने {capitalA} और {partnerB} ने {capitalB} एक {business} में समान समय के लिए लगाए। कुल लाभ {totalProfit} होने पर दोनों के हिस्सों में कितना अंतर था?"
+    ],
+    "PRT-QL-007": [
+      "एक {business} में {partnerA} ने {capitalA} को {durationA} और {partnerB} ने {capitalB} को {durationB} के लिए लगाया। लाभ अनुपात ज्ञात कीजिए।",
+      "{partnerA} का निवेश {capitalA} {durationA} के लिए और {partnerB} का {capitalB} {durationB} के लिए एक {business} में था। लाभ किस अनुपात में बाँटा जाएगा?"
+    ],
+    "PRT-QL-008": [
+      "एक {business} में {partnerA} ने {capitalA} {durationA} के लिए और {partnerB} ने {capitalB} {durationB} के लिए लगाए। लाभ-विभाजन अनुपात ज्ञात कीजिए।",
+      "{partnerA} ने एक {business} में {capitalA} को {durationA} और {partnerB} ने {capitalB} को {durationB} तक लगाया। उनके लाभांशों का अनुपात निकालिए।"
+    ],
+    "PRT-QL-009": [
+      "{partnerA} ने {capitalA} {durationA} के लिए और {partnerB} ने {capitalB} {durationB} के लिए एक {business} में लगाए। कुल लाभ {totalProfit} में से {targetPartner} का हिस्सा ज्ञात कीजिए।",
+      "एक {business} का लाभ {totalProfit} था। {partnerA} ने {capitalA} {durationA} के लिए और {partnerB} ने {capitalB} {durationB} के लिए लगाए। {targetPartner} को कितना मिला?"
+    ],
+    "PRT-QL-010": [
+      "एक {business} का कुल लाभ {totalProfit} था। {partnerA} की पूंजी {capitalA} {durationA} और {partnerB} की {capitalB} {durationB} के लिए लगी थी। {targetPartner} का लाभांश ज्ञात कीजिए।",
+      "एक {business} में {partnerA} ने {capitalA} {durationA} के लिए और {partnerB} ने {capitalB} {durationB} के लिए निवेश किया। लाभ {totalProfit} होने पर {targetPartner} का हिस्सा कितना है?"
+    ],
+    "PRT-QL-011": [
+      "एक {business} में {partnerA} ने अज्ञात पूंजी {durationA} के लिए और {partnerB} ने {capitalB} {durationB} के लिए लगाई। लाभ अनुपात {profitRatioA}:{profitRatioB} था। {partnerA} की पूंजी ज्ञात कीजिए।",
+      "{partnerB} ने एक {business} में {capitalB} {durationB} के लिए लगाया, जबकि {partnerA} ने अज्ञात राशि {durationA} के लिए लगाई। लाभ अनुपात {profitRatioA}:{profitRatioB} होने पर {partnerA} का निवेश कितना था?"
+    ],
+    "PRT-QL-012": [
+      "एक {business} में {partnerA} ने {capitalA} अज्ञात अवधि के लिए और {partnerB} ने {capitalB} {durationB} के लिए लगाए। लाभ अनुपात {profitRatioA}:{profitRatioB} था। {partnerA} की निवेश अवधि ज्ञात कीजिए।",
+      "{partnerA} ने एक {business} में {capitalA} कुछ समय के लिए लगाया, जबकि {partnerB} ने {capitalB} {durationB} के लिए लगाया। लाभ अनुपात {profitRatioA}:{profitRatioB} होने पर {partnerA} ने कितने समय तक निवेश किया?"
+    ],
+    "PRT-QL-033": [
+      "एक वर्ष के {business} में {partnerA} ने शुरू से {capitalA} लगाए और {leaveAfterA} बाद बाहर हो गया; {partnerB} {joinAfterB} बाद {capitalB} के साथ शामिल हुआ और वर्षांत तक रहा। लाभ अनुपात ज्ञात कीजिए।",
+      "एक वर्ष के {business} में {partnerA} ने शुरू से {capitalA} लगाए पर {leaveAfterA} बाद चला गया। {partnerB} ने {joinAfterB} बाद {capitalB} लगाए। लाभ किस अनुपात में बाँटा जाएगा?"
+    ],
+    "PRT-QL-034": [
+      "एक वर्ष के {business} में {partnerB} ने पूरे समय {capitalB} लगाए रखे। {partnerA} ने शुरू से {capitalA} लगाए लेकिन जल्दी बाहर हो गया। लाभ अनुपात {profitRatioA}:{profitRatioB} था। {partnerA} कितने महीने बाद गया?",
+      "{partnerA} ने एक वर्ष के {business} में {capitalA} से शुरुआत की; {partnerB} ने पूरे वर्ष {capitalB} लगाए। लाभ अनुपात {profitRatioA}:{profitRatioB} होने पर {partnerA} के बाहर जाने का समय ज्ञात कीजिए।"
+    ],
+    "PRT-QL-035": [
+      "{partnerA} ने एक {business} में पूरे वर्ष {capitalA} लगाए। {partnerB} {joinAfterB} बाद अज्ञात पूंजी के साथ शामिल हुआ। लाभ अनुपात {profitRatioA}:{profitRatioB} था। {partnerB} की पूंजी ज्ञात कीजिए।",
+      "एक वर्ष के {business} में {partnerA} ने पूरे समय {capitalA} लगाए और {partnerB} {joinAfterB} बाद शामिल हुआ। लाभ अनुपात {profitRatioA}:{profitRatioB} होने पर {partnerB} ने कितनी पूंजी लगाई?"
+    ],
+    "PRT-QL-036": [
+      "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} से शुरुआत की और {changeMonthA} बाद पूंजी {percentageChangeA}% बढ़ाई। {partnerB} ने पूरे वर्ष {capitalB} लगाए। लाभ अनुपात ज्ञात कीजिए।",
+      "{partnerB} ने एक वर्ष के {business} में पूरे समय {capitalB} लगाए। {partnerA} ने {initialCapitalA} से शुरुआत की और {changeMonthA} बाद इसे {percentageChangeA}% बढ़ाया। लाभ-विभाजन अनुपात निकालिए।"
+    ],
+    "PRT-QL-037": [
+      "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} से शुरुआत कर {changeMonthA} बाद {percentageChangeA}% बढ़ाया, जबकि {partnerB} ने {initialCapitalB} से शुरू कर {changeMonthB} बाद {percentageDecreaseB}% घटाया। लाभ अनुपात ज्ञात कीजिए।",
+      "{partnerA} की पूंजी {initialCapitalA} से {changeMonthA} बाद {percentageChangeA}% बढ़ी और {partnerB} की {initialCapitalB} से {changeMonthB} बाद {percentageDecreaseB}% घटी। एक वर्ष के {business} में उनका लाभ अनुपात निकालिए।"
+    ],
+    "PRT-QL-038": [
+      "एक {business} में {partnerA} ने {capitalA} {durationA} के लिए लगाया; {partnerB} की पूंजी {capitalRelationB} {durationB} के लिए और {partnerC} की {capitalRelationC} {durationC} के लिए थी। कुल लाभ {totalProfit} में {targetPartner} का हिस्सा ज्ञात कीजिए।",
+      "एक {business} ने {totalProfit} लाभ कमाया। {partnerA} ने {capitalA} {durationA}, {partnerB} ने {capitalRelationB} {durationB} और {partnerC} ने {capitalRelationC} {durationC} के लिए लगाया। {targetPartner} को कितना मिला?"
+    ],
+    "PRT-QL-039": [
+      "{partnerA} और {partnerB} ने एक {business} में समान अवधि के लिए {capitalA} और {capitalB} लगाए। शेष लाभ बाँटने से पहले {partnerA} को {salary} वेतन मिला। यदि अंतिम प्राप्ति {finalReceipt} थी, तो सकल लाभ ज्ञात कीजिए।",
+      "एक {business} में {partnerA} और {partnerB} की समान अवधि की पूंजी {capitalA} और {capitalB} थी। {partnerA} को पहले {salary} वेतन मिला और अंत में {finalReceipt} प्राप्त हुए। सकल लाभ कितना था?"
+    ],
+    "PRT-QL-040": [
+      "एक {business} का सकल लाभ {totalProfit} था। पहले {reserve} रिजर्व रखा गया, फिर {partnerA} को शेष राशि का {commissionPercent}% कमीशन मिला और बची राशि {capitalA} तथा {capitalB} की पूंजी वाले {partnerA} और {partnerB} में बाँटी गई। {targetPartner} की अंतिम प्राप्ति ज्ञात कीजिए।",
+      "{partnerA} और {partnerB} ने एक {business} में समान अवधि के लिए {capitalA} और {capitalB} लगाए। सकल लाभ {totalProfit} में से {reserve} रिजर्व घटाकर {partnerA} को शेष का {commissionPercent}% कमीशन मिला। {targetPartner} को अंत में कितना मिला?"
+    ],
+    "PRT-QL-041": [
+      "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} से शुरुआत की, {changeMonthA} बाद {addedCapitalA} जोड़े और {leaveAfterA} बाद बाहर हो गया। {partnerB} {joinAfterB} बाद {capitalB} के साथ शामिल हुआ। लाभ अनुपात ज्ञात कीजिए।",
+      "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} लगाए, {changeMonthA} बाद {addedCapitalA} बढ़ाए और {leaveAfterA} बाद चला गया; {partnerB} {joinAfterB} बाद {capitalB} के साथ आया। लाभ-विभाजन अनुपात निकालिए।"
+    ],
+    "PRT-QL-042": [
+      "{partnerA} ने एक वर्ष के {business} में शुरू से {capitalA} लगाए। {partnerB} {joinAfterB} बाद {capitalB} और {partnerC} {joinAfterC} बाद अज्ञात पूंजी के साथ शामिल हुए। लाभ अनुपात {profitRatioA}:{profitRatioB}:{profitRatioC} था। {partnerC} की पूंजी ज्ञात कीजिए।",
+      "एक वर्ष के {business} में {partnerA} की पूंजी {capitalA} शुरू से थी, {partnerB} ने {joinAfterB} बाद {capitalB} लगाए और {partnerC} {joinAfterC} बाद जुड़ा। लाभ अनुपात {profitRatioA}:{profitRatioB}:{profitRatioC} होने पर {partnerC} का निवेश कितना था?"
+    ],
+    "PRT-QL-043": [
+      "{partnerA} और {partnerB} ने एक {business} में {capitalA} और {capitalB} समान अवधि के लिए लगाए। उनके लाभांशों का अंतर {shareDifference} था। कुल लाभ ज्ञात कीजिए।",
+      "एक {business} में समान अवधि की पूंजी {capitalA} और {capitalB} क्रमशः {partnerA} और {partnerB} की थी। यदि लाभांशों का अंतर {shareDifference} था, तो कुल लाभ कितना था?"
+    ],
+    "PRT-QL-044": [
+      "एक {business} में {partnerA} और {partnerB} का लाभ अनुपात {profitRatioA}:{profitRatioB} तथा निवेश-अवधि अनुपात {timeRatioA}:{timeRatioB} था। पूंजी अनुपात ज्ञात कीजिए।",
+      "{partnerA} और {partnerB} ने एक {business} में लाभ {profitRatioA}:{profitRatioB} में बाँटा। उनकी निवेश अवधियां {timeRatioA}:{timeRatioB} में थीं। पूंजी का अनुपात निकालिए।"
+    ],
+    "PRT-QL-045": [
+      "एक {business} में {partnerA} और {partnerB} का लाभ अनुपात {profitRatioA}:{profitRatioB} और पूंजी अनुपात {capitalRatioA}:{capitalRatioB} था। निवेश अवधियों का अनुपात ज्ञात कीजिए।",
+      "एक {business} में {partnerA} और {partnerB} की पूंजी {capitalRatioA}:{capitalRatioB} में और लाभ {profitRatioA}:{profitRatioB} में था। निवेश समय का अनुपात निकालिए।"
+    ],
+    "PRT-QL-046": [
+      "एक वर्ष के {business} में {partnerA} की पूंजी पहले {initialCapitalA}, {firstChangeMonthA} बाद {firstChangedCapitalA} और {secondChangeMonthA} बाद {secondChangedCapitalA} हो गई। {partnerB} ने पूरे समय {capitalB} लगाए। लाभ अनुपात ज्ञात कीजिए।",
+      "{partnerA} ने एक वर्ष के {business} में {initialCapitalA} से शुरुआत की, {firstChangeMonthA} बाद {firstChangedCapitalA} और {secondChangeMonthA} बाद {secondChangedCapitalA} कर दिया। {partnerB} ने {capitalB} बनाए रखे। लाभ-विभाजन अनुपात निकालिए।"
+    ],
+    "PRT-QL-047": [
+      "एक वर्ष के {business} में {partnerA} की पूंजी {initialCapitalA} से {finalCapitalA} अज्ञात समय पर बदली; {partnerB} ने पूरे वर्ष {capitalB} लगाए। लाभ अनुपात {profitRatioA}:{profitRatioB} था। परिवर्तन कितने महीने बाद हुआ?",
+      "{partnerA} ने एक वर्ष के {business} में {initialCapitalA} से शुरुआत की और बाद में {finalCapitalA} कर दिया। {partnerB} ने पूरे समय {capitalB} लगाए। लाभ अनुपात {profitRatioA}:{profitRatioB} होने पर परिवर्तन का समय ज्ञात कीजिए।"
+    ],
+    "PRT-QL-048": [
+      "एक {business} में {partnerA}, {partnerB}, {partnerC} और {partnerD} ने क्रमशः {capitalA}, {capitalB}, {capitalC}, {capitalD} को {durationA}, {durationB}, {durationC}, {durationD} के लिए लगाया। चारों का लाभ अनुपात ज्ञात कीजिए।",
+      "एक {business} में चार निवेश थे: {partnerA}—{capitalA} {durationA}, {partnerB}—{capitalB} {durationB}, {partnerC}—{capitalC} {durationC}, और {partnerD}—{capitalD} {durationD} के लिए। लाभ-विभाजन अनुपात निकालिए।"
+    ],
+    "PRT-QL-049": [
+      "{partnerA}, {partnerB} और {partnerC} ने एक {business} में {capitalA}, {capitalB}, {capitalC} लगाए। उनकी अवधियां {durationA}, {durationB} और {partnerC} के लिए अज्ञात थीं। लाभ अनुपात {profitRatioA}:{profitRatioB}:{profitRatioC} था। {partnerC} की अवधि ज्ञात कीजिए।",
+      "एक {business} में {partnerA} ने {capitalA} {durationA}, {partnerB} ने {capitalB} {durationB} और {partnerC} ने {capitalC} कुछ समय के लिए लगाया। लाभ अनुपात {profitRatioA}:{profitRatioB}:{profitRatioC} होने पर {partnerC} ने कितने समय निवेश किया?"
+    ],
+    "PRT-QL-050": [
+      "एक {business} में {partnerA}, {partnerB}, {partnerC} ने {durationA}, {durationB}, {durationC} के लिए निवेश किया और लाभ {profitRatioA}:{profitRatioB}:{profitRatioC} में बाँटा। पूंजी अनुपात ज्ञात कीजिए।",
+      "{partnerA}, {partnerB}, {partnerC} की निवेश अवधियां एक {business} में {durationA}, {durationB}, {durationC} थीं। लाभ अनुपात {profitRatioA}:{profitRatioB}:{profitRatioC} होने पर पूंजी अनुपात निकालिए।"
+    ],
+    "PRT-QL-051": [
+      "एक {business} में कार्यरत भागीदार {partnerA} और निष्क्रिय भागीदार {partnerB} ने समान अवधि के लिए {capitalA} और {capitalB} लगाए। {partnerA} को पहले {salary} वेतन मिला। यदि {partnerB} की अंतिम प्राप्ति {sleepingPartnerReceipt} थी, तो सकल लाभ ज्ञात कीजिए।",
+      "{partnerA} एक {business} में कार्यरत और {partnerB} निष्क्रिय भागीदार था। समान अवधि की पूंजी {capitalA} और {capitalB} थी। {partnerA} को {salary} वेतन मिलने के बाद {partnerB} को {sleepingPartnerReceipt} मिले। सकल लाभ कितना था?"
+    ],
+    "PRT-QL-052": [
+      "{partnerA} और {partnerB} ने एक {business} में समान समय के लिए {capitalA} और {capitalB} लगाए। शेष बाँटने से पहले {partnerA} को {salary} और {deduction} की कटौती होती है। सकल लाभ {totalProfit} होने पर {targetPartner} की अंतिम प्राप्ति ज्ञात कीजिए।",
+      "एक {business} का सकल लाभ {totalProfit} है। {partnerA} और {partnerB} की समान अवधि की पूंजी {capitalA}, {capitalB} है; {partnerA} को पहले {salary} मिलता है और {deduction} भी घटता है। {targetPartner} को अंत में कितना मिलता है?"
+    ],
+    "PRT-QL-053": [
+      "एक वर्ष के {business} में {partnerA} की पूंजी {initialCapitalA} से {finalCapitalA} {changeMonthA} बाद हुई; {partnerB} ने पूरे समय {capitalB} लगाए। {partnerA} को सकल लाभ का {commissionPercent}% कमीशन पहले मिलता है। सकल लाभ {totalProfit} होने पर {targetPartner} की अंतिम प्राप्ति ज्ञात कीजिए।",
+      "{partnerA} ने एक वर्ष के {business} में {initialCapitalA} से शुरुआत कर {changeMonthA} बाद {finalCapitalA} कर दिया; {partnerB} ने {capitalB} बनाए रखे। {partnerA} को पहले {commissionPercent}% सकल-लाभ कमीशन मिलता है। कुल लाभ {totalProfit} में {targetPartner} को कितना मिलेगा?"
+    ],
+    "PRT-QL-054": [
+      "{partnerA} ने एक वर्ष के {business} में पहले {initialCapitalA} और {changeMonthA} बाद {finalCapitalA} लगाए। {partnerB} बाद में {capitalB} के साथ शामिल हुआ। लाभ अनुपात {profitRatioA}:{profitRatioB} होने पर {partnerB} कितने महीने बाद जुड़ा?",
+      "एक वर्ष के {business} में {partnerA} की पूंजी {initialCapitalA} से {changeMonthA} बाद {finalCapitalA} हुई। {partnerB} अज्ञात समय पर {capitalB} के साथ आया। लाभ अनुपात {profitRatioA}:{profitRatioB} था। शामिल होने का समय ज्ञात कीजिए।"
+    ],
+    "PRT-QL-055": [
+      "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} को {changeMonthA} बाद {finalCapitalA} किया; {partnerB} ने पूरे समय {capitalB} लगाए। {partnerA} को पहले {salary} वेतन मिलता है। यदि अंतिम प्राप्ति {finalReceipt} थी, तो सकल लाभ ज्ञात कीजिए।",
+      "{partnerA} ने एक वर्ष के {business} में {initialCapitalA} से शुरुआत कर {changeMonthA} बाद {finalCapitalA} कर दिया और पहले {salary} वेतन पाता है। {partnerB} ने {capitalB} बनाए रखे। {partnerA} की अंतिम प्राप्ति {finalReceipt} होने पर सकल लाभ कितना था?"
+    ],
+    "PRT-QL-056": [
+      "एक वर्ष के {business} में {partnerA} की पूंजी {initialCapitalA} से {finalCapitalA} {changeMonthA} बाद हुई; {partnerB} {joinAfterB} बाद {capitalB} के साथ आया। {partnerA} को पहले {salary} वेतन मिलता है। सकल लाभ {totalProfit} होने पर अंतिम प्राप्तियों का अंतर ज्ञात कीजिए।",
+      "{partnerA} ने एक वर्ष के {business} में {initialCapitalA} से शुरुआत कर {changeMonthA} बाद {finalCapitalA} किया, जबकि {partnerB} {joinAfterB} बाद {capitalB} के साथ जुड़ा। {partnerA} को {salary} वेतन मिलने के बाद कुल लाभ {totalProfit} है। दोनों की अंतिम प्राप्तियों में कितना अंतर है?"
+    ],
+    "PRT-QL-057": [
+      "एक {business} में {partnerA} ने {capitalA} {durationA} और {partnerB} ने {capitalB} {durationB} के लिए लगाए। उनके लाभांशों का अंतर {shareDifference} था। कुल लाभ ज्ञात कीजिए।",
+      "{partnerA} ने {capitalA} {durationA} के लिए और {partnerB} ने {capitalB} {durationB} के लिए एक {business} में लगाए। यदि लाभांशों का अंतर {shareDifference} था, तो पूरा लाभ कितना था?"
+    ],
+    "PRT-QL-058": [
+      "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} से शुरुआत कर {changeMonthA} बाद पूंजी बढ़ाई; {partnerB} ने पूरे समय {capitalB} लगाए। लाभ अनुपात {profitRatioA}:{profitRatioB} था। {partnerA} ने पूंजी कितने प्रतिशत बढ़ाई?",
+      "{partnerA} ने एक वर्ष के {business} में {initialCapitalA} लगाए और {changeMonthA} बाद इसे बढ़ाया। {partnerB} ने {capitalB} बनाए रखे। लाभ अनुपात {profitRatioA}:{profitRatioB} होने पर पूंजी वृद्धि प्रतिशत ज्ञात कीजिए।"
+    ],
+    "PRT-QL-059": [
+      "एक वर्ष के {business} में {partnerA} ने अज्ञात पूंजी से शुरुआत की और {changeMonthA} बाद {addedCapitalA} जोड़े; {partnerB} ने {capitalB} लगाए रखे। कुल लाभ {totalProfit} में {partnerA} को {knownShare} मिला। प्रारंभिक पूंजी ज्ञात कीजिए।",
+      "{partnerB} ने एक वर्ष के {business} में पूरे समय {capitalB} लगाए। {partnerA} ने अज्ञात पूंजी से शुरू कर {changeMonthA} बाद {addedCapitalA} जोड़े। कुल लाभ {totalProfit} में उसका हिस्सा {knownShare} था। शुरुआती पूंजी कितनी थी?"
+    ],
+    "PRT-QL-060": [
+      "{partnerA}, {partnerB}, {partnerC} ने एक {business} में {capitalA}, {capitalB}, {capitalC} लगाए और लाभ {profitRatioA}:{profitRatioB}:{profitRatioC} में बाँटा। निवेश अवधियों का अनुपात ज्ञात कीजिए।",
+      "एक {business} में {partnerA}, {partnerB}, {partnerC} की पूंजी {capitalA}, {capitalB}, {capitalC} थी और लाभ अनुपात {profitRatioA}:{profitRatioB}:{profitRatioC} रहा। निवेश समय का अनुपात निकालिए।"
+    ],
+    "PRT-QL-061": [
+      "एक {business} में {partnerA} और {partnerB} ने समान अवधि के लिए {capitalA}, {capitalB} लगाए। शेष लाभ बाँटने से पहले {partnerA} को सकल लाभ का अज्ञात प्रतिशत कमीशन मिलता है। सकल लाभ {totalProfit} और अंतिम प्राप्ति {finalReceipt} होने पर कमीशन प्रतिशत ज्ञात कीजिए।",
+      "{partnerA} और {partnerB} की एक {business} में समान अवधि की पूंजी {capitalA}, {capitalB} थी। {partnerA} को पहले अज्ञात दर से सकल-लाभ कमीशन मिलता है। कुल लाभ {totalProfit} और {partnerA} की अंतिम प्राप्ति {finalReceipt} से कमीशन प्रतिशत निकालिए।"
+    ],
+    "PRT-QL-062": [
+      "{partnerA} और {partnerB} ने एक {business} में समान अवधि के लिए {capitalA}, {capitalB} लगाए। सकल लाभ {totalProfit} में से अज्ञात निश्चित राशि घटाई गई। यदि {partnerB} का हिस्सा {knownShare} था, तो कटौती ज्ञात कीजिए।",
+      "एक {business} का सकल लाभ {totalProfit} था। {partnerA}, {partnerB} की समान अवधि की पूंजी {capitalA}, {capitalB} थी। अज्ञात निश्चित कटौती के बाद {partnerB} को {knownShare} मिला। कितनी राशि घटाई गई?"
+    ],
+    "PRT-QL-063": [
+      "एक {business} में {partnerA} को पहले {salary} वेतन मिला; शेष लाभ {partnerA} और {partnerB} में बाँटा गया। उनकी अंतिम प्राप्तियां {finalReceiptA} और {finalReceiptB} थीं। शेष लाभ किस अनुपात में बाँटा गया?",
+      "{partnerA} और {partnerB} ने एक {business} का शेष लाभ बाँटा, जबकि {partnerA} पहले {salary} वेतन ले चुका था। अंतिम प्राप्तियां {finalReceiptA}, {finalReceiptB} थीं। मूल लाभ-विभाजन अनुपात ज्ञात कीजिए।"
+    ],
+    "PRT-QL-064": [
+      "एक वर्ष के {business} में {partnerA} और {partnerB} की समान अवधि की पूंजी {capitalA}, {capitalB} थी। सकल लाभ {totalProfit} है। दोनों की अंतिम प्राप्तियां बराबर करने के लिए {partnerA} को पहले कितना निश्चित वेतन मिलना चाहिए?",
+      "{partnerA} और {partnerB} ने एक वर्ष के {business} में समान समय के लिए {capitalA}, {capitalB} लगाए। सकल लाभ {totalProfit} होने पर {partnerA} को कितना वेतन पहले दिया जाए ताकि दोनों की अंतिम प्राप्तियां बराबर हों?"
+    ],
+    "PRT-QL-065": [
+      "एक वर्ष के {business} में {partnerA} की पूंजी {initialCapitalA} से {changeMonthA} बाद {finalCapitalA} हुई। {partnerB} {joinAfterB} बाद अज्ञात पूंजी के साथ आया। {partnerA} को पहले {salary} वेतन मिला। अंतिम प्राप्तियां {finalReceiptA}, {finalReceiptB} होने पर {partnerB} की पूंजी ज्ञात कीजिए।",
+      "{partnerA} ने एक वर्ष के {business} में {initialCapitalA} से शुरुआत कर {changeMonthA} बाद {finalCapitalA} किया और {salary} वेतन पाता है। {partnerB} {joinAfterB} बाद अज्ञात निवेश के साथ जुड़ा। अंतिम प्राप्तियां {finalReceiptA}, {finalReceiptB} थीं। {partnerB} ने कितना लगाया?"
+    ],
+    "PRT-QL-066": [
+      "{partnerA} और {partnerB} ने एक {business} में समान अवधि के लिए निवेश किया। {partnerB} की पूंजी {capitalB} थी और लाभ अनुपात {profitRatioA}:{profitRatioB} था। {partnerA} की पूंजी ज्ञात कीजिए।",
+      "एक {business} में {partnerB} ने {capitalB} उतनी ही अवधि के लिए लगाया जितनी {partnerA} ने। लाभ अनुपात {profitRatioA}:{profitRatioB} होने पर {partnerA} का निवेश कितना था?"
+    ],
+    "PRT-QL-067": [
+      "एक {business} में {partnerA} ने {capitalA} {durationA} और {partnerB} ने {capitalB} {durationB} के लिए लगाए। यदि {partnerA} को {knownShare} मिला, तो कुल लाभ ज्ञात कीजिए।",
+      "एक {business} में {partnerA} का हिस्सा {knownShare} था। {partnerA} ने {capitalA} {durationA} और {partnerB} ने {capitalB} {durationB} के लिए लगाए थे। पूरा लाभ कितना था?"
+    ],
+    "PRT-QL-068": [
+      "एक वर्ष के {business} में {partnerA} ने शुरू से {capitalA} लगाए और {partnerB} बाद में {capitalB} के साथ जुड़ा। कुल लाभ {totalProfit} में {partnerB} को {knownShare} मिला। वह कितने महीने बाद शामिल हुआ?",
+      "{partnerA} ने एक वर्ष के {business} में शुरू से {capitalA} लगाए। {partnerB} बाद में {capitalB} के साथ आया। यदि कुल लाभ {totalProfit} और {partnerB} का हिस्सा {knownShare} था, तो शामिल होने का समय ज्ञात कीजिए।"
+    ],
+    "PRT-QL-069": [
+      "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} से शुरुआत कर {changeMonthA} बाद अज्ञात राशि निकाली; {partnerB} ने पूरे समय {capitalB} लगाए। लाभ अनुपात {profitRatioA}:{profitRatioB} था। निकाली गई पूंजी ज्ञात कीजिए।",
+      "{partnerB} ने एक वर्ष के {business} में पूरे समय {capitalB} लगाए। {partnerA} ने {initialCapitalA} से शुरू कर {changeMonthA} बाद पूंजी घटाई। लाभ अनुपात {profitRatioA}:{profitRatioB} होने पर {partnerA} ने कितना निकाला?"
+    ],
+    "PRT-QL-070": [
+      "एक {business} में {partnerA}, {partnerB}, {partnerC} ने {capitalA}, {capitalB}, {capitalC} को {durationA}, {durationB}, {durationC} के लिए लगाया। {partnerA} और {partnerB} के लाभांशों का अंतर {shareDifference} था। कुल लाभ ज्ञात कीजिए।",
+      "एक {business} में {partnerA} ने {capitalA} {durationA}, {partnerB} ने {capitalB} {durationB}, और {partnerC} ने {capitalC} {durationC} के लिए लगाए। यदि पहले दो के हिस्सों का अंतर {shareDifference} था, तो पूरा लाभ कितना था?"
+    ],
+    "PRT-QL-071": [
+      "{partnerA} और {partnerB} ने {business} में समान अवधि के लिए {capitalA}, {capitalB} लगाए। यदि {partnerA} को {knownShare} मिला, तो {partnerB} का लाभांश ज्ञात कीजिए।",
+      "{business} में {partnerA}, {partnerB} की समान अवधि की पूंजी {capitalA}, {capitalB} थी। {partnerA} का लाभ {knownShare} था। {partnerB} को कितना मिला?"
+    ],
+    "PRT-QL-072": [
+      "{business} में {partnerA} और {partnerB} ने समान समय के लिए निवेश किया और {shareA}, {shareB} लाभ प्राप्त किए। पूंजी अनुपात ज्ञात कीजिए।",
+      "{partnerA} और {partnerB} की निवेश अवधि {business} में समान थी। उनके लाभांश {shareA} और {shareB} थे। पूंजी का अनुपात निकालिए।"
+    ],
+    "PRT-QL-073": [
+      "{partnerA} और {partnerB} ने {business} में समान अवधि के लिए {capitalA}, {capitalB} लगाए। कुल हानि {totalLoss} हुई। {targetPartner} को कितनी हानि वहन करनी चाहिए?",
+      "{business} में {partnerA}, {partnerB} ने {capitalA}, {capitalB} समान समय के लिए लगाए। यदि कुल हानि {totalLoss} थी, तो {targetPartner} का हानि हिस्सा ज्ञात कीजिए।"
+    ],
+    "PRT-QL-074": [
+      "{business} में {partnerA} और {partnerB} की कुल पूंजी {totalCapital} थी और अवधि समान थी। लाभ अनुपात {profitRatioA}:{profitRatioB} था। {partnerA} की पूंजी ज्ञात कीजिए।",
+      "{partnerA} और {partnerB} ने {business} में कुल {totalCapital} समान अवधि के लिए लगाए और लाभ {profitRatioA}:{profitRatioB} में बाँटा। {partnerA} का निवेश कितना था?"
+    ],
+    "PRT-QL-075": [
+      "{business} में {partnerB} ने {capitalB} {durationB} के लिए लगाया। {partnerA} ने अज्ञात पूंजी {durationA} के लिए लगाई। दोनों को समान लाभ मिला। {partnerA} की पूंजी ज्ञात कीजिए।",
+      "{partnerA} ने {durationA} और {partnerB} ने {capitalB} {durationB} के लिए {business} में निवेश किया। लाभ बराबर होने पर {partnerA} की अज्ञात पूंजी ज्ञात कीजिए।"
+    ],
+    "PRT-QL-076": [
+      "{business} में {partnerA} ने {capitalA} अज्ञात समय के लिए, जबकि {partnerB} ने {capitalB} {durationB} के लिए लगाया। दोनों का लाभ बराबर था। {partnerA} की अवधि ज्ञात कीजिए।",
+      "{partnerB} ने {business} में {capitalB} {durationB} के लिए लगाए। {partnerA} ने {capitalA} कुछ समय के लिए लगाए। समान लाभ होने पर {partnerA} ने कितनी अवधि निवेश किया?"
+    ],
+    "PRT-QL-077": [
+      "{partnerA} ने {business} में {capitalA} {durationA} और {partnerB} ने {capitalB} {durationB} के लिए लगाए। कुल लाभ {totalProfit} में दोनों के हिस्सों का अंतर ज्ञात कीजिए।",
+      "{business} में कुल लाभ {totalProfit} था। {partnerA} का निवेश {capitalA} {durationA} और {partnerB} का {capitalB} {durationB} के लिए था। उनके लाभांश कितने से अलग थे?"
+    ],
+    "PRT-QL-078": [
+      "एक वर्ष के {business} में {partnerA} ने शुरू से {capitalA} लगाए और {leaveAfterA} बाद बाहर हो गया; {partnerB} ने पूरे वर्ष {capitalB} लगाए। लाभ अनुपात ज्ञात कीजिए।",
+      "{partnerB} ने एक वर्ष के {business} में पूरे समय {capitalB} लगाए। {partnerA} ने {capitalA} से शुरुआत की पर {leaveAfterA} बाद चला गया। लाभ-विभाजन अनुपात निकालिए।"
+    ],
+    "PRT-QL-079": [
+      "एक वर्ष के {business} में {partnerA} ने शुरू से {capitalA} लगाए और {partnerB} {joinAfterB} बाद {capitalB} के साथ जुड़ा। कुल लाभ {totalProfit} होने पर {targetPartner} का हिस्सा ज्ञात कीजिए।",
+      "{partnerA} ने एक वर्ष के {business} में शुरू से {capitalA} लगाए; {partnerB} {joinAfterB} बाद {capitalB} के साथ आया। लाभ {totalProfit} में {targetPartner} को कितना मिला?"
+    ],
+    "PRT-QL-080": [
+      "एक वर्ष के {business} में {partnerA} ने अज्ञात पूंजी से शुरुआत की और {leaveAfterA} बाद बाहर हो गया; {partnerB} ने पूरे समय {capitalB} लगाए। लाभ अनुपात {profitRatioA}:{profitRatioB} था। {partnerA} की पूंजी ज्ञात कीजिए।",
+      "{partnerB} ने एक वर्ष के {business} में पूरे समय {capitalB} लगाए। {partnerA} ने अज्ञात पूंजी लगाई पर {leaveAfterA} बाद चला गया। लाभ अनुपात {profitRatioA}:{profitRatioB} होने पर उसका निवेश कितना था?"
+    ],
+    "PRT-QL-081": [
+      "एक वर्ष के {business} में {partnerA} ने शुरू से {capitalA}, {partnerB} ने {joinAfterB} बाद {capitalB}, और {partnerC} ने {joinAfterC} बाद {capitalC} लगाए। यदि {targetPartner} को {knownShare} मिला, तो कुल लाभ ज्ञात कीजिए।",
+      "एक वर्ष के {business} में क्रमिक निवेश थे: {partnerA}—{capitalA} शुरू से, {partnerB}—{capitalB} {joinAfterB} बाद, और {partnerC}—{capitalC} {joinAfterC} बाद। {targetPartner} का हिस्सा {knownShare} होने पर पूरा लाभ कितना था?"
+    ],
+    "PRT-QL-082": [
+      "{partnerA} ने एक वर्ष के {business} में {initialCapitalA} से शुरुआत कर {changeMonthA} बाद {percentageDecreaseA}% घटाया; {partnerB} ने पूरे समय {capitalB} लगाए। लाभ अनुपात ज्ञात कीजिए।",
+      "एक वर्ष के {business} में {partnerA} की पूंजी पहले {initialCapitalA} थी और {changeMonthA} बाद {percentageDecreaseA}% कम हुई। {partnerB} ने {capitalB} बनाए रखे। लाभ-विभाजन अनुपात निकालिए।"
+    ],
+    "PRT-QL-083": [
+      "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} से शुरुआत की और {changeMonthA} बाद {fractionalChangeA}; {partnerB} ने पूरे समय {capitalB} लगाए। लाभ अनुपात ज्ञात कीजिए।",
+      "{partnerA} ने एक वर्ष के {business} में {initialCapitalA} लगाए, फिर {changeMonthA} बाद {fractionalChangeA}। {partnerB} ने पूरे वर्ष {capitalB} लगाए। लाभ-विभाजन अनुपात निकालिए।"
+    ],
+    "PRT-QL-084": [
+      "{partnerA} ने एक वर्ष के {business} में {initialCapitalA} से शुरुआत कर बाद में {finalCapitalA} किया; {partnerB} ने पूरे समय {capitalB} लगाए। कुल लाभ {totalProfit} में {partnerA} को {knownShare} मिला। परिवर्तन कितने महीने बाद हुआ?",
+      "एक वर्ष के {business} में {partnerA} की पूंजी {initialCapitalA} से {finalCapitalA} अज्ञात समय पर बदली, जबकि {partnerB} ने {capitalB} लगाए रखे। कुल लाभ {totalProfit} और {partnerA} का हिस्सा {knownShare} होने पर परिवर्तन का समय ज्ञात कीजिए।"
+    ],
+    "PRT-QL-085": [
+      "{business} में {partnerA} और {partnerB} ने समान अवधि के लिए निवेश किया और लाभांश {shareA}, {shareB} पाए। यदि {partnerB} की पूंजी {capitalB} थी, तो {partnerA} की पूंजी ज्ञात कीजिए।",
+      "{partnerA} और {partnerB} की निवेश अवधि {business} में समान थी। उनके लाभांश {shareA}, {shareB} और {partnerB} की पूंजी {capitalB} थी। {partnerA} ने कितना लगाया?"
+    ],
+    "PRT-QL-086": [
+      "{partnerA} ने {capitalA} {durationA} और {partnerB} ने {capitalB} {durationB} के लिए {business} में लगाए। यदि {partnerA} को {knownShare} मिला, तो {partnerB} का लाभांश ज्ञात कीजिए।",
+      "{business} में {partnerA} की पूंजी {capitalA} {durationA} और {partnerB} की {capitalB} {durationB} के लिए थी। {partnerA} का हिस्सा {knownShare} होने पर {partnerB} को कितना मिला?"
+    ],
+    "PRT-QL-087": [
+      "एक वर्ष के {business} में {partnerA} ने पूरे वर्ष {capitalA} लगाए; {partnerB} ने {capitalB} लगाए लेकिन जल्दी बाहर हो गया। कुल लाभ {totalProfit} और {partnerB} का हिस्सा {knownShare} था। वह कितने महीने बाद गया?",
+      "{partnerA} ने एक वर्ष के {business} में पूरे समय {capitalA} लगाए। {partnerB} ने {capitalB} से शुरुआत की और वर्षांत से पहले चला गया। लाभ {totalProfit} में उसका हिस्सा {knownShare} था। बाहर जाने का समय ज्ञात कीजिए।"
+    ],
+    "PRT-QL-088": [
+      "एक वर्ष के {business} में {partnerA} ने शुरू से {capitalA} लगाए और {partnerB} बाद में {capitalB} के साथ जुड़ा। दोनों को बराबर लाभ मिला। {partnerB} कितने महीने बाद शामिल हुआ?",
+      "{partnerA} ने एक वर्ष के {business} में पूरे समय {capitalA} लगाए; {partnerB} बाद में {capitalB} के साथ आया। समान लाभ होने पर {partnerB} के शामिल होने का समय ज्ञात कीजिए।"
+    ],
+    "PRT-QL-089": [
+      "एक वर्ष के {business} में {partnerA} ने {capitalA} से शुरुआत कर वर्षांत से पहले बाहर हो गया, जबकि {partnerB} ने पूरे समय {capitalB} लगाए। दोनों को समान लाभ मिला। {partnerA} कब बाहर हुआ?",
+      "{partnerB} ने एक वर्ष के {business} में पूरे समय {capitalB} लगाए। {partnerA} ने शुरू से {capitalA} लगाए लेकिन जल्दी चला गया। बराबर लाभ होने पर {partnerA} कितने महीने बाद बाहर हुआ?"
+    ],
+    "PRT-QL-090": [
+      "एक वर्ष के {business} में {partnerA} ने शुरू से {capitalA}, {partnerB} ने {joinAfterB} बाद {capitalB}, और {partnerC} ने {joinAfterC} बाद {capitalC} लगाए। कुल लाभ {totalProfit} में {partnerA} और {partnerB} के हिस्सों का अंतर ज्ञात कीजिए।",
+      "एक वर्ष के {business} में {partnerA}—{capitalA} शुरू से, {partnerB}—{capitalB} {joinAfterB} बाद, और {partnerC}—{capitalC} {joinAfterC} बाद जुड़े। लाभ {totalProfit} होने पर {partnerA} और {partnerB} के हिस्सों में कितना अंतर था?"
+    ],
+    "PRT-QL-091": [
+      "{partnerA} ने एक वर्ष के {business} में {initialCapitalA} से शुरुआत की और {changeMonthA} बाद {withdrawnCapital} निकाल लिए; {partnerB} ने पूरे समय {capitalB} लगाए। लाभ अनुपात ज्ञात कीजिए।",
+      "एक वर्ष के {business} में {partnerA} की प्रारंभिक पूंजी {initialCapitalA} थी, जिसमें से {changeMonthA} बाद {withdrawnCapital} निकाले गए। {partnerB} ने {capitalB} बनाए रखे। लाभ-विभाजन अनुपात निकालिए।"
+    ],
+    "PRT-QL-092": [
+      "एक वर्ष के {business} में {partnerA} ने {initialCapitalA} से शुरुआत कर {changeMonthA} बाद {addedCapital} जोड़े; {partnerB} ने पूरे समय {capitalB} लगाए। कुल लाभ {totalProfit} में {partnerA} का हिस्सा ज्ञात कीजिए।",
+      "{partnerB} ने एक वर्ष के {business} में पूरे समय {capitalB} लगाए। {partnerA} ने {initialCapitalA} से शुरू कर {changeMonthA} बाद {addedCapital} जोड़े। लाभ {totalProfit} होने पर {partnerA} को कितना मिला?"
+    ],
+    "PRT-QL-093": [
+      "{partnerA} ने एक वर्ष के {business} में {initialCapitalA} से शुरुआत की; {changeMonthA} बाद पूंजी अज्ञात नई राशि में बदली। {partnerB} ने पूरे समय {capitalB} लगाए। बराबर लाभ के लिए {partnerA} की नई पूंजी कितनी होनी चाहिए?",
+      "एक वर्ष के {business} में {partnerB} ने {capitalB} बनाए रखे। {partnerA} ने {initialCapitalA} से शुरू कर {changeMonthA} बाद पूंजी बदली। दोनों को समान लाभ दिलाने वाली नई पूंजी ज्ञात कीजिए।"
+    ],
+    "PRT-QL-094": [
+      "एक वर्ष के {business} में {partnerA} की पूंजी {initialCapitalA} से {changeMonthA} बाद {finalCapitalA} और {partnerB} की {initialCapitalB} से {changeMonthB} बाद {finalCapitalB} हुई। प्रभावी पूंजी-समय अनुपात ज्ञात कीजिए।",
+      "एक वर्ष के {business} में {partnerA} ने {initialCapitalA}, फिर {changeMonthA} बाद {finalCapitalA}; {partnerB} ने {initialCapitalB}, फिर {changeMonthB} बाद {finalCapitalB} लगाया। प्रभावी योगदानों का अनुपात निकालिए।"
+    ],
+    "PRT-QL-095": [
+      "{business} में {partnerA} ने {capitalA} {durationA} के लिए लगाया। {partnerB} ने {capitalB} उससे दुगुनी अवधि और {partnerC} ने {capitalC} डेढ़ गुनी अवधि के लिए लगाया। कुल लाभ {totalProfit} में {targetPartner} का हिस्सा ज्ञात कीजिए।",
+      "एक {business} में {partnerA} ने {capitalA} {durationA} के लिए, {partnerB} ने {capitalB} {partnerA} की अवधि से दुगुने समय और {partnerC} ने {capitalC} डेढ़ गुने समय के लिए लगाए। लाभ {totalProfit} होने पर {targetPartner} को कितना मिला?"
+    ],
+    "PRT-QL-096": [
+      "{business} में {partnerA}, {partnerB}, {partnerC} ने {capitalA} {durationA}, {capitalB} {durationB}, {capitalC} {durationC} के लिए लगाए। {partnerC} का प्रभावी योगदान पहले दो के संयुक्त योगदान के बराबर है। कुल लाभ {totalProfit} में {partnerC} का हिस्सा ज्ञात कीजिए।",
+      "एक {business} में {partnerA} ने {capitalA} {durationA}, {partnerB} ने {capitalB} {durationB}, और {partnerC} ने {capitalC} {durationC} के लिए लगाया। चूंकि {partnerC} का पूंजी-समय योगदान पहले दोनों के योग के बराबर है, {totalProfit} में उसका हिस्सा निकालिए।"
+    ],
+    "PRT-QL-097": [
+      "{business} में {partnerA} ने {capitalA} {durationA}, {partnerB} ने {capitalB} {durationB}, और {partnerC} ने अज्ञात पूंजी {durationC} के लिए लगाई। तीनों को समान लाभ मिला। {partnerC} की पूंजी ज्ञात कीजिए।",
+      "{partnerA}, {partnerB}, {partnerC} को {business} में समान लाभ मिला। निवेश क्रमशः {capitalA} {durationA}, {capitalB} {durationB}, और अज्ञात पूंजी {durationC} के लिए था। {partnerC} की पूंजी कितनी थी?"
+    ],
+    "PRT-QL-098": [
+      "{business} में {partnerA} ने {capitalA} {durationA}, {partnerB} ने {capitalB} {durationB}, और {partnerC} ने {capitalC} अज्ञात अवधि के लिए लगाए। तीनों को बराबर लाभ मिला। {partnerC} की अवधि ज्ञात कीजिए।",
+      "{partnerA}, {partnerB}, {partnerC} ने {business} में समान लाभ बाँटा। पहले दो का निवेश {capitalA} {durationA}, {capitalB} {durationB} था; {partnerC} ने {capitalC} कुछ समय के लिए लगाया। वह अवधि कितनी थी?"
+    ],
+    "PRT-QL-099": [
+      "{business} में सक्रिय भागीदार {partnerA} और निष्क्रिय भागीदार {partnerB} ने समान अवधि के लिए {capitalA}, {capitalB} लगाए। कुल लाभ {totalProfit} में {partnerA} को पहले {salary} वेतन मिला और शेष पूंजी अनुपात में बाँटा गया। {partnerB} का हिस्सा ज्ञात कीजिए।",
+      "{partnerA} {business} में सक्रिय और {partnerB} निष्क्रिय भागीदार था, जिनकी समान अवधि की पूंजी {capitalA}, {capitalB} थी। {totalProfit} में से {partnerA} को {salary} वेतन देने के बाद शेष पूंजी अनुपात में बँटा। {partnerB} को कितना मिला?"
+    ],
+    "PRT-QL-100": [
+      "{partnerA} और {partnerB} ने {business} में समान अवधि के लिए {capitalA}, {capitalB} लगाए। {partnerA} को पहले {allowance} प्रबंधन भत्ता मिला। कुल लाभ {totalProfit} होने पर शेष में {partnerB} का हिस्सा ज्ञात कीजिए।",
+      "एक {business} ने {totalProfit} कमाया। {partnerA}, {partnerB} की समान अवधि की पूंजी {capitalA}, {capitalB} थी। वितरण से पहले {partnerA} को {allowance} निश्चित भत्ता दिया गया। {partnerB} को कितना मिला?"
+    ],
+    "PRT-QL-101": [
+      "{business} में {partnerA} और {partnerB} ने समान अवधि के लिए {capitalA}, {capitalB} लगाए। सक्रिय भागीदार {partnerA} को पहले सकल लाभ का {commissionPercent}% कमीशन मिलता है। सकल लाभ {totalProfit} होने पर शेष को पूंजी अनुपात में बाँटकर {partnerA} की अंतिम प्राप्ति ज्ञात कीजिए।",
+      "{partnerA}, सक्रिय भागीदार, और {partnerB} ने {business} में समान समय के लिए {capitalA}, {capitalB} लगाए। {totalProfit} सकल लाभ में {partnerA} को पहले {commissionPercent}% कमीशन मिलता है और फिर शेष पूंजी अनुपात में बँटता है। {partnerA} को कुल कितना मिलेगा?"
+    ],
+    "PRT-QL-102": [
+      "{partnerA} और {partnerB} ने {business} में समान अवधि के लिए {capitalA}, {capitalB} लगाए। कुल लाभ {totalProfit} में से {reserve} रिजर्व रखकर शेष पूंजी अनुपात में बाँटा गया। {targetPartner} का हिस्सा ज्ञात कीजिए।",
+      "एक {business} ने {totalProfit} कमाया। {reserve} रिजर्व रखने के बाद शेष राशि {capitalA}, {capitalB} समान अवधि के लिए लगाने वाले {partnerA}, {partnerB} में पूंजी अनुपात से बाँटी गई। {targetPartner} को कितना मिला?"
+    ],
+    "PRT-QL-103": [
+      "{business} में {partnerA} और {partnerB} ने समान अवधि के लिए {capitalA}, {capitalB} लगाए। कुल लाभ {totalProfit} में से {expense} व्यापार खर्च पहले घटाया गया। शेष में {targetPartner} का हिस्सा ज्ञात कीजिए।",
+      "एक {business} ने {totalProfit} कमाया। वितरण से पहले {expense} खर्च घटाया गया। {partnerA}, {partnerB} की समान अवधि की पूंजी {capitalA}, {capitalB} थी। शेष लाभ में {targetPartner} का हिस्सा कितना है?"
+    ]
+  }
+}

@@ -22,6 +22,9 @@ import questionLanguageE5PaSource from "../question-language.e5.pa.json" assert 
 import stemVariantsE6Source from "../stem-variants.e6.en.json" assert { type: "json" };
 import stemVariantsE6HiSource from "../stem-variants.e6.hi.json" assert { type: "json" };
 import stemVariantsE6PaSource from "../stem-variants.e6.pa.json" assert { type: "json" };
+import stemVariantsE7Source from "../stem-variants.e7.en.json" assert { type: "json" };
+import stemVariantsE7HiSource from "../stem-variants.e7.hi.json" assert { type: "json" };
+import stemVariantsE7PaSource from "../stem-variants.e7.pa.json" assert { type: "json" };
 import taskRegistrySource from "../task-registry.library.json" assert { type: "json" };
 import taskRegistryE1Source from "../task-registry.e1.library.json" assert { type: "json" };
 import taskRegistryE2Source from "../task-registry.e2.library.json" assert { type: "json" };
@@ -59,6 +62,13 @@ function mergeQuestionLanguages(base: QuestionLanguageSource, ...overlays: Quest
   return current;
 }
 
+function mergeStemVariants(base: StemVariantSource, overlay: StemVariantSource): StemVariantSource {
+  if (base.language !== overlay.language) throw new Error(`PRT-001 stem-variant language mismatch: ${base.language}/${overlay.language}`);
+  const overlap = Object.keys(base.entries).filter((id) => Object.prototype.hasOwnProperty.call(overlay.entries, id));
+  if (overlap.length > 0) throw new Error(`PRT-001 stem-variant ownership overlap: ${overlap.join(", ")}`);
+  return { language: base.language, status: `${base.status}+${overlay.status}`, entries: { ...base.entries, ...overlay.entries } };
+}
+
 const questionLanguages = {
   en: mergeQuestionLanguages(questionLanguageSource as QuestionLanguageSource, questionLanguageE1Source as QuestionLanguageSource, questionLanguageE2Source as QuestionLanguageSource, questionLanguageE3ASource as QuestionLanguageSource, questionLanguageE3BSource as QuestionLanguageSource, questionLanguageE4Source as QuestionLanguageSource, questionLanguageE5Source as QuestionLanguageSource),
   hi: mergeQuestionLanguages(questionLanguageHiSource as QuestionLanguageSource, questionLanguageE1HiSource as QuestionLanguageSource, questionLanguageE2HiSource as QuestionLanguageSource, questionLanguageE3AHiSource as QuestionLanguageSource, questionLanguageE3BHiSource as QuestionLanguageSource, questionLanguageE4HiSource as QuestionLanguageSource, questionLanguageE5HiSource as QuestionLanguageSource),
@@ -66,9 +76,9 @@ const questionLanguages = {
 };
 
 const stemVariants = {
-  en: stemVariantsE6Source as StemVariantSource,
-  hi: stemVariantsE6HiSource as StemVariantSource,
-  pa: stemVariantsE6PaSource as StemVariantSource,
+  en: mergeStemVariants(stemVariantsE6Source as StemVariantSource, stemVariantsE7Source as StemVariantSource),
+  hi: mergeStemVariants(stemVariantsE6HiSource as StemVariantSource, stemVariantsE7HiSource as StemVariantSource),
+  pa: mergeStemVariants(stemVariantsE6PaSource as StemVariantSource, stemVariantsE7PaSource as StemVariantSource),
 };
 
 const registries = [
@@ -151,19 +161,24 @@ export function validatePrt001PilotLibraries(): string[] {
   if (taskRegistry.ownership !== "HUMAN_OWNED") failures.push("task registry must be human-owned");
   const registryIds = Object.keys(taskRegistry.entries).sort();
   const expectedE6VariantIds = Array.from({ length: 20 }, (_, index) => `PRT-QL-${String(index + 13).padStart(3, "0")}`).sort();
+  const expectedE7VariantIds = registryIds.filter((id) => !expectedE6VariantIds.includes(id));
   for (const language of ["en", "hi", "pa"] as const) {
     const library = questionLanguages[language];
     const variants = stemVariants[language];
+    const e6Source = language === "en" ? stemVariantsE6Source as StemVariantSource : language === "hi" ? stemVariantsE6HiSource as StemVariantSource : stemVariantsE6PaSource as StemVariantSource;
+    const e7Source = language === "en" ? stemVariantsE7Source as StemVariantSource : language === "hi" ? stemVariantsE7HiSource as StemVariantSource : stemVariantsE7PaSource as StemVariantSource;
     if (library.language !== language) failures.push(`${language} library language mismatch`);
-    if (variants.language !== language) failures.push(`${language} E6 stem-variant language mismatch`);
+    if (variants.language !== language) failures.push(`${language} combined stem-variant language mismatch`);
     const questionIds = Object.keys(library.entries).sort();
     if (!sameStrings(registryIds, questionIds)) failures.push(`task registry and ${language} QL IDs differ`);
-    if (!sameStrings(Object.keys(variants.entries).sort(), expectedE6VariantIds)) failures.push(`${language} E6 stem variants must cover exactly PRT-QL-013..032`);
+    if (!sameStrings(Object.keys(e6Source.entries).sort(), expectedE6VariantIds)) failures.push(`${language} E6 stem variants must cover exactly PRT-QL-013..032`);
+    if (!sameStrings(Object.keys(e7Source.entries).sort(), expectedE7VariantIds)) failures.push(`${language} E7 stem variants must cover every remaining active QL`);
+    if (!sameStrings(Object.keys(variants.entries).sort(), registryIds)) failures.push(`${language} combined stem variants must cover every active QL`);
     for (const questionLanguageId of registryIds) {
       const entry = taskRegistry.entries[questionLanguageId]!;
       const templates = getPrt001QuestionTemplates(questionLanguageId, language);
+      if (templates.length !== 3) failures.push(`${language}:${questionLanguageId} must have exactly three authored stem skeletons`);
       if (new Set(templates).size !== templates.length) failures.push(`${language}:${questionLanguageId} has duplicate stem skeletons`);
-      if (expectedE6VariantIds.includes(questionLanguageId) && templates.length < 3) failures.push(`${language}:${questionLanguageId} needs at least three stem skeletons`);
       for (const template of templates) {
         const placeholders = extractPrt001Placeholders(template);
         if (!sameStrings(placeholders, entry.requiredVariables)) failures.push(`${language}:${questionLanguageId} required variables do not match a stem template`);
