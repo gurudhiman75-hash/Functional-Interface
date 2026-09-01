@@ -68,7 +68,7 @@ jobs:
           mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
           pnpm --dir artifacts/api-server exec esbuild \
             src/reasoning-v1/tests/spatial-final-held-gap-freeze-question-studio-v1.test.ts \
-            --bundle --platform=node --format=esm \
+            --bundle --platform=node --format=esm --packages=external \
             --outfile=dist/reasoning-v1/spatial/spatial-final-held-gap-freeze-question-studio-v1.test.mjs
 
       - name: Run final held-gap activation proof
