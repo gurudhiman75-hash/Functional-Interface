@@ -1,0 +1,26 @@
+{
+  "chapterId": "PRT-001",
+  "wave": "E9",
+  "legacyPackage": "RAP-003",
+  "legacyCanonicalProblemId": "RAP-CP-013",
+  "productOwnership": "PRT-001",
+  "legacyRuntimeRetention": "HISTORICAL_REGRESSION_ONLY",
+  "entries": [
+    {"legacyQlId":"RAP-QL-801","legacyTaskKind":"partnershipProfitShare","disposition":"RETIRED_TO_PRT","replacementAuthority":"findPartnerShareFromTotalProfitCapitalDuration","representativePrtQlIds":["PRT-QL-009","PRT-QL-010"]},
+    {"legacyQlId":"RAP-QL-802","legacyTaskKind":"partnershipJoiningPartnerProfit","disposition":"RETIRED_TO_PRT","replacementAuthority":"findShareWhenPartnerJoinsLater","representativePrtQlIds":["PRT-QL-079"]},
+    {"legacyQlId":"RAP-QL-803","legacyTaskKind":"partnershipMidPeriodChange","disposition":"RETIRED_TO_PRT","replacementAuthority":"piecewise capital addition/withdrawal share","representativePrtQlIds":["PRT-QL-018","PRT-QL-092"]},
+    {"legacyQlId":"RAP-QL-804","legacyTaskKind":"partnershipProfitShare","disposition":"RETIRED_TO_PRT","replacementAuthority":"findPartnerShareFromTotalProfitCapitalDuration","representativePrtQlIds":["PRT-QL-009","PRT-QL-010"]},
+    {"legacyQlId":"RAP-QL-805","legacyTaskKind":"partnershipJoiningPartnerProfit","disposition":"RETIRED_TO_PRT","replacementAuthority":"findShareWhenPartnerJoinsLater","representativePrtQlIds":["PRT-QL-079"]},
+    {"legacyQlId":"RAP-QL-806","legacyTaskKind":"partnershipLeavingPartnerProfit","disposition":"RETIRED_TO_PRT","replacementAuthority":"findShareWhenPartnerLeavesEarly","representativePrtQlIds":["PRT-QL-014"]},
+    {"legacyQlId":"RAP-QL-807","legacyTaskKind":"partnershipMidPeriodChangeBoth","disposition":"RETIRED_TO_PRT","replacementAuthority":"findProfitRatioWithChangesForMultiplePartners / compareEffectiveCapitalsAfterDifferentChanges","representativePrtQlIds":["PRT-QL-037","PRT-QL-094"]},
+    {"legacyQlId":"RAP-QL-808","legacyTaskKind":"partnershipSalaryThenProfitShare","disposition":"RETIRED_TO_PRT","replacementAuthority":"working-partner fixed salary before distribution","representativePrtQlIds":["PRT-QL-025","PRT-QL-099"]},
+    {"legacyQlId":"RAP-QL-809","legacyTaskKind":"partnershipProfitFromKnownShare","disposition":"RETIRED_TO_PRT","replacementAuthority":"reverse total profit from known weighted partner share","representativePrtQlIds":["PRT-QL-005","PRT-QL-081"]},
+    {"legacyQlId":"RAP-QL-810","legacyTaskKind":"partnershipCapitalRatioTimeRatio","disposition":"RETIRED_TO_PRT","replacementAuthority":"capital-time/profit-ratio relation","representativePrtQlIds":["PRT-QL-007","PRT-QL-044","PRT-QL-045"]},
+    {"legacyQlId":"RAP-QL-811","legacyTaskKind":"partnershipLossShare","disposition":"RETIRED_TO_PRT","replacementAuthority":"findLossShareFromCapitals","representativePrtQlIds":["PRT-QL-073"]},
+    {"legacyQlId":"RAP-QL-812","legacyTaskKind":"workContributionShare","disposition":"DELEGATED_TIME_AND_WORK","replacementAuthority":"TimeAndWork work/efficiency contribution sharing","representativePrtQlIds":[]},
+    {"legacyQlId":"RAP-QL-813","legacyTaskKind":"partnershipNewPartnerCapital","disposition":"RETIRED_TO_PRT","replacementAuthority":"findUnknownCapitalOfLateJoiningPartner","representativePrtQlIds":["PRT-QL-035"]},
+    {"legacyQlId":"RAP-QL-814","legacyTaskKind":"partnershipTimeFromProfitRatio","disposition":"RETIRED_TO_PRT","replacementAuthority":"findUnknownDurationFromShareRatioAndCapitals","representativePrtQlIds":["PRT-QL-012"]},
+    {"legacyQlId":"RAP-QL-815","legacyTaskKind":"partnershipTargetPartnerShareFromRatio","disposition":"RETIRED_TO_PRT","replacementAuthority":"partner share from capital-time/profit ratio","representativePrtQlIds":["PRT-QL-009","PRT-QL-010"]},
+    {"legacyQlId":"RAP-QL-816","legacyTaskKind":"partnershipRemainingProfitAfterCommission","disposition":"RETIRED_TO_PRT","replacementAuthority":"working-partner percentage commission before residual distribution","representativePrtQlIds":["PRT-QL-026","PRT-QL-101"]}
+  ]
+}
