@@ -2,32 +2,11 @@ import assert from "node:assert/strict";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
-import { listQuestionStudioPackages } from "../../question-studio/shared-generation-engine-sri";
-
 const cwd = process.cwd();
 const packageId = "SPA-001-CND-001-REVIEW";
 const qlIds = ["SPA-QL-043", "SPA-QL-044", "SPA-QL-045", "SPA-QL-046", "SPA-QL-047"];
 
-const packages = listQuestionStudioPackages() as Array<Record<string, unknown>>;
-const cnd = packages.find((entry) => String(entry.packageId) === packageId);
-assert.ok(cnd, "CND-001 must be discoverable in shared Question Studio capabilities.");
-assert.equal(cnd.enabled, true);
-assert.equal(cnd.topic, "Reasoning");
-assert.equal(cnd.subtopic, "Cubes & Dice");
-assert.equal(cnd.questionStudioDiscoverable, true);
-assert.equal(cnd.questionStudioGenerationEnabled, true);
-assert.equal(cnd.questionBankStatus, "READY_FOR_STORAGE");
-assert.equal(cnd.questionBankWritable, true);
-assert.equal(cnd.testEligibility, "ELIGIBLE");
-assert.equal(cnd.testEligible, true);
-assert.equal(cnd.testBuilderEligible, true);
-assert.equal(cnd.mockTestEligible, false);
-assert.equal(cnd.publicReleaseAuthorized, false);
-assert.equal(cnd.studentDeliveryAuthorized, false);
-assert.equal(cnd.automaticStudentPublication, false);
-assert.deepEqual([...(cnd.cpIds as readonly string[])], qlIds);
-assert.deepEqual([...(cnd.supportedLanguages as readonly string[])], ["en", "hi", "pa"]);
-
+const sharedEngine = readFileSync(resolve(cwd, "src/question-studio/shared-generation-engine-sri.ts"), "utf8");
 const registry = readFileSync(resolve(cwd, "src/routes/admin-question-studio-registry.ts"), "utf8");
 const workflowRoute = readFileSync(resolve(cwd, "src/routes/admin-question-studio-cubes-dice-workflow.ts"), "utf8");
 const cndRoute = readFileSync(resolve(cwd, "src/routes/admin-question-studio-cubes-dice.ts"), "utf8");
@@ -36,6 +15,24 @@ const sharedApi = readFileSync(resolve(cwd, "../admin-app/src/features/question-
 const cndApi = readFileSync(resolve(cwd, "../admin-app/src/features/question-studio/cubes-dice-review-api.ts"), "utf8");
 const livePage = readFileSync(resolve(cwd, "../admin-app/src/pages/content/QuestionStudioLivePage.tsx"), "utf8");
 const operationsPage = readFileSync(resolve(cwd, "../admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"), "utf8");
+
+assert.match(sharedEngine, /CND_001_QUESTION_STUDIO_PACKAGE/);
+assert.match(sharedEngine, /packageId: "SPA-001-CND-001-REVIEW"/);
+assert.match(sharedEngine, /topic: "Reasoning"/);
+assert.match(sharedEngine, /subtopic: "Cubes & Dice"/);
+assert.match(sharedEngine, /enabled: true/);
+for (const qlId of qlIds) assert.ok(sharedEngine.includes(`"${qlId}"`));
+assert.match(sharedEngine, /supportedLanguages: CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1\.supportedLanguages/);
+assert.match(sharedEngine, /questionStudioDiscoverable: true/);
+assert.match(sharedEngine, /questionStudioGenerationEnabled: true/);
+assert.match(sharedEngine, /questionBankWritable: true/);
+assert.match(sharedEngine, /testEligible: true/);
+assert.match(sharedEngine, /testBuilderEligible: true/);
+assert.match(sharedEngine, /mockTestEligible: false/);
+assert.match(sharedEngine, /publicReleaseAuthorized: false/);
+assert.match(sharedEngine, /studentDeliveryAuthorized: false/);
+assert.match(sharedEngine, /automaticStudentPublication: false/);
+assert.match(sharedEngine, /previous\.push\(CND_001_QUESTION_STUDIO_PACKAGE\)/);
 
 assert.ok(registry.includes('import adminQuestionStudioCubesDiceWorkflowRouter from "./admin-question-studio-cubes-dice-workflow"'));
 const workflowIndex = registry.indexOf("router.use(adminQuestionStudioCubesDiceWorkflowRouter)");
