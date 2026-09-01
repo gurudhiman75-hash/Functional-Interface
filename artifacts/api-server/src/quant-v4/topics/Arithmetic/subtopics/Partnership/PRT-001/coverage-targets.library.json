@@ -58,5 +58,5 @@
     "validationJob": 99421096301,
     "runtimeHead": "d8ac563c60238c2c4463aaf37fc10bd882cae6dc"
   },
-  "exhaustivenessStatus": "E9_LEGACY_OWNERSHIP_VALIDATED_NOT_FINAL"
+  "exhaustivenessStatus": "E13_POST_FREEZE_EXHAUSTIVENESS_REOPENED"
 }
