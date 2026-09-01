@@ -4,6 +4,7 @@ import { sqlClient } from "../lib/db";
 
 export const DAILY_MASTER_PACK_LANGUAGES = ["en", "hi", "pa"] as const;
 export type DailyMasterPackLanguage = (typeof DAILY_MASTER_PACK_LANGUAGES)[number];
+const DAILY_PRODUCT_EXAM_FAMILIES = ["ssc", "banking", "punjab"] as const;
 
 const CATEGORY_ORDER = [
   "national",
@@ -371,7 +372,9 @@ async function loadMasterPackEvents(
     LEFT JOIN LATERAL (
       SELECT array_agg(DISTINCT score.exam_family_key ORDER BY score.exam_family_key) AS families
       FROM content.current_affairs_exam_scores score
-      WHERE score.event_id=event.id AND score.include_recommended=true
+      WHERE score.event_id=event.id
+        AND score.include_recommended=true
+        AND score.exam_family_key IN ('ssc','banking','punjab')
     ) scores ON true
     LEFT JOIN LATERAL (
       SELECT json_agg(json_build_object(
@@ -400,7 +403,9 @@ async function loadMasterPackEvents(
       AND EXISTS (
         SELECT 1
         FROM content.current_affairs_exam_scores relevance
-        WHERE relevance.event_id=event.id AND relevance.include_recommended=true
+        WHERE relevance.event_id=event.id
+          AND relevance.include_recommended=true
+          AND relevance.exam_family_key IN ('ssc','banking','punjab')
       )
       AND NOT EXISTS (
         SELECT 1 FROM content.current_affairs_fact_conflicts conflict
@@ -417,7 +422,9 @@ async function loadMasterPackEvents(
     title: clean(row.title),
     summary: clean(row.summary),
     oneLiner: clean(row.oneLiner),
-    examFamilies: parseArray<string>(row.examFamilies).map(String),
+    examFamilies: parseArray<string>(row.examFamilies)
+      .map(String)
+      .filter((family) => (DAILY_PRODUCT_EXAM_FAMILIES as readonly string[]).includes(family)),
     facts: parseArray<Record<string, unknown>>(row.facts).map((fact) => ({
       key: clean(fact.key),
       label: factLabel(language, clean(fact.key)),
@@ -524,7 +531,7 @@ export async function materializeDailyMasterPack(
   const summary = resourceSummary(payload);
   const resourceId = existing[0]?.learningResourceId ? String(existing[0].learningResourceId) : randomUUID();
   const packId = existing[0]?.id ? String(existing[0].id) : randomUUID();
-  const renderTargets = language === "en" ? ["web", "text", "pdf"] : ["web", "text"];
+  const renderTargets = ["web", "text", "pdf"];
 
   await sqlClient.begin(async (tx) => {
     await tx`
