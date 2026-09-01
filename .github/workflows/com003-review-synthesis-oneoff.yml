@@ -12,6 +12,7 @@ on:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-english-*.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-*.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-studio-*.ts'
+      - 'artifacts/api-server/src/question-studio/engines/com003-*.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-com003.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
       - 'artifacts/admin-app/src/features/question-studio/com003-preview-api.ts'
@@ -29,6 +30,7 @@ on:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-english-*.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-*.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-studio-*.ts'
+      - 'artifacts/api-server/src/question-studio/engines/com003-*.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-com003.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
       - 'artifacts/admin-app/src/features/question-studio/com003-preview-api.ts'
@@ -90,6 +92,10 @@ jobs:
               --bundle --platform=node --format=esm \
               --outfile=dist/com003-review-synthesis-oneoff/${test}.mjs
           done
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/engines/com003-question-bank-readiness-candidate-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-review-synthesis-oneoff/com003-question-bank-readiness-candidate-v1.test.mjs
       - name: Run COM-003 English freeze, localization and Question Studio gates
         run: |
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-synthesis-v4.test.mjs
@@ -111,3 +117,4 @@ jobs:
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-read-only-preview-freeze-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-admin-preview-ui-contract-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-admin-preview-ui-freeze-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-bank-readiness-candidate-v1.test.mjs
