@@ -5,6 +5,7 @@ import { evaluateDailyMasterPackApprovalReadiness } from "./daily-master-pack-ap
 const ids = ["11111111-1111-4111-8111-111111111111", "22222222-2222-4222-8222-222222222222"];
 const pack = (language: "en" | "hi" | "pa") => ({
   language,
+  payloadLanguage: language,
   status: "draft",
   resourceStatus: "draft",
   declaredEventCount: 2,
@@ -64,6 +65,13 @@ const noPdf = evaluateDailyMasterPackApprovalReadiness({
 });
 assert.equal(noPdf.ready, false);
 assert.equal(noPdf.checks.allRenderTargetsAvailable, false);
+
+const wrongPayloadLanguage = evaluateDailyMasterPackApprovalReadiness({
+  ...base,
+  packs: [pack("en"), { ...pack("hi"), payloadLanguage: "en" }, pack("pa")],
+});
+assert.equal(wrongPayloadLanguage.ready, false);
+assert.equal(wrongPayloadLanguage.checks.payloadIntegrity, false);
 
 const blockedCensus = evaluateDailyMasterPackApprovalReadiness({ ...base, censusStatus: "blocked", censusBlockerCount: 1 });
 assert.equal(blockedCensus.ready, false);
