@@ -4,6 +4,7 @@ import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
 import adminQuestionStudioCom003Router from "./admin-question-studio-com003";
 import adminQuestionStudioSriRouter from "./admin-question-studio-sri";
+import adminQuestionStudioEngineV1Router from "./admin-question-studio-engine-v1";
 import adminQuestionStudioDataSufficiencyCurrentRouter from "./admin-question-studio-data-sufficiency-current";
 import adminQuestionStudioCp014Router from "./admin-question-studio-cp014";
 import adminQuestionStudioTrigonometryRouter from "./admin-question-studio-trigonometry";
@@ -26,17 +27,14 @@ import adminQuestionStudioRouter from "./admin-question-studio";
 /**
  * Canonical Question Studio route registry.
  *
- * Chapter/package integrations belong here instead of routes/index.ts. Keeping
- * the global route index stable prevents unrelated chapter workflows from
- * firing whenever one Question Studio package is added or reordered.
- *
- * Order is intentional: hardening/specialized additive routers must run before
- * the legacy catch-all router at the bottom. SRI owns the newest aggregate GET
- * /capabilities surface. The DSF CP017 router is mounted immediately after it so
- * normal POST /runs requests for DSF-001 enter the standard review-run lifecycle
- * before older package-specific/legacy fallbacks are considered. COM-003 is a
- * read-only pre-registration preview integration and must also remain ahead of
- * the legacy router so its explicit non-persistence contract cannot be bypassed.
+ * Order is intentional. Specialized read-only/hardening routers run first.
+ * SRI retains ownership of the established aggregate GET /capabilities surface.
+ * The multi-engine V1 router follows SRI so non-SRI knowledge/language POST
+ * /runs requests can enter the standard persisted review lifecycle without
+ * replacing that compatibility capabilities response. DSF and older package
+ * fallbacks remain below it. COM-003 therefore has two distinct surfaces:
+ * frozen read-only preview through its dedicated router and authorized
+ * REVIEW_ONLY run persistence through the multi-engine router.
  */
 const router: IRouter = Router();
 
@@ -44,6 +42,7 @@ router.use(adminQuestionStudioBulkHardeningRouter);
 router.use(adminQuestionStudioQualityRouter);
 router.use(adminQuestionStudioCom003Router);
 router.use(adminQuestionStudioSriRouter);
+router.use(adminQuestionStudioEngineV1Router);
 router.use(adminQuestionStudioDataSufficiencyCurrentRouter);
 router.use(adminQuestionStudioCp014Router);
 router.use(adminQuestionStudioTrigonometryRouter);
