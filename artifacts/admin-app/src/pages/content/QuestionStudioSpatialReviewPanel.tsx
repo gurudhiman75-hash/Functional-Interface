@@ -38,6 +38,8 @@ const CHAPTER_LABELS: Record<SpatialReviewChapter, string> = {
   'FGC-001': 'Figure Completion',
   'PFC-001': 'Paper Folding & Cutting',
   'TPF-001': 'Transparent Pattern Folding',
+  'FCT-001': 'Counting Figures',
+  'EMB-001': 'Embedded Figure',
 };
 const LANGUAGE_LABELS: Record<SpatialReviewLanguage, string> = {
   en: 'English',
@@ -250,17 +252,17 @@ export function QuestionStudioSpatialReviewPanel() {
             <Badge variant="outline" className="gap-1">
               <ShieldAlert className="h-3 w-3" /> Standard Question Studio lifecycle
             </Badge>
-            <Badge variant="outline">{pkg?.permanentQlCount ?? 40} permanent QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
+            <Badge variant="outline">{pkg?.permanentQlCount ?? 45} production QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Generate approved Mirror Image, Water Image, Figure Analogy, Figure Classification, Figure Series, Figure Completion, Paper Folding & Cutting and Transparent Pattern Folding questions in English, Hindi or Punjabi directly into the normal Question Studio review queue. Frozen geometry and answers stay identical across languages; only learner-facing text is localized.
+          Generate approved Spatial Reasoning questions across mirror/water images, visual analogy and classification, figure series/completion, paper and transparent folding, Counting Figures and Embedded Figure in English, Hindi or Punjabi. SPA-QL-048..050 use the approved V3 exam-real figures and enter Question Bank/Test Builder only after manual review; mock and student/public release remain locked.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
         {status && (
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-            <Metric label="Permanent QLs" value={status.permanentQlCount} />
+            <Metric label="Production QLs" value={status.permanentQlCount} />
             <Metric label="Studio items" value={status.generationItemCount} />
             <Metric label="Review-approved" value={status.approvedItemCount} />
             <Metric label="Question Bank" value={status.questionBankCount} />
@@ -272,7 +274,7 @@ export function QuestionStudioSpatialReviewPanel() {
             <ShieldAlert className="h-4 w-4" /> Multilingual standard approval handoff
           </div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            English, Hindi and Punjabi use the same canonical geometry, option order, answer and semantic fingerprint. After the quality gate and manual approval, Question Studio converts the selected language item into Question Bank through the shared lifecycle. Automatic student publication stays disabled.
+            English, Hindi and Punjabi preserve the same approved geometry, option order and answer semantics. Manual Question Studio approval converts eligible items into Question Bank; final held-gap QLs may then be manually used in Test Builder, while mock-test, automatic student delivery and public release stay disabled.
           </p>
         </div>
 
