@@ -48,11 +48,13 @@ services:
       # Secret stays in Render; never commit the Gemini API key to GitHub.
       - key: GEMINI_API_KEY
         sync: false
-      # Candidate Claims uses the shared AI-provider layer and is explicitly pinned
-      # to Gemini for Notes Studio even if another provider is configured elsewhere.
+      # All Notes Studio model-backed stages use the shared provider layer.
       - key: NOTES_STUDIO_AI_PROVIDER
         value: gemini
-      # Current GA production model for evidence -> candidate-claim extraction.
+      # Common production fallback for candidate claims, coverage, research,
+      # section synthesis, QA and localization. Stage-specific overrides remain optional.
+      - key: NOTES_STUDIO_MODEL
+        value: gemini-3.7-flash
       - key: NOTES_STUDIO_EVIDENCE_MODEL
         value: gemini-3.7-flash
 
