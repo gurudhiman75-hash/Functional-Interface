@@ -1,4 +1,4 @@
-name: Validate SPA Final Held-Gap Review V1
+name: Validate SPA Final Held-Gap Review V2
 
 on:
   push:
@@ -8,8 +8,9 @@ on:
       - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-final-held-gap-saturation-v1.ts
       - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v9.ts
       - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-final-held-gap-review-runtime-v1.ts
-      - artifacts/api-server/src/reasoning-v1/tests/spatial-final-held-gap-review-runtime-v1.test.ts
-      - artifacts/api-server/src/reasoning-v1/tests/spatial-final-held-gap-review-pack-v1.ts
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-final-held-gap-review-runtime-v2.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-final-held-gap-review-runtime-v2.test.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-final-held-gap-review-pack-v2.ts
       - .github/workflows/spa-final-held-gap-review-v1.yml
   workflow_dispatch:
 
@@ -38,44 +39,44 @@ jobs:
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
 
-      - name: Bundle final held-gap runtime proof
+      - name: Bundle final held-gap V2 runtime proof
         run: |
           mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
           pnpm --dir artifacts/api-server exec esbuild \
-            src/reasoning-v1/tests/spatial-final-held-gap-review-runtime-v1.test.ts \
+            src/reasoning-v1/tests/spatial-final-held-gap-review-runtime-v2.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=dist/reasoning-v1/spatial/spatial-final-held-gap-review-runtime-v1.test.mjs
+            --outfile=dist/reasoning-v1/spatial/spatial-final-held-gap-review-runtime-v2.test.mjs
 
-      - name: Run final held-gap runtime proof
+      - name: Run final held-gap V2 runtime proof
         run: |
           set -o pipefail
           cd artifacts/api-server
-          node dist/reasoning-v1/spatial/spatial-final-held-gap-review-runtime-v1.test.mjs 2>&1 \
-            | tee dist/reasoning-v1/spatial/spa-final-held-gap-review-runtime-v1-run.log
+          node dist/reasoning-v1/spatial/spatial-final-held-gap-review-runtime-v2.test.mjs 2>&1 \
+            | tee dist/reasoning-v1/spatial/spa-final-held-gap-review-runtime-v2-run.log
 
-      - name: Bundle visual review pack generator
+      - name: Bundle V2 visual review pack generator
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/reasoning-v1/tests/spatial-final-held-gap-review-pack-v1.ts \
+            src/reasoning-v1/tests/spatial-final-held-gap-review-pack-v2.ts \
             --bundle --platform=node --format=esm \
-            --outfile=dist/reasoning-v1/spatial/spatial-final-held-gap-review-pack-v1.mjs
+            --outfile=dist/reasoning-v1/spatial/spatial-final-held-gap-review-pack-v2.mjs
 
-      - name: Generate visual review pack
+      - name: Generate V2 visual review pack
         run: |
           set -o pipefail
           cd artifacts/api-server
-          node dist/reasoning-v1/spatial/spatial-final-held-gap-review-pack-v1.mjs 2>&1 \
-            | tee dist/reasoning-v1/spatial/spa-final-held-gap-review-pack-v1-run.log
+          node dist/reasoning-v1/spatial/spatial-final-held-gap-review-pack-v2.mjs 2>&1 \
+            | tee dist/reasoning-v1/spatial/spa-final-held-gap-review-pack-v2-run.log
 
-      - name: Upload final held-gap review evidence
+      - name: Upload final held-gap V2 review evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: spa-final-held-gap-review-v1
+          name: spa-final-held-gap-review-v2
           path: |
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-runtime-v1-run.log
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-runtime-v1-evidence.json
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-pack-v1-run.log
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-v1.html
-            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-v1.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-runtime-v2-run.log
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-runtime-v2-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-pack-v2-run.log
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-v2.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-review-v2.json
           if-no-files-found: error
