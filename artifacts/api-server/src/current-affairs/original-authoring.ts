@@ -27,6 +27,7 @@ export type AuthoringOutput = {
 };
 
 const AUTHORING_POLICY_VERSION = "ca-cp044-learner-writing-quality-v1";
+const TITLE_SIMILARITY_LIMIT = 0.72;
 
 const SOURCE_NAMES: Record<string, string> = {
   pib: "Government of India",
@@ -197,20 +198,27 @@ function naturalFactDetail(items: ReadonlyArray<readonly [string, string]>) {
   return items.map(([key, value]) => `${factLabel(key)}: ${value}`).join("; ");
 }
 
+function sourceSafeTitle(preferred: string, fallback: string, sourceTitle: string) {
+  return titleSimilarity(preferred, sourceTitle) < TITLE_SIMILARITY_LIMIT ? preferred : fallback;
+}
+
 function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, string>, sourceName: string): AuthoringOutput | null {
   const useful = [...facts.entries()]
     .map(([key, value]) => [key, cleanFactValue(value)] as const)
     .filter((entry): entry is readonly [string, string] => Boolean(entry[1]));
   if (useful.length < 2) return null;
 
+  const categoryLabel = CATEGORY_LABELS[input.category] ?? CATEGORY_LABELS.other;
   const actionEntity = cleanFactValue(facts.get("acting_entity") ?? "");
   const officialAction = cleanFactValue(facts.get("official_action") ?? "");
   const actionSubject = cleanFactValue(facts.get("action_subject") ?? "");
   if (actionEntity && officialAction && actionSubject) {
     const action = readableAction(officialAction);
+    const preferredTitle = `${sourceName}: ${compact(actionSubject, 118)}`;
+    const fallbackTitle = `${sourceName}: ${categoryLabel} announcement`;
     return result({
       input,
-      title: `${sourceName}: ${compact(actionSubject, 118)}`,
+      title: sourceSafeTitle(preferredTitle, fallbackTitle, input.sourceTitle),
       summary: `On ${humanDate(input.eventDate)}, ${actionEntity} ${lowerFirst(action)} ${actionSubject}.`,
       oneLiner: `${compact(actionSubject, 118)} — ${compact(actionEntity, 58)}`,
       templateId: "verified_official_action_v1",
@@ -221,9 +229,10 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
   const winner = cleanFactValue(facts.get("winner") ?? "");
   const award = cleanFactValue(facts.get("award_or_title") ?? "");
   if (winner && award) {
+    const preferredTitle = `${sourceName}: ${compact(award, 105)} — ${compact(winner, 60)}`;
     return result({
       input,
-      title: `${sourceName}: ${compact(award, 105)} — ${compact(winner, 60)}`,
+      title: sourceSafeTitle(preferredTitle, `${sourceName}: award result`, input.sourceTitle),
       summary: `On ${humanDate(input.eventDate)}, ${winner} was recorded as the winner of ${award}.`,
       oneLiner: `${winner} — ${award}`,
       templateId: "verified_award_result_v1",
@@ -234,9 +243,10 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
   const launchingEntity = cleanFactValue(facts.get("launching_entity") ?? "");
   const initiative = cleanFactValue(facts.get("initiative") ?? "");
   if (launchingEntity && initiative) {
+    const preferredTitle = `${sourceName}: ${compact(initiative, 118)}`;
     return result({
       input,
-      title: `${sourceName}: ${compact(initiative, 118)}`,
+      title: sourceSafeTitle(preferredTitle, `${sourceName}: ${categoryLabel} initiative`, input.sourceTitle),
       summary: `On ${humanDate(input.eventDate)}, ${launchingEntity} launched ${initiative}.`,
       oneLiner: `${initiative} — launched by ${launchingEntity}`,
       templateId: "verified_initiative_v1",
@@ -244,16 +254,16 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
     });
   }
 
-  const categoryLabel = CATEGORY_LABELS[input.category] ?? CATEGORY_LABELS.other;
   const subject = SUBJECT_FACT_PRIORITY
     .map((key) => facts.get(key))
     .map((value) => value ? cleanFactValue(value) : undefined)
     .find(Boolean);
   const selected = useful.slice(0, 4);
   const detail = naturalFactDetail(selected);
-  const title = subject
+  const preferredTitle = subject
     ? `${sourceName}: ${compact(subject, 118)}`
     : `${sourceName}: key ${categoryLabel} development`;
+  const title = sourceSafeTitle(preferredTitle, `${sourceName}: key ${categoryLabel} development`, input.sourceTitle);
   const memory = selected.length >= 2
     ? `${compact(selected[0]![1], 85)} · ${compact(selected[1]![1], 85)}`
     : compact(selected[0]?.[1] ?? subject ?? sourceName, 150);
@@ -277,8 +287,8 @@ function result(args: {
 }): AuthoringOutput {
   const similarity = titleSimilarity(args.title, args.input.sourceTitle);
   const reasons = [...(args.reasons ?? [])];
-  if (similarity >= 0.72) reasons.push("Generated learner title is too similar to the source title");
-  const ready = similarity < 0.72 && args.title.length >= 12 && args.summary.length >= 20;
+  if (similarity >= TITLE_SIMILARITY_LIMIT) reasons.push("Generated learner title is too similar to the source title");
+  const ready = similarity < TITLE_SIMILARITY_LIMIT && args.title.length >= 12 && args.summary.length >= 20;
   return {
     status: ready ? "ready" : "needs_editorial",
     title: ready ? args.title : undefined,
