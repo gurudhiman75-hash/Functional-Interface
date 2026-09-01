@@ -18,6 +18,7 @@ import {
   previewDsf001NormalQuestionStudioReview,
 } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017/question-studio-review-v1.ts";
 import { CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1 } from "../reasoning-v1/foundation/spatial/cubes-dice-test-builder-activation-v1.ts";
+import { SER_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1 } from "../reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/ser-001-internal-test-builder-activation-v1.ts";
 
 export {
   isDsf001NormalQuestionStudioRequest,
@@ -35,13 +36,7 @@ const CND_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
   subject: "Reasoning Ability" as const,
   label: "Cubes & Dice — CND-001" as const,
   enabled: true,
-  cpIds: Object.freeze([
-    "SPA-QL-043",
-    "SPA-QL-044",
-    "SPA-QL-045",
-    "SPA-QL-046",
-    "SPA-QL-047",
-  ] as const),
+  cpIds: Object.freeze(["SPA-QL-043", "SPA-QL-044", "SPA-QL-045", "SPA-QL-046", "SPA-QL-047"] as const),
   permanentQlCount: 5,
   permanentQlIds: CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1.permanentQlIds,
   supportedLanguages: CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1.supportedLanguages,
@@ -64,6 +59,36 @@ const CND_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
   releaseId: CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1.authorityId,
 });
 
+const SER_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
+  packageId: "SER-001" as const,
+  topic: "Reasoning" as const,
+  subtopic: "Series" as const,
+  subject: "Reasoning Ability" as const,
+  label: "Series — SER-001 · 140 Frozen Templates" as const,
+  enabled: true,
+  cpIds: SER_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1.permanentQlIds,
+  permanentQlCount: 13,
+  permanentQlIds: SER_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1.permanentQlIds,
+  supportedLanguages: SER_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1.supportedLanguages,
+  supportedDifficulties: Object.freeze(["Easy", "Medium", "Hard"] as const),
+  runtimeMode: "FROZEN_REVIEW" as const,
+  reviewStatus: "APPROVED_MULTILINGUAL_FROZEN" as const,
+  difficultyPolicy: "FROZEN_TEMPLATE_CONTROLLED" as const,
+  questionStudioDiscoverable: true,
+  questionStudioGenerationEnabled: true,
+  questionBankStatus: SER_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1.questionBankStatus,
+  questionBankWritable: true,
+  testEligibility: SER_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1.testEligibility,
+  testEligible: true,
+  testBuilderEligible: true,
+  mockTestEligible: false,
+  publiclyPublishable: true,
+  publicReleaseAuthorized: false,
+  studentDeliveryAuthorized: false,
+  automaticStudentPublication: false,
+  releaseId: SER_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1.authorityId,
+});
+
 export function listQuestionStudioPackages() {
   const previous = [...listPreviousPackages()] as any[];
 
@@ -80,10 +105,12 @@ export function listQuestionStudioPackages() {
     previous.push(pkg);
   }
 
-  if (previous.some((entry) => String(entry.packageId) === CND_001_QUESTION_STUDIO_PACKAGE.packageId)) {
-    throw new Error(`Question Studio package ${CND_001_QUESTION_STUDIO_PACKAGE.packageId} already exists before CND workflow activation.`);
+  for (const pkg of [CND_001_QUESTION_STUDIO_PACKAGE, SER_001_QUESTION_STUDIO_PACKAGE]) {
+    if (previous.some((entry) => String(entry.packageId) === pkg.packageId)) {
+      throw new Error(`Question Studio package ${pkg.packageId} already exists before reasoning workflow activation.`);
+    }
+    previous.push(pkg);
   }
-  previous.push(CND_001_QUESTION_STUDIO_PACKAGE);
 
   return previous;
 }
