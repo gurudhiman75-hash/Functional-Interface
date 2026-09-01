@@ -3,6 +3,12 @@ import { Router, type IRouter, type Response } from "express";
 
 import { loadDailyDiscoveryCensus } from "../current-affairs/daily-discovery-census";
 import {
+  approveDailyMasterPackSet,
+  listDailyMasterPackApprovalHistory,
+  loadDailyMasterPackApprovalCandidate,
+  revokeDailyMasterPackApproval,
+} from "../current-affairs/daily-master-pack-approval-runtime";
+import {
   assertDailyMasterPackLanguage,
   loadDailyMasterPack,
   loadDailyMasterPacks,
@@ -40,6 +46,12 @@ function artifactFilename(targetDate: string, language: DailyMasterPackLanguage,
   return `examtree-current-affairs-${targetDate}${languageSuffix}.${extension}`;
 }
 
+function adminActor(req: { adminSession?: { user?: { id?: string } } }) {
+  const actorUserId = req.adminSession?.user?.id;
+  if (!actorUserId) throw new Error("Administrator session required");
+  return actorUserId;
+}
+
 router.use(authenticate);
 
 router.get("/production/readiness", requireAdminPermission("content.questions.read"), async (_req, res) => {
@@ -65,6 +77,53 @@ router.get("/production/master-packs", requireAdminPermission("content.questions
     res.json({ targetDate, masterPacks: await loadDailyMasterPacks(targetDate) });
   } catch (error) {
     sendError(res, error, "Unable to load Current Affairs multilingual daily master packs");
+  }
+});
+
+router.get("/production/master-pack-approval", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const targetDate = requestedDate(req.query.date);
+    const [candidate, history] = await Promise.all([
+      loadDailyMasterPackApprovalCandidate(targetDate),
+      listDailyMasterPackApprovalHistory(targetDate, 20),
+    ]);
+    res.json({ targetDate, candidate, history });
+  } catch (error) {
+    sendError(res, error, "Unable to load canonical Daily Master Pack editorial approval state");
+  }
+});
+
+router.post("/production/master-pack-approval/approve", requireAdminPermission("content.questions.update"), async (req, res) => {
+  try {
+    const actorUserId = adminActor(req);
+    const targetDate = requestedDate(req.body?.date);
+    const result = await approveDailyMasterPackSet({
+      contentDate: targetDate,
+      actorUserId,
+      reason: String(req.body?.reason ?? ""),
+    });
+    res.status(201).json(result);
+  } catch (error) {
+    sendError(res, error, "Unable to approve canonical Daily Master Pack");
+  }
+});
+
+router.post("/production/master-pack-approval/revoke", requireAdminPermission("content.questions.update"), async (req, res) => {
+  try {
+    const actorUserId = adminActor(req);
+    const approvalId = String(req.body?.approvalId ?? "").trim();
+    if (!approvalId) {
+      res.status(400).json({ error: "approvalId is required", code: "CURRENT_AFFAIRS_MASTER_PACK_APPROVAL_ID_REQUIRED" });
+      return;
+    }
+    const result = await revokeDailyMasterPackApproval({
+      approvalId,
+      actorUserId,
+      reason: String(req.body?.reason ?? ""),
+    });
+    res.json(result);
+  } catch (error) {
+    sendError(res, error, "Unable to revoke canonical Daily Master Pack approval");
   }
 });
 

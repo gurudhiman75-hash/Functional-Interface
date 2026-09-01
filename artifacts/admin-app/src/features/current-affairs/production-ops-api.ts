@@ -149,6 +149,64 @@ export type DailyMasterPack = {
 
 export type DailyMasterPackSet = Record<DailyMasterPackLanguage, DailyMasterPack | null>;
 
+export type DailyMasterPackApproval = {
+  id: string;
+  publicCode: string;
+  contentDate: string;
+  approvalVersion: number;
+  status: 'approved' | 'revoked';
+  sourceFingerprint: string;
+  readinessSnapshot: unknown;
+  approvalReason: string;
+  approvedBy: string;
+  approvedAt: string;
+  revokedBy: string | null;
+  revokedAt: string | null;
+  revocationReason: string | null;
+};
+
+export type DailyMasterPackApprovalCandidate = {
+  contentDate: string;
+  packs: Array<{
+    id: string;
+    publicCode: string;
+    language: DailyMasterPackLanguage;
+    status: string;
+    learningResourceId: string;
+    learningResourceStatus: string;
+    eventCount: number;
+    categoryCount: number;
+    renderTargets: string[];
+    payloadSha256: string;
+    generatedAt: string;
+  }>;
+  currentEligibleEventIds: string[];
+  census: null | {
+    id: string;
+    status: string;
+    coverageConfidenceScore: number;
+    blockers: string[];
+    warnings: string[];
+    generatedAt: string;
+  };
+  readiness: {
+    ready: boolean;
+    blockers: string[];
+    warnings: string[];
+    checks: Record<string, boolean>;
+  };
+  sourceFingerprint: string;
+  activeApproval: DailyMasterPackApproval | null;
+  latestApproval: DailyMasterPackApproval | null;
+  learnerPublicationAuthorized: false;
+};
+
+export type DailyMasterPackApprovalState = {
+  targetDate: string;
+  candidate: DailyMasterPackApprovalCandidate;
+  history: Array<DailyMasterPackApproval & { packs?: unknown }>;
+};
+
 export type CurrentAffairsRecoveryRuns = {
   runs: Array<{
     id: string;
@@ -262,6 +320,40 @@ export function getCurrentAffairsDailyMasterPacks(date?: string) {
   return adminRequest<{ targetDate: string; masterPacks: DailyMasterPackSet }>(
     `/admin/current-affairs/production/master-packs${suffix}`,
   );
+}
+
+export function getDailyMasterPackApprovalState(date?: string) {
+  const suffix = date ? `?date=${encodeURIComponent(date)}` : '';
+  return adminRequest<DailyMasterPackApprovalState>(`/admin/current-affairs/production/master-pack-approval${suffix}`);
+}
+
+export function approveDailyMasterPack(date: string, reason: string) {
+  return adminRequest<{
+    id: string;
+    publicCode: string;
+    contentDate: string;
+    approvalVersion: number;
+    status: 'approved';
+    learnerPublicationAuthorized: false;
+    learningResourcesRemainDraft: true;
+  }>('/admin/current-affairs/production/master-pack-approval/approve', {
+    method: 'POST',
+    body: JSON.stringify({ date, reason }),
+  });
+}
+
+export function revokeDailyMasterPackApproval(approvalId: string, reason: string) {
+  return adminRequest<{
+    id: string;
+    publicCode: string;
+    contentDate: string;
+    status: 'revoked';
+    packsReturnedToReview: true;
+    learnerPublicationAuthorized: false;
+  }>('/admin/current-affairs/production/master-pack-approval/revoke', {
+    method: 'POST',
+    body: JSON.stringify({ approvalId, reason }),
+  });
 }
 
 export function currentAffairsDailyMasterTextPath(date: string, language: DailyMasterPackLanguage = 'en') {
