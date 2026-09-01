@@ -83,7 +83,8 @@ jobs:
             com003-question-studio-pre-registration-freeze-v1.test \
             com003-question-studio-read-only-route-contract-v1.test \
             com003-question-studio-read-only-preview-freeze-v1.test \
-            com003-question-studio-admin-preview-ui-contract-v1.test; do
+            com003-question-studio-admin-preview-ui-contract-v1.test \
+            com003-question-studio-admin-preview-ui-freeze-v1.test; do
             pnpm --dir artifacts/api-server exec esbuild \
               src/knowledge-v1/computer-awareness/${test}.ts \
               --bundle --platform=node --format=esm \
@@ -109,3 +110,4 @@ jobs:
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-read-only-route-contract-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-read-only-preview-freeze-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-admin-preview-ui-contract-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-admin-preview-ui-freeze-v1.test.mjs
