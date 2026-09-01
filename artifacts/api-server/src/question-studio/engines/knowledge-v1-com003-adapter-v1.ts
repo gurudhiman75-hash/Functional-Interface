@@ -34,6 +34,8 @@ export const COM003_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefini
   enabled: true,
   cpIds,
   supportedLanguages,
+  supportedDifficulties: [],
+  difficultyFilterSupported: false,
   runtimeMode: COM003_QUESTION_STUDIO_RUNTIME_MODE_V1,
   supportedRuntimeModes: [COM003_QUESTION_STUDIO_RUNTIME_MODE_V1],
   lifecycleId: lifecycle.lifecycleId,
