@@ -17,6 +17,7 @@ import {
   isDsf001NormalQuestionStudioRequest,
   previewDsf001NormalQuestionStudioReview,
 } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017/question-studio-review-v1.ts";
+import { CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1 } from "../reasoning-v1/foundation/spatial/cubes-dice-test-builder-activation-v1.ts";
 
 export {
   isDsf001NormalQuestionStudioRequest,
@@ -26,6 +27,42 @@ export {
   isTrg002V4GenerationRequest,
 };
 export type { SharedQuestionStudioGenerationRequest, SriQuestionStudioRequestV1 };
+
+const CND_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
+  packageId: "SPA-001-CND-001-REVIEW" as const,
+  topic: "Reasoning" as const,
+  subtopic: "Cubes & Dice" as const,
+  subject: "Reasoning Ability" as const,
+  label: "Cubes & Dice — CND-001" as const,
+  enabled: true,
+  cpIds: Object.freeze([
+    "SPA-QL-043",
+    "SPA-QL-044",
+    "SPA-QL-045",
+    "SPA-QL-046",
+    "SPA-QL-047",
+  ] as const),
+  permanentQlCount: 5,
+  permanentQlIds: CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1.permanentQlIds,
+  supportedLanguages: CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1.supportedLanguages,
+  supportedDifficulties: Object.freeze(["Easy", "Medium", "Hard"] as const),
+  runtimeMode: "CANONICAL_REVIEW" as const,
+  reviewStatus: "APPROVED_EDITORIAL_CANONICAL" as const,
+  difficultyPolicy: "QL_RUNTIME_CONTROLLED" as const,
+  questionStudioDiscoverable: true,
+  questionStudioGenerationEnabled: true,
+  questionBankStatus: CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1.questionBankStatus,
+  questionBankWritable: true,
+  testEligibility: CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1.testEligibility,
+  testEligible: true,
+  testBuilderEligible: true,
+  mockTestEligible: false,
+  publiclyPublishable: true,
+  publicReleaseAuthorized: false,
+  studentDeliveryAuthorized: false,
+  automaticStudentPublication: false,
+  releaseId: CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1.authorityId,
+});
 
 export function listQuestionStudioPackages() {
   const previous = [...listPreviousPackages()] as any[];
@@ -42,6 +79,12 @@ export function listQuestionStudioPackages() {
     }
     previous.push(pkg);
   }
+
+  if (previous.some((entry) => String(entry.packageId) === CND_001_QUESTION_STUDIO_PACKAGE.packageId)) {
+    throw new Error(`Question Studio package ${CND_001_QUESTION_STUDIO_PACKAGE.packageId} already exists before CND workflow activation.`);
+  }
+  previous.push(CND_001_QUESTION_STUDIO_PACKAGE);
+
   return previous;
 }
 
