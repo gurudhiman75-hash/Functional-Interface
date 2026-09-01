@@ -1,0 +1,9 @@
+{
+  "language": "pa",
+  "status": "HUMAN_AUTHORED_E11_EDITORIAL",
+  "entries": {
+    "PRT-QL-007": "ਇੱਕ {business} ਵਿੱਚ ਨਿਵੇਸ਼ ਦੀਆਂ ਮਿਆਦਾਂ ਵੱਖ ਸਨ। {partnerA} ਨੇ {capitalA} {durationA} ਤੱਕ ਅਤੇ {partnerB} ਨੇ {capitalB} {durationB} ਤੱਕ ਲਗਾਏ। ਦੋਵਾਂ ਦੇ ਮੁਨਾਫ਼ੇ ਦਾ ਅਨੁਪਾਤ ਕੱਢੋ।",
+    "PRT-QL-044": "ਨਿਵੇਸ਼-ਮਿਆਦ ਅਨੁਪਾਤ {timeRatioA}:{timeRatioB} ਅਤੇ ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ {profitRatioA}:{profitRatioB} ਦਿੱਤਾ ਹੈ। ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਦੀ ਪੂੰਜੀ ਕਿਸ ਅਨੁਪਾਤ ਵਿੱਚ ਸੀ?",
+    "PRT-QL-083": "ਇੱਕ ਸਾਲ ਦੇ {business} ਵਿੱਚ {partnerA} ਦੀ ਸ਼ੁਰੂਆਤੀ ਪੂੰਜੀ {initialCapitalA} ਸੀ। {changeMonthA} ਬਾਅਦ ਪੂੰਜੀ ਵਿੱਚ ਇਹ ਭਿੰਨਾਤਮਕ ਤਬਦੀਲੀ ਕੀਤੀ ਗਈ: {fractionalChangeA}। {partnerB} ਨੇ {capitalB} ਪੂਰਾ ਸਾਲ ਲਗਾਏ ਰੱਖੇ। ਮੁਨਾਫ਼ਾ ਅਨੁਪਾਤ ਕੱਢੋ।"
+  }
+}
