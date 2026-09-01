@@ -103,18 +103,12 @@ router.get("/production/master-pack/pdf", requireAdminPermission("content.questi
   try {
     const targetDate = requestedDate(req.query.date);
     const language = requestedLanguage(req.query.lang);
-    if (language !== "en") {
-      res.status(422).json({
-        error: "Hindi and Punjabi PDF rendering remains disabled until the server passes an explicit Devanagari/Gurmukhi font-coverage gate. Download the canonical Markdown for these languages meanwhile.",
-        code: "CURRENT_AFFAIRS_MULTILINGUAL_PDF_FONT_GATE",
-        language,
-        textAvailable: true,
-      });
-      return;
-    }
     const masterPack = await loadDailyMasterPack(targetDate, language);
     if (!masterPack) {
-      res.status(404).json({ error: "Daily Current Affairs master pack has not been materialized yet.", code: "CURRENT_AFFAIRS_MASTER_PACK_NOT_FOUND" });
+      res.status(404).json({
+        error: `Daily Current Affairs ${language.toUpperCase()} master pack has not been materialized yet.`,
+        code: "CURRENT_AFFAIRS_MASTER_PACK_NOT_FOUND",
+      });
       return;
     }
     const rendered = renderDailyMasterPackPdf(masterPack.payload);

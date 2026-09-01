@@ -5,12 +5,22 @@ import { mkdir } from "node:fs/promises";
 import { build as esbuild } from "esbuild";
 import esbuildPluginPino from "esbuild-plugin-pino";
 
+import { ensureCurrentAffairsFonts } from "./ensure-current-affairs-fonts.mjs";
+
 globalThis.require = createRequire(import.meta.url);
 
 const artifactDir = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.resolve(artifactDir, "dist");
 
 await mkdir(distDir, { recursive: true });
+
+// CP-041: localized PDF rendering must never depend on whatever fonts happen
+// to be installed on the Render host. Download the pinned Google Fonts assets,
+// verify exact size + Git blob identity, retain their OFL licenses, then copy
+// only verified bytes into the deployed API runtime beside dist/index.mjs.
+await ensureCurrentAffairsFonts({
+  copyToDir: path.join(distDir, "current-affairs-fonts"),
+});
 
 await esbuild({
   entryPoints: [path.resolve(artifactDir, "src/index.ts")],

@@ -11,6 +11,8 @@ on:
       - "artifacts/api-server/src/app.ts"
       - "artifacts/api-server/migrations/*current_affairs*.sql"
       - "artifacts/api-server/ensure-current-affairs.mjs"
+      - "artifacts/api-server/ensure-current-affairs-fonts.mjs"
+      - "artifacts/api-server/build-runtime.mjs"
       - "artifacts/admin-app/src/features/current-affairs/**"
       - "artifacts/admin-app/src/pages/content/CurrentAffairsProductionReadinessPage.tsx"
       - "artifacts/admin-app/src/pages/content/CurrentAffairsEditorial*.tsx"
@@ -42,6 +44,9 @@ jobs:
           version: 10.33.0
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Verify pinned Current Affairs PDF fonts
+        run: node artifacts/api-server/ensure-current-affairs-fonts.mjs
 
       - name: Run cumulative Current Affairs policy contracts
         run: |
@@ -156,6 +161,8 @@ jobs:
           pdf=artifacts/api-server/src/current-affairs/daily-master-pack-pdf.ts
           route=artifacts/api-server/src/routes/admin-current-affairs-production-ops.ts
           admin=artifacts/admin-app/src/pages/content/CurrentAffairsProductionReadinessPage.tsx
+          fonts=artifacts/api-server/ensure-current-affairs-fonts.mjs
+          runtime_build=artifacts/api-server/build-runtime.mjs
           grep -Fq 'coverageConfidenceScore' "$census"
           grep -Fq 'trustedNewsCandidateCount' "$census"
           grep -Fq 'highPriorityUnresolvedCount' "$census"
@@ -164,17 +171,26 @@ jobs:
           grep -Fq 'DAILY_MASTER_PACK_LANGUAGES = ["en", "hi", "pa"]' "$master"
           grep -Fq 'localized_event_parity_incomplete' "$master"
           grep -Fq 'evaluateLocalizedMasterPackParity' "$master"
-          grep -Fq 'language === "en" ? ["web", "text", "pdf"] : ["web", "text"]' "$master"
           grep -Fq 'Draft only. Publication and Question Bank promotion require separate editorial authority.' "$master"
-          grep -Fq 'payload.language !== "en"' "$pdf"
+          grep -Fq 'assertDailyMasterPackPdfFontCoverage' "$pdf"
+          grep -Fq 'GlobalFonts.registerFromPath' "$pdf"
+          grep -Fq 'cmapSubtables' "$pdf"
+          grep -Fq 'runtime font checksum mismatch' "$pdf"
+          grep -Fq 'CURRENT_AFFAIRS_FONT_UPSTREAM' "$fonts"
+          grep -Fq 'ade3d1533e06b2b1462ffcde8e08b129627ca360' "$fonts"
+          grep -Fq 'expectedGitBlobSha1' "$fonts"
+          grep -Fq 'ensureCurrentAffairsFonts' "$runtime_build"
+          grep -Fq 'current-affairs-fonts' "$runtime_build"
           grep -Fq '"/production/discovery-census"' "$route"
           grep -Fq '"/production/master-packs"' "$route"
           grep -Fq '"/production/master-pack"' "$route"
           grep -Fq '"/production/master-pack/text"' "$route"
           grep -Fq '"/production/master-pack/pdf"' "$route"
-          grep -Fq 'CURRENT_AFFAIRS_MULTILINGUAL_PDF_FONT_GATE' "$route"
+          ! grep -Fq 'CURRENT_AFFAIRS_MULTILINGUAL_PDF_FONT_GATE' "$route"
           grep -Fq 'Download Markdown' "$admin"
-          grep -Fq 'PDF font gate' "$admin"
+          grep -Fq 'Download PDF' "$admin"
+          grep -Fq 'checksum-verified' "$admin"
+          ! grep -Fq 'PDF font gate' "$admin"
           ! grep -Fq "status='published'" "$master"
           ! grep -Fq 'question-promotion' "$master"
 

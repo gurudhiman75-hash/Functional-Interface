@@ -176,7 +176,6 @@ export function CurrentAffairsProductionReadinessPage() {
   const inventory = readiness.targetInventory;
   const masterPack = masterPacks[selectedMasterLanguage];
   const materializedMasterPackCount = Object.values(masterPacks).filter(Boolean).length;
-  const localizedPdfBlocked = selectedMasterLanguage !== 'en';
   return (
     <div className="space-y-5">
       <PageHeader
@@ -206,11 +205,11 @@ export function CurrentAffairsProductionReadinessPage() {
           </div>
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-1 text-sm">
-              {masterPack ? <><p><span className="font-semibold">{masterPack.eventCount}</span> verified exam-relevant events · <span className="font-semibold">{masterPack.categoryCount}</span> sections · {masterPack.language.toUpperCase()}</p><p className="text-muted-foreground">{masterPack.publicCode} · generated {fmt(masterPack.generatedAt)}. The localized packs are created only when their event IDs exactly match the English canonical set.</p>{localizedPdfBlocked ? <p className="text-xs text-warning">PDF font gate pending: Devanagari/Gurmukhi PDF output stays disabled until server glyph coverage is explicitly verified. The canonical Markdown is available now.</p> : <p className="text-xs text-muted-foreground">English Markdown and PDF render from this same stored payload; the PDF performs no independent research or rewriting.</p>}</> : <p className="text-warning">{selectedMasterLanguage === 'en' ? 'No English canonical master pack exists yet. Run Generate Yesterday Now after source discovery and verification complete.' : `${selectedMasterLanguage === 'hi' ? 'Hindi' : 'Punjabi'} master pack is withheld until every English canonical event has an accepted matching localization. Run localization recovery, then Generate Yesterday Now again.`}</p>}
+              {masterPack ? <><p><span className="font-semibold">{masterPack.eventCount}</span> verified exam-relevant events · <span className="font-semibold">{masterPack.categoryCount}</span> sections · {masterPack.language.toUpperCase()}</p><p className="text-muted-foreground">{masterPack.publicCode} · generated {fmt(masterPack.generatedAt)}. The localized packs are created only when their event IDs exactly match the English canonical set.</p><p className="text-xs text-muted-foreground">Markdown and PDF render from this same stored payload. Hindi/Punjabi PDF rendering uses pinned Noto fonts that are checksum-verified at build/runtime and checked against every required Devanagari/Gurmukhi glyph before rendering.</p></> : <p className="text-warning">{selectedMasterLanguage === 'en' ? 'No English canonical master pack exists yet. Run Generate Yesterday Now after source discovery and verification complete.' : `${selectedMasterLanguage === 'hi' ? 'Hindi' : 'Punjabi'} master pack is withheld until every English canonical event has an accepted matching localization. Run localization recovery, then Generate Yesterday Now again.`}</p>}
             </div>
             <div className="flex flex-wrap gap-2">
               <Button variant="outline" onClick={() => void downloadMasterPack('text')} disabled={!masterPack || downloading !== null}>{downloading === `${selectedMasterLanguage}:text` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}Download Markdown</Button>
-              <Button onClick={() => void downloadMasterPack('pdf')} disabled={!masterPack || localizedPdfBlocked || downloading !== null} title={localizedPdfBlocked ? 'Localized PDF disabled until the Devanagari/Gurmukhi font-coverage gate passes.' : undefined}>{downloading === `${selectedMasterLanguage}:pdf` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}{localizedPdfBlocked ? 'PDF font gate' : 'Download PDF'}</Button>
+              <Button onClick={() => void downloadMasterPack('pdf')} disabled={!masterPack || downloading !== null} title="Localized PDFs fail closed if the pinned server font or a required glyph is unavailable.">{downloading === `${selectedMasterLanguage}:pdf` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}Download PDF</Button>
             </div>
           </div>
         </CardContent>
