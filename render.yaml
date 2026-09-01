@@ -44,6 +44,18 @@ services:
       - key: CORS_ORIGINS
         sync: false   # set in Render dashboard
 
+      # ── AI / Notes Studio ─────────────────────────────────────────────────
+      # Secret stays in Render; never commit the Gemini API key to GitHub.
+      - key: GEMINI_API_KEY
+        sync: false
+      # Candidate Claims uses the shared AI-provider layer and is explicitly pinned
+      # to Gemini for Notes Studio even if another provider is configured elsewhere.
+      - key: NOTES_STUDIO_AI_PROVIDER
+        value: gemini
+      # Current GA production model for evidence -> candidate-claim extraction.
+      - key: NOTES_STUDIO_EVIDENCE_MODEL
+        value: gemini-3.7-flash
+
       # ── Razorpay (optional — omit if not using payments) ─────────────────
       - key: RAZORPAY_KEY_ID
         sync: false
