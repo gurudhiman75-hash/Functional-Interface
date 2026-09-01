@@ -66,7 +66,20 @@
       "accountingReconstitution": "EXCLUDED",
       "arithmeticIncomingPartnerShareAcquisition": "PRT-001"
     },
-    "validationStatus": "IMPLEMENTED_PENDING_FULL_REVALIDATION"
+    "validationStatus": "FULL_REVALIDATION_PASS",
+    "freezeReadiness": "READY_FOR_EXPLICIT_FREEZE_APPROVAL",
+    "formalFreezeStatus": "NOT_RESTORED",
+    "publicationStatus": "BLOCKED",
+    "automatedValidationRun": 33463538160,
+    "validationJob": 99718592588,
+    "validationArtifact": 9784051271,
+    "validatedRuntimeHead": "295306334ee2da7f449d1f561feae9a060d96825",
+    "validatedCorpusQuestions": 3360,
+    "validatedOwnershipRegressions": [
+      "RAP-003 legacy Partnership retirement",
+      "G06 INT-001 vs PRT-001 capital-interest boundary",
+      "G07 RAP/PRT incoming-partner share boundary"
+    ]
   },
   "legacyOwnership": {
     "wave": "E9",
@@ -81,5 +94,5 @@
     "validationJob": 99421096301,
     "runtimeHead": "d8ac563c60238c2c4463aaf37fc10bd882cae6dc"
   },
-  "exhaustivenessStatus": "E13_IMPLEMENTED_PENDING_FULL_REVALIDATION"
+  "exhaustivenessStatus": "E13_CLOSURE_VALIDATED_AWAITING_EXPLICIT_FREEZE_APPROVAL"
 }
