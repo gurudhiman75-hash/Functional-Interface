@@ -50,7 +50,7 @@ jobs:
         run: |
           set -o pipefail
           cd artifacts/api-server
-          node dist/reasoning-v1/spatial/spatial-final-held-gap-review-runtime-v1.test.mjs \
+          node dist/reasoning-v1/spatial/spatial-final-held-gap-review-runtime-v1.test.mjs 2>&1 \
             | tee dist/reasoning-v1/spatial/spa-final-held-gap-review-runtime-v1-run.log
 
       - name: Bundle visual review pack generator
@@ -64,10 +64,11 @@ jobs:
         run: |
           set -o pipefail
           cd artifacts/api-server
-          node dist/reasoning-v1/spatial/spatial-final-held-gap-review-pack-v1.mjs \
+          node dist/reasoning-v1/spatial/spatial-final-held-gap-review-pack-v1.mjs 2>&1 \
             | tee dist/reasoning-v1/spatial/spa-final-held-gap-review-pack-v1-run.log
 
       - name: Upload final held-gap review evidence
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: spa-final-held-gap-review-v1
