@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
+import { buildGeminiGenerationConfig } from '../lib/ai-providers/gemini-adapter';
 import {
   coveragePlanBulkAllowed,
   coveragePlanItemKey,
@@ -54,6 +55,36 @@ test('Notes Studio migration manifest preserves the cumulative chain in order', 
   assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_research_restarts'), true);
   assert.equal(NOTES_STUDIO_REQUIRED_TRIGGERS.includes('note_authoring_sources_pre_evidence_freeze'), true);
   assert.equal(NOTES_STUDIO_REQUIRED_TRIGGERS.includes('note_research_restarts_immutable'), true);
+});
+
+test('Gemini structured output sends Notes Studio JSON Schema through responseJsonSchema', () => {
+  const schema = {
+    type: 'object',
+    additionalProperties: false,
+    required: ['claims'],
+    properties: {
+      claims: {
+        type: 'array',
+        items: {
+          type: 'object',
+          additionalProperties: false,
+          required: ['text'],
+          properties: {
+            text: { type: ['string', 'null'] },
+          },
+        },
+      },
+    },
+  } as Record<string, unknown>;
+  const config = buildGeminiGenerationConfig({
+    model: 'gemini-3.7-flash',
+    temperature: 0,
+    responseSchema: schema,
+  });
+  assert.equal(config.responseMimeType, 'application/json');
+  assert.deepEqual(config.responseJsonSchema, schema);
+  assert.equal('responseSchema' in config, false);
+  assert.equal('temperature' in config, false);
 });
 
 test('NS-018 research restart remains bounded to progressed pre-approval work', () => {
