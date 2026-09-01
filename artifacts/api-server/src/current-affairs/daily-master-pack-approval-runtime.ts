@@ -3,8 +3,10 @@ import { createHash, randomUUID } from "node:crypto";
 import { sqlClient } from "../lib/db";
 import {
   evaluateDailyMasterPackApprovalReadiness,
+  evaluateDailyMasterPackEditorialQuality,
   type DailyMasterPackApprovalLanguage,
   type DailyMasterPackApprovalReadiness,
+  type DailyMasterPackEditorialQuality,
 } from "./daily-master-pack-approval-policy";
 
 export type DailyMasterPackApprovalSnapshot = {
@@ -52,6 +54,7 @@ export type DailyMasterPackApprovalCandidate = {
     warnings: string[];
     generatedAt: string;
   };
+  editorialQuality: DailyMasterPackEditorialQuality;
   readiness: DailyMasterPackApprovalReadiness;
   sourceFingerprint: string;
   activeApproval: DailyMasterPackApprovalSnapshot | null;
@@ -97,6 +100,31 @@ function payloadEventIds(payload: Record<string, unknown>) {
     }
   }
   return ids;
+}
+
+function payloadEditorialEvents(payload: Record<string, unknown>) {
+  const events = [];
+  for (const sectionValue of parseArray<unknown>(payload.sections)) {
+    const section = asObject(sectionValue);
+    for (const eventValue of parseArray<unknown>(section.events)) {
+      const event = asObject(eventValue);
+      const id = String(event.id ?? "").trim();
+      if (!id) continue;
+      const facts = parseArray<unknown>(event.facts).map(asObject).map((fact) => ({
+        key: String(fact.key ?? "").trim(),
+        value: String(fact.value ?? "").trim(),
+      })).filter((fact) => fact.key && fact.value);
+      events.push({
+        id,
+        title: String(event.title ?? "").trim(),
+        summary: String(event.summary ?? "").trim(),
+        oneLiner: String(event.oneLiner ?? "").trim(),
+        category: String(event.category ?? section.category ?? "other").trim(),
+        facts,
+      });
+    }
+  }
+  return events;
 }
 
 function payloadCategoryCount(payload: Record<string, unknown>) {
@@ -217,6 +245,9 @@ export async function loadDailyMasterPackApprovalCandidate(
 
   const englishPack = packs.find((pack) => pack.language === "en");
   const englishEventIds = normalizeIds(englishPack?.payloadEventIds ?? []);
+  const editorialQuality = evaluateDailyMasterPackEditorialQuality(
+    englishPack ? payloadEditorialEvents(englishPack.payload) : [],
+  );
   const eventStateRows = englishEventIds.length === 0 ? [] : await client`
     SELECT event.id::text AS id, event.status,
       event.learner_authoring_status AS "authoringStatus",
@@ -275,6 +306,7 @@ export async function loadDailyMasterPackApprovalCandidate(
     openConflictCount: eventStateRows.filter((row) => Boolean(row.hasOpenConflict)).length,
     censusStatus: census?.status ?? null,
     censusBlockerCount: census?.blockers.length ?? 1,
+    editorialQuality,
   });
 
   if (!census) {
@@ -310,6 +342,10 @@ export async function loadDailyMasterPackApprovalCandidate(
       coverageConfidenceScore: census.coverageConfidenceScore,
       blockers: census.blockers,
     } : null,
+    editorialQuality: {
+      ready: editorialQuality.ready,
+      issues: editorialQuality.issues,
+    },
   };
 
   return {
@@ -317,6 +353,7 @@ export async function loadDailyMasterPackApprovalCandidate(
     packs,
     currentEligibleEventIds: normalizeIds(currentEligibleRows.map((row) => String(row.id))),
     census,
+    editorialQuality,
     readiness,
     sourceFingerprint: sha256(fingerprintInput),
     activeApproval: approvals.find((approval) => approval.status === "approved") ?? null,
