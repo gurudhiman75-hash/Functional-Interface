@@ -82,6 +82,15 @@ assert.ok(plannedClaims.some((claim) => claim.factKey === "acting_entity" && cla
 assert.ok(plannedClaims.some((claim) => claim.factKey === "official_action" && claim.factValue === "scheduled release"));
 assert.ok(plannedClaims.some((claim) => claim.factKey === "action_subject" && /Mission Rangeen/.test(claim.factValue)));
 
+const plannedPassiveClaims = extractHeadlineFactClaims(
+  "4th Indo-German Environment Forum to be held in New Delhi on September 1, 2026",
+);
+assert.ok(plannedPassiveClaims.some((claim) => claim.factKey === "initiative" && claim.factValue === "4th Indo-German Environment Forum"));
+assert.ok(plannedPassiveClaims.some((claim) => claim.factKey === "official_action" && claim.factValue === "scheduled hold"));
+assert.ok(plannedPassiveClaims.some((claim) => claim.factKey === "event_status" && claim.factValue === "to be held in New Delhi on September 1, 2026"));
+assert.equal(plannedPassiveClaims.some((claim) => claim.factKey === "acting_entity"), false, "planned passive events must not invent an acting organisation from the subject");
+assert.equal(plannedPassiveClaims.some((claim) => claim.factKey === "action_subject"), false, "planned passive events must not reduce the subject to a location/date tail");
+
 const conductedClaims = extractHeadlineFactClaims(
   "NEET-PG 2026 Successfully Conducted Nationwide with Robust Security and Real-Time Monitoring",
 );
@@ -168,4 +177,4 @@ assert.equal(unresolved.conflicts.length, 1);
 assert.equal(unresolved.conflicts[0]?.autoResolution, undefined);
 assert.equal(unresolved.facts.length, 0, "unresolved contradictions must not materialize a canonical fact");
 
-console.log("Current Affairs CP030 intelligence contracts passed");
+console.log("Current Affairs CP-045 intelligence contracts passed");

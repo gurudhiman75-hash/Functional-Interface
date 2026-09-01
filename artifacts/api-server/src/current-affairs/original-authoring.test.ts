@@ -136,6 +136,56 @@ assert.match(nextDayAnnouncement.summary ?? "", /^On 31 August 2026,/);
 assert.match(nextDayAnnouncement.summary ?? "", /September 01, 2026/);
 assert.doesNotMatch(nextDayAnnouncement.summary ?? "", /happened on September 01/i);
 
+const scheduledLaunch = authorSourceIndependentEvent({
+  eventId: "event-scheduled-launch",
+  eventDate: "2026-08-31",
+  category: "national",
+  sourceKey: "pib",
+  sourceTitle: "Union Minister to launch fisheries Infrastructure projects worth Rs 36.49 Crore",
+  facts: [
+    { key: "acting_entity", value: "Union Minister Shri Rajiv Ranjan Singh" },
+    { key: "official_action", value: "scheduled launch" },
+    { key: "action_subject", value: "fisheries Infrastructure projects worth Rs 36.49 Crore" },
+  ],
+});
+assert.equal(scheduledLaunch.status, "ready");
+assert.match(scheduledLaunch.summary ?? "", /announced that it would launch fisheries Infrastructure projects/);
+assert.doesNotMatch(scheduledLaunch.summary ?? "", /scheduled launch fisheries/i);
+
+const scheduledConduct = authorSourceIndependentEvent({
+  eventId: "event-scheduled-conduct",
+  eventDate: "2026-08-31",
+  category: "economy_banking",
+  sourceKey: "rbi",
+  sourceTitle: "RBI to conduct 7-day Variable Rate Reverse Repo auction under LAF on September 01, 2026",
+  facts: [
+    { key: "acting_entity", value: "RBI" },
+    { key: "official_action", value: "scheduled conduct" },
+    { key: "action_subject", value: "7-day Variable Rate Reverse Repo auction under LAF on September 01, 2026" },
+  ],
+});
+assert.equal(scheduledConduct.status, "ready");
+assert.match(scheduledConduct.summary ?? "", /announced that it would conduct 7-day Variable Rate Reverse Repo/);
+assert.doesNotMatch(scheduledConduct.summary ?? "", /scheduled conduct/i);
+
+const greenForge = authorSourceIndependentEvent({
+  eventId: "event-green-forge",
+  eventDate: "2026-08-31",
+  category: "national",
+  sourceKey: "pib",
+  sourceTitle: "Union Minister inaugurates first of it’s kind Green Forge Complex at National Agri-food & Biomanufacturing Institute Mohali; describes it as milestone in genetically modified crop revolution",
+  facts: [
+    { key: "acting_entity", value: "Union Minister Dr. Jitendra Singh" },
+    { key: "official_action", value: "inaugurates" },
+    { key: "action_subject", value: "first of it’s kind Green Forge Complex at National Agri-food & Biomanufacturing Institute Mohali; describes it as milestone in genetically modified crop revolution" },
+  ],
+});
+assert.equal(greenForge.status, "ready");
+assert.doesNotMatch(greenForge.title ?? "", /…/);
+assert.doesNotMatch(greenForge.oneLiner ?? "", /…/);
+assert.match(greenForge.title ?? "", /Green Forge Complex/);
+assert.doesNotMatch(greenForge.title ?? "", /describes it as/);
+
 const initiative = authorSourceIndependentEvent({
   eventId: "event-launch",
   eventDate: "2026-08-30",
@@ -149,9 +199,26 @@ const initiative = authorSourceIndependentEvent({
 });
 assert.equal(initiative.status, "ready");
 assert.equal(initiative.templateId, "verified_initiative_v1");
-assert.match(initiative.title ?? "", /^Government of India:/);
+assert.match(initiative.title ?? "", /Government|India/);
 assert.match(initiative.summary ?? "", /Government launched National Research Fellowship Portal/);
 assert.doesNotMatch(initiative.summary ?? "", /launching entity|Verified facts identify/i);
+
+const plannedPassive = authorSourceIndependentEvent({
+  eventId: "event-forum",
+  eventDate: "2026-08-31",
+  category: "environment",
+  sourceKey: "pib",
+  sourceTitle: "4th Indo-German Environment Forum to be held in New Delhi on September 1, 2026",
+  facts: [
+    { key: "initiative", value: "4th Indo-German Environment Forum" },
+    { key: "official_action", value: "scheduled hold" },
+    { key: "event_status", value: "to be held in New Delhi on September 1, 2026" },
+  ],
+});
+assert.equal(plannedPassive.status, "ready");
+assert.match(plannedPassive.summary ?? "", /announced that 4th Indo-German Environment Forum would be held in New Delhi on September 1, 2026/);
+assert.doesNotMatch(plannedPassive.title ?? "", /in New Delhi on September 1/);
+assert.doesNotMatch(plannedPassive.oneLiner ?? "", /…/);
 
 const genericGraph = authorSourceIndependentEvent({
   eventId: "event-generic",
@@ -197,4 +264,4 @@ const tooClose = authorSourceIndependentEvent({
 assert.equal(tooClose.status, "needs_editorial", "near-copy learner titles must be rejected");
 assert.ok(tooClose.sourceTitleSimilarity >= 0.72);
 
-console.log("Current Affairs CP-044 learner-writing quality contracts passed");
+console.log("Current Affairs CP-045 learner-writing quality contracts passed");

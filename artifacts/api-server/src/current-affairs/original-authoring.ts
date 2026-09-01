@@ -26,7 +26,7 @@ export type AuthoringOutput = {
   inputFingerprint: string;
 };
 
-const AUTHORING_POLICY_VERSION = "ca-cp044-learner-writing-quality-v1";
+const AUTHORING_POLICY_VERSION = "ca-cp045-editorial-priority-writing-v1";
 const TITLE_SIMILARITY_LIMIT = 0.72;
 
 const SOURCE_NAMES: Record<string, string> = {
@@ -169,9 +169,19 @@ function factLabel(key: string): string {
   return FACT_LABELS[key] ?? key.replace(/_/g, " ").replace(/^./, (char) => char.toUpperCase());
 }
 
-function compact(value: string, max = 112): string {
-  const clean = value.replace(/\s+/g, " ").trim();
-  return clean.length <= max ? clean : `${clean.slice(0, max - 1).trimEnd()}…`;
+function learnerSubject(value: string): string {
+  const clean = value
+    .replace(/\bit[’']s\b/gi, "its")
+    .replace(/\s+/g, " ")
+    .trim();
+  const firstClause = clean.split(/\s*;\s*(?=(?:describes|says|terms|calls|notes|adds)\b)/i)[0]?.trim();
+  return firstClause || clean;
+}
+
+function compact(value: string, _max = 112): string {
+  // CP-045: canonical learner copy must not be mechanically chopped with an ellipsis.
+  // Prefer a complete semantic clause; otherwise keep the verified value and let renderers wrap it.
+  return learnerSubject(value);
 }
 
 function humanDate(date: string): string {
@@ -194,6 +204,11 @@ function readableAction(action: string) {
   return action.replace(/[_-]+/g, " ").replace(/\s+/g, " ").trim();
 }
 
+function plannedAction(action: string): string | null {
+  const match = readableAction(action).match(/^scheduled\s+(release|launch|inaugurate|grace|hold|conduct|open|unveil)$/i);
+  return match?.[1]?.toLowerCase() ?? null;
+}
+
 function naturalFactDetail(items: ReadonlyArray<readonly [string, string]>) {
   return items.map(([key, value]) => `${factLabel(key)}: ${value}`).join("; ");
 }
@@ -214,15 +229,23 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
   const actionSubject = cleanFactValue(facts.get("action_subject") ?? "");
   if (actionEntity && officialAction && actionSubject) {
     const action = readableAction(officialAction);
-    const preferredTitle = `${sourceName}: ${compact(actionSubject, 118)}`;
-    const fallbackTitle = `${sourceName}: ${categoryLabel} announcement`;
+    const subject = learnerSubject(actionSubject);
+    const planned = plannedAction(action);
+    const preferredTitle = `${sourceName}: ${subject}`;
+    const fallbackTitle = `${actionEntity}: ${categoryLabel} announcement`;
     return result({
       input,
       title: sourceSafeTitle(preferredTitle, fallbackTitle, input.sourceTitle),
-      summary: `On ${humanDate(input.eventDate)}, ${actionEntity} ${lowerFirst(action)} ${actionSubject}.`,
-      oneLiner: `${compact(actionSubject, 118)} — ${compact(actionEntity, 58)}`,
+      summary: planned
+        ? `On ${humanDate(input.eventDate)}, ${actionEntity} announced that it would ${planned} ${actionSubject}.`
+        : `On ${humanDate(input.eventDate)}, ${actionEntity} ${lowerFirst(action)} ${actionSubject}.`,
+      oneLiner: planned
+        ? `${subject} — announced by ${actionEntity}`
+        : `${subject} — ${actionEntity}`,
       templateId: "verified_official_action_v1",
-      reasons: ["Learner copy states the event directly and anchors it to the Current Affairs date"],
+      reasons: [planned
+        ? "Scheduled event is expressed as an announcement on the Current Affairs date, not as broken extraction grammar"
+        : "Learner copy states the event directly and anchors it to the Current Affairs date"],
     });
   }
 
@@ -232,7 +255,7 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
     const preferredTitle = `${sourceName}: ${compact(award, 105)} — ${compact(winner, 60)}`;
     return result({
       input,
-      title: sourceSafeTitle(preferredTitle, `${sourceName}: award result`, input.sourceTitle),
+      title: sourceSafeTitle(preferredTitle, `${winner}: award result`, input.sourceTitle),
       summary: `On ${humanDate(input.eventDate)}, ${winner} was recorded as the winner of ${award}.`,
       oneLiner: `${winner} — ${award}`,
       templateId: "verified_award_result_v1",
@@ -246,11 +269,25 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
     const preferredTitle = `${sourceName}: ${compact(initiative, 118)}`;
     return result({
       input,
-      title: sourceSafeTitle(preferredTitle, `${sourceName}: ${categoryLabel} initiative`, input.sourceTitle),
+      title: sourceSafeTitle(preferredTitle, `${launchingEntity}: ${categoryLabel} initiative`, input.sourceTitle),
       summary: `On ${humanDate(input.eventDate)}, ${launchingEntity} launched ${initiative}.`,
-      oneLiner: `${initiative} — launched by ${launchingEntity}`,
+      oneLiner: `${learnerSubject(initiative)} — launched by ${launchingEntity}`,
       templateId: "verified_initiative_v1",
       reasons: ["Initiative wording is expressed as a direct event rather than extraction metadata"],
+    });
+  }
+
+  const eventStatus = cleanFactValue(facts.get("event_status") ?? "");
+  if (initiative && eventStatus && /(?:to be|scheduled|held|conducted|opened|inaugurated)/i.test(eventStatus)) {
+    const cleanInitiative = learnerSubject(initiative).replace(/\s+to be$/i, "").trim();
+    const status = eventStatus.replace(/^scheduled\s+/i, "").trim();
+    return result({
+      input,
+      title: sourceSafeTitle(`${sourceName}: ${cleanInitiative}`, `${cleanInitiative}: upcoming ${categoryLabel} event`, input.sourceTitle),
+      summary: `On ${humanDate(input.eventDate)}, it was announced that ${cleanInitiative} would be ${status.replace(/^to be\s+/i, "")}.`,
+      oneLiner: `${cleanInitiative} — ${status}`,
+      templateId: "generic_verified_fact_graph_v1",
+      reasons: ["Planned passive event is rendered as a future event announced on the Current Affairs date"],
     });
   }
 
