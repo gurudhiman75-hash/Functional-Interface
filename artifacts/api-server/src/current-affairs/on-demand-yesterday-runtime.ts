@@ -150,20 +150,24 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
   const startedAt = new Date().toISOString();
   const before = await countTargetDateState(targetDate);
 
+  // A manual click gets its own unique run key and never shares the 3-hour cron key.
   const sourceRunKey = onDemandFeedRunKey(now, randomUUID());
   const sourceRefresh = await runScheduledFeedIngestion(now, {
     runKey: sourceRunKey,
     trigger: "on_demand",
   });
 
+  // RSS/latest listings can legitimately omit the previous calendar day.
   const historicalSourceBackfill = await ensurePibHistoricalCandidates(targetDate);
 
-  // Rights-safe broad discovery. CP-043 keeps broad low-signal results in discovery
-  // accounting but prevents them from entering clustering unless a targeted query
-  // or sufficient exam signal makes them clustering-eligible.
+  // Rights-safe broad discovery. CP-043 keeps broad low-signal results in the
+  // discovery accounting while withholding them from clustering unless a targeted
+  // query or sufficient exam signal makes them clustering-eligible.
   const openNewsDiscovery = await runOpenNewsDiscovery(targetDate);
-  const discoveryTriage = await rejectBroadOnlyLowSignalDiscoveryEvents(targetDate);
 
+  // Reclassify bounded official evidence before intelligence. CP-043 also makes a
+  // narrow, reversible exclusion for residual PIB titles that are explicitly
+  // ceremonial/meta-only; ambiguous residual official stories remain open.
   const officialCandidatePreparation = await prepareOfficialYesterdayCandidates(targetDate);
 
   const enrichmentPasses: unknown[] = [];
@@ -191,9 +195,17 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
   const enrichedAfterIntelligence = await reconcilePrimaryEnrichedEvents(300);
   const manualAuthorityAfter = await holdManualAuthorityEventsForReview(200);
 
+  // Legacy broad-only GDELT stories may already have become review events before
+  // CP-043. Reject only events whose linked candidates are all GDELT broad-only
+  // low-signal and that have no primary evidence. The exclusion remains reversible.
+  const discoveryTriage = await rejectBroadOnlyLowSignalDiscoveryEvents(targetDate);
+
   const recoverySupersede = await supersedeManualRecoverySlot(targetDate, now);
   const recovery = await runCurrentAffairsProductionRecovery({ now, triggerMode: "manual" });
 
+  // CP-043 recomputes product fit for already-authored target-date events. This
+  // separates exam relevance from verification authority and prevents an official
+  // source from making every event relevant to every exam family.
   const examRelevanceRefresh = await refreshTargetDateExamRelevance(targetDate);
 
   const discoveryCensus = await refreshDailyDiscoveryCensus(targetDate);
@@ -222,13 +234,13 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date()) 
     },
     historicalSourceBackfill,
     openNewsDiscovery,
-    discoveryTriage,
     officialCandidatePreparation,
     enrichmentPasses,
     enrichedBeforeIntelligence,
     intelligencePasses,
     enrichedAfterIntelligence,
     manualAuthority: { before: manualAuthorityBefore, after: manualAuthorityAfter },
+    discoveryTriage,
     recovery: {
       supersededPreviousSlot: recoverySupersede.superseded,
       result: recovery,
