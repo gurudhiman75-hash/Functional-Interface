@@ -2,15 +2,15 @@
   "chapterId": "PRT-001",
   "canonicalProblems": 7,
   "solveModes": 99,
-  "activeQuestionLanguages": 103,
+  "activeQuestionLanguages": 105,
   "locales": ["en", "hi", "pa"],
   "minimumQuestionLanguagesByCanonicalProblem": {
     "PRT-CP-001": 13,
     "PRT-CP-002": 14,
     "PRT-CP-003": 16,
-    "PRT-CP-004": 18,
+    "PRT-CP-004": 19,
     "PRT-CP-005": 14,
-    "PRT-CP-006": 16,
+    "PRT-CP-006": 17,
     "PRT-CP-007": 12
   },
   "requiredDifficultyBands": ["Easy", "Medium", "Hard"],
@@ -26,7 +26,7 @@
     "minimumBusinessContexts": 12
   },
   "chapterStemStructure": {
-    "activeQuestionLanguages": 103,
+    "activeQuestionLanguages": 105,
     "locales": 3,
     "requiredAuthoredSkeletonsPerQlPerLocale": 3,
     "requiredSeedReachableSkeletonsPerQlPerLocale": 3,
@@ -35,5 +35,15 @@
     "semanticSlotNormalizationRequired": true,
     "partnerCardinalityPreservationRequired": true
   },
-  "exhaustivenessStatus": "E7_CHAPTER_WIDE_STEM_STRUCTURE_VALIDATED_NOT_FINAL"
+  "sourceRealness": {
+    "wave": "E8",
+    "minimumReviewedSourceFamilies": 12,
+    "sourceBackedQuestionLanguageIds": ["PRT-QL-104", "PRT-QL-105"],
+    "newSolveModes": 0,
+    "minimumConfiguredDurationMonths": 36,
+    "requiredDelegatedBoundaries": ["interest-on-capital", "accounting-reconstitution"],
+    "automatedValidationRun": 33366682849,
+    "runtimeHead": "1538eadf0bf514ae95e29d0a26f4418b6138476c"
+  },
+  "exhaustivenessStatus": "E8_SOURCE_SATURATION_VALIDATED_NOT_FINAL"
 }

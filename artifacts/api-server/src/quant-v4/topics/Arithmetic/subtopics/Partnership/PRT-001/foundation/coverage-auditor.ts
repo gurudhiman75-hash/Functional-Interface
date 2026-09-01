@@ -25,16 +25,16 @@ export function auditPrt001Coverage(): Prt001AuditReport {
     "PRT-CP-001": 13,
     "PRT-CP-002": 14,
     "PRT-CP-003": 16,
-    "PRT-CP-004": 18,
+    "PRT-CP-004": 19,
     "PRT-CP-005": 14,
-    "PRT-CP-006": 16,
+    "PRT-CP-006": 17,
     "PRT-CP-007": 12,
   };
-  requireAudit(entries.length === 103, `expected 103 active QLs, got ${entries.length}`);
+  requireAudit(entries.length === 105, `expected 105 active QLs, got ${entries.length}`);
   requireAudit(JSON.stringify(byCp) === JSON.stringify(expectedByCp), "CP coverage changed");
   requireAudit(new Set(entries.map(({ entry }) => entry.solveMode)).size === 99, "solve-mode coverage changed");
   for (const difficulty of ["Easy", "Medium", "Hard"] as const) requireAudit(entries.some(({ entry }) => entry.difficulty === difficulty), `missing ${difficulty}`);
-  return { audit: "coverage", cases: entries.length, metrics: { byCp, solveModes: 99, languages: 3, expansionWave: "E5" } };
+  return { audit: "coverage", cases: entries.length, metrics: { byCp, solveModes: 99, languages: 3, sourceWave: "E8" } };
 }
 
 export function auditPrt001ContextRealism(): Prt001AuditReport {
@@ -51,7 +51,7 @@ export function auditPrt001ContextRealism(): Prt001AuditReport {
       cases += 1;
     }
   }
-  requireAudit(contexts.size >= 87, `expected at least 87 context families, got ${contexts.size}`);
+  requireAudit(contexts.size >= 89, `expected at least 89 context families, got ${contexts.size}`);
   return { audit: "context-realism", cases, metrics: { contextFamilies: contexts.size } };
 }
 

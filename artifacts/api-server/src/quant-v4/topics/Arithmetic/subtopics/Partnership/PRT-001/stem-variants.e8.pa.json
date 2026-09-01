@@ -1,0 +1,14 @@
+{
+  "language": "pa",
+  "status": "HUMAN_AUTHORED_E8_SOURCE_BACKED_VARIANTS",
+  "entries": {
+    "PRT-QL-104": [
+      "{partnerA} ਅਤੇ {partnerB} ਨੇ ਇੱਕ {business} ਵਿੱਚ ਇੱਕੋ ਮਿਆਦ ਲਈ {capitalA} ਅਤੇ {capitalB} ਲਗਾਏ। ਮੁਨਾਫ਼ੇ ਦਾ {equalSplitPercent}% ਬਰਾਬਰ ਅਤੇ ਬਾਕੀ {capitalSplitPercent}% ਪੂੰਜੀ ਅਨੁਪਾਤ ਵਿੱਚ ਵੰਡਿਆ ਗਿਆ। ਉਨ੍ਹਾਂ ਦੀਆਂ ਅੰਤਿਮ ਪ੍ਰਾਪਤੀਆਂ ਵਿੱਚ {shareDifference} ਦਾ ਫਰਕ ਸੀ। ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕੱਢੋ।",
+      "ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerB} ਦੀ ਇੱਕੋ-ਮਿਆਦ ਪੂੰਜੀ {capitalA} ਅਤੇ {capitalB} ਸੀ। ਮੁਨਾਫ਼ੇ ਦਾ {equalSplitPercent}% ਦੋਵਾਂ ਨੇ ਬਰਾਬਰ ਵੰਡਿਆ ਅਤੇ ਬਾਕੀ {capitalSplitPercent}% ਪੂੰਜੀ ਦੇ ਅਨੁਪਾਤ ਵਿੱਚ। ਜੇ ਅੰਤ ਵਿੱਚ ਇੱਕ ਨੂੰ ਦੂਜੇ ਨਾਲੋਂ {shareDifference} ਵੱਧ ਮਿਲਿਆ, ਤਾਂ ਕੁੱਲ ਮੁਨਾਫ਼ਾ ਕਿੰਨਾ ਸੀ?"
+    ],
+    "PRT-QL-105": [
+      "ਇੱਕ {business} {totalDuration} ਤੱਕ ਚੱਲਿਆ। {partnerA} ਨੇ {capitalA} ਪੂਰੇ ਸਮੇਂ ਰੱਖੇ। {partnerB} ਨੇ ਸ਼ੁਰੂ ਵਿੱਚ {initialCapitalB} ਲਗਾਏ ਅਤੇ {changeAfterB} ਬਾਅਦ {withdrawnCapitalB} ਕੱਢ ਲਏ, ਜਦਕਿ {partnerC} ਨੇ {capitalC} ਪੂਰੇ ਸਮੇਂ ਲਗਾਏ। ਮੁਨਾਫ਼ੇ {totalProfit} ਵਿੱਚ {targetPartner} ਦਾ ਹਿੱਸਾ ਕੱਢੋ।",
+      "{totalDuration} ਚੱਲਣ ਵਾਲੇ ਇੱਕ {business} ਵਿੱਚ {partnerA} ਅਤੇ {partnerC} ਦੀ ਪੂੰਜੀ ਕ੍ਰਮਵਾਰ {capitalA} ਅਤੇ {capitalC} ਪੂਰੇ ਸਮੇਂ ਰਹੀ। {partnerB} ਨੇ {initialCapitalB} ਵਿੱਚੋਂ {changeAfterB} ਬਾਅਦ {withdrawnCapitalB} ਕੱਢ ਲਏ। ਕੁੱਲ ਮੁਨਾਫ਼ੇ {totalProfit} ਵਿੱਚੋਂ {targetPartner} ਨੂੰ ਕਿੰਨਾ ਮਿਲਿਆ?"
+    ]
+  }
+}
