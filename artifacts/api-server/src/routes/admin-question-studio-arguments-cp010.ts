@@ -11,6 +11,7 @@ import {
   generateArgCp010QuestionStudioBatch,
   isArgCp010CurrentReviewRequest,
   isArgCp010RealPaperRequest,
+  type ArgCp010QuestionStudioInput,
 } from "../reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-question-studio-adapter.ts";
 import { ARG_CP010_CHECKPOINT_ID } from "../reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-correlated-real-paper-generator.ts";
 
@@ -79,6 +80,35 @@ function currentPackage(pkg: any) {
   });
 }
 
+function normalizedArgRequest(body: Readonly<Record<string, unknown>>, count: number): ArgCp010QuestionStudioInput {
+  const seed = text(body.seed);
+  const language = text(body.language);
+  const difficulty = text(body.difficulty);
+  const qlId = text(body.qlId);
+  const canonicalProblemId = text(body.canonicalProblemId);
+  const patternId = text(body.patternId);
+  const cpId = text(body.cpId);
+  const examProfile = text(body.examProfile);
+  const paperProfile = text(body.paperProfile);
+  const deliveryProfile = text(body.deliveryProfile);
+  const profileMode = text(body.profileMode);
+
+  return {
+    count,
+    ...(seed ? { seed } : {}),
+    ...(language ? { language } : {}),
+    ...(difficulty ? { difficulty } : {}),
+    ...(qlId ? { qlId } : {}),
+    ...(canonicalProblemId ? { canonicalProblemId } : {}),
+    ...(patternId ? { patternId } : {}),
+    ...(cpId ? { cpId } : {}),
+    ...(examProfile ? { examProfile } : {}),
+    ...(paperProfile ? { paperProfile } : {}),
+    ...(deliveryProfile ? { deliveryProfile } : {}),
+    ...(profileMode ? { profileMode } : {}),
+  };
+}
+
 router.use(authenticate);
 
 router.get("/capabilities", requireAdminPermission("content.generation.read"), async (_req, res) => {
@@ -106,26 +136,14 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
   }
 
   const count = positiveInteger(body.count, 5, 50);
-  const realPaper = isArgCp010RealPaperRequest(body);
+  const generationInput = normalizedArgRequest(body, count);
+  const realPaper = isArgCp010RealPaperRequest(generationInput);
   const runId = randomUUID();
   const code = publicRunCode();
   const timestamp = new Date().toISOString();
 
   try {
-    const result = generateArgCp010QuestionStudioBatch({
-      seed: text(body.seed) || undefined,
-      count,
-      language: text(body.language) || undefined,
-      difficulty: text(body.difficulty) || undefined,
-      qlId: text(body.qlId) || undefined,
-      canonicalProblemId: text(body.canonicalProblemId) || undefined,
-      patternId: text(body.patternId) || undefined,
-      cpId: text(body.cpId) || undefined,
-      examProfile: text(body.examProfile) || undefined,
-      paperProfile: text(body.paperProfile) || undefined,
-      deliveryProfile: text(body.deliveryProfile) || undefined,
-      profileMode: text(body.profileMode) || undefined,
-    });
+    const result = generateArgCp010QuestionStudioBatch(generationInput);
     const questions = result.questions;
     if (questions.length === 0) {
       res.status(422).json({ error: "The ARG-001 remediated generation engine returned no questions" });
