@@ -402,7 +402,9 @@ export function NotesStudioEvidenceCoveragePage() {
               <p className="mt-2 text-sm font-medium leading-relaxed">{claim.claimText}</p>
               <div className="mt-2 space-y-1">{claim.evidence.slice(0, 3).map((item) => <div key={`${claim.id}-${item.blockId}`} className="text-xs text-muted-foreground"><span className="font-medium text-foreground">{item.sourceTitle}:</span> {item.excerpt.slice(0, 180)}{item.excerpt.length > 180 ? '…' : ''}</div>)}</div>
               {canEdit && <div className="mt-3 flex flex-wrap gap-2">
-                <Button size="sm" variant={claim.state === 'accepted' ? 'default' : 'outline'} onClick={() => void setClaimState(claim, 'accepted')} disabled={working}><CheckCircle2 className="mr-1.5 h-3.5 w-3.5" />Accept</Button>
+                {claim.state === 'accepted'
+                  ? <Button size="sm" disabled><CheckCircle2 className="mr-1.5 h-3.5 w-3.5" />Accepted</Button>
+                  : <Button size="sm" variant="outline" onClick={() => void setClaimState(claim, 'accepted')} disabled={working}><CheckCircle2 className="mr-1.5 h-3.5 w-3.5" />Accept</Button>}
                 <Button size="sm" variant="outline" onClick={() => void setClaimState(claim, 'candidate')} disabled={working}>Candidate</Button>
                 <Button size="sm" variant="outline" onClick={() => void setClaimState(claim, 'rejected')} disabled={working}>Reject</Button>
                 <Button size="sm" variant="outline" onClick={() => void setClaimState(claim, 'conflict')} disabled={working}><AlertTriangle className="mr-1.5 h-3.5 w-3.5" />Conflict</Button>
