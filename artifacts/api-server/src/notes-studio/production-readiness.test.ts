@@ -57,7 +57,7 @@ test('Notes Studio migration manifest preserves the cumulative chain in order', 
   assert.equal(NOTES_STUDIO_REQUIRED_TRIGGERS.includes('note_research_restarts_immutable'), true);
 });
 
-test('Gemini 3 structured output uses responseFormat with a supported schema subset', () => {
+test('Gemini generateContent structured output uses responseMimeType and sanitized responseJsonSchema', () => {
   const schema = {
     type: 'object',
     additionalProperties: false,
@@ -77,16 +77,15 @@ test('Gemini 3 structured output uses responseFormat with a supported schema sub
     },
   } as Record<string, unknown>;
   const config = buildGeminiGenerationConfig({
-    model: 'gemini-3.7-flash',
+    model: 'gemini-3.6-flash',
     temperature: 0,
     responseSchema: schema,
   }) as any;
-  assert.equal(config.responseFormat?.text?.mimeType, 'application/json');
-  assert.deepEqual(config.responseFormat?.text?.schema?.properties?.claims?.items?.properties?.text?.type, ['string', 'null']);
-  assert.equal(config.responseFormat?.text?.schema?.properties?.claims?.items?.properties?.text?.minLength, undefined);
-  assert.equal(config.responseFormat?.text?.schema?.properties?.claims?.items?.properties?.text?.maxLength, undefined);
-  assert.equal(config.responseJsonSchema, undefined);
-  assert.equal(config.responseMimeType, undefined);
+  assert.equal(config.responseMimeType, 'application/json');
+  assert.deepEqual(config.responseJsonSchema?.properties?.claims?.items?.properties?.text?.type, ['string', 'null']);
+  assert.equal(config.responseJsonSchema?.properties?.claims?.items?.properties?.text?.minLength, undefined);
+  assert.equal(config.responseJsonSchema?.properties?.claims?.items?.properties?.text?.maxLength, undefined);
+  assert.equal(config.responseFormat, undefined);
   assert.equal('temperature' in config, false);
 });
 
