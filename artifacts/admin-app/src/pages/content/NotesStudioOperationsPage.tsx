@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { AlertTriangle, CheckCircle2, Database, Loader2, RefreshCw, ServerCog, XCircle } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Database, Globe2, Loader2, RefreshCw, ServerCog, XCircle } from 'lucide-react';
 
 import { PageHeader } from '@/components/shared/PageHeader';
 import { showToast } from '@/components/shared/toast';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { adminRequest } from '@/lib/admin-request';
 
 type Readiness = {
@@ -51,6 +52,30 @@ type Readiness = {
   };
 };
 
+type GeminiSearchDiagnostic = {
+  available: boolean;
+  code: string;
+  label: string;
+  model: string;
+  httpStatus: number | null;
+  searchCallObserved: boolean;
+  checkedAt: string;
+  message: string;
+};
+
+type GeminiSearchDiagnosticResponse = {
+  diagnostic: GeminiSearchDiagnostic;
+  boundaries: {
+    rawSearchResultsReturned: boolean;
+    sourceDocumentsCreated: boolean;
+    sourcesAttachedAutomatically: boolean;
+    evidenceCreated: boolean;
+    factsOrClaimsCreated: boolean;
+    learnerGeneration: boolean;
+    configurationChanged: boolean;
+  };
+};
+
 function configBadge(ok: boolean, label: string, detail?: string | null) {
   return <div className="flex items-center justify-between gap-3 rounded-lg border p-3">
     <div><div className="text-sm font-medium">{label}</div>{detail && <div className="mt-0.5 text-xs text-muted-foreground">{detail}</div>}</div>
@@ -59,8 +84,12 @@ function configBadge(ok: boolean, label: string, detail?: string | null) {
 }
 
 export function NotesStudioOperationsPage() {
+  const { hasPermission } = useAdminPermissions();
+  const canRunSearchDiagnostic = hasPermission('content.questions.update');
   const [data, setData] = useState<Readiness | null>(null);
   const [loading, setLoading] = useState(true);
+  const [testingGeminiSearch, setTestingGeminiSearch] = useState(false);
+  const [geminiSearchDiagnostic, setGeminiSearchDiagnostic] = useState<GeminiSearchDiagnostic | null>(null);
 
   const load = async () => {
     setLoading(true);
@@ -70,6 +99,25 @@ export function NotesStudioOperationsPage() {
       showToast.error('Unable to load Notes Studio readiness', error instanceof Error ? error.message : 'Request failed.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const testGeminiSearch = async () => {
+    setTestingGeminiSearch(true);
+    try {
+      const response = await adminRequest<GeminiSearchDiagnosticResponse>('/admin/notes-studio/operations/search-diagnostics/gemini', {
+        method: 'POST',
+      });
+      setGeminiSearchDiagnostic(response.diagnostic);
+      if (response.diagnostic.available) {
+        showToast.success('Gemini Search is available', `${response.diagnostic.model} completed a Google Search tool call.`);
+      } else {
+        showToast.error('Gemini Search diagnostic completed', response.diagnostic.message);
+      }
+    } catch (error) {
+      showToast.error('Unable to test Gemini Search', error instanceof Error ? error.message : 'Request failed.');
+    } finally {
+      setTestingGeminiSearch(false);
     }
   };
 
@@ -133,6 +181,33 @@ export function NotesStudioOperationsPage() {
               'Web Source Discovery',
               `${data.modelConfiguration.sourceDiscoveryProvider} · ${data.modelConfiguration.sourceDiscoveryModel || 'not configured'}`,
             )}
+
+            <div className="space-y-3 rounded-lg border border-dashed p-3">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <div className="flex items-center gap-1.5 text-sm font-medium"><Globe2 className="h-4 w-4" />Gemini Google Search capability</div>
+                  <div className="mt-0.5 text-xs text-muted-foreground">Runs one explicit Interactions API probe. It does not change the configured Web Discovery provider.</div>
+                </div>
+                {canRunSearchDiagnostic && <Button size="sm" variant="outline" onClick={() => void testGeminiSearch()} disabled={testingGeminiSearch}>
+                  {testingGeminiSearch ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <Globe2 className="mr-1.5 h-3.5 w-3.5" />}
+                  Test Gemini Search
+                </Button>}
+              </div>
+
+              {!canRunSearchDiagnostic && <div className="text-xs text-muted-foreground">Update permission is required because this diagnostic makes a real external Search API call.</div>}
+
+              {geminiSearchDiagnostic && <div className="rounded-md bg-muted/40 p-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <Badge variant={geminiSearchDiagnostic.available ? 'default' : 'outline'}>{geminiSearchDiagnostic.label}</Badge>
+                  <span className="text-xs text-muted-foreground">{geminiSearchDiagnostic.model}</span>
+                  {geminiSearchDiagnostic.httpStatus !== null && <span className="text-xs text-muted-foreground">HTTP {geminiSearchDiagnostic.httpStatus}</span>}
+                </div>
+                <div className="mt-2 text-sm">{geminiSearchDiagnostic.message}</div>
+                <div className="mt-1 text-xs text-muted-foreground">
+                  Search call observed: {geminiSearchDiagnostic.searchCallObserved ? 'yes' : 'no'} · Checked {new Date(geminiSearchDiagnostic.checkedAt).toLocaleString()} · No source URL, source body, evidence, claim or setting was persisted.
+                </div>
+              </div>}
+            </div>
           </CardContent>
         </Card>
       </div>

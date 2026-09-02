@@ -3,6 +3,7 @@ import { Router, type IRouter } from 'express';
 import { requireAdminPermission } from '../lib/admin-rbac';
 import { sqlClient } from '../lib/db';
 import { authenticate } from '../middlewares/auth';
+import { diagnoseGeminiSearchCapability } from '../notes-studio/gemini-search-diagnostics';
 import {
   NOTES_STUDIO_MIGRATIONS,
   assessNotesStudioProductionReadiness,
@@ -161,6 +162,30 @@ router.get('/operations/readiness', requireAdminPermission('content.questions.re
   } catch (error) {
     console.error('Unable to inspect Notes Studio production readiness', error);
     res.status(500).json({ error: 'Unable to inspect Notes Studio production readiness', code: 'NOTES_STUDIO_READINESS_FAILED' });
+  }
+});
+
+router.post('/operations/search-diagnostics/gemini', requireAdminPermission('content.questions.update'), async (_req, res) => {
+  try {
+    const diagnostic = await diagnoseGeminiSearchCapability();
+    res.json({
+      diagnostic,
+      boundaries: {
+        rawSearchResultsReturned: false,
+        sourceDocumentsCreated: false,
+        sourcesAttachedAutomatically: false,
+        evidenceCreated: false,
+        factsOrClaimsCreated: false,
+        learnerGeneration: false,
+        configurationChanged: false,
+      },
+    });
+  } catch (error) {
+    console.error('Unable to run Gemini Search diagnostic', error);
+    res.status(500).json({
+      error: 'Unable to run Gemini Search diagnostic',
+      code: 'NOTES_STUDIO_GEMINI_SEARCH_DIAGNOSTIC_FAILED',
+    });
   }
 });
 
