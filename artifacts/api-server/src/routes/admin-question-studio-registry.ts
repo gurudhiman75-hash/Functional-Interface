@@ -22,6 +22,8 @@ import adminQuestionStudioProbabilityRouter from "./admin-question-studio-probab
 import adminQuestionStudioCalendarRouter from "./admin-question-studio-calendar";
 import adminQuestionStudioCubesDiceWorkflowRouter from "./admin-question-studio-cubes-dice-workflow";
 import adminQuestionStudioCubesDiceRouter from "./admin-question-studio-cubes-dice";
+import adminQuestionStudioSpatialWorkflowRouter from "./admin-question-studio-spatial-workflow";
+import adminQuestionStudioSpatialV5Router from "./admin-question-studio-spatial-v5";
 import adminQuestionStudioSpatialRouter from "./admin-question-studio-spatial";
 import adminQuestionStudioRouter from "./admin-question-studio";
 
@@ -50,6 +52,9 @@ router.use(adminQuestionStudioProbabilityRouter);
 router.use(adminQuestionStudioCalendarRouter);
 router.use(adminQuestionStudioCubesDiceWorkflowRouter);
 router.use(adminQuestionStudioCubesDiceRouter);
+router.use(adminQuestionStudioSpatialWorkflowRouter);
+router.use(adminQuestionStudioSpatialV5Router);
+// Retain the prior Spatial router as a compatibility fallback; V5 owns the current endpoints above.
 router.use(adminQuestionStudioSpatialRouter);
 router.use(adminQuestionStudioRouter);
 

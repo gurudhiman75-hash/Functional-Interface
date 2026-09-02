@@ -18,6 +18,7 @@ import {
   previewDsf001NormalQuestionStudioReview,
 } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017/question-studio-review-v1.ts";
 import { CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1 } from "../reasoning-v1/foundation/spatial/cubes-dice-test-builder-activation-v1.ts";
+import { SPATIAL_QUESTION_STUDIO_PACKAGE_V5 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v5.ts";
 import { SER_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1 } from "../reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/ser-001-internal-test-builder-activation-v1.ts";
 
 export {
@@ -28,6 +29,36 @@ export {
   isTrg002V4GenerationRequest,
 };
 export type { SharedQuestionStudioGenerationRequest, SriQuestionStudioRequestV1 };
+
+const SPA_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
+  packageId: "SPA-001" as const,
+  topic: "Reasoning" as const,
+  subtopic: "Spatial Reasoning" as const,
+  subject: "Reasoning Ability" as const,
+  label: SPATIAL_QUESTION_STUDIO_PACKAGE_V5.label,
+  enabled: true,
+  cpIds: SPATIAL_QUESTION_STUDIO_PACKAGE_V5.qlIds,
+  permanentQlCount: SPATIAL_QUESTION_STUDIO_PACKAGE_V5.permanentQlCount,
+  permanentQlIds: SPATIAL_QUESTION_STUDIO_PACKAGE_V5.qlIds,
+  supportedLanguages: SPATIAL_QUESTION_STUDIO_PACKAGE_V5.supportedLanguages,
+  supportedDifficulties: SPATIAL_QUESTION_STUDIO_PACKAGE_V5.supportedDifficulties,
+  runtimeMode: "CANONICAL_REVIEW" as const,
+  reviewStatus: "APPROVED_EDITORIAL_CANONICAL" as const,
+  difficultyPolicy: "QL_RUNTIME_CONTROLLED" as const,
+  questionStudioDiscoverable: true,
+  questionStudioGenerationEnabled: true,
+  questionBankStatus: SPATIAL_QUESTION_STUDIO_PACKAGE_V5.questionBankStatus,
+  questionBankWritable: true,
+  testEligibility: SPATIAL_QUESTION_STUDIO_PACKAGE_V5.testEligibility,
+  testEligible: true,
+  testBuilderEligible: true,
+  mockTestEligible: false,
+  publiclyPublishable: true,
+  publicReleaseAuthorized: false,
+  studentDeliveryAuthorized: false,
+  automaticStudentPublication: false,
+  releaseId: SPATIAL_QUESTION_STUDIO_PACKAGE_V5.finalHeldGapActivationAuthority,
+});
 
 const CND_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
   packageId: "SPA-001-CND-001-REVIEW" as const,
@@ -105,7 +136,7 @@ export function listQuestionStudioPackages() {
     previous.push(pkg);
   }
 
-  for (const pkg of [CND_001_QUESTION_STUDIO_PACKAGE, SER_001_QUESTION_STUDIO_PACKAGE]) {
+  for (const pkg of [SPA_001_QUESTION_STUDIO_PACKAGE, CND_001_QUESTION_STUDIO_PACKAGE, SER_001_QUESTION_STUDIO_PACKAGE]) {
     if (previous.some((entry) => String(entry.packageId) === pkg.packageId)) {
       throw new Error(`Question Studio package ${pkg.packageId} already exists before reasoning workflow activation.`);
     }
