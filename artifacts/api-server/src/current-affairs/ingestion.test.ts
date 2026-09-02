@@ -56,6 +56,37 @@ const punjab = classifyCurrentAffairsSignal(
 assert.equal(punjab.category, "punjab");
 assert.ok(punjab.score >= 60);
 
+// CP-049: important official headline structures from the 1-Sep production audit.
+const sco = classifyCurrentAffairsSignal(
+  "Prime Minister participates in the 26th SCO Summit in Bishkek, Kyrgyz Republic",
+);
+assert.equal(sco.category, "international");
+assert.ok(sco.score >= 40);
+
+const historicDefenceAppointment = classifyCurrentAffairsSignal(
+  "AVM Shakti Sharma scripts history as first non-medical woman two-star officer in the defence services",
+);
+assert.equal(historicDefenceAppointment.category, "defence");
+assert.ok(historicDefenceAppointment.score >= 45);
+
+const officeTaking = classifyCurrentAffairsSignal(
+  "Air Marshal Sandeep Thareja takes over as DGAFMS",
+);
+assert.ok(["appointments", "defence"].includes(officeTaking.category));
+assert.ok(officeTaking.score >= 40);
+
+const bilateral = classifyCurrentAffairsSignal(
+  "India-Denmark strengthen bilateral cooperation in MSME development, innovation and intellectual property",
+);
+assert.equal(bilateral.category, "international");
+assert.ok(bilateral.score >= 40);
+
+const multilingualAi = classifyCurrentAffairsSignal(
+  "BHASHINI Sangam strengthens India-Nepal collaboration on multilingual AI",
+);
+assert.equal(multilingualAi.category, "science_technology");
+assert.ok(multilingualAi.score >= 35);
+
 const keywords = discoveryKeywords(
   "Reserve Bank announces digital payments framework for regulated payment entities",
 );
@@ -95,4 +126,4 @@ assert.equal(
   pdfCandidateDedupeKey("THE_HINDU", "a".repeat(64), "Example headline"),
 );
 
-console.log("Current Affairs Studio CP002 ingestion contracts passed");
+console.log("Current Affairs Studio CP-049 ingestion and important-story classification contracts passed");
