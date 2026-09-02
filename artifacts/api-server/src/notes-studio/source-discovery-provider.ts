@@ -246,6 +246,7 @@ async function discoverWithGemini(queries: string[], requestedModel?: string): P
       },
       body: JSON.stringify({
         model,
+        store: false,
         input: discoveryInstruction(queries),
         tools: [{ type: 'google_search' }],
       }),
@@ -306,7 +307,7 @@ export async function discoverNotesSources(queries: string[]): Promise<NotesSour
   if (!notesStudioAIConfigured('openai')) {
     throw new NotesSourceDiscoveryConfigurationError('OPENAI_API_KEY is not configured for Notes Studio web discovery.');
   }
-  const model = resolveNotesStudioModel('openai', ['NOTES_STUDIO_RESEARCH_MODEL', 'NOTES_STUDIO_MODEL']);
+  const model = resolveNotesStudioModel('openai', ['NOTES_STUDIO_OPENAI_SEARCH_MODEL']);
   return discoverWithOpenAI(queries, model);
 }
 
