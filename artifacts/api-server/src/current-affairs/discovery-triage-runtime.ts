@@ -9,10 +9,12 @@ export async function rejectBroadOnlyLowSignalDiscoveryEvents(targetDate: string
       JOIN content.current_affairs_ingestion_candidates candidate ON candidate.id=link.candidate_id
       WHERE event.event_date=${targetDate}::date
         AND event.status='review'
+        AND COALESCE((event.metadata->>'manualEditorialSelected')::boolean, false)=false
       GROUP BY event.id
       HAVING bool_and(COALESCE(candidate.payload->>'discoveryProvider','')='gdelt_doc_2')
          AND bool_and(COALESCE(candidate.payload->>'discoveryTargetDate','')=${targetDate})
          AND bool_and(COALESCE((candidate.payload->>'discoveryEligible')::boolean, false)=false)
+         AND bool_and(COALESCE((candidate.payload->>'manualEditorialSelected')::boolean, false)=false)
          AND NOT EXISTS (
            SELECT 1
            FROM content.current_affairs_event_sources evidence
@@ -35,6 +37,7 @@ export async function rejectBroadOnlyLowSignalDiscoveryEvents(targetDate: string
     targetDate,
     rejectedReviewEvents: rows.length,
     publicCodes: rows.map((row) => String(row.publicCode)).slice(0, 50),
-    rule: "all-linked-candidates-gdelt+broad-only-low-signal+no-primary-evidence",
+    rule: "all-linked-candidates-gdelt+broad-only-low-signal+no-primary-evidence+not-manually-selected",
+    manualEditorialSelectionsProtected: true,
   };
 }
