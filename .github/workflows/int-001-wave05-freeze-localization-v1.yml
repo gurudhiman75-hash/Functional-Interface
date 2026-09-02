@@ -1,0 +1,96 @@
+name: Validate INT-001 Wave05 Freeze Localization V1
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**"
+      - ".github/workflows/int-001-wave05-freeze-localization-v1.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-int-001-wave05-freeze-localization:
+    runs-on: ubuntu-latest
+    env:
+      EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+    steps:
+      - name: Check out exact branch head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.EXPECTED_HEAD }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Audit English freeze and HI PA semantic parity
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-wave05-freeze-localization-v1-audit.ts | tee int-001-wave05-freeze-localization-v1.log
+          grep -q 'PASS_INT_001_WAVE05_FREEZE_LOCALIZATION_V1_AUDIT' int-001-wave05-freeze-localization-v1.log
+      - name: Soak Wave06 Question Studio registration
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-wave06-question-studio-registration-v1-audit.ts | tee int-001-wave06-registration-v1.log
+          grep -q 'PASS_INT_001_WAVE06_QUESTION_STUDIO_REGISTRATION_V1_AUDIT' int-001-wave06-registration-v1.log
+      - name: Audit final trilingual chapter closure
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-final-trilingual-closure-v2-audit.ts | tee int-001-final-trilingual-closure-v2.log
+          grep -q 'PASS_INT_001_FINAL_TRILINGUAL_CLOSURE_V2_AUDIT' int-001-final-trilingual-closure-v2.log
+          grep -q '"qlLanguageSurfaceCount": 399' int-001-final-trilingual-closure-v2.log
+          grep -q '"implicitOwnershipCases": 0' int-001-final-trilingual-closure-v2.log
+      - name: Soak all 399 permanent QL-language surfaces
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-399-surface-question-studio-soak-v2-audit.ts | tee int-001-399-surface-question-studio-soak-v2.log
+          grep -q 'PASS_INT_001_399_SURFACE_QUESTION_STUDIO_SOAK_V2_AUDIT' int-001-399-surface-question-studio-soak-v2.log
+          grep -q '"permanentQlCount": 133' int-001-399-surface-question-studio-soak-v2.log
+          grep -q '"qlLanguageSurfaceCount": 399' int-001-399-surface-question-studio-soak-v2.log
+          grep -q '"generated": 2394' int-001-399-surface-question-studio-soak-v2.log
+          grep -q '"explicitQlOwnershipChecks": 2394' int-001-399-surface-question-studio-soak-v2.log
+          grep -q '"legacyImplicitOwnershipCases": 0' int-001-399-surface-question-studio-soak-v2.log
+          grep -q '"exactCrossQlStemCollisions": 0' int-001-399-surface-question-studio-soak-v2.log
+          grep -q '"questionIdCollisions": 0' int-001-399-surface-question-studio-soak-v2.log
+      - name: Preserve chapter-wide direct calculation gate
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-chapter-wide-explanation-style-discovery-v1.ts | tee int-001-wave05-chapter-direct-calc-regression.log
+          grep -q '"issueQlCount": 0' int-001-wave05-chapter-direct-calc-regression.log
+          grep -q '"abstractNarrationHits": 0' int-001-wave05-chapter-direct-calc-regression.log
+          grep -q '"lowArithmeticDensityQuestions": 0' int-001-wave05-chapter-direct-calc-regression.log
+      - name: Preserve Wave03 permanent allocation
+        shell: bash
+        run: |
+          set -o pipefail
+          pnpm dlx tsx@4.20.6 artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/int-001-wave03-permanent-allocation-v1-audit.ts | tee int-001-wave05-wave03-regression.log
+          grep -q 'PASS_INT_001_WAVE03_PERMANENT_ALLOCATION_V1_AUDIT' int-001-wave05-wave03-regression.log
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Record exact validation head
+        shell: bash
+        run: |
+          echo "validated_head=$(git rev-parse HEAD)" | tee int-001-wave05-head.log
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+      - name: Upload validation evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: int-001-final-trilingual-closure-v2
+          path: |
+            int-001-wave05-freeze-localization-v1.log
+            int-001-wave06-registration-v1.log
+            int-001-final-trilingual-closure-v2.log
+            int-001-399-surface-question-studio-soak-v2.log
+            int-001-wave05-chapter-direct-calc-regression.log
+            int-001-wave05-wave03-regression.log
+            int-001-wave05-head.log
+          retention-days: 30
