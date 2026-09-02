@@ -13,6 +13,7 @@ import adminQuestionStudioCalibrationRouter from "./admin-question-studio-calibr
 import adminQuestionStudioMixedDifficultyRouter from "./admin-question-studio-mixed-difficulty";
 import adminQuestionStudioSeriesWorkflowRouter from "./admin-question-studio-series-workflow";
 import adminQuestionStudioSeriesRouter from "./admin-question-studio-series";
+import adminQuestionStudioInterestChapterRouter from "./admin-question-studio-interest-chapter";
 import adminQuestionStudioInterestRouter from "./admin-question-studio-interest";
 import adminQuestionStudioMensurationRouter from "./admin-question-studio-mensuration";
 import adminQuestionStudioMensurationFullRouter from "./admin-question-studio-mensuration-full";
@@ -43,6 +44,7 @@ router.use(adminQuestionStudioCalibrationRouter);
 router.use(adminQuestionStudioMixedDifficultyRouter);
 router.use(adminQuestionStudioSeriesWorkflowRouter);
 router.use(adminQuestionStudioSeriesRouter);
+router.use(adminQuestionStudioInterestChapterRouter);
 router.use(adminQuestionStudioInterestRouter);
 router.use(adminQuestionStudioMensurationRouter);
 router.use(adminQuestionStudioMensurationFullRouter);
