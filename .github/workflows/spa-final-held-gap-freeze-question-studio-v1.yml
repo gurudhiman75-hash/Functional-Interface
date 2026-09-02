@@ -1,0 +1,91 @@
+name: Validate SPA Final Held-Gap Freeze Question Studio V1
+
+on:
+  push:
+    branches:
+      - feature/spa-final-held-gap-freeze-integration-v2
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-final-held-gap-freeze-v1.ts
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-final-held-gap-question-studio-v1.ts
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v5.ts
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v5.ts
+      - artifacts/api-server/src/routes/admin-question-studio-spatial-v5.ts
+      - artifacts/api-server/src/routes/admin-question-studio-spatial-workflow.ts
+      - artifacts/api-server/src/routes/admin-question-studio-registry.ts
+      - artifacts/api-server/src/question-studio/shared-generation-engine-sri.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-final-held-gap-freeze-question-studio-v1.test.ts
+      - artifacts/admin-app/src/features/question-studio/spatial-review-api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx
+      - .github/workflows/spa-final-held-gap-freeze-question-studio-v1.yml
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-final-held-gap-freeze-v1.ts
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-final-held-gap-question-studio-v1.ts
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v5.ts
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v5.ts
+      - artifacts/api-server/src/routes/admin-question-studio-spatial-v5.ts
+      - artifacts/api-server/src/routes/admin-question-studio-spatial-workflow.ts
+      - artifacts/api-server/src/routes/admin-question-studio-registry.ts
+      - artifacts/api-server/src/question-studio/shared-generation-engine-sri.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-final-held-gap-freeze-question-studio-v1.test.ts
+      - artifacts/admin-app/src/features/question-studio/spatial-review-api.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx
+      - .github/workflows/spa-final-held-gap-freeze-question-studio-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin Question Studio UI
+        run: pnpm --dir artifacts/admin-app typecheck
+
+      - name: Bundle final held-gap activation proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-final-held-gap-freeze-question-studio-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/spatial/spatial-final-held-gap-freeze-question-studio-v1.test.mjs
+
+      - name: Run final held-gap activation proof
+        env:
+          DATABASE_URL: postgresql://examtree_test:examtree_test@127.0.0.1:65432/examtree_test
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-final-held-gap-freeze-question-studio-v1.test.mjs 2>&1 \
+            | tee dist/reasoning-v1/spatial/spa-final-held-gap-freeze-question-studio-v1-run.log
+
+      - name: Upload final held-gap activation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-final-held-gap-freeze-question-studio-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-freeze-question-studio-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-final-held-gap-freeze-question-studio-v1-run.log
+          if-no-files-found: error
