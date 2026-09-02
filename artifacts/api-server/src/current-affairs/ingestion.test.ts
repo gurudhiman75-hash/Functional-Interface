@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 
 import {
+  headlineReviewProfile,
+  resolveHeadlineReviewDate,
+} from "./headline-review-runtime";
+import {
   classifyCurrentAffairsSignal,
   discoveryKeywords,
   extractResearchSignals,
@@ -87,6 +91,63 @@ const multilingualAi = classifyCurrentAffairsSignal(
 assert.equal(multilingualAi.category, "science_technology");
 assert.ok(multilingualAi.score >= 35);
 
+// CP-050: review visibility is independent from automatic inclusion. Even an
+// auto-withheld headline receives product-family scores and remains selectable.
+const withheldProfile = headlineReviewProfile({
+  candidateId: "aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa",
+  title: "Railway Board reviews routine yard remodelling preparatory work",
+  publishedAt: "2026-09-01T10:00:00.000Z",
+  candidateStatus: "rejected",
+  rejectionReason: "gdelt_broad_only_low_signal",
+  payload: {
+    discoveryTargetDate: "2026-09-01",
+    discoveryProvider: "gdelt_doc_2",
+    discoveryEligible: false,
+    discoveryScore: 31,
+    categoryGuess: "national",
+  },
+  sourceKey: "gdelt_open_news",
+  sourceName: "GDELT Open News",
+  sourceUrl: "https://example.org/rail-yard-review",
+  sourceTrustScore: 0.55,
+  isPrimarySource: false,
+}, "2026-09-01");
+assert.equal(withheldProfile.autoEligible, false);
+assert.equal(withheldProfile.candidateStatus, "rejected");
+assert.equal(withheldProfile.discoveryScore, 31);
+assert.equal(withheldProfile.examScores.filter((score) => ["ssc", "banking", "punjab"].includes(score.examFamily)).length, 3);
+assert.ok(Number.isFinite(withheldProfile.relevanceScore));
+
+const manuallySelectedProfile = headlineReviewProfile({
+  candidateId: "bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb",
+  title: "Administrative monthly report released for departmental monitoring",
+  publishedAt: "2026-09-01T08:00:00.000Z",
+  candidateStatus: "rejected",
+  payload: {
+    discoveryTargetDate: "2026-09-01",
+    manualEditorialSelected: true,
+    manualEditorialSelectionReason: "Editor considers it important for this day's pack",
+  },
+  sourceKey: "official_source",
+  sourceName: "Official Source",
+  sourceUrl: "https://example.gov.in/monthly-report",
+  sourceTrustScore: 0.9,
+  isPrimarySource: true,
+}, "2026-09-01");
+assert.equal(manuallySelectedProfile.manualSelected, true);
+assert.equal(manuallySelectedProfile.autoEligible, false, "machine status remains visible instead of being rewritten in the review model");
+assert.match(manuallySelectedProfile.selectionReason ?? "", /Editor considers it important/);
+
+assert.equal(
+  resolveHeadlineReviewDate({ historicalTargetDate: "2026-09-01" }, null, "2026-08-31"),
+  "2026-09-01",
+);
+assert.equal(
+  resolveHeadlineReviewDate({ historicalTargetDate: "2026-02-30" }, "2026-09-01T20:00:00Z", "2026-08-31"),
+  "2026-09-02",
+  "invalid payload dates must not poison the India-calendar review date",
+);
+
 const keywords = discoveryKeywords(
   "Reserve Bank announces digital payments framework for regulated payment entities",
 );
@@ -126,4 +187,4 @@ assert.equal(
   pdfCandidateDedupeKey("THE_HINDU", "a".repeat(64), "Example headline"),
 );
 
-console.log("Current Affairs Studio CP-049 ingestion and important-story classification contracts passed");
+console.log("Current Affairs Studio CP-049/050 ingestion, important-story classification and headline-review visibility contracts passed");
