@@ -97,9 +97,10 @@ assert.ok(new Set(chapterBatch.questions.map((question) => question.checkpointId
 
 const cp010New = await generateInt001ChapterAdminQuestionStudioBatch({ checkpointId: "INT-CP-010", qlId: "INT-QL-132", language: "pa", seed: "INT-001-CHAPTER-ADMIN-V1:ql132", count: 1 });
 assert.equal(cp010New.questions[0]?.checkpointId, "INT-CP-010");
-assert.equal(cp010New.questions[0]?.sourceCanonicalProblemId.includes("WAVE"), true);
+assert.equal(cp010New.questions[0]?.integrationAuthority, "INT-001-WAVE06-QS-v1");
 const cp007New = await generateInt001ChapterAdminQuestionStudioBatch({ checkpointId: "INT-CP-007", qlId: "INT-QL-134", language: "hi", seed: "INT-001-CHAPTER-ADMIN-V1:ql134", count: 1 });
 assert.equal(cp007New.questions[0]?.checkpointId, "INT-CP-007");
+assert.equal(cp007New.questions[0]?.integrationAuthority, "INT-001-WAVE06-QS-v1");
 
 await assert.rejects(
   () => generateInt001ChapterAdminQuestionStudioBatch({ checkpointId: "INT-CP-007", qlId: "INT-QL-132", language: "en", seed: "wrong-owner", count: 1 }),
