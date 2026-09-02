@@ -2,14 +2,20 @@ name: Validate INT-001 Wave05 Freeze Localization V1
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Interest/INT-001/**"
-      - ".github/workflows/int-001-wave05-freeze-localization-v1.yml"
   workflow_dispatch:
+
+concurrency:
+  group: int-001-wave05-freeze-localization-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-int-001-wave05-freeze-localization:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     env:
       EXPECTED_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
     steps:
