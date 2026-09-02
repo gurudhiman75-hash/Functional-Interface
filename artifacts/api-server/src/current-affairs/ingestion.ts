@@ -50,6 +50,8 @@ const GENERAL_EXAM_TERMS = [
   "inaugurated",
   "first",
   "first woman",
+  "scripts history",
+  "makes history",
   "takes over",
   "assumes charge",
   "largest",
