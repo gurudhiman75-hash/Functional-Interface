@@ -1,6 +1,6 @@
 export const NOTES_SOURCE_DISCOVERY_MAX_QUERIES = 4;
 export const NOTES_SOURCE_DISCOVERY_MAX_RESULTS = 20;
-export const NOTES_SOURCE_DISCOVERY_PROMPT_VERSION = 'notes-source-discovery-v1';
+export const NOTES_SOURCE_DISCOVERY_PROMPT_VERSION = 'notes-source-discovery-v2';
 
 const discoveryStates = new Set([
   'brief',
@@ -11,6 +11,25 @@ const discoveryStates = new Set([
   'qa_required',
   'review_ready',
 ]);
+
+const LOW_PRIORITY_DISCOVERY_DOMAINS = [
+  'wikipedia.org',
+  'youtube.com',
+  'youtu.be',
+  'scribd.com',
+  'testbook.com',
+  'drishtiias.com',
+  'pwonlyias.com',
+  'studyiq.com',
+  'abhipedia.abhimanu.com',
+  'spmiasacademy.com',
+] as const;
+
+const KNOWN_INSTITUTIONAL_DOMAINS = [
+  'un.org',
+  'unesco.org',
+  'worldbank.org',
+] as const;
 
 export type NotesSourceDiscoveryCandidate = {
   sourceUri: string;
@@ -97,15 +116,37 @@ export function sourceDiscoveryDomain(sourceUri: string): string {
   }
 }
 
+function matchesDomain(domain: string, candidate: string): boolean {
+  return domain === candidate || domain.endsWith(`.${candidate}`);
+}
+
+export function sourceDiscoveryLowPriority(domain: string): boolean {
+  const host = domain.toLowerCase();
+  return LOW_PRIORITY_DISCOVERY_DOMAINS.some((candidate) => matchesDomain(host, candidate));
+}
+
 export function sourceDiscoveryAuthorityClass(domain: string): NotesSourceDiscoveryCandidate['authorityClass'] {
   const host = domain.toLowerCase();
   if (host === 'gov.in' || host.endsWith('.gov.in') || host === 'nic.in' || host.endsWith('.nic.in') || host.endsWith('.gov')) {
     return 'government_primary';
   }
-  if (host.endsWith('.edu') || host.endsWith('.ac.in') || host.endsWith('.edu.in') || host.endsWith('.org')) {
+  if (
+    host.endsWith('.edu')
+    || host.endsWith('.ac.in')
+    || host.endsWith('.edu.in')
+    || host.endsWith('.int')
+    || KNOWN_INSTITUTIONAL_DOMAINS.some((candidate) => matchesDomain(host, candidate))
+  ) {
     return 'institutional_reference';
   }
   return 'web_reference';
+}
+
+export function sourceDiscoveryScore(domain: string, authorityClass: NotesSourceDiscoveryCandidate['authorityClass']): number {
+  if (sourceDiscoveryLowPriority(domain)) return 10;
+  if (authorityClass === 'government_primary') return 100;
+  if (authorityClass === 'institutional_reference') return 70;
+  return 40;
 }
 
 export function rankDiscoveredSourceUrls(values: unknown[]): NotesSourceDiscoveryCandidate[] {
@@ -117,7 +158,7 @@ export function rankDiscoveredSourceUrls(values: unknown[]): NotesSourceDiscover
     seen.add(sourceUri);
     const domain = sourceDiscoveryDomain(sourceUri);
     const authorityClass = sourceDiscoveryAuthorityClass(domain);
-    const score = authorityClass === 'government_primary' ? 100 : authorityClass === 'institutional_reference' ? 70 : 40;
+    const score = sourceDiscoveryScore(domain, authorityClass);
     candidates.push({ sourceUri, domain, authorityClass, score });
   }
   return candidates

@@ -27,14 +27,38 @@ export class NotesSourceDiscoveryConfigurationError extends Error {}
 
 const DEFAULT_GEMINI_SEARCH_MODEL = 'gemini-3.6-flash';
 const DEFAULT_TAVILY_SEARCH_MODEL = 'tavily-search-basic';
+const TAVILY_PRIMARY_DOMAINS = ['*.gov.in', '*.nic.in'] as const;
+const TAVILY_INSTITUTIONAL_DOMAINS = ['*.gov.in', '*.nic.in', '*.ac.in', '*.edu.in'] as const;
+const TAVILY_LOW_AUTHORITY_EXCLUSIONS = [
+  'wikipedia.org',
+  'youtube.com',
+  'scribd.com',
+  'testbook.com',
+  'drishtiias.com',
+  'pwonlyias.com',
+  'studyiq.com',
+  'abhipedia.abhimanu.com',
+  'spmiasacademy.com',
+] as const;
+
+type TavilySearchPolicy = {
+  include_domains?: readonly string[];
+  exclude_domains?: readonly string[];
+};
+
+function tavilySearchPolicy(index: number): TavilySearchPolicy {
+  if (index <= 1) return { include_domains: TAVILY_PRIMARY_DOMAINS };
+  if (index === 2) return { include_domains: TAVILY_INSTITUTIONAL_DOMAINS };
+  return { exclude_domains: TAVILY_LOW_AUTHORITY_EXCLUSIONS };
+}
 
 function discoveryInstruction(queries: string[]): string {
   const queryList = queries.map((query, index) => `${index + 1}. ${query}`).join('\n');
   return [
     'Use web search to discover authoritative source pages for an exam-note research pack.',
     'Search only; do not provide factual answers, learner prose, claims, conclusions, or uncited facts.',
-    'Prefer primary government/agency sources, then universities or established institutions.',
-    'Avoid search-result pages, social posts, forums, shopping pages and low-authority aggregators when stronger sources exist.',
+    'Prioritize primary government/agency sources. Use universities or established public institutions only when primary coverage is insufficient.',
+    'Avoid coaching sites, user-upload repositories, social/video platforms, search-result pages, forums, shopping pages and low-authority aggregators when stronger sources exist.',
     'The application will use only URLs returned by the search tool metadata; any generated prose is discarded.',
     '',
     'Research queries:',
@@ -154,7 +178,8 @@ async function discoverWithTavily(queries: string[]): Promise<NotesSourceDiscove
   const requestIds: string[] = [];
   let credits = 0;
 
-  for (const query of queries) {
+  for (const [index, query] of queries.entries()) {
+    const policy = tavilySearchPolicy(index);
     const response = await fetch(`${baseUrl}/search`, {
       method: 'POST',
       headers: {
@@ -170,6 +195,8 @@ async function discoverWithTavily(queries: string[]): Promise<NotesSourceDiscove
         include_answer: false,
         include_raw_content: false,
         include_images: false,
+        include_domains: policy.include_domains,
+        exclude_domains: policy.exclude_domains,
       }),
     });
     if (!response.ok) {
@@ -197,6 +224,8 @@ async function discoverWithTavily(queries: string[]): Promise<NotesSourceDiscove
       credits,
       requestIds,
       queryCount: queries.length,
+      officialConstrainedQueries: Math.min(3, queries.length),
+      broadFallbackQueries: Math.max(0, queries.length - 3),
       answerReturned: false,
       rawContentReturned: false,
     },
@@ -316,6 +345,7 @@ export const sourceDiscoveryProviderInternals = {
   sourceUrlsFromOpenAIResponse,
   sourceUrlsFromGeminiInteraction,
   sourceUrlsFromTavilyResponse,
+  tavilySearchPolicy,
   geminiSearchModels,
   shouldFallbackGeminiSearch,
   resolveNotesSourceDiscoveryProvider,
