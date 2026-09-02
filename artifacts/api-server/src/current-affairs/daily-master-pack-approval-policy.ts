@@ -173,11 +173,16 @@ export function evaluateDailyMasterPackEditorialQuality(
     }
   }
 
-  const blockers = issues.map(issueLabel);
+  // CP-050: importance/relevance is advisory. A human editor may deliberately
+  // retain a routine story. Mechanical/malformed learner-copy defects still block.
+  const routineIssues = issues.filter((issue) => issue.kind === "routine_event");
+  const blockingIssues = issues.filter((issue) => issue.kind !== "routine_event");
+  const blockers = blockingIssues.map(issueLabel);
+  const warnings = routineIssues.map(issueLabel);
   return {
     ready: blockers.length === 0,
     blockers,
-    warnings: [],
+    warnings,
     issues,
   };
 }
