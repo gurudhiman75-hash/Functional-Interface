@@ -1,0 +1,71 @@
+name: Validate SPA-001 Final Closure Soak V1
+
+on:
+  push:
+    branches:
+      - audit/spa-001-final-closure-v1
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-family-final-closure-audit-v1.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-family-final-closure-soak-v1.test.ts
+      - .github/workflows/spa-001-final-closure-soak-v1.yml
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-family-final-closure-audit-v1.ts
+      - artifacts/api-server/src/reasoning-v1/tests/spatial-family-final-closure-soak-v1.test.ts
+      - .github/workflows/spa-001-final-closure-soak-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin Question Studio UI
+        run: pnpm --dir artifacts/admin-app typecheck
+
+      - name: Bundle Spatial final closure soak
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-family-final-closure-soak-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/spatial/spatial-family-final-closure-soak-v1.test.mjs
+
+      - name: Run Spatial final closure soak
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-family-final-closure-soak-v1.test.mjs 2>&1 \
+            | tee dist/reasoning-v1/spatial/spa-001-final-closure-soak-v1-run.log
+
+      - name: Upload Spatial final closure evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-001-final-closure-soak-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-001-final-closure-soak-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-001-final-closure-soak-v1-run.log
+          if-no-files-found: error
