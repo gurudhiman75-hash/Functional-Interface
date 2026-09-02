@@ -6,6 +6,7 @@ on:
       - feature/com003-office-productivity-discovery-v1
     paths:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-review-export-v1.ts'
+      - '.github/com003-question-review-trigger.txt'
   workflow_dispatch:
 
 permissions:
