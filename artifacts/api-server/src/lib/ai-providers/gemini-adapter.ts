@@ -37,10 +37,10 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 }
 
 /**
- * Gemini structured output supports a documented subset of JSON Schema.
- * Notes Studio keeps stricter constraints (for example minLength/maxLength)
- * in its deterministic post-generation validators, so model-side schemas can
- * safely omit unsupported keywords instead of causing INVALID_ARGUMENT.
+ * The generateContent API accepts only a documented subset of JSON Schema.
+ * Notes Studio keeps stricter constraints such as minLength/maxLength in its
+ * deterministic post-generation validators, so unsupported model-side schema
+ * keywords are removed here instead of risking INVALID_ARGUMENT responses.
  */
 export function sanitizeGeminiJsonSchema(schema: Record<string, unknown>): Record<string, unknown> {
   const sanitizeNode = (node: unknown): unknown => {
@@ -83,6 +83,12 @@ export function sanitizeGeminiJsonSchema(schema: Record<string, unknown>): Recor
   return sanitizeNode(schema) as Record<string, unknown>;
 }
 
+/**
+ * Notes Studio uses the long-standing generateContent JSON contract for every
+ * Gemini model: responseMimeType + responseJsonSchema. Do not route through
+ * the newer enum-based responseFormat field here; that field belongs to a
+ * different transport shape and previously caused production 400s.
+ */
 export function buildGeminiGenerationConfig(input: {
   model: string;
   temperature?: number;
@@ -93,21 +99,8 @@ export function buildGeminiGenerationConfig(input: {
     generationConfig.temperature = input.temperature ?? 0;
   }
   if (input.responseSchema) {
-    const schema = sanitizeGeminiJsonSchema(input.responseSchema);
-    if (isGemini3Model(input.model)) {
-      // Current Gemini 3 generateContent structured-output contract nests the
-      // JSON Schema under responseFormat.text. Use the same contract for both
-      // primary and fallback Gemini 3 models so they cannot drift apart.
-      generationConfig.responseFormat = {
-        text: {
-          mimeType: "application/json",
-          schema,
-        },
-      };
-    } else {
-      generationConfig.responseMimeType = "application/json";
-      generationConfig.responseJsonSchema = schema;
-    }
+    generationConfig.responseMimeType = "application/json";
+    generationConfig.responseJsonSchema = sanitizeGeminiJsonSchema(input.responseSchema);
   }
   return generationConfig;
 }
@@ -130,6 +123,7 @@ export function geminiFallbackModel(primaryModel: string) {
   const configured = String(process.env["GEMINI_FALLBACK_MODEL"] ?? "").trim();
   if (configured && configured !== primaryModel) return configured;
   if (/^gemini-3\.7-flash(?:$|-)/i.test(primaryModel)) return "gemini-3.6-flash";
+  if (/^gemini-3\.6-flash(?:$|-)/i.test(primaryModel)) return "gemini-2.5-flash";
   return null;
 }
 
@@ -156,7 +150,7 @@ export const geminiProvider: AIProviderAdapter = {
   defaultModel:
     process.env[
       "GEMINI_KNOWLEDGE_EXTRACTION_MODEL"
-    ] ?? "gemini-3.7-flash",
+    ] ?? "gemini-3.6-flash",
   isConfigured() {
     return Boolean(getGeminiApiKey());
   },
