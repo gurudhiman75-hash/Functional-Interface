@@ -21,6 +21,21 @@ export const SPATIAL_FAMILY_FINAL_CLOSURE_AUDIT_V1 = Object.freeze({
     currentImplementedQlCount: 50,
     expectedUnionRange: "SPA-QL-001..SPA-QL-050" as const,
   }),
+  currentFiftyQlSoakEvidence: Object.freeze({
+    workflowName: "Validate SPA-001 Final Closure Soak V1" as const,
+    workflowRunId: 33640406379,
+    validatedHeadSha: "0357d6450420d3bad30f579ad8fbf524c70f1270" as const,
+    artifactId: 9850598538,
+    artifactDigest: "sha256:e56fab60e62f7af27e298a5ca30fa6fd143c56fcfbfbd101a42add2b9f00edd5" as const,
+    result: "SUCCESS" as const,
+    languages: Object.freeze(["en", "hi", "pa"] as const),
+    generatedQuestionCount: 300,
+    deterministicReplayChecks: 300,
+    svgChecks: 1509,
+    packageUnionComplete: true,
+    cndSeparateOwnershipPreserved: true,
+    automaticStudentPublicationClosed: true,
+  }),
   alreadyClosedHeldGapAudit: Object.freeze({
     authorityId: SPATIAL_FINAL_HELD_GAP_SATURATION_AUTHORITY_V1.authorityId,
     promotedQlIds: SPATIAL_FINAL_HELD_GAP_SATURATION_AUTHORITY_V1.promotedQlIds,
@@ -101,7 +116,7 @@ export const SPATIAL_FAMILY_FINAL_CLOSURE_AUDIT_V1 = Object.freeze({
   ]),
   lifecycle: Object.freeze({
     currentFiftyQlSoakRequired: true,
-    currentFiftyQlSoakPassed: false,
+    currentFiftyQlSoakPassed: true,
     sourceSaturationCompleteForWholeFamily: false,
     chapterInventoryComplete: false,
     familyExhaustivenessEstablished: false,
@@ -111,7 +126,7 @@ export const SPATIAL_FAMILY_FINAL_CLOSURE_AUDIT_V1 = Object.freeze({
     studentDeliveryAuthorizedByThisAudit: false,
     automaticStudentPublicationAuthorizedByThisAudit: false,
   }),
-  verdict: "BLOCKED_NOT_EXHAUSTIVE_FOUR_BLUEPRINT_CHAPTERS_UNIMPLEMENTED" as const,
+  verdict: "CURRENT_50_QL_CORPUS_HEALTHY_BUT_FAMILY_FREEZE_BLOCKED_BY_FOUR_UNIMPLEMENTED_CHAPTERS" as const,
   remediationOrder: Object.freeze(["FFM-001", "DOT-001", "FMT-001", "IDF-001"] as const),
   nextGate: "SPA_SECONDARY_AND_FORMATION_CHAPTER_SOURCE_DISCOVERY_V1" as const,
 } as const);
@@ -127,4 +142,7 @@ if (SPATIAL_FAMILY_FINAL_CLOSURE_AUDIT_V1.blockingMissingChapters.length !== 4) 
 }
 if (!SPATIAL_FAMILY_FINAL_CLOSURE_SOURCE_EVIDENCE_V1.conclusions.fmt001CrossTargetEvidenceEstablished) {
   throw new Error("Figure Matrix closure blocker requires cross-target evidence.");
+}
+if (!SPATIAL_FAMILY_FINAL_CLOSURE_AUDIT_V1.lifecycle.currentFiftyQlSoakPassed) {
+  throw new Error("Current 50-QL Spatial corpus must have a pinned green closure soak before this authority can land.");
 }
