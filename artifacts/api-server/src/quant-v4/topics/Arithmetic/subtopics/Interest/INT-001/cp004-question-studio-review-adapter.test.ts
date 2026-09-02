@@ -10,7 +10,7 @@ import {
 
 assert.equal(INT_CP004_QUESTION_STUDIO_REVIEW_PACKAGE.packageId, "INT-001");
 assert.equal(INT_CP004_QUESTION_STUDIO_REVIEW_PACKAGE.checkpointId, "INT-CP-004");
-assert.deepEqual(INT_CP004_QUESTION_STUDIO_REVIEW_PACKAGE.supportedLanguages, ["hi", "pa"]);
+assert.deepEqual(INT_CP004_QUESTION_STUDIO_REVIEW_PACKAGE.supportedLanguages, ["en", "hi", "pa"]);
 assert.equal(INT_CP004_QUESTION_STUDIO_REVIEW_PACKAGE.qlIds.length, 19);
 assert.equal(INT_CP004_QUESTION_STUDIO_REVIEW_PACKAGE.enabled, true);
 assert.equal(INT_CP004_QUESTION_STUDIO_REVIEW_PACKAGE.reviewOnly, true);
@@ -24,13 +24,14 @@ assert.equal(INT_CP004_QUESTION_STUDIO_REVIEW_PACKAGE.integrationAuthority, INT_
 
 const DECIMAL_TOKEN = /\d+\.\d+/u;
 let payloadCount = 0;
-let formulaFirstChecks = 0;
-let decimalFreeChecks = 0;
+let localizedFormulaFirstChecks = 0;
+let localizedDecimalFreeChecks = 0;
 let optionSuppressionChecks = 0;
 let approvalPolicyChecks = 0;
 let qlCoverageChecks = 0;
+let englishChecks = 0;
 
-for (const language of ["hi", "pa"] as const) {
+for (const language of ["en", "hi", "pa"] as const) {
   for (const qlId of INT_CP004_QL_IDS) {
     qlCoverageChecks += 1;
     const preview = previewIntCp004QuestionStudioReview({
@@ -64,22 +65,27 @@ for (const language of ["hi", "pa"] as const) {
       assert.equal(question.safety.publiclyPublishable, false);
       assert.equal(question.validation.valid, true);
       assert.equal(question.validation.sourceLifecycleLocked, true);
+      assert.ok(question.explanation.steps.some((step) => /[=×÷+−^/]/u.test(step)));
 
-      formulaFirstChecks += 1;
-      const formulaPrefix = language === "hi" ? "सूत्र:" : "ਸੂਤਰ:";
-      assert.ok(question.explanation.steps[0]?.startsWith(formulaPrefix));
-      assert.ok(question.explanation.steps.slice(1).some((step) => /[=×÷+−^/]/u.test(step)));
+      if (language === "en") {
+        englishChecks += 1;
+        assert.equal(question.traceability.sourceFreezeId, "INT-CP-004-EN-v2-frozen");
+      } else {
+        localizedFormulaFirstChecks += 1;
+        const formulaPrefix = language === "hi" ? "सूत्र:" : "ਸੂਤਰ:";
+        assert.ok(question.explanation.steps[0]?.startsWith(formulaPrefix));
 
-      const learnerText = [
-        question.stem,
-        ...question.options,
-        question.answer,
-        question.explanation.whatAsked,
-        ...question.explanation.steps,
-        question.explanation.conclusion,
-      ].join("\n");
-      decimalFreeChecks += 1;
-      assert.equal(DECIMAL_TOKEN.test(learnerText), false);
+        const learnerText = [
+          question.stem,
+          ...question.options,
+          question.answer,
+          question.explanation.whatAsked,
+          ...question.explanation.steps,
+          question.explanation.conclusion,
+        ].join("\n");
+        localizedDecimalFreeChecks += 1;
+        assert.equal(DECIMAL_TOKEN.test(learnerText), false);
+      }
 
       optionSuppressionChecks += question.optionDetails.length;
       for (const option of question.optionDetails) {
@@ -101,12 +107,13 @@ for (const language of ["hi", "pa"] as const) {
   }
 }
 
-assert.equal(qlCoverageChecks, 38);
-assert.equal(payloadCount, 190);
-assert.equal(formulaFirstChecks, 190);
-assert.equal(decimalFreeChecks, 190);
-assert.equal(optionSuppressionChecks, 760);
-assert.equal(approvalPolicyChecks, 190);
+assert.equal(qlCoverageChecks, 57);
+assert.equal(payloadCount, 285);
+assert.equal(englishChecks, 95);
+assert.equal(localizedFormulaFirstChecks, 190);
+assert.equal(localizedDecimalFreeChecks, 190);
+assert.equal(optionSuppressionChecks, 1140);
+assert.equal(approvalPolicyChecks, 285);
 
 const mixed = previewIntCp004QuestionStudioReview({
   language: "hi",
@@ -125,6 +132,9 @@ console.log("PASS_INT_CP004_CURRENT_MAIN_QUESTION_STUDIO_REVIEW_ADAPTER", {
   languages: INT_CP004_QUESTION_STUDIO_REVIEW_PACKAGE.supportedLanguages,
   qlCount: INT_CP004_QUESTION_STUDIO_REVIEW_PACKAGE.qlIds.length,
   payloadCount,
+  englishChecks,
+  localizedFormulaFirstChecks,
+  localizedDecimalFreeChecks,
   optionSuppressionChecks,
   approvalPolicyChecks,
   mixedBatchCount: mixed.questions.length,
