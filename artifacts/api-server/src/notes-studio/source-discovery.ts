@@ -46,10 +46,6 @@ export function normalizeSourceDiscoveryQuery(value: unknown): string {
   return typeof value === 'string' ? value.replace(/\s+/g, ' ').trim().slice(0, 240) : '';
 }
 
-function boundedDiscoveryQuery(...parts: unknown[]): string {
-  return normalizeSourceDiscoveryQuery(parts.map(normalizeSourceDiscoveryQuery).filter(Boolean).join(' '));
-}
-
 export function buildSourceDiscoveryQueries(input: {
   topicLabel?: unknown;
   syllabusEmphasis?: unknown;
@@ -59,11 +55,11 @@ export function buildSourceDiscoveryQueries(input: {
   const syllabus = normalizeSourceDiscoveryQuery(input.syllabusEmphasis);
   const focus = normalizeSourceDiscoveryQuery(input.focus);
   const queries = [
-    boundedDiscoveryQuery('official Government of India or state government primary source', topic, focus),
-    boundedDiscoveryQuery('official government department commission authority India', topic, syllabus),
-    boundedDiscoveryQuery('official report PDF government India', topic),
-    boundedDiscoveryQuery('authoritative university institutional reference India', topic, syllabus),
-  ].filter(Boolean);
+    focus,
+    [topic, syllabus].filter(Boolean).join(' '),
+    topic ? `${topic} official government source` : '',
+    topic ? `${topic} authoritative reference India` : '',
+  ].map(normalizeSourceDiscoveryQuery).filter(Boolean);
   return [...new Set(queries)].slice(0, NOTES_SOURCE_DISCOVERY_MAX_QUERIES);
 }
 
