@@ -6,6 +6,7 @@ import {
   assertDailyMasterPackPdfFontCoverage,
   assertDailyMasterPackPdfPayload,
   renderDailyMasterPackPdf,
+  visibleDailyMasterPackPdfFacts,
 } from "./daily-master-pack-pdf";
 
 await ensureCurrentAffairsFonts();
@@ -31,7 +32,9 @@ const sample: DailyMasterPackPayload = {
           oneLiner: "Remember the notifying authority and effective date.",
           examFamilies: ["ssc", "punjab"],
           facts: [
-            { key: "notifying_authority", value: "Union Government", type: "entity", confidence: 0.99 },
+            { key: "acting_entity", label: "Organisation", value: "Union Government", type: "entity", confidence: 0.99 },
+            { key: "official_action", label: "Action", value: "notifies", type: "string", confidence: 0.99 },
+            { key: "action_subject", label: "Topic", value: "Examination-relevant national rule", type: "string", confidence: 0.99 },
             { key: "effective_date", value: "30 August 2026", type: "date", confidence: 0.98 },
           ],
           sources: [
@@ -85,6 +88,7 @@ const hindiPayload = buildDailyMasterPackPayload("2026-08-30", [{
   oneLiner: "याद रखें कि यह पहल भारतीय रिज़र्व बैंक से संबंधित है।",
   facts: [
     { key: "regulator", label: "नियामक", value: "Reserve Bank of India", type: "entity", confidence: 0.99 },
+    { key: "official_action", label: "कार्रवाई", value: "घोषणा की", type: "string", confidence: 0.99 },
     { key: "effective_date", label: "प्रभावी तिथि", value: "30 August 2026", type: "date", confidence: 0.98 },
   ],
 }], "hi");
@@ -99,6 +103,7 @@ const punjabiPayload = buildDailyMasterPackPayload("2026-08-30", [{
   oneLiner: "ਯਾਦ ਰੱਖੋ ਕਿ ਇਹ ਪਹਿਲ ਪੰਜਾਬ ਸਰਕਾਰ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ।",
   facts: [
     { key: "state", label: "ਰਾਜ", value: "Punjab", type: "entity", confidence: 0.99 },
+    { key: "official_action", label: "ਕਾਰਵਾਈ", value: "ਘੋਸ਼ਣਾ ਕੀਤੀ", type: "string", confidence: 0.99 },
     { key: "initiative", label: "ਪਹਿਲ", value: "Education initiative", type: "string", confidence: 0.97 },
   ],
 }], "pa");
@@ -109,6 +114,13 @@ assert.equal(assertDailyMasterPackPdfPayload(punjabiPayload), punjabiPayload);
 assert.throws(() => assertDailyMasterPackPdfPayload(null), /payload is missing/);
 assert.throws(() => assertDailyMasterPackPdfPayload({ ...sample, contentDate: "30-08-2026" }), /invalid content date/);
 assert.throws(() => assertDailyMasterPackPdfPayload({ ...sample, language: "fr" }), /must be en, hi or pa/);
+
+const visibleEnglishFacts = visibleDailyMasterPackPdfFacts(sample.sections[0]!.events[0]!);
+assert.equal(visibleEnglishFacts.some((fact) => fact.key === "official_action"), false, "PDF must not render the learner-facing Action row");
+assert.ok(visibleEnglishFacts.some((fact) => fact.key === "acting_entity"), "Organisation must remain visible");
+assert.ok(visibleEnglishFacts.some((fact) => fact.key === "action_subject"), "Topic must remain visible");
+assert.equal(visibleDailyMasterPackPdfFacts(hindiPayload.sections[0]!.events[0]!).some((fact) => fact.key === "official_action"), false);
+assert.equal(visibleDailyMasterPackPdfFacts(punjabiPayload.sections[0]!.events[0]!).some((fact) => fact.key === "official_action"), false);
 
 const englishCoverage = assertDailyMasterPackPdfFontCoverage(sample);
 assert.equal(englishCoverage.fontFamily, "sans-serif");
@@ -134,4 +146,4 @@ for (const payload of [sample, hindiPayload, punjabiPayload]) {
   assert.ok(rendered.buffer.subarray(Math.max(0, rendered.buffer.length - 128)).toString("latin1").includes("%%EOF"));
 }
 
-console.log("CP-041 canonical EN/HI/PA PDF font, glyph-coverage and native rendering contracts passed");
+console.log("CP-049 canonical EN/HI/PA PDF hides Action while preserving verified fact rendering and font coverage");

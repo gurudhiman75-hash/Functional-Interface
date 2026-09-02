@@ -10,7 +10,7 @@ import {
 } from "./intelligence";
 import { canAutoVerifyEvent } from "./orchestration-policy";
 
-const REBUILD_VERSION = "ca-cp031-historical-headline-rebuild-v1";
+const REBUILD_VERSION = "ca-cp049-historical-headline-rebuild-v2";
 
 type HistoricalCandidateRow = {
   eventId: string;
@@ -62,9 +62,24 @@ async function loadTargetCandidates(targetDate: string, limit: number): Promise<
   }));
 }
 
-async function upsertHeadlineClaims(row: HistoricalCandidateRow) {
+async function replaceHeadlineClaims(row: HistoricalCandidateRow) {
+  const nextClaims = extractHeadlineFactClaims(row.title);
+
+  // CP-049: historical replays must apply the current parser, not accumulate old
+  // rule-parser mistakes beside the corrected claims. Delete only machine-created
+  // headline/rule claims for this exact candidate+event. Manual/model/structured
+  // evidence is never touched, and events with manual authority are excluded by
+  // loadTargetCandidates above.
+  await sqlClient`
+    DELETE FROM content.current_affairs_fact_claims
+    WHERE event_id=${row.eventId}::uuid
+      AND candidate_id=${row.candidateId}::uuid
+      AND extraction_method='rule'
+      AND COALESCE(metadata->>'source', 'headline')='headline'
+  `;
+
   let materialized = 0;
-  for (const claim of extractHeadlineFactClaims(row.title)) {
+  for (const claim of nextClaims) {
     const inserted = await sqlClient`
       INSERT INTO content.current_affairs_fact_claims (
         id, cluster_id, event_id, candidate_id, source_id,
@@ -256,9 +271,9 @@ export async function rebuildHistoricalHeadlineClaims(targetDate: string, limit 
   let materializedClaimCount = 0;
 
   for (const row of rows) {
-    const count = await upsertHeadlineClaims(row);
+    const count = await replaceHeadlineClaims(row);
     materializedClaimCount += count;
-    if (count > 0) affectedEventIds.add(row.eventId);
+    affectedEventIds.add(row.eventId);
   }
 
   const reconciled = [];
@@ -274,6 +289,7 @@ export async function rebuildHistoricalHeadlineClaims(targetDate: string, limit 
     eventsVerified: reconciled.filter((item) => item.verified).length,
     eventsHeldForReview: reconciled.filter((item) => !item.verified).length,
     manualAuthorityExcluded: true,
+    staleAutoHeadlineClaimsReplaced: true,
     rebuildVersion: REBUILD_VERSION,
     results: reconciled,
   };

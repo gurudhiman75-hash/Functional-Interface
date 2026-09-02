@@ -126,6 +126,13 @@ function clean(value: unknown) {
   return String(value ?? "").replace(/\s+/g, " ").trim();
 }
 
+export function visibleDailyMasterPackPdfFacts(event: Pick<DailyMasterPackEvent, "facts">) {
+  // CP-049: `official_action` remains an internal verification/authoring fact,
+  // but the learner PDF should state the action naturally in Why in News rather
+  // than repeat a mechanical "Action:" row under Key Facts.
+  return event.facts.filter((fact) => clean(fact.key).toLowerCase() !== "official_action");
+}
+
 function dateLabel(date: string, language: DailyMasterPackLanguage) {
   return new Intl.DateTimeFormat(PDF_COPY[language].locale, {
     day: "numeric",
@@ -291,7 +298,7 @@ function relevantScriptCodePoints(payload: DailyMasterPackPayload) {
         event.title,
         event.summary,
         event.oneLiner,
-        ...event.facts.flatMap((fact) => [fact.label ?? "", fact.value]),
+        ...visibleDailyMasterPackPdfFacts(event).flatMap((fact) => [fact.label ?? "", fact.value]),
         ...event.sources.map((source) => source.name),
       ]),
     ]),
@@ -453,9 +460,10 @@ function drawEvent(state: RendererState, event: DailyMasterPackEvent, ordinal: n
     state = drawWrapped(state, event.summary, { gapAfter: 7 });
   }
 
-  if (event.facts.length > 0) {
+  const visibleFacts = visibleDailyMasterPackPdfFacts(event);
+  if (visibleFacts.length > 0) {
     state = drawLabel(state, copy.facts);
-    for (const fact of event.facts.slice(0, 12)) {
+    for (const fact of visibleFacts.slice(0, 12)) {
       const key = clean(fact.label) || clean(fact.key).replace(/_/g, " ");
       const value = clean(fact.value);
       if (!key || !value) continue;
