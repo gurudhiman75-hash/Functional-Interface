@@ -7,6 +7,7 @@ import {
   geminiProvider,
   geminiRetryDelayMs,
   isTransientGeminiStatus,
+  sanitizeGeminiJsonSchema,
 } from '../lib/ai-providers/gemini-adapter';
 
 test('Gemini transient policy retries capacity failures but not bad requests', () => {
@@ -19,7 +20,7 @@ test('Gemini transient policy retries capacity failures but not bad requests', (
   assert.deepEqual([0, 1, 2, 3].map(geminiRetryDelayMs), [500, 1000, 2000, 4000]);
 });
 
-test('Gemini 3.6 uses the current nested responseFormat structured-output contract', () => {
+test('Gemini 3 uses current responseFormat and strips unsupported JSON Schema constraints', () => {
   const schema = {
     type: 'object',
     additionalProperties: false,
@@ -27,25 +28,41 @@ test('Gemini 3.6 uses the current nested responseFormat structured-output contra
     properties: {
       claims: {
         type: 'array',
+        minItems: 0,
+        maxItems: 60,
         items: {
           type: 'object',
-          properties: { text: { type: ['string', 'null'] } },
+          additionalProperties: false,
+          required: ['text'],
+          properties: {
+            text: {
+              type: ['string', 'null'],
+              minLength: 5,
+              maxLength: 1200,
+            },
+          },
         },
       },
     },
   } as Record<string, unknown>;
-  const config = buildGeminiGenerationConfig({
-    model: 'gemini-3.6-flash',
-    responseSchema: schema,
-  });
-  assert.deepEqual(config.responseFormat, {
-    text: {
-      mimeType: 'application/json',
-      schema,
-    },
-  });
-  assert.equal('responseJsonSchema' in config, false);
-  assert.equal('responseMimeType' in config, false);
+
+  const sanitized = sanitizeGeminiJsonSchema(schema) as any;
+  assert.equal(sanitized.properties.claims.items.properties.text.minLength, undefined);
+  assert.equal(sanitized.properties.claims.items.properties.text.maxLength, undefined);
+  assert.deepEqual(sanitized.properties.claims.items.properties.text.type, ['string', 'null']);
+  assert.equal(sanitized.properties.claims.maxItems, 60);
+  assert.equal(sanitized.additionalProperties, false);
+
+  for (const model of ['gemini-3.7-flash', 'gemini-3.6-flash']) {
+    const config = buildGeminiGenerationConfig({
+      model,
+      responseSchema: schema,
+    }) as any;
+    assert.equal(config.responseFormat?.text?.mimeType, 'application/json', model);
+    assert.deepEqual(config.responseFormat?.text?.schema, sanitized, model);
+    assert.equal(config.responseJsonSchema, undefined, model);
+    assert.equal(config.responseMimeType, undefined, model);
+  }
 });
 
 test('Gemini 3.7 Flash falls back to stable 3.6 Flash after transient exhaustion', async () => {
@@ -92,7 +109,17 @@ test('Gemini 3.7 Flash falls back to stable 3.6 Flash after transient exhaustion
       prompt: { system: 'system', user: 'user' },
       responseSchema: {
         type: 'object',
-        properties: { claims: { type: 'array', items: { type: 'object' } } },
+        properties: {
+          claims: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                text: { type: 'string', minLength: 5, maxLength: 1200 },
+              },
+            },
+          },
+        },
       },
       maxRetries: 0,
       timeoutMs: 5_000,
@@ -103,17 +130,13 @@ test('Gemini 3.7 Flash falls back to stable 3.6 Flash after transient exhaustion
     assert.match(response.warnings[0] ?? '', /temporarily unavailable/i);
     assert.equal(urls.length, 2);
 
-    const fallbackBody = bodies[1] as {
-      generationConfig?: {
-        responseFormat?: {
-          text?: { mimeType?: string; schema?: unknown };
-        };
-        responseJsonSchema?: unknown;
-      };
-    };
-    assert.equal(fallbackBody.generationConfig?.responseFormat?.text?.mimeType, 'application/json');
-    assert.ok(fallbackBody.generationConfig?.responseFormat?.text?.schema);
-    assert.equal(fallbackBody.generationConfig?.responseJsonSchema, undefined);
+    for (const body of bodies as any[]) {
+      const schema = body?.generationConfig?.responseFormat?.text?.schema;
+      assert.ok(schema);
+      assert.equal(body?.generationConfig?.responseJsonSchema, undefined);
+      assert.equal(schema?.properties?.claims?.items?.properties?.text?.minLength, undefined);
+      assert.equal(schema?.properties?.claims?.items?.properties?.text?.maxLength, undefined);
+    }
   } finally {
     globalThis.fetch = originalFetch;
     if (previousKey === undefined) delete process.env.GEMINI_API_KEY;
