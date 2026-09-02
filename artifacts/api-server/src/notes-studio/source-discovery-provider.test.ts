@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import test, { type TestContext } from 'node:test';
 
 import {
   NotesSourceDiscoveryConfigurationError,
@@ -25,7 +25,7 @@ const ENV_KEYS = [
   'OPENAI_API_KEY',
 ] as const;
 
-function envHarness(t: test.TestContext) {
+function envHarness(t: TestContext) {
   const originalEnv = new Map(ENV_KEYS.map((key) => [key, process.env[key]]));
   const originalFetch = globalThis.fetch;
   t.after(() => {
