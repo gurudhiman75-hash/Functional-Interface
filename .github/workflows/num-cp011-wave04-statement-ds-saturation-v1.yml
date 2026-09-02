@@ -1,0 +1,83 @@
+name: Validate NUM-CP-011 Wave 04 statement DS and saturation
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/**"
+      - ".github/workflows/num-cp011-wave04-statement-ds-saturation-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: num-cp011-wave04-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-num-cp011-wave04:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Bundle CP011 Wave04 statement and DS audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/wave04/runtime.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp011-wave04-runtime-audit.mjs
+
+      - name: Run CP011 Wave04 statement and DS audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp011-wave04-runtime-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp011-wave04-runtime-audit.log
+
+      - name: Bundle CP011 source saturation and merge-split audit
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/wave04/source-saturation-audit.test.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp011-wave04-source-saturation-audit.mjs
+
+      - name: Run CP011 source saturation and merge-split audit
+        shell: bash
+        run: |
+          set -o pipefail
+          node artifacts/api-server/dist/quant-v4/num-cp011-wave04-source-saturation-audit.mjs \
+            2>&1 | tee artifacts/api-server/dist/quant-v4/num-cp011-wave04-source-saturation-audit.log
+
+      - name: Bundle CP011 Wave04 learner review export
+        run: >-
+          pnpm --dir artifacts/api-server exec esbuild
+          src/quant-v4/topics/Arithmetic/subtopics/NumberSystem/NUM-002/NUM-CP-011/wave04/review-export.ts
+          --bundle --platform=node --format=esm
+          --outfile=dist/quant-v4/num-cp011-wave04-review-export.mjs
+
+      - name: Generate CP011 Wave04 learner review
+        run: node artifacts/api-server/dist/quant-v4/num-cp011-wave04-review-export.mjs
+
+      - name: Upload CP011 Wave04 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: num-cp011-wave04-statement-ds-saturation-v1
+          path: |
+            artifacts/api-server/dist/quant-v4/num-cp011-wave04-runtime-audit.log
+            artifacts/api-server/dist/quant-v4/num-cp011-wave04-source-saturation-audit.log
+            artifacts/api-server/dist/quant-v4/num-cp011-wave04-review.md
+          if-no-files-found: error
+          retention-days: 30
