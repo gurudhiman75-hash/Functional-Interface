@@ -19,6 +19,10 @@ import {
   type CurrentAffairsHeadlineReviewItem,
   type CurrentAffairsQuestionEditorialQueue,
 } from '@/features/current-affairs/editorial-api';
+import {
+  processCurrentAffairsSelected,
+  type CurrentAffairsSelectedProcessingResult,
+} from '@/features/current-affairs/selected-processing-api';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { cn } from '@/lib/utils';
 
@@ -102,6 +106,8 @@ export function CurrentAffairsEditorialQueuePage() {
   const [questions, setQuestions] = useState<CurrentAffairsQuestionEditorialQueue | null>(null);
   const [loading, setLoading] = useState(true);
   const [savingCandidateId, setSavingCandidateId] = useState<string | null>(null);
+  const [processingSelected, setProcessingSelected] = useState(false);
+  const [processingResult, setProcessingResult] = useState<CurrentAffairsSelectedProcessingResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
@@ -184,6 +190,26 @@ export function CurrentAffairsEditorialQueuePage() {
     }
   }, [refresh]);
 
+  const processSelected = useCallback(async () => {
+    setProcessingSelected(true);
+    try {
+      const result = await processCurrentAffairsSelected(headlineDate);
+      setProcessingResult(result);
+      showToast.success(
+        'Selected Current Affairs processed',
+        `${result.summary.ready} ready · ${result.summary.blocked} blocked · ${result.summary.verified} verified. Final canonical approval remains manual.`,
+      );
+      await refresh();
+    } catch (caught) {
+      showToast.error('Unable to process selected Current Affairs', caught instanceof Error ? caught.message : 'Unknown error');
+    } finally {
+      setProcessingSelected(false);
+    }
+  }, [headlineDate, refresh]);
+
+  const visibleProcessingResult = processingResult?.targetDate === headlineDate ? processingResult : null;
+  const blockedProcessingItems = visibleProcessingResult?.items.filter((item) => !item.ready) ?? [];
+
   if (loading && !headlines && !events && !questions) {
     return <div className="flex min-h-[360px] items-center justify-center gap-2 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" />Loading Current Affairs editorial review…</div>;
   }
@@ -194,7 +220,7 @@ export function CurrentAffairsEditorialQueuePage() {
         title="Current Affairs Editorial Review"
         description="Review every discovered Current Affairs headline, use relevance as advice, and explicitly select the affairs you want the pipeline to process. Verification, conflicts, EN/HI/PA parity and final approval remain mandatory."
         icon={<ShieldCheck className="h-5 w-5" />}
-        actions={<div className="flex flex-wrap gap-2"><Button variant="outline" asChild><Link to="/content/current-affairs/production-readiness">Production readiness</Link></Button><Button variant="outline" onClick={() => void refresh()} disabled={loading}><RefreshCw className={cn('mr-2 h-4 w-4', loading && 'animate-spin')} />Refresh</Button></div>}
+        actions={<div className="flex flex-wrap gap-2"><Button variant="outline" asChild><Link to="/content/current-affairs/production-readiness">Production readiness</Link></Button><Button variant="outline" onClick={() => void refresh()} disabled={loading || processingSelected}><RefreshCw className={cn('mr-2 h-4 w-4', loading && 'animate-spin')} />Refresh</Button></div>}
       />
 
       {error ? <div className="rounded-lg border border-warning/30 bg-warning/10 px-4 py-3 text-sm text-warning">{error}</div> : null}
@@ -204,11 +230,21 @@ export function CurrentAffairsEditorialQueuePage() {
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <CardTitle className="flex items-center gap-2 text-base"><Newspaper className="h-4 w-4" />Headline selection</CardTitle>
-              <p className="mt-1 text-sm text-muted-foreground">Every captured headline for the selected India-calendar date stays visible, including auto-withheld candidates. Use the prominent Select headline button to mark an affair important.</p>
+              <p className="mt-1 text-sm text-muted-foreground">Every captured headline for the selected India-calendar date stays visible, including auto-withheld candidates. Select what matters, then process only those selected affairs through the factual and multilingual pipeline.</p>
             </div>
-            <div className="flex items-center gap-2">
-              <Input type="date" value={headlineDate} onChange={(event) => setHeadlineDate(event.target.value)} className="w-[160px]" />
-              <Button variant="outline" onClick={() => void refresh()} disabled={loading}>Load</Button>
+            <div className="flex flex-wrap items-center gap-2">
+              <Input type="date" value={headlineDate} onChange={(event) => setHeadlineDate(event.target.value)} className="w-[160px]" disabled={processingSelected} />
+              <Button variant="outline" onClick={() => void refresh()} disabled={loading || processingSelected}>Load</Button>
+              <Button
+                type="button"
+                onClick={() => void processSelected()}
+                disabled={!canSelect || processingSelected || (headlines?.counts.selected ?? 0) === 0}
+                className="min-w-[190px] font-semibold shadow-sm"
+                title={!canSelect ? 'Your role cannot process Current Affairs selections.' : 'Process only the manually selected affairs for this date.'}
+              >
+                {processingSelected ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <ShieldCheck className="mr-2 h-4 w-4" />}
+                {processingSelected ? 'Processing selected…' : 'Process selected affairs'}
+              </Button>
             </div>
           </div>
           <div className="flex flex-wrap gap-2 text-xs">
@@ -218,6 +254,7 @@ export function CurrentAffairsEditorialQueuePage() {
             <Badge variant="outline">{headlines?.counts.linkedEvents ?? 0} linked to events</Badge>
             <Badge variant="outline">{headlines?.counts.critical ?? 0} critical · {headlines?.counts.high ?? 0} high</Badge>
           </div>
+          <p className="text-xs text-muted-foreground">Process selected affairs can verify, author and localize clean selections and refresh the draft Daily Master Pack. It cannot approve the canonical pack, publish learner content or promote questions.</p>
           <div className="flex flex-wrap gap-2">
             {([
               ['all', 'All headlines'],
@@ -225,13 +262,43 @@ export function CurrentAffairsEditorialQueuePage() {
               ['high_score', 'High score 65+'],
               ['selected_pending', 'Selected pending'],
             ] as Array<[HeadlineFilter, string]>).map(([value, label]) => (
-              <Button key={value} type="button" size="sm" variant={headlineFilter === value ? 'default' : 'outline'} onClick={() => setHeadlineFilter(value)} className="cursor-pointer">
+              <Button key={value} type="button" size="sm" variant={headlineFilter === value ? 'default' : 'outline'} onClick={() => setHeadlineFilter(value)} className="cursor-pointer" disabled={processingSelected}>
                 {label}
               </Button>
             ))}
           </div>
+          {visibleProcessingResult ? (
+            <div className="rounded-lg border border-primary/20 bg-primary/[0.03] p-3">
+              <div className="flex flex-wrap items-center gap-2 text-xs">
+                <span className="font-semibold">Last selected-processing result</span>
+                <Badge variant="outline">{visibleProcessingResult.selectedHeadlineCount} headlines</Badge>
+                <Badge variant="outline">{visibleProcessingResult.selectedEventCount} events</Badge>
+                <Badge variant="outline" className="border-success/30 bg-success/10 text-success">{visibleProcessingResult.summary.verified} verified</Badge>
+                <Badge variant="outline" className="border-success/30 bg-success/10 text-success">{visibleProcessingResult.summary.ready} fully ready</Badge>
+                <Badge variant="outline" className={visibleProcessingResult.summary.blocked > 0 ? 'border-warning/30 bg-warning/10 text-warning' : 'border-success/30 bg-success/10 text-success'}>{visibleProcessingResult.summary.blocked} blocked</Badge>
+              </div>
+              {visibleProcessingResult.packPreviewNote ? <p className="mt-2 text-xs text-muted-foreground">{visibleProcessingResult.packPreviewNote}</p> : null}
+            </div>
+          ) : null}
         </CardHeader>
         <CardContent className="space-y-5">
+          {blockedProcessingItems.length > 0 ? (
+            <div className="rounded-lg border border-warning/30 bg-warning/10 p-4">
+              <div className="flex items-center gap-2 text-sm font-semibold text-warning"><AlertTriangle className="h-4 w-4" />Selected affairs needing attention</div>
+              <div className="mt-3 space-y-2">
+                {blockedProcessingItems.map((item) => (
+                  <div key={item.eventId ?? item.selectedCandidateIds[0]} className="flex flex-col gap-2 rounded-md border bg-background/60 p-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium">{item.publicCode ? `${item.publicCode} · ` : ''}{item.title}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">Stage: {titleCase(item.stage)} · {item.blockers.map(titleCase).join(' · ')}</p>
+                    </div>
+                    {item.eventId ? <Button size="sm" variant="outline" asChild><Link to={`/content/current-affairs/events/${item.eventId}`}>Review event</Link></Button> : null}
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
           {headlineGroups.map(([category, items]) => (
             <section key={category} className="space-y-2">
               <div className="flex items-center gap-2 border-b pb-2"><span className="text-sm font-semibold">{titleCase(category)}</span><Badge variant="outline">{items.length}</Badge></div>
@@ -282,7 +349,7 @@ export function CurrentAffairsEditorialQueuePage() {
                             aria-pressed={item.manualSelected}
                             title={!canSelect ? 'Your role cannot change Current Affairs headline selection.' : item.manualSelected ? 'Click to remove this manual Current Affairs selection.' : 'Click to select this Current Affairs headline as important.'}
                             variant={item.manualSelected ? 'outline' : 'default'}
-                            disabled={!canSelect || saving}
+                            disabled={!canSelect || saving || processingSelected}
                             onClick={() => void toggleHeadline(item)}
                             className={cn(
                               'min-h-10 w-full font-semibold shadow-sm',
@@ -308,7 +375,7 @@ export function CurrentAffairsEditorialQueuePage() {
           ))}
           {headlines && headlines.items.length > 0 && headlineGroups.length === 0 ? <p className="py-8 text-center text-sm text-muted-foreground">No headlines match this Current Affairs filter.</p> : null}
           {headlines && headlines.items.length === 0 ? <p className="py-8 text-center text-sm text-muted-foreground">No discovery headlines were captured for {headlineDate}. Generate/replay the date first, then review the resulting headline inventory here.</p> : null}
-          {!canSelect ? <p className="text-xs text-muted-foreground">Your admin role can review scores but does not have permission to change headline selection.</p> : null}
+          {!canSelect ? <p className="text-xs text-muted-foreground">Your admin role can review scores but does not have permission to change or process headline selection.</p> : null}
         </CardContent>
       </Card>
 
