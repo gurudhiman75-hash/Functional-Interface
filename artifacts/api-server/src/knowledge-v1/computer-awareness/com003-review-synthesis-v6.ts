@@ -24,7 +24,8 @@ function stripLeadingApplicationContext(stem: string) {
   return stem
     .trim()
     .replace(/^In Windows desktop Microsoft (?:Office|Word|Excel|PowerPoint),\s*/i, "")
-    .replace(/^In Microsoft (?:Office|Word|Excel|PowerPoint),\s*/i, "");
+    .replace(/^In Microsoft (?:Office|Word|Excel|PowerPoint),\s*/i, "")
+    .replace(/^In (?:Word|Excel|PowerPoint),\s*/i, "");
 }
 
 function nonVersionContext(application: ReturnType<typeof applicationForQl>, bucket: number) {
