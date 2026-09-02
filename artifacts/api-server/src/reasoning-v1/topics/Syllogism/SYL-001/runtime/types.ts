@@ -93,11 +93,16 @@ export interface SylQlDefinition {
   checkpointId: SylCheckpointId;
   taskKind: SylTaskKind;
   scenarioGroup: SylScenarioGroup;
-  optionCount: 4 | 5;
+  optionCount: 3 | 4 | 5;
   renderer: "STATEMENT_OPTIONS" | "CONCLUSION_COMBINATION" | "MODAL_CLASSIFICATION" | "PAIR_CLASSIFICATION";
   sourcePatternIds: readonly string[];
   status: "IMPLEMENTED_MULTILINGUAL_REVIEW_RUNTIME";
-  answerTemplateId: "SSC_FOUR_OPTION_V1" | "BANK_FOUR_OPTION_V1" | "BANK_FIVE_OPTION_V1" | "CROSS_EXAM_FOUR_OPTION_V1";
+  answerTemplateId:
+    | "DIAGNOSTIC_THREE_OPTION_V1"
+    | "SSC_FOUR_OPTION_V1"
+    | "BANK_FOUR_OPTION_V1"
+    | "BANK_FIVE_OPTION_V1"
+    | "CROSS_EXAM_FOUR_OPTION_V1";
 }
 
 export interface CategoryTerm {
@@ -276,7 +281,7 @@ export interface GeneratedSylQuestion {
     selectedConclusionClasses: readonly InternalConclusionClass[];
     followMask: number | null;
     pairStatus: PairSemanticStatus | PairClassificationStatus | null;
-    optionCount: 4 | 5;
+    optionCount: 3 | 4 | 5;
     answerTemplateId: SylQlDefinition["answerTemplateId"];
     solverAgreementPassed: true;
     premiseRelevancePassed: true;

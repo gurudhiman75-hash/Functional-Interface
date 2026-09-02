@@ -1,6 +1,11 @@
 import type { SylDifficulty, SylLocale } from "./foundation/types";
 import { generateSylQuestionV5 } from "./runtime/generator-v5";
-import type { GeneratedSylQuestionV5 } from "./runtime/learner-v5-types";
+import {
+  SYL_LEARNER_V5_APPROVAL_AUTHORITY,
+  SYL_LEARNER_V5_APPROVED_CONTENT_COMMIT,
+  SYL_LEARNER_V5_APPROVED_ON,
+  type GeneratedSylQuestionV5,
+} from "./runtime/learner-v5-types";
 import type { SylQlId } from "./runtime/types";
 
 export const SYL_001_QUESTION_STUDIO_PACKAGE_ID = "REASONING_V1_SYL_001" as const;
@@ -50,6 +55,9 @@ export const SYL_001_QUESTION_STUDIO_PACKAGE = Object.freeze({
   integrationStatus: SYL_001_QUESTION_STUDIO_INTEGRATION_STATUS,
   corpusAuthority: "SYL_001_EXAM_READINESS_REMEDIATION_V5",
   closeoutAuthority: SYL_001_QUESTION_STUDIO_CLOSEOUT_AUTHORITY,
+  approvalAuthority: SYL_LEARNER_V5_APPROVAL_AUTHORITY,
+  approvedContentCommit: SYL_LEARNER_V5_APPROVED_CONTENT_COMMIT,
+  approvedOn: SYL_LEARNER_V5_APPROVED_ON,
   questionBankStatus: "NOT_STORED",
   testEligibility: "INELIGIBLE",
   persistenceAllowed: false,
@@ -109,8 +117,11 @@ export function toSyl001QuestionStudioPreview(question: GeneratedSylQuestionV5) 
         learner.remediationEvidence.nativeEnglishEditorialStatus === "APPROVED_BY_PRODUCT_OWNER" &&
         learner.remediationEvidence.nativeHindiEditorialStatus === "APPROVED_BY_PRODUCT_OWNER" &&
         learner.remediationEvidence.nativePunjabiEditorialStatus === "APPROVED_BY_PRODUCT_OWNER" &&
-        learner.remediationEvidence.humanViewportStatus === "APPROVED",
-      message: "V5 learner/editorial and viewport approvals are retained.",
+        learner.remediationEvidence.humanViewportStatus === "APPROVED" &&
+        learner.remediationEvidence.approvalAuthority === SYL_LEARNER_V5_APPROVAL_AUTHORITY &&
+        learner.remediationEvidence.approvedContentCommit === SYL_LEARNER_V5_APPROVED_CONTENT_COMMIT &&
+        learner.remediationEvidence.approvedOn === SYL_LEARNER_V5_APPROVED_ON,
+      message: "V5 learner/editorial and viewport approvals are bound to the reviewed content authority.",
     },
     {
       name: "single-reviewed-answer",
@@ -180,6 +191,9 @@ export function toSyl001QuestionStudioPreview(question: GeneratedSylQuestionV5) 
       runtimeMode: SYL_001_QUESTION_STUDIO_RUNTIME_MODE,
       closeoutAuthority: SYL_001_QUESTION_STUDIO_CLOSEOUT_AUTHORITY,
       corpusAuthority: SYL_001_QUESTION_STUDIO_PACKAGE.corpusAuthority,
+      approvalAuthority: learner.remediationEvidence.approvalAuthority,
+      approvedContentCommit: learner.remediationEvidence.approvedContentCommit,
+      approvedOn: learner.remediationEvidence.approvedOn,
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
@@ -229,6 +243,9 @@ export function previewSyl001QuestionStudio(request: Syl001QuestionStudioRequest
       runtimeMode: SYL_001_QUESTION_STUDIO_RUNTIME_MODE,
       integrationStatus: SYL_001_QUESTION_STUDIO_INTEGRATION_STATUS,
       reviewStatus: "CLOSED_FOR_QUESTION_STUDIO",
+      approvalAuthority: SYL_LEARNER_V5_APPROVAL_AUTHORITY,
+      approvedContentCommit: SYL_LEARNER_V5_APPROVED_CONTENT_COMMIT,
+      approvedOn: SYL_LEARNER_V5_APPROVED_ON,
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
