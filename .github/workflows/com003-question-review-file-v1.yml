@@ -10,6 +10,8 @@ on:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-synthesis-v6.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-synthesis-v6.test.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-exam-realness-audit-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-product-review-revocation-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-product-review-revocation-v1.test.ts'
       - '.github/workflows/com003-question-review-file-v1.yml'
   workflow_dispatch:
 
@@ -31,14 +33,18 @@ jobs:
         run: corepack enable
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
-      - name: Validate V6 exam-realness candidate
+      - name: Validate V6 exam-realness candidate and V4 revocation
         run: |
           mkdir -p artifacts/api-server/dist/com003-review-file
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/computer-awareness/com003-review-synthesis-v6.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/com003-review-file/com003-review-synthesis-v6.test.mjs
-          node artifacts/api-server/dist/com003-review-file/com003-review-synthesis-v6.test.mjs
+          for test in \
+            com003-review-synthesis-v6.test \
+            com003-product-review-revocation-v1.test; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              src/knowledge-v1/computer-awareness/${test}.ts \
+              --bundle --platform=node --format=esm \
+              --outfile=dist/com003-review-file/${test}.mjs
+            node artifacts/api-server/dist/com003-review-file/${test}.mjs
+          done
       - name: Bundle review exporter
         run: |
           mkdir -p artifacts/api-server/dist/com003-review-file
