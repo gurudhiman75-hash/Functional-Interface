@@ -16,6 +16,37 @@ import {
 
 const router: IRouter = Router();
 
+function notesSourceDiscoveryConfiguration(authoringProvider: string) {
+  const requested = String(process.env.NOTES_STUDIO_SEARCH_PROVIDER ?? '').trim().toLowerCase();
+  const automaticProvider = String(process.env.TAVILY_API_KEY ?? '').trim()
+    ? 'tavily'
+    : (authoringProvider === 'openai' || authoringProvider === 'gemini' ? authoringProvider : 'unconfigured');
+  const provider = requested && requested !== 'auto' ? requested : automaticProvider;
+
+  if (provider === 'tavily') {
+    return {
+      provider,
+      configured: Boolean(String(process.env.TAVILY_API_KEY ?? '').trim()),
+      model: 'tavily-search-basic',
+    };
+  }
+  if (provider === 'gemini') {
+    return {
+      provider,
+      configured: Boolean(String(process.env.GEMINI_API_KEY ?? process.env.GOOGLE_AI_API_KEY ?? '').trim()),
+      model: String(process.env.NOTES_STUDIO_SEARCH_MODEL ?? '').trim() || 'gemini-3.6-flash',
+    };
+  }
+  if (provider === 'openai') {
+    return {
+      provider,
+      configured: Boolean(String(process.env.OPENAI_API_KEY ?? '').trim()),
+      model: String(process.env.NOTES_STUDIO_OPENAI_SEARCH_MODEL ?? '').trim() || 'provider default web-search model',
+    };
+  }
+  return { provider, configured: false, model: null };
+}
+
 router.use(authenticate);
 
 router.get('/operations/readiness', requireAdminPermission('content.questions.read'), async (_req, res) => {
@@ -25,6 +56,7 @@ router.get('/operations/readiness', requireAdminPermission('content.questions.re
     const providerConfigured = notesStudioAIConfigured(provider);
     const sectionModel = resolveNotesStudioModel(provider, ['NOTES_STUDIO_SECTION_MODEL', 'NOTES_STUDIO_MODEL']);
     const localizationModel = resolveNotesStudioModel(provider, ['NOTES_STUDIO_LOCALIZATION_MODEL', 'NOTES_STUDIO_MODEL']);
+    const sourceDiscovery = notesSourceDiscoveryConfiguration(provider);
     const modelConfiguration = {
       provider,
       sectionModelConfigured: providerConfigured && Boolean(sectionModel),
@@ -32,6 +64,9 @@ router.get('/operations/readiness', requireAdminPermission('content.questions.re
       localizationModelConfigured: providerConfigured && Boolean(localizationModel),
       localizationModel: localizationModel || null,
       modelApiKeyConfigured: providerConfigured,
+      sourceDiscoveryProvider: sourceDiscovery.provider,
+      sourceDiscoveryConfigured: sourceDiscovery.configured,
+      sourceDiscoveryModel: sourceDiscovery.model,
     };
 
     let stateCounts: Array<Record<string, unknown>> = [];
