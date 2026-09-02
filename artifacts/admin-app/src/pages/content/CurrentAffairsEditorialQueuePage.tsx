@@ -107,16 +107,15 @@ export function CurrentAffairsEditorialQueuePage() {
           ? 'Admin selected this headline as important in Current Affairs review.'
           : 'Admin removed the manual importance override in Current Affairs review.',
       );
-      showToast({
-        type: 'success',
-        title: selected ? 'Headline selected' : 'Manual selection removed',
-        description: selected
-          ? 'This headline will be allowed into the governed processing path even when automated relevance would withhold it.'
-          : 'Automated relevance remains advisory; no verified or published content was deleted.',
-      });
+      showToast.success(
+        selected ? 'Headline selected' : 'Manual selection removed',
+        selected
+          ? 'The headline is now a review-stage event even when automated relevance would withhold it. Verification is still required.'
+          : 'Automated relevance is advisory again; no verified or published content was deleted.',
+      );
       await refresh();
     } catch (caught) {
-      showToast({ type: 'error', title: 'Unable to update headline selection', description: caught instanceof Error ? caught.message : 'Unknown error' });
+      showToast.error('Unable to update headline selection', caught instanceof Error ? caught.message : 'Unknown error');
     } finally {
       setSavingCandidateId(null);
     }
