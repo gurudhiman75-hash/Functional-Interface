@@ -81,6 +81,16 @@ async function fetchPrimaryPage(sourceKey: PrimarySourceKey, originalUrl: string
   throw new Error("Primary-source page redirect resolution failed");
 }
 
+function candidateRows(rows: any[]): EnrichmentCandidate[] {
+  return rows.map((row) => ({
+    id: String(row.id),
+    sourceId: String(row.sourceId),
+    sourceKey: String(row.sourceKey) as PrimarySourceKey,
+    sourceUrl: String(row.sourceUrl),
+    title: String(row.title),
+  }));
+}
+
 async function loadCandidates(limit: number): Promise<EnrichmentCandidate[]> {
   const rows = await sqlClient`
     SELECT
@@ -107,13 +117,28 @@ async function loadCandidates(limit: number): Promise<EnrichmentCandidate[]> {
     ORDER BY candidate.published_at DESC NULLS LAST, candidate.created_at DESC
     LIMIT ${limit}
   `;
-  return rows.map((row) => ({
-    id: String(row.id),
-    sourceId: String(row.sourceId),
-    sourceKey: String(row.sourceKey) as PrimarySourceKey,
-    sourceUrl: String(row.sourceUrl),
-    title: String(row.title),
-  }));
+  return candidateRows(rows);
+}
+
+async function loadCandidatesByIds(candidateIds: string[]): Promise<EnrichmentCandidate[]> {
+  if (candidateIds.length === 0) return [];
+  const rows = await sqlClient`
+    SELECT
+      candidate.id::text AS id,
+      candidate.source_url AS "sourceUrl",
+      candidate.raw_title AS title,
+      source.id::text AS "sourceId",
+      source.source_key AS "sourceKey"
+    FROM content.current_affairs_ingestion_candidates candidate
+    JOIN content.current_affairs_sources source ON source.id = candidate.source_id
+    WHERE candidate.id::text = ANY(${candidateIds}::text[])
+      AND candidate.source_url IS NOT NULL
+      AND source.is_active = true
+      AND source.is_primary_source = true
+      AND source.content_policy = 'primary_facts'
+    ORDER BY candidate.published_at DESC NULLS LAST, candidate.created_at DESC
+  `;
+  return candidateRows(rows);
 }
 
 async function recordFailure(candidate: EnrichmentCandidate, error: string) {
@@ -230,6 +255,28 @@ async function enrichCandidate(candidate: EnrichmentCandidate): Promise<Candidat
       error: message,
     };
   }
+}
+
+export async function runPrimaryFactEnrichmentForCandidateIds(candidateIdsInput: string[]) {
+  const candidateIds = [...new Set(candidateIdsInput.map(String).filter(Boolean))].slice(0, 300);
+  const candidates = await loadCandidatesByIds(candidateIds);
+  const results: CandidateEnrichmentResult[] = [];
+  for (const candidate of candidates) {
+    results.push(await enrichCandidate(candidate));
+  }
+  const seen = new Set(candidates.map((candidate) => candidate.id));
+  const missing = candidateIds.filter((candidateId) => !seen.has(candidateId));
+  return {
+    requested: candidateIds.length,
+    examined: candidates.length,
+    successCount: results.filter((item) => item.status === "success").length,
+    failureCount: results.filter((item) => item.status === "failure").length,
+    skippedCount: results.filter((item) => item.status === "skipped").length,
+    factCount: results.reduce((sum, item) => sum + item.factCount, 0),
+    missingCandidateIds: missing,
+    results,
+    scope: "explicit_candidate_ids",
+  };
 }
 
 export async function runScheduledPrimaryFactEnrichment(now = new Date(), limit = 50) {
