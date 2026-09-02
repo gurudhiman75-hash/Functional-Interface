@@ -74,6 +74,7 @@ jobs:
             approval-versioning \
             release-lineage \
             research-restart \
+            source-discovery-provider \
             production-readiness
           do
             pnpm --dir artifacts/api-server exec esbuild "src/notes-studio/${test_file}.test.ts" --bundle --packages=external --platform=node --format=esm --outfile="dist/notes-studio-${test_file}.test.mjs"
