@@ -6,6 +6,8 @@ import {
   type EventCandidateInput,
 } from "./core";
 
+const PRODUCT_FAMILIES = ["ssc", "banking", "punjab"] as const;
+
 function facts(value: unknown): AtomicFactInput[] {
   if (!Array.isArray(value)) return [];
   return value.flatMap((item) => {
@@ -23,6 +25,12 @@ function facts(value: unknown): AtomicFactInput[] {
   });
 }
 
+export function manualSelectionFamily(scores: ReturnType<typeof scoreExamRelevance>) {
+  return scores
+    .filter((score) => (PRODUCT_FAMILIES as readonly string[]).includes(score.examFamily))
+    .sort((a, b) => b.score - a.score || a.examFamily.localeCompare(b.examFamily))[0]?.examFamily ?? "ssc";
+}
+
 export async function refreshTargetDateExamRelevance(targetDate: string) {
   const rows = await sqlClient`
     SELECT
@@ -33,6 +41,8 @@ export async function refreshTargetDateExamRelevance(targetDate: string) {
       event.importance_reason AS "importanceReason",
       event.event_date::text AS "eventDate",
       event.category,
+      COALESCE((event.metadata->>'manualEditorialSelected')::boolean, false) AS "manualEditorialSelected",
+      NULLIF(event.metadata->>'manualEditorialSelectionReason','') AS "manualEditorialSelectionReason",
       evidence.source_key AS "sourceKey",
       evidence.source_url AS "sourceUrl",
       evidence.source_title AS "sourceTitle",
@@ -71,6 +81,7 @@ export async function refreshTargetDateExamRelevance(targetDate: string) {
   let examined = 0;
   let updated = 0;
   let skippedMissingHttpsEvidence = 0;
+  let manualSelectionOverridesPreserved = 0;
   const eligible: Record<"ssc" | "banking" | "punjab", number> = { ssc: 0, banking: 0, punjab: 0 };
 
   for (const row of rows) {
@@ -95,14 +106,28 @@ export async function refreshTargetDateExamRelevance(targetDate: string) {
       facts: facts(row.facts),
     };
     const scores = scoreExamRelevance(input);
+    const manuallySelected = Boolean(row.manualEditorialSelected);
+    const manualFamily = manuallySelected ? manualSelectionFamily(scores) : null;
+    const manualReason = String(row.manualEditorialSelectionReason ?? "Admin-selected headline");
+    if (manuallySelected) manualSelectionOverridesPreserved += 1;
+
     for (const score of scores) {
+      const manualInclude = manuallySelected && score.examFamily === manualFamily;
+      const effectiveInclude = score.includeRecommended || manualInclude;
+      const reasons = [
+        ...score.reasons,
+        "CP-043 target-date relevance refresh",
+        ...(manualInclude
+          ? [`CP-050 admin relevance override preserved: ${manualReason}`]
+          : []),
+      ];
       await sqlClient`
         INSERT INTO content.current_affairs_exam_scores (
           event_id, exam_family_key, relevance_score, include_recommended,
           reasons, created_at, updated_at
         ) VALUES (
-          ${String(row.id)}::uuid, ${score.examFamily}, ${score.score}, ${score.includeRecommended},
-          ${JSON.stringify([...score.reasons, "CP-043 target-date relevance refresh"])}::jsonb,
+          ${String(row.id)}::uuid, ${score.examFamily}, ${score.score}, ${effectiveInclude},
+          ${JSON.stringify(reasons)}::jsonb,
           now(), now()
         )
         ON CONFLICT (event_id, exam_family_key) DO UPDATE
@@ -112,7 +137,7 @@ export async function refreshTargetDateExamRelevance(targetDate: string) {
             updated_at=now()
       `;
       if ((score.examFamily === "ssc" || score.examFamily === "banking" || score.examFamily === "punjab")
-        && score.includeRecommended) {
+        && effectiveInclude) {
         eligible[score.examFamily] += 1;
       }
     }
@@ -124,7 +149,8 @@ export async function refreshTargetDateExamRelevance(targetDate: string) {
     examined,
     updated,
     skippedMissingHttpsEvidence,
+    manualSelectionOverridesPreserved,
     familyEligible: eligible,
-    policyVersion: "cp043-family-category-fit-v1",
+    policyVersion: "cp050-human-selection-preserving-relevance-v1",
   };
 }

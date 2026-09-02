@@ -2,10 +2,15 @@ import { Router, type IRouter, type Response } from "express";
 
 import { createManualAuthoringVersion } from "../current-affairs/authoring-runtime";
 import {
+  loadCurrentAffairsHeadlineReview,
+  setCurrentAffairsHeadlineSelection,
+} from "../current-affairs/headline-review-runtime";
+import {
   createManualCurrentAffairsLocalization,
   CURRENT_AFFAIRS_LOCALIZATION_LANGUAGES,
 } from "../current-affairs/localization-runtime";
 import type { CurrentAffairsLocalizationLanguage } from "../current-affairs/multilingual-localization";
+import { previousIndiaDate } from "../current-affairs/orchestration-policy";
 import { titleSimilarity } from "../current-affairs/original-authoring";
 import {
   approveCurrentAffairsQuestionEditorialItem,
@@ -313,6 +318,32 @@ async function loadEventEditorialDetail(eventId: string) {
 }
 
 router.use(authenticate);
+
+router.get("/editorial/headlines", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const targetDate = text(req.query.date, 10) || previousIndiaDate(new Date());
+    res.json(await loadCurrentAffairsHeadlineReview(targetDate, positiveInteger(req.query.limit, 1000, 1500)));
+  } catch (error) {
+    sendError(res, error, "Unable to load Current Affairs headline review");
+  }
+});
+
+router.post("/editorial/headlines/:candidateId/selection", requireAdminPermission("content.questions.update"), async (req, res) => {
+  try {
+    const actorUserId = req.adminSession?.user.id;
+    if (!actorUserId) throw new EditorialActivationError("ADMIN_SESSION_REQUIRED", "Administrator session required.", 403);
+    const reason = text(req.body?.reason, 1000);
+    if (reason.length < 3) throw new EditorialActivationError("EDITORIAL_REASON_REQUIRED", "Provide a short editorial selection reason.");
+    res.json(await setCurrentAffairsHeadlineSelection({
+      candidateId: uuid(req.params.candidateId, "INVALID_CANDIDATE_ID"),
+      selected: req.body?.selected === true,
+      reason,
+      actorUserId,
+    }));
+  } catch (error) {
+    sendError(res, error, "Unable to update Current Affairs headline selection");
+  }
+});
 
 router.get("/editorial/queue", requireAdminPermission("content.questions.read"), async (req, res) => {
   try {

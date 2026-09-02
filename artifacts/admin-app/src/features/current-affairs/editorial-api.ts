@@ -1,5 +1,44 @@
 import { adminRequest } from '@/lib/admin-request';
 
+export type CurrentAffairsHeadlineReviewItem = {
+  candidateId: string;
+  title: string;
+  targetDate: string;
+  publishedAt: string | null;
+  category: string;
+  sourceKey: string;
+  sourceName: string;
+  sourceUrl: string;
+  sourceTrustScore: number;
+  isPrimarySource: boolean;
+  candidateStatus: string;
+  rejectionReason: string | null;
+  autoEligible: boolean;
+  manualSelected: boolean;
+  selectionReason: string | null;
+  selectionAt: string | null;
+  priorityTier: 'routine' | 'standard' | 'high' | 'critical';
+  priorityReasons: string[];
+  relevanceScore: number;
+  discoveryScore: number;
+  examScores: Array<{ examFamily: string; score: number; includeRecommended: boolean; reasons: string[] }>;
+  clusterId: string | null;
+  clusterStatus: string | null;
+  linkedEventId: string | null;
+  linkedEventCode: string | null;
+  linkedEventStatus: string | null;
+  linkedEventTitle: string | null;
+};
+
+export type CurrentAffairsHeadlineReview = {
+  targetDate: string;
+  items: CurrentAffairsHeadlineReviewItem[];
+  counts: { total: number; selected: number; autoWithheld: number; linkedEvents: number; critical: number; high: number };
+  generatedAt: string;
+  selectionAuthority: 'relevance_override_only';
+  publicationAuthority: false;
+};
+
 export type CurrentAffairsEditorialQueueItem = {
   id: string;
   publicCode: string;
@@ -214,6 +253,17 @@ export type CurrentAffairsQuestionEditorialDetail = {
   }>;
   generatedAt: string;
 };
+
+export function getCurrentAffairsHeadlineReview(date: string, limit = 1000) {
+  return adminRequest<CurrentAffairsHeadlineReview>(`/admin/current-affairs/editorial/headlines?date=${encodeURIComponent(date)}&limit=${limit}`);
+}
+
+export function setCurrentAffairsHeadlineSelection(candidateId: string, selected: boolean, reason: string) {
+  return adminRequest<Record<string, unknown>>(`/admin/current-affairs/editorial/headlines/${encodeURIComponent(candidateId)}/selection`, {
+    method: 'POST',
+    body: JSON.stringify({ selected, reason }),
+  });
+}
 
 export function getCurrentAffairsEditorialQueue(limit = 200) {
   return adminRequest<CurrentAffairsEditorialQueue>(`/admin/current-affairs/editorial/queue?limit=${limit}`);
