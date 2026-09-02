@@ -57,9 +57,9 @@ services:
         value: gemini-3.6-flash
       - key: NOTES_STUDIO_EVIDENCE_MODEL
         value: gemini-3.6-flash
-      # Capacity fallback for normal Gemini authoring calls. Do not use retired 2.5 defaults.
-      - key: GEMINI_FALLBACK_MODEL
-        value: gemini-3.5-flash
+      # No implicit older-model fallback is declared here. The shared Gemini adapter
+      # retries transient 3.6 capacity failures and uses another model only when an
+      # operator deliberately configures GEMINI_FALLBACK_MODEL.
 
       # Web Discovery is intentionally decoupled from the authoring model provider.
       # Tavily returns bounded search results; Notes Studio keeps URLs only and discards
@@ -69,7 +69,7 @@ services:
         value: tavily
       - key: TAVILY_API_KEY
         sync: false
-      # Optional Gemini-search overrides if Web Discovery is deliberately switched
+      # Optional Gemini-search override if Web Discovery is deliberately switched
       # back to Gemini later. Current Gemini 3.x grounding uses the Interactions API.
       - key: NOTES_STUDIO_SEARCH_MODEL
         value: gemini-3.6-flash
