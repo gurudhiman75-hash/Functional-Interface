@@ -436,6 +436,36 @@ export function extractHeadlineFactClaims(title: string): FactClaim[] {
     return claims;
   }
 
+  // Compound official headlines often add a second impact clause after a semicolon.
+  // Preserve the first substantive action as the canonical event action so a title
+  // such as "BHASHINI Division Organises ...; Strengthens ..." is not misread as
+  // an organisation whose name contains the first clause.
+  const compoundPrimaryAction = cleaned.match(/^(.{2,140}?)\s+(organises|organised|organizes|organized)\s+([^;]{3,220})(?:;\s*.+)?$/i);
+  if (compoundPrimaryAction?.[1] && compoundPrimaryAction[2] && compoundPrimaryAction[3]) {
+    pushClaim(claims, {
+      factKey: "acting_entity",
+      factValue: compoundPrimaryAction[1].trim(),
+      factType: "entity",
+      confidence: 0.76,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "official_action",
+      factValue: compoundPrimaryAction[2].toLowerCase(),
+      factType: "string",
+      confidence: 0.72,
+      extractionMethod: "rule",
+    });
+    pushClaim(claims, {
+      factKey: "action_subject",
+      factValue: compoundPrimaryAction[3].trim(),
+      factType: "string",
+      confidence: 0.70,
+      extractionMethod: "rule",
+    });
+    return claims;
+  }
+
   const bilateralStrengthen = cleaned.match(/^(.{3,140}?)\s+(strengthens?|strengthened)\s+(.{3,220})$/i);
   if (bilateralStrengthen?.[1] && bilateralStrengthen[2] && bilateralStrengthen[3]) {
     pushClaim(claims, {
