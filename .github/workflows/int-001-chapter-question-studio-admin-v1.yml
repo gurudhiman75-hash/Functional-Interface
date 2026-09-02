@@ -12,6 +12,9 @@ on:
       - "artifacts/admin-app/src/pages/content/QuestionStudioInterestReviewPanel.tsx"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 concurrency:
   group: int-001-chapter-question-studio-admin-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
