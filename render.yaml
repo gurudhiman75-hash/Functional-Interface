@@ -57,6 +57,10 @@ services:
         value: gemini-3.6-flash
       - key: NOTES_STUDIO_EVIDENCE_MODEL
         value: gemini-3.6-flash
+      # Web discovery uses a dedicated search-grounding model. Gemini 2.5 Flash
+      # supports free-tier Google Search grounding, unlike Gemini 3.x free-tier search.
+      - key: NOTES_STUDIO_SEARCH_MODEL
+        value: gemini-2.5-flash
       # Stable fallback used only after retryable 429/5xx failures on the primary model.
       - key: GEMINI_FALLBACK_MODEL
         value: gemini-2.5-flash
