@@ -1,5 +1,5 @@
 import { COM003_PERMANENT_QLS } from "./com003-permanent-ql-allocation";
-import { COM003_ENGLISH_REVIEW_CORPUS_V5 } from "./com003-review-synthesis-v5";
+import { COM003_ENGLISH_REVIEW_CORPUS_V6 } from "./com003-review-synthesis-v6";
 
 function normalized(value: string) {
   return value.trim().replace(/\s+/g, " ").toLowerCase();
@@ -35,11 +35,12 @@ const GRAMMAR_DEFECTS = [
 export function auditCom003ExamRealnessV1() {
   const blockers: string[] = [];
   const advisories: string[] = [];
-  const corpus = COM003_ENGLISH_REVIEW_CORPUS_V5;
+  const corpus = COM003_ENGLISH_REVIEW_CORPUS_V6;
 
   for (const question of corpus) {
     const stem = question.stem.trim();
     if (!stem.endsWith("?")) blockers.push(`STEM_NOT_QUESTION:${question.questionId}`);
+    if (!/^[A-Z0-9“"'(]/.test(stem)) blockers.push(`STEM_NOT_CAPITALIZED:${question.questionId}`);
     const count = wordCount(stem);
     if (count > 42) blockers.push(`STEM_TOO_WORDY:${question.questionId}:${count}`);
     if (count > 30) advisories.push(`STEM_WORDY:${question.questionId}:${count}`);
@@ -92,6 +93,7 @@ export function auditCom003ExamRealnessV1() {
     advisories,
     status: blockers.length === 0 ? "EXAM_REALNESS_REVIEW_CANDIDATE" as const : "EXAM_REALNESS_REMEDIATION_REQUIRED" as const,
     priorV4ProductReview: "REJECTED_STEMS_NOT_EXAM_LEVEL" as const,
+    priorV5TechnicalReview: "REJECTED_DUPLICATE_STEMS" as const,
     contentFrozen: false,
     localizationFrozen: false,
     questionStudioReplacementAuthorized: false,
