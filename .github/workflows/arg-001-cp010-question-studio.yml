@@ -1,6 +1,15 @@
 name: Validate ARG-001 CP010 Remediated Question Studio
 
 on:
+  push:
+    branches:
+      - feature/arg-001-cp005-question-studio-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp010.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/arg-001-cp010-question-studio.yml'
   pull_request:
     branches:
       - New-main
