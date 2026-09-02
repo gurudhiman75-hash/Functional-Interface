@@ -75,6 +75,7 @@ jobs:
             approval-versioning \
             release-lineage \
             research-restart \
+            gemini-search-diagnostics \
             source-discovery-provider \
             production-readiness
           do
