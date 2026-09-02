@@ -7,6 +7,7 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - build-api.sh
+      - render.yaml
       - artifacts/api-server/migrations/20260829_notes_studio_source_pack*.sql
       - artifacts/api-server/migrations/20260830_notes_studio_source_pack*.sql
       - artifacts/api-server/migrations/20260831_notes_studio*.sql
@@ -74,6 +75,7 @@ jobs:
             approval-versioning \
             release-lineage \
             research-restart \
+            source-discovery-provider \
             production-readiness
           do
             pnpm --dir artifacts/api-server exec esbuild "src/notes-studio/${test_file}.test.ts" --bundle --packages=external --platform=node --format=esm --outfile="dist/notes-studio-${test_file}.test.mjs"

@@ -63,7 +63,9 @@ export function geminiFallbackModel(primaryModel: string) {
   const configured = String(process.env["GEMINI_FALLBACK_MODEL"] ?? "").trim();
   if (configured && configured !== primaryModel) return configured;
   if (/^gemini-3\.7-flash(?:$|-)/i.test(primaryModel)) return "gemini-3.6-flash";
-  if (/^gemini-3\.6-flash(?:$|-)/i.test(primaryModel)) return "gemini-2.5-flash";
+  // Do not implicitly fall back from the current 3.6 production model to 2.5.
+  // Google may reject 2.5 for newer API projects; an older model is used only
+  // when an operator explicitly configures GEMINI_FALLBACK_MODEL.
   return null;
 }
 

@@ -23,11 +23,15 @@ type Readiness = {
     automaticProductionMigration: boolean;
   };
   modelConfiguration: {
+    provider: string;
     sectionModelConfigured: boolean;
     sectionModel: string | null;
     localizationModelConfigured: boolean;
     localizationModel: string | null;
     modelApiKeyConfigured: boolean;
+    sourceDiscoveryProvider: string;
+    sourceDiscoveryConfigured: boolean;
+    sourceDiscoveryModel: string | null;
   };
   assessment: {
     readyForEditorTraffic: boolean;
@@ -74,7 +78,7 @@ export function NotesStudioOperationsPage() {
   return <div className="space-y-5">
     <PageHeader
       title="Production Readiness"
-      description="Operational view of the Notes Studio V1 schema, model configuration, failure signals and publication boundaries."
+      description="Operational view of the Notes Studio V1 schema, authoring/search configuration, failure signals and publication boundaries."
       icon={<ServerCog className="h-5 w-5" />}
       actions={<Button variant="outline" onClick={() => void load()} disabled={loading}>{loading ? <Loader2 className="mr-1.5 h-4 w-4 animate-spin" /> : <RefreshCw className="mr-1.5 h-4 w-4" />}Refresh</Button>}
     />
@@ -119,11 +123,16 @@ export function NotesStudioOperationsPage() {
         </Card>
 
         <Card>
-          <CardHeader><CardTitle className="text-base">Model configuration</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-base">Model & discovery configuration</CardTitle></CardHeader>
           <CardContent className="space-y-2">
-            {configBadge(data.modelConfiguration.sectionModelConfigured, 'Section synthesis model', data.modelConfiguration.sectionModel)}
-            {configBadge(data.modelConfiguration.localizationModelConfigured, 'Localization model', data.modelConfiguration.localizationModel)}
-            {configBadge(data.modelConfiguration.modelApiKeyConfigured, 'Model API credential')}
+            {configBadge(data.modelConfiguration.sectionModelConfigured, 'Section synthesis model', `${data.modelConfiguration.provider} · ${data.modelConfiguration.sectionModel || 'not configured'}`)}
+            {configBadge(data.modelConfiguration.localizationModelConfigured, 'Localization model', `${data.modelConfiguration.provider} · ${data.modelConfiguration.localizationModel || 'not configured'}`)}
+            {configBadge(data.modelConfiguration.modelApiKeyConfigured, 'Authoring model API credential')}
+            {configBadge(
+              data.modelConfiguration.sourceDiscoveryConfigured,
+              'Web Source Discovery',
+              `${data.modelConfiguration.sourceDiscoveryProvider} · ${data.modelConfiguration.sourceDiscoveryModel || 'not configured'}`,
+            )}
           </CardContent>
         </Card>
       </div>

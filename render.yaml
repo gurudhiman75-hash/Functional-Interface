@@ -45,10 +45,10 @@ services:
         sync: false   # set in Render dashboard
 
       # ── AI / Notes Studio ─────────────────────────────────────────────────
-      # Secret stays in Render; never commit the Gemini API key to GitHub.
+      # Secret stays in Render; never commit provider keys to GitHub.
       - key: GEMINI_API_KEY
         sync: false
-      # All Notes Studio model-backed stages use the shared provider layer.
+      # All Notes Studio model-backed authoring stages use the shared provider layer.
       - key: NOTES_STUDIO_AI_PROVIDER
         value: gemini
       # Stable production model for candidate claims, coverage, research,
@@ -57,13 +57,22 @@ services:
         value: gemini-3.6-flash
       - key: NOTES_STUDIO_EVIDENCE_MODEL
         value: gemini-3.6-flash
-      # Web discovery uses a dedicated search-grounding model. Gemini 2.5 Flash
-      # supports free-tier Google Search grounding, unlike Gemini 3.x free-tier search.
+      # No implicit older-model fallback is declared here. The shared Gemini adapter
+      # retries transient 3.6 capacity failures and uses another model only when an
+      # operator deliberately configures GEMINI_FALLBACK_MODEL.
+
+      # Web Discovery is intentionally decoupled from the authoring model provider.
+      # Tavily returns bounded search results; Notes Studio keeps URLs only and discards
+      # result snippets/answers/raw content. The free Tavily plan currently includes
+      # 1,000 API credits/month and does not require a credit card.
+      - key: NOTES_STUDIO_SEARCH_PROVIDER
+        value: tavily
+      - key: TAVILY_API_KEY
+        sync: false
+      # Optional Gemini-search override if Web Discovery is deliberately switched
+      # back to Gemini later. Current Gemini 3.x grounding uses the Interactions API.
       - key: NOTES_STUDIO_SEARCH_MODEL
-        value: gemini-2.5-flash
-      # Stable fallback used only after retryable 429/5xx failures on the primary model.
-      - key: GEMINI_FALLBACK_MODEL
-        value: gemini-2.5-flash
+        value: gemini-3.6-flash
 
       # ── Razorpay (optional — omit if not using payments) ─────────────────
       - key: RAZORPAY_KEY_ID
