@@ -95,6 +95,7 @@ for (const language of ["en", "hi", "pa"] as const) {
       assert.equal(result.authority, ARG_CP010_QUESTION_STUDIO_AUTHORITY);
       assert.equal(result.checkpointId, ARG_CP010_CHECKPOINT_ID);
       assert.equal(result.generationContext.profileMode, "core");
+      assert.ok("sourceCheckpointId" in result.generationContext, "core generation context must expose its source checkpoint");
       assert.equal(result.generationContext.sourceCheckpointId, ARG_CP009_CHECKPOINT_ID);
       assert.equal(result.questions.length, 2);
       for (const question of result.questions) {
@@ -124,6 +125,7 @@ const legacyCore = generateArgCp010QuestionStudioBatch({
   count: 3,
 });
 assert.equal(legacyCore.generationContext.profileMode, "core");
+assert.ok("sourceCheckpointId" in legacyCore.generationContext, "legacy CP005 upgrade must expose the CP009 source checkpoint");
 assert.equal(legacyCore.generationContext.sourceCheckpointId, ARG_CP009_CHECKPOINT_ID);
 for (const question of legacyCore.questions) assertLocked(question as unknown as Readonly<Record<string, unknown>>);
 
@@ -144,6 +146,7 @@ for (const [profile, difficulty] of PROFILE_DIFFICULTIES) {
     assert.equal(result.questions.length, 8);
     for (const question of result.questions) {
       assert.equal(question.profileMode, "real-paper");
+      assert.ok("examProfile" in question, "real-paper question must expose its resolved exam profile");
       assert.equal(question.examProfile, profile);
       assert.equal(question.language, language);
       assert.equal(question.difficulty, difficulty);
