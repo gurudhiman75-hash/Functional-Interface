@@ -115,7 +115,8 @@ const duplicatePayloadEvent = evaluateDailyMasterPackApprovalReadiness({
 assert.equal(duplicatePayloadEvent.ready, false);
 assert.equal(duplicatePayloadEvent.checks.payloadIntegrity, false);
 
-// CP-048: exact learner-pack failure signatures from the real 31-Aug-2026 PDF audit.
+// CP-048/050: exact learner-pack failure signatures from the real production audits.
+// CP-050 changes importance judgement only: routine is advisory; malformed copy still blocks.
 const quality = (event: Omit<DailyMasterPackEditorialEvent, "id">) => evaluateDailyMasterPackEditorialQuality([{ id: ids[0]!, ...event }]);
 
 const vrrr = quality({
@@ -128,6 +129,8 @@ const vrrr = quality({
 assert.equal(vrrr.ready, false);
 assert.ok(vrrr.issues.some((issue) => issue.kind === "routine_event"));
 assert.ok(vrrr.issues.some((issue) => issue.kind === "malformed_planned_action"));
+assert.ok(vrrr.warnings.some((warning) => /Routine\/recurring item/.test(warning)));
+assert.ok(vrrr.blockers.some((blocker) => /Malformed planned-event wording/.test(blocker)));
 
 const cpgrams = quality({
   title: "Government of India: 51st Monthly Report on CPGRAMS for Central Ministries Departments performance for July 2026",
@@ -136,8 +139,10 @@ const cpgrams = quality({
   category: "reports_indices",
   facts: [{ key: "acting_entity", value: "Department of Administrative Reforms and Public Grievances" }],
 });
-assert.equal(cpgrams.ready, false);
+assert.equal(cpgrams.ready, true, "routine relevance alone must not veto a human editorial decision");
+assert.equal(cpgrams.blockers.length, 0);
 assert.ok(cpgrams.issues.some((issue) => issue.kind === "routine_event"));
+assert.ok(cpgrams.warnings.some((warning) => /Routine\/recurring item/.test(warning)));
 
 const lecture = quality({
   title: "Government of India: second Annual Trident Lecture of CENJOWS",
@@ -149,6 +154,7 @@ const lecture = quality({
 assert.equal(lecture.ready, false);
 assert.ok(lecture.issues.some((issue) => issue.kind === "routine_event"));
 assert.ok(lecture.issues.some((issue) => issue.kind === "malformed_planned_action"));
+assert.ok(lecture.warnings.some((warning) => /Routine\/recurring item/.test(warning)));
 
 const fisheries = quality({
   title: "Government of India: fisheries infrastructure projects worth Rs 36.49 Crore",
@@ -215,9 +221,16 @@ const gdpQuality = quality({
 });
 assert.equal(gdpQuality.ready, true, "high-yield macroeconomic stories must remain approvable when learner copy is clean");
 
-const qualityBlockedApproval = evaluateDailyMasterPackApprovalReadiness({ ...base, editorialQuality: vrrr });
-assert.equal(qualityBlockedApproval.ready, false);
-assert.equal(qualityBlockedApproval.checks.editorialQuality, false);
-assert.match(qualityBlockedApproval.blockers.join(" "), /Routine\/recurring item/);
+const routineAdvisoryApproval = evaluateDailyMasterPackApprovalReadiness({ ...base, editorialQuality: cpgrams });
+assert.equal(routineAdvisoryApproval.ready, true);
+assert.equal(routineAdvisoryApproval.checks.editorialQuality, true);
+assert.match(routineAdvisoryApproval.warnings.join(" "), /Routine\/recurring item/);
 
-console.log("CP-048 canonical Daily Master Pack editorial-quality approval contracts passed");
+const malformedQualityBlockedApproval = evaluateDailyMasterPackApprovalReadiness({ ...base, editorialQuality: vrrr });
+assert.equal(malformedQualityBlockedApproval.ready, false);
+assert.equal(malformedQualityBlockedApproval.checks.editorialQuality, false);
+assert.match(malformedQualityBlockedApproval.blockers.join(" "), /Malformed planned-event wording/);
+assert.doesNotMatch(malformedQualityBlockedApproval.blockers.join(" "), /Routine\/recurring item/);
+assert.match(malformedQualityBlockedApproval.warnings.join(" "), /Routine\/recurring item/);
+
+console.log("CP-048/050 canonical Daily Master Pack editorial-quality and human-importance authority contracts passed");
