@@ -2,6 +2,7 @@ import { SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V9 } from "./spatial-permanen
 import { SPATIAL_QUESTION_STUDIO_PACKAGE_V5 } from "./spatial-question-studio-integration-v5";
 import { CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1 } from "./cubes-dice-test-builder-activation-v1";
 import { SPATIAL_FINAL_HELD_GAP_SATURATION_AUTHORITY_V1 } from "./spatial-final-held-gap-saturation-v1";
+import { SPATIAL_FAMILY_FINAL_CLOSURE_SOURCE_EVIDENCE_V1 } from "./spatial-family-final-closure-source-evidence-v1";
 
 export const SPATIAL_FAMILY_FINAL_CLOSURE_AUDIT_V1 = Object.freeze({
   authorityId: "SPA-FND-001-FAMILY-FINAL-CLOSURE-AUDIT-V1" as const,
@@ -9,6 +10,7 @@ export const SPATIAL_FAMILY_FINAL_CLOSURE_AUDIT_V1 = Object.freeze({
   auditDate: "2026-09-02" as const,
   targetExams: Object.freeze(["SSC", "BANKING", "PUNJAB_STATE"] as const),
   sourcePolicy: "REPO_BLUEPRINT_PLUS_TARGET_EXAM_SYLLABUS_AND_PYQ_SEMANTIC_COVERAGE" as const,
+  sourceEvidenceAuthorityId: SPATIAL_FAMILY_FINAL_CLOSURE_SOURCE_EVIDENCE_V1.authorityId,
   currentCorpus: Object.freeze({
     permanentQlCount: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V9.permanentQlCount,
     permanentQlRange: SPATIAL_PERMANENT_QL_ALLOCATION_AUTHORITY_V9.permanentQlRange,
@@ -122,4 +124,7 @@ if (SPATIAL_FAMILY_FINAL_CLOSURE_AUDIT_V1.currentCorpus.nextAvailablePermanentQl
 }
 if (SPATIAL_FAMILY_FINAL_CLOSURE_AUDIT_V1.blockingMissingChapters.length !== 4) {
   throw new Error("Spatial family freeze must remain blocked until all four missing blueprint chapters are resolved.");
+}
+if (!SPATIAL_FAMILY_FINAL_CLOSURE_SOURCE_EVIDENCE_V1.conclusions.fmt001CrossTargetEvidenceEstablished) {
+  throw new Error("Figure Matrix closure blocker requires cross-target evidence.");
 }
