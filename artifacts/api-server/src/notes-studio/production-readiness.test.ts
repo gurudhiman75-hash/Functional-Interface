@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { buildGeminiGenerationConfig } from '../lib/ai-providers/gemini-adapter';
+import {
+  buildGeminiGenerationConfig,
+  buildGeminiJsonInstruction,
+} from '../lib/ai-providers/gemini-adapter';
 import {
   coveragePlanBulkAllowed,
   coveragePlanItemKey,
@@ -57,7 +60,7 @@ test('Notes Studio migration manifest preserves the cumulative chain in order', 
   assert.equal(NOTES_STUDIO_REQUIRED_TRIGGERS.includes('note_research_restarts_immutable'), true);
 });
 
-test('Gemini generateContent structured output uses responseMimeType and sanitized responseJsonSchema', () => {
+test('Gemini keeps Notes Studio JSON schema in the prompt and out of HTTP generation config', () => {
   const schema = {
     type: 'object',
     additionalProperties: false,
@@ -80,13 +83,13 @@ test('Gemini generateContent structured output uses responseMimeType and sanitiz
     model: 'gemini-3.6-flash',
     temperature: 0,
     responseSchema: schema,
-  }) as any;
-  assert.equal(config.responseMimeType, 'application/json');
-  assert.deepEqual(config.responseJsonSchema?.properties?.claims?.items?.properties?.text?.type, ['string', 'null']);
-  assert.equal(config.responseJsonSchema?.properties?.claims?.items?.properties?.text?.minLength, undefined);
-  assert.equal(config.responseJsonSchema?.properties?.claims?.items?.properties?.text?.maxLength, undefined);
-  assert.equal(config.responseFormat, undefined);
-  assert.equal('temperature' in config, false);
+  });
+  assert.deepEqual(config, {});
+  const instruction = buildGeminiJsonInstruction(schema);
+  assert.ok(instruction);
+  assert.match(instruction!, /Return ONLY one valid JSON value/);
+  assert.match(instruction!, /"minLength":5/);
+  assert.match(instruction!, /"maxLength":1200/);
 });
 
 test('NS-018 research restart remains bounded to progressed pre-approval work', () => {
