@@ -34,7 +34,7 @@ function envHarness(t: TestContext) {
   });
 }
 
-test('Tavily is an independent governed URL-discovery transport and discards answer/raw-content fields', async (t) => {
+test('Tavily is an independent governed URL-discovery transport and constrains primary searches to authoritative domains', async (t) => {
   envHarness(t);
   process.env.NOTES_STUDIO_AI_PROVIDER = 'gemini';
   process.env.NOTES_STUDIO_SEARCH_PROVIDER = 'tavily';
@@ -91,6 +91,8 @@ test('Tavily is an independent governed URL-discovery transport and discards ans
     credits: 1,
     requestIds: ['tavily-request-1'],
     queryCount: 1,
+    officialConstrainedQueries: 1,
+    broadFallbackQueries: 0,
     answerReturned: false,
     rawContentReturned: false,
   });
@@ -103,6 +105,17 @@ test('Tavily is an independent governed URL-discovery transport and discards ans
   assert.equal(requests[0]!.body.include_answer, false);
   assert.equal(requests[0]!.body.include_raw_content, false);
   assert.equal(requests[0]!.body.include_images, false);
+  assert.deepEqual(requests[0]!.body.include_domains, ['*.gov.in', '*.nic.in']);
+  assert.equal(requests[0]!.body.exclude_domains, undefined);
+
+  assert.deepEqual(sourceDiscoveryProviderInternals.tavilySearchPolicy(2), {
+    include_domains: ['*.gov.in', '*.nic.in', '*.ac.in', '*.edu.in'],
+  });
+  const broadPolicy = sourceDiscoveryProviderInternals.tavilySearchPolicy(3);
+  assert.equal(broadPolicy.include_domains, undefined);
+  assert.ok(broadPolicy.exclude_domains?.includes('wikipedia.org'));
+  assert.ok(broadPolicy.exclude_domains?.includes('testbook.com'));
+  assert.ok(broadPolicy.exclude_domains?.includes('youtube.com'));
 });
 
 test('Gemini Web Discovery uses the current Interactions API and Gemini 3.6 by default', async (t) => {
