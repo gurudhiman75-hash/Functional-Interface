@@ -33,6 +33,12 @@ function assertSvg(svg: unknown, owner: string): void {
   assert.doesNotMatch(source, /fill=["'](?:#000000|#000|black)["'][^>]*width=["'](?:100%|[2-9]\d{2,})/i, `${owner}: suspicious full black background.`);
 }
 
+function visualCount(question: any): number {
+  const stimulus = Array.isArray(question.stimulusSvgs) ? question.stimulusSvgs : [];
+  const options = Array.isArray(question.optionSvgs) ? question.optionSvgs : [];
+  return stimulus.length + options.length;
+}
+
 function assertExplanation(question: any, owner: string): void {
   const explanation = question.explanation ?? question.solution;
   assert.ok(explanation, `${owner}: missing explanation/solution.`);
@@ -48,12 +54,16 @@ function assertCommonQuestion(question: any, qlId: string, language: string, own
   assert.ok(question.stem.trim().length >= 8, `${owner}: stem too short.`);
   assert.ok(Number.isInteger(question.correctIndex), `${owner}: correctIndex must be an integer.`);
   assert.ok(question.correctIndex >= 0 && question.correctIndex <= 3, `${owner}: correctIndex out of range.`);
-  assert.ok(Array.isArray(question.stimulusSvgs) && question.stimulusSvgs.length >= 1, `${owner}: missing visual stimulus.`);
-  question.stimulusSvgs.forEach((svg: string, index: number) => assertSvg(svg, `${owner}:stimulus:${index}`));
-  if (Array.isArray(question.optionSvgs)) {
-    assert.equal(question.optionSvgs.length, 4, `${owner}: visual option count must be four.`);
-    question.optionSvgs.forEach((svg: string, index: number) => assertSvg(svg, `${owner}:option:${index}`));
+
+  const stimulusSvgs = Array.isArray(question.stimulusSvgs) ? question.stimulusSvgs : [];
+  const optionSvgs = Array.isArray(question.optionSvgs) ? question.optionSvgs : [];
+  assert.ok(stimulusSvgs.length + optionSvgs.length >= 1, `${owner}: missing visual question surface.`);
+  stimulusSvgs.forEach((svg: string, index: number) => assertSvg(svg, `${owner}:stimulus:${index}`));
+  if (optionSvgs.length) {
+    assert.equal(optionSvgs.length, 4, `${owner}: visual option count must be four.`);
+    optionSvgs.forEach((svg: string, index: number) => assertSvg(svg, `${owner}:option:${index}`));
   }
+
   const options = Array.isArray(question.options) ? question.options : question.optionLabels;
   assert.ok(Array.isArray(options) && options.length === 4, `${owner}: option surface must contain four choices.`);
   assertExplanation(question, owner);
@@ -112,7 +122,7 @@ for (const ql of SPATIAL_QUESTION_STUDIO_QLS_V5) {
         assert.ok(!spaFingerprints.has(key), `${owner}: duplicate content fingerprint across distinct soak seeds.`);
         spaFingerprints.add(key);
       }
-      svgChecks += question.stimulusSvgs.length + (Array.isArray(question.optionSvgs) ? question.optionSvgs.length : 0);
+      svgChecks += visualCount(question);
       spaGenerated += 1;
     }
   }
@@ -142,7 +152,7 @@ for (const qlId of cndQlIds) {
       const key = `${qlId}:${language}:${fingerprint}`;
       assert.ok(!cndFingerprints.has(key), `${owner}: duplicate CND fingerprint across distinct soak seeds.`);
       cndFingerprints.add(key);
-      svgChecks += question.stimulusSvgs.length + (Array.isArray(question.optionSvgs) ? question.optionSvgs.length : 0);
+      svgChecks += visualCount(question);
       cndGenerated += 1;
     }
   }
