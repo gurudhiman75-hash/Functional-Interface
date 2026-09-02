@@ -15,79 +15,12 @@ function isGemini3Model(model: string) {
   return /^gemini-3(?:\.|-|$)/i.test(model);
 }
 
-const GEMINI_JSON_SCHEMA_SCALAR_KEYS = new Set([
-  "$id",
-  "$ref",
-  "$anchor",
-  "type",
-  "format",
-  "title",
-  "description",
-  "enum",
-  "minItems",
-  "maxItems",
-  "minimum",
-  "maximum",
-  "required",
-  "propertyOrdering",
-]);
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
-}
-
 /**
- * The generateContent API accepts only a documented subset of JSON Schema.
- * Notes Studio keeps stricter constraints such as minLength/maxLength in its
- * deterministic post-generation validators, so unsupported model-side schema
- * keywords are removed here instead of risking INVALID_ARGUMENT responses.
- */
-export function sanitizeGeminiJsonSchema(schema: Record<string, unknown>): Record<string, unknown> {
-  const sanitizeNode = (node: unknown): unknown => {
-    if (!isRecord(node)) return node;
-
-    const output: Record<string, unknown> = {};
-    for (const [key, value] of Object.entries(node)) {
-      if (GEMINI_JSON_SCHEMA_SCALAR_KEYS.has(key)) {
-        output[key] = value;
-        continue;
-      }
-
-      if ((key === "properties" || key === "$defs") && isRecord(value)) {
-        output[key] = Object.fromEntries(
-          Object.entries(value).map(([propertyName, propertySchema]) => [
-            propertyName,
-            sanitizeNode(propertySchema),
-          ]),
-        );
-        continue;
-      }
-
-      if (key === "items") {
-        output[key] = sanitizeNode(value);
-        continue;
-      }
-
-      if (key === "additionalProperties") {
-        output[key] = isRecord(value) ? sanitizeNode(value) : value;
-        continue;
-      }
-
-      if ((key === "prefixItems" || key === "anyOf" || key === "oneOf") && Array.isArray(value)) {
-        output[key] = value.map(sanitizeNode);
-      }
-    }
-    return output;
-  };
-
-  return sanitizeNode(schema) as Record<string, unknown>;
-}
-
-/**
- * Notes Studio uses the long-standing generateContent JSON contract for every
- * Gemini model: responseMimeType + responseJsonSchema. Do not route through
- * the newer enum-based responseFormat field here; that field belongs to a
- * different transport shape and previously caused production 400s.
+ * Keep Gemini's HTTP transport intentionally minimal. Notes Studio already
+ * performs strict deterministic validation after generation, so sending JSON
+ * Schema through Gemini's version-sensitive structured-output fields adds
+ * failure modes without adding a trust boundary. The expected JSON shape is
+ * instead embedded in the prompt and validated server-side before persistence.
  */
 export function buildGeminiGenerationConfig(input: {
   model: string;
@@ -98,11 +31,18 @@ export function buildGeminiGenerationConfig(input: {
   if (!isGemini3Model(input.model)) {
     generationConfig.temperature = input.temperature ?? 0;
   }
-  if (input.responseSchema) {
-    generationConfig.responseMimeType = "application/json";
-    generationConfig.responseJsonSchema = sanitizeGeminiJsonSchema(input.responseSchema);
-  }
   return generationConfig;
+}
+
+export function buildGeminiJsonInstruction(
+  responseSchema?: Record<string, unknown>,
+): string | null {
+  if (!responseSchema) return null;
+  return [
+    "Return ONLY one valid JSON value. Do not use Markdown fences or explanatory text.",
+    "The server will strictly validate the JSON after generation. Match this JSON Schema exactly:",
+    JSON.stringify(responseSchema),
+  ].join("\n");
 }
 
 export function isTransientGeminiStatus(status: number) {
@@ -175,6 +115,9 @@ export const geminiProvider: AIProviderAdapter = {
       request.timeoutMs ?? 60_000,
     );
     const warnings: string[] = [];
+    const jsonInstruction = buildGeminiJsonInstruction(
+      request.responseSchema as Record<string, unknown> | undefined,
+    );
 
     const callModel = async (
       model: string,
@@ -199,6 +142,7 @@ export const geminiProvider: AIProviderAdapter = {
                   request.prompt.system,
                   request.prompt.user,
                   request.input ?? "",
+                  jsonInstruction ?? "",
                 ]
                   .filter(Boolean)
                   .join("\n\n"),
