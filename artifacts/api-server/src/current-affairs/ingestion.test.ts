@@ -12,6 +12,11 @@ import {
   pdfCandidateDedupeKey,
   researchSignalFingerprint,
 } from "./ingestion";
+import {
+  headlineRescueTerms,
+  isOneDayOfficialRescueMatch,
+  previousCalendarDate,
+} from "./one-day-rescue-policy";
 
 const rss = `<?xml version="1.0"?>
 <rss><channel>
@@ -148,6 +153,33 @@ assert.equal(
   "invalid payload dates must not poison the India-calendar review date",
 );
 
+// CP-052: discovery remains target-date first. Rescue may inspect exactly the
+// previous calendar day for primary evidence only after a current-day headline
+// exposes a potentially missing story; it never broad-imports older news.
+assert.equal(previousCalendarDate("2026-09-01"), "2026-08-31");
+assert.equal(previousCalendarDate("2026-03-01"), "2026-02-28");
+
+const metrologyRescue = isOneDayOfficialRescueMatch(
+  "Why the new Indian Standard Time rules matter for digital systems",
+  "Department of Consumer Affairs Notifies Legal Metrology (Indian Standard Time) Rules, 2026",
+);
+assert.equal(metrologyRescue.matched, true, "Legal Metrology / IST variants should resolve to the same story identity");
+assert.ok(metrologyRescue.sharedAliasTerms.includes("ist"));
+assert.ok(metrologyRescue.score >= 0.48);
+
+const genericRulesFalsePositive = isOneDayOfficialRescueMatch(
+  "Government notifies new rules for routine office administration",
+  "Department of Consumer Affairs Notifies Legal Metrology (Indian Standard Time) Rules, 2026",
+);
+assert.equal(genericRulesFalsePositive.matched, false, "generic notify/rules wording must not create a rescue match");
+
+const rbiAliasRescue = isOneDayOfficialRescueMatch(
+  "RBI announces digital payments framework for regulated entities",
+  "Reserve Bank of India announced a digital payments framework for regulated payment entities",
+);
+assert.equal(rbiAliasRescue.matched, true);
+assert.ok(headlineRescueTerms("Reserve Bank of India announces policy").includes("rbi"));
+
 const keywords = discoveryKeywords(
   "Reserve Bank announces digital payments framework for regulated payment entities",
 );
@@ -187,4 +219,4 @@ assert.equal(
   pdfCandidateDedupeKey("THE_HINDU", "a".repeat(64), "Example headline"),
 );
 
-console.log("Current Affairs Studio CP-049/050 ingestion, important-story classification and headline-review visibility contracts passed");
+console.log("Current Affairs Studio CP-049/050/052 ingestion, review visibility and one-day rescue contracts passed");

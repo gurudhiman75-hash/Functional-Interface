@@ -7,10 +7,16 @@ import {
   parseGdeltArticleList,
 } from "./open-news-discovery";
 
-assert.ok(OPEN_NEWS_DISCOVERY_QUERIES.length >= 7);
+assert.ok(OPEN_NEWS_DISCOVERY_QUERIES.length >= 9);
 assert.ok(OPEN_NEWS_DISCOVERY_QUERIES.some((item) => item.key === "punjab"));
+assert.ok(OPEN_NEWS_DISCOVERY_QUERIES.some((item) => item.key === "punjab_governance"));
 assert.ok(OPEN_NEWS_DISCOVERY_QUERIES.some((item) => item.key === "economy_banking"));
+assert.ok(OPEN_NEWS_DISCOVERY_QUERIES.some((item) => item.key === "regulators_departments"));
 assert.ok(OPEN_NEWS_DISCOVERY_QUERIES.some((item) => item.key === "international_diplomacy"));
+assert.match(
+  OPEN_NEWS_DISCOVERY_QUERIES.find((item) => item.key === "regulators_departments")?.query ?? "",
+  /Legal Metrology/,
+);
 
 const url = new URL(gdeltQueryUrl("sourcecountry:india sourcelang:english", "2026-08-30", 500));
 assert.equal(url.origin, "https://api.gdeltproject.org");
@@ -97,4 +103,11 @@ const targetedLowSignal = isOpenNewsClusterEligible({
 assert.equal(targetedLowSignal.eligible, true);
 assert.equal(targetedLowSignal.reason, "targeted_discovery_query");
 
-console.log("CP-043 open-news target-date and clustering-triage contracts passed");
+const regulatorLowSignal = isOpenNewsClusterEligible({
+  discoveryScore: 18,
+  queryKeys: ["regulators_departments"],
+});
+assert.equal(regulatorLowSignal.eligible, true);
+assert.equal(regulatorLowSignal.reason, "targeted_discovery_query");
+
+console.log("CP-043/052 open-news target-date, expanded-source and clustering-triage contracts passed");

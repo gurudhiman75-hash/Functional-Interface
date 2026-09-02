@@ -10,6 +10,7 @@ import { reconcilePrimaryEnrichedEvents } from "./enriched-event-reconciliation"
 import { refreshTargetDateExamRelevance } from "./exam-relevance-runtime";
 import { holdManualAuthorityEventsForReview } from "./manual-enrichment-guard";
 import { prepareOfficialYesterdayCandidates } from "./official-candidate-reclassification";
+import { previousCalendarDate } from "./one-day-rescue-policy";
 import { runOpenNewsDiscovery } from "./open-news-discovery";
 import { resolveHistoricalIndiaDate } from "./orchestration-policy";
 import { ensurePibHistoricalCandidates } from "./pib-historical-backfill";
@@ -160,9 +161,17 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date(), 
   // RSS/latest listings can legitimately omit the requested historical calendar day.
   const historicalSourceBackfill = await ensurePibHistoricalCandidates(targetDate);
 
+  // CP-052 permits exactly one previous calendar day of official-source rescue.
+  // Hydrate PIB evidence for that one day so historical replay has the same rescue
+  // opportunity as a live run. This is not a previous-day news import.
+  const oneDayRescueSourceDate = previousCalendarDate(targetDate);
+  const oneDayRescueOfficialBackfill = await ensurePibHistoricalCandidates(oneDayRescueSourceDate);
+
   // Rights-safe broad discovery. CP-043 keeps broad low-signal results in the
   // discovery accounting while withholding them from clustering unless a targeted
-  // query or sufficient exam signal makes them clustering-eligible.
+  // query or sufficient exam signal makes them clustering-eligible. CP-052 adds
+  // regulator/department and Punjab-governance target-day discovery plus the
+  // bounded previous-day official-evidence rescue; it does not widen the news day.
   const openNewsDiscovery = await runOpenNewsDiscovery(targetDate);
 
   // Reclassify bounded official evidence before intelligence. CP-043 also makes a
@@ -233,6 +242,12 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date(), 
       result: sourceRefresh,
     },
     historicalSourceBackfill,
+    oneDayRescueOfficialBackfill: {
+      sourceDate: oneDayRescueSourceDate,
+      lookbackDays: 1,
+      result: oneDayRescueOfficialBackfill,
+      broadHistoricalNewsScan: false,
+    },
     openNewsDiscovery,
     officialCandidatePreparation,
     enrichmentPasses,
@@ -263,6 +278,7 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date(), 
       withheldBroadLowSignalNewsArticles: Number(openNewsDiscovery.withheldBroadLowSignal ?? 0),
       rejectedLowSignalClusters: Number(openNewsDiscovery.rejectedLowSignalClusters ?? 0),
       rejectedLowSignalReviewEvents: Number(discoveryTriage.rejectedReviewEvents ?? 0),
+      oneDayOfficialRescuedHeadlines: Number((openNewsDiscovery as any)?.oneDayOfficialRescue?.rescuedCandidates ?? 0),
       masterPackEventCount: Number((dailyMasterPack as any)?.eventCount ?? 0),
       coverageConfidenceScore: Number((discoveryCensus as any)?.coverageConfidenceScore ?? 0),
       readinessColor: readiness.evaluation.color,
@@ -271,6 +287,9 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date(), 
       warnings: [
         ...(historicalSourceBackfill.status === "failed" && historicalSourceBackfill.error
           ? [`PIB historical backfill failed: ${historicalSourceBackfill.error}`]
+          : []),
+        ...(oneDayRescueOfficialBackfill.status === "failed" && oneDayRescueOfficialBackfill.error
+          ? [`Previous-day PIB rescue backfill failed for ${oneDayRescueSourceDate}: ${oneDayRescueOfficialBackfill.error}`]
           : []),
         ...(openNewsDiscovery.queryResults.every((item) => item.status === "failed")
           ? ["Open-news discovery provider was unavailable for all target-date queries."]
