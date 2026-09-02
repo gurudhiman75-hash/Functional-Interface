@@ -105,7 +105,7 @@ test('Gemini 3.6 primary request succeeds without any structured-output transpor
   }
 });
 
-test('Gemini 3.6 Flash falls back to stable 2.5 Flash after transient exhaustion', async () => {
+test('Gemini 3.6 does not implicitly fall back to a retired 2.5 model', async () => {
   const previousKey = process.env.GEMINI_API_KEY;
   const previousFallback = process.env.GEMINI_FALLBACK_MODEL;
   const originalFetch = globalThis.fetch;
@@ -113,61 +113,52 @@ test('Gemini 3.6 Flash falls back to stable 2.5 Flash after transient exhaustion
   delete process.env.GEMINI_FALLBACK_MODEL;
 
   const urls: string[] = [];
-  const bodies: any[] = [];
-  (globalThis as { fetch: typeof fetch }).fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
+  (globalThis as { fetch: typeof fetch }).fetch = (async (input: RequestInfo | URL) => {
     const url = String(input);
     urls.push(url);
-    bodies.push(init?.body ? JSON.parse(String(init.body)) : null);
-    if (url.includes('/gemini-3.6-flash:generateContent')) {
-      return new Response(JSON.stringify({
-        error: {
-          code: 503,
-          message: 'This model is currently experiencing high demand.',
-          status: 'UNAVAILABLE',
-        },
-      }), {
-        status: 503,
-        headers: { 'content-type': 'application/json' },
-      });
-    }
-    if (url.includes('/gemini-2.5-flash:generateContent')) {
-      return new Response(JSON.stringify({
-        candidates: [{ content: { parts: [{ text: '{"claims":[]}' }] } }],
-        usageMetadata: { promptTokenCount: 10, candidatesTokenCount: 3, totalTokenCount: 13 },
-      }), {
-        status: 200,
-        headers: { 'content-type': 'application/json' },
-      });
-    }
-    throw new Error(`Unexpected Gemini URL: ${url}`);
+    return new Response(JSON.stringify({
+      error: {
+        code: 503,
+        message: 'This model is currently experiencing high demand.',
+        status: 'UNAVAILABLE',
+      },
+    }), {
+      status: 503,
+      headers: { 'content-type': 'application/json' },
+    });
   }) as typeof fetch;
 
   try {
-    assert.equal(geminiFallbackModel('gemini-3.6-flash'), 'gemini-2.5-flash');
-    const response = await geminiProvider.extract({
-      model: 'gemini-3.6-flash',
-      prompt: { system: 'system', user: 'user' },
-      responseSchema: claimSchema,
-      maxRetries: 0,
-      timeoutMs: 5_000,
-    });
-    assert.equal(response.model, 'gemini-2.5-flash');
-    assert.deepEqual(response.json, { claims: [] });
-    assert.equal(response.warnings.length, 1);
-    assert.match(response.warnings[0] ?? '', /temporarily unavailable/i);
-    assert.equal(urls.length, 2);
+    assert.equal(geminiFallbackModel('gemini-3.6-flash'), null);
+    assert.equal(geminiFallbackModel('gemini-3.7-flash'), 'gemini-3.6-flash');
 
-    assert.equal(bodies[0]?.generationConfig, undefined);
-    assert.deepEqual(bodies[1]?.generationConfig, { temperature: 0 });
-    for (const body of bodies) {
-      const serialized = JSON.stringify(body);
-      assert.doesNotMatch(serialized, /responseJsonSchema|responseSchema|responseFormat|responseMimeType/);
-      assert.match(body?.contents?.[0]?.parts?.[0]?.text ?? '', /Return ONLY one valid JSON value/);
-    }
+    await assert.rejects(
+      () => geminiProvider.extract({
+        model: 'gemini-3.6-flash',
+        prompt: { system: 'system', user: 'user' },
+        responseSchema: claimSchema,
+        maxRetries: 0,
+        timeoutMs: 5_000,
+      }),
+      /status 503 on gemini-3\.6-flash/i,
+    );
+    assert.equal(urls.length, 1);
+    assert.equal(urls.some((url) => url.includes('gemini-2.5-flash')), false);
   } finally {
     globalThis.fetch = originalFetch;
     if (previousKey === undefined) delete process.env.GEMINI_API_KEY;
     else process.env.GEMINI_API_KEY = previousKey;
+    if (previousFallback === undefined) delete process.env.GEMINI_FALLBACK_MODEL;
+    else process.env.GEMINI_FALLBACK_MODEL = previousFallback;
+  }
+});
+
+test('Gemini uses an explicitly configured fallback without inventing one', () => {
+  const previousFallback = process.env.GEMINI_FALLBACK_MODEL;
+  try {
+    process.env.GEMINI_FALLBACK_MODEL = 'gemini-operator-selected-model';
+    assert.equal(geminiFallbackModel('gemini-3.6-flash'), 'gemini-operator-selected-model');
+  } finally {
     if (previousFallback === undefined) delete process.env.GEMINI_FALLBACK_MODEL;
     else process.env.GEMINI_FALLBACK_MODEL = previousFallback;
   }
