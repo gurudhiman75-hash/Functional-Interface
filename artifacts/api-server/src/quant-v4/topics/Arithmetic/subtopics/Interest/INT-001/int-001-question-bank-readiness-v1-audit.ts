@@ -5,8 +5,8 @@ import { resolve } from "node:path";
 import {
   getGeneratedQuestionBankEligibilityIssue,
   normalizeGeneratedQuestionPayload,
-} from "../../../../../lib/admin-question-conversion";
-import { getGeneratedItemApprovalDisposition } from "../../../../../lib/admin-question-studio-approval-policy";
+} from "../../../../../../lib/admin-question-conversion";
+import { getGeneratedItemApprovalDisposition } from "../../../../../../lib/admin-question-studio-approval-policy";
 import {
   INT_001_CHAPTER_ADMIN_QUESTION_STUDIO_LANGUAGES,
   INT_001_CHAPTER_ADMIN_QUESTION_STUDIO_PACKAGE,
