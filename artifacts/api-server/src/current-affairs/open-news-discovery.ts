@@ -2,6 +2,11 @@ import { createHash, randomUUID } from "node:crypto";
 
 import { sqlClient } from "../lib/db";
 import { classifyCurrentAffairsSignal } from "./ingestion";
+import {
+  isOneDayOfficialRescueMatch,
+  ONE_DAY_RESCUE_POLICY_VERSION,
+  previousCalendarDate,
+} from "./one-day-rescue-policy";
 
 const GDELT_API = "https://api.gdeltproject.org/api/v2/doc/doc";
 const PROVIDER_SOURCE_KEY = "gdelt_open_news";
@@ -15,8 +20,10 @@ export const OPEN_NEWS_DISCOVERY_QUERIES = [
   { key: "india_press_broad", query: "sourcecountry:india sourcelang:english" },
   { key: "india_global", query: "(India OR Indian OR \"New Delhi\") sourcelang:english" },
   { key: "economy_banking", query: "sourcecountry:india (RBI OR SEBI OR economy OR banking OR inflation OR GDP OR finance OR monetary)" },
+  { key: "regulators_departments", query: "sourcecountry:india (\"Legal Metrology\" OR \"Consumer Affairs\" OR \"Bureau of Indian Standards\" OR \"Competition Commission of India\" OR TRAI OR IRDAI OR PFRDA OR NPCI OR DGFT OR MoSPI OR \"NITI Aayog\")" },
   { key: "international_diplomacy", query: "sourcecountry:india (bilateral OR summit OR treaty OR agreement OR diplomacy OR foreign minister OR prime minister OR president)" },
   { key: "punjab", query: "sourcecountry:india (Punjab OR Chandigarh OR Ludhiana OR Amritsar OR Jalandhar OR Patiala)" },
+  { key: "punjab_governance", query: "sourcecountry:india Punjab (cabinet OR GST OR taxation OR portal OR scheme OR policy OR notification OR appointment OR agriculture OR education OR health)" },
   { key: "science_defence_sports", query: "sourcecountry:india (ISRO OR DRDO OR defence OR space OR science OR technology OR sports OR cricket OR hockey OR badminton OR chess)" },
   { key: "exam_signals", query: "sourcecountry:india (summit OR election OR treaty OR award OR report OR index OR appointed OR launches OR approves OR signs)" },
 ] as const;
@@ -28,6 +35,15 @@ export type OpenNewsDiscoveryArticle = {
   domain: string;
   language: string | null;
   sourceCountry: string | null;
+};
+
+type RescueCandidateRow = {
+  id: string;
+  title: string;
+  sourceKey: string;
+  sourceUrl: string;
+  publishedAt: string | null;
+  payload?: unknown;
 };
 
 function assertDateOnly(date: string) {
@@ -169,7 +185,7 @@ async function loadDiscoverySources() {
            trust_score::float8 AS "trustScore"
     FROM content.current_affairs_sources
     WHERE is_active=true
-      AND (source_key=${PROVIDER_SOURCE_KEY} OR source_tier='trusted_news')
+      AND (source_key=${PROVIDER_SOURCE_KEY} OR source_tier IN ('trusted_news','specialist'))
   `;
   const provider = rows.find((row) => String(row.sourceKey) === PROVIDER_SOURCE_KEY);
   if (!provider) throw new Error("GDELT open-news discovery source is not registered");
@@ -194,6 +210,155 @@ export function isOpenNewsClusterEligible(input: { discoveryScore: number; query
       : targetedQueryHit
         ? "targeted_discovery_query"
         : "broad_only_low_signal",
+  };
+}
+
+function rescueRows(rows: any[]): RescueCandidateRow[] {
+  return rows.map((row) => ({
+    id: String(row.id),
+    title: clean(row.title, 500),
+    sourceKey: String(row.sourceKey ?? ""),
+    sourceUrl: String(row.sourceUrl ?? ""),
+    publishedAt: row.publishedAt ? String(row.publishedAt) : null,
+    payload: row.payload,
+  })).filter((row) => row.title.length >= 8);
+}
+
+async function applyOneDayOfficialRescue(targetDate: string) {
+  const previousDate = previousCalendarDate(targetDate);
+  const triggers = rescueRows(await sqlClient`
+    SELECT candidate.id::text AS id, candidate.raw_title AS title,
+           candidate.source_url AS "sourceUrl", candidate.published_at::text AS "publishedAt",
+           candidate.payload, source.source_key AS "sourceKey"
+    FROM content.current_affairs_ingestion_candidates candidate
+    JOIN content.current_affairs_sources source ON source.id=candidate.source_id
+    WHERE COALESCE(
+        NULLIF(candidate.payload->>'historicalTargetDate',''),
+        NULLIF(candidate.payload->>'discoveryTargetDate',''),
+        (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+      )=${targetDate}
+      AND source.is_primary_source=false
+      AND (
+        source.source_tier IN ('trusted_news','specialist')
+        OR COALESCE(candidate.payload->>'discoveryProvider','')='gdelt_doc_2'
+      )
+    ORDER BY candidate.created_at DESC
+    LIMIT 1500
+  `);
+
+  const targetDayOfficial = rescueRows(await sqlClient`
+    SELECT candidate.id::text AS id, candidate.raw_title AS title,
+           candidate.source_url AS "sourceUrl", candidate.published_at::text AS "publishedAt",
+           candidate.payload, source.source_key AS "sourceKey"
+    FROM content.current_affairs_ingestion_candidates candidate
+    JOIN content.current_affairs_sources source ON source.id=candidate.source_id
+    WHERE COALESCE(
+        NULLIF(candidate.payload->>'historicalTargetDate',''),
+        NULLIF(candidate.payload->>'discoveryTargetDate',''),
+        (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+      )=${targetDate}
+      AND source.is_primary_source=true
+      AND source.content_policy='primary_facts'
+      AND candidate.status <> 'error'
+    ORDER BY candidate.created_at DESC
+    LIMIT 1500
+  `);
+
+  const previousDayOfficial = rescueRows(await sqlClient`
+    SELECT candidate.id::text AS id, candidate.raw_title AS title,
+           candidate.source_url AS "sourceUrl", candidate.published_at::text AS "publishedAt",
+           candidate.payload, source.source_key AS "sourceKey"
+    FROM content.current_affairs_ingestion_candidates candidate
+    JOIN content.current_affairs_sources source ON source.id=candidate.source_id
+    WHERE COALESCE(
+        NULLIF(candidate.payload->>'historicalTargetDate',''),
+        NULLIF(candidate.payload->>'discoveryTargetDate',''),
+        (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+      )=${previousDate}
+      AND source.is_primary_source=true
+      AND source.content_policy='primary_facts'
+      AND candidate.status <> 'error'
+    ORDER BY candidate.created_at DESC
+    LIMIT 1500
+  `);
+
+  let alreadyCoveredByTargetDayOfficial = 0;
+  let rescuedCandidates = 0;
+  let metadataUpdated = 0;
+  const matchedBySourceKey: Record<string, number> = {};
+
+  for (const trigger of triggers) {
+    const sameDayMatch = targetDayOfficial
+      .map((official) => ({ official, similarity: isOneDayOfficialRescueMatch(trigger.title, official.title) }))
+      .filter((item) => item.similarity.matched)
+      .sort((a, b) => b.similarity.score - a.similarity.score)[0];
+    if (sameDayMatch) {
+      alreadyCoveredByTargetDayOfficial += 1;
+      continue;
+    }
+
+    const bestPreviousDay = previousDayOfficial
+      .map((official) => ({ official, similarity: isOneDayOfficialRescueMatch(trigger.title, official.title) }))
+      .filter((item) => item.similarity.matched)
+      .sort((a, b) => b.similarity.score - a.similarity.score)[0];
+    if (!bestPreviousDay) continue;
+
+    rescuedCandidates += 1;
+    matchedBySourceKey[bestPreviousDay.official.sourceKey] = (matchedBySourceKey[bestPreviousDay.official.sourceKey] ?? 0) + 1;
+    const existingPayload = trigger.payload && typeof trigger.payload === "object"
+      ? trigger.payload as Record<string, unknown>
+      : {};
+    const existingRescue = existingPayload.oneDayOfficialRescue && typeof existingPayload.oneDayOfficialRescue === "object"
+      ? existingPayload.oneDayOfficialRescue as Record<string, unknown>
+      : {};
+    const unchanged = String(existingRescue.officialCandidateId ?? "") === bestPreviousDay.official.id
+      && String(existingRescue.targetDate ?? "") === targetDate
+      && String(existingRescue.officialSourceDate ?? "") === previousDate;
+    if (unchanged) continue;
+
+    await sqlClient`
+      UPDATE content.current_affairs_ingestion_candidates
+      SET payload=COALESCE(payload, '{}'::jsonb) || ${JSON.stringify({
+        oneDayOfficialRescue: {
+          policyVersion: ONE_DAY_RESCUE_POLICY_VERSION,
+          targetDate,
+          lookbackDays: 1,
+          officialSourceDate: previousDate,
+          officialCandidateId: bestPreviousDay.official.id,
+          officialSourceKey: bestPreviousDay.official.sourceKey,
+          officialSourceUrl: bestPreviousDay.official.sourceUrl,
+          officialPublishedAt: bestPreviousDay.official.publishedAt,
+          officialTitle: bestPreviousDay.official.title,
+          similarityScore: bestPreviousDay.similarity.score,
+          sharedTerms: bestPreviousDay.similarity.sharedTerms,
+          evidenceRole: "verification_candidate_only",
+          automaticSelectionAuthority: false,
+          automaticVerificationAuthority: false,
+          automaticPublicationAuthority: false,
+        },
+      })}::jsonb,
+          updated_at=now()
+      WHERE id=${trigger.id}::uuid
+    `;
+    metadataUpdated += 1;
+  }
+
+  return {
+    policyVersion: ONE_DAY_RESCUE_POLICY_VERSION,
+    targetDate,
+    previousDate,
+    lookbackDays: 1,
+    triggerCandidates: triggers.length,
+    targetDayOfficialCandidates: targetDayOfficial.length,
+    previousDayOfficialCandidates: previousDayOfficial.length,
+    alreadyCoveredByTargetDayOfficial,
+    rescuedCandidates,
+    metadataUpdated,
+    matchedBySourceKey,
+    broadHistoricalNewsScan: false,
+    automaticSelectionAuthority: false,
+    automaticVerificationAuthority: false,
+    automaticPublicationAuthority: false,
   };
 }
 
@@ -319,6 +484,7 @@ export async function runOpenNewsDiscovery(targetDate: string) {
     else updated += 1;
   }
 
+  const oneDayOfficialRescue = await applyOneDayOfficialRescue(targetDate);
   const rejectedLowSignalClusters = await rejectExistingBroadOnlyLowSignalClusters(targetDate);
 
   await sqlClient`
@@ -335,6 +501,7 @@ export async function runOpenNewsDiscovery(targetDate: string) {
           lastEligibleArticleCount: eligibleArticles,
           lastWithheldBroadLowSignalCount: withheldBroadLowSignal,
           lastRejectedLowSignalClusterCount: rejectedLowSignalClusters,
+          lastOneDayOfficialRescue: oneDayOfficialRescue,
         })}::jsonb,
         updated_at=now()
     WHERE source_key=${PROVIDER_SOURCE_KEY}
@@ -353,6 +520,7 @@ export async function runOpenNewsDiscovery(targetDate: string) {
     knownPublisherMapped,
     providerFallback,
     categoryCounts,
+    oneDayOfficialRescue,
     publicationAuthority: false,
     verificationAuthority: false,
     publisherArticleBodiesFetched: false,
