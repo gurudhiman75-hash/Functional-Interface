@@ -27,7 +27,7 @@ const HIGH_PATTERNS: Array<[RegExp, string]> = [
   [/\b(?:mou|memorandum of understanding|agreement|pact)\b/i, "formal agreement or MoU"],
   [/\b(?:appointed|appointment|elected|assumes? charge|takes? charge|takes? over|assumed the appointment|assumes? the appointment)\b/i, "important appointment or assumption of office"],
   [/\b(?:wins?|won|award|honour|honor)\b/i, "award or result"],
-  [/\b(?:launches|launched|unveils|unveiled|inaugurates|inaugurated)\b.*\b(?:scheme|mission|portal|platform|product|programme|program|initiative|complex)\b/i, "substantive launch or initiative"],
+  [/\b(?:launches|launched|unveils|unveiled|inaugurates|inaugurated)\b.*\b(?:schemes?|missions?|portals?|platforms?|products?|programme|program|initiatives?|complex|sound box)\b/i, "substantive launch or initiative"],
   [/\b(?:semicon|semiconductor|quantum|satellite|space mission|missile|defence exercise|defense exercise)\b/i, "high-yield science/technology/defence signal"],
   [/\b(?:bilateral|summit|state visit|trade talks?|free trade|fta|joint working group)\b/i, "major international or trade development"],
   [/\b(?:participates?|participated)\b.*\b(?:summit|council of heads of state|ministerial meeting)\b/i, "participation in major multilateral meeting"],
@@ -42,6 +42,7 @@ const ROUTINE_PATTERNS: Array<[RegExp, string]> = [
   [/\bpreparatory meeting\b/i, "preparatory meeting rather than substantive outcome"],
   [/\b(?:online\s+)?(?:national\s+)?quiz\b.*\b(?:mygov|foundation day|celebrate|awareness)\b|\bmygov\b.*\bquiz\b/i, "routine public-engagement quiz"],
   [/\b(?:foundation day|awareness theme|awareness campaign)\b(?!.*\b(?:first|record|national award|major reform)\b)/i, "routine awareness/foundation-day communication"],
+  [/\bindian railways?\b.*\b(?:approves?|sanctions?)\b.*\b(?:yard remodel(?:ing|ling)|bypass line)\b/i, "routine standalone railway infrastructure approval"],
 ];
 
 const BANKING_SIGNALS = /\b(?:rbi|reserve bank|banking?|payments?|upi|npci|nipl|monetary|repo rate|policy rate|liquidity|inflation|gdp|gross domestic product|economy|economic|finance|financial|fiscal|sebi|market|insurance|gst|tax|credit|deposit|forex|foreign exchange)\b/i;
