@@ -62,6 +62,7 @@ const GENERAL_EXAM_TERMS = [
   "mission",
   "initiative",
   "summit",
+  "bilateral",
   "report",
   "index",
   "ranking",
