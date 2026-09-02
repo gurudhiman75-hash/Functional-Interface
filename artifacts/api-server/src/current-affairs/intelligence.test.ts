@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 
+import { evaluateCurrentAffairsEditorialPriority } from "./editorial-priority";
 import {
   buildCandidateClusters,
   extractHeadlineFactClaims,
@@ -105,6 +106,75 @@ assert.ok(inaugurationClaims.some((claim) => claim.factKey === "acting_entity" &
 assert.ok(inaugurationClaims.some((claim) => claim.factKey === "official_action" && claim.factValue === "inaugurates"));
 assert.ok(inaugurationClaims.some((claim) => claim.factKey === "action_subject" && /Vallamkali/.test(claim.factValue)));
 
+// CP-049: exact headline structures from the 1-Sep-2026 production audit.
+const scoTitle = "Prime Minister participates in the 26th SCO Summit in Bishkek, Kyrgyz Republic";
+const scoClaims = extractHeadlineFactClaims(scoTitle);
+assert.ok(scoClaims.some((claim) => claim.factKey === "acting_entity" && claim.factValue === "Prime Minister"));
+assert.ok(scoClaims.some((claim) => claim.factKey === "official_action" && claim.factValue === "participates"));
+assert.ok(scoClaims.some((claim) => claim.factKey === "action_subject" && /26th SCO Summit/i.test(claim.factValue)));
+assert.equal(evaluateCurrentAffairsEditorialPriority({ title: scoTitle, category: "international" }).tier, "critical");
+
+const shaktiTitle = "AVM SHAKTI SHARMA SCRIPTS HISTORY AS FIRST (NON-MEDICAL) WOMAN TWO-STAR OFFICER IN THE DEFENCE SERVICES";
+const shaktiClaims = extractHeadlineFactClaims(shaktiTitle);
+assert.ok(shaktiClaims.some((claim) => claim.factKey === "appointee" && claim.factValue === "AVM SHAKTI SHARMA"));
+assert.ok(shaktiClaims.some((claim) => claim.factKey === "position" && /FIRST.*WOMAN TWO-STAR OFFICER/i.test(claim.factValue)));
+assert.equal(evaluateCurrentAffairsEditorialPriority({ title: shaktiTitle, category: "defence" }).tier, "critical");
+
+const takeoverClaims = extractHeadlineFactClaims("Air Marshal Sandeep Thareja takes over as DGAFMS");
+assert.ok(takeoverClaims.some((claim) => claim.factKey === "appointee" && claim.factValue === "Air Marshal Sandeep Thareja"));
+assert.ok(takeoverClaims.some((claim) => claim.factKey === "position" && claim.factValue === "DGAFMS"));
+
+const assumedAppointmentClaims = extractHeadlineFactClaims(
+  "SURGEON VICE ADMIRAL MANISH HONWAD, VSM ASSUMED THE APPOINTMENT OF DIRECTOR & COMMANDANT OF THE ARMED FORCES MEDICAL COLLEGE, PUNE",
+);
+assert.ok(assumedAppointmentClaims.some((claim) => claim.factKey === "appointee" && /MANISH HONWAD/i.test(claim.factValue)));
+assert.ok(assumedAppointmentClaims.some((claim) => claim.factKey === "position" && /DIRECTOR & COMMANDANT/i.test(claim.factValue)));
+
+const foodConferenceClaims = extractHeadlineFactClaims(
+  "States/UTs Food Secretaries Conference reviews various issues pertaining to Department of Food and Public Distribution",
+);
+assert.ok(foodConferenceClaims.some((claim) => claim.factKey === "acting_entity" && claim.factValue === "States/UTs Food Secretaries Conference"));
+assert.ok(foodConferenceClaims.some((claim) => claim.factKey === "official_action" && claim.factValue === "reviews"));
+assert.ok(foodConferenceClaims.some((claim) => claim.factKey === "action_subject" && /various issues pertaining/i.test(claim.factValue)));
+assert.equal(foodConferenceClaims.some((claim) => claim.factKey === "official_action" && claim.factValue === "issues"), false);
+
+const ippbTitle = "India Post Payments Bank Celebrates 9th Foundation Day (IPPB Day 2026); launched DakPay Sound Box for Merchants and New Digital Platforms for Customers";
+const ippbClaims = extractHeadlineFactClaims(ippbTitle);
+assert.ok(ippbClaims.some((claim) => claim.factKey === "launching_entity" && claim.factValue === "India Post Payments Bank"));
+assert.ok(ippbClaims.some((claim) => claim.factKey === "initiative" && /DakPay Sound Box/i.test(claim.factValue)));
+assert.equal(evaluateCurrentAffairsEditorialPriority({ title: ippbTitle, category: "economy_banking" }).tier, "high");
+
+const indiaDenmarkClaims = extractHeadlineFactClaims(
+  "India–Denmark Strengthen Bilateral Cooperation in MSME Development, Innovation & Intellectual Property",
+);
+assert.ok(indiaDenmarkClaims.some((claim) => claim.factKey === "acting_entity" && /India–Denmark/.test(claim.factValue)));
+assert.ok(indiaDenmarkClaims.some((claim) => claim.factKey === "official_action" && claim.factValue === "strengthen"));
+assert.ok(indiaDenmarkClaims.some((claim) => claim.factKey === "action_subject" && /Bilateral Cooperation/i.test(claim.factValue)));
+
+const bhashiniClaims = extractHeadlineFactClaims(
+  "Digital India BHASHINI Division Organises BHASHINI SANGAM Workshop in Nepal; Strengthens India–Nepal Collaboration on Multilingual AI",
+);
+assert.ok(bhashiniClaims.some((claim) => claim.factKey === "acting_entity" && /Digital India BHASHINI Division/i.test(claim.factValue)));
+assert.ok(bhashiniClaims.some((claim) => claim.factKey === "official_action" && claim.factValue === "organises"));
+assert.ok(bhashiniClaims.some((claim) => claim.factKey === "action_subject" && /BHASHINI SANGAM Workshop/i.test(claim.factValue)));
+
+assert.equal(
+  evaluateCurrentAffairsEditorialPriority({ title: "Ministry of Coal holds Preparatory Meeting for Special Campaign 6.0", category: "national" }).tier,
+  "routine",
+);
+assert.equal(
+  evaluateCurrentAffairsEditorialPriority({ title: "Ministry of Earth Sciences launches Online National Quiz with MyGov to celebrate 20 years", category: "science_technology" }).tier,
+  "routine",
+);
+assert.equal(
+  evaluateCurrentAffairsEditorialPriority({ title: "Indian Railways approves ₹125 Crore Bhavnagar Para Yard Remodeling Project in Gujarat", category: "national" }).tier,
+  "routine",
+);
+assert.equal(
+  evaluateCurrentAffairsEditorialPriority({ title: "Indian Railways approves ₹170 Crore for Kavach 4.0 on remaining 712 Rkm of Moradabad Division", category: "national" }).tier,
+  "standard",
+);
+
 const corroborated: ClaimEvidence[] = [
   {
     factKey: "percentage",
@@ -177,4 +247,4 @@ assert.equal(unresolved.conflicts.length, 1);
 assert.equal(unresolved.conflicts[0]?.autoResolution, undefined);
 assert.equal(unresolved.facts.length, 0, "unresolved contradictions must not materialize a canonical fact");
 
-console.log("Current Affairs CP-045 intelligence contracts passed");
+console.log("Current Affairs CP-049 intelligence and important-headline recovery contracts passed");
