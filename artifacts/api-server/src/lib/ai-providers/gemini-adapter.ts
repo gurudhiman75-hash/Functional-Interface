@@ -15,8 +15,72 @@ function isGemini3Model(model: string) {
   return /^gemini-3(?:\.|-|$)/i.test(model);
 }
 
-function usesGemini36ResponseFormat(model: string) {
-  return /^gemini-3\.6-flash(?:$|-)/i.test(model);
+const GEMINI_JSON_SCHEMA_SCALAR_KEYS = new Set([
+  "$id",
+  "$ref",
+  "$anchor",
+  "type",
+  "format",
+  "title",
+  "description",
+  "enum",
+  "minItems",
+  "maxItems",
+  "minimum",
+  "maximum",
+  "required",
+  "propertyOrdering",
+]);
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
+}
+
+/**
+ * Gemini structured output supports a documented subset of JSON Schema.
+ * Notes Studio keeps stricter constraints (for example minLength/maxLength)
+ * in its deterministic post-generation validators, so model-side schemas can
+ * safely omit unsupported keywords instead of causing INVALID_ARGUMENT.
+ */
+export function sanitizeGeminiJsonSchema(schema: Record<string, unknown>): Record<string, unknown> {
+  const sanitizeNode = (node: unknown): unknown => {
+    if (!isRecord(node)) return node;
+
+    const output: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(node)) {
+      if (GEMINI_JSON_SCHEMA_SCALAR_KEYS.has(key)) {
+        output[key] = value;
+        continue;
+      }
+
+      if ((key === "properties" || key === "$defs") && isRecord(value)) {
+        output[key] = Object.fromEntries(
+          Object.entries(value).map(([propertyName, propertySchema]) => [
+            propertyName,
+            sanitizeNode(propertySchema),
+          ]),
+        );
+        continue;
+      }
+
+      if (key === "items") {
+        output[key] = sanitizeNode(value);
+        continue;
+      }
+
+      if (key === "additionalProperties") {
+        output[key] = isRecord(value) ? sanitizeNode(value) : value;
+        continue;
+      }
+
+      if ((key === "prefixItems" || key === "anyOf" || key === "oneOf") && Array.isArray(value)) {
+        output[key] = value.map(sanitizeNode);
+      }
+    }
+    return output;
+  };
+
+  return sanitizeNode(schema) as Record<string, unknown>;
 }
 
 export function buildGeminiGenerationConfig(input: {
@@ -29,20 +93,20 @@ export function buildGeminiGenerationConfig(input: {
     generationConfig.temperature = input.temperature ?? 0;
   }
   if (input.responseSchema) {
-    if (usesGemini36ResponseFormat(input.model)) {
-      // Current Gemini 3.6 generateContent REST contract nests structured
-      // output under responseFormat.text. This is the shape documented by
-      // Google for Gemini 3.6 and avoids the generic INVALID_ARGUMENT returned
-      // when the older flat responseJsonSchema field is used with this model.
+    const schema = sanitizeGeminiJsonSchema(input.responseSchema);
+    if (isGemini3Model(input.model)) {
+      // Current Gemini 3 generateContent structured-output contract nests the
+      // JSON Schema under responseFormat.text. Use the same contract for both
+      // primary and fallback Gemini 3 models so they cannot drift apart.
       generationConfig.responseFormat = {
         text: {
           mimeType: "application/json",
-          schema: input.responseSchema,
+          schema,
         },
       };
     } else {
       generationConfig.responseMimeType = "application/json";
-      generationConfig.responseJsonSchema = input.responseSchema;
+      generationConfig.responseJsonSchema = schema;
     }
   }
   return generationConfig;
