@@ -7,7 +7,8 @@ on:
     paths:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-review-file-v1.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-synthesis-v5.ts'
-      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-synthesis-v5.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-synthesis-v6.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-synthesis-v6.test.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-exam-realness-audit-v1.ts'
       - '.github/workflows/com003-question-review-file-v1.yml'
   workflow_dispatch:
@@ -30,14 +31,14 @@ jobs:
         run: corepack enable
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
-      - name: Validate V5 exam-realness candidate
+      - name: Validate V6 exam-realness candidate
         run: |
           mkdir -p artifacts/api-server/dist/com003-review-file
           pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/computer-awareness/com003-review-synthesis-v5.test.ts \
+            src/knowledge-v1/computer-awareness/com003-review-synthesis-v6.test.ts \
             --bundle --platform=node --format=esm \
-            --outfile=dist/com003-review-file/com003-review-synthesis-v5.test.mjs
-          node artifacts/api-server/dist/com003-review-file/com003-review-synthesis-v5.test.mjs
+            --outfile=dist/com003-review-file/com003-review-synthesis-v6.test.mjs
+          node artifacts/api-server/dist/com003-review-file/com003-review-synthesis-v6.test.mjs
       - name: Bundle review exporter
         run: |
           mkdir -p artifacts/api-server/dist/com003-review-file
@@ -52,8 +53,9 @@ jobs:
           test -s artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
           grep -q '228 questions' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
           grep -q 'COM-003-QL-019' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
-          grep -q 'English V5 Exam-Realness Remediation Candidate' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          grep -q 'English V6 Exam-Realness Remediation Candidate' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
           grep -q 'REJECTED — stems not exam level' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          grep -q 'V5 technical disposition' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
       - name: Upload review artifact
         uses: actions/upload-artifact@v4
         with:
