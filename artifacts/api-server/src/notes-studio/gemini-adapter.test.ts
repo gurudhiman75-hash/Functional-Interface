@@ -3,12 +3,37 @@ import test from 'node:test';
 
 import {
   buildGeminiGenerationConfig,
+  buildGeminiJsonInstruction,
   geminiFallbackModel,
   geminiProvider,
   geminiRetryDelayMs,
   isTransientGeminiStatus,
-  sanitizeGeminiJsonSchema,
 } from '../lib/ai-providers/gemini-adapter';
+
+const claimSchema = {
+  type: 'object',
+  additionalProperties: false,
+  required: ['claims'],
+  properties: {
+    claims: {
+      type: 'array',
+      minItems: 0,
+      maxItems: 60,
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['text'],
+        properties: {
+          text: {
+            type: ['string', 'null'],
+            minLength: 5,
+            maxLength: 1200,
+          },
+        },
+      },
+    },
+  },
+} as Record<string, unknown>;
 
 test('Gemini transient policy retries capacity failures but not bad requests', () => {
   for (const status of [408, 429, 500, 502, 503, 504]) {
@@ -20,47 +45,63 @@ test('Gemini transient policy retries capacity failures but not bad requests', (
   assert.deepEqual([0, 1, 2, 3].map(geminiRetryDelayMs), [500, 1000, 2000, 4000]);
 });
 
-test('Gemini generateContent uses responseMimeType + sanitized responseJsonSchema for all models', () => {
-  const schema = {
-    type: 'object',
-    additionalProperties: false,
-    required: ['claims'],
-    properties: {
-      claims: {
-        type: 'array',
-        minItems: 0,
-        maxItems: 60,
-        items: {
-          type: 'object',
-          additionalProperties: false,
-          required: ['text'],
-          properties: {
-            text: {
-              type: ['string', 'null'],
-              minLength: 5,
-              maxLength: 1200,
-            },
-          },
-        },
-      },
-    },
-  } as Record<string, unknown>;
+test('Gemini structured requests keep schema out of the HTTP generation config', () => {
+  const gemini3Config = buildGeminiGenerationConfig({
+    model: 'gemini-3.6-flash',
+    responseSchema: claimSchema,
+  });
+  assert.deepEqual(gemini3Config, {});
 
-  const sanitized = sanitizeGeminiJsonSchema(schema) as any;
-  assert.equal(sanitized.properties.claims.items.properties.text.minLength, undefined);
-  assert.equal(sanitized.properties.claims.items.properties.text.maxLength, undefined);
-  assert.deepEqual(sanitized.properties.claims.items.properties.text.type, ['string', 'null']);
-  assert.equal(sanitized.properties.claims.maxItems, 60);
-  assert.equal(sanitized.additionalProperties, false);
+  const gemini25Config = buildGeminiGenerationConfig({
+    model: 'gemini-2.5-flash',
+    responseSchema: claimSchema,
+  });
+  assert.deepEqual(gemini25Config, { temperature: 0 });
 
-  for (const model of ['gemini-3.6-flash', 'gemini-2.5-flash']) {
-    const config = buildGeminiGenerationConfig({
-      model,
-      responseSchema: schema,
-    }) as any;
-    assert.equal(config.responseMimeType, 'application/json', model);
-    assert.deepEqual(config.responseJsonSchema, sanitized, model);
-    assert.equal(config.responseFormat, undefined, model);
+  const instruction = buildGeminiJsonInstruction(claimSchema);
+  assert.ok(instruction);
+  assert.match(instruction!, /Return ONLY one valid JSON value/);
+  assert.match(instruction!, /"minLength":5/);
+  assert.match(instruction!, /"maxLength":1200/);
+});
+
+test('Gemini 3.6 primary request succeeds without any structured-output transport fields', async () => {
+  const previousKey = process.env.GEMINI_API_KEY;
+  const originalFetch = globalThis.fetch;
+  process.env.GEMINI_API_KEY = 'test-key';
+
+  let capturedBody: any = null;
+  (globalThis as { fetch: typeof fetch }).fetch = (async (_input: RequestInfo | URL, init?: RequestInit) => {
+    capturedBody = init?.body ? JSON.parse(String(init.body)) : null;
+    return new Response(JSON.stringify({
+      candidates: [{ content: { parts: [{ text: '{"claims":[]}' }] } }],
+      usageMetadata: { promptTokenCount: 10, candidatesTokenCount: 3, totalTokenCount: 13 },
+    }), {
+      status: 200,
+      headers: { 'content-type': 'application/json' },
+    });
+  }) as typeof fetch;
+
+  try {
+    const response = await geminiProvider.extract({
+      model: 'gemini-3.6-flash',
+      prompt: { system: 'system', user: 'user' },
+      responseSchema: claimSchema,
+      maxRetries: 0,
+      timeoutMs: 5_000,
+    });
+
+    assert.equal(response.model, 'gemini-3.6-flash');
+    assert.deepEqual(response.json, { claims: [] });
+    assert.equal(capturedBody?.generationConfig, undefined);
+    const promptText = capturedBody?.contents?.[0]?.parts?.[0]?.text ?? '';
+    assert.match(promptText, /Return ONLY one valid JSON value/);
+    assert.match(promptText, /"minLength":5/);
+    assert.doesNotMatch(JSON.stringify(capturedBody), /responseJsonSchema|responseSchema|responseFormat|responseMimeType/);
+  } finally {
+    globalThis.fetch = originalFetch;
+    if (previousKey === undefined) delete process.env.GEMINI_API_KEY;
+    else process.env.GEMINI_API_KEY = previousKey;
   }
 });
 
@@ -72,7 +113,7 @@ test('Gemini 3.6 Flash falls back to stable 2.5 Flash after transient exhaustion
   delete process.env.GEMINI_FALLBACK_MODEL;
 
   const urls: string[] = [];
-  const bodies: unknown[] = [];
+  const bodies: any[] = [];
   (globalThis as { fetch: typeof fetch }).fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = String(input);
     urls.push(url);
@@ -106,20 +147,7 @@ test('Gemini 3.6 Flash falls back to stable 2.5 Flash after transient exhaustion
     const response = await geminiProvider.extract({
       model: 'gemini-3.6-flash',
       prompt: { system: 'system', user: 'user' },
-      responseSchema: {
-        type: 'object',
-        properties: {
-          claims: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                text: { type: 'string', minLength: 5, maxLength: 1200 },
-              },
-            },
-          },
-        },
-      },
+      responseSchema: claimSchema,
       maxRetries: 0,
       timeoutMs: 5_000,
     });
@@ -129,14 +157,12 @@ test('Gemini 3.6 Flash falls back to stable 2.5 Flash after transient exhaustion
     assert.match(response.warnings[0] ?? '', /temporarily unavailable/i);
     assert.equal(urls.length, 2);
 
-    for (const body of bodies as any[]) {
-      const generationConfig = body?.generationConfig;
-      assert.equal(generationConfig?.responseMimeType, 'application/json');
-      assert.ok(generationConfig?.responseJsonSchema);
-      assert.equal(generationConfig?.responseFormat, undefined);
-      const modelSchema = generationConfig?.responseJsonSchema;
-      assert.equal(modelSchema?.properties?.claims?.items?.properties?.text?.minLength, undefined);
-      assert.equal(modelSchema?.properties?.claims?.items?.properties?.text?.maxLength, undefined);
+    assert.equal(bodies[0]?.generationConfig, undefined);
+    assert.deepEqual(bodies[1]?.generationConfig, { temperature: 0 });
+    for (const body of bodies) {
+      const serialized = JSON.stringify(body);
+      assert.doesNotMatch(serialized, /responseJsonSchema|responseSchema|responseFormat|responseMimeType/);
+      assert.match(body?.contents?.[0]?.parts?.[0]?.text ?? '', /Return ONLY one valid JSON value/);
     }
   } finally {
     globalThis.fetch = originalFetch;
