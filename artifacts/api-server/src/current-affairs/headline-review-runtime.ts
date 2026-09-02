@@ -1,12 +1,19 @@
+import { randomUUID } from "node:crypto";
+
 import { sqlClient } from "../lib/db";
 import {
   CURRENT_AFFAIRS_CATEGORIES,
   assertDateOnly,
+  currentAffairsFingerprint,
+  publicCurrentAffairsCode,
   scoreExamRelevance,
   type CurrentAffairsCategory,
 } from "./core";
 import { evaluateCurrentAffairsEditorialPriority } from "./editorial-priority";
 import { classifyCurrentAffairsSignal } from "./ingestion";
+import { extractHeadlineFactClaims } from "./intelligence";
+
+const PRODUCT_FAMILIES = ["ssc", "banking", "punjab"] as const;
 
 export type CurrentAffairsHeadlineReviewItem = {
   candidateId: string;
@@ -43,6 +50,21 @@ export type CurrentAffairsHeadlineReviewItem = {
   linkedEventTitle: string | null;
 };
 
+type SelectionCandidate = {
+  id: string;
+  status: string;
+  payload: Record<string, unknown>;
+  title: string;
+  publishedAt: string | null;
+  sourceId: string;
+  sourceKey: string;
+  sourceName: string;
+  sourceUrl: string;
+  sourceTrustScore: number;
+  isPrimarySource: boolean;
+  clusterId: string | null;
+};
+
 function asObject(value: unknown): Record<string, unknown> {
   return value && typeof value === "object" && !Array.isArray(value)
     ? value as Record<string, unknown>
@@ -62,7 +84,12 @@ export function resolveHeadlineReviewDate(payloadValue: unknown, publishedAt: un
   const payload = asObject(payloadValue);
   for (const key of ["historicalTargetDate", "discoveryTargetDate"]) {
     const value = String(payload[key] ?? "").trim();
-    if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value;
+    if (!value) continue;
+    try {
+      return assertDateOnly(value);
+    } catch {
+      // Ignore malformed source metadata and continue to the next date signal.
+    }
   }
   if (publishedAt) {
     const parsed = new Date(String(publishedAt));
@@ -75,7 +102,34 @@ export function resolveHeadlineReviewDate(payloadValue: unknown, publishedAt: un
       }).format(parsed);
     }
   }
-  return fallbackDate;
+  return assertDateOnly(fallbackDate);
+}
+
+function candidateExamScores(input: {
+  title: string;
+  eventDate: string;
+  category: CurrentAffairsCategory;
+  sourceKey: string;
+  sourceUrl: string;
+  sourceTrustScore: number;
+  isPrimarySource: boolean;
+}) {
+  return scoreExamRelevance({
+    title: input.title,
+    eventDate: input.eventDate,
+    category: input.category,
+    sourceKey: input.sourceKey || "unknown_source",
+    sourceUrl: input.sourceUrl || "https://example.invalid/",
+    sourceTrustScore: input.sourceTrustScore,
+    isPrimarySource: input.isPrimarySource,
+    facts: [],
+  });
+}
+
+function closestProductFamily(scores: ReturnType<typeof scoreExamRelevance>) {
+  return scores
+    .filter((score) => (PRODUCT_FAMILIES as readonly string[]).includes(score.examFamily))
+    .sort((a, b) => b.score - a.score || a.examFamily.localeCompare(b.examFamily))[0]?.examFamily ?? "ssc";
 }
 
 export function headlineReviewProfile(row: Record<string, unknown>, targetDate: string): CurrentAffairsHeadlineReviewItem {
@@ -86,7 +140,7 @@ export function headlineReviewProfile(row: Record<string, unknown>, targetDate: 
   const sourceTrustScore = Number(row.sourceTrustScore ?? 0.5);
   const isPrimarySource = Boolean(row.isPrimarySource);
   const eventDate = resolveHeadlineReviewDate(payload, row.publishedAt, targetDate);
-  const examScores = scoreExamRelevance({
+  const examScores = candidateExamScores({
     title,
     eventDate,
     category: resolvedCategory,
@@ -94,9 +148,8 @@ export function headlineReviewProfile(row: Record<string, unknown>, targetDate: 
     sourceUrl: String(row.sourceUrl ?? "https://example.invalid/"),
     sourceTrustScore,
     isPrimarySource,
-    facts: [],
   });
-  const productScores = examScores.filter((score) => ["ssc", "banking", "punjab"].includes(score.examFamily));
+  const productScores = examScores.filter((score) => (PRODUCT_FAMILIES as readonly string[]).includes(score.examFamily));
   const priority = evaluateCurrentAffairsEditorialPriority({ title, category: resolvedCategory });
   const candidateStatus = String(row.candidateStatus ?? "queued");
   const manualSelected = bool(payload.manualEditorialSelected) || bool(row.eventManualSelected);
@@ -208,6 +261,217 @@ export async function loadCurrentAffairsHeadlineReview(targetDateInput: string, 
   };
 }
 
+async function loadSelectionCandidate(candidateId: string): Promise<SelectionCandidate | null> {
+  const rows = await sqlClient`
+    SELECT
+      candidate.id::text AS id,
+      candidate.status,
+      candidate.payload,
+      candidate.raw_title AS title,
+      candidate.published_at::text AS "publishedAt",
+      source.id::text AS "sourceId",
+      source.source_key AS "sourceKey",
+      source.name AS "sourceName",
+      candidate.source_url AS "sourceUrl",
+      source.trust_score::float8 AS "sourceTrustScore",
+      source.is_primary_source AS "isPrimarySource",
+      member.cluster_id::text AS "clusterId"
+    FROM content.current_affairs_ingestion_candidates candidate
+    JOIN content.current_affairs_sources source ON source.id=candidate.source_id
+    LEFT JOIN content.current_affairs_cluster_members member ON member.candidate_id=candidate.id
+    WHERE candidate.id=${candidateId}::uuid
+    LIMIT 1
+  `;
+  const row = rows[0];
+  if (!row) return null;
+  return {
+    id: String(row.id),
+    status: String(row.status),
+    payload: asObject(row.payload),
+    title: String(row.title),
+    publishedAt: row.publishedAt ? String(row.publishedAt) : null,
+    sourceId: String(row.sourceId),
+    sourceKey: String(row.sourceKey),
+    sourceName: String(row.sourceName),
+    sourceUrl: String(row.sourceUrl),
+    sourceTrustScore: Number(row.sourceTrustScore ?? 0.5),
+    isPrimarySource: Boolean(row.isPrimarySource),
+    clusterId: row.clusterId ? String(row.clusterId) : null,
+  };
+}
+
+async function ensureManualReviewEvent(
+  tx: any,
+  candidate: SelectionCandidate,
+  selectionMetadata: Record<string, unknown>,
+  actorUserId: string,
+  reason: string,
+) {
+  const classified = classifyCurrentAffairsSignal(candidate.title);
+  const resolvedCategory = category(candidate.payload.categoryGuess, classified.category);
+  const fallbackDate = new Date().toISOString().slice(0, 10);
+  const eventDate = resolveHeadlineReviewDate(candidate.payload, candidate.publishedAt, fallbackDate);
+  const fingerprint = currentAffairsFingerprint({ title: candidate.title, eventDate, category: resolvedCategory });
+  const existing = await tx`
+    SELECT event.id::text AS id, event.status, event.public_code AS "publicCode"
+    FROM content.current_affairs_events event
+    WHERE event.event_fingerprint=${fingerprint}
+       OR EXISTS (
+         SELECT 1 FROM content.current_affairs_event_candidates link
+         WHERE link.event_id=event.id AND link.candidate_id=${candidate.id}::uuid
+       )
+    ORDER BY CASE event.status WHEN 'verified' THEN 0 WHEN 'review' THEN 1 WHEN 'candidate' THEN 2 WHEN 'rejected' THEN 3 ELSE 4 END,
+             event.updated_at DESC
+    LIMIT 1
+  `;
+
+  let eventId = existing[0] ? String(existing[0].id) : randomUUID();
+  let created = false;
+  if (!existing[0]) {
+    created = true;
+    await tx`
+      INSERT INTO content.current_affairs_events (
+        id, public_code, canonical_title, summary, importance_reason,
+        event_date, category, status, verification_confidence,
+        event_fingerprint, valid_from, metadata, created_by, updated_by,
+        created_at, updated_at
+      ) VALUES (
+        ${eventId}::uuid,
+        ${publicCurrentAffairsCode(eventDate)},
+        ${candidate.title}, '',
+        ${`Admin selected this headline for Current Affairs review. Relevance scores remain advisory; verification is still required. ${reason}`.slice(0, 2000)},
+        ${eventDate}::date, ${resolvedCategory}, 'review', 0,
+        ${fingerprint}, ${eventDate}::date,
+        ${JSON.stringify({
+          automationVersion: "ca-cp050-admin-headline-selection",
+          autoPromoted: true,
+          manualEditorialPromoted: true,
+          ...selectionMetadata,
+        })}::jsonb,
+        ${actorUserId}::uuid, ${actorUserId}::uuid, now(), now()
+      )
+    `;
+  } else {
+    await tx`
+      UPDATE content.current_affairs_events
+      SET status=CASE
+            WHEN status='rejected'
+              AND COALESCE((metadata->>'reversibleEditorialExclusion')::boolean, false)=true
+            THEN 'review'
+            ELSE status
+          END,
+          metadata=COALESCE(metadata, '{}'::jsonb) || ${JSON.stringify({
+            autoPromoted: true,
+            manualEditorialPromoted: true,
+            ...selectionMetadata,
+          })}::jsonb,
+          updated_by=${actorUserId}::uuid,
+          updated_at=now()
+      WHERE id=${eventId}::uuid
+    `;
+  }
+
+  await tx`
+    INSERT INTO content.current_affairs_event_candidates (event_id, candidate_id, cluster_id, created_at)
+    VALUES (${eventId}::uuid, ${candidate.id}::uuid, ${candidate.clusterId}::uuid, now())
+    ON CONFLICT DO NOTHING
+  `;
+
+  await tx`
+    INSERT INTO content.current_affairs_event_sources (
+      event_id, source_id, source_url, source_title, source_published_at,
+      is_primary_evidence, evidence_confidence, metadata, created_at
+    ) VALUES (
+      ${eventId}::uuid, ${candidate.sourceId}::uuid, ${candidate.sourceUrl}, ${candidate.title},
+      ${candidate.publishedAt ?? null}::timestamptz, ${candidate.isPrimarySource}, ${candidate.sourceTrustScore},
+      ${JSON.stringify({
+        sourceCandidateId: candidate.id,
+        manualEditorialSelection: true,
+        verificationAuthority: false,
+      })}::jsonb,
+      now()
+    )
+    ON CONFLICT (event_id, source_url) DO UPDATE
+    SET source_title=EXCLUDED.source_title,
+        source_published_at=COALESCE(EXCLUDED.source_published_at, content.current_affairs_event_sources.source_published_at),
+        metadata=content.current_affairs_event_sources.metadata || EXCLUDED.metadata
+  `;
+
+  for (const claim of extractHeadlineFactClaims(candidate.title)) {
+    await tx`
+      INSERT INTO content.current_affairs_fact_claims (
+        id, cluster_id, event_id, candidate_id, source_id,
+        fact_key, fact_value, normalized_value, fact_type, confidence,
+        extraction_method, is_primary_evidence, metadata, created_at
+      ) VALUES (
+        ${randomUUID()}::uuid, ${candidate.clusterId}::uuid, ${eventId}::uuid,
+        ${candidate.id}::uuid, ${candidate.sourceId}::uuid,
+        ${claim.factKey}, ${claim.factValue}, ${claim.normalizedValue}, ${claim.factType},
+        ${claim.confidence}, ${claim.extractionMethod}, ${candidate.isPrimarySource},
+        ${JSON.stringify({
+          source: "headline",
+          claimStage: "manual_editorial_selection",
+          intelligenceVersion: "ca-cp050-admin-headline-selection",
+        })}::jsonb,
+        now()
+      )
+      ON CONFLICT (candidate_id, fact_key, normalized_value) DO UPDATE
+      SET event_id=EXCLUDED.event_id,
+          cluster_id=COALESCE(EXCLUDED.cluster_id, content.current_affairs_fact_claims.cluster_id),
+          source_id=EXCLUDED.source_id,
+          fact_value=EXCLUDED.fact_value,
+          fact_type=EXCLUDED.fact_type,
+          confidence=GREATEST(content.current_affairs_fact_claims.confidence, EXCLUDED.confidence),
+          is_primary_evidence=content.current_affairs_fact_claims.is_primary_evidence OR EXCLUDED.is_primary_evidence,
+          metadata=content.current_affairs_fact_claims.metadata || EXCLUDED.metadata
+    `;
+  }
+
+  const scores = candidateExamScores({
+    title: candidate.title,
+    eventDate,
+    category: resolvedCategory,
+    sourceKey: candidate.sourceKey,
+    sourceUrl: candidate.sourceUrl,
+    sourceTrustScore: candidate.sourceTrustScore,
+    isPrimarySource: candidate.isPrimarySource,
+  });
+  const bestFamily = closestProductFamily(scores);
+  for (const score of scores) {
+    const manualClosestFit = score.examFamily === bestFamily;
+    const reasons = manualClosestFit
+      ? [...score.reasons, `Manual editorial selection override: ${reason}`]
+      : score.reasons;
+    await tx`
+      INSERT INTO content.current_affairs_exam_scores (
+        event_id, exam_family_key, relevance_score, include_recommended, reasons, created_at, updated_at
+      ) VALUES (
+        ${eventId}::uuid, ${score.examFamily}, ${score.score},
+        ${score.includeRecommended || manualClosestFit}, ${JSON.stringify(reasons)}::jsonb, now(), now()
+      )
+      ON CONFLICT (event_id, exam_family_key) DO UPDATE
+      SET include_recommended=(
+            content.current_affairs_exam_scores.include_recommended
+            OR EXCLUDED.include_recommended
+          ),
+          reasons=CASE
+            WHEN EXCLUDED.include_recommended=true
+              AND content.current_affairs_exam_scores.include_recommended=false
+            THEN content.current_affairs_exam_scores.reasons || ${JSON.stringify([`Manual editorial selection override: ${reason}`])}::jsonb
+            ELSE content.current_affairs_exam_scores.reasons
+          END,
+          updated_at=now()
+    `;
+  }
+
+  return {
+    eventId,
+    publicCode: existing[0]?.publicCode ? String(existing[0].publicCode) : null,
+    created,
+    bestProductFamily: bestFamily,
+  };
+}
+
 export async function setCurrentAffairsHeadlineSelection(args: {
   candidateId: string;
   selected: boolean;
@@ -216,13 +480,8 @@ export async function setCurrentAffairsHeadlineSelection(args: {
 }) {
   const selectedAt = new Date().toISOString();
   const reason = args.reason.replace(/\s+/g, " ").trim().slice(0, 1000);
-  const rows = await sqlClient`
-    SELECT id::text AS id, status, payload
-    FROM content.current_affairs_ingestion_candidates
-    WHERE id=${args.candidateId}::uuid
-    LIMIT 1
-  `;
-  if (!rows[0]) throw new Error("Current Affairs headline candidate not found");
+  const candidate = await loadSelectionCandidate(args.candidateId);
+  if (!candidate) throw new Error("Current Affairs headline candidate not found");
 
   const selectionMetadata = {
     manualEditorialSelected: args.selected,
@@ -234,6 +493,7 @@ export async function setCurrentAffairsHeadlineSelection(args: {
     automaticPublicationAuthority: false,
   };
 
+  let eventResult: Awaited<ReturnType<typeof ensureManualReviewEvent>> | null = null;
   await sqlClient.begin(async (tx) => {
     await tx`
       UPDATE content.current_affairs_ingestion_candidates
@@ -250,11 +510,11 @@ export async function setCurrentAffairsHeadlineSelection(args: {
       WHERE id=${args.candidateId}::uuid
     `;
 
-    if (args.selected) {
+    if (args.selected && candidate.clusterId) {
       await tx`
-        UPDATE content.current_affairs_clusters cluster
-        SET status=CASE WHEN cluster.status='rejected' THEN 'open' ELSE cluster.status END,
-            metadata=COALESCE(cluster.metadata, '{}'::jsonb) || ${JSON.stringify({
+        UPDATE content.current_affairs_clusters
+        SET status=CASE WHEN status='rejected' THEN 'open' ELSE status END,
+            metadata=COALESCE(metadata, '{}'::jsonb) || ${JSON.stringify({
               manualEditorialSelected: true,
               manualEditorialSelectedAt: selectedAt,
               manualEditorialSelectedBy: args.actorUserId,
@@ -262,30 +522,38 @@ export async function setCurrentAffairsHeadlineSelection(args: {
               reversibleEditorialExclusion: true,
             })}::jsonb,
             updated_at=now()
-        WHERE EXISTS (
-          SELECT 1 FROM content.current_affairs_cluster_members member
-          WHERE member.cluster_id=cluster.id AND member.candidate_id=${args.candidateId}::uuid
-        )
+        WHERE id=${candidate.clusterId}::uuid
       `;
     }
 
-    await tx`
-      UPDATE content.current_affairs_events event
-      SET status=CASE
-            WHEN ${args.selected}
-              AND event.status='rejected'
-              AND COALESCE((event.metadata->>'reversibleEditorialExclusion')::boolean, false)=true
-            THEN 'review'
-            ELSE event.status
-          END,
-          metadata=COALESCE(event.metadata, '{}'::jsonb) || ${JSON.stringify(selectionMetadata)}::jsonb,
-          updated_by=${args.actorUserId}::uuid,
-          updated_at=now()
-      WHERE EXISTS (
-        SELECT 1 FROM content.current_affairs_event_candidates event_link
-        WHERE event_link.event_id=event.id AND event_link.candidate_id=${args.candidateId}::uuid
-      )
-    `;
+    if (args.selected) {
+      eventResult = await ensureManualReviewEvent(tx, candidate, selectionMetadata, args.actorUserId, reason);
+    } else {
+      const linkedEvents = await tx`
+        SELECT event.id::text AS id
+        FROM content.current_affairs_event_candidates link
+        JOIN content.current_affairs_events event ON event.id=link.event_id
+        WHERE link.candidate_id=${args.candidateId}::uuid
+      `;
+      for (const linked of linkedEvents) {
+        const eventId = String(linked.id);
+        await tx`
+          UPDATE content.current_affairs_events
+          SET metadata=COALESCE(metadata, '{}'::jsonb) || ${JSON.stringify(selectionMetadata)}::jsonb,
+              updated_by=${args.actorUserId}::uuid,
+              updated_at=now()
+          WHERE id=${eventId}::uuid
+        `;
+        await tx`
+          UPDATE content.current_affairs_exam_scores
+          SET include_recommended=(relevance_score >= 65),
+              reasons=reasons || ${JSON.stringify([`Manual editorial selection removed: ${reason}`])}::jsonb,
+              updated_at=now()
+          WHERE event_id=${eventId}::uuid
+            AND exam_family_key IN ('ssc','banking','punjab')
+        `;
+      }
+    }
   });
 
   return {
@@ -293,6 +561,7 @@ export async function setCurrentAffairsHeadlineSelection(args: {
     selected: args.selected,
     reason,
     selectedAt,
+    event: eventResult,
     selectionAuthority: "relevance_override_only",
     verificationAuthority: false,
     publicationAuthority: false,
