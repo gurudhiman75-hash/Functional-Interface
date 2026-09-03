@@ -128,3 +128,5 @@ jobs:
           echo 'CP006/CP008/CP010/CP011/CP012 historical evidence is preserved.'
           echo 'Learner release remains LOCKED pending manual editorial approval.'
           echo 'Question Bank/test/mock/public/automatic learner publication remain disabled.'
+
+# Registration touch after generic English stance-capitalization remediation.
