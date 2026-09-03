@@ -1,6 +1,6 @@
 export const NOTES_SOURCE_DISCOVERY_MAX_QUERIES = 4;
 export const NOTES_SOURCE_DISCOVERY_MAX_RESULTS = 20;
-export const NOTES_SOURCE_DISCOVERY_PROMPT_VERSION = 'notes-source-discovery-v2';
+export const NOTES_SOURCE_DISCOVERY_PROMPT_VERSION = 'notes-source-discovery-v3';
 
 const discoveryStates = new Set([
   'brief',
@@ -23,6 +23,10 @@ const LOW_PRIORITY_DISCOVERY_DOMAINS = [
   'studyiq.com',
   'abhipedia.abhimanu.com',
   'spmiasacademy.com',
+  'flipkart.com',
+  'amazon.in',
+  'amazon.com',
+  'linkedin.com',
 ] as const;
 
 const KNOWN_INSTITUTIONAL_DOMAINS = [
@@ -31,11 +35,54 @@ const KNOWN_INSTITUTIONAL_DOMAINS = [
   'worldbank.org',
 ] as const;
 
+const DISCOVERY_RELEVANCE_STOPWORDS = new Set([
+  'about',
+  'after',
+  'also',
+  'and',
+  'authoritative',
+  'avoid',
+  'blog',
+  'coaching',
+  'context',
+  'current',
+  'day',
+  'exam',
+  'for',
+  'from',
+  'generic',
+  'government',
+  'gk',
+  'india',
+  'indian',
+  'institutional',
+  'major',
+  'material',
+  'notes',
+  'official',
+  'other',
+  'prefer',
+  'present',
+  'primary',
+  'reference',
+  'sources',
+  'source',
+  'static',
+  'their',
+  'through',
+  'with',
+]);
+
 export type NotesSourceDiscoveryCandidate = {
   sourceUri: string;
   domain: string;
   authorityClass: 'government_primary' | 'institutional_reference' | 'web_reference';
   score: number;
+};
+
+export type NotesSourceDiscoveryMetadata = {
+  url: unknown;
+  title?: unknown;
 };
 
 export function sourceDiscoveryAllowed(state: unknown): boolean {
@@ -147,6 +194,75 @@ export function sourceDiscoveryScore(domain: string, authorityClass: NotesSource
   if (authorityClass === 'government_primary') return 100;
   if (authorityClass === 'institutional_reference') return 70;
   return 40;
+}
+
+function canonicalDiscoveryToken(value: string): string {
+  const token = value.toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (token.endsWith('ies') && token.length > 5) return `${token.slice(0, -3)}y`;
+  if (token.endsWith('s') && token.length > 5 && !token.endsWith('ss')) return token.slice(0, -1);
+  return token;
+}
+
+function discoveryTokens(value: unknown): string[] {
+  if (typeof value !== 'string') return [];
+  return (value.match(/[A-Za-z0-9]+/g) ?? [])
+    .map(canonicalDiscoveryToken)
+    .filter(Boolean);
+}
+
+export function sourceDiscoveryAnchorTerms(value: unknown): string[] {
+  const seen = new Set<string>();
+  const anchors: string[] = [];
+  for (const token of discoveryTokens(value)) {
+    if (token.length < 4 || DISCOVERY_RELEVANCE_STOPWORDS.has(token) || seen.has(token)) continue;
+    seen.add(token);
+    anchors.push(token);
+  }
+  return anchors.slice(0, 24);
+}
+
+export function sourceDiscoveryRelevanceMatches(input: {
+  sourceUri: string;
+  title?: unknown;
+  anchorTerms: string[];
+}): number {
+  if (input.anchorTerms.length === 0) return 0;
+  const haystack = new Set(discoveryTokens(`${input.sourceUri} ${typeof input.title === 'string' ? input.title : ''}`));
+  return input.anchorTerms.reduce((count, term) => count + (haystack.has(term) ? 1 : 0), 0);
+}
+
+export function rankDiscoveredSourceMetadata(
+  values: NotesSourceDiscoveryMetadata[],
+  relevanceFocus: unknown,
+): NotesSourceDiscoveryCandidate[] {
+  const anchorTerms = sourceDiscoveryAnchorTerms(relevanceFocus);
+  const seen = new Set<string>();
+  const candidates: NotesSourceDiscoveryCandidate[] = [];
+
+  for (const value of values) {
+    const sourceUri = normalizeDiscoveredSourceUrl(value?.url);
+    if (!sourceUri || seen.has(sourceUri)) continue;
+    seen.add(sourceUri);
+    const domain = sourceDiscoveryDomain(sourceUri);
+    const authorityClass = sourceDiscoveryAuthorityClass(domain);
+    const relevanceMatches = sourceDiscoveryRelevanceMatches({
+      sourceUri,
+      title: value?.title,
+      anchorTerms,
+    });
+
+    if (anchorTerms.length > 0) {
+      if (relevanceMatches === 0) continue;
+      if (authorityClass === 'web_reference' && relevanceMatches < 2) continue;
+    }
+
+    const score = sourceDiscoveryScore(domain, authorityClass) + Math.min(relevanceMatches, 8) * 5;
+    candidates.push({ sourceUri, domain, authorityClass, score });
+  }
+
+  return candidates
+    .sort((a, b) => b.score - a.score || a.domain.localeCompare(b.domain) || a.sourceUri.localeCompare(b.sourceUri))
+    .slice(0, NOTES_SOURCE_DISCOVERY_MAX_RESULTS);
 }
 
 export function rankDiscoveredSourceUrls(values: unknown[]): NotesSourceDiscoveryCandidate[] {
