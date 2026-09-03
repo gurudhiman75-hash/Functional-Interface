@@ -54,6 +54,21 @@ assert.match(paAppointment.localizedTitle ?? "", /ਨਿਯੁਕਤੀ/u);
 assert.match(paAppointment.localizedSummary ?? "", /Ravi Shankar/);
 assert.equal(paAppointment.quality.expectedScriptPresent, true);
 
+const datedAppointmentBase = {
+  ...appointmentBase,
+  eventId: "event-date-1",
+  authoringVersionId: "authoring-date-1",
+  sourceSummary: "On 1 September 2026, Ravi Shankar was appointed Executive Director.",
+} as const;
+const hiDatedAppointment = localizeCurrentAffairsAuthoring({ ...datedAppointmentBase, languageCode: "hi" });
+assert.equal(hiDatedAppointment.status, "ready");
+assert.match(hiDatedAppointment.localizedSummary ?? "", /^1 सितंबर 2026 को/u);
+assert.equal(hiDatedAppointment.quality.sharedTranslationQuality.errorCount, 0);
+const paDatedAppointment = localizeCurrentAffairsAuthoring({ ...datedAppointmentBase, languageCode: "pa" });
+assert.equal(paDatedAppointment.status, "ready");
+assert.match(paDatedAppointment.localizedSummary ?? "", /^1 ਸਤੰਬਰ 2026 ਨੂੰ/u);
+assert.equal(paDatedAppointment.quality.sharedTranslationQuality.errorCount, 0);
+
 const rates: CurrentAffairsLocalizationInput = {
   eventId: "event-2",
   authoringVersionId: "authoring-2",
@@ -154,6 +169,16 @@ assert.match(hiOfficialAction.localizedSummary ?? "", /Rs 100 crore/);
 assert.equal(hiOfficialAction.quality.missingCanonicalFacts.length, 0);
 assert.equal(hiOfficialAction.quality.sharedTranslationQuality.approvable, true);
 
+const datedOfficialAction = localizeCurrentAffairsAuthoring({
+  ...officialAction,
+  eventId: "event-date-2",
+  authoringVersionId: "authoring-date-2",
+  sourceSummary: "On 31 August 2026, Raksha Mantri & UP Chief Minister performed Bhoomi Pujan for 14 development projects worth over Rs 100 crore at Lucknow Cantonment.",
+});
+assert.equal(datedOfficialAction.status, "ready");
+assert.match(datedOfficialAction.localizedSummary ?? "", /^31 अगस्त 2026 को/u);
+assert.equal(datedOfficialAction.quality.sharedTranslationQuality.errorCount, 0);
+
 const genericPunjabi: CurrentAffairsLocalizationInput = {
   eventId: "event-7",
   authoringVersionId: "authoring-7",
@@ -188,15 +213,15 @@ assert.ok(genericManualParity.missingCanonicalFacts.some((item) => item.key === 
 assert.ok(genericManualParity.missingCanonicalFacts.some((item) => item.key === "effective_date"));
 
 const appointmentFingerprintInput: CurrentAffairsLocalizationInput = { ...appointmentBase, languageCode: "hi" };
-assert.equal(
+assert.notEqual(
   localizationInputFingerprint(appointmentFingerprintInput),
   legacyLocalizationFingerprint(appointmentFingerprintInput),
-  "existing CP010 templates must retain their fingerprint and avoid unnecessary rewrites",
+  "CP058 must invalidate older localization fingerprints so date-blocked rows are regenerated",
 );
 assert.notEqual(
   localizationInputFingerprint(genericPunjabi),
   legacyLocalizationFingerprint(genericPunjabi),
-  "CP035 generic templates must invalidate the old needs-editorial fingerprint",
+  "CP058 must invalidate generic localization fingerprints as well",
 );
 
 const unsupported = localizeCurrentAffairsAuthoring({
@@ -212,4 +237,4 @@ const unsupported = localizeCurrentAffairsAuthoring({
 assert.equal(unsupported.status, "needs_editorial");
 assert.equal(unsupported.localizedTitle, undefined);
 
-console.log("Current Affairs Studio CP035 multilingual localization recovery contracts passed");
+console.log("Current Affairs Studio CP058 multilingual localization date-parity contracts passed");
