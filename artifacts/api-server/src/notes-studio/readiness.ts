@@ -62,26 +62,30 @@ export async function refreshNotesAuthoringReadiness(jobId: string, actorUserId:
           FROM content.note_coverage_plan_items item
           WHERE item.job_id = ${jobId}::uuid
             AND item.priority IN ('required', 'high')
-            AND NOT EXISTS (
-              SELECT 1
-              FROM content.note_coverage_item_claims coverage_claim
-              JOIN content.note_source_claims claim
-                ON claim.job_id = coverage_claim.job_id AND claim.id = coverage_claim.claim_id
-              WHERE coverage_claim.job_id = item.job_id
-                AND coverage_claim.coverage_item_id = item.id
-                AND claim.state = 'accepted'
-                AND EXISTS (
-                  SELECT 1
-                  FROM content.note_source_claim_evidence mapping
-                  JOIN content.note_source_evidence_blocks block
-                    ON block.job_id = mapping.job_id AND block.id = mapping.evidence_block_id
-                  JOIN content.note_authoring_sources link
-                    ON link.job_id = block.job_id AND link.source_document_id = block.source_document_id
-                  WHERE mapping.job_id = claim.job_id
-                    AND mapping.claim_id = claim.id
-                    AND mapping.relation = 'supports'
-                    AND link.inclusion_state = 'included'
-                )
+            AND (
+              item.coverage_review_state <> 'confirmed'
+              OR item.coverage_review_claim_ids = ''
+              OR item.coverage_review_claim_ids <> COALESCE((
+                SELECT string_agg(claim.id::text, ',' ORDER BY claim.id::text)
+                FROM content.note_coverage_item_claims coverage_claim
+                JOIN content.note_source_claims claim
+                  ON claim.job_id = coverage_claim.job_id AND claim.id = coverage_claim.claim_id
+                WHERE coverage_claim.job_id = item.job_id
+                  AND coverage_claim.coverage_item_id = item.id
+                  AND claim.state = 'accepted'
+                  AND EXISTS (
+                    SELECT 1
+                    FROM content.note_source_claim_evidence mapping
+                    JOIN content.note_source_evidence_blocks block
+                      ON block.job_id = mapping.job_id AND block.id = mapping.evidence_block_id
+                    JOIN content.note_authoring_sources link
+                      ON link.job_id = block.job_id AND link.source_document_id = block.source_document_id
+                    WHERE mapping.job_id = claim.job_id
+                      AND mapping.claim_id = claim.id
+                      AND mapping.relation = 'supports'
+                      AND link.inclusion_state = 'included'
+                  )
+              ), '')
             )
         ) AS core_covered
       FROM content.note_authoring_jobs job
