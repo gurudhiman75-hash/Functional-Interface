@@ -126,7 +126,7 @@ const nextDayAnnouncement = authorSourceIndependentEvent({
   eventDate: "2026-08-31",
   category: "economy_banking",
   sourceKey: "rbi",
-  sourceTitle: "7-day Variable Rate Reverse Repo auction under LAF on September 01, 2026",
+  sourceTitle: "RBI liquidity operations notice for September 2026",
   facts: [
     { key: "acting_entity", value: "Reserve Bank of India" },
     { key: "official_action", value: "announces" },
@@ -159,7 +159,7 @@ const scheduledConduct = authorSourceIndependentEvent({
   eventDate: "2026-08-31",
   category: "economy_banking",
   sourceKey: "rbi",
-  sourceTitle: "RBI to conduct 7-day Variable Rate Reverse Repo auction under LAF on September 01, 2026",
+  sourceTitle: "RBI liquidity operations calendar for September 2026",
   facts: [
     { key: "acting_entity", value: "RBI" },
     { key: "official_action", value: "scheduled conduct" },
@@ -169,6 +169,22 @@ const scheduledConduct = authorSourceIndependentEvent({
 assert.equal(scheduledConduct.status, "ready");
 assert.match(scheduledConduct.summary ?? "", /announced that it would conduct 7-day Variable Rate Reverse Repo/);
 assert.doesNotMatch(scheduledConduct.summary ?? "", /scheduled conduct/i);
+
+const nearCopyOfficialAction = authorSourceIndependentEvent({
+  eventId: "event-near-copy-action",
+  eventDate: "2026-08-31",
+  category: "economy_banking",
+  sourceKey: "rbi",
+  sourceTitle: "7-day Variable Rate Reverse Repo auction under LAF on September 01, 2026",
+  facts: [
+    { key: "acting_entity", value: "Reserve Bank of India" },
+    { key: "official_action", value: "announces" },
+    { key: "action_subject", value: "7-day Variable Rate Reverse Repo auction under LAF on September 01, 2026" },
+  ],
+});
+assert.equal(nearCopyOfficialAction.status, "needs_editorial");
+assert.equal(nearCopyOfficialAction.title, undefined);
+assert.ok(nearCopyOfficialAction.reasons.some((reason) => /too similar to the source title/i.test(reason)));
 
 const greenForge = authorSourceIndependentEvent({
   eventId: "event-green-forge",
