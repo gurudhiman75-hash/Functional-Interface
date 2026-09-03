@@ -1,0 +1,84 @@
+name: Validate SPA FFM-001 End-to-End V1
+
+on:
+  push:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/figure-formation-*.ts"
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v10.ts"
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v6.ts"
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v6.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/figure-formation-ffm-001-v1.test.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-spatial-v6.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-spatial-workflow.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine-sri.ts"
+      - ".github/workflows/spa-ffm-001-v1.yml"
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/figure-formation-*.ts"
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v10.ts"
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v6.ts"
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v6.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/figure-formation-ffm-001-v1.test.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-spatial-v6.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-spatial-workflow.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine-sri.ts"
+      - ".github/workflows/spa-ffm-001-v1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: spa-ffm-001-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin Question Studio UI
+        run: pnpm --dir artifacts/admin-app typecheck
+
+      - name: Bundle FFM-001 proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/figure-formation-ffm-001-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/spatial/figure-formation-ffm-001-v1.test.mjs
+
+      - name: Run FFM-001 proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/figure-formation-ffm-001-v1.test.mjs 2>&1 \
+            | tee dist/reasoning-v1/spatial/ffm-001-end-to-end-v1-run.log
+
+      - name: Upload FFM-001 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-ffm-001-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/ffm-001-end-to-end-v1-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/ffm-001-end-to-end-v1-run.log
+          if-no-files-found: error
