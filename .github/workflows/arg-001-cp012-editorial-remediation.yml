@@ -6,15 +6,17 @@ on:
       - feature/arg-001-cp012-editorial-remediation
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/CP012-*'
       - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp012.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
       - '.github/workflows/arg-001-cp012-editorial-remediation.yml'
   pull_request:
     branches:
       - New-main
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize, ready_for_review]
     paths:
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/CP012-*'
       - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp012.ts'
       - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
       - '.github/workflows/arg-001-cp012-editorial-remediation.yml'
