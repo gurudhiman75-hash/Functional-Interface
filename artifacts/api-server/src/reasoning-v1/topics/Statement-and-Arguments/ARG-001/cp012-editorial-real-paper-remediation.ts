@@ -261,7 +261,7 @@ function combinationOptions(locale: ArgLocale, strengths: readonly ArgStrength[]
   const choices: number[][] = [correct];
   const offset = positiveModulo(seed * 7 + count * 11, subsets.length);
   for (let step = 0; choices.length < 5 && step < subsets.length * 2; step += 1) {
-    const next = subsets[(offset + step * 5) % subsets.length]!;
+    const next = subsets[(offset + step * 3) % subsets.length]!;
     if (!choices.some((entry) => subsetKey(entry) === subsetKey(next))) choices.push(next);
   }
   if (choices.length !== 5) throw new Error("ARG-001 CP012 could not construct five unique combination options");
@@ -428,9 +428,6 @@ export function generateArgCp012RealPaperQuestion(input: {
     });
   }
 
-  // CP012 deliberately derives combination surfaces from the correlated four-argument
-  // source so 3x5 can choose across all four semantically coherent candidates instead
-  // of inheriting the historical difficulty->cardinality shortcut.
   const source = generateArgCp010RealPaperQuestion({
     qlId: input.qlId,
     locale,
@@ -454,16 +451,12 @@ export function generateArgCp012RealPaperQuestion(input: {
   let cardinalityMode: string;
 
   if (input.profile === "BANKING_COMBO_3X5") {
-    // Omitting each of the four S/W/S/W candidates in turn yields both one-strong
-    // and two-strong three-argument surfaces at every requested difficulty.
     const omitIndex = positiveModulo(Math.floor(input.seed / 4) + (input.difficulty === "Hard" ? 1 : 0), 4);
     argumentsList = argumentsList.filter((_, index) => index !== omitIndex);
     strengths = strengths.filter((_, index) => index !== omitIndex);
     reasons = reasons.filter((_, index) => index !== omitIndex);
     cardinalityMode = `THREE_ARGUMENT_OMIT_${ROMAN[omitIndex]}`;
   } else {
-    // 4x5 historically always had exactly two strong arguments. CP012 cycles
-    // 1/2/3-strong states within the same correlated scenario family.
     const mode = positiveModulo(Math.floor(input.seed / 4), 3);
     if (mode === 1) {
       const weakIndex = strengths.findIndex((strength) => strength === "WEAK");
