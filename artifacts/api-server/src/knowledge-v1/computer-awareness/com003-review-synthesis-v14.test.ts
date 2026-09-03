@@ -2,7 +2,7 @@ import { strict as assert } from "node:assert";
 import { COM003_PERMANENT_QLS } from "./com003-permanent-ql-allocation";
 import { COM003_ENGLISH_REVIEW_CORPUS_V14, auditCom003V14StemUniqueness, buildCom003EnglishReviewCorpusV14 } from "./com003-review-synthesis-v14";
 
-const BANNED_AWKWARD_STEM = /(?:is described as|refers to which|what is is|shortcut for start|Windows desktop version|keyboard shortcut|as applicable|configured\/common|basic numeric-count context|merged outputs|recipient\/data-source|supplied set or range|evenly ordered intervals|individual items or categories|example or description|quickest keyboard|key combination|practical effect|correct choice|correctly represents|\bis can be\b|\bfor supplies\b|\bfor contains\b|\bin the\?|Excel row or column operation|print workflow|page\/screen|starting design\/structure|\bappropriate\b|\baction\b|\btask\b|\brequirement\b|\binvokes?\b)/i;
+const BANNED_AWKWARD_STEM = /(?:is described as|refers to which|what is is|shortcut for start|Windows desktop version|keyboard shortcut|as applicable|configured\/common|basic numeric-count context|merged outputs|recipient\/data-source|supplied set or range|evenly ordered intervals|individual items or categories|example or description|quickest keyboard|key combination|practical effect|correct choice|correctly represents|\bis can be\b|\bfor supplies\b|\bfor contains\b|\bin the\?|Excel row or column operation|print workflow|page\/screen|starting design\/structure|\bappropriate\b|\baction\b|\btask\b|\brequirement\b|\binvokes?\b|\bis used for what\b|What Excel command or option|which of the following shortcuts|shortcut should be pressed)/i;
 const REDUNDANT_APP_WORDING = /(?:In Microsoft Excel, (?:which|what) Excel\b|In Microsoft Word, (?:which|what) Word\b|In Microsoft PowerPoint, (?:which|what) PowerPoint\b)/i;
 
 assert.equal(COM003_ENGLISH_REVIEW_CORPUS_V14.length, 228);
@@ -47,10 +47,11 @@ assert.deepEqual(
 );
 
 const shortcutQuestions = COM003_ENGLISH_REVIEW_CORPUS_V14.filter((q) => /SHORTCUT|SLIDESHOW/i.test(q.surfaceMode));
-assert.ok(shortcutQuestions.some((q) => /Which (?:of the following )?shortcut(?:s)? is used to/i.test(q.stem)));
+assert.ok(shortcutQuestions.some((q) => /Which shortcut is used to/i.test(q.stem)));
 assert.ok(shortcutQuestions.some((q) => /(?:Ctrl\+|Alt\+|F\d+)/i.test(q.stem) && /(?:used for|what does|what happens|shortcut for|performed by)/i.test(q.stem)));
 assert.ok(COM003_ENGLISH_REVIEW_CORPUS_V14.some((q) => /How is an Excel cell address written/i.test(q.stem)));
 assert.ok(COM003_ENGLISH_REVIEW_CORPUS_V14.some((q) => /Which (?:Excel )?function counts cells containing numbers/i.test(q.stem)));
+assert.ok(COM003_ENGLISH_REVIEW_CORPUS_V14.some((q) => /What is AutoFill used for in Excel/i.test(q.stem)));
 
 console.log("[COM003-V14]", {
   questions: 228,
