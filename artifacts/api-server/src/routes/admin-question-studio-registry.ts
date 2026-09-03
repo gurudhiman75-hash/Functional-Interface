@@ -2,6 +2,7 @@ import { Router, type IRouter } from "express";
 
 import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk-hardening";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
+import adminQuestionStudioArgumentsCp013Router from "./admin-question-studio-arguments-cp013";
 import adminQuestionStudioArgumentsCp012Router from "./admin-question-studio-arguments-cp012";
 import adminQuestionStudioArgumentsCp010Router from "./admin-question-studio-arguments-cp010";
 import adminQuestionStudioArgumentsCp007Router from "./admin-question-studio-arguments-cp007-v2";
@@ -34,17 +35,19 @@ import adminQuestionStudioRouter from "./admin-question-studio";
  * firing whenever one Question Studio package is added or reordered.
  *
  * Order is intentional: hardening/specialized additive routers must run before
- * the legacy catch-all router at the bottom. ARG-001 CP012 is now the current
- * editorial-remediation review authority. It keeps ordinary/core generation on
- * the CP009 remediated corpus and supersedes the CP010 real-paper path with the
- * CP012 correlated-copy plus answer-cardinality anti-gaming remediation.
- * CP010/CP007/CP005 remain mounted behind CP012 as historical fallbacks and are
- * not the active path for a recognized ARG-001 request.
+ * the legacy catch-all router at the bottom. ARG-001 CP013 is now the current
+ * final editorial review authority. It preserves CP009 as the core semantic
+ * source and CP012 as the real-paper semantic source, while repairing the
+ * learner-facing correlation, polarity, grammar and multi-argument option-copy
+ * defects exposed by the deterministic CP012 review packet. CP012/CP010/CP007/
+ * CP005 remain mounted behind CP013 as historical fallbacks and are not the
+ * active path for a recognized ARG-001 request.
  */
 const router: IRouter = Router();
 
 router.use(adminQuestionStudioBulkHardeningRouter);
 router.use(adminQuestionStudioQualityRouter);
+router.use(adminQuestionStudioArgumentsCp013Router);
 router.use(adminQuestionStudioArgumentsCp012Router);
 router.use(adminQuestionStudioArgumentsCp010Router);
 router.use(adminQuestionStudioArgumentsCp007Router);
