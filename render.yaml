@@ -57,9 +57,11 @@ services:
         value: gemini-3.6-flash
       - key: NOTES_STUDIO_EVIDENCE_MODEL
         value: gemini-3.6-flash
-      # No implicit older-model fallback is declared here. The shared Gemini adapter
-      # retries transient 3.6 capacity failures and uses another model only when an
-      # operator deliberately configures GEMINI_FALLBACK_MODEL.
+      # If Gemini 3.6 remains transiently unavailable after the bounded retry policy,
+      # use the stable GA 3.5 Flash model for that one authoring request. This is a
+      # capacity fallback only; 3.6 remains primary and Gemini 2.5 is never selected.
+      - key: GEMINI_FALLBACK_MODEL
+        value: gemini-3.5-flash
 
       # Web Discovery is intentionally decoupled from the authoring model provider.
       # Tavily returns bounded search results; Notes Studio keeps URLs only and discards
