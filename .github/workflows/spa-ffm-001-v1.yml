@@ -38,6 +38,10 @@ jobs:
   validate:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    env:
+      # The proof imports the route's pure payload adapter. postgres.js only needs
+      # a syntactically valid URL at module initialization; the proof never opens a connection.
+      DATABASE_URL: postgres://ffm_proof:ffm_proof@127.0.0.1:5432/ffm_proof
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
