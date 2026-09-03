@@ -171,16 +171,55 @@ jobs:
             --outfile=dist/arg-001-cp010-correlated-proof.mjs
           node dist/arg-001-cp010-correlated-proof.mjs
 
-      - name: Prove current Question Studio routing and lifecycle locks
+      - name: Capture current Question Studio routing and lifecycle proof
+        id: question_studio_proof
         working-directory: artifacts/api-server
         run: |
+          set +e
           pnpm exec esbuild \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-question-studio-proof.test.ts \
             --bundle \
             --platform=node \
             --format=esm \
-            --outfile=dist/arg-001-cp010-question-studio-proof.mjs
-          node dist/arg-001-cp010-question-studio-proof.mjs
+            --outfile=dist/arg-001-cp010-question-studio-proof.mjs \
+            > cp010-question-studio-proof.log 2>&1
+          build_status=$?
+
+          if [[ "$build_status" -eq 0 ]]; then
+            node dist/arg-001-cp010-question-studio-proof.mjs >> cp010-question-studio-proof.log 2>&1
+            proof_status=$?
+          else
+            proof_status=$build_status
+          fi
+          set -e
+
+          echo "$proof_status" > cp010-question-studio-proof.status
+          cat cp010-question-studio-proof.log
+          {
+            echo '## ARG-001 CP010 Question Studio proof diagnostics'
+            echo
+            echo "Proof exit code: ${proof_status}"
+            echo
+            echo '```text'
+            cat cp010-question-studio-proof.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "status=$proof_status" >> "$GITHUB_OUTPUT"
+
+      - name: Upload CP010 Question Studio proof diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arg-001-cp010-question-studio-proof-diagnostics
+          path: |
+            artifacts/api-server/cp010-question-studio-proof.log
+            artifacts/api-server/cp010-question-studio-proof.status
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Enforce current Question Studio routing and lifecycle proof
+        if: steps.question_studio_proof.outputs.status != '0'
+        run: exit 1
 
       - name: Preserve exact CP006 historical core freeze
         run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts
