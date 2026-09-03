@@ -17,6 +17,10 @@ import {
   isOneDayOfficialRescueMatch,
   previousCalendarDate,
 } from "./one-day-rescue-policy";
+import {
+  selectedAffairsProcessingBlockers,
+  selectedAffairsProcessingStage,
+} from "./selected-affairs-processing-policy";
 
 const rss = `<?xml version="1.0"?>
 <rss><channel>
@@ -180,6 +184,57 @@ const rbiAliasRescue = isOneDayOfficialRescueMatch(
 assert.equal(rbiAliasRescue.matched, true);
 assert.ok(headlineRescueTerms("Reserve Bank of India announces policy").includes("rbi"));
 
+// CP-053: Process Selected may advance clean events but must expose every gate
+// instead of treating admin selection as verification or publication authority.
+const processReady = {
+  reviewEventPresent: true,
+  eventStatus: "verified",
+  verifiedFactCount: 4,
+  openConflictCount: 0,
+  officialEvidenceCount: 1,
+  supportedOfficialEvidenceCount: 1,
+  enrichmentFailureCount: 0,
+  authoringStatus: "ready",
+  hindiStatus: "ready",
+  punjabiStatus: "manual",
+};
+assert.deepEqual(selectedAffairsProcessingBlockers(processReady), []);
+assert.equal(selectedAffairsProcessingStage(processReady), "ready");
+
+const processUnsupportedOfficial = {
+  ...processReady,
+  eventStatus: "review",
+  verifiedFactCount: 0,
+  officialEvidenceCount: 1,
+  supportedOfficialEvidenceCount: 0,
+  authoringStatus: "pending",
+  hindiStatus: "missing",
+  punjabiStatus: "missing",
+};
+assert.deepEqual(
+  selectedAffairsProcessingBlockers(processUnsupportedOfficial),
+  ["official_source_not_automatically_supported", "verification_required"],
+);
+assert.equal(selectedAffairsProcessingStage(processUnsupportedOfficial), "verification");
+
+const processConflict = {
+  ...processReady,
+  openConflictCount: 1,
+};
+assert.ok(selectedAffairsProcessingBlockers(processConflict).includes("fact_conflict"));
+assert.equal(selectedAffairsProcessingStage(processConflict), "verification");
+
+const processLocalizationPending = {
+  ...processReady,
+  hindiStatus: "missing",
+  punjabiStatus: "needs_editorial",
+};
+assert.deepEqual(
+  selectedAffairsProcessingBlockers(processLocalizationPending),
+  ["hindi_needs_editorial", "punjabi_needs_editorial"],
+);
+assert.equal(selectedAffairsProcessingStage(processLocalizationPending), "localization");
+
 const keywords = discoveryKeywords(
   "Reserve Bank announces digital payments framework for regulated payment entities",
 );
@@ -219,4 +274,4 @@ assert.equal(
   pdfCandidateDedupeKey("THE_HINDU", "a".repeat(64), "Example headline"),
 );
 
-console.log("Current Affairs Studio CP-049/050/052 ingestion, review visibility and one-day rescue contracts passed");
+console.log("Current Affairs Studio CP-049/050/052/053 ingestion, review, rescue and selected-processing contracts passed");

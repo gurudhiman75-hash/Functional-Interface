@@ -176,6 +176,23 @@ async function reconcileOneEvent(eventId: string) {
     conflictCount: result.conflicts.length,
     openConflictCount: verification.openConflictCount,
     verified: verification.allowed,
+    verificationReason: verification.reason,
+  };
+}
+
+export async function reconcilePrimaryEnrichedEventIds(eventIdsInput: string[]) {
+  const eventIds = [...new Set(eventIdsInput.map(String).filter(Boolean))].slice(0, 300);
+  const results = [];
+  for (const eventId of eventIds) {
+    results.push(await reconcileOneEvent(eventId));
+  }
+  return {
+    requested: eventIds.length,
+    reconciled: results.length,
+    verified: results.filter((item) => item.verified).length,
+    heldForReview: results.filter((item) => !item.verified).length,
+    results,
+    scope: "explicit_event_ids",
   };
 }
 

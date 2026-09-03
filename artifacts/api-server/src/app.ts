@@ -8,6 +8,7 @@ import { logger } from "./lib/logger";
 import billingWebhookHandler from "./routes/billing-webhook";
 import adminCurrentAffairsProductionOpsRouter from "./routes/admin-current-affairs-production-ops";
 import adminCurrentAffairsEditorialActivationRouter from "./routes/admin-current-affairs-editorial-activation";
+import adminCurrentAffairsSelectedProcessingRouter from "./routes/admin-current-affairs-selected-processing";
 import { webhookRateLimit } from "./middlewares/rateLimit";
 import { adminRequestObservability } from "./middlewares/admin-request-observability";
 
@@ -91,6 +92,7 @@ app.get("/health", (_req, res) => {
 // are exposed here.
 app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAffairsProductionOpsRouter);
 app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAffairsEditorialActivationRouter);
+app.use("/api/admin/current-affairs", adminRequestObservability, adminCurrentAffairsSelectedProcessingRouter);
 app.use("/api", adminRequestObservability, router);
 
 // ── Serve frontend static files ───────────────────────────────────────────────
