@@ -3,7 +3,12 @@ import { Router, type IRouter, type Response } from 'express';
 import { requireAdminPermission } from '../lib/admin-rbac';
 import { sqlClient } from '../lib/db';
 import { authenticate } from '../middlewares/auth';
-import { coverageStatusFromClaimStates, type CoverageClaimState } from '../notes-studio/evidence-map';
+import {
+  coverageAcceptedClaimKey,
+  coverageStatusFromEditorialReview,
+  type CoverageClaimReviewLink,
+  type CoverageClaimState,
+} from '../notes-studio/evidence-map';
 import {
   MAX_GAP_SOURCE_RECOMMENDATIONS_PER_ITEM,
   MAX_GAP_SOURCE_RECOMMENDATIONS_TOTAL,
@@ -61,7 +66,9 @@ async function loadJob(jobId: string) {
 async function loadCoreGaps(jobId: string) {
   const items = await sqlClient`
     SELECT id::text AS id, title, syllabus_ref AS "syllabusRef", priority, planned_depth AS "plannedDepth",
-           exam_rationale AS "examRationale", sort_order AS "sortOrder"
+           exam_rationale AS "examRationale", sort_order AS "sortOrder",
+           coverage_review_state AS "coverageReviewState",
+           coverage_review_claim_ids AS "coverageReviewClaimIds"
     FROM content.note_coverage_plan_items
     WHERE job_id = ${jobId}::uuid
       AND priority IN ('required', 'high')
@@ -95,10 +102,19 @@ async function loadCoreGaps(jobId: string) {
   }
   return items.map((item) => {
     const claimLinks = byItem.get(String(item.id)) ?? [];
-    const states = claimLinks.map((claim) =>
-      claim.hasActiveSupport ? String(claim.state) as CoverageClaimState : 'rejected' as CoverageClaimState,
+    const normalizedLinks: CoverageClaimReviewLink[] = claimLinks.map((claim) => ({
+      claimId: String(claim.claimId ?? ''),
+      state: String(claim.state ?? 'rejected') as CoverageClaimState,
+      hasActiveSupport: claim.hasActiveSupport === true,
+    }));
+    const states = normalizedLinks.map((claim) =>
+      claim.hasActiveSupport ? claim.state : 'rejected' as CoverageClaimState,
     );
-    return { ...item, status: coverageStatusFromClaimStates(states) };
+    const currentClaimKey = coverageAcceptedClaimKey(normalizedLinks);
+    const coverageReviewCurrent = String(item.coverageReviewState) === 'confirmed'
+      && currentClaimKey.length > 0
+      && String(item.coverageReviewClaimIds ?? '') === currentClaimKey;
+    return { ...item, status: coverageStatusFromEditorialReview(states, coverageReviewCurrent) };
   }).filter((item) => item.status !== 'covered');
 }
 
