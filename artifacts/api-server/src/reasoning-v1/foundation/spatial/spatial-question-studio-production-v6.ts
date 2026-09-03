@@ -11,10 +11,10 @@ import {
   type SpatialQuestionStudioPermanentQlIdV6,
 } from "./spatial-question-studio-integration-v6";
 import {
-  generateFigureFormationQuestionStudioV1,
-  type FigureFormationQuestionStudioQuestionV1,
-  type FigureFormationLanguageV1,
-} from "./figure-formation-question-studio-v1";
+  generateFigureFormationQuestionStudioV2,
+  type FigureFormationQuestionStudioQuestionV2,
+} from "./figure-formation-question-studio-v2";
+import type { FigureFormationLanguageV1 } from "./figure-formation-question-studio-v1";
 import type { FigureFormationPermanentQlIdV10 } from "./spatial-permanent-ql-allocation-v10";
 import type { SpatialQuestionStudioLanguageV1 } from "./spatial-question-studio-localization-v1";
 
@@ -30,7 +30,7 @@ type WithCurrentIntegrationAuthority<T> = Omit<T, "integrationAuthority"> & {
 
 export type SpatialProductionStudioQuestionV6 =
   | WithCurrentIntegrationAuthority<SpatialProductionStudioQuestionV5>
-  | (FigureFormationQuestionStudioQuestionV1 & {
+  | (FigureFormationQuestionStudioQuestionV2 & {
       integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V6.integrationAuthority;
     });
 
@@ -50,7 +50,7 @@ export function generateSpatialProductionStudioQuestionV6(input: Readonly<{
 }>): SpatialProductionStudioQuestionV6 {
   const language = input.language ?? "en";
   if (isFigureFormationQuestionStudioQlIdV6(input.qlId)) {
-    const current = generateFigureFormationQuestionStudioV1({
+    const current = generateFigureFormationQuestionStudioV2({
       qlId: input.qlId,
       seed: input.seed,
       language: language as FigureFormationLanguageV1,
