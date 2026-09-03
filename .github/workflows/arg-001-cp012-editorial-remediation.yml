@@ -61,7 +61,8 @@ jobs:
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-editorial-real-paper-remediation.ts \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-editorial-real-paper-proof.test.ts \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-question-studio-adapter.ts \
-            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-question-studio-proof.test.ts
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-question-studio-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-review-sample-dump.ts
 
       - name: Prove CP012 real-paper editorial remediation and cardinality anti-gaming
         working-directory: artifacts/api-server
@@ -80,6 +81,15 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/arg-001-cp012-question-studio-proof.mjs
           node dist/arg-001-cp012-question-studio-proof.mjs
+
+      - name: Emit deterministic CP012 learner-facing review samples
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-review-sample-dump.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp012-review-samples.mjs
+          node dist/arg-001-cp012-review-samples.mjs
 
       - name: Preserve CP010 correlated real-paper historical proof
         working-directory: artifacts/api-server
