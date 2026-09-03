@@ -40,6 +40,14 @@ function cleanDirectStem(input: string) {
       "What is an individual page of a PowerPoint presentation called?")
     .replace(/^In PowerPoint, what is an individual presentation page\/screen within a PowerPoint presentation called\?$/i,
       "In PowerPoint, what is an individual presentation page called?")
+    .replace(/^Which Microsoft Word term refers to a word-processing document rather than a worksheet or slide presentation\?$/i,
+      "What is a file created in Microsoft Word called?")
+    .replace(/^Which Excel range represents the continuous range from A1 to A5\?$/i,
+      "Which notation represents the range from A1 to A5 in Excel?")
+    .replace(/^In Excel, what is an Excel file that can contain one or more worksheets called\?$/i,
+      "In Excel, what is a file that can contain one or more worksheets called?")
+    .replace(/^In Excel, what is a worksheet made of rows and columns within a workbook called\?$/i,
+      "In Excel, what is a sheet made of rows and columns within a workbook called?")
     .replace(/provides a predefined starting design\/structure for creating a presentation/gi,
       "provides a predefined design for creating a presentation")
     .replace(/provides coordinated design elements such as colors, fonts, effects and background styling/gi,
@@ -66,6 +74,36 @@ function cleanDirectStem(input: string) {
       "can be inserted on a slide to show data graphically")
     .replace(/can be inserted on a slide to organize data in rows and columns/gi,
       "can be inserted on a slide to show data in rows and columns")
+    .replace(/counts cells or arguments containing numbers in the\?/gi,
+      "counts cells containing numbers?")
+    .replace(/returns the arithmetic mean of its numeric arguments/gi,
+      "returns the average of numbers")
+    .replace(/locates specified text without requiring it to be changed/gi,
+      "finds specified text without changing it")
+    .replace(/identifies potential spelling errors for review/gi,
+      "identifies possible spelling errors")
+    .replace(/open the print workflow/gi,
+      "print a document")
+    .replace(/Excel row or column operation/gi,
+      "Excel command or option")
+    .replace(/horizontal width of a worksheet column/gi,
+      "width of a column")
+    .replace(/vertical height of a worksheet row/gi,
+      "height of a row")
+    .replace(/removes the selected worksheet row/gi,
+      "removes a selected row")
+    .replace(/adds a worksheet row and shifts existing rows as needed/gi,
+      "inserts a new row")
+    .replace(/column-width command using Excel Ribbon access keys/gi,
+      "Column Width command using Ribbon access keys")
+    .replace(/powerPoint show file that opens as a slide show/gi,
+      "a PowerPoint Show file")
+    .replace(/excel 97-2003 workbook/gi,
+      "an Excel 97-2003 workbook")
+    .replace(/modern Word document/gi,
+      "a modern Word document")
+    .replace(/modern Excel workbook/gi,
+      "a modern Excel workbook")
     .replace(/\s+\?/g, "?")
     .replace(/\?{2,}$/g, "?");
 
