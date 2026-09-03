@@ -25,18 +25,18 @@ D. Neither argument I nor II is strong
 
 **Explanation:** Argument I is weak: A single educational intervention cannot guarantee elimination of every future problem. Argument II is weak: The argument predicts an extreme chain of consequences without a credible mechanism.
 
-## 2. Core / Punjabi / Hard / grammar repair
+## 2. Core / Punjabi / Hard / normalized-score naturalness repair
 
 - QL: ARG-QL-005
 - Difficulty: Hard
 - Profile: core
 - Locale: pa-IN
 
-**Statement:** ਕੀ ਪ੍ਰੀਖਿਆ ਅਥਾਰਟੀ ਨੂੰ ਭਰਤੀ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਉਹਨਾਂ ਦੇ ਆਪਣੇ ਨਾਰਮਲਾਈਜ਼ਡ ਸਕੋਰ ਮੁਲਾਂਕਣ ਬੰਦ ਹੋਣ ਤੋਂ ਬਾਅਦ ਦੇਣੇ ਚਾਹੀਦੇ ਹਨ?
+**Statement:** ਕੀ ਪ੍ਰੀਖਿਆ ਅਥਾਰਟੀ ਨੂੰ ਮੁਲਾਂਕਣ ਪ੍ਰਕਿਰਿਆ ਪੂਰੀ ਹੋਣ ਤੋਂ ਬਾਅਦ ਭਰਤੀ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਆਪਣੇ ਨਾਰਮਲਾਈਜ਼ਡ ਸਕੋਰ ਦੇਣੇ ਚਾਹੀਦੇ ਹਨ?
 
 **Arguments:**
-I. ਨਹੀਂ। ਜੋ ਭਰਤੀ ਉਮੀਦਵਾਰ ਨਾਰਮਲਾਈਜ਼ਡ ਸਕੋਰ ਮੁਲਾਂਕਣ ਬੰਦ ਹੋਣ ਤੋਂ ਬਾਅਦ ਮੰਗਦੇ ਹਨ, ਆਮ ਤੌਰ ਤੇ ਨਤੀਜੇ ਮੰਨ ਨਹੀਂ ਸਕਦੇ; ਇਸ ਲਈ ਨਿੱਜੀ ਸੰਪਰਕ ਵੇਰਵੇ ਦੀ ਚਿੰਤਾ ਮਹੱਤਵਪੂਰਨ ਨਹੀਂ।
-II. ਹਾਂ। ਭਰਤੀ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਉਹਨਾਂ ਦੇ ਆਪਣੇ ਨਾਰਮਲਾਈਜ਼ਡ ਸਕੋਰ ਮੁਲਾਂਕਣ ਬੰਦ ਹੋਣ ਤੋਂ ਬਾਅਦ ਦੇਣ ਨਾਲ ਪਾਰਦਰਸ਼ਤਾ ਵਧਦੀ ਹੈ ਅਤੇ ਨਿੱਜੀ ਸੰਪਰਕ ਵੇਰਵੇ ਖੋਲ੍ਹਣ ਦੀ ਲੋੜ ਨਹੀਂ ਪੈਂਦੀ।
+I. ਨਹੀਂ। ਜੋ ਉਮੀਦਵਾਰ ਆਪਣਾ ਨਾਰਮਲਾਈਜ਼ਡ ਸਕੋਰ ਮੰਗਦੇ ਹਨ, ਉਹ ਆਮ ਤੌਰ 'ਤੇ ਨਤੀਜਾ ਮੰਨਣ ਲਈ ਤਿਆਰ ਨਹੀਂ ਹੁੰਦੇ; ਇਸ ਲਈ ਉਨ੍ਹਾਂ ਦੀ ਮੰਗ ਨੂੰ ਗੰਭੀਰਤਾ ਨਾਲ ਲੈਣ ਦੀ ਲੋੜ ਨਹੀਂ।
+II. ਹਾਂ। ਆਪਣਾ ਨਾਰਮਲਾਈਜ਼ਡ ਸਕੋਰ ਮਿਲਣ ਨਾਲ ਉਮੀਦਵਾਰ ਆਪਣੇ ਨਤੀਜੇ ਨੂੰ ਬਿਹਤਰ ਢੰਗ ਨਾਲ ਸਮਝ ਸਕਦੇ ਹਨ, ਬਿਨਾਂ ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੀ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਖੋਲ੍ਹੇ।
 
 **Options:**
 A. ਕੇਵਲ ਦਲੀਲ I ਮਜ਼ਬੂਤ ਹੈ
@@ -46,9 +46,9 @@ D. ਨਾ ਦਲੀਲ I ਅਤੇ ਨਾ ਹੀ ਦਲੀਲ II ਮਜ਼ਬੂ
 
 **Answer:** ਕੇਵਲ ਦਲੀਲ II ਮਜ਼ਬੂਤ ਹੈ
 
-**Explanation:** ਦਲੀਲ I ਕਮਜ਼ੋਰ ਹੈ: ਇਹ ਦਲੀਲ ਪਾਰਦਰਸ਼ਤਾ ਜਾਂ ਗੋਪਨੀਯਤਾ ਦੇ ਅੰਕਲਨ ਦੀ ਥਾਂ ਉਮੀਦਵਾਰਾਂ ਦੀ ਨੀਅਤ ਉੱਤੇ ਹਮਲਾ ਕਰਦੀ ਹੈ। ਦਲੀਲ II ਮਜ਼ਬੂਤ ਹੈ: ਇਹ ਦਲੀਲ ਗੈਰ-ਸੰਬੰਧਤ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਬਚਾਉਂਦੇ ਹੋਏ ਵਿਅਕਤੀਗਤ ਪਾਰਦਰਸ਼ਤਾ ਦਾ ਪੱਖ ਲੈਂਦੀ ਹੈ।
+**Explanation:** ਦਲੀਲ I ਕਮਜ਼ੋਰ ਹੈ: ਇਹ ਪਾਰਦਰਸ਼ਤਾ ਦੀ ਲੋੜ ਦਾ ਅੰਕਲਨ ਕਰਨ ਦੀ ਥਾਂ ਉਮੀਦਵਾਰਾਂ ਦੀ ਨੀਅਤ ਉੱਤੇ ਹਮਲਾ ਕਰਦੀ ਹੈ। ਦਲੀਲ II ਮਜ਼ਬੂਤ ਹੈ: ਇਹ ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੀ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਖੋਲ੍ਹੇ ਬਿਨਾਂ ਵਿਅਕਤੀਗਤ ਪਾਰਦਰਸ਼ਤਾ ਵਧਾਉਂਦੀ ਹੈ।
 
-## 3. SSC 2×4 / English / grievance-contact polarity repair
+## 3. SSC 2×4 / English / grievance-contact strong-No repair
 
 - QL: ARG-QL-001
 - Difficulty: Easy
@@ -56,11 +56,11 @@ D. ਨਾ ਦਲੀਲ I ਅਤੇ ਨਾ ਹੀ ਦਲੀਲ II ਮਜ਼ਬੂ
 - Locale: en-IN
 - Cardinality mode: TWO_ARGUMENT_EDITORIAL_ONLY
 
-**Statement:** Should a scholarship authority display a grievance contact clearly after the relevant process is complete?
+**Statement:** Should a licensing authority display a grievance contact clearly after the relevant process is complete?
 
 **Arguments:**
-I. Yes. Successful organisations display more information, so a scholarship authority must display a grievance contact.
-II. Yes. A clear grievance contact gives users a direct route to seek clarification or report a possible error after the process is complete.
+I. No. Unless the authority can keep the grievance contact current, displaying it may misdirect users after the process is complete.
+II. Yes. Successful organisations display more information, so a licensing authority must display a grievance contact.
 
 **Options:**
 A. Only argument I is strong
@@ -68,11 +68,11 @@ B. Only argument II is strong
 C. Both arguments I and II are strong
 D. Neither argument I nor II is strong
 
-**Answer:** Only argument II is strong
+**Answer:** Only argument I is strong
 
-**Explanation:** Argument I is weak: Popularity or imitation does not establish material value. Argument II is strong: It gives a direct and relevant post-process grievance or clarification route.
+**Explanation:** Argument I is strong: It raises a material accuracy condition for post-process contact information. Argument II is weak: Popularity or imitation does not establish material value.
 
-## 4. SSC 2×4 / Hindi / grievance-contact
+## 4. SSC 2×4 / Hindi / grievance-contact strong-No repair
 
 - QL: ARG-QL-001
 - Difficulty: Easy
@@ -80,11 +80,11 @@ D. Neither argument I nor II is strong
 - Locale: hi-IN
 - Cardinality mode: TWO_ARGUMENT_EDITORIAL_ONLY
 
-**Statement:** क्या संबंधित प्रक्रिया पूरी होने के बाद एक छात्रवृत्ति प्राधिकरण को शिकायत संपर्क स्पष्ट रूप से दिखाना चाहिए?
+**Statement:** क्या संबंधित प्रक्रिया पूरी होने के बाद एक लाइसेंसिंग प्राधिकरण को शिकायत संपर्क स्पष्ट रूप से दिखाना चाहिए?
 
 **Arguments:**
-I. हाँ। सफल संस्थाएँ अधिक जानकारी दिखाती हैं, इसलिए एक छात्रवृत्ति प्राधिकरण को शिकायत संपर्क दिखाना ही चाहिए।
-II. हाँ। स्पष्ट शिकायत संपर्क उपयोगकर्ताओं को प्रक्रिया पूरी होने के बाद स्पष्टीकरण मांगने या संभावित त्रुटि की सूचना देने का सीधा माध्यम देता है।
+I. नहीं। यदि प्राधिकरण शिकायत संपर्क को अद्यतन नहीं रख सकता, तो उसे दिखाने से प्रक्रिया पूरी होने के बाद उपयोगकर्ता गलत संपर्क पर निर्भर कर सकते हैं।
+II. हाँ। सफल संस्थाएँ अधिक जानकारी दिखाती हैं, इसलिए एक लाइसेंसिंग प्राधिकरण को शिकायत संपर्क दिखाना ही चाहिए।
 
 **Options:**
 A. केवल तर्क I मजबूत है
@@ -92,9 +92,9 @@ B. केवल तर्क II मजबूत है
 C. दोनों तर्क I और II मजबूत हैं
 D. न तो तर्क I और न ही II मजबूत है
 
-**Answer:** केवल तर्क II मजबूत है
+**Answer:** केवल तर्क I मजबूत है
 
-**Explanation:** तर्क I कमजोर है: लोकप्रियता या नकल वास्तविक महत्व सिद्ध नहीं करती। तर्क II मजबूत है: यह प्रक्रिया के बाद शिकायत या स्पष्टीकरण के लिए सीधा और प्रासंगिक माध्यम देता है।
+**Explanation:** तर्क I मजबूत है: यह प्रक्रिया के बाद दिखाई जाने वाली संपर्क जानकारी की सटीकता से जुड़ी महत्वपूर्ण शर्त उठाता है। तर्क II कमजोर है: लोकप्रियता या नकल वास्तविक महत्व सिद्ध नहीं करती।
 
 ## 5. Banking classic 2×5
 
@@ -186,7 +186,7 @@ E. Only argument III is strong
 **Arguments:**
 I. Yes. One cheating complaint can occur only when guilt is already certain.
 II. No. If an immediate permanent penalty is rejected, an examination authority must ignore every future complaint.
-III. No. Temporary safeguards and evidence review can protect users before an irreversible penalty is imposed.
+III. No. Before any permanent penalty is imposed, the affected person should have a fair opportunity to respond and the available evidence should be reviewed.
 
 **Options:**
 A. Only argument I is strong
@@ -197,7 +197,7 @@ E. Only arguments II and III are strong
 
 **Answer:** Only argument III is strong
 
-**Explanation:** Argument I is weak: A complaint or flag is not automatic proof. Argument II is weak: It creates a false choice between permanent punishment and doing nothing. Argument III is strong: It offers a credible less-restrictive alternative with due process.
+**Explanation:** Argument I is weak: A complaint or flag is not automatic proof. Argument II is weak: It creates a false choice between permanent punishment and doing nothing. Argument III is strong: It gives a direct due-process reason against an immediate irreversible sanction.
 
 ## 9. Banking 3×5 / Hard / two strong
 
@@ -210,7 +210,7 @@ E. Only arguments II and III are strong
 **Statement:** Should an online marketplace impose a permanent penalty immediately after one buyer complaint?
 
 **Arguments:**
-I. No. Temporary safeguards and evidence review can protect users before an irreversible penalty is imposed.
+I. No. Before any permanent penalty is imposed, the affected person should have a fair opportunity to respond and the available evidence should be reviewed.
 II. No. A mistaken buyer complaint can cause serious harm if the penalty cannot later be reversed.
 III. No. If an immediate permanent penalty is rejected, an online marketplace must ignore every future complaint.
 
@@ -223,9 +223,9 @@ E. Only arguments II and III are strong
 
 **Answer:** Only arguments I and II are strong
 
-**Explanation:** Argument I is strong: It offers a credible less-restrictive alternative with due process. Argument II is strong: It identifies a credible second-order cost of an irreversible response. Argument III is weak: It creates a false choice between permanent punishment and doing nothing.
+**Explanation:** Argument I is strong: It gives a direct due-process reason against an immediate irreversible sanction. Argument II is strong: It identifies a credible second-order cost of an irreversible response. Argument III is weak: It creates a false choice between permanent punishment and doing nothing.
 
-## 10. Banking 4×5 / one strong
+## 10. Banking 4×5 / one strong / distractor diversity
 
 - QL: ARG-QL-004
 - Difficulty: Hard
@@ -238,8 +238,8 @@ E. Only arguments II and III are strong
 **Arguments:**
 I. Yes. If any restriction helps once, heavy vehicles should be banned from a hospital approach road at all times.
 II. No. Any temporary restriction on heavy vehicles inevitably shuts every nearby business permanently.
-III. No. A short restriction on a hospital approach road will permanently destroy all activity in the area.
-IV. No. A peak-hour restriction may delay emergency or essential deliveries unless clear exemptions are built into the rule.
+III. No. The existing traffic pattern has been in place for years, so changing it would automatically be unfair.
+IV. No. A peak-hour restriction can delay emergency or essential deliveries that need access during the restricted period.
 
 **Options:**
 A. Only arguments I, II and III are strong
@@ -250,7 +250,7 @@ E. Only argument III is strong
 
 **Answer:** Only argument IV is strong
 
-**Explanation:** Argument I is weak: It unjustifiably expands a limited measure into a blanket ban. Argument II is weak: It turns a limited traffic measure into an unsupported permanent outcome. Argument III is weak: It turns a limited measure into an unsupported permanent-harm claim. Argument IV is strong: It identifies a material operational cost that the proposed restriction must address.
+**Explanation:** Argument I is weak: It unjustifiably expands a limited measure into a blanket ban. Argument II is weak: It turns a limited traffic measure into an unsupported permanent outcome. Argument III is weak: Longevity alone does not show that the existing arrangement should continue. Argument IV is strong: It identifies a material operational cost created by the proposed restriction.
 
 ## 11. Banking 4×5 / two strong
 
@@ -265,7 +265,7 @@ E. Only argument III is strong
 **Arguments:**
 I. Yes. A limited restriction during the evening peak can reduce conflict without creating an all-day ban.
 II. No. A short restriction on a market street will permanently destroy all activity in the area.
-III. No. A peak-hour restriction may delay emergency or essential deliveries unless clear exemptions are built into the rule.
+III. No. A peak-hour restriction can delay emergency or essential deliveries that need access during the restricted period.
 IV. Yes. If any restriction helps once, heavy vehicles should be banned from a market street at all times.
 
 **Options:**
@@ -277,7 +277,7 @@ E. Only arguments III and IV are strong
 
 **Answer:** Only arguments I and III are strong
 
-**Explanation:** Argument I is strong: It is directly relevant and proportionate in time. Argument II is weak: It turns a limited measure into an unsupported permanent-harm claim. Argument III is strong: It identifies a material operational cost that the proposed restriction must address. Argument IV is weak: It unjustifiably expands a limited measure into a blanket ban.
+**Explanation:** Argument I is strong: It is directly relevant and proportionate in time. Argument II is weak: It turns a limited measure into an unsupported permanent-harm claim. Argument III is strong: It identifies a material operational cost created by the proposed restriction. Argument IV is weak: It unjustifiably expands a limited measure into a blanket ban.
 
 ## 12. Banking 4×5 / three strong
 
@@ -290,7 +290,7 @@ E. Only arguments III and IV are strong
 **Statement:** Should heavy vehicles be restricted on a station-front road during the evening peak?
 
 **Arguments:**
-I. No. A peak-hour restriction may delay emergency or essential deliveries unless clear exemptions are built into the rule.
+I. No. A peak-hour restriction can delay emergency or essential deliveries that need access during the restricted period.
 II. Yes. During a defined peak, limiting heavy vehicles can reduce turning and pedestrian conflict on a busy approach road.
 III. Yes. A limited restriction during the evening peak can reduce conflict without creating an all-day ban.
 IV. No. A short restriction on a station-front road will permanently destroy all activity in the area.
@@ -304,9 +304,9 @@ E. Only arguments I and III are strong
 
 **Answer:** Only arguments I, II and III are strong
 
-**Explanation:** Argument I is strong: It identifies a material operational cost that the proposed restriction must address. Argument II is strong: It identifies a direct peak-period safety mechanism. Argument III is strong: It is directly relevant and proportionate in time. Argument IV is weak: It turns a limited measure into an unsupported permanent-harm claim.
+**Explanation:** Argument I is strong: It identifies a material operational cost created by the proposed restriction. Argument II is strong: It identifies a direct peak-period safety mechanism. Argument III is strong: It is directly relevant and proportionate in time. Argument IV is weak: It turns a limited measure into an unsupported permanent-harm claim.
 
-## 13. Banking 4×5 / Hindi / monitoring polarity repair
+## 13. Banking 4×5 / Hindi / monitoring grammar and polarity
 
 - QL: ARG-QL-005
 - Difficulty: Hard
@@ -314,12 +314,12 @@ E. Only arguments I and III are strong
 - Locale: hi-IN
 - Cardinality mode: FOUR_ARGUMENT_THREE_STRONG
 
-**Statement:** क्या नियोक्ता को वेबकैम गतिविधि निगरानी शुरू करने से पहले संविदा कर्मचारियों को सूचित करना चाहिए?
+**Statement:** क्या नियोक्ता को वेबकैम गतिविधि की निगरानी शुरू करने से पहले संविदा कर्मचारियों को सूचित करना चाहिए?
 
 **Arguments:**
 I. हाँ। पहले से सूचना मिलने पर कर्मचारी यह भी समझ सकते हैं कि निगरानी से जुटाए गए डेटा का कार्यस्थल के निर्णयों में कैसे उपयोग हो सकता है।
-II. हाँ। संविदा कर्मचारियों को पता होना चाहिए कि वेबकैम गतिविधि निगरानी कौन-सा डेटा एकत्र करता है, क्यों करता है और उसे कौन देख सकता है।
-III. नहीं। जो कर्मचारी वेबकैम गतिविधि निगरानी के बारे में पूछे, उसके पास जरूर कुछ छिपाने को है।
+II. हाँ। संविदा कर्मचारियों को पता होना चाहिए कि वेबकैम गतिविधि की निगरानी कौन-सा डेटा एकत्र करता है, क्यों करता है और उसे कौन देख सकता है।
+III. नहीं। जो कर्मचारी वेबकैम गतिविधि की निगरानी के बारे में पूछता है, उसके पास जरूर कुछ छिपाने को है।
 IV. नहीं। संदिग्ध कदाचार की सीमित जाँच में पहले से सूचना देने पर जाँच का उद्देश्य विफल हो सकता है, इसलिए सूचना नियम में एक संकीर्ण अपवाद आवश्यक हो सकता है।
 
 **Options:**
@@ -333,7 +333,7 @@ E. केवल तर्क I, III और IV मजबूत हैं
 
 **Explanation:** तर्क I मजबूत है: यह पूर्व सूचना और कार्यस्थल डेटा-प्रबंधन से जुड़ा सीधा लाभ बताता है। तर्क II मजबूत है: यह गोपनीयता और पहले से जानकारी दिए जाने से जुड़ा सीधा और महत्वपूर्ण कारण है। तर्क III कमजोर है: यह नीति के बजाय कर्मचारियों को रूढ़िबद्ध करता है। तर्क IV मजबूत है: यह ऐसा विशिष्ट मामला बताता है जिसमें पहले से सूचना देना वैध जाँच को प्रभावित कर सकता है।
 
-## 14. Banking 4×5 / Punjabi / monitoring polarity repair
+## 14. Banking 4×5 / Punjabi / monitoring grammar and polarity
 
 - QL: ARG-QL-005
 - Difficulty: Hard
@@ -341,12 +341,12 @@ E. केवल तर्क I, III और IV मजबूत हैं
 - Locale: pa-IN
 - Cardinality mode: FOUR_ARGUMENT_ONE_STRONG
 
-**Statement:** ਕੀ ਨਿਯੋਗਤਾ ਨੂੰ ਵੈਬਕੈਮ ਸਰਗਰਮੀ ਨਿਗਰਾਨੀ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਠੇਕਾ ਕਰਮਚਾਰੀਆਂ ਨੂੰ ਜਾਣਕਾਰੀ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ?
+**Statement:** ਕੀ ਨਿਯੋਗਤਾ ਨੂੰ ਵੈਬਕੈਮ ਸਰਗਰਮੀ ਦੀ ਨਿਗਰਾਨੀ ਸ਼ੁਰੂ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਠੇਕਾ ਕਰਮਚਾਰੀਆਂ ਨੂੰ ਜਾਣਕਾਰੀ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ?
 
 **Arguments:**
-I. ਹਾਂ। ਵੈਬਕੈਮ ਸਰਗਰਮੀ ਨਿਗਰਾਨੀ ਆਧੁਨਿਕ ਤਕਨਾਲੋਜੀ ਹੈ, ਇਸ ਲਈ ਇਸ ਦੀ ਵਰਤੋਂ ਠੇਕਾ ਕਰਮਚਾਰੀਆਂ ਲਈ ਹਮੇਸ਼ਾਂ ਨਿਆਂਯੋਗ ਹੋਵੇਗੀ।
+I. ਹਾਂ। ਵੈਬਕੈਮ ਸਰਗਰਮੀ ਦੀ ਨਿਗਰਾਨੀ ਆਧੁਨਿਕ ਤਕਨਾਲੋਜੀ ਹੈ, ਇਸ ਲਈ ਇਸ ਦੀ ਵਰਤੋਂ ਠੇਕਾ ਕਰਮਚਾਰੀਆਂ ਲਈ ਹਮੇਸ਼ਾਂ ਨਿਆਂਯੋਗ ਹੋਵੇਗੀ।
 II. ਨਹੀਂ। ਜੋ ਕਰਮਚਾਰੀ ਆਪਣੀ ਪਰਦੇਦਾਰੀ ਨੂੰ ਮਹੱਤਵ ਦਿੰਦੇ ਹਨ, ਉਨ੍ਹਾਂ ਉੱਤੇ ਕੰਮ ਵਿੱਚ ਭਰੋਸਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।
-III. ਨਹੀਂ। ਜੋ ਕਰਮਚਾਰੀ ਵੈਬਕੈਮ ਸਰਗਰਮੀ ਨਿਗਰਾਨੀ ਬਾਰੇ ਪੁੱਛੇ, ਉਸ ਕੋਲ ਜ਼ਰੂਰ ਕੁਝ ਲੁਕਾਉਣ ਲਈ ਹੈ।
+III. ਨਹੀਂ। ਜੋ ਕਰਮਚਾਰੀ ਵੈਬਕੈਮ ਸਰਗਰਮੀ ਦੀ ਨਿਗਰਾਨੀ ਬਾਰੇ ਪੁੱਛਦਾ ਹੈ, ਉਸ ਕੋਲ ਜ਼ਰੂਰ ਕੁਝ ਲੁਕਾਉਣ ਲਈ ਹੈ।
 IV. ਨਹੀਂ। ਸ਼ੱਕੀ ਗਲਤ ਵਿਹਾਰ ਦੀ ਸੀਮਿਤ ਜਾਂਚ ਵਿੱਚ ਪਹਿਲਾਂ ਸੂਚਨਾ ਦੇਣ ਨਾਲ ਜਾਂਚ ਦਾ ਮਕਸਦ ਨਾਕਾਮ ਹੋ ਸਕਦਾ ਹੈ, ਇਸ ਲਈ ਸੂਚਨਾ ਨਿਯਮ ਵਿੱਚ ਇੱਕ ਸੰਕੁਚਿਤ ਛੋਟ ਦੀ ਲੋੜ ਹੋ ਸਕਦੀ ਹੈ।
 
 **Options:**
@@ -360,7 +360,7 @@ E. ਕੇਵਲ ਦਲੀਲ I, II ਅਤੇ IV ਮਜ਼ਬੂਤ ਹਨ
 
 **Explanation:** ਦਲੀਲ I ਕਮਜ਼ੋਰ ਹੈ: ਆਧੁਨਿਕ ਹੋਣਾ ਨਿਆਂਯੋਗਤਾ ਜਾਂ ਲੋੜ ਸਾਬਤ ਨਹੀਂ ਕਰਦਾ। ਦਲੀਲ II ਕਮਜ਼ੋਰ ਹੈ: ਇਹ ਨਿਗਰਾਨੀ ਦੀ ਵਾਜਬਤਾ ਬਾਰੇ ਵਿਚਾਰ ਕਰਨ ਦੀ ਬਜਾਏ ਕਰਮਚਾਰੀਆਂ ਬਾਰੇ ਰੂੜ੍ਹੀਵਾਦੀ ਧਾਰਨਾ ਬਣਾਉਂਦਾ ਹੈ। ਦਲੀਲ III ਕਮਜ਼ੋਰ ਹੈ: ਇਹ ਨੀਤੀ ਦੀ ਬਜਾਏ ਕਰਮਚਾਰੀਆਂ ਬਾਰੇ ਰੂੜੀਵਾਦੀ ਧਾਰਨਾ ਬਣਾਉਂਦਾ ਹੈ। ਦਲੀਲ IV ਮਜ਼ਬੂਤ ਹੈ: ਇਹ ਉਹ ਖਾਸ ਹਾਲਤ ਦੱਸਦਾ ਹੈ ਜਿਸ ਵਿੱਚ ਪਹਿਲਾਂ ਸੂਚਨਾ ਦੇਣਾ ਵਾਜਬ ਜਾਂਚ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰ ਸਕਦਾ ਹੈ।
 
-## 15. Banking 4×5 / English / due-process grammar
+## 15. Banking 4×5 / English / distinct due-process arguments
 
 - QL: ARG-QL-006
 - Difficulty: Hard
@@ -371,9 +371,9 @@ E. ਕੇਵਲ ਦਲੀਲ I, II ਅਤੇ IV ਮਜ਼ਬੂਤ ਹਨ
 **Statement:** Should a bank impose a permanent penalty immediately after one automated fraud flag?
 
 **Arguments:**
-I. No. A mistaken one automated fraud flag can cause serious harm if the penalty cannot later be reversed.
+I. No. A mistaken automated fraud flag can cause serious harm if the penalty cannot later be reversed.
 II. No. A reversible interim restriction can address immediate risk while the evidence is checked.
-III. No. Temporary safeguards and evidence review can protect users before an irreversible penalty is imposed.
+III. No. Before any permanent penalty is imposed, the affected person should have a fair opportunity to respond and the available evidence should be reviewed.
 IV. Yes. One automated fraud flag can occur only when guilt is already certain.
 
 **Options:**
@@ -385,5 +385,5 @@ E. Only arguments III and IV are strong
 
 **Answer:** Only arguments I, II and III are strong
 
-**Explanation:** Argument I is strong: It identifies a credible second-order cost of an irreversible response. Argument II is strong: It offers a proportionate reversible response while facts are verified. Argument III is strong: It offers a credible less-restrictive alternative with due process. Argument IV is weak: A complaint or flag is not automatic proof.
+**Explanation:** Argument I is strong: It identifies a credible second-order cost of an irreversible response. Argument II is strong: It offers a proportionate reversible response while facts are verified. Argument III is strong: It gives a direct due-process reason against an immediate irreversible sanction. Argument IV is weak: A complaint or flag is not automatic proof.
 
