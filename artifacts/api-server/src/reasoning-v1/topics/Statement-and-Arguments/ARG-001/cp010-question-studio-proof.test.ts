@@ -80,6 +80,10 @@ function assertLocked(question: Readonly<Record<string, unknown>>) {
   assert.equal(question.learnerRelease, "LOCKED");
 }
 
+function assertEqualWithoutNarrowing(actual: unknown, expected: unknown, message?: string): void {
+  assert.equal(actual, expected, message);
+}
+
 // Ordinary/core Question Studio generation must now come from CP009, not the historical CP005/CP004 runtime.
 for (const language of ["en", "hi", "pa"] as const) {
   for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
@@ -145,11 +149,11 @@ for (const [profile, difficulty] of PROFILE_DIFFICULTIES) {
     assert.equal(result.generationContext.sourceAuthority, ARG_CP010_AUTHORITY);
     assert.equal(result.questions.length, 8);
     for (const question of result.questions) {
-      assert.equal(question.profileMode, "real-paper");
+      assertEqualWithoutNarrowing(question.profileMode, "real-paper");
       assert.ok("examProfile" in question, "real-paper question must expose its resolved exam profile");
-      assert.equal(question.examProfile, profile);
-      assert.equal(question.language, language);
-      assert.equal(question.difficulty, difficulty);
+      assertEqualWithoutNarrowing(question.examProfile, profile);
+      assertEqualWithoutNarrowing(question.language, language);
+      assertEqualWithoutNarrowing(question.difficulty, difficulty);
       assert.equal(question.arguments.length, metadata.argumentCount);
       assert.equal(question.options.length, metadata.optionCount);
       assert.equal(question.sourceAuthority, ARG_CP010_AUTHORITY);
