@@ -2,7 +2,8 @@ import { strict as assert } from "node:assert";
 import { COM003_PERMANENT_QLS } from "./com003-permanent-ql-allocation";
 import { COM003_ENGLISH_REVIEW_CORPUS_V14, auditCom003V14StemUniqueness, buildCom003EnglishReviewCorpusV14 } from "./com003-review-synthesis-v14";
 
-const BANNED_AWKWARD_STEM = /(?:is described as|refers to which|what is is|shortcut for start|Windows desktop version|keyboard shortcut|as applicable|configured\/common|basic numeric-count context|merged outputs|recipient\/data-source|supplied set or range|evenly ordered intervals|individual items or categories|example or description|quickest keyboard|key combination|practical effect|correct choice|correctly represents|\bis can be\b|\bfor supplies\b|\bfor contains\b|\bin the\?|Excel row or column operation|print workflow|page\/screen|starting design\/structure)/i;
+const BANNED_AWKWARD_STEM = /(?:is described as|refers to which|what is is|shortcut for start|Windows desktop version|keyboard shortcut|as applicable|configured\/common|basic numeric-count context|merged outputs|recipient\/data-source|supplied set or range|evenly ordered intervals|individual items or categories|example or description|quickest keyboard|key combination|practical effect|correct choice|correctly represents|\bis can be\b|\bfor supplies\b|\bfor contains\b|\bin the\?|Excel row or column operation|print workflow|page\/screen|starting design\/structure|\bappropriate\b|\baction\b|\btask\b|\brequirement\b|\binvokes?\b)/i;
+const REDUNDANT_APP_WORDING = /(?:In Microsoft Excel, (?:which|what) Excel\b|In Microsoft Word, (?:which|what) Word\b|In Microsoft PowerPoint, (?:which|what) PowerPoint\b)/i;
 
 assert.equal(COM003_ENGLISH_REVIEW_CORPUS_V14.length, 228);
 assert.equal(new Set(COM003_ENGLISH_REVIEW_CORPUS_V14.map((q) => q.qlId)).size, 19);
@@ -30,6 +31,7 @@ for (const q of COM003_ENGLISH_REVIEW_CORPUS_V14) {
   assert.match(q.stem, /^[A-Z0-9]/, `${q.questionId}:bad capitalization:${q.stem}`);
   assert.ok(q.stem.split(/\s+/).length <= 28, `${q.questionId}:too wordy:${q.stem}`);
   assert.ok(!BANNED_AWKWARD_STEM.test(q.stem), `${q.questionId}:awkward wording:${q.stem}`);
+  assert.ok(!REDUNDANT_APP_WORDING.test(q.stem), `${q.questionId}:redundant app wording:${q.stem}`);
   assert.ok(!/what does The/.test(q.stem), `${q.questionId}:capitalized article inside stem:${q.stem}`);
   assert.ok(!/Which orientation a page/i.test(q.stem), `${q.questionId}:broken orientation grammar:${q.stem}`);
   assert.ok(!/\bpowerPoint\b|\bexcel 97/.test(q.stem), `${q.questionId}:product capitalization:${q.stem}`);
@@ -44,10 +46,11 @@ assert.deepEqual(
   buildCom003EnglishReviewCorpusV14({ seedPrefix: "replay" }),
 );
 
-assert.ok(COM003_ENGLISH_REVIEW_CORPUS_V14.some((q) => /Which shortcut is used to/i.test(q.stem)));
-assert.ok(COM003_ENGLISH_REVIEW_CORPUS_V14.some((q) => /What is Ctrl\+C used for/i.test(q.stem)));
+const shortcutQuestions = COM003_ENGLISH_REVIEW_CORPUS_V14.filter((q) => /SHORTCUT|SLIDESHOW/i.test(q.surfaceMode));
+assert.ok(shortcutQuestions.some((q) => /Which (?:of the following )?shortcut(?:s)? is used to/i.test(q.stem)));
+assert.ok(shortcutQuestions.some((q) => /(?:Ctrl\+|Alt\+|F\d+)/i.test(q.stem) && /(?:used for|what does|what happens|shortcut for|performed by)/i.test(q.stem)));
 assert.ok(COM003_ENGLISH_REVIEW_CORPUS_V14.some((q) => /How is an Excel cell address written/i.test(q.stem)));
-assert.ok(COM003_ENGLISH_REVIEW_CORPUS_V14.some((q) => /Which Excel function counts cells containing numbers/i.test(q.stem)));
+assert.ok(COM003_ENGLISH_REVIEW_CORPUS_V14.some((q) => /Which (?:Excel )?function counts cells containing numbers/i.test(q.stem)));
 
 console.log("[COM003-V14]", {
   questions: 228,
@@ -55,5 +58,6 @@ console.log("[COM003-V14]", {
   wording: "SIMPLE_DIRECT_EXAM",
   uniqueStemsPerQl: 12,
   answerBinding: "STRICT",
+  shortcutLanguage: "STRUCTURAL_SIMPLE_FORMS",
   governance: "REVIEW_ONLY",
 });
