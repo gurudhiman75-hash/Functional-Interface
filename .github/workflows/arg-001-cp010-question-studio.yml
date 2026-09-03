@@ -74,6 +74,32 @@ jobs:
           status=$?
           set -e
           cat cp010-tsc.log
+
+          {
+            echo '## ARG-001 CP010 strict TypeScript diagnostics'
+            echo
+            echo '```text'
+            cat cp010-tsc.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          diagnostic_count=0
+          while IFS= read -r line; do
+            if [[ "$line" =~ ^(.+)\(([0-9]+),([0-9]+)\):\ error\ (TS[0-9]+):\ (.*)$ ]]; then
+              file="${BASH_REMATCH[1]}"
+              line_number="${BASH_REMATCH[2]}"
+              column_number="${BASH_REMATCH[3]}"
+              code="${BASH_REMATCH[4]}"
+              message="${BASH_REMATCH[5]}"
+              message="${message//'%'/'%25'}"
+              message="${message//$'\r'/'%0D'}"
+              message="${message//$'\n'/'%0A'}"
+              echo "::error file=artifacts/api-server/${file},line=${line_number},col=${column_number},title=${code}::${message}"
+              diagnostic_count=$((diagnostic_count + 1))
+            fi
+          done < cp010-tsc.log
+
+          echo "TypeScript diagnostics annotated: ${diagnostic_count}"
           echo "exit_code=$status" >> "$GITHUB_OUTPUT"
 
       - name: Upload strict TypeScript diagnostics
