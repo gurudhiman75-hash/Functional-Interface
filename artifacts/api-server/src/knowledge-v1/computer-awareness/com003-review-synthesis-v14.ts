@@ -28,8 +28,8 @@ function cleanDirectStem(input: string) {
 
   stem = stem
     .replace(/^In the Windows desktop version of Microsoft ([^,]+),\s*/i, "In Microsoft $1 (Windows desktop), ")
-    .replace(/^([A-Z][^.]+)\. Which ([^?]+) is this\?$/i, (_m, predicate, subject) =>
-      `Which ${String(subject)} ${lowerFirst(String(predicate))}?`,
+    .replace(/^(Controls|Removes|Adds|Compares|Shows|Can be inserted|Remains|Adjusts|Specifies)([^.]+)\. Which ([^?]+) is this\?$/i,
+      (_m, verb, rest, subject) => `Which ${String(subject)} ${lowerFirst(`${String(verb)}${String(rest)}`)}?`,
     )
     .replace(/^Can be inserted ([^.]+)\. Which PowerPoint object is this\?$/i, (_m, rest) =>
       `Which PowerPoint object can be inserted ${String(rest)}?`,
