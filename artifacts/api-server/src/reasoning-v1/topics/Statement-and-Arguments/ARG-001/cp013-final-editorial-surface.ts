@@ -107,6 +107,15 @@ function englishGrammarPatch(question: MutableQuestion): void {
     ["Yes. a passport centre", "Yes. A passport centre"],
   ] as const;
   for (const [before, after] of replacements) replaceEverywhere(question, before, after);
+
+  const currentArguments = Array.isArray(question.arguments) ? question.arguments.map(String) : [];
+  for (const argument of currentArguments) {
+    const revised = argument.replace(
+      /^(Yes|No)\. ([a-z])/u,
+      (_match: string, stance: string, initial: string) => `${stance}. ${initial.toUpperCase()}`,
+    );
+    replaceEverywhere(question, argument, revised);
+  }
 }
 
 function explanationPrefixes(language: "en" | "hi" | "pa", count: number): readonly string[] {
