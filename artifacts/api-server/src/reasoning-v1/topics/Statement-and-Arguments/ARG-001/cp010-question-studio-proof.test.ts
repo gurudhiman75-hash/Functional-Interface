@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
+import { resolve } from "node:path";
 
 import { ARG_CP007_EXAM_PROFILES, type ArgCp007Difficulty, type ArgCp007ExamProfile } from "./cp007-exam-profile-generator-v2.ts";
 import { ARG_CP009_CHECKPOINT_ID, ARG_CP009_ENGLISH_REMEDIATION_AUTHORITY } from "./cp009-english-remediated-templates.ts";
@@ -187,8 +188,15 @@ for (const input of [
 }
 
 // Registry order is part of the activation contract: current ARG router must precede both historical fallbacks.
-const here = fileURLToPath(new URL(".", import.meta.url));
-const registryPath = new URL("../../../../routes/admin-question-studio-registry.ts", `file://${here}`).pathname;
+// CI bundles this proof into artifacts/api-server/dist, so import.meta.url no longer points at the source tree.
+// Resolve the registry from the working directory first, while retaining source-relative fallback for direct runs.
+const registryCandidates = [
+  resolve(process.cwd(), "src/routes/admin-question-studio-registry.ts"),
+  resolve(process.cwd(), "artifacts/api-server/src/routes/admin-question-studio-registry.ts"),
+  fileURLToPath(new URL("../../../../routes/admin-question-studio-registry.ts", import.meta.url)),
+];
+const registryPath = registryCandidates.find((candidate) => existsSync(candidate));
+assert.ok(registryPath, `admin Question Studio registry was not found; checked: ${registryCandidates.join(", ")}`);
 const registry = readFileSync(registryPath, "utf8");
 const currentImport = registry.indexOf('adminQuestionStudioArgumentsCp010Router from "./admin-question-studio-arguments-cp010"');
 const historicalCp007Import = registry.indexOf('adminQuestionStudioArgumentsCp007Router from "./admin-question-studio-arguments-cp007-v2"');
