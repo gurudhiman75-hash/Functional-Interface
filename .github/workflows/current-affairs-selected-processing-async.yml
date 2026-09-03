@@ -1,0 +1,48 @@
+name: Validate Current Affairs Selected Processing Async
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/current-affairs/selected-affairs-processing-job.ts"
+      - "artifacts/api-server/src/current-affairs/selected-affairs-processing-runtime.ts"
+      - "artifacts/api-server/src/current-affairs/selected-processing-*.test.ts"
+      - "artifacts/api-server/src/routes/admin-current-affairs-selected-processing.ts"
+      - "artifacts/api-server/migrations/*current_affairs_selected_processing*.sql"
+      - "artifacts/api-server/ensure-current-affairs.mjs"
+      - "artifacts/admin-app/src/features/current-affairs/selected-processing-api.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: current-affairs-selected-processing-async-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/examtree
+      NODE_OPTIONS: --max-old-space-size=4096
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Verify selected-processing SQL typing regression
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-sql-typing.test.ts
+      - name: Verify async selected-processing contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-async.test.ts
+      - name: Build API server
+        run: pnpm --filter @workspace/api-server build
+      - name: Typecheck admin frontend
+        run: pnpm --filter @workspace/admin-app typecheck
