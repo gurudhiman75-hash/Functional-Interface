@@ -5,6 +5,7 @@ on:
     branches:
       - feature/arg-001-cp012-editorial-remediation
     paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-*'
       - '.github/workflows/arg-001-cp013-review-samples.yml'
   workflow_dispatch:
 
