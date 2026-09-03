@@ -1,5 +1,6 @@
 import { Router, type IRouter } from "express";
 
+import { recoverSelectedPrimaryEvidence } from "../current-affairs/selected-primary-recovery-runtime";
 import { processSelectedCurrentAffairs } from "../current-affairs/selected-affairs-processing-runtime";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { authenticate } from "../middlewares/auth";
@@ -29,11 +30,16 @@ router.post(
         res.status(403).json({ error: "Administrator session required.", code: "ADMIN_SESSION_REQUIRED" });
         return;
       }
-      const result = await processSelectedCurrentAffairs({
-        targetDate: targetDate(req.body?.date),
+      const date = targetDate(req.body?.date);
+      const selectedPrimaryRecovery = await recoverSelectedPrimaryEvidence({
+        targetDate: date,
         actorUserId,
       });
-      res.json(result);
+      const result = await processSelectedCurrentAffairs({
+        targetDate: date,
+        actorUserId,
+      });
+      res.json({ ...result, selectedPrimaryRecovery });
     } catch (error) {
       const message = error instanceof Error ? error.message : "Unable to process selected Current Affairs.";
       if (/date|YYYY-MM-DD/i.test(message)) {
