@@ -1,5 +1,7 @@
 import { createHash } from "node:crypto";
 
+import { factualFallbackTitle, isGenericCurrentAffairsLearnerTitle } from "./learner-title-quality";
+
 export type AuthoringFact = {
   key: string;
   value: string;
@@ -26,7 +28,7 @@ export type AuthoringOutput = {
   inputFingerprint: string;
 };
 
-const AUTHORING_POLICY_VERSION = "ca-cp045-editorial-priority-writing-v1";
+const AUTHORING_POLICY_VERSION = "ca-cp055-universal-title-quality-v1";
 const TITLE_SIMILARITY_LIMIT = 0.72;
 
 const SOURCE_NAMES: Record<string, string> = {
@@ -179,8 +181,6 @@ function learnerSubject(value: string): string {
 }
 
 function compact(value: string, _max = 112): string {
-  // CP-045: canonical learner copy must not be mechanically chopped with an ellipsis.
-  // Prefer a complete semantic clause; otherwise keep the verified value and let renderers wrap it.
   return learnerSubject(value);
 }
 
@@ -232,7 +232,7 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
     const subject = learnerSubject(actionSubject);
     const planned = plannedAction(action);
     const preferredTitle = `${sourceName}: ${subject}`;
-    const fallbackTitle = `${actionEntity}: ${categoryLabel} announcement`;
+    const fallbackTitle = `${subject} — ${actionEntity}`;
     return result({
       input,
       title: sourceSafeTitle(preferredTitle, fallbackTitle, input.sourceTitle),
@@ -255,7 +255,7 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
     const preferredTitle = `${sourceName}: ${compact(award, 105)} — ${compact(winner, 60)}`;
     return result({
       input,
-      title: sourceSafeTitle(preferredTitle, `${winner}: award result`, input.sourceTitle),
+      title: sourceSafeTitle(preferredTitle, `${winner} wins ${award}`, input.sourceTitle),
       summary: `On ${humanDate(input.eventDate)}, ${winner} was recorded as the winner of ${award}.`,
       oneLiner: `${winner} — ${award}`,
       templateId: "verified_award_result_v1",
@@ -269,7 +269,7 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
     const preferredTitle = `${sourceName}: ${compact(initiative, 118)}`;
     return result({
       input,
-      title: sourceSafeTitle(preferredTitle, `${launchingEntity}: ${categoryLabel} initiative`, input.sourceTitle),
+      title: sourceSafeTitle(preferredTitle, `${learnerSubject(initiative)} — ${launchingEntity}`, input.sourceTitle),
       summary: `On ${humanDate(input.eventDate)}, ${launchingEntity} launched ${initiative}.`,
       oneLiner: `${learnerSubject(initiative)} — launched by ${launchingEntity}`,
       templateId: "verified_initiative_v1",
@@ -283,7 +283,7 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
     const status = eventStatus.replace(/^scheduled\s+/i, "").trim();
     return result({
       input,
-      title: sourceSafeTitle(`${sourceName}: ${cleanInitiative}`, `${cleanInitiative}: upcoming ${categoryLabel} event`, input.sourceTitle),
+      title: sourceSafeTitle(`${sourceName}: ${cleanInitiative}`, `${cleanInitiative} — ${status}`, input.sourceTitle),
       summary: `On ${humanDate(input.eventDate)}, it was announced that ${cleanInitiative} would be ${status.replace(/^to be\s+/i, "")}.`,
       oneLiner: `${cleanInitiative} — ${status}`,
       templateId: "generic_verified_fact_graph_v1",
@@ -297,10 +297,14 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
     .find(Boolean);
   const selected = useful.slice(0, 4);
   const detail = naturalFactDetail(selected);
+  const factualTitle = factualFallbackTitle(useful.map(([key, value]) => ({ key, value })));
   const preferredTitle = subject
     ? `${sourceName}: ${compact(subject, 118)}`
-    : `${sourceName}: key ${categoryLabel} development`;
-  const title = sourceSafeTitle(preferredTitle, `${sourceName}: key ${categoryLabel} development`, input.sourceTitle);
+    : factualTitle ?? `${sourceName}: key ${categoryLabel} development`;
+  const fallbackTitle = subject
+    ? `${compact(subject, 118)} — ${sourceName}`
+    : factualTitle ?? `${sourceName}: key ${categoryLabel} development`;
+  const title = sourceSafeTitle(preferredTitle, fallbackTitle, input.sourceTitle);
   const memory = selected.length >= 2
     ? `${compact(selected[0]![1], 85)} · ${compact(selected[1]![1], 85)}`
     : compact(selected[0]?.[1] ?? subject ?? sourceName, 150);
@@ -310,7 +314,9 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
     summary: `On ${humanDate(input.eventDate)}, this ${categoryLabel} development was recorded with these key details: ${detail}.`,
     oneLiner: memory,
     templateId: "generic_verified_fact_graph_v1",
-    reasons: ["Fallback uses only reconciled atomic facts while avoiding internal extraction terminology"],
+    reasons: [factualTitle
+      ? "Fallback title is composed from reconciled atomic facts rather than a source/category placeholder"
+      : "Fallback uses only reconciled atomic facts while avoiding internal extraction terminology"],
   });
 }
 
@@ -324,8 +330,13 @@ function result(args: {
 }): AuthoringOutput {
   const similarity = titleSimilarity(args.title, args.input.sourceTitle);
   const reasons = [...(args.reasons ?? [])];
+  const genericTitle = isGenericCurrentAffairsLearnerTitle(args.title);
   if (similarity >= TITLE_SIMILARITY_LIMIT) reasons.push("Generated learner title is too similar to the source title");
-  const ready = similarity < TITLE_SIMILARITY_LIMIT && args.title.length >= 12 && args.summary.length >= 20;
+  if (genericTitle) reasons.push("Generated learner title is a generic source/category placeholder and requires editorial wording");
+  const ready = similarity < TITLE_SIMILARITY_LIMIT
+    && !genericTitle
+    && args.title.length >= 12
+    && args.summary.length >= 20;
   return {
     status: ready ? "ready" : "needs_editorial",
     title: ready ? args.title : undefined,
