@@ -15,6 +15,11 @@ export type NoteEvidenceBlockDraft = {
 
 export type CoverageClaimState = 'candidate' | 'accepted' | 'rejected' | 'conflict';
 export type CoverageStatus = 'uncovered' | 'partial' | 'covered' | 'blocked';
+export type CoverageClaimReviewLink = {
+  claimId: string;
+  state: CoverageClaimState;
+  hasActiveSupport: boolean;
+};
 
 const DEFAULT_MAX_BLOCK_CHARS = 900;
 const DEFAULT_MAX_BLOCKS = 500;
@@ -128,4 +133,34 @@ export function coverageStatusFromClaimStates(states: CoverageClaimState[]): Cov
   if (states.includes('accepted')) return 'covered';
   if (states.includes('candidate')) return 'partial';
   return 'uncovered';
+}
+
+/**
+ * Coverage review is intentionally an editorial gate. Linking an accepted claim
+ * proves that evidence exists, but it does not prove that the linked facts are
+ * sufficient for the syllabus target. Only a current editor confirmation can
+ * turn accepted evidence into `covered`.
+ */
+export function coverageStatusFromEditorialReview(
+  states: CoverageClaimState[],
+  editorConfirmed: boolean,
+): CoverageStatus {
+  if (states.includes('conflict')) return 'blocked';
+  if (states.includes('accepted')) return editorConfirmed ? 'covered' : 'partial';
+  if (states.includes('candidate')) return 'partial';
+  return 'uncovered';
+}
+
+/**
+ * Snapshot the accepted claims that currently have active supporting evidence.
+ * Sorting makes the key deterministic. If links, claim states, or active support
+ * change, the key changes and the prior editorial confirmation becomes stale.
+ */
+export function coverageAcceptedClaimKey(links: CoverageClaimReviewLink[]): string {
+  return links
+    .filter((link) => link.state === 'accepted' && link.hasActiveSupport)
+    .map((link) => link.claimId)
+    .filter(Boolean)
+    .sort()
+    .join(',');
 }
