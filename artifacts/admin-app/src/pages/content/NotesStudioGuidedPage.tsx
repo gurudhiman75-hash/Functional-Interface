@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { adminRequest } from '@/lib/admin-request';
+import { NotesStudioResearchReviewPage } from './NotesStudioResearchReviewPage';
 
 type AuthoringJob = {
   id: string;
@@ -36,9 +37,9 @@ function guidedStage(state: string): GuidedStage {
     case 'brief':
       return { index: 0, title: 'Topic & sources', description: 'Finish the brief and source pack.', nextTab: 'authoring', nextLabel: 'Continue research' };
     case 'sources_ready':
-      return { index: 1, title: 'Research review', description: 'Turn reviewed sources into evidence and candidate facts.', nextTab: 'reference-evidence', nextLabel: 'Review research' };
+      return { index: 1, title: 'Research review', description: 'Review missing evidence, candidate facts and syllabus coverage below.', nextTab: 'reference-evidence', nextLabel: 'Research Review is below' };
     case 'evidence_ready':
-      return { index: 1, title: 'Research review', description: 'Finish claim and coverage review. Gaps stay in research instead of becoming draft facts.', nextTab: 'coverage-proposals', nextLabel: 'Review coverage' };
+      return { index: 1, title: 'Research review', description: 'Finish factual and coverage review below. Gaps stay in research instead of becoming draft facts.', nextTab: 'coverage-proposals', nextLabel: 'Research Review is below' };
     case 'outline_ready':
     case 'drafting':
       return { index: 2, title: 'Draft & QA', description: 'Build the note from approved research and review the draft.', nextTab: 'sections', nextLabel: 'Continue drafting' };
@@ -62,6 +63,7 @@ export function NotesStudioGuidedPage({ onOpenAdvanced }: { onOpenAdvanced: (tab
 
   const selectedJob = jobs.find((job) => job.id === selectedJobId) ?? null;
   const current = useMemo(() => guidedStage(selectedJob?.state ?? 'brief'), [selectedJob?.state]);
+  const researchReviewActive = Boolean(selectedJob && ['sources_ready', 'evidence_ready'].includes(selectedJob.state));
 
   const load = async () => {
     setLoading(true);
@@ -121,9 +123,11 @@ export function NotesStudioGuidedPage({ onOpenAdvanced }: { onOpenAdvanced: (tab
                 <h3 className="mt-1 text-lg font-semibold">{current.title}</h3>
                 <p className="mt-1 max-w-2xl text-sm text-muted-foreground">{current.description}</p>
               </div>
-              <Button onClick={() => onOpenAdvanced(current.nextTab)}>
-                {current.nextLabel}<ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              {researchReviewActive
+                ? <Badge variant="secondary" className="self-start md:self-auto">Research Review below</Badge>
+                : <Button onClick={() => onOpenAdvanced(current.nextTab)}>
+                    {current.nextLabel}<ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>}
             </div>
           </div>
 
@@ -134,6 +138,8 @@ export function NotesStudioGuidedPage({ onOpenAdvanced }: { onOpenAdvanced: (tab
         </>}
       </CardContent>
     </Card>
+
+    {selectedJob && researchReviewActive && <NotesStudioResearchReviewPage jobId={selectedJob.id} onJobProgressed={() => void load()} />}
   </div>;
 }
 
