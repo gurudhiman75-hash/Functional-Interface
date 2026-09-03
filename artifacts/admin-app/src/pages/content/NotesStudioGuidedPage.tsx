@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { adminRequest } from '@/lib/admin-request';
 import { NotesStudioDraftReviewPage } from './NotesStudioDraftReviewPage';
+import { NotesStudioFinalReviewPage } from './NotesStudioFinalReviewPage';
 import { NotesStudioResearchReviewPage } from './NotesStudioResearchReviewPage';
 
 type AuthoringJob = {
@@ -30,7 +31,7 @@ const stages = [
   { title: 'Topic & sources', description: 'Define scope and establish the research pack.' },
   { title: 'Research review', description: 'Review evidence, claims and syllabus coverage.' },
   { title: 'Draft & QA', description: 'Generate the note and resolve quality findings.' },
-  { title: 'Approve & release', description: 'Approve the final note and release deliberately.' },
+  { title: 'Final review', description: 'Approve the frozen learner version and release deliberately.' },
 ] as const;
 
 function guidedStage(state: string): GuidedStage {
@@ -47,11 +48,11 @@ function guidedStage(state: string): GuidedStage {
     case 'qa_required':
       return { index: 2, title: 'Draft & QA', description: 'Review the complete note, fix any QA findings and rerun QA below.', nextTab: 'quality', nextLabel: 'Draft Review is below' };
     case 'review_ready':
-      return { index: 3, title: 'Approve & release', description: 'The note is ready for final editorial approval.', nextTab: 'approval', nextLabel: 'Review final note' };
+      return { index: 3, title: 'Final review', description: 'Review the complete learner note, then explicitly approve and freeze it below.', nextTab: 'approval', nextLabel: 'Final Review is below' };
     case 'approved':
-      return { index: 3, title: 'Approve & release', description: 'Editorial approval is complete. Release remains explicit.', nextTab: 'release', nextLabel: 'Release note' };
+      return { index: 3, title: 'Final review', description: 'The immutable version is approved. Prepare verified learner drafts and release them explicitly below.', nextTab: 'release', nextLabel: 'Final Review is below' };
     case 'materialized':
-      return { index: 4, title: 'Complete', description: 'This authoring run has been materialized into the learner-content system.', nextTab: 'canonical', nextLabel: 'View canonical note' };
+      return { index: 3, title: 'Final review', description: 'Canonical learner drafts exist. Finish the explicit release handoff below; Notes Studio still will not auto-publish.', nextTab: 'release', nextLabel: 'Final Review is below' };
     default:
       return { index: 0, title: 'Needs attention', description: 'Open the workspace to inspect this authoring run.', nextTab: 'authoring', nextLabel: 'Open workspace' };
   }
@@ -66,6 +67,7 @@ export function NotesStudioGuidedPage({ onOpenAdvanced }: { onOpenAdvanced: (tab
   const current = useMemo(() => guidedStage(selectedJob?.state ?? 'brief'), [selectedJob?.state]);
   const researchReviewActive = Boolean(selectedJob && ['sources_ready', 'evidence_ready'].includes(selectedJob.state));
   const draftReviewActive = Boolean(selectedJob && ['outline_ready', 'drafting', 'qa_required'].includes(selectedJob.state));
+  const finalReviewActive = Boolean(selectedJob && ['review_ready', 'approved', 'materialized'].includes(selectedJob.state));
 
   const load = async () => {
     setLoading(true);
@@ -129,9 +131,11 @@ export function NotesStudioGuidedPage({ onOpenAdvanced }: { onOpenAdvanced: (tab
                 ? <Badge variant="secondary" className="self-start md:self-auto">Research Review below</Badge>
                 : draftReviewActive
                   ? <Badge variant="secondary" className="self-start md:self-auto">Draft Review below</Badge>
-                  : <Button onClick={() => onOpenAdvanced(current.nextTab)}>
-                      {current.nextLabel}<ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>}
+                  : finalReviewActive
+                    ? <Badge variant="secondary" className="self-start md:self-auto">Final Review below</Badge>
+                    : <Button onClick={() => onOpenAdvanced(current.nextTab)}>
+                        {current.nextLabel}<ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>}
             </div>
           </div>
 
@@ -145,6 +149,7 @@ export function NotesStudioGuidedPage({ onOpenAdvanced }: { onOpenAdvanced: (tab
 
     {selectedJob && researchReviewActive && <NotesStudioResearchReviewPage jobId={selectedJob.id} onJobProgressed={() => void load()} />}
     {selectedJob && draftReviewActive && <NotesStudioDraftReviewPage jobId={selectedJob.id} onJobProgressed={() => void load()} />}
+    {selectedJob && finalReviewActive && <NotesStudioFinalReviewPage jobId={selectedJob.id} onJobProgressed={() => void load()} onOpenAdvanced={onOpenAdvanced} />}
   </div>;
 }
 

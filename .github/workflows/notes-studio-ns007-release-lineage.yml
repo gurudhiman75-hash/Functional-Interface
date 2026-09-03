@@ -84,6 +84,16 @@ jobs:
           grep -F 'Open Learning Resources' "$page"
           ! grep -F '/publish' "$page"
           grep -F 'NotesStudioReleaseRevisionPage' "$hub"
+      - name: Verify Guided Final Review release surface
+        run: |
+          page='artifacts/admin-app/src/pages/content/NotesStudioFinalReviewPage.tsx'
+          guided='artifacts/admin-app/src/pages/content/NotesStudioGuidedPage.tsx'
+          grep -F 'Release ready drafts' "$page"
+          grep -F '/handoff/${variant.key}' "$page"
+          grep -F 'No learner resource was published automatically.' "$page"
+          grep -F 'Open Learning Resources' "$page"
+          grep -F "['review_ready', 'approved', 'materialized']" "$guided"
+          ! grep -F '/publish' "$page"
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Typecheck admin app

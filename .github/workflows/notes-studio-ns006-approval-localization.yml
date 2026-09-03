@@ -78,6 +78,16 @@ jobs:
           grep -F 'headingCountMatches' artifacts/api-server/src/notes-studio/approval-versioning.ts
           grep -F 'missingUrls' artifacts/api-server/src/notes-studio/approval-versioning.ts
           grep -F 'evaluateTranslationQuality' artifacts/api-server/src/notes-studio/approval-versioning.ts
+      - name: Verify Guided Final Review approval surface
+        run: |
+          page='artifacts/admin-app/src/pages/content/NotesStudioFinalReviewPage.tsx'
+          guided='artifacts/admin-app/src/pages/content/NotesStudioGuidedPage.tsx'
+          grep -F 'Approve & freeze' "$page"
+          grep -F 'Prepare missing release drafts' "$page"
+          grep -F 'canonical materialization creates draft learner resources only' "$page"
+          grep -F "onOpenAdvanced('approval')" "$page"
+          grep -F 'NotesStudioFinalReviewPage' "$guided"
+          ! grep -F '/publish' "$page"
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
       - name: Typecheck admin app
