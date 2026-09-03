@@ -29,6 +29,26 @@ const PROFILE_DIFFICULTIES: readonly [ArgCp007ExamProfile, ArgCp007Difficulty][]
   ["BANKING_COMBO_4X5", "Hard"],
 ];
 
+type CoreReviewQuestion = Readonly<{
+  profileMode: "core";
+  qlId: string;
+  language: string;
+  difficulty: string;
+  sourceCheckpointId: string;
+  sourceAuthority: string;
+}> & Readonly<Record<string, unknown>>;
+
+type RealPaperReviewQuestion = Readonly<{
+  profileMode: "real-paper";
+  examProfile: string;
+  language: string;
+  difficulty: string;
+  arguments: readonly string[];
+  options: readonly string[];
+  sourceAuthority: string;
+  supersedesRealPaperAuthority: string;
+}> & Readonly<Record<string, unknown>>;
+
 assert.equal(ARG_CP012_QUESTION_STUDIO_AUTHORITY, "ARG_CP012_QUESTION_STUDIO_EDITORIAL_REMEDIATION_V1");
 assert.equal(ARG_CP012_RUNTIME_MODE, "REVIEW_ONLY_CP009_CORE_CP012_REAL_PAPER");
 assert.equal(ARG_CP012_REVIEW_STATUS, "QUESTION_STUDIO_CP012_EDITORIAL_REMEDIATION_CONNECTED");
@@ -96,7 +116,8 @@ for (const language of ["en", "hi", "pa"] as const) {
       assert.equal(result.generationContext.currentCoreCheckpointId, ARG_CP009_CHECKPOINT_ID);
       assert.equal(result.generationContext.currentRealPaperCheckpointId, ARG_CP012_CHECKPOINT_ID);
       assert.equal(result.questions.length, 2);
-      for (const question of result.questions) {
+      for (const rawQuestion of result.questions) {
+        const question = rawQuestion as unknown as CoreReviewQuestion;
         assert.equal(question.profileMode, "core");
         assert.equal(question.qlId, qlId);
         assert.equal(question.language, language);
@@ -106,7 +127,7 @@ for (const language of ["en", "hi", "pa"] as const) {
           question.sourceAuthority,
           language === "en" ? ARG_CP009_ENGLISH_REMEDIATION_AUTHORITY : ARG_CP009_LOCALIZATION_AUTHORITY_V2,
         );
-        assertLocked(question as unknown as Readonly<Record<string, unknown>>);
+        assertLocked(question);
       }
     }
   }
@@ -128,7 +149,8 @@ for (const [profile, difficulty] of PROFILE_DIFFICULTIES) {
     assert.equal(result.generationContext.profileMode, "real-paper");
     assert.equal(result.generationContext.currentRealPaperCheckpointId, ARG_CP012_CHECKPOINT_ID);
     assert.equal(result.questions.length, 12);
-    for (const question of result.questions) {
+    for (const rawQuestion of result.questions) {
+      const question = rawQuestion as unknown as RealPaperReviewQuestion;
       assert.equal(question.profileMode, "real-paper");
       assert.equal(question.examProfile, profile);
       assert.equal(question.language, language);
@@ -137,7 +159,7 @@ for (const [profile, difficulty] of PROFILE_DIFFICULTIES) {
       assert.equal(question.options.length, profileMeta.optionCount);
       assert.equal(question.sourceAuthority, ARG_CP012_AUTHORITY);
       assert.equal(question.supersedesRealPaperAuthority, ARG_CP010_AUTHORITY);
-      assertLocked(question as unknown as Readonly<Record<string, unknown>>);
+      assertLocked(question);
     }
   }
 }
