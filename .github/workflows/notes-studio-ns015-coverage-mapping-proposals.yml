@@ -60,7 +60,7 @@ jobs:
           grep -F 'modelAutomaticallyApplied: false' artifacts/api-server/src/routes/admin-notes-studio-coverage-proposals.ts
           grep -F 'claimStateChanged: false' artifacts/api-server/src/routes/admin-notes-studio-coverage-proposals.ts
           grep -F 'adminNotesStudioCoverageProposalsRouter' artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
-          grep -F 'Coverage proposals' artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
+          grep -F 'Coverage review' artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
           grep -F 'Approve sufficient coverage' artifacts/admin-app/src/pages/content/NotesStudioCoverageProposalPage.tsx
           if grep -F 'UPDATE content.note_source_claims' artifacts/api-server/src/routes/admin-notes-studio-coverage-proposals.ts; then exit 1; fi
           if grep -F 'INSERT INTO content.note_sections' artifacts/api-server/src/routes/admin-notes-studio-coverage-proposals.ts; then exit 1; fi
