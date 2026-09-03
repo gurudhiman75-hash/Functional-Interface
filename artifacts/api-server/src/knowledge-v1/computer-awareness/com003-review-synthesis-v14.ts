@@ -104,6 +104,14 @@ function cleanDirectStem(input: string) {
       "a modern Word document")
     .replace(/modern Excel workbook/gi,
       "a modern Excel workbook")
+    .replace(/^In Microsoft Excel, (which|what) Excel (function|feature|command or option|chart|range)/i,
+      (_m, wh, noun) => `In Microsoft Excel, ${String(wh).toLowerCase()} ${String(noun)}`)
+    .replace(/^In Microsoft Word, (which|what) Word (feature|command|page element|formatting option)/i,
+      (_m, wh, noun) => `In Microsoft Word, ${String(wh).toLowerCase()} ${String(noun)}`)
+    .replace(/^In Microsoft PowerPoint, (which|what) PowerPoint (feature|object|effect|timing option|term)/i,
+      (_m, wh, noun) => `In Microsoft PowerPoint, ${String(wh).toLowerCase()} ${String(noun)}`)
+    .replace(/^In Microsoft Office, (which|what) Microsoft Office /i,
+      (_m, wh) => `In Microsoft Office, ${String(wh).toLowerCase()} `)
     .replace(/\s+\?/g, "?")
     .replace(/\?{2,}$/g, "?");
 
