@@ -110,24 +110,32 @@ export function CurrentAffairsEditorialQueuePage() {
   const [processingResult, setProcessingResult] = useState<CurrentAffairsSelectedProcessingResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const refresh = useCallback(async () => {
-    setLoading(true);
+  const refreshSecondaryQueues = useCallback(async () => {
     try {
-      const [nextHeadlines, nextEvents, nextQuestions] = await Promise.all([
-        getCurrentAffairsHeadlineReview(headlineDate, 1200),
+      const [nextEvents, nextQuestions] = await Promise.all([
         getCurrentAffairsEditorialQueue(300),
         getCurrentAffairsQuestionEditorialQueue(300),
       ]);
-      setHeadlines(nextHeadlines);
       setEvents(nextEvents);
       setQuestions(nextQuestions);
+    } catch (caught) {
+      setError((current) => current ?? (caught instanceof Error ? caught.message : 'Unable to load supporting Current Affairs editorial queues.'));
+    }
+  }, []);
+
+  const refresh = useCallback(async () => {
+    setLoading(true);
+    try {
+      const nextHeadlines = await getCurrentAffairsHeadlineReview(headlineDate, 1200);
+      setHeadlines(nextHeadlines);
       setError(null);
     } catch (caught) {
-      setError(caught instanceof Error ? caught.message : 'Unable to load Current Affairs editorial queues.');
+      setError(caught instanceof Error ? caught.message : 'Unable to load Current Affairs headline review.');
     } finally {
       setLoading(false);
     }
-  }, [headlineDate]);
+    void refreshSecondaryQueues();
+  }, [headlineDate, refreshSecondaryQueues]);
 
   useEffect(() => { void refresh(); }, [refresh]);
 
@@ -210,8 +218,8 @@ export function CurrentAffairsEditorialQueuePage() {
   const visibleProcessingResult = processingResult?.targetDate === headlineDate ? processingResult : null;
   const blockedProcessingItems = visibleProcessingResult?.items.filter((item) => !item.ready) ?? [];
 
-  if (loading && !headlines && !events && !questions) {
-    return <div className="flex min-h-[360px] items-center justify-center gap-2 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" />Loading Current Affairs editorial review…</div>;
+  if (loading && !headlines) {
+    return <div className="flex min-h-[360px] items-center justify-center gap-2 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" />Loading Current Affairs headline review…</div>;
   }
 
   return (
