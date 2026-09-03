@@ -10,6 +10,7 @@ import adminLearningResourceEditorRouter from "./admin-learning-resource-editor"
 import adminNotesStudioJobListRouter from "./admin-notes-studio-job-list";
 import adminNotesStudioRouter from "./admin-notes-studio";
 import adminNotesStudioBriefEditorRouter from "./admin-notes-studio-brief-editor";
+import adminNotesStudioResearchReviewRouter from "./admin-notes-studio-research-review";
 import adminNotesStudioSourcePolicyRouter from "./admin-notes-studio-source-policy";
 import adminNotesStudioSourceCoverageRouter from "./admin-notes-studio-source-coverage";
 import adminNotesStudioSourcePackProposalsRouter from "./admin-notes-studio-source-pack-proposals";
@@ -119,6 +120,7 @@ router.use("/admin/learning-resource-editor", adminLearningResourceEditorRouter)
 router.use("/admin/notes-studio", adminNotesStudioJobListRouter);
 router.use("/admin/notes-studio", adminNotesStudioRouter);
 router.use("/admin/notes-studio", adminNotesStudioBriefEditorRouter);
+router.use("/admin/notes-studio", adminNotesStudioResearchReviewRouter);
 router.use("/admin/notes-studio", adminNotesStudioSourcePolicyRouter);
 router.use("/admin/notes-studio", adminNotesStudioSourceCoverageRouter);
 router.use("/admin/notes-studio", adminNotesStudioSourcePackProposalsRouter);
