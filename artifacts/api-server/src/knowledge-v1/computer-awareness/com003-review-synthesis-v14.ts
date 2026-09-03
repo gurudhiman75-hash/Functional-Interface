@@ -84,8 +84,6 @@ function cleanDirectStem(input: string) {
       "identifies possible spelling errors")
     .replace(/open the print workflow/gi,
       "print a document")
-    .replace(/Excel row or column operation/gi,
-      "Excel command or option")
     .replace(/horizontal width of a worksheet column/gi,
       "width of a column")
     .replace(/vertical height of a worksheet row/gi,
@@ -104,7 +102,41 @@ function cleanDirectStem(input: string) {
       "a modern Word document")
     .replace(/modern Excel workbook/gi,
       "a modern Excel workbook")
-    .replace(/^In Microsoft Excel, (which|what) Excel (function|feature|command or option|chart|range)/i,
+    .replace(/^The AutoCorrect feature in Word is used for what\?$/i,
+      "What is AutoCorrect used for in Word?")
+    .replace(/^The AutoFill feature in Excel is used for what\?$/i,
+      "What is AutoFill used for in Excel?")
+    .replace(/^The Fill handle feature in Excel is used for what\?$/i,
+      "What is the Fill handle used for in Excel?")
+    .replace(/^In Microsoft Excel \(Windows desktop\), Alt\+H, O, W is used for what\?$/i,
+      "In Microsoft Excel (Windows desktop), what does Alt+H, O, W do?")
+    .replace(/^In Microsoft Excel \(Windows desktop\), F2 is used for what\?$/i,
+      "What does F2 do in Microsoft Excel (Windows desktop)?")
+    .replace(/^Which Excel command or option controls the width of a column\?$/i,
+      "Which Excel option is used to change column width?")
+    .replace(/^Which Excel command or option removes a selected row\?$/i,
+      "Which command is used to delete a selected row in Excel?")
+    .replace(/^Which Excel command or option inserts a new row\?$/i,
+      "Which command is used to insert a new row in Excel?")
+    .replace(/^Which Excel command or option controls the height of a row\?$/i,
+      "Which Excel option is used to change row height?")
+    .replace(/^In Microsoft Excel, which command or option controls the width of a column\?$/i,
+      "In Excel, which option is used to change column width?")
+    .replace(/^In Microsoft Excel, which command or option removes a selected row\?$/i,
+      "In Excel, which command deletes a selected row?")
+    .replace(/^In Microsoft Excel, which command or option inserts a new row\?$/i,
+      "In Excel, which command inserts a new row?")
+    .replace(/^In Microsoft Excel, which command or option controls the height of a row\?$/i,
+      "In Excel, which option is used to change row height?")
+    .replace(/^What Excel command or option controls the width of a column\?$/i,
+      "Which option changes the width of a column in Excel?")
+    .replace(/^What Excel command or option removes a selected row\?$/i,
+      "Which Excel command deletes a selected row?")
+    .replace(/^What Excel command or option inserts a new row\?$/i,
+      "Which Excel command inserts a new row?")
+    .replace(/^What Excel command or option controls the height of a row\?$/i,
+      "Which option changes the height of a row in Excel?")
+    .replace(/^In Microsoft Excel, (which|what) Excel (function|feature|chart|range)/i,
       (_m, wh, noun) => `In Microsoft Excel, ${String(wh).toLowerCase()} ${String(noun)}`)
     .replace(/^In Microsoft Word, (which|what) Word (feature|command|page element|formatting option)/i,
       (_m, wh, noun) => `In Microsoft Word, ${String(wh).toLowerCase()} ${String(noun)}`)
@@ -112,6 +144,11 @@ function cleanDirectStem(input: string) {
       (_m, wh, noun) => `In Microsoft PowerPoint, ${String(wh).toLowerCase()} ${String(noun)}`)
     .replace(/^In Microsoft Office, (which|what) Microsoft Office /i,
       (_m, wh) => `In Microsoft Office, ${String(wh).toLowerCase()} `)
+    .replace(/^Which of the following shortcuts is used to /i, "Which shortcut is used to ")
+    .replace(/^In Microsoft PowerPoint \(Windows desktop\), which of the following shortcuts is used to /i,
+      "In Microsoft PowerPoint (Windows desktop), which shortcut is used to ")
+    .replace(/^In Microsoft PowerPoint \(Windows desktop\), which shortcut should be pressed to /i,
+      "Which shortcut is used in PowerPoint (Windows desktop) to ")
     .replace(/\s+\?/g, "?")
     .replace(/\?{2,}$/g, "?");
 
@@ -128,7 +165,6 @@ function alternateDuplicate(stem: string, qlId: string) {
     return stem.replace(/^(In Microsoft [^)]+ \(Windows desktop\), )which\b/i, "$1what");
   }
   const app = appForQl(qlId);
-  if (/^What\b/.test(stem)) return `In ${app}, ${lowerFirst(stem)}`;
   return `In ${app}, ${lowerFirst(stem)}`;
 }
 
