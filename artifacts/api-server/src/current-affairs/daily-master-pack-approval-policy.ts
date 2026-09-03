@@ -1,4 +1,5 @@
 import { evaluateCurrentAffairsEditorialPriority } from "./editorial-priority";
+import { isGenericCurrentAffairsLearnerTitle } from "./learner-title-quality";
 
 export type DailyMasterPackApprovalLanguage = "en" | "hi" | "pa";
 
@@ -72,7 +73,6 @@ export type DailyMasterPackApprovalReadiness = {
 
 const MALFORMED_SCHEDULED_ACTION = /\bscheduled\s+(?:launch|conduct|inaugurat(?:e|ion)|hold|held|open|unveil|release)\b/i;
 const INTERNAL_AUTHORING_ARTIFACT = /\b(?:verified official facts|acting body|reconciled atomic facts|verified fact graph|source-independent learner wording|extraction metadata)\b/i;
-const GENERIC_PLACEHOLDER_TITLE = /^(?:government of india|reserve bank of india|sebi|isro|official source|punjab government):\s+(?:key\s+)?(?:national affairs|economy and banking|international affairs|appointment|award|report and index|sports|science and technology|space|defence|environment|punjab affairs|current affairs)\s+(?:development|announcement|initiative|update)$/i;
 
 function normalizedIds(values: string[]) {
   return [...new Set(values.map((value) => value.trim()).filter(Boolean))].sort();
@@ -164,7 +164,7 @@ export function evaluateDailyMasterPackEditorialQuality(
       });
     }
 
-    if (GENERIC_PLACEHOLDER_TITLE.test(event.title.trim())) {
+    if (isGenericCurrentAffairsLearnerTitle(event.title)) {
       add({
         eventId: event.id,
         kind: "generic_placeholder_title",
@@ -173,8 +173,6 @@ export function evaluateDailyMasterPackEditorialQuality(
     }
   }
 
-  // CP-050: importance/relevance is advisory. A human editor may deliberately
-  // retain a routine story. Mechanical/malformed learner-copy defects still block.
   const routineIssues = issues.filter((issue) => issue.kind === "routine_event");
   const blockingIssues = issues.filter((issue) => issue.kind !== "routine_event");
   const blockers = blockingIssues.map(issueLabel);
@@ -269,8 +267,6 @@ export function evaluateDailyMasterPackApprovalReadiness(
   const conflictFree = input.openConflictCount === 0;
   if (!conflictFree) blockers.push("Open factual conflicts block canonical master-pack approval");
 
-  // CP-043: a canonical day cannot be locked while discovery is still only in review.
-  // Manual approval remains powerful, but it does not override an incomplete census.
   const censusNotBlocked = input.censusStatus === "complete" && input.censusBlockerCount === 0;
   if (!censusNotBlocked) {
     blockers.push(
