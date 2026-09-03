@@ -14,10 +14,15 @@ const forbidden = /solver|fingerprint|runtime|authority|exact-cover|internal|deb
 function assertSvg(svg: string, owner: string) {
   assert.match(svg, /<svg\b/i, `${owner}: missing SVG root`);
   assert.match(svg, /fill="white"/i, `${owner}: white background missing`);
-  assert.match(svg, /stroke="#111827"/i, `${owner}: standard exam stroke missing`);
-  assert.match(svg, /stroke-width="1\.35"/i, `${owner}: non-standard stroke width`);
+  const hasGeometry = /<(?:line|path|polygon|polyline)\b/i.test(svg);
+  if (hasGeometry) {
+    assert.match(svg, /stroke="#111827"/i, `${owner}: standard exam stroke missing`);
+    assert.match(svg, /stroke-width="1\.35"/i, `${owner}: non-standard stroke width`);
+    assert.doesNotMatch(svg, /stroke-width="(?:[2-9]|[1-9]\d)/i, `${owner}: overly heavy stroke`);
+  } else {
+    assert.match(svg, /<text\b[^>]*fill="#111827"/i, `${owner}: text-only option must use the standard exam ink`);
+  }
   assert.doesNotMatch(svg, /<script|javascript:|onload=|onerror=/i, `${owner}: unsafe SVG`);
-  assert.doesNotMatch(svg, /stroke-width="(?:[2-9]|[1-9]\d)/i, `${owner}: overly heavy stroke`);
 }
 function explanationText(question: any) {
   return Object.values(question.explanation ?? {}).join(" ");
