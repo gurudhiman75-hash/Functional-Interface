@@ -44,39 +44,53 @@ async function fetchRecoveryPage(candidate: RecoveryCandidate) {
   const attempts: Array<Record<string, unknown>> = [];
   for (const variant of variants) {
     try {
-      const pageUrl = assertAllowedPrimaryPageUrl(candidate.sourceKey, variant);
-      const response = await fetch(pageUrl, {
-        headers: {
-          accept: "text/html,application/xhtml+xml;q=0.9,text/plain;q=0.6",
-          "accept-language": "en-IN,en;q=0.9",
-          "cache-control": "no-cache",
-          "user-agent": "Mozilla/5.0 (compatible; Examtree-Current-Affairs-Recovery/1.0; +https://examtree.in)",
-        },
-        redirect: "follow",
-        signal: AbortSignal.timeout(15_000),
-      });
-      if (!response.ok) {
-        attempts.push({ url: pageUrl, status: response.status, accepted: false, reason: "http_status" });
-        continue;
+      let pageUrl = assertAllowedPrimaryPageUrl(candidate.sourceKey, variant);
+      for (let redirectCount = 0; redirectCount <= 2; redirectCount += 1) {
+        const response = await fetch(pageUrl, {
+          headers: {
+            accept: "text/html,application/xhtml+xml;q=0.9,text/plain;q=0.6",
+            "accept-language": "en-IN,en;q=0.9",
+            "cache-control": "no-cache",
+            "user-agent": "Mozilla/5.0 (compatible; Examtree-Current-Affairs-Recovery/1.0; +https://examtree.in)",
+          },
+          redirect: "manual",
+          signal: AbortSignal.timeout(15_000),
+        });
+        if (response.status >= 300 && response.status < 400) {
+          const location = response.headers.get("location");
+          attempts.push({ url: pageUrl, status: response.status, accepted: false, reason: "validated_redirect" });
+          if (!location) throw new Error(`Primary recovery redirect HTTP ${response.status} omitted Location`);
+          if (redirectCount === 2) throw new Error("Primary recovery page exceeded redirect limit");
+          pageUrl = assertAllowedPrimaryPageUrl(
+            candidate.sourceKey,
+            new URL(location, pageUrl).toString(),
+          );
+          continue;
+        }
+        if (!response.ok) {
+          attempts.push({ url: pageUrl, status: response.status, accepted: false, reason: "http_status" });
+          break;
+        }
+        const contentType = String(response.headers.get("content-type") ?? "").toLowerCase();
+        if (contentType && !contentType.includes("html") && !contentType.includes("text/plain")) {
+          attempts.push({ url: pageUrl, status: response.status, accepted: false, reason: "unsupported_content_type" });
+          break;
+        }
+        const html = await readBounded(response);
+        const text = extractSelectedPrimaryPageText(html);
+        const identity = recoveryPageMatchesTitle(candidate.title, text);
+        attempts.push({
+          url: pageUrl,
+          status: response.status,
+          accepted: identity.matched,
+          reason: identity.matched ? "title_identity" : "title_identity_failed",
+          visibleCharCount: text.length,
+          sharedTerms: identity.sharedTerms,
+          containment: identity.containment,
+        });
+        if (identity.matched) return { text, resolvedUrl: pageUrl, attempts };
+        break;
       }
-      const contentType = String(response.headers.get("content-type") ?? "").toLowerCase();
-      if (contentType && !contentType.includes("html") && !contentType.includes("text/plain")) {
-        attempts.push({ url: pageUrl, status: response.status, accepted: false, reason: "unsupported_content_type" });
-        continue;
-      }
-      const html = await readBounded(response);
-      const text = extractSelectedPrimaryPageText(html);
-      const identity = recoveryPageMatchesTitle(candidate.title, text);
-      attempts.push({
-        url: pageUrl,
-        status: response.status,
-        accepted: identity.matched,
-        reason: identity.matched ? "title_identity" : "title_identity_failed",
-        visibleCharCount: text.length,
-        sharedTerms: identity.sharedTerms,
-        containment: identity.containment,
-      });
-      if (identity.matched) return { text, resolvedUrl: pageUrl, attempts };
     } catch (error) {
       attempts.push({ url: variant, accepted: false, reason: safeError(error) });
     }
@@ -110,7 +124,7 @@ async function loadSelectedPrimaryCandidates(targetDate: string): Promise<Recove
       AND source.is_primary_source=true
       AND source.content_policy='primary_facts'
       AND candidate.source_url IS NOT NULL
-      AND event.status IN ('review','verified')
+      AND event.status='review'
     ORDER BY candidate.id, event.id, event.updated_at DESC
     LIMIT ${MAX_SELECTED}
   `;
