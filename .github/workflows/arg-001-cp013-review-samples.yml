@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   cp013-review-samples:
@@ -25,7 +25,7 @@ jobs:
       - run: corepack enable
       - name: Install dependencies quietly
         run: pnpm install --frozen-lockfile --reporter=silent
-      - name: Emit CP013 final learner-facing review samples
+      - name: Generate exact CP013 review packet
         working-directory: artifacts/api-server
         run: |
           pnpm exec esbuild \
@@ -33,4 +33,16 @@ jobs:
             --bundle --platform=node --format=esm \
             --log-level=error \
             --outfile=dist/arg-001-cp013-review-samples.mjs
-          node dist/arg-001-cp013-review-samples.mjs
+          mkdir -p ../../docs/review
+          node dist/arg-001-cp013-review-samples.mjs > ../../docs/review/ARG-001-CP013-RUNTIME-REVIEW-SAMPLES.md
+      - name: Commit exact runtime review packet
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/review/ARG-001-CP013-RUNTIME-REVIEW-SAMPLES.md
+          if git diff --cached --quiet; then
+            echo 'Review packet unchanged.'
+          else
+            git commit -m 'docs(reasoning): record ARG CP013 runtime review samples'
+            git push origin HEAD:feature/arg-001-cp012-editorial-remediation
+          fi
