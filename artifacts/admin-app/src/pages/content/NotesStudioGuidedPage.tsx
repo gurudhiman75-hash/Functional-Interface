@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { adminRequest } from '@/lib/admin-request';
+import { NotesStudioDraftReviewPage } from './NotesStudioDraftReviewPage';
 import { NotesStudioResearchReviewPage } from './NotesStudioResearchReviewPage';
 
 type AuthoringJob = {
@@ -42,9 +43,9 @@ function guidedStage(state: string): GuidedStage {
       return { index: 1, title: 'Research review', description: 'Finish factual and coverage review below. Gaps stay in research instead of becoming draft facts.', nextTab: 'coverage-proposals', nextLabel: 'Research Review is below' };
     case 'outline_ready':
     case 'drafting':
-      return { index: 2, title: 'Draft & QA', description: 'Build the note from approved research and review the draft.', nextTab: 'sections', nextLabel: 'Continue drafting' };
+      return { index: 2, title: 'Draft & QA', description: 'Prepare the complete note from confirmed research and review it below.', nextTab: 'sections', nextLabel: 'Draft Review is below' };
     case 'qa_required':
-      return { index: 2, title: 'Draft & QA', description: 'Resolve the remaining quality findings.', nextTab: 'quality', nextLabel: 'Review quality' };
+      return { index: 2, title: 'Draft & QA', description: 'Review the complete note, fix any QA findings and rerun QA below.', nextTab: 'quality', nextLabel: 'Draft Review is below' };
     case 'review_ready':
       return { index: 3, title: 'Approve & release', description: 'The note is ready for final editorial approval.', nextTab: 'approval', nextLabel: 'Review final note' };
     case 'approved':
@@ -64,6 +65,7 @@ export function NotesStudioGuidedPage({ onOpenAdvanced }: { onOpenAdvanced: (tab
   const selectedJob = jobs.find((job) => job.id === selectedJobId) ?? null;
   const current = useMemo(() => guidedStage(selectedJob?.state ?? 'brief'), [selectedJob?.state]);
   const researchReviewActive = Boolean(selectedJob && ['sources_ready', 'evidence_ready'].includes(selectedJob.state));
+  const draftReviewActive = Boolean(selectedJob && ['outline_ready', 'drafting', 'qa_required'].includes(selectedJob.state));
 
   const load = async () => {
     setLoading(true);
@@ -125,9 +127,11 @@ export function NotesStudioGuidedPage({ onOpenAdvanced }: { onOpenAdvanced: (tab
               </div>
               {researchReviewActive
                 ? <Badge variant="secondary" className="self-start md:self-auto">Research Review below</Badge>
-                : <Button onClick={() => onOpenAdvanced(current.nextTab)}>
-                    {current.nextLabel}<ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>}
+                : draftReviewActive
+                  ? <Badge variant="secondary" className="self-start md:self-auto">Draft Review below</Badge>
+                  : <Button onClick={() => onOpenAdvanced(current.nextTab)}>
+                      {current.nextLabel}<ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>}
             </div>
           </div>
 
@@ -140,6 +144,7 @@ export function NotesStudioGuidedPage({ onOpenAdvanced }: { onOpenAdvanced: (tab
     </Card>
 
     {selectedJob && researchReviewActive && <NotesStudioResearchReviewPage jobId={selectedJob.id} onJobProgressed={() => void load()} />}
+    {selectedJob && draftReviewActive && <NotesStudioDraftReviewPage jobId={selectedJob.id} onJobProgressed={() => void load()} />}
   </div>;
 }
 
