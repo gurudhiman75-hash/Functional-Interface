@@ -39,6 +39,14 @@ async function readBounded(response: Response) {
   return buffer.toString("utf8");
 }
 
+function primaryEvidenceWindow(title: string, text: string) {
+  const needle = String(title ?? "").replace(/\s+/g, " ").trim().toLowerCase();
+  if (!needle) return text.slice(0, 50_000);
+  const index = text.toLowerCase().indexOf(needle);
+  if (index < 0) return text.slice(0, 50_000);
+  return text.slice(Math.max(0, index - 500), Math.min(text.length, index + 40_000));
+}
+
 async function fetchRecoveryPage(candidate: RecoveryCandidate) {
   const variants = primaryRecoveryUrlVariants(candidate.sourceKey, candidate.sourceUrl);
   const attempts: Array<Record<string, unknown>> = [];
@@ -79,16 +87,18 @@ async function fetchRecoveryPage(candidate: RecoveryCandidate) {
         const html = await readBounded(response);
         const text = extractSelectedPrimaryPageText(html);
         const identity = recoveryPageMatchesTitle(candidate.title, text);
+        const focusedText = identity.matched ? primaryEvidenceWindow(candidate.title, text) : "";
         attempts.push({
           url: pageUrl,
           status: response.status,
           accepted: identity.matched,
           reason: identity.matched ? "title_identity" : "title_identity_failed",
           visibleCharCount: text.length,
+          evidenceWindowCharCount: focusedText.length,
           sharedTerms: identity.sharedTerms,
           containment: identity.containment,
         });
-        if (identity.matched) return { text, resolvedUrl: pageUrl, attempts };
+        if (identity.matched) return { text: focusedText, resolvedUrl: pageUrl, attempts };
         break;
       }
     } catch (error) {
