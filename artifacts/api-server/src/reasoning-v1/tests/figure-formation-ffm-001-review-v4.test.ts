@@ -24,8 +24,7 @@ function minimumSegmentLength(svg: string): number {
 
 function expectedQuestionUnit(qlId: typeof qlIds[number]): number {
   if (qlId === "SPA-QL-051") return 16;
-  if (qlId === "SPA-QL-052") return 12;
-  return 14;
+  return 12;
 }
 
 let generated = 0;
