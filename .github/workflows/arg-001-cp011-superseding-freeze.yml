@@ -1,0 +1,114 @@
+name: Validate ARG-001 CP011 Superseding Freeze
+
+on:
+  push:
+    branches:
+      - feature/arg-001-cp005-question-studio-v1
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp011-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/CP011-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp010.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/arg-001-cp011-superseding-freeze.yml'
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp011-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/CP011-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp010.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/arg-001-cp011-superseding-freeze.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp011-superseding-freeze-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp011-superseding-freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Preserve exhaustive CP009 English remediation
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-english-remediation-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp009-english-proof.mjs
+          node dist/arg-001-cp009-english-proof.mjs
+
+      - name: Preserve exhaustive CP009 trilingual remediation
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-trilingual-remediation-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp009-trilingual-proof.mjs
+          node dist/arg-001-cp009-trilingual-proof.mjs
+
+      - name: Preserve CP010 correlated real-paper remediation
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-correlated-real-paper-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp010-correlated-proof.mjs
+          node dist/arg-001-cp010-correlated-proof.mjs
+
+      - name: Preserve CP010 Question Studio activation contract
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-question-studio-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp010-question-studio-proof.mjs
+          node dist/arg-001-cp010-question-studio-proof.mjs
+
+      - name: Preserve exact CP006 historical core freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts
+
+      - name: Preserve exact CP008 historical real-paper freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-byte-freeze-proof.test.ts
+
+      - name: Prove CP011 superseding remediation freeze
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp011-superseding-freeze-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp011-superseding-freeze-proof.mjs
+          node dist/arg-001-cp011-superseding-freeze-proof.mjs
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build
+
+      - name: CP011 lifecycle boundary
+        run: |
+          echo 'ARG-001 CP009 ordinary review and CP010 correlated real-paper remediation are technically frozen by CP011.'
+          echo 'CP003/CP006/CP008 remain immutable historical records and are not rewritten by CP011.'
+          echo 'Learner release remains LOCKED pending separate manual editorial approval.'
+          echo 'Question Bank/test/mock/public/automatic learner publication remain disabled.'
