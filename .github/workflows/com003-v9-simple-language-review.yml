@@ -29,7 +29,18 @@ jobs:
         run: |
           mkdir -p artifacts/api-server/dist/com003-review-v9
           pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/computer-awareness/com003-review-synthesis-v9.test.ts --bundle --platform=node --format=esm --outfile=dist/com003-review-v9/com003-review-synthesis-v9.test.mjs
-          node artifacts/api-server/dist/com003-review-v9/com003-review-synthesis-v9.test.mjs
+          set +e
+          node artifacts/api-server/dist/com003-review-v9/com003-review-synthesis-v9.test.mjs 2>&1 | tee artifacts/api-server/dist/com003-review-v9/validation.log
+          STATUS=${PIPESTATUS[0]}
+          set -e
+          exit $STATUS
+      - name: Upload validation diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: com003-v9-validation-log
+          path: artifacts/api-server/dist/com003-review-v9/validation.log
+          if-no-files-found: warn
       - name: Generate V9 Markdown review file
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/computer-awareness/com003-question-review-md-v9.ts --bundle --platform=node --format=esm --outfile=dist/com003-review-v9/com003-question-review-md-v9.mjs
