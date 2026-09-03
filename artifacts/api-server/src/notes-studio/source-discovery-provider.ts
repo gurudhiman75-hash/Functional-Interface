@@ -2,8 +2,10 @@ import OpenAI from 'openai';
 
 import {
   NOTES_SOURCE_DISCOVERY_PROMPT_VERSION,
+  rankDiscoveredSourceMetadata,
   rankDiscoveredSourceUrls,
   type NotesSourceDiscoveryCandidate,
+  type NotesSourceDiscoveryMetadata,
 } from './source-discovery';
 import {
   notesStudioAIConfigured,
@@ -39,6 +41,10 @@ const TAVILY_LOW_AUTHORITY_EXCLUSIONS = [
   'studyiq.com',
   'abhipedia.abhimanu.com',
   'spmiasacademy.com',
+  'flipkart.com',
+  'amazon.in',
+  'amazon.com',
+  'linkedin.com',
 ] as const;
 
 type TavilySearchPolicy = {
@@ -129,17 +135,27 @@ function sourceUrlsFromGeminiInteraction(response: unknown): { urls: string[]; s
   return { urls, searchCallCount };
 }
 
-function sourceUrlsFromTavilyResponse(response: unknown): string[] {
+function sourceMetadataFromTavilyResponse(response: unknown): NotesSourceDiscoveryMetadata[] {
   if (!response || typeof response !== 'object') return [];
   const results = (response as Record<string, unknown>).results;
   if (!Array.isArray(results)) return [];
-  const urls: string[] = [];
+  const metadata: NotesSourceDiscoveryMetadata[] = [];
   for (const result of results) {
     if (!result || typeof result !== 'object') continue;
-    const url = (result as Record<string, unknown>).url;
-    if (typeof url === 'string') urls.push(url);
+    const record = result as Record<string, unknown>;
+    if (typeof record.url !== 'string') continue;
+    metadata.push({
+      url: record.url,
+      title: typeof record.title === 'string' ? record.title : null,
+    });
   }
-  return urls;
+  return metadata;
+}
+
+function sourceUrlsFromTavilyResponse(response: unknown): string[] {
+  return sourceMetadataFromTavilyResponse(response)
+    .map((result) => result.url)
+    .filter((url): url is string => typeof url === 'string');
 }
 
 async function discoverWithOpenAI(queries: string[], model: string): Promise<NotesSourceDiscoveryProviderResult> {
@@ -174,7 +190,7 @@ async function discoverWithTavily(queries: string[]): Promise<NotesSourceDiscove
     );
   }
   const baseUrl = String(process.env.TAVILY_BASE_URL ?? 'https://api.tavily.com').replace(/\/$/, '');
-  const urls: string[] = [];
+  const metadata: NotesSourceDiscoveryMetadata[] = [];
   const requestIds: string[] = [];
   let credits = 0;
 
@@ -204,7 +220,7 @@ async function discoverWithTavily(queries: string[]): Promise<NotesSourceDiscove
       throw new Error(`Tavily source discovery failed with status ${response.status}: ${body}`);
     }
     const raw = await response.json() as Record<string, unknown>;
-    urls.push(...sourceUrlsFromTavilyResponse(raw));
+    metadata.push(...sourceMetadataFromTavilyResponse(raw));
     if (typeof raw.request_id === 'string') requestIds.push(raw.request_id);
     const usage = raw.usage;
     if (usage && typeof usage === 'object') {
@@ -219,13 +235,14 @@ async function discoverWithTavily(queries: string[]): Promise<NotesSourceDiscove
     responseId: requestIds[0] ?? null,
     promptVersion: NOTES_SOURCE_DISCOVERY_PROMPT_VERSION,
     searchCallCount: queries.length,
-    candidates: rankDiscoveredSourceUrls(urls),
+    candidates: rankDiscoveredSourceMetadata(metadata, queries[0] ?? queries.join(' ')),
     usage: {
       credits,
       requestIds,
       queryCount: queries.length,
       officialConstrainedQueries: Math.min(3, queries.length),
       broadFallbackQueries: Math.max(0, queries.length - 3),
+      relevanceMetadataOnly: true,
       answerReturned: false,
       rawContentReturned: false,
     },
@@ -344,6 +361,7 @@ export const sourceDiscoveryProviderInternals = {
   sourceUrlsFromResponse: sourceUrlsFromOpenAIResponse,
   sourceUrlsFromOpenAIResponse,
   sourceUrlsFromGeminiInteraction,
+  sourceMetadataFromTavilyResponse,
   sourceUrlsFromTavilyResponse,
   tavilySearchPolicy,
   geminiSearchModels,

@@ -34,7 +34,7 @@ function envHarness(t: TestContext) {
   });
 }
 
-test('Tavily is an independent governed URL-discovery transport and constrains primary searches to authoritative domains', async (t) => {
+test('Tavily is an independent governed URL-discovery transport and filters off-topic authoritative pages using URL/title metadata only', async (t) => {
   envHarness(t);
   process.env.NOTES_STUDIO_AI_PROVIDER = 'gemini';
   process.env.NOTES_STUDIO_SEARCH_PROVIDER = 'tavily';
@@ -58,17 +58,23 @@ test('Tavily is an independent governed URL-discovery transport and constrains p
       answer: 'This generated answer must never enter Notes Studio.',
       results: [
         {
-          title: 'Example prose that is intentionally ignored',
-          url: 'https://example.com/reference?utm_source=tavily',
+          title: 'Punjab River System reference',
+          url: 'https://example.com/punjab-river-system?utm_source=tavily',
           content: 'Search-result snippet that is intentionally ignored.',
           raw_content: 'Raw content that must never be requested or retained.',
           score: 0.99,
         },
         {
-          title: 'Government source',
+          title: 'Punjab Ravi Beas river basin',
           url: 'https://cwc.gov.in/en/ibo/about-basins',
           content: 'Ignored.',
           score: 0.80,
+        },
+        {
+          title: 'Geography of Haryana',
+          url: 'https://haryana.gov.in/geography',
+          content: 'Official but irrelevant and must be filtered.',
+          score: 0.79,
         },
       ],
       usage: { credits: 1 },
@@ -86,16 +92,23 @@ test('Tavily is an independent governed URL-discovery transport and constrains p
   assert.equal(discovered.candidates.length, 2);
   assert.equal(discovered.candidates[0]?.sourceUri, 'https://cwc.gov.in/en/ibo/about-basins');
   assert.equal(discovered.candidates[0]?.authorityClass, 'government_primary');
-  assert.equal(discovered.candidates[1]?.sourceUri, 'https://example.com/reference');
+  assert.equal(discovered.candidates[1]?.sourceUri, 'https://example.com/punjab-river-system');
+  assert.equal(discovered.candidates.some((candidate) => candidate.domain === 'haryana.gov.in'), false);
   assert.deepEqual(discovered.usage, {
     credits: 1,
     requestIds: ['tavily-request-1'],
     queryCount: 1,
     officialConstrainedQueries: 1,
     broadFallbackQueries: 0,
+    relevanceMetadataOnly: true,
     answerReturned: false,
     rawContentReturned: false,
   });
+
+  const metadata = sourceDiscoveryProviderInternals.sourceMetadataFromTavilyResponse({
+    results: [{ url: 'https://cwc.gov.in/page', title: 'Ravi basin', content: 'must not be retained' }],
+  });
+  assert.deepEqual(metadata, [{ url: 'https://cwc.gov.in/page', title: 'Ravi basin' }]);
 
   assert.equal(requests.length, 1);
   assert.equal(requests[0]!.url, 'https://tavily.test/search');
@@ -116,6 +129,8 @@ test('Tavily is an independent governed URL-discovery transport and constrains p
   assert.ok(broadPolicy.exclude_domains?.includes('wikipedia.org'));
   assert.ok(broadPolicy.exclude_domains?.includes('testbook.com'));
   assert.ok(broadPolicy.exclude_domains?.includes('youtube.com'));
+  assert.ok(broadPolicy.exclude_domains?.includes('flipkart.com'));
+  assert.ok(broadPolicy.exclude_domains?.includes('linkedin.com'));
 });
 
 test('Gemini Web Discovery uses the current Interactions API and Gemini 3.6 by default', async (t) => {
