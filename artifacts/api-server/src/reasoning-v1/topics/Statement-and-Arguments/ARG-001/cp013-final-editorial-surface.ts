@@ -1,8 +1,6 @@
 import { createHash } from "node:crypto";
 
-import {
-  ARG_CP012_CHECKPOINT_ID,
-} from "./cp012-editorial-real-paper-remediation.ts";
+import { ARG_CP012_CHECKPOINT_ID } from "./cp012-editorial-real-paper-remediation.ts";
 import {
   ARG_CP012_QUESTION_STUDIO_AUTHORITY,
   ARG_CP012_QUESTION_STUDIO_PACKAGE,
@@ -62,62 +60,6 @@ function replaceEverywhere(question: MutableQuestion, before: string, after: str
   }
 }
 
-function coreWorkshopPatch(question: MutableQuestion): void {
-  if (question.profileMode !== "core" || question.templateId !== "ARG-CP003-QL004-T04") return;
-  const language = languageOf(question);
-  const oldArguments = Array.isArray(question.arguments) ? question.arguments.map(String) : [];
-  const revised = language === "hi"
-    ? [
-        "हाँ। इस विषय पर एक ही कार्यशाला भविष्य में इससे जुड़ी हर कठिनाई को पूरी तरह समाप्त कर देगी।",
-        "नहीं। इस विषय पर एक कार्यशाला आयोजित होते ही इससे जुड़ी बाकी सभी मार्गदर्शन और सहायता सेवाएँ अनावश्यक हो जाएँगी।",
-      ]
-    : language === "pa"
-      ? [
-          "ਹਾਂ। ਇਸ ਵਿਸ਼ੇ ਬਾਰੇ ਇੱਕੋ ਵਰਕਸ਼ਾਪ ਭਵਿੱਖ ਵਿੱਚ ਇਸ ਨਾਲ ਜੁੜੀ ਹਰ ਮੁਸ਼ਕਲ ਨੂੰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਤਮ ਕਰ ਦੇਵੇਗੀ।",
-          "ਨਹੀਂ। ਇਸ ਵਿਸ਼ੇ ਬਾਰੇ ਇੱਕ ਵਰਕਸ਼ਾਪ ਹੋਣ ਤੋਂ ਬਾਅਦ ਇਸ ਨਾਲ ਜੁੜੀ ਹੋਰ ਸਾਰੀ ਰਹਿਨੁਮਾਈ ਅਤੇ ਸਹਾਇਤਾ ਬੇਲੋੜੀ ਹੋ ਜਾਵੇਗੀ।",
-        ]
-      : [
-          "Yes. A single workshop on the subject will completely solve every related difficulty participants may face in the future.",
-          "No. Once one workshop on the subject is offered, all other guidance and support on that subject will become unnecessary.",
-        ];
-
-  if (oldArguments.length >= 2) {
-    replaceEverywhere(question, oldArguments[0]!, revised[0]!);
-    replaceEverywhere(question, oldArguments[1]!, revised[1]!);
-  }
-  question.arguments = Object.freeze(revised);
-}
-
-function punjabiGrammarPatch(question: MutableQuestion): void {
-  if (languageOf(question) !== "pa") return;
-  const replacements = [
-    ["ਭਰਤੀ ਉਮੀਦਵਾਰਾਂ ਜੋ", "ਜੋ ਭਰਤੀ ਉਮੀਦਵਾਰ"],
-    ["ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦਾ ਨਿੱਜੀ ਡਾਟਾ ਦੀ ਚਿੰਤਾ", "ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੇ ਨਿੱਜੀ ਡਾਟੇ ਦੀ ਚਿੰਤਾ"],
-    ["ਜੋ ਕਰਮਚਾਰੀ ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਬਾਰੇ ਪੁੱਛੇ", "ਜੋ ਕਰਮਚਾਰੀ ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਬਾਰੇ ਪੁੱਛਦਾ ਹੈ"],
-  ] as const;
-  for (const [before, after] of replacements) replaceEverywhere(question, before, after);
-}
-
-function englishGrammarPatch(question: MutableQuestion): void {
-  if (languageOf(question) !== "en") return;
-  const replacements = [
-    ["A mistaken one buyer complaint", "A mistaken buyer complaint"],
-    ["Yes. one buyer complaint", "Yes. One buyer complaint"],
-    ["No. a passport centre", "No. A passport centre"],
-    ["Yes. a passport centre", "Yes. A passport centre"],
-  ] as const;
-  for (const [before, after] of replacements) replaceEverywhere(question, before, after);
-
-  const currentArguments = Array.isArray(question.arguments) ? question.arguments.map(String) : [];
-  for (const argument of currentArguments) {
-    const revised = argument.replace(
-      /^(Yes|No)\. ([a-z])/u,
-      (_match: string, stance: string, initial: string) => `${stance}. ${initial.toUpperCase()}`,
-    );
-    replaceEverywhere(question, argument, revised);
-  }
-}
-
 function explanationPrefixes(language: "en" | "hi" | "pa", count: number): readonly string[] {
   return Array.from({ length: count }, (_, index) => {
     const label = ROMAN[index]!;
@@ -150,6 +92,109 @@ function formatExplanation(language: "en" | "hi" | "pa", strengths: readonly Arg
   }).join(" ");
 }
 
+function coreWorkshopPatch(question: MutableQuestion): void {
+  if (question.profileMode !== "core" || question.templateId !== "ARG-CP003-QL004-T04") return;
+  const language = languageOf(question);
+  const oldArguments = Array.isArray(question.arguments) ? question.arguments.map(String) : [];
+  const revised = language === "hi"
+    ? [
+        "हाँ। इस विषय पर एक ही कार्यशाला भविष्य में इससे जुड़ी हर कठिनाई को पूरी तरह समाप्त कर देगी।",
+        "नहीं। इस विषय पर एक कार्यशाला आयोजित होते ही इससे जुड़ी बाकी सभी मार्गदर्शन और सहायता सेवाएँ अनावश्यक हो जाएँगी।",
+      ]
+    : language === "pa"
+      ? [
+          "ਹਾਂ। ਇਸ ਵਿਸ਼ੇ ਬਾਰੇ ਇੱਕੋ ਵਰਕਸ਼ਾਪ ਭਵਿੱਖ ਵਿੱਚ ਇਸ ਨਾਲ ਜੁੜੀ ਹਰ ਮੁਸ਼ਕਲ ਨੂੰ ਪੂਰੀ ਤਰ੍ਹਾਂ ਖਤਮ ਕਰ ਦੇਵੇਗੀ।",
+          "ਨਹੀਂ। ਇਸ ਵਿਸ਼ੇ ਬਾਰੇ ਇੱਕ ਵਰਕਸ਼ਾਪ ਹੋਣ ਤੋਂ ਬਾਅਦ ਇਸ ਨਾਲ ਜੁੜੀ ਹੋਰ ਸਾਰੀ ਰਹਿਨੁਮਾਈ ਅਤੇ ਸਹਾਇਤਾ ਬੇਲੋੜੀ ਹੋ ਜਾਵੇਗੀ।",
+        ]
+      : [
+          "Yes. A single workshop on the subject will completely solve every related difficulty participants may face in the future.",
+          "No. Once one workshop on the subject is offered, all other guidance and support on that subject will become unnecessary.",
+        ];
+
+  if (oldArguments.length >= 2) {
+    replaceEverywhere(question, oldArguments[0]!, revised[0]!);
+    replaceEverywhere(question, oldArguments[1]!, revised[1]!);
+  }
+  question.arguments = Object.freeze(revised);
+}
+
+function corePunjabiNormalizedScorePatch(question: MutableQuestion): void {
+  if (
+    question.profileMode !== "core"
+    || languageOf(question) !== "pa"
+    || String(question.qlId ?? "") !== "ARG-QL-005"
+    || !String(question.statement ?? "").includes("ਨਾਰਮਲਾਈਜ਼ਡ ਸਕੋਰ")
+    || !Array.isArray(question.arguments)
+    || !Array.isArray(question.argumentStrengths)
+  ) return;
+
+  const oldStatement = String(question.statement);
+  const newStatement = "ਕੀ ਪ੍ਰੀਖਿਆ ਅਥਾਰਟੀ ਨੂੰ ਮੁਲਾਂਕਣ ਪ੍ਰਕਿਰਿਆ ਪੂਰੀ ਹੋਣ ਤੋਂ ਬਾਅਦ ਭਰਤੀ ਉਮੀਦਵਾਰਾਂ ਨੂੰ ਉਨ੍ਹਾਂ ਦੇ ਆਪਣੇ ਨਾਰਮਲਾਈਜ਼ਡ ਸਕੋਰ ਦੇਣੇ ਚਾਹੀਦੇ ਹਨ?";
+  replaceEverywhere(question, oldStatement, newStatement);
+  question.statement = newStatement;
+
+  const strengths = question.argumentStrengths.map(String) as ArgStrength[];
+  const oldArguments = question.arguments.map(String);
+  const revisedArguments = oldArguments.map((oldArgument: string, index: number) => {
+    const replacement = strengths[index] === "STRONG"
+      ? "ਹਾਂ। ਆਪਣਾ ਨਾਰਮਲਾਈਜ਼ਡ ਸਕੋਰ ਮਿਲਣ ਨਾਲ ਉਮੀਦਵਾਰ ਆਪਣੇ ਨਤੀਜੇ ਨੂੰ ਬਿਹਤਰ ਢੰਗ ਨਾਲ ਸਮਝ ਸਕਦੇ ਹਨ, ਬਿਨਾਂ ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੀ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਖੋਲ੍ਹੇ।"
+      : "ਨਹੀਂ। ਜੋ ਉਮੀਦਵਾਰ ਆਪਣਾ ਨਾਰਮਲਾਈਜ਼ਡ ਸਕੋਰ ਮੰਗਦੇ ਹਨ, ਉਹ ਆਮ ਤੌਰ 'ਤੇ ਨਤੀਜਾ ਮੰਨਣ ਲਈ ਤਿਆਰ ਨਹੀਂ ਹੁੰਦੇ; ਇਸ ਲਈ ਉਨ੍ਹਾਂ ਦੀ ਮੰਗ ਨੂੰ ਗੰਭੀਰਤਾ ਨਾਲ ਲੈਣ ਦੀ ਲੋੜ ਨਹੀਂ।";
+    replaceEverywhere(question, oldArgument, replacement);
+    return replacement;
+  });
+  question.arguments = Object.freeze(revisedArguments);
+  const reasons = strengths.map((strength) => strength === "STRONG"
+    ? "ਇਹ ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੀ ਨਿੱਜੀ ਜਾਣਕਾਰੀ ਖੋਲ੍ਹੇ ਬਿਨਾਂ ਵਿਅਕਤੀਗਤ ਪਾਰਦਰਸ਼ਤਾ ਵਧਾਉਂਦੀ ਹੈ।"
+    : "ਇਹ ਪਾਰਦਰਸ਼ਤਾ ਦੀ ਲੋੜ ਦਾ ਅੰਕਲਨ ਕਰਨ ਦੀ ਥਾਂ ਉਮੀਦਵਾਰਾਂ ਦੀ ਨੀਅਤ ਉੱਤੇ ਹਮਲਾ ਕਰਦੀ ਹੈ।");
+  question.explanation = formatExplanation("pa", strengths, reasons);
+}
+
+function punjabiGrammarPatch(question: MutableQuestion): void {
+  if (languageOf(question) !== "pa") return;
+  const replacements = [
+    ["ਭਰਤੀ ਉਮੀਦਵਾਰਾਂ ਜੋ", "ਜੋ ਭਰਤੀ ਉਮੀਦਵਾਰ"],
+    ["ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦਾ ਨਿੱਜੀ ਡਾਟਾ ਦੀ ਚਿੰਤਾ", "ਹੋਰ ਉਮੀਦਵਾਰਾਂ ਦੇ ਨਿੱਜੀ ਡਾਟੇ ਦੀ ਚਿੰਤਾ"],
+    ["ਵੈਬਕੈਮ ਸਰਗਰਮੀ ਨਿਗਰਾਨੀ", "ਵੈਬਕੈਮ ਸਰਗਰਮੀ ਦੀ ਨਿਗਰਾਨੀ"],
+    ["ਜੋ ਕਰਮਚਾਰੀ ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਬਾਰੇ ਪੁੱਛੇ", "ਜੋ ਕਰਮਚਾਰੀ ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਬਾਰੇ ਪੁੱਛਦਾ ਹੈ"],
+  ] as const;
+  for (const [before, after] of replacements) replaceEverywhere(question, before, after);
+
+  const currentArguments = Array.isArray(question.arguments) ? question.arguments.map(String) : [];
+  for (const argument of currentArguments) {
+    const revised = argument.replace(
+      /^ਨਹੀਂ। ਜੋ ਕਰਮਚਾਰੀ (.+?) ਬਾਰੇ ਪੁੱਛੇ, ਉਸ ਕੋਲ ਜ਼ਰੂਰ ਕੁਝ ਲੁਕਾਉਣ ਲਈ ਹੈ।$/u,
+      "ਨਹੀਂ। ਜੋ ਕਰਮਚਾਰੀ $1 ਬਾਰੇ ਪੁੱਛਦਾ ਹੈ, ਉਸ ਕੋਲ ਜ਼ਰੂਰ ਕੁਝ ਲੁਕਾਉਣ ਲਈ ਹੈ।",
+    );
+    replaceEverywhere(question, argument, revised);
+  }
+}
+
+function hindiGrammarPatch(question: MutableQuestion): void {
+  if (languageOf(question) !== "hi") return;
+  replaceEverywhere(question, "वेबकैम गतिविधि निगरानी", "वेबकैम गतिविधि की निगरानी");
+  const currentArguments = Array.isArray(question.arguments) ? question.arguments.map(String) : [];
+  for (const argument of currentArguments) {
+    const revised = argument.replace(
+      /^नहीं। जो कर्मचारी (.+?) के बारे में पूछे, उसके पास जरूर कुछ छिपाने को है।$/u,
+      "नहीं। जो कर्मचारी $1 के बारे में पूछता है, उसके पास जरूर कुछ छिपाने को है।",
+    );
+    replaceEverywhere(question, argument, revised);
+  }
+}
+
+function englishGrammarPatch(question: MutableQuestion): void {
+  if (languageOf(question) !== "en") return;
+  replaceEverywhere(question, "A mistaken one ", "A mistaken ");
+  const currentArguments = Array.isArray(question.arguments) ? question.arguments.map(String) : [];
+  for (const argument of currentArguments) {
+    const revised = argument.replace(
+      /^(Yes|No)\. ([a-z])/u,
+      (_match: string, stance: string, initial: string) => `${stance}. ${initial.toUpperCase()}`,
+    );
+    replaceEverywhere(question, argument, revised);
+  }
+}
+
 function localizedStrongNo(qlId: string, language: "en" | "hi" | "pa"):
   | Readonly<{ argument: string; reason: string }>
   | undefined {
@@ -170,16 +215,16 @@ function localizedStrongNo(qlId: string, language: "en" | "hi" | "pa"):
 
   if (qlId === "ARG-QL-004") {
     if (language === "hi") return Object.freeze({
-      argument: "नहीं। व्यस्त समय का प्रतिबंध आपातकालीन या आवश्यक डिलीवरी में देरी कर सकता है, यदि नियम में स्पष्ट अपवाद न रखे जाएँ।",
-      reason: "यह प्रस्तावित प्रतिबंध से जुड़ी एक महत्वपूर्ण संचालन संबंधी लागत बताता है।",
+      argument: "नहीं। व्यस्त समय का प्रतिबंध आपातकालीन या आवश्यक डिलीवरी में देरी कर सकता है, जिन्हें प्रतिबंधित अवधि में भी पहुँच की आवश्यकता होती है।",
+      reason: "यह प्रस्तावित प्रतिबंध से पैदा होने वाली एक महत्वपूर्ण संचालन संबंधी लागत बताता है।",
     });
     if (language === "pa") return Object.freeze({
-      argument: "ਨਹੀਂ। ਭੀੜ ਸਮੇਂ ਦੀ ਪਾਬੰਦੀ ਐਮਰਜੈਂਸੀ ਜਾਂ ਜ਼ਰੂਰੀ ਡਿਲਿਵਰੀ ਵਿੱਚ ਦੇਰੀ ਕਰ ਸਕਦੀ ਹੈ, ਜੇ ਨਿਯਮ ਵਿੱਚ ਸਪੱਸ਼ਟ ਛੋਟਾਂ ਨਾ ਰੱਖੀਆਂ ਜਾਣ।",
-      reason: "ਇਹ ਪ੍ਰਸਤਾਵਿਤ ਪਾਬੰਦੀ ਨਾਲ ਜੁੜੀ ਇੱਕ ਮਹੱਤਵਪੂਰਨ ਕਾਰਜਕਾਰੀ ਲਾਗਤ ਦੱਸਦਾ ਹੈ।",
+      argument: "ਨਹੀਂ। ਭੀੜ ਸਮੇਂ ਦੀ ਪਾਬੰਦੀ ਐਮਰਜੈਂਸੀ ਜਾਂ ਜ਼ਰੂਰੀ ਡਿਲਿਵਰੀ ਵਿੱਚ ਦੇਰੀ ਕਰ ਸਕਦੀ ਹੈ, ਜਿਨ੍ਹਾਂ ਨੂੰ ਪਾਬੰਦੀ ਵਾਲੇ ਸਮੇਂ ਦੌਰਾਨ ਵੀ ਪਹੁੰਚ ਦੀ ਲੋੜ ਹੁੰਦੀ ਹੈ।",
+      reason: "ਇਹ ਪ੍ਰਸਤਾਵਿਤ ਪਾਬੰਦੀ ਨਾਲ ਪੈਦਾ ਹੋਣ ਵਾਲੀ ਇੱਕ ਮਹੱਤਵਪੂਰਨ ਕਾਰਜਕਾਰੀ ਲਾਗਤ ਦੱਸਦਾ ਹੈ।",
     });
     return Object.freeze({
-      argument: "No. A peak-hour restriction may delay emergency or essential deliveries unless clear exemptions are built into the rule.",
-      reason: "It identifies a material operational cost that the proposed restriction must address.",
+      argument: "No. A peak-hour restriction can delay emergency or essential deliveries that need access during the restricted period.",
+      reason: "It identifies a material operational cost created by the proposed restriction.",
     });
   }
 
@@ -216,6 +261,36 @@ function grievanceStrongNo(language: "en" | "hi" | "pa") {
   });
 }
 
+function ql006DueProcessPatch(language: "en" | "hi" | "pa") {
+  if (language === "hi") return Object.freeze({
+    argument: "नहीं। कोई स्थायी दंड देने से पहले प्रभावित व्यक्ति को अपना पक्ष रखने का उचित अवसर मिलना चाहिए और उपलब्ध साक्ष्यों की समीक्षा होनी चाहिए।",
+    reason: "यह तत्काल और अपरिवर्तनीय दंड के विरुद्ध सीधा उचित-प्रक्रिया कारण देता है।",
+  });
+  if (language === "pa") return Object.freeze({
+    argument: "ਨਹੀਂ। ਕੋਈ ਸਥਾਈ ਸਜ਼ਾ ਲਗਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਪ੍ਰਭਾਵਿਤ ਵਿਅਕਤੀ ਨੂੰ ਆਪਣਾ ਪੱਖ ਰੱਖਣ ਦਾ ਵਾਜਬ ਮੌਕਾ ਮਿਲਣਾ ਚਾਹੀਦਾ ਹੈ ਅਤੇ ਉਪਲਬਧ ਸਬੂਤਾਂ ਦੀ ਸਮੀਖਿਆ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ।",
+    reason: "ਇਹ ਤੁਰੰਤ ਅਤੇ ਨਾ-ਪਲਟ ਸਕਣ ਵਾਲੀ ਸਜ਼ਾ ਦੇ ਵਿਰੁੱਧ ਸਿੱਧਾ ਵਾਜਬ-ਪ੍ਰਕਿਰਿਆ ਕਾਰਨ ਦਿੰਦਾ ਹੈ।",
+  });
+  return Object.freeze({
+    argument: "No. Before any permanent penalty is imposed, the affected person should have a fair opportunity to respond and the available evidence should be reviewed.",
+    reason: "It gives a direct due-process reason against an immediate irreversible sanction.",
+  });
+}
+
+function ql004StatusQuoWeakPatch(language: "en" | "hi" | "pa") {
+  if (language === "hi") return Object.freeze({
+    argument: "नहीं। मौजूदा यातायात व्यवस्था कई वर्षों से चल रही है, इसलिए उसमें कोई बदलाव अपने-आप अनुचित होगा।",
+    reason: "केवल लंबे समय से चली आ रही व्यवस्था यह सिद्ध नहीं करती कि उसे बदलना अनुचित होगा।",
+  });
+  if (language === "pa") return Object.freeze({
+    argument: "ਨਹੀਂ। ਮੌਜੂਦਾ ਟ੍ਰੈਫਿਕ ਪ੍ਰਬੰਧ ਕਈ ਸਾਲਾਂ ਤੋਂ ਚੱਲ ਰਿਹਾ ਹੈ, ਇਸ ਲਈ ਇਸ ਵਿੱਚ ਕੋਈ ਵੀ ਬਦਲਾਅ ਆਪਣੇ-ਆਪ ਅਨਿਆਇਕ ਹੋਵੇਗਾ।",
+    reason: "ਸਿਰਫ਼ ਲੰਬੇ ਸਮੇਂ ਤੋਂ ਚੱਲਦਾ ਆ ਰਿਹਾ ਪ੍ਰਬੰਧ ਇਹ ਸਾਬਤ ਨਹੀਂ ਕਰਦਾ ਕਿ ਉਸ ਨੂੰ ਬਦਲਣਾ ਅਨਿਆਇਕ ਹੋਵੇਗਾ।",
+  });
+  return Object.freeze({
+    argument: "No. The existing traffic pattern has been in place for years, so changing it would automatically be unfair.",
+    reason: "Longevity alone does not show that the existing arrangement should continue.",
+  });
+}
+
 function rebuildRealPaperStem(question: MutableQuestion): void {
   if (question.profileMode !== "real-paper" || !Array.isArray(question.arguments)) return;
   const language = languageOf(question);
@@ -249,6 +324,29 @@ function realPaperCorrelationPatch(question: MutableQuestion): void {
     }
   }
 
+  if (qlId === "ARG-QL-004") {
+    const catastrophicWeakIndexes = argumentsList
+      .map((argument, index) => ({ argument, index }))
+      .filter(({ argument, index }) => strengths[index] === "WEAK" && /permanent|permanently|inevitably|स्थायी|हमेशा|ਪੱਕੇ|ਹਮੇਸ਼ਾਂ/u.test(argument))
+      .map(({ index }) => index);
+    if (catastrophicWeakIndexes.length >= 2) {
+      const target = catastrophicWeakIndexes[1]!;
+      const weakPatch = ql004StatusQuoWeakPatch(language);
+      argumentsList[target] = weakPatch.argument;
+      reasons[target] = weakPatch.reason;
+    }
+  }
+
+  if (qlId === "ARG-QL-006") {
+    const sourcePattern = /Temporary safeguards and evidence review can protect users before an irreversible penalty is imposed|अस्थायी.*साक्ष्य|ਅਸਥਾਈ.*ਸਬੂਤ/u;
+    const target = argumentsList.findIndex((argument, index) => strengths[index] === "STRONG" && sourcePattern.test(argument));
+    if (target >= 0) {
+      const dueProcess = ql006DueProcessPatch(language);
+      argumentsList[target] = dueProcess.argument;
+      reasons[target] = dueProcess.reason;
+    }
+  }
+
   question.arguments = Object.freeze(argumentsList);
   question.explanation = formatExplanation(language, strengths, reasons);
   rebuildRealPaperStem(question);
@@ -269,9 +367,14 @@ function optionSurfacePatch(question: MutableQuestion): void {
 function finalizeQuestion(rawQuestion: QuestionRecord): QuestionRecord {
   const question: MutableQuestion = { ...rawQuestion };
   coreWorkshopPatch(question);
+  corePunjabiNormalizedScorePatch(question);
   punjabiGrammarPatch(question);
+  hindiGrammarPatch(question);
   englishGrammarPatch(question);
   realPaperCorrelationPatch(question);
+  punjabiGrammarPatch(question);
+  hindiGrammarPatch(question);
+  englishGrammarPatch(question);
   optionSurfacePatch(question);
 
   const contentFingerprint = fingerprint([
