@@ -1,11 +1,11 @@
 import { Router } from "express";
 
-import adminQuestionStudioSpatialV5Router from "./admin-question-studio-spatial-v5";
-import { SPATIAL_QUESTION_STUDIO_PACKAGE_V5 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v5";
+import adminQuestionStudioSpatialV6Router from "./admin-question-studio-spatial-v6";
+import { SPATIAL_QUESTION_STUDIO_PACKAGE_V6 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v6";
 
 const router = Router();
 const SPA_PACKAGE_ID = "SPA-001";
-const SPA_QL_IDS = new Set<string>(SPATIAL_QUESTION_STUDIO_PACKAGE_V5.qlIds);
+const SPA_QL_IDS = new Set<string>(SPATIAL_QUESTION_STUDIO_PACKAGE_V6.qlIds);
 
 function asString(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
@@ -31,7 +31,7 @@ router.post("/runs", (req, res, next) => {
 
   const originalUrl = req.url;
   req.url = "/reasoning/spatial/runs";
-  adminQuestionStudioSpatialV5Router.handle(req, res, (error?: unknown) => {
+  adminQuestionStudioSpatialV6Router.handle(req, res, (error?: unknown) => {
     req.url = originalUrl;
     if (error) {
       next(error);
