@@ -326,8 +326,8 @@ async function cloneEnrichedClaimsToEvent(eventId: string, officialCandidateId: 
       staged.confidence, staged.extraction_method, true,
       staged.metadata || jsonb_build_object(
         'claimStage', 'cp053_selected_processing',
-        'selectedProcessingEvidenceCandidateId', ${officialCandidateId},
-        'processingVersion', ${SELECTED_AFFAIRS_PROCESSING_VERSION}
+        'selectedProcessingEvidenceCandidateId', ${officialCandidateId}::text,
+        'processingVersion', ${SELECTED_AFFAIRS_PROCESSING_VERSION}::text
       ),
       now()
     FROM content.current_affairs_candidate_fact_claims staged
