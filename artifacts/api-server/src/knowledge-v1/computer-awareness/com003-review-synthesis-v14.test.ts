@@ -32,7 +32,7 @@ for (const q of COM003_ENGLISH_REVIEW_CORPUS_V14) {
   assert.ok(!BANNED_AWKWARD_STEM.test(q.stem), `${q.questionId}:awkward wording:${q.stem}`);
   assert.ok(!/what does The/.test(q.stem), `${q.questionId}:capitalized article inside stem:${q.stem}`);
   assert.ok(!/Which orientation a page/i.test(q.stem), `${q.questionId}:broken orientation grammar:${q.stem}`);
-  assert.ok(!/\bpowerPoint\b|\bexcel 97/i.test(q.stem), `${q.questionId}:product capitalization:${q.stem}`);
+  assert.ok(!/\bpowerPoint\b|\bexcel 97/.test(q.stem), `${q.questionId}:product capitalization:${q.stem}`);
   assert.ok(!/UNSUPPORTED SURFACE MODE/i.test(q.stem), `${q.questionId}:unsupported:${q.surfaceMode}`);
   if (q.versionScoped && /SHORTCUT|SLIDESHOW/i.test(q.surfaceMode)) {
     assert.match(q.stem, /Windows desktop/i, `${q.questionId}:missing version scope`);
