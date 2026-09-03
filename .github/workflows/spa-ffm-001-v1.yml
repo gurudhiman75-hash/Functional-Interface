@@ -9,6 +9,7 @@ on:
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v6.ts"
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-family-final-closure-audit-v2.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/figure-formation-ffm-001-*.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/figure-formation-ffm-001-visual-review-v1.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-family-post-ffm-closure-v2.test.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-spatial-v6.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-spatial-workflow.ts"
@@ -23,6 +24,7 @@ on:
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v6.ts"
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-family-final-closure-audit-v2.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/figure-formation-ffm-001-*.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/tests/figure-formation-ffm-001-visual-review-v1.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/spatial-family-post-ffm-closure-v2.test.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-spatial-v6.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-spatial-workflow.ts"
@@ -43,8 +45,6 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
-      # The proof imports the route's pure payload adapter. postgres.js only needs
-      # a syntactically valid URL at module initialization; the proof never opens a connection.
       DATABASE_URL: postgres://ffm_proof:ffm_proof@127.0.0.1:5432/ffm_proof
     steps:
       - name: Checkout source
@@ -82,6 +82,10 @@ jobs:
             src/reasoning-v1/tests/spatial-family-post-ffm-closure-v2.test.ts \
             --bundle --platform=node --format=esm --packages=external \
             --outfile=dist/reasoning-v1/spatial/spatial-family-post-ffm-closure-v2.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/figure-formation-ffm-001-visual-review-v1.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/spatial/figure-formation-ffm-001-visual-review-v1.mjs
 
       - name: Run FFM-001 proofs
         run: |
@@ -93,6 +97,13 @@ jobs:
             node dist/reasoning-v1/spatial/spatial-family-post-ffm-closure-v2.test.mjs
           } 2>&1 | tee dist/reasoning-v1/spatial/ffm-001-end-to-end-v1-run.log
 
+      - name: Generate FFM-001 visual review pack
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/figure-formation-ffm-001-visual-review-v1.mjs 2>&1 \
+            | tee dist/reasoning-v1/spatial/ffm-001-visual-review-v1-run.log
+
       - name: Upload FFM-001 evidence
         uses: actions/upload-artifact@v4
         with:
@@ -100,4 +111,7 @@ jobs:
           path: |
             artifacts/api-server/dist/reasoning-v1/spatial/ffm-001-end-to-end-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/ffm-001-end-to-end-v1-run.log
+            artifacts/api-server/dist/reasoning-v1/spatial/ffm-001-visual-review-v1-run.log
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-ffm-001-visual-review-v1.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-ffm-001-visual-review-v1.json
           if-no-files-found: error
