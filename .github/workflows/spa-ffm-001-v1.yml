@@ -79,6 +79,10 @@ jobs:
             --bundle --platform=node --format=esm --packages=external \
             --outfile=dist/reasoning-v1/spatial/figure-formation-ffm-001-localization-v2.test.mjs
           pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/figure-formation-ffm-001-target-shape-v3.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/spatial/figure-formation-ffm-001-target-shape-v3.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
             src/reasoning-v1/tests/spatial-family-post-ffm-closure-v2.test.ts \
             --bundle --platform=node --format=esm --packages=external \
             --outfile=dist/reasoning-v1/spatial/spatial-family-post-ffm-closure-v2.test.mjs
@@ -94,6 +98,7 @@ jobs:
           {
             node dist/reasoning-v1/spatial/figure-formation-ffm-001-v1.test.mjs
             node dist/reasoning-v1/spatial/figure-formation-ffm-001-localization-v2.test.mjs
+            node dist/reasoning-v1/spatial/figure-formation-ffm-001-target-shape-v3.test.mjs
             node dist/reasoning-v1/spatial/spatial-family-post-ffm-closure-v2.test.mjs
           } 2>&1 | tee dist/reasoning-v1/spatial/ffm-001-end-to-end-v1-run.log
 
