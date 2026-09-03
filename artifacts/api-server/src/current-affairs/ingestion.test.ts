@@ -21,6 +21,13 @@ import {
   selectedAffairsProcessingBlockers,
   selectedAffairsProcessingStage,
 } from "./selected-affairs-processing-policy";
+import {
+  extractSelectedHeadlineRecoveryClaims,
+  extractSelectedPrimaryPageFacts,
+  extractSelectedPrimaryPageText,
+  primaryRecoveryUrlVariants,
+  recoveryPageMatchesTitle,
+} from "./selected-primary-recovery-policy";
 
 const rss = `<?xml version="1.0"?>
 <rss><channel>
@@ -235,6 +242,73 @@ assert.deepEqual(
 );
 assert.equal(selectedAffairsProcessingStage(processLocalizationPending), "localization");
 
+// CP-054: selected-primary recovery repairs stale headline semantics and may add
+// page-backed facts, but it remains evidence-only. Strict CP-053 verification is
+// still the next authority after these claims are materialized.
+const plannedClaims = extractSelectedHeadlineRecoveryClaims(
+  "PM to participate in Valedictory Session of Departmental Summit on Water Security on 2nd September",
+);
+assert.equal(plannedClaims.find((claim) => claim.factKey === "acting_entity")?.factValue, "PM");
+assert.equal(plannedClaims.find((claim) => claim.factKey === "official_action")?.factValue, "scheduled participate");
+assert.equal(plannedClaims.find((claim) => claim.factKey === "event_status")?.factValue, "planned");
+assert.ok(!plannedClaims.some((claim) => claim.factValue === "PM to"));
+
+const rbiAppointmentClaims = extractSelectedHeadlineRecoveryClaims(
+  "RBI appoints Shri Suman Ray as new Executive Director",
+);
+assert.equal(rbiAppointmentClaims.find((claim) => claim.factKey === "acting_entity")?.factValue, "RBI");
+assert.equal(rbiAppointmentClaims.find((claim) => claim.factKey === "appointee")?.factValue, "Shri Suman Ray");
+assert.equal(rbiAppointmentClaims.find((claim) => claim.factKey === "position")?.factValue, "Executive Director");
+
+const dgftClaims = extractSelectedHeadlineRecoveryClaims(
+  "DGFT Enables Automated Issuance of Free Sale and Commerce Certificates to Promote Ease of Doing Business",
+);
+assert.equal(dgftClaims.find((claim) => claim.factKey === "acting_entity")?.factValue, "DGFT");
+assert.equal(dgftClaims.find((claim) => claim.factKey === "official_action")?.factValue, "enabled");
+assert.match(dgftClaims.find((claim) => claim.factKey === "action_subject")?.factValue ?? "", /Free Sale and Commerce Certificates/i);
+
+const gdpTitle = "India’s GDP Performance";
+const gdpHtml = `
+<html><body>
+<header>Press Information Bureau navigation</header>
+<h1>India’s GDP Performance</h1>
+<p>Real GDP growth stood at 7.8% in Q1 FY 2026-27 while real GVA growth was 8.2%.</p>
+<p>Investment grew by 11.9%, household consumption grew by 7.1%, and exports rose by 12.0%.</p>
+<footer>Common government footer</footer>
+</body></html>`;
+const gdpText = extractSelectedPrimaryPageText(gdpHtml);
+assert.equal(recoveryPageMatchesTitle(gdpTitle, gdpText).matched, true);
+const gdpFacts = extractSelectedPrimaryPageFacts(gdpTitle, gdpText);
+assert.equal(gdpFacts.find((fact) => fact.factKey === "real_gdp_growth")?.factValue, "7.8%");
+assert.equal(gdpFacts.find((fact) => fact.factKey === "real_gva_growth")?.factValue, "8.2%");
+assert.equal(gdpFacts.find((fact) => fact.factKey === "investment_growth")?.factValue, "11.9%");
+assert.equal(gdpFacts.find((fact) => fact.factKey === "household_consumption_growth")?.factValue, "7.1%");
+assert.equal(gdpFacts.find((fact) => fact.factKey === "exports_growth")?.factValue, "12.0%");
+
+const bopTitle = "Developments in India’s Balance of Payments during the First Quarter (April-June) of 2026-27";
+const bopText = `
+${bopTitle}
+India recorded a current account deficit of US$ 4.2 billion, equivalent to 0.5 per cent of GDP.
+The merchandise trade deficit was US$ 86.1 billion and net services receipts were US$ 51.6 billion.
+Net FDI inflow was US$ 6.1 billion while net FPI outflow was US$ 9.6 billion.
+`;
+assert.equal(recoveryPageMatchesTitle(bopTitle, bopText).matched, true);
+const bopFacts = extractSelectedPrimaryPageFacts(bopTitle, bopText);
+assert.equal(bopFacts.find((fact) => fact.factKey === "current_account_deficit")?.factValue, "US$ 4.2 billion");
+assert.equal(bopFacts.find((fact) => fact.factKey === "current_account_deficit_gdp_share")?.factValue, "0.5%");
+assert.equal(bopFacts.find((fact) => fact.factKey === "merchandise_trade_deficit")?.factValue, "US$ 86.1 billion");
+assert.equal(bopFacts.find((fact) => fact.factKey === "net_services_receipts")?.factValue, "US$ 51.6 billion");
+assert.equal(bopFacts.find((fact) => fact.factKey === "net_fdi_inflow")?.factValue, "US$ 6.1 billion");
+assert.equal(bopFacts.find((fact) => fact.factKey === "net_fpi_outflow")?.factValue, "US$ 9.6 billion");
+
+const commonWrapper = "Press Information Bureau Government of India Home Releases Ministries Contact Sitemap";
+assert.equal(recoveryPageMatchesTitle(gdpTitle, commonWrapper).matched, false, "common PIB wrapper must not be accepted as release evidence");
+
+const pibVariants = primaryRecoveryUrlVariants("pib", "https://www.pib.gov.in/PressReleseDetail.aspx?PRID=2305422");
+assert.ok(pibVariants.some((url) => /PressReleseDetailm\.aspx/i.test(url)));
+const rbiVariants = primaryRecoveryUrlVariants("rbi", "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63491");
+assert.ok(rbiVariants.some((url) => url.startsWith("https://m.rbi.org.in/")));
+
 const keywords = discoveryKeywords(
   "Reserve Bank announces digital payments framework for regulated payment entities",
 );
@@ -274,4 +348,4 @@ assert.equal(
   pdfCandidateDedupeKey("THE_HINDU", "a".repeat(64), "Example headline"),
 );
 
-console.log("Current Affairs Studio CP-049/050/052/053 ingestion, review, rescue and selected-processing contracts passed");
+console.log("Current Affairs Studio CP-049/050/052/053/054 ingestion, review, rescue, selected-processing and primary-recovery contracts passed");
