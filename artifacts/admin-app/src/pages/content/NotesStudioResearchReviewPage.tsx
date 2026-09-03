@@ -125,7 +125,7 @@ export function NotesStudioResearchReviewPage({ jobId, onJobProgressed }: { jobI
   const updateReferenceDraft = (sourceId: string, patch: Partial<ReferenceDraft>) => {
     setReferenceDrafts((current) => ({
       ...current,
-      [sourceId]: { locator: '', note: '', ...(current[sourceId] ?? {}), ...patch },
+      [sourceId]: { ...(current[sourceId] ?? { locator: '', note: '' }), ...patch },
     }));
   };
 
@@ -140,6 +140,7 @@ export function NotesStudioResearchReviewPage({ jobId, onJobProgressed }: { jobI
     setWorking(true);
     try {
       for (const { source, draft } of ready) {
+        if (!draft) continue;
         await adminRequest(`/admin/notes-studio/jobs/${jobId}/reference-evidence`, {
           method: 'POST',
           body: JSON.stringify({
