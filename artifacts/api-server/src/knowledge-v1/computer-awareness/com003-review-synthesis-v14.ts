@@ -84,6 +84,8 @@ function cleanDirectStem(input: string) {
       "identifies possible spelling errors")
     .replace(/open the print workflow/gi,
       "print a document")
+    .replace(/Excel row or column operation/gi,
+      "Excel command or option")
     .replace(/horizontal width of a worksheet column/gi,
       "width of a column")
     .replace(/vertical height of a worksheet row/gi,
