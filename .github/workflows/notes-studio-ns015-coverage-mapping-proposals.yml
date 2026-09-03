@@ -9,6 +9,9 @@ on:
       - artifacts/api-server/src/notes-studio/coverage-mapping-proposals.ts
       - artifacts/api-server/src/notes-studio/coverage-mapping-proposals-provider.ts
       - artifacts/api-server/src/notes-studio/coverage-mapping-proposals.test.ts
+      - artifacts/api-server/src/notes-studio/coverage-batch-review.ts
+      - artifacts/api-server/src/notes-studio/coverage-batch-review-provider.ts
+      - artifacts/api-server/src/notes-studio/coverage-batch-review.test.ts
       - artifacts/api-server/src/routes/admin-notes-studio-coverage-proposals.ts
       - artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
       - artifacts/admin-app/src/pages/content/NotesStudioCoverageProposalPage.tsx
@@ -45,17 +48,20 @@ jobs:
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/notes-studio/coverage-mapping-proposals.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-coverage-mapping-proposals.test.mjs
           node artifacts/api-server/dist/notes-studio-coverage-mapping-proposals.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio/coverage-batch-review.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-coverage-batch-review.test.mjs
+          node artifacts/api-server/dist/notes-studio-coverage-batch-review.test.mjs
 
       - name: Verify reviewed-apply safety boundaries
         run: |
           grep -F 'rawSourceTextSent: false' artifacts/api-server/src/routes/admin-notes-studio-coverage-proposals.ts
           grep -F 'acceptedClaimsOnly: true' artifacts/api-server/src/routes/admin-notes-studio-coverage-proposals.ts
           grep -F 'automaticApplication: false' artifacts/api-server/src/routes/admin-notes-studio-coverage-proposals.ts
+          grep -F 'automaticCoverageDecision: false' artifacts/api-server/src/routes/admin-notes-studio-coverage-proposals.ts
           grep -F 'modelAutomaticallyApplied: false' artifacts/api-server/src/routes/admin-notes-studio-coverage-proposals.ts
           grep -F 'claimStateChanged: false' artifacts/api-server/src/routes/admin-notes-studio-coverage-proposals.ts
           grep -F 'adminNotesStudioCoverageProposalsRouter' artifacts/api-server/src/routes/admin-notes-studio-source-policy.ts
           grep -F 'Coverage proposals' artifacts/admin-app/src/pages/content/NotesStudioHubPage.tsx
-          grep -F 'Explicit editor action only' artifacts/admin-app/src/pages/content/NotesStudioCoverageProposalPage.tsx
+          grep -F 'Approve sufficient coverage' artifacts/admin-app/src/pages/content/NotesStudioCoverageProposalPage.tsx
           if grep -F 'UPDATE content.note_source_claims' artifacts/api-server/src/routes/admin-notes-studio-coverage-proposals.ts; then exit 1; fi
           if grep -F 'INSERT INTO content.note_sections' artifacts/api-server/src/routes/admin-notes-studio-coverage-proposals.ts; then exit 1; fi
           if grep -F 'extracted_text AS' artifacts/api-server/src/routes/admin-notes-studio-coverage-proposals.ts; then exit 1; fi
