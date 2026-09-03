@@ -3,7 +3,9 @@ import test from 'node:test';
 
 import {
   buildEvidenceBlocks,
+  coverageAcceptedClaimKey,
   coverageStatusFromClaimStates,
+  coverageStatusFromEditorialReview,
   noteClaimFingerprint,
   normalizeEvidenceText,
 } from './evidence-map';
@@ -38,10 +40,32 @@ test('claim fingerprint ignores casing and cosmetic whitespace', () => {
   );
 });
 
-test('coverage status is deterministic from editorial claim states', () => {
+test('legacy coverage status is deterministic from editorial claim states', () => {
   assert.equal(coverageStatusFromClaimStates([]), 'uncovered');
   assert.equal(coverageStatusFromClaimStates(['rejected']), 'uncovered');
   assert.equal(coverageStatusFromClaimStates(['candidate']), 'partial');
   assert.equal(coverageStatusFromClaimStates(['candidate', 'accepted']), 'covered');
   assert.equal(coverageStatusFromClaimStates(['accepted', 'conflict']), 'blocked');
+});
+
+test('editorial coverage gate does not equate an accepted link with complete syllabus coverage', () => {
+  assert.equal(coverageStatusFromEditorialReview([], false), 'uncovered');
+  assert.equal(coverageStatusFromEditorialReview(['candidate'], false), 'partial');
+  assert.equal(coverageStatusFromEditorialReview(['accepted'], false), 'partial');
+  assert.equal(coverageStatusFromEditorialReview(['accepted'], true), 'covered');
+  assert.equal(coverageStatusFromEditorialReview(['accepted', 'conflict'], true), 'blocked');
+});
+
+test('accepted-claim review key is deterministic and ignores inactive or unaccepted links', () => {
+  const first = coverageAcceptedClaimKey([
+    { claimId: 'b', state: 'accepted', hasActiveSupport: true },
+    { claimId: 'a', state: 'accepted', hasActiveSupport: true },
+    { claimId: 'c', state: 'candidate', hasActiveSupport: true },
+    { claimId: 'd', state: 'accepted', hasActiveSupport: false },
+  ]);
+  assert.equal(first, 'a,b');
+  assert.equal(coverageAcceptedClaimKey([
+    { claimId: 'a', state: 'accepted', hasActiveSupport: true },
+    { claimId: 'b', state: 'accepted', hasActiveSupport: true },
+  ]), first);
 });

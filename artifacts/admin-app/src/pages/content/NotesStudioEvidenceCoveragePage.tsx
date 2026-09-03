@@ -99,12 +99,16 @@ type CoverageItem = {
   examRationale: string;
   sortOrder: number;
   status: 'uncovered' | 'partial' | 'covered' | 'blocked';
+  coverageReviewState?: 'unreviewed' | 'confirmed';
+  coverageReviewCurrent?: boolean;
+  coverageReviewedAt?: string | null;
   claims: CoverageClaim[];
 };
 
 type CoverageResult = {
   items: CoverageItem[];
   summary: { itemCount: number; covered: number; partial: number; blocked: number; uncovered: number };
+  coverageRequiresEditorialConfirmation?: boolean;
 };
 
 const emptyEvidence: EvidenceResult = {
@@ -317,6 +321,28 @@ export function NotesStudioEvidenceCoveragePage() {
     }
   };
 
+  const reviewCoverage = async (item: CoverageItem, confirmed: boolean) => {
+    if (!selectedJobId) return;
+    setWorking(true);
+    try {
+      await adminRequest(`/admin/notes-studio/jobs/${selectedJobId}/coverage/${item.id}/review`, {
+        method: 'PATCH',
+        body: JSON.stringify({ confirmed }),
+      });
+      await Promise.all([loadJobWorkspace(selectedJobId), loadJobs()]);
+      showToast.success(
+        confirmed ? 'Coverage confirmed' : 'Coverage reopened',
+        confirmed
+          ? 'This target is covered only for the currently linked accepted evidence. Any material link/state change makes the review stale.'
+          : 'The target is back in evidence review.',
+      );
+    } catch (error) {
+      showToast.error('Unable to update coverage review', error instanceof Error ? error.message : 'Request failed.');
+    } finally {
+      setWorking(false);
+    }
+  };
+
   const deleteCoverageItem = async (item: CoverageItem) => {
     if (!selectedJobId || !window.confirm(`Remove coverage target “${item.title}”?`)) return;
     setWorking(true);
@@ -333,7 +359,7 @@ export function NotesStudioEvidenceCoveragePage() {
   return <div className="space-y-5">
     <PageHeader
       title="Evidence & Coverage"
-      description="Turn retained source material into bounded evidence, editorially accepted atomic claims, and a syllabus-first coverage plan before any note synthesis begins."
+      description="Turn retained source material into bounded evidence, editorially accepted atomic claims, and an explicitly reviewed syllabus-first coverage plan before any note synthesis begins."
       icon={<FileSearch className="h-5 w-5" />}
       actions={<div className="flex flex-wrap gap-2">
         <Button variant="outline" onClick={() => void refreshAll()} disabled={loading || working}><RefreshCw className={`mr-1.5 h-4 w-4 ${loading ? 'animate-spin' : ''}`} />Refresh</Button>
@@ -361,7 +387,7 @@ export function NotesStudioEvidenceCoveragePage() {
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
       <Card><CardContent className="p-4"><div className="text-xs uppercase tracking-wide text-muted-foreground">Evidence blocks</div><div className="mt-1 text-2xl font-bold">{evidence.summary.activeBlockCount}</div><div className="text-xs text-muted-foreground">active source-grounded units</div></CardContent></Card>
       <Card><CardContent className="p-4"><div className="text-xs uppercase tracking-wide text-muted-foreground">Accepted claims</div><div className="mt-1 text-2xl font-bold">{evidence.summary.acceptedClaims}</div><div className="text-xs text-muted-foreground">editorially approved facts</div></CardContent></Card>
-      <Card><CardContent className="p-4"><div className="text-xs uppercase tracking-wide text-muted-foreground">Coverage</div><div className="mt-1 text-2xl font-bold">{coverage.summary.covered}/{coverage.summary.itemCount}</div><div className="text-xs text-muted-foreground">targets covered</div></CardContent></Card>
+      <Card><CardContent className="p-4"><div className="text-xs uppercase tracking-wide text-muted-foreground">Coverage</div><div className="mt-1 text-2xl font-bold">{coverage.summary.covered}/{coverage.summary.itemCount}</div><div className="text-xs text-muted-foreground">editor-confirmed targets</div></CardContent></Card>
       <Card><CardContent className="p-4"><div className="text-xs uppercase tracking-wide text-muted-foreground">Blocks / conflicts</div><div className="mt-1 text-2xl font-bold">{coverage.summary.blocked + evidence.summary.conflictClaims}</div><div className="text-xs text-muted-foreground">must resolve before synthesis</div></CardContent></Card>
     </div>
 
@@ -415,7 +441,7 @@ export function NotesStudioEvidenceCoveragePage() {
       </div>
 
       <Card>
-        <CardHeader className="pb-3"><CardTitle>Syllabus coverage plan</CardTitle><p className="text-sm text-muted-foreground">Define what the note must cover, then link reviewed claims. Required/high targets must be covered before the job becomes outline-ready.</p></CardHeader>
+        <CardHeader className="pb-3"><CardTitle>Syllabus coverage plan</CardTitle><p className="text-sm text-muted-foreground">Link accepted evidence, then explicitly confirm sufficiency. A linked claim is partial coverage until an editor confirms that it satisfies the target.</p></CardHeader>
         <CardContent className="space-y-4">
           {canEdit && <div className="grid gap-3 rounded-lg border bg-muted/10 p-4 lg:grid-cols-2 xl:grid-cols-5">
             <div className="space-y-1.5 xl:col-span-2"><Label>Coverage target</Label><Input value={coverageDraft.title} onChange={(event) => setCoverageDraft((current) => ({ ...current, title: event.target.value }))} placeholder="Article 14 — equality before law" /></div>
@@ -427,19 +453,28 @@ export function NotesStudioEvidenceCoveragePage() {
           </div>}
 
           {coverage.items.length === 0 && <div className="rounded-lg border border-dashed p-8 text-center text-sm text-muted-foreground">No coverage targets yet.</div>}
-          <div className="grid gap-3 lg:grid-cols-2">{coverage.items.map((item) => <div key={item.id} className="rounded-lg border p-4">
-            <div className="flex flex-wrap items-start justify-between gap-2">
-              <div><div className="font-semibold">{item.title}</div>{item.syllabusRef && <div className="mt-1 text-xs text-muted-foreground">{item.syllabusRef}</div>}</div>
-              <div className="flex flex-wrap gap-1.5"><Badge variant="outline">{item.priority}</Badge><Badge variant="outline">{item.plannedDepth}</Badge><Badge className={coverageClass(item.status)}>{item.status}</Badge></div>
-            </div>
-            {item.examRationale && <p className="mt-2 text-sm text-muted-foreground">{item.examRationale}</p>}
-            <div className="mt-3 space-y-1.5">{item.claims.map((claim) => <div key={claim.claimId} className="flex items-start justify-between gap-2 rounded-md bg-muted/30 px-2.5 py-2 text-xs"><span className="min-w-0 flex-1">{claim.claimText}</span>{canEdit && <button type="button" className="text-muted-foreground hover:text-destructive" onClick={() => void unlinkClaim(item.id, claim.claimId)} aria-label="Unlink claim"><Trash2 className="h-3.5 w-3.5" /></button>}</div>)}</div>
-            {canEdit && <div className="mt-3 flex flex-col gap-2 sm:flex-row">
-              <Select value={linkClaimByItem[item.id] ?? ''} onValueChange={(value) => setLinkClaimByItem((current) => ({ ...current, [item.id]: value }))}><SelectTrigger className="flex-1"><SelectValue placeholder="Link evidence claim" /></SelectTrigger><SelectContent>{linkableClaims.filter((claim) => !item.claims.some((linked) => linked.claimId === claim.id)).map((claim) => <SelectItem key={claim.id} value={claim.id}>{claim.state}: {claim.claimText.slice(0, 80)}</SelectItem>)}</SelectContent></Select>
-              <Button variant="outline" onClick={() => void linkClaim(item)} disabled={!linkClaimByItem[item.id] || working}><Link2 className="mr-1.5 h-3.5 w-3.5" />Link</Button>
-              <Button variant="outline" size="icon" onClick={() => void deleteCoverageItem(item)} disabled={working} aria-label="Delete coverage target"><Trash2 className="h-4 w-4" /></Button>
-            </div>}
-          </div>)}</div>
+          <div className="grid gap-3 lg:grid-cols-2">{coverage.items.map((item) => {
+            const hasAcceptedActiveSupport = item.claims.some((claim) => claim.state === 'accepted' && claim.hasActiveSupport);
+            const staleReview = item.coverageReviewState === 'confirmed' && item.coverageReviewCurrent === false;
+            return <div key={item.id} className="rounded-lg border p-4">
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div><div className="font-semibold">{item.title}</div>{item.syllabusRef && <div className="mt-1 text-xs text-muted-foreground">{item.syllabusRef}</div>}</div>
+                <div className="flex flex-wrap gap-1.5"><Badge variant="outline">{item.priority}</Badge><Badge variant="outline">{item.plannedDepth}</Badge><Badge className={coverageClass(item.status)}>{item.status}</Badge>{staleReview && <Badge variant="secondary">review stale</Badge>}</div>
+              </div>
+              {item.examRationale && <p className="mt-2 text-sm text-muted-foreground">{item.examRationale}</p>}
+              <div className="mt-3 space-y-1.5">{item.claims.map((claim) => <div key={claim.claimId} className="flex items-start justify-between gap-2 rounded-md bg-muted/30 px-2.5 py-2 text-xs"><span className="min-w-0 flex-1">{claim.claimText}</span>{canEdit && <button type="button" className="text-muted-foreground hover:text-destructive" onClick={() => void unlinkClaim(item.id, claim.claimId)} aria-label="Unlink claim"><Trash2 className="h-3.5 w-3.5" /></button>}</div>)}</div>
+              {canEdit && <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+                <Select value={linkClaimByItem[item.id] ?? ''} onValueChange={(value) => setLinkClaimByItem((current) => ({ ...current, [item.id]: value }))}><SelectTrigger className="flex-1"><SelectValue placeholder="Link evidence claim" /></SelectTrigger><SelectContent>{linkableClaims.filter((claim) => !item.claims.some((linked) => linked.claimId === claim.id)).map((claim) => <SelectItem key={claim.id} value={claim.id}>{claim.state}: {claim.claimText.slice(0, 80)}</SelectItem>)}</SelectContent></Select>
+                <Button variant="outline" onClick={() => void linkClaim(item)} disabled={!linkClaimByItem[item.id] || working}><Link2 className="mr-1.5 h-3.5 w-3.5" />Link</Button>
+                {item.status === 'covered'
+                  ? <Button variant="outline" onClick={() => void reviewCoverage(item, false)} disabled={working}>Reopen</Button>
+                  : <Button onClick={() => void reviewCoverage(item, true)} disabled={!hasAcceptedActiveSupport || item.status === 'blocked' || working}><CheckCircle2 className="mr-1.5 h-3.5 w-3.5" />Confirm coverage</Button>}
+                <Button variant="outline" size="icon" onClick={() => void deleteCoverageItem(item)} disabled={working} aria-label="Delete coverage target"><Trash2 className="h-4 w-4" /></Button>
+              </div>}
+              {!hasAcceptedActiveSupport && item.status !== 'blocked' && <p className="mt-2 text-xs text-muted-foreground">Link and accept supporting claims before coverage can be confirmed.</p>}
+              {staleReview && <p className="mt-2 text-xs text-warning">The linked accepted evidence changed after the last confirmation. Review the target again.</p>}
+            </div>;
+          })}</div>
         </CardContent>
       </Card>
     </>}

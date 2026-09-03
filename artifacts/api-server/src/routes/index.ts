@@ -13,6 +13,7 @@ import adminNotesStudioBriefEditorRouter from "./admin-notes-studio-brief-editor
 import adminNotesStudioSourcePolicyRouter from "./admin-notes-studio-source-policy";
 import adminNotesStudioSourceCoverageRouter from "./admin-notes-studio-source-coverage";
 import adminNotesStudioSourcePackProposalsRouter from "./admin-notes-studio-source-pack-proposals";
+import adminNotesStudioCoverageReviewRouter from "./admin-notes-studio-coverage-review";
 import adminNotesStudioEvidenceRouter from "./admin-notes-studio-evidence";
 import adminNotesStudioSectionsRouter from "./admin-notes-studio-sections";
 import adminNotesStudioQualityRouter from "./admin-notes-studio-quality";
@@ -121,6 +122,7 @@ router.use("/admin/notes-studio", adminNotesStudioBriefEditorRouter);
 router.use("/admin/notes-studio", adminNotesStudioSourcePolicyRouter);
 router.use("/admin/notes-studio", adminNotesStudioSourceCoverageRouter);
 router.use("/admin/notes-studio", adminNotesStudioSourcePackProposalsRouter);
+router.use("/admin/notes-studio", adminNotesStudioCoverageReviewRouter);
 router.use("/admin/notes-studio", adminNotesStudioEvidenceRouter);
 router.use("/admin/notes-studio", adminNotesStudioSectionsRouter);
 router.use("/admin/notes-studio", adminNotesStudioQualityRouter);
