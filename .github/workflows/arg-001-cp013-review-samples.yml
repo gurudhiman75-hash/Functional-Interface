@@ -1,0 +1,36 @@
+name: ARG-001 CP013 Compact Review Samples
+
+on:
+  push:
+    branches:
+      - feature/arg-001-cp012-editorial-remediation
+    paths:
+      - '.github/workflows/arg-001-cp013-review-samples.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cp013-review-samples:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - name: Install dependencies quietly
+        run: pnpm install --frozen-lockfile --reporter=silent
+      - name: Emit CP013 final learner-facing review samples
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-review-sample-dump.ts \
+            --bundle --platform=node --format=esm \
+            --log-level=error \
+            --outfile=dist/arg-001-cp013-review-samples.mjs
+          node dist/arg-001-cp013-review-samples.mjs
