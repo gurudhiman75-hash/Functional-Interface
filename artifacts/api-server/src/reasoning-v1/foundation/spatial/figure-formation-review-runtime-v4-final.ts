@@ -53,10 +53,10 @@ function draw(component: Component, x: number, y: number, width: number, height:
 function shell(width: number, height: number, body: string, label: string): string {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="${label}"><rect width="${width}" height="${height}" fill="white"/><g stroke="#111827" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" fill="none">${body}</g></svg>`;
 }
-function single(component: Component): string { return shell(250, 130, draw(component, 8, 8, 234, 114, 14), "Target figure at the same geometric scale as the options"); }
+function single(component: Component): string { return shell(250, 130, draw(component, 8, 8, 234, 114, 12), "Target figure at the same geometric scale as the options"); }
 function pair(parts: readonly Component[]): string {
   if (parts.length !== 2) throw new Error(`FFM V4 inverse option expected two pieces, got ${parts.length}.`);
-  return shell(250, 130, draw(parts[0]!, 5, 8, 115, 114, 14) + draw(parts[1]!, 130, 8, 115, 114, 14), "Two option pieces at the target scale");
+  return shell(250, 130, draw(parts[0]!, 5, 8, 115, 114, 12) + draw(parts[1]!, 130, 8, 115, 114, 12), "Two option pieces at the target scale");
 }
 function illustration(parts: readonly Component[], target: Component): string {
   let body = draw(parts[0]!, 12, 18, 125, 105, 12) + draw(parts[1]!, 150, 18, 125, 105, 12);
