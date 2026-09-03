@@ -2,7 +2,7 @@ import { strict as assert } from "node:assert";
 import { COM003_PERMANENT_QLS } from "./com003-permanent-ql-allocation";
 import { COM003_ENGLISH_REVIEW_CORPUS_V14, auditCom003V14StemUniqueness, buildCom003EnglishReviewCorpusV14 } from "./com003-review-synthesis-v14";
 
-const BANNED_AWKWARD_STEM = /(?:is described as|refers to which|what is is|what does The|shortcut for start|Windows desktop version|keyboard shortcut|as applicable|configured\/common|basic numeric-count context|merged outputs|recipient\/data-source|supplied set or range|evenly ordered intervals|individual items or categories|example or description|quickest keyboard|key combination|practical effect|correct choice|correctly represents|\bis can be\b|\bfor supplies\b|\bfor contains\b)/i;
+const BANNED_AWKWARD_STEM = /(?:is described as|refers to which|what is is|shortcut for start|Windows desktop version|keyboard shortcut|as applicable|configured\/common|basic numeric-count context|merged outputs|recipient\/data-source|supplied set or range|evenly ordered intervals|individual items or categories|example or description|quickest keyboard|key combination|practical effect|correct choice|correctly represents|\bis can be\b|\bfor supplies\b|\bfor contains\b)/i;
 
 assert.equal(COM003_ENGLISH_REVIEW_CORPUS_V14.length, 228);
 assert.equal(new Set(COM003_ENGLISH_REVIEW_CORPUS_V14.map((q) => q.qlId)).size, 19);
@@ -27,8 +27,11 @@ for (const q of COM003_ENGLISH_REVIEW_CORPUS_V14) {
   assert.equal(q.options[q.correctIndex], q.canonicalAnswer, `${q.questionId}:answer binding`);
   assert.equal(q.stemAuthority, "COM003_V14_SIMPLE_DIRECT_EXAM_AUTHORITY");
   assert.ok(q.stem.endsWith("?"), `${q.questionId}:not a question:${q.stem}`);
+  assert.match(q.stem, /^[A-Z0-9]/, `${q.questionId}:bad capitalization:${q.stem}`);
   assert.ok(q.stem.split(/\s+/).length <= 28, `${q.questionId}:too wordy:${q.stem}`);
   assert.ok(!BANNED_AWKWARD_STEM.test(q.stem), `${q.questionId}:awkward wording:${q.stem}`);
+  assert.ok(!/what does The/.test(q.stem), `${q.questionId}:capitalized article inside stem:${q.stem}`);
+  assert.ok(!/Which orientation a page/i.test(q.stem), `${q.questionId}:broken orientation grammar:${q.stem}`);
   assert.ok(!/UNSUPPORTED SURFACE MODE/i.test(q.stem), `${q.questionId}:unsupported:${q.surfaceMode}`);
   if (q.versionScoped && /SHORTCUT|SLIDESHOW/i.test(q.surfaceMode)) {
     assert.match(q.stem, /Windows desktop/i, `${q.questionId}:missing version scope`);
