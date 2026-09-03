@@ -49,6 +49,12 @@ function strongCount(question: Question): number {
     : 0;
 }
 
+function hasStrongNo(question: Question): boolean {
+  return Array.isArray(question.arguments) && question.arguments.some((argument: unknown, index: number) =>
+    question.argumentStrengths?.[index] === "STRONG" && /^(No\.|नहीं।|ਨਹੀਂ।)/u.test(String(argument)),
+  );
+}
+
 const coreWorkshop = find(
   { qlId: "ARG-QL-004", language: "en", difficulty: "Medium" },
   (question) => question.templateId === "ARG-CP003-QL004-T04",
@@ -59,11 +65,11 @@ const corePunjabi = find(
 );
 const grievanceEnglish = find(
   { cpId: "ARG-CP-013", qlId: "ARG-QL-001", language: "en", difficulty: "Easy", examProfile: "SSC_RECENT_2X4" },
-  (question) => String(question.scenarioId).includes("GRIEVANCE_CONTACT"),
+  (question) => String(question.scenarioId).includes("GRIEVANCE_CONTACT") && hasStrongNo(question),
 );
 const grievanceHindi = find(
   { cpId: "ARG-CP-013", qlId: "ARG-QL-001", language: "hi", difficulty: "Easy", examProfile: "SSC_RECENT_2X4" },
-  (question) => String(question.scenarioId).includes("GRIEVANCE_CONTACT"),
+  (question) => String(question.scenarioId).includes("GRIEVANCE_CONTACT") && hasStrongNo(question),
 );
 const bankingClassic = one({ cpId: "ARG-CP-013", qlId: "ARG-QL-002", language: "en", difficulty: "Medium", examProfile: "BANKING_CLASSIC_2X5", seed: "CP013-REVIEW-BANKING-CLASSIC" });
 const threeMediumOne = find(
@@ -104,18 +110,18 @@ console.log([
   "Generated directly from the current CP013 Question Studio runtime. Learner release remains locked.",
   "",
   block("1. Core / English / Medium / workshop correlation repair", coreWorkshop),
-  block("2. Core / Punjabi / Hard / grammar repair", corePunjabi),
-  block("3. SSC 2×4 / English / grievance-contact polarity repair", grievanceEnglish),
-  block("4. SSC 2×4 / Hindi / grievance-contact", grievanceHindi),
+  block("2. Core / Punjabi / Hard / normalized-score naturalness repair", corePunjabi),
+  block("3. SSC 2×4 / English / grievance-contact strong-No repair", grievanceEnglish),
+  block("4. SSC 2×4 / Hindi / grievance-contact strong-No repair", grievanceHindi),
   block("5. Banking classic 2×5", bankingClassic),
   block("6. Banking 3×5 / Medium / one strong", threeMediumOne),
   block("7. Banking 3×5 / Medium / two strong", threeMediumTwo),
   block("8. Banking 3×5 / Hard / one strong", threeHardOne),
   block("9. Banking 3×5 / Hard / two strong", threeHardTwo),
-  block("10. Banking 4×5 / one strong", fourOne),
+  block("10. Banking 4×5 / one strong / distractor diversity", fourOne),
   block("11. Banking 4×5 / two strong", fourTwo),
   block("12. Banking 4×5 / three strong", fourThree),
-  block("13. Banking 4×5 / Hindi / monitoring polarity repair", monitoringHindi),
-  block("14. Banking 4×5 / Punjabi / monitoring polarity repair", monitoringPunjabi),
-  block("15. Banking 4×5 / English / due-process grammar", dueProcess),
+  block("13. Banking 4×5 / Hindi / monitoring grammar and polarity", monitoringHindi),
+  block("14. Banking 4×5 / Punjabi / monitoring grammar and polarity", monitoringPunjabi),
+  block("15. Banking 4×5 / English / distinct due-process arguments", dueProcess),
 ].join("\n"));
