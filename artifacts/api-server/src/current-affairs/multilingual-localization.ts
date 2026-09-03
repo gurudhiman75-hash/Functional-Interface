@@ -40,13 +40,7 @@ export type CurrentAffairsLocalizationOutput = {
   reasons: string[];
 };
 
-const GENERIC_LOCALIZATION_POLICY_VERSION = "ca-cp035-generic-multilingual-recovery-v1";
-const GENERIC_TEMPLATES = new Set([
-  "verified_official_action_v1",
-  "verified_award_result_v1",
-  "verified_initiative_v1",
-  "generic_verified_fact_graph_v1",
-]);
+const LOCALIZATION_POLICY_VERSION = "ca-cp058-date-anchor-parity-v1";
 
 const SOURCE_NAMES: Record<CurrentAffairsLocalizationLanguage, Record<string, string>> = {
   hi: {
@@ -133,6 +127,21 @@ const GENERIC_SUBJECT_PRIORITY = [
   "rank",
 ] as const;
 
+const LOCALIZED_MONTHS: Record<string, Record<CurrentAffairsLocalizationLanguage, string>> = {
+  january: { hi: "जनवरी", pa: "ਜਨਵਰੀ" },
+  february: { hi: "फ़रवरी", pa: "ਫ਼ਰਵਰੀ" },
+  march: { hi: "मार्च", pa: "ਮਾਰਚ" },
+  april: { hi: "अप्रैल", pa: "ਅਪ੍ਰੈਲ" },
+  may: { hi: "मई", pa: "ਮਈ" },
+  june: { hi: "जून", pa: "ਜੂਨ" },
+  july: { hi: "जुलाई", pa: "ਜੁਲਾਈ" },
+  august: { hi: "अगस्त", pa: "ਅਗਸਤ" },
+  september: { hi: "सितंबर", pa: "ਸਤੰਬਰ" },
+  october: { hi: "अक्टूबर", pa: "ਅਕਤੂਬਰ" },
+  november: { hi: "नवंबर", pa: "ਨਵੰਬਰ" },
+  december: { hi: "दिसंबर", pa: "ਦਸੰਬਰ" },
+};
+
 function factMap(facts: LocalizationFact[]): Map<string, string> {
   const map = new Map<string, string>();
   for (const fact of facts) {
@@ -152,6 +161,21 @@ function sentence(value: string, language: CurrentAffairsLocalizationLanguage): 
   if (!clean) return "";
   if (/[.!?।]$/u.test(clean)) return clean;
   return `${clean}।`;
+}
+
+function localizedSourceDateAnchor(
+  sourceSummary: string,
+  language: CurrentAffairsLocalizationLanguage,
+): string | undefined {
+  const match = normalized(sourceSummary).match(
+    /^On\s+(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{4}),?/i,
+  );
+  if (!match?.[1] || !match[2] || !match[3]) return undefined;
+  const month = LOCALIZED_MONTHS[match[2].toLowerCase()]?.[language];
+  if (!month) return undefined;
+  return language === "hi"
+    ? `${match[1]} ${month} ${match[3]} को`
+    : `${match[1]} ${month} ${match[3]} ਨੂੰ`;
 }
 
 function authoringSubject(sourceTitle: string): string | undefined {
@@ -217,9 +241,7 @@ function expectedScriptPresent(value: string, language: CurrentAffairsLocalizati
 
 export function localizationInputFingerprint(input: CurrentAffairsLocalizationInput): string {
   const stable = JSON.stringify({
-    ...(GENERIC_TEMPLATES.has(input.templateId ?? "")
-      ? { localizationPolicyVersion: GENERIC_LOCALIZATION_POLICY_VERSION }
-      : {}),
+    localizationPolicyVersion: LOCALIZATION_POLICY_VERSION,
     eventId: input.eventId,
     authoringVersionId: input.authoringVersionId,
     languageCode: input.languageCode,
@@ -278,7 +300,9 @@ function rendered(args: {
   requiredKeys: string[];
 }): CurrentAffairsLocalizationOutput {
   const localizedTitle = normalized(args.title);
-  const localizedSummary = sentence(args.summary, args.input.languageCode);
+  const dateAnchor = localizedSourceDateAnchor(args.input.sourceSummary, args.input.languageCode);
+  const summaryWithDate = dateAnchor ? `${dateAnchor} ${args.summary}` : args.summary;
+  const localizedSummary = sentence(summaryWithDate, args.input.languageCode);
   const localizedOneLiner = sentence(args.oneLiner, args.input.languageCode);
   const quality = evaluateCurrentAffairsLocalization({
     input: args.input,
