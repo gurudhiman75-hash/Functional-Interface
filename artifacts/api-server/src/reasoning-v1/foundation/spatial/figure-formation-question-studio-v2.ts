@@ -2,6 +2,7 @@ import {
   generateFigureFormationQuestionStudioV1,
   type FigureFormationLanguageV1,
 } from "./figure-formation-question-studio-v1";
+import { generateFigureFormationTargetShapeQuestionV1 } from "./figure-formation-target-shape-runtime-v1";
 import type { FigureFormationPermanentQlIdV10 } from "./spatial-permanent-ql-allocation-v10";
 
 const HINDI_REGIONS: Readonly<Record<string, string>> = Object.freeze({
@@ -38,16 +39,37 @@ function localizeRegionTerms(text: string, language: FigureFormationLanguageV1):
     .reduce((result, [source, target]) => result.replaceAll(source, target), text);
 }
 
+function suppressInheritedCellStrokes(svg: string): string {
+  // The legacy piece renderer groups its boundary lines with the white fill rects.
+  // Explicitly disabling rect strokes removes internal square-grid seams while
+  // preserving the solver geometry and outer boundary lines.
+  return svg.replace(/<rect ([^>]*fill="white"[^>]*)\/>/g, '<rect $1 stroke="none"/>');
+}
+
 export function generateFigureFormationQuestionStudioV2(input: Readonly<{
   qlId: FigureFormationPermanentQlIdV10;
   seed: string;
   language?: FigureFormationLanguageV1;
 }>) {
+  const language = input.language ?? "en";
+  if (input.qlId === "SPA-QL-052" || input.qlId === "SPA-QL-053") {
+    return generateFigureFormationTargetShapeQuestionV1({
+      qlId: input.qlId,
+      seed: input.seed,
+      language,
+    });
+  }
+
   const question = generateFigureFormationQuestionStudioV1(input);
-  if (question.language === "en") return question;
-  return Object.freeze({
+  const remediated = Object.freeze({
     ...question,
     version: "SPA-FFM-001-QUESTION-STUDIO-V2" as const,
+    stimulusSvgs: Object.freeze(question.stimulusSvgs.map(suppressInheritedCellStrokes)),
+    optionSvgs: Object.freeze(question.optionSvgs.map(suppressInheritedCellStrokes)),
+  });
+  if (question.language === "en") return remediated;
+  return Object.freeze({
+    ...remediated,
     explanation: Object.freeze({
       ...question.explanation,
       application: localizeRegionTerms(question.explanation.application, question.language),
