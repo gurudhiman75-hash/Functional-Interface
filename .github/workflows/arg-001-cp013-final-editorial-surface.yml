@@ -1,0 +1,130 @@
+name: Validate ARG-001 CP013 Final Editorial Surface
+
+on:
+  push:
+    branches:
+      - feature/arg-001-cp012-editorial-remediation
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp013.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/arg-001-cp013-final-editorial-surface.yml'
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp013.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - '.github/workflows/arg-001-cp013-final-editorial-surface.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp013-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp013-final-editorial-surface:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for CP013-owned runtime
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-final-editorial-surface.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-final-editorial-surface-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-question-studio-routing-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-review-sample-dump.ts
+
+      - name: Prove CP013 learner-facing correlation polarity grammar and option copy
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-final-editorial-surface-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp013-final-editorial-surface-proof.mjs
+          node dist/arg-001-cp013-final-editorial-surface-proof.mjs
+
+      - name: Prove CP013 Question Studio route precedence and lifecycle locks
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-question-studio-routing-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp013-question-studio-routing-proof.mjs
+          node dist/arg-001-cp013-question-studio-routing-proof.mjs
+
+      - name: Emit deterministic CP013 final learner-facing review samples
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-review-sample-dump.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp013-review-samples.mjs
+          node dist/arg-001-cp013-review-samples.mjs
+
+      - name: Preserve certified CP012 editorial and cardinality proof
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-editorial-real-paper-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp012-editorial-real-paper-proof.mjs
+          node dist/arg-001-cp012-editorial-real-paper-proof.mjs
+
+      - name: Preserve CP012 Question Studio historical proof
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-question-studio-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp012-question-studio-proof.mjs
+          node dist/arg-001-cp012-question-studio-proof.mjs
+
+      - name: Preserve exact CP006 historical core freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts
+
+      - name: Preserve exact CP008 historical real-paper freeze
+        run: node --experimental-strip-types artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-byte-freeze-proof.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm run build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm run build
+
+      - name: CP013 lifecycle boundary
+        run: |
+          echo 'ARG-001 CP009 remains the core semantic source.'
+          echo 'ARG-001 CP012 remains the certified real-paper semantic source.'
+          echo 'ARG-001 CP013 is the current final learner-facing editorial review surface.'
+          echo 'CP006/CP008/CP010/CP011/CP012 historical evidence is preserved.'
+          echo 'Learner release remains LOCKED pending manual editorial approval.'
+          echo 'Question Bank/test/mock/public/automatic learner publication remain disabled.'
