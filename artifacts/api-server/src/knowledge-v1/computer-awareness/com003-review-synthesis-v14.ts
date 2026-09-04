@@ -138,7 +138,7 @@ function cleanDirectStem(input: string) {
       "Which Excel command inserts a new row?")
     .replace(/^What Excel command or option controls the height of a row\?$/i,
       "Which option changes the height of a row in Excel?")
-    .replace(/^In Microsoft Excel, (which|what) Excel (function|feature|chart|range)/i,
+    .replace(/^In Microsoft Excel, (which|what) Excel (function|feature|chart|range|command|option)/i,
       (_m, wh, noun) => `In Microsoft Excel, ${String(wh).toLowerCase()} ${String(noun)}`)
     .replace(/^In Microsoft Word, (which|what) Word (feature|command|page element|formatting option)/i,
       (_m, wh, noun) => `In Microsoft Word, ${String(wh).toLowerCase()} ${String(noun)}`)
