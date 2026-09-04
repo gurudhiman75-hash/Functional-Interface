@@ -27,37 +27,35 @@ function familyVariant(
 function curatedStem(q: Com003ReviewQuestionV16, ordinal: number): string | null {
   switch (q.targetFactId) {
     case "com003-powerpoint-purpose":
-      if (/which term|description/i.test(q.stem)) return "Which Microsoft Office application is used to create slide-based presentations?";
-      return null;
+      return /which term|description/i.test(q.stem) ? "Which Microsoft Office application is used to create slide-based presentations?" : null;
     case "com003-word-document-artifact":
-      return "Which term refers to a word-processing document created in Microsoft Word?";
+      return /which Microsoft Word term/i.test(q.stem) ? "Which term refers to a word-processing document created in Microsoft Word?" : null;
     case "com003-word-edit-cut":
-      return "Which Word command removes selected text and places it on the Clipboard so it can be moved or pasted elsewhere?";
+      return /matches this function:/i.test(q.stem) ? "Which Word command removes selected text and places it on the Clipboard so it can be moved or pasted elsewhere?" : null;
     case "com003-word-edit-paste":
-      return "Which Word command inserts the current Clipboard contents at the insertion point?";
+      return /used for this purpose:/i.test(q.stem) ? "Which Word command inserts the current Clipboard contents at the insertion point?" : null;
     case "com003-word-spelling-check":
-      return "Which Word feature identifies possible spelling errors for review?";
+      return /used for this purpose:/i.test(q.stem) ? "Which Word feature identifies possible spelling errors for review?" : null;
     case "com003-word-mail-merge-main-document":
-      return "In Mail Merge, which component contains the common text and layout shared by the merged documents?";
+      return /matches this role:/i.test(q.stem) ? "In Mail Merge, which component contains the common text and layout shared by the merged documents?" : null;
     case "com003-word-mail-merge-merge-field":
-      return "In Mail Merge, which component marks where values from the data source are inserted into the main document?";
+      return /has this function:/i.test(q.stem) ? "In Mail Merge, which component marks where values from the data source are inserted into the main document?" : null;
     case "com003-word-mail-merge-recipient-record":
-      return "In Mail Merge, what is one complete set of field values for a single recipient called?";
+      return /which term|description/i.test(q.stem) ? "In Mail Merge, what is one complete set of field values for a single recipient called?" : null;
     case "com003-excel-structure-cell":
-      return "In Excel, what is the intersection of a row and a column called?";
+      return /matches this definition:/i.test(q.stem) ? "In Excel, what is the intersection of a row and a column called?" : null;
     case "com003-excel-function-average":
-      return "Which Excel function returns the arithmetic mean of numeric values?";
+      return /matches this purpose:/i.test(q.stem) ? "Which Excel function returns the arithmetic mean of numeric values?" : null;
     case "com003-excel-absolute-reference-notation":
-      if (/which term|description/i.test(q.stem)) return "Which Excel reference has both its column and row fixed?";
-      return null;
+      return /which term|description/i.test(q.stem) ? "Which Excel reference has both its column and row fixed?" : null;
     case "com003-excel-sort-ascending":
-      return "Which Excel sort order arranges values from lower to higher or A to Z, depending on the data type?";
+      return /matches this effect:/i.test(q.stem) ? "Which Excel sort order arranges values from lower to higher or A to Z, depending on the data type?" : null;
     case "com003-excel-sort-descending":
-      return "Which Excel sort order arranges values from higher to lower or Z to A, depending on the data type?";
+      return /has this function:/i.test(q.stem) ? "Which Excel sort order arranges values from higher to lower or Z to A, depending on the data type?" : null;
     case "com003-excel-row-column-insert-row":
-      return "Which worksheet operation adds a new row and shifts the existing worksheet structure as required?";
+      return /matches this effect:/i.test(q.stem) ? "Which worksheet operation adds a new row and shifts the existing worksheet structure as required?" : null;
     case "com003-excel-row-column-row-height":
-      return "Which Excel setting controls the vertical size of a worksheet row?";
+      return /has this function:/i.test(q.stem) ? "Which Excel setting controls the vertical size of a worksheet row?" : null;
     case "com003-excel-pie-chart":
       return familyVariant(q, ordinal, {
         DIRECT_RECALL: [
@@ -105,11 +103,11 @@ function curatedStem(q: Com003ReviewQuestionV16, ordinal: number): string | null
         ],
       });
     case "com003-powerpoint-placeholder-role":
-      if (/matches this role/i.test(q.stem)) return "Which PowerPoint feature acts as a container on a slide layout for text, tables, charts, pictures or other media?";
-      return null;
+      return /matches this role:/i.test(q.stem) ? "Which PowerPoint feature acts as a container on a slide layout for text, tables, charts, pictures or other media?" : null;
     case "com003-powerpoint-presentation-slides":
-      if (/which PowerPoint term/i.test(q.stem)) return "What is a collection of slides used to present information called in PowerPoint?";
-      return null;
+      return /which PowerPoint term/i.test(q.stem) ? "What is a collection of slides used to present information called in PowerPoint?" : null;
+    case "com003-powerpoint-insert-table":
+      return /matches this description:/i.test(q.stem) ? "Which PowerPoint object is used to organize information in rows and columns on a slide?" : null;
     case "com003-powerpoint-insert-picture":
       return familyVariant(q, ordinal, {
         DIRECT_RECALL: [
@@ -207,7 +205,7 @@ export function auditCom003V161() {
   const banned: readonly [string, RegExp][] = [
     ["POWERPOINT_CAPITALIZATION", /\bPowerpoint\b/],
     ["GENERIC_TERM_DESCRIPTION", /Which term is described by the following statement|refers to which term|Which term best matches this description/i],
-    ["COLON_TEMPLATE_PURPOSE", /used for this purpose:|matches this purpose:|matches this role:|matches this effect:|matches this definition:|has this function:/i],
+    ["COLON_TEMPLATE_PURPOSE", /used for this purpose:|matches this purpose:|matches this role:|matches this effect:|matches this definition:|matches this description:|has this function:/i],
     ["DOUBLE_APP_CONTEXT", /In Microsoft (Word|Excel|PowerPoint),\s+in (?:Microsoft )?\1/i],
     ["INTERNAL_FAMILY_LANGUAGE", /In this (?:direct recall|functional application|example recognition|contrast discrimination) question/i],
   ];
