@@ -132,7 +132,9 @@ const CASES = [
 ] as const;
 
 for (const input of CASES) {
-  const cp013Input = input.cpId === "ARG-CP-014" ? { ...input, cpId: "ARG-CP-013" as const } : input;
+  const cp013Input = "cpId" in input && input.cpId === "ARG-CP-014"
+    ? { ...input, cpId: "ARG-CP-013" as const }
+    : input;
   const source = generateArgCp013QuestionStudioBatch(cp013Input);
   const approved = generateArgCp014QuestionStudioBatch(input);
   assert.equal(approved.questions.length, source.questions.length);
