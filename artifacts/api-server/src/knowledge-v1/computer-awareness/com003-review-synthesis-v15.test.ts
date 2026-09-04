@@ -20,8 +20,7 @@ for (const ql of COM003_PERMANENT_QLS) {
   for (const q of qs) familyCounts.set(q.examSurfaceFamily, (familyCounts.get(q.examSurfaceFamily) ?? 0) + 1);
   assert.equal(familyCounts.size, 4, `${ql.qlId}:surface family coverage`);
   for (const family of ["DIRECT_RECALL", "FUNCTIONAL_APPLICATION", "EXAMPLE_RECOGNITION", "CONTRAST_DISCRIMINATION"]) {
-    const count = familyCounts.get(family) ?? 0;
-    assert.ok(count >= 2 && count <= 4, `${ql.qlId}:${family}:imbalanced family count ${count}`);
+    assert.equal(familyCounts.get(family) ?? 0, 3, `${ql.qlId}:${family}:family balance`);
   }
 }
 
@@ -82,7 +81,7 @@ console.log("[COM003-V15]", {
   directRecallSemanticBinding: "TARGET_FACT_BOUND",
   canonicalAnswerAuthority: "GOVERNED_FACT_RELATION",
   learnerSurfaceNormalization: "PASS",
-  familyCoverage: "4_FAMILIES_BALANCED",
+  familyCoverage: "EXACT_3_PER_FAMILY_PER_QL",
   knownCrossTargetRegressions: "BLOCKED",
   governance: "REVIEW_ONLY",
 });
