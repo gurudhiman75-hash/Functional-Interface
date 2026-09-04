@@ -1,367 +1,248 @@
 # Computer Awareness — End-to-End Design R2
 
 Status: **SUBJECT EXHAUSTIVENESS MAP / IMPLEMENTATION AUTHORITY CANDIDATE**  
-Supersedes for future planning: `COMPUTER-AWARENESS-END-TO-END-DESIGN-R1.md`  
-Does not mutate any already-frozen COM-001/002/003 learner corpus.
+Supersedes R1 for future planning only. It does not alter any existing frozen learner authority.
 
 ## 1. Why R2 exists
 
-R1 correctly established the seven-chapter Computer Awareness ownership scaffold, but implementation progress later became easy to misread because `COM-001 / Memory & Storage` was closed as a frozen pilot while the wider `COM-001 — Computer Fundamentals & Architecture` chapter still owned additional unimplemented families.
+R1 correctly established seven Computer Awareness chapters, but later progress summaries conflated a completed CP with a completed chapter. In particular, `COM-001-CP-001 — Memory & Storage` is frozen while the wider `COM-001 — Computer Fundamentals & Architecture` chapter still owns CPU, input/output and ports work.
 
-R2 separates:
+R2 fixes the complete SSC/Banking/Punjab core ownership map before further implementation and records the current COM-003 governance truth after the September 2026 stem-quality rejection.
 
-- **frozen CP completion** from **chapter completion**;
-- the already-built COM-001..003 learner authorities from the still-unimplemented subject surface;
-- core SSC/Banking/Punjab awareness content from specialist/deep-IT material.
+## 2. Subject boundary
 
-This document fixes the remaining core ownership map before COM-004 implementation begins.
+Computer Awareness owns general competitive-exam factual/conceptual computer knowledge for SSC, Banking and Punjab-state examinations.
 
-## 2. Current source boundary
+Core source boundary includes:
+- computer organization/CPU/input/output/memory/storage/ports;
+- Windows, files and shortcuts;
+- Word/Excel/PowerPoint;
+- Internet, web, e-mail and digital services;
+- networking;
+- cyber security;
+- software/language/DBMS awareness.
 
-R2 is anchored to the current target-exam surface and durable government training references:
+It does not automatically own deep CS algorithms, coding assessments, advanced DBMS internals, specialist network administration, current technology news or specialist-IT recruitment material.
 
-- **SSC CGL 2026 / SSC CHSL 2025**: computer organization, CPU, input/output devices, memory, backup devices, ports, Windows Explorer, keyboard shortcuts, Windows/MS Office, Internet/e-mail/e-banking, networking devices/protocols, cyber threats and preventive measures.
-- **IBPS RRB Computer Knowledge**: dedicated 40-question Computer Knowledge section remains present in the current RRB examination structure; official handout examples continue to test basic device classification, RAM and software/hardware discrimination.
-- **Punjab clerical / general state ICT boundary**: Punjab government service rules continue to require practical PC/IT Office Productivity competence for clerical appointments; Punjab recruitment syllabi commonly group basics of computers, network/Internet and Office productivity tools.
-- **NIELIT CCC / CCC+**: used as a breadth guard for computer fundamentals, OS/file management, Office, Internet/e-mail, networking, cyber security, DBMS awareness, digital services and future-skills terminology.
-
-The product target remains **general competitive-exam Computer Awareness**, not specialist Computer Science recruitment.
-
-## 3. Core subject map
-
-The core subject remains seven chapters. No COM-008 is created in the core map at this checkpoint.
+## 3. Core chapter and CP map
 
 ### COM-001 — Computer Fundamentals & Architecture
 
 #### COM-001-CP-001 — Memory & Storage
-Status: **COMPLETE / FROZEN**
+**COMPLETE / FROZEN**
 
-Existing permanent QLs: `COM-001-QL-001..009`.
-
-Owned surface already includes volatility/retention, memory/storage classification and function, hierarchy, storage media, backup-device selection and capacity units.
+Permanent QLs: `COM-001-QL-001..009`.
 
 #### COM-001-CP-002 — Computer Organization, CPU & Functional Units
-Status: **REMAINING**
+**REMAINING**
 
-Discovery must cover only awareness-depth learner tasks such as:
-- basic computer organization and block-level functional units;
-- CPU role;
-- ALU, Control Unit and registers;
-- processor/component function matching;
-- basic input-process-output-storage flow;
-- computer types/generations only where target-exam/PYQ evidence justifies them.
-
-Do not drift into specialist architecture topics such as pipelining, cache-coherence protocols, instruction-set design or microarchitecture internals.
+Owns awareness-depth organization, CPU role, ALU, Control Unit, registers, functional-unit mapping and basic input-process-output-storage flow. Computer generations/types enter only where target-exam evidence justifies them.
 
 #### COM-001-CP-003 — Input Devices
-Status: **REMAINING**
+**REMAINING**
 
-Candidate ownership:
-- keyboard/mouse/scanner;
-- OCR/OMR/MICR/barcode/QR reading devices where exam-relevant;
-- biometric/input sensors at awareness depth;
-- device-to-purpose and purpose-to-device discrimination;
-- input vs output vs storage classification.
+Owns keyboard, mouse, scanner, OCR/OMR/MICR, barcode/QR readers, biometric/input devices and device-purpose/classification tasks at awareness depth.
 
 #### COM-001-CP-004 — Output Devices
-Status: **REMAINING**
+**REMAINING**
 
-Candidate ownership:
-- monitor/display;
-- printer families at awareness depth;
-- plotter/projector/speaker and common output devices;
-- hard-copy vs soft-copy concepts;
-- device-to-purpose and classification questions.
+Owns monitor/display, printers, plotter, projector, speaker, hard-copy/soft-copy and device-purpose/classification tasks.
 
 #### COM-001-CP-005 — Ports, Interfaces & Peripheral Connectivity
-Status: **REMAINING**
+**REMAINING**
 
-Candidate ownership:
-- common computer ports/connectors and their purposes;
-- USB/HDMI/display/audio/network connector recognition where exam-relevant;
-- peripheral connectivity concepts;
-- legacy interfaces only when current target-exam evidence justifies retention.
-
-Basic binary/number-system or historical-computer trivia is **not automatically owned** here. It requires explicit SSC/Banking/Punjab PYQ or syllabus evidence before expansion.
+Owns common ports/connectors, USB/HDMI/display/audio/network connectors and peripheral-connectivity concepts. Legacy interfaces require direct exam evidence.
 
 ### COM-002 — Operating Systems, Files & Windows
 
-Status: **CORE CONTENT COMPLETE / FROZEN**
-
 #### COM-002-CP-001 — Operating Systems & Windows Environment
-Status: **COMPLETE / FROZEN**
+**COMPLETE / FROZEN**
 
 #### COM-002-CP-002 — Files, Folders, Explorer, Operations & OS Shortcuts
-Status: **COMPLETE / FROZEN**
+**COMPLETE / FROZEN**
 
-Existing permanent QLs: `COM-002-QL-001..013`.
+Permanent QLs: `COM-002-QL-001..013`.
 
-No new COM-002 CP is planned in the core map unless a direct target-exam gap appears.
-
-Deep scheduling algorithms, deadlock theory, paging algorithms, IPC internals and kernel architecture remain outside general Computer Awareness.
+No additional core COM-002 CP is currently planned. Deep scheduling/deadlock/paging/IPC/kernel internals remain outside general Computer Awareness.
 
 ### COM-003 — Office & Productivity Software
 
-Status: **CONTENT + LOCALIZATION FROZEN / QUESTION STUDIO REVIEW_ONLY**
+The four CP structures and 19 permanent QLs are implemented, but **the chapter is not currently product-frozen**.
+
+On **2026-09-02**, `COM-003-PRODUCT-REVIEW-REVOCATION-V1` explicitly rejected the V4 learner-facing stems as not exam-level and revoked the V4 English product freeze, V4-derived localization authority and V4-derived Question Studio approval candidacy.
+
+Current branch head is the **V14 simple/direct exam-wording remediation candidate**. It contains 228 English questions, 12 per QL, with strict answer binding and 12 unique stems per QL, but **no new product-owner approval/freeze is recorded yet**.
 
 #### COM-003-CP-001 — Common Office Concepts, Formats & Commands
-Status: **COMPLETE**
+**STRUCTURALLY IMPLEMENTED / PRODUCT RE-REVIEW REQUIRED**
 
 #### COM-003-CP-002 — Microsoft Word
-Status: **COMPLETE**
+**STRUCTURALLY IMPLEMENTED / PRODUCT RE-REVIEW REQUIRED**
 
 #### COM-003-CP-003 — Microsoft Excel
-Status: **COMPLETE**
+**STRUCTURALLY IMPLEMENTED / PRODUCT RE-REVIEW REQUIRED**
 
 #### COM-003-CP-004 — Microsoft PowerPoint
-Status: **COMPLETE**
+**STRUCTURALLY IMPLEMENTED / PRODUCT RE-REVIEW REQUIRED**
 
-Existing permanent QLs: `COM-003-QL-001..019`.
+Permanent QLs: `COM-003-QL-001..019`.
 
-Remaining non-CP gate:
-- explicit audited COM-003 difficulty authority;
-- only after that may `BANK_ONLY` / Question Bank write eligibility be considered.
+Current ordered closure gates:
+1. review exact V14 learner artifact;
+2. if approved, create immutable V14 English product freeze;
+3. regenerate/review/freeze Hindi and Punjabi from the approved English authority;
+4. create audited Easy/Medium/Hard difficulty authority over the approved corpus;
+5. restore Question Studio authority from the approved corpus;
+6. only then consider `BANK_ONLY` / Question Bank writes.
+
+Difficulty MUST NOT be attached to rejected V4 content or used to imply V14 approval.
 
 ### COM-004 — Internet, Web, E-mail & Digital Services
-
-Status: **NOT IMPLEMENTED**
+**NOT IMPLEMENTED**
 
 #### COM-004-CP-001 — Internet, WWW, Browsers & Search
-
-Candidate ownership:
-- Internet vs WWW;
-- web browser and search engine roles;
-- browsing/searching;
-- downloading/uploading;
-- intranet/extranet only where target-exam evidence supports them;
-- cookies/cache/history at awareness depth when justified.
+Internet vs WWW, browser/search-engine roles, browsing/searching, upload/download and source-backed intranet/extranet or browser concepts.
 
 #### COM-004-CP-002 — URLs, Domains & Web Concepts
-
-Candidate ownership:
-- URL structure at awareness depth;
-- domain/domain-name concepts;
-- web page/site/home page/web server concepts;
-- HTTP/HTTPS ownership only for web-use awareness, avoiding duplicate protocol ownership with COM-005.
+URL/domain/web-page/web-site/home-page/web-server concepts and web-use HTTP/HTTPS awareness without duplicating networking ownership.
 
 #### COM-004-CP-003 — E-mail & Online Communication
-
-Candidate ownership:
-- e-mail address components;
-- To/CC/BCC;
-- attachments;
-- inbox/sent/drafts/spam concepts;
-- SMTP/POP/IMAP recognition where exam evidence warrants protocol-level questions;
-- video-conferencing/collaboration basics where Punjab/Banking evidence supports them.
+E-mail addressing, To/CC/BCC, attachments, mailbox concepts and source-backed SMTP/POP/IMAP/collaboration awareness.
 
 #### COM-004-CP-004 — E-banking, E-governance & Digital-Service Safety
-
-Candidate ownership:
-- e-banking as an Internet-enabled service;
-- basic safe-use practices tied to online services;
-- e-governance/e-commerce/social/digital-service concepts only at awareness depth and only where source-backed;
-- no duplication of detailed banking-awareness products, schemes, rates or current rules.
+Internet-enabled service concepts and safe use at awareness depth, without re-owning detailed Banking Awareness products/schemes.
 
 ### COM-005 — Networking
-
-Status: **NOT IMPLEMENTED**
+**NOT IMPLEMENTED**
 
 #### COM-005-CP-001 — Network Types & Topologies
-
-Candidate ownership:
-- PAN/LAN/MAN/WAN and related scope concepts;
-- client/server vs peer-to-peer only where exam relevant;
-- common topologies and their basic structural recognition.
+PAN/LAN/MAN/WAN, client/server or peer-to-peer where relevant, and common topologies.
 
 #### COM-005-CP-002 — Networking Devices
-
-Candidate ownership:
-- NIC, hub, switch, router, modem, repeater, bridge, gateway, access point;
-- device-to-function and contrast/discrimination tasks.
+NIC, hub, switch, router, modem, repeater, bridge, gateway and access point.
 
 #### COM-005-CP-003 — Protocols & Addressing Basics
-
-Candidate ownership:
-- TCP/IP-level awareness;
-- IP-address concepts;
-- DNS/DHCP and common protocol-purpose recognition where target-exam evidence supports it;
-- avoid port-number memorization unless repeated PYQ evidence justifies it.
+TCP/IP awareness, IP addresses, DNS/DHCP and common protocol-purpose recognition. Port-number trivia requires strong PYQ evidence.
 
 #### COM-005-CP-004 — Transmission Media & Wireless Connectivity
-
-Candidate ownership:
-- wired vs wireless transmission;
-- twisted pair/coaxial/fibre at awareness depth;
-- Wi-Fi/Bluetooth/NFC/mobile-network concepts where exam-relevant;
-- bandwidth/basic transmission terminology without communications-engineering depth.
+Wired/wireless media, twisted-pair/coaxial/fibre, Wi-Fi/Bluetooth/NFC/mobile-network concepts and basic bandwidth terminology.
 
 ### COM-006 — Cyber Security
-
-Status: **NOT IMPLEMENTED**
+**NOT IMPLEMENTED**
 
 #### COM-006-CP-001 — Malware & Security Threats
-
-Candidate ownership:
-- virus, worm, Trojan, ransomware, spyware and other high-frequency malware classes;
-- threat-to-behaviour recognition;
-- avoid obsolete novelty malware with no exam evidence.
+Virus, worm, Trojan, ransomware, spyware and other high-frequency threat families.
 
 #### COM-006-CP-002 — Hacking, Phishing & Social Engineering
-
-Candidate ownership:
-- hacking/unauthorized access concepts;
-- phishing, smishing, vishing and impersonation/social-engineering patterns where exam-relevant;
-- spam/scam distinction where learner demand differs materially.
+Unauthorized access, phishing/smishing/vishing, impersonation/social engineering and materially distinct scam/spam concepts.
 
 #### COM-006-CP-003 — Authentication, Access & Protective Controls
-
-Candidate ownership:
-- password/passphrase practice;
-- MFA/OTP/biometric authentication basics;
-- firewall, antivirus/anti-malware and update/patch concepts;
-- encryption/digital-signature/certificate awareness only at non-specialist depth.
+Passwords/passphrases, MFA/OTP/biometrics, firewall, antivirus, updates/patching and non-specialist encryption/signature/certificate awareness.
 
 #### COM-006-CP-004 — Safe Computing & Information Security
-
-Candidate ownership:
-- secure browser/e-mail/mobile/Wi-Fi practices;
-- backup as a security/recovery control without re-owning storage-device facts from COM-001;
-- confidentiality/integrity/availability terminology only when useful at target-exam level;
-- preventive-measure questions matching SSC wording.
-
-Cyber-law sections or current legal penalties are version-sensitive and remain outside the immutable core unless separately versioned.
+Safe browser/e-mail/mobile/Wi-Fi practices, security/recovery controls and source-backed CIA terminology. Current cyber-law penalties remain versioned/deferred.
 
 ### COM-007 — Software, Languages & Database Basics
-
-Status: **NOT IMPLEMENTED**
+**NOT IMPLEMENTED**
 
 #### COM-007-CP-001 — Software Classification, Utilities, Drivers & Firmware
-
-Candidate ownership:
-- system vs application software;
-- utility software;
-- device drivers;
-- firmware;
-- open-source/proprietary concepts where target-exam evidence supports them;
-- avoid duplicating Windows/Office facts already owned by COM-002/003.
+System/application/utility software, drivers, firmware and source-backed open-source/proprietary concepts without duplicating COM-002/003.
 
 #### COM-007-CP-002 — Programming Languages & Translators
-
-Candidate ownership:
-- machine/assembly/high-level language awareness;
-- compiler/interpreter/assembler;
-- common language classification or use recognition only where exam-supported;
-- no executable coding questions.
+Machine/assembly/high-level language awareness, compiler/interpreter/assembler and source-backed language recognition. No coding execution.
 
 #### COM-007-CP-003 — Database & DBMS Fundamentals
-
-Candidate ownership:
-- data/information/database/DBMS/RDBMS concepts;
-- table/record/field;
-- primary/foreign/candidate key at awareness depth;
-- relational-model recognition;
-- database applications and purpose.
+Data/information/database/DBMS/RDBMS, table/record/field, keys, relational-model recognition and database purpose.
 
 #### COM-007-CP-004 — SQL & Database Operations Awareness
+Basic SELECT/INSERT/UPDATE/DELETE and DDL/DML recognition where target-exam evidence warrants it; no advanced normalization/concurrency/recovery theory.
 
-Candidate ownership:
-- SELECT/INSERT/UPDATE/DELETE and basic DDL/DML recognition where Punjab/Banking evidence warrants it;
-- simple query-purpose recognition;
-- no specialist normalization/concurrency/recovery theory in the general Computer Awareness package unless a separately scoped specialist-IT product is created.
+## 4. True work count
 
-## 4. Core CP count and true remaining work
+Core inventory:
+- COM-001: 5 CPs — **1 frozen, 4 not implemented**
+- COM-002: 2 CPs — **2 frozen**
+- COM-003: 4 CPs — **4 structurally implemented but currently under product re-review**
+- COM-004: 4 CPs — **4 not implemented**
+- COM-005: 4 CPs — **4 not implemented**
+- COM-006: 4 CPs — **4 not implemented**
+- COM-007: 4 CPs — **4 not implemented**
 
-R2 core CP inventory:
+**Core total: 27 CPs.**
 
-- COM-001: 5 CPs total, **1 complete / 4 remaining**
-- COM-002: 2 CPs total, **2 complete / 0 remaining**
-- COM-003: 4 CPs total, **4 content-complete / 0 CPs remaining**, plus the separate difficulty/BANK_ONLY gate
-- COM-004: 4 CPs total, **0 complete / 4 remaining**
-- COM-005: 4 CPs total, **0 complete / 4 remaining**
-- COM-006: 4 CPs total, **0 complete / 4 remaining**
-- COM-007: 4 CPs total, **0 complete / 4 remaining**
+Two useful progress measures must be kept separate:
 
-**Core total: 27 CPs.**  
-**Implemented/frozen content CPs: 7.**  
-**Core CPs still to implement: 20.**
+1. **Structural implementation:** 7 CPs have implementation artifacts (COM-001-CP-001, COM-002-CP-001..002, COM-003-CP-001..004), leaving **20 CPs without implementation**.
+2. **Current product-frozen completion:** only COM-001-CP-001 and COM-002-CP-001..002 currently retain valid frozen product authority; COM-003's four CPs are awaiting V14 re-review after V4 revocation.
 
-Therefore the Computer subject is approximately **26% complete by core CP count** before weighting for CP size. The shared `knowledge-v1` and Question Studio foundation is already built, so remaining engineering effort should be lower than a raw 74% figure suggests, but content discovery/review/localization remains substantial.
+Therefore “7 done / 20 left” is valid only as an implementation-count statement, not as a product-freeze statement.
 
-## 5. Non-core / deferred areas
+## 5. Deferred/non-core areas
 
-The following are not automatic core chapters:
-
-- deep operating-system scheduling/deadlocks/paging/IPC;
-- digital logic/K-maps/flip-flops and specialist architecture;
-- full programming/coding;
+Not automatic core scope:
+- deep OS scheduling/deadlock/paging/IPC;
+- digital logic/K-maps/flip-flops;
+- executable coding;
 - advanced DBMS normalization/transactions/concurrency/recovery;
 - data structures/algorithms;
 - specialist networking administration;
-- PC repair/troubleshooting procedures;
+- detailed PC repair procedures;
 - current product/version trivia;
 - current cyber-law penalties;
-- detailed banking products/schemes/rates owned by Banking Awareness;
+- detailed banking products/schemes/rates;
 - AI/IoT/blockchain/cloud/future-skills trivia without direct target-exam evidence.
 
-If a Punjab specialist-IT exam is later added as a separate product, it must receive a separate scope authority rather than silently expanding the general Computer Awareness bank.
+A future Punjab specialist-IT product must receive its own scope authority rather than silently expanding general Computer Awareness.
 
-## 6. Ownership rules that prevent duplication
+## 6. Cross-chapter ownership
 
-- memory/storage hardware -> COM-001;
+- memory/storage and physical fundamentals -> COM-001;
 - Windows OS/files/Explorer -> COM-002;
 - Word/Excel/PowerPoint -> COM-003;
-- browser/web/e-mail/e-banking service use -> COM-004;
-- network structure/devices/protocols -> COM-005;
+- browser/web/e-mail/digital services -> COM-004;
+- network structures/devices/protocols -> COM-005;
 - malware/attacks/security controls -> COM-006;
-- software categories/languages/DBMS -> COM-007;
-- current-affairs technology/news -> dated Current Affairs/Static GK pipeline, not immutable Computer facts.
+- software classes/languages/DBMS -> COM-007;
+- dated technology/news -> Current Affairs / dated knowledge pipeline.
 
-A fact may support cross-chapter distractors, but final QL ownership must remain singular.
+Facts may support cross-chapter distractors, but permanent learner-task ownership must remain singular.
 
 ## 7. Implementation order
 
-Do **not** jump straight to COM-004 while COM-001 still has explicit SSC Computer Basics gaps.
-
-Recommended sequence:
-
-1. **COM-003 difficulty authority** and Question Bank readiness decision.
-2. **COM-001-CP-002..005** to finish the SSC Computer Basics surface: organization/CPU, input, output, ports/interfaces.
-3. **COM-004** Internet/Web/E-mail/Digital Services.
-4. **COM-005** Networking.
-5. **COM-006** Cyber Security.
-6. **COM-007** Software/Languages/Database Basics.
-7. Run a final cross-exam source-saturation audit over SSC + Banking + Punjab before declaring Computer Awareness subject-complete.
+Current correct sequence:
+1. **COM-003 V14 product review and freeze decision**;
+2. if V14 approved: localization rebuild/freeze, difficulty authority and Question Studio restoration;
+3. **COM-001-CP-002..005** to finish explicit SSC Computer Basics gaps;
+4. **COM-004** Internet/Web/E-mail/Digital Services;
+5. **COM-005** Networking;
+6. **COM-006** Cyber Security;
+7. **COM-007** Software/Languages/Database Basics;
+8. final SSC + Banking + Punjab source-saturation and ownership audit.
 
 ## 8. Per-CP lifecycle
 
-Every remaining CP must follow the existing `knowledge-v1` lifecycle:
+Remaining CPs follow:
 
-`source/PYQ discovery -> candidate fact corpus -> learner-task merge/split -> permanent QL allocation -> deterministic English corpus -> exam-realness/editorial audit -> English freeze -> Hindi/Punjabi parity/review/freeze -> difficulty authority -> Question Studio REVIEW_ONLY -> BANK_ONLY consideration`
+`source/PYQ discovery -> candidate fact corpus -> learner-task merge/split -> permanent QL allocation -> deterministic English corpus -> exam-realness/editorial audit -> product review -> English freeze -> Hindi/Punjabi parity/review/freeze -> difficulty authority -> Question Studio REVIEW_ONLY -> BANK_ONLY consideration`
 
-No permanent QL count is pre-imposed by this R2 document. QLs must emerge from source-backed learner-task discovery.
+No QL count is pre-imposed. Permanent QLs must emerge from source-backed learner-task discovery.
 
 ## 9. Subject-completion gate
 
-Computer Awareness cannot be declared subject-complete until all 27 core CPs are either:
+Computer Awareness is subject-complete only when every core CP is either frozen or explicitly excluded by recorded source evidence, and the final audit proves:
+- SSC syllabus line-item coverage with no unowned core item;
+- Banking Computer Knowledge coverage;
+- Punjab general ICT coverage;
+- cross-chapter duplication/ownership integrity;
+- EN/HI/PA parity for enabled packages;
+- valid difficulty authority for every active package;
+- Question Studio lifecycle and downstream locks;
+- final exam-realness, stem, object and distractor diversity.
 
-- implemented and frozen, or
-- explicitly excluded by a recorded source-gap decision.
+## 10. Immediate checkpoint
 
-Final subject closure additionally requires:
+**Immediate gate: COM-003 V14 learner review.**
 
-- SSC 2026 computer syllabus line-item coverage with no unowned item;
-- Banking Computer Knowledge coverage audit;
-- Punjab general ICT coverage audit;
-- cross-chapter ownership/duplication audit;
-- EN/HI/PA localization parity for enabled packages;
-- difficulty authority for every Question Studio-active package;
-- Question Studio integration and downstream lifecycle locks proven;
-- final exam-realness and object/stem/distractor diversity audit.
+Do not implement difficulty or BANK_ONLY against COM-003 until an exact V14 product approval/freeze exists.
 
-## 10. Immediate next executable checkpoint
-
-Immediate work after this R2 map:
-
-**COM-003 difficulty authority**, followed by **COM-001-CP-002 — Computer Organization, CPU & Functional Units** discovery.
-
-The frozen Memory & Storage authority remains immutable; COM-001 expansion must add new CP/QL ownership without silently changing `COM-001-CP-001`.
+After COM-003 is legitimately re-frozen, start `COM-001-CP-002 — Computer Organization, CPU & Functional Units` discovery. The existing Memory & Storage freeze must remain immutable.
