@@ -3,6 +3,8 @@ import { randomUUID } from "node:crypto";
 import { sqlClient } from "../lib/db";
 import { processSelectedCurrentAffairs } from "./selected-affairs-processing-runtime";
 import { recoverSelectedPrimaryEvidence } from "./selected-primary-recovery-runtime";
+import { recoverSelectedBlockerFacts } from "./selected-blocker-closure-runtime";
+import { finalizeSelectedBlockerClosure } from "./selected-blocker-closure-finalizer";
 
 export type SelectedAffairsProcessingRunStatus = "queued" | "running" | "completed" | "failed";
 
@@ -122,7 +124,7 @@ async function setStage(runId: string, stage: string) {
   `;
 }
 
-function slimProcessingResult(result: any, selectedPrimaryRecovery: any) {
+function slimProcessingResult(result: any, selectedPrimaryRecovery: any, blockerRecovery: any) {
   return {
     processingVersion: result?.processingVersion,
     targetDate: result?.targetDate,
@@ -135,6 +137,10 @@ function slimProcessingResult(result: any, selectedPrimaryRecovery: any) {
     items: Array.isArray(result?.items) ? result.items : [],
     packPreviewScope: result?.packPreviewScope,
     packPreviewNote: result?.packPreviewNote,
+    blockerClosure: result?.blockerClosure ?? {
+      closureVersion: blockerRecovery?.closureVersion,
+      insertedFactCount: Number(blockerRecovery?.insertedFactCount ?? 0),
+    },
     canonicalApprovalAuthority: false,
     publicationAuthority: false,
     questionBankPromotionAuthority: false,
@@ -148,6 +154,13 @@ function slimProcessingResult(result: any, selectedPrimaryRecovery: any) {
       pageFactsInserted: Number(selectedPrimaryRecovery?.pageFactsInserted ?? 0),
       verificationAuthority: false,
       publicationAuthority: false,
+    },
+    selectedBlockerRecovery: {
+      closureVersion: blockerRecovery?.closureVersion,
+      candidatesExamined: Number(blockerRecovery?.candidatesExamined ?? 0),
+      insertedFactCount: Number(blockerRecovery?.insertedFactCount ?? 0),
+      repairedMalformedClaimCount: Number(blockerRecovery?.repairedMalformedClaimCount ?? 0),
+      automaticPublicationAuthority: false,
     },
   };
 }
@@ -174,10 +187,14 @@ async function runSelectedAffairsProcessingJob(runId: string) {
 
   try {
     const selectedPrimaryRecovery = await recoverSelectedPrimaryEvidence({ targetDate, actorUserId });
+    await setStage(runId, "blocker_closure_recovery");
+    const blockerRecovery = await recoverSelectedBlockerFacts({ targetDate, actorUserId });
     await setStage(runId, "verification_authoring_localization");
     const result = await processSelectedCurrentAffairs({ targetDate, actorUserId });
+    await setStage(runId, "blocker_closure_finalize");
+    const finalized = await finalizeSelectedBlockerClosure({ targetDate, baseResult: result as Record<string, any> });
     await setStage(runId, "persisting_result");
-    const persistedResult = slimProcessingResult(result, selectedPrimaryRecovery);
+    const persistedResult = slimProcessingResult(finalized, selectedPrimaryRecovery, blockerRecovery);
     await sqlClient`
       UPDATE content.current_affairs_selected_processing_runs
       SET status='completed',
