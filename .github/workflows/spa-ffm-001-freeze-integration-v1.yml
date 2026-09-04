@@ -10,6 +10,7 @@ on:
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v6.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/figure-formation-ffm-001-freeze-question-studio-v1.test.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-spatial-v5.ts"
+      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
       - ".github/workflows/spa-ffm-001-freeze-integration-v1.yml"
   pull_request:
     branches:
@@ -20,6 +21,7 @@ on:
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v6.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/figure-formation-ffm-001-freeze-question-studio-v1.test.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-spatial-v5.ts"
+      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
       - ".github/workflows/spa-ffm-001-freeze-integration-v1.yml"
 
 permissions:
