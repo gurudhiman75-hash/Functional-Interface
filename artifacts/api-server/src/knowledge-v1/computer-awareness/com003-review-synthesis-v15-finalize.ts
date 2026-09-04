@@ -1,5 +1,4 @@
 import {
-  COM003_ENGLISH_REVIEW_CORPUS_V15,
   auditCom003V15,
   buildCom003EnglishReviewCorpusV15,
   expectedCom003V15Answer,
@@ -18,6 +17,13 @@ const BASE_VERB: Record<string, string> = {
   inserts: "insert", duplicates: "duplicate", opens: "open", saves: "save", copies: "copy", cuts: "cut",
   finds: "find", reverses: "reverse", reapplies: "reapply",
 };
+
+const SURFACE_FAMILIES: readonly Com003ReviewQuestionV15["examSurfaceFamily"][] = [
+  "DIRECT_RECALL",
+  "FUNCTIONAL_APPLICATION",
+  "EXAMPLE_RECOGNITION",
+  "CONTRAST_DISCRIMINATION",
+];
 
 function lowerFirst(value: string) {
   const v = value.trim();
@@ -73,11 +79,56 @@ function finalizeCorpus(corpus: readonly Com003ReviewQuestionV15[]) {
   });
 }
 
-export function buildCom003EnglishReviewCorpusV15Final(options: { perQl?: number; seedPrefix?: string } = {}) {
-  return finalizeCorpus(buildCom003EnglishReviewCorpusV15(options));
+function selectBalancedQl(
+  qlId: string,
+  candidates: readonly Com003ReviewQuestionV15[],
+  perFamily: number,
+) {
+  const selected: Com003ReviewQuestionV15[] = [];
+  const selectedIds = new Set<string>();
+  const usedTargetFacts = new Set<string>();
+
+  for (const family of SURFACE_FAMILIES) {
+    const familyCandidates = candidates.filter((question) => question.examSurfaceFamily === family);
+    const familySelected: Com003ReviewQuestionV15[] = [];
+
+    for (const preferUnusedTarget of [true, false]) {
+      for (const candidate of familyCandidates) {
+        if (familySelected.length >= perFamily) break;
+        if (selectedIds.has(candidate.questionId)) continue;
+        if (preferUnusedTarget && usedTargetFacts.has(candidate.targetFactId)) continue;
+        familySelected.push(candidate);
+        selectedIds.add(candidate.questionId);
+        usedTargetFacts.add(candidate.targetFactId);
+      }
+      if (familySelected.length >= perFamily) break;
+    }
+
+    if (familySelected.length !== perFamily) {
+      throw new Error(`${qlId}:${family}: expected ${perFamily} selectable candidates, found ${familySelected.length}`);
+    }
+    selected.push(...familySelected);
+  }
+
+  return selected;
 }
 
-export const COM003_ENGLISH_REVIEW_CORPUS_V15_FINAL = finalizeCorpus(COM003_ENGLISH_REVIEW_CORPUS_V15);
+export function buildCom003EnglishReviewCorpusV15Final(options: { perQl?: number; seedPrefix?: string } = {}) {
+  const perQl = options.perQl ?? 12;
+  if (perQl !== 12) throw new Error("COM003 V15 final learner-review surface is fixed at 12 questions per QL");
+  const seedPrefix = options.seedPrefix ?? "com003-v15-final";
+  const candidatePool = buildCom003EnglishReviewCorpusV15({ perQl: 48, seedPrefix: `${seedPrefix}:candidate-pool` });
+  const selected = COM003_PERMANENT_QLS.flatMap((ql) =>
+    selectBalancedQl(
+      ql.qlId,
+      candidatePool.filter((question) => question.qlId === ql.qlId),
+      3,
+    ),
+  );
+  return finalizeCorpus(selected);
+}
+
+export const COM003_ENGLISH_REVIEW_CORPUS_V15_FINAL = buildCom003EnglishReviewCorpusV15Final();
 
 export function auditCom003V15Final() {
   const base = auditCom003V15();
@@ -88,6 +139,10 @@ export function auditCom003V15Final() {
     if (questions.length !== 12) issues.push(`FINAL_COUNT:${ql.qlId}:${questions.length}`);
     if (new Set(questions.map((question) => question.stem.toLowerCase())).size !== questions.length) {
       issues.push(`FINAL_DUPLICATE_STEM:${ql.qlId}`);
+    }
+    for (const family of SURFACE_FAMILIES) {
+      const count = questions.filter((question) => question.examSurfaceFamily === family).length;
+      if (count !== 3) issues.push(`FINAL_FAMILY_BALANCE:${ql.qlId}:${family}:${count}`);
     }
   }
 
