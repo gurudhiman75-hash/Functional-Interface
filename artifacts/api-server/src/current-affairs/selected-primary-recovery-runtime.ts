@@ -135,6 +135,11 @@ async function loadSelectedPrimaryCandidates(targetDate: string): Promise<Recove
       AND source.content_policy='primary_facts'
       AND candidate.source_url IS NOT NULL
       AND event.status='review'
+      AND (
+        COALESCE(event.metadata->>'selectedPrimaryRecoveryVersion', '') <> ${SELECTED_PRIMARY_RECOVERY_VERSION}
+        OR NULLIF(event.metadata->>'lastSelectedPrimaryRecoveryAt', '') IS NULL
+        OR link.created_at > NULLIF(event.metadata->>'lastSelectedPrimaryRecoveryAt', '')::timestamptz
+      )
     ORDER BY candidate.id, event.id, event.updated_at DESC
     LIMIT ${MAX_SELECTED}
   `;
@@ -336,6 +341,7 @@ export async function recoverSelectedPrimaryEvidence(args: {
 
   return {
     recoveryVersion: SELECTED_PRIMARY_RECOVERY_VERSION,
+    recoveryScope: "new_or_version_changed_review_events",
     targetDate: args.targetDate,
     candidatesExamined: candidates.length,
     protectedCount,
