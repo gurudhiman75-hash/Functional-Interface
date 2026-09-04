@@ -1,25 +1,25 @@
 import { strict as assert } from "node:assert";
 import { COM003_PERMANENT_QLS } from "./com003-permanent-ql-allocation";
+import { expectedCom003V15Answer } from "./com003-review-synthesis-v15";
 import {
-  COM003_ENGLISH_REVIEW_CORPUS_V15,
-  auditCom003V15,
-  buildCom003EnglishReviewCorpusV15,
-  expectedCom003V15Answer,
-} from "./com003-review-synthesis-v15";
+  COM003_ENGLISH_REVIEW_CORPUS_V15_FINAL,
+  auditCom003V15Final,
+  buildCom003EnglishReviewCorpusV15Final,
+} from "./com003-review-synthesis-v15-finalize";
 
-const audit = auditCom003V15();
+const audit = auditCom003V15Final();
 assert.equal(audit.valid, true, audit.issues.join("\n"));
-assert.equal(COM003_ENGLISH_REVIEW_CORPUS_V15.length, 228);
-assert.equal(new Set(COM003_ENGLISH_REVIEW_CORPUS_V15.map((q) => q.qlId)).size, 19);
+assert.equal(COM003_ENGLISH_REVIEW_CORPUS_V15_FINAL.length, 228);
+assert.equal(new Set(COM003_ENGLISH_REVIEW_CORPUS_V15_FINAL.map((q) => q.qlId)).size, 19);
 
 for (const ql of COM003_PERMANENT_QLS) {
-  const qs = COM003_ENGLISH_REVIEW_CORPUS_V15.filter((q) => q.qlId === ql.qlId);
+  const qs = COM003_ENGLISH_REVIEW_CORPUS_V15_FINAL.filter((q) => q.qlId === ql.qlId);
   assert.equal(qs.length, 12, `${ql.qlId}:count`);
   assert.equal(new Set(qs.map((q) => q.stem.toLowerCase())).size, 12, `${ql.qlId}:duplicate stems`);
   assert.equal(qs.filter((q) => q.examSurfaceFamily === "DIRECT_RECALL").length, 3, `${ql.qlId}:direct recall count`);
 }
 
-for (const q of COM003_ENGLISH_REVIEW_CORPUS_V15) {
+for (const q of COM003_ENGLISH_REVIEW_CORPUS_V15_FINAL) {
   assert.equal(q.options.length, 4, `${q.questionId}:options`);
   assert.equal(new Set(q.options).size, 4, `${q.questionId}:duplicate options`);
   assert.equal(q.options[q.correctIndex], q.canonicalAnswer, `${q.questionId}:answer position`);
@@ -29,7 +29,7 @@ for (const q of COM003_ENGLISH_REVIEW_CORPUS_V15) {
   assert.ok(!q.stem.endsWith("??"), `${q.questionId}:double question mark`);
 }
 
-const wordPurposeDirect = COM003_ENGLISH_REVIEW_CORPUS_V15.filter(
+const wordPurposeDirect = COM003_ENGLISH_REVIEW_CORPUS_V15_FINAL.filter(
   (q) => q.examSurfaceFamily === "DIRECT_RECALL" && q.targetFactId === "com003-word-purpose",
 );
 for (const q of wordPurposeDirect) {
@@ -38,7 +38,7 @@ for (const q of wordPurposeDirect) {
   assert.doesNotMatch(q.stem, /spreadsheet work|slide-based presentations/i);
 }
 
-const excelPurposeDirect = COM003_ENGLISH_REVIEW_CORPUS_V15.filter(
+const excelPurposeDirect = COM003_ENGLISH_REVIEW_CORPUS_V15_FINAL.filter(
   (q) => q.examSurfaceFamily === "DIRECT_RECALL" && q.targetFactId === "com003-excel-purpose",
 );
 for (const q of excelPurposeDirect) {
@@ -47,7 +47,7 @@ for (const q of excelPurposeDirect) {
   assert.doesNotMatch(q.stem, /word processing|slide-based presentations/i);
 }
 
-const f5 = COM003_ENGLISH_REVIEW_CORPUS_V15.filter(
+const f5 = COM003_ENGLISH_REVIEW_CORPUS_V15_FINAL.filter(
   (q) => q.examSurfaceFamily === "DIRECT_RECALL" && q.targetFactId === "com003-powerpoint-shortcut-f5",
 );
 for (const q of f5) {
@@ -56,7 +56,7 @@ for (const q of f5) {
   assert.doesNotMatch(q.stem, /from the current slide/i);
 }
 
-const shiftF5 = COM003_ENGLISH_REVIEW_CORPUS_V15.filter(
+const shiftF5 = COM003_ENGLISH_REVIEW_CORPUS_V15_FINAL.filter(
   (q) => q.examSurfaceFamily === "DIRECT_RECALL" && q.targetFactId === "com003-powerpoint-shortcut-shift-f5",
 );
 for (const q of shiftF5) {
@@ -66,8 +66,8 @@ for (const q of shiftF5) {
 }
 
 assert.deepEqual(
-  buildCom003EnglishReviewCorpusV15({ seedPrefix: "semantic-replay" }),
-  buildCom003EnglishReviewCorpusV15({ seedPrefix: "semantic-replay" }),
+  buildCom003EnglishReviewCorpusV15Final({ seedPrefix: "semantic-replay" }),
+  buildCom003EnglishReviewCorpusV15Final({ seedPrefix: "semantic-replay" }),
 );
 
 console.log("[COM003-V15]", {
@@ -75,6 +75,7 @@ console.log("[COM003-V15]", {
   qls: 19,
   directRecallSemanticBinding: "TARGET_FACT_BOUND",
   canonicalAnswerAuthority: "GOVERNED_FACT_RELATION",
+  learnerSurfaceNormalization: "PASS",
   knownCrossTargetRegressions: "BLOCKED",
   governance: "REVIEW_ONLY",
 });
