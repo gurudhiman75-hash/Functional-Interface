@@ -20,6 +20,13 @@ const OUT_PATH = resolve(process.cwd(), "dist/arg-001-cp014-1000-diversity-audit
 const JSON_PATH = resolve(process.cwd(), "dist/arg-001-cp014-1000-diversity-audit.json");
 
 type Question = Readonly<Record<string, any>>;
+type AuditQuestion = Question & Readonly<{
+  _auditProfileMode: string;
+  _auditExamProfile: string;
+  _auditQlId: string;
+  _auditDifficulty: string;
+  _auditLanguage: string;
+}>;
 
 type Distribution = ReadonlyArray<Readonly<{ key: string; count: number; share: number }>>;
 
@@ -120,20 +127,37 @@ function stemSignature(question: Question): string {
   return hash([question.statement, question.arguments]);
 }
 
-function pushBatch(target: Question[], input: Record<string, unknown>): void {
-  const batch = generateArgCp014QuestionStudioBatch(input);
-  for (const question of batch.questions as readonly Question[]) target.push(question);
+function scenarioFamily(question: Question): string {
+  const metadataScenario = question.metadata?.correlatedScenarioId;
+  if (typeof metadataScenario === "string" && metadataScenario.trim()) return `${question.qlId}:${metadataScenario.trim()}`;
+  return String(question.scenarioId ?? "")
+    .replace(/-(SSC_RECENT_2X4|BANKING_CLASSIC_2X5|BANKING_COMBO_3X5|BANKING_COMBO_4X5)-\d+.*$/, "");
 }
 
-const questions: Question[] = [];
+function pushBatch(target: AuditQuestion[], input: Record<string, unknown>): void {
+  const batch = generateArgCp014QuestionStudioBatch(input);
+  const auditContext = {
+    _auditProfileMode: String(input.profileMode ?? "core"),
+    _auditExamProfile: String(input.examProfile ?? "CORE"),
+    _auditQlId: String(input.qlId ?? "UNKNOWN"),
+    _auditDifficulty: String(input.difficulty ?? "Mixed"),
+    _auditLanguage: String(input.language ?? "en"),
+  } as const;
+  for (const question of batch.questions as readonly Question[]) {
+    target.push(Object.freeze({ ...question, ...auditContext }));
+  }
+}
+
+const questions: AuditQuestion[] = [];
 
 // 600 canonical-English core questions: exactly 100 per QL, spread 34/33/33 over Easy/Medium/Hard.
+// Do not supply a checkpoint ID here: explicit CP013/CP014 IDs intentionally select the approved
+// real-paper lineage. profileMode=core is the unambiguous current-core request surface.
 for (const qlId of ARG_QL_IDS) {
   for (let difficultyIndex = 0; difficultyIndex < DIFFICULTIES.length; difficultyIndex += 1) {
     const difficulty = DIFFICULTIES[difficultyIndex]!;
     const count = difficultyIndex === 0 ? 34 : 33;
     pushBatch(questions, {
-      cpId: "ARG-CP-014",
       profileMode: "core",
       qlId,
       language: "en",
@@ -154,7 +178,6 @@ for (let qlIndex = 0; qlIndex < ARG_QL_IDS.length; qlIndex += 1) {
     const [examProfile, difficulty] = REAL_PAPER_CELLS[cellIndex]!;
     const count = base + (cellIndex < extra ? 1 : 0);
     pushBatch(questions, {
-      cpId: "ARG-CP-014",
       profileMode: "real-paper",
       examProfile,
       qlId,
@@ -167,19 +190,23 @@ for (let qlIndex = 0; qlIndex < ARG_QL_IDS.length; qlIndex += 1) {
 }
 
 if (questions.length !== 1000) throw new Error(`ARG diversity audit expected 1000 questions; got ${questions.length}`);
-if (questions.some((question) => question.language !== "en")) throw new Error("ARG diversity audit canonical corpus must remain English-only to avoid counting localization as semantic diversity.");
+if (questions.some((question) => question._auditLanguage !== "en" || question.language !== "en")) {
+  throw new Error("ARG diversity audit canonical corpus must remain English-only to avoid counting localization as semantic diversity.");
+}
 
-const core = questions.filter((question) => question.profileMode === "core");
-const realPaper = questions.filter((question) => question.profileMode === "real-paper");
+const core = questions.filter((question) => question._auditProfileMode === "core");
+const realPaper = questions.filter((question) => question._auditProfileMode === "real-paper");
 if (core.length !== 600 || realPaper.length !== 400) throw new Error(`ARG diversity split drift: core=${core.length}, realPaper=${realPaper.length}`);
+if (core.some((question) => question.profileMode !== "core")) throw new Error("ARG diversity audit core routing drifted into real-paper mode.");
+if (realPaper.some((question) => question.profileMode !== "real-paper")) throw new Error("ARG diversity audit real-paper routing drifted into core mode.");
 
 const uniqueFull = new Set(questions.map(fullSignature));
 const uniqueStems = new Set(questions.map(stemSignature));
 const uniqueStatements = new Set(questions.map((question) => normalizeText(question.statement)));
 const uniqueCoreStatements = new Set(core.map((question) => normalizeText(question.statement)));
 const uniqueRealPaperStatements = new Set(realPaper.map((question) => normalizeText(question.statement)));
-const coreTemplates = new Set(core.map((question) => String(question.templateId ?? question.patternId ?? "")));
-const realPaperScenarios = new Set(realPaper.map((question) => String(question.scenarioId ?? "").replace(/-(SSC_RECENT_2X4|BANKING_CLASSIC_2X5|BANKING_COMBO_3X5|BANKING_COMBO_4X5)-\d+.*$/, "")));
+const coreTemplates = new Set(core.map((question) => String(question.templateId ?? question.patternId ?? question.metadata?.templateId ?? question.metadata?.sourceTemplateId ?? "")));
+const realPaperScenarios = new Set(realPaper.map(scenarioFamily));
 const exactScenarioIds = new Set(realPaper.map((question) => String(question.scenarioId ?? "")));
 
 const argumentTexts = questions.flatMap((question) => (question.arguments as readonly unknown[] | undefined)?.map(String) ?? []);
@@ -199,12 +226,12 @@ for (let i = 0; i < questions.length; i += 1) {
   }
 }
 
-const qlDistribution = distribution(questions.map((question) => String(question.qlId ?? question.permanentQlId ?? "UNKNOWN")));
-const difficultyDistribution = distribution(questions.map((question) => String(question.difficulty ?? question.difficultyLabel ?? "UNKNOWN")));
-const profileDistribution = distribution(questions.map((question) => question.profileMode === "core" ? "CORE" : String(question.examProfile ?? "REAL_PAPER")));
-const answerDistribution = distribution(questions.map((question) => `${question.profileMode}:${String(question.correctIndex ?? question.correct ?? "?")}`));
-const templateDistribution = distribution(core.map((question) => String(question.templateId ?? question.patternId ?? "UNKNOWN")));
-const scenarioDistribution = distribution(realPaper.map((question) => String(question.scenarioId ?? "UNKNOWN").replace(/-(SSC_RECENT_2X4|BANKING_CLASSIC_2X5|BANKING_COMBO_3X5|BANKING_COMBO_4X5)-\d+.*$/, "")));
+const qlDistribution = distribution(questions.map((question) => question._auditQlId));
+const difficultyDistribution = distribution(questions.map((question) => question._auditDifficulty));
+const profileDistribution = distribution(questions.map((question) => question._auditProfileMode === "core" ? "CORE" : question._auditExamProfile));
+const answerDistribution = distribution(questions.map((question) => `${question._auditProfileMode}:${String(question.correctIndex ?? question.correct ?? "?")}`));
+const templateDistribution = distribution(core.map((question) => String(question.templateId ?? question.patternId ?? question.metadata?.templateId ?? question.metadata?.sourceTemplateId ?? "UNKNOWN")));
+const scenarioDistribution = distribution(realPaper.map(scenarioFamily));
 
 const duplicateFull = questions.length - uniqueFull.size;
 const duplicateStem = questions.length - uniqueStems.size;
@@ -226,7 +253,7 @@ const warnings: string[] = [];
 if (duplicateFull > 0) blockers.push(`${duplicateFull} exact full-question duplicates were found.`);
 if (coreTemplates.size < 48) blockers.push(`Only ${coreTemplates.size}/48 core templates appeared in the 600-question core corpus.`);
 if (realPaperScenarios.size < 24) blockers.push(`Only ${realPaperScenarios.size}/24 correlated real-paper scenario families appeared.`);
-if (new Set(questions.map((question) => String(question.qlId))).size < 6) blockers.push("Not all six permanent QLs appeared.");
+if (new Set(questions.map((question) => question._auditQlId)).size < 6) blockers.push("Not all six permanent QLs appeared.");
 if (stemUniqueness < 0.90) warnings.push(`Stem+argument uniqueness is ${(stemUniqueness * 100).toFixed(1)}%; repeated real-paper scenarios may be perceptible.`);
 if (statementUniqueness < 0.60) warnings.push(`Exact statement uniqueness is ${(statementUniqueness * 100).toFixed(1)}%; statement architecture repeats more than ideal.`);
 if (topArgumentOpenerShare > 0.12) warnings.push(`Most common five-word argument opener accounts for ${(topArgumentOpenerShare * 100).toFixed(1)}% of all arguments.`);
@@ -247,7 +274,7 @@ const report = {
     localizationExcludedFromSemanticCount: true,
   },
   semanticCoverage: {
-    qls: new Set(questions.map((question) => String(question.qlId))).size,
+    qls: new Set(questions.map((question) => question._auditQlId)).size,
     coreTemplates: coreTemplates.size,
     expectedCoreTemplates: 48,
     realPaperScenarioFamilies: realPaperScenarios.size,
