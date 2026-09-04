@@ -12,6 +12,7 @@ import {
 } from './coverage-plan-bulk';
 import {
   NOTES_STUDIO_MIGRATIONS,
+  NOTES_STUDIO_REQUIRED_COLUMNS,
   NOTES_STUDIO_REQUIRED_RELATIONS,
   NOTES_STUDIO_REQUIRED_TRIGGERS,
   assessNotesStudioProductionReadiness,
@@ -49,13 +50,19 @@ test('Notes Studio migration manifest preserves the cumulative chain in order', 
     '20260831_notes_studio_ns017_source_pack_freeze.sql',
     '20260831_notes_studio_ns018_research_restart.sql',
     '20260831_notes_studio_ns021_reference_evidence.sql',
+    '20260903_notes_studio_coverage_editorial_review_gate.sql',
   ]);
   assert.equal(new Set(NOTES_STUDIO_MIGRATIONS).size, NOTES_STUDIO_MIGRATIONS.length);
+  assert.equal(new Set(NOTES_STUDIO_REQUIRED_COLUMNS).size, NOTES_STUDIO_REQUIRED_COLUMNS.length);
   assert.equal(new Set(NOTES_STUDIO_REQUIRED_RELATIONS).size, NOTES_STUDIO_REQUIRED_RELATIONS.length);
   assert.equal(new Set(NOTES_STUDIO_REQUIRED_TRIGGERS).size, NOTES_STUDIO_REQUIRED_TRIGGERS.length);
   assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_planning_batches'), true);
   assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_planning_items'), true);
   assert.equal(NOTES_STUDIO_REQUIRED_RELATIONS.includes('content.note_research_restarts'), true);
+  assert.equal(NOTES_STUDIO_REQUIRED_COLUMNS.includes('content.note_coverage_plan_items.coverage_review_state'), true);
+  assert.equal(NOTES_STUDIO_REQUIRED_COLUMNS.includes('content.note_coverage_plan_items.coverage_review_claim_ids'), true);
+  assert.equal(NOTES_STUDIO_REQUIRED_COLUMNS.includes('content.note_coverage_plan_items.coverage_reviewed_by'), true);
+  assert.equal(NOTES_STUDIO_REQUIRED_COLUMNS.includes('content.note_coverage_plan_items.coverage_reviewed_at'), true);
   assert.equal(NOTES_STUDIO_REQUIRED_TRIGGERS.includes('note_authoring_sources_pre_evidence_freeze'), true);
   assert.equal(NOTES_STUDIO_REQUIRED_TRIGGERS.includes('note_research_restarts_immutable'), true);
 });
