@@ -1,0 +1,82 @@
+name: Validate ARG-001 CP015 Perceived Diversity
+
+on:
+  push:
+    branches:
+      - feature/arg-001-cp012-editorial-remediation
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-*'
+      - '.github/workflows/arg-001-cp015-perceived-diversity.yml'
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-*'
+      - '.github/workflows/arg-001-cp015-perceived-diversity.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp015-diversity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp015-perceived-diversity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for CP015
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts
+
+      - name: Prove 1000-question exact diversity and profile integrity
+        working-directory: artifacts/api-server
+        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts
+
+      - name: Preserve CP014 manual approval and lifecycle
+        working-directory: artifacts/api-server
+        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-manual-editorial-approval-proof.test.ts
+
+      - name: Preserve CP013 final learner-facing editorial proof
+        working-directory: artifacts/api-server
+        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-final-editorial-surface-proof.test.ts
+
+      - name: Preserve exact CP006 historical freeze
+        working-directory: artifacts/api-server
+        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts
+
+      - name: Preserve exact CP008 historical freeze
+        working-directory: artifacts/api-server
+        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-byte-freeze-proof.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm build
