@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { adminRequest } from '@/lib/admin-request';
 import { NotesStudioDraftReviewPage } from './NotesStudioDraftReviewPage';
 import { NotesStudioFinalReviewPage } from './NotesStudioFinalReviewPage';
-import { NotesStudioResearchReviewPage } from './NotesStudioResearchReviewPage';
+import { NotesStudioResearchReviewSafePage } from './NotesStudioResearchReviewSafePage';
 
 type AuthoringJob = {
   id: string;
@@ -147,7 +147,7 @@ export function NotesStudioGuidedPage({ onOpenAdvanced }: { onOpenAdvanced: (tab
       </CardContent>
     </Card>
 
-    {selectedJob && researchReviewActive && <NotesStudioResearchReviewPage jobId={selectedJob.id} onJobProgressed={() => void load()} />}
+    {selectedJob && researchReviewActive && <NotesStudioResearchReviewSafePage jobId={selectedJob.id} onJobProgressed={() => void load()} />}
     {selectedJob && draftReviewActive && <NotesStudioDraftReviewPage jobId={selectedJob.id} onJobProgressed={() => void load()} />}
     {selectedJob && finalReviewActive && <NotesStudioFinalReviewPage jobId={selectedJob.id} onJobProgressed={() => void load()} onOpenAdvanced={onOpenAdvanced} />}
   </div>;
