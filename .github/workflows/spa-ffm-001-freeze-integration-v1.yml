@@ -31,6 +31,11 @@ jobs:
   validate:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
+    env:
+      # The proof imports conversion helpers that construct the SQL client at module load.
+      # No database operation is executed in this test; a local inert URL keeps the
+      # deterministic freeze proof independent of repository/production secrets.
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/examtree_ffm_ci
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
