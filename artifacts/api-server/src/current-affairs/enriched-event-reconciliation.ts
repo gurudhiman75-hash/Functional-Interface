@@ -10,6 +10,7 @@ import {
 import { canAutoVerifyEvent } from "./orchestration-policy";
 
 const RECONCILIATION_VERSION = "ca-cp008-primary-enrichment-reconcile-v1";
+const EXPLICIT_RECONCILIATION_CONCURRENCY = 4;
 
 async function eventClaims(eventId: string): Promise<ClaimEvidence[]> {
   const rows = await sqlClient`
@@ -180,19 +181,71 @@ async function reconcileOneEvent(eventId: string) {
   };
 }
 
+async function explicitReconciliationIds(eventIds: string[]) {
+  if (eventIds.length === 0) return [];
+  const rows = await sqlClient`
+    SELECT event.id::text AS id
+    FROM content.current_affairs_events event
+    WHERE event.id = ANY(${eventIds}::uuid[])
+      AND (
+        event.status <> 'verified'
+        OR EXISTS (
+          SELECT 1
+          FROM content.current_affairs_event_candidates link
+          JOIN content.current_affairs_candidate_enrichments enrichment
+            ON enrichment.candidate_id=link.candidate_id
+           AND enrichment.status='success'
+          WHERE link.event_id=event.id
+            AND enrichment.last_enriched_at IS NOT NULL
+            AND enrichment.last_enriched_at > COALESCE(
+              NULLIF(event.metadata->>'lastPrimaryEnrichmentReconciledAt', '')::timestamptz,
+              'epoch'::timestamptz
+            )
+        )
+      )
+    ORDER BY event.id
+  `;
+  return rows.map((row) => String(row.id));
+}
+
+async function mapWithConcurrency<T, R>(
+  items: T[],
+  concurrency: number,
+  worker: (item: T) => Promise<R>,
+): Promise<R[]> {
+  if (items.length === 0) return [];
+  const results = new Array<R>(items.length);
+  let nextIndex = 0;
+  const workerCount = Math.min(Math.max(1, Math.floor(concurrency)), items.length);
+  await Promise.all(Array.from({ length: workerCount }, async () => {
+    while (true) {
+      const index = nextIndex;
+      nextIndex += 1;
+      if (index >= items.length) return;
+      results[index] = await worker(items[index]);
+    }
+  }));
+  return results;
+}
+
 export async function reconcilePrimaryEnrichedEventIds(eventIdsInput: string[]) {
   const eventIds = [...new Set(eventIdsInput.map(String).filter(Boolean))].slice(0, 300);
-  const results = [];
-  for (const eventId of eventIds) {
-    results.push(await reconcileOneEvent(eventId));
-  }
+  const reconciliationIds = await explicitReconciliationIds(eventIds);
+  const results = await mapWithConcurrency(
+    reconciliationIds,
+    EXPLICIT_RECONCILIATION_CONCURRENCY,
+    reconcileOneEvent,
+  );
+  const reconciledIds = new Set(reconciliationIds);
   return {
     requested: eventIds.length,
     reconciled: results.length,
+    skippedUnchanged: eventIds.length - results.length,
+    skippedEventIds: eventIds.filter((eventId) => !reconciledIds.has(eventId)),
     verified: results.filter((item) => item.verified).length,
     heldForReview: results.filter((item) => !item.verified).length,
     results,
-    scope: "explicit_event_ids",
+    scope: "explicit_event_ids_incremental",
   };
 }
 
