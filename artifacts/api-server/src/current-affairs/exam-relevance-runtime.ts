@@ -8,6 +8,14 @@ import {
 
 const PRODUCT_FAMILIES = ["ssc", "banking", "punjab"] as const;
 
+type PendingScoreRow = {
+  eventId: string;
+  examFamily: string;
+  relevanceScore: number;
+  includeRecommended: boolean;
+  reasons: string[];
+};
+
 function facts(value: unknown): AtomicFactInput[] {
   if (!Array.isArray(value)) return [];
   return value.flatMap((item) => {
@@ -83,6 +91,7 @@ export async function refreshTargetDateExamRelevance(targetDate: string) {
   let skippedMissingHttpsEvidence = 0;
   let manualSelectionOverridesPreserved = 0;
   const eligible: Record<"ssc" | "banking" | "punjab", number> = { ssc: 0, banking: 0, punjab: 0 };
+  const pendingScores: PendingScoreRow[] = [];
 
   for (const row of rows) {
     examined += 1;
@@ -121,21 +130,13 @@ export async function refreshTargetDateExamRelevance(targetDate: string) {
           ? [`CP-050 admin relevance override preserved: ${manualReason}`]
           : []),
       ];
-      await sqlClient`
-        INSERT INTO content.current_affairs_exam_scores (
-          event_id, exam_family_key, relevance_score, include_recommended,
-          reasons, created_at, updated_at
-        ) VALUES (
-          ${String(row.id)}::uuid, ${score.examFamily}, ${score.score}, ${effectiveInclude},
-          ${JSON.stringify(reasons)}::jsonb,
-          now(), now()
-        )
-        ON CONFLICT (event_id, exam_family_key) DO UPDATE
-        SET relevance_score=EXCLUDED.relevance_score,
-            include_recommended=EXCLUDED.include_recommended,
-            reasons=EXCLUDED.reasons,
-            updated_at=now()
-      `;
+      pendingScores.push({
+        eventId: String(row.id),
+        examFamily: score.examFamily,
+        relevanceScore: score.score,
+        includeRecommended: effectiveInclude,
+        reasons,
+      });
       if ((score.examFamily === "ssc" || score.examFamily === "banking" || score.examFamily === "punjab")
         && effectiveInclude) {
         eligible[score.examFamily] += 1;
@@ -144,10 +145,44 @@ export async function refreshTargetDateExamRelevance(targetDate: string) {
     updated += 1;
   }
 
+  if (pendingScores.length > 0) {
+    await sqlClient`
+      WITH incoming AS (
+        SELECT *
+        FROM jsonb_to_recordset(${JSON.stringify(pendingScores)}::jsonb) AS score(
+          "eventId" text,
+          "examFamily" text,
+          "relevanceScore" int,
+          "includeRecommended" boolean,
+          reasons jsonb
+        )
+      )
+      INSERT INTO content.current_affairs_exam_scores (
+        event_id, exam_family_key, relevance_score, include_recommended,
+        reasons, created_at, updated_at
+      )
+      SELECT
+        incoming."eventId"::uuid,
+        incoming."examFamily",
+        incoming."relevanceScore",
+        incoming."includeRecommended",
+        incoming.reasons,
+        now(),
+        now()
+      FROM incoming
+      ON CONFLICT (event_id, exam_family_key) DO UPDATE
+      SET relevance_score=EXCLUDED.relevance_score,
+          include_recommended=EXCLUDED.include_recommended,
+          reasons=EXCLUDED.reasons,
+          updated_at=now()
+    `;
+  }
+
   return {
     targetDate,
     examined,
     updated,
+    scoreRowsUpserted: pendingScores.length,
     skippedMissingHttpsEvidence,
     manualSelectionOverridesPreserved,
     familyEligible: eligible,
