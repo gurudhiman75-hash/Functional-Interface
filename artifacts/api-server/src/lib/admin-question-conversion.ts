@@ -244,8 +244,18 @@ export function normalizeGeneratedQuestionPayload(
   const generationContext = asRecord(payload.generationContext);
   assertGeneratedQuestionBankEligible(payload);
   const baseStem = asText(payload.text) || asText(payload.stem);
-  const explanation =
+  const baseExplanation =
     asText(payload.explanation) || "Explanation pending editorial review.";
+  const explanationIllustrationSvg = asText(payload.explanationIllustrationSvg);
+  const explanationIllustration = explanationIllustrationSvg
+    ? encodeGeneratedSpatialSvgImage(
+        explanationIllustrationSvg,
+        "Figure formation assembly explanation",
+      )
+    : "";
+  const explanation = [baseExplanation, explanationIllustration]
+    .filter(Boolean)
+    .join("\n\n");
   const difficulty =
     asText(payload.difficultyLabel) || asText(payload.difficulty) || "Medium";
   const visualContent = spatialVisualContent(payload);
@@ -304,6 +314,7 @@ export function normalizeGeneratedQuestionPayload(
         language: payload.language ?? "en",
         locale: payload.locale ?? generationContext.locale ?? null,
         visualContent: visualContent?.kind ?? null,
+        explanationVisualContent: explanationIllustrationSvg ? "spatial_svg_data_image_v1" : null,
         questionBankStatus: lifecycleValue(payload, generationContext, "questionBankStatus") ?? null,
         questionBankWritable: lifecycleValue(payload, generationContext, "questionBankWritable") ?? null,
         questionBankAcceptanceMode: getGeneratedQuestionBankAcceptanceMode(payload),
