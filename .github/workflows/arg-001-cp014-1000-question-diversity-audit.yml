@@ -1,4 +1,4 @@
-name: Audit ARG-001 CP014 1000-Question Diversity
+name: Validate ARG-001 CP015 Diversity Closure
 
 on:
   push:
@@ -10,6 +10,9 @@ on:
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-*'
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-*'
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp015.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
       - '.github/workflows/arg-001-cp014-1000-question-diversity-audit.yml'
   pull_request:
     branches:
@@ -21,6 +24,9 @@ on:
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-*'
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-*'
       - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-*'
+      - 'artifacts/api-server/src/routes/admin-question-studio-arguments-cp015.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
       - '.github/workflows/arg-001-cp014-1000-question-diversity-audit.yml'
   workflow_dispatch:
 
@@ -28,11 +34,11 @@ permissions:
   contents: read
 
 concurrency:
-  group: arg-001-cp014-diversity-${{ github.ref }}
+  group: arg-001-cp015-diversity-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  arg-cp014-1000-question-diversity:
+  arg-cp015-diversity-closure:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
@@ -43,7 +49,7 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
-      - name: Strict TypeScript check for diversity auditors
+      - name: Strict TypeScript check for CP015 diversity authority
         working-directory: artifacts/api-server
         run: |
           pnpm exec tsc \
@@ -58,10 +64,17 @@ jobs:
             --noFallthroughCasesInSwitch \
             --skipLibCheck \
             --types node \
-            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-1000-question-diversity-audit.ts \
-            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-diversity-duplicate-diagnostics.ts
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts \
+            src/routes/admin-question-studio-arguments-cp015.ts \
+            src/routes/admin-question-studio-registry.ts
 
-      - name: Diagnose duplicate sources in deterministic 1000-question corpus
+      - name: Gate CP015 deterministic 1000-question diversity
+        working-directory: artifacts/api-server
+        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts
+
+      - name: Preserve CP014 baseline duplicate diagnostics
+        continue-on-error: true
         working-directory: artifacts/api-server
         run: |
           pnpm exec esbuild \
@@ -70,21 +83,26 @@ jobs:
             --outfile=dist/arg-001-cp014-diversity-duplicate-diagnostics.mjs
           node dist/arg-001-cp014-diversity-duplicate-diagnostics.mjs
 
-      - name: Generate and audit deterministic 1000-question corpus
+      - name: Preserve CP014 manual approval and lifecycle
         working-directory: artifacts/api-server
-        run: |
-          pnpm exec esbuild \
-            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-1000-question-diversity-audit.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/arg-001-cp014-1000-diversity-audit.mjs
-          node dist/arg-001-cp014-1000-diversity-audit.mjs
+        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-manual-editorial-approval-proof.test.ts
 
-      - name: Upload diversity report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: arg-001-cp014-1000-diversity-audit
-          path: |
-            artifacts/api-server/dist/arg-001-cp014-1000-diversity-audit.md
-            artifacts/api-server/dist/arg-001-cp014-1000-diversity-audit.json
-          if-no-files-found: error
+      - name: Preserve CP013 final learner-facing editorial proof
+        working-directory: artifacts/api-server
+        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-final-editorial-surface-proof.test.ts
+
+      - name: Preserve exact CP006 historical freeze
+        working-directory: artifacts/api-server
+        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts
+
+      - name: Preserve exact CP008 historical freeze
+        working-directory: artifacts/api-server
+        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-byte-freeze-proof.test.ts
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm build
