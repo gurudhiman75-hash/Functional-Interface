@@ -20,6 +20,7 @@ import {
   type SpatialProductionStudioQuestionV1,
 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v6";
 import { SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1 } from "../reasoning-v1/foundation/spatial/spatial-final-held-gap-freeze-v1";
+import { FIGURE_FORMATION_INTERNAL_ACTIVATION_V2 } from "../reasoning-v1/foundation/spatial/figure-formation-freeze-v1";
 
 const router = Router();
 const QL_IDS = new Set<string>(SPATIAL_QUESTION_STUDIO_PACKAGE_V1.qlIds);
@@ -83,6 +84,11 @@ export function productionPayloadV5(question: SpatialProductionStudioQuestionV1)
   const optionSvgs = !numericOptions && "optionSvgs" in question && Array.isArray(question.optionSvgs)
     ? question.optionSvgs
     : undefined;
+  const explanationIllustrationSvg = "explanationIllustrationSvg" in question
+    && typeof question.explanationIllustrationSvg === "string"
+    && question.explanationIllustrationSvg.trim()
+    ? question.explanationIllustrationSvg
+    : undefined;
   const canonicalAnswer = numericOptions ? question.options[question.correctIndex] : question.answer;
   const questionBankStatus = lifecycleString(question, "questionBankStatus", "READY_FOR_STORAGE");
   const questionBankWritable = lifecycleBoolean(question, "questionBankWritable", true);
@@ -109,6 +115,7 @@ export function productionPayloadV5(question: SpatialProductionStudioQuestionV1)
     stem: question.stem,
     stimulusSvgs: question.stimulusSvgs,
     ...(optionSvgs ? { optionSvgs } : {}),
+    ...(explanationIllustrationSvg ? { explanationIllustrationSvg } : {}),
     optionLabels: question.optionLabels,
     options: persistedOptions,
     correct: question.correctIndex,
@@ -213,7 +220,7 @@ async function persistRun(
         ${runId}::uuid, ${publicCode}, 'review'::generation_run_status, 1,
         ${JSON.stringify(requestSnapshot)}::jsonb, ${JSON.stringify(requestSnapshot)}::jsonb,
         'examtree', 'reasoning-v1-spa-001-v6', 0, 0, 0, 0,
-        ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
+        ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
       )
     `;
 
@@ -255,6 +262,7 @@ async function persistRun(
           integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
           localizationAuthorities,
           finalHeldGapActivationAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.authorityId,
+          figureFormationActivationAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.authorityId,
           manualApprovalRequired: true,
           automaticStudentPublication: false,
         })}::jsonb
@@ -338,6 +346,8 @@ router.get("/reasoning/spatial/preview", requireAdminPermission("content.generat
       localizationAuthorities,
       finalHeldGapFreezeAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.sourceFreezeAuthorityId,
       finalHeldGapActivationAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.authorityId,
+      figureFormationFreezeAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.sourceFreezeAuthorityId,
+      figureFormationActivationAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.authorityId,
       productionEligible: true,
       automaticStudentPublication: false,
     });
@@ -370,6 +380,8 @@ router.post("/reasoning/spatial/runs", requireAdminPermission("content.generatio
       localizationAuthorities,
       finalHeldGapFreezeAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.sourceFreezeAuthorityId,
       finalHeldGapActivationAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.authorityId,
+      figureFormationFreezeAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.sourceFreezeAuthorityId,
+      figureFormationActivationAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.authorityId,
       manualApprovalRequired: true,
       automaticStudentPublication: false,
       requestedByFirebaseUid: req.user?.id,
@@ -416,6 +428,8 @@ router.get("/reasoning/spatial/status", requireAdminPermission("content.generati
       integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
       finalHeldGapFreezeAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.sourceFreezeAuthorityId,
       finalHeldGapActivationAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.authorityId,
+      figureFormationFreezeAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.sourceFreezeAuthorityId,
+      figureFormationActivationAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.authorityId,
       questionBankConversionEligibleAfterApproval: true,
       testEligibleAfterApproval: true,
       testBuilderEligibleAfterApproval: true,
