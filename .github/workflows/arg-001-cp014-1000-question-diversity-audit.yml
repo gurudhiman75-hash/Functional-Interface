@@ -43,7 +43,7 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
-      - name: Strict TypeScript check for diversity auditor
+      - name: Strict TypeScript check for diversity auditors
         working-directory: artifacts/api-server
         run: |
           pnpm exec tsc \
@@ -58,7 +58,17 @@ jobs:
             --noFallthroughCasesInSwitch \
             --skipLibCheck \
             --types node \
-            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-1000-question-diversity-audit.ts
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-1000-question-diversity-audit.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-diversity-duplicate-diagnostics.ts
+
+      - name: Diagnose duplicate sources in deterministic 1000-question corpus
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-diversity-duplicate-diagnostics.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp014-diversity-duplicate-diagnostics.mjs
+          node dist/arg-001-cp014-diversity-duplicate-diagnostics.mjs
 
       - name: Generate and audit deterministic 1000-question corpus
         working-directory: artifacts/api-server
