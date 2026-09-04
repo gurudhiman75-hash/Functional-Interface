@@ -214,7 +214,7 @@ function extractBankingRates(sentence: string, facts: PrimaryPageFact[]) {
 function extractBalanceOfPayments(sentence: string, facts: PrimaryPageFact[]) {
   if (!facts.some((fact) => fact.factKey === "current_account_amount")) {
     const currentAccount = sentence.match(
-      /\bcurrent account\b[^.]{0,220}?\b(deficit|surplus)\b(?:\s+(?:widened|narrowed|declined|decreased|increased|rose|fell|stood|was|were|amounted))?\s*(?:to|of|at)?\s*(?:US\$|USD|\$)\s*([0-9]+(?:\.[0-9]+)?)\s*billion\b/i,
+      /\bcurrent account\b[^.]{0,220}?\b(deficit|surplus)\b(?:\s*\([A-Z]{2,10}\))?(?:\s+(?:widened|narrowed|declined|decreased|increased|rose|fell|stood|was|were|amounted))?\s*(?:to|of|at)?\s*(?:US\$|USD|\$)\s*([0-9]+(?:\.[0-9]+)?)\s*billion\b/i,
     );
     if (currentAccount?.[1] && currentAccount[2]) {
       pushFact(facts, makeFact("current_account_status", currentAccount[1].toLowerCase(), "string", 0.96, "rbi_balance_of_payments"));
