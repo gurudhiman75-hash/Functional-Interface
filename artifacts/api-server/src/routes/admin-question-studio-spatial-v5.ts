@@ -10,7 +10,7 @@ import {
   type SpatialQuestionStudioChapterCodeV1,
   type SpatialQuestionStudioDifficultyV1,
   type SpatialQuestionStudioPermanentQlIdV1,
-} from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v5";
+} from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v6";
 import {
   SPATIAL_QUESTION_STUDIO_LANGUAGES_V1,
   type SpatialQuestionStudioLanguageV1,
@@ -18,7 +18,7 @@ import {
 import {
   generateSpatialProductionStudioBatchV1,
   type SpatialProductionStudioQuestionV1,
-} from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v5";
+} from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v6";
 import { SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1 } from "../reasoning-v1/foundation/spatial/spatial-final-held-gap-freeze-v1";
 
 const router = Router();
@@ -212,7 +212,7 @@ async function persistRun(
       ) VALUES (
         ${runId}::uuid, ${publicCode}, 'review'::generation_run_status, 1,
         ${JSON.stringify(requestSnapshot)}::jsonb, ${JSON.stringify(requestSnapshot)}::jsonb,
-        'examtree', 'reasoning-v1-spa-001-v5', 0, 0, 0, 0,
+        'examtree', 'reasoning-v1-spa-001-v6', 0, 0, 0, 0,
         ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
       )
     `;
@@ -327,7 +327,7 @@ router.get("/reasoning/spatial/preview", requireAdminPermission("content.generat
     const filters = requestFilters(req.query as Record<string, unknown>);
     const result = generateSpatialProductionStudioBatchV1({
       ...filters,
-      seed: asString(req.query.seed) || "spa-question-studio-preview-v5",
+      seed: asString(req.query.seed) || "spa-question-studio-preview-v6",
       count: asCount(req.query.count, 1, 20),
     });
     const localizationAuthorities = [...new Set(result.questions.map((question) => question.localization.authority))];
@@ -355,7 +355,7 @@ router.post("/reasoning/spatial/runs", requireAdminPermission("content.generatio
   try {
     const filters = requestFilters((req.body ?? {}) as Record<string, unknown>);
     const count = asCount(req.body?.count, 5, 50);
-    const seed = asString(req.body?.seed) || `spa-review-v5-${Date.now()}`;
+    const seed = asString(req.body?.seed) || `spa-review-v6-${Date.now()}`;
     const result = generateSpatialProductionStudioBatchV1({ ...filters, seed, count });
     const localizationAuthorities = [...new Set(result.questions.map((question) => question.localization.authority))];
     const requestSnapshot = {
@@ -384,7 +384,7 @@ router.post("/reasoning/spatial/runs", requireAdminPermission("content.generatio
       automaticStudentPublication: false,
     });
   } catch (error) {
-    console.error("Spatial Question Studio V5 generation failed", error);
+    console.error("Spatial Question Studio V6 generation failed", error);
     res.status(400).json({ error: error instanceof Error ? error.message : "Unable to create Spatial review run." });
   }
 });
@@ -425,7 +425,7 @@ router.get("/reasoning/spatial/status", requireAdminPermission("content.generati
       automaticStudentPublication: false,
     });
   } catch (error) {
-    console.error("Spatial Question Studio V5 status failed", error);
+    console.error("Spatial Question Studio V6 status failed", error);
     res.status(500).json({ error: "Unable to load Spatial Question Studio status." });
   }
 });
