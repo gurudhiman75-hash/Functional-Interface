@@ -82,6 +82,7 @@ jobs:
           for test in \
             com003-review-synthesis-v15.test \
             com003-review-synthesis-v16.test \
+            com003-review-synthesis-v16-1.test \
             com003-editorial-quality-audit-v3.test \
             com003-english-freeze-v1.test \
             com003-localization-packet-v1.test \
@@ -128,6 +129,7 @@ jobs:
         run: |
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-synthesis-v15.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-synthesis-v16.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-synthesis-v16-1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-editorial-quality-audit-v3.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-english-freeze-v1.test.mjs
           node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-packet-v1.test.mjs
@@ -162,8 +164,11 @@ jobs:
           test -s artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
           grep -q '228 questions' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
           grep -q 'COM-003-QL-019' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
-          grep -q 'English V16' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
-          ! grep -q 'English V15 ·' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          grep -q 'English V16.1' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          ! grep -q 'Powerpoint' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          ! grep -qi 'Which term is described by the following statement' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          ! grep -qi 'refers to which term' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          ! grep -qi 'used for this purpose:' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
           ! grep -q 'In Microsoft Word, in Microsoft Word' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
           ! grep -q 'In Microsoft PowerPoint, in Microsoft PowerPoint' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
       - name: Upload COM-003 question review file
