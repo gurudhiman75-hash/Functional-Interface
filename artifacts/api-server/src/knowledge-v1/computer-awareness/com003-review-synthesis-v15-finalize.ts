@@ -113,11 +113,20 @@ function selectBalancedQl(
   return selected;
 }
 
+function buildCandidatePool(seedPrefix: string) {
+  return Array.from({ length: 6 }, (_, batch) =>
+    buildCom003EnglishReviewCorpusV15({
+      perQl: 12,
+      seedPrefix: `${seedPrefix}:candidate-batch-${batch + 1}`,
+    }),
+  ).flat();
+}
+
 export function buildCom003EnglishReviewCorpusV15Final(options: { perQl?: number; seedPrefix?: string } = {}) {
   const perQl = options.perQl ?? 12;
   if (perQl !== 12) throw new Error("COM003 V15 final learner-review surface is fixed at 12 questions per QL");
   const seedPrefix = options.seedPrefix ?? "com003-v15-final";
-  const candidatePool = buildCom003EnglishReviewCorpusV15({ perQl: 48, seedPrefix: `${seedPrefix}:candidate-pool` });
+  const candidatePool = buildCandidatePool(seedPrefix);
   const selected = COM003_PERMANENT_QLS.flatMap((ql) =>
     selectBalancedQl(
       ql.qlId,
