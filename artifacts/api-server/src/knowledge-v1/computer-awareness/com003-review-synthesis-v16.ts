@@ -18,8 +18,8 @@ function compact(value: string) {
 }
 
 function lowerFirst(value: string) {
-  const value = compact(value);
-  return value ? `${value.charAt(0).toLowerCase()}${value.slice(1)}` : value;
+  const normalized = compact(value);
+  return normalized ? `${normalized.charAt(0).toLowerCase()}${normalized.slice(1)}` : normalized;
 }
 
 function factParts(question: Com003ReviewQuestionV15) {
