@@ -67,6 +67,13 @@ assert.ok(bopFacts.some((fact) => fact.factKey === "current_account_amount" && f
 assert.ok(bopFacts.some((fact) => fact.factKey === "current_account_gdp_share" && fact.factValue === "0.2% of GDP"));
 assert.ok(bopFacts.some((fact) => fact.factKey === "net_services_receipts" && fact.factValue === "US$ 53.1 billion"));
 
+const bopRbiWordingFacts = extractPrimaryPageFacts(
+  "India’s current account deficit (CAD) widened to US$ 2.4 billion (0.2 per cent of GDP) in Q1:2026-27.",
+);
+assert.ok(bopRbiWordingFacts.some((fact) => fact.factKey === "current_account_status" && fact.factValue === "deficit"));
+assert.ok(bopRbiWordingFacts.some((fact) => fact.factKey === "current_account_amount" && fact.factValue === "US$ 2.4 billion"));
+assert.ok(bopRbiWordingFacts.some((fact) => fact.factKey === "current_account_gdp_share" && fact.factValue === "0.2% of GDP"));
+
 const bopAuthoring = authorSourceIndependentEvent({
   eventId: "cp060-bop",
   eventDate: "2026-09-01",
@@ -239,6 +246,6 @@ const exactVrrr = authorSourceIndependentEvent({
     { key: "action_subject", value: "7-day Variable Rate Reverse Repo auction under LAF on September 01, 2026" },
   ],
 });
-assert.equal(exactVrrr.status, "needs_editorial", "CP060 must not weaken the 0.72 near-copy safeguard");
+assert.equal(exactVrrr.status, "needs_editorial", "CP060/061 must not weaken the 0.72 near-copy safeguard");
 
-console.log("Current Affairs Studio CP008/060 primary-fact and selected-blocker recovery contracts passed");
+console.log("Current Affairs Studio CP008/060/061 primary-fact and selected-blocker recovery contracts passed");
