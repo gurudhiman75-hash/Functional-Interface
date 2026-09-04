@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
 import { sqlClient } from './src/lib/db';
@@ -19,6 +19,15 @@ function sha256(value: string): string {
 }
 
 async function loadMigrations(migrationsDir: string): Promise<MigrationFile[]> {
+  const manifestNames = new Set<string>(NOTES_STUDIO_MIGRATIONS);
+  const diskNames = (await readdir(migrationsDir))
+    .filter((fileName) => /^\d{8}_notes_studio.*\.sql$/.test(fileName))
+    .sort();
+  const unmanifested = diskNames.filter((fileName) => !manifestNames.has(fileName));
+  if (unmanifested.length > 0) {
+    throw new Error(`Unmanifested Notes Studio migration file(s): ${unmanifested.join(', ')}`);
+  }
+
   const migrations: MigrationFile[] = [];
   for (const fileName of NOTES_STUDIO_MIGRATIONS) {
     const sqlText = await readFile(path.join(migrationsDir, fileName), 'utf8');
@@ -91,7 +100,7 @@ async function run() {
 
   const inspection = await inspectNotesStudioSchema(sqlClient);
   if (!inspection.ready) {
-    throw new Error(`Notes Studio schema is incomplete after migration. Missing relations: ${inspection.missingRelations.join(', ') || 'none'}; missing triggers: ${inspection.missingTriggers.join(', ') || 'none'}`);
+    throw new Error(`Notes Studio schema is incomplete after migration. Missing relations: ${inspection.missingRelations.join(', ') || 'none'}; missing columns: ${inspection.missingColumns.join(', ') || 'none'}; missing triggers: ${inspection.missingTriggers.join(', ') || 'none'}`);
   }
 
   const ledgerRows = await sqlClient`
@@ -109,7 +118,7 @@ async function run() {
     }
   }
 
-  console.log(`[notes-studio:migrate] ready: ${inspection.presentRelations.length} relations, ${inspection.presentTriggers.length} required triggers, ${ledgerRows.length} ledger entries`);
+  console.log(`[notes-studio:migrate] ready: ${inspection.presentRelations.length} relations, ${inspection.presentColumns.length} required columns, ${inspection.presentTriggers.length} required triggers, ${ledgerRows.length} ledger entries`);
 }
 
 run()

@@ -11,6 +11,7 @@ export const NOTES_STUDIO_MIGRATIONS = [
   '20260831_notes_studio_ns017_source_pack_freeze.sql',
   '20260831_notes_studio_ns018_research_restart.sql',
   '20260831_notes_studio_ns021_reference_evidence.sql',
+  '20260903_notes_studio_coverage_editorial_review_gate.sql',
 ] as const;
 
 export const NOTES_STUDIO_REQUIRED_RELATIONS = [
@@ -37,6 +38,13 @@ export const NOTES_STUDIO_REQUIRED_RELATIONS = [
   'content.note_research_restarts',
 ] as const;
 
+export const NOTES_STUDIO_REQUIRED_COLUMNS = [
+  'content.note_coverage_plan_items.coverage_review_state',
+  'content.note_coverage_plan_items.coverage_review_claim_ids',
+  'content.note_coverage_plan_items.coverage_reviewed_by',
+  'content.note_coverage_plan_items.coverage_reviewed_at',
+] as const;
+
 export const NOTES_STUDIO_REQUIRED_TRIGGERS = [
   'note_source_pack_insert_delete_invalidation',
   'note_source_pack_inclusion_invalidation',
@@ -59,6 +67,8 @@ export type NotesStudioSchemaInspection = {
   ready: boolean;
   presentRelations: string[];
   missingRelations: string[];
+  presentColumns: string[];
+  missingColumns: string[];
   presentTriggers: string[];
   missingTriggers: string[];
 };
@@ -77,6 +87,11 @@ export async function inspectNotesStudioSchema(sql: UnsafeSqlClient): Promise<No
     FROM information_schema.tables
     WHERE table_schema || '.' || table_name IN (${quotedSqlStrings(NOTES_STUDIO_REQUIRED_RELATIONS)})
   `);
+  const columnRows = await sql.unsafe(`
+    SELECT table_schema || '.' || table_name || '.' || column_name AS name
+    FROM information_schema.columns
+    WHERE table_schema || '.' || table_name || '.' || column_name IN (${quotedSqlStrings(NOTES_STUDIO_REQUIRED_COLUMNS)})
+  `);
   const triggerRows = await sql.unsafe(`
     SELECT trigger_name AS name
     FROM information_schema.triggers
@@ -84,13 +99,17 @@ export async function inspectNotesStudioSchema(sql: UnsafeSqlClient): Promise<No
       AND trigger_name IN (${quotedSqlStrings(NOTES_STUDIO_REQUIRED_TRIGGERS)})
   `);
   const relationSet = new Set(relationRows.map((row) => String(row.name)));
+  const columnSet = new Set(columnRows.map((row) => String(row.name)));
   const triggerSet = new Set(triggerRows.map((row) => String(row.name)));
   const missingRelations = NOTES_STUDIO_REQUIRED_RELATIONS.filter((name) => !relationSet.has(name));
+  const missingColumns = NOTES_STUDIO_REQUIRED_COLUMNS.filter((name) => !columnSet.has(name));
   const missingTriggers = NOTES_STUDIO_REQUIRED_TRIGGERS.filter((name) => !triggerSet.has(name));
   return {
-    ready: missingRelations.length === 0 && missingTriggers.length === 0,
+    ready: missingRelations.length === 0 && missingColumns.length === 0 && missingTriggers.length === 0,
     presentRelations: NOTES_STUDIO_REQUIRED_RELATIONS.filter((name) => relationSet.has(name)),
     missingRelations: [...missingRelations],
+    presentColumns: NOTES_STUDIO_REQUIRED_COLUMNS.filter((name) => columnSet.has(name)),
+    missingColumns: [...missingColumns],
     presentTriggers: NOTES_STUDIO_REQUIRED_TRIGGERS.filter((name) => triggerSet.has(name)),
     missingTriggers: [...missingTriggers],
   };
@@ -117,7 +136,7 @@ export function assessNotesStudioProductionReadiness(
 ): NotesStudioProductionAssessment {
   const blockers: string[] = [];
   const warnings: string[] = [];
-  if (!signals.schemaReady) blockers.push('Notes Studio database schema or required triggers are incomplete.');
+  if (!signals.schemaReady) blockers.push('Notes Studio database schema, required columns or required triggers are incomplete.');
   if (!signals.sectionModelConfigured) blockers.push('NOTES_STUDIO_MODEL is not configured.');
   if (!signals.localizationModelConfigured) blockers.push('NOTES_STUDIO_LOCALIZATION_MODEL is not configured.');
   if (!signals.modelApiKeyConfigured) blockers.push('Notes Studio/OpenAI API key is not configured.');
