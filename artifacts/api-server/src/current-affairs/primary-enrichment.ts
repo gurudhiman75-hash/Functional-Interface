@@ -12,6 +12,7 @@ import {
 
 const EXTRACTOR_VERSION = "ca-cp008-primary-facts-v1";
 const MAX_PAGE_BYTES = 3_500_000;
+const EXPLICIT_ENRICHMENT_CONCURRENCY = 4;
 const SUPPORTED_PRIMARY_SOURCES = new Set<PrimarySourceKey>([
   "pib",
   "rbi",
@@ -26,6 +27,10 @@ type EnrichmentCandidate = {
   sourceKey: PrimarySourceKey;
   sourceUrl: string;
   title: string;
+  enrichmentStatus?: string;
+  enrichmentExtractorVersion?: string;
+  enrichmentFactCount?: number;
+  enrichmentVisibleCharCount?: number;
 };
 
 type CandidateEnrichmentResult = {
@@ -34,6 +39,7 @@ type CandidateEnrichmentResult = {
   status: "success" | "failure" | "skipped";
   factCount: number;
   visibleCharCount: number;
+  cacheHit?: boolean;
   error?: string;
 };
 
@@ -88,6 +94,10 @@ function candidateRows(rows: any[]): EnrichmentCandidate[] {
     sourceKey: String(row.sourceKey) as PrimarySourceKey,
     sourceUrl: String(row.sourceUrl),
     title: String(row.title),
+    enrichmentStatus: row.enrichmentStatus ? String(row.enrichmentStatus) : undefined,
+    enrichmentExtractorVersion: row.enrichmentExtractorVersion ? String(row.enrichmentExtractorVersion) : undefined,
+    enrichmentFactCount: row.enrichmentFactCount == null ? undefined : Number(row.enrichmentFactCount),
+    enrichmentVisibleCharCount: row.enrichmentVisibleCharCount == null ? undefined : Number(row.enrichmentVisibleCharCount),
   }));
 }
 
@@ -128,9 +138,15 @@ async function loadCandidatesByIds(candidateIds: string[]): Promise<EnrichmentCa
       candidate.source_url AS "sourceUrl",
       candidate.raw_title AS title,
       source.id::text AS "sourceId",
-      source.source_key AS "sourceKey"
+      source.source_key AS "sourceKey",
+      enrichment.status AS "enrichmentStatus",
+      enrichment.metadata->>'extractorVersion' AS "enrichmentExtractorVersion",
+      enrichment.extracted_fact_count::int AS "enrichmentFactCount",
+      enrichment.visible_char_count::int AS "enrichmentVisibleCharCount"
     FROM content.current_affairs_ingestion_candidates candidate
     JOIN content.current_affairs_sources source ON source.id = candidate.source_id
+    LEFT JOIN content.current_affairs_candidate_enrichments enrichment
+      ON enrichment.candidate_id = candidate.id
     WHERE candidate.id::text = ANY(${candidateIds}::text[])
       AND candidate.source_url IS NOT NULL
       AND source.is_active = true
@@ -139,6 +155,42 @@ async function loadCandidatesByIds(candidateIds: string[]): Promise<EnrichmentCa
     ORDER BY candidate.published_at DESC NULLS LAST, candidate.created_at DESC
   `;
   return candidateRows(rows);
+}
+
+function reusableEnrichment(candidate: EnrichmentCandidate) {
+  return candidate.enrichmentStatus === "success"
+    && candidate.enrichmentExtractorVersion === EXTRACTOR_VERSION;
+}
+
+function cachedEnrichmentResult(candidate: EnrichmentCandidate): CandidateEnrichmentResult {
+  return {
+    candidateId: candidate.id,
+    sourceKey: candidate.sourceKey,
+    status: "success",
+    factCount: candidate.enrichmentFactCount ?? 0,
+    visibleCharCount: candidate.enrichmentVisibleCharCount ?? 0,
+    cacheHit: true,
+  };
+}
+
+async function mapWithConcurrency<T, R>(
+  items: T[],
+  concurrency: number,
+  worker: (item: T) => Promise<R>,
+): Promise<R[]> {
+  if (items.length === 0) return [];
+  const results = new Array<R>(items.length);
+  let nextIndex = 0;
+  const workerCount = Math.min(Math.max(1, Math.floor(concurrency)), items.length);
+  await Promise.all(Array.from({ length: workerCount }, async () => {
+    while (true) {
+      const index = nextIndex;
+      nextIndex += 1;
+      if (index >= items.length) return;
+      results[index] = await worker(items[index]);
+    }
+  }));
+  return results;
 }
 
 async function recordFailure(candidate: EnrichmentCandidate, error: string) {
@@ -242,6 +294,7 @@ async function enrichCandidate(candidate: EnrichmentCandidate): Promise<Candidat
       status: "success",
       factCount: facts.length,
       visibleCharCount: visibleText.length,
+      cacheHit: false,
     };
   } catch (error) {
     const message = safeTextError(error);
@@ -252,6 +305,7 @@ async function enrichCandidate(candidate: EnrichmentCandidate): Promise<Candidat
       status: "failure",
       factCount: 0,
       visibleCharCount: 0,
+      cacheHit: false,
       error: message,
     };
   }
@@ -260,15 +314,27 @@ async function enrichCandidate(candidate: EnrichmentCandidate): Promise<Candidat
 export async function runPrimaryFactEnrichmentForCandidateIds(candidateIdsInput: string[]) {
   const candidateIds = [...new Set(candidateIdsInput.map(String).filter(Boolean))].slice(0, 300);
   const candidates = await loadCandidatesByIds(candidateIds);
-  const results: CandidateEnrichmentResult[] = [];
-  for (const candidate of candidates) {
-    results.push(await enrichCandidate(candidate));
-  }
+  const cachedCandidates = candidates.filter(reusableEnrichment);
+  const fetchCandidates = candidates.filter((candidate) => !reusableEnrichment(candidate));
+  const fetchedResults = await mapWithConcurrency(
+    fetchCandidates,
+    EXPLICIT_ENRICHMENT_CONCURRENCY,
+    enrichCandidate,
+  );
+  const resultByCandidate = new Map<string, CandidateEnrichmentResult>();
+  for (const candidate of cachedCandidates) resultByCandidate.set(candidate.id, cachedEnrichmentResult(candidate));
+  for (const result of fetchedResults) resultByCandidate.set(result.candidateId, result);
+  const results = candidates
+    .map((candidate) => resultByCandidate.get(candidate.id))
+    .filter((result): result is CandidateEnrichmentResult => Boolean(result));
   const seen = new Set(candidates.map((candidate) => candidate.id));
   const missing = candidateIds.filter((candidateId) => !seen.has(candidateId));
   return {
     requested: candidateIds.length,
     examined: candidates.length,
+    cacheHitCount: cachedCandidates.length,
+    fetchedCount: fetchCandidates.length,
+    fetchConcurrency: EXPLICIT_ENRICHMENT_CONCURRENCY,
     successCount: results.filter((item) => item.status === "success").length,
     failureCount: results.filter((item) => item.status === "failure").length,
     skippedCount: results.filter((item) => item.status === "skipped").length,
