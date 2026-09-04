@@ -124,6 +124,13 @@ globalThis.__dirname = __bannerPath.dirname(globalThis.__filename);
     entryPoints: [path.resolve(artifactDir, "src/index.ts")],
   });
 
+  // Render only runs dist/index.mjs. Validation harnesses and migration tools
+  // are intentionally excluded from the constrained production build; their
+  // normal local/CI build remains unchanged.
+  if (process.env.API_PRODUCTION_ONLY === "1") {
+    return;
+  }
+
   // Build db:migrate script
   await esbuild({
     ...commonConfig,
