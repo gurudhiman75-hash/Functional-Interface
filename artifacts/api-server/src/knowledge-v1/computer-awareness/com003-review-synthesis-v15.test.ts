@@ -16,7 +16,13 @@ for (const ql of COM003_PERMANENT_QLS) {
   const qs = COM003_ENGLISH_REVIEW_CORPUS_V15_FINAL.filter((q) => q.qlId === ql.qlId);
   assert.equal(qs.length, 12, `${ql.qlId}:count`);
   assert.equal(new Set(qs.map((q) => q.stem.toLowerCase())).size, 12, `${ql.qlId}:duplicate stems`);
-  assert.equal(qs.filter((q) => q.examSurfaceFamily === "DIRECT_RECALL").length, 3, `${ql.qlId}:direct recall count`);
+  const familyCounts = new Map<string, number>();
+  for (const q of qs) familyCounts.set(q.examSurfaceFamily, (familyCounts.get(q.examSurfaceFamily) ?? 0) + 1);
+  assert.equal(familyCounts.size, 4, `${ql.qlId}:surface family coverage`);
+  for (const family of ["DIRECT_RECALL", "FUNCTIONAL_APPLICATION", "EXAMPLE_RECOGNITION", "CONTRAST_DISCRIMINATION"]) {
+    const count = familyCounts.get(family) ?? 0;
+    assert.ok(count >= 2 && count <= 4, `${ql.qlId}:${family}:imbalanced family count ${count}`);
+  }
 }
 
 for (const q of COM003_ENGLISH_REVIEW_CORPUS_V15_FINAL) {
@@ -76,6 +82,7 @@ console.log("[COM003-V15]", {
   directRecallSemanticBinding: "TARGET_FACT_BOUND",
   canonicalAnswerAuthority: "GOVERNED_FACT_RELATION",
   learnerSurfaceNormalization: "PASS",
+  familyCoverage: "4_FAMILIES_BALANCED",
   knownCrossTargetRegressions: "BLOCKED",
   governance: "REVIEW_ONLY",
 });
