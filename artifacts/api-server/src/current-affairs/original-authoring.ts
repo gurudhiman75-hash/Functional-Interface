@@ -28,7 +28,7 @@ export type AuthoringOutput = {
   inputFingerprint: string;
 };
 
-const AUTHORING_POLICY_VERSION = "ca-cp055-universal-title-quality-v1";
+const AUTHORING_POLICY_VERSION = "ca-cp060-fact-rephrase-v1";
 const TITLE_SIMILARITY_LIMIT = 0.72;
 
 const SOURCE_NAMES: Record<string, string> = {
@@ -87,6 +87,10 @@ const FACT_LABELS: Record<string, string> = {
   mission_life: "Mission life",
   launcher: "Launch vehicle",
   index_value: "Index value",
+  current_account_status: "Current account",
+  current_account_amount: "Current account amount",
+  current_account_gdp_share: "Share of GDP",
+  net_services_receipts: "Net services receipts",
 };
 
 const SUBJECT_FACT_PRIORITY = [
@@ -213,8 +217,85 @@ function naturalFactDetail(items: ReadonlyArray<readonly [string, string]>) {
   return items.map(([key, value]) => `${factLabel(key)}: ${value}`).join("; ");
 }
 
-function sourceSafeTitle(preferred: string, fallback: string, sourceTitle: string) {
-  return titleSimilarity(preferred, sourceTitle) < TITLE_SIMILARITY_LIMIT ? preferred : fallback;
+function sourceSafeTitle(preferred: string, fallback: string, sourceTitle: string, alternatives: string[] = []) {
+  for (const candidate of [preferred, ...alternatives, fallback]) {
+    if (candidate && titleSimilarity(candidate, sourceTitle) < TITLE_SIMILARITY_LIMIT) return candidate;
+  }
+  return fallback;
+}
+
+function editorialHold(input: AuthoringInput, reason: string): AuthoringOutput {
+  return {
+    status: "needs_editorial",
+    sourceTitleSimilarity: 0,
+    reasons: [reason],
+    inputFingerprint: authoringInputFingerprint(input),
+  };
+}
+
+function malformedActingEntity(value: string) {
+  const clean = value.replace(/\s+/g, " ").trim();
+  return /^(?:PM|Prime Minister)\s+to$/i.test(clean) || /\b(?:to|for|at|on)\s*$/i.test(clean);
+}
+
+function cleanPartyForTitle(value: string) {
+  return value
+    .replace(/\s*\([^)]*\)/g, "")
+    .replace(/\b(?:Pte\.?\s+Ltd\.?|Limited|Ltd\.?)\b/gi, "")
+    .replace(/\s+/g, " ")
+    .replace(/[ ,;:-]+$/g, "")
+    .trim();
+}
+
+function officialActionAlternativeTitle(entity: string, action: string, subject: string): string | undefined {
+  const cleanAction = readableAction(action).toLowerCase();
+  const acquisition = subject.match(/^acquisition of (.+?) by (.+?)(?:\s+and related transactions)?$/i);
+  if (/^approv/.test(cleanAction) && acquisition?.[1] && acquisition[2]) {
+    const target = cleanPartyForTitle(acquisition[1].replace(/^up to\s+[0-9.]+%\s+equity shareholding of\s+/i, ""));
+    const buyer = cleanPartyForTitle(acquisition[2]);
+    if (target && buyer) return `${buyer} purchase of ${target} gets ${entity} clearance`;
+  }
+
+  const automated = subject.match(/^Automated Issuance of (.+?)(?:\s+to Promote\b.*)?$/i);
+  if (/^enable/.test(cleanAction) && automated?.[1]) {
+    const topic = automated[1].replace(/\bCertificates\b/i, "Certificate").trim();
+    return `${entity} automates ${topic} issuance`;
+  }
+
+  const bilateral = subject.match(/^Bilateral Cooperation in (.+)$/i);
+  if (/^strengthen/.test(cleanAction) && bilateral?.[1]) {
+    const parties = entity.replace(/\s*[–—-]\s*/g, " and ");
+    const topics = bilateral[1].replace(/\bIntellectual Property\b/gi, "IP").trim();
+    return `${parties} deepen ${topics} cooperation`;
+  }
+  return undefined;
+}
+
+function readablePersonName(value: string) {
+  let clean = value.replace(/\s+/g, " ").trim();
+  clean = clean.replace(/^(?:AVM|AIR\s+MARSHAL|AIR\s+VICE\s+MARSHAL)\s+/i, "");
+  if (clean && clean === clean.toUpperCase()) {
+    clean = clean.toLowerCase().replace(/\b[a-z][a-z'-]*/g, (word) => word[0]!.toUpperCase() + word.slice(1));
+    clean = clean.replace(/\bKaa\b/g, "KAA");
+  }
+  return clean;
+}
+
+function readablePosition(value: string) {
+  const clean = value.replace(/\s+/g, " ").trim();
+  if (!clean || clean !== clean.toUpperCase()) return clean;
+  const lowered = clean.toLowerCase().replace(/[()]/g, "");
+  return lowered[0]!.toUpperCase() + lowered.slice(1);
+}
+
+function appointmentAlternativeTitle(appointee: string, position: string): string | undefined {
+  const person = readablePersonName(appointee);
+  const role = readablePosition(position);
+  if (/^first\b/i.test(role)) return `${person} becomes ${lowerFirst(role)}`;
+  if (/air officer-in-charge maintenance.*indian air force/i.test(position)) {
+    return `${person} assumes IAF maintenance leadership`;
+  }
+  return undefined;
 }
 
 function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, string>, sourceName: string): AuthoringOutput | null {
@@ -228,24 +309,30 @@ function genericVerifiedFactAuthoring(input: AuthoringInput, facts: Map<string, 
   const officialAction = cleanFactValue(facts.get("official_action") ?? "");
   const actionSubject = cleanFactValue(facts.get("action_subject") ?? "");
   if (actionEntity && officialAction && actionSubject) {
+    if (malformedActingEntity(actionEntity)) {
+      return editorialHold(input, "Verified official-action actor is malformed and requires editorial correction");
+    }
     const action = readableAction(officialAction);
     const subject = learnerSubject(actionSubject);
     const planned = plannedAction(action);
     const preferredTitle = `${sourceName}: ${subject}`;
     const fallbackTitle = `${subject} — ${actionEntity}`;
+    const alternative = officialActionAlternativeTitle(actionEntity, action, subject);
     return result({
       input,
-      title: sourceSafeTitle(preferredTitle, fallbackTitle, input.sourceTitle),
+      title: sourceSafeTitle(preferredTitle, fallbackTitle, input.sourceTitle, alternative ? [alternative] : []),
       summary: planned
         ? `On ${humanDate(input.eventDate)}, ${actionEntity} announced that it would ${planned} ${actionSubject}.`
         : `On ${humanDate(input.eventDate)}, ${actionEntity} ${lowerFirst(action)} ${actionSubject}.`,
       oneLiner: planned
         ? `${subject} — announced by ${actionEntity}`
         : `${subject} — ${actionEntity}`,
-      templateId: "verified_official_action_v1",
-      reasons: [planned
-        ? "Scheduled event is expressed as an announcement on the Current Affairs date, not as broken extraction grammar"
-        : "Learner copy states the event directly and anchors it to the Current Affairs date"],
+      templateId: alternative ? "verified_official_action_rephrased_v1" : "verified_official_action_v1",
+      reasons: [alternative
+        ? "Learner title is deterministically rephrased from reconciled action facts while retaining the source-title similarity gate"
+        : planned
+          ? "Scheduled event is expressed as an announcement on the Current Affairs date, not as broken extraction grammar"
+          : "Learner copy states the event directly and anchors it to the Current Affairs date"],
     });
   }
 
@@ -370,12 +457,17 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
   const appointee = facts.get("appointee");
   const position = facts.get("position");
   if (appointee && position) {
+    const alternative = appointmentAlternativeTitle(appointee, position);
+    const preferred = `${appointee} appointed ${position}`;
+    const readableAppointee = readablePersonName(appointee) || appointee;
+    const readableRole = readablePosition(position) || position;
     return result({
       input,
-      title: `${appointee} appointed ${position}`,
-      summary: `On ${humanDate(input.eventDate)}, ${appointee} was appointed ${position}.`,
-      oneLiner: `${appointee} — ${position}`,
-      templateId: "appointment_v1",
+      title: sourceSafeTitle(preferred, preferred, input.sourceTitle, alternative ? [alternative] : []),
+      summary: `On ${humanDate(input.eventDate)}, ${readableAppointee} was appointed ${lowerFirst(readableRole)}.`,
+      oneLiner: `${readableAppointee} — ${readableRole}`,
+      templateId: alternative ? "appointment_fact_rephrased_v1" : "appointment_v1",
+      reasons: alternative ? ["Long or record-setting appointment title is rephrased from verified appointee and position facts"] : undefined,
     });
   }
 
@@ -387,6 +479,22 @@ export function authorSourceIndependentEvent(input: AuthoringInput): AuthoringOu
       summary: `On ${humanDate(input.eventDate)}, the Reserve Bank of India reported its Financial Inclusion Index at ${fiIndex}.`,
       oneLiner: `RBI Financial Inclusion Index — ${fiIndex}`,
       templateId: "rbi_financial_inclusion_index_v1",
+    });
+  }
+
+  const currentAccountStatus = facts.get("current_account_status");
+  const currentAccountAmount = facts.get("current_account_amount");
+  const currentAccountShare = facts.get("current_account_gdp_share");
+  const netServicesReceipts = facts.get("net_services_receipts");
+  if (input.sourceKey === "rbi" && currentAccountStatus && currentAccountAmount && currentAccountShare) {
+    const services = netServicesReceipts ? ` Net services receipts were ${netServicesReceipts}.` : "";
+    return result({
+      input,
+      title: `India current account ${currentAccountStatus}: ${currentAccountAmount}`,
+      summary: `On ${humanDate(input.eventDate)}, the RBI reported a current account ${currentAccountStatus} of ${currentAccountAmount}, equivalent to ${currentAccountShare}.${services}`,
+      oneLiner: `Current account ${currentAccountStatus} — ${currentAccountAmount} (${currentAccountShare})`,
+      templateId: "rbi_balance_of_payments_v1",
+      reasons: ["Balance-of-Payments wording is composed from reconciled RBI current-account facts"],
     });
   }
 
