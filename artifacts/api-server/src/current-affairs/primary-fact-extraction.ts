@@ -211,6 +211,31 @@ function extractBankingRates(sentence: string, facts: PrimaryPageFact[]) {
   }
 }
 
+function extractBalanceOfPayments(sentence: string, facts: PrimaryPageFact[]) {
+  if (!facts.some((fact) => fact.factKey === "current_account_amount")) {
+    const currentAccount = sentence.match(
+      /\bcurrent account\b[^.]{0,220}?\b(deficit|surplus)\b(?:\s+(?:of|at))?\s*(?:US\$|USD|\$)\s*([0-9]+(?:\.[0-9]+)?)\s*billion\b/i,
+    );
+    if (currentAccount?.[1] && currentAccount[2]) {
+      pushFact(facts, makeFact("current_account_status", currentAccount[1].toLowerCase(), "string", 0.96, "rbi_balance_of_payments"));
+      pushFact(facts, makeFact("current_account_amount", `US$ ${currentAccount[2]} billion`, "money", 0.96, "rbi_balance_of_payments"));
+      const share = sentence.match(/\(?\b([0-9]+(?:\.[0-9]+)?)\s*(?:per\s*cent|percent|%)\s+of\s+GDP\b\)?/i);
+      if (share?.[1]) {
+        pushFact(facts, makeFact("current_account_gdp_share", `${share[1]}% of GDP`, "percentage", 0.95, "rbi_balance_of_payments"));
+      }
+    }
+  }
+
+  if (!facts.some((fact) => fact.factKey === "net_services_receipts")) {
+    const services = sentence.match(
+      /\bnet services receipts\b[^.]{0,160}?\b(?:rose|increased|declined|decreased|stood|were|was)?\s*(?:to|at|of)?\s*(?:US\$|USD|\$)\s*([0-9]+(?:\.[0-9]+)?)\s*billion\b/i,
+    );
+    if (services?.[1]) {
+      pushFact(facts, makeFact("net_services_receipts", `US$ ${services[1]} billion`, "money", 0.9, "rbi_balance_of_payments"));
+    }
+  }
+}
+
 function extractRank(sentence: string, facts: PrimaryPageFact[]) {
   const match = sentence.match(/\b(?:ranked|ranks|placed)\s+(?:at\s+)?(?:the\s+)?([0-9]{1,3})(?:st|nd|rd|th)?\b/i);
   if (match?.[1]) pushFact(facts, makeFact("rank", match[1], "number", 0.88, "rank"));
@@ -296,6 +321,7 @@ export function extractPrimaryPageFacts(text: string): PrimaryPageFact[] {
     extractAppointment(sentence, facts);
     extractIndexValue(sentence, facts);
     extractBankingRates(sentence, facts);
+    extractBalanceOfPayments(sentence, facts);
     extractRank(sentence, facts);
     extractOutlay(sentence, facts);
     extractBeneficiaries(sentence, facts);
