@@ -283,67 +283,59 @@ function normalizeExplanation(input: string) {
 
 function specialExplanation(question: Com003ReviewQuestionV15): string | null {
   switch (question.targetFactId) {
-    case "com003-word-purpose":
-      return "Microsoft Word is a word-processing application used to create, edit and format text documents.";
-    case "com003-excel-purpose":
-      return "Microsoft Excel is a spreadsheet application used to organize data and perform calculations.";
-    case "com003-powerpoint-purpose":
-      return "Microsoft PowerPoint is used to create slide-based presentations.";
-    case "com003-command-undo":
-      return "Undo reverses the most recent supported editing action.";
-    case "com003-command-find":
-      return "Find searches the current file for specified content without changing it.";
-    case "com003-command-print":
-      return "Print opens the document printing workflow.";
-    case "com003-shortcut-ctrl-p":
-      return "In Windows desktop Office applications, Ctrl+P opens the print workflow.";
-    case "com003-shortcut-ctrl-s":
-      return "In Windows desktop Office applications, Ctrl+S saves the current document.";
-    case "com003-word-find-purpose":
-      return "Find locates matching text without changing it. Replace is the feature used when the located text also needs to be substituted.";
-    case "com003-word-replace-purpose":
-      return "Replace locates specified text and substitutes replacement text; Find alone only locates the text.";
-    case "com003-word-header-role":
-      return "A header contains content associated with the top margin area of a document page.";
-    case "com003-word-footer-role":
-      return "A footer contains content associated with the bottom margin area of a document page.";
-    case "com003-excel-address-row-part":
-      return "In the reference B7, the number 7 identifies the row, while B identifies the column.";
-    case "com003-excel-address-column-part":
-      return "In the reference B7, the letter B identifies the column, while 7 identifies the row.";
-    case "com003-excel-relative-reference":
-      return "A relative cell reference changes according to the new location when a formula is copied or filled.";
-    case "com003-excel-absolute-reference":
-      return "An absolute cell reference remains fixed when a formula is copied or filled.";
-    case "com003-excel-absolute-reference-notation":
-      return "$A$1 is fully absolute because the dollar signs lock both the column and the row.";
-    case "com003-excel-line-chart":
-      return "A line chart is commonly used to show trends over time or other ordered intervals.";
-    case "com003-excel-bar-chart":
-      return "A bar chart is commonly used to compare values across categories or individual items.";
-    case "com003-excel-pie-chart":
-      return "A pie chart is commonly used to show how one data series is divided into parts of a whole.";
-    case "com003-powerpoint-picture-object":
-      return "A Picture object adds image content to a PowerPoint slide.";
-    case "com003-powerpoint-chart-object":
-      return "A Chart object displays data graphically on a PowerPoint slide.";
-    case "com003-powerpoint-table-object":
-      return "A Table object arranges information in rows and columns on a PowerPoint slide.";
-    case "com003-powerpoint-animation-definition":
-      return "Animation applies an effect to text or other objects on a slide. It is different from a transition, which occurs between slides.";
-    case "com003-powerpoint-transition-definition":
-      return "A slide transition is the effect used when moving from one slide to the next. Animation, by contrast, applies to objects within a slide.";
-    case "com003-powerpoint-transition-duration":
-      return "Transition duration controls how long the transition effect itself takes to complete; it does not set how long the slide remains on screen.";
-    case "com003-powerpoint-auto-advance-time":
-      return "Automatic slide advance timing determines when PowerPoint moves to the next slide automatically; it is separate from transition duration.";
-    case "com003-powerpoint-shortcut-f5":
-      return "In Windows desktop PowerPoint, F5 starts the slide show from the beginning. Shift+F5 starts it from the current slide.";
-    case "com003-powerpoint-shortcut-shift-f5":
-      return "In Windows desktop PowerPoint, Shift+F5 starts the slide show from the current slide. F5 starts it from the beginning.";
-    default:
-      return null;
+    case "com003-word-purpose": return "Microsoft Word is a word-processing application used to create, edit and format text documents.";
+    case "com003-excel-purpose": return "Microsoft Excel is a spreadsheet application used to organize data and perform calculations.";
+    case "com003-powerpoint-purpose": return "Microsoft PowerPoint is used to create slide-based presentations.";
+    case "com003-command-undo": return "Undo reverses the most recent supported editing action.";
+    case "com003-command-find": return "Find searches the current file for specified content without changing it.";
+    case "com003-command-print": return "Print opens the document printing workflow.";
+    case "com003-shortcut-ctrl-p": return "In Windows desktop Office applications, Ctrl+P opens the print workflow.";
+    case "com003-shortcut-ctrl-s": return "In Windows desktop Office applications, Ctrl+S saves the current document.";
+    case "com003-word-find-purpose": return "Find locates matching text without changing it. Replace is the feature used when the located text also needs to be substituted.";
+    case "com003-word-replace-purpose": return "Replace locates specified text and substitutes replacement text; Find alone only locates the text.";
+    case "com003-word-header-role": return "A header contains content associated with the top margin area of a document page.";
+    case "com003-word-footer-role": return "A footer contains content associated with the bottom margin area of a document page.";
+    case "com003-excel-address-row-part": return "In the reference B7, the number 7 identifies the row, while B identifies the column.";
+    case "com003-excel-address-column-part": return "In the reference B7, the letter B identifies the column, while 7 identifies the row.";
+    case "com003-excel-relative-reference": return "A relative cell reference changes according to the new location when a formula is copied or filled.";
+    case "com003-excel-absolute-reference": return "An absolute cell reference remains fixed when a formula is copied or filled.";
+    case "com003-excel-absolute-reference-notation": return "$A$1 is fully absolute because the dollar signs lock both the column and the row.";
+    case "com003-excel-line-chart": return "A line chart is commonly used to show trends over time or other ordered intervals.";
+    case "com003-excel-bar-chart": return "A bar chart is commonly used to compare values across categories or individual items.";
+    case "com003-excel-pie-chart": return "A pie chart is commonly used to show how one data series is divided into parts of a whole.";
+    case "com003-powerpoint-picture-object": return "A Picture object adds image content to a PowerPoint slide.";
+    case "com003-powerpoint-chart-object": return "A Chart object displays data graphically on a PowerPoint slide.";
+    case "com003-powerpoint-table-object": return "A Table object arranges information in rows and columns on a PowerPoint slide.";
+    case "com003-powerpoint-animation-definition": return "Animation applies an effect to text or other objects on a slide. It is different from a transition, which occurs between slides.";
+    case "com003-powerpoint-transition-definition": return "A slide transition is the effect used when moving from one slide to the next. Animation, by contrast, applies to objects within a slide.";
+    case "com003-powerpoint-transition-duration": return "Transition duration controls how long the transition effect itself takes to complete; it does not set how long the slide remains on screen.";
+    case "com003-powerpoint-auto-advance-time": return "Automatic slide advance timing determines when PowerPoint moves to the next slide automatically; it is separate from transition duration.";
+    case "com003-powerpoint-shortcut-f5": return "In Windows desktop PowerPoint, F5 starts the slide show from the beginning. Shift+F5 starts it from the current slide.";
+    case "com003-powerpoint-shortcut-shift-f5": return "In Windows desktop PowerPoint, Shift+F5 starts the slide show from the current slide. F5 starts it from the beginning.";
+    default: return null;
   }
+}
+
+function naturalDuplicateVariants(question: Com003ReviewQuestionV15) {
+  const { entity, text } = factParts(question);
+  const expected = compact(expectedCom003V15Answer(question));
+  const description = lowerFirst(text);
+  if (expected.toLowerCase() === entity.toLowerCase()) {
+    return [
+      `Which term is described by the following statement: ${description}?`,
+      `The description "${compact(text)}" refers to which term?`,
+      `Which term best matches this description: ${description}?`,
+      `Identify the term that matches the following description: ${description}?`,
+      `Which term corresponds to this statement: ${description}?`,
+    ];
+  }
+  return [
+    `Which statement correctly describes ${entity}?`,
+    `Which of the following best describes ${entity}?`,
+    `What is the correct description of ${entity}?`,
+    `Which statement best states the role or meaning of ${entity}?`,
+    `How is ${entity} correctly described?`,
+  ];
 }
 
 function buildV16(corpus: readonly Com003ReviewQuestionV15[]) {
@@ -358,16 +350,10 @@ function buildV16(corpus: readonly Com003ReviewQuestionV15[]) {
     let stem = specialStem(question, ordinal) ?? normalizeStem(question, question.stem);
     const seen = seenByQl.get(question.qlId) ?? new Set<string>();
     if (seen.has(stem.toLowerCase())) {
-      const { entity, text } = factParts(question);
-      const expected = compact(expectedCom003V15Answer(question));
-      if (expected.toLowerCase() === entity.toLowerCase()) {
-        stem = `Which ${question.qlId.startsWith("COM-003") ? "option" : "term"} correctly matches this description: ${lowerFirst(text)}?`;
-      } else {
-        stem = `Which description correctly matches ${entity}?`;
-      }
+      const replacement = naturalDuplicateVariants(question).find((candidate) => !seen.has(candidate.toLowerCase()));
+      if (!replacement) throw new Error(`COM003 V16 duplicate stem could not be resolved naturally ${question.questionId}`);
+      stem = replacement;
     }
-    if (seen.has(stem.toLowerCase())) stem = `In this ${question.examSurfaceFamily.toLowerCase().replaceAll("_", " ")} question, ${lowerFirst(stem)}`;
-    if (seen.has(stem.toLowerCase())) throw new Error(`COM003 V16 duplicate stem could not be resolved ${question.questionId}`);
     seen.add(stem.toLowerCase());
     seenByQl.set(question.qlId, seen);
 
@@ -424,7 +410,7 @@ export function auditCom003V16() {
     ["BROKEN_TO_3SG", /\bto (?:shows|illustrates|starts|returns|counts|calculates|searches|reverses)\b/i],
     ["BROKEN_SHORTCUT_FOR_START", /shortcut for start the slide show/i],
     ["ARTICLE_CAPITALIZATION", /what does The \d/i],
-    ["GENERIC_EXAMPLE_FILLER", /option is the correct example for this description|choice correctly illustrates the Microsoft/i],
+    ["GENERIC_EXAMPLE_FILLER", /option is the correct example for this description|choice correctly illustrates the Microsoft|In this (?:direct recall|functional application|example recognition|contrast discrimination) question/i],
   ];
   for (const [code, pattern] of bannedStemPatterns) if (pattern.test(stemCorpus)) issues.push(code);
 
