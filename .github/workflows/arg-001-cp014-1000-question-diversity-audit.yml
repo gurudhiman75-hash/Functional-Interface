@@ -1,0 +1,80 @@
+name: Audit ARG-001 CP014 1000-Question Diversity
+
+on:
+  push:
+    branches:
+      - feature/arg-001-cp012-editorial-remediation
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-*'
+      - '.github/workflows/arg-001-cp014-1000-question-diversity-audit.yml'
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize, ready_for_review]
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp009-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp010-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp012-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-*'
+      - 'artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-*'
+      - '.github/workflows/arg-001-cp014-1000-question-diversity-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: arg-001-cp014-diversity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  arg-cp014-1000-question-diversity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Strict TypeScript check for diversity auditor
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc \
+            --noEmit \
+            --target es2022 \
+            --module esnext \
+            --moduleResolution bundler \
+            --allowImportingTsExtensions \
+            --strictNullChecks \
+            --noImplicitAny \
+            --noImplicitReturns \
+            --noFallthroughCasesInSwitch \
+            --skipLibCheck \
+            --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-1000-question-diversity-audit.ts
+
+      - name: Generate and audit deterministic 1000-question corpus
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-1000-question-diversity-audit.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp014-1000-diversity-audit.mjs
+          node dist/arg-001-cp014-1000-diversity-audit.mjs
+
+      - name: Upload diversity report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arg-001-cp014-1000-diversity-audit
+          path: |
+            artifacts/api-server/dist/arg-001-cp014-1000-diversity-audit.md
+            artifacts/api-server/dist/arg-001-cp014-1000-diversity-audit.json
+          if-no-files-found: error
