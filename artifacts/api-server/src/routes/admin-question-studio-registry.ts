@@ -2,6 +2,7 @@ import { Router, type IRouter } from "express";
 
 import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk-hardening";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
+import adminQuestionStudioArgumentsCp015Router from "./admin-question-studio-arguments-cp015";
 import adminQuestionStudioArgumentsCp014Router from "./admin-question-studio-arguments-cp014";
 import adminQuestionStudioArgumentsCp013Router from "./admin-question-studio-arguments-cp013";
 import adminQuestionStudioArgumentsCp012Router from "./admin-question-studio-arguments-cp012";
@@ -36,17 +37,17 @@ import adminQuestionStudioRouter from "./admin-question-studio";
  * firing whenever one Question Studio package is added or reordered.
  *
  * Order is intentional: hardening/specialized additive routers must run before
- * the legacy catch-all router at the bottom. ARG-001 CP014 is the current
- * product-owner-approved internal eligibility authority. It wraps the approved
- * CP013 learner-facing editorial surface without changing its content, enables
- * Question Bank/test/mock eligibility, and keeps public release, direct student
- * delivery and automatic student publication blocked. CP013/CP012/CP010/CP007/
- * CP005 remain mounted behind CP014 as historical fallbacks.
+ * the legacy catch-all router at the bottom. ARG-001 CP015 is the current
+ * diversity-hardened internal authority. It preserves CP014's explicit manual
+ * approval and internal lifecycle, expands two-argument SSC/banking variety
+ * from the approved core semantic pool, and keeps all public/student delivery
+ * gates closed. CP014/CP013/CP012/CP010/CP007/CP005 remain historical fallbacks.
  */
 const router: IRouter = Router();
 
 router.use(adminQuestionStudioBulkHardeningRouter);
 router.use(adminQuestionStudioQualityRouter);
+router.use(adminQuestionStudioArgumentsCp015Router);
 router.use(adminQuestionStudioArgumentsCp014Router);
 router.use(adminQuestionStudioArgumentsCp013Router);
 router.use(adminQuestionStudioArgumentsCp012Router);
