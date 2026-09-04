@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 
+import { normalizeGeneratedQuestionPayload } from "../../lib/admin-question-conversion";
+import { productionPayloadV5 } from "../../routes/admin-question-studio-spatial-v5";
 import {
   FIGURE_FORMATION_FREEZE_AUTHORITY_V1,
   FIGURE_FORMATION_INTERNAL_ACTIVATION_V2,
@@ -75,9 +77,44 @@ assert.equal(batch.generationContext.mockTestEligible, false);
 assert.equal(batch.generationContext.publicReleaseAuthorized, false);
 assert.equal(batch.generationContext.studentDeliveryAuthorized, false);
 
+const conversionQuestion = generateSpatialProductionStudioQuestionV6({
+  qlId: "SPA-QL-051",
+  language: "en",
+  seed: "FFM-001:QUESTION-BANK:ILLUSTRATION-PRESERVATION",
+});
+const persistedPayload = productionPayloadV5(conversionQuestion);
+assert.equal(typeof persistedPayload.explanationIllustrationSvg, "string");
+assert.match(persistedPayload.explanationIllustrationSvg!, /data-assembly-stage="joined"/);
+assert.match(persistedPayload.explanationIllustrationSvg!, /data-seam="true"/);
+
+const normalized = normalizeGeneratedQuestionPayload(persistedPayload, {
+  itemId: "ffm-001-illustration-preservation",
+  generationRunCode: "FFM-001-QB-PROOF",
+});
+assert.match(normalized.explanation, /data:image\/svg\+xml;base64,/);
+assert.match(normalized.explanation, /alt="Figure formation assembly explanation"/);
+assert.equal(
+  (normalized.answerModel.generation as Record<string, unknown>).explanationVisualContent,
+  "spatial_svg_data_image_v1",
+);
+
+assert.throws(
+  () => normalizeGeneratedQuestionPayload(
+    {
+      ...persistedPayload,
+      explanationIllustrationSvg: '<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>',
+    },
+    { itemId: "ffm-001-unsafe-svg", generationRunCode: "FFM-001-QB-PROOF" },
+  ),
+  /disallowed active SVG content/,
+);
+
 console.log(JSON.stringify({
   status: "PASS_FFM_001_APPROVED_FREEZE_QUESTION_STUDIO_V1",
   checkedQuestions: checked,
   packageQlCount: SPATIAL_QUESTION_STUDIO_PACKAGE_V6.permanentQlCount,
   ffmQlIds: FIGURE_FORMATION_FREEZE_AUTHORITY_V1.permanentQlIds,
+  explanationIllustrationPersisted: true,
+  explanationIllustrationQuestionBankSafe: true,
+  unsafeExplanationSvgRejected: true,
 }, null, 2));
