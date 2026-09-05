@@ -36,14 +36,20 @@ else
   echo "[render-build] verify Current Affairs schema"
   pnpm --dir artifacts/api-server exec node ensure-current-affairs.mjs
 
-  # Notes Studio also has an ordered migration authority. Compile and execute the
-  # same ledgered migrator used by NS-008 so the admin/API bundle is never
-  # deployed ahead of the production Notes Studio database schema.
+  # Legacy Notes Studio retains its existing ordered migration authority.
   echo "[render-build] verify Notes Studio schema"
   pnpm --dir artifacts/api-server exec esbuild notes-studio-migrate.ts \
     --bundle --packages=external --platform=node --format=esm \
     --outfile=dist/notes-studio-migrate.mjs
   (cd artifacts/api-server && node dist/notes-studio-migrate.mjs)
+
+  # Notes Studio v2 is intentionally isolated from the legacy schema and ledger.
+  # Compile and execute its own ordered migrator before the v2 API can be served.
+  echo "[render-build] verify Notes Studio v2 schema"
+  pnpm --dir artifacts/api-server exec esbuild notes-studio-v2-migrate.ts \
+    --bundle --packages=external --platform=node --format=esm \
+    --outfile=dist/notes-studio-v2-migrate.mjs
+  (cd artifacts/api-server && node dist/notes-studio-v2-migrate.mjs)
 fi
 
 # Build the student app. Its build also generates the public prerender files.
