@@ -76,7 +76,7 @@ const EXPLANATION_DIVERSITY: Readonly<Record<string, LocalizedExplanationSet>> =
       "Slide पर insert की गई photograph Picture object का उदाहरण है क्योंकि वह image content है।",
       "Numerical values का graphical comparison या trend दिखाने के लिए Chart object उपयोग किया जा सकता है।",
       "यदि आवश्यकता image दिखाने की है, tabular या charted data की नहीं, तो Picture object उपयुक्त है।",
-      "Chart और Table data structures के लिए हैं; सामान्य picture content जोड़ने के लिए Picture object चुना जाता है।",
+      "Chart और Table डेटा को संरचित रूप में दिखाते हैं; slide पर photograph या दूसरी image जोड़ने के लिए Picture object चुना जाता है।",
       "Rows, columns या plotted values के बजाय visual image content चाहिए तो PowerPoint में Picture object insert किया जाता है।",
     ]),
     pa: Object.freeze([
@@ -90,7 +90,7 @@ const EXPLANATION_DIVERSITY: Readonly<Record<string, LocalizedExplanationSet>> =
       "Slide ਉੱਤੇ insert ਕੀਤੀ photograph Picture object ਦਾ ਉਦਾਹਰਨ ਹੈ ਕਿਉਂਕਿ ਉਹ image content ਹੈ।",
       "Numerical values ਦੀ graphical comparison ਜਾਂ trend ਦਿਖਾਉਣ ਲਈ Chart object ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ।",
       "ਜੇ ਲੋੜ image ਦਿਖਾਉਣ ਦੀ ਹੈ, tabular ਜਾਂ charted data ਦੀ ਨਹੀਂ, ਤਾਂ Picture object ਢੁੱਕਵਾਂ ਹੈ।",
-      "Chart ਅਤੇ Table data structures ਲਈ ਹਨ; ਆਮ picture content ਜੋੜਨ ਲਈ Picture object ਚੁਣਿਆ ਜਾਂਦਾ ਹੈ।",
+      "Chart ਅਤੇ Table data ਨੂੰ structured ਰੂਪ ਵਿੱਚ ਦਿਖਾਉਂਦੇ ਹਨ; slide ਉੱਤੇ photograph ਜਾਂ ਹੋਰ image ਜੋੜਨ ਲਈ Picture object ਚੁਣਿਆ ਜਾਂਦਾ ਹੈ।",
       "Rows, columns ਜਾਂ plotted values ਦੀ ਬਜਾਇ visual image content ਚਾਹੀਦਾ ਹੋਵੇ ਤਾਂ PowerPoint ਵਿੱਚ Picture object insert ਕੀਤਾ ਜਾਂਦਾ ਹੈ।",
     ]),
   }),
