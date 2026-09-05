@@ -15,57 +15,57 @@ type SemanticRule = Readonly<{
 }>;
 
 const RULES: Readonly<Record<string, SemanticRule>> = Object.freeze({
-  "COM-003-F-SPR-033": {
+  "com003-excel-absolute-reference": {
     qlId: "COM-003-QL-011",
     hi: [/absolute reference/i, /स्थिर|fixed|lock|नहीं बदल/i],
     pa: [/absolute reference/i, /ਸਥਿਰ|fixed|lock|ਨਹੀਂ ਬਦਲ/i],
   },
-  "COM-003-F-SPR-034": {
+  "com003-excel-absolute-reference-notation": {
     qlId: "COM-003-QL-011",
     hi: [/\$A\$1/i, /dollar sign|lock|absolute/i],
     pa: [/\$A\$1/i, /dollar sign|lock|absolute/i],
   },
-  "COM-003-F-SPR-035": {
+  "com003-excel-relative-reference": {
     qlId: "COM-003-QL-011",
     hi: [/relative reference/i, /बदल|adjust|shift/i],
     pa: [/relative reference/i, /ਬਦਲ|adjust|shift/i],
   },
-  "COM-003-F-SPR-045": {
+  "com003-excel-line-chart": {
     qlId: "COM-003-QL-014",
     hi: [/line chart/i, /trend|बदलाव/i],
     pa: [/line chart/i, /trend|ਬਦਲਾਅ/i],
   },
-  "COM-003-F-SPR-046": {
+  "com003-excel-bar-chart": {
     qlId: "COM-003-QL-014",
     hi: [/bar chart/i, /तुलना|compare|comparison/i],
     pa: [/bar chart/i, /ਤੁਲਨਾ|compare|comparison/i],
   },
-  "COM-003-F-SPR-047": {
+  "com003-excel-pie-chart": {
     qlId: "COM-003-QL-014",
     hi: [/pie chart/i, /total|share|whole|हिस्स|अनुपात/i],
     pa: [/pie chart/i, /total|share|whole|ਹਿੱਸ|ਅਨੁਪਾਤ/i],
   },
-  "COM-003-F-PPT-012": {
+  "com003-powerpoint-insert-chart": {
     qlId: "COM-003-QL-017",
     hi: [/chart/i, /graph|data|visual/i],
     pa: [/chart/i, /graph|data|visual/i],
   },
-  "COM-003-F-PPT-013": {
+  "com003-powerpoint-insert-picture": {
     qlId: "COM-003-QL-017",
     hi: [/picture/i, /image|photo|photograph/i],
     pa: [/picture/i, /image|photo|photograph/i],
   },
-  "COM-003-F-PPT-014": {
+  "com003-powerpoint-insert-table": {
     qlId: "COM-003-QL-017",
     hi: [/table/i, /rows?|columns?|row-column/i],
     pa: [/table/i, /rows?|columns?|row-column/i],
   },
-  "COM-003-F-PPT-019": {
+  "com003-powerpoint-shortcut-f5": {
     qlId: "COM-003-QL-019",
     hi: [/(^|[^+])F5/i, /first|beginning|शुरू|शुरुआत/i],
     pa: [/(^|[^+])F5/i, /first|beginning|ਸ਼ੁਰੂ/i],
   },
-  "COM-003-F-PPT-020": {
+  "com003-powerpoint-shortcut-shift-f5": {
     qlId: "COM-003-QL-019",
     hi: [/shift\+F5/i, /current|वर्तमान/i],
     pa: [/shift\+F5/i, /current|ਮੌਜੂਦਾ/i],
