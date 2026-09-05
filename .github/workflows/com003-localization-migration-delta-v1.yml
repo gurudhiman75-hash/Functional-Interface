@@ -8,6 +8,8 @@ on:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-migration-delta-v1.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-migration-delta-v1.test.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-migration-report-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-lexicon-coverage-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-lexicon-coverage-v1.test.ts'
       - '.github/workflows/com003-localization-migration-delta-v1.yml'
   pull_request:
     branches:
@@ -16,6 +18,8 @@ on:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-migration-delta-v1.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-migration-delta-v1.test.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-migration-report-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-lexicon-coverage-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-lexicon-coverage-v1.test.ts'
       - '.github/workflows/com003-localization-migration-delta-v1.yml'
 
 permissions:
@@ -40,7 +44,7 @@ jobs:
         run: corepack enable
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
-      - name: Bundle migration audit and report
+      - name: Bundle migration audits and report
         run: |
           mkdir -p artifacts/api-server/dist/com003-localization-migration-v1
           pnpm --dir artifacts/api-server exec esbuild \
@@ -48,11 +52,17 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/com003-localization-migration-v1/audit.test.mjs
           pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-localization-lexicon-coverage-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-localization-migration-v1/lexicon.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
             src/knowledge-v1/computer-awareness/com003-localization-migration-report-v1.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/com003-localization-migration-v1/report.mjs
       - name: Run migration delta audit
         run: node artifacts/api-server/dist/com003-localization-migration-v1/audit.test.mjs
+      - name: Run bilingual lexicon coverage audit
+        run: node artifacts/api-server/dist/com003-localization-migration-v1/lexicon.test.mjs
       - name: Generate migration report
         run: cd artifacts/api-server && node dist/com003-localization-migration-v1/report.mjs
       - name: Verify migration report
