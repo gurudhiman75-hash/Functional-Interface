@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import adminQuestionStudioSpatialV5Router from "./admin-question-studio-spatial-v5";
-import { SPATIAL_QUESTION_STUDIO_PACKAGE_V7 as SPATIAL_QUESTION_STUDIO_PACKAGE_V6 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v7";
+import { SPATIAL_QUESTION_STUDIO_PACKAGE_V1 as SPATIAL_QUESTION_STUDIO_PACKAGE_V6 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v6";
 
 const router = Router();
 const SPA_PACKAGE_ID = "SPA-001";
