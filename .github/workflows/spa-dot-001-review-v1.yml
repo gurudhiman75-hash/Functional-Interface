@@ -1,7 +1,19 @@
 name: Validate SPA DOT-001 Review V1
 
 on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/dot-situation-**'
+      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v11.ts'
+      - 'artifacts/api-server/src/reasoning-v1/tests/dot-situation-dot-001-**'
+      - '.github/workflows/spa-dot-001-review-v1.yml'
   workflow_dispatch:
+
+concurrency:
+  group: spa-dot-001-review-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
