@@ -9,6 +9,7 @@ type RectShape = Readonly<{ kind: "SQUARE" | "RECTANGLE"; x: number; y: number; 
 type TriangleShape = Readonly<{ kind: "TRIANGLE"; a: Point; b: Point; c: Point }>;
 type Shape = CircleShape | RectShape | TriangleShape;
 type Layout = Readonly<{ shapes: readonly Shape[] }>;
+type ShapeIndex = 0 | 1 | 2 | 3;
 
 type SignatureRow = Readonly<{
   dot: string;
@@ -20,14 +21,23 @@ type SignatureRow = Readonly<{
 
 const P = (x: number, y: number): Point => Object.freeze({ x, y });
 const C = (cx: number, cy: number, r: number): CircleShape => Object.freeze({ kind: "CIRCLE", cx, cy, r });
-const S = (x: number, y: number, w: number, h: number): RectShape => Object.freeze({ kind: "SQUARE", x, y, w, h });
+const S = (x: number, y: number, w: number, h: number): RectShape => {
+  const side = Math.min(w, h);
+  return Object.freeze({
+    kind: "SQUARE" as const,
+    x: x + (w - side) / 2,
+    y: y + (h - side) / 2,
+    w: side,
+    h: side,
+  });
+};
 const R = (x: number, y: number, w: number, h: number): RectShape => Object.freeze({ kind: "RECTANGLE", x, y, w, h });
 const T = (a: Point, b: Point, c: Point): TriangleShape => Object.freeze({ kind: "TRIANGLE", a, b, c });
 const L = (...shapes: readonly Shape[]): Layout => Object.freeze({ shapes: Object.freeze(shapes) });
 
-// All layouts carry the same identity order: circle, square, triangle, rectangle.
-// The pool deliberately includes partial-overlap, disjoint and nested topologies so
-// distractors fail semantically rather than by cosmetic drawing differences.
+// Every layout owns one circle, square, triangle and rectangle in that identity order.
+// A question activates a deterministic 2-, 3- or 4-shape subset. This prevents the
+// two-shape band from degenerating into circle+square questions only.
 const LAYOUTS = Object.freeze([
   L(C(43,47,28),S(36,28,52,48),T(P(18,90),P(57,15),P(102,90)),R(54,18,18,84)),
   L(C(63,46,28),S(18,30,56,52),T(P(12,84),P(54,16),P(96,84)),R(48,44,53,22)),
@@ -56,9 +66,31 @@ const LAYOUTS = Object.freeze([
 ] as const);
 
 const SHAPE_KEYS = ["CIRCLE", "SQUARE", "TRIANGLE", "RECTANGLE"] as const;
+const TWO_SHAPE_SETS = Object.freeze([
+  Object.freeze([0, 1] as const),
+  Object.freeze([0, 2] as const),
+  Object.freeze([0, 3] as const),
+  Object.freeze([1, 2] as const),
+  Object.freeze([1, 3] as const),
+  Object.freeze([2, 3] as const),
+]);
+const THREE_SHAPE_SETS = Object.freeze([
+  Object.freeze([0, 1, 2] as const),
+  Object.freeze([0, 1, 3] as const),
+  Object.freeze([0, 2, 3] as const),
+  Object.freeze([1, 2, 3] as const),
+]);
+const FOUR_SHAPE_SET = Object.freeze([0, 1, 2, 3] as const);
 const DOT_NAMES = ["1", "2", "3"] as const;
 const OPTION_LABELS = ["A", "B", "C", "D"] as const;
 const BOUNDARY_MARGIN = 4.5;
+
+for (const layout of LAYOUTS) {
+  const square = layout.shapes[1];
+  if (square.kind !== "SQUARE" || square.w !== square.h) {
+    throw new Error("DOT-001 layout pool must render every square at an exact 1:1 aspect ratio.");
+  }
+}
 
 function hash32(text: string): number {
   let hash = 0x811c9dc5;
@@ -82,6 +114,19 @@ function shuffled<T>(input: readonly T[], seed: number): T[] {
     [out[i], out[j]] = [out[j], out[i]];
   }
   return out;
+}
+
+function shapeSetsForCount(shapeCount: number, seed: number): readonly (readonly ShapeIndex[])[] {
+  const source: readonly (readonly ShapeIndex[])[] = shapeCount === 2
+    ? TWO_SHAPE_SETS
+    : shapeCount === 3
+      ? THREE_SHAPE_SETS
+      : [FOUR_SHAPE_SET];
+  return Object.freeze(shuffled(source, seed ^ 0x85ebca6b));
+}
+
+function activeShapes(layout: Layout, shapeIndices: readonly ShapeIndex[]): readonly Shape[] {
+  return shapeIndices.map((index) => layout.shapes[index]);
 }
 
 function cross(a: Point, b: Point, p: Point): number {
@@ -122,17 +167,18 @@ function boundaryClearance(shape: Shape, p: Point): number {
   );
 }
 
-function signatureAt(layout: Layout, shapeCount: number, p: Point): string {
-  return layout.shapes.slice(0, shapeCount).map((shape) => inside(shape, p) ? "1" : "0").join("");
+function signatureAt(layout: Layout, shapeIndices: readonly ShapeIndex[], p: Point): string {
+  return activeShapes(layout, shapeIndices).map((shape) => inside(shape, p) ? "1" : "0").join("");
 }
 
-function availableCells(layout: Layout, shapeCount: number): Map<string, Point[]> {
+function availableCells(layout: Layout, shapeIndices: readonly ShapeIndex[]): Map<string, Point[]> {
   const cells = new Map<string, Point[]>();
+  const shapes = activeShapes(layout, shapeIndices);
   for (let x = 10; x <= 110; x += 3) {
     for (let y = 10; y <= 110; y += 3) {
       const point = P(x, y);
-      if (layout.shapes.slice(0, shapeCount).some((shape) => boundaryClearance(shape, point) < BOUNDARY_MARGIN)) continue;
-      const signature = signatureAt(layout, shapeCount, point);
+      if (shapes.some((shape) => boundaryClearance(shape, point) < BOUNDARY_MARGIN)) continue;
+      const signature = shapes.map((shape) => inside(shape, point) ? "1" : "0").join("");
       if (!signature.includes("1")) continue;
       const bucket = cells.get(signature) ?? [];
       bucket.push(point);
@@ -161,40 +207,50 @@ function selectPuzzle(seed: string) {
   const shapeCount = 2 + (h % 3);
   const dotCount = 1 + (Math.floor(h / 7) % (shapeCount === 2 ? 2 : 3));
   const referenceIndex = h % LAYOUTS.length;
-  const referenceCells = availableCells(LAYOUTS[referenceIndex], shapeCount);
-  const candidates = shuffled(
+  const candidateLayouts = shuffled(
     LAYOUTS.map((_, index) => index).filter((index) => index !== referenceIndex),
     h ^ 0x9e3779b9,
   );
 
-  for (const correctIndex of candidates) {
-    const correctCells = availableCells(LAYOUTS[correctIndex], shapeCount);
-    const common = [...referenceCells.keys()].filter((signature) => correctCells.has(signature));
-    if (common.length < dotCount) continue;
-    let signatureSets = shuffled(combinations(common, dotCount), h ^ correctIndex);
-    signatureSets = signatureSets.sort((a, b) => {
-      const aOverlap = a.some((signature) => membershipCount(signature) >= 2) ? 1 : 0;
-      const bOverlap = b.some((signature) => membershipCount(signature) >= 2) ? 1 : 0;
-      return bOverlap - aOverlap;
-    });
-    for (const signatures of signatureSets) {
-      const distractors = LAYOUTS.map((_, index) => index).filter((index) => {
-        if (index === referenceIndex || index === correctIndex) return false;
-        const cells = availableCells(LAYOUTS[index], shapeCount);
-        return signatures.some((signature) => !cells.has(signature));
+  for (const shapeIndices of shapeSetsForCount(shapeCount, h)) {
+    const referenceCells = availableCells(LAYOUTS[referenceIndex], shapeIndices);
+    for (const correctIndex of candidateLayouts) {
+      const correctCells = availableCells(LAYOUTS[correctIndex], shapeIndices);
+      const common = [...referenceCells.keys()].filter((signature) => correctCells.has(signature));
+      if (common.length < dotCount) continue;
+      let signatureSets = shuffled(combinations(common, dotCount), h ^ correctIndex ^ shapeIndices.join("").length);
+      signatureSets = signatureSets.sort((a, b) => {
+        const aOverlap = a.some((signature) => membershipCount(signature) >= 2) ? 1 : 0;
+        const bOverlap = b.some((signature) => membershipCount(signature) >= 2) ? 1 : 0;
+        if (aOverlap !== bOverlap) return bOverlap - aOverlap;
+        const aDepth = a.reduce((sum, signature) => sum + membershipCount(signature), 0);
+        const bDepth = b.reduce((sum, signature) => sum + membershipCount(signature), 0);
+        return bDepth - aDepth;
       });
-      if (distractors.length < 3) continue;
-      return {
-        h,
-        shapeCount,
-        dotCount,
-        referenceIndex,
-        correctLayoutIndex: correctIndex,
-        signatures: Object.freeze(signatures),
-        distractorLayoutIndices: Object.freeze(shuffled(distractors, h ^ 0xc2b2ae35).slice(0, 3)),
-        referenceCells,
-        correctCells,
-      } as const;
+
+      for (const signatures of signatureSets) {
+        const distractors = LAYOUTS.map((_, index) => {
+          if (index === referenceIndex || index === correctIndex) return null;
+          const cells = availableCells(LAYOUTS[index], shapeIndices);
+          const missingCount = signatures.filter((signature) => !cells.has(signature)).length;
+          return missingCount > 0 ? { index, missingCount } : null;
+        }).filter((entry): entry is { index: number; missingCount: number } => entry !== null);
+        if (distractors.length < 3) continue;
+        const nearMisses = shuffled(distractors, h ^ 0xc2b2ae35).sort((a, b) => a.missingCount - b.missingCount);
+        return {
+          h,
+          shapeCount,
+          shapeIndices: Object.freeze([...shapeIndices]),
+          dotCount,
+          referenceIndex,
+          correctLayoutIndex: correctIndex,
+          signatures: Object.freeze(signatures),
+          distractorLayoutIndices: Object.freeze(nearMisses.slice(0, 3).map((entry) => entry.index)),
+          distractorMissingCounts: Object.freeze(nearMisses.slice(0, 3).map((entry) => entry.missingCount)),
+          referenceCells,
+          correctCells,
+        } as const;
+      }
     }
   }
   throw new Error(`DOT-001 layout pool could not construct a unique question for seed ${seed}.`);
@@ -206,8 +262,8 @@ function shapeSvg(shape: Shape): string {
   return `<polygon points="${shape.a.x},${shape.a.y} ${shape.b.x},${shape.b.y} ${shape.c.x},${shape.c.y}"/>`;
 }
 
-function renderLayout(layout: Layout, shapeCount: number, dots: readonly Point[] = []): string {
-  const shapes = layout.shapes.slice(0, shapeCount).map(shapeSvg).join("");
+function renderLayout(layout: Layout, shapeIndices: readonly ShapeIndex[], dots: readonly Point[] = []): string {
+  const shapes = activeShapes(layout, shapeIndices).map(shapeSvg).join("");
   const dotSvg = dots.map((dot) => `<circle cx="${dot.x}" cy="${dot.y}" r="2.55" fill="#111827" stroke="none"/>`).join("");
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="180" height="180" role="img"><rect x="0" y="0" width="120" height="120" fill="white"/><g fill="none" stroke="#111827" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round">${shapes}</g>${dotSvg}</svg>`;
 }
@@ -218,12 +274,17 @@ const SHAPE_NAMES = {
   pa: { CIRCLE: "ਵ੍ਰਿੱਤ", SQUARE: "ਵਰਗ", TRIANGLE: "ਤਿਕੋਣ", RECTANGLE: "ਆਇਤ" },
 } as const;
 
-function signatureRow(signature: string, dotIndex: number, language: DotSituationLanguageV1, shapeCount: number): SignatureRow {
-  const keys = SHAPE_KEYS.slice(0, shapeCount);
+function signatureRow(
+  signature: string,
+  dotIndex: number,
+  language: DotSituationLanguageV1,
+  shapeIndices: readonly ShapeIndex[],
+): SignatureRow {
+  const keys = shapeIndices.map((index) => SHAPE_KEYS[index]);
   const names = keys.map((key) => SHAPE_NAMES[language][key]);
   const insideNames = names.filter((_, index) => signature[index] === "1");
   const outsideNames = names.filter((_, index) => signature[index] === "0");
-  const join = (items: readonly string[]) => items.join(language === "en" ? ", " : ", ");
+  const join = (items: readonly string[]) => items.join(", ");
   let statement: string;
   if (language === "hi") {
     statement = `बिंदु ${DOT_NAMES[dotIndex]} ${join(insideNames)} के अंदर${outsideNames.length ? ` और ${join(outsideNames)} के बाहर` : ""} है।`;
@@ -235,21 +296,22 @@ function signatureRow(signature: string, dotIndex: number, language: DotSituatio
   return Object.freeze({ dot: DOT_NAMES[dotIndex], signature, inside: Object.freeze(insideNames), outside: Object.freeze(outsideNames), statement });
 }
 
-function localizedStem(language: DotSituationLanguageV1, variant: number): string {
+function localizedStem(language: DotSituationLanguageV1, variant: number, dotCount: number): string {
+  const dotWord = dotCount === 1 ? "dot" : "dots";
   const en = [
-    "Study the positions of the dots in the problem figure. Which option contains regions where the dots can be placed under exactly the same conditions?",
-    "In which alternative can the dots be placed so that every dot has the same inside-outside relation with the figures as in the problem figure?",
-    "Choose the alternative that allows all the dots to occupy regions equivalent to those in the problem figure.",
+    `Study the position of the ${dotWord} in the question figure. Select the option in which the ${dotWord} can be placed under the same conditions.`,
+    `Choose the alternative in which every ${dotWord} can be placed with the same relation to the figures as in the question figure.`,
+    `Which option allows the ${dotWord} to be placed in the same relative regions as in the question figure?`,
   ];
   const hi = [
-    "प्रश्न आकृति में बिंदुओं की स्थिति ध्यान से देखें। किस विकल्प में बिंदुओं को ठीक उन्हीं परिस्थितियों वाले क्षेत्रों में रखा जा सकता है?",
-    "किस वैकल्पिक आकृति में प्रत्येक बिंदु का आकृतियों के साथ अंदर-बाहर का संबंध प्रश्न आकृति जैसा रखा जा सकता है?",
-    "उस विकल्प को चुनिए जिसमें सभी बिंदुओं के लिए प्रश्न आकृति के समान क्षेत्र उपलब्ध हों।",
+    "प्रश्न आकृति में बिंदु की स्थिति ध्यान से देखें। उस विकल्प को चुनिए जिसमें बिंदुओं को उन्हीं परिस्थितियों में रखा जा सके।",
+    "उस वैकल्पिक आकृति को चुनिए जिसमें प्रत्येक बिंदु का आकृतियों के साथ वही अंदर-बाहर संबंध बन सके जो प्रश्न आकृति में है।",
+    "किस विकल्प में बिंदुओं को प्रश्न आकृति के समान सापेक्ष क्षेत्रों में रखा जा सकता है?",
   ];
   const pa = [
-    "ਪ੍ਰਸ਼ਨ ਆਕ੍ਰਿਤੀ ਵਿੱਚ ਬਿੰਦੂਆਂ ਦੀ ਸਥਿਤੀ ਧਿਆਨ ਨਾਲ ਵੇਖੋ। ਕਿਹੜੇ ਵਿਕਲਪ ਵਿੱਚ ਬਿੰਦੂ ਠੀਕ ਉਹਨਾਂ ਹੀ ਸ਼ਰਤਾਂ ਵਾਲੇ ਖੇਤਰਾਂ ਵਿੱਚ ਰੱਖੇ ਜਾ ਸਕਦੇ ਹਨ?",
-    "ਕਿਹੜੀ ਵਿਕਲਪੀ ਆਕ੍ਰਿਤੀ ਵਿੱਚ ਹਰ ਬਿੰਦੂ ਦਾ ਆਕ੍ਰਿਤੀਆਂ ਨਾਲ ਅੰਦਰ-ਬਾਹਰ ਸੰਬੰਧ ਪ੍ਰਸ਼ਨ ਆਕ੍ਰਿਤੀ ਵਰਗਾ ਰੱਖਿਆ ਜਾ ਸਕਦਾ ਹੈ?",
-    "ਉਹ ਵਿਕਲਪ ਚੁਣੋ ਜਿਸ ਵਿੱਚ ਸਾਰੇ ਬਿੰਦੂਆਂ ਲਈ ਪ੍ਰਸ਼ਨ ਆਕ੍ਰਿਤੀ ਦੇ ਸਮਾਨ ਖੇਤਰ ਮੌਜੂਦ ਹਨ।",
+    "ਪ੍ਰਸ਼ਨ ਆਕ੍ਰਿਤੀ ਵਿੱਚ ਬਿੰਦੂ ਦੀ ਸਥਿਤੀ ਧਿਆਨ ਨਾਲ ਵੇਖੋ। ਉਹ ਵਿਕਲਪ ਚੁਣੋ ਜਿਸ ਵਿੱਚ ਬਿੰਦੂਆਂ ਨੂੰ ਉਹੀ ਸ਼ਰਤਾਂ ਹੇਠ ਰੱਖਿਆ ਜਾ ਸਕੇ।",
+    "ਉਹ ਵਿਕਲਪੀ ਆਕ੍ਰਿਤੀ ਚੁਣੋ ਜਿਸ ਵਿੱਚ ਹਰ ਬਿੰਦੂ ਦਾ ਆਕ੍ਰਿਤੀਆਂ ਨਾਲ ਉਹੀ ਅੰਦਰ-ਬਾਹਰ ਸੰਬੰਧ ਬਣ ਸਕੇ ਜੋ ਪ੍ਰਸ਼ਨ ਆਕ੍ਰਿਤੀ ਵਿੱਚ ਹੈ।",
+    "ਕਿਹੜੇ ਵਿਕਲਪ ਵਿੱਚ ਬਿੰਦੂਆਂ ਨੂੰ ਪ੍ਰਸ਼ਨ ਆਕ੍ਰਿਤੀ ਵਰਗੇ ਹੀ ਸਾਪੇਖ ਖੇਤਰਾਂ ਵਿੱਚ ਰੱਖਿਆ ਜਾ ਸਕਦਾ ਹੈ?",
   ];
   return (language === "hi" ? hi : language === "pa" ? pa : en)[variant % 3];
 }
@@ -261,26 +323,26 @@ function explanationText(
   failures: readonly { label: string; missing: SignatureRow }[],
 ) {
   const rowText = rows.map((row) => row.statement).join(" ");
-  const failEn = failures.map((failure) => `${failure.label} lacks a safe region for Dot ${failure.missing.dot} (${failure.missing.statement.replace(/^Dot \d+ is /, "")})`).join(" ");
-  const failHi = failures.map((failure) => `${failure.label} में बिंदु ${failure.missing.dot} की पूरी अंदर-बाहर शर्त वाला सुरक्षित क्षेत्र नहीं है।`).join(" ");
-  const failPa = failures.map((failure) => `${failure.label} ਵਿੱਚ ਬਿੰਦੂ ${failure.missing.dot} ਦੀ ਪੂਰੀ ਅੰਦਰ-ਬਾਹਰ ਸ਼ਰਤ ਵਾਲਾ ਸੁਰੱਖਿਅਤ ਖੇਤਰ ਨਹੀਂ ਹੈ।`).join(" ");
+  const failEn = failures.map((failure) => `${failure.label}: Dot ${failure.missing.dot} needs a region that is ${failure.missing.statement.replace(/^Dot \d+ is /, "").replace(/\.$/, "")}, but that region is absent.`).join(" ");
+  const failHi = failures.map((failure) => `${failure.label}: बिंदु ${failure.missing.dot} के लिए आवश्यक पूरा अंदर-बाहर क्षेत्र उपलब्ध नहीं है।`).join(" ");
+  const failPa = failures.map((failure) => `${failure.label}: ਬਿੰਦੂ ${failure.missing.dot} ਲਈ ਲੋੜੀਂਦਾ ਪੂਰਾ ਅੰਦਰ-ਬਾਹਰ ਖੇਤਰ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।`).join(" ");
   if (language === "hi") return Object.freeze({
     observation: rowText,
-    rule: "हर बिंदु के लिए केवल यह देखना पर्याप्त नहीं है कि वह किन आकृतियों के अंदर है; जिन आकृतियों के बाहर है, वे भी उसी शर्त का हिस्सा हैं।",
-    application: `विकल्प ${correctLabel} में तालिका की प्रत्येक पूरी अंदर-बाहर शर्त के लिए स्पष्ट क्षेत्र उपलब्ध है। आकृतियों का स्थान बदल सकता है, पर क्षेत्र-सदस्यता नहीं बदलनी चाहिए।`,
-    check: `${failHi} इसलिए केवल विकल्प ${correctLabel} सभी शर्तें पूरी करता है।`,
+    rule: "हर बिंदु की पूरी स्थिति मिलाइए—वह किन आकृतियों के अंदर है और किनके बाहर। आकृतियों की जगह बदल सकती है, यह संबंध नहीं।",
+    application: `विकल्प ${correctLabel} में हर बिंदु के लिए वही पूरा क्षेत्र मिलता है। नीचे समाधान आकृति में बिंदुओं की एक सही स्थिति दिखाई गई है।`,
+    check: `${failHi} इसलिए केवल विकल्प ${correctLabel} सभी बिंदुओं की शर्तें पूरी करता है।`,
   });
   if (language === "pa") return Object.freeze({
     observation: rowText,
-    rule: "ਹਰ ਬਿੰਦੂ ਲਈ ਸਿਰਫ਼ ਇਹ ਦੇਖਣਾ ਕਾਫ਼ੀ ਨਹੀਂ ਕਿ ਉਹ ਕਿਹੜੀਆਂ ਆਕ੍ਰਿਤੀਆਂ ਦੇ ਅੰਦਰ ਹੈ; ਜਿਨ੍ਹਾਂ ਆਕ੍ਰਿਤੀਆਂ ਦੇ ਬਾਹਰ ਹੈ, ਉਹ ਵੀ ਉਸੇ ਸ਼ਰਤ ਦਾ ਹਿੱਸਾ ਹਨ।",
-    application: `ਵਿਕਲਪ ${correctLabel} ਵਿੱਚ ਸਾਰਣੀ ਦੀ ਹਰ ਪੂਰੀ ਅੰਦਰ-ਬਾਹਰ ਸ਼ਰਤ ਲਈ ਸਾਫ਼ ਖੇਤਰ ਮੌਜੂਦ ਹੈ। ਆਕ੍ਰਿਤੀਆਂ ਦੀ ਥਾਂ ਬਦਲ ਸਕਦੀ ਹੈ, ਪਰ ਖੇਤਰ-ਸਦੱਸਤਾ ਨਹੀਂ।`,
-    check: `${failPa} ਇਸ ਲਈ ਕੇਵਲ ਵਿਕਲਪ ${correctLabel} ਸਾਰੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀ ਕਰਦਾ ਹੈ।`,
+    rule: "ਹਰ ਬਿੰਦੂ ਦੀ ਪੂਰੀ ਸਥਿਤੀ ਮਿਲਾਓ—ਉਹ ਕਿਹੜੀਆਂ ਆਕ੍ਰਿਤੀਆਂ ਦੇ ਅੰਦਰ ਹੈ ਅਤੇ ਕਿਹੜੀਆਂ ਦੇ ਬਾਹਰ। ਆਕ੍ਰਿਤੀਆਂ ਦੀ ਥਾਂ ਬਦਲ ਸਕਦੀ ਹੈ, ਇਹ ਸੰਬੰਧ ਨਹੀਂ।",
+    application: `ਵਿਕਲਪ ${correctLabel} ਵਿੱਚ ਹਰ ਬਿੰਦੂ ਲਈ ਉਹੀ ਪੂਰਾ ਖੇਤਰ ਮਿਲਦਾ ਹੈ। ਹੇਠਾਂ ਹੱਲ ਆਕ੍ਰਿਤੀ ਵਿੱਚ ਬਿੰਦੂਆਂ ਦੀ ਇੱਕ ਸਹੀ ਸਥਿਤੀ ਦਿਖਾਈ ਗਈ ਹੈ।`,
+    check: `${failPa} ਇਸ ਲਈ ਕੇਵਲ ਵਿਕਲਪ ${correctLabel} ਸਾਰੇ ਬਿੰਦੂਆਂ ਦੀਆਂ ਸ਼ਰਤਾਂ ਪੂਰੀ ਕਰਦਾ ਹੈ।`,
   });
   return Object.freeze({
     observation: rowText,
-    rule: "For each dot, match the complete condition: the shapes it is inside and the shapes it is outside. Rearrangement of the shapes does not change this condition.",
-    application: `Option ${correctLabel} contains a clear region for every complete inside-outside condition listed in the table. The dots may be placed anywhere safely inside those matching regions.`,
-    check: `${failEn} Therefore only option ${correctLabel} satisfies every required dot condition.`,
+    rule: "Match the complete position of each dot: which figures contain it and which figures do not. The figures may be rearranged, but this relation must stay the same.",
+    application: `Option ${correctLabel} has a matching region for every dot. The solution figure below shows one valid placement of the dots in that option.`,
+    check: `${failEn} Therefore only option ${correctLabel} satisfies all dot conditions.`,
   });
 }
 
@@ -303,10 +365,10 @@ export function generateDotSituationReviewQuestionV1(input: Readonly<{
   const correctIndex = optionLayoutIndices.indexOf(puzzle.correctLayoutIndex);
   if (correctIndex < 0) throw new Error("DOT-001 correct layout was lost during option shuffle.");
 
-  const rows = puzzle.signatures.map((signature, index) => signatureRow(signature, index, input.language, puzzle.shapeCount));
+  const rows = puzzle.signatures.map((signature, index) => signatureRow(signature, index, input.language, puzzle.shapeIndices));
   const failures = optionLayoutIndices.map((layoutIndex, optionIndex) => {
     if (layoutIndex === puzzle.correctLayoutIndex) return null;
-    const cells = availableCells(LAYOUTS[layoutIndex], puzzle.shapeCount);
+    const cells = availableCells(LAYOUTS[layoutIndex], puzzle.shapeIndices);
     const missingIndex = puzzle.signatures.findIndex((signature) => !cells.has(signature));
     if (missingIndex < 0) throw new Error("DOT-001 distractor unexpectedly realizes every required signature.");
     return { label: OPTION_LABELS[optionIndex], missing: rows[missingIndex] };
@@ -316,13 +378,19 @@ export function generateDotSituationReviewQuestionV1(input: Readonly<{
     const candidates = puzzle.correctCells.get(signature)!;
     return candidates[(puzzle.h + index * 23) % candidates.length];
   });
+  for (let index = 0; index < correctCandidatePoints.length; index += 1) {
+    if (signatureAt(LAYOUTS[puzzle.correctLayoutIndex], puzzle.shapeIndices, correctCandidatePoints[index]) !== puzzle.signatures[index]) {
+      throw new Error("DOT-001 solution-dot placement did not recompute to its required signature.");
+    }
+  }
+
   const difficulty: DotSituationDifficultyV1 = puzzle.shapeCount === 2 && puzzle.dotCount === 1
     ? "EASY"
     : puzzle.shapeCount === 4 || puzzle.dotCount === 3 ? "HARD" : "MODERATE";
-  const stem = localizedStem(input.language, puzzle.h);
+  const stem = localizedStem(input.language, puzzle.h, puzzle.dotCount);
   const explanation = explanationText(input.language, rows, OPTION_LABELS[correctIndex], failures);
   const geometryKey = JSON.stringify({
-    shapeCount: puzzle.shapeCount,
+    shapeIndices: puzzle.shapeIndices,
     referenceIndex: puzzle.referenceIndex,
     optionLayoutIndices,
     signatures: puzzle.signatures,
@@ -340,20 +408,23 @@ export function generateDotSituationReviewQuestionV1(input: Readonly<{
     seed: input.seed,
     difficulty,
     stem,
-    stimulusSvg: renderLayout(referenceLayout, puzzle.shapeCount, referenceDots),
-    optionSvgs: Object.freeze(optionLayoutIndices.map((layoutIndex) => renderLayout(LAYOUTS[layoutIndex], puzzle.shapeCount))),
+    stimulusSvg: renderLayout(referenceLayout, puzzle.shapeIndices, referenceDots),
+    optionSvgs: Object.freeze(optionLayoutIndices.map((layoutIndex) => renderLayout(LAYOUTS[layoutIndex], puzzle.shapeIndices))),
+    solutionSvg: renderLayout(LAYOUTS[puzzle.correctLayoutIndex], puzzle.shapeIndices, correctCandidatePoints),
     optionLabels: OPTION_LABELS,
     correctIndex,
     answer: OPTION_LABELS[correctIndex],
     explanation: Object.freeze({ ...explanation, membershipTable: Object.freeze(rows) }),
     solveFacts: Object.freeze({
       shapeCount: puzzle.shapeCount,
+      shapeIndices: Object.freeze([...puzzle.shapeIndices]),
       dotCount: puzzle.dotCount,
-      shapeKinds: Object.freeze(SHAPE_KEYS.slice(0, puzzle.shapeCount)),
+      shapeKinds: Object.freeze(puzzle.shapeIndices.map((index) => SHAPE_KEYS[index])),
       requiredSignatures: Object.freeze([...puzzle.signatures]),
       referenceDotPoints: Object.freeze(referenceDots),
       correctCandidatePoints: Object.freeze(correctCandidatePoints),
       optionLayoutIndices: Object.freeze(optionLayoutIndices),
+      distractorMissingCounts: puzzle.distractorMissingCounts,
       distractorFailures: Object.freeze(failures.map((failure) => Object.freeze({ option: failure.label, missingSignature: failure.missing.signature, dot: failure.missing.dot }))),
       boundarySafetyMargin: BOUNDARY_MARGIN,
     }),
@@ -363,6 +434,10 @@ export function generateDotSituationReviewQuestionV1(input: Readonly<{
       boundarySafetyMarginEnforced: true as const,
       correctOptionRealizesEverySignature: true as const,
       everyDistractorBreaksRequiredSignature: true as const,
+      nearMissDistractorsPreferred: true as const,
+      exactSquareGeometry: true as const,
+      activeShapeSubsetsSupported: true as const,
+      solutionIllustrationIncluded: true as const,
       uniqueAnswer: true as const,
       duplicateSemanticOptionsRejected: true as const,
       deterministic: true as const,
