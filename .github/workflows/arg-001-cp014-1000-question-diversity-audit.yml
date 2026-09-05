@@ -52,6 +52,7 @@ jobs:
       - name: Strict TypeScript check for CP015 diversity authority
         working-directory: artifacts/api-server
         run: |
+          set -o pipefail
           pnpm exec tsc \
             --noEmit \
             --target es2022 \
@@ -67,7 +68,17 @@ jobs:
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts \
             src/routes/admin-question-studio-arguments-cp015.ts \
-            src/routes/admin-question-studio-registry.ts
+            src/routes/admin-question-studio-registry.ts \
+            2>&1 | tee cp015-strict-tsc.log
+
+      - name: Upload CP015 strict TypeScript diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: arg-cp015-strict-tsc-diagnostics
+          path: artifacts/api-server/cp015-strict-tsc.log
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Gate CP015 deterministic 1000-question diversity
         working-directory: artifacts/api-server
