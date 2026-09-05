@@ -56,7 +56,7 @@ jobs:
           grep -F 'router.use("/admin/notes-studio-v2", adminNotesStudioV2GenerationRouter);' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/notes-studio-v2", adminNotesStudioV2Router);' artifacts/api-server/src/routes/index.ts
           grep -F 'router.use("/admin/notes-studio-v2", adminNotesStudioV2ReviewStateRouter);' artifacts/api-server/src/routes/index.ts
-          grep -F "source prose" artifacts/api-server/src/routes/admin-notes-studio-v2-review-state.ts
+          grep -F "no corpus text or verification evidence crosses this route" artifacts/api-server/src/routes/admin-notes-studio-v2-review-state.ts
 
       - name: Verify reviewed style exemplars
         run: |
