@@ -144,7 +144,7 @@ export default function CategoryPage() {
   const categoryTone = CATEGORY_TONES[category.color ?? "blue"] ?? CATEGORY_TONES.blue;
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#f7f8fc] text-slate-950">
+    <div className="sites-page-shell category-page min-h-screen overflow-x-hidden bg-[#f7f8fc] text-slate-950">
       <div className="mx-auto w-full max-w-6xl px-4 pb-16 pt-5 sm:px-6 sm:pt-7 lg:px-8">
         <button
           type="button"
