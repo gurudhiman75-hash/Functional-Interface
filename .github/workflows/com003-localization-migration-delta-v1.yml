@@ -11,6 +11,8 @@ on:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-lexicon-coverage-v1.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-lexicon-coverage-v1.test.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-translation-memory-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-semantic-reuse-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-semantic-reuse-v1.test.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-authoring-packet.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-authoring-packet.test.ts'
       - '.github/workflows/com003-localization-migration-delta-v1.yml'
@@ -24,6 +26,8 @@ on:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-lexicon-coverage-v1.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-lexicon-coverage-v1.test.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-translation-memory-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-semantic-reuse-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-semantic-reuse-v1.test.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-authoring-packet.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-authoring-packet.test.ts'
       - '.github/workflows/com003-localization-migration-delta-v1.yml'
@@ -62,6 +66,10 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/com003-localization-migration-v1/lexicon.test.mjs
           pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-localization-semantic-reuse-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-localization-migration-v1/semantic-reuse.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
             src/knowledge-v1/computer-awareness/com003-localization-v2-authoring-packet.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/com003-localization-migration-v1/authoring.test.mjs
@@ -77,6 +85,8 @@ jobs:
         run: node artifacts/api-server/dist/com003-localization-migration-v1/audit.test.mjs
       - name: Run bilingual lexicon coverage audit
         run: node artifacts/api-server/dist/com003-localization-migration-v1/lexicon.test.mjs
+      - name: Run semantic reuse audit
+        run: node artifacts/api-server/dist/com003-localization-migration-v1/semantic-reuse.test.mjs
       - name: Run V2 authoring packet audit
         run: node artifacts/api-server/dist/com003-localization-migration-v1/authoring.test.mjs
       - name: Generate migration report and authoring packet
