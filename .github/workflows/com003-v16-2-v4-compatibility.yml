@@ -1,0 +1,49 @@
+name: COM-003 V16.2 V4 Incompatibility Lock
+
+on:
+  push:
+    branches:
+      - feature/com003-office-productivity-discovery-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-v16-2-v4-compatibility-audit.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-v16-2-v4-compatibility-audit.test.ts'
+      - '.github/workflows/com003-v16-2-v4-compatibility.yml'
+  pull_request:
+    branches:
+      - integration/computer-content-engine-mainline-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-v16-2-v4-compatibility-audit.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-v16-2-v4-compatibility-audit.test.ts'
+      - '.github/workflows/com003-v16-2-v4-compatibility.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: com003-v16-2-v4-incompatibility-lock-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle incompatibility lock
+        run: |
+          mkdir -p artifacts/api-server/dist/com003-v16-2-v4-compatibility
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-v16-2-v4-compatibility-audit.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-v16-2-v4-compatibility/audit.test.mjs
+      - name: Verify V4 cannot back V16.2 localization
+        run: node artifacts/api-server/dist/com003-v16-2-v4-compatibility/audit.test.mjs

@@ -1,0 +1,32 @@
+import fs from "node:fs";
+import path from "node:path";
+import { COM003_LOCALIZATION_MIGRATION_DELTA_V1 } from "./com003-localization-migration-delta-v1";
+import { COM003_LOCALIZATION_LEXICON_COVERAGE_V1 } from "./com003-localization-lexicon-coverage-v1";
+
+const esc=(v:unknown)=>String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+
+export function buildCom003LocalizationMigrationReportV1(){
+ const a=COM003_LOCALIZATION_MIGRATION_DELTA_V1;
+ const lex=COM003_LOCALIZATION_LEXICON_COVERAGE_V1;
+ if(!a.valid) throw new Error(`COM-003 localization migration delta invalid: ${a.issues.join(", ")}`);
+ const qlRows=a.perQl.map(q=>`<tr><td>${esc(q.qlId)}</td><td>${q.questions}</td><td>${q.fullArtifactReuse}</td><td>${q.orderedOptionReuse}</td><td>${q.vocabularyOptionReuse}</td><td>${q.answerTermReuse}</td><td>${q.fullReauthor}</td></tr>`).join("");
+ const actions=Object.entries(a.actionCounts).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${v}</td><td>${Number(v)*2} localized artifacts</td></tr>`).join("");
+ const classes=Object.entries(a.classCounts).map(([k,v])=>`<tr><td>${esc(k)}</td><td>${v}</td></tr>`).join("");
+ return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>COM-003 Localization Migration Delta V1</title><style>:root{font-family:Inter,Arial,sans-serif;color:#172033;background:#f4f6f8}body{margin:0}.wrap{max-width:1050px;margin:auto;padding:24px 18px 60px}.card{background:#fff;border:1px solid #dfe4ea;border-radius:13px;padding:20px;margin:12px 0}.stats{display:flex;gap:8px;flex-wrap:wrap}.stat{background:#eef3f8;padding:9px 12px;border-radius:9px;font-weight:800}.warn{background:#fff1f2;border-radius:8px;padding:12px;margin-top:12px}.ok{background:#edf8ef;border-radius:8px;padding:12px;margin-top:12px}table{width:100%;border-collapse:collapse;background:#fff}th,td{text-align:left;padding:9px;border-bottom:1px solid #e3e7eb;font-size:13px}th{background:#f7f8fa;position:sticky;top:0}.small{font-size:13px;line-height:1.5;color:#4b586c}</style></head><body><main class="wrap"><div class="card"><h1>COM-003 — Localization Migration Delta V1</h1><p>Legacy: V4 localization lineage → Target: V16.2 reviewed English corpus</p><div class="stats"><div class="stat">228 English questions</div><div class="stat">456 localized artifacts affected</div><div class="stat">${a.fullLocalizedArtifactsReusable} full localized artifacts reusable</div><div class="stat">${a.localizedArtifactsRequiringNewStemOrMore} need new learner-facing localization</div><div class="stat">${a.orderedOptionReuse} ordered-option reuse</div><div class="stat">${a.vocabularyOptionReuse} option-vocabulary reuse</div><div class="stat">${a.answerTermReuse} answer-term reuse</div></div><div class="warn"><b>Fail-closed rule:</b> a legacy Hindi/Punjabi artifact is reused only when the complete English learner surface and semantic structure match. Fact/answer or option reuse does not authorize reuse of an old stem or explanation.</div><div class="ok"><b>Migration insight:</b> no complete localized question survives unchanged. However, the old bilingual corpus still covers all four option translations for ${lex.hindi.questionsWithAllOptionsCovered}/228 target questions in Hindi and ${lex.punjabi.questionsWithAllOptionsCovered}/228 in Punjabi. Only ${lex.hindi.uniqueTargetOptionsMissing} of ${lex.hindi.uniqueTargetOptions} unique option terms are missing from each legacy lexicon. Exact old stem/explanation reuse is ${lex.hindi.exactStemTranslationReusable}/${lex.hindi.exactExplanationTranslationReusable}.</div></div><div class="card"><h2>Bilingual lexicon coverage</h2><table><thead><tr><th>Language</th><th>Questions with all options covered</th><th>Unique option terms covered</th><th>Unique answers covered</th><th>Ambiguous option keys</th></tr></thead><tbody><tr><td>Hindi</td><td>${lex.hindi.questionsWithAllOptionsCovered}/228</td><td>${lex.hindi.uniqueTargetOptionsCovered}/${lex.hindi.uniqueTargetOptions}</td><td>${lex.hindi.uniqueTargetAnswersCovered}/${lex.hindi.uniqueTargetAnswers}</td><td>${lex.hindi.ambiguousOptionKeyCount}</td></tr><tr><td>Punjabi</td><td>${lex.punjabi.questionsWithAllOptionsCovered}/228</td><td>${lex.punjabi.uniqueTargetOptionsCovered}/${lex.punjabi.uniqueTargetOptions}</td><td>${lex.punjabi.uniqueTargetAnswersCovered}/${lex.punjabi.uniqueTargetAnswers}</td><td>${lex.punjabi.ambiguousOptionKeyCount}</td></tr></tbody></table><p class="small">Lexicon coverage is an authoring accelerator only. Ambiguous keys and missing terms require explicit governed translation decisions.</p></div><div class="card"><h2>Required localization actions</h2><table><thead><tr><th>Action</th><th>English questions</th><th>HI+PA artifacts</th></tr></thead><tbody>${actions}</tbody></table></div><div class="card"><h2>Match classes</h2><table><thead><tr><th>Class</th><th>Questions</th></tr></thead><tbody>${classes}</tbody></table></div><div class="card"><h2>Per-QL migration breakdown</h2><table><thead><tr><th>QL</th><th>Q</th><th>Full reuse</th><th>Ordered options</th><th>Option vocabulary</th><th>Answer term</th><th>Full reauthor</th></tr></thead><tbody>${qlRows}</tbody></table><p class="small">“Full reauthor” means old localized stem/explanation/options cannot be safely carried forward as a complete question. Reusable terminology can still seed the new localization authoring layer, but every V16.2 localized output must pass semantic parity against the V16.2 English source.</p></div></main></body></html>`;
+}
+
+export function writeCom003LocalizationMigrationReportV1(outputDir=path.resolve("dist/com003-localization-migration")){
+ fs.mkdirSync(outputDir,{recursive:true});
+ const html=path.join(outputDir,"COM-003-Localization-Migration-Delta-V1.html");
+ const json=path.join(outputDir,"COM-003-Localization-Migration-Delta-V1.json");
+ const lexiconJson=path.join(outputDir,"COM-003-Localization-Lexicon-Coverage-V1.json");
+ fs.writeFileSync(html,buildCom003LocalizationMigrationReportV1(),"utf8");
+ fs.writeFileSync(json,JSON.stringify(COM003_LOCALIZATION_MIGRATION_DELTA_V1,null,2),"utf8");
+ fs.writeFileSync(lexiconJson,JSON.stringify(COM003_LOCALIZATION_LEXICON_COVERAGE_V1,null,2),"utf8");
+ return {html,json,lexiconJson};
+}
+
+if(process.argv[1]?.includes("report")){
+ const p=writeCom003LocalizationMigrationReportV1();
+ console.log("[COM003-LOCALIZATION-MIGRATION-REPORT-V1]",p);
+}

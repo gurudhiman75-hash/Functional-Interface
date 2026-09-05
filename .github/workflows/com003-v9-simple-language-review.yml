@@ -1,0 +1,60 @@
+name: COM-003 V9 Simple Language Review
+
+on:
+  push:
+    branches:
+      - feature/com003-office-productivity-discovery-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-synthesis-v9.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-synthesis-v9.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-review-md-v9.ts'
+      - '.github/workflows/com003-v9-simple-language-review.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-export:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Validate V9 simple exam language
+        run: |
+          mkdir -p artifacts/api-server/dist/com003-review-v9
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/computer-awareness/com003-review-synthesis-v9.test.ts --bundle --platform=node --format=esm --outfile=dist/com003-review-v9/com003-review-synthesis-v9.test.mjs
+          set +e
+          node artifacts/api-server/dist/com003-review-v9/com003-review-synthesis-v9.test.mjs 2>&1 | tee artifacts/api-server/dist/com003-review-v9/validation.log
+          STATUS=${PIPESTATUS[0]}
+          set -e
+          exit $STATUS
+      - name: Upload validation diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: com003-v9-validation-log
+          path: artifacts/api-server/dist/com003-review-v9/validation.log
+          if-no-files-found: warn
+      - name: Generate V9 Markdown review file
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/computer-awareness/com003-question-review-md-v9.ts --bundle --platform=node --format=esm --outfile=dist/com003-review-v9/com003-question-review-md-v9.mjs
+          cd artifacts/api-server && node dist/com003-review-v9/com003-question-review-md-v9.mjs
+      - name: Verify Markdown review file
+        run: |
+          FILE=artifacts/api-server/dist/com003-review-v9/COM-003-Office-Productivity-English-Question-Review-V9.md
+          test -s "$FILE"
+          grep -q 'English V9 · Simple Standard Exam Language Review Candidate' "$FILE"
+          grep -q '228 questions' "$FILE"
+          grep -q 'COM-003-QL-019' "$FILE"
+          ! grep -Eiq '\b(appropriate|practical effect|correct choice|correctly represents|example or description|quickest keyboard|key combination)\b' "$FILE"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: com003-office-productivity-english-question-review-v9
+          path: artifacts/api-server/dist/com003-review-v9/COM-003-Office-Productivity-English-Question-Review-V9.md
+          if-no-files-found: error

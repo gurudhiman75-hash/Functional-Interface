@@ -1,0 +1,179 @@
+name: COM-003 Review Synthesis One-Off
+
+on:
+  push:
+    branches:
+      - feature/com003-office-productivity-discovery-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-review-file-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-editorial-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-controlled-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-permanent-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-english-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-studio-*.ts'
+      - 'artifacts/api-server/src/question-studio/engine-types.ts'
+      - 'artifacts/api-server/src/question-studio/engines/*com003*.ts'
+      - 'artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-com003.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - 'artifacts/admin-app/src/features/question-studio/com003-preview-api.ts'
+      - 'artifacts/admin-app/src/features/question-studio/com003-review-api.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioCom003PreviewPanel.tsx'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioCom003ReviewPanel.tsx'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx'
+      - '.github/workflows/com003-review-synthesis-oneoff.yml'
+  pull_request:
+    branches:
+      - integration/computer-content-engine-mainline-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-review-file-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-editorial-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-controlled-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-permanent-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-english-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-*.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-studio-*.ts'
+      - 'artifacts/api-server/src/question-studio/engine-types.ts'
+      - 'artifacts/api-server/src/question-studio/engines/*com003*.ts'
+      - 'artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-com003.ts'
+      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
+      - 'artifacts/admin-app/src/features/question-studio/com003-preview-api.ts'
+      - 'artifacts/admin-app/src/features/question-studio/com003-review-api.ts'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioCom003PreviewPanel.tsx'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioCom003ReviewPanel.tsx'
+      - 'artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx'
+      - '.github/workflows/com003-review-synthesis-oneoff.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: com003-review-synthesis-oneoff-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
+      - name: Bundle COM-003 English freeze, localization and Question Studio gates
+        run: |
+          mkdir -p artifacts/api-server/dist/com003-review-synthesis-oneoff
+          for test in \
+            com003-review-synthesis-v15.test \
+            com003-review-synthesis-v16.test \
+            com003-review-synthesis-v16-1.test \
+            com003-editorial-quality-audit-v3.test \
+            com003-english-freeze-v1.test \
+            com003-localization-packet-v1.test \
+            com003-localization-wave1-audit-v3.test \
+            com003-localization-wave1-freeze-v1.test \
+            com003-localization-wave2-audit-v3.test \
+            com003-localization-wave2-freeze-v1.test \
+            com003-localization-wave3-audit-v2.test \
+            com003-localization-wave3-freeze-v1.test \
+            com003-localization-wave4-audit-v2.test \
+            com003-localization-wave4-freeze-v1.test \
+            com003-localization-chapter-freeze-v1.test \
+            com003-question-studio-pre-registration-audit-v1.test \
+            com003-question-studio-pre-registration-freeze-v1.test \
+            com003-question-studio-read-only-route-contract-v1.test \
+            com003-question-studio-read-only-preview-freeze-v1.test \
+            com003-question-studio-admin-preview-ui-contract-v1.test \
+            com003-question-studio-admin-preview-ui-freeze-v1.test \
+            com003-question-studio-review-run-ui-contract-v1.test \
+            com003-question-studio-review-only-route-contract-v1.test \
+            com003-question-studio-review-only-freeze-v1.test; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              src/knowledge-v1/computer-awareness/${test}.ts \
+              --bundle --platform=node --format=esm \
+              --outfile=dist/com003-review-synthesis-oneoff/${test}.mjs
+          done
+          for test in \
+            com003-question-bank-readiness-candidate-v1.test \
+            knowledge-v1-com003-adapter-v1.test \
+            com003-review-only-registry-contract-v1.test \
+            com003-source-controlled-review-contract-v1.test \
+            com003-review-only-approval-contract-v1.test \
+            com003-regeneration-lock-contract-v1.test; do
+            pnpm --dir artifacts/api-server exec esbuild \
+              src/question-studio/engines/${test}.ts \
+              --bundle --platform=node --format=esm \
+              --outfile=dist/com003-review-synthesis-oneoff/${test}.mjs
+          done
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-question-review-file-v1.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-review-synthesis-oneoff/com003-question-review-file-v1.mjs
+      - name: Run COM-003 English freeze, localization and Question Studio gates
+        run: |
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-synthesis-v15.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-synthesis-v16.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-synthesis-v16-1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-editorial-quality-audit-v3.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-english-freeze-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-packet-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-wave1-audit-v3.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-wave1-freeze-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-wave2-audit-v3.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-wave2-freeze-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-wave3-audit-v2.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-wave3-freeze-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-wave4-audit-v2.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-wave4-freeze-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-localization-chapter-freeze-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-pre-registration-audit-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-pre-registration-freeze-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-read-only-route-contract-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-read-only-preview-freeze-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-admin-preview-ui-contract-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-admin-preview-ui-freeze-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-review-run-ui-contract-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-review-only-route-contract-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-studio-review-only-freeze-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-question-bank-readiness-candidate-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/knowledge-v1-com003-adapter-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-only-registry-contract-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-source-controlled-review-contract-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-review-only-approval-contract-v1.test.mjs
+          node artifacts/api-server/dist/com003-review-synthesis-oneoff/com003-regeneration-lock-contract-v1.test.mjs
+      - name: Generate frozen COM-003 question review file
+        run: cd artifacts/api-server && node dist/com003-review-synthesis-oneoff/com003-question-review-file-v1.mjs
+      - name: Verify question review file
+        run: |
+          test -s artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          grep -q '228 questions' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          grep -q 'COM-003-QL-019' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          grep -q 'English V16.1' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          ! grep -q 'Powerpoint' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          ! grep -qi 'Which term is described by the following statement' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          ! grep -qi 'refers to which term' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          ! grep -qi 'used for this purpose:' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          ! grep -q 'In Microsoft Word, in Microsoft Word' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          ! grep -q 'In Microsoft PowerPoint, in Microsoft PowerPoint' artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+      - name: Upload COM-003 question review file
+        uses: actions/upload-artifact@v4
+        with:
+          name: com003-office-productivity-english-question-review-v1
+          path: artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          if-no-files-found: error

@@ -1,0 +1,58 @@
+name: COM-003 Localization V2 Wave 3
+
+on:
+  push:
+    branches: [feature/com003-office-productivity-discovery-v1]
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave3.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave3.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave3-review-file.ts'
+      - '.github/workflows/com003-localization-v2-wave3.yml'
+  pull_request:
+    branches: [integration/computer-content-engine-mainline-v1]
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave3.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave3.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave3-review-file.ts'
+      - '.github/workflows/com003-localization-v2-wave3.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: com003-localization-v2-wave3-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle audit and review file
+        run: |
+          mkdir -p artifacts/api-server/dist/com003-localization-v2-wave3-build
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/computer-awareness/com003-localization-v2-wave3.test.ts --bundle --platform=node --format=esm --outfile=dist/com003-localization-v2-wave3-build/test.mjs
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/computer-awareness/com003-localization-v2-wave3-review-file.ts --bundle --platform=node --format=esm --outfile=dist/com003-localization-v2-wave3-build/review.mjs
+      - name: Run Wave 3 audit
+        run: node artifacts/api-server/dist/com003-localization-v2-wave3-build/test.mjs
+      - name: Generate review file
+        run: cd artifacts/api-server && node dist/com003-localization-v2-wave3-build/review.mjs
+      - name: Verify review file
+        run: |
+          FILE=artifacts/api-server/dist/com003-localization-v2-wave3/COM-003-Localization-V2-Wave3-Review.html
+          test -s "$FILE"
+          grep -q 'QL-010..014' "$FILE"
+          grep -q 'COM-003-QL-014' "$FILE"
+          grep -q 'Hindi' "$FILE"
+          grep -q 'Punjabi' "$FILE"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: com003-localization-v2-wave3-review
+          path: artifacts/api-server/dist/com003-localization-v2-wave3/COM-003-Localization-V2-Wave3-Review.html
+          if-no-files-found: error
