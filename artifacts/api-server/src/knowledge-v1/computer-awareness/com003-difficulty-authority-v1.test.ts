@@ -24,9 +24,9 @@ for (const { question, decision } of decisions) {
   assert.ok(decision.rationale.length >= 40, `${question.questionId}:thin rationale`);
 }
 
-assert.deepEqual(counts, { Easy: 92, Medium: 136, Hard: 0 });
-assert.equal(filterCom003ByDifficultyV1(COM003_ENGLISH_REVIEW_CORPUS_V16_2, "Easy").length, 92);
-assert.equal(filterCom003ByDifficultyV1(COM003_ENGLISH_REVIEW_CORPUS_V16_2, "Medium").length, 136);
+assert.deepEqual(counts, { Easy: 96, Medium: 132, Hard: 0 });
+assert.equal(filterCom003ByDifficultyV1(COM003_ENGLISH_REVIEW_CORPUS_V16_2, "Easy").length, 96);
+assert.equal(filterCom003ByDifficultyV1(COM003_ENGLISH_REVIEW_CORPUS_V16_2, "Medium").length, 132);
 assert.equal(filterCom003ByDifficultyV1(COM003_ENGLISH_REVIEW_CORPUS_V16_2, "Hard").length, 0);
 assert.equal(filterCom003ByDifficultyV1(COM003_ENGLISH_REVIEW_CORPUS_V16_2, "Mixed").length, 228);
 assert.equal(COM003_HARD_DIFFICULTY_STATUS_V1.authorized, false);
@@ -40,6 +40,12 @@ for (const ql of COM003_PERMANENT_QLS) {
 for (const qlId of ["COM-003-QL-011", "COM-003-QL-015", "COM-003-QL-018"]) {
   const qlDecisions = decisions.filter(({ question }) => question.qlId === qlId);
   assert.ok(qlDecisions.every(({ decision }) => decision.difficulty === "Medium"), `${qlId}:must remain Medium-only`);
+}
+
+for (const q of COM003_ENGLISH_REVIEW_CORPUS_V16_2.filter((q) => q.surfaceMode === "CELL_ADDRESS_INTERPRETATION" || q.surfaceMode === "ORIENTATION_FROM_DIMENSIONS")) {
+  if (q.examSurfaceFamily === "DIRECT_RECALL" || q.examSurfaceFamily === "FUNCTIONAL_APPLICATION") {
+    assert.equal(classifyCom003DifficultyV1(q).difficulty, "Easy", `${q.questionId}:one-step interpretation must remain Easy`);
+  }
 }
 
 console.log("[COM003-DIFFICULTY-V1]", {
