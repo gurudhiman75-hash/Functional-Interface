@@ -40,21 +40,9 @@ The frozen learner runtime is immutable unless a later reviewed authority explic
 
 The current Spatial package is extended by `spatial-question-studio-integration-v7.ts` to **49 production QLs**, adding `SPA-QL-054` / `DOT-001`. `spatial-question-studio-production-v7.ts` routes the approved DOT runtime through the standard Question Studio lifecycle. Compatibility aliases in the existing V6 gateway expose the new V7 package without invalidating the immutable FFM V6 checkpoint.
 
-DOT items are now:
+DOT items are now Question Studio discoverable, generation enabled, persistence / Question Bank writable and internal test-builder eligible. Manual approval and manual question publication remain required.
 
-- Question Studio discoverable: **true**
-- generation enabled: **true**
-- persistence / Question Bank writable: **true**
-- internal test-builder eligible: **true**
-- manual approval required: **true**
-- manual question publication required: **true**
-
-They remain:
-
-- mock-test eligible: **false**
-- public release authorized: **false**
-- student delivery authorized: **false**
-- automatic student publication: **false**
+Mock-test eligibility, public release authorization, student delivery authorization and automatic student publication remain **false**.
 
 ## CI authority
 
