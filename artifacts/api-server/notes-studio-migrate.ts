@@ -22,6 +22,9 @@ async function loadMigrations(migrationsDir: string): Promise<MigrationFile[]> {
   const manifestNames = new Set<string>(NOTES_STUDIO_MIGRATIONS);
   const diskNames = (await readdir(migrationsDir))
     .filter((fileName) => /^\d{8}_notes_studio.*\.sql$/.test(fileName))
+    // Notes Studio v2 has an independent migration authority and ledger.
+    // Never let the legacy v1 drift check claim v2 migration files.
+    .filter((fileName) => !/^\d{8}_notes_studio_v2(?:_|\.)/.test(fileName))
     .sort();
   const unmanifested = diskNames.filter((fileName) => !manifestNames.has(fileName));
   if (unmanifested.length > 0) {
