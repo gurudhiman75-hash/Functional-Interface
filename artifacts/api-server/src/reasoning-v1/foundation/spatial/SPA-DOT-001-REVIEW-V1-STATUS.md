@@ -37,7 +37,9 @@ The chapter owns preservation of each dot's complete region-membership signature
 
 ## CI policy
 
-`.github/workflows/spa-dot-001-review-v1.yml` is manual (`workflow_dispatch`) only. This avoids adding another automatic historical/review workflow before DOT-001 reaches a freeze/integration authority.
+`.github/workflows/spa-dot-001-review-v1.yml` is the current active DOT-001 checkpoint authority. It runs on relevant pull-request changes and also supports `workflow_dispatch`. Concurrency cancellation prevents stale DOT runs from competing. Once a later DOT freeze/integration authority supersedes this checkpoint, this review workflow must be converted back to manual-only in accordance with the repository CI fanout policy.
+
+The uploaded `spa-dot-001-review-v1` artifact retains the semantic evidence JSON, semantic run log, HTML/JSON visual review pack, and visual-pack generation log.
 
 ## Gates intentionally closed
 
