@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
 
 import { normalizeGeneratedQuestionPayload } from "../../lib/admin-question-conversion";
 import { productionPayloadV5 } from "../../routes/admin-question-studio-spatial-v5";
@@ -83,6 +85,8 @@ for (const language of ["en", "hi", "pa"] as const) {
     assert.ok(question.correctIndex >= 0 && question.correctIndex < 4);
     assert.equal(question.answer, question.optionLabels[question.correctIndex]);
     assert.match(question.explanationIllustrationSvg, /^<svg\b/);
+    assert.ok(question.explanation.membershipTable.length >= 1);
+    assert.equal(question.explanation.membershipTable.length, question.solveFacts.dotCount);
     assert.equal(question.validation.uniqueAnswer, true);
     assert.equal(question.validation.signaturesRecomputedFromGeometry, true);
     assert.equal(question.validation.completeInsideOutsideSignature, true);
@@ -123,6 +127,12 @@ const conversionQuestion = generateSpatialProductionStudioQuestionV7({
 const persistedPayload = productionPayloadV5(conversionQuestion);
 assert.equal(typeof persistedPayload.explanationIllustrationSvg, "string");
 assert.equal(persistedPayload.optionSvgs?.length, 4);
+assert.ok(Array.isArray(persistedPayload.richExplanation.membershipTable));
+assert.equal(
+  persistedPayload.richExplanation.membershipTable.length,
+  conversionQuestion.solveFacts.dotCount,
+  "Question Studio payload must retain the approved per-dot membership table.",
+);
 assert.equal(persistedPayload.questionBankWritable, true);
 assert.equal(persistedPayload.testBuilderEligible, true);
 assert.equal(persistedPayload.mockTestEligible, false);
@@ -139,6 +149,16 @@ assert.equal(
   "spatial_svg_data_image_v1",
 );
 
+const repoRoot = resolve(import.meta.dirname, "../../../../..");
+const spatialPanel = readFileSync(resolve(repoRoot, "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"), "utf8");
+const spatialApi = readFileSync(resolve(repoRoot, "artifacts/admin-app/src/features/question-studio/spatial-review-api.ts"), "utf8");
+const spatialWorkflow = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-spatial-workflow.ts"), "utf8");
+assert.ok(spatialApi.includes("'DOT-001'"), "Spatial admin API type must expose Dot Situation.");
+assert.ok(spatialPanel.includes("'DOT-001': 'Dot Situation'"), "Spatial panel must expose the Dot Situation chapter filter.");
+assert.ok(spatialPanel.includes("question.explanation.membershipTable"), "Spatial panel must render the approved DOT membership table.");
+assert.ok(spatialPanel.includes("Solution: one valid placement preserving every dot-region relation"), "Spatial panel must label the DOT solution illustration correctly.");
+assert.ok(spatialWorkflow.includes("SPATIAL_QUESTION_STUDIO_PACKAGE_V1 as SPATIAL_QUESTION_STUDIO_PACKAGE_V6"), "Shared SPA workflow must use the compatibility-safe current 49-QL alias.");
+
 console.log(JSON.stringify({
   status: "PASS_DOT_001_APPROVED_FREEZE_QUESTION_STUDIO_V1",
   checkedQuestions: checked,
@@ -147,6 +167,7 @@ console.log(JSON.stringify({
   approvalRunId: DOT_SITUATION_PRODUCT_OWNER_APPROVAL_V1.reviewedCi.workflowRunId,
   approvalArtifactId: DOT_SITUATION_PRODUCT_OWNER_APPROVAL_V1.reviewedCi.artifactId,
   solutionIllustrationPersisted: true,
+  membershipTablePersistedAndRendered: true,
   questionBankSafe: true,
   mockPublicStudentGatesRemainClosed: true,
 }, null, 2));
