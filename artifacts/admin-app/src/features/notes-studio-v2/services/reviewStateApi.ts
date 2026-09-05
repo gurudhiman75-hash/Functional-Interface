@@ -1,6 +1,6 @@
-import { apiRequest } from '@/services/api/client';
 import type { StyleSpec } from '../domain/types';
 import type { StyleBootstrapRoundResponse } from './api';
+import { notesStudioV2Request } from './api';
 
 const BASE = '/admin/notes-studio-v2';
 
@@ -34,9 +34,9 @@ export interface FigureQueueResponse {
 }
 
 export function getStyleBootstrapState() {
-  return apiRequest<StyleBootstrapState | null>(`${BASE}/style-bootstrap/state`);
+  return notesStudioV2Request<StyleBootstrapState | null>(`${BASE}/style-bootstrap/state`);
 }
 
 export function listPeriodFigures(periodId: string) {
-  return apiRequest<FigureQueueResponse>(`${BASE}/periods/${periodId}/figures`);
+  return notesStudioV2Request<FigureQueueResponse>(`${BASE}/periods/${periodId}/figures`);
 }
