@@ -1,0 +1,73 @@
+name: Validate SPA FFM-001 Review V3
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Typecheck admin Question Studio UI
+        run: pnpm --dir artifacts/admin-app typecheck
+
+      - name: Bundle FFM-001 review proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/figure-formation-ffm-001-review-v3.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/spatial/figure-formation-ffm-001-review-v3.test.mjs
+
+      - name: Run FFM-001 review proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/figure-formation-ffm-001-review-v3.test.mjs 2>&1 \
+            | tee dist/reasoning-v1/spatial/ffm-001-review-v3-run.log
+
+      - name: Bundle FFM-001 visual review pack
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/figure-formation-ffm-001-visual-review-v3.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/spatial/figure-formation-ffm-001-visual-review-v3.mjs
+
+      - name: Generate FFM-001 visual review pack
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/figure-formation-ffm-001-visual-review-v3.mjs 2>&1 \
+            | tee dist/reasoning-v1/spatial/ffm-001-visual-review-v3-run.log
+
+      - name: Upload FFM-001 review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-ffm-001-review-v3
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/ffm-001-review-v3-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/ffm-001-review-v3-run.log
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-ffm-001-visual-review-v3.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-ffm-001-visual-review-v3.json
+            artifacts/api-server/dist/reasoning-v1/spatial/ffm-001-visual-review-v3-run.log
+          if-no-files-found: error

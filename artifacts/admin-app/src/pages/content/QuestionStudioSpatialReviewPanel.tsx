@@ -40,6 +40,7 @@ const CHAPTER_LABELS: Record<SpatialReviewChapter, string> = {
   'TPF-001': 'Transparent Pattern Folding',
   'FCT-001': 'Counting Figures',
   'EMB-001': 'Embedded Figure',
+  'FFM-001': 'Figure Formation',
 };
 const LANGUAGE_LABELS: Record<SpatialReviewLanguage, string> = {
   en: 'English',
@@ -65,7 +66,7 @@ function SvgFigure({ svg, label, wide = false }: { svg: string; label: string; w
     <div className="rounded-lg border bg-white p-2 text-center text-slate-950">
       <div className="mb-1 text-xs font-medium text-slate-500">{label}</div>
       <div
-        className={`mx-auto w-full ${wide ? 'max-w-[560px]' : 'max-w-[150px]'} [&_svg]:h-auto [&_svg]:w-full`}
+        className={`mx-auto w-full ${wide ? 'max-w-[900px]' : 'max-w-[150px]'} [&_svg]:h-auto [&_svg]:w-full`}
         // SVG is produced only by the validated internal Spatial renderer.
         dangerouslySetInnerHTML={{ __html: svg }}
       />
@@ -81,7 +82,7 @@ function explanationLabels(language: SpatialReviewLanguage) {
 
 function SpatialQuestionCard({ question }: { question: SpatialReviewQuestion }) {
   const labels = explanationLabels(question.language);
-  const isWideStimulus = question.chapterCode === 'FGC-001' || question.chapterCode === 'PFC-001' || question.chapterCode === 'TPF-001';
+  const isWideStimulus = question.chapterCode === 'FGC-001' || question.chapterCode === 'PFC-001' || question.chapterCode === 'TPF-001' || question.chapterCode === 'FFM-001';
   const isWideOptionProcess = question.qlId === 'SPA-QL-039';
   return (
     <Card className="border-primary/15 bg-background">
@@ -139,11 +140,18 @@ function SpatialQuestionCard({ question }: { question: SpatialReviewQuestion }) 
 
         <details className="rounded-lg border p-3">
           <summary className="cursor-pointer font-semibold">Learner explanation</summary>
-          <div className="mt-3 space-y-2 leading-6 text-muted-foreground">
+          <div className="mt-3 space-y-3 leading-6 text-muted-foreground">
             <p><strong className="text-foreground">{labels.observe}:</strong> {question.explanation.observation}</p>
             <p><strong className="text-foreground">{labels.rule}:</strong> {question.explanation.rule}</p>
             <p><strong className="text-foreground">{labels.apply}:</strong> {question.explanation.application}</p>
             <p><strong className="text-foreground">{labels.check}:</strong> {question.explanation.check}</p>
+            {question.explanationIllustrationSvg && (
+              <SvgFigure
+                svg={question.explanationIllustrationSvg}
+                label="Assembly: printed pieces → required turn → exact joined positions"
+                wide
+              />
+            )}
           </div>
         </details>
       </CardContent>
@@ -252,11 +260,11 @@ export function QuestionStudioSpatialReviewPanel() {
             <Badge variant="outline" className="gap-1">
               <ShieldAlert className="h-3 w-3" /> Standard Question Studio lifecycle
             </Badge>
-            <Badge variant="outline">{pkg?.permanentQlCount ?? 45} production QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
+            <Badge variant="outline">{pkg?.permanentQlCount ?? 48} production QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Generate approved Spatial Reasoning questions across mirror/water images, visual analogy and classification, figure series/completion, paper and transparent folding, Counting Figures and Embedded Figure in English, Hindi or Punjabi. SPA-QL-048..050 use the approved V3 exam-real figures and enter Question Bank/Test Builder only after manual review; mock and student/public release remain locked.
+          Generate approved Spatial Reasoning questions across mirror/water images, visual analogy and classification, figure series/completion, paper and transparent folding, Counting Figures, Embedded Figure and Figure Formation in English, Hindi or Punjabi. SPA-QL-051..053 use the approved FFM V5 geometry and illustrated assembly explanation; all items require manual review before Question Bank/Test Builder use, while mock and student/public release remain locked.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -274,7 +282,7 @@ export function QuestionStudioSpatialReviewPanel() {
             <ShieldAlert className="h-4 w-4" /> Multilingual standard approval handoff
           </div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            English, Hindi and Punjabi preserve the same approved geometry, option order and answer semantics. Manual Question Studio approval converts eligible items into Question Bank; final held-gap QLs may then be manually used in Test Builder, while mock-test, automatic student delivery and public release stay disabled.
+            English, Hindi and Punjabi preserve the same approved geometry, option order and answer semantics. Manual Question Studio approval converts eligible items into Question Bank; approved held-gap and Figure Formation QLs may then be manually used in Test Builder, while mock-test, automatic student delivery and public release stay disabled.
           </p>
         </div>
 

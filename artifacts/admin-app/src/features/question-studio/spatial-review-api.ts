@@ -11,7 +11,8 @@ export type SpatialReviewChapter =
   | 'PFC-001'
   | 'TPF-001'
   | 'FCT-001'
-  | 'EMB-001';
+  | 'EMB-001'
+  | 'FFM-001';
 export type SpatialReviewLanguage = 'en' | 'hi' | 'pa';
 
 export interface SpatialReviewQl {
@@ -38,6 +39,9 @@ export interface SpatialReviewPackage {
   localizationAuthority: string;
   finalHeldGapFreezeAuthority?: string;
   finalHeldGapActivationAuthority?: string;
+  figureFormationProductOwnerApprovalAuthority?: string;
+  figureFormationFreezeAuthority?: string;
+  figureFormationActivationAuthority?: string;
   releaseAuthority?: string;
   permanentQlCount: number;
   questionStudioVisible: true;
@@ -81,7 +85,9 @@ export interface SpatialReviewQuestion {
     rule: string;
     application: string;
     check: string;
+    steps?: string[];
   };
+  explanationIllustrationSvg?: string;
   questionId: string;
   canonicalItemId: string;
   questionLanguageId: string;
@@ -142,6 +148,8 @@ export interface SpatialReviewStatus {
   integrationAuthority: string;
   finalHeldGapFreezeAuthority?: string;
   finalHeldGapActivationAuthority?: string;
+  figureFormationFreezeAuthority?: string;
+  figureFormationActivationAuthority?: string;
   questionBankConversionEligibleAfterApproval: true;
   testEligibleAfterApproval: true;
   testBuilderEligibleAfterApproval?: true;
@@ -192,6 +200,8 @@ export function previewSpatialReview(input: SpatialReviewInput) {
     localizationAuthority: string;
     finalHeldGapFreezeAuthority?: string;
     finalHeldGapActivationAuthority?: string;
+    figureFormationFreezeAuthority?: string;
+    figureFormationActivationAuthority?: string;
   }>(
     `/admin/question-studio/reasoning/spatial/preview?${paramsFor(input).toString()}`,
     undefined,

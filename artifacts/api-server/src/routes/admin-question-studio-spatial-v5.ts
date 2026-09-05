@@ -10,7 +10,7 @@ import {
   type SpatialQuestionStudioChapterCodeV1,
   type SpatialQuestionStudioDifficultyV1,
   type SpatialQuestionStudioPermanentQlIdV1,
-} from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v5";
+} from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v6";
 import {
   SPATIAL_QUESTION_STUDIO_LANGUAGES_V1,
   type SpatialQuestionStudioLanguageV1,
@@ -18,8 +18,9 @@ import {
 import {
   generateSpatialProductionStudioBatchV1,
   type SpatialProductionStudioQuestionV1,
-} from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v5";
+} from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v6";
 import { SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1 } from "../reasoning-v1/foundation/spatial/spatial-final-held-gap-freeze-v1";
+import { FIGURE_FORMATION_INTERNAL_ACTIVATION_V2 } from "../reasoning-v1/foundation/spatial/figure-formation-freeze-v1";
 
 const router = Router();
 const QL_IDS = new Set<string>(SPATIAL_QUESTION_STUDIO_PACKAGE_V1.qlIds);
@@ -83,6 +84,11 @@ export function productionPayloadV5(question: SpatialProductionStudioQuestionV1)
   const optionSvgs = !numericOptions && "optionSvgs" in question && Array.isArray(question.optionSvgs)
     ? question.optionSvgs
     : undefined;
+  const explanationIllustrationSvg = "explanationIllustrationSvg" in question
+    && typeof question.explanationIllustrationSvg === "string"
+    && question.explanationIllustrationSvg.trim()
+    ? question.explanationIllustrationSvg
+    : undefined;
   const canonicalAnswer = numericOptions ? question.options[question.correctIndex] : question.answer;
   const questionBankStatus = lifecycleString(question, "questionBankStatus", "READY_FOR_STORAGE");
   const questionBankWritable = lifecycleBoolean(question, "questionBankWritable", true);
@@ -109,6 +115,7 @@ export function productionPayloadV5(question: SpatialProductionStudioQuestionV1)
     stem: question.stem,
     stimulusSvgs: question.stimulusSvgs,
     ...(optionSvgs ? { optionSvgs } : {}),
+    ...(explanationIllustrationSvg ? { explanationIllustrationSvg } : {}),
     optionLabels: question.optionLabels,
     options: persistedOptions,
     correct: question.correctIndex,
@@ -212,8 +219,8 @@ async function persistRun(
       ) VALUES (
         ${runId}::uuid, ${publicCode}, 'review'::generation_run_status, 1,
         ${JSON.stringify(requestSnapshot)}::jsonb, ${JSON.stringify(requestSnapshot)}::jsonb,
-        'examtree', 'reasoning-v1-spa-001-v5', 0, 0, 0, 0,
-        ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
+        'examtree', 'reasoning-v1-spa-001-v6', 0, 0, 0, 0,
+        ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
       )
     `;
 
@@ -255,6 +262,7 @@ async function persistRun(
           integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
           localizationAuthorities,
           finalHeldGapActivationAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.authorityId,
+          figureFormationActivationAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.authorityId,
           manualApprovalRequired: true,
           automaticStudentPublication: false,
         })}::jsonb
@@ -327,7 +335,7 @@ router.get("/reasoning/spatial/preview", requireAdminPermission("content.generat
     const filters = requestFilters(req.query as Record<string, unknown>);
     const result = generateSpatialProductionStudioBatchV1({
       ...filters,
-      seed: asString(req.query.seed) || "spa-question-studio-preview-v5",
+      seed: asString(req.query.seed) || "spa-question-studio-preview-v6",
       count: asCount(req.query.count, 1, 20),
     });
     const localizationAuthorities = [...new Set(result.questions.map((question) => question.localization.authority))];
@@ -338,6 +346,8 @@ router.get("/reasoning/spatial/preview", requireAdminPermission("content.generat
       localizationAuthorities,
       finalHeldGapFreezeAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.sourceFreezeAuthorityId,
       finalHeldGapActivationAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.authorityId,
+      figureFormationFreezeAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.sourceFreezeAuthorityId,
+      figureFormationActivationAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.authorityId,
       productionEligible: true,
       automaticStudentPublication: false,
     });
@@ -355,7 +365,7 @@ router.post("/reasoning/spatial/runs", requireAdminPermission("content.generatio
   try {
     const filters = requestFilters((req.body ?? {}) as Record<string, unknown>);
     const count = asCount(req.body?.count, 5, 50);
-    const seed = asString(req.body?.seed) || `spa-review-v5-${Date.now()}`;
+    const seed = asString(req.body?.seed) || `spa-review-v6-${Date.now()}`;
     const result = generateSpatialProductionStudioBatchV1({ ...filters, seed, count });
     const localizationAuthorities = [...new Set(result.questions.map((question) => question.localization.authority))];
     const requestSnapshot = {
@@ -370,6 +380,8 @@ router.post("/reasoning/spatial/runs", requireAdminPermission("content.generatio
       localizationAuthorities,
       finalHeldGapFreezeAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.sourceFreezeAuthorityId,
       finalHeldGapActivationAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.authorityId,
+      figureFormationFreezeAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.sourceFreezeAuthorityId,
+      figureFormationActivationAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.authorityId,
       manualApprovalRequired: true,
       automaticStudentPublication: false,
       requestedByFirebaseUid: req.user?.id,
@@ -384,7 +396,7 @@ router.post("/reasoning/spatial/runs", requireAdminPermission("content.generatio
       automaticStudentPublication: false,
     });
   } catch (error) {
-    console.error("Spatial Question Studio V5 generation failed", error);
+    console.error("Spatial Question Studio V6 generation failed", error);
     res.status(400).json({ error: error instanceof Error ? error.message : "Unable to create Spatial review run." });
   }
 });
@@ -416,6 +428,8 @@ router.get("/reasoning/spatial/status", requireAdminPermission("content.generati
       integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
       finalHeldGapFreezeAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.sourceFreezeAuthorityId,
       finalHeldGapActivationAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.authorityId,
+      figureFormationFreezeAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.sourceFreezeAuthorityId,
+      figureFormationActivationAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.authorityId,
       questionBankConversionEligibleAfterApproval: true,
       testEligibleAfterApproval: true,
       testBuilderEligibleAfterApproval: true,
@@ -425,7 +439,7 @@ router.get("/reasoning/spatial/status", requireAdminPermission("content.generati
       automaticStudentPublication: false,
     });
   } catch (error) {
-    console.error("Spatial Question Studio V5 status failed", error);
+    console.error("Spatial Question Studio V6 status failed", error);
     res.status(500).json({ error: "Unable to load Spatial Question Studio status." });
   }
 });

@@ -106,29 +106,37 @@ assert(conversionChecks === 34, `Expected 34 frozen conversion checks, got ${con
 assert(JSON.stringify(languageCounts) === JSON.stringify({ en: 34, hi: 34, pa: 34 }), "Frozen multilingual coverage changed.");
 
 const repoRoot = resolve(import.meta.dirname, "../../../../..");
-const spatialRoute = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-spatial.ts"), "utf8");
+const spatialRegistry = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-registry.ts"), "utf8");
+const spatialWorkflow = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-spatial-workflow.ts"), "utf8");
+const spatialV5Route = readFileSync(resolve(repoRoot, "artifacts/api-server/src/routes/admin-question-studio-spatial-v5.ts"), "utf8");
 const spatialPanel = readFileSync(resolve(repoRoot, "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"), "utf8");
 const spatialApi = readFileSync(resolve(repoRoot, "artifacts/admin-app/src/features/question-studio/spatial-review-api.ts"), "utf8");
 
-// The frozen 34-QL runtime remains byte-addressable above, while the shared admin surface is
-// intentionally superseded by the approved 40-QL PFC/TPF integration. Do not force obsolete
-// 34-QL UI copy or the former 384px review width to remain in the live panel.
-assert(spatialRoute.includes("spatial-question-studio-integration-v2"), "Shared Spatial route has not moved to the approved 40-QL integration module.");
-assert(spatialRoute.includes("spatial-question-studio-production-v2"), "Shared Spatial route has not moved to the approved 40-QL production adapter.");
-assert(!spatialRoute.includes("INSERT INTO content.questions"), "Spatial route directly writes Question Bank instead of shared approval.");
+// The 34-QL runtime remains byte-addressable for compatibility, while the live registry is
+// intentionally superseded by the approved 48-QL package. The V5-named route is the stable
+// mounted adapter and now delegates to integration/production V6 for FFM-001.
+assert(spatialRegistry.indexOf("adminQuestionStudioSpatialV5Router") >= 0, "Current Spatial adapter is missing from the route registry.");
+assert(spatialRegistry.indexOf("router.use(adminQuestionStudioSpatialV5Router)") < spatialRegistry.indexOf("router.use(adminQuestionStudioSpatialRouter)"), "Current Spatial adapter must precede the legacy fallback.");
+assert(spatialWorkflow.includes("spatial-question-studio-integration-v6"), "Shared SPA-001 /runs workflow is not using the approved 48-QL package.");
+assert(spatialWorkflow.includes("SPATIAL_QUESTION_STUDIO_PACKAGE_V6"), "Shared SPA-001 workflow does not recognize FFM QLs.");
+assert(spatialV5Route.includes("spatial-question-studio-integration-v6"), "Mounted Spatial adapter is not using 48-QL integration V6.");
+assert(spatialV5Route.includes("spatial-question-studio-production-v6"), "Mounted Spatial adapter is not using 48-QL production V6.");
+assert(!spatialV5Route.includes("INSERT INTO content.questions"), "Spatial route directly writes Question Bank instead of shared approval.");
 assert(spatialPanel.includes("'FGC-001': 'Figure Completion'"), "Spatial panel lost Figure Completion.");
-assert(spatialPanel.includes("'PFC-001': 'Paper Folding & Cutting'"), "Spatial panel does not expose Paper Folding & Cutting.");
-assert(spatialPanel.includes("'TPF-001': 'Transparent Pattern Folding'"), "Spatial panel does not expose Transparent Pattern Folding.");
-assert(spatialPanel.includes("pkg?.permanentQlCount ?? 40"), "Spatial panel does not advertise the approved 40-QL package fallback.");
-assert(spatialPanel.includes("max-w-[560px]"), "Spatial panel does not retain the approved wide folding review surface.");
+assert(spatialPanel.includes("'PFC-001': 'Paper Folding & Cutting'"), "Spatial panel lost Paper Folding & Cutting.");
+assert(spatialPanel.includes("'TPF-001': 'Transparent Pattern Folding'"), "Spatial panel lost Transparent Pattern Folding.");
+assert(spatialPanel.includes("'FFM-001': 'Figure Formation'"), "Spatial panel does not expose Figure Formation.");
+assert(spatialPanel.includes("pkg?.permanentQlCount ?? 48"), "Spatial panel does not advertise the approved 48-QL package fallback.");
+assert(spatialPanel.includes("explanationIllustrationSvg"), "Spatial panel does not render the approved FFM assembly explanation.");
 assert(spatialPanel.includes("क्या देखें") && spatialPanel.includes("ਕੀ ਵੇਖਣਾ"), "Spatial panel lost approved simple HI/PA explanation labels.");
-assert(spatialApi.includes("'FGC-001'") && spatialApi.includes("'PFC-001'") && spatialApi.includes("'TPF-001'"), "Spatial admin API type is missing an approved Spatial chapter.");
+assert(spatialApi.includes("'FFM-001'"), "Spatial admin API type is missing Figure Formation.");
 
 const evidence = {
-  status: "PASS_SPA_FGC_001_LEGACY_34_QL_COMPAT_UNDER_40_QL_INTEGRATION",
+  status: "PASS_SPA_FGC_001_LEGACY_34_QL_COMPAT_UNDER_48_QL_FFM_INTEGRATION",
   packageId: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.packageId,
   frozenIntegrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
   frozenPermanentQlCount: 34,
+  livePermanentQlCount: 48,
   generated,
   conversionChecks,
   languageCounts,
@@ -139,11 +147,12 @@ const evidence = {
     questionBankConversionPreserved: true,
     manualApprovalStillRequired: true,
     automaticStudentPublicationDisabled: true,
-    liveAdminSurfaceSupersededTo40Qls: true,
-    pfcTpfChapterFiltersPresent: true,
-    approvedWideReviewSurfacePresent: true,
+    liveRegistrySupersededTo48Qls: true,
+    sharedSpaRunsRecognizeFfmQls: true,
+    ffmChapterFilterPresent: true,
+    ffmAssemblyExplanationVisible: true,
   },
-  nextGate: "PFC_TPF_STANDARD_QUESTION_STUDIO_INTEGRATION_EXACT_HEAD_CI",
+  nextGate: "FFM_001_FREEZE_INTEGRATION_EXACT_HEAD_CI",
 };
 
 mkdirSync("dist/reasoning-v1/spatial", { recursive: true });
