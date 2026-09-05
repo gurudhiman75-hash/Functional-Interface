@@ -54,3 +54,5 @@ The uploaded `spa-dot-001-review-v1` artifact retains the semantic evidence JSON
 ## Next checkpoint
 
 Run the V1 semantic/visual review workflow, inspect the generated review artifact, fix any exam-realness or visual defects, then create the DOT-001 review authority/freeze only after product-owner approval. Question Studio integration must wait for that approval.
+
+<!-- review/spa-dot-001-v1-run: CI execution probe only; not part of the product branch -->
