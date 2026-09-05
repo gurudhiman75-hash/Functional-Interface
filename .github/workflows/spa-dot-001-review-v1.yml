@@ -1,0 +1,69 @@
+name: Validate SPA DOT-001 Review V1
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle DOT-001 semantic review proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/dot-situation-dot-001-review-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/spatial/dot-situation-dot-001-review-v1.test.mjs
+
+      - name: Run DOT-001 semantic review proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/dot-situation-dot-001-review-v1.test.mjs 2>&1 \
+            | tee dist/reasoning-v1/spatial/dot-001-review-v1-run.log
+
+      - name: Bundle DOT-001 visual review pack
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/dot-situation-dot-001-visual-review-v1.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/spatial/dot-situation-dot-001-visual-review-v1.mjs
+
+      - name: Generate DOT-001 visual review pack
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/dot-situation-dot-001-visual-review-v1.mjs 2>&1 \
+            | tee dist/reasoning-v1/spatial/dot-001-visual-review-v1-run.log
+
+      - name: Upload DOT-001 V1 review evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-dot-001-review-v1
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/dot-001-review-v1-run.log
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-dot-001-visual-review-v1.html
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-dot-001-visual-review-v1.json
+            artifacts/api-server/dist/reasoning-v1/spatial/dot-001-visual-review-v1-run.log
+          if-no-files-found: error
