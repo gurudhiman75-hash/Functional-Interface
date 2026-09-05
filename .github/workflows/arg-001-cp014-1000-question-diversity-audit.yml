@@ -49,6 +49,40 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
 
+      - name: Diagnose CP015 strict TypeScript root boundaries
+        working-directory: artifacts/api-server
+        run: |
+          common=(
+            --noEmit
+            --target es2022
+            --module esnext
+            --moduleResolution bundler
+            --allowImportingTsExtensions
+            --strictNullChecks
+            --noImplicitAny
+            --noImplicitReturns
+            --noFallthroughCasesInSwitch
+            --skipLibCheck
+            --types node
+          )
+          declare -A roots=(
+            [expansion]="src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts"
+            [proof]="src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts"
+            [route]="src/routes/admin-question-studio-arguments-cp015.ts"
+            [registry]="src/routes/admin-question-studio-registry.ts"
+          )
+          for name in expansion proof route registry; do
+            pnpm exec tsc "${common[@]}" "${roots[$name]}" > "cp015-strict-${name}.log" 2>&1 || true
+          done
+
+      - name: Upload CP015 strict root diagnostics
+        uses: actions/upload-artifact@v4
+        with:
+          name: arg-cp015-strict-root-diagnostics
+          path: artifacts/api-server/cp015-strict-*.log
+          if-no-files-found: error
+          retention-days: 7
+
       - name: Strict TypeScript check for CP015 diversity authority
         working-directory: artifacts/api-server
         run: |
