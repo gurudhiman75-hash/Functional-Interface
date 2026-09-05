@@ -3,7 +3,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { DOT_SITUATION_SOURCE_EVIDENCE_V1 } from "../foundation/spatial/dot-situation-source-evidence-v1";
 import { DOT_SITUATION_SOURCE_SATURATED_DISCOVERY_V1 } from "../foundation/spatial/dot-situation-source-saturated-discovery-v1";
-import { generateDotSituationReviewQuestionV1 } from "../foundation/spatial/dot-situation-review-runtime-v1";
+import { generateDotSituationReviewQuestionV1_1 } from "../foundation/spatial/dot-situation-review-runtime-v1-1";
 import { DOT_SITUATION_PERMANENT_QL_ALLOCATIONS_V11 } from "../foundation/spatial/spatial-permanent-ql-allocation-v11";
 
 assert.equal(DOT_SITUATION_SOURCE_SATURATED_DISCOVERY_V1.chapterCode, "DOT-001");
@@ -20,16 +20,19 @@ const dotCounts = new Set<number>();
 const shapeCounts = new Set<number>();
 const activeShapeSets = new Set<string>();
 const reducedBandShapeKinds = new Set<string>();
+const englishStems = new Set<string>();
 let hardQuestions = 0;
 let multiDotQuestions = 0;
 let exactExclusionRows = 0;
 let illustratedSolutions = 0;
 let nearMissDistractors = 0;
+let editorialQuestions = 0;
 
 for (const seed of seeds) {
-  const english = generateDotSituationReviewQuestionV1({ seed, language: "en" });
-  const repeat = generateDotSituationReviewQuestionV1({ seed, language: "en" });
+  const english = generateDotSituationReviewQuestionV1_1({ seed, language: "en" });
+  const repeat = generateDotSituationReviewQuestionV1_1({ seed, language: "en" });
   assert.deepEqual(repeat, english, `seed ${seed} must be exactly deterministic`);
+  assert.equal(english.version, "SPA-DOT-001-REVIEW-QUESTION-V1.1");
   assert.equal(english.qlId, "SPA-QL-054");
   assert.equal(english.optionSvgs.length, 4);
   assert.equal(new Set(english.optionSvgs).size, 4, `seed ${seed} should not render duplicate options`);
@@ -49,6 +52,8 @@ for (const seed of seeds) {
   assert.equal(english.validation.exactSquareGeometry, true);
   assert.equal(english.validation.activeShapeSubsetsSupported, true);
   assert.equal(english.validation.solutionIllustrationIncluded, true);
+  assert.equal(english.validation.editorialStemGrammarReviewed, true);
+  assert.equal(english.validation.examStyleStemOverlayApplied, true);
   assert.equal(english.lifecycle.reviewOnly, true);
   assert.equal(english.lifecycle.questionStudioDiscoverable, false);
   assert.equal(english.lifecycle.mockTestEligible, false);
@@ -60,6 +65,10 @@ for (const seed of seeds) {
   for (const option of english.optionSvgs) {
     assert.equal(option.includes('r="2.55"'), false, `learner option for ${seed} must remain undotted`);
   }
+  assert.equal(/every dots|the dots can be placed under the same conditions/i.test(english.stem), false, `seed ${seed} should not use machine-like or ungrammatical stem phrasing`);
+  assert.equal(/inside [a-z]+, [a-z]+, but/i.test(english.explanation.check), false, `seed ${seed} should use natural English relation wording`);
+  englishStems.add(english.stem);
+  editorialQuestions += 1;
   illustratedSolutions += 1;
 
   difficulties.add(english.difficulty);
@@ -79,7 +88,7 @@ for (const seed of seeds) {
   }
 
   for (const language of languages) {
-    const q = generateDotSituationReviewQuestionV1({ seed, language });
+    const q = generateDotSituationReviewQuestionV1_1({ seed, language });
     assert.equal(q.geometryFingerprint, english.geometryFingerprint, `geometry must be language-neutral for ${seed}/${language}`);
     assert.equal(q.correctIndex, english.correctIndex, `answer must preserve semantic parity for ${seed}/${language}`);
     assert.deepEqual(q.solveFacts.requiredSignatures, english.solveFacts.requiredSignatures);
@@ -101,12 +110,14 @@ assert.ok(hardQuestions >= 10, "review corpus should contain a meaningful hard s
 assert.ok(multiDotQuestions >= 20, "review corpus should contain a meaningful multi-dot slice");
 assert.ok(exactExclusionRows >= 20, "review corpus should materially exercise exact-only exclusions");
 assert.equal(illustratedSolutions, seeds.length, "every review question should carry an explanation illustration");
+assert.equal(editorialQuestions, seeds.length, "every review question should pass through the editorial V1.1 overlay");
+assert.ok(englishStems.size >= 6, "review corpus should expose distinct singular and plural exam-style stem variants");
 assert.ok(activeShapeSets.size >= 4, "review corpus should not collapse to one fixed shape subset per shape count");
 assert.deepEqual([...reducedBandShapeKinds].sort(), ["CIRCLE", "RECTANGLE", "SQUARE", "TRIANGLE"], "2/3-shape bands should exercise every supported primitive");
 assert.ok(nearMissDistractors >= 60, "most distractors should be semantic near-misses rather than unrelated layouts");
 
 const evidence = {
-  authority: "SPA-DOT-001-REVIEW-V1",
+  authority: "SPA-DOT-001-REVIEW-V1.1",
   seeds: seeds.length,
   languages,
   difficulties: [...difficulties],
@@ -114,11 +125,13 @@ const evidence = {
   shapeCounts: [...shapeCounts].sort(),
   activeShapeSets: [...activeShapeSets].sort(),
   reducedBandShapeKinds: [...reducedBandShapeKinds].sort(),
+  englishStemVariants: englishStems.size,
   hardQuestions,
   multiDotQuestions,
   exactExclusionRows,
   illustratedSolutions,
   nearMissDistractors,
+  editorialQuestions,
   exactSquareGeometry: true,
   releaseGatesRemainClosed: true,
 };
