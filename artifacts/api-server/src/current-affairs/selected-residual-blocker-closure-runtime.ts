@@ -116,7 +116,7 @@ function recoverResidualFacts(title: string, text: string, sourceKey: string): R
   if (/Balance of Payments/i.test(title) && sourceKey === "rbi") {
     const cad = firstMatch(
       combined,
-      /current\s+account\s+deficit[^$]{0,160}?(?:stood\s+at|was|amounted\s+to|of)?\s*(?:US\$|USD|\$)\s*([0-9]+(?:\.[0-9]+)?)\s*billion[^%]{0,100}?([0-9]+(?:\.[0-9]+)?)\s*(?:per\s*cent|percent|%)\s+of\s+GDP/i,
+      /current\s+account(?:\s+recorded\s+a)?\s+deficit(?:\s*\(CAD\))?[^$]{0,180}?(?:stood\s+at|was|amounted\s+to|of)?\s*(?:US\$|USD|\$)\s*([0-9]+(?:\.[0-9]+)?)\s*billion[^%]{0,120}?([0-9]+(?:\.[0-9]+)?)\s*(?:per\s*cent|percent|%)\s+of\s+GDP/i,
     );
     if (cad?.[1] && cad[2]) {
       push(facts, fact("acting_entity", "Reserve Bank of India", "entity", 0.99, "cp064_rbi_bop"));
@@ -276,9 +276,11 @@ function pibFallbackUrls(sourceUrl: string) {
   const prid = url.searchParams.get("PRID") ?? url.searchParams.get("prid");
   if (!prid || !/^\d+$/.test(prid)) return [];
   return [
+    `https://www.pib.gov.in/PressReleaseDetail.aspx?PRID=${prid}&lang=1&reg=3`,
+    `https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=${prid}&lang=1&reg=3`,
     `https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=${prid}&lang=1&reg=3`,
     `https://www.pib.gov.in/PressReleasePage.aspx?PRID=${prid}&lang=1&reg=3`,
-    `https://www.pib.gov.in/PressReleseDetailm.aspx?PRID=${prid}&lang=1&reg=3`,
+    `https://www.pib.gov.in/PressReleaseDetailm.aspx?PRID=${prid}&lang=1&reg=3`,
   ];
 }
 
@@ -325,7 +327,8 @@ async function officialCorpus(candidate: SelectedCandidateRow) {
   for (const url of [...new Set(urls)]) {
     const text = await fetchPageText(url);
     if (text.length >= 80) chunks.push(text);
-    if (chunks.some((item) => item.length >= 5000)) break;
+    const corpus = clean(chunks.join(" "));
+    if (recoverResidualFacts(candidate.title, corpus, candidate.sourceKey).length >= 3) return corpus;
   }
   const feedText = await fetchFeedText(candidate);
   if (feedText.length >= 40) chunks.push(feedText);
