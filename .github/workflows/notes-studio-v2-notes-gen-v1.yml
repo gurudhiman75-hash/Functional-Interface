@@ -57,5 +57,13 @@ jobs:
           grep -F 'router.use("/admin/notes-studio-v2", adminNotesStudioV2ReviewStateRouter);' artifacts/api-server/src/routes/index.ts
           grep -F "source prose" artifacts/api-server/src/routes/admin-notes-studio-v2-review-state.ts
 
+      - name: Verify persisted quality gate
+        run: |
+          grep -F "CREATE TABLE IF NOT EXISTS notes_studio_v2.quality_runs" artifacts/api-server/migrations/20260905_notes_studio_v2_quality_runs.sql
+          grep -F "require_latest_review_ready_quality" artifacts/api-server/migrations/20260905_notes_studio_v2_quality_runs.sql
+          grep -F "/note-versions/:versionId/quality/persisted" artifacts/api-server/src/routes/admin-notes-studio-v2-review-state.ts
+          grep -F "source-agnostic fact graph only" artifacts/api-server/src/routes/admin-notes-studio-v2-review-state.ts
+          grep -F "QUALITY_CHECKER_VERSION" artifacts/api-server/src/routes/admin-notes-studio-v2-review-state.ts
+
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
