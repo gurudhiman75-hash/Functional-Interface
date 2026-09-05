@@ -74,6 +74,7 @@ jobs:
         with:
           name: spa-dot-001-review-v1
           path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/dot-001-review-v1-evidence.json
             artifacts/api-server/dist/reasoning-v1/spatial/dot-001-review-v1-run.log
             artifacts/api-server/dist/reasoning-v1/spatial/spa-dot-001-visual-review-v1.html
             artifacts/api-server/dist/reasoning-v1/spatial/spa-dot-001-visual-review-v1.json
