@@ -1,20 +1,7 @@
 name: Validate SPA FFM-001 Freeze Integration V1
 
 on:
-  pull_request:
-    branches:
-      - New-main
-    paths:
-      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/figure-formation-*.ts"
-      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v6.ts"
-      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v6.ts"
-      - "artifacts/api-server/src/reasoning-v1/tests/figure-formation-ffm-001-freeze-question-studio-v1.test.ts"
-      - "artifacts/api-server/src/routes/admin-question-studio-spatial-v5.ts"
-      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
-
-concurrency:
-  group: spa-ffm-001-freeze-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -24,9 +11,8 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
-      # The proof imports conversion helpers that construct the SQL client at module load.
-      # No database operation is executed in this test; a local inert URL keeps the
-      # deterministic freeze proof independent of repository/production secrets.
+      # Historical FFM freeze evidence. DOT-001 is now the active Spatial checkpoint.
+      # No database operation is executed in this test.
       DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/examtree_ffm_ci
     steps:
       - name: Checkout source
