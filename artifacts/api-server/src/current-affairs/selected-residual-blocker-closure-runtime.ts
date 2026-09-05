@@ -151,7 +151,7 @@ function recoverResidualFacts(title: string, text: string, sourceKey: string): R
   }
 
   if ((/NCERT[’']s 66th Foundation Day|NCERT.*66th Foundation Day/i.test(title)) && sourceKey === "pib") {
-    const minister = firstMatch(combined, /Union\s+Minister\s+for\s+Education,?\s+Shri\s+([A-Za-z .'-]{3,80})\s+(?:today\s+)?(?:noted|said|highlighted|emphasised|informed|inaugurated)/i)?.[1];
+    const minister = firstMatch(combined, /Union\s+Minister\s+for\s+Education,?\s+Shri\s+([A-Za-z .'-]{3,80}?)(?:\s+today)?\s+(?:noted|said|highlighted|emphasised|informed|inaugurated)/i)?.[1];
     const hasRobotics = /Robotics Learning Centre/i.test(combined);
     const hasTranslation = /Translation Lab/i.test(combined);
     const hasTv = /(?:upgraded|state-of-the-art)[^.;]{0,50}(?:Television|TV) Studio/i.test(combined);

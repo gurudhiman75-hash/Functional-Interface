@@ -22,7 +22,11 @@ function sleep(ms: number) {
 }
 
 function canonicalOfficialHost(hostname: string) {
-  return hostname.toLowerCase().replace(/^www\./, "");
+  const host = hostname.toLowerCase();
+  if (host === "rbi.org.in" || host === "www.rbi.org.in" || host === "m.rbi.org.in") {
+    return "rbi.org.in";
+  }
+  return host.replace(/^www\./, "");
 }
 
 function apexLikeOfficialHost(hostname: string) {
@@ -63,6 +67,17 @@ export function assertPublicHttpsSourceUrl(value: string): string {
 export function officialHostVariants(value: string): string[] {
   const safe = new URL(assertPublicHttpsSourceUrl(value));
   const variants = [safe.toString()];
+
+  if (canonicalOfficialHost(safe.hostname) === "rbi.org.in") {
+    for (const hostname of ["www.rbi.org.in", "rbi.org.in", "m.rbi.org.in"]) {
+      if (hostname === safe.hostname.toLowerCase()) continue;
+      const alternate = new URL(safe);
+      alternate.hostname = hostname;
+      variants.push(assertPublicHttpsSourceUrl(alternate.toString()));
+    }
+    return [...new Set(variants)];
+  }
+
   if (!apexLikeOfficialHost(safe.hostname)) return variants;
 
   const alternate = new URL(safe);
@@ -147,7 +162,7 @@ async function fetchWithTransientRetry(
       } catch (error) {
         lastError = error;
         // A connect/DNS/TLS failure is frequently host-specific on public-sector
-        // infrastructure. Try the canonical www/non-www alias before spending a
+        // infrastructure. Try the canonical official aliases before spending a
         // second full timeout on the same host.
         if (variantIndex < variants.length - 1) break;
         if (attempt < MAX_HTTP_ATTEMPTS_PER_HOST) {

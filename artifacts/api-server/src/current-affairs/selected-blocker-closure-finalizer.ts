@@ -10,6 +10,10 @@ import {
   SELECTED_RESIDUAL_BLOCKER_CLOSURE_VERSION,
 } from "./selected-residual-blocker-closure-runtime";
 import {
+  closeSelectedRbiFinalMile,
+  SELECTED_RBI_FINAL_MILE_CLOSURE_VERSION,
+} from "./selected-rbi-final-mile-closure";
+import {
   selectedAffairsProcessingBlockers,
   selectedAffairsProcessingStage,
   type SelectedAffairsProcessingState,
@@ -91,8 +95,16 @@ export async function finalizeSelectedBlockerClosure(args: {
     targetDate: args.targetDate,
     actorUserId: args.actorUserId,
   });
+  const rbiFinalMile = await closeSelectedRbiFinalMile({
+    targetDate: args.targetDate,
+    actorUserId: args.actorUserId,
+  });
   const localizationRepair = await repairSelectedRephrasedLocalizations(args.targetDate);
-  if (residualClosure.reprocessedEventCount > 0 || localizationRepair.repairedLocalizations > 0) {
+  if (
+    residualClosure.reprocessedEventCount > 0
+    || rbiFinalMile.reprocessedEventCount > 0
+    || localizationRepair.repairedLocalizations > 0
+  ) {
     const census = await refreshDailyDiscoveryCensus(args.targetDate);
     await materializeDailyMasterPacks(args.targetDate, String(census.id));
   }
@@ -157,6 +169,7 @@ export async function finalizeSelectedBlockerClosure(args: {
     blockerClosure: {
       closureVersion: SELECTED_BLOCKER_CLOSURE_VERSION,
       residualClosureVersion: SELECTED_RESIDUAL_BLOCKER_CLOSURE_VERSION,
+      rbiFinalMileClosureVersion: SELECTED_RBI_FINAL_MILE_CLOSURE_VERSION,
       repairedLocalizations: localizationRepair.repairedLocalizations,
       examinedLocalizationEvents: localizationRepair.examinedEvents,
       residualCandidatesExamined: residualClosure.candidatesExamined,
@@ -164,6 +177,11 @@ export async function finalizeSelectedBlockerClosure(args: {
       residualInsertedFactCount: residualClosure.insertedFactCount,
       residualRecurringTitleRepairCount: residualClosure.recurringTitleRepairCount,
       residualReprocessedEventCount: residualClosure.reprocessedEventCount,
+      rbiFinalMileCandidatesExamined: rbiFinalMile.candidatesExamined,
+      rbiFinalMileRecoveredCandidates: rbiFinalMile.recoveredCandidates,
+      rbiFinalMileInsertedFactCount: rbiFinalMile.insertedFactCount,
+      rbiFinalMileReprocessedEventCount: rbiFinalMile.reprocessedEventCount,
+      rbiFinalMileFetchDiagnostics: rbiFinalMile.diagnostics,
     },
   };
 }
