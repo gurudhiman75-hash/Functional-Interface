@@ -26,6 +26,7 @@ import adminNotesStudioSourceLibraryRouter from "./admin-notes-studio-source-lib
 import adminNotesStudioV2GenerationRouter from "./admin-notes-studio-v2-generation";
 import adminNotesStudioV2Router from "./admin-notes-studio-v2";
 import adminNotesStudioV2ReviewStateRouter from "./admin-notes-studio-v2-review-state";
+import adminNotesStudioV2MetadataRouter from "./admin-notes-studio-v2-metadata";
 import adminAuditEventsHardeningRouter from "./admin-audit-events-hardening";
 import adminAccessControlHardeningRouter from "./admin-access-control-hardening";
 import adminAccessControlRouter from "./admin-access-control";
@@ -139,6 +140,7 @@ router.use("/admin/notes-studio", adminNotesStudioSourceLibraryRouter);
 router.use("/admin/notes-studio-v2", adminNotesStudioV2GenerationRouter);
 router.use("/admin/notes-studio-v2", adminNotesStudioV2Router);
 router.use("/admin/notes-studio-v2", adminNotesStudioV2ReviewStateRouter);
+router.use("/admin/notes-studio-v2", adminNotesStudioV2MetadataRouter);
 router.use("/admin/access-control", adminAuditEventsHardeningRouter);
 router.use("/admin/access-control", adminAccessControlHardeningRouter);
 router.use("/admin/access-control", adminAccessControlRouter);
