@@ -10,6 +10,8 @@ on:
       - "artifacts/api-server/src/current-affairs/selected-blocker-closure-runtime.ts"
       - "artifacts/api-server/src/current-affairs/selected-blocker-closure-finalizer.ts"
       - "artifacts/api-server/src/current-affairs/selected-residual-blocker-closure*.ts"
+      - "artifacts/api-server/src/current-affairs/selected-rbi-final-mile-closure*.ts"
+      - "artifacts/api-server/src/current-affairs/source-fetch*.ts"
       - "artifacts/api-server/src/current-affairs/selected-processing-*.test.ts"
       - "artifacts/api-server/src/routes/admin-current-affairs-selected-processing.ts"
       - "artifacts/api-server/migrations/*current_affairs_selected_processing*.sql"
@@ -45,10 +47,14 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-sql-typing.test.ts
       - name: Verify async selected-processing contract
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-async.test.ts
+      - name: Verify bounded official-source fetch contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/source-fetch.test.ts
       - name: Verify localization-method schema contract
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-localization-method-schema.test.ts
       - name: Verify CP064 residual blocker closure contract
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-residual-blocker-closure.test.ts
+      - name: Verify CP065 RBI final-mile closure contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-rbi-final-mile-closure.test.ts
       - name: Build API server
         run: pnpm --filter @workspace/api-server build
       - name: Typecheck admin frontend
