@@ -69,9 +69,16 @@ jobs:
         run: |
           HTML=artifacts/api-server/dist/com003-localization-migration/COM-003-Localization-Migration-Delta-V1.html
           JSON=artifacts/api-server/dist/com003-localization-migration/COM-003-Localization-Migration-Delta-V1.json
+          LEX=artifacts/api-server/dist/com003-localization-migration/COM-003-Localization-Lexicon-Coverage-V1.json
           test -s "$HTML"
           test -s "$JSON"
+          test -s "$LEX"
           grep -q '456 localized artifacts affected' "$HTML"
+          grep -q '0 full localized artifacts reusable' "$HTML"
+          grep -q '63 ordered-option reuse' "$HTML"
+          grep -q '141 option-vocabulary reuse' "$HTML"
+          grep -q '194 answer-term reuse' "$HTML"
+          grep -q '219/228' "$HTML"
           grep -q 'Per-QL migration breakdown' "$HTML"
           grep -q 'COM-003-QL-019' "$HTML"
       - name: Upload migration report
