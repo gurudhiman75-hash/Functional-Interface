@@ -6,6 +6,10 @@ import {
   SELECTED_BLOCKER_CLOSURE_VERSION,
 } from "./selected-blocker-closure-runtime";
 import {
+  closeSelectedResidualBlockers,
+  SELECTED_RESIDUAL_BLOCKER_CLOSURE_VERSION,
+} from "./selected-residual-blocker-closure-runtime";
+import {
   selectedAffairsProcessingBlockers,
   selectedAffairsProcessingStage,
   type SelectedAffairsProcessingState,
@@ -80,10 +84,15 @@ async function loadFinalStates(eventIds: string[]) {
 
 export async function finalizeSelectedBlockerClosure(args: {
   targetDate: string;
+  actorUserId: string;
   baseResult: Record<string, any>;
 }) {
+  const residualClosure = await closeSelectedResidualBlockers({
+    targetDate: args.targetDate,
+    actorUserId: args.actorUserId,
+  });
   const localizationRepair = await repairSelectedRephrasedLocalizations(args.targetDate);
-  if (localizationRepair.repairedLocalizations > 0) {
+  if (residualClosure.reprocessedEventCount > 0 || localizationRepair.repairedLocalizations > 0) {
     const census = await refreshDailyDiscoveryCensus(args.targetDate);
     await materializeDailyMasterPacks(args.targetDate, String(census.id));
   }
@@ -147,8 +156,14 @@ export async function finalizeSelectedBlockerClosure(args: {
     items,
     blockerClosure: {
       closureVersion: SELECTED_BLOCKER_CLOSURE_VERSION,
+      residualClosureVersion: SELECTED_RESIDUAL_BLOCKER_CLOSURE_VERSION,
       repairedLocalizations: localizationRepair.repairedLocalizations,
       examinedLocalizationEvents: localizationRepair.examinedEvents,
+      residualCandidatesExamined: residualClosure.candidatesExamined,
+      residualEvidenceRecoveryCandidates: residualClosure.evidenceRecoveryCandidates,
+      residualInsertedFactCount: residualClosure.insertedFactCount,
+      residualRecurringTitleRepairCount: residualClosure.recurringTitleRepairCount,
+      residualReprocessedEventCount: residualClosure.reprocessedEventCount,
     },
   };
 }

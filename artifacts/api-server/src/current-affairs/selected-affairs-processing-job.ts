@@ -192,7 +192,11 @@ async function runSelectedAffairsProcessingJob(runId: string) {
     await setStage(runId, "verification_authoring_localization");
     const result = await processSelectedCurrentAffairs({ targetDate, actorUserId });
     await setStage(runId, "blocker_closure_finalize");
-    const finalized = await finalizeSelectedBlockerClosure({ targetDate, baseResult: result as Record<string, any> });
+    const finalized = await finalizeSelectedBlockerClosure({
+      targetDate,
+      actorUserId,
+      baseResult: result as Record<string, any>,
+    });
     await setStage(runId, "persisting_result");
     const persistedResult = slimProcessingResult(finalized, selectedPrimaryRecovery, blockerRecovery);
     await sqlClient`
