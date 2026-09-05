@@ -6,6 +6,7 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/dot-situation-*.ts"
+      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/SPA-DOT-001-REVIEW-V1-STATUS.md"
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v6.ts"
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v7.ts"
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v6.ts"
