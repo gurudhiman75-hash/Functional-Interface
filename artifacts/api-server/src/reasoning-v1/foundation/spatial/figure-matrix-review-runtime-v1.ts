@@ -318,8 +318,10 @@ function cyclicPermutation(seed: number) {
 
 function orthogonalAttributes(seed: number) {
   const variant = seed % 3;
-  const rowGlyphs: readonly Glyph[] = variant === 1 ? ["DIAMOND", "CIRCLE", "SQUARE"] : ["CIRCLE", "SQUARE", "TRIANGLE"];
-  const colRotations = [0, 45, 90] as const;
+  const rowGlyphs: readonly Glyph[] = variant === 0
+    ? ["ARROW", "TRIANGLE", "SQUARE"]
+    : variant === 1 ? ["DIAMOND", "CIRCLE", "SQUARE"] : ["CIRCLE", "SQUARE", "TRIANGLE"];
+  const colRotations = [0, 30, 60] as const;
   const colPositions: readonly Position[] = ["N", "C", "S"];
   const colCounts = [1, 2, 3] as const;
   const matrix: (CellState | null)[] = [];
