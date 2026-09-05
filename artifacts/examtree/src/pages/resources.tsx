@@ -143,7 +143,7 @@ export default function ResourcesPage() {
   const activeHasCanonicalFeed = activeType === "all" || activeType === "current-affairs" || activeType === "notes";
 
   return (
-    <div className="min-h-screen bg-[#f5f6fb] text-slate-950 dark:bg-background dark:text-foreground" data-testid="resources-page">
+    <div className="sites-page-shell resources-page min-h-screen bg-[#f5f6fb] text-slate-950 dark:bg-background dark:text-foreground" data-testid="resources-page">
       <div className="mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8 lg:pt-12">
         <section className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-start">
           <div className="pt-2 lg:pt-4">

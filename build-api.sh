@@ -1,6 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
+# NODE_OPTIONS on Render is reserved for the production API runtime. Do not
+# let a runtime heap cap constrain Vite/esbuild or migration subprocesses.
+unset NODE_OPTIONS
+
 # Install pnpm via corepack (included with Node 18+).
 corepack enable
 corepack prepare pnpm@10.33.0 --activate
