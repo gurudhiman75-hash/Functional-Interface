@@ -42,9 +42,7 @@ export function NotesStudioPage() {
           <div className="mb-2 flex flex-wrap items-center gap-2">
             <Badge variant="secondary">notes-gen-v1</Badge>
             <Badge variant="outline">Notes Studio v2</Badge>
-            <Badge variant={periods.source === 'http' ? 'default' : 'secondary'}>
-              {periods.source === 'http' ? 'Live API' : 'Mock data'}
-            </Badge>
+            <Badge>Live API</Badge>
           </div>
           <h1 className="font-display text-3xl font-bold tracking-tight">Notes Studio v2</h1>
           <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
@@ -65,12 +63,6 @@ export function NotesStudioPage() {
           </Button>
         </div>
       </div>
-
-      {periods.source === 'mock' && (
-        <div className="rounded-lg border bg-muted/30 p-3 text-sm text-muted-foreground">
-          Mock mode is read-only. Switch the admin data source to HTTP to create periods and persist Notes Studio v2 work.
-        </div>
-      )}
 
       {periods.loading && (
         <Card><CardContent className="py-10 text-center text-sm text-muted-foreground">Loading Notes Studio v2 periods…</CardContent></Card>
