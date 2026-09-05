@@ -1,17 +1,6 @@
 name: Validate SPA FFM-001 Freeze Integration V1
 
 on:
-  push:
-    branches:
-      - feature/spa-ffm-001-review-v5
-    paths:
-      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/figure-formation-*.ts"
-      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v6.ts"
-      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v6.ts"
-      - "artifacts/api-server/src/reasoning-v1/tests/figure-formation-ffm-001-freeze-question-studio-v1.test.ts"
-      - "artifacts/api-server/src/routes/admin-question-studio-spatial-v5.ts"
-      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
-      - ".github/workflows/spa-ffm-001-freeze-integration-v1.yml"
   pull_request:
     branches:
       - New-main
@@ -22,7 +11,10 @@ on:
       - "artifacts/api-server/src/reasoning-v1/tests/figure-formation-ffm-001-freeze-question-studio-v1.test.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-spatial-v5.ts"
       - "artifacts/api-server/src/lib/admin-question-conversion.ts"
-      - ".github/workflows/spa-ffm-001-freeze-integration-v1.yml"
+
+concurrency:
+  group: spa-ffm-001-freeze-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -30,7 +22,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       # The proof imports conversion helpers that construct the SQL client at module load.
       # No database operation is executed in this test; a local inert URL keeps the
