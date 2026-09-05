@@ -9,6 +9,7 @@ import {
   DOT_SITUATION_INTERNAL_ACTIVATION_V1,
   DOT_SITUATION_PRODUCT_OWNER_APPROVAL_V1,
 } from "../foundation/spatial/dot-situation-freeze-v1";
+import type { DotSituationQuestionStudioV1 } from "../foundation/spatial/dot-situation-question-studio-v1";
 import {
   SPATIAL_QUESTION_STUDIO_PACKAGE_V7,
   SPATIAL_QUESTION_STUDIO_QLS_V7,
@@ -19,6 +20,10 @@ import {
 } from "../foundation/spatial/spatial-question-studio-production-v7";
 import { SPATIAL_QUESTION_STUDIO_PACKAGE_V1 } from "../foundation/spatial/spatial-question-studio-integration-v6";
 import { generateSpatialProductionStudioQuestionV1 } from "../foundation/spatial/spatial-question-studio-production-v6";
+
+type FrozenDotQuestion = DotSituationQuestionStudioV1 & Readonly<{
+  integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V7.integrationAuthority;
+}>;
 
 assert.equal(DOT_SITUATION_PRODUCT_OWNER_APPROVAL_V1.approved, true);
 assert.equal(DOT_SITUATION_PRODUCT_OWNER_APPROVAL_V1.reviewedPullRequest, 1421);
@@ -57,12 +62,12 @@ for (const language of ["en", "hi", "pa"] as const) {
       qlId: "SPA-QL-054",
       language,
       seed,
-    });
+    }) as FrozenDotQuestion;
     const viaCurrentAlias = generateSpatialProductionStudioQuestionV1({
       qlId: "SPA-QL-054",
       language,
       seed,
-    });
+    }) as FrozenDotQuestion;
     assert.deepEqual(viaCurrentAlias, question, `current production alias must resolve DOT-001 for ${language}/${index}`);
     assert.equal(question.qlId, "SPA-QL-054");
     assert.equal(question.chapterCode, "DOT-001");
@@ -96,9 +101,9 @@ for (const language of ["en", "hi", "pa"] as const) {
 
 for (let index = 0; index < 10; index += 1) {
   const seed = `DOT-LANGUAGE-PARITY:${index}`;
-  const en = generateSpatialProductionStudioQuestionV7({ qlId: "SPA-QL-054", language: "en", seed });
+  const en = generateSpatialProductionStudioQuestionV7({ qlId: "SPA-QL-054", language: "en", seed }) as FrozenDotQuestion;
   for (const language of ["hi", "pa"] as const) {
-    const localized = generateSpatialProductionStudioQuestionV7({ qlId: "SPA-QL-054", language, seed });
+    const localized = generateSpatialProductionStudioQuestionV7({ qlId: "SPA-QL-054", language, seed }) as FrozenDotQuestion;
     assert.equal(localized.geometryFingerprint, en.geometryFingerprint);
     assert.equal(localized.correctIndex, en.correctIndex);
     assert.deepEqual(localized.solveFacts.requiredSignatures, en.solveFacts.requiredSignatures);
@@ -123,13 +128,16 @@ const conversionQuestion = generateSpatialProductionStudioQuestionV7({
   qlId: "SPA-QL-054",
   language: "en",
   seed: "DOT-001:QUESTION-BANK:SOLUTION-ILLUSTRATION",
-});
+}) as FrozenDotQuestion;
 const persistedPayload = productionPayloadV5(conversionQuestion);
 assert.equal(typeof persistedPayload.explanationIllustrationSvg, "string");
 assert.equal(persistedPayload.optionSvgs?.length, 4);
-assert.ok(Array.isArray(persistedPayload.richExplanation.membershipTable));
+const persistedMembershipTable = (
+  persistedPayload.richExplanation as unknown as { membershipTable?: readonly unknown[] }
+).membershipTable;
+assert.ok(Array.isArray(persistedMembershipTable));
 assert.equal(
-  persistedPayload.richExplanation.membershipTable.length,
+  persistedMembershipTable.length,
   conversionQuestion.solveFacts.dotCount,
   "Question Studio payload must retain the approved per-dot membership table.",
 );
