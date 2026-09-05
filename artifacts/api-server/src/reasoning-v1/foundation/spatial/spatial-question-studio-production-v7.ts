@@ -1,7 +1,7 @@
 import {
-  generateSpatialProductionStudioQuestionV6,
-  type SpatialProductionStudioQuestionV6,
-} from "./spatial-question-studio-production-v6";
+  generateSpatialProductionStudioQuestionV5,
+  type SpatialProductionStudioQuestionV5,
+} from "./spatial-question-studio-production-v5";
 import {
   SPATIAL_QUESTION_STUDIO_PACKAGE_V7,
   SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1,
@@ -10,25 +10,36 @@ import {
   type SpatialQuestionStudioDifficultyV7,
   type SpatialQuestionStudioPermanentQlIdV7,
 } from "./spatial-question-studio-integration-v7";
+import { generateFigureFormationReviewQuestionV5 } from "./figure-formation-review-runtime-v5";
+import { FIGURE_FORMATION_INTERNAL_ACTIVATION_V2 } from "./figure-formation-freeze-v1";
 import { generateDotSituationQuestionStudioV1 } from "./dot-situation-question-studio-v1";
 import { DOT_SITUATION_INTERNAL_ACTIVATION_V1 } from "./dot-situation-freeze-v1";
 import type { SpatialQuestionStudioLanguageV1 } from "./spatial-question-studio-localization-v1";
 
+const FFM_QL_IDS = new Set<string>(["SPA-QL-051", "SPA-QL-052", "SPA-QL-053"]);
 const DOT_QL_IDS = new Set<string>(["SPA-QL-054"]);
+
+export function isFigureFormationQuestionStudioQlIdV7(qlId: string): qlId is "SPA-QL-051" | "SPA-QL-052" | "SPA-QL-053" {
+  return FFM_QL_IDS.has(qlId);
+}
 
 export function isDotSituationQuestionStudioQlIdV7(qlId: string): qlId is "SPA-QL-054" {
   return DOT_QL_IDS.has(qlId);
 }
 
+type FfmProductionQuestionV7 = ReturnType<typeof generateFigureFormationReviewQuestionV5> & {
+  integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V7.integrationAuthority;
+};
+
 type DotProductionQuestionV7 = ReturnType<typeof generateDotSituationQuestionStudioV1> & {
   integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V7.integrationAuthority;
 };
 
-type LegacyProductionQuestionV7 = Omit<SpatialProductionStudioQuestionV6, "integrationAuthority"> & {
+type LegacyProductionQuestionV7 = Omit<SpatialProductionStudioQuestionV5, "integrationAuthority"> & {
   integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V7.integrationAuthority;
 };
 
-export type SpatialProductionStudioQuestionV7 = LegacyProductionQuestionV7 | DotProductionQuestionV7;
+export type SpatialProductionStudioQuestionV7 = LegacyProductionQuestionV7 | FfmProductionQuestionV7 | DotProductionQuestionV7;
 
 export interface SpatialProductionStudioBatchRequestV7 {
   seed: string;
@@ -37,6 +48,13 @@ export interface SpatialProductionStudioBatchRequestV7 {
   chapterCode?: SpatialQuestionStudioChapterCodeV7;
   difficulty?: SpatialQuestionStudioDifficultyV7;
   language?: SpatialQuestionStudioLanguageV1;
+}
+
+function ffmLifecycle() {
+  return Object.freeze({
+    ...FIGURE_FORMATION_INTERNAL_ACTIVATION_V2,
+    releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
+  });
 }
 
 function dotLifecycle() {
@@ -53,6 +71,23 @@ export function generateSpatialProductionStudioQuestionV7(input: Readonly<{
   language?: SpatialQuestionStudioLanguageV1;
 }>): SpatialProductionStudioQuestionV7 {
   const language = input.language ?? "en";
+
+  if (isFigureFormationQuestionStudioQlIdV7(input.qlId)) {
+    const approved = generateFigureFormationReviewQuestionV5({ qlId: input.qlId, seed: input.seed, language }) as any;
+    return Object.freeze({
+      ...approved,
+      lifecycle: ffmLifecycle(),
+      sourceFreezeAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.sourceFreezeAuthorityId,
+      integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V7.integrationAuthority,
+      review: Object.freeze({
+        ...approved.review,
+        productOwnerApproved: true as const,
+        learnerContentFrozen: true as const,
+        downstreamActivationAllowed: true as const,
+      }),
+    }) as FfmProductionQuestionV7;
+  }
+
   if (isDotSituationQuestionStudioQlIdV7(input.qlId)) {
     const approved = generateDotSituationQuestionStudioV1({
       qlId: input.qlId,
@@ -66,8 +101,8 @@ export function generateSpatialProductionStudioQuestionV7(input: Readonly<{
     }) as DotProductionQuestionV7;
   }
 
-  const legacy = generateSpatialProductionStudioQuestionV6({
-    qlId: input.qlId as Parameters<typeof generateSpatialProductionStudioQuestionV6>[0]["qlId"],
+  const legacy = generateSpatialProductionStudioQuestionV5({
+    qlId: input.qlId as Parameters<typeof generateSpatialProductionStudioQuestionV5>[0]["qlId"],
     seed: input.seed,
     language,
   });
