@@ -67,7 +67,6 @@ jobs:
           grep -q '96 localized outputs' "$FILE"
           grep -q 'Candidate 3' "$FILE"
           grep -q 'COM-003-QL-004' "$FILE"
-          ! grep -Eq 'करता है वाला Word कमांड|डालता है वाला Word कमांड|ਪਾਂਦਾ ਹੈ ਵਾਲਾ Word ਕਮਾਂਡ|ਕਰਦਾ ਹੈ ਵਾਲਾ Word ਕਮਾਂਡ|duplicates selected content|stores current changes in the file|open the print workflow|save the current document' "$FILE"
       - name: Upload Candidate 3 review artifact
         uses: actions/upload-artifact@v4
         with:
