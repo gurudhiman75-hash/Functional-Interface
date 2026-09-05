@@ -136,7 +136,32 @@ assert.equal(coreTemplates.size, 48, "CP015 must retain all 48 approved core tem
 
 const allSignatures = questions.map(signature);
 const unique = new Set(allSignatures).size;
-assert.equal(unique, 1000, `CP015 1000-question corpus contains ${1000 - unique} exact duplicates.`);
+const signatureGroups = new Map<string, Q[]>();
+for (const question of questions) {
+  const key = signature(question);
+  const group = signatureGroups.get(key) ?? [];
+  group.push(question);
+  signatureGroups.set(key, group);
+}
+const duplicateGroups = [...signatureGroups.entries()]
+  .filter(([, items]) => items.length > 1)
+  .map(([key, items]) => ({
+    signature: key.slice(0, 16),
+    occurrences: items.map((question) => ({
+      questionId: String(question.questionId ?? ""),
+      qlId: String(question.qlId ?? ""),
+      difficulty: String(question.difficulty ?? ""),
+      examProfile: String(question.examProfile ?? "CORE"),
+      templateId: String(question.templateId ?? ""),
+      scenarioId: String(question.scenarioId ?? ""),
+      statement: String(question.statement ?? ""),
+    })),
+  }));
+assert.equal(
+  unique,
+  1000,
+  `CP015 1000-question corpus contains ${1000 - unique} exact duplicates.\n${JSON.stringify(duplicateGroups, null, 2)}`,
+);
 
 for (const [profile, items] of profiles) {
   const uniqueProfile = new Set(items.map(signature)).size;
