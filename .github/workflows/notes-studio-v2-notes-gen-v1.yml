@@ -7,10 +7,9 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/notes-studio-v2/**
-      - artifacts/api-server/src/routes/admin-notes-studio-v2.ts
+      - artifacts/api-server/src/routes/admin-notes-studio-v2*.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/api-server/migrations/*notes_studio_v2*.sql
-      - .github/workflows/notes-studio-v2-notes-gen-v1.yml
 
 permissions:
   contents: read
@@ -55,6 +54,8 @@ jobs:
           grep -F "Coverage is exhaustive" artifacts/api-server/src/notes-studio-v2/core.ts
           grep -F "CREATE SCHEMA IF NOT EXISTS notes_studio_v2" artifacts/api-server/migrations/20260905_notes_studio_v2.sql
           grep -F 'router.use("/admin/notes-studio-v2", adminNotesStudioV2Router);' artifacts/api-server/src/routes/index.ts
+          grep -F 'router.use("/admin/notes-studio-v2", adminNotesStudioV2ReviewStateRouter);' artifacts/api-server/src/routes/index.ts
+          grep -F "source prose" artifacts/api-server/src/routes/admin-notes-studio-v2-review-state.ts
 
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
