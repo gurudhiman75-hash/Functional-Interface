@@ -24,7 +24,7 @@ function values(title: string, text: string, sourceKey: string) {
 {
   const facts = values(
     "Developments in India’s Balance of Payments during the First Quarter (April-June) of 2026-27",
-    "Key Features of India’s BoP in Q1:2026-27 India’s current account deficit stood at US$ 4.2 billion (0.5 per cent of GDP) in Q1:2026-27 as compared to US$ 3.4 billion a year ago.",
+    "Key Features of India’s BoP in Q1:2026-27 India’s current account recorded a deficit (CAD) of US$ 4.2 billion (0.5 per cent of GDP) in Q1:2026-27 as compared to US$ 3.4 billion a year ago.",
     "rbi",
   );
   assert.equal(facts.length, 3);
