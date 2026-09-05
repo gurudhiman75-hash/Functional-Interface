@@ -106,7 +106,7 @@ export default function StorePage() {
   }, [filter, products, search, sort]);
 
   return (
-    <div className="min-h-screen bg-[#f7f8fc] dark:bg-background" data-testid="store-page">
+    <div className="sites-page-shell store-page min-h-screen bg-[#f7f8fc] dark:bg-background" data-testid="store-page">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-9">
         <section className="overflow-hidden rounded-[30px] border border-[#e3dff5] bg-[radial-gradient(circle_at_90%_10%,rgba(102,87,232,0.14),transparent_24rem),linear-gradient(135deg,#ffffff_0%,#f5f2ff_62%,#faf9ff_100%)] shadow-[0_18px_52px_rgba(44,42,76,0.055)] dark:border-border dark:bg-none dark:bg-card">
           <div className="grid gap-7 p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_330px] lg:items-center lg:p-10">
