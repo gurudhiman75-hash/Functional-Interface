@@ -1,0 +1,46 @@
+name: COM-003 Localization V2 Chapter Candidate
+
+on:
+  push:
+    branches: [feature/com003-office-productivity-discovery-v1]
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-chapter-candidate.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-chapter-candidate.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v4.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave2-v2.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave3.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave4.ts'
+      - '.github/workflows/com003-localization-v2-chapter-candidate.yml'
+  pull_request:
+    branches: [integration/computer-content-engine-mainline-v1]
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-chapter-candidate.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-chapter-candidate.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v4.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave2-v2.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave3.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave4.ts'
+      - '.github/workflows/com003-localization-v2-chapter-candidate.yml'
+
+permissions:
+  contents: read
+concurrency:
+  group: com003-localization-v2-chapter-candidate-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle chapter candidate audit
+        run: |
+          mkdir -p artifacts/api-server/dist/com003-localization-v2-chapter-candidate
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/computer-awareness/com003-localization-v2-chapter-candidate.test.ts --bundle --platform=node --format=esm --outfile=dist/com003-localization-v2-chapter-candidate/test.mjs
+      - name: Run chapter candidate audit
+        run: node artifacts/api-server/dist/com003-localization-v2-chapter-candidate/test.mjs
