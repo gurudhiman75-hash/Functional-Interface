@@ -5,6 +5,8 @@ import {
   type Com003LocalizedQuestionV2,
 } from "./com003-localization-v2-wave1";
 
+export type { Com003LocalizedQuestionV2 } from "./com003-localization-v2-wave1";
+
 const COMMAND_NAME: Record<string, string> = {
   "com003-command-copy": "Copy",
   "com003-command-save": "Save",
