@@ -1,13 +1,6 @@
 name: Validate SPA FMT-001 Discovery V1
 
 on:
-  pull_request:
-    branches:
-      - New-main
-    paths:
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/figure-matrix-*.ts'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v12.ts'
-      - 'artifacts/api-server/src/reasoning-v1/tests/figure-matrix-fmt-001-discovery-v1.test.ts'
   workflow_dispatch:
 
 concurrency:
