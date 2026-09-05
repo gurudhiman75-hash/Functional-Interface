@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 import { adminRequest } from '@/lib/admin-request';
+import { NotesStudioGapFillPanel } from './NotesStudioGapFillPanel';
 
 type PolicySource = {
   id: string;
@@ -338,6 +339,12 @@ export function NotesStudioResearchReviewPage({ jobId, onJobProgressed }: { jobI
         </div>}
       </CardContent>
     </Card>
+
+    {coverage && coverage.summary.covered < coverage.summary.itemCount && <NotesStudioGapFillPanel
+      jobId={jobId}
+      unresolvedCount={coverage.summary.itemCount - coverage.summary.covered}
+      onSourcesAttached={load}
+    />}
   </div>;
 }
 

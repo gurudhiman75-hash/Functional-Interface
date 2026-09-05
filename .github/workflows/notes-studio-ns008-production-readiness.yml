@@ -90,7 +90,7 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild notes-studio-migrate.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-migrate.mjs
           (cd artifacts/api-server && node dist/notes-studio-migrate.mjs)
           (cd artifacts/api-server && node dist/notes-studio-migrate.mjs)
-          test "$(psql "$DATABASE_URL" -Atc 'SELECT count(*) FROM platform.notes_studio_schema_migrations')" = "13"
+          test "$(psql "$DATABASE_URL" -Atc 'SELECT count(*) FROM platform.notes_studio_schema_migrations')" = "14"
           test "$(psql "$DATABASE_URL" -Atc "SELECT column_name FROM information_schema.columns WHERE table_schema='content' AND table_name='note_coverage_plan_items' AND column_name='coverage_review_state'")" = "coverage_review_state"
 
       - name: Reconcile unledgered partial Notes Studio schema
@@ -116,12 +116,12 @@ jobs:
             psql "$PARTIAL_DATABASE_URL" -v ON_ERROR_STOP=1 -f "artifacts/api-server/migrations/$migration"
           done
           (cd artifacts/api-server && DATABASE_URL="$PARTIAL_DATABASE_URL" node dist/notes-studio-migrate.mjs)
-          test "$(psql "$PARTIAL_DATABASE_URL" -Atc 'SELECT count(*) FROM platform.notes_studio_schema_migrations')" = "13"
+          test "$(psql "$PARTIAL_DATABASE_URL" -Atc 'SELECT count(*) FROM platform.notes_studio_schema_migrations')" = "14"
           test "$(psql "$PARTIAL_DATABASE_URL" -Atc "SELECT to_regclass('content.note_authoring_jobs')::text")" = "content.note_authoring_jobs"
           test "$(psql "$PARTIAL_DATABASE_URL" -Atc "SELECT column_name FROM information_schema.columns WHERE table_schema='content' AND table_name='note_coverage_plan_items' AND column_name='coverage_review_state'")" = "coverage_review_state"
           psql "$PARTIAL_DATABASE_URL" -v ON_ERROR_STOP=1 -c 'DELETE FROM platform.notes_studio_schema_migrations'
           (cd artifacts/api-server && DATABASE_URL="$PARTIAL_DATABASE_URL" node dist/notes-studio-migrate.mjs)
-          test "$(psql "$PARTIAL_DATABASE_URL" -Atc 'SELECT count(*) FROM platform.notes_studio_schema_migrations')" = "13"
+          test "$(psql "$PARTIAL_DATABASE_URL" -Atc 'SELECT count(*) FROM platform.notes_studio_schema_migrations')" = "14"
 
       - name: Run seeded PostgreSQL lifecycle
         run: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f artifacts/api-server/src/notes-studio/production-readiness-smoke.sql
@@ -135,7 +135,9 @@ jobs:
           grep -F 'notes_studio_schema_migrations' artifacts/api-server/notes-studio-migrate.ts
           grep -F 'Unmanifested Notes Studio migration file(s)' artifacts/api-server/notes-studio-migrate.ts
           grep -F '20260903_notes_studio_coverage_editorial_review_gate.sql' artifacts/api-server/src/notes-studio/production-readiness.ts
+          grep -F '20260905_notes_studio_append_only_gap_sources.sql' artifacts/api-server/src/notes-studio/production-readiness.ts
           grep -F 'coverage_review_state' artifacts/api-server/src/notes-studio/production-readiness.ts
+          grep -F 'append-only after evidence work begins' artifacts/api-server/migrations/20260905_notes_studio_append_only_gap_sources.sql
           grep -F 'reconciling unledgered schema by replaying ordered migrations' artifacts/api-server/notes-studio-migrate.ts
           grep -F 'automaticProductionMigration: true' artifacts/api-server/src/routes/admin-notes-studio-operations.ts
           grep -F '[render-build] verify Notes Studio schema' build-api.sh
