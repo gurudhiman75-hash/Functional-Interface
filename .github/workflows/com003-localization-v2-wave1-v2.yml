@@ -50,11 +50,11 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild \
             src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v2-review-file.ts \
             --bundle --platform=node --format=esm \
-            --outfile=dist/com003-localization-v2-wave1-v2/review.mjs
+            --outfile=dist/com003-localization-v2-wave1-v2/com003-localization-v2-wave1-v2-review-file.mjs
       - name: Run corrected Wave 1 audit
         run: node artifacts/api-server/dist/com003-localization-v2-wave1-v2/audit.test.mjs
       - name: Generate corrected Wave 1 review file
-        run: cd artifacts/api-server && node dist/com003-localization-v2-wave1-v2/review.mjs
+        run: cd artifacts/api-server && node dist/com003-localization-v2-wave1-v2/com003-localization-v2-wave1-v2-review-file.mjs
       - name: Verify corrected review artifact
         run: |
           FILE=artifacts/api-server/dist/com003-localization-v2-wave1-v2-review/COM-003-Localization-V2-Wave1-Candidate2-Review.html
