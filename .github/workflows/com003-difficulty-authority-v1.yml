@@ -60,8 +60,8 @@ jobs:
           FILE=artifacts/api-server/dist/com003-difficulty-review/COM-003-Office-Productivity-Difficulty-Authority-V1.html
           test -s "$FILE"
           grep -q '228 questions' "$FILE"
-          grep -q 'Easy 92' "$FILE"
-          grep -q 'Medium 136' "$FILE"
+          grep -q 'Easy 96' "$FILE"
+          grep -q 'Medium 132' "$FILE"
           grep -q 'Hard 0' "$FILE"
           grep -q 'Hard routing:</b> not authorized' "$FILE"
           grep -q 'COM-003-QL-019' "$FILE"
