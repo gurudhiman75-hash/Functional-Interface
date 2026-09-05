@@ -48,23 +48,19 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
-      - name: Bundle COM-003 V2 runtime audits
+      - name: Bundle frozen corpus V2 adapter audit
         run: |
           mkdir -p artifacts/api-server/dist/com003-question-studio-v2
-          for test in \
-            com003-question-studio-pre-registration-adapter-v2 \
-            ../../question-studio/engines/knowledge-v1-com003-adapter-v2
-          do
-            src="src/knowledge-v1/computer-awareness/${test}.test.ts"
-            out="$(basename "${test}").test.mjs"
-            if [[ "${test}" == ../../question-studio/* ]]; then
-              src="src/${test}.test.ts"
-            fi
-            pnpm --dir artifacts/api-server exec esbuild \
-              "${src}" \
-              --bundle --platform=node --format=esm \
-              --outfile="dist/com003-question-studio-v2/${out}"
-          done
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-question-studio-pre-registration-adapter-v2.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-question-studio-v2/com003-question-studio-pre-registration-adapter-v2.test.mjs
+      - name: Bundle Question Studio V2 integration audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/engines/knowledge-v1-com003-adapter-v2.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-question-studio-v2/knowledge-v1-com003-adapter-v2.test.mjs
       - name: Run frozen corpus V2 adapter audit
         run: node artifacts/api-server/dist/com003-question-studio-v2/com003-question-studio-pre-registration-adapter-v2.test.mjs
       - name: Run Question Studio V2 integration audit
