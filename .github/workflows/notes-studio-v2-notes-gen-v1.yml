@@ -1,0 +1,78 @@
+name: Validate Notes Studio v2 notes-gen-v1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/notes-studio-v2/**
+      - artifacts/api-server/src/routes/admin-notes-studio-v2*.ts
+      - artifacts/api-server/src/routes/index.ts
+      - artifacts/api-server/migrations/*notes_studio_v2*.sql
+
+permissions:
+  contents: read
+
+concurrency:
+  group: notes-studio-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-notes-studio-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run notes-gen-v1 deterministic contracts
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio-v2/core.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-v2-core.test.mjs
+          node artifacts/api-server/dist/notes-studio-v2-core.test.mjs
+
+      - name: Verify v2 isolation boundaries
+        run: |
+          grep -F "apiNamespace: '/admin/notes-studio-v2'" artifacts/api-server/src/routes/admin-notes-studio-v2.ts
+          grep -F "databaseSchema: 'notes_studio_v2'" artifacts/api-server/src/routes/admin-notes-studio-v2.ts
+          grep -F "sourceProseAllowedInGeneration: false" artifacts/api-server/src/routes/admin-notes-studio-v2.ts
+          grep -F "examFrequencyFiltersCoverage: false" artifacts/api-server/src/routes/admin-notes-studio-v2.ts
+          grep -F "Critical safety boundary" artifacts/api-server/src/routes/admin-notes-studio-v2.ts
+          grep -F "FROM notes_studio_v2.facts fact" artifacts/api-server/src/routes/admin-notes-studio-v2.ts
+          grep -F "Write directly in" artifacts/api-server/src/notes-studio-v2/core.ts
+          grep -F "Coverage is exhaustive" artifacts/api-server/src/notes-studio-v2/core.ts
+          grep -F "CREATE SCHEMA IF NOT EXISTS notes_studio_v2" artifacts/api-server/migrations/20260905_notes_studio_v2.sql
+          grep -F 'router.use("/admin/notes-studio-v2", adminNotesStudioV2GenerationRouter);' artifacts/api-server/src/routes/index.ts
+          grep -F 'router.use("/admin/notes-studio-v2", adminNotesStudioV2Router);' artifacts/api-server/src/routes/index.ts
+          grep -F 'router.use("/admin/notes-studio-v2", adminNotesStudioV2ReviewStateRouter);' artifacts/api-server/src/routes/index.ts
+          grep -F "no corpus text or verification evidence crosses this route" artifacts/api-server/src/routes/admin-notes-studio-v2-review-state.ts
+
+      - name: Verify reviewed style exemplars
+        run: |
+          grep -F "loadActiveStyleWithExemplars" artifacts/api-server/src/routes/admin-notes-studio-v2-generation.ts
+          grep -F "style.exemplars.length < 2" artifacts/api-server/src/routes/admin-notes-studio-v2-generation.ts
+          grep -F "exemplars: style.exemplars" artifacts/api-server/src/routes/admin-notes-studio-v2-generation.ts
+          grep -F "Critical fact-only boundary" artifacts/api-server/src/routes/admin-notes-studio-v2-generation.ts
+
+      - name: Verify persisted quality gate
+        run: |
+          grep -F "CREATE TABLE IF NOT EXISTS notes_studio_v2.quality_runs" artifacts/api-server/migrations/20260905_notes_studio_v2_quality_runs.sql
+          grep -F "require_latest_review_ready_quality" artifacts/api-server/migrations/20260905_notes_studio_v2_quality_runs.sql
+          grep -F "invalidate_quality_after_content_edit" artifacts/api-server/migrations/20260905_notes_studio_v2_quality_runs.sql
+          grep -F "/note-versions/:versionId/quality/persisted" artifacts/api-server/src/routes/admin-notes-studio-v2-review-state.ts
+          grep -F "source-agnostic fact graph only" artifacts/api-server/src/routes/admin-notes-studio-v2-review-state.ts
+          grep -F "QUALITY_CHECKER_VERSION" artifacts/api-server/src/routes/admin-notes-studio-v2-review-state.ts
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
