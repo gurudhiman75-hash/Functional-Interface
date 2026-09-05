@@ -50,6 +50,10 @@ function fullSignature(question: Question): string {
   ])).digest("hex");
 }
 
+function signatureParity(signature: string): 0 | 1 {
+  return (Number.parseInt(signature.slice(0, 2), 16) & 1) as 0 | 1;
+}
+
 function localizedEither(question: Question): string {
   if (question.locale === "hi-IN" || question.language === "hi") return "या तो तर्क I या II मजबूत है";
   if (question.locale === "pa-IN" || question.language === "pa") return "ਜਾਂ ਦਲੀਲ I ਜਾਂ II ਮਜ਼ਬੂਤ ਹੈ";
@@ -170,6 +174,30 @@ function profileSurfaceAccepted(question: Question, profile: string): boolean {
   return args.length === 2 && args.every((argument) => words(argument) <= 34);
 }
 
+function diversityPartitionAccepted(
+  signature: string,
+  input: ArgCp015QuestionStudioInput,
+  profile: string,
+): boolean {
+  const parity = signatureParity(signature);
+
+  // Core and SSC use the same approved 2x4 semantic surface. Keep their selected
+  // content pools disjoint so a real-paper SSC batch cannot repeat a core item.
+  if (!profile) return parity === 0;
+  if (profile === "SSC_RECENT_2X4") return parity === 1;
+
+  // CP014's 3x5 real-paper authority can realize the same approved scenario at
+  // Medium and Hard. Partition those two cells so difficulty scheduling selects
+  // different approved surfaces instead of relabelling an identical question.
+  if (profile === "BANKING_COMBO_3X5") {
+    const difficulty = text(input.difficulty).toUpperCase();
+    if (difficulty === "MEDIUM") return parity === 0;
+    if (difficulty === "HARD") return parity === 1;
+  }
+
+  return true;
+}
+
 function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed: string): { question: Question; context: Question } {
   if (TWO_ARGUMENT_PROFILES.has(profile)) {
     const request = clearExplicitProfile({ ...input, count: 1, seed });
@@ -206,6 +234,7 @@ export function generateArgCp015QuestionStudioBatch(input: ArgCp015QuestionStudi
       sourceContext ??= candidate.context;
       if (!profileSurfaceAccepted(candidate.question, profile)) continue;
       const signature = fullSignature(candidate.question);
+      if (!diversityPartitionAccepted(signature, input, profile)) continue;
       if (!seen.has(signature)) {
         seen.add(signature);
         accepted = candidate.question;
