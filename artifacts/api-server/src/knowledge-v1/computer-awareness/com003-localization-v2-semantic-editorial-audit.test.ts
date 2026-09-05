@@ -17,8 +17,8 @@ type SemanticRule = Readonly<{
 const RULES: Readonly<Record<string, SemanticRule>> = Object.freeze({
   "com003-excel-absolute-reference": {
     qlId: "COM-003-QL-011",
-    hi: [/absolute reference/i, /स्थिर|fixed|lock|नहीं बदल/i],
-    pa: [/absolute reference/i, /ਸਥਿਰ|fixed|lock|ਨਹੀਂ ਬਦਲ/i],
+    hi: [/absolute reference/i, /स्थिर|fixed|lock|नहीं बदल|जस का तस/i],
+    pa: [/absolute reference/i, /ਸਥਿਰ|fixed|lock|ਨਹੀਂ ਬਦਲ|ਜਿਉਂ ਦਾ ਤਿਉਂ/i],
   },
   "com003-excel-absolute-reference-notation": {
     qlId: "COM-003-QL-011",
