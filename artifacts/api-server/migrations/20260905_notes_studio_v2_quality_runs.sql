@@ -45,3 +45,21 @@ CREATE TRIGGER notes_studio_v2_require_quality_before_review
 BEFORE UPDATE OF status ON notes_studio_v2.note_versions
 FOR EACH ROW
 EXECUTE FUNCTION notes_studio_v2.require_latest_review_ready_quality();
+
+CREATE OR REPLACE FUNCTION notes_studio_v2.invalidate_quality_after_content_edit()
+RETURNS trigger
+LANGUAGE plpgsql
+AS $$
+BEGIN
+  IF NEW.blocks_by_language IS DISTINCT FROM OLD.blocks_by_language THEN
+    DELETE FROM notes_studio_v2.quality_runs WHERE note_version_id = NEW.id;
+  END IF;
+  RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS notes_studio_v2_invalidate_quality_after_content_edit ON notes_studio_v2.note_versions;
+CREATE TRIGGER notes_studio_v2_invalidate_quality_after_content_edit
+AFTER UPDATE OF blocks_by_language ON notes_studio_v2.note_versions
+FOR EACH ROW
+EXECUTE FUNCTION notes_studio_v2.invalidate_quality_after_content_edit();
