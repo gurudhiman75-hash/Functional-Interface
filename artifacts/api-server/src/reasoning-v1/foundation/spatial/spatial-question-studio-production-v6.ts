@@ -13,6 +13,11 @@ import {
 import { generateFigureFormationReviewQuestionV5 } from "./figure-formation-review-runtime-v5";
 import { FIGURE_FORMATION_INTERNAL_ACTIVATION_V2 } from "./figure-formation-freeze-v1";
 import type { SpatialQuestionStudioLanguageV1 } from "./spatial-question-studio-localization-v1";
+import {
+  generateSpatialProductionStudioBatchV7,
+  generateSpatialProductionStudioQuestionV7,
+  type SpatialProductionStudioQuestionV7,
+} from "./spatial-question-studio-production-v7";
 
 const FFM_QL_IDS = new Set<string>(["SPA-QL-051", "SPA-QL-052", "SPA-QL-053"]);
 
@@ -153,6 +158,7 @@ export function generateSpatialProductionStudioBatchV6(request: SpatialProductio
   });
 }
 
-export const generateSpatialProductionStudioBatchV1 = generateSpatialProductionStudioBatchV6;
-export const generateSpatialProductionStudioQuestionV1 = generateSpatialProductionStudioQuestionV6;
-export type SpatialProductionStudioQuestionV1 = SpatialProductionStudioQuestionV6;
+// V6 remains the immutable FFM checkpoint. Current-route aliases advance to the approved DOT extension.
+export const generateSpatialProductionStudioBatchV1 = generateSpatialProductionStudioBatchV7;
+export const generateSpatialProductionStudioQuestionV1 = generateSpatialProductionStudioQuestionV7;
+export type SpatialProductionStudioQuestionV1 = SpatialProductionStudioQuestionV7;
