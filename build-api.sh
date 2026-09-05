@@ -1,6 +1,10 @@
 #!/bin/bash
 set -euo pipefail
 
+# NODE_OPTIONS on Render is reserved for the production API runtime. Do not
+# let a runtime heap cap constrain Vite/esbuild or migration subprocesses.
+unset NODE_OPTIONS
+
 # Install pnpm via corepack (included with Node 18+).
 corepack enable
 corepack prepare pnpm@10.33.0 --activate
@@ -38,44 +42,29 @@ else
 
   # Legacy Notes Studio retains its existing ordered migration authority.
   echo "[render-build] verify Notes Studio schema"
-  pnpm --dir artifacts/api-server exec esbuild notes-studio-migrate.ts \
-    --bundle --packages=external --platform=node --format=esm \
-    --outfile=dist/notes-studio-migrate.mjs
-  (cd artifacts/api-server && node dist/notes-studio-migrate.mjs)
+  pnpm --dir artifacts/api-server exec esbuild notes-studio-migrate.ts --platform=node --packages=external --format=esm --outfile=dist/notes-studio-migrate.mjs
+  pnpm --dir artifacts/api-server exec node dist/notes-studio-migrate.mjs
 
-  # Notes Studio v2 is intentionally isolated from the legacy schema and ledger.
-  # Compile and execute its own ordered migrator before the v2 API can be served.
+  # Notes Studio v2 is isolated from the legacy Notes Studio schema. Its
+  # dedicated migrator owns only the notes_studio_v2 manifest + ledger and
+  # verifies all relations/triggers before the API runtime is built.
   echo "[render-build] verify Notes Studio v2 schema"
-  pnpm --dir artifacts/api-server exec esbuild notes-studio-v2-migrate.ts \
-    --bundle --packages=external --platform=node --format=esm \
-    --outfile=dist/notes-studio-v2-migrate.mjs
-  (cd artifacts/api-server && node dist/notes-studio-v2-migrate.mjs)
+  pnpm --dir artifacts/api-server exec esbuild notes-studio-v2-migrate.ts --platform=node --packages=external --format=esm --outfile=dist/notes-studio-v2-migrate.mjs
+  pnpm --dir artifacts/api-server exec node dist/notes-studio-v2-migrate.mjs
 fi
 
-# Build the student app. Its build also generates the public prerender files.
+# Build the student and admin SPAs before the server. The server hosts both
+# dist trees from the single Render service.
 echo "[render-build] build student app"
-pnpm --dir artifacts/examtree build
+pnpm --filter @workspace/examtree build
 
-# Render deploys the already typechecked admin bundle. Do not run the admin
-# package's `tsc -b --force` here: that is a CI/development validation concern
-# and is one of the highest-heap Node phases in the production deploy path.
-# Source maps are also disabled for this deploy-only Vite build.
-#
-# The Render service serves both the admin SPA and the API. Force the production
-# admin bundle to use same-origin /api even if the Render environment still has
-# a legacy VITE_API_URL configured. Otherwise the SPA can load successfully
-# while browser requests fail at DNS/CORS before reaching this deployment.
 echo "[render-build] build admin app"
-VITE_API_URL=/api EXAMTREE_RENDER_BUILD=1 pnpm --dir artifacts/admin-app exec vite build
+RENDER=true pnpm --filter @workspace/examtree-admin build
 
-# Assemble the single static tree served by the API service.
 echo "[render-build] assemble hosting tree"
-node scripts/assemble-hosting.mjs
+node scripts/assemble-hosting-tree.mjs
 
-# Production only starts dist/index.mjs. Use the runtime-only bundler instead
-# of build.mjs, which intentionally also emits migration scripts, validators,
-# stress tools and quant test harnesses for development/CI use.
 echo "[render-build] build API runtime"
-node artifacts/api-server/build-runtime.mjs
+pnpm --dir artifacts/api-server exec node build-runtime.mjs
 
 echo "[render-build] complete"
