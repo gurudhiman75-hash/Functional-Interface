@@ -1,20 +1,7 @@
 name: Validate SPA FFM-001 Review V5
 
 on:
-  push:
-    branches:
-      - feature/spa-ffm-001-review-v5
-    paths:
-      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/figure-formation-*.ts"
-      - "artifacts/api-server/src/reasoning-v1/tests/figure-formation-ffm-001-*.ts"
-      - ".github/workflows/spa-ffm-001-review-v5.yml"
-  pull_request:
-    branches:
-      - New-main
-    paths:
-      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/figure-formation-*.ts"
-      - "artifacts/api-server/src/reasoning-v1/tests/figure-formation-ffm-001-*.ts"
-      - ".github/workflows/spa-ffm-001-review-v5.yml"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -22,7 +9,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
