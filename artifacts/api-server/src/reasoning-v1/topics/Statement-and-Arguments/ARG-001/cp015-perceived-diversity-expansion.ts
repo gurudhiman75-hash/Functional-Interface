@@ -32,6 +32,10 @@ function countOf(value: unknown): number {
   return Number.isFinite(parsed) && parsed > 0 ? Math.min(parsed, 50) : 1;
 }
 
+function words(value: unknown): number {
+  return String(value ?? "").trim().split(/\s+/).filter(Boolean).length;
+}
+
 function profileOf(input: ArgCp015QuestionStudioInput): string {
   return text(input.examProfile ?? input.paperProfile ?? input.deliveryProfile).toUpperCase();
 }
@@ -159,6 +163,13 @@ function promoteUnchanged(source: Question): Question {
   });
 }
 
+function profileSurfaceAccepted(question: Question, profile: string): boolean {
+  if (profile !== "SSC_RECENT_2X4") return true;
+  if (words(question.statement) > 24) return false;
+  const args = Array.isArray(question.arguments) ? question.arguments : [];
+  return args.length === 2 && args.every((argument) => words(argument) <= 34);
+}
+
 function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed: string): { question: Question; context: Question } {
   if (TWO_ARGUMENT_PROFILES.has(profile)) {
     const request = clearExplicitProfile({ ...input, count: 1, seed });
@@ -193,6 +204,7 @@ export function generateArgCp015QuestionStudioBatch(input: ArgCp015QuestionStudi
       const candidateSeed = `${baseSeed}:CP015:${profile || "CORE"}:${index}:${attempt}`;
       const candidate = oneCandidate(input, profile, candidateSeed);
       sourceContext ??= candidate.context;
+      if (!profileSurfaceAccepted(candidate.question, profile)) continue;
       const signature = fullSignature(candidate.question);
       if (!seen.has(signature)) {
         seen.add(signature);
