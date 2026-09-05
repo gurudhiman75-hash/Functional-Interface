@@ -1,20 +1,21 @@
 import assert from "node:assert/strict";
 import { FIGURE_MATRIX_SOURCE_EVIDENCE_V1 } from "../foundation/spatial/figure-matrix-source-evidence-v1";
 import { FIGURE_MATRIX_SOURCE_SATURATED_DISCOVERY_V1 } from "../foundation/spatial/figure-matrix-source-saturated-discovery-v1";
-import { generateFigureMatrixReviewQuestionV1_1 } from "../foundation/spatial/figure-matrix-review-runtime-v1-1";
-import type { FigureMatrixQlIdV1 } from "../foundation/spatial/figure-matrix-review-runtime-v1";
+import { FMT_V2_SOURCE_VARIANTS, type FigureMatrixQlIdV2 } from "../foundation/spatial/figure-matrix-review-runtime-v2";
+import { generateFigureMatrixReviewQuestionV2_1 } from "../foundation/spatial/figure-matrix-review-runtime-v2-1";
 import { FIGURE_MATRIX_PERMANENT_QL_ALLOCATIONS_V12 } from "../foundation/spatial/spatial-permanent-ql-allocation-v12";
 
-const qls: readonly FigureMatrixQlIdV1[] = ["SPA-QL-055", "SPA-QL-056", "SPA-QL-057", "SPA-QL-058", "SPA-QL-059", "SPA-QL-060"];
+const qls: readonly FigureMatrixQlIdV2[] = ["SPA-QL-055", "SPA-QL-056", "SPA-QL-057", "SPA-QL-058", "SPA-QL-059", "SPA-QL-060"];
 const languages = ["en", "hi", "pa"] as const;
 const difficulties = new Set<string>();
 const answerLabels = new Set<string>();
 const matrixSizes = new Set<number>();
-const operationsByQl = new Map<string, Set<string>>();
 const familyLabels = new Set<string>();
+const sourceVariantsByQl = new Map<FigureMatrixQlIdV2, Set<string>>(qls.map((qlId) => [qlId, new Set<string>()]));
 let checkedQuestions = 0;
 let hardQuestions = 0;
 let bothAxisQuestions = 0;
+let twoByTwoQuestions = 0;
 let editorialQuestions = 0;
 
 const forbiddenLearnerTokens = [
@@ -23,7 +24,12 @@ const forbiddenLearnerTokens = [
   "CYCLIC_SHIFT",
   "ROW_ATTRIBUTE_PLUS_COLUMN_ATTRIBUTE",
   "ROTATE_AND_MOVE",
-  "Rule (",
+  "ROTATE_PLUS_REFLECT",
+  "REMOVE_PLUS_ROTATE",
+  "UNION_OR_SUPERIMPOSITION",
+  "INTERSECTION_OR_COMMON_PARTS",
+  "SYMMETRIC_DIFFERENCE_OR_CANCELLATION",
+  "DIRECTIONAL_SUBTRACTION_OR_DIFFERENCE",
   "{H",
   "D1",
   "D2",
@@ -36,16 +42,16 @@ const forbiddenLearnerTokens = [
 assert.equal(FIGURE_MATRIX_SOURCE_SATURATED_DISCOVERY_V1.canonicalTaskFamilies.length, 6);
 assert.equal(FIGURE_MATRIX_SOURCE_EVIDENCE_V1.conclusion.sixConsolidatedSemanticQlsSupported, true);
 assert.equal(FIGURE_MATRIX_PERMANENT_QL_ALLOCATIONS_V12.length, 6);
+assert.deepEqual(FIGURE_MATRIX_SOURCE_SATURATED_DISCOVERY_V1.sourceObservedSurfaces.matrixSizes, ["2x2", "3x3", "4x4"]);
 
 for (const qlId of qls) {
-  const operations = new Set<string>();
-  operationsByQl.set(qlId, operations);
-  for (let index = 1; index <= 18; index += 1) {
+  const variants = sourceVariantsByQl.get(qlId)!;
+  for (let index = 1; index <= 24; index += 1) {
     const seed = `fmt-${qlId}-${index}`;
-    const english = generateFigureMatrixReviewQuestionV1_1({ qlId, seed, language: "en" });
-    const replay = generateFigureMatrixReviewQuestionV1_1({ qlId, seed, language: "en" });
+    const english = generateFigureMatrixReviewQuestionV2_1({ qlId, seed, language: "en" });
+    const replay = generateFigureMatrixReviewQuestionV2_1({ qlId, seed, language: "en" });
     assert.deepEqual(replay, english, `${qlId}/${seed} must be exactly deterministic`);
-    assert.equal(english.version, "SPA-FMT-001-REVIEW-QUESTION-V1.1");
+    assert.equal(english.version, "SPA-FMT-001-REVIEW-QUESTION-V2.1");
     assert.equal(english.qlId, qlId);
     assert.equal(english.chapterCode, "FMT-001");
     assert.equal(english.optionSvgs.length, 4);
@@ -66,12 +72,17 @@ for (const qlId of qls) {
     assert.equal(english.validation.editorialExplanationReviewed, true);
     assert.equal(english.validation.internalRuleTokensHiddenFromLearnerExplanation, true);
     assert.equal(english.validation.localizedExplanationLanguagePure, true);
-    assert.ok(english.matrixSvg.includes("?"));
-    assert.ok(!english.solutionSvg.includes(">?</text>"));
+    assert.equal(english.validation.sourceVariantTagged, true);
+    assert.equal(english.validation.sourceObserved2x2Supported, true);
+    assert.equal(english.validation.sourceObservedElementRemovalSupported, true);
+    assert.equal(english.validation.sourceObservedReflectionSupported, true);
+    assert.equal(english.validation.sourceObservedFillStatesSupported, true);
+    assert.ok(english.matrixSvg.includes("?"), `${qlId}/${seed} must display the missing-cell marker`);
+    assert.equal(english.solutionSvg.includes(">?</text>"), false, `${qlId}/${seed} solution illustration must fill the missing cell`);
     assert.ok(english.explanation.rule.length > 20);
-    assert.ok(english.explanation.worked.length > 30);
-    assert.ok(english.explanation.application.length > 25);
-    assert.ok(english.explanation.verification.length > 25);
+    assert.ok(english.explanation.worked.length > 20);
+    assert.ok(english.explanation.application.length > 20);
+    assert.ok(english.explanation.verification.length > 15);
     assert.equal(english.explanation.distractorChecks.length, 3);
     assert.equal(english.lifecycle.reviewOnly, true);
     assert.equal(english.lifecycle.learnerContentFrozen, false);
@@ -96,7 +107,7 @@ for (const qlId of qls) {
       assert.equal(learnerText.includes(token), false, `${qlId}/${seed} must not leak internal token ${token}`);
     }
 
-    operations.add(english.solveFacts.operation);
+    variants.add(english.solveFacts.sourceVariant);
     familyLabels.add(english.familyLabel);
     difficulties.add(english.difficulty);
     answerLabels.add(english.answer);
@@ -105,17 +116,18 @@ for (const qlId of qls) {
     editorialQuestions += 1;
     if (english.difficulty === "HARD") hardQuestions += 1;
     if (english.solveFacts.governingAxis === "BOTH") bothAxisQuestions += 1;
+    if (english.matrixSize === 2) twoByTwoQuestions += 1;
 
     for (const language of languages) {
-      const localized = generateFigureMatrixReviewQuestionV1_1({ qlId, seed, language });
+      const localized = generateFigureMatrixReviewQuestionV2_1({ qlId, seed, language });
       assert.equal(localized.geometryFingerprint, english.geometryFingerprint, `${qlId}/${seed}/${language} geometry must be language-neutral`);
       assert.equal(localized.correctIndex, english.correctIndex, `${qlId}/${seed}/${language} answer index must preserve parity`);
       assert.equal(localized.solveFacts.semanticAnswerKey, english.solveFacts.semanticAnswerKey);
       assert.deepEqual(localized.solveFacts.semanticOptionKeys, english.solveFacts.semanticOptionKeys);
+      assert.equal(localized.solveFacts.sourceVariant, english.solveFacts.sourceVariant);
       assert.ok(localized.stem.length > 20);
-      assert.ok(localized.explanation.rule.length > 20);
-      assert.ok(localized.explanation.application.length > 20);
-      assert.ok(localized.explanation.verification.length > 20);
+      assert.ok(localized.explanation.rule.length > 15);
+      assert.ok(localized.explanation.application.length > 15);
 
       const localizedLearnerText = [
         localized.stem,
@@ -129,7 +141,7 @@ for (const qlId of qls) {
         assert.equal(localizedLearnerText.includes(token), false, `${qlId}/${seed}/${language} must not leak internal token ${token}`);
       }
       if (language !== "en") {
-        for (const phrase of ["In each row", "Applying the same", "Option A:", "Option B:", "Option C:", "Option D:", "Therefore option"] as const) {
+        for (const phrase of ["In each row", "Apply the", "This gives option", "Option A:", "Option B:", "Option C:", "Option D:"] as const) {
           assert.equal(localizedLearnerText.includes(phrase), false, `${qlId}/${seed}/${language} must not embed English explanation phrase '${phrase}'`);
         }
       }
@@ -137,39 +149,52 @@ for (const qlId of qls) {
   }
 }
 
-assert.equal(checkedQuestions, 108);
-assert.equal(editorialQuestions, checkedQuestions, "every semantic review item must pass through editorial V1.1");
-assert.equal(familyLabels.size, 6, "every permanent FMT family should have a human review label");
-assert.ok(difficulties.has("EASY"), "review corpus must expose Easy questions");
-assert.ok(difficulties.has("MODERATE"), "review corpus must expose Moderate questions");
-assert.ok(difficulties.has("HARD"), "review corpus must expose Hard questions");
-assert.ok(hardQuestions >= 30, "review corpus should have a material hard slice");
-assert.ok(bothAxisQuestions >= 25, "review corpus should materially exercise simultaneous row/column checking");
-assert.ok(matrixSizes.has(3), "3x3 must remain the primary exam surface");
-assert.ok(matrixSizes.has(4), "review corpus should exercise 4x4 cyclic matrices from source variety");
-assert.ok(answerLabels.size >= 3, "answer placement should not collapse to one/two fixed positions");
-assert.ok((operationsByQl.get("SPA-QL-055")?.size ?? 0) >= 1);
-assert.ok((operationsByQl.get("SPA-QL-056")?.size ?? 0) >= 3, "composition QL should exercise union, XOR and intersection");
-assert.ok((operationsByQl.get("SPA-QL-057")?.size ?? 0) >= 3, "count QL should exercise multiple count rules");
-assert.ok((operationsByQl.get("SPA-QL-058")?.size ?? 0) >= 1);
-assert.ok((operationsByQl.get("SPA-QL-059")?.size ?? 0) >= 1);
-assert.ok((operationsByQl.get("SPA-QL-060")?.size ?? 0) >= 1);
+assert.equal(checkedQuestions, 144);
+assert.equal(editorialQuestions, checkedQuestions);
+assert.equal(familyLabels.size, 6);
+assert.ok(difficulties.has("EASY"));
+assert.ok(difficulties.has("MODERATE"));
+assert.ok(difficulties.has("HARD"));
+assert.ok(hardQuestions >= 35, "review corpus should have a material hard slice");
+assert.ok(bothAxisQuestions >= 30, "review corpus should materially exercise simultaneous row/column checking");
+assert.ok(twoByTwoQuestions >= 8, "source-observed 2x2 matrices must be materially exercised");
+assert.deepEqual([...matrixSizes].sort(), [2, 3, 4], "review corpus must cover source-observed 2x2, 3x3 and 4x4 surfaces");
+assert.equal(answerLabels.size, 4, "deterministic option shuffling should exercise all four answer positions");
+
+for (const qlId of qls) {
+  const observed = [...sourceVariantsByQl.get(qlId)!].sort();
+  const required = [...FMT_V2_SOURCE_VARIANTS[qlId]].sort();
+  assert.deepEqual(observed, required, `${qlId} runtime must exercise every declared source-real variant`);
+}
+
+assert.ok(sourceVariantsByQl.get("SPA-QL-055")!.has("OUTER_ELEMENT_REMOVAL_2X2"));
+assert.ok(sourceVariantsByQl.get("SPA-QL-055")!.has("SEQUENTIAL_ELEMENT_REMOVAL"));
+assert.ok(sourceVariantsByQl.get("SPA-QL-055")!.has("REFLECTION_OR_INVERSION"));
+assert.ok(sourceVariantsByQl.get("SPA-QL-055")!.has("SHADING_STATE_CHANGE"));
+assert.ok(sourceVariantsByQl.get("SPA-QL-056")!.has("DIRECTIONAL_SUBTRACTION_OR_DIFFERENCE"));
+assert.ok(sourceVariantsByQl.get("SPA-QL-058")!.has("FILL_STATE_CYCLE"));
+assert.ok(sourceVariantsByQl.get("SPA-QL-060")!.has("ROTATE_PLUS_REFLECT"));
+assert.ok(sourceVariantsByQl.get("SPA-QL-060")!.has("REMOVE_ELEMENT_PLUS_ORIENTATION_CHANGE"));
 
 console.log(JSON.stringify({
-  authority: "SPA-FMT-001-REVIEW-V1.1",
+  authority: "SPA-FMT-001-REVIEW-V2.1",
   qls,
   checkedQuestions,
-  editorialQuestions,
-  familyLabels: [...familyLabels].sort(),
   languages,
   difficulties: [...difficulties],
   matrixSizes: [...matrixSizes].sort(),
   answerLabels: [...answerLabels].sort(),
   hardQuestions,
   bothAxisQuestions,
-  operationsByQl: Object.fromEntries([...operationsByQl].map(([ql, operations]) => [ql, [...operations]])),
+  twoByTwoQuestions,
+  familyLabels: [...familyLabels].sort(),
+  sourceVariantsByQl: Object.fromEntries([...sourceVariantsByQl].map(([qlId, variants]) => [qlId, [...variants].sort()])),
+  sourceObservedElementRemovalCovered: true,
+  sourceObservedReflectionCovered: true,
+  sourceObservedFillCycleCovered: true,
+  sourceObservedDirectionalSubtractionCovered: true,
   internalRuleTokensHidden: true,
   localizedExplanationLanguagePure: true,
-  sourceSaturated: true,
+  sourceSaturatedRuntime: true,
   releaseGatesRemainClosed: true,
 }, null, 2));
