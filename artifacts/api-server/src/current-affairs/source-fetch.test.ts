@@ -27,6 +27,15 @@ assert.deepEqual(
   ["https://ipr.punjab.gov.in/"],
   "nested department hosts must not receive invented www aliases",
 );
+assert.deepEqual(
+  officialHostVariants("https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63486"),
+  [
+    "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63486",
+    "https://rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63486",
+    "https://m.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63486",
+  ],
+  "RBI desktop, apex and mobile hosts are one explicitly trusted official family",
+);
 
 assert.equal(
   resolveSafeOfficialRedirect(
@@ -39,6 +48,14 @@ assert.equal(
   resolveSafeOfficialRedirect("https://punjab.gov.in/impnotifications/", "/impnotifications/?page=1"),
   "https://punjab.gov.in/impnotifications/?page=1",
 );
+assert.equal(
+  resolveSafeOfficialRedirect(
+    "https://m.rbi.org.in/scripts/FS_PressRelease.aspx?prid=63493",
+    "https://www.rbi.org.in/scripts/FS_PressRelease.aspx?prid=63493",
+  ),
+  "https://www.rbi.org.in/scripts/FS_PressRelease.aspx?prid=63493",
+  "mobile RBI may redirect to the desktop RBI host without widening trust beyond RBI",
+);
 assert.throws(
   () => resolveSafeOfficialRedirect("https://pib.gov.in/feed", "https://example.com/feed"),
   /outside its trusted host/,
@@ -46,6 +63,10 @@ assert.throws(
 assert.throws(
   () => resolveSafeOfficialRedirect("https://pib.gov.in/feed", "http://pib.gov.in/feed"),
   /HTTPS/,
+);
+assert.throws(
+  () => resolveSafeOfficialRedirect("https://m.rbi.org.in/feed", "https://example.com/feed"),
+  /outside its trusted host/,
 );
 
 const calls: Array<{ url: string; redirect: RequestRedirect | undefined }> = [];
@@ -108,6 +129,30 @@ assert.match(aliasRecovered, /alias reached/);
 assert.deepEqual(aliasCalls, [
   "https://punjab.gov.in/impnotifications/",
   "https://www.punjab.gov.in/impnotifications/",
+]);
+
+const rbiAliasCalls: string[] = [];
+const rbiAliasFallbackFetch = async (input: string | URL | Request) => {
+  const url = String(input);
+  rbiAliasCalls.push(url);
+  const host = new URL(url).hostname;
+  if (host !== "m.rbi.org.in") {
+    const error = new TypeError("fetch failed") as TypeError & { cause?: Record<string, unknown> };
+    error.cause = { code: "UND_ERR_CONNECT_TIMEOUT", hostname: host };
+    throw error;
+  }
+  return new Response("<html>RBI mobile official alias reached</html>", { status: 200 });
+};
+const rbiAliasRecovered = await fetchBoundedOfficialText(
+  "https://www.rbi.org.in/scripts/FS_PressRelease.aspx?prid=63493",
+  { accept: "text/html", maxBytes: 100_000, label: "RBI press release" },
+  rbiAliasFallbackFetch,
+);
+assert.match(rbiAliasRecovered, /RBI mobile official alias reached/);
+assert.deepEqual(rbiAliasCalls, [
+  "https://www.rbi.org.in/scripts/FS_PressRelease.aspx?prid=63493",
+  "https://rbi.org.in/scripts/FS_PressRelease.aspx?prid=63493",
+  "https://m.rbi.org.in/scripts/FS_PressRelease.aspx?prid=63493",
 ]);
 
 await assert.rejects(
