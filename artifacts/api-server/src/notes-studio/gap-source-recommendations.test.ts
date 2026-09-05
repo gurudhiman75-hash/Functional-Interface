@@ -5,6 +5,7 @@ import {
   coverageTextSimilarity,
   gapSourceRecommendationReason,
   gapSourceRecommendationScore,
+  sourcePackAppendableState,
   sourcePackEditableState,
 } from './gap-source-recommendations';
 
@@ -125,11 +126,14 @@ test('duplicate-content source is excluded on either evidence path', () => {
   assert.equal(gapSourceRecommendationScore({ ...base, generationReady: false, referenceReviewEligible: true }), 0);
 });
 
-test('source-pack mutation is intentionally pre-evidence only', () => {
+test('source addition stays open through outline review but closes once drafting starts', () => {
   assert.equal(sourcePackEditableState('brief'), true);
   assert.equal(sourcePackEditableState('sources_ready'), true);
-  assert.equal(sourcePackEditableState('evidence_ready'), false);
-  assert.equal(sourcePackEditableState('outline_ready'), false);
+  assert.equal(sourcePackEditableState('evidence_ready'), true);
+  assert.equal(sourcePackEditableState('outline_ready'), true);
   assert.equal(sourcePackEditableState('drafting'), false);
   assert.equal(sourcePackEditableState('approved'), false);
+  assert.equal(sourcePackAppendableState('evidence_ready'), true);
+  assert.equal(sourcePackAppendableState('outline_ready'), true);
+  assert.equal(sourcePackAppendableState('qa_required'), false);
 });
