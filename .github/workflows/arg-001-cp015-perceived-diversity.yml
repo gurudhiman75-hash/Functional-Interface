@@ -87,7 +87,8 @@ jobs:
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/arg-001-cp006-byte-freeze-proof.mjs
-          node dist/arg-001-cp006-byte-freeze-proof.mjs
+          cd ../..
+          node artifacts/api-server/dist/arg-001-cp006-byte-freeze-proof.mjs
 
       - name: Preserve exact CP008 historical freeze
         working-directory: artifacts/api-server
@@ -96,7 +97,8 @@ jobs:
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-byte-freeze-proof.test.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/arg-001-cp008-byte-freeze-proof.mjs
-          node dist/arg-001-cp008-byte-freeze-proof.mjs
+          cd ../..
+          node artifacts/api-server/dist/arg-001-cp008-byte-freeze-proof.mjs
 
       - name: Build production API
         working-directory: artifacts/api-server
