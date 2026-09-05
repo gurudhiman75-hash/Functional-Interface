@@ -12,7 +12,8 @@ export type SpatialReviewChapter =
   | 'TPF-001'
   | 'FCT-001'
   | 'EMB-001'
-  | 'FFM-001';
+  | 'FFM-001'
+  | 'DOT-001';
 export type SpatialReviewLanguage = 'en' | 'hi' | 'pa';
 
 export interface SpatialReviewQl {
@@ -42,6 +43,10 @@ export interface SpatialReviewPackage {
   figureFormationProductOwnerApprovalAuthority?: string;
   figureFormationFreezeAuthority?: string;
   figureFormationActivationAuthority?: string;
+  dotSituationProductOwnerApprovalAuthority?: string;
+  dotSituationFreezeAuthority?: string;
+  dotSituationActivationAuthority?: string;
+  dotSituationPermanentQlCount?: number;
   releaseAuthority?: string;
   permanentQlCount: number;
   questionStudioVisible: true;
@@ -86,6 +91,13 @@ export interface SpatialReviewQuestion {
     application: string;
     check: string;
     steps?: string[];
+    membershipTable?: Array<{
+      dot: string;
+      signature: string;
+      inside: string[];
+      outside: string[];
+      statement: string;
+    }>;
   };
   explanationIllustrationSvg?: string;
   questionId: string;
@@ -126,6 +138,9 @@ export interface SpatialReviewQuestion {
     optionArtUnique?: true;
     spacingOnlyDistractorsAllowed?: false;
     falsePyqAttribution?: false;
+    signaturesRecomputedFromGeometry?: true;
+    completeInsideOutsideSignature?: true;
+    boundarySafetyMarginEnforced?: true;
   };
 }
 
@@ -150,6 +165,8 @@ export interface SpatialReviewStatus {
   finalHeldGapActivationAuthority?: string;
   figureFormationFreezeAuthority?: string;
   figureFormationActivationAuthority?: string;
+  dotSituationFreezeAuthority?: string;
+  dotSituationActivationAuthority?: string;
   questionBankConversionEligibleAfterApproval: true;
   testEligibleAfterApproval: true;
   testBuilderEligibleAfterApproval?: true;
@@ -202,6 +219,8 @@ export function previewSpatialReview(input: SpatialReviewInput) {
     finalHeldGapActivationAuthority?: string;
     figureFormationFreezeAuthority?: string;
     figureFormationActivationAuthority?: string;
+    dotSituationFreezeAuthority?: string;
+    dotSituationActivationAuthority?: string;
   }>(
     `/admin/question-studio/reasoning/spatial/preview?${paramsFor(input).toString()}`,
     undefined,

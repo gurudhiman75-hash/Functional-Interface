@@ -3,44 +3,50 @@ import {
   type SpatialProductionStudioQuestionV5,
 } from "./spatial-question-studio-production-v5";
 import {
-  SPATIAL_QUESTION_STUDIO_PACKAGE_V6,
+  SPATIAL_QUESTION_STUDIO_PACKAGE_V7,
   SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1,
-  SPATIAL_QUESTION_STUDIO_QLS_V6,
-  type SpatialQuestionStudioChapterCodeV6,
-  type SpatialQuestionStudioDifficultyV6,
-  type SpatialQuestionStudioPermanentQlIdV6,
-} from "./spatial-question-studio-integration-v6";
+  SPATIAL_QUESTION_STUDIO_QLS_V7,
+  type SpatialQuestionStudioChapterCodeV7,
+  type SpatialQuestionStudioDifficultyV7,
+  type SpatialQuestionStudioPermanentQlIdV7,
+} from "./spatial-question-studio-integration-v7";
 import { generateFigureFormationReviewQuestionV5 } from "./figure-formation-review-runtime-v5";
 import { FIGURE_FORMATION_INTERNAL_ACTIVATION_V2 } from "./figure-formation-freeze-v1";
+import { generateDotSituationQuestionStudioV1 } from "./dot-situation-question-studio-v1";
+import { DOT_SITUATION_INTERNAL_ACTIVATION_V1 } from "./dot-situation-freeze-v1";
 import type { SpatialQuestionStudioLanguageV1 } from "./spatial-question-studio-localization-v1";
-import {
-  generateSpatialProductionStudioBatchV7,
-  generateSpatialProductionStudioQuestionV7,
-  type SpatialProductionStudioQuestionV7,
-} from "./spatial-question-studio-production-v7";
 
 const FFM_QL_IDS = new Set<string>(["SPA-QL-051", "SPA-QL-052", "SPA-QL-053"]);
+const DOT_QL_IDS = new Set<string>(["SPA-QL-054"]);
 
-export function isFigureFormationQuestionStudioQlIdV6(qlId: string): qlId is "SPA-QL-051" | "SPA-QL-052" | "SPA-QL-053" {
+export function isFigureFormationQuestionStudioQlIdV7(qlId: string): qlId is "SPA-QL-051" | "SPA-QL-052" | "SPA-QL-053" {
   return FFM_QL_IDS.has(qlId);
 }
 
-type FfmProductionQuestionV6 = ReturnType<typeof generateFigureFormationReviewQuestionV5> & {
-  integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V6.integrationAuthority;
+export function isDotSituationQuestionStudioQlIdV7(qlId: string): qlId is "SPA-QL-054" {
+  return DOT_QL_IDS.has(qlId);
+}
+
+type FfmProductionQuestionV7 = ReturnType<typeof generateFigureFormationReviewQuestionV5> & {
+  integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V7.integrationAuthority;
 };
 
-type LegacyProductionQuestionV6 = Omit<SpatialProductionStudioQuestionV5, "integrationAuthority"> & {
-  integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V6.integrationAuthority;
+type DotProductionQuestionV7 = ReturnType<typeof generateDotSituationQuestionStudioV1> & {
+  integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V7.integrationAuthority;
 };
 
-export type SpatialProductionStudioQuestionV6 = LegacyProductionQuestionV6 | FfmProductionQuestionV6;
+type LegacyProductionQuestionV7 = Omit<SpatialProductionStudioQuestionV5, "integrationAuthority"> & {
+  integrationAuthority: typeof SPATIAL_QUESTION_STUDIO_PACKAGE_V7.integrationAuthority;
+};
 
-export interface SpatialProductionStudioBatchRequestV6 {
+export type SpatialProductionStudioQuestionV7 = LegacyProductionQuestionV7 | FfmProductionQuestionV7 | DotProductionQuestionV7;
+
+export interface SpatialProductionStudioBatchRequestV7 {
   seed: string;
   count?: number;
-  qlId?: SpatialQuestionStudioPermanentQlIdV6;
-  chapterCode?: SpatialQuestionStudioChapterCodeV6;
-  difficulty?: SpatialQuestionStudioDifficultyV6;
+  qlId?: SpatialQuestionStudioPermanentQlIdV7;
+  chapterCode?: SpatialQuestionStudioChapterCodeV7;
+  difficulty?: SpatialQuestionStudioDifficultyV7;
   language?: SpatialQuestionStudioLanguageV1;
 }
 
@@ -51,26 +57,48 @@ function ffmLifecycle() {
   });
 }
 
-export function generateSpatialProductionStudioQuestionV6(input: Readonly<{
-  qlId: SpatialQuestionStudioPermanentQlIdV6;
+function dotLifecycle() {
+  return Object.freeze({
+    ...DOT_SITUATION_INTERNAL_ACTIVATION_V1,
+    registrationStatus: "REGISTERED" as const,
+    releaseAuthority: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.authority,
+  });
+}
+
+export function generateSpatialProductionStudioQuestionV7(input: Readonly<{
+  qlId: SpatialQuestionStudioPermanentQlIdV7;
   seed: string;
   language?: SpatialQuestionStudioLanguageV1;
-}>): SpatialProductionStudioQuestionV6 {
+}>): SpatialProductionStudioQuestionV7 {
   const language = input.language ?? "en";
-  if (isFigureFormationQuestionStudioQlIdV6(input.qlId)) {
+
+  if (isFigureFormationQuestionStudioQlIdV7(input.qlId)) {
     const approved = generateFigureFormationReviewQuestionV5({ qlId: input.qlId, seed: input.seed, language }) as any;
     return Object.freeze({
       ...approved,
       lifecycle: ffmLifecycle(),
       sourceFreezeAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.sourceFreezeAuthorityId,
-      integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V6.integrationAuthority,
+      integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V7.integrationAuthority,
       review: Object.freeze({
         ...approved.review,
         productOwnerApproved: true as const,
         learnerContentFrozen: true as const,
         downstreamActivationAllowed: true as const,
       }),
-    }) as FfmProductionQuestionV6;
+    }) as FfmProductionQuestionV7;
+  }
+
+  if (isDotSituationQuestionStudioQlIdV7(input.qlId)) {
+    const approved = generateDotSituationQuestionStudioV1({
+      qlId: input.qlId,
+      seed: input.seed,
+      language,
+    });
+    return Object.freeze({
+      ...approved,
+      lifecycle: dotLifecycle(),
+      integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V7.integrationAuthority,
+    }) as DotProductionQuestionV7;
   }
 
   const legacy = generateSpatialProductionStudioQuestionV5({
@@ -80,8 +108,8 @@ export function generateSpatialProductionStudioQuestionV6(input: Readonly<{
   });
   return Object.freeze({
     ...legacy,
-    integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V6.integrationAuthority,
-  }) as LegacyProductionQuestionV6;
+    integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V7.integrationAuthority,
+  }) as LegacyProductionQuestionV7;
 }
 
 function hash32(value: string): number {
@@ -93,8 +121,8 @@ function hash32(value: string): number {
   return hash >>> 0;
 }
 
-function eligibleQls(request: SpatialProductionStudioBatchRequestV6) {
-  let qls = [...SPATIAL_QUESTION_STUDIO_QLS_V6];
+function eligibleQls(request: SpatialProductionStudioBatchRequestV7) {
+  let qls = [...SPATIAL_QUESTION_STUDIO_QLS_V7];
   if (request.qlId) qls = qls.filter((entry) => entry.permanentQlId === request.qlId);
   if (request.chapterCode) qls = qls.filter((entry) => entry.chapterCode === request.chapterCode);
   if (request.difficulty) qls = qls.filter((entry) => entry.difficulty === request.difficulty);
@@ -102,7 +130,7 @@ function eligibleQls(request: SpatialProductionStudioBatchRequestV6) {
   return qls;
 }
 
-export function generateSpatialProductionStudioBatchV6(request: SpatialProductionStudioBatchRequestV6) {
+export function generateSpatialProductionStudioBatchV7(request: SpatialProductionStudioBatchRequestV7) {
   const seed = String(request.seed ?? "").trim();
   if (!seed) throw new Error("Spatial Question Studio batch generation requires an explicit seed.");
   const count = Math.min(50, Math.max(1, Math.floor(Number(request.count ?? 5) || 5)));
@@ -112,13 +140,17 @@ export function generateSpatialProductionStudioBatchV6(request: SpatialProductio
     .sort((left, right) => left.score - right.score || left.entry.permanentQlId.localeCompare(right.entry.permanentQlId))
     .map(({ entry }) => entry);
 
-  const questions: SpatialProductionStudioQuestionV6[] = [];
+  const questions: SpatialProductionStudioQuestionV7[] = [];
   const seen = new Set<string>();
   for (let index = 0; index < count; index += 1) {
     const ql = qls[index % qls.length]!;
-    let accepted: SpatialProductionStudioQuestionV6 | null = null;
+    let accepted: SpatialProductionStudioQuestionV7 | null = null;
     for (let retry = 0; retry < 80 && !accepted; retry += 1) {
-      const question = generateSpatialProductionStudioQuestionV6({ qlId: ql.permanentQlId, seed: `${seed}:${index}:R${retry}`, language });
+      const question = generateSpatialProductionStudioQuestionV7({
+        qlId: ql.permanentQlId,
+        seed: `${seed}:${index}:R${retry}`,
+        language,
+      });
       if (seen.has(question.contentFingerprint)) continue;
       seen.add(question.contentFingerprint);
       accepted = question;
@@ -129,15 +161,15 @@ export function generateSpatialProductionStudioBatchV6(request: SpatialProductio
 
   return Object.freeze({
     generationContext: Object.freeze({
-      packageId: SPATIAL_QUESTION_STUDIO_PACKAGE_V6.packageId,
-      generationDomain: SPATIAL_QUESTION_STUDIO_PACKAGE_V6.generationDomain,
+      packageId: SPATIAL_QUESTION_STUDIO_PACKAGE_V7.packageId,
+      generationDomain: SPATIAL_QUESTION_STUDIO_PACKAGE_V7.generationDomain,
       seed,
       count,
       language,
       locale: language === "hi" ? "hi-IN" as const : language === "pa" ? "pa-IN" as const : "en-IN" as const,
       runtimeMode: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.runtimeMode,
       reviewStatus: SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1.reviewStatus,
-      integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V6.integrationAuthority,
+      integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V7.integrationAuthority,
       questionStudioDiscoverable: true as const,
       registrationStatus: "REGISTERED" as const,
       persistenceAllowed: true as const,
@@ -158,7 +190,6 @@ export function generateSpatialProductionStudioBatchV6(request: SpatialProductio
   });
 }
 
-// V6 remains the immutable FFM checkpoint. Current-route aliases advance to the approved DOT extension.
 export const generateSpatialProductionStudioBatchV1 = generateSpatialProductionStudioBatchV7;
 export const generateSpatialProductionStudioQuestionV1 = generateSpatialProductionStudioQuestionV7;
 export type SpatialProductionStudioQuestionV1 = SpatialProductionStudioQuestionV7;
