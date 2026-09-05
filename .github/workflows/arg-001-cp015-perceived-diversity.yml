@@ -20,7 +20,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: arg-001-cp015-diversity-${{ github.ref }}
+  group: arg-001-cp015-focused-diversity-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -55,23 +55,48 @@ jobs:
 
       - name: Prove 1000-question exact diversity and profile integrity
         working-directory: artifacts/api-server
-        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp015-perceived-diversity-proof.mjs
+          node dist/arg-001-cp015-perceived-diversity-proof.mjs
 
       - name: Preserve CP014 manual approval and lifecycle
         working-directory: artifacts/api-server
-        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-manual-editorial-approval-proof.test.ts
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp014-manual-editorial-approval-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp014-manual-editorial-approval-proof.mjs
+          node dist/arg-001-cp014-manual-editorial-approval-proof.mjs
 
       - name: Preserve CP013 final learner-facing editorial proof
         working-directory: artifacts/api-server
-        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-final-editorial-surface-proof.test.ts
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp013-final-editorial-surface-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp013-final-editorial-surface-proof.mjs
+          node dist/arg-001-cp013-final-editorial-surface-proof.mjs
 
       - name: Preserve exact CP006 historical freeze
         working-directory: artifacts/api-server
-        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp006-byte-freeze-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp006-byte-freeze-proof.mjs
+          node dist/arg-001-cp006-byte-freeze-proof.mjs
 
       - name: Preserve exact CP008 historical freeze
         working-directory: artifacts/api-server
-        run: pnpm exec tsx src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-byte-freeze-proof.test.ts
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp008-byte-freeze-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp008-byte-freeze-proof.mjs
+          node dist/arg-001-cp008-byte-freeze-proof.mjs
 
       - name: Build production API
         working-directory: artifacts/api-server
