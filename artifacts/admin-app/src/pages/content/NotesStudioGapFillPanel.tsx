@@ -54,11 +54,19 @@ const GAP_ORDER: Record<Gap['status'], number> = { uncovered: 0, blocked: 1, par
 
 function discoveryQueries(result: GapResearchResult): string[] {
   const statusById = new Map(result.gaps.map((gap) => [gap.id, gap.status]));
+  const gapById = new Map(result.gaps.map((gap) => [gap.id, gap]));
   const ordered = [...result.briefs].sort((left, right) =>
     (GAP_ORDER[statusById.get(left.coverageItemId) ?? 'partial'] ?? 9)
     - (GAP_ORDER[statusById.get(right.coverageItemId) ?? 'partial'] ?? 9),
   );
   const queries: string[] = [];
+  const combinedGapTitles = ordered
+    .map((brief) => gapById.get(brief.coverageItemId)?.title ?? '')
+    .filter(Boolean)
+    .join('; ');
+  const combinedQuery = `Official authoritative sources for ${combinedGapTitles}`.replace(/\s+/g, ' ').trim().slice(0, 240);
+  if (combinedQuery.length > 35) queries.push(combinedQuery);
+
   for (const brief of ordered) {
     for (const raw of brief.researchQueries) {
       const query = raw.replace(/\s+/g, ' ').trim().slice(0, 240);
@@ -68,7 +76,7 @@ function discoveryQueries(result: GapResearchResult): string[] {
     }
     if (queries.length >= 4) break;
   }
-  return queries;
+  return queries.slice(0, 4);
 }
 
 export function NotesStudioGapFillPanel({
