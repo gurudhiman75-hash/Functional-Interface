@@ -9,7 +9,6 @@ on:
       - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v11.ts'
       - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/SPA-DOT-001-REVIEW-V1-STATUS.md'
       - 'artifacts/api-server/src/reasoning-v1/tests/dot-situation-dot-001-**'
-      - '.github/workflows/spa-dot-001-review-v1.yml'
   workflow_dispatch:
 
 concurrency:
