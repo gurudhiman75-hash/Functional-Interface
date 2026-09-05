@@ -175,7 +175,7 @@ function repeatedUnary(seed: number) {
   const distractors = [
     cell({ glyph, rotation: second.rotation ?? 0 }),
     cell({ glyph, rotation: (second.rotation ?? 0) - inferredStep }),
-    cell({ glyph, rotation: (correct.rotation ?? 0) + 90 }),
+    cell({ glyph, rotation: (correct.rotation ?? 0) + 45 }),
   ];
   const facts: RuleFacts = Object.freeze({
     family: "REPEATED_UNARY_TRANSFORM",
@@ -246,7 +246,10 @@ function quantitativeCount(seed: number) {
   if (!sameCell(correct, matrix[8]!)) throw new Error("FMT-PROP-03 independent solver disagrees with generated answer.");
   matrix[missingIndex] = null;
   const values = [solved - 2, solved - 1, solved + 1, solved + 2].filter((value) => value >= 1 && value <= 8 && value !== solved);
-  while (values.length < 3) values.push(((values.length + solved + 2) % 8) + 1);
+  while (values.length < 3) {
+    const candidate = ((values.length + solved + 2) % 8) + 1;
+    if (candidate !== solved && !values.includes(candidate)) values.push(candidate);
+  }
   const distractors = values.slice(0, 3).map((value) => cell({ dotCount: value }));
   const description = rule === "SUM" ? "third count = first + second" : rule === "ABSOLUTE_DIFFERENCE" ? "third count = absolute difference of the first two" : "third count = twice the first + the second";
   const facts: RuleFacts = Object.freeze({
@@ -276,7 +279,7 @@ function cyclicPermutation(seed: number) {
       return cell({ glyph: cycle[(row + col) % 3] });
     });
     correct = cell({ glyph: cycle[(2 + 2) % 3] });
-    distractors = [cell({ glyph: "CIRCLE" }), cell({ glyph: "SQUARE" }), cell({ glyph: "DIAMOND" })];
+    distractors = [cell({ glyph: "CIRCLE" }), cell({ glyph: "TRIANGLE" }), cell({ glyph: "DIAMOND" })];
     parameter = "circle → square → triangle cyclic order";
   } else if (variant === 1) {
     matrix = Array.from({ length: 16 }, (_, index) => {
@@ -293,7 +296,7 @@ function cyclicPermutation(seed: number) {
       return cell({ glyph: "TRIANGLE", rotation: rotations[(row + col) % 3] });
     });
     correct = cell({ glyph: "TRIANGLE", rotation: rotations[(2 + 2) % 3] });
-    distractors = [cell({ glyph: "TRIANGLE", rotation: 0 }), cell({ glyph: "TRIANGLE", rotation: 120 }), cell({ glyph: "TRIANGLE", rotation: 60 })];
+    distractors = [cell({ glyph: "TRIANGLE", rotation: 0 }), cell({ glyph: "TRIANGLE", rotation: 240 }), cell({ glyph: "TRIANGLE", rotation: 60 })];
     parameter = "0° → 120° → 240° orientation cycle";
   }
   if (!sameCell(correct, matrix[missingIndex]!)) throw new Error("FMT-PROP-04 independent solver disagrees with generated answer.");
