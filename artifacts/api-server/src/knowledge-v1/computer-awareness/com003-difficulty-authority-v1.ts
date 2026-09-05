@@ -11,7 +11,6 @@ export type Com003DifficultyTopologyV1 =
   | "APPLIED_SINGLE_FACT"
   | "EXAMPLE_IDENTIFICATION"
   | "CONTRAST_DISCRIMINATION"
-  | "NOTATION_OR_LAYOUT_INTERPRETATION"
   | "REFERENCE_BEHAVIOR_INTERPRETATION"
   | "VERSION_SCOPED_SHORTCUT_CONTEXT"
   | "CLOSE_CONCEPT_SCOPE_TIMING";
@@ -38,11 +37,6 @@ function decision(
   };
 }
 
-const INTERPRETIVE_MODES = new Set([
-  "CELL_ADDRESS_INTERPRETATION",
-  "ORIENTATION_FROM_DIMENSIONS",
-]);
-
 export function classifyCom003DifficultyV1(
   question: Com003ReviewQuestionV162,
 ): Com003DifficultyDecisionV1 {
@@ -67,14 +61,6 @@ export function classifyCom003DifficultyV1(
       "Medium",
       "CLOSE_CONCEPT_SCOPE_TIMING",
       "Requires distinguishing closely related PowerPoint concepts such as transition versus animation or duration versus automatic advance timing.",
-    );
-  }
-
-  if (INTERPRETIVE_MODES.has(question.surfaceMode)) {
-    return decision(
-      "Medium",
-      "NOTATION_OR_LAYOUT_INTERPRETATION",
-      "Requires interpreting notation or layout information before selecting the relevant Office concept.",
     );
   }
 
