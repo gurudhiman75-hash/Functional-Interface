@@ -51,6 +51,7 @@ test('Notes Studio migration manifest preserves the cumulative chain in order', 
     '20260831_notes_studio_ns018_research_restart.sql',
     '20260831_notes_studio_ns021_reference_evidence.sql',
     '20260903_notes_studio_coverage_editorial_review_gate.sql',
+    '20260905_notes_studio_append_only_gap_sources.sql',
   ]);
   assert.equal(new Set(NOTES_STUDIO_MIGRATIONS).size, NOTES_STUDIO_MIGRATIONS.length);
   assert.equal(new Set(NOTES_STUDIO_REQUIRED_COLUMNS).size, NOTES_STUDIO_REQUIRED_COLUMNS.length);
