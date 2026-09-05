@@ -2,55 +2,64 @@
 
 ## Status
 
-DOT-001 has moved from source discovery into a deterministic review-only runtime. The chapter is intentionally not registered in Question Studio and no learner/public release gate is open.
+DOT-001 V1 is **product-owner approved**. The reviewed learner runtime is frozen and the chapter is now activated for the internal Question Studio / Question Bank / internal test-builder lifecycle. Mock-test delivery, public release, student delivery and automatic publication remain closed.
 
-## Semantic boundary
+## Approved review evidence
 
-The chapter owns preservation of each dot's complete region-membership signature across rearranged copies of the same shape identities. Absolute coordinates are not authority. Every dot is represented by a full inside/outside signature, including exclusions.
+- Pull request: `#1421`.
+- Approved review head: `0e89c0173974371f06a34d3238bb714ac2d220af`.
+- Workflow: `Validate SPA DOT-001 Review V1`.
+- Successful review run: `33961956914`.
+- Artifact: `spa-dot-001-review-v1` / `9968230353`.
+- Artifact digest: `sha256:e0575676cea7bc58f079d081256824929fe5e349b93b9b8abd7bc152d6706c4d`.
+- Product-owner approval date: `2026-09-05`.
 
-## V1 implementation
+## Frozen semantic and visual contract
 
 - Permanent semantic QL: `SPA-QL-054` / `DOT-PROP-01`.
-- One semantic QL; one/two/three dots and two/three/four shapes are parameters, not separate QLs.
-- Supported shape kinds: circle, square, triangle, rectangle.
-- Deterministic geometry pool and seed-driven question generation.
-- Geometry re-evaluates whether each required signature exists.
-- Minimum boundary-clearance rule prevents dots from sitting on or near an edge.
-- Exactly four learner options, with one semantic answer and three distractors that each fail at least one required signature.
-- English/Hindi/Punjabi stems and explanations preserve the same geometry and answer.
-- Explanations include a per-dot membership table and explicit distractor failure checks.
-- Exam-style SVG uses white background and the Spatial 1.35px stroke contract.
+- One semantic QL; 1–3 dots and 2–4 active shapes remain generation parameters, not separate QLs.
+- Supported shape kinds: circle, square, triangle and rectangle.
+- The complete inside/outside membership signature is semantic authority; exclusions are binding.
+- Geometry is recomputed from the rendered shape model and dots must maintain at least the approved 4.5-unit boundary-clearance margin.
+- Exactly four options are required with one semantic answer; near-miss distractors fail a required membership relation.
+- English/Hindi/Punjabi preserve geometry, option ownership, answer and membership signatures.
+- Exam rendering remains white-background with the Spatial 1.35px stroke contract and exact square geometry.
+- Explanation retains the per-dot membership table, explicit distractor failures and a solution illustration placing the dots in the correct option.
 
-## Review proof
+## Freeze and activation authorities
 
-`dot-situation-dot-001-review-v1.test.ts` exercises 72 deterministic seeds in EN/HI/PA and requires coverage of:
+`dot-situation-freeze-v1.ts` records:
 
-- easy, moderate and hard bands;
-- one, two and three dots;
-- two, three and four shapes;
-- exact-only membership exclusions;
-- unique answer and semantic distractor failures;
-- language-neutral geometry fingerprints;
-- closed Question Studio/mock/public/student gates.
+- `SPA-DOT-001-PRODUCT-OWNER-APPROVAL-V1`;
+- `SPA-DOT-001-FREEZE-V1`;
+- `SPA-DOT-001-INTERNAL-ACTIVATION-V1`.
 
-`dot-situation-dot-001-visual-review-v1.ts` generates a 12-question HTML review pack with question figure, four options, answer, membership table, explanation and solver evidence.
+The frozen learner runtime is immutable unless a later reviewed authority explicitly supersedes it.
 
-## CI policy
+## Question Studio integration
 
-`.github/workflows/spa-dot-001-review-v1.yml` is the current active DOT-001 checkpoint authority. It runs on relevant pull-request changes and also supports `workflow_dispatch`. Concurrency cancellation prevents stale DOT runs from competing. Once a later DOT freeze/integration authority supersedes this checkpoint, this review workflow must be converted back to manual-only in accordance with the repository CI fanout policy.
+The current Spatial package is extended by `spatial-question-studio-integration-v7.ts` to **49 production QLs**, adding `SPA-QL-054` / `DOT-001`. `spatial-question-studio-production-v7.ts` routes the approved DOT runtime through the standard Question Studio lifecycle. Compatibility aliases in the existing V6 gateway expose the new V7 package without invalidating the immutable FFM V6 checkpoint.
 
-The uploaded `spa-dot-001-review-v1` artifact retains the semantic evidence JSON, semantic run log, HTML/JSON visual review pack, and visual-pack generation log.
+DOT items are now:
 
-## Gates intentionally closed
+- Question Studio discoverable: **true**
+- generation enabled: **true**
+- persistence / Question Bank writable: **true**
+- internal test-builder eligible: **true**
+- manual approval required: **true**
+- manual question publication required: **true**
 
-- learner content frozen: **false**
-- Question Studio discoverable: **false**
-- persistence/question bank writable: **false**
-- test/mock-test eligible: **false**
+They remain:
+
+- mock-test eligible: **false**
 - public release authorized: **false**
 - student delivery authorized: **false**
 - automatic student publication: **false**
 
+## CI authority
+
+The former review workflow `.github/workflows/spa-dot-001-review-v1.yml` is now manual-only historical evidence. The active automatic checkpoint authority is `.github/workflows/spa-dot-001-freeze-question-studio-v1.yml`, which builds the API, typechecks the admin UI, runs the approved freeze/Question Studio proof and uploads integration evidence.
+
 ## Next checkpoint
 
-Run the V1 semantic/visual review workflow, inspect the generated review artifact, fix any exam-realness or visual defects, then create the DOT-001 review authority/freeze only after product-owner approval. Question Studio integration must wait for that approval.
+Land the approved freeze/Question Studio integration after the exact current PR head is green. After merge, continue the Spatial secondary-chapter sequence with `FMT-001`, then `IDF-001`.
