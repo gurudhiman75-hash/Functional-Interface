@@ -10,6 +10,9 @@ on:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-migration-report-v1.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-lexicon-coverage-v1.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-lexicon-coverage-v1.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-translation-memory-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-authoring-packet.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-authoring-packet.test.ts'
       - '.github/workflows/com003-localization-migration-delta-v1.yml'
   pull_request:
     branches:
@@ -20,6 +23,9 @@ on:
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-migration-report-v1.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-lexicon-coverage-v1.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-lexicon-coverage-v1.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-translation-memory-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-authoring-packet.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-authoring-packet.test.ts'
       - '.github/workflows/com003-localization-migration-delta-v1.yml'
 
 permissions:
@@ -44,7 +50,7 @@ jobs:
         run: corepack enable
       - name: Install locked dependencies
         run: pnpm install --frozen-lockfile
-      - name: Bundle migration audits and report
+      - name: Bundle migration audits, report and authoring packet
         run: |
           mkdir -p artifacts/api-server/dist/com003-localization-migration-v1
           pnpm --dir artifacts/api-server exec esbuild \
@@ -56,34 +62,54 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/com003-localization-migration-v1/lexicon.test.mjs
           pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-localization-v2-authoring-packet.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-localization-migration-v1/authoring.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
             src/knowledge-v1/computer-awareness/com003-localization-migration-report-v1.ts \
             --bundle --platform=node --format=esm \
             --outfile=dist/com003-localization-migration-v1/report.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-localization-v2-authoring-packet.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-localization-migration-v1/authoring.mjs
       - name: Run migration delta audit
         run: node artifacts/api-server/dist/com003-localization-migration-v1/audit.test.mjs
       - name: Run bilingual lexicon coverage audit
         run: node artifacts/api-server/dist/com003-localization-migration-v1/lexicon.test.mjs
-      - name: Generate migration report
-        run: cd artifacts/api-server && node dist/com003-localization-migration-v1/report.mjs
-      - name: Verify migration report
+      - name: Run V2 authoring packet audit
+        run: node artifacts/api-server/dist/com003-localization-migration-v1/authoring.test.mjs
+      - name: Generate migration report and authoring packet
+        run: |
+          cd artifacts/api-server
+          node dist/com003-localization-migration-v1/report.mjs
+          node dist/com003-localization-migration-v1/authoring.mjs
+      - name: Verify migration artifacts
         run: |
           HTML=artifacts/api-server/dist/com003-localization-migration/COM-003-Localization-Migration-Delta-V1.html
           JSON=artifacts/api-server/dist/com003-localization-migration/COM-003-Localization-Migration-Delta-V1.json
           LEX=artifacts/api-server/dist/com003-localization-migration/COM-003-Localization-Lexicon-Coverage-V1.json
+          PACKET_HTML=artifacts/api-server/dist/com003-localization-v2-authoring/COM-003-Localization-V2-Authoring-Packet.html
+          PACKET_JSON=artifacts/api-server/dist/com003-localization-v2-authoring/COM-003-Localization-V2-Authoring-Packet.json
           test -s "$HTML"
           test -s "$JSON"
           test -s "$LEX"
+          test -s "$PACKET_HTML"
+          test -s "$PACKET_JSON"
           grep -q '456 localized artifacts affected' "$HTML"
           grep -q '0 full localized artifacts reusable' "$HTML"
           grep -q '63 ordered-option reuse' "$HTML"
           grep -q '141 option-vocabulary reuse' "$HTML"
           grep -q '194 answer-term reuse' "$HTML"
           grep -q '219/228' "$HTML"
-          grep -q 'Per-QL migration breakdown' "$HTML"
           grep -q 'COM-003-QL-019' "$HTML"
-      - name: Upload migration report
+          grep -q '456 HI/PA learner outputs to author' "$PACKET_HTML"
+          grep -q 'COM-003-QL-019' "$PACKET_HTML"
+      - name: Upload migration and authoring artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: com003-localization-migration-delta-v1
-          path: artifacts/api-server/dist/com003-localization-migration/
+          name: com003-localization-migration-v1
+          path: |
+            artifacts/api-server/dist/com003-localization-migration/
+            artifacts/api-server/dist/com003-localization-v2-authoring/
           if-no-files-found: error
