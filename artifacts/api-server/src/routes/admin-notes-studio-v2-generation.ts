@@ -13,6 +13,7 @@ import {
   type NotesStudioV2Language,
   type NotesStudioV2NoteBlock,
 } from '../notes-studio-v2/core';
+import adminNotesStudioV2PdfIngestionRouter from './admin-notes-studio-v2-pdf-ingestion';
 
 const router: IRouter = Router();
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -94,6 +95,17 @@ async function loadActiveStyleWithExemplars() {
 
   return { ...style, exemplars };
 }
+
+// Keep the robust PDF override inside the already-isolated v2 router chain. The
+// central route registry remains unchanged, so legacy Notes Studio and unrelated
+// admin surfaces are not made dependent on the v2 ingestion implementation.
+router.use((req, res, next) => {
+  if (req.method === 'POST' && /^\/periods\/[^/]+\/corpus\/upload\/?$/.test(req.path)) {
+    adminNotesStudioV2PdfIngestionRouter(req, res, next);
+    return;
+  }
+  next();
+});
 
 /**
  * Canonical Notes Studio v2 generation route.
