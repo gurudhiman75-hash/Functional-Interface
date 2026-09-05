@@ -39,6 +39,7 @@ const migrationFiles = [
   "20260831_current_affairs_open_news_discovery.sql",
   "20260901_current_affairs_master_pack_editorial_approval.sql",
   "20260903_current_affairs_selected_processing_runs.sql",
+  "20260905_current_affairs_selected_processing_localization_method.sql",
 ];
 
 const here = path.dirname(fileURLToPath(import.meta.url));
