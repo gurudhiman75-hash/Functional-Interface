@@ -1,4 +1,4 @@
-import { apiRequest, uploadFile } from '@/services/api/client';
+import { getFirebaseAuth } from '@/integrations/firebase';
 import type {
   ContradictionGroup,
   CorpusDoc,
@@ -17,6 +17,50 @@ import type {
 } from './commands';
 
 const BASE = '/admin/notes-studio-v2';
+const configuredBase = (import.meta.env.VITE_API_URL as string | undefined)?.trim();
+const apiBase = (configuredBase || '/api').replace(/\/$/, '');
+
+type JsonRequestInit = Omit<RequestInit, 'body'> & { body?: unknown };
+
+async function getToken() {
+  const auth = getFirebaseAuth();
+  const user = auth?.currentUser;
+  if (!user) throw new Error('Your ExamTree admin session has expired. Sign in again.');
+  return user.getIdToken();
+}
+
+export async function notesStudioV2Request<T>(path: string, init?: JsonRequestInit): Promise<T> {
+  const token = await getToken();
+  const hasBody = init?.body !== undefined;
+  const response = await fetch(`${apiBase}${path}`, {
+    ...init,
+    body: hasBody ? JSON.stringify(init?.body) : undefined,
+    headers: {
+      ...(hasBody ? { 'Content-Type': 'application/json' } : {}),
+      Authorization: `Bearer ${token}`,
+      ...init?.headers,
+    },
+  });
+  const body = await response.json().catch(() => null) as ({ error?: string } & T) | null;
+  if (!response.ok) throw new Error(body?.error || `Notes Studio v2 request failed (${response.status}).`);
+  if (body === null) throw new Error('Notes Studio v2 API returned an empty response.');
+  return body;
+}
+
+async function uploadPdf<T>(path: string, file: File | Blob): Promise<T> {
+  const token = await getToken();
+  const form = new FormData();
+  form.append('file', file, file instanceof File ? file.name : 'source.pdf');
+  const response = await fetch(`${apiBase}${path}`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}` },
+    body: form,
+  });
+  const body = await response.json().catch(() => null) as ({ error?: string } & T) | null;
+  if (!response.ok) throw new Error(body?.error || `Notes Studio v2 upload failed (${response.status}).`);
+  if (body === null) throw new Error('Notes Studio v2 upload returned an empty response.');
+  return body;
+}
 
 export interface NotesStudioV2Workspace {
   period: Period;
@@ -129,29 +173,23 @@ export interface ExamFrequencySummary {
 }
 
 export function listPeriods() {
-  return apiRequest<Period[]>(`${BASE}/periods`);
+  return notesStudioV2Request<Period[]>(`${BASE}/periods`);
 }
 
 export function createPeriod(command: CreatePeriodCommand) {
-  return apiRequest<Period>(`${BASE}/periods`, {
-    method: 'POST',
-    body: command,
-  });
+  return notesStudioV2Request<Period>(`${BASE}/periods`, { method: 'POST', body: command });
 }
 
 export function getWorkspace(periodId: string) {
-  return apiRequest<NotesStudioV2Workspace>(`${BASE}/periods/${periodId}/workspace`);
+  return notesStudioV2Request<NotesStudioV2Workspace>(`${BASE}/periods/${periodId}/workspace`);
 }
 
-export async function uploadCorpusSource(periodId: string, file: File | Blob) {
-  return uploadFile(`${BASE}/periods/${periodId}/corpus/upload`, file) as Promise<CorpusUploadResponse>;
+export function uploadCorpusSource(periodId: string, file: File | Blob) {
+  return uploadPdf<CorpusUploadResponse>(`${BASE}/periods/${periodId}/corpus/upload`, file);
 }
 
 export function registerCorpusSource(periodId: string, command: RegisterCorpusCommand) {
-  return apiRequest<CorpusDoc>(`${BASE}/periods/${periodId}/corpus`, {
-    method: 'POST',
-    body: command,
-  });
+  return notesStudioV2Request<CorpusDoc>(`${BASE}/periods/${periodId}/corpus`, { method: 'POST', body: command });
 }
 
 export function updateCorpusMetadata(corpusDocId: string, input: {
@@ -159,46 +197,34 @@ export function updateCorpusMetadata(corpusDocId: string, input: {
   sourceType?: CorpusDoc['sourceType'];
   subCategoryHints?: string[];
 }) {
-  return apiRequest<CorpusDoc>(`${BASE}/corpus/${corpusDocId}/metadata`, {
-    method: 'PATCH',
-    body: input,
-  });
+  return notesStudioV2Request<CorpusDoc>(`${BASE}/corpus/${corpusDocId}/metadata`, { method: 'PATCH', body: input });
 }
 
 export function extractCorpusFacts(corpusDocId: string) {
-  return apiRequest<ExtractionResponse>(`${BASE}/corpus/${corpusDocId}/extract`, {
-    method: 'POST',
-    body: {},
-  });
+  return notesStudioV2Request<ExtractionResponse>(`${BASE}/corpus/${corpusDocId}/extract`, { method: 'POST', body: {} });
 }
 
 export function updateFactExamFrequency(factId: string, examFrequency: Fact['examFrequency'] | null) {
-  return apiRequest<Fact & { examFrequencyIsAdvisory: true; generationEligibilityChanged: false }>(
+  return notesStudioV2Request<Fact & { examFrequencyIsAdvisory: true; generationEligibilityChanged: false }>(
     `${BASE}/facts/${factId}/exam-frequency`,
     { method: 'PATCH', body: { examFrequency } },
   );
 }
 
 export function getExamFrequencySummary(periodId: string) {
-  return apiRequest<ExamFrequencySummary>(`${BASE}/periods/${periodId}/exam-frequency-summary`);
+  return notesStudioV2Request<ExamFrequencySummary>(`${BASE}/periods/${periodId}/exam-frequency-summary`);
 }
 
 export function reconcilePeriod(periodId: string) {
-  return apiRequest<ReconciliationResponse>(`${BASE}/periods/${periodId}/reconcile`, {
-    method: 'POST',
-    body: {},
-  });
+  return notesStudioV2Request<ReconciliationResponse>(`${BASE}/periods/${periodId}/reconcile`, { method: 'POST', body: {} });
 }
 
 export function resolveContradiction(groupId: string, command: ResolveContradictionCommand) {
-  return apiRequest<ContradictionGroup>(`${BASE}/contradictions/${groupId}/resolve`, {
-    method: 'POST',
-    body: command,
-  });
+  return notesStudioV2Request<ContradictionGroup>(`${BASE}/contradictions/${groupId}/resolve`, { method: 'POST', body: command });
 }
 
 export function getActiveStyleSpec() {
-  return apiRequest<StyleSpec | null>(`${BASE}/style-specs/active`);
+  return notesStudioV2Request<StyleSpec | null>(`${BASE}/style-specs/active`);
 }
 
 export function createStyleSpec(input: {
@@ -209,10 +235,7 @@ export function createStyleSpec(input: {
   exampleStructure?: string;
   avoid?: string[];
 }) {
-  return apiRequest<StyleSpec>(`${BASE}/style-specs`, {
-    method: 'POST',
-    body: input,
-  });
+  return notesStudioV2Request<StyleSpec>(`${BASE}/style-specs`, { method: 'POST', body: input });
 }
 
 export function createStyleBootstrapRound(input: {
@@ -221,13 +244,9 @@ export function createStyleBootstrapRound(input: {
   subCategoryId: string;
   roughTone: string;
 }) {
-  return apiRequest<StyleBootstrapRoundResponse>(`${BASE}/style-specs/${input.styleSpecId}/bootstrap-rounds`, {
+  return notesStudioV2Request<StyleBootstrapRoundResponse>(`${BASE}/style-specs/${input.styleSpecId}/bootstrap-rounds`, {
     method: 'POST',
-    body: {
-      periodId: input.periodId,
-      subCategoryId: input.subCategoryId,
-      roughTone: input.roughTone,
-    },
+    body: { periodId: input.periodId, subCategoryId: input.subCategoryId, roughTone: input.roughTone },
   });
 }
 
@@ -235,84 +254,47 @@ export function reviewStyleBootstrapRound(styleSpecId: string, roundId: string, 
   selectedVariantLabel: string;
   adminEdits?: string;
 }) {
-  return apiRequest<StyleBootstrapRoundResponse>(`${BASE}/style-specs/${styleSpecId}/bootstrap-rounds/${roundId}`, {
-    method: 'PATCH',
-    body: input,
+  return notesStudioV2Request<StyleBootstrapRoundResponse>(`${BASE}/style-specs/${styleSpecId}/bootstrap-rounds/${roundId}`, {
+    method: 'PATCH', body: input,
   });
 }
 
 export function activateStyleSpec(styleSpecId: string) {
-  return apiRequest<StyleSpec>(`${BASE}/style-specs/${styleSpecId}/activate`, {
-    method: 'POST',
-    body: {},
-  });
+  return notesStudioV2Request<StyleSpec>(`${BASE}/style-specs/${styleSpecId}/activate`, { method: 'POST', body: {} });
 }
 
-/**
- * The browser sends only target identifiers and languages. The API server rebuilds
- * the eligible fact graph from notes_studio_v2.* and never accepts source prose here.
- */
 export function generateNote(command: GenerateNoteCommand) {
-  return apiRequest<GenerateNoteResponse>(`${BASE}/notes/generate`, {
-    method: 'POST',
-    body: command,
-  });
+  return notesStudioV2Request<GenerateNoteResponse>(`${BASE}/notes/generate`, { method: 'POST', body: command });
 }
 
-/**
- * Quality is persisted as immutable review evidence. Factual/style AI evaluation
- * receives the distilled fact graph and StyleSpec; verification spans remain on
- * the separate deterministic originality path.
- */
 export function runQualityGates(noteVersionId: string) {
-  return apiRequest<QualityResponse>(`${BASE}/note-versions/${noteVersionId}/quality/persisted`, {
-    method: 'POST',
-    body: {},
-  });
+  return notesStudioV2Request<QualityResponse>(`${BASE}/note-versions/${noteVersionId}/quality/persisted`, { method: 'POST', body: {} });
 }
 
 export function getLatestQualityRun(noteVersionId: string) {
-  return apiRequest<QualityResponse | null>(`${BASE}/note-versions/${noteVersionId}/quality/latest`);
+  return notesStudioV2Request<QualityResponse | null>(`${BASE}/note-versions/${noteVersionId}/quality/latest`);
 }
 
 export function submitNoteForReview(noteVersionId: string) {
-  return apiRequest<NoteVersion>(`${BASE}/note-versions/${noteVersionId}/submit-review`, {
-    method: 'POST',
-    body: {},
-  });
+  return notesStudioV2Request<NoteVersion>(`${BASE}/note-versions/${noteVersionId}/submit-review`, { method: 'POST', body: {} });
 }
 
 export function publishNoteVersion(noteVersionId: string) {
-  return apiRequest<NoteVersion>(`${BASE}/note-versions/${noteVersionId}/publish`, {
-    method: 'POST',
-    body: {},
-  });
+  return notesStudioV2Request<NoteVersion>(`${BASE}/note-versions/${noteVersionId}/publish`, { method: 'POST', body: {} });
 }
 
 export function createRevision(noteId: string) {
-  return apiRequest<NoteVersion>(`${BASE}/notes/${noteId}/revisions`, {
-    method: 'POST',
-    body: {},
-  });
+  return notesStudioV2Request<NoteVersion>(`${BASE}/notes/${noteId}/revisions`, { method: 'POST', body: {} });
 }
 
 export function updateDraftBlocks(noteVersionId: string, blocksByLanguage: LocalizedNotes) {
-  return apiRequest<NoteVersion>(`${BASE}/note-versions/${noteVersionId}`, {
-    method: 'PATCH',
-    body: { blocksByLanguage },
-  });
+  return notesStudioV2Request<NoteVersion>(`${BASE}/note-versions/${noteVersionId}`, { method: 'PATCH', body: { blocksByLanguage } });
 }
 
 export function updateNoteStatus(noteVersionId: string, status: Exclude<NoteStatus, 'published'>) {
-  return apiRequest<NoteVersion>(`${BASE}/note-versions/${noteVersionId}`, {
-    method: 'PATCH',
-    body: { status },
-  });
+  return notesStudioV2Request<NoteVersion>(`${BASE}/note-versions/${noteVersionId}`, { method: 'PATCH', body: { status } });
 }
 
 export function attachFigure(figureId: string, svgRef: string) {
-  return apiRequest<{ id: string; status: 'created'; svgRef: string }>(`${BASE}/figures/${figureId}`, {
-    method: 'PATCH',
-    body: { svgRef },
-  });
+  return notesStudioV2Request<{ id: string; status: 'created'; svgRef: string }>(`${BASE}/figures/${figureId}`, { method: 'PATCH', body: { svgRef } });
 }
