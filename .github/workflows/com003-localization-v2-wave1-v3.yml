@@ -5,6 +5,7 @@ on:
     branches:
       - feature/com003-office-productivity-discovery-v1
     paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v2.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v3.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v3.test.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v3-review-file.ts'
@@ -13,6 +14,7 @@ on:
     branches:
       - integration/computer-content-engine-mainline-v1
     paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v2.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v3.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v3.test.ts'
       - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v3-review-file.ts'
@@ -65,7 +67,7 @@ jobs:
           grep -q '96 localized outputs' "$FILE"
           grep -q 'Candidate 3' "$FILE"
           grep -q 'COM-003-QL-004' "$FILE"
-          ! grep -Eq 'करता है वाला Word कमांड|ਡਾਲਤਾ ਹੈ ਵਾਲਾ Word ਕਮਾਂਡ|duplicates selected content|stores current changes in the file' "$FILE"
+          ! grep -Eq 'करता है वाला Word कमांड|डालता है वाला Word कमांड|ਪਾਂਦਾ ਹੈ ਵਾਲਾ Word ਕਮਾਂਡ|ਕਰਦਾ ਹੈ ਵਾਲਾ Word ਕਮਾਂਡ|duplicates selected content|stores current changes in the file|open the print workflow|save the current document' "$FILE"
       - name: Upload Candidate 3 review artifact
         uses: actions/upload-artifact@v4
         with:
