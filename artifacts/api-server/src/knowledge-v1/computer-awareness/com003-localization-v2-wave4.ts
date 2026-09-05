@@ -1,0 +1,187 @@
+import { COM003_ENGLISH_FREEZE_AUTHORITY_V2 } from "./com003-english-freeze-v2";
+import { lookupCom003OptionTranslationV1, type Com003LocalizationLanguageV2 } from "./com003-localization-translation-memory-v1";
+import { COM003_ENGLISH_REVIEW_CORPUS_V16_2 } from "./com003-review-synthesis-v16-2";
+import type { Com003LocalizedQuestionV2 } from "./com003-localization-v2-wave1";
+
+type L=Com003LocalizationLanguageV2; type T={hi:string;pa:string};
+const QLS=["COM-003-QL-015","COM-003-QL-016","COM-003-QL-017","COM-003-QL-018","COM-003-QL-019"] as const;
+
+const STEMS: Record<string,{hi:readonly string[];pa:readonly string[]}>={
+"COM-003-QL-015":{
+hi:[
+"Format Cells dialog खोलने के लिए कौन-सा Excel shortcut उपयोग किया जाता है?",
+"Excel में Ctrl+G किस action के लिए उपयोग होता है?",
+"Active cell को edit करने के लिए Excel में कौन-सा shortcut है?",
+"Microsoft Excel (Windows desktop) में Alt+H, O, W किस command को खोलता है?",
+"Microsoft Excel (Windows desktop) में Ctrl+G क्या करता है?",
+"Microsoft Excel (Windows desktop) में active cell edit करने के लिए कौन-सा shortcut उपयोग होता है?",
+"Windows desktop Excel में Alt+H, O, W का क्या उपयोग है?",
+"Microsoft Excel (Windows desktop) में Format Cells dialog खोलने का shortcut कौन-सा है?",
+"Windows desktop Excel में active cell edit करने के लिए कौन-सी key उपयोग की जाती है?",
+"Microsoft Excel (Windows desktop) में Ctrl+G का उपयोग किसके लिए किया जाता है?",
+"Microsoft Excel (Windows desktop) में Ctrl+1 क्या करता है?",
+"Excel में Ctrl+G के बारे में कौन-सा कथन सही है?",
+],
+pa:[
+"Format Cells dialog ਖੋਲ੍ਹਣ ਲਈ ਕਿਹੜਾ Excel shortcut ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
+"Excel ਵਿੱਚ Ctrl+G ਕਿਹੜੇ action ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
+"Active cell ਨੂੰ edit ਕਰਨ ਲਈ Excel ਵਿੱਚ ਕਿਹੜਾ shortcut ਹੈ?",
+"Microsoft Excel (Windows desktop) ਵਿੱਚ Alt+H, O, W ਕਿਹੜੀ command ਖੋਲ੍ਹਦਾ ਹੈ?",
+"Microsoft Excel (Windows desktop) ਵਿੱਚ Ctrl+G ਕੀ ਕਰਦਾ ਹੈ?",
+"Microsoft Excel (Windows desktop) ਵਿੱਚ active cell edit ਕਰਨ ਲਈ ਕਿਹੜਾ shortcut ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
+"Windows desktop Excel ਵਿੱਚ Alt+H, O, W ਦੀ ਵਰਤੋਂ ਕਿਸ ਲਈ ਹੁੰਦੀ ਹੈ?",
+"Microsoft Excel (Windows desktop) ਵਿੱਚ Format Cells dialog ਖੋਲ੍ਹਣ ਦਾ shortcut ਕਿਹੜਾ ਹੈ?",
+"Windows desktop Excel ਵਿੱਚ active cell edit ਕਰਨ ਲਈ ਕਿਹੜੀ key ਵਰਤੀ ਜਾਂਦੀ ਹੈ?",
+"Microsoft Excel (Windows desktop) ਵਿੱਚ Ctrl+G ਕਿਸ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
+"Microsoft Excel (Windows desktop) ਵਿੱਚ Ctrl+1 ਕੀ ਕਰਦਾ ਹੈ?",
+"Excel ਵਿੱਚ Ctrl+G ਬਾਰੇ ਕਿਹੜਾ ਕਥਨ ਸਹੀ ਹੈ?",
+]},
+"COM-003-QL-016":{
+hi:[
+"PowerPoint में placeholders और slide content areas की arrangement नियंत्रित करने वाली feature कौन-सी है?",
+"Slide layout पर text, table, chart, picture या media रखने वाला container क्या कहलाता है?",
+"PowerPoint presentation की एक individual screen को क्या कहा जाता है?",
+"PowerPoint में coordinated colors, fonts, effects और background styles देने वाली feature कौन-सी है?",
+"Microsoft PowerPoint में presentation बनाने के लिए predefined design देने वाली feature कौन-सी है?",
+"Microsoft PowerPoint में slide पर placeholders और content की arrangement किस feature से तय होती है?",
+"PowerPoint में colors, fonts, effects और background styles का coordinated set किस feature से मिलता है?",
+"PowerPoint slide layout पर text, tables, charts, pictures या media रखने वाला container कौन-सा है?",
+"Microsoft PowerPoint में placeholders और content की arrangement नियंत्रित करने वाली feature क्या कहलाती है?",
+"PowerPoint में information प्रस्तुत करने के लिए slides के collection को क्या कहा जाता है?",
+"Presentation बनाने के लिए predefined starting design देने वाली PowerPoint feature कौन-सी है?",
+"PowerPoint presentation के एक individual page को क्या कहा जाता है?",
+],
+pa:[
+"PowerPoint ਵਿੱਚ placeholders ਅਤੇ slide content areas ਦੀ arrangement ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲੀ feature ਕਿਹੜੀ ਹੈ?",
+"Slide layout ਉੱਤੇ text, table, chart, picture ਜਾਂ media ਰੱਖਣ ਵਾਲੇ container ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?",
+"PowerPoint presentation ਦੀ ਇੱਕ individual screen ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?",
+"PowerPoint ਵਿੱਚ coordinated colors, fonts, effects ਅਤੇ background styles ਦੇਣ ਵਾਲੀ feature ਕਿਹੜੀ ਹੈ?",
+"Microsoft PowerPoint ਵਿੱਚ presentation ਬਣਾਉਣ ਲਈ predefined design ਦੇਣ ਵਾਲੀ feature ਕਿਹੜੀ ਹੈ?",
+"Microsoft PowerPoint ਵਿੱਚ slide ਉੱਤੇ placeholders ਅਤੇ content ਦੀ arrangement ਕਿਹੜੀ feature ਤੈਅ ਕਰਦੀ ਹੈ?",
+"PowerPoint ਵਿੱਚ colors, fonts, effects ਅਤੇ background styles ਦਾ coordinated set ਕਿਹੜੀ feature ਦਿੰਦੀ ਹੈ?",
+"PowerPoint slide layout ਉੱਤੇ text, tables, charts, pictures ਜਾਂ media ਰੱਖਣ ਵਾਲਾ container ਕਿਹੜਾ ਹੈ?",
+"Microsoft PowerPoint ਵਿੱਚ placeholders ਅਤੇ content ਦੀ arrangement ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲੀ feature ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?",
+"PowerPoint ਵਿੱਚ information ਪੇਸ਼ ਕਰਨ ਲਈ slides ਦੇ collection ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?",
+"Presentation ਬਣਾਉਣ ਲਈ predefined starting design ਦੇਣ ਵਾਲੀ PowerPoint feature ਕਿਹੜੀ ਹੈ?",
+"PowerPoint presentation ਦੇ ਇੱਕ individual page ਨੂੰ ਕੀ ਕਿਹਾ ਜਾਂਦਾ ਹੈ?",
+]},
+"COM-003-QL-017":{
+hi:[
+"PowerPoint slide पर data को graphically दिखाने के लिए कौन-सा object insert किया जा सकता है?",
+"PowerPoint slide में image जोड़ने के लिए कौन-सा object उपयोग किया जाता है?",
+"Slide पर information को rows और columns में व्यवस्थित करने के लिए कौन-सा PowerPoint object उपयोग होता है?",
+"Microsoft PowerPoint में data को graphical form में दिखाने के लिए slide पर कौन-सा object insert किया जाता है?",
+"किसी slide में photograph या दूसरी image जोड़नी हो तो कौन-सा PowerPoint object insert करेंगे?",
+"Microsoft PowerPoint में data को rows और columns में दिखाने के लिए कौन-सा object insert किया जाता है?",
+"PowerPoint slide पर data को graphically प्रस्तुत करने के लिए कौन-सा object उपयोग होता है?",
+"PowerPoint slide पर insert की गई photograph किस object type का उदाहरण है?",
+"Microsoft PowerPoint में graphical data display के लिए कौन-सा object insert किया जा सकता है?",
+"Tabular या charted data के बजाय image दिखाने के लिए कौन-सा PowerPoint object उपयोग किया जाता है?",
+"Chart या Table के बजाय picture content जोड़ने के लिए कौन-सा object चुनना चाहिए?",
+"Rows, columns या plotted data के बजाय visual image content जोड़ने वाला PowerPoint object कौन-सा है?",
+],
+pa:[
+"PowerPoint slide ਉੱਤੇ data ਨੂੰ graphically ਦਿਖਾਉਣ ਲਈ ਕਿਹੜਾ object insert ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ?",
+"PowerPoint slide ਵਿੱਚ image ਜੋੜਨ ਲਈ ਕਿਹੜਾ object ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
+"Slide ਉੱਤੇ information ਨੂੰ rows ਅਤੇ columns ਵਿੱਚ ਵਿਵਸਥਿਤ ਕਰਨ ਲਈ ਕਿਹੜਾ PowerPoint object ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
+"Microsoft PowerPoint ਵਿੱਚ data ਨੂੰ graphical form ਵਿੱਚ ਦਿਖਾਉਣ ਲਈ slide ਉੱਤੇ ਕਿਹੜਾ object insert ਕੀਤਾ ਜਾਂਦਾ ਹੈ?",
+"ਕਿਸੇ slide ਵਿੱਚ photograph ਜਾਂ ਹੋਰ image ਜੋੜਨੀ ਹੋਵੇ ਤਾਂ ਕਿਹੜਾ PowerPoint object insert ਕਰੋਗੇ?",
+"Microsoft PowerPoint ਵਿੱਚ data ਨੂੰ rows ਅਤੇ columns ਵਿੱਚ ਦਿਖਾਉਣ ਲਈ ਕਿਹੜਾ object insert ਕੀਤਾ ਜਾਂਦਾ ਹੈ?",
+"PowerPoint slide ਉੱਤੇ data ਨੂੰ graphically ਪੇਸ਼ ਕਰਨ ਲਈ ਕਿਹੜਾ object ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
+"PowerPoint slide ਉੱਤੇ insert ਕੀਤੀ photograph ਕਿਹੜੇ object type ਦਾ ਉਦਾਹਰਨ ਹੈ?",
+"Microsoft PowerPoint ਵਿੱਚ graphical data display ਲਈ ਕਿਹੜਾ object insert ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ?",
+"Tabular ਜਾਂ charted data ਦੀ ਬਜਾਇ image ਦਿਖਾਉਣ ਲਈ ਕਿਹੜਾ PowerPoint object ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
+"Chart ਜਾਂ Table ਦੀ ਬਜਾਇ picture content ਜੋੜਨ ਲਈ ਕਿਹੜਾ object ਚੁਣਨਾ ਚਾਹੀਦਾ ਹੈ?",
+"Rows, columns ਜਾਂ plotted data ਦੀ ਬਜਾਇ visual image content ਜੋੜਨ ਵਾਲਾ PowerPoint object ਕਿਹੜਾ ਹੈ?",
+]},
+"COM-003-QL-018":{
+hi:[
+"PowerPoint में text या slide के अन्य objects पर लागू होने वाला effect कौन-सा है?",
+"Slide transition effect को पूरा होने में कितना समय लगेगा, यह कौन-सी timing setting नियंत्रित करती है?",
+"Slide अपने-आप अगली slide पर कब जाएगा, यह कौन-सी PowerPoint timing setting तय करती है?",
+"एक slide से दूसरी slide पर जाते समय effect दिखाना हो तो कौन-सी PowerPoint feature उपयोग करनी चाहिए?",
+"Slide transition को जल्दी पूरा कराना हो तो कौन-सी timing setting कम करनी चाहिए?",
+"Slide के किसी object पर effect लगाना हो तो कौन-सी PowerPoint feature उपयोग होती है?",
+"Text या किसी object पर slide के भीतर लगाया गया effect किस PowerPoint feature का उदाहरण है?",
+"किसी slide को निश्चित interval के बाद अपने-आप आगे बढ़ाने की setting किस timing control का उदाहरण है?",
+"एक slide से दूसरी slide में बदलते समय दिखाई देने वाला effect किस PowerPoint feature का उदाहरण है?",
+"Transition कितनी देर चलेगा नहीं, बल्कि अगली slide अपने-आप कब आएगी—यह कौन-सा timing control तय करता है?",
+"Objects के बजाय slides के बीच लागू होने वाला PowerPoint effect कौन-सा है?",
+"Slides के बीच change के बजाय slide के objects पर लागू होने वाला effect कौन-सा है?",
+],
+pa:[
+"PowerPoint ਵਿੱਚ text ਜਾਂ slide ਦੇ ਹੋਰ objects ਉੱਤੇ ਲਾਗੂ ਹੋਣ ਵਾਲਾ effect ਕਿਹੜਾ ਹੈ?",
+"Slide transition effect ਨੂੰ ਪੂਰਾ ਹੋਣ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲੱਗੇਗਾ, ਇਹ ਕਿਹੜੀ timing setting ਨਿਯੰਤਰਿਤ ਕਰਦੀ ਹੈ?",
+"Slide ਆਪਣੇ ਆਪ ਅਗਲੀ slide ਉੱਤੇ ਕਦੋਂ ਜਾਵੇਗੀ, ਇਹ ਕਿਹੜੀ PowerPoint timing setting ਤੈਅ ਕਰਦੀ ਹੈ?",
+"ਇੱਕ slide ਤੋਂ ਦੂਜੀ slide ਉੱਤੇ ਜਾਂਦੇ ਸਮੇਂ effect ਦਿਖਾਉਣਾ ਹੋਵੇ ਤਾਂ ਕਿਹੜੀ PowerPoint feature ਵਰਤਣੀ ਚਾਹੀਦੀ ਹੈ?",
+"Slide transition ਨੂੰ ਜਲਦੀ ਪੂਰਾ ਕਰਨਾ ਹੋਵੇ ਤਾਂ ਕਿਹੜੀ timing setting ਘਟਾਉਣੀ ਚਾਹੀਦੀ ਹੈ?",
+"Slide ਦੇ ਕਿਸੇ object ਉੱਤੇ effect ਲਗਾਉਣਾ ਹੋਵੇ ਤਾਂ ਕਿਹੜੀ PowerPoint feature ਵਰਤੀ ਜਾਂਦੀ ਹੈ?",
+"Text ਜਾਂ ਕਿਸੇ object ਉੱਤੇ slide ਦੇ ਅੰਦਰ ਲਾਇਆ effect ਕਿਹੜੀ PowerPoint feature ਦਾ ਉਦਾਹਰਨ ਹੈ?",
+"ਕਿਸੇ slide ਨੂੰ ਨਿਰਧਾਰਤ interval ਤੋਂ ਬਾਅਦ ਆਪਣੇ ਆਪ ਅੱਗੇ ਵਧਾਉਣ ਦੀ setting ਕਿਹੜੇ timing control ਦਾ ਉਦਾਹਰਨ ਹੈ?",
+"ਇੱਕ slide ਤੋਂ ਦੂਜੀ slide ਵਿੱਚ ਬਦਲਦੇ ਸਮੇਂ ਦਿਖਾਈ ਦੇਣ ਵਾਲਾ effect ਕਿਹੜੀ PowerPoint feature ਦਾ ਉਦਾਹਰਨ ਹੈ?",
+"Transition ਕਿੰਨੀ ਦੇਰ ਚੱਲੇਗਾ ਨਹੀਂ, ਸਗੋਂ ਅਗਲੀ slide ਆਪਣੇ ਆਪ ਕਦੋਂ ਆਵੇਗੀ—ਇਹ ਕਿਹੜਾ timing control ਤੈਅ ਕਰਦਾ ਹੈ?",
+"Objects ਦੀ ਬਜਾਇ slides ਦੇ ਵਿਚਕਾਰ ਲਾਗੂ ਹੋਣ ਵਾਲਾ PowerPoint effect ਕਿਹੜਾ ਹੈ?",
+"Slides ਦੇ ਵਿਚਕਾਰ change ਦੀ ਬਜਾਇ slide ਦੇ objects ਉੱਤੇ ਲਾਗੂ ਹੋਣ ਵਾਲਾ effect ਕਿਹੜਾ ਹੈ?",
+]},
+"COM-003-QL-019":{
+hi:[
+"Windows desktop PowerPoint में slide show को शुरुआत से शुरू करने के लिए कौन-सी key उपयोग होती है?",
+"Windows desktop PowerPoint में slide show को current slide से शुरू करने का shortcut कौन-सा है?",
+"Windows desktop PowerPoint में first slide से slide show शुरू करने के लिए कौन-सी key उपयोग होती है?",
+"Presenter को slide show current slide से शुरू करना है। Windows desktop PowerPoint में कौन-सा shortcut उपयोग करेगा?",
+"Presenter को slide show first slide से शुरू करना है। Windows desktop PowerPoint में कौन-सी key दबानी चाहिए?",
+"Currently selected slide से presentation शुरू करने के लिए Windows desktop PowerPoint में कौन-सा shortcut है?",
+"Windows desktop PowerPoint में slide show beginning से शुरू करने वाला सही shortcut-action pair कौन-सा है?",
+"Windows desktop PowerPoint में current slide से slide show शुरू करने वाला सही shortcut-action pair कौन-सा है?",
+"PowerPoint slide show को first slide से शुरू करना किस key का action है?",
+"Beginning के बजाय current slide से slide show शुरू करने के लिए Windows desktop PowerPoint में कौन-सा shortcut उपयोग होता है?",
+"Current slide के बजाय beginning से slide show शुरू करने के लिए Windows desktop PowerPoint में कौन-सी key उपयोग होती है?",
+"Windows desktop PowerPoint में current slide से शुरू करने के लिए F5 और Shift+F5 में से कौन-सा उपयोग होगा?",
+],
+pa:[
+"Windows desktop PowerPoint ਵਿੱਚ slide show ਨੂੰ ਸ਼ੁਰੂ ਤੋਂ ਚਲਾਉਣ ਲਈ ਕਿਹੜੀ key ਵਰਤੀ ਜਾਂਦੀ ਹੈ?",
+"Windows desktop PowerPoint ਵਿੱਚ slide show ਨੂੰ current slide ਤੋਂ ਚਲਾਉਣ ਦਾ shortcut ਕਿਹੜਾ ਹੈ?",
+"Windows desktop PowerPoint ਵਿੱਚ first slide ਤੋਂ slide show ਚਲਾਉਣ ਲਈ ਕਿਹੜੀ key ਵਰਤੀ ਜਾਂਦੀ ਹੈ?",
+"Presenter ਨੂੰ slide show current slide ਤੋਂ ਸ਼ੁਰੂ ਕਰਨਾ ਹੈ। Windows desktop PowerPoint ਵਿੱਚ ਕਿਹੜਾ shortcut ਵਰਤੇਗਾ?",
+"Presenter ਨੂੰ slide show first slide ਤੋਂ ਸ਼ੁਰੂ ਕਰਨਾ ਹੈ। Windows desktop PowerPoint ਵਿੱਚ ਕਿਹੜੀ key ਦਬਾਉਣੀ ਚਾਹੀਦੀ ਹੈ?",
+"Currently selected slide ਤੋਂ presentation ਸ਼ੁਰੂ ਕਰਨ ਲਈ Windows desktop PowerPoint ਵਿੱਚ ਕਿਹੜਾ shortcut ਹੈ?",
+"Windows desktop PowerPoint ਵਿੱਚ slide show beginning ਤੋਂ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ ਸਹੀ shortcut-action pair ਕਿਹੜਾ ਹੈ?",
+"Windows desktop PowerPoint ਵਿੱਚ current slide ਤੋਂ slide show ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ ਸਹੀ shortcut-action pair ਕਿਹੜਾ ਹੈ?",
+"PowerPoint slide show ਨੂੰ first slide ਤੋਂ ਸ਼ੁਰੂ ਕਰਨਾ ਕਿਹੜੀ key ਦਾ action ਹੈ?",
+"Beginning ਦੀ ਬਜਾਇ current slide ਤੋਂ slide show ਸ਼ੁਰੂ ਕਰਨ ਲਈ Windows desktop PowerPoint ਵਿੱਚ ਕਿਹੜਾ shortcut ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?",
+"Current slide ਦੀ ਬਜਾਇ beginning ਤੋਂ slide show ਸ਼ੁਰੂ ਕਰਨ ਲਈ Windows desktop PowerPoint ਵਿੱਚ ਕਿਹੜੀ key ਵਰਤੀ ਜਾਂਦੀ ਹੈ?",
+"Windows desktop PowerPoint ਵਿੱਚ current slide ਤੋਂ ਸ਼ੁਰੂ ਕਰਨ ਲਈ F5 ਅਤੇ Shift+F5 ਵਿੱਚੋਂ ਕਿਹੜਾ ਵਰਤਿਆ ਜਾਵੇਗਾ?",
+]},
+};
+
+const EXPLANATION:Record<string,T>={
+"com003-excel-shortcut-ctrl-1":{hi:"Windows desktop Excel में Ctrl+1 Format Cells dialog खोलता है।",pa:"Windows desktop Excel ਵਿੱਚ Ctrl+1 Format Cells dialog ਖੋਲ੍ਹਦਾ ਹੈ।"},
+"com003-excel-shortcut-ctrl-g":{hi:"Windows desktop Excel में Ctrl+G Go To dialog खोलता है।",pa:"Windows desktop Excel ਵਿੱਚ Ctrl+G Go To dialog ਖੋਲ੍ਹਦਾ ਹੈ।"},
+"com003-excel-shortcut-f2":{hi:"Windows desktop Excel में F2 active cell को edit करने के लिए उपयोग होता है।",pa:"Windows desktop Excel ਵਿੱਚ F2 active cell ਨੂੰ edit ਕਰਨ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ।"},
+"com003-excel-shortcut-alt-h-o-w":{hi:"Windows desktop Excel में Alt+H, O, W Ribbon access keys के माध्यम से Column Width command खोलता है।",pa:"Windows desktop Excel ਵਿੱਚ Alt+H, O, W Ribbon access keys ਰਾਹੀਂ Column Width command ਖੋਲ੍ਹਦਾ ਹੈ।"},
+"com003-powerpoint-layout-role":{hi:"Slide Layout placeholders और slide content areas की arrangement और positioning नियंत्रित करता है।",pa:"Slide Layout placeholders ਅਤੇ slide content areas ਦੀ arrangement ਅਤੇ positioning ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।"},
+"com003-powerpoint-placeholder-role":{hi:"Placeholder slide layout पर एक container होता है जिसमें text, tables, charts, pictures या media रखा जा सकता है।",pa:"Placeholder slide layout ਉੱਤੇ ਇੱਕ container ਹੁੰਦਾ ਹੈ ਜਿਸ ਵਿੱਚ text, tables, charts, pictures ਜਾਂ media ਰੱਖਿਆ ਜਾ ਸਕਦਾ ਹੈ।"},
+"com003-powerpoint-slide-unit":{hi:"Slide, PowerPoint presentation के भीतर एक individual page या screen होती है।",pa:"Slide, PowerPoint presentation ਦੇ ਅੰਦਰ ਇੱਕ individual page ਜਾਂ screen ਹੁੰਦੀ ਹੈ।"},
+"com003-powerpoint-theme-role":{hi:"Theme coordinated design elements देता है, जैसे colors, fonts, effects और background styles।",pa:"Theme coordinated design elements ਦਿੰਦਾ ਹੈ, ਜਿਵੇਂ colors, fonts, effects ਅਤੇ background styles।"},
+"com003-powerpoint-template-role":{hi:"Presentation Template presentation बनाने के लिए predefined starting design और structure देता है।",pa:"Presentation Template presentation ਬਣਾਉਣ ਲਈ predefined starting design ਅਤੇ structure ਦਿੰਦਾ ਹੈ।"},
+"com003-powerpoint-presentation-slides":{hi:"PowerPoint Presentation information प्रस्तुत करने के लिए उपयोग की जाने वाली slides की पूरी sequence या collection है।",pa:"PowerPoint Presentation information ਪੇਸ਼ ਕਰਨ ਲਈ ਵਰਤੀਆਂ ਜਾਣ ਵਾਲੀਆਂ slides ਦੀ ਪੂਰੀ sequence ਜਾਂ collection ਹੈ।"},
+"com003-powerpoint-insert-chart":{hi:"Chart object का उपयोग तब किया जाता है जब numerical data को PowerPoint slide पर graphically दिखाना हो।",pa:"Chart object ਉਸ ਵੇਲੇ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ ਜਦੋਂ numerical data ਨੂੰ PowerPoint slide ਉੱਤੇ graphically ਦਿਖਾਉਣਾ ਹੋਵੇ।"},
+"com003-powerpoint-insert-picture":{hi:"Picture object PowerPoint slide पर photograph या illustration जैसी image content जोड़ता है।",pa:"Picture object PowerPoint slide ਉੱਤੇ photograph ਜਾਂ illustration ਵਰਗੀ image content ਜੋੜਦਾ ਹੈ।"},
+"com003-powerpoint-insert-table":{hi:"Table object PowerPoint slide पर information को rows और columns में व्यवस्थित करता है।",pa:"Table object PowerPoint slide ਉੱਤੇ information ਨੂੰ rows ਅਤੇ columns ਵਿੱਚ ਵਿਵਸਥਿਤ ਕਰਦਾ ਹੈ।"},
+"com003-powerpoint-animation-definition":{hi:"Animation slide के text या दूसरे objects पर effect लागू करता है; Transition इसके विपरीत slides के बीच होता है।",pa:"Animation slide ਦੇ text ਜਾਂ ਹੋਰ objects ਉੱਤੇ effect ਲਾਗੂ ਕਰਦਾ ਹੈ; Transition ਇਸਦੇ ਉਲਟ slides ਦੇ ਵਿਚਕਾਰ ਹੁੰਦਾ ਹੈ।"},
+"com003-powerpoint-transition-duration":{hi:"Transition Duration यह नियंत्रित करता है कि transition effect पूरा होने में कितना समय ले; यह slide के screen पर रहने का समय तय नहीं करता।",pa:"Transition Duration ਇਹ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ ਕਿ transition effect ਪੂਰਾ ਹੋਣ ਵਿੱਚ ਕਿੰਨਾ ਸਮਾਂ ਲਏ; ਇਹ slide ਦੇ screen ਉੱਤੇ ਰਹਿਣ ਦਾ ਸਮਾਂ ਤੈਅ ਨਹੀਂ ਕਰਦਾ।"},
+"com003-powerpoint-auto-advance-time":{hi:"Automatic Slide Advance Timing तय करता है कि PowerPoint अगली slide पर अपने-आप कब जाए; यह Transition Duration से अलग है।",pa:"Automatic Slide Advance Timing ਤੈਅ ਕਰਦਾ ਹੈ ਕਿ PowerPoint ਅਗਲੀ slide ਉੱਤੇ ਆਪਣੇ ਆਪ ਕਦੋਂ ਜਾਵੇ; ਇਹ Transition Duration ਤੋਂ ਵੱਖਰਾ ਹੈ।"},
+"com003-powerpoint-transition-definition":{hi:"Slide Transition एक slide से अगली slide पर जाते समय लागू होने वाला effect है; Animation slide के objects पर लागू होता है।",pa:"Slide Transition ਇੱਕ slide ਤੋਂ ਅਗਲੀ slide ਉੱਤੇ ਜਾਂਦੇ ਸਮੇਂ ਲਾਗੂ ਹੋਣ ਵਾਲਾ effect ਹੈ; Animation slide ਦੇ objects ਉੱਤੇ ਲਾਗੂ ਹੁੰਦਾ ਹੈ।"},
+"com003-powerpoint-shortcut-f5":{hi:"Windows desktop PowerPoint में F5 slide show को first slide से शुरू करता है; Shift+F5 current slide से शुरू करता है।",pa:"Windows desktop PowerPoint ਵਿੱਚ F5 slide show ਨੂੰ first slide ਤੋਂ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ; Shift+F5 current slide ਤੋਂ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।"},
+"com003-powerpoint-shortcut-shift-f5":{hi:"Windows desktop PowerPoint में Shift+F5 slide show को current slide से शुरू करता है; F5 beginning से शुरू करता है।",pa:"Windows desktop PowerPoint ਵਿੱਚ Shift+F5 slide show ਨੂੰ current slide ਤੋਂ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ; F5 beginning ਤੋਂ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।"},
+};
+
+const OPTION_OVERRIDE:Record<L,Record<string,string>>={
+hi:{"Word document":"Word दस्तावेज़","Excel worksheet":"Excel वर्कशीट","Excel workbook":"Excel वर्कबुक","PowerPoint presentation":"PowerPoint प्रेज़ेंटेशन","PowerPoint slide":"PowerPoint स्लाइड"},
+pa:{"Word document":"Word ਦਸਤਾਵੇਜ਼","Excel worksheet":"Excel ਵਰਕਸ਼ੀਟ","Excel workbook":"Excel ਵਰਕਬੁੱਕ","PowerPoint presentation":"PowerPoint ਪ੍ਰੇਜ਼ੈਂਟੇਸ਼ਨ","PowerPoint slide":"PowerPoint ਸਲਾਈਡ"},
+};
+function localizeOption(language:L,english:string){const override=OPTION_OVERRIDE[language][english];if(override)return override;const m=lookupCom003OptionTranslationV1(language,english);if(m.status!=="UNIQUE"||!m.selected)throw new Error(`COM-003 Wave4 option translation unresolved: ${language}:${english}:${m.status}`);return m.selected;}
+function build(language:L):Com003LocalizedQuestionV2[]{const perQl=new Map<string,number>();return COM003_ENGLISH_REVIEW_CORPUS_V16_2.filter(q=>(QLS as readonly string[]).includes(q.qlId)).map(q=>{const ordinal=perQl.get(q.qlId)??0;perQl.set(q.qlId,ordinal+1);const stem=STEMS[q.qlId]?.[language]?.[ordinal],explanation=EXPLANATION[q.targetFactId]?.[language];if(!stem)throw new Error(`COM-003 Wave4 missing ${language} stem ${q.qlId}/${ordinal}`);if(!explanation)throw new Error(`COM-003 Wave4 missing ${language} explanation ${q.targetFactId}`);const options=q.options.map(o=>localizeOption(language,o));return {localizationId:`COM003-LOC-V2-W4-${language.toUpperCase()}-${q.qlId}-${String(ordinal+1).padStart(2,"0")}`,sourceQuestionId:q.questionId,sourceEnglishAuthorityId:COM003_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,qlId:q.qlId,cpId:q.cpId,examSurfaceFamily:q.examSurfaceFamily,surfaceMode:q.surfaceMode,targetFactId:q.targetFactId,language,locale:language==="hi"?"hi-IN":"pa-IN",stem,options,correctIndex:q.correctIndex,canonicalAnswer:options[q.correctIndex]!,explanation,sourceIds:[...q.sourceIds],sourceFactIds:[...q.sourceFactIds],versionScoped:q.versionScoped,solverAuthority:q.solverAuthority,sourceEnglishFrozen:true,localizationReviewOnly:true,localizationFrozen:false,runtimeRegistered:false,productionReleased:false};});}
+export const COM003_HINDI_LOCALIZATION_V2_WAVE4=Object.freeze(build("hi"));
+export const COM003_PUNJABI_LOCALIZATION_V2_WAVE4=Object.freeze(build("pa"));
+export const COM003_LOCALIZATION_V2_WAVE4_AUTHORITY=Object.freeze({authorityId:"COM-003-LOCALIZATION-V2-WAVE4-CANDIDATE-1" as const,chapterCode:"COM-003" as const,chapterTitle:"Office & Productivity Software" as const,sourceEnglishAuthorityId:COM003_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,sourceEnglishCorpus:"COM003_ENGLISH_REVIEW_CORPUS_V16_2" as const,qlIds:QLS,qlCount:5,englishQuestionCount:60,hindiQuestionCount:COM003_HINDI_LOCALIZATION_V2_WAVE4.length,punjabiQuestionCount:COM003_PUNJABI_LOCALIZATION_V2_WAVE4.length,localizedQuestionCount:120,questionsPerQlPerLanguage:12,authoringBasis:"V16_2_EXACT_STEM_INTENT_PLUS_GOVERNED_OPTION_TRANSLATION_MEMORY" as const,governance:Object.freeze({localizationReviewOnly:true,localizationFrozen:false,questionStudioRuntimeAuthorized:false,questionBankWritesAuthorized:false,testEligibilityAuthorized:false,mockTestEligibilityAuthorized:false,automaticPublicationAuthorized:false,publiclyPublishable:false,productionReleased:false}),nextGate:"COM003_LOCALIZATION_V2_WAVE4_HUMAN_REVIEW" as const});
