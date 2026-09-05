@@ -1,0 +1,20 @@
+node_modules/
+dist/
+coverage/
+.vite/
+*.log
+*.tmp
+.env
+.env.*
+
+# Keep Bolt focused on the student-facing UI.
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+**/__tests__/
+
+# Generated or local-only outputs.
+*.tsbuildinfo
+.DS_Store
+Thumbs.db

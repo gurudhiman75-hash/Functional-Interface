@@ -1,0 +1,182 @@
+/* Approved ExamTree homepage reference implementation.
+ * Homepage-only visual layer. Data and routing remain production-backed.
+ */
+
+.et-home-reference {
+  min-height: 100%;
+  background: #f7f8fc;
+  color: #111522;
+}
+
+[data-testid="home-exam-categories"] {
+  position: relative;
+}
+
+.et-home-category-card {
+  display: flex;
+  min-height: 132px;
+  align-items: flex-start;
+  gap: 16px;
+  border: 1px solid #e7e9f0;
+  border-radius: 14px;
+  background: #fff;
+  padding: 22px 20px;
+  box-shadow: 0 8px 22px -22px rgba(21, 26, 44, .45);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.et-home-category-card:hover {
+  transform: translateY(-2px);
+  border-color: #d8d4ff;
+  box-shadow: 0 16px 34px -24px rgba(74, 63, 180, .42);
+}
+
+.et-home-category-icon {
+  display: inline-flex;
+  height: 48px;
+  width: 48px;
+  flex: 0 0 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.et-category-violet { background: #f0edff; color: #6958f3; }
+.et-category-mint { background: #e9f8f2; color: #20a878; }
+.et-category-orange { background: #fff1e8; color: #e98a45; }
+.et-category-cyan { background: #eaf8fb; color: #2f9eb8; }
+.et-category-rose { background: #fff0f3; color: #d7637a; }
+.et-category-purple { background: #f4edfb; color: #9362c7; }
+
+.et-series-card {
+  min-height: 250px;
+  border: 1px solid #e7e9f0;
+  border-radius: 14px;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 9px 28px -24px rgba(25, 30, 50, .38);
+}
+
+.et-series-badge {
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .02em;
+}
+
+.et-series-badge-1 { background: #f2efff; color: #7765e9; }
+.et-series-badge-2 { background: #ebfbf2; color: #2da779; }
+.et-series-badge-3 { background: #fff6e8; color: #d99243; }
+
+.et-edge-panel {
+  display: grid;
+  overflow: hidden;
+  min-height: 480px;
+  grid-template-columns: minmax(0, 1fr) minmax(360px, .82fr);
+  gap: clamp(44px, 7vw, 90px);
+  align-items: center;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 94% 12%, rgba(91, 75, 214, .22), transparent 34%),
+    linear-gradient(115deg, #15182d 0%, #15182d 46%, #191934 100%);
+  padding: clamp(42px, 6vw, 68px);
+  box-shadow: 0 24px 58px -42px rgba(17, 19, 45, .9);
+}
+
+.et-edge-copy {
+  max-width: 560px;
+}
+
+.et-learning-card {
+  border-radius: 16px;
+  background: #fff;
+  padding: 22px;
+  box-shadow: 0 20px 45px -26px rgba(0, 0, 0, .36);
+}
+
+.et-final-cta-panel {
+  display: grid;
+  min-height: 260px;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, .6fr);
+  gap: 48px;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 84% 16%, rgba(255, 255, 255, .12), transparent 30%),
+    linear-gradient(112deg, #6254ed 0%, #7569ef 58%, #7f73e8 100%);
+  padding: clamp(38px, 6vw, 58px);
+}
+
+.et-milestone-card {
+  justify-self: end;
+  width: min(100%, 300px);
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .08);
+  padding: 28px;
+  backdrop-filter: blur(10px);
+}
+
+.home-reference-header {
+  background: rgba(255, 255, 255, .96) !important;
+  border-color: #eceef4 !important;
+  box-shadow: 0 1px 0 rgba(20, 24, 42, .02);
+  backdrop-filter: blur(12px);
+}
+
+.home-reference-footer {
+  border-color: rgba(255, 255, 255, .06) !important;
+  background: #14172a !important;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .et-edge-panel,
+  .et-final-cta-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .et-learning-card {
+    max-width: 620px;
+  }
+
+  .et-milestone-card {
+    justify-self: start;
+    width: min(100%, 360px);
+  }
+}
+
+@media (max-width: 640px) {
+  .et-home-reference [data-testid="home-popular-series"] {
+    padding-top: 68px;
+  }
+
+  .et-home-category-card {
+    min-height: 118px;
+    padding: 18px 16px;
+  }
+
+  .et-home-category-icon {
+    height: 44px;
+    width: 44px;
+    flex-basis: 44px;
+  }
+
+  .et-edge-panel,
+  .et-final-cta-panel {
+    border-radius: 14px;
+    padding: 30px 22px;
+  }
+
+  .et-learning-card {
+    padding: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .et-home-category-card {
+    transition: none;
+  }
+}

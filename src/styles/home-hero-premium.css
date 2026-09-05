@@ -1,0 +1,376 @@
+/* Premium Home hero treatment.
+ * Visual only: authentication, catalog and member-slide behavior stays in home.tsx.
+ */
+
+[data-testid="home-hero"] {
+  background:
+    radial-gradient(circle at 88% 5%, hsl(var(--primary) / 0.14), transparent 30rem),
+    radial-gradient(circle at 8% 18%, hsl(var(--primary) / 0.07), transparent 27rem),
+    linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted) / 0.28));
+}
+
+[data-testid="home-acquisition-hero"] {
+  position: relative;
+  border-color: hsl(var(--primary) / 0.14);
+  box-shadow:
+    0 38px 100px -56px hsl(var(--foreground) / 0.62),
+    0 1px 0 hsl(var(--background) / 0.8) inset;
+}
+
+/*
+ * Anonymous acquisition scenes.
+ * Pexels IDs: 4308096 (South Asian study session), 4622108 (Indian university
+ * campus study group), 16504588 (New Delhi university library study).
+ * Pexels permits commercial website use under its content license.
+ */
+[data-testid="home-acquisition-hero"] > div > div:first-child {
+  position: relative;
+  isolation: isolate;
+  background-image: url("https://images.pexels.com/photos/16504588/pexels-photo-16504588.jpeg?auto=compress&cs=tinysrgb&w=1400");
+  background-position: 32% center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+[data-testid="home-acquisition-hero"] > div > div:first-child::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  background-image: url("https://images.pexels.com/photos/4622108/pexels-photo-4622108.jpeg?auto=compress&cs=tinysrgb&w=1400");
+  background-position: center 48%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  animation: examtree-acquisition-scene-two 24s ease-in-out infinite;
+  will-change: opacity;
+}
+
+[data-testid="home-acquisition-hero"] > div > div:first-child::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 14%, hsl(0 0% 100% / 0.14), transparent 13rem),
+    linear-gradient(135deg, transparent 52%, hsl(var(--primary) / 0.16));
+  mix-blend-mode: screen;
+}
+
+[data-testid="home-acquisition-hero"] > div > div:first-child > img {
+  z-index: 0;
+  animation: examtree-acquisition-scene-one 24s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+[data-testid="home-acquisition-hero"] > div > div:first-child > div.absolute {
+  z-index: 1;
+}
+
+[data-testid="home-acquisition-hero"] > div > div:first-child > div.relative {
+  z-index: 2;
+}
+
+@keyframes examtree-acquisition-scene-one {
+  0%, 29% { opacity: 1; }
+  35%, 94% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes examtree-acquisition-scene-two {
+  0%, 29% { opacity: 0; }
+  35%, 62% { opacity: 1; }
+  68%, 100% { opacity: 0; }
+}
+
+[data-testid="home-acquisition-hero"] img {
+  transform: scale(1.015);
+  filter: saturate(0.92) contrast(1.04);
+  transition: transform 700ms cubic-bezier(.2,.8,.2,1), filter 700ms ease;
+}
+
+[data-testid="home-acquisition-hero"]:hover img {
+  transform: scale(1.035);
+  filter: saturate(1) contrast(1.05);
+}
+
+[data-testid="home-acquisition-hero"] h1 {
+  text-wrap: balance;
+  text-shadow: 0 4px 24px hsl(222 47% 5% / 0.34);
+}
+
+[data-testid="home-hero-auth-card"] {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 92% 8%, hsl(var(--primary) / 0.14), transparent 14rem),
+    linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted) / 0.48));
+}
+
+[data-testid="home-hero-auth-card"]::before {
+  content: "";
+  position: absolute;
+  width: 11rem;
+  height: 11rem;
+  right: -4rem;
+  bottom: -4rem;
+  border-radius: 999px;
+  background: hsl(var(--primary) / 0.11);
+  filter: blur(18px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+[data-testid="home-hero-auth-card"] > div {
+  position: relative;
+  overflow: hidden;
+  border-color: hsl(var(--primary) / 0.13);
+  background: hsl(var(--background) / 0.96);
+  box-shadow:
+    0 28px 70px -46px hsl(var(--foreground) / 0.5),
+    0 1px 0 hsl(var(--background)) inset;
+  backdrop-filter: blur(18px);
+}
+
+[data-testid="home-hero-auth-card"] > div::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(262 83% 64%), hsl(199 89% 52%));
+  pointer-events: none;
+}
+
+[data-testid="home-hero-auth-card"] > div > button:first-of-type {
+  box-shadow: 0 14px 34px -20px hsl(var(--primary) / 0.8);
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+
+[data-testid="home-hero-auth-card"] > div > button:first-of-type:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 40px -20px hsl(var(--primary) / 0.9);
+}
+
+[data-testid="home-google-login"] {
+  border-color: hsl(var(--border) / 0.9);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+[data-testid="home-google-login"]:hover {
+  transform: translateY(-1px);
+  border-color: hsl(var(--primary) / 0.3);
+  box-shadow: 0 12px 30px -24px hsl(var(--foreground) / 0.5);
+}
+
+[data-testid="home-member-hero"] {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 76% 20%, hsl(var(--primary) / 0.34), transparent 24rem),
+    radial-gradient(circle at 12% 100%, hsl(262 83% 58% / 0.18), transparent 25rem),
+    linear-gradient(125deg, hsl(222 47% 9%), hsl(228 45% 13%) 52%, hsl(239 48% 17%));
+  border: 1px solid hsl(0 0% 100% / 0.08);
+  box-shadow:
+    0 42px 110px -62px hsl(222 60% 4% / 0.95),
+    0 1px 0 hsl(0 0% 100% / 0.08) inset;
+}
+
+[data-testid="home-member-hero"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(hsl(0 0% 100% / 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(0 0% 100% / 0.08) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(90deg, transparent 0%, black 54%, black 100%);
+  pointer-events: none;
+}
+
+[data-testid="home-member-hero"] h1 {
+  text-wrap: balance;
+  text-shadow: 0 4px 26px hsl(222 60% 4% / 0.36);
+}
+
+[data-testid="home-member-hero"] > div.relative.grid > div:last-child {
+  position: relative;
+  overflow: hidden;
+  min-height: 23rem;
+  border-color: hsl(0 0% 100% / 0.14);
+  background:
+    linear-gradient(155deg, hsl(0 0% 100% / 0.13), hsl(0 0% 100% / 0.045));
+  box-shadow:
+    0 28px 70px -42px hsl(222 60% 4% / 0.9),
+    0 1px 0 hsl(0 0% 100% / 0.12) inset;
+}
+
+[data-testid="home-member-hero"] > div.relative.grid > div:last-child::after {
+  content: "ET";
+  position: absolute;
+  right: -0.15em;
+  bottom: -0.34em;
+  z-index: -1;
+  font-size: 12rem;
+  line-height: 1;
+  font-weight: 1000;
+  letter-spacing: -0.12em;
+  color: hsl(0 0% 100% / 0.045);
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+
+[data-testid="home-member-hero"] > div.relative.grid > div:last-child > h2 {
+  max-width: 19rem;
+  text-wrap: balance;
+}
+
+[data-testid="home-member-hero"] > div.relative.grid > div:last-child > div:nth-of-type(2) > div {
+  min-height: 6.25rem;
+  background: hsl(222 47% 7% / 0.34);
+  backdrop-filter: blur(10px);
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+[data-testid="home-member-hero"] > div.relative.grid > div:last-child > div:nth-of-type(2) > div:hover {
+  transform: translateY(-2px);
+  border-color: hsl(0 0% 100% / 0.18);
+  background: hsl(0 0% 100% / 0.09);
+}
+
+[data-testid="home-member-hero"] > div:last-child {
+  background: hsl(222 47% 7% / 0.28);
+  backdrop-filter: blur(12px);
+}
+
+[data-testid="home-member-hero"] > div:last-child button {
+  transition: transform 160ms ease, background 160ms ease, width 200ms ease;
+}
+
+[data-testid="home-member-hero"] > div:last-child button:hover {
+  transform: translateY(-1px);
+}
+
+@media (min-width: 1024px) {
+  [data-testid="home-acquisition-hero"] > div {
+    grid-template-columns: minmax(0, 1.45fr) minmax(355px, 0.55fr);
+  }
+
+  [data-testid="home-hero-auth-card"] {
+    padding-inline: clamp(1.5rem, 2.2vw, 2.25rem);
+  }
+}
+
+@media (max-width: 1023px) {
+  [data-testid="home-acquisition-hero"] {
+    overflow: visible;
+    background: hsl(var(--background));
+  }
+
+  [data-testid="home-acquisition-hero"] > div > div:first-child {
+    overflow: hidden;
+    border-radius: 2rem 2rem 0 0;
+  }
+
+  [data-testid="home-hero-auth-card"] {
+    z-index: 3;
+    margin: -2rem 1rem 1rem;
+    border-radius: 1.75rem;
+    box-shadow: 0 26px 64px -42px hsl(var(--foreground) / 0.58);
+  }
+
+  [data-testid="home-member-hero"] > div.relative.grid > div:last-child {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 639px) {
+  [data-testid="home-hero"] {
+    padding-top: 0.75rem;
+  }
+
+  [data-testid="home-acquisition-hero"] {
+    border-radius: 1.5rem;
+  }
+
+  [data-testid="home-acquisition-hero"] > div > div:first-child {
+    min-height: 25rem;
+    border-radius: 1.5rem 1.5rem 0 0;
+  }
+
+  [data-testid="home-acquisition-hero"] > div > div:first-child > div.relative {
+    min-height: 25rem;
+    padding: 1.35rem;
+  }
+
+  [data-testid="home-acquisition-hero"] h1 {
+    font-size: clamp(2.35rem, 11vw, 3.15rem);
+    line-height: 1.02;
+  }
+
+  [data-testid="home-hero-auth-card"] {
+    margin: -1.45rem 0.65rem 0.65rem;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  [data-testid="home-hero-auth-card"] > div {
+    border-radius: 1.35rem;
+    padding: 1.35rem;
+    box-shadow: 0 20px 54px -40px hsl(var(--foreground) / 0.58);
+  }
+
+  [data-testid="home-member-hero"] {
+    border-radius: 1.5rem;
+  }
+
+  [data-testid="home-member-hero"] > div.relative.grid {
+    min-height: auto;
+    padding: 1.35rem;
+  }
+
+  [data-testid="home-member-hero"] h1 {
+    font-size: clamp(2.25rem, 10vw, 3rem);
+    line-height: 1.04;
+  }
+
+  [data-testid="home-member-hero"] > div.relative.grid > div:last-child {
+    border-radius: 1.35rem;
+    padding: 1.25rem;
+  }
+
+  [data-testid="home-member-hero"] > div:last-child {
+    padding-inline: 1.35rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-testid="home-acquisition-hero"] > div > div:first-child::before {
+    display: none;
+    animation: none;
+  }
+
+  [data-testid="home-acquisition-hero"] > div > div:first-child {
+    background-image: none;
+  }
+
+  [data-testid="home-acquisition-hero"] img {
+    opacity: 1;
+    animation: none;
+  }
+
+  [data-testid="home-acquisition-hero"] img,
+  [data-testid="home-hero-auth-card"] button,
+  [data-testid="home-member-hero"] button,
+  [data-testid="home-member-hero"] > div.relative.grid > div:last-child > div:nth-of-type(2) > div {
+    transition: none;
+  }
+
+  [data-testid="home-acquisition-hero"]:hover img {
+    transform: scale(1.015);
+  }
+}
