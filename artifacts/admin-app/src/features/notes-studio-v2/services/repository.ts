@@ -37,31 +37,78 @@ export interface NotesStudioV2Repository {
   attachFigure: typeof api.attachFigure;
 }
 
+type WorkspaceValue = Awaited<ReturnType<typeof api.getWorkspace>>;
+
+const WORKSPACE_RENDER_BURST_TTL_MS = 1_000;
+const inFlightWorkspaceReads = new Map<string, ReturnType<typeof api.getWorkspace>>();
+const recentWorkspaceReads = new Map<string, { value: WorkspaceValue; expiresAt: number }>();
+
+function invalidateWorkspaceReadCache() {
+  recentWorkspaceReads.clear();
+}
+
+function getWorkspace(periodId: string): ReturnType<typeof api.getWorkspace> {
+  const cached = recentWorkspaceReads.get(periodId);
+  if (cached && cached.expiresAt > Date.now()) {
+    return Promise.resolve(cached.value);
+  }
+  if (cached) recentWorkspaceReads.delete(periodId);
+
+  const inFlight = inFlightWorkspaceReads.get(periodId);
+  if (inFlight) return inFlight;
+
+  const request = api.getWorkspace(periodId)
+    .then((value) => {
+      recentWorkspaceReads.set(periodId, {
+        value,
+        expiresAt: Date.now() + WORKSPACE_RENDER_BURST_TTL_MS,
+      });
+      return value;
+    })
+    .finally(() => {
+      if (inFlightWorkspaceReads.get(periodId) === request) {
+        inFlightWorkspaceReads.delete(periodId);
+      }
+    });
+
+  inFlightWorkspaceReads.set(periodId, request);
+  return request;
+}
+
+async function withWorkspaceInvalidation<T>(request: () => Promise<T>): Promise<T> {
+  invalidateWorkspaceReadCache();
+  try {
+    return await request();
+  } finally {
+    invalidateWorkspaceReadCache();
+  }
+}
+
 export const httpNotesStudioV2Repository: NotesStudioV2Repository = {
   listPeriods: api.listPeriods,
-  createPeriod: api.createPeriod,
-  getWorkspace: api.getWorkspace,
-  uploadCorpusSource: api.uploadCorpusSource,
-  registerCorpusSource: api.registerCorpusSource,
-  updateCorpusMetadata: api.updateCorpusMetadata,
-  extractCorpusFacts: api.extractCorpusFacts,
-  updateFactExamFrequency: api.updateFactExamFrequency,
+  createPeriod: (command) => withWorkspaceInvalidation(() => api.createPeriod(command)),
+  getWorkspace,
+  uploadCorpusSource: (...args) => withWorkspaceInvalidation(() => api.uploadCorpusSource(...args)),
+  registerCorpusSource: (periodId, command) => withWorkspaceInvalidation(() => api.registerCorpusSource(periodId, command)),
+  updateCorpusMetadata: (...args) => withWorkspaceInvalidation(() => api.updateCorpusMetadata(...args)),
+  extractCorpusFacts: (...args) => withWorkspaceInvalidation(() => api.extractCorpusFacts(...args)),
+  updateFactExamFrequency: (...args) => withWorkspaceInvalidation(() => api.updateFactExamFrequency(...args)),
   getExamFrequencySummary: api.getExamFrequencySummary,
-  reconcilePeriod: api.reconcilePeriod,
-  resolveContradiction: api.resolveContradiction,
+  reconcilePeriod: (...args) => withWorkspaceInvalidation(() => api.reconcilePeriod(...args)),
+  resolveContradiction: (groupId, command) => withWorkspaceInvalidation(() => api.resolveContradiction(groupId, command)),
   getActiveStyleSpec: api.getActiveStyleSpec,
-  createStyleSpec: api.createStyleSpec,
-  createStyleBootstrapRound: api.createStyleBootstrapRound,
-  reviewStyleBootstrapRound: api.reviewStyleBootstrapRound,
-  activateStyleSpec: api.activateStyleSpec,
+  createStyleSpec: (...args) => withWorkspaceInvalidation(() => api.createStyleSpec(...args)),
+  createStyleBootstrapRound: (...args) => withWorkspaceInvalidation(() => api.createStyleBootstrapRound(...args)),
+  reviewStyleBootstrapRound: (...args) => withWorkspaceInvalidation(() => api.reviewStyleBootstrapRound(...args)),
+  activateStyleSpec: (...args) => withWorkspaceInvalidation(() => api.activateStyleSpec(...args)),
   getStyleBootstrapState: reviewStateApi.getStyleBootstrapState,
   listPeriodFigures: reviewStateApi.listPeriodFigures,
-  generateNote: api.generateNote,
-  runQualityGates: api.runQualityGates,
+  generateNote: (command) => withWorkspaceInvalidation(() => api.generateNote(command)),
+  runQualityGates: (...args) => withWorkspaceInvalidation(() => api.runQualityGates(...args)),
   getLatestQualityRun: api.getLatestQualityRun,
-  submitNoteForReview: api.submitNoteForReview,
-  publishNoteVersion: api.publishNoteVersion,
-  createRevision: api.createRevision,
-  updateDraftBlocks: api.updateDraftBlocks,
-  attachFigure: api.attachFigure,
+  submitNoteForReview: (...args) => withWorkspaceInvalidation(() => api.submitNoteForReview(...args)),
+  publishNoteVersion: (...args) => withWorkspaceInvalidation(() => api.publishNoteVersion(...args)),
+  createRevision: (...args) => withWorkspaceInvalidation(() => api.createRevision(...args)),
+  updateDraftBlocks: (noteVersionId, blocks) => withWorkspaceInvalidation(() => api.updateDraftBlocks(noteVersionId, blocks)),
+  attachFigure: (...args) => withWorkspaceInvalidation(() => api.attachFigure(...args)),
 };
