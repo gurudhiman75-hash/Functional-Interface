@@ -60,7 +60,7 @@ They remain:
 
 The former review workflow `.github/workflows/spa-dot-001-review-v1.yml` is now manual-only historical evidence. The active automatic checkpoint authority is `.github/workflows/spa-dot-001-freeze-question-studio-v1.yml`, which builds the API, typechecks the admin UI, runs the approved freeze/Question Studio proof and uploads integration evidence.
 
-Current freeze/Question Studio validation was dispatched automatically by the approved-integration changes. The exact green run and artifact are bound into the PR before merge.
+The exact green freeze/Question Studio run and artifact are bound into the PR before merge.
 
 ## Next checkpoint
 
