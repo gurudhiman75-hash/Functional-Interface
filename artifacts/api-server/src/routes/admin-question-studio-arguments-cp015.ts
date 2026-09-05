@@ -172,7 +172,7 @@ router.post("/runs", requireAdminPermission("content.generation.run"), async (re
       ) VALUES (
         ${runId}::uuid, ${code}, 'review'::generation_run_status, 1,
         ${JSON.stringify(requestSnapshot)}, ${JSON.stringify(requestSnapshot)}, 'examtree', 'reasoning-v1-arg-001-cp015-diversity',
-        0, 0, 0, 0, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
+        0, 0, 0, 0, ${timestamp}, ${timestamp}, ${timestamp}, ${timestamp}
       )`;
 
       for (let index = 0; index < questions.length; index += 1) {
