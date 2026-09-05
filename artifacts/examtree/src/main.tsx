@@ -7,6 +7,7 @@ import "./index.css";
 import "./frontend-polish.css";
 import "./subcategory-light.css";
 import "./test-runner-mobile.css";
+import "./styles/sites-visual-system.css";
 
 createRoot(document.getElementById("root")!).render(
   <>
