@@ -67,3 +67,7 @@ export function gapSourceRecommendationReason(signals: GapSourceRecommendationSi
 export function sourcePackEditableState(state: string): boolean {
   return state === 'brief' || state === 'sources_ready';
 }
+
+export function sourcePackAppendableState(state: string): boolean {
+  return sourcePackEditableState(state) || state === 'evidence_ready' || state === 'outline_ready';
+}
