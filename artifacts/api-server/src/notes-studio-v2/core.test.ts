@@ -95,7 +95,7 @@ assert.deepEqual(validateNoteBlocks({
   { type: 'figure', svgRef: null, placeholder: 'Map placeholder' },
 ]);
 
-assert.equal(sourceOverlapScore('alpha beta gamma delta epsilon zeta eta', 'alpha beta gamma delta epsilon zeta theta'), 6, 1);
-assert.equal(sourceOverlapScore('one two three four five six', 'entirely different words here now please'), 3, 0);
+assert.equal(sourceOverlapScore('alpha beta gamma delta epsilon zeta eta', 'alpha beta gamma delta epsilon zeta theta'), 0.5);
+assert.equal(sourceOverlapScore('one two three four five six', 'entirely different words here now please'), 0);
 
 console.log('notes-studio-v2 core invariants: ok');
