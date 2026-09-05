@@ -15,9 +15,9 @@ describe('admin navigation roadmap', () => {
     expect(NAV_GROUPS.map((group) => group.id)).toEqual([
       'overview', 'content', 'tests', 'commerce', 'users', 'analytics', 'settings',
     ]);
-    expect(items).toHaveLength(43);
+    expect(items).toHaveLength(44);
     expect(items.map((item) => item.label)).toEqual(expect.arrayContaining([
-      'Question Studio', 'Notes Studio', 'Content Review', 'Learning Resources', 'Current Affairs', 'Coverage Planner', 'Sections & Topics',
+      'Question Studio', 'Notes Studio', 'Notes Studio v2', 'Content Review', 'Learning Resources', 'Current Affairs', 'Coverage Planner', 'Sections & Topics',
       'Test QA', 'Test Series', 'Exam Blueprints', 'Publishing Calendar', 'Packages', 'Students', 'Admin Team',
       'Question Analytics', 'System Health', 'Request Failures', 'Languages', 'Roles & Permissions', 'Audit Logs',
     ]));
@@ -49,6 +49,7 @@ describe('admin navigation roadmap', () => {
     expect(items.filter((item) => item.status === 'live').map((item) => item.path)).toEqual([
       '/dashboard',
       '/content/questions/generate',
+      '/content/notes-studio-v2',
       '/content/questions',
       '/content/review',
       '/content/learning-resources',
@@ -87,11 +88,12 @@ describe('admin navigation roadmap', () => {
     expect(items.filter((item) => item.status === 'in_progress').map((item) => item.path)).toEqual([
       '/content/notes-studio',
     ]);
-    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 36, in_progress: 1, planned: 6 });
+    expect(ADMIN_WORKSPACE_COUNTS).toEqual({ live: 37, in_progress: 1, planned: 6 });
   });
 
   it('protects canonical operations with read permissions', () => {
     expect(NAV_LOOKUP['/content/notes-studio']?.permission).toBe('content.questions.read');
+    expect(NAV_LOOKUP['/content/notes-studio-v2']?.permission).toBe('content.questions.read');
     expect(NAV_LOOKUP['/content/review']?.permission).toBe('content.questions.read');
     expect(NAV_LOOKUP['/content/learning-resources']?.permission).toBe('content.questions.read');
     expect(NAV_LOOKUP['/content/current-affairs']?.permission).toBe('content.questions.read');
