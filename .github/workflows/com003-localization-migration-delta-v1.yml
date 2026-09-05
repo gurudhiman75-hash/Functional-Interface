@@ -1,0 +1,72 @@
+name: COM-003 Localization Migration Delta V1
+
+on:
+  push:
+    branches:
+      - feature/com003-office-productivity-discovery-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-migration-delta-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-migration-delta-v1.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-migration-report-v1.ts'
+      - '.github/workflows/com003-localization-migration-delta-v1.yml'
+  pull_request:
+    branches:
+      - integration/computer-content-engine-mainline-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-migration-delta-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-migration-delta-v1.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-migration-report-v1.ts'
+      - '.github/workflows/com003-localization-migration-delta-v1.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: com003-localization-migration-delta-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle migration audit and report
+        run: |
+          mkdir -p artifacts/api-server/dist/com003-localization-migration-v1
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-localization-migration-delta-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-localization-migration-v1/audit.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-localization-migration-report-v1.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-localization-migration-v1/report.mjs
+      - name: Run migration delta audit
+        run: node artifacts/api-server/dist/com003-localization-migration-v1/audit.test.mjs
+      - name: Generate migration report
+        run: cd artifacts/api-server && node dist/com003-localization-migration-v1/report.mjs
+      - name: Verify migration report
+        run: |
+          HTML=artifacts/api-server/dist/com003-localization-migration/COM-003-Localization-Migration-Delta-V1.html
+          JSON=artifacts/api-server/dist/com003-localization-migration/COM-003-Localization-Migration-Delta-V1.json
+          test -s "$HTML"
+          test -s "$JSON"
+          grep -q '456 localized artifacts affected' "$HTML"
+          grep -q 'Per-QL migration breakdown' "$HTML"
+          grep -q 'COM-003-QL-019' "$HTML"
+      - name: Upload migration report
+        uses: actions/upload-artifact@v4
+        with:
+          name: com003-localization-migration-delta-v1
+          path: artifacts/api-server/dist/com003-localization-migration/
+          if-no-files-found: error
