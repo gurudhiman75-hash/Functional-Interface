@@ -48,7 +48,9 @@ assert.equal(upi.ambiguityRisks?.some((risk) => risk.includes("Unified Payments 
 
 const https = COM004_INTERNET_WEB_EMAIL_DISCOVERY.find((candidate) => candidate.candidateId === "WEB-DISC-012");
 assert.ok(https);
-assert.equal(https.ambiguityRisks?.some((risk) => /trustworthy/i.test(risk)), true);
+const httpsTrustGuard = [https.learnerTask, ...(https.ambiguityRisks ?? [])].join(" ");
+assert.equal(/trustworth|honest|legitimate|malware-free/i.test(httpsTrustGuard), true);
+assert.equal(/must not|without claiming|not be described as proof/i.test(httpsTrustGuard), true);
 
 const mailProtocols = COM004_INTERNET_WEB_EMAIL_DISCOVERY.filter((candidate) =>
   ["WEB-DISC-019", "WEB-DISC-020", "WEB-DISC-021", "WEB-DISC-022"].includes(candidate.candidateId),
