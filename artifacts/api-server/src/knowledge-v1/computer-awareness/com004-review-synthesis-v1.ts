@@ -18,6 +18,60 @@ function qlNumber(qlId: string) {
   return Number(qlId.match(/QL-(\d{3})$/)?.[1] ?? 0);
 }
 
+function polishStem(qlId: string, answer: string, surfaceMode: string, stem: string) {
+  let result = stem.trim().replace(/\s+/g, " ");
+
+  // Direct acronym prompts are legitimate exam surfaces, but bare five-word
+  // prompts are too thin for this governed review corpus.
+  if (result.length < 32) {
+    result = result.replace(
+      /^What does ([A-Za-z0-9*#]+) stand for\?$/i,
+      "In computer-awareness terminology, what does $1 stand for?",
+    );
+  }
+
+  // Remove answer leakage from contextual system-identification stems while
+  // preserving the underlying scenario and source fact.
+  if (qlId === "COM-004-QL-013" && answer === "UPI" && surfaceMode !== "ACRONYM_EXPANSION") {
+    result = result.replace(/UPI-enabled/gi, "participating digital-payment");
+  }
+  if (qlId === "COM-004-QL-014" && answer === "USSD" && surfaceMode !== "ACRONYM_EXPANSION") {
+    result = result.replace(/\bUSSD session\b/gi, "telecom service session");
+  }
+
+  // QL-017 must not teach rapidly changing operational trivia even in a
+  // sentence that says such trivia is excluded.
+  if (qlId === "COM-004-QL-017") {
+    result = result.replace(
+      /without relying on changing limits or charges/gi,
+      "without relying on mutable operational details",
+    );
+  }
+  return result;
+}
+
+function polishExplanation(qlId: string, explanation: string) {
+  if (qlId !== "COM-004-QL-017") return explanation;
+  return explanation.replace(
+    /Monetary limits and charges are intentionally not used as the discriminator\./gi,
+    "Mutable operational details are intentionally not used as the discriminator.",
+  );
+}
+
+function editorialSurfaceFamily(
+  base: Com004ReviewQuestion["examSurfaceFamily"],
+  surfaceMode: string,
+  stemVariant: number,
+): Com004ReviewQuestion["examSurfaceFamily"] {
+  // The same fact may appear in recall and applied wording without becoming a
+  // new learner task. This labels the actual rendered surface, not just the seed.
+  if (stemVariant === 1 && surfaceMode !== "ACRONYM_EXPANSION" && base !== "CONTEXT_SELECTION") {
+    return "FUNCTIONAL_APPLICATION";
+  }
+  if (stemVariant === 2 && base === "CONTEXT_SELECTION") return "CONTRAST_DISCRIMINATION";
+  return base;
+}
+
 export function generateCom004ReviewQuestionV1(qlId: string, questionIndex: number): Com004ReviewQuestion {
   const ql = qlById.get(qlId);
   if (!ql) throw new Error(`Unknown COM-004 QL ${qlId}`);
@@ -39,19 +93,21 @@ export function generateCom004ReviewQuestionV1(qlId: string, questionIndex: numb
   if (!distractor) throw new Error(`Missing distractor authority for ${ql.sourceProvisionalTaskId}`);
   const correctIndex = (qlNumber(qlId) + questionIndex) % 4;
   const options = orderedOptions(seed.answer, seed.distractors, correctIndex);
+  const stem = polishStem(qlId, seed.answer, seed.surfaceMode, seed.stems[stemVariant]!);
+  const explanation = polishExplanation(qlId, seed.explanation);
 
   return {
     questionId: `COM004-REVIEW-V1-${qlId}-${String(questionIndex + 1).padStart(2, "0")}`,
     qlId,
     cpId: ql.cpId as Com004ReviewQuestion["cpId"],
     surfaceMode: seed.surfaceMode,
-    examSurfaceFamily: seed.examSurfaceFamily,
+    examSurfaceFamily: editorialSurfaceFamily(seed.examSurfaceFamily, seed.surfaceMode, stemVariant),
     targetFactId: seed.factId,
-    stem: seed.stems[stemVariant]!,
+    stem,
     options,
     correctIndex,
     canonicalAnswer: seed.answer,
-    explanation: seed.explanation,
+    explanation,
     sourceIds: [fact.source.sourceId],
     sourceFactIds: [fact.factId],
     distractorStrategy: distractor.strategy,
