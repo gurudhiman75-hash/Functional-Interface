@@ -1,5 +1,5 @@
 import { mkdir, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:url";
+import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { FMT_V2_SOURCE_VARIANTS, type FigureMatrixQlIdV2 } from "../foundation/spatial/figure-matrix-review-runtime-v2";
 import { generateFigureMatrixReviewQuestionV2_3 } from "../foundation/spatial/figure-matrix-review-runtime-v2-3";
