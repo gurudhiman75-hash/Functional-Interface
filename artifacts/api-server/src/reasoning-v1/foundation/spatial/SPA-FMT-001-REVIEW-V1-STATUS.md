@@ -1,10 +1,10 @@
-# SPA FMT-001 Review V2.2 Status
+# SPA FMT-001 Review V2.3 Status
 
 ## Status
 
-FMT-001 Figure Matrix remains a deterministic **review-only** chapter across permanent QLs `SPA-QL-055..SPA-QL-060`.
+FMT-001 Figure Matrix is a deterministic **review-only** chapter across permanent QLs `SPA-QL-055..SPA-QL-060`.
 
-V2.1 closed the source-coverage and editorial gaps. Exact-head CI then exposed one additional generator defect: some valid source-family seeds could collapse two intended distractors into the same semantic answer state, leaving fewer than four distinct options. V2.2 fixes that review-runtime failure without changing semantic-family ownership.
+V2.2 fixed duplicate semantic option collapse through deterministic same-source-variant retry. V2.3 keeps that semantic/geometry authority unchanged and hardens learner explanation depth after the 27-card source/visual audit.
 
 Question Studio discoverability, persistence, test-builder/mock eligibility, public release, student delivery and automatic publication remain closed.
 
@@ -53,43 +53,55 @@ Question Studio discoverability, persistence, test-builder/mock eligibility, pub
 
 `figure-matrix-review-runtime-v2.ts` represents matrix cells as language-neutral semantic feature state. SVG remains presentation only.
 
-`figure-matrix-review-runtime-v2-1.ts` supplies source-real editorial and near-miss hardening for the variants that require dedicated construction.
+`figure-matrix-review-runtime-v2-1.ts` supplies dedicated source-real constructions where the generic runtime is not enough.
 
-`figure-matrix-review-runtime-v2-2.ts` adds deterministic same-family recovery when the underlying candidate set collapses into duplicate semantic options. The retry seed changes only geometry/distractor details and is forced to the same declared source variant. The learner seed, QL ownership and source family remain unchanged. The generated item records the internal review-generation seed and retry count in solver evidence.
+`figure-matrix-review-runtime-v2-2.ts` adds deterministic same-family recovery when candidate distractors collapse into duplicate semantic states. The learner seed, QL and source variant remain unchanged; only internal review generation details may retry.
 
-Every item requires:
-- four semantically distinct and visibly distinct options;
-- exactly one solver-valid answer;
-- a declared semantic failure for each distractor;
-- deterministic replay;
-- source-family preservation if retry is needed;
-- language-neutral geometry/answer parity across EN/HI/PA;
-- 1.35px Spatial exam stroke contract;
-- a completed-matrix solution illustration.
+`figure-matrix-review-runtime-v2-3.ts` is an editorial overlay. It does not alter geometry or answer semantics. It strengthens:
+- composition explanations with the exact line operation and explicit missing/extra-line distractor differences;
+- count explanations with completed-row numerical equations and the exact row-3 calculation;
+- cyclic explanations with the learner-visible sequence written out explicitly;
+- Hindi/Punjabi cycle-result wording so no English state labels leak into localized worked text.
 
-## Editorial contract
+Every item still requires four semantically and visibly distinct options, exactly one solver-valid answer, deterministic replay, EN/HI/PA geometry/answer parity, the 1.35px Spatial exam stroke contract and a completed-matrix solution illustration.
 
-Learner-facing explanations use normal exam language. Internal implementation names and raw line/position codes remain solver evidence only. Hindi and Punjabi use dedicated localized prose rather than English worked text wrapped by localized labels.
+## Source and visual audit
 
-Each question explains the governing rule, evidence from a completed row/column, direct application to the missing cell, a consistency/second-axis check where relevant, why each distractor fails, and the completed matrix as an illustration.
+The product-owner uploaded Figure Matrix reference was rechecked against the runtime. The source directly supports 2×2/3×3/4×4 matrix completion, repeated element removal, line removal, count relations, inversion/reflection, rotation and compound rotation/reflection, common-parts/composition and cyclic/position changes. Grouping-items that happen to follow the chapter in the source remain intentionally excluded because they are a different semantic task.
+
+The regenerated visual pack contains **27 cards — one explicit specimen for every declared runtime source variant**. The inspected surfaces retain consistent matrix/option scale, white background, explicit missing-cell marker, thin exam-style geometry, four visible options and a completed-matrix explanation illustration.
 
 ## Proof corpus
 
 `figure-matrix-fmt-001-review-v1.test.ts` drives **24 deterministic seeds per QL = 144 English semantic questions**, with EN/HI/PA parity replay for every seed.
 
-The proof requires Easy/Moderate/Hard coverage; 2×2, 3×3 and 4×4 matrices; all four answer positions; material both-axis reasoning; every declared source variant; no internal rule-token leakage; all lifecycle gates closed; and at least one exercised deterministic duplicate-option recovery path.
+The V2.3 proof requires:
+- Easy/Moderate/Hard coverage;
+- 2×2, 3×3 and 4×4 matrices;
+- all four answer positions;
+- material both-axis reasoning;
+- every declared source variant;
+- four-way semantic and visual option uniqueness;
+- deterministic same-variant retry coverage;
+- no internal rule-token leakage;
+- localized explanation language purity;
+- 24 explicit composition explanation checks;
+- 24 explicit count explanation checks;
+- 24 explicit cyclic-sequence checks;
+- all lifecycle/release gates closed.
 
-`figure-matrix-fmt-001-visual-review-v1.ts` generates **27 review questions — one explicit specimen for every declared source-real runtime variant** across the six permanent QLs. V2.2 records any retry count in review metadata while keeping the learner-facing card clean.
+## Exact-head CI evidence
 
-## CI authority
+Current exact review head: `d5522a840eddcae93b0498a2f201c1278a1ebe39`.
 
-`.github/workflows/spa-fmt-001-review-v1.yml` remains the single current automatic FMT checkpoint authority. It builds the API server, bundles/runs the semantic proof, regenerates the exhaustive visual pack, persists semantic evidence JSON and uploads `spa-fmt-001-review-v1`.
+`Validate SPA FMT-001 Review V1` run `34015524844` is **green**. Its review artifact is:
+- name: `spa-fmt-001-review-v1`;
+- artifact id: `9983775175`;
+- digest: `sha256:0ad574f429bf4f5e1c99b0218fd2d208971c45e796e82af391dbbc1596418657`.
 
-Earlier FMT discovery and superseded DOT freeze workflows remain manual-only per `docs/CI-FANOUT-POLICY.md`.
+The semantic evidence records authority `SPA-FMT-001-REVIEW-V2.3`, 144 checked questions, all six QLs, all 27 source variants, all three matrix sizes, all answer positions, 72 hard questions, 48 both-axis questions, 8 two-by-two questions and 4 exercised deterministic option retries.
 
-## Exact-head remediation
-
-The prior exact-head FMT review run `34008233378` failed in the semantic proof with `FMT-001 V2 failed to construct four semantically distinct options.` V2.2 was introduced specifically to make this failure impossible to silently pass: the generator deterministically retries within the same source variant, and the 144-question proof asserts both four-way semantic uniqueness and that the retry path is materially exercised.
+`.github/workflows/spa-fmt-001-review-v1.yml` remains the single current automatic FMT checkpoint authority. Earlier FMT discovery and superseded DOT freeze workflows remain manual-only under `docs/CI-FANOUT-POLICY.md`.
 
 ## Gates intentionally closed
 
@@ -106,4 +118,4 @@ The prior exact-head FMT review run `34008233378` failed in the semantic proof w
 
 ## Next checkpoint
 
-Make the exact-head V2.2 semantic/editorial/visual authority green, inspect all 27 source-variant cards for exam realness, proportion, option quality and explanation depth, and fix any remaining defect before requesting product-owner approval. Freeze and Question Studio integration remain out of scope until that approval.
+V2.3 is **product-owner review-ready**. Inspect the regenerated 27-card artifact and approve/reject the learner visuals and explanation style. Only after explicit product-owner approval should FMT-001 be frozen and integrated into Question Studio. No release gate should open as part of that freeze/integration step.
