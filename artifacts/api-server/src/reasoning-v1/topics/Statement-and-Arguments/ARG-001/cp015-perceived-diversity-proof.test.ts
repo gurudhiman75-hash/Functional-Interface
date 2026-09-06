@@ -39,20 +39,18 @@ function words(value: unknown): number {
   return String(value ?? "").trim().split(/\s+/).filter(Boolean).length;
 }
 
-function proveNaturalizedTwoArgumentOrder(question: Q) {
-  if (question.twoArgumentEditorialAuthority !== "ARG_CP015_TWO_ARGUMENT_EDITORIAL_NATURALIZATION_V1") return;
+function proveTwoArgumentExplanationOrder(question: Q) {
   const strengths = Array.isArray(question.argumentStrengths) ? question.argumentStrengths : [];
-  assert.equal(strengths.length, 2, `${question.questionId}: naturalized two-argument question must expose two displayed strengths`);
+  if (strengths.length !== 2) return;
+
   const explanation = String(question.explanation ?? "");
   const match = explanation.match(/Argument I is (strong|weak):[\s\S]*Argument II is (strong|weak):/i);
-  assert.ok(match, `${question.questionId}: naturalized explanation must label Argument I and Argument II explicitly`);
+  assert.ok(match, `${question.questionId}: two-argument explanation must label Argument I and Argument II explicitly`);
   assert.equal(match[1]!.toUpperCase(), String(strengths[0]).toUpperCase(), `${question.questionId}: Argument I explanation strength is misaligned with displayed argument order`);
   assert.equal(match[2]!.toUpperCase(), String(strengths[1]).toUpperCase(), `${question.questionId}: Argument II explanation strength is misaligned with displayed argument order`);
-  assert.doesNotMatch(
-    [...(question.arguments as readonly string[]), explanation].join(" "),
-    /\bthe\s+the\b/i,
-    `${question.questionId}: duplicated article leaked into naturalized editorial text`,
-  );
+  const surface = [...(question.arguments as readonly string[]), explanation].join(" ");
+  assert.doesNotMatch(surface, /\bthe\s+the\b/i, `${question.questionId}: duplicated article leaked into two-argument editorial text`);
+  assert.doesNotMatch(surface, /\bonly\s+digital-only\b/i, `${question.questionId}: duplicated digital-only wording leaked into two-argument editorial text`);
 }
 
 const questions: Q[] = [];
@@ -79,7 +77,7 @@ function record(batch: ReturnType<typeof generateArgCp015QuestionStudioBatch>, p
     assert.equal(question.studentDeliveryAuthorized, false);
     assert.equal(question.automaticStudentPublication, false);
     assert.equal(question.learnerRelease, ARG_CP015_LEARNER_RELEASE);
-    proveNaturalizedTwoArgumentOrder(question);
+    proveTwoArgumentExplanationOrder(question);
   }
 }
 
