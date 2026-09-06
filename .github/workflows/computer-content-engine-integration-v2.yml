@@ -53,18 +53,18 @@ jobs:
             --bundle --packages=external --platform=node --format=esm \
             --outfile=dist/question-studio/computer-content-engine-integration-v2.test.mjs
 
-      - name: Validate frozen COM-003 corpus and lifecycle locks
+      - name: Validate frozen COM-003 corpus and active BANK_ONLY lifecycle
         run: node artifacts/api-server/dist/question-studio/computer-content-engine-integration-v2.test.mjs
 
-      - name: Run final COM-003 freeze and review-only contracts
+      - name: Run COM-003 frozen-source and BANK_ONLY contracts
         run: |
           mkdir -p artifacts/api-server/dist/question-studio/computer-final
           tests=(
             "src/knowledge-v1/computer-awareness/com003-localization-v2-chapter-freeze-v1.test.ts"
             "src/knowledge-v1/computer-awareness/com003-question-studio-review-only-route-contract-v1.test.ts"
             "src/knowledge-v1/computer-awareness/com003-question-studio-review-run-ui-contract-v1.test.ts"
-            "src/question-studio/engines/com003-chapter-completion-authority-v1.test.ts"
-            "src/question-studio/engines/com003-review-only-registry-contract-v2.test.ts"
+            "src/question-studio/engines/com003-bank-only-activation-authority-v1.test.ts"
+            "src/question-studio/engines/com003-bank-only-registry-contract-v1.test.ts"
             "src/question-studio/engines/com003-regeneration-lock-contract-v1.test.ts"
             "src/question-studio/engines/com003-source-controlled-review-contract-v1.test.ts"
             "src/question-studio/engines/knowledge-v1-com003-adapter-v2.test.ts"
