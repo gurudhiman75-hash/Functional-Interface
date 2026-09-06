@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_LOCALIZED_TWO_ARGUMENT_POLISH_AUTHORITY = "ARG_CP015_LOCALIZED_TWO_ARGUMENT_SURFACE_POLISH_V4" as const;
+export const ARG_CP015_LOCALIZED_TWO_ARGUMENT_POLISH_AUTHORITY = "ARG_CP015_LOCALIZED_TWO_ARGUMENT_SURFACE_POLISH_V5" as const;
 
 type Question = Readonly<Record<string, any>>;
 
@@ -58,6 +58,10 @@ function polishPunjabi(value: string): string {
     .replace(/ਬੋਲੇ ਹੋਏ ਸਟਾਪ ਅਲਰਟ([^।.!?]*?)ਮਦਦ ਕਰ ਸਕਦੀ ਹੈ/g, "ਬੋਲੇ ਹੋਏ ਸਟਾਪ ਅਲਰਟ$1ਮਦਦ ਕਰ ਸਕਦੇ ਹਨ")
     .replaceAll("ਲਾਜ਼ਮੀ ਲਾਜ਼ਮੀ", "ਲਾਜ਼ਮੀ")
     .replace(
+      /ਸਾਰੇ\s+(.+?\s+ਸੈਸ਼ਨ)(?:ਾਂ)?\s+ਦੀ\s+ਥਾਂ\s+ਆਟੋਮੈਟਿਕ\s+ਟਿਊਟੋਰਿਅਲ\s+ਕਰ\s+ਦੇਣੇ\s+ਚਾਹੀਦੇ\s+ਹਨ/g,
+      (_match, sessionPhrase: string) => `ਸਾਰੇ ${sessionPhrase.replace(/ਸੈਸ਼ਨ$/, "ਸੈਸ਼ਨਾਂ")} ਨੂੰ ਆਟੋਮੈਟਿਕ ਟਿਊਟੋਰਿਅਲਾਂ ਨਾਲ ਬਦਲ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ`,
+    )
+    .replace(
       /ਸਾਰੇ\s+ਸਾਮ੍ਹਣੇ-ਸਾਮ੍ਹਣੇ\s+ਸੈਸ਼ਨ(?:ਾਂ)?\s+ਦੀ\s+ਥਾਂ\s+ਪਹਿਲਾਂ\s+ਰਿਕਾਰਡ(?:\s+ਕੀਤੇ)?\s+ਵੈਬਿਨਾਰ\s+ਕਰ\s+ਦੇਣੇ\s+ਚਾਹੀਦੇ\s+ਹਨ/g,
       "ਸਾਰੇ ਸਾਮ੍ਹਣੇ-ਸਾਮ੍ਹਣੇ ਸੈਸ਼ਨਾਂ ਨੂੰ ਪਹਿਲਾਂ ਰਿਕਾਰਡ ਕੀਤੇ ਵੈਬਿਨਾਰਾਂ ਨਾਲ ਬਦਲ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ",
     )
@@ -70,6 +74,8 @@ function polishPunjabi(value: string): string {
       "ਸਾਰੀਆਂ ਮਾਰਗਦਰਸ਼ਿਤ ਵਰਕਸ਼ਾਪਾਂ ਨੂੰ ਆਟੋਮੈਟਿਕ ਟਿਊਟੋਰਿਅਲਾਂ ਨਾਲ ਬਦਲ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ",
     )
     .replaceAll("ਸੈਸ਼ਨ ਦੀ ਥਾਂ", "ਸੈਸ਼ਨਾਂ ਦੀ ਥਾਂ")
+    .replaceAll("ਚੰਗੇ ਪ੍ਰਕਿਰਿਆਵਾਂ ਦੀ ਯਾਦ", "ਪ੍ਰਕਿਰਿਆਵਾਂ ਦੀ ਬਿਹਤਰ ਯਾਦ")
+    .replaceAll("ਪ੍ਰਕਿਰਿਆਵਾਂ ਦੀ ਯਾਦ ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਸਾਰੀ ਸਮਰੱਥਾ", "ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ ਯਾਦ ਰੱਖਣ ਦੀ ਸਾਰੀ ਸਮਰੱਥਾ")
     .replaceAll("ਲਾਜ਼ਮੀ ਡਿਲੀਵਰੀ ਫੀਸ ਦਿਖਾਉਣੇ ਚਾਹੀਦੇ ਹਨ", "ਲਾਜ਼ਮੀ ਡਿਲੀਵਰੀ ਫੀਸ ਦਿਖਾਉਣੀ ਚਾਹੀਦੀ ਹੈ")
     .replaceAll("ਟਿਊਟੋਰਿਅਲ ਸੈਸ਼ਨ ਦੇਣੀਆਂ ਚਾਹੀਦੀਆਂ ਹਨ", "ਟਿਊਟੋਰਿਅਲ ਸੈਸ਼ਨ ਦੇਣੇ ਚਾਹੀਦੇ ਹਨ")
     .replaceAll("ਸਹਾਇਤਾ ਸੈਸ਼ਨ ਦੇਣੀਆਂ ਚਾਹੀਦੀਆਂ ਹਨ", "ਸਹਾਇਤਾ ਸੈਸ਼ਨ ਦੇਣੇ ਚਾਹੀਦੇ ਹਨ")
