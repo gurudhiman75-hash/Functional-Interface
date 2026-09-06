@@ -6,6 +6,7 @@ import { generateArgCp015QuestionStudioBatch } from "./cp015-perceived-diversity
 import { ARG_QL_IDS } from "./types.ts";
 
 type Question = Readonly<Record<string, any>>;
+type ReviewLanguage = "en" | "hi" | "pa";
 
 type ReviewCell = Readonly<{
   label: string;
@@ -15,6 +16,7 @@ type ReviewCell = Readonly<{
   count: number;
 }>;
 
+const REVIEW_LANGUAGES = Object.freeze(["en", "hi", "pa"] as const);
 const REVIEW_CELLS: readonly ReviewCell[] = Object.freeze([
   { label: "Core / Easy", profileMode: "core", difficulty: "Easy", count: 1 },
   { label: "Core / Medium", profileMode: "core", difficulty: "Medium", count: 1 },
@@ -43,7 +45,7 @@ function renderQuestion(question: Question, ordinal: number, label: string): str
   const options = Array.isArray(question.options) ? question.options : [];
   const answer = question.answer ?? question.canonicalAnswer ?? options[Number(question.correctIndex)] ?? "";
 
-  const lines = [
+  return [
     `### ${ordinal}. ${label}`,
     "",
     `- QL: ${inline(question.qlId)}`,
@@ -68,76 +70,101 @@ function renderQuestion(question: Question, ordinal: number, label: string): str
     "",
     "---",
     "",
-  ];
-  return lines.join("\n");
+  ].join("\n");
 }
 
-const reviewItems: Array<Readonly<{ qlId: string; cell: ReviewCell; question: Question }>> = [];
+const reviewItems: Array<Readonly<{ language: ReviewLanguage; qlId: string; cell: ReviewCell; question: Question }>> = [];
 
-for (const qlId of ARG_QL_IDS) {
-  for (let cellIndex = 0; cellIndex < REVIEW_CELLS.length; cellIndex += 1) {
-    const cell = REVIEW_CELLS[cellIndex]!;
-    const seed = `ARG-CP015-HUMAN-REVIEW:${qlId}:${cell.examProfile ?? "CORE"}:${cell.difficulty}:${cellIndex}`;
-    const batch = generateArgCp015QuestionStudioBatch({
-      profileMode: cell.profileMode,
-      examProfile: cell.examProfile,
-      qlId,
-      language: "en",
-      difficulty: cell.difficulty,
-      seed,
-      count: cell.count,
-    });
-    for (const question of batch.questions as readonly Question[]) {
-      reviewItems.push(Object.freeze({ qlId, cell, question }));
+for (const language of REVIEW_LANGUAGES) {
+  for (const qlId of ARG_QL_IDS) {
+    for (let cellIndex = 0; cellIndex < REVIEW_CELLS.length; cellIndex += 1) {
+      const cell = REVIEW_CELLS[cellIndex]!;
+      const seed = `ARG-CP015-HUMAN-REVIEW:${language}:${qlId}:${cell.examProfile ?? "CORE"}:${cell.difficulty}:${cellIndex}`;
+      const batch = generateArgCp015QuestionStudioBatch({
+        profileMode: cell.profileMode,
+        examProfile: cell.examProfile,
+        qlId,
+        language,
+        difficulty: cell.difficulty,
+        seed,
+        count: cell.count,
+      });
+      for (const question of batch.questions as readonly Question[]) {
+        reviewItems.push(Object.freeze({ language, qlId, cell, question }));
+      }
     }
   }
 }
 
-if (reviewItems.length !== ARG_QL_IDS.length * 12) {
-  throw new Error(`ARG-001 CP015 review export expected ${ARG_QL_IDS.length * 12} questions, got ${reviewItems.length}.`);
+const expectedTotal = REVIEW_LANGUAGES.length * ARG_QL_IDS.length * 12;
+if (reviewItems.length !== expectedTotal) {
+  throw new Error(`ARG-001 CP015 review export expected ${expectedTotal} questions, got ${reviewItems.length}.`);
 }
 
-for (const qlId of ARG_QL_IDS) {
-  const qlItems = reviewItems.filter((entry) => entry.qlId === qlId);
-  assert.equal(qlItems.length, 12, `${qlId}: human-review corpus must contain exactly 12 questions.`);
+for (const language of REVIEW_LANGUAGES) {
+  for (const qlId of ARG_QL_IDS) {
+    const qlItems = reviewItems.filter((entry) => entry.language === language && entry.qlId === qlId);
+    assert.equal(qlItems.length, 12, `${language}/${qlId}: human-review corpus must contain exactly 12 questions.`);
 
-  const statements = qlItems.map((entry) => String(entry.question.statement ?? "").trim());
-  const uniqueStatements = new Set(statements);
-  const duplicateStatements = [...new Set(statements.filter((statement, index) => statements.indexOf(statement) !== index))];
-  assert.equal(
-    uniqueStatements.size,
-    statements.length,
-    `${qlId}: fresh human-review corpus contains repeated statements:\n${duplicateStatements.join("\n")}`,
-  );
+    const statements = qlItems.map((entry) => String(entry.question.statement ?? "").trim());
+    const duplicateStatements = [...new Set(statements.filter((statement, index) => statements.indexOf(statement) !== index))];
+    assert.equal(
+      new Set(statements).size,
+      statements.length,
+      `${language}/${qlId}: fresh human-review corpus contains repeated statements:\n${duplicateStatements.join("\n")}`,
+    );
 
-  const explanations = qlItems.map((entry) => String(entry.question.explanation ?? "").trim());
-  const uniqueExplanations = new Set(explanations);
-  const duplicateExplanations = [...new Set(explanations.filter((explanation, index) => explanations.indexOf(explanation) !== index))];
-  assert.equal(
-    uniqueExplanations.size,
-    explanations.length,
-    `${qlId}: fresh human-review corpus contains repeated explanations:\n${duplicateExplanations.join("\n\n")}`,
-  );
+    const explanations = qlItems.map((entry) => String(entry.question.explanation ?? "").trim());
+    const duplicateExplanations = [...new Set(explanations.filter((explanation, index) => explanations.indexOf(explanation) !== index))];
+    assert.equal(
+      new Set(explanations).size,
+      explanations.length,
+      `${language}/${qlId}: fresh human-review corpus contains repeated explanations:\n${duplicateExplanations.join("\n\n")}`,
+    );
+  }
 }
 
-for (const { cell, question } of reviewItems) {
+for (const { language, cell, question } of reviewItems) {
   const argumentsList = Array.isArray(question.arguments) ? question.arguments as readonly string[] : [];
   const surface = [String(question.statement ?? ""), ...argumentsList, String(question.explanation ?? "")].join(" ");
-  assert.doesNotMatch(surface, /\bthe\s+the\b/i, `${question.questionId}: duplicated article regression in CP015 review surface`);
-  assert.doesNotMatch(surface, /\bClear (?:model answer points|evaluation criteria) helps\b/i, `${question.questionId}: plural agreement regression in CP015 combo argument`);
-  assert.doesNotMatch(surface, /\b(?:evaluation criteria|model answer points) is necessary\b/i, `${question.questionId}: plural agreement regression in CP015 combo explanation`);
-  assert.doesNotMatch(surface, /A relevant post-process information/i, `${question.questionId}: ungrammatical post-process explanation regression`);
-  assert.doesNotMatch(
-    surface,
-    /Appearance is a trivial consideration here|Popularity or imitation does not establish material value|It gives a direct transparency benefit|It states a plausible security mechanism|The absolute guarantee is unsupported|It gives a practical queue-management benefit|Being modern does not establish fairness or necessity/i,
-    `${question.questionId}: generic pre-CP015 explanation boilerplate leaked into fresh human review corpus`,
-  );
-  if (cell.examProfile === "BANKING_COMBO_3X5" || cell.examProfile === "BANKING_COMBO_4X5") {
-    assert.equal(
-      question.comboEditorialAuthority,
-      "ARG_CP015_COMBO_EDITORIAL_NATURALIZATION_V1",
-      `${question.questionId}: Banking combo human-review item must use CP015 combo editorial authority`,
+  const isCombo = cell.examProfile === "BANKING_COMBO_3X5" || cell.examProfile === "BANKING_COMBO_4X5";
+
+  if (language === "en") {
+    assert.doesNotMatch(surface, /\bthe\s+the\b/i, `${question.questionId}: duplicated article regression in CP015 review surface`);
+    assert.doesNotMatch(surface, /\bClear (?:model answer points|evaluation criteria) helps\b/i, `${question.questionId}: plural agreement regression in CP015 combo argument`);
+    assert.doesNotMatch(surface, /\b(?:evaluation criteria|model answer points) is necessary\b/i, `${question.questionId}: plural agreement regression in CP015 combo explanation`);
+    assert.doesNotMatch(surface, /A relevant post-process information/i, `${question.questionId}: ungrammatical post-process explanation regression`);
+    assert.doesNotMatch(
+      surface,
+      /Appearance is a trivial consideration here|Popularity or imitation does not establish material value|It gives a direct transparency benefit|It states a plausible security mechanism|The absolute guarantee is unsupported|It gives a practical queue-management benefit|Being modern does not establish fairness or necessity/i,
+      `${question.questionId}: generic pre-CP015 explanation boilerplate leaked into fresh English human review corpus`,
     );
+    if (isCombo) {
+      assert.equal(
+        question.comboEditorialAuthority,
+        "ARG_CP015_COMBO_EDITORIAL_NATURALIZATION_V1",
+        `${question.questionId}: English Banking combo human-review item must use CP015 combo editorial authority`,
+      );
+    }
+  } else if (isCombo) {
+    assert.equal(
+      question.localizedComboEditorialAuthority,
+      "ARG_CP015_LOCALIZED_COMBO_EDITORIAL_NATURALIZATION_V1",
+      `${question.questionId}: localized Banking combo human-review item must use CP015 localized combo editorial authority`,
+    );
+    if (language === "hi") {
+      assert.doesNotMatch(
+        surface,
+        /यह सीधा पारदर्शिता लाभ बताता है।|यहाँ रूप-सज्जा एक तुच्छ विचार है।|लोकप्रियता या नकल वास्तविक महत्व सिद्ध नहीं करती।|यह विश्वसनीय सुरक्षा तंत्र बताता है।|पूर्ण गारंटी का दावा असमर्थित है।|यह व्यावहारिक कतार-प्रबंधन लाभ बताता है।|आधुनिक होना न्यायसंगतता या आवश्यकता सिद्ध नहीं करता।/,
+        `${question.questionId}: generic pre-CP015 Hindi combo explanation boilerplate leaked into human review corpus`,
+      );
+    } else {
+      assert.doesNotMatch(
+        surface,
+        /ਇਹ ਸਿੱਧਾ ਪਾਰਦਰਸ਼ਤਾ ਲਾਭ ਦੱਸਦਾ ਹੈ।|ਇੱਥੇ ਦਿੱਖ ਇੱਕ ਮਾਮੂਲੀ ਵਿਚਾਰ ਹੈ।|ਲੋਕਪ੍ਰਿਯਤਾ ਜਾਂ ਨਕਲ ਅਸਲ ਮਹੱਤਵ ਸਾਬਤ ਨਹੀਂ ਕਰਦੀ।|ਇਹ ਭਰੋਸੇਯੋਗ ਸੁਰੱਖਿਆ ਤਰੀਕਾ ਦੱਸਦਾ ਹੈ।|ਪੂਰੀ ਗਾਰੰਟੀ ਦਾ ਦਾਅਵਾ ਬਿਨਾਂ ਆਧਾਰ ਹੈ।|ਇਹ ਵਿਆਵਹਾਰਿਕ ਕਤਾਰ-ਪ੍ਰਬੰਧਨ ਲਾਭ ਦੱਸਦਾ ਹੈ।|ਆਧੁਨਿਕ ਹੋਣਾ ਨਿਆਂਯੋਗਤਾ ਜਾਂ ਲੋੜ ਸਾਬਤ ਨਹੀਂ ਕਰਦਾ।/,
+        `${question.questionId}: generic pre-CP015 Punjabi combo explanation boilerplate leaked into human review corpus`,
+      );
+    }
   }
 }
 
@@ -147,13 +174,15 @@ mkdirSync(outDir, { recursive: true });
 const jsonPayload = Object.freeze({
   packageId: "ARG-001",
   checkpointId: "ARG-CP-015",
-  purpose: "FRESH_HUMAN_EDITORIAL_REVIEW",
-  questionsPerQl: 12,
+  purpose: "FRESH_TRILINGUAL_HUMAN_EDITORIAL_REVIEW",
+  supportedReviewLanguages: REVIEW_LANGUAGES,
+  questionsPerQlPerLanguage: 12,
   totalQuestions: reviewItems.length,
   qlIds: ARG_QL_IDS,
   cells: REVIEW_CELLS,
-  items: reviewItems.map(({ qlId, cell, question }, index) => ({
+  items: reviewItems.map(({ language, qlId, cell, question }, index) => ({
     ordinal: index + 1,
+    language,
     qlId,
     reviewCell: cell.label,
     question,
@@ -162,34 +191,47 @@ const jsonPayload = Object.freeze({
 
 writeFileSync(resolve(outDir, "arg-cp015-human-review.json"), `${JSON.stringify(jsonPayload, null, 2)}\n`, "utf8");
 
-const markdown: string[] = [
-  "# ARG-001 CP015 Fresh Human Review Corpus",
-  "",
-  "Purpose: editorial review after the 1000/1000 deterministic diversity gate. This file is not a release approval.",
-  "",
-  `Total questions: ${reviewItems.length}`,
-  `Questions per QL: 12`,
-  "Coverage per QL: Core Easy/Medium/Hard; SSC Easy/Medium; Banking 2x5 Medium/Hard; Banking 3x5 Medium/Hard; Banking 4x5 Hard x3.",
-  "",
-];
+const languageTitles: Readonly<Record<ReviewLanguage, string>> = Object.freeze({
+  en: "English",
+  hi: "Hindi",
+  pa: "Punjabi",
+});
 
-let ordinal = 0;
-for (const qlId of ARG_QL_IDS) {
-  markdown.push(`## ${qlId}`, "");
-  for (const item of reviewItems.filter((entry) => entry.qlId === qlId)) {
-    ordinal += 1;
-    markdown.push(renderQuestion(item.question, ordinal, item.cell.label));
+for (const language of REVIEW_LANGUAGES) {
+  const languageItems = reviewItems.filter((entry) => entry.language === language);
+  const markdown: string[] = [
+    `# ARG-001 CP015 ${languageTitles[language]} Human Review Corpus`,
+    "",
+    "Purpose: fresh editorial review after the deterministic diversity gate. This file is not a public-release approval.",
+    "",
+    `Language: ${language}`,
+    `Total questions: ${languageItems.length}`,
+    "Questions per QL: 12",
+    "Coverage per QL: Core Easy/Medium/Hard; SSC Easy/Medium; Banking 2x5 Medium/Hard; Banking 3x5 Medium/Hard; Banking 4x5 Hard x3.",
+    "",
+  ];
+
+  let ordinal = 0;
+  for (const qlId of ARG_QL_IDS) {
+    markdown.push(`## ${qlId}`, "");
+    for (const item of languageItems.filter((entry) => entry.qlId === qlId)) {
+      ordinal += 1;
+      markdown.push(renderQuestion(item.question, ordinal, item.cell.label));
+    }
   }
+
+  const suffix = language === "en" ? "" : `-${language}`;
+  writeFileSync(resolve(outDir, `arg-cp015-human-review${suffix}.md`), `${markdown.join("\n")}\n`, "utf8");
 }
 
-writeFileSync(resolve(outDir, "arg-cp015-human-review.md"), `${markdown.join("\n")}\n`, "utf8");
-
 console.log(JSON.stringify({
-  status: "PASS_ARG_CP015_HUMAN_REVIEW_EXPORT",
+  status: "PASS_ARG_CP015_TRILINGUAL_HUMAN_REVIEW_EXPORT",
   totalQuestions: reviewItems.length,
-  questionsPerQl: 12,
-  exactStatementDuplicatesPerQl: 0,
-  exactExplanationDuplicatesPerQl: 0,
+  questionsPerQlPerLanguage: 12,
+  languages: REVIEW_LANGUAGES,
+  exactStatementDuplicatesPerLanguageQl: 0,
+  exactExplanationDuplicatesPerLanguageQl: 0,
   comboEditorialRegressionGuards: true,
+  localizedComboEditorialRegressionGuards: true,
   outputDirectory: outDir,
 }, null, 2));
