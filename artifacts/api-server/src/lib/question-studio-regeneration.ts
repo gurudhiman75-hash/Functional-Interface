@@ -58,6 +58,7 @@ export function buildRegenerationRequest(
 ): QuantV4GenerationRequest {
   const requestSnapshot = asRecord(source.requestSnapshot);
   const payload = asRecord(source.payload);
+  const generationContext = asRecord(payload.generationContext);
   const packageId = asString(payload.packageId) || asString(requestSnapshot.packageId);
   const patternId = asString(payload.patternId) || asString(requestSnapshot.patternId);
   const canonicalProblemId =
@@ -77,6 +78,21 @@ export function buildRegenerationRequest(
     || asString(asRecord(payload.metadata).language)
     || asString(requestSnapshot.language)
     || "en";
+  const preservedEngineId =
+    asString(payload.engineId)
+    || asString(generationContext.engineId)
+    || asString(requestSnapshot.engineId);
+
+  // This regeneration helper is the established Quant/Reasoning path. Frozen
+  // knowledge-v1 content must never fall through it because doing so would
+  // bypass source-controlled Computer authorities and create an ungoverned
+  // mutation. Corrections belong in the canonical source followed by a fresh
+  // review batch.
+  if (preservedEngineId === "knowledge-v1") {
+    throw new Error(
+      "KNOWLEDGE_V1_REGENERATION_LOCKED: Computer Awareness is source-generator controlled; correct the canonical generator/localization source and create a new review batch.",
+    );
+  }
 
   return {
     packageId: packageId ? packageId as QuantV4PackageId : undefined,
