@@ -6,7 +6,7 @@ import {
 import {
   COM004_ENGLISH_PRODUCTION_WAVE1_AUTHORITY_V1,
   COM004_ENGLISH_PRODUCTION_WAVE1_V1,
-} from "./com004-english-production-wave1-v1";
+} from "./com004-english-production-wave1-v1-1";
 import {
   COM004_ENGLISH_PRODUCTION_WAVE2_AUTHORITY_V1,
   COM004_ENGLISH_PRODUCTION_WAVE2_V1,
@@ -62,6 +62,7 @@ export const COM004_ENGLISH_CHAPTER_CANDIDATE_AUTHORITY_V1 = Object.freeze({
     COM004_ENGLISH_PRODUCTION_WAVE5_AUTHORITY_V1.authorityId,
   ]),
   editorialOverlays: Object.freeze({
+    wave1: COM004_ENGLISH_PRODUCTION_WAVE1_AUTHORITY_V1.editorialOverlay.version,
     wave4: COM004_ENGLISH_PRODUCTION_WAVE4_AUTHORITY_V1.editorialOverlay.version,
   }),
   governance: Object.freeze({
@@ -102,6 +103,7 @@ export function auditCom004EnglishChapterCandidateV1() {
   if (questions.length !== 204) issues.push(`CHAPTER_COUNT:${questions.length}`);
   if (COM004_ENGLISH_CHAPTER_CANDIDATE_AUTHORITY_V1.questionCount !== 204) issues.push("AUTHORITY_COUNT_DRIFT");
   if (COM004_PERMANENT_QL_ALLOCATIONS_V1.length !== 17) issues.push(`QL_ALLOCATION_COUNT:${COM004_PERMANENT_QL_ALLOCATIONS_V1.length}`);
+  if (COM004_ENGLISH_PRODUCTION_WAVE1_AUTHORITY_V1.editorialOverlay.version !== "V1.1") issues.push("WAVE1_EDITORIAL_OVERLAY_DRIFT");
   if (COM004_ENGLISH_PRODUCTION_WAVE4_AUTHORITY_V1.editorialOverlay.version !== "V1.1") issues.push("WAVE4_EDITORIAL_OVERLAY_DRIFT");
 
   const ids = new Set<string>();
