@@ -188,17 +188,32 @@ for (const { language, cell, question } of reviewItems) {
       "ARG_CP015_LOCALIZED_COMBO_EDITORIAL_NATURALIZATION_V1",
       `${question.questionId}: localized Banking combo human-review item must use CP015 localized combo editorial authority`,
     );
+    assert.equal(
+      question.localizedComboPolishAuthority,
+      "ARG_CP015_LOCALIZED_COMBO_SURFACE_POLISH_V1",
+      `${question.questionId}: localized Banking combo human-review item must pass through CP015 localized surface polish`,
+    );
     if (language === "hi") {
       assert.doesNotMatch(
         surface,
         /यह सीधा पारदर्शिता लाभ बताता है।|यहाँ रूप-सज्जा एक तुच्छ विचार है।|लोकप्रियता या नकल वास्तविक महत्व सिद्ध नहीं करती।|यह विश्वसनीय सुरक्षा तंत्र बताता है।|पूर्ण गारंटी का दावा असमर्थित है।|यह व्यावहारिक कतार-प्रबंधन लाभ बताता है।|आधुनिक होना न्यायसंगतता या आवश्यकता सिद्ध नहीं करता।/,
         `${question.questionId}: generic pre-CP015 Hindi combo explanation boilerplate leaked into human review corpus`,
       );
+      assert.doesNotMatch(
+        surface,
+        /शाम के व्यस्त समय के समय|स्कूल छुट्टी के समय के दौरान|भुगतान खाता में|(?:मानक प्रमाणपत्र|नियमित दस्तावेज|पंजीकरण|शुल्क भुगतान) सेवाओं लेने|निगरानी निगरानी|एक खरीदार शिकायत|एक नकल शिकायत|एक कदाचार आरोप|स्पष्ट (?:मॉडल उत्तर बिंदु|मूल्यांकन मानदंड).*मदद करता है|यदि (?:मॉडल उत्तर बिंदु|मूल्यांकन मानदंड) बदल सकता है/,
+        `${question.questionId}: pre-polish Hindi combo grammar leaked into human review corpus`,
+      );
     } else {
       assert.doesNotMatch(
         surface,
         /ਇਹ ਸਿੱਧਾ ਪਾਰਦਰਸ਼ਤਾ ਲਾਭ ਦੱਸਦਾ ਹੈ।|ਇੱਥੇ ਦਿੱਖ ਇੱਕ ਮਾਮੂਲੀ ਵਿਚਾਰ ਹੈ।|ਲੋਕਪ੍ਰਿਯਤਾ ਜਾਂ ਨਕਲ ਅਸਲ ਮਹੱਤਵ ਸਾਬਤ ਨਹੀਂ ਕਰਦੀ।|ਇਹ ਭਰੋਸੇਯੋਗ ਸੁਰੱਖਿਆ ਤਰੀਕਾ ਦੱਸਦਾ ਹੈ।|ਪੂਰੀ ਗਾਰੰਟੀ ਦਾ ਦਾਅਵਾ ਬਿਨਾਂ ਆਧਾਰ ਹੈ।|ਇਹ ਵਿਆਵਹਾਰਿਕ ਕਤਾਰ-ਪ੍ਰਬੰਧਨ ਲਾਭ ਦੱਸਦਾ ਹੈ।|ਆਧੁਨਿਕ ਹੋਣਾ ਨਿਆਂਯੋਗਤਾ ਜਾਂ ਲੋੜ ਸਾਬਤ ਨਹੀਂ ਕਰਦਾ।/,
         `${question.questionId}: generic pre-CP015 Punjabi combo explanation boilerplate leaked into human review corpus`,
+      );
+      assert.doesNotMatch(
+        surface,
+        /ਨਿਗਰਾਨੀ ਨਿਗਰਾਨੀ|ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਨਿਗਰਾਨੀ|ਕੀ-ਸਟ੍ਰੋਕ ਲੌਗਿੰਗ ਨਿਗਰਾਨੀ|ਇੱਕ ਖਰੀਦਦਾਰ ਸ਼ਿਕਾਇਤ|ਇੱਕ ਨਕਲ ਦੀ ਸ਼ਿਕਾਇਤ|ਇੱਕ ਗਲਤ ਵਿਹਾਰ ਦਾ ਦੋਸ਼|ਸਪੱਸ਼ਟ (?:ਮਾਡਲ ਉੱਤਰ ਬਿੰਦੂ|ਮੁਲਾਂਕਣ ਮਾਪਦੰਡ).*ਮਦਦ ਕਰਦਾ ਹੈ|ਜੇ (?:ਮਾਡਲ ਉੱਤਰ ਬਿੰਦੂ|ਮੁਲਾਂਕਣ ਮਾਪਦੰਡ) ਬਦਲ ਸਕਦਾ ਹੈ/,
+        `${question.questionId}: pre-polish Punjabi combo grammar leaked into human review corpus`,
       );
     }
   }
@@ -270,5 +285,6 @@ console.log(JSON.stringify({
   deterministicDiversityAwareSampling: true,
   comboEditorialRegressionGuards: true,
   localizedComboEditorialRegressionGuards: true,
+  localizedComboSurfacePolishRequired: true,
   outputDirectory: outDir,
 }, null, 2));
