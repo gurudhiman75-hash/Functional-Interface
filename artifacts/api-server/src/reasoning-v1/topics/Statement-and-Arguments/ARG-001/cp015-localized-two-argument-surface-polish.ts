@@ -1,12 +1,12 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_LOCALIZED_TWO_ARGUMENT_POLISH_AUTHORITY = "ARG_CP015_LOCALIZED_TWO_ARGUMENT_SURFACE_POLISH_V9" as const;
+export const ARG_CP015_LOCALIZED_TWO_ARGUMENT_POLISH_AUTHORITY = "ARG_CP015_LOCALIZED_TWO_ARGUMENT_SURFACE_POLISH_V10" as const;
 
 type Question = Readonly<Record<string, any>>;
 
 function polishEnglish(value: string): string {
   return value
-    .replace(/\bonly\s+digital-only\b/gi, "only digital");
+    .replace(/\bonly\s+([A-Za-z]+)-only\b/gi, "only $1");
 }
 
 function polishHindi(value: string): string {
@@ -117,7 +117,15 @@ function polishPunjabi(value: string): string {
     .replaceAll("ਦੁਰਵਿਹਾਰ ਦਾ ਇੱਕ ਦੋਸ਼ ਤੋਂ ਬਾਅਦ", "ਦੁਰਵਿਹਾਰ ਦੇ ਇੱਕ ਦੋਸ਼ ਤੋਂ ਬਾਅਦ")
     .replaceAll("ਆਰ-ਪਾਰ ਜਾਣ ਵਾਲਾ ਟ੍ਰੈਫਿਕ ਰੋਕਣੀਆਂ ਚਾਹੀਦੀਆਂ ਹਨ", "ਆਰ-ਪਾਰ ਜਾਣ ਵਾਲਾ ਟ੍ਰੈਫਿਕ ਰੋਕਣਾ ਚਾਹੀਦਾ ਹੈ")
     .replaceAll("ਇੱਕਲੇ-ਸਵਾਰੀ ਕਾਰਾਂ ਰੋਕਣੀਆਂ ਚਾਹੀਦੀਆਂ ਹਨ", "ਇੱਕਲੇ-ਸਵਾਰੀ ਕਾਰਾਂ ਨੂੰ ਰੋਕਣਾ ਚਾਹੀਦਾ ਹੈ")
+    .replaceAll("ਨਿੱਜੀ ਕਾਰਾਂ ਰੋਕਣੀਆਂ ਚਾਹੀਦੀਆਂ ਹਨ", "ਨਿੱਜੀ ਕਾਰਾਂ ਨੂੰ ਰੋਕਣਾ ਚਾਹੀਦਾ ਹੈ")
+    .replaceAll("ਨਿੱਜੀ ਕਾਰਾਂ ਸੀਮਿਤ ਕਰਨ ਨਾਲ", "ਨਿੱਜੀ ਕਾਰਾਂ ਨੂੰ ਸੀਮਿਤ ਕਰਨ ਨਾਲ")
     .replaceAll("ਵਾਧੂ ਪਿਕਅੱਪ ਚਾਰਜ ਲੈਣੀ ਚਾਹੀਦੀ ਹੈ", "ਵਾਧੂ ਪਿਕਅੱਪ ਚਾਰਜ ਲੈਣਾ ਚਾਹੀਦਾ ਹੈ")
+    .replaceAll("ਸਕੂਲ ਛੁੱਟੀ ਸਮੇਂ ਦੌਰਾਨ", "ਸਕੂਲ ਛੁੱਟੀ ਦੇ ਸਮੇਂ ਦੌਰਾਨ")
+    .replaceAll("ਭਾਰੀ ਮਾਲ ਵਾਹਨਾਂ ਰੋਕਣ ਨਾਲ", "ਭਾਰੀ ਮਾਲ ਵਾਹਨਾਂ ਨੂੰ ਰੋਕਣ ਨਾਲ")
+    .replaceAll("ਨਿੱਜੀ ਟੈਬਲੈਟ ਨੂੰ ਪ੍ਰੀਖਿਆ ਕੈਂਪਸ ਤੋਂ ਹਰ ਹਾਲਤ ਵਿੱਚ ਪਾਬੰਦੀ ਲਗਾ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ", "ਕੀ ਪ੍ਰੀਖਿਆ ਕੈਂਪਸ ਵਿੱਚ ਨਿੱਜੀ ਟੈਬਲੈਟਾਂ 'ਤੇ ਹਰ ਹਾਲਤ ਵਿੱਚ ਪਾਬੰਦੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ")
+    .replaceAll("ਟ੍ਰੇਨੀਜ਼ ਦੀ ਪਛਾਣ ਕਰਨ ਵਾਲੀ ਨਾਮ ਅਤੇ ਦੇਰੀ ਦੀ ਗਿਣਤੀ", "ਟ੍ਰੇਨੀਜ਼ ਦੇ ਨਾਮ ਅਤੇ ਦੇਰੀ ਦੀ ਗਿਣਤੀ")
+    .replaceAll("ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਪਛਾਣ ਕਰਨ ਵਾਲੀ ਨਾਮ ਅਤੇ ਦੇਰੀ ਦੀ ਗਿਣਤੀ", "ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਨਾਮ ਅਤੇ ਦੇਰੀ ਦੀ ਗਿਣਤੀ")
+    .replaceAll("ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਨਾਮ ਅਤੇ ਦੇਰੀ ਦੀ ਗਿਣਤੀ", "ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਨਾਮ ਅਤੇ ਦੇਰੀ ਦੀ ਗਿਣਤੀ")
     .replaceAll("ਸੰਕੁਚਿਤ ਆਉਣ ਵਿੰਡੋ", "ਸੀਮਿਤ ਆਉਣ-ਸਮਾਂ")
     .replaceAll("ਟ੍ਰੇਨੀਜ਼ ਦੀ ਨਾਮ ਅਤੇ ਦੇਰੀ ਗਿਣਤੀ", "ਟ੍ਰੇਨੀਜ਼ ਦੇ ਨਾਮ ਅਤੇ ਦੇਰੀ ਦੀ ਗਿਣਤੀ")
     .replaceAll("ਨਾਮ ਅਤੇ ਦੇਰੀ ਗਿਣਤੀ", "ਨਾਮ ਅਤੇ ਦੇਰੀ ਦੀ ਗਿਣਤੀ")
