@@ -90,16 +90,18 @@ The V2.3 proof requires:
 - 24 explicit cyclic-sequence checks;
 - all lifecycle/release gates closed.
 
-## Exact-head CI evidence
+## Validated V2.3 evidence
 
-Current exact review head: `d5522a840eddcae93b0498a2f201c1278a1ebe39`.
+The V2.3 runtime/content head `d5522a840eddcae93b0498a2f201c1278a1ebe39` was validated by `Validate SPA FMT-001 Review V1` run `34015524844`, which completed **green**.
 
-`Validate SPA FMT-001 Review V1` run `34015524844` is **green**. Its review artifact is:
+Its review artifact is:
 - name: `spa-fmt-001-review-v1`;
 - artifact id: `9983775175`;
 - digest: `sha256:0ad574f429bf4f5e1c99b0218fd2d208971c45e796e82af391dbbc1596418657`.
 
 The semantic evidence records authority `SPA-FMT-001-REVIEW-V2.3`, 144 checked questions, all six QLs, all 27 source variants, all three matrix sizes, all answer positions, 72 hard questions, 48 both-axis questions, 8 two-by-two questions and 4 exercised deterministic option retries.
+
+Status-only commits after that content head do not change the runtime or generated learner artifact. The automatic FMT review workflow still reruns on the PR head so the final review head must also be green before approval/freeze.
 
 `.github/workflows/spa-fmt-001-review-v1.yml` remains the single current automatic FMT checkpoint authority. Earlier FMT discovery and superseded DOT freeze workflows remain manual-only under `docs/CI-FANOUT-POLICY.md`.
 
