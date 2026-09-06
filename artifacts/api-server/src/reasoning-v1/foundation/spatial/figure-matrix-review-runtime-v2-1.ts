@@ -116,19 +116,19 @@ function unionQuestion(input: Readonly<{ qlId: "SPA-QL-056"; seed: string; langu
   const explanation = input.language === "en" ? Object.freeze({
     rule: "In each row, the third cell contains every line that appears in either of the first two cells; a line present in both is still drawn once.",
     worked: "Rows 1 and 2 confirm the same superimposition rule: combine the visible line sets without cancelling a common line.",
-    application: `Row 3 contains H, V and D1 in the first cell and V and D2 in the second, so the result needs H, V, D1 and D2. This gives option ${answer}.`,
+    application: `In row 3, combining the two visible line sets requires the horizontal, vertical and both diagonal lines. This gives option ${answer}.`,
     verification: "The completed rows use the same operation, and none of the required lines may disappear.",
     distractorChecks: Object.freeze(distractorFailures),
   }) : input.language === "hi" ? Object.freeze({
     rule: "हर पंक्ति में तीसरे खाने में पहले दो खानों में दिखाई देने वाली सभी रेखाएँ शामिल होती हैं; समान रेखा को केवल एक बार रखा जाता है।",
     worked: "पहली दो पूरी पंक्तियाँ यही अध्यारोपण नियम दिखाती हैं—रेखाएँ जोड़ी जाती हैं, समान रेखा रद्द नहीं होती।",
-    application: `तीसरी पंक्ति में पहले खाने की रेखाओं और दूसरे खाने की रेखाओं को मिलाने पर चारों रेखाएँ चाहिए। इससे विकल्प ${answer} मिलता है।`,
+    application: `तीसरी पंक्ति में पहले और दूसरे खाने की रेखाओं को मिलाने पर क्षैतिज, ऊर्ध्वाधर और दोनों विकर्ण रेखाएँ चाहिए। इससे विकल्प ${answer} मिलता है।`,
     verification: "कोई आवश्यक रेखा हटनी नहीं चाहिए।",
     distractorChecks: Object.freeze(options.map((_, index) => index === correctIndex ? null : `विकल्प ${OPTION_LABELS[index]} में आवश्यक रेखा-समूह नहीं बनता।`).filter((value): value is string => value !== null)),
   }) : Object.freeze({
     rule: "ਹਰ ਕਤਾਰ ਵਿੱਚ ਤੀਜੇ ਖਾਣੇ ਵਿੱਚ ਪਹਿਲੇ ਦੋ ਖਾਣਿਆਂ ਵਿੱਚ ਦਿਖਾਈ ਦੇਣ ਵਾਲੀਆਂ ਸਾਰੀਆਂ ਰੇਖਾਵਾਂ ਸ਼ਾਮਲ ਹੁੰਦੀਆਂ ਹਨ; ਸਾਂਝੀ ਰੇਖਾ ਇੱਕ ਵਾਰ ਹੀ ਰਹਿੰਦੀ ਹੈ।",
     worked: "ਪਹਿਲੀਆਂ ਦੋ ਪੂਰੀਆਂ ਕਤਾਰਾਂ ਇਹੀ ਸੁਪਰਇੰਪੋਜ਼ੀਸ਼ਨ ਨਿਯਮ ਦਿਖਾਉਂਦੀਆਂ ਹਨ—ਰੇਖਾਵਾਂ ਜੋੜੀਆਂ ਜਾਂਦੀਆਂ ਹਨ, ਸਾਂਝੀ ਰੇਖਾ ਰੱਦ ਨਹੀਂ ਹੁੰਦੀ।",
-    application: `ਤੀਜੀ ਕਤਾਰ ਦੇ ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਖਾਣੇ ਦੀਆਂ ਰੇਖਾਵਾਂ ਮਿਲਾਉਣ ਤੇ ਚਾਰੋਂ ਰੇਖਾਵਾਂ ਚਾਹੀਦੀਆਂ ਹਨ। ਇਸ ਨਾਲ ਵਿਕਲਪ ${answer} ਮਿਲਦਾ ਹੈ।`,
+    application: `ਤੀਜੀ ਕਤਾਰ ਦੇ ਪਹਿਲੇ ਅਤੇ ਦੂਜੇ ਖਾਣੇ ਦੀਆਂ ਰੇਖਾਵਾਂ ਮਿਲਾਉਣ ਤੇ ਹੋਰਿਜ਼ਾਂਟਲ, ਵਰਟੀਕਲ ਅਤੇ ਦੋਵੇਂ ਤਿਰਛੀਆਂ ਰੇਖਾਵਾਂ ਚਾਹੀਦੀਆਂ ਹਨ। ਇਸ ਨਾਲ ਵਿਕਲਪ ${answer} ਮਿਲਦਾ ਹੈ।`,
     verification: "ਕੋਈ ਲੋੜੀਂਦੀ ਰੇਖਾ ਗਾਇਬ ਨਹੀਂ ਹੋਣੀ ਚਾਹੀਦੀ।",
     distractorChecks: Object.freeze(options.map((_, index) => index === correctIndex ? null : `ਵਿਕਲਪ ${OPTION_LABELS[index]} ਲੋੜੀਂਦਾ ਰੇਖਾ-ਸਮੂਹ ਨਹੀਂ ਬਣਾਉਂਦਾ।`).filter((value): value is string => value !== null)),
   });
@@ -184,14 +184,101 @@ function arrowSvg(state: ArrowMarker, size = 92): string {
   const [mx, my] = markerPoint(state.marker);
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="${size}" height="${size}" role="img"><rect width="64" height="64" fill="white"/><g transform="translate(32 32) rotate(${state.rotation})" fill="none" stroke="#111827" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"><line x1="-11" y1="0" x2="10" y2="0"/><polyline points="4,-6 11,0 4,6"/></g><circle cx="${mx}" cy="${my}" r="3" fill="#111827"/></svg>`;
 }
-function arrowMatrixSvg(cells: readonly (ArrowMarker | null)[], missingIndex: number, filled?: ArrowMarker): string {
+function arrowMatrixSvg(cells: readonly (ArrowMarker | null)[], missingIndex: number, filled?: ArrowMarker, matrixSize = 3): string {
   const body = cells.map((entry, index) => {
-    const row = Math.floor(index / 3); const col = index % 3; const x = col * 64; const y = row * 64;
+    const row = Math.floor(index / matrixSize); const col = index % matrixSize; const x = col * 64; const y = row * 64;
     const resolved = index === missingIndex && filled ? filled : entry;
     const content = resolved ? `<g transform="translate(${x} ${y})">${arrowSvg(resolved, 64).replace(/^<svg[^>]*>|<\/svg>$/g, "")}</g>` : `<text x="${x + 32}" y="${y + 39}" text-anchor="middle" font-family="Arial,sans-serif" font-size="26" font-weight="700" fill="#111827">?</text>`;
     return `<rect x="${x}" y="${y}" width="64" height="64" fill="white" stroke="#111827" stroke-width="1.1"/>${content}`;
   }).join("");
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="240" height="240" role="img">${body}</svg>`;
+  const total = matrixSize * 64;
+  const display = matrixSize === 2 ? 190 : 240;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${total} ${total}" width="${display}" height="${display}" role="img">${body}</svg>`;
+}
+
+function reflectionQuestion(input: Readonly<{ qlId: "SPA-QL-055"; seed: string; language: FigureMatrixLanguageV2 }>) {
+  const scaffold = generateFigureMatrixReviewQuestionV2({ ...input, seed: `${input.seed}-1` });
+  const matrix: (ArrowMarker | null)[] = [
+    Object.freeze({ rotation: 25, marker: "NE" }),
+    Object.freeze({ rotation: 155, marker: "NW" }),
+    Object.freeze({ rotation: 315, marker: "SE" }),
+    Object.freeze({ rotation: 225, marker: "SW" }),
+  ];
+  const correct = matrix[3] as ArrowMarker;
+  matrix[3] = null;
+  const candidates: readonly ArrowMarker[] = [
+    correct,
+    Object.freeze({ rotation: 315, marker: "SE" }),
+    Object.freeze({ rotation: 225, marker: "SE" }),
+    Object.freeze({ rotation: 315, marker: "SW" }),
+  ];
+  const options = shuffled(candidates, hash32(input.seed) ^ 0x7f4a7c15);
+  const correctIndex = options.findIndex((candidate) => arrowKey(candidate) === arrowKey(correct));
+  const answer = OPTION_LABELS[correctIndex];
+  const semanticOptionKeys = options.map(arrowKey);
+  const distractorFailures = options.map((candidate, index) => {
+    if (index === correctIndex) return null;
+    const wrongRotation = candidate.rotation !== correct.rotation;
+    const wrongMarker = candidate.marker !== correct.marker;
+    return `Option ${OPTION_LABELS[index]}: ${wrongRotation && wrongMarker ? "arrow direction and marker are both unreflected" : wrongRotation ? "arrow direction is not mirrored" : "marker is not mirrored"}.`;
+  }).filter((value): value is string => value !== null);
+  const explanation = input.language === "en" ? Object.freeze({
+    rule: "In each row, the second cell is the left-right mirror image of the first. The arrow direction and the small marker must both reflect together.",
+    worked: "Row 1 shows the marker moving from the upper-right to the upper-left while the slant of the arrow reverses at the same time.",
+    application: `Mirror the first cell of row 2 in the same way: the lower-right marker moves to the lower-left and the arrow reverses its slant. This gives option ${answer}.`,
+    verification: "A choice that mirrors only the arrow or only the marker is incomplete.",
+    distractorChecks: Object.freeze(distractorFailures),
+  }) : input.language === "hi" ? Object.freeze({
+    rule: "हर पंक्ति का दूसरा खाना पहले खाने का बाएँ-दाएँ दर्पण प्रतिबिंब है। तीर की दिशा और छोटा बिंदु दोनों साथ में प्रतिबिंबित होने चाहिए।",
+    worked: "पहली पंक्ति में छोटा बिंदु ऊपर-दाएँ से ऊपर-बाएँ जाता है और उसी समय तीर का झुकाव भी उलटता है।",
+    application: `दूसरी पंक्ति के पहले खाने को इसी प्रकार प्रतिबिंबित करने पर नीचे-दाएँ बिंदु नीचे-बाएँ जाता है और तीर का झुकाव उलटता है। इससे विकल्प ${answer} मिलता है।`,
+    verification: "केवल तीर या केवल बिंदु को बदलने वाला विकल्प अधूरा है।",
+    distractorChecks: Object.freeze(options.map((candidate, index) => index === correctIndex ? null : `विकल्प ${OPTION_LABELS[index]} में तीर की दिशा या छोटे बिंदु का प्रतिबिंब गलत है।`).filter((value): value is string => value !== null)),
+  }) : Object.freeze({
+    rule: "ਹਰ ਕਤਾਰ ਦਾ ਦੂਜਾ ਖਾਣਾ ਪਹਿਲੇ ਖਾਣੇ ਦਾ ਖੱਬੇ-ਸੱਜੇ ਦਰਪਣ ਪ੍ਰਤੀਬਿੰਬ ਹੈ। ਤੀਰ ਦੀ ਦਿਸ਼ਾ ਅਤੇ ਛੋਟਾ ਬਿੰਦੂ ਦੋਵੇਂ ਇਕੱਠੇ ਪ੍ਰਤੀਬਿੰਬਿਤ ਹੋਣੇ ਚਾਹੀਦੇ ਹਨ।",
+    worked: "ਪਹਿਲੀ ਕਤਾਰ ਵਿੱਚ ਛੋਟਾ ਬਿੰਦੂ ਉੱਪਰ-ਸੱਜੇ ਤੋਂ ਉੱਪਰ-ਖੱਬੇ ਜਾਂਦਾ ਹੈ ਅਤੇ ਉਸੇ ਵੇਲੇ ਤੀਰ ਦਾ ਝੁਕਾਅ ਵੀ ਉਲਟਦਾ ਹੈ।",
+    application: `ਦੂਜੀ ਕਤਾਰ ਦੇ ਪਹਿਲੇ ਖਾਣੇ ਨੂੰ ਇਸੇ ਤਰ੍ਹਾਂ ਪ੍ਰਤੀਬਿੰਬਿਤ ਕਰਨ ਤੇ ਹੇਠਾਂ-ਸੱਜੇ ਬਿੰਦੂ ਹੇਠਾਂ-ਖੱਬੇ ਜਾਂਦਾ ਹੈ ਅਤੇ ਤੀਰ ਦਾ ਝੁਕਾਅ ਉਲਟਦਾ ਹੈ। ਇਸ ਨਾਲ ਵਿਕਲਪ ${answer} ਮਿਲਦਾ ਹੈ।`,
+    verification: "ਸਿਰਫ਼ ਤੀਰ ਜਾਂ ਸਿਰਫ਼ ਬਿੰਦੂ ਬਦਲਣ ਵਾਲਾ ਵਿਕਲਪ ਅਧੂਰਾ ਹੈ।",
+    distractorChecks: Object.freeze(options.map((candidate, index) => index === correctIndex ? null : `ਵਿਕਲਪ ${OPTION_LABELS[index]} ਵਿੱਚ ਤੀਰ ਦੀ ਦਿਸ਼ਾ ਜਾਂ ਛੋਟੇ ਬਿੰਦੂ ਦਾ ਪ੍ਰਤੀਬਿੰਬ ਗਲਤ ਹੈ।`).filter((value): value is string => value !== null)),
+  });
+  const matrixSvg = arrowMatrixSvg(matrix, 3, undefined, 2);
+  const solutionSvg = arrowMatrixSvg(matrix, 3, correct, 2);
+  const optionSvgs = Object.freeze(options.map((state) => arrowSvg(state)));
+  const geometryKey = JSON.stringify({ matrix: matrix.map((state) => state ? arrowKey(state) : null), matrixSize: 2, options: semanticOptionKeys, correct: arrowKey(correct) });
+  const geometryFingerprint = fingerprint(geometryKey);
+  const stem = localizedStem(input.language, hash32(input.seed));
+  const contentFingerprint = fingerprint([geometryKey, input.language, stem, explanation.rule, explanation.worked, explanation.application].join("|"));
+  return Object.freeze({
+    ...scaffold,
+    version: "SPA-FMT-001-REVIEW-QUESTION-V2.1" as const,
+    seed: input.seed,
+    language: input.language,
+    difficulty: "MODERATE" as const,
+    stem,
+    matrixSize: 2,
+    missingIndex: 3,
+    matrixSvg,
+    optionSvgs,
+    correctIndex,
+    answer,
+    solutionSvg,
+    explanation,
+    solveFacts: Object.freeze({
+      family: "REPEATED_UNARY_TRANSFORM",
+      sourceVariant: "REFLECTION_OR_INVERSION",
+      governingAxis: "ROW" as const,
+      operation: "VERTICAL_REFLECTION",
+      parameter: "mirror the complete arrow-marker figure left-to-right",
+      semanticAnswerKey: arrowKey(correct),
+      semanticOptionKeys: Object.freeze(semanticOptionKeys),
+      distractorFailures: Object.freeze(distractorFailures),
+      matrixSize: 2,
+      missingIndex: 3,
+    }),
+    validation: Object.freeze({ ...scaffold.validation, reflectionNearMissesSemanticallyDistinct: true as const }),
+    geometryFingerprint,
+    contentFingerprint,
+  });
 }
 
 function rotateReflectQuestion(input: Readonly<{ qlId: "SPA-QL-060"; seed: string; language: FigureMatrixLanguageV2 }>) {
@@ -289,6 +376,9 @@ export function generateFigureMatrixReviewQuestionV2_1(input: Readonly<{
   language: FigureMatrixLanguageV2;
 }>) {
   const ordinal = variantOrdinal(input.seed);
+  if (input.qlId === "SPA-QL-055" && FMT_V2_SOURCE_VARIANTS[input.qlId][ordinal % 6] === "REFLECTION_OR_INVERSION") {
+    return reflectionQuestion({ ...input, qlId: "SPA-QL-055" });
+  }
   if (input.qlId === "SPA-QL-056" && FMT_V2_SOURCE_VARIANTS[input.qlId][ordinal % 4] === "UNION_OR_SUPERIMPOSITION") {
     return unionQuestion({ ...input, qlId: "SPA-QL-056" });
   }
