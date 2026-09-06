@@ -1,3 +1,4 @@
+import assert from "node:assert/strict";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
@@ -24,9 +25,7 @@ const REVIEW_CELLS: readonly ReviewCell[] = Object.freeze([
   { label: "Banking 2x5 / Hard", profileMode: "real-paper", examProfile: "BANKING_CLASSIC_2X5", difficulty: "Hard", count: 1 },
   { label: "Banking 3x5 / Medium", profileMode: "real-paper", examProfile: "BANKING_COMBO_3X5", difficulty: "Medium", count: 1 },
   { label: "Banking 3x5 / Hard", profileMode: "real-paper", examProfile: "BANKING_COMBO_3X5", difficulty: "Hard", count: 1 },
-  { label: "Banking 4x5 / Hard A", profileMode: "real-paper", examProfile: "BANKING_COMBO_4X5", difficulty: "Hard", count: 1 },
-  { label: "Banking 4x5 / Hard B", profileMode: "real-paper", examProfile: "BANKING_COMBO_4X5", difficulty: "Hard", count: 1 },
-  { label: "Banking 4x5 / Hard C", profileMode: "real-paper", examProfile: "BANKING_COMBO_4X5", difficulty: "Hard", count: 1 },
+  { label: "Banking 4x5 / Hard", profileMode: "real-paper", examProfile: "BANKING_COMBO_4X5", difficulty: "Hard", count: 3 },
 ]);
 
 function inline(value: unknown): string {
@@ -98,6 +97,19 @@ if (reviewItems.length !== ARG_QL_IDS.length * 12) {
   throw new Error(`ARG-001 CP015 review export expected ${ARG_QL_IDS.length * 12} questions, got ${reviewItems.length}.`);
 }
 
+for (const qlId of ARG_QL_IDS) {
+  const qlItems = reviewItems.filter((entry) => entry.qlId === qlId);
+  assert.equal(qlItems.length, 12, `${qlId}: human-review corpus must contain exactly 12 questions.`);
+  const statements = qlItems.map((entry) => String(entry.question.statement ?? "").trim());
+  const uniqueStatements = new Set(statements);
+  const duplicateStatements = [...new Set(statements.filter((statement, index) => statements.indexOf(statement) !== index))];
+  assert.equal(
+    uniqueStatements.size,
+    statements.length,
+    `${qlId}: fresh human-review corpus contains repeated statements:\n${duplicateStatements.join("\n")}`,
+  );
+}
+
 const outDir = resolve(process.cwd(), "dist", "arg-001-cp015-human-review");
 mkdirSync(outDir, { recursive: true });
 
@@ -145,5 +157,6 @@ console.log(JSON.stringify({
   status: "PASS_ARG_CP015_HUMAN_REVIEW_EXPORT",
   totalQuestions: reviewItems.length,
   questionsPerQl: 12,
+  exactStatementDuplicatesPerQl: 0,
   outputDirectory: outDir,
 }, null, 2));
