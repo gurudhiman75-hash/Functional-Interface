@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_LOCALIZED_TWO_ARGUMENT_POLISH_AUTHORITY = "ARG_CP015_LOCALIZED_TWO_ARGUMENT_SURFACE_POLISH_V7" as const;
+export const ARG_CP015_LOCALIZED_TWO_ARGUMENT_POLISH_AUTHORITY = "ARG_CP015_LOCALIZED_TWO_ARGUMENT_SURFACE_POLISH_V8" as const;
 
 type Question = Readonly<Record<string, any>>;
 
@@ -119,7 +119,10 @@ function polishPunjabi(value: string): string {
     .replaceAll("ਅਣ-ਤਸਦੀਕ ਖਰੀਦਦਾਰ ਸ਼ਿਕਾਇਤ", "ਅਣ-ਤਸਦੀਕ ਖਰੀਦਦਾਰ ਦੀ ਸ਼ਿਕਾਇਤ")
     .replaceAll("ਸਦਾ ਲਈ ਹਟਾਉਣਾ ਕਰਨਾ ਹੀ ਚਾਹੀਦਾ ਹੈ", "ਸਦਾ ਲਈ ਹਟਾ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ")
     .replaceAll("ਸਦਾ ਲਈ ਹਟਾਉਣਾ ਦੇ ਅਟੱਲ ਕਦਮ", "ਸਦਾ ਲਈ ਹਟਾਉਣ ਦੇ ਅਟੱਲ ਕਦਮ")
-    .replaceAll("ਭਾਗੀਦਾਰ ਨੂੰ ਸਦਾ ਲਈ ਹਟਾਉਣਾ ਚਾਹੀਦਾ ਹੈ", "ਭਾਗੀਦਾਰ ਨੂੰ ਸਦਾ ਲਈ ਹਟਾ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ");
+    .replaceAll("ਭਾਗੀਦਾਰ ਨੂੰ ਸਦਾ ਲਈ ਹਟਾਉਣਾ ਚਾਹੀਦਾ ਹੈ", "ਭਾਗੀਦਾਰ ਨੂੰ ਸਦਾ ਲਈ ਹਟਾ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ")
+    .replaceAll("ਸਦਾ ਲਈ ਬੰਦ ਕਰਨਾ ਕਰਨਾ ਹੀ ਚਾਹੀਦਾ ਹੈ", "ਸਦਾ ਲਈ ਬੰਦ ਕਰ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ")
+    .replaceAll("ਸਦਾ ਲਈ ਬੰਦ ਕਰਨਾ ਦੇ ਅਟੱਲ ਕਦਮ", "ਸਦਾ ਲਈ ਬੰਦ ਕਰਨ ਦੇ ਅਟੱਲ ਕਦਮ")
+    .replaceAll("ਖਾਤਾ ਸਦਾ ਲਈ ਬੰਦ ਕਰਨਾ ਚਾਹੀਦਾ ਹੈ", "ਖਾਤਾ ਸਦਾ ਲਈ ਬੰਦ ਕਰ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ");
 }
 
 function rebuildStem(locale: string, statement: string, argumentsList: readonly string[]): string {
