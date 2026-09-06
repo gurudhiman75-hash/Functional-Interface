@@ -31,6 +31,7 @@ import {
   ARG_CP015_LOCALIZED_COMBO_RESIDUAL_POLISH_AUTHORITY,
   polishArgCp015ResidualLocalizedComboSurface,
 } from "./cp015-localized-combo-residual-polish.ts";
+import { polishArgCp015LocalizedTwoArgumentSurface } from "./cp015-localized-two-argument-surface-polish.ts";
 import { naturalizeArgCp015TwoArgumentEditorial } from "./cp015-two-argument-editorial-naturalization.ts";
 
 export const ARG_CP015_CHECKPOINT_ID = "ARG-CP-015" as const;
@@ -233,7 +234,8 @@ function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed:
     const request = clearExplicitProfile({ ...input, count: 1, seed });
     const source = generateArgCp014QuestionStudioBatch(request);
     const reshaped = reshapeTwoArgumentProfile(source.questions[0] as Question, profile);
-    const question = naturalizeArgCp015TwoArgumentEditorial(reshaped);
+    const naturalized = naturalizeArgCp015TwoArgumentEditorial(reshaped);
+    const question = polishArgCp015LocalizedTwoArgumentSurface(naturalized);
     return { question, context: source.generationContext as Question };
   }
 
