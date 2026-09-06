@@ -4,15 +4,17 @@ import { sqlClient } from "../lib/db";
 import { runSourceIndependentAuthoringForEventIds } from "./authoring-runtime";
 import { normalizeCurrentAffairsText } from "./core";
 import { reconcilePrimaryEnrichedEventIds } from "./enriched-event-reconciliation";
+import { parseSyndicationFeed } from "./ingestion";
 import { runCurrentAffairsLocalizationForEventIds } from "./localization-runtime";
 import { extractPrimaryPageText } from "./primary-fact-extraction";
 import { fetchBoundedOfficialText } from "./source-fetch";
 
-export const SELECTED_RBI_FINAL_MILE_CLOSURE_VERSION = "ca-cp065-rbi-final-mile-v1";
+export const SELECTED_RBI_FINAL_MILE_CLOSURE_VERSION = "ca-cp066-rbi-durable-official-delivery-v1";
 
 const MAX_CANDIDATES = 20;
 const MAX_PAGE_BYTES = 3_500_000;
-const MAX_DIAGNOSTICS = 40;
+const MAX_FEED_BYTES = 2_500_000;
+const MAX_DIAGNOSTICS = 48;
 
 const RBI_FINAL_MILE_PATTERNS = [
   /Money Market Operations as on/i,
@@ -24,6 +26,7 @@ type RbiCandidate = {
   eventId: string;
   sourceId: string;
   sourceUrl: string;
+  feedUrl: string | null;
   title: string;
 };
 
@@ -38,7 +41,8 @@ type RbiFact = {
 type FetchDiagnostic = {
   candidateId: string;
   publicDelivery: string;
-  status: "usable" | "empty_or_shell" | "no_fact_match" | "fetch_error";
+  deliveryKind: "new_site" | "legacy_page" | "official_feed";
+  status: "usable" | "empty_or_shell" | "no_fact_match" | "item_not_found" | "fetch_error";
   visibleCharCount: number;
   factCount: number;
   error?: string;
@@ -81,35 +85,35 @@ export function recoverSelectedRbiFinalMileFactsForTest(args: {
 
   if (/Money Market Operations as on/i.test(args.title)) {
     const overnight = combined.match(
-      /Overnight\s+Segment(?:\s*\([^)]*\))?[^0-9]{0,180}([0-9][0-9,]*(?:\.[0-9]+)?)\s+([0-9]+(?:\.[0-9]+)?)\s+([0-9]+(?:\.[0-9]+)?\s*[-–]\s*[0-9]+(?:\.[0-9]+)?)/i,
+      /Overnight\s+Segment(?:\s*\([^)]*\))?[^0-9]{0,220}([0-9][0-9,]*(?:\.[0-9]+)?)\s+([0-9]+(?:\.[0-9]+)?)\s+([0-9]+(?:\.[0-9]+)?\s*[-–]\s*[0-9]+(?:\.[0-9]+)?)/i,
     );
     if (overnight?.[1] && overnight[2]) {
       const date = args.title.match(/as on\s+(.+)$/i)?.[1] ?? "the reported date";
-      push(facts, makeFact("acting_entity", "Reserve Bank of India", "entity", 0.99, "cp065_rbi_money_market"));
-      push(facts, makeFact("official_action", "reported", "string", 0.98, "cp065_rbi_money_market"));
+      push(facts, makeFact("acting_entity", "Reserve Bank of India", "entity", 0.99, "cp066_rbi_money_market"));
+      push(facts, makeFact("official_action", "reported", "string", 0.98, "cp066_rbi_money_market"));
       push(facts, makeFact(
         "action_subject",
         `overnight money-market volume of ₹${overnight[1]} crore at a ${percentage(overnight[2])} weighted average rate on ${date}`,
         "string",
         0.98,
-        "cp065_rbi_money_market",
+        "cp066_rbi_money_market",
       ));
     }
   }
 
   if (/Balance of Payments/i.test(args.title)) {
     const cad = combined.match(
-      /current\s+account(?:\s+(?:recorded|registered)\s+a)?\s+deficit(?:\s*\(CAD\))?[^$]{0,220}?(?:stood\s+at|was|amounted\s+to|of)?\s*(?:US\$|USD|\$)\s*([0-9]+(?:\.[0-9]+)?)\s*billion[^%]{0,160}?\(?\s*([0-9]+(?:\.[0-9]+)?)\s*(?:per\s*cent|percent|%)\s+of\s+GDP\s*\)?/i,
+      /current\s+account(?:\s+(?:recorded|registered)\s+a)?\s+deficit(?:\s*\(CAD\))?[^$]{0,260}?(?:stood\s+at|was|amounted\s+to|of)?\s*(?:US\$|USD|\$)\s*([0-9]+(?:\.[0-9]+)?)\s*billion[^%]{0,200}?\(?\s*([0-9]+(?:\.[0-9]+)?)\s*(?:per\s*cent|percent|%)\s+of\s+GDP\s*\)?/i,
     );
     if (cad?.[1] && cad[2]) {
-      push(facts, makeFact("acting_entity", "Reserve Bank of India", "entity", 0.99, "cp065_rbi_bop"));
-      push(facts, makeFact("official_action", "reported", "string", 0.98, "cp065_rbi_bop"));
+      push(facts, makeFact("acting_entity", "Reserve Bank of India", "entity", 0.99, "cp066_rbi_bop"));
+      push(facts, makeFact("official_action", "reported", "string", 0.98, "cp066_rbi_bop"));
       push(facts, makeFact(
         "action_subject",
         `Q1 2026-27 current account deficit of US$ ${cad[1]} billion (${percentage(cad[2])} of GDP)`,
         "string",
         0.99,
-        "cp065_rbi_bop",
+        "cp066_rbi_bop",
       ));
     }
   }
@@ -127,11 +131,30 @@ function pressReleaseId(sourceUrl: string) {
   }
 }
 
-export function rbiOfficialFallbackUrlsForTest(sourceUrl: string) {
+function rbiTitleSlug(title: string) {
+  return title
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[’']/g, "")
+    .replace(/&/g, " and ")
+    .replace(/[^A-Za-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .replace(/-+/g, "-")
+    .toLowerCase();
+}
+
+export function rbiNewSiteUrlForTest(title: string) {
+  const slug = rbiTitleSlug(title);
+  return slug ? `https://website.rbi.org.in/web/rbi/-/press-releases/${slug}` : null;
+}
+
+export function rbiOfficialFallbackUrlsForTest(sourceUrl: string, title = "") {
   const prid = pressReleaseId(sourceUrl);
-  if (!prid) return [sourceUrl];
+  const newSiteUrl = rbiNewSiteUrlForTest(title);
+  const urls = [newSiteUrl, sourceUrl].filter((value): value is string => Boolean(value));
+  if (!prid) return [...new Set(urls)];
   return [...new Set([
-    sourceUrl,
+    ...urls,
     `https://www.rbi.org.in/scripts/FS_PressRelease.aspx?prid=${prid}`,
     `https://www.rbi.org.in/scripts/FS_PressRelease.aspx?prid=${prid}&fn=2753`,
     `https://m.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=${prid}`,
@@ -147,6 +170,7 @@ async function loadCandidates(targetDate: string): Promise<RbiCandidate[]> {
       event.id::text AS "eventId",
       source.id::text AS "sourceId",
       candidate.source_url AS "sourceUrl",
+      source.feed_url AS "feedUrl",
       candidate.raw_title AS title
     FROM content.current_affairs_ingestion_candidates candidate
     JOIN content.current_affairs_sources source ON source.id=candidate.source_id
@@ -176,12 +200,73 @@ async function loadCandidates(targetDate: string): Promise<RbiCandidate[]> {
     eventId: String(row.eventId),
     sourceId: String(row.sourceId),
     sourceUrl: String(row.sourceUrl),
+    feedUrl: row.feedUrl ? String(row.feedUrl) : null,
     title: String(row.title ?? ""),
   }));
 }
 
+function diagnosticKind(deliveryUrl: string): FetchDiagnostic["deliveryKind"] {
+  return new URL(deliveryUrl).hostname.toLowerCase() === "website.rbi.org.in" ? "new_site" : "legacy_page";
+}
+
+async function fetchFactsFromOfficialFeed(candidate: RbiCandidate, diagnostics: FetchDiagnostic[]) {
+  if (!candidate.feedUrl) return { facts: [] as RbiFact[], deliveryUrl: null as string | null };
+  try {
+    const xml = await fetchBoundedOfficialText(candidate.feedUrl, {
+      accept: "application/rss+xml,application/atom+xml,application/xml,text/xml;q=0.9,text/plain;q=0.5",
+      maxBytes: MAX_FEED_BYTES,
+      label: "Selected RBI official feed",
+    });
+    const targetTitle = normalizeCurrentAffairsText(candidate.title);
+    const entries = parseSyndicationFeed(xml, candidate.feedUrl);
+    const match = entries.find((entry) => normalizeCurrentAffairsText(entry.title) === targetTitle)
+      ?? entries.find((entry) => {
+        const title = normalizeCurrentAffairsText(entry.title);
+        return title.length > 16 && targetTitle.length > 16 && (title.includes(targetTitle) || targetTitle.includes(title));
+      });
+    if (!match) {
+      diagnostics.push({
+        candidateId: candidate.candidateId,
+        publicDelivery: candidate.feedUrl,
+        deliveryKind: "official_feed",
+        status: "item_not_found",
+        visibleCharCount: 0,
+        factCount: 0,
+      });
+      return { facts: [] as RbiFact[], deliveryUrl: null as string | null };
+    }
+    const text = clean(match.discoveryText ?? "");
+    const facts = recoverSelectedRbiFinalMileFactsForTest({ title: candidate.title, text });
+    diagnostics.push({
+      candidateId: candidate.candidateId,
+      publicDelivery: candidate.feedUrl,
+      deliveryKind: "official_feed",
+      status: facts.length >= 3 ? "usable" : text.length < 80 ? "empty_or_shell" : "no_fact_match",
+      visibleCharCount: text.length,
+      factCount: facts.length,
+    });
+    return facts.length >= 3
+      ? { facts, deliveryUrl: candidate.feedUrl }
+      : { facts: [] as RbiFact[], deliveryUrl: null as string | null };
+  } catch (error) {
+    diagnostics.push({
+      candidateId: candidate.candidateId,
+      publicDelivery: candidate.feedUrl,
+      deliveryKind: "official_feed",
+      status: "fetch_error",
+      visibleCharCount: 0,
+      factCount: 0,
+      error: (error instanceof Error ? error.message : "Unknown RBI feed error").slice(0, 300),
+    });
+    return { facts: [] as RbiFact[], deliveryUrl: null as string | null };
+  }
+}
+
 async function fetchFacts(candidate: RbiCandidate, diagnostics: FetchDiagnostic[]) {
-  for (const deliveryUrl of rbiOfficialFallbackUrlsForTest(candidate.sourceUrl)) {
+  const feedRecovery = await fetchFactsFromOfficialFeed(candidate, diagnostics);
+  if (feedRecovery.facts.length >= 3 && feedRecovery.deliveryUrl) return feedRecovery;
+
+  for (const deliveryUrl of rbiOfficialFallbackUrlsForTest(candidate.sourceUrl, candidate.title)) {
     try {
       const html = await fetchBoundedOfficialText(deliveryUrl, {
         accept: "text/html,application/xhtml+xml;q=0.9,text/plain;q=0.5",
@@ -193,6 +278,7 @@ async function fetchFacts(candidate: RbiCandidate, diagnostics: FetchDiagnostic[
       diagnostics.push({
         candidateId: candidate.candidateId,
         publicDelivery: deliveryUrl,
+        deliveryKind: diagnosticKind(deliveryUrl),
         status: facts.length >= 3 ? "usable" : visibleText.length < 80 ? "empty_or_shell" : "no_fact_match",
         visibleCharCount: visibleText.length,
         factCount: facts.length,
@@ -202,6 +288,7 @@ async function fetchFacts(candidate: RbiCandidate, diagnostics: FetchDiagnostic[
       diagnostics.push({
         candidateId: candidate.candidateId,
         publicDelivery: deliveryUrl,
+        deliveryKind: diagnosticKind(deliveryUrl),
         status: "fetch_error",
         visibleCharCount: 0,
         factCount: 0,
@@ -227,8 +314,8 @@ async function insertFacts(candidate: RbiCandidate, facts: RbiFact[], deliveryUr
         ${randomUUID()}::uuid, NULL, ${candidate.eventId}::uuid, ${candidate.candidateId}::uuid, ${candidate.sourceId}::uuid,
         ${item.key}, ${item.value}, ${normalizedValue}, ${item.type}, ${item.confidence},
         'rule', true, ${JSON.stringify({
-          source: "selected_rbi_final_mile_closure",
-          claimStage: "cp065_rbi_final_mile",
+          source: "selected_rbi_durable_official_delivery_closure",
+          claimStage: "cp066_rbi_durable_official_delivery",
           evidenceClass: item.evidenceClass,
           sourcePageUrl: candidate.sourceUrl,
           sourceDeliveryUrl: deliveryUrl,
