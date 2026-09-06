@@ -22,6 +22,10 @@ on:
       - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-editorial-fact-review.test.ts"
       - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-permanent-ql-allocation.ts"
       - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-permanent-ql-allocation.test.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-review-types.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-review-seed-bank.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-review-synthesis-v1.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-review-synthesis-v1.test.ts"
       - ".github/workflows/com004-internet-web-email-discovery.yml"
   workflow_dispatch:
 
@@ -63,6 +67,7 @@ jobs:
             "src/knowledge-v1/computer-awareness/com004-distractor-readiness.test.ts"
             "src/knowledge-v1/computer-awareness/com004-editorial-fact-review.test.ts"
             "src/knowledge-v1/computer-awareness/com004-permanent-ql-allocation.test.ts"
+            "src/knowledge-v1/computer-awareness/com004-review-synthesis-v1.test.ts"
           )
           for test_file in "${tests[@]}"; do
             output_name="$(basename "${test_file}" .ts).mjs"
@@ -95,3 +100,6 @@ jobs:
 
       - name: Validate COM-004 permanent QL allocation
         run: node artifacts/api-server/dist/knowledge-v1/computer-awareness/com004-discovery/com004-permanent-ql-allocation.test.mjs
+
+      - name: Validate COM-004 English review corpus V1
+        run: node artifacts/api-server/dist/knowledge-v1/computer-awareness/com004-discovery/com004-review-synthesis-v1.test.mjs
