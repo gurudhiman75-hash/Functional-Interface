@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 
 import { ARG_CP015_ANTI_GAMING_CUE_DEBIAS_AUTHORITY } from "./cp015-anti-gaming-cue-debias.ts";
 
-export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V2" as const;
+export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V3" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -21,11 +21,44 @@ function languageOf(question: Question): Language {
 
 function polishEnglish(value: string): string {
   return value
+    .replace(/Some applicants prefer a form that can rarely be changed after the first submission/gi, "Some applicants may prefer a form to become final after the first submission")
+    .replace(/should be treated as sufficient to solve the queue problem without other demand or capacity measures/gi, "is likely to solve the queue problem on its own, making other demand or capacity measures unnecessary")
+    .replace(/are generally careless/gi, "are usually careless")
+    .replace(/Once ([^.]+?) attend (.+?), misunderstanding of (.+?) will be largely eliminated\./gi, "After $1 attend $2, that one session is assumed to remove nearly all misunderstanding of $3.")
+    .replace(/One user once failed (.+?), so requiring it for (.+?) will make legitimate changes too impractical even when (.+?)\./gi, "One user once failed $1, so that single case is treated as enough reason to reject the control for $2 even when $3.")
+    .replace(/Changing portal passwords at ten-day intervals apparently makes employees store credentials insecurely, so the policy makes the passwords less secure\./gi, "Changing portal passwords at ten-day intervals is assumed to encourage insecure credential storage, so the policy is blamed for weakening password security.")
+    .replace(/Social-engineering fraud has occurred even when alerts were sent through (.+?), so alerts about (.+?) can rarely help reduce (.+?)\./gi, "Because a social-engineering fraud case occurred despite alerts through $1, alerts about $2 are treated as ineffective at reducing $3.")
+    .replace(/One customer once failed verification, so genuine attempts to (.+?) will become impractical\./gi, "One customer once failed verification, so that single failure is treated as enough reason to conclude that legitimate attempts to $1 are too unreliable.")
+    .replace(/Since one user could not pass verification, genuine requests to (.+?) must also become impractical\./gi, "Since one user could not pass verification, that case is treated as enough reason to conclude that legitimate requests to $1 are too unreliable.")
+    .replace(/A second verification for (.+?) is treated as enough reason to assume that (.+?) will rarely face fraud involving that change again\./gi, "A second verification for $1 is treated as enough reason to regard further fraud involving that change as negligible for $2.")
+    .replace(/would require most citizen using (.+?) to own/gi, "would effectively require each citizen using $1 to own")
+    .replace(/would require most visitor to own/gi, "would effectively require each visitor to own")
+    .replace(/unless most visitor owns/gi, "unless each visitor owns")
+    .replace(/rebuilding most part of (.+?) from the ground up/gi, "extensive rebuilding of $1")
+    .replace(/Once the decision is announced, enough (.+?) will readily become available everywhere (.+?)\./gi, "The decision itself is assumed to make enough $1 available everywhere $2.")
+    .replace(/(.+?) can rarely be conducted securely in practice, regardless of (.+?)\./gi, "$1 is treated as inherently insecure even where $2 is available.")
+    .replace(/The rule for (.+?) can start from (.+?) without any (.+?); (.+?) will work readily\./gi, "The rule for $1 is assumed to work from $2 without $3, with $4 expected to function without transition support.")
+    .replace(/Any use of time slots makes (.+?) permanently impractical to deliver\./gi, "Any use of time slots is treated as making $1 unworkable in the long term.")
+    .replace(/Once time slots are introduced, (.+?) can rarely be delivered successfully again\./gi, "Once time slots are introduced, $1 are treated as unlikely to function successfully again.")
+    .replace(/A time-slot system generally makes public services inaccessible to most people\./gi, "A time-slot system is treated as making public services inaccessible to a large share of users.")
+    .replace(/most use of (.+?) apparently causes (.+?), so no exception such as (.+?) can ever be justified\./gi, "Use of $1 is presumed to lead to $2, so even an exception such as $3 is rejected without separate assessment.")
+    .replace(/Because (.+?) can be useful for (.+?), the institution should rarely regulate it even to address (.+?)\./gi, "Because $1 can be useful for $2, the institution is expected to avoid regulating it even where regulation is aimed at $3.")
+    .replace(/A single workshop on the subject will largely solve most related difficulty participants may face in the future\./gi, "A single workshop is assumed to solve nearly all related difficulties participants may face in the future.")
+    .replace(/If a limited restriction on (.+?) helps even once, heavy vehicles should rarely be allowed there again\./gi, "If a limited restriction on $1 helps even once, that single result is treated as enough reason to keep heavy vehicles barred there outside the restricted period as well.")
+    .replace(/Any brief limit on heavy vehicles at (.+?) will permanently ruin most activity in the surrounding area\./gi, "Any brief limit on heavy vehicles at $1 is assumed to cause lasting damage to activity throughout the surrounding area.")
+    .replace(/are simply trying to avoid dense queueing like most people else\./gi, "are treated as seeking convenience rather than responding to a genuine access difficulty.")
+    .replace(/will guarantee perfect future attendance behaviour from most people in the future\./gi, "is assumed to eliminate nearly all future lateness.")
+    .replace(/is generally unacceptable in most context, regardless of consent, purpose or safeguards\./gi, "should be rejected even where consent, purpose and safeguards have been considered.")
+    .replace(/Any modern tool such as (.+?) must apparently be fair when (.+?) uses it on (.+?)\./gi, "Because $1 is a modern tool, it is presumed fair when $2 uses it on $3 without a separate necessity test.")
+    .replace(/A (.+?) is generally proof of fraud, so there is no need for (.+?) even if (.+?)\./gi, "$1 is treated as sufficient evidence of fraud on its own, so $2 is considered unnecessary even if $3.")
+    .replace(/Because (.+?) can reflect (.+?), the bank should rarely use temporary risk controls or investigate flagged transactions at all instead of terminate the customer relationship\./gi, "Even though $1 can reflect $2, the bank is expected to skip temporary risk controls and further investigation and terminate the customer relationship immediately.")
+    .replace(/A single misconduct allegation can occur mainly when guilt is certain/gi, "A single misconduct allegation is treated as strong enough evidence of guilt on its own")
+    .replace(/will predictably create permanent gridlock across the entire city/gi, "is assumed to create lasting gridlock across the city")
     .replace(/service needs should rarely affect the timings of ([^.]+)\./gi, "service needs should carry little weight when setting the timings of $1.")
     .replace(/will disappear largely\./gi, "will be largely eliminated.")
     .replace(/in most ([a-z-]+(?: [a-z-]+)*) programme\b/gi, "across $1 programmes")
-    .replace(/A change most ten days apparently makes most employee store credentials insecurely, so all portal passwords become less secure\./gi, "Changing portal passwords at ten-day intervals apparently makes employees store credentials insecurely, so the policy makes the passwords less secure.")
-    .replace(/Changing portal passwords most ten days is treated as enough reason to assume that phishing can rarely lead to misuse\./gi, "Changing portal passwords at ten-day intervals is treated as enough reason to assume that phishing is no longer a material misuse risk.")
+    .replace(/A change most ten days apparently makes most employee store credentials insecurely, so all portal passwords become less secure\./gi, "Changing portal passwords at ten-day intervals is assumed to encourage insecure credential storage, so the policy is blamed for weakening password security.")
+    .replace(/Changing portal passwords most ten days is treated as enough reason to assume that phishing can rarely lead to misuse\./gi, "Changing portal passwords at ten-day intervals is treated as enough reason to dismiss phishing as a material misuse risk.")
     .replace(/will generally make most legitimate change impractical/gi, "will make legitimate changes too impractical")
     .replace(/most genuine attempt to/gi, "genuine attempts to")
     .replace(/most genuine request to/gi, "genuine requests to")
