@@ -13,7 +13,8 @@ export type SpatialReviewChapter =
   | 'FCT-001'
   | 'EMB-001'
   | 'FFM-001'
-  | 'DOT-001';
+  | 'DOT-001'
+  | 'FMT-001';
 export type SpatialReviewLanguage = 'en' | 'hi' | 'pa';
 
 export interface SpatialReviewQl {
@@ -47,6 +48,10 @@ export interface SpatialReviewPackage {
   dotSituationFreezeAuthority?: string;
   dotSituationActivationAuthority?: string;
   dotSituationPermanentQlCount?: number;
+  figureMatrixProductOwnerApprovalAuthority?: string;
+  figureMatrixFreezeAuthority?: string;
+  figureMatrixActivationAuthority?: string;
+  figureMatrixPermanentQlCount?: number;
   releaseAuthority?: string;
   permanentQlCount: number;
   questionStudioVisible: true;
@@ -91,6 +96,9 @@ export interface SpatialReviewQuestion {
     application: string;
     check: string;
     steps?: string[];
+    worked?: string;
+    verification?: string;
+    distractorChecks?: string[];
     membershipTable?: Array<{
       dot: string;
       signature: string;
@@ -141,6 +149,13 @@ export interface SpatialReviewQuestion {
     signaturesRecomputedFromGeometry?: true;
     completeInsideOutsideSignature?: true;
     boundarySafetyMarginEnforced?: true;
+    semanticCellStateIsAuthority?: true;
+    solverRecomputedMissingCell?: true;
+    everyDistractorHasSemanticFailure?: true;
+    rotationalSymmetryNormalizedBeforeOptionUniqueness?: boolean;
+    orientationCycleUsesAsymmetricDirectionalGlyph?: boolean;
+    perceptualOptionEquivalenceRejected?: boolean;
+    approvedV2_4RuntimePreserved?: true;
   };
 }
 
@@ -167,6 +182,8 @@ export interface SpatialReviewStatus {
   figureFormationActivationAuthority?: string;
   dotSituationFreezeAuthority?: string;
   dotSituationActivationAuthority?: string;
+  figureMatrixFreezeAuthority?: string;
+  figureMatrixActivationAuthority?: string;
   questionBankConversionEligibleAfterApproval: true;
   testEligibleAfterApproval: true;
   testBuilderEligibleAfterApproval?: true;
@@ -221,6 +238,8 @@ export function previewSpatialReview(input: SpatialReviewInput) {
     figureFormationActivationAuthority?: string;
     dotSituationFreezeAuthority?: string;
     dotSituationActivationAuthority?: string;
+    figureMatrixFreezeAuthority?: string;
+    figureMatrixActivationAuthority?: string;
   }>(
     `/admin/question-studio/reasoning/spatial/preview?${paramsFor(input).toString()}`,
     undefined,
