@@ -243,7 +243,13 @@ export function validateAIProviderStartup() {
     return;
   }
 
+  const configuredProviders = PROVIDER_FAILOVER_ORDER.filter(
+    (name) => PROVIDERS[name].isConfigured(),
+  );
   console.info(
     `AI extraction provider configured: ${provider}`,
+  );
+  console.info(
+    `AI extraction providers available: ${configuredProviders.join(", ")}`,
   );
 }
