@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import {
   AlertTriangle,
@@ -35,6 +35,7 @@ function confidenceVariant(confidence: string): 'default' | 'secondary' | 'destr
 export function PeriodWorkspacePage() {
   const { periodId } = useParams<{ periodId: string }>();
   const workspace = useNotesStudioV2Workspace(periodId);
+  const uploadInputRef = useRef<HTMLInputElement>(null);
   const [action, setAction] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [qualityByVersion, setQualityByVersion] = useState<Record<string, QualityResponse>>({});
@@ -85,11 +86,22 @@ export function PeriodWorkspacePage() {
 
   const uploadPdf = async (file?: File) => {
     if (!file) return;
-    await run(
-      'upload',
-      () => httpNotesStudioV2Repository.uploadCorpusSource(period.id, file),
-      `Ingested ${file.name}; extracted facts are now available for reconciliation.`,
-    );
+    if (file.type && file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+      setMessage('Choose a PDF file for corpus ingestion.');
+      return;
+    }
+
+    setAction('upload');
+    setMessage(`Uploading ${file.name} (${(file.size / 1024 / 1024).toFixed(1)} MB) and extracting atomic facts. Large PDFs can take several minutes; keep this page open.`);
+    try {
+      await httpNotesStudioV2Repository.uploadCorpusSource(period.id, file);
+      setMessage(`Ingested ${file.name}; extracted facts are now available for reconciliation.`);
+      workspace.reload();
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'Unable to ingest the selected PDF source.');
+    } finally {
+      setAction(null);
+    }
   };
 
   const generate = async (subCategoryId?: string) => {
@@ -141,7 +153,7 @@ export function PeriodWorkspacePage() {
         </div>
       </div>
 
-      {message && <div className="rounded-lg border bg-muted/30 p-3 text-sm">{message}</div>}
+      {message && <div className="rounded-lg border bg-muted/30 p-3 text-sm" role="status" aria-live="polite">{message}</div>}
 
       <Tabs defaultValue="setup" className="space-y-4">
         <TabsList className="h-auto flex-wrap justify-start">
@@ -180,20 +192,46 @@ export function PeriodWorkspacePage() {
               <CardDescription>PDF text is extracted in memory. Raw uploaded files are not persisted by the v2 ingestion route.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <label className="flex cursor-pointer items-center justify-between rounded-lg border border-dashed p-4">
-                <span className="text-sm"><Upload className="mr-2 inline h-4 w-4" />Upload PDF and extract atomic facts</span>
-                <input
-                  className="hidden"
-                  type="file"
-                  accept="application/pdf,.pdf"
-                  disabled={workspace.source !== 'http' || action === 'upload'}
-                  onChange={(event) => {
-                    const file = event.target.files?.[0];
-                    void uploadPdf(file);
-                    event.currentTarget.value = '';
-                  }}
-                />
-              </label>
+              <div className="rounded-lg border border-dashed p-4">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="text-sm font-medium">Upload PDF and extract atomic facts</p>
+                    <p className="mt-1 text-xs text-muted-foreground">Large sources are processed in bounded page segments. Keep this page open until ingestion finishes.</p>
+                  </div>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => uploadInputRef.current?.click()}
+                    disabled={workspace.source !== 'http' || action === 'upload'}
+                  >
+                    {action === 'upload' ? (
+                      <><RefreshCw className="mr-2 h-4 w-4 animate-spin" />Processing PDF…</>
+                    ) : (
+                      <><Upload className="mr-2 h-4 w-4" />Choose PDF</>
+                    )}
+                  </Button>
+                  <input
+                    ref={uploadInputRef}
+                    className="hidden"
+                    type="file"
+                    accept="application/pdf,.pdf"
+                    disabled={workspace.source !== 'http' || action === 'upload'}
+                    onChange={(event) => {
+                      const input = event.currentTarget;
+                      const file = input.files?.[0];
+                      if (!file) return;
+                      void uploadPdf(file).finally(() => {
+                        input.value = '';
+                      });
+                    }}
+                  />
+                </div>
+                {action === 'upload' && (
+                  <div className="mt-3 rounded-md bg-muted/40 p-3 text-xs text-muted-foreground" role="status" aria-live="polite">
+                    Upload is active. The server may spend several minutes extracting text/OCR and structured facts from a long PDF before the corpus list refreshes.
+                  </div>
+                )}
+              </div>
               {corpus.map((doc) => (
                 <div key={doc.id} className="rounded-lg border p-4">
                   <div className="flex flex-wrap items-center justify-between gap-2">
