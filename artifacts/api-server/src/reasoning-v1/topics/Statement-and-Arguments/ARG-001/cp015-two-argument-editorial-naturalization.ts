@@ -1,17 +1,23 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_TWO_ARGUMENT_EDITORIAL_AUTHORITY = "ARG_CP015_TWO_ARGUMENT_EDITORIAL_NATURALIZATION_V1" as const;
+export const ARG_CP015_TWO_ARGUMENT_EDITORIAL_AUTHORITY = "ARG_CP015_TWO_ARGUMENT_EDITORIAL_NATURALIZATION_V2" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Strength = "STRONG" | "WEAK";
 
 type EditorialPatch = Readonly<{
+  statement?: string;
   arguments?: readonly string[];
   reasons: readonly [string, string];
 }>;
 
 function text(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
+}
+
+function sentenceCase(value: string): string {
+  if (!value) return value;
+  return `${value[0]!.toUpperCase()}${value.slice(1)}`;
 }
 
 function displayedStrengths(question: Question): readonly [Strength, Strength] | undefined {
@@ -32,6 +38,44 @@ function explanationFromDisplayedOrder(
     .join(" ");
 }
 
+function englishSurfaceRepair(value: string): string {
+  return value
+    .replace(/\bwhere there are ([^.,;?]*crowding[^.,;?]*)/gi, "where $1 is common")
+    .replace(/\bevery form of ([A-Za-z-]+(?:\s+[A-Za-z-]+)*) queries\b/gi, "all $1 queries")
+    .replace(/\breplace all human help\b/gi, "replace all staff-assisted support");
+}
+
+function hindiSurfaceRepair(value: string): string {
+  return value
+    .replace(/सेवाओं उपयोग करने/g, "सेवाओं का उपयोग करने")
+    .replace(/नागरिकों हमेशा/g, "नागरिक हमेशा")
+    .replace(/हर प्रकार का ([^।,.!?]+?) प्रश्नों संभाल/g, "हर प्रकार के $1 प्रश्न संभाल")
+    .replace(/चालू करना कर सकें/g, "चालू कर सकें")
+    .replace(/चालू करना करने की सुविधा/g, "चालू करने की सुविधा")
+    .replace(/लॉक लगाना कर सकें/g, "लॉक लगा सकें")
+    .replace(/लॉक लगाना करने की सुविधा/g, "लॉक लगाने की सुविधा")
+    .replace(/तैयारी करना कर सके/g, "तैयारी कर सके")
+    .replace(/को स्थायी हटाना करना ही चाहिए/g, "को स्थायी रूप से हटा देना चाहिए")
+    .replace(/को स्थायी हटाना के/g, "को स्थायी रूप से हटाने के")
+    .replace(/को स्थायी हटाना चाहिए/g, "को स्थायी रूप से हटा देना चाहिए");
+}
+
+function punjabiSurfaceRepair(value: string): string {
+  return value
+    .replace(/ਤਿਆਰੀ ਕਰਨਾ ਕਰ ਸਕੇ/g, "ਤਿਆਰੀ ਕਰ ਸਕੇ")
+    .replace(/ਫੈਸਲਾ ਕਰਨਾ ਕਰ ਸਕਦੇ ਹਨ/g, "ਫੈਸਲਾ ਕਰ ਸਕਦੇ ਹਨ")
+    .replace(/ਹਰ ਕਿਸਮ ਦਾ ਖਾਤਾ ਸੇਵਾ ਸਵਾਲਾਂ ਸੰਭਾਲ/g, "ਹਰ ਕਿਸਮ ਦੇ ਖਾਤਾ-ਸੇਵਾ ਸਵਾਲ ਸੰਭਾਲ")
+    .replace(/ਸਸਪੈਂਡ ਕਰਨਾ ਕਰਨਾ ਹੀ ਚਾਹੀਦਾ ਹੈ/g, "ਸਸਪੈਂਡ ਕਰ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ")
+    .replace(/ਸਸਪੈਂਡ ਕਰਨਾ ਦੇ ਅਟੱਲ ਕਦਮ/g, "ਸਸਪੈਂਡ ਕਰਨ ਦੇ ਅਟੱਲ ਕਦਮ")
+    .replace(/ਇੱਕ ਦੁਰਵਿਹਾਰ ਦੋਸ਼ ਸਿਰਫ਼ ਉਸ ਵੇਲੇ ਹੋ ਸਕਦੀ ਹੈ/g, "ਦੁਰਵਿਹਾਰ ਦਾ ਦੋਸ਼ ਸਿਰਫ਼ ਉਸ ਵੇਲੇ ਲੱਗ ਸਕਦਾ ਹੈ");
+}
+
+function localizedSurfaceRepair(value: string, question: Question): string {
+  if (question.locale === "hi-IN" || question.language === "hi") return hindiSurfaceRepair(value);
+  if (question.locale === "pa-IN" || question.language === "pa") return punjabiSurfaceRepair(value);
+  return englishSurfaceRepair(value);
+}
+
 function helplinePatch(question: Question): EditorialPatch | undefined {
   const statement = text(question.statement);
   const match = statement.match(/^Should (.+) include (.+) for (.+) about (.+)\?$/i);
@@ -41,14 +85,14 @@ function helplinePatch(question: Question): EditorialPatch | undefined {
   const purpose = match[3];
   const issue = match[4];
   const args = Object.freeze([
-    `No. ${contact} should be left off ${document} simply because ${document} are not meant to carry that contact detail.`,
+    `No. ${sentenceCase(contact)} should be left off ${document} simply because ${document} are not meant to carry that contact detail.`,
     `Yes. Once ${contact} is printed on ${document}, all ${issue} raised during ${purpose} will be resolved immediately.`,
   ]);
   return Object.freeze({
     arguments: args,
     reasons: [
       `It gives no practical drawback of printing ${contact}; it merely restates that ${document} are not meant to contain it.`,
-      `${contact} can make ${purpose} easier, but a contact route cannot guarantee immediate resolution of all ${issue}.`,
+      `${sentenceCase(contact)} can make ${purpose} easier, but a contact route cannot guarantee immediate resolution of all ${issue}.`,
     ] as const,
   });
 }
@@ -124,6 +168,37 @@ function mobilityPatch(question: Question): EditorialPatch | undefined {
   return Object.freeze({ reasons });
 }
 
+function queueCapacityPatch(question: Question): EditorialPatch | undefined {
+  const statement = englishSurfaceRepair(text(question.statement));
+  const args = (question.arguments as readonly string[]).map((argument) => englishSurfaceRepair(text(argument))) as [string, string];
+  if (args.length !== 2 || !/^Should .+ introduce .+ for .+ where .+\?$/i.test(statement)) return undefined;
+  const reasons = args.map((argument) => /desktop computer/i.test(argument)
+    ? "It invents a desktop-computer requirement that is not inherent to appointment or queue-booking access, so it does not show that the proposal is unworkable."
+    : "It gives a practical mechanism for spreading arrivals and reducing the stated crowding pressure, directly addressing the service bottleneck in the statement.") as [string, string];
+  return Object.freeze({ statement, arguments: Object.freeze(args), reasons });
+}
+
+function automationReplacementPatch(question: Question): EditorialPatch | undefined {
+  const statement = englishSurfaceRepair(text(question.statement));
+  const args = question.arguments as readonly string[];
+  const match = statement.match(/^Should every (.+) replace all staff-assisted support for (.+) with (.+) (.+)\?$/i);
+  if (!match?.[1] || !match[2] || !match[3] || !match[4] || args.length !== 2) return undefined;
+  const unit = match[1];
+  const service = match[2];
+  const automation = match[3];
+  const timing = match[4];
+  const fallback = args
+    .map((argument) => argument.match(/(?:even when|without) (.+?)(?: is available|, so)/i)?.[1])
+    .find(Boolean) ?? "fallback support";
+  const nextArguments = args.map((argument) => /never provide any useful service/i.test(argument)
+    ? `No. A ${unit} using ${automation} for ${service} can never provide any useful service, even when ${fallback} is available.`
+    : `Yes. ${automation} can handle every case involving ${service} without ${fallback}, so replacing all staff-assisted support ${timing} would involve no implementation risk.`) as [string, string];
+  const reasons = nextArguments.map((argument) => /never provide any useful service/i.test(argument)
+    ? `It makes an unsupported all-or-nothing claim: using ${automation} does not mean a ${unit} can never deliver any useful ${service} service.`
+    : `It assumes ${automation} can handle every case without ${fallback} and ignores predictable exceptions, maintenance and support needs during a full replacement ${timing}.`) as [string, string];
+  return Object.freeze({ statement, arguments: Object.freeze(nextArguments), reasons });
+}
+
 function interimSafeguardPatch(question: Question): EditorialPatch | undefined {
   const statement = text(question.statement);
   const args = question.arguments as readonly string[];
@@ -132,10 +207,11 @@ function interimSafeguardPatch(question: Question): EditorialPatch | undefined {
   const actor = match[1];
   const action = match[2];
   const trigger = match[3];
+  const naturalStatement = `Should ${actor} permanently ${action} immediately after ${trigger}?`;
   const reasons = args.map((argument) => /guilt is certain/i.test(argument)
     ? `It treats ${trigger} as if it were already proof of guilt and ignores proportionate intermediate safeguards.`
     : `Temporary protective action plus fact-checking lets ${actor} manage risk without irreversibly deciding to ${action} before ${trigger} is verified.`) as [string, string];
-  return Object.freeze({ reasons });
+  return Object.freeze({ statement: naturalStatement, reasons });
 }
 
 function proportionalResponsePatch(question: Question): EditorialPatch | undefined {
@@ -163,42 +239,66 @@ function patchFor(question: Question): EditorialPatch | undefined {
     case "DIGITAL_SUPERIORITY_ASSERTION": return digitalSuperiorityPatch(question);
     case "TARGETED_REMEDIAL_SUPPORT": return targetedSupportPatch(question);
     case "MOBILITY_ACCOMMODATION": return mobilityPatch(question);
+    case "QUEUE_CAPACITY_IMPLEMENTATION": return queueCapacityPatch(question);
+    case "AUTOMATION_REPLACEMENT_FEASIBILITY": return automationReplacementPatch(question);
     case "INTERIM_SAFEGUARD_DUE_PROCESS": return interimSafeguardPatch(question);
     case "PROPORTIONAL_RESPONSE_FALSE_DILEMMA": return proportionalResponsePatch(question);
     default: return undefined;
   }
 }
 
+function stemFor(question: Question, statement: string, argumentsList: readonly string[]): string {
+  if (question.locale === "hi-IN" || question.language === "hi") {
+    return `कथन: ${statement}\nतर्क:\nI. ${argumentsList[0]}\nII. ${argumentsList[1]}`;
+  }
+  if (question.locale === "pa-IN" || question.language === "pa") {
+    return `ਕਥਨ: ${statement}\nਦਲੀਲਾਂ:\nI. ${argumentsList[0]}\nII. ${argumentsList[1]}`;
+  }
+  return `Statement: ${statement}\nArguments:\nI. ${argumentsList[0]}\nII. ${argumentsList[1]}`;
+}
+
 export function naturalizeArgCp015TwoArgumentEditorial(question: Question): Question {
-  if (question.locale !== "en-IN" && question.language !== "en") return question;
   const argumentsList = Array.isArray(question.arguments) ? question.arguments as readonly string[] : [];
   if (argumentsList.length !== 2) return question;
-  const strengths = displayedStrengths(question);
-  if (!strengths) return question;
-  const patch = patchFor(question);
-  if (!patch) return question;
 
-  const nextArguments = Object.freeze([...(patch.arguments ?? argumentsList)]);
-  const explanation = explanationFromDisplayedOrder(strengths, patch.reasons);
+  const isEnglish = question.locale === "en-IN" || question.language === "en";
+  const strengths = displayedStrengths(question);
+  const patch = isEnglish && strengths ? patchFor(question) : undefined;
+  const sourceStatement = patch?.statement ?? text(question.statement);
+  const sourceArguments = Object.freeze([...(patch?.arguments ?? argumentsList)]);
+  const sourceExplanation = patch && strengths
+    ? explanationFromDisplayedOrder(strengths, patch.reasons)
+    : text(question.explanation);
+
+  const statement = localizedSurfaceRepair(sourceStatement, question);
+  const nextArguments = Object.freeze(sourceArguments.map((argument) => localizedSurfaceRepair(text(argument), question)));
+  const explanation = localizedSurfaceRepair(sourceExplanation, question);
+  const changed = Boolean(patch)
+    || statement !== text(question.statement)
+    || nextArguments.some((argument, index) => argument !== text(argumentsList[index]))
+    || explanation !== text(question.explanation);
+  if (!changed) return question;
+
   const contentFingerprint = createHash("sha256").update(JSON.stringify([
     ARG_CP015_TWO_ARGUMENT_EDITORIAL_AUTHORITY,
     question.qlId,
     question.templateId,
-    question.statement,
+    statement,
     nextArguments,
     question.options,
     question.correctIndex,
     explanation,
   ])).digest("hex");
-  const stem = `Statement: ${text(question.statement)}\nArguments:\nI. ${nextArguments[0]}\nII. ${nextArguments[1]}`;
+  const stem = stemFor(question, statement, nextArguments);
 
   return Object.freeze({
     ...question,
+    statement,
     arguments: nextArguments,
     explanation,
     stem,
     text: stem,
-    sourceExplanation: question.explanation,
+    sourceExplanation: question.sourceExplanation ?? question.explanation,
     twoArgumentEditorialAuthority: ARG_CP015_TWO_ARGUMENT_EDITORIAL_AUTHORITY,
     twoArgumentEditorialArchetype: question.archetype,
     contentFingerprint,
