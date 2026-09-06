@@ -51,7 +51,8 @@ jobs:
             --skipLibCheck \
             --types node \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts \
-            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-export.ts
 
       - name: Prove 1000-question exact diversity and profile integrity
         working-directory: artifacts/api-server
@@ -61,6 +62,23 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/arg-001-cp015-perceived-diversity-proof.mjs
           node dist/arg-001-cp015-perceived-diversity-proof.mjs
+
+      - name: Export fresh CP015 human review corpus
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-export.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp015-human-review-export.mjs
+          node dist/arg-001-cp015-human-review-export.mjs
+
+      - name: Upload CP015 human review corpus
+        uses: actions/upload-artifact@v4
+        with:
+          name: arg-cp015-human-review-corpus
+          path: artifacts/api-server/dist/arg-001-cp015-human-review/
+          if-no-files-found: error
+          retention-days: 14
 
       - name: Preserve CP014 manual approval and lifecycle
         working-directory: artifacts/api-server
