@@ -1,8 +1,13 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_LOCALIZED_TWO_ARGUMENT_POLISH_AUTHORITY = "ARG_CP015_LOCALIZED_TWO_ARGUMENT_SURFACE_POLISH_V6" as const;
+export const ARG_CP015_LOCALIZED_TWO_ARGUMENT_POLISH_AUTHORITY = "ARG_CP015_LOCALIZED_TWO_ARGUMENT_SURFACE_POLISH_V7" as const;
 
 type Question = Readonly<Record<string, any>>;
+
+function polishEnglish(value: string): string {
+  return value
+    .replace(/\bonly\s+digital-only\b/gi, "only digital");
+}
 
 function polishHindi(value: string): string {
   return value
@@ -118,18 +123,18 @@ function polishPunjabi(value: string): string {
 }
 
 function rebuildStem(locale: string, statement: string, argumentsList: readonly string[]): string {
-  const statementLabel = locale === "hi-IN" ? "कथन" : "ਕਥਨ";
-  const argumentsLabel = locale === "hi-IN" ? "तर्क" : "ਦਲੀਲਾਂ";
+  const statementLabel = locale === "hi-IN" ? "कथन" : locale === "pa-IN" ? "ਕਥਨ" : "Statement";
+  const argumentsLabel = locale === "hi-IN" ? "तर्क" : locale === "pa-IN" ? "ਦਲੀਲਾਂ" : "Arguments";
   return `${statementLabel}: ${statement}\n${argumentsLabel}:\nI. ${argumentsList[0]}\nII. ${argumentsList[1]}`;
 }
 
 export function polishArgCp015LocalizedTwoArgumentSurface(question: Question): Question {
   const locale = String(question.locale ?? "");
-  if (locale !== "hi-IN" && locale !== "pa-IN") return question;
+  if (locale !== "en-IN" && locale !== "hi-IN" && locale !== "pa-IN") return question;
   const sourceArguments = Array.isArray(question.arguments) ? question.arguments as readonly string[] : [];
   if (sourceArguments.length !== 2) return question;
 
-  const polish = locale === "hi-IN" ? polishHindi : polishPunjabi;
+  const polish = locale === "hi-IN" ? polishHindi : locale === "pa-IN" ? polishPunjabi : polishEnglish;
   const sourceStatement = String(question.statement ?? "");
   const sourceExplanation = String(question.explanation ?? "");
   const statement = polish(sourceStatement);
