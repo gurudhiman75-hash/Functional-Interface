@@ -3,17 +3,21 @@ import {
   type DotSituationLanguageV1,
 } from "./dot-situation-review-runtime-v1";
 
+type Point = Readonly<{ x: number; y: number }>;
+
+const DOT_LABELS = ["1", "2", "3"] as const;
+
 function hash32(text: string): number {
   let hash = 0x811c9dc5;
-  for (let i = 0; i < text.length; i += 1) {
-    hash ^= text.charCodeAt(i);
+  for (let index = 0; index < text.length; index += 1) {
+    hash ^= text.charCodeAt(index);
     hash = Math.imul(hash, 0x01000193) >>> 0;
   }
   return hash >>> 0;
 }
 
 function fingerprint(text: string): string {
-  return `dot-${hash32(text).toString(16).padStart(8, "0")}`;
+  return `dot-v11-${hash32(text).toString(16).padStart(8, "0")}`;
 }
 
 function stemFor(language: DotSituationLanguageV1, variant: number, dotCount: number): string {
@@ -68,6 +72,38 @@ function englishRelation(row: Readonly<{ dot: string; inside: readonly string[];
   return `Dot ${row.dot} must lie inside ${inside} and outside ${outside}.`;
 }
 
+function clamp(value: number, min: number, max: number): number {
+  return Math.max(min, Math.min(max, value));
+}
+
+function labelPosition(point: Point, index: number): Point {
+  const offsets = [
+    { x: 8, y: -8 },
+    { x: -8, y: -8 },
+    { x: 8, y: 9 },
+  ] as const;
+  const offset = offsets[index % offsets.length];
+  return Object.freeze({
+    x: clamp(point.x + offset.x, 7, 113),
+    y: clamp(point.y + offset.y, 8, 113),
+  });
+}
+
+function annotateDots(svg: string, points: readonly Point[]): string {
+  const labels = points.map((point, index) => {
+    const position = labelPosition(point, index);
+    const label = DOT_LABELS[index] ?? String(index + 1);
+    return `<g data-dot-label="${label}" aria-label="Dot ${label}"><circle cx="${position.x}" cy="${position.y}" r="5.4" fill="white" stroke="#111827" stroke-width="0.8"/><text x="${position.x}" y="${position.y + 2.35}" text-anchor="middle" font-family="Arial, sans-serif" font-size="6.8" font-weight="700" fill="#111827" stroke="none">${label}</text></g>`;
+  }).join("");
+  return svg.replace("</svg>", `${labels}</svg>`);
+}
+
+function identityNote(language: DotSituationLanguageV1): string {
+  if (language === "hi") return "समझाने के लिए बिंदुओं को 1, 2, 3 नाम दिए गए हैं; प्रश्न में मूल बिंदु बिना नाम के ही रहते हैं।";
+  if (language === "pa") return "ਵਿਆਖਿਆ ਲਈ ਬਿੰਦੂਆਂ ਨੂੰ 1, 2, 3 ਨਾਂ ਦਿੱਤੇ ਗਏ ਹਨ; ਪ੍ਰਸ਼ਨ ਵਿੱਚ ਮੂਲ ਬਿੰਦੂ ਬਿਨਾਂ ਨਾਂ ਦੇ ਹੀ ਰਹਿੰਦੇ ਹਨ।";
+  return "The numbers 1, 2 and 3 are explanation labels only; the learner-facing question keeps the original dots unlabelled.";
+}
+
 export function generateDotSituationReviewQuestionV1_1(input: Readonly<{
   qlId?: "SPA-QL-054";
   seed: string;
@@ -89,6 +125,17 @@ export function generateDotSituationReviewQuestionV1_1(input: Readonly<{
         membershipTable: base.explanation.membershipTable,
       })
     : base.explanation;
+
+  const referenceAnnotatedSvg = annotateDots(base.stimulusSvg, base.solveFacts.referenceDotPoints);
+  const solutionAnnotatedSvg = annotateDots(base.solutionSvg, base.solveFacts.correctCandidatePoints);
+  const dotMap = explanation.membershipTable.map((row, index) => Object.freeze({
+    dot: row.dot,
+    signature: row.signature,
+    relation: row.statement,
+    referencePoint: base.solveFacts.referenceDotPoints[index],
+    solutionPoint: base.solveFacts.correctCandidatePoints[index],
+  }));
+  const explanationIdentityNote = identityNote(input.language);
   const contentFingerprint = fingerprint([
     base.geometryFingerprint,
     input.language,
@@ -97,18 +144,33 @@ export function generateDotSituationReviewQuestionV1_1(input: Readonly<{
     explanation.rule,
     explanation.application,
     explanation.check,
+    explanationIdentityNote,
+    JSON.stringify(dotMap),
+    referenceAnnotatedSvg,
+    solutionAnnotatedSvg,
   ].join("|"));
 
   return Object.freeze({
     ...base,
     version: "SPA-DOT-001-REVIEW-QUESTION-V1.1" as const,
     stem,
-    explanation,
+    explanation: Object.freeze({
+      ...explanation,
+      identityNote: explanationIdentityNote,
+      dotMap: Object.freeze(dotMap),
+      figures: Object.freeze({
+        referenceAnnotatedSvg,
+        solutionAnnotatedSvg,
+      }),
+    }),
     contentFingerprint,
     validation: Object.freeze({
       ...base.validation,
       editorialStemGrammarReviewed: true as const,
       examStyleStemOverlayApplied: true as const,
+      learnerFigureKeepsDotsUnlabelled: true as const,
+      explanationDotIdentityVisible: true as const,
+      referenceAndSolutionDotMappingIncluded: true as const,
     }),
   });
 }
