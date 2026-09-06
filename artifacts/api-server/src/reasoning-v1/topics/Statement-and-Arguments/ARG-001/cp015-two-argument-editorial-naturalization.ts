@@ -138,6 +138,23 @@ function interimSafeguardPatch(question: Question): EditorialPatch | undefined {
   return Object.freeze({ reasons });
 }
 
+function proportionalResponsePatch(question: Question): EditorialPatch | undefined {
+  const statement = text(question.statement);
+  const args = Array.isArray(question.arguments) ? question.arguments as readonly string[] : [];
+  const match = statement.match(/^Should (.+) automatically (.+) whenever (?:it|they) receive(?:s)? (?:a|an) (.+?) about (.+)\?$/i);
+  if (!match?.[1] || !match[2] || !match[3] || !match[4] || args.length !== 2) return undefined;
+  const actor = match[1];
+  const complaint = match[3];
+  const context = match[4];
+  const normalizedArguments = args.map((argument) => text(argument)
+    .replace(/\bA single (?:a|an) /g, "A single ")
+    .replace(/\bevery (?:a|an) /g, "every ")) as [string, string];
+  const reasons = normalizedArguments.map((argument) => /proves that every candidate and centre/i.test(argument)
+    ? `Receiving ${complaint} about ${context} does not establish that every candidate or centre was affected; evidence and scope still need verification before the proposed automatic action.`
+    : `The choice is not limited to ignoring ${complaint} or abandoning ${context}; ${actor} can verify the evidence and use a proportionate remedy.`) as [string, string];
+  return Object.freeze({ arguments: Object.freeze(normalizedArguments), reasons });
+}
+
 function patchFor(question: Question): EditorialPatch | undefined {
   switch (text(question.archetype)) {
     case "HELPLINE_RESTATEMENT_OVERCLAIM": return helplinePatch(question);
@@ -147,6 +164,7 @@ function patchFor(question: Question): EditorialPatch | undefined {
     case "TARGETED_REMEDIAL_SUPPORT": return targetedSupportPatch(question);
     case "MOBILITY_ACCOMMODATION": return mobilityPatch(question);
     case "INTERIM_SAFEGUARD_DUE_PROCESS": return interimSafeguardPatch(question);
+    case "PROPORTIONAL_RESPONSE_FALSE_DILEMMA": return proportionalResponsePatch(question);
     default: return undefined;
   }
 }
