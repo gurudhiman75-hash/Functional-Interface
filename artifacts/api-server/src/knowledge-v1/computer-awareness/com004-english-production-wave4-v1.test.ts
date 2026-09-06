@@ -1,0 +1,79 @@
+import {
+  COM004_ENGLISH_PRODUCTION_WAVE4_AUTHORITY_V1,
+  COM004_ENGLISH_PRODUCTION_WAVE4_V1,
+} from "./com004-english-production-wave4-v1";
+import {
+  COM004_PERMANENT_QL_ALLOCATIONS_V1,
+  auditCom004PermanentQlAllocationV1,
+} from "./com004-permanent-ql-allocation-v1";
+
+const issues: string[] = [];
+const expectedQls = ["COM-004-QL-013", "COM-004-QL-014", "COM-004-QL-015", "COM-004-QL-016"] as const;
+const allowedSurfaceFamilies = new Set(["DIRECT_RECALL", "CONCEPT_DISCRIMINATION", "SCENARIO_APPLICATION", "STATEMENT_EVALUATION", "MATCHING_REASONING"]);
+
+const allocationAudit = auditCom004PermanentQlAllocationV1();
+if (!allocationAudit.valid) issues.push(...allocationAudit.issues.map((issue) => `ALLOCATION:${issue}`));
+if (COM004_ENGLISH_PRODUCTION_WAVE4_V1.length !== 48) issues.push(`COUNT:${COM004_ENGLISH_PRODUCTION_WAVE4_V1.length}`);
+if (COM004_ENGLISH_PRODUCTION_WAVE4_AUTHORITY_V1.questionCount !== 48) issues.push("AUTHORITY_COUNT_DRIFT");
+if (COM004_ENGLISH_PRODUCTION_WAVE4_AUTHORITY_V1.questionsPerQl !== 12) issues.push("AUTHORITY_PER_QL_DRIFT");
+
+const questionIds = new Set<string>();
+const allStems = new Set<string>();
+for (const question of COM004_ENGLISH_PRODUCTION_WAVE4_V1) {
+  if (questionIds.has(question.questionId)) issues.push(`DUPLICATE_ID:${question.questionId}`);
+  questionIds.add(question.questionId);
+  const normalizedStem = question.stem.trim().toLowerCase().replace(/\s+/g, " ");
+  if (allStems.has(normalizedStem)) issues.push(`DUPLICATE_STEM:${question.questionId}`);
+  allStems.add(normalizedStem);
+  if (question.stem.trim().length < 35) issues.push(`THIN_STEM:${question.questionId}`);
+  if (question.explanation.trim().length < 70) issues.push(`THIN_EXPLANATION:${question.questionId}`);
+  if (question.options.length !== 4) issues.push(`OPTION_COUNT:${question.questionId}`);
+  if (new Set(question.options.map((option) => option.trim().toLowerCase())).size !== 4) issues.push(`DUPLICATE_OPTION:${question.questionId}`);
+  if (question.correctIndex < 0 || question.correctIndex > 3) issues.push(`ANSWER_INDEX_RANGE:${question.questionId}`);
+  if (question.options[question.correctIndex] !== question.canonicalAnswer) issues.push(`ANSWER_POSITION:${question.questionId}`);
+  if (!allowedSurfaceFamilies.has(question.surfaceFamily)) issues.push(`SURFACE_FAMILY:${question.questionId}:${question.surfaceFamily}`);
+  if (!question.reviewOnly || question.runtimeRegistered) issues.push(`LIFECYCLE_ESCAPE:${question.questionId}`);
+
+  const allocation = COM004_PERMANENT_QL_ALLOCATIONS_V1.find((item) => item.permanentQlId === question.qlId);
+  if (!allocation) issues.push(`UNKNOWN_QL:${question.questionId}:${question.qlId}`);
+  else {
+    if (question.authorityProposalId !== allocation.authorityProposalId) issues.push(`AUTHORITY_DRIFT:${question.questionId}`);
+    if (JSON.stringify(question.sourceCandidateIds) !== JSON.stringify(allocation.sourceCandidateIds)) issues.push(`SOURCE_CANDIDATE_DRIFT:${question.questionId}`);
+  }
+
+  if (/\b(?:therefore|hence|accordingly),?\s+.*\b(?:correct|answer)\b/i.test(question.explanation)) issues.push(`GENERIC_ANSWER_TAIL:${question.questionId}`);
+  if (/\b(?:option\s+[a-d]|the correct (?:option|answer) is|answer is)\b/i.test(question.explanation)) issues.push(`OPTION_KEY_LEAK:${question.questionId}`);
+  if (/\b(?:as mentioned above|as given in the question|obviously|clearly)\b/i.test(question.explanation)) issues.push(`GENERIC_EXPLANATION_FILLER:${question.questionId}`);
+  if (/\{\{|\}\}|\[placeholder\]|<placeholder>|todo\b|tbd\b/i.test(question.stem + " " + question.explanation)) issues.push(`TEMPLATE_JUNK:${question.questionId}`);
+}
+
+for (const qlId of expectedQls) {
+  const questions = COM004_ENGLISH_PRODUCTION_WAVE4_V1.filter((question) => question.qlId === qlId);
+  if (questions.length !== 12) issues.push(`QL_COUNT:${qlId}:${questions.length}`);
+  if (new Set(questions.map((question) => question.stem.trim().toLowerCase())).size !== 12) issues.push(`QL_STEM_DIVERSITY:${qlId}`);
+  if (new Set(questions.map((question) => question.explanation.trim().toLowerCase())).size < 10) issues.push(`QL_EXPLANATION_DIVERSITY:${qlId}`);
+  const openings = new Set(questions.map((question) => question.stem.toLowerCase().replace(/[‘’'“”"():,.?`]/g, "").split(/\s+/).slice(0, 3).join(" ")));
+  if (openings.size < 7) issues.push(`MECHANICAL_STEM_OPENINGS:${qlId}:${openings.size}`);
+  const surfaceFamilies = new Set(questions.map((question) => question.surfaceFamily));
+  if (surfaceFamilies.size < 3) issues.push(`THIN_SURFACE_MIX:${qlId}:${surfaceFamilies.size}`);
+}
+
+const attachmentQl = COM004_ENGLISH_PRODUCTION_WAVE4_V1.filter((question) => question.qlId === "COM-004-QL-014");
+if (!attachmentQl.some((question) => /provider|service policies|mutable/i.test(question.explanation))) issues.push("ATTACHMENT_MUTABLE_LIMIT_BOUNDARY_MISSING");
+if (attachmentQl.some((question) => /\b(?:25|20|10|50)\s*(?:MB|megabytes?)\b/i.test(question.stem + " " + question.explanation))) issues.push("ATTACHMENT_PROVIDER_LIMIT_LEAK");
+
+const protocolQl = COM004_ENGLISH_PRODUCTION_WAVE4_V1.filter((question) => question.qlId === "COM-004-QL-015");
+if (!protocolQl.some((question) => /not.*always|invariably.*inaccurate|leave copies/i.test(question.explanation))) issues.push("POP3_RETENTION_MISCONCEPTION_LOCK_MISSING");
+if (protocolQl.some((question) => /\bport\s*\d+|\b25\b|\b110\b|\b143\b|\b465\b|\b587\b|\b993\b|\b995\b/i.test(question.stem + " " + question.explanation))) issues.push("MAIL_PROTOCOL_PORT_LEAK");
+
+const bankingQl = COM004_ENGLISH_PRODUCTION_WAVE4_V1.filter((question) => question.qlId === "COM-004-QL-016");
+if (!bankingQl.some((question) => /Banking Awareness|current affairs|mutable/i.test(question.explanation))) issues.push("BANKING_AWARENESS_BOUNDARY_MISSING");
+if (bankingQl.some((question) => /₹|rupees?|\b(?:limit|timing|cutoff)\s+(?:is|of)\s+\d/i.test(question.stem + " " + question.explanation))) issues.push("CURRENT_BANKING_RULE_LEAK");
+
+const governance = COM004_ENGLISH_PRODUCTION_WAVE4_AUTHORITY_V1.governance;
+for (const [key, value] of Object.entries(governance)) if (value !== false) issues.push(`PREMATURE_GOVERNANCE:${key}`);
+if (COM004_ENGLISH_PRODUCTION_WAVE4_AUTHORITY_V1.status !== "REVIEW_CANDIDATE_NOT_FROZEN") issues.push("PREMATURE_FREEZE");
+if (COM004_ENGLISH_PRODUCTION_WAVE4_AUTHORITY_V1.nextGate !== "COM004_ENGLISH_PRODUCTION_WAVE4_EDITORIAL_AUDIT") issues.push("NEXT_GATE_DRIFT");
+
+if (issues.length) throw new Error(`COM-004 English Production Wave 4 V1 audit failed:\n${issues.join("\n")}`);
+console.log(JSON.stringify({ checkpoint:"COM004_ENGLISH_PRODUCTION_WAVE4_V1_REVIEW_CANDIDATE", valid:true, qlCount:expectedQls.length, questionCount:COM004_ENGLISH_PRODUCTION_WAVE4_V1.length, questionsPerQl:12, uniqueStemCount:allStems.size, runtimeAuthorized:false, localizationAuthorized:false, questionBankWritesAuthorized:false, nextGate:COM004_ENGLISH_PRODUCTION_WAVE4_AUTHORITY_V1.nextGate }, null, 2));

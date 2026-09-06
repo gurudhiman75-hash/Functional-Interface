@@ -1,0 +1,45 @@
+name: COM-004 Permanent QL Allocation V1
+
+on:
+  push:
+    branches: [feature/com004-internet-web-email-discovery-v1]
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-source-saturation-closure-merge-split-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-permanent-ql-allocation-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-permanent-ql-allocation-v1.test.ts'
+      - '.github/workflows/com004-permanent-ql-allocation-v1.yml'
+  pull_request:
+    branches: [integration/computer-content-engine-mainline-v1]
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-source-saturation-closure-merge-split-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-permanent-ql-allocation-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-permanent-ql-allocation-v1.test.ts'
+      - '.github/workflows/com004-permanent-ql-allocation-v1.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: com004-permanent-ql-allocation-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle COM-004 permanent QL allocation audit
+        run: |
+          mkdir -p artifacts/api-server/dist/com004-permanent-ql-allocation-v1
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com004-permanent-ql-allocation-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com004-permanent-ql-allocation-v1/audit.test.mjs
+      - name: Run COM-004 permanent QL allocation audit
+        run: node artifacts/api-server/dist/com004-permanent-ql-allocation-v1/audit.test.mjs
