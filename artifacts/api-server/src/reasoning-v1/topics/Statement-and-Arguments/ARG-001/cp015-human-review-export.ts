@@ -120,6 +120,27 @@ for (const qlId of ARG_QL_IDS) {
   );
 }
 
+for (const { cell, question } of reviewItems) {
+  const argumentsList = Array.isArray(question.arguments) ? question.arguments as readonly string[] : [];
+  const surface = [String(question.statement ?? ""), ...argumentsList, String(question.explanation ?? "")].join(" ");
+  assert.doesNotMatch(surface, /\bthe\s+the\b/i, `${question.questionId}: duplicated article regression in CP015 review surface`);
+  assert.doesNotMatch(surface, /\bClear (?:model answer points|evaluation criteria) helps\b/i, `${question.questionId}: plural agreement regression in CP015 combo argument`);
+  assert.doesNotMatch(surface, /\b(?:evaluation criteria|model answer points) is necessary\b/i, `${question.questionId}: plural agreement regression in CP015 combo explanation`);
+  assert.doesNotMatch(surface, /A relevant post-process information/i, `${question.questionId}: ungrammatical post-process explanation regression`);
+  assert.doesNotMatch(
+    surface,
+    /Appearance is a trivial consideration here|Popularity or imitation does not establish material value|It gives a direct transparency benefit|It states a plausible security mechanism|The absolute guarantee is unsupported|It gives a practical queue-management benefit|Being modern does not establish fairness or necessity/i,
+    `${question.questionId}: generic pre-CP015 explanation boilerplate leaked into fresh human review corpus`,
+  );
+  if (cell.examProfile === "BANKING_COMBO_3X5" || cell.examProfile === "BANKING_COMBO_4X5") {
+    assert.equal(
+      question.comboEditorialAuthority,
+      "ARG_CP015_COMBO_EDITORIAL_NATURALIZATION_V1",
+      `${question.questionId}: Banking combo human-review item must use CP015 combo editorial authority`,
+    );
+  }
+}
+
 const outDir = resolve(process.cwd(), "dist", "arg-001-cp015-human-review");
 mkdirSync(outDir, { recursive: true });
 
@@ -169,5 +190,6 @@ console.log(JSON.stringify({
   questionsPerQl: 12,
   exactStatementDuplicatesPerQl: 0,
   exactExplanationDuplicatesPerQl: 0,
+  comboEditorialRegressionGuards: true,
   outputDirectory: outDir,
 }, null, 2));
