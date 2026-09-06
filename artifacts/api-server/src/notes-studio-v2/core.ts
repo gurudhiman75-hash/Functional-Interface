@@ -150,6 +150,7 @@ export function buildExtractionRequest(input: {
     responseSchema: EXTRACTED_FACT_SCHEMA,
     responseSchemaName: 'notes_studio_v2_extracted_facts',
     temperature: 0,
+    timeoutMs: 180_000,
   };
 }
 
