@@ -27,6 +27,10 @@ import {
   ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY,
   polishArgCp015LocalizedComboSurface,
 } from "./cp015-localized-combo-surface-polish.ts";
+import {
+  ARG_CP015_LOCALIZED_COMBO_RESIDUAL_POLISH_AUTHORITY,
+  polishArgCp015ResidualLocalizedComboSurface,
+} from "./cp015-localized-combo-residual-polish.ts";
 import { naturalizeArgCp015TwoArgumentEditorial } from "./cp015-two-argument-editorial-naturalization.ts";
 
 export const ARG_CP015_CHECKPOINT_ID = "ARG-CP-015" as const;
@@ -248,7 +252,10 @@ function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed:
   const residualDiverse = COMBO_PROFILES.has(profile)
     ? diversifyArgCp015ResidualComboArguments(localizedNaturalized, profile, text(input.difficulty), seed)
     : localizedNaturalized;
-  const question = polishArgCp015LocalizedComboSurface(residualDiverse);
+  const polished = polishArgCp015LocalizedComboSurface(residualDiverse);
+  const question = COMBO_PROFILES.has(profile)
+    ? polishArgCp015ResidualLocalizedComboSurface(polished)
+    : polished;
   return { question, context: source.generationContext as Question };
 }
 
@@ -315,6 +322,7 @@ export function generateArgCp015QuestionStudioBatch(input: ArgCp015QuestionStudi
       comboResidualArgumentDiversityAuthority: COMBO_PROFILES.has(profile) ? ARG_CP015_COMBO_RESIDUAL_ARGUMENT_AUTHORITY : undefined,
       localizedComboEditorialAuthority: COMBO_PROFILES.has(profile) ? ARG_CP015_LOCALIZED_COMBO_EDITORIAL_AUTHORITY : undefined,
       localizedComboPolishAuthority: COMBO_PROFILES.has(profile) ? ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY : undefined,
+      localizedComboResidualPolishAuthority: COMBO_PROFILES.has(profile) ? ARG_CP015_LOCALIZED_COMBO_RESIDUAL_POLISH_AUTHORITY : undefined,
       twoArgumentProfileSource: TWO_ARGUMENT_PROFILES.has(profile) ? "APPROVED_CORE_SURFACE" as const : undefined,
       twoArgumentStatementPartition: profile === "SSC_RECENT_2X4"
         ? "STATEMENT_HASH_BUCKET_0" as const
@@ -357,6 +365,7 @@ export const ARG_CP015_QUESTION_STUDIO_PACKAGE = Object.freeze({
   comboResidualArgumentDiversityAuthority: ARG_CP015_COMBO_RESIDUAL_ARGUMENT_AUTHORITY,
   localizedComboEditorialAuthority: ARG_CP015_LOCALIZED_COMBO_EDITORIAL_AUTHORITY,
   localizedComboPolishAuthority: ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY,
+  localizedComboResidualPolishAuthority: ARG_CP015_LOCALIZED_COMBO_RESIDUAL_POLISH_AUTHORITY,
   twoArgumentProfilesUseApprovedCoreSurface: true as const,
   twoArgumentStatementPartitioning: "SSC_BUCKET_0_BANKING_BUCKET_1" as const,
   reviewOnly: false as const,
