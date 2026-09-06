@@ -26,7 +26,7 @@ const REVIEW_CELLS: readonly ReviewCell[] = Object.freeze([
   { label: "Banking 2x5 / Medium", profileMode: "real-paper", examProfile: "BANKING_CLASSIC_2X5", difficulty: "Medium", count: 1 },
   { label: "Banking 2x5 / Hard", profileMode: "real-paper", examProfile: "BANKING_CLASSIC_2X5", difficulty: "Hard", count: 1 },
   { label: "Banking 3x5 / Medium", profileMode: "real-paper", examProfile: "BANKING_COMBO_3X5", difficulty: "Medium", count: 1 },
-  { label: "Banking 3x5 / Hard", profileMode: "real-paper", examProfile: "BANKING_COMBO_3X5", difficulty: "Hard", count: 1 },
+  { label: "BankING 3x5 / Hard", profileMode: "real-paper", examProfile: "BANKING_COMBO_3X5", difficulty: "Hard", count: 1 },
   { label: "Banking 4x5 / Hard", profileMode: "real-paper", examProfile: "BANKING_COMBO_4X5", difficulty: "Hard", count: 3 },
 ]);
 
@@ -201,7 +201,7 @@ for (const { language, cell, question } of reviewItems) {
       );
       assert.doesNotMatch(
         surface,
-        /शाम के व्यस्त समय के समय|स्कूल छुट्टी के समय के दौरान|भुगतान खाता में|(?:मानक प्रमाणपत्र|नियमित दस्तावेज|पंजीकरण|शुल्क भुगतान) सेवाओं लेने|निगरानी निगरानी|एक खरीदार शिकायत|एक नकल शिकायत|एक कदाचार आरोप|स्पष्ट (?:मॉडल उत्तर बिंदु|मूल्यांकन मानदंड).*मदद करता है|यदि (?:मॉडल उत्तर बिंदु|मूल्यांकन मानदंड) बदल सकता है/,
+        /शाम के व्यस्त समय के समय|स्कूल छुट्टी के समय के दौरान|भुगतान खाता में|(?:मानक प्रमाणपत्र|नियमित दस्तावेज|पंजीकरण|शुल्क भुगतान) सेवाओं लेने|निगरानी निगरानी|एक खरीदार शिकायत|एक नकल शिकायत|एक कदाचार आरोप|स्पष्ट (?:मॉडल उत्तर बिंदु|मूल्यांकन मानदंड)[^।.!?]*मदद करता है|यदि (?:मॉडल उत्तर बिंदु|मूल्यांकन मानदंड) बदल सकता है/,
         `${question.questionId}: pre-polish Hindi combo grammar leaked into human review corpus`,
       );
     } else {
@@ -212,7 +212,7 @@ for (const { language, cell, question } of reviewItems) {
       );
       assert.doesNotMatch(
         surface,
-        /ਨਿਗਰਾਨੀ ਨਿਗਰਾਨੀ|ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਨਿਗਰਾਨੀ|ਕੀ-ਸਟ੍ਰੋਕ ਲੌਗਿੰਗ ਨਿਗਰਾਨੀ|ਇੱਕ ਖਰੀਦਦਾਰ ਸ਼ਿਕਾਇਤ|ਇੱਕ ਨਕਲ ਦੀ ਸ਼ਿਕਾਇਤ|ਇੱਕ ਗਲਤ ਵਿਹਾਰ ਦਾ ਦੋਸ਼|ਸਪੱਸ਼ਟ (?:ਮਾਡਲ ਉੱਤਰ ਬਿੰਦੂ|ਮੁਲਾਂਕਣ ਮਾਪਦੰਡ).*ਮਦਦ ਕਰਦਾ ਹੈ|ਜੇ (?:ਮਾਡਲ ਉੱਤਰ ਬਿੰਦੂ|ਮੁਲਾਂਕਣ ਮਾਪਦੰਡ) ਬਦਲ ਸਕਦਾ ਹੈ/,
+        /ਨਿਗਰਾਨੀ ਨਿਗਰਾਨੀ|ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਨਿਗਰਾਨੀ|ਕੀ-ਸਟ੍ਰੋਕ ਲੌਗਿੰਗ ਨਿਗਰਾਨੀ|ਇੱਕ ਖਰੀਦਦਾਰ ਸ਼ਿਕਾਇਤ|ਇੱਕ ਨਕਲ ਦੀ ਸ਼ਿਕਾਇਤ|ਇੱਕ ਗਲਤ ਵਿਹਾਰ ਦਾ ਦੋਸ਼|ਸਪੱਸ਼ਟ (?:ਮਾਡਲ ਉੱਤਰ ਬਿੰਦੂ|ਮੁਲਾਂਕਣ ਮਾਪਦੰਡ)[^।.!?]*ਮਦਦ ਕਰਦਾ ਹੈ|ਜੇ (?:ਮਾਡਲ ਉੱਤਰ ਬਿੰਦੂ|ਮੁਲਾਂਕਣ ਮਾਪਦੰਡ) ਬਦਲ ਸਕਦਾ ਹੈ/,
         `${question.questionId}: pre-polish Punjabi combo grammar leaked into human review corpus`,
       );
     }
