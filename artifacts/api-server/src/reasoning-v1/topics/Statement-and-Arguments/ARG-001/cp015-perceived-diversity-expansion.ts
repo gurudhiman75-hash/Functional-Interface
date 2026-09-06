@@ -12,6 +12,10 @@ import {
 } from "./cp014-manual-editorial-approval.ts";
 import { naturalizeArgCp015ComboStatement } from "./cp015-combo-statement-naturalization.ts";
 import {
+  ARG_CP015_COMBO_ARGUMENT_SURFACE_AUTHORITY,
+  contextualizeArgCp015ComboArguments,
+} from "./cp015-combo-argument-contextualization.ts";
+import {
   ARG_CP015_LOCALIZED_COMBO_EDITORIAL_AUTHORITY,
   naturalizeArgCp015LocalizedComboEditorial,
 } from "./cp015-localized-combo-editorial-naturalization.ts";
@@ -243,7 +247,10 @@ function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed:
   const localizedNaturalized = COMBO_PROFILES.has(profile)
     ? naturalizeArgCp015LocalizedComboEditorial(comboNaturalized, profile, text(input.difficulty), seed)
     : comboNaturalized;
-  const question = polishArgCp015LocalizedComboSurface(localizedNaturalized);
+  const contextualized = COMBO_PROFILES.has(profile)
+    ? contextualizeArgCp015ComboArguments(localizedNaturalized, profile, text(input.difficulty), seed)
+    : localizedNaturalized;
+  const question = polishArgCp015LocalizedComboSurface(contextualized);
   return { question, context: source.generationContext as Question };
 }
 
@@ -306,6 +313,7 @@ export function generateArgCp015QuestionStudioBatch(input: ArgCp015QuestionStudi
       examProfile: profile || undefined,
       noRepeatWithinBatch: true as const,
       noRepeatedComboStatementWithinBatch: COMBO_PROFILES.has(profile) ? true as const : undefined,
+      comboArgumentSurfaceAuthority: COMBO_PROFILES.has(profile) ? ARG_CP015_COMBO_ARGUMENT_SURFACE_AUTHORITY : undefined,
       localizedComboEditorialAuthority: COMBO_PROFILES.has(profile) ? ARG_CP015_LOCALIZED_COMBO_EDITORIAL_AUTHORITY : undefined,
       localizedComboPolishAuthority: COMBO_PROFILES.has(profile) ? ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY : undefined,
       twoArgumentProfileSource: TWO_ARGUMENT_PROFILES.has(profile) ? "APPROVED_CORE_SURFACE" as const : undefined,
@@ -346,6 +354,7 @@ export const ARG_CP015_QUESTION_STUDIO_PACKAGE = Object.freeze({
   reviewStatus: ARG_CP015_REVIEW_STATUS,
   noRepeatWithinBatch: true as const,
   noRepeatedComboStatementWithinBatch: true as const,
+  comboArgumentSurfaceAuthority: ARG_CP015_COMBO_ARGUMENT_SURFACE_AUTHORITY,
   localizedComboEditorialAuthority: ARG_CP015_LOCALIZED_COMBO_EDITORIAL_AUTHORITY,
   localizedComboPolishAuthority: ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY,
   twoArgumentProfilesUseApprovedCoreSurface: true as const,
