@@ -1,8 +1,8 @@
 import { mkdir, writeFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
+import { dirname, resolve } from "node:url";
 import { fileURLToPath } from "node:url";
 import { FMT_V2_SOURCE_VARIANTS, type FigureMatrixQlIdV2 } from "../foundation/spatial/figure-matrix-review-runtime-v2";
-import { generateFigureMatrixReviewQuestionV2_2 } from "../foundation/spatial/figure-matrix-review-runtime-v2-2";
+import { generateFigureMatrixReviewQuestionV2_3 } from "../foundation/spatial/figure-matrix-review-runtime-v2-3";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const outDir = resolve(here, "../../../dist/reasoning-v1/spatial");
@@ -16,7 +16,7 @@ const reviewCases = qls.flatMap((qlId) => FMT_V2_SOURCE_VARIANTS[qlId].map((sour
 })));
 
 const questions = reviewCases.map((entry) => {
-  const question = generateFigureMatrixReviewQuestionV2_2({ qlId: entry.qlId, seed: entry.seed, language: "en" });
+  const question = generateFigureMatrixReviewQuestionV2_3({ qlId: entry.qlId, seed: entry.seed, language: "en" });
   if (question.solveFacts.sourceVariant !== entry.expectedSourceVariant) {
     throw new Error(`${entry.qlId}/${entry.seed} expected ${entry.expectedSourceVariant}, got ${question.solveFacts.sourceVariant}.`);
   }
@@ -46,9 +46,9 @@ const cards = questions.map((q, i) => {
 }).join("\n");
 
 const sourceSummary = qls.map((qlId) => `<li><strong>${qlId}</strong>: ${FMT_V2_SOURCE_VARIANTS[qlId].map((value) => value.replaceAll("_", " ")).join(" · ")}</li>`).join("");
-const html = `<!doctype html><html><head><meta charset="utf-8"><title>SPA FMT-001 Visual Review V2.2</title><style>
+const html = `<!doctype html><html><head><meta charset="utf-8"><title>SPA FMT-001 Visual Review V2.3</title><style>
 *{box-sizing:border-box}body{font-family:Arial,sans-serif;margin:0;background:#f3f4f6;color:#111827}.wrap{max-width:1180px;margin:auto;padding:24px}.intro,.question{background:white;border:1px solid #d1d5db;border-radius:12px;padding:22px;margin:0 0 24px}.intro li{margin:7px 0;line-height:1.45}.meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.meta span{background:#f3f4f6;border:1px solid #e5e7eb;border-radius:999px;padding:4px 9px;font-size:12px}.stem{font-size:18px;line-height:1.5}.matrix-wrap{display:flex;justify-content:center;margin:18px 0}.caption,.label{font-weight:700;text-align:center;margin-bottom:8px}.options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:18px 0}.option{text-align:center;border:1px solid #d1d5db;border-radius:8px;padding:12px;min-height:132px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start}.option svg{max-width:100%;height:auto}.answer{font-size:18px;margin:14px 0}.explanation{border-top:1px solid #e5e7eb;margin-top:16px;padding-top:12px;line-height:1.55}.solution{text-align:center;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:12px;margin:14px 0}.solution svg,.matrix-wrap svg{max-width:100%;height:auto}.checks{background:#f9fafb;border-left:3px solid #9ca3af;padding:10px 14px;margin-top:12px}.checks ul{margin-bottom:0}pre{white-space:pre-wrap;background:#f9fafb;padding:12px;border-radius:8px}li{margin:5px 0}@media(max-width:800px){.options{grid-template-columns:repeat(2,1fr)}}
-</style></head><body><div class="wrap"><section class="intro"><h1>SPA FMT-001 Figure Matrix — Source-Saturation Visual Review V2.2</h1><p><strong>${questions.length} review questions</strong>, one explicit specimen for every declared source-real runtime variant across the six permanent FMT QLs. V2.2 keeps the requested semantic family fixed while deterministically regenerating geometry only when a candidate set collapses into duplicate answer options.</p><ul>${sourceSummary}</ul><p>Inspect matrix/option scale, rule recognisability, distractor closeness, source realism, completed-matrix illustration and explanation depth. Review-only: Question Studio, persistence, mock-test, public-release and student-delivery gates remain closed.</p></section>${cards}</div></body></html>`;
+</style></head><body><div class="wrap"><section class="intro"><h1>SPA FMT-001 Figure Matrix — Source-Saturation Visual Review V2.3</h1><p><strong>${questions.length} review questions</strong>, one explicit specimen for every declared source-real runtime variant across the six permanent FMT QLs. V2.3 retains V2.2 deterministic same-family option recovery and deepens the learner explanation: composition questions name the exact line operation and option differences, count questions show the numerical proof, and cyclic questions spell out the sequence.</p><ul>${sourceSummary}</ul><p>Inspect matrix/option scale, rule recognisability, distractor closeness, source realism, completed-matrix illustration and explanation depth. Review-only: Question Studio, persistence, mock-test, public-release and student-delivery gates remain closed.</p></section>${cards}</div></body></html>`;
 
 const json = questions.map((q) => ({
   version: q.version,
@@ -66,10 +66,11 @@ const json = questions.map((q) => ({
   parameter: q.solveFacts.parameter,
   geometryFingerprint: q.geometryFingerprint,
   contentFingerprint: q.contentFingerprint,
+  explanationDepthHardened: q.validation.sourceVariantWorkedEvidenceExplicit,
   distractorFailures: q.solveFacts.distractorFailures,
   releaseGates: q.lifecycle,
 }));
 
 await writeFile(resolve(outDir, "spa-fmt-001-visual-review-v1.html"), html, "utf8");
 await writeFile(resolve(outDir, "spa-fmt-001-visual-review-v1.json"), JSON.stringify(json, null, 2), "utf8");
-console.log(`Generated FMT-001 V2.2 source-saturation review pack with ${questions.length} questions across six permanent QLs.`);
+console.log(`Generated FMT-001 V2.3 source-saturation review pack with ${questions.length} questions across six permanent QLs.`);
