@@ -18,6 +18,10 @@ on:
       - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-corpus-saturation-audit.test.ts"
       - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-distractor-readiness.ts"
       - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-distractor-readiness.test.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-editorial-fact-review.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-editorial-fact-review.test.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-permanent-ql-allocation.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-permanent-ql-allocation.test.ts"
       - ".github/workflows/com004-internet-web-email-discovery.yml"
   workflow_dispatch:
 
@@ -57,6 +61,8 @@ jobs:
             "src/knowledge-v1/computer-awareness/com004-candidate-fact-corpus.test.ts"
             "src/knowledge-v1/computer-awareness/com004-corpus-saturation-audit.test.ts"
             "src/knowledge-v1/computer-awareness/com004-distractor-readiness.test.ts"
+            "src/knowledge-v1/computer-awareness/com004-editorial-fact-review.test.ts"
+            "src/knowledge-v1/computer-awareness/com004-permanent-ql-allocation.test.ts"
           )
           for test_file in "${tests[@]}"; do
             output_name="$(basename "${test_file}" .ts).mjs"
@@ -83,3 +89,9 @@ jobs:
 
       - name: Validate COM-004 distractor capacity
         run: node artifacts/api-server/dist/knowledge-v1/computer-awareness/com004-discovery/com004-distractor-readiness.test.mjs
+
+      - name: Validate COM-004 editorial fact review
+        run: node artifacts/api-server/dist/knowledge-v1/computer-awareness/com004-discovery/com004-editorial-fact-review.test.mjs
+
+      - name: Validate COM-004 permanent QL allocation
+        run: node artifacts/api-server/dist/knowledge-v1/computer-awareness/com004-discovery/com004-permanent-ql-allocation.test.mjs
