@@ -165,6 +165,7 @@ for (const { language, cell, question } of reviewItems) {
   if (language === "en") {
     assert.doesNotMatch(surface, /\bthe\s+the\b/i, `${question.questionId}: duplicated article regression in CP015 review surface`);
     assert.doesNotMatch(surface, /\b(?:A single|every)\s+(?:a|an)\b/i, `${question.questionId}: stacked complaint article regression in CP015 review surface`);
+    assert.doesNotMatch(surface, /\b(?:Receiving|ignoring)\s+(?:impersonation|cheating) complaint\b/i, `${question.questionId}: missing complaint article regression in CP015 explanation`);
     assert.doesNotMatch(surface, /\bClear (?:model answer points|evaluation criteria) helps\b/i, `${question.questionId}: plural agreement regression in CP015 combo argument`);
     assert.doesNotMatch(surface, /\b(?:model answer points|evaluation criteria) is clearly shown\b/i, `${question.questionId}: plural agreement regression in CP015 combo statement`);
     assert.doesNotMatch(surface, /\b(?:evaluation criteria|model answer points) is necessary\b/i, `${question.questionId}: plural agreement regression in CP015 combo explanation`);
