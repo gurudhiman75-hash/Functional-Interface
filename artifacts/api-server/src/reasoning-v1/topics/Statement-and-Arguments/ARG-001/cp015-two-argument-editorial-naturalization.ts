@@ -141,7 +141,7 @@ function interimSafeguardPatch(question: Question): EditorialPatch | undefined {
 function proportionalResponsePatch(question: Question): EditorialPatch | undefined {
   const statement = text(question.statement);
   const args = Array.isArray(question.arguments) ? question.arguments as readonly string[] : [];
-  const match = statement.match(/^Should (.+) automatically (.+) whenever (?:it|they) receive(?:s)? (?:a|an) (.+?) about (.+)\?$/i);
+  const match = statement.match(/^Should (.+) automatically (.+) whenever (?:it|they) receive(?:s)? ((?:a|an) .+?) about (.+)\?$/i);
   if (!match?.[1] || !match[2] || !match[3] || !match[4] || args.length !== 2) return undefined;
   const actor = match[1];
   const complaint = match[3];
