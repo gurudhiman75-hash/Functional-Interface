@@ -90,7 +90,7 @@ function hardThreeVariants(qlId: string, { a, b }: Captured): readonly string[] 
     case "ARG-QL-001": return Object.freeze([
       `Once the relevant process is finished, is ${a} justified in clearly publishing ${b}?`,
       `Should ${a} provide a clear public display of ${b} after completion of the process?`,
-      `After completing the process, should ${a} ensure that ${b} is clearly shown?`,
+      `After completing the process, should ${a} ensure that ${b} ${isPluralSurface(b) ? "are" : "is"} clearly shown?`,
       `Is there a case for ${a} to make ${b} clearly visible once the process has ended?`,
     ]);
     case "ARG-QL-002": return Object.freeze([
