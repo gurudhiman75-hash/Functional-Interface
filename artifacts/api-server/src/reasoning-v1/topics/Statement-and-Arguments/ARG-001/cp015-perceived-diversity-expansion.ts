@@ -11,6 +11,7 @@ import {
   type ArgCp014QuestionStudioInput,
 } from "./cp014-manual-editorial-approval.ts";
 import { naturalizeArgCp015ComboStatement } from "./cp015-combo-statement-naturalization.ts";
+import { naturalizeArgCp015TwoArgumentEditorial } from "./cp015-two-argument-editorial-naturalization.ts";
 
 export const ARG_CP015_CHECKPOINT_ID = "ARG-CP-015" as const;
 export const ARG_CP015_AUTHORITY = "ARG_CP015_PERCEIVED_DIVERSITY_EXPANSION_V1" as const;
@@ -221,12 +222,13 @@ function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed:
   if (TWO_ARGUMENT_PROFILES.has(profile)) {
     const request = clearExplicitProfile({ ...input, count: 1, seed });
     const source = generateArgCp014QuestionStudioBatch(request);
-    const question = reshapeTwoArgumentProfile(source.questions[0] as Question, profile);
+    const reshaped = reshapeTwoArgumentProfile(source.questions[0] as Question, profile);
+    const question = naturalizeArgCp015TwoArgumentEditorial(reshaped);
     return { question, context: source.generationContext as Question };
   }
   const request = sourceInput({ ...input, count: 1, seed });
   const source = generateArgCp014QuestionStudioBatch(request);
-  const promoted = promoteUnchanged(source.questions[0] as Question);
+  const promoted = naturalizeArgCp015TwoArgumentEditorial(promoteUnchanged(source.questions[0] as Question));
   const question = COMBO_PROFILES.has(profile)
     ? naturalizeArgCp015ComboStatement(promoted, profile, text(input.difficulty), seed)
     : promoted;
