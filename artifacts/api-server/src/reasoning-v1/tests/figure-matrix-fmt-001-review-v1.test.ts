@@ -108,12 +108,12 @@ for (const qlId of qls) {
     if (qlId === "SPA-QL-056") {
       assert.ok(english.explanation.worked.includes("Row") || english.explanation.worked.includes("row"));
       assert.ok(english.explanation.application.includes(`option ${english.answer}`));
-      assert.ok(english.explanation.distractorChecks.every((value) => value.includes("line")), `${qlId}/${seed} distractors must state concrete line differences`);
+      assert.ok(english.explanation.distractorChecks.every((value) => !value.includes("wrong line set") && (value.includes("omits") || value.includes("extra") || value.includes("does not match"))), `${qlId}/${seed} distractors must state concrete missing/extra line differences`);
       explicitCompositionChecks += 1;
     }
     if (qlId === "SPA-QL-057") {
       assert.match(english.explanation.worked, /\d/);
-      assert.ok(english.explanation.application.includes(`${english.solveFacts.semanticAnswerKey.includes('"dotCount"') ? "dots" : ""}`) || english.explanation.application.includes("dots"));
+      assert.ok(english.explanation.application.includes("dots"));
       assert.ok(english.explanation.distractorChecks.every((value) => value.includes("dots")), `${qlId}/${seed} count distractors must state concrete counts`);
       explicitCountChecks += 1;
     }
