@@ -16,7 +16,6 @@ on:
       - "artifacts/admin-app/src/pages/content/QuestionStudioCom003ReviewPanel.tsx"
       - "artifacts/admin-app/src/pages/content/QuestionStudioComputerAwarenessReviewPanel.tsx"
       - "artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"
-      - ".github/workflows/computer-content-engine-integration-v2.yml"
   workflow_dispatch:
 
 concurrency:
