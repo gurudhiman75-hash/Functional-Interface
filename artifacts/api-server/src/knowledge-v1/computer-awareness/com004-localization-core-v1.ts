@@ -27,10 +27,17 @@ export type Com004LocalizedQuestionV1 = {
   productionReleased: false;
 };
 
+type LocalizedCopy = {
+  stem: string;
+  canonicalAnswer: string;
+  distractors: [string, string, string];
+  explanation: string;
+};
+
 export type Com004BilingualCopyV1 = {
   sourceQuestionId: string;
-  hi: { stem: string; options: [string, string, string, string]; explanation: string };
-  pa: { stem: string; options: [string, string, string, string]; explanation: string };
+  hi: LocalizedCopy;
+  pa: LocalizedCopy;
 };
 
 const sourceById = new Map(COM004_ENGLISH_PRODUCTION_WAVE1_V1.map((question) => [question.questionId, question]));
@@ -49,10 +56,16 @@ export function localizeCom004Wave1QuestionV1(
   const source = sourceById.get(copy.sourceQuestionId);
   if (!source) throw new Error(`Unknown frozen COM-004 Wave 1 source question ${copy.sourceQuestionId}`);
   const localized = copy[language];
-  if (localized.options.length !== 4) throw new Error(`${copy.sourceQuestionId}/${language}: expected four localized options`);
-  const normalized = localized.options.map((option) => option.trim().toLocaleLowerCase());
-  if (new Set(normalized).size !== 4) throw new Error(`${copy.sourceQuestionId}/${language}: localized options must be distinct`);
-  if (!localized.stem.trim() || !localized.explanation.trim()) throw new Error(`${copy.sourceQuestionId}/${language}: localized stem/explanation cannot be empty`);
+  const choices = [localized.canonicalAnswer.trim(), ...localized.distractors.map((value) => value.trim())];
+  if (new Set(choices.map((option) => option.toLocaleLowerCase())).size !== 4) {
+    throw new Error(`${copy.sourceQuestionId}/${language}: localized options must be distinct`);
+  }
+  if (!localized.stem.trim() || !localized.explanation.trim()) {
+    throw new Error(`${copy.sourceQuestionId}/${language}: localized stem/explanation cannot be empty`);
+  }
+
+  const options = localized.distractors.map((value) => value.trim());
+  options.splice(source.correctIndex, 0, localized.canonicalAnswer.trim());
 
   return Object.freeze({
     localizationId: `COM004-LOC-W1-${language.toUpperCase()}-${copy.sourceQuestionId}`,
@@ -64,9 +77,9 @@ export function localizeCom004Wave1QuestionV1(
     language,
     locale: language === "hi" ? "hi-IN" : "pa-IN",
     stem: localized.stem.trim(),
-    options: localized.options.map((option) => option.trim()),
+    options,
     correctIndex: source.correctIndex,
-    canonicalAnswer: localized.options[source.correctIndex].trim(),
+    canonicalAnswer: localized.canonicalAnswer.trim(),
     explanation: localized.explanation.trim(),
     sourceEnglishCanonicalAnswer: source.canonicalAnswer,
     sourceEnglishFrozen: true,
