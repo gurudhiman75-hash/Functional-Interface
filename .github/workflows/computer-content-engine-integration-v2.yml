@@ -64,6 +64,7 @@ jobs:
             "src/knowledge-v1/computer-awareness/com003-question-studio-review-run-ui-contract-v1.test.ts"
             "src/question-studio/engines/com003-bank-only-activation-authority-v1.test.ts"
             "src/question-studio/engines/com003-bank-only-registry-contract-v1.test.ts"
+            "src/question-studio/engines/com003-question-bank-acceptance-route-v1.test.ts"
             "src/question-studio/engines/com003-regeneration-lock-contract-v1.test.ts"
             "src/question-studio/engines/com003-source-controlled-review-contract-v1.test.ts"
             "src/question-studio/engines/knowledge-v1-com003-adapter-v2.test.ts"
