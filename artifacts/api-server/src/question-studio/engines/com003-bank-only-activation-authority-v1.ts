@@ -8,7 +8,7 @@ import { COM003_REVIEW_ONLY_ACTIVATION_AUTHORITY_V1 } from "./com003-review-only
 if (COM003_CHAPTER_COMPLETION_AUTHORITY_V1.status !== "COMPLETE_STANDARD_REVIEW_ONLY") {
   throw new Error("COM-003 BANK_ONLY activation requires completed REVIEW_ONLY chapter implementation.");
 }
-if (!COM003_LOCALIZATION_V2_CHAPTER_FREEZE_AUTHORITY_V1.frozen) {
+if (!COM003_LOCALIZATION_V2_CHAPTER_FREEZE_AUTHORITY_V1.governance.localizationFrozen) {
   throw new Error("COM-003 BANK_ONLY activation requires the Localization V2 chapter freeze.");
 }
 if (COM003_REVIEW_ONLY_ACTIVATION_AUTHORITY_V1.authorization.lifecycleStage !== "REVIEW_ONLY") {
