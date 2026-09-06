@@ -40,6 +40,14 @@ function block(value: unknown): string {
   return JSON.stringify(value, null, 2);
 }
 
+function statementKey(question: Question): string {
+  return String(question.statement ?? "").trim().replace(/\s+/g, " ");
+}
+
+function explanationKey(question: Question): string {
+  return String(question.explanation ?? "").trim().replace(/\s+/g, " ");
+}
+
 function renderQuestion(question: Question, ordinal: number, label: string): string {
   const args = Array.isArray(question.arguments) ? question.arguments : [];
   const options = Array.isArray(question.options) ? question.options : [];
@@ -77,19 +85,44 @@ const reviewItems: Array<Readonly<{ language: ReviewLanguage; qlId: string; cell
 
 for (const language of REVIEW_LANGUAGES) {
   for (const qlId of ARG_QL_IDS) {
+    const seenStatements = new Set<string>();
+    const seenExplanations = new Set<string>();
+
     for (let cellIndex = 0; cellIndex < REVIEW_CELLS.length; cellIndex += 1) {
       const cell = REVIEW_CELLS[cellIndex]!;
-      const seed = `ARG-CP015-HUMAN-REVIEW:${language}:${qlId}:${cell.examProfile ?? "CORE"}:${cell.difficulty}:${cellIndex}`;
-      const batch = generateArgCp015QuestionStudioBatch({
-        profileMode: cell.profileMode,
-        examProfile: cell.examProfile,
-        qlId,
-        language,
-        difficulty: cell.difficulty,
-        seed,
-        count: cell.count,
-      });
-      for (const question of batch.questions as readonly Question[]) {
+      let selected: readonly Question[] | undefined;
+
+      for (let sampleAttempt = 0; sampleAttempt < 256; sampleAttempt += 1) {
+        const seed = `ARG-CP015-HUMAN-REVIEW:${language}:${qlId}:${cell.examProfile ?? "CORE"}:${cell.difficulty}:${cellIndex}:${sampleAttempt}`;
+        const batch = generateArgCp015QuestionStudioBatch({
+          profileMode: cell.profileMode,
+          examProfile: cell.examProfile,
+          qlId,
+          language,
+          difficulty: cell.difficulty,
+          seed,
+          count: cell.count,
+        });
+        const candidates = batch.questions as readonly Question[];
+        const statementKeys = candidates.map(statementKey);
+        const explanationKeys = candidates.map(explanationKey);
+        const uniqueWithinCandidate = new Set(statementKeys).size === candidates.length
+          && new Set(explanationKeys).size === candidates.length;
+        const newToReviewSet = statementKeys.every((key) => !seenStatements.has(key))
+          && explanationKeys.every((key) => !seenExplanations.has(key));
+        if (uniqueWithinCandidate && newToReviewSet) {
+          selected = candidates;
+          break;
+        }
+      }
+
+      if (!selected) {
+        throw new Error(`${language}/${qlId}/${cell.label}: unable to select a statement-and-explanation-unique human-review sample after 256 attempts.`);
+      }
+
+      for (const question of selected) {
+        seenStatements.add(statementKey(question));
+        seenExplanations.add(explanationKey(question));
         reviewItems.push(Object.freeze({ language, qlId, cell, question }));
       }
     }
@@ -106,7 +139,7 @@ for (const language of REVIEW_LANGUAGES) {
     const qlItems = reviewItems.filter((entry) => entry.language === language && entry.qlId === qlId);
     assert.equal(qlItems.length, 12, `${language}/${qlId}: human-review corpus must contain exactly 12 questions.`);
 
-    const statements = qlItems.map((entry) => String(entry.question.statement ?? "").trim());
+    const statements = qlItems.map((entry) => statementKey(entry.question));
     const duplicateStatements = [...new Set(statements.filter((statement, index) => statements.indexOf(statement) !== index))];
     assert.equal(
       new Set(statements).size,
@@ -114,7 +147,7 @@ for (const language of REVIEW_LANGUAGES) {
       `${language}/${qlId}: fresh human-review corpus contains repeated statements:\n${duplicateStatements.join("\n")}`,
     );
 
-    const explanations = qlItems.map((entry) => String(entry.question.explanation ?? "").trim());
+    const explanations = qlItems.map((entry) => explanationKey(entry.question));
     const duplicateExplanations = [...new Set(explanations.filter((explanation, index) => explanations.indexOf(explanation) !== index))];
     assert.equal(
       new Set(explanations).size,
@@ -231,6 +264,7 @@ console.log(JSON.stringify({
   languages: REVIEW_LANGUAGES,
   exactStatementDuplicatesPerLanguageQl: 0,
   exactExplanationDuplicatesPerLanguageQl: 0,
+  deterministicDiversityAwareSampling: true,
   comboEditorialRegressionGuards: true,
   localizedComboEditorialRegressionGuards: true,
   outputDirectory: outDir,
