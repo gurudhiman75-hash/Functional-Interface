@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_LOCALIZED_COMBO_RESIDUAL_POLISH_AUTHORITY = "ARG_CP015_LOCALIZED_COMBO_RESIDUAL_POLISH_V1" as const;
+export const ARG_CP015_LOCALIZED_COMBO_RESIDUAL_POLISH_AUTHORITY = "ARG_CP015_LOCALIZED_COMBO_RESIDUAL_POLISH_V2" as const;
 
 type Question = Readonly<Record<string, any>>;
 
@@ -27,7 +27,8 @@ function polishPunjabi(value: string): string {
     .replaceAll("ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਕਿਹੜਾ ਡਾਟਾ ਇਕੱਠਾ ਕਰਦਾ ਹੈ", "ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਕਿਹੜਾ ਡਾਟਾ ਇਕੱਠਾ ਕਰਦੀ ਹੈ")
     .replaceAll("ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਕਿਉਂ ਕਰਦਾ ਹੈ", "ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਕਿਉਂ ਕਰਦੀ ਹੈ")
     .replaceAll("ਸਥਾਨ ਟ੍ਰੈਕਿੰਗ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ", "ਸਥਾਨ ਟ੍ਰੈਕਿੰਗ ਕਿਵੇਂ ਕੰਮ ਕਰਦੀ ਹੈ")
-    .replaceAll("ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ", "ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਕਿਵੇਂ ਕੰਮ ਕਰਦੀ ਹੈ");
+    .replaceAll("ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ", "ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਕਿਵੇਂ ਕੰਮ ਕਰਦੀ ਹੈ")
+    .replaceAll("ਸਿੱਧਾ ਅਟੱਲ ਸਜ਼ਾ", "ਸਿੱਧੀ ਅਟੱਲ ਸਜ਼ਾ");
 }
 
 function rebuildStem(locale: string, statement: string, argumentsList: readonly string[]): string {
