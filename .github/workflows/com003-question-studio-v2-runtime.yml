@@ -1,0 +1,67 @@
+name: COM-003 Question Studio V2 Runtime
+
+on:
+  push:
+    branches:
+      - feature/com003-office-productivity-discovery-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-studio-pre-registration-adapter-v2.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-studio-pre-registration-adapter-v2.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-chapter-freeze-v1.ts'
+      - 'artifacts/api-server/src/question-studio/engines/knowledge-v1-com003-adapter-v2.ts'
+      - 'artifacts/api-server/src/question-studio/engines/knowledge-v1-com003-adapter-v2.test.ts'
+      - 'artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts'
+      - '.github/workflows/com003-question-studio-v2-runtime.yml'
+  pull_request:
+    branches:
+      - integration/computer-content-engine-mainline-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-studio-pre-registration-adapter-v2.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-studio-pre-registration-adapter-v2.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-chapter-freeze-v1.ts'
+      - 'artifacts/api-server/src/question-studio/engines/knowledge-v1-com003-adapter-v2.ts'
+      - 'artifacts/api-server/src/question-studio/engines/knowledge-v1-com003-adapter-v2.test.ts'
+      - 'artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts'
+      - '.github/workflows/com003-question-studio-v2-runtime.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: com003-question-studio-v2-runtime-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle frozen corpus V2 adapter audit
+        run: |
+          mkdir -p artifacts/api-server/dist/com003-question-studio-v2
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-question-studio-pre-registration-adapter-v2.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-question-studio-v2/com003-question-studio-pre-registration-adapter-v2.test.mjs
+      - name: Bundle Question Studio V2 integration audit
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/engines/knowledge-v1-com003-adapter-v2.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-question-studio-v2/knowledge-v1-com003-adapter-v2.test.mjs
+      - name: Run frozen corpus V2 adapter audit
+        run: node artifacts/api-server/dist/com003-question-studio-v2/com003-question-studio-pre-registration-adapter-v2.test.mjs
+      - name: Run Question Studio V2 integration audit
+        run: node artifacts/api-server/dist/com003-question-studio-v2/knowledge-v1-com003-adapter-v2.test.mjs

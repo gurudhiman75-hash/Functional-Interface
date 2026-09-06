@@ -1,0 +1,73 @@
+name: COM-003 Localization V2 Wave 1 Candidate 2
+
+on:
+  push:
+    branches:
+      - feature/com003-office-productivity-discovery-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v2.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v2.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v2-review-file.ts'
+      - '.github/workflows/com003-localization-v2-wave1-v2.yml'
+  pull_request:
+    branches:
+      - integration/computer-content-engine-mainline-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v2.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v2.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v2-review-file.ts'
+      - '.github/workflows/com003-localization-v2-wave1-v2.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: com003-localization-v2-wave1-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle corrected Wave 1 audit and review file
+        run: |
+          mkdir -p artifacts/api-server/dist/com003-localization-v2-wave1-v2
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v2.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-localization-v2-wave1-v2/audit.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-localization-v2-wave1-v2-review-file.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-localization-v2-wave1-v2/com003-localization-v2-wave1-v2-review-file.mjs
+      - name: Run corrected Wave 1 audit
+        run: node artifacts/api-server/dist/com003-localization-v2-wave1-v2/audit.test.mjs
+      - name: Generate corrected Wave 1 review file
+        run: cd artifacts/api-server && node dist/com003-localization-v2-wave1-v2/com003-localization-v2-wave1-v2-review-file.mjs
+      - name: Verify corrected review artifact
+        run: |
+          FILE=artifacts/api-server/dist/com003-localization-v2-wave1-v2-review/COM-003-Localization-V2-Wave1-Candidate2-Review.html
+          test -s "$FILE"
+          grep -q '48 English' "$FILE"
+          grep -q '48 Hindi' "$FILE"
+          grep -q '48 Punjabi' "$FILE"
+          grep -q '96 localized outputs' "$FILE"
+          grep -q 'Candidate 2' "$FILE"
+          grep -q 'COM-003-QL-004' "$FILE"
+      - name: Upload corrected Wave 1 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: com003-localization-v2-wave1-candidate2-review
+          path: artifacts/api-server/dist/com003-localization-v2-wave1-v2-review/COM-003-Localization-V2-Wave1-Candidate2-Review.html
+          if-no-files-found: error

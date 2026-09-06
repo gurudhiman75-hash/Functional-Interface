@@ -1,0 +1,54 @@
+name: Publish COM-003 Question Review Artifact
+
+on:
+  push:
+    branches:
+      - feature/com003-office-productivity-discovery-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-review-export-v1.ts'
+      - '.github/com003-question-review-trigger.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: com003-question-review-artifact-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publish-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle COM-003 review exporter
+        run: |
+          mkdir -p artifacts/api-server/dist/com003-question-review
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-question-review-export-v1.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-question-review/com003-question-review-export-v1.mjs
+      - name: Generate frozen COM-003 review HTML
+        run: cd artifacts/api-server && node dist/com003-question-review/com003-question-review-export-v1.mjs
+      - name: Verify review artifact
+        run: |
+          test -s artifacts/api-server/dist/com003-question-review/COM-003-QUESTION-REVIEW-V1.html
+          grep -q 'Total rendered questions: 228' artifacts/api-server/dist/com003-question-review/COM-003-QUESTION-REVIEW-V1.html
+          grep -q 'COM-003-QL-019' artifacts/api-server/dist/com003-question-review/COM-003-QUESTION-REVIEW-V1.html
+      - name: Upload COM-003 question review file
+        uses: actions/upload-artifact@v4
+        with:
+          name: COM-003-QUESTION-REVIEW-V1
+          path: artifacts/api-server/dist/com003-question-review/COM-003-QUESTION-REVIEW-V1.html
+          if-no-files-found: error
+          retention-days: 30

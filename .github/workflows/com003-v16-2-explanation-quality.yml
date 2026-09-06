@@ -1,0 +1,74 @@
+name: COM-003 V16.2 Explanation Quality
+
+on:
+  push:
+    branches:
+      - feature/com003-office-productivity-discovery-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-synthesis-v16-2.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-synthesis-v16-2.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-review-file-v1.ts'
+      - '.github/workflows/com003-v16-2-explanation-quality.yml'
+  pull_request:
+    branches:
+      - integration/computer-content-engine-mainline-v1
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-synthesis-v16-2.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-review-synthesis-v16-2.test.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com003-question-review-file-v1.ts'
+      - '.github/workflows/com003-v16-2-explanation-quality.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: com003-v16-2-explanation-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Bundle V16.2 gate and review artifact
+        run: |
+          mkdir -p artifacts/api-server/dist/com003-v16-2
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-review-synthesis-v16-2.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-v16-2/com003-review-synthesis-v16-2.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com003-question-review-file-v1.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com003-v16-2/com003-question-review-file-v1.mjs
+      - name: Run V16.2 explanation gate
+        run: node artifacts/api-server/dist/com003-v16-2/com003-review-synthesis-v16-2.test.mjs
+      - name: Generate V16.2 review artifact
+        run: cd artifacts/api-server && node dist/com003-v16-2/com003-question-review-file-v1.mjs
+      - name: Verify V16.2 review artifact
+        run: |
+          FILE=artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          test -s "$FILE"
+          grep -q 'English V16.2' "$FILE"
+          grep -q '228 questions' "$FILE"
+          grep -q '12/12 explanations in QL-011, 014, 017, 019' "$FILE"
+          grep -q 'COM-003-QL-019' "$FILE"
+          ! grep -qi 'Therefore, .* correct' "$FILE"
+          ! grep -qi 'Hence, .* correct' "$FILE"
+          ! grep -qi 'Accordingly, .* correct' "$FILE"
+      - name: Upload V16.2 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: com003-office-productivity-english-v16-2-review
+          path: artifacts/api-server/dist/com003-review-file/COM-003-Office-Productivity-English-Question-Review-V1.html
+          if-no-files-found: error

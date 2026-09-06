@@ -56,19 +56,31 @@ function normalizeEngineId(value: unknown): QuestionStudioEngineId | undefined {
     : undefined;
 }
 
-function engineForPackage(packageId: string | undefined) {
+function packageForId(packageId: string | undefined) {
   if (!packageId) return undefined;
-  return listQuestionStudioPackages().find(
-    (pkg) => pkg.packageId === packageId,
-  )?.engineId;
+  return listQuestionStudioPackages().find((pkg) => pkg.packageId === packageId);
+}
+
+function engineForPackage(packageId: string | undefined) {
+  return packageForId(packageId)?.engineId;
+}
+
+function difficultyForRequest(value: unknown, packageId: string | undefined) {
+  const raw = asString(value);
+  const pkg = packageForId(packageId);
+  if (pkg?.difficultyFilterSupported === false) {
+    if (!raw || raw === "Mixed") return undefined;
+    // Preserve an explicit classified request so the owning adapter can reject
+    // it with its chapter-specific authority message. Never synthesize Medium.
+    return normalizeDifficulty(raw);
+  }
+  return normalizeDifficulty(value);
 }
 
 function nonQuantRunGate(req: any, _res: any, next: any) {
   const requestedEngineRaw = asString(req.body?.engineId);
   const requestedEngineId = normalizeEngineId(requestedEngineRaw);
 
-  // Invalid explicit IDs stay on this route so the authenticated handler can
-  // return the proper validation error without leaking capability data.
   if (requestedEngineRaw && !requestedEngineId) {
     next();
     return;
@@ -77,7 +89,6 @@ function nonQuantRunGate(req: any, _res: any, next: any) {
   const packageId = asString(req.body?.packageId) || undefined;
   const selectedEngineId = requestedEngineId ?? engineForPackage(packageId);
 
-  // Quant/Reasoning remains owned by the established exam-profile route.
   if (!selectedEngineId || selectedEngineId === "quant-v4") {
     next("route");
     return;
@@ -86,13 +97,6 @@ function nonQuantRunGate(req: any, _res: any, next: any) {
   next();
 }
 
-/**
- * Multi-engine capabilities facade.
- *
- * `generationSystem: quant-v4` remains for compatibility with the current
- * admin client. `generationSystems` and per-package `engineId` are additive
- * fields that the engine-aware UI can adopt without breaking old clients.
- */
 router.get(
   "/capabilities",
   authenticate,
@@ -110,6 +114,8 @@ router.get(
         enabled: pkg.enabled,
         cpIds: pkg.cpIds,
         supportedLanguages: pkg.supportedLanguages,
+        supportedDifficulties: pkg.supportedDifficulties ?? [],
+        difficultyFilterSupported: pkg.difficultyFilterSupported ?? true,
         runtimeMode: pkg.runtimeMode,
         supportedRuntimeModes: pkg.supportedRuntimeModes ?? [],
         dynamicCandidateCpIds: pkg.dynamicCandidateCpIds ?? [],
@@ -130,7 +136,6 @@ router.get(
       }));
 
       res.json({
-        // Compatibility field. Existing clients currently assume this value.
         generationSystem: "quant-v4",
         defaultGenerationSystem: "quant-v4",
         generationSystems,
@@ -146,12 +151,6 @@ router.get(
   },
 );
 
-/**
- * Non-Quant generation route.
- *
- * The gate skips this route entirely for existing Quant/Reasoning requests,
- * so their exam-profile and mixed-difficulty behavior is unchanged.
- */
 router.post(
   "/runs",
   nonQuantRunGate,
@@ -174,7 +173,6 @@ router.post(
     const selectedEngineId = requestedEngineId ?? packageEngineId;
 
     if (!selectedEngineId || selectedEngineId === "quant-v4") {
-      // Defensive only: the route gate should have skipped this route.
       res.status(409).json({
         error: "Legacy Quant requests must use the established Question Studio run path",
       });
@@ -199,7 +197,7 @@ router.post(
     const exam = asString(req.body?.exam) || "SSC CGL";
     const subject = asString(req.body?.subject) || undefined;
     const language = normalizeLanguage(req.body?.language);
-    const difficulty = normalizeDifficulty(req.body?.difficulty);
+    const difficulty = difficultyForRequest(req.body?.difficulty, packageId);
     const seed = asString(req.body?.seed) || undefined;
     const runtimeMode = asString(req.body?.runtimeMode) || undefined;
     const canonicalProblemId =
