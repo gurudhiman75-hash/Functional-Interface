@@ -59,6 +59,18 @@ export function geminiRetryDelayMs(retryIndex: number) {
   return Math.min(500 * (2 ** bounded), 4_000);
 }
 
+export function geminiServerRetryDelayMs(errorText: string) {
+  const match = errorText.match(/(?:please\s+retry\s+in|retryDelay["']?\s*[:=]\s*["']?)\s*([0-9]+(?:\.[0-9]+)?)s/i);
+  if (!match) return null;
+  const seconds = Number(match[1]);
+  if (!Number.isFinite(seconds) || seconds <= 0) return null;
+  return Math.min(Math.ceil(seconds * 1_000) + 1_000, 120_000);
+}
+
+function isNotesStudioV2FactExtraction(responseSchemaName?: string) {
+  return responseSchemaName === "notes_studio_v2_extracted_facts";
+}
+
 export function geminiFallbackModel(primaryModel: string) {
   const configured = String(process.env["GEMINI_FALLBACK_MODEL"] ?? "").trim();
   if (configured && configured !== primaryModel) return configured;
@@ -107,14 +119,23 @@ export const geminiProvider: AIProviderAdapter = {
     this.assertConfigured();
     const primaryModel =
       request.model ?? this.defaultModel;
+    const notesStudioV2FactExtraction = isNotesStudioV2FactExtraction(
+      request.responseSchemaName,
+    );
     const maxRetries = Math.max(
       0,
-      Math.min(Math.trunc(request.maxRetries ?? 0), 4),
+      Math.min(
+        Math.trunc(request.maxRetries ?? (notesStudioV2FactExtraction ? 2 : 0)),
+        4,
+      ),
     );
     const controller = new AbortController();
+    const timeoutMs = notesStudioV2FactExtraction
+      ? Math.max(request.timeoutMs ?? 60_000, 360_000)
+      : request.timeoutMs ?? 60_000;
     const timeout = setTimeout(
       () => controller.abort(),
-      request.timeoutMs ?? 60_000,
+      timeoutMs,
     );
     const warnings: string[] = [];
     const jsonInstruction = buildGeminiJsonInstruction(
@@ -206,7 +227,16 @@ export const geminiProvider: AIProviderAdapter = {
           if (attempt >= attempts - 1) break;
         }
 
-        await wait(geminiRetryDelayMs(attempt));
+        const serverRetryDelay = lastFailure.status === 429
+          ? geminiServerRetryDelayMs(lastFailure.errorText)
+          : null;
+        const delayMs = serverRetryDelay ?? geminiRetryDelayMs(attempt);
+        if (serverRetryDelay) {
+          console.warn(
+            `[notes-studio-v2] Gemini quota window active; retrying ${model} in ${Math.round(delayMs / 1000)}s.`,
+          );
+        }
+        await wait(delayMs);
       }
 
       return lastFailure;
