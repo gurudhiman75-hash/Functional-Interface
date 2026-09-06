@@ -67,6 +67,7 @@ jobs:
             --types node \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-cue-proof.test.ts \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-question-studio-registration-proof.test.ts \
             2>&1 | tee cp015-strict-tsc.log
 
@@ -96,6 +97,15 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/arg-001-cp015-perceived-diversity-proof.mjs
           node dist/arg-001-cp015-perceived-diversity-proof.mjs
+
+      - name: Gate CP015 lexical answer-cue anti-gaming
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-cue-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp015-anti-gaming-cue-proof.mjs
+          node dist/arg-001-cp015-anti-gaming-cue-proof.mjs
 
       - name: Preserve CP014 baseline duplicate diagnostics
         continue-on-error: true
