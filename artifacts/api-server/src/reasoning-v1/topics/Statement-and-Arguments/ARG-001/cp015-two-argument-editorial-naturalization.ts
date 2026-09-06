@@ -55,19 +55,39 @@ function hindiSurfaceRepair(value: string): string {
     .replace(/लॉक लगाना कर सकें/g, "लॉक लगा सकें")
     .replace(/लॉक लगाना करने की सुविधा/g, "लॉक लगाने की सुविधा")
     .replace(/तैयारी करना कर सके/g, "तैयारी कर सके")
+    .replace(/कब्जा करना कर सके/g, "कब्जा कर सके")
+    .replace(/कब्जा करना के लिए/g, "कब्जा करने के लिए")
+    .replace(/उच्च-मूल्य लाभार्थी बदलने/g, "उच्च-मूल्य लाभार्थी को बदलने")
+    .replace(/हाईजैक किया ब्राउज़र सत्र/g, "हाईजैक किया गया ब्राउज़र सत्र")
+    .replace(/ग्राहक के सहायता लेने तक/g, "ग्राहक द्वारा सहायता लेने तक")
     .replace(/को स्थायी हटाना करना ही चाहिए/g, "को स्थायी रूप से हटा देना चाहिए")
     .replace(/को स्थायी हटाना के/g, "को स्थायी रूप से हटाने के")
-    .replace(/को स्थायी हटाना चाहिए/g, "को स्थायी रूप से हटा देना चाहिए");
+    .replace(/को स्थायी हटाना चाहिए/g, "को स्थायी रूप से हटा देना चाहिए")
+    .replace(/को स्थायी प्रतिबंधित करना करना ही चाहिए/g, "को स्थायी रूप से प्रतिबंधित कर देना चाहिए")
+    .replace(/को स्थायी प्रतिबंधित करना के/g, "को स्थायी रूप से प्रतिबंधित करने के")
+    .replace(/को स्थायी प्रतिबंधित करना चाहिए/g, "को स्थायी रूप से प्रतिबंधित कर देना चाहिए")
+    .replace(/(रिपोर्ट|शिकायत) केवल तभी हो सकता है/g, "$1 केवल तभी हो सकती है")
+    .replace(/(रिपोर्ट|शिकायत) तभी हो सकता है/g, "$1 तभी हो सकती है")
+    .replace(/क्रेडेंशियल समझौता के बाद/g, "क्रेडेंशियल से समझौते के बाद")
+    .replace(/क्रेडेंशियल समझौता हुआ है/g, "क्रेडेंशियल से समझौता हो चुका है");
 }
 
 function punjabiSurfaceRepair(value: string): string {
   return value
     .replace(/ਤਿਆਰੀ ਕਰਨਾ ਕਰ ਸਕੇ/g, "ਤਿਆਰੀ ਕਰ ਸਕੇ")
+    .replace(/ਤਿਆਰੀ ਕਰਨਾ ਲਈ/g, "ਤਿਆਰੀ ਕਰਨ ਲਈ")
     .replace(/ਫੈਸਲਾ ਕਰਨਾ ਕਰ ਸਕਦੇ ਹਨ/g, "ਫੈਸਲਾ ਕਰ ਸਕਦੇ ਹਨ")
     .replace(/ਹਰ ਕਿਸਮ ਦਾ ਖਾਤਾ ਸੇਵਾ ਸਵਾਲਾਂ ਸੰਭਾਲ/g, "ਹਰ ਕਿਸਮ ਦੇ ਖਾਤਾ-ਸੇਵਾ ਸਵਾਲ ਸੰਭਾਲ")
+    .replace(/ਲਾਕ ਲਗਾਉਣਾ ਕਰਨ ਦੀ/g, "ਲਾਕ ਲਗਾਉਣ ਦੀ")
+    .replace(/ਗਾਹਕ ਦੇ ਮਦਦ ਲੈਣ ਤੱਕ/g, "ਗਾਹਕ ਵੱਲੋਂ ਮਦਦ ਲੈਣ ਤੱਕ")
+    .replace(/ਸਮਝੌਤਾ ਹੋਇਆ ਈਮੇਲ ਖਾਤਾ/g, "ਕੰਪ੍ਰੋਮਾਈਜ਼ ਹੋਇਆ ਈਮੇਲ ਖਾਤਾ")
+    .replace(/ਅਟੱਲ ਤਰੀਕੇ ਨਾਲ ਸਸਪੈਂਡ/g, "ਪੱਕੇ ਤੌਰ 'ਤੇ ਸਸਪੈਂਡ")
+    .replace(/ਇੱਕ ਦੁਰਵਿਹਾਰ ਦੋਸ਼/g, "ਦੁਰਵਿਹਾਰ ਦਾ ਇੱਕ ਦੋਸ਼")
+    .replace(/ਦੁਰਵਿਹਾਰ ਦਾ ਇੱਕ ਦੋਸ਼ ਸਿਰਫ਼ ਉਸ ਵੇਲੇ ਹੋ ਸਕਦੀ ਹੈ/g, "ਦੁਰਵਿਹਾਰ ਦਾ ਇੱਕ ਦੋਸ਼ ਸਿਰਫ਼ ਉਸ ਵੇਲੇ ਲੱਗ ਸਕਦਾ ਹੈ")
     .replace(/ਸਸਪੈਂਡ ਕਰਨਾ ਕਰਨਾ ਹੀ ਚਾਹੀਦਾ ਹੈ/g, "ਸਸਪੈਂਡ ਕਰ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ")
     .replace(/ਸਸਪੈਂਡ ਕਰਨਾ ਦੇ ਅਟੱਲ ਕਦਮ/g, "ਸਸਪੈਂਡ ਕਰਨ ਦੇ ਅਟੱਲ ਕਦਮ")
-    .replace(/ਇੱਕ ਦੁਰਵਿਹਾਰ ਦੋਸ਼ ਸਿਰਫ਼ ਉਸ ਵੇਲੇ ਹੋ ਸਕਦੀ ਹੈ/g, "ਦੁਰਵਿਹਾਰ ਦਾ ਦੋਸ਼ ਸਿਰਫ਼ ਉਸ ਵੇਲੇ ਲੱਗ ਸਕਦਾ ਹੈ");
+    .replace(/ਜਾਣੇ ਹੋਏ ਡਿਲੀਵਰੀ ਫੀਸ/g, "ਜਾਣੀ ਹੋਈ ਡਿਲੀਵਰੀ ਫੀਸ")
+    .replace(/ਉਸ ਰਕਮ ਦੇ ਆਧਾਰ ਤੇ ਜਾਣਕਾਰੀ ਦੇ ਆਧਾਰ ਤੇ ਖਰੀਦ ਫੈਸਲਾ/g, "ਉਸ ਰਕਮ ਨੂੰ ਧਿਆਨ ਵਿੱਚ ਰੱਖ ਕੇ ਜਾਣਕਾਰੀ-ਅਧਾਰਿਤ ਖਰੀਦ ਦਾ ਫੈਸਲਾ");
 }
 
 function localizedSurfaceRepair(value: string, question: Question): string {
@@ -181,7 +201,7 @@ function queueCapacityPatch(question: Question): EditorialPatch | undefined {
 function automationReplacementPatch(question: Question): EditorialPatch | undefined {
   const statement = englishSurfaceRepair(text(question.statement));
   const args = question.arguments as readonly string[];
-  const match = statement.match(/^Should every (.+) replace all staff-assisted support for (.+) with (.+) (.+)\?$/i);
+  const match = statement.match(/^Should every (.+) replace all staff-assisted support for (.+) with (.+?) (within one week|without a transition period|with immediate effect|immediately)\?$/i);
   if (!match?.[1] || !match[2] || !match[3] || !match[4] || args.length !== 2) return undefined;
   const unit = match[1];
   const service = match[2];
@@ -194,7 +214,7 @@ function automationReplacementPatch(question: Question): EditorialPatch | undefi
     ? `No. A ${unit} using ${automation} for ${service} can never provide any useful service, even when ${fallback} is available.`
     : `Yes. ${automation} can handle every case involving ${service} without ${fallback}, so replacing all staff-assisted support ${timing} would involve no implementation risk.`) as [string, string];
   const reasons = nextArguments.map((argument) => /never provide any useful service/i.test(argument)
-    ? `It makes an unsupported all-or-nothing claim: using ${automation} does not mean a ${unit} can never deliver any useful ${service} service.`
+    ? `It makes an unsupported all-or-nothing claim: using ${automation} does not mean a ${unit} can never deliver any useful service in handling ${service}.`
     : `It assumes ${automation} can handle every case without ${fallback} and ignores predictable exceptions, maintenance and support needs during a full replacement ${timing}.`) as [string, string];
   return Object.freeze({ statement, arguments: Object.freeze(nextArguments), reasons });
 }
