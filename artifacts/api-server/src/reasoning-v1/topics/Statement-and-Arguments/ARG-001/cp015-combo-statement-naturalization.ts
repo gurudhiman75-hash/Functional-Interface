@@ -13,6 +13,14 @@ function text(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function capitalize(value: string): string {
+  return value ? value[0]!.toUpperCase() + value.slice(1) : value;
+}
+
+function isPluralSurface(value: string): boolean {
+  return /(?:points|criteria|services|hours|employees|workers|staff|queries|enquiries)$/i.test(value.trim());
+}
+
 function pickIndex(seed: string): number {
   return Number.parseInt(createHash("sha256").update(seed).digest("hex").slice(0, 8), 16) % 4;
 }
@@ -169,28 +177,29 @@ function normalizeArgument(qlId: string, argument: string): string {
 }
 
 function ql001Reason(argument: string, { a, b }: Captured): string {
-  if (/helps users understand the decision process/i.test(argument)) {
+  if (/help[s]? users understand the decision process/i.test(argument)) {
     return `Making ${b} clear helps affected users understand how the outcome was reached and spot avoidable errors, so it is directly relevant to post-process transparency.`;
   }
   if (/page with .* may look less attractive/i.test(argument)) {
     return `The visual attractiveness of a page is cosmetic and does not address whether users materially benefit from access to ${b}.`;
   }
-  if (/must keep (it|them) updated|stale information/i.test(argument)) {
-    return `If ${b} can change, outdated information could mislead users; keeping it current is therefore a material accuracy condition for publication.`;
+  if (/must keep (it|them) updated|keep .* current|misdirect users|stale information/i.test(argument)) {
+    const pronoun = isPluralSurface(b) ? "them" : "it";
+    return `If ${b} can change, outdated information could mislead users; keeping ${pronoun} current is therefore a material accuracy condition for publication.`;
   }
   if (/Successful organisations display more information/i.test(argument)) {
-    return `The fact that other successful organisations publish more information does not show that ${b} is necessary or useful for ${a}; the argument relies on imitation rather than relevance.`;
+    return `The fact that other successful organisations publish more information does not show that ${b} ${isPluralSurface(b) ? "are" : "is"} necessary or useful for ${a}; the argument relies on imitation rather than relevance.`;
   }
   if (/clear grievance contact gives users a direct route/i.test(argument)) {
     return `A visible grievance contact gives affected users a concrete route to seek clarification or report a possible error after the process, which is directly relevant to accountability.`;
   }
   if (/Relevant post-process information or a clear contact route/i.test(argument)) {
-    return `A relevant post-process information or contact route can help affected users verify an outcome or seek clarification, giving a practical transparency benefit after completion.`;
+    return `Relevant post-process information or a clear contact route can help affected users verify an outcome or seek clarification, giving a practical transparency benefit after completion.`;
   }
   if (/anything displayed afterwards is automatically useless/i.test(argument)) {
     return `Completion of a process does not make all later information useless; useful post-process guidance can still help users verify or question an outcome.`;
   }
-  return `The argument must be judged by whether it materially affects accurate, useful access to ${b} after the process rather than by a cosmetic or unrelated consideration.`;
+  return `This argument directly concerns whether ${b} remains accurate and useful after the process, so it addresses a material condition of post-process access rather than a cosmetic consideration.`;
 }
 
 function ql002Reason(argument: string, { a, b }: Captured): string {
@@ -261,7 +270,7 @@ function ql004Reason(argument: string, { a, b }: Captured): string {
 
 function ql005Reason(argument: string, { a, b }: Captured): string {
   if (/should know what data .* collects/i.test(argument)) {
-    return `${a} have a direct privacy interest in knowing what data ${b} collects, why it is collected and who can access it before the monitoring begins.`;
+    return `${capitalize(a)} have a direct privacy interest in knowing what data ${b} collects, why it is collected and who can access it before the monitoring begins.`;
   }
   if (/must have something to hide|cannot be trusted at work/i.test(argument)) {
     return `Questioning ${b} or valuing privacy does not show that an employee is dishonest; the argument stereotypes ${a} instead of assessing the monitoring policy.`;
@@ -286,7 +295,7 @@ function ql006Reason(argument: string, { a, b }: Captured): string {
     return `Before ${a} imposes an irreversible penalty after ${b}, temporary safeguards and evidence review preserve due process while still allowing immediate risks to be managed.`;
   }
   if (/guilt is already certain/i.test(argument)) {
-    return `${b} is an allegation or signal, not automatic proof of guilt; treating it as conclusive would bypass the need to verify the facts.`;
+    return `${capitalize(b)} is an allegation or signal, not automatic proof of guilt; treating it as conclusive would bypass the need to verify the facts.`;
   }
   if (/mistaken .* can cause serious harm/i.test(argument)) {
     return `If ${b} is mistaken, an irreversible penalty can cause serious harm that may not be repairable later, which is a direct cost of acting permanently before verification.`;
