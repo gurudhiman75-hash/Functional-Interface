@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 
 import { ARG_CP015_ANTI_GAMING_CUE_DEBIAS_AUTHORITY } from "./cp015-anti-gaming-cue-debias.ts";
 
-export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V3" as const;
+export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V4" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -54,6 +54,10 @@ function polishEnglish(value: string): string {
     .replace(/Because (.+?) can reflect (.+?), the bank should rarely use temporary risk controls or investigate flagged transactions at all instead of terminate the customer relationship\./gi, "Even though $1 can reflect $2, the bank is expected to skip temporary risk controls and further investigation and terminate the customer relationship immediately.")
     .replace(/A single misconduct allegation can occur mainly when guilt is certain/gi, "A single misconduct allegation is treated as strong enough evidence of guilt on its own")
     .replace(/will predictably create permanent gridlock across the entire city/gi, "is assumed to create lasting gridlock across the city")
+    .replace(/A branch using (.+?) can rarely provide any useful service, even when (.+?)\./gi, "A branch using $1 is assumed to provide no useful service even when $2.")
+    .replace(/A single (.+?) complaint proves that most candidate and centre in (.+?) was affected/gi, "A single $1 complaint is treated as enough evidence to conclude that the entire $2 was affected")
+    .replace(/must either ignore most (.+?) complaint or/gi, "must either ignore later $1 complaints or")
+    .replace(/only if most visitor has/gi, "only if each visitor has")
     .replace(/service needs should rarely affect the timings of ([^.]+)\./gi, "service needs should carry little weight when setting the timings of $1.")
     .replace(/will disappear largely\./gi, "will be largely eliminated.")
     .replace(/in most ([a-z-]+(?: [a-z-]+)*) programme\b/gi, "across $1 programmes")
@@ -64,6 +68,17 @@ function polishEnglish(value: string): string {
     .replace(/most genuine request to/gi, "genuine requests to")
     .replace(/most legitimate change\b/gi, "legitimate changes")
     .replace(/most employee\b/gi, "many employees")
+    .replace(/most citizen\b/gi, "most citizens")
+    .replace(/most visitor\b/gi, "most visitors")
+    .replace(/most candidate\b/gi, "most candidates")
+    .replace(/most people else\b/gi, "most other people")
+    .replace(/most part of\b/gi, "most of")
+    .replace(/in most context\b/gi, "in most contexts")
+    .replace(/most use of\b/gi, "use of")
+    .replace(/permanently impractical\b/gi, "unworkable in the long term")
+    .replace(/(.+?) can rarely ([^.]+)\./gi, "$1 would fail to $2 in most cases.")
+    .replace(/(.+?) should rarely ([^.]+)\./gi, "$1 should generally avoid $2.")
+    .replace(/(.+?) must apparently be ([^.]+)\./gi, "$1 should be presumed to be $2.")
     .replace(/most ([a-z-]+) programme\b/gi, "$1 programmes");
 }
 
