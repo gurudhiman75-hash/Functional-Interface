@@ -7,6 +7,7 @@ import {
   geminiFallbackModel,
   geminiProvider,
   geminiRetryDelayMs,
+  geminiServerRetryDelayMs,
   isTransientGeminiStatus,
 } from '../lib/ai-providers/gemini-adapter';
 
@@ -43,6 +44,22 @@ test('Gemini transient policy retries capacity failures but not bad requests', (
     assert.equal(isTransientGeminiStatus(status), false, String(status));
   }
   assert.deepEqual([0, 1, 2, 3].map(geminiRetryDelayMs), [500, 1000, 2000, 4000]);
+});
+
+test('Gemini server retry windows honor provider guidance with a bounded safety margin', () => {
+  assert.equal(
+    geminiServerRetryDelayMs('You exceeded quota. Please retry in 53.951741015s.'),
+    54_952,
+  );
+  assert.equal(
+    geminiServerRetryDelayMs('{"retryDelay":"7s"}'),
+    8_000,
+  );
+  assert.equal(
+    geminiServerRetryDelayMs('Please retry in 600s.'),
+    120_000,
+  );
+  assert.equal(geminiServerRetryDelayMs('No retry guidance supplied.'), null);
 });
 
 test('Gemini structured requests keep schema out of the HTTP generation config', () => {
