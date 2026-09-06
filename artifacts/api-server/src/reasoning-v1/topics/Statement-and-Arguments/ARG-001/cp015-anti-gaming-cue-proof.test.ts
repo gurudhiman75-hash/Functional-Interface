@@ -45,6 +45,26 @@ function hasCue(value: string, language: Language): boolean {
   return /\b(?:always|never|every|everyone|everything|completely|guarantee(?:s|d)?|impossible|automatically|inevitably|necessarily|only when)\b|under any circumstances|must have something to hide/i.test(value);
 }
 
+function sampleCell(language: Language, qlId: string, cell: Cell, cellIndex: number): readonly Question[] {
+  for (let attempt = 0; attempt < 256; attempt += 1) {
+    try {
+      const batch = generateArgCp015QuestionStudioBatch({
+        profileMode: cell.profileMode,
+        examProfile: cell.examProfile,
+        qlId,
+        language,
+        difficulty: cell.difficulty,
+        seed: `ARG-CP015-ANTI-GAMING:${language}:${qlId}:${cell.examProfile ?? "CORE"}:${cell.difficulty}:${cellIndex}:${attempt}`,
+        count: cell.count,
+      });
+      if (batch.questions.length === cell.count) return batch.questions as readonly Question[];
+    } catch (error) {
+      if (!(error instanceof Error) || !error.message.includes("could not resolve a unique question")) throw error;
+    }
+  }
+  throw new Error(`${language}/${qlId}/${cell.examProfile ?? "CORE"}/${cell.difficulty}: anti-gaming sampler could not resolve a valid deterministic cell.`);
+}
+
 const counts = Object.fromEntries(LANGUAGES.map((language) => [language, {
   STRONG: { total: 0, cue: 0 },
   WEAK: { total: 0, cue: 0 },
@@ -59,17 +79,9 @@ for (const language of LANGUAGES) {
   for (const qlId of ARG_QL_IDS) {
     for (let cellIndex = 0; cellIndex < CELLS.length; cellIndex += 1) {
       const cell = CELLS[cellIndex]!;
-      const batch = generateArgCp015QuestionStudioBatch({
-        profileMode: cell.profileMode,
-        examProfile: cell.examProfile,
-        qlId,
-        language,
-        difficulty: cell.difficulty,
-        seed: `ARG-CP015-ANTI-GAMING:${language}:${qlId}:${cell.examProfile ?? "CORE"}:${cell.difficulty}:${cellIndex}`,
-        count: cell.count,
-      });
+      const questions = sampleCell(language, qlId, cell, cellIndex);
 
-      for (const question of batch.questions as readonly Question[]) {
+      for (const question of questions) {
         const argumentsList = Array.isArray(question.arguments) ? question.arguments as readonly string[] : [];
         const strengths = Array.isArray(question.argumentStrengths) ? question.argumentStrengths as readonly string[] : [];
         assert.equal(argumentsList.length, strengths.length, `${question.questionId}: arguments/strengths mismatch`);
