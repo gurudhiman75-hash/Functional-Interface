@@ -100,6 +100,7 @@ if (reviewItems.length !== ARG_QL_IDS.length * 12) {
 for (const qlId of ARG_QL_IDS) {
   const qlItems = reviewItems.filter((entry) => entry.qlId === qlId);
   assert.equal(qlItems.length, 12, `${qlId}: human-review corpus must contain exactly 12 questions.`);
+
   const statements = qlItems.map((entry) => String(entry.question.statement ?? "").trim());
   const uniqueStatements = new Set(statements);
   const duplicateStatements = [...new Set(statements.filter((statement, index) => statements.indexOf(statement) !== index))];
@@ -107,6 +108,15 @@ for (const qlId of ARG_QL_IDS) {
     uniqueStatements.size,
     statements.length,
     `${qlId}: fresh human-review corpus contains repeated statements:\n${duplicateStatements.join("\n")}`,
+  );
+
+  const explanations = qlItems.map((entry) => String(entry.question.explanation ?? "").trim());
+  const uniqueExplanations = new Set(explanations);
+  const duplicateExplanations = [...new Set(explanations.filter((explanation, index) => explanations.indexOf(explanation) !== index))];
+  assert.equal(
+    uniqueExplanations.size,
+    explanations.length,
+    `${qlId}: fresh human-review corpus contains repeated explanations:\n${duplicateExplanations.join("\n\n")}`,
   );
 }
 
@@ -158,5 +168,6 @@ console.log(JSON.stringify({
   totalQuestions: reviewItems.length,
   questionsPerQl: 12,
   exactStatementDuplicatesPerQl: 0,
+  exactExplanationDuplicatesPerQl: 0,
   outputDirectory: outDir,
 }, null, 2));
