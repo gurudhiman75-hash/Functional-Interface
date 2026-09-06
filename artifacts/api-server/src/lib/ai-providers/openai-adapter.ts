@@ -97,14 +97,20 @@ export const openAIProvider: AIProviderAdapter = {
       };
     }
 
+    const requestOptions: Record<string, unknown> = {
+      maxRetries: request.maxRetries ?? 0,
+    };
+    if (
+      Number.isInteger(request.timeoutMs) &&
+      Number(request.timeoutMs) > 0
+    ) {
+      requestOptions.timeout = request.timeoutMs;
+    }
+
     const response =
       await openai.responses.create(
         payload as any,
-        {
-          timeout: request.timeoutMs,
-          maxRetries:
-            request.maxRetries ?? 0,
-        } as any,
+        requestOptions as any,
       );
     const text = responseText(response);
     return {
