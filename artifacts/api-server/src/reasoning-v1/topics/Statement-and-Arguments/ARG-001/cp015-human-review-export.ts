@@ -187,7 +187,7 @@ for (const { language, cell, question } of reviewItems) {
   } else if (language === "hi") {
     assert.doesNotMatch(
       surface,
-      /अनिवार्य अनिवार्य|लक्षित निस्तारण अवधि दिखाया|(?:स्टॉप अलर्ट|ट्यूटोरियल सत्र) देनी चाहिए|दूसरे कारक की पुष्टि पूरा|आईरिस सत्यापन उपयोग|निजी कारों (?:प्रतिबंधित|सीमित)|सुरक्षा संपर्क बदलना कर|रिकॉर्ड किए वीडियो मॉड्यूल/,
+      /अनिवार्य अनिवार्य|लक्षित निस्तारण अवधि दिखाया|(?:स्टॉप अलर्ट|ट्यूटोरियल सत्र) देनी चाहिए|दूसरे कारक की पुष्टि पूरा|इन-ऐप स्वीकृति पूरा|आईरिस सत्यापन उपयोग|निजी कारों (?:प्रतिबंधित|सीमित)|निजी कारों को प्रतिबंधित करनी चाहिए|सुरक्षा संपर्क बदलना कर|रिकॉर्ड किए वीडियो मॉड्यूल|सत्रों की जगह स्वचालित ट्यूटोरियल कर देना चाहिए|व्यस्त बाजार गलियारा पर|स्कूल छुट्टी समय|भारी माल वाहनों प्रतिबंधित/,
       `${question.questionId}: known Hindi two-argument grammar regression leaked into human review corpus`,
     );
     if (isCombo) {
@@ -203,7 +203,7 @@ for (const { language, cell, question } of reviewItems) {
       );
       assert.equal(
         question.localizedComboResidualPolishAuthority,
-        "ARG_CP015_LOCALIZED_COMBO_RESIDUAL_POLISH_V1",
+        "ARG_CP015_LOCALIZED_COMBO_RESIDUAL_POLISH_V2",
         `${question.questionId}: localized Banking combo human-review item must pass through CP015 residual localized polish`,
       );
       assert.doesNotMatch(
@@ -220,7 +220,7 @@ for (const { language, cell, question } of reviewItems) {
   } else {
     assert.doesNotMatch(
       surface,
-      /ਲਾਜ਼ਮੀ ਲਾਜ਼ਮੀ|ਲਕਸ਼ਿਤ ਨਿਪਟਾਰਾ ਮਿਆਦ ਦਿਖਾਇਆ|ਲਾਕ ਲਗਾਉਣਾ ਕਰ|(?:ਟਿਊਟੋਰਿਅਲ|ਸਹਾਇਤਾ) ਸੈਸ਼ਨ ਦੇਣੀਆਂ|ਰਿਮਾਈਂਡਰ ਭੇਜਣੀ|ਲਚਕੀਲਾ ਸ਼ੁਰੂਆਤੀ ਸਮਾਂ ਦੀ|ਮੁੜ-ਪ੍ਰੀਖਿਆ ਕਰਾਉਣਾ ਚਾਹੀਦਾ|ਦੁਰਵਿਹਾਰ ਦਾ ਇੱਕ ਦੋਸ਼ ਤੋਂ|ਟ੍ਰੈਫਿਕ ਰੋਕਣੀਆਂ/,
+      /ਲਾਜ਼ਮੀ ਲਾਜ਼ਮੀ|ਲਕਸ਼ਿਤ ਨਿਪਟਾਰਾ ਮਿਆਦ ਦਿਖਾਇਆ|ਲਾਕ ਲਗਾਉਣਾ ਕਰ|ਬੰਦ ਕਰਨਾ ਕਰ|(?:ਟਿਊਟੋਰਿਅਲ|ਸਹਾਇਤਾ) ਸੈਸ਼ਨ ਦੇਣੀਆਂ|ਸੈਸ਼ਨਾਂ ਦੀ ਥਾਂ .* ਕਰ ਦੇਣੇ|ਫੀਸ ਦਿਖਾਉਣੇ ਚਾਹੀਦੇ|ਰਿਮਾਈਂਡਰ ਭੇਜਣੀ|ਲਚਕੀਲਾ ਸ਼ੁਰੂਆਤੀ ਸਮਾਂ ਦੀ|ਕਾਂਟ੍ਰੈਕਟ ਕਰਮਚਾਰ|ਮੁੜ-ਪ੍ਰੀਖਿਆ ਕਰਾਉਣਾ ਚਾਹੀਦਾ|ਪੂਰੀ ਪ੍ਰੀਖਿਆ ਰੱਦ ਕਰਨਾ ਚਾਹੀਦਾ|ਦੁਰਵਿਹਾਰ ਦਾ ਇੱਕ ਦੋਸ਼ ਤੋਂ|ਟ੍ਰੈਫਿਕ ਰੋਕਣੀਆਂ|ਇੱਕਲੇ-ਸਵਾਰੀ ਕਾਰਾਂ ਰੋਕਣੀਆਂ|ਪਿਕਅੱਪ ਚਾਰਜ ਲੈਣੀ ਚਾਹੀਦੀ/,
       `${question.questionId}: known Punjabi two-argument grammar regression leaked into human review corpus`,
     );
     if (isCombo) {
@@ -236,7 +236,7 @@ for (const { language, cell, question } of reviewItems) {
       );
       assert.equal(
         question.localizedComboResidualPolishAuthority,
-        "ARG_CP015_LOCALIZED_COMBO_RESIDUAL_POLISH_V1",
+        "ARG_CP015_LOCALIZED_COMBO_RESIDUAL_POLISH_V2",
         `${question.questionId}: localized Banking combo human-review item must pass through CP015 residual localized polish`,
       );
       assert.doesNotMatch(
@@ -246,7 +246,7 @@ for (const { language, cell, question } of reviewItems) {
       );
       assert.doesNotMatch(
         surface,
-        /ਨਿਗਰਾਨੀ ਨਿਗਰਾਨੀ|ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਨਿਗਰਾਨੀ|ਕੀ-ਸਟ੍ਰੋਕ ਲੌਗਿੰਗ ਨਿਗਰਾਨੀ|ਇੱਕ ਖਰੀਦਦਾਰ ਸ਼ਿਕਾਇਤ|ਇੱਕ ਨਕਲ ਦੀ ਸ਼ਿਕਾਇਤ|ਇੱਕ ਗਲਤ ਵਿਹਾਰ ਦਾ ਦੋਸ਼|ਸਪੱਸ਼ਟ (?:ਮਾਡਲ ਉੱਤਰ ਬਿੰਦੂ|ਮੁਲਾਂਕਣ ਮਾਪਦੰਡ)[^।.!?]*ਮਦਦ ਕਰਦਾ ਹੈ|ਜੇ (?:ਮਾਡਲ ਉੱਤਰ ਬਿੰਦੂ|ਮੁਲਾਂਕਣ ਮਾਪਦੰਡ) ਬਦਲ ਸਕਦਾ ਹੈ|(?:ਸਥਾਨ ਟ੍ਰੈਕਿੰਗ|ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ) ਕਿਹੜਾ ਡਾਟਾ ਇਕੱਠਾ ਕਰਦਾ ਹੈ|(?:ਸਥਾਨ ਟ੍ਰੈਕਿੰਗ|ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ) ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ/,
+        /ਨਿਗਰਾਨੀ ਨਿਗਰਾਨੀ|ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ ਨਿਗਰਾਨੀ|ਕੀ-ਸਟ੍ਰੋਕ ਲੌਗਿੰਗ ਨਿਗਰਾਨੀ|ਇੱਕ ਖਰੀਦਦਾਰ ਸ਼ਿਕਾਇਤ|ਇੱਕ ਨਕਲ ਦੀ ਸ਼ਿਕਾਇਤ|ਇੱਕ ਗਲਤ ਵਿਹਾਰ ਦਾ ਦੋਸ਼|ਸਪੱਸ਼ਟ (?:ਮਾਡਲ ਉੱਤਰ ਬਿੰਦੂ|ਮੁਲਾਂਕਣ ਮਾਪਦੰਡ)[^।.!?]*ਮਦਦ ਕਰਦਾ ਹੈ|ਜੇ (?:ਮਾਡਲ ਉੱਤਰ ਬਿੰਦੂ|ਮੁਲਾਂਕਣ ਮਾਪਦੰਡ) ਬਦਲ ਸਕਦਾ ਹੈ|(?:ਸਥਾਨ ਟ੍ਰੈਕਿੰਗ|ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ) ਕਿਹੜਾ ਡਾਟਾ ਇਕੱਠਾ ਕਰਦਾ ਹੈ|(?:ਸਥਾਨ ਟ੍ਰੈਕਿੰਗ|ਲਗਾਤਾਰ ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ) ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ|ਸਿੱਧਾ ਅਟੱਲ ਸਜ਼ਾ/,
         `${question.questionId}: pre-polish Punjabi combo grammar leaked into human review corpus`,
       );
     }
@@ -322,5 +322,6 @@ console.log(JSON.stringify({
   localizedComboSurfacePolishRequired: true,
   localizedComboResidualPolishRequired: true,
   explicitTwoArgumentLocalizationRegressionGuards: true,
+  secondPassLocalizedEditorialRegressionGuards: true,
   outputDirectory: outDir,
 }, null, 2));
