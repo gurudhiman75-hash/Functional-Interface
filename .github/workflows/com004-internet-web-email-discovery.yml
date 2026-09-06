@@ -7,10 +7,17 @@ on:
     paths:
       - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-source-manifest.ts"
       - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-source-manifest.test.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-source-authority-extension.ts"
       - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-internet-web-email-discovery.ts"
       - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-internet-web-email-discovery.test.ts"
       - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-merge-split-audit.ts"
       - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-merge-split-audit.test.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-candidate-fact-corpus.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-candidate-fact-corpus.test.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-corpus-saturation-audit.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-corpus-saturation-audit.test.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-distractor-readiness.ts"
+      - "artifacts/api-server/src/knowledge-v1/computer-awareness/com004-distractor-readiness.test.ts"
       - ".github/workflows/com004-internet-web-email-discovery.yml"
   workflow_dispatch:
 
@@ -40,13 +47,16 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Bundle COM-004 discovery governance tests
+      - name: Bundle COM-004 governance tests
         run: |
           mkdir -p artifacts/api-server/dist/knowledge-v1/computer-awareness/com004-discovery
           tests=(
             "src/knowledge-v1/computer-awareness/com004-source-manifest.test.ts"
             "src/knowledge-v1/computer-awareness/com004-internet-web-email-discovery.test.ts"
             "src/knowledge-v1/computer-awareness/com004-merge-split-audit.test.ts"
+            "src/knowledge-v1/computer-awareness/com004-candidate-fact-corpus.test.ts"
+            "src/knowledge-v1/computer-awareness/com004-corpus-saturation-audit.test.ts"
+            "src/knowledge-v1/computer-awareness/com004-distractor-readiness.test.ts"
           )
           for test_file in "${tests[@]}"; do
             output_name="$(basename "${test_file}" .ts).mjs"
@@ -64,3 +74,12 @@ jobs:
 
       - name: Validate COM-004 merge-split ownership
         run: node artifacts/api-server/dist/knowledge-v1/computer-awareness/com004-discovery/com004-merge-split-audit.test.mjs
+
+      - name: Validate COM-004 source-backed candidate fact corpus
+        run: node artifacts/api-server/dist/knowledge-v1/computer-awareness/com004-discovery/com004-candidate-fact-corpus.test.mjs
+
+      - name: Validate COM-004 corpus saturation
+        run: node artifacts/api-server/dist/knowledge-v1/computer-awareness/com004-discovery/com004-corpus-saturation-audit.test.mjs
+
+      - name: Validate COM-004 distractor capacity
+        run: node artifacts/api-server/dist/knowledge-v1/computer-awareness/com004-discovery/com004-distractor-readiness.test.mjs
