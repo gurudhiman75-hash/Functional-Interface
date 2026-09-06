@@ -10,7 +10,7 @@ import { getGeneratedItemApprovalDisposition } from "../../lib/admin-question-st
 import { COM003_BANK_ONLY_ACTIVATION_AUTHORITY_V1 } from "./com003-bank-only-activation-authority-v1";
 import { knowledgeV1Com003QuestionStudioAdapterV2 } from "./knowledge-v1-com003-adapter-v2";
 
-const read = (path: string) => readFileSync(path, "utf8");
+const read = (path: string) => readFileSync(`artifacts/api-server/${path}`, "utf8");
 const bulkRoute = read("src/routes/admin-question-studio-bulk-hardening.ts");
 const conversion = read("src/lib/admin-question-conversion.ts");
 const registry = read("src/routes/admin-question-studio-registry.ts");
