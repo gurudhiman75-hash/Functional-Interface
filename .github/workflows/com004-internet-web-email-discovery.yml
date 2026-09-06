@@ -56,8 +56,11 @@ jobs:
               --outfile="dist/knowledge-v1/computer-awareness/com004-discovery/${output_name}"
           done
 
-      - name: Run COM-004 source, discovery and merge-split gates
-        run: |
-          for test_file in artifacts/api-server/dist/knowledge-v1/computer-awareness/com004-discovery/*.test.mjs; do
-            node "${test_file}"
-          done
+      - name: Validate COM-004 governed source manifest
+        run: node artifacts/api-server/dist/knowledge-v1/computer-awareness/com004-discovery/com004-source-manifest.test.mjs
+
+      - name: Validate COM-004 saturated learner-task discovery
+        run: node artifacts/api-server/dist/knowledge-v1/computer-awareness/com004-discovery/com004-internet-web-email-discovery.test.mjs
+
+      - name: Validate COM-004 merge-split ownership
+        run: node artifacts/api-server/dist/knowledge-v1/computer-awareness/com004-discovery/com004-merge-split-audit.test.mjs
