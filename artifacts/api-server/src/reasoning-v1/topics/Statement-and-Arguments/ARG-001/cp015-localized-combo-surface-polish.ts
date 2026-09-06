@@ -1,10 +1,33 @@
 import { createHash } from "node:crypto";
 
 export const ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY = "ARG_CP015_LOCALIZED_COMBO_SURFACE_POLISH_V1" as const;
+export const ARG_CP015_ENGLISH_COMBO_POLISH_AUTHORITY = "ARG_CP015_ENGLISH_COMBO_SURFACE_POLISH_V1" as const;
 
 type Question = Readonly<Record<string, any>>;
 
 const ROMAN = ["I", "II", "III", "IV"] as const;
+
+function polishEnglish(value: string): string {
+  return value
+    .replace(/^(Yes|No)\.\s+([a-z])/g, (_match, prefix: string, letter: string) => `${prefix}. ${letter.toUpperCase()}`)
+    .replaceAll("a member of office employees", "an office employee")
+    .replaceAll("a member of remote employees", "a remote employee")
+    .replaceAll("a member of contract workers", "a contract worker")
+    .replaceAll("a member of field staff", "a field staff member")
+    .replaceAll("Members of office employees", "Office employees")
+    .replaceAll("Members of remote employees", "Remote employees")
+    .replaceAll("Members of contract workers", "Contract workers")
+    .replaceAll("Members of field staff", "Field staff")
+    .replaceAll("Employees among office employees", "Office employees")
+    .replaceAll("Employees among remote employees", "Remote employees")
+    .replaceAll("Employees among contract workers", "Contract workers")
+    .replaceAll("Employees among field staff", "Field staff")
+    .replace(/\bA mistaken one ([a-z-]+(?:\s+[a-z-]+)*)/gi, "A mistaken $1")
+    .replace(/\ban erroneous one ([a-z-]+(?:\s+[a-z-]+)*)/gi, "an erroneous $1")
+    .replace(/\b(registration services|routine document services|standard certificate services|fee-payment services) becomes permanently unworkable\b/gi, "$1 become permanently unworkable")
+    .replace(/Publishing (model answer points|evaluation criteria) without keeping it current could misdirect users, so ([^.]+) must be able to update it promptly\./gi, "Publishing $1 without keeping them current could misdirect users, so $2 must be able to update them promptly.")
+    .replace(/\b(model answer points|evaluation criteria) should display only if it can keep the information updated\b/gi, "$1 should be displayed only if the information can be kept updated");
+}
 
 function polishHindi(value: string): string {
   return value
@@ -60,17 +83,24 @@ function polishPunjabi(value: string): string {
 }
 
 function rebuildStem(locale: string, statement: string, argumentsList: readonly string[]): string {
-  const statementLabel = locale === "hi-IN" ? "कथन" : "ਕਥਨ";
-  const argumentsLabel = locale === "hi-IN" ? "तर्क" : "ਦਲੀਲਾਂ";
+  const statementLabel = locale === "hi-IN" ? "कथन" : locale === "pa-IN" ? "ਕਥਨ" : "Statement";
+  const argumentsLabel = locale === "hi-IN" ? "तर्क" : locale === "pa-IN" ? "ਦਲੀਲਾਂ" : "Arguments";
   return `${statementLabel}: ${statement}\n${argumentsLabel}:\n${argumentsList.map((argument, index) => `${ROMAN[index]}. ${argument}`).join("\n")}`;
 }
 
 export function polishArgCp015LocalizedComboSurface(question: Question): Question {
   const locale = String(question.locale ?? "");
-  if (locale !== "hi-IN" && locale !== "pa-IN") return question;
-  if (!question.localizedComboEditorialAuthority) return question;
+  if (locale !== "en-IN" && locale !== "hi-IN" && locale !== "pa-IN") return question;
 
-  const polish = locale === "hi-IN" ? polishHindi : polishPunjabi;
+  const isEnglish = locale === "en-IN";
+  if (isEnglish) {
+    if (!question.comboEditorialAuthority) return question;
+  } else if (!question.localizedComboEditorialAuthority) {
+    return question;
+  }
+
+  const polish = isEnglish ? polishEnglish : locale === "hi-IN" ? polishHindi : polishPunjabi;
+  const authority = isEnglish ? ARG_CP015_ENGLISH_COMBO_POLISH_AUTHORITY : ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY;
   const sourceStatement = String(question.statement ?? "");
   const sourceArguments = Array.isArray(question.arguments) ? question.arguments as readonly string[] : [];
   const sourceExplanation = String(question.explanation ?? "");
@@ -91,24 +121,30 @@ export function polishArgCp015LocalizedComboSurface(question: Question): Questio
       statement = statement
         .replace(/^क्या (.+) के बाद (.+) द्वारा तत्काल स्थायी दंड उचित है\?$/, "क्या $1 मिलने के बाद $2 द्वारा तत्काल स्थायी दंड उचित है?")
         .replace(/^क्या (.+) के तुरंत बाद (.+) द्वारा स्थायी दंड लगाना उचित है\?$/, "क्या $1 मिलने के तुरंत बाद $2 द्वारा स्थायी दंड लगाना उचित है?");
-    } else {
+    } else if (locale === "pa-IN") {
       statement = statement
         .replace(/^ਕੀ (.+) ਤੋਂ ਬਾਅਦ (.+) ਵੱਲੋਂ ਤੁਰੰਤ ਸਥਾਈ ਸਜ਼ਾ ਵਾਜਬ ਹੈ\?$/, "ਕੀ $1 ਮਿਲਣ ਤੋਂ ਬਾਅਦ $2 ਵੱਲੋਂ ਤੁਰੰਤ ਸਥਾਈ ਸਜ਼ਾ ਵਾਜਬ ਹੈ?")
         .replace(/^ਕੀ (.+) ਤੋਂ ਤੁਰੰਤ ਬਾਅਦ (.+) ਵੱਲੋਂ ਸਥਾਈ ਸਜ਼ਾ ਲਗਾਉਣਾ ਵਾਜਬ ਹੈ\?$/, "ਕੀ $1 ਮਿਲਣ ਤੋਂ ਤੁਰੰਤ ਬਾਅਦ $2 ਵੱਲੋਂ ਸਥਾਈ ਸਜ਼ਾ ਲਗਾਉਣਾ ਵਾਜਬ ਹੈ?");
     }
   }
 
-  if (statement === sourceStatement && explanation === sourceExplanation && argumentsList.every((value, index) => value === sourceArguments[index])) {
+  const changed = statement !== sourceStatement
+    || explanation !== sourceExplanation
+    || argumentsList.some((value, index) => value !== sourceArguments[index]);
+
+  if (!changed) {
     return Object.freeze({
       ...question,
-      localizedComboPolishAuthority: ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY,
+      ...(isEnglish
+        ? { englishComboPolishAuthority: ARG_CP015_ENGLISH_COMBO_POLISH_AUTHORITY }
+        : { localizedComboPolishAuthority: ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY }),
     });
   }
 
   const stem = rebuildStem(locale, statement, argumentsList);
   const contentFingerprint = createHash("sha256").update(JSON.stringify([
-    ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY,
-    question.localizedComboEditorialAuthority,
+    authority,
+    isEnglish ? question.comboEditorialAuthority : question.localizedComboEditorialAuthority,
     question.qlId,
     question.examProfile,
     locale,
@@ -128,7 +164,9 @@ export function polishArgCp015LocalizedComboSurface(question: Question): Questio
     text: stem,
     prePolishStatement: sourceStatement,
     prePolishExplanation: sourceExplanation,
-    localizedComboPolishAuthority: ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY,
+    ...(isEnglish
+      ? { englishComboPolishAuthority: ARG_CP015_ENGLISH_COMBO_POLISH_AUTHORITY }
+      : { localizedComboPolishAuthority: ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY }),
     questionId: `ARG-001:${question.qlId}:${question.examProfile}:${locale}:CP015:${contentFingerprint.slice(0, 20)}`,
     contentFingerprint,
   });
