@@ -10,6 +10,10 @@ import {
   isArgCp014CurrentRequest,
   type ArgCp014QuestionStudioInput,
 } from "./cp014-manual-editorial-approval.ts";
+import {
+  ARG_CP015_ANTI_GAMING_CUE_DEBIAS_AUTHORITY,
+  debiasArgCp015AnswerCues,
+} from "./cp015-anti-gaming-cue-debias.ts";
 import { naturalizeArgCp015ComboStatement } from "./cp015-combo-statement-naturalization.ts";
 import {
   ARG_CP015_COMBO_ARGUMENT_SURFACE_AUTHORITY,
@@ -235,7 +239,8 @@ function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed:
     const source = generateArgCp014QuestionStudioBatch(request);
     const reshaped = reshapeTwoArgumentProfile(source.questions[0] as Question, profile);
     const naturalized = naturalizeArgCp015TwoArgumentEditorial(reshaped);
-    const question = polishArgCp015LocalizedTwoArgumentSurface(naturalized);
+    const polished = polishArgCp015LocalizedTwoArgumentSurface(naturalized);
+    const question = debiasArgCp015AnswerCues(polished);
     return { question, context: source.generationContext as Question };
   }
 
@@ -255,9 +260,10 @@ function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed:
     ? diversifyArgCp015ResidualComboArguments(localizedNaturalized, profile, text(input.difficulty), seed)
     : localizedNaturalized;
   const polished = polishArgCp015LocalizedComboSurface(residualDiverse);
-  const question = COMBO_PROFILES.has(profile)
+  const residualPolished = COMBO_PROFILES.has(profile)
     ? polishArgCp015ResidualLocalizedComboSurface(polished)
     : polished;
+  const question = debiasArgCp015AnswerCues(residualPolished);
   return { question, context: source.generationContext as Question };
 }
 
@@ -314,6 +320,7 @@ export function generateArgCp015QuestionStudioBatch(input: ArgCp015QuestionStudi
       sourceQuestionStudioAuthority: ARG_CP014_QUESTION_STUDIO_AUTHORITY,
       approvalAuthority: ARG_CP014_AUTHORITY,
       diversityAuthority: ARG_CP015_AUTHORITY,
+      antiGamingCueDebiasAuthority: ARG_CP015_ANTI_GAMING_CUE_DEBIAS_AUTHORITY,
       runtimeMode: ARG_CP015_RUNTIME_MODE,
       reviewStatus: ARG_CP015_REVIEW_STATUS,
       profileMode: isArgCp015RealPaperRequest(input) ? "real-paper" as const : "core" as const,
@@ -359,6 +366,7 @@ export const ARG_CP015_QUESTION_STUDIO_PACKAGE = Object.freeze({
   sourceQuestionStudioAuthority: ARG_CP014_QUESTION_STUDIO_AUTHORITY,
   approvalAuthority: ARG_CP014_AUTHORITY,
   diversityAuthority: ARG_CP015_AUTHORITY,
+  antiGamingCueDebiasAuthority: ARG_CP015_ANTI_GAMING_CUE_DEBIAS_AUTHORITY,
   runtimeMode: ARG_CP015_RUNTIME_MODE,
   reviewStatus: ARG_CP015_REVIEW_STATUS,
   noRepeatWithinBatch: true as const,
