@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_LOCALIZED_TWO_ARGUMENT_POLISH_AUTHORITY = "ARG_CP015_LOCALIZED_TWO_ARGUMENT_SURFACE_POLISH_V10" as const;
+export const ARG_CP015_LOCALIZED_TWO_ARGUMENT_POLISH_AUTHORITY = "ARG_CP015_LOCALIZED_TWO_ARGUMENT_SURFACE_POLISH_V11" as const;
 
 type Question = Readonly<Record<string, any>>;
 
@@ -122,7 +122,7 @@ function polishPunjabi(value: string): string {
     .replaceAll("ਵਾਧੂ ਪਿਕਅੱਪ ਚਾਰਜ ਲੈਣੀ ਚਾਹੀਦੀ ਹੈ", "ਵਾਧੂ ਪਿਕਅੱਪ ਚਾਰਜ ਲੈਣਾ ਚਾਹੀਦਾ ਹੈ")
     .replaceAll("ਸਕੂਲ ਛੁੱਟੀ ਸਮੇਂ ਦੌਰਾਨ", "ਸਕੂਲ ਛੁੱਟੀ ਦੇ ਸਮੇਂ ਦੌਰਾਨ")
     .replaceAll("ਭਾਰੀ ਮਾਲ ਵਾਹਨਾਂ ਰੋਕਣ ਨਾਲ", "ਭਾਰੀ ਮਾਲ ਵਾਹਨਾਂ ਨੂੰ ਰੋਕਣ ਨਾਲ")
-    .replaceAll("ਨਿੱਜੀ ਟੈਬਲੈਟ ਨੂੰ ਪ੍ਰੀਖਿਆ ਕੈਂਪਸ ਤੋਂ ਹਰ ਹਾਲਤ ਵਿੱਚ ਪਾਬੰਦੀ ਲਗਾ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ", "ਕੀ ਪ੍ਰੀਖਿਆ ਕੈਂਪਸ ਵਿੱਚ ਨਿੱਜੀ ਟੈਬਲੈਟਾਂ 'ਤੇ ਹਰ ਹਾਲਤ ਵਿੱਚ ਪਾਬੰਦੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ")
+    .replaceAll("ਨਿੱਜੀ ਟੈਬਲੈਟ ਨੂੰ ਪ੍ਰੀਖਿਆ ਕੈਂਪਸ ਤੋਂ ਹਰ ਹਾਲਤ ਵਿੱਚ ਪਾਬੰਦੀ ਲਗਾ ਦੇਣੀ ਚਾਹੀਦੀ ਹੈ", "ਪ੍ਰੀਖਿਆ ਕੈਂਪਸ ਵਿੱਚ ਨਿੱਜੀ ਟੈਬਲੈਟਾਂ 'ਤੇ ਹਰ ਹਾਲਤ ਵਿੱਚ ਪਾਬੰਦੀ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ")
     .replaceAll("ਟ੍ਰੇਨੀਜ਼ ਦੀ ਪਛਾਣ ਕਰਨ ਵਾਲੀ ਨਾਮ ਅਤੇ ਦੇਰੀ ਦੀ ਗਿਣਤੀ", "ਟ੍ਰੇਨੀਜ਼ ਦੇ ਨਾਮ ਅਤੇ ਦੇਰੀ ਦੀ ਗਿਣਤੀ")
     .replaceAll("ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਪਛਾਣ ਕਰਨ ਵਾਲੀ ਨਾਮ ਅਤੇ ਦੇਰੀ ਦੀ ਗਿਣਤੀ", "ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਨਾਮ ਅਤੇ ਦੇਰੀ ਦੀ ਗਿਣਤੀ")
     .replaceAll("ਵਿਦਿਆਰਥੀਆਂ ਦੀ ਨਾਮ ਅਤੇ ਦੇਰੀ ਦੀ ਗਿਣਤੀ", "ਵਿਦਿਆਰਥੀਆਂ ਦੇ ਨਾਮ ਅਤੇ ਦੇਰੀ ਦੀ ਗਿਣਤੀ")
