@@ -1,0 +1,52 @@
+name: COM-004 English Chapter Candidate V1
+
+on:
+  push:
+    branches: [feature/com004-internet-web-email-discovery-v1]
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-permanent-ql-allocation-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-production-wave1-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-production-wave2-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-production-wave3-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-production-wave4-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-production-wave4-v1-1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-production-wave5-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-chapter-candidate-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-chapter-candidate-v1.test.ts'
+      - '.github/workflows/com004-english-chapter-candidate-v1.yml'
+  pull_request:
+    branches: [integration/computer-content-engine-mainline-v1]
+    paths:
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-permanent-ql-allocation-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-production-wave1-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-production-wave2-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-production-wave3-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-production-wave4-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-production-wave4-v1-1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-production-wave5-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-chapter-candidate-v1.ts'
+      - 'artifacts/api-server/src/knowledge-v1/computer-awareness/com004-english-chapter-candidate-v1.test.ts'
+      - '.github/workflows/com004-english-chapter-candidate-v1.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Bundle COM-004 English chapter candidate V1 audit
+        run: |
+          mkdir -p artifacts/api-server/dist/com004-english-chapter-candidate-v1
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/computer-awareness/com004-english-chapter-candidate-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/com004-english-chapter-candidate-v1/audit.test.mjs
+      - name: Run COM-004 English chapter candidate V1 audit
+        run: node artifacts/api-server/dist/com004-english-chapter-candidate-v1/audit.test.mjs
