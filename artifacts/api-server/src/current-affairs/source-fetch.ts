@@ -23,7 +23,12 @@ function sleep(ms: number) {
 
 function canonicalOfficialHost(hostname: string) {
   const host = hostname.toLowerCase();
-  if (host === "rbi.org.in" || host === "www.rbi.org.in" || host === "m.rbi.org.in") {
+  if (
+    host === "rbi.org.in" ||
+    host === "www.rbi.org.in" ||
+    host === "m.rbi.org.in" ||
+    host === "website.rbi.org.in"
+  ) {
     return "rbi.org.in";
   }
   return host.replace(/^www\./, "");
@@ -69,7 +74,7 @@ export function officialHostVariants(value: string): string[] {
   const variants = [safe.toString()];
 
   if (canonicalOfficialHost(safe.hostname) === "rbi.org.in") {
-    for (const hostname of ["www.rbi.org.in", "rbi.org.in", "m.rbi.org.in"]) {
+    for (const hostname of ["website.rbi.org.in", "www.rbi.org.in", "rbi.org.in", "m.rbi.org.in"]) {
       if (hostname === safe.hostname.toLowerCase()) continue;
       const alternate = new URL(safe);
       alternate.hostname = hostname;
