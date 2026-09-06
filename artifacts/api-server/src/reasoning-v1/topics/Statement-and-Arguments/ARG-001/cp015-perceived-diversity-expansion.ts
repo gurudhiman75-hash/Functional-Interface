@@ -10,6 +10,7 @@ import {
   isArgCp014CurrentRequest,
   type ArgCp014QuestionStudioInput,
 } from "./cp014-manual-editorial-approval.ts";
+import { naturalizeArgCp015ComboStatement } from "./cp015-combo-statement-naturalization.ts";
 
 export const ARG_CP015_CHECKPOINT_ID = "ARG-CP-015" as const;
 export const ARG_CP015_AUTHORITY = "ARG_CP015_PERCEIVED_DIVERSITY_EXPANSION_V1" as const;
@@ -22,6 +23,7 @@ export type ArgCp015QuestionStudioInput = ArgCp014QuestionStudioInput;
 type Question = Readonly<Record<string, any>>;
 
 const TWO_ARGUMENT_PROFILES = new Set(["SSC_RECENT_2X4", "BANKING_CLASSIC_2X5"]);
+const COMBO_PROFILES = new Set(["BANKING_COMBO_3X5", "BANKING_COMBO_4X5"]);
 
 function text(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
@@ -48,6 +50,10 @@ function fullSignature(question: Question): string {
     question.correctIndex,
     question.explanation,
   ])).digest("hex");
+}
+
+function statementSignature(question: Question): string {
+  return text(question.statement).toLocaleLowerCase("en-IN").replace(/\s+/g, " ");
 }
 
 function signatureParity(signature: string): 0 | 1 {
@@ -207,7 +213,11 @@ function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed:
   }
   const request = sourceInput({ ...input, count: 1, seed });
   const source = generateArgCp014QuestionStudioBatch(request);
-  return { question: promoteUnchanged(source.questions[0] as Question), context: source.generationContext as Question };
+  const promoted = promoteUnchanged(source.questions[0] as Question);
+  const question = COMBO_PROFILES.has(profile)
+    ? naturalizeArgCp015ComboStatement(promoted, profile, text(input.difficulty), seed)
+    : promoted;
+  return { question, context: source.generationContext as Question };
 }
 
 export function isArgCp015CurrentRequest(input: Readonly<Record<string, unknown>>): boolean {
@@ -224,6 +234,7 @@ export function generateArgCp015QuestionStudioBatch(input: ArgCp015QuestionStudi
   const baseSeed = text(input.seed) || "ARG-CP015-DEFAULT";
   const questions: Question[] = [];
   const seen = new Set<string>();
+  const seenStatements = new Set<string>();
   let sourceContext: Question | undefined;
 
   for (let index = 0; index < count; index += 1) {
@@ -235,8 +246,11 @@ export function generateArgCp015QuestionStudioBatch(input: ArgCp015QuestionStudi
       if (!profileSurfaceAccepted(candidate.question, profile)) continue;
       const signature = fullSignature(candidate.question);
       if (!diversityPartitionAccepted(signature, input, profile)) continue;
+      const candidateStatement = statementSignature(candidate.question);
+      if (COMBO_PROFILES.has(profile) && seenStatements.has(candidateStatement)) continue;
       if (!seen.has(signature)) {
         seen.add(signature);
+        if (COMBO_PROFILES.has(profile)) seenStatements.add(candidateStatement);
         accepted = candidate.question;
         break;
       }
@@ -264,6 +278,7 @@ export function generateArgCp015QuestionStudioBatch(input: ArgCp015QuestionStudi
       profileMode: isArgCp015RealPaperRequest(input) ? "real-paper" as const : "core" as const,
       examProfile: profile || undefined,
       noRepeatWithinBatch: true as const,
+      noRepeatedComboStatementWithinBatch: COMBO_PROFILES.has(profile) ? true as const : undefined,
       twoArgumentProfileSource: TWO_ARGUMENT_PROFILES.has(profile) ? "APPROVED_CORE_SURFACE" as const : undefined,
       reviewOnly: false as const,
       manualApprovalRequired: false as const,
@@ -296,6 +311,7 @@ export const ARG_CP015_QUESTION_STUDIO_PACKAGE = Object.freeze({
   runtimeMode: ARG_CP015_RUNTIME_MODE,
   reviewStatus: ARG_CP015_REVIEW_STATUS,
   noRepeatWithinBatch: true as const,
+  noRepeatedComboStatementWithinBatch: true as const,
   twoArgumentProfilesUseApprovedCoreSurface: true as const,
   reviewOnly: false as const,
   manualApprovalRequired: false as const,
