@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { FIGURE_MATRIX_SOURCE_EVIDENCE_V1 } from "../foundation/spatial/figure-matrix-source-evidence-v1";
 import { FIGURE_MATRIX_SOURCE_SATURATED_DISCOVERY_V1 } from "../foundation/spatial/figure-matrix-source-saturated-discovery-v1";
 import { FMT_V2_SOURCE_VARIANTS, type FigureMatrixQlIdV2 } from "../foundation/spatial/figure-matrix-review-runtime-v2";
-import { generateFigureMatrixReviewQuestionV2_2 } from "../foundation/spatial/figure-matrix-review-runtime-v2-2";
+import { generateFigureMatrixReviewQuestionV2_3 } from "../foundation/spatial/figure-matrix-review-runtime-v2-3";
 import { FIGURE_MATRIX_PERMANENT_QL_ALLOCATIONS_V12 } from "../foundation/spatial/spatial-permanent-ql-allocation-v12";
 
 const qls: readonly FigureMatrixQlIdV2[] = ["SPA-QL-055", "SPA-QL-056", "SPA-QL-057", "SPA-QL-058", "SPA-QL-059", "SPA-QL-060"];
@@ -18,6 +18,9 @@ let bothAxisQuestions = 0;
 let twoByTwoQuestions = 0;
 let editorialQuestions = 0;
 let distinctOptionRetries = 0;
+let explicitCompositionChecks = 0;
+let explicitCountChecks = 0;
+let explicitCycleChecks = 0;
 
 const forbiddenLearnerTokens = [
   "DOUBLE_FIRST_PLUS_SECOND",
@@ -49,10 +52,10 @@ for (const qlId of qls) {
   const variants = sourceVariantsByQl.get(qlId)!;
   for (let index = 1; index <= 24; index += 1) {
     const seed = `fmt-${qlId}-${index}`;
-    const english = generateFigureMatrixReviewQuestionV2_2({ qlId, seed, language: "en" });
-    const replay = generateFigureMatrixReviewQuestionV2_2({ qlId, seed, language: "en" });
+    const english = generateFigureMatrixReviewQuestionV2_3({ qlId, seed, language: "en" });
+    const replay = generateFigureMatrixReviewQuestionV2_3({ qlId, seed, language: "en" });
     assert.deepEqual(replay, english, `${qlId}/${seed} must be exactly deterministic`);
-    assert.equal(english.version, "SPA-FMT-001-REVIEW-QUESTION-V2.2");
+    assert.equal(english.version, "SPA-FMT-001-REVIEW-QUESTION-V2.3");
     assert.equal(english.qlId, qlId);
     assert.equal(english.chapterCode, "FMT-001");
     assert.equal(english.optionSvgs.length, 4);
@@ -81,6 +84,9 @@ for (const qlId of qls) {
     assert.equal(english.validation.sourceObservedFillStatesSupported, true);
     assert.equal(english.validation.deterministicDistinctOptionRetry, true);
     assert.equal(english.validation.sourceVariantPreservedAcrossRetry, true);
+    assert.equal(english.validation.sourceVariantWorkedEvidenceExplicit, true);
+    assert.equal(english.validation.exactDistractorDeltaExplainedForCompositionAndCount, true);
+    assert.equal(english.validation.cyclicSequenceSpelledOutForLearner, true);
     assert.ok(english.matrixSvg.includes("?"), `${qlId}/${seed} must display the missing-cell marker`);
     assert.equal(english.solutionSvg.includes(">?</text>"), false, `${qlId}/${seed} solution illustration must fill the missing cell`);
     assert.ok(english.explanation.rule.length > 20);
@@ -98,6 +104,23 @@ for (const qlId of qls) {
     assert.equal(english.lifecycle.publicReleaseAuthorized, false);
     assert.equal(english.lifecycle.studentDeliveryAuthorized, false);
     assert.equal(english.lifecycle.automaticStudentPublication, false);
+
+    if (qlId === "SPA-QL-056") {
+      assert.ok(english.explanation.worked.includes("Row") || english.explanation.worked.includes("row"));
+      assert.ok(english.explanation.application.includes(`option ${english.answer}`));
+      assert.ok(english.explanation.distractorChecks.every((value) => value.includes("line")), `${qlId}/${seed} distractors must state concrete line differences`);
+      explicitCompositionChecks += 1;
+    }
+    if (qlId === "SPA-QL-057") {
+      assert.match(english.explanation.worked, /\d/);
+      assert.ok(english.explanation.application.includes(`${english.solveFacts.semanticAnswerKey.includes('"dotCount"') ? "dots" : ""}`) || english.explanation.application.includes("dots"));
+      assert.ok(english.explanation.distractorChecks.every((value) => value.includes("dots")), `${qlId}/${seed} count distractors must state concrete counts`);
+      explicitCountChecks += 1;
+    }
+    if (qlId === "SPA-QL-058") {
+      assert.ok(english.explanation.rule.includes("→"), `${qlId}/${seed} cyclic explanation must spell out the learner-visible sequence`);
+      explicitCycleChecks += 1;
+    }
 
     const learnerText = [
       english.stem,
@@ -124,7 +147,7 @@ for (const qlId of qls) {
     if (english.matrixSize === 2) twoByTwoQuestions += 1;
 
     for (const language of languages) {
-      const localized = generateFigureMatrixReviewQuestionV2_2({ qlId, seed, language });
+      const localized = generateFigureMatrixReviewQuestionV2_3({ qlId, seed, language });
       assert.equal(localized.geometryFingerprint, english.geometryFingerprint, `${qlId}/${seed}/${language} geometry must be language-neutral`);
       assert.equal(localized.correctIndex, english.correctIndex, `${qlId}/${seed}/${language} answer index must preserve parity`);
       assert.equal(localized.solveFacts.semanticAnswerKey, english.solveFacts.semanticAnswerKey);
@@ -158,6 +181,9 @@ for (const qlId of qls) {
 
 assert.equal(checkedQuestions, 144);
 assert.equal(editorialQuestions, checkedQuestions);
+assert.equal(explicitCompositionChecks, 24);
+assert.equal(explicitCountChecks, 24);
+assert.equal(explicitCycleChecks, 24);
 assert.equal(familyLabels.size, 6);
 assert.ok(difficulties.has("EASY"));
 assert.ok(difficulties.has("MODERATE"));
@@ -185,7 +211,7 @@ assert.ok(sourceVariantsByQl.get("SPA-QL-060")!.has("ROTATE_PLUS_REFLECT"));
 assert.ok(sourceVariantsByQl.get("SPA-QL-060")!.has("REMOVE_ELEMENT_PLUS_ORIENTATION_CHANGE"));
 
 console.log(JSON.stringify({
-  authority: "SPA-FMT-001-REVIEW-V2.2",
+  authority: "SPA-FMT-001-REVIEW-V2.3",
   qls,
   checkedQuestions,
   languages,
@@ -196,6 +222,9 @@ console.log(JSON.stringify({
   bothAxisQuestions,
   twoByTwoQuestions,
   distinctOptionRetries,
+  explicitCompositionChecks,
+  explicitCountChecks,
+  explicitCycleChecks,
   familyLabels: [...familyLabels].sort(),
   sourceVariantsByQl: Object.fromEntries([...sourceVariantsByQl].map(([qlId, variants]) => [qlId, [...variants].sort()])),
   sourceObservedElementRemovalCovered: true,
@@ -205,5 +234,6 @@ console.log(JSON.stringify({
   internalRuleTokensHidden: true,
   localizedExplanationLanguagePure: true,
   sourceSaturatedRuntime: true,
+  explanationDepthHardened: true,
   releaseGatesRemainClosed: true,
 }, null, 2));
