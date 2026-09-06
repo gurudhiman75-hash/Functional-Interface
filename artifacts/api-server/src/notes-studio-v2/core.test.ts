@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 
 import {
+  EXTRACTED_FACT_SCHEMA,
   buildFactGraph,
   buildGenerationRequest,
   generationInputJson,
@@ -56,6 +57,14 @@ assert.match(serialized, /f-low/);
 assert.doesNotMatch(serialized, /f-disputed/);
 assert.doesNotMatch(serialized, /SOURCE PROSE/);
 assert.doesNotMatch(serialized, /locator/);
+
+const extractedFactItemSchema = EXTRACTED_FACT_SCHEMA.properties.facts.items;
+assert.deepEqual(
+  [...extractedFactItemSchema.required].sort(),
+  Object.keys(extractedFactItemSchema.properties).sort(),
+  'Strict structured-output schemas must require every declared fact property; nullable fields stay required and use null for absence.',
+);
+assert.deepEqual(extractedFactItemSchema.properties.dateOrEra.type, ['string', 'null']);
 
 const style = {
   tone: 'direct',
