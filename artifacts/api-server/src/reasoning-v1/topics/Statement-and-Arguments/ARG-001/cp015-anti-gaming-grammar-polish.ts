@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 
 import { ARG_CP015_ANTI_GAMING_CUE_DEBIAS_AUTHORITY } from "./cp015-anti-gaming-cue-debias.ts";
 
-export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V1" as const;
+export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V2" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -58,7 +58,17 @@ function polishPunjabi(value: string): string {
     .replace(/ਅਸਧਾਰਣ ਉੱਚ-ਮੁੱਲ ਟ੍ਰਾਂਸਫਰ ਦੀ ਜ਼ਿਆਦਾਤਰ ਘਟਨਾ ਜਾਂ ਤਾਂ ਧੋਖਾਧੜੀ ਹੈ ਜਾਂ ਉਸਨੂੰ ਧੋਖਾਧੜੀ ਮੰਨਣਾ ਚਾਹੀਦਾ ਹੈ/g, "ਅਸਧਾਰਣ ਉੱਚ-ਮੁੱਲ ਟ੍ਰਾਂਸਫਰ ਨੂੰ ਧੋਖਾਧੜੀ ਮੰਨਣ ਲਈ ਜੋਖਮ-ਸੰਕੇਤ ਹੀ ਕਾਫ਼ੀ ਹੈ")
     .replace(/ਜਾਂ ਜ਼ਿਆਦਾਤਰ ([^।;]+?) ਅਣਡਿੱਠੀ ਕਰਨੀ ਪਵੇਗੀ/g, "ਜਾਂ $1 ਉੱਤੇ ਕਾਰਵਾਈ ਨਹੀਂ ਕਰਨੀ ਚਾਹੀਦੀ")
     .replace(/ਭਵਿੱਖ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸ਼ਿਕਾਇਤ ਅਣਡਿੱਠੀ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ/g, "ਬਾਅਦ ਦੀਆਂ ਸ਼ਿਕਾਇਤਾਂ ਉੱਤੇ ਵੀ ਕਾਰਵਾਈ ਦਾ ਆਧਾਰ ਕਮਜ਼ੋਰ ਮੰਨਣਾ ਚਾਹੀਦਾ ਹੈ")
-    .replace(/ਜ਼ਿਆਦਾਤਰ ਵਾਜਬ ਬਦਲਾਅ/g, "ਵਾਜਬ ਬਦਲਾਵਾਂ");
+    .replace(/ਜ਼ਿਆਦਾਤਰ ਵਾਜਬ ਬਦਲਾਅ/g, "ਵਾਜਬ ਬਦਲਾਵਾਂ")
+    .replace(/([^।.!?]{1,80}) ਦੀ ਸਮਰੱਥਾ ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ/g, "$1 ਦੀ ਸਮਰੱਥਾ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ")
+    .replace(/ਨਾਲੋਂ ਚੰਗੇ ([^।.!?]{1,100}) ਬਿਹਤਰ ਮੰਨੇ ਜਾਣੇ ਚਾਹੀਦੇ ਹਨ/g, "ਨਾਲੋਂ $1 ਲਈ ਬਿਹਤਰ ਮੰਨੇ ਜਾਣੇ ਚਾਹੀਦੇ ਹਨ");
+}
+
+function polishStatement(value: string, language: Language): string {
+  if (language !== "pa") return value;
+  return value.replace(
+    /ਸਾਰੇ\s+(.+?ਸੈਸ਼ਨ(?:ਾਂ)?)\s+ਦੀ\s+ਥਾਂ\s+(.+?)\s+ਕਰ\s+ਦੇਣੇ\s+ਚਾਹੀਦੇ\s+ਹਨ/g,
+    "ਸਾਰੇ $1 ਨੂੰ $2 ਨਾਲ ਬਦਲ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ",
+  );
 }
 
 function polishArgument(value: string, language: Language): string {
@@ -67,11 +77,11 @@ function polishArgument(value: string, language: Language): string {
   return polishEnglish(value);
 }
 
-function stemFor(question: Question, language: Language, argumentsList: readonly string[]): string {
+function stemFor(statement: string, language: Language, argumentsList: readonly string[]): string {
   const rendered = argumentsList.map((argument, index) => `${ROMAN[index]}. ${argument}`).join("\n");
-  if (language === "hi") return `कथन: ${text(question.statement)}\nतर्क:\n${rendered}`;
-  if (language === "pa") return `ਕਥਨ: ${text(question.statement)}\nਦਲੀਲਾਂ:\n${rendered}`;
-  return `Statement: ${text(question.statement)}\nArguments:\n${rendered}`;
+  if (language === "hi") return `कथन: ${statement}\nतर्क:\n${rendered}`;
+  if (language === "pa") return `ਕਥਨ: ${statement}\nਦਲੀਲਾਂ:\n${rendered}`;
+  return `Statement: ${statement}\nArguments:\n${rendered}`;
 }
 
 export function polishArgCp015AntiGamingGrammar(question: Question): Question {
@@ -79,11 +89,12 @@ export function polishArgCp015AntiGamingGrammar(question: Question): Question {
   const argumentsList = Array.isArray(question.arguments) ? question.arguments as readonly string[] : [];
   if (argumentsList.length < 2) return question;
   const language = languageOf(question);
+  const nextStatement = polishStatement(text(question.statement), language);
   const nextArguments = argumentsList.map((argument) => polishArgument(argument, language));
-  if (nextArguments.every((argument, index) => argument === argumentsList[index])) return question;
+  if (nextStatement === text(question.statement) && nextArguments.every((argument, index) => argument === argumentsList[index])) return question;
 
   const frozenArguments = Object.freeze(nextArguments);
-  const stem = stemFor(question, language, frozenArguments);
+  const stem = stemFor(nextStatement, language, frozenArguments);
   const contentFingerprint = createHash("sha256").update(JSON.stringify([
     ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY,
     question.qlId,
@@ -91,7 +102,7 @@ export function polishArgCp015AntiGamingGrammar(question: Question): Question {
     question.examProfile,
     question.difficulty,
     question.locale,
-    question.statement,
+    nextStatement,
     frozenArguments,
     question.options,
     question.correctIndex,
@@ -100,6 +111,7 @@ export function polishArgCp015AntiGamingGrammar(question: Question): Question {
 
   return Object.freeze({
     ...question,
+    statement: nextStatement,
     arguments: frozenArguments,
     stem,
     text: stem,
