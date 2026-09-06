@@ -256,12 +256,10 @@ async function loadSelectedPackEvents(
       AND event.status='verified'
       AND event.learner_authoring_status IN ('ready','manual')
       AND (${language}='en' OR localization.id IS NOT NULL)
-      AND EXISTS (
-        SELECT 1 FROM content.current_affairs_exam_scores relevance
-        WHERE relevance.event_id=event.id
-          AND relevance.include_recommended=true
-          AND relevance.exam_family_key IN ('ssc','banking','punjab')
-      )
+      -- Manual editorial selection is the relevance/inclusion authority for this
+      -- selected pack. Automated include_recommended scores remain advisory and
+      -- are still surfaced through editorial QA; they must not silently drop a
+      -- headline the admin explicitly selected.
       AND NOT EXISTS (
         SELECT 1 FROM content.current_affairs_fact_conflicts conflict
         WHERE conflict.event_id=event.id AND conflict.status='open'
