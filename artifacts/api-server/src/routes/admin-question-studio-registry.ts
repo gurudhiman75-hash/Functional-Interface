@@ -2,7 +2,9 @@ import { Router, type IRouter } from "express";
 
 import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk-hardening";
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
+import adminQuestionStudioCom003Router from "./admin-question-studio-com003";
 import adminQuestionStudioSriRouter from "./admin-question-studio-sri";
+import adminQuestionStudioEngineV1Router from "./admin-question-studio-engine-v1";
 import adminQuestionStudioDataSufficiencyCurrentRouter from "./admin-question-studio-data-sufficiency-current";
 import adminQuestionStudioCp014Router from "./admin-question-studio-cp014";
 import adminQuestionStudioTrigonometryRouter from "./admin-question-studio-trigonometry";
@@ -28,12 +30,23 @@ import adminQuestionStudioSpatialV5Router from "./admin-question-studio-spatial-
 import adminQuestionStudioSpatialRouter from "./admin-question-studio-spatial";
 import adminQuestionStudioRouter from "./admin-question-studio";
 
-/** Canonical Question Studio route registry. Specialized run adapters precede chapter routers and the legacy catch-all. */
+/**
+ * Canonical Question Studio route registry.
+ *
+ * Specialized hardening and read-only routes run first. COM-003's dedicated
+ * route exposes only its governed preview/status surface. SRI keeps ownership
+ * of its established compatibility capabilities surface, then the multi-engine
+ * V1 router handles authorized non-Quant persisted REVIEW_ONLY runs. Current
+ * chapter/workflow routers and the legacy catch-all remain in their existing
+ * mainline order below those additions.
+ */
 const router: IRouter = Router();
 
 router.use(adminQuestionStudioBulkHardeningRouter);
 router.use(adminQuestionStudioQualityRouter);
+router.use(adminQuestionStudioCom003Router);
 router.use(adminQuestionStudioSriRouter);
+router.use(adminQuestionStudioEngineV1Router);
 router.use(adminQuestionStudioDataSufficiencyCurrentRouter);
 router.use(adminQuestionStudioCp014Router);
 router.use(adminQuestionStudioTrigonometryRouter);
