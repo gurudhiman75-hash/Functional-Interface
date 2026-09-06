@@ -60,11 +60,9 @@ function signatureParity(signature: string): 0 | 1 {
   return (Number.parseInt(signature.slice(0, 2), 16) & 1) as 0 | 1;
 }
 
-function templateOrdinal(question: Question): number | undefined {
-  const match = text(question.templateId).match(/-T(\d+)$/i);
-  if (!match?.[1]) return undefined;
-  const ordinal = Number.parseInt(match[1], 10);
-  return Number.isFinite(ordinal) ? ordinal : undefined;
+function statementParity(question: Question): 0 | 1 {
+  const digest = createHash("sha256").update(statementSignature(question)).digest("hex");
+  return (Number.parseInt(digest.slice(0, 2), 16) & 1) as 0 | 1;
 }
 
 function localizedEither(question: Question): string {
@@ -181,17 +179,16 @@ function promoteUnchanged(source: Question): Question {
 }
 
 function profileSurfaceAccepted(question: Question, profile: string): boolean {
-  const ordinal = templateOrdinal(question);
   if (profile === "SSC_RECENT_2X4") {
-    // Keep SSC and Banking 2x5 on disjoint approved template families so the
-    // two real-paper surfaces do not repeatedly expose the same stem skeleton.
-    if (ordinal !== undefined && ordinal % 2 !== 0) return false;
+    // SSC and Banking 2x5 select disjoint statement buckets while retaining all
+    // approved templates. This avoids repeated stems without starving a QL cell.
+    if (statementParity(question) !== 0) return false;
     if (words(question.statement) > 24) return false;
     const args = Array.isArray(question.arguments) ? question.arguments : [];
     return args.length === 2 && args.every((argument) => words(argument) <= 34);
   }
   if (profile === "BANKING_CLASSIC_2X5") {
-    if (ordinal !== undefined && ordinal % 2 !== 1) return false;
+    if (statementParity(question) !== 1) return false;
   }
   return true;
 }
@@ -296,10 +293,10 @@ export function generateArgCp015QuestionStudioBatch(input: ArgCp015QuestionStudi
       noRepeatWithinBatch: true as const,
       noRepeatedComboStatementWithinBatch: COMBO_PROFILES.has(profile) ? true as const : undefined,
       twoArgumentProfileSource: TWO_ARGUMENT_PROFILES.has(profile) ? "APPROVED_CORE_SURFACE" as const : undefined,
-      twoArgumentTemplatePartition: profile === "SSC_RECENT_2X4"
-        ? "EVEN_APPROVED_TEMPLATES" as const
+      twoArgumentStatementPartition: profile === "SSC_RECENT_2X4"
+        ? "STATEMENT_HASH_BUCKET_0" as const
         : profile === "BANKING_CLASSIC_2X5"
-          ? "ODD_APPROVED_TEMPLATES" as const
+          ? "STATEMENT_HASH_BUCKET_1" as const
           : undefined,
       reviewOnly: false as const,
       manualApprovalRequired: false as const,
@@ -334,7 +331,7 @@ export const ARG_CP015_QUESTION_STUDIO_PACKAGE = Object.freeze({
   noRepeatWithinBatch: true as const,
   noRepeatedComboStatementWithinBatch: true as const,
   twoArgumentProfilesUseApprovedCoreSurface: true as const,
-  twoArgumentTemplatePartitioning: "SSC_EVEN_BANKING_ODD" as const,
+  twoArgumentStatementPartitioning: "SSC_BUCKET_0_BANKING_BUCKET_1" as const,
   reviewOnly: false as const,
   manualApprovalRequired: false as const,
   persistenceAllowed: true as const,
