@@ -116,7 +116,7 @@ export const EXTRACTED_FACT_SCHEMA = {
       items: {
         type: 'object',
         additionalProperties: false,
-        required: ['subCategory', 'claim', 'entities', 'locator', 'extractedText'],
+        required: ['subCategory', 'claim', 'entities', 'dateOrEra', 'locator', 'extractedText'],
         properties: {
           subCategory: { type: 'string' },
           claim: { type: 'string' },
