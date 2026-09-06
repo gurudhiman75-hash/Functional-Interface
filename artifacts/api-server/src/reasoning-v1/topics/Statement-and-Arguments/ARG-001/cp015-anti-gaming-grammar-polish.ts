@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 
 import { ARG_CP015_ANTI_GAMING_CUE_DEBIAS_AUTHORITY } from "./cp015-anti-gaming-cue-debias.ts";
 
-export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V5" as const;
+export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V6" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -53,7 +53,7 @@ function polishEnglish(value: string): string {
     .replace(/A (.+?) is generally proof of fraud, so there is no need for (.+?) even if (.+?)\./gi, "$1 is treated as sufficient evidence of fraud on its own, so $2 is considered unnecessary even if $3.")
     .replace(/Because (.+?) can reflect (.+?), the bank should rarely use temporary risk controls or investigate flagged transactions at all instead of terminate the customer relationship\./gi, "Even though $1 can reflect $2, the bank is expected to skip temporary risk controls and further investigation and terminate the customer relationship immediately.")
     .replace(/A single misconduct allegation can occur mainly when guilt is certain/gi, "A single misconduct allegation is treated as strong enough evidence of guilt on its own")
-    .replace(/((?:An?|One) [^.]+? complaint) can occur mainly when guilt is certain/gi, "$1 is treated as sufficient evidence of guilt on its own")
+    .replace(/((?:An?|One) [^.]+? (?:complaint|report|flag|allegation)) can occur mainly when guilt is certain/gi, "$1 is treated as sufficient evidence of guilt on its own")
     .replace(/will predictably create permanent gridlock across the entire city/gi, "is assumed to create lasting gridlock across the city")
     .replace(/A branch using (.+?) can rarely provide any useful service, even when (.+?)\./gi, "A branch using $1 is assumed to provide no useful service even when $2.")
     .replace(/A single (.+?) complaint proves that most candidate and centre in (.+?) was affected/gi, "A single $1 complaint is treated as enough evidence to conclude that the entire $2 was affected")
