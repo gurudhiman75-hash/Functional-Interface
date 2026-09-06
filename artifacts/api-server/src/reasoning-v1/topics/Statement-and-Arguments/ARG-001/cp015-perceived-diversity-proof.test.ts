@@ -21,6 +21,8 @@ const REAL_PAPER_CELLS = [
   ["BANKING_COMBO_4X5", "Hard"],
 ] as const;
 
+const COMBO_PROFILES = new Set(["BANKING_COMBO_3X5", "BANKING_COMBO_4X5"]);
+
 type Q = Readonly<Record<string, any>>;
 
 function signature(question: Q): string {
@@ -105,6 +107,10 @@ for (let qlIndex = 0; qlIndex < ARG_QL_IDS.length; qlIndex += 1) {
     const b = generateArgCp015QuestionStudioBatch(input);
     assert.deepEqual(a, b, `${qlId}/${examProfile}/${difficulty}: CP015 replay drift`);
     assert.equal(new Set(a.questions.map((question) => signature(question as Q))).size, count, `${qlId}/${examProfile}/${difficulty}: duplicate inside real-paper batch`);
+    if (COMBO_PROFILES.has(examProfile)) {
+      const uniqueStatements = new Set(a.questions.map((question) => String((question as Q).statement))).size;
+      assert.equal(uniqueStatements, count, `${qlId}/${examProfile}/${difficulty}: repeated Banking combo statement inside CP015 batch`);
+    }
 
     for (const question of a.questions as readonly Q[]) {
       assert.equal(question.profileMode, "real-paper");
@@ -122,9 +128,11 @@ for (let qlIndex = 0; qlIndex < ARG_QL_IDS.length; qlIndex += 1) {
       } else if (examProfile === "BANKING_COMBO_3X5") {
         assert.equal(question.arguments.length, 3);
         assert.equal(question.options.length, 5);
+        assert.equal(question.statementSurfaceAuthority, "ARG_CP015_COMBO_STATEMENT_NATURALIZATION_V1");
       } else {
         assert.equal(question.arguments.length, 4);
         assert.equal(question.options.length, 5);
+        assert.equal(question.statementSurfaceAuthority, "ARG_CP015_COMBO_STATEMENT_NATURALIZATION_V1");
       }
     }
     record(a, examProfile);
@@ -166,6 +174,10 @@ assert.equal(
 for (const [profile, items] of profiles) {
   const uniqueProfile = new Set(items.map(signature)).size;
   assert.equal(uniqueProfile, items.length, `${profile}: ${items.length - uniqueProfile} duplicates remain.`);
+  if (COMBO_PROFILES.has(profile)) {
+    const uniqueStatements = new Set(items.map((question) => String(question.statement))).size;
+    assert.equal(uniqueStatements, items.length, `${profile}: Banking combo statement surfaces still repeat (${uniqueStatements}/${items.length}).`);
+  }
 }
 
 const realPaper = questions.filter((question) => question.profileMode === "real-paper");
@@ -183,6 +195,7 @@ console.log(JSON.stringify({
   coreTemplateCoverage: coreTemplates.size,
   realPaperUniqueStatements: realPaperStatements,
   profileUniqueness: Object.fromEntries([...profiles].map(([profile, items]) => [profile, `${new Set(items.map(signature)).size}/${items.length}`])),
+  profileStatementUniqueness: Object.fromEntries([...profiles].map(([profile, items]) => [profile, `${new Set(items.map((question) => String(question.statement))).size}/${items.length}`])),
   learnerRelease: ARG_CP015_LEARNER_RELEASE,
   publicReleaseAuthorized: false,
 }, null, 2));
