@@ -1,118 +1,77 @@
-# SPA FMT-001 Review V2.3 Status
+# SPA FMT-001 Approved Freeze + Question Studio V1 Status
 
 ## Status
 
-FMT-001 Figure Matrix is a deterministic **review-only** chapter across permanent QLs `SPA-QL-055..SPA-QL-060`.
+FMT-001 Figure Matrix V2.4 is **product-owner approved** for permanent QLs `SPA-QL-055..SPA-QL-060`.
 
-V2.2 fixed duplicate semantic option collapse through deterministic same-source-variant retry. V2.3 keeps that semantic/geometry authority unchanged and hardens learner explanation depth after the 27-card source/visual audit.
+The approved learner/runtime contract is now frozen by `SPA-FMT-001-FREEZE-V1` and exposed internally by `SPA-FMT-001-INTERNAL-ACTIVATION-V1`. Question Studio generation, persistence, Question Bank writes and internal Test Builder eligibility are open. Mock-test eligibility, public release, student delivery and automatic student publication remain closed.
 
-Question Studio discoverability, persistence, test-builder/mock eligibility, public release, student delivery and automatic publication remain closed.
+## Approved review evidence
 
-## Source-real rule variety
+Product-owner approval was given on **2026-09-06** against the exact V2.4 review checkpoint:
 
-### `SPA-QL-055` — repeated figure transformation
-- repeated rotation;
-- 2×2 outer-element removal;
-- staged perpendicular-line removal followed by central-element removal;
-- reflection / inversion of an asymmetric arrow-marker composite;
-- position shift;
-- shading-state change.
+- reviewed PR: `#1432`;
+- reviewed head: `f4c13d4be6d190d8f64737f26749aea157ae916f`;
+- workflow: `Validate SPA FMT-001 Review V1`;
+- run: `34017570536` — **green**;
+- artifact: `spa-fmt-001-review-v1` / `9984396659`;
+- artifact digest: `sha256:fc5c5844e9d06ff0cd8e4ac949da537287a41db39f242c351a89520a7659d4a2`;
+- reviewed 27-card HTML SHA-256: `9d3d0cddae1332830228ebf27ee7d299cabbb8e2af9db23fafca4c9931d4bd85`.
 
-### `SPA-QL-056` — figure composition
-- union / superimposition;
-- intersection / common parts;
-- symmetric difference / cancellation;
-- directional subtraction / difference.
+## Frozen semantic allocation
 
-### `SPA-QL-057` — count relation
-- sum across cells;
-- absolute difference;
-- `2×first + second`;
-- add-constant progression;
-- multiply-constant progression;
-- balanced count relation.
+- `SPA-QL-055` / `FMT-PROP-01` — repeated figure transformation;
+- `SPA-QL-056` / `FMT-PROP-02` — binary figure composition;
+- `SPA-QL-057` / `FMT-PROP-03` — quantitative count relation;
+- `SPA-QL-058` / `FMT-PROP-04` — cyclic distribution / permutation;
+- `SPA-QL-059` / `FMT-PROP-05` — orthogonal row-column attributes;
+- `SPA-QL-060` / `FMT-PROP-06` — compound matrix rule.
 
-### `SPA-QL-058` — cyclic distribution
-- motif permutation;
-- 4×4 position cycle;
-- orientation cycle;
-- fill-state cycle.
+`SPA-QL-061` remains the next available Spatial permanent identity.
 
-### `SPA-QL-059` — orthogonal row-column attributes
-- row controls shape + column controls fill;
-- row controls count + column controls orientation;
-- row controls position + column controls motif.
+## Approved V2.4 contract
 
-### `SPA-QL-060` — compound matrix rule
-- rotate + move element;
-- rotate + reflect;
-- count change + position change;
-- element removal + orientation change.
+The freeze preserves the complete source-saturated V2.4 coverage: 2×2, 3×3 and 4×4 matrices; repeated rotation/removal/reflection/position/fill transforms; union/intersection/cancellation/directional subtraction; count relations and progressions; motif/position/orientation/fill cycles; orthogonal row-column attributes; and compound rotate/move/reflect/count/removal rules.
 
-## Semantic authority
+The approved visual/editorial contract remains immutable:
 
-`figure-matrix-review-runtime-v2.ts` represents matrix cells as language-neutral semantic feature state. SVG remains presentation only.
+- semantic cell state plus the declared row/column rule is authority; SVG is presentation;
+- exactly four options and one solver-valid semantic answer;
+- perceptually equivalent options are rejected;
+- `ORIENTATION_CYCLE` uses the approved asymmetric arrow so 0°/120°/240° states remain visibly distinct;
+- white background and 1.35px Spatial exam strokes;
+- consistent matrix/option scale and explicit missing-cell marker;
+- no clipped/broken geometry;
+- EN/HI/PA geometry, option-order and answer parity;
+- learner explanation retains worked rule application, explicit distractor checks and a completed-matrix solution illustration.
 
-`figure-matrix-review-runtime-v2-1.ts` supplies dedicated source-real constructions where the generic runtime is not enough.
+## Question Studio integration
 
-`figure-matrix-review-runtime-v2-2.ts` adds deterministic same-family recovery when candidate distractors collapse into duplicate semantic states. The learner seed, QL and source variant remain unchanged; only internal review generation details may retry.
+The current Spatial Question Studio package advances from 49 to **55 production QLs** through `spatial-question-studio-integration-v8.ts` and `spatial-question-studio-production-v8.ts`.
 
-`figure-matrix-review-runtime-v2-3.ts` is an editorial overlay. It does not alter geometry or answer semantics. It strengthens:
-- composition explanations with the exact line operation and explicit missing/extra-line distractor differences;
-- count explanations with completed-row numerical equations and the exact row-3 calculation;
-- cyclic explanations with the learner-visible sequence written out explicitly;
-- Hindi/Punjabi cycle-result wording so no English state labels leak into localized worked text.
+`figure-matrix-question-studio-v1.ts` adapts the frozen V2.4 runtime without changing its geometry or answer authority. It exposes the matrix as the stimulus, keeps the four approved option SVGs, normalizes the learner explanation into the shared Spatial review shape and persists the completed-matrix solution illustration.
 
-Every item still requires four semantically and visibly distinct options, exactly one solver-valid answer, deterministic replay, EN/HI/PA geometry/answer parity, the 1.35px Spatial exam stroke contract and a completed-matrix solution illustration.
+The compatibility-safe V1 aliases exported through the existing V6 gateway now resolve the 55-QL current package/runtime, while the named V6 and V7 checkpoints remain immutable historical FFM/DOT authorities.
 
-## Source and visual audit
+The admin Spatial review UI exposes **Figure Matrix**, displays the matrix at wide scale and labels the explanation illustration `Solution: completed matrix with the missing cell filled`.
 
-The product-owner uploaded Figure Matrix reference was rechecked against the runtime. The source directly supports 2×2/3×3/4×4 matrix completion, repeated element removal, line removal, count relations, inversion/reflection, rotation and compound rotation/reflection, common-parts/composition and cyclic/position changes. Grouping-items that happen to follow the chapter in the source remain intentionally excluded because they are a different semantic task.
+## Validation authority
 
-The regenerated visual pack contains **27 cards — one explicit specimen for every declared runtime source variant**. The inspected surfaces retain consistent matrix/option scale, white background, explicit missing-cell marker, thin exam-style geometry, four visible options and a completed-matrix explanation illustration.
+`.github/workflows/spa-fmt-001-freeze-question-studio-v1.yml` is now the single active automatic FMT checkpoint authority. It builds the API, typechecks the admin Question Studio UI and runs `figure-matrix-fmt-001-freeze-question-studio-v1.test.ts`.
 
-## Proof corpus
+The proof covers 36 approved production questions across all six FMT QLs and EN/HI/PA, current-alias parity, localization geometry/answer parity, the V2.4 asymmetric-arrow perceptual guard, 18-question FMT batch generation, persistence of the completed-matrix solution illustration and closed downstream release gates.
 
-`figure-matrix-fmt-001-review-v1.test.ts` drives **24 deterministic seeds per QL = 144 English semantic questions**, with EN/HI/PA parity replay for every seed.
+The superseded FMT review workflow is manual-only historical evidence. The superseded DOT freeze workflow is also manual-only.
 
-The V2.3 proof requires:
-- Easy/Moderate/Hard coverage;
-- 2×2, 3×3 and 4×4 matrices;
-- all four answer positions;
-- material both-axis reasoning;
-- every declared source variant;
-- four-way semantic and visual option uniqueness;
-- deterministic same-variant retry coverage;
-- no internal rule-token leakage;
-- localized explanation language purity;
-- 24 explicit composition explanation checks;
-- 24 explicit count explanation checks;
-- 24 explicit cyclic-sequence checks;
-- all lifecycle/release gates closed.
+## Lifecycle gates
 
-## Validated V2.3 evidence
-
-The V2.3 runtime/content head `d5522a840eddcae93b0498a2f201c1278a1ebe39` was validated by `Validate SPA FMT-001 Review V1` run `34015524844`, which completed **green**.
-
-Its review artifact is:
-- name: `spa-fmt-001-review-v1`;
-- artifact id: `9983775175`;
-- digest: `sha256:0ad574f429bf4f5e1c99b0218fd2d208971c45e796e82af391dbbc1596418657`.
-
-The semantic evidence records authority `SPA-FMT-001-REVIEW-V2.3`, 144 checked questions, all six QLs, all 27 source variants, all three matrix sizes, all answer positions, 72 hard questions, 48 both-axis questions, 8 two-by-two questions and 4 exercised deterministic option retries.
-
-Status-only commits after that content head do not change the runtime or generated learner artifact. The automatic FMT review workflow still reruns on the PR head so the final review head must also be green before approval/freeze.
-
-`.github/workflows/spa-fmt-001-review-v1.yml` remains the single current automatic FMT checkpoint authority. Earlier FMT discovery and superseded DOT freeze workflows remain manual-only under `docs/CI-FANOUT-POLICY.md`.
-
-## Gates intentionally closed
-
-- review only: **true**
-- learner content frozen: **false**
-- Question Studio discoverable: **false**
-- persistence allowed: **false**
-- Question Bank writable: **false**
-- test-builder eligible: **false**
+- learner content frozen: **true**
+- Question Studio discoverable: **true**
+- persistence allowed: **true**
+- Question Bank writable: **true**
+- internal Test Builder eligible: **true**
+- manual Question Studio approval required: **true**
+- manual question publication required: **true**
 - mock-test eligible: **false**
 - public release authorized: **false**
 - student delivery authorized: **false**
@@ -120,4 +79,4 @@ Status-only commits after that content head do not change the runtime or generat
 
 ## Next checkpoint
 
-V2.3 is **product-owner review-ready**. Inspect the regenerated 27-card artifact and approve/reject the learner visuals and explanation style. Only after explicit product-owner approval should FMT-001 be frozen and integrated into Question Studio. No release gate should open as part of that freeze/integration step.
+Require the exact current PR head to pass the FMT freeze/Question Studio workflow, CI-hygiene and integrated admin checks. After those are green, bind the run/artifact evidence into PR #1432 and merge. Then continue the Spatial closure sequence with `IDF-001`.
