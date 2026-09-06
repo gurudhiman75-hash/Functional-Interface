@@ -1,7 +1,7 @@
 import {
   COM004_ENGLISH_PRODUCTION_WAVE1_AUTHORITY_V1,
   COM004_ENGLISH_PRODUCTION_WAVE1_V1,
-} from "./com004-english-production-wave1-v1";
+} from "./com004-english-production-wave1-v1-1";
 import {
   COM004_PERMANENT_QL_ALLOCATIONS_V1,
   auditCom004PermanentQlAllocationV1,
@@ -22,6 +22,8 @@ if (!allocationAudit.valid) issues.push(...allocationAudit.issues.map((issue) =>
 if (COM004_ENGLISH_PRODUCTION_WAVE1_V1.length !== 48) issues.push(`COUNT:${COM004_ENGLISH_PRODUCTION_WAVE1_V1.length}`);
 if (COM004_ENGLISH_PRODUCTION_WAVE1_AUTHORITY_V1.questionCount !== 48) issues.push("AUTHORITY_COUNT_DRIFT");
 if (COM004_ENGLISH_PRODUCTION_WAVE1_AUTHORITY_V1.questionsPerQl !== 12) issues.push("AUTHORITY_PER_QL_DRIFT");
+if (COM004_ENGLISH_PRODUCTION_WAVE1_AUTHORITY_V1.editorialOverlay.version !== "V1.1") issues.push("EDITORIAL_OVERLAY_VERSION_DRIFT");
+if (COM004_ENGLISH_PRODUCTION_WAVE1_AUTHORITY_V1.editorialOverlay.replacedQuestionIds.length !== 4) issues.push("EDITORIAL_OVERLAY_SCOPE_DRIFT");
 
 const questionIds = new Set<string>();
 const allStems = new Set<string>();
@@ -79,16 +81,17 @@ if (COM004_ENGLISH_PRODUCTION_WAVE1_AUTHORITY_V1.status !== "REVIEW_CANDIDATE_NO
 if (COM004_ENGLISH_PRODUCTION_WAVE1_AUTHORITY_V1.nextGate !== "COM004_ENGLISH_PRODUCTION_WAVE1_EDITORIAL_AUDIT") issues.push("NEXT_GATE_DRIFT");
 
 if (issues.length) {
-  throw new Error(`COM-004 English Production Wave 1 V1 audit failed:\n${issues.join("\n")}`);
+  throw new Error(`COM-004 English Production Wave 1 V1.1 audit failed:\n${issues.join("\n")}`);
 }
 
 console.log(JSON.stringify({
-  checkpoint: "COM004_ENGLISH_PRODUCTION_WAVE1_V1_REVIEW_CANDIDATE",
+  checkpoint: "COM004_ENGLISH_PRODUCTION_WAVE1_V1_1_REVIEW_CANDIDATE",
   valid: true,
   qlCount: expectedQls.length,
   questionCount: COM004_ENGLISH_PRODUCTION_WAVE1_V1.length,
   questionsPerQl: 12,
   uniqueStemCount: allStems.size,
+  editorialOverlay: COM004_ENGLISH_PRODUCTION_WAVE1_AUTHORITY_V1.editorialOverlay.version,
   runtimeAuthorized: false,
   localizationAuthorized: false,
   questionBankWritesAuthorized: false,
