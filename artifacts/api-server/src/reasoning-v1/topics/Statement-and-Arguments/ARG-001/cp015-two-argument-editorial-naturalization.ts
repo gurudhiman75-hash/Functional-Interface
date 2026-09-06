@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_TWO_ARGUMENT_EDITORIAL_AUTHORITY = "ARG_CP015_TWO_ARGUMENT_EDITORIAL_NATURALIZATION_V2" as const;
+export const ARG_CP015_TWO_ARGUMENT_EDITORIAL_AUTHORITY = "ARG_CP015_TWO_ARGUMENT_EDITORIAL_NATURALIZATION_V3" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Strength = "STRONG" | "WEAK";
@@ -42,7 +42,9 @@ function englishSurfaceRepair(value: string): string {
   return value
     .replace(/\bwhere there are ([^.,;?]*crowding[^.,;?]*)/gi, "where $1 is common")
     .replace(/\bevery form of ([A-Za-z-]+(?:\s+[A-Za-z-]+)*) queries\b/gi, "all $1 queries")
-    .replace(/\breplace all human help\b/gi, "replace all staff-assisted support");
+    .replace(/\breplace all human help\b/gi, "replace all staff-assisted support")
+    .replace(/\ball ability to achieve ability to\b/gi, "all ability to")
+    .replace(/\ball ability to achieve retention of ([A-Za-z-]+)\b/gi, "all ability to retain $1");
 }
 
 function hindiSurfaceRepair(value: string): string {
@@ -162,7 +164,7 @@ function digitalSuperiorityPatch(question: Question): EditorialPatch | undefined
   const replacement = match[3];
   const reasons = args.map((argument) => /certainly lose all ability|total failure/i.test(argument)
     ? `It assumes that replacing ${current} with ${replacement} in every ${programme} will certainly destroy the relevant learning outcome, but gives no mechanism or evidence for that universal result.`
-    : `A digital format does not by itself prove that ${replacement} leads to better learning than ${current}.`) as [string, string];
+    : `A digital format does not by itself establish that using ${replacement} produces better learning than ${current}.`) as [string, string];
   return Object.freeze({ reasons });
 }
 
