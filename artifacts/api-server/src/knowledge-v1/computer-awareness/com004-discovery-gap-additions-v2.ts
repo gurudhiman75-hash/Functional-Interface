@@ -1,11 +1,15 @@
-import type { Com004DiscoveryCandidate } from "./com004-internet-web-email-discovery";
+import type { Com004DiscoveryCandidate, Com004DiscoveryEvidence } from "./com004-internet-web-email-discovery";
+
+type Com004GapDiscoveryCandidate = Omit<Com004DiscoveryCandidate, "evidence"> & {
+  evidence: (Com004DiscoveryEvidence | "OFFICIAL_CURRICULUM")[];
+};
 
 /**
  * Candidates discovered only after deliberate source saturation. They remain
  * supplemental DISCOVERY_ONLY records until merge/split decides whether they
  * deserve independent learner-task authority or merge into broader concepts.
  */
-export const COM004_DISCOVERY_GAP_ADDITIONS_V2: Com004DiscoveryCandidate[] = [
+export const COM004_DISCOVERY_GAP_ADDITIONS_V2: Com004GapDiscoveryCandidate[] = [
   {
     candidateId: "WEB-DISC-037",
     learnerTask: "Identify an Internet Service Provider (ISP) from its role in providing Internet access",
