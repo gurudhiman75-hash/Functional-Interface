@@ -9,6 +9,7 @@ on:
       - "artifacts/api-server/src/question-studio/**"
       - "artifacts/api-server/src/routes/admin-question-studio-com003.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-engine-v1.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-mixed-difficulty.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-registry.ts"
       - "artifacts/admin-app/src/features/question-studio/**"
       - "artifacts/admin-app/src/pages/content/QuestionStudioCom003PreviewPanel.tsx"
@@ -55,6 +56,28 @@ jobs:
       - name: Validate frozen COM-003 corpus and lifecycle locks
         run: node artifacts/api-server/dist/question-studio/computer-content-engine-integration-v2.test.mjs
 
+      - name: Run final COM-003 freeze and review-only contracts
+        run: |
+          mkdir -p artifacts/api-server/dist/question-studio/computer-final
+          tests=(
+            "src/knowledge-v1/computer-awareness/com003-localization-v2-chapter-freeze-v1.test.ts"
+            "src/knowledge-v1/computer-awareness/com003-question-studio-review-only-route-contract-v1.test.ts"
+            "src/knowledge-v1/computer-awareness/com003-question-studio-review-run-ui-contract-v1.test.ts"
+            "src/question-studio/engines/com003-chapter-completion-authority-v1.test.ts"
+            "src/question-studio/engines/com003-review-only-registry-contract-v2.test.ts"
+            "src/question-studio/engines/com003-regeneration-lock-contract-v1.test.ts"
+            "src/question-studio/engines/com003-source-controlled-review-contract-v1.test.ts"
+            "src/question-studio/engines/knowledge-v1-com003-adapter-v2.test.ts"
+          )
+          for test_file in "${tests[@]}"; do
+            output_name="$(basename "${test_file}" .ts).mjs"
+            pnpm --dir artifacts/api-server exec esbuild \
+              "${test_file}" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/question-studio/computer-final/${output_name}"
+            node "artifacts/api-server/dist/question-studio/computer-final/${output_name}"
+          done
+
       - name: Bundle existing Question Studio foundation gates
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
@@ -87,6 +110,10 @@ jobs:
             src/routes/admin-question-studio-engine-v1.ts \
             --bundle --packages=external --platform=node --format=esm \
             --outfile=dist/routes/admin-question-studio-engine-v1.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/routes/admin-question-studio-mixed-difficulty.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/routes/admin-question-studio-mixed-difficulty.mjs
           pnpm --dir artifacts/api-server exec esbuild \
             src/routes/admin-question-studio-registry.ts \
             --bundle --packages=external --platform=node --format=esm \
