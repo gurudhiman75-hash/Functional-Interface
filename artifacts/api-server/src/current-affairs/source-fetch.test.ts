@@ -31,10 +31,11 @@ assert.deepEqual(
   officialHostVariants("https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63486"),
   [
     "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63486",
+    "https://website.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63486",
     "https://rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63486",
     "https://m.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63486",
   ],
-  "RBI desktop, apex and mobile hosts are one explicitly trusted official family",
+  "RBI new-site, desktop, apex and mobile hosts are one explicitly trusted official family",
 );
 
 assert.equal(
@@ -56,6 +57,14 @@ assert.equal(
   "https://www.rbi.org.in/scripts/FS_PressRelease.aspx?prid=63493",
   "mobile RBI may redirect to the desktop RBI host without widening trust beyond RBI",
 );
+assert.equal(
+  resolveSafeOfficialRedirect(
+    "https://website.rbi.org.in/web/rbi/-/press-releases/money-market-operations-as-on-august-31-2026",
+    "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63486",
+  ),
+  "https://www.rbi.org.in/scripts/BS_PressReleaseDisplay.aspx?prid=63486",
+  "RBI new website may redirect to the legacy desktop RBI host without widening trust beyond RBI",
+);
 assert.throws(
   () => resolveSafeOfficialRedirect("https://pib.gov.in/feed", "https://example.com/feed"),
   /outside its trusted host/,
@@ -65,7 +74,7 @@ assert.throws(
   /HTTPS/,
 );
 assert.throws(
-  () => resolveSafeOfficialRedirect("https://m.rbi.org.in/feed", "https://example.com/feed"),
+  () => resolveSafeOfficialRedirect("https://website.rbi.org.in/feed", "https://example.com/feed"),
   /outside its trusted host/,
 );
 
@@ -151,6 +160,7 @@ const rbiAliasRecovered = await fetchBoundedOfficialText(
 assert.match(rbiAliasRecovered, /RBI mobile official alias reached/);
 assert.deepEqual(rbiAliasCalls, [
   "https://www.rbi.org.in/scripts/FS_PressRelease.aspx?prid=63493",
+  "https://website.rbi.org.in/scripts/FS_PressRelease.aspx?prid=63493",
   "https://rbi.org.in/scripts/FS_PressRelease.aspx?prid=63493",
   "https://m.rbi.org.in/scripts/FS_PressRelease.aspx?prid=63493",
 ]);
