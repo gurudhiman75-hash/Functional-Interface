@@ -10,7 +10,6 @@ on:
       - 'artifacts/api-server/src/reasoning-v1/tests/figure-matrix-fmt-001-review-v1.test.ts'
       - 'artifacts/api-server/src/reasoning-v1/tests/figure-matrix-fmt-001-perceptual-review-v2-4.test.ts'
       - 'artifacts/api-server/src/reasoning-v1/tests/figure-matrix-fmt-001-visual-review-v1.ts'
-      - '.github/workflows/spa-fmt-001-review-v1.yml'
   workflow_dispatch:
 
 concurrency:
