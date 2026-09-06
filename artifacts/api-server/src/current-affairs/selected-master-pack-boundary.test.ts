@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 
 import {
   evaluateSelectedMasterPackMembership,
@@ -61,5 +62,23 @@ const duplicateQuality = evaluateSelectedMasterPackQuality([
 assert.equal(duplicateQuality.ready, false);
 assert.ok(duplicateQuality.blockers.some((item) => item.includes("Duplicate learner title")));
 assert.ok(duplicateQuality.blockers.some((item) => item.includes("Duplicate learner one-liner")));
+
+// Manual selection is the relevance/inclusion authority for the selected pack.
+// A low-scored/routine event may still be QA-blocked, but must not be silently
+// removed from selected membership by a second include_recommended SQL gate.
+const routineSelectedQuality = evaluateSelectedMasterPackQuality([
+  { ...goodEvent, id: b, examFamilies: [] },
+] as any);
+assert.equal(routineSelectedQuality.ready, false);
+assert.ok(routineSelectedQuality.blockers.some((item) => item.includes("no recommended product exam family")));
+
+const source = readFileSync(new URL("./selected-daily-master-pack.ts", import.meta.url), "utf8");
+const loader = source.slice(
+  source.indexOf("async function loadSelectedPackEvents"),
+  source.indexOf("const RESOURCE_TITLE"),
+);
+assert.ok(loader.includes("Manual editorial selection is the relevance/inclusion authority"));
+assert.ok(!loader.includes("AND EXISTS (\n        SELECT 1 FROM content.current_affairs_exam_scores relevance"));
+assert.ok(loader.includes("score.include_recommended=true"), "Automated scores remain advisory pack annotations");
 
 console.log("Current Affairs CP-068 selected master-pack boundary contracts passed");
