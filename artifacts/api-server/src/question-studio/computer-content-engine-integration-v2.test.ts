@@ -6,19 +6,26 @@ import {
   runCom003QuestionStudioPreRegistrationV2,
 } from "../knowledge-v1/computer-awareness/com003-question-studio-pre-registration-adapter-v2";
 import {
-  COM003_STANDARD_REVIEW_ONLY_PACKAGE_V2,
+  getGeneratedQuestionBankAcceptanceMode,
+  getGeneratedQuestionBankEligibilityIssue,
+} from "../lib/admin-question-conversion";
+import { COM003_BANK_ONLY_ACTIVATION_AUTHORITY_V1 } from "./engines/com003-bank-only-activation-authority-v1";
+import {
+  COM003_STANDARD_BANK_ONLY_PACKAGE_V2,
   knowledgeV1Com003QuestionStudioAdapterV2,
 } from "./engines/knowledge-v1-com003-adapter-v2";
 import { knowledgeV1QuestionStudioAdapter } from "./engines/knowledge-v1-adapter";
-import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "./standard-lifecycle";
+import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "./standard-lifecycle";
 
 const freeze = COM003_LOCALIZATION_V2_CHAPTER_FREEZE_AUTHORITY_V1;
 const capability = COM003_QUESTION_STUDIO_PRE_REGISTRATION_CAPABILITY_V2;
-const pkg = COM003_STANDARD_REVIEW_ONLY_PACKAGE_V2;
-const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
+const pkg = COM003_STANDARD_BANK_ONLY_PACKAGE_V2;
+const lifecycle = QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
+const bankAuthority = COM003_BANK_ONLY_ACTIVATION_AUTHORITY_V1;
 
-// Frozen corpus integrity: the integration must bind to the audited V2 corpus,
-// not an earlier COM-003 candidate or a mutable generator.
+// Frozen source integrity remains unchanged. The old freeze deliberately did not
+// itself grant Question Bank writes; the downstream BANK_ONLY authority does so
+// without mutating any frozen question-language artifact.
 assert.equal(freeze.authorityId, "COM-003-LOCALIZATION-V2-CHAPTER-FREEZE-V1");
 assert.equal(freeze.qlCount, 19);
 assert.equal(freeze.englishQuestionCount, 228);
@@ -32,7 +39,6 @@ assert.equal(freeze.governance.localizationFrozen, true);
 assert.equal(freeze.governance.localizationMutationAllowed, false);
 assert.equal(freeze.governance.correctionRequiresNewVersion, true);
 assert.equal(freeze.governance.questionStudioRuntimeAuthorized, true);
-assert.equal(freeze.governance.questionStudioReviewOnly, true);
 assert.equal(freeze.governance.questionBankWritesAuthorized, false);
 assert.equal(freeze.governance.testEligibilityAuthorized, false);
 assert.equal(freeze.governance.mockTestEligibilityAuthorized, false);
@@ -52,35 +58,48 @@ assert.equal(capability.corpus.selectionWithoutReplacement, true);
 assert.equal(capability.difficultySelection.hardAuthorized, false);
 assert.equal(capability.difficultySelection.productionDifficultyClaimsAuthorized, false);
 
-// Runtime lifecycle must remain REVIEW_ONLY and fail closed for every downstream
-// authority. Review-run persistence is allowed; canonical Question Bank writes are not.
+// The active runtime overlay has advanced to the shared BANK_ONLY lifecycle.
+// Manual Question Bank acceptance is permitted, but every scored-test and public
+// release gate remains fail-closed.
+assert.equal(bankAuthority.status, "ACTIVE_INTERNAL_BANK_ONLY");
+assert.equal(bankAuthority.corpus.frozenQuestionLanguageArtifactCount, 684);
+assert.equal(bankAuthority.corpus.immutable, true);
+assert.equal(bankAuthority.authorization.hardDifficultyAuthorized, false);
+assert.equal(bankAuthority.locks.contentMutationAuthorized, false);
+assert.equal(bankAuthority.locks.testEligible, false);
+assert.equal(bankAuthority.locks.testBuilderEligible, false);
+assert.equal(bankAuthority.locks.mockTestEligible, false);
+assert.equal(bankAuthority.locks.publiclyPublishable, false);
+assert.equal(bankAuthority.locks.productionReleaseAuthorized, false);
+
 assert.equal(pkg.packageId, "COM-003");
 assert.equal(pkg.engineId, "knowledge-v1");
 assert.equal(pkg.lifecycleId, lifecycle.lifecycleId);
-assert.equal(pkg.lifecycleStage, "REVIEW_ONLY");
+assert.equal(pkg.lifecycleStage, "BANK_ONLY");
 assert.equal(pkg.runtimeMode, "review-only");
 assert.equal(pkg.reviewSurfaceRequired, true);
 assert.equal(pkg.manualApprovalRequired, true);
-assert.equal(pkg.questionBankStatus, "NOT_STORED");
-assert.equal(pkg.questionBankWritable, false);
-assert.equal(pkg.questionBankAcceptanceMode, null);
-assert.equal(pkg.questionBankAcceptanceAuthority, null);
+assert.equal(pkg.questionBankStatus, "READY_FOR_STORAGE");
+assert.equal(pkg.questionBankWritable, true);
+assert.equal(pkg.questionBankAcceptanceMode, "BANK_ONLY");
+assert.equal(pkg.questionBankAcceptanceAuthority, bankAuthority.authorityId);
 assert.equal(pkg.testEligibility, "INELIGIBLE");
 assert.equal(pkg.testEligible, false);
 assert.equal(pkg.mockTestEligible, false);
 assert.equal(pkg.publiclyPublishable, false);
 assert.equal(pkg.automaticStudentPublication, false);
 assert.equal(pkg.productionReleaseAuthorized, false);
-assert.equal(pkg.metadata?.canonicalQuestionPersistenceAllowed, false);
+assert.equal(pkg.metadata?.canonicalQuestionPersistenceAllowed, true);
 assert.equal(pkg.metadata?.reviewRunPersistenceAllowed, true);
-assert.equal(pkg.metadata?.reviewOnly, true);
+assert.equal(pkg.metadata?.reviewOnly, false);
+assert.equal(pkg.metadata?.humanReviewApproved, true);
 assert.equal(pkg.metadata?.frozenCorpusOnly, true);
 assert.equal(pkg.metadata?.immutableCorpus, true);
 assert.equal(pkg.metadata?.hardDifficultyAuthorized, false);
 assert.equal(pkg.metadata?.productionDifficultyClaimsAuthorized, false);
 
 // Composite engine registration must expose COM-001/2/3 exactly once and route
-// COM-003 through its V2 adapter without stealing another package.
+// COM-003 through its V2 frozen-corpus adapter without stealing another package.
 const knowledgePackages = knowledgeV1QuestionStudioAdapter.listPackages();
 const ids = knowledgePackages.map((item) => item.packageId);
 assert.equal(ids.filter((id) => id === "COM-001").length, 1);
@@ -89,7 +108,8 @@ assert.equal(ids.filter((id) => id === "COM-003").length, 1);
 assert.equal(new Set(ids).size, ids.length);
 assert.equal(knowledgeV1Com003QuestionStudioAdapterV2.listPackages()[0]?.packageId, "COM-003");
 
-// Direct frozen selector smoke-check in all three languages.
+// The pre-registration source view remains read-only/NOT_STORED. The registered
+// runtime overlays BANK_ONLY acceptance only after generation into a review run.
 for (const language of ["en", "hi", "pa"] as const) {
   const preview = runCom003QuestionStudioPreRegistrationV2({
     packageId: "COM-003",
@@ -111,14 +131,17 @@ for (const language of ["en", "hi", "pa"] as const) {
     packageId: "COM-003",
     language,
     runtimeMode: "review-only",
-    seed: `computer-runtime-integration-v2-${language}`,
+    seed: `computer-runtime-bank-only-v1-${language}`,
     count: 2,
   });
   assert.equal(generated.questions.length, 2);
-  assert.equal(generated.generationContext.stage, "REVIEW_ONLY");
+  assert.equal(generated.generationContext.stage, "BANK_ONLY");
   assert.equal(generated.generationContext.reviewRunPersistenceAllowed, true);
-  assert.equal(generated.generationContext.canonicalQuestionPersistenceAllowed, false);
-  assert.equal(generated.generationContext.questionBankWritable, false);
+  assert.equal(generated.generationContext.canonicalQuestionPersistenceAllowed, true);
+  assert.equal(generated.generationContext.questionBankStatus, "READY_FOR_STORAGE");
+  assert.equal(generated.generationContext.questionBankWritable, true);
+  assert.equal(generated.generationContext.questionBankAcceptanceMode, "BANK_ONLY");
+  assert.equal(generated.generationContext.questionBankAcceptanceAuthority, bankAuthority.authorityId);
   assert.equal(generated.generationContext.testEligible, false);
   assert.equal(generated.generationContext.mockTestEligible, false);
   assert.equal(generated.generationContext.publiclyPublishable, false);
@@ -126,6 +149,18 @@ for (const language of ["en", "hi", "pa"] as const) {
   assert.equal(generated.generationContext.productionReleaseAuthorized, false);
   assert.equal(generated.generationContext.hardDifficultyAuthorized, false);
   assert.equal(generated.generationContext.productionDifficultyClaimAuthorized, false);
+  for (const question of generated.questions as any[]) {
+    assert.equal(question.registrationStatus, "REGISTERED_BANK_ONLY_INTERNAL");
+    assert.equal(question.readOnly, true);
+    assert.equal(question.revisionPolicy, "SOURCE_GENERATOR_ONLY");
+    assert.equal(question.questionBankWritable, true);
+    assert.equal(getGeneratedQuestionBankAcceptanceMode(question), "BANK_ONLY");
+    assert.equal(getGeneratedQuestionBankEligibilityIssue(question), null);
+    assert.equal(question.testEligible, false);
+    assert.equal(question.mockTestEligible, false);
+    assert.equal(question.publiclyPublishable, false);
+    assert.equal(question.productionReleaseAuthorized, false);
+  }
 }
 
 await assert.rejects(
@@ -154,5 +189,5 @@ await assert.rejects(
 );
 
 console.log(
-  "[COMPUTER-CONTENT-ENGINE-INTEGRATION-V2] PASS COM-003=684-frozen-artifacts lifecycle=REVIEW_ONLY downstream-locks=closed languages=en,hi,pa",
+  "[COMPUTER-CONTENT-ENGINE-INTEGRATION-V2] PASS COM-003=684-frozen-artifacts lifecycle=BANK_ONLY bank-acceptance=manual test/mock/publication=locked languages=en,hi,pa",
 );
