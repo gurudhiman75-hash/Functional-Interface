@@ -21,8 +21,6 @@ function qlNumber(qlId: string) {
 function polishStem(qlId: string, answer: string, surfaceMode: string, stem: string) {
   let result = stem.trim().replace(/\s+/g, " ");
 
-  // Direct acronym prompts are legitimate exam surfaces, but bare five-word
-  // prompts are too thin for this governed review corpus.
   if (result.length < 32) {
     result = result.replace(
       /^What does ([A-Za-z0-9*#]+) stand for\?$/i,
@@ -30,8 +28,6 @@ function polishStem(qlId: string, answer: string, surfaceMode: string, stem: str
     );
   }
 
-  // Remove answer leakage from contextual system-identification stems while
-  // preserving the underlying scenario and source fact.
   if (qlId === "COM-004-QL-013" && answer === "UPI" && surfaceMode !== "ACRONYM_EXPANSION") {
     result = result.replace(/UPI-enabled/gi, "participating digital-payment");
   }
@@ -39,8 +35,6 @@ function polishStem(qlId: string, answer: string, surfaceMode: string, stem: str
     result = result.replace(/\bUSSD session\b/gi, "telecom service session");
   }
 
-  // QL-017 must not teach rapidly changing operational trivia even in a
-  // sentence that says such trivia is excluded.
   if (qlId === "COM-004-QL-017") {
     result = result.replace(
       /without relying on changing limits or charges/gi,
@@ -63,10 +57,12 @@ function editorialSurfaceFamily(
   surfaceMode: string,
   stemVariant: number,
 ): Com004ReviewQuestion["examSurfaceFamily"] {
-  // The same fact may appear in recall and applied wording without becoming a
-  // new learner task. This labels the actual rendered surface, not just the seed.
-  if (stemVariant === 1 && surfaceMode !== "ACRONYM_EXPANSION" && base !== "CONTEXT_SELECTION") {
-    return "FUNCTIONAL_APPLICATION";
+  // The rendered wording determines the surface label. A scenario wording of a
+  // functional fact is still a context-selection surface, not a second copy of
+  // the same functional label.
+  if (stemVariant === 1 && surfaceMode !== "ACRONYM_EXPANSION") {
+    if (base === "FUNCTIONAL_APPLICATION") return "CONTEXT_SELECTION";
+    if (base !== "CONTEXT_SELECTION") return "FUNCTIONAL_APPLICATION";
   }
   if (stemVariant === 2 && base === "CONTEXT_SELECTION") return "CONTRAST_DISCRIMINATION";
   return base;
