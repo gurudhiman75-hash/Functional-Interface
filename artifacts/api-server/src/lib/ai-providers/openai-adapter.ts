@@ -47,6 +47,21 @@ function usageFromResponse(response: any) {
   };
 }
 
+function requestOptions(request: { timeoutMs?: number; maxRetries?: number }) {
+  const options: Record<string, number> = {
+    maxRetries: request.maxRetries ?? 0,
+  };
+
+  if (request.timeoutMs !== undefined) {
+    if (!Number.isInteger(request.timeoutMs) || request.timeoutMs <= 0) {
+      throw new Error("AI provider timeoutMs must be a positive integer.");
+    }
+    options.timeout = request.timeoutMs;
+  }
+
+  return options;
+}
+
 export const openAIProvider: AIProviderAdapter = {
   name: "openai",
   defaultModel:
@@ -100,11 +115,7 @@ export const openAIProvider: AIProviderAdapter = {
     const response =
       await openai.responses.create(
         payload as any,
-        {
-          timeout: request.timeoutMs,
-          maxRetries:
-            request.maxRetries ?? 0,
-        } as any,
+        requestOptions(request) as any,
       );
     const text = responseText(response);
     return {
