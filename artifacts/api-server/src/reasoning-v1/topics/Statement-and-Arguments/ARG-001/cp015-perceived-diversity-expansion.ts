@@ -16,6 +16,10 @@ import {
   contextualizeArgCp015ComboArguments,
 } from "./cp015-combo-argument-contextualization.ts";
 import {
+  ARG_CP015_COMBO_RESIDUAL_ARGUMENT_AUTHORITY,
+  diversifyArgCp015ResidualComboArguments,
+} from "./cp015-combo-residual-argument-diversity.ts";
+import {
   ARG_CP015_LOCALIZED_COMBO_EDITORIAL_AUTHORITY,
   naturalizeArgCp015LocalizedComboEditorial,
 } from "./cp015-localized-combo-editorial-naturalization.ts";
@@ -193,8 +197,6 @@ function promoteUnchanged(source: Question): Question {
 
 function profileSurfaceAccepted(question: Question, profile: string): boolean {
   if (profile === "SSC_RECENT_2X4") {
-    // SSC and Banking 2x5 select disjoint statement buckets while retaining all
-    // approved templates. This avoids repeated stems without starving a QL cell.
     if (statementParity(question) !== 0) return false;
     if (words(question.statement) > 24) return false;
     const args = Array.isArray(question.arguments) ? question.arguments : [];
@@ -212,21 +214,13 @@ function diversityPartitionAccepted(
   profile: string,
 ): boolean {
   const parity = signatureParity(signature);
-
-  // Core and SSC use the same approved 2x4 semantic surface. Keep their selected
-  // content pools disjoint so a real-paper SSC batch cannot repeat a core item.
   if (!profile) return parity === 0;
   if (profile === "SSC_RECENT_2X4") return parity === 1;
-
-  // CP014's 3x5 real-paper authority can realize the same approved scenario at
-  // Medium and Hard. Partition those two cells so difficulty scheduling selects
-  // different approved surfaces instead of relabelling an identical question.
   if (profile === "BANKING_COMBO_3X5") {
     const difficulty = text(input.difficulty).toUpperCase();
     if (difficulty === "MEDIUM") return parity === 0;
     if (difficulty === "HARD") return parity === 1;
   }
-
   return true;
 }
 
@@ -238,6 +232,7 @@ function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed:
     const question = naturalizeArgCp015TwoArgumentEditorial(reshaped);
     return { question, context: source.generationContext as Question };
   }
+
   const request = sourceInput({ ...input, count: 1, seed });
   const source = generateArgCp014QuestionStudioBatch(request);
   const promoted = naturalizeArgCp015TwoArgumentEditorial(promoteUnchanged(source.questions[0] as Question));
@@ -250,7 +245,10 @@ function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed:
   const localizedNaturalized = COMBO_PROFILES.has(profile)
     ? naturalizeArgCp015LocalizedComboEditorial(contextualized, profile, text(input.difficulty), seed)
     : contextualized;
-  const question = polishArgCp015LocalizedComboSurface(localizedNaturalized);
+  const residualDiverse = COMBO_PROFILES.has(profile)
+    ? diversifyArgCp015ResidualComboArguments(localizedNaturalized, profile, text(input.difficulty), seed)
+    : localizedNaturalized;
+  const question = polishArgCp015LocalizedComboSurface(residualDiverse);
   return { question, context: source.generationContext as Question };
 }
 
@@ -314,6 +312,7 @@ export function generateArgCp015QuestionStudioBatch(input: ArgCp015QuestionStudi
       noRepeatWithinBatch: true as const,
       noRepeatedComboStatementWithinBatch: COMBO_PROFILES.has(profile) ? true as const : undefined,
       comboArgumentSurfaceAuthority: COMBO_PROFILES.has(profile) ? ARG_CP015_COMBO_ARGUMENT_SURFACE_AUTHORITY : undefined,
+      comboResidualArgumentDiversityAuthority: COMBO_PROFILES.has(profile) ? ARG_CP015_COMBO_RESIDUAL_ARGUMENT_AUTHORITY : undefined,
       localizedComboEditorialAuthority: COMBO_PROFILES.has(profile) ? ARG_CP015_LOCALIZED_COMBO_EDITORIAL_AUTHORITY : undefined,
       localizedComboPolishAuthority: COMBO_PROFILES.has(profile) ? ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY : undefined,
       twoArgumentProfileSource: TWO_ARGUMENT_PROFILES.has(profile) ? "APPROVED_CORE_SURFACE" as const : undefined,
@@ -355,6 +354,7 @@ export const ARG_CP015_QUESTION_STUDIO_PACKAGE = Object.freeze({
   noRepeatWithinBatch: true as const,
   noRepeatedComboStatementWithinBatch: true as const,
   comboArgumentSurfaceAuthority: ARG_CP015_COMBO_ARGUMENT_SURFACE_AUTHORITY,
+  comboResidualArgumentDiversityAuthority: ARG_CP015_COMBO_RESIDUAL_ARGUMENT_AUTHORITY,
   localizedComboEditorialAuthority: ARG_CP015_LOCALIZED_COMBO_EDITORIAL_AUTHORITY,
   localizedComboPolishAuthority: ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY,
   twoArgumentProfilesUseApprovedCoreSurface: true as const,
