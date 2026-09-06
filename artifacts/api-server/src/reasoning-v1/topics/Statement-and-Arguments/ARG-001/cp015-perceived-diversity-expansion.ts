@@ -244,13 +244,13 @@ function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed:
   const comboNaturalized = COMBO_PROFILES.has(profile)
     ? naturalizeArgCp015ComboStatement(promoted, profile, text(input.difficulty), seed)
     : promoted;
-  const localizedNaturalized = COMBO_PROFILES.has(profile)
-    ? naturalizeArgCp015LocalizedComboEditorial(comboNaturalized, profile, text(input.difficulty), seed)
-    : comboNaturalized;
   const contextualized = COMBO_PROFILES.has(profile)
-    ? contextualizeArgCp015ComboArguments(localizedNaturalized, profile, text(input.difficulty), seed)
-    : localizedNaturalized;
-  const question = polishArgCp015LocalizedComboSurface(contextualized);
+    ? contextualizeArgCp015ComboArguments(comboNaturalized, profile, text(input.difficulty), seed)
+    : comboNaturalized;
+  const localizedNaturalized = COMBO_PROFILES.has(profile)
+    ? naturalizeArgCp015LocalizedComboEditorial(contextualized, profile, text(input.difficulty), seed)
+    : contextualized;
+  const question = polishArgCp015LocalizedComboSurface(localizedNaturalized);
   return { question, context: source.generationContext as Question };
 }
 
