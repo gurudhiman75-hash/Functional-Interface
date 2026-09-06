@@ -151,6 +151,11 @@ export function generateFigureMatrixReviewQuestionV2_4(input: Readonly<{
     return Object.freeze({
       ...question,
       version: "SPA-FMT-001-REVIEW-QUESTION-V2.4" as const,
+      solveFacts: Object.freeze({
+        ...question.solveFacts,
+        orientationVisualMotif: null,
+        perceptualOrientationKeys: Object.freeze([] as string[]),
+      }),
       validation: Object.freeze({
         ...question.validation,
         rotationalSymmetryNormalizedBeforeOptionUniqueness: false as const,
