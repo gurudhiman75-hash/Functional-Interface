@@ -1,5 +1,7 @@
 import { createHash } from "node:crypto";
 
+import { polishArgCp015LocalizedTwoArgumentSurface } from "./cp015-localized-two-argument-surface-polish.ts";
+
 export const ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY = "ARG_CP015_LOCALIZED_COMBO_SURFACE_POLISH_V1" as const;
 export const ARG_CP015_ENGLISH_COMBO_POLISH_AUTHORITY = "ARG_CP015_ENGLISH_COMBO_SURFACE_POLISH_V1" as const;
 
@@ -92,6 +94,11 @@ export function polishArgCp015LocalizedComboSurface(question: Question): Questio
   const locale = String(question.locale ?? "");
   if (locale !== "en-IN" && locale !== "hi-IN" && locale !== "pa-IN") return question;
 
+  const sourceArguments = Array.isArray(question.arguments) ? question.arguments as readonly string[] : [];
+  if ((locale === "hi-IN" || locale === "pa-IN") && sourceArguments.length === 2) {
+    return polishArgCp015LocalizedTwoArgumentSurface(question);
+  }
+
   const isEnglish = locale === "en-IN";
   if (isEnglish) {
     if (!question.comboEditorialAuthority) return question;
@@ -102,7 +109,6 @@ export function polishArgCp015LocalizedComboSurface(question: Question): Questio
   const polish = isEnglish ? polishEnglish : locale === "hi-IN" ? polishHindi : polishPunjabi;
   const authority = isEnglish ? ARG_CP015_ENGLISH_COMBO_POLISH_AUTHORITY : ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY;
   const sourceStatement = String(question.statement ?? "");
-  const sourceArguments = Array.isArray(question.arguments) ? question.arguments as readonly string[] : [];
   const sourceExplanation = String(question.explanation ?? "");
   let statement = polish(sourceStatement);
   const argumentsList = Object.freeze(sourceArguments.map((argument) => polish(argument)));
