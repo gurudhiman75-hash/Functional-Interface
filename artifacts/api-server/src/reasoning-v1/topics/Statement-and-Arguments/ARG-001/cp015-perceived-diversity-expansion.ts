@@ -15,6 +15,10 @@ import {
   ARG_CP015_LOCALIZED_COMBO_EDITORIAL_AUTHORITY,
   naturalizeArgCp015LocalizedComboEditorial,
 } from "./cp015-localized-combo-editorial-naturalization.ts";
+import {
+  ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY,
+  polishArgCp015LocalizedComboSurface,
+} from "./cp015-localized-combo-surface-polish.ts";
 import { naturalizeArgCp015TwoArgumentEditorial } from "./cp015-two-argument-editorial-naturalization.ts";
 
 export const ARG_CP015_CHECKPOINT_ID = "ARG-CP-015" as const;
@@ -236,9 +240,10 @@ function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed:
   const comboNaturalized = COMBO_PROFILES.has(profile)
     ? naturalizeArgCp015ComboStatement(promoted, profile, text(input.difficulty), seed)
     : promoted;
-  const question = COMBO_PROFILES.has(profile)
+  const localizedNaturalized = COMBO_PROFILES.has(profile)
     ? naturalizeArgCp015LocalizedComboEditorial(comboNaturalized, profile, text(input.difficulty), seed)
     : comboNaturalized;
+  const question = polishArgCp015LocalizedComboSurface(localizedNaturalized);
   return { question, context: source.generationContext as Question };
 }
 
@@ -302,6 +307,7 @@ export function generateArgCp015QuestionStudioBatch(input: ArgCp015QuestionStudi
       noRepeatWithinBatch: true as const,
       noRepeatedComboStatementWithinBatch: COMBO_PROFILES.has(profile) ? true as const : undefined,
       localizedComboEditorialAuthority: COMBO_PROFILES.has(profile) ? ARG_CP015_LOCALIZED_COMBO_EDITORIAL_AUTHORITY : undefined,
+      localizedComboPolishAuthority: COMBO_PROFILES.has(profile) ? ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY : undefined,
       twoArgumentProfileSource: TWO_ARGUMENT_PROFILES.has(profile) ? "APPROVED_CORE_SURFACE" as const : undefined,
       twoArgumentStatementPartition: profile === "SSC_RECENT_2X4"
         ? "STATEMENT_HASH_BUCKET_0" as const
@@ -341,6 +347,7 @@ export const ARG_CP015_QUESTION_STUDIO_PACKAGE = Object.freeze({
   noRepeatWithinBatch: true as const,
   noRepeatedComboStatementWithinBatch: true as const,
   localizedComboEditorialAuthority: ARG_CP015_LOCALIZED_COMBO_EDITORIAL_AUTHORITY,
+  localizedComboPolishAuthority: ARG_CP015_LOCALIZED_COMBO_POLISH_AUTHORITY,
   twoArgumentProfilesUseApprovedCoreSurface: true as const,
   twoArgumentStatementPartitioning: "SSC_BUCKET_0_BANKING_BUCKET_1" as const,
   reviewOnly: false as const,
