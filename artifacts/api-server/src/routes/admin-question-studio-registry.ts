@@ -4,6 +4,7 @@ import adminQuestionStudioBulkHardeningRouter from "./admin-question-studio-bulk
 import adminQuestionStudioQualityRouter from "./admin-question-studio-quality";
 import adminQuestionStudioCom003Router from "./admin-question-studio-com003";
 import adminQuestionStudioSriRouter from "./admin-question-studio-sri";
+import adminQuestionStudioEngineV1Router from "./admin-question-studio-engine-v1";
 import adminQuestionStudioDataSufficiencyCurrentRouter from "./admin-question-studio-data-sufficiency-current";
 import adminQuestionStudioCp014Router from "./admin-question-studio-cp014";
 import adminQuestionStudioTrigonometryRouter from "./admin-question-studio-trigonometry";
@@ -34,10 +35,9 @@ import adminQuestionStudioRouter from "./admin-question-studio";
  *
  * Specialized hardening and read-only routes run first. COM-003's dedicated
  * route exposes only its governed preview/status surface. SRI keeps ownership
- * of its established compatibility capabilities surface. The mixed-difficulty
- * compatibility router then gives multi-engine V1 first refusal before its
- * established exam-profile path. Current chapter/workflow routers and the
- * legacy catch-all remain in their existing mainline order below those seams.
+ * of its established compatibility capabilities surface. The multi-engine V1
+ * route then gives registered non-Quant engines first refusal before current
+ * chapter/workflow routers and the legacy Quant/Reasoning catch-all.
  */
 const router: IRouter = Router();
 
@@ -45,6 +45,7 @@ router.use(adminQuestionStudioBulkHardeningRouter);
 router.use(adminQuestionStudioQualityRouter);
 router.use(adminQuestionStudioCom003Router);
 router.use(adminQuestionStudioSriRouter);
+router.use(adminQuestionStudioEngineV1Router);
 router.use(adminQuestionStudioDataSufficiencyCurrentRouter);
 router.use(adminQuestionStudioCp014Router);
 router.use(adminQuestionStudioTrigonometryRouter);
