@@ -59,4 +59,20 @@ export const COM004_SOURCE_AUTHORITY_EXTENSION: readonly Com004SourceAuthority[]
       "Use for durable e-wallet/prepaid-value semantics, not mutable limits or KYC thresholds.",
     ],
   },
+  {
+    sourceId: "RBI-ATM-POS-FAQ",
+    title: "Reserve Bank of India — Cash Withdrawal Facility at Point of Sale (PoS) Terminals FAQ",
+    url: "https://www.rbi.org.in/Scripts/FAQView.aspx?Id=135",
+    authorityClass: "REGULATOR_AUTHORITY",
+    supports: [
+      "point-of-sale",
+      "pos-terminal",
+      "card-payment-context",
+    ],
+    verifiedOn: "2026-09-06",
+    notes: [
+      "RBI first-party FAQ confirms PoS terminal usage in card/payment contexts.",
+      "Mutable cash-withdrawal limits and charges are excluded from the frozen candidate corpus.",
+    ],
+  },
 ] as const;
