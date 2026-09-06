@@ -42,6 +42,7 @@ const CHAPTER_LABELS: Record<SpatialReviewChapter, string> = {
   'EMB-001': 'Embedded Figure',
   'FFM-001': 'Figure Formation',
   'DOT-001': 'Dot Situation',
+  'FMT-001': 'Figure Matrix',
 };
 const LANGUAGE_LABELS: Record<SpatialReviewLanguage, string> = {
   en: 'English',
@@ -83,11 +84,17 @@ function explanationLabels(language: SpatialReviewLanguage) {
 
 function SpatialQuestionCard({ question }: { question: SpatialReviewQuestion }) {
   const labels = explanationLabels(question.language);
-  const isWideStimulus = question.chapterCode === 'FGC-001' || question.chapterCode === 'PFC-001' || question.chapterCode === 'TPF-001' || question.chapterCode === 'FFM-001';
+  const isWideStimulus = question.chapterCode === 'FGC-001'
+    || question.chapterCode === 'PFC-001'
+    || question.chapterCode === 'TPF-001'
+    || question.chapterCode === 'FFM-001'
+    || question.chapterCode === 'FMT-001';
   const isWideOptionProcess = question.qlId === 'SPA-QL-039';
   const explanationIllustrationLabel = question.chapterCode === 'DOT-001'
     ? 'Solution: one valid placement preserving every dot-region relation'
-    : 'Assembly: printed pieces → required turn → exact joined positions';
+    : question.chapterCode === 'FMT-001'
+      ? 'Solution: completed matrix with the missing cell filled'
+      : 'Assembly: printed pieces → required turn → exact joined positions';
   return (
     <Card className="border-primary/15 bg-background">
       <CardHeader className="space-y-2 pb-3">
@@ -288,11 +295,11 @@ export function QuestionStudioSpatialReviewPanel() {
             <Badge variant="outline" className="gap-1">
               <ShieldAlert className="h-3 w-3" /> Standard Question Studio lifecycle
             </Badge>
-            <Badge variant="outline">{pkg?.permanentQlCount ?? 48} production QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
+            <Badge variant="outline">{pkg?.permanentQlCount ?? 55} production QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Generate approved Spatial Reasoning questions across mirror/water images, visual analogy and classification, figure series/completion, paper and transparent folding, Counting Figures, Embedded Figure, Figure Formation and Dot Situation in English, Hindi or Punjabi. SPA-QL-051..053 use the approved FFM V5 geometry and illustrated assembly explanation; SPA-QL-054 uses the approved DOT V1 region-membership solver and illustrated valid placement. All items require manual review before Question Bank/Test Builder use, while mock and student/public release remain locked.
+          Generate approved Spatial Reasoning questions across mirror/water images, visual analogy and classification, figure series/completion, paper and transparent folding, Counting Figures, Embedded Figure, Figure Formation, Dot Situation and Figure Matrix in English, Hindi or Punjabi. SPA-QL-051..053 use the approved FFM V5 geometry and illustrated assembly explanation; SPA-QL-054 uses the approved DOT V1 region-membership solver; SPA-QL-055..060 use the approved FMT V2.4 matrix solver, source-real rule variants and completed-matrix explanation illustration. All items require manual review before Question Bank/Test Builder use, while mock and student/public release remain locked.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -310,7 +317,7 @@ export function QuestionStudioSpatialReviewPanel() {
             <ShieldAlert className="h-4 w-4" /> Multilingual standard approval handoff
           </div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            English, Hindi and Punjabi preserve the same approved geometry, option order and answer semantics. Manual Question Studio approval converts eligible items into Question Bank; approved held-gap, Figure Formation and Dot Situation QLs may then be manually used in Test Builder, while mock-test, automatic student delivery and public release stay disabled.
+            English, Hindi and Punjabi preserve the same approved geometry, option order and answer semantics. Manual Question Studio approval converts eligible items into Question Bank; approved held-gap, Figure Formation, Dot Situation and Figure Matrix QLs may then be manually used in Test Builder, while mock-test, automatic student delivery and public release stay disabled.
           </p>
         </div>
 

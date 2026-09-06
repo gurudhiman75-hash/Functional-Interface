@@ -1,22 +1,6 @@
 name: Validate SPA DOT-001 Freeze Question Studio V1
 
 on:
-  pull_request:
-    branches:
-      - New-main
-    paths:
-      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/dot-situation-*.ts"
-      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/SPA-DOT-001-REVIEW-V1-STATUS.md"
-      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v6.ts"
-      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v7.ts"
-      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v6.ts"
-      - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v7.ts"
-      - "artifacts/api-server/src/reasoning-v1/tests/dot-situation-dot-001-freeze-question-studio-v1.test.ts"
-      - "artifacts/api-server/src/routes/admin-question-studio-spatial-v5.ts"
-      - "artifacts/api-server/src/routes/admin-question-studio-spatial-workflow.ts"
-      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
-      - "artifacts/admin-app/src/features/question-studio/spatial-review-api.ts"
-      - "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"
   workflow_dispatch:
 
 concurrency:
