@@ -16,22 +16,22 @@ import type {
   QuestionStudioLanguage,
   QuestionStudioPackageDefinition,
 } from "../engine-types";
-import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
-import { COM003_REVIEW_ONLY_ACTIVATION_AUTHORITY_V1 } from "./com003-review-only-activation-authority-v1";
+import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
+import { COM003_BANK_ONLY_ACTIVATION_AUTHORITY_V1 } from "./com003-bank-only-activation-authority-v1";
 
 export const COM003_QUESTION_STUDIO_PACKAGE_ID_V2 = "COM-003" as const;
 export const COM003_QUESTION_STUDIO_RUNTIME_MODE_V2 = "review-only" as const;
 export const COM003_REVISION_POLICY_V2 = "SOURCE_GENERATOR_ONLY" as const;
 export const COM003_REVIEW_CONTENT_AUTHORITY_VERSION_V2 = "V16_2_LOCALIZATION_V2_FROZEN" as const;
 
-const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
+const lifecycle = QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
 const capability = COM003_QUESTION_STUDIO_PRE_REGISTRATION_CAPABILITY_V2;
 const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
 const supportedDifficulties: Com003QuestionStudioDifficultyV2[] = ["Easy", "Medium"];
 const qlIds: string[] = [...capability.qlIds];
 const cpIds: string[] = [...capability.cpIds];
 
-export const COM003_STANDARD_REVIEW_ONLY_PACKAGE_V2: QuestionStudioPackageDefinition = {
+export const COM003_STANDARD_BANK_ONLY_PACKAGE_V2: QuestionStudioPackageDefinition = {
   engineId: "knowledge-v1",
   packageId: COM003_QUESTION_STUDIO_PACKAGE_ID_V2,
   subject: "Computer Awareness",
@@ -52,7 +52,7 @@ export const COM003_STANDARD_REVIEW_ONLY_PACKAGE_V2: QuestionStudioPackageDefini
   questionBankStatus: lifecycle.questionBankStatus,
   questionBankWritable: lifecycle.questionBankWritable,
   questionBankAcceptanceMode: lifecycle.questionBankAcceptanceMode,
-  questionBankAcceptanceAuthority: lifecycle.questionBankAcceptanceAuthority,
+  questionBankAcceptanceAuthority: COM003_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
   testEligibility: lifecycle.testEligibility,
   testEligible: lifecycle.testEligible,
   mockTestEligible: lifecycle.mockTestEligible,
@@ -61,8 +61,10 @@ export const COM003_STANDARD_REVIEW_ONLY_PACKAGE_V2: QuestionStudioPackageDefini
   productionReleaseAuthorized: lifecycle.productionReleaseAuthorized,
   metadata: {
     ...lifecycle,
-    registrationAuthorityId: COM003_REVIEW_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
-    reviewOnly: true,
+    questionBankAcceptanceAuthority: COM003_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
+    registrationAuthorityId: COM003_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
+    reviewOnly: false,
+    humanReviewApproved: true,
     frozenCorpusOnly: true,
     immutableCorpus: true,
     deterministicSelection: true,
@@ -86,6 +88,9 @@ export const COM003_STANDARD_REVIEW_ONLY_PACKAGE_V2: QuestionStudioPackageDefini
     productionDifficultyClaimsAuthorized: false,
   },
 };
+
+/** Historical export retained so frozen completion/audit imports do not break. */
+export const COM003_STANDARD_REVIEW_ONLY_PACKAGE_V2 = COM003_STANDARD_BANK_ONLY_PACKAGE_V2;
 
 function normalizeLanguage(language: QuestionStudioGenerationRequest["language"]): QuestionStudioLanguage {
   if (!language) return "en";
@@ -165,7 +170,7 @@ export const knowledgeV1Com003QuestionStudioAdapterV2: QuestionStudioEngineAdapt
   engineId: "knowledge-v1",
 
   listPackages() {
-    return [COM003_STANDARD_REVIEW_ONLY_PACKAGE_V2];
+    return [COM003_STANDARD_BANK_ONLY_PACKAGE_V2];
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
@@ -196,13 +201,14 @@ export const knowledgeV1Com003QuestionStudioAdapterV2: QuestionStudioEngineAdapt
     const questions = frozen.questions.map((question) => ({
       ...question,
       ...lifecycle,
+      questionBankAcceptanceAuthority: COM003_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
       id: question.id,
       questionId: question.id,
       text: question.stem,
       correct: question.correctIndex,
       packageId: COM003_QUESTION_STUDIO_PACKAGE_ID_V2,
       patternId: question.qlId,
-      registrationStatus: "REGISTERED_REVIEW_ONLY",
+      registrationStatus: "REGISTERED_BANK_ONLY_INTERNAL",
       preRegistrationOnly: false,
       questionStudioDiscoverable: true,
       questionStudioGenerationEnabled: true,
@@ -211,8 +217,9 @@ export const knowledgeV1Com003QuestionStudioAdapterV2: QuestionStudioEngineAdapt
       productionReleased: false,
       questionStudioReview: {
         ...lifecycle,
-        registrationStatus: "REGISTERED_REVIEW_ONLY" as const,
-        registrationAuthorityId: COM003_REVIEW_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
+        questionBankAcceptanceAuthority: COM003_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
+        registrationStatus: "REGISTERED_BANK_ONLY_INTERNAL" as const,
+        registrationAuthorityId: COM003_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
         runtimeMode: COM003_QUESTION_STUDIO_RUNTIME_MODE_V2,
         frozenCorpusOnly: true,
         contentAuthorityVersion: COM003_REVIEW_CONTENT_AUTHORITY_VERSION_V2,
@@ -231,12 +238,14 @@ export const knowledgeV1Com003QuestionStudioAdapterV2: QuestionStudioEngineAdapt
       questions,
       generationContext: {
         ...lifecycle,
+        questionBankAcceptanceAuthority: COM003_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
         engineId: "knowledge-v1",
         packageId: COM003_QUESTION_STUDIO_PACKAGE_ID_V2,
         runtimeMode: COM003_QUESTION_STUDIO_RUNTIME_MODE_V2,
-        registrationStatus: "REGISTERED_REVIEW_ONLY",
-        registrationAuthorityId: COM003_REVIEW_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
-        reviewOnly: true,
+        registrationStatus: "REGISTERED_BANK_ONLY_INTERNAL",
+        registrationAuthorityId: COM003_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
+        reviewOnly: false,
+        humanReviewApproved: true,
         frozenCorpusOnly: true,
         immutableCorpus: true,
         deterministicSelection: true,
