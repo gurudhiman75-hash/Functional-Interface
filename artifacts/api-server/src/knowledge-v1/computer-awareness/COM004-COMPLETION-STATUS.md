@@ -61,3 +61,12 @@ The V3 runtime test compares the authored English text with the approved Markdow
 checks 612 generated records, preserves answer/options and source IDs, and confirms
 that non-revised questions retain their prior text. Activation V2 binds Freeze V3
 and Difficulty Authority V2 to the existing BANK_ONLY lifecycle.
+
+## V4 complete English editorial candidate
+
+- `com004-english-editorial-candidate-v4.ts` applies the direct-stem/simple-explanation style to the other 170 English items.
+- The 34 V3-approved questions remain byte-for-byte unchanged in the candidate.
+- All 204 answers, options, source IDs and provenance remain bound to V3.
+- `COM004-COMPLETE-ENGLISH-REVIEW-V4.md` is generated directly from the complete candidate corpus, with all four options, answer and explanation for each question.
+- This is an English editorial review candidate, not a new freeze or a declaration of improved difficulty. Hindi/Punjabi and the active Question Studio corpus still use V3.
+- The candidate test checks the complete exported review, protected source fields, preservation of approved text and the existing runtime boundary.
