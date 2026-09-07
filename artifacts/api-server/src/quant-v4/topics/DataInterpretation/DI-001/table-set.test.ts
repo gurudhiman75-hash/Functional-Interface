@@ -85,9 +85,10 @@ assert(observedPositions.get("SSC_CGL_TIER_I")!.size === 4, "SSC DI did not reac
 assert(observedPositions.get("BANKING_PRELIMS")!.size === 5, "Banking DI did not reach all five correct-answer positions.");
 
 const scope = dirname(fileURLToPath(import.meta.url));
+const forbiddenRandomToken = "Math" + ".random(";
 for (const file of walkFiles(scope).filter((path) => path.endsWith(".ts"))) {
   const source = readFileSync(file, "utf8");
-  assert(!source.includes("Math.random("), `Non-deterministic Math.random() is prohibited in DI-001: ${file}`);
+  assert(!source.includes(forbiddenRandomToken), `Non-deterministic random source is prohibited in DI-001: ${file}`);
 }
 
 console.log(JSON.stringify({
