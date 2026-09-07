@@ -16,6 +16,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AdvisoryMetadataPanel } from '../components/AdvisoryMetadataPanel';
 import { FigureReviewQueue } from '../components/FigureReviewQueue';
@@ -38,6 +39,8 @@ export function PeriodWorkspacePage() {
   const uploadInputRef = useRef<HTMLInputElement>(null);
   const [action, setAction] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [selectedPdf, setSelectedPdf] = useState<File | null>(null);
+  const [pageRanges, setPageRanges] = useState('');
   const [qualityByVersion, setQualityByVersion] = useState<Record<string, QualityResponse>>({});
 
   if (!periodId) return <Navigate to="/content/notes-studio-v2" replace />;
@@ -84,21 +87,30 @@ export function PeriodWorkspacePage() {
   const openContradictions = contradictions.filter((group) => group.status === 'open');
   const generationBlocked = graph.facts.length === 0 || openContradictions.length > 0 || !styleSpec?.isActive;
 
-  const uploadPdf = async (file?: File) => {
+  const uploadPdf = async (file?: File, ranges = pageRanges) => {
     if (!file) return;
     if (file.type && file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
       setMessage('Choose a PDF file for corpus ingestion.');
       return;
     }
 
+    const selectedRanges = ranges.trim();
+    if (!selectedRanges) {
+      setMessage('Enter the relevant PDF pages before extraction, for example 42-67, 103-118.');
+      return;
+    }
+
     setAction('upload');
-    setMessage(`Uploading ${file.name} (${(file.size / 1024 / 1024).toFixed(1)} MB) and extracting atomic facts. Large PDFs can take several minutes; keep this page open.`);
+    setMessage(`Uploading ${file.name} and extracting only pages ${selectedRanges}. Keep this page open until the selected pages finish processing.`);
     try {
-      await httpNotesStudioV2Repository.uploadCorpusSource(period.id, file);
-      setMessage(`Ingested ${file.name}; extracted facts are now available for reconciliation.`);
+      await httpNotesStudioV2Repository.uploadCorpusSource(period.id, file, { pageRanges: selectedRanges });
+      setMessage(`Ingested pages ${selectedRanges} from ${file.name}; extracted facts are now available for reconciliation.`);
+      setSelectedPdf(null);
+      setPageRanges('');
+      if (uploadInputRef.current) uploadInputRef.current.value = '';
       workspace.reload();
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'Unable to ingest the selected PDF source.');
+      setMessage(error instanceof Error ? error.message : 'Unable to ingest the selected PDF pages.');
     } finally {
       setAction(null);
     }
@@ -189,14 +201,14 @@ export function PeriodWorkspacePage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2"><BookOpen className="h-5 w-5" />Corpus intake</CardTitle>
-              <CardDescription>PDF text is extracted in memory. Raw uploaded files are not persisted by the v2 ingestion route.</CardDescription>
+              <CardDescription>Select only the relevant PDF pages for extraction. Raw uploaded files are not persisted by the v2 ingestion route.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="rounded-lg border border-dashed p-4">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <p className="text-sm font-medium">Upload PDF and extract atomic facts</p>
-                    <p className="mt-1 text-xs text-muted-foreground">Large sources are processed in bounded page segments. Keep this page open until ingestion finishes.</p>
+                    <p className="text-sm font-medium">Choose source PDF</p>
+                    <p className="mt-1 text-xs text-muted-foreground">Selecting the file does not start extraction. Choose the relevant page ranges below first.</p>
                   </div>
                   <Button
                     type="button"
@@ -204,11 +216,7 @@ export function PeriodWorkspacePage() {
                     onClick={() => uploadInputRef.current?.click()}
                     disabled={workspace.source !== 'http' || action === 'upload'}
                   >
-                    {action === 'upload' ? (
-                      <><RefreshCw className="mr-2 h-4 w-4 animate-spin" />Processing PDF…</>
-                    ) : (
-                      <><Upload className="mr-2 h-4 w-4" />Choose PDF</>
-                    )}
+                    <Upload className="mr-2 h-4 w-4" />{selectedPdf ? 'Change PDF' : 'Choose PDF'}
                   </Button>
                   <input
                     ref={uploadInputRef}
@@ -220,15 +228,56 @@ export function PeriodWorkspacePage() {
                       const input = event.currentTarget;
                       const file = input.files?.[0];
                       if (!file) return;
-                      void uploadPdf(file).finally(() => {
+                      if (file.type && file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+                        setSelectedPdf(null);
+                        setMessage('Choose a PDF file for corpus ingestion.');
                         input.value = '';
-                      });
+                        return;
+                      }
+                      setSelectedPdf(file);
+                      setPageRanges('');
+                      setMessage(`Selected ${file.name} (${(file.size / 1024 / 1024).toFixed(1)} MB). Enter the relevant PDF pages, then start extraction.`);
+                      input.value = '';
                     }}
                   />
                 </div>
+
+                {selectedPdf && (
+                  <div className="mt-4 space-y-3 rounded-md border bg-muted/20 p-4">
+                    <div>
+                      <p className="text-sm font-medium">{selectedPdf.name}</p>
+                      <p className="text-xs text-muted-foreground">{(selectedPdf.size / 1024 / 1024).toFixed(1)} MB · one corpus source regardless of how many page-range passes you run</p>
+                    </div>
+                    <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+                      <div className="space-y-1.5">
+                        <label htmlFor="notes-studio-v2-page-ranges" className="text-xs font-medium">Relevant pages</label>
+                        <Input
+                          id="notes-studio-v2-page-ranges"
+                          value={pageRanges}
+                          onChange={(event) => setPageRanges(event.target.value)}
+                          placeholder="e.g. 42-67, 103-118, 221-236"
+                          disabled={action === 'upload'}
+                        />
+                        <p className="text-xs text-muted-foreground">Use PDF page numbers. Up to 96 selected pages per extraction pass. Reuse the same PDF with another range to add more facts without creating a second source.</p>
+                      </div>
+                      <Button
+                        type="button"
+                        onClick={() => void uploadPdf(selectedPdf, pageRanges)}
+                        disabled={workspace.source !== 'http' || action === 'upload' || !pageRanges.trim()}
+                      >
+                        {action === 'upload' ? (
+                          <><RefreshCw className="mr-2 h-4 w-4 animate-spin" />Processing selected pages…</>
+                        ) : (
+                          <><FileSearch className="mr-2 h-4 w-4" />Extract selected pages</>
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                )}
+
                 {action === 'upload' && (
                   <div className="mt-3 rounded-md bg-muted/40 p-3 text-xs text-muted-foreground" role="status" aria-live="polite">
-                    Upload is active. The server may spend several minutes extracting text/OCR and structured facts from a long PDF before the corpus list refreshes.
+                    Extraction is active only for the selected page ranges. Original PDF page numbers are retained in every source locator.
                   </div>
                 )}
               </div>
