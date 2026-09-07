@@ -1,0 +1,26 @@
+name: Quant V4 Statistics central tendency P0
+
+on:
+  push:
+    branches:
+      - feat/quant-v4-statistics-central-tendency-p0
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/STA-001/**"
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
+      - ".github/workflows/quant-v4-statistics-central-tendency-p0.yml"
+
+jobs:
+  statistics-central-tendency:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Generation and option scan
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Statistics/STA-001/debug-generation-scan.ts
+      - name: Central tendency deterministic proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Statistics/STA-001/central-tendency.test.ts
+      - name: Patch hygiene
+        run: git diff --check
