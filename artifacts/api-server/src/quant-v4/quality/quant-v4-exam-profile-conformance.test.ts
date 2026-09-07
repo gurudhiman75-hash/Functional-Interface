@@ -14,6 +14,7 @@ import { generateDi006CaseletSet } from "../topics/DataInterpretation/DI-006";
 import { generateDi007MissingSet } from "../topics/DataInterpretation/DI-007";
 import { generateDi008ArithmeticSet } from "../topics/DataInterpretation/DI-008";
 import { generateBns001Question } from "../topics/SpeedMathematics/BankingNumberSeries/BNS-001";
+import { generateQcp001Question } from "../representations/QuantityComparison/QCP-001";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -122,6 +123,19 @@ function auditBankingNumberSeries(): number {
   return checked;
 }
 
+function auditQuantityComparison(): number {
+  let checked = 0;
+  for (const profile of ["BANKING_PRELIMS", "BANKING_MAINS"] as const) {
+    for (let seedIndex = 1; seedIndex <= 50; seedIndex += 1) {
+      const question = generateQcp001Question({ seed: `exam-profile:QCP-001:${seedIndex}`, examProfile: profile });
+      assert(question.examProfile === profile, `QCP-001 ${profile} seed ${seedIndex} lost exam-profile ownership.`);
+      assertQuestionOptions(`QCP-001 ${profile} seed ${seedIndex}`, profile, question);
+      checked += 1;
+    }
+  }
+  return checked;
+}
+
 async function main() {
   assert(QUANT_V4_EXAM_PROFILE_CONTRACTS.SSC_CGL_TIER_I.optionCount === 4, "SSC Tier I central option count drifted.");
   assert(QUANT_V4_EXAM_PROFILE_CONTRACTS.SSC_CGL_CHSL.optionCount === 4, "SSC CGL/CHSL central option count drifted.");
@@ -133,6 +147,7 @@ async function main() {
   const probabilityQuestions = await auditProbabilityProfiles();
   const diQuestions = auditDiProfiles();
   const bnsQuestions = auditBankingNumberSeries();
+  const quantityComparisonQuestions = auditQuantityComparison();
 
   console.log(JSON.stringify({
     status: "PASS_QUANT_V4_EXAM_PROFILE_CONFORMANCE_P0",
@@ -140,7 +155,8 @@ async function main() {
     probabilityQuestions,
     diQuestions,
     bnsQuestions,
-    totalRuntimeQuestions: probabilityQuestions + diQuestions + bnsQuestions,
+    quantityComparisonQuestions,
+    totalRuntimeQuestions: probabilityQuestions + diQuestions + bnsQuestions + quantityComparisonQuestions,
   }));
 }
 
