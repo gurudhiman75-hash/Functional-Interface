@@ -1,0 +1,48 @@
+name: Quant V4 SAP Banking Question Studio Routing P1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/question-studio-review-engine.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/question-studio-banking-integration.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-BANKING-QUESTION-STUDIO-ROUTING.test.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
+  push:
+    branches:
+      - "feat/sap-banking-question-studio-routing-p1"
+    paths:
+      - "artifacts/api-server/src/quant-v4/question-studio-review-engine.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/question-studio-banking-integration.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-BANKING-QUESTION-STUDIO-ROUTING.test.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
+      - ".github/workflows/quant-v4-sap-banking-question-studio-routing-p1.yml"
+
+concurrency:
+  group: quant-v4-sap-banking-question-studio-routing-p1-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  banking-question-studio-routing:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: artifacts/api-server
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: SAP Banking Question Studio routing proof
+        run: npx --yes tsx src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-BANKING-QUESTION-STUDIO-ROUTING.test.ts
+      - name: SAP Banking Speed source-profile proof
+        run: npx --yes tsx src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-BANKING-SPEED-PROFILE.test.ts
+      - name: Existing SAP Question Studio chapter acceptance
+        run: npx --yes tsx src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-QUESTION-STUDIO-CHAPTER-ACCEPTANCE.test.ts
+      - name: Quant V4 central exam-profile conformance
+        run: npx --yes tsx src/quant-v4/quality/quant-v4-exam-profile-conformance.test.ts
+      - name: Patch hygiene
+        run: git -C ../.. diff --check origin/New-main...HEAD
