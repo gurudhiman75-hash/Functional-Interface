@@ -8,6 +8,8 @@ const seeds = Array.from({ length: 96 }, (_, index) => `idf-review-${index + 1}`
 let checked = 0;
 let visibleNumberLabels = 0;
 let opaqueNumberBackplates = 0;
+let familySpecificExplanationChecks = 0;
+let explicitDistractorMismatchChecks = 0;
 
 for (const qlId of qls) {
   for (const seed of seeds) {
@@ -36,6 +38,8 @@ for (const qlId of qls) {
     assert.equal(v11English.validation.numberLabelsPaintedAboveArtwork, true);
     assert.equal(v11English.validation.allNineNumberLabelsVisibleByConstruction, true);
     assert.equal(v11English.validation.explanationUsesLearnerFacingLanguage, true);
+    assert.equal(v11English.validation.explanationNamesFamilySpecificRule, true);
+    assert.equal(v11English.validation.distractorCheckNamesActualMismatch, true);
     assert.equal(v11English.lifecycle.reviewOnly, true);
     assert.equal(v11English.lifecycle.questionStudioDiscoverable, false);
     assert.equal(v11English.lifecycle.persistenceAllowed, false);
@@ -45,8 +49,35 @@ for (const qlId of qls) {
     assert.equal(v11English.lifecycle.publicReleaseAuthorized, false);
     assert.equal(v11English.lifecycle.studentDeliveryAuthorized, false);
     assert.equal(v11English.lifecycle.automaticStudentPublication, false);
-    assert.ok(!v11English.explanation.rule.includes("semantic grouping key"));
-    assert.ok(!v11English.explanation.application.includes("declared component"));
+
+    const englishExplanation = [
+      v11English.explanation.observation,
+      v11English.explanation.rule,
+      v11English.explanation.application,
+      v11English.explanation.check,
+      ...v11English.explanation.groupTable.map((row) => row.reason),
+    ].join(" ");
+    for (const jargon of ["semantic grouping key", "declared component", "transform policy", "complete semantic", "semantic key"]) {
+      assert.ok(!englishExplanation.toLowerCase().includes(jargon), `${qlId}/${seed}: learner explanation leaked implementation jargon: ${jargon}`);
+    }
+    assert.ok(!englishExplanation.includes("same no internal partition"), `${qlId}/${seed}: awkward partition wording must not reach learners`);
+    assert.ok(v11English.explanation.check.includes("group ("), `${qlId}/${seed}: distractor check should identify a concrete failed group`);
+    assert.ok(v11English.explanation.check.includes("mixes"), `${qlId}/${seed}: distractor check should name the mismatch`);
+    explicitDistractorMismatchChecks += 1;
+
+    if (qlId === "SPA-QL-061") {
+      assert.ok(/outer shape|central mark|internal division/.test(v11English.explanation.rule));
+    } else if (qlId === "SPA-QL-062") {
+      assert.ok(v11English.explanation.rule.includes("relationship between the two shapes"));
+      assert.ok(v11English.explanation.application.includes("topology relation"));
+    } else if (v11English.solveFacts.transformPolicy === "ROTATION_ONLY") {
+      assert.ok(v11English.explanation.rule.includes("mirror image does not count"));
+      assert.ok(v11English.explanation.application.includes("allowed transformation"));
+    } else {
+      assert.ok(v11English.explanation.rule.includes("mirror reflection"));
+      assert.ok(v11English.explanation.application.includes("allowed transformation"));
+    }
+    familySpecificExplanationChecks += 1;
 
     for (const language of languages) {
       const v1 = generateIdenticalFigureReviewQuestionV1({ qlId, seed, language });
@@ -61,6 +92,8 @@ for (const qlId of qls) {
       assert.ok(v11.explanation.rule.length > 30);
       assert.ok(v11.explanation.application.length > 30);
       assert.ok(v11.explanation.check.length > 30);
+      assert.equal(v11.explanation.groupTable.length, 3);
+      assert.ok(v11.explanation.groupTable.every((row) => row.reason.length > 12));
       checked += 1;
       visibleNumberLabels += 9;
     }
@@ -75,6 +108,8 @@ console.log(JSON.stringify({
   checked,
   visibleNumberLabels,
   opaqueNumberBackplates,
+  familySpecificExplanationChecks,
+  explicitDistractorMismatchChecks,
   semanticContractUnchangedFromV1: true,
   learnerNumberingRemediated: true,
   learnerExplanationWordingRemediated: true,
