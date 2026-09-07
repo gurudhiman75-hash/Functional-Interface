@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { ARG_CP015_ANTI_GAMING_CUE_DEBIAS_AUTHORITY } from "./cp015-anti-gaming-cue-debias.ts";
 import { finalizeArgCp015EditorialQuality } from "./cp015-final-editorial-quality.ts";
 import { polishArgCp015HumanAuditSurface } from "./cp015-human-audit-polish.ts";
+import { preRepairArgCp015HumanAuditSurface } from "./cp015-human-audit-pre-repair.ts";
 
 export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V9" as const;
 
@@ -136,7 +137,9 @@ function stemFor(statement: string, language: Language, argumentsList: readonly 
 }
 
 function finalizeAndHumanAudit(question: Question): Question {
-  return polishArgCp015HumanAuditSurface(finalizeArgCp015EditorialQuality(question));
+  const finalized = finalizeArgCp015EditorialQuality(question);
+  const preRepaired = preRepairArgCp015HumanAuditSurface(finalized);
+  return polishArgCp015HumanAuditSurface(preRepaired);
 }
 
 export function polishArgCp015AntiGamingGrammar(question: Question): Question {
