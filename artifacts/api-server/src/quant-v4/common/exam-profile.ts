@@ -1,3 +1,4 @@
+// Quant V4 Phase-0 delivery authority: profile aliases may differ by package, but option semantics must not.
 export type QuantV4OptionCount = 4 | 5;
 
 export type QuantV4ExamFamily = "SSC" | "BANKING" | "GENERIC";
