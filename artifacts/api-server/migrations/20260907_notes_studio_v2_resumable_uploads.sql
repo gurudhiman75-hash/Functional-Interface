@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS notes_studio_v2.corpus_upload_sessions (
   chunk_size integer NOT NULL CHECK (chunk_size > 0),
   source_type notes_studio_v2.source_type NOT NULL,
   sub_category_hints jsonb NOT NULL DEFAULT '[]'::jsonb,
+  page_ranges text,
   idempotency_key text NOT NULL,
   status text NOT NULL DEFAULT 'uploading' CHECK (status IN ('uploading', 'uploaded', 'extracting', 'ready', 'failed')),
   uploaded_bytes bigint NOT NULL DEFAULT 0 CHECK (uploaded_bytes >= 0),
