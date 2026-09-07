@@ -1,19 +1,7 @@
 name: Validate SPA IDF-001 Review V1
 
 on:
-  pull_request:
-    branches:
-      - New-main
-    paths:
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/identical-figure-**'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v13.ts'
-      - 'artifacts/api-server/src/reasoning-v1/tests/identical-figure-idf-001-**'
-      - '.github/workflows/spa-fmt-001-freeze-question-studio-v1.yml'
   workflow_dispatch:
-
-concurrency:
-  group: spa-idf-001-review-v1-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
 
 permissions:
   contents: read
