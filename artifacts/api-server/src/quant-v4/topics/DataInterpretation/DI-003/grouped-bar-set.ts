@@ -59,13 +59,8 @@ function formatPercent(numerator: number, denominator: number): string {
 
 function buildStimulus(seed: string): Di003Stimulus {
   const scale = pick(seededRandom(`${seed}:scale`), SCALE_POOL);
-  const aValues = shuffle(seededRandom(`${seed}:series-a`), SERIES_A_POOL)
-    .slice(0, 5)
-    .map((value) => value * scale);
-  const bValues = shuffle(seededRandom(`${seed}:series-b`), SERIES_B_POOL)
-    .slice(0, 5)
-    .map((value) => value * scale);
-
+  const aValues = shuffle(seededRandom(`${seed}:series-a`), SERIES_A_POOL).slice(0, 5).map((value) => value * scale);
+  const bValues = shuffle(seededRandom(`${seed}:series-b`), SERIES_B_POOL).slice(0, 5).map((value) => value * scale);
   const points = CATEGORIES.map((category, index) => ({
     category,
     seriesA: aValues[index]!,
@@ -90,16 +85,11 @@ function buildStimulus(seed: string): Di003Stimulus {
 function buildOptions(seed: string, optionCount: 4 | 5, answer: string, candidates: readonly Candidate[]) {
   const seen = new Set<string>();
   const retained: Di003Option[] = [];
-
   const add = (candidate: Candidate) => {
     const key = candidate.text.trim().toLowerCase();
     if (!candidate.text.trim() || seen.has(key)) return;
     seen.add(key);
-    retained.push({
-      text: candidate.text,
-      misconceptionId: candidate.misconceptionId,
-      derivation: candidate.derivation,
-    });
+    retained.push(candidate);
   };
 
   add({
@@ -113,8 +103,7 @@ function buildOptions(seed: string, optionCount: 4 | 5, answer: string, candidat
     throw new Error(`DI-003 could construct only ${retained.length} unique options; ${optionCount} are required.`);
   }
 
-  const chosen = retained.slice(0, optionCount);
-  const shuffled = shuffle(seededRandom(`${seed}:options`), chosen);
+  const shuffled = shuffle(seededRandom(`${seed}:options`), retained.slice(0, optionCount));
   const correctIndex = shuffled.findIndex((option) => option.misconceptionId === "CORRECT");
   if (correctIndex < 0) throw new Error("DI-003 lost the correct option during deterministic shuffling.");
 
@@ -131,41 +120,40 @@ function buildDrafts(seed: string, stimulus: Di003Stimulus): Draft[] {
   const totalB = points.reduce((sum, point) => sum + point.seriesB, 0);
   if (totalA <= totalB) throw new Error("DI-003 grouped-bar state must keep Product A total above Product B total.");
 
-  const nonZeroDifferenceIndexes = points
-    .map((point, index) => ({ index, difference: Math.abs(point.seriesA - point.seriesB) }))
-    .filter((entry) => entry.difference > 0);
-  if (!nonZeroDifferenceIndexes.length) throw new Error("DI-003 requires at least one non-zero cross-series category difference.");
-  const differenceEntry = pick(seededRandom(`${seed}:difference-category`), nonZeroDifferenceIndexes);
+  const differenceEntry = pick(
+    seededRandom(`${seed}:difference-category`),
+    points
+      .map((point, index) => ({ index, difference: Math.abs(point.seriesA - point.seriesB) }))
+      .filter((entry) => entry.difference > 0),
+  );
   const differenceIndex = differenceEntry.index;
   const differencePoint = points[differenceIndex]!;
   const crossDifference = differenceEntry.difference;
   const neighborIndex = differenceIndex === points.length - 1 ? differenceIndex - 1 : differenceIndex + 1;
   const neighbor = points[neighborIndex]!;
 
-  const ratioPairs = [[0, 1], [0, 2], [0, 4], [1, 3], [2, 4]] as const;
-  const [firstIndex, secondIndex] = pick(seededRandom(`${seed}:combined-ratio`), ratioPairs);
+  const [firstIndex, secondIndex] = pick(
+    seededRandom(`${seed}:combined-ratio`),
+    [[0, 1], [0, 2], [0, 4], [1, 3], [2, 4]] as const,
+  );
   const firstPoint = points[firstIndex]!;
   const secondPoint = points[secondIndex]!;
   const firstCombined = firstPoint.seriesA + firstPoint.seriesB;
   const secondCombined = secondPoint.seriesA + secondPoint.seriesB;
   const combinedRatio = ratioDisplay(firstCombined, secondCombined);
 
-  const increasingPairs: Array<readonly [number, number]> = [];
-  for (let fromIndex = 0; fromIndex < points.length - 1; fromIndex += 1) {
-    for (let toIndex = fromIndex + 1; toIndex < points.length; toIndex += 1) {
-      if (points[toIndex]!.seriesA > points[fromIndex]!.seriesA) {
-        increasingPairs.push([fromIndex, toIndex] as const);
-      }
-    }
-  }
-  if (!increasingPairs.length) throw new Error("DI-003 requires an increasing Product A pair for percentage-change testing.");
-  const [changeFromIndex, changeToIndex] = pick(seededRandom(`${seed}:percent-change-pair`), increasingPairs);
-  const changeFrom = points[changeFromIndex]!.seriesA;
-  const changeTo = points[changeToIndex]!.seriesA;
+  const [pairLeft, pairRight] = pick(
+    seededRandom(`${seed}:percent-change-pair`),
+    [[0, 1], [0, 2], [0, 4], [1, 2], [1, 3], [1, 4], [2, 3], [2, 4], [3, 4]] as const,
+  );
+  const lowerIndex = points[pairLeft]!.seriesA < points[pairRight]!.seriesA ? pairLeft : pairRight;
+  const higherIndex = lowerIndex === pairLeft ? pairRight : pairLeft;
+  const changeFrom = points[lowerIndex]!.seriesA;
+  const changeTo = points[higherIndex]!.seriesA;
   const changeDifference = changeTo - changeFrom;
   const percentChange = formatPercent(changeDifference, changeFrom);
-  const bDifference = Math.abs(points[changeToIndex]!.seriesB - points[changeFromIndex]!.seriesB);
-  const bLower = Math.min(points[changeToIndex]!.seriesB, points[changeFromIndex]!.seriesB);
+  const bDifference = Math.abs(points[higherIndex]!.seriesB - points[lowerIndex]!.seriesB);
+  const bLower = Math.min(points[higherIndex]!.seriesB, points[lowerIndex]!.seriesB);
 
   const shareIndex = pick(seededRandom(`${seed}:share-category`), [0, 1, 2, 3, 4] as const);
   const sharePoint = points[shareIndex]!;
@@ -184,9 +172,9 @@ function buildDrafts(seed: string, stimulus: Di003Stimulus): Draft[] {
         { text: String(differencePoint.seriesA + differencePoint.seriesB), misconceptionId: "ADD_INSTEAD_OF_DIFFERENCE", derivation: "Adds the two bar heights in the named year instead of subtracting them." },
         { text: String(differencePoint.seriesA), misconceptionId: "READ_PRODUCT_A_ONLY", derivation: "Reports the Product A bar height without comparing it with Product B." },
         { text: String(differencePoint.seriesB), misconceptionId: "READ_PRODUCT_B_ONLY", derivation: "Reports the Product B bar height without taking the cross-series difference." },
+        { text: String(totalA), misconceptionId: "USE_PRODUCT_A_SERIES_TOTAL", derivation: "Uses Product A's five-year total instead of comparing the two bars in the named year." },
+        { text: String(totalB), misconceptionId: "USE_PRODUCT_B_SERIES_TOTAL", derivation: "Uses Product B's five-year total instead of the same-year cross-series difference." },
         { text: String(Math.abs(neighbor.seriesA - neighbor.seriesB)), misconceptionId: "READ_ADJACENT_CATEGORY", derivation: `Takes the Product A–Product B difference in ${neighbor.category} instead of ${differencePoint.category}.` },
-        { text: String(Math.abs(differencePoint.seriesA - neighbor.seriesA)), misconceptionId: "COMPARE_SAME_SERIES_ACROSS_YEARS", derivation: "Compares Product A across adjacent years instead of the two products in the named year." },
-        { text: String(Math.abs(differencePoint.seriesB - neighbor.seriesB)), misconceptionId: "COMPARE_OTHER_SERIES_ACROSS_YEARS", derivation: "Compares Product B across adjacent years instead of Product A against Product B in the named year." },
       ],
       explanation: {
         keyIdea: "Read the two bars for the same category and subtract the smaller value from the larger value.",
@@ -195,7 +183,7 @@ function buildDrafts(seed: string, stimulus: Di003Stimulus): Draft[] {
           `Difference = |${differencePoint.seriesA} - ${differencePoint.seriesB}| = ${crossDifference}.`,
         ],
         shortcut: "For a same-year bar difference, only the two bars in that category are relevant.",
-        trap: "Do not move to an adjacent year or add the two bars; the question asks for a difference within one category.",
+        trap: "Do not add the bars, use a whole-series total or move to another year; the question asks for one category's difference.",
       },
       evidence: { categoryIndex: differenceIndex },
     },
@@ -209,8 +197,8 @@ function buildDrafts(seed: string, stimulus: Di003Stimulus): Draft[] {
         { text: ratioDisplay(firstPoint.seriesA, secondPoint.seriesA), misconceptionId: "USE_PRODUCT_A_ONLY", derivation: "Uses only Product A bars and ignores Product B in both named years." },
         { text: ratioDisplay(firstPoint.seriesB, secondPoint.seriesB), misconceptionId: "USE_PRODUCT_B_ONLY", derivation: "Uses only Product B bars and ignores Product A in both named years." },
         { text: ratioDisplay(firstPoint.seriesA + secondPoint.seriesA, firstPoint.seriesB + secondPoint.seriesB), misconceptionId: "GROUP_BY_SERIES_NOT_CATEGORY", derivation: "Groups the four bars by product instead of by the two named years." },
-        { text: ratioDisplay(firstPoint.seriesA + firstPoint.seriesB, secondPoint.seriesA), misconceptionId: "OMIT_ONE_BAR_SECOND_CATEGORY", derivation: `Combines both bars in ${firstPoint.category} but omits Product B from ${secondPoint.category}.` },
-        { text: ratioDisplay(firstPoint.seriesA, secondPoint.seriesA + secondPoint.seriesB), misconceptionId: "OMIT_ONE_BAR_FIRST_CATEGORY", derivation: `Omits Product B from ${firstPoint.category} while combining both bars in ${secondPoint.category}.` },
+        { text: ratioDisplay(firstCombined, secondPoint.seriesA), misconceptionId: "OMIT_ONE_BAR_SECOND_CATEGORY", derivation: `Combines both bars in ${firstPoint.category} but omits Product B from ${secondPoint.category}.` },
+        { text: ratioDisplay(firstPoint.seriesA, secondCombined), misconceptionId: "OMIT_ONE_BAR_FIRST_CATEGORY", derivation: `Omits Product B from ${firstPoint.category} while combining both bars in ${secondPoint.category}.` },
       ],
       explanation: {
         keyIdea: "Add Product A and Product B within each named category before forming the ratio.",
@@ -219,7 +207,7 @@ function buildDrafts(seed: string, stimulus: Di003Stimulus): Draft[] {
           `${secondPoint.category} combined sales = ${secondPoint.seriesA} + ${secondPoint.seriesB} = ${secondCombined}.`,
           `${firstCombined}:${secondCombined} = ${combinedRatio}.`,
         ],
-        shortcut: "Aggregate vertically within each bar-group first; simplify the ratio only after both category totals are formed.",
+        shortcut: "Aggregate within each bar-group first; simplify the ratio only after both category totals are formed.",
         trap: "Do not compare only one product or regroup by product across years; the question asks for category totals.",
       },
       evidence: { firstIndex, secondIndex },
@@ -227,26 +215,26 @@ function buildDrafts(seed: string, stimulus: Di003Stimulus): Draft[] {
     {
       kind: "PERCENT_CHANGE_WITHIN_SERIES",
       difficulty: "Hard",
-      stem: `By what percentage did the sales of Product A increase from ${points[changeFromIndex]!.category} to ${points[changeToIndex]!.category}?`,
+      stem: `Product A sales in ${points[higherIndex]!.category} were what percentage higher than in ${points[lowerIndex]!.category}?`,
       answer: percentChange,
       candidates: [
-        { text: formatPercent(changeDifference, changeTo), misconceptionId: "USE_NEW_VALUE_AS_DENOMINATOR", derivation: "Divides the increase by the later Product A value instead of the original value." },
-        { text: formatPercent(changeTo, changeFrom), misconceptionId: "REPORT_NEW_AS_PERCENT_OF_OLD", derivation: "Reports the later value as a percentage of the earlier value rather than the percentage increase." },
-        { text: `${changeDifference}%`, misconceptionId: "TREAT_ABSOLUTE_CHANGE_AS_PERCENT", derivation: "Attaches a percent sign to the unit increase without dividing by the original sales." },
-        { text: formatPercent(bDifference, bLower), misconceptionId: "USE_PRODUCT_B_CHANGE", derivation: "Calculates a change from Product B bars instead of Product A." },
-        { text: formatPercent(changeDifference, totalA), misconceptionId: "USE_SERIES_TOTAL_AS_DENOMINATOR", derivation: "Divides the two-year increase by total Product A sales across all five years." },
-        { text: formatPercent(changeDifference, changeFrom + changeTo), misconceptionId: "USE_TWO_YEAR_SUM_AS_DENOMINATOR", derivation: "Uses the sum of the two Product A bars as the denominator instead of the original bar." },
+        { text: formatPercent(changeDifference, changeTo), misconceptionId: "USE_HIGHER_VALUE_AS_DENOMINATOR", derivation: "Divides the increase by the higher Product A value instead of the lower comparison base." },
+        { text: formatPercent(changeTo, changeFrom), misconceptionId: "REPORT_HIGHER_AS_PERCENT_OF_LOWER", derivation: "Reports the higher value as a percentage of the lower value rather than only the percentage increase." },
+        { text: `${changeDifference}%`, misconceptionId: "TREAT_ABSOLUTE_CHANGE_AS_PERCENT", derivation: "Attaches a percent sign to the unit increase without dividing by the lower Product A value." },
+        { text: formatPercent(bDifference, bLower), misconceptionId: "USE_PRODUCT_B_CHANGE", derivation: "Calculates the relative difference from Product B bars instead of Product A." },
+        { text: formatPercent(changeDifference, totalA), misconceptionId: "USE_SERIES_TOTAL_AS_DENOMINATOR", derivation: "Divides the two-year Product A difference by total Product A sales across all five years." },
+        { text: formatPercent(changeDifference, changeFrom + changeTo), misconceptionId: "USE_TWO_YEAR_SUM_AS_DENOMINATOR", derivation: "Uses the sum of the two Product A bars as the denominator instead of the lower bar." },
       ],
       explanation: {
-        keyIdea: "Percentage increase within a series uses the earlier Product A value as the denominator.",
+        keyIdea: "For 'what percentage higher', use the lower Product A value as the comparison base.",
         steps: [
-          `Increase = ${changeTo} - ${changeFrom} = ${changeDifference}.`,
-          `Percentage increase = ${changeDifference}/${changeFrom} × 100 = ${percentChange}.`,
+          `Difference = ${changeTo} - ${changeFrom} = ${changeDifference}.`,
+          `Percentage higher = ${changeDifference}/${changeFrom} × 100 = ${percentChange}.`,
         ],
-        shortcut: "Locate the two Product A bars first; the earlier bar is the base for a percentage increase.",
-        trap: "Do not switch to Product B or divide by the later bar; both are common grouped-bar reading errors.",
+        shortcut: "Identify the lower of the two named Product A bars first; that lower value is the denominator.",
+        trap: "Do not switch to Product B or divide by the higher bar; both change the comparison being asked.",
       },
-      evidence: { fromIndex: changeFromIndex, toIndex: changeToIndex },
+      evidence: { fromIndex: lowerIndex, toIndex: higherIndex },
     },
     {
       kind: "CATEGORY_SHARE_OF_SERIES_TOTAL",
@@ -283,7 +271,7 @@ function buildDrafts(seed: string, stimulus: Di003Stimulus): Draft[] {
         { text: formatPercent(totalDifference, totalA + totalB), misconceptionId: "USE_COMBINED_TOTAL_AS_DENOMINATOR", derivation: "Divides the excess by the combined total of both products." },
         { text: formatPercent(totalB, totalA), misconceptionId: "REPORT_B_AS_PERCENT_OF_A", derivation: "Forms the reverse whole-series percentage instead of Product A's excess over Product B." },
         { text: `${totalDifference}%`, misconceptionId: "TREAT_TOTAL_DIFFERENCE_AS_PERCENT", derivation: "Attaches a percent sign to the absolute five-year sales difference." },
-        { text: formatPercent(totalA - totalB, Math.min(totalA, totalB) + totalDifference), misconceptionId: "REBUILD_WRONG_BASE", derivation: "Reconstructs the denominator from the larger total rather than the lower Product B baseline." },
+        { text: formatPercent(totalDifference, (totalA + totalB) / 2), misconceptionId: "USE_AVERAGE_TOTAL_AS_BASE", derivation: "Uses the average of the two five-year totals as the percentage base instead of Product B total." },
       ],
       explanation: {
         keyIdea: "For 'A exceeds B by what percent', first find both five-year totals and divide the excess by B, the comparison base.",
