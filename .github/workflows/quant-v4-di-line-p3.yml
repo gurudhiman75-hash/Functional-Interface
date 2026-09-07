@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: 20
 
-      - name: Locate Banking five-option collapse
+      - name: Banking five-option collision scan
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/debug-option-collapse.ts
 
       - name: Line DI deterministic proof
