@@ -23,6 +23,10 @@ const sourceTypes = new Set(['textbook', 'reference', 'academic', 'other']);
 const maxPdfBytes = Number(process.env.PDF_MAX_BYTES) || 25 * 1024 * 1024;
 const TEXT_SEGMENT_PAGES = 24;
 const OCR_SEGMENT_PAGES = 12;
+const MAX_SELECTED_PAGES_PER_PASS = Math.max(
+  1,
+  Number(process.env.NOTES_STUDIO_V2_MAX_SELECTED_PAGES_PER_PASS) || 96,
+);
 const WORKER_TIMEOUT_MS = Number(process.env.NOTES_STUDIO_V2_PDF_WORKER_TIMEOUT_MS) || 180_000;
 const WORKER_HEAP_MB = Math.max(64, Number(process.env.NOTES_STUDIO_V2_PDF_WORKER_HEAP_MB) || 128);
 const WORKER_OUTPUT_LIMIT = 32 * 1024 * 1024;
@@ -52,6 +56,11 @@ type WorkerResult = {
   ocrUsed: boolean;
   ocrPages: number[];
   warnings: string[];
+};
+
+type PageRange = {
+  startPage: number;
+  endPage: number;
 };
 
 type PdfSegment = {
@@ -98,6 +107,72 @@ function normalizeClaim(value: string) {
 
 function truthy(value: unknown) {
   return ['1', 'true', 'yes', 'on'].includes(text(value, 16).toLowerCase());
+}
+
+function parsePageRanges(value: unknown, totalPages: number): PageRange[] {
+  const raw = text(value, 2000);
+  if (!raw) return [{ startPage: 1, endPage: totalPages }];
+
+  const tokens = raw.split(/[,;\n]+/).map((item) => item.trim()).filter(Boolean);
+  if (tokens.length === 0) {
+    throw new NotesStudioV2PdfError('PDF_PAGE_RANGES_REQUIRED', 'Enter at least one relevant PDF page or page range.', 422);
+  }
+
+  const parsed = tokens.map((token) => {
+    const match = token.match(/^(\d+)(?:\s*-\s*(\d+))?$/);
+    if (!match) {
+      throw new NotesStudioV2PdfError(
+        'PDF_PAGE_RANGE_INVALID',
+        `Invalid page range "${token}". Use values such as 42-67, 103-118, 221-236.`,
+        422,
+      );
+    }
+    const startPage = Number(match[1]);
+    const endPage = Number(match[2] ?? match[1]);
+    if (!Number.isSafeInteger(startPage) || !Number.isSafeInteger(endPage)
+      || startPage < 1 || endPage < startPage || endPage > totalPages) {
+      throw new NotesStudioV2PdfError(
+        'PDF_PAGE_RANGE_INVALID',
+        `Page range ${token} is outside this PDF. Valid pages are 1-${totalPages}.`,
+        422,
+      );
+    }
+    return { startPage, endPage };
+  }).sort((a, b) => a.startPage - b.startPage || a.endPage - b.endPage);
+
+  const merged: PageRange[] = [];
+  for (const range of parsed) {
+    const previous = merged.at(-1);
+    if (previous && range.startPage <= previous.endPage + 1) {
+      previous.endPage = Math.max(previous.endPage, range.endPage);
+    } else {
+      merged.push({ ...range });
+    }
+  }
+
+  const selectedPageCount = merged.reduce((sum, range) => sum + range.endPage - range.startPage + 1, 0);
+  if (selectedPageCount > MAX_SELECTED_PAGES_PER_PASS) {
+    throw new NotesStudioV2PdfError(
+      'PDF_PAGE_SELECTION_TOO_LARGE',
+      `Select at most ${MAX_SELECTED_PAGES_PER_PASS} relevant pages per extraction pass. You can upload the same PDF again with additional ranges; it remains one corpus source.`,
+      422,
+    );
+  }
+
+  return merged;
+}
+
+function splitPageRanges(ranges: PageRange[], pageSize: number): PageRange[] {
+  const segments: PageRange[] = [];
+  for (const range of ranges) {
+    for (let startPage = range.startPage; startPage <= range.endPage; startPage += pageSize) {
+      segments.push({
+        startPage,
+        endPage: Math.min(range.endPage, startPage + pageSize - 1),
+      });
+    }
+  }
+  return segments;
 }
 
 function sendError(res: Response, error: unknown) {
@@ -215,17 +290,10 @@ async function inspectTotalPages(filePath: string) {
   return totalPages;
 }
 
-function rangesFor(totalPages: number, pageSize: number) {
-  const ranges: Array<{ startPage: number; endPage: number }> = [];
-  for (let startPage = 1; startPage <= totalPages; startPage += pageSize) {
-    ranges.push({ startPage, endPage: Math.min(totalPages, startPage + pageSize - 1) });
-  }
-  return ranges;
-}
-
-async function extractReadableSegments(filePath: string, forceOcr: boolean) {
+async function extractReadableSegments(filePath: string, forceOcr: boolean, requestedPageRanges: unknown) {
   const totalPages = await inspectTotalPages(filePath);
-  const queue = rangesFor(totalPages, TEXT_SEGMENT_PAGES);
+  const selectedRanges = parsePageRanges(requestedPageRanges, totalPages);
+  const queue = splitPageRanges(selectedRanges, TEXT_SEGMENT_PAGES);
   const segments: PdfSegment[] = [];
 
   while (queue.length > 0) {
@@ -234,11 +302,7 @@ async function extractReadableSegments(filePath: string, forceOcr: boolean) {
     const needsOcr = forceOcr || digital.extractionQuality === 'low' || digital.text.trim().length < 100;
 
     if (needsOcr && digital.selectedPageCount > OCR_SEGMENT_PAGES) {
-      const smaller = rangesFor(digital.selectedPageCount, OCR_SEGMENT_PAGES).map((item) => ({
-        startPage: range.startPage + item.startPage - 1,
-        endPage: range.startPage + item.endPage - 1,
-      }));
-      queue.unshift(...smaller);
+      queue.unshift(...splitPageRanges([range], OCR_SEGMENT_PAGES));
       continue;
     }
 
@@ -272,7 +336,12 @@ async function extractReadableSegments(filePath: string, forceOcr: boolean) {
     });
   }
 
-  return { totalPages, segments: segments.sort((a, b) => a.startPage - b.startPage) };
+  return {
+    totalPages,
+    selectedRanges,
+    selectedPageCount: selectedRanges.reduce((sum, range) => sum + range.endPage - range.startPage + 1, 0),
+    segments: segments.sort((a, b) => a.startPage - b.startPage),
+  };
 }
 
 async function loadPeriodTaxonomy(periodId: string) {
@@ -429,7 +498,7 @@ router.post(
       const forceOcr = truthy(req.body?.forceOcr);
       const digest = await sha256File(req.file.path);
 
-      const extracted = await extractReadableSegments(req.file.path, forceOcr);
+      const extracted = await extractReadableSegments(req.file.path, forceOcr, req.body?.pageRanges);
       const ai = await extractCandidates({ title, taxonomy, segments: extracted.segments });
       const persisted = await persistSource({ periodId, title, sourceType, hints, digest, taxonomy, candidates: ai.candidates });
       const warnings = [...new Set(extracted.segments.flatMap((segment) => segment.metadata.warnings ?? []))];
@@ -445,6 +514,8 @@ router.post(
             fileName,
             bytes: req.file.size,
             totalPages: extracted.totalPages,
+            selectedPageCount: extracted.selectedPageCount,
+            selectedRanges: extracted.selectedRanges,
             segmentCount: extracted.segments.length,
             segments: extracted.segments.map((segment) => ({
               startPage: segment.startPage,
