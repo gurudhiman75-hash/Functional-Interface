@@ -1,5 +1,5 @@
-import { COM004_ENGLISH_FREEZE_AUTHORITY_V1 } from "./com004-english-freeze-v1";
-import { COM004_ENGLISH_CHAPTER_V2, COM004_ENGLISH_REVISION_V2 } from "./com004-english-chapter-v2";
+import { COM004_ENGLISH_FREEZE_AUTHORITY_V2 } from './com004-english-chapter-v2';
+import { COM004_ENGLISH_CHAPTER_V2 } from "./com004-english-chapter-v2";
 import type { Com004EnglishChapterQuestionV1 } from "./com004-english-chapter-candidate-v1";
 
 export type Com004LocalizationLanguage = "hi" | "pa";
@@ -43,11 +43,11 @@ export type Com004BilingualCopyV1 = {
 
 const sourceById = new Map(COM004_ENGLISH_CHAPTER_V2.map((question) => [question.questionId, question]));
 
-if (!COM004_ENGLISH_FREEZE_AUTHORITY_V1.governance.englishFrozen) {
-  throw new Error("COM-004 localization cannot bind before English Freeze V1");
+if (!COM004_ENGLISH_FREEZE_AUTHORITY_V2.governance.englishFrozen) {
+  throw new Error("COM-004 localization cannot bind before English Freeze V2");
 }
-if (!COM004_ENGLISH_FREEZE_AUTHORITY_V1.governance.hindiPunjabiLocalizationV1Authorized) {
-  throw new Error("COM-004 Hindi/Punjabi localization V1 is not authorized by English Freeze V1");
+if (!COM004_ENGLISH_FREEZE_AUTHORITY_V2.governance.hindiPunjabiLocalizationV1Authorized) {
+  throw new Error("COM-004 Hindi/Punjabi localization V1 is not authorized by English Freeze V2");
 }
 
 export function localizeCom004Wave1QuestionV1(
@@ -85,8 +85,8 @@ export function localizeCom004Wave1QuestionV1(
     canonicalAnswer: localized.canonicalAnswer.trim(),
     explanation: localized.explanation.trim(),
     sourceEnglishCanonicalAnswer: source.canonicalAnswer,
-    sourceEnglishFrozen: !COM004_ENGLISH_REVISION_V2.revisedQuestionIds.includes(source.questionId),
-    sourceEnglishAuthorityId: COM004_ENGLISH_REVISION_V2.revisedQuestionIds.includes(source.questionId) ? COM004_ENGLISH_REVISION_V2.authorityId : COM004_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,
+    sourceEnglishFrozen: true,
+    sourceEnglishAuthorityId: COM004_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
     localizationReviewOnly: true,
     localizationFrozen: false,
     runtimeRegistered: false,

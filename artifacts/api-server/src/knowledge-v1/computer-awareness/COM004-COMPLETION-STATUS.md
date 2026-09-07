@@ -1,6 +1,7 @@
 # COM-004 completion status
 
-Status: IN PROGRESS — not chapter-complete and not runtime-activated.
+Status: COMPLETED / BANK-ONLY INTERNAL — frozen corpus is registered in the
+existing Question Studio composite; downstream release gates remain closed.
 
 Continuation branch: `feature/com004-chapter-completion-v1`, based on current
 `New-main`, preserving the COM-004 source checkpoint `78ebf6f389e49ac8e9620300163dda544c4b9dc6`.
@@ -14,10 +15,10 @@ must not be used to report current coverage.
 - Historical English Freeze V1 is unchanged.
 - English editorial revision V2 corrects 13 items containing authoring-scope
   questions, internal chapter references, or explanations about governance.
-- Hindi: 72 authored items, QL001–006.
-- Punjabi: 72 authored items, QL001–006.
-- Missing: 132 Hindi and 132 Punjabi items, QL007–017.
-- V2 is a source revision candidate, not a fabricated human-reviewed freeze.
+- Hindi: 204 authored items, QL001–017.
+- Punjabi: 204 authored items, QL001–017.
+- Missing: none.
+- V2 is the versioned English freeze candidate used by the completed localization audit; a correction requires a new source version.
 
 The localization constructor now binds to the complete chapter source rather
 than only Wave 1. It records whether the source is the historical V1 freeze or
@@ -28,23 +29,23 @@ nested options/source references. Historical Wave 1 IDs remain stable.
 
 `com004-chapter-completion.test.ts` checks the 204-item revised English corpus,
 all authored localizations, answer/source binding, script presence, duplicate
-options/stems/IDs, immutable output, and rejection of invalid inputs. Its report
-explicitly returns `releaseReady: false` for missing translations. Passing the
-regression suite does not constitute editorial approval or chapter completion.
+options/stems/IDs, immutable output, and rejection of invalid inputs. The audit
+reports `releaseReady: true` for content completeness. The separate freeze and
+difficulty audit records the Hindi/Punjabi freeze fingerprints and the Easy /
+Medium-only review topology. Passing the regression suite does not authorize
+test-builder eligibility or public publication.
 
 `com004-english-freeze-v1.test.ts` preserves the historical freeze contract.
 
-## Work required to finish
+## Controlled registration completed
 
-1. Author and semantically review QL007–017 in both Hindi and Punjabi against
-   the V2 source, including all four options and question-specific explanations.
-2. Review existing QL001–004 language quality alongside the newer native-script
-   copy. Structural/script checks are not a substitute for semantic review.
-3. Finish chapter-wide distractor/difficulty and explanation-quality review;
-   re-freeze versioned source revisions and localization with actual evidence.
-4. Register in the existing knowledge-v1 Question Studio composite, using the
-   shared lifecycle, selector validation and deterministic no-repeat selection.
-5. Validate the real review/acceptance path before enabling any downstream use.
+1. Chapter-wide English Freeze V2 and Hindi/Punjabi Localization Freeze V2 are
+   versioned and fingerprinted.
+2. The frozen corpus is registered in the existing knowledge-v1 Question Studio
+   composite with shared lifecycle, selector validation and deterministic
+   no-repeat selection.
+3. Difficulty filtering is available for Easy and Medium review batches. Hard,
+   scored-test, mock-test and public-release gates remain closed.
 
-Question Studio, Question Bank, test/mock eligibility and public/automatic
-publication are not enabled by this checkpoint. No separate studio is created.
+Question Bank acceptance is `BANK_ONLY` and still requires manual approval. No
+separate studio is created.

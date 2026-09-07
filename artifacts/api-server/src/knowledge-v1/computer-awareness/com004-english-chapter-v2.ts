@@ -52,7 +52,7 @@ export const COM004_ENGLISH_CHAPTER_V2 = Object.freeze(COM004_ENGLISH_CHAPTER_CA
   const answer = revision?.answer ?? source.canonicalAnswer;
   const options = revision?.distractors ? [...revision.distractors] : [...source.options];
   if (revision?.distractors) options.splice(source.correctIndex, 0, answer);
-  return Object.freeze({ ...source, stem: revision?.stem ?? source.stem, explanation: revision?.explanation ?? source.explanation, canonicalAnswer: answer, options: Object.freeze(options) as unknown as string[] });
+  return Object.freeze({ ...source, sourceCandidateIds: Object.freeze([...source.sourceCandidateIds]) as unknown as string[], stem: revision?.stem ?? source.stem, explanation: revision?.explanation ?? source.explanation, canonicalAnswer: answer, options: Object.freeze(options) as unknown as string[] });
 }));
 export const COM004_ENGLISH_REVISION_V2 = Object.freeze({
   authorityId: 'COM-004-ENGLISH-EDITORIAL-REVISION-V2',
@@ -61,6 +61,35 @@ export const COM004_ENGLISH_REVISION_V2 = Object.freeze({
   questionCount: COM004_ENGLISH_CHAPTER_V2.length,
   sha256: createHash('sha256').update(JSON.stringify(COM004_ENGLISH_CHAPTER_V2)).digest('hex'),
   sourceMutationPolicy: 'SOURCE_GENERATOR_ONLY',
+});
+
+export const COM004_ENGLISH_FREEZE_AUTHORITY_V2 = Object.freeze({
+  authorityId: 'COM-004-ENGLISH-FREEZE-V2' as const,
+  predecessorAuthorityId: COM004_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,
+  chapterCode: 'COM-004' as const,
+  chapterTitle: 'Internet, Web, E-mail & Digital Services' as const,
+  language: 'en' as const,
+  locale: 'en-IN' as const,
+  permanentQlIds: COM004_ENGLISH_FREEZE_AUTHORITY_V1.permanentQlIds,
+  permanentQlRange: COM004_ENGLISH_FREEZE_AUTHORITY_V1.permanentQlRange,
+  frozenQuestionCount: COM004_ENGLISH_CHAPTER_V2.length,
+  frozenQuestionsPerQl: 12,
+  editorialRevisionAuthorityId: COM004_ENGLISH_REVISION_V2.authorityId,
+  contentFingerprint: COM004_ENGLISH_REVISION_V2.sha256,
+  governance: Object.freeze({
+    englishFrozen: true,
+    englishContentMutationAllowed: false,
+    correctionRequiresNewVersion: true,
+    hindiPunjabiLocalizationV1Authorized: true,
+    questionStudioEnglishPromotionAuthorized: false,
+    questionBankWritesAuthorized: false,
+    testEligibilityAuthorized: false,
+    mockTestEligibilityAuthorized: false,
+    automaticPublicationAuthorized: false,
+    publicPublicationAuthorized: false,
+    productionReleased: false,
+  }),
+  nextGate: 'COM004_HINDI_PUNJABI_LOCALIZATION_V2' as const,
 });
 export function auditCom004EnglishChapterV2(questions: readonly Com004EnglishChapterQuestionV1[] = COM004_ENGLISH_CHAPTER_V2) {
   const issues: string[] = [];

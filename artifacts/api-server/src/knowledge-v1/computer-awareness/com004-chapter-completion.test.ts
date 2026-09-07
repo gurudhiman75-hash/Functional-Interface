@@ -7,9 +7,10 @@ import { COM004_LOCALIZATION_WAVE1_QL001_COPY_V1 } from './com004-localization-w
 assert.equal(auditCom004EnglishChapterV2().valid, true);
 assert.equal(auditCom004EnglishChapterV2(COM004_ENGLISH_CHAPTER_CANDIDATE_V1).valid, false, 'historical internal authoring copy must fail the learner-facing gate');
 const report = auditCom004LocalizationChapterV1();
-assert.deepEqual(report.counts, {en: 204, hi: 72, pa: 72});
-assert.deepEqual(report.issues, ['MISSING_HI:132','MISSING_PA:132']);
-assert.equal(report.valid, false, 'partial localization cannot complete a chapter');
+assert.deepEqual(report.counts, {en: 204, hi: 204, pa: 204});
+assert.deepEqual(report.missing, {hi: [], pa: []});
+assert.deepEqual(report.issues, []);
+assert.equal(report.valid, true, 'complete localization must pass the chapter gate');
 assert.ok(Object.isFrozen(COM004_ENGLISH_CHAPTER_V2[0].options));
 assert.ok(Object.isFrozen(COM004_LOCALIZATION_CHAPTER_V1.hi[0].options));
 const copy = COM004_LOCALIZATION_WAVE1_QL001_COPY_V1[0];
