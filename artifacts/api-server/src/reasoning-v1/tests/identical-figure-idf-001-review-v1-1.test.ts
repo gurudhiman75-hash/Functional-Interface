@@ -62,7 +62,11 @@ for (const qlId of qls) {
     }
     assert.ok(!englishExplanation.includes("same no internal partition"), `${qlId}/${seed}: awkward partition wording must not reach learners`);
     assert.ok(v11English.explanation.check.includes("group ("), `${qlId}/${seed}: distractor check should identify a concrete failed group`);
-    assert.ok(v11English.explanation.check.includes("mixes"), `${qlId}/${seed}: distractor check should name the mismatch`);
+    if (qlId === "SPA-QL-063") {
+      assert.ok(v11English.explanation.check.includes("does not reduce to one common endpoint-mark arrangement"), `${qlId}/${seed}: transform distractor check should name the failed equivalence`);
+    } else {
+      assert.ok(v11English.explanation.check.includes("mixes"), `${qlId}/${seed}: distractor check should name the mixed properties`);
+    }
     explicitDistractorMismatchChecks += 1;
 
     if (qlId === "SPA-QL-061") {
