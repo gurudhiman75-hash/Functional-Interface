@@ -1,13 +1,27 @@
 import { generateDi004LineSet } from "./index";
 
-const seed = "DI-004-PHASE3-42";
-const ssc = generateDi004LineSet({ seed, examProfile: "SSC_CGL_TIER_I" });
-console.log(JSON.stringify({ seed, stimulus: ssc.stimulus, questions: ssc.questions.map((question) => ({
-  kind: question.kind,
-  answer: question.answer,
-  evidence: question.evidence,
-  optionMetadata: question.optionMetadata,
-})) }));
+let scannedSets = 0;
+let scannedQuestions = 0;
 
-generateDi004LineSet({ seed, examProfile: "BANKING_PRELIMS" });
-console.log("PASS_DI_004_FAILING_STATE_DEBUG");
+for (let seedIndex = 1; seedIndex <= 100; seedIndex += 1) {
+  const seed = `DI-004-PHASE3-${seedIndex}`;
+  try {
+    const set = generateDi004LineSet({ seed, examProfile: "BANKING_PRELIMS" });
+    if (set.optionCount !== 5) throw new Error(`${seed} did not retain the Banking five-option profile.`);
+    if (set.questions.some((question) => question.options.length !== 5 || new Set(question.options).size !== 5)) {
+      throw new Error(`${seed} contains a Banking five-option collision.`);
+    }
+    scannedSets += 1;
+    scannedQuestions += set.questions.length;
+  } catch (error) {
+    console.error(JSON.stringify({ seed, error: error instanceof Error ? error.message : String(error) }));
+    throw error;
+  }
+}
+
+console.log(JSON.stringify({
+  status: "PASS_DI_004_BANKING_OPTION_COLLISION_SCAN",
+  scannedSets,
+  scannedQuestions,
+  collisionStates: 0,
+}));
