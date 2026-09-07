@@ -47,10 +47,13 @@ export async function notesStudioV2Request<T>(path: string, init?: JsonRequestIn
   return body;
 }
 
-async function uploadPdf<T>(path: string, file: File | Blob): Promise<T> {
+async function uploadPdf<T>(path: string, file: File | Blob, fields?: Record<string, string>): Promise<T> {
   const token = await getToken();
   const form = new FormData();
   form.append('file', file, file instanceof File ? file.name : 'source.pdf');
+  Object.entries(fields ?? {}).forEach(([key, value]) => {
+    if (value.trim()) form.append(key, value.trim());
+  });
   const response = await fetch(`${apiBase}${path}`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
@@ -184,8 +187,10 @@ export function getWorkspace(periodId: string) {
   return notesStudioV2Request<NotesStudioV2Workspace>(`${BASE}/periods/${periodId}/workspace`);
 }
 
-export function uploadCorpusSource(periodId: string, file: File | Blob) {
-  return uploadPdf<CorpusUploadResponse>(`${BASE}/periods/${periodId}/corpus/upload`, file);
+export function uploadCorpusSource(periodId: string, file: File | Blob, options?: { pageRanges?: string }) {
+  return uploadPdf<CorpusUploadResponse>(`${BASE}/periods/${periodId}/corpus/upload`, file, {
+    pageRanges: options?.pageRanges ?? '',
+  });
 }
 
 export function registerCorpusSource(periodId: string, command: RegisterCorpusCommand) {
