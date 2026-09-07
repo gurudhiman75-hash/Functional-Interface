@@ -27,12 +27,11 @@ jobs:
         run: python artifacts/api-server/src/quant-v4/topics/Statistics/stat001-bootstrap.py
       - name: Validate patch
         run: git diff --check
-      - name: Commit transplant
+      - name: Commit source transplant only
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          rm -f artifacts/api-server/src/quant-v4/topics/Statistics/.stat001-bootstrap-trigger
-          git rm .github/workflows/stat001-bootstrap.yml artifacts/api-server/src/quant-v4/topics/Statistics/stat001-bootstrap.py
-          git add artifacts/api-server/src/quant-v4/topics/Statistics .github/workflows/quant-v4-statistics-central-tendency-stat-p0.yml
+          rm -f .github/workflows/quant-v4-statistics-central-tendency-stat-p0.yml
+          git add artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001 artifacts/api-server/src/quant-v4/topics/Statistics/shared
           git commit -m "feat(statistics): add corrected STAT-001 central tendency runtime"
           git push origin HEAD:feat/quant-v4-statistics-central-tendency-stat-p0
