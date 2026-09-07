@@ -3,11 +3,9 @@ import { Router, type IRouter, type Response } from "express";
 
 import { loadDailyDiscoveryCensus } from "../current-affairs/daily-discovery-census";
 import {
-  approveDailyMasterPackSet,
   listDailyMasterPackApprovalHistory,
-  loadDailyMasterPackApprovalCandidate,
   revokeDailyMasterPackApproval,
-} from "../current-affairs/selected-daily-master-pack-approval-runtime";
+} from "../current-affairs/daily-master-pack-approval-runtime";
 import {
   assertDailyMasterPackLanguage,
   loadDailyMasterPack,
@@ -83,6 +81,9 @@ router.get("/production/master-packs", requireAdminPermission("content.questions
 router.get("/production/master-pack-approval", requireAdminPermission("content.questions.read"), async (req, res) => {
   try {
     const targetDate = requestedDate(req.query.date);
+    const { loadDailyMasterPackApprovalCandidate } = await import(
+      "../current-affairs/selected-daily-master-pack-approval-runtime"
+    );
     const [candidate, history] = await Promise.all([
       loadDailyMasterPackApprovalCandidate(targetDate),
       listDailyMasterPackApprovalHistory(targetDate, 20),
@@ -97,6 +98,9 @@ router.post("/production/master-pack-approval/approve", requireAdminPermission("
   try {
     const actorUserId = adminActor(req);
     const targetDate = requestedDate(req.body?.date);
+    const { approveDailyMasterPackSet } = await import(
+      "../current-affairs/selected-daily-master-pack-approval-runtime"
+    );
     const result = await approveDailyMasterPackSet({
       contentDate: targetDate,
       actorUserId,
