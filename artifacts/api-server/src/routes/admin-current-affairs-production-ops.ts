@@ -7,7 +7,7 @@ import {
   listDailyMasterPackApprovalHistory,
   loadDailyMasterPackApprovalCandidate,
   revokeDailyMasterPackApproval,
-} from "../current-affairs/daily-master-pack-approval-runtime";
+} from "../current-affairs/selected-daily-master-pack-approval-runtime";
 import {
   assertDailyMasterPackLanguage,
   loadDailyMasterPack,
