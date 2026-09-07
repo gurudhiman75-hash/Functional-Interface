@@ -13,6 +13,7 @@ on:
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v6.ts"
       - "artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v9.ts"
       - "artifacts/api-server/src/reasoning-v1/tests/identical-figure-idf-001-freeze-question-studio-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/shared-generation-engine-sri.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-spatial-v5.ts"
       - "artifacts/api-server/src/routes/admin-question-studio-spatial-workflow.ts"
       - "artifacts/admin-app/src/features/question-studio/spatial-review-api.ts"
