@@ -147,23 +147,28 @@ export function listSapBankingSpeedEligibleQls(
   );
 }
 
-function selectDescriptor(
+function explicitDescriptor(
+  profile: SapBankingSpeedProfileConfig,
+  explicitQl: SapQuestionStudioQlId,
+): SapQuestionStudioQlDescriptor {
+  const descriptor = listSapBankingSpeedEligibleQls(profile.id).find((entry) => entry.qlId === explicitQl);
+  if (!descriptor) {
+    throw new Error(`${explicitQl} is not eligible for ${profile.id} Banking Speed Maths.`);
+  }
+  return descriptor;
+}
+
+function candidatePoolForSeed(
   seed: string,
   profile: SapBankingSpeedProfileConfig,
-  explicitQl?: SapQuestionStudioQlId,
-): SapQuestionStudioQlDescriptor {
+): Readonly<{ approximationRequested: boolean; descriptors: readonly SapQuestionStudioQlDescriptor[] }> {
   const eligible = listSapBankingSpeedEligibleQls(profile.id);
-  if (explicitQl) {
-    const descriptor = eligible.find((entry) => entry.qlId === explicitQl);
-    if (!descriptor) {
-      throw new Error(`${explicitQl} is not eligible for ${profile.id} Banking Speed Maths.`);
-    }
-    return descriptor;
-  }
-
   const approximationRequested = unitInterval(seed, "exact-vs-approximation") < profile.targetApproximationShare;
   const preferred = eligible.filter((descriptor) => isApproximationCp(descriptor.checkpointId) === approximationRequested);
-  return weightedPick(seed, approximationRequested ? "approximation-pool" : "exact-pool", preferred.length ? preferred : eligible);
+  return Object.freeze({
+    approximationRequested,
+    descriptors: Object.freeze(preferred.length ? preferred : [...eligible]),
+  });
 }
 
 function normalizeDifficulty(value: unknown): SapQuestionStudioDifficulty {
@@ -212,27 +217,55 @@ export function generateSapBankingSpeedQuestion(input: SapBankingSpeedGeneration
   const examProfile = input.examProfile ?? "BANKING_PRELIMS";
   const profile = SAP_BANKING_SPEED_PROFILES[examProfile];
   const seed = input.seed ?? `SAP-BANKING-SPEED:${examProfile}:DEFAULT`;
-  const descriptor = selectDescriptor(seed, profile, input.questionLanguageId);
   const requestedDifficulty = input.difficulty ?? (input.questionLanguageId ? undefined : chooseDifficulty(seed, profile.difficultyMix));
 
   let source: any;
+  let descriptor: SapQuestionStudioQlDescriptor | undefined;
   let lastError: unknown;
-  for (let attempt = 0; attempt < 24; attempt += 1) {
+
+  if (input.questionLanguageId) {
+    descriptor = explicitDescriptor(profile, input.questionLanguageId);
     try {
       source = runSapQuestionStudioPipeline(descriptor.checkpointId, {
         language: "en",
         questionLanguageId: descriptor.qlId,
         difficulty: requestedDifficulty,
-        seed: `${seed}:source:${attempt}`,
+        seed: `${seed}:source:0`,
       });
-      break;
     } catch (error) {
       lastError = error;
-      if (input.questionLanguageId) break;
+    }
+  } else {
+    const pool = candidatePoolForSeed(seed, profile);
+    const remaining = [...pool.descriptors];
+    let attempt = 0;
+    while (remaining.length) {
+      descriptor = weightedPick(
+        seed,
+        `${pool.approximationRequested ? "approximation-pool" : "exact-pool"}:difficulty-compatible:${attempt}`,
+        remaining,
+      );
+      const chosenIndex = remaining.findIndex((entry) => entry.qlId === descriptor!.qlId);
+      if (chosenIndex >= 0) remaining.splice(chosenIndex, 1);
+      try {
+        source = runSapQuestionStudioPipeline(descriptor.checkpointId, {
+          language: "en",
+          questionLanguageId: descriptor.qlId,
+          difficulty: requestedDifficulty,
+          seed: `${seed}:source:${attempt}`,
+        });
+        break;
+      } catch (error) {
+        lastError = error;
+        attempt += 1;
+      }
     }
   }
-  if (!source) {
-    throw lastError instanceof Error ? lastError : new Error(`Unable to generate SAP Banking Speed question for ${descriptor.qlId}.`);
+
+  if (!source || !descriptor) {
+    throw lastError instanceof Error
+      ? lastError
+      : new Error(`Unable to generate ${requestedDifficulty ?? "requested"} SAP Banking Speed question for ${examProfile}.`);
   }
 
   const delivered = deliverFiveBankingOptions(source);
