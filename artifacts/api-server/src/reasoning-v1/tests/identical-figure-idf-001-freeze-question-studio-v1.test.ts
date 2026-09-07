@@ -19,6 +19,7 @@ import {
 import {
   generateSpatialProductionStudioQuestionV1 as generateCurrentSpatialQuestion,
 } from "../foundation/spatial/spatial-question-studio-production-v6";
+import { listQuestionStudioPackages } from "../../question-studio/shared-generation-engine-sri";
 import { productionPayloadV5 } from "../../routes/admin-question-studio-spatial-v5";
 
 assert.equal(IDENTICAL_FIGURE_PRODUCT_OWNER_APPROVAL_V1.approved, true);
@@ -44,6 +45,11 @@ assert.equal(SPATIAL_QUESTION_STUDIO_PACKAGE_V9.mockTestEligible, false);
 assert.equal(SPATIAL_QUESTION_STUDIO_PACKAGE_V9.publicReleaseAuthorized, false);
 assert.equal(CURRENT_SPATIAL_PACKAGE.integrationAuthority, SPATIAL_QUESTION_STUDIO_PACKAGE_V9.integrationAuthority);
 assert.equal(CURRENT_SPATIAL_PACKAGE.permanentQlCount, 58);
+
+const sharedSpatialPackage = listQuestionStudioPackages().find((entry: any) => entry.packageId === "SPA-001");
+assert.ok(sharedSpatialPackage, "Shared Question Studio package registry must expose SPA-001.");
+assert.equal(sharedSpatialPackage.permanentQlCount, 58);
+assert.ok(sharedSpatialPackage.permanentQlIds.includes("SPA-QL-063"));
 
 const qlIds = ["SPA-QL-061", "SPA-QL-062", "SPA-QL-063"] as const;
 const languages = ["en", "hi", "pa"] as const;
@@ -133,6 +139,7 @@ console.log(JSON.stringify({
   languages,
   deterministicQuestionStudioChecks: checks,
   spatialProductionQlCount: SPATIAL_QUESTION_STUDIO_PACKAGE_V9.permanentQlCount,
+  sharedPackageRegistryAdvanced: true,
   currentAliasAdvanced: true,
   questionBankPersistencePayloadChecked: true,
   internalTestBuilderEligible: true,
