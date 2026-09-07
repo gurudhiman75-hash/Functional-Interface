@@ -16,6 +16,7 @@ import {
 const router = Router();
 const LANGUAGES = new Set(["en", "hi", "pa"]);
 const DIFFICULTIES = new Set(["Easy", "Medium", "Hard"]);
+type SapBankingExamProfile = "BANKING_PRELIMS" | "BANKING_MAINS";
 
 function asString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
@@ -44,6 +45,24 @@ function normalizeSelector(value: unknown) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, " ")
     .trim();
+}
+
+function resolveSapBankingExamProfile(body: any): SapBankingExamProfile | undefined {
+  const explicit = asString(body?.examProfile).toUpperCase();
+  if (explicit === "BANKING_PRELIMS" || explicit === "BANKING_MAINS") return explicit;
+
+  const selected = normalizeSelector(body?.examProfileId || body?.exam);
+  if (!selected) return undefined;
+  const bankingFamily = /\b(ibps|sbi|banking|bank|rrb po|rrb clerk)\b/u.test(selected);
+  if (!bankingFamily) return undefined;
+  if (/\b(mains|main)\b/u.test(selected)) return "BANKING_MAINS";
+  if (/\b(prelims|preliminary|pre)\b/u.test(selected)) return "BANKING_PRELIMS";
+
+  // Existing Question Studio exam-profile aliases treat bare IBPS PO/Clerk selections as Prelims.
+  if (/\b(ibps|sbi)\b/u.test(selected) && /\b(po|clerk)\b/u.test(selected)) {
+    return "BANKING_PRELIMS";
+  }
+  return undefined;
 }
 
 function isAverageRequest(body: any) {
@@ -193,6 +212,17 @@ router.get(
         supportedLanguages: Array.isArray(pkg.supportedLanguages)
           ? pkg.supportedLanguages.map(String)
           : ["en"],
+        supportedExamProfiles: Array.isArray(pkg.supportedExamProfiles)
+          ? pkg.supportedExamProfiles.map(String)
+          : [],
+        optionCountByExamProfile:
+          pkg.optionCountByExamProfile && typeof pkg.optionCountByExamProfile === "object"
+            ? { ...pkg.optionCountByExamProfile }
+            : undefined,
+        bankingSpeedProfiles:
+          pkg.bankingSpeedProfiles && typeof pkg.bankingSpeedProfiles === "object"
+            ? { ...pkg.bankingSpeedProfiles }
+            : undefined,
         runtimeMode: asString(pkg.runtimeMode) || undefined,
         supportedRuntimeModes: Array.isArray(pkg.supportedRuntimeModes)
           ? pkg.supportedRuntimeModes.map(String)
@@ -301,6 +331,9 @@ router.post(
     const topic = reasoningRequest ? "Reasoning" : asString(req.body?.topic) || "Arithmetic";
     const subtopic = asString(req.body?.subtopic) || selectedSubtopic;
     const exam = asString(req.body?.exam) || "SSC CGL";
+    const sapBankingExamProfile = simplificationRequest
+      ? resolveSapBankingExamProfile(req.body)
+      : undefined;
     const subject = reasoningRequest ? "Reasoning Ability" : asString(req.body?.subject) || "Quantitative Aptitude";
     const language = normalizeLanguage(req.body?.language);
     const requestedDifficulty = asString(req.body?.difficulty);
@@ -314,6 +347,13 @@ router.post(
     const inferredNumberSystemCp = numberSystemRequest
       ? inferNumberSystemCpFromQl(questionLanguageId)
       : undefined;
+
+    if (sapBankingExamProfile && language !== "en") {
+      res.status(400).json({
+        error: `SAP ${sapBankingExamProfile} Banking Speed Question Studio routing is English-only in this checkpoint.`,
+      });
+      return;
+    }
 
     if (
       numberSystemRequest
@@ -350,6 +390,7 @@ router.post(
     const timestamp = new Date().toISOString();
     const requestSnapshot = {
       exam,
+      examProfile: sapBankingExamProfile,
       subject,
       difficulty,
       count,
@@ -378,7 +419,8 @@ router.post(
         language,
         seed,
         count,
-      });
+        examProfile: sapBankingExamProfile,
+      } as any);
       const generatedQuestions = Array.isArray(result.questions)
         ? result.questions
         : [];
@@ -462,8 +504,7 @@ router.post(
             ${randomUUID()}::uuid, 'generation_run', ${runId}::uuid,
             'question_studio.generation_run.created',
             ${JSON.stringify({ runId, publicCode: code, itemCount: generatedQuestions.length })}
-          )
-        `;
+          `;
       });
 
       res.status(201).json({
