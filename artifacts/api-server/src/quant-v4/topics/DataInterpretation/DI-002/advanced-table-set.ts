@@ -20,7 +20,7 @@ import type {
 
 const BRANCHES = ["Branch A", "Branch B", "Branch C", "Branch D", "Branch E"] as const;
 const SELECTED_FACTORS = [4, 5, 6, 7, 8] as const;
-const BASE_POOL = [84, 126, 168, 210, 252, 294] as const;
+const BASE_POOL = [84, 168, 252, 336, 420, 504] as const;
 const SELECTION_PERCENT_POOL = [40, 50, 60, 70, 80] as const;
 
 const OPTION_COUNT_BY_PROFILE: Record<Di002ExamProfile, 4 | 5> = {
