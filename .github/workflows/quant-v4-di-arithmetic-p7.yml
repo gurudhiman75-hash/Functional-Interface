@@ -1,0 +1,25 @@
+name: Quant V4 DI arithmetic P7
+
+on:
+  push:
+    branches:
+      - feat/quant-v4-di-arithmetic-p7
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-008/**"
+      - ".github/workflows/quant-v4-di-arithmetic-p7.yml"
+
+jobs:
+  di-arithmetic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Five-option collision scan
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-008/debug-option-collapse.ts
+      - name: Arithmetic DI deterministic proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-008/arithmetic-set.test.ts
+      - name: Patch hygiene
+        run: git diff --check
