@@ -30,5 +30,4 @@ jobs:
       - name: Quant V4 central exam-profile conformance
         run: npx --yes tsx src/quant-v4/quality/quant-v4-exam-profile-conformance.test.ts
       - name: Patch hygiene
-        working-directory: ../..
-        run: git diff --check origin/New-main...HEAD
+        run: git -C ../.. diff --check origin/New-main...HEAD
