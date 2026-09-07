@@ -7,7 +7,6 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/banking-speed-profile.ts"
       - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/SimplificationAndApproximation/SAP-BANKING-SPEED-PROFILE.test.ts"
-      - ".github/workflows/quant-v4-sap-banking-speed-profile-p1.yml"
   push:
     branches:
       - "feat/sap-banking-speed-profile-p1"
