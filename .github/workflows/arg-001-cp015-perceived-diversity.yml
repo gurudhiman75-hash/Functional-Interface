@@ -52,7 +52,8 @@ jobs:
             --types node \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts \
-            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-export.ts
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-export.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-global-uniqueness-proof.ts
 
       - name: Prove 1000-question exact diversity and profile integrity
         working-directory: artifacts/api-server
@@ -71,6 +72,15 @@ jobs:
             --bundle --platform=node --format=esm \
             --outfile=dist/arg-001-cp015-human-review-export.mjs
           node dist/arg-001-cp015-human-review-export.mjs
+
+      - name: Prove fixed CP015 human review corpus globally
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-global-uniqueness-proof.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp015-human-review-global-uniqueness-proof.mjs
+          node dist/arg-001-cp015-human-review-global-uniqueness-proof.mjs
 
       - name: Upload CP015 human review corpus
         uses: actions/upload-artifact@v4
