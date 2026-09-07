@@ -18,7 +18,6 @@ import {
 import {
   completeUploadSession,
   createOrResumeUploadSession,
-  getUploadSession,
   getUploadSessionForCorpus,
   materializeUploadToFile,
   putUploadChunk,
@@ -35,6 +34,8 @@ const chunkUpload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: RESUMABLE_PDF_CHUNK_SIZE, files: 1 },
 });
+
+type PageRange = { startPage: number; endPage: number };
 
 class ResumablePdfRouteError extends Error {
   constructor(readonly code: string, message: string, readonly statusCode = 400) {
@@ -77,6 +78,80 @@ function nonNegativeSafeInteger(value: unknown, label: string) {
     throw new ResumablePdfRouteError('INVALID_UPLOAD_METADATA', `${label} must be a non-negative integer.`);
   }
   return parsed;
+}
+
+function mergePageRanges(ranges: PageRange[]): PageRange[] {
+  const sorted = [...ranges].sort((a, b) => a.startPage - b.startPage || a.endPage - b.endPage);
+  const merged: PageRange[] = [];
+  for (const range of sorted) {
+    const previous = merged.at(-1);
+    if (previous && range.startPage <= previous.endPage + 1) {
+      previous.endPage = Math.max(previous.endPage, range.endPage);
+    } else {
+      merged.push({ ...range });
+    }
+  }
+  return merged;
+}
+
+function parsePageRangeSyntax(value: unknown): PageRange[] {
+  const raw = text(value, 4000);
+  if (!raw) return [];
+  const tokens = raw.split(/[,;\n]+/).map((item) => item.trim()).filter(Boolean);
+  if (tokens.length === 0) return [];
+  const ranges = tokens.map((token) => {
+    const match = token.match(/^(\d+)(?:\s*-\s*(\d+))?$/);
+    if (!match) {
+      throw new ResumablePdfRouteError(
+        'PDF_PAGE_RANGE_INVALID',
+        `Invalid page range "${token}". Use values such as 42-67, 103-118, 221-236.`,
+        422,
+      );
+    }
+    const startPage = Number(match[1]);
+    const endPage = Number(match[2] ?? match[1]);
+    if (!Number.isSafeInteger(startPage) || !Number.isSafeInteger(endPage) || startPage < 1 || endPage < startPage) {
+      throw new ResumablePdfRouteError('PDF_PAGE_RANGE_INVALID', `Invalid page range "${token}".`, 422);
+    }
+    return { startPage, endPage };
+  });
+  return mergePageRanges(ranges);
+}
+
+function canonicalPageRanges(value: unknown): string | undefined {
+  const ranges = parsePageRangeSyntax(value);
+  if (ranges.length === 0) return undefined;
+  return ranges.map((range) => (
+    range.startPage === range.endPage ? String(range.startPage) : `${range.startPage}-${range.endPage}`
+  )).join(',');
+}
+
+function selectedPageRanges(value: string | undefined, totalPages: number): PageRange[] {
+  const parsed = value ? parsePageRangeSyntax(value) : [{ startPage: 1, endPage: totalPages }];
+  const ranges = parsed.length > 0 ? parsed : [{ startPage: 1, endPage: totalPages }];
+  for (const range of ranges) {
+    if (range.endPage > totalPages) {
+      throw new ResumablePdfRouteError(
+        'PDF_PAGE_RANGE_INVALID',
+        `Page range ${range.startPage}-${range.endPage} is outside this PDF. Valid pages are 1-${totalPages}.`,
+        422,
+      );
+    }
+  }
+  return ranges;
+}
+
+function splitPageRanges(ranges: PageRange[], pageSize: number): PageRange[] {
+  const segments: PageRange[] = [];
+  for (const range of ranges) {
+    for (let startPage = range.startPage; startPage <= range.endPage; startPage += pageSize) {
+      segments.push({
+        startPage,
+        endPage: Math.min(range.endPage, startPage + pageSize - 1),
+      });
+    }
+  }
+  return segments;
 }
 
 function sendError(res: Response, error: unknown) {
@@ -291,6 +366,7 @@ async function extractDurableCorpus(corpusDocId: string) {
 
   const run = await getOrCreateExtractionRun(corpusDocId, session.id);
   if (String(run.status) === 'ready') {
+    await updateUploadStatus(session.id, 'ready').catch(() => undefined);
     return { corpusDocId, facts: await loadCorpusFacts(corpusDocId), reusedExistingExtraction: true };
   }
 
@@ -301,16 +377,14 @@ async function extractDurableCorpus(corpusDocId: string) {
     await updateUploadStatus(session.id, 'extracting');
     await materializeUploadToFile(session, pdfPath);
     const totalPages = await inspectPdfTotalPages(pdfPath);
+    const selectedRanges = selectedPageRanges(session.pageRanges, totalPages);
+    const ranges = splitPageRanges(selectedRanges, RESUMABLE_EXTRACTION_SEGMENT_PAGES);
     await sqlClient`
       UPDATE notes_studio_v2.corpus_extraction_runs
       SET total_pages = ${totalPages}, status = 'running', updated_at = now(), error_code = NULL, error_message = NULL
       WHERE id = ${String(run.id)}::uuid
     `;
 
-    const ranges: Array<{ startPage: number; endPage: number }> = [];
-    for (let startPage = 1; startPage <= totalPages; startPage += RESUMABLE_EXTRACTION_SEGMENT_PAGES) {
-      ranges.push({ startPage, endPage: Math.min(totalPages, startPage + RESUMABLE_EXTRACTION_SEGMENT_PAGES - 1) });
-    }
     for (const range of ranges) {
       await sqlClient`
         INSERT INTO notes_studio_v2.corpus_extraction_segments (run_id, start_page, end_page)
@@ -351,6 +425,7 @@ async function extractDurableCorpus(corpusDocId: string) {
                 provider: extracted.provider,
                 model: extracted.model,
                 usage: extracted.usage,
+                selectedRanges,
                 ...extracted.metadata,
               })}::jsonb,
               error_code = NULL, error_message = NULL, updated_at = now()
@@ -457,6 +532,7 @@ router.post(
       }
       const requestedType = text(req.body?.sourceType, 40).toLowerCase();
       const sourceType = sourceTypes.has(requestedType) ? requestedType : 'reference';
+      const pageRanges = canonicalPageRanges(req.body?.pageRanges);
       const idempotencyKey = text(req.get('Idempotency-Key'), 500);
       if (!idempotencyKey) {
         throw new ResumablePdfRouteError('IDEMPOTENCY_KEY_REQUIRED', 'Resumable PDF uploads require an Idempotency-Key header.');
@@ -468,6 +544,7 @@ router.post(
         totalBytes,
         sourceType,
         subCategoryHints: uniqueStrings(req.body?.subCategoryHints, 30, 180),
+        pageRanges,
         idempotencyKey,
         createdBy,
       });
@@ -477,6 +554,7 @@ router.post(
         chunkSize: session.chunkSize,
         uploadedBytes: session.uploadedBytes,
         expiresAt: session.expiresAt,
+        pageRanges: session.pageRanges,
         status: session.status,
       });
     } catch (error) {
