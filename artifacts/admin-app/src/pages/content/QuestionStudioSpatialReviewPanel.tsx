@@ -43,6 +43,7 @@ const CHAPTER_LABELS: Record<SpatialReviewChapter, string> = {
   'FFM-001': 'Figure Formation',
   'DOT-001': 'Dot Situation',
   'FMT-001': 'Figure Matrix',
+  'IDF-001': 'Identical Figure / Figure Grouping',
 };
 const LANGUAGE_LABELS: Record<SpatialReviewLanguage, string> = {
   en: 'English',
@@ -88,13 +89,16 @@ function SpatialQuestionCard({ question }: { question: SpatialReviewQuestion }) 
     || question.chapterCode === 'PFC-001'
     || question.chapterCode === 'TPF-001'
     || question.chapterCode === 'FFM-001'
-    || question.chapterCode === 'FMT-001';
-  const isWideOptionProcess = question.qlId === 'SPA-QL-039';
+    || question.chapterCode === 'FMT-001'
+    || question.chapterCode === 'IDF-001';
+  const isWideOptionProcess = question.qlId === 'SPA-QL-039' || question.chapterCode === 'IDF-001';
   const explanationIllustrationLabel = question.chapterCode === 'DOT-001'
     ? 'Solution: one valid placement preserving every dot-region relation'
     : question.chapterCode === 'FMT-001'
       ? 'Solution: completed matrix with the missing cell filled'
-      : 'Assembly: printed pieces → required turn → exact joined positions';
+      : question.chapterCode === 'IDF-001'
+        ? 'Solution: three valid groups using every numbered figure once'
+        : 'Assembly: printed pieces → required turn → exact joined positions';
   return (
     <Card className="border-primary/15 bg-background">
       <CardHeader className="space-y-2 pb-3">
@@ -174,6 +178,28 @@ function SpatialQuestionCard({ question }: { question: SpatialReviewQuestion }) 
                         <td className="px-3 py-2">{row.inside.join(', ') || '—'}</td>
                         <td className="px-3 py-2">{row.outside.join(', ') || '—'}</td>
                         <td className="px-3 py-2 font-mono text-foreground">{row.signature}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+            {question.explanation.groupTable && question.explanation.groupTable.length > 0 && (
+              <div className="overflow-x-auto rounded-lg border bg-background">
+                <table className="w-full min-w-[560px] border-collapse text-xs">
+                  <thead>
+                    <tr className="border-b bg-muted/40 text-left text-foreground">
+                      <th className="px-3 py-2 font-semibold">Group</th>
+                      <th className="px-3 py-2 font-semibold">Figures</th>
+                      <th className="px-3 py-2 font-semibold">Why they belong together</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {question.explanation.groupTable.map((row, index) => (
+                      <tr key={`${question.questionId}-group-${index}`} className="border-b last:border-b-0">
+                        <td className="px-3 py-2 font-medium text-foreground">{index + 1}</td>
+                        <td className="px-3 py-2 font-mono text-foreground">({row.members})</td>
+                        <td className="px-3 py-2">{row.reason}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -295,11 +321,11 @@ export function QuestionStudioSpatialReviewPanel() {
             <Badge variant="outline" className="gap-1">
               <ShieldAlert className="h-3 w-3" /> Standard Question Studio lifecycle
             </Badge>
-            <Badge variant="outline">{pkg?.permanentQlCount ?? 55} production QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
+            <Badge variant="outline">{pkg?.permanentQlCount ?? 58} production QLs · English · हिन्दी · ਪੰਜਾਬੀ</Badge>
           </div>
         </div>
         <p className="text-xs leading-5 text-muted-foreground">
-          Generate approved Spatial Reasoning questions across mirror/water images, visual analogy and classification, figure series/completion, paper and transparent folding, Counting Figures, Embedded Figure, Figure Formation, Dot Situation and Figure Matrix in English, Hindi or Punjabi. SPA-QL-051..053 use the approved FFM V5 geometry and illustrated assembly explanation; SPA-QL-054 uses the approved DOT V1 region-membership solver; SPA-QL-055..060 use the approved FMT V2.4 matrix solver, source-real rule variants and completed-matrix explanation illustration. All items require manual review before Question Bank/Test Builder use, while mock and student/public release remain locked.
+          Generate approved Spatial Reasoning questions across mirror/water images, visual analogy and classification, figure series/completion, paper and transparent folding, Counting Figures, Embedded Figure, Figure Formation, Dot Situation, Figure Matrix and Identical Figure / Figure Grouping in English, Hindi or Punjabi. SPA-QL-051..053 use the approved FFM V5 geometry and illustrated assembly explanation; SPA-QL-054 uses the approved DOT V1 region-membership solver; SPA-QL-055..060 use the approved FMT V2.4 matrix solver; SPA-QL-061..063 use the approved IDF V1.1 full-bank grouping solver with readable 1–9 labels, explicit rotation/reflection policy and grouped solution illustration. All items require manual review before Question Bank/Test Builder use, while mock and student/public release remain locked.
         </p>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -317,7 +343,7 @@ export function QuestionStudioSpatialReviewPanel() {
             <ShieldAlert className="h-4 w-4" /> Multilingual standard approval handoff
           </div>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">
-            English, Hindi and Punjabi preserve the same approved geometry, option order and answer semantics. Manual Question Studio approval converts eligible items into Question Bank; approved held-gap, Figure Formation, Dot Situation and Figure Matrix QLs may then be manually used in Test Builder, while mock-test, automatic student delivery and public release stay disabled.
+            English, Hindi and Punjabi preserve the same approved geometry, option order and answer semantics. Manual Question Studio approval converts eligible items into Question Bank; approved held-gap, Figure Formation, Dot Situation, Figure Matrix and Identical Figure QLs may then be manually used in Test Builder, while mock-test, automatic student delivery and public release stay disabled.
           </p>
         </div>
 
