@@ -1,0 +1,122 @@
+name: ARG-001 CP015 current-head editorial grammar hotfix
+
+on:
+  push:
+    branches:
+      - feature/arg-001-cp012-editorial-remediation
+    paths:
+      - .github/workflows/arg-001-cp015-current-grammar-hotfix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  hotfix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/arg-001-cp012-editorial-remediation
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Apply surgical CP015 editorial repairs
+        shell: python
+        run: |
+          from pathlib import Path
+
+          root = Path("artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001")
+          source_path = root / "cp015-final-editorial-quality.ts"
+          proof_path = root / "cp015-final-editorial-quality-proof.test.ts"
+
+          source = source_path.read_text(encoding="utf-8")
+          proof = proof_path.read_text(encoding="utf-8")
+
+          def replace_once(value: str, old: str, new: str, label: str) -> str:
+              count = value.count(old)
+              if count != 1:
+                  raise SystemExit(f"{label}: expected exactly one anchor, found {count}")
+              return value.replace(old, new, 1)
+
+          source = replace_once(
+              source,
+              'export const ARG_CP015_FINAL_EDITORIAL_QUALITY_AUTHORITY = "ARG_CP015_FINAL_EDITORIAL_QUALITY_V4" as const;',
+              'export const ARG_CP015_FINAL_EDITORIAL_QUALITY_AUTHORITY = "ARG_CP015_FINAL_EDITORIAL_QUALITY_V5" as const;',
+              "authority bump",
+          )
+
+          old_repairs = '''    .replace(/\\btrained invigilators is available\\b/gi, "trained invigilators are available")
+    .replace(/\\b(digital examination centres) is treated\\b/gi, "$1 are treated")
+    .replace(/\\b(tablet-based testing centres) is treated\\b/gi, "$1 are treated")'''
+          new_repairs = '''    .replace(/\\btrained invigilators is available\\b/gi, "trained invigilators are available")
+    .replace(/\\bsecure devices and centres is available\\b/gi, "secure devices and examination-centre capacity are available")
+    .replace(/\\bThe decision itself is assumed to make enough (.+?) available everywhere (.+?)\\./gi, "Approving the switch will automatically make sufficient $1 available everywhere $2.")
+    .replace(/\\bDigital examination centres are treated as inherently insecure even where stable connectivity is available\\./gi, "Digital examination centres cannot be secure even when stable connectivity is available.")
+    .replace(/\\bDigital examination centres are treated as inherently insecure even where secure devices and examination-centre capacity are available\\./gi, "Digital examination centres cannot be secure even when secure devices and examination-centre capacity are available.")
+    .replace(/\\bTablet-based testing centres are treated as inherently insecure even where trained invigilators are available\\./gi, "Tablet-based testing centres cannot be secure even when trained invigilators are available.")
+    .replace(/\\bAny use of time slots is treated as making (.+?) unworkable in the long term\\./gi, "Using time slots would make $1 unworkable in the long term.")
+    .replace(/\\bA time-slot system is treated as making public services inaccessible to a large share of users\\./gi, "A time-slot system would make public services inaccessible to a large share of users.")
+    .replace(/\\b(digital examination centres) is treated\\b/gi, "$1 are treated")
+    .replace(/\\b(tablet-based testing centres) is treated\\b/gi, "$1 are treated")'''
+          source = replace_once(source, old_repairs, new_repairs, "English surface repair block")
+
+          old_reasons = '''  if (/inherently insecure/i.test(argument) && /invigilators/i.test(argument)) return "The testing format is labelled inherently insecure even when trained invigilators are available, but the argument gives no reason why those controls cannot materially reduce the stated risk.";
+  if (/decision itself is assumed to make enough trained invigilators/i.test(argument)) return "Announcing a switch cannot itself create enough trained invigilators by the stated deadline; staffing readiness requires separate planning and evidence.";'''
+          new_reasons = '''  if (/cannot be secure even when/i.test(argument)) return "The argument declares the digital examination setup insecure despite the named safeguards or infrastructure, but gives no reason why those measures cannot materially reduce the risk.";
+  if (/approving the switch will automatically make sufficient/i.test(argument)) return "Approving the switch cannot itself create the required staffing, connectivity, devices or centre capacity by the stated deadline; readiness requires separate planning and evidence.";
+  if (/using time slots would make .* unworkable in the long term/i.test(argument)) return "A scheduling system can create access or rollout problems, but that does not show the underlying service becomes unworkable in the long term.";
+  if (/time-slot system would make public services inaccessible to a large share of users/i.test(argument)) return "A time-slot system may need walk-in or assisted alternatives, but the argument gives no basis for claiming that the system itself would exclude a large share of users.";'''
+          source = replace_once(source, old_reasons, new_reasons, "specific English reason block")
+
+          old_assert = '''        assert.doesNotMatch(statement, /trained invigilators is available|digital examination centres is treated/i, `${question.questionId}: English agreement regression survived final editorial pass`);
+        for (const fallback of BOILERPLATE) {'''
+          new_assert = '''        assert.doesNotMatch(statement, /trained invigilators is available|digital examination centres is treated/i, `${question.questionId}: English agreement regression survived final editorial pass`);
+        if (language === "en") {
+          const fullSurface = key([statement, ...argumentsList, explanation].join(" "));
+          assert.doesNotMatch(
+            fullSurface,
+            /secure devices and centres is available|The decision itself is assumed|is treated as making|are treated as inherently insecure|The argument assumes that .* (?:is|are) (?:assumed|treated)/i,
+            `${question.questionId}: machine-like CP015 English meta-template survived final editorial pass`,
+          );
+        }
+        for (const fallback of BOILERPLATE) {'''
+          proof = replace_once(proof, old_assert, new_assert, "final editorial proof assertion block")
+
+          source_path.write_text(source, encoding="utf-8")
+          proof_path.write_text(proof, encoding="utf-8")
+
+      - name: Focused strict TypeScript
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc --noEmit --target es2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --strictNullChecks --noImplicitAny --noImplicitReturns --noFallthroughCasesInSwitch --skipLibCheck --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-final-editorial-quality.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-final-editorial-quality-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts
+
+      - name: Run final editorial quality proof
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-final-editorial-quality-proof.test.ts --bundle --platform=node --format=esm --outfile=dist/arg-cp015-final-editorial-quality-proof.mjs
+          node dist/arg-cp015-final-editorial-quality-proof.mjs
+
+      - name: Run 1000-question diversity proof
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts --bundle --platform=node --format=esm --outfile=dist/arg-cp015-perceived-diversity-proof.mjs
+          node dist/arg-cp015-perceived-diversity-proof.mjs
+
+      - name: Commit hotfix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-final-editorial-quality.ts artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-final-editorial-quality-proof.test.ts
+          git diff --cached --quiet && exit 0
+          git commit -m "fix(arg): remove residual CP015 machine-like grammar"
+          git push origin HEAD:feature/arg-001-cp012-editorial-remediation
