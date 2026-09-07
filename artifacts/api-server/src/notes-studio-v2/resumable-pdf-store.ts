@@ -31,6 +31,7 @@ export type UploadSession = {
   chunkSize: number;
   sourceType: string;
   subCategoryHints: string[];
+  pageRanges?: string;
   status: ResumablePdfSessionStatus;
   uploadedBytes: number;
   fileSha256?: string;
@@ -49,6 +50,7 @@ function toSession(row: any): UploadSession {
     chunkSize: Number(row.chunkSize),
     sourceType: String(row.sourceType),
     subCategoryHints: Array.isArray(row.subCategoryHints) ? row.subCategoryHints.map(String) : [],
+    pageRanges: row.pageRanges ? String(row.pageRanges) : undefined,
     status: String(row.status) as ResumablePdfSessionStatus,
     uploadedBytes: Number(row.uploadedBytes ?? 0),
     fileSha256: row.fileSha256 ? String(row.fileSha256) : undefined,
@@ -67,6 +69,7 @@ const sessionSelect = `
   chunk_size AS "chunkSize",
   source_type::text AS "sourceType",
   sub_category_hints AS "subCategoryHints",
+  page_ranges AS "pageRanges",
   status,
   uploaded_bytes::bigint AS "uploadedBytes",
   file_sha256 AS "fileSha256",
@@ -97,6 +100,7 @@ export async function createOrResumeUploadSession(input: {
   totalBytes: number;
   sourceType: string;
   subCategoryHints: string[];
+  pageRanges?: string;
   idempotencyKey: string;
   createdBy: string;
 }): Promise<UploadSession> {
@@ -106,10 +110,15 @@ export async function createOrResumeUploadSession(input: {
   );
   if (existing[0]) {
     const session = toSession(existing[0]);
-    if (session.fileName !== input.fileName || session.totalBytes !== input.totalBytes || session.mimeType !== input.mimeType) {
+    if (
+      session.fileName !== input.fileName
+      || session.totalBytes !== input.totalBytes
+      || session.mimeType !== input.mimeType
+      || (session.pageRanges ?? '') !== (input.pageRanges ?? '')
+    ) {
       throw new ResumablePdfStoreError(
         'UPLOAD_IDEMPOTENCY_CONFLICT',
-        'This idempotency key is already associated with a different PDF.',
+        'This idempotency key is already associated with different PDF upload settings.',
         409,
       );
     }
@@ -129,16 +138,16 @@ export async function createOrResumeUploadSession(input: {
   const rows = await sqlClient`
     INSERT INTO notes_studio_v2.corpus_upload_sessions (
       id, period_id, corpus_doc_id, file_name, mime_type, total_bytes, chunk_size,
-      source_type, sub_category_hints, idempotency_key, created_by
+      source_type, sub_category_hints, page_ranges, idempotency_key, created_by
     ) VALUES (
       ${uploadId}::uuid, ${input.periodId}::uuid, ${corpusDocId}::uuid, ${input.fileName}, ${input.mimeType},
       ${input.totalBytes}, ${RESUMABLE_PDF_CHUNK_SIZE}, ${input.sourceType}::notes_studio_v2.source_type,
-      ${JSON.stringify(input.subCategoryHints)}::jsonb, ${input.idempotencyKey}, ${input.createdBy}
+      ${JSON.stringify(input.subCategoryHints)}::jsonb, ${input.pageRanges ?? null}, ${input.idempotencyKey}, ${input.createdBy}
     )
     RETURNING id::text AS id, period_id::text AS "periodId", corpus_doc_id::text AS "corpusDocId",
       file_name AS "fileName", mime_type AS "mimeType", total_bytes::bigint AS "totalBytes",
       chunk_size AS "chunkSize", source_type::text AS "sourceType", sub_category_hints AS "subCategoryHints",
-      status, uploaded_bytes::bigint AS "uploadedBytes", file_sha256 AS "fileSha256",
+      page_ranges AS "pageRanges", status, uploaded_bytes::bigint AS "uploadedBytes", file_sha256 AS "fileSha256",
       created_by AS "createdBy", expires_at AS "expiresAt"
   `;
   return toSession(rows[0]);
