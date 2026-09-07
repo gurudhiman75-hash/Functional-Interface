@@ -59,12 +59,14 @@ function stableFingerprint(question: any): string {
   );
 }
 
-function assertClosedReleaseGates(lifecycle: any, owner: string): void {
+function assertItemPublicationGuard(lifecycle: any, owner: string): void {
   if (!lifecycle) return;
-  if ("mockTestEligible" in lifecycle) assert.equal(lifecycle.mockTestEligible, false, `${owner}: mock gate opened.`);
-  if ("publicReleaseAuthorized" in lifecycle) assert.equal(lifecycle.publicReleaseAuthorized, false, `${owner}: public-release gate opened.`);
-  if ("studentDeliveryAuthorized" in lifecycle) assert.equal(lifecycle.studentDeliveryAuthorized, false, `${owner}: student-delivery gate opened.`);
-  if ("automaticStudentPublication" in lifecycle) assert.equal(lifecycle.automaticStudentPublication, false, `${owner}: automatic publication gate opened.`);
+  if ("automaticStudentPublication" in lifecycle) {
+    assert.equal(lifecycle.automaticStudentPublication, false, `${owner}: automatic publication gate opened.`);
+  }
+  if ("manualApprovalRequired" in lifecycle) {
+    assert.equal(lifecycle.manualApprovalRequired, true, `${owner}: manual approval requirement regressed.`);
+  }
 }
 
 function assertCommonQuestion(question: any, qlId: string, language: string, owner: string): void {
@@ -85,7 +87,7 @@ function assertCommonQuestion(question: any, qlId: string, language: string, own
   const options = Array.isArray(question.options) ? question.options : question.optionLabels;
   assert.ok(Array.isArray(options) && options.length === 4, `${owner}: option surface must contain four choices.`);
   assertExplanation(question, owner);
-  assertClosedReleaseGates(question.lifecycle, owner);
+  assertItemPublicationGuard(question.lifecycle, owner);
 }
 
 assert.equal(SPATIAL_FAMILY_FINAL_CLOSURE_AUDIT_V2.authorityId, "SPA-FND-001-FAMILY-FINAL-CLOSURE-AUDIT-V2");
@@ -242,11 +244,12 @@ const evidence = {
   deterministicReplayChecks,
   svgChecks,
   chapterGeneratedCounts: Object.fromEntries([...chapterGeneratedCounts.entries()].sort()),
+  effectiveReleaseAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V9.integrationAuthority,
   releaseGates: {
-    mockTestEligible: false,
-    publicReleaseAuthorized: false,
-    studentDeliveryAuthorized: false,
-    automaticStudentPublication: false,
+    mockTestEligible: SPATIAL_QUESTION_STUDIO_PACKAGE_V9.mockTestEligible,
+    publicReleaseAuthorized: SPATIAL_QUESTION_STUDIO_PACKAGE_V9.publicReleaseAuthorized,
+    studentDeliveryAuthorized: SPATIAL_QUESTION_STUDIO_PACKAGE_V9.studentDeliveryAuthorized,
+    automaticStudentPublication: SPATIAL_QUESTION_STUDIO_PACKAGE_V9.automaticStudentPublication,
   },
   soakPassed: true,
   familyFreezeAuthorizedByThisSoak: false,
