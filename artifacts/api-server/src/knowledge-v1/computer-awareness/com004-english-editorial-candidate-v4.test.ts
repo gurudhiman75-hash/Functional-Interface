@@ -40,14 +40,14 @@ assert.equal((rendered.match(/^\*\*Answer:\*\*/gm) ?? []).length, 204);
 assert.equal((rendered.match(/^\*\*Explanation:\*\*/gm) ?? []).length, 204);
 assert.equal((rendered.match(/^[A-D]\. /gm) ?? []).length, 816);
 for (const value of Object.values(COM004_ENGLISH_EDITORIAL_AUTHORITY_V4.governance)) assert.equal(value, false);
-// A review candidate must not silently replace the approved runtime corpus.
+// After V4 approval, the active runtime must expose the complete V4 corpus.
 for (const ql of new Set(COM004_ENGLISH_CHAPTER_V3.map(q => q.qlId))) {
   const result = await knowledgeV1Com004QuestionStudioAdapterV1.generate({ packageId: 'COM-004', language: 'en', questionLanguageId: ql, count: 12, seed: 'v4-review-runtime-boundary' });
   for (const question of result.questions as any[]) {
-    const old = COM004_ENGLISH_CHAPTER_V3.find(q => q.questionId === question.sourceQuestionId)!;
-    assert.equal(question.stem, old.stem);
-    assert.equal(question.explanation, old.explanation);
-    assert.equal(question.sourceEnglishAuthorityId, 'COM-004-ENGLISH-FREEZE-V3');
+    const current = COM004_ENGLISH_EDITORIAL_CANDIDATE_V4.find(q => q.questionId === question.sourceQuestionId)!;
+    assert.equal(question.stem, current.stem);
+    assert.equal(question.explanation, current.explanation);
+    assert.equal(question.sourceEnglishAuthorityId, 'COM-004-ENGLISH-FREEZE-V4');
   }
 }
-console.log('COM004 V4: all 170 remaining English explanations revised; 34 approved items preserved; 204-question review matches source; active runtime stays V3.');
+console.log('COM004 V4: all 170 remaining English explanations revised; 34 approved items preserved; 204-question review matches source; active runtime is V4.');

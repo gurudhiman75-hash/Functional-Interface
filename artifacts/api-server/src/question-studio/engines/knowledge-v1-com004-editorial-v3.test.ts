@@ -5,6 +5,8 @@ import { COM004_EDITORIAL_APPROVAL_V3, COM004_ENGLISH_CHAPTER_V3, COM004_LOCALIZ
 import { COM004_EDITORIAL_COPY_V3 } from '../../knowledge-v1/computer-awareness/com004-editorial-copy-v3';
 import { COM004_ENGLISH_CHAPTER_V2 } from '../../knowledge-v1/computer-awareness/com004-english-chapter-v2';
 import { COM004_LOCALIZATION_CHAPTER_V1 } from '../../knowledge-v1/computer-awareness/com004-localization-chapter-v1';
+import { COM004_ENGLISH_EDITORIAL_CANDIDATE_V4 } from '../../knowledge-v1/computer-awareness/com004-english-editorial-candidate-v4';
+import { COM004_LOCALIZATION_CHAPTER_V4 } from '../../knowledge-v1/computer-awareness/com004-localization-editorial-candidate-v4';
 import { knowledgeV1Com004QuestionStudioAdapterV1 as adapter } from './knowledge-v1-com004-adapter-v1';
 
 const reviewPath = ['artifacts/api-server/src/knowledge-v1/computer-awareness/', 'src/knowledge-v1/computer-awareness/'].map(p => p + COM004_EDITORIAL_APPROVAL_V3.reviewFile).find(existsSync);
@@ -24,7 +26,7 @@ const revisedIds = new Set(COM004_EDITORIAL_APPROVAL_V3.revisedSourceQuestionIds
 assert.equal(revisedIds.size, 34);
 let generated = 0;
 for (const language of ['en', 'hi', 'pa'] as const) {
-  const corpus = language === 'en' ? COM004_ENGLISH_CHAPTER_V3 : COM004_LOCALIZATION_CHAPTER_V3[language];
+  const corpus = language === 'en' ? COM004_ENGLISH_EDITORIAL_CANDIDATE_V4 : COM004_LOCALIZATION_CHAPTER_V4[language];
   const before = language === 'en' ? COM004_ENGLISH_CHAPTER_V2 : COM004_LOCALIZATION_CHAPTER_V1[language];
   for (const [i, q] of corpus.entries()) {
     assert.ok(Object.isFrozen(q));
@@ -38,27 +40,22 @@ for (const language of ['en', 'hi', 'pa'] as const) {
     const expected = corpus.filter(q => q.qlId === ql);
     assert.equal(result.questions.length, expected.length);
     for (const q of result.questions as any[]) {
-      const sourceIndex = COM004_ENGLISH_CHAPTER_V3.findIndex(s => s.questionId === q.sourceQuestionId);
+      const sourceIndex = COM004_ENGLISH_EDITORIAL_CANDIDATE_V4.findIndex(s => s.questionId === q.sourceQuestionId);
       const source = corpus[sourceIndex];
       assert.equal(q.stem, source.stem);
       assert.equal(q.explanation, source.explanation);
       assert.equal(q.text, source.stem);
-      assert.equal(q.sourceEnglishAuthorityId, 'COM-004-ENGLISH-FREEZE-V3');
-      assert.equal(q.questionStudioReview.localizationFreezeAuthorityId, 'COM-004-LOCALIZATION-FREEZE-V3');
-      assert.equal(q.questionBankAcceptanceAuthority, 'COM-004-QUESTION-STUDIO-BANK-ONLY-ACTIVATION-V2');
+      assert.equal(q.sourceEnglishAuthorityId, 'COM-004-ENGLISH-FREEZE-V4');
+      assert.equal(q.questionStudioReview.localizationFreezeAuthorityId, 'COM-004-LOCALIZATION-FREEZE-V4');
+      assert.equal(q.questionBankAcceptanceAuthority, 'COM-004-QUESTION-STUDIO-BANK-ONLY-ACTIVATION-V3');
       assert.equal(q.testEligible, false);
       assert.equal(q.mockTestEligible, false);
-      if (revisedIds.has(q.sourceQuestionId)) {
-        assert.equal(q.shortcut, undefined);
-        assert.equal(q.trapWarning, undefined);
-        assert.doesNotMatch(q.explanation, /Shortcut:|Trap warning:|computer-awareness question/i);
-      } else {
-        assert.equal(q.stem, before[sourceIndex].stem);
-        assert.equal(q.explanation, before[sourceIndex].explanation);
-      }
+      assert.equal(q.shortcut, undefined);
+      assert.equal(q.trapWarning, undefined);
+      assert.doesNotMatch(q.explanation, /Shortcut:|Trap warning:|computer-awareness question|exam level/i);
       generated++;
     }
   }
 }
 assert.equal(generated, 612);
-console.log('COM004 V3: approved copy exact; 612 runtime records checked; answer/options unchanged; 34 revisions per language');
+console.log('COM004 V4: approved copy exact; 612 runtime records checked; answer/options unchanged; direct stems and simple explanations enforced');

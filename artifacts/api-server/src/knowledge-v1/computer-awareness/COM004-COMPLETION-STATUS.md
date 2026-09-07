@@ -1,7 +1,8 @@
 # COM-004 completion status
 
-Status: BANK-ONLY INTERNAL — V3 editorial correction implemented. The user approved
-the 34-item English V3 review. This is not a new whole-chapter editorial approval.
+Status: BANK-ONLY INTERNAL — V4 editorial review approved and active in Question
+Studio. Hard, test-builder, mock-test, public-release and production gates remain
+closed.
 
 Continuation branch: `feature/com004-chapter-completion-v1`, based on current
 `New-main`, preserving the COM-004 source checkpoint `78ebf6f389e49ac8e9620300163dda544c4b9dc6`.
@@ -18,10 +19,10 @@ must not be used to report current coverage.
 - Hindi: 204 authored items, QL001–017.
 - Punjabi: 204 authored items, QL001–017.
 - Missing: none.
-- English and Hindi/Punjabi Freeze V3 now feed Question Studio. V1/V2 remain historical.
+- English and Hindi/Punjabi Freeze V4 now feed Question Studio. V1–V3 remain historical.
 - V3 applies exactly the 34 approved English stems/explanations and 34 translations per local language.
-- The remaining 170 questions per language retain their prior content.
-- Hindi/Punjabi revisions follow the approved English; they have not been separately human-reviewed.
+- The remaining 170 English questions now use direct stems and simple question-specific explanations.
+- Hindi/Punjabi copy for the same 170 source IDs receives the same direct-copy cleanup; answer bindings and options are unchanged.
 - Approved review file: `COM004-ENGLISH-QUESTION-REVIEW-V3.md`.
 - V3 approval authority records the exact review-file SHA-256 and all 34 source IDs.
 
@@ -62,11 +63,13 @@ checks 612 generated records, preserves answer/options and source IDs, and confi
 that non-revised questions retain their prior text. Activation V2 binds Freeze V3
 and Difficulty Authority V2 to the existing BANK_ONLY lifecycle.
 
-## V4 complete English editorial candidate
+## V4 complete editorial freeze and runtime activation
 
 - `com004-english-editorial-candidate-v4.ts` applies the direct-stem/simple-explanation style to the other 170 English items.
 - The 34 V3-approved questions remain byte-for-byte unchanged in the candidate.
-- All 204 answers, options, source IDs and provenance remain bound to V3.
+- All 204 English, Hindi and Punjabi questions retain their answers, options, source IDs and provenance bindings.
 - `COM004-COMPLETE-ENGLISH-REVIEW-V4.md` is generated directly from the complete candidate corpus, with all four options, answer and explanation for each question.
-- This is an English editorial review candidate, not a new freeze or a declaration of improved difficulty. Hindi/Punjabi and the active Question Studio corpus still use V3.
-- The candidate test checks the complete exported review, protected source fields, preservation of approved text and the existing runtime boundary.
+- Hindi/Punjabi V4 localization is frozen with a versioned fingerprint and bound to English Freeze V4.
+- The active Question Studio adapter now serves V4 in all three languages with deterministic no-repeat selection.
+- The candidate and runtime tests check 612 generated records, cross-language answer parity, protected source fields, direct stems and simple explanations.
+- The user approved the complete V4 review. Question Bank acceptance remains `BANK_ONLY` and still requires manual approval.
