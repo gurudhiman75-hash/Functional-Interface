@@ -1,0 +1,28 @@
+name: COM-004 chapter content and localization audit
+on:
+  push:
+    branches: [feature/com004-chapter-completion-v1]
+    paths: ['artifacts/api-server/src/knowledge-v1/computer-awareness/com004*', '.github/workflows/com004-chapter-completion.yml']
+  pull_request:
+    branches: [New-main]
+    paths: ['artifacts/api-server/src/knowledge-v1/computer-awareness/com004*', '.github/workflows/com004-chapter-completion.yml']
+permissions:
+  contents: read
+jobs:
+  content-audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - name: Validate revised learner content and localization integrity
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/computer-awareness/com004-chapter-completion.test.ts --bundle --platform=node --format=esm --outfile=/tmp/com004-completion.mjs
+          node /tmp/com004-completion.mjs
+      - name: Validate historical English freeze remains unchanged
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/computer-awareness/com004-english-freeze-v1.test.ts --bundle --platform=node --format=esm --outfile=/tmp/com004-freeze.mjs
+          node /tmp/com004-freeze.mjs
