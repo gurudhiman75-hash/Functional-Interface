@@ -88,6 +88,8 @@ for (const result of [english, hindi, punjabi]) {
   assert.ok(result.questions.every((question: any) => question.registrationStatus === "REGISTERED_BANK_ONLY_INTERNAL"));
   assert.ok(result.questions.every((question: any) => question.readOnly === true));
   assert.ok(result.questions.every((question: any) => question.revisionPolicy === "SOURCE_GENERATOR_ONLY"));
+  assert.ok(result.questions.every((question: any) => question.questionBankAcceptanceAuthority === COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId));
+  assert.ok(result.questions.every((question: any) => question.registrationAuthorityId === COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId));
   assert.ok(result.questions.every((question: any) => question.questionBankWritable === true));
   assert.ok(result.questions.every((question: any) => question.testEligible === false));
   assert.ok(result.questions.every((question: any) => question.mockTestEligible === false));

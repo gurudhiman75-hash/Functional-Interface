@@ -288,6 +288,7 @@ export const COM004_STANDARD_BANK_ONLY_PACKAGE_V1: QuestionStudioPackageDefiniti
 function recordForOutput(record: Com004CorpusRecord) {
   return {
     ...lifecycle,
+    questionBankAcceptanceAuthority: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
     id: record.questionId,
     questionId: record.questionId,
     sourceQuestionId: record.sourceQuestionId,
@@ -319,6 +320,7 @@ function recordForOutput(record: Com004CorpusRecord) {
     difficultyLabel: record.difficulty,
     difficultyDecisionV1: record.difficultyDecision,
     packageRegistrationAuthority: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
+    registrationAuthorityId: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
     registrationStatus: "REGISTERED_BANK_ONLY_INTERNAL",
     preRegistrationOnly: false,
     questionStudioDiscoverable: true,
