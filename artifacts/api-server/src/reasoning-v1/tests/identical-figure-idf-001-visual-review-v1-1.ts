@@ -31,14 +31,18 @@ const familyLabel = (qlId: string) => qlId === "SPA-QL-061"
   ? "Component identity grouping"
   : qlId === "SPA-QL-062" ? "Topology grouping" : "Transform-equivalence grouping";
 
+const transformLabel = (policy: string | null) => policy === "ROTATION_ONLY"
+  ? "rotation only"
+  : policy === "ROTATION_OR_REFLECTION" ? "rotation + reflection" : null;
+
 const cards = questions.map((q, index) => {
   const options = q.options.map((option, optionIndex) => `<div class="option ${optionIndex === q.correctIndex ? "correct" : ""}"><div class="label">${q.optionLabels[optionIndex]}</div><div class="option-text">${option.text}</div></div>`).join("");
   const table = q.explanation.groupTable.map((row, groupIndex) => `<tr><td>${groupIndex + 1}</td><td>${row.members}</td><td>${row.reason}</td></tr>`).join("");
-  const failures = q.solveFacts.distractorFailures.map((failure) => `<li>Option ${failure.option}: mixed group (${failure.mixedGroup.join(", ")})</li>`).join("");
+  const policy = transformLabel(q.solveFacts.transformPolicy);
   return `<section class="question">
-    <div class="meta"><strong>${index + 1}. ${q.qlId}</strong> · ${familyLabel(q.qlId)} · ${q.difficulty}${q.solveFacts.transformPolicy ? ` · ${q.solveFacts.transformPolicy}` : ""}</div>
+    <div class="meta"><strong>${index + 1}. ${q.qlId}</strong> · ${familyLabel(q.qlId)} · ${q.difficulty}${policy ? ` · ${policy}` : ""}</div>
     <p class="stem">${q.stem}</p>
-    <div class="stimulus"><div class="caption">Numbered figure bank — verify that all labels 1–9 are fully visible</div>${q.stimulusSvg}</div>
+    <div class="stimulus"><div class="caption">Numbered figure bank</div>${q.stimulusSvg}</div>
     <div class="options">${options}</div>
     <div class="answer">Answer: <strong>${q.answer}</strong> · ${q.options[q.correctIndex].text}</div>
     <table><thead><tr><th>Group</th><th>Members</th><th>Why they belong together</th></tr></thead><tbody>${table}</tbody></table>
@@ -46,8 +50,7 @@ const cards = questions.map((q, index) => {
       <p><strong>Observation:</strong> ${q.explanation.observation}</p>
       <p><strong>Rule:</strong> ${q.explanation.rule}</p>
       <p><strong>Application:</strong> ${q.explanation.application}</p>
-      <p><strong>Distractor check:</strong> ${q.explanation.check}</p>
-      <ul>${failures}</ul>
+      <p><strong>Alternative check:</strong> ${q.explanation.check}</p>
     </div>
     <div class="solution"><div class="caption">Solution: figures arranged in the three correct groups</div>${q.explanation.solutionSvg}</div>
     <details><summary>Solver evidence</summary><pre>${JSON.stringify(q.solveFacts, null, 2)}</pre></details>
@@ -56,7 +59,7 @@ const cards = questions.map((q, index) => {
 
 const html = `<!doctype html><html><head><meta charset="utf-8"><title>SPA IDF-001 Visual Review V1.1</title><style>
 body{font-family:Arial,sans-serif;margin:0;background:#f3f4f6;color:#111827}.wrap{max-width:1180px;margin:auto;padding:24px}.notice{background:white;border:1px solid #9ca3af;border-radius:10px;padding:14px 16px;margin:0 0 20px}.question{background:white;border:1px solid #d1d5db;border-radius:12px;padding:22px;margin:0 0 26px}.meta{font-size:14px;color:#374151}.stem{font-size:18px;line-height:1.5}.stimulus,.solution{text-align:center;margin:18px 0}.caption{font-weight:700;margin:0 0 8px}.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.option{border:1px solid #d1d5db;border-radius:8px;padding:12px}.option.correct{border-width:2px}.label{font-weight:700}.option-text{font-size:16px;margin-top:6px}.answer{margin:16px 0;font-size:18px}table{border-collapse:collapse;width:100%;margin:14px 0}th,td{border:1px solid #d1d5db;padding:8px;text-align:left;vertical-align:top}.explanation{line-height:1.5}pre{white-space:pre-wrap;background:#f9fafb;padding:12px;border-radius:8px}svg{max-width:100%;height:auto}@media(max-width:760px){.options{grid-template-columns:1fr}.wrap{padding:10px}.question{padding:14px}}
-</style></head><body><div class="wrap"><h1>SPA IDF-001 Identical Figure / Figure Grouping — Visual Review V1.1</h1><div class="notice"><strong>V1.1 remediation:</strong> the 1–9 bank labels are painted above the figure artwork so none are hidden, and explanation wording is learner-facing. Semantic grouping, answer construction and all closed lifecycle gates are unchanged from V1.</div>${cards}</div></body></html>`;
+</style></head><body><div class="wrap"><h1>SPA IDF-001 Identical Figure / Figure Grouping — Visual Review V1.1</h1><div class="notice"><strong>Current review pass:</strong> all 1–9 labels remain fully readable, while the learner-facing cards now use family-specific rules, natural group reasons and concrete alternative failures. Semantic grouping, option construction, answers and all closed lifecycle gates remain unchanged from V1.</div>${cards}</div></body></html>`;
 
 const json = questions.map((q) => ({
   qlId: q.qlId,
@@ -73,6 +76,8 @@ const json = questions.map((q) => ({
     numberLabelsPaintedAboveArtwork: q.validation.numberLabelsPaintedAboveArtwork,
     allNineNumberLabelsVisibleByConstruction: q.validation.allNineNumberLabelsVisibleByConstruction,
     explanationUsesLearnerFacingLanguage: q.validation.explanationUsesLearnerFacingLanguage,
+    explanationNamesFamilySpecificRule: q.validation.explanationNamesFamilySpecificRule,
+    distractorCheckNamesActualMismatch: q.validation.distractorCheckNamesActualMismatch,
   },
   releaseGates: q.lifecycle,
 }));
