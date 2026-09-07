@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 
 import { ARG_CP015_ANTI_GAMING_CUE_DEBIAS_AUTHORITY } from "./cp015-anti-gaming-cue-debias.ts";
 import { finalizeArgCp015EditorialQuality } from "./cp015-final-editorial-quality.ts";
+import { polishArgCp015HumanAuditSurface } from "./cp015-human-audit-polish.ts";
 
 export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V9" as const;
 
@@ -134,17 +135,21 @@ function stemFor(statement: string, language: Language, argumentsList: readonly 
   return `Statement: ${statement}\nArguments:\n${rendered}`;
 }
 
+function finalizeAndHumanAudit(question: Question): Question {
+  return polishArgCp015HumanAuditSurface(finalizeArgCp015EditorialQuality(question));
+}
+
 export function polishArgCp015AntiGamingGrammar(question: Question): Question {
   if (question.antiGamingCueDebiasAuthority !== ARG_CP015_ANTI_GAMING_CUE_DEBIAS_AUTHORITY) {
-    return finalizeArgCp015EditorialQuality(question);
+    return finalizeAndHumanAudit(question);
   }
   const argumentsList = Array.isArray(question.arguments) ? question.arguments as readonly string[] : [];
-  if (argumentsList.length < 2) return finalizeArgCp015EditorialQuality(question);
+  if (argumentsList.length < 2) return finalizeAndHumanAudit(question);
   const language = languageOf(question);
   const nextStatement = polishStatement(text(question.statement), language);
   const nextArguments = argumentsList.map((argument) => polishArgument(argument, language));
   if (nextStatement === text(question.statement) && nextArguments.every((argument, index) => argument === argumentsList[index])) {
-    return finalizeArgCp015EditorialQuality(question);
+    return finalizeAndHumanAudit(question);
   }
 
   const frozenArguments = Object.freeze(nextArguments);
@@ -174,5 +179,5 @@ export function polishArgCp015AntiGamingGrammar(question: Question): Question {
     questionId: `ARG-001:${question.qlId}:${text(question.examProfile) || "core"}:CP015:${contentFingerprint.slice(0, 20)}`,
     canonicalItemId: `${question.canonicalItemId}:GRAMMAR-POLISH`,
   });
-  return finalizeArgCp015EditorialQuality(polished);
+  return finalizeAndHumanAudit(polished);
 }
