@@ -1,3 +1,4 @@
+// Current-base refresh sentinel: keeps this learner-surface proof attached to the latest New-main merge state.
 import { FORBIDDEN_PHRASES } from "../common/explanation-engine";
 import { generateQuestion } from "../generation-engine";
 import { PRB_001_LIBRARIES, listPrb001QuestionEntries, runPrb001Pipeline } from "../topics/Probability/PRB-001";
