@@ -14,7 +14,6 @@ on:
       - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/figure-matrix-freeze-v1.ts'
       - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/identical-figure-freeze-v1.ts'
       - 'artifacts/api-server/src/reasoning-v1/tests/spatial-family-final-closure-audit-v2.test.ts'
-      - '.github/workflows/spa-family-final-closure-audit-v2.yml'
   workflow_dispatch:
 
 concurrency:
