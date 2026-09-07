@@ -95,22 +95,20 @@ export function PeriodWorkspacePage() {
     }
 
     const selectedRanges = ranges.trim();
-    if (!selectedRanges) {
-      setMessage('Enter the relevant PDF pages before extraction, for example 42-67, 103-118.');
-      return;
-    }
-
+    const scope = selectedRanges ? `pages ${selectedRanges}` : 'the full PDF';
     setAction('upload');
-    setMessage(`Uploading ${file.name} and extracting only pages ${selectedRanges}. Keep this page open until the selected pages finish processing.`);
+    setMessage(`Uploading ${file.name} in resumable chunks and extracting ${scope} in checkpointed batches. A retry can continue from completed work.`);
     try {
-      await httpNotesStudioV2Repository.uploadCorpusSource(period.id, file, { pageRanges: selectedRanges });
-      setMessage(`Ingested pages ${selectedRanges} from ${file.name}; extracted facts are now available for reconciliation.`);
+      await httpNotesStudioV2Repository.uploadCorpusSource(period.id, file, {
+        pageRanges: selectedRanges || undefined,
+      });
+      setMessage(`Ingested ${scope} from ${file.name}; extracted facts are now available for reconciliation.`);
       setSelectedPdf(null);
       setPageRanges('');
       if (uploadInputRef.current) uploadInputRef.current.value = '';
       workspace.reload();
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'Unable to ingest the selected PDF pages.');
+      setMessage(error instanceof Error ? error.message : 'Unable to ingest the selected PDF. Retry to resume completed upload and extraction work.');
     } finally {
       setAction(null);
     }
@@ -201,14 +199,14 @@ export function PeriodWorkspacePage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2"><BookOpen className="h-5 w-5" />Corpus intake</CardTitle>
-              <CardDescription>Select only the relevant PDF pages for extraction. Raw uploaded files are not persisted by the v2 ingestion route.</CardDescription>
+              <CardDescription>Upload one logical PDF. Notes Studio v2 automatically transfers it in resumable chunks and extracts it in checkpointed page batches.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="rounded-lg border border-dashed p-4">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <p className="text-sm font-medium">Choose source PDF</p>
-                    <p className="mt-1 text-xs text-muted-foreground">Selecting the file does not start extraction. Choose the relevant page ranges below first.</p>
+                    <p className="mt-1 text-xs text-muted-foreground">Leave page ranges blank to process the full book, or enter only the pages you want to ingest.</p>
                   </div>
                   <Button
                     type="button"
@@ -236,7 +234,7 @@ export function PeriodWorkspacePage() {
                       }
                       setSelectedPdf(file);
                       setPageRanges('');
-                      setMessage(`Selected ${file.name} (${(file.size / 1024 / 1024).toFixed(1)} MB). Enter the relevant PDF pages, then start extraction.`);
+                      setMessage(`Selected ${file.name} (${(file.size / 1024 / 1024).toFixed(1)} MB). Start full-book extraction or optionally narrow the page ranges.`);
                       input.value = '';
                     }}
                   />
@@ -246,29 +244,31 @@ export function PeriodWorkspacePage() {
                   <div className="mt-4 space-y-3 rounded-md border bg-muted/20 p-4">
                     <div>
                       <p className="text-sm font-medium">{selectedPdf.name}</p>
-                      <p className="text-xs text-muted-foreground">{(selectedPdf.size / 1024 / 1024).toFixed(1)} MB · one corpus source regardless of how many page-range passes you run</p>
+                      <p className="text-xs text-muted-foreground">{(selectedPdf.size / 1024 / 1024).toFixed(1)} MB · one logical source; transport and extraction batches are handled automatically</p>
                     </div>
                     <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
                       <div className="space-y-1.5">
-                        <label htmlFor="notes-studio-v2-page-ranges" className="text-xs font-medium">Relevant pages</label>
+                        <label htmlFor="notes-studio-v2-page-ranges" className="text-xs font-medium">Relevant pages (optional)</label>
                         <Input
                           id="notes-studio-v2-page-ranges"
                           value={pageRanges}
                           onChange={(event) => setPageRanges(event.target.value)}
-                          placeholder="e.g. 42-67, 103-118, 221-236"
+                          placeholder="Blank = full PDF; or e.g. 42-67, 103-118"
                           disabled={action === 'upload'}
                         />
-                        <p className="text-xs text-muted-foreground">Use PDF page numbers. Up to 96 selected pages per extraction pass. Reuse the same PDF with another range to add more facts without creating a second source.</p>
+                        <p className="text-xs text-muted-foreground">Large selections do not need manual splitting. The server validates, merges and processes them in resumable 12-page extraction checkpoints.</p>
                       </div>
                       <Button
                         type="button"
                         onClick={() => void uploadPdf(selectedPdf, pageRanges)}
-                        disabled={workspace.source !== 'http' || action === 'upload' || !pageRanges.trim()}
+                        disabled={workspace.source !== 'http' || action === 'upload'}
                       >
                         {action === 'upload' ? (
-                          <><RefreshCw className="mr-2 h-4 w-4 animate-spin" />Processing selected pages…</>
-                        ) : (
+                          <><RefreshCw className="mr-2 h-4 w-4 animate-spin" />Processing resumably…</>
+                        ) : pageRanges.trim() ? (
                           <><FileSearch className="mr-2 h-4 w-4" />Extract selected pages</>
+                        ) : (
+                          <><FileSearch className="mr-2 h-4 w-4" />Extract full PDF</>
                         )}
                       </Button>
                     </div>
@@ -277,7 +277,7 @@ export function PeriodWorkspacePage() {
 
                 {action === 'upload' && (
                   <div className="mt-3 rounded-md bg-muted/40 p-3 text-xs text-muted-foreground" role="status" aria-live="polite">
-                    Extraction is active only for the selected page ranges. Original PDF page numbers are retained in every source locator.
+                    The PDF is stored as durable resumable chunks. Extraction checkpoints preserve completed page batches so retries do not start the book over.
                   </div>
                 )}
               </div>
