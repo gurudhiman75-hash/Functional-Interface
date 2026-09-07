@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS notes_studio_v2.corpus_extraction_segments (
   status text NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'running', 'ready', 'failed')),
   attempts integer NOT NULL DEFAULT 0 CHECK (attempts >= 0),
   metadata jsonb NOT NULL DEFAULT '{}'::jsonb,
+  candidates jsonb NOT NULL DEFAULT '[]'::jsonb,
   extracted_fact_ids jsonb NOT NULL DEFAULT '[]'::jsonb,
   error_code text,
   error_message text,
