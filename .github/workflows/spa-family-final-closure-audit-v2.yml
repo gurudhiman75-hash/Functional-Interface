@@ -1,0 +1,71 @@
+name: Validate SPA Family Final Closure Audit V2
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-family-final-closure-audit-v2.ts'
+      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v13.ts'
+      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v9.ts'
+      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/cubes-dice-test-builder-activation-v1.ts'
+      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/figure-formation-freeze-v1.ts'
+      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/dot-situation-freeze-v1.ts'
+      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/figure-matrix-freeze-v1.ts'
+      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/identical-figure-freeze-v1.ts'
+      - 'artifacts/api-server/src/reasoning-v1/tests/spatial-family-final-closure-audit-v2.test.ts'
+  workflow_dispatch:
+
+concurrency:
+  group: spa-family-final-closure-audit-v2-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle Spatial final closure V2 proof
+        run: |
+          mkdir -p artifacts/api-server/dist/reasoning-v1/spatial
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/reasoning-v1/tests/spatial-family-final-closure-audit-v2.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/reasoning-v1/spatial/spatial-family-final-closure-audit-v2.test.mjs
+
+      - name: Run Spatial final closure V2 proof
+        run: |
+          set -o pipefail
+          cd artifacts/api-server
+          node dist/reasoning-v1/spatial/spatial-family-final-closure-audit-v2.test.mjs 2>&1 \
+            | tee dist/reasoning-v1/spatial/spa-family-final-closure-audit-v2-run.log
+
+      - name: Upload Spatial final closure V2 evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: spa-family-final-closure-audit-v2
+          path: |
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-family-final-closure-audit-v2-evidence.json
+            artifacts/api-server/dist/reasoning-v1/spatial/spa-family-final-closure-audit-v2-run.log
+          if-no-files-found: error
