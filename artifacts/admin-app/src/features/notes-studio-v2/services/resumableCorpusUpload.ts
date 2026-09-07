@@ -31,8 +31,17 @@ async function getToken() {
   return user.getIdToken();
 }
 
-function idempotencyKey(periodId: string, file: File) {
-  return `notes-v2:${periodId}:${file.name}:${file.size}:${file.lastModified}`;
+function normalizePageRanges(value?: string) {
+  return (value ?? '')
+    .trim()
+    .replace(/\s*-\s*/g, '-')
+    .replace(/\s*[,;\n]+\s*/g, ',')
+    .replace(/^,+|,+$/g, '');
+}
+
+function idempotencyKey(periodId: string, file: File, pageRanges?: string) {
+  const selection = normalizePageRanges(pageRanges) || 'all-pages';
+  return `notes-v2:${periodId}:${file.name}:${file.size}:${file.lastModified}:${selection}`;
 }
 
 function assertPdf(file: File) {
@@ -97,7 +106,8 @@ export async function uploadResumableCorpusSource(
   if (!(fileOrBlob instanceof File)) throw new Error('Resumable Notes Studio v2 uploads require a named PDF file.');
   const file = fileOrBlob;
   assertPdf(file);
-  const key = idempotencyKey(periodId, file);
+  const pageRanges = normalizePageRanges(options.pageRanges) || undefined;
+  const key = idempotencyKey(periodId, file, pageRanges);
 
   const session = await notesStudioV2Request<UploadSession>(`${BASE}/periods/${periodId}/corpus/uploads`, {
     method: 'POST',
@@ -108,7 +118,7 @@ export async function uploadResumableCorpusSource(
       mimeType: file.type || 'application/pdf',
       size: file.size,
       sourceType: 'reference',
-      pageRanges: options.pageRanges?.trim() || undefined,
+      pageRanges,
     },
   });
 
