@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { ARG_CP015_ANTI_GAMING_CUE_DEBIAS_AUTHORITY } from "./cp015-anti-gaming-cue-debias.ts";
 import { finalizeArgCp015EditorialQuality } from "./cp015-final-editorial-quality.ts";
 
-export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V6" as const;
+export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V7" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -36,12 +36,12 @@ function polishEnglish(value: string): string {
     .replace(/would require most visitor to own/gi, "would effectively require each visitor to own")
     .replace(/unless most visitor owns/gi, "unless each visitor owns")
     .replace(/rebuilding most part of (.+?) from the ground up/gi, "extensive rebuilding of $1")
-    .replace(/Once the decision is announced, enough (.+?) will readily become available everywhere (.+?)\./gi, "The decision itself is assumed to make enough $1 available everywhere $2.")
-    .replace(/(.+?) can rarely be conducted securely in practice, regardless of (.+?)\./gi, "$1 is treated as inherently insecure even where $2 is available.")
+    .replace(/Once the decision is announced, enough (.+?) will readily become available everywhere (.+?)\./gi, "Approving the switch will automatically make sufficient $1 available everywhere $2.")
+    .replace(/(.+?) can rarely be conducted securely in practice, regardless of (.+?)\./gi, "$1 cannot be secure even when the stated safeguards are in place.")
     .replace(/The rule for (.+?) can start from (.+?) without any (.+?); (.+?) will work readily\./gi, "The rule for $1 is assumed to work from $2 without $3, with $4 expected to function without transition support.")
-    .replace(/Any use of time slots makes (.+?) permanently impractical to deliver\./gi, "Any use of time slots is treated as making $1 unworkable in the long term.")
+    .replace(/Any use of time slots makes (.+?) permanently impractical to deliver\./gi, "Using time slots would make $1 unworkable in the long term.")
     .replace(/Once time slots are introduced, (.+?) can rarely be delivered successfully again\./gi, "Once time slots are introduced, $1 are treated as unlikely to function successfully again.")
-    .replace(/A time-slot system generally makes public services inaccessible to most people\./gi, "A time-slot system is treated as making public services inaccessible to a large share of users.")
+    .replace(/A time-slot system generally makes public services inaccessible to most people\./gi, "A time-slot system would make public services inaccessible to a large share of users.")
     .replace(/most use of (.+?) apparently causes (.+?), so no exception such as (.+?) can ever be justified\./gi, "Use of $1 is presumed to lead to $2, so even an exception such as $3 is rejected without separate assessment.")
     .replace(/Because (.+?) can be useful for (.+?), the institution should rarely regulate it even to address (.+?)\./gi, "Because $1 can be useful for $2, the institution is expected to avoid regulating it even where regulation is aimed at $3.")
     .replace(/A single workshop on the subject will largely solve most related difficulty participants may face in the future\./gi, "A single workshop is assumed to solve nearly all related difficulties participants may face in the future.")
