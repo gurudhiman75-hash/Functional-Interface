@@ -18,7 +18,7 @@ must not be used to report current coverage.
 - Hindi: 204 authored items, QL001–017.
 - Punjabi: 204 authored items, QL001–017.
 - Missing: none.
-- V2 is the versioned English freeze candidate used by the completed localization audit; a correction requires a new source version.
+- V2 is the versioned English freeze bound to the localization corpus; a correction requires a new source version.
 
 The localization constructor now binds to the complete chapter source rather
 than only Wave 1. It records whether the source is the historical V1 freeze or
