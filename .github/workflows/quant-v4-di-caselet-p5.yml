@@ -1,0 +1,32 @@
+name: Quant V4 DI caselet P5
+
+on:
+  push:
+    branches:
+      - feat/quant-v4-di-caselet-p5
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/**"
+      - ".github/workflows/quant-v4-di-caselet-p5.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  di-caselet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Banking five-option collision scan
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/debug-option-collapse.ts
+
+      - name: Caselet DI deterministic proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-006/caselet-set.test.ts
+
+      - name: Patch hygiene
+        run: git diff --check

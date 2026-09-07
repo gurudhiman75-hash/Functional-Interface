@@ -1,0 +1,32 @@
+name: Quant V4 DI line P3
+
+on:
+  push:
+    branches:
+      - feat/quant-v4-di-line-p3
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/**"
+      - ".github/workflows/quant-v4-di-line-p3.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  di-line:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Banking five-option collision scan
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/debug-option-collapse.ts
+
+      - name: Line DI deterministic proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-004/line-set.test.ts
+
+      - name: Patch hygiene
+        run: git diff --check

@@ -1,0 +1,32 @@
+name: Quant V4 DI pie P4
+
+on:
+  push:
+    branches:
+      - feat/quant-v4-di-pie-p4
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/**"
+      - ".github/workflows/quant-v4-di-pie-p4.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  di-pie:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Banking five-option collision scan
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/debug-option-collapse.ts
+
+      - name: Pie DI deterministic proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-005/pie-set.test.ts
+
+      - name: Patch hygiene
+        run: git diff --check

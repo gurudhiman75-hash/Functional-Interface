@@ -1,0 +1,32 @@
+name: Quant V4 DI grouped bar P2
+
+on:
+  push:
+    branches:
+      - feat/quant-v4-di-grouped-bar-p2
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/**"
+      - ".github/workflows/quant-v4-di-grouped-bar-p2.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  di-grouped-bar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Diagnose Banking five-option collisions
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/debug-option-collapse.ts
+
+      - name: Grouped-bar DI deterministic proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-003/grouped-bar-set.test.ts
+
+      - name: Patch hygiene
+        run: git diff --check
