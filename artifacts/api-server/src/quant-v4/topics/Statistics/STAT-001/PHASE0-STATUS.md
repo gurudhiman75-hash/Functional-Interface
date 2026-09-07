@@ -48,3 +48,7 @@ Required proof before green status:
 ## Namespace correction
 
 `STAT-001` is the Quant V4 Statistics package ID. `STA-001` is already owned globally by the frozen Reasoning Statement & Assumption package and must not be reused.
+
+## Clean transplant checkpoint
+
+The corrected `STAT-001` source has been transplanted from the abandoned temporary Statistics line onto current `New-main`. Temporary bootstrap files are removed. Permanent Phase 0 proof is now the only gate before this checkpoint can be called green.
