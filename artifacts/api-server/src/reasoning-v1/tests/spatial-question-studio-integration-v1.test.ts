@@ -112,31 +112,36 @@ const spatialV5Route = readFileSync(resolve(repoRoot, "artifacts/api-server/src/
 const spatialPanel = readFileSync(resolve(repoRoot, "artifacts/admin-app/src/pages/content/QuestionStudioSpatialReviewPanel.tsx"), "utf8");
 const spatialApi = readFileSync(resolve(repoRoot, "artifacts/admin-app/src/features/question-studio/spatial-review-api.ts"), "utf8");
 
-// The 34-QL runtime remains byte-addressable for compatibility, while the live registry is
-// intentionally superseded by the approved 48-QL package. The V5-named route is the stable
-// mounted adapter and now delegates to integration/production V6 for FFM-001.
+// The original 34-QL runtime remains byte-addressable for compatibility, while the live registry
+// has advanced through the approved IDF-001 completion checkpoint to 58 main-package QLs.
+// The V5-named route remains the stable mounted adapter and delegates through current V1 aliases.
 assert(spatialRegistry.indexOf("adminQuestionStudioSpatialV5Router") >= 0, "Current Spatial adapter is missing from the route registry.");
 assert(spatialRegistry.indexOf("router.use(adminQuestionStudioSpatialV5Router)") < spatialRegistry.indexOf("router.use(adminQuestionStudioSpatialRouter)"), "Current Spatial adapter must precede the legacy fallback.");
-assert(spatialWorkflow.includes("spatial-question-studio-integration-v6"), "Shared SPA-001 /runs workflow is not using the approved 48-QL package.");
-assert(spatialWorkflow.includes("SPATIAL_QUESTION_STUDIO_PACKAGE_V6"), "Shared SPA-001 workflow does not recognize FFM QLs.");
-assert(spatialV5Route.includes("spatial-question-studio-integration-v6"), "Mounted Spatial adapter is not using 48-QL integration V6.");
-assert(spatialV5Route.includes("spatial-question-studio-production-v6"), "Mounted Spatial adapter is not using 48-QL production V6.");
+assert(spatialWorkflow.includes("spatial-question-studio-integration-v6"), "Shared SPA-001 /runs workflow is not using the current Spatial package alias.");
+assert(spatialWorkflow.includes("SPATIAL_QUESTION_STUDIO_PACKAGE_V6"), "Shared SPA-001 workflow lost its stable current-package binding.");
+assert(spatialV5Route.includes("spatial-question-studio-integration-v6"), "Mounted Spatial adapter is not using the current integration alias.");
+assert(spatialV5Route.includes("spatial-question-studio-production-v6"), "Mounted Spatial adapter is not using the current production alias.");
 assert(!spatialV5Route.includes("INSERT INTO content.questions"), "Spatial route directly writes Question Bank instead of shared approval.");
 assert(spatialPanel.includes("'FGC-001': 'Figure Completion'"), "Spatial panel lost Figure Completion.");
 assert(spatialPanel.includes("'PFC-001': 'Paper Folding & Cutting'"), "Spatial panel lost Paper Folding & Cutting.");
 assert(spatialPanel.includes("'TPF-001': 'Transparent Pattern Folding'"), "Spatial panel lost Transparent Pattern Folding.");
 assert(spatialPanel.includes("'FFM-001': 'Figure Formation'"), "Spatial panel does not expose Figure Formation.");
-assert(spatialPanel.includes("pkg?.permanentQlCount ?? 48"), "Spatial panel does not advertise the approved 48-QL package fallback.");
-assert(spatialPanel.includes("explanationIllustrationSvg"), "Spatial panel does not render the approved FFM assembly explanation.");
+assert(spatialPanel.includes("'IDF-001': 'Identical Figure / Figure Grouping'"), "Spatial panel does not expose IDF-001.");
+assert(spatialPanel.includes("pkg?.permanentQlCount ?? 58"), "Spatial panel does not advertise the approved 58-QL package fallback.");
+assert(spatialPanel.includes("explanationIllustrationSvg"), "Spatial panel does not render approved explanation illustrations.");
+assert(spatialPanel.includes("groupTable"), "Spatial panel does not render the IDF grouped learner explanation table.");
+assert(spatialPanel.includes("SPA-QL-061..063"), "Spatial panel does not advertise the approved IDF permanent QLs.");
 assert(spatialPanel.includes("क्या देखें") && spatialPanel.includes("ਕੀ ਵੇਖਣਾ"), "Spatial panel lost approved simple HI/PA explanation labels.");
 assert(spatialApi.includes("'FFM-001'"), "Spatial admin API type is missing Figure Formation.");
+assert(spatialApi.includes("'IDF-001'"), "Spatial admin API type is missing IDF-001.");
+assert(spatialApi.includes("identicalFigureActivationAuthority"), "Spatial admin API type is missing IDF activation authority metadata.");
 
 const evidence = {
-  status: "PASS_SPA_FGC_001_LEGACY_34_QL_COMPAT_UNDER_48_QL_FFM_INTEGRATION",
+  status: "PASS_SPA_FGC_001_LEGACY_34_QL_COMPAT_UNDER_58_QL_IDF_INTEGRATION",
   packageId: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.packageId,
   frozenIntegrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
   frozenPermanentQlCount: 34,
-  livePermanentQlCount: 48,
+  livePermanentQlCount: 58,
   generated,
   conversionChecks,
   languageCounts,
@@ -147,12 +152,14 @@ const evidence = {
     questionBankConversionPreserved: true,
     manualApprovalStillRequired: true,
     automaticStudentPublicationDisabled: true,
-    liveRegistrySupersededTo48Qls: true,
-    sharedSpaRunsRecognizeFfmQls: true,
+    liveRegistrySupersededTo58Qls: true,
+    sharedSpaRunsUseCurrentAliases: true,
     ffmChapterFilterPresent: true,
-    ffmAssemblyExplanationVisible: true,
+    idfChapterFilterPresent: true,
+    explanationIllustrationsVisible: true,
+    idfGroupingExplanationVisible: true,
   },
-  nextGate: "FFM_001_FREEZE_INTEGRATION_EXACT_HEAD_CI",
+  nextGate: "IDF_001_FREEZE_QUESTION_STUDIO_EXACT_HEAD_CI",
 };
 
 mkdirSync("dist/reasoning-v1/spatial", { recursive: true });
