@@ -10,12 +10,15 @@ on:
       - "artifacts/api-server/src/current-affairs/selected-blocker-closure-runtime.ts"
       - "artifacts/api-server/src/current-affairs/selected-blocker-closure-finalizer.ts"
       - "artifacts/api-server/src/current-affairs/selected-daily-master-pack.ts"
+      - "artifacts/api-server/src/current-affairs/selected-daily-master-pack-approval-runtime.ts"
+      - "artifacts/api-server/src/current-affairs/selected-editorial-*.ts"
       - "artifacts/api-server/src/current-affairs/selected-master-pack-boundary.test.ts"
       - "artifacts/api-server/src/current-affairs/selected-residual-blocker-closure*.ts"
       - "artifacts/api-server/src/current-affairs/selected-rbi-final-mile-closure*.ts"
       - "artifacts/api-server/src/current-affairs/source-fetch*.ts"
       - "artifacts/api-server/src/current-affairs/selected-processing-*.test.ts"
       - "artifacts/api-server/src/routes/admin-current-affairs-selected-processing.ts"
+      - "artifacts/api-server/src/routes/admin-current-affairs-production-ops.ts"
       - "artifacts/api-server/migrations/*current_affairs_selected_processing*.sql"
       - "artifacts/api-server/ensure-current-affairs.mjs"
       - "artifacts/admin-app/src/features/current-affairs/selected-processing-api.ts"
@@ -59,6 +62,8 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-rbi-final-mile-closure.test.ts
       - name: Verify CP068 selected master-pack boundary contract
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-master-pack-boundary.test.ts
+      - name: Verify CP069 selected editorial cleanup and approval contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-editorial-approval-cleanup.test.ts
       - name: Build API server
         run: pnpm --filter @workspace/api-server build
       - name: Typecheck admin frontend
