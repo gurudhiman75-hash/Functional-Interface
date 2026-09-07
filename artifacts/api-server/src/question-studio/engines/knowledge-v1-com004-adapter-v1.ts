@@ -1,21 +1,5 @@
-import {
-  auditCom004DifficultyAuthorityV1,
-  classifyCom004DifficultyV1,
-  COM004_DIFFICULTY_AUTHORITY_VERSION_V1,
-} from "../../knowledge-v1/computer-awareness/com004-difficulty-authority-v1";
-import {
-  COM004_ENGLISH_CHAPTER_V2,
-  auditCom004EnglishChapterV2,
-  COM004_ENGLISH_FREEZE_AUTHORITY_V2,
-} from "../../knowledge-v1/computer-awareness/com004-english-chapter-v2";
-import {
-  auditCom004LocalizationChapterV1,
-  COM004_LOCALIZATION_CHAPTER_V1,
-} from "../../knowledge-v1/computer-awareness/com004-localization-chapter-v1";
-import {
-  auditCom004LocalizationFreezeV2,
-  COM004_LOCALIZATION_FREEZE_AUTHORITY_V2,
-} from "../../knowledge-v1/computer-awareness/com004-localization-freeze-v2";
+import { auditCom004DifficultyAuthorityV2, classifyCom004DifficultyV2, COM004_DIFFICULTY_AUTHORITY_VERSION_V2 } from "../../knowledge-v1/computer-awareness/com004-difficulty-authority-v2";
+import { COM004_ENGLISH_CHAPTER_V3, COM004_ENGLISH_FREEZE_AUTHORITY_V3, COM004_LOCALIZATION_CHAPTER_V3, COM004_LOCALIZATION_FREEZE_AUTHORITY_V3, COM004_EDITORIAL_APPROVAL_V3, auditCom004EditorialCorpusV3 } from "../../knowledge-v1/computer-awareness/com004-editorial-corpus-v3";
 import type {
   Com004EnglishChapterQuestionV1,
 } from "../../knowledge-v1/computer-awareness/com004-english-chapter-candidate-v1";
@@ -30,30 +14,24 @@ import type {
   QuestionStudioPackageDefinition,
 } from "../engine-types";
 import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
-import { COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1 } from "./com004-bank-only-activation-authority-v1";
+import { COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2 } from "./com004-bank-only-activation-authority-v2";
 
 export const COM004_QUESTION_STUDIO_PACKAGE_ID_V1 = "COM-004" as const;
 export const COM004_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
 export const COM004_REVISION_POLICY_V1 = "SOURCE_GENERATOR_ONLY" as const;
 export const COM004_CONTENT_AUTHORITY_VERSION_V1 =
-  "ENGLISH-FREEZE-V2_HI-PA-LOCALIZATION-FREEZE-V2" as const;
+  "ENGLISH-FREEZE-V3_HI-PA-LOCALIZATION-FREEZE-V3" as const;
 
 const lifecycle = QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
 const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
 const supportedDifficulties = ["Easy", "Medium"] as const;
-const qlIds = COM004_ENGLISH_FREEZE_AUTHORITY_V2.permanentQlIds as readonly string[];
+const qlIds = COM004_ENGLISH_FREEZE_AUTHORITY_V3.permanentQlIds as readonly string[];
 const cpIds = ["COM-004-CP-001"] as const;
 
-const englishAudit = auditCom004EnglishChapterV2();
-const localizationAudit = auditCom004LocalizationChapterV1();
-const localizationFreezeAudit = auditCom004LocalizationFreezeV2();
-const difficultyAudit = auditCom004DifficultyAuthorityV1();
-
-if (!englishAudit.valid) throw new Error(`COM-004 Question Studio English corpus is invalid: ${englishAudit.issues.join(", ")}`);
-if (!localizationAudit.valid || !localizationFreezeAudit.valid) {
-  throw new Error(`COM-004 Question Studio localization corpus is invalid: ${localizationAudit.issues.join(", ") || localizationFreezeAudit.issues.join(", ")}`);
-}
-if (!difficultyAudit.valid) throw new Error(`COM-004 Question Studio difficulty authority is invalid: ${difficultyAudit.issues.join(", ")}`);
+const editorialAudit = auditCom004EditorialCorpusV3();
+const difficultyAudit = auditCom004DifficultyAuthorityV2();
+if (!editorialAudit.valid) throw new Error(`COM-004 editorial corpus invalid: ${editorialAudit.issues.join(", ")}`);
+if (!difficultyAudit.valid) throw new Error(`COM-004 difficulty authority invalid: ${difficultyAudit.issues.join(", ")}`);
 
 type Com004CorpusRecord = {
   questionId: string;
@@ -71,14 +49,14 @@ type Com004CorpusRecord = {
   canonicalAnswer: string;
   explanation: string;
   difficulty: "Easy" | "Medium";
-  difficultyDecision: ReturnType<typeof classifyCom004DifficultyV1>;
+  difficultyDecision: ReturnType<typeof classifyCom004DifficultyV2>;
   sourceEnglishFrozen: true;
   sourceEnglishAuthorityId: string;
   sourceLocalizationFrozen: boolean;
 };
 
 function englishRecord(question: Com004EnglishChapterQuestionV1): Com004CorpusRecord {
-  const difficultyDecision = classifyCom004DifficultyV1(question);
+  const difficultyDecision = classifyCom004DifficultyV2(question);
   return {
     questionId: question.questionId,
     sourceQuestionId: question.questionId,
@@ -97,7 +75,7 @@ function englishRecord(question: Com004EnglishChapterQuestionV1): Com004CorpusRe
     difficulty: difficultyDecision.difficulty,
     difficultyDecision,
     sourceEnglishFrozen: true,
-    sourceEnglishAuthorityId: COM004_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
+    sourceEnglishAuthorityId: COM004_ENGLISH_FREEZE_AUTHORITY_V3.authorityId,
     sourceLocalizationFrozen: true,
   };
 }
@@ -105,11 +83,11 @@ function englishRecord(question: Com004EnglishChapterQuestionV1): Com004CorpusRe
 function localizedRecord(
   question: Com004LocalizedQuestionV1,
 ): Com004CorpusRecord {
-  const source = COM004_ENGLISH_CHAPTER_V2.find(
+  const source = COM004_ENGLISH_CHAPTER_V3.find(
     (candidate) => candidate.questionId === question.sourceQuestionId,
   );
   if (!source) throw new Error(`COM-004 localization has no English source ${question.sourceQuestionId}`);
-  const difficultyDecision = classifyCom004DifficultyV1(source);
+  const difficultyDecision = classifyCom004DifficultyV2(source);
   return {
     questionId: question.localizationId,
     sourceQuestionId: question.sourceQuestionId,
@@ -134,9 +112,9 @@ function localizedRecord(
 }
 
 const COM004_QUESTION_STUDIO_CORPUS_V1: readonly Com004CorpusRecord[] = Object.freeze([
-  ...COM004_ENGLISH_CHAPTER_V2.map(englishRecord),
-  ...COM004_LOCALIZATION_CHAPTER_V1.hi.map(localizedRecord),
-  ...COM004_LOCALIZATION_CHAPTER_V1.pa.map(localizedRecord),
+  ...COM004_ENGLISH_CHAPTER_V3.map(englishRecord),
+  ...COM004_LOCALIZATION_CHAPTER_V3.hi.map(localizedRecord),
+  ...COM004_LOCALIZATION_CHAPTER_V3.pa.map(localizedRecord),
 ]);
 
 function normalizeLanguage(language: QuestionStudioGenerationRequest["language"]): QuestionStudioLanguage {
@@ -231,7 +209,7 @@ export const COM004_STANDARD_BANK_ONLY_PACKAGE_V1: QuestionStudioPackageDefiniti
   subject: "Computer Awareness",
   topic: "Computer Awareness",
   subtopic: "Internet, Web, E-mail & Digital Services",
-  label: "Computer Awareness · Internet, Web, E-mail & Digital Services · English Freeze V2 / Hi-Pa Localization Freeze V2",
+  label: "Computer Awareness · Internet, Web, E-mail & Digital Services · English Freeze V3 / Hi-Pa Localization Freeze V3",
   enabled: true,
   cpIds: [...cpIds],
   supportedLanguages,
@@ -246,7 +224,7 @@ export const COM004_STANDARD_BANK_ONLY_PACKAGE_V1: QuestionStudioPackageDefiniti
   questionBankStatus: lifecycle.questionBankStatus,
   questionBankWritable: lifecycle.questionBankWritable,
   questionBankAcceptanceMode: lifecycle.questionBankAcceptanceMode,
-  questionBankAcceptanceAuthority: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
+  questionBankAcceptanceAuthority: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2.authorityId,
   testEligibility: lifecycle.testEligibility,
   testEligible: lifecycle.testEligible,
   mockTestEligible: lifecycle.mockTestEligible,
@@ -261,26 +239,27 @@ export const COM004_STANDARD_BANK_ONLY_PACKAGE_V1: QuestionStudioPackageDefiniti
     immutableCorpus: true,
     deterministicSelection: true,
     selectionWithoutReplacement: true,
-    registrationAuthorityId: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
-    questionBankAcceptanceAuthority: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
+    registrationAuthorityId: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2.authorityId,
+    questionBankAcceptanceAuthority: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2.authorityId,
     contentAuthorityVersion: COM004_CONTENT_AUTHORITY_VERSION_V1,
+    editorialApproval: COM004_EDITORIAL_APPROVAL_V3,
     permanentQlIds: [...qlIds],
     qlCount: qlIds.length,
     cpIds: [...cpIds],
     cpCount: cpIds.length,
-    englishQuestionCount: COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.frozenEnglishQuestionCount,
-    hindiQuestionCount: COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.frozenHindiQuestionCount,
-    punjabiQuestionCount: COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.frozenPunjabiQuestionCount,
-    corpusAuthorityId: COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.authorityId,
-    englishFreezeAuthorityId: COM004_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
-    englishContentFingerprint: COM004_ENGLISH_FREEZE_AUTHORITY_V2.contentFingerprint,
-    localizationFreezeAuthorityId: COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.authorityId,
-    localizationCombinedFingerprint: COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.fingerprints.combinedFingerprint,
+    englishQuestionCount: COM004_LOCALIZATION_FREEZE_AUTHORITY_V3.frozenEnglishQuestionCount,
+    hindiQuestionCount: COM004_LOCALIZATION_FREEZE_AUTHORITY_V3.frozenHindiQuestionCount,
+    punjabiQuestionCount: COM004_LOCALIZATION_FREEZE_AUTHORITY_V3.frozenPunjabiQuestionCount,
+    corpusAuthorityId: COM004_LOCALIZATION_FREEZE_AUTHORITY_V3.authorityId,
+    englishFreezeAuthorityId: COM004_ENGLISH_FREEZE_AUTHORITY_V3.authorityId,
+    englishContentFingerprint: COM004_ENGLISH_FREEZE_AUTHORITY_V3.contentFingerprint,
+    localizationFreezeAuthorityId: COM004_LOCALIZATION_FREEZE_AUTHORITY_V3.authorityId,
+    localizationCombinedFingerprint: COM004_LOCALIZATION_FREEZE_AUTHORITY_V3.fingerprints.combinedFingerprint,
     revisionPolicy: COM004_REVISION_POLICY_V1,
     difficultyFilterSupported: true,
     supportedDifficulties: [...supportedDifficulties],
     hardDifficultyAuthorized: false,
-    difficultyClassifierVersion: COM004_DIFFICULTY_AUTHORITY_VERSION_V1,
+    difficultyClassifierVersion: COM004_DIFFICULTY_AUTHORITY_VERSION_V2,
     productionDifficultyClaimsAuthorized: false,
   },
 };
@@ -288,7 +267,7 @@ export const COM004_STANDARD_BANK_ONLY_PACKAGE_V1: QuestionStudioPackageDefiniti
 function recordForOutput(record: Com004CorpusRecord) {
   return {
     ...lifecycle,
-    questionBankAcceptanceAuthority: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
+    questionBankAcceptanceAuthority: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2.authorityId,
     id: record.questionId,
     questionId: record.questionId,
     sourceQuestionId: record.sourceQuestionId,
@@ -319,8 +298,8 @@ function recordForOutput(record: Com004CorpusRecord) {
     difficulty: record.difficulty,
     difficultyLabel: record.difficulty,
     difficultyDecisionV1: record.difficultyDecision,
-    packageRegistrationAuthority: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
-    registrationAuthorityId: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
+    packageRegistrationAuthority: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2.authorityId,
+    registrationAuthorityId: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2.authorityId,
     registrationStatus: "REGISTERED_BANK_ONLY_INTERNAL",
     preRegistrationOnly: false,
     questionStudioDiscoverable: true,
@@ -330,21 +309,22 @@ function recordForOutput(record: Com004CorpusRecord) {
     productionReleased: false,
     questionStudioReview: {
       ...lifecycle,
-      questionBankAcceptanceAuthority: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
+      questionBankAcceptanceAuthority: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2.authorityId,
       registrationStatus: "REGISTERED_BANK_ONLY_INTERNAL" as const,
-      registrationAuthorityId: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
+      registrationAuthorityId: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2.authorityId,
       runtimeMode: COM004_QUESTION_STUDIO_RUNTIME_MODE_V1,
       contentAuthorityVersion: COM004_CONTENT_AUTHORITY_VERSION_V1,
+    editorialApproval: COM004_EDITORIAL_APPROVAL_V3,
       humanReviewApproved: true,
       frozenCorpusOnly: true,
       immutableCorpus: true,
       deterministicSelection: true,
       selectionWithoutReplacement: true,
-      englishFreezeAuthorityId: COM004_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
-      localizationFreezeAuthorityId: COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.authorityId,
-      localizationCombinedFingerprint: COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.fingerprints.combinedFingerprint,
+      englishFreezeAuthorityId: COM004_ENGLISH_FREEZE_AUTHORITY_V3.authorityId,
+      localizationFreezeAuthorityId: COM004_LOCALIZATION_FREEZE_AUTHORITY_V3.authorityId,
+      localizationCombinedFingerprint: COM004_LOCALIZATION_FREEZE_AUTHORITY_V3.fingerprints.combinedFingerprint,
       revisionPolicy: COM004_REVISION_POLICY_V1,
-      difficultyClassifierVersion: COM004_DIFFICULTY_AUTHORITY_VERSION_V1,
+      difficultyClassifierVersion: COM004_DIFFICULTY_AUTHORITY_VERSION_V2,
       difficultyTopology: record.difficultyDecision.topology,
       difficultyRationale: record.difficultyDecision.rationale,
       productionDifficultyClaimAuthorized: false,
@@ -409,7 +389,7 @@ export const knowledgeV1Com004QuestionStudioAdapterV1: QuestionStudioEngineAdapt
         packageId: COM004_QUESTION_STUDIO_PACKAGE_ID_V1,
         runtimeMode: COM004_QUESTION_STUDIO_RUNTIME_MODE_V1,
         registrationStatus: "REGISTERED_BANK_ONLY_INTERNAL",
-        registrationAuthorityId: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
+        registrationAuthorityId: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2.authorityId,
         reviewOnly: false,
         humanReviewApproved: true,
         frozenCorpusOnly: true,
@@ -417,12 +397,13 @@ export const knowledgeV1Com004QuestionStudioAdapterV1: QuestionStudioEngineAdapt
         deterministicSelection: true,
         selectionWithoutReplacement: true,
         contentAuthorityVersion: COM004_CONTENT_AUTHORITY_VERSION_V1,
+    editorialApproval: COM004_EDITORIAL_APPROVAL_V3,
         revisionPolicy: COM004_REVISION_POLICY_V1,
         language,
         locale: `${language}-IN`,
         requestedDifficulty,
         difficultyFilterApplied: requestedDifficulty !== "Mixed",
-        difficultyClassifierVersion: COM004_DIFFICULTY_AUTHORITY_VERSION_V1,
+        difficultyClassifierVersion: COM004_DIFFICULTY_AUTHORITY_VERSION_V2,
         productionDifficultyClaimAuthorized: false,
         hardDifficultyAuthorized: false,
         qlSelection: qlId ?? "DETERMINISTIC_ACROSS_PERMANENT_QLS",
@@ -433,12 +414,12 @@ export const knowledgeV1Com004QuestionStudioAdapterV1: QuestionStudioEngineAdapt
         selectionMode: "FROZEN_COM004_DETERMINISTIC_WITHOUT_REPLACEMENT",
         seed,
         count,
-        questionBankAcceptanceAuthority: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId,
-        corpusAuthorityId: COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.authorityId,
-        englishFreezeAuthorityId: COM004_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
-        englishContentFingerprint: COM004_ENGLISH_FREEZE_AUTHORITY_V2.contentFingerprint,
-        localizationFreezeAuthorityId: COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.authorityId,
-        localizationCombinedFingerprint: COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.fingerprints.combinedFingerprint,
+        questionBankAcceptanceAuthority: COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2.authorityId,
+        corpusAuthorityId: COM004_LOCALIZATION_FREEZE_AUTHORITY_V3.authorityId,
+        englishFreezeAuthorityId: COM004_ENGLISH_FREEZE_AUTHORITY_V3.authorityId,
+        englishContentFingerprint: COM004_ENGLISH_FREEZE_AUTHORITY_V3.contentFingerprint,
+        localizationFreezeAuthorityId: COM004_LOCALIZATION_FREEZE_AUTHORITY_V3.authorityId,
+        localizationCombinedFingerprint: COM004_LOCALIZATION_FREEZE_AUTHORITY_V3.fingerprints.combinedFingerprint,
       },
     };
   },

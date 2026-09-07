@@ -1,11 +1,11 @@
 import { strict as assert } from "node:assert";
-import { auditCom004DifficultyAuthorityV1, COM004_DIFFICULTY_AUTHORITY_VERSION_V1 } from "../../knowledge-v1/computer-awareness/com004-difficulty-authority-v1";
-import { auditCom004LocalizationFreezeV2, COM004_LOCALIZATION_FREEZE_AUTHORITY_V2 } from "../../knowledge-v1/computer-awareness/com004-localization-freeze-v2";
+import { auditCom004DifficultyAuthorityV2, COM004_DIFFICULTY_AUTHORITY_VERSION_V2 } from "../../knowledge-v1/computer-awareness/com004-difficulty-authority-v2";
+import { auditCom004EditorialCorpusV3, COM004_LOCALIZATION_FREEZE_AUTHORITY_V3 } from "../../knowledge-v1/computer-awareness/com004-editorial-corpus-v3";
 import {
   getGeneratedQuestionBankAcceptanceMode,
   getGeneratedQuestionBankEligibilityIssue,
 } from "../../lib/admin-question-conversion";
-import { COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1 } from "./com004-bank-only-activation-authority-v1";
+import { COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2 } from "./com004-bank-only-activation-authority-v2";
 import {
   COM004_STANDARD_BANK_ONLY_PACKAGE_V1,
   knowledgeV1Com004QuestionStudioAdapterV1,
@@ -19,7 +19,7 @@ assert.equal(pkg.lifecycleStage, "BANK_ONLY");
 assert.equal(pkg.questionBankStatus, "READY_FOR_STORAGE");
 assert.equal(pkg.questionBankWritable, true);
 assert.equal(pkg.questionBankAcceptanceMode, "BANK_ONLY");
-assert.equal(pkg.questionBankAcceptanceAuthority, COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId);
+assert.equal(pkg.questionBankAcceptanceAuthority, COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2.authorityId);
 assert.equal(pkg.manualApprovalRequired, true);
 assert.deepEqual(pkg.supportedLanguages, ["en", "hi", "pa"]);
 assert.deepEqual(pkg.supportedDifficulties, ["Easy", "Medium"]);
@@ -29,15 +29,15 @@ assert.equal(pkg.mockTestEligible, false);
 assert.equal(pkg.publiclyPublishable, false);
 assert.equal(pkg.automaticStudentPublication, false);
 assert.equal(pkg.productionReleaseAuthorized, false);
-assert.equal(pkg.metadata?.corpusAuthorityId, COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.authorityId);
-assert.equal(pkg.metadata?.englishFreezeAuthorityId, "COM-004-ENGLISH-FREEZE-V2");
-assert.equal(pkg.metadata?.localizationFreezeAuthorityId, COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.authorityId);
-assert.equal(pkg.metadata?.difficultyClassifierVersion, COM004_DIFFICULTY_AUTHORITY_VERSION_V1);
+assert.equal(pkg.metadata?.corpusAuthorityId, COM004_LOCALIZATION_FREEZE_AUTHORITY_V3.authorityId);
+assert.equal(pkg.metadata?.englishFreezeAuthorityId, "COM-004-ENGLISH-FREEZE-V3");
+assert.equal(pkg.metadata?.localizationFreezeAuthorityId, COM004_LOCALIZATION_FREEZE_AUTHORITY_V3.authorityId);
+assert.equal(pkg.metadata?.difficultyClassifierVersion, COM004_DIFFICULTY_AUTHORITY_VERSION_V2);
 assert.equal(pkg.metadata?.productionDifficultyClaimsAuthorized, false);
 assert.equal(pkg.metadata?.immutableCorpus, true);
 
-assert.equal(auditCom004LocalizationFreezeV2().valid, true);
-assert.equal(auditCom004DifficultyAuthorityV1().valid, true);
+assert.equal(auditCom004EditorialCorpusV3().valid, true);
+assert.equal(auditCom004DifficultyAuthorityV2().valid, true);
 
 const request = {
   packageId: "COM-004" as const,
@@ -77,19 +77,19 @@ for (const result of [english, hindi, punjabi]) {
   assert.equal(result.generationContext?.questionBankStatus, "READY_FOR_STORAGE");
   assert.equal(result.generationContext?.questionBankWritable, true);
   assert.equal(result.generationContext?.questionBankAcceptanceMode, "BANK_ONLY");
-  assert.equal(result.generationContext?.questionBankAcceptanceAuthority, COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId);
+  assert.equal(result.generationContext?.questionBankAcceptanceAuthority, COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2.authorityId);
   assert.equal(result.generationContext?.testEligible, false);
   assert.equal(result.generationContext?.mockTestEligible, false);
   assert.equal(result.generationContext?.publiclyPublishable, false);
   assert.equal(result.generationContext?.productionReleaseAuthorized, false);
-  assert.equal(result.generationContext?.corpusAuthorityId, COM004_LOCALIZATION_FREEZE_AUTHORITY_V2.authorityId);
-  assert.equal(result.generationContext?.difficultyClassifierVersion, COM004_DIFFICULTY_AUTHORITY_VERSION_V1);
+  assert.equal(result.generationContext?.corpusAuthorityId, COM004_LOCALIZATION_FREEZE_AUTHORITY_V3.authorityId);
+  assert.equal(result.generationContext?.difficultyClassifierVersion, COM004_DIFFICULTY_AUTHORITY_VERSION_V2);
   assert.equal(result.generationContext?.productionDifficultyClaimAuthorized, false);
   assert.ok(result.questions.every((question: any) => question.registrationStatus === "REGISTERED_BANK_ONLY_INTERNAL"));
   assert.ok(result.questions.every((question: any) => question.readOnly === true));
   assert.ok(result.questions.every((question: any) => question.revisionPolicy === "SOURCE_GENERATOR_ONLY"));
-  assert.ok(result.questions.every((question: any) => question.questionBankAcceptanceAuthority === COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId));
-  assert.ok(result.questions.every((question: any) => question.registrationAuthorityId === COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId));
+  assert.ok(result.questions.every((question: any) => question.questionBankAcceptanceAuthority === COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2.authorityId));
+  assert.ok(result.questions.every((question: any) => question.registrationAuthorityId === COM004_BANK_ONLY_ACTIVATION_AUTHORITY_V2.authorityId));
   assert.ok(result.questions.every((question: any) => question.questionBankWritable === true));
   assert.ok(result.questions.every((question: any) => question.testEligible === false));
   assert.ok(result.questions.every((question: any) => question.mockTestEligible === false));

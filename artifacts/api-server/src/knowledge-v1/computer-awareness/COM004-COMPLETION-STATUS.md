@@ -1,7 +1,7 @@
 # COM-004 completion status
 
-Status: COMPLETED / BANK-ONLY INTERNAL — frozen corpus is registered in the
-existing Question Studio composite; downstream release gates remain closed.
+Status: BANK-ONLY INTERNAL — V3 editorial correction implemented. The user approved
+the 34-item English V3 review. This is not a new whole-chapter editorial approval.
 
 Continuation branch: `feature/com004-chapter-completion-v1`, based on current
 `New-main`, preserving the COM-004 source checkpoint `78ebf6f389e49ac8e9620300163dda544c4b9dc6`.
@@ -18,7 +18,12 @@ must not be used to report current coverage.
 - Hindi: 204 authored items, QL001–017.
 - Punjabi: 204 authored items, QL001–017.
 - Missing: none.
-- V2 is the versioned English freeze bound to the localization corpus; a correction requires a new source version.
+- English and Hindi/Punjabi Freeze V3 now feed Question Studio. V1/V2 remain historical.
+- V3 applies exactly the 34 approved English stems/explanations and 34 translations per local language.
+- The remaining 170 questions per language retain their prior content.
+- Hindi/Punjabi revisions follow the approved English; they have not been separately human-reviewed.
+- Approved review file: `COM004-ENGLISH-QUESTION-REVIEW-V3.md`.
+- V3 approval authority records the exact review-file SHA-256 and all 34 source IDs.
 
 The localization constructor now binds to the complete chapter source rather
 than only Wave 1. It records whether the source is the historical V1 freeze or
@@ -39,7 +44,7 @@ test-builder eligibility or public publication.
 
 ## Controlled registration completed
 
-1. Chapter-wide English Freeze V2 and Hindi/Punjabi Localization Freeze V2 are
+1. Chapter-wide English Freeze V3 and Hindi/Punjabi Localization Freeze V3 are
    versioned and fingerprinted.
 2. The frozen corpus is registered in the existing knowledge-v1 Question Studio
    composite with shared lifecycle, selector validation and deterministic
@@ -49,3 +54,10 @@ test-builder eligibility or public publication.
 
 Question Bank acceptance is `BANK_ONLY` and still requires manual approval. No
 separate studio is created.
+
+## V3 editorial validation
+
+The V3 runtime test compares the authored English text with the approved Markdown,
+checks 612 generated records, preserves answer/options and source IDs, and confirms
+that non-revised questions retain their prior text. Activation V2 binds Freeze V3
+and Difficulty Authority V2 to the existing BANK_ONLY lifecycle.
