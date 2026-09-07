@@ -7,6 +7,7 @@ const languages = ["en", "hi", "pa"] as const;
 const seeds = Array.from({ length: 96 }, (_, index) => `idf-review-${index + 1}`);
 let checked = 0;
 let visibleNumberLabels = 0;
+let opaqueNumberBackplates = 0;
 
 for (const qlId of qls) {
   for (const seed of seeds) {
@@ -24,8 +25,12 @@ for (const qlId of qls) {
     assert.ok(v11English.stimulusSvg.includes('data-idf-number-overlay="true"'), `${qlId}/${seed}: final number overlay missing`);
     const labels = v11English.stimulusSvg.match(/data-idf-number-label="[1-9]"/g) ?? [];
     assert.equal(labels.length, 9, `${qlId}/${seed}: all nine bank labels must be repainted above artwork`);
+    const backplates = v11English.stimulusSvg.match(/width="14" height="14" rx="1\.5" fill="white" stroke="none"/g) ?? [];
+    assert.equal(backplates.length, 9, `${qlId}/${seed}: every final bank number needs its opaque readability plate`);
+    opaqueNumberBackplates += backplates.length;
     for (let number = 1; number <= 9; number += 1) {
       assert.ok(v11English.stimulusSvg.includes(`data-idf-number-label="${number}"`), `${qlId}/${seed}: label ${number} missing`);
+      assert.ok(v11English.stimulusSvg.includes(`font-weight="700" fill="#111827">${number}</text>`), `${qlId}/${seed}: label ${number} text must stay dark and bold`);
     }
     assert.ok(v11English.stimulusSvg.lastIndexOf('data-idf-number-overlay="true"') > v11English.stimulusSvg.lastIndexOf('transform="translate(8 9) scale(.9)"'), `${qlId}/${seed}: number overlay must paint after figure artwork`);
     assert.equal(v11English.validation.numberLabelsPaintedAboveArtwork, true);
@@ -69,6 +74,7 @@ console.log(JSON.stringify({
   languages,
   checked,
   visibleNumberLabels,
+  opaqueNumberBackplates,
   semanticContractUnchangedFromV1: true,
   learnerNumberingRemediated: true,
   learnerExplanationWordingRemediated: true,
