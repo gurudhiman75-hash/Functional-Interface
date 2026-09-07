@@ -1,0 +1,43 @@
+name: Quant V4 Statistics central tendency STAT P0
+
+on:
+  push:
+    branches:
+      - feat/quant-v4-statistics-central-tendency-stat-p0
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001/**"
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001/**"
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
+  workflow_dispatch:
+
+concurrency:
+  group: quant-v4-statistics-stat-p0-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  statistics-central-tendency:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Package namespace guard
+        run: |
+          test -d artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001
+          test ! -d artifacts/api-server/src/quant-v4/topics/Statistics/STA-001
+          ! grep -R 'packageId: "STA-001"\|"STA-TEMP-' artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001
+      - name: Generation and option scan
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001/debug-generation-scan.ts
+      - name: Central tendency deterministic proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001/central-tendency.test.ts
+      - name: Patch hygiene
+        run: git diff --check
