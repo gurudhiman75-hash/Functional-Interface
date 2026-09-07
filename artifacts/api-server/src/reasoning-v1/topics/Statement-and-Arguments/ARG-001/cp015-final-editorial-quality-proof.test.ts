@@ -108,6 +108,14 @@ for (const language of LANGUAGES) {
 
         assert.equal(new Set(argumentKeys).size, argumentKeys.length, `${question.questionId}: duplicate argument text inside final editorial sample`);
         assert.doesNotMatch(statement, /trained invigilators is available|digital examination centres is treated/i, `${question.questionId}: English agreement regression survived final editorial pass`);
+        if (language === "en") {
+          const fullSurface = key([statement, ...argumentsList, explanation].join(" "));
+          assert.doesNotMatch(
+            fullSurface,
+            /secure devices and centres is available|The decision itself is assumed|is treated as making|are treated as inherently insecure|The argument assumes that .* (?:is|are) (?:assumed|treated)/i,
+            `${question.questionId}: machine-like CP015 English meta-template survived final editorial pass`,
+          );
+        }
         for (const fallback of BOILERPLATE) {
           assert.ok(!explanation.includes(fallback), `${question.questionId}: boilerplate weak-argument reason survived final editorial pass: ${fallback}`);
         }
