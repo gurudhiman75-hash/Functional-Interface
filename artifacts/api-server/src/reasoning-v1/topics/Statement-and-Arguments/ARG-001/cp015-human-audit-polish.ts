@@ -1,10 +1,12 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_HUMAN_AUDIT_POLISH_AUTHORITY = "ARG_CP015_HUMAN_AUDIT_POLISH_V1" as const;
+export const ARG_CP015_HUMAN_AUDIT_POLISH_AUTHORITY = "ARG_CP015_HUMAN_AUDIT_POLISH_V2" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
 type Strength = "STRONG" | "WEAK";
+
+type Alternate = Readonly<{ argument: string; reason: string }>;
 
 const ROMAN = ["I", "II", "III", "IV"] as const;
 
@@ -32,9 +34,9 @@ function repairEnglish(value: string): string {
     .replace(/\ban readily\b/gi, "a readily")
     .replace(/\bAny contract workers who\b/gi, "Any contract worker who")
     .replace(/\bAny member of contract workers who\b/gi, "Any contract worker who")
-    .replace(/\bmachine-learning anomaly alert is sufficient evidence\b/gi, "a machine-learning anomaly alert is sufficient evidence")
     .replace(/\bthat machine-learning anomaly alert is sufficient evidence\b/gi, "that a machine-learning anomaly alert is sufficient evidence")
-    .replace(/\btemporary risk controls is unnecessary\b/gi, "temporary risk controls are unnecessary")
+    .replace(/(^|[.!?;:]\s+)machine-learning anomaly alert is sufficient evidence/gi, "$1a machine-learning anomaly alert is sufficient evidence")
+    .replace(/\btemporary risk controls is\b/gi, "temporary risk controls are")
     .replace(/\bservice-access burden that falls disproportionately on long periods\b/gi, "service-access burden that falls disproportionately on people who cannot stand for long periods")
     .replace(/\bfrom most people in the future\b/gi, "among most people");
 }
@@ -42,9 +44,7 @@ function repairEnglish(value: string): string {
 function repairHindi(value: string): string {
   return value
     .replace(/सेवा-शायदतें/g, "सेवा-आवश्यकताएँ")
-    .replace(/अतिरिक्त धोखाधड़ी सुरक्षा की शायदत/g, "अतिरिक्त धोखाधड़ी सुरक्षा की आवश्यकता")
-    .replace(/की कोई शायदत नहीं/g, "की कोई आवश्यकता नहीं")
-    .replace(/कोई शायदत नहीं/g, "कोई आवश्यकता नहीं")
+    .replace(/शायदत/g, "आवश्यकता")
     .replace(/होना शायदी होगा/g, "होना आवश्यक होगा")
     .replace(/अधिकांश नागरिक के पास/g, "अधिकांश नागरिकों के पास")
     .replace(/अधिकांश आगंतुक के पास/g, "अधिकांश आगंतुकों के पास")
@@ -62,8 +62,7 @@ function repairPunjabi(value: string): string {
     .replace(/ਬਿਨਾਂ ਜ਼ਿਆਦਾਤਰ ਕਿਸਮ ਦਾ ([^।,.!?]+?) ਸੰਭਾਲ ਸਕਦੇ ਹਨ/g, "ਬਿਨਾਂ $1 ਦੀਆਂ ਜ਼ਿਆਦਾਤਰ ਕਿਸਮਾਂ ਸੰਭਾਲ ਸਕਦੇ ਹਨ")
     .replace(/ਟ੍ਰੇਨੀਜ਼ ਦੀ ਪਛਾਣ ਕਰਨ ਵਾਲੀ ਨਾਮ ਅਤੇ/g, "ਟ੍ਰੇਨੀਜ਼ ਦੇ ਨਾਮ ਅਤੇ")
     .replace(/(ਪੇਪਰ ਲੀਕ ਦੋਸ਼) ਹੀ ਸਾਬਤ ਕਰਦੀ ਹੈ/g, "$1 ਹੀ ਸਾਬਤ ਕਰਦਾ ਹੈ")
-    .replace(/ਦਾ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸੀ/g, "ਦੇ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸਨ")
-    .replace(/ਦੇ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸੀ/g, "ਦੇ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸਨ");
+    .replace(/(?:ਦਾ|ਦੇ) ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸੀ/g, "ਦੇ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸਨ");
 }
 
 function repairSurface(value: string, language: Language): string {
@@ -128,20 +127,135 @@ function weakFamily(argument: string, language: Language): string | undefined {
   return undefined;
 }
 
-function alternateWeakArgument(language: Language): string {
+function monitoringLabel(statement: string, language: Language): string {
   if (language === "hi") {
-    return "हाँ। कुछ समान संस्थाएँ ऐसे उपाय अपनाती हैं, इसलिए केवल उनका उपयोग कहीं और होना इस प्रस्ताव को अपनाने के लिए पर्याप्त कारण माना जाना चाहिए।";
+    if (statement.includes("कीस्ट्रोक")) return "कीस्ट्रोक लॉगिंग";
+    if (statement.includes("स्क्रीन")) return "स्क्रीन रिकॉर्डिंग";
+    if (statement.includes("स्थान")) return "स्थान ट्रैकिंग";
+    if (statement.includes("वेबकैम")) return "वेबकैम निगरानी";
+    return "यह निगरानी तरीका";
   }
   if (language === "pa") {
-    return "ਹਾਂ। ਕੁਝ ਮਿਲਦੀਆਂ ਸੰਸਥਾਵਾਂ ਅਜਿਹੇ ਕਦਮ ਵਰਤਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਸਿਰਫ਼ ਹੋਰ ਥਾਵਾਂ ਉੱਤੇ ਉਨ੍ਹਾਂ ਦੀ ਵਰਤੋਂ ਹੀ ਇਹ ਪ੍ਰਸਤਾਵ ਅਪਣਾਉਣ ਲਈ ਕਾਫ਼ੀ ਕਾਰਨ ਮੰਨੀ ਜਾਣੀ ਚਾਹੀਦੀ ਹੈ।";
+    if (statement.includes("ਕੀ-ਸਟ੍ਰੋਕ") || statement.includes("ਕੀਸਟ੍ਰੋਕ")) return "ਕੀ-ਸਟ੍ਰੋਕ ਲੌਗਿੰਗ";
+    if (statement.includes("ਸਕ੍ਰੀਨ")) return "ਸਕ੍ਰੀਨ ਰਿਕਾਰਡਿੰਗ";
+    if (statement.includes("ਸਥਾਨ") || statement.includes("ਲੋਕੇਸ਼ਨ")) return "ਸਥਾਨ ਟ੍ਰੈਕਿੰਗ";
+    if (statement.includes("ਵੈਬਕੈਮ")) return "ਵੈਬਕੈਮ ਨਿਗਰਾਨੀ";
+    return "ਇਹ ਨਿਗਰਾਨੀ ਤਰੀਕਾ";
   }
-  return "Yes. Similar organisations use comparable measures, so their use elsewhere should be treated as sufficient reason to adopt this proposal.";
+  if (/keystroke/i.test(statement)) return "keystroke logging";
+  if (/screen recording/i.test(statement)) return "continuous screen recording";
+  if (/location tracking/i.test(statement)) return "location tracking";
+  if (/webcam/i.test(statement)) return "webcam monitoring";
+  return "this monitoring method";
 }
 
-function alternateWeakReason(language: Language): string {
-  if (language === "hi") return "अन्य संस्थाओं द्वारा अपनाया जाना यह सिद्ध नहीं करता कि वर्तमान संदर्भ में प्रस्ताव आवश्यक या लाभकारी है।";
-  if (language === "pa") return "ਹੋਰ ਸੰਸਥਾਵਾਂ ਵੱਲੋਂ ਵਰਤੋਂ ਇਹ ਸਾਬਤ ਨਹੀਂ ਕਰਦੀ ਕਿ ਮੌਜੂਦਾ ਸੰਦਰਭ ਵਿੱਚ ਪ੍ਰਸਤਾਵ ਲੋੜੀਂਦਾ ਜਾਂ ਲਾਭਕਾਰੀ ਹੈ।";
-  return "Use by other organisations does not establish that the proposal is necessary or beneficial in the present context.";
+function contextualAlternate(question: Question, language: Language): Alternate {
+  const qlId = text(question.qlId);
+  const statement = text(question.statement);
+
+  if (qlId === "ARG-QL-002") {
+    if (language === "hi") return Object.freeze({
+      argument: "हाँ। अन्य वित्तीय पोर्टल भी संवेदनशील खाता-बदलाव के लिए अतिरिक्त सत्यापन करते हैं, इसलिए केवल उस प्रथा के आधार पर यहाँ भी यही नियंत्रण सही मान लेना चाहिए।",
+      reason: "अन्य वित्तीय पोर्टलों की प्रथा अपने-आप यह सिद्ध नहीं करती कि यही नियंत्रण इस खाते और इसकी रिकवरी जरूरतों के लिए उपयुक्त है।",
+    });
+    if (language === "pa") return Object.freeze({
+      argument: "ਹਾਂ। ਹੋਰ ਵਿੱਤੀ ਪੋਰਟਲ ਵੀ ਸੰਵੇਦਨਸ਼ੀਲ ਖਾਤਾ-ਬਦਲਾਵਾਂ ਲਈ ਵਾਧੂ ਤਸਦੀਕ ਵਰਤਦੇ ਹਨ, ਇਸ ਲਈ ਸਿਰਫ਼ ਉਸ ਰਿਵਾਜ ਦੇ ਆਧਾਰ 'ਤੇ ਇੱਥੇ ਵੀ ਇਹੀ ਕੰਟਰੋਲ ਠੀਕ ਮੰਨਿਆ ਜਾਣਾ ਚਾਹੀਦਾ ਹੈ।",
+      reason: "ਹੋਰ ਵਿੱਤੀ ਪੋਰਟਲਾਂ ਦੀ ਪ੍ਰਥਾ ਆਪਣੇ ਆਪ ਇਹ ਸਾਬਤ ਨਹੀਂ ਕਰਦੀ ਕਿ ਇਹੀ ਕੰਟਰੋਲ ਇਸ ਖਾਤੇ ਅਤੇ ਇਸ ਦੀ ਰਿਕਵਰੀ ਲੋੜ ਲਈ ਢੁੱਕਵਾਂ ਹੈ।",
+    });
+    return Object.freeze({
+      argument: "Yes. Other financial portals use extra verification for sensitive account changes, so that practice alone should be enough to justify the same control here.",
+      reason: "Use by other financial portals does not by itself establish that the same control is appropriate for this account change and its recovery requirements.",
+    });
+  }
+
+  if (qlId === "ARG-QL-005") {
+    const label = monitoringLabel(statement, language);
+    if (language === "hi") return Object.freeze({
+      argument: `हाँ। दूसरे नियोक्ता भी ${label} का उपयोग करते हैं, इसलिए केवल उसका कहीं और उपयोग होना इस कार्यस्थल में इसे अपनाने के लिए पर्याप्त कारण माना जाना चाहिए।`,
+      reason: `दूसरे नियोक्ताओं द्वारा ${label} का उपयोग यह सिद्ध नहीं करता कि इस कार्यस्थल में यह निगरानी आवश्यक, अनुपातिक या उचित है।`,
+    });
+    if (language === "pa") return Object.freeze({
+      argument: `ਹਾਂ। ਹੋਰ ਨਿਯੋਗਤਾ ਵੀ ${label} ਵਰਤਦੇ ਹਨ, ਇਸ ਲਈ ਸਿਰਫ਼ ਹੋਰ ਥਾਵਾਂ ਉੱਤੇ ਇਸ ਦੀ ਵਰਤੋਂ ਹੀ ਇਸ ਕੰਮਕਾਜੀ ਥਾਂ 'ਤੇ ਇਸਨੂੰ ਅਪਣਾਉਣ ਲਈ ਕਾਫ਼ੀ ਕਾਰਨ ਮੰਨੀ ਜਾਣੀ ਚਾਹੀਦੀ ਹੈ।`,
+      reason: `ਹੋਰ ਨਿਯੋਗਤਾਵਾਂ ਵੱਲੋਂ ${label} ਦੀ ਵਰਤੋਂ ਇਹ ਸਾਬਤ ਨਹੀਂ ਕਰਦੀ ਕਿ ਇਸ ਕੰਮਕਾਜੀ ਥਾਂ 'ਤੇ ਇਹ ਨਿਗਰਾਨੀ ਲੋੜੀਂਦੀ, ਅਨੁਪਾਤਿਕ ਜਾਂ ਨਿਆਂਯੋਗ ਹੈ।`,
+    });
+    return Object.freeze({
+      argument: `Yes. Other employers use ${label}, so its use elsewhere should be treated as sufficient reason to adopt it in this workplace.`,
+      reason: `Use of ${label} by other employers does not establish that the monitoring is necessary, proportionate or fair in this workplace.`,
+    });
+  }
+
+  if (qlId === "ARG-QL-004" && /library|literacy|workshop|session/i.test(statement)) {
+    if (language === "hi") return Object.freeze({
+      argument: "हाँ। कई दूसरी सार्वजनिक पुस्तकालयें डिजिटल-साक्षरता सत्र चलाती हैं, इसलिए केवल यह प्रचलन ही इस पुस्तकालय में वही सत्र शुरू करने के लिए पर्याप्त कारण है।",
+      reason: "दूसरी पुस्तकालयों का ऐसा सत्र चलाना इस पुस्तकालय की जरूरत, लक्ष्य-समूह या अपेक्षित लाभ को अपने-आप सिद्ध नहीं करता।",
+    });
+    if (language === "pa") return Object.freeze({
+      argument: "ਹਾਂ। ਕਈ ਹੋਰ ਜਨਤਕ ਲਾਇਬ੍ਰੇਰੀਆਂ ਡਿਜ਼ਿਟਲ ਸਾਖਰਤਾ ਸੈਸ਼ਨ ਕਰਵਾਉਂਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਸਿਰਫ਼ ਇਹ ਰਿਵਾਜ ਹੀ ਇਸ ਲਾਇਬ੍ਰੇਰੀ ਵਿੱਚ ਉਹੀ ਸੈਸ਼ਨ ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਕਾਫ਼ੀ ਕਾਰਨ ਹੈ।",
+      reason: "ਹੋਰ ਲਾਇਬ੍ਰੇਰੀਆਂ ਵੱਲੋਂ ਅਜਿਹਾ ਸੈਸ਼ਨ ਕਰਵਾਉਣਾ ਇਸ ਲਾਇਬ੍ਰੇਰੀ ਦੀ ਲੋੜ, ਟਾਰਗੇਟ ਸਮੂਹ ਜਾਂ ਉਮੀਦਿਤ ਲਾਭ ਆਪਣੇ ਆਪ ਸਾਬਤ ਨਹੀਂ ਕਰਦਾ।",
+    });
+    return Object.freeze({
+      argument: "Yes. Several other public libraries run digital-literacy sessions, so that practice alone is enough reason for this library to introduce the same session.",
+      reason: "Use of such sessions by other libraries does not establish this library's need, target group or likely benefit.",
+    });
+  }
+
+  if (qlId === "ARG-QL-004") {
+    if (language === "hi") return Object.freeze({
+      argument: "हाँ। कुछ अन्य शहर व्यस्त समय में भारी वाहनों पर प्रतिबंध लगाते हैं, इसलिए केवल उनका ऐसा करना इस सड़क पर वही प्रतिबंध लगाने के लिए पर्याप्त कारण है।",
+      reason: "दूसरे शहरों की नीति इस सड़क के यातायात, वैकल्पिक मार्गों और आवश्यक सेवाओं की स्थिति को अपने-आप सिद्ध नहीं करती।",
+    });
+    if (language === "pa") return Object.freeze({
+      argument: "ਹਾਂ। ਕੁਝ ਹੋਰ ਸ਼ਹਿਰ ਭੀੜ ਵਾਲੇ ਸਮੇਂ ਭਾਰੀ ਵਾਹਨਾਂ 'ਤੇ ਪਾਬੰਦੀ ਲਗਾਉਂਦੇ ਹਨ, ਇਸ ਲਈ ਸਿਰਫ਼ ਉਹਨਾਂ ਦੀ ਇਹ ਨੀਤੀ ਹੀ ਇਸ ਸੜਕ 'ਤੇ ਉਹੀ ਪਾਬੰਦੀ ਲਗਾਉਣ ਲਈ ਕਾਫ਼ੀ ਕਾਰਨ ਹੈ।",
+      reason: "ਹੋਰ ਸ਼ਹਿਰਾਂ ਦੀ ਨੀਤੀ ਇਸ ਸੜਕ ਦੇ ਟ੍ਰੈਫਿਕ, ਬਦਲਵੇਂ ਰਸਤੇ ਅਤੇ ਜ਼ਰੂਰੀ ਸੇਵਾਵਾਂ ਦੀ ਸਥਿਤੀ ਆਪਣੇ ਆਪ ਸਾਬਤ ਨਹੀਂ ਕਰਦੀ।",
+    });
+    return Object.freeze({
+      argument: "Yes. Some other cities restrict heavy vehicles during peak periods, so that practice alone is enough reason to impose the same restriction on this road.",
+      reason: "Policy in other cities does not establish the traffic conditions, alternative routes or essential-access needs on this road.",
+    });
+  }
+
+  if (qlId === "ARG-QL-003") {
+    if (language === "hi") return Object.freeze({
+      argument: "हाँ। दूसरे सार्वजनिक कार्यालय समय-स्लॉट व्यवस्था चलाते हैं, इसलिए केवल उनका ऐसा करना इस सेवा के लिए भी स्लॉट शुरू करने का पर्याप्त कारण है।",
+      reason: "दूसरे कार्यालयों में स्लॉट का उपयोग इस सेवा की मांग, पहुँच और संचालन जरूरतों को अपने-आप सिद्ध नहीं करता।",
+    });
+    if (language === "pa") return Object.freeze({
+      argument: "ਹਾਂ। ਹੋਰ ਸਰਕਾਰੀ ਦਫ਼ਤਰ ਸਮਾਂ-ਸਲਾਟ ਪ੍ਰਣਾਲੀ ਵਰਤਦੇ ਹਨ, ਇਸ ਲਈ ਸਿਰਫ਼ ਉਹਨਾਂ ਦੀ ਇਹ ਪ੍ਰਥਾ ਹੀ ਇਸ ਸੇਵਾ ਲਈ ਵੀ ਸਲਾਟ ਸ਼ੁਰੂ ਕਰਨ ਦਾ ਕਾਫ਼ੀ ਕਾਰਨ ਹੈ।",
+      reason: "ਹੋਰ ਦਫ਼ਤਰਾਂ ਵਿੱਚ ਸਲਾਟ ਦੀ ਵਰਤੋਂ ਇਸ ਸੇਵਾ ਦੀ ਮੰਗ, ਪਹੁੰਚ ਅਤੇ ਚਲਾਉਣ ਦੀ ਲੋੜ ਆਪਣੇ ਆਪ ਸਾਬਤ ਨਹੀਂ ਕਰਦੀ।",
+    });
+    return Object.freeze({
+      argument: "Yes. Other public-service offices use appointment slots, so their use elsewhere is enough reason to introduce slots for this service too.",
+      reason: "Use of appointment slots elsewhere does not establish this service's demand pattern, access needs or operating constraints.",
+    });
+  }
+
+  if (qlId === "ARG-QL-006") {
+    if (language === "hi") return Object.freeze({
+      argument: "हाँ। कुछ अन्य संस्थाएँ ऐसी शिकायतों पर तुरंत कठोर दंड देती हैं, इसलिए केवल उनकी प्रतिक्रिया ही यहाँ भी तत्काल स्थायी दंड का पर्याप्त आधार है।",
+      reason: "दूसरी संस्थाओं की प्रतिक्रिया इस मामले के प्रमाण, प्रक्रिया और अनुपातिकता को अपने-आप सिद्ध नहीं करती।",
+    });
+    if (language === "pa") return Object.freeze({
+      argument: "ਹਾਂ। ਕੁਝ ਹੋਰ ਸੰਸਥਾਵਾਂ ਅਜਿਹੀਆਂ ਸ਼ਿਕਾਇਤਾਂ 'ਤੇ ਤੁਰੰਤ ਕੜੀ ਸਜ਼ਾ ਦਿੰਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਸਿਰਫ਼ ਉਹਨਾਂ ਦੀ ਪ੍ਰਤੀਕਿਰਿਆ ਹੀ ਇੱਥੇ ਵੀ ਤੁਰੰਤ ਸਥਾਈ ਸਜ਼ਾ ਲਈ ਕਾਫ਼ੀ ਆਧਾਰ ਹੈ।",
+      reason: "ਹੋਰ ਸੰਸਥਾਵਾਂ ਦੀ ਪ੍ਰਤੀਕਿਰਿਆ ਇਸ ਮਾਮਲੇ ਦੇ ਸਬੂਤ, ਪ੍ਰਕਿਰਿਆ ਅਤੇ ਅਨੁਪਾਤਿਕਤਾ ਆਪਣੇ ਆਪ ਸਾਬਤ ਨਹੀਂ ਕਰਦੀ।",
+    });
+    return Object.freeze({
+      argument: "Yes. Some other institutions impose severe penalties immediately after similar complaints, so that practice alone is enough to justify a permanent penalty here.",
+      reason: "How other institutions respond does not establish the evidence, due-process position or proportionality of a permanent penalty in this case.",
+    });
+  }
+
+  if (language === "hi") return Object.freeze({
+    argument: "हाँ। दूसरी संस्थाएँ भी इसी तरह की जानकारी प्रकाशित करती हैं, इसलिए केवल उनका ऐसा करना यहाँ भी वही नीति अपनाने के लिए पर्याप्त कारण है।",
+    reason: "दूसरी संस्थाओं की प्रथा वर्तमान प्रक्रिया में इस जानकारी की प्रासंगिकता या लाभ को अपने-आप सिद्ध नहीं करती।",
+  });
+  if (language === "pa") return Object.freeze({
+    argument: "ਹਾਂ। ਹੋਰ ਸੰਸਥਾਵਾਂ ਵੀ ਇਸੇ ਤਰ੍ਹਾਂ ਦੀ ਜਾਣਕਾਰੀ ਜਾਰੀ ਕਰਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਸਿਰਫ਼ ਉਹਨਾਂ ਦੀ ਇਹ ਪ੍ਰਥਾ ਹੀ ਇੱਥੇ ਵੀ ਉਹੀ ਨੀਤੀ ਅਪਣਾਉਣ ਲਈ ਕਾਫ਼ੀ ਕਾਰਨ ਹੈ।",
+    reason: "ਹੋਰ ਸੰਸਥਾਵਾਂ ਦੀ ਪ੍ਰਥਾ ਮੌਜੂਦਾ ਪ੍ਰਕਿਰਿਆ ਵਿੱਚ ਇਸ ਜਾਣਕਾਰੀ ਦੀ ਸੰਬੰਧਤਾ ਜਾਂ ਲਾਭ ਆਪਣੇ ਆਪ ਸਾਬਤ ਨਹੀਂ ਕਰਦੀ।",
+  });
+  return Object.freeze({
+    argument: "Yes. Other institutions publish comparable information, so that practice alone should be enough reason to adopt the same policy here.",
+    reason: "Practice elsewhere does not by itself establish the relevance or benefit of the information in the present process.",
+  });
 }
 
 function claimOf(argument: string, language: Language): string {
@@ -153,7 +267,7 @@ function claimOf(argument: string, language: Language): string {
 function distinctWeakReason(argument: string, language: Language): string {
   if (language === "en") {
     if (/digital|recorded video|automated tutorial/i.test(argument) && /better|superior/i.test(argument)) return "Being digital or recorded does not by itself establish better learning outcomes than the guided alternative in the statement.";
-    if (/lose|lost|all ability|entire ability/i.test(argument) && /learning|training|tutorial|workshop|session/i.test(argument)) return "Replacing guided support may create learning limitations, but it does not establish that participants will lose all ability to achieve the stated learning outcome.";
+    if (/lose|lost|all ability|entire ability/i.test(argument) && /learning|training|tutorial|workshop|session/i.test(argument)) return "Replacing guided support may create learning limitations, but that does not establish that participants will lose all ability to achieve the stated learning outcome.";
     if (/desktop computer/i.test(argument)) return "A slot system does not inherently require every visitor to own an expensive desktop computer; that is an invented implementation condition.";
     if (/unworkable|impossible|cease to be deliverable|unlikely to function/i.test(argument)) return "A scheduling change can create access or rollout problems, but that does not show the underlying service becomes permanently unworkable.";
     if (/complaint|report|flag|allegation/i.test(argument) && /entire|whole|all .*affected/i.test(argument)) return "One complaint or signal does not establish that the whole process was affected; the scope should be verified before a system-wide response is ordered.";
@@ -203,14 +317,14 @@ function stemFor(statement: string, language: Language, argumentsList: readonly 
 
 function validateSurface(questionId: string, language: Language, surface: string, reasons: readonly string[] | undefined): void {
   if (language === "en") {
-    const bad = /\bservices takes\b|\ban readily\b|\bAny contract workers who\b|\bAny member of contract workers\b|\btemporary risk controls is\b|\bservice-access burden that falls disproportionately on long periods\b|(?:^|[.!?]\s+)machine-learning anomaly alert is sufficient evidence/i;
-    if (bad.test(surface)) throw new Error(`${questionId}: CP015 English human-audit grammar regression survived final polish.`);
+    const bad = /\bservices takes\b|\ban readily\b|\bAny contract workers who\b|\bAny member of contract workers\b|\btemporary risk controls is\b|\bservice-access burden that falls disproportionately on long periods\b|(?:^|[.!?]\s+)machine-learning anomaly alert is sufficient evidence|Similar organisations use comparable measures/i;
+    if (bad.test(surface)) throw new Error(`${questionId}: CP015 English human-audit regression survived final polish.`);
   } else if (language === "hi") {
-    const bad = /शायदी|शायदत|क्रेडेंशियल भूलना कराता|बेहतर सीखने के परिणाम बेहतर|अधिकांश (?:नागरिक|आगंतुक) के पास|अधिकांश व्यक्ति के लिए|प्रमाण-आधारित जाँच भी शायद ही/;
-    if (bad.test(surface)) throw new Error(`${questionId}: CP015 Hindi human-audit grammar regression survived final polish.`);
+    const bad = /शायदी|शायदत|क्रेडेंशियल भूलना कराता|बेहतर सीखने के परिणाम बेहतर|अधिकांश (?:नागरिक|आगंतुक) के पास|अधिकांश व्यक्ति के लिए|प्रमाण-आधारित जाँच भी शायद ही|कुछ समान संस्थाएँ ऐसे उपाय अपनाती हैं/;
+    if (bad.test(surface)) throw new Error(`${questionId}: CP015 Hindi human-audit regression survived final polish.`);
   } else {
-    const bad = /ਜ਼ਿਆਦਾਤਰ ਆਉਣ ਵਾਲੇ ਕੋਲ|ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸੀ|ਜ਼ਿਆਦਾਤਰ ਕਿਸਮ ਦਾ/;
-    if (bad.test(surface)) throw new Error(`${questionId}: CP015 Punjabi human-audit grammar regression survived final polish.`);
+    const bad = /ਜ਼ਿਆਦਾਤਰ ਆਉਣ ਵਾਲੇ ਕੋਲ|ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸੀ|ਜ਼ਿਆਦਾਤਰ ਕਿਸਮ ਦਾ|ਕੁਝ ਮਿਲਦੀਆਂ ਸੰਸਥਾਵਾਂ ਅਜਿਹੇ ਕਦਮ ਵਰਤਦੀਆਂ ਹਨ/;
+    if (bad.test(surface)) throw new Error(`${questionId}: CP015 Punjabi human-audit regression survived final polish.`);
   }
 
   if (reasons && new Set(reasons.map(normalized)).size !== reasons.length) {
@@ -239,10 +353,10 @@ export function polishArgCp015HumanAuditSurface(question: Question): Question {
         seenFamilies.set(family, index);
         continue;
       }
-      const replacement = alternateWeakArgument(language);
-      if (!nextArguments.some((argument, candidateIndex) => candidateIndex !== index && normalized(argument) === normalized(replacement))) {
-        nextArguments[index] = replacement;
-        reasons[index] = alternateWeakReason(language);
+      const replacement = contextualAlternate({ ...question, statement: nextStatement }, language);
+      if (!nextArguments.some((argument, candidateIndex) => candidateIndex !== index && normalized(argument) === normalized(replacement.argument))) {
+        nextArguments[index] = replacement.argument;
+        reasons[index] = replacement.reason;
       }
     }
 
