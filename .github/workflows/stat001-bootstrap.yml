@@ -1,12 +1,16 @@
 name: STAT-001 clean transplant
 
 on:
-  push:
+  pull_request:
     branches:
-      - feat/quant-v4-statistics-central-tendency-stat-p0
+      - New-main
     paths:
-      - "artifacts/api-server/src/quant-v4/topics/Statistics/.stat001-bootstrap-trigger"
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/**"
   workflow_dispatch:
+
+concurrency:
+  group: stat001-clean-transplant-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
