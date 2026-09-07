@@ -6,11 +6,6 @@ import {
   SELECTED_BLOCKER_CLOSURE_VERSION,
 } from "./selected-blocker-closure-runtime";
 import {
-  applySelectedEditorialCleanup,
-  repairSelectedPackEditorialDiagnostics,
-  SELECTED_EDITORIAL_CLEANUP_VERSION,
-} from "./selected-editorial-cleanup-runtime";
-import {
   closeSelectedResidualBlockers,
   SELECTED_RESIDUAL_BLOCKER_CLOSURE_VERSION,
 } from "./selected-residual-blocker-closure-runtime";
@@ -101,6 +96,12 @@ export async function finalizeSelectedBlockerClosure(args: {
   actorUserId: string;
   baseResult: Record<string, any>;
 }) {
+  const {
+    applySelectedEditorialCleanup,
+    repairSelectedPackEditorialDiagnostics,
+    SELECTED_EDITORIAL_CLEANUP_VERSION,
+  } = await import("./selected-editorial-cleanup-runtime");
+
   const residualClosure = await closeSelectedResidualBlockers({
     targetDate: args.targetDate,
     actorUserId: args.actorUserId,
