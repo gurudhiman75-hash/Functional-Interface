@@ -88,13 +88,16 @@ export function generateIdenticalFigureReviewQuestionV1_1(input: Readonly<{
   const base = generateIdenticalFigureReviewQuestionV1(input);
   const stimulusSvg = paintNumberLabelsAboveArtwork(base.stimulusSvg);
   const explanation = naturalExplanation(input.language, base);
+  const presentationFingerprint = fingerprint(`${base.geometryFingerprint}|${stimulusSvg}`);
+  const contentFingerprint = fingerprint(`${base.contentFingerprint}|${presentationFingerprint}|${explanation.observation}|${explanation.rule}|${explanation.application}|${explanation.check}`);
 
   return Object.freeze({
     ...base,
     version: "SPA-IDF-001-REVIEW-QUESTION-V1.1" as const,
     stimulusSvg,
     explanation,
-    presentationFingerprint: fingerprint(`${base.geometryFingerprint}|${stimulusSvg}|${explanation.observation}|${explanation.check}`),
+    contentFingerprint,
+    presentationFingerprint,
     validation: Object.freeze({
       ...base.validation,
       numberLabelsPaintedAboveArtwork: true as const,
