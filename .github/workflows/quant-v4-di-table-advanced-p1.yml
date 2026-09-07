@@ -1,0 +1,29 @@
+name: Quant V4 DI advanced Table P1
+
+on:
+  push:
+    branches:
+      - feat/quant-v4-di-table-advanced-p1
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/**"
+      - ".github/workflows/quant-v4-di-table-advanced-p1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  di-advanced-table:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Advanced Table DI deterministic proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/DataInterpretation/DI-002/advanced-table-set.test.ts
+
+      - name: Patch hygiene
+        run: git diff --check
