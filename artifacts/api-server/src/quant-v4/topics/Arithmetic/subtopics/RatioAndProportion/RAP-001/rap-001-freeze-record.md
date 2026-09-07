@@ -1,7 +1,7 @@
 # RAP-001 Freeze Record
 
 Reviewed commit: `8450deef2e06cc9e031b6d3221b7e54d226199b1
-Reviewed date: `2026-07-15`
+Reviewed date: `2026-09-07`
 
 ## Status
 
@@ -26,4 +26,12 @@ Reviewed date: `2026-07-15`
 - cross-QL exact duplicate stem groups = 0
 - same-QL repeated stem groups = 8
 - verdict = AUTOMATED QA CLEAN; READY FOR MANUAL EDITORIAL REVIEW
-- manual editorial status = PENDING
+- manual editorial status = REVIEW_READY
+
+## Editorial review checkpoint
+
+- Review file: `RAP-001-ENGLISH-EDITORIAL-REVIEW-V1.md`
+- Scope: one representative generated question for each of the 67 active QLs.
+- Automated review flags: 9 stem-template risks; explanation padding is exposed for human review.
+- No mathematical, solver, validation, localization or runtime contract was changed by this checkpoint.
+- Freeze remains blocked until English editorial decisions are recorded and the approved copy is regenerated.
