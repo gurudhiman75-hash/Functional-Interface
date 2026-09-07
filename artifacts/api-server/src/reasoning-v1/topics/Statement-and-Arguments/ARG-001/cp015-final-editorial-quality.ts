@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_FINAL_EDITORIAL_QUALITY_AUTHORITY = "ARG_CP015_FINAL_EDITORIAL_QUALITY_V5" as const;
+export const ARG_CP015_FINAL_EDITORIAL_QUALITY_AUTHORITY = "ARG_CP015_FINAL_EDITORIAL_QUALITY_V6" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -195,6 +195,7 @@ function specificEnglishReason(argument: string): string {
   if (/cannot be secure even when/i.test(argument)) return "The argument declares the digital examination setup insecure despite the named safeguards or infrastructure, but gives no reason why those measures cannot materially reduce the risk.";
   if (/approving the switch will automatically make sufficient/i.test(argument)) return "Approving the switch cannot itself create the required staffing, connectivity, devices or centre capacity by the stated deadline; readiness requires separate planning and evidence.";
   if (/using time slots would make .* unworkable in the long term/i.test(argument)) return "A scheduling system can create access or rollout problems, but that does not show the underlying service becomes unworkable in the long term.";
+  if (/once time slots are introduced, .* (?:is|are) unlikely to function successfully again/i.test(argument)) return "Introducing time slots may create access or implementation problems, but that does not show the underlying service will generally stop functioning successfully.";
   if (/time-slot system would make public services inaccessible to a large share of users/i.test(argument)) return "A time-slot system may need walk-in or assisted alternatives, but the argument gives no basis for claiming that the system itself would exclude a large share of users.";
   if (/without transition support|without resident or user communication/i.test(argument)) return "The argument assumes the new rule will work immediately without communication or transition support, which is an unproved implementation assumption.";
   if (/single result is treated as enough reason to keep heavy vehicles barred/i.test(argument)) return "A benefit during the targeted period does not justify extending the restriction beyond that period into a broader ban.";
