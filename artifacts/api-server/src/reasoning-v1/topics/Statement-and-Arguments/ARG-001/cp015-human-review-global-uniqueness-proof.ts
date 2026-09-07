@@ -16,7 +16,7 @@ type Payload = Readonly<{
   packageId: string;
   checkpointId: string;
   totalQuestions: number;
-  languages: readonly Language[];
+  supportedReviewLanguages: readonly Language[];
   items: readonly ReviewItem[];
 }>;
 
@@ -67,7 +67,7 @@ const payload = JSON.parse(readFileSync(REVIEW_JSON, "utf8")) as Payload;
 assert.equal(payload.packageId, "ARG-001");
 assert.equal(payload.checkpointId, "ARG-CP-015");
 assert.equal(payload.totalQuestions, 216, "CP015 fixed human-review export must contain 216 questions.");
-assert.deepEqual(payload.languages, LANGUAGES, "CP015 fixed human-review export language set drifted.");
+assert.deepEqual(payload.supportedReviewLanguages, LANGUAGES, "CP015 fixed human-review export language set drifted.");
 assert.equal(payload.items.length, 216, "CP015 fixed human-review payload item count drifted.");
 
 const metrics: Record<string, unknown> = {};
