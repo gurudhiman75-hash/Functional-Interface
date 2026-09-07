@@ -1,24 +1,7 @@
 name: Validate SPA Family Final Closure Audit V2
 
 on:
-  pull_request:
-    branches:
-      - New-main
-    paths:
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-family-final-closure-audit-v2.ts'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v13.ts'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v9.ts'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/cubes-dice-test-builder-activation-v1.ts'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/figure-formation-freeze-v1.ts'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/dot-situation-freeze-v1.ts'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/figure-matrix-freeze-v1.ts'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/identical-figure-freeze-v1.ts'
-      - 'artifacts/api-server/src/reasoning-v1/tests/spatial-family-final-closure-audit-v2.test.ts'
   workflow_dispatch:
-
-concurrency:
-  group: spa-family-final-closure-audit-v2-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
 
 permissions:
   contents: read
