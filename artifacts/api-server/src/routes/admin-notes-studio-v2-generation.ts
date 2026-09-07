@@ -14,6 +14,7 @@ import {
   type NotesStudioV2NoteBlock,
 } from '../notes-studio-v2/core';
 import adminNotesStudioV2PdfIngestionRouter from './admin-notes-studio-v2-pdf-ingestion';
+import adminNotesStudioV2ResumablePdfRouter, { isResumablePdfRoute } from './admin-notes-studio-v2-resumable-pdf';
 
 const router: IRouter = Router();
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -96,10 +97,14 @@ async function loadActiveStyleWithExemplars() {
   return { ...style, exemplars };
 }
 
-// Keep the robust PDF override inside the already-isolated v2 router chain. The
-// central route registry remains unchanged, so legacy Notes Studio and unrelated
-// admin surfaces are not made dependent on the v2 ingestion implementation.
+// New resumable PDF lifecycle is intercepted before compatibility handlers. The
+// old whole-file upload override remains available during rollout for clients that
+// have not yet adopted upload sessions.
 router.use((req, res, next) => {
+  if (isResumablePdfRoute(req.method, req.path)) {
+    adminNotesStudioV2ResumablePdfRouter(req, res, next);
+    return;
+  }
   if (req.method === 'POST' && /^\/periods\/[^/]+\/corpus\/upload\/?$/.test(req.path)) {
     adminNotesStudioV2PdfIngestionRouter(req, res, next);
     return;
@@ -141,6 +146,19 @@ router.post(
       `;
       const period = periods[0] as any;
       if (!period) throw new NotesStudioV2GenerationError('PERIOD_NOT_FOUND', 'Period not found.', 404);
+
+      const incompleteCorpus = await sqlClient`
+        SELECT COUNT(*)::int AS count
+        FROM notes_studio_v2.corpus_upload_sessions
+        WHERE period_id = ${periodId}::uuid AND status <> 'ready'
+      `;
+      if (Number((incompleteCorpus[0] as any)?.count ?? 0) > 0) {
+        throw new NotesStudioV2GenerationError(
+          'CORPUS_EXTRACTION_INCOMPLETE',
+          'Finish or retry all resumable PDF extractions for this period before generating notes.',
+          409,
+        );
+      }
 
       let subCategoryName: string | null = null;
       if (subCategoryId) {
