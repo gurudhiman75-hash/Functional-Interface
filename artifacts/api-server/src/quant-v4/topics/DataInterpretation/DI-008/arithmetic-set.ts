@@ -136,8 +136,12 @@ function buildDrafts(seed: string, profile: Di008ExamProfile, stimulus: Di008Sti
   const revenueRatioAnswer = ratioDisplay(leftRevenue, rightRevenue);
   const leftUnits = sum(rows, ratioLeft, "unitsCurrent");
   const rightUnits = sum(rows, ratioRight, "unitsCurrent");
+  const leftPreviousUnits = sum(rows, ratioLeft, "unitsPrevious");
+  const rightPreviousUnits = sum(rows, ratioRight, "unitsPrevious");
   const leftCost = costTotal(rows, ratioLeft);
   const rightCost = costTotal(rows, ratioRight);
+  const leftProfit = leftRevenue - leftCost;
+  const rightProfit = rightRevenue - rightCost;
 
   const aggregateCost = costTotal(rows, profitIndices);
   const aggregateRevenue = revenueTotal(rows, profitIndices);
@@ -185,8 +189,11 @@ function buildDrafts(seed: string, profile: Di008ExamProfile, stimulus: Di008Sti
       answer: revenueRatioAnswer,
       candidates: [
         { text: ratioDisplay(rightRevenue, leftRevenue), misconceptionId: "REVERSE_REVENUE_RATIO", derivation: "Reverses the two revenue groups while forming the requested ratio." },
-        { text: ratioDisplay(leftUnits, rightUnits), misconceptionId: "USE_UNITS_RATIO", derivation: "Compares units sold and ignores the selling price per unit needed for revenue." },
-        { text: ratioDisplay(leftCost, rightCost), misconceptionId: "USE_COST_OUTLAY_RATIO", derivation: "Uses total cost instead of sales revenue for the two groups." },
+        { text: ratioDisplay(leftUnits, rightUnits), misconceptionId: "USE_UNITS_RATIO", derivation: "Compares current units sold and ignores the selling price per unit needed for revenue." },
+        { text: ratioDisplay(leftCost, rightCost), misconceptionId: "USE_COST_OUTLAY_RATIO", derivation: "Uses total current-period cost instead of sales revenue for the two groups." },
+        { text: ratioDisplay(leftProfit, rightProfit), misconceptionId: "USE_PROFIT_RATIO", derivation: "Compares total profit from the two groups instead of their current-period sales revenue." },
+        { text: ratioDisplay(leftPreviousUnits, rightPreviousUnits), misconceptionId: "USE_PREVIOUS_PERIOD_UNITS_RATIO", derivation: "Compares previous-period units for the two groups instead of their current-period revenue." },
+        { text: ratioDisplay(leftRevenue * rightUnits, rightRevenue * leftUnits), misconceptionId: "USE_AVERAGE_SELLING_PRICE_RATIO", derivation: "Compares weighted average selling price per unit rather than total current-period revenue." },
         { text: ratioDisplay(leftRevenue, leftRevenue + rightRevenue), misconceptionId: "LEFT_REVENUE_TO_PAIR_TOTAL", derivation: "Compares the first group with the pair total instead of with the second group." },
         { text: ratioDisplay(rightRevenue, leftRevenue + rightRevenue), misconceptionId: "RIGHT_REVENUE_TO_PAIR_TOTAL", derivation: "Compares the second group with the pair total rather than preserving the requested two-group ratio." },
       ],
@@ -194,7 +201,7 @@ function buildDrafts(seed: string, profile: Di008ExamProfile, stimulus: Di008Sti
         keyIdea: "Revenue equals current units sold multiplied by selling price per unit; calculate revenue for each requested group before simplifying the ratio.",
         steps: [`Revenue of ${names(rows, ratioLeft)} = ₹${leftRevenue}; revenue of ${names(rows, ratioRight)} = ₹${rightRevenue}.`, `Required ratio = ${leftRevenue}:${rightRevenue} = ${revenueRatioAnswer}.`],
         shortcut: "Do not compute profit or cost for a revenue-ratio question; only current units × selling price matters.",
-        trap: "A units-sold ratio is generally not a revenue ratio because the selling prices differ across products.",
+        trap: "A units-sold, cost or profit ratio is generally not a revenue ratio because both quantity and selling price determine revenue.",
       },
       evidence: { primaryIndices: ratioLeft, secondaryIndices: ratioRight },
     },
