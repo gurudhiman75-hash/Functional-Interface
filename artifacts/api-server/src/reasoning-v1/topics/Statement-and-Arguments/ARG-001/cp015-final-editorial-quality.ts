@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_FINAL_EDITORIAL_QUALITY_AUTHORITY = "ARG_CP015_FINAL_EDITORIAL_QUALITY_V4" as const;
+export const ARG_CP015_FINAL_EDITORIAL_QUALITY_AUTHORITY = "ARG_CP015_FINAL_EDITORIAL_QUALITY_V5" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -57,6 +57,13 @@ function strengthsOf(question: Question, count: number): readonly Strength[] | u
 function repairEnglish(value: string): string {
   return value
     .replace(/\btrained invigilators is available\b/gi, "trained invigilators are available")
+    .replace(/\bsecure devices and centres is available\b/gi, "secure devices and examination-centre capacity are available")
+    .replace(/\bThe decision itself is assumed to make enough (.+?) available everywhere (.+?)\./gi, "Approving the switch will automatically make sufficient $1 available everywhere $2.")
+    .replace(/\bDigital examination centres are treated as inherently insecure even where stable connectivity is available\./gi, "Digital examination centres cannot be secure even when stable connectivity is available.")
+    .replace(/\bDigital examination centres are treated as inherently insecure even where secure devices and examination-centre capacity are available\./gi, "Digital examination centres cannot be secure even when secure devices and examination-centre capacity are available.")
+    .replace(/\bTablet-based testing centres are treated as inherently insecure even where trained invigilators are available\./gi, "Tablet-based testing centres cannot be secure even when trained invigilators are available.")
+    .replace(/\bAny use of time slots is treated as making (.+?) unworkable in the long term\./gi, "Using time slots would make $1 unworkable in the long term.")
+    .replace(/\bA time-slot system is treated as making public services inaccessible to a large share of users\./gi, "A time-slot system would make public services inaccessible to a large share of users.")
     .replace(/\b(digital examination centres) is treated\b/gi, "$1 are treated")
     .replace(/\b(tablet-based testing centres) is treated\b/gi, "$1 are treated")
     .replace(/\b(An? [^.]+?) is generally proof of fraud, so there is no need for (.+?) even if (.+?)\./gi, "$1 is treated as sufficient evidence of fraud on its own, so $2 is considered unnecessary even if $3.")
@@ -185,8 +192,10 @@ function specificEnglishReason(argument: string): string {
   if (/single .* complaint.*entire .* affected|complete re-examination without verifying evidence and scope/i.test(argument)) return "One complaint does not establish that the whole examination was affected; the scope should be verified before ordering a complete re-examination.";
   if (/desktop computer|own an expensive desktop/i.test(argument)) return "The proposal does not inherently require each user to own the assumed device, so the claimed access barrier is not established.";
   if (/rebuilding|extensive rebuilding/i.test(argument)) return "The argument assumes the proposed queue-management measure requires extensive rebuilding, but no such implementation dependency is established.";
-  if (/inherently insecure/i.test(argument) && /invigilators/i.test(argument)) return "The testing format is labelled inherently insecure even when trained invigilators are available, but the argument gives no reason why those controls cannot materially reduce the stated risk.";
-  if (/decision itself is assumed to make enough trained invigilators/i.test(argument)) return "Announcing a switch cannot itself create enough trained invigilators by the stated deadline; staffing readiness requires separate planning and evidence.";
+  if (/cannot be secure even when/i.test(argument)) return "The argument declares the digital examination setup insecure despite the named safeguards or infrastructure, but gives no reason why those measures cannot materially reduce the risk.";
+  if (/approving the switch will automatically make sufficient/i.test(argument)) return "Approving the switch cannot itself create the required staffing, connectivity, devices or centre capacity by the stated deadline; readiness requires separate planning and evidence.";
+  if (/using time slots would make .* unworkable in the long term/i.test(argument)) return "A scheduling system can create access or rollout problems, but that does not show the underlying service becomes unworkable in the long term.";
+  if (/time-slot system would make public services inaccessible to a large share of users/i.test(argument)) return "A time-slot system may need walk-in or assisted alternatives, but the argument gives no basis for claiming that the system itself would exclude a large share of users.";
   if (/without transition support|without resident or user communication/i.test(argument)) return "The argument assumes the new rule will work immediately without communication or transition support, which is an unproved implementation assumption.";
   if (/single result is treated as enough reason to keep heavy vehicles barred/i.test(argument)) return "A benefit during the targeted period does not justify extending the restriction beyond that period into a broader ban.";
   if (/lasting damage to activity throughout the surrounding area/i.test(argument)) return "A short peak-period restriction does not by itself establish lasting damage throughout the surrounding area; the claimed scale and duration of harm are unsupported.";
