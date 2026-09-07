@@ -112,13 +112,32 @@ function polishedGroupTable(language: IdenticalFigureLanguageV1, base: BaseQuest
 }
 
 function failureDescriptions(language: IdenticalFigureLanguageV1, base: BaseQuestionV1): string {
+  if (base.qlId === "SPA-QL-063") {
+    const relation = base.solveFacts.transformPolicy === "ROTATION_ONLY"
+      ? {
+          en: "does not reduce to one common endpoint-mark arrangement by rotation alone",
+          hi: "केवल घुमाने पर एक ही सिरा-चिह्न विन्यास में नहीं आता",
+          pa: "ਕੇਵਲ ਘੁੰਮਾਉਣ ਨਾਲ ਇੱਕੋ ਸਿਰਾ-ਨਿਸ਼ਾਨ ਬਣਤਰ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦਾ",
+        }
+      : {
+          en: "does not reduce to one common endpoint-mark arrangement by rotation/reflection",
+          hi: "घुमाव/दर्पण-प्रतिबिंब पर एक ही सिरा-चिह्न विन्यास में नहीं आता",
+          pa: "ਘੁੰਮਾਓ/ਦਰਪਣ-ਪਰਛਾਵੇਂ ਨਾਲ ਇੱਕੋ ਸਿਰਾ-ਨਿਸ਼ਾਨ ਬਣਤਰ ਵਿੱਚ ਨਹੀਂ ਆਉਂਦਾ",
+        };
+    return base.solveFacts.distractorFailures.map((failure) => {
+      if (language === "hi") return `${failure.option}: समूह (${failure.mixedGroup.join(", ")}) ${relation.hi}`;
+      if (language === "pa") return `${failure.option}: ਗਰੁੱਪ (${failure.mixedGroup.join(", ")}) ${relation.pa}`;
+      return `${failure.option}: group (${failure.mixedGroup.join(", ")}) ${relation.en}`;
+    }).join("; ");
+  }
+
   const keyByNumber = new Map(base.solveFacts.semanticKeysByFigure.map((row) => [row.number, row.key] as const));
   return base.solveFacts.distractorFailures.map((failure) => {
     const labels = [...new Set(failure.mixedGroup.map((number) => learnerKeyLabel(keyByNumber.get(number) ?? "", language)))];
     if (language === "hi") return `${failure.option}: समूह (${failure.mixedGroup.join(", ")}) में ${labels.join(" और ")} मिल गए हैं`;
     if (language === "pa") return `${failure.option}: ਗਰੁੱਪ (${failure.mixedGroup.join(", ")}) ਵਿੱਚ ${labels.join(" ਅਤੇ ")} ਮਿਲੇ ਹੋਏ ਹਨ`;
     return `${failure.option}: group (${failure.mixedGroup.join(", ")}) mixes ${labels.join(" and ")}`;
-  }).join(language === "en" ? "; " : "; ");
+  }).join("; ");
 }
 
 function naturalExplanation(
