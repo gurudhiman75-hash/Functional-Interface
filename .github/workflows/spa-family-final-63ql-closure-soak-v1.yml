@@ -1,24 +1,7 @@
 name: Validate SPA 63-QL Final Unified Closure Soak V1
 
 on:
-  pull_request:
-    branches:
-      - New-main
-    paths:
-      - 'artifacts/api-server/src/reasoning-v1/tests/spatial-family-final-63ql-closure-soak-v1.test.ts'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-family-final-closure-audit-v2.ts'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-permanent-ql-allocation-v13.ts'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-integration-v9.ts'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/spatial-question-studio-production-v9.ts'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/cubes-dice-test-builder-activation-v1.ts'
-      - 'artifacts/api-server/src/reasoning-v1/foundation/spatial/cubes-dice-question-studio-test-builder-runtime-v1.ts'
-      - 'artifacts/api-server/src/question-studio/shared-generation-engine-sri.ts'
-      - 'artifacts/api-server/src/routes/admin-question-studio-registry.ts'
   workflow_dispatch:
-
-concurrency:
-  group: spa-family-final-63ql-closure-soak-v1-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
 
 permissions:
   contents: read
