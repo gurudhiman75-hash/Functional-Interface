@@ -33,7 +33,8 @@ export function probabilityStemEditorialViolations(value: string): string[] {
   if (META_STEM_PREFIX.test(stem)) violations.push("META_PREFIX");
   if (META_STEM_PATTERNS.some((pattern) => pattern.test(stem))) violations.push("META_EDITORIAL_LANGUAGE");
   if (/\b[A-Z]+(?:_[A-Z]+)+\b/.test(stem)) violations.push("INTERNAL_IDENTIFIER");
-  if (/\{[^}]+\}/.test(stem)) violations.push("UNRESOLVED_PLACEHOLDER");
+  // Placeholder integrity is validated before MathJax rendering by the package validator.
+  // Rendered learner stems legitimately contain braces in constructs such as \\frac{1}{4}.
   if (/^[a-z]/.test(stem)) violations.push("LOWERCASE_OPENING");
 
   return [...new Set(violations)];
