@@ -47,6 +47,8 @@ const MALFORMED: Readonly<Record<Language, readonly RegExp[]>> = Object.freeze({
     /should be treated as sufficient to solve the queue problem/i,
     /will largely solve most related difficult/i,
     /\bis generally proof of fraud\b/i,
+    /\btrained invigilators is available\b/i,
+    /\bdigital examination centres is treated\b/i,
   ]),
   hi: Object.freeze([
     /अधिकांश दस दिन/,
@@ -66,6 +68,10 @@ const MALFORMED: Readonly<Record<Language, readonly RegExp[]>> = Object.freeze({
 
 function words(value: string): number {
   return value.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function argumentKey(value: string): string {
+  return value.trim().toLocaleLowerCase("en-IN").replace(/\s+/g, " ");
 }
 
 function sampleCell(language: Language, qlId: string, cell: Cell, cellIndex: number): readonly Question[] {
@@ -102,6 +108,13 @@ for (const language of LANGUAGES) {
         if (question.antiGamingGrammarPolishAuthority) grammarPolishedQuestions += 1;
         const argumentsList = Array.isArray(question.arguments) ? question.arguments as readonly string[] : [];
         sampledArguments += argumentsList.length;
+
+        const argumentKeys = argumentsList.map(argumentKey);
+        assert.equal(
+          new Set(argumentKeys).size,
+          argumentKeys.length,
+          `${question.questionId}: duplicate argument text inside one CP015 question`,
+        );
 
         for (const [argumentIndex, argument] of argumentsList.entries()) {
           for (const pattern of MALFORMED[language]) {
