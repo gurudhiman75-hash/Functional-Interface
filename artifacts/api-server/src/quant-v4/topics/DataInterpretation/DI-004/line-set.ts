@@ -171,7 +171,6 @@ function buildDrafts(seed: string, stimulus: Di004Stimulus): Draft[] {
   const averageBSum = averageBValues.reduce((sum, value) => sum + value, 0);
   const averageBAnswer = formatAverage(averageBSum, 3);
   const averageASum = averageIndexes.reduce((sum, index) => sum + points[index]!.seriesA, 0);
-  const totalWindowSum = averageIndexes.reduce((sum, index) => sum + points[index]!.seriesA + points[index]!.seriesB, 0);
 
   const bValues = points.map((point) => point.seriesB);
   const bMin = Math.min(...bValues);
@@ -260,21 +259,21 @@ function buildDrafts(seed: string, stimulus: Di004Stimulus): Draft[] {
       stem: `What was the average number of online orders in Region B from ${points[averageStart]!.period} through ${points[averageStart + 2]!.period}?`,
       answer: averageBAnswer,
       candidates: [
-        { text: formatAverage(averageASum, 3), misconceptionId: "AVERAGE_REGION_A_INSTEAD", derivation: "Averages Region A over the same three quarters instead of Region B." },
         { text: String(averageBSum), misconceptionId: "USE_THREE_PERIOD_SUM", derivation: "Adds the three Region B values but forgets to divide by the number of quarters." },
-        { text: formatAverage(averageBSum, 2), misconceptionId: "DIVIDE_BY_TWO", derivation: "Uses the correct three-quarter total but divides by 2 instead of 3." },
-        { text: formatAverage(totalB, 6), misconceptionId: "USE_SIX_PERIOD_AVERAGE", derivation: "Calculates Region B's six-quarter average instead of the requested three-quarter window." },
-        { text: formatAverage(totalWindowSum, 6), misconceptionId: "AVERAGE_BOTH_REGIONS", derivation: "Averages both regions across the three-quarter window instead of Region B alone." },
+        { text: formatAverage(averageBSum, 2), misconceptionId: "DIVIDE_BY_TWO_INTERVALS", derivation: "Divides the three-quarter total by the two gaps between plotted points instead of by three observations." },
+        { text: formatAverage(averageBSum, 4), misconceptionId: "DIVIDE_BY_FOUR_QUARTERS", derivation: "Treats the requested three-quarter window as if it contained four observations." },
+        { text: formatAverage(averageBSum, 6), misconceptionId: "DIVIDE_BY_ALL_SIX_PERIODS", derivation: "Uses the six periods shown on the chart as the divisor even though only three Region B values were added." },
         { text: formatAverage(averageBValues[0]! + averageBValues[2]!, 2), misconceptionId: "IGNORE_MIDDLE_PERIOD", derivation: "Averages only the first and last Region B values and omits the middle quarter." },
+        { text: formatAverage(averageASum, 3), misconceptionId: "AVERAGE_REGION_A_INSTEAD", derivation: "Averages Region A over the same three quarters instead of Region B." },
       ],
       explanation: {
-        keyIdea: "Read Region B at each of the three consecutive quarters, add those values, then divide by three.",
+        keyIdea: "Read Region B at each of the three consecutive quarters, add those values, then divide by three observations.",
         steps: [
           `Region B values = ${averageBValues.join(", ")}; total = ${averageBValues.join(" + ")} = ${averageBSum}.`,
           `Average = ${averageBSum}/3 = ${averageBAnswer}.`,
         ],
         shortcut: "Trace only the Region B line across the requested window before doing any arithmetic; this prevents mixing the two series.",
-        trap: "Do not use all six quarters or average both lines. The window and the series are both explicitly restricted.",
+        trap: "Count observations, not intervals or all chart labels: three plotted Region B values means divide the selected total by three.",
       },
       evidence: { startIndex: averageStart },
     },
