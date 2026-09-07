@@ -14,10 +14,10 @@ import { generateFigureFormationReviewQuestionV5 } from "./figure-formation-revi
 import { FIGURE_FORMATION_INTERNAL_ACTIVATION_V2 } from "./figure-formation-freeze-v1";
 import type { SpatialQuestionStudioLanguageV1 } from "./spatial-question-studio-localization-v1";
 import {
-  generateSpatialProductionStudioBatchV8,
-  generateSpatialProductionStudioQuestionV8,
-  type SpatialProductionStudioQuestionV8,
-} from "./spatial-question-studio-production-v8";
+  generateSpatialProductionStudioBatchV9,
+  generateSpatialProductionStudioQuestionV9,
+  type SpatialProductionStudioQuestionV9,
+} from "./spatial-question-studio-production-v9";
 
 const FFM_QL_IDS = new Set<string>(["SPA-QL-051", "SPA-QL-052", "SPA-QL-053"]);
 
@@ -158,7 +158,7 @@ export function generateSpatialProductionStudioBatchV6(request: SpatialProductio
   });
 }
 
-// V6 remains the immutable FFM checkpoint. Current-route aliases advance to the approved FMT extension.
-export const generateSpatialProductionStudioBatchV1 = generateSpatialProductionStudioBatchV8;
-export const generateSpatialProductionStudioQuestionV1 = generateSpatialProductionStudioQuestionV8;
-export type SpatialProductionStudioQuestionV1 = SpatialProductionStudioQuestionV8;
+// V6 remains the immutable FFM checkpoint. Current-route aliases advance through the approved IDF extension.
+export const generateSpatialProductionStudioBatchV1 = generateSpatialProductionStudioBatchV9;
+export const generateSpatialProductionStudioQuestionV1 = generateSpatialProductionStudioQuestionV9;
+export type SpatialProductionStudioQuestionV1 = SpatialProductionStudioQuestionV9;

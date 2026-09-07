@@ -14,7 +14,8 @@ export type SpatialReviewChapter =
   | 'EMB-001'
   | 'FFM-001'
   | 'DOT-001'
-  | 'FMT-001';
+  | 'FMT-001'
+  | 'IDF-001';
 export type SpatialReviewLanguage = 'en' | 'hi' | 'pa';
 
 export interface SpatialReviewQl {
@@ -52,6 +53,10 @@ export interface SpatialReviewPackage {
   figureMatrixFreezeAuthority?: string;
   figureMatrixActivationAuthority?: string;
   figureMatrixPermanentQlCount?: number;
+  identicalFigureProductOwnerApprovalAuthority?: string;
+  identicalFigureFreezeAuthority?: string;
+  identicalFigureActivationAuthority?: string;
+  identicalFigurePermanentQlCount?: number;
   releaseAuthority?: string;
   permanentQlCount: number;
   questionStudioVisible: true;
@@ -86,6 +91,7 @@ export interface SpatialReviewQuestion {
   stem: string;
   stimulusSvgs: string[];
   optionSvgs: string[];
+  optionTexts?: string[];
   options?: Array<number | string>;
   optionLabels: ['A', 'B', 'C', 'D'];
   correctIndex: 0 | 1 | 2 | 3;
@@ -105,6 +111,11 @@ export interface SpatialReviewQuestion {
       inside: string[];
       outside: string[];
       statement: string;
+    }>;
+    groupTable?: Array<{
+      members: string;
+      semanticKey: string;
+      reason: string;
     }>;
   };
   explanationIllustrationSvg?: string;
@@ -156,6 +167,13 @@ export interface SpatialReviewQuestion {
     orientationCycleUsesAsymmetricDirectionalGlyph?: boolean;
     perceptualOptionEquivalenceRejected?: boolean;
     approvedV2_4RuntimePreserved?: true;
+    correctPartitionUnique?: true;
+    everyFigureUsedExactlyOnce?: true;
+    allNineNumberLabelsVisibleByConstruction?: true;
+    explanationUsesLearnerFacingLanguage?: true;
+    explanationNamesFamilySpecificRule?: true;
+    distractorCheckNamesActualMismatch?: true;
+    approvedV1_1RuntimePreserved?: true;
   };
 }
 
@@ -184,6 +202,8 @@ export interface SpatialReviewStatus {
   dotSituationActivationAuthority?: string;
   figureMatrixFreezeAuthority?: string;
   figureMatrixActivationAuthority?: string;
+  identicalFigureFreezeAuthority?: string;
+  identicalFigureActivationAuthority?: string;
   questionBankConversionEligibleAfterApproval: true;
   testEligibleAfterApproval: true;
   testBuilderEligibleAfterApproval?: true;
@@ -240,6 +260,8 @@ export function previewSpatialReview(input: SpatialReviewInput) {
     dotSituationActivationAuthority?: string;
     figureMatrixFreezeAuthority?: string;
     figureMatrixActivationAuthority?: string;
+    identicalFigureFreezeAuthority?: string;
+    identicalFigureActivationAuthority?: string;
   }>(
     `/admin/question-studio/reasoning/spatial/preview?${paramsFor(input).toString()}`,
     undefined,

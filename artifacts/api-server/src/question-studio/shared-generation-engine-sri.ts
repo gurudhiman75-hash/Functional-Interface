@@ -18,7 +18,7 @@ import {
   previewDsf001NormalQuestionStudioReview,
 } from "../reasoning-v1/topics/Data-Sufficiency/DSF-001/DSF-CP-017/question-studio-review-v1.ts";
 import { CND_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1 } from "../reasoning-v1/foundation/spatial/cubes-dice-test-builder-activation-v1.ts";
-import { SPATIAL_QUESTION_STUDIO_PACKAGE_V5 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v5.ts";
+import { SPATIAL_QUESTION_STUDIO_PACKAGE_V1 as SPATIAL_QUESTION_STUDIO_PACKAGE_V5 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-integration-v6.ts";
 import { SER_001_INTERNAL_TEST_BUILDER_ACTIVATION_AUTHORITY_V1 } from "../reasoning-v1/topics/Series/SER-001/SER-CP-007-QUESTION-STUDIO-INTEGRATION/ser-001-internal-test-builder-activation-v1.ts";
 
 export {

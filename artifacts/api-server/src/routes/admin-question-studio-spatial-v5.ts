@@ -21,6 +21,7 @@ import {
 } from "../reasoning-v1/foundation/spatial/spatial-question-studio-production-v6";
 import { SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1 } from "../reasoning-v1/foundation/spatial/spatial-final-held-gap-freeze-v1";
 import { FIGURE_FORMATION_INTERNAL_ACTIVATION_V2 } from "../reasoning-v1/foundation/spatial/figure-formation-freeze-v1";
+import { IDENTICAL_FIGURE_INTERNAL_ACTIVATION_V1 } from "../reasoning-v1/foundation/spatial/identical-figure-freeze-v1";
 
 const router = Router();
 const QL_IDS = new Set<string>(SPATIAL_QUESTION_STUDIO_PACKAGE_V1.qlIds);
@@ -263,6 +264,7 @@ async function persistRun(
           localizationAuthorities,
           finalHeldGapActivationAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.authorityId,
           figureFormationActivationAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.authorityId,
+          identicalFigureActivationAuthority: IDENTICAL_FIGURE_INTERNAL_ACTIVATION_V1.authorityId,
           manualApprovalRequired: true,
           automaticStudentPublication: false,
         })}::jsonb
@@ -283,6 +285,7 @@ async function persistRun(
           language: questions[0]?.language,
           localizationAuthorities,
           integrationAuthority: SPATIAL_QUESTION_STUDIO_PACKAGE_V1.integrationAuthority,
+          identicalFigureActivationAuthority: IDENTICAL_FIGURE_INTERNAL_ACTIVATION_V1.authorityId,
         })}::jsonb
       )
     `;
@@ -348,6 +351,8 @@ router.get("/reasoning/spatial/preview", requireAdminPermission("content.generat
       finalHeldGapActivationAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.authorityId,
       figureFormationFreezeAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.sourceFreezeAuthorityId,
       figureFormationActivationAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.authorityId,
+      identicalFigureFreezeAuthority: IDENTICAL_FIGURE_INTERNAL_ACTIVATION_V1.sourceFreezeAuthorityId,
+      identicalFigureActivationAuthority: IDENTICAL_FIGURE_INTERNAL_ACTIVATION_V1.authorityId,
       productionEligible: true,
       automaticStudentPublication: false,
     });
@@ -382,6 +387,8 @@ router.post("/reasoning/spatial/runs", requireAdminPermission("content.generatio
       finalHeldGapActivationAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.authorityId,
       figureFormationFreezeAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.sourceFreezeAuthorityId,
       figureFormationActivationAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.authorityId,
+      identicalFigureFreezeAuthority: IDENTICAL_FIGURE_INTERNAL_ACTIVATION_V1.sourceFreezeAuthorityId,
+      identicalFigureActivationAuthority: IDENTICAL_FIGURE_INTERNAL_ACTIVATION_V1.authorityId,
       manualApprovalRequired: true,
       automaticStudentPublication: false,
       requestedByFirebaseUid: req.user?.id,
@@ -430,6 +437,8 @@ router.get("/reasoning/spatial/status", requireAdminPermission("content.generati
       finalHeldGapActivationAuthority: SPATIAL_FINAL_HELD_GAP_INTERNAL_ACTIVATION_V1.authorityId,
       figureFormationFreezeAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.sourceFreezeAuthorityId,
       figureFormationActivationAuthority: FIGURE_FORMATION_INTERNAL_ACTIVATION_V2.authorityId,
+      identicalFigureFreezeAuthority: IDENTICAL_FIGURE_INTERNAL_ACTIVATION_V1.sourceFreezeAuthorityId,
+      identicalFigureActivationAuthority: IDENTICAL_FIGURE_INTERNAL_ACTIVATION_V1.authorityId,
       questionBankConversionEligibleAfterApproval: true,
       testEligibleAfterApproval: true,
       testBuilderEligibleAfterApproval: true,
