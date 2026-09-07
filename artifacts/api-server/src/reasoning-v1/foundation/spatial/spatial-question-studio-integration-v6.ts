@@ -10,11 +10,11 @@ import {
   FIGURE_FORMATION_PRODUCT_OWNER_APPROVAL_V1,
 } from "./figure-formation-freeze-v1";
 import {
-  SPATIAL_QUESTION_STUDIO_PACKAGE_V8,
-  type SpatialQuestionStudioChapterCodeV8,
-  type SpatialQuestionStudioDifficultyV8,
-  type SpatialQuestionStudioPermanentQlIdV8,
-} from "./spatial-question-studio-integration-v8";
+  SPATIAL_QUESTION_STUDIO_PACKAGE_V9,
+  type SpatialQuestionStudioChapterCodeV9,
+  type SpatialQuestionStudioDifficultyV9,
+  type SpatialQuestionStudioPermanentQlIdV9,
+} from "./spatial-question-studio-integration-v9";
 
 export type SpatialQuestionStudioChapterCodeV6 = SpatialQuestionStudioChapterCodeV5 | "FFM-001";
 export type SpatialQuestionStudioPermanentQlIdV6 = SpatialQuestionStudioPermanentQlIdV5 | "SPA-QL-051" | "SPA-QL-052" | "SPA-QL-053";
@@ -80,9 +80,9 @@ export const SPATIAL_QUESTION_STUDIO_PACKAGE_V6 = Object.freeze({
   automaticStudentPublication: false,
 }) as const;
 
-// V6 remains the immutable FFM checkpoint. Current-route aliases advance to the approved FMT extension.
-export const SPATIAL_QUESTION_STUDIO_PACKAGE_V1 = SPATIAL_QUESTION_STUDIO_PACKAGE_V8;
+// V6 remains the immutable FFM checkpoint. Current-route aliases advance through the approved IDF extension.
+export const SPATIAL_QUESTION_STUDIO_PACKAGE_V1 = SPATIAL_QUESTION_STUDIO_PACKAGE_V9;
 export const SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1 = BASE_SPATIAL_QUESTION_STUDIO_PRODUCTION_RELEASE_V1;
-export type SpatialQuestionStudioChapterCodeV1 = SpatialQuestionStudioChapterCodeV8;
-export type SpatialQuestionStudioPermanentQlIdV1 = SpatialQuestionStudioPermanentQlIdV8;
-export type SpatialQuestionStudioDifficultyV1 = SpatialQuestionStudioDifficultyV8;
+export type SpatialQuestionStudioChapterCodeV1 = SpatialQuestionStudioChapterCodeV9;
+export type SpatialQuestionStudioPermanentQlIdV1 = SpatialQuestionStudioPermanentQlIdV9;
+export type SpatialQuestionStudioDifficultyV1 = SpatialQuestionStudioDifficultyV9;
