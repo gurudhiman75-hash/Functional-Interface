@@ -29,9 +29,9 @@ function candidateTexts(set: Di003QuestionSet, question: Di003Question): readonl
         String(point.seriesA + point.seriesB),
         String(point.seriesA),
         String(point.seriesB),
+        String(totalA),
+        String(totalB),
         String(Math.abs(neighbor.seriesA - neighbor.seriesB)),
-        String(Math.abs(point.seriesA - neighbor.seriesA)),
-        String(Math.abs(point.seriesB - neighbor.seriesB)),
       ];
     }
     case "COMBINED_CATEGORY_RATIO": {
@@ -91,7 +91,7 @@ function candidateTexts(set: Di003QuestionSet, question: Di003Question): readonl
         formatPercent(difference, totalA + totalB),
         formatPercent(totalB, totalA),
         `${difference}%`,
-        formatPercent(difference, Math.min(totalA, totalB) + difference),
+        formatPercent(difference, (totalA + totalB) / 2),
       ];
     }
   }
