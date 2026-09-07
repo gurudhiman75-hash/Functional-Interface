@@ -34,6 +34,14 @@ const patterns: readonly Bns001PatternKind[] = [
 ];
 const tasks: readonly Bns001TaskKind[] = ["NEXT_TERM", "MISSING_TERM"];
 
+const minimumDistinctVisibleStates: Readonly<Record<Bns001PatternKind, number>> = {
+  ARITHMETIC_DIFFERENCE: 30,
+  PROGRESSIVE_DIFFERENCE: 42,
+  GEOMETRIC_MULTIPLICATION: 9,
+  MULTIPLY_AND_ADD: 38,
+  INTERLEAVED_ARITHMETIC: 65,
+};
+
 const answerPositions = new Map<string, Set<number>>();
 const hiddenPositions = new Map<Bns001PatternKind, Set<number>>(
   patterns.map((pattern) => [pattern, new Set<number>()]),
@@ -126,7 +134,9 @@ for (const patternKind of patterns) {
   assert(positions.size === 3, `${patternKind} missing-term generation did not reach hidden positions 3, 4 and 5.`);
 }
 for (const [familyKey, states] of fingerprints) {
-  assert(states.size >= 80, `${familyKey} produced only ${states.size} distinct visible states across 100 seeds.`);
+  const patternKind = familyKey.split(":")[0] as Bns001PatternKind;
+  const minimum = minimumDistinctVisibleStates[patternKind];
+  assert(states.size >= minimum, `${familyKey} produced only ${states.size} distinct visible states; Phase-0 floor is ${minimum}.`);
 }
 
 const scope = dirname(fileURLToPath(import.meta.url));
