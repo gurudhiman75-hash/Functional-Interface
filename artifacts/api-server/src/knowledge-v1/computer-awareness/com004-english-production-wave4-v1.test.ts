@@ -1,7 +1,7 @@
 import {
   COM004_ENGLISH_PRODUCTION_WAVE4_AUTHORITY_V1,
   COM004_ENGLISH_PRODUCTION_WAVE4_V1,
-} from "./com004-english-production-wave4-v1";
+} from "./com004-english-production-wave4-v1-1";
 import {
   COM004_PERMANENT_QL_ALLOCATIONS_V1,
   auditCom004PermanentQlAllocationV1,
