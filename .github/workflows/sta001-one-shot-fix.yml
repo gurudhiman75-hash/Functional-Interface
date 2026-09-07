@@ -10,7 +10,6 @@ permissions:
 
 jobs:
   patch:
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -87,9 +86,9 @@ jobs:
           git diff --check
       - name: Commit fix and remove one-shot workflow
         run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git rm .github/workflows/sta001-one-shot-fix.yml
           git add artifacts/api-server/src/quant-v4/topics/Statistics/STA-001/central-tendency.ts
-          git commit -m "fix(statistics): make STA-001 states collision-safe by construction"
+          git commit -m 'fix(statistics): make STA-001 states collision-safe by construction'
           git push origin HEAD:feat/quant-v4-statistics-central-tendency-p0
