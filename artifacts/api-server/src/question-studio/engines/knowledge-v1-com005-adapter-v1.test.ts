@@ -1,0 +1,54 @@
+import { strict as assert } from "node:assert";
+import { COM005_ENGLISH_FREEZE_AUTHORITY_V1, COM005_LOCALIZATION_FREEZE_AUTHORITY_V1, auditCom005FreezeV1 } from "../../knowledge-v1/computer-awareness/com005-networking-freeze-v1";
+import { COM005_QUESTION_STUDIO_PACKAGE_ID_V1, COM005_STANDARD_BANK_ONLY_PACKAGE_V1, knowledgeV1Com005QuestionStudioAdapterV1 } from "./knowledge-v1-com005-adapter-v1";
+import { knowledgeV1QuestionStudioAdapter } from "./knowledge-v1-adapter";
+const audit=auditCom005FreezeV1();
+assert.equal(audit.valid,true,audit.issues.join("\n"));
+assert.deepEqual(COM005_STANDARD_BANK_ONLY_PACKAGE_V1.cpIds,["COM-005-CP-001"]);
+assert.equal(COM005_STANDARD_BANK_ONLY_PACKAGE_V1.metadata?.englishQuestionCount,38);
+assert.equal(COM005_STANDARD_BANK_ONLY_PACKAGE_V1.metadata?.hindiQuestionCount,38);
+assert.equal(COM005_STANDARD_BANK_ONLY_PACKAGE_V1.metadata?.punjabiQuestionCount,38);
+assert.equal(COM005_STANDARD_BANK_ONLY_PACKAGE_V1.questionBankAcceptanceMode,"BANK_ONLY");
+assert.equal(COM005_STANDARD_BANK_ONLY_PACKAGE_V1.testEligible,false);
+assert.equal(COM005_STANDARD_BANK_ONLY_PACKAGE_V1.mockTestEligible,false);
+assert.equal(COM005_STANDARD_BANK_ONLY_PACKAGE_V1.publiclyPublishable,false);
+assert.equal(COM005_STANDARD_BANK_ONLY_PACKAGE_V1.productionReleaseAuthorized,false);
+for(const qlId of COM005_ENGLISH_FREEZE_AUTHORITY_V1.permanentQlIds){
+  const request={packageId:COM005_QUESTION_STUDIO_PACKAGE_ID_V1,patternId:qlId,count:4,difficulty:"Mixed" as const,seed:"com005-"+qlId};
+  const en=await knowledgeV1Com005QuestionStudioAdapterV1.generate({...request,language:"en"});
+  const hi=await knowledgeV1Com005QuestionStudioAdapterV1.generate({...request,language:"hi"});
+  const pa=await knowledgeV1Com005QuestionStudioAdapterV1.generate({...request,language:"pa"});
+  assert.deepEqual(en.questions.map((q:any)=>q.sourceQuestionId).sort(),hi.questions.map((q:any)=>q.sourceQuestionId).sort());
+  assert.deepEqual(en.questions.map((q:any)=>q.sourceQuestionId).sort(),pa.questions.map((q:any)=>q.sourceQuestionId).sort());
+  assert.deepEqual(en.questions.map((q:any)=>q.correctIndex).sort(),hi.questions.map((q:any)=>q.correctIndex).sort());
+  assert.deepEqual(en.questions.map((q:any)=>q.correctIndex).sort(),pa.questions.map((q:any)=>q.correctIndex).sort());
+  assert.ok(hi.questions.every((q:any)=>/[\u0900-\u097f]/.test(q.text)));
+  assert.ok(pa.questions.every((q:any)=>/[\u0a00-\u0a7f]/.test(q.text)));
+  for(const q of [...en.questions,...hi.questions,...pa.questions] as any[]){
+    assert.equal(q.packageId,"COM-005"); assert.equal(q.cpId,"COM-005-CP-001"); assert.equal(q.options.length,4);
+    assert.equal(q.options[q.correctIndex],q.canonicalAnswer); assert.equal(q.questionBankAcceptanceMode,"BANK_ONLY");
+    assert.equal(q.questionBankWritable,true); assert.equal(q.testEligible,false); assert.equal(q.mockTestEligible,false);
+    assert.equal(q.publiclyPublishable,false); assert.equal(q.productionReleaseAuthorized,false);
+    assert.equal(q.questionStudioReview.registrationStatus,"REGISTERED_BANK_ONLY_INTERNAL");
+    assert.equal(/\bassociat\w*\b/i.test(q.stem+" "+q.explanation),false);
+  }
+  const replay=await knowledgeV1Com005QuestionStudioAdapterV1.generate({...request,language:"en"});
+  assert.deepEqual(en,replay);
+}
+const full=await knowledgeV1Com005QuestionStudioAdapterV1.generate({packageId:"COM-005",language:"en",count:38,seed:"com005-full-v1"});
+assert.deepEqual([...new Set(full.questions.map((q:any)=>q.correctIndex))].sort(),[0,1,2,3]);
+assert.equal(new Set(full.questions.map((q:any)=>q.questionId)).size,38);
+const easy=await knowledgeV1Com005QuestionStudioAdapterV1.generate({packageId:"COM-005",language:"en",difficulty:"Easy",count:4});
+assert.ok(easy.questions.every((q:any)=>q.difficulty==="Easy"));
+const medium=await knowledgeV1Com005QuestionStudioAdapterV1.generate({packageId:"COM-005",language:"en",difficulty:"Medium",count:4});
+assert.ok(medium.questions.every((q:any)=>q.difficulty==="Medium"));
+await assert.rejects(()=>knowledgeV1Com005QuestionStudioAdapterV1.generate({packageId:"COM-005",language:"en",difficulty:"Hard",count:1}),/Hard difficulty is not authorized/);
+await assert.rejects(()=>knowledgeV1Com005QuestionStudioAdapterV1.generate({packageId:"COM-005",patternId:"COM-005-QL-001",language:"en",count:5}),/without repeats/);
+const packages=knowledgeV1QuestionStudioAdapter.listPackages();
+assert.ok(packages.some((pkg)=>pkg.packageId==="COM-005"));
+const routed=await knowledgeV1QuestionStudioAdapter.generate({packageId:"COM-005",patternId:"COM-005-QL-001",language:"en",count:2,seed:"com005-route-v1"});
+assert.equal(routed.questions.length,2);
+assert.equal(routed.generationContext?.packageId,"COM-005");
+assert.ok(routed.questions.every((q:any)=>q.cpId==="COM-005-CP-001"));
+assert.equal(routed.generationContext?.localizationFreezeAuthorityId,COM005_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId);
+console.log("[KNOWLEDGE-V1-COM005] PASS",{qlCount:7,questionsPerLanguage:32,languages:["en","hi","pa"],bankOnly:true});
