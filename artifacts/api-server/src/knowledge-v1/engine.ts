@@ -5,6 +5,7 @@ import {
 import { selectSemanticDistractors } from "./distractors";
 import { validateKnowledgeFactEligibility } from "./eligibility";
 import { assertKnowledgeQuestionValid } from "./question-validation";
+import { assertComputerAwarenessEditorialText } from "./computer-awareness/computer-awareness-editorial-policy";
 import type {
   KnowledgeFact,
   KnowledgeGeneratedQuestion,
@@ -105,6 +106,9 @@ function questionFromQl(
     correctIndex,
     canonicalAnswer,
   });
+  if (pkg.packageId.startsWith("COM-")) {
+    assertComputerAwarenessEditorialText({ stem, explanation });
+  }
 
   return {
     questionId: `KNV1-${pkg.packageId}-${ql.qlId}-${target.factId}-${itemIndex}`,
