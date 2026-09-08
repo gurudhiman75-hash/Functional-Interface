@@ -96,5 +96,7 @@ await runStage("COM-002 final-candidate 390-question fail-closed pre-bank readin
 await runStage("COM-002 historical Hindi/Punjabi localization hash candidate V1", () => import("../knowledge-v1/computer-awareness/com002-hi-pa-localization-freeze-v1.test"));
 await runStage("COM-002 historical executed V3-bound Hindi/Punjabi localization hash candidate V2", () => import("../knowledge-v1/computer-awareness/com002-hi-pa-localization-freeze-v2.test"));
 await runStage("COM-002 V5-bound Hindi/Punjabi localization V4 fingerprint candidate", () => import("../knowledge-v1/computer-awareness/com002-hi-pa-localization-freeze-v4-candidate.test"));
+await runStage("COM-002 approved BANK_ONLY adapter V3", () => import("./engines/knowledge-v1-com002-adapter-v3.test"));
+await runStage("COM-002 BANK_ONLY activation gate V6", () => import("./engines/com002-question-studio-activation-gate-v6.test"));
 
 console.log("Question Studio content engine foundation suite passed.");
