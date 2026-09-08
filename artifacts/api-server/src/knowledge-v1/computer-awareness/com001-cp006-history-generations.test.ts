@@ -1,0 +1,12 @@
+import { strict as assert } from "node:assert";
+import { COM001_CP006_ENGLISH_REVIEW_CANDIDATE, auditCom001Cp006History } from "./com001-cp006-history-generations";
+const audit = auditCom001Cp006History();
+assert.equal(audit.candidateCount, 28);
+assert.equal(audit.qlCount, 7);
+assert.equal(audit.qlCoverage, true);
+assert.deepEqual(audit.issues, []);
+assert.equal(audit.productionReady, false);
+assert.equal(audit.localizationReady, false);
+assert.equal(audit.questionStudioReady, false);
+for (const q of COM001_CP006_ENGLISH_REVIEW_CANDIDATE) assert.match(q.explanation, /./);
+console.log("[COM001-CP006-HISTORY]", audit);
