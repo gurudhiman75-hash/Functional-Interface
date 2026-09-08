@@ -32,6 +32,7 @@ export const COM001_QUESTION_STUDIO_REVIEW_DIFFICULTY_AUTHORITY_V1 = Object.free
     mixedModeMeaning: "UNFILTERED_DETERMINISTIC_V2_REVIEW_GENERATION" as const,
     reviewOnlyDifficultyFilterAuthorized: true,
     productionDifficultyClaimsAuthorized: false,
+    hardDifficultyAuthorized: false,
     unsupportedQlDifficultyCombinationMustFail: true,
     qlSupport: {
       "COM-001-QL-001": ["Easy", "Medium"],
