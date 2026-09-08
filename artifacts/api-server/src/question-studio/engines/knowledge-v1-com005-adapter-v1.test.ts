@@ -51,4 +51,4 @@ assert.equal(routed.questions.length,2);
 assert.equal(routed.generationContext?.packageId,"COM-005");
 assert.ok(routed.questions.every((q:any)=>q.cpId==="COM-005-CP-001"));
 assert.equal(routed.generationContext?.localizationFreezeAuthorityId,COM005_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId);
-console.log("[KNOWLEDGE-V1-COM005] PASS",{qlCount:7,questionsPerLanguage:38,languages:["en","hi","pa"],bankOnly:true});
+console.log("[KNOWLEDGE-V1-COM005] PASS",{qlCount:7,questionsPerLanguage:32,languages:["en","hi","pa"],bankOnly:true});
