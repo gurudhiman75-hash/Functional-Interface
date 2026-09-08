@@ -68,6 +68,88 @@ function isNotesStudioV2FactExtraction(responseSchemaName?: string) {
   return responseSchemaName === "notes_studio_v2_extracted_facts";
 }
 
+function hasFactsArray(value: unknown): value is { facts: unknown[] } {
+  return Boolean(
+    value
+    && typeof value === "object"
+    && Array.isArray((value as { facts?: unknown }).facts),
+  );
+}
+
+export function normalizeDeepSeekStructuredJson(
+  value: unknown,
+  responseSchemaName?: string,
+): { json: unknown; warnings: string[] } {
+  if (!isNotesStudioV2FactExtraction(responseSchemaName) || hasFactsArray(value)) {
+    return { json: value, warnings: [] };
+  }
+
+  if (Array.isArray(value)) {
+    return {
+      json: { facts: value },
+      warnings: ["DeepSeek returned the Notes v2 facts array at the JSON root; normalized it to the required facts wrapper."],
+    };
+  }
+
+  if (!value || typeof value !== "object") {
+    return { json: value, warnings: [] };
+  }
+
+  const record = value as Record<string, unknown>;
+  const wrapperKeys = [
+    "data",
+    "result",
+    "results",
+    "response",
+    "output",
+    "items",
+    "payload",
+  ];
+
+  for (const key of wrapperKeys) {
+    const nested = record[key];
+    if (hasFactsArray(nested)) {
+      return {
+        json: nested,
+        warnings: [`DeepSeek wrapped the Notes v2 facts object in \"${key}\"; normalized it to the required facts wrapper.`],
+      };
+    }
+    if (Array.isArray(nested)) {
+      return {
+        json: { facts: nested },
+        warnings: [`DeepSeek returned the Notes v2 facts array under \"${key}\"; normalized it to the required facts wrapper.`],
+      };
+    }
+  }
+
+  const candidateArrays: unknown[][] = [];
+  for (const nested of Object.values(record)) {
+    if (Array.isArray(nested)) candidateArrays.push(nested);
+  }
+  if (candidateArrays.length === 1) {
+    return {
+      json: { facts: candidateArrays[0] },
+      warnings: ["DeepSeek renamed the single Notes v2 facts array; normalized it to the required facts wrapper."],
+    };
+  }
+
+  const nestedCandidateArrays: unknown[][] = [];
+  for (const nested of Object.values(record)) {
+    if (!nested || typeof nested !== "object" || Array.isArray(nested)) continue;
+    for (const nestedValue of Object.values(nested as Record<string, unknown>)) {
+      if (Array.isArray(nestedValue)) nestedCandidateArrays.push(nestedValue);
+    }
+  }
+  if (nestedCandidateArrays.length === 1) {
+    return {
+      json: { facts: nestedCandidateArrays[0] },
+      warnings: ["DeepSeek nested the single Notes v2 facts array one wrapper deeper; normalized it to the required facts wrapper."],
+    };
+  }
+
+  return { json: value, warnings: [] };
+}
+
 export const deepSeekProvider: AIProviderAdapter = {
   name: "deepseek",
   defaultModel:
@@ -109,13 +191,16 @@ export const deepSeekProvider: AIProviderAdapter = {
     const jsonInstruction = buildDeepSeekJsonInstruction(
       request.responseSchema as Record<string, unknown> | undefined,
     );
+    const notesStudioV2ShapeInstruction = notesStudioV2FactExtraction
+      ? "For Notes Studio v2, the top-level JSON value MUST be an object with a property named facts whose value is an array. Never rename facts to items, results, data, output, or another key."
+      : "";
 
     const body = {
       model,
       messages: [
         {
           role: "system",
-          content: [request.prompt.system, jsonInstruction ?? ""]
+          content: [request.prompt.system, jsonInstruction ?? "", notesStudioV2ShapeInstruction]
             .filter(Boolean)
             .join("\n\n"),
         },
@@ -165,14 +250,19 @@ export const deepSeekProvider: AIProviderAdapter = {
 
         const raw = await response.json();
         const text = String(raw?.choices?.[0]?.message?.content ?? "");
+        const parsed = parseJsonFromText(text);
+        const normalized = normalizeDeepSeekStructuredJson(
+          parsed,
+          request.responseSchemaName,
+        );
         return {
           provider: "deepseek",
           model,
           text,
-          json: parseJsonFromText(text),
+          json: normalized.json,
           usage: usageFromResponse(raw),
           raw,
-          warnings: [],
+          warnings: normalized.warnings,
         } satisfies AIProviderResponse;
       } catch (error) {
         lastError = error;
