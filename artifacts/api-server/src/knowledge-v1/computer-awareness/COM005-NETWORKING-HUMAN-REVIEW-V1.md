@@ -6,7 +6,7 @@ Coverage: 7 permanent QLs · 38 questions per language · 114 language versions.
 
 ## English
 
-### COM005-QL-001
+### COM-005-QL-001
 
 #### 1. Which network usually covers a school building?
 
@@ -52,7 +52,7 @@ Answer: D. MAN
 
 Explanation: A MAN (Metropolitan Area Network) generally covers a city or metropolitan area.
 
-### COM005-QL-002
+### COM-005-QL-002
 
 #### 5. Which topology uses a central device?
 
@@ -120,7 +120,7 @@ Answer: B. Tree
 
 Explanation: A tree topology uses a hierarchical branch structure.
 
-### COM005-QL-003
+### COM-005-QL-003
 
 #### 11. Which device connects different networks?
 
@@ -210,7 +210,7 @@ Answer: B. Access point
 
 Explanation: An access point connects wireless devices to a network.
 
-### COM005-QL-004
+### COM-005-QL-004
 
 #### 19. Which protocol translates a domain name into an IP address?
 
@@ -300,7 +300,7 @@ Answer: B. Assign network settings
 
 Explanation: DHCP (Dynamic Host Configuration Protocol) assigns settings such as an IP (Internet Protocol) address.
 
-### COM005-QL-005
+### COM-005-QL-005
 
 #### 27. Which address identifies a network interface at the hardware level?
 
@@ -346,7 +346,7 @@ Answer: B. MAC address
 
 Explanation: A MAC (Media Access Control) address identifies a network interface.
 
-### COM005-QL-006
+### COM-005-QL-006
 
 #### 31. Which medium carries data using light?
 
@@ -392,7 +392,7 @@ Answer: B. Coaxial cable
 
 Explanation: A coaxial cable has a central conductor with shielding around it.
 
-### COM005-QL-007
+### COM-005-QL-007
 
 #### 35. Which mode permits transmission in only one direction?
 
@@ -440,7 +440,7 @@ Explanation: A television broadcast mainly sends information in one direction.
 
 ## Hindi
 
-### COM005-QL-001
+### COM-005-QL-001
 
 #### 1. स्कूल की इमारत को आम तौर पर कौन-सा नेटवर्क कवर करता है?
 
@@ -486,7 +486,7 @@ Answer: D. MAN
 
 Explanation: MAN का पूरा नाम Metropolitan Area Network है। यह आम तौर पर एक शहर को कवर करता है।
 
-### COM005-QL-002
+### COM-005-QL-002
 
 #### 5. कौन-सी टोपोलॉजी में एक केंद्रीय उपकरण होता है?
 
@@ -554,7 +554,7 @@ Answer: B. ट्री
 
 Explanation: ट्री टोपोलॉजी शाखाओं वाले क्रम में बनी होती है।
 
-### COM005-QL-003
+### COM-005-QL-003
 
 #### 11. अलग-अलग नेटवर्कों को कौन-सा उपकरण जोड़ता है?
 
@@ -644,7 +644,7 @@ Answer: B. एक्सेस पॉइंट
 
 Explanation: एक्सेस पॉइंट वायरलेस उपकरणों को नेटवर्क से जोड़ता है।
 
-### COM005-QL-004
+### COM-005-QL-004
 
 #### 19. डोमेन नाम को IP पते में कौन-सा प्रोटोकॉल बदलता है?
 
@@ -734,7 +734,7 @@ Answer: B. नेटवर्क सेटिंग देना
 
 Explanation: DHCP का पूरा नाम Dynamic Host Configuration Protocol है। यह IP पते जैसी नेटवर्क सेटिंग देता है।
 
-### COM005-QL-005
+### COM-005-QL-005
 
 #### 27. हार्डवेयर स्तर पर नेटवर्क इंटरफेस की पहचान कौन-सा पता करता है?
 
@@ -780,7 +780,7 @@ Answer: B. MAC पता
 
 Explanation: MAC का पूरा नाम Media Access Control है। MAC पता नेटवर्क इंटरफेस से जुड़ा होता है।
 
-### COM005-QL-006
+### COM-005-QL-006
 
 #### 31. कौन-सा माध्यम प्रकाश से डेटा ले जाता है?
 
@@ -826,7 +826,7 @@ Answer: B. कोएक्सियल केबल
 
 Explanation: कोएक्सियल केबल में बीच का चालक और उसके चारों ओर शील्ड होती है।
 
-### COM005-QL-007
+### COM-005-QL-007
 
 #### 35. कौन-सा मोड केवल एक दिशा में डेटा भेजता है?
 
@@ -874,7 +874,7 @@ Explanation: सिम्प्लेक्स एक दिशा वाला 
 
 ## Punjabi
 
-### COM005-QL-001
+### COM-005-QL-001
 
 #### 1. ਸਕੂਲ ਦੀ ਇਮਾਰਤ ਨੂੰ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਹੜਾ ਨੈੱਟਵਰਕ ਕਵਰ ਕਰਦਾ ਹੈ?
 
@@ -920,7 +920,7 @@ Answer: D. MAN
 
 Explanation: MAN ਦਾ ਪੂਰਾ ਨਾਮ Metropolitan Area Network ਹੈ। ਇਹ ਆਮ ਤੌਰ ਉੱਤੇ ਇੱਕ ਸ਼ਹਿਰ ਨੂੰ ਕਵਰ ਕਰਦਾ ਹੈ।
 
-### COM005-QL-002
+### COM-005-QL-002
 
 #### 5. ਕਿਹੜੀ ਟੋਪੋਲੋਜੀ ਵਿੱਚ ਇੱਕ ਕੇਂਦਰੀ ਉਪਕਰਣ ਹੁੰਦਾ ਹੈ?
 
@@ -988,7 +988,7 @@ Answer: B. ਟ੍ਰੀ
 
 Explanation: ਟ੍ਰੀ ਟੋਪੋਲੋਜੀ ਸ਼ਾਖਾਂ ਵਾਲੇ ਕ੍ਰਮ ਵਿੱਚ ਬਣੀ ਹੁੰਦੀ ਹੈ।
 
-### COM005-QL-003
+### COM-005-QL-003
 
 #### 11. ਵੱਖ-ਵੱਖ ਨੈੱਟਵਰਕਾਂ ਨੂੰ ਕਿਹੜਾ ਉਪਕਰਣ ਜੋੜਦਾ ਹੈ?
 
@@ -1078,7 +1078,7 @@ Answer: B. ਐਕਸੈੱਸ ਪੌਇੰਟ
 
 Explanation: ਐਕਸੈੱਸ ਪੌਇੰਟ ਵਾਇਰਲੈੱਸ ਉਪਕਰਣਾਂ ਨੂੰ ਨੈੱਟਵਰਕ ਨਾਲ ਜੋੜਦਾ ਹੈ।
 
-### COM005-QL-004
+### COM-005-QL-004
 
 #### 19. ਡੋਮੇਨ ਨਾਮ ਨੂੰ IP ਪਤੇ ਵਿੱਚ ਕਿਹੜਾ ਪ੍ਰੋਟੋਕੋਲ ਬਦਲਦਾ ਹੈ?
 
@@ -1168,7 +1168,7 @@ Answer: B. ਨੈੱਟਵਰਕ ਸੈਟਿੰਗ ਦੇਣਾ
 
 Explanation: DHCP ਦਾ ਪੂਰਾ ਨਾਮ Dynamic Host Configuration Protocol ਹੈ। ਇਹ IP ਪਤੇ ਵਰਗੀਆਂ ਨੈੱਟਵਰਕ ਸੈਟਿੰਗਾਂ ਦਿੰਦਾ ਹੈ।
 
-### COM005-QL-005
+### COM-005-QL-005
 
 #### 27. ਹਾਰਡਵੇਅਰ ਪੱਧਰ ਉੱਤੇ ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਦੀ ਪਛਾਣ ਕਿਹੜਾ ਪਤਾ ਕਰਦਾ ਹੈ?
 
@@ -1214,7 +1214,7 @@ Answer: B. MAC ਪਤਾ
 
 Explanation: MAC ਦਾ ਪੂਰਾ ਨਾਮ Media Access Control ਹੈ। MAC ਪਤਾ ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਨਾਲ ਜੁੜਿਆ ਹੁੰਦਾ ਹੈ।
 
-### COM005-QL-006
+### COM-005-QL-006
 
 #### 31. ਕਿਹੜਾ ਮਾਧਿਅਮ ਰੋਸ਼ਨੀ ਨਾਲ ਡਾਟਾ ਲੈ ਜਾਂਦਾ ਹੈ?
 
@@ -1260,7 +1260,7 @@ Answer: B. ਕੋਐਕਸੀਅਲ ਕੇਬਲ
 
 Explanation: ਕੋਐਕਸੀਅਲ ਕੇਬਲ ਵਿੱਚ ਵਿਚਕਾਰਲਾ ਚਾਲਕ ਅਤੇ ਉਸ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਸ਼ੀਲਡ ਹੁੰਦੀ ਹੈ।
 
-### COM005-QL-007
+### COM-005-QL-007
 
 #### 35. ਕਿਹੜਾ ਮੋਡ ਸਿਰਫ਼ ਇੱਕ ਦਿਸ਼ਾ ਵਿੱਚ ਡਾਟਾ ਭੇਜਦਾ ਹੈ?
 
