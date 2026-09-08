@@ -74,6 +74,7 @@ jobs:
             "src/question-studio/engines/com003-source-controlled-review-contract-v1.test.ts"
             "src/question-studio/engines/knowledge-v1-com003-adapter-v2.test.ts"
             "src/question-studio/engines/knowledge-v1-com001-cp006-adapter.test.ts"
+            "src/question-studio/engines/knowledge-v1-com001-completion-v1.test.ts"
           )
           for test_file in "${tests[@]}"; do
             output_name="$(basename "${test_file}" .ts).mjs"
