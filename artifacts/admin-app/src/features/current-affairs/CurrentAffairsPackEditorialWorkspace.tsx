@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { CurrentAffairsMasterPackApprovalCard } from '@/features/current-affairs/CurrentAffairsMasterPackApprovalCard';
 import {
   getCurrentAffairsEditorialEvent,
   saveCurrentAffairsEditorialEnglish,
@@ -16,6 +17,7 @@ import {
 } from '@/features/current-affairs/editorial-api';
 import { refreshCurrentAffairsPackEditorial } from '@/features/current-affairs/pack-editorial-api';
 import {
+  getCurrentAffairsDailyMasterPacks,
   getDailyMasterPackApprovalState,
   type DailyMasterPack,
   type DailyMasterPackApprovalState,
@@ -162,15 +164,20 @@ export function CurrentAffairsPackEditorialWorkspace({
   const activeApproval = approval?.candidate.activeApproval ?? null;
   const packLocked = Boolean(activeApproval || packs.en?.status === 'approved' || packs.hi?.status === 'approved' || packs.pa?.status === 'approved');
 
-  const refreshApproval = useCallback(async () => {
+  const syncWorkspace = useCallback(async () => {
     try {
-      setApproval(await getDailyMasterPackApprovalState(date));
+      const [nextApproval, nextPacks] = await Promise.all([
+        getDailyMasterPackApprovalState(date),
+        getCurrentAffairsDailyMasterPacks(date),
+      ]);
+      setApproval(nextApproval);
+      onPacksChanged(nextPacks.masterPacks);
     } catch (caught) {
-      showToast.error('Approval state unavailable', caught instanceof Error ? caught.message : 'Unable to load Daily Pack approval state.');
+      showToast.error('Pack workspace refresh failed', caught instanceof Error ? caught.message : 'Unable to refresh Daily Pack approval and artifact state.');
     }
-  }, [date]);
+  }, [date, onPacksChanged]);
 
-  useEffect(() => { void refreshApproval(); }, [refreshApproval]);
+  useEffect(() => { void syncWorkspace(); }, [syncWorkspace]);
 
   const loadEvent = useCallback(async (eventId: string, preserveLocalizationDrafts = false) => {
     setSelectedEventId(eventId);
@@ -234,8 +241,9 @@ export function CurrentAffairsPackEditorialWorkspace({
     try {
       const result = await refreshCurrentAffairsPackEditorial(date, refreshReason.trim());
       onPacksChanged(result.masterPacks);
+      setApproval((current) => current ? { ...current, candidate: { ...current.candidate, readiness: result.approvalReadiness, activeApproval: result.activeApproval } } : current);
       setRefreshReason('');
-      await refreshApproval();
+      await syncWorkspace();
       const blockerCount = result.approvalReadiness.blockers.length;
       showToast.success(
         'Canonical pack refreshed from editorial state',
@@ -320,7 +328,9 @@ export function CurrentAffairsPackEditorialWorkspace({
           </CardContent>
         </Card>
 
-        <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm"><div className="flex items-center gap-2 font-medium"><FileCheck2 className="h-4 w-4" />Next gate: canonical approval</div><p className="mt-1 text-xs text-muted-foreground">When parity and QA are clean, use the separate Canonical master-pack editorial approval card. Approval locks EN/HI/PA. Learner publication remains a separate authority.</p></div>
+        <CurrentAffairsMasterPackApprovalCard targetDate={date} onChanged={syncWorkspace} />
+
+        <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm"><div className="flex items-center gap-2 font-medium"><FileCheck2 className="h-4 w-4" />Final artifact gate</div><p className="mt-1 text-xs text-muted-foreground">After approval, EN/HI/PA are locked and the archive download controls switch from Preview to final Download. Learner publication remains a separate authority.</p></div>
       </CardContent>
     </Card>
   );
