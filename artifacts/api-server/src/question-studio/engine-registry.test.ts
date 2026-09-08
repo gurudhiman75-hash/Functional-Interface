@@ -38,6 +38,7 @@ assert.deepEqual(com001.cpIds, [
   "COM-001-CP-004",
   "COM-001-CP-005",
   "COM-001-CP-006",
+  "COM-001-CP-007",
 ]);
 assert.deepEqual(com001.supportedLanguages, ["en", "hi", "pa"]);
 assert.equal(com001.runtimeMode, "review-only");
