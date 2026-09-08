@@ -1,10 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { Router, type IRouter, type Response } from "express";
 
-import { loadDailyDiscoveryCensus } from "../current-affairs/daily-discovery-census";
-import { loadDailyMasterPacks } from "../current-affairs/daily-master-pack";
-import { materializeSelectedDailyMasterPacks } from "../current-affairs/selected-daily-master-pack";
-import { loadDailyMasterPackApprovalCandidate } from "../current-affairs/selected-daily-master-pack-approval-runtime";
 import { requireAdminPermission } from "../lib/admin-rbac";
 import { sqlClient } from "../lib/db";
 import { authenticate } from "../middlewares/auth";
@@ -48,8 +44,20 @@ router.post(
       }
       const date = targetDate(req.body?.date);
       const reason = editorialReason(req.body?.reason);
-      const census = await loadDailyDiscoveryCensus(date);
-      const result = await materializeSelectedDailyMasterPacks(date, census?.id ? String(census.id) : null);
+
+      // Keep the API startup graph light on the 512 MB production service.
+      // Selected-pack materialization/approval pull in the full Current Affairs
+      // processing graph, so load them only when an administrator explicitly
+      // runs the governed pack editorial refresh.
+      const [censusRuntime, selectedPackRuntime] = await Promise.all([
+        import("../current-affairs/daily-discovery-census"),
+        import("../current-affairs/selected-daily-master-pack"),
+      ]);
+      const census = await censusRuntime.loadDailyDiscoveryCensus(date);
+      const result = await selectedPackRuntime.materializeSelectedDailyMasterPacks(
+        date,
+        census?.id ? String(census.id) : null,
+      );
 
       if ((result as any)?.locked) {
         res.status(409).json({
@@ -98,9 +106,13 @@ router.post(
         )
       `;
 
+      const [masterPackRuntime, approvalRuntime] = await Promise.all([
+        import("../current-affairs/daily-master-pack"),
+        import("../current-affairs/selected-daily-master-pack-approval-runtime"),
+      ]);
       const [packs, approvalCandidate] = await Promise.all([
-        loadDailyMasterPacks(date),
-        loadDailyMasterPackApprovalCandidate(date),
+        masterPackRuntime.loadDailyMasterPacks(date),
+        approvalRuntime.loadDailyMasterPackApprovalCandidate(date),
       ]);
 
       res.status(201).json({
