@@ -31,6 +31,8 @@ interface CorpusExtractionProgress {
   currentStartPage: number | null;
   currentEndPage: number | null;
   candidateCount: number;
+  isStale: boolean;
+  runningUpdatedAt: string | null;
   errorCode: string | null;
   errorMessage: string | null;
   updatedAt: string | null;
@@ -42,7 +44,7 @@ const PROGRESS_POLL_MS = 4000;
 
 function progressVariant(status: string): 'default' | 'secondary' | 'destructive' | 'outline' {
   if (status === 'ready') return 'default';
-  if (status === 'failed') return 'destructive';
+  if (status === 'failed' || status === 'interrupted') return 'destructive';
   return 'secondary';
 }
 
@@ -154,6 +156,21 @@ export function AdvisoryMetadataPanel({ periodId, source, section }: AdvisoryMet
     }
   };
 
+  const resumeExtraction = async (doc: CorpusDoc) => {
+    if (source !== 'http') return;
+    setAction(`resume-${doc.id}`);
+    setMessage('Resuming extraction from the last completed checkpoint. The uploaded PDF will not be re-uploaded.');
+    try {
+      await httpNotesStudioV2Repository.extractCorpusFacts(doc.id);
+      setMessage('Extraction completed from the saved checkpoints.');
+      await load();
+    } catch (cause) {
+      setMessage(cause instanceof Error ? cause.message : 'Unable to resume corpus extraction.');
+    } finally {
+      setAction(null);
+    }
+  };
+
   const setFrequency = async (fact: Fact, examFrequency: ExamFrequency | null) => {
     if (source !== 'http') return;
     setAction(`frequency-${fact.id}`);
@@ -183,7 +200,7 @@ export function AdvisoryMetadataPanel({ periodId, source, section }: AdvisoryMet
             <CardTitle>{isCorpus ? 'Corpus routing & extraction progress' : 'PYQ / exam-frequency metadata'}</CardTitle>
             <CardDescription>
               {isCorpus
-                ? 'Live extraction progress refreshes automatically. Source class and taxonomy hints help route extraction; hints never filter generation.'
+                ? 'Live extraction progress refreshes automatically. Interrupted work can resume from the last durable checkpoint without uploading the PDF again.'
                 : 'High/medium/low exam-frequency tags guide emphasis only. Low-frequency and untagged facts remain eligible for exhaustive coverage.'}
             </CardDescription>
           </div>
@@ -218,6 +235,7 @@ export function AdvisoryMetadataPanel({ periodId, source, section }: AdvisoryMet
             {workspace.corpus.map((doc) => {
               const progress = progressByCorpus[doc.id];
               const percent = progress?.extractionStatus ? progress.extractionPercent : progress?.uploadPercent ?? 0;
+              const resumable = progress?.isStale || progress?.extractionStatus === 'failed';
               return (
                 <div key={doc.id} className="rounded-lg border p-4">
                   <div className="flex flex-wrap items-start justify-between gap-2">
@@ -245,13 +263,40 @@ export function AdvisoryMetadataPanel({ periodId, source, section }: AdvisoryMet
                       </div>
                       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
                         {progress.currentStartPage && progress.currentEndPage && (
-                          <span>Processing pages {progress.currentStartPage}–{progress.currentEndPage}</span>
+                          <span>{progress.isStale ? 'Interrupted at' : 'Processing'} pages {progress.currentStartPage}–{progress.currentEndPage}</span>
                         )}
                         {progress.segmentCount > 0 && (
                           <span>{progress.completedSegments} / {progress.segmentCount} checkpoints complete</span>
                         )}
                         {progress.candidateCount > 0 && <span>{progress.candidateCount} candidate facts checkpointed</span>}
                       </div>
+                      {progress.isStale && (
+                        <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded border border-destructive/40 bg-destructive/5 p-2 text-xs">
+                          <span>The worker stopped before this batch finished. Completed checkpoints are safe.</span>
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="outline"
+                            disabled={action === `resume-${doc.id}`}
+                            onClick={() => void resumeExtraction(doc)}
+                          >
+                            {action === `resume-${doc.id}` ? 'Resuming…' : `Resume from page ${progress.completedPages + 1}`}
+                          </Button>
+                        </div>
+                      )}
+                      {!progress.isStale && progress.extractionStatus === 'failed' && (
+                        <div className="mt-3 flex justify-end">
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="outline"
+                            disabled={action === `resume-${doc.id}`}
+                            onClick={() => void resumeExtraction(doc)}
+                          >
+                            {action === `resume-${doc.id}` ? 'Retrying…' : 'Retry extraction'}
+                          </Button>
+                        </div>
+                      )}
                       {progress.errorMessage && (
                         <div className="mt-2 rounded border border-destructive/40 bg-destructive/5 p-2 text-xs text-destructive">
                           {progress.errorCode ? `${progress.errorCode}: ` : ''}{progress.errorMessage}
