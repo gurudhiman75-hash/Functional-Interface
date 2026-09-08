@@ -17,10 +17,9 @@ function numeric(value: unknown) {
   return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
 }
 
-router.use(authenticate);
-
 router.get(
   '/corpus/:corpusDocId/progress',
+  authenticate,
   requireAdminPermission('content.questions.read'),
   async (req, res) => {
     try {
