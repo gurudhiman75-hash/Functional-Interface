@@ -16,6 +16,10 @@ export const RESUMABLE_EXTRACTION_SEGMENT_PAGES = Math.max(
 const WORKER_TIMEOUT_MS = Number(process.env.NOTES_STUDIO_V2_PDF_WORKER_TIMEOUT_MS) || 180_000;
 const WORKER_HEAP_MB = Math.max(64, Number(process.env.NOTES_STUDIO_V2_PDF_WORKER_HEAP_MB) || 128);
 const WORKER_OUTPUT_LIMIT = 32 * 1024 * 1024;
+const STRUCTURED_RETRY_MIN_PAGES = Math.max(
+  1,
+  Math.min(6, Number(process.env.NOTES_STUDIO_V2_STRUCTURED_RETRY_MIN_PAGES) || 3),
+);
 const workerScript = path.resolve(process.cwd(), 'artifacts/api-server/notes-studio-v2-pdf-worker.mjs');
 
 type WorkerResult = {
@@ -142,7 +146,88 @@ export type SegmentExtractionResult = {
   };
 };
 
-export async function extractPdfSegment(input: {
+type PageRange = { startPage: number; endPage: number };
+
+export function splitRangeForStructuredRetry(
+  startPage: number,
+  endPage: number,
+  minPages = STRUCTURED_RETRY_MIN_PAGES,
+): [PageRange, PageRange] | null {
+  const pageCount = endPage - startPage + 1;
+  if (pageCount <= minPages || startPage >= endPage) return null;
+  const leftCount = Math.ceil(pageCount / 2);
+  const middle = startPage + leftCount - 1;
+  return [
+    { startPage, endPage: middle },
+    { startPage: middle + 1, endPage },
+  ];
+}
+
+function summarizeJsonShape(value: unknown, depth = 0): unknown {
+  if (depth >= 2) {
+    if (Array.isArray(value)) return { type: 'array', length: value.length };
+    if (value && typeof value === 'object') return { type: 'object', keys: Object.keys(value as Record<string, unknown>).slice(0, 12) };
+    return typeof value;
+  }
+  if (Array.isArray(value)) {
+    return {
+      type: 'array',
+      length: value.length,
+      sample: value.length > 0 ? summarizeJsonShape(value[0], depth + 1) : null,
+    };
+  }
+  if (value && typeof value === 'object') {
+    const record = value as Record<string, unknown>;
+    const keys = Object.keys(record).slice(0, 12);
+    return {
+      type: 'object',
+      keys,
+      fields: Object.fromEntries(keys.map((key) => [key, summarizeJsonShape(record[key], depth + 1)])),
+    };
+  }
+  return typeof value;
+}
+
+function worstQuality(results: SegmentExtractionResult[]) {
+  const rank = { low: 0, medium: 1, high: 2 } as const;
+  return results.reduce<'high' | 'medium' | 'low'>((worst, result) => (
+    rank[result.metadata.extractionQuality] < rank[worst]
+      ? result.metadata.extractionQuality
+      : worst
+  ), 'high');
+}
+
+function combineSegmentResults(
+  results: SegmentExtractionResult[],
+  original: PageRange,
+): SegmentExtractionResult {
+  const providers = [...new Set(results.map((result) => result.provider))];
+  const models = [...new Set(results.map((result) => result.model))];
+  return {
+    candidates: results.flatMap((result) => result.candidates),
+    provider: providers.length === 1 ? providers[0]! : 'mixed',
+    model: models.length === 1 ? models[0]! : 'mixed',
+    usage: results.reduce((sum, result) => ({
+      inputTokens: sum.inputTokens + result.usage.inputTokens,
+      outputTokens: sum.outputTokens + result.usage.outputTokens,
+      totalTokens: sum.totalTokens + result.usage.totalTokens,
+    }), { inputTokens: 0, outputTokens: 0, totalTokens: 0 }),
+    metadata: {
+      selectedPageCount: results.reduce((sum, result) => sum + result.metadata.selectedPageCount, 0),
+      extractionQuality: worstQuality(results),
+      ocrUsed: results.some((result) => result.metadata.ocrUsed),
+      ocrPages: [...new Set(results.flatMap((result) => result.metadata.ocrPages))].sort((a, b) => a - b),
+      charCount: results.reduce((sum, result) => sum + result.metadata.charCount, 0),
+      wordCount: results.reduce((sum, result) => sum + result.metadata.wordCount, 0),
+      warnings: [
+        `Structured extraction for pages ${original.startPage}-${original.endPage} was retried as smaller page groups after the provider returned invalid schema.`,
+        ...results.flatMap((result) => result.metadata.warnings),
+      ],
+    },
+  };
+}
+
+async function extractPdfSegmentOnce(input: {
   filePath: string;
   startPage: number;
   endPage: number;
@@ -165,35 +250,109 @@ export async function extractPdfSegment(input: {
     );
   }
 
+  let ai: Awaited<ReturnType<typeof extractWithAI>>;
   try {
-    const ai = await extractWithAI(buildExtractionRequest({
+    ai = await extractWithAI(buildExtractionRequest({
       sourceTitle: `${input.title} (pages ${input.startPage}-${input.endPage})`,
       taxonomy: input.taxonomy,
       sourceText: selected.text.trim(),
     }));
-    const candidates = validateExtractedFacts(ai.json, input.taxonomy).map((candidate) => ({
-      ...candidate,
-      locator: `pages ${input.startPage}-${input.endPage}: ${candidate.locator}`,
-    }));
-    return {
-      candidates,
-      provider: ai.provider,
-      model: ai.model,
-      usage: {
-        inputTokens: Number(ai.usage?.inputTokens ?? 0),
-        outputTokens: Number(ai.usage?.outputTokens ?? 0),
-        totalTokens: Number(ai.usage?.totalTokens ?? 0),
+  } catch (error) {
+    console.error(`[notes-studio-v2:resumable] AI provider failed for pages ${input.startPage}-${input.endPage}`, error);
+    throw new PdfSegmentExtractionError(
+      'PDF_FACT_PROVIDER_FAILED',
+      `AI fact extraction failed for PDF pages ${input.startPage}-${input.endPage}. Completed segments are checkpointed and will be skipped on retry.`,
+      502,
+    );
+  }
+
+  let validated: ExtractedFactCandidate[];
+  try {
+    validated = validateExtractedFacts(ai.json, input.taxonomy);
+    if (validated.length === 0) {
+      throw new Error('Extraction returned an empty facts array for readable source pages.');
+    }
+  } catch (error) {
+    console.error(
+      `[notes-studio-v2:resumable] structured fact response invalid for pages ${input.startPage}-${input.endPage}`,
+      {
+        provider: ai.provider,
+        model: ai.model,
+        error: error instanceof Error ? error.message : String(error),
+        jsonShape: summarizeJsonShape(ai.json),
       },
-      metadata: {
-        selectedPageCount: selected.selectedPageCount,
-        extractionQuality: selected.extractionQuality,
-        ocrUsed: selected.ocrUsed,
-        ocrPages: selected.ocrPages ?? [],
-        charCount: selected.charCount,
-        wordCount: selected.wordCount,
-        warnings: selected.warnings ?? [],
-      },
-    };
+    );
+    throw new PdfSegmentExtractionError(
+      'PDF_FACT_SCHEMA_INVALID',
+      `AI returned invalid structured facts for PDF pages ${input.startPage}-${input.endPage}. The server will retry this checkpoint with smaller internal page groups when possible.`,
+      502,
+    );
+  }
+
+  const candidates = validated.map((candidate) => ({
+    ...candidate,
+    locator: `pages ${input.startPage}-${input.endPage}: ${candidate.locator}`,
+  }));
+  return {
+    candidates,
+    provider: ai.provider,
+    model: ai.model,
+    usage: {
+      inputTokens: Number(ai.usage?.inputTokens ?? 0),
+      outputTokens: Number(ai.usage?.outputTokens ?? 0),
+      totalTokens: Number(ai.usage?.totalTokens ?? 0),
+    },
+    metadata: {
+      selectedPageCount: selected.selectedPageCount,
+      extractionQuality: selected.extractionQuality,
+      ocrUsed: selected.ocrUsed,
+      ocrPages: selected.ocrPages ?? [],
+      charCount: selected.charCount,
+      wordCount: selected.wordCount,
+      warnings: [...(selected.warnings ?? []), ...(ai.warnings ?? [])],
+    },
+  };
+}
+
+async function extractPdfSegmentAdaptive(input: {
+  filePath: string;
+  startPage: number;
+  endPage: number;
+  title: string;
+  taxonomy: string[];
+}): Promise<SegmentExtractionResult> {
+  try {
+    return await extractPdfSegmentOnce(input);
+  } catch (error) {
+    const split = error instanceof PdfSegmentExtractionError && error.code === 'PDF_FACT_SCHEMA_INVALID'
+      ? splitRangeForStructuredRetry(input.startPage, input.endPage)
+      : null;
+    if (!split) throw error;
+
+    console.warn(
+      `[notes-studio-v2:resumable] retrying pages ${input.startPage}-${input.endPage} as ${split[0].startPage}-${split[0].endPage} and ${split[1].startPage}-${split[1].endPage} after invalid structured output.`,
+    );
+
+    const results: SegmentExtractionResult[] = [];
+    for (const range of split) {
+      results.push(await extractPdfSegmentAdaptive({ ...input, ...range }));
+    }
+    return combineSegmentResults(results, {
+      startPage: input.startPage,
+      endPage: input.endPage,
+    });
+  }
+}
+
+export async function extractPdfSegment(input: {
+  filePath: string;
+  startPage: number;
+  endPage: number;
+  title: string;
+  taxonomy: string[];
+}): Promise<SegmentExtractionResult> {
+  try {
+    return await extractPdfSegmentAdaptive(input);
   } catch (error) {
     if (error instanceof PdfSegmentExtractionError) throw error;
     console.error(`[notes-studio-v2:resumable] fact extraction failed for pages ${input.startPage}-${input.endPage}`, error);

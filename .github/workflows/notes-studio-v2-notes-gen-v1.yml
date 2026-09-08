@@ -50,6 +50,11 @@ jobs:
           pnpm --dir artifacts/api-server exec esbuild src/notes-studio-v2/deepseek-adapter.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-v2-deepseek-adapter.test.mjs
           node artifacts/api-server/dist/notes-studio-v2-deepseek-adapter.test.mjs
 
+      - name: Validate adaptive PDF structured-output retry
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio-v2/resumable-pdf-extraction.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-v2-resumable-pdf-extraction.test.mjs
+          node artifacts/api-server/dist/notes-studio-v2-resumable-pdf-extraction.test.mjs
+
       - name: Verify v2 isolation boundaries
         run: |
           grep -F "apiNamespace: '/admin/notes-studio-v2'" artifacts/api-server/src/routes/admin-notes-studio-v2.ts
