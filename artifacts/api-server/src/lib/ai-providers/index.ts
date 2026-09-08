@@ -2,6 +2,9 @@ import {
   claudeProvider,
 } from "./claude-adapter";
 import {
+  deepSeekProvider,
+} from "./deepseek-adapter";
+import {
   geminiProvider,
 } from "./gemini-adapter";
 import {
@@ -29,12 +32,14 @@ const PROVIDERS: Record<
   AIProviderAdapter
 > = {
   openai: openAIProvider,
+  deepseek: deepSeekProvider,
   gemini: geminiProvider,
   claude: claudeProvider,
 };
 
 const PROVIDER_FAILOVER_ORDER: AIProviderName[] = [
   "openai",
+  "deepseek",
   "gemini",
   "claude",
 ];
@@ -54,6 +59,9 @@ export function resolveAIProvider(
 
   if (openAIProvider.isConfigured()) {
     return "openai";
+  }
+  if (deepSeekProvider.isConfigured()) {
+    return "deepseek";
   }
   if (geminiProvider.isConfigured()) {
     return "gemini";
@@ -100,7 +108,7 @@ function providerErrorText(error: unknown) {
 function isProviderQuotaFailure(error: unknown) {
   const err = error as { status?: number };
   if (err.status === 429) return true;
-  return /no credits|insufficient[_ -]?quota|quota exceeded|billing|rate limit/i.test(
+  return /no credits|insufficient[_ -]?(?:quota|balance)|quota exceeded|exceeded your current quota|resource[_ -]?exhausted|billing|rate limit|too many requests/i.test(
     providerErrorText(error),
   );
 }
