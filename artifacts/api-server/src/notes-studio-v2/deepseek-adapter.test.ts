@@ -99,7 +99,7 @@ test('DeepSeek adapter sends Notes v2 extraction through the OpenAI-compatible c
     capturedBody = init?.body ? JSON.parse(String(init.body)) : null;
     capturedAuthorization = String((init?.headers as Record<string, string> | undefined)?.Authorization ?? '');
     return new Response(JSON.stringify({
-      choices: [{ message: { content: '{"claims":[]}' } }],
+      choices: [{ message: { content: '{"facts":[]}' } }],
       usage: { prompt_tokens: 11, completion_tokens: 4, total_tokens: 15 },
     }), {
       status: 200,
@@ -128,7 +128,7 @@ test('DeepSeek adapter sends Notes v2 extraction through the OpenAI-compatible c
     assert.match(String(capturedBody?.messages?.[0]?.content ?? ''), /JSON Schema/);
     assert.match(String(capturedBody?.messages?.[0]?.content ?? ''), /top-level JSON value MUST be an object with a property named facts/);
     assert.equal(response.provider, 'deepseek');
-    assert.deepEqual(response.json, { claims: [] });
+    assert.deepEqual(response.json, { facts: [] });
     assert.deepEqual(response.usage, { inputTokens: 11, outputTokens: 4, totalTokens: 15 });
   } finally {
     globalThis.fetch = originalFetch;
