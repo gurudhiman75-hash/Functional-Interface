@@ -149,6 +149,26 @@ export type DailyMasterPack = {
 
 export type DailyMasterPackSet = Record<DailyMasterPackLanguage, DailyMasterPack | null>;
 
+export type DailyMasterPackArchiveEntry = {
+  contentDate: string;
+  languageCount: number;
+  latestGeneratedAt: string;
+  languages: Partial<Record<DailyMasterPackLanguage, {
+    language: DailyMasterPackLanguage;
+    status: string;
+    eventCount: number;
+    categoryCount: number;
+    publicCode: string;
+    generatedAt: string;
+    learningResourceStatus: string | null;
+  }>>;
+};
+
+export type DailyMasterPackArchive = {
+  dates: DailyMasterPackArchiveEntry[];
+  generatedAt: string;
+};
+
 export type DailyMasterPackApproval = {
   id: string;
   publicCode: string;
@@ -319,6 +339,13 @@ export function getCurrentAffairsDailyMasterPacks(date?: string) {
   const suffix = date ? `?date=${encodeURIComponent(date)}` : '';
   return adminRequest<{ targetDate: string; masterPacks: DailyMasterPackSet }>(
     `/admin/current-affairs/production/master-packs${suffix}`,
+  );
+}
+
+export function getCurrentAffairsDailyMasterPackArchive(limit = 60) {
+  const bounded = Math.max(1, Math.min(180, Math.floor(limit) || 60));
+  return adminRequest<DailyMasterPackArchive>(
+    `/admin/current-affairs/production/master-pack-archive?limit=${bounded}`,
   );
 }
 
