@@ -819,7 +819,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
     "questionId": "COM005-EN-052",
     "qlId": "COM005-QL-005",
     "difficulty": "MEDIUM",
-    "stem": "Which identifier is associated with a network card?",
+    "stem": "Which address identifies a network interface?",
     "options": [
       "MAC address",
       "Domain name",
@@ -827,7 +827,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "Protocol"
     ],
     "canonicalAnswer": "MAC address",
-    "explanation": "A MAC (Media Access Control) address is associated with a network interface.",
+    "explanation": "A MAC (Media Access Control) address identifies a network interface.",
     "sourceFactId": "COM005-QL-005-4",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
