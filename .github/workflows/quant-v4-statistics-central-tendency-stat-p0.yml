@@ -4,15 +4,18 @@ on:
   push:
     branches:
       - feat/quant-v4-statistics-central-tendency-stat-p0
+      - feat/stat-001-central-tendency-proof-p0
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001/**"
       - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
+      - ".github/workflows/quant-v4-statistics-central-tendency-stat-p0.yml"
   pull_request:
     branches:
       - New-main
     paths:
       - "artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001/**"
       - "artifacts/api-server/src/quant-v4/topics/Statistics/shared/**"
+      - ".github/workflows/quant-v4-statistics-central-tendency-stat-p0.yml"
   workflow_dispatch:
 
 concurrency:
@@ -35,6 +38,8 @@ jobs:
           test -d artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001
           test ! -d artifacts/api-server/src/quant-v4/topics/Statistics/STA-001
           ! grep -R 'packageId: "STA-001"\|"STA-TEMP-' artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001
+      - name: Canonical STAT-001 API proof
+        run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001/stat-001-api.test.ts
       - name: Generation and option scan
         run: npx -y tsx artifacts/api-server/src/quant-v4/topics/Statistics/STAT-001/debug-generation-scan.ts
       - name: Central tendency deterministic proof
