@@ -7,13 +7,13 @@ import type {
   QuestionStudioEngineAdapter, QuestionStudioGenerationRequest, QuestionStudioGenerationResult,
   QuestionStudioLanguage, QuestionStudioPackageDefinition,
 } from "../engine-types";
-import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
+import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
 
 export const COM008_QUESTION_STUDIO_PACKAGE_ID_V1="COM-008" as const;
 export const COM008_QUESTION_STUDIO_RUNTIME_MODE_V1="review-only" as const;
 export const COM008_REVISION_POLICY_V1="SOURCE_GENERATOR_ONLY" as const;
 export const COM008_CONTENT_AUTHORITY_VERSION_V1="COM-008-ENGLISH-FREEZE-V1_HI-PA-LOCALIZATION-FREEZE-V1" as const;
-const lifecycle=QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
+const lifecycle=QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
 const supportedLanguages:QuestionStudioLanguage[]=["en","hi","pa"];
 const supportedDifficulties=["Easy","Medium"] as const;
 const qlIds=COM008_ENGLISH_FREEZE_AUTHORITY_V1.permanentQlIds as readonly string[];
@@ -72,16 +72,16 @@ function recordForOutput(record:Com008CorpusRecord) {
     explanation:record.explanation,sourceFactIds:[...record.sourceFactIds],sourceEnglishFrozen:record.sourceEnglishFrozen,
     sourceEnglishAuthorityId:record.sourceEnglishAuthorityId,sourceLocalizationFrozen:record.sourceLocalizationFrozen,
     difficulty:record.difficulty==="EASY"?"Easy":"Medium",difficultyLabel:record.difficulty==="EASY"?"Easy":"Medium",
-    registrationStatus:"REGISTERED_REVIEW_ONLY",registrationAuthorityId:COM008_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
+    registrationStatus:"REGISTERED_BANK_ONLY_INTERNAL",registrationAuthorityId:COM008_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
     questionStudioDiscoverable:true,questionStudioGenerationEnabled:true,readOnly:true,revisionPolicy:COM008_REVISION_POLICY_V1,productionReleased:false,
-    questionStudioReview:{...lifecycle,registrationStatus:"REGISTERED_REVIEW_ONLY",registrationAuthorityId:COM008_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
-      runtimeMode:COM008_QUESTION_STUDIO_RUNTIME_MODE_V1,contentAuthorityVersion:COM008_CONTENT_AUTHORITY_VERSION_V1,humanReviewApproved:false,
+    questionStudioReview:{...lifecycle,registrationStatus:"REGISTERED_BANK_ONLY_INTERNAL",registrationAuthorityId:COM008_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
+      runtimeMode:COM008_QUESTION_STUDIO_RUNTIME_MODE_V1,contentAuthorityVersion:COM008_CONTENT_AUTHORITY_VERSION_V1,humanReviewApproved:true,
       frozenCorpusOnly:true,immutableCorpus:true,deterministicSelection:true,selectionWithoutReplacement:true,
       sourceEnglishAuthorityId:COM008_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,localizationFreezeAuthorityId:COM008_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
       revisionPolicy:COM008_REVISION_POLICY_V1,hardDifficultyAuthorized:false,productionDifficultyClaimAuthorized:false},
   };
 }
-export const COM008_REVIEW_ONLY_PACKAGE_V1:QuestionStudioPackageDefinition={
+export const COM008_STANDARD_BANK_ONLY_PACKAGE_V1:QuestionStudioPackageDefinition={
   engineId:"knowledge-v1",packageId:COM008_QUESTION_STUDIO_PACKAGE_ID_V1,subject:"Computer Awareness",topic:"Computer Awareness",
   subtopic:"Data Representation, Number Systems and Computer Codes",
   label:"Computer Awareness · Data Representation, Number Systems and Computer Codes · Review V1",
@@ -92,13 +92,16 @@ export const COM008_REVIEW_ONLY_PACKAGE_V1:QuestionStudioPackageDefinition={
   questionBankAcceptanceMode:lifecycle.questionBankAcceptanceMode,questionBankAcceptanceAuthority:lifecycle.questionBankAcceptanceAuthority,
   testEligibility:lifecycle.testEligibility,testEligible:lifecycle.testEligible,mockTestEligible:lifecycle.mockTestEligible,
   publiclyPublishable:lifecycle.publiclyPublishable,automaticStudentPublication:lifecycle.automaticStudentPublication,productionReleaseAuthorized:lifecycle.productionReleaseAuthorized,
-  metadata:{...lifecycle,reviewOnly:true,humanReviewApproved:false,frozenCorpusOnly:true,immutableCorpus:true,deterministicSelection:true,selectionWithoutReplacement:true,
+  metadata:{...lifecycle,reviewOnly:false,humanReviewApproved:true,frozenCorpusOnly:true,immutableCorpus:true,deterministicSelection:true,selectionWithoutReplacement:true,
     registrationAuthorityId:COM008_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,contentAuthorityVersion:COM008_CONTENT_AUTHORITY_VERSION_V1,
     permanentQlIds:[...qlIds],qlCount:qlIds.length,cpIds:[...cpIds],cpCount:cpIds.length,englishQuestionCount:COM008_ENGLISH_FROZEN.length,
     hindiQuestionCount:COM008_HINDI_FROZEN.length,punjabiQuestionCount:COM008_PUNJABI_FROZEN.length,englishFreezeAuthorityId:COM008_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,
     localizationFreezeAuthorityId:COM008_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,localizationCombinedFingerprint:COM008_LOCALIZATION_FREEZE_AUTHORITY_V1.combinedFingerprint,
     revisionPolicy:COM008_REVISION_POLICY_V1,difficultyFilterSupported:true,supportedDifficulties:[...supportedDifficulties],hardDifficultyAuthorized:false,productionDifficultyClaimsAuthorized:false},
 };
+
+/** Backward-compatible export name retained for callers that used the pre-approval candidate name. */
+export const COM008_REVIEW_ONLY_PACKAGE_V1=COM008_STANDARD_BANK_ONLY_PACKAGE_V1;
 export function isCom008QuestionStudioRequestV1(request:QuestionStudioGenerationRequest) {
   const packageId=String(request.packageId??"").trim().toUpperCase();
   if(packageId) return packageId===COM008_QUESTION_STUDIO_PACKAGE_ID_V1;
@@ -108,7 +111,7 @@ export function isCom008QuestionStudioRequestV1(request:QuestionStudioGeneration
 }
 export const knowledgeV1Com008QuestionStudioAdapterV1:QuestionStudioEngineAdapter={
   engineId:"knowledge-v1",
-  listPackages(){return [COM008_REVIEW_ONLY_PACKAGE_V1];},
+  listPackages(){return [COM008_STANDARD_BANK_ONLY_PACKAGE_V1];},
   async generate(request:QuestionStudioGenerationRequest):Promise<QuestionStudioGenerationResult>{
     const packageId=String(request.packageId??"").trim().toUpperCase();
     if(packageId&&packageId!==COM008_QUESTION_STUDIO_PACKAGE_ID_V1) throw new Error("knowledge-v1 COM-008 adapter cannot generate package "+request.packageId);
@@ -120,8 +123,8 @@ export const knowledgeV1Com008QuestionStudioAdapterV1:QuestionStudioEngineAdapte
     if(count>candidates.length) throw new Error("COM-008 cannot fill "+count+" questions from a "+candidates.length+"-question frozen pool without repeats");
     const selected=shuffled(candidates,seed+":COM-008:"+(qlId??"ALL")+":"+requestedDifficulty).slice(0,count);
     return {questions:selected.map(recordForOutput),generationContext:{...lifecycle,engineId:"knowledge-v1",packageId:COM008_QUESTION_STUDIO_PACKAGE_ID_V1,
-      runtimeMode:COM008_QUESTION_STUDIO_RUNTIME_MODE_V1,registrationStatus:"REGISTERED_REVIEW_ONLY",registrationAuthorityId:COM008_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
-      reviewOnly:true,humanReviewApproved:false,frozenCorpusOnly:true,immutableCorpus:true,deterministicSelection:true,selectionWithoutReplacement:true,
+      runtimeMode:COM008_QUESTION_STUDIO_RUNTIME_MODE_V1,registrationStatus:"REGISTERED_BANK_ONLY_INTERNAL",registrationAuthorityId:COM008_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
+      reviewOnly:false,humanReviewApproved:true,frozenCorpusOnly:true,immutableCorpus:true,deterministicSelection:true,selectionWithoutReplacement:true,
       contentAuthorityVersion:COM008_CONTENT_AUTHORITY_VERSION_V1,revisionPolicy:COM008_REVISION_POLICY_V1,language,locale:language+"-IN",
       requestedDifficulty,difficultyFilterApplied:requestedDifficulty!=="Mixed",productionDifficultyClaimAuthorized:false,hardDifficultyAuthorized:false,
       qlSelection:qlId??"DETERMINISTIC_ACROSS_PERMANENT_QLS",permanentQlIds:[...qlIds],cpIds:[...cpIds],candidatePoolSize:candidates.length,
