@@ -1,6 +1,6 @@
 # STAT-001 Central Tendency Phase 0
 
-Status: `IMPLEMENTED_REVIEW_PENDING`
+Status: `PROOF_GREEN_REVIEW_READY`
 
 Authority scope:
 - SSC CGL Tier-II Mathematical Abilities common Statistics core.
@@ -16,24 +16,19 @@ Temporary semantic contracts:
 
 Editorial/runtime rules:
 - direct learner-facing English stems;
-- three structural stem surfaces per contract;
+- three or more structural stem surfaces per contract/profile under the permanent proof;
 - four options for SSC profiles;
 - misconception-owned distractors;
 - exact deterministic arithmetic;
 - materially separate independent verifier;
 - question-specific worked explanation, shortcut and trap guidance.
 
-Lifecycle lock:
-- contract IDs are temporary review IDs, not permanent QLs;
-- Question Studio discovery: OFF;
-- Question Bank: NOT_STORED;
-- test eligibility: INELIGIBLE;
-- public publication: false;
-- localization: not started.
-
-Required proof before green status:
-- 100 seeds × 2 profiles × 6 contracts = 1,200 questions;
-- deterministic replay and independent verification for all 1,200;
+Permanent proof:
+- dedicated workflow run `34189916399`: PASS;
+- 100 seeds × 2 profiles × 6 contracts = 1,200 generated questions;
+- 1,200 deterministic replay checks;
+- 1,200 independent verification checks;
+- 4,800 option checks;
 - four unique options and one correct answer throughout;
 - A-D answer-position coverage for every contract/profile;
 - at least three normalized stem structures per contract/profile;
@@ -41,14 +36,26 @@ Required proof before green status:
 - odd/even median coverage;
 - multi-count missing/corrected mean coverage;
 - all configured combined-group count pairs;
-- learner-surface and lifecycle gates;
+- learner-surface and lifecycle gates passed;
 - no non-deterministic random source;
-- patch hygiene.
+- package namespace guard passed;
+- canonical collision-safe `Stat001*` public API proof passed;
+- patch hygiene passed.
+
+Lifecycle lock:
+- contract IDs are temporary review IDs, not permanent QLs;
+- Question Studio discovery: OFF;
+- Question Bank: NOT_STORED;
+- test eligibility: INELIGIBLE;
+- mock-test eligibility: false;
+- public publication: false;
+- automatic student publication: false;
+- localization: not started.
 
 ## Namespace correction
 
-`STAT-001` is the Quant V4 Statistics package ID. `STA-001` is already owned globally by the frozen Reasoning Statement & Assumption package and must not be reused.
+`STAT-001` is the Quant V4 Statistics package ID. `STA-001` is already owned globally by the frozen Reasoning Statement & Assumption package and must not be reused. The Phase-0 internals retain compatibility aliases, while new callers have a collision-safe `Stat001*` / `STAT001_*` public API.
 
-## Clean transplant checkpoint
+## Checkpoint boundary
 
-The corrected `STAT-001` source has been transplanted from the abandoned temporary Statistics line onto current `New-main`. Temporary bootstrap files are removed. Permanent Phase 0 proof is now the only gate before this checkpoint can be called green.
+This checkpoint certifies only the six Phase-0 central-tendency contracts above. It does not claim full Statistics chapter coverage, permanent QL allocation, Question Studio activation, learner delivery, localization, dispersion, grouped-frequency Statistics, or advanced JSO Paper-II Statistics.
