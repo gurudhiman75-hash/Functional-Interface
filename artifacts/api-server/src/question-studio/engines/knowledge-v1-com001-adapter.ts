@@ -25,6 +25,14 @@ import {
   auditCom001Cp002Cp005FreezeV1,
 } from "../../knowledge-v1/computer-awareness/com001-cp002-cp005-freeze-v1";
 import type { Com001DifficultyDecisionV2 } from "../../knowledge-v1/computer-awareness/com001-difficulty-routing-v2";
+import {
+  COM001_HARDWARE_GAP_EXTENSION_AUTHORITY_V1,
+  COM001_HARDWARE_GAP_EXTENSION_ENGLISH,
+  COM001_HARDWARE_GAP_EXTENSION_HINDI,
+  COM001_HARDWARE_GAP_EXTENSION_PUNJABI,
+  auditCom001HardwareGapExtensionV1,
+  type Com001HardwareExtensionQuestion,
+} from "../../knowledge-v1/computer-awareness/com001-hardware-gap-extension-v1";
 import type {
   QuestionStudioEngineAdapter,
   QuestionStudioGenerationRequest,
@@ -42,16 +50,20 @@ export const COM001_REVISION_POLICY = "SOURCE_GENERATOR_ONLY" as const;
 export const COM001_REVIEW_CONTENT_AUTHORITY_VERSION = "V2" as const;
 export const COM001_CP006_CONTENT_AUTHORITY_VERSION = "COM-001-CP-006-FREEZE-V1" as const;
 export const COM001_COMPLETION_CONTENT_AUTHORITY_VERSION = "COM-001-CP-002-CP-005-FREEZE-V1" as const;
+export const COM001_HARDWARE_GAP_CONTENT_AUTHORITY_VERSION = "COM-001-HARDWARE-GAP-EXTENSION-V1" as const;
 
 const qlIds = listCom001ReviewV2QlIds();
 const cp006QlIds = [...COM001_CP006_ENGLISH_FREEZE_AUTHORITY_V1.permanentQlIds];
 const completionQlIds = [...COM001_CP002_CP005_ENGLISH_FREEZE_AUTHORITY_V1.permanentQlIds];
-const allQlIds = [...qlIds, ...completionQlIds, ...cp006QlIds];
-const cpIds = ["COM-001-CP-001", "COM-001-CP-002", "COM-001-CP-003", "COM-001-CP-004", "COM-001-CP-005", "COM-001-CP-006"] as const;
+const hardwareQlIds = [...COM001_HARDWARE_GAP_EXTENSION_AUTHORITY_V1.permanentQlIds];
+const allQlIds = [...qlIds, ...completionQlIds, ...cp006QlIds, ...hardwareQlIds];
+const cpIds = ["COM-001-CP-001", "COM-001-CP-002", "COM-001-CP-003", "COM-001-CP-004", "COM-001-CP-005", "COM-001-CP-006", "COM-001-CP-007"] as const;
 const completionAudit = auditCom001Cp002Cp005FreezeV1();
 if (!completionAudit.valid) throw new Error(`COM-001 completion freeze invalid: ${completionAudit.issues.join(", ")}`);
 const cp006Audit = auditCom001Cp006FreezeV1();
 if (!cp006Audit.valid) throw new Error(`COM-001 CP-006 freeze invalid: ${cp006Audit.issues.join(", ")}`);
+const hardwareAudit = auditCom001HardwareGapExtensionV1();
+if (!hardwareAudit.valid) throw new Error(`COM-001 hardware extension invalid: ${hardwareAudit.issues.join(", ")}`);
 const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
 const supportedDifficulties: Com001DifficultyV2[] = ["Easy", "Medium"];
 const lifecycle = QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
@@ -94,6 +106,11 @@ const qlDifficultySupport: Record<string, readonly Com001DifficultyV2[]> = {
   "COM-001-CP-006-QL-006": ["Easy", "Medium"],
   "COM-001-CP-006-QL-007": ["Easy", "Medium"],
   "COM-001-CP-006": ["Easy", "Medium"],
+  "COM-001-CP-007-QL-001": ["Easy", "Medium"],
+  "COM-001-CP-007-QL-002": ["Easy", "Medium"],
+  "COM-001-CP-007-QL-003": ["Easy", "Medium"],
+  "COM-001-CP-007-QL-004": ["Easy", "Medium"],
+  "COM-001-CP-007": ["Easy", "Medium"],
 };
 
 export const COM001_STANDARD_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = {
@@ -135,6 +152,8 @@ export const COM001_STANDARD_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefin
     cp006QuestionCountPerLanguage: 28,
     cp006EnglishFreezeAuthorityId: COM001_CP006_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,
     cp006LocalizationFreezeAuthorityId: COM001_CP006_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
+    hardwareGapQuestionCountPerLanguage: COM001_HARDWARE_GAP_EXTENSION_ENGLISH.length,
+    hardwareGapAuthorityId: COM001_HARDWARE_GAP_EXTENSION_AUTHORITY_V1.authorityId,
     revisionPolicy: COM001_REVISION_POLICY,
     difficultyFilterSupported: true,
     supportedDifficulties,
@@ -239,6 +258,23 @@ function cp006Pool(language: QuestionStudioLanguage, patternId?: string) {
   return corpus.filter((question) => question.qlId === patternId);
 }
 
+function hardwarePool(language: QuestionStudioLanguage, patternId?: string): readonly Com001HardwareExtensionQuestion[] {
+  const corpus = language === "en"
+    ? COM001_HARDWARE_GAP_EXTENSION_ENGLISH
+    : language === "hi"
+      ? COM001_HARDWARE_GAP_EXTENSION_HINDI
+      : COM001_HARDWARE_GAP_EXTENSION_PUNJABI;
+  if (!patternId || patternId === "COM-001-CP-007") return corpus;
+  return corpus.filter((question) => question.qlId === patternId);
+}
+
+function hardwareDifficultyDecision(difficulty: "EASY" | "MEDIUM"): Com001DifficultyDecisionV2 {
+  return frozenDifficultyDecision(
+    difficulty,
+    "Tests one direct hardware or instruction-cycle fact.",
+  );
+}
+
 function cp006DifficultyDecision(difficulty: "EASY" | "MEDIUM"): Com001DifficultyDecisionV2 {
   if (difficulty === "EASY") {
     return {
@@ -295,6 +331,19 @@ function generateCandidate(input: {
     return { question, difficultyDecision: cp006DifficultyDecision(frozen.difficulty) };
   }
 
+  const hardwareRequest = selectedPatternId === "COM-001-CP-007" || hardwareQlIds.includes(selectedPatternId);
+  if (hardwareRequest) {
+    const pool = hardwarePool(input.language, selectedPatternId);
+    const frozen = pool[input.candidateIndex % pool.length]!;
+    const question = {
+      ...frozen,
+      sourceCandidateIds: [frozen.sourceQuestionId],
+      sourceFactIds: [...frozen.sourceFactIds],
+      contentAuthorityVersion: COM001_HARDWARE_GAP_CONTENT_AUTHORITY_VERSION,
+    };
+    return { question, difficultyDecision: hardwareDifficultyDecision(frozen.difficulty) };
+  }
+
   const qlId = selectedPatternId;
   const seed = `${input.baseSeed}:item:${input.candidateIndex}`;
   const question = generateCom001LocalizedReviewQuestionV2({
@@ -323,6 +372,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
     const difficultyFilterApplied = requestedDifficulty !== null;
     const isCompletionRequest = ["COM-001-CP-002", "COM-001-CP-003", "COM-001-CP-004", "COM-001-CP-005"].includes(request.patternId ?? "") || completionQlIds.includes(request.patternId ?? "");
     const isCp006Request = request.patternId === "COM-001-CP-006" || cp006QlIds.includes(request.patternId ?? "");
+    const isHardwareRequest = request.patternId === "COM-001-CP-007" || hardwareQlIds.includes(request.patternId ?? "");
     const completionAvailable = isCompletionRequest
       ? completionPool(language, request.patternId).filter((question) => !requestedDifficulty || question.difficulty === requestedDifficulty.toUpperCase()).length
       : 0;
@@ -334,6 +384,12 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
       : 0;
     if (isCp006Request && count > cp006Available) {
       throw new Error(`COM-001 CP-006 cannot fill ${count} questions from a ${cp006Available}-question frozen pool without repeats`);
+    }
+    const hardwareAvailable = isHardwareRequest
+      ? hardwarePool(language, request.patternId).filter((question) => !requestedDifficulty || question.difficulty === requestedDifficulty.toUpperCase()).length
+      : 0;
+    if (isHardwareRequest && count > hardwareAvailable) {
+      throw new Error(`COM-001 CP-007 cannot fill ${count} questions from a ${hardwareAvailable}-question frozen pool without repeats`);
     }
     const baseSeed = request.seed?.trim() || "com001-question-studio-review-v2";
     const questions: Record<string, unknown>[] = [];
@@ -363,7 +419,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
           ...lifecycle,
           registrationStatus: "STANDARD_QUESTION_STUDIO_REGISTERED",
           runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
-          contentAuthorityVersion: isCompletionRequest ? COM001_COMPLETION_CONTENT_AUTHORITY_VERSION : isCp006Request ? COM001_CP006_CONTENT_AUTHORITY_VERSION : COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
+          contentAuthorityVersion: isCompletionRequest ? COM001_COMPLETION_CONTENT_AUTHORITY_VERSION : isCp006Request ? COM001_CP006_CONTENT_AUTHORITY_VERSION : isHardwareRequest ? COM001_HARDWARE_GAP_CONTENT_AUTHORITY_VERSION : COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
           humanReviewApproved: true,
           revisionPolicy: COM001_REVISION_POLICY,
           difficultyFilterApplied,
@@ -415,6 +471,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
         completionLocalizationFreezeAuthorityId: COM001_CP002_CP005_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
         cp006EnglishFreezeAuthorityId: COM001_CP006_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,
         cp006LocalizationFreezeAuthorityId: COM001_CP006_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
+        hardwareGapAuthorityId: COM001_HARDWARE_GAP_EXTENSION_AUTHORITY_V1.authorityId,
         englishFreezeAuthorityId: COM001_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
         englishCombinedFingerprint:
           COM001_ENGLISH_FREEZE_AUTHORITY_V2.fingerprints.combinedFingerprint,
