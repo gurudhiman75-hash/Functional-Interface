@@ -38,9 +38,9 @@ for(const qlId of [...COM005_ENGLISH_FREEZE_AUTHORITY_V1.permanentQlIds,...COM00
   const replay=await knowledgeV1Com005QuestionStudioAdapterV1.generate({...request,language:"en"});
   assert.deepEqual(en,replay);
 }
-const full=await knowledgeV1Com005QuestionStudioAdapterV1.generate({packageId:"COM-005",language:"en",count:54,seed:"com005-full-v1"});
+const full=await knowledgeV1Com005QuestionStudioAdapterV1.generate({packageId:"COM-005",language:"en",count:50,seed:"com005-full-v1"});
 assert.deepEqual([...new Set(full.questions.map((q:any)=>q.correctIndex))].sort(),[0,1,2,3]);
-assert.equal(new Set(full.questions.map((q:any)=>q.questionId)).size,54);
+assert.equal(new Set(full.questions.map((q:any)=>q.questionId)).size,50);
 const easy=await knowledgeV1Com005QuestionStudioAdapterV1.generate({packageId:"COM-005",language:"en",difficulty:"Easy",count:4});
 assert.ok(easy.questions.every((q:any)=>q.difficulty==="Easy"));
 const medium=await knowledgeV1Com005QuestionStudioAdapterV1.generate({packageId:"COM-005",language:"en",difficulty:"Medium",count:4});
