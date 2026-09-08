@@ -454,7 +454,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
         engineId: "knowledge-v1",
         packageId: COM001_QUESTION_STUDIO_PACKAGE_ID,
         runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
-        contentAuthorityVersion: isCompletionRequest ? COM001_COMPLETION_CONTENT_AUTHORITY_VERSION : isCp006Request ? COM001_CP006_CONTENT_AUTHORITY_VERSION : COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
+        contentAuthorityVersion: isCompletionRequest ? COM001_COMPLETION_CONTENT_AUTHORITY_VERSION : isCp006Request ? COM001_CP006_CONTENT_AUTHORITY_VERSION : isHardwareRequest ? COM001_HARDWARE_GAP_CONTENT_AUTHORITY_VERSION : COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
         humanReviewApproved: true,
         reviewOnly: false,
         revisionPolicy: COM001_REVISION_POLICY,
