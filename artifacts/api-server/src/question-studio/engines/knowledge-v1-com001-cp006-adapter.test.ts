@@ -102,7 +102,7 @@ for (const qlId of cp006QlIds) {
 
   await assert.rejects(
     () => knowledgeV1Com001QuestionStudioAdapter.generate({ ...request, language: "en", difficulty: "Hard", count: 1 }),
-    /does not produce Hard questions/,
+    /must be Easy, Medium, or Mixed/,
   );
   await assert.rejects(
     () => knowledgeV1Com001QuestionStudioAdapter.generate({ ...request, language: "en", count: 5 }),
