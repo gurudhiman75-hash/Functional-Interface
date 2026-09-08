@@ -104,7 +104,7 @@ for (const qlId of qlIds) {
     audited += 1;
     assert.equal(question.qlId, qlId);
     assert.equal(question.language, language);
-    assert.equal(["Easy", "Medium", "Hard"].includes(question.difficulty), true);
+    assert.equal(["Easy", "Medium"].includes(question.difficulty), true);
     assert.equal(question.questionStudioReview.contentAuthorityVersion, "V2");
     assert.equal(question.questionStudioReview.humanReviewApproved, true);
     assert.equal(question.questionStudioReview.lifecycleId, lifecycle.lifecycleId);
