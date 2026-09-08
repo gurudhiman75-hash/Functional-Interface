@@ -74,8 +74,8 @@ const QL_DIFFICULTIES: Record<string, readonly string[]> = {
   'COM-001-QL-004': ['Easy', 'Medium'],
   'COM-001-QL-005': ['Easy', 'Medium'],
   'COM-001-QL-006': ['Medium'],
-  'COM-001-QL-007': ['Hard'],
-  'COM-001-QL-008': ['Hard'],
+  'COM-001-QL-007': ['Medium'],
+  'COM-001-QL-008': ['Medium'],
   'COM-001-QL-009': ['Easy', 'Medium'],
 };
 
@@ -106,7 +106,7 @@ function qlLabel(qlId: string) {
 }
 
 function difficultiesForQl(qlId: string) {
-  if (qlId === MIXED_QL) return ['Easy', 'Medium', 'Hard'];
+  if (qlId === MIXED_QL) return ['Easy', 'Medium'];
   return [...(QL_DIFFICULTIES[qlId] ?? [])];
 }
 
