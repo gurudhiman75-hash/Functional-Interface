@@ -174,7 +174,7 @@ for (const directory of [scope, sharedScope]) {
 }
 
 console.log(JSON.stringify({
-  status: "PASS_STA_001_CENTRAL_TENDENCY_PHASE0",
+  status: "PASS_STAT_001_CENTRAL_TENDENCY_PHASE0",
   questions: questionCount,
   deterministicReplayChecks,
   independentVerificationChecks,
