@@ -39,6 +39,20 @@ function requestedLanguage(value: unknown): DailyMasterPackLanguage {
   return assertDailyMasterPackLanguage(typeof value === "string" ? value : "en");
 }
 
+async function selectedHeadlineCount(targetDate: string) {
+  const rows = await sqlClient`
+    SELECT COUNT(*)::int AS count
+    FROM content.current_affairs_ingestion_candidates candidate
+    WHERE COALESCE((candidate.payload->>'manualEditorialSelected')::boolean, false)=true
+      AND COALESCE(
+        NULLIF(candidate.payload->>'historicalTargetDate',''),
+        NULLIF(candidate.payload->>'discoveryTargetDate',''),
+        (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+      )=${targetDate}
+  `;
+  return Number(rows[0]?.count ?? 0);
+}
+
 function artifactFilename(targetDate: string, language: DailyMasterPackLanguage, extension: "md" | "pdf") {
   const languageSuffix = language === "en" ? "" : `-${language}`;
   return `examtree-current-affairs-${targetDate}${languageSuffix}.${extension}`;
@@ -249,6 +263,18 @@ router.post("/production/generate-yesterday", requireAdminPermission("jobs.manag
 
     const generationRequestId = randomUUID();
     const requestedTargetDate = typeof req.body?.date === "string" ? req.body.date.trim() || undefined : undefined;
+    if (requestedTargetDate) {
+      const selectedCount = await selectedHeadlineCount(requestedTargetDate);
+      if (selectedCount > 0) {
+        res.status(409).json({
+          error: "Historical replay is disabled for dates with an admin-selected canonical pack. Use Process selected affairs for verification recovery, or Refresh pack + run QA for pack-only rematerialization.",
+          code: "CURRENT_AFFAIRS_SELECTED_DATE_REPLAY_BLOCKED",
+          targetDate: requestedTargetDate,
+          selectedHeadlineCount: selectedCount,
+        });
+        return;
+      }
+    }
     const result = await generateYesterdayCurrentAffairsOnDemand(new Date(), requestedTargetDate);
     await sqlClient`
       INSERT INTO platform.audit_events (
