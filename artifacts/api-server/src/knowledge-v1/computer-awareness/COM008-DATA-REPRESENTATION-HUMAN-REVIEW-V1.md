@@ -2,13 +2,13 @@
 
 ## Review status
 
-Review-only candidate. This file is for human content review. It is not a Question Bank import file.
+Approved review corpus. This file records the human-reviewed content; Question Bank acceptance remains manual and is not automatic.
 
 - 8 learning units
 - 32 questions in English, 32 in Hindi and 32 in Punjabi
 - Easy and Medium only
 - Test Builder, mock tests, public release and production release are locked
-- Question Bank acceptance needs human approval
+- Human review approved; Question Bank acceptance remains manual
 
 ## Review checklist
 
