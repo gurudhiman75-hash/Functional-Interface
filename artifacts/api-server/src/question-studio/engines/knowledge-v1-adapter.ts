@@ -10,6 +10,10 @@ import {
   knowledgeV1Com003QuestionStudioAdapterV2,
 } from "./knowledge-v1-com003-adapter-v2";
 import {
+  isCom005QuestionStudioRequestV1,
+  knowledgeV1Com005QuestionStudioAdapterV1,
+} from "./knowledge-v1-com005-adapter-v1";
+import {
   isCom006QuestionStudioRequestV1,
   knowledgeV1Com006QuestionStudioAdapterV1,
 } from "./knowledge-v1-com006-adapter-v1";
@@ -36,6 +40,7 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...knowledgeV1Com002QuestionStudioAdapterV3.listPackages(),
       ...knowledgeV1Com003QuestionStudioAdapterV2.listPackages(),
       ...knowledgeV1Com004QuestionStudioAdapterV1.listPackages(),
+      ...knowledgeV1Com005QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Com006QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Com007QuestionStudioAdapterV1.listPackages(),
     ];
@@ -52,6 +57,9 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isCom003QuestionStudioRequestV2(request)) {
       return knowledgeV1Com003QuestionStudioAdapterV2.generate(request);
+    }
+    if (isCom005QuestionStudioRequestV1(request)) {
+      return knowledgeV1Com005QuestionStudioAdapterV1.generate(request);
     }
     if (isCom006QuestionStudioRequestV1(request)) {
       return knowledgeV1Com006QuestionStudioAdapterV1.generate(request);
