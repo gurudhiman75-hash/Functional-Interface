@@ -21,6 +21,7 @@ const expectedCpIds = [
   "COM-001-CP-004",
   "COM-001-CP-005",
   "COM-001-CP-006",
+  "COM-001-CP-007",
 ];
 
 const audit = auditCom001Cp002Cp005FreezeV1();
