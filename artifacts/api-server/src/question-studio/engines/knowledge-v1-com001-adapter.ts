@@ -61,6 +61,7 @@ const qlDifficultySupport: Record<string, readonly Com001DifficultyV2[]> = {
   "COM-001-CP-006-QL-005": ["Easy", "Medium"],
   "COM-001-CP-006-QL-006": ["Easy", "Medium"],
   "COM-001-CP-006-QL-007": ["Easy", "Medium"],
+  "COM-001-CP-006": ["Easy", "Medium"],
 };
 
 export const COM001_STANDARD_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = {
