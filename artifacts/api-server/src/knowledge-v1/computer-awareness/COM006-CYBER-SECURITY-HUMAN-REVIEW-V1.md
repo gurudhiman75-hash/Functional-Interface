@@ -29,8 +29,8 @@ D. Files, folders and printers
 
 #### 2. What does confidentiality mean?
 
-A. Only allowed people can see the data
-B. Data is always available
+A. Data is always available
+B. Only allowed people can see the data
 C. Data is processed quickly
 D. Data is printed correctly
 
@@ -42,9 +42,9 @@ D. Data is printed correctly
 
 #### 3. What does integrity mean?
 
-A. Data stays correct and unchanged
-B. Anyone can read the data
-C. A device works without power
+A. Anyone can read the data
+B. A device works without power
+C. Data stays correct and unchanged
 D. A file is always deleted
 
 **Answer:** Data stays correct and unchanged
@@ -55,10 +55,10 @@ D. A file is always deleted
 
 #### 4. What does availability mean?
 
-A. Data and services are ready when needed
-B. Data is hidden from everyone
-C. A password is shared
-D. A file is copied without checking
+A. Data is hidden from everyone
+B. A password is shared
+C. A file is copied without checking
+D. Data and services are ready when needed
 
 **Answer:** Data and services are ready when needed
 
@@ -83,8 +83,8 @@ D. Antivirus
 
 #### 6. Which malware secretly watches user activity?
 
-A. Spyware
-B. Firewall
+A. Firewall
+B. Spyware
 C. Ransomware
 D. Compiler
 
@@ -96,9 +96,9 @@ D. Compiler
 
 #### 7. Which malware can copy itself and spread through a network?
 
-A. Worm
-B. Trojan horse
-C. Spyware
+A. Trojan horse
+B. Spyware
+C. Worm
 D. Screen lock
 
 **Answer:** Worm
@@ -109,10 +109,10 @@ D. Screen lock
 
 #### 8. What is a Trojan horse in computer security?
 
-A. A harmful program that looks useful
-B. A device that blocks traffic
-C. A safe backup copy
-D. A type of printer
+A. A device that blocks traffic
+B. A safe backup copy
+C. A type of printer
+D. A harmful program that looks useful
 
 **Answer:** A harmful program that looks useful
 
@@ -137,8 +137,8 @@ D. A type of data cable
 
 #### 10. What is spear phishing?
 
-A. A targeted fake message sent to a specific person
-B. A virus that attacks only printers
+A. A virus that attacks only printers
+B. A targeted fake message sent to a specific person
 C. A method of encrypting a hard disk
 D. A tool for cleaning a keyboard
 
@@ -150,9 +150,9 @@ D. A tool for cleaning a keyboard
 
 #### 11. What is social engineering?
 
-A. Tricking people into giving information or access
-B. Repairing damaged computer parts
-C. Writing a computer program
+A. Repairing damaged computer parts
+B. Writing a computer program
+C. Tricking people into giving information or access
 D. Connecting two printers
 
 **Answer:** Tricking people into giving information or access
@@ -163,10 +163,10 @@ D. Connecting two printers
 
 #### 12. What should you do with a suspicious login link?
 
-A. Do not open it and verify the sender another way
-B. Open it quickly
-C. Forward it to all contacts
-D. Enter the password to test it
+A. Open it quickly
+B. Forward it to all contacts
+C. Enter the password to test it
+D. Do not open it and verify the sender another way
 
 **Answer:** Do not open it and verify the sender another way
 
@@ -191,8 +191,8 @@ D. A short word such as password
 
 #### 14. Why should passwords not be reused?
 
-A. One stolen password can open many accounts
-B. Reuse makes the computer faster
+A. Reuse makes the computer faster
+B. One stolen password can open many accounts
 C. Reuse increases screen brightness
 D. One password can store more files
 
@@ -204,9 +204,9 @@ D. One password can store more files
 
 #### 15. What does multi-factor authentication require?
 
-A. Two or more different proof factors
-B. Only a username
-C. Only a short password
+A. Only a username
+B. Only a short password
+C. Two or more different proof factors
 D. A new computer
 
 **Answer:** Two or more different proof factors
@@ -217,10 +217,10 @@ D. A new computer
 
 #### 16. What is a one-time password?
 
-A. A code meant for one use or a short time
-B. A password used by every employee
-C. A password that never changes
-D. A name saved in a file
+A. A password used by every employee
+B. A password that never changes
+C. A name saved in a file
+D. A code meant for one use or a short time
 
 **Answer:** A code meant for one use or a short time
 
@@ -245,8 +245,8 @@ D. The speed of a keyboard
 
 #### 18. What does antivirus software help to do?
 
-A. Detect, block or remove malicious software
-B. Increase the monitor size
+A. Increase the monitor size
+B. Detect, block or remove malicious software
 C. Create a new keyboard
 D. Print without paper
 
@@ -258,9 +258,9 @@ D. Print without paper
 
 #### 19. Why are software updates important for security?
 
-A. They can fix known security weaknesses
-B. They always delete personal files
-C. They turn off all passwords
+A. They always delete personal files
+B. They turn off all passwords
+C. They can fix known security weaknesses
 D. They remove the need for backups
 
 **Answer:** They can fix known security weaknesses
@@ -271,10 +271,10 @@ D. They remove the need for backups
 
 #### 20. What does least privilege mean?
 
-A. Give only the access needed for a task
-B. Give every user full access
-C. Remove every user account
-D. Allow access without a password
+A. Give every user full access
+B. Remove every user account
+C. Allow access without a password
+D. Give only the access needed for a task
 
 **Answer:** Give only the access needed for a task
 
@@ -299,8 +299,8 @@ D. Open unknown links first
 
 #### 22. What should you do with an unknown USB drive?
 
-A. Do not plug it in and report or scan it safely
-B. Open every file on it
+A. Open every file on it
+B. Do not plug it in and report or scan it safely
 C. Use it on every computer
 D. Give it administrator access
 
@@ -312,9 +312,9 @@ D. Give it administrator access
 
 #### 23. What should you do with an unexpected email attachment?
 
-A. Do not open it until the sender is verified
-B. Open it to see what it contains
-C. Send it to more people
+A. Open it to see what it contains
+B. Send it to more people
+C. Do not open it until the sender is verified
 D. Rename it and open it
 
 **Answer:** Do not open it until the sender is verified
@@ -325,10 +325,10 @@ D. Rename it and open it
 
 #### 24. Why should you lock your screen?
 
-A. To stop other people using the device without permission
-B. To make the battery charge faster
-C. To remove all malware
-D. To increase internet speed
+A. To make the battery charge faster
+B. To remove all malware
+C. To increase internet speed
+D. To stop other people using the device without permission
 
 **Answer:** To stop other people using the device without permission
 
@@ -353,8 +353,8 @@ D. A second keyboard
 
 #### 26. What does encryption do?
 
-A. Changes data into a form that needs a key to read
-B. Deletes every copy of the data
+A. Deletes every copy of the data
+B. Changes data into a form that needs a key to read
 C. Makes a keyboard wireless
 D. Removes all computer viruses
 
@@ -366,9 +366,9 @@ D. Removes all computer viruses
 
 #### 27. What is shoulder surfing?
 
-A. Watching a person to steal private information
-B. Repairing a computer screen
-C. Sharing a file with a team
+A. Repairing a computer screen
+B. Sharing a file with a team
+C. Watching a person to steal private information
 D. Cleaning a keyboard
 
 **Answer:** Watching a person to steal private information
@@ -379,10 +379,10 @@ D. Cleaning a keyboard
 
 #### 28. Why should important backups be tested?
 
-A. To confirm that files can be restored
-B. To make files public
-C. To remove the need for passwords
-D. To stop all software updates
+A. To make files public
+B. To remove the need for passwords
+C. To stop all software updates
+D. To confirm that files can be restored
 
 **Answer:** To confirm that files can be restored
 
@@ -407,8 +407,8 @@ D. Delete every file immediately
 
 #### 30. Who should receive a suspected workplace cyber incident?
 
-A. The workplace information technology or security team
-B. Every person on social media
+A. Every person on social media
+B. The workplace information technology or security team
 C. An unknown caller
 D. A public chat group
 
@@ -420,9 +420,9 @@ D. A public chat group
 
 #### 31. What does a digital signature help verify?
 
-A. Who sent data and whether it was changed
-B. The colour of a website
-C. The size of a monitor
+A. The colour of a website
+B. The size of a monitor
+C. Who sent data and whether it was changed
 D. The speed of a printer
 
 **Answer:** Who sent data and whether it was changed
@@ -433,10 +433,10 @@ D. The speed of a printer
 
 #### 32. What is the safest action after finding malware on a work device?
 
-A. Disconnect it as instructed and report it
-B. Keep using it for all work
-C. Copy the malware to another device
-D. Turn off every security tool
+A. Keep using it for all work
+B. Copy the malware to another device
+C. Turn off every security tool
+D. Disconnect it as instructed and report it
 
 **Answer:** Disconnect it as instructed and report it
 
@@ -449,6 +449,7 @@ D. Turn off every security tool
 - No unnecessary stem openings.
 - No repeated formal wording using associated or association.
 - Abbreviations used in stems are explained in the explanation.
+- Correct-answer positions are varied.
 - Explanations contain no more than two short sentences.
 
 ## Source note
