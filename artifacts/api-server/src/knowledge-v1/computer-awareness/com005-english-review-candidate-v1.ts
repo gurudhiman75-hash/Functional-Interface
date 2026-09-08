@@ -11,7 +11,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "PAN"
     ],
     "canonicalAnswer": "LAN",
-    "explanation": "A LAN covers a limited area such as a building.",
+    "explanation": "A LAN (Local Area Network) covers a limited area such as a building.",
     "sourceFactId": "COM005-QL-001-1",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -27,7 +27,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "CAN"
     ],
     "canonicalAnswer": "WAN",
-    "explanation": "A WAN covers a large geographical area.",
+    "explanation": "A WAN (Wide Area Network) covers a large geographical area.",
     "sourceFactId": "COM005-QL-001-2",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -43,7 +43,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "WAN"
     ],
     "canonicalAnswer": "PAN",
-    "explanation": "A PAN connects devices around one person.",
+    "explanation": "A PAN (Personal Area Network) connects devices around one person.",
     "sourceFactId": "COM005-QL-001-3",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -59,7 +59,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "SAN"
     ],
     "canonicalAnswer": "MAN",
-    "explanation": "A MAN generally covers a city or metropolitan area.",
+    "explanation": "A MAN (Metropolitan Area Network) generally covers a city or metropolitan area.",
     "sourceFactId": "COM005-QL-001-4",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -91,7 +91,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "MAN"
     ],
     "canonicalAnswer": "WAN",
-    "explanation": "A WAN connects networks across large distances.",
+    "explanation": "A WAN (Wide Area Network) connects networks across large distances.",
     "sourceFactId": "COM005-QL-001-6",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -155,7 +155,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "WAN"
     ],
     "canonicalAnswer": "WAN",
-    "explanation": "WAN has the widest geographical coverage among these options.",
+    "explanation": "WAN (Wide Area Network) has the widest geographical coverage among these options.",
     "sourceFactId": "COM005-QL-001-10",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -187,7 +187,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "LAN"
     ],
     "canonicalAnswer": "PAN",
-    "explanation": "A PAN connects a user's nearby personal devices.",
+    "explanation": "A PAN (Personal Area Network) connects a user's nearby personal devices.",
     "sourceFactId": "COM005-QL-001-12",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -459,7 +459,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "Gateway"
     ],
     "canonicalAnswer": "NIC",
-    "explanation": "A NIC provides the computer's network connection.",
+    "explanation": "A NIC (Network Interface Card) provides the computer's network connection.",
     "sourceFactId": "COM005-QL-003-5",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -539,7 +539,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "NIC"
     ],
     "canonicalAnswer": "Switch",
-    "explanation": "A switch connects wired devices within a LAN.",
+    "explanation": "A switch connects wired devices within a LAN (Local Area Network).",
     "sourceFactId": "COM005-QL-003-10",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -571,7 +571,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "Modem"
     ],
     "canonicalAnswer": "NIC",
-    "explanation": "A NIC is the computer's network interface.",
+    "explanation": "A NIC (Network Interface Card) is the computer's network interface.",
     "sourceFactId": "COM005-QL-003-12",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -587,7 +587,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "SMTP"
     ],
     "canonicalAnswer": "DNS",
-    "explanation": "DNS maps domain names to IP addresses.",
+    "explanation": "DNS (Domain Name System) maps domain names to IP (Internet Protocol) addresses.",
     "sourceFactId": "COM005-QL-004-1",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -603,7 +603,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "FTP"
     ],
     "canonicalAnswer": "DHCP",
-    "explanation": "DHCP supplies network configuration automatically.",
+    "explanation": "DHCP (Dynamic Host Configuration Protocol) supplies network configuration automatically.",
     "sourceFactId": "COM005-QL-004-2",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -619,7 +619,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "SMTP"
     ],
     "canonicalAnswer": "FTP",
-    "explanation": "FTP is used to transfer files between systems.",
+    "explanation": "FTP (File Transfer Protocol) is used to transfer files between systems.",
     "sourceFactId": "COM005-QL-004-3",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -635,7 +635,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "DHCP"
     ],
     "canonicalAnswer": "SMTP",
-    "explanation": "SMTP is used for sending e-mail.",
+    "explanation": "SMTP (Simple Mail Transfer Protocol) is used for sending e-mail.",
     "sourceFactId": "COM005-QL-004-4",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -651,7 +651,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "DHCP"
     ],
     "canonicalAnswer": "IP",
-    "explanation": "IP provides addressing for packet delivery across networks.",
+    "explanation": "IP (Internet Protocol) provides addressing for packet delivery across networks.",
     "sourceFactId": "COM005-QL-004-5",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -667,7 +667,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "HTTP"
     ],
     "canonicalAnswer": "TCP",
-    "explanation": "TCP helps provide reliable, ordered data delivery.",
+    "explanation": "TCP (Transmission Control Protocol) helps provide reliable, ordered data delivery.",
     "sourceFactId": "COM005-QL-004-6",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -683,7 +683,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "Screen settings"
     ],
     "canonicalAnswer": "Domain names",
-    "explanation": "DNS resolves domain names into network address information.",
+    "explanation": "DNS (Domain Name System) resolves domain names into network address information.",
     "sourceFactId": "COM005-QL-004-7",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -699,7 +699,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "Send e-mail"
     ],
     "canonicalAnswer": "Assign network settings",
-    "explanation": "DHCP assigns settings such as an IP address.",
+    "explanation": "DHCP (Dynamic Host Configuration Protocol) assigns settings such as an IP (Internet Protocol) address.",
     "sourceFactId": "COM005-QL-004-8",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -715,7 +715,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "DHCP"
     ],
     "canonicalAnswer": "HTTP",
-    "explanation": "HTTP transfers web resources.",
+    "explanation": "HTTP (Hypertext Transfer Protocol) transfers web resources.",
     "sourceFactId": "COM005-QL-004-9",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -731,7 +731,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "SMTP"
     ],
     "canonicalAnswer": "HTTPS",
-    "explanation": "HTTPS transfers web resources through a secure connection.",
+    "explanation": "HTTPS (Hypertext Transfer Protocol Secure) transfers web resources through a secure connection.",
     "sourceFactId": "COM005-QL-004-10",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -747,7 +747,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "DNS"
     ],
     "canonicalAnswer": "IP",
-    "explanation": "IP is a core protocol of the TCP/IP suite.",
+    "explanation": "IP (Internet Protocol) is a core protocol of the TCP (Transmission Control Protocol)/IP suite.",
     "sourceFactId": "COM005-QL-004-11",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -763,7 +763,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "IP"
     ],
     "canonicalAnswer": "SMTP",
-    "explanation": "SMTP handles outgoing e-mail transmission.",
+    "explanation": "SMTP (Simple Mail Transfer Protocol) handles outgoing e-mail transmission.",
     "sourceFactId": "COM005-QL-004-12",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -779,7 +779,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "Port number"
     ],
     "canonicalAnswer": "MAC address",
-    "explanation": "A MAC address identifies a network interface at the hardware level.",
+    "explanation": "A MAC (Media Access Control) address identifies a network interface at the hardware level.",
     "sourceFactId": "COM005-QL-005-1",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -811,7 +811,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "URL"
     ],
     "canonicalAnswer": "IP address",
-    "explanation": "An IP address provides logical addressing on a network.",
+    "explanation": "An IP (Internet Protocol) address provides logical addressing on a network.",
     "sourceFactId": "COM005-QL-005-3",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -827,7 +827,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "Protocol"
     ],
     "canonicalAnswer": "MAC address",
-    "explanation": "A MAC address is associated with a network interface.",
+    "explanation": "A MAC (Media Access Control) address is associated with a network interface.",
     "sourceFactId": "COM005-QL-005-4",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -843,7 +843,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "File extension"
     ],
     "canonicalAnswer": "Domain name",
-    "explanation": "DNS resolves domain names into address information.",
+    "explanation": "DNS (Domain Name System) resolves domain names into address information.",
     "sourceFactId": "COM005-QL-005-5",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -859,7 +859,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "Domain suffix"
     ],
     "canonicalAnswer": "IP address",
-    "explanation": "An IP address is assigned for communication on a network and may change with the network.",
+    "explanation": "An IP (Internet Protocol) address is assigned for communication on a network and may change with the network.",
     "sourceFactId": "COM005-QL-005-6",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -891,7 +891,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "URL"
     ],
     "canonicalAnswer": "MAC address",
-    "explanation": "The MAC address identifies the network interface.",
+    "explanation": "The MAC (Media Access Control) address identifies the network interface.",
     "sourceFactId": "COM005-QL-005-8",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -907,7 +907,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "NIC"
     ],
     "canonicalAnswer": "IP address",
-    "explanation": "An IP address identifies a device on an IP network.",
+    "explanation": "An IP (Internet Protocol) address identifies a device on an IP network.",
     "sourceFactId": "COM005-QL-005-9",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
@@ -939,7 +939,7 @@ export const COM005_ENGLISH_REVIEW_CANDIDATE = [
       "URL"
     ],
     "canonicalAnswer": "IP address",
-    "explanation": "Routers use IP addressing to move packets between networks.",
+    "explanation": "Routers use IP (Internet Protocol) addressing to move packets between networks.",
     "sourceFactId": "COM005-QL-005-11",
     "productionState": "ENGLISH_REVIEW_CANDIDATE"
   },
