@@ -25,6 +25,10 @@ import {
   isCom007QuestionStudioRequestV1,
   knowledgeV1Com007QuestionStudioAdapterV1,
 } from "./knowledge-v1-com007-adapter-v1";
+import {
+  isCom008QuestionStudioRequestV1,
+  knowledgeV1Com008QuestionStudioAdapterV1,
+} from "./knowledge-v1-com008-adapter-v1";
 
 /**
  * Subject-family composite for knowledge-v1. Individual chapter adapters own
@@ -43,6 +47,7 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...knowledgeV1Com005QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Com006QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Com007QuestionStudioAdapterV1.listPackages(),
+      ...knowledgeV1Com008QuestionStudioAdapterV1.listPackages(),
     ];
     const ids = packages.map((pkg) => pkg.packageId);
     if (new Set(ids).size !== ids.length) {
@@ -66,6 +71,9 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
     }
     if (isCom007QuestionStudioRequestV1(request)) {
       return knowledgeV1Com007QuestionStudioAdapterV1.generate(request);
+    }
+    if (isCom008QuestionStudioRequestV1(request)) {
+      return knowledgeV1Com008QuestionStudioAdapterV1.generate(request);
     }
     if (request.packageId === "COM-002") {
       return knowledgeV1Com002QuestionStudioAdapterV3.generate(request);
