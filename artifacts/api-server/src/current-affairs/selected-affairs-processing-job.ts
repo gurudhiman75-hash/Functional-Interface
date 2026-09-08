@@ -5,6 +5,12 @@ import { processSelectedCurrentAffairs } from "./selected-affairs-processing-run
 import { recoverSelectedPrimaryEvidence } from "./selected-primary-recovery-runtime";
 import { recoverSelectedBlockerFacts } from "./selected-blocker-closure-runtime";
 import { finalizeSelectedBlockerClosure } from "./selected-blocker-closure-finalizer";
+import {
+  captureSelectedPackSnapshot,
+  pruneSupersededSelectedRecoveryClaims,
+  repairSelectedCandidateEventBindings,
+  restoreSelectedPackSnapshot,
+} from "./selected-binding-integrity-runtime";
 
 export type SelectedAffairsProcessingRunStatus = "queued" | "running" | "completed" | "failed";
 
@@ -124,7 +130,14 @@ async function setStage(runId: string, stage: string) {
   `;
 }
 
-function slimProcessingResult(result: any, selectedPrimaryRecovery: any, blockerRecovery: any) {
+function slimProcessingResult(
+  result: any,
+  selectedPrimaryRecovery: any,
+  blockerRecovery: any,
+  bindingIntegrity: any,
+  claimPruning: any,
+  packPreservation: any,
+) {
   return {
     processingVersion: result?.processingVersion,
     targetDate: result?.targetDate,
@@ -144,6 +157,25 @@ function slimProcessingResult(result: any, selectedPrimaryRecovery: any, blocker
     canonicalApprovalAuthority: false,
     publicationAuthority: false,
     questionBankPromotionAuthority: false,
+    selectedBindingIntegrity: {
+      bindingVersion: bindingIntegrity?.bindingVersion,
+      selectedHeadlineCount: Number(bindingIntegrity?.selectedHeadlineCount ?? 0),
+      boundHeadlineCount: Number(bindingIntegrity?.boundHeadlineCount ?? 0),
+      distinctBoundEventCount: Number(bindingIntegrity?.distinctBoundEventCount ?? 0),
+      unboundCandidateIds: Array.isArray(bindingIntegrity?.unboundCandidateIds) ? bindingIntegrity.unboundCandidateIds : [],
+      crossEvidenceQuarantined: Number(bindingIntegrity?.crossEvidenceQuarantined ?? 0),
+      crossLinksRemoved: Number(bindingIntegrity?.crossLinksRemoved ?? 0),
+      reviewEventsRearmed: Number(bindingIntegrity?.reviewEventsRearmed ?? 0),
+      prunedSupersededRecoveryClaims: Number(claimPruning?.prunedClaimCount ?? 0),
+      affectedClaimEvents: Array.isArray(claimPruning?.affectedEventIds) ? claimPruning.affectedEventIds : [],
+      verificationAuthority: false,
+      publicationAuthority: false,
+    },
+    selectedPackPreservation: {
+      restored: Boolean(packPreservation?.restored),
+      restoredPackCount: Number(packPreservation?.restoredPackCount ?? 0),
+      reason: packPreservation?.reason ?? null,
+    },
     selectedPrimaryRecovery: {
       recoveryVersion: selectedPrimaryRecovery?.recoveryVersion,
       candidatesExamined: Number(selectedPrimaryRecovery?.candidatesExamined ?? 0),
@@ -169,7 +201,7 @@ async function runSelectedAffairsProcessingJob(runId: string) {
   const claimed = await sqlClient`
     UPDATE content.current_affairs_selected_processing_runs
     SET status='running',
-        stage='primary_recovery',
+        stage='binding_integrity',
         started_at=COALESCE(started_at, now()),
         heartbeat_at=now(),
         updated_at=now()
@@ -186,9 +218,17 @@ async function runSelectedAffairsProcessingJob(runId: string) {
   heartbeat.unref();
 
   try {
+    const bindingIntegrity = await repairSelectedCandidateEventBindings({ targetDate, actorUserId });
+    const packSnapshot = await captureSelectedPackSnapshot(targetDate);
+
+    await setStage(runId, "primary_recovery");
     const selectedPrimaryRecovery = await recoverSelectedPrimaryEvidence({ targetDate, actorUserId });
     await setStage(runId, "blocker_closure_recovery");
     const blockerRecovery = await recoverSelectedBlockerFacts({ targetDate, actorUserId });
+
+    await setStage(runId, "binding_claim_cleanup");
+    const claimPruning = await pruneSupersededSelectedRecoveryClaims(targetDate);
+
     await setStage(runId, "verification_authoring_localization");
     const result = await processSelectedCurrentAffairs({ targetDate, actorUserId });
     await setStage(runId, "blocker_closure_finalize");
@@ -197,8 +237,21 @@ async function runSelectedAffairsProcessingJob(runId: string) {
       actorUserId,
       baseResult: result as Record<string, any>,
     });
+
+    const selectedPackResult = (finalized as any)?.stages?.dailyMasterPacks;
+    const packPreservation = selectedPackResult?.created === true
+      ? { restored: false, restoredPackCount: 0, reason: "selected_canonical_pack_materialized" }
+      : await restoreSelectedPackSnapshot(packSnapshot);
+
     await setStage(runId, "persisting_result");
-    const persistedResult = slimProcessingResult(finalized, selectedPrimaryRecovery, blockerRecovery);
+    const persistedResult = slimProcessingResult(
+      finalized,
+      selectedPrimaryRecovery,
+      blockerRecovery,
+      bindingIntegrity,
+      claimPruning,
+      packPreservation,
+    );
     await sqlClient`
       UPDATE content.current_affairs_selected_processing_runs
       SET status='completed',
