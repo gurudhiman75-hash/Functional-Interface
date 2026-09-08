@@ -1,6 +1,6 @@
 # COM-008 — Data Representation, Number Systems and Computer Codes
 
-Status: REVIEW_ONLY candidate; connected to the shared knowledge-v1 Question Studio path. Question Bank, tests, mocks, public release and production release remain locked.
+Status: approved BANK_ONLY candidate; connected to the shared knowledge-v1 Question Studio path. Manual Question Bank acceptance is enabled, but automatic insertion, tests, mocks, public release and production release remain locked.
 
 ## Scope
 
@@ -13,6 +13,7 @@ Status: REVIEW_ONLY candidate; connected to the shared knowledge-v1 Question Stu
 - Full forms included in explanations.
 - Deterministic selection without replacement.
 - Shared Question Studio only; no separate studio or lifecycle.
+- Human review approved; Question Bank acceptance remains manual.
 
 ## Source authority
 
@@ -32,4 +33,4 @@ This chapter does not include programming code, advanced mathematics, error-corr
 
 ## Release boundary
 
-The questions are visible only as a Question Studio review candidate. A human reviewer must approve the content before any Question Bank acceptance. Test Builder, mock tests, public/student publication and production release remain disabled.
+The approved questions are available through Question Studio under the BANK_ONLY lifecycle. Question Bank acceptance is manual and does not insert questions automatically. Test Builder, mock tests, public/student publication and production release remain disabled.
