@@ -84,7 +84,7 @@ function recordForOutput(record:Com008CorpusRecord) {
 export const COM008_STANDARD_BANK_ONLY_PACKAGE_V1:QuestionStudioPackageDefinition={
   engineId:"knowledge-v1",packageId:COM008_QUESTION_STUDIO_PACKAGE_ID_V1,subject:"Computer Awareness",topic:"Computer Awareness",
   subtopic:"Data Representation, Number Systems and Computer Codes",
-  label:"Computer Awareness · Data Representation, Number Systems and Computer Codes · Review V1",
+  label:"Computer Awareness · Data Representation, Number Systems and Computer Codes · English Freeze V1 / Hi-Pa Localization Freeze V1",
   enabled:true,cpIds:[...cpIds],supportedLanguages,supportedDifficulties:[...supportedDifficulties],difficultyFilterSupported:true,
   runtimeMode:COM008_QUESTION_STUDIO_RUNTIME_MODE_V1,supportedRuntimeModes:[COM008_QUESTION_STUDIO_RUNTIME_MODE_V1],
   lifecycleId:lifecycle.lifecycleId,lifecycleStage:lifecycle.stage,reviewSurfaceRequired:lifecycle.reviewSurfaceRequired,
