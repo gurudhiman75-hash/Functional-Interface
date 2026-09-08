@@ -176,7 +176,7 @@ export const COM008_DATA_REPRESENTATION_ENGLISH_REVIEW_CANDIDATE:readonly Com008
   {
     "answer": "1024 bytes",
     "difficulty": "MEDIUM",
-    "explanation": "In this exam convention, 1 KB means 1024 bytes. KB means kilobyte.",
+    "explanation": "1 KB means 1024 bytes. KB means kilobyte.",
     "id": "COM008-EN-008",
     "options": [
       "1024 bytes",
@@ -188,7 +188,7 @@ export const COM008_DATA_REPRESENTATION_ENGLISH_REVIEW_CANDIDATE:readonly Com008
     "source": [
       "LIB-ARIHANT-DATA-REPRESENTATION-UNITS"
     ],
-    "stem": "In the usual competitive-exam convention, 1 KB equals:"
+    "stem": "1 KB equals:"
   },
   {
     "answer": "Terabyte",
@@ -227,7 +227,7 @@ export const COM008_DATA_REPRESENTATION_ENGLISH_REVIEW_CANDIDATE:readonly Com008
   {
     "answer": "1024 KB",
     "difficulty": "EASY",
-    "explanation": "In this exam convention, 1 MB equals 1024 KB. KB means kilobyte and MB means megabyte.",
+    "explanation": "1 MB equals 1024 KB. KB means kilobyte and MB means megabyte.",
     "id": "COM008-EN-011",
     "options": [
       "1024 KB",
@@ -239,12 +239,12 @@ export const COM008_DATA_REPRESENTATION_ENGLISH_REVIEW_CANDIDATE:readonly Com008
     "source": [
       "LIB-ARIHANT-DATA-REPRESENTATION-UNITS"
     ],
-    "stem": "How many KB make 1 MB in the usual exam convention?"
+    "stem": "How many KB make 1 MB?"
   },
   {
     "answer": "1024 MB",
     "difficulty": "EASY",
-    "explanation": "In this exam convention, 1 GB equals 1024 MB. MB means megabyte and GB means gigabyte.",
+    "explanation": "1 GB equals 1024 MB. MB means megabyte and GB means gigabyte.",
     "id": "COM008-EN-012",
     "options": [
       "1024 KB",
@@ -256,7 +256,7 @@ export const COM008_DATA_REPRESENTATION_ENGLISH_REVIEW_CANDIDATE:readonly Com008
     "source": [
       "LIB-ARIHANT-DATA-REPRESENTATION-UNITS"
     ],
-    "stem": "How many MB make 1 GB in the usual exam convention?"
+    "stem": "How many MB make 1 GB?"
   },
   {
     "answer": "10",
