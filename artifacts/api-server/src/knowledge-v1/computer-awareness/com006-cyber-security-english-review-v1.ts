@@ -183,8 +183,8 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "What does confidentiality mean?",
     "options": [
-      "Only allowed people can see the data",
       "Data is always available",
+      "Only allowed people can see the data",
       "Data is processed quickly",
       "Data is printed correctly"
     ],
@@ -201,9 +201,9 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "What does integrity mean?",
     "options": [
-      "Data stays correct and unchanged",
       "Anyone can read the data",
       "A device works without power",
+      "Data stays correct and unchanged",
       "A file is always deleted"
     ],
     "answer": "Data stays correct and unchanged",
@@ -219,10 +219,10 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "What does availability mean?",
     "options": [
-      "Data and services are ready when needed",
       "Data is hidden from everyone",
       "A password is shared",
-      "A file is copied without checking"
+      "A file is copied without checking",
+      "Data and services are ready when needed"
     ],
     "answer": "Data and services are ready when needed",
     "explanation": "Availability means an authorized user can use the data or service when needed.",
@@ -255,8 +255,8 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "Which malware secretly watches user activity?",
     "options": [
-      "Spyware",
       "Firewall",
+      "Spyware",
       "Ransomware",
       "Compiler"
     ],
@@ -273,9 +273,9 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "MEDIUM",
     "stem": "Which malware can copy itself and spread through a network?",
     "options": [
-      "Worm",
       "Trojan horse",
       "Spyware",
+      "Worm",
       "Screen lock"
     ],
     "answer": "Worm",
@@ -291,10 +291,10 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "What is a Trojan horse in computer security?",
     "options": [
-      "A harmful program that looks useful",
       "A device that blocks traffic",
       "A safe backup copy",
-      "A type of printer"
+      "A type of printer",
+      "A harmful program that looks useful"
     ],
     "answer": "A harmful program that looks useful",
     "explanation": "A Trojan horse looks like a useful program but performs a harmful action after it is opened.",
@@ -327,8 +327,8 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "MEDIUM",
     "stem": "What is spear phishing?",
     "options": [
-      "A targeted fake message sent to a specific person",
       "A virus that attacks only printers",
+      "A targeted fake message sent to a specific person",
       "A method of encrypting a hard disk",
       "A tool for cleaning a keyboard"
     ],
@@ -345,9 +345,9 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "What is social engineering?",
     "options": [
-      "Tricking people into giving information or access",
       "Repairing damaged computer parts",
       "Writing a computer program",
+      "Tricking people into giving information or access",
       "Connecting two printers"
     ],
     "answer": "Tricking people into giving information or access",
@@ -363,10 +363,10 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "What should you do with a suspicious login link?",
     "options": [
-      "Do not open it and verify the sender another way",
       "Open it quickly",
       "Forward it to all contacts",
-      "Enter the password to test it"
+      "Enter the password to test it",
+      "Do not open it and verify the sender another way"
     ],
     "answer": "Do not open it and verify the sender another way",
     "explanation": "Do not open a suspicious link. Check the sender by using a trusted phone number or website.",
@@ -399,8 +399,8 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "Why should passwords not be reused?",
     "options": [
-      "One stolen password can open many accounts",
       "Reuse makes the computer faster",
+      "One stolen password can open many accounts",
       "Reuse increases screen brightness",
       "One password can store more files"
     ],
@@ -417,9 +417,9 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "What does multi-factor authentication require?",
     "options": [
-      "Two or more different proof factors",
       "Only a username",
       "Only a short password",
+      "Two or more different proof factors",
       "A new computer"
     ],
     "answer": "Two or more different proof factors",
@@ -435,10 +435,10 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "What is a one-time password?",
     "options": [
-      "A code meant for one use or a short time",
       "A password used by every employee",
       "A password that never changes",
-      "A name saved in a file"
+      "A name saved in a file",
+      "A code meant for one use or a short time"
     ],
     "answer": "A code meant for one use or a short time",
     "explanation": "A one-time password (OTP) is a code that works once or for a short period.",
@@ -471,8 +471,8 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "What does antivirus software help to do?",
     "options": [
-      "Detect, block or remove malicious software",
       "Increase the monitor size",
+      "Detect, block or remove malicious software",
       "Create a new keyboard",
       "Print without paper"
     ],
@@ -489,9 +489,9 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "Why are software updates important for security?",
     "options": [
-      "They can fix known security weaknesses",
       "They always delete personal files",
       "They turn off all passwords",
+      "They can fix known security weaknesses",
       "They remove the need for backups"
     ],
     "answer": "They can fix known security weaknesses",
@@ -507,10 +507,10 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "MEDIUM",
     "stem": "What does least privilege mean?",
     "options": [
-      "Give only the access needed for a task",
       "Give every user full access",
       "Remove every user account",
-      "Allow access without a password"
+      "Allow access without a password",
+      "Give only the access needed for a task"
     ],
     "answer": "Give only the access needed for a task",
     "explanation": "Least privilege gives a user or program only the access needed to do its work.",
@@ -543,8 +543,8 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "What should you do with an unknown USB drive?",
     "options": [
-      "Do not plug it in and report or scan it safely",
       "Open every file on it",
+      "Do not plug it in and report or scan it safely",
       "Use it on every computer",
       "Give it administrator access"
     ],
@@ -561,9 +561,9 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "What should you do with an unexpected email attachment?",
     "options": [
-      "Do not open it until the sender is verified",
       "Open it to see what it contains",
       "Send it to more people",
+      "Do not open it until the sender is verified",
       "Rename it and open it"
     ],
     "answer": "Do not open it until the sender is verified",
@@ -579,10 +579,10 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "Why should you lock your screen?",
     "options": [
-      "To stop other people using the device without permission",
       "To make the battery charge faster",
       "To remove all malware",
-      "To increase internet speed"
+      "To increase internet speed",
+      "To stop other people using the device without permission"
     ],
     "answer": "To stop other people using the device without permission",
     "explanation": "A locked screen helps stop unauthorized use when you leave the device.",
@@ -615,8 +615,8 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "What does encryption do?",
     "options": [
-      "Changes data into a form that needs a key to read",
       "Deletes every copy of the data",
+      "Changes data into a form that needs a key to read",
       "Makes a keyboard wireless",
       "Removes all computer viruses"
     ],
@@ -633,9 +633,9 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "What is shoulder surfing?",
     "options": [
-      "Watching a person to steal private information",
       "Repairing a computer screen",
       "Sharing a file with a team",
+      "Watching a person to steal private information",
       "Cleaning a keyboard"
     ],
     "answer": "Watching a person to steal private information",
@@ -651,10 +651,10 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "MEDIUM",
     "stem": "Why should important backups be tested?",
     "options": [
-      "To confirm that files can be restored",
       "To make files public",
       "To remove the need for passwords",
-      "To stop all software updates"
+      "To stop all software updates",
+      "To confirm that files can be restored"
     ],
     "answer": "To confirm that files can be restored",
     "explanation": "A backup is useful only if its files can be restored when needed.",
@@ -687,8 +687,8 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "Who should receive a suspected workplace cyber incident?",
     "options": [
-      "The workplace information technology or security team",
       "Every person on social media",
+      "The workplace information technology or security team",
       "An unknown caller",
       "A public chat group"
     ],
@@ -705,9 +705,9 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "MEDIUM",
     "stem": "What does a digital signature help verify?",
     "options": [
-      "Who sent data and whether it was changed",
       "The colour of a website",
       "The size of a monitor",
+      "Who sent data and whether it was changed",
       "The speed of a printer"
     ],
     "answer": "Who sent data and whether it was changed",
@@ -723,10 +723,10 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
     "difficulty": "EASY",
     "stem": "What is the safest action after finding malware on a work device?",
     "options": [
-      "Disconnect it as instructed and report it",
       "Keep using it for all work",
       "Copy the malware to another device",
-      "Turn off every security tool"
+      "Turn off every security tool",
+      "Disconnect it as instructed and report it"
     ],
     "answer": "Disconnect it as instructed and report it",
     "explanation": "Disconnecting as instructed can limit spread. Report the device so the security team can investigate it.",
