@@ -106,6 +106,38 @@ export function headlineRescueTerms(value: string) {
   return [...new Set([...terms, ...aliases])].sort();
 }
 
+function normalizeIdentity(value: string) {
+  return value
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export function appointmentIdentity(value: string): string | null {
+  const text = String(value ?? "").replace(/\s+/g, " ").trim();
+  if (!text) return null;
+
+  const rankedSubject = text.match(
+    /\b(?:air chief marshal|air marshal|vice admiral|rear admiral|lieutenant general|lt\.?\s+gen\.?|major general|maj\.?\s+gen\.?|brigadier|air vice marshal|avm)\s+([A-Za-z][A-Za-z.'-]*(?:\s+[A-Za-z][A-Za-z.'-]*){1,3})\s+(?:takes?\s+over|assumes?|appointed|takes?\s+charge)\b/i,
+  )?.[1];
+  if (rankedSubject) return normalizeIdentity(rankedSubject);
+
+  const honorificSubject = text.match(
+    /\b(?:shri|smt|mr|mrs|ms|dr|prof)\.?\s+([A-Za-z][A-Za-z.'-]*(?:\s+[A-Za-z][A-Za-z.'-]*){1,3})\s+(?:takes?\s+over|assumes?|appointed|takes?\s+charge)\b/i,
+  )?.[1];
+  if (honorificSubject) return normalizeIdentity(honorificSubject);
+
+  const appointedObject = text.match(
+    /\bappoint(?:s|ed|ing)?\s+(?:(?:shri|smt|mr|mrs|ms|dr|prof|air chief marshal|air marshal|air vice marshal|avm)\.?\s+)?([A-Za-z][A-Za-z.'-]*(?:\s+[A-Za-z][A-Za-z.'-]*){1,3})\s+(?:as|to)\b/i,
+  )?.[1];
+  if (appointedObject) return normalizeIdentity(appointedObject);
+
+  return null;
+}
+
 export type HeadlineRescueSimilarity = {
   score: number;
   sharedTerms: string[];
@@ -145,10 +177,20 @@ export function isOneDayOfficialRescueMatch(left: string, right: string, thresho
   const similarity = headlineRescueSimilarity(left, right);
   const enoughIdentity = similarity.sharedTerms.length >= 3
     || (similarity.sharedAliasTerms.length >= 1 && similarity.sharedTerms.length >= 2);
+  const leftAppointmentIdentity = appointmentIdentity(left);
+  const rightAppointmentIdentity = appointmentIdentity(right);
+  const appointmentIdentityConflict = Boolean(
+    leftAppointmentIdentity
+    && rightAppointmentIdentity
+    && leftAppointmentIdentity !== rightAppointmentIdentity,
+  );
   return {
     ...similarity,
-    matched: enoughIdentity && similarity.score >= threshold,
+    matched: !appointmentIdentityConflict && enoughIdentity && similarity.score >= threshold,
     threshold,
+    appointmentIdentityCompatible: !appointmentIdentityConflict,
+    leftAppointmentIdentity,
+    rightAppointmentIdentity,
   };
 }
 
