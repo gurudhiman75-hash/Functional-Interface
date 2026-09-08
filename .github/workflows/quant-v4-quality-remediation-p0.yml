@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - audit/quant-v4-quality-remediation-p0
+      - audit/quant-v4-semantic-explanation-quality-p1
     paths:
       - "artifacts/api-server/src/quant-v4/**"
   pull_request:
@@ -41,6 +42,9 @@ jobs:
 
       - name: Quant V4 learner-surface regression
         run: npx -y tsx artifacts/api-server/src/quant-v4/quality/quant-v4-learner-surface-regression.test.ts
+
+      - name: Quant V4 semantic explanation quality P1
+        run: npx -y tsx artifacts/api-server/src/quant-v4/quality/quant-v4-semantic-explanation-quality-p1.test.ts
 
       - name: Patch hygiene
         run: git diff --check
