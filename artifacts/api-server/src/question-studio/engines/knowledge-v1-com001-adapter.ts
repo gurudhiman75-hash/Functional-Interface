@@ -8,6 +8,15 @@ import { COM001_ENGLISH_FREEZE_AUTHORITY_V2 } from "../../knowledge-v1/computer-
 import { COM001_HI_PA_LOCALIZATION_FREEZE_AUTHORITY_V2 } from "../../knowledge-v1/computer-awareness/com001-hi-pa-localization-freeze-v2";
 import { generateCom001LocalizedReviewQuestionV2 } from "../../knowledge-v1/computer-awareness/com001-localization-v2";
 import { listCom001ReviewV2QlIds } from "../../knowledge-v1/computer-awareness/com001-review-synthesis-v2";
+import {
+  COM001_CP006_ENGLISH_FROZEN,
+  COM001_CP006_HINDI_FROZEN,
+  COM001_CP006_PUNJABI_FROZEN,
+  COM001_CP006_ENGLISH_FREEZE_AUTHORITY_V1,
+  COM001_CP006_LOCALIZATION_FREEZE_AUTHORITY_V1,
+  auditCom001Cp006FreezeV1,
+} from "../../knowledge-v1/computer-awareness/com001-cp006-freeze-v1";
+import type { Com001DifficultyDecisionV2 } from "../../knowledge-v1/computer-awareness/com001-difficulty-routing-v2";
 import type {
   QuestionStudioEngineAdapter,
   QuestionStudioGenerationRequest,
@@ -23,8 +32,14 @@ export const COM001_QUESTION_BANK_STATUS =
   QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1.questionBankStatus;
 export const COM001_REVISION_POLICY = "SOURCE_GENERATOR_ONLY" as const;
 export const COM001_REVIEW_CONTENT_AUTHORITY_VERSION = "V2" as const;
+export const COM001_CP006_CONTENT_AUTHORITY_VERSION = "COM-001-CP-006-FREEZE-V1" as const;
 
 const qlIds = listCom001ReviewV2QlIds();
+const cp006QlIds = [...COM001_CP006_ENGLISH_FREEZE_AUTHORITY_V1.permanentQlIds];
+const allQlIds = [...qlIds, ...cp006QlIds];
+const cpIds = ["COM-001-CP-001", "COM-001-CP-006"] as const;
+const cp006Audit = auditCom001Cp006FreezeV1();
+if (!cp006Audit.valid) throw new Error(`COM-001 CP-006 freeze invalid: ${cp006Audit.issues.join(", ")}`);
 const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
 const supportedDifficulties: Com001DifficultyV2[] = ["Easy", "Medium", "Hard"];
 const lifecycle = QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
@@ -39,6 +54,14 @@ const qlDifficultySupport: Record<string, readonly Com001DifficultyV2[]> = {
   "COM-001-QL-007": ["Hard"],
   "COM-001-QL-008": ["Hard"],
   "COM-001-QL-009": ["Easy", "Medium"],
+  "COM-001-CP-006-QL-001": ["Easy", "Medium"],
+  "COM-001-CP-006-QL-002": ["Easy", "Medium"],
+  "COM-001-CP-006-QL-003": ["Easy", "Medium"],
+  "COM-001-CP-006-QL-004": ["Easy", "Medium"],
+  "COM-001-CP-006-QL-005": ["Easy", "Medium"],
+  "COM-001-CP-006-QL-006": ["Easy", "Medium"],
+  "COM-001-CP-006-QL-007": ["Easy", "Medium"],
+  "COM-001-CP-006": ["Easy", "Medium"],
 };
 
 export const COM001_STANDARD_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefinition = {
@@ -46,10 +69,10 @@ export const COM001_STANDARD_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefin
   packageId: COM001_QUESTION_STUDIO_PACKAGE_ID,
   subject: "Computer Awareness",
   topic: "Computer Awareness",
-  subtopic: "Memory & Storage",
-  label: "Computer Awareness · Memory & Storage · V2",
+  subtopic: "Memory & Storage, Computer History & Generations",
+  label: "Computer Awareness · Memory & Storage + Computer History & Generations · V2",
   enabled: true,
-  cpIds: ["COM-001-CP-001"],
+  cpIds: [...cpIds],
   supportedLanguages,
   runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
   supportedRuntimeModes: [COM001_QUESTION_STUDIO_RUNTIME_MODE],
@@ -72,7 +95,11 @@ export const COM001_STANDARD_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefin
     ...lifecycle,
     contentAuthorityVersion: COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
     humanReviewApproved: true,
-    permanentQlIds: qlIds,
+    permanentQlIds: allQlIds,
+    cpIds: [...cpIds],
+    cp006QuestionCountPerLanguage: 28,
+    cp006EnglishFreezeAuthorityId: COM001_CP006_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,
+    cp006LocalizationFreezeAuthorityId: COM001_CP006_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
     revisionPolicy: COM001_REVISION_POLICY,
     difficultyFilterSupported: true,
     supportedDifficulties,
@@ -129,7 +156,7 @@ function validateRequest(request: QuestionStudioGenerationRequest) {
       `COM-001 only supports ${COM001_QUESTION_STUDIO_RUNTIME_MODE} runtime`,
     );
   }
-  if (request.patternId && !qlIds.includes(request.patternId)) {
+  if (request.patternId && !allQlIds.includes(request.patternId) && request.patternId !== "COM-001-CP-006") {
     throw new Error(`Unknown COM-001 QL ${request.patternId}`);
   }
 
@@ -144,12 +171,55 @@ function validateRequest(request: QuestionStudioGenerationRequest) {
   }
 }
 
+function cp006Pool(language: QuestionStudioLanguage, patternId?: string) {
+  const corpus = language === "en"
+    ? COM001_CP006_ENGLISH_FROZEN
+    : language === "hi"
+      ? COM001_CP006_HINDI_FROZEN
+      : COM001_CP006_PUNJABI_FROZEN;
+  if (!patternId || patternId === "COM-001-CP-006") return corpus;
+  return corpus.filter((question) => question.qlId === patternId);
+}
+
+function cp006DifficultyDecision(difficulty: "EASY" | "MEDIUM"): Com001DifficultyDecisionV2 {
+  if (difficulty === "EASY") {
+    return {
+      difficulty: "Easy",
+      topology: "DIRECT_SINGLE_FACT",
+      rationale: "Directly recognizes one basic computer-history fact.",
+      classifierVersion: COM001_DIFFICULTY_CLASSIFIER_VERSION_V2,
+      productionClaimAuthorized: false,
+    };
+  }
+  return {
+    difficulty: "Medium",
+    topology: "MATCHED_PAIR",
+    rationale: "Requires checking a historical person, machine, technology or sequence against the correct match.",
+    classifierVersion: COM001_DIFFICULTY_CLASSIFIER_VERSION_V2,
+    productionClaimAuthorized: false,
+  };
+}
+
 function generateCandidate(input: {
   baseSeed: string;
   candidateIndex: number;
   patternId?: string;
   language: QuestionStudioLanguage;
 }) {
+  const cp006Request = input.patternId === "COM-001-CP-006" || cp006QlIds.includes(input.patternId ?? "");
+  if (cp006Request) {
+    const pool = cp006Pool(input.language, input.patternId);
+    const frozen = pool[input.candidateIndex % pool.length]!;
+    const question = {
+      ...frozen,
+      cpId: "COM-001-CP-006",
+      sourceCandidateIds: [frozen.sourceQuestionId],
+      sourceFactIds: [...frozen.sourceFactIds],
+      contentAuthorityVersion: COM001_CP006_CONTENT_AUTHORITY_VERSION,
+    };
+    return { question, difficultyDecision: cp006DifficultyDecision(frozen.difficulty) };
+  }
+
   const qlId = input.patternId ?? deterministicPick(
     qlIds,
     `${input.baseSeed}:ql:${input.candidateIndex}`,
@@ -179,6 +249,13 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
     const count = normalizeCount(request.count);
     const requestedDifficulty = normalizeDifficulty(request.difficulty);
     const difficultyFilterApplied = requestedDifficulty !== null;
+    const isCp006Request = request.patternId === "COM-001-CP-006" || cp006QlIds.includes(request.patternId ?? "");
+    const cp006Available = isCp006Request
+      ? cp006Pool(language, request.patternId).filter((question) => !requestedDifficulty || question.difficulty === requestedDifficulty.toUpperCase()).length
+      : 0;
+    if (isCp006Request && count > cp006Available) {
+      throw new Error(`COM-001 CP-006 cannot fill ${count} questions from a ${cp006Available}-question frozen pool without repeats`);
+    }
     const baseSeed = request.seed?.trim() || "com001-question-studio-review-v2";
     const questions: Record<string, unknown>[] = [];
     const maxCandidateCount = Math.max(500, count * 100);
@@ -207,7 +284,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
           ...lifecycle,
           registrationStatus: "STANDARD_QUESTION_STUDIO_REGISTERED",
           runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
-          contentAuthorityVersion: COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
+          contentAuthorityVersion: isCp006Request ? COM001_CP006_CONTENT_AUTHORITY_VERSION : COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
           humanReviewApproved: true,
           revisionPolicy: COM001_REVISION_POLICY,
           difficultyFilterApplied,
@@ -241,7 +318,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
         engineId: "knowledge-v1",
         packageId: COM001_QUESTION_STUDIO_PACKAGE_ID,
         runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
-        contentAuthorityVersion: COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
+        contentAuthorityVersion: isCp006Request ? COM001_CP006_CONTENT_AUTHORITY_VERSION : COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
         humanReviewApproved: true,
         reviewOnly: false,
         revisionPolicy: COM001_REVISION_POLICY,
@@ -251,7 +328,10 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
         difficultyClassifierVersion: COM001_DIFFICULTY_CLASSIFIER_VERSION_V2,
         productionDifficultyClaimAuthorized: false,
         qlSelection: request.patternId ?? "DETERMINISTIC_ACROSS_PERMANENT_QLS",
-        permanentQlIds: qlIds,
+        permanentQlIds: allQlIds,
+        cpIds: [...cpIds],
+        cp006EnglishFreezeAuthorityId: COM001_CP006_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,
+        cp006LocalizationFreezeAuthorityId: COM001_CP006_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
         englishFreezeAuthorityId: COM001_ENGLISH_FREEZE_AUTHORITY_V2.authorityId,
         englishCombinedFingerprint:
           COM001_ENGLISH_FREEZE_AUTHORITY_V2.fingerprints.combinedFingerprint,

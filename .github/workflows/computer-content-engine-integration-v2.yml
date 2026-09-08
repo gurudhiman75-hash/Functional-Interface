@@ -55,7 +55,7 @@ jobs:
       - name: Validate frozen COM-003 corpus and active BANK_ONLY lifecycle
         run: node artifacts/api-server/dist/question-studio/computer-content-engine-integration-v2.test.mjs
 
-      - name: Run COM-003 frozen-source and BANK_ONLY contracts
+      - name: Run frozen computer corpus and BANK_ONLY contracts
         run: |
           mkdir -p artifacts/api-server/dist/question-studio/computer-final
           tests=(
@@ -68,6 +68,7 @@ jobs:
             "src/question-studio/engines/com003-regeneration-lock-contract-v1.test.ts"
             "src/question-studio/engines/com003-source-controlled-review-contract-v1.test.ts"
             "src/question-studio/engines/knowledge-v1-com003-adapter-v2.test.ts"
+            "src/question-studio/engines/knowledge-v1-com001-cp006-adapter.test.ts"
           )
           for test_file in "${tests[@]}"; do
             output_name="$(basename "${test_file}" .ts).mjs"
