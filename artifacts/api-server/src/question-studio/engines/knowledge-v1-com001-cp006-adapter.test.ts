@@ -35,7 +35,7 @@ assert.deepEqual(pkg.cpIds, [
 assert.equal(pkg.metadata?.cp006QuestionCountPerLanguage, 28);
 assert.equal(pkg.metadata?.cp006EnglishFreezeAuthorityId, COM001_CP006_ENGLISH_FREEZE_AUTHORITY_V1.authorityId);
 assert.equal(pkg.metadata?.cp006LocalizationFreezeAuthorityId, COM001_CP006_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId);
-assert.equal(pkg.metadata?.hardwareGapQuestionCountPerLanguage, 16);
+assert.equal(pkg.metadata?.hardwareGapQuestionCountPerLanguage, 20);
 assert.equal(pkg.metadata?.hardwareGapAuthorityId, COM001_HARDWARE_GAP_EXTENSION_AUTHORITY_V1.authorityId);
 assert.equal(pkg.testEligible, false);
 assert.equal(pkg.mockTestEligible, false);
