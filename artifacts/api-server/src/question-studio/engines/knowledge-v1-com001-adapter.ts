@@ -53,7 +53,7 @@ if (!completionAudit.valid) throw new Error(`COM-001 completion freeze invalid: 
 const cp006Audit = auditCom001Cp006FreezeV1();
 if (!cp006Audit.valid) throw new Error(`COM-001 CP-006 freeze invalid: ${cp006Audit.issues.join(", ")}`);
 const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
-const supportedDifficulties: Com001DifficultyV2[] = ["Easy", "Medium", "Hard"];
+const supportedDifficulties: Com001DifficultyV2[] = ["Easy", "Medium"];
 const lifecycle = QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
 
 const qlDifficultySupport: Record<string, readonly Com001DifficultyV2[]> = {
@@ -63,8 +63,8 @@ const qlDifficultySupport: Record<string, readonly Com001DifficultyV2[]> = {
   "COM-001-QL-004": ["Easy", "Medium"],
   "COM-001-QL-005": ["Easy", "Medium"],
   "COM-001-QL-006": ["Medium"],
-  "COM-001-QL-007": ["Hard"],
-  "COM-001-QL-008": ["Hard"],
+  "COM-001-QL-007": ["Medium"],
+  "COM-001-QL-008": ["Medium"],
   "COM-001-QL-009": ["Easy", "Medium"],
   "COM-001-CP-002": ["Easy", "Medium"],
   "COM-001-CP-003": ["Easy", "Medium"],
@@ -138,6 +138,7 @@ export const COM001_STANDARD_QUESTION_STUDIO_PACKAGE: QuestionStudioPackageDefin
     revisionPolicy: COM001_REVISION_POLICY,
     difficultyFilterSupported: true,
     supportedDifficulties,
+    hardDifficultyAuthorized: false,
     difficultySelectionStatus: "REVIEW_TOPOLOGY_FILTER_ACTIVE",
     difficultyClassifierVersion: COM001_DIFFICULTY_CLASSIFIER_VERSION_V2,
     productionDifficultyClaimsAuthorized: false,
@@ -176,7 +177,7 @@ function normalizeDifficulty(
   if (supportedDifficulties.includes(difficulty as Com001DifficultyV2)) {
     return difficulty as Com001DifficultyV2;
   }
-  throw new Error(`COM-001 review difficulty must be Easy, Medium, Hard, or Mixed`);
+  throw new Error(`COM-001 review difficulty must be Easy, Medium, or Mixed`);
 }
 
 function validateRequest(request: QuestionStudioGenerationRequest) {
@@ -369,6 +370,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
           requestedDifficulty: requestedDifficulty ?? "Mixed",
           classifiedDifficulty: difficultyDecision.difficulty,
           difficultyClassifierVersion: difficultyDecision.classifierVersion,
+          hardDifficultyAuthorized: false,
           difficultyTopology: difficultyDecision.topology,
           difficultyRationale: difficultyDecision.rationale,
           productionDifficultyClaimAuthorized: false,
@@ -404,6 +406,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
         requestedDifficulty: requestedDifficulty ?? "Mixed",
         difficultyFilterApplied,
         difficultyClassifierVersion: COM001_DIFFICULTY_CLASSIFIER_VERSION_V2,
+        hardDifficultyAuthorized: false,
         productionDifficultyClaimAuthorized: false,
         qlSelection: request.patternId ?? "DETERMINISTIC_ACROSS_PERMANENT_QLS",
         permanentQlIds: allQlIds,

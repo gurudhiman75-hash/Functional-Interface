@@ -37,6 +37,7 @@ assert.equal(pkg.metadata?.publiclyPublishable, false);
 assert.equal(pkg.metadata?.automaticStudentPublication, false);
 assert.equal(pkg.metadata?.productionReleaseAuthorized, false);
 assert.equal(pkg.metadata?.difficultyFilterSupported, true);
+assert.equal(pkg.metadata?.hardDifficultyAuthorized, false);
 assert.equal(pkg.metadata?.difficultyClassifierVersion, COM001_DIFFICULTY_CLASSIFIER_VERSION_V2);
 assert.equal(pkg.metadata?.productionDifficultyClaimsAuthorized, false);
 assert.equal(pkg.metadata?.englishFreezeAuthorityId, COM001_ENGLISH_FREEZE_AUTHORITY_V2.authorityId);
@@ -140,7 +141,7 @@ for (const qlId of qlIds) {
       assert.deepEqual([...difficulties].sort(), ["Easy", "Medium"]);
     }
     if (qlId === "COM-001-QL-006") assert.deepEqual([...difficulties], ["Medium"]);
-    if (["COM-001-QL-007", "COM-001-QL-008"].includes(qlId)) assert.deepEqual([...difficulties], ["Hard"]);
+    if (["COM-001-QL-007", "COM-001-QL-008"].includes(qlId)) assert.deepEqual([...difficulties], ["Medium"]);
     if (qlId === "COM-001-QL-009") {
       assert.deepEqual([...capacityConventions].sort(), ["SI_IEC_EXPLICIT", "TRADITIONAL_EXAM_1024"]);
       assert.deepEqual([...difficulties].sort(), ["Easy", "Medium"]);
@@ -158,7 +159,7 @@ const mixedBase = {
   runtimeMode: "review-only",
   count: 30,
 };
-for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
+for (const difficulty of ["Easy", "Medium"] as const) {
   const request = { ...mixedBase, difficulty, seed: `standard-lifecycle:${difficulty}` };
   const first = await knowledgeV1Com001QuestionStudioAdapter.generate(request);
   const replay = await knowledgeV1Com001QuestionStudioAdapter.generate(request);
@@ -169,6 +170,10 @@ for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
   assert.equal(first.questions.every((question) => question.testEligible === false), true);
 }
 
+await assert.rejects(
+  () => knowledgeV1Com001QuestionStudioAdapter.generate({ packageId: "COM-001", difficulty: "Hard", count: 1 }),
+  /COM-001 review difficulty must be Easy, Medium, or Mixed/,
+);
 await assert.rejects(
   () => knowledgeV1Com001QuestionStudioAdapter.generate({ packageId: "COM-001", runtimeMode: "production", count: 1 }),
   /only supports review-only runtime/,

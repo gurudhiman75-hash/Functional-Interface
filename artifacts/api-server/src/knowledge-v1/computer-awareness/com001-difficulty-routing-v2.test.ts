@@ -13,8 +13,8 @@ const expectedByQl: Record<string, string[]> = {
   "COM-001-QL-004": ["Easy", "Medium"],
   "COM-001-QL-005": ["Easy", "Medium"],
   "COM-001-QL-006": ["Medium"],
-  "COM-001-QL-007": ["Hard"],
-  "COM-001-QL-008": ["Hard"],
+  "COM-001-QL-007": ["Medium"],
+  "COM-001-QL-008": ["Medium"],
   "COM-001-QL-009": ["Easy", "Medium"],
 };
 
@@ -33,7 +33,7 @@ for (const qlId of listCom001ReviewV2QlIds()) {
     const replay = classifyCom001DifficultyV2(question);
     assert.deepEqual(replay, first, `${question.questionId}: classifier replay changed`);
     assert.equal(first.productionClaimAuthorized, false);
-    assert.equal(first.classifierVersion, "COM-001-DIFFICULTY-V2-CANDIDATE-1");
+    assert.equal(first.classifierVersion, "COM-001-DIFFICULTY-V3-CANDIDATE-1");
     assert.equal(first.rationale.trim().length > 25, true);
     observed.add(first.difficulty);
     globalCounts.set(first.difficulty, (globalCounts.get(first.difficulty) ?? 0) + 1);
@@ -49,8 +49,8 @@ for (const qlId of listCom001ReviewV2QlIds()) {
 assert.equal(audited, 360);
 assert.equal(globalCounts.has("Easy"), true);
 assert.equal(globalCounts.has("Medium"), true);
-assert.equal(globalCounts.has("Hard"), true);
-for (const difficulty of ["Easy", "Medium", "Hard"]) {
+assert.equal(globalCounts.has("Hard"), false);
+for (const difficulty of ["Easy", "Medium"]) {
   assert.equal(
     (globalCounts.get(difficulty) ?? 0) >= 40,
     true,
@@ -58,4 +58,4 @@ for (const difficulty of ["Easy", "Medium", "Hard"]) {
   );
 }
 
-console.log("[COM001-DIFFICULTY-V2-CANDIDATE] distribution", Object.fromEntries(globalCounts));
+console.log("[COM001-DIFFICULTY-V3-CANDIDATE] distribution", Object.fromEntries(globalCounts));
