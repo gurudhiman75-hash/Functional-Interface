@@ -7,6 +7,7 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/notes-studio-v2/**
+      - artifacts/api-server/src/lib/ai-providers/**
       - artifacts/api-server/src/routes/admin-notes-studio-v2*.ts
       - artifacts/api-server/src/routes/index.ts
       - artifacts/api-server/migrations/*notes_studio_v2*.sql
@@ -43,6 +44,11 @@ jobs:
         run: |
           pnpm --dir artifacts/api-server exec esbuild src/notes-studio-v2/core.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-v2-core.test.mjs
           node artifacts/api-server/dist/notes-studio-v2-core.test.mjs
+
+      - name: Validate DeepSeek provider adapter
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/notes-studio-v2/deepseek-adapter.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/notes-studio-v2-deepseek-adapter.test.mjs
+          node artifacts/api-server/dist/notes-studio-v2-deepseek-adapter.test.mjs
 
       - name: Verify v2 isolation boundaries
         run: |

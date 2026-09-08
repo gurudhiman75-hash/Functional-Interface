@@ -1,5 +1,6 @@
 export type AIProviderName =
   | "openai"
+  | "deepseek"
   | "gemini"
   | "claude";
 
@@ -79,4 +80,3 @@ export function parseJsonFromText(
     return null;
   }
 }
-
