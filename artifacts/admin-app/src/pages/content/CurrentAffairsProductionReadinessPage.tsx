@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { CurrentAffairsMasterPackApprovalCard } from '@/features/current-affairs/CurrentAffairsMasterPackApprovalCard';
+import { CurrentAffairsPastDailyPacksCard } from '@/features/current-affairs/CurrentAffairsPastDailyPacksCard';
 import { generateHistoricalCurrentAffairs } from '@/features/current-affairs/historical-replay-api';
 import {
   downloadCurrentAffairsMasterPackArtifact,
@@ -263,12 +264,15 @@ export function CurrentAffairsProductionReadinessPage() {
         <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between"><div><p className="font-semibold">Yesterday should exist on demand.</p><p className="mt-1 max-w-3xl text-sm leading-6 text-muted-foreground">Generate Yesterday Now refreshes official sources, performs exact-day historical recovery and broad rights-safe discovery, enriches primary facts, reruns clustering and strict verification, and materializes SSC, Banking and Punjab EN/HI/PA drafts plus parity-locked canonical daily master packs. Trusted-news sources remain discovery-only and never replace official verification.</p></div><Button variant="outline" asChild><Link to="/content/learning-resources">Open Learning Resources</Link></Button></CardContent>
       </Card>
 
-      {canRun ? <Card className="border-primary/30">
-        <CardHeader><CardTitle className="flex items-center gap-2 text-base"><CalendarDays className="h-4 w-4" />Historical replay · governed date selection</CardTitle></CardHeader>
+      <CurrentAffairsPastDailyPacksCard currentDate={readiness.targetDate} />
+
+      {canRun ? <Card className="border-warning/30">
+        <CardHeader><CardTitle className="flex items-center gap-2 text-base"><CalendarDays className="h-4 w-4" />Historical replay · regenerate a date</CardTitle></CardHeader>
         <CardContent className="space-y-4">
+          <div className="rounded-md border border-warning/20 bg-warning/5 p-3 text-sm text-warning">Use this only when you intentionally want to rerun the Current Affairs pipeline for a past date. To view or download an existing pack, use Past Daily Packs above.</div>
           <div className="flex flex-col gap-3 lg:flex-row lg:items-end">
             <div className="w-full max-w-xs space-y-1.5"><label htmlFor="ca-historical-date" className="text-sm font-medium">Target date</label><Input id="ca-historical-date" type="date" min={historicalMinDate} max={readiness.targetDate} value={historicalDate} onChange={(event) => setHistoricalDate(event.target.value)} disabled={generating || recovering} /><p className="text-xs text-muted-foreground">Past India calendar dates only · bounded to the previous 31 days.</p></div>
-            <Button onClick={() => void replayHistorical()} disabled={!historicalDate || generating || recovering}>{generating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <RotateCcw className="mr-2 h-4 w-4" />}Replay selected date</Button>
+            <Button onClick={() => void replayHistorical()} disabled={!historicalDate || generating || recovering}>{generating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <RotateCcw className="mr-2 h-4 w-4" />}Replay / rebuild selected date</Button>
           </div>
           <p className="text-sm text-muted-foreground">The replay snapshots the canonical EN/HI/PA packs before generation, runs the same strict source → verification → authoring → localization path for the selected day, then compares the stored canonical outputs after generation. It does not publish learners or promote questions.</p>
           {historicalTargetDate && historicalBefore && historicalAfter ? <div className="space-y-3 rounded-lg border p-4">
