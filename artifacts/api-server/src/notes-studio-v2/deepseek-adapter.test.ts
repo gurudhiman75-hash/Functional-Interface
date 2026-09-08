@@ -6,6 +6,7 @@ import {
   deepSeekProvider,
   deepSeekRetryDelayMs,
   isTransientDeepSeekStatus,
+  normalizeDeepSeekStructuredJson,
 } from '../lib/ai-providers/deepseek-adapter';
 
 const claimSchema = {
@@ -26,6 +27,8 @@ const claimSchema = {
   },
 } as Record<string, unknown>;
 
+const notesV2SchemaName = 'notes_studio_v2_extracted_facts';
+
 test('DeepSeek transient policy retries provider capacity failures', () => {
   for (const status of [408, 409, 429, 500, 502, 503, 504]) {
     assert.equal(isTransientDeepSeekStatus(status), true, String(status));
@@ -43,6 +46,44 @@ test('DeepSeek structured extraction requests JSON and embeds the schema', () =>
   assert.match(instruction!, /"claims"/);
 });
 
+test('DeepSeek Notes v2 normalization preserves the canonical facts wrapper', () => {
+  const canonical = { facts: [{ claim: 'x' }] };
+  const normalized = normalizeDeepSeekStructuredJson(canonical, notesV2SchemaName);
+  assert.equal(normalized.json, canonical);
+  assert.deepEqual(normalized.warnings, []);
+});
+
+test('DeepSeek Notes v2 normalization wraps an array root as facts', () => {
+  const normalized = normalizeDeepSeekStructuredJson([{ claim: 'x' }], notesV2SchemaName);
+  assert.deepEqual(normalized.json, { facts: [{ claim: 'x' }] });
+  assert.equal(normalized.warnings.length, 1);
+});
+
+test('DeepSeek Notes v2 normalization unwraps known response wrappers', () => {
+  const normalized = normalizeDeepSeekStructuredJson(
+    { result: { facts: [{ claim: 'x' }] } },
+    notesV2SchemaName,
+  );
+  assert.deepEqual(normalized.json, { facts: [{ claim: 'x' }] });
+  assert.equal(normalized.warnings.length, 1);
+});
+
+test('DeepSeek Notes v2 normalization renames a single alternate array key', () => {
+  const normalized = normalizeDeepSeekStructuredJson(
+    { atomicFacts: [{ claim: 'x' }] },
+    notesV2SchemaName,
+  );
+  assert.deepEqual(normalized.json, { facts: [{ claim: 'x' }] });
+  assert.equal(normalized.warnings.length, 1);
+});
+
+test('DeepSeek Notes v2 normalization does not invent a facts array from unrelated JSON', () => {
+  const unrelated = { summary: 'x', metadata: { count: 1 } };
+  const normalized = normalizeDeepSeekStructuredJson(unrelated, notesV2SchemaName);
+  assert.equal(normalized.json, unrelated);
+  assert.deepEqual(normalized.warnings, []);
+});
+
 test('DeepSeek adapter sends Notes v2 extraction through the OpenAI-compatible chat API', async () => {
   const previousKey = process.env.DEEPSEEK_API_KEY;
   const previousBaseUrl = process.env.DEEPSEEK_BASE_URL;
@@ -58,7 +99,7 @@ test('DeepSeek adapter sends Notes v2 extraction through the OpenAI-compatible c
     capturedBody = init?.body ? JSON.parse(String(init.body)) : null;
     capturedAuthorization = String((init?.headers as Record<string, string> | undefined)?.Authorization ?? '');
     return new Response(JSON.stringify({
-      choices: [{ message: { content: '{"claims":[]}' } }],
+      choices: [{ message: { content: '{"facts":[]}' } }],
       usage: { prompt_tokens: 11, completion_tokens: 4, total_tokens: 15 },
     }), {
       status: 200,
@@ -72,7 +113,7 @@ test('DeepSeek adapter sends Notes v2 extraction through the OpenAI-compatible c
       prompt: { system: 'system', user: 'user' },
       input: 'source text',
       responseSchema: claimSchema,
-      responseSchemaName: 'notes_studio_v2_extracted_facts',
+      responseSchemaName: notesV2SchemaName,
       maxRetries: 0,
       timeoutMs: 5_000,
     });
@@ -85,8 +126,9 @@ test('DeepSeek adapter sends Notes v2 extraction through the OpenAI-compatible c
     assert.equal(capturedBody?.temperature, 0);
     assert.ok(Number(capturedBody?.max_tokens) >= 1024);
     assert.match(String(capturedBody?.messages?.[0]?.content ?? ''), /JSON Schema/);
+    assert.match(String(capturedBody?.messages?.[0]?.content ?? ''), /top-level JSON value MUST be an object with a property named facts/);
     assert.equal(response.provider, 'deepseek');
-    assert.deepEqual(response.json, { claims: [] });
+    assert.deepEqual(response.json, { facts: [] });
     assert.deepEqual(response.usage, { inputTokens: 11, outputTokens: 4, totalTokens: 15 });
   } finally {
     globalThis.fetch = originalFetch;
