@@ -22,8 +22,8 @@ assert.match(route, /router\.get\("\/production\/master-pack-archive"/,
 assert.match(route, /FROM content\.current_affairs_daily_master_packs pack/,
   "archive endpoint must read canonical Daily Master Pack storage");
 
-assert.match(archiveCard, /Open and download an existing date without replaying it\./,
-  "archive UI must state the safe read-only retrieval path");
+assert.match(archiveCard, /Open an existing date without replaying it\./,
+  "archive UI must state the safe no-replay retrieval path");
 assert.match(archiveCard, /getCurrentAffairsDailyMasterPacks\(date\)/,
   "archive UI must fetch stored packs directly by date");
 assert.doesNotMatch(archiveCard, /generateHistoricalCurrentAffairs|generateYesterdayCurrentAffairs/,
