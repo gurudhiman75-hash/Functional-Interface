@@ -17,7 +17,14 @@ const pkg = COM001_STANDARD_QUESTION_STUDIO_PACKAGE;
 const cp006QlIds = [...COM001_CP006_ENGLISH_FREEZE_AUTHORITY_V1.permanentQlIds];
 
 assert.equal(auditCom001Cp006FreezeV1().valid, true);
-assert.deepEqual(pkg.cpIds, ["COM-001-CP-001", "COM-001-CP-006"]);
+assert.deepEqual(pkg.cpIds, [
+  "COM-001-CP-001",
+  "COM-001-CP-002",
+  "COM-001-CP-003",
+  "COM-001-CP-004",
+  "COM-001-CP-005",
+  "COM-001-CP-006",
+]);
 assert.equal(pkg.metadata?.cp006QuestionCountPerLanguage, 28);
 assert.equal(pkg.metadata?.cp006EnglishFreezeAuthorityId, COM001_CP006_ENGLISH_FREEZE_AUTHORITY_V1.authorityId);
 assert.equal(pkg.metadata?.cp006LocalizationFreezeAuthorityId, COM001_CP006_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId);
@@ -113,7 +120,14 @@ const chapterBatch = await knowledgeV1Com001QuestionStudioAdapter.generate({
 assert.equal(chapterBatch.questions.length, 6);
 assert.equal(new Set(chapterBatch.questions.map((question: any) => question.questionId)).size, 6);
 assert.equal(chapterBatch.generationContext?.contentAuthorityVersion, "COM-001-CP-006-FREEZE-V1");
-assert.deepEqual(chapterBatch.generationContext?.cpIds, ["COM-001-CP-001", "COM-001-CP-006"]);
+assert.deepEqual(chapterBatch.generationContext?.cpIds, [
+  "COM-001-CP-001",
+  "COM-001-CP-002",
+  "COM-001-CP-003",
+  "COM-001-CP-004",
+  "COM-001-CP-005",
+  "COM-001-CP-006",
+]);
 
 const routed = await knowledgeV1QuestionStudioAdapter.generate({
   packageId: "COM-001",

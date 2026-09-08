@@ -31,7 +31,14 @@ const bankLifecycle = QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
 assert.ok(com001);
 assert.equal(com001.engineId, "knowledge-v1");
 assert.equal(com001.enabled, true);
-assert.deepEqual(com001.cpIds, ["COM-001-CP-001", "COM-001-CP-006"]);
+assert.deepEqual(com001.cpIds, [
+  "COM-001-CP-001",
+  "COM-001-CP-002",
+  "COM-001-CP-003",
+  "COM-001-CP-004",
+  "COM-001-CP-005",
+  "COM-001-CP-006",
+]);
 assert.deepEqual(com001.supportedLanguages, ["en", "hi", "pa"]);
 assert.equal(com001.runtimeMode, "review-only");
 assert.equal(com001.questionBankStatus, bankLifecycle.questionBankStatus);
