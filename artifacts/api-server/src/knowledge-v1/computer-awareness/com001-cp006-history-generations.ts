@@ -13,10 +13,10 @@ export type Com001Cp006HistoryQuestion = {
 export const COM001_CP006_SOURCE_REFS = {
   "SRC-CHM-TIMELINE": "Computer History Museum timeline: early calculating devices, ENIAC and major computing milestones.",
   "SRC-CHM-BABBAGE": "Computer History Museum Babbage Engine materials: Difference Engine, Analytical Engine and Babbage's work.",
-  "SRC-CHM-ADA": "Computer History Museum Ada Lovelace materials: her notes on the Analytical Engine and programming association.",
+  "SRC-CHM-ADA": "Computer History Museum Ada Lovelace materials: her notes on the Analytical Engine and programming link.",
   "SRC-PENN-ENIAC": "University of Pennsylvania Engineering: ENIAC was the first general-purpose electronic computer; Electronic Numerical Integrator and Computer.",
   "SRC-IBM-CPU-HISTORY": "IBM history material: vacuum tubes, transistors and later CPU technology changes.",
-  "SRC-SSC-COMPUTER": "General competitive-exam Computer Awareness scope requiring computer fundamentals and history associations.",
+  "SRC-SSC-COMPUTER": "General competitive-exam Computer Awareness scope requiring computer fundamentals and history links.",
 } as const;
 
 export const COM001_CP006_PROVISIONAL_QLS = [
