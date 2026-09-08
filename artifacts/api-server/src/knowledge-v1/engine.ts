@@ -5,6 +5,7 @@ import {
 import { selectSemanticDistractors } from "./distractors";
 import { validateKnowledgeFactEligibility } from "./eligibility";
 import { assertKnowledgeQuestionValid } from "./question-validation";
+import { assertComputerAwarenessEditorialText } from "./computer-awareness/computer-awareness-editorial-policy";
 import type {
   KnowledgeFact,
   KnowledgeGeneratedQuestion,
@@ -105,6 +106,9 @@ function questionFromQl(
     correctIndex,
     canonicalAnswer,
   });
+  if (pkg.packageId.startsWith("COM-")) {
+    assertComputerAwarenessEditorialText({ stem, explanation });
+  }
 
   return {
     questionId: `KNV1-${pkg.packageId}-${ql.qlId}-${target.factId}-${itemIndex}`,
@@ -144,75 +148,3 @@ function questionFromQl(
   };
 }
 
-export class KnowledgeV1Engine {
-  private readonly packages = new Map<string, KnowledgePackageDefinition>();
-
-  constructor(
-    private readonly facts: readonly KnowledgeFact[],
-    packages: readonly KnowledgePackageDefinition[],
-  ) {
-    for (const pkg of packages) {
-      if (this.packages.has(pkg.packageId)) {
-        throw new Error(`Duplicate knowledge package ${pkg.packageId}`);
-      }
-      this.packages.set(pkg.packageId, pkg);
-    }
-  }
-
-  listPackages() {
-    return [...this.packages.values()].sort((left, right) =>
-      left.packageId.localeCompare(right.packageId),
-    );
-  }
-
-  generate(request: KnowledgeGenerationRequest): KnowledgeGenerationResult {
-    const pkg = this.packages.get(request.packageId);
-    if (!pkg) {
-      throw new Error(`Knowledge package ${request.packageId} is not registered`);
-    }
-    if (!pkg.enabled) {
-      throw new Error(`Knowledge package ${request.packageId} is disabled`);
-    }
-    if (!pkg.supportedLanguages.includes(request.language)) {
-      throw new Error(
-        `Knowledge package ${request.packageId} does not support ${request.language}`,
-      );
-    }
-    if (!request.seed.trim()) {
-      throw new Error("Knowledge generation requires an explicit deterministic seed");
-    }
-    if (!request.asOf.trim() || !Number.isFinite(Date.parse(request.asOf))) {
-      throw new Error("Knowledge generation requires a valid explicit asOf date");
-    }
-    if (!Number.isInteger(request.count) || request.count <= 0 || request.count > 50) {
-      throw new Error("Knowledge generation count must be between 1 and 50");
-    }
-
-    const qls = qlPoolForRequest(pkg, request.canonicalProblemId);
-    if (qls.length === 0) {
-      throw new Error(`Knowledge package ${request.packageId} has no QLs`);
-    }
-
-    const questions = Array.from({ length: request.count }, (_, itemIndex) => {
-      const ql = deterministicPick(
-        qls,
-        `${request.seed}:${request.packageId}:ql:${itemIndex}`,
-      );
-      return questionFromQl(this.facts, pkg, ql, request, itemIndex);
-    });
-
-    return {
-      questions,
-      generationContext: {
-        engineId: "knowledge-v1",
-        packageId: request.packageId,
-        seed: request.seed,
-        asOf: request.asOf,
-        canonicalProblemId: request.canonicalProblemId,
-        reviewStatus: "REVIEW_REQUIRED",
-        manualApprovalRequired: true,
-        automaticStudentPublication: false,
-      },
-    };
-  }
-}
