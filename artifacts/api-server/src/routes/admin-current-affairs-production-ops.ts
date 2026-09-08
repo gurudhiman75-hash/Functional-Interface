@@ -78,6 +78,40 @@ router.get("/production/master-packs", requireAdminPermission("content.questions
   }
 });
 
+router.get("/production/master-pack-archive", requireAdminPermission("content.questions.read"), async (req, res) => {
+  try {
+    const limit = Math.max(1, Math.min(180, Math.floor(Number(req.query.limit ?? 60)) || 60));
+    const dates = await sqlClient`
+      SELECT
+        pack.content_date::text AS "contentDate",
+        COUNT(*)::int AS "languageCount",
+        MAX(pack.generated_at)::text AS "latestGeneratedAt",
+        jsonb_object_agg(
+          pack.language_code,
+          jsonb_build_object(
+            'language', pack.language_code,
+            'status', pack.status,
+            'eventCount', pack.event_count,
+            'categoryCount', pack.category_count,
+            'publicCode', pack.public_code,
+            'generatedAt', pack.generated_at,
+            'learningResourceStatus', resource.status
+          )
+          ORDER BY pack.language_code
+        ) AS languages
+      FROM content.current_affairs_daily_master_packs pack
+      LEFT JOIN content.learning_resources resource
+        ON resource.id=pack.learning_resource_id
+      GROUP BY pack.content_date
+      ORDER BY pack.content_date DESC
+      LIMIT ${limit}
+    `;
+    res.json({ dates, generatedAt: new Date().toISOString() });
+  } catch (error) {
+    sendError(res, error, "Unable to load Current Affairs past Daily Master Pack archive");
+  }
+});
+
 router.get("/production/master-pack-approval", requireAdminPermission("content.questions.read"), async (req, res) => {
   try {
     const targetDate = requestedDate(req.query.date);

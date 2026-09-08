@@ -4,7 +4,7 @@ import { sqlClient } from "../lib/db";
 import { onDemandFeedRunKey, runScheduledFeedIngestion, scheduleSlotStart } from "./automation";
 import { runScheduledIntelligenceProcessing } from "./daily-orchestration";
 import { refreshDailyDiscoveryCensus } from "./daily-discovery-census";
-import { materializeDailyMasterPacks } from "./daily-master-pack";
+import { loadDailyMasterPacks, materializeDailyMasterPacks } from "./daily-master-pack";
 import { rejectBroadOnlyLowSignalDiscoveryEvents } from "./discovery-triage-runtime";
 import { reconcilePrimaryEnrichedEvents } from "./enriched-event-reconciliation";
 import { refreshTargetDateExamRelevance } from "./exam-relevance-runtime";
@@ -17,6 +17,7 @@ import { ensurePibHistoricalCandidates } from "./pib-historical-backfill";
 import { runScheduledPrimaryFactEnrichment } from "./primary-enrichment";
 import { loadCurrentAffairsProductionReadiness } from "./production-readiness-runtime";
 import { runCurrentAffairsProductionRecovery } from "./production-recovery-runtime";
+import { materializeSelectedDailyMasterPacks } from "./selected-daily-master-pack";
 
 const FAMILIES = ["ssc", "banking", "punjab"] as const;
 const MAX_ENRICHMENT_PASSES = 3;
@@ -30,6 +31,25 @@ function slotIso(now: Date) {
 
 function stageRunKey(stage: AutomationStage, now: Date) {
   return `${stage}:${slotIso(now)}`;
+}
+
+function storedPackEventIds(pack: any) {
+  const categories = Array.isArray(pack?.payload?.categories) ? pack.payload.categories : [];
+  const ids = categories.flatMap((category: any) => Array.isArray(category?.events) ? category.events : [])
+    .map((event: any) => String(event?.id ?? "").trim())
+    .filter(Boolean);
+  return [...new Set(ids)].sort();
+}
+
+function storedPackParity(packs: { en: any; hi: any; pa: any }) {
+  if (!packs.en || !packs.hi || !packs.pa) return false;
+  const en = storedPackEventIds(packs.en);
+  const hi = storedPackEventIds(packs.hi);
+  const pa = storedPackEventIds(packs.pa);
+  return en.length > 0
+    && en.length === hi.length
+    && en.length === pa.length
+    && en.every((id, index) => hi[index] === id && pa[index] === id);
 }
 
 async function supersedeCompletedSlot(stage: AutomationStage, now: Date) {
@@ -218,7 +238,22 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date(), 
   const examRelevanceRefresh = await refreshTargetDateExamRelevance(targetDate);
 
   const discoveryCensus = await refreshDailyDiscoveryCensus(targetDate);
-  const dailyMasterPacks = await materializeDailyMasterPacks(targetDate, String(discoveryCensus.id));
+
+  // CP-071: replay is a regeneration action, but it must not silently change the
+  // canonical membership policy. If the admin has explicitly selected headlines
+  // for this date, that selected boundary remains authoritative during replay.
+  // Broad materialization is used only for dates that have no manual selections.
+  const selectedMasterPackMaterialization = await materializeSelectedDailyMasterPacks(
+    targetDate,
+    String(discoveryCensus.id),
+  );
+  const selectedBoundaryActive = selectedMasterPackMaterialization.reason !== "no_admin_selected_headlines";
+  const dailyMasterPacks = selectedBoundaryActive
+    ? { ...(await loadDailyMasterPacks(targetDate)), allLocalizedParityReady: false }
+    : await materializeDailyMasterPacks(targetDate, String(discoveryCensus.id));
+  if (selectedBoundaryActive) {
+    dailyMasterPacks.allLocalizedParityReady = storedPackParity(dailyMasterPacks);
+  }
   const dailyMasterPack = dailyMasterPacks.en;
 
   const artifacts = await loadYesterdayArtifacts(targetDate);
@@ -227,7 +262,7 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date(), 
   const englishFamilies = new Set(artifacts.filter((item) => item.language === "en").map((item) => item.family));
   const allEnglishDraftsPresent = FAMILIES.every((family) => englishFamilies.has(family));
   const localizedMasterPackCount = [dailyMasterPacks.hi, dailyMasterPacks.pa]
-    .filter((pack) => Boolean((pack as any)?.id) && (pack as any)?.reason !== "localized_event_parity_incomplete")
+    .filter((pack) => Boolean((pack as any)?.id))
     .length;
 
   return {
@@ -262,6 +297,8 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date(), 
     },
     examRelevanceRefresh,
     discoveryCensus,
+    selectedMasterPackMaterialization,
+    selectedBoundaryActive,
     dailyMasterPack,
     dailyMasterPacks,
     artifacts,
@@ -294,10 +331,16 @@ export async function generateYesterdayCurrentAffairsOnDemand(now = new Date(), 
         ...(openNewsDiscovery.queryResults.every((item) => item.status === "failed")
           ? ["Open-news discovery provider was unavailable for all target-date queries."]
           : []),
-        ...((dailyMasterPacks.hi as any)?.reason === "localized_event_parity_incomplete"
+        ...(selectedBoundaryActive && !selectedMasterPackMaterialization.created && !selectedMasterPackMaterialization.locked
+          ? [`Selected canonical pack refresh was withheld (${String(selectedMasterPackMaterialization.reason ?? "unknown")}); broad materialization was not allowed to replace the admin-selected boundary.`]
+          : []),
+        ...(selectedBoundaryActive && !dailyMasterPacks.allLocalizedParityReady
+          ? ["Stored selected canonical pack EN/HI/PA event-ID parity is incomplete. Run Process selected affairs after selected-event blockers are closed."]
+          : []),
+        ...(!selectedBoundaryActive && (dailyMasterPacks.hi as any)?.reason === "localized_event_parity_incomplete"
           ? [`Hindi canonical master pack withheld: ${(dailyMasterPacks.hi as any)?.parity?.missingPublicCodes?.length ?? 0} event localization(s) are missing.`]
           : []),
-        ...((dailyMasterPacks.pa as any)?.reason === "localized_event_parity_incomplete"
+        ...(!selectedBoundaryActive && (dailyMasterPacks.pa as any)?.reason === "localized_event_parity_incomplete"
           ? [`Punjabi canonical master pack withheld: ${(dailyMasterPacks.pa as any)?.parity?.missingPublicCodes?.length ?? 0} event localization(s) are missing.`]
           : []),
         ...((discoveryCensus as any)?.warnings ?? []),
