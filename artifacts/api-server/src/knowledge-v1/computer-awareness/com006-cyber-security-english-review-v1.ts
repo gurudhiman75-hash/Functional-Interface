@@ -148,7 +148,7 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_AUTHORITY = {
     },
     {
       "id": "CISA-REPORTING",
-      "url": "https://www.cisa.gov/ report"
+      "url": "https://www.cisa.gov/report"
     },
     {
       "id": "CISA-MALWARE-REPORTING",
