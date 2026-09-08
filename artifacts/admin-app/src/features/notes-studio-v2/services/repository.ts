@@ -7,12 +7,13 @@ import type {
 } from './commands';
 import * as api from './api';
 import * as reviewStateApi from './reviewStateApi';
+import { uploadResumableCorpusSource } from './resumableCorpusUpload';
 
 export interface NotesStudioV2Repository {
   listPeriods: typeof api.listPeriods;
   createPeriod: (command: CreatePeriodCommand) => ReturnType<typeof api.createPeriod>;
   getWorkspace: typeof api.getWorkspace;
-  uploadCorpusSource: typeof api.uploadCorpusSource;
+  uploadCorpusSource: typeof uploadResumableCorpusSource;
   registerCorpusSource: (periodId: string, command: RegisterCorpusCommand) => ReturnType<typeof api.registerCorpusSource>;
   updateCorpusMetadata: typeof api.updateCorpusMetadata;
   extractCorpusFacts: typeof api.extractCorpusFacts;
@@ -88,7 +89,7 @@ export const httpNotesStudioV2Repository: NotesStudioV2Repository = {
   listPeriods: api.listPeriods,
   createPeriod: (command) => withWorkspaceInvalidation(() => api.createPeriod(command)),
   getWorkspace,
-  uploadCorpusSource: (...args) => withWorkspaceInvalidation(() => api.uploadCorpusSource(...args)),
+  uploadCorpusSource: (...args) => withWorkspaceInvalidation(() => uploadResumableCorpusSource(...args)),
   registerCorpusSource: (periodId, command) => withWorkspaceInvalidation(() => api.registerCorpusSource(periodId, command)),
   updateCorpusMetadata: (...args) => withWorkspaceInvalidation(() => api.updateCorpusMetadata(...args)),
   extractCorpusFacts: (...args) => withWorkspaceInvalidation(() => api.extractCorpusFacts(...args)),

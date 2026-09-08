@@ -9,6 +9,7 @@ const NOTES_STUDIO_V2_MIGRATIONS = [
   '20260905_notes_studio_v2_figure_queue.sql',
   '20260905_notes_studio_v2_publish_guard.sql',
   '20260905_notes_studio_v2_quality_runs.sql',
+  '20260907_notes_studio_v2_resumable_uploads.sql',
 ] as const;
 
 const EXPECTED_RELATIONS = [
@@ -25,6 +26,10 @@ const EXPECTED_RELATIONS = [
   'note_versions',
   'note_figures',
   'quality_runs',
+  'corpus_upload_sessions',
+  'corpus_upload_chunks',
+  'corpus_extraction_runs',
+  'corpus_extraction_segments',
 ] as const;
 
 const EXPECTED_TRIGGERS = [
