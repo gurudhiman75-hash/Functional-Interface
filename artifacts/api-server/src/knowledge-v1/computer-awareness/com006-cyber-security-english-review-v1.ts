@@ -1,15 +1,15 @@
 export type Com006Difficulty = "EASY" | "MEDIUM";
 
 export type Com006CyberSecurityReviewQuestion = {
-  questionId: string;
-  qlId: string;
+  id: string;
+  ql: string;
   topic: string;
   difficulty: Com006Difficulty;
   stem: string;
   options: readonly string[];
-  canonicalAnswer: string;
+  answer: string;
   explanation: string;
-  sourceFactIds: readonly string[];
+  source: readonly string[];
 };
 
 export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_AUTHORITY = {
@@ -371,7 +371,7 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
       "A new computer"
     ],
     "answer": "Two or more different proof factors",
-    "explanation": "Multi-factor authentication uses two or more different proof factors, such as a password and a phone code.",
+    "explanation": "Multi-factor authentication (MFA) uses two or more different proof factors, such as a password and a phone code.",
     "source": [
       "NIST-MFA"
     ]
@@ -389,7 +389,7 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
       "A name saved in a file"
     ],
     "answer": "A code meant for one use or a short time",
-    "explanation": "A one-time password is a code that works once or for a short period.",
+    "explanation": "A one-time password (OTP) is a code that works once or for a short period.",
     "source": [
       "NIST-OTP"
     ]
@@ -497,7 +497,7 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE: readonly Com006Cybe
       "Give it administrator access"
     ],
     "answer": "Do not plug it in and report or scan it safely",
-    "explanation": "An unknown USB drive may contain malicious software. Do not use it without a safe check.",
+    "explanation": "An unknown universal serial bus (USB) drive may contain malicious software. Do not use it without a safe check.",
     "source": [
       "CISA-USB"
     ]
@@ -689,19 +689,19 @@ export function auditCom006CyberSecurityEnglishReviewV1() {
   const ids = new Set<string>();
   const qlIds = COM006_CYBER_SECURITY_ENGLISH_REVIEW_AUTHORITY.qlIds;
   for (const question of COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE) {
-    if (ids.has(question.questionId)) issues.push(`DUPLICATE_ID:${question.questionId}`);
-    ids.add(question.questionId);
-    if (question.options.length !== 4 || new Set(question.options).size !== 4) issues.push(`OPTIONS:${question.questionId}`);
-    if (!question.options.includes(question.canonicalAnswer)) issues.push(`ANSWER:${question.questionId}`);
-    if (!question.stem.trim() || !question.explanation.trim()) issues.push(`EMPTY_TEXT:${question.questionId}`);
-    if (question.stem.split(/\\s+/).filter(Boolean).length > 24) issues.push(`STEM_TOO_LONG:${question.questionId}`);
-    if (question.explanation.split(/[.!?]/).filter(Boolean).length > 2) issues.push(`EXPLANATION_TOO_LONG:${question.questionId}`);
-    if (/^\\s*(consider|read|look at|based on the following)\\b/i.test(question.stem)) issues.push(`UNNECESSARY_OPENING:${question.questionId}`);
-    if (/associat/i.test(`${question.stem} ${question.explanation}`)) issues.push(`FORMAL_WORDING:${question.questionId}`);
-    if (/\\b(CIA|MFA|OTP|USB)\\b/.test(question.stem) && !/\\b(CIA|MFA|OTP|USB)\\b/.test(question.explanation)) issues.push(`ABBREVIATION_NOT_EXPLAINED:${question.questionId}`);
+    if (ids.has(question.id)) issues.push(`DUPLICATE_ID:${question.id}`);
+    ids.add(question.id);
+    if (question.options.length !== 4 || new Set(question.options).size !== 4) issues.push(`OPTIONS:${question.id}`);
+    if (!question.options.includes(question.answer)) issues.push(`ANSWER:${question.id}`);
+    if (!question.stem.trim() || !question.explanation.trim()) issues.push(`EMPTY_TEXT:${question.id}`);
+    if (question.stem.split(/\\s+/).filter(Boolean).length > 24) issues.push(`STEM_TOO_LONG:${question.id}`);
+    if (question.explanation.split(/[.!?]/).filter(Boolean).length > 2) issues.push(`EXPLANATION_TOO_LONG:${question.id}`);
+    if (/^\\s*(consider|read|look at|based on the following)\\b/i.test(question.stem)) issues.push(`UNNECESSARY_OPENING:${question.id}`);
+    if (/associat/i.test(`${question.stem} ${question.explanation}`)) issues.push(`FORMAL_WORDING:${question.id}`);
+    if (/\\b(CIA|MFA|OTP|USB)\\b/.test(question.stem) && !/\\b(CIA|MFA|OTP|USB)\\b/.test(question.explanation)) issues.push(`ABBREVIATION_NOT_EXPLAINED:${question.id}`);
   }
   for (const qlId of qlIds) {
-    if (COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE.filter((q) => q.qlId === qlId).length !== 4) issues.push(`QL_COUNT:${qlId}`);
+    if (COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE.filter((q) => q.ql === qlId).length !== 4) issues.push(`QL_COUNT:${qlId}`);
   }
   if (COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE.length !== COM006_CYBER_SECURITY_ENGLISH_REVIEW_AUTHORITY.questionCount) issues.push("QUESTION_COUNT");
   return {valid: issues.length === 0, issues, questionCount: COM006_CYBER_SECURITY_ENGLISH_REVIEW_CANDIDATE.length, qlCount: qlIds.length};
