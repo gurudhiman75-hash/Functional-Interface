@@ -78,6 +78,10 @@ const medium = await knowledgeV1Com006QuestionStudioAdapterV1.generate({
 assert.equal(medium.questions.length, 4);
 assert.ok(medium.questions.every((question: any) => question.difficulty === "Medium"));
 
+const fullBatch = await knowledgeV1Com006QuestionStudioAdapterV1.generate({ packageId: "COM-006", language: "en", count: 32, seed: "com006-full-batch-v1" });
+assert.deepEqual([...new Set(fullBatch.questions.map((question: any) => question.correctIndex))].sort(), [0, 1, 2, 3]);
+assert.equal(new Set(fullBatch.questions.map((question: any) => question.questionId)).size, 32);
+
 await assert.rejects(
   () => knowledgeV1Com006QuestionStudioAdapterV1.generate({ packageId: "COM-006", language: "en", difficulty: "Hard", count: 1 }),
   /Hard difficulty is not authorized/,
