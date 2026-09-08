@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { CurrentAffairsPackEditorialWorkspace } from '@/features/current-affairs/CurrentAffairsPackEditorialWorkspace';
 import {
   downloadCurrentAffairsMasterPackArtifact,
   getCurrentAffairsDailyMasterPackArchive,
@@ -56,9 +57,13 @@ function archiveCountParity(entry: DailyMasterPackArchiveEntry) {
 }
 
 function packEventIds(pack: DailyMasterPack | null) {
-  const payload = pack?.payload as { categories?: Array<{ events?: Array<{ id?: unknown }> }> } | null;
-  const ids = (payload?.categories ?? [])
-    .flatMap((category) => category.events ?? [])
+  const payload = pack?.payload as {
+    sections?: Array<{ events?: Array<{ id?: unknown }> }>;
+    categories?: Array<{ events?: Array<{ id?: unknown }> }>;
+  } | null;
+  const sections = payload?.sections ?? payload?.categories ?? [];
+  const ids = sections
+    .flatMap((section) => section.events ?? [])
     .map((event) => String(event.id ?? '').trim())
     .filter(Boolean);
   return [...new Set(ids)].sort();
@@ -133,6 +138,7 @@ export function CurrentAffairsPastDailyPacksCard({ currentDate }: { currentDate?
   const selectedPack: DailyMasterPack | null = packs[language];
   const materializedCount = Object.values(packs).filter(Boolean).length;
   const selectedParityReady = selectedDate ? exactPackParity(packs) : false;
+  const finalLocked = Boolean(selectedPack?.status === 'approved');
 
   const download = async (artifact: CurrentAffairsMasterPackArtifact) => {
     if (!selectedDate || !selectedPack) return;
@@ -142,7 +148,7 @@ export function CurrentAffairsPastDailyPacksCard({ currentDate }: { currentDate?
       const result = await downloadCurrentAffairsMasterPackArtifact(selectedDate, artifact, language);
       showToast.success(
         artifact === 'pdf' ? 'Current Affairs PDF downloaded' : 'Current Affairs text downloaded',
-        `${result.filename} · ${fmtBytes(result.bytes)} · stored canonical pack ${selectedPack.publicCode}.`,
+        `${result.filename} · ${fmtBytes(result.bytes)} · ${finalLocked ? 'final locked' : 'draft preview'} pack ${selectedPack.publicCode}.`,
       );
     } catch (caught) {
       showToast.error(
@@ -159,13 +165,13 @@ export function CurrentAffairsPastDailyPacksCard({ currentDate }: { currentDate?
       <CardHeader>
         <CardTitle className="flex flex-wrap items-center justify-between gap-2 text-base">
           <span className="flex items-center gap-2"><Archive className="h-4 w-4" />Past Daily Packs</span>
-          <Badge variant="outline">read-only archive</Badge>
+          <Badge variant="outline">archive + editorial review</Badge>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="rounded-lg border border-success/25 bg-success/5 p-3 text-sm">
-          <p className="font-medium">Open and download an existing date without replaying it.</p>
-          <p className="mt-1 text-xs text-muted-foreground">Opening a stored pack only reads the canonical EN/HI/PA records. It does not run source discovery, verification, authoring, localization, replay, generation, publication or Question Bank promotion.</p>
+          <p className="font-medium">Open an existing date without replaying it.</p>
+          <p className="mt-1 text-xs text-muted-foreground">Opening a stored pack is read-only. From the opened date you can review/edit governed event wording, refresh only the selected canonical pack, run pack QA, approve/lock, then download the final artifact. No source discovery or historical replay is needed.</p>
         </div>
 
         <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
@@ -189,6 +195,7 @@ export function CurrentAffairsPastDailyPacksCard({ currentDate }: { currentDate?
           {loadingArchive && !archive ? <div className="flex items-center gap-2 rounded-lg border p-3 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" />Loading stored pack dates…</div> : visibleDates.length === 0 ? <p className="rounded-lg border p-3 text-sm text-muted-foreground">No past canonical Daily Master Packs are stored yet.</p> : <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {visibleDates.slice(0, 24).map((entry) => {
               const parityReady = archiveCountParity(entry);
+              const approved = Object.values(entry.languages).filter(Boolean).every((item) => item?.status === 'approved');
               return <Button
                 key={entry.contentDate}
                 variant={selectedDate === entry.contentDate ? 'default' : 'outline'}
@@ -197,7 +204,7 @@ export function CurrentAffairsPastDailyPacksCard({ currentDate }: { currentDate?
                 disabled={opening}
               >
                 <span className="text-left"><span className="block font-medium">{displayDate(entry.contentDate)}</span><span className="block text-[11px] opacity-75">updated {fmt(entry.latestGeneratedAt)}</span></span>
-                <span className="ml-2 flex flex-col items-end gap-1"><Badge variant="outline">{entry.languageCount}/3</Badge>{!parityReady ? <Badge variant="outline" className="border-warning/30 bg-warning/10 text-warning">mismatch</Badge> : null}</span>
+                <span className="ml-2 flex flex-col items-end gap-1"><Badge variant="outline">{entry.languageCount}/3</Badge>{!parityReady ? <Badge variant="outline" className="border-warning/30 bg-warning/10 text-warning">mismatch</Badge> : approved ? <Badge variant="outline" className="border-success/30 bg-success/10 text-success">final</Badge> : <Badge variant="outline">draft</Badge>}</span>
               </Button>;
             })}
           </div>}
@@ -214,7 +221,7 @@ export function CurrentAffairsPastDailyPacksCard({ currentDate }: { currentDate?
                 const pack = packs[item.code];
                 return <Button key={item.code} size="sm" variant={language === item.code ? 'default' : 'outline'} onClick={() => setLanguage(item.code)}>
                   {item.label}
-                  <Badge variant="outline" className={cn('ml-2', pack ? 'border-success/30 bg-success/10 text-success' : 'border-warning/30 bg-warning/10 text-warning')}>{pack ? 'stored' : 'missing'}</Badge>
+                  <Badge variant="outline" className={cn('ml-2', pack ? 'border-success/30 bg-success/10 text-success' : 'border-warning/30 bg-warning/10 text-warning')}>{pack ? pack.status : 'missing'}</Badge>
                 </Button>;
               })}
             </div>
@@ -227,18 +234,20 @@ export function CurrentAffairsPastDailyPacksCard({ currentDate }: { currentDate?
             <div className="space-y-1 text-sm">
               <p><span className="font-semibold">{selectedPack.eventCount}</span> events · <span className="font-semibold">{selectedPack.categoryCount}</span> sections · {selectedPack.language.toUpperCase()}</p>
               <p className="text-muted-foreground">{selectedPack.publicCode} · pack status {selectedPack.status} · learning resource {selectedPack.learningResourceStatus}</p>
-              <p className="text-xs text-muted-foreground">Generated {fmt(selectedPack.generatedAt)}</p>
+              <p className="text-xs text-muted-foreground">Generated {fmt(selectedPack.generatedAt)} · {finalLocked ? 'final locked artifact' : 'draft/review preview'}</p>
             </div>
             <div className="flex flex-wrap gap-2">
               <Button variant="outline" onClick={() => void download('text')} disabled={downloading !== null}>
-                {downloading === `${selectedDate}:${language}:text` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}Download Markdown
+                {downloading === `${selectedDate}:${language}:text` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}{finalLocked ? 'Download Markdown' : 'Preview Markdown'}
               </Button>
               <Button onClick={() => void download('pdf')} disabled={downloading !== null}>
-                {downloading === `${selectedDate}:${language}:pdf` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}Download PDF
+                {downloading === `${selectedDate}:${language}:pdf` ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Download className="mr-2 h-4 w-4" />}{finalLocked ? 'Download PDF' : 'Preview PDF'}
               </Button>
             </div>
           </div> : !openError ? <p className="text-sm text-warning">The selected language is not stored for this date.</p> : null}
         </div> : null}
+
+        {selectedDate && Object.values(packs).some(Boolean) ? <CurrentAffairsPackEditorialWorkspace date={selectedDate} packs={packs} onPacksChanged={setPacks} /> : null}
       </CardContent>
     </Card>
   );
