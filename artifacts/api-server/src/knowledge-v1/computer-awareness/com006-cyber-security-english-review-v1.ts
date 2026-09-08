@@ -101,6 +101,58 @@ export const COM006_CYBER_SECURITY_ENGLISH_REVIEW_AUTHORITY = {
     {
       "id": "NIST-DIGITAL-SIGNATURE",
       "url": "https://csrc.nist.gov/glossary/term/digital_signature"
+    },
+    {
+      "id": "NIST-SPYWARE",
+      "url": "https://csrc.nist.gov/glossary/term/spyware"
+    },
+    {
+      "id": "NIST-WORM",
+      "url": "https://csrc.nist.gov/glossary/term/worm"
+    },
+    {
+      "id": "NIST-TROJAN",
+      "url": "https://csrc.nist.gov/glossary/term/trojan_horse"
+    },
+    {
+      "id": "NIST-SOCIAL-ENGINEERING",
+      "url": "https://csrc.nist.gov/glossary/term/social_engineering"
+    },
+    {
+      "id": "NIST-OTP",
+      "url": "https://csrc.nist.gov/glossary/term/one_time_password"
+    },
+    {
+      "id": "NIST-LEAST-PRIVILEGE",
+      "url": "https://csrc.nist.gov/glossary/term/least_privilege"
+    },
+    {
+      "id": "CISA-PUBLIC-WIFI",
+      "url": "https://www.cisa.gov/news-events/news/secure-your-wi-fi-network"
+    },
+    {
+      "id": "CISA-USB",
+      "url": "https://www.cisa.gov/news-events/news/using-caution-usb-drives"
+    },
+    {
+      "id": "CISA-CYBER-HYGIENE",
+      "url": "https://www.cisa.gov/topics/cyber-threats-and-advisories/cyber-hygiene-services"
+    },
+    {
+      "id": "NIST-SHOULDER-SURFING",
+      "url": "https://csrc.nist.gov/glossary/term/shoulder_surfing"
+    },
+    {
+      "id": "CISA-ACCOUNT-SECURITY",
+      "url": "https://www.cisa.gov/secure-our-world/use-strong-passwords"
+    },
+    {
+      "id": "CISA-REPORTING",
+      "url": "https://www.cisa.gov/ report"
+    },
+    {
+      "id": "CISA-MALWARE-REPORTING",
+      "url": "https://www.cisa.gov/topics/cyber-threats-and-advisories/malware"
     }
   ]
 } as const;
