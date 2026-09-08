@@ -335,7 +335,7 @@ Answer: A. IP address
 
 Explanation: An IP (Internet Protocol) address provides logical addressing on a network.
 
-#### 30. Which identifier is associated with a network card?
+#### 30. Which address identifies a network interface?
 
 A. Domain name
 B. MAC address
@@ -344,7 +344,7 @@ D. Protocol
 
 Answer: B. MAC address
 
-Explanation: A MAC (Media Access Control) address is associated with a network interface.
+Explanation: A MAC (Media Access Control) address identifies a network interface.
 
 ### COM005-QL-006
 
