@@ -21,9 +21,13 @@ on:
       - "artifacts/api-server/src/current-affairs/on-demand-yesterday-runtime.ts"
       - "artifacts/api-server/src/routes/admin-current-affairs-selected-processing.ts"
       - "artifacts/api-server/src/routes/admin-current-affairs-production-ops.ts"
+      - "artifacts/api-server/src/routes/admin-current-affairs-pack-editorial.ts"
+      - "artifacts/api-server/src/app.ts"
       - "artifacts/api-server/migrations/*current_affairs_selected_processing*.sql"
       - "artifacts/api-server/ensure-current-affairs.mjs"
       - "artifacts/admin-app/src/features/current-affairs/selected-processing-api.ts"
+      - "artifacts/admin-app/src/features/current-affairs/pack-editorial-api.ts"
+      - "artifacts/admin-app/src/features/current-affairs/CurrentAffairsPackEditorialWorkspace.tsx"
       - "artifacts/admin-app/src/features/current-affairs/CurrentAffairsPastDailyPacksCard.tsx"
       - "artifacts/admin-app/src/pages/content/CurrentAffairsProductionReadinessPage.tsx"
   workflow_dispatch:
@@ -72,6 +76,8 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-editorial-approval-census.test.ts
       - name: Verify CP071 Past Daily Packs and replay-boundary contract
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-past-daily-packs.test.ts
+      - name: Verify CP072 Daily Pack editorial workspace contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-pack-editorial-workspace.test.ts
       - name: Build API server
         run: pnpm --filter @workspace/api-server build
       - name: Typecheck admin frontend
