@@ -21,7 +21,7 @@ import type {
   QuestionStudioLanguage,
   QuestionStudioPackageDefinition,
 } from "../engine-types";
-import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
+import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
 
 export const COM002_QUESTION_STUDIO_PACKAGE_ID_V3 = "COM-002" as const;
 export const COM002_QUESTION_STUDIO_RUNTIME_MODE_V3 = "review-only" as const;
@@ -30,10 +30,10 @@ export const COM002_REVISION_POLICY_V3 = "SOURCE_GENERATOR_ONLY" as const;
 
 const qlIds = listCom002ReviewV6QlIds();
 const supportedLanguages: QuestionStudioLanguage[] = ["en", "hi", "pa"];
-const supportedDifficulties: Com002DifficultyV1[] = ["Easy", "Medium", "Hard"];
-const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
+const supportedDifficulties: Com002DifficultyV1[] = ["Easy", "Medium"];
+const lifecycle = QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
 
-export const COM002_STANDARD_REVIEW_ONLY_PACKAGE_V3: QuestionStudioPackageDefinition = {
+export const COM002_STANDARD_BANK_ONLY_PACKAGE_V3: QuestionStudioPackageDefinition = {
   engineId: "knowledge-v1",
   packageId: COM002_QUESTION_STUDIO_PACKAGE_ID_V3,
   subject: "Computer Awareness",
@@ -61,7 +61,7 @@ export const COM002_STANDARD_REVIEW_ONLY_PACKAGE_V3: QuestionStudioPackageDefini
   productionReleaseAuthorized: lifecycle.productionReleaseAuthorized,
   metadata: {
     ...lifecycle,
-    reviewOnly: true,
+    reviewOnly: false,
     contentAuthorityVersion: COM002_REVIEW_CONTENT_AUTHORITY_VERSION_V3,
     humanReviewApproved: true,
     permanentQlIds: qlIds,
@@ -94,8 +94,9 @@ function normalizeCount(count: number | undefined) {
 
 function normalizeDifficulty(difficulty: QuestionStudioGenerationRequest["difficulty"]): Com002DifficultyV1 | null {
   if (!difficulty || difficulty === "Mixed") return null;
-  if (supportedDifficulties.includes(difficulty as Com002DifficultyV1)) return difficulty as Com002DifficultyV1;
-  throw new Error("COM-002 review difficulty must be Easy, Medium, Hard, or Mixed");
+  if (difficulty === "Hard") throw new Error("COM-002 Hard difficulty is not authorized");
+  if (difficulty === "Easy" || difficulty === "Medium") return difficulty;
+  throw new Error("COM-002 difficulty must be Easy, Medium or Mixed");
 }
 
 function validatePattern(patternId: string | undefined) {
@@ -128,7 +129,7 @@ export function generateCom002QuestionStudioQuestionV3(input: {
     revisionPolicy: COM002_REVISION_POLICY_V3,
     questionStudioReview: {
       ...lifecycle,
-      registrationStatus: "STANDARD_REVIEW_ONLY_ADAPTER_AUDITED_NOT_YET_REGISTRY_BOUND" as const,
+      registrationStatus: "REGISTERED_BANK_ONLY_INTERNAL" as const,
       runtimeMode: COM002_QUESTION_STUDIO_RUNTIME_MODE_V3,
       contentAuthorityVersion: COM002_REVIEW_CONTENT_AUTHORITY_VERSION_V3,
       humanReviewApproved: true,
@@ -150,7 +151,7 @@ export const knowledgeV1Com002QuestionStudioAdapterV3: QuestionStudioEngineAdapt
   engineId: "knowledge-v1",
 
   listPackages() {
-    return [COM002_STANDARD_REVIEW_ONLY_PACKAGE_V3];
+    return [COM002_STANDARD_BANK_ONLY_PACKAGE_V3];
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
@@ -195,7 +196,7 @@ export const knowledgeV1Com002QuestionStudioAdapterV3: QuestionStudioEngineAdapt
         runtimeMode: COM002_QUESTION_STUDIO_RUNTIME_MODE_V3,
         contentAuthorityVersion: COM002_REVIEW_CONTENT_AUTHORITY_VERSION_V3,
         humanReviewApproved: true,
-        reviewOnly: true,
+        reviewOnly: false,
         revisionPolicy: COM002_REVISION_POLICY_V3,
         language,
         requestedDifficulty: requestedDifficulty ?? "Mixed",
