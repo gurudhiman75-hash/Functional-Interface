@@ -6,6 +6,7 @@ import { authenticate } from '../middlewares/auth';
 
 const router: IRouter = Router();
 const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const STALE_EXTRACTION_MS = 10 * 60 * 1000;
 
 function safeUuid(value: unknown) {
   const id = typeof value === 'string' ? value.trim() : '';
@@ -75,6 +76,7 @@ router.get(
       let currentStartPage: number | null = null;
       let currentEndPage: number | null = null;
       let candidateCount = 0;
+      let runningUpdatedAt: string | null = null;
 
       if (row.runId) {
         const aggregates = await sqlClient`
@@ -86,6 +88,7 @@ router.get(
             COALESCE(SUM(end_page - start_page + 1) FILTER (WHERE status = 'ready'), 0)::int AS "completedPages",
             MIN(start_page) FILTER (WHERE status = 'running')::int AS "currentStartPage",
             MAX(end_page) FILTER (WHERE status = 'running')::int AS "currentEndPage",
+            MAX(updated_at) FILTER (WHERE status = 'running') AS "runningUpdatedAt",
             COALESCE(SUM(jsonb_array_length(candidates)) FILTER (WHERE status = 'ready'), 0)::int AS "candidateCount"
           FROM notes_studio_v2.corpus_extraction_segments
           WHERE run_id = ${String(row.runId)}::uuid
@@ -98,6 +101,7 @@ router.get(
         completedPages = numeric(aggregate?.completedPages);
         currentStartPage = aggregate?.currentStartPage == null ? null : numeric(aggregate.currentStartPage);
         currentEndPage = aggregate?.currentEndPage == null ? null : numeric(aggregate.currentEndPage);
+        runningUpdatedAt = aggregate?.runningUpdatedAt ? new Date(aggregate.runningUpdatedAt).toISOString() : null;
         candidateCount = numeric(aggregate?.candidateCount);
       }
 
@@ -109,13 +113,19 @@ router.get(
       const extractionPercent = pageDenominator > 0
         ? Math.min(100, Math.floor((completedPages / pageDenominator) * 100))
         : 0;
-      const status = String(row.extractionStatus || row.uploadStatus || 'registered');
+      const extractionStatus = row.extractionStatus == null ? null : String(row.extractionStatus);
+      const isStale = extractionStatus === 'running'
+        && runningUpdatedAt !== null
+        && Date.now() - new Date(runningUpdatedAt).getTime() >= STALE_EXTRACTION_MS;
+      const status = isStale
+        ? 'interrupted'
+        : String(extractionStatus || row.uploadStatus || 'registered');
 
       res.json({
         corpusDocId,
         status,
         uploadStatus: row.uploadStatus ?? null,
-        extractionStatus: row.extractionStatus ?? null,
+        extractionStatus,
         totalBytes,
         uploadedBytes,
         uploadPercent,
@@ -129,6 +139,8 @@ router.get(
         currentStartPage,
         currentEndPage,
         candidateCount,
+        isStale,
+        runningUpdatedAt,
         errorCode: row.errorCode ?? null,
         errorMessage: row.errorMessage ?? null,
         updatedAt: row.updatedAt ?? null,
