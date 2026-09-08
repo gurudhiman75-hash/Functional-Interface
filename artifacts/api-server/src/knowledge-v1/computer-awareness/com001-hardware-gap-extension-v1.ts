@@ -31,7 +31,7 @@ export const COM001_HARDWARE_GAP_EXTENSION_AUTHORITY_V1 = {
   chapterCode: "COM-001",
   cpId: "COM-001-CP-007",
   status: "REVIEW_ONLY",
-  questionCountPerLanguage: 16,
+  questionCountPerLanguage: 20,
   permanentQlIds: [
     "COM-001-CP-007-QL-001",
     "COM-001-CP-007-QL-002",
@@ -145,6 +145,30 @@ const S: readonly Source[] = [
     hi: { stem: "मॉनिटर स्क्रीन का आकार सामान्यतः कैसे मापा जाता है?", options: ["कीबोर्ड के आर-पार", "केबल की लंबाई से", "स्पीकर के वजन से", "स्क्रीन के एक कोने से विपरीत कोने तक तिरछे"], explanation: "मॉनिटर का आकार सामान्यतः स्क्रीन के एक कोने से विपरीत कोने तक तिरछे मापा जाता है।" },
     pa: { stem: "ਮਾਨੀਟਰ ਸਕਰੀਨ ਦਾ ਆਕਾਰ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਵੇਂ ਮਾਪਿਆ ਜਾਂਦਾ ਹੈ?", options: ["ਕੀਬੋਰਡ ਦੇ ਪਾਰ", "ਕੇਬਲ ਦੀ ਲੰਬਾਈ ਨਾਲ", "ਸਪੀਕਰ ਦੇ ਭਾਰ ਨਾਲ", "ਸਕਰੀਨ ਦੇ ਇੱਕ ਕੋਨੇ ਤੋਂ ਦੂਜੇ ਕੋਨੇ ਤੱਕ ਤਿਰਛਾ"], explanation: "ਮਾਨੀਟਰ ਦਾ ਆਕਾਰ ਆਮ ਤੌਰ ਉੱਤੇ ਸਕਰੀਨ ਦੇ ਇੱਕ ਕੋਨੇ ਤੋਂ ਦੂਜੇ ਕੋਨੇ ਤੱਕ ਤਿਰਛਾ ਮਾਪਿਆ ਜਾਂਦਾ ਹੈ।" },
   },
+  {
+    id: "COM001-EXT-017", qlId: "COM-001-CP-007-QL-001", difficulty: "MEDIUM", correctIndex: 1, fact: "a time slice is a short CPU time period given to a process",
+    en: { stem: "What is a time slice in multitasking?", options: ["A disk partition", "A short CPU time period", "A printer setting", "A monitor cable"], explanation: "A time slice is a short period in which a process gets CPU time." },
+    hi: { stem: "मल्टीटास्किंग में टाइम स्लाइस क्या है?", options: ["डिस्क का भाग", "CPU का छोटा समय", "प्रिंटर की सेटिंग", "मॉनिटर की केबल"], explanation: "टाइम स्लाइस वह छोटा समय है जिसमें किसी प्रोग्राम को CPU का समय मिलता है।" },
+    pa: { stem: "ਮਲਟੀਟਾਸਕਿੰਗ ਵਿੱਚ ਟਾਈਮ ਸਲਾਈਸ ਕੀ ਹੁੰਦੀ ਹੈ?", options: ["ਡਿਸਕ ਦਾ ਭਾਗ", "CPU ਦਾ ਥੋੜ੍ਹਾ ਸਮਾਂ", "ਪ੍ਰਿੰਟਰ ਦੀ ਸੈਟਿੰਗ", "ਮਾਨੀਟਰ ਦੀ ਕੇਬਲ"], explanation: "ਟਾਈਮ ਸਲਾਈਸ ਉਹ ਥੋੜ੍ਹਾ ਸਮਾਂ ਹੁੰਦਾ ਹੈ ਜਿਸ ਵਿੱਚ ਕਿਸੇ ਪ੍ਰੋਗਰਾਮ ਨੂੰ CPU ਦਾ ਸਮਾਂ ਮਿਲਦਾ ਹੈ।" },
+  },
+  {
+    id: "COM001-EXT-018", qlId: "COM-001-CP-007-QL-003", difficulty: "EASY", correctIndex: 3, fact: "the data bus carries data between computer components",
+    en: { stem: "Which bus carries data between computer components?", options: ["Address bus", "Control bus", "Power bus", "Data bus"], explanation: "The data bus carries data between the processor, memory and other components." },
+    hi: { stem: "कंप्यूटर के भागों के बीच डेटा कौन-सी बस ले जाती है?", options: ["एड्रेस बस", "कंट्रोल बस", "पावर बस", "डेटा बस"], explanation: "डेटा बस प्रोसेसर, मेमोरी और अन्य भागों के बीच डेटा ले जाती है।" },
+    pa: { stem: "ਕੰਪਿਊਟਰ ਦੇ ਭਾਗਾਂ ਵਿਚਕਾਰ ਡਾਟਾ ਕਿਹੜੀ ਬੱਸ ਲੈ ਕੇ ਜਾਂਦੀ ਹੈ?", options: ["ਐਡਰੈੱਸ ਬੱਸ", "ਕੰਟਰੋਲ ਬੱਸ", "ਪਾਵਰ ਬੱਸ", "ਡਾਟਾ ਬੱਸ"], explanation: "ਡਾਟਾ ਬੱਸ ਪ੍ਰੋਸੈਸਰ, ਮੈਮੋਰੀ ਅਤੇ ਹੋਰ ਭਾਗਾਂ ਵਿਚਕਾਰ ਡਾਟਾ ਲੈ ਕੇ ਜਾਂਦੀ ਹੈ।" },
+  },
+  {
+    id: "COM001-EXT-019", qlId: "COM-001-CP-007-QL-004", difficulty: "EASY", correctIndex: 0, fact: "an expansion slot accepts an expansion card",
+    en: { stem: "What is an expansion slot used for?", options: ["To hold an expansion card", "To print a report", "To play sound", "To measure screen size"], explanation: "An expansion slot holds an expansion card that adds a function to the computer." },
+    hi: { stem: "एक्सपैंशन स्लॉट का उपयोग किस लिए होता है?", options: ["एक्सपैंशन कार्ड लगाने के लिए", "रिपोर्ट प्रिंट करने के लिए", "ध्वनि चलाने के लिए", "स्क्रीन का आकार मापने के लिए"], explanation: "एक्सपैंशन स्लॉट में ऐसा कार्ड लगाया जाता है जो कंप्यूटर में कोई कार्य जोड़ता है।" },
+    pa: { stem: "ਐਕਸਪੈਂਸ਼ਨ ਸਲਾਟ ਕਿਸ ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?", options: ["ਐਕਸਪੈਂਸ਼ਨ ਕਾਰਡ ਲਗਾਉਣ ਲਈ", "ਰਿਪੋਰਟ ਪ੍ਰਿੰਟ ਕਰਨ ਲਈ", "ਆਵਾਜ਼ ਚਲਾਉਣ ਲਈ", "ਸਕਰੀਨ ਦਾ ਆਕਾਰ ਮਾਪਣ ਲਈ"], explanation: "ਐਕਸਪੈਂਸ਼ਨ ਸਲਾਟ ਵਿੱਚ ਉਹ ਕਾਰਡ ਲੱਗਦਾ ਹੈ ਜੋ ਕੰਪਿਊਟਰ ਵਿੱਚ ਕੋਈ ਕੰਮ ਜੋੜਦਾ ਹੈ।" },
+  },
+  {
+    id: "COM001-EXT-020", qlId: "COM-001-CP-007-QL-004", difficulty: "MEDIUM", correctIndex: 2, fact: "display resolution is the number of pixels used to show an image",
+    en: { stem: "What does display resolution mainly describe?", options: ["Printer speed", "Cable length", "The number of pixels in the display", "Keyboard weight"], explanation: "Display resolution describes the number of pixels used to form the image on a screen." },
+    hi: { stem: "डिस्प्ले रिजॉल्यूशन मुख्य रूप से क्या बताता है?", options: ["प्रिंटर की गति", "केबल की लंबाई", "डिस्प्ले में पिक्सल की संख्या", "कीबोर्ड का वजन"], explanation: "डिस्प्ले रिजॉल्यूशन स्क्रीन पर चित्र बनाने वाले पिक्सल की संख्या बताता है।" },
+    pa: { stem: "ਡਿਸਪਲੇ ਰੈਜ਼ੋਲਿਊਸ਼ਨ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕੀ ਦੱਸਦਾ ਹੈ?", options: ["ਪ੍ਰਿੰਟਰ ਦੀ ਗਤੀ", "ਕੇਬਲ ਦੀ ਲੰਬਾਈ", "ਡਿਸਪਲੇ ਵਿੱਚ ਪਿਕਸਲਾਂ ਦੀ ਗਿਣਤੀ", "ਕੀਬੋਰਡ ਦਾ ਭਾਰ"], explanation: "ਡਿਸਪਲੇ ਰੈਜ਼ੋਲਿਊਸ਼ਨ ਸਕਰੀਨ ਉੱਤੇ ਤਸਵੀਰ ਬਣਾਉਣ ਵਾਲੇ ਪਿਕਸਲਾਂ ਦੀ ਗਿਣਤੀ ਦੱਸਦਾ ਹੈ।" },
+
 ];
 
 function build(source: Source, language: "en" | "hi" | "pa"): Com001HardwareExtensionQuestion {
