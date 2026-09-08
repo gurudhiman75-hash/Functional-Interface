@@ -11,11 +11,20 @@ import {
   revokeDailyMasterPackApproval,
   type DailyMasterPackApprovalCandidate,
 } from "./daily-master-pack-approval-runtime";
+import {
+  evaluateSelectedApprovalCensus,
+  SELECTED_APPROVAL_CENSUS_VERSION,
+  type SelectedApprovalCensus,
+} from "./selected-approval-census";
 
 export { listDailyMasterPackApprovalHistory, revokeDailyMasterPackApproval };
 
 export const SELECTED_MASTER_PACK_APPROVAL_BOUNDARY_VERSION = "ca-cp069-selected-master-pack-approval-boundary-v1";
 const MALFORMED_SCHEDULED_ACTION = /\bscheduled\s+(?:launch|conduct|inaugurat(?:e|ion)|hold|held|open|unveil|release)\b/i;
+
+export type SelectedDailyMasterPackApprovalCandidate = DailyMasterPackApprovalCandidate & {
+  selectedApprovalCensus: SelectedApprovalCensus | null;
+};
 
 function parseArray(value: unknown): unknown[] {
   return Array.isArray(value) ? value : [];
@@ -70,11 +79,6 @@ function payloadEditorialEventsForSelectedApproval(payload: Record<string, unkno
         key: clean(fact.key),
         value: clean(fact.value),
       })).filter((fact) => fact.key && fact.value).filter((fact) => {
-        // `scheduled conduct` and similar values are governed normalized action
-        // facts. They are not learner-copy defects when the learner-facing copy
-        // already renders the planned action naturally (for example, "announced
-        // that it would conduct"). Keep the blocker when the malformed wording
-        // actually appears in learner copy.
         return !(fact.key.toLowerCase().replace(/\s+/g, "_") === "official_action"
           && MALFORMED_SCHEDULED_ACTION.test(fact.value)
           && !MALFORMED_SCHEDULED_ACTION.test(learnerCopy));
@@ -98,19 +102,72 @@ export function selectedApprovalMembershipIds(candidate: DailyMasterPackApproval
   return normalizeIds(english?.payloadEventIds ?? []);
 }
 
+async function loadCurrentSelectedHeadlineResolution(
+  contentDate: string,
+  client: typeof sqlClient,
+) {
+  const rows = await client`
+    SELECT candidate.id::text AS "candidateId", linked_event.id::text AS "eventId"
+    FROM content.current_affairs_ingestion_candidates candidate
+    LEFT JOIN LATERAL (
+      SELECT event.id, event.status, event.updated_at
+      FROM content.current_affairs_event_candidates link
+      JOIN content.current_affairs_events event ON event.id=link.event_id
+      WHERE link.candidate_id=candidate.id
+      ORDER BY CASE event.status
+        WHEN 'verified' THEN 0
+        WHEN 'review' THEN 1
+        WHEN 'candidate' THEN 2
+        WHEN 'rejected' THEN 3
+        ELSE 4
+      END,
+      event.updated_at DESC
+      LIMIT 1
+    ) linked_event ON true
+    WHERE COALESCE((candidate.payload->>'manualEditorialSelected')::boolean, false)=true
+      AND COALESCE(
+        NULLIF(candidate.payload->>'historicalTargetDate',''),
+        NULLIF(candidate.payload->>'discoveryTargetDate',''),
+        (candidate.published_at AT TIME ZONE 'Asia/Kolkata')::date::text
+      )=${contentDate}
+    ORDER BY candidate.id
+  `;
+  return {
+    selectedHeadlineCount: rows.length,
+    resolvedSelectedHeadlineCount: rows.filter((row) => Boolean(row.eventId)).length,
+    liveSelectedEventIds: normalizeIds(rows.map((row) => row.eventId ? String(row.eventId) : "")),
+  };
+}
+
 export async function loadDailyMasterPackApprovalCandidate(
   contentDate: string,
   client: typeof sqlClient = sqlClient,
-): Promise<DailyMasterPackApprovalCandidate> {
+): Promise<SelectedDailyMasterPackApprovalCandidate> {
   const legacy = await loadLegacyDailyMasterPackApprovalCandidate(contentDate, client);
-  const selectedIds = selectedApprovalMembershipIds(legacy);
-  if (!selectedIds || selectedIds.length === 0) return legacy;
+  const storedSelectedIds = selectedApprovalMembershipIds(legacy);
+  if (!storedSelectedIds || storedSelectedIds.length === 0) {
+    return { ...legacy, selectedApprovalCensus: null };
+  }
+
+  const selection = await loadCurrentSelectedHeadlineResolution(contentDate, client);
+  const selectedApprovalCensus = evaluateSelectedApprovalCensus({
+    broadCensus: legacy.census ? {
+      status: legacy.census.status,
+      coverageConfidenceScore: legacy.census.coverageConfidenceScore,
+      blockers: legacy.census.blockers,
+      warnings: legacy.census.warnings,
+    } : null,
+    selectedHeadlineCount: selection.selectedHeadlineCount,
+    resolvedSelectedHeadlineCount: selection.resolvedSelectedHeadlineCount,
+    liveSelectedEventIds: selection.liveSelectedEventIds,
+    storedPackEventIds: storedSelectedIds,
+  });
 
   const english = legacy.packs.find((pack) => pack.language === "en");
   const editorialQuality = evaluateDailyMasterPackEditorialQuality(
     english ? payloadEditorialEventsForSelectedApproval(english.payload) : [],
   );
-  const eventStateRows = await client`
+  const eventStateRows = selection.liveSelectedEventIds.length === 0 ? [] : await client`
     SELECT event.id::text AS id, event.status,
       event.learner_authoring_status AS "authoringStatus",
       event.learner_authoring_version_id::text AS "authoringVersionId",
@@ -133,7 +190,7 @@ export async function loadDailyMasterPackApprovalCandidate(
         WHERE conflict.event_id=event.id AND conflict.status='open'
       ) AS "hasOpenConflict"
     FROM content.current_affairs_events event
-    WHERE event.id=ANY(${selectedIds}::uuid[])
+    WHERE event.id=ANY(${selection.liveSelectedEventIds}::uuid[])
     ORDER BY event.id
   `;
 
@@ -149,29 +206,29 @@ export async function loadDailyMasterPackApprovalCandidate(
       payloadCategoryCount: pack.payloadCategoryCount,
       renderTargets: pack.renderTargets,
     })),
-    // CP-069: once a Daily Master Pack carries CP-068 admin-selected membership,
-    // approval must validate against that exact canonical membership. Reverting to
-    // the old broad target-date include_recommended pool would reintroduce the 35
-    // vs 23 leakage CP-068 deliberately removed.
-    currentEligibleEventIds: selectedIds,
+    currentEligibleEventIds: selection.liveSelectedEventIds,
     verifiedEventCount: eventStateRows.filter((row) => String(row.status) === "verified").length,
     currentAuthoringCount: eventStateRows.filter((row) =>
       ["ready", "manual"].includes(String(row.authoringStatus)) && Boolean(row.authoringVersionId)).length,
     currentHindiLocalizationCount: eventStateRows.filter((row) => Boolean(row.hindiReady)).length,
     currentPunjabiLocalizationCount: eventStateRows.filter((row) => Boolean(row.punjabiReady)).length,
     openConflictCount: eventStateRows.filter((row) => Boolean(row.hasOpenConflict)).length,
-    censusStatus: legacy.census?.status ?? null,
-    censusBlockerCount: legacy.census?.blockers.length ?? 1,
+    censusStatus: selectedApprovalCensus.status,
+    censusBlockerCount: selectedApprovalCensus.blockers.length,
     editorialQuality,
   });
-  if (!legacy.census) {
-    readiness.blockers.push("The target-date discovery census has not been materialized");
-    readiness.ready = false;
-    readiness.checks.censusNotBlocked = false;
+
+  for (const blocker of selectedApprovalCensus.blockers) {
+    if (!readiness.blockers.includes(blocker)) readiness.blockers.push(blocker);
   }
+  for (const warning of selectedApprovalCensus.warnings) {
+    if (!readiness.warnings.includes(warning)) readiness.warnings.push(warning);
+  }
+  readiness.ready = readiness.blockers.length === 0;
 
   const sourceFingerprint = sha256({
     boundaryVersion: SELECTED_MASTER_PACK_APPROVAL_BOUNDARY_VERSION,
+    selectedApprovalCensusVersion: SELECTED_APPROVAL_CENSUS_VERSION,
     contentDate,
     packs: legacy.packs.map((pack) => ({
       id: pack.id,
@@ -182,7 +239,8 @@ export async function loadDailyMasterPackApprovalCandidate(
       payloadSha256: pack.payloadSha256,
       renderTargets: [...pack.renderTargets].sort(),
     })).sort((a, b) => a.language.localeCompare(b.language)),
-    selectedEventIds: selectedIds,
+    selectedEventIds: selection.liveSelectedEventIds,
+    selectedApprovalCensus,
     eventStates: eventStateRows.map((row) => ({
       id: String(row.id),
       status: String(row.status),
@@ -192,11 +250,12 @@ export async function loadDailyMasterPackApprovalCandidate(
       punjabiReady: Boolean(row.punjabiReady),
       hasOpenConflict: Boolean(row.hasOpenConflict),
     })),
-    census: legacy.census ? {
+    broadCensus: legacy.census ? {
       id: legacy.census.id,
       status: legacy.census.status,
       coverageConfidenceScore: legacy.census.coverageConfidenceScore,
       blockers: legacy.census.blockers,
+      warnings: legacy.census.warnings,
     } : null,
     editorialQuality: {
       ready: editorialQuality.ready,
@@ -206,10 +265,11 @@ export async function loadDailyMasterPackApprovalCandidate(
 
   return {
     ...legacy,
-    currentEligibleEventIds: selectedIds,
+    currentEligibleEventIds: selection.liveSelectedEventIds,
     editorialQuality,
     readiness,
     sourceFingerprint,
+    selectedApprovalCensus,
   };
 }
 
@@ -238,6 +298,9 @@ export async function approveDailyMasterPackSet(args: {
       throw new Error(`Canonical Daily Master Pack approval is blocked: ${candidate.readiness.blockers.join("; ")}`);
     }
     if (candidate.packs.length !== 3) throw new Error("Canonical Daily Master Pack approval requires exactly three language packs");
+    if (!candidate.selectedApprovalCensus || candidate.selectedApprovalCensus.status !== "complete") {
+      throw new Error("Canonical Daily Master Pack approval requires a complete selection-aware approval census");
+    }
 
     const version = await nextApprovalVersion(args.contentDate, tx as typeof sqlClient);
     const approvalId = randomUUID();
@@ -296,11 +359,14 @@ export async function approveDailyMasterPackSet(args: {
           contentDate: args.contentDate,
           approvalVersion: version,
           approvalBoundaryVersion: SELECTED_MASTER_PACK_APPROVAL_BOUNDARY_VERSION,
+          selectedApprovalCensusVersion: SELECTED_APPROVAL_CENSUS_VERSION,
+          selectedApprovalCensus: candidate.selectedApprovalCensus,
           sourceFingerprint: candidate.sourceFingerprint,
           masterPackIds: packIds,
           resourceIds,
           languageCodes: candidate.packs.map((pack) => pack.language),
           selectedCanonicalMembership: true,
+          broadDiscoveryMonitoringPreserved: true,
           learnerPublicationAuthorized: false,
           learningResourcesRemainDraft: true,
           canonicalQuestionPromotion: false,
@@ -321,6 +387,7 @@ export async function approveDailyMasterPackSet(args: {
           masterPackIds: packIds,
           resourceIds,
           approvalBoundaryVersion: SELECTED_MASTER_PACK_APPROVAL_BOUNDARY_VERSION,
+          selectedApprovalCensusVersion: SELECTED_APPROVAL_CENSUS_VERSION,
           learnerPublicationAuthorized: false,
         })}::jsonb
       )
@@ -337,6 +404,7 @@ export async function approveDailyMasterPackSet(args: {
       resourceIds,
       readiness: candidate.readiness,
       approvalBoundaryVersion: SELECTED_MASTER_PACK_APPROVAL_BOUNDARY_VERSION,
+      selectedApprovalCensusVersion: SELECTED_APPROVAL_CENSUS_VERSION,
       learnerPublicationAuthorized: false as const,
       learningResourcesRemainDraft: true as const,
     };

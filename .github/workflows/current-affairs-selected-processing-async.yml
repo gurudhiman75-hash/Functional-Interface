@@ -11,6 +11,7 @@ on:
       - "artifacts/api-server/src/current-affairs/selected-blocker-closure-finalizer.ts"
       - "artifacts/api-server/src/current-affairs/selected-daily-master-pack.ts"
       - "artifacts/api-server/src/current-affairs/selected-daily-master-pack-approval-runtime.ts"
+      - "artifacts/api-server/src/current-affairs/selected-approval-census.ts"
       - "artifacts/api-server/src/current-affairs/selected-editorial-*.ts"
       - "artifacts/api-server/src/current-affairs/selected-master-pack-boundary.test.ts"
       - "artifacts/api-server/src/current-affairs/selected-residual-blocker-closure*.ts"
@@ -64,6 +65,8 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-master-pack-boundary.test.ts
       - name: Verify CP069 selected editorial cleanup and approval contract
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-editorial-approval-cleanup.test.ts
+      - name: Verify CP070 selection-aware approval census contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-editorial-approval-census.test.ts
       - name: Build API server
         run: pnpm --filter @workspace/api-server build
       - name: Typecheck admin frontend
