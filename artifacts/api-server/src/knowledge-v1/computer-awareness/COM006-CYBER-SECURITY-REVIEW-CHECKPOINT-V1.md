@@ -1,47 +1,54 @@
-# COM-006 — Cyber Security Review Checkpoint V1
+# COM-006 — Cyber Security Completion Checkpoint V1
 
 ## Status
 
-This is an English review candidate. It is not frozen.
+The approved corpus is frozen and connected to the existing `knowledge-v1` Question Studio.
 
 - 32 English questions
+- 32 Hindi questions
+- 32 Punjabi questions
 - 8 learning units
-- Easy and Medium difficulty
 - 4 questions per learning unit
-- Hindi and Punjabi localization: not started
-- Question Studio: disabled
-- Question Bank: disabled
-- Test and mock eligibility: disabled
+- Easy and Medium difficulty only
+- Direct exam-level stems
+- Short, simple explanations
+- Varied correct-answer positions
+- Full forms explained where abbreviations are used
+
+## Question Studio
+
+- Package: `COM-006`
+- Chapter: Cyber Security
+- Runtime: review-only
+- Selection: deterministic and without replacement
+- Languages: English, Hindi and Punjabi
+- Question Bank: BANK_ONLY with manual approval
+- Test eligibility: disabled
+- Mock-test eligibility: disabled
 - Public release: disabled
-
-## Learning units
-
-| ID | Coverage |
-|---|---|
-| COM-006-QL-001 | Confidentiality, integrity and availability |
-| COM-006-QL-002 | Malware |
-| COM-006-QL-003 | Phishing and social engineering |
-| COM-006-QL-004 | Passwords and authentication |
-| COM-006-QL-005 | Firewalls, antivirus, updates and least privilege |
-| COM-006-QL-006 | Safe device, email and network use |
-| COM-006-QL-007 | Backups, encryption and privacy |
-| COM-006-QL-008 | Reporting and first response |
+- Production release: disabled
 
 ## Ownership boundaries
 
 - COM-004 keeps user-facing Internet, browser, email and digital-service use.
 - COM-005 keeps basic networking devices, terms and protocols.
 - COM-006 owns threats, phishing, malware, authentication and security controls.
-- Detailed attack procedures and offensive instructions are outside this review set.
+- Detailed attack procedures and offensive instructions are outside this corpus.
 
-## Editorial rules
+## Editorial controls
 
 - Stems are direct.
 - Explanations are short and simple.
-- Abbreviations used in a stem are expanded in the explanation.
-- Unnecessary openings such as “Consider the following” are rejected.
+- Abbreviations used in stems are expanded in explanations.
+- Unnecessary openings are rejected.
 - Wording containing “associated” or “association” is rejected.
+- Correct-answer positions are varied and checked by CI.
 
-## Review file
+## Files
 
-See [COM006-CYBER-SECURITY-HUMAN-REVIEW-V1.md](./COM006-CYBER-SECURITY-HUMAN-REVIEW-V1.md).
+- English review and authority
+- English freeze
+- Hindi/Punjabi localization freeze
+- Question Studio adapter
+- Localization and runtime parity test
+- Human-review Markdown file
