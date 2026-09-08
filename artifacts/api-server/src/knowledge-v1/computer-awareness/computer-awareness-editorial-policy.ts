@@ -15,7 +15,8 @@ const COMPUTER_ABBREVIATIONS: Record<string, string> = {
   NIC: "Network Interface Card",
 };
 
-const UNNECESSARY_STEM_OPENING = /^(In the following question|Read the following question carefully|Please select the correct answer|You are given the following)/i;
+const UNNECESSARY_STEM_OPENING =
+  /^(In the following|Consider the following|Read the following question carefully|Read the question carefully|Please select(?: the)?|Select the correct answer|Choose the correct answer|You are given the following)/i;
 const OVERUSED_FORMAL_WORD = /\bassociat\w*\b/i;
 
 export function validateComputerAwarenessEditorialText(input: { stem: string; explanation: string }) {
@@ -29,7 +30,7 @@ export function validateComputerAwarenessEditorialText(input: { stem: string; ex
   if (explanation.split(/[.!?]/).filter(Boolean).length > 2) issues.push("EXPLANATION_NOT_SIMPLE");
   for (const [abbreviation, fullForm] of Object.entries(COMPUTER_ABBREVIATIONS)) {
     if (!new RegExp(`\\b${abbreviation}\\b`).test(explanation)) continue;
-    if (!new RegExp(`\\b${abbreviation}\\b\\s*(?:\\(|means\\s+)${fullForm.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")}`, "i").test(explanation)) {
+    if (!new RegExp(`\\b${abbreviation}\\b\\s*(?:\\(|means\\s+)${fullForm.replace(/[.*+?^$\\{\\}()|[\\]\\\\]/g, "\\\\$&")}`, "i").test(explanation)) {
       issues.push(`UNEXPANDED_ABBREVIATION:${abbreviation}`);
     }
   }
