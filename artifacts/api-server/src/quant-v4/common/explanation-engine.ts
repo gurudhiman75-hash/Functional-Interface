@@ -23,6 +23,14 @@ export class ExplanationValidationError extends Error {
   }
 }
 
+/**
+ * Quant V4 learner explanations are judged by coherence and evidence, not by
+ * a fixed number of steps or compulsory FORMULA/SUBSTITUTION/CONCLUSION slots.
+ * See quality/QUANT-V4-EXPLANATION-QUALITY-POLICY-V2.md.
+ */
+export const EXPLANATION_COHERENCE_POLICY_VERSION =
+  "QUANT_V4_EXPLANATION_COHERENCE_V2";
+
 export const FORBIDDEN_PHRASES = [
   "Our objective is",
   "We apply the standard rule",
@@ -68,7 +76,7 @@ export const FORBIDDEN_PHRASES = [
   "Female part",
   "Now simplify",
   "Substitute the numbers",
-  "calculation gives"
+  "calculation gives",
 ];
 
 function containsIdentifier(text: string, identifier: string) {
@@ -77,80 +85,129 @@ function containsIdentifier(text: string, identifier: string) {
   return new RegExp(`(^|[^A-Za-z0-9_])${escaped}([^A-Za-z0-9_]|$)`, "i").test(text);
 }
 
-export function validateNoInternalIdentifiers(steps: ExplanationStep[], evidence: ExplanationEvidence): void {
-  const fullText = steps.map((step) => `${step.narrative} ${step.mathLatex ?? ""}`).join(" ");
+export function validateNoInternalIdentifiers(
+  steps: ExplanationStep[],
+  evidence: ExplanationEvidence,
+): void {
+  const fullText = steps
+    .map((step) => `${step.narrative} ${step.mathLatex ?? ""}`)
+    .join(" ");
   const taskKind = String(evidence.derivedValues.taskKind ?? "");
   if (taskKind && containsIdentifier(fullText, taskKind)) {
-    throw new ExplanationValidationError(`Internal taskKind leaked into explanation: "${taskKind}"`);
+    throw new ExplanationValidationError(
+      `Internal taskKind leaked into explanation: "${taskKind}"`,
+    );
   }
 
   for (const variableName of Object.keys(evidence.variables)) {
     if (variableName.length < 6) continue;
     if (containsIdentifier(fullText, variableName)) {
-      throw new ExplanationValidationError(`Internal variable name leaked into explanation: "${variableName}"`);
+      throw new ExplanationValidationError(
+        `Internal variable name leaked into explanation: "${variableName}"`,
+      );
     }
   }
 }
 
 export function validateGenericPhrases(steps: ExplanationStep[]): void {
-  const fullText = steps.map((s) => s.narrative).join(" ").toLowerCase();
+  const fullText = steps
+    .map((step) => step.narrative)
+    .join(" ")
+    .toLowerCase();
   for (const phrase of FORBIDDEN_PHRASES) {
     if (fullText.includes(phrase.toLowerCase())) {
-      throw new ExplanationValidationError(`Forbidden phrase detected: "${phrase}"`);
+      throw new ExplanationValidationError(
+        `Forbidden phrase detected: "${phrase}"`,
+      );
     }
   }
 }
 
-export function validateEntityConsistency(steps: ExplanationStep[], entities: Record<string, string>): void {
-  const fullText = steps.map((s) => s.narrative).join(" ").toLowerCase();
-  const entityValues = Object.values(entities).map((e) => e.toLowerCase());
+export function validateEntityConsistency(
+  steps: ExplanationStep[],
+  entities: Record<string, string>,
+): void {
+  const fullText = steps
+    .map((step) => step.narrative)
+    .join(" ")
+    .toLowerCase();
+  const entityValues = Object.values(entities).map((entity) =>
+    entity.toLowerCase(),
+  );
 
   const fallbacks = ["first group", "second group", "male", "female"];
   for (const fallback of fallbacks) {
     if (fullText.includes(fallback) && !entityValues.includes(fallback)) {
-       throw new ExplanationValidationError(`Entity corruption: Found generic fallback "${fallback}" without matching semantic entity.`);
+      throw new ExplanationValidationError(
+        `Entity corruption: Found generic fallback "${fallback}" without matching semantic entity.`,
+      );
     }
   }
 }
 
-export function validateEvidenceFidelity(steps: ExplanationStep[], evidence: ExplanationEvidence): void {
-  const fullText = steps.map((s) => `${s.narrative} ${s.mathLatex || ""}`).join(" ");
+export function validateEvidenceFidelity(
+  steps: ExplanationStep[],
+  evidence: ExplanationEvidence,
+): void {
+  const fullText = steps
+    .map((step) => `${step.narrative} ${step.mathLatex || ""}`)
+    .join(" ");
   const extractedNumbers = fullText.match(/\d+(\.\d+)?/g) || [];
 
   const allowedNumbers = new Set<number>([0, 1, 2, 3, 4, 5, 10, 100, 1000]);
 
-  const extractFromObject = (obj: any) => {
-    Object.values(obj).forEach((v) => {
-      if (typeof v === "number") allowedNumbers.add(v);
-      else if (typeof v === "string") {
-        const nums = v.match(/\d+(\.\d+)?/g);
-        if (nums) nums.forEach(n => allowedNumbers.add(parseFloat(n)));
+  const extractFromObject = (obj: Record<string, unknown>) => {
+    Object.values(obj).forEach((value) => {
+      if (typeof value === "number") {
+        allowedNumbers.add(value);
+      } else if (typeof value === "string") {
+        const nums = value.match(/\d+(\.\d+)?/g);
+        if (nums) {
+          nums.forEach((numberText) => allowedNumbers.add(parseFloat(numberText)));
+        }
       }
     });
   };
 
   extractFromObject(evidence.variables);
   extractFromObject(evidence.derivedValues);
-  if (typeof evidence.answer === "number") allowedNumbers.add(evidence.answer);
-  else if (typeof evidence.answer === "string") {
+  if (typeof evidence.answer === "number") {
+    allowedNumbers.add(evidence.answer);
+  } else if (typeof evidence.answer === "string") {
     const nums = evidence.answer.match(/\d+(\.\d+)?/g);
-    if (nums) nums.forEach(n => allowedNumbers.add(parseFloat(n)));
+    if (nums) nums.forEach((numberText) => allowedNumbers.add(parseFloat(numberText)));
   }
 
   const rounded = (value: number) => Number(value.toFixed(6));
   for (let round = 0; round < 2 && allowedNumbers.size < 12000; round += 1) {
-    const source = [...allowedNumbers].filter((value) => Number.isFinite(value) && Math.abs(value) <= 1_000_000);
+    const source = [...allowedNumbers].filter(
+      (value) => Number.isFinite(value) && Math.abs(value) <= 1_000_000,
+    );
     const additions: number[] = [];
-    for (let leftIndex = 0; leftIndex < source.length && additions.length < 12000; leftIndex += 1) {
-      for (let rightIndex = 0; rightIndex < source.length && additions.length < 12000; rightIndex += 1) {
+    for (
+      let leftIndex = 0;
+      leftIndex < source.length && additions.length < 12000;
+      leftIndex += 1
+    ) {
+      for (
+        let rightIndex = 0;
+        rightIndex < source.length && additions.length < 12000;
+        rightIndex += 1
+      ) {
         const left = source[leftIndex]!;
         const right = source[rightIndex]!;
-        additions.push(rounded(left + right), rounded(left - right), rounded(left * right));
+        additions.push(
+          rounded(left + right),
+          rounded(left - right),
+          rounded(left * right),
+        );
         if (right !== 0) additions.push(rounded(left / right));
       }
     }
     for (const value of additions) {
-      if (Number.isFinite(value) && Math.abs(value) <= 1_000_000_000) allowedNumbers.add(value);
+      if (Number.isFinite(value) && Math.abs(value) <= 1_000_000_000) {
+        allowedNumbers.add(value);
+      }
       if (allowedNumbers.size >= 12000) break;
     }
   }
@@ -158,7 +215,6 @@ export function validateEvidenceFidelity(steps: ExplanationStep[], evidence: Exp
   for (const numStr of extractedNumbers) {
     const num = parseFloat(numStr);
     if (!allowedNumbers.has(num)) {
-      // allow floating point tolerance
       let found = false;
       for (const allowed of allowedNumbers) {
         if (Math.abs(allowed - num) < 0.1) {
@@ -167,27 +223,37 @@ export function validateEvidenceFidelity(steps: ExplanationStep[], evidence: Exp
         }
       }
       if (!found) {
-        throw new ExplanationValidationError(`Hallucination detected: Number ${num} does not exist in evidence or derived values.`);
+        throw new ExplanationValidationError(
+          `Hallucination detected: Number ${num} does not exist in evidence or derived values.`,
+        );
       }
     }
   }
 }
 
-export function validateExplanationPipeline(evidence: ExplanationEvidence, renderer: ExplanationRenderer): ExplanationStep[] {
-  const steps = renderer.render(evidence);
-
-  if (steps.length < 4) {
-    throw new ExplanationValidationError("Explanation lacks pedagogical structure (Less than 4 steps).");
+/**
+ * Reject empty/padded explanations without forcing every mathematical family
+ * into the same pedagogical shape. A concise direct solution may have two
+ * visible steps; a compound problem may naturally have more.
+ */
+export function validateCoherentWorking(steps: ExplanationStep[]): void {
+  if (!steps.length) {
+    throw new ExplanationValidationError("Explanation is empty.");
   }
 
-  validateGenericPhrases(steps);
-  validateNoInternalIdentifiers(steps, evidence);
-  validateEntityConsistency(steps, evidence.entities);
-  validateEvidenceFidelity(steps, evidence);
+  for (const [index, step] of steps.entries()) {
+    if (!step.narrative.trim() && !step.mathLatex?.trim()) {
+      throw new ExplanationValidationError(
+        `Explanation step ${index + 1} contains no learner-facing content.`,
+      );
+    }
+  }
 
   const arithmeticSteps = steps.filter((step) => step.mathLatex?.trim()).length;
-  if (arithmeticSteps < 3) {
-    throw new ExplanationValidationError("Explanation hides the arithmetic (fewer than three mathematical lines).");
+  if (arithmeticSteps < 1) {
+    throw new ExplanationValidationError(
+      "Explanation hides the working (no mathematical line is shown).",
+    );
   }
 
   const proseWords = steps
@@ -196,32 +262,34 @@ export function validateExplanationPipeline(evidence: ExplanationEvidence, rende
     .trim()
     .split(/\s+/)
     .filter(Boolean).length;
-  if (proseWords > arithmeticSteps * 9) {
-    throw new ExplanationValidationError("Explanation contains too much commentary for its arithmetic content.");
-  }
 
-  const hasFormula = steps.some((s) => s.type === "FORMULA");
-  const hasSubstitution = steps.some((s) => s.type === "SUBSTITUTION");
-  const hasConclusion = steps.some((s) => s.type === "CONCLUSION");
+  // One compact calculation can legitimately need a short sentence or two.
+  // The floor avoids forcing extra math lines merely to satisfy a prose ratio.
+  const commentaryAllowance = Math.max(45, arithmeticSteps * 18);
+  if (proseWords > commentaryAllowance) {
+    throw new ExplanationValidationError(
+      "Explanation contains too much commentary for the shown working.",
+    );
+  }
+}
 
-  if (!hasFormula) {
-    throw new ExplanationValidationError("Explanation lacks pedagogical structure (Missing FORMULA step).");
-  }
-  if (!hasSubstitution) {
-    throw new ExplanationValidationError("Explanation lacks pedagogical structure (Missing SUBSTITUTION step).");
-  }
-  if (!hasConclusion) {
-    throw new ExplanationValidationError("Explanation lacks pedagogical structure (Missing CONCLUSION step).");
-  }
-  if (steps[0].type === "CONCLUSION" || steps[1].type === "CONCLUSION") {
-    throw new ExplanationValidationError("Explanation reveals answer too early.");
-  }
+export function validateExplanationPipeline(
+  evidence: ExplanationEvidence,
+  renderer: ExplanationRenderer,
+): ExplanationStep[] {
+  const steps = renderer.render(evidence);
+
+  validateGenericPhrases(steps);
+  validateNoInternalIdentifiers(steps, evidence);
+  validateEntityConsistency(steps, evidence.entities);
+  validateEvidenceFidelity(steps, evidence);
+  validateCoherentWorking(steps);
 
   return steps;
 }
 
 export function formatExplanationSteps(steps: ExplanationStep[]): string[] {
-  return steps.map(step => {
+  return steps.map((step) => {
     let narrative = step.narrative || "";
     let mathLatex = step.mathLatex || "";
     if (narrative) {
