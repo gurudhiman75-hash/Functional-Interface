@@ -67,7 +67,7 @@ export function auditCom001Cp006History() {
     if (q.options.length !== 4 || new Set(q.options).size !== 4) issues.push(`OPTIONS:${q.questionId}`);
     if (!q.options.includes(q.canonicalAnswer)) issues.push(`ANSWER:${q.questionId}`);
     if (/^(In the following|Consider the following|Read the question carefully|Please select)/i.test(q.stem)) issues.push(`STEM_OPENING:${q.questionId}`);
-    if (q.stem.split(/\\s+/).length > 55) issues.push(`STEM_LENGTH:${q.questionId}`);
+    if (q.stem.split(/\s+/).length > 55) issues.push(`STEM_LENGTH:${q.questionId}`);
     if (q.explanation.split(/[.!?]/).filter(Boolean).length > 2) issues.push(`EXPLANATION_LENGTH:${q.questionId}`);
   }
   return { candidateCount: COM001_CP006_ENGLISH_REVIEW_CANDIDATE.length, qlCount: qls.size, qlCoverage: [...qls].every((qlId) => COM001_CP006_ENGLISH_REVIEW_CANDIDATE.filter((q) => q.qlId === qlId).length >= 4), issues, productionReady: false, localizationReady: false, questionStudioReady: false };
