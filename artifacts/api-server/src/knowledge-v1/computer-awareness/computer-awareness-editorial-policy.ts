@@ -28,8 +28,8 @@ export function validateComputerAwarenessEditorialText(input: { stem: string; ex
   if (stem.split(/\s+/).filter(Boolean).length > 55) issues.push("STEM_TOO_LONG");
   if (explanation.split(/[.!?]/).filter(Boolean).length > 2) issues.push("EXPLANATION_NOT_SIMPLE");
   for (const [abbreviation, fullForm] of Object.entries(COMPUTER_ABBREVIATIONS)) {
-    if (!new RegExp(`\\\\b${abbreviation}\\\\b`).test(explanation)) continue;
-    if (!new RegExp(`\\\\b${abbreviation}\\\\b\\\\s*(?:\\\\(|means\\\\s+)${fullForm.replace(/[.*+?^\${}()|[\\\\]\\\\\\\\]/g, "\\\\$&")}`, "i").test(explanation)) {
+    if (!new RegExp(`\\b${abbreviation}\\b`).test(explanation)) continue;
+    if (!new RegExp(`\\b${abbreviation}\\b\\s*(?:\\(|means\\s+)${fullForm.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\$&")}`, "i").test(explanation)) {
       issues.push(`UNEXPANDED_ABBREVIATION:${abbreviation}`);
     }
   }
