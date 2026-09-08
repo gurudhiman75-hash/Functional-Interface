@@ -33,8 +33,8 @@ export const COM005_ENGLISH_FREEZE_AUTHORITY_V1 = {
   locale: "en-IN" as const,
   questionCount: 38,
   permanentQlIds: Object.freeze([
-    "COM005-QL-001", "COM005-QL-002", "COM005-QL-003", "COM005-QL-004",
-    "COM005-QL-005", "COM005-QL-006", "COM005-QL-007",
+    "COM-005-QL-001", "COM-005-QL-002", "COM-005-QL-003", "COM-005-QL-004",
+    "COM-005-QL-005", "COM-005-QL-006", "COM-005-QL-007",
   ]),
 } as const;
 
@@ -164,7 +164,7 @@ export const COM005_ENGLISH_FROZEN: readonly Com005FrozenQuestion[] = Object.fre
   return Object.freeze({
     questionId: source.questionId,
     sourceQuestionId: source.questionId,
-    qlId: source.qlId,
+    qlId: source.qlId.replace("COM005-", "COM-005-"),
     language: "en" as const,
     locale: "en-IN" as const,
     difficulty: source.difficulty,
