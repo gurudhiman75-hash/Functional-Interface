@@ -69,13 +69,13 @@ export function CurrentAffairsPastDailyPacksCard({ currentDate }: { currentDate?
       const next = await getCurrentAffairsDailyMasterPackArchive(90);
       setArchive(next);
       const first = next.dates.find((entry) => entry.contentDate !== currentDate) ?? next.dates[0];
-      if (first && !manualDate) setManualDate(first.contentDate);
+      setManualDate((existing) => existing || first?.contentDate || '');
     } catch (caught) {
       showToast.error('Past Daily Packs failed to load', caught instanceof Error ? caught.message : 'Unable to load stored Current Affairs pack dates.');
     } finally {
       setLoadingArchive(false);
     }
-  }, [currentDate, manualDate]);
+  }, [currentDate]);
 
   const openStoredDate = useCallback(async (date: string) => {
     if (!date) return;
