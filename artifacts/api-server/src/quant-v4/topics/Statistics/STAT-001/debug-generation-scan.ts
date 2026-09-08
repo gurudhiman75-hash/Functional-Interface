@@ -28,4 +28,4 @@ for (let seedIndex = 1; seedIndex <= 100; seedIndex += 1) {
 
 console.log(JSON.stringify({ failureStateCount: failures.length, examples: failures.slice(0, 20) }));
 if (failures.length) throw new Error(`STAT-001 generation scan found ${failures.length} failing states.`);
-console.log("PASS_STA_001_GENERATION_SCAN");
+console.log("PASS_STAT_001_GENERATION_SCAN");
