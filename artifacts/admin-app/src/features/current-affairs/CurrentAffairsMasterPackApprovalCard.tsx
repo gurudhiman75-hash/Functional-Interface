@@ -94,6 +94,7 @@ export function CurrentAffairsMasterPackApprovalCard({ targetDate }: { targetDat
   const active = candidate.activeApproval;
   const ready = candidate.readiness.ready;
   const packCount = candidate.packs.length;
+  const approvalCensusComplete = candidate.readiness.checks.censusNotBlocked === true;
 
   return (
     <Card className={active ? 'border-success/30' : ready ? 'border-primary/30' : 'border-warning/30'}>
@@ -113,7 +114,7 @@ export function CurrentAffairsMasterPackApprovalCard({ targetDate }: { targetDat
           })}
         </div>
 
-        {active ? <div className="rounded-lg border border-success/20 bg-success/5 p-3 text-sm"><p className="font-medium text-success">{active.publicCode}</p><p className="mt-1 text-muted-foreground">Approved {fmt(active.approvedAt)}. The three canonical artifacts are immutable while this approval is active.</p><p className="mt-1 text-xs text-muted-foreground">Approval does not publish the linked learning resources; they remain draft until a separate learner-publication authority exists.</p></div> : <div className="rounded-lg border p-3 text-sm"><p className="font-medium">Approval gate</p><p className="mt-1 text-muted-foreground">{packCount}/3 language packs · {candidate.currentEligibleEventIds.length} current eligible events · census {candidate.census?.status ?? 'missing'} ({candidate.census?.coverageConfidenceScore ?? 0}%).</p><p className="mt-1 text-xs text-muted-foreground">The server re-checks exact event-ID parity, current eligibility, verification, accepted authoring/localizations, factual conflicts and payload integrity at the instant of approval.</p></div>}
+        {active ? <div className="rounded-lg border border-success/20 bg-success/5 p-3 text-sm"><p className="font-medium text-success">{active.publicCode}</p><p className="mt-1 text-muted-foreground">Approved {fmt(active.approvedAt)}. The three canonical artifacts are immutable while this approval is active.</p><p className="mt-1 text-xs text-muted-foreground">Approval does not publish the linked learning resources; they remain draft until a separate learner-publication authority exists.</p></div> : <div className="rounded-lg border p-3 text-sm"><p className="font-medium">Approval gate</p><p className="mt-1 text-muted-foreground">{packCount}/3 language packs · {candidate.currentEligibleEventIds.length} selected canonical events · approval census {approvalCensusComplete ? 'complete' : 'blocked'} · broad discovery {candidate.census?.status ?? 'missing'} ({candidate.census?.coverageConfidenceScore ?? 0}%).</p><p className="mt-1 text-xs text-muted-foreground">The server re-checks current manual headline selection, exact selected event-ID parity, verification, accepted authoring/localizations, factual conflicts and payload integrity at approval time. Broad discovery review warnings stay visible but unselected unresolved stories do not override the selected canonical membership.</p></div>}
 
         {!active && candidate.readiness.blockers.length > 0 ? <div className="space-y-2">{candidate.readiness.blockers.slice(0, 6).map((blocker) => <p key={blocker} className="rounded-md border border-warning/20 bg-warning/5 p-2 text-sm text-warning">{blocker}</p>)}</div> : null}
         {candidate.readiness.warnings.map((warning) => <p key={warning} className="text-xs text-warning">{warning}</p>)}
