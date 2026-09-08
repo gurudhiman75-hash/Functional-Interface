@@ -1,6 +1,6 @@
 # Computer Awareness — Uploaded-Source Coverage Audit V2
 
-Status: current against `New-main` head `d12981865770ba1bb8c66a5f0f3d3ec22b28178e`  
+Status: current against `New-main` head `0976a4b2a4c9d05bce1339bdb6b33f140e840e02`  
 Date: 2026-09-08  
 Audit type: uploaded-source coverage, chapter ownership, completion state and editorial controls
 
