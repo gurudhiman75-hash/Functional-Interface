@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Archive, CalendarDays, Download, FolderOpen, Loader2, RefreshCw } from 'lucide-react';
+import { AlertTriangle, Archive, CalendarDays, Download, FolderOpen, Loader2, RefreshCw } from 'lucide-react';
 
 import { showToast } from '@/components/shared/toast';
 import { Badge } from '@/components/ui/badge';
@@ -13,6 +13,7 @@ import {
   type CurrentAffairsMasterPackArtifact,
   type DailyMasterPack,
   type DailyMasterPackArchive,
+  type DailyMasterPackArchiveEntry,
   type DailyMasterPackLanguage,
   type DailyMasterPackSet,
 } from '@/features/current-affairs/production-ops-api';
@@ -45,6 +46,33 @@ function fmtBytes(value: number) {
   if (value < 1024) return `${value} B`;
   if (value < 1024 * 1024) return `${(value / 1024).toFixed(1)} KB`;
   return `${(value / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function archiveCountParity(entry: DailyMasterPackArchiveEntry) {
+  const counts = LANGUAGES
+    .map(({ code }) => entry.languages[code]?.eventCount)
+    .filter((value): value is number => typeof value === 'number');
+  return entry.languageCount === 3 && counts.length === 3 && new Set(counts).size === 1;
+}
+
+function packEventIds(pack: DailyMasterPack | null) {
+  const payload = pack?.payload as { categories?: Array<{ events?: Array<{ id?: unknown }> }> } | null;
+  const ids = (payload?.categories ?? [])
+    .flatMap((category) => category.events ?? [])
+    .map((event) => String(event.id ?? '').trim())
+    .filter(Boolean);
+  return [...new Set(ids)].sort();
+}
+
+function exactPackParity(packs: DailyMasterPackSet) {
+  if (!packs.en || !packs.hi || !packs.pa) return false;
+  const en = packEventIds(packs.en);
+  const hi = packEventIds(packs.hi);
+  const pa = packEventIds(packs.pa);
+  return en.length > 0
+    && en.length === hi.length
+    && en.length === pa.length
+    && en.every((id, index) => hi[index] === id && pa[index] === id);
 }
 
 export function CurrentAffairsPastDailyPacksCard({ currentDate }: { currentDate?: string }) {
@@ -104,6 +132,7 @@ export function CurrentAffairsPastDailyPacksCard({ currentDate }: { currentDate?
 
   const selectedPack: DailyMasterPack | null = packs[language];
   const materializedCount = Object.values(packs).filter(Boolean).length;
+  const selectedParityReady = selectedDate ? exactPackParity(packs) : false;
 
   const download = async (artifact: CurrentAffairsMasterPackArtifact) => {
     if (!selectedDate || !selectedPack) return;
@@ -158,8 +187,9 @@ export function CurrentAffairsPastDailyPacksCard({ currentDate }: { currentDate?
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-sm font-medium"><CalendarDays className="h-4 w-4" />Recent stored dates</div>
           {loadingArchive && !archive ? <div className="flex items-center gap-2 rounded-lg border p-3 text-sm text-muted-foreground"><Loader2 className="h-4 w-4 animate-spin" />Loading stored pack dates…</div> : visibleDates.length === 0 ? <p className="rounded-lg border p-3 text-sm text-muted-foreground">No past canonical Daily Master Packs are stored yet.</p> : <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {visibleDates.slice(0, 24).map((entry) => (
-              <Button
+            {visibleDates.slice(0, 24).map((entry) => {
+              const parityReady = archiveCountParity(entry);
+              return <Button
                 key={entry.contentDate}
                 variant={selectedDate === entry.contentDate ? 'default' : 'outline'}
                 className="h-auto justify-between px-3 py-2"
@@ -167,9 +197,9 @@ export function CurrentAffairsPastDailyPacksCard({ currentDate }: { currentDate?
                 disabled={opening}
               >
                 <span className="text-left"><span className="block font-medium">{displayDate(entry.contentDate)}</span><span className="block text-[11px] opacity-75">updated {fmt(entry.latestGeneratedAt)}</span></span>
-                <Badge variant="outline" className="ml-2">{entry.languageCount}/3</Badge>
-              </Button>
-            ))}
+                <span className="ml-2 flex flex-col items-end gap-1"><Badge variant="outline">{entry.languageCount}/3</Badge>{!parityReady ? <Badge variant="outline" className="border-warning/30 bg-warning/10 text-warning">mismatch</Badge> : null}</span>
+              </Button>;
+            })}
           </div>}
         </div>
 
@@ -191,6 +221,7 @@ export function CurrentAffairsPastDailyPacksCard({ currentDate }: { currentDate?
           </div>
 
           {openError ? <p className="rounded-md border border-warning/20 bg-warning/5 p-2 text-sm text-warning">{openError}</p> : null}
+          {!openError && !selectedParityReady ? <div className="flex items-start gap-2 rounded-md border border-warning/25 bg-warning/5 p-3 text-sm text-warning"><AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" /><p>EN/HI/PA event-ID parity is not intact for this stored date. Treat it as needing repair; do not approve or publish the pack until parity is restored.</p></div> : null}
 
           {selectedPack ? <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-1 text-sm">
