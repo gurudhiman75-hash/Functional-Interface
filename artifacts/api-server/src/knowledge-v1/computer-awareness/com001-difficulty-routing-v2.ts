@@ -3,7 +3,7 @@ import type { Com001ReviewV2Question } from "./com001-review-synthesis-v2";
 export type Com001DifficultyV2 = "Easy" | "Medium" | "Hard";
 
 export const COM001_DIFFICULTY_CLASSIFIER_VERSION_V2 =
-  "COM-001-DIFFICULTY-V2-CANDIDATE-1" as const;
+  "COM-001-DIFFICULTY-V3-CANDIDATE-1" as const;
 
 export type Com001DifficultyDecisionV2 = {
   difficulty: Com001DifficultyV2;
@@ -54,7 +54,7 @@ export function classifyCom001DifficultyV2(
 ): Com001DifficultyDecisionV2 {
   if (question.qlId === "COM-001-QL-008") {
     return decision(
-      "Hard",
+      "Medium",
       "MULTI_FACT_COMPOSITION",
       "Requires evaluating several independent facts and then composing their truth values into one answer.",
     );
@@ -62,7 +62,7 @@ export function classifyCom001DifficultyV2(
 
   if (question.qlId === "COM-001-QL-007") {
     return decision(
-      "Hard",
+      "Medium",
       "MULTI_CONSTRAINT_PROFILE",
       "Requires satisfying several operational storage characteristics simultaneously rather than recalling one isolated fact.",
     );
