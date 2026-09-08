@@ -76,6 +76,58 @@ function hasFactsArray(value: unknown): value is { facts: unknown[] } {
   );
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value && typeof value === "object" && !Array.isArray(value));
+}
+
+function nonEmptyStringField(record: Record<string, unknown>, key: string) {
+  return typeof record[key] === "string" && String(record[key]).trim().length > 0;
+}
+
+function looksLikeNotesStudioV2Fact(value: unknown) {
+  if (!isRecord(value)) return false;
+  return nonEmptyStringField(value, "subCategory")
+    && nonEmptyStringField(value, "claim")
+    && Array.isArray(value.entities)
+    && nonEmptyStringField(value, "locator")
+    && nonEmptyStringField(value, "extractedText");
+}
+
+type FactArrayMatch = {
+  path: string;
+  facts: unknown[];
+};
+
+function collectNotesStudioV2FactArrays(
+  value: unknown,
+  matches: FactArrayMatch[],
+  path = "$",
+  depth = 0,
+) {
+  if (depth > 8 || matches.length >= 64 || value === null || value === undefined) return;
+
+  if (Array.isArray(value)) {
+    if (value.length > 0 && value.every(looksLikeNotesStudioV2Fact)) {
+      matches.push({ path, facts: value });
+      return;
+    }
+    for (let index = 0; index < value.length; index += 1) {
+      const nested = value[index];
+      if (nested && typeof nested === "object") {
+        collectNotesStudioV2FactArrays(nested, matches, `${path}[${index}]`, depth + 1);
+      }
+    }
+    return;
+  }
+
+  if (!isRecord(value)) return;
+  for (const [key, nested] of Object.entries(value)) {
+    if (nested && typeof nested === "object") {
+      collectNotesStudioV2FactArrays(nested, matches, `${path}.${key}`, depth + 1);
+    }
+  }
+}
+
 export function normalizeDeepSeekStructuredJson(
   value: unknown,
   responseSchemaName?: string,
@@ -95,59 +147,22 @@ export function normalizeDeepSeekStructuredJson(
     return { json: value, warnings: [] };
   }
 
-  const record = value as Record<string, unknown>;
-  const wrapperKeys = [
-    "data",
-    "result",
-    "results",
-    "response",
-    "output",
-    "items",
-    "payload",
-  ];
-
-  for (const key of wrapperKeys) {
-    const nested = record[key];
-    if (hasFactsArray(nested)) {
-      return {
-        json: nested,
-        warnings: [`DeepSeek wrapped the Notes v2 facts object in \"${key}\"; normalized it to the required facts wrapper.`],
-      };
-    }
-    if (Array.isArray(nested)) {
-      return {
-        json: { facts: nested },
-        warnings: [`DeepSeek returned the Notes v2 facts array under \"${key}\"; normalized it to the required facts wrapper.`],
-      };
-    }
+  const matches: FactArrayMatch[] = [];
+  collectNotesStudioV2FactArrays(value, matches);
+  if (matches.length === 0) {
+    return { json: value, warnings: [] };
   }
 
-  const candidateArrays: unknown[][] = [];
-  for (const nested of Object.values(record)) {
-    if (Array.isArray(nested)) candidateArrays.push(nested);
-  }
-  if (candidateArrays.length === 1) {
-    return {
-      json: { facts: candidateArrays[0] },
-      warnings: ["DeepSeek renamed the single Notes v2 facts array; normalized it to the required facts wrapper."],
-    };
-  }
-
-  const nestedCandidateArrays: unknown[][] = [];
-  for (const nested of Object.values(record)) {
-    if (!nested || typeof nested !== "object" || Array.isArray(nested)) continue;
-    for (const nestedValue of Object.values(nested as Record<string, unknown>)) {
-      if (Array.isArray(nestedValue)) nestedCandidateArrays.push(nestedValue);
-    }
-  }
-  if (nestedCandidateArrays.length === 1) {
-    return {
-      json: { facts: nestedCandidateArrays[0] },
-      warnings: ["DeepSeek nested the single Notes v2 facts array one wrapper deeper; normalized it to the required facts wrapper."],
-    };
-  }
-
-  return { json: value, warnings: [] };
+  const facts = matches.flatMap((match) => match.facts);
+  const paths = matches.slice(0, 6).map((match) => match.path).join(", ");
+  return {
+    json: { facts },
+    warnings: [
+      matches.length === 1
+        ? `DeepSeek nested the Notes v2 facts array at ${paths}; normalized it to the required facts wrapper.`
+        : `DeepSeek grouped Notes v2 facts across ${matches.length} nested arrays (${paths}${matches.length > 6 ? ", …" : ""}); merged them into the required facts wrapper.`,
+    ],
+  };
 }
 
 export const deepSeekProvider: AIProviderAdapter = {
@@ -192,7 +207,7 @@ export const deepSeekProvider: AIProviderAdapter = {
       request.responseSchema as Record<string, unknown> | undefined,
     );
     const notesStudioV2ShapeInstruction = notesStudioV2FactExtraction
-      ? "For Notes Studio v2, the top-level JSON value MUST be an object with a property named facts whose value is an array. Never rename facts to items, results, data, output, or another key."
+      ? "For Notes Studio v2, the top-level JSON value MUST be an object with a property named facts whose value is one flat array. Do not group facts by chapter, sub-category, section, data, result, items, output, or any other wrapper."
       : "";
 
     const body = {
