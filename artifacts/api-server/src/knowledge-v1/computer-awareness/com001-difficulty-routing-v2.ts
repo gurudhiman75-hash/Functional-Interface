@@ -1,6 +1,6 @@
 import type { Com001ReviewV2Question } from "./com001-review-synthesis-v2";
 
-export type Com001DifficultyV2 = "Easy" | "Medium" | "Hard";
+export type Com001DifficultyV2 = "Easy" | "Medium";
 
 export const COM001_DIFFICULTY_CLASSIFIER_VERSION_V2 =
   "COM-001-DIFFICULTY-V3-CANDIDATE-1" as const;
