@@ -168,7 +168,7 @@ const S: readonly Source[] = [
     en: { stem: "What does display resolution mainly describe?", options: ["Printer speed", "Cable length", "The number of pixels in the display", "Keyboard weight"], explanation: "Display resolution describes the number of pixels used to form the image on a screen." },
     hi: { stem: "डिस्प्ले रिजॉल्यूशन मुख्य रूप से क्या बताता है?", options: ["प्रिंटर की गति", "केबल की लंबाई", "डिस्प्ले में पिक्सल की संख्या", "कीबोर्ड का वजन"], explanation: "डिस्प्ले रिजॉल्यूशन स्क्रीन पर चित्र बनाने वाले पिक्सल की संख्या बताता है।" },
     pa: { stem: "ਡਿਸਪਲੇ ਰੈਜ਼ੋਲਿਊਸ਼ਨ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਕੀ ਦੱਸਦਾ ਹੈ?", options: ["ਪ੍ਰਿੰਟਰ ਦੀ ਗਤੀ", "ਕੇਬਲ ਦੀ ਲੰਬਾਈ", "ਡਿਸਪਲੇ ਵਿੱਚ ਪਿਕਸਲਾਂ ਦੀ ਗਿਣਤੀ", "ਕੀਬੋਰਡ ਦਾ ਭਾਰ"], explanation: "ਡਿਸਪਲੇ ਰੈਜ਼ੋਲਿਊਸ਼ਨ ਸਕਰੀਨ ਉੱਤੇ ਤਸਵੀਰ ਬਣਾਉਣ ਵਾਲੇ ਪਿਕਸਲਾਂ ਦੀ ਗਿਣਤੀ ਦੱਸਦਾ ਹੈ।" },
-
+  },
 ];
 
 function build(source: Source, language: "en" | "hi" | "pa"): Com001HardwareExtensionQuestion {
