@@ -13,6 +13,14 @@ assert.match(route, /content\.questions\.update/);
 assert.match(route, /publicationAuthority:\s*false/);
 assert.match(route, /questionBankPromotionAuthority:\s*false/);
 assert.doesNotMatch(route, /generateYesterdayCurrentAffairsOnDemand|generateHistoricalCurrentAffairs|runOpenNewsDiscovery|runScheduledFeedIngestion/);
+assert.doesNotMatch(route, /import\s*\{[^}]*materializeSelectedDailyMasterPacks[^}]*\}\s*from/,
+  "pack editorial route must not eagerly import selected pack materialization into the API startup graph");
+assert.doesNotMatch(route, /import\s*\{[^}]*loadDailyMasterPackApprovalCandidate[^}]*\}\s*from/,
+  "pack editorial route must not eagerly import selected approval runtime into the API startup graph");
+assert.match(route, /import\("\.\.\/current-affairs\/selected-daily-master-pack"\)/,
+  "selected pack materialization must lazy-load only when editorial refresh runs");
+assert.match(route, /import\("\.\.\/current-affairs\/selected-daily-master-pack-approval-runtime"\)/,
+  "selected approval runtime must lazy-load only after editorial refresh materializes the pack");
 assert.match(app, /adminCurrentAffairsPackEditorialRouter/);
 assert.match(client, /master-pack\/editorial-refresh/);
 
