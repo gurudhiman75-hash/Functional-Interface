@@ -16,12 +16,12 @@ assert.equal(authority.runtimeMode, "review-only");
 assert.equal(authority.contentAuthorityVersion, "V2");
 assert.equal(authority.contentAuthorities.learnerFacingContentChangedForDifficultyRouting, false);
 assert.equal(authority.classifier.version, COM001_DIFFICULTY_CLASSIFIER_VERSION_V2);
-assert.deepEqual(authority.classifier.supportedDifficulties, ["Easy", "Medium", "Hard"]);
+assert.deepEqual(authority.classifier.supportedDifficulties, ["Easy", "Medium"]);
 assert.equal(authority.classifier.mixedModeSupported, true);
 assert.equal(authority.classifier.reviewOnlyDifficultyFilterAuthorized, true);
 assert.equal(authority.classifier.productionDifficultyClaimsAuthorized, false);
 assert.equal(authority.classifier.unsupportedQlDifficultyCombinationMustFail, true);
-assert.deepEqual(authority.classifierAudit.distribution, { Easy: 146, Medium: 134, Hard: 80 });
+assert.deepEqual(authority.classifierAudit.distribution, { Easy: 146, Medium: 214, Hard: 0 });
 assert.equal(authority.classifierAudit.auditedEnglishV2Questions, 360);
 assert.equal(authority.exactActivationProof.contentEngineRunNumber, 168);
 assert.equal(authority.exactActivationProof.integratedAdminRunNumber, 8970);
@@ -44,6 +44,7 @@ const pkg = listQuestionStudioPackages().find((entry) => entry.packageId === "CO
 assert.ok(pkg);
 assert.equal(pkg.runtimeMode, "review-only");
 assert.equal(pkg.metadata?.difficultyFilterSupported, true);
+assert.equal(pkg.metadata?.hardDifficultyAuthorized, false);
 assert.equal(pkg.metadata?.difficultyClassifierVersion, COM001_DIFFICULTY_CLASSIFIER_VERSION_V2);
 assert.equal(pkg.metadata?.productionDifficultyClaimsAuthorized, false);
 assert.equal(pkg.metadata?.lifecycleId, lifecycle.lifecycleId);
@@ -84,7 +85,7 @@ assert.equal(
   "Mixed authority sample should expose more than one topology difficulty",
 );
 
-for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
+for (const difficulty of ["Easy", "Medium"] as const) {
   const request = { ...base, difficulty, seed: `difficulty-authority:${difficulty}` };
   const first = await knowledgeV1Com001QuestionStudioAdapter.generate(request);
   const replay = await knowledgeV1Com001QuestionStudioAdapter.generate(request);
@@ -116,6 +117,15 @@ for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
   }
 }
 
+await assert.rejects(
+  () => knowledgeV1Com001QuestionStudioAdapter.generate({
+    ...base,
+    difficulty: "Hard",
+    count: 1,
+    seed: "difficulty-authority:hard-disabled",
+  }),
+  /COM-001 review difficulty must be Easy, Medium, or Mixed/,
+);
 await assert.rejects(
   () => knowledgeV1Com001QuestionStudioAdapter.generate({
     ...base,
