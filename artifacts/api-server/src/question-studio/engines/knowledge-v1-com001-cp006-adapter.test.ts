@@ -120,7 +120,14 @@ const chapterBatch = await knowledgeV1Com001QuestionStudioAdapter.generate({
 assert.equal(chapterBatch.questions.length, 6);
 assert.equal(new Set(chapterBatch.questions.map((question: any) => question.questionId)).size, 6);
 assert.equal(chapterBatch.generationContext?.contentAuthorityVersion, "COM-001-CP-006-FREEZE-V1");
-assert.deepEqual(chapterBatch.generationContext?.cpIds, ["COM-001-CP-001", "COM-001-CP-006"]);
+assert.deepEqual(chapterBatch.generationContext?.cpIds, [
+  "COM-001-CP-001",
+  "COM-001-CP-002",
+  "COM-001-CP-003",
+  "COM-001-CP-004",
+  "COM-001-CP-005",
+  "COM-001-CP-006",
+]);
 
 const routed = await knowledgeV1QuestionStudioAdapter.generate({
   packageId: "COM-001",
