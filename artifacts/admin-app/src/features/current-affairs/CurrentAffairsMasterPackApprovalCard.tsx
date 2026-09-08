@@ -20,7 +20,7 @@ function fmt(value: string | null | undefined) {
   return Number.isNaN(date.getTime()) ? value : date.toLocaleString();
 }
 
-export function CurrentAffairsMasterPackApprovalCard({ targetDate }: { targetDate: string }) {
+export function CurrentAffairsMasterPackApprovalCard({ targetDate, onChanged }: { targetDate: string; onChanged?: () => void | Promise<void> }) {
   const { hasPermission } = useAdminPermissions();
   const canApprove = hasPermission('content.questions.update');
   const [state, setState] = useState<DailyMasterPackApprovalState | null>(null);
@@ -55,6 +55,7 @@ export function CurrentAffairsMasterPackApprovalCard({ targetDate }: { targetDat
       showToast.success('Canonical master pack approved', `${result.publicCode} locked EN/HI/PA artifacts. Learner publication remains off.`);
       setReason('');
       await refresh();
+      await onChanged?.();
     } catch (caught) {
       showToast.error('Master-pack approval failed', caught instanceof Error ? caught.message : 'Unable to approve canonical master pack.');
     } finally {
@@ -75,6 +76,7 @@ export function CurrentAffairsMasterPackApprovalCard({ targetDate }: { targetDat
       showToast.success('Approval revoked', 'The three canonical language packs were returned to review. No learner publication was changed.');
       setReason('');
       await refresh();
+      await onChanged?.();
     } catch (caught) {
       showToast.error('Approval revocation failed', caught instanceof Error ? caught.message : 'Unable to revoke master-pack approval.');
     } finally {
