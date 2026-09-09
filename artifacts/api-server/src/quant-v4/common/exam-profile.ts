@@ -1,12 +1,13 @@
 // Quant V4 Phase-0 delivery authority: profile aliases may differ by package, but option semantics must not.
 export type QuantV4OptionCount = 4 | 5;
 
-export type QuantV4ExamFamily = "SSC" | "BANKING" | "GENERIC";
+export type QuantV4ExamFamily = "SSC" | "PUNJAB_STATE" | "BANKING" | "GENERIC";
 
 export type QuantV4ExamProfileId =
   | "SSC_CGL_TIER_I"
   | "SSC_CGL_CHSL"
   | "SSC_CGL_JSO"
+  | "PUNJAB_STATE"
   | "BANKING_PRELIMS"
   | "BANKING_MAINS"
   | "GENERIC_PRACTICE";
@@ -15,7 +16,7 @@ export interface QuantV4ExamProfileContract {
   id: QuantV4ExamProfileId;
   family: QuantV4ExamFamily;
   optionCount: QuantV4OptionCount;
-  deliveryStyle: "SSC_OBJECTIVE" | "BANKING_OBJECTIVE" | "GENERIC_OBJECTIVE";
+  deliveryStyle: "SSC_OBJECTIVE" | "PUNJAB_STATE_OBJECTIVE" | "BANKING_OBJECTIVE" | "GENERIC_OBJECTIVE";
 }
 
 export const QUANT_V4_EXAM_PROFILE_CONTRACTS: Readonly<Record<QuantV4ExamProfileId, QuantV4ExamProfileContract>> = Object.freeze({
@@ -36,6 +37,12 @@ export const QUANT_V4_EXAM_PROFILE_CONTRACTS: Readonly<Record<QuantV4ExamProfile
     family: "SSC",
     optionCount: 4,
     deliveryStyle: "SSC_OBJECTIVE",
+  }),
+  PUNJAB_STATE: Object.freeze({
+    id: "PUNJAB_STATE",
+    family: "PUNJAB_STATE",
+    optionCount: 4,
+    deliveryStyle: "PUNJAB_STATE_OBJECTIVE",
   }),
   BANKING_PRELIMS: Object.freeze({
     id: "BANKING_PRELIMS",
