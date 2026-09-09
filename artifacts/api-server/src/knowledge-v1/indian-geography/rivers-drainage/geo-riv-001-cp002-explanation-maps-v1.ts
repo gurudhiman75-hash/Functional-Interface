@@ -23,11 +23,12 @@ function valueText(fact: KnowledgeFact) {
   throw new Error(`Unsupported map value kind for ${fact.factId}`);
 }
 
-function factSet(ids: readonly string[]) {
-  return [...new Set(ids)];
-}
-
-function schematic(args: Omit<GeographyExplanationMapSpecV1, "schemaVersion" | "geometryMode" | "geometryAuthorityId" | "notToScale">) {
+function schematic(
+  args: Omit<
+    GeographyExplanationMapSpecV1,
+    "schemaVersion" | "geometryMode" | "geometryAuthorityId" | "notToScale"
+  >,
+) {
   return renderGeographyExplanationMapSvgV1({
     schemaVersion: "GEO_EXPLANATION_MAP_V1",
     geometryMode: "SCHEMATIC",
@@ -48,7 +49,14 @@ function sourceMap(fact: KnowledgeFact): GeographyExplanationMapRenderV1 {
     caption: `${source} is the reviewed source association for the ${river} River.`,
     sourceFactIds: [fact.factId],
     nodes: [
-      { id: "source", label: source, x: 18, y: 48, role: fact.relation === "source_area" ? "pass" : "source", emphasis: "primary" },
+      {
+        id: "source",
+        label: source,
+        x: 18,
+        y: 48,
+        role: fact.relation === "source_area" ? "pass" : "source",
+        emphasis: "primary",
+      },
       { id: "river", label: river, x: 82, y: 52, role: "river", emphasis: "primary" },
     ],
     links: [{ id: "source-river", from: "source", to: "river", emphasis: "primary" }],
@@ -195,7 +203,7 @@ function jhelumRaviChenabMap(): GeographyExplanationMapRenderV1 {
     kind: "SYSTEM_CHAIN",
     title: "Jhelum and Ravi join the Chenab",
     viewportLabel: "Indus river system",
-    caption: "The Jhelum joins the Chenab at Trimmu, while the Ravi also joins the Chenab before the downstream Panjnad stage.",
+    caption: "The Jhelum joins the Chenab at Trimmu, while the Ravi also joins the Chenab before Panjnad.",
     sourceFactIds: [jhelumJoin.factId, trimmu.factId, raviJoin.factId],
     nodes: [
       { id: "jhelum", label: "Jhelum", x: 12, y: 20, role: "river", emphasis: "primary" },
@@ -256,7 +264,10 @@ function targetPairFact(question: GeoRiv001Cp002ReviewQuestion) {
   if (!entity) return undefined;
   return question.sourceFactIds
     .map((id) => FACTS.find((fact) => fact.factId === id))
-    .find((fact): fact is KnowledgeFact => Boolean(fact && fact.entity.label.en === entity && SOURCE_RELATIONS.has(fact.relation)));
+    .find(
+      (fact): fact is KnowledgeFact =>
+        Boolean(fact && fact.entity.label.en === entity && SOURCE_RELATIONS.has(fact.relation)),
+    );
 }
 
 export function buildGeoRiv001Cp002ExplanationMapV1(
@@ -265,14 +276,19 @@ export function buildGeoRiv001Cp002ExplanationMapV1(
   if (question.qlId === "GEO-RIV-001-QL-010" || question.qlId === "GEO-RIV-001-QL-011") {
     const fact = question.sourceFactIds
       .map((id) => FACTS.find((entry) => entry.factId === id))
-      .find((entry): entry is KnowledgeFact => Boolean(entry && SOURCE_RELATIONS.has(entry.relation)));
+      .find(
+        (entry): entry is KnowledgeFact => Boolean(entry && SOURCE_RELATIONS.has(entry.relation)),
+      );
     return fact ? sourceMap(fact) : undefined;
   }
 
   if (question.qlId === "GEO-RIV-001-QL-012") {
     const fact = question.sourceFactIds
       .map((id) => FACTS.find((entry) => entry.factId === id))
-      .find((entry): entry is KnowledgeFact => Boolean(entry && ["tributary_of", "headstream_of"].includes(entry.relation)));
+      .find(
+        (entry): entry is KnowledgeFact =>
+          Boolean(entry && ["tributary_of", "headstream_of"].includes(entry.relation)),
+      );
     if (!fact) return undefined;
     return fact.relation === "headstream_of" ? chenabFormationMap() : tributaryMap(fact);
   }
@@ -301,7 +317,7 @@ export function attachGeoRiv001Cp002ExplanationMapV1(question: GeoRiv001Cp002Rev
 
 export const GEO_RIV_001_CP002_EXPLANATION_MAP_PATTERN_EXAMPLES_V1 = Object.freeze({
   source: sourceMap(byId("geo-riv-001-cp002-jhelum-source-verinag")),
-  tributary: tributaryMap(byId("geo-riv-001-cp002-lidder-jhelum")),
+  tributary: tributaryMap(byId("geo-riv-001-cp002-tributary-lidder-jhelum")),
   confluence: chenabFormationMap(),
   course: geoRiv001Cp002JhelumCourseMapV1(),
   systemChain: beasSatlujChenabChainMap(),
@@ -312,8 +328,12 @@ export function auditGeoRiv001Cp002ExplanationMapV1(question: GeoRiv001Cp002Revi
   if (!map) return { valid: true, mapped: false, issues: [] as string[] };
   const issues: string[] = [];
   if (!map.svg.includes("<svg") || !map.svg.includes("</svg>")) issues.push("INVALID_SVG");
-  if (map.spec.geometryMode !== "SCHEMATIC" || map.spec.notToScale !== true) issues.push("UNSAFE_GEOMETRY_MODE");
-  if (!map.spec.sourceFactIds.every((id) => FACTS.some((fact) => fact.factId === id))) issues.push("UNKNOWN_MAP_FACT");
+  if (map.spec.geometryMode !== "SCHEMATIC" || map.spec.notToScale !== true) {
+    issues.push("UNSAFE_GEOMETRY_MODE");
+  }
+  if (!map.spec.sourceFactIds.every((id) => FACTS.some((fact) => fact.factId === id))) {
+    issues.push("UNKNOWN_MAP_FACT");
+  }
   if (map.spec.nodes.length > 6) issues.push("TOO_MANY_LABELLED_NODES");
   return { valid: issues.length === 0, mapped: true, issues };
 }
