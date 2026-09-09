@@ -12,6 +12,7 @@ import {
 } from "../../knowledge-v1/computer-awareness/com007-software-languages-database-gap-extension-v1";
 import type { QuestionStudioEngineAdapter, QuestionStudioGenerationRequest, QuestionStudioGenerationResult, QuestionStudioLanguage, QuestionStudioPackageDefinition } from "../engine-types";
 import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
+import { COMPUTER_GAP_BANK_ONLY_ACTIVATION_AUTHORITY_V1 } from "./computer-gap-bank-only-acceptance-authority-v1";
 
 export const COM007_QUESTION_STUDIO_PACKAGE_ID_V1="COM-007" as const;
 export const COM007_QUESTION_STUDIO_RUNTIME_MODE_V1="review-only" as const;
@@ -74,7 +75,7 @@ function toRecord(question:Com007FrozenQuestion):Com007CorpusRecord {
 function isGapRecord(record:Com007CorpusRecord) { return record.cpId===cpIds[1]; }
 function recordForOutput(record:Com007CorpusRecord) {
   return {
-    ...lifecycle, questionBankAcceptanceAuthority:lifecycle.questionBankAcceptanceAuthority,
+    ...lifecycle, questionBankAcceptanceAuthority:isGapRecord(record)?COMPUTER_GAP_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId:lifecycle.questionBankAcceptanceAuthority,
     id:record.questionId, questionId:record.questionId, sourceQuestionId:record.sourceQuestionId,
     packageId:COM007_QUESTION_STUDIO_PACKAGE_ID_V1, patternId:record.qlId, qlId:record.qlId, cpId:record.cpId,
     subject:"Computer Awareness", topic:"Computer Awareness", subtopic:"Software, Programming Languages and Database Basics",
@@ -86,7 +87,7 @@ function recordForOutput(record:Com007CorpusRecord) {
     registrationStatus:"REGISTERED_BANK_ONLY_INTERNAL", registrationAuthorityId:isGapRecord(record)?COM007_GAP_EXTENSION_AUTHORITY_V1.authorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
     questionStudioDiscoverable:true, questionStudioGenerationEnabled:true, readOnly:true, revisionPolicy:COM007_REVISION_POLICY_V1,
     productionReleased:false,
-    questionStudioReview:{...lifecycle,registrationStatus:"REGISTERED_BANK_ONLY_INTERNAL",registrationAuthorityId:isGapRecord(record)?COM007_GAP_EXTENSION_AUTHORITY_V1.authorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
+    questionStudioReview:{...lifecycle,questionBankAcceptanceAuthority:isGapRecord(record)?COMPUTER_GAP_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId:lifecycle.questionBankAcceptanceAuthority,registrationStatus:"REGISTERED_BANK_ONLY_INTERNAL",registrationAuthorityId:isGapRecord(record)?COM007_GAP_EXTENSION_AUTHORITY_V1.authorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
       runtimeMode:COM007_QUESTION_STUDIO_RUNTIME_MODE_V1,contentAuthorityVersion:isGapRecord(record)?COM007_GAP_CONTENT_AUTHORITY_VERSION_V1:COM007_CONTENT_AUTHORITY_VERSION_V1,humanReviewApproved:true,
       frozenCorpusOnly:true,immutableCorpus:true,deterministicSelection:true,selectionWithoutReplacement:true,
       sourceEnglishAuthorityId:isGapRecord(record)?COM007_GAP_EXTENSION_AUTHORITY_V1.authorityId:COM007_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,localizationFreezeAuthorityId:isGapRecord(record)?COM007_GAP_EXTENSION_AUTHORITY_V1.authorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
@@ -134,7 +135,7 @@ export const knowledgeV1Com007QuestionStudioAdapterV1:QuestionStudioEngineAdapte
     if(!candidates.length) throw new Error("COM-007 selectors produced no "+requestedDifficulty+" frozen questions");
     if(count>candidates.length) throw new Error("COM-007 cannot fill "+count+" questions from a "+candidates.length+"-question frozen pool without repeats");
     const selected=shuffled(candidates,seed+":COM-007:"+(qlId??"ALL")+":"+requestedDifficulty).slice(0,count);
-    return {questions:selected.map(recordForOutput),generationContext:{...lifecycle,engineId:"knowledge-v1",packageId:COM007_QUESTION_STUDIO_PACKAGE_ID_V1,
+    return {questions:selected.map(recordForOutput),generationContext:{...lifecycle,questionBankAcceptanceAuthority:qlId&&COM007_GAP_EXTENSION_AUTHORITY_V1.permanentQlIds.includes(qlId)?COMPUTER_GAP_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId:lifecycle.questionBankAcceptanceAuthority,engineId:"knowledge-v1",packageId:COM007_QUESTION_STUDIO_PACKAGE_ID_V1,
       runtimeMode:COM007_QUESTION_STUDIO_RUNTIME_MODE_V1,registrationStatus:"REGISTERED_BANK_ONLY_INTERNAL",registrationAuthorityId:qlId&&COM007_GAP_EXTENSION_AUTHORITY_V1.permanentQlIds.includes(qlId)?COM007_GAP_EXTENSION_AUTHORITY_V1.authorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
       reviewOnly:false,humanReviewApproved:true,frozenCorpusOnly:true,immutableCorpus:true,deterministicSelection:true,selectionWithoutReplacement:true,
       contentAuthorityVersion:qlId&&COM007_GAP_EXTENSION_AUTHORITY_V1.permanentQlIds.includes(qlId)?COM007_GAP_CONTENT_AUTHORITY_VERSION_V1:COM007_CONTENT_AUTHORITY_VERSION_V1,revisionPolicy:COM007_REVISION_POLICY_V1,language,locale:`${language}-IN`,
