@@ -45,6 +45,7 @@ jobs:
         run: |
           mkdir -p artifacts/api-server/dist/geography
           tests=(
+            "src/knowledge-v1/indian-geography/explanation-maps/geography-explanation-map-v1.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-validator.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-editorial-review.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-review-generator.test.ts"
@@ -55,6 +56,8 @@ jobs:
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-freeze-v1.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp002-validator.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp002-review-generator-v2.test.ts"
+            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp002-review-generator-v3.test.ts"
+            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp002-explanation-maps-v1.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp002-review-batch-v1.test.ts"
             "src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.test.ts"
           )
