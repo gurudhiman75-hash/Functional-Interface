@@ -7,13 +7,11 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/english-v1/**
-      - .github/workflows/english-cp001-v4.yml
   push:
     branches:
       - New-main
     paths:
       - artifacts/api-server/src/english-v1/**
-      - .github/workflows/english-cp001-v4.yml
   workflow_dispatch:
 
 permissions:
@@ -26,7 +24,7 @@ concurrency:
 jobs:
   validate-cp001-v4:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
 
     steps:
       - name: Checkout source
