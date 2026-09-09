@@ -10,6 +10,7 @@ import {
 import { generateQuestion } from "../generation-engine";
 import {
   assessExplanationQuality,
+  extractNumbers,
   hasQuestionSpecificEvidence,
   type ExplanationQualitySample,
 } from "./semantic-explanation-quality";
@@ -82,6 +83,19 @@ function normalizeExact(text: string) {
     .toLowerCase()
     .replace(/\s+/g, " ")
     .trim();
+}
+
+/**
+ * Exact explanation equality is only explanation debt when it is reused for a
+ * different mathematical state. If two QLs are merely paraphrases with the
+ * same ordered numeric evidence and same answer, identical working is correct;
+ * that is a QL-overlap signal for checkpoint #14, not a reason to manufacture
+ * fake explanation variety in checkpoint #12.
+ */
+function mathematicalStateSignature(sample: ExplanationQualitySample) {
+  return `${extractNumbers(sample.stem).join("|")}=>${normalizeExact(
+    String(sample.answer ?? ""),
+  )}`;
 }
 
 function persistDiagnostics(payload: Record<string, unknown>) {
@@ -176,7 +190,7 @@ async function collectRuntimeCorpus() {
 function auditClusters(samples: readonly ExplanationQualitySample[]) {
   const semantic = new Map<string, { questions: Set<string>; examples: ExplanationQualitySample[] }>();
   const structural = new Map<string, { questions: Set<string>; examples: ExplanationQualitySample[] }>();
-  const exact = new Map<string, { questions: Set<string>; examples: ExplanationQualitySample[] }>();
+  const exact = new Map<string, { questions: Set<string>; examples: ExplanationQualitySample[]; states: Set<string> }>();
 
   for (const sample of samples) {
     const assessment = assessExplanationQuality(sample);
@@ -189,8 +203,13 @@ function auditClusters(samples: readonly ExplanationQualitySample[]) {
     if (semanticEntry.examples.length < 3) semanticEntry.examples.push(sample);
     semantic.set(semanticKey, semanticEntry);
 
-    const exactEntry = exact.get(exactKey) ?? { questions: new Set<string>(), examples: [] };
+    const exactEntry = exact.get(exactKey) ?? {
+      questions: new Set<string>(),
+      examples: [],
+      states: new Set<string>(),
+    };
     exactEntry.questions.add(sample.questionKey);
+    exactEntry.states.add(mathematicalStateSignature(sample));
     if (exactEntry.examples.length < 3) exactEntry.examples.push(sample);
     exact.set(exactKey, exactEntry);
 
@@ -204,11 +223,17 @@ function auditClusters(samples: readonly ExplanationQualitySample[]) {
     .map(([signature, entry]) => ({
       signature,
       count: entry.questions.size,
+      stateCount: entry.states.size,
       questions: [...entry.questions].slice(0, 12),
       examples: entry.examples,
     }))
     .filter((entry) => entry.count > 1)
     .sort((left, right) => right.count - left.count);
+
+  const exactCrossState = exactCrossQuestion.filter((entry) => entry.stateCount > 1);
+  const equivalentStateQlOverlap = exactCrossQuestion.filter(
+    (entry) => entry.stateCount === 1,
+  );
 
   const semanticClusters = [...semantic.entries()]
     .map(([signature, entry]) => ({
@@ -230,9 +255,9 @@ function auditClusters(samples: readonly ExplanationQualitySample[]) {
     .sort((left, right) => right.count - left.count);
 
   const violations: string[] = [];
-  if (exactCrossQuestion.length > 0) {
+  if (exactCrossState.length > 0) {
     violations.push(
-      `exact_cross_question_duplicate_clusters=${exactCrossQuestion.length}`,
+      `exact_cross_mathematical_state_duplicate_clusters=${exactCrossState.length}`,
     );
   }
   if (largestSemanticCluster > 16) {
@@ -243,12 +268,15 @@ function auditClusters(samples: readonly ExplanationQualitySample[]) {
 
   return {
     exactCrossQuestionDuplicateClusters: exactCrossQuestion.length,
+    exactCrossMathematicalStateDuplicateClusters: exactCrossState.length,
+    equivalentStateQlOverlapClusters: equivalentStateQlOverlap.length,
     largestSemanticCrossQuestionCluster: largestSemanticCluster,
     largestStructuralCluster: structuralClusters[0]?.count ?? 0,
     semanticClusterCount: semanticClusters.length,
     structuralClusterCount: structuralClusters.length,
     violations,
-    topExactCrossQuestionClusters: exactCrossQuestion.slice(0, 10),
+    topExactCrossStateClusters: exactCrossState.slice(0, 10),
+    topEquivalentStateQlOverlapClusters: equivalentStateQlOverlap.slice(0, 10),
     topSemanticCrossQuestionClusters: semanticClusters.slice(0, 10),
     topStructuralClusters: structuralClusters.slice(0, 10),
   };
@@ -273,6 +301,8 @@ async function main() {
     packages: [...new Set(samples.map((sample) => sample.packageId))],
     ...clusters,
     rule: "simple coherent working; shortcut/trap optional and evidence-bound",
+    qlOverlapRule:
+      "identical explanations for identical mathematical states are recorded for QL merge audit, not treated as explanation defects",
   };
 
   persistDiagnostics(result);
