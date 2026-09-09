@@ -1,4 +1,5 @@
 import { BASE_SCENES_V4, SEMANTIC_DOMAINS_V4 } from "../chapters/error-spotting/ENG-001/CP001/cp001-semantic-catalog-v4";
+import { CONTEXT_EXPANSIONS_BY_DOMAIN_V4, CP001_V4_CONTEXT_VARIANT_COUNT } from "../chapters/error-spotting/ENG-001/CP001/cp001-context-expansions-v4";
 import { COLLECTIVE_MEMBER_V4, COLLECTIVE_UNIT_V4, INTERVENING_SCENES_V4, PAIR_SCENES_V4 } from "../chapters/error-spotting/ENG-001/CP001/cp001-structural-catalog-v4";
 import {
   buildEng001Cp001CandidateV4,
@@ -31,6 +32,12 @@ assert(COLLECTIVE_UNIT_V4.length >= 12, `V4 has only ${COLLECTIVE_UNIT_V4.length
 assert(COLLECTIVE_MEMBER_V4.length >= 12, `V4 has only ${COLLECTIVE_MEMBER_V4.length} member-reading collective scenes.`);
 assert(CP001_V4_CANONICAL_VARIANT_CAPACITY.total >= 13_000, `V4 canonical capacity is only ${CP001_V4_CANONICAL_VARIANT_CAPACITY.total}.`);
 assert(CP001_V4_CATALOG_METRICS.semanticScenes === BASE_SCENES_V4.length, "Catalog metric drift for semantic scenes.");
+assert(CP001_V4_CONTEXT_VARIANT_COUNT >= 160, `V4 has only ${CP001_V4_CONTEXT_VARIANT_COUNT} domain context entries.`);
+for (const domain of SEMANTIC_DOMAINS_V4) {
+  assert(CONTEXT_EXPANSIONS_BY_DOMAIN_V4[domain].length >= 8, `${domain} has fewer than 8 semantic context realizations.`);
+}
+const conservativeRealizedCapacity = CP001_V4_CANONICAL_VARIANT_CAPACITY.total * 8;
+assert(conservativeRealizedCapacity >= 100_000, `V4 realized semantic capacity is only ${conservativeRealizedCapacity}.`);
 
 const sceneIds = new Set<string>();
 const baseSurfaces = new Set<string>();
@@ -74,14 +81,15 @@ for (const qlId of ["ENG-001-QL001", "ENG-001-QL002", "ENG-001-QL007"] as const)
       const validation = validateEng001Cp001QuestionV4(first);
       assert(validation.ok, `${first.questionId}: ${validation.issues.map((entry) => entry.message).join(" | ")}`);
       assert(first.segments.every((segment) => segment.trim().length > 0), `${first.questionId} has an empty visible segment.`);
+      assert(first.metadata.candidateId.includes(":CTX:"), `${first.questionId} lacks a realized context fingerprint.`);
       if (qlId === "ENG-001-QL002") assert(first.segments.length === 3, `${first.questionId} must have three segments.`);
       if (qlId === "ENG-001-QL007") assert(first.options[first.correctOptionIndex] === "No error", `${first.questionId} must key No error.`);
     }
   }
 }
 
-// Large-sample observed diversity gate. This is intentionally lower than the
-// theoretical capacity, because hashes need not visit every canonical variant.
+// Large-sample observed diversity gate. This measures sentence content and
+// realized candidate fingerprints, not direction-stem permutations.
 const minimumObserved = { easy: 2_000, medium: 3_500, hard: 2_500 } as const;
 for (const difficulty of ["easy", "medium", "hard"] as const) {
   const surfaces = new Set<string>();
@@ -127,4 +135,4 @@ try {
 }
 assert(rejected, "Basic direct agreement must remain excluded from the calibrated No-error pool.");
 
-console.log("ENG-001-CP001 V4 production-scale diversity tests passed.");
+console.log(`ENG-001-CP001 V4 production-scale diversity tests passed. Conservative realized capacity: ${conservativeRealizedCapacity}.`);
