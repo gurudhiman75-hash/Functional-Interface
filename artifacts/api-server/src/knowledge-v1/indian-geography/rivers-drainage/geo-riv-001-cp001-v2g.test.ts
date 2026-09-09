@@ -45,6 +45,7 @@ for (const qlId of ["GEO-RIV-001-QL-003", "GEO-RIV-001-QL-004"]) {
 }
 
 for (const question of GEO_RIV_001_CP001_REVIEW_BATCH_V2G) {
+  assert.equal(question.questionId.includes("CP001-V2G"), true, question.questionId);
   assert.equal(question.options.length, 4);
   assert.equal(new Set(question.options).size, 4);
   assert.equal(question.options[question.correctIndex], question.canonicalAnswer);
