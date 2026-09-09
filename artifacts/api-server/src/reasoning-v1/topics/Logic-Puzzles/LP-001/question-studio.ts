@@ -6,6 +6,7 @@ import { generateLp005Batch, LP_005_REVIEW_PACKAGE } from "./lp-005.ts";
 import { generateLp006Batch, LP_006_REVIEW_PACKAGE } from "./lp-006.ts";
 import { generateLp007Batch, LP_007_REVIEW_PACKAGE } from "./lp-007.ts";
 import { generateLp008Batch, LP_008_REVIEW_PACKAGE } from "./lp-008.ts";
+import { generateLp009Batch, LP_009_REVIEW_PACKAGE } from "./lp-009.ts";
 
 export type LogicPuzzleQuestionStudioRequest = {
   packageId?: string; archetypeId?: string; patternId?: string; topic?: string; subtopic?: string; cpId?: string; canonicalProblemId?: string;
@@ -17,7 +18,7 @@ function normalize(value: unknown) { return String(value ?? "").trim().toLowerCa
 export function isLogicPuzzleQuestionStudioRequest(request: LogicPuzzleQuestionStudioRequest) {
   const packageId = normalize(request.packageId ?? request.archetypeId);
   const topic = normalize(request.topic); const subtopic = normalize(request.subtopic); const cp = normalize(request.cpId ?? request.canonicalProblemId ?? request.patternId);
-  return packageId === "lp 001" || packageId === "lp 002" || packageId === "lp 003" || packageId === "lp 004" || packageId === "lp 005" || packageId === "lp 006" || packageId === "lp 007" || packageId === "lp 008" || packageId === "logic puzzles" || cp.startsWith("lp ") || subtopic === "logic puzzles" || (topic === "reasoning" && subtopic === "puzzles");
+  return packageId === "lp 001" || packageId === "lp 002" || packageId === "lp 003" || packageId === "lp 004" || packageId === "lp 005" || packageId === "lp 006" || packageId === "lp 007" || packageId === "lp 008" || packageId === "lp 009" || packageId === "logic puzzles" || cp.startsWith("lp ") || subtopic === "logic puzzles" || (topic === "reasoning" && subtopic === "puzzles");
 }
 
 function isLp002Request(request: LogicPuzzleQuestionStudioRequest) {
@@ -62,6 +63,12 @@ function isLp008Request(request: LogicPuzzleQuestionStudioRequest) {
   return packageId === "lp 008" || selector === "lp cp 008" || selector.startsWith("lp ql 029") || selector.startsWith("lp ql 030") || selector.startsWith("lp ql 031") || selector.startsWith("lp ql 032");
 }
 
+function isLp009Request(request: LogicPuzzleQuestionStudioRequest) {
+  const packageId = normalize(request.packageId ?? request.archetypeId);
+  const selector = normalize(request.cpId ?? request.canonicalProblemId ?? request.patternId);
+  return packageId === "lp 009" || selector === "lp cp 009" || selector.startsWith("lp ql 033") || selector.startsWith("lp ql 034") || selector.startsWith("lp ql 035") || selector.startsWith("lp ql 036");
+}
+
 function flatten(caselet: Caselet, caseletIndex: number, totalQuestionCount: number, seed: string) {
   return caselet.children.map((child, childIndex) => ({
     text: `${caselet.scenario}\n\nClues:\n${caselet.clues.map((clue) => `- ${clue.text}`).join("\n")}\n\n${child.stem}`,
@@ -78,14 +85,25 @@ function flatten(caselet: Caselet, caseletIndex: number, totalQuestionCount: num
 }
 
 export function listLogicPuzzleQuestionStudioPackages() {
-  const capability = (pkg: typeof LP_001_REVIEW_PACKAGE | typeof LP_002_REVIEW_PACKAGE | typeof LP_003_REVIEW_PACKAGE | typeof LP_004_REVIEW_PACKAGE | typeof LP_005_REVIEW_PACKAGE | typeof LP_006_REVIEW_PACKAGE | typeof LP_007_REVIEW_PACKAGE | typeof LP_008_REVIEW_PACKAGE) => ({ id: pkg.packageId, packageId: pkg.packageId, type: "reasoning-v1", section: "Reasoning", domain: "reasoning", subject: "Reasoning", topic: "Puzzles", subtopic: "Logic Puzzles", name: pkg.label, label: pkg.label, generationDomain: "reasoning-v1", cpIds: [pkg.checkpointId], canonicalProblems: pkg.qlIds.map((id) => ({ id, label: id, checkpointId: pkg.checkpointId })), patternIds: [...pkg.qlIds], supportedDifficulties: [...pkg.supportedDifficulties], supportedLanguages: [...pkg.supportedLanguages], enabled: true, runtimeMode: pkg.runtimeMode, supportedRuntimeModes: [pkg.runtimeMode], reviewStatus: "REVIEW_ONLY", releaseFreezeStatus: "NOT_FROZEN", reviewOnly: true, permanentQlCount: 0, permanentQlIds: [], permanentQlAllocationStatus: "UNALLOCATED", questionBankStatus: "NOT_STORED", questionBankWritable: false, testEligibility: "INELIGIBLE", testEligible: false, mockTestEligible: false, publiclyPublishable: false, automaticStudentPublication: false });
-  return [capability(LP_001_REVIEW_PACKAGE), capability(LP_002_REVIEW_PACKAGE), capability(LP_003_REVIEW_PACKAGE), capability(LP_004_REVIEW_PACKAGE), capability(LP_005_REVIEW_PACKAGE), capability(LP_006_REVIEW_PACKAGE), capability(LP_007_REVIEW_PACKAGE), capability(LP_008_REVIEW_PACKAGE)];
+  const capability = (pkg: typeof LP_001_REVIEW_PACKAGE | typeof LP_002_REVIEW_PACKAGE | typeof LP_003_REVIEW_PACKAGE | typeof LP_004_REVIEW_PACKAGE | typeof LP_005_REVIEW_PACKAGE | typeof LP_006_REVIEW_PACKAGE | typeof LP_007_REVIEW_PACKAGE | typeof LP_008_REVIEW_PACKAGE | typeof LP_009_REVIEW_PACKAGE) => ({ id: pkg.packageId, packageId: pkg.packageId, type: "reasoning-v1", section: "Reasoning", domain: "reasoning", subject: "Reasoning", topic: "Puzzles", subtopic: "Logic Puzzles", name: pkg.label, label: pkg.label, generationDomain: "reasoning-v1", cpIds: [pkg.checkpointId], canonicalProblems: pkg.qlIds.map((id) => ({ id, label: id, checkpointId: pkg.checkpointId })), patternIds: [...pkg.qlIds], supportedDifficulties: [...pkg.supportedDifficulties], supportedLanguages: [...pkg.supportedLanguages], enabled: true, runtimeMode: pkg.runtimeMode, supportedRuntimeModes: [pkg.runtimeMode], reviewStatus: "REVIEW_ONLY", releaseFreezeStatus: "NOT_FROZEN", reviewOnly: true, permanentQlCount: 0, permanentQlIds: [], permanentQlAllocationStatus: "UNALLOCATED", questionBankStatus: "NOT_STORED", questionBankWritable: false, testEligibility: "INELIGIBLE", testEligible: false, mockTestEligible: false, publiclyPublishable: false, automaticStudentPublication: false });
+  return [capability(LP_001_REVIEW_PACKAGE), capability(LP_002_REVIEW_PACKAGE), capability(LP_003_REVIEW_PACKAGE), capability(LP_004_REVIEW_PACKAGE), capability(LP_005_REVIEW_PACKAGE), capability(LP_006_REVIEW_PACKAGE), capability(LP_007_REVIEW_PACKAGE), capability(LP_008_REVIEW_PACKAGE), capability(LP_009_REVIEW_PACKAGE)];
 }
 
 export async function generateLogicPuzzleQuestionStudioBatch(request: LogicPuzzleQuestionStudioRequest = {}) {
-  if (normalize(request.language || "en") !== "en") throw new Error("LP-001 through LP-008 localization is not started; English review is the current allowed surface.");
+  if (normalize(request.language || "en") !== "en") throw new Error("LP-001 through LP-009 localization is not started; English review is the current allowed surface.");
   const count = Math.min(12, Math.max(1, Math.floor(Number(request.count ?? 1) || 1)));
-  const lp002 = isLp002Request(request); const lp003 = isLp003Request(request); const lp004 = isLp004Request(request); const lp005 = isLp005Request(request); const lp006 = isLp006Request(request); const lp007 = isLp007Request(request); const lp008 = isLp008Request(request); const seed = String(request.seed || `question-studio:${lp008 ? "LP-008" : lp007 ? "LP-007" : lp006 ? "LP-006" : lp005 ? "LP-005" : lp004 ? "LP-004" : lp003 ? "LP-003" : lp002 ? "LP-002" : "LP-001"}`);
+  const lp002 = isLp002Request(request); const lp003 = isLp003Request(request); const lp004 = isLp004Request(request); const lp005 = isLp005Request(request); const lp006 = isLp006Request(request); const lp007 = isLp007Request(request); const lp008 = isLp008Request(request); const lp009 = isLp009Request(request); const seed = String(request.seed || `question-studio:${lp009 ? "LP-009" : lp008 ? "LP-008" : lp007 ? "LP-007" : lp006 ? "LP-006" : lp005 ? "LP-005" : lp004 ? "LP-004" : lp003 ? "LP-003" : lp002 ? "LP-002" : "LP-001"}`);
+  if (lp009) {
+    const caselets = generateLp009Batch(seed, count);
+    const questions = caselets.flatMap((caselet, index) => caselet.children.map((child, childIndex) => ({
+      text: child.stem,
+      options: child.options, correct: child.correctIndex, correctIndex: child.correctIndex, answer: child.answer, explanation: child.explanation.lines.join("\n\n"), packageExplanation: child.explanation,
+      difficulty: child.difficultyBand, difficultyLabel: child.difficultyBand, patternId: child.qlId, section: "Reasoning", topic: "Puzzles", subtopic: "Logic Puzzles", generationBackend: "reasoning-v1", packageId: LP_009_REVIEW_PACKAGE.packageId, canonicalProblemId: child.qlId, questionLanguageId: `${child.qlId}-EN`, questionId: child.questionId,
+      language: "en", seed, questionIndex: index * 4 + childIndex, questionCount: caselets.length * 4, runtimeMode: LP_009_REVIEW_PACKAGE.runtimeMode, reviewStatus: "REVIEW_ONLY", questionBankStatus: "NOT_STORED", questionBankWritable: false, testEligibility: "INELIGIBLE", testEligible: false, mockTestEligible: false, publiclyPublishable: false,
+      traceability: { checkpointId: LP_009_REVIEW_PACKAGE.checkpointId, qlId: child.qlId, caseletId: caselet.caseletId, sourceStatus: "SOURCE_SATURATION_REVIEW_REQUIRED" }, metadata: { packageId: LP_009_REVIEW_PACKAGE.packageId, checkpointId: LP_009_REVIEW_PACKAGE.checkpointId, qlId: child.qlId, caseletId: caselet.caseletId, language: "en" }, logic: { mode: caselet.mode, people: caselet.people, values: caselet.values, labels: caselet.labels, clues: caselet.clues, assignment: caselet.assignment },
+    })));
+    return { generationContext: { generationDomain: "reasoning-v1", packageId: "LP-009", chapterId: "REAS-PUZ", seed, runtimeMode: "REVIEW_ONLY", lifecycleStatus: "REVIEW_ONLY", permanentQlCount: 0, permanentQlIds: [], permanentQlAllocationStatus: "UNALLOCATED", questionBankStatus: "NOT_STORED", questionBankWritable: false, testEligibility: "INELIGIBLE", testEligible: false, publiclyPublishable: false, automaticStudentPublication: false, language: "en", checkpointId: LP_009_REVIEW_PACKAGE.checkpointId }, questionPackages: questions, questions };
+  }
   if (lp008) {
     const caselets = generateLp008Batch(seed, count);
     const questions = caselets.flatMap((caselet, index) => caselet.children.map((child, childIndex) => ({

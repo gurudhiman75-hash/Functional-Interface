@@ -7,6 +7,7 @@ import { generateLp005Batch } from "./lp-005.ts";
 import { generateLp006Batch } from "./lp-006.ts";
 import { generateLp007Batch } from "./lp-007.ts";
 import { generateLp008Batch } from "./lp-008.ts";
+import { generateLp009Batch } from "./lp-009.ts";
 
 function clueCountByBand(caselets: readonly { difficultyBand: string; clues: readonly unknown[] }[]) {
   const grouped = new Map<string, number[]>();
@@ -68,4 +69,19 @@ for (const caselet of lp008) {
   if (caselet.difficultyBand === "Hard") assert.ok(relational >= 1 && exclusions >= 1, `${caselet.caseletId} Hard calendar topology lacks layered restrictions`);
 }
 
-console.log("Logic Puzzle difficulty calibration passed: LP-001–LP-004 use larger Hard clue sets; LP-005–LP-008 use distinct structural tiers.");
+const lp009 = generateLp009Batch("difficulty-lp-009", 60);
+const lp009Grouped = clueCountByBand(lp009);
+assert.ok(average(lp009Grouped.get("Hard") ?? []) > average(lp009Grouped.get("Medium") ?? []), "LP-009 Hard caselets do not have a higher average clue count");
+for (const caselet of lp009) {
+  const direct = caselet.clues.filter((clue) => clue.kind === "PERSON_VALUE").length;
+  const relations = caselet.clues.filter((clue) => clue.kind === "BEFORE" || clue.kind === "BETWEEN" || clue.kind === "ADJACENT").length;
+  const exclusions = caselet.clues.filter((clue) => clue.kind === "NOT_VALUE").length;
+  if (caselet.difficultyBand === "Easy") assert.equal(direct, 5, `${caselet.caseletId} Easy schedule topology changed`);
+  if (caselet.difficultyBand === "Medium") assert.ok(direct >= 1 && relations >= 1 && exclusions >= 1, `${caselet.caseletId} Medium schedule topology is not calibrated`);
+  if (caselet.difficultyBand === "Hard") {
+    assert.ok(direct >= 1 && direct <= 3, `${caselet.caseletId} Hard schedule should retain only a small number of direct anchors`);
+    assert.ok(relations >= 2 && exclusions >= 1, `${caselet.caseletId} Hard schedule lacks layered restrictions`);
+  }
+}
+
+console.log("Logic Puzzle difficulty calibration passed: LP-001–LP-004 use larger Hard clue sets; LP-005–LP-009 use distinct structural tiers.");
