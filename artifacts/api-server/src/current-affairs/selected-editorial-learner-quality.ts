@@ -301,7 +301,7 @@ export function applySelectedLearnerEditorialQuality(
 
 export function selectedLearnerEditorialWarnings(events: DailyMasterPackEvent[]) {
   const warnings: string[] = [];
-  const gdp = events.filter((event) => /\b7\.8%\b.*\bGDP\b|\bGDP\b.*\b7\.8%\b/i.test(`${event.title} ${event.summary}`));
+  const gdp = events.filter((event) => /7\.8%.*GDP|GDP.*7\.8%/i.test(`${event.title} ${event.summary}`));
   if (gdp.length > 1) {
     warnings.push(`Potential learner-level topic overlap: ${gdp.length} selected GDP items report the same 7.8% growth figure; keep both only if the editorial distinction is intentional.`);
   }
