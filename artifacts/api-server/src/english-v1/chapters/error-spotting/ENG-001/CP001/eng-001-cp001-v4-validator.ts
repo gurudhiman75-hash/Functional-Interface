@@ -31,6 +31,20 @@ function sentenceWordCount(segments: readonly string[]): number {
   return segments.join(" ").trim().split(/\s+/).filter(Boolean).length;
 }
 
+function textWordCount(text: string): number {
+  return text.trim().split(/\s+/).filter(Boolean).length;
+}
+
+function repeatedIngForm(text: string): string | null {
+  const forms = text.toLowerCase().match(/\b[a-z]+ing\b/g) ?? [];
+  const seen = new Set<string>();
+  for (const form of forms) {
+    if (seen.has(form)) return form;
+    seen.add(form);
+  }
+  return null;
+}
+
 export function validateEng001Cp001CandidateV4(candidate: Eng001SentenceCandidate): Eng001Cp001V4Validation {
   const issues: Eng001Cp001V4Issue[] = [];
 
@@ -153,6 +167,17 @@ export function validateEng001Cp001QuestionV4(question: Eng001Question): Eng001C
   }
   if (/\s{2,}/.test(question.correctedSentence)) {
     issues.push(issue("NATURALNESS", `${question.questionId} corrected sentence contains doubled whitespace.`));
+  }
+
+  const realizedWords = textWordCount(question.correctedSentence);
+  const realizedMax = question.metadata.difficulty === "easy" ? 30 : question.metadata.difficulty === "medium" ? 42 : 50;
+  if (realizedWords > realizedMax) {
+    issues.push(issue("NATURALNESS", `${question.questionId} realized sentence has ${realizedWords} words, above the ${question.metadata.difficulty} editorial ceiling of ${realizedMax}.`));
+  }
+
+  const repeatedParticiple = repeatedIngForm(question.correctedSentence);
+  if (repeatedParticiple) {
+    issues.push(issue("NATURALNESS", `${question.questionId} repeats the participle “${repeatedParticiple}”, producing a machine-like surface.`));
   }
 
   return { ok: issues.length === 0, issues };
