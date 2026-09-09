@@ -51,6 +51,41 @@ export const PCT_001_LIBRARY_REGISTRY = {
   },
 } as const;
 
+/**
+ * P1 stem-fatigue remediation.
+ *
+ * A small set of English expansion QLs used documentary nouns (register,
+ * record, report, note) only to manufacture surface variety. The mathematical
+ * situation does not require those documents, and repeated use makes a large
+ * batch sound machine-generated. Keep the QL identity/solver lineage intact
+ * while presenting the same mathematics in direct exam language.
+ *
+ * This overlay is deliberately English-only: Hindi/Punjabi parity remains
+ * untouched until their learner-surface audit is run independently.
+ */
+const PCT_001_EN_NATURAL_STEM_OVERRIDES: Readonly<Record<string, string>> = {
+  "PCT-QL-415":
+    "After a {percentageRate}% increase, a person's pay becomes Rs. {finalValue}. Find the earlier pay.",
+  "PCT-QL-117":
+    "If {rate1}% of the total marks is {value1}, find the marks corresponding to {rate2}% of the same total.",
+  "PCT-QL-417":
+    "If {rate1}% of the total output is {value1}, find the output corresponding to {rate2}% of the total.",
+  "PCT-QL-119":
+    "A value decreases by {percentageRate}%. By what percent must it increase to return to its original value?",
+  "PCT-QL-218":
+    "The difference between {rate1}% and {rate2}% of the total votes is {value}. Find the total number of votes.",
+  "PCT-QL-1102":
+    "A fruit seller has {baseValue} apples and sells {percentageRate}% of them. Find the number of apples sold.",
+  "PCT-QL-111":
+    "A number is reduced by {percentageRate}% from {baseValue}. Find the new value.",
+  "PCT-QL-152":
+    "Fresh grapes contain {rate1}% water, while dry grapes contain {rate2}% water. If the dry grapes weigh {value} kg, find their original fresh weight.",
+  "PCT-QL-420":
+    "A quantity increases by {rate1}% in one month and by {rate2}% in the next month. Find the equivalent single percentage increase.",
+  "PCT-QL-433":
+    "The price of an item decreases by {rate1}% while the number of units sold increases by {rate2}%. Find the percentage change in total revenue.",
+};
+
 export function getQuestionLanguageIds(cpId: Pct001CanonicalProblemId, language: Pct001Language) {
   return Object.keys(PCT_001_LIBRARY_REGISTRY.questionLanguage[language][cpId]?.families ?? {});
 }
@@ -63,7 +98,8 @@ export function getCommonQuestionLanguageIds(cpId: Pct001CanonicalProblemId) {
 export function getQuestionEntry(cpId: Pct001CanonicalProblemId, questionLanguageId: string, language: Pct001Language) {
   const entry = PCT_001_LIBRARY_REGISTRY.questionLanguage[language][cpId]?.families[questionLanguageId];
   if (!entry) throw new Error(`Missing question language ${language}:${cpId}:${questionLanguageId}`);
-  return entry;
+  const naturalTemplate = language === "en" ? PCT_001_EN_NATURAL_STEM_OVERRIDES[questionLanguageId] : undefined;
+  return naturalTemplate ? { ...entry, template: naturalTemplate } : entry;
 }
 
 export function getTaskRegistryEntry(cpId: Pct001CanonicalProblemId, questionLanguageId: string) {

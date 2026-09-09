@@ -5,6 +5,7 @@ on:
     branches:
       - audit/quant-v4-quality-remediation-p0
       - audit/quant-v4-semantic-explanation-quality-p1
+      - audit/quant-v4-stem-naturalness-fatigue-p1
     paths:
       - "artifacts/api-server/src/quant-v4/**"
   pull_request:
@@ -52,6 +53,18 @@ jobs:
         with:
           name: quant-v4-semantic-explanation-p1-diagnostics
           path: tmp/quant-v4-semantic-explanation-p1-diagnostics.json
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Quant V4 stem naturalness fatigue P1
+        run: npx -y tsx artifacts/api-server/src/quant-v4/quality/quant-v4-stem-naturalness-fatigue-p1.test.ts
+
+      - name: Upload stem naturalness fatigue diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quant-v4-stem-naturalness-fatigue-p1-diagnostics
+          path: tmp/quant-v4-stem-naturalness-fatigue-p1-diagnostics.json
           if-no-files-found: warn
           retention-days: 7
 
