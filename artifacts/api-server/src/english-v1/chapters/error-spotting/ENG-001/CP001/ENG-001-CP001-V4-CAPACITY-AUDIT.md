@@ -1,6 +1,6 @@
 # ENG-001-CP001 — V4 Production-Scale Diversity Audit
 
-Status: `V4_CAPACITY_GATE__IMPLEMENTED__CI_PENDING`
+Status: `V4_CAPACITY_GATE__SIX_FIGURE_REALIZATION__CI_PENDING`
 
 ## Why V4 exists
 
@@ -11,6 +11,8 @@ V3 solved the immediate office/recruitment-context repetition, but its observed 
 A semantic scene contains a coherent subject, singular/plural verb pair, object or complement, sentence tail, and compatible modifier choices. Changing only `student` to `candidate` inside the same sentence is not counted as a new semantic scene.
 
 V4 stores 8 subject families in each of 20 unrelated standard domains. Every family contains 4 different predicate situations. This creates **640 complete semantic scenes** before grammar-rule transformation.
+
+V4 now also has a **domain-aware context-realization layer**. Every one of the 20 domains has **8 short, coherent situation contexts**. The selected context is attached only to a non-error segment, so it changes the sentence situation without changing the registered SVA mutation or hiding the answer.
 
 ## Semantic domains
 
@@ -47,9 +49,9 @@ The rules that cannot safely reuse a normal subject/action scene have dedicated 
 - intervening-subject agreement: **80 dedicated scenes**
 - collective nouns: **12 explicit unit-reading scenes + 12 explicit member-reading scenes**
 
-## Conservative canonical capacity
+## Capacity
 
-Before QL shaping or instruction-stem variation, V4 exposes the following conservative lower bound of distinct candidate fingerprints:
+Before QL shaping or direction-stem variation, the original V4 structural catalog exposes this conservative lower bound of canonical candidate fingerprints:
 
 | Difficulty | Conservative canonical variants |
 |---|---:|
@@ -58,7 +60,17 @@ Before QL shaping or instruction-stem variation, V4 exposes the following conser
 | Hard | 4,012 |
 | **Total** | **13,704** |
 
-The actual structural combination ceiling is slightly higher. The reported figure is intentionally conservative and does not multiply by QL001/QL002/QL007 or by direction-stem wording.
+Each candidate can now be realized in **8 domain-appropriate semantic contexts**. Therefore the conservative sentence-realization floor is:
+
+**13,704 × 8 = 109,632 domain-coherent candidate/context realizations.**
+
+This figure still does **not** multiply by QL001/QL002/QL007 shaping or by direction wording. Those are presentation variations, not counted as additional semantic capacity.
+
+## Why the context layer is not cosmetic inflation
+
+The context realization is part of the sentence content and is selected from the same semantic domain as the candidate. For example, a science sentence receives a laboratory/research/observation context, while a transport sentence receives a route/service/operation context. Context is never borrowed across unrelated domains.
+
+The context is added to a non-error segment only. The correct and mutated versions receive the same context, preserving the invariant that exactly one registered SVA mutation determines the answer.
 
 ## Question-stem diversity
 
@@ -68,19 +80,21 @@ V4 keeps direction language natural rather than manufacturing hundreds of superf
 - QL002: 10 three-part + `No error` direction stems
 - QL007: 10 calibrated `No error` direction stems
 
-The main diversity budget is therefore spent on the sentence itself, not on cosmetic instruction changes.
+The main diversity budget is therefore spent on sentence content, not cosmetic directions.
 
 ## Automated gates
 
 `eng-001-cp001-v4.test.ts` enforces:
 
-- at least 640 semantic scenes
+- at least 640 complete semantic scenes
 - at least 20 semantic domains
 - at least 32 scenes in every domain
+- 8 domain-aware context realizations per domain
 - at least 80 pair scenes
 - at least 80 intervening scenes
 - separate collective-unit and collective-member pools
-- at least 13,000 conservative canonical variants
+- at least 13,000 canonical structural variants
+- at least 100,000 conservative candidate/context realizations
 - deterministic regeneration
 - exactly one registered mutation
 - rule/mutation consistency
