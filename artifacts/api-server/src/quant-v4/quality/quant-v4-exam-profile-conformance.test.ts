@@ -140,9 +140,13 @@ async function main() {
   assert(QUANT_V4_EXAM_PROFILE_CONTRACTS.SSC_CGL_TIER_I.optionCount === 4, "SSC Tier I central option count drifted.");
   assert(QUANT_V4_EXAM_PROFILE_CONTRACTS.SSC_CGL_CHSL.optionCount === 4, "SSC CGL/CHSL central option count drifted.");
   assert(QUANT_V4_EXAM_PROFILE_CONTRACTS.SSC_CGL_JSO.optionCount === 4, "SSC JSO central option count drifted.");
+  assert(QUANT_V4_EXAM_PROFILE_CONTRACTS.PUNJAB_STATE.optionCount === 4, "Punjab State central option count drifted.");
+  assert(QUANT_V4_EXAM_PROFILE_CONTRACTS.PUNJAB_STATE.family === "PUNJAB_STATE", "Punjab State must keep a first-class central exam family.");
+  assert(QUANT_V4_EXAM_PROFILE_CONTRACTS.PUNJAB_STATE.deliveryStyle === "PUNJAB_STATE_OBJECTIVE", "Punjab State must not masquerade as SSC delivery.");
   assert(QUANT_V4_EXAM_PROFILE_CONTRACTS.BANKING_PRELIMS.optionCount === 5, "Banking Prelims central option count drifted.");
   assert(QUANT_V4_EXAM_PROFILE_CONTRACTS.BANKING_MAINS.optionCount === 5, "Banking Mains central option count drifted.");
   assert(QUANT_V4_EXAM_PROFILE_CONTRACTS.GENERIC_PRACTICE.optionCount === 4, "Generic practice central option count drifted.");
+  assert(Object.keys(QUANT_V4_EXAM_PROFILE_CONTRACTS).length === 7, "Central Quant V4 profile registry must expose all seven delivery contracts including Punjab State.");
 
   const probabilityQuestions = await auditProbabilityProfiles();
   const diQuestions = auditDiProfiles();
