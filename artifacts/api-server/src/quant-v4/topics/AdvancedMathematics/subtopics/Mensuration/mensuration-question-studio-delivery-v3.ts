@@ -173,7 +173,10 @@ export function mensurationBankOnlyEligibility(question: MensurationLocalizedQue
   return Object.freeze({ eligible: true as const, reason: "FROZEN_APPROVED_ENGLISH_PERMANENT_QL" as const });
 }
 
-export type MensurationDeliveredQuestionV3 = MensurationLocalizedQuestionV1 & {
+export type MensurationDeliveredQuestionV3 = Omit<
+  MensurationLocalizedQuestionV1,
+  "options" | "optionDetails" | "correctIndex"
+> & {
   examProfile: MensurationStudioExamProfileV3;
   sourceExamProfile: MensurationQuestionStudioExamProfile;
   centralExamProfile: QuantV4ExamProfileId;
