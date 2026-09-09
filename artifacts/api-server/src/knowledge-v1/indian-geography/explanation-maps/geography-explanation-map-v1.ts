@@ -53,6 +53,7 @@ export type GeographyExplanationMapRenderV1 = {
   width: 320;
   height: 180;
   altText: string;
+  learnerMapEligible: boolean;
 };
 
 const SVG_WIDTH = 320;
@@ -112,6 +113,19 @@ export function auditGeographyExplanationMapSpecV1(spec: GeographyExplanationMap
   }
 
   return { valid: issues.length === 0, issues };
+}
+
+export function isLearnerGeographyMapEligibleV1(spec: GeographyExplanationMapSpecV1) {
+  return spec.geometryMode === "ATLAS" && spec.notToScale === false;
+}
+
+export function assertLearnerGeographyMapEligibleV1(spec: GeographyExplanationMapSpecV1) {
+  if (!isLearnerGeographyMapEligibleV1(spec)) {
+    throw new Error(
+      `Geography learner maps require approved ATLAS geometry. ${spec.mapId} is ${spec.geometryMode}.`,
+    );
+  }
+  return spec;
 }
 
 export function assertGeographyExplanationMapSpecV1(spec: GeographyExplanationMapSpecV1) {
@@ -174,7 +188,7 @@ export function renderGeographyExplanationMapSvgV1(spec: GeographyExplanationMap
   <text x="306" y="19" text-anchor="end" font-family="Arial, sans-serif" font-size="9" fill="#64748b">N ↑</text>
   ${linkSvg}
   ${nodeSvg}
-  <text x="14" y="169" font-family="Arial, sans-serif" font-size="8.5" fill="#64748b">${escapeXml(spec.geometryMode === "SCHEMATIC" ? "Schematic · not to scale" : spec.geometryAuthorityId)}</text>
+  <text x="14" y="169" font-family="Arial, sans-serif" font-size="8.5" fill="#64748b">${escapeXml(spec.geometryMode === "SCHEMATIC" ? "Internal schematic · not learner map authority" : spec.geometryAuthorityId)}</text>
 </svg>`;
 
   return {
@@ -183,5 +197,6 @@ export function renderGeographyExplanationMapSvgV1(spec: GeographyExplanationMap
     width: SVG_WIDTH,
     height: SVG_HEIGHT,
     altText: `${spec.title}. ${spec.caption}`,
+    learnerMapEligible: isLearnerGeographyMapEligibleV1(spec),
   };
 }
