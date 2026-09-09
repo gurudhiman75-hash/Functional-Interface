@@ -79,6 +79,49 @@ export const FORBIDDEN_PHRASES = [
   "calculation gives",
 ];
 
+const GENERIC_SCAFFOLD_LABELS = new Set([
+  "given",
+  "calculation",
+  "answer",
+  "=",
+]);
+
+function normalizeGenericScaffolding(
+  steps: ExplanationStep[],
+  evidence: ExplanationEvidence,
+): ExplanationStep[] {
+  const normalized = steps.map((step) => {
+    const narrative = step.narrative.trim();
+    if (!GENERIC_SCAFFOLD_LABELS.has(narrative.toLowerCase())) return step;
+    return {
+      ...step,
+      narrative: "",
+      type: step.type === "CONCLUSION" ? "CONCLUSION" : "SIMPLIFICATION",
+    } as ExplanationStep;
+  });
+
+  // Legacy teacher renderers often add a standalone answer-only math block and
+  // then repeat the same result in the conclusion. Keep the reasoning lines and
+  // say the answer once.
+  const answer = String(evidence.answer)
+    .replace(/\s+/g, "")
+    .replace(/^=+/, "");
+  for (let index = normalized.length - 1; index >= 0; index -= 1) {
+    const step = normalized[index]!;
+    if (!step.mathLatex?.trim()) continue;
+    const math = step.mathLatex.replace(/\s+/g, "").replace(/^=+/, "");
+    const hasLaterConclusion = normalized
+      .slice(index + 1)
+      .some((candidate) => candidate.type === "CONCLUSION" && candidate.narrative.trim());
+    if (hasLaterConclusion && math === answer) normalized.splice(index, 1);
+    break;
+  }
+
+  return normalized.filter(
+    (step) => Boolean(step.narrative.trim()) || Boolean(step.mathLatex?.trim()),
+  );
+}
+
 function containsIdentifier(text: string, identifier: string) {
   if (!identifier || identifier.length < 3) return false;
   const escaped = identifier.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -263,8 +306,6 @@ export function validateCoherentWorking(steps: ExplanationStep[]): void {
     .split(/\s+/)
     .filter(Boolean).length;
 
-  // One compact calculation can legitimately need a short sentence or two.
-  // The floor avoids forcing extra math lines merely to satisfy a prose ratio.
   const commentaryAllowance = Math.max(45, arithmeticSteps * 18);
   if (proseWords > commentaryAllowance) {
     throw new ExplanationValidationError(
@@ -277,7 +318,7 @@ export function validateExplanationPipeline(
   evidence: ExplanationEvidence,
   renderer: ExplanationRenderer,
 ): ExplanationStep[] {
-  const steps = renderer.render(evidence);
+  const steps = normalizeGenericScaffolding(renderer.render(evidence), evidence);
 
   validateGenericPhrases(steps);
   validateNoInternalIdentifiers(steps, evidence);
@@ -299,7 +340,9 @@ export function formatExplanationSteps(steps: ExplanationStep[]): string[] {
       mathLatex = mathLatex.replace(/\b(\w+s)'s\b/gi, "$1'");
       mathLatex = mathLatex.replace(/^\$\$([\s\S]*)\$\$$/, "$1");
       mathLatex = mathLatex.replace(/^\\\(([\s\S]*)\\\)$/, "$1");
-      return `${narrative}\n\n$$\\Rightarrow ${mathLatex}$$`;
+      return narrative
+        ? `${narrative}\n\n$$\\Rightarrow ${mathLatex}$$`
+        : `$$\\Rightarrow ${mathLatex}$$`;
     }
     return narrative;
   });
