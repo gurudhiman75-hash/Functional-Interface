@@ -19,13 +19,47 @@ function entityRefValue(fact: KnowledgeFact) {
   return fact.value.label.en;
 }
 
-const CONCEPT_EXPLANATIONS: Record<string, string> = {
-  Drainage:
-    "Drainage refers to the river system of an area. It describes the river network itself, whereas a drainage basin is the land area drained by that network.",
-  "Drainage basin":
-    "A drainage basin is the area drained by a river and its river system. The term refers to the land area contributing water to that river system.",
-  "Water divide":
-    "A water divide is an elevated boundary separating neighbouring drainage basins. Water falling on opposite sides of the divide drains into different river systems.",
+const SIMPLE_DEFINITIONS: Record<string, string> = {
+  Drainage: "the river system of an area",
+  "Drainage basin": "the area drained by a river and its tributaries",
+  "Water divide": "a highland that separates two drainage basins",
+};
+
+const DEFINITION_OPTION_REWRITES: Record<string, string> = {
+  "the area drained by a river and its river system":
+    "the area drained by a river and its tributaries",
+  "an elevated boundary that separates neighbouring drainage basins":
+    "a highland that separates two drainage basins",
+  "a pattern in which tributaries tend to follow near-parallel courses and smaller streams join them at approximately right angles":
+    "a pattern in which main streams run nearly parallel and smaller streams join at right angles",
+  "a drainage pattern associated with strongly jointed rock terrain and frequent right-angle bends":
+    "a pattern with frequent right-angle bends in jointed rocks",
+  "a branching drainage pattern resembling the branches of a tree":
+    "a tree-like branching drainage pattern",
+};
+
+const CONCEPT_EDITORIAL: Record<
+  string,
+  { directStem: string; reverseStem: string; explanation: string }
+> = {
+  Drainage: {
+    directStem: "Which term refers to the river system of an area?",
+    reverseStem: "What is meant by drainage?",
+    explanation:
+      "Drainage means the river system of an area. A drainage basin, on the other hand, is the area drained by that river system.",
+  },
+  "Drainage basin": {
+    directStem: "The area drained by a river and its tributaries is called:",
+    reverseStem: "What is a drainage basin?",
+    explanation:
+      "A drainage basin is the area drained by a river and its tributaries. All the water in this area drains into the same river system.",
+  },
+  "Water divide": {
+    directStem: "A highland that separates two drainage basins is called:",
+    reverseStem: "What is a water divide?",
+    explanation:
+      "A water divide is a highland that separates two drainage basins. Water on the two sides flows into different river systems.",
+  },
 };
 
 const PATTERN_EDITORIAL: Record<
@@ -34,48 +68,54 @@ const PATTERN_EDITORIAL: Record<
 > = {
   "Dendritic drainage pattern": {
     identificationStem:
-      "A river network branches repeatedly like the limbs of a tree. Which drainage pattern does this describe?",
+      "A river network looks like the branches of a tree. Which drainage pattern is this?",
     conditionStem:
-      "Streams follow the general slope and branch like the limbs of a tree. Which drainage pattern is characteristic of this setting?",
+      "Which drainage pattern develops when streams follow the general slope and branch like a tree?",
     explanation:
-      "A tree-like branching river network is characteristic of the dendritic drainage pattern. Its tributaries spread in a branching form resembling the limbs of a tree.",
+      "In a dendritic pattern, the river and its tributaries form a tree-like network. The streams branch in different directions like the branches of a tree.",
   },
   "Trellis drainage pattern": {
     identificationStem:
-      "Main tributaries run nearly parallel and smaller streams join them at about right angles. Which drainage pattern does this describe?",
+      "Main streams run nearly parallel and smaller streams join them at right angles. Which drainage pattern is this?",
     conditionStem:
-      "Main tributaries tend to run nearly parallel, with smaller streams joining them at about right angles. Which drainage pattern is characteristic of this setting?",
+      "Which drainage pattern develops when main streams run nearly parallel and smaller streams join them at right angles?",
     explanation:
-      "Near-parallel main tributaries with smaller streams joining at approximately right angles are characteristic of the trellis drainage pattern.",
+      "In a trellis pattern, the main streams run nearly parallel and smaller streams join them at about right angles.",
   },
   "Rectangular drainage pattern": {
     identificationStem:
-      "River courses show frequent right-angle bends in strongly jointed rock terrain. Which drainage pattern does this describe?",
+      "A river takes frequent right-angle turns in jointed rocks. Which drainage pattern is this?",
     conditionStem:
-      "A river flows through strongly jointed rock and repeatedly bends at right angles. Which drainage pattern is most likely to develop?",
+      "Which drainage pattern is likely where rivers follow joints in rocks and take frequent right-angle turns?",
     explanation:
-      "Frequent right-angle bends associated with strongly jointed rock terrain indicate a rectangular drainage pattern.",
+      "A rectangular drainage pattern develops where rivers follow joints in rocks and take frequent right-angle turns.",
   },
   "Radial drainage pattern": {
     identificationStem:
-      "Streams flow outward in different directions from a central elevated area. Which drainage pattern does this describe?",
+      "Streams flow outward from a central highland. Which drainage pattern is this?",
     conditionStem:
-      "Streams descend outward in different directions from a central elevated area. Which drainage pattern is characteristic of this setting?",
+      "Which drainage pattern develops when streams flow outward from a central highland?",
     explanation:
-      "When streams flow outward in different directions from a central elevated area, the resulting arrangement is a radial drainage pattern.",
+      "In a radial pattern, streams flow outward in different directions from a central highland.",
   },
 };
 
 function conceptNameForQuestion(question: GeoRiv001Cp001ReviewQuestion) {
-  if (CONCEPT_EXPLANATIONS[question.canonicalAnswer]) return question.canonicalAnswer;
+  if (CONCEPT_EDITORIAL[question.canonicalAnswer]) return question.canonicalAnswer;
   const target = factsForQuestion(question).find(
     (fact) => fact.value.kind === "text" && fact.value.text.en === question.canonicalAnswer,
   );
   return target?.entity.label.en;
 }
 
+function joinNames(entities: readonly string[]) {
+  if (entities.length <= 1) return entities[0] ?? "";
+  if (entities.length === 2) return `${entities[0]} and ${entities[1]}`;
+  return `${entities.slice(0, -1).join(", ")} and ${entities.at(-1)}`;
+}
+
 function relationGroupSentence(relation: string, value: string, entities: readonly string[]) {
-  const names = entities.join(", ");
+  const names = joinNames(entities);
   const singular = entities.length === 1;
   if (relation === "classified_as_river_group") {
     const adjective = value === "Himalayan river" ? "Himalayan" : "Peninsular";
@@ -121,13 +161,83 @@ function relationSummary(facts: readonly KnowledgeFact[]) {
     .join(" ");
 }
 
+function simplifyStatementLanguage(text: string) {
+  return text
+    .replace(
+      /Many peninsular rivers are seasonal or strongly rain-fed\./g,
+      "Many Peninsular rivers are seasonal and largely rain-fed.",
+    )
+    .replace(
+      /Which of the statements given above is\/are correct\?/g,
+      "Which of the above statements is/are correct?",
+    )
+    .replace(
+      /How many of the statements given above are correct\?/g,
+      "How many of the above statements are correct?",
+    )
+    .replace(
+      /Therefore, Both Statement I and Statement II are correct\./g,
+      "Hence, both statements are correct.",
+    )
+    .replace(
+      /Therefore, Only Statement I is correct\./g,
+      "Hence, only Statement I is correct.",
+    )
+    .replace(
+      /Therefore, Only Statement II is correct\./g,
+      "Hence, only Statement II is correct.",
+    )
+    .replace(
+      /Therefore, Neither Statement I nor Statement II is correct\./g,
+      "Hence, neither statement is correct.",
+    )
+    .replace(
+      /0 of the three statements are correct\. Therefore, the answer is None\./g,
+      "Hence, none of the statements is correct.",
+    )
+    .replace(
+      /1 of the three statements is correct\. Therefore, the answer is One\./g,
+      "Hence, one statement is correct.",
+    )
+    .replace(
+      /2 of the three statements are correct\. Therefore, the answer is Two\./g,
+      "Hence, two statements are correct.",
+    )
+    .replace(
+      /3 of the three statements are correct\. Therefore, the answer is Three\./g,
+      "Hence, all three statements are correct.",
+    );
+}
+
+function simplifyRiverStem(stem: string) {
+  return stem
+    .replace(
+      "Which of the following is a river that drains into the ",
+      "Which of the following rivers drains into the ",
+    )
+    .replace(
+      "Which of the following is a river that forms an estuary at its mouth?",
+      "Which of the following rivers forms an estuary at its mouth?",
+    );
+}
+
 function improve(question: GeoRiv001Cp001ReviewQuestion) {
-  let stem = question.stem;
-  let explanation = question.explanation;
+  let stem = simplifyStatementLanguage(question.stem);
+  let explanation = simplifyStatementLanguage(question.explanation);
+  let options = [...question.options];
+  let canonicalAnswer = question.canonicalAnswer;
 
   if (question.qlId === "GEO-RIV-001-QL-001" || question.qlId === "GEO-RIV-001-QL-002") {
     const conceptName = conceptNameForQuestion(question);
-    if (conceptName) explanation = CONCEPT_EXPLANATIONS[conceptName] ?? explanation;
+    const editorial = conceptName ? CONCEPT_EDITORIAL[conceptName] : undefined;
+    if (editorial) {
+      stem = question.qlId === "GEO-RIV-001-QL-001" ? editorial.directStem : editorial.reverseStem;
+      explanation = editorial.explanation;
+    }
+    if (question.qlId === "GEO-RIV-001-QL-002") {
+      options = options.map((option) => DEFINITION_OPTION_REWRITES[option] ?? option);
+      if (conceptName) canonicalAnswer = SIMPLE_DEFINITIONS[conceptName] ?? canonicalAnswer;
+    }
   }
 
   if (question.qlId === "GEO-RIV-001-QL-003") {
@@ -153,11 +263,14 @@ function improve(question: GeoRiv001Cp001ReviewQuestion) {
   ) {
     const summary = relationSummary(factsForQuestion(question));
     if (question.qlId === "GEO-RIV-001-QL-005") {
+      stem = simplifyRiverStem(stem);
       explanation = summary;
     } else if (question.qlId === "GEO-RIV-001-QL-006") {
+      stem = "Which of the following pairs is correctly matched?";
       explanation = `${question.canonicalAnswer} is correctly matched. ${summary}`;
     } else {
-      explanation = `${question.canonicalAnswer} is the mismatched pair. ${summary}`;
+      stem = "Which of the following pairs is incorrectly matched?";
+      explanation = `${question.canonicalAnswer} is incorrectly matched. ${summary}`;
     }
   }
 
@@ -165,6 +278,8 @@ function improve(question: GeoRiv001Cp001ReviewQuestion) {
     ...question,
     questionId: question.questionId.replace(/CP001-V2F/g, "CP001-V2G"),
     stem,
+    options,
+    canonicalAnswer,
     explanation,
   };
   assertKnowledgeQuestionValid({
