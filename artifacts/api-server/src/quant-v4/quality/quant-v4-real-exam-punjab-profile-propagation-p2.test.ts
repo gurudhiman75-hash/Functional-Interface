@@ -1,13 +1,52 @@
 import assert from "node:assert/strict";
 
 import { getQuantV4ExamProfileContract } from "../common/exam-profile";
+import type { QuantV4GenerationRequest as CoreQuantV4GenerationRequest } from "../generation-engine-core";
+import { runAvg001QuestionStudioPipeline } from "../topics/Arithmetic/subtopics/Average/AVG-001/question-studio-adapter";
+import { runMal001QuestionStudioPipeline } from "../topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter";
+import type { ProbabilityExamProfile } from "../topics/Probability/shared/types";
+import type { MenCp009StandardQuestionStudioRequest } from "../topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/question-studio-runtime";
 import {
+  QUANT_V4_PUNJAB_PROFILE_BOUNDARY_FINDINGS,
   QUANT_V4_PUNJAB_SIMULATION_EXAMS,
   QUANT_V4_REAL_EXAM_PUNJAB_PROFILE_PROPAGATION_AUTHORITY,
-  generateQuantV4PunjabRealExamSection,
   runQuantV4PunjabProfilePropagationAudit,
 } from "./quant-v4-real-exam-punjab-profile-propagation-p2";
-import { QUANT_V4_REAL_EXAM_PROFILES } from "./quant-v4-real-exam-simulation-p2";
+
+// Compile-time boundary proofs. These @ts-expect-error assertions are intentional:
+// if a runtime later gains Punjab profile support, this test must be updated together
+// with the audit finding rather than silently continuing to call it profile-blind.
+const coreRequestBoundary: CoreQuantV4GenerationRequest = {
+  packageId: "PCT-001",
+  // @ts-expect-error Quant V4 core request does not yet expose examProfile.
+  examProfile: "PUNJAB_STATE",
+};
+void coreRequestBoundary;
+
+// @ts-expect-error Probability has no PUNJAB_STATE profile contract yet.
+const probabilityPunjabProfile: ProbabilityExamProfile = "PUNJAB_STATE";
+void probabilityPunjabProfile;
+
+type AvgQuestionStudioInput = Parameters<typeof runAvg001QuestionStudioPipeline>[1];
+const avgBoundary: AvgQuestionStudioInput = {
+  // @ts-expect-error AVG-001 Question Studio adapter does not yet expose examProfile.
+  examProfile: "PUNJAB_STATE",
+};
+void avgBoundary;
+
+type MalQuestionStudioInput = Parameters<typeof runMal001QuestionStudioPipeline>[1];
+const malBoundary: MalQuestionStudioInput = {
+  // @ts-expect-error MAL-001 Question Studio adapter does not yet expose examProfile.
+  examProfile: "PUNJAB_STATE",
+};
+void malBoundary;
+
+const menBoundary: MenCp009StandardQuestionStudioRequest = {
+  packageId: "MEN-002",
+  // @ts-expect-error MEN-002 standard Question Studio route does not yet expose examProfile.
+  examProfile: "PUNJAB_STATE",
+};
+void menBoundary;
 
 const central = getQuantV4ExamProfileContract("PUNJAB_STATE");
 assert.equal(central.family, "PUNJAB_STATE");
@@ -18,89 +57,50 @@ assert.equal(
   "QUANT-V4-REAL-EXAM-PUNJAB-PROFILE-PROPAGATION-P2",
 );
 
-for (const examId of QUANT_V4_PUNJAB_SIMULATION_EXAMS) {
-  const profile = QUANT_V4_REAL_EXAM_PROFILES.find((entry) => entry.id === examId)!;
-  const expectedCoreCount = profile.slotPlan
-    .filter((slot) => slot.kind === "ARITHMETIC_CORE" || slot.kind === "GEOMETRY_MENSURATION")
-    .reduce((total, slot) => total + slot.count, 0);
-  const seed = `QUANT-V4-PUNJAB-PROFILE-PROPAGATION-PROBE:${examId}`;
-  const first = await generateQuantV4PunjabRealExamSection({ examId, sectionIndex: 1, seed });
-  const replay = await generateQuantV4PunjabRealExamSection({ examId, sectionIndex: 1, seed });
-
-  assert.equal(first.resolvedCentralDeliveryProfile, "PUNJAB_STATE");
-  assert.equal(first.profilePropagationAuthority, QUANT_V4_REAL_EXAM_PUNJAB_PROFILE_PROPAGATION_AUTHORITY);
-  assert.equal(first.questions.length, profile.questionCount);
-
-  const core = first.questions.filter((question) =>
-    question.slotKind === "ARITHMETIC_CORE" || question.slotKind === "GEOMETRY_MENSURATION",
-  );
-  const replayCore = replay.questions.filter((question) =>
-    question.slotKind === "ARITHMETIC_CORE" || question.slotKind === "GEOMETRY_MENSURATION",
-  );
-  assert.equal(core.length, expectedCoreCount, `${examId} core-slot count drifted.`);
-  assert.equal(first.coreProfileReplacements, expectedCoreCount, `${examId} did not pass every core slot through Punjab profile propagation.`);
-  assert.ok(core.every((question) => question.sourceKind === "RUNTIME_GENERATED"), `${examId} retained a Punjab core capability gap.`);
-  assert.ok(core.every((question) => question.requestedDeliveryProfile === "PUNJAB_STATE"));
-  assert.ok(core.every((question) => question.deliveryProfileApplied === true));
-  assert.ok(core.every((question) => question.profilePropagationAuthority === QUANT_V4_REAL_EXAM_PUNJAB_PROFILE_PROPAGATION_AUTHORITY));
-  assert.ok(core.every((question) => question.optionCount === 4));
-  assert.ok(core.every((question) => question.options.length === 4 && new Set(question.options).size === 4));
-  assert.ok(core.every((question) => question.text.trim().length > 0));
-  assert.ok(core.every((question) => question.explanation.trim().length > 0));
-
-  assert.deepEqual(
-    core.map((question) => [
-      question.ordinal,
-      question.slotKind,
-      question.packageId,
-      question.text,
-      question.options,
-      question.difficulty,
-      question.requestedDeliveryProfile,
-    ]),
-    replayCore.map((question) => [
-      question.ordinal,
-      question.slotKind,
-      question.packageId,
-      question.text,
-      question.options,
-      question.difficulty,
-      question.requestedDeliveryProfile,
-    ]),
-    `${examId} Punjab core profile propagation is not deterministic for the same seed.`,
-  );
-
-  const advanced = first.questions.filter((question) =>
-    question.slotKind === "ALGEBRA" || question.slotKind === "TRIGONOMETRY",
-  );
-  assert.ok(advanced.length > 0);
-  assert.ok(advanced.every((question) => question.sourceKind === "RUNTIME_GENERATED"), `${examId} regressed the merged Advanced Mathematics integration.`);
-}
-
-const audit = await runQuantV4PunjabProfilePropagationAudit({
-  sectionsPerProfile: 2,
-  seedPrefix: "QUANT-V4-PUNJAB-PROFILE-PROPAGATION-CI",
-});
+const audit = runQuantV4PunjabProfilePropagationAudit();
 assert.equal(audit.profilesAudited, 3);
-assert.equal(audit.sectionsPerProfile, 2);
-assert.equal(audit.resolvedCentralDeliveryProfile, "PUNJAB_STATE");
-
+assert.equal(audit.simulatorPropagationReady, false);
+assert.equal(audit.probabilityHasPunjabProfile, false);
+assert.ok(audit.blockingFindingCount >= 6);
+assert.deepEqual(
+  audit.summaries.map((summary) => summary.examId),
+  [...QUANT_V4_PUNJAB_SIMULATION_EXAMS],
+);
 for (const summary of audit.summaries) {
-  assert.equal(summary.sectionsGenerated, 2);
-  assert.ok(summary.coreRecords > 0);
-  assert.equal(summary.coreRuntimeGenerated, summary.coreRecords, `${summary.examId} has a Punjab core runtime gap.`);
-  assert.equal(summary.coreProfileApplied, summary.coreRecords, `${summary.examId} has a core slot without explicit PUNJAB_STATE delivery.`);
-  assert.equal(summary.coreCapabilityGaps, 0, `${summary.examId} has a Punjab profile capability gap.`);
-  assert.equal(summary.optionMismatchCount, 0, `${summary.examId} Punjab core delivery is not four-option.`);
-  assert.equal(summary.historicalSimulatorMetadataStillStale, true, `${summary.examId} historical baseline metadata changed; retire this assertion only when the baseline file itself is consolidated.`);
-  assert.equal(summary.packageDistribution.CAPABILITY_GAP ?? 0, 0);
+  assert.equal(summary.historicalCentralDeliveryProfile, null, `${summary.examId} historical profile metadata unexpectedly changed.`);
+  assert.equal(summary.historicalCentralProfileGap, true, `${summary.examId} historical central-profile gap must remain explicit until downstream routes support Punjab.`);
+  assert.equal(summary.centralAuthority, "PUNJAB_STATE");
+  assert.equal(summary.centralOptionCount, 4);
+  assert.equal(summary.centralDeliveryStyle, "PUNJAB_STATE_OBJECTIVE");
+  assert.equal(summary.simulatorPropagationReady, false);
 }
+
+const findingBySurface = new Map(
+  QUANT_V4_PUNJAB_PROFILE_BOUNDARY_FINDINGS.map((finding) => [finding.surface, finding]),
+);
+assert.equal(findingBySurface.get("CENTRAL_EXAM_PROFILE_AUTHORITY")?.status, "SUPPORTED");
+assert.equal(findingBySurface.get("HISTORICAL_REAL_EXAM_SIMULATOR")?.status, "STALE_SIMULATOR_METADATA");
+assert.equal(findingBySurface.get("CORE_GENERATION_ENGINE")?.status, "PROFILE_BLIND");
+assert.equal(findingBySurface.get("QUESTION_STUDIO_AVERAGE_ROUTE")?.status, "PROFILE_BLIND");
+assert.equal(findingBySurface.get("QUESTION_STUDIO_MIXTURE_ROUTE")?.status, "PROFILE_BLIND");
+assert.equal(findingBySurface.get("LEGACY_ARITHMETIC_RUNTIME_ROUTES")?.status, "PROFILE_BLIND");
+assert.equal(findingBySurface.get("MEN_002_STANDARD_QUESTION_STUDIO_ROUTE")?.status, "PROFILE_BLIND");
+assert.equal(findingBySurface.get("PROBABILITY_PROFILE_CONTRACT")?.status, "PUNJAB_PROFILE_UNSUPPORTED");
+
+const coreFinding = findingBySurface.get("CORE_GENERATION_ENGINE");
+assert.ok(coreFinding?.affectedPackages.includes("PCT-001"));
+assert.ok(coreFinding?.affectedPackages.includes("RAP-001"));
+assert.ok(coreFinding?.affectedPackages.includes("PRT-001"));
+assert.ok(findingBySurface.get("PROBABILITY_PROFILE_CONTRACT")?.affectedPackages.includes("PRB-001"));
+assert.ok(findingBySurface.get("PROBABILITY_PROFILE_CONTRACT")?.affectedPackages.includes("PRB-002"));
 
 console.log(JSON.stringify({
-  status: "PASS_QUANT_V4_REAL_EXAM_PUNJAB_PROFILE_PROPAGATION_P2",
+  status: "PASS_QUANT_V4_REAL_EXAM_PUNJAB_PROFILE_BOUNDARY_AUDIT_P2",
   authority: audit.authority,
   profilesAudited: audit.profilesAudited,
-  sectionsPerProfile: audit.sectionsPerProfile,
-  resolvedCentralDeliveryProfile: audit.resolvedCentralDeliveryProfile,
+  simulatorPropagationReady: audit.simulatorPropagationReady,
+  probabilityHasPunjabProfile: audit.probabilityHasPunjabProfile,
+  blockingFindingCount: audit.blockingFindingCount,
+  findings: audit.findings,
   summaries: audit.summaries,
 }));
