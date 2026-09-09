@@ -53,6 +53,7 @@ for (const question of GEO_RIV_001_CP001_REVIEW_BATCH_V2G) {
   assert.equal(question.sourceFactIds.length > 0, true);
   assert.equal(question.explanation.length >= 45, true, question.questionId);
   assert.equal(/is correct because it is/i.test(question.explanation), false, question.questionId);
+  assert.equal(/;\s*while\b/i.test(question.explanation), false, question.questionId);
 }
 
 for (const question of GEO_RIV_001_CP001_REVIEW_BATCH_V2G.filter(
