@@ -366,7 +366,7 @@ export async function runQuantV4PunjabProfilePropagationAudit(input: {
       coreProfileApplied: core.filter((question) => question.deliveryProfileApplied === true).length,
       coreCapabilityGaps: core.filter((question) => question.sourceKind === "CAPABILITY_GAP").length,
       optionMismatchCount: core.filter((question) => question.optionCount !== 4).length,
-      historicalSimulatorMetadataStillStale: historical.centralDeliveryProfile !== "PUNJAB_STATE",
+      historicalSimulatorMetadataStillStale: String(historical.centralDeliveryProfile ?? "") !== "PUNJAB_STATE",
       packageDistribution: countBy(core.map((question) => question.packageId)),
     }));
   }
