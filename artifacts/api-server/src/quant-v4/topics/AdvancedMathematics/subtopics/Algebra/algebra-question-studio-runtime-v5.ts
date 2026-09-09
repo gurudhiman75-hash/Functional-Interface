@@ -2,7 +2,7 @@ import {
   assertQuantV4OptionCount,
   getQuantV4ExamProfileContract,
   type QuantV4ExamProfileId,
-} from "../../../common/exam-profile";
+} from "../../../../common/exam-profile";
 import {
   ALGEBRA_QUESTION_STUDIO_INTEGRATION_AUTHORITY,
   ALGEBRA_QUESTION_STUDIO_PATTERNS,
@@ -30,7 +30,6 @@ export type AlgebraStudioExamProfileV5 =
   (typeof ALGEBRA_QUESTION_STUDIO_EXAM_PROFILES_V5)[number];
 
 const LABELS = ["A", "B", "C", "D", "E"] as const;
-
 type OptionLabelV5 = (typeof LABELS)[number];
 
 function hashText(text: string): number {
