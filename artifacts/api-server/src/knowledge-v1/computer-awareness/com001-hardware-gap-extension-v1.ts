@@ -99,9 +99,9 @@ const S: readonly Source[] = [
   },
   {
     id: "COM001-EXT-009", qlId: "COM-001-CP-007-QL-003", difficulty: "EASY", correctIndex: 2, fact: "DMA means Direct Memory Access and transfers data between devices and memory without continuous CPU control",
-    en: { stem: "What does DMA mean?", options: ["Data Monitor Area", "Digital Memory Address", "Direct Memory Access", "Device Machine Action"], explanation: "DMA means Direct Memory Access. It lets a device transfer data to memory with less continuous CPU control." },
-    hi: { stem: "DMA का पूरा नाम क्या है?", options: ["Data Monitor Area", "Digital Memory Address", "Direct Memory Access", "Device Machine Action"], explanation: "DMA का पूरा नाम Direct Memory Access है। इससे डिवाइस लगातार CPU नियंत्रण के बिना मेमोरी में डेटा भेज सकता है।" },
-    pa: { stem: "DMA ਦਾ ਪੂਰਾ ਨਾਮ ਕੀ ਹੈ?", options: ["Data Monitor Area", "Digital Memory Address", "Direct Memory Access", "Device Machine Action"], explanation: "DMA ਦਾ ਪੂਰਾ ਨਾਮ Direct Memory Access ਹੈ। ਇਸ ਨਾਲ ਡਿਵਾਈਸ ਲਗਾਤਾਰ CPU ਕੰਟਰੋਲ ਤੋਂ ਬਿਨਾਂ ਮੈਮੋਰੀ ਵਿੱਚ ਡਾਟਾ ਭੇਜ ਸਕਦੀ ਹੈ।" },
+    en: { stem: "What does DMA mean?", options: ["Data Monitor Area", "Digital Memory Address", "Direct Memory Access", "Device Machine Action"], explanation: "DMA means Direct Memory Access. It lets a device transfer data to memory with less continuous control by the Central Processing Unit (CPU)." },
+    hi: { stem: "DMA का पूरा नाम क्या है?", options: ["Data Monitor Area", "Digital Memory Address", "Direct Memory Access", "Device Machine Action"], explanation: "DMA का पूरा नाम Direct Memory Access है। इससे डिवाइस Central Processing Unit (CPU) के लगातार नियंत्रण के बिना मेमोरी में डेटा भेज सकता है।" },
+    pa: { stem: "DMA ਦਾ ਪੂਰਾ ਨਾਮ ਕੀ ਹੈ?", options: ["Data Monitor Area", "Digital Memory Address", "Direct Memory Access", "Device Machine Action"], explanation: "DMA ਦਾ ਪੂਰਾ ਨਾਮ Direct Memory Access ਹੈ। ਇਸ ਨਾਲ ਡਿਵਾਈਸ Central Processing Unit (CPU) ਦੇ ਲਗਾਤਾਰ ਕੰਟਰੋਲ ਤੋਂ ਬਿਨਾਂ ਮੈਮੋਰੀ ਵਿੱਚ ਡਾਟਾ ਭੇਜ ਸਕਦੀ ਹੈ।" },
   },
   {
     id: "COM001-EXT-010", qlId: "COM-001-CP-007-QL-003", difficulty: "EASY", correctIndex: 0, fact: "UPS means Uninterruptible Power Supply and provides temporary backup power",
@@ -147,9 +147,9 @@ const S: readonly Source[] = [
   },
   {
     id: "COM001-EXT-017", qlId: "COM-001-CP-007-QL-001", difficulty: "MEDIUM", correctIndex: 1, fact: "a time slice is a short CPU time period given to a process",
-    en: { stem: "What is a time slice in multitasking?", options: ["A disk partition", "A short CPU time period", "A printer setting", "A monitor cable"], explanation: "A time slice is a short period in which a process gets CPU time." },
-    hi: { stem: "मल्टीटास्किंग में टाइम स्लाइस क्या है?", options: ["डिस्क का भाग", "CPU का छोटा समय", "प्रिंटर की सेटिंग", "मॉनिटर की केबल"], explanation: "टाइम स्लाइस वह छोटा समय है जिसमें किसी प्रोग्राम को CPU का समय मिलता है।" },
-    pa: { stem: "ਮਲਟੀਟਾਸਕਿੰਗ ਵਿੱਚ ਟਾਈਮ ਸਲਾਈਸ ਕੀ ਹੁੰਦੀ ਹੈ?", options: ["ਡਿਸਕ ਦਾ ਭਾਗ", "CPU ਦਾ ਥੋੜ੍ਹਾ ਸਮਾਂ", "ਪ੍ਰਿੰਟਰ ਦੀ ਸੈਟਿੰਗ", "ਮਾਨੀਟਰ ਦੀ ਕੇਬਲ"], explanation: "ਟਾਈਮ ਸਲਾਈਸ ਉਹ ਥੋੜ੍ਹਾ ਸਮਾਂ ਹੁੰਦਾ ਹੈ ਜਿਸ ਵਿੱਚ ਕਿਸੇ ਪ੍ਰੋਗਰਾਮ ਨੂੰ CPU ਦਾ ਸਮਾਂ ਮਿਲਦਾ ਹੈ।" },
+    en: { stem: "What is a time slice in multitasking?", options: ["A disk partition", "A short CPU time period", "A printer setting", "A monitor cable"], explanation: "A time slice is a short period in which a process gets time from the Central Processing Unit (CPU)." },
+    hi: { stem: "मल्टीटास्किंग में टाइम स्लाइस क्या है?", options: ["डिस्क का भाग", "CPU का छोटा समय", "प्रिंटर की सेटिंग", "मॉनिटर की केबल"], explanation: "टाइम स्लाइस वह छोटा समय है जिसमें किसी प्रोग्राम को Central Processing Unit (CPU) का समय मिलता है।" },
+    pa: { stem: "ਮਲਟੀਟਾਸਕਿੰਗ ਵਿੱਚ ਟਾਈਮ ਸਲਾਈਸ ਕੀ ਹੁੰਦੀ ਹੈ?", options: ["ਡਿਸਕ ਦਾ ਭਾਗ", "CPU ਦਾ ਥੋੜ੍ਹਾ ਸਮਾਂ", "ਪ੍ਰਿੰਟਰ ਦੀ ਸੈਟਿੰਗ", "ਮਾਨੀਟਰ ਦੀ ਕੇਬਲ"], explanation: "ਟਾਈਮ ਸਲਾਈਸ ਉਹ ਥੋੜ੍ਹਾ ਸਮਾਂ ਹੁੰਦਾ ਹੈ ਜਿਸ ਵਿੱਚ ਕਿਸੇ ਪ੍ਰੋਗਰਾਮ ਨੂੰ Central Processing Unit (CPU) ਦਾ ਸਮਾਂ ਮਿਲਦਾ ਹੈ।" },
   },
   {
     id: "COM001-EXT-018", qlId: "COM-001-CP-007-QL-003", difficulty: "EASY", correctIndex: 3, fact: "the data bus carries data between computer components",
