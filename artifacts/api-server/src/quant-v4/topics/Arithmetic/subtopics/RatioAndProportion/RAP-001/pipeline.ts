@@ -1,19 +1,78 @@
 import { renderRap001Explanation } from "./explanation-renderer";
-import { buildRap001SemanticTrace, renderTemplate, resolveRap001EntityVariables } from "./library";
+import {
+  buildRap001SemanticTrace,
+  getAnswerType,
+  getQuestionEntry,
+  getRequiredVariables,
+  getTaskKind,
+  renderTemplate,
+  resolveRap001EntityVariables,
+} from "./library";
 import { getEffectiveRap001QuestionEntry } from "./effective-question-entry";
-import { generateRap001Parameters, type Rap001ParameterInput } from "./parameter-generator";
+import {
+  generateRap001Parameters,
+  getSelectableQuestionLanguageIds,
+  type Rap001ParameterInput,
+} from "./parameter-generator";
 import { buildRap001ReasoningGraph } from "./reasoning-graph";
 import { solveRap001 } from "./solver";
-import { RAP_001_ARCHETYPE_ID, type Rap001CanonicalProblemId, type Rap001Language, type Rap001QuestionPackage } from "./types";
+import {
+  RAP_001_ARCHETYPE_ID,
+  type Rap001CanonicalProblemId,
+  type Rap001Language,
+  type Rap001QuestionPackage,
+} from "./types";
 import { validateRap001QuestionPackage } from "./validator";
 import { renderStemWithNumericDisplayPolicy } from "../numeric-display-policy";
 import { naturalizeEnglishRapExplanation } from "../naturalize-explanation";
 import { normalizeRap001EditorialParameters } from "./editorial-parameter-normalizer";
 import { normalizeRap001EditorialSolver } from "./editorial-solver-normalizer";
 import { polishEnglishRapStem } from "../editorial-stem";
+import { stableBucket } from "./math";
+import { curateDefaultQuestionLanguageIds } from "../../../../../common/default-question-language-pool";
 
-export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001ParameterInput = {}): Rap001QuestionPackage {
-  const parameters = normalizeRap001EditorialParameters(generateRap001Parameters(cpId, input));
+function resolveRap001DefaultInput(
+  cpId: Rap001CanonicalProblemId,
+  input: Rap001ParameterInput,
+): Rap001ParameterInput {
+  if (input.questionLanguageId) return input;
+
+  const language = input.language ?? "en";
+  const availableIds = getSelectableQuestionLanguageIds(cpId, language);
+  const curatedIds = curateDefaultQuestionLanguageIds(availableIds, (questionLanguageId) => {
+    const englishEntry = getQuestionEntry(cpId, questionLanguageId, "en");
+    return {
+      taskKind: getTaskKind(cpId, questionLanguageId),
+      answerType: getAnswerType(cpId, questionLanguageId),
+      requiredVariables: getRequiredVariables(cpId, questionLanguageId),
+      difficulty: englishEntry.difficulty,
+      template: englishEntry.template,
+    };
+  });
+  const difficultyFiltered = input.difficultyBand
+    ? curatedIds.filter(
+        (questionLanguageId) =>
+          getQuestionEntry(cpId, questionLanguageId, "en").difficulty === input.difficultyBand,
+      )
+    : curatedIds;
+  const source = difficultyFiltered.length > 0 ? difficultyFiltered : curatedIds;
+  if (source.length === 0) return input;
+  const seed = input.seed ?? `RAP-001:${cpId}`;
+
+  return {
+    ...input,
+    questionLanguageId: source[stableBucket(`${seed}:curated-default-ql`, source.length)]!,
+  };
+}
+
+export function runRap001Pipeline(
+  cpId: Rap001CanonicalProblemId,
+  input: Rap001ParameterInput = {},
+): Rap001QuestionPackage {
+  const resolvedInput = resolveRap001DefaultInput(cpId, input);
+  const parameters = normalizeRap001EditorialParameters(
+    generateRap001Parameters(cpId, resolvedInput),
+  );
   const solver = normalizeRap001EditorialSolver(parameters, solveRap001(parameters));
   const reasoningGraph = buildRap001ReasoningGraph(parameters, solver);
   let renderedExplanation;
@@ -22,7 +81,7 @@ export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001P
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     throw new Error(
-      `RAP-001 explanation rendering failed: cpId=${cpId}; qlId=${parameters.questionLanguageId}; taskKind=${parameters.taskKind}; seed=${String(input.seed ?? "")}; ${message}`,
+      `RAP-001 explanation rendering failed: cpId=${cpId}; qlId=${parameters.questionLanguageId}; taskKind=${parameters.taskKind}; seed=${String(resolvedInput.seed ?? "")}; ${message}`,
       { cause: error },
     );
   }
@@ -31,13 +90,26 @@ export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001P
     parameters.language,
     solver.answer,
   );
-  const renderVariables = resolveRap001EntityVariables(parameters.variables, parameters.language, parameters.entityReferences);
+  const renderVariables = resolveRap001EntityVariables(
+    parameters.variables,
+    parameters.language,
+    parameters.entityReferences,
+  );
   const renderedStem = renderTemplate(
-    getEffectiveRap001QuestionEntry(cpId, parameters.questionLanguageId, parameters.language).template,
+    getEffectiveRap001QuestionEntry(
+      cpId,
+      parameters.questionLanguageId,
+      parameters.language,
+    ).template,
     renderVariables,
   );
   const stem = polishEnglishRapStem(
-    renderStemWithNumericDisplayPolicy(renderedStem, solver.answer, solver.answerType, parameters.language),
+    renderStemWithNumericDisplayPolicy(
+      renderedStem,
+      solver.answer,
+      solver.answerType,
+      parameters.language,
+    ),
     parameters.language,
   );
   const semanticTrace = buildRap001SemanticTrace(parameters.semanticContext);
@@ -74,12 +146,19 @@ export function runRap001Pipeline(cpId: Rap001CanonicalProblemId, input: Rap001P
     },
     mathJax: solver.mathJax,
   };
-  const validation = validateRap001QuestionPackage({ ...basePackage, validation: { valid: false, checks: [] } });
+  const validation = validateRap001QuestionPackage({
+    ...basePackage,
+    validation: { valid: false, checks: [] },
+  });
   return { ...basePackage, validation };
 }
 
-export function runRap001ForLanguages(cpId: Rap001CanonicalProblemId, input: Rap001ParameterInput = {}) {
-  const base = generateRap001Parameters(cpId, { ...input, language: "en" });
+export function runRap001ForLanguages(
+  cpId: Rap001CanonicalProblemId,
+  input: Rap001ParameterInput = {},
+) {
+  const baseInput = resolveRap001DefaultInput(cpId, { ...input, language: "en" });
+  const base = generateRap001Parameters(cpId, baseInput);
   return (["en", "hi", "pa"] as Rap001Language[]).map((language) =>
     runRap001Pipeline(cpId, {
       ...input,
@@ -91,9 +170,15 @@ export function runRap001ForLanguages(cpId: Rap001CanonicalProblemId, input: Rap
   );
 }
 
-export const runRap001Cp001Pipeline = (input: Rap001ParameterInput = {}) => runRap001Pipeline("RAP-CP-001", input);
-export const runRap001Cp002Pipeline = (input: Rap001ParameterInput = {}) => runRap001Pipeline("RAP-CP-002", input);
-export const runRap001Cp003Pipeline = (input: Rap001ParameterInput = {}) => runRap001Pipeline("RAP-CP-003", input);
-export const runRap001Cp004Pipeline = (input: Rap001ParameterInput = {}) => runRap001Pipeline("RAP-CP-004", input);
-export const runRap001Cp005Pipeline = (input: Rap001ParameterInput = {}) => runRap001Pipeline("RAP-CP-005", input);
-export const runRap001Cp006Pipeline = (input: Rap001ParameterInput = {}) => runRap001Pipeline("RAP-CP-006", input);
+export const runRap001Cp001Pipeline = (input: Rap001ParameterInput = {}) =>
+  runRap001Pipeline("RAP-CP-001", input);
+export const runRap001Cp002Pipeline = (input: Rap001ParameterInput = {}) =>
+  runRap001Pipeline("RAP-CP-002", input);
+export const runRap001Cp003Pipeline = (input: Rap001ParameterInput = {}) =>
+  runRap001Pipeline("RAP-CP-003", input);
+export const runRap001Cp004Pipeline = (input: Rap001ParameterInput = {}) =>
+  runRap001Pipeline("RAP-CP-004", input);
+export const runRap001Cp005Pipeline = (input: Rap001ParameterInput = {}) =>
+  runRap001Pipeline("RAP-CP-005", input);
+export const runRap001Cp006Pipeline = (input: Rap001ParameterInput = {}) =>
+  runRap001Pipeline("RAP-CP-006", input);
