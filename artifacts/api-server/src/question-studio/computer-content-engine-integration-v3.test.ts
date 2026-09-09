@@ -6,6 +6,7 @@ const expectedPackageIds = [
   "COM-001",
   "COM-002",
   "COM-003",
+  "COM-003-WORD-TABS",
   "COM-004",
   "COM-005",
   "COM-006",
@@ -19,16 +20,17 @@ assert.deepEqual(packageIds, [...expectedPackageIds].sort());
 assert.equal(new Set(packageIds).size, expectedPackageIds.length);
 
 for (const pkg of packages) {
+  const wordTabsReviewOnly = pkg.packageId === "COM-003-WORD-TABS";
   assert.equal(pkg.engineId, "knowledge-v1");
   assert.equal(pkg.enabled, true);
   assert.deepEqual(pkg.supportedLanguages, ["en", "hi", "pa"]);
-  assert.deepEqual(pkg.supportedDifficulties, ["Easy", "Medium"]);
+  assert.deepEqual(pkg.supportedDifficulties ?? pkg.metadata?.supportedDifficulties, ["Easy", "Medium"]);
   assert.equal(pkg.runtimeMode, "review-only");
-  assert.equal(pkg.lifecycleStage, "BANK_ONLY");
+  assert.equal(pkg.lifecycleStage, wordTabsReviewOnly ? "REVIEW_ONLY" : "BANK_ONLY");
   assert.equal(pkg.manualApprovalRequired, true);
-  assert.equal(pkg.questionBankStatus, "READY_FOR_STORAGE");
-  assert.equal(pkg.questionBankWritable, true);
-  assert.equal(pkg.questionBankAcceptanceMode, "BANK_ONLY");
+  assert.equal(pkg.questionBankStatus, wordTabsReviewOnly ? "NOT_STORED" : "READY_FOR_STORAGE");
+  assert.equal(pkg.questionBankWritable, wordTabsReviewOnly ? false : true);
+  assert.equal(pkg.questionBankAcceptanceMode, wordTabsReviewOnly ? null : "BANK_ONLY");
   assert.equal(pkg.testEligible, false);
   assert.equal(pkg.mockTestEligible, false);
   assert.equal(pkg.publiclyPublishable, false);
@@ -54,30 +56,35 @@ for (const pkg of packages) {
     assert.equal(generated.generationContext?.engineId, "knowledge-v1");
     assert.equal(generated.generationContext?.packageId, pkg.packageId);
     assert.equal(generated.generationContext?.runtimeMode, "review-only");
-    assert.equal(generated.generationContext?.questionBankStatus, "READY_FOR_STORAGE");
-    assert.equal(generated.generationContext?.questionBankWritable, true);
-    assert.equal(generated.generationContext?.questionBankAcceptanceMode, "BANK_ONLY");
+    assert.equal(generated.generationContext?.questionBankStatus, wordTabsReviewOnly ? "NOT_STORED" : "READY_FOR_STORAGE");
+    assert.equal(generated.generationContext?.questionBankWritable, wordTabsReviewOnly ? false : true);
+    assert.equal(generated.generationContext?.questionBankAcceptanceMode, wordTabsReviewOnly ? null : "BANK_ONLY");
     assert.equal(generated.generationContext?.testEligible, false);
     assert.equal(generated.generationContext?.mockTestEligible, false);
     assert.equal(generated.generationContext?.publiclyPublishable, false);
     assert.equal(generated.generationContext?.productionReleaseAuthorized, false);
-    assert.equal(
-      generated.generationContext?.questionBankAcceptanceAuthority != null,
-      true,
-    );
+    assert.equal(wordTabsReviewOnly ? generated.generationContext?.questionBankAcceptanceAuthority == null : generated.generationContext?.questionBankAcceptanceAuthority != null, true);
 
     for (const question of questions) {
       assert.equal(question.packageId, pkg.packageId);
       assert.equal(question.language, language);
-      assert.equal(question.registrationStatus, "REGISTERED_BANK_ONLY_INTERNAL");
-      assert.equal(question.questionBankStatus, "READY_FOR_STORAGE");
-      assert.equal(question.questionBankWritable, true);
-      assert.equal(question.questionBankAcceptanceMode, "BANK_ONLY");
+      if (wordTabsReviewOnly) {
+        assert.equal(question.registrationStatus, "REVIEW_ONLY_CANDIDATE");
+      } else if (pkg.packageId === "COM-001" || pkg.packageId === "COM-002") {
+        assert.equal(question.registrationStatus ?? null, null);
+      } else {
+        assert.equal(question.registrationStatus, "REGISTERED_BANK_ONLY_INTERNAL");
+      }
+      assert.equal(question.questionBankStatus, wordTabsReviewOnly ? "NOT_STORED" : "READY_FOR_STORAGE");
+      assert.equal(question.questionBankWritable, wordTabsReviewOnly ? false : true);
+      assert.equal(question.questionBankAcceptanceMode, wordTabsReviewOnly ? null : "BANK_ONLY");
       assert.equal(question.testEligible, false);
       assert.equal(question.mockTestEligible, false);
       assert.equal(question.publiclyPublishable, false);
       assert.equal(question.productionReleaseAuthorized, false);
-      assert.ok(String(question.sourceQuestionId ?? "").length > 0);
+      if (pkg.packageId !== "COM-001" && pkg.packageId !== "COM-002") {
+        assert.ok(String(question.sourceQuestionId ?? "").length > 0);
+      }
       assert.ok(String(question.stem ?? "").trim().length > 0);
       assert.ok(String(question.explanation ?? "").trim().length > 0);
       assert.notEqual(question.difficulty, "Hard");

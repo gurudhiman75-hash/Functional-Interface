@@ -10,6 +10,10 @@ import {
   knowledgeV1Com003QuestionStudioAdapterV2,
 } from "./knowledge-v1-com003-adapter-v2";
 import {
+  isCom003WordTabsQuestionStudioRequest,
+  knowledgeV1Com003WordTabsQuestionStudioAdapterV1,
+} from "./knowledge-v1-com003-word-tabs-adapter-v1";
+import {
   isCom005QuestionStudioRequestV1,
   knowledgeV1Com005QuestionStudioAdapterV1,
 } from "./knowledge-v1-com005-adapter-v1";
@@ -43,6 +47,7 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...knowledgeV1Com001QuestionStudioAdapter.listPackages(),
       ...knowledgeV1Com002QuestionStudioAdapterV3.listPackages(),
       ...knowledgeV1Com003QuestionStudioAdapterV2.listPackages(),
+      ...knowledgeV1Com003WordTabsQuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Com004QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Com005QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Com006QuestionStudioAdapterV1.listPackages(),
@@ -59,6 +64,9 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
     if (isCom004QuestionStudioRequestV1(request)) {
       return knowledgeV1Com004QuestionStudioAdapterV1.generate(request);
+    }
+    if (isCom003WordTabsQuestionStudioRequest(request)) {
+      return knowledgeV1Com003WordTabsQuestionStudioAdapterV1.generate(request);
     }
     if (isCom003QuestionStudioRequestV2(request)) {
       return knowledgeV1Com003QuestionStudioAdapterV2.generate(request);

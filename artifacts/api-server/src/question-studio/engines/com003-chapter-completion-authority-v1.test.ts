@@ -34,15 +34,20 @@ const pkg = packages.find((candidate) => candidate.packageId === "COM-003");
 assert.ok(pkg, "COM-003 must be registered in knowledge-v1 Question Studio");
 assert.equal(pkg.runtimeMode, "review-only");
 assert.equal(pkg.enabled, true);
+assert.equal(pkg.lifecycleStage, "BANK_ONLY");
 assert.equal(pkg.difficultyFilterSupported, true);
 assert.deepEqual(pkg.supportedDifficulties, ["Easy", "Medium"]);
+assert.equal(pkg.questionBankStatus, "READY_FOR_STORAGE");
+assert.equal(pkg.questionBankWritable, true);
+assert.equal(pkg.questionBankAcceptanceMode, "BANK_ONLY");
 assert.equal(pkg.metadata?.englishFreezeAuthorityId, authority.contentAuthority.englishFreezeAuthorityId);
 assert.equal(pkg.metadata?.localizationFreezeAuthorityId, authority.contentAuthority.localizationFreezeAuthorityId);
 assert.equal(pkg.metadata?.difficultyClassifierVersion, authority.contentAuthority.difficultyAuthorityVersion);
 assert.equal(pkg.metadata?.productionDifficultyClaimsAuthorized, false);
+assert.equal(pkg.metadata?.reviewOnly, false);
+assert.equal(pkg.metadata?.humanReviewApproved, true);
 
 for (const [label, value] of [
-  ["questionBankWritable", pkg.questionBankWritable],
   ["testEligible", pkg.testEligible],
   ["mockTestEligible", pkg.mockTestEligible],
   ["publiclyPublishable", pkg.publiclyPublishable],
@@ -65,14 +70,16 @@ for (const language of ["en", "hi", "pa"] as const) {
   assert.equal(generated.generationContext?.englishFreezeAuthorityId, authority.contentAuthority.englishFreezeAuthorityId);
   assert.equal(generated.generationContext?.localizationFreezeAuthorityId, authority.contentAuthority.localizationFreezeAuthorityId);
   assert.equal(generated.generationContext?.difficultyClassifierVersion, authority.contentAuthority.difficultyAuthorityVersion);
-  assert.equal(generated.generationContext?.questionBankWritable, false);
+  assert.equal(generated.generationContext?.stage, "BANK_ONLY");
+  assert.equal(generated.generationContext?.questionBankWritable, true);
+  assert.equal(generated.generationContext?.questionBankAcceptanceMode, "BANK_ONLY");
   assert.equal(generated.generationContext?.testEligible, false);
   assert.equal(generated.generationContext?.mockTestEligible, false);
   assert.equal(generated.generationContext?.publiclyPublishable, false);
   assert.equal(generated.generationContext?.productionReleaseAuthorized, false);
-  assert.ok(generated.questions.every((question: any) => question.registrationStatus === "REGISTERED_REVIEW_ONLY"));
+  assert.ok(generated.questions.every((question: any) => question.registrationStatus === "REGISTERED_BANK_ONLY_INTERNAL"));
   assert.ok(generated.questions.every((question: any) => question.readOnly === true));
-  assert.ok(generated.questions.every((question: any) => question.questionBankWritable === false));
+  assert.ok(generated.questions.every((question: any) => question.questionBankWritable === true));
 }
 
 for (const difficulty of ["Easy", "Medium"] as const) {
