@@ -1,5 +1,5 @@
 import { deterministicPick } from "../../../../core/deterministic";
-import type { Eng001QlId, Eng001Question, EnglishDifficulty, GrammarRuleId } from "../../../../core/types";
+import type { Eng001QlId, Eng001Question, Eng001SentenceCandidate, EnglishDifficulty, GrammarRuleId } from "../../../../core/types";
 import { SUBJECT_VERB_AGREEMENT_RULE_BY_ID } from "../../../../grammar/subject-verb-agreement";
 import {
   buildEng001Cp001CandidateV4,
@@ -7,6 +7,7 @@ import {
   rulesForDifficultyV4,
   semanticDomainOfV4,
 } from "./cp001-patterns-v4";
+import { BASE_SCENES_V4 } from "./cp001-semantic-catalog-v4";
 import { CONTEXT_EXPANSIONS_BY_DOMAIN_V4 } from "./cp001-context-expansions-v4";
 
 const STEMS: Record<Eng001QlId, readonly string[]> = {
@@ -77,6 +78,62 @@ function editorializeText(text: string): string {
 
 function editorializeSegments(segments: readonly string[]): string[] {
   return segments.map(editorializeText);
+}
+
+interface ModifierEchoRepair {
+  correctSegments: string[];
+  errorSegments: string[];
+  explanationApplication: string;
+  repaired: boolean;
+}
+
+/**
+ * When a base-scene modifier repeats the same participle as the finite
+ * continuous verb (for example, “bridge carrying ... is carrying ...”), use
+ * the scene's other authored modifier. This keeps the structural dependency
+ * while removing a machine-like lexical echo. We never synthesize a modifier
+ * and never touch the registered error segment.
+ */
+function repairBaseSceneModifierEcho(candidate: Eng001SentenceCandidate): ModifierEchoRepair {
+  const correctSegments = [...candidate.correctSegments];
+  const errorSegments = [...candidate.errorSegments];
+  const errorIndex = candidate.errorIndex;
+  if (errorIndex === null) {
+    return { correctSegments, errorSegments, explanationApplication: candidate.explanationApplication, repaired: false };
+  }
+
+  const finite = candidate.correctSegments[errorIndex] ?? candidate.correction;
+  const participle = finite.toLowerCase().match(/\b(?:am|is|are|was|were|be|been|being)\s+([a-z]+ing)\b/)?.[1];
+  if (!participle) {
+    return { correctSegments, errorSegments, explanationApplication: candidate.explanationApplication, repaired: false };
+  }
+
+  const modifierIndex = correctSegments.findIndex((segment, index) =>
+    index !== errorIndex && segment.trim().toLowerCase().startsWith(`${participle} `),
+  );
+  if (modifierIndex < 0) {
+    return { correctSegments, errorSegments, explanationApplication: candidate.explanationApplication, repaired: false };
+  }
+
+  const sceneId = candidate.tags.find((tag) => tag.startsWith("scene:"))?.slice("scene:".length);
+  const scene = sceneId ? BASE_SCENES_V4.find((entry) => entry.id === sceneId) : undefined;
+  if (!scene) {
+    return { correctSegments, errorSegments, explanationApplication: candidate.explanationApplication, repaired: false };
+  }
+
+  const originalModifier = correctSegments[modifierIndex]!.trim();
+  const safeAlternatives = scene.modifiers.filter(
+    (modifier) => modifier !== originalModifier && !modifier.toLowerCase().startsWith(`${participle} `),
+  );
+  if (safeAlternatives.length === 0) {
+    return { correctSegments, errorSegments, explanationApplication: candidate.explanationApplication, repaired: false };
+  }
+
+  const replacement = deterministicPick(`${candidate.candidateId}:modifier-echo-repair`, safeAlternatives);
+  correctSegments[modifierIndex] = replacement;
+  errorSegments[modifierIndex] = replacement;
+  const explanationApplication = candidate.explanationApplication.replaceAll(originalModifier, replacement);
+  return { correctSegments, errorSegments, explanationApplication, repaired: true };
 }
 
 function sentenceFromSegments(segments: readonly string[]): string {
@@ -233,10 +290,11 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
     CONTEXT_EXPANSIONS_BY_DOMAIN_V4[domain],
   );
 
+  const modifierRepair = repairBaseSceneModifierEcho(candidate);
   const isNoError = qlId === "ENG-001-QL007";
   const rawErrorIndex = isNoError ? null : candidate.errorIndex;
-  const editorialCorrect = editorializeSegments(candidate.correctSegments);
-  const editorialError = editorializeSegments(candidate.errorSegments);
+  const editorialCorrect = editorializeSegments(modifierRepair.correctSegments);
+  const editorialError = editorializeSegments(modifierRepair.errorSegments);
   const contextualCorrect = contextualizeSegments(editorialCorrect, candidate.errorIndex, context.text);
   const contextualError = contextualizeSegments(editorialError, candidate.errorIndex, context.text);
   const rawSegments = isNoError ? contextualCorrect : contextualError;
@@ -249,11 +307,12 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
   const correctOptionIndex = shaped.errorIndex ?? shaped.segments.length;
   const answerLabel = options[correctOptionIndex]!;
   const correctedSentence = sentenceFromSegments(contextualCorrect);
-  const explanationApplication = editorializeText(candidate.explanationApplication);
+  const explanationApplication = editorializeText(modifierRepair.explanationApplication);
   const explanation = isNoError
     ? `There is no error. ${explanationApplication} Correct sentence: ${correctedSentence}`
     : `The error is in segment ${answerLabel}: “${shaped.segments[shaped.errorIndex!]!}”. ${explanationApplication} Replace “${candidate.errorSpan}” with “${candidate.correction}”. Correct sentence: ${correctedSentence}`;
-  const realizedCandidateId = `${candidate.candidateId}:CTX:${context.id}`;
+  const repairSuffix = modifierRepair.repaired ? ":ECHO-REPAIRED" : "";
+  const realizedCandidateId = `${candidate.candidateId}${repairSuffix}:CTX:${context.id}`;
 
   return {
     questionId: `ENG-001-CP001-V4:${qlId}:${realizedCandidateId}:${input.seed}`,
