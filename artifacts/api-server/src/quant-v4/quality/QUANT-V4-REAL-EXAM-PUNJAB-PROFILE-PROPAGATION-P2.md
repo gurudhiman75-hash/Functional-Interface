@@ -1,64 +1,81 @@
-# Quant V4 Real-Exam Punjab Profile Propagation — P2
+# Quant V4 Real-Exam Punjab Profile Propagation Boundary — P2
 
 Authority: `QUANT-V4-REAL-EXAM-PUNJAB-PROFILE-PROPAGATION-P2`
 
-## Why this checkpoint exists
+## Finding
 
-The merged central exam-profile authority now defines `PUNJAB_STATE` as a real four-option `PUNJAB_STATE_OBJECTIVE` delivery profile. The historical P2 real-exam simulator predates that authority and still stores `centralDeliveryProfile: null` for PSSSB, PPSC and Punjab Police.
+The shared Quant V4 exam-profile authority correctly defines `PUNJAB_STATE` as a four-option `PUNJAB_STATE_OBJECTIVE` profile. The real-exam simulation stack is **not yet able to propagate that authority through ordinary Quant chapter generation**.
 
-That stale metadata matters because ordinary Arithmetic and Geometry/Mensuration core-slot generation passes the historical `centralDeliveryProfile` directly into Question Studio. With `null`, those calls run without an explicit Punjab profile and can silently use generic/SSC-like defaults.
+The earlier draft of this checkpoint attempted to repair the issue by passing `examProfile: "PUNJAB_STATE"` at the outer Question Studio API. That was insufficient: several chapter routes do not accept or forward `examProfile`, so a successful outer call does not prove that the chapter runtime consumed the Punjab profile.
 
-## Remediation
+This checkpoint therefore records the actual capability boundary instead of claiming a false remediation.
 
-This checkpoint adds a current Punjab simulation boundary on top of the preserved historical audit baseline.
+## Confirmed blockers
 
-For:
+### Historical simulator metadata
 
-- PSSSB
-- PPSC
-- Punjab Police
+PSSSB, PPSC and Punjab Police still carry:
 
-all `ARITHMETIC_CORE` and `GEOMETRY_MENSURATION` slots are regenerated through Question Studio with:
+- `centralDeliveryProfile: null`
+- `centralProfileGap: true`
 
-`examProfile: "PUNJAB_STATE"`
+That stale metadata should remain visible until downstream chapter routes genuinely support Punjab delivery.
 
-The wrapper also composes the already-merged Advanced Mathematics integration, so Algebra and Trigonometry remain real runtime questions rather than historical capability-gap placeholders.
+### Core Quant generation engine
 
-## Determinism and fallback behavior
+The core Quant generation request has no `examProfile` field. Its runtime contract forwards only difficulty, language, question-language ID and seed. This affects the normal core package family including:
 
-For each core slot:
+- `PCT-001` through `PCT-007`
+- `RAP-001` through `RAP-003`
+- `PRT-001`
 
-1. the package chosen by the historical section is attempted first when it is still in the eligible core pool;
-2. if that package cannot generate under `PUNJAB_STATE`, the remaining eligible packages are tried deterministically;
-3. a slot is marked `CAPABILITY_GAP` only when every eligible candidate fails under the explicit Punjab profile;
-4. successful output must contain exactly four unique options.
+Passing `examProfile` at a higher wrapper cannot reach these runtimes today.
 
-Every propagated core record exposes audit trace fields:
+### Specialized Arithmetic Question Studio routes
 
-- `requestedDeliveryProfile: "PUNJAB_STATE"`
-- `deliveryProfileApplied: true`
-- `profilePropagationAuthority`
+Confirmed profile-blind routes include at least:
 
-This makes profile application testable instead of inferred from option count alone.
+- `AVG-001`
+- `MAL-001`
+- `PNL-001`
+- the legacy RAP route
 
-## Historical-baseline boundary
+Their adapters omit `examProfile` when invoking chapter pipelines.
 
-The original `quant-v4-real-exam-simulation-p2.ts` remains an immutable historical measurement artifact for now. Its three Punjab profile rows still contain stale `null` metadata, and the audit summary reports that explicitly as `historicalSimulatorMetadataStillStale`.
+### Mensuration standard route
 
-A later consolidation can rewrite/retire that baseline once the composed remediation surface is stable. This checkpoint fixes the active Punjab simulation boundary without falsifying what the original P2 audit actually measured.
+The chapter-wide Mensuration system contains Punjab-aware weighting, but the current standard `MEN-002` / `MEN-CP-009` Question Studio request has no `examProfile` field. The profile is therefore lost at the standard route boundary.
+
+### Probability
+
+Probability is different: its runtime does accept and forward an `examProfile`, but the Probability-specific profile union/config currently defines only SSC, banking and generic-practice profiles. It does **not** define `PUNJAB_STATE`.
+
+Therefore the historical Punjab Probability fallback to `SSC_CGL_CHSL` cannot yet be replaced by a real Punjab Probability contract.
 
 ## Executable proof
 
-The dedicated CI gate verifies:
+The P2 gate now uses both runtime assertions and compile-time boundary assertions.
 
-- the central `PUNJAB_STATE` contract is four-option `PUNJAB_STATE_OBJECTIVE`;
-- every Punjab Arithmetic/Geometry core slot is regenerated through explicit `PUNJAB_STATE` delivery;
-- zero propagated core capability gaps remain;
-- every propagated core question has four unique options, non-empty stem and explanation;
-- deterministic replay for the same section seed;
-- the merged Algebra/Trigonometry integration does not regress;
-- the stale historical baseline metadata remains visible until deliberate consolidation.
+It proves that:
 
-## Remaining real-exam audit blockers
+- the central `PUNJAB_STATE` authority exists and remains four-option;
+- PSSSB/PPSC/Punjab Police still expose their historical central-profile gap;
+- the core Quant request does not accept `examProfile`;
+- `AVG-001` and `MAL-001` adapters do not accept `examProfile`;
+- the standard `MEN-002` route does not accept `examProfile`;
+- the Probability profile type does not accept `PUNJAB_STATE`;
+- the audit reports `simulatorPropagationReady: false` rather than treating outer-API success as profile application.
 
-This checkpoint does not declare PSSSB, PPSC or Punjab Police exam-simulation ready. Empirical PYQ weighting, profile-specific difficulty/lifecycle calibration, repetition/editorial thresholds, Probability profile specificity and other chapter-level capability gaps remain separate gates.
+The `@ts-expect-error` assertions are deliberate capability guards. When a route is upgraded to accept Punjab delivery, the build will force this audit to be revised together with that implementation.
+
+## Correct remediation order
+
+1. Add the shared Quant `examProfile` contract to the core generation engine and thread it through the relevant Arithmetic runtimes.
+2. Retrofit specialized routes such as Average, Mixture, Profit & Loss and other Question Studio adapters that currently drop the profile.
+3. Bridge the standard Mensuration Question Studio route to its Punjab-aware chapter delivery/runtime.
+4. Add a real Probability `PUNJAB_STATE` profile with chapter-level selection rules and conformance tests.
+5. Only then change the historical/composed Punjab real-exam simulator from `centralDeliveryProfile: null` to `PUNJAB_STATE` and rerun section-level simulation/calibration.
+
+## Readiness boundary
+
+PSSSB, PPSC and Punjab Police are **not Punjab-profile simulation-ready** at this checkpoint. Algebra/Trigonometry integration is already repaired separately, but ordinary Arithmetic/Mensuration profile propagation and Punjab Probability remain genuine blockers.
