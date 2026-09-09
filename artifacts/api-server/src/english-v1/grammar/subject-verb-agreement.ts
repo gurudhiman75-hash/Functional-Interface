@@ -1,0 +1,90 @@
+import type { EnglishGrammarRule, GrammarRuleId } from "../core/types";
+
+export const SUBJECT_VERB_AGREEMENT_RULES: readonly EnglishGrammarRule[] = [
+  {
+    ruleId: "GR-SVA-001",
+    category: "subject_verb_agreement",
+    name: "basic_subject_number_agreement",
+    principle: "A singular subject takes a singular finite verb, while a plural subject takes a plural finite verb.",
+    mutationId: "MUT-SVA-NUMBER-001",
+    allowedDifficulties: ["easy", "medium"],
+  },
+  {
+    ruleId: "GR-SVA-002",
+    category: "subject_verb_agreement",
+    name: "each_every_singular_agreement",
+    principle: "Each and every are singular heads and therefore take singular verbs.",
+    mutationId: "MUT-SVA-EACH-EVERY-001",
+    allowedDifficulties: ["easy", "medium"],
+  },
+  {
+    ruleId: "GR-SVA-003",
+    category: "subject_verb_agreement",
+    name: "one_of_plural_noun_singular_agreement",
+    principle: "In 'one of + plural noun', the head subject is 'one', so the finite verb is singular.",
+    mutationId: "MUT-SVA-ONE-OF-001",
+    allowedDifficulties: ["easy", "medium"],
+  },
+  {
+    ruleId: "GR-SVA-004",
+    category: "subject_verb_agreement",
+    name: "a_number_vs_the_number",
+    principle: "'A number of + plural noun' normally takes a plural verb, while 'the number of + plural noun' takes a singular verb.",
+    mutationId: "MUT-SVA-NUMBER-PHRASE-001",
+    allowedDifficulties: ["medium", "hard"],
+  },
+  {
+    ruleId: "GR-SVA-005",
+    category: "subject_verb_agreement",
+    name: "additive_phrase_does_not_control_agreement",
+    principle: "Phrases such as 'along with', 'together with' and 'as well as' do not change the number of the main subject.",
+    mutationId: "MUT-SVA-ADDITIVE-PHRASE-001",
+    allowedDifficulties: ["medium", "hard"],
+  },
+  {
+    ruleId: "GR-SVA-006",
+    category: "subject_verb_agreement",
+    name: "either_or_neither_nor_proximity",
+    principle: "With either...or and neither...nor, the verb agrees with the nearer subject in the target competitive-exam convention.",
+    mutationId: "MUT-SVA-PROXIMITY-001",
+    allowedDifficulties: ["medium", "hard"],
+    ambiguityGuard: "Use candidates whose nearer subject has an unambiguous singular/plural form and avoid coordinated noun phrases inside either arm.",
+  },
+  {
+    ruleId: "GR-SVA-007",
+    category: "subject_verb_agreement",
+    name: "collective_noun_as_single_unit",
+    principle: "A collective noun takes a singular verb when the sentence clearly presents the group as one unit.",
+    mutationId: "MUT-SVA-COLLECTIVE-001",
+    allowedDifficulties: ["medium", "hard"],
+    ambiguityGuard: "Only admit unit-reading contexts; reject contexts that foreground members acting separately.",
+  },
+  {
+    ruleId: "GR-SVA-008",
+    category: "subject_verb_agreement",
+    name: "more_than_one_singular_agreement",
+    principle: "The construction 'more than one + singular noun' conventionally takes a singular verb.",
+    mutationId: "MUT-SVA-MORE-THAN-ONE-001",
+    allowedDifficulties: ["medium", "hard"],
+  },
+  {
+    ruleId: "GR-SVA-009",
+    category: "subject_verb_agreement",
+    name: "many_a_singular_agreement",
+    principle: "The construction 'many a + singular noun' takes a singular verb.",
+    mutationId: "MUT-SVA-MANY-A-001",
+    allowedDifficulties: ["medium", "hard"],
+  },
+  {
+    ruleId: "GR-SVA-010",
+    category: "subject_verb_agreement",
+    name: "intervening_prepositional_phrase",
+    principle: "A noun inside an intervening prepositional phrase does not control agreement; the verb agrees with the true subject head.",
+    mutationId: "MUT-SVA-INTERVENING-PP-001",
+    allowedDifficulties: ["medium", "hard"],
+  },
+] as const;
+
+export const SUBJECT_VERB_AGREEMENT_RULE_BY_ID = Object.fromEntries(
+  SUBJECT_VERB_AGREEMENT_RULES.map((rule) => [rule.ruleId, rule]),
+) as Record<GrammarRuleId, EnglishGrammarRule>;
