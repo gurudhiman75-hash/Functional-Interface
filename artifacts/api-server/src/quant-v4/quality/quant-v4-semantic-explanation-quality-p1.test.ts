@@ -1,3 +1,5 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 import {
   EXPLANATION_COHERENCE_POLICY_VERSION,
   FORBIDDEN_PHRASES,
@@ -11,6 +13,11 @@ import {
   hasQuestionSpecificEvidence,
   type ExplanationQualitySample,
 } from "./semantic-explanation-quality";
+
+const DIAGNOSTICS_PATH = resolve(
+  process.cwd(),
+  "tmp/quant-v4-semantic-explanation-p1-diagnostics.json",
+);
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -75,6 +82,12 @@ function normalizeExact(text: string) {
     .toLowerCase()
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function persistDiagnostics(payload: Record<string, unknown>) {
+  mkdirSync(dirname(DIAGNOSTICS_PATH), { recursive: true });
+  writeFileSync(DIAGNOSTICS_PATH, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+  console.error(`QUANT_V4_SEMANTIC_DIAGNOSTICS=${JSON.stringify(payload)}`);
 }
 
 function assertConciseCoherenceContract() {
@@ -147,11 +160,11 @@ async function collectRuntimeCorpus() {
       const assessment = assessExplanationQuality(sample);
       assert(
         hasQuestionSpecificEvidence(assessment),
-        `${packageId} ${sample.questionKey} explanation does not visibly depend on the actual question evidence.\nSTEM: ${stem}\nEXPLANATION: ${explanation}`,
+        `${packageId} ${sample.questionKey} explanation does not visibly depend on the actual question evidence.\nASSESSMENT: ${JSON.stringify(assessment)}\nSTEM: ${stem}\nANSWER: ${String(sample.answer ?? "<unresolved>")}\nEXPLANATION: ${explanation}`,
       );
       assert(
         assessment.optionalSectionIssues.length === 0,
-        `${packageId} ${sample.questionKey} has optional shortcut/trap padding: ${assessment.optionalSectionIssues.join("; ")}\n${explanation}`,
+        `${packageId} ${sample.questionKey} has optional shortcut/trap padding: ${assessment.optionalSectionIssues.join("; ")}\nASSESSMENT: ${JSON.stringify(assessment)}\nSTEM: ${stem}\nEXPLANATION: ${explanation}`,
       );
       samples.push(sample);
     });
@@ -161,29 +174,36 @@ async function collectRuntimeCorpus() {
 }
 
 function auditClusters(samples: readonly ExplanationQualitySample[]) {
-  const semantic = new Map<string, Set<string>>();
+  const semantic = new Map<string, { questions: Set<string>; examples: ExplanationQualitySample[] }>();
   const structural = new Map<string, number>();
-  const exact = new Map<string, Set<string>>();
+  const exact = new Map<string, { questions: Set<string>; examples: ExplanationQualitySample[] }>();
 
   for (const sample of samples) {
     const assessment = assessExplanationQuality(sample);
     const semanticKey = `${sample.packageId}\u0000${assessment.semanticSignature}`;
     const exactKey = `${sample.packageId}\u0000${normalizeExact(sample.explanation)}`;
 
-    const semanticQuestions = semantic.get(semanticKey) ?? new Set<string>();
-    semanticQuestions.add(sample.questionKey);
-    semantic.set(semanticKey, semanticQuestions);
+    const semanticEntry = semantic.get(semanticKey) ?? { questions: new Set<string>(), examples: [] };
+    semanticEntry.questions.add(sample.questionKey);
+    if (semanticEntry.examples.length < 3) semanticEntry.examples.push(sample);
+    semantic.set(semanticKey, semanticEntry);
 
-    const exactQuestions = exact.get(exactKey) ?? new Set<string>();
-    exactQuestions.add(sample.questionKey);
-    exact.set(exactKey, exactQuestions);
+    const exactEntry = exact.get(exactKey) ?? { questions: new Set<string>(), examples: [] };
+    exactEntry.questions.add(sample.questionKey);
+    if (exactEntry.examples.length < 3) exactEntry.examples.push(sample);
+    exact.set(exactKey, exactEntry);
 
     const structuralKey = `${sample.packageId}\u0000${assessment.structuralSignature}`;
     structural.set(structuralKey, (structural.get(structuralKey) ?? 0) + 1);
   }
 
   const exactCrossQuestion = [...exact.entries()]
-    .map(([signature, questions]) => ({ signature, count: questions.size }))
+    .map(([signature, entry]) => ({
+      signature,
+      count: entry.questions.size,
+      questions: [...entry.questions].slice(0, 10),
+      examples: entry.examples,
+    }))
     .filter((entry) => entry.count > 1)
     .sort((left, right) => right.count - left.count);
   assert(
@@ -192,7 +212,12 @@ function auditClusters(samples: readonly ExplanationQualitySample[]) {
   );
 
   const semanticClusters = [...semantic.entries()]
-    .map(([signature, questions]) => ({ signature, count: questions.size }))
+    .map(([signature, entry]) => ({
+      signature,
+      count: entry.questions.size,
+      questions: [...entry.questions].slice(0, 10),
+      examples: entry.examples,
+    }))
     .sort((left, right) => right.count - left.count);
   const largestSemanticCluster = semanticClusters[0]?.count ?? 0;
 
@@ -225,20 +250,25 @@ async function main() {
 
   const samples = await collectRuntimeCorpus();
   const clusters = auditClusters(samples);
-
-  console.log(
-    JSON.stringify({
-      status: "PASS_QUANT_V4_SEMANTIC_EXPLANATION_QUALITY_P1",
-      policy: EXPLANATION_COHERENCE_POLICY_VERSION,
-      runtimeQuestions: samples.length,
-      packages: [...new Set(samples.map((sample) => sample.packageId))],
-      ...clusters,
-      rule: "simple coherent working; shortcut/trap optional and evidence-bound",
-    }),
-  );
+  const result = {
+    status: "PASS_QUANT_V4_SEMANTIC_EXPLANATION_QUALITY_P1",
+    policy: EXPLANATION_COHERENCE_POLICY_VERSION,
+    runtimeQuestions: samples.length,
+    packages: [...new Set(samples.map((sample) => sample.packageId))],
+    ...clusters,
+    rule: "simple coherent working; shortcut/trap optional and evidence-bound",
+  };
+  persistDiagnostics(result);
+  console.log(JSON.stringify(result));
 }
 
 main().catch((error) => {
-  console.error(error);
+  const err = error instanceof Error ? error : new Error(String(error));
+  persistDiagnostics({
+    status: "FAIL_QUANT_V4_SEMANTIC_EXPLANATION_QUALITY_P1",
+    policy: EXPLANATION_COHERENCE_POLICY_VERSION,
+    message: err.message,
+    stack: err.stack ?? null,
+  });
   process.exitCode = 1;
 });
