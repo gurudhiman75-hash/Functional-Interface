@@ -7,6 +7,8 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-frequency-evidence-p2.ts"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-frequency-evidence-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observations-*.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observations-*.test.ts"
       - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-PYQ-FREQUENCY-EVIDENCE-P2.md"
       - ".github/workflows/quant-v4-pyq-frequency-evidence-p2.yml"
   pull_request:
@@ -15,6 +17,8 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-frequency-evidence-p2.ts"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-frequency-evidence-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observations-*.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observations-*.test.ts"
       - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-PYQ-FREQUENCY-EVIDENCE-P2.md"
       - ".github/workflows/quant-v4-pyq-frequency-evidence-p2.yml"
   workflow_dispatch:
@@ -59,6 +63,17 @@ jobs:
       - name: Run PYQ frequency evidence proof
         working-directory: artifacts/api-server
         run: node dist/quant-v4/pyq-frequency/quant-v4-pyq-frequency-evidence-p2.test.mjs
+
+      - name: Bundle Algebra Wave 1 PYQ migration proof
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-pyq-observations-algebra-wave1-p2.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/pyq-frequency/quant-v4-pyq-observations-algebra-wave1-p2.test.mjs
+
+      - name: Run Algebra Wave 1 PYQ migration proof
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/pyq-frequency/quant-v4-pyq-observations-algebra-wave1-p2.test.mjs
 
       - name: Patch hygiene
         run: git diff --check
