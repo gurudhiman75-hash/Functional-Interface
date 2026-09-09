@@ -1,0 +1,89 @@
+name: Quant V4 real exam simulation P2
+
+on:
+  push:
+    branches:
+      - audit/quant-v4-real-exam-simulation-p2
+    paths:
+      - "artifacts/api-server/src/quant-v4/quality/**"
+      - "artifacts/api-server/src/quant-v4/common/exam-profile.ts"
+      - "artifacts/api-server/src/quant-v4/question-studio-*.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/**"
+      - "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/**"
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/**"
+      - "artifacts/api-server/src/quant-v4/topics/Probability/**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/**"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/**"
+      - "artifacts/api-server/src/quant-v4/representations/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/**"
+      - ".github/workflows/quant-v4-real-exam-simulation-p2.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/quality/**"
+      - "artifacts/api-server/src/quant-v4/common/exam-profile.ts"
+      - "artifacts/api-server/src/quant-v4/question-studio-*.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine*.ts"
+      - "artifacts/api-server/src/quant-v4/topics/DataInterpretation/**"
+      - "artifacts/api-server/src/quant-v4/topics/SpeedMathematics/**"
+      - "artifacts/api-server/src/quant-v4/topics/Statistics/**"
+      - "artifacts/api-server/src/quant-v4/topics/Probability/**"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/**"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/**"
+      - "artifacts/api-server/src/quant-v4/representations/**"
+      - "artifacts/api-server/src/reasoning-v1/topics/Data-Sufficiency/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quant-v4-real-exam-simulation-p2-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  real-exam-simulation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Bundle real exam simulation audit
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/real-exam-simulation
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-real-exam-simulation-p2.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/real-exam-simulation/quant-v4-real-exam-simulation-p2.test.mjs
+
+      - name: Run 220-section real exam simulation audit
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/real-exam-simulation/quant-v4-real-exam-simulation-p2.test.mjs
+
+      - name: Bundle central exam-profile regression
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-exam-profile-conformance.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/real-exam-simulation/quant-v4-exam-profile-conformance.test.mjs
+
+      - name: Run central exam-profile regression
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/real-exam-simulation/quant-v4-exam-profile-conformance.test.mjs
