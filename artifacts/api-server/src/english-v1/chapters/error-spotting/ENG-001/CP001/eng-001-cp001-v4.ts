@@ -61,11 +61,6 @@ function appendContext(segment: string, context: string): string {
   return `${clean} ${context}.`;
 }
 
-/**
- * Add one short domain-aware situation cue without ever touching the registered
- * error segment. The same cue is applied to the correct and mutated sentence,
- * so the only grammatical mutation remains the registered SVA error.
- */
 function contextualizeSegments(
   segments: readonly string[],
   errorIndex: number | null,
@@ -166,6 +161,12 @@ function chooseRule(input: {
   return deterministicPick(`${input.seed}:rule:${input.qlId}:${input.difficulty}`, allowed);
 }
 
+function decorrelatedContextSeed(seed: string, ruleId: GrammarRuleId, domain: string): string {
+  const reversed = [...seed].reverse().join("");
+  const alternating = [...seed].filter((_, index) => index % 2 === 0).join("");
+  return `ctx:${reversed}:${seed.length}:${alternating}:${ruleId}:${domain}`;
+}
+
 export interface GenerateEng001Cp001V4Input {
   seed: string;
   difficulty: EnglishDifficulty;
@@ -187,7 +188,7 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
   const domain = semanticDomainOfV4(candidate);
   if (!domain) throw new Error(`${candidate.candidateId} lacks a semantic domain for V4 context expansion`);
   const context = deterministicPick(
-    `${input.seed}:context:${domain}:${candidate.ruleId}`,
+    decorrelatedContextSeed(input.seed, candidate.ruleId, domain),
     CONTEXT_EXPANSIONS_BY_DOMAIN_V4[domain],
   );
 
