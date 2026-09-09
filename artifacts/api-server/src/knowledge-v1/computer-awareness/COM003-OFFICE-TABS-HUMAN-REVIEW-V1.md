@@ -153,197 +153,197 @@ D. Contextual tab
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-001 — EASY
-**Question:** Excel workbook में सामान्यतः क्या होता है?
+**Question:** Excel कार्यपुस्तिका में सामान्यतः क्या होता है?
 
-A. एक या अधिक worksheets
-B. केवल charts
-C. केवल formulas
-D. केवल printed pages
+एक. एक या अधिक कार्यपत्रक
+B. केवल चार्ट
+C. केवल सूत्र
+D. केवल मुद्रित पृष्ठ
 
-**Answer:** एक या अधिक worksheets
-**Explanation:** Workbook वह Excel file है जिसमें एक या अधिक worksheets हो सकती हैं।
+**Answer:** एक या अधिक कार्यपत्रक
+**Explanation:** कार्यपुस्तिका वह Excel फ़ाइल है जिसमें एक या अधिक कार्यपत्रक हो सकती हैं।
 **Trace:** COM003-OFFICE-TABS-001 · com003-excel-interface-workbook
 
 #### 2. COM003-OFFICE-TABS-002 — EASY
 **Question:** Excel में B3 किसकी पहचान बताता है?
 
-A. Workbook
-B. Cell
+एक. कार्यपुस्तिका
+B. कक्ष
 C. Chart
-D. Worksheet tab
+D. कार्यपत्रक टैब
 
-**Answer:** Cell
-**Explanation:** B3 column B और row 3 पर स्थित cell की पहचान बताता है।
+**Answer:** कक्ष
+**Explanation:** B3 स्तंभ B और पंक्ति 3 पर स्थित कक्ष की पहचान बताता है।
 **Trace:** COM003-OFFICE-TABS-002 · com003-excel-interface-cell-address
 
 #### 3. COM003-OFFICE-TABS-003 — EASY
-**Question:** Active cell की सामग्री दिखाने या edit करने वाला Excel area कौन-सा है?
+**Question:** सक्रिय कक्ष की सामग्री दिखाने या संपादित करें करने वाला Excel क्षेत्र कौन-सा है?
 
-A. Status Bar
+एक. Status Bar
 B. Name Box
 C. Formula Bar
-D. Sheet Tab bar
+D. पत्रक टैब पट्टी
 
 **Answer:** Formula Bar
-**Explanation:** Formula Bar active cell की सामग्री दिखाता है और उसे edit करने देता है।
+**Explanation:** Formula Bar सक्रिय कक्ष की सामग्री दिखाता है और उसे संपादित करें करने देता है।
 **Trace:** COM003-OFFICE-TABS-003 · com003-excel-interface-formula-bar
 
 #### 4. COM003-OFFICE-TABS-004 — EASY
-**Question:** Active cell का address सामान्यतः दिखाने वाला Excel box कौन-सा है?
+**Question:** सक्रिय कक्ष का पता सामान्यतः दिखाने वाला Excel बॉक्स कौन-सा है?
 
-A. Formula Bar
+एक. Formula Bar
 B. Status Bar
 C. Ribbon
 D. Name Box
 
 **Answer:** Name Box
-**Explanation:** Name Box active cell या selected range का address या name दिखाता है।
+**Explanation:** Name Box सक्रिय कक्ष या चयनित श्रेणी का पता या नाम दिखाता है।
 **Trace:** COM003-OFFICE-TABS-004 · com003-excel-interface-name-box
 
 #### 5. COM003-OFFICE-TABS-005 — EASY
-**Question:** Excel worksheet में columns और rows को सामान्यतः कैसे label किया जाता है?
+**Question:** Excel कार्यपत्रक में स्तंभ और पंक्तियाँ को सामान्यतः कैसे लेबल किया जाता है?
 
-A. Columns letters से और rows numbers से
-B. Columns numbers से और rows letters से
-C. दोनों केवल letters से
-D. दोनों केवल numbers से
+एक. स्तंभ अक्षर से और पंक्तियाँ संख्याएँ से
+B. स्तंभ संख्याएँ से और पंक्तियाँ अक्षर से
+C. दोनों केवल अक्षर से
+D. दोनों केवल संख्याएँ से
 
-**Answer:** Columns letters से और rows numbers से
-**Explanation:** Excel में columns को सामान्यतः letters और rows को numbers से label किया जाता है।
+**Answer:** स्तंभ अक्षर से और पंक्तियाँ संख्याएँ से
+**Explanation:** Excel में स्तंभ को सामान्यतः अक्षर और पंक्तियाँ को संख्याएँ से लेबल किया जाता है।
 **Trace:** COM003-OFFICE-TABS-005 · com003-excel-interface-row-column-headings
 
 #### 6. COM003-OFFICE-TABS-006 — EASY
-**Question:** Excel Ribbon के एक group में क्या होता है?
+**Question:** Excel Ribbon के एक समूह में क्या होता है?
 
-A. केवल worksheet names
-B. संबंधित commands
-C. केवल formulas
-D. केवल page numbers
+एक. केवल कार्यपत्रक नाम
+B. संबंधित कमांड
+C. केवल सूत्र
+D. केवल पृष्ठ संख्याएँ
 
-**Answer:** संबंधित commands
-**Explanation:** Ribbon group संबंधित commands को एक साथ रखता है।
+**Answer:** संबंधित कमांड
+**Explanation:** Ribbon समूह संबंधित कमांड को एक साथ रखता है।
 **Trace:** COM003-OFFICE-TABS-006 · com003-excel-interface-ribbon-group
 
 #### 7. COM003-OFFICE-TABS-007 — EASY
-**Question:** Save जैसे frequently used commands तक जल्दी पहुँच किस Excel area से मिलती है?
+**Question:** Save जैसे बार-बार उपयोग किया गया कमांड तक जल्दी पहुँच किस Excel क्षेत्र से मिलती है?
 
-A. Formula Bar
+एक. Formula Bar
 B. Status Bar
 C. Quick Access Toolbar
-D. Sheet Tab bar
+D. पत्रक टैब पट्टी
 
 **Answer:** Quick Access Toolbar
-**Explanation:** Quick Access Toolbar selected Ribbon tab से अलग frequently used commands तक जल्दी पहुँच देता है।
+**Explanation:** Quick Access Toolbar चयनित Ribbon टैब से अलग बार-बार उपयोग किया गया कमांड तक जल्दी पहुँच देता है।
 **Trace:** COM003-OFFICE-TABS-007 · com003-excel-interface-quick-access-toolbar
 
 #### 8. COM003-OFFICE-TABS-008 — MEDIUM
-**Question:** Chart या table select करने पर Excel में किस प्रकार का tab दिखाई दे सकता है?
+**Question:** Chart या तालिका चुनना करने पर Excel में किस प्रकार का टैब दिखाई दे सकता है?
 
-A. Worksheet tab
-B. केवल File tab
-C. Permanent system tab
-D. Contextual tab
+एक. कार्यपत्रक टैब
+B. केवल File टैब
+C. स्थायी प्रणाली टैब
+D. Contextual टैब
 
-**Answer:** Contextual tab
-**Explanation:** Contextual tab selected object से संबंधित commands दिखाता है।
+**Answer:** Contextual टैब
+**Explanation:** Contextual टैब चयनित वस्तु से संबंधित कमांड दिखाता है।
 **Trace:** COM003-OFFICE-TABS-008 · com003-excel-interface-contextual-tab
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-001 — EASY
-**Question:** Excel workbook ਵਿੱਚ ਆਮ ਤੌਰ ਉੱਤੇ ਕੀ ਹੁੰਦਾ ਹੈ?
+**Question:** Excel ਵਰਕਬੁੱਕ ਵਿੱਚ ਆਮ ਤੌਰ ਉੱਤੇ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-A. ਇੱਕ ਜਾਂ ਵੱਧ worksheets
-B. ਸਿਰਫ਼ charts
-C. ਸਿਰਫ਼ formulas
-D. ਸਿਰਫ਼ printed pages
+ਇੱਕ. ਇੱਕ ਜਾਂ ਵੱਧ ਵਰਕਸ਼ੀਟਾਂ
+B. ਸਿਰਫ਼ ਚਾਰਟ
+C. ਸਿਰਫ਼ ਫਾਰਮੂਲੇ
+D. ਸਿਰਫ਼ ਛਪੇ ਹੋਏ ਪੰਨੇ
 
-**Answer:** ਇੱਕ ਜਾਂ ਵੱਧ worksheets
-**Explanation:** Workbook ਉਹ Excel file ਹੈ ਜਿਸ ਵਿੱਚ ਇੱਕ ਜਾਂ ਵੱਧ worksheets ਹੋ ਸਕਦੀਆਂ ਹਨ।
+**Answer:** ਇੱਕ ਜਾਂ ਵੱਧ ਵਰਕਸ਼ੀਟਾਂ
+**Explanation:** ਵਰਕਬੁੱਕ ਉਹ Excel ਫ਼ਾਈਲ ਹੈ ਜਿਸ ਵਿੱਚ ਇੱਕ ਜਾਂ ਵੱਧ ਵਰਕਸ਼ੀਟਾਂ ਹੋ ਸਕਦੀਆਂ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-001 · com003-excel-interface-workbook
 
 #### 2. COM003-OFFICE-TABS-002 — EASY
 **Question:** Excel ਵਿੱਚ B3 ਕਿਸ ਦੀ ਪਛਾਣ ਦੱਸਦਾ ਹੈ?
 
-A. Workbook
-B. Cell
+ਇੱਕ. ਵਰਕਬੁੱਕ
+B. ਸੈੱਲ
 C. Chart
-D. Worksheet tab
+D. ਵਰਕਸ਼ੀਟ ਟੈਬ
 
-**Answer:** Cell
-**Explanation:** B3 column B ਅਤੇ row 3 ਵਾਲੇ cell ਦੀ ਪਛਾਣ ਦੱਸਦਾ ਹੈ।
+**Answer:** ਸੈੱਲ
+**Explanation:** B3 ਕਾਲਮ B ਅਤੇ ਕਤਾਰ 3 ਵਾਲੇ ਸੈੱਲ ਦੀ ਪਛਾਣ ਦੱਸਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-002 · com003-excel-interface-cell-address
 
 #### 3. COM003-OFFICE-TABS-003 — EASY
-**Question:** Active cell ਦੀ ਸਮੱਗਰੀ ਦਿਖਾਉਣ ਜਾਂ edit ਕਰਨ ਵਾਲਾ Excel area ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਰਗਰਮ ਸੈੱਲ ਦੀ ਸਮੱਗਰੀ ਦਿਖਾਉਣ ਜਾਂ ਸੋਧੋ ਕਰਨ ਵਾਲਾ Excel ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-A. Status Bar
+ਇੱਕ. Status Bar
 B. Name Box
 C. Formula Bar
-D. Sheet Tab bar
+D. ਵਰਕਸ਼ੀਟ ਟੈਬ ਪੱਟੀ
 
 **Answer:** Formula Bar
-**Explanation:** Formula Bar active cell ਦੀ ਸਮੱਗਰੀ ਦਿਖਾਉਂਦਾ ਹੈ ਅਤੇ ਉਸ ਨੂੰ edit ਕਰਨ ਦਿੰਦਾ ਹੈ।
+**Explanation:** Formula Bar ਸਰਗਰਮ ਸੈੱਲ ਦੀ ਸਮੱਗਰੀ ਦਿਖਾਉਂਦਾ ਹੈ ਅਤੇ ਉਸ ਨੂੰ ਸੋਧੋ ਕਰਨ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-003 · com003-excel-interface-formula-bar
 
 #### 4. COM003-OFFICE-TABS-004 — EASY
-**Question:** Active cell ਦਾ address ਆਮ ਤੌਰ ਉੱਤੇ ਦਿਖਾਉਣ ਵਾਲਾ Excel box ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਰਗਰਮ ਸੈੱਲ ਦਾ ਪਤਾ ਆਮ ਤੌਰ ਉੱਤੇ ਦਿਖਾਉਣ ਵਾਲਾ Excel ਬਾਕਸ ਕਿਹੜਾ ਹੈ?
 
-A. Formula Bar
+ਇੱਕ. Formula Bar
 B. Status Bar
 C. Ribbon
 D. Name Box
 
 **Answer:** Name Box
-**Explanation:** Name Box active cell ਜਾਂ selected range ਦਾ address ਜਾਂ name ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Name Box ਸਰਗਰਮ ਸੈੱਲ ਜਾਂ ਚੁਣਿਆ ਹੋਇਆ ਸ਼੍ਰੇਣੀ ਦਾ ਪਤਾ ਜਾਂ ਨਾਮ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-004 · com003-excel-interface-name-box
 
 #### 5. COM003-OFFICE-TABS-005 — EASY
-**Question:** Excel worksheet ਵਿੱਚ columns ਅਤੇ rows ਨੂੰ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਵੇਂ label ਕੀਤਾ ਜਾਂਦਾ ਹੈ?
+**Question:** Excel ਵਰਕਸ਼ੀਟ ਵਿੱਚ ਕਾਲਮ ਅਤੇ ਕਤਾਰਾਂ ਨੂੰ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਵੇਂ ਲੇਬਲ ਕੀਤਾ ਜਾਂਦਾ ਹੈ?
 
-A. Columns letters ਨਾਲ ਅਤੇ rows numbers ਨਾਲ
-B. Columns numbers ਨਾਲ ਅਤੇ rows letters ਨਾਲ
-C. ਦੋਵੇਂ ਸਿਰਫ਼ letters ਨਾਲ
-D. ਦੋਵੇਂ ਸਿਰਫ਼ numbers ਨਾਲ
+ਇੱਕ. ਕਾਲਮ ਅੱਖਰ ਨਾਲ ਅਤੇ ਕਤਾਰਾਂ ਅੰਕ ਨਾਲ
+B. ਕਾਲਮ ਅੰਕ ਨਾਲ ਅਤੇ ਕਤਾਰਾਂ ਅੱਖਰ ਨਾਲ
+C. ਦੋਵੇਂ ਸਿਰਫ਼ ਅੱਖਰ ਨਾਲ
+D. ਦੋਵੇਂ ਸਿਰਫ਼ ਅੰਕ ਨਾਲ
 
-**Answer:** Columns letters ਨਾਲ ਅਤੇ rows numbers ਨਾਲ
-**Explanation:** Excel ਵਿੱਚ columns ਨੂੰ ਆਮ ਤੌਰ ਉੱਤੇ letters ਅਤੇ rows ਨੂੰ numbers ਨਾਲ label ਕੀਤਾ ਜਾਂਦਾ ਹੈ।
+**Answer:** ਕਾਲਮ ਅੱਖਰ ਨਾਲ ਅਤੇ ਕਤਾਰਾਂ ਅੰਕ ਨਾਲ
+**Explanation:** Excel ਵਿੱਚ ਕਾਲਮ ਨੂੰ ਆਮ ਤੌਰ ਉੱਤੇ ਅੱਖਰ ਅਤੇ ਕਤਾਰਾਂ ਨੂੰ ਅੰਕ ਨਾਲ ਲੇਬਲ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-005 · com003-excel-interface-row-column-headings
 
 #### 6. COM003-OFFICE-TABS-006 — EASY
-**Question:** Excel Ribbon ਦੇ ਇੱਕ group ਵਿੱਚ ਕੀ ਹੁੰਦਾ ਹੈ?
+**Question:** Excel Ribbon ਦੇ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-A. ਸਿਰਫ਼ worksheet names
-B. ਸੰਬੰਧਿਤ commands
-C. ਸਿਰਫ਼ formulas
-D. ਸਿਰਫ਼ page numbers
+ਇੱਕ. ਸਿਰਫ਼ ਵਰਕਸ਼ੀਟ ਨਾਮ
+B. ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ
+C. ਸਿਰਫ਼ ਫਾਰਮੂਲੇ
+D. ਸਿਰਫ਼ ਪੰਨਾ ਅੰਕ
 
-**Answer:** ਸੰਬੰਧਿਤ commands
-**Explanation:** Ribbon group ਸੰਬੰਧਿਤ commands ਨੂੰ ਇਕੱਠਾ ਰੱਖਦਾ ਹੈ।
+**Answer:** ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ
+**Explanation:** Ribbon ਸਮੂਹ ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ ਨੂੰ ਇਕੱਠਾ ਰੱਖਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-006 · com003-excel-interface-ribbon-group
 
 #### 7. COM003-OFFICE-TABS-007 — EASY
-**Question:** Save ਵਰਗੇ frequently used commands ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ Excel ਦੇ ਕਿਹੜੇ area ਤੋਂ ਮਿਲਦੀ ਹੈ?
+**Question:** Save ਵਰਗੇ ਅਕਸਰ ਵਰਤਿਆ ਗਿਆ ਕਮਾਂਡਾਂ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ Excel ਦੇ ਕਿਹੜੇ ਖੇਤਰ ਤੋਂ ਮਿਲਦੀ ਹੈ?
 
-A. Formula Bar
+ਇੱਕ. Formula Bar
 B. Status Bar
 C. Quick Access Toolbar
-D. Sheet Tab bar
+D. ਵਰਕਸ਼ੀਟ ਟੈਬ ਪੱਟੀ
 
 **Answer:** Quick Access Toolbar
-**Explanation:** Quick Access Toolbar selected Ribbon tab ਤੋਂ ਵੱਖ frequently used commands ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ ਦਿੰਦਾ ਹੈ।
+**Explanation:** Quick Access Toolbar ਚੁਣਿਆ ਹੋਇਆ Ribbon ਟੈਬ ਤੋਂ ਵੱਖ ਅਕਸਰ ਵਰਤਿਆ ਗਿਆ ਕਮਾਂਡਾਂ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-007 · com003-excel-interface-quick-access-toolbar
 
 #### 8. COM003-OFFICE-TABS-008 — MEDIUM
-**Question:** Chart ਜਾਂ table select ਕਰਨ ਨਾਲ Excel ਵਿੱਚ ਕਿਹੜੀ ਕਿਸਮ ਦਾ tab ਦਿਖ ਸਕਦਾ ਹੈ?
+**Question:** Chart ਜਾਂ ਟੇਬਲ ਚੁਣਨਾ ਕਰਨ ਨਾਲ Excel ਵਿੱਚ ਕਿਹੜੀ ਕਿਸਮ ਦਾ ਟੈਬ ਦਿਖ ਸਕਦਾ ਹੈ?
 
-A. Worksheet tab
-B. ਸਿਰਫ਼ File tab
-C. Permanent system tab
-D. Contextual tab
+ਇੱਕ. ਵਰਕਸ਼ੀਟ ਟੈਬ
+B. ਸਿਰਫ਼ File ਟੈਬ
+C. ਸਥਾਈ ਪ੍ਰਣਾਲੀ ਟੈਬ
+D. Contextual ਟੈਬ
 
-**Answer:** Contextual tab
-**Explanation:** Contextual tab selected object ਨਾਲ ਸੰਬੰਧਿਤ commands ਦਿਖਾਉਂਦਾ ਹੈ।
+**Answer:** Contextual ਟੈਬ
+**Explanation:** Contextual ਟੈਬ ਚੁਣਿਆ ਹੋਇਆ ਵਸਤੂ ਨਾਲ ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-008 · com003-excel-interface-contextual-tab
 
 ### COM-003-QL-031 — Excel — Excel Home Tab
@@ -449,197 +449,197 @@ D. Fill
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-009 — EASY
-**Question:** Excel Home tab में Cut, Copy और Paste commands किस group में होते हैं?
+**Question:** Excel Home टैब में काटें, कॉपी और पेस्ट कमांड किस समूह में होते हैं?
 
-A. Clipboard
+एक. Clipboard
 B. Font
 C. Styles
 D. Cells
 
 **Answer:** Clipboard
-**Explanation:** Clipboard group में Cut, Copy और Paste जैसे commands होते हैं।
+**Explanation:** Clipboard समूह में काटें, कॉपी और पेस्ट जैसे कमांड होते हैं।
 **Trace:** COM003-OFFICE-TABS-009 · com003-excel-home-clipboard
 
 #### 2. COM003-OFFICE-TABS-010 — EASY
-**Question:** Cell का font, font size और text style बदलने वाला Home-tab group कौन-सा है?
+**Question:** कक्ष का फ़ॉन्ट, फ़ॉन्ट आकार और पाठ शैली बदलने वाला Home टैबटैब समूह कौन-सा है?
 
-A. Alignment
+एक. संरेखण
 B. Font
 C. Number
-D. Editing
+D. संपादन
 
 **Answer:** Font
-**Explanation:** Font group font name, size और style जैसी character appearance settings संभालता है।
+**Explanation:** Font समूह फ़ॉन्ट नाम, आकार और शैली जैसी अक्षर दिखावट सेटिंग्स संभालता है।
 **Trace:** COM003-OFFICE-TABS-010 · com003-excel-home-font
 
 #### 3. COM003-OFFICE-TABS-011 — EASY
-**Question:** Cell content की alignment नियंत्रित करने वाला Home-tab group कौन-सा है?
+**Question:** कक्ष सामग्री की संरेखण नियंत्रित करने वाला Home टैबटैब समूह कौन-सा है?
 
-A. Clipboard
+एक. Clipboard
 B. Font
-C. Alignment
+C. संरेखण
 D. Styles
 
-**Answer:** Alignment
-**Explanation:** Alignment group cell content की horizontal और vertical placement नियंत्रित करता है।
+**Answer:** संरेखण
+**Explanation:** संरेखण समूह कक्ष सामग्री की क्षैतिज और ऊर्ध्वाधर स्थान नियंत्रित करता है।
 **Trace:** COM003-OFFICE-TABS-011 · com003-excel-home-alignment
 
 #### 4. COM003-OFFICE-TABS-012 — EASY
-**Question:** Currency, percentage या date format लगाने वाला Home-tab group कौन-सा है?
+**Question:** मुद्रा, प्रतिशत या तिथि स्वरूप लगाने वाला Home टैबटैब समूह कौन-सा है?
 
-A. Cells
-B. Editing
+एक. Cells
+B. संपादन
 C. Styles
 D. Number
 
 **Answer:** Number
-**Explanation:** Number group values के display format को नियंत्रित करता है।
+**Explanation:** Number समूह मान के प्रदर्शन स्वरूप को नियंत्रित करता है।
 **Trace:** COM003-OFFICE-TABS-012 · com003-excel-home-number-format
 
 #### 5. COM003-OFFICE-TABS-013 — EASY
-**Question:** Selected cells को combine करके result को centre करने वाला Home-tab command कौन-सा है?
+**Question:** चयनित कक्ष को मिलाना करके परिणाम को केंद्र करने वाला Home टैबटैब कमांड कौन-सा है?
 
-A. Merge & Center
-B. Wrap Text
+एक. Merge & Center
+B. लपेटना पाठ
 C. Format Painter
 D. Clear
 
 **Answer:** Merge & Center
-**Explanation:** Merge & Center selected cells को जोड़कर merged cell में content को centre करता है।
+**Explanation:** Merge & Center चयनित कक्ष को जोड़कर विलयित कक्ष में सामग्री को केंद्र करता है।
 **Trace:** COM003-OFFICE-TABS-013 · com003-excel-home-merge-center
 
 #### 6. COM003-OFFICE-TABS-014 — EASY
-**Question:** Cell की लंबी text को cell के अंदर कई lines में दिखाने वाला Home-tab option कौन-सा है?
+**Question:** कक्ष की लंबी पाठ को कक्ष के अंदर कई पंक्तियाँ में दिखाने वाला Home टैबटैब विकल्प कौन-सा है?
 
-A. Merge & Center
-B. Wrap Text
-C. Fill Color
+एक. Merge & Center
+B. लपेटना पाठ
+C. भरना रंग
 D. Sort
 
-**Answer:** Wrap Text
-**Explanation:** Wrap Text उपलब्ध cell width के अंदर content को कई lines में दिखाता है।
+**Answer:** लपेटना पाठ
+**Explanation:** लपेटना पाठ उपलब्ध कक्ष चौड़ाई के अंदर सामग्री को कई पंक्तियाँ में दिखाता है।
 **Trace:** COM003-OFFICE-TABS-014 · com003-excel-home-wrap-text
 
 #### 7. COM003-OFFICE-TABS-015 — MEDIUM
-**Question:** Cell values किसी rule को पूरा करें तो formatting लगाने वाला Home-tab feature कौन-सा है?
+**Question:** कक्ष मान किसी नियम को पूरा करें तो स्वरूपण लगाने वाला Home टैबटैब सुविधा कौन-सा है?
 
-A. Format Painter
-B. Find & Select
-C. Conditional Formatting
+एक. Format Painter
+B. ढूँढना & चुनना
+C. सशर्त स्वरूपण
 D. Clear
 
-**Answer:** Conditional Formatting
-**Explanation:** Conditional Formatting defined conditions पूरी होने पर cells का appearance बदलता है।
+**Answer:** सशर्त स्वरूपण
+**Explanation:** सशर्त स्वरूपण परिभाषित शर्तें पूरी होने पर कक्ष का दिखावट बदलता है।
 **Trace:** COM003-OFFICE-TABS-015 · com003-excel-home-conditional-formatting
 
 #### 8. COM003-OFFICE-TABS-016 — MEDIUM
-**Question:** Selected adjacent cells में value या formula copy करने वाला Home-tab command कौन-सा है?
+**Question:** चयनित समीपवर्ती कक्ष में मान या सूत्र कॉपी करने वाला Home टैबटैब कमांड कौन-सा है?
 
-A. Sort
+एक. Sort
 B. Clear
-C. Find
-D. Fill
+C. ढूँढना
+D. भरना
 
-**Answer:** Fill
-**Explanation:** Fill चुनी गई direction के अनुसार selected cell की content को adjacent cells में copy करता है।
+**Answer:** भरना
+**Explanation:** भरना चुनी गई दिशा के अनुसार चयनित कक्ष की सामग्री को समीपवर्ती कक्ष में कॉपी करता है।
 **Trace:** COM003-OFFICE-TABS-016 · com003-excel-home-fill
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-009 — EASY
-**Question:** Excel Home tab ਵਿੱਚ Cut, Copy ਅਤੇ Paste commands ਕਿਹੜੇ group ਵਿੱਚ ਹੁੰਦੇ ਹਨ?
+**Question:** Excel Home ਟੈਬ ਵਿੱਚ ਕੱਟੋ, ਕਾਪੀ ਅਤੇ ਪੇਸਟ ਕਮਾਂਡਾਂ ਕਿਹੜੇ ਸਮੂਹ ਵਿੱਚ ਹੁੰਦੇ ਹਨ?
 
-A. Clipboard
+ਇੱਕ. Clipboard
 B. Font
 C. Styles
 D. Cells
 
 **Answer:** Clipboard
-**Explanation:** Clipboard group ਵਿੱਚ Cut, Copy ਅਤੇ Paste ਵਰਗੇ commands ਹੁੰਦੇ ਹਨ।
+**Explanation:** Clipboard ਸਮੂਹ ਵਿੱਚ ਕੱਟੋ, ਕਾਪੀ ਅਤੇ ਪੇਸਟ ਵਰਗੇ ਕਮਾਂਡਾਂ ਹੁੰਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-009 · com003-excel-home-clipboard
 
 #### 2. COM003-OFFICE-TABS-010 — EASY
-**Question:** Cell ਦਾ font, font size ਅਤੇ text style ਬਦਲਣ ਵਾਲਾ Home-tab group ਕਿਹੜਾ ਹੈ?
+**Question:** ਸੈੱਲ ਦਾ ਫੌਂਟ, ਫੌਂਟ ਆਕਾਰ ਅਤੇ ਲਿਖਤ ਸ਼ੈਲੀ ਬਦਲਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?
 
-A. Alignment
+ਇੱਕ. ਸੰਰેખਣ
 B. Font
 C. Number
-D. Editing
+D. ਸੋਧ
 
 **Answer:** Font
-**Explanation:** Font group font name, size ਅਤੇ style ਵਰਗੀਆਂ character appearance settings ਸੰਭਾਲਦਾ ਹੈ।
+**Explanation:** Font ਸਮੂਹ ਫੌਂਟ ਨਾਮ, ਆਕਾਰ ਅਤੇ ਸ਼ੈਲੀ ਵਰਗੀਆਂ ਅੱਖਰ ਦਿੱਖ ਸੈਟਿੰਗਾਂ ਸੰਭਾਲਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-010 · com003-excel-home-font
 
 #### 3. COM003-OFFICE-TABS-011 — EASY
-**Question:** Cell content ਦੀ alignment ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲਾ Home-tab group ਕਿਹੜਾ ਹੈ?
+**Question:** ਸੈੱਲ ਸਮੱਗਰੀ ਦੀ ਸੰਰેખਣ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?
 
-A. Clipboard
+ਇੱਕ. Clipboard
 B. Font
-C. Alignment
+C. ਸੰਰેખਣ
 D. Styles
 
-**Answer:** Alignment
-**Explanation:** Alignment group cell content ਦੀ horizontal ਅਤੇ vertical placement ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
+**Answer:** ਸੰਰેખਣ
+**Explanation:** ਸੰਰેખਣ ਸਮੂਹ ਸੈੱਲ ਸਮੱਗਰੀ ਦੀ ਲੇਟਵਾਂ ਅਤੇ ਲੰਬਕਾਰੀ ਸਥਾਨ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-011 · com003-excel-home-alignment
 
 #### 4. COM003-OFFICE-TABS-012 — EASY
-**Question:** Currency, percentage ਜਾਂ date format ਲਗਾਉਣ ਵਾਲਾ Home-tab group ਕਿਹੜਾ ਹੈ?
+**Question:** ਮੁਦਰਾ, ਫੀਸਦੀ ਜਾਂ ਤਾਰੀਖ ਰੂਪ ਲਗਾਉਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?
 
-A. Cells
-B. Editing
+ਇੱਕ. Cells
+B. ਸੋਧ
 C. Styles
 D. Number
 
 **Answer:** Number
-**Explanation:** Number group values ਦੇ display format ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
+**Explanation:** Number ਸਮੂਹ ਮੁੱਲ ਦੇ ਦਿਖਾਵਟ ਰੂਪ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-012 · com003-excel-home-number-format
 
 #### 5. COM003-OFFICE-TABS-013 — EASY
-**Question:** Selected cells ਨੂੰ ਜੋੜ ਕੇ result ਨੂੰ centre ਕਰਨ ਵਾਲਾ Home-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਸੈੱਲ ਨੂੰ ਜੋੜ ਕੇ ਨਤੀਜਾ ਨੂੰ ਕੇਂਦਰ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Merge & Center
-B. Wrap Text
+ਇੱਕ. Merge & Center
+B. ਲਪੇਟਣਾ ਲਿਖਤ
 C. Format Painter
 D. Clear
 
 **Answer:** Merge & Center
-**Explanation:** Merge & Center selected cells ਨੂੰ ਜੋੜ ਕੇ merged cell ਵਿੱਚ content ਨੂੰ centre ਕਰਦਾ ਹੈ।
+**Explanation:** Merge & Center ਚੁਣਿਆ ਹੋਇਆ ਸੈੱਲ ਨੂੰ ਜੋੜ ਕੇ ਮਿਲਾਇਆ ਹੋਇਆ ਸੈੱਲ ਵਿੱਚ ਸਮੱਗਰੀ ਨੂੰ ਕੇਂਦਰ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-013 · com003-excel-home-merge-center
 
 #### 6. COM003-OFFICE-TABS-014 — EASY
-**Question:** Cell ਦੀ ਲੰਮੀ text ਨੂੰ cell ਦੇ ਅੰਦਰ ਕਈ lines ਵਿੱਚ ਦਿਖਾਉਣ ਵਾਲਾ Home-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਸੈੱਲ ਦੀ ਲੰਮੀ ਲਿਖਤ ਨੂੰ ਸੈੱਲ ਦੇ ਅੰਦਰ ਕਈ ਲਾਈਨਾਂ ਵਿੱਚ ਦਿਖਾਉਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Merge & Center
-B. Wrap Text
-C. Fill Color
+ਇੱਕ. Merge & Center
+B. ਲਪੇਟਣਾ ਲਿਖਤ
+C. ਭਰਨਾ ਰੰਗ
 D. Sort
 
-**Answer:** Wrap Text
-**Explanation:** Wrap Text ਉਪਲਬਧ cell width ਦੇ ਅੰਦਰ content ਨੂੰ ਕਈ lines ਵਿੱਚ ਦਿਖਾਉਂਦਾ ਹੈ।
+**Answer:** ਲਪੇਟਣਾ ਲਿਖਤ
+**Explanation:** ਲਪੇਟਣਾ ਲਿਖਤ ਉਪਲਬਧ ਸੈੱਲ ਚੌੜਾਈ ਦੇ ਅੰਦਰ ਸਮੱਗਰੀ ਨੂੰ ਕਈ ਲਾਈਨਾਂ ਵਿੱਚ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-014 · com003-excel-home-wrap-text
 
 #### 7. COM003-OFFICE-TABS-015 — MEDIUM
-**Question:** Cell values ਕਿਸੇ rule ਨੂੰ ਪੂਰਾ ਕਰਨ ਤਾਂ formatting ਲਗਾਉਣ ਵਾਲਾ Home-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਸੈੱਲ ਮੁੱਲ ਕਿਸੇ ਨਿਯਮ ਨੂੰ ਪੂਰਾ ਕਰਨ ਤਾਂ ਸਜਾਵਟ ਲਗਾਉਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Format Painter
-B. Find & Select
-C. Conditional Formatting
+ਇੱਕ. Format Painter
+B. ਲੱਭਣਾ & ਚੁਣਨਾ
+C. ਸ਼ਰਤੀ ਸਜਾਵਟ
 D. Clear
 
-**Answer:** Conditional Formatting
-**Explanation:** Conditional Formatting defined conditions ਪੂਰੀਆਂ ਹੋਣ ਉੱਤੇ cells ਦਾ appearance ਬਦਲਦਾ ਹੈ।
+**Answer:** ਸ਼ਰਤੀ ਸਜਾਵਟ
+**Explanation:** ਸ਼ਰਤੀ ਸਜਾਵਟ ਪਰਿਭਾਸ਼ਿਤ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਹੋਣ ਉੱਤੇ ਸੈੱਲ ਦਾ ਦਿੱਖ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-015 · com003-excel-home-conditional-formatting
 
 #### 8. COM003-OFFICE-TABS-016 — MEDIUM
-**Question:** Selected adjacent cells ਵਿੱਚ value ਜਾਂ formula copy ਕਰਨ ਵਾਲਾ Home-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਨਾਲ ਲੱਗਦਾ ਸੈੱਲ ਵਿੱਚ ਮੁੱਲ ਜਾਂ ਫਾਰਮੂਲਾ ਕਾਪੀ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Sort
+ਇੱਕ. Sort
 B. Clear
-C. Find
-D. Fill
+C. ਲੱਭਣਾ
+D. ਭਰਨਾ
 
-**Answer:** Fill
-**Explanation:** Fill ਚੁਣੀ direction ਦੇ ਅਨੁਸਾਰ selected cell ਦੀ content ਨੂੰ adjacent cells ਵਿੱਚ copy ਕਰਦਾ ਹੈ।
+**Answer:** ਭਰਨਾ
+**Explanation:** ਭਰਨਾ ਚੁਣੀ ਦਿਸ਼ਾ ਦੇ ਅਨੁਸਾਰ ਚੁਣਿਆ ਹੋਇਆ ਸੈੱਲ ਦੀ ਸਮੱਗਰੀ ਨੂੰ ਨਾਲ ਲੱਗਦਾ ਸੈੱਲ ਵਿੱਚ ਕਾਪੀ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-016 · com003-excel-home-fill
 
 ### COM-003-QL-032 — Excel — Excel Insert Tab
@@ -745,197 +745,197 @@ D. Header & Footer
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-017 — EASY
-**Question:** Selected range को structured Excel table में बदलने वाला Insert-tab feature कौन-सा है?
+**Question:** चयनित श्रेणी को संरचित Excel तालिका में बदलने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-A. Table
+एक. तालिका
 B. WordArt
 C. Text Box
-D. Screenshot
+D. स्क्रीनशॉट
 
-**Answer:** Table
-**Explanation:** Table command selected range से structured table बनाता है।
+**Answer:** तालिका
+**Explanation:** तालिका कमांड चयनित श्रेणी से संरचित तालिका बनाता है।
 **Trace:** COM003-OFFICE-TABS-017 · com003-excel-insert-table
 
 #### 2. COM003-OFFICE-TABS-018 — MEDIUM
-**Question:** Fields के आधार पर worksheet data को summarize और analyze करने वाला Insert-tab feature कौन-सा है?
+**Question:** फ़ील्ड के आधार पर कार्यपत्रक डेटा को सारांश बनाना और विश्लेषण करना करने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-A. Sparklines
+एक. स्पार्कलाइन
 B. PivotTable
-C. Picture
+C. चित्र
 D. Shape
 
 **Answer:** PivotTable
-**Explanation:** PivotTable fields को report में arrange करके worksheet data का summary बनाता है।
+**Explanation:** PivotTable फ़ील्ड को रिपोर्ट में व्यवस्थित करना करके कार्यपत्रक डेटा का सारांश बनाता है।
 **Trace:** COM003-OFFICE-TABS-018 · com003-excel-insert-pivottable
 
 #### 3. COM003-OFFICE-TABS-019 — EASY
-**Question:** Worksheet data को graphical form में दिखाने वाला Insert-tab feature कौन-सा है?
+**Question:** कार्यपत्रक डेटा को चित्रात्मक रूप में दिखाने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-A. Table
+एक. तालिका
 B. Name Manager
 C. Chart
-D. Header
+D. शीर्षलेख
 
 **Answer:** Chart
-**Explanation:** Chart selected worksheet data को graphical form में दिखाता है।
+**Explanation:** Chart चयनित कार्यपत्रक डेटा को चित्रात्मक रूप में दिखाता है।
 **Trace:** COM003-OFFICE-TABS-019 · com003-excel-insert-chart
 
 #### 4. COM003-OFFICE-TABS-020 — MEDIUM
-**Question:** Selected data का analysis करके chart types suggest करने वाला Excel command कौन-सा है?
+**Question:** चयनित डेटा का विश्लेषण करके चार्ट प्रकार सुझाव करने वाला Excel कमांड कौन-सा है?
 
-A. Format as Table
+एक. स्वरूप जैसे तालिका
 B. Data Validation
 C. Name Manager
 D. Recommended Charts
 
 **Answer:** Recommended Charts
-**Explanation:** Recommended Charts selected data का analysis करके suitable chart types suggest करता है।
+**Explanation:** Recommended Charts चयनित डेटा का विश्लेषण करके उपयुक्त चार्ट प्रकार सुझाव करता है।
 **Trace:** COM003-OFFICE-TABS-020 · com003-excel-insert-recommended-charts
 
 #### 5. COM003-OFFICE-TABS-021 — EASY
-**Question:** Excel में Sparkline क्या होता है?
+**Question:** Excel में स्पार्कलाइन क्या होता है?
 
-A. Cell में छोटा chart
-B. Worksheet password
-C. Page margin
-D. Formula error
+एक. कक्ष में छोटा चार्ट
+B. कार्यपत्रक पासवर्ड
+C. पृष्ठ हाशिया
+D. सूत्र त्रुटि
 
-**Answer:** Cell में छोटा chart
-**Explanation:** Sparkline worksheet cell में रखा गया छोटा chart है जो data trend दिखाता है।
+**Answer:** कक्ष में छोटा चार्ट
+**Explanation:** स्पार्कलाइन कार्यपत्रक कक्ष में रखा गया छोटा चार्ट है जो डेटा रुझान दिखाता है।
 **Trace:** COM003-OFFICE-TABS-021 · com003-excel-insert-sparkline
 
 #### 6. COM003-OFFICE-TABS-022 — EASY
-**Question:** Excel worksheet में image रखने वाला Insert-tab command कौन-सा है?
+**Question:** Excel कार्यपत्रक में चित्र रखने वाला Insert टैबटैब कमांड कौन-सा है?
 
-A. PivotTable
+एक. PivotTable
 B. Pictures
 C. Equation
 D. Slicer
 
 **Answer:** Pictures
-**Explanation:** Pictures worksheet में image insert करता है।
+**Explanation:** Pictures कार्यपत्रक में चित्र डालना करता है।
 **Trace:** COM003-OFFICE-TABS-022 · com003-excel-insert-picture
 
 #### 7. COM003-OFFICE-TABS-023 — MEDIUM
-**Question:** Table या PivotTable को buttons से filter करने वाला Insert-tab feature कौन-सा है?
+**Question:** तालिका या PivotTable को बटन से फ़िल्टर करने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-A. Header
+एक. शीर्षलेख
 B. Shape
 C. Slicer
 D. Symbol
 
 **Answer:** Slicer
-**Explanation:** Slicer clickable buttons देता है जिनसे table या PivotTable data filter होता है।
+**Explanation:** Slicer क्लिक करने योग्य बटन देता है जिनसे तालिका या PivotTable डेटा फ़िल्टर होता है।
 **Trace:** COM003-OFFICE-TABS-023 · com003-excel-insert-slicer
 
 #### 8. COM003-OFFICE-TABS-024 — EASY
-**Question:** Printed pages पर header या footer जोड़ने वाला Insert-tab command कौन-सा है?
+**Question:** मुद्रित पृष्ठ पर शीर्षलेख या पादलेख जोड़ने वाला Insert टैबटैब कमांड कौन-सा है?
 
-A. Chart
-B. Table
+एक. Chart
+B. तालिका
 C. Text Box
 D. Header & Footer
 
 **Answer:** Header & Footer
-**Explanation:** Header & Footer printed pages के top या bottom पर repeated information जोड़ता है।
+**Explanation:** Header & Footer मुद्रित पृष्ठ के ऊपर या नीचे पर दोहराई गई जानकारी जोड़ता है।
 **Trace:** COM003-OFFICE-TABS-024 · com003-excel-insert-header-footer
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-017 — EASY
-**Question:** Selected range ਨੂੰ structured Excel table ਵਿੱਚ ਬਦਲਣ ਵਾਲਾ Insert-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਸ਼੍ਰੇਣੀ ਨੂੰ ਬਣਤਰਬੱਧ Excel ਟੇਬਲ ਵਿੱਚ ਬਦਲਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Table
+ਇੱਕ. ਟੇਬਲ
 B. WordArt
 C. Text Box
-D. Screenshot
+D. ਸਕ੍ਰੀਨਸ਼ਾਟ
 
-**Answer:** Table
-**Explanation:** Table command selected range ਤੋਂ structured table ਬਣਾਉਂਦਾ ਹੈ।
+**Answer:** ਟੇਬਲ
+**Explanation:** ਟੇਬਲ ਕਮਾਂਡ ਚੁਣਿਆ ਹੋਇਆ ਸ਼੍ਰੇਣੀ ਤੋਂ ਬਣਤਰਬੱਧ ਟੇਬਲ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-017 · com003-excel-insert-table
 
 #### 2. COM003-OFFICE-TABS-018 — MEDIUM
-**Question:** Fields ਦੇ ਆਧਾਰ ਉੱਤੇ worksheet data ਨੂੰ summarize ਅਤੇ analyze ਕਰਨ ਵਾਲਾ Insert-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਫੀਲਡ ਦੇ ਆਧਾਰ ਉੱਤੇ ਵਰਕਸ਼ੀਟ ਡਾਟਾ ਨੂੰ ਸਾਰ ਬਣਾਉਣਾ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰਨਾ ਕਰਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Sparklines
+ਇੱਕ. ਸਪਾਰਕਲਾਈਨ
 B. PivotTable
-C. Picture
+C. ਤਸਵੀਰ
 D. Shape
 
 **Answer:** PivotTable
-**Explanation:** PivotTable fields ਨੂੰ report ਵਿੱਚ arrange ਕਰਕੇ worksheet data ਦਾ summary ਬਣਾਉਂਦਾ ਹੈ।
+**Explanation:** PivotTable ਫੀਲਡ ਨੂੰ ਰਿਪੋਰਟ ਵਿੱਚ ਵਿਵਸਥਿਤ ਕਰਨਾ ਕਰਕੇ ਵਰਕਸ਼ੀਟ ਡਾਟਾ ਦਾ ਸਾਰ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-018 · com003-excel-insert-pivottable
 
 #### 3. COM003-OFFICE-TABS-019 — EASY
-**Question:** Worksheet data ਨੂੰ graphical form ਵਿੱਚ ਦਿਖਾਉਣ ਵਾਲਾ Insert-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਕਸ਼ੀਟ ਡਾਟਾ ਨੂੰ ਚਿੱਤਰਾਤਮਕ ਰੂਪ ਵਿੱਚ ਦਿਖਾਉਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Table
+ਇੱਕ. ਟੇਬਲ
 B. Name Manager
 C. Chart
-D. Header
+D. ਉੱਪਰਲਾ ਸਿਰਲੇਖ
 
 **Answer:** Chart
-**Explanation:** Chart selected worksheet data ਨੂੰ graphical form ਵਿੱਚ ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Chart ਚੁਣਿਆ ਹੋਇਆ ਵਰਕਸ਼ੀਟ ਡਾਟਾ ਨੂੰ ਚਿੱਤਰਾਤਮਕ ਰੂਪ ਵਿੱਚ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-019 · com003-excel-insert-chart
 
 #### 4. COM003-OFFICE-TABS-020 — MEDIUM
-**Question:** Selected data ਦਾ analysis ਕਰਕੇ chart types suggest ਕਰਨ ਵਾਲਾ Excel command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਡਾਟਾ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰਕੇ ਚਾਰਟ ਕਿਸਮਾਂ ਸੁਝਾਅ ਦੇਣਾ ਕਰਨ ਵਾਲਾ Excel ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Format as Table
+ਇੱਕ. ਰੂਪ ਵਜੋਂ ਟੇਬਲ
 B. Data Validation
 C. Name Manager
 D. Recommended Charts
 
 **Answer:** Recommended Charts
-**Explanation:** Recommended Charts selected data ਦਾ analysis ਕਰਕੇ suitable chart types suggest ਕਰਦਾ ਹੈ।
+**Explanation:** Recommended Charts ਚੁਣਿਆ ਹੋਇਆ ਡਾਟਾ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰਕੇ ਢੁਕਵਾਂ ਚਾਰਟ ਕਿਸਮਾਂ ਸੁਝਾਅ ਦੇਣਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-020 · com003-excel-insert-recommended-charts
 
 #### 5. COM003-OFFICE-TABS-021 — EASY
-**Question:** Excel ਵਿੱਚ Sparkline ਕੀ ਹੁੰਦਾ ਹੈ?
+**Question:** Excel ਵਿੱਚ ਸਪਾਰਕਲਾਈਨ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-A. Cell ਵਿੱਚ ਛੋਟਾ chart
-B. Worksheet password
-C. Page margin
-D. Formula error
+ਇੱਕ. ਸੈੱਲ ਵਿੱਚ ਛੋਟਾ ਚਾਰਟ
+B. ਵਰਕਸ਼ੀਟ ਪਾਸਵਰਡ
+C. ਪੰਨਾ ਹਾਸ਼ੀਆ
+D. ਫਾਰਮੂਲਾ ਗਲਤੀ
 
-**Answer:** Cell ਵਿੱਚ ਛੋਟਾ chart
-**Explanation:** Sparkline worksheet cell ਵਿੱਚ ਰੱਖਿਆ ਛੋਟਾ chart ਹੈ ਜੋ data trend ਦਿਖਾਉਂਦਾ ਹੈ।
+**Answer:** ਸੈੱਲ ਵਿੱਚ ਛੋਟਾ ਚਾਰਟ
+**Explanation:** ਸਪਾਰਕਲਾਈਨ ਵਰਕਸ਼ੀਟ ਸੈੱਲ ਵਿੱਚ ਰੱਖਿਆ ਛੋਟਾ ਚਾਰਟ ਹੈ ਜੋ ਡਾਟਾ ਰੁਝਾਨ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-021 · com003-excel-insert-sparkline
 
 #### 6. COM003-OFFICE-TABS-022 — EASY
-**Question:** Excel worksheet ਵਿੱਚ image ਰੱਖਣ ਵਾਲਾ Insert-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** Excel ਵਰਕਸ਼ੀਟ ਵਿੱਚ ਤਸਵੀਰ ਰੱਖਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. PivotTable
+ਇੱਕ. PivotTable
 B. Pictures
 C. Equation
 D. Slicer
 
 **Answer:** Pictures
-**Explanation:** Pictures worksheet ਵਿੱਚ image insert ਕਰਦਾ ਹੈ।
+**Explanation:** Pictures ਵਰਕਸ਼ੀਟ ਵਿੱਚ ਤਸਵੀਰ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-022 · com003-excel-insert-picture
 
 #### 7. COM003-OFFICE-TABS-023 — MEDIUM
-**Question:** Table ਜਾਂ PivotTable ਨੂੰ buttons ਨਾਲ filter ਕਰਨ ਵਾਲਾ Insert-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਟੇਬਲ ਜਾਂ PivotTable ਨੂੰ ਬਟਨ ਨਾਲ ਫਿਲਟਰ ਕਰਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Header
+ਇੱਕ. ਉੱਪਰਲਾ ਸਿਰਲੇਖ
 B. Shape
 C. Slicer
 D. Symbol
 
 **Answer:** Slicer
-**Explanation:** Slicer clickable buttons ਦਿੰਦਾ ਹੈ ਜਿਨ੍ਹਾਂ ਨਾਲ table ਜਾਂ PivotTable data filter ਹੁੰਦਾ ਹੈ।
+**Explanation:** Slicer ਕਲਿੱਕ ਕਰਨ ਯੋਗ ਬਟਨ ਦਿੰਦਾ ਹੈ ਜਿਨ੍ਹਾਂ ਨਾਲ ਟੇਬਲ ਜਾਂ PivotTable ਡਾਟਾ ਫਿਲਟਰ ਹੁੰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-023 · com003-excel-insert-slicer
 
 #### 8. COM003-OFFICE-TABS-024 — EASY
-**Question:** Printed pages ਉੱਤੇ header ਜਾਂ footer ਜੋੜਨ ਵਾਲਾ Insert-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਛਪੇ ਹੋਏ ਪੰਨੇ ਉੱਤੇ ਉੱਪਰਲਾ ਸਿਰਲੇਖ ਜਾਂ ਹੇਠਲਾ ਸਿਰਲੇਖ ਜੋੜਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Chart
-B. Table
+ਇੱਕ. Chart
+B. ਟੇਬਲ
 C. Text Box
 D. Header & Footer
 
 **Answer:** Header & Footer
-**Explanation:** Header & Footer printed pages ਦੇ top ਜਾਂ bottom ਉੱਤੇ repeated information ਜੋੜਦਾ ਹੈ।
+**Explanation:** Header & Footer ਛਪੇ ਹੋਏ ਪੰਨੇ ਦੇ ਉੱਪਰ ਜਾਂ ਹੇਠਾਂ ਉੱਤੇ ਦੁਹਰਾਈ ਗਈ ਜਾਣਕਾਰੀ ਜੋੜਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-024 · com003-excel-insert-header-footer
 
 ### COM-003-QL-033 — Excel — Excel Page Layout Tab
@@ -1041,197 +1041,197 @@ D. Scale to Fit
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-025 — EASY
-**Question:** Workbook पर coordinated fonts, colours और effects लगाने वाला Page Layout-tab feature कौन-सा है?
+**Question:** कार्यपुस्तिका पर समन्वित फ़ॉन्ट, रंग और प्रभाव लगाने वाला Page Layout टैबटैब सुविधा कौन-सा है?
 
-A. Themes
+एक. Themes
 B. Sort
 C. Data Validation
 D. Name Manager
 
 **Answer:** Themes
-**Explanation:** Themes workbook पर coordinated visual design लागू करते हैं।
+**Explanation:** Themes कार्यपुस्तिका पर समन्वित दृश्य डिज़ाइन लागू करते हैं।
 **Trace:** COM003-OFFICE-TABS-025 · com003-excel-page-layout-themes
 
 #### 2. COM003-OFFICE-TABS-026 — EASY
-**Question:** Printed page के चारों ओर blank space नियंत्रित करने वाला Page Layout-tab command कौन-सा है?
+**Question:** मुद्रित पृष्ठ के चारों ओर रिक्त स्थान नियंत्रित करने वाला Page Layout टैबटैब कमांड कौन-सा है?
 
-A. Orientation
-B. Margins
+एक. Orientation
+B. हाशिये
 C. Scale
-D. Breaks
+D. विराम
 
-**Answer:** Margins
-**Explanation:** Margins printed page के edges के आसपास blank space नियंत्रित करते हैं।
+**Answer:** हाशिये
+**Explanation:** हाशिये मुद्रित पृष्ठ के किनारे के आसपास रिक्त स्थान नियंत्रित करते हैं।
 **Trace:** COM003-OFFICE-TABS-026 · com003-excel-page-layout-margins
 
 #### 3. COM003-OFFICE-TABS-027 — EASY
-**Question:** Sheet को portrait और landscape printing के बीच बदलने वाला Page Layout-tab option कौन-सा है?
+**Question:** पत्रक को पोर्ट्रेट और लैंडस्केप मुद्रण के बीच बदलने वाला Page Layout टैबटैब विकल्प कौन-सा है?
 
-A. Size
-B. Margins
+एक. आकार
+B. हाशिये
 C. Orientation
 D. Print Area
 
 **Answer:** Orientation
-**Explanation:** Orientation page direction को portrait और landscape के बीच बदलता है।
+**Explanation:** Orientation पृष्ठ दिशा को पोर्ट्रेट और लैंडस्केप के बीच बदलता है।
 **Trace:** COM003-OFFICE-TABS-027 · com003-excel-page-layout-orientation
 
 #### 4. COM003-OFFICE-TABS-028 — EASY
-**Question:** Printing के लिए paper size चुनने वाला Page Layout-tab option कौन-सा है?
+**Question:** मुद्रण के लिए कागज़ आकार चुनने वाला Page Layout टैबटैब विकल्प कौन-सा है?
 
-A. Margins
+एक. हाशिये
 B. Themes
-C. Breaks
-D. Size
+C. विराम
+D. आकार
 
-**Answer:** Size
-**Explanation:** Size worksheet printout के लिए paper size चुनता है।
+**Answer:** आकार
+**Explanation:** आकार कार्यपत्रक प्रिंटआउट के लिए कागज़ आकार चुनता है।
 **Trace:** COM003-OFFICE-TABS-028 · com003-excel-page-layout-size
 
 #### 5. COM003-OFFICE-TABS-029 — MEDIUM
-**Question:** Printing को selected cells की range तक सीमित करने वाला Page Layout-tab command कौन-सा है?
+**Question:** मुद्रण को चयनित कक्ष की श्रेणी तक सीमित करने वाला Page Layout टैबटैब कमांड कौन-सा है?
 
-A. Print Area
+एक. Print Area
 B. Print Titles
-C. Page Break
+C. पृष्ठ विराम
 D. Scale to Fit
 
 **Answer:** Print Area
-**Explanation:** Print Area वह worksheet range तय करता है जिसे print करना है।
+**Explanation:** Print Area वह कार्यपत्रक श्रेणी तय करता है जिसे मुद्रण करना है।
 **Trace:** COM003-OFFICE-TABS-029 · com003-excel-page-layout-print-area
 
 #### 6. COM003-OFFICE-TABS-030 — MEDIUM
-**Question:** Manual page break insert या remove करने वाला Page Layout-tab command कौन-सा है?
+**Question:** मैनुअल पृष्ठ विराम डालना या हटाना करने वाला Page Layout टैबटैब कमांड कौन-सा है?
 
-A. Margins
-B. Breaks
+एक. हाशिये
+B. विराम
 C. Orientation
 D. Themes
 
-**Answer:** Breaks
-**Explanation:** Breaks worksheet के print layout में manual page breaks नियंत्रित करता है।
+**Answer:** विराम
+**Explanation:** विराम कार्यपत्रक के मुद्रण लेआउट में मैनुअल पृष्ठ विराम नियंत्रित करता है।
 **Trace:** COM003-OFFICE-TABS-030 · com003-excel-page-layout-breaks
 
 #### 7. COM003-OFFICE-TABS-031 — EASY
-**Question:** Printout में worksheet gridlines दिखें या नहीं, यह नियंत्रित करने वाली setting कौन-सी है?
+**Question:** प्रिंटआउट में कार्यपत्रक ग्रिडलाइनें दिखें या नहीं, यह नियंत्रित करने वाली सेटिंग कौन-सी है?
 
-A. Headings
+एक. Headings
 B. Scale
-C. Gridlines
+C. ग्रिडलाइनें
 D. Themes
 
-**Answer:** Gridlines
-**Explanation:** Gridlines की print setting worksheet gridlines के print होने को नियंत्रित करती है।
+**Answer:** ग्रिडलाइनें
+**Explanation:** ग्रिडलाइनें की मुद्रण सेटिंग कार्यपत्रक ग्रिडलाइनें के मुद्रण होने को नियंत्रित करती है।
 **Trace:** COM003-OFFICE-TABS-031 · com003-excel-page-layout-gridlines
 
 #### 8. COM003-OFFICE-TABS-032 — MEDIUM
-**Question:** Worksheet को चुने हुए pages की width या height में fit करने वाला Page Layout-tab area कौन-सा है?
+**Question:** कार्यपत्रक को चुने हुए पृष्ठ की चौड़ाई या ऊँचाई में समायोजित करना करने वाला Page Layout टैबटैब क्षेत्र कौन-सा है?
 
-A. Themes
-B. Page Setup
+एक. Themes
+B. पृष्ठ सेटअप
 C. Print Titles
 D. Scale to Fit
 
 **Answer:** Scale to Fit
-**Explanation:** Scale to Fit worksheet size को selected page dimensions में fit करने के लिए adjust करता है।
+**Explanation:** Scale to Fit कार्यपत्रक आकार को चयनित पृष्ठ आयाम में समायोजित करना करने के लिए समायोजित करना करता है।
 **Trace:** COM003-OFFICE-TABS-032 · com003-excel-page-layout-scale-to-fit
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-025 — EASY
-**Question:** Workbook ਉੱਤੇ coordinated fonts, colours ਅਤੇ effects ਲਗਾਉਣ ਵਾਲਾ Page Layout-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਕਬੁੱਕ ਉੱਤੇ ਸਮਨਵਿਤ ਫੌਂਟ, ਰੰਗ ਅਤੇ ਪ੍ਰਭਾਵ ਲਗਾਉਣ ਵਾਲਾ Page Layout ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Themes
+ਇੱਕ. Themes
 B. Sort
 C. Data Validation
 D. Name Manager
 
 **Answer:** Themes
-**Explanation:** Themes workbook ਉੱਤੇ coordinated visual design ਲਾਗੂ ਕਰਦੇ ਹਨ।
+**Explanation:** Themes ਵਰਕਬੁੱਕ ਉੱਤੇ ਸਮਨਵਿਤ ਦ੍ਰਿਸ਼ ਡਿਜ਼ਾਈਨ ਲਾਗੂ ਕਰਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-025 · com003-excel-page-layout-themes
 
 #### 2. COM003-OFFICE-TABS-026 — EASY
-**Question:** Printed page ਦੇ ਆਲੇ-ਦੁਆਲੇ blank space ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲਾ Page Layout-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਛਪੇ ਹੋਏ ਪੰਨਾ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਖਾਲੀ ਥਾਂ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲਾ Page Layout ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Orientation
-B. Margins
+ਇੱਕ. Orientation
+B. ਹਾਸ਼ੀਏ
 C. Scale
-D. Breaks
+D. ਵਿਰਾਮ
 
-**Answer:** Margins
-**Explanation:** Margins printed page ਦੇ edges ਦੇ ਆਲੇ-ਦੁਆਲੇ blank space ਨਿਯੰਤਰਿਤ ਕਰਦੇ ਹਨ।
+**Answer:** ਹਾਸ਼ੀਏ
+**Explanation:** ਹਾਸ਼ੀਏ ਛਪੇ ਹੋਏ ਪੰਨਾ ਦੇ ਕਿਨਾਰੇ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਖਾਲੀ ਥਾਂ ਨਿਯੰਤਰਿਤ ਕਰਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-026 · com003-excel-page-layout-margins
 
 #### 3. COM003-OFFICE-TABS-027 — EASY
-**Question:** Sheet ਨੂੰ portrait ਅਤੇ landscape printing ਵਿਚਕਾਰ ਬਦਲਣ ਵਾਲਾ Page Layout-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਕਸ਼ੀਟ ਨੂੰ ਪੋਰਟਰੇਟ ਅਤੇ ਲੈਂਡਸਕੇਪ ਛਪਾਈ ਵਿਚਕਾਰ ਬਦਲਣ ਵਾਲਾ Page Layout ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Size
-B. Margins
+ਇੱਕ. ਆਕਾਰ
+B. ਹਾਸ਼ੀਏ
 C. Orientation
 D. Print Area
 
 **Answer:** Orientation
-**Explanation:** Orientation page direction ਨੂੰ portrait ਅਤੇ landscape ਵਿਚਕਾਰ ਬਦਲਦਾ ਹੈ।
+**Explanation:** Orientation ਪੰਨਾ ਦਿਸ਼ਾ ਨੂੰ ਪੋਰਟਰੇਟ ਅਤੇ ਲੈਂਡਸਕੇਪ ਵਿਚਕਾਰ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-027 · com003-excel-page-layout-orientation
 
 #### 4. COM003-OFFICE-TABS-028 — EASY
-**Question:** Printing ਲਈ paper size ਚੁਣਨ ਵਾਲਾ Page Layout-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਛਪਾਈ ਲਈ ਕਾਗਜ਼ ਆਕਾਰ ਚੁਣਨ ਵਾਲਾ Page Layout ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Margins
+ਇੱਕ. ਹਾਸ਼ੀਏ
 B. Themes
-C. Breaks
-D. Size
+C. ਵਿਰਾਮ
+D. ਆਕਾਰ
 
-**Answer:** Size
-**Explanation:** Size worksheet printout ਲਈ paper size ਚੁਣਦਾ ਹੈ।
+**Answer:** ਆਕਾਰ
+**Explanation:** ਆਕਾਰ ਵਰਕਸ਼ੀਟ ਪ੍ਰਿੰਟਆਉਟ ਲਈ ਕਾਗਜ਼ ਆਕਾਰ ਚੁਣਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-028 · com003-excel-page-layout-size
 
 #### 5. COM003-OFFICE-TABS-029 — MEDIUM
-**Question:** Printing ਨੂੰ selected cells ਦੀ range ਤੱਕ ਸੀਮਿਤ ਕਰਨ ਵਾਲਾ Page Layout-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਛਪਾਈ ਨੂੰ ਚੁਣਿਆ ਹੋਇਆ ਸੈੱਲ ਦੀ ਸ਼੍ਰੇਣੀ ਤੱਕ ਸੀਮਿਤ ਕਰਨ ਵਾਲਾ Page Layout ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Print Area
+ਇੱਕ. Print Area
 B. Print Titles
-C. Page Break
+C. ਪੰਨਾ ਵਿਰਾਮ
 D. Scale to Fit
 
 **Answer:** Print Area
-**Explanation:** Print Area ਉਹ worksheet range ਤੈਅ ਕਰਦਾ ਹੈ ਜਿਸ ਨੂੰ print ਕਰਨਾ ਹੈ।
+**Explanation:** Print Area ਉਹ ਵਰਕਸ਼ੀਟ ਸ਼੍ਰੇਣੀ ਤੈਅ ਕਰਦਾ ਹੈ ਜਿਸ ਨੂੰ ਛਪਾਈ ਕਰਨਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-029 · com003-excel-page-layout-print-area
 
 #### 6. COM003-OFFICE-TABS-030 — MEDIUM
-**Question:** Manual page break insert ਜਾਂ remove ਕਰਨ ਵਾਲਾ Page Layout-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਹੱਥੋਂ ਪੰਨਾ ਵਿਰਾਮ ਸ਼ਾਮਲ ਕਰਨਾ ਜਾਂ ਹਟਾਉਣਾ ਕਰਨ ਵਾਲਾ Page Layout ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Margins
-B. Breaks
+ਇੱਕ. ਹਾਸ਼ੀਏ
+B. ਵਿਰਾਮ
 C. Orientation
 D. Themes
 
-**Answer:** Breaks
-**Explanation:** Breaks worksheet ਦੇ print layout ਵਿੱਚ manual page breaks ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
+**Answer:** ਵਿਰਾਮ
+**Explanation:** ਵਿਰਾਮ ਵਰਕਸ਼ੀਟ ਦੇ ਛਪਾਈ ਲੇਆਉਟ ਵਿੱਚ ਹੱਥੋਂ ਪੰਨਾ ਵਿਰਾਮ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-030 · com003-excel-page-layout-breaks
 
 #### 7. COM003-OFFICE-TABS-031 — EASY
-**Question:** Printout ਵਿੱਚ worksheet gridlines ਦਿਖਣ ਜਾਂ ਨਾ ਦਿਖਣ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲੀ setting ਕਿਹੜੀ ਹੈ?
+**Question:** ਪ੍ਰਿੰਟਆਉਟ ਵਿੱਚ ਵਰਕਸ਼ੀਟ ਗ੍ਰਿਡਲਾਈਨਾਂ ਦਿਖਣ ਜਾਂ ਨਾ ਦਿਖਣ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲੀ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-A. Headings
+ਇੱਕ. Headings
 B. Scale
-C. Gridlines
+C. ਗ੍ਰਿਡਲਾਈਨਾਂ
 D. Themes
 
-**Answer:** Gridlines
-**Explanation:** Gridlines ਦੀ print setting worksheet gridlines ਦੇ print ਹੋਣ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦੀ ਹੈ।
+**Answer:** ਗ੍ਰਿਡਲਾਈਨਾਂ
+**Explanation:** ਗ੍ਰਿਡਲਾਈਨਾਂ ਦੀ ਛਪਾਈ ਸੈਟਿੰਗ ਵਰਕਸ਼ੀਟ ਗ੍ਰਿਡਲਾਈਨਾਂ ਦੇ ਛਪਾਈ ਹੋਣ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦੀ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-031 · com003-excel-page-layout-gridlines
 
 #### 8. COM003-OFFICE-TABS-032 — MEDIUM
-**Question:** Worksheet ਨੂੰ ਚੁਣੇ pages ਦੀ width ਜਾਂ height ਵਿੱਚ fit ਕਰਨ ਵਾਲਾ Page Layout-tab area ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਕਸ਼ੀਟ ਨੂੰ ਚੁਣੇ ਪੰਨੇ ਦੀ ਚੌੜਾਈ ਜਾਂ ਉਚਾਈ ਵਿੱਚ ਮਿਲਾਉਣਾ ਕਰਨ ਵਾਲਾ Page Layout ਟੈਬਟੈਬ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-A. Themes
-B. Page Setup
+ਇੱਕ. Themes
+B. ਪੰਨਾ ਸੈਟਅਪ
 C. Print Titles
 D. Scale to Fit
 
 **Answer:** Scale to Fit
-**Explanation:** Scale to Fit worksheet size ਨੂੰ selected page dimensions ਵਿੱਚ fit ਕਰਨ ਲਈ adjust ਕਰਦਾ ਹੈ।
+**Explanation:** Scale to Fit ਵਰਕਸ਼ੀਟ ਆਕਾਰ ਨੂੰ ਚੁਣਿਆ ਹੋਇਆ ਪੰਨਾ ਮਾਪ ਵਿੱਚ ਮਿਲਾਉਣਾ ਕਰਨ ਲਈ ਠੀਕ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-032 · com003-excel-page-layout-scale-to-fit
 
 ### COM-003-QL-034 — Excel — Excel Formulas Tab
@@ -1337,197 +1337,197 @@ D. Function Library
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-033 — EASY
-**Question:** Built-in Excel functions की categories रखने वाला Formulas-tab group कौन-सा है?
+**Question:** अंतर्निहितमें Excel फ़ंक्शन की श्रेणियाँ रखने वाला सूत्र टैबटैब समूह कौन-सा है?
 
-A. Function Library
-B. Workbook Views
-C. Data Tools
-D. Page Setup
+एक. Function Library
+B. कार्यपुस्तिका Views
+C. Data उपकरण
+D. पृष्ठ सेटअप
 
 **Answer:** Function Library
-**Explanation:** Function Library group built-in functions insert करने के लिए categories देता है।
+**Explanation:** Function Library समूह अंतर्निहितमें फ़ंक्शन डालना करने के लिए श्रेणियाँ देता है।
 **Trace:** COM003-OFFICE-TABS-033 · com003-excel-formulas-function-library
 
 #### 2. COM003-OFFICE-TABS-034 — EASY
-**Question:** Function search करके insert करने में मदद करने वाला Formulas-tab command कौन-सा है?
+**Question:** फ़ंक्शन खोज करके डालना करने में मदद करने वाला सूत्र टैबटैब कमांड कौन-सा है?
 
-A. Name Manager
+एक. Name Manager
 B. Insert Function
 C. Trace Dependents
 D. Show Formulas
 
 **Answer:** Insert Function
-**Explanation:** Insert Function function चुनने के लिए search और arguments window खोलता है।
+**Explanation:** Insert Function फ़ंक्शन चुनने के लिए खोज और तर्क विंडो खोलता है।
 **Trace:** COM003-OFFICE-TABS-034 · com003-excel-formulas-insert-function
 
 #### 3. COM003-OFFICE-TABS-035 — EASY
-**Question:** Nearby range के लिए जल्दी से SUM formula insert करने वाला Formulas-tab command कौन-सा है?
+**Question:** पास का श्रेणी के लिए जल्दी से SUM सूत्र डालना करने वाला सूत्र टैबटैब कमांड कौन-सा है?
 
-A. Evaluate Formula
+एक. मूल्यांकन करना सूत्र
 B. Name Manager
 C. AutoSum
 D. Error Checking
 
 **Answer:** AutoSum
-**Explanation:** AutoSum nearby range को detect करके SUM formula insert करता है।
+**Explanation:** AutoSum पास का श्रेणी को पहचानना करके SUM सूत्र डालना करता है।
 **Trace:** COM003-OFFICE-TABS-035 · com003-excel-formulas-autosum
 
 #### 4. COM003-OFFICE-TABS-036 — MEDIUM
-**Question:** Defined names create, edit या delete करने वाला Formulas-tab command कौन-सा है?
+**Question:** परिभाषित नाम बनाना, संपादित करें या हटाना करने वाला सूत्र टैबटैब कमांड कौन-सा है?
 
-A. Insert Function
+एक. Insert Function
 B. Calculate Now
 C. Show Formulas
 D. Name Manager
 
 **Answer:** Name Manager
-**Explanation:** Name Manager cells और ranges के defined names को manage करता है।
+**Explanation:** Name Manager कक्ष और श्रेणियाँ के परिभाषित नाम को प्रबंधित करना करता है।
 **Trace:** COM003-OFFICE-TABS-036 · com003-excel-formulas-name-manager
 
 #### 5. COM003-OFFICE-TABS-037 — MEDIUM
-**Question:** Selected formula को values देने वाले cells दिखाने वाला Formula Auditing command कौन-सा है?
+**Question:** चयनित सूत्र को मान देने वाले कक्ष दिखाने वाला सूत्र जाँच कमांड कौन-सा है?
 
-A. Trace Precedents
+एक. Trace Precedents
 B. Trace Dependents
-C. Remove Arrows
-D. Watch Window
+C. हटाना तीर
+D. निरीक्षण विंडो
 
 **Answer:** Trace Precedents
-**Explanation:** Trace Precedents selected formula में उपयोग हुए cells की ओर arrows दिखाता है।
+**Explanation:** Trace Precedents चयनित सूत्र में उपयोग हुए कक्ष की ओर तीर दिखाता है।
 **Trace:** COM003-OFFICE-TABS-037 · com003-excel-formulas-trace-precedents
 
 #### 6. COM003-OFFICE-TABS-038 — MEDIUM
-**Question:** Selected cell पर depend करने वाले formulas दिखाने वाला Formula Auditing command कौन-सा है?
+**Question:** चयनित कक्ष पर निर्भर होना करने वाले सूत्र दिखाने वाला सूत्र जाँच कमांड कौन-सा है?
 
-A. Trace Precedents
+एक. Trace Precedents
 B. Trace Dependents
-C. Evaluate Formula
+C. मूल्यांकन करना सूत्र
 D. Error Checking
 
 **Answer:** Trace Dependents
-**Explanation:** Trace Dependents selected cell से उन formulas की ओर संकेत करता है जो उसे use करते हैं।
+**Explanation:** Trace Dependents चयनित कक्ष से उन सूत्र की ओर संकेत करता है जो उसे उपयोग करना करते हैं।
 **Trace:** COM003-OFFICE-TABS-038 · com003-excel-formulas-trace-dependents
 
 #### 7. COM003-OFFICE-TABS-039 — EASY
-**Question:** Calculated results के बजाय cells में formulas दिखाने वाला Formulas-tab command कौन-सा है?
+**Question:** गणना किया गया परिणाम के बजाय कक्ष में सूत्र दिखाने वाला सूत्र टैबटैब कमांड कौन-सा है?
 
-A. Watch Window
-B. Calculate Sheet
+एक. निरीक्षण विंडो
+B. Calculate पत्रक
 C. Show Formulas
-D. Remove Arrows
+D. हटाना तीर
 
 **Answer:** Show Formulas
-**Explanation:** Show Formulas worksheet display को results से formulas में बदलता है।
+**Explanation:** Show Formulas कार्यपत्रक प्रदर्शन को परिणाम से सूत्र में बदलता है।
 **Trace:** COM003-OFFICE-TABS-039 · com003-excel-formulas-show-formulas
 
 #### 8. COM003-OFFICE-TABS-040 — MEDIUM
-**Question:** Formulas automatic या manual recalculate हों, यह नियंत्रित करने वाली Excel setting कौन-सी है?
+**Question:** सूत्र स्वचालित या मैनुअल पुनर्गणना करना हों, यह नियंत्रित करने वाली Excel सेटिंग कौन-सी है?
 
-A. Name Manager
+एक. Name Manager
 B. Error Checking
-C. Calculation Options
+C. गणना विकल्प
 D. Function Library
 
-**Answer:** Calculation Options
-**Explanation:** Calculation Options workbook के calculation mode को नियंत्रित करता है।
+**Answer:** गणना विकल्प
+**Explanation:** गणना विकल्प कार्यपुस्तिका के गणना मोड को नियंत्रित करता है।
 **Trace:** COM003-OFFICE-TABS-040 · com003-excel-formulas-calculation-options
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-033 — EASY
-**Question:** Built-in Excel functions ਦੀਆਂ categories ਰੱਖਣ ਵਾਲਾ Formulas-tab group ਕਿਹੜਾ ਹੈ?
+**Question:** ਅੰਦਰੂਨੀਵਿੱਚ Excel ਫੰਕਸ਼ਨ ਦੀਆਂ ਸ਼੍ਰੇਣੀਆਂ ਰੱਖਣ ਵਾਲਾ ਫਾਰਮੂਲੇ ਟੈਬਟੈਬ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?
 
-A. Function Library
-B. Workbook Views
-C. Data Tools
-D. Page Setup
+ਇੱਕ. Function Library
+B. ਵਰਕਬੁੱਕ Views
+C. Data ਸਾਧਨ
+D. ਪੰਨਾ ਸੈਟਅਪ
 
 **Answer:** Function Library
-**Explanation:** Function Library group built-in functions insert ਕਰਨ ਲਈ categories ਦਿੰਦਾ ਹੈ।
+**Explanation:** Function Library ਸਮੂਹ ਅੰਦਰੂਨੀਵਿੱਚ ਫੰਕਸ਼ਨ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਨ ਲਈ ਸ਼੍ਰੇਣੀਆਂ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-033 · com003-excel-formulas-function-library
 
 #### 2. COM003-OFFICE-TABS-034 — EASY
-**Question:** Function search ਕਰਕੇ insert ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਨ ਵਾਲਾ Formulas-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਫੰਕਸ਼ਨ ਖੋਜ ਕਰਕੇ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਨ ਵਾਲਾ ਫਾਰਮੂਲੇ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Name Manager
+ਇੱਕ. Name Manager
 B. Insert Function
 C. Trace Dependents
 D. Show Formulas
 
 **Answer:** Insert Function
-**Explanation:** Insert Function function ਚੁਣਨ ਲਈ search ਅਤੇ arguments window ਖੋਲ੍ਹਦਾ ਹੈ।
+**Explanation:** Insert Function ਫੰਕਸ਼ਨ ਚੁਣਨ ਲਈ ਖੋਜ ਅਤੇ ਦਲੀਲਾਂ ਵਿੰਡੋ ਖੋਲ੍ਹਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-034 · com003-excel-formulas-insert-function
 
 #### 3. COM003-OFFICE-TABS-035 — EASY
-**Question:** Nearby range ਲਈ ਜਲਦੀ SUM formula insert ਕਰਨ ਵਾਲਾ Formulas-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਨੇੜਲਾ ਸ਼੍ਰੇਣੀ ਲਈ ਜਲਦੀ SUM ਫਾਰਮੂਲਾ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਨ ਵਾਲਾ ਫਾਰਮੂਲੇ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Evaluate Formula
+ਇੱਕ. ਮੁਲਾਂਕਣ ਕਰਨਾ ਫਾਰਮੂਲਾ
 B. Name Manager
 C. AutoSum
 D. Error Checking
 
 **Answer:** AutoSum
-**Explanation:** AutoSum nearby range ਨੂੰ detect ਕਰਕੇ SUM formula insert ਕਰਦਾ ਹੈ।
+**Explanation:** AutoSum ਨੇੜਲਾ ਸ਼੍ਰੇਣੀ ਨੂੰ ਪਛਾਣਨਾ ਕਰਕੇ SUM ਫਾਰਮੂਲਾ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-035 · com003-excel-formulas-autosum
 
 #### 4. COM003-OFFICE-TABS-036 — MEDIUM
-**Question:** Defined names create, edit ਜਾਂ delete ਕਰਨ ਵਾਲਾ Formulas-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਪਰਿਭਾਸ਼ਿਤ ਨਾਮ ਬਣਾਉਣਾ, ਸੋਧੋ ਜਾਂ ਮਿਟਾਉਣਾ ਕਰਨ ਵਾਲਾ ਫਾਰਮੂਲੇ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Insert Function
+ਇੱਕ. Insert Function
 B. Calculate Now
 C. Show Formulas
 D. Name Manager
 
 **Answer:** Name Manager
-**Explanation:** Name Manager cells ਅਤੇ ranges ਦੇ defined names ਨੂੰ manage ਕਰਦਾ ਹੈ।
+**Explanation:** Name Manager ਸੈੱਲ ਅਤੇ ਸ਼੍ਰੇਣੀਆਂ ਦੇ ਪਰਿਭਾਸ਼ਿਤ ਨਾਮ ਨੂੰ ਪ੍ਰਬੰਧਿਤ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-036 · com003-excel-formulas-name-manager
 
 #### 5. COM003-OFFICE-TABS-037 — MEDIUM
-**Question:** Selected formula ਨੂੰ values ਦੇਣ ਵਾਲੇ cells ਦਿਖਾਉਣ ਵਾਲਾ Formula Auditing command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਫਾਰਮੂਲਾ ਨੂੰ ਮੁੱਲ ਦੇਣ ਵਾਲੇ ਸੈੱਲ ਦਿਖਾਉਣ ਵਾਲਾ ਫਾਰਮੂਲਾ ਜਾਂਚ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Trace Precedents
+ਇੱਕ. Trace Precedents
 B. Trace Dependents
-C. Remove Arrows
-D. Watch Window
+C. ਹਟਾਉਣਾ ਤੀਰ
+D. ਨਿਗਰਾਨੀ ਵਿੰਡੋ
 
 **Answer:** Trace Precedents
-**Explanation:** Trace Precedents selected formula ਵਿੱਚ ਵਰਤੇ cells ਵੱਲ arrows ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Trace Precedents ਚੁਣਿਆ ਹੋਇਆ ਫਾਰਮੂਲਾ ਵਿੱਚ ਵਰਤੇ ਸੈੱਲ ਵੱਲ ਤੀਰ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-037 · com003-excel-formulas-trace-precedents
 
 #### 6. COM003-OFFICE-TABS-038 — MEDIUM
-**Question:** Selected cell ਉੱਤੇ depend ਕਰਨ ਵਾਲੇ formulas ਦਿਖਾਉਣ ਵਾਲਾ Formula Auditing command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਸੈੱਲ ਉੱਤੇ ਨਿਰਭਰ ਹੋਣਾ ਕਰਨ ਵਾਲੇ ਫਾਰਮੂਲੇ ਦਿਖਾਉਣ ਵਾਲਾ ਫਾਰਮੂਲਾ ਜਾਂਚ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Trace Precedents
+ਇੱਕ. Trace Precedents
 B. Trace Dependents
-C. Evaluate Formula
+C. ਮੁਲਾਂਕਣ ਕਰਨਾ ਫਾਰਮੂਲਾ
 D. Error Checking
 
 **Answer:** Trace Dependents
-**Explanation:** Trace Dependents selected cell ਤੋਂ ਉਹਨਾਂ formulas ਵੱਲ ਸੰਕੇਤ ਕਰਦਾ ਹੈ ਜੋ ਇਸ ਨੂੰ use ਕਰਦੇ ਹਨ।
+**Explanation:** Trace Dependents ਚੁਣਿਆ ਹੋਇਆ ਸੈੱਲ ਤੋਂ ਉਹਨਾਂ ਫਾਰਮੂਲੇ ਵੱਲ ਸੰਕੇਤ ਕਰਦਾ ਹੈ ਜੋ ਇਸ ਨੂੰ ਵਰਤਣਾ ਕਰਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-038 · com003-excel-formulas-trace-dependents
 
 #### 7. COM003-OFFICE-TABS-039 — EASY
-**Question:** Calculated results ਦੀ ਬਜਾਏ cells ਵਿੱਚ formulas ਦਿਖਾਉਣ ਵਾਲਾ Formulas-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਗਣਨਾ ਕੀਤਾ ਨਤੀਜੇ ਦੀ ਬਜਾਏ ਸੈੱਲ ਵਿੱਚ ਫਾਰਮੂਲੇ ਦਿਖਾਉਣ ਵਾਲਾ ਫਾਰਮੂਲੇ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Watch Window
-B. Calculate Sheet
+ਇੱਕ. ਨਿਗਰਾਨੀ ਵਿੰਡੋ
+B. Calculate ਵਰਕਸ਼ੀਟ
 C. Show Formulas
-D. Remove Arrows
+D. ਹਟਾਉਣਾ ਤੀਰ
 
 **Answer:** Show Formulas
-**Explanation:** Show Formulas worksheet display ਨੂੰ results ਤੋਂ formulas ਵਿੱਚ ਬਦਲਦਾ ਹੈ।
+**Explanation:** Show Formulas ਵਰਕਸ਼ੀਟ ਦਿਖਾਵਟ ਨੂੰ ਨਤੀਜੇ ਤੋਂ ਫਾਰਮੂਲੇ ਵਿੱਚ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-039 · com003-excel-formulas-show-formulas
 
 #### 8. COM003-OFFICE-TABS-040 — MEDIUM
-**Question:** Formulas automatic ਜਾਂ manual recalculate ਹੋਣ, ਇਹ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲੀ Excel setting ਕਿਹੜੀ ਹੈ?
+**Question:** ਫਾਰਮੂਲੇ ਆਪਣੇ ਆਪ ਜਾਂ ਹੱਥੋਂ ਮੁੜ ਗਣਨਾ ਕਰਨਾ ਹੋਣ, ਇਹ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲੀ Excel ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-A. Name Manager
+ਇੱਕ. Name Manager
 B. Error Checking
-C. Calculation Options
+C. ਗਣਨਾ ਵਿਕਲਪ
 D. Function Library
 
-**Answer:** Calculation Options
-**Explanation:** Calculation Options workbook ਦੇ calculation mode ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
+**Answer:** ਗਣਨਾ ਵਿਕਲਪ
+**Explanation:** ਗਣਨਾ ਵਿਕਲਪ ਵਰਕਬੁੱਕ ਦੇ ਗਣਨਾ ਮੋਡ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-040 · com003-excel-formulas-calculation-options
 
 ### COM-003-QL-035 — Excel — Excel Data Tab
@@ -1633,197 +1633,197 @@ D. Refresh All
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-041 — EASY
-**Question:** Records को ascending या descending order में लगाने वाला Data-tab command कौन-सा है?
+**Question:** अभिलेख को आरोही या अवरोही क्रम में लगाने वाला Data टैबटैब कमांड कौन-सा है?
 
-A. Sort
-B. Filter
-C. Consolidate
-D. Group
+एक. Sort
+B. फ़िल्टर
+C. समेकित करना
+D. समूह
 
 **Answer:** Sort
-**Explanation:** Sort selected column या rule के अनुसार data का order बदलता है।
+**Explanation:** Sort चयनित स्तंभ या नियम के अनुसार डेटा का क्रम बदलता है।
 **Trace:** COM003-OFFICE-TABS-041 · com003-excel-data-sort
 
 #### 2. COM003-OFFICE-TABS-042 — EASY
-**Question:** Selected conditions पूरी करने वाले records ही दिखाने वाला Data-tab command कौन-सा है?
+**Question:** चयनित शर्तें पूरी करने वाले अभिलेख ही दिखाने वाला Data टैबटैब कमांड कौन-सा है?
 
-A. Sort
-B. Filter
+एक. Sort
+B. फ़िल्टर
 C. Text to Columns
 D. Flash Fill
 
-**Answer:** Filter
-**Explanation:** Filter selected criteria पूरी न करने वाले records को छिपाता है।
+**Answer:** फ़िल्टर
+**Explanation:** फ़िल्टर चयनित मानदंड पूरी न करने वाले अभिलेख को छिपाता है।
 **Trace:** COM003-OFFICE-TABS-042 · com003-excel-data-filter
 
 #### 3. COM003-OFFICE-TABS-043 — MEDIUM
-**Question:** Cell में डाली जा सकने वाली values या data type को restrict करने वाला Data-tab feature कौन-सा है?
+**Question:** कक्ष में डाली जा सकने वाली मान या डेटा प्रकार को सीमित करना करने वाला Data टैबटैब सुविधा कौन-सा है?
 
-A. Sort
+एक. Sort
 B. Flash Fill
 C. Data Validation
-D. Consolidate
+D. समेकित करना
 
 **Answer:** Data Validation
-**Explanation:** Data Validation defined rules के अनुसार cell input को restrict करता है।
+**Explanation:** Data Validation परिभाषित नियम के अनुसार कक्ष इनपुट को सीमित करना करता है।
 **Trace:** COM003-OFFICE-TABS-043 · com003-excel-data-validation
 
 #### 4. COM003-OFFICE-TABS-044 — EASY
-**Question:** Cell के अंदर drop-down list बनाने वाला Data-tab feature कौन-सा है?
+**Question:** कक्ष के अंदर ड्रॉप-डाउन सूची बनाने वाला Data टैबटैब सुविधा कौन-सा है?
 
-A. Remove Duplicates
+एक. Remove Duplicates
 B. Sort
 C. Text to Columns
 D. Data Validation
 
 **Answer:** Data Validation
-**Explanation:** Data Validation में List rule cell के अंदर drop-down list बनाता है।
+**Explanation:** Data Validation में सूची नियम कक्ष के अंदर ड्रॉप-डाउन सूची बनाता है।
 **Trace:** COM003-OFFICE-TABS-044 · com003-excel-data-drop-down
 
 #### 5. COM003-OFFICE-TABS-045 — MEDIUM
-**Question:** एक column की text को कई columns में split करने वाला Data-tab command कौन-सा है?
+**Question:** एक स्तंभ की पाठ को कई स्तंभ में विभाजित करें करने वाला Data टैबटैब कमांड कौन-सा है?
 
-A. Text to Columns
+एक. Text to Columns
 B. Flash Fill
 C. Remove Duplicates
 D. Data Validation
 
 **Answer:** Text to Columns
-**Explanation:** Text to Columns delimiter या fixed width के आधार पर text को अलग करता है।
+**Explanation:** Text to Columns सीमांकक या स्थिर चौड़ाई के आधार पर पाठ को अलग करता है।
 **Trace:** COM003-OFFICE-TABS-045 · com003-excel-data-text-to-columns
 
 #### 6. COM003-OFFICE-TABS-046 — EASY
-**Question:** Selected range से repeated records हटाने वाला Data-tab command कौन-सा है?
+**Question:** चयनित श्रेणी से दोहराई गई अभिलेख हटाने वाला Data टैबटैब कमांड कौन-सा है?
 
-A. Flash Fill
+एक. Flash Fill
 B. Remove Duplicates
 C. Sort
-D. Group
+D. समूह
 
 **Answer:** Remove Duplicates
-**Explanation:** Remove Duplicates selected range से repeated values या records हटाता है।
+**Explanation:** Remove Duplicates चयनित श्रेणी से दोहराई गई मान या अभिलेख हटाता है।
 **Trace:** COM003-OFFICE-TABS-046 · com003-excel-data-remove-duplicates
 
 #### 7. COM003-OFFICE-TABS-047 — MEDIUM
-**Question:** Pattern पहचानकर बाकी values automatically भरने वाला Data-tab feature कौन-सा है?
+**Question:** पैटर्न पहचानकर बाकी मान स्वचालित रूप से भरने वाला Data टैबटैब सुविधा कौन-सा है?
 
-A. Consolidate
+एक. समेकित करना
 B. Sort
 C. Flash Fill
-D. Filter
+D. फ़िल्टर
 
 **Answer:** Flash Fill
-**Explanation:** Flash Fill entered examples के pattern को पहचानकर बाकी cells भरता है।
+**Explanation:** Flash Fill दर्ज किया गया उदाहरण के पैटर्न को पहचानकर बाकी कक्ष भरता है।
 **Trace:** COM003-OFFICE-TABS-047 · com003-excel-data-flash-fill
 
 #### 8. COM003-OFFICE-TABS-048 — MEDIUM
-**Question:** Connected queries और external data को update करने वाला Data-tab command कौन-सा है?
+**Question:** जुड़ा हुआ प्रश्न और बाहरी डेटा को अद्यतन करने वाला Data टैबटैब कमांड कौन-सा है?
 
-A. What-If Analysis
+एक. What-If Analysis
 B. Text to Columns
 C. Data Validation
-D. Refresh All
+D. ताज़ा करना सभी
 
-**Answer:** Refresh All
-**Explanation:** Refresh All connected queries, connections और related data को update करता है।
+**Answer:** ताज़ा करना सभी
+**Explanation:** ताज़ा करना सभी जुड़ा हुआ प्रश्न, कनेक्शन और संबंधित डेटा को अद्यतन करता है।
 **Trace:** COM003-OFFICE-TABS-048 · com003-excel-data-refresh-all
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-041 — EASY
-**Question:** Records ਨੂੰ ascending ਜਾਂ descending order ਵਿੱਚ ਲਗਾਉਣ ਵਾਲਾ Data-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਰਿਕਾਰਡ ਨੂੰ ਵੱਧਦੇ ਕ੍ਰਮ ਵਿੱਚ ਜਾਂ ਘਟਦੇ ਕ੍ਰਮ ਵਿੱਚ ਕ੍ਰਮ ਵਿੱਚ ਲਗਾਉਣ ਵਾਲਾ Data ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Sort
-B. Filter
-C. Consolidate
-D. Group
+ਇੱਕ. Sort
+B. ਫਿਲਟਰ
+C. ਇਕੱਠਾ ਕਰਨਾ
+D. ਸਮੂਹ
 
 **Answer:** Sort
-**Explanation:** Sort selected column ਜਾਂ rule ਦੇ ਅਨੁਸਾਰ data ਦਾ order ਬਦਲਦਾ ਹੈ।
+**Explanation:** Sort ਚੁਣਿਆ ਹੋਇਆ ਕਾਲਮ ਜਾਂ ਨਿਯਮ ਦੇ ਅਨੁਸਾਰ ਡਾਟਾ ਦਾ ਕ੍ਰਮ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-041 · com003-excel-data-sort
 
 #### 2. COM003-OFFICE-TABS-042 — EASY
-**Question:** Selected conditions ਪੂਰੀਆਂ ਕਰਨ ਵਾਲੇ records ਹੀ ਦਿਖਾਉਣ ਵਾਲਾ Data-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਨ ਵਾਲੇ ਰਿਕਾਰਡ ਹੀ ਦਿਖਾਉਣ ਵਾਲਾ Data ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Sort
-B. Filter
+ਇੱਕ. Sort
+B. ਫਿਲਟਰ
 C. Text to Columns
 D. Flash Fill
 
-**Answer:** Filter
-**Explanation:** Filter selected criteria ਪੂਰੀਆਂ ਨਾ ਕਰਨ ਵਾਲੇ records ਨੂੰ ਲੁਕਾਉਂਦਾ ਹੈ।
+**Answer:** ਫਿਲਟਰ
+**Explanation:** ਫਿਲਟਰ ਚੁਣਿਆ ਹੋਇਆ ਮਾਪਦੰਡ ਪੂਰੀਆਂ ਨਾ ਕਰਨ ਵਾਲੇ ਰਿਕਾਰਡ ਨੂੰ ਲੁਕਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-042 · com003-excel-data-filter
 
 #### 3. COM003-OFFICE-TABS-043 — MEDIUM
-**Question:** Cell ਵਿੱਚ ਪਾਈਆਂ ਜਾ ਸਕਣ ਵਾਲੀਆਂ values ਜਾਂ data type ਨੂੰ restrict ਕਰਨ ਵਾਲਾ Data-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਸੈੱਲ ਵਿੱਚ ਪਾਈਆਂ ਜਾ ਸਕਣ ਵਾਲੀਆਂ ਮੁੱਲ ਜਾਂ ਡਾਟਾ ਕਿਸਮ ਨੂੰ ਸੀਮਿਤ ਕਰਨਾ ਕਰਨ ਵਾਲਾ Data ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Sort
+ਇੱਕ. Sort
 B. Flash Fill
 C. Data Validation
-D. Consolidate
+D. ਇਕੱਠਾ ਕਰਨਾ
 
 **Answer:** Data Validation
-**Explanation:** Data Validation defined rules ਦੇ ਅਨੁਸਾਰ cell input ਨੂੰ restrict ਕਰਦਾ ਹੈ।
+**Explanation:** Data Validation ਪਰਿਭਾਸ਼ਿਤ ਨਿਯਮ ਦੇ ਅਨੁਸਾਰ ਸੈੱਲ ਇਨਪੁੱਟ ਨੂੰ ਸੀਮਿਤ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-043 · com003-excel-data-validation
 
 #### 4. COM003-OFFICE-TABS-044 — EASY
-**Question:** Cell ਦੇ ਅੰਦਰ drop-down list ਬਣਾਉਣ ਵਾਲਾ Data-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਸੈੱਲ ਦੇ ਅੰਦਰ ਡ੍ਰੌਪ-ਡਾਊਨ ਸੂਚੀ ਬਣਾਉਣ ਵਾਲਾ Data ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Remove Duplicates
+ਇੱਕ. Remove Duplicates
 B. Sort
 C. Text to Columns
 D. Data Validation
 
 **Answer:** Data Validation
-**Explanation:** Data Validation ਵਿੱਚ List rule cell ਦੇ ਅੰਦਰ drop-down list ਬਣਾਉਂਦਾ ਹੈ।
+**Explanation:** Data Validation ਵਿੱਚ ਸੂਚੀ ਨਿਯਮ ਸੈੱਲ ਦੇ ਅੰਦਰ ਡ੍ਰੌਪ-ਡਾਊਨ ਸੂਚੀ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-044 · com003-excel-data-drop-down
 
 #### 5. COM003-OFFICE-TABS-045 — MEDIUM
-**Question:** ਇੱਕ column ਦੀ text ਨੂੰ ਕਈ columns ਵਿੱਚ split ਕਰਨ ਵਾਲਾ Data-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਇੱਕ ਕਾਲਮ ਦੀ ਲਿਖਤ ਨੂੰ ਕਈ ਕਾਲਮ ਵਿੱਚ ਵੰਡੋ ਕਰਨ ਵਾਲਾ Data ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Text to Columns
+ਇੱਕ. Text to Columns
 B. Flash Fill
 C. Remove Duplicates
 D. Data Validation
 
 **Answer:** Text to Columns
-**Explanation:** Text to Columns delimiter ਜਾਂ fixed width ਦੇ ਆਧਾਰ ਉੱਤੇ text ਨੂੰ ਵੱਖ ਕਰਦਾ ਹੈ।
+**Explanation:** Text to Columns ਵੱਖਰਾ ਕਰਨ ਵਾਲਾ ਨਿਸ਼ਾਨ ਜਾਂ ਸਥਿਰ ਚੌੜਾਈ ਦੇ ਆਧਾਰ ਉੱਤੇ ਲਿਖਤ ਨੂੰ ਵੱਖ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-045 · com003-excel-data-text-to-columns
 
 #### 6. COM003-OFFICE-TABS-046 — EASY
-**Question:** Selected range ਵਿੱਚੋਂ repeated records ਹਟਾਉਣ ਵਾਲਾ Data-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਸ਼੍ਰੇਣੀ ਵਿੱਚੋਂ ਦੁਹਰਾਈ ਗਈ ਰਿਕਾਰਡ ਹਟਾਉਣ ਵਾਲਾ Data ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Flash Fill
+ਇੱਕ. Flash Fill
 B. Remove Duplicates
 C. Sort
-D. Group
+D. ਸਮੂਹ
 
 **Answer:** Remove Duplicates
-**Explanation:** Remove Duplicates selected range ਵਿੱਚੋਂ repeated values ਜਾਂ records ਹਟਾਉਂਦਾ ਹੈ।
+**Explanation:** Remove Duplicates ਚੁਣਿਆ ਹੋਇਆ ਸ਼੍ਰੇਣੀ ਵਿੱਚੋਂ ਦੁਹਰਾਈ ਗਈ ਮੁੱਲ ਜਾਂ ਰਿਕਾਰਡ ਹਟਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-046 · com003-excel-data-remove-duplicates
 
 #### 7. COM003-OFFICE-TABS-047 — MEDIUM
-**Question:** Pattern ਪਛਾਣ ਕੇ ਬਾਕੀ values automatically ਭਰਨ ਵਾਲਾ Data-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਨਮੂਨਾ ਪਛਾਣ ਕੇ ਬਾਕੀ ਮੁੱਲ ਆਪਣੇ ਆਪ ਭਰਨ ਵਾਲਾ Data ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Consolidate
+ਇੱਕ. ਇਕੱਠਾ ਕਰਨਾ
 B. Sort
 C. Flash Fill
-D. Filter
+D. ਫਿਲਟਰ
 
 **Answer:** Flash Fill
-**Explanation:** Flash Fill entered examples ਦੇ pattern ਨੂੰ ਪਛਾਣ ਕੇ ਬਾਕੀ cells ਭਰਦਾ ਹੈ।
+**Explanation:** Flash Fill ਦਰਜ ਕੀਤਾ ਉਦਾਹਰਨਾਂ ਦੇ ਨਮੂਨਾ ਨੂੰ ਪਛਾਣ ਕੇ ਬਾਕੀ ਸੈੱਲ ਭਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-047 · com003-excel-data-flash-fill
 
 #### 8. COM003-OFFICE-TABS-048 — MEDIUM
-**Question:** Connected queries ਅਤੇ external data ਨੂੰ update ਕਰਨ ਵਾਲਾ Data-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਜੁੜਿਆ ਹੋਇਆ ਸਵਾਲ ਅਤੇ ਬਾਹਰੀ ਡਾਟਾ ਨੂੰ ਅਪਡੇਟ ਕਰਨ ਵਾਲਾ Data ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. What-If Analysis
+ਇੱਕ. What-If Analysis
 B. Text to Columns
 C. Data Validation
-D. Refresh All
+D. ਤਾਜ਼ਾ ਕਰਨਾ ਸਾਰੇ
 
-**Answer:** Refresh All
-**Explanation:** Refresh All connected queries, connections ਅਤੇ related data ਨੂੰ update ਕਰਦਾ ਹੈ।
+**Answer:** ਤਾਜ਼ਾ ਕਰਨਾ ਸਾਰੇ
+**Explanation:** ਤਾਜ਼ਾ ਕਰਨਾ ਸਾਰੇ ਜੁੜਿਆ ਹੋਇਆ ਸਵਾਲ, ਕਨੈਕਸ਼ਨ ਅਤੇ ਸੰਬੰਧਿਤ ਡਾਟਾ ਨੂੰ ਅਪਡੇਟ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-048 · com003-excel-data-refresh-all
 
 ### COM-003-QL-036 — Excel — Excel Review Tab
@@ -1929,197 +1929,197 @@ D. Notes
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-049 — EASY
-**Question:** Worksheet text में spelling errors check करने वाला Review-tab command कौन-सा है?
+**Question:** कार्यपत्रक पाठ में वर्तनी त्रुटियाँ जाँच करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-A. Spelling
-B. Protect Sheet
+एक. Spelling
+B. सुरक्षित करना पत्रक
 C. New Comment
 D. Thesaurus
 
 **Answer:** Spelling
-**Explanation:** Spelling worksheet के text में possible spelling errors check करता है।
+**Explanation:** Spelling कार्यपत्रक के पाठ में संभव वर्तनी त्रुटियाँ जाँच करता है।
 **Trace:** COM003-OFFICE-TABS-049 · com003-excel-review-spelling
 
 #### 2. COM003-OFFICE-TABS-050 — EASY
-**Question:** Selected cell में comment जोड़ने वाला Review-tab command कौन-सा है?
+**Question:** चयनित कक्ष में टिप्पणी जोड़ने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-A. Protect Workbook
+एक. सुरक्षित करना कार्यपुस्तिका
 B. New Comment
 C. Translate
-D. Accessibility
+D. सुगम्यता
 
 **Answer:** New Comment
-**Explanation:** New Comment selected cell के साथ discussion या review के लिए comment जोड़ता है।
+**Explanation:** New Comment चयनित कक्ष के साथ चर्चा या समीक्षा के लिए टिप्पणी जोड़ता है।
 **Trace:** COM003-OFFICE-TABS-050 · com003-excel-review-new-comment
 
 #### 3. COM003-OFFICE-TABS-051 — EASY
-**Question:** Current worksheet के cells को unwanted changes से protect करने वाला Review-tab command कौन-सा है?
+**Question:** वर्तमान कार्यपत्रक के कक्ष को अनचाहा बदलाव से सुरक्षित करना करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-A. Protect Workbook
+एक. सुरक्षित करना कार्यपुस्तिका
 B. Track Changes
-C. Protect Sheet
-D. Share
+C. सुरक्षित करना पत्रक
+D. साझा करें
 
-**Answer:** Protect Sheet
-**Explanation:** Protect Sheet protection settings के अनुसार current worksheet में changes restrict करता है।
+**Answer:** सुरक्षित करना पत्रक
+**Explanation:** सुरक्षित करना पत्रक सुरक्षा सेटिंग्स के अनुसार वर्तमान कार्यपत्रक में बदलाव सीमित करना करता है।
 **Trace:** COM003-OFFICE-TABS-051 · com003-excel-review-protect-sheet
 
 #### 4. COM003-OFFICE-TABS-052 — MEDIUM
-**Question:** Worksheets add या delete करने जैसे workbook-structure changes को protect करने वाला Review-tab command कौन-सा है?
+**Question:** कार्यपत्रक जोड़ना या हटाना करने जैसे कार्यपुस्तिका-संरचना बदलाव को सुरक्षित करना करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-A. Protect Sheet
+एक. सुरक्षित करना पत्रक
 B. New Comment
 C. Spelling
-D. Protect Workbook
+D. सुरक्षित करना कार्यपुस्तिका
 
-**Answer:** Protect Workbook
-**Explanation:** Protect Workbook adding या deleting worksheets जैसे workbook structure operations को restrict कर सकता है।
+**Answer:** सुरक्षित करना कार्यपुस्तिका
+**Explanation:** सुरक्षित करना कार्यपुस्तिका जोड़ना या हटाना कार्यपत्रक जैसे कार्यपुस्तिका संरचना क्रियाएँ को सीमित करना कर सकता है।
 **Trace:** COM003-OFFICE-TABS-052 · com003-excel-review-protect-workbook
 
 #### 5. COM003-OFFICE-TABS-053 — EASY
-**Question:** Workbook में accessibility problems check करने वाला Review-tab feature कौन-सा है?
+**Question:** कार्यपुस्तिका में सुगम्यता समस्याएँ जाँच करने वाला समीक्षा टैबटैब सुविधा कौन-सा है?
 
-A. Check Accessibility
+एक. जाँच सुगम्यता
 B. Name Manager
-C. Watch Window
-D. Goal Seek
+C. निरीक्षण विंडो
+D. लक्ष्य खोजें
 
-**Answer:** Check Accessibility
-**Explanation:** Check Accessibility ऐसी issues पहचानता है जो workbook को कुछ users के लिए कठिन बना सकती हैं।
+**Answer:** जाँच सुगम्यता
+**Explanation:** जाँच सुगम्यता ऐसी समस्याएँ पहचानता है जो कार्यपुस्तिका को कुछ उपयोगकर्ता के लिए कठिन बना सकती हैं।
 **Trace:** COM003-OFFICE-TABS-053 · com003-excel-review-accessibility
 
 #### 6. COM003-OFFICE-TABS-054 — MEDIUM
-**Question:** Selected worksheet text का translation करने में मदद वाला Review-tab command कौन-सा है?
+**Question:** चयनित कार्यपत्रक पाठ का अनुवाद करने में मदद वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-A. Spelling
+एक. Spelling
 B. Translate
-C. Protect Sheet
+C. सुरक्षित करना पत्रक
 D. New Comment
 
 **Answer:** Translate
-**Explanation:** Translate selected text के translation में मदद करता है; service उपलब्ध language पर निर्भर हो सकती है।
+**Explanation:** Translate चयनित पाठ के अनुवाद में मदद करता है; सेवा उपलब्ध भाषा पर निर्भर हो सकती है।
 **Trace:** COM003-OFFICE-TABS-054 · com003-excel-review-translate
 
 #### 7. COM003-OFFICE-TABS-055 — EASY
-**Question:** Selected word के समान अर्थ वाले words suggest करने वाला Review-tab command कौन-सा है?
+**Question:** चयनित शब्द के समान अर्थ वाले शब्द सुझाव करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-A. Spelling
+एक. Spelling
 B. New Comment
 C. Thesaurus
-D. Protect Sheet
+D. सुरक्षित करना पत्रक
 
 **Answer:** Thesaurus
-**Explanation:** Thesaurus selected text के लिए alternative words या synonyms suggest करता है।
+**Explanation:** Thesaurus चयनित पाठ के लिए वैकल्पिक शब्द या पर्यायवाची सुझाव करता है।
 **Trace:** COM003-OFFICE-TABS-055 · com003-excel-review-thesaurus
 
 #### 8. COM003-OFFICE-TABS-056 — MEDIUM
-**Question:** Cells से attached notes को read, edit या delete करने वाला Review-tab feature कौन-सा है?
+**Question:** Cells से संलग्न टिप्पणियाँ को पढ़ना, संपादित करें या हटाना करने वाला समीक्षा टैबटैब सुविधा कौन-सा है?
 
-A. Filter
-B. Watch Window
+एक. फ़िल्टर
+B. निरीक्षण विंडो
 C. Name Manager
-D. Notes
+D. टिप्पणियाँ
 
-**Answer:** Notes
-**Explanation:** Notes cells से attached annotations होते हैं जिन्हें Review tab से manage किया जा सकता है।
+**Answer:** टिप्पणियाँ
+**Explanation:** टिप्पणियाँ कक्ष से संलग्न टिप्पणियाँ होते हैं जिन्हें समीक्षा टैब से प्रबंधित करना किया जा सकता है।
 **Trace:** COM003-OFFICE-TABS-056 · com003-excel-review-notes
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-049 — EASY
-**Question:** Worksheet text ਵਿੱਚ spelling errors check ਕਰਨ ਵਾਲਾ Review-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਕਸ਼ੀਟ ਲਿਖਤ ਵਿੱਚ ਸ਼ਬਦ-ਜੋੜ ਗਲਤੀਆਂ ਜਾਂਚ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Spelling
-B. Protect Sheet
+ਇੱਕ. Spelling
+B. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਸ਼ੀਟ
 C. New Comment
 D. Thesaurus
 
 **Answer:** Spelling
-**Explanation:** Spelling worksheet ਦੀ text ਵਿੱਚ possible spelling errors check ਕਰਦਾ ਹੈ।
+**Explanation:** Spelling ਵਰਕਸ਼ੀਟ ਦੀ ਲਿਖਤ ਵਿੱਚ ਸੰਭਵ ਸ਼ਬਦ-ਜੋੜ ਗਲਤੀਆਂ ਜਾਂਚ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-049 · com003-excel-review-spelling
 
 #### 2. COM003-OFFICE-TABS-050 — EASY
-**Question:** Selected cell ਵਿੱਚ comment ਜੋੜਨ ਵਾਲਾ Review-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਸੈੱਲ ਵਿੱਚ ਟਿੱਪਣੀ ਜੋੜਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Protect Workbook
+ਇੱਕ. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਬੁੱਕ
 B. New Comment
 C. Translate
-D. Accessibility
+D. ਪਹੁੰਚਯੋਗਤਾ
 
 **Answer:** New Comment
-**Explanation:** New Comment selected cell ਨਾਲ discussion ਜਾਂ review ਲਈ comment ਜੋੜਦਾ ਹੈ।
+**Explanation:** New Comment ਚੁਣਿਆ ਹੋਇਆ ਸੈੱਲ ਨਾਲ ਚਰਚਾ ਜਾਂ ਸਮੀਖਿਆ ਲਈ ਟਿੱਪਣੀ ਜੋੜਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-050 · com003-excel-review-new-comment
 
 #### 3. COM003-OFFICE-TABS-051 — EASY
-**Question:** Current worksheet ਦੇ cells ਨੂੰ unwanted changes ਤੋਂ protect ਕਰਨ ਵਾਲਾ Review-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਮੌਜੂਦਾ ਵਰਕਸ਼ੀਟ ਦੇ ਸੈੱਲ ਨੂੰ ਅਣਚਾਹਿਆ ਤਬਦੀਲੀਆਂ ਤੋਂ ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Protect Workbook
+ਇੱਕ. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਬੁੱਕ
 B. Track Changes
-C. Protect Sheet
-D. Share
+C. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਸ਼ੀਟ
+D. ਸਾਂਝਾ ਕਰੋ
 
-**Answer:** Protect Sheet
-**Explanation:** Protect Sheet protection settings ਦੇ ਅਨੁਸਾਰ current worksheet ਵਿੱਚ changes restrict ਕਰਦਾ ਹੈ।
+**Answer:** ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਸ਼ੀਟ
+**Explanation:** ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਸ਼ੀਟ ਸੁਰੱਖਿਆ ਸੈਟਿੰਗਾਂ ਦੇ ਅਨੁਸਾਰ ਮੌਜੂਦਾ ਵਰਕਸ਼ੀਟ ਵਿੱਚ ਤਬਦੀਲੀਆਂ ਸੀਮਿਤ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-051 · com003-excel-review-protect-sheet
 
 #### 4. COM003-OFFICE-TABS-052 — MEDIUM
-**Question:** Worksheets add ਜਾਂ delete ਕਰਨ ਵਰਗੀਆਂ workbook-structure changes ਨੂੰ protect ਕਰਨ ਵਾਲਾ Review-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਕਸ਼ੀਟਾਂ ਜੋੜਨਾ ਜਾਂ ਮਿਟਾਉਣਾ ਕਰਨ ਵਰਗੀਆਂ ਵਰਕਬੁੱਕ-ਬਣਤਰ ਤਬਦੀਲੀਆਂ ਨੂੰ ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Protect Sheet
+ਇੱਕ. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਸ਼ੀਟ
 B. New Comment
 C. Spelling
-D. Protect Workbook
+D. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਬੁੱਕ
 
-**Answer:** Protect Workbook
-**Explanation:** Protect Workbook adding ਜਾਂ deleting worksheets ਵਰਗੀਆਂ workbook structure operations ਨੂੰ restrict ਕਰ ਸਕਦਾ ਹੈ।
+**Answer:** ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਬੁੱਕ
+**Explanation:** ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਬੁੱਕ ਜੋੜਨਾ ਜਾਂ ਮਿਟਾਉਣਾ ਵਰਕਸ਼ੀਟਾਂ ਵਰਗੀਆਂ ਵਰਕਬੁੱਕ ਬਣਤਰ ਕਾਰਵਾਈਆਂ ਨੂੰ ਸੀਮਿਤ ਕਰਨਾ ਕਰ ਸਕਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-052 · com003-excel-review-protect-workbook
 
 #### 5. COM003-OFFICE-TABS-053 — EASY
-**Question:** Workbook ਵਿੱਚ accessibility problems check ਕਰਨ ਵਾਲਾ Review-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਕਬੁੱਕ ਵਿੱਚ ਪਹੁੰਚਯੋਗਤਾ ਸਮੱਸਿਆਵਾਂ ਜਾਂਚ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Check Accessibility
+ਇੱਕ. ਜਾਂਚ ਪਹੁੰਚਯੋਗਤਾ
 B. Name Manager
-C. Watch Window
-D. Goal Seek
+C. ਨਿਗਰਾਨੀ ਵਿੰਡੋ
+D. ਟੀਚਾ ਲੱਭੋ
 
-**Answer:** Check Accessibility
-**Explanation:** Check Accessibility ਉਹ issues ਪਛਾਣਦਾ ਹੈ ਜੋ workbook ਨੂੰ ਕੁਝ users ਲਈ ਔਖਾ ਬਣਾ ਸਕਦੀਆਂ ਹਨ।
+**Answer:** ਜਾਂਚ ਪਹੁੰਚਯੋਗਤਾ
+**Explanation:** ਜਾਂਚ ਪਹੁੰਚਯੋਗਤਾ ਉਹ ਸਮੱਸਿਆਵਾਂ ਪਛਾਣਦਾ ਹੈ ਜੋ ਵਰਕਬੁੱਕ ਨੂੰ ਕੁਝ ਵਰਤੋਂਕਾਰ ਲਈ ਔਖਾ ਬਣਾ ਸਕਦੀਆਂ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-053 · com003-excel-review-accessibility
 
 #### 6. COM003-OFFICE-TABS-054 — MEDIUM
-**Question:** Selected worksheet text ਦਾ translation ਕਰਨ ਵਿੱਚ ਮਦਦ ਵਾਲਾ Review-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਵਰਕਸ਼ੀਟ ਲਿਖਤ ਦਾ ਅਨੁਵਾਦ ਕਰਨ ਵਿੱਚ ਮਦਦ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Spelling
+ਇੱਕ. Spelling
 B. Translate
-C. Protect Sheet
+C. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਸ਼ੀਟ
 D. New Comment
 
 **Answer:** Translate
-**Explanation:** Translate selected text ਦੇ translation ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ; service ਉਪਲਬਧ language ਉੱਤੇ ਨਿਰਭਰ ਹੋ ਸਕਦੀ ਹੈ।
+**Explanation:** Translate ਚੁਣਿਆ ਹੋਇਆ ਲਿਖਤ ਦੇ ਅਨੁਵਾਦ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ; ਸੇਵਾ ਉਪਲਬਧ ਭਾਸ਼ਾ ਉੱਤੇ ਨਿਰਭਰ ਹੋ ਸਕਦੀ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-054 · com003-excel-review-translate
 
 #### 7. COM003-OFFICE-TABS-055 — EASY
-**Question:** Selected word ਦੇ ਸਮਾਨ ਅਰਥ ਵਾਲੇ words suggest ਕਰਨ ਵਾਲਾ Review-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਸ਼ਬਦ ਦੇ ਸਮਾਨ ਅਰਥ ਵਾਲੇ ਸ਼ਬਦ ਸੁਝਾਅ ਦੇਣਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Spelling
+ਇੱਕ. Spelling
 B. New Comment
 C. Thesaurus
-D. Protect Sheet
+D. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਸ਼ੀਟ
 
 **Answer:** Thesaurus
-**Explanation:** Thesaurus selected text ਲਈ alternative words ਜਾਂ synonyms suggest ਕਰਦਾ ਹੈ।
+**Explanation:** Thesaurus ਚੁਣਿਆ ਹੋਇਆ ਲਿਖਤ ਲਈ ਵਿਕਲਪਕ ਸ਼ਬਦ ਜਾਂ ਸਮਾਨਾਰਥਕ ਸੁਝਾਅ ਦੇਣਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-055 · com003-excel-review-thesaurus
 
 #### 8. COM003-OFFICE-TABS-056 — MEDIUM
-**Question:** Cells ਨਾਲ attached notes ਨੂੰ read, edit ਜਾਂ delete ਕਰਨ ਵਾਲਾ Review-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** Cells ਨਾਲ ਜੁੜਿਆ ਹੋਇਆ ਨੋਟ ਨੂੰ ਪੜ੍ਹਨਾ, ਸੋਧੋ ਜਾਂ ਮਿਟਾਉਣਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Filter
-B. Watch Window
+ਇੱਕ. ਫਿਲਟਰ
+B. ਨਿਗਰਾਨੀ ਵਿੰਡੋ
 C. Name Manager
-D. Notes
+D. ਨੋਟ
 
-**Answer:** Notes
-**Explanation:** Notes cells ਨਾਲ attached annotations ਹੁੰਦੇ ਹਨ ਜਿਨ੍ਹਾਂ ਨੂੰ Review tab ਤੋਂ manage ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।
+**Answer:** ਨੋਟ
+**Explanation:** ਨੋਟ ਸੈੱਲ ਨਾਲ ਜੁੜਿਆ ਹੋਇਆ ਟਿੱਪਣੀਆਂ ਹੁੰਦੇ ਹਨ ਜਿਨ੍ਹਾਂ ਨੂੰ ਸਮੀਖਿਆ ਟੈਬ ਤੋਂ ਪ੍ਰਬੰਧਿਤ ਕਰਨਾ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-056 · com003-excel-review-notes
 
 ### COM-003-QL-037 — Excel — Excel View Tab
@@ -2225,197 +2225,197 @@ D. Hide
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-057 — EASY
-**Question:** Worksheet editing के लिए सामान्य Excel View-tab option कौन-सा है?
+**Question:** कार्यपत्रक संपादन के लिए सामान्य Excel दृश्य टैबटैब विकल्प कौन-सा है?
 
-A. Normal
+एक. सामान्य
 B. Page Break Preview
 C. Custom Views
-D. Full Screen
+D. पूर्ण स्क्रीन
 
-**Answer:** Normal
-**Explanation:** Normal view worksheet data enter और edit करने के लिए सामान्य view है।
+**Answer:** सामान्य
+**Explanation:** सामान्य दृश्य कार्यपत्रक डेटा दर्ज करना और संपादित करें करने के लिए सामान्य दृश्य है।
 **Trace:** COM003-OFFICE-TABS-057 · com003-excel-view-normal
 
 #### 2. COM003-OFFICE-TABS-058 — EASY
-**Question:** Printing के समय worksheet pages कहाँ break होंगी, यह दिखाने वाला View-tab option कौन-सा है?
+**Question:** मुद्रण के समय कार्यपत्रक पृष्ठ कहाँ विराम होंगी, यह दिखाने वाला दृश्य टैबटैब विकल्प कौन-सा है?
 
-A. Normal
+एक. सामान्य
 B. Page Layout
 C. Page Break Preview
 D. Custom Views
 
 **Answer:** Page Break Preview
-**Explanation:** Page Break Preview printing के लिए page boundaries दिखाता है।
+**Explanation:** Page Break Preview मुद्रण के लिए पृष्ठ सीमाएँ दिखाता है।
 **Trace:** COM003-OFFICE-TABS-058 · com003-excel-view-page-break-preview
 
 #### 3. COM003-OFFICE-TABS-059 — EASY
-**Question:** Worksheet को margins और headers वाले pages की तरह दिखाने वाला Excel view कौन-सा है?
+**Question:** कार्यपत्रक को हाशिये और शीर्षलेख वाले पृष्ठ की तरह दिखाने वाला Excel दृश्य कौन-सा है?
 
-A. Normal
+एक. सामान्य
 B. Page Break Preview
 C. Page Layout
-D. Formula View
+D. सूत्र दृश्य
 
 **Answer:** Page Layout
-**Explanation:** Page Layout view sheet को print-oriented page arrangement में दिखाता है।
+**Explanation:** Page Layout दृश्य पत्रक को मुद्रण-उन्मुख पृष्ठ व्यवस्था में दिखाता है।
 **Trace:** COM003-OFFICE-TABS-059 · com003-excel-view-page-layout
 
 #### 4. COM003-OFFICE-TABS-060 — EASY
-**Question:** Scrolling के दौरान top rows या left columns visible रखने वाला View-tab command कौन-सा है?
+**Question:** स्क्रॉल करना के दौरान ऊपर पंक्तियाँ या बायाँ स्तंभ दृश्यमान रखने वाला दृश्य टैबटैब कमांड कौन-सा है?
 
-A. Split
+एक. विभाजित करें
 B. Arrange All
-C. Gridlines
+C. ग्रिडलाइनें
 D. Freeze Panes
 
 **Answer:** Freeze Panes
-**Explanation:** Freeze Panes selected cell के ऊपर की rows और left की columns को scrolling के दौरान visible रखता है।
+**Explanation:** Freeze Panes चयनित कक्ष के ऊपर की पंक्तियाँ और बायाँ की स्तंभ को स्क्रॉल करना के दौरान दृश्यमान रखता है।
 **Trace:** COM003-OFFICE-TABS-060 · com003-excel-view-freeze-panes
 
 #### 5. COM003-OFFICE-TABS-061 — EASY
-**Question:** Worksheet cells को अलग दिखाने वाली lines show या hide करने वाली View-tab setting कौन-सी है?
+**Question:** कार्यपत्रक कक्ष को अलग दिखाने वाली पंक्तियाँ दिखाना या छिपाना करने वाली दृश्य टैबटैब सेटिंग कौन-सी है?
 
-A. Gridlines
+एक. ग्रिडलाइनें
 B. Headings
 C. Formula Bar
 D. Zoom
 
-**Answer:** Gridlines
-**Explanation:** Gridlines वे lines हैं जो worksheet cells को visually अलग दिखाती हैं।
+**Answer:** ग्रिडलाइनें
+**Explanation:** ग्रिडलाइनें वे पंक्तियाँ हैं जो कार्यपत्रक कक्ष को दृश्य रूप से अलग दिखाती हैं।
 **Trace:** COM003-OFFICE-TABS-061 · com003-excel-view-gridlines
 
 #### 6. COM003-OFFICE-TABS-062 — EASY
-**Question:** Active cell formula दिखाने वाले area को show या hide करने वाली View-tab setting कौन-सी है?
+**Question:** सक्रिय कक्ष सूत्र दिखाने वाले क्षेत्र को दिखाना या छिपाना करने वाली दृश्य टैबटैब सेटिंग कौन-सी है?
 
-A. Gridlines
+एक. ग्रिडलाइनें
 B. Formula Bar
 C. Headings
 D. Zoom
 
 **Answer:** Formula Bar
-**Explanation:** Formula Bar को View tab से show या hide किया जा सकता है।
+**Explanation:** Formula Bar को दृश्य टैब से दिखाना या छिपाना किया जा सकता है।
 **Trace:** COM003-OFFICE-TABS-062 · com003-excel-view-formula-bar
 
 #### 7. COM003-OFFICE-TABS-063 — EASY
-**Question:** Worksheet की on-screen magnification बदलने वाला View-tab control कौन-सा है?
+**Question:** कार्यपत्रक की पर-स्क्रीन आवर्धन बदलने वाला दृश्य टैबटैब नियंत्रण कौन-सा है?
 
-A. Freeze Panes
-B. Split
+एक. Freeze Panes
+B. विभाजित करें
 C. Zoom
 D. Arrange All
 
 **Answer:** Zoom
-**Explanation:** Zoom data बदले बिना worksheet को screen पर बड़ा या छोटा दिखाता है।
+**Explanation:** Zoom डेटा बदले बिना कार्यपत्रक को स्क्रीन पर बड़ा या छोटा दिखाता है।
 **Trace:** COM003-OFFICE-TABS-063 · com003-excel-view-zoom
 
 #### 8. COM003-OFFICE-TABS-064 — MEDIUM
-**Question:** Selected rows या columns का data delete किए बिना उन्हें view से हटाने वाली action कौन-सी है?
+**Question:** चयनित पंक्तियाँ या स्तंभ का डेटा हटाना किए बिना उन्हें दृश्य से हटाने वाली क्रिया कौन-सी है?
 
-A. Clear
-B. Delete
-C. Filter
-D. Hide
+एक. Clear
+B. हटाना
+C. फ़िल्टर
+D. छिपाना
 
-**Answer:** Hide
-**Explanation:** Hide rows या columns को view से हटाता है लेकिन उनका data worksheet में रखता है।
+**Answer:** छिपाना
+**Explanation:** छिपाना पंक्तियाँ या स्तंभ को दृश्य से हटाता है लेकिन उनका डेटा कार्यपत्रक में रखता है।
 **Trace:** COM003-OFFICE-TABS-064 · com003-excel-view-hide-rows-columns
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-057 — EASY
-**Question:** Worksheet editing ਲਈ ਆਮ Excel View-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਕਸ਼ੀਟ ਸੋਧ ਲਈ ਆਮ Excel ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Normal
+ਇੱਕ. ਆਮ
 B. Page Break Preview
 C. Custom Views
-D. Full Screen
+D. ਪੂਰਾ ਸਕ੍ਰੀਨ
 
-**Answer:** Normal
-**Explanation:** Normal view worksheet data enter ਅਤੇ edit ਕਰਨ ਲਈ ਆਮ view ਹੈ।
+**Answer:** ਆਮ
+**Explanation:** ਆਮ ਦ੍ਰਿਸ਼ ਵਰਕਸ਼ੀਟ ਡਾਟਾ ਦਰਜ ਕਰਨਾ ਅਤੇ ਸੋਧੋ ਕਰਨ ਲਈ ਆਮ ਦ੍ਰਿਸ਼ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-057 · com003-excel-view-normal
 
 #### 2. COM003-OFFICE-TABS-058 — EASY
-**Question:** Printing ਸਮੇਂ worksheet pages ਕਿੱਥੇ break ਹੋਣਗੀਆਂ, ਇਹ ਦਿਖਾਉਣ ਵਾਲਾ View-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਛਪਾਈ ਸਮੇਂ ਵਰਕਸ਼ੀਟ ਪੰਨੇ ਕਿੱਥੇ ਵਿਰਾਮ ਹੋਣਗੀਆਂ, ਇਹ ਦਿਖਾਉਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Normal
+ਇੱਕ. ਆਮ
 B. Page Layout
 C. Page Break Preview
 D. Custom Views
 
 **Answer:** Page Break Preview
-**Explanation:** Page Break Preview printing ਲਈ page boundaries ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Page Break Preview ਛਪਾਈ ਲਈ ਪੰਨਾ ਹੱਦਾਂ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-058 · com003-excel-view-page-break-preview
 
 #### 3. COM003-OFFICE-TABS-059 — EASY
-**Question:** Worksheet ਨੂੰ margins ਅਤੇ headers ਵਾਲੇ pages ਵਾਂਗ ਦਿਖਾਉਣ ਵਾਲਾ Excel view ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਕਸ਼ੀਟ ਨੂੰ ਹਾਸ਼ੀਏ ਅਤੇ ਸਿਰਲੇਖ ਵਾਲੇ ਪੰਨੇ ਵਾਂਗ ਦਿਖਾਉਣ ਵਾਲਾ Excel ਦ੍ਰਿਸ਼ ਕਿਹੜਾ ਹੈ?
 
-A. Normal
+ਇੱਕ. ਆਮ
 B. Page Break Preview
 C. Page Layout
-D. Formula View
+D. ਫਾਰਮੂਲਾ ਦ੍ਰਿਸ਼
 
 **Answer:** Page Layout
-**Explanation:** Page Layout view sheet ਨੂੰ print-oriented page arrangement ਵਿੱਚ ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Page Layout ਦ੍ਰਿਸ਼ ਵਰਕਸ਼ੀਟ ਨੂੰ ਛਪਾਈ-ਕੇਂਦਰਿਤ ਪੰਨਾ ਬਣਤਰ ਵਿੱਚ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-059 · com003-excel-view-page-layout
 
 #### 4. COM003-OFFICE-TABS-060 — EASY
-**Question:** Scrolling ਦੌਰਾਨ top rows ਜਾਂ left columns visible ਰੱਖਣ ਵਾਲਾ View-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਕ੍ਰੋਲ ਕਰਨਾ ਦੌਰਾਨ ਉੱਪਰ ਕਤਾਰਾਂ ਜਾਂ ਖੱਬਾ ਕਾਲਮ ਦਿੱਖਣਯੋਗ ਰੱਖਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Split
+ਇੱਕ. ਵੰਡੋ
 B. Arrange All
-C. Gridlines
+C. ਗ੍ਰਿਡਲਾਈਨਾਂ
 D. Freeze Panes
 
 **Answer:** Freeze Panes
-**Explanation:** Freeze Panes selected cell ਦੇ ਉੱਪਰ ਦੀਆਂ rows ਅਤੇ ਖੱਬੇ ਪਾਸੇ ਦੀਆਂ columns ਨੂੰ scrolling ਦੌਰਾਨ visible ਰੱਖਦਾ ਹੈ।
+**Explanation:** Freeze Panes ਚੁਣਿਆ ਹੋਇਆ ਸੈੱਲ ਦੇ ਉੱਪਰ ਦੀਆਂ ਕਤਾਰਾਂ ਅਤੇ ਖੱਬੇ ਪਾਸੇ ਦੀਆਂ ਕਾਲਮ ਨੂੰ ਸਕ੍ਰੋਲ ਕਰਨਾ ਦੌਰਾਨ ਦਿੱਖਣਯੋਗ ਰੱਖਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-060 · com003-excel-view-freeze-panes
 
 #### 5. COM003-OFFICE-TABS-061 — EASY
-**Question:** Worksheet cells ਨੂੰ ਵੱਖ ਦਿਖਾਉਣ ਵਾਲੀਆਂ lines show ਜਾਂ hide ਕਰਨ ਵਾਲੀ View-tab setting ਕਿਹੜੀ ਹੈ?
+**Question:** ਵਰਕਸ਼ੀਟ ਸੈੱਲ ਨੂੰ ਵੱਖ ਦਿਖਾਉਣ ਵਾਲੀਆਂ ਲਾਈਨਾਂ ਦਿਖਾਉਣਾ ਜਾਂ ਲੁਕਾਉਣਾ ਕਰਨ ਵਾਲੀ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-A. Gridlines
+ਇੱਕ. ਗ੍ਰਿਡਲਾਈਨਾਂ
 B. Headings
 C. Formula Bar
 D. Zoom
 
-**Answer:** Gridlines
-**Explanation:** Gridlines ਉਹ lines ਹਨ ਜੋ worksheet cells ਨੂੰ visually ਵੱਖ ਦਿਖਾਉਂਦੀਆਂ ਹਨ।
+**Answer:** ਗ੍ਰਿਡਲਾਈਨਾਂ
+**Explanation:** ਗ੍ਰਿਡਲਾਈਨਾਂ ਉਹ ਲਾਈਨਾਂ ਹਨ ਜੋ ਵਰਕਸ਼ੀਟ ਸੈੱਲ ਨੂੰ ਦ੍ਰਿਸ਼ਟੀਗਤ ਤੌਰ ਉੱਤੇ ਵੱਖ ਦਿਖਾਉਂਦੀਆਂ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-061 · com003-excel-view-gridlines
 
 #### 6. COM003-OFFICE-TABS-062 — EASY
-**Question:** Active cell formula ਦਿਖਾਉਣ ਵਾਲੇ area ਨੂੰ show ਜਾਂ hide ਕਰਨ ਵਾਲੀ View-tab setting ਕਿਹੜੀ ਹੈ?
+**Question:** ਸਰਗਰਮ ਸੈੱਲ ਫਾਰਮੂਲਾ ਦਿਖਾਉਣ ਵਾਲੇ ਖੇਤਰ ਨੂੰ ਦਿਖਾਉਣਾ ਜਾਂ ਲੁਕਾਉਣਾ ਕਰਨ ਵਾਲੀ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-A. Gridlines
+ਇੱਕ. ਗ੍ਰਿਡਲਾਈਨਾਂ
 B. Formula Bar
 C. Headings
 D. Zoom
 
 **Answer:** Formula Bar
-**Explanation:** Formula Bar ਨੂੰ View tab ਤੋਂ show ਜਾਂ hide ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।
+**Explanation:** Formula Bar ਨੂੰ ਦ੍ਰਿਸ਼ ਟੈਬ ਤੋਂ ਦਿਖਾਉਣਾ ਜਾਂ ਲੁਕਾਉਣਾ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-062 · com003-excel-view-formula-bar
 
 #### 7. COM003-OFFICE-TABS-063 — EASY
-**Question:** Worksheet ਦੀ on-screen magnification ਬਦਲਣ ਵਾਲਾ View-tab control ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਕਸ਼ੀਟ ਦੀ ਉੱਤੇ-ਸਕ੍ਰੀਨ ਵੱਡਾ ਕਰਨਾ ਬਦਲਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਨਿਯੰਤਰਣ ਕਿਹੜਾ ਹੈ?
 
-A. Freeze Panes
-B. Split
+ਇੱਕ. Freeze Panes
+B. ਵੰਡੋ
 C. Zoom
 D. Arrange All
 
 **Answer:** Zoom
-**Explanation:** Zoom data ਬਦਲੇ ਬਿਨਾਂ worksheet ਨੂੰ screen ਉੱਤੇ ਵੱਡਾ ਜਾਂ ਛੋਟਾ ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Zoom ਡਾਟਾ ਬਦਲੇ ਬਿਨਾਂ ਵਰਕਸ਼ੀਟ ਨੂੰ ਸਕ੍ਰੀਨ ਉੱਤੇ ਵੱਡਾ ਜਾਂ ਛੋਟਾ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-063 · com003-excel-view-zoom
 
 #### 8. COM003-OFFICE-TABS-064 — MEDIUM
-**Question:** Selected rows ਜਾਂ columns ਦਾ data delete ਕੀਤੇ ਬਿਨਾਂ ਉਹਨਾਂ ਨੂੰ view ਤੋਂ ਹਟਾਉਣ ਵਾਲੀ action ਕਿਹੜੀ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਕਤਾਰਾਂ ਜਾਂ ਕਾਲਮ ਦਾ ਡਾਟਾ ਮਿਟਾਉਣਾ ਕੀਤੇ ਬਿਨਾਂ ਉਹਨਾਂ ਨੂੰ ਦ੍ਰਿਸ਼ ਤੋਂ ਹਟਾਉਣ ਵਾਲੀ ਕਾਰਵਾਈ ਕਿਹੜੀ ਹੈ?
 
-A. Clear
-B. Delete
-C. Filter
-D. Hide
+ਇੱਕ. Clear
+B. ਮਿਟਾਉਣਾ
+C. ਫਿਲਟਰ
+D. ਲੁਕਾਉਣਾ
 
-**Answer:** Hide
-**Explanation:** Hide rows ਜਾਂ columns ਨੂੰ view ਤੋਂ ਹਟਾਉਂਦਾ ਹੈ ਪਰ ਉਹਨਾਂ ਦਾ data worksheet ਵਿੱਚ ਰੱਖਦਾ ਹੈ।
+**Answer:** ਲੁਕਾਉਣਾ
+**Explanation:** ਲੁਕਾਉਣਾ ਕਤਾਰਾਂ ਜਾਂ ਕਾਲਮ ਨੂੰ ਦ੍ਰਿਸ਼ ਤੋਂ ਹਟਾਉਂਦਾ ਹੈ ਪਰ ਉਹਨਾਂ ਦਾ ਡਾਟਾ ਵਰਕਸ਼ੀਟ ਵਿੱਚ ਰੱਖਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-064 · com003-excel-view-hide-rows-columns
 
 ### COM-003-QL-038 — Excel — Excel File Tab & Backstage
@@ -2521,197 +2521,197 @@ D. Close
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-065 — EASY
-**Question:** Blank workbook या template से नया workbook बनाने वाला File-tab command कौन-सा है?
+**Question:** रिक्त कार्यपुस्तिका या टेम्पलेट से नया कार्यपुस्तिका बनाने वाला File टैबटैब कमांड कौन-सा है?
 
-A. New
+एक. नया
 B. Open
 C. Info
 D. Export
 
-**Answer:** New
-**Explanation:** New blank file या template से workbook बनाता है।
+**Answer:** नया
+**Explanation:** नया रिक्त फ़ाइल या टेम्पलेट से कार्यपुस्तिका बनाता है।
 **Trace:** COM003-OFFICE-TABS-065 · com003-excel-file-new
 
 #### 2. COM003-OFFICE-TABS-066 — EASY
-**Question:** Existing Excel workbook खोलने वाला File-tab command कौन-सा है?
+**Question:** मौजूदा Excel कार्यपुस्तिका खोलने वाला File टैबटैब कमांड कौन-सा है?
 
-A. New
+एक. नया
 B. Open
-C. Save As
+C. Save जैसे
 D. Print
 
 **Answer:** Open
-**Explanation:** Open file location से existing workbook load करता है।
+**Explanation:** Open फ़ाइल स्थान से मौजूदा कार्यपुस्तिका लोड करना करता है।
 **Trace:** COM003-OFFICE-TABS-066 · com003-excel-file-open
 
 #### 3. COM003-OFFICE-TABS-067 — EASY
-**Question:** Workbook को नए name, location या format के साथ save करने वाला File-tab command कौन-सा है?
+**Question:** कार्यपुस्तिका को नए नाम, स्थान या स्वरूप के साथ सहेजना करने वाला File टैबटैब कमांड कौन-सा है?
 
-A. New
+एक. नया
 B. Open
-C. Save As
+C. Save जैसे
 D. Close
 
-**Answer:** Save As
-**Explanation:** Save As चुने गए name, location या format के साथ saved copy बनाता है।
+**Answer:** Save जैसे
+**Explanation:** Save जैसे चुने गए नाम, स्थान या स्वरूप के साथ सहेजा गया कॉपी बनाता है।
 **Trace:** COM003-OFFICE-TABS-067 · com003-excel-file-save-as
 
 #### 4. COM003-OFFICE-TABS-068 — EASY
-**Question:** Workbook की print settings और print preview खोलने वाला File-tab command कौन-सा है?
+**Question:** कार्यपुस्तिका की मुद्रण सेटिंग्स और मुद्रण पूर्वावलोकन खोलने वाला File टैबटैब कमांड कौन-सा है?
 
-A. Info
-B. Share
+एक. Info
+B. साझा करें
 C. Export
 D. Print
 
 **Answer:** Print
-**Explanation:** Print worksheet output की print settings और preview खोलता है।
+**Explanation:** Print कार्यपत्रक परिणाम की मुद्रण सेटिंग्स और पूर्वावलोकन खोलता है।
 **Trace:** COM003-OFFICE-TABS-068 · com003-excel-file-print
 
 #### 5. COM003-OFFICE-TABS-069 — EASY
-**Question:** Workbook properties और protection options दिखाने वाला File-tab area कौन-सा है?
+**Question:** कार्यपुस्तिका गुण और सुरक्षा विकल्प दिखाने वाला File टैबटैब क्षेत्र कौन-सा है?
 
-A. Info
+एक. Info
 B. Open
-C. New
+C. नया
 D. Print
 
 **Answer:** Info
-**Explanation:** Info workbook properties और protection जैसे options दिखाता है।
+**Explanation:** Info कार्यपुस्तिका गुण और सुरक्षा जैसे विकल्प दिखाता है।
 **Trace:** COM003-OFFICE-TABS-069 · com003-excel-file-info
 
 #### 6. COM003-OFFICE-TABS-070 — EASY
-**Question:** Workbook की copy को दूसरे supported format में बनाने वाला File-tab command कौन-सा है?
+**Question:** कार्यपुस्तिका की कॉपी को दूसरे समर्थित स्वरूप में बनाने वाला File टैबटैब कमांड कौन-सा है?
 
-A. Open
+एक. Open
 B. Export
-C. New
+C. नया
 D. Close
 
 **Answer:** Export
-**Explanation:** Export workbook की copy को दूसरे supported output format, जैसे उपलब्ध होने पर PDF, में बनाता है।
+**Explanation:** Export कार्यपुस्तिका की कॉपी को दूसरे समर्थित परिणाम स्वरूप, जैसे उपलब्ध होने पर PDF, में बनाता है।
 **Trace:** COM003-OFFICE-TABS-070 · com003-excel-file-export
 
 #### 7. COM003-OFFICE-TABS-071 — EASY
-**Question:** दूसरों के साथ workbook share करने के options देने वाला File-tab command कौन-सा है?
+**Question:** दूसरों के साथ कार्यपुस्तिका साझा करें करने के विकल्प देने वाला File टैबटैब कमांड कौन-सा है?
 
-A. Print
+एक. Print
 B. Info
-C. Share
+C. साझा करें
 D. Page Layout
 
-**Answer:** Share
-**Explanation:** Share workbook sharing options देता है; उपलब्ध options account और platform पर निर्भर हो सकते हैं।
+**Answer:** साझा करें
+**Explanation:** साझा करें कार्यपुस्तिका साझाकरण विकल्प देता है; उपलब्ध विकल्प खाता और मंच पर निर्भर हो सकते हैं।
 **Trace:** COM003-OFFICE-TABS-071 · com003-excel-file-share
 
 #### 8. COM003-OFFICE-TABS-072 — EASY
-**Question:** Current workbook बंद करने वाला File-tab command कौन-सा है?
+**Question:** वर्तमान कार्यपुस्तिका बंद करने वाला File टैबटैब कमांड कौन-सा है?
 
-A. Export
-B. Save As
-C. New
+एक. Export
+B. Save जैसे
+C. नया
 D. Close
 
 **Answer:** Close
-**Explanation:** Close current workbook बंद करता है और Excel खुला रह सकता है।
+**Explanation:** Close वर्तमान कार्यपुस्तिका बंद करता है और Excel खुला रह सकता है।
 **Trace:** COM003-OFFICE-TABS-072 · com003-excel-file-close
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-065 — EASY
-**Question:** Blank workbook ਜਾਂ template ਤੋਂ ਨਵਾਂ workbook ਬਣਾਉਣ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਖਾਲੀ ਵਰਕਬੁੱਕ ਜਾਂ ਟੈਂਪਲੇਟ ਤੋਂ ਨਵਾਂ ਵਰਕਬੁੱਕ ਬਣਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. New
+ਇੱਕ. ਨਵਾਂ
 B. Open
 C. Info
 D. Export
 
-**Answer:** New
-**Explanation:** New blank file ਜਾਂ template ਤੋਂ workbook ਬਣਾਉਂਦਾ ਹੈ।
+**Answer:** ਨਵਾਂ
+**Explanation:** ਨਵਾਂ ਖਾਲੀ ਫ਼ਾਈਲ ਜਾਂ ਟੈਂਪਲੇਟ ਤੋਂ ਵਰਕਬੁੱਕ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-065 · com003-excel-file-new
 
 #### 2. COM003-OFFICE-TABS-066 — EASY
-**Question:** Existing Excel workbook ਖੋਲ੍ਹਣ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਮੌਜੂਦਾ Excel ਵਰਕਬੁੱਕ ਖੋਲ੍ਹਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. New
+ਇੱਕ. ਨਵਾਂ
 B. Open
-C. Save As
+C. Save ਵਜੋਂ
 D. Print
 
 **Answer:** Open
-**Explanation:** Open file location ਤੋਂ existing workbook load ਕਰਦਾ ਹੈ।
+**Explanation:** Open ਫ਼ਾਈਲ ਥਾਂ ਤੋਂ ਮੌਜੂਦਾ ਵਰਕਬੁੱਕ ਲੋਡ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-066 · com003-excel-file-open
 
 #### 3. COM003-OFFICE-TABS-067 — EASY
-**Question:** Workbook ਨੂੰ ਨਵੇਂ name, location ਜਾਂ format ਨਾਲ save ਕਰਨ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਕਬੁੱਕ ਨੂੰ ਨਵੇਂ ਨਾਮ, ਥਾਂ ਜਾਂ ਰੂਪ ਨਾਲ ਸੰਭਾਲਣਾ ਕਰਨ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. New
+ਇੱਕ. ਨਵਾਂ
 B. Open
-C. Save As
+C. Save ਵਜੋਂ
 D. Close
 
-**Answer:** Save As
-**Explanation:** Save As ਚੁਣੇ name, location ਜਾਂ format ਨਾਲ saved copy ਬਣਾਉਂਦਾ ਹੈ।
+**Answer:** Save ਵਜੋਂ
+**Explanation:** Save ਵਜੋਂ ਚੁਣੇ ਨਾਮ, ਥਾਂ ਜਾਂ ਰੂਪ ਨਾਲ ਸੰਭਾਲਿਆ ਗਿਆ ਕਾਪੀ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-067 · com003-excel-file-save-as
 
 #### 4. COM003-OFFICE-TABS-068 — EASY
-**Question:** Workbook ਦੀਆਂ print settings ਅਤੇ print preview ਖੋਲ੍ਹਣ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਕਬੁੱਕ ਦੀਆਂ ਛਪਾਈ ਸੈਟਿੰਗਾਂ ਅਤੇ ਛਪਾਈ ਪੂਰਵ-ਦ੍ਰਿਸ਼ ਖੋਲ੍ਹਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Info
-B. Share
+ਇੱਕ. Info
+B. ਸਾਂਝਾ ਕਰੋ
 C. Export
 D. Print
 
 **Answer:** Print
-**Explanation:** Print worksheet output ਦੀਆਂ print settings ਅਤੇ preview ਖੋਲ੍ਹਦਾ ਹੈ।
+**Explanation:** Print ਵਰਕਸ਼ੀਟ ਨਤੀਜਾ ਦੀਆਂ ਛਪਾਈ ਸੈਟਿੰਗਾਂ ਅਤੇ ਪੂਰਵ-ਦ੍ਰਿਸ਼ ਖੋਲ੍ਹਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-068 · com003-excel-file-print
 
 #### 5. COM003-OFFICE-TABS-069 — EASY
-**Question:** Workbook properties ਅਤੇ protection options ਦਿਖਾਉਣ ਵਾਲਾ File-tab area ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਕਬੁੱਕ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਅਤੇ ਸੁਰੱਖਿਆ ਵਿਕਲਪ ਦਿਖਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-A. Info
+ਇੱਕ. Info
 B. Open
-C. New
+C. ਨਵਾਂ
 D. Print
 
 **Answer:** Info
-**Explanation:** Info workbook properties ਅਤੇ protection ਵਰਗੇ options ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Info ਵਰਕਬੁੱਕ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਅਤੇ ਸੁਰੱਖਿਆ ਵਰਗੇ ਵਿਕਲਪ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-069 · com003-excel-file-info
 
 #### 6. COM003-OFFICE-TABS-070 — EASY
-**Question:** Workbook ਦੀ copy ਨੂੰ ਹੋਰ supported format ਵਿੱਚ ਬਣਾਉਣ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਕਬੁੱਕ ਦੀ ਕਾਪੀ ਨੂੰ ਹੋਰ ਸਮਰਥਿਤ ਰੂਪ ਵਿੱਚ ਬਣਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Open
+ਇੱਕ. Open
 B. Export
-C. New
+C. ਨਵਾਂ
 D. Close
 
 **Answer:** Export
-**Explanation:** Export workbook ਦੀ copy ਨੂੰ ਹੋਰ supported output format, ਜਿਵੇਂ ਉਪਲਬਧ ਹੋਣ ਉੱਤੇ PDF, ਵਿੱਚ ਬਣਾਉਂਦਾ ਹੈ।
+**Explanation:** Export ਵਰਕਬੁੱਕ ਦੀ ਕਾਪੀ ਨੂੰ ਹੋਰ ਸਮਰਥਿਤ ਨਤੀਜਾ ਰੂਪ, ਜਿਵੇਂ ਉਪਲਬਧ ਹੋਣ ਉੱਤੇ PDF, ਵਿੱਚ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-070 · com003-excel-file-export
 
 #### 7. COM003-OFFICE-TABS-071 — EASY
-**Question:** ਹੋਰਾਂ ਨਾਲ workbook share ਕਰਨ ਦੇ options ਦੇਣ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਹੋਰਾਂ ਨਾਲ ਵਰਕਬੁੱਕ ਸਾਂਝਾ ਕਰੋ ਕਰਨ ਦੇ ਵਿਕਲਪ ਦੇਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Print
+ਇੱਕ. Print
 B. Info
-C. Share
+C. ਸਾਂਝਾ ਕਰੋ
 D. Page Layout
 
-**Answer:** Share
-**Explanation:** Share workbook sharing options ਦਿੰਦਾ ਹੈ; ਉਪਲਬਧ options account ਅਤੇ platform ਉੱਤੇ ਨਿਰਭਰ ਕਰ ਸਕਦੇ ਹਨ।
+**Answer:** ਸਾਂਝਾ ਕਰੋ
+**Explanation:** ਸਾਂਝਾ ਕਰੋ ਵਰਕਬੁੱਕ ਸਾਂਝਾ ਕਰਨਾ ਵਿਕਲਪ ਦਿੰਦਾ ਹੈ; ਉਪਲਬਧ ਵਿਕਲਪ ਖਾਤਾ ਅਤੇ ਪਲੇਟਫਾਰਮ ਉੱਤੇ ਨਿਰਭਰ ਕਰ ਸਕਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-071 · com003-excel-file-share
 
 #### 8. COM003-OFFICE-TABS-072 — EASY
-**Question:** Current workbook ਬੰਦ ਕਰਨ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਮੌਜੂਦਾ ਵਰਕਬੁੱਕ ਬੰਦ ਕਰਨ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Export
-B. Save As
-C. New
+ਇੱਕ. Export
+B. Save ਵਜੋਂ
+C. ਨਵਾਂ
 D. Close
 
 **Answer:** Close
-**Explanation:** Close current workbook ਬੰਦ ਕਰਦਾ ਹੈ ਅਤੇ Excel ਖੁੱਲ੍ਹਾ ਰਹਿ ਸਕਦਾ ਹੈ।
+**Explanation:** Close ਮੌਜੂਦਾ ਵਰਕਬੁੱਕ ਬੰਦ ਕਰਦਾ ਹੈ ਅਤੇ Excel ਖੁੱਲ੍ਹਾ ਰਹਿ ਸਕਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-072 · com003-excel-file-close
 
 ### COM-003-QL-039 — PowerPoint — PowerPoint Interface, Ribbon & Work Area
@@ -2817,197 +2817,197 @@ D. Contextual tab
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-073 — EASY
-**Question:** PowerPoint presentation में सामान्यतः क्या होता है?
+**Question:** PowerPoint प्रस्तुति में सामान्यतः क्या होता है?
 
-A. Slides का sequence
-B. केवल एक printed page
-C. केवल formulas
-D. केवल worksheet cells
+एक. स्लाइडें का क्रम
+B. केवल एक मुद्रित पृष्ठ
+C. केवल सूत्र
+D. केवल कार्यपत्रक कक्ष
 
-**Answer:** Slides का sequence
-**Explanation:** PowerPoint presentation सामान्यतः slides के sequence के रूप में organized होती है।
+**Answer:** स्लाइडें का क्रम
+**Explanation:** PowerPoint प्रस्तुति सामान्यतः स्लाइडें के क्रम के रूप में व्यवस्थित होती है।
 **Trace:** COM003-OFFICE-TABS-073 · com003-powerpoint-interface-presentation
 
 #### 2. COM003-OFFICE-TABS-074 — EASY
-**Question:** Slide thumbnails, main slide और Notes area सामान्यतः किस PowerPoint view में दिखते हैं?
+**Question:** स्लाइड लघु-चित्र, मुख्य स्लाइड और टिप्पणियाँ क्षेत्र सामान्यतः किस PowerPoint दृश्य में दिखते हैं?
 
-A. Slide Sorter
-B. Normal view
-C. Reading view
-D. केवल Outline view
+एक. Slide Sorter
+B. सामान्य दृश्य
+C. पठन दृश्य
+D. केवल रूपरेखा दृश्य
 
-**Answer:** Normal view
-**Explanation:** Normal view slide thumbnails और slide area वाला मुख्य editing workspace देता है।
+**Answer:** सामान्य दृश्य
+**Explanation:** सामान्य दृश्य स्लाइड लघु-चित्र और स्लाइड क्षेत्र वाला मुख्य संपादन कार्य-क्षेत्र देता है।
 **Trace:** COM003-OFFICE-TABS-074 · com003-powerpoint-interface-normal-view
 
 #### 3. COM003-OFFICE-TABS-075 — EASY
-**Question:** Selected slide की contents edit करने के लिए PowerPoint का कौन-सा area उपयोग होता है?
+**Question:** चयनित स्लाइड की सामग्री संपादित करें करने के लिए PowerPoint का कौन-सा क्षेत्र उपयोग होता है?
 
-A. Thumbnail Pane
-B. Notes Pane
-C. Slide Pane
+एक. लघु-चित्र Pane
+B. टिप्पणियाँ Pane
+C. स्लाइड Pane
 D. Status Bar
 
-**Answer:** Slide Pane
-**Explanation:** Slide Pane selected slide को edit करने का मुख्य area है।
+**Answer:** स्लाइड Pane
+**Explanation:** स्लाइड Pane चयनित स्लाइड को संपादित करें करने का मुख्य क्षेत्र है।
 **Trace:** COM003-OFFICE-TABS-075 · com003-powerpoint-interface-slide-pane
 
 #### 4. COM003-OFFICE-TABS-076 — EASY
-**Question:** Presentation text को मुख्य रूप से outline की तरह दिखाने वाला PowerPoint view कौन-सा है?
+**Question:** प्रस्तुति पाठ को मुख्य रूप से रूपरेखा की तरह दिखाने वाला PowerPoint दृश्य कौन-सा है?
 
-A. Normal view
+एक. सामान्य दृश्य
 B. Slide Sorter
-C. Notes Page
-D. Outline view
+C. टिप्पणियाँ पृष्ठ
+D. रूपरेखा दृश्य
 
-**Answer:** Outline view
-**Explanation:** Outline view presentation की text hierarchy दिखाता है।
+**Answer:** रूपरेखा दृश्य
+**Explanation:** रूपरेखा दृश्य प्रस्तुति की पाठ पदानुक्रम दिखाता है।
 **Trace:** COM003-OFFICE-TABS-076 · com003-powerpoint-interface-outline
 
 #### 5. COM003-OFFICE-TABS-077 — EASY
-**Question:** Slide position और view controls सामान्यतः PowerPoint के किस interface area में होते हैं?
+**Question:** स्लाइड स्थिति और दृश्य नियंत्रित करता है सामान्यतः PowerPoint के किस इंटरफ़ेस क्षेत्र में होते हैं?
 
-A. Status Bar
+एक. Status Bar
 B. Title Bar
-C. Ribbon group
-D. Notes Pane
+C. Ribbon समूह
+D. टिप्पणियाँ Pane
 
 **Answer:** Status Bar
-**Explanation:** Status Bar current presentation view से संबंधित information और controls दिखा सकता है।
+**Explanation:** Status Bar वर्तमान प्रस्तुति दृश्य से संबंधित जानकारी और नियंत्रित करता है दिखा सकता है।
 **Trace:** COM003-OFFICE-TABS-077 · com003-powerpoint-interface-status-bar
 
 #### 6. COM003-OFFICE-TABS-078 — EASY
-**Question:** PowerPoint Ribbon के एक group में क्या होता है?
+**Question:** PowerPoint Ribbon के एक समूह में क्या होता है?
 
-A. केवल slide numbers
-B. संबंधित commands
-C. केवल speaker notes
-D. केवल file names
+एक. केवल स्लाइड संख्याएँ
+B. संबंधित कमांड
+C. केवल स्पीकर टिप्पणियाँ
+D. केवल फ़ाइल नाम
 
-**Answer:** संबंधित commands
-**Explanation:** Ribbon group संबंधित commands को एक साथ रखता है।
+**Answer:** संबंधित कमांड
+**Explanation:** Ribbon समूह संबंधित कमांड को एक साथ रखता है।
 **Trace:** COM003-OFFICE-TABS-078 · com003-powerpoint-interface-ribbon-group
 
 #### 7. COM003-OFFICE-TABS-079 — EASY
-**Question:** Frequently used commands तक जल्दी पहुँच देने वाला PowerPoint interface area कौन-सा है?
+**Question:** बार-बार उपयोग किया गया कमांड तक जल्दी पहुँच देने वाला PowerPoint इंटरफ़ेस क्षेत्र कौन-सा है?
 
-A. Slide Pane
-B. Notes Pane
+एक. स्लाइड Pane
+B. टिप्पणियाँ Pane
 C. Quick Access Toolbar
-D. Outline Pane
+D. रूपरेखा Pane
 
 **Answer:** Quick Access Toolbar
-**Explanation:** Quick Access Toolbar Ribbon tabs के across frequently used commands उपलब्ध रखता है।
+**Explanation:** Quick Access Toolbar Ribbon टैब के आर-पार बार-बार उपयोग किया गया कमांड उपलब्ध रखता है।
 **Trace:** COM003-OFFICE-TABS-079 · com003-powerpoint-interface-quick-access-toolbar
 
 #### 8. COM003-OFFICE-TABS-080 — MEDIUM
-**Question:** Picture, chart या shape select करने पर PowerPoint में किस प्रकार का tab दिखाई दे सकता है?
+**Question:** चित्र, चार्ट या आकार चुनना करने पर PowerPoint में किस प्रकार का टैब दिखाई दे सकता है?
 
-A. Worksheet tab
-B. केवल File tab
-C. Permanent system tab
-D. Contextual tab
+एक. कार्यपत्रक टैब
+B. केवल File टैब
+C. स्थायी प्रणाली टैब
+D. Contextual टैब
 
-**Answer:** Contextual tab
-**Explanation:** Contextual tab selected object से संबंधित commands देता है।
+**Answer:** Contextual टैब
+**Explanation:** Contextual टैब चयनित वस्तु से संबंधित कमांड देता है।
 **Trace:** COM003-OFFICE-TABS-080 · com003-powerpoint-interface-contextual-tab
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-073 — EASY
-**Question:** PowerPoint presentation ਵਿੱਚ ਆਮ ਤੌਰ ਉੱਤੇ ਕੀ ਹੁੰਦਾ ਹੈ?
+**Question:** PowerPoint ਪੇਸ਼ਕਾਰੀ ਵਿੱਚ ਆਮ ਤੌਰ ਉੱਤੇ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-A. Slides ਦਾ sequence
-B. ਸਿਰਫ਼ ਇੱਕ printed page
-C. ਸਿਰਫ਼ formulas
-D. ਸਿਰਫ਼ worksheet cells
+ਇੱਕ. ਸਲਾਈਡਾਂ ਦਾ ਕ੍ਰਮ
+B. ਸਿਰਫ਼ ਇੱਕ ਛਪੇ ਹੋਏ ਪੰਨਾ
+C. ਸਿਰਫ਼ ਫਾਰਮੂਲੇ
+D. ਸਿਰਫ਼ ਵਰਕਸ਼ੀਟ ਸੈੱਲ
 
-**Answer:** Slides ਦਾ sequence
-**Explanation:** PowerPoint presentation ਆਮ ਤੌਰ ਉੱਤੇ slides ਦੇ sequence ਵਜੋਂ organized ਹੁੰਦੀ ਹੈ।
+**Answer:** ਸਲਾਈਡਾਂ ਦਾ ਕ੍ਰਮ
+**Explanation:** PowerPoint ਪੇਸ਼ਕਾਰੀ ਆਮ ਤੌਰ ਉੱਤੇ ਸਲਾਈਡਾਂ ਦੇ ਕ੍ਰਮ ਵਜੋਂ ਵਿਵਸਥਿਤ ਹੁੰਦੀ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-073 · com003-powerpoint-interface-presentation
 
 #### 2. COM003-OFFICE-TABS-074 — EASY
-**Question:** Slide thumbnails, main slide ਅਤੇ Notes area ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਸ PowerPoint view ਵਿੱਚ ਦਿਖਦੇ ਹਨ?
+**Question:** ਸਲਾਈਡ ਛੋਟੇ ਚਿੱਤਰ, ਮੁੱਖ ਸਲਾਈਡ ਅਤੇ ਨੋਟ ਖੇਤਰ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਸ PowerPoint ਦ੍ਰਿਸ਼ ਵਿੱਚ ਦਿਖਦੇ ਹਨ?
 
-A. Slide Sorter
-B. Normal view
-C. Reading view
-D. ਸਿਰਫ਼ Outline view
+ਇੱਕ. Slide Sorter
+B. ਆਮ ਦ੍ਰਿਸ਼
+C. ਪੜ੍ਹਨਾ ਦ੍ਰਿਸ਼
+D. ਸਿਰਫ਼ ਰੂਪ-ਰੇਖਾ ਦ੍ਰਿਸ਼
 
-**Answer:** Normal view
-**Explanation:** Normal view slide thumbnails ਅਤੇ slide area ਵਾਲਾ ਮੁੱਖ editing workspace ਦਿੰਦਾ ਹੈ।
+**Answer:** ਆਮ ਦ੍ਰਿਸ਼
+**Explanation:** ਆਮ ਦ੍ਰਿਸ਼ ਸਲਾਈਡ ਛੋਟੇ ਚਿੱਤਰ ਅਤੇ ਸਲਾਈਡ ਖੇਤਰ ਵਾਲਾ ਮੁੱਖ ਸੋਧ ਕੰਮ-ਖੇਤਰ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-074 · com003-powerpoint-interface-normal-view
 
 #### 3. COM003-OFFICE-TABS-075 — EASY
-**Question:** Selected slide ਦੀ contents edit ਕਰਨ ਲਈ PowerPoint ਦਾ ਕਿਹੜਾ area ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਦੀ ਸਮੱਗਰੀ ਸੋਧੋ ਕਰਨ ਲਈ PowerPoint ਦਾ ਕਿਹੜਾ ਖੇਤਰ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?
 
-A. Thumbnail Pane
-B. Notes Pane
-C. Slide Pane
+ਇੱਕ. ਛੋਟਾ ਚਿੱਤਰ Pane
+B. ਨੋਟ Pane
+C. ਸਲਾਈਡ Pane
 D. Status Bar
 
-**Answer:** Slide Pane
-**Explanation:** Slide Pane selected slide ਨੂੰ edit ਕਰਨ ਦਾ ਮੁੱਖ area ਹੈ।
+**Answer:** ਸਲਾਈਡ Pane
+**Explanation:** ਸਲਾਈਡ Pane ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਨੂੰ ਸੋਧੋ ਕਰਨ ਦਾ ਮੁੱਖ ਖੇਤਰ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-075 · com003-powerpoint-interface-slide-pane
 
 #### 4. COM003-OFFICE-TABS-076 — EASY
-**Question:** Presentation text ਨੂੰ ਮੁੱਖ ਤੌਰ ਉੱਤੇ outline ਵਾਂਗ ਦਿਖਾਉਣ ਵਾਲਾ PowerPoint view ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੇਸ਼ਕਾਰੀ ਲਿਖਤ ਨੂੰ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਰੂਪ-ਰੇਖਾ ਵਾਂਗ ਦਿਖਾਉਣ ਵਾਲਾ PowerPoint ਦ੍ਰਿਸ਼ ਕਿਹੜਾ ਹੈ?
 
-A. Normal view
+ਇੱਕ. ਆਮ ਦ੍ਰਿਸ਼
 B. Slide Sorter
-C. Notes Page
-D. Outline view
+C. ਨੋਟ ਪੰਨਾ
+D. ਰੂਪ-ਰੇਖਾ ਦ੍ਰਿਸ਼
 
-**Answer:** Outline view
-**Explanation:** Outline view presentation ਦੀ text hierarchy ਦਿਖਾਉਂਦਾ ਹੈ।
+**Answer:** ਰੂਪ-ਰੇਖਾ ਦ੍ਰਿਸ਼
+**Explanation:** ਰੂਪ-ਰੇਖਾ ਦ੍ਰਿਸ਼ ਪੇਸ਼ਕਾਰੀ ਦੀ ਲਿਖਤ ਪਦਾਨੁਕ੍ਰਮ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-076 · com003-powerpoint-interface-outline
 
 #### 5. COM003-OFFICE-TABS-077 — EASY
-**Question:** Slide position ਅਤੇ view controls ਆਮ ਤੌਰ ਉੱਤੇ PowerPoint ਦੇ ਕਿਹੜੇ interface area ਵਿੱਚ ਹੁੰਦੇ ਹਨ?
+**Question:** ਸਲਾਈਡ ਸਥਿਤੀ ਅਤੇ ਦ੍ਰਿਸ਼ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ ਆਮ ਤੌਰ ਉੱਤੇ PowerPoint ਦੇ ਕਿਹੜੇ ਇੰਟਰਫੇਸ ਖੇਤਰ ਵਿੱਚ ਹੁੰਦੇ ਹਨ?
 
-A. Status Bar
+ਇੱਕ. Status Bar
 B. Title Bar
-C. Ribbon group
-D. Notes Pane
+C. Ribbon ਸਮੂਹ
+D. ਨੋਟ Pane
 
 **Answer:** Status Bar
-**Explanation:** Status Bar current presentation view ਨਾਲ ਸੰਬੰਧਿਤ information ਅਤੇ controls ਦਿਖਾ ਸਕਦਾ ਹੈ।
+**Explanation:** Status Bar ਮੌਜੂਦਾ ਪੇਸ਼ਕਾਰੀ ਦ੍ਰਿਸ਼ ਨਾਲ ਸੰਬੰਧਿਤ ਜਾਣਕਾਰੀ ਅਤੇ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ ਦਿਖਾ ਸਕਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-077 · com003-powerpoint-interface-status-bar
 
 #### 6. COM003-OFFICE-TABS-078 — EASY
-**Question:** PowerPoint Ribbon ਦੇ ਇੱਕ group ਵਿੱਚ ਕੀ ਹੁੰਦਾ ਹੈ?
+**Question:** PowerPoint Ribbon ਦੇ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-A. ਸਿਰਫ਼ slide numbers
-B. ਸੰਬੰਧਿਤ commands
-C. ਸਿਰਫ਼ speaker notes
-D. ਸਿਰਫ਼ file names
+ਇੱਕ. ਸਿਰਫ਼ ਸਲਾਈਡ ਅੰਕ
+B. ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ
+C. ਸਿਰਫ਼ ਸਪੀਕਰ ਨੋਟ
+D. ਸਿਰਫ਼ ਫ਼ਾਈਲ ਨਾਮ
 
-**Answer:** ਸੰਬੰਧਿਤ commands
-**Explanation:** Ribbon group ਸੰਬੰਧਿਤ commands ਨੂੰ ਇਕੱਠਾ ਰੱਖਦਾ ਹੈ।
+**Answer:** ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ
+**Explanation:** Ribbon ਸਮੂਹ ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ ਨੂੰ ਇਕੱਠਾ ਰੱਖਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-078 · com003-powerpoint-interface-ribbon-group
 
 #### 7. COM003-OFFICE-TABS-079 — EASY
-**Question:** Frequently used commands ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ ਦੇਣ ਵਾਲਾ PowerPoint interface area ਕਿਹੜਾ ਹੈ?
+**Question:** ਅਕਸਰ ਵਰਤਿਆ ਗਿਆ ਕਮਾਂਡਾਂ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ ਦੇਣ ਵਾਲਾ PowerPoint ਇੰਟਰਫੇਸ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-A. Slide Pane
-B. Notes Pane
+ਇੱਕ. ਸਲਾਈਡ Pane
+B. ਨੋਟ Pane
 C. Quick Access Toolbar
-D. Outline Pane
+D. ਰੂਪ-ਰੇਖਾ Pane
 
 **Answer:** Quick Access Toolbar
-**Explanation:** Quick Access Toolbar Ribbon tabs ਦੇ across frequently used commands ਉਪਲਬਧ ਰੱਖਦਾ ਹੈ।
+**Explanation:** Quick Access Toolbar Ribbon ਟੈਬ ਦੇ ਆਰ-ਪਾਰ ਅਕਸਰ ਵਰਤਿਆ ਗਿਆ ਕਮਾਂਡਾਂ ਉਪਲਬਧ ਰੱਖਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-079 · com003-powerpoint-interface-quick-access-toolbar
 
 #### 8. COM003-OFFICE-TABS-080 — MEDIUM
-**Question:** Picture, chart ਜਾਂ shape select ਕਰਨ ਨਾਲ PowerPoint ਵਿੱਚ ਕਿਹੜੀ ਕਿਸਮ ਦਾ tab ਦਿਖ ਸਕਦਾ ਹੈ?
+**Question:** ਤਸਵੀਰ, ਚਾਰਟ ਜਾਂ ਆਕਾਰ ਚੁਣਨਾ ਕਰਨ ਨਾਲ PowerPoint ਵਿੱਚ ਕਿਹੜੀ ਕਿਸਮ ਦਾ ਟੈਬ ਦਿਖ ਸਕਦਾ ਹੈ?
 
-A. Worksheet tab
-B. ਸਿਰਫ਼ File tab
-C. Permanent system tab
-D. Contextual tab
+ਇੱਕ. ਵਰਕਸ਼ੀਟ ਟੈਬ
+B. ਸਿਰਫ਼ File ਟੈਬ
+C. ਸਥਾਈ ਪ੍ਰਣਾਲੀ ਟੈਬ
+D. Contextual ਟੈਬ
 
-**Answer:** Contextual tab
-**Explanation:** Contextual tab selected object ਨਾਲ ਸੰਬੰਧਿਤ commands ਦਿੰਦਾ ਹੈ।
+**Answer:** Contextual ਟੈਬ
+**Explanation:** Contextual ਟੈਬ ਚੁਣਿਆ ਹੋਇਆ ਵਸਤੂ ਨਾਲ ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-080 · com003-powerpoint-interface-contextual-tab
 
 ### COM-003-QL-040 — PowerPoint — PowerPoint Home Tab
@@ -3113,197 +3113,197 @@ D. Replace
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-081 — EASY
-**Question:** PowerPoint presentation में नया slide जोड़ने वाला Home-tab command कौन-सा है?
+**Question:** PowerPoint प्रस्तुति में नया स्लाइड जोड़ने वाला Home टैबटैब कमांड कौन-सा है?
 
-A. New Slide
+एक. नया स्लाइड
 B. Layout
-C. Reset
+C. रीसेट
 D. Section
 
-**Answer:** New Slide
-**Explanation:** New Slide slide जोड़ता है और layout चुनने का option भी दे सकता है।
+**Answer:** नया स्लाइड
+**Explanation:** नया स्लाइड स्लाइड जोड़ता है और लेआउट चुनने का विकल्प भी दे सकता है।
 **Trace:** COM003-OFFICE-TABS-081 · com003-powerpoint-home-new-slide
 
 #### 2. COM003-OFFICE-TABS-082 — EASY
-**Question:** Slide पर placeholders की arrangement बदलने वाला Home-tab command कौन-सा है?
+**Question:** स्लाइड पर स्थान-धारक की व्यवस्था बदलने वाला Home टैबटैब कमांड कौन-सा है?
 
-A. New Slide
+एक. नया स्लाइड
 B. Layout
-C. Reset
+C. रीसेट
 D. Section
 
 **Answer:** Layout
-**Explanation:** Layout title, text और अन्य placeholders की predefined arrangement लागू करता है।
+**Explanation:** Layout शीर्षक, पाठ और अन्य स्थान-धारक की पूर्व-निर्धारित व्यवस्था लागू करता है।
 **Trace:** COM003-OFFICE-TABS-082 · com003-powerpoint-home-layout
 
 #### 3. COM003-OFFICE-TABS-083 — MEDIUM
-**Question:** Slide के placeholders को selected layout के अनुसार restore करने वाला Home-tab command कौन-सा है?
+**Question:** स्लाइड के स्थान-धारक को चयनित लेआउट के अनुसार पुनर्स्थापित करना करने वाला Home टैबटैब कमांड कौन-सा है?
 
-A. New Slide
+एक. नया स्लाइड
 B. Layout
-C. Reset
+C. रीसेट
 D. Section
 
-**Answer:** Reset
-**Explanation:** Reset selected slide के placeholders पर layout formatting फिर से लागू करता है।
+**Answer:** रीसेट
+**Explanation:** रीसेट चयनित स्लाइड के स्थान-धारक पर लेआउट स्वरूपण फिर से लागू करता है।
 **Trace:** COM003-OFFICE-TABS-083 · com003-powerpoint-home-reset
 
 #### 4. COM003-OFFICE-TABS-084 — EASY
-**Question:** Related slides को named heading के नीचे group करने वाला Home-tab feature कौन-सा है?
+**Question:** संबंधित स्लाइडें को नामित शीर्षक के नीचे समूह करने वाला Home टैबटैब सुविधा कौन-सा है?
 
-A. Arrange
+एक. व्यवस्थित करना
 B. Replace
-C. Reset
+C. रीसेट
 D. Section
 
 **Answer:** Section
-**Explanation:** Sections related slides को named groups में organize करते हैं।
+**Explanation:** अनुभाग संबंधित स्लाइडें को नामित समूह में व्यवस्थित करना करते हैं।
 **Trace:** COM003-OFFICE-TABS-084 · com003-powerpoint-home-section
 
 #### 5. COM003-OFFICE-TABS-085 — EASY
-**Question:** Selected slide text का font और size बदलने वाला Home-tab group कौन-सा है?
+**Question:** चयनित स्लाइड पाठ का फ़ॉन्ट और आकार बदलने वाला Home टैबटैब समूह कौन-सा है?
 
-A. Font
+एक. Font
 B. Paragraph
-C. Drawing
-D. Editing
+C. चित्रण
+D. संपादन
 
 **Answer:** Font
-**Explanation:** Font group selected text की character appearance नियंत्रित करता है।
+**Explanation:** Font समूह चयनित पाठ की अक्षर दिखावट नियंत्रित करता है।
 **Trace:** COM003-OFFICE-TABS-085 · com003-powerpoint-home-font
 
 #### 6. COM003-OFFICE-TABS-086 — EASY
-**Question:** Slide text के bullets, alignment और line spacing को नियंत्रित करने वाला Home-tab group कौन-सा है?
+**Question:** स्लाइड पाठ के बुलेट, संरेखण और पंक्ति अंतराल को नियंत्रित करने वाला Home टैबटैब समूह कौन-सा है?
 
-A. Font
+एक. Font
 B. Paragraph
-C. Drawing
+C. चित्रण
 D. Clipboard
 
 **Answer:** Paragraph
-**Explanation:** Paragraph group text paragraphs के bullets, alignment और spacing को नियंत्रित करता है।
+**Explanation:** Paragraph समूह पाठ अनुच्छेद के बुलेट, संरेखण और अंतराल को नियंत्रित करता है।
 **Trace:** COM003-OFFICE-TABS-086 · com003-powerpoint-home-paragraph
 
 #### 7. COM003-OFFICE-TABS-087 — MEDIUM
-**Question:** Selected objects का front-to-back order बदलने वाला Home-tab command कौन-सा है?
+**Question:** चयनित वस्तुएँ का आगेको-पीछे क्रम बदलने वाला Home टैबटैब कमांड कौन-सा है?
 
-A. Layout
-B. Reset
-C. Arrange
-D. New Slide
+एक. Layout
+B. रीसेट
+C. व्यवस्थित करना
+D. नया स्लाइड
 
-**Answer:** Arrange
-**Explanation:** Arrange object order, alignment, grouping या rotation बदल सकता है।
+**Answer:** व्यवस्थित करना
+**Explanation:** व्यवस्थित करना वस्तु क्रम, संरेखण, समूहीकरण या घुमाव बदल सकता है।
 **Trace:** COM003-OFFICE-TABS-087 · com003-powerpoint-home-arrange
 
 #### 8. COM003-OFFICE-TABS-088 — EASY
-**Question:** Presentation में text find करके उसे दूसरे text से बदलने वाला Home-tab editing command कौन-सा है?
+**Question:** प्रस्तुति में पाठ ढूँढना करके उसे दूसरे पाठ से बदलने वाला Home टैबटैब संपादन कमांड कौन-सा है?
 
-A. New Slide
-B. Reset
+एक. नया स्लाइड
+B. रीसेट
 C. Layout
 D. Replace
 
 **Answer:** Replace
-**Explanation:** Replace specified text को search करके दूसरे text से substitute करता है।
+**Explanation:** Replace निर्दिष्ट पाठ को खोज करके दूसरे पाठ से बदलना करता है।
 **Trace:** COM003-OFFICE-TABS-088 · com003-powerpoint-home-find-replace
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-081 — EASY
-**Question:** PowerPoint presentation ਵਿੱਚ ਨਵਾਂ slide ਜੋੜਨ ਵਾਲਾ Home-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** PowerPoint ਪੇਸ਼ਕਾਰੀ ਵਿੱਚ ਨਵਾਂ ਸਲਾਈਡ ਜੋੜਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. New Slide
+ਇੱਕ. ਨਵਾਂ ਸਲਾਈਡ
 B. Layout
-C. Reset
+C. ਰੀਸੈੱਟ
 D. Section
 
-**Answer:** New Slide
-**Explanation:** New Slide slide ਜੋੜਦਾ ਹੈ ਅਤੇ layout ਚੁਣਨ ਦਾ option ਵੀ ਦੇ ਸਕਦਾ ਹੈ।
+**Answer:** ਨਵਾਂ ਸਲਾਈਡ
+**Explanation:** ਨਵਾਂ ਸਲਾਈਡ ਸਲਾਈਡ ਜੋੜਦਾ ਹੈ ਅਤੇ ਲੇਆਉਟ ਚੁਣਨ ਦਾ ਵਿਕਲਪ ਵੀ ਦੇ ਸਕਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-081 · com003-powerpoint-home-new-slide
 
 #### 2. COM003-OFFICE-TABS-082 — EASY
-**Question:** Slide ਉੱਤੇ placeholders ਦੀ arrangement ਬਦਲਣ ਵਾਲਾ Home-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਲਾਈਡ ਉੱਤੇ ਥਾਂ-ਧਾਰਕ ਦੀ ਬਣਤਰ ਬਦਲਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. New Slide
+ਇੱਕ. ਨਵਾਂ ਸਲਾਈਡ
 B. Layout
-C. Reset
+C. ਰੀਸੈੱਟ
 D. Section
 
 **Answer:** Layout
-**Explanation:** Layout title, text ਅਤੇ ਹੋਰ placeholders ਦੀ predefined arrangement ਲਾਗੂ ਕਰਦਾ ਹੈ।
+**Explanation:** Layout ਸਿਰਲੇਖ, ਲਿਖਤ ਅਤੇ ਹੋਰ ਥਾਂ-ਧਾਰਕ ਦੀ ਪਹਿਲਾਂ ਤੋਂ ਨਿਰਧਾਰਤ ਬਣਤਰ ਲਾਗੂ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-082 · com003-powerpoint-home-layout
 
 #### 3. COM003-OFFICE-TABS-083 — MEDIUM
-**Question:** Slide ਦੇ placeholders ਨੂੰ selected layout ਦੇ ਅਨੁਸਾਰ restore ਕਰਨ ਵਾਲਾ Home-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਲਾਈਡ ਦੇ ਥਾਂ-ਧਾਰਕ ਨੂੰ ਚੁਣਿਆ ਹੋਇਆ ਲੇਆਉਟ ਦੇ ਅਨੁਸਾਰ ਮੁੜ ਸਥਾਪਿਤ ਕਰਨਾ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. New Slide
+ਇੱਕ. ਨਵਾਂ ਸਲਾਈਡ
 B. Layout
-C. Reset
+C. ਰੀਸੈੱਟ
 D. Section
 
-**Answer:** Reset
-**Explanation:** Reset selected slide ਦੇ placeholders ਉੱਤੇ layout formatting ਮੁੜ ਲਾਗੂ ਕਰਦਾ ਹੈ।
+**Answer:** ਰੀਸੈੱਟ
+**Explanation:** ਰੀਸੈੱਟ ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਦੇ ਥਾਂ-ਧਾਰਕ ਉੱਤੇ ਲੇਆਉਟ ਸਜਾਵਟ ਮੁੜ ਲਾਗੂ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-083 · com003-powerpoint-home-reset
 
 #### 4. COM003-OFFICE-TABS-084 — EASY
-**Question:** Related slides ਨੂੰ named heading ਹੇਠ group ਕਰਨ ਵਾਲਾ Home-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਸੰਬੰਧਿਤ ਸਲਾਈਡਾਂ ਨੂੰ ਨਾਮਿਤ ਸਿਰਲੇਖ ਹੇਠ ਸਮੂਹ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Arrange
+ਇੱਕ. ਵਿਵਸਥਿਤ ਕਰਨਾ
 B. Replace
-C. Reset
+C. ਰੀਸੈੱਟ
 D. Section
 
 **Answer:** Section
-**Explanation:** Sections related slides ਨੂੰ named groups ਵਿੱਚ organize ਕਰਦੇ ਹਨ।
+**Explanation:** ਭਾਗ ਸੰਬੰਧਿਤ ਸਲਾਈਡਾਂ ਨੂੰ ਨਾਮਿਤ ਸਮੂਹ ਵਿੱਚ ਵਿਵਸਥਿਤ ਕਰਨਾ ਕਰਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-084 · com003-powerpoint-home-section
 
 #### 5. COM003-OFFICE-TABS-085 — EASY
-**Question:** Selected slide text ਦਾ font ਅਤੇ size ਬਦਲਣ ਵਾਲਾ Home-tab group ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਲਿਖਤ ਦਾ ਫੌਂਟ ਅਤੇ ਆਕਾਰ ਬਦਲਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?
 
-A. Font
+ਇੱਕ. Font
 B. Paragraph
-C. Drawing
-D. Editing
+C. ਚਿੱਤਰਕਾਰੀ
+D. ਸੋਧ
 
 **Answer:** Font
-**Explanation:** Font group selected text ਦੀ character appearance ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
+**Explanation:** Font ਸਮੂਹ ਚੁਣਿਆ ਹੋਇਆ ਲਿਖਤ ਦੀ ਅੱਖਰ ਦਿੱਖ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-085 · com003-powerpoint-home-font
 
 #### 6. COM003-OFFICE-TABS-086 — EASY
-**Question:** Slide text ਦੇ bullets, alignment ਅਤੇ line spacing ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲਾ Home-tab group ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਲਾਈਡ ਲਿਖਤ ਦੇ ਬੁਲੇਟ, ਸੰਰેખਣ ਅਤੇ ਲਾਈਨ ਫ਼ਾਸਲਾ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?
 
-A. Font
+ਇੱਕ. Font
 B. Paragraph
-C. Drawing
+C. ਚਿੱਤਰਕਾਰੀ
 D. Clipboard
 
 **Answer:** Paragraph
-**Explanation:** Paragraph group text paragraphs ਦੇ bullets, alignment ਅਤੇ spacing ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
+**Explanation:** Paragraph ਸਮੂਹ ਲਿਖਤ ਪੈਰਾਗ੍ਰਾਫ ਦੇ ਬੁਲੇਟ, ਸੰਰેખਣ ਅਤੇ ਫ਼ਾਸਲਾ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-086 · com003-powerpoint-home-paragraph
 
 #### 7. COM003-OFFICE-TABS-087 — MEDIUM
-**Question:** Selected objects ਦਾ front-to-back order ਬਦਲਣ ਵਾਲਾ Home-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਵਸਤੂਆਂ ਦਾ ਅੱਗੇਨੂੰ-ਪਿੱਛੇ ਕ੍ਰਮ ਬਦਲਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Layout
-B. Reset
-C. Arrange
-D. New Slide
+ਇੱਕ. Layout
+B. ਰੀਸੈੱਟ
+C. ਵਿਵਸਥਿਤ ਕਰਨਾ
+D. ਨਵਾਂ ਸਲਾਈਡ
 
-**Answer:** Arrange
-**Explanation:** Arrange object order, alignment, grouping ਜਾਂ rotation ਬਦਲ ਸਕਦਾ ਹੈ।
+**Answer:** ਵਿਵਸਥਿਤ ਕਰਨਾ
+**Explanation:** ਵਿਵਸਥਿਤ ਕਰਨਾ ਵਸਤੂ ਕ੍ਰਮ, ਸੰਰેખਣ, ਸਮੂਹ ਬਣਾਉਣਾ ਜਾਂ ਘੁੰਮਾਉ ਬਦਲ ਸਕਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-087 · com003-powerpoint-home-arrange
 
 #### 8. COM003-OFFICE-TABS-088 — EASY
-**Question:** Presentation ਵਿੱਚ text find ਕਰਕੇ ਉਸ ਨੂੰ ਹੋਰ text ਨਾਲ ਬਦਲਣ ਵਾਲਾ Home-tab editing command ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੇਸ਼ਕਾਰੀ ਵਿੱਚ ਲਿਖਤ ਲੱਭਣਾ ਕਰਕੇ ਉਸ ਨੂੰ ਹੋਰ ਲਿਖਤ ਨਾਲ ਬਦਲਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸੋਧ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. New Slide
-B. Reset
+ਇੱਕ. ਨਵਾਂ ਸਲਾਈਡ
+B. ਰੀਸੈੱਟ
 C. Layout
 D. Replace
 
 **Answer:** Replace
-**Explanation:** Replace specified text ਨੂੰ search ਕਰਕੇ ਹੋਰ text ਨਾਲ substitute ਕਰਦਾ ਹੈ।
+**Explanation:** Replace ਨਿਰਧਾਰਤ ਲਿਖਤ ਨੂੰ ਖੋਜ ਕਰਕੇ ਹੋਰ ਲਿਖਤ ਨਾਲ ਬਦਲਣਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-088 · com003-powerpoint-home-find-replace
 
 ### COM-003-QL-041 — PowerPoint — PowerPoint Insert Tab
@@ -3409,197 +3409,197 @@ D. Header & Footer
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-089 — EASY
-**Question:** PowerPoint slide में rows और columns रखने वाला Insert-tab feature कौन-सा है?
+**Question:** PowerPoint स्लाइड में पंक्तियाँ और स्तंभ रखने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-A. Table
+एक. तालिका
 B. Chart
 C. Text Box
 D. WordArt
 
-**Answer:** Table
-**Explanation:** Table slide पर rows और columns का grid insert करता है।
+**Answer:** तालिका
+**Explanation:** तालिका स्लाइड पर पंक्तियाँ और स्तंभ का ग्रिड डालना करता है।
 **Trace:** COM003-OFFICE-TABS-089 · com003-powerpoint-insert-table
 
 #### 2. COM003-OFFICE-TABS-090 — EASY
-**Question:** PowerPoint slide में image जोड़ने वाला Insert-tab command कौन-सा है?
+**Question:** PowerPoint स्लाइड में चित्र जोड़ने वाला Insert टैबटैब कमांड कौन-सा है?
 
-A. Chart
+एक. Chart
 B. Pictures
 C. SmartArt
-D. Object
+D. वस्तु
 
 **Answer:** Pictures
-**Explanation:** Pictures उपलब्ध source से image insert करता है।
+**Explanation:** Pictures उपलब्ध स्रोत से चित्र डालना करता है।
 **Trace:** COM003-OFFICE-TABS-090 · com003-powerpoint-insert-pictures
 
 #### 3. COM003-OFFICE-TABS-091 — EASY
-**Question:** Rectangles, arrows और अन्य geometric objects जोड़ने वाला Insert-tab feature कौन-सा है?
+**Question:** आयत, तीर और अन्य ज्यामितीय वस्तुएँ जोड़ने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-A. Table
+एक. तालिका
 B. Icons
 C. Shapes
-D. Screenshot
+D. स्क्रीनशॉट
 
 **Answer:** Shapes
-**Explanation:** Shapes slide पर ready-made geometric objects जोड़ता है।
+**Explanation:** Shapes स्लाइड पर पहले से तैयार ज्यामितीय वस्तुएँ जोड़ता है।
 **Trace:** COM003-OFFICE-TABS-091 · com003-powerpoint-insert-shapes
 
 #### 4. COM003-OFFICE-TABS-092 — EASY
-**Question:** Relationships या processes को ready-made diagrams से दिखाने वाला Insert-tab feature कौन-सा है?
+**Question:** संबंध या प्रक्रियाएँ को पहले से तैयार आरेख से दिखाने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-A. Chart
+एक. Chart
 B. WordArt
 C. Text Box
 D. SmartArt
 
 **Answer:** SmartArt
-**Explanation:** SmartArt relationships, processes और hierarchies के लिए diagram layouts देता है।
+**Explanation:** SmartArt संबंध, प्रक्रियाएँ और पदानुक्रम के लिए आरेख लेआउट देता है।
 **Trace:** COM003-OFFICE-TABS-092 · com003-powerpoint-insert-smartart
 
 #### 5. COM003-OFFICE-TABS-093 — EASY
-**Question:** Numerical information को graph के रूप में दिखाने वाला Insert-tab feature कौन-सा है?
+**Question:** संख्यात्मक जानकारी को ग्राफ़ के रूप में दिखाने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-A. Chart
-B. Table
+एक. Chart
+B. तालिका
 C. Text Box
 D. Symbol
 
 **Answer:** Chart
-**Explanation:** Chart data को graphical form में दिखाकर comparisons या trends दिखा सकता है।
+**Explanation:** Chart डेटा को चित्रात्मक रूप में दिखाकर तुलनाएँ या रुझान दिखा सकता है।
 **Trace:** COM003-OFFICE-TABS-093 · com003-powerpoint-insert-chart
 
 #### 6. COM003-OFFICE-TABS-094 — EASY
-**Question:** Slide पर text लिखने के लिए movable area बनाने वाला Insert-tab command कौन-सा है?
+**Question:** स्लाइड पर पाठ लिखने के लिए स्थानांतरित करने योग्य क्षेत्र बनाने वाला Insert टैबटैब कमांड कौन-सा है?
 
-A. WordArt
+एक. WordArt
 B. Text Box
-C. Object
+C. वस्तु
 D. Equation
 
 **Answer:** Text Box
-**Explanation:** Text Box independent area बनाता है जिसमें text लिखा और move किया जा सकता है।
+**Explanation:** Text Box स्वतंत्र क्षेत्र बनाता है जिसमें पाठ लिखा और स्थानांतरित करना किया जा सकता है।
 **Trace:** COM003-OFFICE-TABS-094 · com003-powerpoint-insert-text-box
 
 #### 7. COM003-OFFICE-TABS-095 — EASY
-**Question:** Presentation में sound या movie जोड़ने वाले Insert-tab commands कौन-से हैं?
+**Question:** प्रस्तुति में ध्वनि या फ़िल्म जोड़ने वाले Insert टैबटैब कमांड कौन-से हैं?
 
-A. Table और Chart
+एक. तालिका और Chart
 B. Shapes और Icons
 C. Audio और Video
-D. Header और Footer
+D. शीर्षलेख और पादलेख
 
 **Answer:** Audio और Video
-**Explanation:** Audio और Video slides में multimedia content जोड़ते हैं।
+**Explanation:** Audio और Video स्लाइडें में मल्टीमीडिया सामग्री जोड़ते हैं।
 **Trace:** COM003-OFFICE-TABS-095 · com003-powerpoint-insert-audio-video
 
 #### 8. COM003-OFFICE-TABS-096 — EASY
-**Question:** Slide numbers, date/time या footer text जोड़ने में मदद वाला Insert-tab dialog कौन-सा है?
+**Question:** स्लाइड संख्याएँ, तिथि/समय या पादलेख पाठ जोड़ने में मदद वाला Insert टैबटैब संवाद कौन-सा है?
 
-A. Chart
+एक. Chart
 B. SmartArt
-C. Object
+C. वस्तु
 D. Header & Footer
 
 **Answer:** Header & Footer
-**Explanation:** Header & Footer slide numbers, dates और footer text के options देता है।
+**Explanation:** Header & Footer स्लाइड संख्याएँ, तिथियाँ और पादलेख पाठ के विकल्प देता है।
 **Trace:** COM003-OFFICE-TABS-096 · com003-powerpoint-insert-slide-number
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-089 — EASY
-**Question:** PowerPoint slide ਵਿੱਚ rows ਅਤੇ columns ਰੱਖਣ ਵਾਲਾ Insert-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** PowerPoint ਸਲਾਈਡ ਵਿੱਚ ਕਤਾਰਾਂ ਅਤੇ ਕਾਲਮ ਰੱਖਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Table
+ਇੱਕ. ਟੇਬਲ
 B. Chart
 C. Text Box
 D. WordArt
 
-**Answer:** Table
-**Explanation:** Table slide ਉੱਤੇ rows ਅਤੇ columns ਦਾ grid insert ਕਰਦਾ ਹੈ।
+**Answer:** ਟੇਬਲ
+**Explanation:** ਟੇਬਲ ਸਲਾਈਡ ਉੱਤੇ ਕਤਾਰਾਂ ਅਤੇ ਕਾਲਮ ਦਾ ਗ੍ਰਿਡ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-089 · com003-powerpoint-insert-table
 
 #### 2. COM003-OFFICE-TABS-090 — EASY
-**Question:** PowerPoint slide ਵਿੱਚ image ਜੋੜਨ ਵਾਲਾ Insert-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** PowerPoint ਸਲਾਈਡ ਵਿੱਚ ਤਸਵੀਰ ਜੋੜਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Chart
+ਇੱਕ. Chart
 B. Pictures
 C. SmartArt
-D. Object
+D. ਵਸਤੂ
 
 **Answer:** Pictures
-**Explanation:** Pictures ਉਪਲਬਧ source ਤੋਂ image insert ਕਰਦਾ ਹੈ।
+**Explanation:** Pictures ਉਪਲਬਧ ਸਰੋਤ ਤੋਂ ਤਸਵੀਰ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-090 · com003-powerpoint-insert-pictures
 
 #### 3. COM003-OFFICE-TABS-091 — EASY
-**Question:** Rectangles, arrows ਅਤੇ ਹੋਰ geometric objects ਜੋੜਨ ਵਾਲਾ Insert-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਆਇਤ, ਤੀਰ ਅਤੇ ਹੋਰ ਜਿਆਮਿਤੀ ਵਸਤੂਆਂ ਜੋੜਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Table
+ਇੱਕ. ਟੇਬਲ
 B. Icons
 C. Shapes
-D. Screenshot
+D. ਸਕ੍ਰੀਨਸ਼ਾਟ
 
 **Answer:** Shapes
-**Explanation:** Shapes slide ਉੱਤੇ ready-made geometric objects ਜੋੜਦਾ ਹੈ।
+**Explanation:** Shapes ਸਲਾਈਡ ਉੱਤੇ ਪਹਿਲਾਂ ਤੋਂ ਤਿਆਰ ਜਿਆਮਿਤੀ ਵਸਤੂਆਂ ਜੋੜਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-091 · com003-powerpoint-insert-shapes
 
 #### 4. COM003-OFFICE-TABS-092 — EASY
-**Question:** Relationships ਜਾਂ processes ਨੂੰ ready-made diagrams ਨਾਲ ਦਿਖਾਉਣ ਵਾਲਾ Insert-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਸੰਬੰਧ ਜਾਂ ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ ਪਹਿਲਾਂ ਤੋਂ ਤਿਆਰ ਚਿੱਤਰ ਨਾਲ ਦਿਖਾਉਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Chart
+ਇੱਕ. Chart
 B. WordArt
 C. Text Box
 D. SmartArt
 
 **Answer:** SmartArt
-**Explanation:** SmartArt relationships, processes ਅਤੇ hierarchies ਲਈ diagram layouts ਦਿੰਦਾ ਹੈ।
+**Explanation:** SmartArt ਸੰਬੰਧ, ਪ੍ਰਕਿਰਿਆਵਾਂ ਅਤੇ ਪਦਾਨੁਕ੍ਰਮ ਲਈ ਚਿੱਤਰ ਲੇਆਉਟ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-092 · com003-powerpoint-insert-smartart
 
 #### 5. COM003-OFFICE-TABS-093 — EASY
-**Question:** Numerical information ਨੂੰ graph ਦੇ ਰੂਪ ਵਿੱਚ ਦਿਖਾਉਣ ਵਾਲਾ Insert-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਅੰਕੀ ਜਾਣਕਾਰੀ ਨੂੰ ਗ੍ਰਾਫ ਦੇ ਰੂਪ ਵਿੱਚ ਦਿਖਾਉਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Chart
-B. Table
+ਇੱਕ. Chart
+B. ਟੇਬਲ
 C. Text Box
 D. Symbol
 
 **Answer:** Chart
-**Explanation:** Chart data ਨੂੰ graphical form ਵਿੱਚ ਦਿਖਾ ਕੇ comparisons ਜਾਂ trends ਦਿਖਾ ਸਕਦਾ ਹੈ।
+**Explanation:** Chart ਡਾਟਾ ਨੂੰ ਚਿੱਤਰਾਤਮਕ ਰੂਪ ਵਿੱਚ ਦਿਖਾ ਕੇ ਤੁਲਨਾਵਾਂ ਜਾਂ ਰੁਝਾਨ ਦਿਖਾ ਸਕਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-093 · com003-powerpoint-insert-chart
 
 #### 6. COM003-OFFICE-TABS-094 — EASY
-**Question:** Slide ਉੱਤੇ text ਲਿਖਣ ਲਈ movable area ਬਣਾਉਣ ਵਾਲਾ Insert-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਲਾਈਡ ਉੱਤੇ ਲਿਖਤ ਲਿਖਣ ਲਈ ਹਿਲਾਉਣਯੋਗ ਖੇਤਰ ਬਣਾਉਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. WordArt
+ਇੱਕ. WordArt
 B. Text Box
-C. Object
+C. ਵਸਤੂ
 D. Equation
 
 **Answer:** Text Box
-**Explanation:** Text Box independent area ਬਣਾਉਂਦਾ ਹੈ ਜਿਸ ਵਿੱਚ text ਲਿਖਿਆ ਅਤੇ move ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।
+**Explanation:** Text Box ਸੁਤੰਤਰ ਖੇਤਰ ਬਣਾਉਂਦਾ ਹੈ ਜਿਸ ਵਿੱਚ ਲਿਖਤ ਲਿਖਿਆ ਅਤੇ ਹਿਲਾਉਣਾ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-094 · com003-powerpoint-insert-text-box
 
 #### 7. COM003-OFFICE-TABS-095 — EASY
-**Question:** Presentation ਵਿੱਚ sound ਜਾਂ movie ਜੋੜਨ ਵਾਲੇ Insert-tab commands ਕਿਹੜੇ ਹਨ?
+**Question:** ਪੇਸ਼ਕਾਰੀ ਵਿੱਚ ਧੁਨੀ ਜਾਂ ਫ਼ਿਲਮ ਜੋੜਨ ਵਾਲੇ Insert ਟੈਬਟੈਬ ਕਮਾਂਡਾਂ ਕਿਹੜੇ ਹਨ?
 
-A. Table ਅਤੇ Chart
+ਇੱਕ. ਟੇਬਲ ਅਤੇ Chart
 B. Shapes ਅਤੇ Icons
 C. Audio ਅਤੇ Video
-D. Header ਅਤੇ Footer
+D. ਉੱਪਰਲਾ ਸਿਰਲੇਖ ਅਤੇ ਹੇਠਲਾ ਸਿਰਲੇਖ
 
 **Answer:** Audio ਅਤੇ Video
-**Explanation:** Audio ਅਤੇ Video slides ਵਿੱਚ multimedia content ਜੋੜਦੇ ਹਨ।
+**Explanation:** Audio ਅਤੇ Video ਸਲਾਈਡਾਂ ਵਿੱਚ ਮਲਟੀਮੀਡੀਆ ਸਮੱਗਰੀ ਜੋੜਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-095 · com003-powerpoint-insert-audio-video
 
 #### 8. COM003-OFFICE-TABS-096 — EASY
-**Question:** Slide numbers, date/time ਜਾਂ footer text ਜੋੜਨ ਵਿੱਚ ਮਦਦ ਵਾਲਾ Insert-tab dialog ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਲਾਈਡ ਅੰਕ, ਤਾਰੀਖ/ਸਮਾਂ ਜਾਂ ਹੇਠਲਾ ਸਿਰਲੇਖ ਲਿਖਤ ਜੋੜਨ ਵਿੱਚ ਮਦਦ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਸੰਵਾਦ ਕਿਹੜਾ ਹੈ?
 
-A. Chart
+ਇੱਕ. Chart
 B. SmartArt
-C. Object
+C. ਵਸਤੂ
 D. Header & Footer
 
 **Answer:** Header & Footer
-**Explanation:** Header & Footer slide numbers, dates ਅਤੇ footer text ਦੇ options ਦਿੰਦਾ ਹੈ।
+**Explanation:** Header & Footer ਸਲਾਈਡ ਅੰਕ, ਤਾਰੀਖਾਂ ਅਤੇ ਹੇਠਲਾ ਸਿਰਲੇਖ ਲਿਖਤ ਦੇ ਵਿਕਲਪ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-096 · com003-powerpoint-insert-slide-number
 
 ### COM-003-QL-042 — PowerPoint — PowerPoint Design Tab
@@ -3705,197 +3705,197 @@ D. A theme is a coordinated design; a Slide Master controls common layouts and f
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-097 — EASY
-**Question:** Slides पर coordinated colours, fonts और effects लगाने वाला Design-tab feature कौन-सा है?
+**Question:** स्लाइडें पर समन्वित रंग, फ़ॉन्ट और प्रभाव लगाने वाला डिज़ाइन टैबटैब सुविधा कौन-सा है?
 
-A. Themes
+एक. Themes
 B. Animations
-C. Arrange
-D. Notes
+C. व्यवस्थित करना
+D. टिप्पणियाँ
 
 **Answer:** Themes
-**Explanation:** Themes presentation की slides पर coordinated visual design लागू करते हैं।
+**Explanation:** Themes प्रस्तुति की स्लाइडें पर समन्वित दृश्य डिज़ाइन लागू करते हैं।
 **Trace:** COM003-OFFICE-TABS-097 · com003-powerpoint-design-themes
 
 #### 2. COM003-OFFICE-TABS-098 — MEDIUM
-**Question:** Current theme के लिए alternative colour, font या style choices देने वाला Design-tab area कौन-सा है?
+**Question:** वर्तमान थीम के लिए वैकल्पिक रंग, फ़ॉन्ट या शैली विकल्प देने वाला डिज़ाइन टैबटैब क्षेत्र कौन-सा है?
 
-A. Slide Size
+एक. Slide Size
 B. Variants
 C. Format Background
-D. Arrange
+D. व्यवस्थित करना
 
 **Answer:** Variants
-**Explanation:** Variants applied theme के लिए alternate design choices देते हैं।
+**Explanation:** Variants लागू किया गया थीम के लिए वैकल्पिक डिज़ाइन विकल्प देते हैं।
 **Trace:** COM003-OFFICE-TABS-098 · com003-powerpoint-design-variants
 
 #### 3. COM003-OFFICE-TABS-099 — EASY
-**Question:** Slide का background fill या picture बदलने वाला Design-tab command कौन-सा है?
+**Question:** स्लाइड का पृष्ठभूमि भरना या चित्र बदलने वाला डिज़ाइन टैबटैब कमांड कौन-सा है?
 
-A. Themes
+एक. Themes
 B. Variants
 C. Format Background
 D. Slide Master
 
 **Answer:** Format Background
-**Explanation:** Format Background slide का background fill, colour या picture बदलता है।
+**Explanation:** Format Background स्लाइड का पृष्ठभूमि भरना, रंग या चित्र बदलता है।
 **Trace:** COM003-OFFICE-TABS-099 · com003-powerpoint-design-format-background
 
 #### 4. COM003-OFFICE-TABS-100 — EASY
-**Question:** Slides की dimensions या aspect ratio बदलने वाला Design-tab command कौन-सा है?
+**Question:** स्लाइडें की आयाम या पहलू अनुपात बदलने वाला डिज़ाइन टैबटैब कमांड कौन-सा है?
 
-A. Themes
+एक. Themes
 B. Variants
 C. Format Background
 D. Slide Size
 
 **Answer:** Slide Size
-**Explanation:** Slide Size slide dimensions या aspect ratio बदलता है।
+**Explanation:** Slide Size स्लाइड आयाम या पहलू अनुपात बदलता है।
 **Trace:** COM003-OFFICE-TABS-100 · com003-powerpoint-design-slide-size
 
 #### 5. COM003-OFFICE-TABS-101 — MEDIUM
-**Question:** Slides में coordinated typefaces बदलने वाला Design-tab theme component कौन-सा है?
+**Question:** स्लाइडें में समन्वित टाइपफेस बदलने वाला डिज़ाइन टैबटैब थीम घटक कौन-सा है?
 
-A. Fonts
-B. Colours
+एक. फ़ॉन्ट
+B. रंग
 C. Effects
-D. Background Styles
+D. पृष्ठभूमि Styles
 
-**Answer:** Fonts
-**Explanation:** Theme Fonts पूरी presentation में उपयोग होने वाले coordinated typefaces बदलते हैं।
+**Answer:** फ़ॉन्ट
+**Explanation:** थीम फ़ॉन्ट पूरी प्रस्तुति में उपयोग होने वाले समन्वित टाइपफेस बदलते हैं।
 **Trace:** COM003-OFFICE-TABS-101 · com003-powerpoint-design-theme-fonts
 
 #### 6. COM003-OFFICE-TABS-102 — EASY
-**Question:** Coordinated colour palette बदलने वाला Design-tab theme component कौन-सा है?
+**Question:** समन्वित रंग पैलेट बदलने वाला डिज़ाइन टैबटैब थीम घटक कौन-सा है?
 
-A. Fonts
-B. Colours
+एक. फ़ॉन्ट
+B. रंग
 C. Effects
 D. Slide Size
 
-**Answer:** Colours
-**Explanation:** Theme Colours presentation में उपयोग होने वाली coordinated colour palette बदलते हैं।
+**Answer:** रंग
+**Explanation:** थीम रंग प्रस्तुति में उपयोग होने वाली समन्वित रंग पैलेट बदलते हैं।
 **Trace:** COM003-OFFICE-TABS-102 · com003-powerpoint-design-theme-colors
 
 #### 7. COM003-OFFICE-TABS-103 — MEDIUM
-**Question:** Selected slide पर background graphics छिपाने वाला Design-tab option कौन-सा है?
+**Question:** चयनित स्लाइड पर पृष्ठभूमि ग्राफ़िक्स छिपाने वाला डिज़ाइन टैबटैब विकल्प कौन-सा है?
 
-A. Variants
+एक. Variants
 B. Themes
-C. Hide Background Graphics
+C. छिपाना पृष्ठभूमि ग्राफ़िक्स
 D. Slide Size
 
-**Answer:** Hide Background Graphics
-**Explanation:** Hide Background Graphics presentation background या master से inherited graphics को छिपाता है।
+**Answer:** छिपाना पृष्ठभूमि ग्राफ़िक्स
+**Explanation:** छिपाना पृष्ठभूमि ग्राफ़िक्स प्रस्तुति पृष्ठभूमि या मास्टर से विरासत में मिली ग्राफ़िक्स को छिपाता है।
 **Trace:** COM003-OFFICE-TABS-103 · com003-powerpoint-design-hide-background
 
 #### 8. COM003-OFFICE-TABS-104 — MEDIUM
-**Question:** Theme और Slide Master में सही अंतर कौन-सा है?
+**Question:** थीम और Slide Master में सही अंतर कौन-सा है?
 
-A. Theme केवल slide number है
-B. Theme केवल transition है
-C. Theme केवल speaker note है
-D. Theme coordinated design है; Slide Master common layouts और formatting नियंत्रित करता है
+एक. थीम केवल स्लाइड संख्या है
+B. थीम केवल संक्रमण है
+C. थीम केवल स्पीकर टिप्पणी है
+D. थीम समन्वित डिज़ाइन है; Slide Master सामान्य लेआउट और स्वरूपण नियंत्रित करता है
 
-**Answer:** Theme coordinated design है; Slide Master common layouts और formatting नियंत्रित करता है
-**Explanation:** Theme visual design को coordinate करता है, जबकि Slide Master common slide layouts और formatting नियंत्रित करता है।
+**Answer:** थीम समन्वित डिज़ाइन है; Slide Master सामान्य लेआउट और स्वरूपण नियंत्रित करता है
+**Explanation:** थीम दृश्य डिज़ाइन को समन्वय करना करता है, जबकि Slide Master सामान्य स्लाइड लेआउट और स्वरूपण नियंत्रित करता है।
 **Trace:** COM003-OFFICE-TABS-104 · com003-powerpoint-design-slide-master-boundary
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-097 — EASY
-**Question:** Slides ਉੱਤੇ coordinated colours, fonts ਅਤੇ effects ਲਗਾਉਣ ਵਾਲਾ Design-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਲਾਈਡਾਂ ਉੱਤੇ ਸਮਨਵਿਤ ਰੰਗ, ਫੌਂਟ ਅਤੇ ਪ੍ਰਭਾਵ ਲਗਾਉਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Themes
+ਇੱਕ. Themes
 B. Animations
-C. Arrange
-D. Notes
+C. ਵਿਵਸਥਿਤ ਕਰਨਾ
+D. ਨੋਟ
 
 **Answer:** Themes
-**Explanation:** Themes presentation ਦੀਆਂ slides ਉੱਤੇ coordinated visual design ਲਾਗੂ ਕਰਦੇ ਹਨ।
+**Explanation:** Themes ਪੇਸ਼ਕਾਰੀ ਦੀਆਂ ਸਲਾਈਡਾਂ ਉੱਤੇ ਸਮਨਵਿਤ ਦ੍ਰਿਸ਼ ਡਿਜ਼ਾਈਨ ਲਾਗੂ ਕਰਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-097 · com003-powerpoint-design-themes
 
 #### 2. COM003-OFFICE-TABS-098 — MEDIUM
-**Question:** Current theme ਲਈ alternative colour, font ਜਾਂ style choices ਦੇਣ ਵਾਲਾ Design-tab area ਕਿਹੜਾ ਹੈ?
+**Question:** ਮੌਜੂਦਾ ਥੀਮ ਲਈ ਵਿਕਲਪਕ ਰੰਗ, ਫੌਂਟ ਜਾਂ ਸ਼ੈਲੀ ਵਿਕਲਪ ਦੇਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-A. Slide Size
+ਇੱਕ. Slide Size
 B. Variants
 C. Format Background
-D. Arrange
+D. ਵਿਵਸਥਿਤ ਕਰਨਾ
 
 **Answer:** Variants
-**Explanation:** Variants applied theme ਲਈ alternate design choices ਦਿੰਦੇ ਹਨ।
+**Explanation:** Variants ਲਾਗੂ ਕੀਤਾ ਥੀਮ ਲਈ ਵਿਕਲਪਕ ਡਿਜ਼ਾਈਨ ਵਿਕਲਪ ਦਿੰਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-098 · com003-powerpoint-design-variants
 
 #### 3. COM003-OFFICE-TABS-099 — EASY
-**Question:** Slide ਦਾ background fill ਜਾਂ picture ਬਦਲਣ ਵਾਲਾ Design-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਲਾਈਡ ਦਾ ਪਿਛੋਕੜ ਭਰਨਾ ਜਾਂ ਤਸਵੀਰ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Themes
+ਇੱਕ. Themes
 B. Variants
 C. Format Background
 D. Slide Master
 
 **Answer:** Format Background
-**Explanation:** Format Background slide ਦਾ background fill, colour ਜਾਂ picture ਬਦਲਦਾ ਹੈ।
+**Explanation:** Format Background ਸਲਾਈਡ ਦਾ ਪਿਛੋਕੜ ਭਰਨਾ, ਰੰਗ ਜਾਂ ਤਸਵੀਰ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-099 · com003-powerpoint-design-format-background
 
 #### 4. COM003-OFFICE-TABS-100 — EASY
-**Question:** Slides ਦੀਆਂ dimensions ਜਾਂ aspect ratio ਬਦਲਣ ਵਾਲਾ Design-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਲਾਈਡਾਂ ਦੀਆਂ ਮਾਪ ਜਾਂ ਪੱਖ ਅਨੁਪਾਤ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Themes
+ਇੱਕ. Themes
 B. Variants
 C. Format Background
 D. Slide Size
 
 **Answer:** Slide Size
-**Explanation:** Slide Size slide dimensions ਜਾਂ aspect ratio ਬਦਲਦਾ ਹੈ।
+**Explanation:** Slide Size ਸਲਾਈਡ ਮਾਪ ਜਾਂ ਪੱਖ ਅਨੁਪਾਤ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-100 · com003-powerpoint-design-slide-size
 
 #### 5. COM003-OFFICE-TABS-101 — MEDIUM
-**Question:** Slides ਵਿੱਚ coordinated typefaces ਬਦਲਣ ਵਾਲਾ Design-tab theme component ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਲਾਈਡਾਂ ਵਿੱਚ ਸਮਨਵਿਤ ਅੱਖਰ-ਸ਼ੈਲੀਆਂ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਥੀਮ ਹਿੱਸਾ ਕਿਹੜਾ ਹੈ?
 
-A. Fonts
-B. Colours
+ਇੱਕ. ਫੌਂਟ
+B. ਰੰਗ
 C. Effects
-D. Background Styles
+D. ਪਿਛੋਕੜ Styles
 
-**Answer:** Fonts
-**Explanation:** Theme Fonts ਪੂਰੀ presentation ਵਿੱਚ ਵਰਤੇ ਜਾਣ ਵਾਲੇ coordinated typefaces ਬਦਲਦੇ ਹਨ।
+**Answer:** ਫੌਂਟ
+**Explanation:** ਥੀਮ ਫੌਂਟ ਪੂਰੀ ਪੇਸ਼ਕਾਰੀ ਵਿੱਚ ਵਰਤੇ ਜਾਣ ਵਾਲੇ ਸਮਨਵਿਤ ਅੱਖਰ-ਸ਼ੈਲੀਆਂ ਬਦਲਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-101 · com003-powerpoint-design-theme-fonts
 
 #### 6. COM003-OFFICE-TABS-102 — EASY
-**Question:** Coordinated colour palette ਬਦਲਣ ਵਾਲਾ Design-tab theme component ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਮਨਵਿਤ ਰੰਗ ਰੰਗ-ਪੱਟੀ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਥੀਮ ਹਿੱਸਾ ਕਿਹੜਾ ਹੈ?
 
-A. Fonts
-B. Colours
+ਇੱਕ. ਫੌਂਟ
+B. ਰੰਗ
 C. Effects
 D. Slide Size
 
-**Answer:** Colours
-**Explanation:** Theme Colours presentation ਵਿੱਚ ਵਰਤੀ ਜਾਣ ਵਾਲੀ coordinated colour palette ਬਦਲਦੇ ਹਨ।
+**Answer:** ਰੰਗ
+**Explanation:** ਥੀਮ ਰੰਗ ਪੇਸ਼ਕਾਰੀ ਵਿੱਚ ਵਰਤੀ ਜਾਣ ਵਾਲੀ ਸਮਨਵਿਤ ਰੰਗ ਰੰਗ-ਪੱਟੀ ਬਦਲਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-102 · com003-powerpoint-design-theme-colors
 
 #### 7. COM003-OFFICE-TABS-103 — MEDIUM
-**Question:** Selected slide ਉੱਤੇ background graphics ਲੁਕਾਉਣ ਵਾਲਾ Design-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਉੱਤੇ ਪਿਛੋਕੜ ਗ੍ਰਾਫਿਕਸ ਲੁਕਾਉਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Variants
+ਇੱਕ. Variants
 B. Themes
-C. Hide Background Graphics
+C. ਲੁਕਾਉਣਾ ਪਿਛੋਕੜ ਗ੍ਰਾਫਿਕਸ
 D. Slide Size
 
-**Answer:** Hide Background Graphics
-**Explanation:** Hide Background Graphics presentation background ਜਾਂ master ਤੋਂ inherited graphics ਨੂੰ ਲੁਕਾਉਂਦਾ ਹੈ।
+**Answer:** ਲੁਕਾਉਣਾ ਪਿਛੋਕੜ ਗ੍ਰਾਫਿਕਸ
+**Explanation:** ਲੁਕਾਉਣਾ ਪਿਛੋਕੜ ਗ੍ਰਾਫਿਕਸ ਪੇਸ਼ਕਾਰੀ ਪਿਛੋਕੜ ਜਾਂ ਮਾਸਟਰ ਤੋਂ ਵਿਰਾਸਤ ਵਿੱਚ ਮਿਲੀ ਗ੍ਰਾਫਿਕਸ ਨੂੰ ਲੁਕਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-103 · com003-powerpoint-design-hide-background
 
 #### 8. COM003-OFFICE-TABS-104 — MEDIUM
-**Question:** Theme ਅਤੇ Slide Master ਵਿੱਚ ਸਹੀ ਅੰਤਰ ਕਿਹੜਾ ਹੈ?
+**Question:** ਥੀਮ ਅਤੇ Slide Master ਵਿੱਚ ਸਹੀ ਅੰਤਰ ਕਿਹੜਾ ਹੈ?
 
-A. Theme ਸਿਰਫ਼ slide number ਹੈ
-B. Theme ਸਿਰਫ਼ transition ਹੈ
-C. Theme ਸਿਰਫ਼ speaker note ਹੈ
-D. Theme coordinated design ਹੈ; Slide Master common layouts ਅਤੇ formatting ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ
+ਇੱਕ. ਥੀਮ ਸਿਰਫ਼ ਸਲਾਈਡ ਅੰਕ ਹੈ
+B. ਥੀਮ ਸਿਰਫ਼ ਤਬਦੀਲੀ ਹੈ
+C. ਥੀਮ ਸਿਰਫ਼ ਸਪੀਕਰ ਨੋਟ ਹੈ
+D. ਥੀਮ ਸਮਨਵਿਤ ਡਿਜ਼ਾਈਨ ਹੈ; Slide Master ਆਮ ਲੇਆਉਟ ਅਤੇ ਸਜਾਵਟ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ
 
-**Answer:** Theme coordinated design ਹੈ; Slide Master common layouts ਅਤੇ formatting ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ
-**Explanation:** Theme visual design ਨੂੰ coordinate ਕਰਦਾ ਹੈ, ਜਦਕਿ Slide Master common slide layouts ਅਤੇ formatting ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
+**Answer:** ਥੀਮ ਸਮਨਵਿਤ ਡਿਜ਼ਾਈਨ ਹੈ; Slide Master ਆਮ ਲੇਆਉਟ ਅਤੇ ਸਜਾਵਟ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ
+**Explanation:** ਥੀਮ ਦ੍ਰਿਸ਼ ਡਿਜ਼ਾਈਨ ਨੂੰ ਤਾਲਮੇਲ ਕਰਨਾ ਕਰਦਾ ਹੈ, ਜਦਕਿ Slide Master ਆਮ ਸਲਾਈਡ ਲੇਆਉਟ ਅਤੇ ਸਜਾਵਟ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-104 · com003-powerpoint-design-slide-master-boundary
 
 ### COM-003-QL-043 — PowerPoint — PowerPoint Transitions Tab
@@ -4001,197 +4001,197 @@ D. None
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-105 — EASY
-**Question:** PowerPoint में transition एक ____ से दूसरे ____ पर जाते समय effect नियंत्रित करता है।
+**Question:** PowerPoint में संक्रमण एक ____ से दूसरे ____ पर जाते समय प्रभाव नियंत्रित करता है।
 
-A. Slide
-B. Object
+एक. स्लाइड
+B. वस्तु
 C. Word
-D. Workbook
+D. कार्यपुस्तिका
 
-**Answer:** Slide
-**Explanation:** Transition एक slide से अगली slide पर जाने के समय लगाया जाने वाला effect है।
+**Answer:** स्लाइड
+**Explanation:** Transition एक स्लाइड से अगली स्लाइड पर जाने के समय लगाया जाने वाला प्रभाव है।
 **Trace:** COM003-OFFICE-TABS-105 · com003-powerpoint-transitions-scope
 
 #### 2. COM003-OFFICE-TABS-106 — EASY
-**Question:** Slides के बीच visual effect चुनने के लिए Transitions-tab का कौन-सा area उपयोग होता है?
+**Question:** स्लाइडें के बीच दृश्य प्रभाव चुनने के लिए Transitions टैबटैब का कौन-सा क्षेत्र उपयोग होता है?
 
-A. Animation Pane
-B. Transition gallery
-C. Font group
-D. Arrange group
+एक. Animation Pane
+B. Transition गैलरी
+C. Font समूह
+D. व्यवस्थित करना समूह
 
-**Answer:** Transition gallery
-**Explanation:** Transition gallery में slide-change effects उपलब्ध होते हैं।
+**Answer:** Transition गैलरी
+**Explanation:** Transition गैलरी में स्लाइड-बदलना प्रभाव उपलब्ध होते हैं।
 **Trace:** COM003-OFFICE-TABS-106 · com003-powerpoint-transitions-gallery
 
 #### 3. COM003-OFFICE-TABS-107 — MEDIUM
-**Question:** Selected transition की direction या variation बदलने वाला Transitions-tab command कौन-सा है?
+**Question:** चयनित संक्रमण की दिशा या भिन्नता बदलने वाला Transitions टैबटैब कमांड कौन-सा है?
 
-A. Apply to All
-B. Preview
+एक. Apply to All
+B. पूर्वावलोकन
 C. Effect Options
 D. Duration
 
 **Answer:** Effect Options
-**Explanation:** Effect Options selected transition की available direction या variation settings बदलता है।
+**Explanation:** Effect Options चयनित संक्रमण की उपलब्ध दिशा या भिन्नता सेटिंग्स बदलता है।
 **Trace:** COM003-OFFICE-TABS-107 · com003-powerpoint-transitions-effect-options
 
 #### 4. COM003-OFFICE-TABS-108 — EASY
-**Question:** Transition effect कितनी देर चले, यह नियंत्रित करने वाली Transitions-tab setting कौन-सी है?
+**Question:** Transition प्रभाव कितनी देर चले, यह नियंत्रित करने वाली Transitions टैबटैब सेटिंग कौन-सी है?
 
-A. Sound
-B. Advance Slide
+एक. ध्वनि
+B. आगे बढ़ाना स्लाइड
 C. Apply to All
 D. Duration
 
 **Answer:** Duration
-**Explanation:** Duration transition effect की speed या length नियंत्रित करता है।
+**Explanation:** Duration संक्रमण प्रभाव की गति या अवधि नियंत्रित करता है।
 **Trace:** COM003-OFFICE-TABS-108 · com003-powerpoint-transitions-duration
 
 #### 5. COM003-OFFICE-TABS-109 — EASY
-**Question:** Selected transition को हर slide पर लागू करने वाला Transitions-tab command कौन-सा है?
+**Question:** चयनित संक्रमण को हर स्लाइड पर लागू करने वाला Transitions टैबटैब कमांड कौन-सा है?
 
-A. Apply to All
+एक. Apply to All
 B. Effect Options
-C. Preview
+C. पूर्वावलोकन
 D. Duration
 
 **Answer:** Apply to All
-**Explanation:** Apply to All selected transition setting को हर slide पर लागू करता है।
+**Explanation:** Apply to All चयनित संक्रमण सेटिंग को हर स्लाइड पर लागू करता है।
 **Trace:** COM003-OFFICE-TABS-109 · com003-powerpoint-transitions-apply-all
 
 #### 6. COM003-OFFICE-TABS-110 — EASY
-**Question:** Presenter के click करने पर next slide पर जाने वाला Advance Slide option कौन-सा है?
+**Question:** प्रस्तुतकर्ता के क्लिक करने पर अगला स्लाइड पर जाने वाला आगे बढ़ाना स्लाइड विकल्प कौन-सा है?
 
-A. After
-B. On Mouse Click
+एक. After
+B. पर माउस क्लिक
 C. Duration
-D. None
+D. कोई नहीं
 
-**Answer:** On Mouse Click
-**Explanation:** On Mouse Click presenter के click करने पर slide show को आगे बढ़ाता है।
+**Answer:** पर माउस क्लिक
+**Explanation:** पर माउस क्लिक प्रस्तुतकर्ता के क्लिक करने पर स्लाइड दिखाना को आगे बढ़ाता है।
 **Trace:** COM003-OFFICE-TABS-110 · com003-powerpoint-transitions-advance-click
 
 #### 7. COM003-OFFICE-TABS-111 — MEDIUM
-**Question:** Set time के बाद automatically next slide पर जाने वाला Advance Slide option कौन-सा है?
+**Question:** Set समय के बाद स्वचालित रूप से अगला स्लाइड पर जाने वाला आगे बढ़ाना स्लाइड विकल्प कौन-सा है?
 
-A. On Mouse Click
-B. Preview
+एक. पर माउस क्लिक
+B. पूर्वावलोकन
 C. After
 D. Apply to All
 
 **Answer:** After
-**Explanation:** After specified time के बाद slide को automatically आगे बढ़ाता है।
+**Explanation:** After निर्दिष्ट समय के बाद स्लाइड को स्वचालित रूप से आगे बढ़ाता है।
 **Trace:** COM003-OFFICE-TABS-111 · com003-powerpoint-transitions-advance-after
 
 #### 8. COM003-OFFICE-TABS-112 — EASY
-**Question:** Selected slide से transition हटाने वाला Transitions-tab choice कौन-सा है?
+**Question:** चयनित स्लाइड से संक्रमण हटाने वाला Transitions टैबटैब चयन कौन-सा है?
 
-A. Fade
-B. Push
-C. Morph
-D. None
+एक. फेड
+B. पुश
+C. मॉर्फ
+D. कोई नहीं
 
-**Answer:** None
-**Explanation:** None selected slide से transition effect हटा देता है।
+**Answer:** कोई नहीं
+**Explanation:** कोई नहीं चयनित स्लाइड से संक्रमण प्रभाव हटा देता है।
 **Trace:** COM003-OFFICE-TABS-112 · com003-powerpoint-transitions-none
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-105 — EASY
-**Question:** PowerPoint ਵਿੱਚ transition ਇੱਕ ____ ਤੋਂ ਦੂਜੇ ____ ਵੱਲ ਜਾਂਦੇ ਸਮੇਂ effect ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
+**Question:** PowerPoint ਵਿੱਚ ਤਬਦੀਲੀ ਇੱਕ ____ ਤੋਂ ਦੂਜੇ ____ ਵੱਲ ਜਾਂਦੇ ਸਮੇਂ ਪ੍ਰਭਾਵ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
 
-A. Slide
-B. Object
+ਇੱਕ. ਸਲਾਈਡ
+B. ਵਸਤੂ
 C. Word
-D. Workbook
+D. ਵਰਕਬੁੱਕ
 
-**Answer:** Slide
-**Explanation:** Transition ਇੱਕ slide ਤੋਂ ਅਗਲੀ slide ਉੱਤੇ ਜਾਣ ਸਮੇਂ ਲਗਾਇਆ ਜਾਣ ਵਾਲਾ effect ਹੈ।
+**Answer:** ਸਲਾਈਡ
+**Explanation:** Transition ਇੱਕ ਸਲਾਈਡ ਤੋਂ ਅਗਲੀ ਸਲਾਈਡ ਉੱਤੇ ਜਾਣ ਸਮੇਂ ਲਗਾਇਆ ਜਾਣ ਵਾਲਾ ਪ੍ਰਭਾਵ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-105 · com003-powerpoint-transitions-scope
 
 #### 2. COM003-OFFICE-TABS-106 — EASY
-**Question:** Slides ਵਿਚਕਾਰ visual effect ਚੁਣਨ ਲਈ Transitions-tab ਦਾ ਕਿਹੜਾ area ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?
+**Question:** ਸਲਾਈਡਾਂ ਵਿਚਕਾਰ ਦ੍ਰਿਸ਼ ਪ੍ਰਭਾਵ ਚੁਣਨ ਲਈ Transitions ਟੈਬਟੈਬ ਦਾ ਕਿਹੜਾ ਖੇਤਰ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?
 
-A. Animation Pane
-B. Transition gallery
-C. Font group
-D. Arrange group
+ਇੱਕ. Animation Pane
+B. Transition ਗੈਲਰੀ
+C. Font ਸਮੂਹ
+D. ਵਿਵਸਥਿਤ ਕਰਨਾ ਸਮੂਹ
 
-**Answer:** Transition gallery
-**Explanation:** Transition gallery ਵਿੱਚ slide-change effects ਉਪਲਬਧ ਹੁੰਦੇ ਹਨ।
+**Answer:** Transition ਗੈਲਰੀ
+**Explanation:** Transition ਗੈਲਰੀ ਵਿੱਚ ਸਲਾਈਡ-ਬਦਲਣਾ ਪ੍ਰਭਾਵ ਉਪਲਬਧ ਹੁੰਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-106 · com003-powerpoint-transitions-gallery
 
 #### 3. COM003-OFFICE-TABS-107 — MEDIUM
-**Question:** Selected transition ਦੀ direction ਜਾਂ variation ਬਦਲਣ ਵਾਲਾ Transitions-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਤਬਦੀਲੀ ਦੀ ਦਿਸ਼ਾ ਜਾਂ ਫਰਕ ਬਦਲਣ ਵਾਲਾ Transitions ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Apply to All
-B. Preview
+ਇੱਕ. Apply to All
+B. ਪੂਰਵ-ਦ੍ਰਿਸ਼
 C. Effect Options
 D. Duration
 
 **Answer:** Effect Options
-**Explanation:** Effect Options selected transition ਦੀਆਂ available direction ਜਾਂ variation settings ਬਦਲਦਾ ਹੈ।
+**Explanation:** Effect Options ਚੁਣਿਆ ਹੋਇਆ ਤਬਦੀਲੀ ਦੀਆਂ ਉਪਲਬਧ ਦਿਸ਼ਾ ਜਾਂ ਫਰਕ ਸੈਟਿੰਗਾਂ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-107 · com003-powerpoint-transitions-effect-options
 
 #### 4. COM003-OFFICE-TABS-108 — EASY
-**Question:** Transition effect ਕਿੰਨੀ ਦੇਰ ਚੱਲੇ, ਇਹ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲੀ Transitions-tab setting ਕਿਹੜੀ ਹੈ?
+**Question:** Transition ਪ੍ਰਭਾਵ ਕਿੰਨੀ ਦੇਰ ਚੱਲੇ, ਇਹ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲੀ Transitions ਟੈਬਟੈਬ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-A. Sound
-B. Advance Slide
+ਇੱਕ. ਧੁਨੀ
+B. ਅੱਗੇ ਵਧਾਉਣਾ ਸਲਾਈਡ
 C. Apply to All
 D. Duration
 
 **Answer:** Duration
-**Explanation:** Duration transition effect ਦੀ speed ਜਾਂ length ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
+**Explanation:** Duration ਤਬਦੀਲੀ ਪ੍ਰਭਾਵ ਦੀ ਗਤੀ ਜਾਂ ਮਿਆਦ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-108 · com003-powerpoint-transitions-duration
 
 #### 5. COM003-OFFICE-TABS-109 — EASY
-**Question:** Selected transition ਨੂੰ ਹਰ slide ਉੱਤੇ ਲਾਗੂ ਕਰਨ ਵਾਲਾ Transitions-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਤਬਦੀਲੀ ਨੂੰ ਹਰ ਸਲਾਈਡ ਉੱਤੇ ਲਾਗੂ ਕਰਨ ਵਾਲਾ Transitions ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Apply to All
+ਇੱਕ. Apply to All
 B. Effect Options
-C. Preview
+C. ਪੂਰਵ-ਦ੍ਰਿਸ਼
 D. Duration
 
 **Answer:** Apply to All
-**Explanation:** Apply to All selected transition setting ਨੂੰ ਹਰ slide ਉੱਤੇ ਲਾਗੂ ਕਰਦਾ ਹੈ।
+**Explanation:** Apply to All ਚੁਣਿਆ ਹੋਇਆ ਤਬਦੀਲੀ ਸੈਟਿੰਗ ਨੂੰ ਹਰ ਸਲਾਈਡ ਉੱਤੇ ਲਾਗੂ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-109 · com003-powerpoint-transitions-apply-all
 
 #### 6. COM003-OFFICE-TABS-110 — EASY
-**Question:** Presenter ਦੇ click ਕਰਨ ਉੱਤੇ next slide ਵੱਲ ਜਾਣ ਵਾਲਾ Advance Slide option ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੇਸ਼ਕਾਰ ਦੇ ਕਲਿੱਕ ਕਰਨ ਉੱਤੇ ਅਗਲਾ ਸਲਾਈਡ ਵੱਲ ਜਾਣ ਵਾਲਾ ਅੱਗੇ ਵਧਾਉਣਾ ਸਲਾਈਡ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. After
-B. On Mouse Click
+ਇੱਕ. After
+B. ਉੱਤੇ ਮਾਊਸ ਕਲਿੱਕ
 C. Duration
-D. None
+D. ਕੋਈ ਨਹੀਂ
 
-**Answer:** On Mouse Click
-**Explanation:** On Mouse Click presenter ਦੇ click ਕਰਨ ਉੱਤੇ slide show ਨੂੰ ਅੱਗੇ ਵਧਾਉਂਦਾ ਹੈ।
+**Answer:** ਉੱਤੇ ਮਾਊਸ ਕਲਿੱਕ
+**Explanation:** ਉੱਤੇ ਮਾਊਸ ਕਲਿੱਕ ਪੇਸ਼ਕਾਰ ਦੇ ਕਲਿੱਕ ਕਰਨ ਉੱਤੇ ਸਲਾਈਡ ਦਿਖਾਉਣਾ ਨੂੰ ਅੱਗੇ ਵਧਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-110 · com003-powerpoint-transitions-advance-click
 
 #### 7. COM003-OFFICE-TABS-111 — MEDIUM
-**Question:** Set time ਤੋਂ ਬਾਅਦ automatically next slide ਵੱਲ ਜਾਣ ਵਾਲਾ Advance Slide option ਕਿਹੜਾ ਹੈ?
+**Question:** Set ਸਮਾਂ ਤੋਂ ਬਾਅਦ ਆਪਣੇ ਆਪ ਅਗਲਾ ਸਲਾਈਡ ਵੱਲ ਜਾਣ ਵਾਲਾ ਅੱਗੇ ਵਧਾਉਣਾ ਸਲਾਈਡ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. On Mouse Click
-B. Preview
+ਇੱਕ. ਉੱਤੇ ਮਾਊਸ ਕਲਿੱਕ
+B. ਪੂਰਵ-ਦ੍ਰਿਸ਼
 C. After
 D. Apply to All
 
 **Answer:** After
-**Explanation:** After specified time ਤੋਂ ਬਾਅਦ slide ਨੂੰ automatically ਅੱਗੇ ਵਧਾਉਂਦਾ ਹੈ।
+**Explanation:** After ਨਿਰਧਾਰਤ ਸਮਾਂ ਤੋਂ ਬਾਅਦ ਸਲਾਈਡ ਨੂੰ ਆਪਣੇ ਆਪ ਅੱਗੇ ਵਧਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-111 · com003-powerpoint-transitions-advance-after
 
 #### 8. COM003-OFFICE-TABS-112 — EASY
-**Question:** Selected slide ਤੋਂ transition ਹਟਾਉਣ ਵਾਲਾ Transitions-tab choice ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਤੋਂ ਤਬਦੀਲੀ ਹਟਾਉਣ ਵਾਲਾ Transitions ਟੈਬਟੈਬ ਚੋਣ ਕਿਹੜਾ ਹੈ?
 
-A. Fade
-B. Push
-C. Morph
-D. None
+ਇੱਕ. ਫੇਡ
+B. ਪੁਸ਼
+C. ਮੌਰਫ
+D. ਕੋਈ ਨਹੀਂ
 
-**Answer:** None
-**Explanation:** None selected slide ਤੋਂ transition effect ਹਟਾ ਦਿੰਦਾ ਹੈ।
+**Answer:** ਕੋਈ ਨਹੀਂ
+**Explanation:** ਕੋਈ ਨਹੀਂ ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਤੋਂ ਤਬਦੀਲੀ ਪ੍ਰਭਾਵ ਹਟਾ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-112 · com003-powerpoint-transitions-none
 
 ### COM-003-QL-044 — PowerPoint — PowerPoint Animations Tab
@@ -4297,197 +4297,197 @@ D. Duration and Delay
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-113 — EASY
-**Question:** PowerPoint में animation effect मुख्य रूप से slide के ____ पर लगाया जाता है।
+**Question:** PowerPoint में एनिमेशन प्रभाव मुख्य रूप से स्लाइड के ____ पर लगाया जाता है।
 
-A. Text या object
-B. Workbook
-C. Page margin
-D. Worksheet
+एक. पाठ या वस्तु
+B. कार्यपुस्तिका
+C. पृष्ठ हाशिया
+D. कार्यपत्रक
 
-**Answer:** Text या object
-**Explanation:** Animation selected text या objects के appear, move या disappear होने को नियंत्रित करता है।
+**Answer:** पाठ या वस्तु
+**Explanation:** Animation चयनित पाठ या वस्तुएँ के दिखाई देना, स्थानांतरित करना या गायब होना होने को नियंत्रित करता है।
 **Trace:** COM003-OFFICE-TABS-113 · com003-powerpoint-animations-scope
 
 #### 2. COM003-OFFICE-TABS-114 — EASY
-**Question:** निम्न में से कौन-सी PowerPoint animation category है?
+**Question:** निम्न में से कौन-सी PowerPoint एनिमेशन श्रेणी है?
 
-A. Page Setup
-B. Entrance
-C. Workbook
-D. Data Tools
+एक. पृष्ठ सेटअप
+B. प्रवेश
+C. कार्यपुस्तिका
+D. Data उपकरण
 
-**Answer:** Entrance
-**Explanation:** Entrance effects slide पर object के पहली बार दिखाई देने को नियंत्रित करते हैं।
+**Answer:** प्रवेश
+**Explanation:** प्रवेश प्रभाव स्लाइड पर वस्तु के पहली बार दिखाई देने को नियंत्रित करते हैं।
 **Trace:** COM003-OFFICE-TABS-114 · com003-powerpoint-animations-effect-category
 
 #### 3. COM003-OFFICE-TABS-115 — MEDIUM
-**Question:** Slide पर effects को दिखाने और reorder करने वाला Animations-tab command कौन-सा है?
+**Question:** स्लाइड पर प्रभाव को दिखाने और क्रम बदलना करने वाला Animations टैबटैब कमांड कौन-सा है?
 
-A. Effect Options
-B. Preview
+एक. Effect Options
+B. पूर्वावलोकन
 C. Animation Pane
 D. Apply to All
 
 **Answer:** Animation Pane
-**Explanation:** Animation Pane effects की list दिखाता है और उनका order तथा timing बदलने में मदद करता है।
+**Explanation:** Animation Pane प्रभाव की सूची दिखाता है और उनका क्रम तथा समय-निर्धारण बदलने में मदद करता है।
 **Trace:** COM003-OFFICE-TABS-115 · com003-powerpoint-animations-animation-pane
 
 #### 4. COM003-OFFICE-TABS-116 — EASY
-**Question:** Already animated object में दूसरा effect जोड़ने वाला Animations-tab command कौन-सा है?
+**Question:** पहले से एनिमेटेड वस्तु में दूसरा प्रभाव जोड़ने वाला Animations टैबटैब कमांड कौन-सा है?
 
-A. Remove
-B. Preview
+एक. हटाना
+B. पूर्वावलोकन
 C. Animation Pane
 D. Add Animation
 
 **Answer:** Add Animation
-**Explanation:** Add Animation existing effect को replace किए बिना additional effect जोड़ता है।
+**Explanation:** Add Animation मौजूदा प्रभाव को बदलना किए बिना अतिरिक्त प्रभाव जोड़ता है।
 **Trace:** COM003-OFFICE-TABS-116 · com003-powerpoint-animations-add-animation
 
 #### 5. COM003-OFFICE-TABS-117 — EASY
-**Question:** Animation शुरू होने से पहले mouse click का इंतजार करने वाला Start option कौन-सा है?
+**Question:** Animation शुरू होने से पहले माउस क्लिक का इंतजार करने वाला Start विकल्प कौन-सा है?
 
-A. On Click
-B. With Previous
-C. After Previous
+एक. पर क्लिक
+B. के साथ पिछला
+C. After पिछला
 D. Trigger
 
-**Answer:** On Click
-**Explanation:** On Click presenter के click करने के बाद animation शुरू करता है।
+**Answer:** पर क्लिक
+**Explanation:** पर क्लिक प्रस्तुतकर्ता के क्लिक करने के बाद एनिमेशन शुरू करता है।
 **Trace:** COM003-OFFICE-TABS-117 · com003-powerpoint-animations-start-on-click
 
 #### 6. COM003-OFFICE-TABS-118 — MEDIUM
-**Question:** Previous effect के साथ उसी समय animation शुरू करने वाला Start option कौन-सा है?
+**Question:** पिछला प्रभाव के साथ उसी समय एनिमेशन शुरू करने वाला Start विकल्प कौन-सा है?
 
-A. After Previous
-B. With Previous
-C. On Click
-D. Delay
+एक. After पिछला
+B. के साथ पिछला
+C. पर क्लिक
+D. विलंब
 
-**Answer:** With Previous
-**Explanation:** With Previous selected effect को previous effect के साथ उसी समय शुरू करता है।
+**Answer:** के साथ पिछला
+**Explanation:** के साथ पिछला चयनित प्रभाव को पिछला प्रभाव के साथ उसी समय शुरू करता है।
 **Trace:** COM003-OFFICE-TABS-118 · com003-powerpoint-animations-with-previous
 
 #### 7. COM003-OFFICE-TABS-119 — MEDIUM
-**Question:** Previous effect खत्म होने के बाद animation शुरू करने वाला Start option कौन-सा है?
+**Question:** पिछला प्रभाव खत्म होने के बाद एनिमेशन शुरू करने वाला Start विकल्प कौन-सा है?
 
-A. With Previous
-B. On Click
-C. After Previous
+एक. के साथ पिछला
+B. पर क्लिक
+C. After पिछला
 D. Trigger
 
-**Answer:** After Previous
-**Explanation:** After Previous preceding effect के खत्म होने के बाद selected effect शुरू करता है।
+**Answer:** After पिछला
+**Explanation:** After पिछला पिछला प्रभाव के खत्म होने के बाद चयनित प्रभाव शुरू करता है।
 **Trace:** COM003-OFFICE-TABS-119 · com003-powerpoint-animations-after-previous
 
 #### 8. COM003-OFFICE-TABS-120 — EASY
-**Question:** Animation की speed और शुरू होने से पहले waiting time नियंत्रित करने वाली settings कौन-सी हैं?
+**Question:** Animation की गति और शुरू होने से पहले प्रतीक्षा समय नियंत्रित करने वाली सेटिंग्स कौन-सी हैं?
 
-A. Theme और Variant
-B. Layout और Reset
+एक. थीम और रूपांतर
+B. Layout और रीसेट
 C. Start और Trigger
-D. Duration और Delay
+D. Duration और विलंब
 
-**Answer:** Duration और Delay
-**Explanation:** Duration effect के चलने का समय और Delay शुरू होने से पहले waiting time नियंत्रित करता है।
+**Answer:** Duration और विलंब
+**Explanation:** Duration प्रभाव के चलने का समय और विलंब शुरू होने से पहले प्रतीक्षा समय नियंत्रित करता है।
 **Trace:** COM003-OFFICE-TABS-120 · com003-powerpoint-animations-duration-delay
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-113 — EASY
-**Question:** PowerPoint ਵਿੱਚ animation effect ਮੁੱਖ ਤੌਰ ਉੱਤੇ slide ਦੇ ____ ਉੱਤੇ ਲਗਾਇਆ ਜਾਂਦਾ ਹੈ।
+**Question:** PowerPoint ਵਿੱਚ ਐਨੀਮੇਸ਼ਨ ਪ੍ਰਭਾਵ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਸਲਾਈਡ ਦੇ ____ ਉੱਤੇ ਲਗਾਇਆ ਜਾਂਦਾ ਹੈ।
 
-A. Text ਜਾਂ object
-B. Workbook
-C. Page margin
-D. Worksheet
+ਇੱਕ. ਲਿਖਤ ਜਾਂ ਵਸਤੂ
+B. ਵਰਕਬੁੱਕ
+C. ਪੰਨਾ ਹਾਸ਼ੀਆ
+D. ਵਰਕਸ਼ੀਟ
 
-**Answer:** Text ਜਾਂ object
-**Explanation:** Animation selected text ਜਾਂ objects ਦੇ appear, move ਜਾਂ disappear ਹੋਣ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
+**Answer:** ਲਿਖਤ ਜਾਂ ਵਸਤੂ
+**Explanation:** Animation ਚੁਣਿਆ ਹੋਇਆ ਲਿਖਤ ਜਾਂ ਵਸਤੂਆਂ ਦੇ ਦਿਖਾਈ ਦੇਣਾ, ਹਿਲਾਉਣਾ ਜਾਂ ਗਾਇਬ ਹੋਣਾ ਹੋਣ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-113 · com003-powerpoint-animations-scope
 
 #### 2. COM003-OFFICE-TABS-114 — EASY
-**Question:** ਹੇਠਾਂ ਦਿੱਤਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜੀ PowerPoint animation category ਹੈ?
+**Question:** ਹੇਠਾਂ ਦਿੱਤਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜੀ PowerPoint ਐਨੀਮੇਸ਼ਨ ਸ਼੍ਰੇਣੀ ਹੈ?
 
-A. Page Setup
-B. Entrance
-C. Workbook
-D. Data Tools
+ਇੱਕ. ਪੰਨਾ ਸੈਟਅਪ
+B. ਪ੍ਰਵੇਸ਼
+C. ਵਰਕਬੁੱਕ
+D. Data ਸਾਧਨ
 
-**Answer:** Entrance
-**Explanation:** Entrance effects slide ਉੱਤੇ object ਦੇ ਪਹਿਲੀ ਵਾਰ ਦਿਖਾਈ ਦੇਣ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦੇ ਹਨ।
+**Answer:** ਪ੍ਰਵੇਸ਼
+**Explanation:** ਪ੍ਰਵੇਸ਼ ਪ੍ਰਭਾਵ ਸਲਾਈਡ ਉੱਤੇ ਵਸਤੂ ਦੇ ਪਹਿਲੀ ਵਾਰ ਦਿਖਾਈ ਦੇਣ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-114 · com003-powerpoint-animations-effect-category
 
 #### 3. COM003-OFFICE-TABS-115 — MEDIUM
-**Question:** Slide ਉੱਤੇ effects ਦਿਖਾਉਣ ਅਤੇ reorder ਕਰਨ ਵਾਲਾ Animations-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਲਾਈਡ ਉੱਤੇ ਪ੍ਰਭਾਵ ਦਿਖਾਉਣ ਅਤੇ ਕ੍ਰਮ ਬਦਲਣਾ ਕਰਨ ਵਾਲਾ Animations ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Effect Options
-B. Preview
+ਇੱਕ. Effect Options
+B. ਪੂਰਵ-ਦ੍ਰਿਸ਼
 C. Animation Pane
 D. Apply to All
 
 **Answer:** Animation Pane
-**Explanation:** Animation Pane effects ਦੀ list ਦਿਖਾਉਂਦਾ ਹੈ ਅਤੇ ਉਹਨਾਂ ਦਾ order ਅਤੇ timing ਬਦਲਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।
+**Explanation:** Animation Pane ਪ੍ਰਭਾਵ ਦੀ ਸੂਚੀ ਦਿਖਾਉਂਦਾ ਹੈ ਅਤੇ ਉਹਨਾਂ ਦਾ ਕ੍ਰਮ ਅਤੇ ਸਮਾਂ-ਨਿਰਧਾਰਨ ਬਦਲਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-115 · com003-powerpoint-animations-animation-pane
 
 #### 4. COM003-OFFICE-TABS-116 — EASY
-**Question:** Already animated object ਵਿੱਚ ਹੋਰ effect ਜੋੜਨ ਵਾਲਾ Animations-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਪਹਿਲਾਂ ਹੀ ਐਨੀਮੇਟ ਕੀਤਾ ਵਸਤੂ ਵਿੱਚ ਹੋਰ ਪ੍ਰਭਾਵ ਜੋੜਨ ਵਾਲਾ Animations ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Remove
-B. Preview
+ਇੱਕ. ਹਟਾਉਣਾ
+B. ਪੂਰਵ-ਦ੍ਰਿਸ਼
 C. Animation Pane
 D. Add Animation
 
 **Answer:** Add Animation
-**Explanation:** Add Animation existing effect ਨੂੰ replace ਕੀਤੇ ਬਿਨਾਂ additional effect ਜੋੜਦਾ ਹੈ।
+**Explanation:** Add Animation ਮੌਜੂਦਾ ਪ੍ਰਭਾਵ ਨੂੰ ਬਦਲਣਾ ਕੀਤੇ ਬਿਨਾਂ ਵਾਧੂ ਪ੍ਰਭਾਵ ਜੋੜਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-116 · com003-powerpoint-animations-add-animation
 
 #### 5. COM003-OFFICE-TABS-117 — EASY
-**Question:** Animation ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ mouse click ਦੀ ਉਡੀਕ ਕਰਨ ਵਾਲਾ Start option ਕਿਹੜਾ ਹੈ?
+**Question:** Animation ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਮਾਊਸ ਕਲਿੱਕ ਦੀ ਉਡੀਕ ਕਰਨ ਵਾਲਾ Start ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. On Click
-B. With Previous
-C. After Previous
+ਇੱਕ. ਉੱਤੇ ਕਲਿੱਕ
+B. ਨਾਲ ਪਿਛਲਾ
+C. After ਪਿਛਲਾ
 D. Trigger
 
-**Answer:** On Click
-**Explanation:** On Click presenter ਦੇ click ਕਰਨ ਤੋਂ ਬਾਅਦ animation ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।
+**Answer:** ਉੱਤੇ ਕਲਿੱਕ
+**Explanation:** ਉੱਤੇ ਕਲਿੱਕ ਪੇਸ਼ਕਾਰ ਦੇ ਕਲਿੱਕ ਕਰਨ ਤੋਂ ਬਾਅਦ ਐਨੀਮੇਸ਼ਨ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-117 · com003-powerpoint-animations-start-on-click
 
 #### 6. COM003-OFFICE-TABS-118 — MEDIUM
-**Question:** Previous effect ਦੇ ਨਾਲ ਉਸੇ ਸਮੇਂ animation ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Start option ਕਿਹੜਾ ਹੈ?
+**Question:** ਪਿਛਲਾ ਪ੍ਰਭਾਵ ਦੇ ਨਾਲ ਉਸੇ ਸਮੇਂ ਐਨੀਮੇਸ਼ਨ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Start ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. After Previous
-B. With Previous
-C. On Click
-D. Delay
+ਇੱਕ. After ਪਿਛਲਾ
+B. ਨਾਲ ਪਿਛਲਾ
+C. ਉੱਤੇ ਕਲਿੱਕ
+D. ਦੇਰੀ
 
-**Answer:** With Previous
-**Explanation:** With Previous selected effect ਨੂੰ previous effect ਦੇ ਨਾਲ ਉਸੇ ਸਮੇਂ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।
+**Answer:** ਨਾਲ ਪਿਛਲਾ
+**Explanation:** ਨਾਲ ਪਿਛਲਾ ਚੁਣਿਆ ਹੋਇਆ ਪ੍ਰਭਾਵ ਨੂੰ ਪਿਛਲਾ ਪ੍ਰਭਾਵ ਦੇ ਨਾਲ ਉਸੇ ਸਮੇਂ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-118 · com003-powerpoint-animations-with-previous
 
 #### 7. COM003-OFFICE-TABS-119 — MEDIUM
-**Question:** Previous effect ਖਤਮ ਹੋਣ ਤੋਂ ਬਾਅਦ animation ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Start option ਕਿਹੜਾ ਹੈ?
+**Question:** ਪਿਛਲਾ ਪ੍ਰਭਾਵ ਖਤਮ ਹੋਣ ਤੋਂ ਬਾਅਦ ਐਨੀਮੇਸ਼ਨ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Start ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. With Previous
-B. On Click
-C. After Previous
+ਇੱਕ. ਨਾਲ ਪਿਛਲਾ
+B. ਉੱਤੇ ਕਲਿੱਕ
+C. After ਪਿਛਲਾ
 D. Trigger
 
-**Answer:** After Previous
-**Explanation:** After Previous preceding effect ਦੇ ਖਤਮ ਹੋਣ ਤੋਂ ਬਾਅਦ selected effect ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।
+**Answer:** After ਪਿਛਲਾ
+**Explanation:** After ਪਿਛਲਾ ਪਿਛਲਾ ਪ੍ਰਭਾਵ ਦੇ ਖਤਮ ਹੋਣ ਤੋਂ ਬਾਅਦ ਚੁਣਿਆ ਹੋਇਆ ਪ੍ਰਭਾਵ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-119 · com003-powerpoint-animations-after-previous
 
 #### 8. COM003-OFFICE-TABS-120 — EASY
-**Question:** Animation ਦੀ speed ਅਤੇ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ waiting time ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲੀਆਂ settings ਕਿਹੜੀਆਂ ਹਨ?
+**Question:** Animation ਦੀ ਗਤੀ ਅਤੇ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਉਡੀਕ ਸਮਾਂ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲੀਆਂ ਸੈਟਿੰਗਾਂ ਕਿਹੜੀਆਂ ਹਨ?
 
-A. Theme ਅਤੇ Variant
-B. Layout ਅਤੇ Reset
+ਇੱਕ. ਥੀਮ ਅਤੇ ਰੂਪ
+B. Layout ਅਤੇ ਰੀਸੈੱਟ
 C. Start ਅਤੇ Trigger
-D. Duration ਅਤੇ Delay
+D. Duration ਅਤੇ ਦੇਰੀ
 
-**Answer:** Duration ਅਤੇ Delay
-**Explanation:** Duration effect ਦੇ ਚੱਲਣ ਦਾ ਸਮਾਂ ਅਤੇ Delay ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ waiting time ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
+**Answer:** Duration ਅਤੇ ਦੇਰੀ
+**Explanation:** Duration ਪ੍ਰਭਾਵ ਦੇ ਚੱਲਣ ਦਾ ਸਮਾਂ ਅਤੇ ਦੇਰੀ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਉਡੀਕ ਸਮਾਂ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-120 · com003-powerpoint-animations-duration-delay
 
 ### COM-003-QL-045 — PowerPoint — PowerPoint Slide Show Tab
@@ -4593,197 +4593,197 @@ D. Hide Slide
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-121 — EASY
-**Question:** Presentation को first slide से शुरू करने वाला Slide Show-tab command कौन-सा है?
+**Question:** प्रस्तुति को पहला स्लाइड से शुरू करने वाला Slide Show टैबटैब कमांड कौन-सा है?
 
-A. From Beginning
+एक. From Beginning
 B. From Current Slide
 C. Presenter View
 D. Rehearse Timings
 
 **Answer:** From Beginning
-**Explanation:** From Beginning slide show को slide 1 से शुरू करता है।
+**Explanation:** From Beginning स्लाइड दिखाना को स्लाइड 1 से शुरू करता है।
 **Trace:** COM003-OFFICE-TABS-121 · com003-powerpoint-slideshow-from-beginning
 
 #### 2. COM003-OFFICE-TABS-122 — EASY
-**Question:** Presentation को selected slide से शुरू करने वाला Slide Show-tab command कौन-सा है?
+**Question:** प्रस्तुति को चयनित स्लाइड से शुरू करने वाला Slide Show टैबटैब कमांड कौन-सा है?
 
-A. From Beginning
+एक. From Beginning
 B. From Current Slide
 C. Record Slide Show
 D. Set Up Slide Show
 
 **Answer:** From Current Slide
-**Explanation:** From Current Slide current selected slide से show शुरू करता है।
+**Explanation:** From Current Slide वर्तमान चयनित स्लाइड से दिखाना शुरू करता है।
 **Trace:** COM003-OFFICE-TABS-122 · com003-powerpoint-slideshow-from-current
 
 #### 3. COM003-OFFICE-TABS-123 — EASY
-**Question:** Audience को slide show दिखाते हुए presenter को notes दिखाने वाला Slide Show-tab option कौन-सा है?
+**Question:** दर्शक को स्लाइड दिखाना दिखाते हुए प्रस्तुतकर्ता को टिप्पणियाँ दिखाने वाला Slide Show टैबटैब विकल्प कौन-सा है?
 
-A. Hide Slide
-B. Use Timings
+एक. छिपाना स्लाइड
+B. उपयोग करना समय
 C. Presenter View
 D. Rehearse Timings
 
 **Answer:** Presenter View
-**Explanation:** Presenter View presenter को speaker notes और presentation controls दिखाता है।
+**Explanation:** Presenter View प्रस्तुतकर्ता को स्पीकर टिप्पणियाँ और प्रस्तुति नियंत्रित करता है दिखाता है।
 **Trace:** COM003-OFFICE-TABS-123 · com003-powerpoint-slideshow-presenter-view
 
 #### 4. COM003-OFFICE-TABS-124 — MEDIUM
-**Question:** हर slide पर practice में लगा time record करने में मदद वाला Slide Show-tab command कौन-सा है?
+**Question:** हर स्लाइड पर अभ्यास में लगा समय अभिलेख करने में मदद वाला Slide Show टैबटैब कमांड कौन-सा है?
 
-A. Set Up Slide Show
+एक. Set Up Slide Show
 B. Record Slide Show
-C. Use Timings
+C. उपयोग करना समय
 D. Rehearse Timings
 
 **Answer:** Rehearse Timings
-**Explanation:** Rehearse Timings slides के लिए practice timings record करता है।
+**Explanation:** Rehearse Timings स्लाइडें के लिए अभ्यास समय अभिलेख करता है।
 **Trace:** COM003-OFFICE-TABS-124 · com003-powerpoint-slideshow-rehearse-timings
 
 #### 5. COM003-OFFICE-TABS-125 — EASY
-**Question:** Narration, timings या pointer movements record करने वाला Slide Show-tab command कौन-सा है?
+**Question:** वाचन, समय या सूचक गतियाँ अभिलेख करने वाला Slide Show टैबटैब कमांड कौन-सा है?
 
-A. Record Slide Show
+एक. Record Slide Show
 B. From Current Slide
-C. Hide Slide
+C. छिपाना स्लाइड
 D. Set Up Slide Show
 
 **Answer:** Record Slide Show
-**Explanation:** Record Slide Show narration और उपलब्ध अन्य presentation actions record करता है।
+**Explanation:** Record Slide Show वाचन और उपलब्ध अन्य प्रस्तुति क्रियाएँ अभिलेख करता है।
 **Trace:** COM003-OFFICE-TABS-125 · com003-powerpoint-slideshow-record
 
 #### 6. COM003-OFFICE-TABS-126 — MEDIUM
-**Question:** Presentation चलाते समय recorded timings उपयोग करने वाला Slide Show-tab option कौन-सा है?
+**Question:** प्रस्तुति चलाते समय रिकॉर्ड किया गया समय उपयोग करने वाला Slide Show टैबटैब विकल्प कौन-सा है?
 
-A. Use Timings
+एक. उपयोग करना समय
 B. Presenter View
-C. Hide Slide
+C. छिपाना स्लाइड
 D. From Beginning
 
-**Answer:** Use Timings
-**Explanation:** Use Timings slide show को recorded slide timings उपयोग करने देता है।
+**Answer:** उपयोग करना समय
+**Explanation:** उपयोग करना समय स्लाइड दिखाना को रिकॉर्ड किया गया स्लाइड समय उपयोग करने देता है।
 **Trace:** COM003-OFFICE-TABS-126 · com003-powerpoint-slideshow-use-timings
 
 #### 7. COM003-OFFICE-TABS-127 — MEDIUM
-**Question:** Show type, monitor और presentation options set करने वाला Slide Show-tab command कौन-सा है?
+**Question:** Show प्रकार, निगरानी करना और प्रस्तुति विकल्प निर्धारित करना करने वाला Slide Show टैबटैब कमांड कौन-सा है?
 
-A. Rehearse Timings
+एक. Rehearse Timings
 B. Record Slide Show
 C. Set Up Slide Show
 D. From Current Slide
 
 **Answer:** Set Up Slide Show
-**Explanation:** Set Up Slide Show presentation चलने के तरीके के options देता है।
+**Explanation:** Set Up Slide Show प्रस्तुति चलने के तरीके के विकल्प देता है।
 **Trace:** COM003-OFFICE-TABS-127 · com003-powerpoint-slideshow-set-up
 
 #### 8. COM003-OFFICE-TABS-128 — EASY
-**Question:** Selected slide को delete किए बिना running show से exclude करने वाला Slide Show-tab command कौन-सा है?
+**Question:** चयनित स्लाइड को हटाना किए बिना चल रहा दिखाना से बाहर रखना करने वाला Slide Show टैबटैब कमांड कौन-सा है?
 
-A. Use Timings
+एक. उपयोग करना समय
 B. Set Up Slide Show
 C. Record Slide Show
-D. Hide Slide
+D. छिपाना स्लाइड
 
-**Answer:** Hide Slide
-**Explanation:** Hide Slide slide को show से exclude करता है लेकिन presentation में रखता है।
+**Answer:** छिपाना स्लाइड
+**Explanation:** छिपाना स्लाइड स्लाइड को दिखाना से बाहर रखना करता है लेकिन प्रस्तुति में रखता है।
 **Trace:** COM003-OFFICE-TABS-128 · com003-powerpoint-slideshow-hide-slide
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-121 — EASY
-**Question:** Presentation ਨੂੰ first slide ਤੋਂ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Slide Show-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੇਸ਼ਕਾਰੀ ਨੂੰ ਪਹਿਲਾ ਸਲਾਈਡ ਤੋਂ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. From Beginning
+ਇੱਕ. From Beginning
 B. From Current Slide
 C. Presenter View
 D. Rehearse Timings
 
 **Answer:** From Beginning
-**Explanation:** From Beginning slide show ਨੂੰ slide 1 ਤੋਂ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।
+**Explanation:** From Beginning ਸਲਾਈਡ ਦਿਖਾਉਣਾ ਨੂੰ ਸਲਾਈਡ 1 ਤੋਂ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-121 · com003-powerpoint-slideshow-from-beginning
 
 #### 2. COM003-OFFICE-TABS-122 — EASY
-**Question:** Presentation ਨੂੰ selected slide ਤੋਂ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Slide Show-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੇਸ਼ਕਾਰੀ ਨੂੰ ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਤੋਂ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. From Beginning
+ਇੱਕ. From Beginning
 B. From Current Slide
 C. Record Slide Show
 D. Set Up Slide Show
 
 **Answer:** From Current Slide
-**Explanation:** From Current Slide current selected slide ਤੋਂ show ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।
+**Explanation:** From Current Slide ਮੌਜੂਦਾ ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਤੋਂ ਦਿਖਾਉਣਾ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-122 · com003-powerpoint-slideshow-from-current
 
 #### 3. COM003-OFFICE-TABS-123 — EASY
-**Question:** Audience ਨੂੰ slide show ਦਿਖਾਉਂਦੇ ਹੋਏ presenter ਨੂੰ notes ਦਿਖਾਉਣ ਵਾਲਾ Slide Show-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਰਸ਼ਕ ਨੂੰ ਸਲਾਈਡ ਦਿਖਾਉਣਾ ਦਿਖਾਉਂਦੇ ਹੋਏ ਪੇਸ਼ਕਾਰ ਨੂੰ ਨੋਟ ਦਿਖਾਉਣ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Hide Slide
-B. Use Timings
+ਇੱਕ. ਲੁਕਾਉਣਾ ਸਲਾਈਡ
+B. ਵਰਤਣਾ ਸਮਾਂ
 C. Presenter View
 D. Rehearse Timings
 
 **Answer:** Presenter View
-**Explanation:** Presenter View presenter ਨੂੰ speaker notes ਅਤੇ presentation controls ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Presenter View ਪੇਸ਼ਕਾਰ ਨੂੰ ਸਪੀਕਰ ਨੋਟ ਅਤੇ ਪੇਸ਼ਕਾਰੀ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-123 · com003-powerpoint-slideshow-presenter-view
 
 #### 4. COM003-OFFICE-TABS-124 — MEDIUM
-**Question:** ਹਰ slide ਉੱਤੇ practice ਵਿੱਚ ਲੱਗਿਆ time record ਕਰਨ ਵਿੱਚ ਮਦਦ ਵਾਲਾ Slide Show-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਹਰ ਸਲਾਈਡ ਉੱਤੇ ਅਭਿਆਸ ਵਿੱਚ ਲੱਗਿਆ ਸਮਾਂ ਰਿਕਾਰਡ ਕਰਨ ਵਿੱਚ ਮਦਦ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Set Up Slide Show
+ਇੱਕ. Set Up Slide Show
 B. Record Slide Show
-C. Use Timings
+C. ਵਰਤਣਾ ਸਮਾਂ
 D. Rehearse Timings
 
 **Answer:** Rehearse Timings
-**Explanation:** Rehearse Timings slides ਲਈ practice timings record ਕਰਦਾ ਹੈ।
+**Explanation:** Rehearse Timings ਸਲਾਈਡਾਂ ਲਈ ਅਭਿਆਸ ਸਮਾਂ ਰਿਕਾਰਡ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-124 · com003-powerpoint-slideshow-rehearse-timings
 
 #### 5. COM003-OFFICE-TABS-125 — EASY
-**Question:** Narration, timings ਜਾਂ pointer movements record ਕਰਨ ਵਾਲਾ Slide Show-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਣਨ, ਸਮਾਂ ਜਾਂ ਸੂਚਕ ਹਿਲਚਲ ਰਿਕਾਰਡ ਕਰਨ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Record Slide Show
+ਇੱਕ. Record Slide Show
 B. From Current Slide
-C. Hide Slide
+C. ਲੁਕਾਉਣਾ ਸਲਾਈਡ
 D. Set Up Slide Show
 
 **Answer:** Record Slide Show
-**Explanation:** Record Slide Show narration ਅਤੇ ਉਪਲਬਧ ਹੋਰ presentation actions record ਕਰਦਾ ਹੈ।
+**Explanation:** Record Slide Show ਵਰਣਨ ਅਤੇ ਉਪਲਬਧ ਹੋਰ ਪੇਸ਼ਕਾਰੀ ਕਾਰਵਾਈਆਂ ਰਿਕਾਰਡ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-125 · com003-powerpoint-slideshow-record
 
 #### 6. COM003-OFFICE-TABS-126 — MEDIUM
-**Question:** Presentation ਚਲਾਉਂਦੇ ਸਮੇਂ recorded timings ਵਰਤਣ ਵਾਲਾ Slide Show-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੇਸ਼ਕਾਰੀ ਚਲਾਉਂਦੇ ਸਮੇਂ ਰਿਕਾਰਡ ਕੀਤਾ ਗਿਆ ਸਮਾਂ ਵਰਤਣ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Use Timings
+ਇੱਕ. ਵਰਤਣਾ ਸਮਾਂ
 B. Presenter View
-C. Hide Slide
+C. ਲੁਕਾਉਣਾ ਸਲਾਈਡ
 D. From Beginning
 
-**Answer:** Use Timings
-**Explanation:** Use Timings slide show ਨੂੰ recorded slide timings ਵਰਤਣ ਦਿੰਦਾ ਹੈ।
+**Answer:** ਵਰਤਣਾ ਸਮਾਂ
+**Explanation:** ਵਰਤਣਾ ਸਮਾਂ ਸਲਾਈਡ ਦਿਖਾਉਣਾ ਨੂੰ ਰਿਕਾਰਡ ਕੀਤਾ ਗਿਆ ਸਲਾਈਡ ਸਮਾਂ ਵਰਤਣ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-126 · com003-powerpoint-slideshow-use-timings
 
 #### 7. COM003-OFFICE-TABS-127 — MEDIUM
-**Question:** Show type, monitor ਅਤੇ presentation options set ਕਰਨ ਵਾਲਾ Slide Show-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** Show ਕਿਸਮ, ਨਿਗਰਾਨੀ ਕਰਨਾ ਅਤੇ ਪੇਸ਼ਕਾਰੀ ਵਿਕਲਪ ਨਿਰਧਾਰਤ ਕਰਨਾ ਕਰਨ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Rehearse Timings
+ਇੱਕ. Rehearse Timings
 B. Record Slide Show
 C. Set Up Slide Show
 D. From Current Slide
 
 **Answer:** Set Up Slide Show
-**Explanation:** Set Up Slide Show presentation ਚੱਲਣ ਦੇ ਤਰੀਕੇ ਦੇ options ਦਿੰਦਾ ਹੈ।
+**Explanation:** Set Up Slide Show ਪੇਸ਼ਕਾਰੀ ਚੱਲਣ ਦੇ ਤਰੀਕੇ ਦੇ ਵਿਕਲਪ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-127 · com003-powerpoint-slideshow-set-up
 
 #### 8. COM003-OFFICE-TABS-128 — EASY
-**Question:** Selected slide ਨੂੰ delete ਕੀਤੇ ਬਿਨਾਂ running show ਤੋਂ exclude ਕਰਨ ਵਾਲਾ Slide Show-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਨੂੰ ਮਿਟਾਉਣਾ ਕੀਤੇ ਬਿਨਾਂ ਚੱਲ ਰਿਹਾ ਦਿਖਾਉਣਾ ਤੋਂ ਬਾਹਰ ਰੱਖਣਾ ਕਰਨ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Use Timings
+ਇੱਕ. ਵਰਤਣਾ ਸਮਾਂ
 B. Set Up Slide Show
 C. Record Slide Show
-D. Hide Slide
+D. ਲੁਕਾਉਣਾ ਸਲਾਈਡ
 
-**Answer:** Hide Slide
-**Explanation:** Hide Slide slide ਨੂੰ show ਤੋਂ exclude ਕਰਦਾ ਹੈ ਪਰ presentation ਵਿੱਚ ਰੱਖਦਾ ਹੈ।
+**Answer:** ਲੁਕਾਉਣਾ ਸਲਾਈਡ
+**Explanation:** ਲੁਕਾਉਣਾ ਸਲਾਈਡ ਸਲਾਈਡ ਨੂੰ ਦਿਖਾਉਣਾ ਤੋਂ ਬਾਹਰ ਰੱਖਣਾ ਕਰਦਾ ਹੈ ਪਰ ਪੇਸ਼ਕਾਰੀ ਵਿੱਚ ਰੱਖਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-128 · com003-powerpoint-slideshow-hide-slide
 
 ### COM-003-QL-046 — PowerPoint — PowerPoint Review Tab
@@ -4889,197 +4889,197 @@ D. Delete Comment
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-129 — EASY
-**Question:** Presentation text में spelling errors check करने वाला Review-tab command कौन-सा है?
+**Question:** प्रस्तुति पाठ में वर्तनी त्रुटियाँ जाँच करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-A. Spelling
+एक. Spelling
 B. New Comment
 C. Compare
 D. Translate
 
 **Answer:** Spelling
-**Explanation:** Spelling presentation के text में possible spelling errors check करता है।
+**Explanation:** Spelling प्रस्तुति के पाठ में संभव वर्तनी त्रुटियाँ जाँच करता है।
 **Trace:** COM003-OFFICE-TABS-129 · com003-powerpoint-review-spelling
 
 #### 2. COM003-OFFICE-TABS-130 — EASY
-**Question:** Selected slide या object पर comment जोड़ने वाला Review-tab command कौन-सा है?
+**Question:** चयनित स्लाइड या वस्तु पर टिप्पणी जोड़ने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-A. Spelling
+एक. Spelling
 B. New Comment
 C. Compare
-D. Protect
+D. सुरक्षित करना
 
 **Answer:** New Comment
-**Explanation:** New Comment discussion या review के लिए annotation जोड़ता है।
+**Explanation:** New Comment चर्चा या समीक्षा के लिए टिप्पणी जोड़ता है।
 **Trace:** COM003-OFFICE-TABS-130 · com003-powerpoint-review-new-comment
 
 #### 3. COM003-OFFICE-TABS-131 — MEDIUM
-**Question:** Current presentation की दूसरी presentation से तुलना करने वाला Review-tab command कौन-सा है?
+**Question:** वर्तमान प्रस्तुति की दूसरी प्रस्तुति से तुलना करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-A. Spelling
+एक. Spelling
 B. New Comment
 C. Compare
 D. Translate
 
 **Answer:** Compare
-**Explanation:** Compare दो presentations के बीच differences check करता है।
+**Explanation:** Compare दो प्रस्तुतियाँ के बीच अंतर जाँच करता है।
 **Trace:** COM003-OFFICE-TABS-131 · com003-powerpoint-review-compare
 
 #### 4. COM003-OFFICE-TABS-132 — EASY
-**Question:** Presentation में accessibility issues check करने वाला Review-tab feature कौन-सा है?
+**Question:** प्रस्तुति में सुगम्यता समस्याएँ जाँच करने वाला समीक्षा टैबटैब सुविधा कौन-सा है?
 
-A. Compare
+एक. Compare
 B. Spelling
 C. New Comment
-D. Check Accessibility
+D. जाँच सुगम्यता
 
-**Answer:** Check Accessibility
-**Explanation:** Check Accessibility ऐसी issues पहचानता है जो slides को कुछ लोगों के लिए कठिन बना सकती हैं।
+**Answer:** जाँच सुगम्यता
+**Explanation:** जाँच सुगम्यता ऐसी समस्याएँ पहचानता है जो स्लाइडें को कुछ लोगों के लिए कठिन बना सकती हैं।
 **Trace:** COM003-OFFICE-TABS-132 · com003-powerpoint-review-accessibility
 
 #### 5. COM003-OFFICE-TABS-133 — MEDIUM
-**Question:** Selected presentation text के proofing language को set करने वाला Review-tab option कौन-सा है?
+**Question:** चयनित प्रस्तुति पाठ के अशुद्धि-जाँच भाषा को निर्धारित करना करने वाला समीक्षा टैबटैब विकल्प कौन-सा है?
 
-A. Language
+एक. भाषा
 B. Compare
 C. Spelling
 D. New Comment
 
-**Answer:** Language
-**Explanation:** Language selected text के लिए proofing tools द्वारा उपयोग की जाने वाली language set करता है।
+**Answer:** भाषा
+**Explanation:** भाषा चयनित पाठ के लिए अशुद्धि-जाँच उपकरण द्वारा उपयोग की जाने वाली भाषा निर्धारित करना करता है।
 **Trace:** COM003-OFFICE-TABS-133 · com003-powerpoint-review-language
 
 #### 6. COM003-OFFICE-TABS-134 — EASY
-**Question:** Selected slide text का translation करने में मदद वाला Review-tab command कौन-सा है?
+**Question:** चयनित स्लाइड पाठ का अनुवाद करने में मदद वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-A. Language
+एक. भाषा
 B. Translate
 C. Compare
 D. Spelling
 
 **Answer:** Translate
-**Explanation:** Translate selected text के translation में मदद करता है; service उपलब्ध language पर निर्भर हो सकती है।
+**Explanation:** Translate चयनित पाठ के अनुवाद में मदद करता है; सेवा उपलब्ध भाषा पर निर्भर हो सकती है।
 **Trace:** COM003-OFFICE-TABS-134 · com003-powerpoint-review-translate
 
 #### 7. COM003-OFFICE-TABS-135 — EASY
-**Question:** Selected presentation text के synonyms suggest करने वाला Review-tab command कौन-सा है?
+**Question:** चयनित प्रस्तुति पाठ के पर्यायवाची सुझाव करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-A. Spelling
-B. Language
+एक. Spelling
+B. भाषा
 C. Thesaurus
 D. Compare
 
 **Answer:** Thesaurus
-**Explanation:** Thesaurus selected text के लिए alternative words या synonyms suggest करता है।
+**Explanation:** Thesaurus चयनित पाठ के लिए वैकल्पिक शब्द या पर्यायवाची सुझाव करता है।
 **Trace:** COM003-OFFICE-TABS-135 · com003-powerpoint-review-thesaurus
 
 #### 8. COM003-OFFICE-TABS-136 — MEDIUM
-**Question:** Slide से existing comment हटाने वाली Review-tab action कौन-सी है?
+**Question:** स्लाइड से मौजूदा टिप्पणी हटाने वाली समीक्षा टैबटैब क्रिया कौन-सी है?
 
-A. New Comment
+एक. New Comment
 B. Compare
 C. Spelling
-D. Delete Comment
+D. हटाना टिप्पणी
 
-**Answer:** Delete Comment
-**Explanation:** Delete Comment presentation से selected comment हटा देता है।
+**Answer:** हटाना टिप्पणी
+**Explanation:** हटाना टिप्पणी प्रस्तुति से चयनित टिप्पणी हटा देता है।
 **Trace:** COM003-OFFICE-TABS-136 · com003-powerpoint-review-delete-comment
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-129 — EASY
-**Question:** Presentation text ਵਿੱਚ spelling errors check ਕਰਨ ਵਾਲਾ Review-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੇਸ਼ਕਾਰੀ ਲਿਖਤ ਵਿੱਚ ਸ਼ਬਦ-ਜੋੜ ਗਲਤੀਆਂ ਜਾਂਚ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Spelling
+ਇੱਕ. Spelling
 B. New Comment
 C. Compare
 D. Translate
 
 **Answer:** Spelling
-**Explanation:** Spelling presentation ਦੀ text ਵਿੱਚ possible spelling errors check ਕਰਦਾ ਹੈ।
+**Explanation:** Spelling ਪੇਸ਼ਕਾਰੀ ਦੀ ਲਿਖਤ ਵਿੱਚ ਸੰਭਵ ਸ਼ਬਦ-ਜੋੜ ਗਲਤੀਆਂ ਜਾਂਚ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-129 · com003-powerpoint-review-spelling
 
 #### 2. COM003-OFFICE-TABS-130 — EASY
-**Question:** Selected slide ਜਾਂ object ਉੱਤੇ comment ਜੋੜਨ ਵਾਲਾ Review-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਜਾਂ ਵਸਤੂ ਉੱਤੇ ਟਿੱਪਣੀ ਜੋੜਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Spelling
+ਇੱਕ. Spelling
 B. New Comment
 C. Compare
-D. Protect
+D. ਸੁਰੱਖਿਅਤ ਕਰਨਾ
 
 **Answer:** New Comment
-**Explanation:** New Comment discussion ਜਾਂ review ਲਈ annotation ਜੋੜਦਾ ਹੈ।
+**Explanation:** New Comment ਚਰਚਾ ਜਾਂ ਸਮੀਖਿਆ ਲਈ ਟਿੱਪਣੀ ਜੋੜਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-130 · com003-powerpoint-review-new-comment
 
 #### 3. COM003-OFFICE-TABS-131 — MEDIUM
-**Question:** Current presentation ਦੀ ਹੋਰ presentation ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਵਾਲਾ Review-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਮੌਜੂਦਾ ਪੇਸ਼ਕਾਰੀ ਦੀ ਹੋਰ ਪੇਸ਼ਕਾਰੀ ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Spelling
+ਇੱਕ. Spelling
 B. New Comment
 C. Compare
 D. Translate
 
 **Answer:** Compare
-**Explanation:** Compare ਦੋ presentations ਵਿਚਕਾਰ differences check ਕਰਦਾ ਹੈ।
+**Explanation:** Compare ਦੋ ਪੇਸ਼ਕਾਰੀਆਂ ਵਿਚਕਾਰ ਫਰਕ ਜਾਂਚ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-131 · com003-powerpoint-review-compare
 
 #### 4. COM003-OFFICE-TABS-132 — EASY
-**Question:** Presentation ਵਿੱਚ accessibility issues check ਕਰਨ ਵਾਲਾ Review-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੇਸ਼ਕਾਰੀ ਵਿੱਚ ਪਹੁੰਚਯੋਗਤਾ ਸਮੱਸਿਆਵਾਂ ਜਾਂਚ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Compare
+ਇੱਕ. Compare
 B. Spelling
 C. New Comment
-D. Check Accessibility
+D. ਜਾਂਚ ਪਹੁੰਚਯੋਗਤਾ
 
-**Answer:** Check Accessibility
-**Explanation:** Check Accessibility ਉਹ issues ਪਛਾਣਦਾ ਹੈ ਜੋ slides ਨੂੰ ਕੁਝ ਲੋਕਾਂ ਲਈ ਔਖਾ ਬਣਾ ਸਕਦੀਆਂ ਹਨ।
+**Answer:** ਜਾਂਚ ਪਹੁੰਚਯੋਗਤਾ
+**Explanation:** ਜਾਂਚ ਪਹੁੰਚਯੋਗਤਾ ਉਹ ਸਮੱਸਿਆਵਾਂ ਪਛਾਣਦਾ ਹੈ ਜੋ ਸਲਾਈਡਾਂ ਨੂੰ ਕੁਝ ਲੋਕਾਂ ਲਈ ਔਖਾ ਬਣਾ ਸਕਦੀਆਂ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-132 · com003-powerpoint-review-accessibility
 
 #### 5. COM003-OFFICE-TABS-133 — MEDIUM
-**Question:** Selected presentation text ਦੀ proofing language set ਕਰਨ ਵਾਲਾ Review-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਪੇਸ਼ਕਾਰੀ ਲਿਖਤ ਦੀ ਸ਼ੁੱਧ-ਜਾਂਚ ਭਾਸ਼ਾ ਨਿਰਧਾਰਤ ਕਰਨਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Language
+ਇੱਕ. ਭਾਸ਼ਾ
 B. Compare
 C. Spelling
 D. New Comment
 
-**Answer:** Language
-**Explanation:** Language selected text ਲਈ proofing tools ਵੱਲੋਂ ਵਰਤੀ ਜਾਣ ਵਾਲੀ language set ਕਰਦਾ ਹੈ।
+**Answer:** ਭਾਸ਼ਾ
+**Explanation:** ਭਾਸ਼ਾ ਚੁਣਿਆ ਹੋਇਆ ਲਿਖਤ ਲਈ ਸ਼ੁੱਧ-ਜਾਂਚ ਸਾਧਨ ਵੱਲੋਂ ਵਰਤੀ ਜਾਣ ਵਾਲੀ ਭਾਸ਼ਾ ਨਿਰਧਾਰਤ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-133 · com003-powerpoint-review-language
 
 #### 6. COM003-OFFICE-TABS-134 — EASY
-**Question:** Selected slide text ਦਾ translation ਕਰਨ ਵਿੱਚ ਮਦਦ ਵਾਲਾ Review-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਲਿਖਤ ਦਾ ਅਨੁਵਾਦ ਕਰਨ ਵਿੱਚ ਮਦਦ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Language
+ਇੱਕ. ਭਾਸ਼ਾ
 B. Translate
 C. Compare
 D. Spelling
 
 **Answer:** Translate
-**Explanation:** Translate selected text ਦੇ translation ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ; service ਉਪਲਬਧ language ਉੱਤੇ ਨਿਰਭਰ ਹੋ ਸਕਦੀ ਹੈ।
+**Explanation:** Translate ਚੁਣਿਆ ਹੋਇਆ ਲਿਖਤ ਦੇ ਅਨੁਵਾਦ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ; ਸੇਵਾ ਉਪਲਬਧ ਭਾਸ਼ਾ ਉੱਤੇ ਨਿਰਭਰ ਹੋ ਸਕਦੀ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-134 · com003-powerpoint-review-translate
 
 #### 7. COM003-OFFICE-TABS-135 — EASY
-**Question:** Selected presentation text ਦੇ synonyms suggest ਕਰਨ ਵਾਲਾ Review-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਚੁਣਿਆ ਹੋਇਆ ਪੇਸ਼ਕਾਰੀ ਲਿਖਤ ਦੇ ਸਮਾਨਾਰਥਕ ਸੁਝਾਅ ਦੇਣਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Spelling
-B. Language
+ਇੱਕ. Spelling
+B. ਭਾਸ਼ਾ
 C. Thesaurus
 D. Compare
 
 **Answer:** Thesaurus
-**Explanation:** Thesaurus selected text ਲਈ alternative words ਜਾਂ synonyms suggest ਕਰਦਾ ਹੈ।
+**Explanation:** Thesaurus ਚੁਣਿਆ ਹੋਇਆ ਲਿਖਤ ਲਈ ਵਿਕਲਪਕ ਸ਼ਬਦ ਜਾਂ ਸਮਾਨਾਰਥਕ ਸੁਝਾਅ ਦੇਣਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-135 · com003-powerpoint-review-thesaurus
 
 #### 8. COM003-OFFICE-TABS-136 — MEDIUM
-**Question:** Slide ਤੋਂ existing comment ਹਟਾਉਣ ਵਾਲੀ Review-tab action ਕਿਹੜੀ ਹੈ?
+**Question:** ਸਲਾਈਡ ਤੋਂ ਮੌਜੂਦਾ ਟਿੱਪਣੀ ਹਟਾਉਣ ਵਾਲੀ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਾਰਵਾਈ ਕਿਹੜੀ ਹੈ?
 
-A. New Comment
+ਇੱਕ. New Comment
 B. Compare
 C. Spelling
-D. Delete Comment
+D. ਮਿਟਾਉਣਾ ਟਿੱਪਣੀ
 
-**Answer:** Delete Comment
-**Explanation:** Delete Comment presentation ਤੋਂ selected comment ਹਟਾ ਦਿੰਦਾ ਹੈ।
+**Answer:** ਮਿਟਾਉਣਾ ਟਿੱਪਣੀ
+**Explanation:** ਮਿਟਾਉਣਾ ਟਿੱਪਣੀ ਪੇਸ਼ਕਾਰੀ ਤੋਂ ਚੁਣਿਆ ਹੋਇਆ ਟਿੱਪਣੀ ਹਟਾ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-136 · com003-powerpoint-review-delete-comment
 
 ### COM-003-QL-047 — PowerPoint — PowerPoint View Tab
@@ -5185,197 +5185,197 @@ D. Reading View
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-137 — EASY
-**Question:** PowerPoint slide editing के लिए मुख्य View-tab option कौन-सा है?
+**Question:** PowerPoint स्लाइड संपादन के लिए मुख्य दृश्य टैबटैब विकल्प कौन-सा है?
 
-A. Normal
+एक. सामान्य
 B. Slide Sorter
 C. Reading View
-D. Notes Page
+D. टिप्पणियाँ पृष्ठ
 
-**Answer:** Normal
-**Explanation:** Normal view individual slides edit करने का primary view है।
+**Answer:** सामान्य
+**Explanation:** सामान्य दृश्य व्यक्तिगत स्लाइडें संपादित करें करने का मुख्य दृश्य है।
 **Trace:** COM003-OFFICE-TABS-137 · com003-powerpoint-view-normal
 
 #### 2. COM003-OFFICE-TABS-138 — EASY
-**Question:** सभी slides को thumbnails के रूप में दिखाकर reorder करने वाला View-tab option कौन-सा है?
+**Question:** सभी स्लाइडें को लघु-चित्र के रूप में दिखाकर क्रम बदलना करने वाला दृश्य टैबटैब विकल्प कौन-सा है?
 
-A. Normal
+एक. सामान्य
 B. Slide Sorter
 C. Outline View
-D. Notes Page
+D. टिप्पणियाँ पृष्ठ
 
 **Answer:** Slide Sorter
-**Explanation:** Slide Sorter slide thumbnails दिखाता है ताकि slides review और reorder की जा सकें।
+**Explanation:** Slide Sorter स्लाइड लघु-चित्र दिखाता है ताकि स्लाइडें समीक्षा और क्रम बदलना की जा सकें।
 **Trace:** COM003-OFFICE-TABS-138 · com003-powerpoint-view-slide-sorter
 
 #### 3. COM003-OFFICE-TABS-139 — EASY
-**Question:** Presentation की text outline पर focus करने वाला View-tab option कौन-सा है?
+**Question:** प्रस्तुति की पाठ रूपरेखा पर केंद्र करने वाला दृश्य टैबटैब विकल्प कौन-सा है?
 
-A. Normal
+एक. सामान्य
 B. Slide Sorter
 C. Outline View
 D. Reading View
 
 **Answer:** Outline View
-**Explanation:** Outline View presentation की text hierarchy दिखाता है।
+**Explanation:** Outline View प्रस्तुति की पाठ पदानुक्रम दिखाता है।
 **Trace:** COM003-OFFICE-TABS-139 · com003-powerpoint-view-outline
 
 #### 4. COM003-OFFICE-TABS-140 — EASY
-**Question:** Slide को speaker notes के साथ दिखाने वाला View-tab option कौन-सा है?
+**Question:** स्लाइड को स्पीकर टिप्पणियाँ के साथ दिखाने वाला दृश्य टैबटैब विकल्प कौन-सा है?
 
-A. Slide Sorter
-B. Normal
+एक. Slide Sorter
+B. सामान्य
 C. Reading View
-D. Notes Page
+D. टिप्पणियाँ पृष्ठ
 
-**Answer:** Notes Page
-**Explanation:** Notes Page view slide को speaker notes के साथ दिखाता है।
+**Answer:** टिप्पणियाँ पृष्ठ
+**Explanation:** टिप्पणियाँ पृष्ठ दृश्य स्लाइड को स्पीकर टिप्पणियाँ के साथ दिखाता है।
 **Trace:** COM003-OFFICE-TABS-140 · com003-powerpoint-view-notes-page
 
 #### 5. COM003-OFFICE-TABS-141 — MEDIUM
-**Question:** Common slide layouts और formatting control करने वाले master को खोलने वाला View-tab command कौन-सा है?
+**Question:** सामान्य स्लाइड लेआउट और स्वरूपण नियंत्रण करने वाले मास्टर को खोलने वाला दृश्य टैबटैब कमांड कौन-सा है?
 
-A. Slide Master
+एक. Slide Master
 B. Reading View
-C. Gridlines
+C. ग्रिडलाइनें
 D. Zoom
 
 **Answer:** Slide Master
-**Explanation:** Slide Master slides द्वारा inherited common layouts और formatting नियंत्रित करता है।
+**Explanation:** Slide Master स्लाइडें द्वारा विरासत में मिली सामान्य लेआउट और स्वरूपण नियंत्रित करता है।
 **Trace:** COM003-OFFICE-TABS-141 · com003-powerpoint-view-slide-master
 
 #### 6. COM003-OFFICE-TABS-142 — EASY
-**Question:** Objects align करने में मदद के लिए measurement या alignment lines दिखाने वाले View-tab tools कौन-से हैं?
+**Question:** वस्तुएँ संरेखित करना करने में मदद के लिए माप या संरेखण पंक्तियाँ दिखाने वाले दृश्य टैबटैब उपकरण कौन-से हैं?
 
-A. Notes और Comments
-B. Ruler, Gridlines और Guides
+एक. टिप्पणियाँ और Comments
+B. स्केल, ग्रिडलाइनें और मार्गदर्शक
 C. Themes और Variants
 D. Transitions और Animations
 
-**Answer:** Ruler, Gridlines और Guides
-**Explanation:** Ruler, Gridlines और Guides slide objects को position और align करने में मदद करते हैं।
+**Answer:** स्केल, ग्रिडलाइनें और मार्गदर्शक
+**Explanation:** स्केल, ग्रिडलाइनें और मार्गदर्शक स्लाइड वस्तुएँ को स्थिति और संरेखित करना करने में मदद करते हैं।
 **Trace:** COM003-OFFICE-TABS-142 · com003-powerpoint-view-ruler-guides
 
 #### 7. COM003-OFFICE-TABS-143 — EASY
-**Question:** Slide को screen पर बड़ा या छोटा दिखाने वाला View-tab control कौन-सा है?
+**Question:** स्लाइड को स्क्रीन पर बड़ा या छोटा दिखाने वाला दृश्य टैबटैब नियंत्रण कौन-सा है?
 
-A. Slide Master
-B. Gridlines
+एक. Slide Master
+B. ग्रिडलाइनें
 C. Zoom
-D. Notes Page
+D. टिप्पणियाँ पृष्ठ
 
 **Answer:** Zoom
-**Explanation:** Zoom slide content बदले बिना on-screen magnification बदलता है।
+**Explanation:** Zoom स्लाइड सामग्री बदले बिना पर-स्क्रीन आवर्धन बदलता है।
 **Trace:** COM003-OFFICE-TABS-143 · com003-powerpoint-view-zoom
 
 #### 8. COM003-OFFICE-TABS-144 — EASY
-**Question:** Full Slide Show mode के बजाय presentation को window में देखने वाला View-tab option कौन-सा है?
+**Question:** पूर्ण Slide Show मोड के बजाय प्रस्तुति को विंडो में देखने वाला दृश्य टैबटैब विकल्प कौन-सा है?
 
-A. Normal
+एक. सामान्य
 B. Slide Sorter
 C. Outline View
 D. Reading View
 
 **Answer:** Reading View
-**Explanation:** Reading View presentation को presentation-reading window में दिखाता है।
+**Explanation:** Reading View प्रस्तुति को प्रस्तुति-पठन विंडो में दिखाता है।
 **Trace:** COM003-OFFICE-TABS-144 · com003-powerpoint-view-reading
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-137 — EASY
-**Question:** PowerPoint slide editing ਲਈ ਮੁੱਖ View-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** PowerPoint ਸਲਾਈਡ ਸੋਧ ਲਈ ਮੁੱਖ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Normal
+ਇੱਕ. ਆਮ
 B. Slide Sorter
 C. Reading View
-D. Notes Page
+D. ਨੋਟ ਪੰਨਾ
 
-**Answer:** Normal
-**Explanation:** Normal view individual slides edit ਕਰਨ ਦਾ primary view ਹੈ।
+**Answer:** ਆਮ
+**Explanation:** ਆਮ ਦ੍ਰਿਸ਼ ਵਿਅਕਤੀਗਤ ਸਲਾਈਡਾਂ ਸੋਧੋ ਕਰਨ ਦਾ ਮੁੱਖ ਦ੍ਰਿਸ਼ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-137 · com003-powerpoint-view-normal
 
 #### 2. COM003-OFFICE-TABS-138 — EASY
-**Question:** ਸਾਰੀਆਂ slides ਨੂੰ thumbnails ਵਜੋਂ ਦਿਖਾ ਕੇ reorder ਕਰਨ ਵਾਲਾ View-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਾਰੀਆਂ ਸਲਾਈਡਾਂ ਨੂੰ ਛੋਟੇ ਚਿੱਤਰ ਵਜੋਂ ਦਿਖਾ ਕੇ ਕ੍ਰਮ ਬਦਲਣਾ ਕਰਨ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Normal
+ਇੱਕ. ਆਮ
 B. Slide Sorter
 C. Outline View
-D. Notes Page
+D. ਨੋਟ ਪੰਨਾ
 
 **Answer:** Slide Sorter
-**Explanation:** Slide Sorter slide thumbnails ਦਿਖਾਉਂਦਾ ਹੈ ਤਾਂ ਜੋ slides review ਅਤੇ reorder ਕੀਤੀਆਂ ਜਾ ਸਕਣ।
+**Explanation:** Slide Sorter ਸਲਾਈਡ ਛੋਟੇ ਚਿੱਤਰ ਦਿਖਾਉਂਦਾ ਹੈ ਤਾਂ ਜੋ ਸਲਾਈਡਾਂ ਸਮੀਖਿਆ ਅਤੇ ਕ੍ਰਮ ਬਦਲਣਾ ਕੀਤੀਆਂ ਜਾ ਸਕਣ।
 **Trace:** COM003-OFFICE-TABS-138 · com003-powerpoint-view-slide-sorter
 
 #### 3. COM003-OFFICE-TABS-139 — EASY
-**Question:** Presentation ਦੀ text outline ਉੱਤੇ focus ਕਰਨ ਵਾਲਾ View-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੇਸ਼ਕਾਰੀ ਦੀ ਲਿਖਤ ਰੂਪ-ਰੇਖਾ ਉੱਤੇ ਕੇਂਦਰ ਕਰਨ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Normal
+ਇੱਕ. ਆਮ
 B. Slide Sorter
 C. Outline View
 D. Reading View
 
 **Answer:** Outline View
-**Explanation:** Outline View presentation ਦੀ text hierarchy ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Outline View ਪੇਸ਼ਕਾਰੀ ਦੀ ਲਿਖਤ ਪਦਾਨੁਕ੍ਰਮ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-139 · com003-powerpoint-view-outline
 
 #### 4. COM003-OFFICE-TABS-140 — EASY
-**Question:** Slide ਨੂੰ speaker notes ਨਾਲ ਦਿਖਾਉਣ ਵਾਲਾ View-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਲਾਈਡ ਨੂੰ ਸਪੀਕਰ ਨੋਟ ਨਾਲ ਦਿਖਾਉਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Slide Sorter
-B. Normal
+ਇੱਕ. Slide Sorter
+B. ਆਮ
 C. Reading View
-D. Notes Page
+D. ਨੋਟ ਪੰਨਾ
 
-**Answer:** Notes Page
-**Explanation:** Notes Page view slide ਨੂੰ speaker notes ਨਾਲ ਦਿਖਾਉਂਦਾ ਹੈ।
+**Answer:** ਨੋਟ ਪੰਨਾ
+**Explanation:** ਨੋਟ ਪੰਨਾ ਦ੍ਰਿਸ਼ ਸਲਾਈਡ ਨੂੰ ਸਪੀਕਰ ਨੋਟ ਨਾਲ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-140 · com003-powerpoint-view-notes-page
 
 #### 5. COM003-OFFICE-TABS-141 — MEDIUM
-**Question:** Common slide layouts ਅਤੇ formatting control ਕਰਨ ਵਾਲਾ master ਖੋਲ੍ਹਣ ਵਾਲਾ View-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਆਮ ਸਲਾਈਡ ਲੇਆਉਟ ਅਤੇ ਸਜਾਵਟ ਨਿਯੰਤਰਣ ਕਰਨ ਵਾਲਾ ਮਾਸਟਰ ਖੋਲ੍ਹਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Slide Master
+ਇੱਕ. Slide Master
 B. Reading View
-C. Gridlines
+C. ਗ੍ਰਿਡਲਾਈਨਾਂ
 D. Zoom
 
 **Answer:** Slide Master
-**Explanation:** Slide Master slides ਵੱਲੋਂ inherited common layouts ਅਤੇ formatting ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
+**Explanation:** Slide Master ਸਲਾਈਡਾਂ ਵੱਲੋਂ ਵਿਰਾਸਤ ਵਿੱਚ ਮਿਲੀ ਆਮ ਲੇਆਉਟ ਅਤੇ ਸਜਾਵਟ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-141 · com003-powerpoint-view-slide-master
 
 #### 6. COM003-OFFICE-TABS-142 — EASY
-**Question:** Objects align ਕਰਨ ਵਿੱਚ ਮਦਦ ਲਈ measurement ਜਾਂ alignment lines ਦਿਖਾਉਣ ਵਾਲੇ View-tab tools ਕਿਹੜੇ ਹਨ?
+**Question:** ਵਸਤੂਆਂ ਸੰਰેખਿਤ ਕਰਨਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਲਈ ਮਾਪ ਜਾਂ ਸੰਰેખਣ ਲਾਈਨਾਂ ਦਿਖਾਉਣ ਵਾਲੇ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਸਾਧਨ ਕਿਹੜੇ ਹਨ?
 
-A. Notes ਅਤੇ Comments
-B. Ruler, Gridlines ਅਤੇ Guides
+ਇੱਕ. ਨੋਟ ਅਤੇ Comments
+B. ਪੈਮਾਨਾ, ਗ੍ਰਿਡਲਾਈਨਾਂ ਅਤੇ ਗਾਈਡ
 C. Themes ਅਤੇ Variants
 D. Transitions ਅਤੇ Animations
 
-**Answer:** Ruler, Gridlines ਅਤੇ Guides
-**Explanation:** Ruler, Gridlines ਅਤੇ Guides slide objects ਨੂੰ position ਅਤੇ align ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।
+**Answer:** ਪੈਮਾਨਾ, ਗ੍ਰਿਡਲਾਈਨਾਂ ਅਤੇ ਗਾਈਡ
+**Explanation:** ਪੈਮਾਨਾ, ਗ੍ਰਿਡਲਾਈਨਾਂ ਅਤੇ ਗਾਈਡ ਸਲਾਈਡ ਵਸਤੂਆਂ ਨੂੰ ਸਥਿਤੀ ਅਤੇ ਸੰਰેખਿਤ ਕਰਨਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-142 · com003-powerpoint-view-ruler-guides
 
 #### 7. COM003-OFFICE-TABS-143 — EASY
-**Question:** Slide ਨੂੰ screen ਉੱਤੇ ਵੱਡਾ ਜਾਂ ਛੋਟਾ ਦਿਖਾਉਣ ਵਾਲਾ View-tab control ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਲਾਈਡ ਨੂੰ ਸਕ੍ਰੀਨ ਉੱਤੇ ਵੱਡਾ ਜਾਂ ਛੋਟਾ ਦਿਖਾਉਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਨਿਯੰਤਰਣ ਕਿਹੜਾ ਹੈ?
 
-A. Slide Master
-B. Gridlines
+ਇੱਕ. Slide Master
+B. ਗ੍ਰਿਡਲਾਈਨਾਂ
 C. Zoom
-D. Notes Page
+D. ਨੋਟ ਪੰਨਾ
 
 **Answer:** Zoom
-**Explanation:** Zoom slide content ਬਦਲੇ ਬਿਨਾਂ on-screen magnification ਬਦਲਦਾ ਹੈ।
+**Explanation:** Zoom ਸਲਾਈਡ ਸਮੱਗਰੀ ਬਦਲੇ ਬਿਨਾਂ ਉੱਤੇ-ਸਕ੍ਰੀਨ ਵੱਡਾ ਕਰਨਾ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-143 · com003-powerpoint-view-zoom
 
 #### 8. COM003-OFFICE-TABS-144 — EASY
-**Question:** Full Slide Show mode ਦੀ ਬਜਾਏ presentation ਨੂੰ window ਵਿੱਚ ਦੇਖਣ ਵਾਲਾ View-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੂਰਾ Slide Show ਮੋਡ ਦੀ ਬਜਾਏ ਪੇਸ਼ਕਾਰੀ ਨੂੰ ਵਿੰਡੋ ਵਿੱਚ ਦੇਖਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Normal
+ਇੱਕ. ਆਮ
 B. Slide Sorter
 C. Outline View
 D. Reading View
 
 **Answer:** Reading View
-**Explanation:** Reading View presentation ਨੂੰ presentation-reading window ਵਿੱਚ ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Reading View ਪੇਸ਼ਕਾਰੀ ਨੂੰ ਪੇਸ਼ਕਾਰੀ-ਪੜ੍ਹਨਾ ਵਿੰਡੋ ਵਿੱਚ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-144 · com003-powerpoint-view-reading
 
 ### COM-003-QL-048 — PowerPoint — PowerPoint File Tab & Backstage
@@ -5481,224 +5481,224 @@ D. Close
 #### Hindi
 
 #### 1. COM003-OFFICE-TABS-145 — EASY
-**Question:** Blank presentation या template से नई presentation बनाने वाला File-tab command कौन-सा है?
+**Question:** रिक्त प्रस्तुति या टेम्पलेट से नई प्रस्तुति बनाने वाला File टैबटैब कमांड कौन-सा है?
 
-A. New
+एक. नया
 B. Open
 C. Info
 D. Export
 
-**Answer:** New
-**Explanation:** New blank file या template से presentation बनाता है।
+**Answer:** नया
+**Explanation:** नया रिक्त फ़ाइल या टेम्पलेट से प्रस्तुति बनाता है।
 **Trace:** COM003-OFFICE-TABS-145 · com003-powerpoint-file-new
 
 #### 2. COM003-OFFICE-TABS-146 — EASY
-**Question:** Existing PowerPoint presentation खोलने वाला File-tab command कौन-सा है?
+**Question:** मौजूदा PowerPoint प्रस्तुति खोलने वाला File टैबटैब कमांड कौन-सा है?
 
-A. New
+एक. नया
 B. Open
-C. Save As
+C. Save जैसे
 D. Print
 
 **Answer:** Open
-**Explanation:** Open file location से existing presentation load करता है।
+**Explanation:** Open फ़ाइल स्थान से मौजूदा प्रस्तुति लोड करना करता है।
 **Trace:** COM003-OFFICE-TABS-146 · com003-powerpoint-file-open
 
 #### 3. COM003-OFFICE-TABS-147 — EASY
-**Question:** Presentation को नए name, location या format के साथ save करने वाला File-tab command कौन-सा है?
+**Question:** प्रस्तुति को नए नाम, स्थान या स्वरूप के साथ सहेजना करने वाला File टैबटैब कमांड कौन-सा है?
 
-A. New
+एक. नया
 B. Open
-C. Save As
+C. Save जैसे
 D. Close
 
-**Answer:** Save As
-**Explanation:** Save As चुने गए name, location या format के साथ saved copy बनाता है।
+**Answer:** Save जैसे
+**Explanation:** Save जैसे चुने गए नाम, स्थान या स्वरूप के साथ सहेजा गया कॉपी बनाता है।
 **Trace:** COM003-OFFICE-TABS-147 · com003-powerpoint-file-save-as
 
 #### 4. COM003-OFFICE-TABS-148 — EASY
-**Question:** Presentation की print settings और preview खोलने वाला File-tab command कौन-सा है?
+**Question:** प्रस्तुति की मुद्रण सेटिंग्स और पूर्वावलोकन खोलने वाला File टैबटैब कमांड कौन-सा है?
 
-A. Info
-B. Share
+एक. Info
+B. साझा करें
 C. Export
 D. Print
 
 **Answer:** Print
-**Explanation:** Print presentation output की print settings और preview खोलता है।
+**Explanation:** Print प्रस्तुति परिणाम की मुद्रण सेटिंग्स और पूर्वावलोकन खोलता है।
 **Trace:** COM003-OFFICE-TABS-148 · com003-powerpoint-file-print
 
 #### 5. COM003-OFFICE-TABS-149 — EASY
-**Question:** Presentation properties और protection options दिखाने वाला File-tab area कौन-सा है?
+**Question:** प्रस्तुति गुण और सुरक्षा विकल्प दिखाने वाला File टैबटैब क्षेत्र कौन-सा है?
 
-A. Info
+एक. Info
 B. Open
-C. New
+C. नया
 D. Print
 
 **Answer:** Info
-**Explanation:** Info presentation properties और protection जैसे options दिखाता है।
+**Explanation:** Info प्रस्तुति गुण और सुरक्षा जैसे विकल्प दिखाता है।
 **Trace:** COM003-OFFICE-TABS-149 · com003-powerpoint-file-info
 
 #### 6. COM003-OFFICE-TABS-150 — EASY
-**Question:** Presentation की copy को दूसरे supported format में बनाने वाला File-tab command कौन-सा है?
+**Question:** प्रस्तुति की कॉपी को दूसरे समर्थित स्वरूप में बनाने वाला File टैबटैब कमांड कौन-सा है?
 
-A. Open
+एक. Open
 B. Export
-C. New
+C. नया
 D. Close
 
 **Answer:** Export
-**Explanation:** Export presentation की copy को दूसरे supported output format, जैसे उपलब्ध होने पर PDF या video, में बनाता है।
+**Explanation:** Export प्रस्तुति की कॉपी को दूसरे समर्थित परिणाम स्वरूप, जैसे उपलब्ध होने पर PDF या वीडियो, में बनाता है।
 **Trace:** COM003-OFFICE-TABS-150 · com003-powerpoint-file-export
 
 #### 7. COM003-OFFICE-TABS-151 — EASY
-**Question:** दूसरों के साथ presentation share करने के options देने वाला File-tab command कौन-सा है?
+**Question:** दूसरों के साथ प्रस्तुति साझा करें करने के विकल्प देने वाला File टैबटैब कमांड कौन-सा है?
 
-A. Print
+एक. Print
 B. Info
-C. Share
-D. Design
+C. साझा करें
+D. डिज़ाइन
 
-**Answer:** Share
-**Explanation:** Share presentation sharing options देता है; उपलब्ध options account और platform पर निर्भर हो सकते हैं।
+**Answer:** साझा करें
+**Explanation:** साझा करें प्रस्तुति साझाकरण विकल्प देता है; उपलब्ध विकल्प खाता और मंच पर निर्भर हो सकते हैं।
 **Trace:** COM003-OFFICE-TABS-151 · com003-powerpoint-file-share
 
 #### 8. COM003-OFFICE-TABS-152 — EASY
-**Question:** Current presentation बंद करने वाला File-tab command कौन-सा है?
+**Question:** वर्तमान प्रस्तुति बंद करने वाला File टैबटैब कमांड कौन-सा है?
 
-A. Export
-B. Save As
-C. New
+एक. Export
+B. Save जैसे
+C. नया
 D. Close
 
 **Answer:** Close
-**Explanation:** Close current presentation बंद करता है और PowerPoint खुला रह सकता है।
+**Explanation:** Close वर्तमान प्रस्तुति बंद करता है और PowerPoint खुला रह सकता है।
 **Trace:** COM003-OFFICE-TABS-152 · com003-powerpoint-file-close
 
 #### Punjabi
 
 #### 1. COM003-OFFICE-TABS-145 — EASY
-**Question:** Blank presentation ਜਾਂ template ਤੋਂ ਨਵੀਂ presentation ਬਣਾਉਣ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਖਾਲੀ ਪੇਸ਼ਕਾਰੀ ਜਾਂ ਟੈਂਪਲੇਟ ਤੋਂ ਨਵੀਂ ਪੇਸ਼ਕਾਰੀ ਬਣਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. New
+ਇੱਕ. ਨਵਾਂ
 B. Open
 C. Info
 D. Export
 
-**Answer:** New
-**Explanation:** New blank file ਜਾਂ template ਤੋਂ presentation ਬਣਾਉਂਦਾ ਹੈ।
+**Answer:** ਨਵਾਂ
+**Explanation:** ਨਵਾਂ ਖਾਲੀ ਫ਼ਾਈਲ ਜਾਂ ਟੈਂਪਲੇਟ ਤੋਂ ਪੇਸ਼ਕਾਰੀ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-145 · com003-powerpoint-file-new
 
 #### 2. COM003-OFFICE-TABS-146 — EASY
-**Question:** Existing PowerPoint presentation ਖੋਲ੍ਹਣ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਮੌਜੂਦਾ PowerPoint ਪੇਸ਼ਕਾਰੀ ਖੋਲ੍ਹਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. New
+ਇੱਕ. ਨਵਾਂ
 B. Open
-C. Save As
+C. Save ਵਜੋਂ
 D. Print
 
 **Answer:** Open
-**Explanation:** Open file location ਤੋਂ existing presentation load ਕਰਦਾ ਹੈ।
+**Explanation:** Open ਫ਼ਾਈਲ ਥਾਂ ਤੋਂ ਮੌਜੂਦਾ ਪੇਸ਼ਕਾਰੀ ਲੋਡ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-146 · com003-powerpoint-file-open
 
 #### 3. COM003-OFFICE-TABS-147 — EASY
-**Question:** Presentation ਨੂੰ ਨਵੇਂ name, location ਜਾਂ format ਨਾਲ save ਕਰਨ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੇਸ਼ਕਾਰੀ ਨੂੰ ਨਵੇਂ ਨਾਮ, ਥਾਂ ਜਾਂ ਰੂਪ ਨਾਲ ਸੰਭਾਲਣਾ ਕਰਨ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. New
+ਇੱਕ. ਨਵਾਂ
 B. Open
-C. Save As
+C. Save ਵਜੋਂ
 D. Close
 
-**Answer:** Save As
-**Explanation:** Save As ਚੁਣੇ name, location ਜਾਂ format ਨਾਲ saved copy ਬਣਾਉਂਦਾ ਹੈ।
+**Answer:** Save ਵਜੋਂ
+**Explanation:** Save ਵਜੋਂ ਚੁਣੇ ਨਾਮ, ਥਾਂ ਜਾਂ ਰੂਪ ਨਾਲ ਸੰਭਾਲਿਆ ਗਿਆ ਕਾਪੀ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-147 · com003-powerpoint-file-save-as
 
 #### 4. COM003-OFFICE-TABS-148 — EASY
-**Question:** Presentation ਦੀਆਂ print settings ਅਤੇ preview ਖੋਲ੍ਹਣ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੇਸ਼ਕਾਰੀ ਦੀਆਂ ਛਪਾਈ ਸੈਟਿੰਗਾਂ ਅਤੇ ਪੂਰਵ-ਦ੍ਰਿਸ਼ ਖੋਲ੍ਹਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Info
-B. Share
+ਇੱਕ. Info
+B. ਸਾਂਝਾ ਕਰੋ
 C. Export
 D. Print
 
 **Answer:** Print
-**Explanation:** Print presentation output ਦੀਆਂ print settings ਅਤੇ preview ਖੋਲ੍ਹਦਾ ਹੈ।
+**Explanation:** Print ਪੇਸ਼ਕਾਰੀ ਨਤੀਜਾ ਦੀਆਂ ਛਪਾਈ ਸੈਟਿੰਗਾਂ ਅਤੇ ਪੂਰਵ-ਦ੍ਰਿਸ਼ ਖੋਲ੍ਹਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-148 · com003-powerpoint-file-print
 
 #### 5. COM003-OFFICE-TABS-149 — EASY
-**Question:** Presentation properties ਅਤੇ protection options ਦਿਖਾਉਣ ਵਾਲਾ File-tab area ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੇਸ਼ਕਾਰੀ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਅਤੇ ਸੁਰੱਖਿਆ ਵਿਕਲਪ ਦਿਖਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-A. Info
+ਇੱਕ. Info
 B. Open
-C. New
+C. ਨਵਾਂ
 D. Print
 
 **Answer:** Info
-**Explanation:** Info presentation properties ਅਤੇ protection ਵਰਗੇ options ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Info ਪੇਸ਼ਕਾਰੀ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਅਤੇ ਸੁਰੱਖਿਆ ਵਰਗੇ ਵਿਕਲਪ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-149 · com003-powerpoint-file-info
 
 #### 6. COM003-OFFICE-TABS-150 — EASY
-**Question:** Presentation ਦੀ copy ਨੂੰ ਹੋਰ supported format ਵਿੱਚ ਬਣਾਉਣ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੇਸ਼ਕਾਰੀ ਦੀ ਕਾਪੀ ਨੂੰ ਹੋਰ ਸਮਰਥਿਤ ਰੂਪ ਵਿੱਚ ਬਣਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Open
+ਇੱਕ. Open
 B. Export
-C. New
+C. ਨਵਾਂ
 D. Close
 
 **Answer:** Export
-**Explanation:** Export presentation ਦੀ copy ਨੂੰ ਹੋਰ supported output format, ਜਿਵੇਂ ਉਪਲਬਧ ਹੋਣ ਉੱਤੇ PDF ਜਾਂ video, ਵਿੱਚ ਬਣਾਉਂਦਾ ਹੈ।
+**Explanation:** Export ਪੇਸ਼ਕਾਰੀ ਦੀ ਕਾਪੀ ਨੂੰ ਹੋਰ ਸਮਰਥਿਤ ਨਤੀਜਾ ਰੂਪ, ਜਿਵੇਂ ਉਪਲਬਧ ਹੋਣ ਉੱਤੇ PDF ਜਾਂ ਵੀਡੀਓ, ਵਿੱਚ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-150 · com003-powerpoint-file-export
 
 #### 7. COM003-OFFICE-TABS-151 — EASY
-**Question:** ਹੋਰਾਂ ਨਾਲ presentation share ਕਰਨ ਦੇ options ਦੇਣ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਹੋਰਾਂ ਨਾਲ ਪੇਸ਼ਕਾਰੀ ਸਾਂਝਾ ਕਰੋ ਕਰਨ ਦੇ ਵਿਕਲਪ ਦੇਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Print
+ਇੱਕ. Print
 B. Info
-C. Share
-D. Design
+C. ਸਾਂਝਾ ਕਰੋ
+D. ਡਿਜ਼ਾਈਨ
 
-**Answer:** Share
-**Explanation:** Share presentation sharing options ਦਿੰਦਾ ਹੈ; ਉਪਲਬਧ options account ਅਤੇ platform ਉੱਤੇ ਨਿਰਭਰ ਕਰ ਸਕਦੇ ਹਨ।
+**Answer:** ਸਾਂਝਾ ਕਰੋ
+**Explanation:** ਸਾਂਝਾ ਕਰੋ ਪੇਸ਼ਕਾਰੀ ਸਾਂਝਾ ਕਰਨਾ ਵਿਕਲਪ ਦਿੰਦਾ ਹੈ; ਉਪਲਬਧ ਵਿਕਲਪ ਖਾਤਾ ਅਤੇ ਪਲੇਟਫਾਰਮ ਉੱਤੇ ਨਿਰਭਰ ਕਰ ਸਕਦੇ ਹਨ।
 **Trace:** COM003-OFFICE-TABS-151 · com003-powerpoint-file-share
 
 #### 8. COM003-OFFICE-TABS-152 — EASY
-**Question:** Current presentation ਬੰਦ ਕਰਨ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਮੌਜੂਦਾ ਪੇਸ਼ਕਾਰੀ ਬੰਦ ਕਰਨ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Export
-B. Save As
-C. New
+ਇੱਕ. Export
+B. Save ਵਜੋਂ
+C. ਨਵਾਂ
 D. Close
 
 **Answer:** Close
-**Explanation:** Close current presentation ਬੰਦ ਕਰਦਾ ਹੈ ਅਤੇ PowerPoint ਖੁੱਲ੍ਹਾ ਰਹਿ ਸਕਦਾ ਹੈ।
+**Explanation:** Close ਮੌਜੂਦਾ ਪੇਸ਼ਕਾਰੀ ਬੰਦ ਕਰਦਾ ਹੈ ਅਤੇ PowerPoint ਖੁੱਲ੍ਹਾ ਰਹਿ ਸਕਦਾ ਹੈ।
 **Trace:** COM003-OFFICE-TABS-152 · com003-powerpoint-file-close
 
-## Sources
+## ਸਰੋਤ
 
-- **MICROSOFT-OFFICE-RIBBON-2026** — [Show or hide the Ribbon in Office](https://support.microsoft.com/en-us/office/foundations-experiences/show-or-hide-the-ribbon-in-office) — verified 2026-09-09
-- **MICROSOFT-OFFICE-CUSTOMIZE-RIBBON-2026** — [Customize the Ribbon in Office](https://support.microsoft.com/en-us/office/foundations-experiences/customize-the-ribbon-in-office) — verified 2026-09-09
-- **MICROSOFT-OFFICE-QUICK-ACCESS-TOOLBAR-2026** — [Customize the Quick Access Toolbar](https://support.microsoft.com/en-us/office/customize-the-quick-access-toolbar) — verified 2026-09-09
-- **MICROSOFT-EXCEL-OVERVIEW-2026** — [What is Excel?](https://support.microsoft.com/en-us/excel/get-started/what-is-excel) — verified 2026-09-09
-- **MICROSOFT-EXCEL-BASIC-TASKS-2026** — [Basic tasks in Excel](https://support.microsoft.com/en-us/excel/basic-tasks-in-excel) — verified 2026-09-09
-- **MICROSOFT-EXCEL-CHARTS-2026** — [Create a chart from start to finish](https://support.microsoft.com/en-us/excel/get-started/create-a-chart-from-start-to-finish) — verified 2026-09-09
-- **MICROSOFT-EXCEL-RECOMMENDED-CHARTS-2026** — [Create a chart with Recommended Charts](https://support.microsoft.com/en-us/excel/create-a-chart-with-recommended-charts) — verified 2026-09-09
-- **MICROSOFT-EXCEL-PIVOTTABLE-2026** — [Create a PivotTable to analyze worksheet data](https://support.microsoft.com/en-us/excel/get-started/create-a-pivottable-to-analyze-worksheet-data) — verified 2026-09-09
-- **MICROSOFT-EXCEL-DATA-VALIDATION-2026** — [Apply data validation to cells](https://support.microsoft.com/en-us/excel/get-started/apply-data-validation-to-cells) — verified 2026-09-09
-- **MICROSOFT-EXCEL-DROP-DOWN-2026** — [Create a drop-down list](https://support.microsoft.com/en-us/excel/get-started/create-a-drop-down-list) — verified 2026-09-09
-- **MICROSOFT-EXCEL-FREEZE-PANES-2026** — [Freeze panes to lock rows and columns](https://support.microsoft.com/en-us/excel/get-started/freeze-panes-to-lock-rows-and-columns) — verified 2026-09-09
-- **MICROSOFT-EXCEL-HIDE-ROWS-COLUMNS-2026** — [Hide or show rows or columns](https://support.microsoft.com/en-us/excel/get-started/hide-or-show-rows-or-columns) — verified 2026-09-09
-- **MICROSOFT-EXCEL-VIEW-MULTIPLE-2026** — [View multiple panes, sheets or workbooks](https://support.microsoft.com/en-us/excel/view-multiple-panes-sheets-or-workbooks) — verified 2026-09-09
-- **MICROSOFT-EXCEL-PROTECT-SHEET-2026** — [Lock or unlock specific areas of a protected worksheet](https://support.microsoft.com/en-us/excel/get-started/lock-or-unlock-specific-areas-of-a-protected-worksheet) — verified 2026-09-09
-- **MICROSOFT-POWERPOINT-HELP-2026** — [PowerPoint help and learning](https://support.microsoft.com/en-us/powerpoint/powerpoint-help) — verified 2026-09-09
-- **MICROSOFT-POWERPOINT-LAYOUT-2026** — [Apply a slide layout](https://support.microsoft.com/en-us/powerpoint/training/apply-a-slide-layout) — verified 2026-09-09
-- **MICROSOFT-POWERPOINT-SLIDE-MASTER-2026** — [What is a slide master in PowerPoint?](https://support.microsoft.com/en-us/powerpoint/training/what-is-a-slide-master-in-powerpoint) — verified 2026-09-09
-- **MICROSOFT-POWERPOINT-CUSTOMIZE-MASTER-2026** — [Customize a slide master](https://support.microsoft.com/en-us/powerpoint/training/customize-a-slide-master) — verified 2026-09-09
-- **MICROSOFT-POWERPOINT-TRANSITIONS-2026** — [Add, change or remove transitions between slides](https://support.microsoft.com/en-us/powerpoint/training/add-change-or-remove-transitions-between-slides) — verified 2026-09-09
-- **MICROSOFT-POWERPOINT-PRESENTER-VIEW-2026** — [Start the presentation and see your notes in Presenter view](https://support.microsoft.com/en-us/powerpoint/training/start-the-presentation-and-see-your-notes-in-presenter-view) — verified 2026-09-09
-- **MICROSOFT-POWERPOINT-AUDIO-2026** — [Add or delete audio in your presentation](https://support.microsoft.com/en-us/powerpoint/training/add-or-delete-audio-in-your-powerpoint-presentation) — verified 2026-09-09
-- **MICROSOFT-POWERPOINT-PLATFORM-COMPARISON-2026** — [Compare PowerPoint features on different platforms](https://support.microsoft.com/en-us/powerpoint/compare-powerpoint-features-on-different-platforms) — verified 2026-09-09
-- **MICROSOFT-POWERPOINT-ANIMATION-2026** — [PowerPoint animation and visual effects help](https://support.microsoft.com/en-us/powerpoint/powerpoint-help) — verified 2026-09-09
+- **MICROSOFT-OFFICE-RIBBON-2026** — [Show ਜਾਂ ਲੁਕਾਉਣਾ ਇਹ Ribbon ਵਿੱਚ Office](https://support.microsoft.com/en-us/office/foundations-experiences/ਦਿਖਾਉਣਾ-ਜਾਂ-ਲੁਕਾਉਣਾ-ਇਹ-ribbon-ਵਿੱਚ-office) — verified 2026-09-09
+- **MICROSOFT-OFFICE-CUSTOMIZE-RIBBON-2026** — [Customize ਇਹ Ribbon ਵਿੱਚ Office](https://support.microsoft.com/en-us/office/foundations-experiences/customize-ਇਹ-ribbon-ਵਿੱਚ-office) — verified 2026-09-09
+- **MICROSOFT-OFFICE-QUICK-ACCESS-TOOLBAR-2026** — [Customize ਇਹ Quick Access Toolbar](https://support.microsoft.com/en-us/office/customize-ਇਹ-quick-access-toolbar) — verified 2026-09-09
+- **MICROSOFT-EXCEL-OVERVIEW-2026** — [ਕੀ ਹੈ Excel?](https://support.microsoft.com/en-us/excel/get-started/ਕੀ-ਹੈ-excel) — verified 2026-09-09
+- **MICROSOFT-EXCEL-BASIC-TASKS-2026** — [Basic tasks ਵਿੱਚ Excel](https://support.microsoft.com/en-us/excel/basic-tasks-ਵਿੱਚ-excel) — verified 2026-09-09
+- **MICROSOFT-EXCEL-ਚਾਰਟ-2026** — [ਬਣਾਉਣਾ ਇੱਕ ਚਾਰਟ ਤੋਂ start ਨੂੰ ਮੁਕੰਮਲ ਕਰਨਾ](https://support.microsoft.com/en-us/excel/get-started/ਬਣਾਉਣਾ-ਇੱਕ-ਚਾਰਟ-ਤੋਂ-start-ਨੂੰ-ਮੁਕੰਮਲ ਕਰਨਾ) — verified 2026-09-09
+- **MICROSOFT-EXCEL-RECOMMENDED-ਚਾਰਟ-2026** — [ਬਣਾਉਣਾ ਇੱਕ ਚਾਰਟ ਨਾਲ Recommended Charts](https://support.microsoft.com/en-us/excel/ਬਣਾਉਣਾ-ਇੱਕ-ਚਾਰਟ-ਨਾਲ-recommended-ਚਾਰਟ) — verified 2026-09-09
+- **MICROSOFT-EXCEL-PIVOTTABLE-2026** — [ਬਣਾਉਣਾ ਇੱਕ PivotTable ਨੂੰ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰਨਾ ਵਰਕਸ਼ੀਟ ਡਾਟਾ](https://support.microsoft.com/en-us/excel/get-started/ਬਣਾਉਣਾ-ਇੱਕ-pivottable-ਨੂੰ-ਵਿਸ਼ਲੇਸ਼ਣ ਕਰਨਾ-ਵਰਕਸ਼ੀਟ-ਡਾਟਾ) — verified 2026-09-09
+- **MICROSOFT-EXCEL-ਡਾਟਾ-ਪੜਤਾਲ-2026** — [Apply ਡਾਟਾ ਪੜਤਾਲ ਨੂੰ ਸੈੱਲ](https://support.microsoft.com/en-us/excel/get-started/apply-ਡਾਟਾ-ਪੜਤਾਲ-ਨੂੰ-ਸੈੱਲ) — verified 2026-09-09
+- **MICROSOFT-EXCEL-ਡ੍ਰੌਪ-ਡਾਊਨ-2026** — [ਬਣਾਉਣਾ ਇੱਕ ਡ੍ਰੌਪ-ਡਾਊਨ ਸੂਚੀ](https://support.microsoft.com/en-us/excel/get-started/ਬਣਾਉਣਾ-ਇੱਕ-ਡ੍ਰੌਪ-ਡਾਊਨ-ਸੂਚੀ) — verified 2026-09-09
+- **MICROSOFT-EXCEL-FREEZE-PANES-2026** — [Freeze panes ਨੂੰ lock ਕਤਾਰਾਂ ਅਤੇ ਕਾਲਮ](https://support.microsoft.com/en-us/excel/get-started/freeze-panes-ਨੂੰ-lock-ਕਤਾਰਾਂ-ਅਤੇ-ਕਾਲਮ) — verified 2026-09-09
+- **MICROSOFT-EXCEL-ਲੁਕਾਉਣਾ-ਕਤਾਰਾਂ-ਕਾਲਮ-2026** — [ਲੁਕਾਉਣਾ ਜਾਂ ਦਿਖਾਉਣਾ ਕਤਾਰਾਂ ਜਾਂ ਕਾਲਮ](https://support.microsoft.com/en-us/excel/get-started/ਲੁਕਾਉਣਾ-ਜਾਂ-ਦਿਖਾਉਣਾ-ਕਤਾਰਾਂ-ਜਾਂ-ਕਾਲਮ) — verified 2026-09-09
+- **MICROSOFT-EXCEL-ਦ੍ਰਿਸ਼-MULTIPLE-2026** — [ਦ੍ਰਿਸ਼ multiple panes, sheets ਜਾਂ ਵਰਕਬੁੱਕਾਂ](https://support.microsoft.com/en-us/excel/ਦ੍ਰਿਸ਼-multiple-panes-sheets-ਜਾਂ-ਵਰਕਬੁੱਕਾਂ) — verified 2026-09-09
+- **MICROSOFT-EXCEL-ਸੁਰੱਖਿਅਤ ਕਰਨਾ-ਵਰਕਸ਼ੀਟ-2026** — [Lock ਜਾਂ unlock specific areas ਦਾ ਇੱਕ protected ਵਰਕਸ਼ੀਟ](https://support.microsoft.com/en-us/excel/get-started/lock-ਜਾਂ-unlock-specific-areas-ਦਾ-ਇੱਕ-protected-ਵਰਕਸ਼ੀਟ) — verified 2026-09-09
+- **MICROSOFT-POWERPOINT-HELP-2026** — [PowerPoint help ਅਤੇ learning](https://support.microsoft.com/en-us/powerpoint/powerpoint-help) — verified 2026-09-09
+- **MICROSOFT-POWERPOINT-ਲੇਆਉਟ-2026** — [Apply ਇੱਕ ਸਲਾਈਡ ਲੇਆਉਟ](https://support.microsoft.com/en-us/powerpoint/training/apply-ਇੱਕ-ਸਲਾਈਡ-ਲੇਆਉਟ) — verified 2026-09-09
+- **MICROSOFT-POWERPOINT-ਸਲਾਈਡ-ਮਾਸਟਰ-2026** — [ਕੀ ਹੈ ਇੱਕ ਸਲਾਈਡ ਮਾਸਟਰ ਵਿੱਚ PowerPoint?](https://support.microsoft.com/en-us/powerpoint/training/ਕੀ-ਹੈ-ਇੱਕ-ਸਲਾਈਡ-ਮਾਸਟਰ-ਵਿੱਚ-powerpoint) — verified 2026-09-09
+- **MICROSOFT-POWERPOINT-CUSTOMIZE-ਮਾਸਟਰ-2026** — [Customize ਇੱਕ ਸਲਾਈਡ ਮਾਸਟਰ](https://support.microsoft.com/en-us/powerpoint/training/customize-ਇੱਕ-ਸਲਾਈਡ-ਮਾਸਟਰ) — verified 2026-09-09
+- **MICROSOFT-POWERPOINT-ਤਬਦੀਲੀਆਂ-2026** — [ਜੋੜਨਾ, ਬਦਲਣਾ ਜਾਂ ਹਟਾਉਣਾ ਤਬਦੀਲੀਆਂ between ਸਲਾਈਡਾਂ](https://support.microsoft.com/en-us/powerpoint/training/ਜੋੜਨਾ-ਬਦਲਣਾ-ਜਾਂ-ਹਟਾਉਣਾ-ਤਬਦੀਲੀਆਂ-between-ਸਲਾਈਡਾਂ) — verified 2026-09-09
+- **MICROSOFT-POWERPOINT-ਪੇਸ਼ਕਾਰ-ਦ੍ਰਿਸ਼-2026** — [Start ਇਹ ਪੇਸ਼ਕਾਰੀ ਅਤੇ see your ਨੋਟ ਵਿੱਚ ਪੇਸ਼ਕਾਰ ਦ੍ਰਿਸ਼](https://support.microsoft.com/en-us/powerpoint/training/start-ਇਹ-ਪੇਸ਼ਕਾਰੀ-ਅਤੇ-see-your-ਨੋਟ-ਵਿੱਚ-ਪੇਸ਼ਕਾਰ-ਦ੍ਰਿਸ਼) — verified 2026-09-09
+- **MICROSOFT-POWERPOINT-AUDIO-2026** — [ਜੋੜਨਾ ਜਾਂ ਮਿਟਾਉਣਾ audio ਵਿੱਚ your ਪੇਸ਼ਕਾਰੀ](https://support.microsoft.com/en-us/powerpoint/training/ਜੋੜਨਾ-ਜਾਂ-ਮਿਟਾਉਣਾ-audio-ਵਿੱਚ-your-powerpoint-ਪੇਸ਼ਕਾਰੀ) — verified 2026-09-09
+- **MICROSOFT-POWERPOINT-ਪਲੇਟਫਾਰਮ-COMPARISON-2026** — [Compare PowerPoint ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਉੱਤੇ ਵੱਖਰਾ platforms](https://support.microsoft.com/en-us/powerpoint/compare-powerpoint-ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ-ਉੱਤੇ-ਵੱਖਰਾ-platforms) — verified 2026-09-09
+- **MICROSOFT-POWERPOINT-ਐਨੀਮੇਸ਼ਨ-2026** — [PowerPoint ਐਨੀਮੇਸ਼ਨ ਅਤੇ ਦ੍ਰਿਸ਼ ਪ੍ਰਭਾਵ help](https://support.microsoft.com/en-us/powerpoint/powerpoint-help) — verified 2026-09-09
 
-Authority: COM-003-OFFICE-TABS-COMPLETION-V1
+Authority: COM-003-OFFICE-ਟੈਬ-ਮੁਕੰਮਲਤਾ-V1
 

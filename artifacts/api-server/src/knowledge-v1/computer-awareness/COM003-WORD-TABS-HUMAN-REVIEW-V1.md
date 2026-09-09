@@ -142,197 +142,197 @@ D. Bold
 #### Hindi
 
 #### 1. COM003-WORD-TABS-001 — EASY
-**Question:** Word Ribbon के एक group में क्या होता है?
+**Question:** Word Ribbon के एक समूह में क्या होता है?
 
-A. संबंधित commands
-B. केवल document pages
-C. केवल file names
-D. केवल spelling errors
+एक. संबंधित कमांड
+B. केवल दस्तावेज़ पृष्ठ
+C. केवल फ़ाइल नाम
+D. केवल वर्तनी त्रुटियाँ
 
-**Answer:** संबंधित commands
-**Explanation:** Ribbon group संबंधित commands को एक साथ रखता है ताकि उनका उपयोग साथ किया जा सके।
+**Answer:** संबंधित कमांड
+**Explanation:** Ribbon समूह संबंधित कमांड को एक साथ रखता है ताकि उनका उपयोग साथ किया जा सके।
 **Trace:** COM003-WORD-TABS-001 · com003-word-tabs-ribbon-groups
 
 #### 2. COM003-WORD-TABS-002 — EASY
-**Question:** Save जैसे बार-बार उपयोग होने वाले commands तक जल्दी पहुँच किस Word area से मिलती है?
+**Question:** Save जैसे बार-बार उपयोग होने वाले कमांड तक जल्दी पहुँच किस Word क्षेत्र से मिलती है?
 
-A. Status Bar
+एक. Status Bar
 B. Quick Access Toolbar
 C. Navigation Pane
-D. Ruler
+D. स्केल
 
 **Answer:** Quick Access Toolbar
-**Explanation:** Quick Access Toolbar Save और Undo जैसे सामान्य commands तक जल्दी पहुँच देता है।
+**Explanation:** Quick Access Toolbar Save और पूर्ववत करें जैसे सामान्य कमांड तक जल्दी पहुँच देता है।
 **Trace:** COM003-WORD-TABS-002 · com003-word-tabs-quick-access-toolbar
 
 #### 3. COM003-WORD-TABS-003 — EASY
-**Question:** कौन-सा Word interface area सामान्यतः document का title दिखाता है?
+**Question:** कौन-सा Word इंटरफ़ेस क्षेत्र सामान्यतः दस्तावेज़ का शीर्षक दिखाता है?
 
-A. Ribbon
+एक. Ribbon
 B. Status Bar
 C. Title Bar
 D. Scroll Bar
 
 **Answer:** Title Bar
-**Explanation:** Title Bar सामान्यतः document का नाम और application का नाम दिखाता है।
+**Explanation:** Title Bar सामान्यतः दस्तावेज़ का नाम और अनुप्रयोग का नाम दिखाता है।
 **Trace:** COM003-WORD-TABS-003 · com003-word-tabs-title-bar
 
 #### 4. COM003-WORD-TABS-004 — EASY
-**Question:** Word में page और word-count information सामान्यतः कहाँ दिखाई देती है?
+**Question:** Word में पृष्ठ और शब्द-गिनती जानकारी सामान्यतः कहाँ दिखाई देती है?
 
-A. Title Bar
-B. Home tab
+एक. Title Bar
+B. Home टैब
 C. Quick Access Toolbar
 D. Status Bar
 
 **Answer:** Status Bar
-**Explanation:** Status Bar page position और word count जैसी document information दिखा सकता है।
+**Explanation:** Status Bar पृष्ठ स्थिति और शब्द गिनती जैसी दस्तावेज़ जानकारी दिखा सकता है।
 **Trace:** COM003-WORD-TABS-004 · com003-word-tabs-status-bar
 
 #### 5. COM003-WORD-TABS-005 — EASY
-**Question:** Desktop Word में File tab चुनने पर क्या खुलता है?
+**Question:** डेस्कटॉप Word में File टैब चुनने पर क्या खुलता है?
 
-A. Backstage view
-B. Ruler
-C. Spelling dictionary
-D. Worksheet
+एक. Backstage दृश्य
+B. स्केल
+C. Spelling शब्दकोश
+D. कार्यपत्रक
 
-**Answer:** Backstage view
-**Explanation:** File tab Backstage view खोलता है, जहाँ document और file commands संभाले जाते हैं।
+**Answer:** Backstage दृश्य
+**Explanation:** File टैब Backstage दृश्य खोलता है, जहाँ दस्तावेज़ और फ़ाइल कमांड संभाले जाते हैं।
 **Trace:** COM003-WORD-TABS-005 · com003-word-tabs-file-backstage
 
 #### 6. COM003-WORD-TABS-006 — MEDIUM
-**Question:** Ribbon group में dialog box launcher सामान्यतः क्या खोलता है?
+**Question:** Ribbon समूह में संवाद बॉक्स लॉन्चर सामान्यतः क्या खोलता है?
 
-A. नया document
-B. अधिक detailed settings
-C. Slide show
-D. Windows desktop
+एक. नया दस्तावेज़
+B. अधिक विस्तृत सेटिंग्स
+C. स्लाइड दिखाना
+D. विंडोज़ डेस्कटॉप
 
-**Answer:** अधिक detailed settings
-**Explanation:** Dialog box launcher उस group की अधिक detailed options वाली dialog box खोलता है।
+**Answer:** अधिक विस्तृत सेटिंग्स
+**Explanation:** संवाद बॉक्स लॉन्चर उस समूह की अधिक विस्तृत विकल्प वाली संवाद बॉक्स खोलता है।
 **Trace:** COM003-WORD-TABS-006 · com003-word-tabs-dialog-launcher
 
 #### 7. COM003-WORD-TABS-007 — MEDIUM
-**Question:** Picture या table select करने पर Word में किस प्रकार का tab दिखाई दे सकता है?
+**Question:** चित्र या तालिका चुनना करने पर Word में किस प्रकार का टैब दिखाई दे सकता है?
 
-A. Permanent system tab
-B. केवल File tab
-C. Contextual tab
-D. Worksheet tab
+एक. स्थायी प्रणाली टैब
+B. केवल File टैब
+C. Contextual टैब
+D. कार्यपत्रक टैब
 
-**Answer:** Contextual tab
-**Explanation:** Contextual tab चुने गए object से संबंधित commands दिखाता है और object select होने पर दिखाई दे सकता है।
+**Answer:** Contextual टैब
+**Explanation:** Contextual टैब चुने गए वस्तु से संबंधित कमांड दिखाता है और वस्तु चुनना होने पर दिखाई दे सकता है।
 **Trace:** COM003-WORD-TABS-007 · com003-word-tabs-contextual-tab
 
 #### 8. COM003-WORD-TABS-008 — MEDIUM
-**Question:** कौन-सा Word feature View tab के बजाय मुख्य रूप से Home tab पर मिलता है?
+**Question:** कौन-सा Word सुविधा दृश्य टैब के बजाय मुख्य रूप से Home टैब पर मिलता है?
 
-A. Ruler
+एक. स्केल
 B. Zoom
 C. Navigation Pane
-D. Bold
+D. गाढ़ा
 
-**Answer:** Bold
-**Explanation:** Bold Home tab का character-formatting command है; View tab Zoom और Ruler जैसे viewing tools संभालता है।
+**Answer:** गाढ़ा
+**Explanation:** गाढ़ा Home टैब का अक्षर-स्वरूपण कमांड है; दृश्य टैब Zoom और स्केल जैसे दृश्य देखना उपकरण संभालता है।
 **Trace:** COM003-WORD-TABS-008 · com003-word-tabs-tab-command-ownership
 
 #### Punjabi
 
 #### 1. COM003-WORD-TABS-001 — EASY
-**Question:** Word Ribbon ਦੇ ਇੱਕ group ਵਿੱਚ ਕੀ ਹੁੰਦਾ ਹੈ?
+**Question:** Word Ribbon ਦੇ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-A. ਸੰਬੰਧਿਤ commands
-B. ਸਿਰਫ਼ document pages
-C. ਸਿਰਫ਼ file names
-D. ਸਿਰਫ਼ spelling errors
+ਇੱਕ. ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ
+B. ਸਿਰਫ਼ ਦਸਤਾਵੇਜ਼ ਪੰਨੇ
+C. ਸਿਰਫ਼ ਫ਼ਾਈਲ ਨਾਮ
+D. ਸਿਰਫ਼ ਸ਼ਬਦ-ਜੋੜ ਗਲਤੀਆਂ
 
-**Answer:** ਸੰਬੰਧਿਤ commands
-**Explanation:** Ribbon group ਸੰਬੰਧਿਤ commands ਨੂੰ ਇਕੱਠਾ ਰੱਖਦਾ ਹੈ ਤਾਂ ਜੋ ਉਹਨਾਂ ਨੂੰ ਇਕੱਠੇ ਵਰਤਿਆ ਜਾ ਸਕੇ।
+**Answer:** ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ
+**Explanation:** Ribbon ਸਮੂਹ ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ ਨੂੰ ਇਕੱਠਾ ਰੱਖਦਾ ਹੈ ਤਾਂ ਜੋ ਉਹਨਾਂ ਨੂੰ ਇਕੱਠੇ ਵਰਤਿਆ ਜਾ ਸਕੇ।
 **Trace:** COM003-WORD-TABS-001 · com003-word-tabs-ribbon-groups
 
 #### 2. COM003-WORD-TABS-002 — EASY
-**Question:** Save ਵਰਗੇ ਵਾਰ-ਵਾਰ ਵਰਤੇ ਜਾਣ ਵਾਲੇ commands ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ Word ਦੇ ਕਿਹੜੇ area ਤੋਂ ਮਿਲਦੀ ਹੈ?
+**Question:** Save ਵਰਗੇ ਵਾਰ-ਵਾਰ ਵਰਤੇ ਜਾਣ ਵਾਲੇ ਕਮਾਂਡਾਂ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ Word ਦੇ ਕਿਹੜੇ ਖੇਤਰ ਤੋਂ ਮਿਲਦੀ ਹੈ?
 
-A. Status Bar
+ਇੱਕ. Status Bar
 B. Quick Access Toolbar
 C. Navigation Pane
-D. Ruler
+D. ਪੈਮਾਨਾ
 
 **Answer:** Quick Access Toolbar
-**Explanation:** Quick Access Toolbar Save ਅਤੇ Undo ਵਰਗੇ ਆਮ commands ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ ਦਿੰਦਾ ਹੈ।
+**Explanation:** Quick Access Toolbar Save ਅਤੇ ਵਾਪਸ ਕਰੋ ਵਰਗੇ ਆਮ ਕਮਾਂਡਾਂ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-002 · com003-word-tabs-quick-access-toolbar
 
 #### 3. COM003-WORD-TABS-003 — EASY
-**Question:** ਕਿਹੜਾ Word interface area ਆਮ ਤੌਰ ਉੱਤੇ document ਦਾ title ਦਿਖਾਉਂਦਾ ਹੈ?
+**Question:** ਕਿਹੜਾ Word ਇੰਟਰਫੇਸ ਖੇਤਰ ਆਮ ਤੌਰ ਉੱਤੇ ਦਸਤਾਵੇਜ਼ ਦਾ ਸਿਰਲੇਖ ਦਿਖਾਉਂਦਾ ਹੈ?
 
-A. Ribbon
+ਇੱਕ. Ribbon
 B. Status Bar
 C. Title Bar
 D. Scroll Bar
 
 **Answer:** Title Bar
-**Explanation:** Title Bar ਆਮ ਤੌਰ ਉੱਤੇ document ਦਾ ਨਾਮ ਅਤੇ application ਦਾ ਨਾਮ ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Title Bar ਆਮ ਤੌਰ ਉੱਤੇ ਦਸਤਾਵੇਜ਼ ਦਾ ਨਾਮ ਅਤੇ ਐਪਲੀਕੇਸ਼ਨ ਦਾ ਨਾਮ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-003 · com003-word-tabs-title-bar
 
 #### 4. COM003-WORD-TABS-004 — EASY
-**Question:** Word ਵਿੱਚ page ਅਤੇ word-count information ਆਮ ਤੌਰ ਉੱਤੇ ਕਿੱਥੇ ਦਿਖਾਈ ਦਿੰਦੀ ਹੈ?
+**Question:** Word ਵਿੱਚ ਪੰਨਾ ਅਤੇ ਸ਼ਬਦ-ਗਿਣਤੀ ਜਾਣਕਾਰੀ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿੱਥੇ ਦਿਖਾਈ ਦਿੰਦੀ ਹੈ?
 
-A. Title Bar
-B. Home tab
+ਇੱਕ. Title Bar
+B. Home ਟੈਬ
 C. Quick Access Toolbar
 D. Status Bar
 
 **Answer:** Status Bar
-**Explanation:** Status Bar page position ਅਤੇ word count ਵਰਗੀ document information ਦਿਖਾ ਸਕਦਾ ਹੈ।
+**Explanation:** Status Bar ਪੰਨਾ ਸਥਿਤੀ ਅਤੇ ਸ਼ਬਦ ਗਿਣਤੀ ਵਰਗੀ ਦਸਤਾਵੇਜ਼ ਜਾਣਕਾਰੀ ਦਿਖਾ ਸਕਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-004 · com003-word-tabs-status-bar
 
 #### 5. COM003-WORD-TABS-005 — EASY
-**Question:** Desktop Word ਵਿੱਚ File tab ਚੁਣਨ ਨਾਲ ਕੀ ਖੁੱਲ੍ਹਦਾ ਹੈ?
+**Question:** ਡੈਸਕਟਾਪ Word ਵਿੱਚ File ਟੈਬ ਚੁਣਨ ਨਾਲ ਕੀ ਖੁੱਲ੍ਹਦਾ ਹੈ?
 
-A. Backstage view
-B. Ruler
-C. Spelling dictionary
-D. Worksheet
+ਇੱਕ. Backstage ਦ੍ਰਿਸ਼
+B. ਪੈਮਾਨਾ
+C. Spelling ਸ਼ਬਦਕੋਸ਼
+D. ਵਰਕਸ਼ੀਟ
 
-**Answer:** Backstage view
-**Explanation:** File tab Backstage view ਖੋਲ੍ਹਦਾ ਹੈ, ਜਿੱਥੇ document ਅਤੇ file commands ਸੰਭਾਲੇ ਜਾਂਦੇ ਹਨ।
+**Answer:** Backstage ਦ੍ਰਿਸ਼
+**Explanation:** File ਟੈਬ Backstage ਦ੍ਰਿਸ਼ ਖੋਲ੍ਹਦਾ ਹੈ, ਜਿੱਥੇ ਦਸਤਾਵੇਜ਼ ਅਤੇ ਫ਼ਾਈਲ ਕਮਾਂਡਾਂ ਸੰਭਾਲੇ ਜਾਂਦੇ ਹਨ।
 **Trace:** COM003-WORD-TABS-005 · com003-word-tabs-file-backstage
 
 #### 6. COM003-WORD-TABS-006 — MEDIUM
-**Question:** Ribbon group ਵਿੱਚ dialog box launcher ਆਮ ਤੌਰ ਉੱਤੇ ਕੀ ਖੋਲ੍ਹਦਾ ਹੈ?
+**Question:** Ribbon ਸਮੂਹ ਵਿੱਚ ਸੰਵਾਦ ਬਾਕਸ ਲਾਂਚਰ ਆਮ ਤੌਰ ਉੱਤੇ ਕੀ ਖੋਲ੍ਹਦਾ ਹੈ?
 
-A. ਨਵਾਂ document
-B. ਹੋਰ detailed settings
-C. Slide show
-D. Windows desktop
+ਇੱਕ. ਨਵਾਂ ਦਸਤਾਵੇਜ਼
+B. ਹੋਰ ਵਿਸਥਾਰ ਵਾਲਾ ਸੈਟਿੰਗਾਂ
+C. ਸਲਾਈਡ ਦਿਖਾਉਣਾ
+D. ਵਿੰਡੋਜ਼ ਡੈਸਕਟਾਪ
 
-**Answer:** ਹੋਰ detailed settings
-**Explanation:** Dialog box launcher ਉਸ group ਦੀਆਂ ਹੋਰ detailed options ਵਾਲੀ dialog box ਖੋਲ੍ਹਦਾ ਹੈ।
+**Answer:** ਹੋਰ ਵਿਸਥਾਰ ਵਾਲਾ ਸੈਟਿੰਗਾਂ
+**Explanation:** ਸੰਵਾਦ ਬਾਕਸ ਲਾਂਚਰ ਉਸ ਸਮੂਹ ਦੀਆਂ ਹੋਰ ਵਿਸਥਾਰ ਵਾਲਾ ਵਿਕਲਪ ਵਾਲੀ ਸੰਵਾਦ ਬਾਕਸ ਖੋਲ੍ਹਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-006 · com003-word-tabs-dialog-launcher
 
 #### 7. COM003-WORD-TABS-007 — MEDIUM
-**Question:** Picture ਜਾਂ table select ਕਰਨ ਨਾਲ Word ਵਿੱਚ ਕਿਹੜੀ ਕਿਸਮ ਦਾ tab ਦਿਖ ਸਕਦਾ ਹੈ?
+**Question:** ਤਸਵੀਰ ਜਾਂ ਟੇਬਲ ਚੁਣਨਾ ਕਰਨ ਨਾਲ Word ਵਿੱਚ ਕਿਹੜੀ ਕਿਸਮ ਦਾ ਟੈਬ ਦਿਖ ਸਕਦਾ ਹੈ?
 
-A. Permanent system tab
-B. ਸਿਰਫ਼ File tab
-C. Contextual tab
-D. Worksheet tab
+ਇੱਕ. ਸਥਾਈ ਪ੍ਰਣਾਲੀ ਟੈਬ
+B. ਸਿਰਫ਼ File ਟੈਬ
+C. Contextual ਟੈਬ
+D. ਵਰਕਸ਼ੀਟ ਟੈਬ
 
-**Answer:** Contextual tab
-**Explanation:** Contextual tab ਚੁਣੇ object ਨਾਲ ਸੰਬੰਧਿਤ commands ਦਿਖਾਉਂਦਾ ਹੈ ਅਤੇ object select ਹੋਣ ਉੱਤੇ ਆ ਸਕਦਾ ਹੈ।
+**Answer:** Contextual ਟੈਬ
+**Explanation:** Contextual ਟੈਬ ਚੁਣੇ ਵਸਤੂ ਨਾਲ ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ ਦਿਖਾਉਂਦਾ ਹੈ ਅਤੇ ਵਸਤੂ ਚੁਣਨਾ ਹੋਣ ਉੱਤੇ ਆ ਸਕਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-007 · com003-word-tabs-contextual-tab
 
 #### 8. COM003-WORD-TABS-008 — MEDIUM
-**Question:** ਕਿਹੜਾ Word feature View tab ਦੀ ਬਜਾਏ ਮੁੱਖ ਤੌਰ ਉੱਤੇ Home tab ਉੱਤੇ ਮਿਲਦਾ ਹੈ?
+**Question:** ਕਿਹੜਾ Word ਵਿਸ਼ੇਸ਼ਤਾ ਦ੍ਰਿਸ਼ ਟੈਬ ਦੀ ਬਜਾਏ ਮੁੱਖ ਤੌਰ ਉੱਤੇ Home ਟੈਬ ਉੱਤੇ ਮਿਲਦਾ ਹੈ?
 
-A. Ruler
+ਇੱਕ. ਪੈਮਾਨਾ
 B. Zoom
 C. Navigation Pane
-D. Bold
+D. ਗੂੜ੍ਹਾ
 
-**Answer:** Bold
-**Explanation:** Bold Home tab ਦਾ character-formatting command ਹੈ; View tab Zoom ਅਤੇ Ruler ਵਰਗੇ viewing tools ਸੰਭਾਲਦਾ ਹੈ।
+**Answer:** ਗੂੜ੍ਹਾ
+**Explanation:** ਗੂੜ੍ਹਾ Home ਟੈਬ ਦਾ ਅੱਖਰ-ਸਜਾਵਟ ਕਮਾਂਡ ਹੈ; ਦ੍ਰਿਸ਼ ਟੈਬ Zoom ਅਤੇ ਪੈਮਾਨਾ ਵਰਗੇ ਦੇਖਣ ਸਾਧਨ ਸੰਭਾਲਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-008 · com003-word-tabs-tab-command-ownership
 
 ### COM-003-QL-021 — Word Home Tab
@@ -438,197 +438,197 @@ D. Replace All
 #### Hindi
 
 #### 1. COM003-WORD-TABS-009 — EASY
-**Question:** Cut, Copy और Paste commands किस Home-tab group में होते हैं?
+**Question:** काटें, कॉपी और पेस्ट कमांड किस Home टैबटैब समूह में होते हैं?
 
-A. Clipboard
+एक. Clipboard
 B. Font
 C. Styles
-D. Editing
+D. संपादन
 
 **Answer:** Clipboard
-**Explanation:** Clipboard group में Cut, Copy और Paste जैसे सामान्य commands होते हैं।
+**Explanation:** Clipboard समूह में काटें, कॉपी और पेस्ट जैसे सामान्य कमांड होते हैं।
 **Trace:** COM003-WORD-TABS-009 · com003-word-home-clipboard
 
 #### 2. COM003-WORD-TABS-010 — EASY
-**Question:** एक selection की formatting को दूसरी selection पर copy करने वाला Home-tab tool कौन-सा है?
+**Question:** एक चयन की स्वरूपण को दूसरी चयन पर कॉपी करने वाला Home टैबटैब उपकरण कौन-सा है?
 
-A. Replace
+एक. Replace
 B. Format Painter
 C. Word Count
 D. Translate
 
 **Answer:** Format Painter
-**Explanation:** Format Painter font, size और style जैसी formatting को दूसरी selection पर copy करता है।
+**Explanation:** Format Painter फ़ॉन्ट, आकार और शैली जैसी स्वरूपण को दूसरी चयन पर कॉपी करता है।
 **Trace:** COM003-WORD-TABS-010 · com003-word-home-format-painter
 
 #### 3. COM003-WORD-TABS-011 — EASY
-**Question:** Font name, size और character style बदलने वाला Home-tab group कौन-सा है?
+**Question:** Font नाम, आकार और अक्षर शैली बदलने वाला Home टैबटैब समूह कौन-सा है?
 
-A. Paragraph
+एक. Paragraph
 B. Clipboard
-C. Editing
+C. संपादन
 D. Font
 
 **Answer:** Font
-**Explanation:** Font group font name, size, bold और italic जैसी character settings संभालता है।
+**Explanation:** Font समूह फ़ॉन्ट नाम, आकार, गाढ़ा और तिरछा जैसी अक्षर सेटिंग्स संभालता है।
 **Trace:** COM003-WORD-TABS-011 · com003-word-home-font-group
 
 #### 4. COM003-WORD-TABS-012 — EASY
-**Question:** Paragraph को left, centred, right या justified करने वाला Home-tab command कौन-सा है?
+**Question:** Paragraph को बायाँ, केंद्रित, दायाँ या समायोजित करने वाला Home टैबटैब कमांड कौन-सा है?
 
-A. Font Color
+एक. Font Color
 B. Change Case
 C. Text Highlight
-D. Paragraph alignment
+D. Paragraph संरेखण
 
-**Answer:** Paragraph alignment
-**Explanation:** Paragraph alignment paragraph text की horizontal position नियंत्रित करता है।
+**Answer:** Paragraph संरेखण
+**Explanation:** Paragraph संरेखण अनुच्छेद पाठ की क्षैतिज स्थिति नियंत्रित करता है।
 **Trace:** COM003-WORD-TABS-012 · com003-word-home-alignment
 
 #### 5. COM003-WORD-TABS-013 — EASY
-**Question:** Unordered list बनाने के लिए Home tab का कौन-सा feature उपयोग होता है?
+**Question:** अक्रमित सूची बनाने के लिए Home टैब का कौन-सा सुविधा उपयोग होता है?
 
-A. Bullets
-B. Numbering
+एक. बुलेट
+B. क्रमांकन
 C. Sort
 D. Borders
 
-**Answer:** Bullets
-**Explanation:** Bullets unordered list बनाते हैं जिसमें items को sequence number के बिना चिन्हित किया जाता है।
+**Answer:** बुलेट
+**Explanation:** बुलेट अक्रमित सूची बनाते हैं जिसमें वस्तुएँ को क्रम संख्या के बिना चिन्हित किया जाता है।
 **Trace:** COM003-WORD-TABS-013 · com003-word-home-bullets
 
 #### 6. COM003-WORD-TABS-014 — EASY
-**Question:** Text पर coordinated formatting लागू करने वाला Home-tab area कौन-सा है?
+**Question:** पाठ पर समन्वित स्वरूपण लागू करने वाला Home टैबटैब क्षेत्र कौन-सा है?
 
-A. Clipboard
+एक. Clipboard
 B. Styles
-C. Editing
-D. Voice
+C. संपादन
+D. आवाज़
 
 **Answer:** Styles
-**Explanation:** Styles gallery text पर heading style जैसी coordinated formatting लागू करती है।
+**Explanation:** Styles गैलरी पाठ पर शीर्षक शैली जैसी समन्वित स्वरूपण लागू करती है।
 **Trace:** COM003-WORD-TABS-014 · com003-word-home-styles
 
 #### 7. COM003-WORD-TABS-015 — EASY
-**Question:** Word या phrase को बिना बदले locate करने वाला Home-tab command कौन-सा है?
+**Question:** Word या वाक्यांश को बिना बदले ढूँढना करने वाला Home टैबटैब कमांड कौन-सा है?
 
-A. Replace
-B. Select All
-C. Find
+एक. Replace
+B. चुनना सभी
+C. ढूँढना
 D. Format Painter
 
-**Answer:** Find
-**Explanation:** Find word या phrase खोजता है; मिले हुए text को बदलने के लिए Replace उपयोग होता है।
+**Answer:** ढूँढना
+**Explanation:** ढूँढना शब्द या वाक्यांश खोजता है; मिले हुए पाठ को बदलने के लिए Replace उपयोग होता है।
 **Trace:** COM003-WORD-TABS-015 · com003-word-home-find
 
 #### 8. COM003-WORD-TABS-016 — MEDIUM
-**Question:** किस Home-tab command से word या phrase की सभी matching occurrences बदली जाती हैं?
+**Question:** किस Home टैबटैब कमांड से शब्द या वाक्यांश की सभी मिलान उपस्थितियाँ बदली जाती हैं?
 
-A. Find
-B. Select
+एक. ढूँढना
+B. चुनना
 C. Sort
-D. Replace All
+D. Replace सभी
 
-**Answer:** Replace All
-**Explanation:** Replace All document में specified text की हर matching occurrence बदलता है।
+**Answer:** Replace सभी
+**Explanation:** Replace सभी दस्तावेज़ में निर्दिष्ट पाठ की हर मिलान उपस्थिति बदलता है।
 **Trace:** COM003-WORD-TABS-016 · com003-word-home-replace
 
 #### Punjabi
 
 #### 1. COM003-WORD-TABS-009 — EASY
-**Question:** Cut, Copy ਅਤੇ Paste commands ਕਿਹੜੇ Home-tab group ਵਿੱਚ ਹੁੰਦੇ ਹਨ?
+**Question:** ਕੱਟੋ, ਕਾਪੀ ਅਤੇ ਪੇਸਟ ਕਮਾਂਡਾਂ ਕਿਹੜੇ Home ਟੈਬਟੈਬ ਸਮੂਹ ਵਿੱਚ ਹੁੰਦੇ ਹਨ?
 
-A. Clipboard
+ਇੱਕ. Clipboard
 B. Font
 C. Styles
-D. Editing
+D. ਸੋਧ
 
 **Answer:** Clipboard
-**Explanation:** Clipboard group ਵਿੱਚ Cut, Copy ਅਤੇ Paste ਵਰਗੇ ਆਮ commands ਹੁੰਦੇ ਹਨ।
+**Explanation:** Clipboard ਸਮੂਹ ਵਿੱਚ ਕੱਟੋ, ਕਾਪੀ ਅਤੇ ਪੇਸਟ ਵਰਗੇ ਆਮ ਕਮਾਂਡਾਂ ਹੁੰਦੇ ਹਨ।
 **Trace:** COM003-WORD-TABS-009 · com003-word-home-clipboard
 
 #### 2. COM003-WORD-TABS-010 — EASY
-**Question:** ਇੱਕ selection ਦੀ formatting ਨੂੰ ਦੂਜੀ selection ਉੱਤੇ copy ਕਰਨ ਵਾਲਾ Home-tab tool ਕਿਹੜਾ ਹੈ?
+**Question:** ਇੱਕ ਚੋਣ ਦੀ ਸਜਾਵਟ ਨੂੰ ਦੂਜੀ ਚੋਣ ਉੱਤੇ ਕਾਪੀ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸਾਧਨ ਕਿਹੜਾ ਹੈ?
 
-A. Replace
+ਇੱਕ. Replace
 B. Format Painter
 C. Word Count
 D. Translate
 
 **Answer:** Format Painter
-**Explanation:** Format Painter font, size ਅਤੇ style ਵਰਗੀ formatting ਨੂੰ ਦੂਜੀ selection ਉੱਤੇ copy ਕਰਦਾ ਹੈ।
+**Explanation:** Format Painter ਫੌਂਟ, ਆਕਾਰ ਅਤੇ ਸ਼ੈਲੀ ਵਰਗੀ ਸਜਾਵਟ ਨੂੰ ਦੂਜੀ ਚੋਣ ਉੱਤੇ ਕਾਪੀ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-010 · com003-word-home-format-painter
 
 #### 3. COM003-WORD-TABS-011 — EASY
-**Question:** Font name, size ਅਤੇ character style ਬਦਲਣ ਵਾਲਾ Home-tab group ਕਿਹੜਾ ਹੈ?
+**Question:** Font ਨਾਮ, ਆਕਾਰ ਅਤੇ ਅੱਖਰ ਸ਼ੈਲੀ ਬਦਲਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?
 
-A. Paragraph
+ਇੱਕ. Paragraph
 B. Clipboard
-C. Editing
+C. ਸੋਧ
 D. Font
 
 **Answer:** Font
-**Explanation:** Font group font name, size, bold ਅਤੇ italic ਵਰਗੀਆਂ character settings ਸੰਭਾਲਦਾ ਹੈ।
+**Explanation:** Font ਸਮੂਹ ਫੌਂਟ ਨਾਮ, ਆਕਾਰ, ਗੂੜ੍ਹਾ ਅਤੇ ਤਿਰਛਾ ਵਰਗੀਆਂ ਅੱਖਰ ਸੈਟਿੰਗਾਂ ਸੰਭਾਲਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-011 · com003-word-home-font-group
 
 #### 4. COM003-WORD-TABS-012 — EASY
-**Question:** Paragraph ਨੂੰ left, centred, right ਜਾਂ justified ਕਰਨ ਵਾਲਾ Home-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** Paragraph ਨੂੰ ਖੱਬਾ, ਕੇਂਦਰਿਤ, ਸੱਜਾ ਜਾਂ ਬਰਾਬਰ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Font Color
+ਇੱਕ. Font Color
 B. Change Case
 C. Text Highlight
-D. Paragraph alignment
+D. Paragraph ਸੰਰેખਣ
 
-**Answer:** Paragraph alignment
-**Explanation:** Paragraph alignment paragraph text ਦੀ horizontal position ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
+**Answer:** Paragraph ਸੰਰેખਣ
+**Explanation:** Paragraph ਸੰਰેખਣ ਪੈਰਾਗ੍ਰਾਫ ਲਿਖਤ ਦੀ ਲੇਟਵਾਂ ਸਥਿਤੀ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-012 · com003-word-home-alignment
 
 #### 5. COM003-WORD-TABS-013 — EASY
-**Question:** Unordered list ਬਣਾਉਣ ਲਈ Home tab ਦਾ ਕਿਹੜਾ feature ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?
+**Question:** ਬਿਨਾਂ ਕ੍ਰਮ ਵਾਲੀ ਸੂਚੀ ਬਣਾਉਣ ਲਈ Home ਟੈਬ ਦਾ ਕਿਹੜਾ ਵਿਸ਼ੇਸ਼ਤਾ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?
 
-A. Bullets
-B. Numbering
+ਇੱਕ. ਬੁਲੇਟ
+B. ਕ੍ਰਮ-ਅੰਕਣ
 C. Sort
 D. Borders
 
-**Answer:** Bullets
-**Explanation:** Bullets unordered list ਬਣਾਉਂਦੇ ਹਨ ਜਿਸ ਵਿੱਚ items ਨੂੰ sequence number ਤੋਂ ਬਿਨਾਂ ਨਿਸ਼ਾਨ ਲਾਇਆ ਜਾਂਦਾ ਹੈ।
+**Answer:** ਬੁਲੇਟ
+**Explanation:** ਬੁਲੇਟ ਬਿਨਾਂ ਕ੍ਰਮ ਵਾਲੀ ਸੂਚੀ ਬਣਾਉਂਦੇ ਹਨ ਜਿਸ ਵਿੱਚ ਵਸਤੂਆਂ ਨੂੰ ਕ੍ਰਮ ਅੰਕ ਤੋਂ ਬਿਨਾਂ ਨਿਸ਼ਾਨ ਲਾਇਆ ਜਾਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-013 · com003-word-home-bullets
 
 #### 6. COM003-WORD-TABS-014 — EASY
-**Question:** Text ਉੱਤੇ coordinated formatting ਲਾਗੂ ਕਰਨ ਵਾਲਾ Home-tab area ਕਿਹੜਾ ਹੈ?
+**Question:** ਲਿਖਤ ਉੱਤੇ ਸਮਨਵਿਤ ਸਜਾਵਟ ਲਾਗੂ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-A. Clipboard
+ਇੱਕ. Clipboard
 B. Styles
-C. Editing
-D. Voice
+C. ਸੋਧ
+D. ਆਵਾਜ਼
 
 **Answer:** Styles
-**Explanation:** Styles gallery text ਉੱਤੇ heading style ਵਰਗੀ coordinated formatting ਲਾਗੂ ਕਰਦੀ ਹੈ।
+**Explanation:** Styles ਗੈਲਰੀ ਲਿਖਤ ਉੱਤੇ ਸਿਰਲੇਖ ਸ਼ੈਲੀ ਵਰਗੀ ਸਮਨਵਿਤ ਸਜਾਵਟ ਲਾਗੂ ਕਰਦੀ ਹੈ।
 **Trace:** COM003-WORD-TABS-014 · com003-word-home-styles
 
 #### 7. COM003-WORD-TABS-015 — EASY
-**Question:** Word ਜਾਂ phrase ਨੂੰ ਬਦਲੇ ਬਿਨਾਂ locate ਕਰਨ ਵਾਲਾ Home-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** Word ਜਾਂ ਵਾਕ-ਅੰਸ਼ ਨੂੰ ਬਦਲੇ ਬਿਨਾਂ ਲੱਭਣਾ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Replace
-B. Select All
-C. Find
+ਇੱਕ. Replace
+B. ਚੁਣਨਾ ਸਾਰੇ
+C. ਲੱਭਣਾ
 D. Format Painter
 
-**Answer:** Find
-**Explanation:** Find word ਜਾਂ phrase ਖੋਜਦਾ ਹੈ; ਮਿਲੇ text ਨੂੰ ਬਦਲਣ ਲਈ Replace ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ।
+**Answer:** ਲੱਭਣਾ
+**Explanation:** ਲੱਭਣਾ ਸ਼ਬਦ ਜਾਂ ਵਾਕ-ਅੰਸ਼ ਖੋਜਦਾ ਹੈ; ਮਿਲੇ ਲਿਖਤ ਨੂੰ ਬਦਲਣ ਲਈ Replace ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-015 · com003-word-home-find
 
 #### 8. COM003-WORD-TABS-016 — MEDIUM
-**Question:** ਕਿਹੜੇ Home-tab command ਨਾਲ word ਜਾਂ phrase ਦੀਆਂ ਸਾਰੀਆਂ matching occurrences ਬਦਲੀਆਂ ਜਾਂਦੀਆਂ ਹਨ?
+**Question:** ਕਿਹੜੇ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਨਾਲ ਸ਼ਬਦ ਜਾਂ ਵਾਕ-ਅੰਸ਼ ਦੀਆਂ ਸਾਰੀਆਂ ਮਿਲਾਨ ਮੌਜੂਦਗੀਆਂ ਬਦਲੀਆਂ ਜਾਂਦੀਆਂ ਹਨ?
 
-A. Find
-B. Select
+ਇੱਕ. ਲੱਭਣਾ
+B. ਚੁਣਨਾ
 C. Sort
-D. Replace All
+D. Replace ਸਾਰੇ
 
-**Answer:** Replace All
-**Explanation:** Replace All document ਵਿੱਚ specified text ਦੀ ਹਰ matching occurrence ਬਦਲਦਾ ਹੈ।
+**Answer:** Replace ਸਾਰੇ
+**Explanation:** Replace ਸਾਰੇ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਨਿਰਧਾਰਤ ਲਿਖਤ ਦੀ ਹਰ ਮਿਲਾਨ ਮੌਜੂਦਗੀ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-016 · com003-word-home-replace
 
 ### COM-003-QL-022 — Word Insert Tab
@@ -734,197 +734,197 @@ D. Page Break
 #### Hindi
 
 #### 1. COM003-WORD-TABS-017 — EASY
-**Question:** Rows और columns में information व्यवस्थित करने वाला Insert-tab feature कौन-सा है?
+**Question:** पंक्तियाँ और स्तंभ में जानकारी व्यवस्थित करने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-A. Table
+एक. तालिका
 B. WordArt
-C. Bookmark
+C. बुकमार्क
 D. Equation
 
-**Answer:** Table
-**Explanation:** Table information को rows और columns में व्यवस्थित करता है।
+**Answer:** तालिका
+**Explanation:** तालिका जानकारी को पंक्तियाँ और स्तंभ में व्यवस्थित करता है।
 **Trace:** COM003-WORD-TABS-017 · com003-word-insert-table
 
 #### 2. COM003-WORD-TABS-018 — EASY
-**Question:** Word document में photograph या अन्य image जोड़ने वाला Insert-tab feature कौन-सा है?
+**Question:** Word दस्तावेज़ में फ़ोटो या अन्य चित्र जोड़ने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-A. Chart
+एक. Chart
 B. Pictures
 C. Footnote
 D. Caption
 
 **Answer:** Pictures
-**Explanation:** Pictures photograph या illustration जैसी image content insert करता है।
+**Explanation:** Pictures फ़ोटो या चित्रण जैसी चित्र सामग्री डालना करता है।
 **Trace:** COM003-WORD-TABS-018 · com003-word-insert-picture
 
 #### 3. COM003-WORD-TABS-019 — EASY
-**Question:** Ready-made lines, arrows और geometric objects जोड़ने वाला Insert-tab feature कौन-सा है?
+**Question:** पहले से तैयार पंक्तियाँ, तीर और ज्यामितीय वस्तुएँ जोड़ने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-A. Header
+एक. शीर्षलेख
 B. Symbol
 C. Shapes
-D. Page Number
+D. पृष्ठ Number
 
 **Answer:** Shapes
-**Explanation:** Shapes insertion के लिए ready-made lines, arrows और geometric objects देता है।
+**Explanation:** Shapes सम्मिलन के लिए पहले से तैयार पंक्तियाँ, तीर और ज्यामितीय वस्तुएँ देता है।
 **Trace:** COM003-WORD-TABS-019 · com003-word-insert-shapes
 
 #### 4. COM003-WORD-TABS-020 — EASY
-**Question:** Process या hierarchy को visually present करने के लिए कौन-सा Insert-tab feature बना है?
+**Question:** प्रक्रिया या पदानुक्रम को दृश्य रूप से प्रस्तुत करना करने के लिए कौन-सा Insert टैबटैब सुविधा बना है?
 
-A. Table
-B. Page Break
-C. Bookmark
+एक. तालिका
+B. पृष्ठ विराम
+C. बुकमार्क
 D. SmartArt
 
 **Answer:** SmartArt
-**Explanation:** SmartArt processes, hierarchies और related information के लिए visual layouts देता है।
+**Explanation:** SmartArt प्रक्रियाएँ, पदानुक्रम और संबंधित जानकारी के लिए दृश्य लेआउट देता है।
 **Trace:** COM003-WORD-TABS-020 · com003-word-insert-smartart
 
 #### 5. COM003-WORD-TABS-021 — EASY
-**Question:** Header या footer जोड़ने का command Word में कहाँ होता है?
+**Question:** शीर्षलेख या पादलेख जोड़ने का कमांड Word में कहाँ होता है?
 
-A. Insert tab
-B. Design tab
-C. Review tab
-D. View tab
+एक. Insert टैब
+B. डिज़ाइन टैब
+C. समीक्षा टैब
+D. दृश्य टैब
 
-**Answer:** Insert tab
-**Explanation:** Word में Header और Footer commands Insert tab पर होते हैं।
+**Answer:** Insert टैब
+**Explanation:** Word में शीर्षलेख और पादलेख कमांड Insert टैब पर होते हैं।
 **Trace:** COM003-WORD-TABS-021 · com003-word-insert-header-footer
 
 #### 6. COM003-WORD-TABS-022 — EASY
-**Question:** Document में page numbers जोड़ने वाला Insert-tab command कौन-सा है?
+**Question:** दस्तावेज़ में पृष्ठ संख्याएँ जोड़ने वाला Insert टैबटैब कमांड कौन-सा है?
 
-A. Caption
-B. Page Number
-C. Bookmark
+एक. Caption
+B. पृष्ठ Number
+C. बुकमार्क
 D. Text Box
 
-**Answer:** Page Number
-**Explanation:** Page Number command header, footer या उपलब्ध अन्य position में numbering insert करता है।
+**Answer:** पृष्ठ Number
+**Explanation:** पृष्ठ Number कमांड शीर्षलेख, पादलेख या उपलब्ध अन्य स्थिति में क्रमांकन डालना करता है।
 **Trace:** COM003-WORD-TABS-022 · com003-word-insert-page-number
 
 #### 7. COM003-WORD-TABS-023 — EASY
-**Question:** Webpage या अन्य location का clickable link बनाने वाला Insert-tab feature कौन-सा है?
+**Question:** वेबपृष्ठ या अन्य स्थान का क्लिक करने योग्य लिंक बनाने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-A. Equation
+एक. Equation
 B. Symbol
-C. Link
-D. Screenshot
+C. लिंक
+D. स्क्रीनशॉट
 
-**Answer:** Link
-**Explanation:** Link webpage, file या अन्य location के लिए hyperlink बनाता है।
+**Answer:** लिंक
+**Explanation:** लिंक वेबपृष्ठ, फ़ाइल या अन्य स्थान के लिए हाइपरलिंक बनाता है।
 **Trace:** COM003-WORD-TABS-023 · com003-word-insert-hyperlink
 
 #### 8. COM003-WORD-TABS-024 — EASY
-**Question:** Following content को नए page पर शुरू करने वाला Insert-tab command कौन-सा है?
+**Question:** निम्नलिखित सामग्री को नए पृष्ठ पर शुरू करने वाला Insert टैबटैब कमांड कौन-सा है?
 
-A. Section
-B. Column
+एक. Section
+B. स्तंभ
 C. Caption
-D. Page Break
+D. पृष्ठ विराम
 
-**Answer:** Page Break
-**Explanation:** Page Break following content को अगले page पर शुरू करता है।
+**Answer:** पृष्ठ विराम
+**Explanation:** पृष्ठ विराम निम्नलिखित सामग्री को अगले पृष्ठ पर शुरू करता है।
 **Trace:** COM003-WORD-TABS-024 · com003-word-insert-page-break
 
 #### Punjabi
 
 #### 1. COM003-WORD-TABS-017 — EASY
-**Question:** Rows ਅਤੇ columns ਵਿੱਚ information व्यवस्थित ਕਰਨ ਵਾਲਾ Insert-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਕਤਾਰਾਂ ਅਤੇ ਕਾਲਮ ਵਿੱਚ ਜਾਣਕਾਰੀ व्यवस्थित ਕਰਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Table
+ਇੱਕ. ਟੇਬਲ
 B. WordArt
-C. Bookmark
+C. ਬੁੱਕਮਾਰਕ
 D. Equation
 
-**Answer:** Table
-**Explanation:** Table information ਨੂੰ rows ਅਤੇ columns ਵਿੱਚ व्यवस्थित ਕਰਦਾ ਹੈ।
+**Answer:** ਟੇਬਲ
+**Explanation:** ਟੇਬਲ ਜਾਣਕਾਰੀ ਨੂੰ ਕਤਾਰਾਂ ਅਤੇ ਕਾਲਮ ਵਿੱਚ व्यवस्थित ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-017 · com003-word-insert-table
 
 #### 2. COM003-WORD-TABS-018 — EASY
-**Question:** Word document ਵਿੱਚ photograph ਜਾਂ ਹੋਰ image ਜੋੜਨ ਵਾਲਾ Insert-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** Word ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਤਸਵੀਰ ਜਾਂ ਹੋਰ ਤਸਵੀਰ ਜੋੜਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Chart
+ਇੱਕ. Chart
 B. Pictures
 C. Footnote
 D. Caption
 
 **Answer:** Pictures
-**Explanation:** Pictures photograph ਜਾਂ illustration ਵਰਗੀ image content insert ਕਰਦਾ ਹੈ।
+**Explanation:** Pictures ਤਸਵੀਰ ਜਾਂ ਚਿੱਤਰਣ ਵਰਗੀ ਤਸਵੀਰ ਸਮੱਗਰੀ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-018 · com003-word-insert-picture
 
 #### 3. COM003-WORD-TABS-019 — EASY
-**Question:** Ready-made lines, arrows ਅਤੇ geometric objects ਜੋੜਨ ਵਾਲਾ Insert-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਪਹਿਲਾਂ ਤੋਂ ਤਿਆਰ ਲਾਈਨਾਂ, ਤੀਰ ਅਤੇ ਜਿਆਮਿਤੀ ਵਸਤੂਆਂ ਜੋੜਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Header
+ਇੱਕ. ਉੱਪਰਲਾ ਸਿਰਲੇਖ
 B. Symbol
 C. Shapes
-D. Page Number
+D. ਪੰਨਾ Number
 
 **Answer:** Shapes
-**Explanation:** Shapes insertion ਲਈ ready-made lines, arrows ਅਤੇ geometric objects ਦਿੰਦਾ ਹੈ।
+**Explanation:** Shapes ਸ਼ਾਮਲ ਕਰਨਾ ਲਈ ਪਹਿਲਾਂ ਤੋਂ ਤਿਆਰ ਲਾਈਨਾਂ, ਤੀਰ ਅਤੇ ਜਿਆਮਿਤੀ ਵਸਤੂਆਂ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-019 · com003-word-insert-shapes
 
 #### 4. COM003-WORD-TABS-020 — EASY
-**Question:** Process ਜਾਂ hierarchy ਨੂੰ visually present ਕਰਨ ਲਈ ਕਿਹੜਾ Insert-tab feature ਬਣਿਆ ਹੈ?
+**Question:** ਪ੍ਰਕਿਰਿਆ ਜਾਂ ਪਦਾਨੁਕ੍ਰਮ ਨੂੰ ਦ੍ਰਿਸ਼ਟੀਗਤ ਤੌਰ ਉੱਤੇ ਪੇਸ਼ ਕਰਨਾ ਕਰਨ ਲਈ ਕਿਹੜਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਬਣਿਆ ਹੈ?
 
-A. Table
-B. Page Break
-C. Bookmark
+ਇੱਕ. ਟੇਬਲ
+B. ਪੰਨਾ ਵਿਰਾਮ
+C. ਬੁੱਕਮਾਰਕ
 D. SmartArt
 
 **Answer:** SmartArt
-**Explanation:** SmartArt processes, hierarchies ਅਤੇ related information ਲਈ visual layouts ਦਿੰਦਾ ਹੈ।
+**Explanation:** SmartArt ਪ੍ਰਕਿਰਿਆਵਾਂ, ਪਦਾਨੁਕ੍ਰਮ ਅਤੇ ਸੰਬੰਧਿਤ ਜਾਣਕਾਰੀ ਲਈ ਦ੍ਰਿਸ਼ ਲੇਆਉਟ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-020 · com003-word-insert-smartart
 
 #### 5. COM003-WORD-TABS-021 — EASY
-**Question:** Header ਜਾਂ footer ਜੋੜਨ ਵਾਲਾ command Word ਵਿੱਚ ਕਿੱਥੇ ਹੁੰਦਾ ਹੈ?
+**Question:** ਉੱਪਰਲਾ ਸਿਰਲੇਖ ਜਾਂ ਹੇਠਲਾ ਸਿਰਲੇਖ ਜੋੜਨ ਵਾਲਾ ਕਮਾਂਡ Word ਵਿੱਚ ਕਿੱਥੇ ਹੁੰਦਾ ਹੈ?
 
-A. Insert tab
-B. Design tab
-C. Review tab
-D. View tab
+ਇੱਕ. Insert ਟੈਬ
+B. ਡਿਜ਼ਾਈਨ ਟੈਬ
+C. ਸਮੀਖਿਆ ਟੈਬ
+D. ਦ੍ਰਿਸ਼ ਟੈਬ
 
-**Answer:** Insert tab
-**Explanation:** Word ਵਿੱਚ Header ਅਤੇ Footer commands Insert tab ਉੱਤੇ ਹੁੰਦੇ ਹਨ।
+**Answer:** Insert ਟੈਬ
+**Explanation:** Word ਵਿੱਚ ਉੱਪਰਲਾ ਸਿਰਲੇਖ ਅਤੇ ਹੇਠਲਾ ਸਿਰਲੇਖ ਕਮਾਂਡਾਂ Insert ਟੈਬ ਉੱਤੇ ਹੁੰਦੇ ਹਨ।
 **Trace:** COM003-WORD-TABS-021 · com003-word-insert-header-footer
 
 #### 6. COM003-WORD-TABS-022 — EASY
-**Question:** Document ਵਿੱਚ page numbers ਜੋੜਨ ਵਾਲਾ Insert-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਪੰਨਾ ਅੰਕ ਜੋੜਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Caption
-B. Page Number
-C. Bookmark
+ਇੱਕ. Caption
+B. ਪੰਨਾ Number
+C. ਬੁੱਕਮਾਰਕ
 D. Text Box
 
-**Answer:** Page Number
-**Explanation:** Page Number command header, footer ਜਾਂ ਉਪਲਬਧ ਹੋਰ position ਵਿੱਚ numbering insert ਕਰਦਾ ਹੈ।
+**Answer:** ਪੰਨਾ Number
+**Explanation:** ਪੰਨਾ Number ਕਮਾਂਡ ਉੱਪਰਲਾ ਸਿਰਲੇਖ, ਹੇਠਲਾ ਸਿਰਲੇਖ ਜਾਂ ਉਪਲਬਧ ਹੋਰ ਸਥਿਤੀ ਵਿੱਚ ਕ੍ਰਮ-ਅੰਕਣ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-022 · com003-word-insert-page-number
 
 #### 7. COM003-WORD-TABS-023 — EASY
-**Question:** Webpage ਜਾਂ ਹੋਰ location ਦਾ clickable link ਬਣਾਉਣ ਵਾਲਾ Insert-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਵੈੱਬਪੰਨਾ ਜਾਂ ਹੋਰ ਥਾਂ ਦਾ ਕਲਿੱਕ ਕਰਨ ਯੋਗ ਲਿੰਕ ਬਣਾਉਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Equation
+ਇੱਕ. Equation
 B. Symbol
-C. Link
-D. Screenshot
+C. ਲਿੰਕ
+D. ਸਕ੍ਰੀਨਸ਼ਾਟ
 
-**Answer:** Link
-**Explanation:** Link webpage, file ਜਾਂ ਹੋਰ location ਲਈ hyperlink ਬਣਾਉਂਦਾ ਹੈ।
+**Answer:** ਲਿੰਕ
+**Explanation:** ਲਿੰਕ ਵੈੱਬਪੰਨਾ, ਫ਼ਾਈਲ ਜਾਂ ਹੋਰ ਥਾਂ ਲਈ ਹਾਈਪਰਲਿੰਕ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-023 · com003-word-insert-hyperlink
 
 #### 8. COM003-WORD-TABS-024 — EASY
-**Question:** Following content ਨੂੰ ਨਵੇਂ page ਉੱਤੇ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Insert-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਹੇਠ ਲਿਖਿਆ ਸਮੱਗਰੀ ਨੂੰ ਨਵੇਂ ਪੰਨਾ ਉੱਤੇ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Section
-B. Column
+ਇੱਕ. Section
+B. ਕਾਲਮ
 C. Caption
-D. Page Break
+D. ਪੰਨਾ ਵਿਰਾਮ
 
-**Answer:** Page Break
-**Explanation:** Page Break following content ਨੂੰ ਅਗਲੇ page ਉੱਤੇ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।
+**Answer:** ਪੰਨਾ ਵਿਰਾਮ
+**Explanation:** ਪੰਨਾ ਵਿਰਾਮ ਹੇਠ ਲਿਖਿਆ ਸਮੱਗਰੀ ਨੂੰ ਅਗਲੇ ਪੰਨਾ ਉੱਤੇ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-024 · com003-word-insert-page-break
 
 ### COM-003-QL-023 — Word Design Tab
@@ -1030,197 +1030,197 @@ D. Effects
 #### Hindi
 
 #### 1. COM003-WORD-TABS-025 — EASY
-**Question:** Document को coordinated overall look देने वाला Design-tab feature कौन-सा है?
+**Question:** दस्तावेज़ को समन्वित समग्र दिखना देने वाला डिज़ाइन टैबटैब सुविधा कौन-सा है?
 
-A. Themes
-B. Margins
-C. Footnotes
+एक. Themes
+B. हाशिये
+C. पाद-टिप्पणियाँ
 D. Mail Merge
 
 **Answer:** Themes
-**Explanation:** Theme document के colors, fonts और effects में coordinated look लागू करता है।
+**Explanation:** थीम दस्तावेज़ के रंग, फ़ॉन्ट और प्रभाव में समन्वित दिखना लागू करता है।
 **Trace:** COM003-WORD-TABS-025 · com003-word-design-themes
 
 #### 2. COM003-WORD-TABS-026 — EASY
-**Question:** Theme द्वारा उपयोग किए गए coordinated color set को बदलने वाला Design-tab option कौन-सा है?
+**Question:** थीम द्वारा उपयोग किए गए समन्वित रंग निर्धारित करना को बदलने वाला डिज़ाइन टैबटैब विकल्प कौन-सा है?
 
-A. Effects
+एक. Effects
 B. Colors
-C. Columns
+C. स्तंभ
 D. Indent
 
 **Answer:** Colors
-**Explanation:** Theme Colors document colors के coordinated set को बदलता है।
+**Explanation:** थीम Colors दस्तावेज़ रंग के समन्वित निर्धारित करना को बदलता है।
 **Trace:** COM003-WORD-TABS-026 · com003-word-design-theme-colors
 
 #### 3. COM003-WORD-TABS-027 — EASY
-**Question:** Coordinated heading और body font set बदलने वाला Design-tab option कौन-सा है?
+**Question:** समन्वित शीर्षक और मुख्य भाग फ़ॉन्ट निर्धारित करना बदलने वाला डिज़ाइन टैबटैब विकल्प कौन-सा है?
 
-A. Page Color
+एक. Page Color
 B. Watermark
-C. Fonts
+C. फ़ॉन्ट
 D. Page Borders
 
-**Answer:** Fonts
-**Explanation:** Theme Fonts document theme द्वारा उपयोग किए गए coordinated font set को बदलता है।
+**Answer:** फ़ॉन्ट
+**Explanation:** थीम फ़ॉन्ट दस्तावेज़ थीम द्वारा उपयोग किए गए समन्वित फ़ॉन्ट निर्धारित करना को बदलता है।
 **Trace:** COM003-WORD-TABS-027 · com003-word-design-theme-fonts
 
 #### 4. COM003-WORD-TABS-028 — EASY
-**Question:** Document content के पीछे हल्का text या image रखने वाला Design-tab feature कौन-सा है?
+**Question:** दस्तावेज़ सामग्री के पीछे हल्का पाठ या चित्र रखने वाला डिज़ाइन टैबटैब सुविधा कौन-सा है?
 
-A. Page Color
+एक. Page Color
 B. Themes
 C. Effects
 D. Watermark
 
 **Answer:** Watermark
-**Explanation:** Watermark मुख्य document content के पीछे हल्का text या image रखता है।
+**Explanation:** Watermark मुख्य दस्तावेज़ सामग्री के पीछे हल्का पाठ या चित्र रखता है।
 **Trace:** COM003-WORD-TABS-028 · com003-word-design-watermark
 
 #### 5. COM003-WORD-TABS-029 — EASY
-**Question:** Page के चारों ओर border जोड़ने वाला Design-tab command कौन-सा है?
+**Question:** पृष्ठ के चारों ओर सीमा जोड़ने वाला डिज़ाइन टैबटैब कमांड कौन-सा है?
 
-A. Page Borders
-B. Paragraph Spacing
-C. Size
-D. Breaks
+एक. Page Borders
+B. Paragraph अंतराल
+C. आकार
+D. विराम
 
 **Answer:** Page Borders
-**Explanation:** Page Borders page या section के चारों ओर border जोड़ने के controls खोलता है।
+**Explanation:** Page Borders पृष्ठ या अनुभाग के चारों ओर सीमा जोड़ने के नियंत्रित करता है खोलता है।
 **Trace:** COM003-WORD-TABS-029 · com003-word-design-page-borders
 
 #### 6. COM003-WORD-TABS-030 — EASY
-**Question:** Document pages का background color बदलने वाला Design-tab feature कौन-सा है?
+**Question:** दस्तावेज़ पृष्ठ का पृष्ठभूमि रंग बदलने वाला डिज़ाइन टैबटैब सुविधा कौन-सा है?
 
-A. Font Color
+एक. Font Color
 B. Page Color
 C. Highlight
-D. Shading
+D. छायांकन
 
 **Answer:** Page Color
-**Explanation:** Page Color document pages के लिए उपयोग होने वाला background color बदलता है।
+**Explanation:** Page Color दस्तावेज़ पृष्ठ के लिए उपयोग होने वाला पृष्ठभूमि रंग बदलता है।
 **Trace:** COM003-WORD-TABS-030 · com003-word-design-page-color
 
 #### 7. COM003-WORD-TABS-031 — MEDIUM
-**Question:** Document में paragraphs के बीच overall spacing बदलने वाला Design-tab option कौन-सा है?
+**Question:** दस्तावेज़ में अनुच्छेद के बीच समग्र अंतराल बदलने वाला डिज़ाइन टैबटैब विकल्प कौन-सा है?
 
-A. Page Borders
+एक. Page Borders
 B. Effects
-C. Paragraph Spacing
+C. Paragraph अंतराल
 D. Watermark
 
-**Answer:** Paragraph Spacing
-**Explanation:** Paragraph Spacing paragraphs के बीच overall spacing choice लागू करता है।
+**Answer:** Paragraph अंतराल
+**Explanation:** Paragraph अंतराल अनुच्छेद के बीच समग्र अंतराल चयन लागू करता है।
 **Trace:** COM003-WORD-TABS-031 · com003-word-design-paragraph-spacing
 
 #### 8. COM003-WORD-TABS-032 — MEDIUM
-**Question:** Document theme के coordinated visual effects बदलने वाला Design-tab option कौन-सा है?
+**Question:** दस्तावेज़ थीम के समन्वित दृश्य प्रभाव बदलने वाला डिज़ाइन टैबटैब विकल्प कौन-सा है?
 
-A. Margins
-B. Footnotes
-C. Recipients
+एक. हाशिये
+B. पाद-टिप्पणियाँ
+C. प्राप्तकर्ता
 D. Effects
 
 **Answer:** Effects
-**Explanation:** Theme Effects document theme के coordinated visual effects बदलता है।
+**Explanation:** थीम Effects दस्तावेज़ थीम के समन्वित दृश्य प्रभाव बदलता है।
 **Trace:** COM003-WORD-TABS-032 · com003-word-design-theme-effects
 
 #### Punjabi
 
 #### 1. COM003-WORD-TABS-025 — EASY
-**Question:** Document ਨੂੰ coordinated overall look ਦੇਣ ਵਾਲਾ Design-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਨੂੰ ਸਮਨਵਿਤ ਕੁੱਲ ਦਿੱਖ ਦੇਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Themes
-B. Margins
-C. Footnotes
+ਇੱਕ. Themes
+B. ਹਾਸ਼ੀਏ
+C. ਫੁਟਨੋਟ
 D. Mail Merge
 
 **Answer:** Themes
-**Explanation:** Theme document ਦੇ colors, fonts ਅਤੇ effects ਉੱਤੇ coordinated look ਲਾਗੂ ਕਰਦਾ ਹੈ।
+**Explanation:** ਥੀਮ ਦਸਤਾਵੇਜ਼ ਦੇ ਰੰਗ, ਫੌਂਟ ਅਤੇ ਪ੍ਰਭਾਵ ਉੱਤੇ ਸਮਨਵਿਤ ਦਿੱਖ ਲਾਗੂ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-025 · com003-word-design-themes
 
 #### 2. COM003-WORD-TABS-026 — EASY
-**Question:** Theme ਵੱਲੋਂ ਵਰਤੇ coordinated color set ਨੂੰ ਬਦਲਣ ਵਾਲਾ Design-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਥੀਮ ਵੱਲੋਂ ਵਰਤੇ ਸਮਨਵਿਤ ਰੰਗ ਨਿਰਧਾਰਤ ਕਰਨਾ ਨੂੰ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Effects
+ਇੱਕ. Effects
 B. Colors
-C. Columns
+C. ਕਾਲਮ
 D. Indent
 
 **Answer:** Colors
-**Explanation:** Theme Colors document colors ਦੇ coordinated set ਨੂੰ ਬਦਲਦਾ ਹੈ।
+**Explanation:** ਥੀਮ Colors ਦਸਤਾਵੇਜ਼ ਰੰਗ ਦੇ ਸਮਨਵਿਤ ਨਿਰਧਾਰਤ ਕਰਨਾ ਨੂੰ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-026 · com003-word-design-theme-colors
 
 #### 3. COM003-WORD-TABS-027 — EASY
-**Question:** Coordinated heading ਅਤੇ body font set ਬਦਲਣ ਵਾਲਾ Design-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਮਨਵਿਤ ਸਿਰਲੇਖ ਅਤੇ ਮੁੱਖ ਭਾਗ ਫੌਂਟ ਨਿਰਧਾਰਤ ਕਰਨਾ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Page Color
+ਇੱਕ. Page Color
 B. Watermark
-C. Fonts
+C. ਫੌਂਟ
 D. Page Borders
 
-**Answer:** Fonts
-**Explanation:** Theme Fonts document theme ਵੱਲੋਂ ਵਰਤੇ coordinated font set ਨੂੰ ਬਦਲਦਾ ਹੈ।
+**Answer:** ਫੌਂਟ
+**Explanation:** ਥੀਮ ਫੌਂਟ ਦਸਤਾਵੇਜ਼ ਥੀਮ ਵੱਲੋਂ ਵਰਤੇ ਸਮਨਵਿਤ ਫੌਂਟ ਨਿਰਧਾਰਤ ਕਰਨਾ ਨੂੰ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-027 · com003-word-design-theme-fonts
 
 #### 4. COM003-WORD-TABS-028 — EASY
-**Question:** Document content ਦੇ ਪਿੱਛੇ ਹਲਕਾ text ਜਾਂ image ਰੱਖਣ ਵਾਲਾ Design-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਸਮੱਗਰੀ ਦੇ ਪਿੱਛੇ ਹਲਕਾ ਲਿਖਤ ਜਾਂ ਤਸਵੀਰ ਰੱਖਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Page Color
+ਇੱਕ. Page Color
 B. Themes
 C. Effects
 D. Watermark
 
 **Answer:** Watermark
-**Explanation:** Watermark ਮੁੱਖ document content ਦੇ ਪਿੱਛੇ ਹਲਕਾ text ਜਾਂ image ਰੱਖਦਾ ਹੈ।
+**Explanation:** Watermark ਮੁੱਖ ਦਸਤਾਵੇਜ਼ ਸਮੱਗਰੀ ਦੇ ਪਿੱਛੇ ਹਲਕਾ ਲਿਖਤ ਜਾਂ ਤਸਵੀਰ ਰੱਖਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-028 · com003-word-design-watermark
 
 #### 5. COM003-WORD-TABS-029 — EASY
-**Question:** Page ਦੇ ਆਲੇ-ਦੁਆਲੇ border ਜੋੜਨ ਵਾਲਾ Design-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੰਨਾ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਕਿਨਾਰਾ ਜੋੜਨ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Page Borders
-B. Paragraph Spacing
-C. Size
-D. Breaks
+ਇੱਕ. Page Borders
+B. Paragraph ਫ਼ਾਸਲਾ
+C. ਆਕਾਰ
+D. ਵਿਰਾਮ
 
 **Answer:** Page Borders
-**Explanation:** Page Borders page ਜਾਂ section ਦੇ ਆਲੇ-ਦੁਆਲੇ border ਜੋੜਨ ਵਾਲੇ controls ਖੋਲ੍ਹਦਾ ਹੈ।
+**Explanation:** Page Borders ਪੰਨਾ ਜਾਂ ਭਾਗ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਕਿਨਾਰਾ ਜੋੜਨ ਵਾਲੇ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ ਖੋਲ੍ਹਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-029 · com003-word-design-page-borders
 
 #### 6. COM003-WORD-TABS-030 — EASY
-**Question:** Document pages ਦਾ background color ਬਦਲਣ ਵਾਲਾ Design-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਪੰਨੇ ਦਾ ਪਿਛੋਕੜ ਰੰਗ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Font Color
+ਇੱਕ. Font Color
 B. Page Color
 C. Highlight
-D. Shading
+D. ਛਾਂਵ
 
 **Answer:** Page Color
-**Explanation:** Page Color document pages ਲਈ ਵਰਤਿਆ background color ਬਦਲਦਾ ਹੈ।
+**Explanation:** Page Color ਦਸਤਾਵੇਜ਼ ਪੰਨੇ ਲਈ ਵਰਤਿਆ ਪਿਛੋਕੜ ਰੰਗ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-030 · com003-word-design-page-color
 
 #### 7. COM003-WORD-TABS-031 — MEDIUM
-**Question:** Document ਵਿੱਚ paragraphs ਵਿਚਕਾਰ overall spacing ਬਦਲਣ ਵਾਲਾ Design-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਪੈਰਾਗ੍ਰਾਫ ਵਿਚਕਾਰ ਕੁੱਲ ਫ਼ਾਸਲਾ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Page Borders
+ਇੱਕ. Page Borders
 B. Effects
-C. Paragraph Spacing
+C. Paragraph ਫ਼ਾਸਲਾ
 D. Watermark
 
-**Answer:** Paragraph Spacing
-**Explanation:** Paragraph Spacing paragraphs ਵਿਚਕਾਰ overall spacing choice ਲਾਗੂ ਕਰਦਾ ਹੈ।
+**Answer:** Paragraph ਫ਼ਾਸਲਾ
+**Explanation:** Paragraph ਫ਼ਾਸਲਾ ਪੈਰਾਗ੍ਰਾਫ ਵਿਚਕਾਰ ਕੁੱਲ ਫ਼ਾਸਲਾ ਚੋਣ ਲਾਗੂ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-031 · com003-word-design-paragraph-spacing
 
 #### 8. COM003-WORD-TABS-032 — MEDIUM
-**Question:** Document theme ਦੇ coordinated visual effects ਬਦਲਣ ਵਾਲਾ Design-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਥੀਮ ਦੇ ਸਮਨਵਿਤ ਦ੍ਰਿਸ਼ ਪ੍ਰਭਾਵ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Margins
-B. Footnotes
-C. Recipients
+ਇੱਕ. ਹਾਸ਼ੀਏ
+B. ਫੁਟਨੋਟ
+C. ਪ੍ਰਾਪਤਕਰਤਾ
 D. Effects
 
 **Answer:** Effects
-**Explanation:** Theme Effects document theme ਦੇ coordinated visual effects ਨੂੰ ਬਦਲਦਾ ਹੈ।
+**Explanation:** ਥੀਮ Effects ਦਸਤਾਵੇਜ਼ ਥੀਮ ਦੇ ਸਮਨਵਿਤ ਦ੍ਰਿਸ਼ ਪ੍ਰਭਾਵ ਨੂੰ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-032 · com003-word-design-theme-effects
 
 ### COM-003-QL-024 — Word Layout Tab
@@ -1326,197 +1326,197 @@ D. Spacing
 #### Hindi
 
 #### 1. COM003-WORD-TABS-033 — EASY
-**Question:** Page edges और document content के बीच blank space नियंत्रित करने वाला Layout-tab feature कौन-सा है?
+**Question:** पृष्ठ किनारे और दस्तावेज़ सामग्री के बीच रिक्त स्थान नियंत्रित करने वाला Layout टैबटैब सुविधा कौन-सा है?
 
-A. Margins
+एक. हाशिये
 B. Themes
-C. Citations
+C. उद्धरण
 D. Comments
 
-**Answer:** Margins
-**Explanation:** Margins page edges और document content के बीच blank space नियंत्रित करते हैं।
+**Answer:** हाशिये
+**Explanation:** हाशिये पृष्ठ किनारे और दस्तावेज़ सामग्री के बीच रिक्त स्थान नियंत्रित करते हैं।
 **Trace:** COM003-WORD-TABS-033 · com003-word-layout-margins
 
 #### 2. COM003-WORD-TABS-034 — EASY
-**Question:** Page को portrait और landscape के बीच बदलने वाला Layout-tab command कौन-सा है?
+**Question:** पृष्ठ को पोर्ट्रेट और लैंडस्केप के बीच बदलने वाला Layout टैबटैब कमांड कौन-सा है?
 
-A. Size
+एक. आकार
 B. Orientation
-C. Columns
+C. स्तंभ
 D. Indent
 
 **Answer:** Orientation
-**Explanation:** Orientation page direction को portrait और landscape के बीच बदलता है।
+**Explanation:** Orientation पृष्ठ दिशा को पोर्ट्रेट और लैंडस्केप के बीच बदलता है।
 **Trace:** COM003-WORD-TABS-034 · com003-word-layout-orientation
 
 #### 3. COM003-WORD-TABS-035 — EASY
-**Question:** A4 या Letter जैसी paper size चुनने वाला Layout-tab option कौन-सा है?
+**Question:** एक4 या अक्षर जैसी कागज़ आकार चुनने वाला Layout टैबटैब विकल्प कौन-सा है?
 
-A. Margins
-B. Breaks
-C. Size
-D. Line Numbers
+एक. हाशिये
+B. विराम
+C. आकार
+D. पंक्ति संख्याएँ
 
-**Answer:** Size
-**Explanation:** Size document में उपयोग होने वाली paper size चुनता है।
+**Answer:** आकार
+**Explanation:** आकार दस्तावेज़ में उपयोग होने वाली कागज़ आकार चुनता है।
 **Trace:** COM003-WORD-TABS-035 · com003-word-layout-paper-size
 
 #### 4. COM003-WORD-TABS-036 — EASY
-**Question:** Text को newspaper-style vertical sections में बाँटने वाला Layout-tab feature कौन-सा है?
+**Question:** पाठ को समाचार-पत्र शैली ऊर्ध्वाधर अनुभाग में बाँटने वाला Layout टैबटैब सुविधा कौन-सा है?
 
-A. Orientation
-B. Hyphenation
-C. Line Numbers
-D. Columns
+एक. Orientation
+B. हाइफ़नेशन
+C. पंक्ति संख्याएँ
+D. स्तंभ
 
-**Answer:** Columns
-**Explanation:** Columns page text को newspaper layout जैसी vertical columns में बाँटता है।
+**Answer:** स्तंभ
+**Explanation:** स्तंभ पृष्ठ पाठ को समाचार-पत्र लेआउट जैसी ऊर्ध्वाधर स्तंभ में बाँटता है।
 **Trace:** COM003-WORD-TABS-036 · com003-word-layout-columns
 
 #### 5. COM003-WORD-TABS-037 — MEDIUM
-**Question:** एक document के अलग parts में अलग page settings देने वाला Layout-tab feature कौन-सा है?
+**Question:** एक दस्तावेज़ के अलग भाग में अलग पृष्ठ सेटिंग्स देने वाला Layout टैबटैब सुविधा कौन-सा है?
 
-A. Section Breaks
+एक. Section विराम
 B. Themes
 C. Word Count
 D. Styles
 
-**Answer:** Section Breaks
-**Explanation:** Section Breaks document को sections में बाँटते हैं और हर section की layout settings अलग हो सकती हैं।
+**Answer:** Section विराम
+**Explanation:** Section विराम दस्तावेज़ को अनुभाग में बाँटते हैं और हर अनुभाग की लेआउट सेटिंग्स अलग हो सकती हैं।
 **Trace:** COM003-WORD-TABS-037 · com003-word-layout-section-break
 
 #### 6. COM003-WORD-TABS-038 — EASY
-**Question:** Text की lines के पास numbers दिखाने वाला Layout-tab command कौन-सा है?
+**Question:** पाठ की पंक्तियाँ के पास संख्याएँ दिखाने वाला Layout टैबटैब कमांड कौन-सा है?
 
-A. Columns
-B. Line Numbers
-C. Breaks
-D. Size
+एक. स्तंभ
+B. पंक्ति संख्याएँ
+C. विराम
+D. आकार
 
-**Answer:** Line Numbers
-**Explanation:** Line Numbers document text की lines के पास numbering दिखाता है।
+**Answer:** पंक्ति संख्याएँ
+**Explanation:** पंक्ति संख्याएँ दस्तावेज़ पाठ की पंक्तियाँ के पास क्रमांकन दिखाता है।
 **Trace:** COM003-WORD-TABS-038 · com003-word-layout-line-numbers
 
 #### 7. COM003-WORD-TABS-039 — MEDIUM
-**Question:** Paragraph को margin से अंदर ले जाने वाली Layout-tab paragraph setting कौन-सी है?
+**Question:** Paragraph को हाशिया से अंदर ले जाने वाली Layout टैबटैब अनुच्छेद सेटिंग कौन-सी है?
 
-A. Orientation
-B. Size
+एक. Orientation
+B. आकार
 C. Indent
 D. Watermark
 
 **Answer:** Indent
-**Explanation:** Indent paragraph text को left या right margin से अंदर ले जाता है।
+**Explanation:** Indent अनुच्छेद पाठ को बायाँ या दायाँ हाशिया से अंदर ले जाता है।
 **Trace:** COM003-WORD-TABS-039 · com003-word-layout-paragraph-indent
 
 #### 8. COM003-WORD-TABS-040 — MEDIUM
-**Question:** Paragraph से पहले या बाद का space बदलने वाली Layout-tab paragraph setting कौन-सी है?
+**Question:** Paragraph से पहले या बाद का स्थान बदलने वाली Layout टैबटैब अनुच्छेद सेटिंग कौन-सी है?
 
-A. Columns
-B. Size
+एक. स्तंभ
+B. आकार
 C. Orientation
-D. Spacing
+D. अंतराल
 
-**Answer:** Spacing
-**Explanation:** Paragraph Spacing paragraph से पहले या बाद का space बदलता है।
+**Answer:** अंतराल
+**Explanation:** Paragraph अंतराल अनुच्छेद से पहले या बाद का स्थान बदलता है।
 **Trace:** COM003-WORD-TABS-040 · com003-word-layout-paragraph-spacing
 
 #### Punjabi
 
 #### 1. COM003-WORD-TABS-033 — EASY
-**Question:** Page edges ਅਤੇ document content ਵਿਚਕਾਰ blank space ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲਾ Layout-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੰਨਾ ਕਿਨਾਰੇ ਅਤੇ ਦਸਤਾਵੇਜ਼ ਸਮੱਗਰੀ ਵਿਚਕਾਰ ਖਾਲੀ ਥਾਂ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Margins
+ਇੱਕ. ਹਾਸ਼ੀਏ
 B. Themes
-C. Citations
+C. ਹਵਾਲੇ
 D. Comments
 
-**Answer:** Margins
-**Explanation:** Margins page edges ਅਤੇ document content ਵਿਚਕਾਰ blank space ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦੇ ਹਨ।
+**Answer:** ਹਾਸ਼ੀਏ
+**Explanation:** ਹਾਸ਼ੀਏ ਪੰਨਾ ਕਿਨਾਰੇ ਅਤੇ ਦਸਤਾਵੇਜ਼ ਸਮੱਗਰੀ ਵਿਚਕਾਰ ਖਾਲੀ ਥਾਂ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦੇ ਹਨ।
 **Trace:** COM003-WORD-TABS-033 · com003-word-layout-margins
 
 #### 2. COM003-WORD-TABS-034 — EASY
-**Question:** Page ਨੂੰ portrait ਅਤੇ landscape ਵਿਚਕਾਰ ਬਦਲਣ ਵਾਲਾ Layout-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੰਨਾ ਨੂੰ ਪੋਰਟਰੇਟ ਅਤੇ ਲੈਂਡਸਕੇਪ ਵਿਚਕਾਰ ਬਦਲਣ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Size
+ਇੱਕ. ਆਕਾਰ
 B. Orientation
-C. Columns
+C. ਕਾਲਮ
 D. Indent
 
 **Answer:** Orientation
-**Explanation:** Orientation page direction ਨੂੰ portrait ਅਤੇ landscape ਵਿਚਕਾਰ ਬਦਲਦਾ ਹੈ।
+**Explanation:** Orientation ਪੰਨਾ ਦਿਸ਼ਾ ਨੂੰ ਪੋਰਟਰੇਟ ਅਤੇ ਲੈਂਡਸਕੇਪ ਵਿਚਕਾਰ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-034 · com003-word-layout-orientation
 
 #### 3. COM003-WORD-TABS-035 — EASY
-**Question:** A4 ਜਾਂ Letter ਵਰਗੀ paper size ਚੁਣਨ ਵਾਲਾ Layout-tab option ਕਿਹੜਾ ਹੈ?
+**Question:** ਇੱਕ4 ਜਾਂ ਅੱਖਰ ਵਰਗੀ ਕਾਗਜ਼ ਆਕਾਰ ਚੁਣਨ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-A. Margins
-B. Breaks
-C. Size
-D. Line Numbers
+ਇੱਕ. ਹਾਸ਼ੀਏ
+B. ਵਿਰਾਮ
+C. ਆਕਾਰ
+D. ਲਾਈਨ ਅੰਕ
 
-**Answer:** Size
-**Explanation:** Size document ਵਿੱਚ ਵਰਤੀ ਜਾਣ ਵਾਲੀ paper size ਚੁਣਦਾ ਹੈ।
+**Answer:** ਆਕਾਰ
+**Explanation:** ਆਕਾਰ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਵਰਤੀ ਜਾਣ ਵਾਲੀ ਕਾਗਜ਼ ਆਕਾਰ ਚੁਣਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-035 · com003-word-layout-paper-size
 
 #### 4. COM003-WORD-TABS-036 — EASY
-**Question:** Text ਨੂੰ newspaper-style vertical sections ਵਿੱਚ ਵੰਡਣ ਵਾਲਾ Layout-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਲਿਖਤ ਨੂੰ ਅਖ਼ਬਾਰ ਸ਼ੈਲੀ ਲੰਬਕਾਰੀ ਭਾਗ ਵਿੱਚ ਵੰਡਣ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Orientation
-B. Hyphenation
-C. Line Numbers
-D. Columns
+ਇੱਕ. Orientation
+B. ਹਾਈਫ਼ਨੇਸ਼ਨ
+C. ਲਾਈਨ ਅੰਕ
+D. ਕਾਲਮ
 
-**Answer:** Columns
-**Explanation:** Columns page text ਨੂੰ newspaper layout ਵਰਗੀਆਂ vertical columns ਵਿੱਚ ਵੰਡਦਾ ਹੈ।
+**Answer:** ਕਾਲਮ
+**Explanation:** ਕਾਲਮ ਪੰਨਾ ਲਿਖਤ ਨੂੰ ਅਖ਼ਬਾਰ ਲੇਆਉਟ ਵਰਗੀਆਂ ਲੰਬਕਾਰੀ ਕਾਲਮ ਵਿੱਚ ਵੰਡਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-036 · com003-word-layout-columns
 
 #### 5. COM003-WORD-TABS-037 — MEDIUM
-**Question:** ਇੱਕ document ਦੇ ਵੱਖਰੇ parts ਵਿੱਚ ਵੱਖਰੀਆਂ page settings ਦੇਣ ਵਾਲਾ Layout-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਇੱਕ ਦਸਤਾਵੇਜ਼ ਦੇ ਵੱਖਰੇ ਹਿੱਸੇ ਵਿੱਚ ਵੱਖਰੀਆਂ ਪੰਨਾ ਸੈਟਿੰਗਾਂ ਦੇਣ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Section Breaks
+ਇੱਕ. Section ਵਿਰਾਮ
 B. Themes
 C. Word Count
 D. Styles
 
-**Answer:** Section Breaks
-**Explanation:** Section Breaks document ਨੂੰ sections ਵਿੱਚ ਵੰਡਦੇ ਹਨ ਅਤੇ ਹਰ section ਦੀਆਂ layout settings ਵੱਖਰੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ।
+**Answer:** Section ਵਿਰਾਮ
+**Explanation:** Section ਵਿਰਾਮ ਦਸਤਾਵੇਜ਼ ਨੂੰ ਭਾਗ ਵਿੱਚ ਵੰਡਦੇ ਹਨ ਅਤੇ ਹਰ ਭਾਗ ਦੀਆਂ ਲੇਆਉਟ ਸੈਟਿੰਗਾਂ ਵੱਖਰੀਆਂ ਹੋ ਸਕਦੀਆਂ ਹਨ।
 **Trace:** COM003-WORD-TABS-037 · com003-word-layout-section-break
 
 #### 6. COM003-WORD-TABS-038 — EASY
-**Question:** Text ਦੀਆਂ lines ਦੇ ਕੋਲ numbers ਦਿਖਾਉਣ ਵਾਲਾ Layout-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਲਿਖਤ ਦੀਆਂ ਲਾਈਨਾਂ ਦੇ ਕੋਲ ਅੰਕ ਦਿਖਾਉਣ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Columns
-B. Line Numbers
-C. Breaks
-D. Size
+ਇੱਕ. ਕਾਲਮ
+B. ਲਾਈਨ ਅੰਕ
+C. ਵਿਰਾਮ
+D. ਆਕਾਰ
 
-**Answer:** Line Numbers
-**Explanation:** Line Numbers document text ਦੀਆਂ lines ਦੇ ਕੋਲ numbering ਦਿਖਾਉਂਦਾ ਹੈ।
+**Answer:** ਲਾਈਨ ਅੰਕ
+**Explanation:** ਲਾਈਨ ਅੰਕ ਦਸਤਾਵੇਜ਼ ਲਿਖਤ ਦੀਆਂ ਲਾਈਨਾਂ ਦੇ ਕੋਲ ਕ੍ਰਮ-ਅੰਕਣ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-038 · com003-word-layout-line-numbers
 
 #### 7. COM003-WORD-TABS-039 — MEDIUM
-**Question:** Paragraph ਨੂੰ margin ਤੋਂ ਅੰਦਰ ਲੈ ਜਾਣ ਵਾਲੀ Layout-tab paragraph setting ਕਿਹੜੀ ਹੈ?
+**Question:** Paragraph ਨੂੰ ਹਾਸ਼ੀਆ ਤੋਂ ਅੰਦਰ ਲੈ ਜਾਣ ਵਾਲੀ Layout ਟੈਬਟੈਬ ਪੈਰਾਗ੍ਰਾਫ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-A. Orientation
-B. Size
+ਇੱਕ. Orientation
+B. ਆਕਾਰ
 C. Indent
 D. Watermark
 
 **Answer:** Indent
-**Explanation:** Indent paragraph text ਨੂੰ left ਜਾਂ right margin ਤੋਂ ਅੰਦਰ ਲੈ ਜਾਂਦਾ ਹੈ।
+**Explanation:** Indent ਪੈਰਾਗ੍ਰਾਫ ਲਿਖਤ ਨੂੰ ਖੱਬਾ ਜਾਂ ਸੱਜਾ ਹਾਸ਼ੀਆ ਤੋਂ ਅੰਦਰ ਲੈ ਜਾਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-039 · com003-word-layout-paragraph-indent
 
 #### 8. COM003-WORD-TABS-040 — MEDIUM
-**Question:** Paragraph ਤੋਂ ਪਹਿਲਾਂ ਜਾਂ ਬਾਅਦ ਦਾ space ਬਦਲਣ ਵਾਲੀ Layout-tab paragraph setting ਕਿਹੜੀ ਹੈ?
+**Question:** Paragraph ਤੋਂ ਪਹਿਲਾਂ ਜਾਂ ਬਾਅਦ ਦਾ ਥਾਂ ਬਦਲਣ ਵਾਲੀ Layout ਟੈਬਟੈਬ ਪੈਰਾਗ੍ਰਾਫ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-A. Columns
-B. Size
+ਇੱਕ. ਕਾਲਮ
+B. ਆਕਾਰ
 C. Orientation
-D. Spacing
+D. ਫ਼ਾਸਲਾ
 
-**Answer:** Spacing
-**Explanation:** Paragraph Spacing paragraph ਤੋਂ ਪਹਿਲਾਂ ਜਾਂ ਬਾਅਦ ਦਾ space ਬਦਲਦਾ ਹੈ।
+**Answer:** ਫ਼ਾਸਲਾ
+**Explanation:** Paragraph ਫ਼ਾਸਲਾ ਪੈਰਾਗ੍ਰਾਫ ਤੋਂ ਪਹਿਲਾਂ ਜਾਂ ਬਾਅਦ ਦਾ ਥਾਂ ਬਦਲਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-040 · com003-word-layout-paragraph-spacing
 
 ### COM-003-QL-025 — Word References Tab
@@ -1622,197 +1622,197 @@ D. Heading styles
 #### Hindi
 
 #### 1. COM003-WORD-TABS-041 — EASY
-**Question:** Headings और उनके page numbers की list बनाने वाला References-tab feature कौन-सा है?
+**Question:** Headings और उनके पृष्ठ संख्याएँ की सूची बनाने वाला References टैबटैब सुविधा कौन-सा है?
 
-A. Table of Contents
+एक. Table of Contents
 B. Mail Merge
 C. Page Color
 D. WordArt
 
 **Answer:** Table of Contents
-**Explanation:** Table of Contents document headings और उनके page numbers की list बनाता है।
+**Explanation:** Table of Contents दस्तावेज़ शीर्षक और उनके पृष्ठ संख्याएँ की सूची बनाता है।
 **Trace:** COM003-WORD-TABS-041 · com003-word-references-table-of-contents
 
 #### 2. COM003-WORD-TABS-042 — EASY
 **Question:** Footnote सामान्यतः कहाँ दिखाई देती है?
 
-A. अगले document के शुरू में
-B. Current page के bottom पर
-C. केवल title bar में
+एक. अगले दस्तावेज़ के शुरू में
+B. वर्तमान पृष्ठ के नीचे पर
+C. केवल शीर्षक पट्टी में
 D. Ribbon के अंदर
 
-**Answer:** Current page के bottom पर
-**Explanation:** Footnote उस page के bottom पर रखी जाती है जिसमें उसका reference mark होता है।
+**Answer:** वर्तमान पृष्ठ के नीचे पर
+**Explanation:** Footnote उस पृष्ठ के नीचे पर रखी जाती है जिसमें उसका संदर्भ चिह्न होता है।
 **Trace:** COM003-WORD-TABS-042 · com003-word-references-footnote
 
 #### 3. COM003-WORD-TABS-043 — MEDIUM
 **Question:** Endnote सामान्यतः कहाँ रखी जाती है?
 
-A. Left margin पर
-B. Table के अंदर
-C. Document या section के अंत में
+एक. बायाँ हाशिया पर
+B. तालिका के अंदर
+C. दस्तावेज़ या अनुभाग के अंत में
 D. Quick Access Toolbar में
 
-**Answer:** Document या section के अंत में
-**Explanation:** Endnote current page के bottom के बजाय document या section के अंत में रखी जाती है।
+**Answer:** दस्तावेज़ या अनुभाग के अंत में
+**Explanation:** Endnote वर्तमान पृष्ठ के नीचे के बजाय दस्तावेज़ या अनुभाग के अंत में रखी जाती है।
 **Trace:** COM003-WORD-TABS-043 · com003-word-references-endnote
 
 #### 4. COM003-WORD-TABS-044 — EASY
-**Question:** Document text में source citation जोड़ने वाला References-tab command कौन-सा है?
+**Question:** दस्तावेज़ पाठ में स्रोत उद्धरण जोड़ने वाला References टैबटैब कमांड कौन-सा है?
 
-A. Insert Caption
-B. Insert Table
-C. Insert Index
-D. Insert Citation
+एक. Insert Caption
+B. Insert तालिका
+C. Insert अनुक्रमणिका
+D. Insert उद्धरण
 
-**Answer:** Insert Citation
-**Explanation:** Insert Citation document में source से जुड़ी citation जोड़ता है।
+**Answer:** Insert उद्धरण
+**Explanation:** Insert उद्धरण दस्तावेज़ में स्रोत से जुड़ी उद्धरण जोड़ता है।
 **Trace:** COM003-WORD-TABS-044 · com003-word-references-citations
 
 #### 5. COM003-WORD-TABS-045 — EASY
-**Question:** Document में उपयोग किए गए sources की list बनाने वाला References-tab feature कौन-सा है?
+**Question:** दस्तावेज़ में उपयोग किए गए स्रोत की सूची बनाने वाला References टैबटैब सुविधा कौन-सा है?
 
-A. Bibliography
+एक. Bibliography
 B. Watermark
-C. Header
+C. शीर्षलेख
 D. Replace
 
 **Answer:** Bibliography
-**Explanation:** Bibliography document में उपयोग किए गए sources की formatted list बनाती है।
+**Explanation:** Bibliography दस्तावेज़ में उपयोग किए गए स्रोत की स्वरूपित सूची बनाती है।
 **Trace:** COM003-WORD-TABS-045 · com003-word-references-bibliography
 
 #### 6. COM003-WORD-TABS-046 — EASY
-**Question:** Object पर Figure 1 जैसा label जोड़ने वाला References-tab feature कौन-सा है?
+**Question:** वस्तु पर आकृति 1 जैसा लेबल जोड़ने वाला References टैबटैब सुविधा कौन-सा है?
 
-A. Citation
+एक. उद्धरण
 B. Caption
 C. Endnote
-D. Index
+D. अनुक्रमणिका
 
 **Answer:** Caption
-**Explanation:** Caption figure, table या अन्य object पर label या short description जोड़ता है।
+**Explanation:** Caption आकृति, तालिका या अन्य वस्तु पर लेबल या छोटा विवरण जोड़ता है।
 **Trace:** COM003-WORD-TABS-046 · com003-word-references-caption
 
 #### 7. COM003-WORD-TABS-047 — MEDIUM
-**Question:** Same document के दूसरे heading, figure या table से text को link करने वाला References-tab feature कौन-सा है?
+**Question:** समान दस्तावेज़ के दूसरे शीर्षक, आकृति या तालिका से पाठ को लिंक करने वाला References टैबटैब सुविधा कौन-सा है?
 
-A. Watermark
+एक. Watermark
 B. Mail Merge
 C. Cross-reference
 D. Page Color
 
 **Answer:** Cross-reference
-**Explanation:** Cross-reference text को उसी document के दूसरे item, जैसे heading या figure, से जोड़ता है।
+**Explanation:** Cross-reference पाठ को उसी दस्तावेज़ के दूसरे वस्तु, जैसे शीर्षक या आकृति, से जोड़ता है।
 **Trace:** COM003-WORD-TABS-047 · com003-word-references-cross-reference
 
 #### 8. COM003-WORD-TABS-048 — MEDIUM
-**Question:** Automatic Table of Contents बनाने के लिए कौन-सी document structure सबसे उपयोगी है?
+**Question:** स्वचालित Table of Contents बनाने के लिए कौन-सी दस्तावेज़ संरचना सबसे उपयोगी है?
 
-A. Random font colors
-B. Page background images
-C. Unformatted spaces
-D. Heading styles
+एक. यादृच्छिक फ़ॉन्ट रंग
+B. पृष्ठ पृष्ठभूमि चित्र
+C. बिना स्वरूपण वाला स्थान
+D. शीर्षक शैलियाँ
 
-**Answer:** Heading styles
-**Explanation:** Heading styles Word को Table of Contents बनाने और update करने के लिए document structure देते हैं।
+**Answer:** शीर्षक शैलियाँ
+**Explanation:** शीर्षक शैलियाँ Word को Table of Contents बनाने और अद्यतन करने के लिए दस्तावेज़ संरचना देते हैं।
 **Trace:** COM003-WORD-TABS-048 · com003-word-references-toc-headings
 
 #### Punjabi
 
 #### 1. COM003-WORD-TABS-041 — EASY
-**Question:** Headings ਅਤੇ ਉਹਨਾਂ ਦੇ page numbers ਦੀ list ਬਣਾਉਣ ਵਾਲਾ References-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** Headings ਅਤੇ ਉਹਨਾਂ ਦੇ ਪੰਨਾ ਅੰਕ ਦੀ ਸੂਚੀ ਬਣਾਉਣ ਵਾਲਾ References ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Table of Contents
+ਇੱਕ. Table of Contents
 B. Mail Merge
 C. Page Color
 D. WordArt
 
 **Answer:** Table of Contents
-**Explanation:** Table of Contents document headings ਅਤੇ ਉਹਨਾਂ ਦੇ page numbers ਦੀ list ਬਣਾਉਂਦਾ ਹੈ।
+**Explanation:** Table of Contents ਦਸਤਾਵੇਜ਼ ਸਿਰਲੇਖ ਅਤੇ ਉਹਨਾਂ ਦੇ ਪੰਨਾ ਅੰਕ ਦੀ ਸੂਚੀ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-041 · com003-word-references-table-of-contents
 
 #### 2. COM003-WORD-TABS-042 — EASY
 **Question:** Footnote ਆਮ ਤੌਰ ਉੱਤੇ ਕਿੱਥੇ ਦਿਖਾਈ ਦਿੰਦੀ ਹੈ?
 
-A. ਅਗਲੇ document ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ
-B. ਮੌਜੂਦਾ page ਦੇ bottom ਉੱਤੇ
-C. ਸਿਰਫ਼ title bar ਵਿੱਚ
+ਇੱਕ. ਅਗਲੇ ਦਸਤਾਵੇਜ਼ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ
+B. ਮੌਜੂਦਾ ਪੰਨਾ ਦੇ ਹੇਠਾਂ ਉੱਤੇ
+C. ਸਿਰਫ਼ ਸਿਰਲੇਖ ਪੱਟੀ ਵਿੱਚ
 D. Ribbon ਦੇ ਅੰਦਰ
 
-**Answer:** ਮੌਜੂਦਾ page ਦੇ bottom ਉੱਤੇ
-**Explanation:** Footnote ਉਸ page ਦੇ bottom ਉੱਤੇ ਰੱਖੀ ਜਾਂਦੀ ਹੈ ਜਿਸ ਵਿੱਚ ਉਸਦਾ reference mark ਹੁੰਦਾ ਹੈ।
+**Answer:** ਮੌਜੂਦਾ ਪੰਨਾ ਦੇ ਹੇਠਾਂ ਉੱਤੇ
+**Explanation:** Footnote ਉਸ ਪੰਨਾ ਦੇ ਹੇਠਾਂ ਉੱਤੇ ਰੱਖੀ ਜਾਂਦੀ ਹੈ ਜਿਸ ਵਿੱਚ ਉਸਦਾ ਹਵਾਲਾ ਨਿਸ਼ਾਨ ਹੁੰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-042 · com003-word-references-footnote
 
 #### 3. COM003-WORD-TABS-043 — MEDIUM
 **Question:** Endnote ਆਮ ਤੌਰ ਉੱਤੇ ਕਿੱਥੇ ਰੱਖੀ ਜਾਂਦੀ ਹੈ?
 
-A. Left margin ਉੱਤੇ
-B. Table ਦੇ ਅੰਦਰ
-C. Document ਜਾਂ section ਦੇ ਅੰਤ ਵਿੱਚ
+ਇੱਕ. ਖੱਬਾ ਹਾਸ਼ੀਆ ਉੱਤੇ
+B. ਟੇਬਲ ਦੇ ਅੰਦਰ
+C. ਦਸਤਾਵੇਜ਼ ਜਾਂ ਭਾਗ ਦੇ ਅੰਤ ਵਿੱਚ
 D. Quick Access Toolbar ਵਿੱਚ
 
-**Answer:** Document ਜਾਂ section ਦੇ ਅੰਤ ਵਿੱਚ
-**Explanation:** Endnote ਮੌਜੂਦਾ page ਦੇ bottom ਦੀ ਬਜਾਏ document ਜਾਂ section ਦੇ ਅੰਤ ਵਿੱਚ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।
+**Answer:** ਦਸਤਾਵੇਜ਼ ਜਾਂ ਭਾਗ ਦੇ ਅੰਤ ਵਿੱਚ
+**Explanation:** Endnote ਮੌਜੂਦਾ ਪੰਨਾ ਦੇ ਹੇਠਾਂ ਦੀ ਬਜਾਏ ਦਸਤਾਵੇਜ਼ ਜਾਂ ਭਾਗ ਦੇ ਅੰਤ ਵਿੱਚ ਰੱਖੀ ਜਾਂਦੀ ਹੈ।
 **Trace:** COM003-WORD-TABS-043 · com003-word-references-endnote
 
 #### 4. COM003-WORD-TABS-044 — EASY
-**Question:** Document text ਵਿੱਚ source citation ਜੋੜਨ ਵਾਲਾ References-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਲਿਖਤ ਵਿੱਚ ਸਰੋਤ ਹਵਾਲਾ ਜੋੜਨ ਵਾਲਾ References ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Insert Caption
-B. Insert Table
-C. Insert Index
-D. Insert Citation
+ਇੱਕ. Insert Caption
+B. Insert ਟੇਬਲ
+C. Insert ਸੂਚਕ
+D. Insert ਹਵਾਲਾ
 
-**Answer:** Insert Citation
-**Explanation:** Insert Citation document ਵਿੱਚ source ਨਾਲ ਜੁੜੀ citation ਜੋੜਦਾ ਹੈ।
+**Answer:** Insert ਹਵਾਲਾ
+**Explanation:** Insert ਹਵਾਲਾ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਸਰੋਤ ਨਾਲ ਜੁੜੀ ਹਵਾਲਾ ਜੋੜਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-044 · com003-word-references-citations
 
 #### 5. COM003-WORD-TABS-045 — EASY
-**Question:** Document ਵਿੱਚ ਵਰਤੇ sources ਦੀ list ਬਣਾਉਣ ਵਾਲਾ References-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਵਰਤੇ ਸਰੋਤ ਦੀ ਸੂਚੀ ਬਣਾਉਣ ਵਾਲਾ References ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Bibliography
+ਇੱਕ. Bibliography
 B. Watermark
-C. Header
+C. ਉੱਪਰਲਾ ਸਿਰਲੇਖ
 D. Replace
 
 **Answer:** Bibliography
-**Explanation:** Bibliography document ਵਿੱਚ ਵਰਤੇ sources ਦੀ formatted list ਬਣਾਉਂਦੀ ਹੈ।
+**Explanation:** Bibliography ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਵਰਤੇ ਸਰੋਤ ਦੀ ਰੂਪਬੱਧ ਸੂਚੀ ਬਣਾਉਂਦੀ ਹੈ।
 **Trace:** COM003-WORD-TABS-045 · com003-word-references-bibliography
 
 #### 6. COM003-WORD-TABS-046 — EASY
-**Question:** Object ਉੱਤੇ Figure 1 ਵਰਗਾ label ਜੋੜਨ ਵਾਲਾ References-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਸਤੂ ਉੱਤੇ ਚਿੱਤਰ 1 ਵਰਗਾ ਲੇਬਲ ਜੋੜਨ ਵਾਲਾ References ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Citation
+ਇੱਕ. ਹਵਾਲਾ
 B. Caption
 C. Endnote
-D. Index
+D. ਸੂਚਕ
 
 **Answer:** Caption
-**Explanation:** Caption figure, table ਜਾਂ ਹੋਰ object ਉੱਤੇ label ਜਾਂ short description ਜੋੜਦਾ ਹੈ।
+**Explanation:** Caption ਚਿੱਤਰ, ਟੇਬਲ ਜਾਂ ਹੋਰ ਵਸਤੂ ਉੱਤੇ ਲੇਬਲ ਜਾਂ ਛੋਟਾ ਵੇਰਵਾ ਜੋੜਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-046 · com003-word-references-caption
 
 #### 7. COM003-WORD-TABS-047 — MEDIUM
-**Question:** ਉਸੇ document ਦੇ ਹੋਰ heading, figure ਜਾਂ table ਨਾਲ text ਨੂੰ link ਕਰਨ ਵਾਲਾ References-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਉਸੇ ਦਸਤਾਵੇਜ਼ ਦੇ ਹੋਰ ਸਿਰਲੇਖ, ਚਿੱਤਰ ਜਾਂ ਟੇਬਲ ਨਾਲ ਲਿਖਤ ਨੂੰ ਲਿੰਕ ਕਰਨ ਵਾਲਾ References ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Watermark
+ਇੱਕ. Watermark
 B. Mail Merge
 C. Cross-reference
 D. Page Color
 
 **Answer:** Cross-reference
-**Explanation:** Cross-reference text ਨੂੰ ਉਸੇ document ਦੇ ਹੋਰ item, ਜਿਵੇਂ heading ਜਾਂ figure, ਨਾਲ ਜੋੜਦਾ ਹੈ।
+**Explanation:** Cross-reference ਲਿਖਤ ਨੂੰ ਉਸੇ ਦਸਤਾਵੇਜ਼ ਦੇ ਹੋਰ ਵਸਤੂ, ਜਿਵੇਂ ਸਿਰਲੇਖ ਜਾਂ ਚਿੱਤਰ, ਨਾਲ ਜੋੜਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-047 · com003-word-references-cross-reference
 
 #### 8. COM003-WORD-TABS-048 — MEDIUM
-**Question:** Automatic Table of Contents ਬਣਾਉਣ ਲਈ ਕਿਹੜੀ document structure ਸਭ ਤੋਂ ਲਾਭਦਾਇਕ ਹੈ?
+**Question:** ਆਪਣੇ ਆਪ Table of Contents ਬਣਾਉਣ ਲਈ ਕਿਹੜੀ ਦਸਤਾਵੇਜ਼ ਬਣਤਰ ਸਭ ਤੋਂ ਲਾਭਦਾਇਕ ਹੈ?
 
-A. Random font colors
-B. Page background images
-C. Unformatted spaces
-D. Heading styles
+ਇੱਕ. ਬੇਤਰਤੀਬ ਫੌਂਟ ਰੰਗ
+B. ਪੰਨਾ ਪਿਛੋਕੜ ਤਸਵੀਰਾਂ
+C. ਬਿਨਾਂ ਰੂਪ ਵਾਲਾ ਥਾਵਾਂ
+D. ਸਿਰਲੇਖ ਸ਼ੈਲੀਆਂ
 
-**Answer:** Heading styles
-**Explanation:** Heading styles Word ਨੂੰ Table of Contents ਬਣਾਉਣ ਅਤੇ update ਕਰਨ ਲਈ document structure ਦਿੰਦੇ ਹਨ।
+**Answer:** ਸਿਰਲੇਖ ਸ਼ੈਲੀਆਂ
+**Explanation:** ਸਿਰਲੇਖ ਸ਼ੈਲੀਆਂ Word ਨੂੰ Table of Contents ਬਣਾਉਣ ਅਤੇ ਅਪਡੇਟ ਕਰਨ ਲਈ ਦਸਤਾਵੇਜ਼ ਬਣਤਰ ਦਿੰਦੇ ਹਨ।
 **Trace:** COM003-WORD-TABS-048 · com003-word-references-toc-headings
 
 ### COM-003-QL-026 — Word Mailings Tab
@@ -1918,197 +1918,197 @@ D. Finish & Merge
 #### Hindi
 
 #### 1. COM003-WORD-TABS-049 — EASY
-**Question:** Personalized document copies बनाने की process शुरू करने वाला Mailings-tab command कौन-सा है?
+**Question:** वैयक्तिकृत दस्तावेज़ कॉपी करता है बनाने की प्रक्रिया शुरू करने वाला Mailings टैबटैब कमांड कौन-सा है?
 
-A. Start Mail Merge
+एक. Start Mail Merge
 B. Track Changes
 C. Insert Caption
 D. Page Color
 
 **Answer:** Start Mail Merge
-**Explanation:** Start Mail Merge personalized letters, labels, envelopes या messages बनाने का workflow शुरू करता है।
+**Explanation:** Start Mail Merge वैयक्तिकृत अक्षर, लेबल, लिफ़ाफ़े या संदेश बनाने का कार्यप्रवाह शुरू करता है।
 **Trace:** COM003-WORD-TABS-049 · com003-word-mailings-start-mail-merge
 
 #### 2. COM003-WORD-TABS-050 — EASY
-**Question:** Mail merge को recipient list से connect करने वाला Mailings-tab command कौन-सा है?
+**Question:** Mail विलय को प्राप्तकर्ता सूची से जोड़ना करने वाला Mailings टैबटैब कमांड कौन-सा है?
 
-A. Finish & Merge
-B. Select Recipients
+एक. Finish & Merge
+B. चुनना प्राप्तकर्ता
 C. Preview Results
-D. Match Fields
+D. मिलान फ़ील्ड
 
-**Answer:** Select Recipients
-**Explanation:** Select Recipients merge को उसके data source या recipient list से connect करता है।
+**Answer:** चुनना प्राप्तकर्ता
+**Explanation:** चुनना प्राप्तकर्ता विलय को उसके डेटा स्रोत या प्राप्तकर्ता सूची से जोड़ना करता है।
 **Trace:** COM003-WORD-TABS-050 · com003-word-mailings-select-recipients
 
 #### 3. COM003-WORD-TABS-051 — MEDIUM
-**Question:** Merge list से records filter या remove करने वाला Mailings-tab command कौन-सा है?
+**Question:** विलय सूची से अभिलेख फ़िल्टर या हटाना करने वाला Mailings टैबटैब कमांड कौन-सा है?
 
-A. Insert Merge Field
+एक. Insert Merge Field
 B. Greeting Line
-C. Edit Recipient List
+C. संपादित करें प्राप्तकर्ता सूची
 D. Start Mail Merge
 
-**Answer:** Edit Recipient List
-**Explanation:** Edit Recipient List merge में उपयोग होने वाले records को select, filter या modify करने देता है।
+**Answer:** संपादित करें प्राप्तकर्ता सूची
+**Explanation:** संपादित करें प्राप्तकर्ता सूची विलय में उपयोग होने वाले अभिलेख को चुनना, फ़िल्टर या संशोधित करना करने देता है।
 **Trace:** COM003-WORD-TABS-051 · com003-word-mailings-edit-recipients
 
 #### 4. COM003-WORD-TABS-052 — EASY
-**Question:** Recipient के name जैसी variable value insert करने वाला Mailings-tab command कौन-सा है?
+**Question:** प्राप्तकर्ता के नाम जैसी चर मान डालना करने वाला Mailings टैबटैब कमांड कौन-सा है?
 
-A. Address Block
+एक. Address Block
 B. Preview Results
 C. Finish & Merge
 D. Insert Merge Field
 
 **Answer:** Insert Merge Field
-**Explanation:** Insert Merge Field ऐसा field रखता है जिसमें data source से value आती है।
+**Explanation:** Insert Merge Field ऐसा फ़ील्ड रखता है जिसमें डेटा स्रोत से मान आती है।
 **Trace:** COM003-WORD-TABS-052 · com003-word-mailings-merge-field
 
 #### 5. COM003-WORD-TABS-053 — EASY
-**Question:** Formatted recipient address insert करने वाला Mailings-tab feature कौन-सा है?
+**Question:** स्वरूपित प्राप्तकर्ता पता डालना करने वाला Mailings टैबटैब सुविधा कौन-सा है?
 
-A. Address Block
-B. Page Number
+एक. Address Block
+B. पृष्ठ Number
 C. Caption
-D. Citation
+D. उद्धरण
 
 **Answer:** Address Block
-**Explanation:** Address Block recipient के address fields का formatted group insert करता है।
+**Explanation:** Address Block प्राप्तकर्ता के पता फ़ील्ड का स्वरूपित समूह डालना करता है।
 **Trace:** COM003-WORD-TABS-053 · com003-word-mailings-address-block
 
 #### 6. COM003-WORD-TABS-054 — EASY
-**Question:** Dear Anil जैसा personalized salutation जोड़ने वाला Mailings-tab feature कौन-सा है?
+**Question:** प्रिय अनिल जैसा वैयक्तिकृत संबोधन जोड़ने वाला Mailings टैबटैब सुविधा कौन-सा है?
 
-A. Address Block
+एक. Address Block
 B. Greeting Line
-C. Edit Recipient List
-D. Labels
+C. संपादित करें प्राप्तकर्ता सूची
+D. लेबल
 
 **Answer:** Greeting Line
-**Explanation:** Greeting Line recipient data का उपयोग करके personalized salutation insert करता है।
+**Explanation:** Greeting Line प्राप्तकर्ता डेटा का उपयोग करके वैयक्तिकृत संबोधन डालना करता है।
 **Trace:** COM003-WORD-TABS-054 · com003-word-mailings-greeting-line
 
 #### 7. COM003-WORD-TABS-055 — EASY
-**Question:** Completion से पहले merged records कैसे दिखेंगे, यह दिखाने वाला Mailings-tab command कौन-सा है?
+**Question:** समापन से पहले विलयित अभिलेख कैसे दिखेंगे, यह दिखाने वाला Mailings टैबटैब कमांड कौन-सा है?
 
-A. Select Recipients
+एक. चुनना प्राप्तकर्ता
 B. Insert Merge Field
 C. Preview Results
 D. Start Mail Merge
 
 **Answer:** Preview Results
-**Explanation:** Preview Results merge complete होने से पहले recipient values वाला document दिखाता है।
+**Explanation:** Preview Results विलय पूर्ण होने से पहले प्राप्तकर्ता मान वाला दस्तावेज़ दिखाता है।
 **Trace:** COM003-WORD-TABS-055 · com003-word-mailings-preview-results
 
 #### 8. COM003-WORD-TABS-056 — EASY
-**Question:** Final merged documents या messages बनाने वाला Mailings-tab command कौन-सा है?
+**Question:** अंतिम विलयित दस्तावेज़ या संदेश बनाने वाला Mailings टैबटैब कमांड कौन-सा है?
 
-A. Preview Results
-B. Select Recipients
-C. Edit Recipient List
+एक. Preview Results
+B. चुनना प्राप्तकर्ता
+C. संपादित करें प्राप्तकर्ता सूची
 D. Finish & Merge
 
 **Answer:** Finish & Merge
-**Explanation:** Finish & Merge merge को पूरा करके final output बनाता है।
+**Explanation:** Finish & Merge विलय को पूरा करके अंतिम परिणाम बनाता है।
 **Trace:** COM003-WORD-TABS-056 · com003-word-mailings-finish-merge
 
 #### Punjabi
 
 #### 1. COM003-WORD-TABS-049 — EASY
-**Question:** Personalized document copies ਬਣਾਉਣ ਦੀ process ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Mailings-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਿਅਕਤੀਗਤ ਦਸਤਾਵੇਜ਼ ਕਾਪੀ ਕਰਦਾ ਹੈ ਬਣਾਉਣ ਦੀ ਪ੍ਰਕਿਰਿਆ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Start Mail Merge
+ਇੱਕ. Start Mail Merge
 B. Track Changes
 C. Insert Caption
 D. Page Color
 
 **Answer:** Start Mail Merge
-**Explanation:** Start Mail Merge personalized letters, labels, envelopes ਜਾਂ messages ਬਣਾਉਣ ਦਾ workflow ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।
+**Explanation:** Start Mail Merge ਵਿਅਕਤੀਗਤ ਅੱਖਰ, ਲੇਬਲ, ਲਿਫ਼ਾਫ਼ੇ ਜਾਂ ਸੁਨੇਹੇ ਬਣਾਉਣ ਦਾ ਕੰਮ-ਪ੍ਰਵਾਹ ਸ਼ੁਰੂ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-049 · com003-word-mailings-start-mail-merge
 
 #### 2. COM003-WORD-TABS-050 — EASY
-**Question:** Mail merge ਨੂੰ recipient list ਨਾਲ connect ਕਰਨ ਵਾਲਾ Mailings-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** Mail ਮਿਲਾਉਣਾ ਨੂੰ ਪ੍ਰਾਪਤਕਰਤਾ ਸੂਚੀ ਨਾਲ ਜੋੜਨਾ ਕਰਨ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Finish & Merge
-B. Select Recipients
+ਇੱਕ. Finish & Merge
+B. ਚੁਣਨਾ ਪ੍ਰਾਪਤਕਰਤਾ
 C. Preview Results
-D. Match Fields
+D. ਮਿਲਾਨ ਫੀਲਡ
 
-**Answer:** Select Recipients
-**Explanation:** Select Recipients merge ਨੂੰ ਉਸਦੇ data source ਜਾਂ recipient list ਨਾਲ connect ਕਰਦਾ ਹੈ।
+**Answer:** ਚੁਣਨਾ ਪ੍ਰਾਪਤਕਰਤਾ
+**Explanation:** ਚੁਣਨਾ ਪ੍ਰਾਪਤਕਰਤਾ ਮਿਲਾਉਣਾ ਨੂੰ ਉਸਦੇ ਡਾਟਾ ਸਰੋਤ ਜਾਂ ਪ੍ਰਾਪਤਕਰਤਾ ਸੂਚੀ ਨਾਲ ਜੋੜਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-050 · com003-word-mailings-select-recipients
 
 #### 3. COM003-WORD-TABS-051 — MEDIUM
-**Question:** Merge list ਵਿੱਚੋਂ records filter ਜਾਂ remove ਕਰਨ ਵਾਲਾ Mailings-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਮਿਲਾਉਣਾ ਸੂਚੀ ਵਿੱਚੋਂ ਰਿਕਾਰਡ ਫਿਲਟਰ ਜਾਂ ਹਟਾਉਣਾ ਕਰਨ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Insert Merge Field
+ਇੱਕ. Insert Merge Field
 B. Greeting Line
-C. Edit Recipient List
+C. ਸੋਧੋ ਪ੍ਰਾਪਤਕਰਤਾ ਸੂਚੀ
 D. Start Mail Merge
 
-**Answer:** Edit Recipient List
-**Explanation:** Edit Recipient List merge ਵਿੱਚ ਵਰਤੇ records ਨੂੰ select, filter ਜਾਂ modify ਕਰਨ ਦਿੰਦਾ ਹੈ।
+**Answer:** ਸੋਧੋ ਪ੍ਰਾਪਤਕਰਤਾ ਸੂਚੀ
+**Explanation:** ਸੋਧੋ ਪ੍ਰਾਪਤਕਰਤਾ ਸੂਚੀ ਮਿਲਾਉਣਾ ਵਿੱਚ ਵਰਤੇ ਰਿਕਾਰਡ ਨੂੰ ਚੁਣਨਾ, ਫਿਲਟਰ ਜਾਂ ਸੋਧਣਾ ਕਰਨ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-051 · com003-word-mailings-edit-recipients
 
 #### 4. COM003-WORD-TABS-052 — EASY
-**Question:** Recipient ਦੇ name ਵਰਗੀ variable value insert ਕਰਨ ਵਾਲਾ Mailings-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਪ੍ਰਾਪਤਕਰਤਾ ਦੇ ਨਾਮ ਵਰਗੀ ਚਲ ਮੁੱਲ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਨ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Address Block
+ਇੱਕ. Address Block
 B. Preview Results
 C. Finish & Merge
 D. Insert Merge Field
 
 **Answer:** Insert Merge Field
-**Explanation:** Insert Merge Field ਅਜਿਹਾ field ਰੱਖਦਾ ਹੈ ਜਿਸ ਵਿੱਚ data source ਤੋਂ value ਆਉਂਦੀ ਹੈ।
+**Explanation:** Insert Merge Field ਅਜਿਹਾ ਫੀਲਡ ਰੱਖਦਾ ਹੈ ਜਿਸ ਵਿੱਚ ਡਾਟਾ ਸਰੋਤ ਤੋਂ ਮੁੱਲ ਆਉਂਦੀ ਹੈ।
 **Trace:** COM003-WORD-TABS-052 · com003-word-mailings-merge-field
 
 #### 5. COM003-WORD-TABS-053 — EASY
-**Question:** Formatted recipient address insert ਕਰਨ ਵਾਲਾ Mailings-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਰੂਪਬੱਧ ਪ੍ਰਾਪਤਕਰਤਾ ਪਤਾ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਨ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Address Block
-B. Page Number
+ਇੱਕ. Address Block
+B. ਪੰਨਾ Number
 C. Caption
-D. Citation
+D. ਹਵਾਲਾ
 
 **Answer:** Address Block
-**Explanation:** Address Block recipient ਦੇ address fields ਦਾ formatted group insert ਕਰਦਾ ਹੈ।
+**Explanation:** Address Block ਪ੍ਰਾਪਤਕਰਤਾ ਦੇ ਪਤਾ ਫੀਲਡ ਦਾ ਰੂਪਬੱਧ ਸਮੂਹ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-053 · com003-word-mailings-address-block
 
 #### 6. COM003-WORD-TABS-054 — EASY
-**Question:** Dear Anil ਵਰਗਾ personalized salutation ਜੋੜਨ ਵਾਲਾ Mailings-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਪਿਆਰੇ ਅਨਿਲ ਵਰਗਾ ਵਿਅਕਤੀਗਤ ਸੰਬੋਧਨ ਜੋੜਨ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Address Block
+ਇੱਕ. Address Block
 B. Greeting Line
-C. Edit Recipient List
-D. Labels
+C. ਸੋਧੋ ਪ੍ਰਾਪਤਕਰਤਾ ਸੂਚੀ
+D. ਲੇਬਲ
 
 **Answer:** Greeting Line
-**Explanation:** Greeting Line recipient data ਦੀ ਵਰਤੋਂ ਕਰਕੇ personalized salutation insert ਕਰਦਾ ਹੈ।
+**Explanation:** Greeting Line ਪ੍ਰਾਪਤਕਰਤਾ ਡਾਟਾ ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਵਿਅਕਤੀਗਤ ਸੰਬੋਧਨ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-054 · com003-word-mailings-greeting-line
 
 #### 7. COM003-WORD-TABS-055 — EASY
-**Question:** Completion ਤੋਂ ਪਹਿਲਾਂ merged records ਕਿਵੇਂ ਦਿਖਣਗੇ, ਇਹ ਦਿਖਾਉਣ ਵਾਲਾ Mailings-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਮੁਕੰਮਲਤਾ ਤੋਂ ਪਹਿਲਾਂ ਮਿਲਾਇਆ ਹੋਇਆ ਰਿਕਾਰਡ ਕਿਵੇਂ ਦਿਖਣਗੇ, ਇਹ ਦਿਖਾਉਣ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Select Recipients
+ਇੱਕ. ਚੁਣਨਾ ਪ੍ਰਾਪਤਕਰਤਾ
 B. Insert Merge Field
 C. Preview Results
 D. Start Mail Merge
 
 **Answer:** Preview Results
-**Explanation:** Preview Results merge complete ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ recipient values ਵਾਲਾ document ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Preview Results ਮਿਲਾਉਣਾ ਪੂਰਾ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਪ੍ਰਾਪਤਕਰਤਾ ਮੁੱਲ ਵਾਲਾ ਦਸਤਾਵੇਜ਼ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-055 · com003-word-mailings-preview-results
 
 #### 8. COM003-WORD-TABS-056 — EASY
-**Question:** Final merged documents ਜਾਂ messages ਬਣਾਉਣ ਵਾਲਾ Mailings-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਅੰਤਿਮ ਮਿਲਾਇਆ ਹੋਇਆ ਦਸਤਾਵੇਜ਼ ਜਾਂ ਸੁਨੇਹੇ ਬਣਾਉਣ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Preview Results
-B. Select Recipients
-C. Edit Recipient List
+ਇੱਕ. Preview Results
+B. ਚੁਣਨਾ ਪ੍ਰਾਪਤਕਰਤਾ
+C. ਸੋਧੋ ਪ੍ਰਾਪਤਕਰਤਾ ਸੂਚੀ
 D. Finish & Merge
 
 **Answer:** Finish & Merge
-**Explanation:** Finish & Merge merge ਨੂੰ ਪੂਰਾ ਕਰਕੇ final output ਬਣਾਉਂਦਾ ਹੈ।
+**Explanation:** Finish & Merge ਮਿਲਾਉਣਾ ਨੂੰ ਪੂਰਾ ਕਰਕੇ ਅੰਤਿਮ ਨਤੀਜਾ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-056 · com003-word-mailings-finish-merge
 
 ### COM-003-QL-027 — Word Review Tab
@@ -2214,197 +2214,197 @@ D. Restrict Editing
 #### Hindi
 
 #### 1. COM003-WORD-TABS-057 — EASY
-**Question:** Spelling, grammar और writing suggestions check करने वाला Review-tab feature कौन-सा है?
+**Question:** Spelling, व्याकरण और लेखन सुझाव जाँच करने वाला समीक्षा टैबटैब सुविधा कौन-सा है?
 
-A. Editor
+एक. Editor
 B. Mail Merge
 C. Themes
-D. Columns
+D. स्तंभ
 
 **Answer:** Editor
-**Explanation:** Editor spelling, grammar और अन्य writing issues को review के लिए check करता है।
+**Explanation:** Editor वर्तनी, व्याकरण और अन्य लेखन समस्याएँ को समीक्षा के लिए जाँच करता है।
 **Trace:** COM003-WORD-TABS-057 · com003-word-review-editor
 
 #### 2. COM003-WORD-TABS-058 — MEDIUM
-**Question:** Word को proofing के लिए कौन-सी language उपयोग करनी है, यह बताने वाली Review-tab setting कौन-सी है?
+**Question:** Word को अशुद्धि-जाँच के लिए कौन-सी भाषा उपयोग करनी है, यह बताने वाली समीक्षा टैबटैब सेटिंग कौन-सी है?
 
-A. Translate Document
-B. Set Proofing Language
+एक. Translate दस्तावेज़
+B. Set अशुद्धि-जाँच भाषा
 C. New Comment
 D. Compare
 
-**Answer:** Set Proofing Language
-**Explanation:** Set Proofing Language spelling और grammar checking के लिए language चुनती है।
+**Answer:** Set अशुद्धि-जाँच भाषा
+**Explanation:** Set अशुद्धि-जाँच भाषा वर्तनी और व्याकरण जाँच के लिए भाषा चुनती है।
 **Trace:** COM003-WORD-TABS-058 · com003-word-review-proofing-language
 
 #### 3. COM003-WORD-TABS-059 — EASY
-**Question:** Main document text बदले बिना note जोड़ने वाला Review-tab feature कौन-सा है?
+**Question:** मुख्य दस्तावेज़ पाठ बदले बिना टिप्पणी जोड़ने वाला समीक्षा टैबटैब सुविधा कौन-सा है?
 
-A. Accept
-B. Reject
+एक. स्वीकारें
+B. अस्वीकारें
 C. New Comment
 D. Track Changes
 
 **Answer:** New Comment
-**Explanation:** New Comment main text बदले बिना discussion के लिए annotation जोड़ता है।
+**Explanation:** New Comment मुख्य पाठ बदले बिना चर्चा के लिए टिप्पणी जोड़ता है।
 **Trace:** COM003-WORD-TABS-059 · com003-word-review-comments
 
 #### 4. COM003-WORD-TABS-060 — EASY
-**Question:** Document में किए गए edits को record करने वाला Review-tab feature कौन-सा है?
+**Question:** दस्तावेज़ में किए गए संपादन को अभिलेख करने वाला समीक्षा टैबटैब सुविधा कौन-सा है?
 
-A. Editor
+एक. Editor
 B. Compare
-C. Restrict Editing
+C. सीमित करना संपादन
 D. Track Changes
 
 **Answer:** Track Changes
-**Explanation:** Track Changes insertions, deletions और अन्य edits को बाद की review के लिए record करता है।
+**Explanation:** Track Changes सम्मिलन, हटाना और अन्य संपादन को बाद की समीक्षा के लिए अभिलेख करता है।
 **Trace:** COM003-WORD-TABS-060 · com003-word-review-track-changes
 
 #### 5. COM003-WORD-TABS-061 — MEDIUM
-**Question:** Tracked change के लिए Accept चुनने का effect क्या है?
+**Question:** ट्रैक किए गए बदलना के लिए स्वीकारें चुनने का प्रभाव क्या है?
 
-A. Change document का part बन जाता है
-B. Document print हो जाता है
-C. New source जुड़ता है
-D. Change केवल hide होता है
+एक. बदलना दस्तावेज़ का भाग बन जाता है
+B. दस्तावेज़ मुद्रण हो जाता है
+C. नया स्रोत जुड़ता है
+D. बदलना केवल छिपाना होता है
 
-**Answer:** Change document का part बन जाता है
-**Explanation:** Accept tracked edit को document के normal content का part बना देता है।
+**Answer:** बदलना दस्तावेज़ का भाग बन जाता है
+**Explanation:** स्वीकारें ट्रैक किए गए संपादित करें को दस्तावेज़ के सामान्य सामग्री का भाग बना देता है।
 **Trace:** COM003-WORD-TABS-061 · com003-word-review-accept-reject
 
 #### 6. COM003-WORD-TABS-062 — MEDIUM
-**Question:** Tracked change के लिए Reject चुनने का effect क्या है?
+**Question:** ट्रैक किए गए बदलना के लिए अस्वीकारें चुनने का प्रभाव क्या है?
 
-A. Change permanently accept हो जाता है
-B. Tracked edit discard हो जाता है
-C. Page rotate हो जाता है
-D. Citation insert होती है
+एक. बदलना स्थायी रूप से स्वीकारें हो जाता है
+B. ट्रैक किए गए संपादित करें हटाना हो जाता है
+C. पृष्ठ घुमाना हो जाता है
+D. उद्धरण डालना होती है
 
-**Answer:** Tracked edit discard हो जाता है
-**Explanation:** Reject proposed tracked change को accepted document content से हटा देता है।
+**Answer:** ट्रैक किए गए संपादित करें हटाना हो जाता है
+**Explanation:** अस्वीकारें प्रस्तावित ट्रैक किए गए बदलना को स्वीकृत दस्तावेज़ सामग्री से हटा देता है।
 **Trace:** COM003-WORD-TABS-062 · com003-word-review-reject
 
 #### 7. COM003-WORD-TABS-063 — MEDIUM
-**Question:** Document के दो versions की तुलना करने वाला Review-tab command कौन-सा है?
+**Question:** दस्तावेज़ के दो संस्करण की तुलना करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-A. Editor
+एक. Editor
 B. New Comment
 C. Compare
-D. Language
+D. भाषा
 
 **Answer:** Compare
-**Explanation:** Compare दो document versions की जाँच करके उनके differences दिखाता है।
+**Explanation:** Compare दो दस्तावेज़ संस्करण की जाँच करके उनके अंतर दिखाता है।
 **Trace:** COM003-WORD-TABS-063 · com003-word-review-compare
 
 #### 8. COM003-WORD-TABS-064 — MEDIUM
-**Question:** Users किस प्रकार के changes कर सकते हैं, इसे सीमित करने वाला Review-tab command कौन-सा है?
+**Question:** उपयोगकर्ता किस प्रकार के बदलाव कर सकते हैं, इसे सीमित करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-A. Track Changes
+एक. Track Changes
 B. Editor
 C. Compare
-D. Restrict Editing
+D. सीमित करना संपादन
 
-**Answer:** Restrict Editing
-**Explanation:** Restrict Editing document में allowed editing actions को सीमित करता है।
+**Answer:** सीमित करना संपादन
+**Explanation:** सीमित करना संपादन दस्तावेज़ में अनुमत संपादन क्रियाएँ को सीमित करता है।
 **Trace:** COM003-WORD-TABS-064 · com003-word-review-restrict-editing
 
 #### Punjabi
 
 #### 1. COM003-WORD-TABS-057 — EASY
-**Question:** Spelling, grammar ਅਤੇ writing suggestions check ਕਰਨ ਵਾਲਾ Review-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** Spelling, ਵਿਆਕਰਨ ਅਤੇ ਲਿਖਤ ਸੁਝਾਅ ਜਾਂਚ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Editor
+ਇੱਕ. Editor
 B. Mail Merge
 C. Themes
-D. Columns
+D. ਕਾਲਮ
 
 **Answer:** Editor
-**Explanation:** Editor spelling, grammar ਅਤੇ ਹੋਰ writing issues ਨੂੰ review ਲਈ check ਕਰਦਾ ਹੈ।
+**Explanation:** Editor ਸ਼ਬਦ-ਜੋੜ, ਵਿਆਕਰਨ ਅਤੇ ਹੋਰ ਲਿਖਤ ਸਮੱਸਿਆਵਾਂ ਨੂੰ ਸਮੀਖਿਆ ਲਈ ਜਾਂਚ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-057 · com003-word-review-editor
 
 #### 2. COM003-WORD-TABS-058 — MEDIUM
-**Question:** Word ਨੂੰ proofing ਲਈ ਕਿਹੜੀ language ਵਰਤਣੀ ਹੈ, ਇਹ ਦੱਸਣ ਵਾਲੀ Review-tab setting ਕਿਹੜੀ ਹੈ?
+**Question:** Word ਨੂੰ ਸ਼ੁੱਧ-ਜਾਂਚ ਲਈ ਕਿਹੜੀ ਭਾਸ਼ਾ ਵਰਤਣੀ ਹੈ, ਇਹ ਦੱਸਣ ਵਾਲੀ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-A. Translate Document
-B. Set Proofing Language
+ਇੱਕ. Translate ਦਸਤਾਵੇਜ਼
+B. Set ਸ਼ੁੱਧ-ਜਾਂਚ ਭਾਸ਼ਾ
 C. New Comment
 D. Compare
 
-**Answer:** Set Proofing Language
-**Explanation:** Set Proofing Language spelling ਅਤੇ grammar checking ਲਈ language ਚੁਣਦੀ ਹੈ।
+**Answer:** Set ਸ਼ੁੱਧ-ਜਾਂਚ ਭਾਸ਼ਾ
+**Explanation:** Set ਸ਼ੁੱਧ-ਜਾਂਚ ਭਾਸ਼ਾ ਸ਼ਬਦ-ਜੋੜ ਅਤੇ ਵਿਆਕਰਨ ਜਾਂਚ ਲਈ ਭਾਸ਼ਾ ਚੁਣਦੀ ਹੈ।
 **Trace:** COM003-WORD-TABS-058 · com003-word-review-proofing-language
 
 #### 3. COM003-WORD-TABS-059 — EASY
-**Question:** Main document text ਬਦਲੇ ਬਿਨਾਂ note ਜੋੜਨ ਵਾਲਾ Review-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਮੁੱਖ ਦਸਤਾਵੇਜ਼ ਲਿਖਤ ਬਦਲੇ ਬਿਨਾਂ ਨੋਟ ਜੋੜਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Accept
-B. Reject
+ਇੱਕ. ਸਵੀਕਾਰੋ
+B. ਨਕਾਰੋ
 C. New Comment
 D. Track Changes
 
 **Answer:** New Comment
-**Explanation:** New Comment main text ਬਦਲੇ ਬਿਨਾਂ discussion ਲਈ annotation ਜੋੜਦਾ ਹੈ।
+**Explanation:** New Comment ਮੁੱਖ ਲਿਖਤ ਬਦਲੇ ਬਿਨਾਂ ਚਰਚਾ ਲਈ ਟਿੱਪਣੀ ਜੋੜਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-059 · com003-word-review-comments
 
 #### 4. COM003-WORD-TABS-060 — EASY
-**Question:** Document ਵਿੱਚ ਕੀਤੇ edits ਨੂੰ record ਕਰਨ ਵਾਲਾ Review-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਕੀਤੇ ਸੋਧਾਂ ਨੂੰ ਰਿਕਾਰਡ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Editor
+ਇੱਕ. Editor
 B. Compare
-C. Restrict Editing
+C. ਸੀਮਿਤ ਕਰਨਾ ਸੋਧ
 D. Track Changes
 
 **Answer:** Track Changes
-**Explanation:** Track Changes insertions, deletions ਅਤੇ ਹੋਰ edits ਨੂੰ ਬਾਅਦ ਦੀ review ਲਈ record ਕਰਦਾ ਹੈ।
+**Explanation:** Track Changes ਸ਼ਾਮਲੀਆਂ, ਮਿਟਾਉਣ ਅਤੇ ਹੋਰ ਸੋਧਾਂ ਨੂੰ ਬਾਅਦ ਦੀ ਸਮੀਖਿਆ ਲਈ ਰਿਕਾਰਡ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-060 · com003-word-review-track-changes
 
 #### 5. COM003-WORD-TABS-061 — MEDIUM
-**Question:** Tracked change ਲਈ Accept ਚੁਣਨ ਦਾ effect ਕੀ ਹੁੰਦਾ ਹੈ?
+**Question:** ਟ੍ਰੈਕ ਕੀਤੇ ਹੋਏ ਬਦਲਣਾ ਲਈ ਸਵੀਕਾਰੋ ਚੁਣਨ ਦਾ ਪ੍ਰਭਾਵ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-A. Change document ਦਾ part ਬਣ ਜਾਂਦਾ ਹੈ
-B. Document print ਹੋ ਜਾਂਦਾ ਹੈ
-C. New source ਜੁੜਦਾ ਹੈ
-D. Change ਸਿਰਫ਼ hide ਹੁੰਦਾ ਹੈ
+ਇੱਕ. ਬਦਲਣਾ ਦਸਤਾਵੇਜ਼ ਦਾ ਹਿੱਸਾ ਬਣ ਜਾਂਦਾ ਹੈ
+B. ਦਸਤਾਵੇਜ਼ ਛਪਾਈ ਹੋ ਜਾਂਦਾ ਹੈ
+C. ਨਵਾਂ ਸਰੋਤ ਜੁੜਦਾ ਹੈ
+D. ਬਦਲਣਾ ਸਿਰਫ਼ ਲੁਕਾਉਣਾ ਹੁੰਦਾ ਹੈ
 
-**Answer:** Change document ਦਾ part ਬਣ ਜਾਂਦਾ ਹੈ
-**Explanation:** Accept tracked edit ਨੂੰ document ਦੇ normal content ਦਾ part ਬਣਾ ਦਿੰਦਾ ਹੈ।
+**Answer:** ਬਦਲਣਾ ਦਸਤਾਵੇਜ਼ ਦਾ ਹਿੱਸਾ ਬਣ ਜਾਂਦਾ ਹੈ
+**Explanation:** ਸਵੀਕਾਰੋ ਟ੍ਰੈਕ ਕੀਤੇ ਹੋਏ ਸੋਧੋ ਨੂੰ ਦਸਤਾਵੇਜ਼ ਦੇ ਆਮ ਸਮੱਗਰੀ ਦਾ ਹਿੱਸਾ ਬਣਾ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-061 · com003-word-review-accept-reject
 
 #### 6. COM003-WORD-TABS-062 — MEDIUM
-**Question:** Tracked change ਲਈ Reject ਚੁਣਨ ਦਾ effect ਕੀ ਹੁੰਦਾ ਹੈ?
+**Question:** ਟ੍ਰੈਕ ਕੀਤੇ ਹੋਏ ਬਦਲਣਾ ਲਈ ਨਕਾਰੋ ਚੁਣਨ ਦਾ ਪ੍ਰਭਾਵ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-A. Change permanently accept ਹੋ ਜਾਂਦਾ ਹੈ
-B. Tracked edit discard ਹੋ ਜਾਂਦਾ ਹੈ
-C. Page rotate ਹੋ ਜਾਂਦਾ ਹੈ
-D. Citation insert ਹੁੰਦੀ ਹੈ
+ਇੱਕ. ਬਦਲਣਾ ਸਥਾਈ ਤੌਰ ਉੱਤੇ ਸਵੀਕਾਰੋ ਹੋ ਜਾਂਦਾ ਹੈ
+B. ਟ੍ਰੈਕ ਕੀਤੇ ਹੋਏ ਸੋਧੋ ਹਟਾਉਣਾ ਹੋ ਜਾਂਦਾ ਹੈ
+C. ਪੰਨਾ ਘੁੰਮਾਉਣਾ ਹੋ ਜਾਂਦਾ ਹੈ
+D. ਹਵਾਲਾ ਸ਼ਾਮਲ ਕਰਨਾ ਹੁੰਦੀ ਹੈ
 
-**Answer:** Tracked edit discard ਹੋ ਜਾਂਦਾ ਹੈ
-**Explanation:** Reject proposed tracked change ਨੂੰ accepted document content ਤੋਂ ਹਟਾ ਦਿੰਦਾ ਹੈ।
+**Answer:** ਟ੍ਰੈਕ ਕੀਤੇ ਹੋਏ ਸੋਧੋ ਹਟਾਉਣਾ ਹੋ ਜਾਂਦਾ ਹੈ
+**Explanation:** ਨਕਾਰੋ ਪੇਸ਼ ਕੀਤਾ ਟ੍ਰੈਕ ਕੀਤੇ ਹੋਏ ਬਦਲਣਾ ਨੂੰ ਸਵੀਕਾਰਿਆ ਦਸਤਾਵੇਜ਼ ਸਮੱਗਰੀ ਤੋਂ ਹਟਾ ਦਿੰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-062 · com003-word-review-reject
 
 #### 7. COM003-WORD-TABS-063 — MEDIUM
-**Question:** Document ਦੇ ਦੋ versions ਦੀ ਤੁਲਨਾ ਕਰਨ ਵਾਲਾ Review-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਦੇ ਦੋ ਰੂਪਾਂ ਦੀ ਤੁਲਨਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Editor
+ਇੱਕ. Editor
 B. New Comment
 C. Compare
-D. Language
+D. ਭਾਸ਼ਾ
 
 **Answer:** Compare
-**Explanation:** Compare ਦੋ document versions ਦੀ ਜਾਂਚ ਕਰਕੇ ਉਹਨਾਂ ਦੇ differences ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Compare ਦੋ ਦਸਤਾਵੇਜ਼ ਰੂਪਾਂ ਦੀ ਜਾਂਚ ਕਰਕੇ ਉਹਨਾਂ ਦੇ ਫਰਕ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-063 · com003-word-review-compare
 
 #### 8. COM003-WORD-TABS-064 — MEDIUM
-**Question:** Users ਕਿਹੜੇ ਕਿਸਮ ਦੇ changes ਕਰ ਸਕਦੇ ਹਨ, ਇਸ ਨੂੰ ਸੀਮਿਤ ਕਰਨ ਵਾਲਾ Review-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਰਤੋਂਕਾਰ ਕਿਹੜੇ ਕਿਸਮ ਦੇ ਤਬਦੀਲੀਆਂ ਕਰ ਸਕਦੇ ਹਨ, ਇਸ ਨੂੰ ਸੀਮਿਤ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Track Changes
+ਇੱਕ. Track Changes
 B. Editor
 C. Compare
-D. Restrict Editing
+D. ਸੀਮਿਤ ਕਰਨਾ ਸੋਧ
 
-**Answer:** Restrict Editing
-**Explanation:** Restrict Editing document ਵਿੱਚ allowed editing actions ਨੂੰ ਸੀਮਿਤ ਕਰਦਾ ਹੈ।
+**Answer:** ਸੀਮਿਤ ਕਰਨਾ ਸੋਧ
+**Explanation:** ਸੀਮਿਤ ਕਰਨਾ ਸੋਧ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਮਨਜ਼ੂਰ ਸੋਧ ਕਾਰਵਾਈਆਂ ਨੂੰ ਸੀਮਿਤ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-064 · com003-word-review-restrict-editing
 
 ### COM-003-QL-028 — Word View Tab
@@ -2510,197 +2510,197 @@ D. Zoom
 #### Hindi
 
 #### 1. COM003-WORD-TABS-065 — EASY
-**Question:** कौन-सा Word view pages को printed document जैसा दिखाता है?
+**Question:** कौन-सा Word दृश्य पृष्ठ को मुद्रित दस्तावेज़ जैसा दिखाता है?
 
-A. Print Layout
-B. Draft
-C. Outline
-D. Web Layout
+एक. Print Layout
+B. मसौदा
+C. रूपरेखा
+D. वेब Layout
 
 **Answer:** Print Layout
-**Explanation:** Print Layout page boundaries और printed document के करीब view दिखाता है।
+**Explanation:** Print Layout पृष्ठ सीमाएँ और मुद्रित दस्तावेज़ के करीब दृश्य दिखाता है।
 **Trace:** COM003-WORD-TABS-065 · com003-word-view-print-layout
 
 #### 2. COM003-WORD-TABS-066 — EASY
-**Question:** Document पढ़ने के लिए मुख्य रूप से बनाया गया Word view कौन-सा है?
+**Question:** दस्तावेज़ पढ़ने के लिए मुख्य रूप से बनाया गया Word दृश्य कौन-सा है?
 
-A. Draft
-B. Read Mode
-C. Outline
-D. Web Layout
+एक. मसौदा
+B. पढ़ना मोड
+C. रूपरेखा
+D. वेब Layout
 
-**Answer:** Read Mode
-**Explanation:** Read Mode document को पढ़ना आसान बनाने के लिए बनाया गया है।
+**Answer:** पढ़ना मोड
+**Explanation:** पढ़ना मोड दस्तावेज़ को पढ़ना आसान बनाने के लिए बनाया गया है।
 **Trace:** COM003-WORD-TABS-066 · com003-word-view-read-mode
 
 #### 3. COM003-WORD-TABS-067 — EASY
-**Question:** Heading levels के माध्यम से document structure दिखाने वाला Word view कौन-सा है?
+**Question:** शीर्षक स्तर के माध्यम से दस्तावेज़ संरचना दिखाने वाला Word दृश्य कौन-सा है?
 
-A. Print Layout
-B. Draft
-C. Outline
-D. Read Mode
+एक. Print Layout
+B. मसौदा
+C. रूपरेखा
+D. पढ़ना मोड
 
-**Answer:** Outline
-**Explanation:** Outline view heading levels के माध्यम से document structure दिखाता और manage करता है।
+**Answer:** रूपरेखा
+**Explanation:** रूपरेखा दृश्य शीर्षक स्तर के माध्यम से दस्तावेज़ संरचना दिखाता और प्रबंधित करना करता है।
 **Trace:** COM003-WORD-TABS-067 · com003-word-view-outline
 
 #### 4. COM003-WORD-TABS-068 — EASY
-**Question:** Document को webpage जैसी screen view में दिखाने वाला Word view कौन-सा है?
+**Question:** दस्तावेज़ को वेबपृष्ठ जैसी स्क्रीन दृश्य में दिखाने वाला Word दृश्य कौन-सा है?
 
-A. Print Layout
-B. Draft
-C. Outline
-D. Web Layout
+एक. Print Layout
+B. मसौदा
+C. रूपरेखा
+D. वेब Layout
 
-**Answer:** Web Layout
-**Explanation:** Web Layout document को webpage जैसी screen view में दिखाता है।
+**Answer:** वेब Layout
+**Explanation:** वेब Layout दस्तावेज़ को वेबपृष्ठ जैसी स्क्रीन दृश्य में दिखाता है।
 **Trace:** COM003-WORD-TABS-068 · com003-word-view-web-layout
 
 #### 5. COM003-WORD-TABS-069 — EASY
-**Question:** Long document में headings के बीच जल्दी जाने में मदद करने वाला View-tab feature कौन-सा है?
+**Question:** लंबा दस्तावेज़ में शीर्षक के बीच जल्दी जाने में मदद करने वाला दृश्य टैबटैब सुविधा कौन-सा है?
 
-A. Navigation Pane
+एक. Navigation Pane
 B. Page Color
 C. Address Block
 D. Watermark
 
 **Answer:** Navigation Pane
-**Explanation:** Navigation Pane document search करने और headings या pages के बीच जाने में मदद करता है।
+**Explanation:** Navigation Pane दस्तावेज़ खोज करने और शीर्षक या पृष्ठ के बीच जाने में मदद करता है।
 **Trace:** COM003-WORD-TABS-069 · com003-word-view-navigation-pane
 
 #### 6. COM003-WORD-TABS-070 — EASY
-**Question:** Tabs और indents के लिए उपयोग होने वाला ruler दिखाने वाला View-tab command कौन-सा है?
+**Question:** टैब और इंडेंट के लिए उपयोग होने वाला स्केल दिखाने वाला दृश्य टैबटैब कमांड कौन-सा है?
 
-A. Gridlines
-B. Ruler
+एक. ग्रिडलाइनें
+B. स्केल
 C. Zoom
-D. Split
+D. विभाजित करें
 
-**Answer:** Ruler
-**Explanation:** Ruler tabs और indents set करने के लिए measurement guide दिखाता है।
+**Answer:** स्केल
+**Explanation:** स्केल टैब और इंडेंट निर्धारित करना करने के लिए माप मार्गदर्शक दिखाता है।
 **Trace:** COM003-WORD-TABS-070 · com003-word-view-ruler
 
 #### 7. COM003-WORD-TABS-071 — EASY
-**Question:** Objects align करने में मदद करने वाली non-printing gridlines दिखाने वाला View-tab command कौन-सा है?
+**Question:** वस्तुएँ संरेखित करना करने में मदद करने वाली गैर-मुद्रण ग्रिडलाइनें दिखाने वाला दृश्य टैबटैब कमांड कौन-सा है?
 
-A. Ruler
+एक. स्केल
 B. Zoom
-C. Gridlines
-D. Read Mode
+C. ग्रिडलाइनें
+D. पढ़ना मोड
 
-**Answer:** Gridlines
-**Explanation:** Gridlines visual alignment guides देती हैं और सामान्यतः document content की तरह print नहीं होतीं।
+**Answer:** ग्रिडलाइनें
+**Explanation:** ग्रिडलाइनें दृश्य संरेखण मार्गदर्शक देती हैं और सामान्यतः दस्तावेज़ सामग्री की तरह मुद्रण नहीं होतीं।
 **Trace:** COM003-WORD-TABS-071 · com003-word-view-gridlines
 
 #### 8. COM003-WORD-TABS-072 — EASY
-**Question:** Page content बदले बिना screen पर document का size बदलने वाला View-tab control कौन-सा है?
+**Question:** पृष्ठ सामग्री बदले बिना स्क्रीन पर दस्तावेज़ का आकार बदलने वाला दृश्य टैबटैब नियंत्रण कौन-सा है?
 
-A. Ruler
-B. Gridlines
+एक. स्केल
+B. ग्रिडलाइनें
 C. Navigation Pane
 D. Zoom
 
 **Answer:** Zoom
-**Explanation:** Zoom on-screen magnification बदलता है; document का actual text या page settings नहीं बदलता।
+**Explanation:** Zoom पर-स्क्रीन आवर्धन बदलता है; दस्तावेज़ का वास्तविक पाठ या पृष्ठ सेटिंग्स नहीं बदलता।
 **Trace:** COM003-WORD-TABS-072 · com003-word-view-zoom
 
 #### Punjabi
 
 #### 1. COM003-WORD-TABS-065 — EASY
-**Question:** ਕਿਹੜਾ Word view pages ਨੂੰ printed document ਵਰਗਾ ਦਿਖਾਉਂਦਾ ਹੈ?
+**Question:** ਕਿਹੜਾ Word ਦ੍ਰਿਸ਼ ਪੰਨੇ ਨੂੰ ਛਪੇ ਹੋਏ ਦਸਤਾਵੇਜ਼ ਵਰਗਾ ਦਿਖਾਉਂਦਾ ਹੈ?
 
-A. Print Layout
-B. Draft
-C. Outline
-D. Web Layout
+ਇੱਕ. Print Layout
+B. ਮਸੌਦਾ
+C. ਰੂਪ-ਰੇਖਾ
+D. ਵੈੱਬ Layout
 
 **Answer:** Print Layout
-**Explanation:** Print Layout page boundaries ਅਤੇ printed document ਦੇ ਨੇੜੇ view ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Print Layout ਪੰਨਾ ਹੱਦਾਂ ਅਤੇ ਛਪੇ ਹੋਏ ਦਸਤਾਵੇਜ਼ ਦੇ ਨੇੜੇ ਦ੍ਰਿਸ਼ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-065 · com003-word-view-print-layout
 
 #### 2. COM003-WORD-TABS-066 — EASY
-**Question:** Document ਪੜ੍ਹਨ ਲਈ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਬਣਾਇਆ Word view ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਪੜ੍ਹਨ ਲਈ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਬਣਾਇਆ Word ਦ੍ਰਿਸ਼ ਕਿਹੜਾ ਹੈ?
 
-A. Draft
-B. Read Mode
-C. Outline
-D. Web Layout
+ਇੱਕ. ਮਸੌਦਾ
+B. ਪੜ੍ਹਨਾ ਮੋਡ
+C. ਰੂਪ-ਰੇਖਾ
+D. ਵੈੱਬ Layout
 
-**Answer:** Read Mode
-**Explanation:** Read Mode document ਨੂੰ ਪੜ੍ਹਨਾ ਆਸਾਨ ਬਣਾਉਣ ਲਈ ਬਣਾਇਆ ਗਿਆ ਹੈ।
+**Answer:** ਪੜ੍ਹਨਾ ਮੋਡ
+**Explanation:** ਪੜ੍ਹਨਾ ਮੋਡ ਦਸਤਾਵੇਜ਼ ਨੂੰ ਪੜ੍ਹਨਾ ਆਸਾਨ ਬਣਾਉਣ ਲਈ ਬਣਾਇਆ ਗਿਆ ਹੈ।
 **Trace:** COM003-WORD-TABS-066 · com003-word-view-read-mode
 
 #### 3. COM003-WORD-TABS-067 — EASY
-**Question:** Heading levels ਰਾਹੀਂ document structure ਦਿਖਾਉਣ ਵਾਲਾ Word view ਕਿਹੜਾ ਹੈ?
+**Question:** ਸਿਰਲੇਖ ਪੱਧਰ ਰਾਹੀਂ ਦਸਤਾਵੇਜ਼ ਬਣਤਰ ਦਿਖਾਉਣ ਵਾਲਾ Word ਦ੍ਰਿਸ਼ ਕਿਹੜਾ ਹੈ?
 
-A. Print Layout
-B. Draft
-C. Outline
-D. Read Mode
+ਇੱਕ. Print Layout
+B. ਮਸੌਦਾ
+C. ਰੂਪ-ਰੇਖਾ
+D. ਪੜ੍ਹਨਾ ਮੋਡ
 
-**Answer:** Outline
-**Explanation:** Outline view heading levels ਰਾਹੀਂ document structure ਦਿਖਾਉਂਦਾ ਅਤੇ manage ਕਰਦਾ ਹੈ।
+**Answer:** ਰੂਪ-ਰੇਖਾ
+**Explanation:** ਰੂਪ-ਰੇਖਾ ਦ੍ਰਿਸ਼ ਸਿਰਲੇਖ ਪੱਧਰ ਰਾਹੀਂ ਦਸਤਾਵੇਜ਼ ਬਣਤਰ ਦਿਖਾਉਂਦਾ ਅਤੇ ਪ੍ਰਬੰਧਿਤ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-067 · com003-word-view-outline
 
 #### 4. COM003-WORD-TABS-068 — EASY
-**Question:** Document ਨੂੰ webpage ਵਰਗੀ screen view ਵਿੱਚ ਦਿਖਾਉਣ ਵਾਲਾ Word view ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਨੂੰ ਵੈੱਬਪੰਨਾ ਵਰਗੀ ਸਕ੍ਰੀਨ ਦ੍ਰਿਸ਼ ਵਿੱਚ ਦਿਖਾਉਣ ਵਾਲਾ Word ਦ੍ਰਿਸ਼ ਕਿਹੜਾ ਹੈ?
 
-A. Print Layout
-B. Draft
-C. Outline
-D. Web Layout
+ਇੱਕ. Print Layout
+B. ਮਸੌਦਾ
+C. ਰੂਪ-ਰੇਖਾ
+D. ਵੈੱਬ Layout
 
-**Answer:** Web Layout
-**Explanation:** Web Layout document ਨੂੰ webpage ਵਰਗੀ screen view ਵਿੱਚ ਦਿਖਾਉਂਦਾ ਹੈ।
+**Answer:** ਵੈੱਬ Layout
+**Explanation:** ਵੈੱਬ Layout ਦਸਤਾਵੇਜ਼ ਨੂੰ ਵੈੱਬਪੰਨਾ ਵਰਗੀ ਸਕ੍ਰੀਨ ਦ੍ਰਿਸ਼ ਵਿੱਚ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-068 · com003-word-view-web-layout
 
 #### 5. COM003-WORD-TABS-069 — EASY
-**Question:** Long document ਵਿੱਚ headings ਵਿਚਕਾਰ ਜਲਦੀ ਜਾਣ ਵਿੱਚ ਮਦਦ ਕਰਨ ਵਾਲਾ View-tab feature ਕਿਹੜਾ ਹੈ?
+**Question:** ਲੰਮਾ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਸਿਰਲੇਖ ਵਿਚਕਾਰ ਜਲਦੀ ਜਾਣ ਵਿੱਚ ਮਦਦ ਕਰਨ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-A. Navigation Pane
+ਇੱਕ. Navigation Pane
 B. Page Color
 C. Address Block
 D. Watermark
 
 **Answer:** Navigation Pane
-**Explanation:** Navigation Pane document search ਕਰਨ ਅਤੇ headings ਜਾਂ pages ਵਿਚਕਾਰ ਜਾਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।
+**Explanation:** Navigation Pane ਦਸਤਾਵੇਜ਼ ਖੋਜ ਕਰਨ ਅਤੇ ਸਿਰਲੇਖ ਜਾਂ ਪੰਨੇ ਵਿਚਕਾਰ ਜਾਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-069 · com003-word-view-navigation-pane
 
 #### 6. COM003-WORD-TABS-070 — EASY
-**Question:** Tabs ਅਤੇ indents ਲਈ ਵਰਤਿਆ ruler ਦਿਖਾਉਣ ਵਾਲਾ View-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਟੈਬ ਅਤੇ ਇੰਡੈਂਟ ਲਈ ਵਰਤਿਆ ਪੈਮਾਨਾ ਦਿਖਾਉਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Gridlines
-B. Ruler
+ਇੱਕ. ਗ੍ਰਿਡਲਾਈਨਾਂ
+B. ਪੈਮਾਨਾ
 C. Zoom
-D. Split
+D. ਵੰਡੋ
 
-**Answer:** Ruler
-**Explanation:** Ruler tabs ਅਤੇ indents set ਕਰਨ ਲਈ measurement guide ਦਿਖਾਉਂਦਾ ਹੈ।
+**Answer:** ਪੈਮਾਨਾ
+**Explanation:** ਪੈਮਾਨਾ ਟੈਬ ਅਤੇ ਇੰਡੈਂਟ ਨਿਰਧਾਰਤ ਕਰਨਾ ਕਰਨ ਲਈ ਮਾਪ ਗਾਈਡ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-070 · com003-word-view-ruler
 
 #### 7. COM003-WORD-TABS-071 — EASY
-**Question:** Objects align ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਨ ਵਾਲੀਆਂ non-printing gridlines ਦਿਖਾਉਣ ਵਾਲਾ View-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਵਸਤੂਆਂ ਸੰਰેખਿਤ ਕਰਨਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਨ ਵਾਲੀਆਂ ਗੈਰ-ਛਪਾਈ ਗ੍ਰਿਡਲਾਈਨਾਂ ਦਿਖਾਉਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Ruler
+ਇੱਕ. ਪੈਮਾਨਾ
 B. Zoom
-C. Gridlines
-D. Read Mode
+C. ਗ੍ਰਿਡਲਾਈਨਾਂ
+D. ਪੜ੍ਹਨਾ ਮੋਡ
 
-**Answer:** Gridlines
-**Explanation:** Gridlines visual alignment guides ਦਿੰਦੀਆਂ ਹਨ ਅਤੇ ਆਮ ਤੌਰ ਉੱਤੇ document content ਵਾਂਗ print ਨਹੀਂ ਹੁੰਦੀਆਂ।
+**Answer:** ਗ੍ਰਿਡਲਾਈਨਾਂ
+**Explanation:** ਗ੍ਰਿਡਲਾਈਨਾਂ ਦ੍ਰਿਸ਼ ਸੰਰેખਣ ਗਾਈਡ ਦਿੰਦੀਆਂ ਹਨ ਅਤੇ ਆਮ ਤੌਰ ਉੱਤੇ ਦਸਤਾਵੇਜ਼ ਸਮੱਗਰੀ ਵਾਂਗ ਛਪਾਈ ਨਹੀਂ ਹੁੰਦੀਆਂ।
 **Trace:** COM003-WORD-TABS-071 · com003-word-view-gridlines
 
 #### 8. COM003-WORD-TABS-072 — EASY
-**Question:** Page content ਬਦਲੇ ਬਿਨਾਂ screen ਉੱਤੇ document ਦਾ size ਬਦਲਣ ਵਾਲਾ View-tab control ਕਿਹੜਾ ਹੈ?
+**Question:** ਪੰਨਾ ਸਮੱਗਰੀ ਬਦਲੇ ਬਿਨਾਂ ਸਕ੍ਰੀਨ ਉੱਤੇ ਦਸਤਾਵੇਜ਼ ਦਾ ਆਕਾਰ ਬਦਲਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਨਿਯੰਤਰਣ ਕਿਹੜਾ ਹੈ?
 
-A. Ruler
-B. Gridlines
+ਇੱਕ. ਪੈਮਾਨਾ
+B. ਗ੍ਰਿਡਲਾਈਨਾਂ
 C. Navigation Pane
 D. Zoom
 
 **Answer:** Zoom
-**Explanation:** Zoom on-screen magnification ਬਦਲਦਾ ਹੈ; document ਦਾ actual text ਜਾਂ page settings ਨਹੀਂ ਬਦਲਦਾ।
+**Explanation:** Zoom ਉੱਤੇ-ਸਕ੍ਰੀਨ ਵੱਡਾ ਕਰਨਾ ਬਦਲਦਾ ਹੈ; ਦਸਤਾਵੇਜ਼ ਦਾ ਅਸਲ ਲਿਖਤ ਜਾਂ ਪੰਨਾ ਸੈਟਿੰਗਾਂ ਨਹੀਂ ਬਦਲਦਾ।
 **Trace:** COM003-WORD-TABS-072 · com003-word-view-zoom
 
 ### COM-003-QL-029 — Word File Tab & Backstage
@@ -2806,223 +2806,223 @@ D. Close
 #### Hindi
 
 #### 1. COM003-WORD-TABS-073 — EASY
-**Question:** नया Word document बनाने वाला File-tab command कौन-सा है?
+**Question:** नया Word दस्तावेज़ बनाने वाला File टैबटैब कमांड कौन-सा है?
 
-A. New
+एक. नया
 B. Open
 C. Info
 D. Export
 
-**Answer:** New
-**Explanation:** New command blank file या template से नया document बनाता है।
+**Answer:** नया
+**Explanation:** नया कमांड रिक्त फ़ाइल या टेम्पलेट से नया दस्तावेज़ बनाता है।
 **Trace:** COM003-WORD-TABS-073 · com003-word-file-new
 
 #### 2. COM003-WORD-TABS-074 — EASY
-**Question:** Existing Word document खोलने वाला File-tab command कौन-सा है?
+**Question:** मौजूदा Word दस्तावेज़ खोलने वाला File टैबटैब कमांड कौन-सा है?
 
-A. New
+एक. नया
 B. Open
-C. Save As
+C. Save जैसे
 D. Print
 
 **Answer:** Open
-**Explanation:** Open file location से existing document load करता है।
+**Explanation:** Open फ़ाइल स्थान से मौजूदा दस्तावेज़ लोड करना करता है।
 **Trace:** COM003-WORD-TABS-074 · com003-word-file-open
 
 #### 3. COM003-WORD-TABS-075 — EASY
-**Question:** Document को नए name या file format के साथ save करने वाला File-tab command कौन-सा है?
+**Question:** दस्तावेज़ को नए नाम या फ़ाइल स्वरूप के साथ सहेजना करने वाला File टैबटैब कमांड कौन-सा है?
 
-A. New
+एक. नया
 B. Open
-C. Save As
+C. Save जैसे
 D. Close
 
-**Answer:** Save As
-**Explanation:** Save As चुने गए name, location या format के साथ saved copy बनाता है।
+**Answer:** Save जैसे
+**Explanation:** Save जैसे चुने गए नाम, स्थान या स्वरूप के साथ सहेजा गया कॉपी बनाता है।
 **Trace:** COM003-WORD-TABS-075 · com003-word-file-save-as
 
 #### 4. COM003-WORD-TABS-076 — EASY
-**Question:** Print settings और print preview खोलने वाला File-tab command कौन-सा है?
+**Question:** Print सेटिंग्स और मुद्रण पूर्वावलोकन खोलने वाला File टैबटैब कमांड कौन-सा है?
 
-A. Info
-B. Share
+एक. Info
+B. साझा करें
 C. Export
 D. Print
 
 **Answer:** Print
-**Explanation:** Print document output की print settings और preview खोलता है।
+**Explanation:** Print दस्तावेज़ परिणाम की मुद्रण सेटिंग्स और पूर्वावलोकन खोलता है।
 **Trace:** COM003-WORD-TABS-076 · com003-word-file-print
 
 #### 5. COM003-WORD-TABS-077 — EASY
-**Question:** Document properties और protection options दिखाने वाला File-tab area कौन-सा है?
+**Question:** दस्तावेज़ गुण और सुरक्षा विकल्प दिखाने वाला File टैबटैब क्षेत्र कौन-सा है?
 
-A. Info
+एक. Info
 B. Open
-C. New
+C. नया
 D. Print
 
 **Answer:** Info
-**Explanation:** Info document properties और document protection जैसे options दिखाता है।
+**Explanation:** Info दस्तावेज़ गुण और दस्तावेज़ सुरक्षा जैसे विकल्प दिखाता है।
 **Trace:** COM003-WORD-TABS-077 · com003-word-file-info
 
 #### 6. COM003-WORD-TABS-078 — EASY
-**Question:** Document की copy को दूसरे supported format में बनाने के लिए कौन-सा File-tab command उपयोग होता है?
+**Question:** दस्तावेज़ की कॉपी को दूसरे समर्थित स्वरूप में बनाने के लिए कौन-सा File टैबटैब कमांड उपयोग होता है?
 
-A. Open
+एक. Open
 B. Export
-C. New
+C. नया
 D. Close
 
 **Answer:** Export
-**Explanation:** Export document की copy को दूसरे supported output format में बनाता है।
+**Explanation:** Export दस्तावेज़ की कॉपी को दूसरे समर्थित परिणाम स्वरूप में बनाता है।
 **Trace:** COM003-WORD-TABS-078 · com003-word-file-export
 
 #### 7. COM003-WORD-TABS-079 — EASY
-**Question:** दूसरों को document भेजने या share करने के लिए कौन-सा File-tab command intended है?
+**Question:** दूसरों को दस्तावेज़ भेजने या साझा करें करने के लिए कौन-सा File टैबटैब कमांड वांछित है?
 
-A. Print
+एक. Print
 B. Info
-C. Share
+C. साझा करें
 D. Page Color
 
-**Answer:** Share
-**Explanation:** Share document sharing options देता है; उपलब्ध विकल्प account और platform पर निर्भर हो सकते हैं।
+**Answer:** साझा करें
+**Explanation:** साझा करें दस्तावेज़ साझाकरण विकल्प देता है; उपलब्ध विकल्प खाता और मंच पर निर्भर हो सकते हैं।
 **Trace:** COM003-WORD-TABS-079 · com003-word-file-share
 
 #### 8. COM003-WORD-TABS-080 — EASY
-**Question:** Current document बंद करने वाला File-tab command कौन-सा है?
+**Question:** वर्तमान दस्तावेज़ बंद करने वाला File टैबटैब कमांड कौन-सा है?
 
-A. Export
-B. Save As
-C. New
+एक. Export
+B. Save जैसे
+C. नया
 D. Close
 
 **Answer:** Close
-**Explanation:** Close current document बंद करता है और Word application खुली रह सकती है।
+**Explanation:** Close वर्तमान दस्तावेज़ बंद करता है और Word अनुप्रयोग खुली रह सकती है।
 **Trace:** COM003-WORD-TABS-080 · com003-word-file-close
 
 #### Punjabi
 
 #### 1. COM003-WORD-TABS-073 — EASY
-**Question:** ਨਵਾਂ Word document ਬਣਾਉਣ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਨਵਾਂ Word ਦਸਤਾਵੇਜ਼ ਬਣਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. New
+ਇੱਕ. ਨਵਾਂ
 B. Open
 C. Info
 D. Export
 
-**Answer:** New
-**Explanation:** New command blank file ਜਾਂ template ਤੋਂ ਨਵਾਂ document ਬਣਾਉਂਦਾ ਹੈ।
+**Answer:** ਨਵਾਂ
+**Explanation:** ਨਵਾਂ ਕਮਾਂਡ ਖਾਲੀ ਫ਼ਾਈਲ ਜਾਂ ਟੈਂਪਲੇਟ ਤੋਂ ਨਵਾਂ ਦਸਤਾਵੇਜ਼ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-073 · com003-word-file-new
 
 #### 2. COM003-WORD-TABS-074 — EASY
-**Question:** Existing Word document ਖੋਲ੍ਹਣ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਮੌਜੂਦਾ Word ਦਸਤਾਵੇਜ਼ ਖੋਲ੍ਹਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. New
+ਇੱਕ. ਨਵਾਂ
 B. Open
-C. Save As
+C. Save ਵਜੋਂ
 D. Print
 
 **Answer:** Open
-**Explanation:** Open file location ਤੋਂ existing document load ਕਰਦਾ ਹੈ।
+**Explanation:** Open ਫ਼ਾਈਲ ਥਾਂ ਤੋਂ ਮੌਜੂਦਾ ਦਸਤਾਵੇਜ਼ ਲੋਡ ਕਰਨਾ ਕਰਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-074 · com003-word-file-open
 
 #### 3. COM003-WORD-TABS-075 — EASY
-**Question:** Document ਨੂੰ ਨਵੇਂ name ਜਾਂ file format ਨਾਲ save ਕਰਨ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਨੂੰ ਨਵੇਂ ਨਾਮ ਜਾਂ ਫ਼ਾਈਲ ਰੂਪ ਨਾਲ ਸੰਭਾਲਣਾ ਕਰਨ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. New
+ਇੱਕ. ਨਵਾਂ
 B. Open
-C. Save As
+C. Save ਵਜੋਂ
 D. Close
 
-**Answer:** Save As
-**Explanation:** Save As ਚੁਣੇ name, location ਜਾਂ format ਨਾਲ saved copy ਬਣਾਉਂਦਾ ਹੈ।
+**Answer:** Save ਵਜੋਂ
+**Explanation:** Save ਵਜੋਂ ਚੁਣੇ ਨਾਮ, ਥਾਂ ਜਾਂ ਰੂਪ ਨਾਲ ਸੰਭਾਲਿਆ ਗਿਆ ਕਾਪੀ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-075 · com003-word-file-save-as
 
 #### 4. COM003-WORD-TABS-076 — EASY
-**Question:** Print settings ਅਤੇ print preview ਖੋਲ੍ਹਣ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** Print ਸੈਟਿੰਗਾਂ ਅਤੇ ਛਪਾਈ ਪੂਰਵ-ਦ੍ਰਿਸ਼ ਖੋਲ੍ਹਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Info
-B. Share
+ਇੱਕ. Info
+B. ਸਾਂਝਾ ਕਰੋ
 C. Export
 D. Print
 
 **Answer:** Print
-**Explanation:** Print document output ਦੀਆਂ print settings ਅਤੇ preview ਖੋਲ੍ਹਦਾ ਹੈ।
+**Explanation:** Print ਦਸਤਾਵੇਜ਼ ਨਤੀਜਾ ਦੀਆਂ ਛਪਾਈ ਸੈਟਿੰਗਾਂ ਅਤੇ ਪੂਰਵ-ਦ੍ਰਿਸ਼ ਖੋਲ੍ਹਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-076 · com003-word-file-print
 
 #### 5. COM003-WORD-TABS-077 — EASY
-**Question:** Document properties ਅਤੇ protection options ਦਿਖਾਉਣ ਵਾਲਾ File-tab area ਕਿਹੜਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਅਤੇ ਸੁਰੱਖਿਆ ਵਿਕਲਪ ਦਿਖਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-A. Info
+ਇੱਕ. Info
 B. Open
-C. New
+C. ਨਵਾਂ
 D. Print
 
 **Answer:** Info
-**Explanation:** Info document properties ਅਤੇ document protection ਵਰਗੇ options ਦਿਖਾਉਂਦਾ ਹੈ।
+**Explanation:** Info ਦਸਤਾਵੇਜ਼ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਅਤੇ ਦਸਤਾਵੇਜ਼ ਸੁਰੱਖਿਆ ਵਰਗੇ ਵਿਕਲਪ ਦਿਖਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-077 · com003-word-file-info
 
 #### 6. COM003-WORD-TABS-078 — EASY
-**Question:** Document ਦੀ copy ਨੂੰ ਹੋਰ supported format ਵਿੱਚ ਬਣਾਉਣ ਲਈ ਕਿਹੜਾ File-tab command ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?
+**Question:** ਦਸਤਾਵੇਜ਼ ਦੀ ਕਾਪੀ ਨੂੰ ਹੋਰ ਸਮਰਥਿਤ ਰੂਪ ਵਿੱਚ ਬਣਾਉਣ ਲਈ ਕਿਹੜਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?
 
-A. Open
+ਇੱਕ. Open
 B. Export
-C. New
+C. ਨਵਾਂ
 D. Close
 
 **Answer:** Export
-**Explanation:** Export document ਦੀ copy ਨੂੰ ਹੋਰ supported output format ਵਿੱਚ ਬਣਾਉਂਦਾ ਹੈ।
+**Explanation:** Export ਦਸਤਾਵੇਜ਼ ਦੀ ਕਾਪੀ ਨੂੰ ਹੋਰ ਸਮਰਥਿਤ ਨਤੀਜਾ ਰੂਪ ਵਿੱਚ ਬਣਾਉਂਦਾ ਹੈ।
 **Trace:** COM003-WORD-TABS-078 · com003-word-file-export
 
 #### 7. COM003-WORD-TABS-079 — EASY
-**Question:** ਹੋਰਾਂ ਨੂੰ document ਭੇਜਣ ਜਾਂ share ਕਰਨ ਲਈ ਕਿਹੜਾ File-tab command intended ਹੈ?
+**Question:** ਹੋਰਾਂ ਨੂੰ ਦਸਤਾਵੇਜ਼ ਭੇਜਣ ਜਾਂ ਸਾਂਝਾ ਕਰੋ ਕਰਨ ਲਈ ਕਿਹੜਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਇੱਛਤ ਹੈ?
 
-A. Print
+ਇੱਕ. Print
 B. Info
-C. Share
+C. ਸਾਂਝਾ ਕਰੋ
 D. Page Color
 
-**Answer:** Share
-**Explanation:** Share document sharing options ਦਿੰਦਾ ਹੈ; ਉਪਲਬਧ options account ਅਤੇ platform ਉੱਤੇ ਨਿਰਭਰ ਕਰ ਸਕਦੇ ਹਨ।
+**Answer:** ਸਾਂਝਾ ਕਰੋ
+**Explanation:** ਸਾਂਝਾ ਕਰੋ ਦਸਤਾਵੇਜ਼ ਸਾਂਝਾ ਕਰਨਾ ਵਿਕਲਪ ਦਿੰਦਾ ਹੈ; ਉਪਲਬਧ ਵਿਕਲਪ ਖਾਤਾ ਅਤੇ ਪਲੇਟਫਾਰਮ ਉੱਤੇ ਨਿਰਭਰ ਕਰ ਸਕਦੇ ਹਨ।
 **Trace:** COM003-WORD-TABS-079 · com003-word-file-share
 
 #### 8. COM003-WORD-TABS-080 — EASY
-**Question:** Current document ਬੰਦ ਕਰਨ ਵਾਲਾ File-tab command ਕਿਹੜਾ ਹੈ?
+**Question:** ਮੌਜੂਦਾ ਦਸਤਾਵੇਜ਼ ਬੰਦ ਕਰਨ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-A. Export
-B. Save As
-C. New
+ਇੱਕ. Export
+B. Save ਵਜੋਂ
+C. ਨਵਾਂ
 D. Close
 
 **Answer:** Close
-**Explanation:** Close current document ਬੰਦ ਕਰਦਾ ਹੈ ਅਤੇ Word application ਖੁੱਲ੍ਹੀ ਰਹਿ ਸਕਦੀ ਹੈ।
+**Explanation:** Close ਮੌਜੂਦਾ ਦਸਤਾਵੇਜ਼ ਬੰਦ ਕਰਦਾ ਹੈ ਅਤੇ Word ਐਪਲੀਕੇਸ਼ਨ ਖੁੱਲ੍ਹੀ ਰਹਿ ਸਕਦੀ ਹੈ।
 **Trace:** COM003-WORD-TABS-080 · com003-word-file-close
 
-## Sources
+## ਸਰੋਤ
 
-- **MICROSOFT-WORD-RIBBON-2026** — [Microsoft Support — Customize the Ribbon in Word](https://support.microsoft.com/en-us/word/customize-the-ribbon-in-word) — verified 2026-09-09
-- **MICROSOFT-WORD-NEW-USERS-2026** — [Microsoft Support — Word for new users](https://support.microsoft.com/en-us/word/word-for-new-users) — verified 2026-09-09
-- **MICROSOFT-WORD-FORMAT-PAINTER-2026** — [Microsoft Support — Use the Format Painter](https://support.microsoft.com/en-us/word/use-the-format-painter) — verified 2026-09-09
-- **MICROSOFT-WORD-INSERT-TABLE-2026** — [Microsoft Support — Insert a table](https://support.microsoft.com/en-us/word/training/insert-a-table) — verified 2026-09-09
-- **MICROSOFT-WORD-INSERT-PICTURES-2026** — [Microsoft Support — Insert pictures](https://support.microsoft.com/en-us/word/training/insert-pictures) — verified 2026-09-09
-- **MICROSOFT-WORD-INSERT-HEADER-FOOTER-2026** — [Microsoft Support — Insert a header or footer](https://support.microsoft.com/en-us/word/training/insert-a-header-or-footer) — verified 2026-09-09
-- **MICROSOFT-WORD-INSERT-PAGE-NUMBERS-2026** — [Microsoft Support — Insert page numbers](https://support.microsoft.com/en-us/word/training/insert-page-numbers) — verified 2026-09-09
-- **MICROSOFT-WORD-INSERT-BREAKS-2026** — [Microsoft Support — Insert page and section breaks](https://support.microsoft.com/en-us/word/insert-a-section-break) — verified 2026-09-09
-- **MICROSOFT-WORD-DESIGN-THEME-2026** — [Microsoft Support — Customize, save, and apply a theme in Word](https://support.microsoft.com/en-us/word/customize-save-and-apply-a-theme-in-word-for-mac) — verified 2026-09-09
-- **MICROSOFT-WORD-DESIGN-BORDER-2026** — [Microsoft Support — Add a border to a page](https://support.microsoft.com/en-us/word/training/add-a-border-to-a-page) — verified 2026-09-09
-- **MICROSOFT-WORD-LAYOUT-2026** — [Microsoft Support — Change margins, orientation, size and columns in Word](https://support.microsoft.com/en-us/word/training/change-margins) — verified 2026-09-09
-- **MICROSOFT-WORD-COLUMNS-2026** — [Microsoft Support — Create multiple columns in Word](https://support.microsoft.com/en-us/word/training/create-multiple-columns-in-word) — verified 2026-09-09
-- **MICROSOFT-WORD-REFERENCES-FOOTNOTES-2026** — [Microsoft Support — Insert footnotes and endnotes in Word](https://support.microsoft.com/en-us/word/training/insert-footnotes-and-endnotes-in-word) — verified 2026-09-09
-- **MICROSOFT-WORD-REFERENCES-TOC-2026** — [Microsoft Support — Insert a table of contents](https://support.microsoft.com/en-us/word/training/insert-a-table-of-contents) — verified 2026-09-09
-- **MICROSOFT-WORD-REFERENCES-CITATIONS-2026** — [Microsoft Support — Create citations, references and a bibliography](https://support.microsoft.com/en-us/word/training/create-a-bibliography-citations-and-references) — verified 2026-09-09
-- **MICROSOFT-WORD-MAIL-MERGE-2026** — [Microsoft Support — Use mail merge for bulk letters, labels and envelopes](https://support.microsoft.com/en-us/word/use-mail-merge-for-bulk-email-letters-labels-and-envelopes) — verified 2026-09-09
-- **MICROSOFT-WORD-MAIL-MERGE-PREVIEW-2026** — [Microsoft Support — Use mail merge to personalize letters](https://support.microsoft.com/en-us/word/use-mail-merge-to-personalize-letters) — verified 2026-09-09
-- **MICROSOFT-WORD-REVIEW-TRACK-CHANGES-2026** — [Microsoft Support — Track changes in Word](https://support.microsoft.com/en-us/word/training/track-changes-in-word) — verified 2026-09-09
-- **MICROSOFT-WORD-REVIEW-EDITOR-2026** — [Microsoft Support — Check grammar, spelling and more in Word](https://support.microsoft.com/en-us/word/training/check-grammar-spelling-and-more-in-word) — verified 2026-09-09
-- **MICROSOFT-WORD-VIEWS-2026** — [Microsoft Support — Use Word views to read or edit your document](https://support.microsoft.com/en-us/word/use-word-views-to-read-or-edit-your-document) — verified 2026-09-09
-- **MICROSOFT-WORD-RULER-2026** — [Microsoft Support — Using the ruler in Word](https://support.microsoft.com/en-us/word/using-the-ruler-in-word) — verified 2026-09-09
-- **MICROSOFT-WORD-SHORTCUTS-2026** — [Microsoft Support — Keyboard shortcuts in Word](https://support.microsoft.com/en-gb/office/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-RIBBON-2026** — [Microsoft Support — Customize ਇਹ Ribbon ਵਿੱਚ Word](https://support.microsoft.com/en-us/ਸ਼ਬਦ/customize-ਇਹ-ribbon-ਵਿੱਚ-ਸ਼ਬਦ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-ਨਵਾਂ-ਵਰਤੋਂਕਾਰ-2026** — [Microsoft Support — Word ਲਈ ਨਵਾਂ ਵਰਤੋਂਕਾਰ](https://support.microsoft.com/en-us/ਸ਼ਬਦ/ਸ਼ਬਦ-ਲਈ-ਨਵਾਂ-ਵਰਤੋਂਕਾਰ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-ਰੂਪ-PAINTER-2026** — [Microsoft Support — ਵਰਤਣਾ ਇਹ Format Painter](https://support.microsoft.com/en-us/ਸ਼ਬਦ/ਵਰਤਣਾ-ਇਹ-ਰੂਪ-painter) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-INSERT-ਟੇਬਲ-2026** — [Microsoft Support — Insert ਇੱਕ ਟੇਬਲ](https://support.microsoft.com/en-us/ਸ਼ਬਦ/training/ਸ਼ਾਮਲ ਕਰਨਾ-ਇੱਕ-ਟੇਬਲ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-INSERT-PICTURES-2026** — [Microsoft Support — Insert pictures](https://support.microsoft.com/en-us/ਸ਼ਬਦ/training/ਸ਼ਾਮਲ ਕਰਨਾ-pictures) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-INSERT-ਉੱਪਰਲਾ ਸਿਰਲੇਖ-ਹੇਠਲਾ ਸਿਰਲੇਖ-2026** — [Microsoft Support — Insert ਇੱਕ ਉੱਪਰਲਾ ਸਿਰਲੇਖ ਜਾਂ ਹੇਠਲਾ ਸਿਰਲੇਖ](https://support.microsoft.com/en-us/ਸ਼ਬਦ/training/ਸ਼ਾਮਲ ਕਰਨਾ-ਇੱਕ-ਉੱਪਰਲਾ ਸਿਰਲੇਖ-ਜਾਂ-ਹੇਠਲਾ ਸਿਰਲੇਖ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-INSERT-ਪੰਨਾ-ਅੰਕ-2026** — [Microsoft Support — Insert ਪੰਨਾ ਅੰਕ](https://support.microsoft.com/en-us/ਸ਼ਬਦ/training/ਸ਼ਾਮਲ ਕਰਨਾ-ਪੰਨਾ-ਅੰਕ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-INSERT-ਵਿਰਾਮ-2026** — [Microsoft Support — Insert ਪੰਨਾ ਅਤੇ ਭਾਗ ਵਿਰਾਮ](https://support.microsoft.com/en-us/ਸ਼ਬਦ/ਸ਼ਾਮਲ ਕਰਨਾ-ਇੱਕ-ਭਾਗ-ਵਿਰਾਮ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-ਡਿਜ਼ਾਈਨ-ਥੀਮ-2026** — [Microsoft Support — Customize, ਸੰਭਾਲਣਾ, ਅਤੇ apply ਇੱਕ ਥੀਮ ਵਿੱਚ Word](https://support.microsoft.com/en-us/ਸ਼ਬਦ/customize-ਸੰਭਾਲਣਾ-ਅਤੇ-apply-ਇੱਕ-ਥੀਮ-ਵਿੱਚ-ਸ਼ਬਦ-ਲਈ-mac) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-ਡਿਜ਼ਾਈਨ-ਕਿਨਾਰਾ-2026** — [Microsoft Support — ਜੋੜਨਾ ਇੱਕ ਕਿਨਾਰਾ ਨੂੰ ਇੱਕ ਪੰਨਾ](https://support.microsoft.com/en-us/ਸ਼ਬਦ/training/ਜੋੜਨਾ-ਇੱਕ-ਕਿਨਾਰਾ-ਨੂੰ-ਇੱਕ-ਪੰਨਾ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-ਲੇਆਉਟ-2026** — [Microsoft Support — ਬਦਲਣਾ ਹਾਸ਼ੀਏ, orientation, ਆਕਾਰ ਅਤੇ ਕਾਲਮ ਵਿੱਚ Word](https://support.microsoft.com/en-us/ਸ਼ਬਦ/training/ਬਦਲਣਾ-ਹਾਸ਼ੀਏ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-ਕਾਲਮ-2026** — [Microsoft Support — ਬਣਾਉਣਾ multiple ਕਾਲਮ ਵਿੱਚ Word](https://support.microsoft.com/en-us/ਸ਼ਬਦ/training/ਬਣਾਉਣਾ-multiple-ਕਾਲਮ-ਵਿੱਚ-ਸ਼ਬਦ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-REFERENCES-ਫੁਟਨੋਟ-2026** — [Microsoft Support — Insert ਫੁਟਨੋਟ ਅਤੇ endnotes ਵਿੱਚ Word](https://support.microsoft.com/en-us/ਸ਼ਬਦ/training/ਸ਼ਾਮਲ ਕਰਨਾ-ਫੁਟਨੋਟ-ਅਤੇ-endnotes-ਵਿੱਚ-ਸ਼ਬਦ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-REFERENCES-TOC-2026** — [Microsoft Support — Insert ਇੱਕ ਟੇਬਲ ਦਾ ਸਮੱਗਰੀ](https://support.microsoft.com/en-us/ਸ਼ਬਦ/training/ਸ਼ਾਮਲ ਕਰਨਾ-ਇੱਕ-ਟੇਬਲ-ਦਾ-ਸਮੱਗਰੀ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-REFERENCES-ਹਵਾਲੇ-2026** — [Microsoft Support — ਬਣਾਉਣਾ ਹਵਾਲੇ, references ਅਤੇ ਇੱਕ ਹਵਾਲਾ-ਸੂਚੀ](https://support.microsoft.com/en-us/ਸ਼ਬਦ/training/ਬਣਾਉਣਾ-ਇੱਕ-ਹਵਾਲਾ-ਸੂਚੀ-ਹਵਾਲੇ-ਅਤੇ-references) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-MAIL-ਮਿਲਾਉਣਾ-2026** — [Microsoft Support — ਵਰਤਣਾ mail ਮਿਲਾਉਣਾ ਲਈ bulk ਅੱਖਰ, ਲੇਬਲ ਅਤੇ ਲਿਫ਼ਾਫ਼ੇ](https://support.microsoft.com/en-us/ਸ਼ਬਦ/ਵਰਤਣਾ-mail-ਮਿਲਾਉਣਾ-ਲਈ-bulk-email-ਅੱਖਰ-ਲੇਬਲ-ਅਤੇ-ਲਿਫ਼ਾਫ਼ੇ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-MAIL-ਮਿਲਾਉਣਾ-ਪੂਰਵ-ਦ੍ਰਿਸ਼-2026** — [Microsoft Support — ਵਰਤਣਾ mail ਮਿਲਾਉਣਾ ਨੂੰ personalize ਅੱਖਰ](https://support.microsoft.com/en-us/ਸ਼ਬਦ/ਵਰਤਣਾ-mail-ਮਿਲਾਉਣਾ-ਨੂੰ-personalize-ਅੱਖਰ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-ਸਮੀਖਿਆ-TRACK-ਤਬਦੀਲੀਆਂ-2026** — [Microsoft Support — Track ਤਬਦੀਲੀਆਂ ਵਿੱਚ Word](https://support.microsoft.com/en-us/ਸ਼ਬਦ/training/track-ਤਬਦੀਲੀਆਂ-ਵਿੱਚ-ਸ਼ਬਦ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-ਸਮੀਖਿਆ-EDITOR-2026** — [Microsoft Support — ਜਾਂਚ ਵਿਆਕਰਨ, ਸ਼ਬਦ-ਜੋੜ ਅਤੇ ਹੋਰ ਵਿੱਚ Word](https://support.microsoft.com/en-us/ਸ਼ਬਦ/training/ਜਾਂਚ-ਵਿਆਕਰਨ-ਸ਼ਬਦ-ਜੋੜ-ਅਤੇ-ਹੋਰ-ਵਿੱਚ-ਸ਼ਬਦ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-VIEWS-2026** — [Microsoft Support — ਵਰਤਣਾ Word views ਨੂੰ ਪੜ੍ਹਨਾ ਜਾਂ ਸੋਧੋ your ਦਸਤਾਵੇਜ਼](https://support.microsoft.com/en-us/ਸ਼ਬਦ/ਵਰਤਣਾ-ਸ਼ਬਦ-views-ਨੂੰ-ਪੜ੍ਹਨਾ-ਜਾਂ-ਸੋਧੋ-your-ਦਸਤਾਵੇਜ਼) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-ਪੈਮਾਨਾ-2026** — [Microsoft Support — Using ਇਹ ਪੈਮਾਨਾ ਵਿੱਚ Word](https://support.microsoft.com/en-us/ਸ਼ਬਦ/using-ਇਹ-ਪੈਮਾਨਾ-ਵਿੱਚ-ਸ਼ਬਦ) — verified 2026-09-09
+- **MICROSOFT-ਸ਼ਬਦ-SHORTCUTS-2026** — [Microsoft Support — Keyboard shortcuts ਵਿੱਚ Word](https://support.microsoft.com/en-gb/office/keyboard-shortcuts-ਵਿੱਚ-ਸ਼ਬਦ-95ef89dd-7142-4b50-afb2-f762f663ceb2) — verified 2026-09-09
 
-Authority: COM-003-WORD-TABS-COMPLETION-V1
+Authority: COM-003-ਸ਼ਬਦ-ਟੈਬ-ਮੁਕੰਮਲਤਾ-V1
 
