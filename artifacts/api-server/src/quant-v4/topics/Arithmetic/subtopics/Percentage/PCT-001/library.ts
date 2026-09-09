@@ -79,7 +79,7 @@ const PCT_001_EN_NATURAL_STEM_OVERRIDES: Readonly<Record<string, string>> = {
   "PCT-QL-111":
     "A number is reduced by {percentageRate}% from {baseValue}. Find the new value.",
   "PCT-QL-152":
-    "Fresh grapes contain {waterRate}% water, while dry grapes contain {dryWaterRate}% water. If the dry grapes weigh {value} kg, find their original fresh weight.",
+    "Fresh grapes contain {rate1}% water, while dry grapes contain {rate2}% water. If the dry grapes weigh {value} kg, find their original fresh weight.",
   "PCT-QL-420":
     "A quantity increases by {rate1}% in one month and by {rate2}% in the next month. Find the equivalent single percentage increase.",
   "PCT-QL-433":
