@@ -1,6 +1,6 @@
 # LP-009 — Source and Saturation Audit
 
-Status: review-only English implementation. Permanent QL allocation, localization, Question Bank admission, test eligibility and publication remain locked.
+Status: **English editorial review approved V2; runtime remains review-only. Permanent QL allocation, localization, Question Bank admission, test eligibility and publication remain locked.**
 
 ## Source coverage
 
@@ -25,10 +25,25 @@ No source wording is copied. The uploaded book is used for puzzle-family boundar
 | Year forms | same-date/month birth-year records with oldest-to-youngest ordering |
 | Clue families | direct value, before, between, adjacent, exclusion and second-position (year form) |
 | Difficulty | Easy direct completion; Medium mixed direct/order/exclusion chain; Hard limited direct anchors with layered order, adjacency, exclusion and year-position deductions |
-| Languages | English review only |
+| Languages | English approved review surface only |
 | Runtime | `REVIEW_ONLY` |
 
-Every rendered child repeats the complete entity list, all six values and every clue in a natural exam-style setup. Year-based setups explicitly state that the years are ordered and that no age calculation is required. Explanations enter direct values first, apply each remaining clue in turn, show the shrinking candidate table and then complete the unique schedule.
+Every rendered child repeats the complete entity list, all six values and every clue in a natural exam-style setup. Year-based setups explicitly state that the years are ordered and that no age calculation is required.
+
+## English editorial approval V2 — 2026-09-09
+
+Human review approved the learner-facing LP-009 explanation style after the generic-answer issue was remediated. The accepted contract is recorded in `LP-009-ENGLISH-EDITORIAL-APPROVAL-V2.md`.
+
+Explanations must now permanently retain the following behavior on the English review surface:
+
+- enter direct values first;
+- apply each remaining clue explicitly rather than saying only to "use the clues";
+- state the concrete effect of the clue on the named entities;
+- show the progressively narrowed candidate table after each meaningful deduction;
+- complete the unique schedule only after the deduction chain is visible;
+- answer the specific child query from the relevant completed row or rows.
+
+`lp-009-explanation-quality-v2.test.ts` is the regression guard for this approved editorial requirement.
 
 ## Boundary with earlier checkpoints
 
@@ -43,6 +58,7 @@ LP-007 is the variable/preference assignment authority. LP-008 is the month-and-
 - keep four unique options and balance the correct answer position for every QL;
 - verify every child is standalone and repeats the full setup and clue list;
 - verify month wording uses the listed calendar order and year wording does not require arithmetic;
+- retain clue-by-clue progressive explanations under the approved V2 contract;
 - keep the Question Studio route review-only and non-persistent.
 
-The executable proof is `lp-009.test.ts`; route and lifecycle coverage is in `lp-009-question-studio.test.ts`; difficulty structure is checked by `difficulty-calibration.test.ts`.
+The executable proof is `lp-009.test.ts`; explanation-quality coverage is in `lp-009-explanation-quality-v2.test.ts`; route and lifecycle coverage is in `lp-009-question-studio.test.ts`; difficulty structure is checked by `difficulty-calibration.test.ts`.
