@@ -63,6 +63,8 @@ const EDITORIAL_PHRASE_REPLACEMENTS: readonly [string, string][] = [
   ["preparing the new exhibition", "organising the new exhibition"],
   ["rehearsing the opening piece", "leading the opening rehearsal"],
   ["recording the morning survey", "conducting the morning survey"],
+  ["attending the morning batch", "in the morning batch"],
+  ["using the marked cycle lane", "riding in the marked cycle lane"],
 ] as const;
 
 function editorializeText(text: string): string {
@@ -81,9 +83,23 @@ function sentenceFromSegments(segments: readonly string[]): string {
   return segments.join(" ").replace(/\s+([,.!?;:])/g, "$1").replace(/\s+/g, " ").trim();
 }
 
+function contextWithoutConnectorCollision(segment: string, context: string): string {
+  const lowerSegment = ` ${segment.toLowerCase()} `;
+  if (context.startsWith("under ") && lowerSegment.includes(" under ")) {
+    return `according to ${context.slice("under ".length)}`;
+  }
+  if (context.startsWith("according to ") && lowerSegment.includes(" according to ")) {
+    return `under ${context.slice("according to ".length)}`;
+  }
+  if (context.startsWith("as part of ") && lowerSegment.includes(" as part of ")) {
+    return `under ${context.slice("as part of ".length)}`;
+  }
+  return context;
+}
+
 function appendContext(segment: string, context: string): string {
   const clean = segment.trim().replace(/[.!?]+$/, "");
-  return `${clean} ${context}.`;
+  return `${clean} ${contextWithoutConnectorCollision(clean, context)}.`;
 }
 
 function contextualizeSegments(
