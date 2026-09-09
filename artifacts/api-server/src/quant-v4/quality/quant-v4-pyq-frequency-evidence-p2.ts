@@ -101,6 +101,18 @@ function assertIsoDate(value: string, observationId: string): void {
   }
 }
 
+function assertPolicy(policy: QuantV4PyqEvidencePolicy): void {
+  for (const [name, value] of [
+    ["minDistinctPapers", policy.minDistinctPapers],
+    ["minCountableQuestions", policy.minCountableQuestions],
+    ["minTopicCoverage", policy.minTopicCoverage],
+  ] as const) {
+    if (!Number.isInteger(value) || value < 0) {
+      throw new Error(`PYQ evidence policy ${name} must be a non-negative integer.`);
+    }
+  }
+}
+
 export function validatePyqObservation(observation: QuantV4PyqObservation): void {
   for (const [field, value] of [
     ["observationId", observation.observationId],
@@ -128,9 +140,8 @@ export function validatePyqObservation(observation: QuantV4PyqObservation): void
 function observationIdentity(observation: QuantV4PyqObservation): string {
   return [
     observation.examId,
-    observation.paperId ?? "",
-    observation.questionRef ?? "",
-    observation.observationId,
+    clean(observation.paperId).toUpperCase(),
+    clean(observation.questionRef).toUpperCase(),
   ].join("::");
 }
 
@@ -155,7 +166,10 @@ export function validatePyqObservationSet(observations: readonly QuantV4PyqObser
   }
 }
 
-function weights(items: readonly QuantV4PyqObservation[], select: (item: QuantV4PyqObservation) => string): QuantV4PyqFrequencyBucket[] {
+function weights(
+  items: readonly QuantV4PyqObservation[],
+  select: (item: QuantV4PyqObservation) => string,
+): QuantV4PyqFrequencyBucket[] {
   if (!items.length) return [];
   const counts = new Map<string, number>();
   for (const item of items) {
@@ -168,7 +182,12 @@ function weights(items: readonly QuantV4PyqObservation[], select: (item: QuantV4
 }
 
 function paperIdentity(observation: QuantV4PyqObservation): string {
-  return [observation.examId, observation.paperId ?? "", observation.heldDate ?? "", observation.shift ?? ""].join("::");
+  return [
+    observation.examId,
+    clean(observation.paperId).toUpperCase(),
+    observation.heldDate ?? "",
+    clean(observation.shift).toUpperCase(),
+  ].join("::");
 }
 
 export function buildQuantV4PyqFrequencyProfile(input: {
@@ -176,6 +195,7 @@ export function buildQuantV4PyqFrequencyProfile(input: {
   observations: readonly QuantV4PyqObservation[];
   policy: QuantV4PyqEvidencePolicy;
 }): QuantV4PyqFrequencyProfile {
+  assertPolicy(input.policy);
   validatePyqObservationSet(input.observations);
 
   const relevant = input.observations.filter((observation) => observation.examId === input.examId);
