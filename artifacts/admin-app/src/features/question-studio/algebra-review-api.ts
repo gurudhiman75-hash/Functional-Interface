@@ -2,7 +2,12 @@ import { adminRequest } from '@/lib/admin-request';
 
 export type AlgebraReviewLanguage = 'en' | 'hi' | 'pa';
 export type AlgebraReviewDifficulty = 'Easy' | 'Medium' | 'Hard';
-export type AlgebraReviewExamProfile = 'SSC_CORE' | 'SSC_ADVANCED' | 'BANKING' | 'PUNJAB_STATE';
+export type AlgebraReviewExamProfile =
+  | 'SSC_CORE'
+  | 'SSC_ADVANCED'
+  | 'BANKING_PRELIMS'
+  | 'BANKING_MAINS'
+  | 'PUNJAB_STATE';
 
 export interface AlgebraReviewPattern {
   qlId: string;
@@ -35,11 +40,13 @@ export interface AlgebraReviewQuestion {
   language: AlgebraReviewLanguage;
   locale: 'en-IN' | 'hi-IN' | 'pa-IN';
   examProfile: AlgebraReviewExamProfile;
+  centralExamProfile: string;
+  optionCount: 4 | 5;
   difficultyBand: AlgebraReviewDifficulty;
   stem: string;
   options: string[];
   optionDetails: Array<{
-    label: 'A' | 'B' | 'C' | 'D';
+    label: 'A' | 'B' | 'C' | 'D' | 'E';
     text: string;
     isCorrect: boolean;
     misconceptionId: string | null;
@@ -68,6 +75,7 @@ export interface AlgebraReviewQuestion {
     questionBankLocked: boolean;
     testMockLocked: boolean;
     publicationLocked: boolean;
+    centralOptionCountConformant: boolean;
   };
   seed: string;
 }
@@ -91,11 +99,17 @@ export interface AlgebraReviewPackage {
   reviewStatus: string;
   questionStudioDiscoverable: true;
   persistenceAllowed: true;
-  questionBankStatus: 'NOT_STORED';
-  questionBankWritable: false;
+  lifecycleId: 'QUESTION-STUDIO-STANDARD-BANK-ONLY-V1';
+  lifecycleStage: 'BANK_ONLY';
+  questionBankStatus: 'READY_FOR_STORAGE';
+  questionBankWritable: true;
+  questionBankAcceptanceMode: 'BANK_ONLY';
+  manualApprovalRequired: true;
   testEligible: false;
   mockTestEligible: false;
   publiclyPublishable: false;
+  automaticStudentPublication: false;
+  productionReleaseAuthorized: false;
 }
 
 export interface AlgebraReviewInput {
@@ -116,19 +130,29 @@ export interface AlgebraReviewStatus {
   qlCount: number;
   generationItemCount: number;
   approvedItemCount: number;
+  bankReadyItemCount: number;
   questionBankCount: number;
   integrationAuthority: string;
   deliveryAuthority: string;
+  bankActivationAuthority: string;
+  lifecycleId: 'QUESTION-STUDIO-STANDARD-BANK-ONLY-V1';
+  lifecycleStage: 'BANK_ONLY';
   defaultExamProfile: AlgebraReviewExamProfile;
   supportedExamProfiles: AlgebraReviewExamProfile[];
   supportedLanguages: AlgebraReviewLanguage[];
   questionStudioDiscoverable: true;
   persistenceAllowed: true;
-  reviewOnly: true;
-  questionBankWritable: false;
+  reviewRequired: true;
+  reviewOnly: false;
+  questionBankStatus: 'READY_FOR_STORAGE';
+  questionBankWritable: true;
+  questionBankAcceptanceMode: 'BANK_ONLY';
+  manualApprovalRequired: true;
   testEligible: false;
   mockTestEligible: false;
   publiclyPublishable: false;
+  automaticStudentPublication: false;
+  productionReleaseAuthorized: false;
 }
 
 function paramsFor(input: AlgebraReviewInput) {
@@ -148,11 +172,13 @@ function paramsFor(input: AlgebraReviewInput) {
 export function getAlgebraReviewPackage() {
   return adminRequest<{
     generationSystem: 'quant-v4';
-    activationMode: 'QUESTION_STUDIO_CONNECTED';
+    activationMode: 'BANK_ONLY_INTERNAL';
     package: AlgebraReviewPackage;
     maxBatchSize: number;
-    reviewOnly: true;
-    questionBankWriteEnabled: false;
+    reviewRequired: true;
+    reviewOnly: false;
+    questionBankWriteEnabled: true;
+    questionBankAcceptanceMode: 'BANK_ONLY';
   }>('/admin/question-studio/quant/algebra/package', undefined, {
     fallbackMessage: 'Unable to load the Algebra Question Studio package.',
   });
@@ -163,8 +189,12 @@ export function previewAlgebraReview(input: AlgebraReviewInput) {
     questionCount: number;
     questions: AlgebraReviewQuestion[];
     productionEligible: false;
-    reviewOnly: true;
-    questionBankWritable: false;
+    reviewRequired: true;
+    reviewOnly: false;
+    questionBankStatus: 'READY_FOR_STORAGE';
+    questionBankWritable: true;
+    questionBankAcceptanceMode: 'BANK_ONLY';
+    manualApprovalRequired: true;
     testEligible: false;
     mockTestEligible: false;
     publiclyPublishable: false;
@@ -183,9 +213,14 @@ export function createAlgebraReviewRun(input: AlgebraReviewInput) {
     chapter: 'Algebra';
     examProfile: AlgebraReviewExamProfile;
     language: AlgebraReviewLanguage;
-    reviewOnly: true;
-    questionBankWritable: false;
+    reviewRequired: true;
+    reviewOnly: false;
+    questionBankStatus: 'READY_FOR_STORAGE';
+    questionBankWritable: true;
+    questionBankAcceptanceMode: 'BANK_ONLY';
+    manualApprovalRequired: true;
     testEligible: false;
+    mockTestEligible: false;
     publiclyPublishable: false;
   }>('/admin/question-studio/quant/algebra/runs', {
     method: 'POST',
