@@ -144,7 +144,7 @@ D. Bold
 #### 1. COM003-WORD-TABS-001 — EASY
 **Question:** Word Ribbon के एक समूह में क्या होता है?
 
-एक. संबंधित कमांड
+A. संबंधित कमांड
 B. केवल दस्तावेज़ पृष्ठ
 C. केवल फ़ाइल नाम
 D. केवल वर्तनी त्रुटियाँ
@@ -156,7 +156,7 @@ D. केवल वर्तनी त्रुटियाँ
 #### 2. COM003-WORD-TABS-002 — EASY
 **Question:** Save जैसे बार-बार उपयोग होने वाले कमांड तक जल्दी पहुँच किस Word क्षेत्र से मिलती है?
 
-एक. Status Bar
+A. Status Bar
 B. Quick Access Toolbar
 C. Navigation Pane
 D. स्केल
@@ -168,7 +168,7 @@ D. स्केल
 #### 3. COM003-WORD-TABS-003 — EASY
 **Question:** कौन-सा Word इंटरफ़ेस क्षेत्र सामान्यतः दस्तावेज़ का शीर्षक दिखाता है?
 
-एक. Ribbon
+A. Ribbon
 B. Status Bar
 C. Title Bar
 D. Scroll Bar
@@ -180,7 +180,7 @@ D. Scroll Bar
 #### 4. COM003-WORD-TABS-004 — EASY
 **Question:** Word में पृष्ठ और शब्द-गिनती जानकारी सामान्यतः कहाँ दिखाई देती है?
 
-एक. Title Bar
+A. Title Bar
 B. Home टैब
 C. Quick Access Toolbar
 D. Status Bar
@@ -192,7 +192,7 @@ D. Status Bar
 #### 5. COM003-WORD-TABS-005 — EASY
 **Question:** डेस्कटॉप Word में File टैब चुनने पर क्या खुलता है?
 
-एक. Backstage दृश्य
+A. Backstage दृश्य
 B. स्केल
 C. Spelling शब्दकोश
 D. कार्यपत्रक
@@ -204,7 +204,7 @@ D. कार्यपत्रक
 #### 6. COM003-WORD-TABS-006 — MEDIUM
 **Question:** Ribbon समूह में संवाद बॉक्स लॉन्चर सामान्यतः क्या खोलता है?
 
-एक. नया दस्तावेज़
+A. नया दस्तावेज़
 B. अधिक विस्तृत सेटिंग्स
 C. स्लाइड दिखाना
 D. विंडोज़ डेस्कटॉप
@@ -216,7 +216,7 @@ D. विंडोज़ डेस्कटॉप
 #### 7. COM003-WORD-TABS-007 — MEDIUM
 **Question:** चित्र या तालिका चुनना करने पर Word में किस प्रकार का टैब दिखाई दे सकता है?
 
-एक. स्थायी प्रणाली टैब
+A. स्थायी प्रणाली टैब
 B. केवल File टैब
 C. Contextual टैब
 D. कार्यपत्रक टैब
@@ -228,7 +228,7 @@ D. कार्यपत्रक टैब
 #### 8. COM003-WORD-TABS-008 — MEDIUM
 **Question:** कौन-सा Word सुविधा दृश्य टैब के बजाय मुख्य रूप से Home टैब पर मिलता है?
 
-एक. स्केल
+A. स्केल
 B. Zoom
 C. Navigation Pane
 D. गाढ़ा
@@ -242,7 +242,7 @@ D. गाढ़ा
 #### 1. COM003-WORD-TABS-001 — EASY
 **Question:** Word Ribbon ਦੇ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-ਇੱਕ. ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ
+A. ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ
 B. ਸਿਰਫ਼ ਦਸਤਾਵੇਜ਼ ਪੰਨੇ
 C. ਸਿਰਫ਼ ਫ਼ਾਈਲ ਨਾਮ
 D. ਸਿਰਫ਼ ਸ਼ਬਦ-ਜੋੜ ਗਲਤੀਆਂ
@@ -254,7 +254,7 @@ D. ਸਿਰਫ਼ ਸ਼ਬਦ-ਜੋੜ ਗਲਤੀਆਂ
 #### 2. COM003-WORD-TABS-002 — EASY
 **Question:** Save ਵਰਗੇ ਵਾਰ-ਵਾਰ ਵਰਤੇ ਜਾਣ ਵਾਲੇ ਕਮਾਂਡਾਂ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ Word ਦੇ ਕਿਹੜੇ ਖੇਤਰ ਤੋਂ ਮਿਲਦੀ ਹੈ?
 
-ਇੱਕ. Status Bar
+A. Status Bar
 B. Quick Access Toolbar
 C. Navigation Pane
 D. ਪੈਮਾਨਾ
@@ -266,7 +266,7 @@ D. ਪੈਮਾਨਾ
 #### 3. COM003-WORD-TABS-003 — EASY
 **Question:** ਕਿਹੜਾ Word ਇੰਟਰਫੇਸ ਖੇਤਰ ਆਮ ਤੌਰ ਉੱਤੇ ਦਸਤਾਵੇਜ਼ ਦਾ ਸਿਰਲੇਖ ਦਿਖਾਉਂਦਾ ਹੈ?
 
-ਇੱਕ. Ribbon
+A. Ribbon
 B. Status Bar
 C. Title Bar
 D. Scroll Bar
@@ -278,7 +278,7 @@ D. Scroll Bar
 #### 4. COM003-WORD-TABS-004 — EASY
 **Question:** Word ਵਿੱਚ ਪੰਨਾ ਅਤੇ ਸ਼ਬਦ-ਗਿਣਤੀ ਜਾਣਕਾਰੀ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿੱਥੇ ਦਿਖਾਈ ਦਿੰਦੀ ਹੈ?
 
-ਇੱਕ. Title Bar
+A. Title Bar
 B. Home ਟੈਬ
 C. Quick Access Toolbar
 D. Status Bar
@@ -290,7 +290,7 @@ D. Status Bar
 #### 5. COM003-WORD-TABS-005 — EASY
 **Question:** ਡੈਸਕਟਾਪ Word ਵਿੱਚ File ਟੈਬ ਚੁਣਨ ਨਾਲ ਕੀ ਖੁੱਲ੍ਹਦਾ ਹੈ?
 
-ਇੱਕ. Backstage ਦ੍ਰਿਸ਼
+A. Backstage ਦ੍ਰਿਸ਼
 B. ਪੈਮਾਨਾ
 C. Spelling ਸ਼ਬਦਕੋਸ਼
 D. ਵਰਕਸ਼ੀਟ
@@ -302,7 +302,7 @@ D. ਵਰਕਸ਼ੀਟ
 #### 6. COM003-WORD-TABS-006 — MEDIUM
 **Question:** Ribbon ਸਮੂਹ ਵਿੱਚ ਸੰਵਾਦ ਬਾਕਸ ਲਾਂਚਰ ਆਮ ਤੌਰ ਉੱਤੇ ਕੀ ਖੋਲ੍ਹਦਾ ਹੈ?
 
-ਇੱਕ. ਨਵਾਂ ਦਸਤਾਵੇਜ਼
+A. ਨਵਾਂ ਦਸਤਾਵੇਜ਼
 B. ਹੋਰ ਵਿਸਥਾਰ ਵਾਲਾ ਸੈਟਿੰਗਾਂ
 C. ਸਲਾਈਡ ਦਿਖਾਉਣਾ
 D. ਵਿੰਡੋਜ਼ ਡੈਸਕਟਾਪ
@@ -314,7 +314,7 @@ D. ਵਿੰਡੋਜ਼ ਡੈਸਕਟਾਪ
 #### 7. COM003-WORD-TABS-007 — MEDIUM
 **Question:** ਤਸਵੀਰ ਜਾਂ ਟੇਬਲ ਚੁਣਨਾ ਕਰਨ ਨਾਲ Word ਵਿੱਚ ਕਿਹੜੀ ਕਿਸਮ ਦਾ ਟੈਬ ਦਿਖ ਸਕਦਾ ਹੈ?
 
-ਇੱਕ. ਸਥਾਈ ਪ੍ਰਣਾਲੀ ਟੈਬ
+A. ਸਥਾਈ ਪ੍ਰਣਾਲੀ ਟੈਬ
 B. ਸਿਰਫ਼ File ਟੈਬ
 C. Contextual ਟੈਬ
 D. ਵਰਕਸ਼ੀਟ ਟੈਬ
@@ -326,7 +326,7 @@ D. ਵਰਕਸ਼ੀਟ ਟੈਬ
 #### 8. COM003-WORD-TABS-008 — MEDIUM
 **Question:** ਕਿਹੜਾ Word ਵਿਸ਼ੇਸ਼ਤਾ ਦ੍ਰਿਸ਼ ਟੈਬ ਦੀ ਬਜਾਏ ਮੁੱਖ ਤੌਰ ਉੱਤੇ Home ਟੈਬ ਉੱਤੇ ਮਿਲਦਾ ਹੈ?
 
-ਇੱਕ. ਪੈਮਾਨਾ
+A. ਪੈਮਾਨਾ
 B. Zoom
 C. Navigation Pane
 D. ਗੂੜ੍ਹਾ
@@ -440,7 +440,7 @@ D. Replace All
 #### 1. COM003-WORD-TABS-009 — EASY
 **Question:** काटें, कॉपी और पेस्ट कमांड किस Home टैबटैब समूह में होते हैं?
 
-एक. Clipboard
+A. Clipboard
 B. Font
 C. Styles
 D. संपादन
@@ -452,7 +452,7 @@ D. संपादन
 #### 2. COM003-WORD-TABS-010 — EASY
 **Question:** एक चयन की स्वरूपण को दूसरी चयन पर कॉपी करने वाला Home टैबटैब उपकरण कौन-सा है?
 
-एक. Replace
+A. Replace
 B. Format Painter
 C. Word Count
 D. Translate
@@ -464,7 +464,7 @@ D. Translate
 #### 3. COM003-WORD-TABS-011 — EASY
 **Question:** Font नाम, आकार और अक्षर शैली बदलने वाला Home टैबटैब समूह कौन-सा है?
 
-एक. Paragraph
+A. Paragraph
 B. Clipboard
 C. संपादन
 D. Font
@@ -476,7 +476,7 @@ D. Font
 #### 4. COM003-WORD-TABS-012 — EASY
 **Question:** Paragraph को बायाँ, केंद्रित, दायाँ या समायोजित करने वाला Home टैबटैब कमांड कौन-सा है?
 
-एक. Font Color
+A. Font Color
 B. Change Case
 C. Text Highlight
 D. Paragraph संरेखण
@@ -488,7 +488,7 @@ D. Paragraph संरेखण
 #### 5. COM003-WORD-TABS-013 — EASY
 **Question:** अक्रमित सूची बनाने के लिए Home टैब का कौन-सा सुविधा उपयोग होता है?
 
-एक. बुलेट
+A. बुलेट
 B. क्रमांकन
 C. Sort
 D. Borders
@@ -500,7 +500,7 @@ D. Borders
 #### 6. COM003-WORD-TABS-014 — EASY
 **Question:** पाठ पर समन्वित स्वरूपण लागू करने वाला Home टैबटैब क्षेत्र कौन-सा है?
 
-एक. Clipboard
+A. Clipboard
 B. Styles
 C. संपादन
 D. आवाज़
@@ -512,7 +512,7 @@ D. आवाज़
 #### 7. COM003-WORD-TABS-015 — EASY
 **Question:** Word या वाक्यांश को बिना बदले ढूँढना करने वाला Home टैबटैब कमांड कौन-सा है?
 
-एक. Replace
+A. Replace
 B. चुनना सभी
 C. ढूँढना
 D. Format Painter
@@ -524,7 +524,7 @@ D. Format Painter
 #### 8. COM003-WORD-TABS-016 — MEDIUM
 **Question:** किस Home टैबटैब कमांड से शब्द या वाक्यांश की सभी मिलान उपस्थितियाँ बदली जाती हैं?
 
-एक. ढूँढना
+A. ढूँढना
 B. चुनना
 C. Sort
 D. Replace सभी
@@ -538,7 +538,7 @@ D. Replace सभी
 #### 1. COM003-WORD-TABS-009 — EASY
 **Question:** ਕੱਟੋ, ਕਾਪੀ ਅਤੇ ਪੇਸਟ ਕਮਾਂਡਾਂ ਕਿਹੜੇ Home ਟੈਬਟੈਬ ਸਮੂਹ ਵਿੱਚ ਹੁੰਦੇ ਹਨ?
 
-ਇੱਕ. Clipboard
+A. Clipboard
 B. Font
 C. Styles
 D. ਸੋਧ
@@ -550,7 +550,7 @@ D. ਸੋਧ
 #### 2. COM003-WORD-TABS-010 — EASY
 **Question:** ਇੱਕ ਚੋਣ ਦੀ ਸਜਾਵਟ ਨੂੰ ਦੂਜੀ ਚੋਣ ਉੱਤੇ ਕਾਪੀ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸਾਧਨ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Replace
+A. Replace
 B. Format Painter
 C. Word Count
 D. Translate
@@ -562,7 +562,7 @@ D. Translate
 #### 3. COM003-WORD-TABS-011 — EASY
 **Question:** Font ਨਾਮ, ਆਕਾਰ ਅਤੇ ਅੱਖਰ ਸ਼ੈਲੀ ਬਦਲਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Paragraph
+A. Paragraph
 B. Clipboard
 C. ਸੋਧ
 D. Font
@@ -574,7 +574,7 @@ D. Font
 #### 4. COM003-WORD-TABS-012 — EASY
 **Question:** Paragraph ਨੂੰ ਖੱਬਾ, ਕੇਂਦਰਿਤ, ਸੱਜਾ ਜਾਂ ਬਰਾਬਰ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Font Color
+A. Font Color
 B. Change Case
 C. Text Highlight
 D. Paragraph ਸੰਰેખਣ
@@ -586,7 +586,7 @@ D. Paragraph ਸੰਰેખਣ
 #### 5. COM003-WORD-TABS-013 — EASY
 **Question:** ਬਿਨਾਂ ਕ੍ਰਮ ਵਾਲੀ ਸੂਚੀ ਬਣਾਉਣ ਲਈ Home ਟੈਬ ਦਾ ਕਿਹੜਾ ਵਿਸ਼ੇਸ਼ਤਾ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?
 
-ਇੱਕ. ਬੁਲੇਟ
+A. ਬੁਲੇਟ
 B. ਕ੍ਰਮ-ਅੰਕਣ
 C. Sort
 D. Borders
@@ -598,7 +598,7 @@ D. Borders
 #### 6. COM003-WORD-TABS-014 — EASY
 **Question:** ਲਿਖਤ ਉੱਤੇ ਸਮਨਵਿਤ ਸਜਾਵਟ ਲਾਗੂ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Clipboard
+A. Clipboard
 B. Styles
 C. ਸੋਧ
 D. ਆਵਾਜ਼
@@ -610,7 +610,7 @@ D. ਆਵਾਜ਼
 #### 7. COM003-WORD-TABS-015 — EASY
 **Question:** Word ਜਾਂ ਵਾਕ-ਅੰਸ਼ ਨੂੰ ਬਦਲੇ ਬਿਨਾਂ ਲੱਭਣਾ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Replace
+A. Replace
 B. ਚੁਣਨਾ ਸਾਰੇ
 C. ਲੱਭਣਾ
 D. Format Painter
@@ -622,7 +622,7 @@ D. Format Painter
 #### 8. COM003-WORD-TABS-016 — MEDIUM
 **Question:** ਕਿਹੜੇ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਨਾਲ ਸ਼ਬਦ ਜਾਂ ਵਾਕ-ਅੰਸ਼ ਦੀਆਂ ਸਾਰੀਆਂ ਮਿਲਾਨ ਮੌਜੂਦਗੀਆਂ ਬਦਲੀਆਂ ਜਾਂਦੀਆਂ ਹਨ?
 
-ਇੱਕ. ਲੱਭਣਾ
+A. ਲੱਭਣਾ
 B. ਚੁਣਨਾ
 C. Sort
 D. Replace ਸਾਰੇ
@@ -736,7 +736,7 @@ D. Page Break
 #### 1. COM003-WORD-TABS-017 — EASY
 **Question:** पंक्तियाँ और स्तंभ में जानकारी व्यवस्थित करने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-एक. तालिका
+A. तालिका
 B. WordArt
 C. बुकमार्क
 D. Equation
@@ -748,7 +748,7 @@ D. Equation
 #### 2. COM003-WORD-TABS-018 — EASY
 **Question:** Word दस्तावेज़ में फ़ोटो या अन्य चित्र जोड़ने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-एक. Chart
+A. Chart
 B. Pictures
 C. Footnote
 D. Caption
@@ -760,7 +760,7 @@ D. Caption
 #### 3. COM003-WORD-TABS-019 — EASY
 **Question:** पहले से तैयार पंक्तियाँ, तीर और ज्यामितीय वस्तुएँ जोड़ने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-एक. शीर्षलेख
+A. शीर्षलेख
 B. Symbol
 C. Shapes
 D. पृष्ठ Number
@@ -772,7 +772,7 @@ D. पृष्ठ Number
 #### 4. COM003-WORD-TABS-020 — EASY
 **Question:** प्रक्रिया या पदानुक्रम को दृश्य रूप से प्रस्तुत करना करने के लिए कौन-सा Insert टैबटैब सुविधा बना है?
 
-एक. तालिका
+A. तालिका
 B. पृष्ठ विराम
 C. बुकमार्क
 D. SmartArt
@@ -784,7 +784,7 @@ D. SmartArt
 #### 5. COM003-WORD-TABS-021 — EASY
 **Question:** शीर्षलेख या पादलेख जोड़ने का कमांड Word में कहाँ होता है?
 
-एक. Insert टैब
+A. Insert टैब
 B. डिज़ाइन टैब
 C. समीक्षा टैब
 D. दृश्य टैब
@@ -796,7 +796,7 @@ D. दृश्य टैब
 #### 6. COM003-WORD-TABS-022 — EASY
 **Question:** दस्तावेज़ में पृष्ठ संख्याएँ जोड़ने वाला Insert टैबटैब कमांड कौन-सा है?
 
-एक. Caption
+A. Caption
 B. पृष्ठ Number
 C. बुकमार्क
 D. Text Box
@@ -808,7 +808,7 @@ D. Text Box
 #### 7. COM003-WORD-TABS-023 — EASY
 **Question:** वेबपृष्ठ या अन्य स्थान का क्लिक करने योग्य लिंक बनाने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-एक. Equation
+A. Equation
 B. Symbol
 C. लिंक
 D. स्क्रीनशॉट
@@ -820,7 +820,7 @@ D. स्क्रीनशॉट
 #### 8. COM003-WORD-TABS-024 — EASY
 **Question:** निम्नलिखित सामग्री को नए पृष्ठ पर शुरू करने वाला Insert टैबटैब कमांड कौन-सा है?
 
-एक. Section
+A. Section
 B. स्तंभ
 C. Caption
 D. पृष्ठ विराम
@@ -834,7 +834,7 @@ D. पृष्ठ विराम
 #### 1. COM003-WORD-TABS-017 — EASY
 **Question:** ਕਤਾਰਾਂ ਅਤੇ ਕਾਲਮ ਵਿੱਚ ਜਾਣਕਾਰੀ व्यवस्थित ਕਰਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਟੇਬਲ
+A. ਟੇਬਲ
 B. WordArt
 C. ਬੁੱਕਮਾਰਕ
 D. Equation
@@ -846,7 +846,7 @@ D. Equation
 #### 2. COM003-WORD-TABS-018 — EASY
 **Question:** Word ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਤਸਵੀਰ ਜਾਂ ਹੋਰ ਤਸਵੀਰ ਜੋੜਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Chart
+A. Chart
 B. Pictures
 C. Footnote
 D. Caption
@@ -858,7 +858,7 @@ D. Caption
 #### 3. COM003-WORD-TABS-019 — EASY
 **Question:** ਪਹਿਲਾਂ ਤੋਂ ਤਿਆਰ ਲਾਈਨਾਂ, ਤੀਰ ਅਤੇ ਜਿਆਮਿਤੀ ਵਸਤੂਆਂ ਜੋੜਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਉੱਪਰਲਾ ਸਿਰਲੇਖ
+A. ਉੱਪਰਲਾ ਸਿਰਲੇਖ
 B. Symbol
 C. Shapes
 D. ਪੰਨਾ Number
@@ -870,7 +870,7 @@ D. ਪੰਨਾ Number
 #### 4. COM003-WORD-TABS-020 — EASY
 **Question:** ਪ੍ਰਕਿਰਿਆ ਜਾਂ ਪਦਾਨੁਕ੍ਰਮ ਨੂੰ ਦ੍ਰਿਸ਼ਟੀਗਤ ਤੌਰ ਉੱਤੇ ਪੇਸ਼ ਕਰਨਾ ਕਰਨ ਲਈ ਕਿਹੜਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਬਣਿਆ ਹੈ?
 
-ਇੱਕ. ਟੇਬਲ
+A. ਟੇਬਲ
 B. ਪੰਨਾ ਵਿਰਾਮ
 C. ਬੁੱਕਮਾਰਕ
 D. SmartArt
@@ -882,7 +882,7 @@ D. SmartArt
 #### 5. COM003-WORD-TABS-021 — EASY
 **Question:** ਉੱਪਰਲਾ ਸਿਰਲੇਖ ਜਾਂ ਹੇਠਲਾ ਸਿਰਲੇਖ ਜੋੜਨ ਵਾਲਾ ਕਮਾਂਡ Word ਵਿੱਚ ਕਿੱਥੇ ਹੁੰਦਾ ਹੈ?
 
-ਇੱਕ. Insert ਟੈਬ
+A. Insert ਟੈਬ
 B. ਡਿਜ਼ਾਈਨ ਟੈਬ
 C. ਸਮੀਖਿਆ ਟੈਬ
 D. ਦ੍ਰਿਸ਼ ਟੈਬ
@@ -894,7 +894,7 @@ D. ਦ੍ਰਿਸ਼ ਟੈਬ
 #### 6. COM003-WORD-TABS-022 — EASY
 **Question:** ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਪੰਨਾ ਅੰਕ ਜੋੜਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Caption
+A. Caption
 B. ਪੰਨਾ Number
 C. ਬੁੱਕਮਾਰਕ
 D. Text Box
@@ -906,7 +906,7 @@ D. Text Box
 #### 7. COM003-WORD-TABS-023 — EASY
 **Question:** ਵੈੱਬਪੰਨਾ ਜਾਂ ਹੋਰ ਥਾਂ ਦਾ ਕਲਿੱਕ ਕਰਨ ਯੋਗ ਲਿੰਕ ਬਣਾਉਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Equation
+A. Equation
 B. Symbol
 C. ਲਿੰਕ
 D. ਸਕ੍ਰੀਨਸ਼ਾਟ
@@ -918,7 +918,7 @@ D. ਸਕ੍ਰੀਨਸ਼ਾਟ
 #### 8. COM003-WORD-TABS-024 — EASY
 **Question:** ਹੇਠ ਲਿਖਿਆ ਸਮੱਗਰੀ ਨੂੰ ਨਵੇਂ ਪੰਨਾ ਉੱਤੇ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Section
+A. Section
 B. ਕਾਲਮ
 C. Caption
 D. ਪੰਨਾ ਵਿਰਾਮ
@@ -1032,7 +1032,7 @@ D. Effects
 #### 1. COM003-WORD-TABS-025 — EASY
 **Question:** दस्तावेज़ को समन्वित समग्र दिखना देने वाला डिज़ाइन टैबटैब सुविधा कौन-सा है?
 
-एक. Themes
+A. Themes
 B. हाशिये
 C. पाद-टिप्पणियाँ
 D. Mail Merge
@@ -1044,7 +1044,7 @@ D. Mail Merge
 #### 2. COM003-WORD-TABS-026 — EASY
 **Question:** थीम द्वारा उपयोग किए गए समन्वित रंग निर्धारित करना को बदलने वाला डिज़ाइन टैबटैब विकल्प कौन-सा है?
 
-एक. Effects
+A. Effects
 B. Colors
 C. स्तंभ
 D. Indent
@@ -1056,7 +1056,7 @@ D. Indent
 #### 3. COM003-WORD-TABS-027 — EASY
 **Question:** समन्वित शीर्षक और मुख्य भाग फ़ॉन्ट निर्धारित करना बदलने वाला डिज़ाइन टैबटैब विकल्प कौन-सा है?
 
-एक. Page Color
+A. Page Color
 B. Watermark
 C. फ़ॉन्ट
 D. Page Borders
@@ -1068,7 +1068,7 @@ D. Page Borders
 #### 4. COM003-WORD-TABS-028 — EASY
 **Question:** दस्तावेज़ सामग्री के पीछे हल्का पाठ या चित्र रखने वाला डिज़ाइन टैबटैब सुविधा कौन-सा है?
 
-एक. Page Color
+A. Page Color
 B. Themes
 C. Effects
 D. Watermark
@@ -1080,7 +1080,7 @@ D. Watermark
 #### 5. COM003-WORD-TABS-029 — EASY
 **Question:** पृष्ठ के चारों ओर सीमा जोड़ने वाला डिज़ाइन टैबटैब कमांड कौन-सा है?
 
-एक. Page Borders
+A. Page Borders
 B. Paragraph अंतराल
 C. आकार
 D. विराम
@@ -1092,7 +1092,7 @@ D. विराम
 #### 6. COM003-WORD-TABS-030 — EASY
 **Question:** दस्तावेज़ पृष्ठ का पृष्ठभूमि रंग बदलने वाला डिज़ाइन टैबटैब सुविधा कौन-सा है?
 
-एक. Font Color
+A. Font Color
 B. Page Color
 C. Highlight
 D. छायांकन
@@ -1104,7 +1104,7 @@ D. छायांकन
 #### 7. COM003-WORD-TABS-031 — MEDIUM
 **Question:** दस्तावेज़ में अनुच्छेद के बीच समग्र अंतराल बदलने वाला डिज़ाइन टैबटैब विकल्प कौन-सा है?
 
-एक. Page Borders
+A. Page Borders
 B. Effects
 C. Paragraph अंतराल
 D. Watermark
@@ -1116,7 +1116,7 @@ D. Watermark
 #### 8. COM003-WORD-TABS-032 — MEDIUM
 **Question:** दस्तावेज़ थीम के समन्वित दृश्य प्रभाव बदलने वाला डिज़ाइन टैबटैब विकल्प कौन-सा है?
 
-एक. हाशिये
+A. हाशिये
 B. पाद-टिप्पणियाँ
 C. प्राप्तकर्ता
 D. Effects
@@ -1130,7 +1130,7 @@ D. Effects
 #### 1. COM003-WORD-TABS-025 — EASY
 **Question:** ਦਸਤਾਵੇਜ਼ ਨੂੰ ਸਮਨਵਿਤ ਕੁੱਲ ਦਿੱਖ ਦੇਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Themes
+A. Themes
 B. ਹਾਸ਼ੀਏ
 C. ਫੁਟਨੋਟ
 D. Mail Merge
@@ -1142,7 +1142,7 @@ D. Mail Merge
 #### 2. COM003-WORD-TABS-026 — EASY
 **Question:** ਥੀਮ ਵੱਲੋਂ ਵਰਤੇ ਸਮਨਵਿਤ ਰੰਗ ਨਿਰਧਾਰਤ ਕਰਨਾ ਨੂੰ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Effects
+A. Effects
 B. Colors
 C. ਕਾਲਮ
 D. Indent
@@ -1154,7 +1154,7 @@ D. Indent
 #### 3. COM003-WORD-TABS-027 — EASY
 **Question:** ਸਮਨਵਿਤ ਸਿਰਲੇਖ ਅਤੇ ਮੁੱਖ ਭਾਗ ਫੌਂਟ ਨਿਰਧਾਰਤ ਕਰਨਾ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Page Color
+A. Page Color
 B. Watermark
 C. ਫੌਂਟ
 D. Page Borders
@@ -1166,7 +1166,7 @@ D. Page Borders
 #### 4. COM003-WORD-TABS-028 — EASY
 **Question:** ਦਸਤਾਵੇਜ਼ ਸਮੱਗਰੀ ਦੇ ਪਿੱਛੇ ਹਲਕਾ ਲਿਖਤ ਜਾਂ ਤਸਵੀਰ ਰੱਖਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Page Color
+A. Page Color
 B. Themes
 C. Effects
 D. Watermark
@@ -1178,7 +1178,7 @@ D. Watermark
 #### 5. COM003-WORD-TABS-029 — EASY
 **Question:** ਪੰਨਾ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਕਿਨਾਰਾ ਜੋੜਨ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Page Borders
+A. Page Borders
 B. Paragraph ਫ਼ਾਸਲਾ
 C. ਆਕਾਰ
 D. ਵਿਰਾਮ
@@ -1190,7 +1190,7 @@ D. ਵਿਰਾਮ
 #### 6. COM003-WORD-TABS-030 — EASY
 **Question:** ਦਸਤਾਵੇਜ਼ ਪੰਨੇ ਦਾ ਪਿਛੋਕੜ ਰੰਗ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Font Color
+A. Font Color
 B. Page Color
 C. Highlight
 D. ਛਾਂਵ
@@ -1202,7 +1202,7 @@ D. ਛਾਂਵ
 #### 7. COM003-WORD-TABS-031 — MEDIUM
 **Question:** ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਪੈਰਾਗ੍ਰਾਫ ਵਿਚਕਾਰ ਕੁੱਲ ਫ਼ਾਸਲਾ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Page Borders
+A. Page Borders
 B. Effects
 C. Paragraph ਫ਼ਾਸਲਾ
 D. Watermark
@@ -1214,7 +1214,7 @@ D. Watermark
 #### 8. COM003-WORD-TABS-032 — MEDIUM
 **Question:** ਦਸਤਾਵੇਜ਼ ਥੀਮ ਦੇ ਸਮਨਵਿਤ ਦ੍ਰਿਸ਼ ਪ੍ਰਭਾਵ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਹਾਸ਼ੀਏ
+A. ਹਾਸ਼ੀਏ
 B. ਫੁਟਨੋਟ
 C. ਪ੍ਰਾਪਤਕਰਤਾ
 D. Effects
@@ -1328,7 +1328,7 @@ D. Spacing
 #### 1. COM003-WORD-TABS-033 — EASY
 **Question:** पृष्ठ किनारे और दस्तावेज़ सामग्री के बीच रिक्त स्थान नियंत्रित करने वाला Layout टैबटैब सुविधा कौन-सा है?
 
-एक. हाशिये
+A. हाशिये
 B. Themes
 C. उद्धरण
 D. Comments
@@ -1340,7 +1340,7 @@ D. Comments
 #### 2. COM003-WORD-TABS-034 — EASY
 **Question:** पृष्ठ को पोर्ट्रेट और लैंडस्केप के बीच बदलने वाला Layout टैबटैब कमांड कौन-सा है?
 
-एक. आकार
+A. आकार
 B. Orientation
 C. स्तंभ
 D. Indent
@@ -1352,7 +1352,7 @@ D. Indent
 #### 3. COM003-WORD-TABS-035 — EASY
 **Question:** एक4 या अक्षर जैसी कागज़ आकार चुनने वाला Layout टैबटैब विकल्प कौन-सा है?
 
-एक. हाशिये
+A. हाशिये
 B. विराम
 C. आकार
 D. पंक्ति संख्याएँ
@@ -1364,7 +1364,7 @@ D. पंक्ति संख्याएँ
 #### 4. COM003-WORD-TABS-036 — EASY
 **Question:** पाठ को समाचार-पत्र शैली ऊर्ध्वाधर अनुभाग में बाँटने वाला Layout टैबटैब सुविधा कौन-सा है?
 
-एक. Orientation
+A. Orientation
 B. हाइफ़नेशन
 C. पंक्ति संख्याएँ
 D. स्तंभ
@@ -1376,7 +1376,7 @@ D. स्तंभ
 #### 5. COM003-WORD-TABS-037 — MEDIUM
 **Question:** एक दस्तावेज़ के अलग भाग में अलग पृष्ठ सेटिंग्स देने वाला Layout टैबटैब सुविधा कौन-सा है?
 
-एक. Section विराम
+A. Section विराम
 B. Themes
 C. Word Count
 D. Styles
@@ -1388,7 +1388,7 @@ D. Styles
 #### 6. COM003-WORD-TABS-038 — EASY
 **Question:** पाठ की पंक्तियाँ के पास संख्याएँ दिखाने वाला Layout टैबटैब कमांड कौन-सा है?
 
-एक. स्तंभ
+A. स्तंभ
 B. पंक्ति संख्याएँ
 C. विराम
 D. आकार
@@ -1400,7 +1400,7 @@ D. आकार
 #### 7. COM003-WORD-TABS-039 — MEDIUM
 **Question:** Paragraph को हाशिया से अंदर ले जाने वाली Layout टैबटैब अनुच्छेद सेटिंग कौन-सी है?
 
-एक. Orientation
+A. Orientation
 B. आकार
 C. Indent
 D. Watermark
@@ -1412,7 +1412,7 @@ D. Watermark
 #### 8. COM003-WORD-TABS-040 — MEDIUM
 **Question:** Paragraph से पहले या बाद का स्थान बदलने वाली Layout टैबटैब अनुच्छेद सेटिंग कौन-सी है?
 
-एक. स्तंभ
+A. स्तंभ
 B. आकार
 C. Orientation
 D. अंतराल
@@ -1426,7 +1426,7 @@ D. अंतराल
 #### 1. COM003-WORD-TABS-033 — EASY
 **Question:** ਪੰਨਾ ਕਿਨਾਰੇ ਅਤੇ ਦਸਤਾਵੇਜ਼ ਸਮੱਗਰੀ ਵਿਚਕਾਰ ਖਾਲੀ ਥਾਂ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਹਾਸ਼ੀਏ
+A. ਹਾਸ਼ੀਏ
 B. Themes
 C. ਹਵਾਲੇ
 D. Comments
@@ -1438,7 +1438,7 @@ D. Comments
 #### 2. COM003-WORD-TABS-034 — EASY
 **Question:** ਪੰਨਾ ਨੂੰ ਪੋਰਟਰੇਟ ਅਤੇ ਲੈਂਡਸਕੇਪ ਵਿਚਕਾਰ ਬਦਲਣ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਆਕਾਰ
+A. ਆਕਾਰ
 B. Orientation
 C. ਕਾਲਮ
 D. Indent
@@ -1450,7 +1450,7 @@ D. Indent
 #### 3. COM003-WORD-TABS-035 — EASY
 **Question:** ਇੱਕ4 ਜਾਂ ਅੱਖਰ ਵਰਗੀ ਕਾਗਜ਼ ਆਕਾਰ ਚੁਣਨ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਹਾਸ਼ੀਏ
+A. ਹਾਸ਼ੀਏ
 B. ਵਿਰਾਮ
 C. ਆਕਾਰ
 D. ਲਾਈਨ ਅੰਕ
@@ -1462,7 +1462,7 @@ D. ਲਾਈਨ ਅੰਕ
 #### 4. COM003-WORD-TABS-036 — EASY
 **Question:** ਲਿਖਤ ਨੂੰ ਅਖ਼ਬਾਰ ਸ਼ੈਲੀ ਲੰਬਕਾਰੀ ਭਾਗ ਵਿੱਚ ਵੰਡਣ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Orientation
+A. Orientation
 B. ਹਾਈਫ਼ਨੇਸ਼ਨ
 C. ਲਾਈਨ ਅੰਕ
 D. ਕਾਲਮ
@@ -1474,7 +1474,7 @@ D. ਕਾਲਮ
 #### 5. COM003-WORD-TABS-037 — MEDIUM
 **Question:** ਇੱਕ ਦਸਤਾਵੇਜ਼ ਦੇ ਵੱਖਰੇ ਹਿੱਸੇ ਵਿੱਚ ਵੱਖਰੀਆਂ ਪੰਨਾ ਸੈਟਿੰਗਾਂ ਦੇਣ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Section ਵਿਰਾਮ
+A. Section ਵਿਰਾਮ
 B. Themes
 C. Word Count
 D. Styles
@@ -1486,7 +1486,7 @@ D. Styles
 #### 6. COM003-WORD-TABS-038 — EASY
 **Question:** ਲਿਖਤ ਦੀਆਂ ਲਾਈਨਾਂ ਦੇ ਕੋਲ ਅੰਕ ਦਿਖਾਉਣ ਵਾਲਾ Layout ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਕਾਲਮ
+A. ਕਾਲਮ
 B. ਲਾਈਨ ਅੰਕ
 C. ਵਿਰਾਮ
 D. ਆਕਾਰ
@@ -1498,7 +1498,7 @@ D. ਆਕਾਰ
 #### 7. COM003-WORD-TABS-039 — MEDIUM
 **Question:** Paragraph ਨੂੰ ਹਾਸ਼ੀਆ ਤੋਂ ਅੰਦਰ ਲੈ ਜਾਣ ਵਾਲੀ Layout ਟੈਬਟੈਬ ਪੈਰਾਗ੍ਰਾਫ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-ਇੱਕ. Orientation
+A. Orientation
 B. ਆਕਾਰ
 C. Indent
 D. Watermark
@@ -1510,7 +1510,7 @@ D. Watermark
 #### 8. COM003-WORD-TABS-040 — MEDIUM
 **Question:** Paragraph ਤੋਂ ਪਹਿਲਾਂ ਜਾਂ ਬਾਅਦ ਦਾ ਥਾਂ ਬਦਲਣ ਵਾਲੀ Layout ਟੈਬਟੈਬ ਪੈਰਾਗ੍ਰਾਫ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-ਇੱਕ. ਕਾਲਮ
+A. ਕਾਲਮ
 B. ਆਕਾਰ
 C. Orientation
 D. ਫ਼ਾਸਲਾ
@@ -1624,7 +1624,7 @@ D. Heading styles
 #### 1. COM003-WORD-TABS-041 — EASY
 **Question:** Headings और उनके पृष्ठ संख्याएँ की सूची बनाने वाला References टैबटैब सुविधा कौन-सा है?
 
-एक. Table of Contents
+A. Table of Contents
 B. Mail Merge
 C. Page Color
 D. WordArt
@@ -1636,7 +1636,7 @@ D. WordArt
 #### 2. COM003-WORD-TABS-042 — EASY
 **Question:** Footnote सामान्यतः कहाँ दिखाई देती है?
 
-एक. अगले दस्तावेज़ के शुरू में
+A. अगले दस्तावेज़ के शुरू में
 B. वर्तमान पृष्ठ के नीचे पर
 C. केवल शीर्षक पट्टी में
 D. Ribbon के अंदर
@@ -1648,7 +1648,7 @@ D. Ribbon के अंदर
 #### 3. COM003-WORD-TABS-043 — MEDIUM
 **Question:** Endnote सामान्यतः कहाँ रखी जाती है?
 
-एक. बायाँ हाशिया पर
+A. बायाँ हाशिया पर
 B. तालिका के अंदर
 C. दस्तावेज़ या अनुभाग के अंत में
 D. Quick Access Toolbar में
@@ -1660,7 +1660,7 @@ D. Quick Access Toolbar में
 #### 4. COM003-WORD-TABS-044 — EASY
 **Question:** दस्तावेज़ पाठ में स्रोत उद्धरण जोड़ने वाला References टैबटैब कमांड कौन-सा है?
 
-एक. Insert Caption
+A. Insert Caption
 B. Insert तालिका
 C. Insert अनुक्रमणिका
 D. Insert उद्धरण
@@ -1672,7 +1672,7 @@ D. Insert उद्धरण
 #### 5. COM003-WORD-TABS-045 — EASY
 **Question:** दस्तावेज़ में उपयोग किए गए स्रोत की सूची बनाने वाला References टैबटैब सुविधा कौन-सा है?
 
-एक. Bibliography
+A. Bibliography
 B. Watermark
 C. शीर्षलेख
 D. Replace
@@ -1684,7 +1684,7 @@ D. Replace
 #### 6. COM003-WORD-TABS-046 — EASY
 **Question:** वस्तु पर आकृति 1 जैसा लेबल जोड़ने वाला References टैबटैब सुविधा कौन-सा है?
 
-एक. उद्धरण
+A. उद्धरण
 B. Caption
 C. Endnote
 D. अनुक्रमणिका
@@ -1696,7 +1696,7 @@ D. अनुक्रमणिका
 #### 7. COM003-WORD-TABS-047 — MEDIUM
 **Question:** समान दस्तावेज़ के दूसरे शीर्षक, आकृति या तालिका से पाठ को लिंक करने वाला References टैबटैब सुविधा कौन-सा है?
 
-एक. Watermark
+A. Watermark
 B. Mail Merge
 C. Cross-reference
 D. Page Color
@@ -1708,7 +1708,7 @@ D. Page Color
 #### 8. COM003-WORD-TABS-048 — MEDIUM
 **Question:** स्वचालित Table of Contents बनाने के लिए कौन-सी दस्तावेज़ संरचना सबसे उपयोगी है?
 
-एक. यादृच्छिक फ़ॉन्ट रंग
+A. यादृच्छिक फ़ॉन्ट रंग
 B. पृष्ठ पृष्ठभूमि चित्र
 C. बिना स्वरूपण वाला स्थान
 D. शीर्षक शैलियाँ
@@ -1722,7 +1722,7 @@ D. शीर्षक शैलियाँ
 #### 1. COM003-WORD-TABS-041 — EASY
 **Question:** Headings ਅਤੇ ਉਹਨਾਂ ਦੇ ਪੰਨਾ ਅੰਕ ਦੀ ਸੂਚੀ ਬਣਾਉਣ ਵਾਲਾ References ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Table of Contents
+A. Table of Contents
 B. Mail Merge
 C. Page Color
 D. WordArt
@@ -1734,7 +1734,7 @@ D. WordArt
 #### 2. COM003-WORD-TABS-042 — EASY
 **Question:** Footnote ਆਮ ਤੌਰ ਉੱਤੇ ਕਿੱਥੇ ਦਿਖਾਈ ਦਿੰਦੀ ਹੈ?
 
-ਇੱਕ. ਅਗਲੇ ਦਸਤਾਵੇਜ਼ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ
+A. ਅਗਲੇ ਦਸਤਾਵੇਜ਼ ਦੇ ਸ਼ੁਰੂ ਵਿੱਚ
 B. ਮੌਜੂਦਾ ਪੰਨਾ ਦੇ ਹੇਠਾਂ ਉੱਤੇ
 C. ਸਿਰਫ਼ ਸਿਰਲੇਖ ਪੱਟੀ ਵਿੱਚ
 D. Ribbon ਦੇ ਅੰਦਰ
@@ -1746,7 +1746,7 @@ D. Ribbon ਦੇ ਅੰਦਰ
 #### 3. COM003-WORD-TABS-043 — MEDIUM
 **Question:** Endnote ਆਮ ਤੌਰ ਉੱਤੇ ਕਿੱਥੇ ਰੱਖੀ ਜਾਂਦੀ ਹੈ?
 
-ਇੱਕ. ਖੱਬਾ ਹਾਸ਼ੀਆ ਉੱਤੇ
+A. ਖੱਬਾ ਹਾਸ਼ੀਆ ਉੱਤੇ
 B. ਟੇਬਲ ਦੇ ਅੰਦਰ
 C. ਦਸਤਾਵੇਜ਼ ਜਾਂ ਭਾਗ ਦੇ ਅੰਤ ਵਿੱਚ
 D. Quick Access Toolbar ਵਿੱਚ
@@ -1758,7 +1758,7 @@ D. Quick Access Toolbar ਵਿੱਚ
 #### 4. COM003-WORD-TABS-044 — EASY
 **Question:** ਦਸਤਾਵੇਜ਼ ਲਿਖਤ ਵਿੱਚ ਸਰੋਤ ਹਵਾਲਾ ਜੋੜਨ ਵਾਲਾ References ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Insert Caption
+A. Insert Caption
 B. Insert ਟੇਬਲ
 C. Insert ਸੂਚਕ
 D. Insert ਹਵਾਲਾ
@@ -1770,7 +1770,7 @@ D. Insert ਹਵਾਲਾ
 #### 5. COM003-WORD-TABS-045 — EASY
 **Question:** ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਵਰਤੇ ਸਰੋਤ ਦੀ ਸੂਚੀ ਬਣਾਉਣ ਵਾਲਾ References ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Bibliography
+A. Bibliography
 B. Watermark
 C. ਉੱਪਰਲਾ ਸਿਰਲੇਖ
 D. Replace
@@ -1782,7 +1782,7 @@ D. Replace
 #### 6. COM003-WORD-TABS-046 — EASY
 **Question:** ਵਸਤੂ ਉੱਤੇ ਚਿੱਤਰ 1 ਵਰਗਾ ਲੇਬਲ ਜੋੜਨ ਵਾਲਾ References ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਹਵਾਲਾ
+A. ਹਵਾਲਾ
 B. Caption
 C. Endnote
 D. ਸੂਚਕ
@@ -1794,7 +1794,7 @@ D. ਸੂਚਕ
 #### 7. COM003-WORD-TABS-047 — MEDIUM
 **Question:** ਉਸੇ ਦਸਤਾਵੇਜ਼ ਦੇ ਹੋਰ ਸਿਰਲੇਖ, ਚਿੱਤਰ ਜਾਂ ਟੇਬਲ ਨਾਲ ਲਿਖਤ ਨੂੰ ਲਿੰਕ ਕਰਨ ਵਾਲਾ References ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Watermark
+A. Watermark
 B. Mail Merge
 C. Cross-reference
 D. Page Color
@@ -1806,7 +1806,7 @@ D. Page Color
 #### 8. COM003-WORD-TABS-048 — MEDIUM
 **Question:** ਆਪਣੇ ਆਪ Table of Contents ਬਣਾਉਣ ਲਈ ਕਿਹੜੀ ਦਸਤਾਵੇਜ਼ ਬਣਤਰ ਸਭ ਤੋਂ ਲਾਭਦਾਇਕ ਹੈ?
 
-ਇੱਕ. ਬੇਤਰਤੀਬ ਫੌਂਟ ਰੰਗ
+A. ਬੇਤਰਤੀਬ ਫੌਂਟ ਰੰਗ
 B. ਪੰਨਾ ਪਿਛੋਕੜ ਤਸਵੀਰਾਂ
 C. ਬਿਨਾਂ ਰੂਪ ਵਾਲਾ ਥਾਵਾਂ
 D. ਸਿਰਲੇਖ ਸ਼ੈਲੀਆਂ
@@ -1920,7 +1920,7 @@ D. Finish & Merge
 #### 1. COM003-WORD-TABS-049 — EASY
 **Question:** वैयक्तिकृत दस्तावेज़ कॉपी करता है बनाने की प्रक्रिया शुरू करने वाला Mailings टैबटैब कमांड कौन-सा है?
 
-एक. Start Mail Merge
+A. Start Mail Merge
 B. Track Changes
 C. Insert Caption
 D. Page Color
@@ -1932,7 +1932,7 @@ D. Page Color
 #### 2. COM003-WORD-TABS-050 — EASY
 **Question:** Mail विलय को प्राप्तकर्ता सूची से जोड़ना करने वाला Mailings टैबटैब कमांड कौन-सा है?
 
-एक. Finish & Merge
+A. Finish & Merge
 B. चुनना प्राप्तकर्ता
 C. Preview Results
 D. मिलान फ़ील्ड
@@ -1944,7 +1944,7 @@ D. मिलान फ़ील्ड
 #### 3. COM003-WORD-TABS-051 — MEDIUM
 **Question:** विलय सूची से अभिलेख फ़िल्टर या हटाना करने वाला Mailings टैबटैब कमांड कौन-सा है?
 
-एक. Insert Merge Field
+A. Insert Merge Field
 B. Greeting Line
 C. संपादित करें प्राप्तकर्ता सूची
 D. Start Mail Merge
@@ -1956,7 +1956,7 @@ D. Start Mail Merge
 #### 4. COM003-WORD-TABS-052 — EASY
 **Question:** प्राप्तकर्ता के नाम जैसी चर मान डालना करने वाला Mailings टैबटैब कमांड कौन-सा है?
 
-एक. Address Block
+A. Address Block
 B. Preview Results
 C. Finish & Merge
 D. Insert Merge Field
@@ -1968,7 +1968,7 @@ D. Insert Merge Field
 #### 5. COM003-WORD-TABS-053 — EASY
 **Question:** स्वरूपित प्राप्तकर्ता पता डालना करने वाला Mailings टैबटैब सुविधा कौन-सा है?
 
-एक. Address Block
+A. Address Block
 B. पृष्ठ Number
 C. Caption
 D. उद्धरण
@@ -1980,7 +1980,7 @@ D. उद्धरण
 #### 6. COM003-WORD-TABS-054 — EASY
 **Question:** प्रिय अनिल जैसा वैयक्तिकृत संबोधन जोड़ने वाला Mailings टैबटैब सुविधा कौन-सा है?
 
-एक. Address Block
+A. Address Block
 B. Greeting Line
 C. संपादित करें प्राप्तकर्ता सूची
 D. लेबल
@@ -1992,7 +1992,7 @@ D. लेबल
 #### 7. COM003-WORD-TABS-055 — EASY
 **Question:** समापन से पहले विलयित अभिलेख कैसे दिखेंगे, यह दिखाने वाला Mailings टैबटैब कमांड कौन-सा है?
 
-एक. चुनना प्राप्तकर्ता
+A. चुनना प्राप्तकर्ता
 B. Insert Merge Field
 C. Preview Results
 D. Start Mail Merge
@@ -2004,7 +2004,7 @@ D. Start Mail Merge
 #### 8. COM003-WORD-TABS-056 — EASY
 **Question:** अंतिम विलयित दस्तावेज़ या संदेश बनाने वाला Mailings टैबटैब कमांड कौन-सा है?
 
-एक. Preview Results
+A. Preview Results
 B. चुनना प्राप्तकर्ता
 C. संपादित करें प्राप्तकर्ता सूची
 D. Finish & Merge
@@ -2018,7 +2018,7 @@ D. Finish & Merge
 #### 1. COM003-WORD-TABS-049 — EASY
 **Question:** ਵਿਅਕਤੀਗਤ ਦਸਤਾਵੇਜ਼ ਕਾਪੀ ਕਰਦਾ ਹੈ ਬਣਾਉਣ ਦੀ ਪ੍ਰਕਿਰਿਆ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Start Mail Merge
+A. Start Mail Merge
 B. Track Changes
 C. Insert Caption
 D. Page Color
@@ -2030,7 +2030,7 @@ D. Page Color
 #### 2. COM003-WORD-TABS-050 — EASY
 **Question:** Mail ਮਿਲਾਉਣਾ ਨੂੰ ਪ੍ਰਾਪਤਕਰਤਾ ਸੂਚੀ ਨਾਲ ਜੋੜਨਾ ਕਰਨ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Finish & Merge
+A. Finish & Merge
 B. ਚੁਣਨਾ ਪ੍ਰਾਪਤਕਰਤਾ
 C. Preview Results
 D. ਮਿਲਾਨ ਫੀਲਡ
@@ -2042,7 +2042,7 @@ D. ਮਿਲਾਨ ਫੀਲਡ
 #### 3. COM003-WORD-TABS-051 — MEDIUM
 **Question:** ਮਿਲਾਉਣਾ ਸੂਚੀ ਵਿੱਚੋਂ ਰਿਕਾਰਡ ਫਿਲਟਰ ਜਾਂ ਹਟਾਉਣਾ ਕਰਨ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Insert Merge Field
+A. Insert Merge Field
 B. Greeting Line
 C. ਸੋਧੋ ਪ੍ਰਾਪਤਕਰਤਾ ਸੂਚੀ
 D. Start Mail Merge
@@ -2054,7 +2054,7 @@ D. Start Mail Merge
 #### 4. COM003-WORD-TABS-052 — EASY
 **Question:** ਪ੍ਰਾਪਤਕਰਤਾ ਦੇ ਨਾਮ ਵਰਗੀ ਚਲ ਮੁੱਲ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਨ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Address Block
+A. Address Block
 B. Preview Results
 C. Finish & Merge
 D. Insert Merge Field
@@ -2066,7 +2066,7 @@ D. Insert Merge Field
 #### 5. COM003-WORD-TABS-053 — EASY
 **Question:** ਰੂਪਬੱਧ ਪ੍ਰਾਪਤਕਰਤਾ ਪਤਾ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਨ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Address Block
+A. Address Block
 B. ਪੰਨਾ Number
 C. Caption
 D. ਹਵਾਲਾ
@@ -2078,7 +2078,7 @@ D. ਹਵਾਲਾ
 #### 6. COM003-WORD-TABS-054 — EASY
 **Question:** ਪਿਆਰੇ ਅਨਿਲ ਵਰਗਾ ਵਿਅਕਤੀਗਤ ਸੰਬੋਧਨ ਜੋੜਨ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Address Block
+A. Address Block
 B. Greeting Line
 C. ਸੋਧੋ ਪ੍ਰਾਪਤਕਰਤਾ ਸੂਚੀ
 D. ਲੇਬਲ
@@ -2090,7 +2090,7 @@ D. ਲੇਬਲ
 #### 7. COM003-WORD-TABS-055 — EASY
 **Question:** ਮੁਕੰਮਲਤਾ ਤੋਂ ਪਹਿਲਾਂ ਮਿਲਾਇਆ ਹੋਇਆ ਰਿਕਾਰਡ ਕਿਵੇਂ ਦਿਖਣਗੇ, ਇਹ ਦਿਖਾਉਣ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਚੁਣਨਾ ਪ੍ਰਾਪਤਕਰਤਾ
+A. ਚੁਣਨਾ ਪ੍ਰਾਪਤਕਰਤਾ
 B. Insert Merge Field
 C. Preview Results
 D. Start Mail Merge
@@ -2102,7 +2102,7 @@ D. Start Mail Merge
 #### 8. COM003-WORD-TABS-056 — EASY
 **Question:** ਅੰਤਿਮ ਮਿਲਾਇਆ ਹੋਇਆ ਦਸਤਾਵੇਜ਼ ਜਾਂ ਸੁਨੇਹੇ ਬਣਾਉਣ ਵਾਲਾ Mailings ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Preview Results
+A. Preview Results
 B. ਚੁਣਨਾ ਪ੍ਰਾਪਤਕਰਤਾ
 C. ਸੋਧੋ ਪ੍ਰਾਪਤਕਰਤਾ ਸੂਚੀ
 D. Finish & Merge
@@ -2216,7 +2216,7 @@ D. Restrict Editing
 #### 1. COM003-WORD-TABS-057 — EASY
 **Question:** Spelling, व्याकरण और लेखन सुझाव जाँच करने वाला समीक्षा टैबटैब सुविधा कौन-सा है?
 
-एक. Editor
+A. Editor
 B. Mail Merge
 C. Themes
 D. स्तंभ
@@ -2228,7 +2228,7 @@ D. स्तंभ
 #### 2. COM003-WORD-TABS-058 — MEDIUM
 **Question:** Word को अशुद्धि-जाँच के लिए कौन-सी भाषा उपयोग करनी है, यह बताने वाली समीक्षा टैबटैब सेटिंग कौन-सी है?
 
-एक. Translate दस्तावेज़
+A. Translate दस्तावेज़
 B. Set अशुद्धि-जाँच भाषा
 C. New Comment
 D. Compare
@@ -2240,7 +2240,7 @@ D. Compare
 #### 3. COM003-WORD-TABS-059 — EASY
 **Question:** मुख्य दस्तावेज़ पाठ बदले बिना टिप्पणी जोड़ने वाला समीक्षा टैबटैब सुविधा कौन-सा है?
 
-एक. स्वीकारें
+A. स्वीकारें
 B. अस्वीकारें
 C. New Comment
 D. Track Changes
@@ -2252,7 +2252,7 @@ D. Track Changes
 #### 4. COM003-WORD-TABS-060 — EASY
 **Question:** दस्तावेज़ में किए गए संपादन को अभिलेख करने वाला समीक्षा टैबटैब सुविधा कौन-सा है?
 
-एक. Editor
+A. Editor
 B. Compare
 C. सीमित करना संपादन
 D. Track Changes
@@ -2264,7 +2264,7 @@ D. Track Changes
 #### 5. COM003-WORD-TABS-061 — MEDIUM
 **Question:** ट्रैक किए गए बदलना के लिए स्वीकारें चुनने का प्रभाव क्या है?
 
-एक. बदलना दस्तावेज़ का भाग बन जाता है
+A. बदलना दस्तावेज़ का भाग बन जाता है
 B. दस्तावेज़ मुद्रण हो जाता है
 C. नया स्रोत जुड़ता है
 D. बदलना केवल छिपाना होता है
@@ -2276,7 +2276,7 @@ D. बदलना केवल छिपाना होता है
 #### 6. COM003-WORD-TABS-062 — MEDIUM
 **Question:** ट्रैक किए गए बदलना के लिए अस्वीकारें चुनने का प्रभाव क्या है?
 
-एक. बदलना स्थायी रूप से स्वीकारें हो जाता है
+A. बदलना स्थायी रूप से स्वीकारें हो जाता है
 B. ट्रैक किए गए संपादित करें हटाना हो जाता है
 C. पृष्ठ घुमाना हो जाता है
 D. उद्धरण डालना होती है
@@ -2288,7 +2288,7 @@ D. उद्धरण डालना होती है
 #### 7. COM003-WORD-TABS-063 — MEDIUM
 **Question:** दस्तावेज़ के दो संस्करण की तुलना करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-एक. Editor
+A. Editor
 B. New Comment
 C. Compare
 D. भाषा
@@ -2300,7 +2300,7 @@ D. भाषा
 #### 8. COM003-WORD-TABS-064 — MEDIUM
 **Question:** उपयोगकर्ता किस प्रकार के बदलाव कर सकते हैं, इसे सीमित करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-एक. Track Changes
+A. Track Changes
 B. Editor
 C. Compare
 D. सीमित करना संपादन
@@ -2314,7 +2314,7 @@ D. सीमित करना संपादन
 #### 1. COM003-WORD-TABS-057 — EASY
 **Question:** Spelling, ਵਿਆਕਰਨ ਅਤੇ ਲਿਖਤ ਸੁਝਾਅ ਜਾਂਚ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Editor
+A. Editor
 B. Mail Merge
 C. Themes
 D. ਕਾਲਮ
@@ -2326,7 +2326,7 @@ D. ਕਾਲਮ
 #### 2. COM003-WORD-TABS-058 — MEDIUM
 **Question:** Word ਨੂੰ ਸ਼ੁੱਧ-ਜਾਂਚ ਲਈ ਕਿਹੜੀ ਭਾਸ਼ਾ ਵਰਤਣੀ ਹੈ, ਇਹ ਦੱਸਣ ਵਾਲੀ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-ਇੱਕ. Translate ਦਸਤਾਵੇਜ਼
+A. Translate ਦਸਤਾਵੇਜ਼
 B. Set ਸ਼ੁੱਧ-ਜਾਂਚ ਭਾਸ਼ਾ
 C. New Comment
 D. Compare
@@ -2338,7 +2338,7 @@ D. Compare
 #### 3. COM003-WORD-TABS-059 — EASY
 **Question:** ਮੁੱਖ ਦਸਤਾਵੇਜ਼ ਲਿਖਤ ਬਦਲੇ ਬਿਨਾਂ ਨੋਟ ਜੋੜਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਸਵੀਕਾਰੋ
+A. ਸਵੀਕਾਰੋ
 B. ਨਕਾਰੋ
 C. New Comment
 D. Track Changes
@@ -2350,7 +2350,7 @@ D. Track Changes
 #### 4. COM003-WORD-TABS-060 — EASY
 **Question:** ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਕੀਤੇ ਸੋਧਾਂ ਨੂੰ ਰਿਕਾਰਡ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Editor
+A. Editor
 B. Compare
 C. ਸੀਮਿਤ ਕਰਨਾ ਸੋਧ
 D. Track Changes
@@ -2362,7 +2362,7 @@ D. Track Changes
 #### 5. COM003-WORD-TABS-061 — MEDIUM
 **Question:** ਟ੍ਰੈਕ ਕੀਤੇ ਹੋਏ ਬਦਲਣਾ ਲਈ ਸਵੀਕਾਰੋ ਚੁਣਨ ਦਾ ਪ੍ਰਭਾਵ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-ਇੱਕ. ਬਦਲਣਾ ਦਸਤਾਵੇਜ਼ ਦਾ ਹਿੱਸਾ ਬਣ ਜਾਂਦਾ ਹੈ
+A. ਬਦਲਣਾ ਦਸਤਾਵੇਜ਼ ਦਾ ਹਿੱਸਾ ਬਣ ਜਾਂਦਾ ਹੈ
 B. ਦਸਤਾਵੇਜ਼ ਛਪਾਈ ਹੋ ਜਾਂਦਾ ਹੈ
 C. ਨਵਾਂ ਸਰੋਤ ਜੁੜਦਾ ਹੈ
 D. ਬਦਲਣਾ ਸਿਰਫ਼ ਲੁਕਾਉਣਾ ਹੁੰਦਾ ਹੈ
@@ -2374,7 +2374,7 @@ D. ਬਦਲਣਾ ਸਿਰਫ਼ ਲੁਕਾਉਣਾ ਹੁੰਦਾ ਹੈ
 #### 6. COM003-WORD-TABS-062 — MEDIUM
 **Question:** ਟ੍ਰੈਕ ਕੀਤੇ ਹੋਏ ਬਦਲਣਾ ਲਈ ਨਕਾਰੋ ਚੁਣਨ ਦਾ ਪ੍ਰਭਾਵ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-ਇੱਕ. ਬਦਲਣਾ ਸਥਾਈ ਤੌਰ ਉੱਤੇ ਸਵੀਕਾਰੋ ਹੋ ਜਾਂਦਾ ਹੈ
+A. ਬਦਲਣਾ ਸਥਾਈ ਤੌਰ ਉੱਤੇ ਸਵੀਕਾਰੋ ਹੋ ਜਾਂਦਾ ਹੈ
 B. ਟ੍ਰੈਕ ਕੀਤੇ ਹੋਏ ਸੋਧੋ ਹਟਾਉਣਾ ਹੋ ਜਾਂਦਾ ਹੈ
 C. ਪੰਨਾ ਘੁੰਮਾਉਣਾ ਹੋ ਜਾਂਦਾ ਹੈ
 D. ਹਵਾਲਾ ਸ਼ਾਮਲ ਕਰਨਾ ਹੁੰਦੀ ਹੈ
@@ -2386,7 +2386,7 @@ D. ਹਵਾਲਾ ਸ਼ਾਮਲ ਕਰਨਾ ਹੁੰਦੀ ਹੈ
 #### 7. COM003-WORD-TABS-063 — MEDIUM
 **Question:** ਦਸਤਾਵੇਜ਼ ਦੇ ਦੋ ਰੂਪਾਂ ਦੀ ਤੁਲਨਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Editor
+A. Editor
 B. New Comment
 C. Compare
 D. ਭਾਸ਼ਾ
@@ -2398,7 +2398,7 @@ D. ਭਾਸ਼ਾ
 #### 8. COM003-WORD-TABS-064 — MEDIUM
 **Question:** ਵਰਤੋਂਕਾਰ ਕਿਹੜੇ ਕਿਸਮ ਦੇ ਤਬਦੀਲੀਆਂ ਕਰ ਸਕਦੇ ਹਨ, ਇਸ ਨੂੰ ਸੀਮਿਤ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Track Changes
+A. Track Changes
 B. Editor
 C. Compare
 D. ਸੀਮਿਤ ਕਰਨਾ ਸੋਧ
@@ -2512,7 +2512,7 @@ D. Zoom
 #### 1. COM003-WORD-TABS-065 — EASY
 **Question:** कौन-सा Word दृश्य पृष्ठ को मुद्रित दस्तावेज़ जैसा दिखाता है?
 
-एक. Print Layout
+A. Print Layout
 B. मसौदा
 C. रूपरेखा
 D. वेब Layout
@@ -2524,7 +2524,7 @@ D. वेब Layout
 #### 2. COM003-WORD-TABS-066 — EASY
 **Question:** दस्तावेज़ पढ़ने के लिए मुख्य रूप से बनाया गया Word दृश्य कौन-सा है?
 
-एक. मसौदा
+A. मसौदा
 B. पढ़ना मोड
 C. रूपरेखा
 D. वेब Layout
@@ -2536,7 +2536,7 @@ D. वेब Layout
 #### 3. COM003-WORD-TABS-067 — EASY
 **Question:** शीर्षक स्तर के माध्यम से दस्तावेज़ संरचना दिखाने वाला Word दृश्य कौन-सा है?
 
-एक. Print Layout
+A. Print Layout
 B. मसौदा
 C. रूपरेखा
 D. पढ़ना मोड
@@ -2548,7 +2548,7 @@ D. पढ़ना मोड
 #### 4. COM003-WORD-TABS-068 — EASY
 **Question:** दस्तावेज़ को वेबपृष्ठ जैसी स्क्रीन दृश्य में दिखाने वाला Word दृश्य कौन-सा है?
 
-एक. Print Layout
+A. Print Layout
 B. मसौदा
 C. रूपरेखा
 D. वेब Layout
@@ -2560,7 +2560,7 @@ D. वेब Layout
 #### 5. COM003-WORD-TABS-069 — EASY
 **Question:** लंबा दस्तावेज़ में शीर्षक के बीच जल्दी जाने में मदद करने वाला दृश्य टैबटैब सुविधा कौन-सा है?
 
-एक. Navigation Pane
+A. Navigation Pane
 B. Page Color
 C. Address Block
 D. Watermark
@@ -2572,7 +2572,7 @@ D. Watermark
 #### 6. COM003-WORD-TABS-070 — EASY
 **Question:** टैब और इंडेंट के लिए उपयोग होने वाला स्केल दिखाने वाला दृश्य टैबटैब कमांड कौन-सा है?
 
-एक. ग्रिडलाइनें
+A. ग्रिडलाइनें
 B. स्केल
 C. Zoom
 D. विभाजित करें
@@ -2584,7 +2584,7 @@ D. विभाजित करें
 #### 7. COM003-WORD-TABS-071 — EASY
 **Question:** वस्तुएँ संरेखित करना करने में मदद करने वाली गैर-मुद्रण ग्रिडलाइनें दिखाने वाला दृश्य टैबटैब कमांड कौन-सा है?
 
-एक. स्केल
+A. स्केल
 B. Zoom
 C. ग्रिडलाइनें
 D. पढ़ना मोड
@@ -2596,7 +2596,7 @@ D. पढ़ना मोड
 #### 8. COM003-WORD-TABS-072 — EASY
 **Question:** पृष्ठ सामग्री बदले बिना स्क्रीन पर दस्तावेज़ का आकार बदलने वाला दृश्य टैबटैब नियंत्रण कौन-सा है?
 
-एक. स्केल
+A. स्केल
 B. ग्रिडलाइनें
 C. Navigation Pane
 D. Zoom
@@ -2610,7 +2610,7 @@ D. Zoom
 #### 1. COM003-WORD-TABS-065 — EASY
 **Question:** ਕਿਹੜਾ Word ਦ੍ਰਿਸ਼ ਪੰਨੇ ਨੂੰ ਛਪੇ ਹੋਏ ਦਸਤਾਵੇਜ਼ ਵਰਗਾ ਦਿਖਾਉਂਦਾ ਹੈ?
 
-ਇੱਕ. Print Layout
+A. Print Layout
 B. ਮਸੌਦਾ
 C. ਰੂਪ-ਰੇਖਾ
 D. ਵੈੱਬ Layout
@@ -2622,7 +2622,7 @@ D. ਵੈੱਬ Layout
 #### 2. COM003-WORD-TABS-066 — EASY
 **Question:** ਦਸਤਾਵੇਜ਼ ਪੜ੍ਹਨ ਲਈ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਬਣਾਇਆ Word ਦ੍ਰਿਸ਼ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਮਸੌਦਾ
+A. ਮਸੌਦਾ
 B. ਪੜ੍ਹਨਾ ਮੋਡ
 C. ਰੂਪ-ਰੇਖਾ
 D. ਵੈੱਬ Layout
@@ -2634,7 +2634,7 @@ D. ਵੈੱਬ Layout
 #### 3. COM003-WORD-TABS-067 — EASY
 **Question:** ਸਿਰਲੇਖ ਪੱਧਰ ਰਾਹੀਂ ਦਸਤਾਵੇਜ਼ ਬਣਤਰ ਦਿਖਾਉਣ ਵਾਲਾ Word ਦ੍ਰਿਸ਼ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Print Layout
+A. Print Layout
 B. ਮਸੌਦਾ
 C. ਰੂਪ-ਰੇਖਾ
 D. ਪੜ੍ਹਨਾ ਮੋਡ
@@ -2646,7 +2646,7 @@ D. ਪੜ੍ਹਨਾ ਮੋਡ
 #### 4. COM003-WORD-TABS-068 — EASY
 **Question:** ਦਸਤਾਵੇਜ਼ ਨੂੰ ਵੈੱਬਪੰਨਾ ਵਰਗੀ ਸਕ੍ਰੀਨ ਦ੍ਰਿਸ਼ ਵਿੱਚ ਦਿਖਾਉਣ ਵਾਲਾ Word ਦ੍ਰਿਸ਼ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Print Layout
+A. Print Layout
 B. ਮਸੌਦਾ
 C. ਰੂਪ-ਰੇਖਾ
 D. ਵੈੱਬ Layout
@@ -2658,7 +2658,7 @@ D. ਵੈੱਬ Layout
 #### 5. COM003-WORD-TABS-069 — EASY
 **Question:** ਲੰਮਾ ਦਸਤਾਵੇਜ਼ ਵਿੱਚ ਸਿਰਲੇਖ ਵਿਚਕਾਰ ਜਲਦੀ ਜਾਣ ਵਿੱਚ ਮਦਦ ਕਰਨ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Navigation Pane
+A. Navigation Pane
 B. Page Color
 C. Address Block
 D. Watermark
@@ -2670,7 +2670,7 @@ D. Watermark
 #### 6. COM003-WORD-TABS-070 — EASY
 **Question:** ਟੈਬ ਅਤੇ ਇੰਡੈਂਟ ਲਈ ਵਰਤਿਆ ਪੈਮਾਨਾ ਦਿਖਾਉਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਗ੍ਰਿਡਲਾਈਨਾਂ
+A. ਗ੍ਰਿਡਲਾਈਨਾਂ
 B. ਪੈਮਾਨਾ
 C. Zoom
 D. ਵੰਡੋ
@@ -2682,7 +2682,7 @@ D. ਵੰਡੋ
 #### 7. COM003-WORD-TABS-071 — EASY
 **Question:** ਵਸਤੂਆਂ ਸੰਰેખਿਤ ਕਰਨਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਨ ਵਾਲੀਆਂ ਗੈਰ-ਛਪਾਈ ਗ੍ਰਿਡਲਾਈਨਾਂ ਦਿਖਾਉਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਪੈਮਾਨਾ
+A. ਪੈਮਾਨਾ
 B. Zoom
 C. ਗ੍ਰਿਡਲਾਈਨਾਂ
 D. ਪੜ੍ਹਨਾ ਮੋਡ
@@ -2694,7 +2694,7 @@ D. ਪੜ੍ਹਨਾ ਮੋਡ
 #### 8. COM003-WORD-TABS-072 — EASY
 **Question:** ਪੰਨਾ ਸਮੱਗਰੀ ਬਦਲੇ ਬਿਨਾਂ ਸਕ੍ਰੀਨ ਉੱਤੇ ਦਸਤਾਵੇਜ਼ ਦਾ ਆਕਾਰ ਬਦਲਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਨਿਯੰਤਰਣ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਪੈਮਾਨਾ
+A. ਪੈਮਾਨਾ
 B. ਗ੍ਰਿਡਲਾਈਨਾਂ
 C. Navigation Pane
 D. Zoom
@@ -2808,7 +2808,7 @@ D. Close
 #### 1. COM003-WORD-TABS-073 — EASY
 **Question:** नया Word दस्तावेज़ बनाने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. नया
+A. नया
 B. Open
 C. Info
 D. Export
@@ -2820,7 +2820,7 @@ D. Export
 #### 2. COM003-WORD-TABS-074 — EASY
 **Question:** मौजूदा Word दस्तावेज़ खोलने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. नया
+A. नया
 B. Open
 C. Save जैसे
 D. Print
@@ -2832,7 +2832,7 @@ D. Print
 #### 3. COM003-WORD-TABS-075 — EASY
 **Question:** दस्तावेज़ को नए नाम या फ़ाइल स्वरूप के साथ सहेजना करने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. नया
+A. नया
 B. Open
 C. Save जैसे
 D. Close
@@ -2844,7 +2844,7 @@ D. Close
 #### 4. COM003-WORD-TABS-076 — EASY
 **Question:** Print सेटिंग्स और मुद्रण पूर्वावलोकन खोलने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. Info
+A. Info
 B. साझा करें
 C. Export
 D. Print
@@ -2856,7 +2856,7 @@ D. Print
 #### 5. COM003-WORD-TABS-077 — EASY
 **Question:** दस्तावेज़ गुण और सुरक्षा विकल्प दिखाने वाला File टैबटैब क्षेत्र कौन-सा है?
 
-एक. Info
+A. Info
 B. Open
 C. नया
 D. Print
@@ -2868,7 +2868,7 @@ D. Print
 #### 6. COM003-WORD-TABS-078 — EASY
 **Question:** दस्तावेज़ की कॉपी को दूसरे समर्थित स्वरूप में बनाने के लिए कौन-सा File टैबटैब कमांड उपयोग होता है?
 
-एक. Open
+A. Open
 B. Export
 C. नया
 D. Close
@@ -2880,7 +2880,7 @@ D. Close
 #### 7. COM003-WORD-TABS-079 — EASY
 **Question:** दूसरों को दस्तावेज़ भेजने या साझा करें करने के लिए कौन-सा File टैबटैब कमांड वांछित है?
 
-एक. Print
+A. Print
 B. Info
 C. साझा करें
 D. Page Color
@@ -2892,7 +2892,7 @@ D. Page Color
 #### 8. COM003-WORD-TABS-080 — EASY
 **Question:** वर्तमान दस्तावेज़ बंद करने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. Export
+A. Export
 B. Save जैसे
 C. नया
 D. Close
@@ -2906,7 +2906,7 @@ D. Close
 #### 1. COM003-WORD-TABS-073 — EASY
 **Question:** ਨਵਾਂ Word ਦਸਤਾਵੇਜ਼ ਬਣਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਵਾਂ
+A. ਨਵਾਂ
 B. Open
 C. Info
 D. Export
@@ -2918,7 +2918,7 @@ D. Export
 #### 2. COM003-WORD-TABS-074 — EASY
 **Question:** ਮੌਜੂਦਾ Word ਦਸਤਾਵੇਜ਼ ਖੋਲ੍ਹਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਵਾਂ
+A. ਨਵਾਂ
 B. Open
 C. Save ਵਜੋਂ
 D. Print
@@ -2930,7 +2930,7 @@ D. Print
 #### 3. COM003-WORD-TABS-075 — EASY
 **Question:** ਦਸਤਾਵੇਜ਼ ਨੂੰ ਨਵੇਂ ਨਾਮ ਜਾਂ ਫ਼ਾਈਲ ਰੂਪ ਨਾਲ ਸੰਭਾਲਣਾ ਕਰਨ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਵਾਂ
+A. ਨਵਾਂ
 B. Open
 C. Save ਵਜੋਂ
 D. Close
@@ -2942,7 +2942,7 @@ D. Close
 #### 4. COM003-WORD-TABS-076 — EASY
 **Question:** Print ਸੈਟਿੰਗਾਂ ਅਤੇ ਛਪਾਈ ਪੂਰਵ-ਦ੍ਰਿਸ਼ ਖੋਲ੍ਹਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Info
+A. Info
 B. ਸਾਂਝਾ ਕਰੋ
 C. Export
 D. Print
@@ -2954,7 +2954,7 @@ D. Print
 #### 5. COM003-WORD-TABS-077 — EASY
 **Question:** ਦਸਤਾਵੇਜ਼ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਅਤੇ ਸੁਰੱਖਿਆ ਵਿਕਲਪ ਦਿਖਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Info
+A. Info
 B. Open
 C. ਨਵਾਂ
 D. Print
@@ -2966,7 +2966,7 @@ D. Print
 #### 6. COM003-WORD-TABS-078 — EASY
 **Question:** ਦਸਤਾਵੇਜ਼ ਦੀ ਕਾਪੀ ਨੂੰ ਹੋਰ ਸਮਰਥਿਤ ਰੂਪ ਵਿੱਚ ਬਣਾਉਣ ਲਈ ਕਿਹੜਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?
 
-ਇੱਕ. Open
+A. Open
 B. Export
 C. ਨਵਾਂ
 D. Close
@@ -2978,7 +2978,7 @@ D. Close
 #### 7. COM003-WORD-TABS-079 — EASY
 **Question:** ਹੋਰਾਂ ਨੂੰ ਦਸਤਾਵੇਜ਼ ਭੇਜਣ ਜਾਂ ਸਾਂਝਾ ਕਰੋ ਕਰਨ ਲਈ ਕਿਹੜਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਇੱਛਤ ਹੈ?
 
-ਇੱਕ. Print
+A. Print
 B. Info
 C. ਸਾਂਝਾ ਕਰੋ
 D. Page Color
@@ -2990,7 +2990,7 @@ D. Page Color
 #### 8. COM003-WORD-TABS-080 — EASY
 **Question:** ਮੌਜੂਦਾ ਦਸਤਾਵੇਜ਼ ਬੰਦ ਕਰਨ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Export
+A. Export
 B. Save ਵਜੋਂ
 C. ਨਵਾਂ
 D. Close
