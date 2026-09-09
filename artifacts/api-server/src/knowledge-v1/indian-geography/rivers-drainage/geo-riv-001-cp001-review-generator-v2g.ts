@@ -66,6 +66,45 @@ const PATTERN_EDITORIAL: Record<
   },
 };
 
+function conceptNameForQuestion(question: GeoRiv001Cp001ReviewQuestion) {
+  if (CONCEPT_EXPLANATIONS[question.canonicalAnswer]) return question.canonicalAnswer;
+  const target = factsForQuestion(question).find(
+    (fact) => fact.value.kind === "text" && fact.value.text.en === question.canonicalAnswer,
+  );
+  return target?.entity.label.en;
+}
+
+function relationGroupSentence(relation: string, value: string, entities: readonly string[]) {
+  const names = entities.join(", ");
+  const singular = entities.length === 1;
+  if (relation === "classified_as_river_group") {
+    const adjective = value === "Himalayan river" ? "Himalayan" : "Peninsular";
+    return singular
+      ? `${names} is a ${adjective} river.`
+      : `${names} are ${adjective} rivers.`;
+  }
+  if (relation === "has_flow_direction") {
+    const direction = value.toLowerCase();
+    return singular
+      ? `${names} is a ${direction} river.`
+      : `${names} are ${direction} rivers.`;
+  }
+  if (relation === "drains_into") {
+    return `${names} ${singular ? "drains" : "drain"} into the ${value}.`;
+  }
+  if (relation === "has_mouth_type") {
+    const mouth = value === "Estuary"
+      ? singular
+        ? "an estuary"
+        : "estuaries"
+      : singular
+        ? "a delta"
+        : "deltas";
+    return `${names} ${singular ? "forms" : "form"} ${mouth} at ${singular ? "its" : "their"} ${singular ? "mouth" : "mouths"}.`;
+  }
+  return `${names} — ${value}.`;
+}
+
 function relationSummary(facts: readonly KnowledgeFact[]) {
   if (facts.length === 0) return "";
   const relation = facts[0]!.relation;
@@ -77,26 +116,9 @@ function relationSummary(facts: readonly KnowledgeFact[]) {
     if (!labels.includes(fact.entity.label.en)) labels.push(fact.entity.label.en);
     groups.set(value, labels);
   }
-
-  const clauses = [...groups.entries()].map(([value, entities]) => {
-    const names = entities.join(", ");
-    if (relation === "classified_as_river_group") {
-      return `${names} ${entities.length === 1 ? "is" : "are"} ${value === "Himalayan river" ? "Himalayan" : "Peninsular"}`;
-    }
-    if (relation === "has_flow_direction") {
-      return `${names} ${entities.length === 1 ? "is" : "are"} ${value.toLowerCase()}`;
-    }
-    if (relation === "drains_into") {
-      return `${names} ${entities.length === 1 ? "drains" : "drain"} into the ${value}`;
-    }
-    if (relation === "has_mouth_type") {
-      return `${names} ${entities.length === 1 ? "forms" : "form"} ${value === "Estuary" ? "an estuary" : "a delta"}`;
-    }
-    return `${names} — ${value}`;
-  });
-
-  if (clauses.length === 1) return `${clauses[0]}.`;
-  return `${clauses.slice(0, -1).join("; ")}; while ${clauses.at(-1)}.`;
+  return [...groups.entries()]
+    .map(([value, entities]) => relationGroupSentence(relation, value, entities))
+    .join(" ");
 }
 
 function improve(question: GeoRiv001Cp001ReviewQuestion) {
@@ -104,7 +126,8 @@ function improve(question: GeoRiv001Cp001ReviewQuestion) {
   let explanation = question.explanation;
 
   if (question.qlId === "GEO-RIV-001-QL-001" || question.qlId === "GEO-RIV-001-QL-002") {
-    explanation = CONCEPT_EXPLANATIONS[question.canonicalAnswer] ?? explanation;
+    const conceptName = conceptNameForQuestion(question);
+    if (conceptName) explanation = CONCEPT_EXPLANATIONS[conceptName] ?? explanation;
   }
 
   if (question.qlId === "GEO-RIV-001-QL-003") {
