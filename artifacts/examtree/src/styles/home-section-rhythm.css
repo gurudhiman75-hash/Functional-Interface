@@ -108,6 +108,11 @@
     linear-gradient(112deg, #6254ed 0%, #7569ef 58%, #7f73e8 100%);
   padding: clamp(38px, 6vw, 58px);
 }
+.home-google-banner{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:590px;margin-top:16px;padding:12px 13px 12px 16px;border:1px solid var(--site-line,#d7dfeb);border-radius:13px;background:#fff;box-shadow:0 12px 32px rgba(20,33,61,.08)}
+.home-google-banner-copy{display:flex;min-width:0;flex-direction:column;gap:3px}
+.home-google-banner-copy strong{color:var(--site-navy,#14213d);font-size:13px}.home-google-banner-copy span{color:var(--site-muted,#64728a);font-size:11px;line-height:1.45}
+.home-google-banner button{display:inline-flex;min-height:42px;flex:0 0 auto;align-items:center;justify-content:center;gap:8px;border:0;border-radius:9px;padding:0 14px;background:var(--site-blue,#3156d9);color:#fff;font-size:12px;font-weight:800;cursor:pointer}.home-google-banner button:disabled{cursor:wait;opacity:.72}.home-google-banner button svg{width:16px;height:16px}
+@media(max-width:600px){.home-google-banner{align-items:stretch;flex-direction:column}.home-google-banner button{width:100%}}
 
 .et-milestone-card {
   justify-self: end;
