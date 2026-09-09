@@ -1,1 +1,1 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react';
+// Obsolete branch. Replaced by PR #1526 from clean pre-error commit.
