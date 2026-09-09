@@ -71,7 +71,7 @@ jobs:
       - name: Upload GEO-RIV-001 CP001 review artifact
         uses: actions/upload-artifact@v4
         with:
-          name: GEO-RIV-001-CP001-REVIEW-BATCH-V2D
+          name: GEO-RIV-001-CP001-REVIEW-BATCH-V2F
           path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP001/
           if-no-files-found: error
           retention-days: 30
