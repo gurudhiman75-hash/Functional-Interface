@@ -67,7 +67,7 @@ function factMap(event: Pick<DailyMasterPackEvent, "facts">) {
 function titleCaseAllCaps(value: string) {
   const cleanValue = clean(value);
   if (!cleanValue || cleanValue !== cleanValue.toUpperCase()) return cleanValue;
-  if (/^[A-Z0-9()/.& -]{2,18}$/.test(cleanValue) && !/\s{2,}/.test(cleanValue)) return cleanValue;
+  if (/^[A-Z0-9()/.&-]{2,18}$/.test(cleanValue)) return cleanValue;
   return cleanValue
     .toLowerCase()
     .replace(/\b[a-z][a-z'-]*/g, (word) => word[0]!.toUpperCase() + word.slice(1))
