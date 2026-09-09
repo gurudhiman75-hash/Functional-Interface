@@ -155,7 +155,7 @@ D. Contextual tab
 #### 1. COM003-OFFICE-TABS-001 — EASY
 **Question:** Excel कार्यपुस्तिका में सामान्यतः क्या होता है?
 
-एक. एक या अधिक कार्यपत्रक
+A. एक या अधिक कार्यपत्रक
 B. केवल चार्ट
 C. केवल सूत्र
 D. केवल मुद्रित पृष्ठ
@@ -167,7 +167,7 @@ D. केवल मुद्रित पृष्ठ
 #### 2. COM003-OFFICE-TABS-002 — EASY
 **Question:** Excel में B3 किसकी पहचान बताता है?
 
-एक. कार्यपुस्तिका
+A. कार्यपुस्तिका
 B. कक्ष
 C. Chart
 D. कार्यपत्रक टैब
@@ -179,7 +179,7 @@ D. कार्यपत्रक टैब
 #### 3. COM003-OFFICE-TABS-003 — EASY
 **Question:** सक्रिय कक्ष की सामग्री दिखाने या संपादित करें करने वाला Excel क्षेत्र कौन-सा है?
 
-एक. Status Bar
+A. Status Bar
 B. Name Box
 C. Formula Bar
 D. पत्रक टैब पट्टी
@@ -191,7 +191,7 @@ D. पत्रक टैब पट्टी
 #### 4. COM003-OFFICE-TABS-004 — EASY
 **Question:** सक्रिय कक्ष का पता सामान्यतः दिखाने वाला Excel बॉक्स कौन-सा है?
 
-एक. Formula Bar
+A. Formula Bar
 B. Status Bar
 C. Ribbon
 D. Name Box
@@ -203,7 +203,7 @@ D. Name Box
 #### 5. COM003-OFFICE-TABS-005 — EASY
 **Question:** Excel कार्यपत्रक में स्तंभ और पंक्तियाँ को सामान्यतः कैसे लेबल किया जाता है?
 
-एक. स्तंभ अक्षर से और पंक्तियाँ संख्याएँ से
+A. स्तंभ अक्षर से और पंक्तियाँ संख्याएँ से
 B. स्तंभ संख्याएँ से और पंक्तियाँ अक्षर से
 C. दोनों केवल अक्षर से
 D. दोनों केवल संख्याएँ से
@@ -215,7 +215,7 @@ D. दोनों केवल संख्याएँ से
 #### 6. COM003-OFFICE-TABS-006 — EASY
 **Question:** Excel Ribbon के एक समूह में क्या होता है?
 
-एक. केवल कार्यपत्रक नाम
+A. केवल कार्यपत्रक नाम
 B. संबंधित कमांड
 C. केवल सूत्र
 D. केवल पृष्ठ संख्याएँ
@@ -227,7 +227,7 @@ D. केवल पृष्ठ संख्याएँ
 #### 7. COM003-OFFICE-TABS-007 — EASY
 **Question:** Save जैसे बार-बार उपयोग किया गया कमांड तक जल्दी पहुँच किस Excel क्षेत्र से मिलती है?
 
-एक. Formula Bar
+A. Formula Bar
 B. Status Bar
 C. Quick Access Toolbar
 D. पत्रक टैब पट्टी
@@ -239,7 +239,7 @@ D. पत्रक टैब पट्टी
 #### 8. COM003-OFFICE-TABS-008 — MEDIUM
 **Question:** Chart या तालिका चुनना करने पर Excel में किस प्रकार का टैब दिखाई दे सकता है?
 
-एक. कार्यपत्रक टैब
+A. कार्यपत्रक टैब
 B. केवल File टैब
 C. स्थायी प्रणाली टैब
 D. Contextual टैब
@@ -253,7 +253,7 @@ D. Contextual टैब
 #### 1. COM003-OFFICE-TABS-001 — EASY
 **Question:** Excel ਵਰਕਬੁੱਕ ਵਿੱਚ ਆਮ ਤੌਰ ਉੱਤੇ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-ਇੱਕ. ਇੱਕ ਜਾਂ ਵੱਧ ਵਰਕਸ਼ੀਟਾਂ
+A. ਇੱਕ ਜਾਂ ਵੱਧ ਵਰਕਸ਼ੀਟਾਂ
 B. ਸਿਰਫ਼ ਚਾਰਟ
 C. ਸਿਰਫ਼ ਫਾਰਮੂਲੇ
 D. ਸਿਰਫ਼ ਛਪੇ ਹੋਏ ਪੰਨੇ
@@ -265,7 +265,7 @@ D. ਸਿਰਫ਼ ਛਪੇ ਹੋਏ ਪੰਨੇ
 #### 2. COM003-OFFICE-TABS-002 — EASY
 **Question:** Excel ਵਿੱਚ B3 ਕਿਸ ਦੀ ਪਛਾਣ ਦੱਸਦਾ ਹੈ?
 
-ਇੱਕ. ਵਰਕਬੁੱਕ
+A. ਵਰਕਬੁੱਕ
 B. ਸੈੱਲ
 C. Chart
 D. ਵਰਕਸ਼ੀਟ ਟੈਬ
@@ -277,7 +277,7 @@ D. ਵਰਕਸ਼ੀਟ ਟੈਬ
 #### 3. COM003-OFFICE-TABS-003 — EASY
 **Question:** ਸਰਗਰਮ ਸੈੱਲ ਦੀ ਸਮੱਗਰੀ ਦਿਖਾਉਣ ਜਾਂ ਸੋਧੋ ਕਰਨ ਵਾਲਾ Excel ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Status Bar
+A. Status Bar
 B. Name Box
 C. Formula Bar
 D. ਵਰਕਸ਼ੀਟ ਟੈਬ ਪੱਟੀ
@@ -289,7 +289,7 @@ D. ਵਰਕਸ਼ੀਟ ਟੈਬ ਪੱਟੀ
 #### 4. COM003-OFFICE-TABS-004 — EASY
 **Question:** ਸਰਗਰਮ ਸੈੱਲ ਦਾ ਪਤਾ ਆਮ ਤੌਰ ਉੱਤੇ ਦਿਖਾਉਣ ਵਾਲਾ Excel ਬਾਕਸ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Formula Bar
+A. Formula Bar
 B. Status Bar
 C. Ribbon
 D. Name Box
@@ -301,7 +301,7 @@ D. Name Box
 #### 5. COM003-OFFICE-TABS-005 — EASY
 **Question:** Excel ਵਰਕਸ਼ੀਟ ਵਿੱਚ ਕਾਲਮ ਅਤੇ ਕਤਾਰਾਂ ਨੂੰ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਵੇਂ ਲੇਬਲ ਕੀਤਾ ਜਾਂਦਾ ਹੈ?
 
-ਇੱਕ. ਕਾਲਮ ਅੱਖਰ ਨਾਲ ਅਤੇ ਕਤਾਰਾਂ ਅੰਕ ਨਾਲ
+A. ਕਾਲਮ ਅੱਖਰ ਨਾਲ ਅਤੇ ਕਤਾਰਾਂ ਅੰਕ ਨਾਲ
 B. ਕਾਲਮ ਅੰਕ ਨਾਲ ਅਤੇ ਕਤਾਰਾਂ ਅੱਖਰ ਨਾਲ
 C. ਦੋਵੇਂ ਸਿਰਫ਼ ਅੱਖਰ ਨਾਲ
 D. ਦੋਵੇਂ ਸਿਰਫ਼ ਅੰਕ ਨਾਲ
@@ -313,7 +313,7 @@ D. ਦੋਵੇਂ ਸਿਰਫ਼ ਅੰਕ ਨਾਲ
 #### 6. COM003-OFFICE-TABS-006 — EASY
 **Question:** Excel Ribbon ਦੇ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-ਇੱਕ. ਸਿਰਫ਼ ਵਰਕਸ਼ੀਟ ਨਾਮ
+A. ਸਿਰਫ਼ ਵਰਕਸ਼ੀਟ ਨਾਮ
 B. ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ
 C. ਸਿਰਫ਼ ਫਾਰਮੂਲੇ
 D. ਸਿਰਫ਼ ਪੰਨਾ ਅੰਕ
@@ -325,7 +325,7 @@ D. ਸਿਰਫ਼ ਪੰਨਾ ਅੰਕ
 #### 7. COM003-OFFICE-TABS-007 — EASY
 **Question:** Save ਵਰਗੇ ਅਕਸਰ ਵਰਤਿਆ ਗਿਆ ਕਮਾਂਡਾਂ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ Excel ਦੇ ਕਿਹੜੇ ਖੇਤਰ ਤੋਂ ਮਿਲਦੀ ਹੈ?
 
-ਇੱਕ. Formula Bar
+A. Formula Bar
 B. Status Bar
 C. Quick Access Toolbar
 D. ਵਰਕਸ਼ੀਟ ਟੈਬ ਪੱਟੀ
@@ -337,7 +337,7 @@ D. ਵਰਕਸ਼ੀਟ ਟੈਬ ਪੱਟੀ
 #### 8. COM003-OFFICE-TABS-008 — MEDIUM
 **Question:** Chart ਜਾਂ ਟੇਬਲ ਚੁਣਨਾ ਕਰਨ ਨਾਲ Excel ਵਿੱਚ ਕਿਹੜੀ ਕਿਸਮ ਦਾ ਟੈਬ ਦਿਖ ਸਕਦਾ ਹੈ?
 
-ਇੱਕ. ਵਰਕਸ਼ੀਟ ਟੈਬ
+A. ਵਰਕਸ਼ੀਟ ਟੈਬ
 B. ਸਿਰਫ਼ File ਟੈਬ
 C. ਸਥਾਈ ਪ੍ਰਣਾਲੀ ਟੈਬ
 D. Contextual ਟੈਬ
@@ -451,7 +451,7 @@ D. Fill
 #### 1. COM003-OFFICE-TABS-009 — EASY
 **Question:** Excel Home टैब में काटें, कॉपी और पेस्ट कमांड किस समूह में होते हैं?
 
-एक. Clipboard
+A. Clipboard
 B. Font
 C. Styles
 D. Cells
@@ -463,7 +463,7 @@ D. Cells
 #### 2. COM003-OFFICE-TABS-010 — EASY
 **Question:** कक्ष का फ़ॉन्ट, फ़ॉन्ट आकार और पाठ शैली बदलने वाला Home टैबटैब समूह कौन-सा है?
 
-एक. संरेखण
+A. संरेखण
 B. Font
 C. Number
 D. संपादन
@@ -475,7 +475,7 @@ D. संपादन
 #### 3. COM003-OFFICE-TABS-011 — EASY
 **Question:** कक्ष सामग्री की संरेखण नियंत्रित करने वाला Home टैबटैब समूह कौन-सा है?
 
-एक. Clipboard
+A. Clipboard
 B. Font
 C. संरेखण
 D. Styles
@@ -487,7 +487,7 @@ D. Styles
 #### 4. COM003-OFFICE-TABS-012 — EASY
 **Question:** मुद्रा, प्रतिशत या तिथि स्वरूप लगाने वाला Home टैबटैब समूह कौन-सा है?
 
-एक. Cells
+A. Cells
 B. संपादन
 C. Styles
 D. Number
@@ -499,7 +499,7 @@ D. Number
 #### 5. COM003-OFFICE-TABS-013 — EASY
 **Question:** चयनित कक्ष को मिलाना करके परिणाम को केंद्र करने वाला Home टैबटैब कमांड कौन-सा है?
 
-एक. Merge & Center
+A. Merge & Center
 B. लपेटना पाठ
 C. Format Painter
 D. Clear
@@ -511,7 +511,7 @@ D. Clear
 #### 6. COM003-OFFICE-TABS-014 — EASY
 **Question:** कक्ष की लंबी पाठ को कक्ष के अंदर कई पंक्तियाँ में दिखाने वाला Home टैबटैब विकल्प कौन-सा है?
 
-एक. Merge & Center
+A. Merge & Center
 B. लपेटना पाठ
 C. भरना रंग
 D. Sort
@@ -523,7 +523,7 @@ D. Sort
 #### 7. COM003-OFFICE-TABS-015 — MEDIUM
 **Question:** कक्ष मान किसी नियम को पूरा करें तो स्वरूपण लगाने वाला Home टैबटैब सुविधा कौन-सा है?
 
-एक. Format Painter
+A. Format Painter
 B. ढूँढना & चुनना
 C. सशर्त स्वरूपण
 D. Clear
@@ -535,7 +535,7 @@ D. Clear
 #### 8. COM003-OFFICE-TABS-016 — MEDIUM
 **Question:** चयनित समीपवर्ती कक्ष में मान या सूत्र कॉपी करने वाला Home टैबटैब कमांड कौन-सा है?
 
-एक. Sort
+A. Sort
 B. Clear
 C. ढूँढना
 D. भरना
@@ -549,7 +549,7 @@ D. भरना
 #### 1. COM003-OFFICE-TABS-009 — EASY
 **Question:** Excel Home ਟੈਬ ਵਿੱਚ ਕੱਟੋ, ਕਾਪੀ ਅਤੇ ਪੇਸਟ ਕਮਾਂਡਾਂ ਕਿਹੜੇ ਸਮੂਹ ਵਿੱਚ ਹੁੰਦੇ ਹਨ?
 
-ਇੱਕ. Clipboard
+A. Clipboard
 B. Font
 C. Styles
 D. Cells
@@ -561,7 +561,7 @@ D. Cells
 #### 2. COM003-OFFICE-TABS-010 — EASY
 **Question:** ਸੈੱਲ ਦਾ ਫੌਂਟ, ਫੌਂਟ ਆਕਾਰ ਅਤੇ ਲਿਖਤ ਸ਼ੈਲੀ ਬਦਲਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਸੰਰેખਣ
+A. ਸੰਰેખਣ
 B. Font
 C. Number
 D. ਸੋਧ
@@ -573,7 +573,7 @@ D. ਸੋਧ
 #### 3. COM003-OFFICE-TABS-011 — EASY
 **Question:** ਸੈੱਲ ਸਮੱਗਰੀ ਦੀ ਸੰਰેખਣ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Clipboard
+A. Clipboard
 B. Font
 C. ਸੰਰેખਣ
 D. Styles
@@ -585,7 +585,7 @@ D. Styles
 #### 4. COM003-OFFICE-TABS-012 — EASY
 **Question:** ਮੁਦਰਾ, ਫੀਸਦੀ ਜਾਂ ਤਾਰੀਖ ਰੂਪ ਲਗਾਉਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Cells
+A. Cells
 B. ਸੋਧ
 C. Styles
 D. Number
@@ -597,7 +597,7 @@ D. Number
 #### 5. COM003-OFFICE-TABS-013 — EASY
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਸੈੱਲ ਨੂੰ ਜੋੜ ਕੇ ਨਤੀਜਾ ਨੂੰ ਕੇਂਦਰ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Merge & Center
+A. Merge & Center
 B. ਲਪੇਟਣਾ ਲਿਖਤ
 C. Format Painter
 D. Clear
@@ -609,7 +609,7 @@ D. Clear
 #### 6. COM003-OFFICE-TABS-014 — EASY
 **Question:** ਸੈੱਲ ਦੀ ਲੰਮੀ ਲਿਖਤ ਨੂੰ ਸੈੱਲ ਦੇ ਅੰਦਰ ਕਈ ਲਾਈਨਾਂ ਵਿੱਚ ਦਿਖਾਉਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Merge & Center
+A. Merge & Center
 B. ਲਪੇਟਣਾ ਲਿਖਤ
 C. ਭਰਨਾ ਰੰਗ
 D. Sort
@@ -621,7 +621,7 @@ D. Sort
 #### 7. COM003-OFFICE-TABS-015 — MEDIUM
 **Question:** ਸੈੱਲ ਮੁੱਲ ਕਿਸੇ ਨਿਯਮ ਨੂੰ ਪੂਰਾ ਕਰਨ ਤਾਂ ਸਜਾਵਟ ਲਗਾਉਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Format Painter
+A. Format Painter
 B. ਲੱਭਣਾ & ਚੁਣਨਾ
 C. ਸ਼ਰਤੀ ਸਜਾਵਟ
 D. Clear
@@ -633,7 +633,7 @@ D. Clear
 #### 8. COM003-OFFICE-TABS-016 — MEDIUM
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਨਾਲ ਲੱਗਦਾ ਸੈੱਲ ਵਿੱਚ ਮੁੱਲ ਜਾਂ ਫਾਰਮੂਲਾ ਕਾਪੀ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Sort
+A. Sort
 B. Clear
 C. ਲੱਭਣਾ
 D. ਭਰਨਾ
@@ -747,7 +747,7 @@ D. Header & Footer
 #### 1. COM003-OFFICE-TABS-017 — EASY
 **Question:** चयनित श्रेणी को संरचित Excel तालिका में बदलने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-एक. तालिका
+A. तालिका
 B. WordArt
 C. Text Box
 D. स्क्रीनशॉट
@@ -759,7 +759,7 @@ D. स्क्रीनशॉट
 #### 2. COM003-OFFICE-TABS-018 — MEDIUM
 **Question:** फ़ील्ड के आधार पर कार्यपत्रक डेटा को सारांश बनाना और विश्लेषण करना करने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-एक. स्पार्कलाइन
+A. स्पार्कलाइन
 B. PivotTable
 C. चित्र
 D. Shape
@@ -771,7 +771,7 @@ D. Shape
 #### 3. COM003-OFFICE-TABS-019 — EASY
 **Question:** कार्यपत्रक डेटा को चित्रात्मक रूप में दिखाने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-एक. तालिका
+A. तालिका
 B. Name Manager
 C. Chart
 D. शीर्षलेख
@@ -783,7 +783,7 @@ D. शीर्षलेख
 #### 4. COM003-OFFICE-TABS-020 — MEDIUM
 **Question:** चयनित डेटा का विश्लेषण करके चार्ट प्रकार सुझाव करने वाला Excel कमांड कौन-सा है?
 
-एक. स्वरूप जैसे तालिका
+A. स्वरूप जैसे तालिका
 B. Data Validation
 C. Name Manager
 D. Recommended Charts
@@ -795,7 +795,7 @@ D. Recommended Charts
 #### 5. COM003-OFFICE-TABS-021 — EASY
 **Question:** Excel में स्पार्कलाइन क्या होता है?
 
-एक. कक्ष में छोटा चार्ट
+A. कक्ष में छोटा चार्ट
 B. कार्यपत्रक पासवर्ड
 C. पृष्ठ हाशिया
 D. सूत्र त्रुटि
@@ -807,7 +807,7 @@ D. सूत्र त्रुटि
 #### 6. COM003-OFFICE-TABS-022 — EASY
 **Question:** Excel कार्यपत्रक में चित्र रखने वाला Insert टैबटैब कमांड कौन-सा है?
 
-एक. PivotTable
+A. PivotTable
 B. Pictures
 C. Equation
 D. Slicer
@@ -819,7 +819,7 @@ D. Slicer
 #### 7. COM003-OFFICE-TABS-023 — MEDIUM
 **Question:** तालिका या PivotTable को बटन से फ़िल्टर करने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-एक. शीर्षलेख
+A. शीर्षलेख
 B. Shape
 C. Slicer
 D. Symbol
@@ -831,7 +831,7 @@ D. Symbol
 #### 8. COM003-OFFICE-TABS-024 — EASY
 **Question:** मुद्रित पृष्ठ पर शीर्षलेख या पादलेख जोड़ने वाला Insert टैबटैब कमांड कौन-सा है?
 
-एक. Chart
+A. Chart
 B. तालिका
 C. Text Box
 D. Header & Footer
@@ -845,7 +845,7 @@ D. Header & Footer
 #### 1. COM003-OFFICE-TABS-017 — EASY
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਸ਼੍ਰੇਣੀ ਨੂੰ ਬਣਤਰਬੱਧ Excel ਟੇਬਲ ਵਿੱਚ ਬਦਲਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਟੇਬਲ
+A. ਟੇਬਲ
 B. WordArt
 C. Text Box
 D. ਸਕ੍ਰੀਨਸ਼ਾਟ
@@ -857,7 +857,7 @@ D. ਸਕ੍ਰੀਨਸ਼ਾਟ
 #### 2. COM003-OFFICE-TABS-018 — MEDIUM
 **Question:** ਫੀਲਡ ਦੇ ਆਧਾਰ ਉੱਤੇ ਵਰਕਸ਼ੀਟ ਡਾਟਾ ਨੂੰ ਸਾਰ ਬਣਾਉਣਾ ਅਤੇ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰਨਾ ਕਰਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਸਪਾਰਕਲਾਈਨ
+A. ਸਪਾਰਕਲਾਈਨ
 B. PivotTable
 C. ਤਸਵੀਰ
 D. Shape
@@ -869,7 +869,7 @@ D. Shape
 #### 3. COM003-OFFICE-TABS-019 — EASY
 **Question:** ਵਰਕਸ਼ੀਟ ਡਾਟਾ ਨੂੰ ਚਿੱਤਰਾਤਮਕ ਰੂਪ ਵਿੱਚ ਦਿਖਾਉਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਟੇਬਲ
+A. ਟੇਬਲ
 B. Name Manager
 C. Chart
 D. ਉੱਪਰਲਾ ਸਿਰਲੇਖ
@@ -881,7 +881,7 @@ D. ਉੱਪਰਲਾ ਸਿਰਲੇਖ
 #### 4. COM003-OFFICE-TABS-020 — MEDIUM
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਡਾਟਾ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰਕੇ ਚਾਰਟ ਕਿਸਮਾਂ ਸੁਝਾਅ ਦੇਣਾ ਕਰਨ ਵਾਲਾ Excel ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਰੂਪ ਵਜੋਂ ਟੇਬਲ
+A. ਰੂਪ ਵਜੋਂ ਟੇਬਲ
 B. Data Validation
 C. Name Manager
 D. Recommended Charts
@@ -893,7 +893,7 @@ D. Recommended Charts
 #### 5. COM003-OFFICE-TABS-021 — EASY
 **Question:** Excel ਵਿੱਚ ਸਪਾਰਕਲਾਈਨ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-ਇੱਕ. ਸੈੱਲ ਵਿੱਚ ਛੋਟਾ ਚਾਰਟ
+A. ਸੈੱਲ ਵਿੱਚ ਛੋਟਾ ਚਾਰਟ
 B. ਵਰਕਸ਼ੀਟ ਪਾਸਵਰਡ
 C. ਪੰਨਾ ਹਾਸ਼ੀਆ
 D. ਫਾਰਮੂਲਾ ਗਲਤੀ
@@ -905,7 +905,7 @@ D. ਫਾਰਮੂਲਾ ਗਲਤੀ
 #### 6. COM003-OFFICE-TABS-022 — EASY
 **Question:** Excel ਵਰਕਸ਼ੀਟ ਵਿੱਚ ਤਸਵੀਰ ਰੱਖਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. PivotTable
+A. PivotTable
 B. Pictures
 C. Equation
 D. Slicer
@@ -917,7 +917,7 @@ D. Slicer
 #### 7. COM003-OFFICE-TABS-023 — MEDIUM
 **Question:** ਟੇਬਲ ਜਾਂ PivotTable ਨੂੰ ਬਟਨ ਨਾਲ ਫਿਲਟਰ ਕਰਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਉੱਪਰਲਾ ਸਿਰਲੇਖ
+A. ਉੱਪਰਲਾ ਸਿਰਲੇਖ
 B. Shape
 C. Slicer
 D. Symbol
@@ -929,7 +929,7 @@ D. Symbol
 #### 8. COM003-OFFICE-TABS-024 — EASY
 **Question:** ਛਪੇ ਹੋਏ ਪੰਨੇ ਉੱਤੇ ਉੱਪਰਲਾ ਸਿਰਲੇਖ ਜਾਂ ਹੇਠਲਾ ਸਿਰਲੇਖ ਜੋੜਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Chart
+A. Chart
 B. ਟੇਬਲ
 C. Text Box
 D. Header & Footer
@@ -1043,7 +1043,7 @@ D. Scale to Fit
 #### 1. COM003-OFFICE-TABS-025 — EASY
 **Question:** कार्यपुस्तिका पर समन्वित फ़ॉन्ट, रंग और प्रभाव लगाने वाला Page Layout टैबटैब सुविधा कौन-सा है?
 
-एक. Themes
+A. Themes
 B. Sort
 C. Data Validation
 D. Name Manager
@@ -1055,7 +1055,7 @@ D. Name Manager
 #### 2. COM003-OFFICE-TABS-026 — EASY
 **Question:** मुद्रित पृष्ठ के चारों ओर रिक्त स्थान नियंत्रित करने वाला Page Layout टैबटैब कमांड कौन-सा है?
 
-एक. Orientation
+A. Orientation
 B. हाशिये
 C. Scale
 D. विराम
@@ -1067,7 +1067,7 @@ D. विराम
 #### 3. COM003-OFFICE-TABS-027 — EASY
 **Question:** पत्रक को पोर्ट्रेट और लैंडस्केप मुद्रण के बीच बदलने वाला Page Layout टैबटैब विकल्प कौन-सा है?
 
-एक. आकार
+A. आकार
 B. हाशिये
 C. Orientation
 D. Print Area
@@ -1079,7 +1079,7 @@ D. Print Area
 #### 4. COM003-OFFICE-TABS-028 — EASY
 **Question:** मुद्रण के लिए कागज़ आकार चुनने वाला Page Layout टैबटैब विकल्प कौन-सा है?
 
-एक. हाशिये
+A. हाशिये
 B. Themes
 C. विराम
 D. आकार
@@ -1091,7 +1091,7 @@ D. आकार
 #### 5. COM003-OFFICE-TABS-029 — MEDIUM
 **Question:** मुद्रण को चयनित कक्ष की श्रेणी तक सीमित करने वाला Page Layout टैबटैब कमांड कौन-सा है?
 
-एक. Print Area
+A. Print Area
 B. Print Titles
 C. पृष्ठ विराम
 D. Scale to Fit
@@ -1103,7 +1103,7 @@ D. Scale to Fit
 #### 6. COM003-OFFICE-TABS-030 — MEDIUM
 **Question:** मैनुअल पृष्ठ विराम डालना या हटाना करने वाला Page Layout टैबटैब कमांड कौन-सा है?
 
-एक. हाशिये
+A. हाशिये
 B. विराम
 C. Orientation
 D. Themes
@@ -1115,7 +1115,7 @@ D. Themes
 #### 7. COM003-OFFICE-TABS-031 — EASY
 **Question:** प्रिंटआउट में कार्यपत्रक ग्रिडलाइनें दिखें या नहीं, यह नियंत्रित करने वाली सेटिंग कौन-सी है?
 
-एक. Headings
+A. Headings
 B. Scale
 C. ग्रिडलाइनें
 D. Themes
@@ -1127,7 +1127,7 @@ D. Themes
 #### 8. COM003-OFFICE-TABS-032 — MEDIUM
 **Question:** कार्यपत्रक को चुने हुए पृष्ठ की चौड़ाई या ऊँचाई में समायोजित करना करने वाला Page Layout टैबटैब क्षेत्र कौन-सा है?
 
-एक. Themes
+A. Themes
 B. पृष्ठ सेटअप
 C. Print Titles
 D. Scale to Fit
@@ -1141,7 +1141,7 @@ D. Scale to Fit
 #### 1. COM003-OFFICE-TABS-025 — EASY
 **Question:** ਵਰਕਬੁੱਕ ਉੱਤੇ ਸਮਨਵਿਤ ਫੌਂਟ, ਰੰਗ ਅਤੇ ਪ੍ਰਭਾਵ ਲਗਾਉਣ ਵਾਲਾ Page Layout ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Themes
+A. Themes
 B. Sort
 C. Data Validation
 D. Name Manager
@@ -1153,7 +1153,7 @@ D. Name Manager
 #### 2. COM003-OFFICE-TABS-026 — EASY
 **Question:** ਛਪੇ ਹੋਏ ਪੰਨਾ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਖਾਲੀ ਥਾਂ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲਾ Page Layout ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Orientation
+A. Orientation
 B. ਹਾਸ਼ੀਏ
 C. Scale
 D. ਵਿਰਾਮ
@@ -1165,7 +1165,7 @@ D. ਵਿਰਾਮ
 #### 3. COM003-OFFICE-TABS-027 — EASY
 **Question:** ਵਰਕਸ਼ੀਟ ਨੂੰ ਪੋਰਟਰੇਟ ਅਤੇ ਲੈਂਡਸਕੇਪ ਛਪਾਈ ਵਿਚਕਾਰ ਬਦਲਣ ਵਾਲਾ Page Layout ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਆਕਾਰ
+A. ਆਕਾਰ
 B. ਹਾਸ਼ੀਏ
 C. Orientation
 D. Print Area
@@ -1177,7 +1177,7 @@ D. Print Area
 #### 4. COM003-OFFICE-TABS-028 — EASY
 **Question:** ਛਪਾਈ ਲਈ ਕਾਗਜ਼ ਆਕਾਰ ਚੁਣਨ ਵਾਲਾ Page Layout ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਹਾਸ਼ੀਏ
+A. ਹਾਸ਼ੀਏ
 B. Themes
 C. ਵਿਰਾਮ
 D. ਆਕਾਰ
@@ -1189,7 +1189,7 @@ D. ਆਕਾਰ
 #### 5. COM003-OFFICE-TABS-029 — MEDIUM
 **Question:** ਛਪਾਈ ਨੂੰ ਚੁਣਿਆ ਹੋਇਆ ਸੈੱਲ ਦੀ ਸ਼੍ਰੇਣੀ ਤੱਕ ਸੀਮਿਤ ਕਰਨ ਵਾਲਾ Page Layout ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Print Area
+A. Print Area
 B. Print Titles
 C. ਪੰਨਾ ਵਿਰਾਮ
 D. Scale to Fit
@@ -1201,7 +1201,7 @@ D. Scale to Fit
 #### 6. COM003-OFFICE-TABS-030 — MEDIUM
 **Question:** ਹੱਥੋਂ ਪੰਨਾ ਵਿਰਾਮ ਸ਼ਾਮਲ ਕਰਨਾ ਜਾਂ ਹਟਾਉਣਾ ਕਰਨ ਵਾਲਾ Page Layout ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਹਾਸ਼ੀਏ
+A. ਹਾਸ਼ੀਏ
 B. ਵਿਰਾਮ
 C. Orientation
 D. Themes
@@ -1213,7 +1213,7 @@ D. Themes
 #### 7. COM003-OFFICE-TABS-031 — EASY
 **Question:** ਪ੍ਰਿੰਟਆਉਟ ਵਿੱਚ ਵਰਕਸ਼ੀਟ ਗ੍ਰਿਡਲਾਈਨਾਂ ਦਿਖਣ ਜਾਂ ਨਾ ਦਿਖਣ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲੀ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-ਇੱਕ. Headings
+A. Headings
 B. Scale
 C. ਗ੍ਰਿਡਲਾਈਨਾਂ
 D. Themes
@@ -1225,7 +1225,7 @@ D. Themes
 #### 8. COM003-OFFICE-TABS-032 — MEDIUM
 **Question:** ਵਰਕਸ਼ੀਟ ਨੂੰ ਚੁਣੇ ਪੰਨੇ ਦੀ ਚੌੜਾਈ ਜਾਂ ਉਚਾਈ ਵਿੱਚ ਮਿਲਾਉਣਾ ਕਰਨ ਵਾਲਾ Page Layout ਟੈਬਟੈਬ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Themes
+A. Themes
 B. ਪੰਨਾ ਸੈਟਅਪ
 C. Print Titles
 D. Scale to Fit
@@ -1339,7 +1339,7 @@ D. Function Library
 #### 1. COM003-OFFICE-TABS-033 — EASY
 **Question:** अंतर्निहितमें Excel फ़ंक्शन की श्रेणियाँ रखने वाला सूत्र टैबटैब समूह कौन-सा है?
 
-एक. Function Library
+A. Function Library
 B. कार्यपुस्तिका Views
 C. Data उपकरण
 D. पृष्ठ सेटअप
@@ -1351,7 +1351,7 @@ D. पृष्ठ सेटअप
 #### 2. COM003-OFFICE-TABS-034 — EASY
 **Question:** फ़ंक्शन खोज करके डालना करने में मदद करने वाला सूत्र टैबटैब कमांड कौन-सा है?
 
-एक. Name Manager
+A. Name Manager
 B. Insert Function
 C. Trace Dependents
 D. Show Formulas
@@ -1363,7 +1363,7 @@ D. Show Formulas
 #### 3. COM003-OFFICE-TABS-035 — EASY
 **Question:** पास का श्रेणी के लिए जल्दी से SUM सूत्र डालना करने वाला सूत्र टैबटैब कमांड कौन-सा है?
 
-एक. मूल्यांकन करना सूत्र
+A. मूल्यांकन करना सूत्र
 B. Name Manager
 C. AutoSum
 D. Error Checking
@@ -1375,7 +1375,7 @@ D. Error Checking
 #### 4. COM003-OFFICE-TABS-036 — MEDIUM
 **Question:** परिभाषित नाम बनाना, संपादित करें या हटाना करने वाला सूत्र टैबटैब कमांड कौन-सा है?
 
-एक. Insert Function
+A. Insert Function
 B. Calculate Now
 C. Show Formulas
 D. Name Manager
@@ -1387,7 +1387,7 @@ D. Name Manager
 #### 5. COM003-OFFICE-TABS-037 — MEDIUM
 **Question:** चयनित सूत्र को मान देने वाले कक्ष दिखाने वाला सूत्र जाँच कमांड कौन-सा है?
 
-एक. Trace Precedents
+A. Trace Precedents
 B. Trace Dependents
 C. हटाना तीर
 D. निरीक्षण विंडो
@@ -1399,7 +1399,7 @@ D. निरीक्षण विंडो
 #### 6. COM003-OFFICE-TABS-038 — MEDIUM
 **Question:** चयनित कक्ष पर निर्भर होना करने वाले सूत्र दिखाने वाला सूत्र जाँच कमांड कौन-सा है?
 
-एक. Trace Precedents
+A. Trace Precedents
 B. Trace Dependents
 C. मूल्यांकन करना सूत्र
 D. Error Checking
@@ -1411,7 +1411,7 @@ D. Error Checking
 #### 7. COM003-OFFICE-TABS-039 — EASY
 **Question:** गणना किया गया परिणाम के बजाय कक्ष में सूत्र दिखाने वाला सूत्र टैबटैब कमांड कौन-सा है?
 
-एक. निरीक्षण विंडो
+A. निरीक्षण विंडो
 B. Calculate पत्रक
 C. Show Formulas
 D. हटाना तीर
@@ -1423,7 +1423,7 @@ D. हटाना तीर
 #### 8. COM003-OFFICE-TABS-040 — MEDIUM
 **Question:** सूत्र स्वचालित या मैनुअल पुनर्गणना करना हों, यह नियंत्रित करने वाली Excel सेटिंग कौन-सी है?
 
-एक. Name Manager
+A. Name Manager
 B. Error Checking
 C. गणना विकल्प
 D. Function Library
@@ -1437,7 +1437,7 @@ D. Function Library
 #### 1. COM003-OFFICE-TABS-033 — EASY
 **Question:** ਅੰਦਰੂਨੀਵਿੱਚ Excel ਫੰਕਸ਼ਨ ਦੀਆਂ ਸ਼੍ਰੇਣੀਆਂ ਰੱਖਣ ਵਾਲਾ ਫਾਰਮੂਲੇ ਟੈਬਟੈਬ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Function Library
+A. Function Library
 B. ਵਰਕਬੁੱਕ Views
 C. Data ਸਾਧਨ
 D. ਪੰਨਾ ਸੈਟਅਪ
@@ -1449,7 +1449,7 @@ D. ਪੰਨਾ ਸੈਟਅਪ
 #### 2. COM003-OFFICE-TABS-034 — EASY
 **Question:** ਫੰਕਸ਼ਨ ਖੋਜ ਕਰਕੇ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਨ ਵਾਲਾ ਫਾਰਮੂਲੇ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Name Manager
+A. Name Manager
 B. Insert Function
 C. Trace Dependents
 D. Show Formulas
@@ -1461,7 +1461,7 @@ D. Show Formulas
 #### 3. COM003-OFFICE-TABS-035 — EASY
 **Question:** ਨੇੜਲਾ ਸ਼੍ਰੇਣੀ ਲਈ ਜਲਦੀ SUM ਫਾਰਮੂਲਾ ਸ਼ਾਮਲ ਕਰਨਾ ਕਰਨ ਵਾਲਾ ਫਾਰਮੂਲੇ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਮੁਲਾਂਕਣ ਕਰਨਾ ਫਾਰਮੂਲਾ
+A. ਮੁਲਾਂਕਣ ਕਰਨਾ ਫਾਰਮੂਲਾ
 B. Name Manager
 C. AutoSum
 D. Error Checking
@@ -1473,7 +1473,7 @@ D. Error Checking
 #### 4. COM003-OFFICE-TABS-036 — MEDIUM
 **Question:** ਪਰਿਭਾਸ਼ਿਤ ਨਾਮ ਬਣਾਉਣਾ, ਸੋਧੋ ਜਾਂ ਮਿਟਾਉਣਾ ਕਰਨ ਵਾਲਾ ਫਾਰਮੂਲੇ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Insert Function
+A. Insert Function
 B. Calculate Now
 C. Show Formulas
 D. Name Manager
@@ -1485,7 +1485,7 @@ D. Name Manager
 #### 5. COM003-OFFICE-TABS-037 — MEDIUM
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਫਾਰਮੂਲਾ ਨੂੰ ਮੁੱਲ ਦੇਣ ਵਾਲੇ ਸੈੱਲ ਦਿਖਾਉਣ ਵਾਲਾ ਫਾਰਮੂਲਾ ਜਾਂਚ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Trace Precedents
+A. Trace Precedents
 B. Trace Dependents
 C. ਹਟਾਉਣਾ ਤੀਰ
 D. ਨਿਗਰਾਨੀ ਵਿੰਡੋ
@@ -1497,7 +1497,7 @@ D. ਨਿਗਰਾਨੀ ਵਿੰਡੋ
 #### 6. COM003-OFFICE-TABS-038 — MEDIUM
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਸੈੱਲ ਉੱਤੇ ਨਿਰਭਰ ਹੋਣਾ ਕਰਨ ਵਾਲੇ ਫਾਰਮੂਲੇ ਦਿਖਾਉਣ ਵਾਲਾ ਫਾਰਮੂਲਾ ਜਾਂਚ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Trace Precedents
+A. Trace Precedents
 B. Trace Dependents
 C. ਮੁਲਾਂਕਣ ਕਰਨਾ ਫਾਰਮੂਲਾ
 D. Error Checking
@@ -1509,7 +1509,7 @@ D. Error Checking
 #### 7. COM003-OFFICE-TABS-039 — EASY
 **Question:** ਗਣਨਾ ਕੀਤਾ ਨਤੀਜੇ ਦੀ ਬਜਾਏ ਸੈੱਲ ਵਿੱਚ ਫਾਰਮੂਲੇ ਦਿਖਾਉਣ ਵਾਲਾ ਫਾਰਮੂਲੇ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਿਗਰਾਨੀ ਵਿੰਡੋ
+A. ਨਿਗਰਾਨੀ ਵਿੰਡੋ
 B. Calculate ਵਰਕਸ਼ੀਟ
 C. Show Formulas
 D. ਹਟਾਉਣਾ ਤੀਰ
@@ -1521,7 +1521,7 @@ D. ਹਟਾਉਣਾ ਤੀਰ
 #### 8. COM003-OFFICE-TABS-040 — MEDIUM
 **Question:** ਫਾਰਮੂਲੇ ਆਪਣੇ ਆਪ ਜਾਂ ਹੱਥੋਂ ਮੁੜ ਗਣਨਾ ਕਰਨਾ ਹੋਣ, ਇਹ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲੀ Excel ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-ਇੱਕ. Name Manager
+A. Name Manager
 B. Error Checking
 C. ਗਣਨਾ ਵਿਕਲਪ
 D. Function Library
@@ -1635,7 +1635,7 @@ D. Refresh All
 #### 1. COM003-OFFICE-TABS-041 — EASY
 **Question:** अभिलेख को आरोही या अवरोही क्रम में लगाने वाला Data टैबटैब कमांड कौन-सा है?
 
-एक. Sort
+A. Sort
 B. फ़िल्टर
 C. समेकित करना
 D. समूह
@@ -1647,7 +1647,7 @@ D. समूह
 #### 2. COM003-OFFICE-TABS-042 — EASY
 **Question:** चयनित शर्तें पूरी करने वाले अभिलेख ही दिखाने वाला Data टैबटैब कमांड कौन-सा है?
 
-एक. Sort
+A. Sort
 B. फ़िल्टर
 C. Text to Columns
 D. Flash Fill
@@ -1659,7 +1659,7 @@ D. Flash Fill
 #### 3. COM003-OFFICE-TABS-043 — MEDIUM
 **Question:** कक्ष में डाली जा सकने वाली मान या डेटा प्रकार को सीमित करना करने वाला Data टैबटैब सुविधा कौन-सा है?
 
-एक. Sort
+A. Sort
 B. Flash Fill
 C. Data Validation
 D. समेकित करना
@@ -1671,7 +1671,7 @@ D. समेकित करना
 #### 4. COM003-OFFICE-TABS-044 — EASY
 **Question:** कक्ष के अंदर ड्रॉप-डाउन सूची बनाने वाला Data टैबटैब सुविधा कौन-सा है?
 
-एक. Remove Duplicates
+A. Remove Duplicates
 B. Sort
 C. Text to Columns
 D. Data Validation
@@ -1683,7 +1683,7 @@ D. Data Validation
 #### 5. COM003-OFFICE-TABS-045 — MEDIUM
 **Question:** एक स्तंभ की पाठ को कई स्तंभ में विभाजित करें करने वाला Data टैबटैब कमांड कौन-सा है?
 
-एक. Text to Columns
+A. Text to Columns
 B. Flash Fill
 C. Remove Duplicates
 D. Data Validation
@@ -1695,7 +1695,7 @@ D. Data Validation
 #### 6. COM003-OFFICE-TABS-046 — EASY
 **Question:** चयनित श्रेणी से दोहराई गई अभिलेख हटाने वाला Data टैबटैब कमांड कौन-सा है?
 
-एक. Flash Fill
+A. Flash Fill
 B. Remove Duplicates
 C. Sort
 D. समूह
@@ -1707,7 +1707,7 @@ D. समूह
 #### 7. COM003-OFFICE-TABS-047 — MEDIUM
 **Question:** पैटर्न पहचानकर बाकी मान स्वचालित रूप से भरने वाला Data टैबटैब सुविधा कौन-सा है?
 
-एक. समेकित करना
+A. समेकित करना
 B. Sort
 C. Flash Fill
 D. फ़िल्टर
@@ -1719,7 +1719,7 @@ D. फ़िल्टर
 #### 8. COM003-OFFICE-TABS-048 — MEDIUM
 **Question:** जुड़ा हुआ प्रश्न और बाहरी डेटा को अद्यतन करने वाला Data टैबटैब कमांड कौन-सा है?
 
-एक. What-If Analysis
+A. What-If Analysis
 B. Text to Columns
 C. Data Validation
 D. ताज़ा करना सभी
@@ -1733,7 +1733,7 @@ D. ताज़ा करना सभी
 #### 1. COM003-OFFICE-TABS-041 — EASY
 **Question:** ਰਿਕਾਰਡ ਨੂੰ ਵੱਧਦੇ ਕ੍ਰਮ ਵਿੱਚ ਜਾਂ ਘਟਦੇ ਕ੍ਰਮ ਵਿੱਚ ਕ੍ਰਮ ਵਿੱਚ ਲਗਾਉਣ ਵਾਲਾ Data ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Sort
+A. Sort
 B. ਫਿਲਟਰ
 C. ਇਕੱਠਾ ਕਰਨਾ
 D. ਸਮੂਹ
@@ -1745,7 +1745,7 @@ D. ਸਮੂਹ
 #### 2. COM003-OFFICE-TABS-042 — EASY
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਸ਼ਰਤਾਂ ਪੂਰੀਆਂ ਕਰਨ ਵਾਲੇ ਰਿਕਾਰਡ ਹੀ ਦਿਖਾਉਣ ਵਾਲਾ Data ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Sort
+A. Sort
 B. ਫਿਲਟਰ
 C. Text to Columns
 D. Flash Fill
@@ -1757,7 +1757,7 @@ D. Flash Fill
 #### 3. COM003-OFFICE-TABS-043 — MEDIUM
 **Question:** ਸੈੱਲ ਵਿੱਚ ਪਾਈਆਂ ਜਾ ਸਕਣ ਵਾਲੀਆਂ ਮੁੱਲ ਜਾਂ ਡਾਟਾ ਕਿਸਮ ਨੂੰ ਸੀਮਿਤ ਕਰਨਾ ਕਰਨ ਵਾਲਾ Data ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Sort
+A. Sort
 B. Flash Fill
 C. Data Validation
 D. ਇਕੱਠਾ ਕਰਨਾ
@@ -1769,7 +1769,7 @@ D. ਇਕੱਠਾ ਕਰਨਾ
 #### 4. COM003-OFFICE-TABS-044 — EASY
 **Question:** ਸੈੱਲ ਦੇ ਅੰਦਰ ਡ੍ਰੌਪ-ਡਾਊਨ ਸੂਚੀ ਬਣਾਉਣ ਵਾਲਾ Data ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Remove Duplicates
+A. Remove Duplicates
 B. Sort
 C. Text to Columns
 D. Data Validation
@@ -1781,7 +1781,7 @@ D. Data Validation
 #### 5. COM003-OFFICE-TABS-045 — MEDIUM
 **Question:** ਇੱਕ ਕਾਲਮ ਦੀ ਲਿਖਤ ਨੂੰ ਕਈ ਕਾਲਮ ਵਿੱਚ ਵੰਡੋ ਕਰਨ ਵਾਲਾ Data ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Text to Columns
+A. Text to Columns
 B. Flash Fill
 C. Remove Duplicates
 D. Data Validation
@@ -1793,7 +1793,7 @@ D. Data Validation
 #### 6. COM003-OFFICE-TABS-046 — EASY
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਸ਼੍ਰੇਣੀ ਵਿੱਚੋਂ ਦੁਹਰਾਈ ਗਈ ਰਿਕਾਰਡ ਹਟਾਉਣ ਵਾਲਾ Data ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Flash Fill
+A. Flash Fill
 B. Remove Duplicates
 C. Sort
 D. ਸਮੂਹ
@@ -1805,7 +1805,7 @@ D. ਸਮੂਹ
 #### 7. COM003-OFFICE-TABS-047 — MEDIUM
 **Question:** ਨਮੂਨਾ ਪਛਾਣ ਕੇ ਬਾਕੀ ਮੁੱਲ ਆਪਣੇ ਆਪ ਭਰਨ ਵਾਲਾ Data ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਇਕੱਠਾ ਕਰਨਾ
+A. ਇਕੱਠਾ ਕਰਨਾ
 B. Sort
 C. Flash Fill
 D. ਫਿਲਟਰ
@@ -1817,7 +1817,7 @@ D. ਫਿਲਟਰ
 #### 8. COM003-OFFICE-TABS-048 — MEDIUM
 **Question:** ਜੁੜਿਆ ਹੋਇਆ ਸਵਾਲ ਅਤੇ ਬਾਹਰੀ ਡਾਟਾ ਨੂੰ ਅਪਡੇਟ ਕਰਨ ਵਾਲਾ Data ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. What-If Analysis
+A. What-If Analysis
 B. Text to Columns
 C. Data Validation
 D. ਤਾਜ਼ਾ ਕਰਨਾ ਸਾਰੇ
@@ -1931,7 +1931,7 @@ D. Notes
 #### 1. COM003-OFFICE-TABS-049 — EASY
 **Question:** कार्यपत्रक पाठ में वर्तनी त्रुटियाँ जाँच करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-एक. Spelling
+A. Spelling
 B. सुरक्षित करना पत्रक
 C. New Comment
 D. Thesaurus
@@ -1943,7 +1943,7 @@ D. Thesaurus
 #### 2. COM003-OFFICE-TABS-050 — EASY
 **Question:** चयनित कक्ष में टिप्पणी जोड़ने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-एक. सुरक्षित करना कार्यपुस्तिका
+A. सुरक्षित करना कार्यपुस्तिका
 B. New Comment
 C. Translate
 D. सुगम्यता
@@ -1955,7 +1955,7 @@ D. सुगम्यता
 #### 3. COM003-OFFICE-TABS-051 — EASY
 **Question:** वर्तमान कार्यपत्रक के कक्ष को अनचाहा बदलाव से सुरक्षित करना करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-एक. सुरक्षित करना कार्यपुस्तिका
+A. सुरक्षित करना कार्यपुस्तिका
 B. Track Changes
 C. सुरक्षित करना पत्रक
 D. साझा करें
@@ -1967,7 +1967,7 @@ D. साझा करें
 #### 4. COM003-OFFICE-TABS-052 — MEDIUM
 **Question:** कार्यपत्रक जोड़ना या हटाना करने जैसे कार्यपुस्तिका-संरचना बदलाव को सुरक्षित करना करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-एक. सुरक्षित करना पत्रक
+A. सुरक्षित करना पत्रक
 B. New Comment
 C. Spelling
 D. सुरक्षित करना कार्यपुस्तिका
@@ -1979,7 +1979,7 @@ D. सुरक्षित करना कार्यपुस्तिका
 #### 5. COM003-OFFICE-TABS-053 — EASY
 **Question:** कार्यपुस्तिका में सुगम्यता समस्याएँ जाँच करने वाला समीक्षा टैबटैब सुविधा कौन-सा है?
 
-एक. जाँच सुगम्यता
+A. जाँच सुगम्यता
 B. Name Manager
 C. निरीक्षण विंडो
 D. लक्ष्य खोजें
@@ -1991,7 +1991,7 @@ D. लक्ष्य खोजें
 #### 6. COM003-OFFICE-TABS-054 — MEDIUM
 **Question:** चयनित कार्यपत्रक पाठ का अनुवाद करने में मदद वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-एक. Spelling
+A. Spelling
 B. Translate
 C. सुरक्षित करना पत्रक
 D. New Comment
@@ -2003,7 +2003,7 @@ D. New Comment
 #### 7. COM003-OFFICE-TABS-055 — EASY
 **Question:** चयनित शब्द के समान अर्थ वाले शब्द सुझाव करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-एक. Spelling
+A. Spelling
 B. New Comment
 C. Thesaurus
 D. सुरक्षित करना पत्रक
@@ -2015,7 +2015,7 @@ D. सुरक्षित करना पत्रक
 #### 8. COM003-OFFICE-TABS-056 — MEDIUM
 **Question:** Cells से संलग्न टिप्पणियाँ को पढ़ना, संपादित करें या हटाना करने वाला समीक्षा टैबटैब सुविधा कौन-सा है?
 
-एक. फ़िल्टर
+A. फ़िल्टर
 B. निरीक्षण विंडो
 C. Name Manager
 D. टिप्पणियाँ
@@ -2029,7 +2029,7 @@ D. टिप्पणियाँ
 #### 1. COM003-OFFICE-TABS-049 — EASY
 **Question:** ਵਰਕਸ਼ੀਟ ਲਿਖਤ ਵਿੱਚ ਸ਼ਬਦ-ਜੋੜ ਗਲਤੀਆਂ ਜਾਂਚ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Spelling
+A. Spelling
 B. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਸ਼ੀਟ
 C. New Comment
 D. Thesaurus
@@ -2041,7 +2041,7 @@ D. Thesaurus
 #### 2. COM003-OFFICE-TABS-050 — EASY
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਸੈੱਲ ਵਿੱਚ ਟਿੱਪਣੀ ਜੋੜਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਬੁੱਕ
+A. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਬੁੱਕ
 B. New Comment
 C. Translate
 D. ਪਹੁੰਚਯੋਗਤਾ
@@ -2053,7 +2053,7 @@ D. ਪਹੁੰਚਯੋਗਤਾ
 #### 3. COM003-OFFICE-TABS-051 — EASY
 **Question:** ਮੌਜੂਦਾ ਵਰਕਸ਼ੀਟ ਦੇ ਸੈੱਲ ਨੂੰ ਅਣਚਾਹਿਆ ਤਬਦੀਲੀਆਂ ਤੋਂ ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਬੁੱਕ
+A. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਬੁੱਕ
 B. Track Changes
 C. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਸ਼ੀਟ
 D. ਸਾਂਝਾ ਕਰੋ
@@ -2065,7 +2065,7 @@ D. ਸਾਂਝਾ ਕਰੋ
 #### 4. COM003-OFFICE-TABS-052 — MEDIUM
 **Question:** ਵਰਕਸ਼ੀਟਾਂ ਜੋੜਨਾ ਜਾਂ ਮਿਟਾਉਣਾ ਕਰਨ ਵਰਗੀਆਂ ਵਰਕਬੁੱਕ-ਬਣਤਰ ਤਬਦੀਲੀਆਂ ਨੂੰ ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਸ਼ੀਟ
+A. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਸ਼ੀਟ
 B. New Comment
 C. Spelling
 D. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਬੁੱਕ
@@ -2077,7 +2077,7 @@ D. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਬੁੱਕ
 #### 5. COM003-OFFICE-TABS-053 — EASY
 **Question:** ਵਰਕਬੁੱਕ ਵਿੱਚ ਪਹੁੰਚਯੋਗਤਾ ਸਮੱਸਿਆਵਾਂ ਜਾਂਚ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਜਾਂਚ ਪਹੁੰਚਯੋਗਤਾ
+A. ਜਾਂਚ ਪਹੁੰਚਯੋਗਤਾ
 B. Name Manager
 C. ਨਿਗਰਾਨੀ ਵਿੰਡੋ
 D. ਟੀਚਾ ਲੱਭੋ
@@ -2089,7 +2089,7 @@ D. ਟੀਚਾ ਲੱਭੋ
 #### 6. COM003-OFFICE-TABS-054 — MEDIUM
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਵਰਕਸ਼ੀਟ ਲਿਖਤ ਦਾ ਅਨੁਵਾਦ ਕਰਨ ਵਿੱਚ ਮਦਦ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Spelling
+A. Spelling
 B. Translate
 C. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਸ਼ੀਟ
 D. New Comment
@@ -2101,7 +2101,7 @@ D. New Comment
 #### 7. COM003-OFFICE-TABS-055 — EASY
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਸ਼ਬਦ ਦੇ ਸਮਾਨ ਅਰਥ ਵਾਲੇ ਸ਼ਬਦ ਸੁਝਾਅ ਦੇਣਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Spelling
+A. Spelling
 B. New Comment
 C. Thesaurus
 D. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਸ਼ੀਟ
@@ -2113,7 +2113,7 @@ D. ਸੁਰੱਖਿਅਤ ਕਰਨਾ ਵਰਕਸ਼ੀਟ
 #### 8. COM003-OFFICE-TABS-056 — MEDIUM
 **Question:** Cells ਨਾਲ ਜੁੜਿਆ ਹੋਇਆ ਨੋਟ ਨੂੰ ਪੜ੍ਹਨਾ, ਸੋਧੋ ਜਾਂ ਮਿਟਾਉਣਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਫਿਲਟਰ
+A. ਫਿਲਟਰ
 B. ਨਿਗਰਾਨੀ ਵਿੰਡੋ
 C. Name Manager
 D. ਨੋਟ
@@ -2227,7 +2227,7 @@ D. Hide
 #### 1. COM003-OFFICE-TABS-057 — EASY
 **Question:** कार्यपत्रक संपादन के लिए सामान्य Excel दृश्य टैबटैब विकल्प कौन-सा है?
 
-एक. सामान्य
+A. सामान्य
 B. Page Break Preview
 C. Custom Views
 D. पूर्ण स्क्रीन
@@ -2239,7 +2239,7 @@ D. पूर्ण स्क्रीन
 #### 2. COM003-OFFICE-TABS-058 — EASY
 **Question:** मुद्रण के समय कार्यपत्रक पृष्ठ कहाँ विराम होंगी, यह दिखाने वाला दृश्य टैबटैब विकल्प कौन-सा है?
 
-एक. सामान्य
+A. सामान्य
 B. Page Layout
 C. Page Break Preview
 D. Custom Views
@@ -2251,7 +2251,7 @@ D. Custom Views
 #### 3. COM003-OFFICE-TABS-059 — EASY
 **Question:** कार्यपत्रक को हाशिये और शीर्षलेख वाले पृष्ठ की तरह दिखाने वाला Excel दृश्य कौन-सा है?
 
-एक. सामान्य
+A. सामान्य
 B. Page Break Preview
 C. Page Layout
 D. सूत्र दृश्य
@@ -2263,7 +2263,7 @@ D. सूत्र दृश्य
 #### 4. COM003-OFFICE-TABS-060 — EASY
 **Question:** स्क्रॉल करना के दौरान ऊपर पंक्तियाँ या बायाँ स्तंभ दृश्यमान रखने वाला दृश्य टैबटैब कमांड कौन-सा है?
 
-एक. विभाजित करें
+A. विभाजित करें
 B. Arrange All
 C. ग्रिडलाइनें
 D. Freeze Panes
@@ -2275,7 +2275,7 @@ D. Freeze Panes
 #### 5. COM003-OFFICE-TABS-061 — EASY
 **Question:** कार्यपत्रक कक्ष को अलग दिखाने वाली पंक्तियाँ दिखाना या छिपाना करने वाली दृश्य टैबटैब सेटिंग कौन-सी है?
 
-एक. ग्रिडलाइनें
+A. ग्रिडलाइनें
 B. Headings
 C. Formula Bar
 D. Zoom
@@ -2287,7 +2287,7 @@ D. Zoom
 #### 6. COM003-OFFICE-TABS-062 — EASY
 **Question:** सक्रिय कक्ष सूत्र दिखाने वाले क्षेत्र को दिखाना या छिपाना करने वाली दृश्य टैबटैब सेटिंग कौन-सी है?
 
-एक. ग्रिडलाइनें
+A. ग्रिडलाइनें
 B. Formula Bar
 C. Headings
 D. Zoom
@@ -2299,7 +2299,7 @@ D. Zoom
 #### 7. COM003-OFFICE-TABS-063 — EASY
 **Question:** कार्यपत्रक की पर-स्क्रीन आवर्धन बदलने वाला दृश्य टैबटैब नियंत्रण कौन-सा है?
 
-एक. Freeze Panes
+A. Freeze Panes
 B. विभाजित करें
 C. Zoom
 D. Arrange All
@@ -2311,7 +2311,7 @@ D. Arrange All
 #### 8. COM003-OFFICE-TABS-064 — MEDIUM
 **Question:** चयनित पंक्तियाँ या स्तंभ का डेटा हटाना किए बिना उन्हें दृश्य से हटाने वाली क्रिया कौन-सी है?
 
-एक. Clear
+A. Clear
 B. हटाना
 C. फ़िल्टर
 D. छिपाना
@@ -2325,7 +2325,7 @@ D. छिपाना
 #### 1. COM003-OFFICE-TABS-057 — EASY
 **Question:** ਵਰਕਸ਼ੀਟ ਸੋਧ ਲਈ ਆਮ Excel ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਆਮ
+A. ਆਮ
 B. Page Break Preview
 C. Custom Views
 D. ਪੂਰਾ ਸਕ੍ਰੀਨ
@@ -2337,7 +2337,7 @@ D. ਪੂਰਾ ਸਕ੍ਰੀਨ
 #### 2. COM003-OFFICE-TABS-058 — EASY
 **Question:** ਛਪਾਈ ਸਮੇਂ ਵਰਕਸ਼ੀਟ ਪੰਨੇ ਕਿੱਥੇ ਵਿਰਾਮ ਹੋਣਗੀਆਂ, ਇਹ ਦਿਖਾਉਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਆਮ
+A. ਆਮ
 B. Page Layout
 C. Page Break Preview
 D. Custom Views
@@ -2349,7 +2349,7 @@ D. Custom Views
 #### 3. COM003-OFFICE-TABS-059 — EASY
 **Question:** ਵਰਕਸ਼ੀਟ ਨੂੰ ਹਾਸ਼ੀਏ ਅਤੇ ਸਿਰਲੇਖ ਵਾਲੇ ਪੰਨੇ ਵਾਂਗ ਦਿਖਾਉਣ ਵਾਲਾ Excel ਦ੍ਰਿਸ਼ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਆਮ
+A. ਆਮ
 B. Page Break Preview
 C. Page Layout
 D. ਫਾਰਮੂਲਾ ਦ੍ਰਿਸ਼
@@ -2361,7 +2361,7 @@ D. ਫਾਰਮੂਲਾ ਦ੍ਰਿਸ਼
 #### 4. COM003-OFFICE-TABS-060 — EASY
 **Question:** ਸਕ੍ਰੋਲ ਕਰਨਾ ਦੌਰਾਨ ਉੱਪਰ ਕਤਾਰਾਂ ਜਾਂ ਖੱਬਾ ਕਾਲਮ ਦਿੱਖਣਯੋਗ ਰੱਖਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਵੰਡੋ
+A. ਵੰਡੋ
 B. Arrange All
 C. ਗ੍ਰਿਡਲਾਈਨਾਂ
 D. Freeze Panes
@@ -2373,7 +2373,7 @@ D. Freeze Panes
 #### 5. COM003-OFFICE-TABS-061 — EASY
 **Question:** ਵਰਕਸ਼ੀਟ ਸੈੱਲ ਨੂੰ ਵੱਖ ਦਿਖਾਉਣ ਵਾਲੀਆਂ ਲਾਈਨਾਂ ਦਿਖਾਉਣਾ ਜਾਂ ਲੁਕਾਉਣਾ ਕਰਨ ਵਾਲੀ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-ਇੱਕ. ਗ੍ਰਿਡਲਾਈਨਾਂ
+A. ਗ੍ਰਿਡਲਾਈਨਾਂ
 B. Headings
 C. Formula Bar
 D. Zoom
@@ -2385,7 +2385,7 @@ D. Zoom
 #### 6. COM003-OFFICE-TABS-062 — EASY
 **Question:** ਸਰਗਰਮ ਸੈੱਲ ਫਾਰਮੂਲਾ ਦਿਖਾਉਣ ਵਾਲੇ ਖੇਤਰ ਨੂੰ ਦਿਖਾਉਣਾ ਜਾਂ ਲੁਕਾਉਣਾ ਕਰਨ ਵਾਲੀ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-ਇੱਕ. ਗ੍ਰਿਡਲਾਈਨਾਂ
+A. ਗ੍ਰਿਡਲਾਈਨਾਂ
 B. Formula Bar
 C. Headings
 D. Zoom
@@ -2397,7 +2397,7 @@ D. Zoom
 #### 7. COM003-OFFICE-TABS-063 — EASY
 **Question:** ਵਰਕਸ਼ੀਟ ਦੀ ਉੱਤੇ-ਸਕ੍ਰੀਨ ਵੱਡਾ ਕਰਨਾ ਬਦਲਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਨਿਯੰਤਰਣ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Freeze Panes
+A. Freeze Panes
 B. ਵੰਡੋ
 C. Zoom
 D. Arrange All
@@ -2409,7 +2409,7 @@ D. Arrange All
 #### 8. COM003-OFFICE-TABS-064 — MEDIUM
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਕਤਾਰਾਂ ਜਾਂ ਕਾਲਮ ਦਾ ਡਾਟਾ ਮਿਟਾਉਣਾ ਕੀਤੇ ਬਿਨਾਂ ਉਹਨਾਂ ਨੂੰ ਦ੍ਰਿਸ਼ ਤੋਂ ਹਟਾਉਣ ਵਾਲੀ ਕਾਰਵਾਈ ਕਿਹੜੀ ਹੈ?
 
-ਇੱਕ. Clear
+A. Clear
 B. ਮਿਟਾਉਣਾ
 C. ਫਿਲਟਰ
 D. ਲੁਕਾਉਣਾ
@@ -2523,7 +2523,7 @@ D. Close
 #### 1. COM003-OFFICE-TABS-065 — EASY
 **Question:** रिक्त कार्यपुस्तिका या टेम्पलेट से नया कार्यपुस्तिका बनाने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. नया
+A. नया
 B. Open
 C. Info
 D. Export
@@ -2535,7 +2535,7 @@ D. Export
 #### 2. COM003-OFFICE-TABS-066 — EASY
 **Question:** मौजूदा Excel कार्यपुस्तिका खोलने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. नया
+A. नया
 B. Open
 C. Save जैसे
 D. Print
@@ -2547,7 +2547,7 @@ D. Print
 #### 3. COM003-OFFICE-TABS-067 — EASY
 **Question:** कार्यपुस्तिका को नए नाम, स्थान या स्वरूप के साथ सहेजना करने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. नया
+A. नया
 B. Open
 C. Save जैसे
 D. Close
@@ -2559,7 +2559,7 @@ D. Close
 #### 4. COM003-OFFICE-TABS-068 — EASY
 **Question:** कार्यपुस्तिका की मुद्रण सेटिंग्स और मुद्रण पूर्वावलोकन खोलने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. Info
+A. Info
 B. साझा करें
 C. Export
 D. Print
@@ -2571,7 +2571,7 @@ D. Print
 #### 5. COM003-OFFICE-TABS-069 — EASY
 **Question:** कार्यपुस्तिका गुण और सुरक्षा विकल्प दिखाने वाला File टैबटैब क्षेत्र कौन-सा है?
 
-एक. Info
+A. Info
 B. Open
 C. नया
 D. Print
@@ -2583,7 +2583,7 @@ D. Print
 #### 6. COM003-OFFICE-TABS-070 — EASY
 **Question:** कार्यपुस्तिका की कॉपी को दूसरे समर्थित स्वरूप में बनाने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. Open
+A. Open
 B. Export
 C. नया
 D. Close
@@ -2595,7 +2595,7 @@ D. Close
 #### 7. COM003-OFFICE-TABS-071 — EASY
 **Question:** दूसरों के साथ कार्यपुस्तिका साझा करें करने के विकल्प देने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. Print
+A. Print
 B. Info
 C. साझा करें
 D. Page Layout
@@ -2607,7 +2607,7 @@ D. Page Layout
 #### 8. COM003-OFFICE-TABS-072 — EASY
 **Question:** वर्तमान कार्यपुस्तिका बंद करने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. Export
+A. Export
 B. Save जैसे
 C. नया
 D. Close
@@ -2621,7 +2621,7 @@ D. Close
 #### 1. COM003-OFFICE-TABS-065 — EASY
 **Question:** ਖਾਲੀ ਵਰਕਬੁੱਕ ਜਾਂ ਟੈਂਪਲੇਟ ਤੋਂ ਨਵਾਂ ਵਰਕਬੁੱਕ ਬਣਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਵਾਂ
+A. ਨਵਾਂ
 B. Open
 C. Info
 D. Export
@@ -2633,7 +2633,7 @@ D. Export
 #### 2. COM003-OFFICE-TABS-066 — EASY
 **Question:** ਮੌਜੂਦਾ Excel ਵਰਕਬੁੱਕ ਖੋਲ੍ਹਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਵਾਂ
+A. ਨਵਾਂ
 B. Open
 C. Save ਵਜੋਂ
 D. Print
@@ -2645,7 +2645,7 @@ D. Print
 #### 3. COM003-OFFICE-TABS-067 — EASY
 **Question:** ਵਰਕਬੁੱਕ ਨੂੰ ਨਵੇਂ ਨਾਮ, ਥਾਂ ਜਾਂ ਰੂਪ ਨਾਲ ਸੰਭਾਲਣਾ ਕਰਨ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਵਾਂ
+A. ਨਵਾਂ
 B. Open
 C. Save ਵਜੋਂ
 D. Close
@@ -2657,7 +2657,7 @@ D. Close
 #### 4. COM003-OFFICE-TABS-068 — EASY
 **Question:** ਵਰਕਬੁੱਕ ਦੀਆਂ ਛਪਾਈ ਸੈਟਿੰਗਾਂ ਅਤੇ ਛਪਾਈ ਪੂਰਵ-ਦ੍ਰਿਸ਼ ਖੋਲ੍ਹਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Info
+A. Info
 B. ਸਾਂਝਾ ਕਰੋ
 C. Export
 D. Print
@@ -2669,7 +2669,7 @@ D. Print
 #### 5. COM003-OFFICE-TABS-069 — EASY
 **Question:** ਵਰਕਬੁੱਕ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਅਤੇ ਸੁਰੱਖਿਆ ਵਿਕਲਪ ਦਿਖਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Info
+A. Info
 B. Open
 C. ਨਵਾਂ
 D. Print
@@ -2681,7 +2681,7 @@ D. Print
 #### 6. COM003-OFFICE-TABS-070 — EASY
 **Question:** ਵਰਕਬੁੱਕ ਦੀ ਕਾਪੀ ਨੂੰ ਹੋਰ ਸਮਰਥਿਤ ਰੂਪ ਵਿੱਚ ਬਣਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Open
+A. Open
 B. Export
 C. ਨਵਾਂ
 D. Close
@@ -2693,7 +2693,7 @@ D. Close
 #### 7. COM003-OFFICE-TABS-071 — EASY
 **Question:** ਹੋਰਾਂ ਨਾਲ ਵਰਕਬੁੱਕ ਸਾਂਝਾ ਕਰੋ ਕਰਨ ਦੇ ਵਿਕਲਪ ਦੇਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Print
+A. Print
 B. Info
 C. ਸਾਂਝਾ ਕਰੋ
 D. Page Layout
@@ -2705,7 +2705,7 @@ D. Page Layout
 #### 8. COM003-OFFICE-TABS-072 — EASY
 **Question:** ਮੌਜੂਦਾ ਵਰਕਬੁੱਕ ਬੰਦ ਕਰਨ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Export
+A. Export
 B. Save ਵਜੋਂ
 C. ਨਵਾਂ
 D. Close
@@ -2819,7 +2819,7 @@ D. Contextual tab
 #### 1. COM003-OFFICE-TABS-073 — EASY
 **Question:** PowerPoint प्रस्तुति में सामान्यतः क्या होता है?
 
-एक. स्लाइडें का क्रम
+A. स्लाइडें का क्रम
 B. केवल एक मुद्रित पृष्ठ
 C. केवल सूत्र
 D. केवल कार्यपत्रक कक्ष
@@ -2831,7 +2831,7 @@ D. केवल कार्यपत्रक कक्ष
 #### 2. COM003-OFFICE-TABS-074 — EASY
 **Question:** स्लाइड लघु-चित्र, मुख्य स्लाइड और टिप्पणियाँ क्षेत्र सामान्यतः किस PowerPoint दृश्य में दिखते हैं?
 
-एक. Slide Sorter
+A. Slide Sorter
 B. सामान्य दृश्य
 C. पठन दृश्य
 D. केवल रूपरेखा दृश्य
@@ -2843,7 +2843,7 @@ D. केवल रूपरेखा दृश्य
 #### 3. COM003-OFFICE-TABS-075 — EASY
 **Question:** चयनित स्लाइड की सामग्री संपादित करें करने के लिए PowerPoint का कौन-सा क्षेत्र उपयोग होता है?
 
-एक. लघु-चित्र Pane
+A. लघु-चित्र Pane
 B. टिप्पणियाँ Pane
 C. स्लाइड Pane
 D. Status Bar
@@ -2855,7 +2855,7 @@ D. Status Bar
 #### 4. COM003-OFFICE-TABS-076 — EASY
 **Question:** प्रस्तुति पाठ को मुख्य रूप से रूपरेखा की तरह दिखाने वाला PowerPoint दृश्य कौन-सा है?
 
-एक. सामान्य दृश्य
+A. सामान्य दृश्य
 B. Slide Sorter
 C. टिप्पणियाँ पृष्ठ
 D. रूपरेखा दृश्य
@@ -2867,7 +2867,7 @@ D. रूपरेखा दृश्य
 #### 5. COM003-OFFICE-TABS-077 — EASY
 **Question:** स्लाइड स्थिति और दृश्य नियंत्रित करता है सामान्यतः PowerPoint के किस इंटरफ़ेस क्षेत्र में होते हैं?
 
-एक. Status Bar
+A. Status Bar
 B. Title Bar
 C. Ribbon समूह
 D. टिप्पणियाँ Pane
@@ -2879,7 +2879,7 @@ D. टिप्पणियाँ Pane
 #### 6. COM003-OFFICE-TABS-078 — EASY
 **Question:** PowerPoint Ribbon के एक समूह में क्या होता है?
 
-एक. केवल स्लाइड संख्याएँ
+A. केवल स्लाइड संख्याएँ
 B. संबंधित कमांड
 C. केवल स्पीकर टिप्पणियाँ
 D. केवल फ़ाइल नाम
@@ -2891,7 +2891,7 @@ D. केवल फ़ाइल नाम
 #### 7. COM003-OFFICE-TABS-079 — EASY
 **Question:** बार-बार उपयोग किया गया कमांड तक जल्दी पहुँच देने वाला PowerPoint इंटरफ़ेस क्षेत्र कौन-सा है?
 
-एक. स्लाइड Pane
+A. स्लाइड Pane
 B. टिप्पणियाँ Pane
 C. Quick Access Toolbar
 D. रूपरेखा Pane
@@ -2903,7 +2903,7 @@ D. रूपरेखा Pane
 #### 8. COM003-OFFICE-TABS-080 — MEDIUM
 **Question:** चित्र, चार्ट या आकार चुनना करने पर PowerPoint में किस प्रकार का टैब दिखाई दे सकता है?
 
-एक. कार्यपत्रक टैब
+A. कार्यपत्रक टैब
 B. केवल File टैब
 C. स्थायी प्रणाली टैब
 D. Contextual टैब
@@ -2917,7 +2917,7 @@ D. Contextual टैब
 #### 1. COM003-OFFICE-TABS-073 — EASY
 **Question:** PowerPoint ਪੇਸ਼ਕਾਰੀ ਵਿੱਚ ਆਮ ਤੌਰ ਉੱਤੇ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-ਇੱਕ. ਸਲਾਈਡਾਂ ਦਾ ਕ੍ਰਮ
+A. ਸਲਾਈਡਾਂ ਦਾ ਕ੍ਰਮ
 B. ਸਿਰਫ਼ ਇੱਕ ਛਪੇ ਹੋਏ ਪੰਨਾ
 C. ਸਿਰਫ਼ ਫਾਰਮੂਲੇ
 D. ਸਿਰਫ਼ ਵਰਕਸ਼ੀਟ ਸੈੱਲ
@@ -2929,7 +2929,7 @@ D. ਸਿਰਫ਼ ਵਰਕਸ਼ੀਟ ਸੈੱਲ
 #### 2. COM003-OFFICE-TABS-074 — EASY
 **Question:** ਸਲਾਈਡ ਛੋਟੇ ਚਿੱਤਰ, ਮੁੱਖ ਸਲਾਈਡ ਅਤੇ ਨੋਟ ਖੇਤਰ ਆਮ ਤੌਰ ਉੱਤੇ ਕਿਸ PowerPoint ਦ੍ਰਿਸ਼ ਵਿੱਚ ਦਿਖਦੇ ਹਨ?
 
-ਇੱਕ. Slide Sorter
+A. Slide Sorter
 B. ਆਮ ਦ੍ਰਿਸ਼
 C. ਪੜ੍ਹਨਾ ਦ੍ਰਿਸ਼
 D. ਸਿਰਫ਼ ਰੂਪ-ਰੇਖਾ ਦ੍ਰਿਸ਼
@@ -2941,7 +2941,7 @@ D. ਸਿਰਫ਼ ਰੂਪ-ਰੇਖਾ ਦ੍ਰਿਸ਼
 #### 3. COM003-OFFICE-TABS-075 — EASY
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਦੀ ਸਮੱਗਰੀ ਸੋਧੋ ਕਰਨ ਲਈ PowerPoint ਦਾ ਕਿਹੜਾ ਖੇਤਰ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?
 
-ਇੱਕ. ਛੋਟਾ ਚਿੱਤਰ Pane
+A. ਛੋਟਾ ਚਿੱਤਰ Pane
 B. ਨੋਟ Pane
 C. ਸਲਾਈਡ Pane
 D. Status Bar
@@ -2953,7 +2953,7 @@ D. Status Bar
 #### 4. COM003-OFFICE-TABS-076 — EASY
 **Question:** ਪੇਸ਼ਕਾਰੀ ਲਿਖਤ ਨੂੰ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਰੂਪ-ਰੇਖਾ ਵਾਂਗ ਦਿਖਾਉਣ ਵਾਲਾ PowerPoint ਦ੍ਰਿਸ਼ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਆਮ ਦ੍ਰਿਸ਼
+A. ਆਮ ਦ੍ਰਿਸ਼
 B. Slide Sorter
 C. ਨੋਟ ਪੰਨਾ
 D. ਰੂਪ-ਰੇਖਾ ਦ੍ਰਿਸ਼
@@ -2965,7 +2965,7 @@ D. ਰੂਪ-ਰੇਖਾ ਦ੍ਰਿਸ਼
 #### 5. COM003-OFFICE-TABS-077 — EASY
 **Question:** ਸਲਾਈਡ ਸਥਿਤੀ ਅਤੇ ਦ੍ਰਿਸ਼ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ ਆਮ ਤੌਰ ਉੱਤੇ PowerPoint ਦੇ ਕਿਹੜੇ ਇੰਟਰਫੇਸ ਖੇਤਰ ਵਿੱਚ ਹੁੰਦੇ ਹਨ?
 
-ਇੱਕ. Status Bar
+A. Status Bar
 B. Title Bar
 C. Ribbon ਸਮੂਹ
 D. ਨੋਟ Pane
@@ -2977,7 +2977,7 @@ D. ਨੋਟ Pane
 #### 6. COM003-OFFICE-TABS-078 — EASY
 **Question:** PowerPoint Ribbon ਦੇ ਇੱਕ ਸਮੂਹ ਵਿੱਚ ਕੀ ਹੁੰਦਾ ਹੈ?
 
-ਇੱਕ. ਸਿਰਫ਼ ਸਲਾਈਡ ਅੰਕ
+A. ਸਿਰਫ਼ ਸਲਾਈਡ ਅੰਕ
 B. ਸੰਬੰਧਿਤ ਕਮਾਂਡਾਂ
 C. ਸਿਰਫ਼ ਸਪੀਕਰ ਨੋਟ
 D. ਸਿਰਫ਼ ਫ਼ਾਈਲ ਨਾਮ
@@ -2989,7 +2989,7 @@ D. ਸਿਰਫ਼ ਫ਼ਾਈਲ ਨਾਮ
 #### 7. COM003-OFFICE-TABS-079 — EASY
 **Question:** ਅਕਸਰ ਵਰਤਿਆ ਗਿਆ ਕਮਾਂਡਾਂ ਤੱਕ ਤੁਰੰਤ ਪਹੁੰਚ ਦੇਣ ਵਾਲਾ PowerPoint ਇੰਟਰਫੇਸ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਸਲਾਈਡ Pane
+A. ਸਲਾਈਡ Pane
 B. ਨੋਟ Pane
 C. Quick Access Toolbar
 D. ਰੂਪ-ਰੇਖਾ Pane
@@ -3001,7 +3001,7 @@ D. ਰੂਪ-ਰੇਖਾ Pane
 #### 8. COM003-OFFICE-TABS-080 — MEDIUM
 **Question:** ਤਸਵੀਰ, ਚਾਰਟ ਜਾਂ ਆਕਾਰ ਚੁਣਨਾ ਕਰਨ ਨਾਲ PowerPoint ਵਿੱਚ ਕਿਹੜੀ ਕਿਸਮ ਦਾ ਟੈਬ ਦਿਖ ਸਕਦਾ ਹੈ?
 
-ਇੱਕ. ਵਰਕਸ਼ੀਟ ਟੈਬ
+A. ਵਰਕਸ਼ੀਟ ਟੈਬ
 B. ਸਿਰਫ਼ File ਟੈਬ
 C. ਸਥਾਈ ਪ੍ਰਣਾਲੀ ਟੈਬ
 D. Contextual ਟੈਬ
@@ -3115,7 +3115,7 @@ D. Replace
 #### 1. COM003-OFFICE-TABS-081 — EASY
 **Question:** PowerPoint प्रस्तुति में नया स्लाइड जोड़ने वाला Home टैबटैब कमांड कौन-सा है?
 
-एक. नया स्लाइड
+A. नया स्लाइड
 B. Layout
 C. रीसेट
 D. Section
@@ -3127,7 +3127,7 @@ D. Section
 #### 2. COM003-OFFICE-TABS-082 — EASY
 **Question:** स्लाइड पर स्थान-धारक की व्यवस्था बदलने वाला Home टैबटैब कमांड कौन-सा है?
 
-एक. नया स्लाइड
+A. नया स्लाइड
 B. Layout
 C. रीसेट
 D. Section
@@ -3139,7 +3139,7 @@ D. Section
 #### 3. COM003-OFFICE-TABS-083 — MEDIUM
 **Question:** स्लाइड के स्थान-धारक को चयनित लेआउट के अनुसार पुनर्स्थापित करना करने वाला Home टैबटैब कमांड कौन-सा है?
 
-एक. नया स्लाइड
+A. नया स्लाइड
 B. Layout
 C. रीसेट
 D. Section
@@ -3151,7 +3151,7 @@ D. Section
 #### 4. COM003-OFFICE-TABS-084 — EASY
 **Question:** संबंधित स्लाइडें को नामित शीर्षक के नीचे समूह करने वाला Home टैबटैब सुविधा कौन-सा है?
 
-एक. व्यवस्थित करना
+A. व्यवस्थित करना
 B. Replace
 C. रीसेट
 D. Section
@@ -3163,7 +3163,7 @@ D. Section
 #### 5. COM003-OFFICE-TABS-085 — EASY
 **Question:** चयनित स्लाइड पाठ का फ़ॉन्ट और आकार बदलने वाला Home टैबटैब समूह कौन-सा है?
 
-एक. Font
+A. Font
 B. Paragraph
 C. चित्रण
 D. संपादन
@@ -3175,7 +3175,7 @@ D. संपादन
 #### 6. COM003-OFFICE-TABS-086 — EASY
 **Question:** स्लाइड पाठ के बुलेट, संरेखण और पंक्ति अंतराल को नियंत्रित करने वाला Home टैबटैब समूह कौन-सा है?
 
-एक. Font
+A. Font
 B. Paragraph
 C. चित्रण
 D. Clipboard
@@ -3187,7 +3187,7 @@ D. Clipboard
 #### 7. COM003-OFFICE-TABS-087 — MEDIUM
 **Question:** चयनित वस्तुएँ का आगेको-पीछे क्रम बदलने वाला Home टैबटैब कमांड कौन-सा है?
 
-एक. Layout
+A. Layout
 B. रीसेट
 C. व्यवस्थित करना
 D. नया स्लाइड
@@ -3199,7 +3199,7 @@ D. नया स्लाइड
 #### 8. COM003-OFFICE-TABS-088 — EASY
 **Question:** प्रस्तुति में पाठ ढूँढना करके उसे दूसरे पाठ से बदलने वाला Home टैबटैब संपादन कमांड कौन-सा है?
 
-एक. नया स्लाइड
+A. नया स्लाइड
 B. रीसेट
 C. Layout
 D. Replace
@@ -3213,7 +3213,7 @@ D. Replace
 #### 1. COM003-OFFICE-TABS-081 — EASY
 **Question:** PowerPoint ਪੇਸ਼ਕਾਰੀ ਵਿੱਚ ਨਵਾਂ ਸਲਾਈਡ ਜੋੜਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਵਾਂ ਸਲਾਈਡ
+A. ਨਵਾਂ ਸਲਾਈਡ
 B. Layout
 C. ਰੀਸੈੱਟ
 D. Section
@@ -3225,7 +3225,7 @@ D. Section
 #### 2. COM003-OFFICE-TABS-082 — EASY
 **Question:** ਸਲਾਈਡ ਉੱਤੇ ਥਾਂ-ਧਾਰਕ ਦੀ ਬਣਤਰ ਬਦਲਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਵਾਂ ਸਲਾਈਡ
+A. ਨਵਾਂ ਸਲਾਈਡ
 B. Layout
 C. ਰੀਸੈੱਟ
 D. Section
@@ -3237,7 +3237,7 @@ D. Section
 #### 3. COM003-OFFICE-TABS-083 — MEDIUM
 **Question:** ਸਲਾਈਡ ਦੇ ਥਾਂ-ਧਾਰਕ ਨੂੰ ਚੁਣਿਆ ਹੋਇਆ ਲੇਆਉਟ ਦੇ ਅਨੁਸਾਰ ਮੁੜ ਸਥਾਪਿਤ ਕਰਨਾ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਵਾਂ ਸਲਾਈਡ
+A. ਨਵਾਂ ਸਲਾਈਡ
 B. Layout
 C. ਰੀਸੈੱਟ
 D. Section
@@ -3249,7 +3249,7 @@ D. Section
 #### 4. COM003-OFFICE-TABS-084 — EASY
 **Question:** ਸੰਬੰਧਿਤ ਸਲਾਈਡਾਂ ਨੂੰ ਨਾਮਿਤ ਸਿਰਲੇਖ ਹੇਠ ਸਮੂਹ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਵਿਵਸਥਿਤ ਕਰਨਾ
+A. ਵਿਵਸਥਿਤ ਕਰਨਾ
 B. Replace
 C. ਰੀਸੈੱਟ
 D. Section
@@ -3261,7 +3261,7 @@ D. Section
 #### 5. COM003-OFFICE-TABS-085 — EASY
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਲਿਖਤ ਦਾ ਫੌਂਟ ਅਤੇ ਆਕਾਰ ਬਦਲਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Font
+A. Font
 B. Paragraph
 C. ਚਿੱਤਰਕਾਰੀ
 D. ਸੋਧ
@@ -3273,7 +3273,7 @@ D. ਸੋਧ
 #### 6. COM003-OFFICE-TABS-086 — EASY
 **Question:** ਸਲਾਈਡ ਲਿਖਤ ਦੇ ਬੁਲੇਟ, ਸੰਰેખਣ ਅਤੇ ਲਾਈਨ ਫ਼ਾਸਲਾ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸਮੂਹ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Font
+A. Font
 B. Paragraph
 C. ਚਿੱਤਰਕਾਰੀ
 D. Clipboard
@@ -3285,7 +3285,7 @@ D. Clipboard
 #### 7. COM003-OFFICE-TABS-087 — MEDIUM
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਵਸਤੂਆਂ ਦਾ ਅੱਗੇਨੂੰ-ਪਿੱਛੇ ਕ੍ਰਮ ਬਦਲਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Layout
+A. Layout
 B. ਰੀਸੈੱਟ
 C. ਵਿਵਸਥਿਤ ਕਰਨਾ
 D. ਨਵਾਂ ਸਲਾਈਡ
@@ -3297,7 +3297,7 @@ D. ਨਵਾਂ ਸਲਾਈਡ
 #### 8. COM003-OFFICE-TABS-088 — EASY
 **Question:** ਪੇਸ਼ਕਾਰੀ ਵਿੱਚ ਲਿਖਤ ਲੱਭਣਾ ਕਰਕੇ ਉਸ ਨੂੰ ਹੋਰ ਲਿਖਤ ਨਾਲ ਬਦਲਣ ਵਾਲਾ Home ਟੈਬਟੈਬ ਸੋਧ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਵਾਂ ਸਲਾਈਡ
+A. ਨਵਾਂ ਸਲਾਈਡ
 B. ਰੀਸੈੱਟ
 C. Layout
 D. Replace
@@ -3411,7 +3411,7 @@ D. Header & Footer
 #### 1. COM003-OFFICE-TABS-089 — EASY
 **Question:** PowerPoint स्लाइड में पंक्तियाँ और स्तंभ रखने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-एक. तालिका
+A. तालिका
 B. Chart
 C. Text Box
 D. WordArt
@@ -3423,7 +3423,7 @@ D. WordArt
 #### 2. COM003-OFFICE-TABS-090 — EASY
 **Question:** PowerPoint स्लाइड में चित्र जोड़ने वाला Insert टैबटैब कमांड कौन-सा है?
 
-एक. Chart
+A. Chart
 B. Pictures
 C. SmartArt
 D. वस्तु
@@ -3435,7 +3435,7 @@ D. वस्तु
 #### 3. COM003-OFFICE-TABS-091 — EASY
 **Question:** आयत, तीर और अन्य ज्यामितीय वस्तुएँ जोड़ने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-एक. तालिका
+A. तालिका
 B. Icons
 C. Shapes
 D. स्क्रीनशॉट
@@ -3447,7 +3447,7 @@ D. स्क्रीनशॉट
 #### 4. COM003-OFFICE-TABS-092 — EASY
 **Question:** संबंध या प्रक्रियाएँ को पहले से तैयार आरेख से दिखाने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-एक. Chart
+A. Chart
 B. WordArt
 C. Text Box
 D. SmartArt
@@ -3459,7 +3459,7 @@ D. SmartArt
 #### 5. COM003-OFFICE-TABS-093 — EASY
 **Question:** संख्यात्मक जानकारी को ग्राफ़ के रूप में दिखाने वाला Insert टैबटैब सुविधा कौन-सा है?
 
-एक. Chart
+A. Chart
 B. तालिका
 C. Text Box
 D. Symbol
@@ -3471,7 +3471,7 @@ D. Symbol
 #### 6. COM003-OFFICE-TABS-094 — EASY
 **Question:** स्लाइड पर पाठ लिखने के लिए स्थानांतरित करने योग्य क्षेत्र बनाने वाला Insert टैबटैब कमांड कौन-सा है?
 
-एक. WordArt
+A. WordArt
 B. Text Box
 C. वस्तु
 D. Equation
@@ -3483,7 +3483,7 @@ D. Equation
 #### 7. COM003-OFFICE-TABS-095 — EASY
 **Question:** प्रस्तुति में ध्वनि या फ़िल्म जोड़ने वाले Insert टैबटैब कमांड कौन-से हैं?
 
-एक. तालिका और Chart
+A. तालिका और Chart
 B. Shapes और Icons
 C. Audio और Video
 D. शीर्षलेख और पादलेख
@@ -3495,7 +3495,7 @@ D. शीर्षलेख और पादलेख
 #### 8. COM003-OFFICE-TABS-096 — EASY
 **Question:** स्लाइड संख्याएँ, तिथि/समय या पादलेख पाठ जोड़ने में मदद वाला Insert टैबटैब संवाद कौन-सा है?
 
-एक. Chart
+A. Chart
 B. SmartArt
 C. वस्तु
 D. Header & Footer
@@ -3509,7 +3509,7 @@ D. Header & Footer
 #### 1. COM003-OFFICE-TABS-089 — EASY
 **Question:** PowerPoint ਸਲਾਈਡ ਵਿੱਚ ਕਤਾਰਾਂ ਅਤੇ ਕਾਲਮ ਰੱਖਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਟੇਬਲ
+A. ਟੇਬਲ
 B. Chart
 C. Text Box
 D. WordArt
@@ -3521,7 +3521,7 @@ D. WordArt
 #### 2. COM003-OFFICE-TABS-090 — EASY
 **Question:** PowerPoint ਸਲਾਈਡ ਵਿੱਚ ਤਸਵੀਰ ਜੋੜਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Chart
+A. Chart
 B. Pictures
 C. SmartArt
 D. ਵਸਤੂ
@@ -3533,7 +3533,7 @@ D. ਵਸਤੂ
 #### 3. COM003-OFFICE-TABS-091 — EASY
 **Question:** ਆਇਤ, ਤੀਰ ਅਤੇ ਹੋਰ ਜਿਆਮਿਤੀ ਵਸਤੂਆਂ ਜੋੜਨ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਟੇਬਲ
+A. ਟੇਬਲ
 B. Icons
 C. Shapes
 D. ਸਕ੍ਰੀਨਸ਼ਾਟ
@@ -3545,7 +3545,7 @@ D. ਸਕ੍ਰੀਨਸ਼ਾਟ
 #### 4. COM003-OFFICE-TABS-092 — EASY
 **Question:** ਸੰਬੰਧ ਜਾਂ ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ ਪਹਿਲਾਂ ਤੋਂ ਤਿਆਰ ਚਿੱਤਰ ਨਾਲ ਦਿਖਾਉਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Chart
+A. Chart
 B. WordArt
 C. Text Box
 D. SmartArt
@@ -3557,7 +3557,7 @@ D. SmartArt
 #### 5. COM003-OFFICE-TABS-093 — EASY
 **Question:** ਅੰਕੀ ਜਾਣਕਾਰੀ ਨੂੰ ਗ੍ਰਾਫ ਦੇ ਰੂਪ ਵਿੱਚ ਦਿਖਾਉਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Chart
+A. Chart
 B. ਟੇਬਲ
 C. Text Box
 D. Symbol
@@ -3569,7 +3569,7 @@ D. Symbol
 #### 6. COM003-OFFICE-TABS-094 — EASY
 **Question:** ਸਲਾਈਡ ਉੱਤੇ ਲਿਖਤ ਲਿਖਣ ਲਈ ਹਿਲਾਉਣਯੋਗ ਖੇਤਰ ਬਣਾਉਣ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. WordArt
+A. WordArt
 B. Text Box
 C. ਵਸਤੂ
 D. Equation
@@ -3581,7 +3581,7 @@ D. Equation
 #### 7. COM003-OFFICE-TABS-095 — EASY
 **Question:** ਪੇਸ਼ਕਾਰੀ ਵਿੱਚ ਧੁਨੀ ਜਾਂ ਫ਼ਿਲਮ ਜੋੜਨ ਵਾਲੇ Insert ਟੈਬਟੈਬ ਕਮਾਂਡਾਂ ਕਿਹੜੇ ਹਨ?
 
-ਇੱਕ. ਟੇਬਲ ਅਤੇ Chart
+A. ਟੇਬਲ ਅਤੇ Chart
 B. Shapes ਅਤੇ Icons
 C. Audio ਅਤੇ Video
 D. ਉੱਪਰਲਾ ਸਿਰਲੇਖ ਅਤੇ ਹੇਠਲਾ ਸਿਰਲੇਖ
@@ -3593,7 +3593,7 @@ D. ਉੱਪਰਲਾ ਸਿਰਲੇਖ ਅਤੇ ਹੇਠਲਾ ਸਿਰਲ�
 #### 8. COM003-OFFICE-TABS-096 — EASY
 **Question:** ਸਲਾਈਡ ਅੰਕ, ਤਾਰੀਖ/ਸਮਾਂ ਜਾਂ ਹੇਠਲਾ ਸਿਰਲੇਖ ਲਿਖਤ ਜੋੜਨ ਵਿੱਚ ਮਦਦ ਵਾਲਾ Insert ਟੈਬਟੈਬ ਸੰਵਾਦ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Chart
+A. Chart
 B. SmartArt
 C. ਵਸਤੂ
 D. Header & Footer
@@ -3707,7 +3707,7 @@ D. A theme is a coordinated design; a Slide Master controls common layouts and f
 #### 1. COM003-OFFICE-TABS-097 — EASY
 **Question:** स्लाइडें पर समन्वित रंग, फ़ॉन्ट और प्रभाव लगाने वाला डिज़ाइन टैबटैब सुविधा कौन-सा है?
 
-एक. Themes
+A. Themes
 B. Animations
 C. व्यवस्थित करना
 D. टिप्पणियाँ
@@ -3719,7 +3719,7 @@ D. टिप्पणियाँ
 #### 2. COM003-OFFICE-TABS-098 — MEDIUM
 **Question:** वर्तमान थीम के लिए वैकल्पिक रंग, फ़ॉन्ट या शैली विकल्प देने वाला डिज़ाइन टैबटैब क्षेत्र कौन-सा है?
 
-एक. Slide Size
+A. Slide Size
 B. Variants
 C. Format Background
 D. व्यवस्थित करना
@@ -3731,7 +3731,7 @@ D. व्यवस्थित करना
 #### 3. COM003-OFFICE-TABS-099 — EASY
 **Question:** स्लाइड का पृष्ठभूमि भरना या चित्र बदलने वाला डिज़ाइन टैबटैब कमांड कौन-सा है?
 
-एक. Themes
+A. Themes
 B. Variants
 C. Format Background
 D. Slide Master
@@ -3743,7 +3743,7 @@ D. Slide Master
 #### 4. COM003-OFFICE-TABS-100 — EASY
 **Question:** स्लाइडें की आयाम या पहलू अनुपात बदलने वाला डिज़ाइन टैबटैब कमांड कौन-सा है?
 
-एक. Themes
+A. Themes
 B. Variants
 C. Format Background
 D. Slide Size
@@ -3755,7 +3755,7 @@ D. Slide Size
 #### 5. COM003-OFFICE-TABS-101 — MEDIUM
 **Question:** स्लाइडें में समन्वित टाइपफेस बदलने वाला डिज़ाइन टैबटैब थीम घटक कौन-सा है?
 
-एक. फ़ॉन्ट
+A. फ़ॉन्ट
 B. रंग
 C. Effects
 D. पृष्ठभूमि Styles
@@ -3767,7 +3767,7 @@ D. पृष्ठभूमि Styles
 #### 6. COM003-OFFICE-TABS-102 — EASY
 **Question:** समन्वित रंग पैलेट बदलने वाला डिज़ाइन टैबटैब थीम घटक कौन-सा है?
 
-एक. फ़ॉन्ट
+A. फ़ॉन्ट
 B. रंग
 C. Effects
 D. Slide Size
@@ -3779,7 +3779,7 @@ D. Slide Size
 #### 7. COM003-OFFICE-TABS-103 — MEDIUM
 **Question:** चयनित स्लाइड पर पृष्ठभूमि ग्राफ़िक्स छिपाने वाला डिज़ाइन टैबटैब विकल्प कौन-सा है?
 
-एक. Variants
+A. Variants
 B. Themes
 C. छिपाना पृष्ठभूमि ग्राफ़िक्स
 D. Slide Size
@@ -3791,7 +3791,7 @@ D. Slide Size
 #### 8. COM003-OFFICE-TABS-104 — MEDIUM
 **Question:** थीम और Slide Master में सही अंतर कौन-सा है?
 
-एक. थीम केवल स्लाइड संख्या है
+A. थीम केवल स्लाइड संख्या है
 B. थीम केवल संक्रमण है
 C. थीम केवल स्पीकर टिप्पणी है
 D. थीम समन्वित डिज़ाइन है; Slide Master सामान्य लेआउट और स्वरूपण नियंत्रित करता है
@@ -3805,7 +3805,7 @@ D. थीम समन्वित डिज़ाइन है; Slide Master �
 #### 1. COM003-OFFICE-TABS-097 — EASY
 **Question:** ਸਲਾਈਡਾਂ ਉੱਤੇ ਸਮਨਵਿਤ ਰੰਗ, ਫੌਂਟ ਅਤੇ ਪ੍ਰਭਾਵ ਲਗਾਉਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Themes
+A. Themes
 B. Animations
 C. ਵਿਵਸਥਿਤ ਕਰਨਾ
 D. ਨੋਟ
@@ -3817,7 +3817,7 @@ D. ਨੋਟ
 #### 2. COM003-OFFICE-TABS-098 — MEDIUM
 **Question:** ਮੌਜੂਦਾ ਥੀਮ ਲਈ ਵਿਕਲਪਕ ਰੰਗ, ਫੌਂਟ ਜਾਂ ਸ਼ੈਲੀ ਵਿਕਲਪ ਦੇਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Slide Size
+A. Slide Size
 B. Variants
 C. Format Background
 D. ਵਿਵਸਥਿਤ ਕਰਨਾ
@@ -3829,7 +3829,7 @@ D. ਵਿਵਸਥਿਤ ਕਰਨਾ
 #### 3. COM003-OFFICE-TABS-099 — EASY
 **Question:** ਸਲਾਈਡ ਦਾ ਪਿਛੋਕੜ ਭਰਨਾ ਜਾਂ ਤਸਵੀਰ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Themes
+A. Themes
 B. Variants
 C. Format Background
 D. Slide Master
@@ -3841,7 +3841,7 @@ D. Slide Master
 #### 4. COM003-OFFICE-TABS-100 — EASY
 **Question:** ਸਲਾਈਡਾਂ ਦੀਆਂ ਮਾਪ ਜਾਂ ਪੱਖ ਅਨੁਪਾਤ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Themes
+A. Themes
 B. Variants
 C. Format Background
 D. Slide Size
@@ -3853,7 +3853,7 @@ D. Slide Size
 #### 5. COM003-OFFICE-TABS-101 — MEDIUM
 **Question:** ਸਲਾਈਡਾਂ ਵਿੱਚ ਸਮਨਵਿਤ ਅੱਖਰ-ਸ਼ੈਲੀਆਂ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਥੀਮ ਹਿੱਸਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਫੌਂਟ
+A. ਫੌਂਟ
 B. ਰੰਗ
 C. Effects
 D. ਪਿਛੋਕੜ Styles
@@ -3865,7 +3865,7 @@ D. ਪਿਛੋਕੜ Styles
 #### 6. COM003-OFFICE-TABS-102 — EASY
 **Question:** ਸਮਨਵਿਤ ਰੰਗ ਰੰਗ-ਪੱਟੀ ਬਦਲਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਥੀਮ ਹਿੱਸਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਫੌਂਟ
+A. ਫੌਂਟ
 B. ਰੰਗ
 C. Effects
 D. Slide Size
@@ -3877,7 +3877,7 @@ D. Slide Size
 #### 7. COM003-OFFICE-TABS-103 — MEDIUM
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਉੱਤੇ ਪਿਛੋਕੜ ਗ੍ਰਾਫਿਕਸ ਲੁਕਾਉਣ ਵਾਲਾ ਡਿਜ਼ਾਈਨ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Variants
+A. Variants
 B. Themes
 C. ਲੁਕਾਉਣਾ ਪਿਛੋਕੜ ਗ੍ਰਾਫਿਕਸ
 D. Slide Size
@@ -3889,7 +3889,7 @@ D. Slide Size
 #### 8. COM003-OFFICE-TABS-104 — MEDIUM
 **Question:** ਥੀਮ ਅਤੇ Slide Master ਵਿੱਚ ਸਹੀ ਅੰਤਰ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਥੀਮ ਸਿਰਫ਼ ਸਲਾਈਡ ਅੰਕ ਹੈ
+A. ਥੀਮ ਸਿਰਫ਼ ਸਲਾਈਡ ਅੰਕ ਹੈ
 B. ਥੀਮ ਸਿਰਫ਼ ਤਬਦੀਲੀ ਹੈ
 C. ਥੀਮ ਸਿਰਫ਼ ਸਪੀਕਰ ਨੋਟ ਹੈ
 D. ਥੀਮ ਸਮਨਵਿਤ ਡਿਜ਼ਾਈਨ ਹੈ; Slide Master ਆਮ ਲੇਆਉਟ ਅਤੇ ਸਜਾਵਟ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ
@@ -4003,7 +4003,7 @@ D. None
 #### 1. COM003-OFFICE-TABS-105 — EASY
 **Question:** PowerPoint में संक्रमण एक ____ से दूसरे ____ पर जाते समय प्रभाव नियंत्रित करता है।
 
-एक. स्लाइड
+A. स्लाइड
 B. वस्तु
 C. Word
 D. कार्यपुस्तिका
@@ -4015,7 +4015,7 @@ D. कार्यपुस्तिका
 #### 2. COM003-OFFICE-TABS-106 — EASY
 **Question:** स्लाइडें के बीच दृश्य प्रभाव चुनने के लिए Transitions टैबटैब का कौन-सा क्षेत्र उपयोग होता है?
 
-एक. Animation Pane
+A. Animation Pane
 B. Transition गैलरी
 C. Font समूह
 D. व्यवस्थित करना समूह
@@ -4027,7 +4027,7 @@ D. व्यवस्थित करना समूह
 #### 3. COM003-OFFICE-TABS-107 — MEDIUM
 **Question:** चयनित संक्रमण की दिशा या भिन्नता बदलने वाला Transitions टैबटैब कमांड कौन-सा है?
 
-एक. Apply to All
+A. Apply to All
 B. पूर्वावलोकन
 C. Effect Options
 D. Duration
@@ -4039,7 +4039,7 @@ D. Duration
 #### 4. COM003-OFFICE-TABS-108 — EASY
 **Question:** Transition प्रभाव कितनी देर चले, यह नियंत्रित करने वाली Transitions टैबटैब सेटिंग कौन-सी है?
 
-एक. ध्वनि
+A. ध्वनि
 B. आगे बढ़ाना स्लाइड
 C. Apply to All
 D. Duration
@@ -4051,7 +4051,7 @@ D. Duration
 #### 5. COM003-OFFICE-TABS-109 — EASY
 **Question:** चयनित संक्रमण को हर स्लाइड पर लागू करने वाला Transitions टैबटैब कमांड कौन-सा है?
 
-एक. Apply to All
+A. Apply to All
 B. Effect Options
 C. पूर्वावलोकन
 D. Duration
@@ -4063,7 +4063,7 @@ D. Duration
 #### 6. COM003-OFFICE-TABS-110 — EASY
 **Question:** प्रस्तुतकर्ता के क्लिक करने पर अगला स्लाइड पर जाने वाला आगे बढ़ाना स्लाइड विकल्प कौन-सा है?
 
-एक. After
+A. After
 B. पर माउस क्लिक
 C. Duration
 D. कोई नहीं
@@ -4075,7 +4075,7 @@ D. कोई नहीं
 #### 7. COM003-OFFICE-TABS-111 — MEDIUM
 **Question:** Set समय के बाद स्वचालित रूप से अगला स्लाइड पर जाने वाला आगे बढ़ाना स्लाइड विकल्प कौन-सा है?
 
-एक. पर माउस क्लिक
+A. पर माउस क्लिक
 B. पूर्वावलोकन
 C. After
 D. Apply to All
@@ -4087,7 +4087,7 @@ D. Apply to All
 #### 8. COM003-OFFICE-TABS-112 — EASY
 **Question:** चयनित स्लाइड से संक्रमण हटाने वाला Transitions टैबटैब चयन कौन-सा है?
 
-एक. फेड
+A. फेड
 B. पुश
 C. मॉर्फ
 D. कोई नहीं
@@ -4101,7 +4101,7 @@ D. कोई नहीं
 #### 1. COM003-OFFICE-TABS-105 — EASY
 **Question:** PowerPoint ਵਿੱਚ ਤਬਦੀਲੀ ਇੱਕ ____ ਤੋਂ ਦੂਜੇ ____ ਵੱਲ ਜਾਂਦੇ ਸਮੇਂ ਪ੍ਰਭਾਵ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਦਾ ਹੈ।
 
-ਇੱਕ. ਸਲਾਈਡ
+A. ਸਲਾਈਡ
 B. ਵਸਤੂ
 C. Word
 D. ਵਰਕਬੁੱਕ
@@ -4113,7 +4113,7 @@ D. ਵਰਕਬੁੱਕ
 #### 2. COM003-OFFICE-TABS-106 — EASY
 **Question:** ਸਲਾਈਡਾਂ ਵਿਚਕਾਰ ਦ੍ਰਿਸ਼ ਪ੍ਰਭਾਵ ਚੁਣਨ ਲਈ Transitions ਟੈਬਟੈਬ ਦਾ ਕਿਹੜਾ ਖੇਤਰ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ?
 
-ਇੱਕ. Animation Pane
+A. Animation Pane
 B. Transition ਗੈਲਰੀ
 C. Font ਸਮੂਹ
 D. ਵਿਵਸਥਿਤ ਕਰਨਾ ਸਮੂਹ
@@ -4125,7 +4125,7 @@ D. ਵਿਵਸਥਿਤ ਕਰਨਾ ਸਮੂਹ
 #### 3. COM003-OFFICE-TABS-107 — MEDIUM
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਤਬਦੀਲੀ ਦੀ ਦਿਸ਼ਾ ਜਾਂ ਫਰਕ ਬਦਲਣ ਵਾਲਾ Transitions ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Apply to All
+A. Apply to All
 B. ਪੂਰਵ-ਦ੍ਰਿਸ਼
 C. Effect Options
 D. Duration
@@ -4137,7 +4137,7 @@ D. Duration
 #### 4. COM003-OFFICE-TABS-108 — EASY
 **Question:** Transition ਪ੍ਰਭਾਵ ਕਿੰਨੀ ਦੇਰ ਚੱਲੇ, ਇਹ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲੀ Transitions ਟੈਬਟੈਬ ਸੈਟਿੰਗ ਕਿਹੜੀ ਹੈ?
 
-ਇੱਕ. ਧੁਨੀ
+A. ਧੁਨੀ
 B. ਅੱਗੇ ਵਧਾਉਣਾ ਸਲਾਈਡ
 C. Apply to All
 D. Duration
@@ -4149,7 +4149,7 @@ D. Duration
 #### 5. COM003-OFFICE-TABS-109 — EASY
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਤਬਦੀਲੀ ਨੂੰ ਹਰ ਸਲਾਈਡ ਉੱਤੇ ਲਾਗੂ ਕਰਨ ਵਾਲਾ Transitions ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Apply to All
+A. Apply to All
 B. Effect Options
 C. ਪੂਰਵ-ਦ੍ਰਿਸ਼
 D. Duration
@@ -4161,7 +4161,7 @@ D. Duration
 #### 6. COM003-OFFICE-TABS-110 — EASY
 **Question:** ਪੇਸ਼ਕਾਰ ਦੇ ਕਲਿੱਕ ਕਰਨ ਉੱਤੇ ਅਗਲਾ ਸਲਾਈਡ ਵੱਲ ਜਾਣ ਵਾਲਾ ਅੱਗੇ ਵਧਾਉਣਾ ਸਲਾਈਡ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. After
+A. After
 B. ਉੱਤੇ ਮਾਊਸ ਕਲਿੱਕ
 C. Duration
 D. ਕੋਈ ਨਹੀਂ
@@ -4173,7 +4173,7 @@ D. ਕੋਈ ਨਹੀਂ
 #### 7. COM003-OFFICE-TABS-111 — MEDIUM
 **Question:** Set ਸਮਾਂ ਤੋਂ ਬਾਅਦ ਆਪਣੇ ਆਪ ਅਗਲਾ ਸਲਾਈਡ ਵੱਲ ਜਾਣ ਵਾਲਾ ਅੱਗੇ ਵਧਾਉਣਾ ਸਲਾਈਡ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਉੱਤੇ ਮਾਊਸ ਕਲਿੱਕ
+A. ਉੱਤੇ ਮਾਊਸ ਕਲਿੱਕ
 B. ਪੂਰਵ-ਦ੍ਰਿਸ਼
 C. After
 D. Apply to All
@@ -4185,7 +4185,7 @@ D. Apply to All
 #### 8. COM003-OFFICE-TABS-112 — EASY
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਤੋਂ ਤਬਦੀਲੀ ਹਟਾਉਣ ਵਾਲਾ Transitions ਟੈਬਟੈਬ ਚੋਣ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਫੇਡ
+A. ਫੇਡ
 B. ਪੁਸ਼
 C. ਮੌਰਫ
 D. ਕੋਈ ਨਹੀਂ
@@ -4299,7 +4299,7 @@ D. Duration and Delay
 #### 1. COM003-OFFICE-TABS-113 — EASY
 **Question:** PowerPoint में एनिमेशन प्रभाव मुख्य रूप से स्लाइड के ____ पर लगाया जाता है।
 
-एक. पाठ या वस्तु
+A. पाठ या वस्तु
 B. कार्यपुस्तिका
 C. पृष्ठ हाशिया
 D. कार्यपत्रक
@@ -4311,7 +4311,7 @@ D. कार्यपत्रक
 #### 2. COM003-OFFICE-TABS-114 — EASY
 **Question:** निम्न में से कौन-सी PowerPoint एनिमेशन श्रेणी है?
 
-एक. पृष्ठ सेटअप
+A. पृष्ठ सेटअप
 B. प्रवेश
 C. कार्यपुस्तिका
 D. Data उपकरण
@@ -4323,7 +4323,7 @@ D. Data उपकरण
 #### 3. COM003-OFFICE-TABS-115 — MEDIUM
 **Question:** स्लाइड पर प्रभाव को दिखाने और क्रम बदलना करने वाला Animations टैबटैब कमांड कौन-सा है?
 
-एक. Effect Options
+A. Effect Options
 B. पूर्वावलोकन
 C. Animation Pane
 D. Apply to All
@@ -4335,7 +4335,7 @@ D. Apply to All
 #### 4. COM003-OFFICE-TABS-116 — EASY
 **Question:** पहले से एनिमेटेड वस्तु में दूसरा प्रभाव जोड़ने वाला Animations टैबटैब कमांड कौन-सा है?
 
-एक. हटाना
+A. हटाना
 B. पूर्वावलोकन
 C. Animation Pane
 D. Add Animation
@@ -4347,7 +4347,7 @@ D. Add Animation
 #### 5. COM003-OFFICE-TABS-117 — EASY
 **Question:** Animation शुरू होने से पहले माउस क्लिक का इंतजार करने वाला Start विकल्प कौन-सा है?
 
-एक. पर क्लिक
+A. पर क्लिक
 B. के साथ पिछला
 C. After पिछला
 D. Trigger
@@ -4359,7 +4359,7 @@ D. Trigger
 #### 6. COM003-OFFICE-TABS-118 — MEDIUM
 **Question:** पिछला प्रभाव के साथ उसी समय एनिमेशन शुरू करने वाला Start विकल्प कौन-सा है?
 
-एक. After पिछला
+A. After पिछला
 B. के साथ पिछला
 C. पर क्लिक
 D. विलंब
@@ -4371,7 +4371,7 @@ D. विलंब
 #### 7. COM003-OFFICE-TABS-119 — MEDIUM
 **Question:** पिछला प्रभाव खत्म होने के बाद एनिमेशन शुरू करने वाला Start विकल्प कौन-सा है?
 
-एक. के साथ पिछला
+A. के साथ पिछला
 B. पर क्लिक
 C. After पिछला
 D. Trigger
@@ -4383,7 +4383,7 @@ D. Trigger
 #### 8. COM003-OFFICE-TABS-120 — EASY
 **Question:** Animation की गति और शुरू होने से पहले प्रतीक्षा समय नियंत्रित करने वाली सेटिंग्स कौन-सी हैं?
 
-एक. थीम और रूपांतर
+A. थीम और रूपांतर
 B. Layout और रीसेट
 C. Start और Trigger
 D. Duration और विलंब
@@ -4397,7 +4397,7 @@ D. Duration और विलंब
 #### 1. COM003-OFFICE-TABS-113 — EASY
 **Question:** PowerPoint ਵਿੱਚ ਐਨੀਮੇਸ਼ਨ ਪ੍ਰਭਾਵ ਮੁੱਖ ਤੌਰ ਉੱਤੇ ਸਲਾਈਡ ਦੇ ____ ਉੱਤੇ ਲਗਾਇਆ ਜਾਂਦਾ ਹੈ।
 
-ਇੱਕ. ਲਿਖਤ ਜਾਂ ਵਸਤੂ
+A. ਲਿਖਤ ਜਾਂ ਵਸਤੂ
 B. ਵਰਕਬੁੱਕ
 C. ਪੰਨਾ ਹਾਸ਼ੀਆ
 D. ਵਰਕਸ਼ੀਟ
@@ -4409,7 +4409,7 @@ D. ਵਰਕਸ਼ੀਟ
 #### 2. COM003-OFFICE-TABS-114 — EASY
 **Question:** ਹੇਠਾਂ ਦਿੱਤਿਆਂ ਵਿੱਚੋਂ ਕਿਹੜੀ PowerPoint ਐਨੀਮੇਸ਼ਨ ਸ਼੍ਰੇਣੀ ਹੈ?
 
-ਇੱਕ. ਪੰਨਾ ਸੈਟਅਪ
+A. ਪੰਨਾ ਸੈਟਅਪ
 B. ਪ੍ਰਵੇਸ਼
 C. ਵਰਕਬੁੱਕ
 D. Data ਸਾਧਨ
@@ -4421,7 +4421,7 @@ D. Data ਸਾਧਨ
 #### 3. COM003-OFFICE-TABS-115 — MEDIUM
 **Question:** ਸਲਾਈਡ ਉੱਤੇ ਪ੍ਰਭਾਵ ਦਿਖਾਉਣ ਅਤੇ ਕ੍ਰਮ ਬਦਲਣਾ ਕਰਨ ਵਾਲਾ Animations ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Effect Options
+A. Effect Options
 B. ਪੂਰਵ-ਦ੍ਰਿਸ਼
 C. Animation Pane
 D. Apply to All
@@ -4433,7 +4433,7 @@ D. Apply to All
 #### 4. COM003-OFFICE-TABS-116 — EASY
 **Question:** ਪਹਿਲਾਂ ਹੀ ਐਨੀਮੇਟ ਕੀਤਾ ਵਸਤੂ ਵਿੱਚ ਹੋਰ ਪ੍ਰਭਾਵ ਜੋੜਨ ਵਾਲਾ Animations ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਹਟਾਉਣਾ
+A. ਹਟਾਉਣਾ
 B. ਪੂਰਵ-ਦ੍ਰਿਸ਼
 C. Animation Pane
 D. Add Animation
@@ -4445,7 +4445,7 @@ D. Add Animation
 #### 5. COM003-OFFICE-TABS-117 — EASY
 **Question:** Animation ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਮਾਊਸ ਕਲਿੱਕ ਦੀ ਉਡੀਕ ਕਰਨ ਵਾਲਾ Start ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਉੱਤੇ ਕਲਿੱਕ
+A. ਉੱਤੇ ਕਲਿੱਕ
 B. ਨਾਲ ਪਿਛਲਾ
 C. After ਪਿਛਲਾ
 D. Trigger
@@ -4457,7 +4457,7 @@ D. Trigger
 #### 6. COM003-OFFICE-TABS-118 — MEDIUM
 **Question:** ਪਿਛਲਾ ਪ੍ਰਭਾਵ ਦੇ ਨਾਲ ਉਸੇ ਸਮੇਂ ਐਨੀਮੇਸ਼ਨ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Start ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. After ਪਿਛਲਾ
+A. After ਪਿਛਲਾ
 B. ਨਾਲ ਪਿਛਲਾ
 C. ਉੱਤੇ ਕਲਿੱਕ
 D. ਦੇਰੀ
@@ -4469,7 +4469,7 @@ D. ਦੇਰੀ
 #### 7. COM003-OFFICE-TABS-119 — MEDIUM
 **Question:** ਪਿਛਲਾ ਪ੍ਰਭਾਵ ਖਤਮ ਹੋਣ ਤੋਂ ਬਾਅਦ ਐਨੀਮੇਸ਼ਨ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Start ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਾਲ ਪਿਛਲਾ
+A. ਨਾਲ ਪਿਛਲਾ
 B. ਉੱਤੇ ਕਲਿੱਕ
 C. After ਪਿਛਲਾ
 D. Trigger
@@ -4481,7 +4481,7 @@ D. Trigger
 #### 8. COM003-OFFICE-TABS-120 — EASY
 **Question:** Animation ਦੀ ਗਤੀ ਅਤੇ ਸ਼ੁਰੂ ਹੋਣ ਤੋਂ ਪਹਿਲਾਂ ਉਡੀਕ ਸਮਾਂ ਨੂੰ ਨਿਯੰਤਰਿਤ ਕਰਨ ਵਾਲੀਆਂ ਸੈਟਿੰਗਾਂ ਕਿਹੜੀਆਂ ਹਨ?
 
-ਇੱਕ. ਥੀਮ ਅਤੇ ਰੂਪ
+A. ਥੀਮ ਅਤੇ ਰੂਪ
 B. Layout ਅਤੇ ਰੀਸੈੱਟ
 C. Start ਅਤੇ Trigger
 D. Duration ਅਤੇ ਦੇਰੀ
@@ -4595,7 +4595,7 @@ D. Hide Slide
 #### 1. COM003-OFFICE-TABS-121 — EASY
 **Question:** प्रस्तुति को पहला स्लाइड से शुरू करने वाला Slide Show टैबटैब कमांड कौन-सा है?
 
-एक. From Beginning
+A. From Beginning
 B. From Current Slide
 C. Presenter View
 D. Rehearse Timings
@@ -4607,7 +4607,7 @@ D. Rehearse Timings
 #### 2. COM003-OFFICE-TABS-122 — EASY
 **Question:** प्रस्तुति को चयनित स्लाइड से शुरू करने वाला Slide Show टैबटैब कमांड कौन-सा है?
 
-एक. From Beginning
+A. From Beginning
 B. From Current Slide
 C. Record Slide Show
 D. Set Up Slide Show
@@ -4619,7 +4619,7 @@ D. Set Up Slide Show
 #### 3. COM003-OFFICE-TABS-123 — EASY
 **Question:** दर्शक को स्लाइड दिखाना दिखाते हुए प्रस्तुतकर्ता को टिप्पणियाँ दिखाने वाला Slide Show टैबटैब विकल्प कौन-सा है?
 
-एक. छिपाना स्लाइड
+A. छिपाना स्लाइड
 B. उपयोग करना समय
 C. Presenter View
 D. Rehearse Timings
@@ -4631,7 +4631,7 @@ D. Rehearse Timings
 #### 4. COM003-OFFICE-TABS-124 — MEDIUM
 **Question:** हर स्लाइड पर अभ्यास में लगा समय अभिलेख करने में मदद वाला Slide Show टैबटैब कमांड कौन-सा है?
 
-एक. Set Up Slide Show
+A. Set Up Slide Show
 B. Record Slide Show
 C. उपयोग करना समय
 D. Rehearse Timings
@@ -4643,7 +4643,7 @@ D. Rehearse Timings
 #### 5. COM003-OFFICE-TABS-125 — EASY
 **Question:** वाचन, समय या सूचक गतियाँ अभिलेख करने वाला Slide Show टैबटैब कमांड कौन-सा है?
 
-एक. Record Slide Show
+A. Record Slide Show
 B. From Current Slide
 C. छिपाना स्लाइड
 D. Set Up Slide Show
@@ -4655,7 +4655,7 @@ D. Set Up Slide Show
 #### 6. COM003-OFFICE-TABS-126 — MEDIUM
 **Question:** प्रस्तुति चलाते समय रिकॉर्ड किया गया समय उपयोग करने वाला Slide Show टैबटैब विकल्प कौन-सा है?
 
-एक. उपयोग करना समय
+A. उपयोग करना समय
 B. Presenter View
 C. छिपाना स्लाइड
 D. From Beginning
@@ -4667,7 +4667,7 @@ D. From Beginning
 #### 7. COM003-OFFICE-TABS-127 — MEDIUM
 **Question:** Show प्रकार, निगरानी करना और प्रस्तुति विकल्प निर्धारित करना करने वाला Slide Show टैबटैब कमांड कौन-सा है?
 
-एक. Rehearse Timings
+A. Rehearse Timings
 B. Record Slide Show
 C. Set Up Slide Show
 D. From Current Slide
@@ -4679,7 +4679,7 @@ D. From Current Slide
 #### 8. COM003-OFFICE-TABS-128 — EASY
 **Question:** चयनित स्लाइड को हटाना किए बिना चल रहा दिखाना से बाहर रखना करने वाला Slide Show टैबटैब कमांड कौन-सा है?
 
-एक. उपयोग करना समय
+A. उपयोग करना समय
 B. Set Up Slide Show
 C. Record Slide Show
 D. छिपाना स्लाइड
@@ -4693,7 +4693,7 @@ D. छिपाना स्लाइड
 #### 1. COM003-OFFICE-TABS-121 — EASY
 **Question:** ਪੇਸ਼ਕਾਰੀ ਨੂੰ ਪਹਿਲਾ ਸਲਾਈਡ ਤੋਂ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. From Beginning
+A. From Beginning
 B. From Current Slide
 C. Presenter View
 D. Rehearse Timings
@@ -4705,7 +4705,7 @@ D. Rehearse Timings
 #### 2. COM003-OFFICE-TABS-122 — EASY
 **Question:** ਪੇਸ਼ਕਾਰੀ ਨੂੰ ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਤੋਂ ਸ਼ੁਰੂ ਕਰਨ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. From Beginning
+A. From Beginning
 B. From Current Slide
 C. Record Slide Show
 D. Set Up Slide Show
@@ -4717,7 +4717,7 @@ D. Set Up Slide Show
 #### 3. COM003-OFFICE-TABS-123 — EASY
 **Question:** ਦਰਸ਼ਕ ਨੂੰ ਸਲਾਈਡ ਦਿਖਾਉਣਾ ਦਿਖਾਉਂਦੇ ਹੋਏ ਪੇਸ਼ਕਾਰ ਨੂੰ ਨੋਟ ਦਿਖਾਉਣ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਲੁਕਾਉਣਾ ਸਲਾਈਡ
+A. ਲੁਕਾਉਣਾ ਸਲਾਈਡ
 B. ਵਰਤਣਾ ਸਮਾਂ
 C. Presenter View
 D. Rehearse Timings
@@ -4729,7 +4729,7 @@ D. Rehearse Timings
 #### 4. COM003-OFFICE-TABS-124 — MEDIUM
 **Question:** ਹਰ ਸਲਾਈਡ ਉੱਤੇ ਅਭਿਆਸ ਵਿੱਚ ਲੱਗਿਆ ਸਮਾਂ ਰਿਕਾਰਡ ਕਰਨ ਵਿੱਚ ਮਦਦ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Set Up Slide Show
+A. Set Up Slide Show
 B. Record Slide Show
 C. ਵਰਤਣਾ ਸਮਾਂ
 D. Rehearse Timings
@@ -4741,7 +4741,7 @@ D. Rehearse Timings
 #### 5. COM003-OFFICE-TABS-125 — EASY
 **Question:** ਵਰਣਨ, ਸਮਾਂ ਜਾਂ ਸੂਚਕ ਹਿਲਚਲ ਰਿਕਾਰਡ ਕਰਨ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Record Slide Show
+A. Record Slide Show
 B. From Current Slide
 C. ਲੁਕਾਉਣਾ ਸਲਾਈਡ
 D. Set Up Slide Show
@@ -4753,7 +4753,7 @@ D. Set Up Slide Show
 #### 6. COM003-OFFICE-TABS-126 — MEDIUM
 **Question:** ਪੇਸ਼ਕਾਰੀ ਚਲਾਉਂਦੇ ਸਮੇਂ ਰਿਕਾਰਡ ਕੀਤਾ ਗਿਆ ਸਮਾਂ ਵਰਤਣ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਵਰਤਣਾ ਸਮਾਂ
+A. ਵਰਤਣਾ ਸਮਾਂ
 B. Presenter View
 C. ਲੁਕਾਉਣਾ ਸਲਾਈਡ
 D. From Beginning
@@ -4765,7 +4765,7 @@ D. From Beginning
 #### 7. COM003-OFFICE-TABS-127 — MEDIUM
 **Question:** Show ਕਿਸਮ, ਨਿਗਰਾਨੀ ਕਰਨਾ ਅਤੇ ਪੇਸ਼ਕਾਰੀ ਵਿਕਲਪ ਨਿਰਧਾਰਤ ਕਰਨਾ ਕਰਨ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Rehearse Timings
+A. Rehearse Timings
 B. Record Slide Show
 C. Set Up Slide Show
 D. From Current Slide
@@ -4777,7 +4777,7 @@ D. From Current Slide
 #### 8. COM003-OFFICE-TABS-128 — EASY
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਨੂੰ ਮਿਟਾਉਣਾ ਕੀਤੇ ਬਿਨਾਂ ਚੱਲ ਰਿਹਾ ਦਿਖਾਉਣਾ ਤੋਂ ਬਾਹਰ ਰੱਖਣਾ ਕਰਨ ਵਾਲਾ Slide Show ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਵਰਤਣਾ ਸਮਾਂ
+A. ਵਰਤਣਾ ਸਮਾਂ
 B. Set Up Slide Show
 C. Record Slide Show
 D. ਲੁਕਾਉਣਾ ਸਲਾਈਡ
@@ -4891,7 +4891,7 @@ D. Delete Comment
 #### 1. COM003-OFFICE-TABS-129 — EASY
 **Question:** प्रस्तुति पाठ में वर्तनी त्रुटियाँ जाँच करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-एक. Spelling
+A. Spelling
 B. New Comment
 C. Compare
 D. Translate
@@ -4903,7 +4903,7 @@ D. Translate
 #### 2. COM003-OFFICE-TABS-130 — EASY
 **Question:** चयनित स्लाइड या वस्तु पर टिप्पणी जोड़ने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-एक. Spelling
+A. Spelling
 B. New Comment
 C. Compare
 D. सुरक्षित करना
@@ -4915,7 +4915,7 @@ D. सुरक्षित करना
 #### 3. COM003-OFFICE-TABS-131 — MEDIUM
 **Question:** वर्तमान प्रस्तुति की दूसरी प्रस्तुति से तुलना करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-एक. Spelling
+A. Spelling
 B. New Comment
 C. Compare
 D. Translate
@@ -4927,7 +4927,7 @@ D. Translate
 #### 4. COM003-OFFICE-TABS-132 — EASY
 **Question:** प्रस्तुति में सुगम्यता समस्याएँ जाँच करने वाला समीक्षा टैबटैब सुविधा कौन-सा है?
 
-एक. Compare
+A. Compare
 B. Spelling
 C. New Comment
 D. जाँच सुगम्यता
@@ -4939,7 +4939,7 @@ D. जाँच सुगम्यता
 #### 5. COM003-OFFICE-TABS-133 — MEDIUM
 **Question:** चयनित प्रस्तुति पाठ के अशुद्धि-जाँच भाषा को निर्धारित करना करने वाला समीक्षा टैबटैब विकल्प कौन-सा है?
 
-एक. भाषा
+A. भाषा
 B. Compare
 C. Spelling
 D. New Comment
@@ -4951,7 +4951,7 @@ D. New Comment
 #### 6. COM003-OFFICE-TABS-134 — EASY
 **Question:** चयनित स्लाइड पाठ का अनुवाद करने में मदद वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-एक. भाषा
+A. भाषा
 B. Translate
 C. Compare
 D. Spelling
@@ -4963,7 +4963,7 @@ D. Spelling
 #### 7. COM003-OFFICE-TABS-135 — EASY
 **Question:** चयनित प्रस्तुति पाठ के पर्यायवाची सुझाव करने वाला समीक्षा टैबटैब कमांड कौन-सा है?
 
-एक. Spelling
+A. Spelling
 B. भाषा
 C. Thesaurus
 D. Compare
@@ -4975,7 +4975,7 @@ D. Compare
 #### 8. COM003-OFFICE-TABS-136 — MEDIUM
 **Question:** स्लाइड से मौजूदा टिप्पणी हटाने वाली समीक्षा टैबटैब क्रिया कौन-सी है?
 
-एक. New Comment
+A. New Comment
 B. Compare
 C. Spelling
 D. हटाना टिप्पणी
@@ -4989,7 +4989,7 @@ D. हटाना टिप्पणी
 #### 1. COM003-OFFICE-TABS-129 — EASY
 **Question:** ਪੇਸ਼ਕਾਰੀ ਲਿਖਤ ਵਿੱਚ ਸ਼ਬਦ-ਜੋੜ ਗਲਤੀਆਂ ਜਾਂਚ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Spelling
+A. Spelling
 B. New Comment
 C. Compare
 D. Translate
@@ -5001,7 +5001,7 @@ D. Translate
 #### 2. COM003-OFFICE-TABS-130 — EASY
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਜਾਂ ਵਸਤੂ ਉੱਤੇ ਟਿੱਪਣੀ ਜੋੜਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Spelling
+A. Spelling
 B. New Comment
 C. Compare
 D. ਸੁਰੱਖਿਅਤ ਕਰਨਾ
@@ -5013,7 +5013,7 @@ D. ਸੁਰੱਖਿਅਤ ਕਰਨਾ
 #### 3. COM003-OFFICE-TABS-131 — MEDIUM
 **Question:** ਮੌਜੂਦਾ ਪੇਸ਼ਕਾਰੀ ਦੀ ਹੋਰ ਪੇਸ਼ਕਾਰੀ ਨਾਲ ਤੁਲਨਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Spelling
+A. Spelling
 B. New Comment
 C. Compare
 D. Translate
@@ -5025,7 +5025,7 @@ D. Translate
 #### 4. COM003-OFFICE-TABS-132 — EASY
 **Question:** ਪੇਸ਼ਕਾਰੀ ਵਿੱਚ ਪਹੁੰਚਯੋਗਤਾ ਸਮੱਸਿਆਵਾਂ ਜਾਂਚ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਸ਼ੇਸ਼ਤਾ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Compare
+A. Compare
 B. Spelling
 C. New Comment
 D. ਜਾਂਚ ਪਹੁੰਚਯੋਗਤਾ
@@ -5037,7 +5037,7 @@ D. ਜਾਂਚ ਪਹੁੰਚਯੋਗਤਾ
 #### 5. COM003-OFFICE-TABS-133 — MEDIUM
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਪੇਸ਼ਕਾਰੀ ਲਿਖਤ ਦੀ ਸ਼ੁੱਧ-ਜਾਂਚ ਭਾਸ਼ਾ ਨਿਰਧਾਰਤ ਕਰਨਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਭਾਸ਼ਾ
+A. ਭਾਸ਼ਾ
 B. Compare
 C. Spelling
 D. New Comment
@@ -5049,7 +5049,7 @@ D. New Comment
 #### 6. COM003-OFFICE-TABS-134 — EASY
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਸਲਾਈਡ ਲਿਖਤ ਦਾ ਅਨੁਵਾਦ ਕਰਨ ਵਿੱਚ ਮਦਦ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਭਾਸ਼ਾ
+A. ਭਾਸ਼ਾ
 B. Translate
 C. Compare
 D. Spelling
@@ -5061,7 +5061,7 @@ D. Spelling
 #### 7. COM003-OFFICE-TABS-135 — EASY
 **Question:** ਚੁਣਿਆ ਹੋਇਆ ਪੇਸ਼ਕਾਰੀ ਲਿਖਤ ਦੇ ਸਮਾਨਾਰਥਕ ਸੁਝਾਅ ਦੇਣਾ ਕਰਨ ਵਾਲਾ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Spelling
+A. Spelling
 B. ਭਾਸ਼ਾ
 C. Thesaurus
 D. Compare
@@ -5073,7 +5073,7 @@ D. Compare
 #### 8. COM003-OFFICE-TABS-136 — MEDIUM
 **Question:** ਸਲਾਈਡ ਤੋਂ ਮੌਜੂਦਾ ਟਿੱਪਣੀ ਹਟਾਉਣ ਵਾਲੀ ਸਮੀਖਿਆ ਟੈਬਟੈਬ ਕਾਰਵਾਈ ਕਿਹੜੀ ਹੈ?
 
-ਇੱਕ. New Comment
+A. New Comment
 B. Compare
 C. Spelling
 D. ਮਿਟਾਉਣਾ ਟਿੱਪਣੀ
@@ -5187,7 +5187,7 @@ D. Reading View
 #### 1. COM003-OFFICE-TABS-137 — EASY
 **Question:** PowerPoint स्लाइड संपादन के लिए मुख्य दृश्य टैबटैब विकल्प कौन-सा है?
 
-एक. सामान्य
+A. सामान्य
 B. Slide Sorter
 C. Reading View
 D. टिप्पणियाँ पृष्ठ
@@ -5199,7 +5199,7 @@ D. टिप्पणियाँ पृष्ठ
 #### 2. COM003-OFFICE-TABS-138 — EASY
 **Question:** सभी स्लाइडें को लघु-चित्र के रूप में दिखाकर क्रम बदलना करने वाला दृश्य टैबटैब विकल्प कौन-सा है?
 
-एक. सामान्य
+A. सामान्य
 B. Slide Sorter
 C. Outline View
 D. टिप्पणियाँ पृष्ठ
@@ -5211,7 +5211,7 @@ D. टिप्पणियाँ पृष्ठ
 #### 3. COM003-OFFICE-TABS-139 — EASY
 **Question:** प्रस्तुति की पाठ रूपरेखा पर केंद्र करने वाला दृश्य टैबटैब विकल्प कौन-सा है?
 
-एक. सामान्य
+A. सामान्य
 B. Slide Sorter
 C. Outline View
 D. Reading View
@@ -5223,7 +5223,7 @@ D. Reading View
 #### 4. COM003-OFFICE-TABS-140 — EASY
 **Question:** स्लाइड को स्पीकर टिप्पणियाँ के साथ दिखाने वाला दृश्य टैबटैब विकल्प कौन-सा है?
 
-एक. Slide Sorter
+A. Slide Sorter
 B. सामान्य
 C. Reading View
 D. टिप्पणियाँ पृष्ठ
@@ -5235,7 +5235,7 @@ D. टिप्पणियाँ पृष्ठ
 #### 5. COM003-OFFICE-TABS-141 — MEDIUM
 **Question:** सामान्य स्लाइड लेआउट और स्वरूपण नियंत्रण करने वाले मास्टर को खोलने वाला दृश्य टैबटैब कमांड कौन-सा है?
 
-एक. Slide Master
+A. Slide Master
 B. Reading View
 C. ग्रिडलाइनें
 D. Zoom
@@ -5247,7 +5247,7 @@ D. Zoom
 #### 6. COM003-OFFICE-TABS-142 — EASY
 **Question:** वस्तुएँ संरेखित करना करने में मदद के लिए माप या संरेखण पंक्तियाँ दिखाने वाले दृश्य टैबटैब उपकरण कौन-से हैं?
 
-एक. टिप्पणियाँ और Comments
+A. टिप्पणियाँ और Comments
 B. स्केल, ग्रिडलाइनें और मार्गदर्शक
 C. Themes और Variants
 D. Transitions और Animations
@@ -5259,7 +5259,7 @@ D. Transitions और Animations
 #### 7. COM003-OFFICE-TABS-143 — EASY
 **Question:** स्लाइड को स्क्रीन पर बड़ा या छोटा दिखाने वाला दृश्य टैबटैब नियंत्रण कौन-सा है?
 
-एक. Slide Master
+A. Slide Master
 B. ग्रिडलाइनें
 C. Zoom
 D. टिप्पणियाँ पृष्ठ
@@ -5271,7 +5271,7 @@ D. टिप्पणियाँ पृष्ठ
 #### 8. COM003-OFFICE-TABS-144 — EASY
 **Question:** पूर्ण Slide Show मोड के बजाय प्रस्तुति को विंडो में देखने वाला दृश्य टैबटैब विकल्प कौन-सा है?
 
-एक. सामान्य
+A. सामान्य
 B. Slide Sorter
 C. Outline View
 D. Reading View
@@ -5285,7 +5285,7 @@ D. Reading View
 #### 1. COM003-OFFICE-TABS-137 — EASY
 **Question:** PowerPoint ਸਲਾਈਡ ਸੋਧ ਲਈ ਮੁੱਖ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਆਮ
+A. ਆਮ
 B. Slide Sorter
 C. Reading View
 D. ਨੋਟ ਪੰਨਾ
@@ -5297,7 +5297,7 @@ D. ਨੋਟ ਪੰਨਾ
 #### 2. COM003-OFFICE-TABS-138 — EASY
 **Question:** ਸਾਰੀਆਂ ਸਲਾਈਡਾਂ ਨੂੰ ਛੋਟੇ ਚਿੱਤਰ ਵਜੋਂ ਦਿਖਾ ਕੇ ਕ੍ਰਮ ਬਦਲਣਾ ਕਰਨ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਆਮ
+A. ਆਮ
 B. Slide Sorter
 C. Outline View
 D. ਨੋਟ ਪੰਨਾ
@@ -5309,7 +5309,7 @@ D. ਨੋਟ ਪੰਨਾ
 #### 3. COM003-OFFICE-TABS-139 — EASY
 **Question:** ਪੇਸ਼ਕਾਰੀ ਦੀ ਲਿਖਤ ਰੂਪ-ਰੇਖਾ ਉੱਤੇ ਕੇਂਦਰ ਕਰਨ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਆਮ
+A. ਆਮ
 B. Slide Sorter
 C. Outline View
 D. Reading View
@@ -5321,7 +5321,7 @@ D. Reading View
 #### 4. COM003-OFFICE-TABS-140 — EASY
 **Question:** ਸਲਾਈਡ ਨੂੰ ਸਪੀਕਰ ਨੋਟ ਨਾਲ ਦਿਖਾਉਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Slide Sorter
+A. Slide Sorter
 B. ਆਮ
 C. Reading View
 D. ਨੋਟ ਪੰਨਾ
@@ -5333,7 +5333,7 @@ D. ਨੋਟ ਪੰਨਾ
 #### 5. COM003-OFFICE-TABS-141 — MEDIUM
 **Question:** ਆਮ ਸਲਾਈਡ ਲੇਆਉਟ ਅਤੇ ਸਜਾਵਟ ਨਿਯੰਤਰਣ ਕਰਨ ਵਾਲਾ ਮਾਸਟਰ ਖੋਲ੍ਹਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Slide Master
+A. Slide Master
 B. Reading View
 C. ਗ੍ਰਿਡਲਾਈਨਾਂ
 D. Zoom
@@ -5345,7 +5345,7 @@ D. Zoom
 #### 6. COM003-OFFICE-TABS-142 — EASY
 **Question:** ਵਸਤੂਆਂ ਸੰਰેખਿਤ ਕਰਨਾ ਕਰਨ ਵਿੱਚ ਮਦਦ ਲਈ ਮਾਪ ਜਾਂ ਸੰਰેખਣ ਲਾਈਨਾਂ ਦਿਖਾਉਣ ਵਾਲੇ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਸਾਧਨ ਕਿਹੜੇ ਹਨ?
 
-ਇੱਕ. ਨੋਟ ਅਤੇ Comments
+A. ਨੋਟ ਅਤੇ Comments
 B. ਪੈਮਾਨਾ, ਗ੍ਰਿਡਲਾਈਨਾਂ ਅਤੇ ਗਾਈਡ
 C. Themes ਅਤੇ Variants
 D. Transitions ਅਤੇ Animations
@@ -5357,7 +5357,7 @@ D. Transitions ਅਤੇ Animations
 #### 7. COM003-OFFICE-TABS-143 — EASY
 **Question:** ਸਲਾਈਡ ਨੂੰ ਸਕ੍ਰੀਨ ਉੱਤੇ ਵੱਡਾ ਜਾਂ ਛੋਟਾ ਦਿਖਾਉਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਨਿਯੰਤਰਣ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Slide Master
+A. Slide Master
 B. ਗ੍ਰਿਡਲਾਈਨਾਂ
 C. Zoom
 D. ਨੋਟ ਪੰਨਾ
@@ -5369,7 +5369,7 @@ D. ਨੋਟ ਪੰਨਾ
 #### 8. COM003-OFFICE-TABS-144 — EASY
 **Question:** ਪੂਰਾ Slide Show ਮੋਡ ਦੀ ਬਜਾਏ ਪੇਸ਼ਕਾਰੀ ਨੂੰ ਵਿੰਡੋ ਵਿੱਚ ਦੇਖਣ ਵਾਲਾ ਦ੍ਰਿਸ਼ ਟੈਬਟੈਬ ਵਿਕਲਪ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਆਮ
+A. ਆਮ
 B. Slide Sorter
 C. Outline View
 D. Reading View
@@ -5483,7 +5483,7 @@ D. Close
 #### 1. COM003-OFFICE-TABS-145 — EASY
 **Question:** रिक्त प्रस्तुति या टेम्पलेट से नई प्रस्तुति बनाने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. नया
+A. नया
 B. Open
 C. Info
 D. Export
@@ -5495,7 +5495,7 @@ D. Export
 #### 2. COM003-OFFICE-TABS-146 — EASY
 **Question:** मौजूदा PowerPoint प्रस्तुति खोलने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. नया
+A. नया
 B. Open
 C. Save जैसे
 D. Print
@@ -5507,7 +5507,7 @@ D. Print
 #### 3. COM003-OFFICE-TABS-147 — EASY
 **Question:** प्रस्तुति को नए नाम, स्थान या स्वरूप के साथ सहेजना करने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. नया
+A. नया
 B. Open
 C. Save जैसे
 D. Close
@@ -5519,7 +5519,7 @@ D. Close
 #### 4. COM003-OFFICE-TABS-148 — EASY
 **Question:** प्रस्तुति की मुद्रण सेटिंग्स और पूर्वावलोकन खोलने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. Info
+A. Info
 B. साझा करें
 C. Export
 D. Print
@@ -5531,7 +5531,7 @@ D. Print
 #### 5. COM003-OFFICE-TABS-149 — EASY
 **Question:** प्रस्तुति गुण और सुरक्षा विकल्प दिखाने वाला File टैबटैब क्षेत्र कौन-सा है?
 
-एक. Info
+A. Info
 B. Open
 C. नया
 D. Print
@@ -5543,7 +5543,7 @@ D. Print
 #### 6. COM003-OFFICE-TABS-150 — EASY
 **Question:** प्रस्तुति की कॉपी को दूसरे समर्थित स्वरूप में बनाने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. Open
+A. Open
 B. Export
 C. नया
 D. Close
@@ -5555,7 +5555,7 @@ D. Close
 #### 7. COM003-OFFICE-TABS-151 — EASY
 **Question:** दूसरों के साथ प्रस्तुति साझा करें करने के विकल्प देने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. Print
+A. Print
 B. Info
 C. साझा करें
 D. डिज़ाइन
@@ -5567,7 +5567,7 @@ D. डिज़ाइन
 #### 8. COM003-OFFICE-TABS-152 — EASY
 **Question:** वर्तमान प्रस्तुति बंद करने वाला File टैबटैब कमांड कौन-सा है?
 
-एक. Export
+A. Export
 B. Save जैसे
 C. नया
 D. Close
@@ -5581,7 +5581,7 @@ D. Close
 #### 1. COM003-OFFICE-TABS-145 — EASY
 **Question:** ਖਾਲੀ ਪੇਸ਼ਕਾਰੀ ਜਾਂ ਟੈਂਪਲੇਟ ਤੋਂ ਨਵੀਂ ਪੇਸ਼ਕਾਰੀ ਬਣਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਵਾਂ
+A. ਨਵਾਂ
 B. Open
 C. Info
 D. Export
@@ -5593,7 +5593,7 @@ D. Export
 #### 2. COM003-OFFICE-TABS-146 — EASY
 **Question:** ਮੌਜੂਦਾ PowerPoint ਪੇਸ਼ਕਾਰੀ ਖੋਲ੍ਹਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਵਾਂ
+A. ਨਵਾਂ
 B. Open
 C. Save ਵਜੋਂ
 D. Print
@@ -5605,7 +5605,7 @@ D. Print
 #### 3. COM003-OFFICE-TABS-147 — EASY
 **Question:** ਪੇਸ਼ਕਾਰੀ ਨੂੰ ਨਵੇਂ ਨਾਮ, ਥਾਂ ਜਾਂ ਰੂਪ ਨਾਲ ਸੰਭਾਲਣਾ ਕਰਨ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. ਨਵਾਂ
+A. ਨਵਾਂ
 B. Open
 C. Save ਵਜੋਂ
 D. Close
@@ -5617,7 +5617,7 @@ D. Close
 #### 4. COM003-OFFICE-TABS-148 — EASY
 **Question:** ਪੇਸ਼ਕਾਰੀ ਦੀਆਂ ਛਪਾਈ ਸੈਟਿੰਗਾਂ ਅਤੇ ਪੂਰਵ-ਦ੍ਰਿਸ਼ ਖੋਲ੍ਹਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Info
+A. Info
 B. ਸਾਂਝਾ ਕਰੋ
 C. Export
 D. Print
@@ -5629,7 +5629,7 @@ D. Print
 #### 5. COM003-OFFICE-TABS-149 — EASY
 **Question:** ਪੇਸ਼ਕਾਰੀ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਅਤੇ ਸੁਰੱਖਿਆ ਵਿਕਲਪ ਦਿਖਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਖੇਤਰ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Info
+A. Info
 B. Open
 C. ਨਵਾਂ
 D. Print
@@ -5641,7 +5641,7 @@ D. Print
 #### 6. COM003-OFFICE-TABS-150 — EASY
 **Question:** ਪੇਸ਼ਕਾਰੀ ਦੀ ਕਾਪੀ ਨੂੰ ਹੋਰ ਸਮਰਥਿਤ ਰੂਪ ਵਿੱਚ ਬਣਾਉਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Open
+A. Open
 B. Export
 C. ਨਵਾਂ
 D. Close
@@ -5653,7 +5653,7 @@ D. Close
 #### 7. COM003-OFFICE-TABS-151 — EASY
 **Question:** ਹੋਰਾਂ ਨਾਲ ਪੇਸ਼ਕਾਰੀ ਸਾਂਝਾ ਕਰੋ ਕਰਨ ਦੇ ਵਿਕਲਪ ਦੇਣ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Print
+A. Print
 B. Info
 C. ਸਾਂਝਾ ਕਰੋ
 D. ਡਿਜ਼ਾਈਨ
@@ -5665,7 +5665,7 @@ D. ਡਿਜ਼ਾਈਨ
 #### 8. COM003-OFFICE-TABS-152 — EASY
 **Question:** ਮੌਜੂਦਾ ਪੇਸ਼ਕਾਰੀ ਬੰਦ ਕਰਨ ਵਾਲਾ File ਟੈਬਟੈਬ ਕਮਾਂਡ ਕਿਹੜਾ ਹੈ?
 
-ਇੱਕ. Export
+A. Export
 B. Save ਵਜੋਂ
 C. ਨਵਾਂ
 D. Close
