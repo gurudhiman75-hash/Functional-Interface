@@ -29,11 +29,15 @@ import {
   isCom008QuestionStudioRequestV1,
   knowledgeV1Com008QuestionStudioAdapterV1,
 } from "./knowledge-v1-com008-adapter-v1";
+import {
+  isGeoRiv001QuestionStudioRequestV1,
+  knowledgeV1GeoRiv001QuestionStudioAdapterV1,
+} from "./knowledge-v1-geo-riv-001-adapter-v1";
 
 /**
  * Subject-family composite for knowledge-v1. Individual chapter adapters own
  * their content/freeze/lifecycle rules; this adapter only exposes them through
- * one engine ID so package routing can scale across Computer Awareness.
+ * one engine ID across Static GK subject families.
  */
 export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   engineId: "knowledge-v1",
@@ -48,6 +52,7 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
       ...knowledgeV1Com006QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Com007QuestionStudioAdapterV1.listPackages(),
       ...knowledgeV1Com008QuestionStudioAdapterV1.listPackages(),
+      ...knowledgeV1GeoRiv001QuestionStudioAdapterV1.listPackages(),
     ];
     const ids = packages.map((pkg) => pkg.packageId);
     if (new Set(ids).size !== ids.length) {
@@ -57,6 +62,9 @@ export const knowledgeV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
   },
 
   async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isGeoRiv001QuestionStudioRequestV1(request)) {
+      return knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate(request);
+    }
     if (isCom004QuestionStudioRequestV1(request)) {
       return knowledgeV1Com004QuestionStudioAdapterV1.generate(request);
     }
