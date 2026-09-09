@@ -5,6 +5,7 @@ import type { GeoRiv001Cp002ReviewQuestion } from "./geo-riv-001-cp002-review-ty
 
 const FACTS = GEO_RIV_001_CP002_REVIEWABLE_FACTS_V1;
 const SOURCE_RELATIONS = new Set(["originates_from", "source_region", "source_area"]);
+const SOURCE_FACTS = FACTS.filter((fact) => SOURCE_RELATIONS.has(fact.relation));
 
 function valueText(fact: KnowledgeFact) {
   if (fact.value.kind === "entity_ref") return fact.value.label.en;
@@ -41,6 +42,13 @@ function simpleSourceExplanation(fact: KnowledgeFact) {
   return `${river} originates in ${value}.`;
 }
 
+function sourcePhraseForValue(value: string) {
+  const authority = SOURCE_FACTS.find((fact) => valueText(fact) === value);
+  if (authority?.relation === "originates_from") return `originates from ${value}`;
+  if (/^near\s+/i.test(value)) return `originates near ${stripLeadingNear(value)}`;
+  return `originates in ${value}`;
+}
+
 function conclusionForPair(answer: string) {
   if (answer === "Both Statement I and Statement II are correct") return "Hence, both statements are correct.";
   if (answer === "Only Statement I is correct") return "Hence, only Statement I is correct.";
@@ -56,7 +64,14 @@ function conclusionForCount(answer: string) {
 }
 
 function cleanupStatementLanguage(value: string) {
-  return value.replaceAll("has its source at or near", "originates at or near");
+  let revised = value.replaceAll("has its source at or near", "originates at or near");
+  for (const sourceValue of new Set(SOURCE_FACTS.map(valueText))) {
+    revised = revised.replaceAll(
+      `originates at or near ${sourceValue}`,
+      sourcePhraseForValue(sourceValue),
+    );
+  }
+  return revised;
 }
 
 function revise(question: GeoRiv001Cp002ReviewQuestion): GeoRiv001Cp002ReviewQuestion {
@@ -77,9 +92,13 @@ function revise(question: GeoRiv001Cp002ReviewQuestion): GeoRiv001Cp002ReviewQue
     const fact = sourceFactFor(question);
     if (fact) {
       const value = valueText(fact);
-      stem = fact.relation === "originates_from"
-        ? `Which river originates from ${value}?`
-        : `Which river originates in or near ${stripLeadingNear(value)}?`;
+      if (fact.relation === "originates_from") {
+        stem = `Which river originates from ${value}?`;
+      } else if (/^near\s+/i.test(value)) {
+        stem = `Which river originates near ${stripLeadingNear(value)}?`;
+      } else {
+        stem = `Which river originates in ${value}?`;
+      }
       explanation = simpleSourceExplanation(fact);
     }
   }
