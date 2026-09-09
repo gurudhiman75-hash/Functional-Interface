@@ -1,4 +1,4 @@
-name: Quant V4 real exam Punjab profile propagation P2
+name: Quant V4 real exam Punjab profile boundary P2
 
 on:
   push:
@@ -9,8 +9,16 @@ on:
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-real-exam-punjab-profile-propagation-p2.test.ts"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-real-exam-advanced-math-integration-p2.ts"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-real-exam-simulation-p2.ts"
-      - "artifacts/api-server/src/quant-v4/question-studio-review-engine.ts"
       - "artifacts/api-server/src/quant-v4/common/exam-profile.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine-core.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine-legacy.ts"
+      - "artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/question-studio-adapter.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Probability/shared/types.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Probability/shared/exam-profile.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/question-studio-runtime.ts"
+      - ".github/workflows/quant-v4-real-exam-punjab-profile-propagation-p2.yml"
   pull_request:
     branches:
       - New-main
@@ -19,8 +27,15 @@ on:
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-real-exam-punjab-profile-propagation-p2.test.ts"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-real-exam-advanced-math-integration-p2.ts"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-real-exam-simulation-p2.ts"
-      - "artifacts/api-server/src/quant-v4/question-studio-review-engine.ts"
       - "artifacts/api-server/src/quant-v4/common/exam-profile.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine-core.ts"
+      - "artifacts/api-server/src/quant-v4/generation-engine-legacy.ts"
+      - "artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/Average/AVG-001/question-studio-adapter.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Arithmetic/subtopics/MixtureAndAlligation/MAL-001/question-studio-adapter.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Probability/shared/types.ts"
+      - "artifacts/api-server/src/quant-v4/topics/Probability/shared/exam-profile.ts"
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/question-studio-runtime.ts"
   workflow_dispatch:
 
 permissions:
@@ -31,7 +46,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  punjab-profile-propagation:
+  punjab-profile-boundary:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
@@ -49,10 +64,10 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build API server
+      - name: Build API server and compile boundary guards
         run: pnpm --dir artifacts/api-server build
 
-      - name: Bundle Punjab profile propagation proof
+      - name: Bundle Punjab profile boundary audit
         run: |
           mkdir -p artifacts/api-server/dist/quant-v4/real-exam-simulation
           pnpm --dir artifacts/api-server exec esbuild \
@@ -60,7 +75,7 @@ jobs:
             --bundle --platform=node --format=esm --packages=external \
             --outfile=dist/quant-v4/real-exam-simulation/quant-v4-real-exam-punjab-profile-propagation-p2.test.mjs
 
-      - name: Run Punjab profile propagation proof
+      - name: Run Punjab profile boundary audit
         working-directory: artifacts/api-server
         run: node dist/quant-v4/real-exam-simulation/quant-v4-real-exam-punjab-profile-propagation-p2.test.mjs
 
