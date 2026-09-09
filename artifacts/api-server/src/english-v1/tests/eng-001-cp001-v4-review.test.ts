@@ -12,4 +12,7 @@ assert((review.match(/Domains represented in this section: 20\./g) ?? []).length
 assert(review.includes("canonical candidate variants"), "V4 review must report canonical capacity." );
 assert(!review.includes("domain:"), "V4 review must show human-readable domains rather than internal tags.");
 
+console.log("=== ENG001_CP001_V4_REVIEW_BEGIN ===");
+console.log(review);
+console.log("=== ENG001_CP001_V4_REVIEW_END ===");
 console.log("ENG-001-CP001 V4 review export tests passed.");
