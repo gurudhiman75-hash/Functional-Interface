@@ -108,11 +108,6 @@ function shortInitiative(value: string) {
     .trim();
 }
 
-function compactNumber(value: string) {
-  const match = clean(value).match(/^₹\s*6,65,977\.81\s+crore$/i);
-  return match ? "₹6.66 lakh crore" : clean(value);
-}
-
 function editorialEnglish(event: DailyMasterPackEvent): Pick<DailyMasterPackEvent, "title" | "summary" | "oneLiner"> {
   const facts = factMap(event);
   const appointee = facts.get("appointee");
@@ -176,6 +171,13 @@ function editorialEnglish(event: DailyMasterPackEvent): Pick<DailyMasterPackEven
   }
 
   if (entity && subject) {
+    if (/^CCI$/i.test(entity) && /^acquisition\b/i.test(subject)) {
+      return {
+        title: clean(event.title),
+        summary: `On ${dateLabel}, CCI approved ${subject.replace(/^acquisition of\s+/i, "the acquisition of ")}.`,
+        oneLiner: clean(event.oneLiner),
+      };
+    }
     if (/7\.8% GDP growth/i.test(subject) && /Prime Minister/i.test(entity)) {
       return { title: "PM highlights India's 7.8% GDP growth", summary: `On ${dateLabel}, the Prime Minister congratulated the nation on India's 7.8% GDP growth and highlighted stronger economic confidence.`, oneLiner: "India's GDP growth — 7.8%." };
     }
@@ -220,10 +222,9 @@ function editorialEnglish(event: DailyMasterPackEvent): Pick<DailyMasterPackEven
       .replace(/^enables?$/i, "enabled")
       .replace(/^approves?$/i, "approved")
       .replace(/^reports?$/i, "reported");
-    const needsIn = /^participated in$/i.test(naturalAction) ? "" : " ";
     return {
       title: `${clean(entity)}: ${clean(subject)}`,
-      summary: `On ${dateLabel}, ${clean(entity)} ${naturalAction}${needsIn}${clean(subject)}.`,
+      summary: `On ${dateLabel}, ${clean(entity)} ${naturalAction} ${clean(subject)}.`,
       oneLiner: `${clean(subject)} — ${clean(entity)}.`,
     };
   }
@@ -252,10 +253,9 @@ function learnerFacts(event: DailyMasterPackEvent, language: DailyMasterPackLang
       let value = clean(fact.value);
       if (key === "appointee") value = person(value);
       if (key === "position") value = role(value);
-      if (key === "percentage") value = compactNumber(value);
       const label = FACT_LABELS[language][key]
-        ?? clean(fact.label)
-        ?? key.replace(/_/g, " ").replace(/^./, (char) => char.toUpperCase());
+        || clean(fact.label)
+        || key.replace(/_/g, " ").replace(/^./, (char) => char.toUpperCase());
       return { ...fact, key, label, value };
     })
     .filter((fact) => {
