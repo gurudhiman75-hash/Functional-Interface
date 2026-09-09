@@ -36,23 +36,28 @@ function textWordCount(text: string): number {
 }
 
 /**
- * Catch surfaces such as “applicants waiting ... are waiting” without treating
- * ordinary noun modifiers such as “sorting centre ... sorting plan” as a
- * repeated predicate. Only an -ing form used in a continuous verb phrase can
- * trigger this gate, and the same token must also occur elsewhere.
+ * Detect a real modifier/predicate echo such as “trainee attending ... is
+ * attending ...”. A repeated -ing token elsewhere in a noun phrase (for
+ * example “morning cleaning round ... is cleaning”) is not enough: the
+ * registered intervening modifier itself must begin with the same participle,
+ * and that participle must still occur twice on the realized surface after
+ * editorial normalization.
  */
-function repeatedContinuousPredicate(text: string): string | null {
-  const lower = text.toLowerCase();
-  const continuousForms = new Set<string>();
-  const continuous = /\b(?:am|is|are|was|were|be|been|being)\s+([a-z]+ing)\b/g;
-  for (const match of lower.matchAll(continuous)) {
-    if (match[1]) continuousForms.add(match[1]);
-  }
-  for (const form of continuousForms) {
-    const occurrences = lower.match(new RegExp(`\\b${form}\\b`, "g"))?.length ?? 0;
-    if (occurrences > 1) return form;
-  }
-  return null;
+function repeatedContinuousPredicate(question: Eng001Question): string | null {
+  const candidate = buildEng001Cp001CandidateV4({
+    ruleId: question.metadata.ruleId,
+    difficulty: question.metadata.difficulty,
+    seed: `${question.metadata.seed}:${question.metadata.ruleId}`,
+  });
+  const cue = (candidate.distractorCue ?? "").trim().toLowerCase();
+  const cueParticiple = cue.match(/^([a-z]+ing)\b/)?.[1];
+  if (!cueParticiple) return null;
+
+  const lower = question.correctedSentence.toLowerCase();
+  const continuous = new RegExp(`\\b(?:am|is|are|was|were|be|been|being)\\s+${cueParticiple}\\b`);
+  if (!continuous.test(lower)) return null;
+  const occurrences = lower.match(new RegExp(`\\b${cueParticiple}\\b`, "g"))?.length ?? 0;
+  return occurrences > 1 ? cueParticiple : null;
 }
 
 export function validateEng001Cp001CandidateV4(candidate: Eng001SentenceCandidate): Eng001Cp001V4Validation {
@@ -185,7 +190,7 @@ export function validateEng001Cp001QuestionV4(question: Eng001Question): Eng001C
     issues.push(issue("NATURALNESS", `${question.questionId} realized sentence has ${realizedWords} words, above the ${question.metadata.difficulty} editorial ceiling of ${realizedMax}.`));
   }
 
-  const repeatedPredicate = repeatedContinuousPredicate(question.correctedSentence);
+  const repeatedPredicate = repeatedContinuousPredicate(question);
   if (repeatedPredicate) {
     issues.push(issue("NATURALNESS", `${question.questionId} repeats the continuous predicate “${repeatedPredicate}”, producing a machine-like surface.`));
   }
