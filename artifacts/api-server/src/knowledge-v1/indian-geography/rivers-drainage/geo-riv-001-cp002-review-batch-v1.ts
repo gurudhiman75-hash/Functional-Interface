@@ -24,6 +24,11 @@ function semanticKey(question: GeoRiv001Cp002ReviewQuestion) {
   ].join(" | ");
 }
 
+function pairTargetRiver(question: GeoRiv001Cp002ReviewQuestion) {
+  if (!["GEO-RIV-001-QL-014", "GEO-RIV-001-QL-015"].includes(question.qlId)) return "";
+  return question.canonicalAnswer.split(" — ")[0]?.trim() ?? "";
+}
+
 function scan(qlId: string) {
   return Array.from({ length: 650 }, (_, index) =>
     generateGeoRiv001Cp002ReviewV4(
@@ -38,6 +43,7 @@ function select(qlId: string, count: number, required: readonly Predicate[] = []
   const selected: GeoRiv001Cp002ReviewQuestion[] = [];
   const semantic = new Set<string>();
   const directStems = new Set<string>();
+  const pairTargetRivers = new Set<string>();
 
   const canUse = (question: GeoRiv001Cp002ReviewQuestion) => {
     const key = semanticKey(question);
@@ -46,6 +52,10 @@ function select(qlId: string, count: number, required: readonly Predicate[] = []
       const stem = question.stem.replace(/\s+/g, " ").trim();
       if (directStems.has(stem)) return false;
     }
+    if (["GEO-RIV-001-QL-014", "GEO-RIV-001-QL-015"].includes(qlId)) {
+      const target = pairTargetRiver(question);
+      if (!target || pairTargetRivers.has(target)) return false;
+    }
     return true;
   };
 
@@ -53,6 +63,8 @@ function select(qlId: string, count: number, required: readonly Predicate[] = []
     selected.push(question);
     semantic.add(semanticKey(question));
     directStems.add(question.stem.replace(/\s+/g, " ").trim());
+    const target = pairTargetRiver(question);
+    if (target) pairTargetRivers.add(target);
   };
 
   for (const predicate of required) {
@@ -129,7 +141,7 @@ export function auditGeoRiv001Cp002ReviewBatchV1() {
       issues.push(`MISSING_PROVENANCE:${question.questionId}`);
     }
     if (question.explanation.length < 30) issues.push(`SHORT_EXPLANATION:${question.questionId}`);
-    if (/matches the reviewed relation|approximately right angles|characteristic of this setting|exam trap|shortcut|associated with the source|has its source at or near|originates at or near|near\s+near|Therefore,/i.test(`${question.stem}\n${question.explanation}`)) {
+    if (/matches the reviewed relation|approximately right angles|characteristic of this setting|exam trap|shortcut|associated with the source|has its source at or near|originates at or near|near\s+near|listed among|joining relation|Therefore,/i.test(`${question.stem}\n${question.explanation}`)) {
       issues.push(`EDITORIAL_LANGUAGE:${question.questionId}`);
     }
   }
@@ -144,12 +156,23 @@ export function auditGeoRiv001Cp002ReviewBatchV1() {
     }
   }
 
+  for (const qlId of ["GEO-RIV-001-QL-014", "GEO-RIV-001-QL-015"]) {
+    const targets = new Set(
+      GEO_RIV_001_CP002_REVIEW_BATCH_V1
+        .filter((question) => question.qlId === qlId)
+        .map(pairTargetRiver),
+    );
+    if (targets.size !== REVIEW_COUNTS[qlId]) {
+      issues.push(`PAIR_TARGET_DIVERSITY:${qlId}:${targets.size}:${REVIEW_COUNTS[qlId]}`);
+    }
+  }
+
   for (const index of [0, 1, 2, 3]) {
     if ((answerPositions.get(index) ?? 0) < 5) issues.push(`WEAK_ANSWER_POSITION:${index}`);
   }
 
   for (const [qlId, requiredAnswers] of Object.entries({
-    "GEO-RIV-001-QL-013": ["Chandra and Bhaga", "Tandi", "Trimmu", "Harike", "Panjnad"],
+    "GEO-RIV-001-QL-013": ["Chandra and Bhaga", "Tandi", "Trimmu", "Harike", "Panjad"],
     "GEO-RIV-001-QL-016": ["Satluj", "Jhelum and Ravi", "Chenab", "Beas → Satluj → Chenab"],
     "GEO-RIV-001-QL-017": [
       "Both Statement I and Statement II are correct",
