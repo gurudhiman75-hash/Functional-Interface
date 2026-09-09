@@ -6,6 +6,9 @@ import {
   auditGeoRiv001Cp001ReviewBatchV2F,
 } from "./geo-riv-001-cp001-review-batch-v2f";
 
+// This exporter is intentionally review-only. Keeping the materialized packet
+// separate from runtime registration lets editorial review remain an explicit
+// gate before any Question Studio freeze or downstream lifecycle promotion.
 const audit = auditGeoRiv001Cp001ReviewBatchV2F();
 if (!audit.valid) {
   throw new Error(`GEO-RIV-001 CP001 V2F review batch audit failed: ${audit.issues.join(", ")}`);
