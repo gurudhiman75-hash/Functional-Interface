@@ -63,11 +63,12 @@ for (const pattern of ALGEBRA_QUESTION_STUDIO_PATTERNS) {
       if (examProfile === "BANKING_PRELIMS" || examProfile === "BANKING_MAINS") {
         assert.equal(question.optionCount, 5);
         assert.equal(question.options.length, 5);
-        assert.equal(question.optionDetails.at(-1)?.label === "E" || question.correctIndex === 4, true);
+        assert.deepEqual(question.optionDetails.map((option) => option.label), ["A", "B", "C", "D", "E"]);
         bankingFiveOptionCases += 1;
       } else {
         assert.equal(question.optionCount, 4);
         assert.equal(question.options.length, 4);
+        assert.deepEqual(question.optionDetails.map((option) => option.label), ["A", "B", "C", "D"]);
         fourOptionCases += 1;
       }
 
