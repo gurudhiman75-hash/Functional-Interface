@@ -52,6 +52,31 @@ const STEMS: Record<Eng001QlId, readonly string[]> = {
   ],
 };
 
+const EDITORIAL_PHRASE_REPLACEMENTS: readonly [string, string][] = [
+  ["waiting for document checking", "scheduled for document checking"],
+  ["waiting near the main field", "assembled near the main field"],
+  ["waiting in the reception area", "gathered in the reception area"],
+  ["waiting with prepared parcels", "holding prepared parcels"],
+  ["preparing the main field", "managing the main field"],
+  ["monitoring the control screen", "working at the control screen"],
+  ["submitting updated documents", "seeking account renewal"],
+  ["preparing the new exhibition", "organising the new exhibition"],
+  ["rehearsing the opening piece", "leading the opening rehearsal"],
+  ["recording the morning survey", "conducting the morning survey"],
+] as const;
+
+function editorializeText(text: string): string {
+  let out = text;
+  for (const [from, to] of EDITORIAL_PHRASE_REPLACEMENTS) {
+    out = out.replaceAll(from, to);
+  }
+  return out;
+}
+
+function editorializeSegments(segments: readonly string[]): string[] {
+  return segments.map(editorializeText);
+}
+
 function sentenceFromSegments(segments: readonly string[]): string {
   return segments.join(" ").replace(/\s+([,.!?;:])/g, "$1").replace(/\s+/g, " ").trim();
 }
@@ -194,8 +219,10 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
 
   const isNoError = qlId === "ENG-001-QL007";
   const rawErrorIndex = isNoError ? null : candidate.errorIndex;
-  const contextualCorrect = contextualizeSegments(candidate.correctSegments, candidate.errorIndex, context.text);
-  const contextualError = contextualizeSegments(candidate.errorSegments, candidate.errorIndex, context.text);
+  const editorialCorrect = editorializeSegments(candidate.correctSegments);
+  const editorialError = editorializeSegments(candidate.errorSegments);
+  const contextualCorrect = contextualizeSegments(editorialCorrect, candidate.errorIndex, context.text);
+  const contextualError = contextualizeSegments(editorialError, candidate.errorIndex, context.text);
   const rawSegments = isNoError ? contextualCorrect : contextualError;
   const visible = ensureFourVisibleSegments(rawSegments, rawErrorIndex);
   const shaped = qlId === "ENG-001-QL002"
@@ -206,9 +233,10 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
   const correctOptionIndex = shaped.errorIndex ?? shaped.segments.length;
   const answerLabel = options[correctOptionIndex]!;
   const correctedSentence = sentenceFromSegments(contextualCorrect);
+  const explanationApplication = editorializeText(candidate.explanationApplication);
   const explanation = isNoError
-    ? `There is no error. ${candidate.explanationApplication} Correct sentence: ${correctedSentence}`
-    : `The error is in segment ${answerLabel}: “${shaped.segments[shaped.errorIndex!]!}”. ${candidate.explanationApplication} Replace “${candidate.errorSpan}” with “${candidate.correction}”. Correct sentence: ${correctedSentence}`;
+    ? `There is no error. ${explanationApplication} Correct sentence: ${correctedSentence}`
+    : `The error is in segment ${answerLabel}: “${shaped.segments[shaped.errorIndex!]!}”. ${explanationApplication} Replace “${candidate.errorSpan}” with “${candidate.correction}”. Correct sentence: ${correctedSentence}`;
   const realizedCandidateId = `${candidate.candidateId}:CTX:${context.id}`;
 
   return {
