@@ -22,10 +22,13 @@ on:
       - "artifacts/api-server/src/question-studio/**"
       - "artifacts/api-server/src/lib/admin-question-conversion.ts"
       - "artifacts/admin-app/**"
-      - ".github/workflows/quant-v4-advanced-mathematics-lifecycle-p2.yml"
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   validate-advanced-mathematics-lifecycle:
