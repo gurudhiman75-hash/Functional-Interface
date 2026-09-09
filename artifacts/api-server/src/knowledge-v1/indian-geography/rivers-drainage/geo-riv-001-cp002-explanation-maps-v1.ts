@@ -23,12 +23,7 @@ function valueText(fact: KnowledgeFact) {
   throw new Error(`Unsupported map value kind for ${fact.factId}`);
 }
 
-function schematic(
-  args: Omit<
-    GeographyExplanationMapSpecV1,
-    "schemaVersion" | "geometryMode" | "geometryAuthorityId" | "notToScale"
-  >,
-) {
+function schematic(args: Omit<GeographyExplanationMapSpecV1, "schemaVersion" | "geometryMode" | "geometryAuthorityId" | "notToScale">) {
   return renderGeographyExplanationMapSvgV1({
     schemaVersion: "GEO_EXPLANATION_MAP_V1",
     geometryMode: "SCHEMATIC",
@@ -49,14 +44,7 @@ function sourceMap(fact: KnowledgeFact): GeographyExplanationMapRenderV1 {
     caption: `${source} is the reviewed source association for the ${river} River.`,
     sourceFactIds: [fact.factId],
     nodes: [
-      {
-        id: "source",
-        label: source,
-        x: 18,
-        y: 48,
-        role: fact.relation === "source_area" ? "pass" : "source",
-        emphasis: "primary",
-      },
+      { id: "source", label: source, x: 18, y: 48, role: fact.relation === "source_area" ? "pass" : "source", emphasis: "primary" },
       { id: "river", label: river, x: 82, y: 52, role: "river", emphasis: "primary" },
     ],
     links: [{ id: "source-river", from: "source", to: "river", emphasis: "primary" }],
@@ -203,7 +191,7 @@ function jhelumRaviChenabMap(): GeographyExplanationMapRenderV1 {
     kind: "SYSTEM_CHAIN",
     title: "Jhelum and Ravi join the Chenab",
     viewportLabel: "Indus river system",
-    caption: "The Jhelum joins the Chenab at Trimmu, while the Ravi also joins the Chenab before Panjnad.",
+    caption: "The Jhelum joins the Chenab at Trimmu, while the Ravi also joins the Chenab before the downstream Panjnad stage.",
     sourceFactIds: [jhelumJoin.factId, trimmu.factId, raviJoin.factId],
     nodes: [
       { id: "jhelum", label: "Jhelum", x: 12, y: 20, role: "river", emphasis: "primary" },
@@ -276,43 +264,35 @@ export function buildGeoRiv001Cp002ExplanationMapV1(
   if (question.qlId === "GEO-RIV-001-QL-010" || question.qlId === "GEO-RIV-001-QL-011") {
     const fact = question.sourceFactIds
       .map((id) => FACTS.find((entry) => entry.factId === id))
-      .find(
-        (entry): entry is KnowledgeFact => Boolean(entry && SOURCE_RELATIONS.has(entry.relation)),
-      );
+      .find((entry): entry is KnowledgeFact => Boolean(entry && SOURCE_RELATIONS.has(entry.relation)));
     return fact ? sourceMap(fact) : undefined;
   }
-
   if (question.qlId === "GEO-RIV-001-QL-012") {
     const fact = question.sourceFactIds
       .map((id) => FACTS.find((entry) => entry.factId === id))
-      .find(
-        (entry): entry is KnowledgeFact =>
-          Boolean(entry && ["tributary_of", "headstream_of"].includes(entry.relation)),
-      );
+      .find((entry): entry is KnowledgeFact => Boolean(entry && ["tributary_of", "headstream_of"].includes(entry.relation)));
     if (!fact) return undefined;
     return fact.relation === "headstream_of" ? chenabFormationMap() : tributaryMap(fact);
   }
-
   if (question.qlId === "GEO-RIV-001-QL-013") return mapForConfluenceQuestion(question);
-
   if (question.qlId === "GEO-RIV-001-QL-014" || question.qlId === "GEO-RIV-001-QL-015") {
     const fact = targetPairFact(question);
     return fact ? sourceMap(fact) : undefined;
   }
-
   if (question.qlId === "GEO-RIV-001-QL-016") {
     if (question.canonicalAnswer === "Jhelum and Ravi") return jhelumRaviChenabMap();
     if (["Satluj", "Chenab", "Beas → Satluj → Chenab"].includes(question.canonicalAnswer)) {
       return beasSatlujChenabChainMap();
     }
   }
-
   return undefined;
 }
 
 export function attachGeoRiv001Cp002ExplanationMapV1(question: GeoRiv001Cp002ReviewQuestion) {
   const explanationMap = buildGeoRiv001Cp002ExplanationMapV1(question);
-  return explanationMap ? { ...question, explanationMap } : question;
+  // Schematic diagrams remain internal debug/reference visuals. Learner-facing Geography maps
+  // must come from approved ATLAS geometry under GEO-ATLAS-001.
+  return explanationMap?.learnerMapEligible ? { ...question, explanationMap } : question;
 }
 
 export const GEO_RIV_001_CP002_EXPLANATION_MAP_PATTERN_EXAMPLES_V1 = Object.freeze({
@@ -325,15 +305,12 @@ export const GEO_RIV_001_CP002_EXPLANATION_MAP_PATTERN_EXAMPLES_V1 = Object.free
 
 export function auditGeoRiv001Cp002ExplanationMapV1(question: GeoRiv001Cp002ReviewQuestion) {
   const map = buildGeoRiv001Cp002ExplanationMapV1(question);
-  if (!map) return { valid: true, mapped: false, issues: [] as string[] };
+  if (!map) return { valid: true, mapped: false, internalSchematic: false, issues: [] as string[] };
   const issues: string[] = [];
   if (!map.svg.includes("<svg") || !map.svg.includes("</svg>")) issues.push("INVALID_SVG");
-  if (map.spec.geometryMode !== "SCHEMATIC" || map.spec.notToScale !== true) {
-    issues.push("UNSAFE_GEOMETRY_MODE");
-  }
-  if (!map.spec.sourceFactIds.every((id) => FACTS.some((fact) => fact.factId === id))) {
-    issues.push("UNKNOWN_MAP_FACT");
-  }
+  if (map.spec.geometryMode !== "SCHEMATIC" || map.spec.notToScale !== true) issues.push("UNEXPECTED_DEBUG_GEOMETRY_MODE");
+  if (map.learnerMapEligible) issues.push("SCHEMATIC_MARKED_LEARNER_ELIGIBLE");
+  if (!map.spec.sourceFactIds.every((id) => FACTS.some((fact) => fact.factId === id))) issues.push("UNKNOWN_MAP_FACT");
   if (map.spec.nodes.length > 6) issues.push("TOO_MANY_LABELLED_NODES");
-  return { valid: issues.length === 0, mapped: true, issues };
+  return { valid: issues.length === 0, mapped: false, internalSchematic: true, issues };
 }
