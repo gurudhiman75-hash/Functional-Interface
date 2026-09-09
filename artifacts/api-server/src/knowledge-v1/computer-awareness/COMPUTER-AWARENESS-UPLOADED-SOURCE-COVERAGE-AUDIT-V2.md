@@ -46,7 +46,7 @@ All eight planned Computer chapters are now present on `New-main`.
 
 | Chapter | Current owner | Frozen or review corpus | Current state |
 |---|---|---:|---|
-| COM-001 Fundamentals and Architecture | CP-001 to CP-006 | 420 questions per language | Registered through the shared Question Studio; BANK_ONLY; Easy/Medium only |
+| COM-001 Fundamentals and Architecture | CP-001 to CP-007 | 440 questions per language | Registered through the shared Question Studio; BANK_ONLY; Easy/Medium only |
 | COM-002 Operating Systems, Files and Windows | COM-002 | 520 per language | Approved and active; BANK_ONLY; Hard and downstream release locked |
 | COM-003 Office and Productivity Software | COM-003 | 228 per language | Frozen and active; BANK_ONLY |
 | COM-004 Internet, Web, E-mail and Digital Services | COM-004 | 204 per language | Frozen and active; BANK_ONLY |
@@ -55,7 +55,7 @@ All eight planned Computer chapters are now present on `New-main`.
 | COM-007 Software, Programming Languages and Database Basics | COM-007 | 32 per language | Frozen and connected; BANK_ONLY |
 | COM-008 Data Representation, Number Systems and Computer Codes | COM-008 | 32 per language | Approved and active; BANK_ONLY |
 
-The visible total is 1,506 questions per language, or 4,518 English/Hindi/Punjabi language versions. This total combines frozen generator pools and fixed review corpora; it is not a promise that every generated question is a separate permanent Question Bank row.
+The visible total is 1,526 questions per language, or 4,578 English/Hindi/Punjabi language versions. This total combines frozen generator pools and fixed review corpora; it is not a promise that every generated question is a separate permanent Question Bank row.
 
 All current Computer packages preserve these boundaries:
 
@@ -73,7 +73,7 @@ All current Computer packages preserve these boundaries:
 |---|---|---|
 | Introduction, history and generations | COM-001 CP-006 now has a 28-question English freeze, matching Hindi and Punjabi localization, and Question Studio routing | Covered. The old scope note was stale and is corrected in this change |
 | Architecture, CPU and basic units | COM-001 CP-002 covers input/output flow, CPU, Arithmetic Logic Unit and Control Unit basics | Core covered |
-| Hardware and input/output devices | COM-001 CP-003 to CP-005 cover keyboard, mouse, scanner, Optical Character Recognition, Optical Mark Recognition, Magnetic Ink Character Recognition, microphone, camera, printer, monitor, projector, plotter, speakers and common ports/connectors | Partial. A source-gap pass is still needed for motherboard parts, instruction-cycle steps, Direct Memory Access, Uninterruptible Power Supply, buses, sockets/slots, display measures, printer subtypes and combined input/output devices |
+| Hardware and input/output devices | COM-001 CP-003 to CP-005 cover common input/output devices, and CP-007 covers motherboard parts, instruction-cycle steps, buses, ports, display measures, printer types and combined input/output devices | Covered at the current awareness level; product-specific specifications remain out of scope |
 | Memory and storage | COM-001 CP-001 has 9 permanent learning units and 360 questions per language | Covered strongly |
 | Data representation and computer codes | COM-008 has 8 learning units and 32 questions per language covering number systems, bits/bytes/nibbles, small conversions, Binary Coded Decimal, American Standard Code for Information Interchange, Extended Binary Coded Decimal Interchange Code and Unicode | Covered |
 | System/application software, utilities, drivers and firmware | COM-007 covers the main software classes, utilities, drivers and firmware | Core covered |
@@ -90,22 +90,9 @@ All current Computer packages preserve these boundaries:
 
 The audit does not create a new chapter. The remaining work belongs to existing owners.
 
-### COM-001 hardware gap
+### Resolved hardware gap
 
-Review the following before adding new permanent learning units:
-
-- motherboard and main parts
-- fetch, decode, execute and store steps
-- registers, accumulator, buffer and time slice
-- Direct Memory Access
-- Uninterruptible Power Supply
-- internal, external, data, address and control buses
-- sockets, slots and general input/output ports
-- monitor types and display measures
-- impact and non-impact printer types
-- devices that perform both input and output
-
-Only durable, exam-level facts should be added. Product-specific specifications remain out of scope.
+The earlier COM-001 hardware gap is covered by CP-007 on the current `New-main`. It includes durable, exam-level questions for motherboard parts, instruction-cycle steps, registers, buses, ports, display measures, printer types and combined input/output devices.
 
 ### COM-007 programming and database gap
 
@@ -173,8 +160,7 @@ COM-001 through COM-008 are implemented and connected to the shared Question Stu
 
 Computer Awareness is not yet source-saturated against every detail in the uploaded book. The remaining evidence-backed work is:
 
-1. COM-001 hardware source-gap review.
-2. COM-007 programming and database source-gap review.
-3. COM-005 networking source-gap review.
+1. COM-007 programming and database source-gap review.
+2. COM-005 networking source-gap review.
 
 No new chapter is required at this checkpoint.
