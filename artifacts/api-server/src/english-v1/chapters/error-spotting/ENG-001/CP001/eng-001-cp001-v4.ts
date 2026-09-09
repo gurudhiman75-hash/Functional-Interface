@@ -5,7 +5,9 @@ import {
   buildEng001Cp001CandidateV4,
   ENG001_CP001_V4_NO_ERROR_RULE_IDS,
   rulesForDifficultyV4,
+  semanticDomainOfV4,
 } from "./cp001-patterns-v4";
+import { CONTEXT_EXPANSIONS_BY_DOMAIN_V4 } from "./cp001-context-expansions-v4";
 
 const STEMS: Record<Eng001QlId, readonly string[]> = {
   "ENG-001-QL001": [
@@ -54,11 +56,28 @@ function sentenceFromSegments(segments: readonly string[]): string {
   return segments.join(" ").replace(/\s+([,.!?;:])/g, "$1").replace(/\s+/g, " ").trim();
 }
 
+function appendContext(segment: string, context: string): string {
+  const clean = segment.trim().replace(/[.!?]+$/, "");
+  return `${clean} ${context}.`;
+}
+
 /**
- * A few proximity tails are naturally very short. Keep the canonical sentence
- * unchanged while ensuring the review/question surface still has four visible
- * source segments.
+ * Add one short domain-aware situation cue without ever touching the registered
+ * error segment. The same cue is applied to the correct and mutated sentence,
+ * so the only grammatical mutation remains the registered SVA error.
  */
+function contextualizeSegments(
+  segments: readonly string[],
+  errorIndex: number | null,
+  context: string,
+): string[] {
+  const out = [...segments];
+  const target = [3, 2, 0].find((index) => index !== errorIndex && Boolean(out[index]?.trim()));
+  if (target === undefined) throw new Error("Unable to place CP001 V4 semantic context outside the error segment");
+  out[target] = appendContext(out[target]!, context);
+  return out;
+}
+
 function ensureFourVisibleSegments(
   segments: readonly string[],
   errorIndex: number | null,
@@ -165,9 +184,18 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
     difficulty: input.difficulty,
     seed: `${input.seed}:${ruleId}`,
   });
+  const domain = semanticDomainOfV4(candidate);
+  if (!domain) throw new Error(`${candidate.candidateId} lacks a semantic domain for V4 context expansion`);
+  const context = deterministicPick(
+    `${input.seed}:context:${domain}:${candidate.ruleId}`,
+    CONTEXT_EXPANSIONS_BY_DOMAIN_V4[domain],
+  );
+
   const isNoError = qlId === "ENG-001-QL007";
-  const rawSegments = isNoError ? candidate.correctSegments : candidate.errorSegments;
   const rawErrorIndex = isNoError ? null : candidate.errorIndex;
+  const contextualCorrect = contextualizeSegments(candidate.correctSegments, candidate.errorIndex, context.text);
+  const contextualError = contextualizeSegments(candidate.errorSegments, candidate.errorIndex, context.text);
+  const rawSegments = isNoError ? contextualCorrect : contextualError;
   const visible = ensureFourVisibleSegments(rawSegments, rawErrorIndex);
   const shaped = qlId === "ENG-001-QL002"
     ? shapeThreeSegmentsPreserveError(visible.segments, visible.errorIndex!, input.seed)
@@ -176,13 +204,14 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
   const options = optionLabels(shaped.segments.length, includeNoError);
   const correctOptionIndex = shaped.errorIndex ?? shaped.segments.length;
   const answerLabel = options[correctOptionIndex]!;
-  const correctedSentence = sentenceFromSegments(candidate.correctSegments);
+  const correctedSentence = sentenceFromSegments(contextualCorrect);
   const explanation = isNoError
     ? `There is no error. ${candidate.explanationApplication} Correct sentence: ${correctedSentence}`
     : `The error is in segment ${answerLabel}: “${shaped.segments[shaped.errorIndex!]!}”. ${candidate.explanationApplication} Replace “${candidate.errorSpan}” with “${candidate.correction}”. Correct sentence: ${correctedSentence}`;
+  const realizedCandidateId = `${candidate.candidateId}:CTX:${context.id}`;
 
   return {
-    questionId: `ENG-001-CP001-V4:${qlId}:${candidate.candidateId}:${input.seed}`,
+    questionId: `ENG-001-CP001-V4:${qlId}:${realizedCandidateId}:${input.seed}`,
     stem: deterministicPick(`${input.seed}:stem:${qlId}`, STEMS[qlId]),
     segments: shaped.segments,
     options,
@@ -201,7 +230,7 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
       answerSegment: answerLabel,
       hasNoError: isNoError,
       seed: input.seed,
-      candidateId: candidate.candidateId,
+      candidateId: realizedCandidateId,
       reviewOnly: true,
     },
   };
