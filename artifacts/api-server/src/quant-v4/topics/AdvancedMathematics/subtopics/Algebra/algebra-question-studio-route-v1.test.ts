@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 
 const routeSource = readFileSync(resolve(process.cwd(), "src/routes/admin-question-studio-algebra.ts"), "utf8");
 const routeIndexSource = readFileSync(resolve(process.cwd(), "src/routes/index.ts"), "utf8");
+const registrySource = readFileSync(resolve(process.cwd(), "src/routes/admin-question-studio-registry.ts"), "utf8");
 const adminApiSource = readFileSync(resolve(process.cwd(), "../admin-app/src/features/question-studio/algebra-review-api.ts"), "utf8");
 const adminPanelSource = readFileSync(resolve(process.cwd(), "../admin-app/src/pages/content/QuestionStudioAlgebraReviewPanel.tsx"), "utf8");
 const operationsSource = readFileSync(resolve(process.cwd(), "../admin-app/src/pages/content/QuestionStudioOperationsPage.tsx"), "utf8");
@@ -30,8 +31,10 @@ assert.equal(
   "Algebra must use the shared approval/converter path instead of chapter-specific downstream routes",
 );
 
-assert.ok(routeIndexSource.includes('import adminQuestionStudioAlgebraRouter from "./admin-question-studio-algebra";'));
-assert.ok(routeIndexSource.includes('router.use("/admin/question-studio", adminQuestionStudioAlgebraRouter);'));
+assert.ok(routeIndexSource.includes('import adminQuestionStudioRegistryRouter from "./admin-question-studio-registry";'));
+assert.ok(routeIndexSource.includes('router.use("/admin/question-studio", adminQuestionStudioRegistryRouter);'));
+assert.ok(registrySource.includes('import adminQuestionStudioAlgebraRouter from "./admin-question-studio-algebra";'));
+assert.ok(registrySource.includes("router.use(adminQuestionStudioAlgebraRouter);"));
 
 for (const fragment of [
   "ALGEBRA_QUESTION_STUDIO_DELIVERY_V5_AUTHORITY",
@@ -83,6 +86,7 @@ assert.ok(operationsSource.includes("<QuestionStudioAlgebraReviewPanel />"));
 
 console.log("PASS_ALGEBRA_QUESTION_STUDIO_ROUTE_V5_BANK_ONLY", {
   routes: declaredAlgebraRoutes,
+  registry: "admin-question-studio-registry",
   deliveryAuthority: "ALGEBRA-FROZEN-QUESTION-STUDIO-DELIVERY-V5-CENTRAL-OPTION-CONTRACT",
   lifecycle: "QUESTION-STUDIO-STANDARD-BANK-ONLY-V1",
   manualApprovalRequired: true,
