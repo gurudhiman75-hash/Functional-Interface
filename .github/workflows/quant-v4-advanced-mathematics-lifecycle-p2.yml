@@ -1,0 +1,85 @@
+name: Validate Quant V4 Advanced Mathematics lifecycle P2
+
+on:
+  push:
+    branches:
+      - audit/quant-v4-advanced-math-lifecycle-p2
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/**"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-advanced-mathematics-lifecycle-p2.test.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-mensuration-full.ts"
+      - "artifacts/api-server/src/question-studio/**"
+      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
+      - "artifacts/admin-app/**"
+      - ".github/workflows/quant-v4-advanced-mathematics-lifecycle-p2.yml"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/topics/AdvancedMathematics/**"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-advanced-mathematics-lifecycle-p2.test.ts"
+      - "artifacts/api-server/src/routes/admin-question-studio-mensuration-full.ts"
+      - "artifacts/api-server/src/question-studio/**"
+      - "artifacts/api-server/src/lib/admin-question-conversion.ts"
+      - "artifacts/admin-app/**"
+      - ".github/workflows/quant-v4-advanced-mathematics-lifecycle-p2.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-advanced-mathematics-lifecycle:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+
+      - name: Build admin app
+        run: pnpm --dir artifacts/admin-app build
+
+      - name: Bundle Mensuration delivery V3 audit
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/advanced-math
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Mensuration/mensuration-question-studio-delivery-v3.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/advanced-math/mensuration-question-studio-delivery-v3.test.mjs
+
+      - name: Run Mensuration delivery V3 audit
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/advanced-math/mensuration-question-studio-delivery-v3.test.mjs
+
+      - name: Bundle Advanced Mathematics lifecycle matrix
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/quality/quant-v4-advanced-mathematics-lifecycle-p2.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/advanced-math/quant-v4-advanced-mathematics-lifecycle-p2.test.mjs
+
+      - name: Run Advanced Mathematics lifecycle matrix
+        working-directory: artifacts/api-server
+        run: node dist/quant-v4/advanced-math/quant-v4-advanced-mathematics-lifecycle-p2.test.mjs
+
+      - name: Regression Algebra BANK_ONLY activation
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/quant-v4/topics/AdvancedMathematics/subtopics/Algebra/algebra-question-bank-activation-v1.test.ts \
+            --bundle --platform=node --format=esm --packages=external \
+            --outfile=dist/quant-v4/advanced-math/algebra-question-bank-activation-v1.test.mjs
+          cd artifacts/api-server
+          node dist/quant-v4/advanced-math/algebra-question-bank-activation-v1.test.mjs
