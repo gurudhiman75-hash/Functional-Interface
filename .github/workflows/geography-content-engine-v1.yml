@@ -1,0 +1,62 @@
+name: Validate Geography Content Engine V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/**"
+      - "artifacts/api-server/src/knowledge-v1/types.ts"
+      - "artifacts/api-server/src/knowledge-v1/eligibility.ts"
+      - "artifacts/api-server/src/knowledge-v1/deterministic.ts"
+      - "artifacts/api-server/src/knowledge-v1/question-validation.ts"
+      - ".github/workflows/geography-content-engine-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: geography-content-engine-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-geography-content-engine:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        run: corepack enable
+
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run GEO-RIV-001 CP001 qualification gates
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          tests=(
+            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-validator.test.ts"
+            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-editorial-review.test.ts"
+            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-review-generator.test.ts"
+            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-review-batch.test.ts"
+            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-v2d.test.ts"
+          )
+          for test_file in "${tests[@]}"; do
+            output_name="$(basename "${test_file}" .ts).mjs"
+            pnpm --dir artifacts/api-server exec esbuild \
+              "${test_file}" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/geography/${output_name}"
+            node "artifacts/api-server/dist/geography/${output_name}"
+          done
+
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
