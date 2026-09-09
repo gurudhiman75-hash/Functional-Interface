@@ -175,13 +175,14 @@ async function collectRuntimeCorpus() {
 
 function auditClusters(samples: readonly ExplanationQualitySample[]) {
   const semantic = new Map<string, { questions: Set<string>; examples: ExplanationQualitySample[] }>();
-  const structural = new Map<string, number>();
+  const structural = new Map<string, { questions: Set<string>; examples: ExplanationQualitySample[] }>();
   const exact = new Map<string, { questions: Set<string>; examples: ExplanationQualitySample[] }>();
 
   for (const sample of samples) {
     const assessment = assessExplanationQuality(sample);
     const semanticKey = `${sample.packageId}\u0000${assessment.semanticSignature}`;
     const exactKey = `${sample.packageId}\u0000${normalizeExact(sample.explanation)}`;
+    const structuralKey = `${sample.packageId}\u0000${assessment.structuralSignature}`;
 
     const semanticEntry = semantic.get(semanticKey) ?? { questions: new Set<string>(), examples: [] };
     semanticEntry.questions.add(sample.questionKey);
@@ -193,44 +194,52 @@ function auditClusters(samples: readonly ExplanationQualitySample[]) {
     if (exactEntry.examples.length < 3) exactEntry.examples.push(sample);
     exact.set(exactKey, exactEntry);
 
-    const structuralKey = `${sample.packageId}\u0000${assessment.structuralSignature}`;
-    structural.set(structuralKey, (structural.get(structuralKey) ?? 0) + 1);
+    const structuralEntry = structural.get(structuralKey) ?? { questions: new Set<string>(), examples: [] };
+    structuralEntry.questions.add(sample.questionKey);
+    if (structuralEntry.examples.length < 3) structuralEntry.examples.push(sample);
+    structural.set(structuralKey, structuralEntry);
   }
 
   const exactCrossQuestion = [...exact.entries()]
     .map(([signature, entry]) => ({
       signature,
       count: entry.questions.size,
-      questions: [...entry.questions].slice(0, 10),
+      questions: [...entry.questions].slice(0, 12),
       examples: entry.examples,
     }))
     .filter((entry) => entry.count > 1)
     .sort((left, right) => right.count - left.count);
-  assert(
-    exactCrossQuestion.length === 0,
-    `Exact learner explanations are duplicated across distinct question identities: ${JSON.stringify(exactCrossQuestion.slice(0, 5))}`,
-  );
 
   const semanticClusters = [...semantic.entries()]
     .map(([signature, entry]) => ({
       signature,
       count: entry.questions.size,
-      questions: [...entry.questions].slice(0, 10),
+      questions: [...entry.questions].slice(0, 12),
       examples: entry.examples,
     }))
     .sort((left, right) => right.count - left.count);
   const largestSemanticCluster = semanticClusters[0]?.count ?? 0;
 
-  // This is deliberately a cross-question ceiling, not an exact-string metric.
-  // A generic wrapper applied across a large family will fail even when values differ.
-  assert(
-    largestSemanticCluster <= 16,
-    `Semantic explanation wrapper is reused across ${largestSemanticCluster} distinct question identities; ceiling is 16. Largest clusters: ${JSON.stringify(semanticClusters.slice(0, 5))}`,
-  );
-
   const structuralClusters = [...structural.entries()]
-    .map(([signature, count]) => ({ signature, count }))
+    .map(([signature, entry]) => ({
+      signature,
+      count: entry.questions.size,
+      questions: [...entry.questions].slice(0, 12),
+      examples: entry.examples,
+    }))
     .sort((left, right) => right.count - left.count);
+
+  const violations: string[] = [];
+  if (exactCrossQuestion.length > 0) {
+    violations.push(
+      `exact_cross_question_duplicate_clusters=${exactCrossQuestion.length}`,
+    );
+  }
+  if (largestSemanticCluster > 16) {
+    violations.push(
+      `largest_semantic_cross_question_cluster=${largestSemanticCluster}>16`,
+    );
+  }
 
   return {
     exactCrossQuestionDuplicateClusters: exactCrossQuestion.length,
@@ -238,6 +247,10 @@ function auditClusters(samples: readonly ExplanationQualitySample[]) {
     largestStructuralCluster: structuralClusters[0]?.count ?? 0,
     semanticClusterCount: semanticClusters.length,
     structuralClusterCount: structuralClusters.length,
+    violations,
+    topExactCrossQuestionClusters: exactCrossQuestion.slice(0, 10),
+    topSemanticCrossQuestionClusters: semanticClusters.slice(0, 10),
+    topStructuralClusters: structuralClusters.slice(0, 10),
   };
 }
 
@@ -250,16 +263,27 @@ async function main() {
 
   const samples = await collectRuntimeCorpus();
   const clusters = auditClusters(samples);
+  const passed = clusters.violations.length === 0;
   const result = {
-    status: "PASS_QUANT_V4_SEMANTIC_EXPLANATION_QUALITY_P1",
+    status: passed
+      ? "PASS_QUANT_V4_SEMANTIC_EXPLANATION_QUALITY_P1"
+      : "FAIL_QUANT_V4_SEMANTIC_EXPLANATION_QUALITY_P1",
     policy: EXPLANATION_COHERENCE_POLICY_VERSION,
     runtimeQuestions: samples.length,
     packages: [...new Set(samples.map((sample) => sample.packageId))],
     ...clusters,
     rule: "simple coherent working; shortcut/trap optional and evidence-bound",
   };
+
   persistDiagnostics(result);
   console.log(JSON.stringify(result));
+
+  if (!passed) {
+    console.error(
+      `Quant V4 semantic explanation audit failed: ${clusters.violations.join("; ")}`,
+    );
+    process.exitCode = 1;
+  }
 }
 
 main().catch((error) => {
