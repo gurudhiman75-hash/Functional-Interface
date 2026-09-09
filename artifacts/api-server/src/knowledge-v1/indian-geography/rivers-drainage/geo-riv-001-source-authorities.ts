@@ -114,6 +114,23 @@ export const GEO_RIV_001_SOURCE_AUTHORITIES: GeoRiv001SourceAuthority[] = [
     ],
   },
   {
+    sourceId: "CWC-NATIONAL-COMMISSION-FLOODS-REPORT-V1",
+    title: "Government of India — National Commission on Floods Report, Volume I (CWC copy)",
+    url: "https://cwc.gov.in/sites/default/files/rbareport-1980comp.pdf",
+    sourceType: "official",
+    supports: [
+      "jhelum-joins-chenab",
+      "beas-joins-sutlej-harike",
+      "satluj-chenab-panjnad",
+      "indus-river-joining-chain",
+    ],
+    verifiedOn: "2026-09-09",
+    notes: [
+      "Use the river-geography descriptions for durable joining relations only.",
+      "The report supports Jhelum joining Chenab at Trimmu, Beas joining Sutlej at Harike, and the later Satluj/Chenab relation at Panjnad.",
+    ],
+  },
+  {
     sourceId: "INDIA-WRIS-NARMADA-BASIN-V2",
     title: "India-WRIS — Narmada Basin Report, Version 2.0",
     url: "https://indiawris.gov.in/downloads/Narmada%20Basin.pdf",
