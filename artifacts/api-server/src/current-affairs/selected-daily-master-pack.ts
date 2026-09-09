@@ -10,6 +10,11 @@ import {
   type DailyMasterPackPayload,
 } from "./daily-master-pack";
 import { evaluateDailyMasterPackEditorialQuality } from "./daily-master-pack-approval-policy";
+import {
+  applySelectedLearnerEditorialQuality,
+  selectedLearnerEditorialWarnings,
+  SELECTED_LEARNER_EDITORIAL_VERSION,
+} from "./selected-editorial-learner-quality";
 
 export const SELECTED_MASTER_PACK_BOUNDARY_VERSION = "ca-cp068-selected-master-pack-boundary-v1";
 const DAILY_PRODUCT_EXAM_FAMILIES = ["ssc", "banking", "punjab"] as const;
@@ -250,7 +255,9 @@ async function loadSelectedPackEvents(
       ) ORDER BY evidence.is_primary_evidence DESC, source.trust_score DESC, evidence.created_at ASC) AS items
       FROM content.current_affairs_event_sources evidence
       JOIN content.current_affairs_sources source ON source.id=evidence.source_id
-      WHERE evidence.event_id=event.id AND evidence.source_url IS NOT NULL
+      WHERE evidence.event_id=event.id
+        AND evidence.source_url IS NOT NULL
+        AND COALESCE((evidence.metadata->>'selectedBindingQuarantined')::boolean, false)=false
     ) sources ON true
     WHERE event.id = ANY(${eventIds}::uuid[])
       AND event.status='verified'
@@ -378,17 +385,20 @@ export async function materializeSelectedDailyMasterPacks(contentDate: string, c
     };
   }
 
-  const quality = evaluateSelectedMasterPackQuality(enEvents);
+  const editorializedEventSets: Record<DailyMasterPackLanguage, SelectedMasterPackEvent[]> = {
+    en: enEvents.map((event) => ({ ...event, ...applySelectedLearnerEditorialQuality(event, "en") })),
+    hi: hiEvents.map((event) => ({ ...event, ...applySelectedLearnerEditorialQuality(event, "hi") })),
+    pa: paEvents.map((event) => ({ ...event, ...applySelectedLearnerEditorialQuality(event, "pa") })),
+  };
+
+  const quality = evaluateSelectedMasterPackQuality(editorializedEventSets.en);
+  quality.warnings = [...new Set([...quality.warnings, ...selectedLearnerEditorialWarnings(editorializedEventSets.en)])];
   const localizationWarnings = [
-    ...hiEvents.map((event) => localizedScriptWarning("hi", event)).filter((item): item is string => Boolean(item)),
-    ...paEvents.map((event) => localizedScriptWarning("pa", event)).filter((item): item is string => Boolean(item)),
+    ...editorializedEventSets.hi.map((event) => localizedScriptWarning("hi", event)).filter((item): item is string => Boolean(item)),
+    ...editorializedEventSets.pa.map((event) => localizedScriptWarning("pa", event)).filter((item): item is string => Boolean(item)),
   ];
 
-  const eventSets: Record<DailyMasterPackLanguage, SelectedMasterPackEvent[]> = {
-    en: enEvents,
-    hi: hiEvents,
-    pa: paEvents,
-  };
+  const eventSets = editorializedEventSets;
   const materialized: Record<string, unknown> = {};
 
   await sqlClient.begin(async (tx) => {
@@ -396,6 +406,7 @@ export async function materializeSelectedDailyMasterPacks(contentDate: string, c
       const basePayload = buildDailyMasterPackPayload(contentDate, eventSets[language], language);
       const payload = {
         ...basePayload,
+        learnerEditorialVersion: SELECTED_LEARNER_EDITORIAL_VERSION,
         membership: {
           boundaryVersion: SELECTED_MASTER_PACK_BOUNDARY_VERSION,
           mode: "admin_selected",
@@ -472,6 +483,7 @@ export async function materializeSelectedDailyMasterPacks(contentDate: string, c
 
   return {
     boundaryVersion: SELECTED_MASTER_PACK_BOUNDARY_VERSION,
+    learnerEditorialVersion: SELECTED_LEARNER_EDITORIAL_VERSION,
     created: true,
     locked: false,
     membership,
