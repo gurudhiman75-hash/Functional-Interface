@@ -1,4 +1,4 @@
-import { generateGeoRiv001Cp002ReviewV2 } from "./geo-riv-001-cp002-review-generator-v2";
+import { generateGeoRiv001Cp002ReviewV3 } from "./geo-riv-001-cp002-review-generator-v3";
 import type { GeoRiv001Cp002ReviewQuestion } from "./geo-riv-001-cp002-review-types";
 
 const REVIEW_COUNTS: Record<string, number> = {
@@ -26,7 +26,7 @@ function semanticKey(question: GeoRiv001Cp002ReviewQuestion) {
 
 function scan(qlId: string) {
   return Array.from({ length: 650 }, (_, index) =>
-    generateGeoRiv001Cp002ReviewV2(
+    generateGeoRiv001Cp002ReviewV3(
       qlId,
       `geo-riv-001-cp002-review-${qlId}-${String(index + 1).padStart(3, "0")}`,
     ),
@@ -73,6 +73,13 @@ function select(qlId: string, count: number, required: readonly Predicate[] = []
 }
 
 const REQUIRED: Record<string, Predicate[]> = {
+  "GEO-RIV-001-QL-013": [
+    (q) => q.canonicalAnswer === "Chandra and Bhaga",
+    (q) => q.canonicalAnswer === "Tandi",
+    (q) => q.canonicalAnswer === "Trimmu",
+    (q) => q.canonicalAnswer === "Harike",
+    (q) => q.canonicalAnswer === "Panjnad",
+  ],
   "GEO-RIV-001-QL-016": [
     (q) => q.canonicalAnswer === "Satluj",
     (q) => q.canonicalAnswer === "Jhelum and Ravi",
@@ -142,6 +149,7 @@ export function auditGeoRiv001Cp002ReviewBatchV1() {
   }
 
   for (const [qlId, requiredAnswers] of Object.entries({
+    "GEO-RIV-001-QL-013": ["Chandra and Bhaga", "Tandi", "Trimmu", "Harike", "Panjnad"],
     "GEO-RIV-001-QL-016": ["Satluj", "Jhelum and Ravi", "Chenab", "Beas → Satluj → Chenab"],
     "GEO-RIV-001-QL-017": [
       "Both Statement I and Statement II are correct",
