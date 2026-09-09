@@ -50,7 +50,7 @@ for (const fragment of [
 ]) {
   assert.ok(trg001.includes(fragment), `TRG-001 lifecycle drift: ${fragment}`);
 }
-assert.ok(trigEngine.includes("TRG001_POST_FINAL5_FULL_INTERNAL_ACTIVATION_V1"));
+assert.ok(trigEngine.includes("TRG_001_POST_FINAL5_FULL_INTERNAL_ACTIVATION_V1"));
 
 // TRG-002: approved/frozen family is internally bank/test eligible but not public.
 for (const fragment of [
