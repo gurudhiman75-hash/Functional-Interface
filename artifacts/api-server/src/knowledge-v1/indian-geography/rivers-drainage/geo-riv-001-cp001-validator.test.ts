@@ -8,11 +8,23 @@ import {
   auditGeoRiv001Cp001Facts,
   auditGeoRiv001Cp001PreFreezeEligibility,
 } from "./geo-riv-001-cp001-validator";
-import { auditGeoRiv001SourceAuthorities } from "./geo-riv-001-source-authorities";
+import {
+  GEO_RIV_001_SOURCE_AUTHORITIES,
+  auditGeoRiv001SourceAuthorities,
+} from "./geo-riv-001-source-authorities";
 
 const sourceAudit = auditGeoRiv001SourceAuthorities();
 assert.equal(sourceAudit.valid, true, sourceAudit.issues.join("\n"));
-assert.equal(sourceAudit.sourceCount, 5);
+const sourceIds = new Set(GEO_RIV_001_SOURCE_AUTHORITIES.map((source) => source.sourceId));
+for (const requiredSourceId of [
+  "NCERT-CONTEMPORARY-INDIA-I-DRAINAGE",
+  "NCERT-SOCIAL-SCIENCE-TEACHER-MANUAL-KAVERI",
+  "CWC-INDUS-BASIN-ORGANISATION",
+  "INDIA-WRIS-NARMADA-BASIN-V2",
+  "INDIA-WRIS-GODAVARI-BASIN-V2",
+]) {
+  assert.equal(sourceIds.has(requiredSourceId), true, `Missing CP001 source authority ${requiredSourceId}`);
+}
 
 const factAudit = auditGeoRiv001Cp001Facts(GEO_RIV_001_CP001_ALL_CANDIDATES);
 assert.equal(factAudit.valid, true, factAudit.issues.join("\n"));
