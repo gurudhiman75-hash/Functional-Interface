@@ -49,22 +49,6 @@ export function itemExplanation(payload: Record<string, unknown> | null): string
   return asText(payload?.explanation);
 }
 
-export function itemExplanationMapSvg(payload: Record<string, unknown> | null): string {
-  const explanationMap = asRecord(payload?.explanationMap);
-  return asText(explanationMap.svg);
-}
-
-export function itemExplanationMapAltText(payload: Record<string, unknown> | null): string {
-  const explanationMap = asRecord(payload?.explanationMap);
-  return asText(explanationMap.altText) || 'Explanation mini-map';
-}
-
-export function itemExplanationMapCaption(payload: Record<string, unknown> | null): string {
-  const explanationMap = asRecord(payload?.explanationMap);
-  const spec = asRecord(explanationMap.spec);
-  return asText(spec.caption);
-}
-
 export function itemOptionValues(payload: Record<string, unknown> | null): string[] {
   return stringArray(payload?.options);
 }
@@ -98,9 +82,6 @@ export function analyzeItemQuality(payloadValue: unknown): ItemQualityReport {
   const payload = asRecord(payloadValue);
   const stem = itemStem(payload);
   const explanation = itemExplanation(payload);
-  const explanationMapSvg = itemExplanationMapSvg(payload);
-  const explanationMap = asRecord(payload.explanationMap);
-  const explanationMapSpec = asRecord(explanationMap.spec);
   const options = itemOptionValues(payload);
   const spatialOptions = itemOptionSvgs(payload);
   const effectiveOptions = spatialOptions.length > 0 ? spatialOptions : options;
@@ -143,20 +124,6 @@ export function analyzeItemQuality(payloadValue: unknown): ItemQualityReport {
   else {
     if (explanation.length < 24) add('EXPLANATION_TOO_SHORT', 'warning', 'explanation', 'Explanation is very short.');
     if (containsUnresolvedPlaceholder(explanation)) add('EXPLANATION_PLACEHOLDER', 'blocker', 'explanation', 'Explanation contains an unresolved placeholder.');
-  }
-
-  if (Object.keys(explanationMap).length > 0) {
-    if (!explanationMapSvg || !explanationMapSvg.includes('<svg') || !explanationMapSvg.includes('</svg>')) {
-      add('EXPLANATION_MAP_SVG_INVALID', 'blocker', 'payload', 'Explanation map is present but its internal SVG is invalid.');
-    }
-    if (!asText(explanationMap.altText)) {
-      add('EXPLANATION_MAP_ALT_MISSING', 'warning', 'payload', 'Explanation map should include accessible alt text.');
-    }
-    const geometryMode = asText(explanationMapSpec.geometryMode);
-    const notToScale = explanationMapSpec.notToScale;
-    if (geometryMode === 'SCHEMATIC' && notToScale !== true) {
-      add('EXPLANATION_MAP_SCALE_UNSAFE', 'blocker', 'payload', 'Schematic Geography maps must be explicitly marked not to scale.');
-    }
   }
 
   const blockerCount = issues.filter((issue) => issue.severity === 'blocker').length;
