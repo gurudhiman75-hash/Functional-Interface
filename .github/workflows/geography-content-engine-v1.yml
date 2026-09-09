@@ -47,6 +47,7 @@ jobs:
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-review-generator.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-review-batch.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-v2d.test.ts"
+            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-v2e.test.ts"
           )
           for test_file in "${tests[@]}"; do
             output_name="$(basename "${test_file}" .ts).mjs"
