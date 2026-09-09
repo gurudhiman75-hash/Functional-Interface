@@ -50,12 +50,12 @@ All eight planned Computer chapters are now present on `New-main`.
 | COM-002 Operating Systems, Files and Windows | COM-002 | 520 per language | Approved and active; BANK_ONLY; Hard and downstream release locked |
 | COM-003 Office and Productivity Software | COM-003 | 228 per language | Frozen and active; BANK_ONLY |
 | COM-004 Internet, Web, E-mail and Digital Services | COM-004 | 204 per language | Frozen and active; BANK_ONLY |
-| COM-005 Networking | COM-005 | 38 per language | Frozen and active; BANK_ONLY |
+| COM-005 Networking | COM-005 CP-001 to CP-002 | 54 per language | Frozen and active; BANK_ONLY |
 | COM-006 Cyber Security | COM-006 | 32 per language | Frozen and connected; BANK_ONLY |
-| COM-007 Software, Programming Languages and Database Basics | COM-007 | 32 per language | Frozen and connected; BANK_ONLY |
+| COM-007 Software, Programming Languages and Database Basics | COM-007 CP-001 to CP-002 | 52 per language | Frozen and connected; BANK_ONLY |
 | COM-008 Data Representation, Number Systems and Computer Codes | COM-008 | 32 per language | Approved and active; BANK_ONLY |
 
-The visible total is 1,526 questions per language, or 4,578 English/Hindi/Punjabi language versions. This total combines frozen generator pools and fixed review corpora; it is not a promise that every generated question is a separate permanent Question Bank row.
+The visible total is 1,562 questions per language, or 4,686 English/Hindi/Punjabi language versions. This total combines frozen generator pools and fixed review corpora; it is not a promise that every generated question is a separate permanent Question Bank row.
 
 All current Computer packages preserve these boundaries:
 
@@ -78,10 +78,10 @@ All current Computer packages preserve these boundaries:
 | Data representation and computer codes | COM-008 has 8 learning units and 32 questions per language covering number systems, bits/bytes/nibbles, small conversions, Binary Coded Decimal, American Standard Code for Information Interchange, Extended Binary Coded Decimal Interchange Code and Unicode | Covered |
 | System/application software, utilities, drivers and firmware | COM-007 covers the main software classes, utilities, drivers and firmware | Core covered |
 | Operating systems, files and Windows | COM-002 has 13 permanent learning units and 520 questions per language, with the final BANK_ONLY activation merged | Covered at awareness level. Avoid obsolete version trivia |
-| Programming concepts | COM-007 covers language levels, examples and translator roles | Partial. Program documentation, object-oriented programming and debugging need explicit source-gap decisions |
+| Programming concepts | COM-007 CP-001 covers language levels, examples and translator roles, and CP-002 covers program documentation, object-oriented programming and debugging | Covered at the current awareness level |
 | Microsoft Office | COM-003 has 19 learning units and 228 questions per language | Covered at the current awareness level |
-| Database concepts | COM-007 covers basic tables, keys and Structured Query Language | Partial. Database models, Database Management System functions, integrity, security, backup/recovery and language groups need explicit coverage decisions |
-| Data communication and networking | COM-005 covers network types, topologies, devices, protocols, addressing, media and transmission modes | Partial. Peer-to-peer/client-server models, architecture/layers, switching/routing and wider communication basics need one source-gap pass |
+| Database concepts | COM-007 CP-001 covers basic tables, keys and Structured Query Language, and CP-002 covers database models, Database Management System functions, integrity, security, backup/recovery and language groups | Covered at the current awareness level |
+| Data communication and networking | COM-005 CP-001 covers network types, topologies, devices, protocols, addressing, media and transmission modes, and CP-002 covers peer-to-peer/client-server models, gateway/bridge roles, architecture/layers, switching and routing | Covered at the current awareness level |
 | Internet, web, e-mail and digital services | COM-004 has 17 learning units and 204 questions per language | Covered at the current awareness level |
 | Computer security | COM-006 has 8 learning units and 32 questions per language | Covered at basic exam depth |
 | Glossary and abbreviations | Shared editorial validation is active in the knowledge-v1 generation path | Permanent rule retained and strengthened in this change |
@@ -94,34 +94,15 @@ The audit does not create a new chapter. The remaining work belongs to existing 
 
 The earlier COM-001 hardware gap is covered by CP-007 on the current `New-main`. It includes durable, exam-level questions for motherboard parts, instruction-cycle steps, registers, buses, ports, display measures, printer types and combined input/output devices.
 
-### COM-007 programming and database gap
+### Resolved programming and database gap
 
-Check whether the uploaded source adds useful awareness-level questions for:
+COM-007 CP-002 now covers program documentation, object-oriented programming, debugging, database models, Database Management System functions, integrity, security, backup/recovery and database language groups.
 
-- program documentation
-- object-oriented programming
-- debugging
-- hierarchical, network and relational database models
-- Database Management System functions
-- database integrity and security
-- backup and recovery
-- database language groups
+### Resolved networking gap
 
-Do not add coding exercises or degree-level database theory.
+COM-005 CP-002 now covers peer-to-peer and client-server models, basic architecture and layers, gateway and bridge roles, data communication basics, switching and routing concepts.
 
-### COM-005 networking gap
-
-Check whether the uploaded source adds useful awareness-level questions for:
-
-- peer-to-peer and client-server models
-- basic network architecture and layers
-- gateway and bridge roles
-- data communication basics
-- switching and routing concepts
-
-Do not duplicate the existing device, protocol and addressing questions.
-
-These gaps are genuine coverage items, but they require their own source-backed merge/split and localization review. They are not silently marked complete by this audit.
+All identified source gaps are now represented by source-backed, localized, Easy/Medium-only extension authorities. No coding exercises, degree-level database theory or product-specific trivia was added.
 
 ## 6. Source-risk rules
 
@@ -158,9 +139,4 @@ The shared knowledge-v1 validation path enforces the stem, explanation, abbrevia
 
 COM-001 through COM-008 are implemented and connected to the shared Question Studio. COM-008 is no longer missing, and COM-002 is no longer waiting for its final BANK_ONLY activation.
 
-Computer Awareness is not yet source-saturated against every detail in the uploaded book. The remaining evidence-backed work is:
-
-1. COM-007 programming and database source-gap review.
-2. COM-005 networking source-gap review.
-
-No new chapter is required at this checkpoint.
+Computer Awareness now covers all identified uploaded-source areas at the planned awareness level. No unresolved source-gap review remains at this checkpoint, and no new chapter is required.
