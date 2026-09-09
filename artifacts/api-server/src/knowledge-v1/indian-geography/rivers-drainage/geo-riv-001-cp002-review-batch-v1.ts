@@ -172,7 +172,7 @@ export function auditGeoRiv001Cp002ReviewBatchV1() {
   }
 
   for (const [qlId, requiredAnswers] of Object.entries({
-    "GEO-RIV-001-QL-013": ["Chandra and Bhaga", "Tandi", "Trimmu", "Harike", "Panjad"],
+    "GEO-RIV-001-QL-013": ["Chandra and Bhaga", "Tandi", "Trimmu", "Harike", "Panjnad"],
     "GEO-RIV-001-QL-016": ["Satluj", "Jhelum and Ravi", "Chenab", "Beas → Satluj → Chenab"],
     "GEO-RIV-001-QL-017": [
       "Both Statement I and Statement II are correct",
