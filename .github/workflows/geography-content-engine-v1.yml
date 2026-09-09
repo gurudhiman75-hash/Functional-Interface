@@ -41,7 +41,7 @@ jobs:
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run GEO-RIV-001 CP001 qualification gates
+      - name: Run GEO-RIV-001 qualification gates
         run: |
           mkdir -p artifacts/api-server/dist/geography
           tests=(
@@ -53,6 +53,7 @@ jobs:
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-v2f.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-v2g.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-freeze-v1.test.ts"
+            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp002-validator.test.ts"
             "src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.test.ts"
           )
           for test_file in "${tests[@]}"; do
