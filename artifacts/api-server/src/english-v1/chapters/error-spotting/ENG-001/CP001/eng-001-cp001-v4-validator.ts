@@ -35,12 +35,22 @@ function textWordCount(text: string): number {
   return text.trim().split(/\s+/).filter(Boolean).length;
 }
 
-function repeatedIngForm(text: string): string | null {
-  const forms = text.toLowerCase().match(/\b[a-z]+ing\b/g) ?? [];
-  const seen = new Set<string>();
-  for (const form of forms) {
-    if (seen.has(form)) return form;
-    seen.add(form);
+/**
+ * Catch surfaces such as “applicants waiting ... are waiting” without treating
+ * ordinary noun modifiers such as “sorting centre ... sorting plan” as a
+ * repeated predicate. Only an -ing form used in a continuous verb phrase can
+ * trigger this gate, and the same token must also occur elsewhere.
+ */
+function repeatedContinuousPredicate(text: string): string | null {
+  const lower = text.toLowerCase();
+  const continuousForms = new Set<string>();
+  const continuous = /\b(?:am|is|are|was|were|be|been|being)\s+([a-z]+ing)\b/g;
+  for (const match of lower.matchAll(continuous)) {
+    if (match[1]) continuousForms.add(match[1]);
+  }
+  for (const form of continuousForms) {
+    const occurrences = lower.match(new RegExp(`\\b${form}\\b`, "g"))?.length ?? 0;
+    if (occurrences > 1) return form;
   }
   return null;
 }
@@ -175,9 +185,9 @@ export function validateEng001Cp001QuestionV4(question: Eng001Question): Eng001C
     issues.push(issue("NATURALNESS", `${question.questionId} realized sentence has ${realizedWords} words, above the ${question.metadata.difficulty} editorial ceiling of ${realizedMax}.`));
   }
 
-  const repeatedParticiple = repeatedIngForm(question.correctedSentence);
-  if (repeatedParticiple) {
-    issues.push(issue("NATURALNESS", `${question.questionId} repeats the participle “${repeatedParticiple}”, producing a machine-like surface.`));
+  const repeatedPredicate = repeatedContinuousPredicate(question.correctedSentence);
+  if (repeatedPredicate) {
+    issues.push(issue("NATURALNESS", `${question.questionId} repeats the continuous predicate “${repeatedPredicate}”, producing a machine-like surface.`));
   }
 
   return { ok: issues.length === 0, issues };
