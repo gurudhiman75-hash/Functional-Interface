@@ -48,3 +48,5 @@ When a contract is over-fragmented, prefer this order:
 4. remove synthetic documentary wording instead of replacing one artificial wrapper with another.
 
 The audit is intentionally stricter than the older clone-cleanup approach that diversified clone blocks through labels such as memos, notices, registers, and reports. That approach improved exact-string diversity but did not reliably improve exam realness.
+
+This policy file is also part of the Quant-path CI trigger so the first stacked #14 run evaluates the actual current bank immediately.
