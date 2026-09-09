@@ -41,6 +41,7 @@ import type {
   QuestionStudioPackageDefinition,
 } from "../engine-types";
 import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
+import { COMPUTER_GAP_BANK_ONLY_ACTIVATION_AUTHORITY_V1 } from "./computer-gap-bank-only-acceptance-authority-v1";
 
 export const COM001_QUESTION_STUDIO_PACKAGE_ID = "COM-001" as const;
 export const COM001_QUESTION_STUDIO_RUNTIME_MODE = "review-only" as const;
@@ -407,6 +408,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
       questions.push({
         ...question,
         ...lifecycle,
+        questionBankAcceptanceAuthority: isHardwareRequest ? COMPUTER_GAP_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId : lifecycle.questionBankAcceptanceAuthority,
         packageId: COM001_QUESTION_STUDIO_PACKAGE_ID,
         patternId: question.qlId,
         text: question.stem,
@@ -417,6 +419,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
         revisionPolicy: COM001_REVISION_POLICY,
         questionStudioReview: {
           ...lifecycle,
+          questionBankAcceptanceAuthority: isHardwareRequest ? COMPUTER_GAP_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId : lifecycle.questionBankAcceptanceAuthority,
           registrationStatus: "STANDARD_QUESTION_STUDIO_REGISTERED",
           runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
           contentAuthorityVersion: isCompletionRequest ? COM001_COMPLETION_CONTENT_AUTHORITY_VERSION : isCp006Request ? COM001_CP006_CONTENT_AUTHORITY_VERSION : isHardwareRequest ? COM001_HARDWARE_GAP_CONTENT_AUTHORITY_VERSION : COM001_REVIEW_CONTENT_AUTHORITY_VERSION,
@@ -451,6 +454,7 @@ export const knowledgeV1Com001QuestionStudioAdapter: QuestionStudioEngineAdapter
       questions,
       generationContext: {
         ...lifecycle,
+        questionBankAcceptanceAuthority: isHardwareRequest ? COMPUTER_GAP_BANK_ONLY_ACTIVATION_AUTHORITY_V1.authorityId : lifecycle.questionBankAcceptanceAuthority,
         engineId: "knowledge-v1",
         packageId: COM001_QUESTION_STUDIO_PACKAGE_ID,
         runtimeMode: COM001_QUESTION_STUDIO_RUNTIME_MODE,
