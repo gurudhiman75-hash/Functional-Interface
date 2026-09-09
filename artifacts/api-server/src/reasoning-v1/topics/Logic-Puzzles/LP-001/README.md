@@ -10,6 +10,8 @@ LP-007 adds the source-backed variable/preference family: five named people are 
 
 LP-008 adds the source-backed month-and-date scheduling family: eight named people are assigned the eight dates formed by four months and two dates in each month. Its children ask date-to-person, person-to-date, pair-match and three-person-match projections. Clues use direct date/month entries, same-month and same-date links, before/between relations and month exclusions. Easy uses direct completion, Medium mixes direct and narrowing clues, and Hard keeps only a small number of direct anchors while layering calendar relations and exclusions. Every child repeats the full calendar and all clues; explanations fill the date-and-month table progressively.
 
+LP-009 adds the two remaining source-backed Type 3 scheduling forms: six named entities assigned to six ordered months, and six named persons assigned to six ordered birth years. Month profiles cover birth, interview, course-start and review-meeting schedules; year profiles use same-date/month birth records with oldest-to-youngest interpretation and no age arithmetic. Children ask value-to-person, person-to-value, correctly matched pairs and an ordered-position lookup. Easy uses five direct entries, Medium mixes a direct anchor with before/between/adjacency and exclusion clues, and Hard limits direct anchors while layering order, adjacency, exclusion and second-oldest deductions. Every child repeats all people, all months or years and every clue; explanations build the single-axis table step by step.
+
 Permanent QLs are intentionally unallocated. The current review authorities are provisional:
 
 | Candidate | Task |
@@ -41,6 +43,7 @@ Question Studio uses the existing shared generation engine. The package is visib
 | LP-CP-006 | Four-person, three-attribute advanced synthesis | Review-only; source audit and editorial approval open |
 | LP-CP-007 | Five-person variable and preference assignment | Review-only; source audit and editorial approval open |
 | LP-CP-008 | Eight-person month and date scheduling | Review-only; source audit and editorial approval open |
+| LP-CP-009 | Month-based and year-based scheduling | Review-only; source audit and editorial approval open |
 
 LP-002's source and ownership record is in `LP-002-SOURCE-SATURATION-AUDIT.md`. It keeps LP-QL-005 through LP-QL-008 provisional until source evidence and human review are complete.
 LP-003's source and ownership record is in `LP-003-SOURCE-SATURATION-AUDIT.md`. It keeps LP-QL-009 through LP-QL-012 provisional until source evidence and human review are complete.
@@ -49,3 +52,4 @@ LP-005's source and ownership record is in `LP-005-SOURCE-SATURATION-AUDIT.md`. 
 LP-006's source and ownership record is in `LP-006-SOURCE-SATURATION-AUDIT.md`. It keeps LP-QL-021 through LP-QL-024 provisional until source evidence and human review are complete.
 LP-007's source and ownership record is in `LP-007-SOURCE-SATURATION-AUDIT.md`. It keeps LP-QL-025 through LP-QL-028 provisional until source evidence and human review are complete.
 LP-008's source and ownership record is in `LP-008-SOURCE-SATURATION-AUDIT.md`. It keeps LP-QL-029 through LP-QL-032 provisional until source evidence and human review are complete.
+LP-009's source and ownership record is in `LP-009-SOURCE-SATURATION-AUDIT.md`. It keeps LP-QL-033 through LP-QL-036 provisional until source evidence and human review are complete.
