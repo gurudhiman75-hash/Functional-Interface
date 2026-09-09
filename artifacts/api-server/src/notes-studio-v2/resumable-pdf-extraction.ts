@@ -18,7 +18,7 @@ const WORKER_HEAP_MB = Math.max(64, Number(process.env.NOTES_STUDIO_V2_PDF_WORKE
 const WORKER_OUTPUT_LIMIT = 32 * 1024 * 1024;
 const STRUCTURED_RETRY_MIN_PAGES = Math.max(
   1,
-  Math.min(6, Number(process.env.NOTES_STUDIO_V2_STRUCTURED_RETRY_MIN_PAGES) || 3),
+  Math.min(6, Number(process.env.NOTES_STUDIO_V2_STRUCTURED_RETRY_MIN_PAGES) || 1),
 );
 const workerScript = path.resolve(process.cwd(), 'artifacts/api-server/notes-studio-v2-pdf-worker.mjs');
 
@@ -163,6 +163,14 @@ export function splitRangeForStructuredRetry(
   ];
 }
 
+export function shouldAcceptEmptyFactsAtTerminalRange(
+  startPage: number,
+  endPage: number,
+  minPages = STRUCTURED_RETRY_MIN_PAGES,
+) {
+  return minPages === 1 && startPage === endPage;
+}
+
 function summarizeJsonShape(value: unknown, depth = 0): unknown {
   if (depth >= 2) {
     if (Array.isArray(value)) return { type: 'array', length: value.length };
@@ -267,10 +275,16 @@ async function extractPdfSegmentOnce(input: {
   }
 
   let validated: ExtractedFactCandidate[];
+  let terminalEmptyWarning: string | null = null;
   try {
     validated = validateExtractedFacts(ai.json, input.taxonomy);
     if (validated.length === 0) {
-      throw new Error('Extraction returned an empty facts array for readable source pages.');
+      if (shouldAcceptEmptyFactsAtTerminalRange(input.startPage, input.endPage)) {
+        terminalEmptyWarning = `Readable page ${input.startPage} returned a schema-valid empty facts array at the single-page retry floor; recorded as no extractable facts.`;
+        console.warn(`[notes-studio-v2:resumable] ${terminalEmptyWarning}`);
+      } else {
+        throw new Error('Extraction returned an empty facts array for readable source pages.');
+      }
     }
   } catch (error) {
     console.error(
@@ -309,7 +323,11 @@ async function extractPdfSegmentOnce(input: {
       ocrPages: selected.ocrPages ?? [],
       charCount: selected.charCount,
       wordCount: selected.wordCount,
-      warnings: [...(selected.warnings ?? []), ...(ai.warnings ?? [])],
+      warnings: [
+        ...(selected.warnings ?? []),
+        ...(ai.warnings ?? []),
+        ...(terminalEmptyWarning ? [terminalEmptyWarning] : []),
+      ],
     },
   };
 }
