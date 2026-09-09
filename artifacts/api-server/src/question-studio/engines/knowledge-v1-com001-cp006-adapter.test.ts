@@ -12,11 +12,17 @@ import {
   knowledgeV1Com001QuestionStudioAdapter,
 } from "./knowledge-v1-com001-adapter";
 import { knowledgeV1QuestionStudioAdapter } from "./knowledge-v1-adapter";
+import {
+  COM001_HARDWARE_GAP_EXTENSION_AUTHORITY_V1,
+  auditCom001HardwareGapExtensionV1,
+} from "../../knowledge-v1/computer-awareness/com001-hardware-gap-extension-v1";
 
 const pkg = COM001_STANDARD_QUESTION_STUDIO_PACKAGE;
 const cp006QlIds = [...COM001_CP006_ENGLISH_FREEZE_AUTHORITY_V1.permanentQlIds];
+const hardwareQlIds = [...COM001_HARDWARE_GAP_EXTENSION_AUTHORITY_V1.permanentQlIds];
 
 assert.equal(auditCom001Cp006FreezeV1().valid, true);
+assert.equal(auditCom001HardwareGapExtensionV1().valid, true);
 assert.deepEqual(pkg.cpIds, [
   "COM-001-CP-001",
   "COM-001-CP-002",
@@ -24,10 +30,13 @@ assert.deepEqual(pkg.cpIds, [
   "COM-001-CP-004",
   "COM-001-CP-005",
   "COM-001-CP-006",
+  "COM-001-CP-007",
 ]);
 assert.equal(pkg.metadata?.cp006QuestionCountPerLanguage, 28);
 assert.equal(pkg.metadata?.cp006EnglishFreezeAuthorityId, COM001_CP006_ENGLISH_FREEZE_AUTHORITY_V1.authorityId);
 assert.equal(pkg.metadata?.cp006LocalizationFreezeAuthorityId, COM001_CP006_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId);
+assert.equal(pkg.metadata?.hardwareGapQuestionCountPerLanguage, 20);
+assert.equal(pkg.metadata?.hardwareGapAuthorityId, COM001_HARDWARE_GAP_EXTENSION_AUTHORITY_V1.authorityId);
 assert.equal(pkg.testEligible, false);
 assert.equal(pkg.mockTestEligible, false);
 assert.equal(pkg.publiclyPublishable, false);
@@ -102,7 +111,7 @@ for (const qlId of cp006QlIds) {
 
   await assert.rejects(
     () => knowledgeV1Com001QuestionStudioAdapter.generate({ ...request, language: "en", difficulty: "Hard", count: 1 }),
-    /does not produce Hard questions/,
+    /must be Easy, Medium, or Mixed/,
   );
   await assert.rejects(
     () => knowledgeV1Com001QuestionStudioAdapter.generate({ ...request, language: "en", count: 5 }),
@@ -110,6 +119,34 @@ for (const qlId of cp006QlIds) {
   );
 }
 
+for (const qlId of hardwareQlIds) {
+  const request = {
+    engineId: "knowledge-v1" as const,
+    packageId: COM001_QUESTION_STUDIO_PACKAGE_ID,
+    patternId: qlId,
+    runtimeMode: "review-only",
+    count: 4,
+    difficulty: "Mixed" as const,
+    seed: `com001-hardware-${qlId}`,
+  };
+  const english = await knowledgeV1Com001QuestionStudioAdapter.generate({ ...request, language: "en" });
+  const hindi = await knowledgeV1Com001QuestionStudioAdapter.generate({ ...request, language: "hi" });
+  const punjabi = await knowledgeV1Com001QuestionStudioAdapter.generate({ ...request, language: "pa" });
+  assert.deepEqual(english.questions.map((question: any) => question.sourceQuestionId).sort(), hindi.questions.map((question: any) => question.sourceQuestionId).sort());
+  assert.deepEqual(english.questions.map((question: any) => question.sourceQuestionId).sort(), punjabi.questions.map((question: any) => question.sourceQuestionId).sort());
+  for (const question of [...english.questions, ...hindi.questions, ...punjabi.questions] as any[]) {
+    assert.equal(question.cpId, "COM-001-CP-007");
+    assert.equal(question.questionStudioReview.contentAuthorityVersion, "COM-001-HARDWARE-GAP-EXTENSION-V1");
+    assert.equal(question.options.length, 4);
+    assert.equal(question.options[question.correctIndex], question.canonicalAnswer);
+    assert.equal(question.questionBankAcceptanceMode, "BANK_ONLY");
+    assert.equal(question.testEligible, false);
+    assert.equal(question.mockTestEligible, false);
+    assert.equal(question.publiclyPublishable, false);
+    assert.equal(question.productionReleaseAuthorized, false);
+    assert.ok(!/\bassociat\w*\b/i.test(`${question.stem} ${question.explanation}`));
+  }
+}
 const chapterBatch = await knowledgeV1Com001QuestionStudioAdapter.generate({
   packageId: "COM-001",
   patternId: "COM-001-CP-006",
@@ -127,6 +164,7 @@ assert.deepEqual(chapterBatch.generationContext?.cpIds, [
   "COM-001-CP-004",
   "COM-001-CP-005",
   "COM-001-CP-006",
+  "COM-001-CP-007",
 ]);
 
 const routed = await knowledgeV1QuestionStudioAdapter.generate({

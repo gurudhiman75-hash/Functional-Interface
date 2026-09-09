@@ -3,6 +3,13 @@ import {
   COM007_LOCALIZATION_FREEZE_AUTHORITY_V1, COM007_PUNJABI_FROZEN, auditCom007FreezeV1,
   type Com007FrozenQuestion,
 } from "../../knowledge-v1/computer-awareness/com007-software-languages-database-freeze-v1";
+import {
+  COM007_GAP_EXTENSION_AUTHORITY_V1,
+  COM007_GAP_EXTENSION_ENGLISH,
+  COM007_GAP_EXTENSION_HINDI,
+  COM007_GAP_EXTENSION_PUNJABI,
+  auditCom007GapExtensionV1,
+} from "../../knowledge-v1/computer-awareness/com007-software-languages-database-gap-extension-v1";
 import type { QuestionStudioEngineAdapter, QuestionStudioGenerationRequest, QuestionStudioGenerationResult, QuestionStudioLanguage, QuestionStudioPackageDefinition } from "../engine-types";
 import { QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1 } from "../standard-lifecycle";
 
@@ -10,19 +17,22 @@ export const COM007_QUESTION_STUDIO_PACKAGE_ID_V1="COM-007" as const;
 export const COM007_QUESTION_STUDIO_RUNTIME_MODE_V1="review-only" as const;
 export const COM007_REVISION_POLICY_V1="SOURCE_GENERATOR_ONLY" as const;
 export const COM007_CONTENT_AUTHORITY_VERSION_V1="COM-007-ENGLISH-FREEZE-V1_HI-PA-LOCALIZATION-FREEZE-V1" as const;
+export const COM007_GAP_CONTENT_AUTHORITY_VERSION_V1="COM-007-GAP-EXTENSION-V1" as const;
 const lifecycle=QUESTION_STUDIO_STANDARD_BANK_ONLY_LIFECYCLE_V1;
 const supportedLanguages:QuestionStudioLanguage[]=["en","hi","pa"];
 const supportedDifficulties=["Easy","Medium"] as const;
-const qlIds=COM007_ENGLISH_FREEZE_AUTHORITY_V1.permanentQlIds as readonly string[];
-const cpIds=["COM-007-CP-001"] as const;
+const qlIds=[...COM007_ENGLISH_FREEZE_AUTHORITY_V1.permanentQlIds,...COM007_GAP_EXTENSION_AUTHORITY_V1.permanentQlIds] as readonly string[];
+const cpIds=["COM-007-CP-001","COM-007-CP-002"] as const;
 const freezeAudit=auditCom007FreezeV1();
 if(!freezeAudit.valid) throw new Error("COM-007 freeze invalid: "+freezeAudit.issues.join(", "));
+const gapAudit=auditCom007GapExtensionV1();
+if(!gapAudit.valid) throw new Error("COM-007 gap extension invalid: "+gapAudit.issues.join(", "));
 
 type Com007CorpusRecord=Com007FrozenQuestion & {cpId:(typeof cpIds)[number]};
 function corpusFor(language:QuestionStudioLanguage):readonly Com007FrozenQuestion[] {
-  if(language==="en") return COM007_ENGLISH_FROZEN;
-  if(language==="hi") return COM007_HINDI_FROZEN;
-  return COM007_PUNJABI_FROZEN;
+  if(language==="en") return [...COM007_ENGLISH_FROZEN,...COM007_GAP_EXTENSION_ENGLISH];
+  if(language==="hi") return [...COM007_HINDI_FROZEN,...COM007_GAP_EXTENSION_HINDI];
+  return [...COM007_PUNJABI_FROZEN,...COM007_GAP_EXTENSION_PUNJABI];
 }
 function normalizeLanguage(language:QuestionStudioGenerationRequest["language"]):QuestionStudioLanguage {
   if(!language) return "en";
@@ -58,7 +68,10 @@ function shuffled<T>(items:readonly T[],seed:string):T[] {
   for(let i=result.length-1;i>0;i--){state=(Math.imul(state,1664525)+1013904223)>>>0;const j=state%(i+1);[result[i],result[j]]=[result[j]!,result[i]!];}
   return result;
 }
-function toRecord(question:Com007FrozenQuestion):Com007CorpusRecord {return {...question,cpId:cpIds[0]};}
+function toRecord(question:Com007FrozenQuestion):Com007CorpusRecord {
+  return {...question,cpId:question.sourceQuestionId.startsWith("COM007-EXT-")?cpIds[1]:cpIds[0]};
+}
+function isGapRecord(record:Com007CorpusRecord) { return record.cpId===cpIds[1]; }
 function recordForOutput(record:Com007CorpusRecord) {
   return {
     ...lifecycle, questionBankAcceptanceAuthority:lifecycle.questionBankAcceptanceAuthority,
@@ -70,20 +83,20 @@ function recordForOutput(record:Com007CorpusRecord) {
     explanation:record.explanation, sourceFactIds:[...record.sourceFactIds], sourceEnglishFrozen:record.sourceEnglishFrozen,
     sourceEnglishAuthorityId:record.sourceEnglishAuthorityId, sourceLocalizationFrozen:record.sourceLocalizationFrozen,
     difficulty:record.difficulty==="EASY"?"Easy":"Medium", difficultyLabel:record.difficulty==="EASY"?"Easy":"Medium",
-    registrationStatus:"REGISTERED_BANK_ONLY_INTERNAL", registrationAuthorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
+    registrationStatus:"REGISTERED_BANK_ONLY_INTERNAL", registrationAuthorityId:isGapRecord(record)?COM007_GAP_EXTENSION_AUTHORITY_V1.authorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
     questionStudioDiscoverable:true, questionStudioGenerationEnabled:true, readOnly:true, revisionPolicy:COM007_REVISION_POLICY_V1,
     productionReleased:false,
-    questionStudioReview:{...lifecycle,registrationStatus:"REGISTERED_BANK_ONLY_INTERNAL",registrationAuthorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
-      runtimeMode:COM007_QUESTION_STUDIO_RUNTIME_MODE_V1,contentAuthorityVersion:COM007_CONTENT_AUTHORITY_VERSION_V1,humanReviewApproved:true,
+    questionStudioReview:{...lifecycle,registrationStatus:"REGISTERED_BANK_ONLY_INTERNAL",registrationAuthorityId:isGapRecord(record)?COM007_GAP_EXTENSION_AUTHORITY_V1.authorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
+      runtimeMode:COM007_QUESTION_STUDIO_RUNTIME_MODE_V1,contentAuthorityVersion:isGapRecord(record)?COM007_GAP_CONTENT_AUTHORITY_VERSION_V1:COM007_CONTENT_AUTHORITY_VERSION_V1,humanReviewApproved:true,
       frozenCorpusOnly:true,immutableCorpus:true,deterministicSelection:true,selectionWithoutReplacement:true,
-      sourceEnglishAuthorityId:COM007_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,localizationFreezeAuthorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
+      sourceEnglishAuthorityId:isGapRecord(record)?COM007_GAP_EXTENSION_AUTHORITY_V1.authorityId:COM007_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,localizationFreezeAuthorityId:isGapRecord(record)?COM007_GAP_EXTENSION_AUTHORITY_V1.authorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
       revisionPolicy:COM007_REVISION_POLICY_V1,hardDifficultyAuthorized:false,productionDifficultyClaimAuthorized:false},
   };
 }
 export const COM007_STANDARD_BANK_ONLY_PACKAGE_V1:QuestionStudioPackageDefinition={
   engineId:"knowledge-v1",packageId:COM007_QUESTION_STUDIO_PACKAGE_ID_V1,subject:"Computer Awareness",topic:"Computer Awareness",
   subtopic:"Software, Programming Languages and Database Basics",
-  label:"Computer Awareness · Software, Programming Languages and Database Basics · English Freeze V1 / Hi-Pa Localization Freeze V1",
+  label:"Computer Awareness · Software, Programming Languages and Database Basics · Freeze V1 + Gap Extension V1",
   enabled:true,cpIds:[...cpIds],supportedLanguages,supportedDifficulties:[...supportedDifficulties],difficultyFilterSupported:true,
   runtimeMode:COM007_QUESTION_STUDIO_RUNTIME_MODE_V1,supportedRuntimeModes:[COM007_QUESTION_STUDIO_RUNTIME_MODE_V1],
   lifecycleId:lifecycle.lifecycleId,lifecycleStage:lifecycle.stage,reviewSurfaceRequired:lifecycle.reviewSurfaceRequired,
@@ -95,9 +108,10 @@ export const COM007_STANDARD_BANK_ONLY_PACKAGE_V1:QuestionStudioPackageDefinitio
   metadata:{...lifecycle,reviewOnly:false,humanReviewApproved:true,frozenCorpusOnly:true,immutableCorpus:true,deterministicSelection:true,
     selectionWithoutReplacement:true,registrationAuthorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
     contentAuthorityVersion:COM007_CONTENT_AUTHORITY_VERSION_V1,permanentQlIds:[...qlIds],qlCount:qlIds.length,cpIds:[...cpIds],cpCount:cpIds.length,
-    englishQuestionCount:COM007_ENGLISH_FROZEN.length,hindiQuestionCount:COM007_HINDI_FROZEN.length,punjabiQuestionCount:COM007_PUNJABI_FROZEN.length,
+    englishQuestionCount:COM007_ENGLISH_FROZEN.length+COM007_GAP_EXTENSION_ENGLISH.length,hindiQuestionCount:COM007_HINDI_FROZEN.length+COM007_GAP_EXTENSION_HINDI.length,punjabiQuestionCount:COM007_PUNJABI_FROZEN.length+COM007_GAP_EXTENSION_PUNJABI.length,
     englishFreezeAuthorityId:COM007_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,localizationFreezeAuthorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
-    localizationCombinedFingerprint:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.combinedFingerprint,revisionPolicy:COM007_REVISION_POLICY_V1,
+    localizationCombinedFingerprint:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.combinedFingerprint,gapExtensionAuthorityId:COM007_GAP_EXTENSION_AUTHORITY_V1.authorityId,
+    gapExtensionQuestionCountPerLanguage:COM007_GAP_EXTENSION_ENGLISH.length,revisionPolicy:COM007_REVISION_POLICY_V1,
     difficultyFilterSupported:true,supportedDifficulties:[...supportedDifficulties],hardDifficultyAuthorized:false,productionDifficultyClaimsAuthorized:false},
 };
 export function isCom007QuestionStudioRequestV1(request:QuestionStudioGenerationRequest) {
@@ -121,12 +135,13 @@ export const knowledgeV1Com007QuestionStudioAdapterV1:QuestionStudioEngineAdapte
     if(count>candidates.length) throw new Error("COM-007 cannot fill "+count+" questions from a "+candidates.length+"-question frozen pool without repeats");
     const selected=shuffled(candidates,seed+":COM-007:"+(qlId??"ALL")+":"+requestedDifficulty).slice(0,count);
     return {questions:selected.map(recordForOutput),generationContext:{...lifecycle,engineId:"knowledge-v1",packageId:COM007_QUESTION_STUDIO_PACKAGE_ID_V1,
-      runtimeMode:COM007_QUESTION_STUDIO_RUNTIME_MODE_V1,registrationStatus:"REGISTERED_BANK_ONLY_INTERNAL",registrationAuthorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
+      runtimeMode:COM007_QUESTION_STUDIO_RUNTIME_MODE_V1,registrationStatus:"REGISTERED_BANK_ONLY_INTERNAL",registrationAuthorityId:qlId&&COM007_GAP_EXTENSION_AUTHORITY_V1.permanentQlIds.includes(qlId)?COM007_GAP_EXTENSION_AUTHORITY_V1.authorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,
       reviewOnly:false,humanReviewApproved:true,frozenCorpusOnly:true,immutableCorpus:true,deterministicSelection:true,selectionWithoutReplacement:true,
-      contentAuthorityVersion:COM007_CONTENT_AUTHORITY_VERSION_V1,revisionPolicy:COM007_REVISION_POLICY_V1,language,locale:`${language}-IN`,
+      contentAuthorityVersion:qlId&&COM007_GAP_EXTENSION_AUTHORITY_V1.permanentQlIds.includes(qlId)?COM007_GAP_CONTENT_AUTHORITY_VERSION_V1:COM007_CONTENT_AUTHORITY_VERSION_V1,revisionPolicy:COM007_REVISION_POLICY_V1,language,locale:`${language}-IN`,
       requestedDifficulty,difficultyFilterApplied:requestedDifficulty!=="Mixed",productionDifficultyClaimAuthorized:false,hardDifficultyAuthorized:false,
       qlSelection:qlId??"DETERMINISTIC_ACROSS_PERMANENT_QLS",permanentQlIds:[...qlIds],cpIds:[...cpIds],candidatePoolSize:candidates.length,
       selectionMode:"FROZEN_COM007_DETERMINISTIC_WITHOUT_REPLACEMENT",seed,count,englishFreezeAuthorityId:COM007_ENGLISH_FREEZE_AUTHORITY_V1.authorityId,
+      gapExtensionAuthorityId:COM007_GAP_EXTENSION_AUTHORITY_V1.authorityId,
       localizationFreezeAuthorityId:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.authorityId,localizationCombinedFingerprint:COM007_LOCALIZATION_FREEZE_AUTHORITY_V1.combinedFingerprint}};
   },
 };
