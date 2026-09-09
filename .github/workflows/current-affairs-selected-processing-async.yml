@@ -82,6 +82,8 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-pack-editorial-workspace.test.ts
       - name: Verify CP073 selected binding integrity contract
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-binding-integrity.test.ts
+      - name: Verify CP074 learner editorial quality contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-learner-editorial-quality.test.ts
       - name: Build API server
         run: pnpm --filter @workspace/api-server build
       - name: Typecheck admin frontend
