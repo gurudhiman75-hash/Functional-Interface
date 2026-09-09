@@ -19,6 +19,12 @@ function sourceFactFor(question: GeoRiv001Cp002ReviewQuestion) {
     .find((fact): fact is KnowledgeFact => Boolean(fact && SOURCE_RELATIONS.has(fact.relation)));
 }
 
+function factForRelation(question: GeoRiv001Cp002ReviewQuestion, relation: string) {
+  return question.sourceFactIds
+    .map((id) => FACTS.find((fact) => fact.factId === id))
+    .find((fact): fact is KnowledgeFact => Boolean(fact && fact.relation === relation));
+}
+
 function sourceFactForPair(question: GeoRiv001Cp002ReviewQuestion) {
   const river = question.canonicalAnswer.split(" — ")[0]?.trim();
   if (!river) return undefined;
@@ -103,6 +109,13 @@ function revise(question: GeoRiv001Cp002ReviewQuestion): GeoRiv001Cp002ReviewQue
     }
   }
 
+  if (question.qlId === "GEO-RIV-001-QL-012") {
+    const mainTributary = factForRelation(question, "main_tributary_of");
+    if (mainTributary) {
+      explanation = `${mainTributary.entity.label.en} is one of the five main tributaries of the Indus River.`;
+    }
+  }
+
   if (question.qlId === "GEO-RIV-001-QL-014" || question.qlId === "GEO-RIV-001-QL-015") {
     const fact = sourceFactForPair(question);
     if (fact) {
@@ -117,6 +130,7 @@ function revise(question: GeoRiv001Cp002ReviewQuestion): GeoRiv001Cp002ReviewQue
       stem = "The Jhelum joins which river at Trimmu, and the Satluj later joins the same river at Panjnad?";
     }
     if (question.canonicalAnswer === "Beas → Satluj → Chenab") {
+      stem = "Which sequence correctly shows the order in which these rivers join?";
       explanation = "The Beas joins the Satluj, and the Satluj later joins the Chenab. Hence, Beas → Satluj → Chenab is the correct sequence.";
     }
   }
