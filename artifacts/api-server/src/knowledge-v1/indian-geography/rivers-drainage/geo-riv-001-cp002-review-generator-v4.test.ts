@@ -17,6 +17,8 @@ for (const qlId of QLS) {
     assert.doesNotMatch(visibleText, /has its source at or near/i);
     assert.doesNotMatch(visibleText, /originates at or near/i);
     assert.doesNotMatch(visibleText, /near\s+near/i);
+    assert.doesNotMatch(visibleText, /listed among/i);
+    assert.doesNotMatch(visibleText, /joining relation/i);
   }
 }
 
@@ -30,14 +32,25 @@ const ql011 = Array.from({ length: 100 }, (_, index) =>
 );
 assert.equal(ql011.every((q) => /^Which river originates /i.test(q.stem)), true);
 
-const chenabChain = Array.from({ length: 300 }, (_, index) =>
+const ql012 = Array.from({ length: 160 }, (_, index) =>
+  generateGeoRiv001Cp002ReviewV4("GEO-RIV-001-QL-012", `cp002-v4-tributary-${index}`),
+);
+for (const question of ql012.filter((q) => q.stem.includes("five main tributaries"))) {
+  assert.match(question.explanation, /is one of the five main tributaries of the Indus River\./);
+}
+
+const chainQuestions = Array.from({ length: 300 }, (_, index) =>
   generateGeoRiv001Cp002ReviewV4("GEO-RIV-001-QL-016", `cp002-v4-chain-${index}`),
-).find((q) => q.canonicalAnswer === "Chenab");
+);
+const chenabChain = chainQuestions.find((q) => q.canonicalAnswer === "Chenab");
 assert.ok(chenabChain);
 assert.equal(
   chenabChain.stem,
   "The Jhelum joins which river at Trimmu, and the Satluj later joins the same river at Panjnad?",
 );
+const sequence = chainQuestions.find((q) => q.canonicalAnswer === "Beas → Satluj → Chenab");
+assert.ok(sequence);
+assert.equal(sequence.stem, "Which sequence correctly shows the order in which these rivers join?");
 
 for (let index = 0; index < 120; index += 1) {
   const q17 = generateGeoRiv001Cp002ReviewV4("GEO-RIV-001-QL-017", `cp002-v4-q17-${index}`);
