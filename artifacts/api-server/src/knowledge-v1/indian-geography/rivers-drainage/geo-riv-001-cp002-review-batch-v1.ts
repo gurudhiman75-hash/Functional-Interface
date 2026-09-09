@@ -1,7 +1,3 @@
-import {
-  attachGeoRiv001Cp002ExplanationMapV1,
-  auditGeoRiv001Cp002ExplanationMapV1,
-} from "./geo-riv-001-cp002-explanation-maps-v1";
 import { generateGeoRiv001Cp002ReviewV3 } from "./geo-riv-001-cp002-review-generator-v3";
 import type { GeoRiv001Cp002ReviewQuestion } from "./geo-riv-001-cp002-review-types";
 
@@ -70,7 +66,9 @@ function select(qlId: string, count: number, required: readonly Predicate[] = []
     if (canUse(candidate)) add(candidate);
   }
 
-  if (selected.length !== count) throw new Error(`CP002 selected ${selected.length}/${count} questions for ${qlId}`);
+  if (selected.length !== count) {
+    throw new Error(`CP002 selected ${selected.length}/${count} questions for ${qlId}`);
+  }
   return selected;
 }
 
@@ -103,9 +101,9 @@ const REQUIRED: Record<string, Predicate[]> = {
 };
 
 export const GEO_RIV_001_CP002_REVIEW_BATCH_V1: GeoRiv001Cp002ReviewQuestion[] =
-  Object.entries(REVIEW_COUNTS)
-    .flatMap(([qlId, count]) => select(qlId, count, REQUIRED[qlId] ?? []))
-    .map(attachGeoRiv001Cp002ExplanationMapV1);
+  Object.entries(REVIEW_COUNTS).flatMap(([qlId, count]) =>
+    select(qlId, count, REQUIRED[qlId] ?? []),
+  );
 
 export function auditGeoRiv001Cp002ReviewBatchV1() {
   const issues: string[] = [];
@@ -113,9 +111,6 @@ export function auditGeoRiv001Cp002ReviewBatchV1() {
   const qlCounts = new Map<string, number>();
   const difficultyCounts = new Map<string, number>();
   const answerPositions = new Map<number, number>();
-  const mapKinds = new Map<string, number>();
-  let mappedQuestionCount = 0;
-  let internalSchematicCandidateCount = 0;
 
   for (const question of GEO_RIV_001_CP002_REVIEW_BATCH_V1) {
     const key = semanticKey(question);
@@ -127,34 +122,28 @@ export function auditGeoRiv001Cp002ReviewBatchV1() {
 
     if (question.options.length !== 4) issues.push(`OPTION_COUNT:${question.questionId}`);
     if (new Set(question.options).size !== 4) issues.push(`DUPLICATE_OPTION:${question.questionId}`);
-    if (question.options[question.correctIndex] !== question.canonicalAnswer) issues.push(`ANSWER_MISMATCH:${question.questionId}`);
-    if (!question.sourceIds.length || !question.sourceFactIds.length) issues.push(`MISSING_PROVENANCE:${question.questionId}`);
+    if (question.options[question.correctIndex] !== question.canonicalAnswer) {
+      issues.push(`ANSWER_MISMATCH:${question.questionId}`);
+    }
+    if (!question.sourceIds.length || !question.sourceFactIds.length) {
+      issues.push(`MISSING_PROVENANCE:${question.questionId}`);
+    }
     if (question.explanation.length < 30) issues.push(`SHORT_EXPLANATION:${question.questionId}`);
     if (/matches the reviewed relation|approximately right angles|characteristic of this setting|exam trap|shortcut/i.test(`${question.stem}\n${question.explanation}`)) {
       issues.push(`EDITORIAL_LANGUAGE:${question.questionId}`);
     }
-
-    const mapAudit = auditGeoRiv001Cp002ExplanationMapV1(question);
-    if (!mapAudit.valid) issues.push(...mapAudit.issues.map((issue) => `MAP:${question.questionId}:${issue}`));
-    if (mapAudit.internalSchematic) internalSchematicCandidateCount += 1;
-    if (mapAudit.mapped !== Boolean(question.explanationMap)) issues.push(`MAP_ATTACHMENT_MISMATCH:${question.questionId}`);
-
-    if (question.explanationMap) {
-      mappedQuestionCount += 1;
-      const kind = question.explanationMap.spec.kind;
-      mapKinds.set(kind, (mapKinds.get(kind) ?? 0) + 1);
-      if (!question.explanationMap.learnerMapEligible) issues.push(`NON_ATLAS_LEARNER_MAP:${question.questionId}`);
-      if (question.explanationMap.spec.geometryMode !== "ATLAS") issues.push(`NON_ATLAS_GEOMETRY:${question.questionId}`);
-      if (question.explanationMap.spec.notToScale !== false) issues.push(`LEARNER_MAP_NOT_TO_SCALE:${question.questionId}`);
-      if (!question.explanationMap.altText.trim()) issues.push(`MAP_ALT_TEXT:${question.questionId}`);
-    }
   }
 
   const expectedTotal = Object.values(REVIEW_COUNTS).reduce((sum, value) => sum + value, 0);
-  if (GEO_RIV_001_CP002_REVIEW_BATCH_V1.length !== expectedTotal) issues.push(`TOTAL_COUNT:${GEO_RIV_001_CP002_REVIEW_BATCH_V1.length}:${expectedTotal}`);
-  for (const [qlId, expected] of Object.entries(REVIEW_COUNTS)) {
-    if ((qlCounts.get(qlId) ?? 0) !== expected) issues.push(`QL_COUNT:${qlId}:${qlCounts.get(qlId) ?? 0}:${expected}`);
+  if (GEO_RIV_001_CP002_REVIEW_BATCH_V1.length !== expectedTotal) {
+    issues.push(`TOTAL_COUNT:${GEO_RIV_001_CP002_REVIEW_BATCH_V1.length}:${expectedTotal}`);
   }
+  for (const [qlId, expected] of Object.entries(REVIEW_COUNTS)) {
+    if ((qlCounts.get(qlId) ?? 0) !== expected) {
+      issues.push(`QL_COUNT:${qlId}:${qlCounts.get(qlId) ?? 0}:${expected}`);
+    }
+  }
+
   for (const index of [0, 1, 2, 3]) {
     if ((answerPositions.get(index) ?? 0) < 5) issues.push(`WEAK_ANSWER_POSITION:${index}`);
   }
@@ -171,14 +160,14 @@ export function auditGeoRiv001Cp002ReviewBatchV1() {
     "GEO-RIV-001-QL-018": ["None", "One", "Two", "Three"],
   })) {
     const answers = new Set(
-      GEO_RIV_001_CP002_REVIEW_BATCH_V1.filter((question) => question.qlId === qlId).map((question) => question.canonicalAnswer),
+      GEO_RIV_001_CP002_REVIEW_BATCH_V1
+        .filter((question) => question.qlId === qlId)
+        .map((question) => question.canonicalAnswer),
     );
-    for (const answer of requiredAnswers) if (!answers.has(answer)) issues.push(`MISSING_ANSWER_PATTERN:${qlId}:${answer}`);
+    for (const answer of requiredAnswers) {
+      if (!answers.has(answer)) issues.push(`MISSING_ANSWER_PATTERN:${qlId}:${answer}`);
+    }
   }
-
-  // Until GEO-ATLAS-001 real GIS geometry is ingested, no schematic diagram may leak
-  // into the learner/review map payload. Real-map coverage will be gated separately.
-  if (mappedQuestionCount !== 0) issues.push(`PRE_ATLAS_LEARNER_MAP_LEAK:${mappedQuestionCount}`);
 
   return {
     valid: issues.length === 0,
@@ -187,9 +176,6 @@ export function auditGeoRiv001Cp002ReviewBatchV1() {
     qlCounts: Object.fromEntries(qlCounts),
     difficultyCounts: Object.fromEntries(difficultyCounts),
     answerPositions: Object.fromEntries(answerPositions),
-    mappedQuestionCount,
-    internalSchematicCandidateCount,
-    mapKinds: Object.fromEntries(mapKinds),
     issues,
   };
 }
