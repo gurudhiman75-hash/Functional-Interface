@@ -10,6 +10,9 @@ on:
       - "artifacts/api-server/src/knowledge-v1/eligibility.ts"
       - "artifacts/api-server/src/knowledge-v1/deterministic.ts"
       - "artifacts/api-server/src/knowledge-v1/question-validation.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.test.ts"
+      - "artifacts/api-server/src/question-studio/engines/knowledge-v1-adapter.ts"
   workflow_dispatch:
 
 concurrency:
@@ -49,6 +52,8 @@ jobs:
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-v2d.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-v2f.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-v2g.test.ts"
+            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-freeze-v1.test.ts"
+            "src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.test.ts"
           )
           for test_file in "${tests[@]}"; do
             output_name="$(basename "${test_file}" .ts).mjs"
