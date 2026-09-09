@@ -98,8 +98,8 @@ const REQUIRED: Record<string, Predicate[]> = {
   ],
   "GEO-RIV-001-QL-002": [
     (q) => q.canonicalAnswer === "the river system of an area",
-    (q) => q.canonicalAnswer === "the area drained by a river and its river system",
-    (q) => q.canonicalAnswer === "an elevated boundary that separates neighbouring drainage basins",
+    (q) => q.canonicalAnswer === "the area drained by a river and its tributaries",
+    (q) => q.canonicalAnswer === "a highland that separates two drainage basins",
   ],
   "GEO-RIV-001-QL-003": PATTERNS.map(
     (pattern) => (q: GeoRiv001Cp001ReviewQuestion) => q.canonicalAnswer === pattern,
@@ -168,6 +168,11 @@ export function auditGeoRiv001Cp001ReviewBatchV2G() {
     }
     if (/The following description refers to which drainage pattern/i.test(question.stem)) {
       issues.push(`MECHANICAL_PATTERN_STEM:${question.questionId}`);
+    }
+
+    const visibleText = [question.stem, ...question.options, question.explanation].join(" ");
+    if (/approximately right angles|characteristic of this setting|strongly rain-fed|river-association|land area contributing water/i.test(visibleText)) {
+      issues.push(`OVERLY_TEXTBOOK_LANGUAGE:${question.questionId}`);
     }
   }
 
