@@ -66,6 +66,16 @@ const EDITORIAL_PHRASE_REPLACEMENTS: readonly [string, string][] = [
   ["recording the morning survey", "conducting the morning survey"],
   ["attending the morning batch", "in the morning batch"],
   ["using the marked cycle lane", "riding in the marked cycle lane"],
+  ["under one project report", "in a single project report"],
+  ["a small crack", "signs of damage"],
+  ["The computers,", "The diagnostic programs,"],
+  ["along with the computers", "along with the diagnostic programs"],
+  ["together with the computers", "together with the diagnostic programs"],
+  ["as well as the computers", "as well as the diagnostic programs"],
+  ["Either the computers or", "Either the diagnostic programs or"],
+  ["Neither the computers nor", "Neither the diagnostic programs nor"],
+  ["or the computers", "or the diagnostic programs"],
+  ["nor the computers", "nor the diagnostic programs"],
 ] as const;
 
 function editorializeText(text: string): string {
