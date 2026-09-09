@@ -6,6 +6,7 @@ on:
       - audit/quant-v4-quality-remediation-p0
       - audit/quant-v4-semantic-explanation-quality-p1
       - audit/quant-v4-stem-naturalness-fatigue-p1
+      - audit/quant-v4-ql-overfragmentation-p1
     paths:
       - "artifacts/api-server/src/quant-v4/**"
   pull_request:
@@ -65,6 +66,21 @@ jobs:
         with:
           name: quant-v4-stem-naturalness-fatigue-p1-diagnostics
           path: tmp/quant-v4-stem-naturalness-fatigue-p1-diagnostics.json
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Quant V4 QL over-fragmentation P1
+        run: npx -y tsx artifacts/api-server/src/quant-v4/quality/quant-v4-ql-overfragmentation-p1.test.ts
+
+      - name: Quant V4 default QL runtime containment P1
+        run: npx -y tsx artifacts/api-server/src/quant-v4/quality/quant-v4-ql-default-runtime-containment-p1.test.ts
+
+      - name: Upload QL over-fragmentation diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quant-v4-ql-overfragmentation-p1-diagnostics
+          path: tmp/quant-v4-ql-overfragmentation-p1-diagnostics.json
           if-no-files-found: warn
           retention-days: 7
 
