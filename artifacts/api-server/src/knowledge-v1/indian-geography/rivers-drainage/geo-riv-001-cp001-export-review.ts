@@ -2,29 +2,29 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import {
-  GEO_RIV_001_CP001_REVIEW_BATCH_V2D,
-  auditGeoRiv001Cp001ReviewBatchV2D,
-} from "./geo-riv-001-cp001-review-batch-v2d";
+  GEO_RIV_001_CP001_REVIEW_BATCH_V2F,
+  auditGeoRiv001Cp001ReviewBatchV2F,
+} from "./geo-riv-001-cp001-review-batch-v2f";
 
-const audit = auditGeoRiv001Cp001ReviewBatchV2D();
+const audit = auditGeoRiv001Cp001ReviewBatchV2F();
 if (!audit.valid) {
-  throw new Error(`GEO-RIV-001 CP001 V2D review batch audit failed: ${audit.issues.join(", ")}`);
+  throw new Error(`GEO-RIV-001 CP001 V2F review batch audit failed: ${audit.issues.join(", ")}`);
 }
 
 const outDir = resolve(process.cwd(), "dist/geography-review/GEO-RIV-001-CP001");
 mkdirSync(outDir, { recursive: true });
 
-const jsonPath = resolve(outDir, "GEO-RIV-001-CP001-REVIEW-BATCH-V2D.json");
+const jsonPath = resolve(outDir, "GEO-RIV-001-CP001-REVIEW-BATCH-V2F.json");
 writeFileSync(
   jsonPath,
   JSON.stringify(
     {
       chapterId: "GEO-RIV-001",
       cpId: "GEO-RIV-001-CP001",
-      authority: "V2D",
+      authority: "V2F",
       status: "REVIEW_ONLY",
       audit,
-      questions: GEO_RIV_001_CP001_REVIEW_BATCH_V2D,
+      questions: GEO_RIV_001_CP001_REVIEW_BATCH_V2F,
     },
     null,
     2,
@@ -33,21 +33,21 @@ writeFileSync(
 );
 
 const lines: string[] = [
-  "# GEO-RIV-001-CP001 Review Batch V2D",
+  "# GEO-RIV-001-CP001 Review Batch V2F",
   "",
   "**Chapter:** Indian Rivers & Drainage System",
   "**CP:** Drainage Basics & River Classification",
-  "**Authority:** V2D review candidate",
+  "**Authority:** V2F review candidate",
   "**Status:** Review-only; not runtime registered",
-  `**Questions:** ${GEO_RIV_001_CP001_REVIEW_BATCH_V2D.length}`,
+  `**Questions:** ${GEO_RIV_001_CP001_REVIEW_BATCH_V2F.length}`,
   `**Difficulty:** Easy ${audit.difficultyCounts.Easy ?? 0} · Medium ${audit.difficultyCounts.Medium ?? 0} · Hard ${audit.difficultyCounts.Hard ?? 0}`,
-  `**Unique stems:** ${audit.uniqueStemCount ?? "n/a"}`,
+  `**Semantically unique questions:** ${audit.semanticUniqueCount ?? "n/a"}`,
   "",
   "---",
   "",
 ];
 
-for (const [index, q] of GEO_RIV_001_CP001_REVIEW_BATCH_V2D.entries()) {
+for (const [index, q] of GEO_RIV_001_CP001_REVIEW_BATCH_V2F.entries()) {
   lines.push(`## ${index + 1}. ${q.qlId} · ${q.qlName} · ${q.difficulty}`);
   lines.push("");
   lines.push(q.stem);
@@ -69,7 +69,7 @@ for (const [index, q] of GEO_RIV_001_CP001_REVIEW_BATCH_V2D.entries()) {
   lines.push("");
 }
 
-const mdPath = resolve(outDir, "GEO-RIV-001-CP001-REVIEW-BATCH-V2D.md");
+const mdPath = resolve(outDir, "GEO-RIV-001-CP001-REVIEW-BATCH-V2F.md");
 writeFileSync(mdPath, lines.join("\n"), "utf8");
 
 console.log(JSON.stringify({ jsonPath, mdPath, audit }, null, 2));
