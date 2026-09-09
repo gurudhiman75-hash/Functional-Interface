@@ -56,6 +56,7 @@ jobs:
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp002-validator.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp002-review-generator-v2.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp002-review-generator-v3.test.ts"
+            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp002-review-generator-v4.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp002-review-batch-v1.test.ts"
             "src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.test.ts"
           )
