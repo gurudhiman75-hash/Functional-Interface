@@ -1,3 +1,4 @@
+// Runtime proof: default generation must stay inside the curated QL pool for every covered CP.
 import {
   curateDefaultQuestionLanguageIds,
   type DefaultQuestionLanguageMetadata,
