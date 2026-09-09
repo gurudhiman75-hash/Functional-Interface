@@ -48,6 +48,7 @@ jobs:
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-review-batch.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-v2d.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-v2f.test.ts"
+            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-v2g.test.ts"
           )
           for test_file in "${tests[@]}"; do
             output_name="$(basename "${test_file}" .ts).mjs"
@@ -70,7 +71,7 @@ jobs:
       - name: Upload GEO-RIV-001 CP001 review artifact
         uses: actions/upload-artifact@v4
         with:
-          name: GEO-RIV-001-CP001-REVIEW-BATCH-V2F
+          name: GEO-RIV-001-CP001-REVIEW-BATCH-V2G
           path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP001/
           if-no-files-found: error
           retention-days: 30
