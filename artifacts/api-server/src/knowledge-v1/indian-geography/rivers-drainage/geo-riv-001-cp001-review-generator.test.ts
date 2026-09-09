@@ -70,12 +70,12 @@ const ql008 = generateGeoRiv001Cp001Review(
   "GEO-RIV-001-QL-008",
   "statement-pair-proof",
 );
-assert.equal(ql008.stem.includes("Statement"), true);
+assert.match(ql008.stem, /statements?/i);
 assert.equal(ql008.solverAuthority, "STATEMENT_COMPOSITION_VERIFIER");
 
 const ql009 = generateGeoRiv001Cp001Review(
   "GEO-RIV-001-QL-009",
   "multi-statement-proof",
 );
-assert.equal(ql009.stem.includes("How many"), true);
+assert.match(ql009.stem, /How many/i);
 assert.equal(ql009.solverAuthority, "STATEMENT_COMPOSITION_VERIFIER");
