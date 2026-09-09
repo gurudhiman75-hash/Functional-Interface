@@ -1,4 +1,4 @@
-import { generateGeoRiv001Cp002ReviewV3 } from "./geo-riv-001-cp002-review-generator-v3";
+import { generateGeoRiv001Cp002ReviewV4 } from "./geo-riv-001-cp002-review-generator-v4";
 import type { GeoRiv001Cp002ReviewQuestion } from "./geo-riv-001-cp002-review-types";
 
 const REVIEW_COUNTS: Record<string, number> = {
@@ -26,7 +26,7 @@ function semanticKey(question: GeoRiv001Cp002ReviewQuestion) {
 
 function scan(qlId: string) {
   return Array.from({ length: 650 }, (_, index) =>
-    generateGeoRiv001Cp002ReviewV3(
+    generateGeoRiv001Cp002ReviewV4(
       qlId,
       `geo-riv-001-cp002-review-${qlId}-${String(index + 1).padStart(3, "0")}`,
     ),
@@ -129,7 +129,7 @@ export function auditGeoRiv001Cp002ReviewBatchV1() {
       issues.push(`MISSING_PROVENANCE:${question.questionId}`);
     }
     if (question.explanation.length < 30) issues.push(`SHORT_EXPLANATION:${question.questionId}`);
-    if (/matches the reviewed relation|approximately right angles|characteristic of this setting|exam trap|shortcut/i.test(`${question.stem}\n${question.explanation}`)) {
+    if (/matches the reviewed relation|approximately right angles|characteristic of this setting|exam trap|shortcut|associated with the source|has its source at or near|Therefore,/i.test(`${question.stem}\n${question.explanation}`)) {
       issues.push(`EDITORIAL_LANGUAGE:${question.questionId}`);
     }
   }
