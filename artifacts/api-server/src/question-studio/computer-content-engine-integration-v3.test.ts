@@ -7,6 +7,7 @@ const expectedPackageIds = [
   "COM-002",
   "COM-003",
   "COM-003-WORD-TABS",
+  "COM-003-OFFICE-TABS",
   "COM-004",
   "COM-005",
   "COM-006",
@@ -20,17 +21,17 @@ assert.deepEqual(packageIds, [...expectedPackageIds].sort());
 assert.equal(new Set(packageIds).size, expectedPackageIds.length);
 
 for (const pkg of packages) {
-  const wordTabsReviewOnly = pkg.packageId === "COM-003-WORD-TABS";
+  const reviewOnly = pkg.packageId === "COM-003-WORD-TABS" || pkg.packageId === "COM-003-OFFICE-TABS";
   assert.equal(pkg.engineId, "knowledge-v1");
   assert.equal(pkg.enabled, true);
   assert.deepEqual(pkg.supportedLanguages, ["en", "hi", "pa"]);
   assert.deepEqual(pkg.supportedDifficulties ?? pkg.metadata?.supportedDifficulties, ["Easy", "Medium"]);
   assert.equal(pkg.runtimeMode, "review-only");
-  assert.equal(pkg.lifecycleStage, wordTabsReviewOnly ? "REVIEW_ONLY" : "BANK_ONLY");
+  assert.equal(pkg.lifecycleStage, reviewOnly ? "REVIEW_ONLY" : "BANK_ONLY");
   assert.equal(pkg.manualApprovalRequired, true);
-  assert.equal(pkg.questionBankStatus, wordTabsReviewOnly ? "NOT_STORED" : "READY_FOR_STORAGE");
-  assert.equal(pkg.questionBankWritable, wordTabsReviewOnly ? false : true);
-  assert.equal(pkg.questionBankAcceptanceMode, wordTabsReviewOnly ? null : "BANK_ONLY");
+  assert.equal(pkg.questionBankStatus, reviewOnly ? "NOT_STORED" : "READY_FOR_STORAGE");
+  assert.equal(pkg.questionBankWritable, reviewOnly ? false : true);
+  assert.equal(pkg.questionBankAcceptanceMode, reviewOnly ? null : "BANK_ONLY");
   assert.equal(pkg.testEligible, false);
   assert.equal(pkg.mockTestEligible, false);
   assert.equal(pkg.publiclyPublishable, false);
@@ -56,28 +57,28 @@ for (const pkg of packages) {
     assert.equal(generated.generationContext?.engineId, "knowledge-v1");
     assert.equal(generated.generationContext?.packageId, pkg.packageId);
     assert.equal(generated.generationContext?.runtimeMode, "review-only");
-    assert.equal(generated.generationContext?.questionBankStatus, wordTabsReviewOnly ? "NOT_STORED" : "READY_FOR_STORAGE");
-    assert.equal(generated.generationContext?.questionBankWritable, wordTabsReviewOnly ? false : true);
-    assert.equal(generated.generationContext?.questionBankAcceptanceMode, wordTabsReviewOnly ? null : "BANK_ONLY");
+    assert.equal(generated.generationContext?.questionBankStatus, reviewOnly ? "NOT_STORED" : "READY_FOR_STORAGE");
+    assert.equal(generated.generationContext?.questionBankWritable, reviewOnly ? false : true);
+    assert.equal(generated.generationContext?.questionBankAcceptanceMode, reviewOnly ? null : "BANK_ONLY");
     assert.equal(generated.generationContext?.testEligible, false);
     assert.equal(generated.generationContext?.mockTestEligible, false);
     assert.equal(generated.generationContext?.publiclyPublishable, false);
     assert.equal(generated.generationContext?.productionReleaseAuthorized, false);
-    assert.equal(wordTabsReviewOnly ? generated.generationContext?.questionBankAcceptanceAuthority == null : generated.generationContext?.questionBankAcceptanceAuthority != null, true);
+    assert.equal(reviewOnly ? generated.generationContext?.questionBankAcceptanceAuthority == null : generated.generationContext?.questionBankAcceptanceAuthority != null, true);
 
     for (const question of questions) {
       assert.equal(question.packageId, pkg.packageId);
       assert.equal(question.language, language);
-      if (wordTabsReviewOnly) {
+      if (reviewOnly) {
         assert.equal(question.registrationStatus, "REVIEW_ONLY_CANDIDATE");
       } else if (pkg.packageId === "COM-001" || pkg.packageId === "COM-002") {
         assert.equal(question.registrationStatus ?? null, null);
       } else {
         assert.equal(question.registrationStatus, "REGISTERED_BANK_ONLY_INTERNAL");
       }
-      assert.equal(question.questionBankStatus, wordTabsReviewOnly ? "NOT_STORED" : "READY_FOR_STORAGE");
-      assert.equal(question.questionBankWritable, wordTabsReviewOnly ? false : true);
-      assert.equal(question.questionBankAcceptanceMode, wordTabsReviewOnly ? null : "BANK_ONLY");
+      assert.equal(question.questionBankStatus, reviewOnly ? "NOT_STORED" : "READY_FOR_STORAGE");
+      assert.equal(question.questionBankWritable, reviewOnly ? false : true);
+      assert.equal(question.questionBankAcceptanceMode, reviewOnly ? null : "BANK_ONLY");
       assert.equal(question.testEligible, false);
       assert.equal(question.mockTestEligible, false);
       assert.equal(question.publiclyPublishable, false);
@@ -119,5 +120,5 @@ for (const pkg of packages) {
 }
 
 console.log(
-  "[COMPUTER-CONTENT-ENGINE-INTEGRATION-V3] PASS packages=COM-001..COM-008 languages=en,hi,pa lifecycle=BANK_ONLY hard/test/mock/publication/production=locked",
+  "[COMPUTER-CONTENT-ENGINE-INTEGRATION-V3] PASS packages=COM-001..COM-008 + Office tab review packs languages=en,hi,pa release locks=active",
 );
