@@ -10,7 +10,6 @@ on:
       - "artifacts/api-server/src/knowledge-v1/eligibility.ts"
       - "artifacts/api-server/src/knowledge-v1/deterministic.ts"
       - "artifacts/api-server/src/knowledge-v1/question-validation.ts"
-      - ".github/workflows/geography-content-engine-v1.yml"
   workflow_dispatch:
 
 concurrency:
