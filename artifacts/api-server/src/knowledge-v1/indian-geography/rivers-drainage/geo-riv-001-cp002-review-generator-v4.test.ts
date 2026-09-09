@@ -11,9 +11,12 @@ for (const qlId of QLS) {
     assert.equal(question.options.length, 4);
     assert.equal(new Set(question.options).size, 4);
     assert.equal(question.options[question.correctIndex], question.canonicalAnswer);
-    assert.doesNotMatch(`${question.stem}\n${question.explanation}`, /associated with the source/i);
+    const visibleText = `${question.stem}\n${question.explanation}`;
+    assert.doesNotMatch(visibleText, /associated with the source/i);
     assert.doesNotMatch(question.explanation, /Therefore,/i);
-    assert.doesNotMatch(`${question.stem}\n${question.explanation}`, /has its source at or near/i);
+    assert.doesNotMatch(visibleText, /has its source at or near/i);
+    assert.doesNotMatch(visibleText, /originates at or near/i);
+    assert.doesNotMatch(visibleText, /near\s+near/i);
   }
 }
 
