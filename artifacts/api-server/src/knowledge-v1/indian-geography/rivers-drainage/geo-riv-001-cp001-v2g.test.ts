@@ -39,6 +39,18 @@ for (const qlId of ["GEO-RIV-001-QL-001", "GEO-RIV-001-QL-002"]) {
   assert.equal(new Set(questions.map((question) => question.canonicalAnswer)).size, 3);
 }
 
+const reverseDefinitions = GEO_RIV_001_CP001_REVIEW_BATCH_V2G
+  .filter((question) => question.qlId === "GEO-RIV-001-QL-002")
+  .map((question) => question.canonicalAnswer);
+assert.deepEqual(
+  new Set(reverseDefinitions),
+  new Set([
+    "the river system of an area",
+    "the area drained by a river and its tributaries",
+    "a highland that separates two drainage basins",
+  ]),
+);
+
 for (const qlId of ["GEO-RIV-001-QL-003", "GEO-RIV-001-QL-004"]) {
   const questions = GEO_RIV_001_CP001_REVIEW_BATCH_V2G.filter((question) => question.qlId === qlId);
   assert.equal(new Set(questions.map((question) => question.canonicalAnswer)).size, 4);
@@ -54,12 +66,37 @@ for (const question of GEO_RIV_001_CP001_REVIEW_BATCH_V2G) {
   assert.equal(question.explanation.length >= 45, true, question.questionId);
   assert.equal(/is correct because it is/i.test(question.explanation), false, question.questionId);
   assert.equal(/;\s*while\b/i.test(question.explanation), false, question.questionId);
+
+  const visibleText = [question.stem, ...question.options, question.explanation].join(" ");
+  assert.equal(
+    /approximately right angles|characteristic of this setting|strongly rain-fed|river-association|land area contributing water/i.test(visibleText),
+    false,
+    question.questionId,
+  );
 }
 
 for (const question of GEO_RIV_001_CP001_REVIEW_BATCH_V2G.filter(
   (entry) => entry.qlId === "GEO-RIV-001-QL-003" || entry.qlId === "GEO-RIV-001-QL-004",
 )) {
   assert.equal(/The following description refers to which drainage pattern/i.test(question.stem), false);
+}
+
+for (const question of GEO_RIV_001_CP001_REVIEW_BATCH_V2G.filter(
+  (entry) => entry.qlId === "GEO-RIV-001-QL-006",
+)) {
+  assert.equal(question.stem, "Which of the following pairs is correctly matched?");
+}
+
+for (const question of GEO_RIV_001_CP001_REVIEW_BATCH_V2G.filter(
+  (entry) => entry.qlId === "GEO-RIV-001-QL-007",
+)) {
+  assert.equal(question.stem, "Which of the following pairs is incorrectly matched?");
+}
+
+for (const question of GEO_RIV_001_CP001_REVIEW_BATCH_V2G.filter(
+  (entry) => entry.qlId === "GEO-RIV-001-QL-008" || entry.qlId === "GEO-RIV-001-QL-009",
+)) {
+  assert.equal(/Therefore,/i.test(question.explanation), false, question.questionId);
 }
 
 const replayA = generateGeoRiv001Cp001ReviewV2G(
