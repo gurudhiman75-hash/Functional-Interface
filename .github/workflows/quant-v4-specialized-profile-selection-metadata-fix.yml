@@ -1,0 +1,55 @@
+name: Quant V4 specialized profile selection metadata fix
+
+on:
+  push:
+    branches:
+      - audit/quant-v4-specialized-profile-selection-evidence-gate-p2
+    paths:
+      - ".github/workflows/quant-v4-specialized-profile-selection-metadata-fix.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/quant-v4-specialized-profile-selection-evidence-gate-p2
+          fetch-depth: 0
+
+      - name: Decorate existing package cards with selection evidence status
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace_once(path: str, old: str, new: str):
+              p = Path(path)
+              text = p.read_text()
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f"{path}: expected one match, found {count}: {old[:160]!r}")
+              p.write_text(text.replace(old, new, 1))
+
+          qsg = "artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts"
+          old = '''export function listQuantV4Packages() {\n  const existing = listBasePackages();\n  const additions = [];\n'''
+          new = '''export function listQuantV4Packages() {\n  const existing = listBasePackages().map((pkg: any) => {\n    if (pkg.packageId === "AVG-001" || pkg.packageId === "MAL-001" || pkg.packageId === "NUM-001") {\n      return {\n        ...pkg,\n        examProfileSelection: getQuantV4SpecializedProfileSelectionCapability(pkg.packageId),\n      };\n    }\n    return pkg;\n  });\n  const additions = [];\n'''
+          replace_once(qsg, old, new)
+
+          qsr = "artifacts/api-server/src/quant-v4/question-studio-review-engine.ts"
+          old = '''  const packages = listBasePackages().map((pkg: any) => {\n    if (pkg.packageId === "SAP") {\n'''
+          new = '''  const packages = listBasePackages().map((pkg: any) => {\n    if (pkg.packageId === "TMW-001") {\n      return {\n        ...pkg,\n        examProfileSelection: getQuantV4SpecializedProfileSelectionCapability("TMW-001"),\n      };\n    }\n    if (pkg.packageId === "SAP") {\n'''
+          replace_once(qsr, old, new)
+          PY
+
+      - name: Commit fix and remove temporary runner
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts \
+            artifacts/api-server/src/quant-v4/question-studio-review-engine.ts
+          git rm .github/workflows/quant-v4-specialized-profile-selection-metadata-fix.yml
+          git diff --cached --check
+          git commit -m "fix(quant-v4): expose selection gates on existing package cards"
+          git push origin HEAD:audit/quant-v4-specialized-profile-selection-evidence-gate-p2
