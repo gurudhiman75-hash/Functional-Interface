@@ -88,7 +88,7 @@ The frozen corpus is immutable and read-only. Any change to approved stems, opti
 
 ## Question Studio lifecycle
 
-CP005 is registered under the existing `GEO-RIV-001` package by this approved freeze. Runtime remains `REVIEW_ONLY` and read-only. Question Bank writes, test/mock eligibility, public publication, and production release remain disabled.
+CP005 is registered under the existing `GEO-RIV-001` package after the approved freeze is present. Runtime remains `REVIEW_ONLY` and read-only. Question Bank writes, test/mock eligibility, public publication, and production release remain disabled.
 
 ## Visual policy
 
