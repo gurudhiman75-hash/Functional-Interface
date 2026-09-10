@@ -212,7 +212,7 @@ function statementPairConclusion(answer: string) {
   if (answer === "Both Statement I and Statement II are correct") return "Hence, both statements are correct.";
   if (answer === "Only Statement I is correct") return "Hence, only Statement I is correct.";
   if (answer === "Only Statement II is correct") return "Hence, only Statement II is correct.";
-  return "Hence, neither statement is correct.";
+  return "Hence, both statements are incorrect.";
 }
 
 function reviseInherited(question: GeoRiv001Cp003ReviewQuestion): GeoRiv001Cp003ReviewQuestion {
