@@ -1,4 +1,5 @@
 import type { KnowledgeFact } from "../../types";
+import { GEO_RIV_001_CP001_APPROVED_FACTS_V2 } from "./geo-riv-001-cp001-editorial-review-v2";
 import { GEO_RIV_001_CP002_REVIEWABLE_FACTS_V1 } from "./geo-riv-001-cp002-editorial-review-v1";
 import { GEO_RIV_001_CP003_REVIEWABLE_FACTS_V1 } from "./geo-riv-001-cp003-editorial-review-v1";
 import { GEO_RIV_001_CP004_REVIEWABLE_FACTS_V1 } from "./geo-riv-001-cp004-editorial-review-v1";
@@ -27,6 +28,8 @@ const ELIGIBLE_RELATIONS = new Set<string>([
 ]);
 
 const UPSTREAM_FACTS = Object.freeze({
+  // CP001 is already approved and contributes normalized outfall relations.
+  cp001: GEO_RIV_001_CP001_APPROVED_FACTS_V2,
   cp002: GEO_RIV_001_CP002_REVIEWABLE_FACTS_V1,
   cp003: GEO_RIV_001_CP003_REVIEWABLE_FACTS_V1,
   cp004: GEO_RIV_001_CP004_REVIEWABLE_FACTS_V1,
@@ -70,7 +73,7 @@ export const GEO_RIV_001_CP008_PROJECTION_AUTHORITY_V1 = Object.freeze({
   authorityId: "GEO-RIV-001-CP008-SOURCE-MOUTH-PROJECTION-V1" as const,
   chapterId: "GEO-RIV-001" as const,
   cpId: CP_ID as const,
-  admittedUpstreams: Object.freeze(["cp002", "cp003", "cp004", "cp005"] as const),
+  admittedUpstreams: Object.freeze(["cp001", "cp002", "cp003", "cp004", "cp005"] as const),
   heldOutUpstreams: Object.freeze(["cp006"] as const),
   sourceRelations: GEO_RIV_001_CP008_SOURCE_RELATIONS_V1,
   mouthRelations: GEO_RIV_001_CP008_MOUTH_RELATIONS_V1,
