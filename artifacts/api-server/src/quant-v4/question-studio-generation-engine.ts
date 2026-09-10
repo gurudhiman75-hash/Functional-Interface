@@ -9,6 +9,9 @@ import {
   type QuantV4Language,
 } from "./generation-engine";
 import {
+  getQuantV4SpecializedProfileSelectionCapability,
+} from "./common/specialized-profile-selection";
+import {
   AVG_001_QUESTION_STUDIO_CP_IDS,
   AVG_001_QUESTION_STUDIO_LANGUAGES,
   runAvg001QuestionStudioPipeline,
@@ -224,6 +227,7 @@ function packageCard(
     questionBankStatus: "WRITABLE",
     testEligibility: "ELIGIBLE",
     publiclyPublishable: true,
+    examProfileSelection: getQuantV4SpecializedProfileSelectionCapability(definition.packageId),
   };
 }
 
@@ -253,6 +257,7 @@ function numberSystemPackageCard() {
     questionBankStatus: "NOT_STORED",
     testEligibility: "INELIGIBLE",
     publiclyPublishable: false,
+    examProfileSelection: getQuantV4SpecializedProfileSelectionCapability("NUM-001"),
   };
 }
 
