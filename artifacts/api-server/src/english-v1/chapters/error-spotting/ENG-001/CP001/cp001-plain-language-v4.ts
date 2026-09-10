@@ -33,6 +33,12 @@ const PLAIN_REPLACEMENTS: readonly [string, string][] = [
   ["running after scheduled maintenance", "running normally"],
   ["under one project report", "in one project report"],
   ["in a single project report", "in one project report"],
+  ["under close technical review", "under review"],
+  ["monthly instalment", "monthly amount"],
+  ["irrigation demonstration", "watering lesson"],
+  ["for the following team", "for the next team"],
+  ["fresh produce", "fresh vegetables"],
+  ["through the control system", "through the system"],
 
   // Keep the technology pair human-led. “Computers/programs completed the
   // test” was grammatically usable but unnecessarily mechanical.
@@ -98,7 +104,6 @@ const PLAIN_REPLACEMENTS: readonly [string, string][] = [
   ["supplier invoice", "supplier bill"],
   ["warehouse stock", "stored goods"],
   ["reusable shopping bag", "shopping bag"],
-  ["monthly instalment", "monthly payment"],
   ["qualifying round", "next round"],
   ["conditioning session", "fitness session"],
   ["public service centre", "service centre"],
@@ -108,7 +113,6 @@ const PLAIN_REPLACEMENTS: readonly [string, string][] = [
   ["firmware update", "software update"],
   ["protected wetland", "protected lake area"],
   ["reservoir", "lake"],
-  ["irrigation demonstration", "water-use lesson"],
   ["irrigation channel", "water channel"],
   ["irrigation pumps", "water pumps"],
   ["irrigation pump", "water pump"],
@@ -118,7 +122,6 @@ const PLAIN_REPLACEMENTS: readonly [string, string][] = [
   ["production output", "work output"],
   ["assembly line", "work line"],
   ["structural defect", "serious fault"],
-  ["under close technical review", "being checked closely"],
   ["technical review", "repair check"],
   ["technical inspection", "safety check"],
   ["resurfacing", "road repair"],
@@ -227,9 +230,8 @@ function locationContext(entry: ContextExpansionV4): boolean {
 }
 
 /**
- * If the sentence already contains a time relation (before/after/since/during),
- * prefer a compatible place context. This avoids constructions such as
- * “after treatment during the check” or “before training during practice”.
+ * Legacy helper retained for compatibility with earlier V4 diagnostics. The
+ * production question generator no longer appends these generic contexts.
  */
 export function chooseCp001PlainContext(
   sourceSegments: readonly string[],
