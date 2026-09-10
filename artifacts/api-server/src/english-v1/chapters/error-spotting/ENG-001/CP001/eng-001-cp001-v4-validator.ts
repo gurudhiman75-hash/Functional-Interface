@@ -32,24 +32,33 @@ const HEAVY_SURFACE_TERMS = [
   "clinical",
   "commissioning",
   "conservation",
+  "consultation",
   "curriculum",
+  "curator",
   "deployment",
   "diagnostic",
   "editorial",
+  "exhibition",
   "firmware",
+  "instalment",
+  "inspection",
   "irrigation",
   "laboratory",
   "maintenance",
   "occupancy",
+  "outage",
   "outpatient",
   "preliminary",
   "protocol",
   "qualifying",
+  "recipient",
   "rehabilitation",
   "reservoir",
   "resurfacing",
   "settlement",
+  "sowing",
   "structural",
+  "teller",
   "transaction",
   "verification",
   "wholesale",
@@ -91,6 +100,21 @@ function repeatedContinuousPredicate(question: Eng001Question): string | null {
   if (!continuous.test(lower)) return null;
   const occurrences = lower.match(new RegExp(`\\b${cueParticiple}\\b`, "g"))?.length ?? 0;
   return occurrences > 1 ? cueParticiple : null;
+}
+
+function repeatedConnector(sentence: string): string | null {
+  const lower = sentence.toLowerCase();
+  for (const connector of ["before", "after", "during"] as const) {
+    const count = lower.match(new RegExp(`\\b${connector}\\b`, "g"))?.length ?? 0;
+    if (count > 1) return connector;
+  }
+  return null;
+}
+
+function stackedTimePhrase(sentence: string): boolean {
+  const lower = sentence.toLowerCase();
+  const specificTimes = lower.match(/\b(?:today|tomorrow|tonight|this morning|this afternoon|this evening|this week|this term|this season)\b/g) ?? [];
+  return specificTimes.length > 1;
 }
 
 export function validateEng001Cp001CandidateV4(candidate: Eng001SentenceCandidate): Eng001Cp001V4Validation {
@@ -233,6 +257,14 @@ export function validateEng001Cp001QuestionV4(question: Eng001Question): Eng001C
     if (lowerSentence.includes(term)) {
       issues.push(issue("NATURALNESS", `${question.questionId} contains avoidable heavy vocabulary: “${term}”.`));
     }
+  }
+
+  const connector = repeatedConnector(question.correctedSentence);
+  if (connector) {
+    issues.push(issue("NATURALNESS", `${question.questionId} repeats “${connector}” in one sentence.`));
+  }
+  if (stackedTimePhrase(question.correctedSentence)) {
+    issues.push(issue("NATURALNESS", `${question.questionId} stacks multiple specific time phrases.`));
   }
 
   const explanationBeforeCorrection = question.explanation.split("Correct sentence:")[0] ?? question.explanation;
