@@ -34,6 +34,11 @@ const PLAIN_REPLACEMENTS: readonly [string, string][] = [
   ["running the cutting machine", "working near the cutting machine"],
   ["under one project report", "in one project report"],
   ["in a single project report", "in one project report"],
+  ["a joint result", "the final result"],
+  ["in one project report", "in a single report"],
+  ["regular maintenance", "regular checks"],
+  ["the photo caption", "a photo caption"],
+  ["the medical note", "a medical note"],
   ["under close technical review", "under review"],
   ["monthly instalment", "monthly payment"],
   ["irrigation demonstration", "lesson on watering crops"],
@@ -207,7 +212,13 @@ export function simplifyCp001Text(text: string): string {
 }
 
 export function simplifyCp001Segments(segments: readonly string[]): string[] {
-  return segments.map(simplifyCp001Text);
+  const out = segments.map(simplifyCp001Text);
+  for (let index = 0; index < out.length - 1; index += 1) {
+    if (/^(?:is|are) showing$/i.test(out[index] ?? "") && (out[index + 1] ?? "").toLowerCase() === "a small crack") {
+      out[index + 1] = "signs of damage";
+    }
+  }
+  return out;
 }
 
 const LOCATION_LEADS = ["at", "in", "on", "near"] as const;
