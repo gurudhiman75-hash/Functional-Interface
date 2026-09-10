@@ -17,18 +17,22 @@ function clarifyFalseStatementExplanation(question: GeoRiv001Cp008ReviewQuestion
   return question.explanation;
 }
 
+/** V3 changes learner-facing explanation wording only. */
+export function toGeoRiv001Cp008ReviewV3(question: GeoRiv001Cp008ReviewQuestion): GeoRiv001Cp008ReviewQuestion {
+  return {
+    ...question,
+    questionId: question.questionId.replace("CP008-V2", "CP008-V3"),
+    explanation: clarifyFalseStatementExplanation(question),
+  };
+}
+
 /**
  * V3 is an editorial-only overlay over V2. It preserves stems, options,
  * answers, difficulty and provenance, while making false-statement
  * explanations unambiguous for learners.
  */
 export function generateGeoRiv001Cp008ReviewV3(qlId: string, seed: string): GeoRiv001Cp008ReviewQuestion {
-  const question = generateGeoRiv001Cp008ReviewV2(qlId, seed);
-  return {
-    ...question,
-    questionId: question.questionId.replace("CP008-V2", "CP008-V3"),
-    explanation: clarifyFalseStatementExplanation(question),
-  };
+  return toGeoRiv001Cp008ReviewV3(generateGeoRiv001Cp008ReviewV2(qlId, seed));
 }
 
 export const GEO_RIV_001_CP008_QL_IDS_V3 = GEO_RIV_001_CP008_QL_IDS_V2;
