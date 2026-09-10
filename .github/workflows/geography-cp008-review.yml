@@ -41,7 +41,9 @@ jobs:
             src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp008-review-generator-v2.test.ts \
             src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp008-review-batch-v2.test.ts \
             src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp008-review-generator-v3.test.ts \
-            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp008-review-batch-v3.test.ts
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp008-review-batch-v3.test.ts \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp008-review-generator-v4.test.ts \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp008-review-batch-v4.test.ts
           do
             output_name="$(basename "${test_file}" .ts).mjs"
             pnpm --dir artifacts/api-server exec esbuild \
@@ -50,19 +52,19 @@ jobs:
               --outfile="dist/geography/${output_name}"
             node "artifacts/api-server/dist/geography/${output_name}"
           done
-      - name: Materialize CP008 V3 review artifact
+      - name: Materialize CP008 V4 review artifact
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp008-export-review-v3.ts \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp008-export-review-v4.ts \
             --bundle --packages=external --platform=node --format=esm \
-            --outfile=dist/geography/geo-riv-001-cp008-export-review-v3.mjs
+            --outfile=dist/geography/geo-riv-001-cp008-export-review-v4.mjs
           cd artifacts/api-server
-          node dist/geography/geo-riv-001-cp008-export-review-v3.mjs
-      - name: Upload CP008 V3 review artifact
+          node dist/geography/geo-riv-001-cp008-export-review-v4.mjs
+      - name: Upload CP008 V4 review artifact
         uses: actions/upload-artifact@v4
         with:
-          name: GEO-RIV-001-CP008-REVIEW-BATCH-V3
-          path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP008-V3/
+          name: GEO-RIV-001-CP008-REVIEW-BATCH-V4
+          path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP008-V4/
           if-no-files-found: error
           retention-days: 30
       - name: Build API server
