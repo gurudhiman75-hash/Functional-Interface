@@ -4,8 +4,11 @@ import {
   EXTRACTED_FACT_SCHEMA,
   buildFactGraph,
   buildGenerationRequest,
+  extractedFactQualityRejectionReasons,
   generationInputJson,
   sourceOverlapScore,
+  validateExtractedFacts,
+  validateExtractedFactsWithQuality,
   validateNoteBlocks,
   type FactRow,
 } from './core';
@@ -66,6 +69,80 @@ assert.deepEqual(
 );
 assert.deepEqual(extractedFactItemSchema.properties.dateOrEra.type, ['string', 'null']);
 
+const extractedQuality = validateExtractedFactsWithQuality({
+  facts: [
+    {
+      subCategory: 'Political',
+      claim: 'Maski is mentioned on page 60.',
+      entities: ['Maski'],
+      dateOrEra: null,
+      locator: 'Index',
+      extractedText: 'Maski 60',
+    },
+    {
+      subCategory: 'Political',
+      claim: 'Bead is mentioned on page 80.',
+      entities: ['Bead'],
+      dateOrEra: null,
+      locator: 'p. 394',
+      extractedText: 'bead 80',
+    },
+    {
+      subCategory: 'Political',
+      claim: 'Ashoka adopted dhamma as an important principle of governance.',
+      entities: ['Ashoka', 'dhamma'],
+      dateOrEra: null,
+      locator: 'p. 201',
+      extractedText: 'Ashoka adopted dhamma as an important principle of governance.',
+    },
+    {
+      subCategory: 'Political',
+      claim: 'The inscription dates to 150 BCE.',
+      entities: ['inscription'],
+      dateOrEra: '150 BCE',
+      locator: 'p. 205',
+      extractedText: 'The inscription dates to 150 BCE.',
+    },
+  ],
+}, ['Political']);
+
+assert.equal(extractedQuality.rawCount, 4);
+assert.equal(extractedQuality.candidates.length, 2);
+assert.equal(extractedQuality.rejections.length, 2);
+assert.deepEqual(
+  extractedQuality.candidates.map((fact) => fact.claim),
+  [
+    'Ashoka adopted dhamma as an important principle of governance.',
+    'The inscription dates to 150 BCE.',
+  ],
+);
+assert.deepEqual(
+  extractedQuality.rejections[0]?.reasons,
+  ['pointer-claim', 'back-matter-locator', 'index-like-evidence'],
+);
+assert.ok(extractedQuality.rejections[1]?.reasons.includes('pointer-claim'));
+assert.ok(extractedQuality.rejections[1]?.reasons.includes('index-like-evidence'));
+assert.equal(validateExtractedFacts({
+  facts: [{
+    subCategory: 'Political',
+    claim: 'Prakash is mentioned in the index of Indias Ancient Past by R.S. Sharma.',
+    entities: ['Prakash'],
+    dateOrEra: null,
+    locator: 'Index',
+    extractedText: 'Prakash 123',
+  }],
+}, ['Political']).length, 0);
+assert.deepEqual(
+  extractedFactQualityRejectionReasons({
+    subCategory: 'Political',
+    claim: 'King Bimbisara is traditionally reported to have summoned 86,000 village headmen.',
+    entities: ['Bimbisara'],
+    locator: 'p. 98',
+    extractedText: 'Bimbisara summoned 86,000 village headmen.',
+  }),
+  [],
+);
+
 const style = {
   tone: 'direct',
   sentenceLength: 'short' as const,
@@ -93,6 +170,14 @@ assert.match(hindi.prompt.system, /directly in hi/);
 assert.notEqual(english.prompt.system, hindi.prompt.system);
 assert.match(english.prompt.user, /Low-frequency but still eligible claim/);
 assert.doesNotMatch(english.prompt.user, /SOURCE PROSE/);
+
+const extractionRequest = (await import('./core')).buildExtractionRequest({
+  sourceTitle: 'Example',
+  taxonomy: ['Political'],
+  sourceText: 'Index material',
+});
+assert.match(extractionRequest.prompt.system, /index entries/i);
+assert.match(extractionRequest.prompt.system, /empty facts array/i);
 
 assert.deepEqual(validateNoteBlocks({
   blocks: [
