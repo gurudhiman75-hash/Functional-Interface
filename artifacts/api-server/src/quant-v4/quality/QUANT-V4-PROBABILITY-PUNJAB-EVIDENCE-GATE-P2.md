@@ -25,15 +25,13 @@ The same gate also applies if `PUNJAB_STATE` is supplied through the legacy cock
 
 No SSC or generic fallback is allowed.
 
-## Legacy real-exam simulator compatibility guard
+## Real-exam simulator boundary
 
-The historical real-exam simulator still maps Punjab-family Probability slots to `SSC_CGL_CHSL` before calling Probability. That mapping predates the central Punjab profile and would otherwise bypass the direct `PUNJAB_STATE` gate.
+The real-exam simulator now resolves every `PSSSB`, `PPSC`, and `PUNJAB_POLICE` Probability slot directly to `PUNJAB_STATE`.
 
-Until the simulator profile resolver itself is migrated to `PUNJAB_STATE`, the Probability integration defensively recognizes only the simulator's explicit `QUANT-V4-REAL-EXAM-*` audit seed provenance for `PSSSB`, `PPSC`, and `PUNJAB_POLICE` and rejects the disguised SSC fallback with the same evidence-required error.
+The previous seed-provenance compatibility guard has been removed. Seeds no longer alter exam-profile semantics: an explicit SSC request stays SSC even if its seed text happens to contain a Punjab exam name.
 
-This compatibility guard is intentionally narrow. Ordinary SSC CGL/CHSL Probability requests remain valid and are covered as a positive control.
-
-The simulator can therefore record these Punjab Probability slots as capability gaps instead of silently counting SSC-generated questions as Punjab evidence.
+Punjab simulator Probability slots therefore reach the same explicit evidence gate as any other `PUNJAB_STATE` request and are recorded as capability gaps until a native Punjab Probability contract is evidence-backed.
 
 ## Package discovery
 
@@ -62,4 +60,4 @@ SSC CGL/CHSL and Banking Probability continue to use their current native chapte
 
 This improves correctness of the Punjab real-exam audit but does not make Punjab Probability ready. The simulator must continue reporting Probability as a capability/evidence gap until real Punjab evidence is normalized and adopted.
 
-A later simulator migration should replace its historical Punjab-to-SSC Probability resolver with the shared `PUNJAB_STATE` profile directly; at that point the narrow seed-provenance compatibility guard can be removed.
+The simulator migration is complete at the routing boundary: Punjab Probability is now explicit `PUNJAB_STATE`, with no SSC fallback and no seed-based workaround. Native Punjab Probability selection remains blocked until the required evidence is normalized and approved.

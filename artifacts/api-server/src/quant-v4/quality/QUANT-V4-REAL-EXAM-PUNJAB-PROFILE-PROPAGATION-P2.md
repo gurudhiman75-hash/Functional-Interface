@@ -4,13 +4,13 @@ Authority: `QUANT-V4-REAL-EXAM-PUNJAB-PROFILE-PROPAGATION-P2`
 
 ## Finding
 
-The shared Quant V4 exam-profile authority correctly defines `PUNJAB_STATE` as a four-option `PUNJAB_STATE_OBJECTIVE` profile. The real-exam simulation stack is **not yet able to propagate that authority through ordinary Quant chapter generation**.
+The shared Quant V4 exam-profile authority correctly defines `PUNJAB_STATE` as a four-option `PUNJAB_STATE_OBJECTIVE` profile. The composed real-exam simulation stack is **not yet able to propagate that authority through every ordinary Quant chapter route**.
 
 The earlier draft of this checkpoint attempted to repair the issue by passing `examProfile: "PUNJAB_STATE"` at the outer Question Studio API. That was insufficient: several chapter routes do not accept or forward `examProfile`, so a successful outer call does not prove that the chapter runtime consumed the Punjab profile.
 
-This checkpoint therefore records the actual capability boundary instead of claiming a false remediation.
+This checkpoint continues to record that broader capability boundary, while closing the narrower Probability simulator fallback defect.
 
-## Confirmed blockers
+## Confirmed boundaries
 
 ### Historical simulator metadata
 
@@ -19,63 +19,65 @@ PSSSB, PPSC and Punjab Police still carry:
 - `centralDeliveryProfile: null`
 - `centralProfileGap: true`
 
-That stale metadata should remain visible until downstream chapter routes genuinely support Punjab delivery.
+That composed-profile metadata remains intentionally visible until downstream chapter routes genuinely support Punjab delivery end to end.
+
+### Probability simulator resolver — repaired
+
+Probability is now handled explicitly at the simulator routing boundary.
+
+For `PSSSB`, `PPSC` and `PUNJAB_POLICE`, the real-exam simulator resolves Probability slots directly to:
+
+- `examProfile: "PUNJAB_STATE"`
+
+It no longer maps those slots to `SSC_CGL_CHSL`.
+
+The Probability Question Studio integration recognizes this explicit Punjab request and fails closed with `PRB_PUNJAB_PROFILE_EVIDENCE_REQUIRED`. The simulator therefore records the Probability slot as a capability gap rather than counting an SSC-generated question as Punjab output.
+
+The old seed-based compatibility workaround has been removed. Seed text no longer changes exam-profile semantics.
 
 ### Core Quant generation engine
 
-The core Quant generation request has no `examProfile` field. Its runtime contract forwards only difficulty, language, question-language ID and seed. This affects the normal core package family including:
-
-- `PCT-001` through `PCT-007`
-- `RAP-001` through `RAP-003`
-- `PRT-001`
-
-Passing `examProfile` at a higher wrapper cannot reach these runtimes today.
+The older core-generation boundary recorded by this audit remains separate from the Probability resolver fix. The audit continues to preserve its existing compile-time capability guard until that boundary is deliberately reconciled in its own checkpoint.
 
 ### Specialized Arithmetic Question Studio routes
 
-Confirmed profile-blind routes include at least:
-
-- `AVG-001`
-- `MAL-001`
-- `PNL-001`
-- the legacy RAP route
-
-Their adapters omit `examProfile` when invoking chapter pipelines.
+The audit continues to track its existing route-level capability findings for Average, Mixture and legacy Arithmetic adapters. Those broader findings are not silently promoted by this Probability-only repair.
 
 ### Mensuration standard route
 
-The chapter-wide Mensuration system contains Punjab-aware weighting, but the current standard `MEN-002` / `MEN-CP-009` Question Studio request has no `examProfile` field. The profile is therefore lost at the standard route boundary.
+The audit likewise keeps the existing standard Mensuration boundary visible until its profile path is explicitly reconciled.
 
-### Probability
+### Native Probability selection contract
 
-Probability is different: its runtime does accept and forward an `examProfile`, but the Probability-specific profile union/config currently defines only SSC, banking and generic-practice profiles. It does **not** define `PUNJAB_STATE`.
+The Probability-specific native profile union/config still defines SSC, banking and generic-practice selection contracts; it does **not** yet define a native `PUNJAB_STATE` selection profile.
 
-Therefore the historical Punjab Probability fallback to `SSC_CGL_CHSL` cannot yet be replaced by a real Punjab Probability contract.
+That absence is now represented as `EVIDENCE_GATED`, not hidden by an SSC fallback. Question Studio rejects Punjab Probability before the raw profile layer is allowed to select content.
+
+A native Punjab Probability profile must not be introduced until attributable Punjab Probability observations support its CP/solve-mode, difficulty and representation rules.
 
 ## Executable proof
 
-The P2 gate now uses both runtime assertions and compile-time boundary assertions.
-
-It proves that:
+The P2 gates now prove that:
 
 - the central `PUNJAB_STATE` authority exists and remains four-option;
-- PSSSB/PPSC/Punjab Police still expose their historical central-profile gap;
-- the core Quant request does not accept `examProfile`;
-- `AVG-001` and `MAL-001` adapters do not accept `examProfile`;
-- the standard `MEN-002` route does not accept `examProfile`;
-- the Probability profile type does not accept `PUNJAB_STATE`;
-- the audit reports `simulatorPropagationReady: false` rather than treating outer-API success as profile application.
+- PSSSB/PPSC/Punjab Police still expose their composed central-profile gap;
+- each Punjab real-exam Probability resolver returns `PUNJAB_STATE`;
+- generated Punjab simulator Probability slots become `CAPABILITY_GAP` records carrying the explicit evidence-gate reason;
+- an explicit SSC Probability request remains SSC even if its seed happens to contain a Punjab exam name;
+- direct and runtime-mode `PUNJAB_STATE` Probability requests still fail closed;
+- the raw Probability profile type still has no native `PUNJAB_STATE` selection contract;
+- the broader audit remains `simulatorPropagationReady: false` rather than confusing a repaired Probability route with complete Punjab propagation.
 
-The `@ts-expect-error` assertions are deliberate capability guards. When a route is upgraded to accept Punjab delivery, the build will force this audit to be revised together with that implementation.
+The `@ts-expect-error` assertion on the raw Probability profile is deliberate. When native Punjab Probability selection is evidence-backed and added, the build will force this audit to be revised together with that implementation.
 
-## Correct remediation order
+## Correct remediation order from here
 
-1. Add the shared Quant `examProfile` contract to the core generation engine and thread it through the relevant Arithmetic runtimes.
-2. Retrofit specialized routes such as Average, Mixture, Profit & Loss and other Question Studio adapters that currently drop the profile.
-3. Bridge the standard Mensuration Question Studio route to its Punjab-aware chapter delivery/runtime.
-4. Add a real Probability `PUNJAB_STATE` profile with chapter-level selection rules and conformance tests.
-5. Only then change the historical/composed Punjab real-exam simulator from `centralDeliveryProfile: null` to `PUNJAB_STATE` and rerun section-level simulation/calibration.
+1. Keep the repaired Probability simulator resolver on explicit `PUNJAB_STATE`; do not reintroduce any SSC fallback.
+2. Normalize attributable Punjab Probability observations and approve a native Punjab CP/solve-mode/difficulty/representation contract before enabling selection.
+3. Reconcile the remaining ordinary Arithmetic and specialized Question Studio profile boundaries in their own checkpoints.
+4. Bridge any remaining standard Mensuration/profile boundaries explicitly.
+5. Only after the remaining downstream routes genuinely support Punjab should the composed simulator metadata move from `centralDeliveryProfile: null` to a fully propagated Punjab profile and undergo section-level calibration.
 
 ## Readiness boundary
 
-PSSSB, PPSC and Punjab Police are **not Punjab-profile simulation-ready** at this checkpoint. Algebra/Trigonometry integration is already repaired separately, but ordinary Arithmetic/Mensuration profile propagation and Punjab Probability remain genuine blockers.
+PSSSB, PPSC and Punjab Police are still **not fully Punjab-profile simulation-ready** at this checkpoint. However, their Probability slots no longer masquerade as SSC: they now reach the explicit Punjab evidence gate and remain capability gaps until native Punjab Probability selection is justified by evidence.
