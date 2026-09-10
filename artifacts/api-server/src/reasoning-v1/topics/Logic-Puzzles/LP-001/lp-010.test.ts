@@ -22,7 +22,10 @@ for (const caselet of caselets) {
   const partial = caselet.clues.filter((clue) => clue.kind === "PERSON_DAY" || clue.kind === "PERSON_TIME").length;
   const relations = caselet.clues.filter((clue) => clue.kind === "BEFORE" || clue.kind === "BETWEEN" || clue.kind === "IMMEDIATE_BEFORE" || clue.kind === "SAME_TIME" || clue.kind === "SAME_DAY").length;
   const exclusions = caselet.clues.filter((clue) => clue.kind === "NOT_DAY").length;
-  if (caselet.difficultyBand === "Easy") assert.equal(direct, 5, `${caselet.caseletId} Easy should use five direct placements`);
+  if (caselet.difficultyBand === "Easy") {
+    assert.equal(direct, 4, `${caselet.caseletId} Easy should use four direct placements`);
+    assert.equal(relations, 1, `${caselet.caseletId} Easy should require one ordering deduction`);
+  }
   if (caselet.difficultyBand === "Medium") assert.ok(direct >= 1 && partial >= 1 && relations >= 1 && exclusions >= 1, `${caselet.caseletId} Medium topology is not mixed enough`);
   if (caselet.difficultyBand === "Hard") {
     assert.ok(direct <= 1, `${caselet.caseletId} Hard has too many direct slot anchors`);
@@ -45,7 +48,7 @@ for (const caselet of caselets) {
     assert.match(evidence, /Step 1: Use the clue/u);
     assert.match(evidence, /Possible day\/time slot\(s\)/u);
     assert.match(evidence, /Read the completed schedule/u);
-    assert.doesNotMatch(evidence, /use all the clues|apply all the clues|as shown above/u);
+    assert.doesNotMatch(evidence, /use all the clues|apply all the clues|as shown above|possible complete schedules from/u);
     const counts = qlPositionCounts.get(child.qlId) ?? [0, 0, 0, 0];
     counts[child.correctIndex] += 1;
     qlPositionCounts.set(child.qlId, counts);
