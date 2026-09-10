@@ -77,7 +77,7 @@ assert.equal(primesBelow100.at(-1), 97);
 assert.equal(97 - 2, 95, "2015 prime-extrema difference failed.");
 assert.equal(63 + 37, 100, "2012 recurring-decimal numerator sum failed.");
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 31);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 36);
 const numAll = listRegisteredCountablePyqObservations({ packageId: "NUM-001" });
 assert.equal(numAll.length, 16);
 assert.equal(numAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 10);

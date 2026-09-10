@@ -59,16 +59,17 @@ assert.equal(x + y + z, 12);
 assert.equal(x + y - z, 6);
 assert.equal(x - y + z, 4);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 31);
+// Registry assertions are cumulative so an older-wave proof also catches later registry drift.
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 36);
 const alg001 = listRegisteredCountablePyqObservations({ packageId: "ALG-001" });
 const alg002 = listRegisteredCountablePyqObservations({ packageId: "ALG-002" });
-assert.equal(alg001.length, 10);
-assert.equal(alg002.length, 5);
+assert.equal(alg001.length, 11);
+assert.equal(alg002.length, 9);
 const algebraAll = [...alg001, ...alg002];
-assert.equal(algebraAll.length, 15);
-assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 11);
+assert.equal(algebraAll.length, 20);
+assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 15);
 assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CHSL").length, 3);
-assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_II").length, 1);
+assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_II").length, 2);
 
 // More Algebra evidence is useful, but Algebra-only data still cannot establish whole-section topic frequency.
 const cgl = buildQuantV4PyqFrequencyProfile({
@@ -81,8 +82,8 @@ const cgl = buildQuantV4PyqFrequencyProfile({
     requireDatedPaperIdentity: true,
   },
 });
-assert.equal(cgl.countableQuestionCount, 11);
-assert.equal(cgl.distinctPaperCount, 11);
+assert.equal(cgl.countableQuestionCount, 15);
+assert.equal(cgl.distinctPaperCount, 15);
 assert.equal(cgl.topicCoverageCount, 1);
 assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
 assert.ok(cgl.blockers.includes("TOPIC_COVERAGE_BELOW_POLICY"));
@@ -92,11 +93,11 @@ console.log(JSON.stringify({
   status: "PASS_QUANT_V4_ALGEBRA_PYQ_NORMALIZATION_WAVE2_P2",
   authority: QUANT_V4_ALGEBRA_WAVE2_PYQ_MIGRATION_AUTHORITY,
   wave2ObservationCount: observations.length,
-  algebraRegisteredObservationCount: algebraAll.length,
-  profileCounts: {
-    SSC_CGL_TIER_I: 11,
+  currentAlgebraRegisteredObservationCount: algebraAll.length,
+  currentProfileCounts: {
+    SSC_CGL_TIER_I: 15,
     SSC_CHSL: 3,
-    SSC_CGL_TIER_II: 1,
+    SSC_CGL_TIER_II: 2,
   },
   wholeSectionWeightReady: false,
 }));
