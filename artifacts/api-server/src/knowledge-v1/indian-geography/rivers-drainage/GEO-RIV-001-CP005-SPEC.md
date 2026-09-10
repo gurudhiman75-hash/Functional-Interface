@@ -2,11 +2,11 @@
 
 **Chapter:** GEO-RIV-001 — Indian Rivers & Drainage System  
 **CP:** GEO-RIV-001-CP005  
-**Status:** IMPLEMENTATION SPEC V1
+**Status:** APPROVED — ENGLISH FREEZE V1
 
 ## Scope
 
-Build a deterministic, source-backed Static GK package covering the major east-flowing Peninsular river systems tested in SSC, Railway, Banking and State objective exams.
+Deterministic, source-backed Static GK coverage of the major east-flowing Peninsular river systems tested in SSC, Railway, Banking and State objective exams.
 
 ## Core river systems
 
@@ -38,7 +38,7 @@ Build a deterministic, source-backed Static GK package covering the major east-f
 - selected Brahmani/Baitarani/Subarnarekha tributaries
 
 ### C. Bank-side classification
-Use bank-side questions only where explicitly supported by the basin authority:
+Bank-side questions are used only where explicitly supported by the basin authority:
 - Godavari
 - Krishna
 - Mahanadi
@@ -62,41 +62,33 @@ Use bank-side questions only where explicitly supported by the basin authority:
 8. **QL-044 — Statement I/II**
 9. **QL-045 — Multi-statement count**
 
-## Difficulty
+## Approved review authority
 
-### Easy
-- direct river-source or river-mouth recall
-- common nickname/alias
-- familiar tributary membership
+`GEO-RIV-001-CP005-REVIEW-BATCH-V4`
 
-### Medium
-- reverse association
-- same-region source discrimination
-- bank-side classification
-- correct/incorrect pair
-- two linked relations
-- Statement I/II
+- 54 questions
+- 54 semantically unique tasks
+- Easy 9 · Medium 35 · Hard 10
+- QL distribution 7/6/8/5/7/7/4/6/4
+- answer positions A/B/C/D = 14/14/13/13
+- all eight core systems represented
+- all three formation/hierarchy anchors represented
+- five major systems represented in bank-side questions
+- at least seven distinct targets in each pair section
+- source and fact provenance on every question
+- simple exam-like wording
 
-### Hard
-- tributary hierarchy
-- formation chains
-- multi-system relation chains
-- three-statement count questions
+## Freeze authority
 
-Hard wording must remain simple.
+`GEO-RIV-001-CP005-ENGLISH-FREEZE-V1`
 
-## Review batch target
+Approval mode: `EXPLICIT_HUMAN_EDITORIAL_APPROVAL`.
 
-Build **54 questions** across QL037–QL045. The batch must:
-- represent all eight core systems
-- cover all three formation/hierarchy anchors
-- include tributary membership across all five major systems
-- include bank-side discrimination without artificial `both/neither bank` options
-- enforce semantic uniqueness
-- require at least seven distinct targets in each pair section
-- balance correct-option positions
-- preserve source and fact provenance on every question
-- remain review-only and runtime-unregistered until explicit human approval
+The frozen corpus is immutable and read-only. Any change to approved stems, options, answers, explanations, difficulty labels, provenance, QL allocation, or editorial wording requires a new governed freeze version.
+
+## Question Studio lifecycle
+
+CP005 is registered under the existing `GEO-RIV-001` package only after the approved freeze is present. Runtime remains `REVIEW_ONLY` and read-only. Question Bank writes, test/mock eligibility, public publication, and production release remain disabled.
 
 ## Visual policy
 
