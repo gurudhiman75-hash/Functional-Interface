@@ -9,6 +9,7 @@ assert.equal(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.approvalRecord, "LP-009-HI-PA-L
 assert.deepEqual(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.supportedLanguages, ["en", "hi", "pa"]);
 assert.deepEqual(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.permanentQlIds, ["LP-QL-033", "LP-QL-034", "LP-QL-035", "LP-QL-036"]);
 assert.equal(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.runtimeMode, "REVIEW_ONLY");
+assert.equal(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.questionStudioLanguageActivation, "ALLOWED_AFTER_INTEGRATION_PROOF");
 assert.equal(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.questionBankWritable, false);
 assert.equal(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.testEligible, false);
 assert.equal(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.mockTestEligible, false);
