@@ -5,7 +5,8 @@ function polish(question: GeoRiv001Cp005ReviewQuestion): GeoRiv001Cp005ReviewQue
   const clean = (value: string) => value
     .replaceAll("left bank tributary", "left-bank tributary")
     .replaceAll("right bank tributary", "right-bank tributary")
-    .replaceAll("Mahabaleshwar is linked with the Krishna source.", "The Krishna rises near Mahabaleshwar.");
+    .replaceAll("Mahabaleshwar is linked with the Krishna source.", "The Krishna rises near Mahabaleshwar.")
+    .replaceAll("; The ", "; the ");
   return {
     ...question,
     questionId: question.questionId.replace("CP005-V3", "CP005-V4"),
@@ -22,7 +23,7 @@ export function auditGeoRiv001Cp005ReviewBatchV4() {
   const issues = [...base.issues];
   for (const q of GEO_RIV_001_CP005_REVIEW_BATCH_V4) {
     const visible = `${q.stem}\n${q.explanation}`;
-    if (/\bleft bank tributary\b|\bright bank tributary\b|linked with the Krishna source|associated with|matches the reviewed relation|exam trap|shortcut/i.test(visible)) {
+    if (/\bleft bank tributary\b|\bright bank tributary\b|linked with the Krishna source|associated with|matches the reviewed relation|exam trap|shortcut|;\s+The\b/i.test(visible)) {
       issues.push(`V4_EDITORIAL_LANGUAGE:${q.questionId}`);
     }
     if (q.options[q.correctIndex] !== q.canonicalAnswer) issues.push(`V4_ANSWER_MISMATCH:${q.questionId}`);
