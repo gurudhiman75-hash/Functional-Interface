@@ -24,12 +24,32 @@ assert.equal(
 assert.equal(QUANT_V4_PYQ_OBSERVATION_REGISTRY_AUTHORITY, "QUANT-V4-PYQ-OBSERVATION-REGISTRY-P2");
 assert.equal(observations.length, 10);
 assert.ok(observations.every((entry) => entry.packageId === "NUM-001"));
-assert.ok(observations.every((entry) => entry.examId === "SSC_CGL_TIER_I"));
 assert.ok(observations.every((entry) => entry.evidenceKind === "VERIFIED_PYQ_COLLECTION"));
 assert.ok(observations.every((entry) => !entry.heldDate && !entry.shift));
-assert.equal(new Set(observations.map((entry) => entry.paperId)).size, 1, "Unresolved paper identity must not be inflated into fake distinct papers.");
 assert.equal(new Set(observations.map((entry) => entry.questionRef)).size, 10);
 assert.ok(observations.every((entry) => entry.sourceRef.includes("QUANT-V4-NUMBER-SYSTEM-SSC-PYQ-NORMALIZATION-WAVE1-P2.md")));
+
+const cglTierI = observations.filter((entry) => entry.examId === "SSC_CGL_TIER_I");
+const chsl = observations.filter((entry) => entry.examId === "SSC_CHSL");
+const cglTierII = observations.filter((entry) => entry.examId === "SSC_CGL_TIER_II");
+assert.equal(cglTierI.length, 8);
+assert.equal(chsl.length, 1);
+assert.equal(cglTierII.length, 1);
+assert.deepEqual(QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_SOURCE_LIMITATIONS.profileObservationCounts, {
+  SSC_CGL_TIER_I: 8,
+  SSC_CHSL: 1,
+  SSC_CGL_TIER_II: 1,
+});
+assert.equal(new Set(cglTierI.map((entry) => entry.paperId)).size, 1);
+assert.equal(new Set(chsl.map((entry) => entry.paperId)).size, 1);
+assert.equal(new Set(cglTierII.map((entry) => entry.paperId)).size, 1);
+
+const q46 = observations.find((entry) => entry.observationId === "NUM-SSC-W1-004");
+const q26 = observations.find((entry) => entry.observationId === "NUM-SSC-W1-008");
+assert.equal(q46?.examId, "SSC_CHSL", "Collection Q46 must retain its CHSL 2011 attribution.");
+assert.match(q46?.sourceLabel ?? "", /CHSL DEO & LDC Exam 2011/u);
+assert.equal(q26?.examId, "SSC_CGL_TIER_II", "Collection Q26 must retain its CGL Tier-II 2013 attribution.");
+assert.match(q26?.sourceLabel ?? "", /CGL Tier-II Exam 2013/u);
 
 const cp003 = observations.filter((entry) => entry.subtopic.startsWith("NUM-CP-003"));
 const cp006 = observations.filter((entry) => entry.subtopic.startsWith("NUM-CP-006"));
@@ -75,29 +95,33 @@ function gcd(left: bigint, right: bigint): bigint {
 }
 assert.equal(gcd(a, b), 2n, "2013 Q31 HCF check failed.");
 
-const registered = listRegisteredCountablePyqObservations({
-  packageId: "NUM-001",
-  examIds: ["SSC_CGL_TIER_I"],
-});
-assert.equal(registered.length, 10);
-assert.deepEqual(registered.map((entry) => entry.observationId), observations.map((entry) => entry.observationId));
+const registeredWave1 = listRegisteredCountablePyqObservations({ packageId: "NUM-001" })
+  .filter((entry) => entry.observationId.startsWith("NUM-SSC-W1-"));
+assert.equal(registeredWave1.length, 10);
+assert.deepEqual(
+  registeredWave1.map((entry) => entry.observationId),
+  observations.map((entry) => entry.observationId),
+);
 
-const contract = getQuantV4SpecializedProfileSelectionContract("NUM-001", "SSC_CGL_TIER_I");
-assert.equal(contract.normalizedCountableObservationCount, 10);
-assert.equal(contract.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
-assert.equal(contract.empiricalEvidenceStatus, "NORMALIZED_COUNTABLE_EVIDENCE_ACCUMULATING");
-assert.equal(contract.profileSelectionCalibrated, false);
-assert.equal(contract.deliveryAllowed, true);
-assert.ok(contract.blockers.includes("PROFILE_SAMPLE_INSUFFICIENT_FOR_CALIBRATION"));
-assert.ok(contract.blockers.includes("CP_QL_DISTRIBUTION_UNPROVEN"));
-assert.ok(contract.blockers.includes("DIFFICULTY_REPRESENTATION_UNCALIBRATED"));
-assert.ok(contract.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
-assert.ok(!contract.blockers.includes("NO_NORMALIZED_COUNTABLE_PYQ_EVIDENCE"));
+for (const profile of ["SSC_CGL_TIER_I", "SSC_CGL_CHSL", "SSC_CGL_JSO"] as const) {
+  const contract = getQuantV4SpecializedProfileSelectionContract("NUM-001", profile);
+  assert.ok(contract.normalizedCountableObservationCount > 0);
+  assert.equal(contract.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
+  assert.equal(contract.empiricalEvidenceStatus, "NORMALIZED_COUNTABLE_EVIDENCE_ACCUMULATING");
+  assert.equal(contract.profileSelectionCalibrated, false);
+  assert.equal(contract.deliveryAllowed, true);
+  assert.ok(contract.blockers.includes("PROFILE_SAMPLE_INSUFFICIENT_FOR_CALIBRATION"));
+  assert.ok(contract.blockers.includes("CP_QL_DISTRIBUTION_UNPROVEN"));
+  assert.ok(contract.blockers.includes("DIFFICULTY_REPRESENTATION_UNCALIBRATED"));
+  assert.ok(contract.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
+  assert.ok(!contract.blockers.includes("NO_NORMALIZED_COUNTABLE_PYQ_EVIDENCE"));
+}
 
 console.log(JSON.stringify({
   status: "PASS_QUANT_V4_NUMBER_SYSTEM_SSC_PYQ_NORMALIZATION_WAVE1_P2",
   authority: QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_PYQ_MIGRATION_AUTHORITY,
   normalizedObservationCount: observations.length,
+  correctedProfileCounts: QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_SOURCE_LIMITATIONS.profileObservationCounts,
   cpCoverage: QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_SOURCE_LIMITATIONS.cpCoverage,
   exactPaperIdentityResolved: false,
   selectionCalibrationAllowed: false,

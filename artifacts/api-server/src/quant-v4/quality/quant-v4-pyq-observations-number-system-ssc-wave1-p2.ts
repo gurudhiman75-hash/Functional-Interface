@@ -1,4 +1,7 @@
-import type { QuantV4PyqObservation } from "./quant-v4-pyq-frequency-evidence-p2";
+import type {
+  QuantV4PyqExamId,
+  QuantV4PyqObservation,
+} from "./quant-v4-pyq-frequency-evidence-p2";
 
 export const QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_PYQ_MIGRATION_AUTHORITY =
   "QUANT-V4-NUMBER-SYSTEM-SSC-PYQ-NORMALIZATION-WAVE1-P2" as const;
@@ -10,12 +13,22 @@ function ref(sourceId: string) {
   return `repo://${LEDGER}#${sourceId}`;
 }
 
-const UNRESOLVED_PAPER_ID = "SSC-CGL-TIER-I-COLLECTION-PAPER-IDENTITY-UNRESOLVED";
+type Wave1ExamId = Extract<
+  QuantV4PyqExamId,
+  "SSC_CGL_TIER_I" | "SSC_CGL_TIER_II" | "SSC_CHSL"
+>;
+
+const UNRESOLVED_PAPER_ID_BY_EXAM: Record<Wave1ExamId, string> = {
+  SSC_CGL_TIER_I: "SSC-CGL-TIER-I-COLLECTION-PAPER-IDENTITY-UNRESOLVED",
+  SSC_CGL_TIER_II: "SSC-CGL-TIER-II-COLLECTION-PAPER-IDENTITY-UNRESOLVED",
+  SSC_CHSL: "SSC-CHSL-COLLECTION-PAPER-IDENTITY-UNRESOLVED",
+};
 
 function observation(input: {
   observationId: string;
   sourceId: string;
-  year: 2010 | 2011 | 2013;
+  examId: Wave1ExamId;
+  sourceAttribution: string;
   questionRef: string;
   subtopic: string;
   representation: string;
@@ -23,11 +36,11 @@ function observation(input: {
 }): QuantV4PyqObservation {
   return Object.freeze({
     observationId: input.observationId,
-    examId: "SSC_CGL_TIER_I",
+    examId: input.examId,
     evidenceKind: "VERIFIED_PYQ_COLLECTION",
     sourceRef: ref(input.sourceId),
-    sourceLabel: `Secondary PYQ collection attribution: SSC CGL Tier-I Exam ${input.year}; exact paper date/shift not preserved`,
-    paperId: UNRESOLVED_PAPER_ID,
+    sourceLabel: `Secondary PYQ collection attribution: ${input.sourceAttribution}; exact paper date/shift not preserved`,
+    paperId: UNRESOLVED_PAPER_ID_BY_EXAM[input.examId],
     questionRef: input.questionRef,
     packageId: "NUM-001",
     topic: "Arithmetic — Number System",
@@ -42,7 +55,8 @@ export const QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_COUNTABLE_PYQ_OBSERVATIONS = Objec
   observation({
     observationId: "NUM-SSC-W1-001",
     sourceId: "NUM-SSC-W1-001",
-    year: 2010,
+    examId: "SSC_CGL_TIER_I",
+    sourceAttribution: "SSC CGL Tier-I Exam 2010",
     questionRef: "COLLECTION-2010-Q67",
     subtopic: "NUM-CP-003 — Divisibility Rules and Missing-Digit Constraints",
     representation: "REPEATED_DIGIT_BLOCK_DIVISIBILITY_MCQ",
@@ -51,7 +65,8 @@ export const QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_COUNTABLE_PYQ_OBSERVATIONS = Objec
   observation({
     observationId: "NUM-SSC-W1-002",
     sourceId: "NUM-SSC-W1-002",
-    year: 2010,
+    examId: "SSC_CGL_TIER_I",
+    sourceAttribution: "SSC CGL Tier-I Exam 2010",
     questionRef: "COLLECTION-2010-Q69",
     subtopic: "NUM-CP-003 — Divisibility Rules and Missing-Digit Constraints",
     representation: "ALGEBRAIC_GUARANTEED_DIVISIBILITY_MCQ",
@@ -60,7 +75,8 @@ export const QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_COUNTABLE_PYQ_OBSERVATIONS = Objec
   observation({
     observationId: "NUM-SSC-W1-003",
     sourceId: "NUM-SSC-W1-003",
-    year: 2010,
+    examId: "SSC_CGL_TIER_I",
+    sourceAttribution: "SSC CGL Tier-I Exam 2010",
     questionRef: "COLLECTION-2010-Q70",
     subtopic: "NUM-CP-003 — Divisibility Rules and Missing-Digit Constraints",
     representation: "CONSECUTIVE_PRODUCT_DIVISIBILITY_MCQ",
@@ -69,16 +85,18 @@ export const QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_COUNTABLE_PYQ_OBSERVATIONS = Objec
   observation({
     observationId: "NUM-SSC-W1-004",
     sourceId: "NUM-SSC-W1-004",
-    year: 2011,
+    examId: "SSC_CHSL",
+    sourceAttribution: "SSC CHSL DEO & LDC Exam 2011",
     questionRef: "COLLECTION-2011-Q46",
     subtopic: "NUM-CP-003 — Divisibility Rules and Missing-Digit Constraints",
     representation: "REPEATED_DIGIT_BLOCK_DIVISIBILITY_MCQ",
-    notes: "Collection Q46: six-digit xyxyxy structure; verified as 10101 × (10x+y).",
+    notes: "Collection Q46: six-digit xyxyxy structure; verified as 10101 × (10x+y). Wave 1 originally over-scoped this item to CGL Tier-I; direct source reinspection confirms CHSL DEO & LDC 2011.",
   }),
   observation({
     observationId: "NUM-SSC-W1-005",
     sourceId: "NUM-SSC-W1-005",
-    year: 2011,
+    examId: "SSC_CGL_TIER_I",
+    sourceAttribution: "SSC CGL Tier-I Exam 2011",
     questionRef: "COLLECTION-2011-Q49",
     subtopic: "NUM-CP-003 — Divisibility Rules and Missing-Digit Constraints",
     representation: "POWER_EXPRESSION_DIVISIBILITY_MCQ",
@@ -87,7 +105,8 @@ export const QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_COUNTABLE_PYQ_OBSERVATIONS = Objec
   observation({
     observationId: "NUM-SSC-W1-006",
     sourceId: "NUM-SSC-W1-006",
-    year: 2011,
+    examId: "SSC_CGL_TIER_I",
+    sourceAttribution: "SSC CGL Tier-I Exam 2011",
     questionRef: "COLLECTION-2011-Q52",
     subtopic: "NUM-CP-003 — Divisibility Rules and Missing-Digit Constraints",
     representation: "LEAST_ADDITION_FOR_DIVISIBILITY_MCQ",
@@ -96,7 +115,8 @@ export const QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_COUNTABLE_PYQ_OBSERVATIONS = Objec
   observation({
     observationId: "NUM-SSC-W1-007",
     sourceId: "NUM-SSC-W1-007",
-    year: 2011,
+    examId: "SSC_CGL_TIER_I",
+    sourceAttribution: "SSC CGL Tier-I Exam 2011",
     questionRef: "COLLECTION-2011-Q54",
     subtopic: "NUM-CP-003 — Divisibility Rules and Missing-Digit Constraints",
     representation: "POWER_SUM_DIVISIBILITY_MCQ",
@@ -105,16 +125,18 @@ export const QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_COUNTABLE_PYQ_OBSERVATIONS = Objec
   observation({
     observationId: "NUM-SSC-W1-008",
     sourceId: "NUM-SSC-W1-008",
-    year: 2013,
+    examId: "SSC_CGL_TIER_II",
+    sourceAttribution: "SSC CGL Tier-II Exam 2013",
     questionRef: "COLLECTION-2013-Q26",
     subtopic: "NUM-CP-003 — Divisibility Rules and Missing-Digit Constraints",
     representation: "OPTION_FILTER_DIVISIBILITY_MCQ",
-    notes: "Collection Q26: identify the listed integer divisible by 25; independently verified that 303375 ends in 75 and is divisible by 25.",
+    notes: "Collection Q26: identify the listed integer divisible by 25; independently verified that 303375 ends in 75 and is divisible by 25. Wave 1 originally over-scoped this item to Tier-I; direct source reinspection confirms Tier-II 2013.",
   }),
   observation({
     observationId: "NUM-SSC-W1-009",
     sourceId: "NUM-SSC-W1-009",
-    year: 2013,
+    examId: "SSC_CGL_TIER_I",
+    sourceAttribution: "SSC CGL Tier-I Exam 2013",
     questionRef: "COLLECTION-2013-Q30",
     subtopic: "NUM-CP-003 — Divisibility Rules and Missing-Digit Constraints",
     representation: "REVERSED_DIGIT_DIFFERENCE_DIVISIBILITY_MCQ",
@@ -123,7 +145,8 @@ export const QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_COUNTABLE_PYQ_OBSERVATIONS = Objec
   observation({
     observationId: "NUM-SSC-W1-010",
     sourceId: "NUM-SSC-W1-010",
-    year: 2013,
+    examId: "SSC_CGL_TIER_I",
+    sourceAttribution: "SSC CGL Tier-I Exam 2013",
     questionRef: "COLLECTION-2013-Q31",
     subtopic: "NUM-CP-006 — HCF, LCM and Common-Alignment Applications",
     representation: "HCF_OF_POWER_EXPRESSIONS_MCQ",
@@ -139,5 +162,10 @@ export const QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_SOURCE_LIMITATIONS = Object.freeze
   shiftResolved: false,
   normalizedObservationCount: QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_COUNTABLE_PYQ_OBSERVATIONS.length,
   cpCoverage: Object.freeze(["NUM-CP-003", "NUM-CP-006"] as const),
+  profileObservationCounts: Object.freeze({
+    SSC_CGL_TIER_I: 8,
+    SSC_CHSL: 1,
+    SSC_CGL_TIER_II: 1,
+  } as const),
   selectionCalibrationAllowed: false,
 } as const);
