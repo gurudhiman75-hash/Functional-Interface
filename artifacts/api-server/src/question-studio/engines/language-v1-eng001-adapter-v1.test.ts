@@ -91,13 +91,14 @@ for (const question of first.questions) {
   }).mode, "review_only");
 }
 
-for (const [qlId, ruleId] of [
-  ["ENG-001-QL001", "GR-SVA-001"],
-  ["ENG-001-QL002", "GR-SVA-005"],
-  ["ENG-001-QL007", "GR-SVA-008"],
+for (const [qlId, ruleId, selectorDifficulty] of [
+  ["ENG-001-QL001", "GR-SVA-001", "Easy"],
+  ["ENG-001-QL002", "GR-SVA-005", "Medium"],
+  ["ENG-001-QL007", "GR-SVA-008", "Medium"],
 ] as const) {
   const result = await languageV1Eng001QuestionStudioAdapterV1.generate({
     ...baseRequest,
+    difficulty: selectorDifficulty,
     patternId: qlId,
     canonicalProblemId: ruleId,
     count: 3,
