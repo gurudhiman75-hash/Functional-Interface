@@ -73,7 +73,7 @@ jobs:
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp004-freeze-v1.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp005-validator.test.ts"
             "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp005-review-generator-v2.test.ts"
-            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp005-review-batch-v3.test.ts"
+            "src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp005-review-batch-v4.test.ts"
             "src/question-studio/engines/knowledge-v1-geo-riv-001-adapter-v1.test.ts"
           )
           for test_file in "${tests[@]}"; do
@@ -104,15 +104,15 @@ jobs:
             --bundle --packages=external --platform=node --format=esm \
             --outfile=dist/geography/geo-riv-001-cp004-export-review.mjs
           pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp005-export-review-v3.ts \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp005-export-review-v4.ts \
             --bundle --packages=external --platform=node --format=esm \
-            --outfile=dist/geography/geo-riv-001-cp005-export-review-v3.mjs
+            --outfile=dist/geography/geo-riv-001-cp005-export-review-v4.mjs
           cd artifacts/api-server
           node dist/geography/geo-riv-001-cp001-export-review.mjs
           node dist/geography/geo-riv-001-cp002-export-review.mjs
           node dist/geography/geo-riv-001-cp003-export-review-v2.mjs
           node dist/geography/geo-riv-001-cp004-export-review.mjs
-          node dist/geography/geo-riv-001-cp005-export-review-v3.mjs
+          node dist/geography/geo-riv-001-cp005-export-review-v4.mjs
 
       - name: Upload GEO-RIV-001 CP001 review artifact
         uses: actions/upload-artifact@v4
@@ -146,11 +146,11 @@ jobs:
           if-no-files-found: error
           retention-days: 30
 
-      - name: Upload GEO-RIV-001 CP005 V3 review artifact
+      - name: Upload GEO-RIV-001 CP005 V4 review artifact
         uses: actions/upload-artifact@v4
         with:
-          name: GEO-RIV-001-CP005-REVIEW-BATCH-V3
-          path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP005-V3/
+          name: GEO-RIV-001-CP005-REVIEW-BATCH-V4
+          path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP005-V4/
           if-no-files-found: error
           retention-days: 30
 
