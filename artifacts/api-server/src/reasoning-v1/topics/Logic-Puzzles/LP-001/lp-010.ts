@@ -71,12 +71,12 @@ const PEOPLE: readonly DayTimePerson[] = ["A", "B", "C", "D", "E", "F"];
 const SLOTS: readonly DayTimeSlot[] = [0, 1, 2, 3, 4, 5];
 
 const PROFILE_TEMPLATES = [
-  { id: "LECTURE_SCHEDULE", scenario: "A college is scheduling one lecture for each of six students.", personNoun: "student", eventNoun: "lecture", days: ["Tuesday", "Wednesday", "Friday"] as const, times: ["10 a.m.", "4 p.m."] as const, people: ["Aarav", "Bhavna", "Chetan", "Diya", "Eshan", "Farah", "Gaurav", "Hina", "Ishan", "Jyoti", "Karan", "Meera"] },
+  { id: "STUDENT_PRESENTATIONS", scenario: "Six students are scheduled to give presentations at a college.", personNoun: "student", eventNoun: "presentation", days: ["Tuesday", "Wednesday", "Friday"] as const, times: ["10 a.m.", "4 p.m."] as const, people: ["Aarav", "Bhavna", "Chetan", "Diya", "Eshan", "Farah", "Gaurav", "Hina", "Ishan", "Jyoti", "Karan", "Meera"] },
   { id: "INTERVIEW_SCHEDULE", scenario: "A recruitment board is scheduling interviews for six applicants.", personNoun: "applicant", eventNoun: "interview", days: ["Monday", "Wednesday", "Friday"] as const, times: ["9 a.m.", "3 p.m."] as const, people: ["Aditi", "Bharat", "Charu", "Dev", "Ira", "Kabir", "Leena", "Mohit", "Neha", "Parth", "Ritu", "Sahil"] },
-  { id: "TRAINING_DEMOS", scenario: "A training institute is scheduling demonstration sessions for six trainees.", personNoun: "trainee", eventNoun: "demonstration session", days: ["Tuesday", "Thursday", "Saturday"] as const, times: ["11 a.m.", "5 p.m."] as const, people: ["Anaya", "Bimal", "Deepa", "Harsh", "Kriti", "Manav", "Naman", "Ojas", "Pooja", "Ravi", "Simran", "Tanvi"] },
-  { id: "COUNSELLING_SLOTS", scenario: "A counselling centre is scheduling appointments for six candidates.", personNoun: "candidate", eventNoun: "appointment", days: ["Monday", "Tuesday", "Thursday"] as const, times: ["10:30 a.m.", "2:30 p.m."] as const, people: ["Asha", "Bikram", "Deepak", "Esha", "Harish", "Jyoti", "Kiran", "Mona", "Naveen", "Reema", "Sahil", "Tina"] },
-  { id: "AUDIT_MEETINGS", scenario: "A bank is scheduling review meetings for six officers.", personNoun: "officer", eventNoun: "review meeting", days: ["Monday", "Thursday", "Friday"] as const, times: ["10 a.m.", "2 p.m."] as const, people: ["Kamal", "Lata", "Mohit", "Nisha", "Omkar", "Priya", "Rahul", "Simran", "Tarun", "Zoya", "Arjun", "Leela"] },
-  { id: "LAB_PRESENTATIONS", scenario: "A university is scheduling presentations for six researchers.", personNoun: "researcher", eventNoun: "presentation", days: ["Wednesday", "Friday", "Saturday"] as const, times: ["9:30 a.m.", "1:30 p.m."] as const, people: ["Alok", "Beena", "Dinesh", "Farah", "Gopal", "Harini", "Irfan", "Juhi", "Kartik", "Leela", "Nitin", "Rupa"] },
+  { id: "TRAINING_DEMOS", scenario: "Six trainees are scheduled to give practical demonstrations at a training institute.", personNoun: "trainee", eventNoun: "demonstration", days: ["Tuesday", "Thursday", "Saturday"] as const, times: ["11 a.m.", "5 p.m."] as const, people: ["Anaya", "Bimal", "Deepa", "Harsh", "Kriti", "Manav", "Naman", "Ojas", "Pooja", "Ravi", "Simran", "Tanvi"] },
+  { id: "COUNSELLING_APPOINTMENTS", scenario: "Six candidates are scheduled for counselling appointments.", personNoun: "candidate", eventNoun: "counselling appointment", days: ["Monday", "Tuesday", "Thursday"] as const, times: ["10:30 a.m.", "2:30 p.m."] as const, people: ["Asha", "Bikram", "Deepak", "Esha", "Harish", "Jyoti", "Kiran", "Mona", "Naveen", "Reema", "Sahil", "Tina"] },
+  { id: "REVIEW_MEETINGS", scenario: "A bank is scheduling review meetings for six officers.", personNoun: "officer", eventNoun: "review meeting", days: ["Monday", "Thursday", "Friday"] as const, times: ["10 a.m.", "2 p.m."] as const, people: ["Kamal", "Lata", "Mohit", "Nisha", "Omkar", "Priya", "Rahul", "Simran", "Tarun", "Zoya", "Arjun", "Leela"] },
+  { id: "RESEARCH_PRESENTATIONS", scenario: "Six researchers are scheduled to give presentations at a university.", personNoun: "researcher", eventNoun: "presentation", days: ["Wednesday", "Friday", "Saturday"] as const, times: ["9:30 a.m.", "1:30 p.m."] as const, people: ["Alok", "Beena", "Dinesh", "Farah", "Gopal", "Harini", "Irfan", "Juhi", "Kartik", "Leela", "Nitin", "Rupa"] },
 ] as const;
 
 function hashSeed(value: string): number { let hash = 2166136261; for (const char of value) { hash ^= char.charCodeAt(0); hash = Math.imul(hash, 16777619); } return hash >>> 0; }
@@ -93,20 +93,20 @@ function materializeProfile(index: number, random: () => number): Lp010Profile {
   const names = shuffle(template.people, random).slice(0, 6);
   const people = { A: names[0]!, B: names[1]!, C: names[2]!, D: names[3]!, E: names[4]!, F: names[5]! };
   const slots = {
-    0: `${template.days[0]}, ${template.times[0]}`,
-    1: `${template.days[0]}, ${template.times[1]}`,
-    2: `${template.days[1]}, ${template.times[0]}`,
-    3: `${template.days[1]}, ${template.times[1]}`,
-    4: `${template.days[2]}, ${template.times[0]}`,
-    5: `${template.days[2]}, ${template.times[1]}`,
+    0: `${template.days[0]} at ${template.times[0]}`,
+    1: `${template.days[0]} at ${template.times[1]}`,
+    2: `${template.days[1]} at ${template.times[0]}`,
+    3: `${template.days[1]} at ${template.times[1]}`,
+    4: `${template.days[2]} at ${template.times[0]}`,
+    5: `${template.days[2]} at ${template.times[1]}`,
   } as Record<DayTimeSlot, string>;
   return {
     id: template.id, scenario: template.scenario, personNoun: template.personNoun, eventNoun: template.eventNoun,
     people, days: template.days, times: template.times, slots,
-    personQuestionTemplate: `On which day and at what time is {person}'s ${template.eventNoun} scheduled?`,
-    slotQuestionTemplate: `Whose ${template.eventNoun} is scheduled on {slot}?`,
-    pairQuestionTemplate: `Which of the following correctly matches two ${template.personNoun}s with their ${template.eventNoun} slots?`,
-    nextQuestionTemplate: `Whose ${template.eventNoun} is scheduled immediately after {person}'s ${template.eventNoun}?`,
+    personQuestionTemplate: `When is {person} scheduled?`,
+    slotQuestionTemplate: `Who is scheduled on {slot}?`,
+    pairQuestionTemplate: `Which of the following correctly matches two ${template.personNoun}s with their scheduled day and time?`,
+    nextQuestionTemplate: `Who is scheduled immediately after {person}?`,
   };
 }
 
@@ -136,7 +136,7 @@ function clueKey(clue: DayTimeClue): string {
 
 function directClue(person: DayTimePerson, assignment: DayTimeAssignment, profile: Lp010Profile): DayTimeClue {
   const slot = assignment[person];
-  return { kind: "PERSON_SLOT", person, slot, text: `${profile.people[person]}'s ${profile.eventNoun} is scheduled on ${profile.slots[slot]}.` };
+  return { kind: "PERSON_SLOT", person, slot, text: `${profile.people[person]} is scheduled on ${profile.slots[slot]}.` };
 }
 
 function buildCandidates(assignment: DayTimeAssignment, profile: Lp010Profile): DayTimeClue[] {
@@ -144,19 +144,19 @@ function buildCandidates(assignment: DayTimeAssignment, profile: Lp010Profile): 
   for (const person of PEOPLE) {
     const slot = assignment[person]; const dayIndex = dayOf(slot); const timeIndex = timeOf(slot);
     out.push(directClue(person, assignment, profile));
-    out.push({ kind: "PERSON_DAY", person, dayIndex, text: `${profile.people[person]}'s ${profile.eventNoun} is scheduled on ${profile.days[dayIndex]}.` });
-    out.push({ kind: "PERSON_TIME", person, timeIndex, text: `${profile.people[person]}'s ${profile.eventNoun} is scheduled at ${profile.times[timeIndex]}.` });
-    for (const candidateDay of [0, 1, 2] as const) if (candidateDay !== dayIndex) out.push({ kind: "NOT_DAY", person, dayIndex: candidateDay, text: `${profile.people[person]}'s ${profile.eventNoun} is not scheduled on ${profile.days[candidateDay]}.` });
+    out.push({ kind: "PERSON_DAY", person, dayIndex, text: `${profile.people[person]} is scheduled on ${profile.days[dayIndex]}.` });
+    out.push({ kind: "PERSON_TIME", person, timeIndex, text: `${profile.people[person]} is scheduled at ${profile.times[timeIndex]}.` });
+    for (const candidateDay of [0, 1, 2] as const) if (candidateDay !== dayIndex) out.push({ kind: "NOT_DAY", person, dayIndex: candidateDay, text: `${profile.people[person]} is not scheduled on ${profile.days[candidateDay]}.` });
   }
   for (let i = 0; i < PEOPLE.length; i += 1) for (let j = i + 1; j < PEOPLE.length; j += 1) {
     const a = PEOPLE[i]!; const b = PEOPLE[j]!; const sa = assignment[a]; const sb = assignment[b];
     const first = sa < sb ? a : b; const second = first === a ? b : a;
-    out.push({ kind: "BEFORE", left: first, right: second, text: `${profile.people[first]}'s ${profile.eventNoun} is scheduled before ${profile.people[second]}'s.` });
+    out.push({ kind: "BEFORE", left: first, right: second, text: `${profile.people[first]} is scheduled before ${profile.people[second]}.` });
     const count = Math.abs(sa - sb) - 1;
-    if (count >= 1) out.push({ kind: "BETWEEN", left: a, right: b, count, text: `Exactly ${count === 1 ? "one" : count} ${profile.personNoun}${count === 1 ? "" : "s"} have their ${profile.eventNoun}s between those of ${profile.people[a]} and ${profile.people[b]}.` });
-    if (Math.abs(sa - sb) === 1) out.push({ kind: "IMMEDIATE_BEFORE", left: first, right: second, text: `${profile.people[second]}'s ${profile.eventNoun} is scheduled immediately after ${profile.people[first]}'s.` });
-    if (timeOf(sa) === timeOf(sb)) out.push({ kind: "SAME_TIME", left: a, right: b, text: `${profile.people[a]} and ${profile.people[b]} have their ${profile.eventNoun}s at the same time of day.` });
-    if (dayOf(sa) === dayOf(sb)) out.push({ kind: "SAME_DAY", left: a, right: b, text: `${profile.people[a]} and ${profile.people[b]} have their ${profile.eventNoun}s on the same day.` });
+    if (count >= 1) out.push({ kind: "BETWEEN", left: a, right: b, count, text: `There ${count === 1 ? "is" : "are"} exactly ${count === 1 ? "one slot" : `${count} slots`} between ${profile.people[a]} and ${profile.people[b]}.` });
+    if (Math.abs(sa - sb) === 1) out.push({ kind: "IMMEDIATE_BEFORE", left: first, right: second, text: `${profile.people[second]} is scheduled immediately after ${profile.people[first]}.` });
+    if (timeOf(sa) === timeOf(sb)) out.push({ kind: "SAME_TIME", left: a, right: b, text: `${profile.people[a]} and ${profile.people[b]} are scheduled at the same time on different days.` });
+    if (dayOf(sa) === dayOf(sb)) out.push({ kind: "SAME_DAY", left: a, right: b, text: `${profile.people[a]} and ${profile.people[b]} are scheduled on the same day.` });
   }
   return out;
 }
@@ -170,7 +170,16 @@ function minimizeUnique(clues: readonly DayTimeClue[]): DayTimeClue[] {
 function essential(clues: readonly DayTimeClue[]): boolean { return clues.every((_, removed) => solveLp010({ clues: clues.filter((__, index) => index !== removed) }).length > 1); }
 
 function chooseClues(assignment: DayTimeAssignment, profile: Lp010Profile, difficultyBand: DifficultyBand, random: () => number): DayTimeClue[] {
-  if (difficultyBand === "Easy") return shuffle(PEOPLE, random).slice(0, 5).map((person) => directClue(person, assignment, profile));
+  if (difficultyBand === "Easy") {
+    const directPeople = shuffle(PEOPLE, random).slice(0, 4);
+    const remaining = PEOPLE.filter((person) => !directPeople.includes(person));
+    const first = assignment[remaining[0]!] < assignment[remaining[1]!] ? remaining[0]! : remaining[1]!;
+    const second = first === remaining[0] ? remaining[1]! : remaining[0]!;
+    return [
+      ...directPeople.map((person) => directClue(person, assignment, profile)),
+      { kind: "BEFORE", left: first, right: second, text: `${profile.people[first]} is scheduled before ${profile.people[second]}.` },
+    ];
+  }
   const candidates = shuffle(buildCandidates(assignment, profile), random);
   const quotas: Array<{ required: readonly DayTimeClue["kind"][]; target: number }> = difficultyBand === "Medium"
     ? [
@@ -217,28 +226,27 @@ function tableMarkdown(profile: Lp010Profile, table: PartialTable): string {
   const rows = PEOPLE.map((person) => { const values = table[person] ?? []; return `| ${profile.people[person]} | ${values.length ? values.map((slot) => profile.slots[slot]).join(" / ") : "—"} |`; }).join("\n");
   return `| ${profile.personNoun[0]!.toUpperCase()}${profile.personNoun.slice(1)} | Possible day/time slot(s) |\n|---|---|\n${rows}`;
 }
-function explanationDetail(profile: Lp010Profile, clue: DayTimeClue, before: number, after: number): string {
-  const effect = `This narrows the possible complete schedules from ${before} to ${after}.`;
-  if (clue.kind === "PERSON_SLOT") return `Place ${profile.people[clue.person]} directly in ${profile.slots[clue.slot]}. ${effect}`;
-  if (clue.kind === "PERSON_DAY") return `Keep ${profile.people[clue.person]} only in the two ${profile.days[clue.dayIndex]} rows. ${effect}`;
-  if (clue.kind === "PERSON_TIME") return `Keep ${profile.people[clue.person]} only in the ${profile.times[clue.timeIndex]} positions. ${effect}`;
-  if (clue.kind === "BEFORE") return `${profile.people[clue.left]} must appear earlier than ${profile.people[clue.right]} in chronological order. ${effect}`;
-  if (clue.kind === "BETWEEN") return `${profile.people[clue.left]} and ${profile.people[clue.right]} must be ${clue.count + 1} positions apart because exactly ${clue.count} ${profile.personNoun}${clue.count === 1 ? "" : "s"} lie between them. ${effect}`;
-  if (clue.kind === "IMMEDIATE_BEFORE") return `${profile.people[clue.right]} must occupy the very next chronological slot after ${profile.people[clue.left]}. ${effect}`;
-  if (clue.kind === "SAME_TIME") return `${profile.people[clue.left]} and ${profile.people[clue.right]} must both use the morning-time positions or both use the later-time positions. ${effect}`;
-  if (clue.kind === "SAME_DAY") return `${profile.people[clue.left]} and ${profile.people[clue.right]} must occupy the two slots of the same day. ${effect}`;
-  return `Remove both ${profile.days[clue.dayIndex]} slots from ${profile.people[clue.person]}'s possibilities. ${effect}`;
+function explanationDetail(profile: Lp010Profile, clue: DayTimeClue): string {
+  if (clue.kind === "PERSON_SLOT") return `${profile.people[clue.person]} is fixed at ${profile.slots[clue.slot]}.`;
+  if (clue.kind === "PERSON_DAY") return `${profile.people[clue.person]} can be in only one of the two ${profile.days[clue.dayIndex]} slots.`;
+  if (clue.kind === "PERSON_TIME") return `${profile.people[clue.person]} must take the ${profile.times[clue.timeIndex]} slot on one of the three days.`;
+  if (clue.kind === "BEFORE") return `${profile.people[clue.left]} must come earlier than ${profile.people[clue.right]} when the six slots are read in chronological order.`;
+  if (clue.kind === "BETWEEN") return `The positions of ${profile.people[clue.left]} and ${profile.people[clue.right]} must differ by ${clue.count + 1}.`;
+  if (clue.kind === "IMMEDIATE_BEFORE") return `${profile.people[clue.left]} and ${profile.people[clue.right]} must occupy consecutive slots, with ${profile.people[clue.left]} first.`;
+  if (clue.kind === "SAME_TIME") return `${profile.people[clue.left]} and ${profile.people[clue.right]} must both take the earlier time or both take the later time on different days.`;
+  if (clue.kind === "SAME_DAY") return `${profile.people[clue.left]} and ${profile.people[clue.right]} must occupy the two slots of the same day.`;
+  return `Both ${profile.days[clue.dayIndex]} slots are removed from ${profile.people[clue.person]}'s possibilities.`;
 }
 function buildExplanation(profile: Lp010Profile, clues: readonly DayTimeClue[], finalDetail: string): { summary: string; lines: string[] } {
   const ordered = [...clues].sort((a, b) => Number(b.kind === "PERSON_SLOT") - Number(a.kind === "PERSON_SLOT"));
   let solutions = [...ALL_ASSIGNMENTS]; const lines: string[] = []; let step = 1;
   for (const clue of ordered) {
-    const before = solutions.length; solutions = solutions.filter((state) => satisfies(state, clue));
-    lines.push(`**Step ${step}: Use the clue — ${clue.text}**\n\n${explanationDetail(profile, clue, before, solutions.length)}\n\n${tableMarkdown(profile, candidateTable(solutions))}`); step += 1;
+    solutions = solutions.filter((state) => satisfies(state, clue));
+    lines.push(`**Step ${step}: Use the clue — ${clue.text}**\n\n${explanationDetail(profile, clue)}\n\n${tableMarkdown(profile, candidateTable(solutions))}`); step += 1;
   }
   const finalText = finalDetail.endsWith(".") ? finalDetail : `${finalDetail}.`;
-  lines.push(`**Step ${step}: Read the completed schedule**\n\nOnly one schedule remains. ${finalText}\n\n${tableMarkdown(profile, candidateTable(solutions))}`);
-  return { summary: `The day-and-time clues determine one unique ${profile.eventNoun} schedule.`, lines };
+  lines.push(`**Step ${step}: Read the completed schedule**\n\nThe schedule is now fixed. ${finalText}\n\n${tableMarkdown(profile, candidateTable(solutions))}`);
+  return { summary: `The clues determine one unique day-and-time schedule.`, lines };
 }
 
 function placeAnswer(answer: string, pool: readonly string[], targetIndex: number, random: () => number): { options: string[]; correctIndex: number } {
@@ -262,10 +270,10 @@ function buildChildren(caseletId: string, profile: Lp010Profile, setup: string, 
   const pairChoices = placeAnswer(pairAnswer, pairPool, (offset + 2) % 4, random);
   const nextChoices = placeAnswer(nextAnswer, PEOPLE.map((person) => profile.people[person]), (offset + 3) % 4, random);
   return [
-    { questionId: `${caseletId}-Q1`, qlId: "LP-QL-037", stem: qlStem(setup, clues, profile.personQuestionTemplate.replace("{person}", profile.people[targetPerson])), options: slotChoices.options, correctIndex: slotChoices.correctIndex, answer: slotChoices.options[slotChoices.correctIndex]!, difficultyBand, misconceptionFamily: "person-slot reversal", explanation: buildExplanation(profile, clues, `${profile.people[targetPerson]} is scheduled on ${profile.slots[targetSlot]}, so that is the required slot`) },
-    { questionId: `${caseletId}-Q2`, qlId: "LP-QL-038", stem: qlStem(setup, clues, profile.slotQuestionTemplate.replace("{slot}", profile.slots[inverseSlot])), options: personChoices.options, correctIndex: personChoices.correctIndex, answer: personChoices.options[personChoices.correctIndex]!, difficultyBand, misconceptionFamily: "slot-person reversal", explanation: buildExplanation(profile, clues, `${profile.people[inversePerson]} occupies ${profile.slots[inverseSlot]}`) },
-    { questionId: `${caseletId}-Q3`, qlId: "LP-QL-039", stem: qlStem(setup, clues, profile.pairQuestionTemplate), options: pairChoices.options, correctIndex: pairChoices.correctIndex, answer: pairChoices.options[pairChoices.correctIndex]!, difficultyBand, misconceptionFamily: "pair-slot swap", explanation: buildExplanation(profile, clues, `The completed rows for ${profile.people[pairLeft]} and ${profile.people[pairRight]} give ${pairAnswer}`) },
-    { questionId: `${caseletId}-Q4`, qlId: "LP-QL-040", stem: qlStem(setup, clues, profile.nextQuestionTemplate.replace("{person}", profile.people[nextBase])), options: nextChoices.options, correctIndex: nextChoices.correctIndex, answer: nextChoices.options[nextChoices.correctIndex]!, difficultyBand, misconceptionFamily: "immediate-vs-later", explanation: buildExplanation(profile, clues, `${profile.people[nextBase]} is in ${profile.slots[assignment[nextBase]]}; the next chronological slot is ${profile.slots[nextSlot]}, occupied by ${nextAnswer}`) },
+    { questionId: `${caseletId}-Q1`, qlId: "LP-QL-037", stem: qlStem(setup, clues, profile.personQuestionTemplate.replace("{person}", profile.people[targetPerson])), options: slotChoices.options, correctIndex: slotChoices.correctIndex, answer: slotChoices.options[slotChoices.correctIndex]!, difficultyBand, misconceptionFamily: "person-slot reversal", explanation: buildExplanation(profile, clues, `${profile.people[targetPerson]} is scheduled on ${profile.slots[targetSlot]}, so that is the required day and time`) },
+    { questionId: `${caseletId}-Q2`, qlId: "LP-QL-038", stem: qlStem(setup, clues, profile.slotQuestionTemplate.replace("{slot}", profile.slots[inverseSlot])), options: personChoices.options, correctIndex: personChoices.correctIndex, answer: personChoices.options[personChoices.correctIndex]!, difficultyBand, misconceptionFamily: "slot-person reversal", explanation: buildExplanation(profile, clues, `${profile.people[inversePerson]} is scheduled on ${profile.slots[inverseSlot]}`) },
+    { questionId: `${caseletId}-Q3`, qlId: "LP-QL-039", stem: qlStem(setup, clues, profile.pairQuestionTemplate), options: pairChoices.options, correctIndex: pairChoices.correctIndex, answer: pairChoices.options[pairChoices.correctIndex]!, difficultyBand, misconceptionFamily: "pair-slot swap", explanation: buildExplanation(profile, clues, `The completed schedule gives ${pairAnswer}`) },
+    { questionId: `${caseletId}-Q4`, qlId: "LP-QL-040", stem: qlStem(setup, clues, profile.nextQuestionTemplate.replace("{person}", profile.people[nextBase])), options: nextChoices.options, correctIndex: nextChoices.correctIndex, answer: nextChoices.options[nextChoices.correctIndex]!, difficultyBand, misconceptionFamily: "immediate-vs-later", explanation: buildExplanation(profile, clues, `${profile.people[nextBase]} is scheduled on ${profile.slots[assignment[nextBase]]}; the next slot is ${profile.slots[nextSlot]}, where ${nextAnswer} is scheduled`) },
   ];
 }
 
@@ -276,7 +284,7 @@ export function generateLp010Batch(seed = "lp-010-review", count = 8): Lp010Case
     const assignment = pick(shuffle(ALL_ASSIGNMENTS, random), random);
     const difficultyBand = (["Easy", "Medium", "Hard"] as const)[hashSeed(`${seed}:difficulty:${index}`) % 3]!;
     const clues = chooseClues(assignment, profile, difficultyBand, random); const caseletId = `LP-010-${String(index + 1).padStart(3, "0")}`;
-    const questionSetup = `${profile.scenario} The six ${profile.personNoun}s—${examList(PEOPLE.map((person) => profile.people[person]))}—are assigned one slot each across ${examList(profile.days)}. On each day, one ${profile.eventNoun} is at ${profile.times[0]} and one is at ${profile.times[1]}. The six chronological slots are ${examList(SLOTS.map((slot) => profile.slots[slot]))}. Each ${profile.personNoun} uses exactly one slot and every slot is used once.`;
+    const questionSetup = `${profile.scenario} The six ${profile.personNoun}s are ${examList(PEOPLE.map((person) => profile.people[person]))}. The schedule covers ${examList(profile.days)}. Each day has two time slots: ${profile.times[0]} and ${profile.times[1]}. Thus, the six chronological slots are ${examList(SLOTS.map((slot) => profile.slots[slot]))}. Each ${profile.personNoun} is assigned exactly one slot, and no two ${profile.personNoun}s share a slot.`;
     result.push({ caseletId, scenario: profile.scenario, questionSetup, scenarioProfileId: profile.id, difficultyBand, people: PEOPLE, slots: SLOTS, labels: profile, clues, assignment, children: buildChildren(caseletId, profile, questionSetup, clues, assignment, difficultyBand, random) });
   }
   return result;
