@@ -74,7 +74,7 @@ function resolveSapBankingExamProfile(body: any): SapBankingExamProfile | undefi
 }
 
 function resolveQuantQuestionStudioExamProfile(body: any): QuantQuestionStudioExamProfile | undefined {
-  const explicit = asString(body?.examProfile).toUpperCase();
+  const explicit = asString(body?.examProfile ?? body?.examProfileId).toUpperCase();
   const allowed = new Set<QuantQuestionStudioExamProfile>([
     "GENERIC_PRACTICE", "SSC_CGL_TIER_I", "SSC_CGL_CHSL", "SSC_CGL_JSO",
     "BANKING_PRELIMS", "BANKING_MAINS", "PUNJAB_STATE",
