@@ -111,7 +111,7 @@ export function buildEng001Cp001ReviewV4Markdown(): string {
   const lines: string[] = [
     "# ENG-001-CP001 — Subject–Verb Agreement Review V4",
     "",
-    "Status: `REVIEW_READY_V4__PRODUCTION_SCALE_DIVERSITY__NOT_QUESTION_STUDIO_REGISTERED`",
+    "Status: `FINAL_HUMAN_REVIEW_CANDIDATE__CI_GREEN__NOT_QUESTION_STUDIO_REGISTERED`",
     "",
     `Catalog scale: ${CP001_V4_CATALOG_METRICS.semanticScenes} complete semantic scenes across ${CP001_V4_CATALOG_METRICS.semanticDomains} unrelated domains; conservative canonical candidate capacity before QL/stem multiplication: ${CP001_V4_CANONICAL_VARIANT_CAPACITY.total}.`,
     "",
