@@ -35,10 +35,21 @@ const PLAIN_REPLACEMENTS: readonly [string, string][] = [
   ["in a single project report", "in one project report"],
   ["under close technical review", "under review"],
   ["monthly instalment", "monthly amount"],
-  ["irrigation demonstration", "watering lesson"],
+  ["irrigation demonstration", "lesson on watering crops"],
   ["for the following team", "for the next team"],
   ["fresh produce", "fresh vegetables"],
+  ["the power cut through the control system", "the power cut online"],
+  ["the power cut through the system", "the power cut online"],
   ["through the control system", "through the system"],
+  ["power complaint service", "complaint service"],
+  ["system operators", "operators"],
+  ["best photograph for release", "best photograph for the newspaper"],
+  ["during the current drill cycle", "this month"],
+  ["during the holiday travel time", "during the holiday period"],
+  ["handling the branch review", "working at the branch"],
+  ["latest survey", "latest study"],
+  ["repair bay", "workshop"],
+  ["extended use", "long use"],
 
   // Keep the technology pair human-led. “Computers/programs completed the
   // test” was grammatically usable but unnecessarily mechanical.
@@ -51,7 +62,7 @@ const PLAIN_REPLACEMENTS: readonly [string, string][] = [
   ["or the computers", "or the assistants"],
   ["nor the computers", "nor the assistants"],
 
-  ["outage reporting service", "power complaint service"],
+  ["outage reporting service", "complaint service"],
   ["power outage", "power cut"],
   ["the interruption", "the power cut"],
   ["without interruption", "without stopping"],
@@ -218,7 +229,6 @@ function contextConflicts(source: string, context: string): boolean {
   const contextHasSpecificTime = /\b(?:today|tomorrow|tonight|this morning|this afternoon|this evening|this week|this term|this season)\b/.test(lowerContext);
   if (sourceHasSpecificTime && contextHasSpecificTime) return true;
 
-  // A few physical nouns require a broader location than a room/road phrase.
   if (/\broof\b/.test(lowerSource) && lowerContext === "in the room") return true;
   if (/\bbridge\b/.test(lowerSource) && lowerContext === "on the road") return true;
 
