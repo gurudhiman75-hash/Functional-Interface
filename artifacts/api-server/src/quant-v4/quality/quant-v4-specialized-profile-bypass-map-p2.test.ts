@@ -9,7 +9,7 @@ export const QUANT_V4_SPECIALIZED_PROFILE_BYPASS_MAP_AUTHORITY =
 
 type ProbeStatus =
   | "PROFILE_APPLIED_OR_EXPOSED"
-  | "DELIVERY_MATCH_ONLY_NO_PROFILE_PROOF"
+  | "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING"
   | "PROFILE_BYPASS_DELIVERY_MISMATCH";
 
 type Probe = Readonly<{
@@ -18,13 +18,11 @@ type Probe = Readonly<{
   request: Record<string, unknown>;
 }>;
 
-function observedProfileValues(result: any): string[] {
+function observedNativeProfileValues(result: any): string[] {
   const values = [
-    result?.generationContext?.requestedExamProfile,
     result?.generationContext?.examProfile,
     ...(Array.isArray(result?.questions)
       ? result.questions.flatMap((question: any) => [
-          question?.requestedExamProfile,
           question?.examProfile,
           question?.metadata?.examProfile,
           question?.traceability?.examProfile,
@@ -33,7 +31,6 @@ function observedProfileValues(result: any): string[] {
       : []),
     ...(Array.isArray(result?.questionPackages)
       ? result.questionPackages.flatMap((question: any) => [
-          question?.requestedExamProfile,
           question?.examProfile,
           question?.parameters?.examProfile,
           question?.traceability?.examProfile,
@@ -61,13 +58,15 @@ async function runProbe(probe: Probe) {
   const counts = optionCounts(result);
   assert.ok(counts.length > 0, `${probe.id} returned no preview questions.`);
 
-  const profiles = observedProfileValues(result);
-  const profileProof = profiles.includes(examProfile);
+  const nativeProfiles = observedNativeProfileValues(result);
+  const nativeProfileProof = nativeProfiles.includes(examProfile);
   const deliveryMatches = counts.every((count) => count === expectedOptionCount);
-  const status: ProbeStatus = profileProof && deliveryMatches
+  const transportStatus = String(result?.generationContext?.profileTransportStatus ?? "");
+  const profileSelectionCalibrated = result?.generationContext?.profileSelectionCalibrated === true;
+  const status: ProbeStatus = nativeProfileProof && deliveryMatches
     ? "PROFILE_APPLIED_OR_EXPOSED"
     : deliveryMatches
-      ? "DELIVERY_MATCH_ONLY_NO_PROFILE_PROOF"
+      ? "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING"
       : "PROFILE_BYPASS_DELIVERY_MISMATCH";
 
   return Object.freeze({
@@ -77,9 +76,11 @@ async function runProbe(probe: Probe) {
     examProfile,
     expectedOptionCount,
     observedOptionCounts: Object.freeze(counts),
-    observedProfiles: Object.freeze(profiles),
-    profileProof,
+    observedNativeProfiles: Object.freeze(nativeProfiles),
+    nativeProfileProof,
     deliveryMatches,
+    transportStatus,
+    profileSelectionCalibrated,
     status,
   });
 }
@@ -124,10 +125,13 @@ const probes: readonly Probe[] = Object.freeze([
 
 const results = [];
 for (const probe of probes) results.push(await runProbe(probe));
-
 const byId = Object.fromEntries(results.map((entry) => [entry.id, entry]));
 
-assert.equal(byId.SAP_BANKING_PRELIMS.status, "PROFILE_APPLIED_OR_EXPOSED", "SAP Banking Speed Maths should remain the positive specialized-route control.");
+assert.equal(
+  byId.SAP_BANKING_PRELIMS.status,
+  "PROFILE_APPLIED_OR_EXPOSED",
+  "SAP Banking Speed Maths should remain the positive native specialized-route control.",
+);
 assert.equal(byId.SAP_BANKING_PRELIMS.expectedOptionCount, 5);
 assert.ok(byId.SAP_BANKING_PRELIMS.observedOptionCounts.every((count: number) => count === 5));
 
@@ -137,17 +141,27 @@ for (const id of [
   "NUM_BANKING_PRELIMS",
   "TMW_BANKING_PRELIMS",
 ]) {
-  assert.notEqual(byId[id].status, "PROFILE_APPLIED_OR_EXPOSED", `${id} unexpectedly claims profile application.`);
+  assert.equal(byId[id].expectedOptionCount, 5);
+  assert.ok(byId[id].observedOptionCounts.every((count: number) => count === 5), `${id} must deliver five options.`);
+  assert.equal(byId[id].nativeProfileProof, false, `${id} must not claim native Banking calibration.`);
+  assert.equal(byId[id].transportStatus, "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING");
+  assert.equal(byId[id].profileSelectionCalibrated, false);
+  assert.equal(byId[id].status, "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING");
 }
 
 for (const id of ["AVG_PUNJAB_STATE", "SAP_PUNJAB_STATE"]) {
   assert.equal(byId[id].expectedOptionCount, 4);
-  assert.equal(byId[id].profileProof, false, `${id} must not be treated as Punjab-calibrated merely because four options happen to match.`);
+  assert.ok(byId[id].observedOptionCounts.every((count: number) => count === 4));
+  assert.equal(byId[id].nativeProfileProof, false, `${id} must not be treated as Punjab-calibrated merely because four-option delivery is correct.`);
+  assert.equal(byId[id].transportStatus, "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING");
+  assert.equal(byId[id].profileSelectionCalibrated, false);
+  assert.equal(byId[id].status, "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING");
 }
 
-assert.ok(
-  results.some((entry) => entry.status === "PROFILE_BYPASS_DELIVERY_MISMATCH"),
-  "The audit should continue exposing at least one specialized Banking route that bypasses the five-option delivery contract.",
+assert.equal(
+  results.filter((entry) => entry.status === "PROFILE_BYPASS_DELIVERY_MISMATCH").length,
+  0,
+  "No probed specialized route may violate its central option-count delivery contract after remediation.",
 );
 
 console.log(JSON.stringify({

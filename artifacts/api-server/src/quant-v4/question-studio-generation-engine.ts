@@ -1,7 +1,9 @@
 import {
+  applyQuantV4ExamProfileDelivery,
   generateQuestion as generateBaseQuestion,
   listQuantV4Packages as listBasePackages,
   toQuestionStudioPreview,
+  withQuantV4ExamProfileContext,
   type QuantV4Difficulty,
   type QuantV4GenerationRequest,
   type QuantV4Language,
@@ -976,20 +978,31 @@ async function generateSimplificationQuestion(
   };
 }
 
+async function generateSpecializedWithProfileDelivery(
+  request: QuestionStudioQuantV4GenerationRequest,
+  generate: () => Promise<any>,
+) {
+  if (!request.examProfile) return generate();
+  return withQuantV4ExamProfileContext(request.examProfile, async () => {
+    const result = await generate();
+    return applyQuantV4ExamProfileDelivery(result, request as QuantV4GenerationRequest);
+  });
+}
+
 export async function generateQuestion(
   request: QuestionStudioQuantV4GenerationRequest = {},
 ) {
   if (isSimplificationRequest(request)) {
-    return generateSimplificationQuestion(request);
+    return generateSpecializedWithProfileDelivery(request, () => generateSimplificationQuestion(request));
   }
   if (isNumberSystemRequest(request)) {
-    return generateNumberSystemQuestion(request);
+    return generateSpecializedWithProfileDelivery(request, () => generateNumberSystemQuestion(request));
   }
   if (isMixtureAndAlligationRequest(request)) {
-    return generateMixtureAndAlligationQuestion(request);
+    return generateSpecializedWithProfileDelivery(request, () => generateMixtureAndAlligationQuestion(request));
   }
   if (isAverageRequest(request)) {
-    return generateAverageQuestion(request);
+    return generateSpecializedWithProfileDelivery(request, () => generateAverageQuestion(request));
   }
   return generateBaseQuestion(request as QuantV4GenerationRequest);
 }
