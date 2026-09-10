@@ -1,6 +1,6 @@
 # ENG-001-CP001 — Human Approval & Question Studio Integration V1
 
-Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY_REGISTERED__QUESTION_BANK_LOCKED`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY_REGISTERED__MERGE_PENDING`
 
 ## Approved authority
 
@@ -65,6 +65,21 @@ Approving an item in the English review panel must resolve as `review_only` and 
 - direct display of sentence parts, keyed answer, explanation, and corrected sentence;
 - Approve review / Needs fix / Reject actions;
 - an explicit guard that review approval cannot silently convert an ENG-001 item into Question Bank.
+
+## Integration validation
+
+The post-registration checkpoint proves:
+
+- English V4 diversity diagnostics pass;
+- the production-scale grammar/stress suite passes;
+- the approved 60-question review still matches the deterministic exporter byte-for-byte;
+- the `language-v1` ENG-001 adapter contract and deterministic replay pass;
+- the admin application typechecks and the complete integrated admin build/test workflow passes;
+- Render production build passes;
+- the shared Question Studio engine-registry test now admits `language-v1` while re-proving the existing Quant and Knowledge engines;
+- Computer Content Engine Question Studio lifecycle/registry regression checks remain green after the third engine is registered.
+
+Some independently triggered legacy chapter workflows can remain red for their own stale chapter-specific contracts (for example, a route/mount or lifecycle assertion unrelated to English). Those are not treated as ENG-001 evidence and are not modified by this checkpoint.
 
 ## Reopening rule
 
