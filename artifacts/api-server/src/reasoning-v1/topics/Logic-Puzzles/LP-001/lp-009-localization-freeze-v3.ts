@@ -13,6 +13,7 @@ export const LP_009_HI_PA_LOCALIZATION_FREEZE_V3 = Object.freeze({
   status: "HI_PA_HUMAN_REVIEWED_V3_LOCALIZATION_FROZEN" as const,
   approvedOn: "2026-09-10" as const,
   approvalBasis: "EXPLICIT_HUMAN_REVIEW_APPROVAL" as const,
+  approvalRecord: "LP-009-HI-PA-LOCALIZATION-APPROVAL-V3" as const,
   localizationMethod: "SEMANTIC_REBUILD_FROM_FROZEN_SOLVED_CASELET" as const,
   englishFreezeStatus: "FROZEN_V1" as const,
   localizationFreezeStatus: "FROZEN_V3" as const,
