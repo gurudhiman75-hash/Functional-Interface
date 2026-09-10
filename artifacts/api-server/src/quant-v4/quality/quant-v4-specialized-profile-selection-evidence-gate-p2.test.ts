@@ -24,15 +24,24 @@ assert.equal(
   QUANT_V4_PYQ_OBSERVATION_REGISTRY_AUTHORITY,
   "QUANT-V4-PYQ-OBSERVATION-REGISTRY-P2",
 );
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 20, "The normalized registry should contain ten Algebra and ten Number System observations after NUM SSC Wave 1.");
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 26, "The normalized registry should contain ten Algebra and sixteen Number System observations after NUM SSC Wave 2.");
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 10);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 10);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 16);
+
+const NUM_EXPECTED_COUNTS: Readonly<Record<QuantV4CompetitiveExamProfileId, number>> = Object.freeze({
+  SSC_CGL_TIER_I: 10,
+  SSC_CGL_CHSL: 5,
+  SSC_CGL_JSO: 1,
+  PUNJAB_STATE: 0,
+  BANKING_PRELIMS: 0,
+  BANKING_MAINS: 0,
+});
 
 for (const packageId of PACKAGE_IDS) {
   for (const [examProfile, examIds] of Object.entries(QUANT_V4_SPECIALIZED_PROFILE_SOURCE_EXAMS) as [QuantV4CompetitiveExamProfileId, readonly any[]][]) {
     const countable = listRegisteredCountablePyqObservations({ packageId, examIds });
     const contract = getQuantV4SpecializedProfileSelectionContract(packageId, examProfile);
-    const expectedCount = packageId === "NUM-001" && examProfile === "SSC_CGL_TIER_I" ? 10 : 0;
+    const expectedCount = packageId === "NUM-001" ? NUM_EXPECTED_COUNTS[examProfile] : 0;
 
     assert.equal(countable.length, expectedCount, `${packageId}/${examProfile} normalized evidence count drifted.`);
     assert.equal(contract.normalizedCountableObservationCount, expectedCount);
@@ -69,15 +78,15 @@ for (const packageId of PACKAGE_IDS) {
   assert.equal(pkg.examProfileSelection?.deliveryAllowed, true);
 
   if (packageId === "NUM-001") {
-    assert.equal(pkg.examProfileSelection?.normalizedCountableObservationCount, 10);
-    assert.equal(pkg.examProfileSelection?.evidenceBearingProfileCount, 1);
+    assert.equal(pkg.examProfileSelection?.normalizedCountableObservationCount, 16);
+    assert.equal(pkg.examProfileSelection?.evidenceBearingProfileCount, 3);
   } else {
     assert.equal(pkg.examProfileSelection?.normalizedCountableObservationCount, 0);
     assert.equal(pkg.examProfileSelection?.evidenceBearingProfileCount, 0);
   }
 
   for (const examProfile of Object.keys(QUANT_V4_SPECIALIZED_PROFILE_SOURCE_EXAMS) as QuantV4CompetitiveExamProfileId[]) {
-    const expectedStatus = packageId === "NUM-001" && examProfile === "SSC_CGL_TIER_I"
+    const expectedStatus = packageId === "NUM-001" && NUM_EXPECTED_COUNTS[examProfile] > 0
       ? "EVIDENCE_ACCUMULATING_SELECTION_PENDING"
       : "EVIDENCE_GATED_SELECTION_PENDING";
     assert.equal(
@@ -92,7 +101,9 @@ const runtimeCases = [
   { packageId: "AVG-001", examProfile: "BANKING_PRELIMS", seed: "selection-gate:avg:bank" },
   { packageId: "MAL-001", examProfile: "BANKING_PRELIMS", seed: "selection-gate:mal:bank" },
   { packageId: "NUM-001", examProfile: "BANKING_PRELIMS", canonicalProblemId: "NUM-CP-003", seed: "selection-gate:num:bank" },
-  { packageId: "NUM-001", examProfile: "SSC_CGL_TIER_I", canonicalProblemId: "NUM-CP-003", seed: "selection-gate:num:ssc-evidence" },
+  { packageId: "NUM-001", examProfile: "SSC_CGL_TIER_I", canonicalProblemId: "NUM-CP-003", seed: "selection-gate:num:ssc-tier1" },
+  { packageId: "NUM-001", examProfile: "SSC_CGL_CHSL", canonicalProblemId: "NUM-CP-003", seed: "selection-gate:num:chsl" },
+  { packageId: "NUM-001", examProfile: "SSC_CGL_JSO", canonicalProblemId: "NUM-CP-003", seed: "selection-gate:num:jso" },
   { packageId: "TMW-001", examProfile: "BANKING_PRELIMS", seed: "selection-gate:tmw:bank" },
   { packageId: "AVG-001", examProfile: "PUNJAB_STATE", seed: "selection-gate:avg:punjab" },
   { packageId: "TMW-001", examProfile: "PUNJAB_STATE", seed: "selection-gate:tmw:punjab" },
@@ -128,6 +139,10 @@ console.log(JSON.stringify({
   registeredCountableObservations: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length,
   specializedPackages: [...PACKAGE_IDS],
   promotedProfiles: 0,
-  evidenceAccumulatingProfiles: ["NUM-001/SSC_CGL_TIER_I"],
+  evidenceAccumulatingProfiles: [
+    "NUM-001/SSC_CGL_TIER_I",
+    "NUM-001/SSC_CGL_CHSL",
+    "NUM-001/SSC_CGL_JSO",
+  ],
   nativeControl: "SAP/BANKING_PRELIMS",
 }));
