@@ -31,6 +31,18 @@ const ruleIds: GrammarRuleId[] = [
   "GR-SVA-009",
   "GR-SVA-010",
 ];
+const difficultiesByRule: Record<GrammarRuleId, readonly EnglishDifficulty[]> = {
+  "GR-SVA-001": ["easy"],
+  "GR-SVA-002": ["easy", "medium"],
+  "GR-SVA-003": ["easy", "medium"],
+  "GR-SVA-004": ["medium", "hard"],
+  "GR-SVA-005": ["medium", "hard"],
+  "GR-SVA-006": ["medium", "hard"],
+  "GR-SVA-007": ["medium", "hard"],
+  "GR-SVA-008": ["medium", "hard"],
+  "GR-SVA-009": ["medium", "hard"],
+  "GR-SVA-010": ["medium", "hard"],
+};
 
 function text(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
@@ -77,6 +89,15 @@ function normalizeSelectors(request: QuestionStudioGenerationRequest) {
   if (new Set(qlMatches).size > 1) throw new Error(`Conflicting ENG-001 QL selectors ${qlMatches.join(", ")}`);
   if (new Set(ruleMatches).size > 1) throw new Error(`Conflicting ENG-001 rule selectors ${ruleMatches.join(", ")}`);
   return { qlId: qlMatches[0], ruleId: ruleMatches[0] };
+}
+
+function assertRuleDifficultyCompatibility(ruleId: GrammarRuleId | undefined, difficulty: EnglishDifficulty) {
+  if (!ruleId) return;
+  const allowed = difficultiesByRule[ruleId];
+  if (allowed.includes(difficulty)) return;
+  throw new Error(
+    `${ruleId} is not approved for ${capitalizeDifficulty(difficulty)} difficulty; allowed: ${allowed.map(capitalizeDifficulty).join(", ")}`,
+  );
 }
 
 function learnerOptions(question: ReturnType<typeof generateEng001Cp001QuestionV4>) {
@@ -170,6 +191,7 @@ export const languageV1Eng001QuestionStudioAdapterV1: QuestionStudioEngineAdapte
     const count = normalizeCount(request.count);
     const difficulty = normalizeDifficulty(request.difficulty);
     const { qlId, ruleId } = normalizeSelectors(request);
+    assertRuleDifficultyCompatibility(ruleId, difficulty);
     const baseSeed = request.seed?.trim() || "eng001-cp001-question-studio-approved-v1";
     const questions: Record<string, unknown>[] = [];
     const usedCandidateIds = new Set<string>();
