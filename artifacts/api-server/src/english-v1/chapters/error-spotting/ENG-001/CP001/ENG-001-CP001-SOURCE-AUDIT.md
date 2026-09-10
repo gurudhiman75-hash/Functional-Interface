@@ -57,7 +57,9 @@ Where the present audit did not locate a sufficiently clean direct PYQ for an ad
 - QL002 uses three sentence parts plus a `No error` option while preserving the registered error segment intact.
 - QL007 is a calibrated No-error surface and excludes bare basic agreement from the default pool.
 - Difficulty rises through rule interaction, dependency distance, competing nouns, and contextual agreement—not difficult vocabulary.
-- Explanations identify the keyed part, state the governing rule in simple language, and show the corrected sentence.
+- A dedicated plain-language realization layer removes avoidable domain jargon and awkward collocations without changing the registered SVA target.
+- Generic context suffixes are not appended to production questions because they reduced readability and naturalness; authored scenes and structural catalogs provide the sentence context.
+- Explanations use a fixed simple pattern: identify the keyed part, give one short reason, state the correction directly, and show the corrected sentence. No-error explanations explicitly confirm that the existing verb is correct.
 
 ## V4 production architecture
 
@@ -103,6 +105,7 @@ V4 CI checks include:
 - correction-span mapping;
 - seeded determinism;
 - QL answer/option contracts;
+- fixed simple instruction stems;
 - QL002 error-segment preservation;
 - calibrated No-error rule admission;
 - structural difficulty consistency;
@@ -112,22 +115,32 @@ V4 CI checks include:
 - adjacent duplicate-word checks;
 - `many a/an` article form;
 - collective-noun ambiguity guards;
+- heavy-vocabulary guardrails;
+- explanation-jargon and explanation-length guardrails;
+- direct correction wording for error items;
+- explicit correctness wording for No-error items;
 - explanation/key/corrected-sentence consistency;
+- machine-like repeated continuous-predicate checks;
+- selected awkward-collocation regression checks found during human-style review;
 - semantic-domain and production-scale diversity thresholds;
+- all 20 semantic domains in each large-sample difficulty diagnostic;
+- domain-balance guardrails;
 - frozen review-file equality with the deterministic exporter.
 
 These validators do not claim to be a full independent English parser. Semantic naturalness, hidden secondary errors, and disputed usage remain human-review concerns.
 
+## V4 scale and observed diversity
+
+The conservative canonical capacity before QL shaping is **13,464** variants. Current deterministic 20,000-seed diagnostics expose:
+
+| Difficulty | Distinct corrected sentence surfaces | Semantic domains |
+| --- | ---: | ---: |
+| Easy | 1,920 | 20 |
+| Medium | 3,546 | 20 |
+| Hard | 1,915 | 20 |
+
+The lower observed counts compared with the earlier context-multiplied prototype are intentional: artificial context suffix multiplication was removed in favour of clearer exam-like sentences.
+
 ## Approval state
 
-`ENG-001-CP001` remains **review-only**. CI is green, but Question Studio/publication registration and CP002 remain blocked until human approval of:
-
-- grammar correctness;
-- one defensible answer;
-- sentence naturalness;
-- real-exam resemblance;
-- Easy/Medium/Hard separation;
-- explanation clarity;
-- No-error plausibility;
-- collective-noun ambiguity;
-- duplicate/variety quality.
+`ENG-001-CP001` remains **review-only**. The V4 engine, production-scale stress suite, and frozen 60-question review synchronization are green, but Question Studio/publication registration and CP002 remain blocked until the user explicitly approves this checkpoint.
