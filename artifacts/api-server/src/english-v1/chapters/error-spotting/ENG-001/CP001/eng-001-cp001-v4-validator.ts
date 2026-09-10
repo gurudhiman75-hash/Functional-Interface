@@ -80,7 +80,6 @@ const AWKWARD_SURFACE_PATTERNS: readonly [RegExp, string][] = [
   [/\ba joint result\b/i, "a joint result"],
   [/\bregular repair\b/i, "regular repair"],
   [/\bthe photo caption\b/i, "the photo caption"],
-  [/\bthe medical note\b/i, "the medical note"],
 ] as const;
 
 const ERROR_STEM = "Identify the part of the sentence that contains an error.";
