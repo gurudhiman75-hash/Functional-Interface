@@ -31,13 +31,19 @@ jobs:
         run: corepack enable
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-      - name: Run CP007 projection qualification
+      - name: Run CP007 qualification gates
         run: |
           mkdir -p artifacts/api-server/dist/geography
-          pnpm --dir artifacts/api-server exec esbuild \
+          for test_file in \
             src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-validator.test.ts \
-            --bundle --packages=external --platform=node --format=esm \
-            --outfile=dist/geography/geo-riv-001-cp007-validator.test.mjs
-          node artifacts/api-server/dist/geography/geo-riv-001-cp007-validator.test.mjs
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-review-generator-v1.test.ts
+          do
+            output_name="$(basename "${test_file}" .ts).mjs"
+            pnpm --dir artifacts/api-server exec esbuild \
+              "${test_file}" \
+              --bundle --packages=external --platform=node --format=esm \
+              --outfile="dist/geography/${output_name}"
+            node "artifacts/api-server/dist/geography/${output_name}"
+          done
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
