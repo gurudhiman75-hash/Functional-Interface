@@ -20,14 +20,15 @@ No source wording is copied. The uploaded book is used for puzzle-family boundar
 | Checkpoint | `LP-CP-010` |
 | Candidate QLs | `LP-QL-037`–`LP-QL-040` |
 | Caselet shape | six named people × three named days × two times per day |
-| Chronology | day 1 early time → day 1 later time → day 2 early time → day 2 later time → day 3 early time → day 3 later time |
+| Time variation | 12 standard exam-style time pairs, mixing whole-hour and half-hour schedules; pair selection rotates by seed and caselet so a review batch does not repeat the same pair |
+| Chronology | day 1 earlier time → day 1 later time → day 2 earlier time → day 2 later time → day 3 earlier time → day 3 later time |
 | Clue families | direct slot, day-only, time-only, before, between, immediately before, same time, same day and day exclusion |
 | Child queries | person-to-slot, slot-to-person, correct pair matching and immediate-next lookup |
 | Difficulty | Easy four direct placements + one ordering deduction; Medium direct + partial day/time + relation + exclusion; Hard at most one direct slot with layered partial, gap, immediate, same-day/time and exclusion deductions |
 | Languages | English review candidate |
 | Runtime | `REVIEW_ONLY` |
 
-Every child repeats all six people, all three days, both times, the six chronological slots and every clue. Wording is intentionally simple and exam-like: people are directly described as scheduled on days/times, without artificial object labels, city/centre fields or solver jargon. Explanations use one clue at a time, state the actual deduction, show a progressive candidate table, and then read the requested answer from the completed schedule.
+Every child repeats all six people, all three days, both times, the six chronological slots and every clue. Wording is intentionally simple and exam-like: people are directly described as scheduled on days/times, without artificial object labels, city/centre fields or solver jargon. Times use a consistent `9:00 AM` / `2:30 PM` style rather than mixed `a.m.` / `p.m.` formatting. Explanations use one clue at a time, state the actual deduction, show a progressive candidate table, and then read the requested answer from the completed schedule.
 
 ## Boundary with earlier checkpoints
 
@@ -37,6 +38,8 @@ LP-002 is a four-person multi-attribute day-and-location assignment puzzle. LP-0
 
 - generate 100 deterministic caselets and 400 standalone child questions;
 - cover all six scenario profiles and all nine clue families;
+- prove the first 12 caselets use 12 distinct time pairs and include both whole-hour and half-hour schedules;
+- enforce standard `HH:MM AM/PM` presentation for learner-facing times;
 - prove exactly one hidden assignment with an independent exhaustive solver;
 - prove every displayed clue is necessary;
 - keep four unique options and balance correct answer positions for all four QLs;
