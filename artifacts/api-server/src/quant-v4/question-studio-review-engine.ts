@@ -4,6 +4,11 @@ import {
   type QuestionStudioQuantV4GenerationRequest,
 } from "./question-studio-generation-engine";
 import {
+  applyQuantV4ExamProfileDelivery,
+  withQuantV4ExamProfileContext,
+  type QuantV4GenerationRequest,
+} from "./generation-engine";
+import {
   NUM_CP001_QUESTION_STUDIO_REVIEW_RELEASE,
   getNumCp001QuestionStudioReviewQlIds,
   runNumCp001QuestionStudioReview,
@@ -483,11 +488,24 @@ export function listQuantV4Packages() {
   );
 }
 
+async function generateReviewSpecializedWithProfileDelivery(
+  request: QuestionStudioReviewGenerationRequest,
+  generate: () => Promise<any>,
+) {
+  if (!request.examProfile) return generate();
+  return withQuantV4ExamProfileContext(request.examProfile, async () => {
+    const result = await generate();
+    return applyQuantV4ExamProfileDelivery(result, request as QuantV4GenerationRequest);
+  });
+}
+
 export async function generateQuestion(request: QuestionStudioReviewGenerationRequest = {}) {
   if (isSapBankingQuestionStudioRequest(request as SapBankingQuestionStudioRequest)) {
     return generateSapBankingQuestionStudioBatch(request as SapBankingQuestionStudioRequest);
   }
-  if (isTimeAndWorkRequest(request)) return generateTmwReview(request);
+  if (isTimeAndWorkRequest(request)) {
+    return generateReviewSpecializedWithProfileDelivery(request, () => generateTmwReview(request));
+  }
   if (!isNumberSystemRequest(request)) {
     return generateBaseQuestion(request as QuestionStudioQuantV4GenerationRequest);
   }
@@ -504,7 +522,9 @@ export async function generateQuestion(request: QuestionStudioReviewGenerationRe
     || inferredCp === "NUM-CP-001"
     || (language !== "en" && !explicitCp && !inferredCp);
 
-  if (cp001Target) return generateCp001Review(request);
+  if (cp001Target) {
+    return generateReviewSpecializedWithProfileDelivery(request, () => generateCp001Review(request));
+  }
 
   if (language !== "en") {
     throw new Error(

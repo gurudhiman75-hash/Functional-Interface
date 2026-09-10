@@ -209,7 +209,7 @@ function annotateProfileTransport(value: any, profileId: QuantV4ExamProfileId) {
   };
 }
 
-function withExamProfileIngress<T>(
+export function applyQuantV4ExamProfileDelivery<T>(
   result: T,
   request: QuantV4GenerationRequest,
 ): T {
@@ -347,6 +347,6 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
 
   return withQuantV4ExamProfileContext(request.examProfile, async () => {
     const result = await dispatchGeneration(request);
-    return withExamProfileIngress(result, request);
+    return applyQuantV4ExamProfileDelivery(result, request);
   });
 }

@@ -17,6 +17,14 @@ const router = Router();
 const LANGUAGES = new Set(["en", "hi", "pa"]);
 const DIFFICULTIES = new Set(["Easy", "Medium", "Hard"]);
 type SapBankingExamProfile = "BANKING_PRELIMS" | "BANKING_MAINS";
+type QuantQuestionStudioExamProfile =
+  | "GENERIC_PRACTICE"
+  | "SSC_CGL_TIER_I"
+  | "SSC_CGL_CHSL"
+  | "SSC_CGL_JSO"
+  | "BANKING_PRELIMS"
+  | "BANKING_MAINS"
+  | "PUNJAB_STATE";
 
 function asString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
@@ -62,6 +70,23 @@ function resolveSapBankingExamProfile(body: any): SapBankingExamProfile | undefi
   if (/\b(ibps|sbi)\b/u.test(selected) && /\b(po|clerk)\b/u.test(selected)) {
     return "BANKING_PRELIMS";
   }
+  return undefined;
+}
+
+function resolveQuantQuestionStudioExamProfile(body: any): QuantQuestionStudioExamProfile | undefined {
+  const explicit = asString(body?.examProfile).toUpperCase();
+  const allowed = new Set<QuantQuestionStudioExamProfile>([
+    "GENERIC_PRACTICE", "SSC_CGL_TIER_I", "SSC_CGL_CHSL", "SSC_CGL_JSO",
+    "BANKING_PRELIMS", "BANKING_MAINS", "PUNJAB_STATE",
+  ]);
+  if (allowed.has(explicit as QuantQuestionStudioExamProfile)) return explicit as QuantQuestionStudioExamProfile;
+  const banking = resolveSapBankingExamProfile(body);
+  if (banking) return banking;
+  const selected = normalizeSelector(body?.examProfileId || body?.exam);
+  if (/\b(psssb|ppsc|punjab police)\b/u.test(selected)) return "PUNJAB_STATE";
+  if (/\bssc\b/u.test(selected) && /\bchsl\b/u.test(selected)) return "SSC_CGL_CHSL";
+  if (/\bssc\b/u.test(selected) && /\b(jso|tier 2|tier ii)\b/u.test(selected)) return "SSC_CGL_JSO";
+  if (/\bssc\b/u.test(selected) && /\b(tier 1|tier i)\b/u.test(selected)) return "SSC_CGL_TIER_I";
   return undefined;
 }
 
@@ -331,8 +356,12 @@ router.post(
     const topic = reasoningRequest ? "Reasoning" : asString(req.body?.topic) || "Arithmetic";
     const subtopic = asString(req.body?.subtopic) || selectedSubtopic;
     const exam = asString(req.body?.exam) || "SSC CGL";
+    const quantExamProfile = reasoningRequest
+      ? undefined
+      : resolveQuantQuestionStudioExamProfile(req.body);
     const sapBankingExamProfile = simplificationRequest
-      ? resolveSapBankingExamProfile(req.body)
+      && (quantExamProfile === "BANKING_PRELIMS" || quantExamProfile === "BANKING_MAINS")
+      ? quantExamProfile
       : undefined;
     const subject = reasoningRequest ? "Reasoning Ability" : asString(req.body?.subject) || "Quantitative Aptitude";
     const language = normalizeLanguage(req.body?.language);
@@ -390,7 +419,7 @@ router.post(
     const timestamp = new Date().toISOString();
     const requestSnapshot = {
       exam,
-      examProfile: sapBankingExamProfile,
+      examProfile: quantExamProfile,
       subject,
       difficulty,
       count,
@@ -419,7 +448,7 @@ router.post(
         language,
         seed,
         count,
-        examProfile: sapBankingExamProfile,
+        examProfile: quantExamProfile,
       } as any);
       const generatedQuestions = Array.isArray(result.questions)
         ? result.questions
