@@ -1,7 +1,7 @@
 # Quant V4 Specialized Profile Selection Evidence Gate — P2
 
-**Authority:** `QUANT-V4-SPECIALIZED-PROFILE-SELECTION-EVIDENCE-GATE-P2`  
-**Registry authority:** `QUANT-V4-PYQ-OBSERVATION-REGISTRY-P2`  
+**Authority:** `QUANT-V4-SPECIALIZED-PROFILE-SELECTION-EVIDENCE-GATE-P2`
+**Registry authority:** `QUANT-V4-PYQ-OBSERVATION-REGISTRY-P2`
 **Scope:** `AVG-001`, `MAL-001`, `NUM-001`, `TMW-001` across SSC, Banking and Punjab State competitive profiles.
 
 ## Decision
