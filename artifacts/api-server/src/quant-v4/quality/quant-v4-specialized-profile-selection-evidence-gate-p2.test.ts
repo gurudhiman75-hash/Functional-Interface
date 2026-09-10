@@ -24,10 +24,12 @@ assert.equal(
   QUANT_V4_PYQ_OBSERVATION_REGISTRY_AUTHORITY,
   "QUANT-V4-PYQ-OBSERVATION-REGISTRY-P2",
 );
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 36, "The normalized registry should contain twenty Algebra and sixteen Number System observations after Algebra SSC Wave 3.");
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 42, "The normalized registry should contain twenty Algebra, sixteen Number System and six TSD observations after TSD Wave 1.");
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 11);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 9);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 16);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 3);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-002" }).length, 3);
 
 const NUM_EXPECTED_COUNTS: Readonly<Record<QuantV4CompetitiveExamProfileId, number>> = Object.freeze({
   SSC_CGL_TIER_I: 10,
