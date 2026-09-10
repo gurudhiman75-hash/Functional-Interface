@@ -1,13 +1,13 @@
 # GEO-RIV-001-CP008 — Sources, Origins & Mouths — Spec V1
 
 ## Purpose
-Generate exam-standard questions on where rivers rise and where they drain, using the already reviewed GEO-RIV-001 river-system facts as canonical truth.
+Generate exam-standard questions on where rivers rise and how their mouths/outfalls are classified, using already reviewed GEO-RIV-001 facts as canonical truth.
 
 ## Permanent QLs
 - **GEO-RIV-001-QL-065 — Direct source association**: river → source feature/place.
 - **GEO-RIV-001-QL-066 — Reverse source association**: source feature/place → river.
 - **GEO-RIV-001-QL-067 — Source geography**: source state/region/range/district.
-- **GEO-RIV-001-QL-068 — Mouth / outfall**: river → receiving water body.
+- **GEO-RIV-001-QL-068 — Mouth / outfall**: river → receiving water body or mouth type.
 - **GEO-RIV-001-QL-069 — Correctly matched source/mouth pair**.
 - **GEO-RIV-001-QL-070 — Incorrectly matched source/mouth pair**.
 - **GEO-RIV-001-QL-071 — Source-to-mouth relation chain**: combine two stable facts about one river.
@@ -15,7 +15,7 @@ Generate exam-standard questions on where rivers rise and where they drain, usin
 - **GEO-RIV-001-QL-073 — Multi-statement count**.
 
 ## Coverage matrix
-The V1 review corpus must represent every admitted upstream system (CP002–CP005) where eligible source/mouth facts exist. CP006 is held out until approval.
+The V1 review corpus may use approved CP001 mouth facts plus eligible source/mouth facts from CP002–CP005. CP006 is held out until approval.
 
 ### Required source coverage
 - Himalayan source feature/place
@@ -25,16 +25,17 @@ The V1 review corpus must represent every admitted upstream system (CP002–CP00
 - direct and reverse source recall
 
 ### Required mouth coverage
-- Bay of Bengal outfalls where present
-- other stable receiving-water relations present in approved upstream facts
+- Arabian Sea and Bay of Bengal outfalls
+- delta and estuary mouth types
+- receiving-water and mouth-type relations must remain semantically distinct
 
 ### Pair/multi-fact coverage
-- correct pair and incorrect pair blocks must use plausible same-domain distractors
+- correct pair and incorrect pair blocks use plausible same-domain distractors
 - no self-pairs
 - no source relation may be rewritten into a stronger or weaker spatial claim
-- source-to-mouth chains must use two facts belonging to the same river
-- Statement I/II must cover all four truth combinations
-- multi-statement count must cover None/One/Two/Three
+- source-to-mouth chains use two facts belonging to the same river and must uniquely identify the answer
+- Statement I/II covers all four truth combinations
+- multi-statement count covers None/One/Two/Three
 
 ## Difficulty policy
 - Easy: direct source or mouth recall
