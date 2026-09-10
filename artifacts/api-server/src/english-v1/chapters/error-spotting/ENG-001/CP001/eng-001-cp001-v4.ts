@@ -8,10 +8,7 @@ import {
   semanticDomainOfV4,
 } from "./cp001-patterns-v4";
 import { BASE_SCENES_V4 } from "./cp001-semantic-catalog-v4";
-import {
-  chooseCp001PlainContext,
-  simplifyCp001Segments,
-} from "./cp001-plain-language-v4";
+import { simplifyCp001Segments } from "./cp001-plain-language-v4";
 
 /**
  * Error-spotting directions should be instantly understood. Sentence diversity
@@ -69,23 +66,6 @@ function sentenceFromSegments(segments: readonly string[]): string {
   return segments.join(" ").replace(/\s+([,.!?;:])/g, "$1").replace(/\s+/g, " ").trim();
 }
 
-function appendContext(segment: string, context: string): string {
-  const clean = segment.trim().replace(/[.!?]+$/, "");
-  return `${clean} ${context}.`;
-}
-
-function contextualizeSegments(
-  segments: readonly string[],
-  errorIndex: number | null,
-  context: string,
-): string[] {
-  const out = [...segments];
-  const target = [3, 2, 0].find((index) => index !== errorIndex && Boolean(out[index]?.trim()));
-  if (target === undefined) throw new Error("Unable to place CP001 V4 context outside the error segment");
-  out[target] = appendContext(out[target]!, context);
-  return out;
-}
-
 function ensureFourVisibleSegments(
   segments: readonly string[],
   errorIndex: number | null,
@@ -131,7 +111,9 @@ function shapeThreeSegmentsPreserveError(
   errorIndex: number,
   seed: string,
 ): { segments: string[]; errorIndex: number } {
-  if (segments.length !== 4) throw new Error(`QL002 requires four source segments; received ${segments.length}`);
+  if (segments.length !== 4) {
+    throw new Error(`QL002 requires four source segments; received ${segments.length}`);
+  }
   const mergeCandidates = [0, 1, 2].filter(
     (index) => index !== errorIndex && index + 1 !== errorIndex,
   );
@@ -171,12 +153,6 @@ function chooseRule(input: {
     (ruleId) => !isNoError || ENG001_CP001_V4_NO_ERROR_RULE_IDS.includes(ruleId),
   );
   return deterministicPick(`${input.seed}:rule:${input.qlId}:${input.difficulty}`, allowed);
-}
-
-function decorrelatedContextSeed(seed: string, ruleId: GrammarRuleId, domain: string): string {
-  const reversed = [...seed].reverse().join("");
-  const alternating = [...seed].filter((_, index) => index % 2 === 0).join("");
-  return `ctx:${reversed}:${seed.length}:${alternating}:${ruleId}:${domain}`;
 }
 
 function simpleRuleExplanation(candidate: Eng001SentenceCandidate): string {
@@ -233,22 +209,22 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
     seed: `${input.seed}:${ruleId}`,
   });
   const domain = semanticDomainOfV4(candidate);
-  if (!domain) throw new Error(`${candidate.candidateId} lacks a semantic domain for V4 context expansion`);
+  if (!domain) throw new Error(`${candidate.candidateId} lacks a semantic domain`);
 
   const modifierRepair = repairBaseSceneModifierEcho(candidate);
   const plainCorrect = simplifyCp001Segments(modifierRepair.correctSegments);
   const plainError = simplifyCp001Segments(modifierRepair.errorSegments);
-  const context = chooseCp001PlainContext(
-    plainCorrect,
-    domain,
-    decorrelatedContextSeed(input.seed, candidate.ruleId, domain),
-  );
+
+  // Do not bolt an extra generic context phrase onto every sentence. The
+  // authored scene and structural catalogs already provide the context needed
+  // for an exam-like sentence. This keeps comprehension ahead of artificial
+  // variant multiplication.
+  const correctSegments = plainCorrect;
+  const errorSegments = plainError;
 
   const isNoError = qlId === "ENG-001-QL007";
   const rawErrorIndex = isNoError ? null : candidate.errorIndex;
-  const contextualCorrect = contextualizeSegments(plainCorrect, candidate.errorIndex, context.text);
-  const contextualError = contextualizeSegments(plainError, candidate.errorIndex, context.text);
-  const rawSegments = isNoError ? contextualCorrect : contextualError;
+  const rawSegments = isNoError ? correctSegments : errorSegments;
   const visible = ensureFourVisibleSegments(rawSegments, rawErrorIndex);
   const shaped = qlId === "ENG-001-QL002"
     ? shapeThreeSegmentsPreserveError(visible.segments, visible.errorIndex!, input.seed)
@@ -257,13 +233,13 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
   const options = optionLabels(shaped.segments.length, includeNoError);
   const correctOptionIndex = shaped.errorIndex ?? shaped.segments.length;
   const answerLabel = options[correctOptionIndex]!;
-  const correctedSentence = sentenceFromSegments(contextualCorrect);
+  const correctedSentence = sentenceFromSegments(correctSegments);
   const ruleExplanation = simpleRuleExplanation(candidate);
   const explanation = isNoError
     ? `There is no error. ${ruleExplanation} Correct sentence: ${correctedSentence}`
     : `Part ${answerLabel} contains the error. ${ruleExplanation} Replace “${candidate.errorSpan}” with “${candidate.correction}”. Correct sentence: ${correctedSentence}`;
   const repairSuffix = modifierRepair.repaired ? ":ECHO-REPAIRED" : "";
-  const realizedCandidateId = `${candidate.candidateId}${repairSuffix}:CTX:${context.id}`;
+  const realizedCandidateId = `${candidate.candidateId}${repairSuffix}`;
 
   return {
     questionId: `ENG-001-CP001-V4:${qlId}:${realizedCandidateId}:${input.seed}`,
