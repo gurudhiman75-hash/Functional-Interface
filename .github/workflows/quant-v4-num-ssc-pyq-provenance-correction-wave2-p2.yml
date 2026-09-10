@@ -18,7 +18,6 @@ on:
     branches:
       - New-main
     paths:
-      - ".github/workflows/quant-v4-num-ssc-pyq-provenance-correction-wave2-p2.yml"
       - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-NUMBER-SYSTEM-SSC-PYQ-NORMALIZATION-WAVE1-P2.md"
       - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-NUMBER-SYSTEM-SSC-PYQ-NORMALIZATION-WAVE2-P2.md"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observations-number-system-ssc-wave1-p2.ts"
