@@ -9,8 +9,11 @@ on:
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-v2.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-v3.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-v3.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-freeze-v3.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-freeze-v3.test.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-v3-review-export.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/LP-009-HI-PA-LOCALIZATION-REVIEW-V3.md"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/LP-009-HI-PA-LOCALIZATION-APPROVAL-V3.md"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-permanent-freeze.ts"
   workflow_dispatch:
@@ -43,6 +46,9 @@ jobs:
 
       - name: Audit V3 grammatical closeout
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-v3.test.ts
+
+      - name: Enforce approved localization Freeze V3
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-freeze-v3.test.ts
 
       - name: Export current human review pack
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-v3-review-export.ts
