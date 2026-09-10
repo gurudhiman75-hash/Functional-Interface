@@ -7,6 +7,7 @@ import {
   buildGenerationRequest,
   extractedFactQualityRejectionReasons,
   generationInputJson,
+  isPointerStyleClaim,
   sourceOverlapScore,
   validateExtractedFacts,
   validateExtractedFactsWithQuality,
@@ -39,6 +40,24 @@ const rows: FactRow[] = [
     sourceRefs: [{ corpusDocId: 'c2', locator: 'p. 2' }],
   },
   {
+    id: 'f-pointer',
+    periodId: 'p1',
+    subCategoryId: 's1',
+    subCategory: 'Political',
+    claim: 'Maski is mentioned on page 60.',
+    entities: ['Maski'],
+    confidence: 'single-source',
+  },
+  {
+    id: 'f-included',
+    periodId: 'p1',
+    subCategoryId: 's1',
+    subCategory: 'Political',
+    claim: 'Provincial administration was included in the Mauryan governing structure.',
+    entities: ['Mauryan Empire'],
+    confidence: 'single-source',
+  },
+  {
     id: 'f-disputed',
     periodId: 'p1',
     subCategoryId: 's1',
@@ -51,13 +70,17 @@ const rows: FactRow[] = [
 ];
 
 const graph = buildFactGraph(rows);
-assert.deepEqual(graph.map((fact) => fact.id), ['f-high', 'f-low']);
+assert.deepEqual(graph.map((fact) => fact.id), ['f-high', 'f-low', 'f-included']);
 assert.equal('sourceRefs' in graph[0], false);
 assert.equal('extractedText' in graph[0], false);
+assert.equal(isPointerStyleClaim('Maski is mentioned on page 60.'), true);
+assert.equal(isPointerStyleClaim('Provincial administration was included in the Mauryan governing structure.'), false);
 
 const serialized = generationInputJson(graph);
 assert.match(serialized, /f-high/);
 assert.match(serialized, /f-low/);
+assert.match(serialized, /f-included/);
+assert.doesNotMatch(serialized, /f-pointer/);
 assert.doesNotMatch(serialized, /f-disputed/);
 assert.doesNotMatch(serialized, /SOURCE PROSE/);
 assert.doesNotMatch(serialized, /locator/);
@@ -90,6 +113,14 @@ const extractedQuality = validateExtractedFactsWithQuality({
     },
     {
       subCategory: 'Political',
+      claim: 'Numismatics is the study of coins used as a source for ancient Indian history.',
+      entities: ['Numismatics'],
+      dateOrEra: null,
+      locator: 'p. 412',
+      extractedText: 'numismatics 17',
+    },
+    {
+      subCategory: 'Political',
       claim: 'Ashoka adopted dhamma as an important principle of governance.',
       entities: ['Ashoka', 'dhamma'],
       dateOrEra: null,
@@ -107,9 +138,9 @@ const extractedQuality = validateExtractedFactsWithQuality({
   ],
 }, ['Political']);
 
-assert.equal(extractedQuality.rawCount, 4);
+assert.equal(extractedQuality.rawCount, 5);
 assert.equal(extractedQuality.candidates.length, 2);
-assert.equal(extractedQuality.rejections.length, 2);
+assert.equal(extractedQuality.rejections.length, 3);
 assert.deepEqual(
   extractedQuality.candidates.map((fact) => fact.claim),
   [
@@ -123,6 +154,7 @@ assert.deepEqual(
 );
 assert.ok(extractedQuality.rejections[1]?.reasons.includes('pointer-claim'));
 assert.ok(extractedQuality.rejections[1]?.reasons.includes('index-like-evidence'));
+assert.deepEqual(extractedQuality.rejections[2]?.reasons, ['index-like-evidence']);
 assert.equal(validateExtractedFacts({
   facts: [{
     subCategory: 'Political',
@@ -179,6 +211,7 @@ assert.match(hindi.prompt.system, /directly in hi/);
 assert.notEqual(english.prompt.system, hindi.prompt.system);
 assert.match(english.prompt.user, /Low-frequency but still eligible claim/);
 assert.doesNotMatch(english.prompt.user, /SOURCE PROSE/);
+assert.doesNotMatch(english.prompt.user, /Maski is mentioned/);
 
 assert.deepEqual(validateNoteBlocks({
   blocks: [
