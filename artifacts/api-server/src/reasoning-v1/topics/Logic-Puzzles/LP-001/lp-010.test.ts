@@ -7,7 +7,12 @@ assert.equal(new Set(caselets.map((caselet) => caselet.scenarioProfileId)).size,
 assert.deepEqual(new Set(caselets.map((caselet) => caselet.difficultyBand)), new Set(["Easy", "Medium", "Hard"]));
 assert.ok(new Set(caselets.flatMap((caselet) => Object.values(caselet.labels.people))).size >= 50, "LP-010 person-pool variation is too small");
 assert.deepEqual(new Set(caselets.flatMap((caselet) => caselet.clues.map((clue) => clue.kind))), new Set(["PERSON_SLOT", "PERSON_DAY", "PERSON_TIME", "BEFORE", "BETWEEN", "IMMEDIATE_BEFORE", "SAME_TIME", "SAME_DAY", "NOT_DAY"]));
-assert.equal(new Set(caselets.slice(0, 12).map((caselet) => caselet.labels.times.join("|"))).size, 12, "First 12 LP-010 caselets should use distinct time pairs");
+assert.equal(new Set(caselets.slice(0, 12).map((caselet) => caselet.labels.timePatternId)).size, 12, "First 12 LP-010 caselets should use distinct time layouts");
+assert.deepEqual(new Set(caselets.map((caselet) => caselet.labels.times.length)), new Set([2, 4, 5, 6]), "LP-010 should cover repeated, mixed and fully distinct clock-time layouts");
+assert.equal(caselets.filter((caselet) => caselet.labels.times.length === 2).length, 25);
+assert.equal(caselets.filter((caselet) => caselet.labels.times.length === 4).length, 25);
+assert.equal(caselets.filter((caselet) => caselet.labels.times.length === 5).length, 25);
+assert.equal(caselets.filter((caselet) => caselet.labels.times.length === 6).length, 25);
 assert.ok(caselets.some((caselet) => caselet.labels.times.some((time) => time.includes(":30"))), "LP-010 should include half-hour exam schedules");
 assert.ok(caselets.some((caselet) => caselet.labels.times.every((time) => time.includes(":00"))), "LP-010 should include whole-hour exam schedules");
 
@@ -20,9 +25,10 @@ for (const caselet of caselets) {
   for (const time of caselet.labels.times) {
     assert.ok(caselet.questionSetup.includes(time));
     assert.match(time, /^(?:[1-9]|1[0-2]):(?:00|30) (?:AM|PM)$/u, `${caselet.caseletId} has non-standard time formatting`);
+    const clueLinesUsingTime = caselet.clues.filter((clue) => clue.text.includes(time)).length;
+    assert.ok(clueLinesUsingTime <= Math.ceil(caselet.clues.length / 2), `${caselet.caseletId} over-repeats ${time} across clue lines`);
   }
-  assert.notEqual(caselet.labels.times[0], caselet.labels.times[1]);
-  assert.match(caselet.questionSetup, /six slots, in chronological order/u);
+  assert.match(caselet.questionSetup, /six day-time slots, in order/u);
   assert.doesNotMatch(caselet.questionSetup, /associated|centre|city|slot setting|\.\.|\ba\.m\.|\bp\.m\./u);
 
   const direct = caselet.clues.filter((clue) => clue.kind === "PERSON_SLOT").length;
@@ -64,4 +70,4 @@ for (const caselet of caselets) {
 
 assert.deepEqual(new Set(qlPositionCounts.keys()), new Set(["LP-QL-037", "LP-QL-038", "LP-QL-039", "LP-QL-040"]));
 for (const [qlId, counts] of qlPositionCounts) assert.deepEqual(counts, [25, 25, 25, 25], `${qlId} answer-position balance failed`);
-console.log("LP-010 proof passed: 100 day-time scheduling caselets, 400 standalone children, diverse exam-style time pairs, unique clue sets, progressive explanations and balanced answer positions.");
+console.log("LP-010 proof passed: 100 day-time scheduling caselets, 400 standalone children, 2/4/5/6-time layout diversity, non-dominant clock mentions, unique clue sets, progressive explanations and balanced answer positions.");
