@@ -8,3 +8,6 @@ assert.equal(audit.semanticUniqueCount, 54);
 assert.deepEqual(audit.answerPositions, { 0: 14, 1: 14, 2: 13, 3: 13 });
 assert.deepEqual(audit.difficultyCounts, { Easy: 9, Medium: 35, Hard: 10 });
 assert.equal(new Set(GEO_RIV_001_CP005_REVIEW_BATCH_V4.map((q) => q.questionId)).size, 54);
+for (const q of GEO_RIV_001_CP005_REVIEW_BATCH_V4) {
+  assert.doesNotMatch(`${q.stem}\n${q.explanation}`, /;\s+The\b/);
+}
