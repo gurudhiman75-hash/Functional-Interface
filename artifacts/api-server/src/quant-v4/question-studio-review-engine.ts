@@ -9,6 +9,9 @@ import {
   type QuantV4GenerationRequest,
 } from "./generation-engine";
 import {
+  getQuantV4SpecializedProfileSelectionCapability,
+} from "./common/specialized-profile-selection";
+import {
   NUM_CP001_QUESTION_STUDIO_REVIEW_RELEASE,
   getNumCp001QuestionStudioReviewQlIds,
   runNumCp001QuestionStudioReview,
@@ -424,6 +427,12 @@ async function generateTmwReview(request: QuestionStudioReviewGenerationRequest)
 
 export function listQuantV4Packages() {
   const packages = listBasePackages().map((pkg: any) => {
+    if (pkg.packageId === "TMW-001") {
+      return {
+        ...pkg,
+        examProfileSelection: getQuantV4SpecializedProfileSelectionCapability("TMW-001"),
+      };
+    }
     if (pkg.packageId === "SAP") {
       return {
         ...pkg,
@@ -480,6 +489,7 @@ export function listQuantV4Packages() {
       questionBankStatus: "NOT_STORED",
       testEligibility: "INELIGIBLE",
       publiclyPublishable: false,
+      examProfileSelection: getQuantV4SpecializedProfileSelectionCapability("TMW-001"),
     } as any);
   }
 

@@ -9,6 +9,9 @@ import {
   type QuantV4Language,
 } from "./generation-engine";
 import {
+  getQuantV4SpecializedProfileSelectionCapability,
+} from "./common/specialized-profile-selection";
+import {
   AVG_001_QUESTION_STUDIO_CP_IDS,
   AVG_001_QUESTION_STUDIO_LANGUAGES,
   runAvg001QuestionStudioPipeline,
@@ -224,6 +227,7 @@ function packageCard(
     questionBankStatus: "WRITABLE",
     testEligibility: "ELIGIBLE",
     publiclyPublishable: true,
+    examProfileSelection: getQuantV4SpecializedProfileSelectionCapability(definition.packageId),
   };
 }
 
@@ -253,6 +257,7 @@ function numberSystemPackageCard() {
     questionBankStatus: "NOT_STORED",
     testEligibility: "INELIGIBLE",
     publiclyPublishable: false,
+    examProfileSelection: getQuantV4SpecializedProfileSelectionCapability("NUM-001"),
   };
 }
 
@@ -287,7 +292,15 @@ function simplificationPackageCard() {
 }
 
 export function listQuantV4Packages() {
-  const existing = listBasePackages();
+  const existing = listBasePackages().map((pkg: any) => {
+    if (pkg.packageId === "AVG-001" || pkg.packageId === "MAL-001" || pkg.packageId === "NUM-001") {
+      return {
+        ...pkg,
+        examProfileSelection: getQuantV4SpecializedProfileSelectionCapability(pkg.packageId),
+      };
+    }
+    return pkg;
+  });
   const additions = [];
   if (!existing.some((pkg: any) => pkg.packageId === "AVG-001")) {
     additions.push(packageCard(AVG_PACKAGE_DEFINITION));
