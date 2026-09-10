@@ -10,12 +10,12 @@ const lines: string[] = [
   "",
   "> Review-only English candidate. No permanent QL allocation, localization, Question Bank write or publication is authorized.",
   "",
-  "This pack contains 12 day-and-time scheduling caselets and 48 correlated child questions. Each caselet assigns six named people to six chronological slots formed by three days and two times per day.",
+  "This pack contains 12 day-and-time scheduling caselets and 48 correlated child questions. The batch deliberately mixes repeated, partly repeated and highly distinct clock-time layouts; some caselets use five or six different times across the six day-time slots.",
   "",
 ];
 
 for (const caselet of caselets) {
-  lines.push(`## ${caselet.caseletId} — ${caselet.scenarioProfileId} — ${caselet.difficultyBand}`, "", "**Solved assignment used by the explanations**", "", `| ${caselet.labels.personNoun[0]!.toUpperCase()}${caselet.labels.personNoun.slice(1)} | Day and time |`, "|---|---|", ...caselet.people.map((person) => `| ${caselet.labels.people[person]} | ${caselet.labels.slots[caselet.assignment[person]]} |`), "");
+  lines.push(`## ${caselet.caseletId} — ${caselet.scenarioProfileId} — ${caselet.difficultyBand} — ${caselet.labels.times.length} unique times`, "", "**Solved assignment used by the explanations**", "", `| ${caselet.labels.personNoun[0]!.toUpperCase()}${caselet.labels.personNoun.slice(1)} | Day and time |`, "|---|---|", ...caselet.people.map((person) => `| ${caselet.labels.people[person]} | ${caselet.labels.slots[caselet.assignment[person]]} |`), "");
   for (const child of caselet.children) {
     lines.push(`### ${child.questionId} — ${child.qlId} — Standalone question`, "", child.stem, "", ...child.options.map((option, index) => `${String.fromCharCode(65 + index)}. ${option}`), "", `**Answer:** ${child.answer}`, "", "**Explanation**", "", child.explanation.lines.join("\n\n"), "");
   }
