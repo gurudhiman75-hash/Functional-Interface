@@ -75,6 +75,14 @@ const EXPLANATION_JARGON = [
   "dependency",
 ] as const;
 
+const AWKWARD_SURFACE_PATTERNS: readonly [RegExp, string][] = [
+  [/\b(?:is|are) showing a small crack\b/i, "showing a small crack"],
+  [/\ba joint result\b/i, "a joint result"],
+  [/\bregular repair\b/i, "regular repair"],
+  [/\bthe photo caption\b/i, "the photo caption"],
+  [/\bthe medical note\b/i, "the medical note"],
+] as const;
+
 const ERROR_STEM = "Identify the part of the sentence that contains an error.";
 const NO_ERROR_STEM = "Identify the part of the sentence that contains an error. If there is no error, select 'No error'.";
 
@@ -237,6 +245,13 @@ export function validateEng001Cp001QuestionV4(question: Eng001Question): Eng001C
   if (!question.explanation.includes(`“${surfaceCorrection}”`)) {
     issues.push(issue("EXPLANATION", `${question.questionId} does not state the visible correction in plain language.`));
   }
+  if (question.metadata.hasNoError) {
+    if (!question.explanation.includes(`“${surfaceCorrection}” is correct.`)) {
+      issues.push(issue("EXPLANATION", `${question.questionId} must confirm the already-correct verb directly.`));
+    }
+  } else if (!question.explanation.includes(`Use “${surfaceCorrection}”.`)) {
+    issues.push(issue("EXPLANATION", `${question.questionId} must state the correction as a short direct instruction.`));
+  }
   if (!question.explanation.includes(question.correctedSentence)) {
     issues.push(issue("EXPLANATION", `${question.questionId} omits the corrected sentence.`));
   }
@@ -257,6 +272,11 @@ export function validateEng001Cp001QuestionV4(question: Eng001Question): Eng001C
   for (const term of HEAVY_SURFACE_TERMS) {
     if (lowerSentence.includes(term)) {
       issues.push(issue("NATURALNESS", `${question.questionId} contains avoidable heavy vocabulary: “${term}”.`));
+    }
+  }
+  for (const [pattern, label] of AWKWARD_SURFACE_PATTERNS) {
+    if (pattern.test(question.correctedSentence)) {
+      issues.push(issue("NATURALNESS", `${question.questionId} contains an avoidable awkward phrase: “${label}”.`));
     }
   }
 
