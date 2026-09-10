@@ -8,6 +8,7 @@ const audit = auditGeoRiv001Cp004ReviewBatchV2();
 assert.equal(audit.valid, true, audit.issues.join(", "));
 assert.equal(audit.questionCount, 54);
 assert.equal(audit.semanticUniqueCount, 54);
+assert.deepEqual(audit.difficultyCounts, { Easy: 10, Medium: 30, Hard: 14 });
 assert.equal(new Set(GEO_RIV_001_CP004_REVIEW_BATCH_V2.map((q) => q.qlId)).size, 9);
 assert.equal(new Set(GEO_RIV_001_CP004_REVIEW_BATCH_V2.map((q) => q.questionId)).size, 54);
 
