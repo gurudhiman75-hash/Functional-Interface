@@ -25,6 +25,16 @@ The same gate also applies if `PUNJAB_STATE` is supplied through the legacy cock
 
 No SSC or generic fallback is allowed.
 
+## Legacy real-exam simulator compatibility guard
+
+The historical real-exam simulator still maps Punjab-family Probability slots to `SSC_CGL_CHSL` before calling Probability. That mapping predates the central Punjab profile and would otherwise bypass the direct `PUNJAB_STATE` gate.
+
+Until the simulator profile resolver itself is migrated to `PUNJAB_STATE`, the Probability integration defensively recognizes only the simulator's explicit `QUANT-V4-REAL-EXAM-*` audit seed provenance for `PSSSB`, `PPSC`, and `PUNJAB_POLICE` and rejects the disguised SSC fallback with the same evidence-required error.
+
+This compatibility guard is intentionally narrow. Ordinary SSC CGL/CHSL Probability requests remain valid and are covered as a positive control.
+
+The simulator can therefore record these Punjab Probability slots as capability gaps instead of silently counting SSC-generated questions as Punjab evidence.
+
 ## Package discovery
 
 Probability Question Studio package cards expose:
@@ -51,3 +61,5 @@ SSC CGL/CHSL and Banking Probability continue to use their current native chapte
 ## Readiness effect
 
 This improves correctness of the Punjab real-exam audit but does not make Punjab Probability ready. The simulator must continue reporting Probability as a capability/evidence gap until real Punjab evidence is normalized and adopted.
+
+A later simulator migration should replace its historical Punjab-to-SSC Probability resolver with the shared `PUNJAB_STATE` profile directly; at that point the narrow seed-provenance compatibility guard can be removed.
