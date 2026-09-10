@@ -36,3 +36,4 @@ jobs:
           git diff --cached --check
           git commit -m "fix(quant-v4): preserve examProfileId at admin ingress"
           git push origin HEAD:audit/quant-v4-specialized-profile-delivery-remediation-p2
+          # retry marker: final ingress alias pass
