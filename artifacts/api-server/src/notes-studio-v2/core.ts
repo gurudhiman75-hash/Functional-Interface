@@ -33,9 +33,15 @@ export type StyleSpecForGeneration = {
   exemplars?: string[];
 };
 
+const POINTER_CLAIM_PATTERN = /\b(?:is|are|was|were)\s+(?:also\s+)?(?:mentioned|listed|indexed|referenced|included)\b|\bappears?\s+(?:on|in)\s+(?:page|the\s+index|an?\s+index|the\s+bibliograph(?:y|ies)|the\s+references?)\b/i;
+
+export function isPointerStyleClaim(value: string) {
+  return POINTER_CLAIM_PATTERN.test(value.trim());
+}
+
 export function buildFactGraph(rows: FactRow[]): GenerationFact[] {
   return rows
-    .filter((row) => row.confidence !== 'disputed')
+    .filter((row) => row.confidence !== 'disputed' && !isPointerStyleClaim(row.claim))
     .map((row) => ({
       id: row.id,
       periodId: row.periodId,
@@ -238,7 +244,6 @@ export type ExtractedFactQualityRejection = {
   reasons: ExtractedFactQualityRejectionReason[];
 };
 
-const POINTER_CLAIM_PATTERN = /\b(?:is|are|was|were)\s+(?:also\s+)?(?:mentioned|listed|indexed|referenced|included)\b|\bappears?\s+(?:on|in)\s+(?:page|the\s+index|an?\s+index|the\s+bibliograph(?:y|ies)|the\s+references?)\b/i;
 const BACK_MATTER_LOCATOR_PATTERN = /\b(?:index|bibliograph(?:y|ies)|references?|table\s+of\s+contents|contents|glossary|further\s+reading)\b/i;
 const SUBSTANTIVE_PREDICATE_PATTERN = /\b(?:is|are|was|were|has|have|had|became|built|founded|ruled|used|developed|occurred|included|produced|established|served|led|formed|made|known|called|believed|described|indicates?|shows?|states?|suggests?|refers?|contains?|consists?|emerged|expanded|declined|conquered|introduced|adopted|practised|practiced)\b/i;
 const INDEX_PAGE_TAIL_PATTERN = /(?:^|[^\d])\d{1,4}(?:\s*[-–—]\s*\d{1,4})?(?:\s*[,;]\s*\d{1,4}(?:\s*[-–—]\s*\d{1,4})?)*\.?$/;
@@ -255,7 +260,7 @@ export function extractedFactQualityRejectionReasons(
   candidate: ExtractedFactCandidate,
 ): ExtractedFactQualityRejectionReason[] {
   const reasons: ExtractedFactQualityRejectionReason[] = [];
-  if (POINTER_CLAIM_PATTERN.test(candidate.claim)) reasons.push('pointer-claim');
+  if (isPointerStyleClaim(candidate.claim)) reasons.push('pointer-claim');
   if (BACK_MATTER_LOCATOR_PATTERN.test(candidate.locator)) reasons.push('back-matter-locator');
   if (looksLikeIndexEvidence(candidate.extractedText)) reasons.push('index-like-evidence');
   return reasons;
