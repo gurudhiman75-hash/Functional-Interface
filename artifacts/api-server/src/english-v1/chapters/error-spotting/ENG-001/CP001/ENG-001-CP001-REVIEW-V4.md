@@ -1,6 +1,6 @@
 # ENG-001-CP001 — Subject–Verb Agreement Review V4
 
-Status: `REVIEW_READY_V4__PRODUCTION_SCALE_DIVERSITY__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `FINAL_HUMAN_REVIEW_CANDIDATE__CI_GREEN__NOT_QUESTION_STUDIO_REGISTERED`
 
 Catalog scale: 640 complete semantic scenes across 20 unrelated domains; conservative canonical candidate capacity before QL/stem multiplication: 13464.
 
