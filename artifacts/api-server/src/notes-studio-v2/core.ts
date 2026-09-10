@@ -245,15 +245,18 @@ export type ExtractedFactQualityRejection = {
 };
 
 const BACK_MATTER_LOCATOR_PATTERN = /\b(?:index|bibliograph(?:y|ies)|references?|table\s+of\s+contents|contents|glossary|further\s+reading)\b/i;
-const SUBSTANTIVE_PREDICATE_PATTERN = /\b(?:is|are|was|were|has|have|had|became|built|founded|ruled|used|developed|occurred|included|produced|established|served|led|formed|made|known|called|believed|described|indicates?|shows?|states?|suggests?|refers?|contains?|consists?|emerged|expanded|declined|conquered|introduced|adopted|practised|practiced)\b/i;
+const SUBSTANTIVE_PREDICATE_PATTERN = /\b(?:is|are|was|were|has|have|had|became|built|founded|ruled|used|developed|occurred|included|produced|established|served|led|formed|made|known|called|believed|described|indicates?|shows?|states?|suggests?|refers?|contains?|consists?|emerged|expanded|declined|conquered|introduced|adopted|practised|practiced|covers?|spans?|dates?|lasted|began|ended|flourished)\b/i;
 const INDEX_PAGE_TAIL_PATTERN = /(?:^|[^\d])\d{1,4}(?:\s*[-–—]\s*\d{1,4})?(?:\s*[,;]\s*\d{1,4}(?:\s*[-–—]\s*\d{1,4})?)*\.?$/;
+const MULTI_PAGE_TAIL_PATTERN = /\d{1,4}(?:\s*[-–—]\s*\d{1,4})?\s*[,;]\s*\d{1,4}(?:\s*[-–—]\s*\d{1,4})?(?:\s*[,;]\s*\d{1,4}(?:\s*[-–—]\s*\d{1,4})?)*\.?$/;
 
 function looksLikeIndexEvidence(value: string) {
   const compact = value.replace(/\s+/g, ' ').trim();
   if (!compact || compact.length > 120) return false;
-  if (compact.split(/\s+/).length > 12) return false;
-  if (!INDEX_PAGE_TAIL_PATTERN.test(compact)) return false;
-  return !SUBSTANTIVE_PREDICATE_PATTERN.test(compact);
+  const words = compact.split(/\s+/);
+  if (words.length > 12 || SUBSTANTIVE_PREDICATE_PATTERN.test(compact)) return false;
+  if (MULTI_PAGE_TAIL_PATTERN.test(compact)) return true;
+  if (words.length > 5 || /\b(?:BC|BCE|AD|CE)\b/i.test(compact)) return false;
+  return INDEX_PAGE_TAIL_PATTERN.test(compact);
 }
 
 export function extractedFactQualityRejectionReasons(
