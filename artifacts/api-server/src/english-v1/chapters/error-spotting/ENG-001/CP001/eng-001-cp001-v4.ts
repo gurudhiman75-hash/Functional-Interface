@@ -8,7 +8,7 @@ import {
   semanticDomainOfV4,
 } from "./cp001-patterns-v4";
 import { BASE_SCENES_V4 } from "./cp001-semantic-catalog-v4";
-import { simplifyCp001Segments } from "./cp001-plain-language-v4";
+import { simplifyCp001Segments, simplifyCp001Text } from "./cp001-plain-language-v4";
 
 /**
  * Error-spotting directions should be instantly understood. Sentence diversity
@@ -155,38 +155,36 @@ function chooseRule(input: {
   return deterministicPick(`${input.seed}:rule:${input.qlId}:${input.difficulty}`, allowed);
 }
 
-function simpleRuleExplanation(candidate: Eng001SentenceCandidate): string {
-  const correction = candidate.correction ?? "the correct verb";
-
+function simpleRuleExplanation(candidate: Eng001SentenceCandidate, surfaceCorrection: string): string {
   switch (candidate.ruleId) {
     case "GR-SVA-001": {
       const plural = candidate.candidateId.includes(":PL");
-      return `The subject is ${plural ? "plural" : "singular"}, so use “${correction}”.`;
+      return `The subject is ${plural ? "plural" : "singular"}, so use “${surfaceCorrection}”.`;
     }
     case "GR-SVA-002":
-      return `“Each” and “Every” are singular, so use “${correction}”.`;
+      return `“Each” and “Every” are singular, so use “${surfaceCorrection}”.`;
     case "GR-SVA-003":
-      return `In “one of ...”, the subject is “one”, so use “${correction}”.`;
+      return `In “one of ...”, the subject is “one”, so use “${surfaceCorrection}”.`;
     case "GR-SVA-004":
       return candidate.correctSegments[0]?.startsWith("A number of")
-        ? `“A number of” means several, so use the plural verb “${correction}”.`
-        : `“The number of” means one total, so use the singular verb “${correction}”.`;
+        ? `“A number of” means several, so use the plural verb “${surfaceCorrection}”.`
+        : `“The number of” means one total, so use the singular verb “${surfaceCorrection}”.`;
     case "GR-SVA-005":
-      return `“Along with”, “together with” and “as well as” do not change the main subject, so use “${correction}”.`;
+      return `“Along with”, “together with” and “as well as” do not change the main subject, so use “${surfaceCorrection}”.`;
     case "GR-SVA-006":
-      return `With “either...or” and “neither...nor”, use the verb that matches the nearer subject: “${correction}”.`;
+      return `With “either...or” and “neither...nor”, use the verb that matches the nearer subject: “${surfaceCorrection}”.`;
     case "GR-SVA-007": {
       const membersSeparate = candidate.tags.includes("pattern:collective-members");
       return membersSeparate
-        ? `The members are acting separately, so use “${correction}”.`
-        : `The group is acting as one, so use “${correction}”.`;
+        ? `The members are acting separately, so use “${surfaceCorrection}”.`
+        : `The group is acting as one, so use “${surfaceCorrection}”.`;
     }
     case "GR-SVA-008":
-      return `“More than one” takes a singular verb, so use “${correction}”.`;
+      return `“More than one” takes a singular verb, so use “${surfaceCorrection}”.`;
     case "GR-SVA-009":
-      return `“Many a/an” takes a singular verb, so use “${correction}”.`;
+      return `“Many a/an” takes a singular verb, so use “${surfaceCorrection}”.`;
     case "GR-SVA-010":
-      return `Use the verb that matches the main subject, not the noun in the middle. The correct verb is “${correction}”.`;
+      return `Use the verb that matches the main subject, not the noun in the middle. The correct verb is “${surfaceCorrection}”.`;
   }
 }
 
@@ -214,6 +212,8 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
   const modifierRepair = repairBaseSceneModifierEcho(candidate);
   const plainCorrect = simplifyCp001Segments(modifierRepair.correctSegments);
   const plainError = simplifyCp001Segments(modifierRepair.errorSegments);
+  const surfaceErrorSpan = simplifyCp001Text(candidate.errorSpan ?? "");
+  const surfaceCorrection = simplifyCp001Text(candidate.correction ?? "");
 
   // Do not bolt an extra generic context phrase onto every sentence. The
   // authored scene and structural catalogs already provide the context needed
@@ -234,10 +234,10 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
   const correctOptionIndex = shaped.errorIndex ?? shaped.segments.length;
   const answerLabel = options[correctOptionIndex]!;
   const correctedSentence = sentenceFromSegments(correctSegments);
-  const ruleExplanation = simpleRuleExplanation(candidate);
+  const ruleExplanation = simpleRuleExplanation(candidate, surfaceCorrection);
   const explanation = isNoError
     ? `There is no error. ${ruleExplanation} Correct sentence: ${correctedSentence}`
-    : `Part ${answerLabel} contains the error. ${ruleExplanation} Replace “${candidate.errorSpan}” with “${candidate.correction}”. Correct sentence: ${correctedSentence}`;
+    : `Part ${answerLabel} contains the error. ${ruleExplanation} Replace “${surfaceErrorSpan}” with “${surfaceCorrection}”. Correct sentence: ${correctedSentence}`;
   const repairSuffix = modifierRepair.repaired ? ":ECHO-REPAIRED" : "";
   const realizedCandidateId = `${candidate.candidateId}${repairSuffix}`;
 
