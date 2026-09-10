@@ -21,7 +21,7 @@ D. after the programme.
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. The subject is plural, so use “have thanked”. Correct sentence: The hosts have thanked the service staff after the programme.
+**Explanation:** Part B contains the error. The subject is plural. Use “have thanked”. Correct sentence: The hosts have thanked the service staff after the programme.
 
 Seed: `review-v4:easy:0:0`
 
@@ -36,7 +36,7 @@ D. before training.
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “Each” and “Every” take a singular verb, so use “is stretching”. Correct sentence: Each of the runners is stretching the leg muscles before training.
+**Explanation:** Part B contains the error. “Each” takes a singular verb. Use “is stretching”. Correct sentence: Each of the runners is stretching the leg muscles before training.
 
 Seed: `review-v4:easy:1:0`
 
@@ -51,7 +51,7 @@ D. on the mobile device.
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “One of ...” takes a singular verb, so use “has marked”. Correct sentence: One of the delivery agents has marked a delivery attempt on the mobile device.
+**Explanation:** Part B contains the error. “One of ...” refers to one, so it takes a singular verb. Use “has marked”. Correct sentence: One of the delivery agents has marked a delivery attempt on the mobile device.
 
 Seed: `review-v4:easy:2:0`
 
@@ -66,7 +66,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. The subject is singular, so use “is selecting”. Correct sentence: The photographer is selecting the best photograph for printing.
+**Explanation:** Part B contains the error. The subject is singular. Use “is selecting”. Correct sentence: The photographer is selecting the best photograph for printing.
 
 Seed: `review-v4:easy:3:0`
 
@@ -81,7 +81,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “Each” and “Every” take a singular verb, so use “has recorded”. Correct sentence: Each of the volunteers has recorded the number of filled bags after the cleanup.
+**Explanation:** Part B contains the error. “Each” takes a singular verb. Use “has recorded”. Correct sentence: Each of the volunteers has recorded the number of filled bags after the cleanup.
 
 Seed: `review-v4:easy:4:1`
 
@@ -96,7 +96,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “One of ...” takes a singular verb, so use “is arranging”. Correct sentence: One of the teachers is arranging a short classroom quiz for the next period.
+**Explanation:** Part B contains the error. “One of ...” refers to one, so it takes a singular verb. Use “is arranging”. Correct sentence: One of the teachers is arranging a short classroom quiz for the next period.
 
 Seed: `review-v4:easy:5:0`
 
@@ -112,7 +112,7 @@ E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. “Each” and “Every” take a singular verb, so use “has checked”. Correct sentence: Every attendant has checked the token number before allowing entry.
+**Explanation:** There is no error. “Every” takes a singular verb. “has checked” is correct. Correct sentence: Every attendant has checked the token number before allowing entry.
 
 Seed: `review-v4:easy:6:0`
 
@@ -128,7 +128,7 @@ E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. “One of ...” takes a singular verb, so use “has checked”. Correct sentence: One of the drivers has checked the vehicle's brakes before departure.
+**Explanation:** There is no error. “One of ...” refers to one, so it takes a singular verb. “has checked” is correct. Correct sentence: One of the drivers has checked the vehicle's brakes before departure.
 
 Seed: `review-v4:easy:7:0`
 
@@ -143,7 +143,7 @@ D. with the new entries.
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. The subject is plural, so use “have updated”. Correct sentence: The museum workers have updated the display list with the new entries.
+**Explanation:** Part B contains the error. The subject is plural. Use “have updated”. Correct sentence: The museum workers have updated the display list with the new entries.
 
 Seed: `review-v4:easy:8:0`
 
@@ -158,7 +158,7 @@ D. after the treatment.
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “Each” and “Every” take a singular verb, so use “needs”. Correct sentence: Every patient needs a follow-up check after the treatment.
+**Explanation:** Part B contains the error. “Every” takes a singular verb. Use “needs”. Correct sentence: Every patient needs a follow-up check after the treatment.
 
 Seed: `review-v4:easy:9:1`
 
@@ -173,7 +173,7 @@ D. for the next team.
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “One of ...” takes a singular verb, so use “has marked”. Correct sentence: One of the rescuers has marked the safe route for the next team.
+**Explanation:** Part B contains the error. “One of ...” refers to one, so it takes a singular verb. Use “has marked”. Correct sentence: One of the rescuers has marked the safe route for the next team.
 
 Seed: `review-v4:easy:10:1`
 
@@ -188,7 +188,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. The subject is plural, so use “have recorded”. Correct sentence: The technicians have recorded the instrument setting in the lab notes.
+**Explanation:** Part B contains the error. The subject is plural. Use “have recorded”. Correct sentence: The technicians have recorded the instrument setting in the lab notes.
 
 Seed: `review-v4:easy:11:6`
 
@@ -203,7 +203,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “Each” and “Every” take a singular verb, so use “has survived”. Correct sentence: Every seedling has survived the heavy rain without major damage.
+**Explanation:** Part B contains the error. “Every” takes a singular verb. Use “has survived”. Correct sentence: Every seedling has survived the heavy rain without major damage.
 
 Seed: `review-v4:easy:12:3`
 
@@ -218,7 +218,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “One of ...” takes a singular verb, so use “is inspecting”. Correct sentence: One of the homeowners is inspecting the roof after the heavy rain.
+**Explanation:** Part B contains the error. “One of ...” refers to one, so it takes a singular verb. Use “is inspecting”. Correct sentence: One of the homeowners is inspecting the roof after the heavy rain.
 
 Seed: `review-v4:easy:13:1`
 
@@ -234,7 +234,7 @@ E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. “Each” and “Every” take a singular verb, so use “has tested”. Correct sentence: Each of the technicians has tested the faulty device after repair.
+**Explanation:** There is no error. “Each” takes a singular verb. “has tested” is correct. Correct sentence: Each of the technicians has tested the faulty device after repair.
 
 Seed: `review-v4:easy:14:0`
 
@@ -244,13 +244,13 @@ Identify the part of the sentence that contains an error. If there is no error, 
 
 A. One of the borrowers  
 B. has paid  
-C. the monthly payment  
+C. the monthly amount  
 D. before the due date.  
 E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. “One of ...” takes a singular verb, so use “has paid”. Correct sentence: One of the borrowers has paid the monthly payment before the due date.
+**Explanation:** There is no error. “One of ...” refers to one, so it takes a singular verb. “has paid” is correct. Correct sentence: One of the borrowers has paid the monthly amount before the due date.
 
 Seed: `review-v4:easy:15:1`
 
@@ -265,7 +265,7 @@ D. in memory.
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. The subject is plural, so use “have stored”. Correct sentence: The meters have stored the latest reading in memory.
+**Explanation:** Part B contains the error. The subject is plural. Use “have stored”. Correct sentence: The meters have stored the latest reading in memory.
 
 Seed: `review-v4:easy:16:5`
 
@@ -280,7 +280,7 @@ D. before the rain.
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “Each” and “Every” take a singular verb, so use “has covered”. Correct sentence: Each of the vendors has covered the remaining stock before the rain.
+**Explanation:** Part B contains the error. “Each” takes a singular verb. Use “has covered”. Correct sentence: Each of the vendors has covered the remaining stock before the rain.
 
 Seed: `review-v4:easy:17:16`
 
@@ -295,7 +295,7 @@ D. on the control panel.
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “One of ...” takes a singular verb, so use “is showing”. Correct sentence: One of the machines is showing a temperature warning on the control panel.
+**Explanation:** Part B contains the error. “One of ...” refers to one, so it takes a singular verb. Use “is showing”. Correct sentence: One of the machines is showing a temperature warning on the control panel.
 
 Seed: `review-v4:easy:18:31`
 
@@ -305,13 +305,13 @@ Identify the part of the sentence that contains an error. If there is no error, 
 
 A. Every bridge  
 B. requires  
-C. regular repair  
+C. regular checks  
 D. during the dry season.  
 E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. “Each” and “Every” take a singular verb, so use “requires”. Correct sentence: Every bridge requires regular repair during the dry season.
+**Explanation:** There is no error. “Every” takes a singular verb. “requires” is correct. Correct sentence: Every bridge requires regular checks during the dry season.
 
 Seed: `review-v4:easy:19:11`
 
@@ -327,12 +327,12 @@ Identify the part of the sentence that contains an error.
 
 A. The research team  
 B. have published  
-C. a joint result  
-D. in one project report.  
+C. the final result  
+D. in a single report.  
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. The group acts as one, so use “has published”. Correct sentence: The research team has published a joint result in one project report.
+**Explanation:** Part B contains the error. The group is acting as one unit. Use “has published”. Correct sentence: The research team has published the final result in a single report.
 
 Seed: `review-v4:medium:0:0`
 
@@ -347,7 +347,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. The added phrase does not change the main subject, so use “has completed”. Correct sentence: The technician, as well as the assistants, has completed the test successfully.
+**Explanation:** Part B contains the error. The added phrase does not change the main subject. Use “has completed”. Correct sentence: The technician, as well as the assistants, has completed the test successfully.
 
 Seed: `review-v4:medium:1:0`
 
@@ -362,7 +362,7 @@ D. this afternoon.
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. The verb matches the nearer subject, so use “is attending”. Correct sentence: Neither the farmers nor the field officer is attending the lesson on watering crops this afternoon.
+**Explanation:** Part B contains the error. The verb agrees with the nearer subject. Use “is attending”. Correct sentence: Neither the farmers nor the field officer is attending the lesson on watering crops this afternoon.
 
 Seed: `review-v4:medium:2:0`
 
@@ -378,7 +378,7 @@ E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. The main subject is “condition”, so use “has worsened”. Correct sentence: The condition of the backup batteries stored in the equipment room has worsened after long use.
+**Explanation:** There is no error. The main subject is “condition”. “has worsened” is correct. Correct sentence: The condition of the backup batteries stored in the equipment room has worsened after long use.
 
 Seed: `review-v4:medium:3:0`
 
@@ -393,7 +393,7 @@ D. some leaves during the hot period.
 
 **Answer:** C
 
-**Explanation:** Part C contains the error. “Each” and “Every” take a singular verb, so use “has lost”. Correct sentence: Every tree growing on the open slope has lost some leaves during the hot period.
+**Explanation:** Part C contains the error. “Every” takes a singular verb. Use “has lost”. Correct sentence: Every tree growing on the open slope has lost some leaves during the hot period.
 
 Seed: `review-v4:medium:4:1`
 
@@ -408,7 +408,7 @@ D. the online order from the pickup counter.
 
 **Answer:** C
 
-**Explanation:** Part C contains the error. “One of ...” takes a singular verb, so use “has collected”. Correct sentence: One of the customers waiting at the service desk has collected the online order from the pickup counter.
+**Explanation:** Part C contains the error. “One of ...” refers to one, so it takes a singular verb. Use “has collected”. Correct sentence: One of the customers waiting at the service desk has collected the online order from the pickup counter.
 
 Seed: `review-v4:medium:5:0`
 
@@ -423,7 +423,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “A number of” means several, so use “are processing”. Correct sentence: A number of bank clerks are processing a cash withdrawal for the customer.
+**Explanation:** Part B contains the error. “A number of” means several, so it takes a plural verb. Use “are processing”. Correct sentence: A number of bank clerks are processing a cash withdrawal for the customer.
 
 Seed: `review-v4:medium:6:1`
 
@@ -439,7 +439,7 @@ E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. “More than one” takes a singular verb, so use “is checking”. Correct sentence: More than one reporter is checking the event details before going live.
+**Explanation:** There is no error. “More than one” takes a singular verb. “is checking” is correct. Correct sentence: More than one reporter is checking the event details before going live.
 
 Seed: `review-v4:medium:7:0`
 
@@ -449,12 +449,12 @@ Identify the part of the sentence that contains an error.
 
 A. Many a window  
 B. are showing  
-C. a small crack  
+C. signs of damage  
 D. near the lower corner.  
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “Many a/an” takes a singular verb, so use “is showing”. Correct sentence: Many a window is showing a small crack near the lower corner.
+**Explanation:** Part B contains the error. “Many a/an” takes a singular verb. Use “is showing”. Correct sentence: Many a window is showing signs of damage near the lower corner.
 
 Seed: `review-v4:medium:8:0`
 
@@ -469,7 +469,7 @@ D. since the start of the season.
 
 **Answer:** C
 
-**Explanation:** Part C contains the error. The main subject is “cost”, so use “has risen”. Correct sentence: The cost of additional services offered to overnight guests has risen since the start of the season.
+**Explanation:** Part C contains the error. The main subject is “cost”. Use “has risen”. Correct sentence: The cost of additional services offered to overnight guests has risen since the start of the season.
 
 Seed: `review-v4:medium:9:2`
 
@@ -484,7 +484,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. The added phrase does not change the main subject, so use “is waiting”. Correct sentence: The clerk, along with the applicants, is waiting near the service desk.
+**Explanation:** Part B contains the error. The added phrase does not change the main subject. Use “is waiting”. Correct sentence: The clerk, along with the applicants, is waiting near the service desk.
 
 Seed: `review-v4:medium:10:0`
 
@@ -499,7 +499,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. The verb matches the nearer subject, so use “is checking”. Correct sentence: Neither the workers nor the supervisor is checking the work output against the target.
+**Explanation:** Part B contains the error. The verb agrees with the nearer subject. Use “is checking”. Correct sentence: Neither the workers nor the supervisor is checking the work output against the target.
 
 Seed: `review-v4:medium:11:2`
 
@@ -515,7 +515,7 @@ E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. “Each” and “Every” take a singular verb, so use “has practised”. Correct sentence: Every dancer learning the final sequence has practised the difficult step with the instructor.
+**Explanation:** There is no error. “Every” takes a singular verb. “has practised” is correct. Correct sentence: Every dancer learning the final sequence has practised the difficult step with the instructor.
 
 Seed: `review-v4:medium:12:0`
 
@@ -530,7 +530,7 @@ D. the house address against the label.
 
 **Answer:** C
 
-**Explanation:** Part C contains the error. “One of ...” takes a singular verb, so use “is checking”. Correct sentence: One of the delivery agents working on the home-delivery route is checking the house address against the label.
+**Explanation:** Part C contains the error. “One of ...” refers to one, so it takes a singular verb. Use “is checking”. Correct sentence: One of the delivery agents working on the home-delivery route is checking the house address against the label.
 
 Seed: `review-v4:medium:13:0`
 
@@ -545,7 +545,7 @@ D. after the lecture.
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “A number of” means several, so use “are answering”. Correct sentence: A number of lecturers are answering the students' questions after the lecture.
+**Explanation:** Part B contains the error. “A number of” means several, so it takes a plural verb. Use “are answering”. Correct sentence: A number of lecturers are answering the students' questions after the lecture.
 
 Seed: `review-v4:medium:14:1`
 
@@ -561,7 +561,7 @@ E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. The added phrase does not change the main subject, so use “is waiting”. Correct sentence: The referee, together with the players, is waiting for the ground check to finish.
+**Explanation:** There is no error. The added phrase does not change the main subject. “is waiting” is correct. Correct sentence: The referee, together with the players, is waiting for the ground check to finish.
 
 Seed: `review-v4:medium:15:14`
 
@@ -576,7 +576,7 @@ D. because of the closure.
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “More than one” takes a singular verb, so use “is taking”. Correct sentence: More than one traveller is taking an alternative route because of the closure.
+**Explanation:** Part B contains the error. “More than one” takes a singular verb. Use “is taking”. Correct sentence: More than one traveller is taking an alternative route because of the closure.
 
 Seed: `review-v4:medium:16:0`
 
@@ -591,7 +591,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “Many a/an” takes a singular verb, so use “has reviewed”. Correct sentence: Many an engineer has reviewed the repair plan with the site team.
+**Explanation:** Part B contains the error. “Many a/an” takes a singular verb. Use “has reviewed”. Correct sentence: Many an engineer has reviewed the repair plan with the site team.
 
 Seed: `review-v4:medium:17:7`
 
@@ -606,7 +606,7 @@ D. under review.
 
 **Answer:** C
 
-**Explanation:** Part C contains the error. The main subject is “condition”, so use “remains”. Correct sentence: The condition of the response vehicles used during recent calls remains under review.
+**Explanation:** Part C contains the error. The main subject is “condition”. Use “remains”. Correct sentence: The condition of the response vehicles used during recent calls remains under review.
 
 Seed: `review-v4:medium:18:8`
 
@@ -622,7 +622,7 @@ E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. The verb matches the nearer subject, so use “have reviewed”. Correct sentence: Either the surgeon or the technicians have reviewed the latest scan before treatment.
+**Explanation:** There is no error. The verb agrees with the nearer subject. “have reviewed” is correct. Correct sentence: Either the surgeon or the technicians have reviewed the latest scan before treatment.
 
 Seed: `review-v4:medium:19:5`
 
@@ -643,7 +643,7 @@ D. one by one before the programme began.
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. The members act separately, so use “were taking”. Correct sentence: The audience were taking their seats one by one before the programme began.
+**Explanation:** Part B contains the error. The members are acting separately. Use “were taking”. Correct sentence: The audience were taking their seats one by one before the programme began.
 
 Seed: `review-v4:hard:0:0`
 
@@ -658,7 +658,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. The added phrase does not change the main subject, so use “is using”. Correct sentence: The lamp, along with the fans installed in the same room, is using less electricity after the upgrade.
+**Explanation:** Part B contains the error. The added phrase does not change the main subject. Use “is using”. Correct sentence: The lamp, along with the fans installed in the same room, is using less electricity after the upgrade.
 
 Seed: `review-v4:hard:1:0`
 
@@ -673,7 +673,7 @@ D. the power cut online.
 
 **Answer:** C
 
-**Explanation:** Part C contains the error. The verb matches the nearer subject, so use “has reported”. Correct sentence: Neither the operators nor the consumer using the complaint service has reported the power cut online.
+**Explanation:** Part C contains the error. The verb agrees with the nearer subject. Use “has reported”. Correct sentence: Neither the operators nor the consumer using the complaint service has reported the power cut online.
 
 Seed: `review-v4:hard:2:0`
 
@@ -689,7 +689,7 @@ E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. The main subject is “quality”, so use “has improved”. Correct sentence: The quality of the water samples collected from the lake has improved since the treatment plant was upgraded.
+**Explanation:** There is no error. The main subject is “quality”. “has improved” is correct. Correct sentence: The quality of the water samples collected from the lake has improved since the treatment plant was upgraded.
 
 Seed: `review-v4:hard:3:1`
 
@@ -704,7 +704,7 @@ D. since the latest study began.
 
 **Answer:** C
 
-**Explanation:** Part C contains the error. “The number of” means one total, so use “has changed”. Correct sentence: The number of lab workers working on the same experiment has changed since the latest study began.
+**Explanation:** Part C contains the error. “The number of” means one total, so it takes a singular verb. Use “has changed”. Correct sentence: The number of lab workers working on the same experiment has changed since the latest study began.
 
 Seed: `review-v4:hard:4:1`
 
@@ -719,7 +719,7 @@ D. the control panel during operation.
 
 **Answer:** C
 
-**Explanation:** Part C contains the error. “More than one” takes a singular verb, so use “is monitoring”. Correct sentence: More than one operator working near the cutting machine is monitoring the control panel during operation.
+**Explanation:** Part C contains the error. “More than one” takes a singular verb. Use “is monitoring”. Correct sentence: More than one operator working near the cutting machine is monitoring the control panel during operation.
 
 Seed: `review-v4:hard:5:0`
 
@@ -730,11 +730,11 @@ Identify the part of the sentence that contains an error.
 A. Many a doctor  
 B. working in the clinic  
 C. are writing  
-D. the medical note after the check-up.  
+D. a medical note after the check-up.  
 
 **Answer:** C
 
-**Explanation:** Part C contains the error. “Many a/an” takes a singular verb, so use “is writing”. Correct sentence: Many a doctor working in the clinic is writing the medical note after the check-up.
+**Explanation:** Part C contains the error. “Many a/an” takes a singular verb. Use “is writing”. Correct sentence: Many a doctor working in the clinic is writing a medical note after the check-up.
 
 Seed: `review-v4:hard:6:0`
 
@@ -749,7 +749,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. The verb matches the nearer subject, so use “are waiting”. Correct sentence: Either the clerk or the applicants scheduled for a document check are waiting near the service desk.
+**Explanation:** Part B contains the error. The verb agrees with the nearer subject. Use “are waiting”. Correct sentence: Either the clerk or the applicants scheduled for a document check are waiting near the service desk.
 
 Seed: `review-v4:hard:7:0`
 
@@ -765,7 +765,7 @@ E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. The added phrase does not change the main subject, so use “require”. Correct sentence: The water pumps, along with the tractor used throughout the planting season, require regular service before heavy use.
+**Explanation:** There is no error. The added phrase does not change the main subject. “require” is correct. Correct sentence: The water pumps, along with the tractor used throughout the planting season, require regular service before heavy use.
 
 Seed: `review-v4:hard:8:0`
 
@@ -780,7 +780,7 @@ D. a key concern for the coach.
 
 **Answer:** C
 
-**Explanation:** Part C contains the error. The main subject is “fitness”, so use “remains”. Correct sentence: The fitness of the athletes preparing for the next round remains a key concern for the coach.
+**Explanation:** Part C contains the error. The main subject is “fitness”. Use “remains”. Correct sentence: The fitness of the athletes preparing for the next round remains a key concern for the coach.
 
 Seed: `review-v4:hard:9:2`
 
@@ -795,7 +795,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “The number of” means one total, so use “has fallen”. Correct sentence: The number of volunteers taking part in the safety drill has fallen this month.
+**Explanation:** Part B contains the error. “The number of” means one total, so it takes a singular verb. Use “has fallen”. Correct sentence: The number of volunteers taking part in the safety drill has fallen this month.
 
 Seed: `review-v4:hard:10:2`
 
@@ -806,11 +806,11 @@ Identify the part of the sentence that contains an error.
 A. More than one journalist  
 B. covering the sports event  
 C. have written  
-D. the photo caption for the final page.  
+D. a photo caption for the final page.  
 
 **Answer:** C
 
-**Explanation:** Part C contains the error. “More than one” takes a singular verb, so use “has written”. Correct sentence: More than one journalist covering the sports event has written the photo caption for the final page.
+**Explanation:** Part C contains the error. “More than one” takes a singular verb. Use “has written”. Correct sentence: More than one journalist covering the sports event has written a photo caption for the final page.
 
 Seed: `review-v4:hard:11:2`
 
@@ -826,7 +826,7 @@ E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. “Many a/an” takes a singular verb, so use “has checked”. Correct sentence: Many a customer waiting for a tracked parcel has checked the parcel status on the tracking page.
+**Explanation:** There is no error. “Many a/an” takes a singular verb. “has checked” is correct. Correct sentence: Many a customer waiting for a tracked parcel has checked the parcel status on the tracking page.
 
 Seed: `review-v4:hard:12:0`
 
@@ -841,7 +841,7 @@ D. the new account forms.
 
 **Answer:** C
 
-**Explanation:** Part C contains the error. The added phrase does not change the main subject, so use “are reviewing”. Correct sentence: The clerks, together with the bank manager working at the branch, are reviewing the new account forms.
+**Explanation:** Part C contains the error. The added phrase does not change the main subject. Use “are reviewing”. Correct sentence: The clerks, together with the bank manager working at the branch, are reviewing the new account forms.
 
 Seed: `review-v4:hard:13:0`
 
@@ -856,7 +856,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. The verb matches the nearer subject, so use “is checking”. Correct sentence: Neither the attendants nor the receptionist working at the front desk is checking the room status before arrival.
+**Explanation:** Part B contains the error. The verb agrees with the nearer subject. Use “is checking”. Correct sentence: Neither the attendants nor the receptionist working at the front desk is checking the room status before arrival.
 
 Seed: `review-v4:hard:14:10`
 
@@ -872,7 +872,7 @@ E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. “More than one” takes a singular verb, so use “is handling”. Correct sentence: More than one router installed near the control room is handling the network traffic without stopping.
+**Explanation:** There is no error. “More than one” takes a singular verb. “is handling” is correct. Correct sentence: More than one router installed near the control room is handling the network traffic without stopping.
 
 Seed: `review-v4:hard:15:7`
 
@@ -887,7 +887,7 @@ D. a matter of concern.
 
 **Answer:** C
 
-**Explanation:** Part C contains the error. The main subject is “condition”, so use “remains”. Correct sentence: The condition of the roads carrying heavy daily traffic remains a matter of concern.
+**Explanation:** Part C contains the error. The main subject is “condition”. Use “remains”. Correct sentence: The condition of the roads carrying heavy daily traffic remains a matter of concern.
 
 Seed: `review-v4:hard:16:5`
 
@@ -902,7 +902,7 @@ D. No error
 
 **Answer:** B
 
-**Explanation:** Part B contains the error. “The number of” means one total, so use “has changed”. Correct sentence: The number of mechanics working in the workshop has changed during the holiday period.
+**Explanation:** Part B contains the error. “The number of” means one total, so it takes a singular verb. Use “has changed”. Correct sentence: The number of mechanics working in the workshop has changed during the holiday period.
 
 Seed: `review-v4:hard:17:9`
 
@@ -917,7 +917,7 @@ D. the remaining stock before the rain.
 
 **Answer:** C
 
-**Explanation:** Part C contains the error. “Many a/an” takes a singular verb, so use “has covered”. Correct sentence: Many a vendor selling fresh vegetables has covered the remaining stock before the rain.
+**Explanation:** Part C contains the error. “Many a/an” takes a singular verb. Use “has covered”. Correct sentence: Many a vendor selling fresh vegetables has covered the remaining stock before the rain.
 
 Seed: `review-v4:hard:18:4`
 
@@ -933,7 +933,7 @@ E. No error
 
 **Answer:** No error
 
-**Explanation:** There is no error. The verb matches the nearer subject, so use “have reviewed”. Correct sentence: Either the tutor or the students preparing for the final test have reviewed the study plan before the next class.
+**Explanation:** There is no error. The verb agrees with the nearer subject. “have reviewed” is correct. Correct sentence: Either the tutor or the students preparing for the final test have reviewed the study plan before the next class.
 
 Seed: `review-v4:hard:19:12`
 
