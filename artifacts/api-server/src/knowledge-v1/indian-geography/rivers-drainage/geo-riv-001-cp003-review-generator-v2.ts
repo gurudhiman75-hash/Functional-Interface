@@ -1,4 +1,4 @@
-import { deterministicPick, deterministicShuffle } from "../../deterministic";
+import { deterministicPick, deterministicShuffle, hashKnowledgeSeed } from "../../deterministic";
 import { assertKnowledgeQuestionValid } from "../../question-validation";
 import type { KnowledgeFact } from "../../types";
 import { GEO_RIV_001_CP003_REVIEWABLE_FACTS_V1 } from "./geo-riv-001-cp003-editorial-review-v1";
@@ -6,6 +6,13 @@ import { generateGeoRiv001Cp003ReviewV1 } from "./geo-riv-001-cp003-review-gener
 import type { GeoRiv001Cp003ReviewQuestion } from "./geo-riv-001-cp003-review-types";
 
 const FACTS = GEO_RIV_001_CP003_REVIEWABLE_FACTS_V1;
+
+function mixedPick<T>(items: readonly T[], seed: string): T {
+  if (!items.length) throw new Error("CP003 V2 cannot pick from an empty pool");
+  const hash = hashKnowledgeSeed(seed);
+  const mixed = (hash ^ (hash >>> 16) ^ (hash << 7)) >>> 0;
+  return items[mixed % items.length]!;
+}
 
 function byId(id: string) {
   const fact = FACTS.find((entry) => entry.factId === `geo-riv-001-cp003-${id}`);
@@ -110,7 +117,7 @@ const BANK_FACT_IDS = [
 function bankQuestion(mode: "right-one" | "left-one" | "right-pair" | "left-pair", seed: string) {
   const facts = BANK_FACT_IDS.map(byId);
   if (mode === "right-one") {
-    const answer = deterministicPick(RIGHT_BANK, `${seed}:answer`);
+    const answer = mixedPick(RIGHT_BANK, `${seed}:answer`);
     return finalizeQl021({
       seed,
       stem: "Which of the following is a right-bank tributary of the Ganga?",
@@ -122,7 +129,7 @@ function bankQuestion(mode: "right-one" | "left-one" | "right-pair" | "left-pair
     });
   }
   if (mode === "left-one") {
-    const answer = deterministicPick(LEFT_BANK, `${seed}:answer`);
+    const answer = mixedPick(LEFT_BANK, `${seed}:answer`);
     return finalizeQl021({
       seed,
       stem: "Which of the following is a left-bank tributary of the Ganga?",
@@ -152,7 +159,7 @@ function bankQuestion(mode: "right-one" | "left-one" | "right-pair" | "left-pair
       solverAuthority: "RELATION_CLASS_COMPOSER",
     });
   }
-  const answer = deterministicPick(
+  const answer = mixedPick(
     ["Ramganga and Gomti", "Ghaghara and Gandak", "Gandak and Kosi"] as const,
     `${seed}:answer`,
   );
@@ -175,12 +182,23 @@ function bankQuestion(mode: "right-one" | "left-one" | "right-pair" | "left-pair
 }
 
 export function generateGeoRiv001Cp003Ql021V2(seed: string) {
-  const family = deterministicPick(["parent", "parent", "parent", "bank"] as const, `${seed}:family`);
-  if (family === "bank") {
-    const mode = deterministicPick(["right-one", "left-one", "right-pair", "left-pair"] as const, `${seed}:bank-mode`);
-    return bankQuestion(mode, seed);
+  const mode = mixedPick(
+    [
+      "parent",
+      "parent",
+      "parent",
+      "parent",
+      "bank-right-one",
+      "bank-left-one",
+      "bank-right-pair",
+      "bank-left-pair",
+    ] as const,
+    `${seed}:ql021-mode`,
+  );
+  if (mode !== "parent") {
+    return bankQuestion(mode.replace("bank-", "") as "right-one" | "left-one" | "right-pair" | "left-pair", seed);
   }
-  const [river, parent, factId, difficulty] = deterministicPick(PARENT_MODES, `${seed}:parent-mode`);
+  const [river, parent, factId, difficulty] = mixedPick(PARENT_MODES, `${seed}:parent-mode`);
   return finalizeQl021({
     seed,
     stem: `${river} is a tributary of which river?`,
