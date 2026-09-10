@@ -37,7 +37,9 @@ jobs:
           for test_file in \
             src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-validator.test.ts \
             src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-review-generator-v1.test.ts \
-            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-review-batch-v1.test.ts
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-review-generator-v2.test.ts \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-review-batch-v1.test.ts \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-review-batch-v2.test.ts
           do
             output_name="$(basename "${test_file}" .ts).mjs"
             pnpm --dir artifacts/api-server exec esbuild \
@@ -46,19 +48,19 @@ jobs:
               --outfile="dist/geography/${output_name}"
             node "artifacts/api-server/dist/geography/${output_name}"
           done
-      - name: Materialize CP007 review artifact
+      - name: Materialize CP007 V2 review artifact
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
-            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-export-review.ts \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-export-review-v2.ts \
             --bundle --packages=external --platform=node --format=esm \
-            --outfile=dist/geography/geo-riv-001-cp007-export-review.mjs
+            --outfile=dist/geography/geo-riv-001-cp007-export-review-v2.mjs
           cd artifacts/api-server
-          node dist/geography/geo-riv-001-cp007-export-review.mjs
-      - name: Upload CP007 review artifact
+          node dist/geography/geo-riv-001-cp007-export-review-v2.mjs
+      - name: Upload CP007 V2 review artifact
         uses: actions/upload-artifact@v4
         with:
-          name: GEO-RIV-001-CP007-APPROVED-UPSTREAM-REVIEW-BATCH-V1
-          path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP007-V1/
+          name: GEO-RIV-001-CP007-APPROVED-UPSTREAM-REVIEW-BATCH-V2
+          path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP007-V2/
           if-no-files-found: error
           retention-days: 30
       - name: Build API server
