@@ -17,6 +17,7 @@ export type QuantV4PunjabSimulationExamId =
 export type QuantV4PunjabProfileBoundaryStatus =
   | "SUPPORTED"
   | "PROFILE_BLIND"
+  | "EVIDENCE_GATED"
   | "PUNJAB_PROFILE_UNSUPPORTED"
   | "STALE_SIMULATOR_METADATA";
 
@@ -59,7 +60,14 @@ export const QUANT_V4_PUNJAB_PROFILE_BOUNDARY_FINDINGS = Object.freeze([
     status: "STALE_SIMULATOR_METADATA" as const,
     affectedPackages: Object.freeze(["PSSSB", "PPSC", "PUNJAB_POLICE"]),
     evidence: "All three Punjab real-exam profiles still store centralDeliveryProfile=null and centralProfileGap=true.",
-    remediation: "Do not consolidate the simulator to PUNJAB_STATE until its downstream chapter routes can actually consume that profile.",
+    remediation: "Do not consolidate the composed simulator to PUNJAB_STATE until its downstream chapter routes can actually consume that profile.",
+  }),
+  Object.freeze({
+    surface: "REAL_EXAM_PROBABILITY_RESOLVER",
+    status: "SUPPORTED" as const,
+    affectedPackages: Object.freeze(["PSSSB", "PPSC", "PUNJAB_POLICE"]),
+    evidence: "Punjab-family Probability slots resolve directly to PUNJAB_STATE. The Probability integration then fails closed on its evidence gate, so no SSC-generated Probability question is counted as Punjab output.",
+    remediation: null,
   }),
   Object.freeze({
     surface: "CORE_GENERATION_ENGINE",
@@ -101,10 +109,10 @@ export const QUANT_V4_PUNJAB_PROFILE_BOUNDARY_FINDINGS = Object.freeze([
   }),
   Object.freeze({
     surface: "PROBABILITY_PROFILE_CONTRACT",
-    status: "PUNJAB_PROFILE_UNSUPPORTED" as const,
+    status: "EVIDENCE_GATED" as const,
     affectedPackages: Object.freeze(["PRB-001", "PRB-002"]),
-    evidence: "Probability forwards an examProfile, but its ProbabilityExamProfile union/config does not define PUNJAB_STATE; Punjab simulation therefore cannot select a real Punjab Probability contract.",
-    remediation: "Define and validate a PUNJAB_STATE Probability profile before replacing the simulator's SSC_CGL_CHSL fallback.",
+    evidence: "Question Studio recognizes PUNJAB_STATE as an explicit Probability request and rejects it with PRB_PUNJAB_PROFILE_EVIDENCE_REQUIRED before the raw Probability profile layer, which still has no native Punjab selection contract.",
+    remediation: "Normalize attributable Punjab Probability observations, approve a Punjab CP/solve-mode/difficulty contract, then add the native Probability profile without reintroducing an SSC fallback.",
   }),
 ] satisfies readonly QuantV4PunjabProfileBoundaryFinding[]);
 
