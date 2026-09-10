@@ -4,6 +4,8 @@ import { LP_009_HI_PA_LOCALIZATION_FREEZE_V3 } from "./lp-009-localization-freez
 
 assert.equal(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.status, "HI_PA_HUMAN_REVIEWED_V3_LOCALIZATION_FROZEN");
 assert.equal(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.approvedOn, "2026-09-10");
+assert.equal(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.approvalBasis, "EXPLICIT_HUMAN_REVIEW_APPROVAL");
+assert.equal(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.approvalRecord, "LP-009-HI-PA-LOCALIZATION-APPROVAL-V3");
 assert.deepEqual(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.supportedLanguages, ["en", "hi", "pa"]);
 assert.deepEqual(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.permanentQlIds, ["LP-QL-033", "LP-QL-034", "LP-QL-035", "LP-QL-036"]);
 assert.equal(LP_009_HI_PA_LOCALIZATION_FREEZE_V3.runtimeMode, "REVIEW_ONLY");
