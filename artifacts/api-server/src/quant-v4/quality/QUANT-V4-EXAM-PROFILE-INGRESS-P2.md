@@ -6,34 +6,36 @@ Authority: `QUANT-V4-EXAM-PROFILE-INGRESS-P2`
 
 The Quant V4 public generation entry point previously inherited the legacy Probability-specific `examProfile` type. That prevented the public Question Studio contract from representing the shared central profile authority, including `PUNJAB_STATE`.
 
-This checkpoint widens the public Quant generation request to the shared `QuantV4ExamProfileId` contract and makes profile transport observable.
+This checkpoint widens the public Quant generation request to the shared `QuantV4ExamProfileId` contract and carries the validated profile through the generation call stack using request-scoped async context.
 
 ## What is now true
 
-- `PUNJAB_STATE`, SSC, banking and generic profiles are valid at the public Quant generation ingress.
+- `PUNJAB_STATE`, SSC, banking and generic profiles are valid at public Quant generation ingress.
 - Unknown profile IDs fail closed against the central profile authority.
-- The requested profile family, delivery style and expected option count are recorded in `generationContext`.
-- Questions and question packages carry the requested profile and expected option count for audit traceability.
-- Downstream application is distinguished from mere ingress acceptance.
+- The requested profile is available request-safely to downstream core/specialized runtimes through `getCurrentQuantV4ExamProfileId()` / `getCurrentQuantV4ExamProfileContract()` without global-state leakage.
+- Concurrent requests with different profiles remain isolated.
+- Requested family, delivery style and expected option count are recorded in `generationContext`.
+- Questions and question packages carry requested-profile audit traceability.
+- Downstream application is distinguished from transport availability.
 
 Transport states:
 
 - `APPLIED_DOWNSTREAM` — the generated runtime output itself exposes the requested profile.
-- `INGRESS_ACCEPTED_DOWNSTREAM_PENDING` — the public engine accepted the shared profile, but the selected chapter route did not prove that it consumed it.
+- `INGRESS_ACCEPTED_DOWNSTREAM_PENDING` — the profile was validated and is available in request-scoped downstream context, but the selected chapter has not yet proved it used that profile for its own selection/delivery rules.
 
 ## Current evidence
 
-Probability already has a chapter-level profile mechanism for its existing SSC/banking profiles, so those routes prove `APPLIED_DOWNSTREAM` and their four/five-option delivery remains visible.
+Probability already has a chapter-level profile mechanism for its existing SSC/banking profiles. Those routes therefore prove `APPLIED_DOWNSTREAM`, including four-option SSC and five-option banking delivery.
 
-`PCT-001` with `PUNJAB_STATE` proves the opposite boundary: the public request is accepted and the central Punjab contract is attached, but the core Arithmetic route still reports `INGRESS_ACCEPTED_DOWNSTREAM_PENDING` because the deeper core/chapter pipeline does not yet consume the shared profile.
+`PCT-001` with `PUNJAB_STATE` proves the remaining boundary precisely: the public request accepts the central Punjab profile and carries it through downstream request context, but PCT-001 still reports `INGRESS_ACCEPTED_DOWNSTREAM_PENDING` because its chapter logic has not yet opted into profile-specific selection/delivery.
 
 ## Why this does not close Punjab propagation
 
-This is an ingress/observability checkpoint, not a claim that Arithmetic chapter selection is already Punjab-specific.
+Transport is now available throughout the call stack, but transport and chapter behavior are intentionally separate concerns. This checkpoint does not claim that Arithmetic content distribution is already Punjab-calibrated.
 
-The next remediation remains:
+The next remediation is therefore smaller and safer than changing every legacy signature:
 
-1. thread the shared profile through the deeper core Arithmetic runtime contract;
-2. retrofit specialized profile-blind chapter adapters;
-3. add a real Probability `PUNJAB_STATE` chapter profile;
-4. then consolidate Punjab real-exam simulation onto genuine `PUNJAB_STATE` delivery.
+1. retrofit chapter adapters/runtimes to consume the request-scoped shared profile where exam-specific behavior is required;
+2. add a real Probability `PUNJAB_STATE` chapter profile;
+3. bridge the remaining specialized routes such as standard Mensuration;
+4. then consolidate Punjab real-exam simulation onto genuine `PUNJAB_STATE` delivery and rerun section-level calibration.
