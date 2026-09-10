@@ -135,17 +135,26 @@ const extractedQuality = validateExtractedFactsWithQuality({
       locator: 'p. 205',
       extractedText: 'The inscription dates to 150 BCE.',
     },
+    {
+      subCategory: 'Political',
+      claim: 'Apabhramsha roughly covers the period from AD 600 to 1000.',
+      entities: ['Apabhramsha'],
+      dateOrEra: 'AD 600-1000',
+      locator: 'p. 331',
+      extractedText: 'It roughly covers the period from AD 600 to 1000.',
+    },
   ],
 }, ['Political']);
 
-assert.equal(extractedQuality.rawCount, 5);
-assert.equal(extractedQuality.candidates.length, 2);
+assert.equal(extractedQuality.rawCount, 6);
+assert.equal(extractedQuality.candidates.length, 3);
 assert.equal(extractedQuality.rejections.length, 3);
 assert.deepEqual(
   extractedQuality.candidates.map((fact) => fact.claim),
   [
     'Ashoka adopted dhamma as an important principle of governance.',
     'The inscription dates to 150 BCE.',
+    'Apabhramsha roughly covers the period from AD 600 to 1000.',
   ],
 );
 assert.deepEqual(
@@ -172,6 +181,17 @@ assert.deepEqual(
     entities: ['Bimbisara'],
     locator: 'p. 98',
     extractedText: 'Bimbisara summoned 86,000 village headmen.',
+  }),
+  [],
+);
+assert.deepEqual(
+  extractedFactQualityRejectionReasons({
+    subCategory: 'Political',
+    claim: 'Apabhramsha roughly covers the period from AD 600 to 1000.',
+    entities: ['Apabhramsha'],
+    dateOrEra: 'AD 600-1000',
+    locator: 'p. 331',
+    extractedText: 'It roughly covers the period from AD 600 to 1000.',
   }),
   [],
 );
