@@ -20,6 +20,7 @@ export const GEO_RIV_001_CP008_SOURCE_RELATIONS_V1 = Object.freeze([
 
 export const GEO_RIV_001_CP008_MOUTH_RELATIONS_V1 = Object.freeze([
   "drains_into",
+  "has_mouth_type",
 ] as const);
 
 const ELIGIBLE_RELATIONS = new Set<string>([
@@ -28,7 +29,7 @@ const ELIGIBLE_RELATIONS = new Set<string>([
 ]);
 
 const UPSTREAM_FACTS = Object.freeze({
-  // CP001 is already approved and contributes normalized outfall relations.
+  // CP001 is already approved and contributes normalized outfall/mouth relations.
   cp001: GEO_RIV_001_CP001_APPROVED_FACTS_V2,
   cp002: GEO_RIV_001_CP002_REVIEWABLE_FACTS_V1,
   cp003: GEO_RIV_001_CP003_REVIEWABLE_FACTS_V1,
