@@ -7,6 +7,7 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/generation-engine.ts"
       - "artifacts/api-server/src/quant-v4/common/exam-profile.ts"
+      - "artifacts/api-server/src/quant-v4/common/exam-profile-context.ts"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-exam-profile-ingress-p2.test.ts"
       - ".github/workflows/quant-v4-exam-profile-ingress-p2.yml"
   pull_request:
@@ -15,6 +16,7 @@ on:
     paths:
       - "artifacts/api-server/src/quant-v4/generation-engine.ts"
       - "artifacts/api-server/src/quant-v4/common/exam-profile.ts"
+      - "artifacts/api-server/src/quant-v4/common/exam-profile-context.ts"
       - "artifacts/api-server/src/quant-v4/quality/quant-v4-exam-profile-ingress-p2.test.ts"
   workflow_dispatch:
 
