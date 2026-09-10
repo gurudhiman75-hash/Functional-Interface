@@ -16,7 +16,10 @@ for (const qlId of QLS) {
     assert.equal(q.sourceFactIds.length > 0, true, q.questionId);
     const visible = `${q.stem}\n${q.explanation}`;
     assert.doesNotMatch(visible, /both banks|neither bank/i);
-    assert.doesNotMatch(visible, /both statement i|only statement i is|only statement ii is|neither statement i/);
+    assert.doesNotMatch(
+      visible,
+      /both statement i and statement ii|only statement i is|only statement ii is|neither statement i nor statement ii/,
+    );
     assert.doesNotMatch(visible, /The correct pair is/i);
     assert.doesNotMatch(visible, /correctly matched with/i);
   }
