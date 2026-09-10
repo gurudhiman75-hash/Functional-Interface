@@ -195,8 +195,10 @@ const sharedFacadeSource = readFileSync(
   resolve(here, "../../../../../question-studio/shared-generation-engine.ts"),
   "utf8",
 );
-assert.ok(routeSource.includes("resolveSapBankingExamProfile"), "Authenticated Question Studio route does not resolve SAP banking profiles.");
-assert.ok(routeSource.includes("examProfile: sapBankingExamProfile"), "Authenticated Question Studio route drops the resolved SAP banking profile.");
+assert.ok(routeSource.includes("resolveSapBankingExamProfile"), "Authenticated Question Studio route no longer retains SAP Banking profile inference.");
+assert.ok(routeSource.includes("resolveQuantQuestionStudioExamProfile"), "Authenticated Question Studio route does not resolve the shared Quant exam profile.");
+assert.ok(routeSource.includes("examProfile: quantExamProfile"), "Authenticated Question Studio route drops the resolved shared Quant exam profile.");
+assert.ok(routeSource.includes("sapBankingExamProfile"), "Authenticated Question Studio route no longer preserves the SAP Banking readiness guard.");
 assert.ok(routeSource.includes("supportedExamProfiles"), "Capabilities route does not expose SAP exam-profile support.");
 assert.ok(routeSource.includes("optionCountByExamProfile"), "Capabilities route does not expose profile option counts.");
 assert.ok(sharedFacadeSource.includes("generateQuantQuestionStudioQuestion(request as any)"), "Shared Question Studio facade no longer delegates Quant requests to the guarded review facade.");
