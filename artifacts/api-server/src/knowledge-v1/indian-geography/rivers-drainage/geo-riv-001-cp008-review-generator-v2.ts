@@ -112,6 +112,7 @@ const SOURCE_RIVERS = unique(EXACT_SOURCE_FACTS.map((fact) => fact.entity.label.
 const SOURCE_REGION_VALUES = unique(SOURCE_GEO_FACTS.filter((fact) => fact.relation === "source_region").map(valueText));
 
 function nearDisplay(value: string) {
+  if (value.trim().toLowerCase() === "nagri near ranchi") return "Nagri in Ranchi district";
   return value
     .replace(/^near\s+/i, "")
     .replace(/\s+near\s+/i, " in ");
