@@ -25,9 +25,11 @@ assert(!review.includes("domain:"), "V4 review must show human-readable domains 
 
 const frozenPath = "artifacts/api-server/src/english-v1/chapters/error-spotting/ENG-001/CP001/ENG-001-CP001-REVIEW-V4.md";
 const frozenReview = readFileSync(frozenPath, "utf8");
-assert(
-  frozenReview === review,
-  `Frozen ENG-001-CP001 V4 review is stale or hand-edited. Regenerate it from the deterministic exporter.\n${firstMismatch(review, frozenReview)}`,
-);
+if (frozenReview !== review) {
+  console.log("=== ENG001_CP001_V4_REGENERATED_REVIEW_BEGIN ===");
+  console.log(review);
+  console.log("=== ENG001_CP001_V4_REGENERATED_REVIEW_END ===");
+  throw new Error(`Frozen ENG-001-CP001 V4 review is stale. Regenerate it from the deterministic exporter.\n${firstMismatch(review, frozenReview)}`);
+}
 
 console.log("ENG-001-CP001 V4 review export/freeze tests passed.");
