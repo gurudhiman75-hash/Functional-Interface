@@ -1,4 +1,4 @@
-import { generateGeoRiv001Cp006ReviewQuestionsV3 } from "./geo-riv-001-cp006-review-generator-v3";
+import { generateGeoRiv001Cp006ReviewQuestionsV4 } from "./geo-riv-001-cp006-review-generator-v4";
 import type { GeoRiv001Cp006ReviewQuestion } from "./geo-riv-001-cp006-review-types";
 
 function rebalance(q: GeoRiv001Cp006ReviewQuestion, targetIndex: number): GeoRiv001Cp006ReviewQuestion {
@@ -10,7 +10,7 @@ function rebalance(q: GeoRiv001Cp006ReviewQuestion, targetIndex: number): GeoRiv
 }
 
 export const GEO_RIV_001_CP006_REVIEW_BATCH_V1: GeoRiv001Cp006ReviewQuestion[] =
-  generateGeoRiv001Cp006ReviewQuestionsV3().map((q, index) => rebalance(q, index % 4));
+  generateGeoRiv001Cp006ReviewQuestionsV4().map((q, index) => rebalance(q, index % 4));
 
 export function auditGeoRiv001Cp006ReviewBatchV1() {
   const issues: string[] = [];
