@@ -214,8 +214,8 @@ export function simplifyCp001Text(text: string): string {
 export function simplifyCp001Segments(segments: readonly string[]): string[] {
   const out = segments.map(simplifyCp001Text);
   for (let index = 0; index < out.length - 1; index += 1) {
-    if (/^(?:is|are) showing$/i.test(out[index] ?? "") && (out[index + 1] ?? "").toLowerCase() === "a small crack") {
-      out[index + 1] = "signs of damage";
+    if (/^(?:is|are) showing$/i.test(out[index] ?? "") && /^a small crack\b/i.test(out[index + 1] ?? "")) {
+      out[index + 1] = (out[index + 1] ?? "").replace(/^a small crack\b/i, "signs of damage");
     }
   }
   return out;
