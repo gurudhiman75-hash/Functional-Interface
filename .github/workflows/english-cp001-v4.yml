@@ -56,18 +56,6 @@ jobs:
         shell: bash
         run: node artifacts/api-server/dist/english-v1/eng-001-cp001-v4-diagnostic.mjs
 
-      - name: Compile CP001 V4 review export test
-        shell: bash
-        run: |
-          pnpm --dir artifacts/api-server exec esbuild \
-            src/english-v1/tests/eng-001-cp001-v4-review.test.ts \
-            --bundle --platform=node --format=esm \
-            --outfile=dist/english-v1/eng-001-cp001-v4-review.test.mjs
-
-      - name: Run CP001 V4 review export test
-        shell: bash
-        run: node artifacts/api-server/dist/english-v1/eng-001-cp001-v4-review.test.mjs
-
       - name: Compile CP001 V4 stress test
         shell: bash
         run: |
@@ -79,3 +67,15 @@ jobs:
       - name: Run CP001 V4 production-scale stress test
         shell: bash
         run: node artifacts/api-server/dist/english-v1/eng-001-cp001-v4.test.mjs
+
+      - name: Compile CP001 V4 review export test
+        shell: bash
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/english-v1/tests/eng-001-cp001-v4-review.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/english-v1/eng-001-cp001-v4-review.test.mjs
+
+      - name: Run CP001 V4 review export/freeze test
+        shell: bash
+        run: node artifacts/api-server/dist/english-v1/eng-001-cp001-v4-review.test.mjs
