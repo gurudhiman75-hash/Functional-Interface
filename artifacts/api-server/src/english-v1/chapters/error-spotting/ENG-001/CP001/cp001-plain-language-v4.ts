@@ -30,6 +30,7 @@ const PLAIN_REPLACEMENTS: readonly [string, string][] = [
   ["attending the morning batch", "in the morning class"],
   ["using the marked cycle lane", "riding in the cycle lane"],
   ["riding in the marked cycle lane", "riding in the cycle lane"],
+  ["running after scheduled maintenance", "running normally"],
   ["under one project report", "in one project report"],
   ["in a single project report", "in one project report"],
 
