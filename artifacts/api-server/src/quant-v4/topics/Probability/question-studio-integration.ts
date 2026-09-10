@@ -40,12 +40,61 @@ export function listProbabilityStandardQuestionStudioPackages() {
   }));
 }
 
+function preserveEnglishProfileDelivery(result: any) {
+  if (!Array.isArray(result?.questions) || !Array.isArray(result?.questionPackages)) {
+    return result;
+  }
+
+  const questions = result.questions.map((question: any, index: number) => {
+    const source = result.questionPackages[index];
+    if (!source || !Array.isArray(source.options) || source.options.length < 2) {
+      return question;
+    }
+    const correctIndex = Number.isInteger(source.correctIndex)
+      ? source.correctIndex
+      : question.correctIndex;
+    const examProfile = source.examProfile
+      ?? source.parameters?.examProfile
+      ?? source.traceability?.examProfile;
+    const optionCount = Number.isInteger(source.optionCount)
+      ? source.optionCount
+      : source.options.length;
+
+    return {
+      ...question,
+      options: [...source.options],
+      correct: correctIndex,
+      correctIndex,
+      examProfile,
+      optionCount,
+      metadata: {
+        ...(question.metadata ?? {}),
+        examProfile,
+        optionCount,
+      },
+      debugMetadata: {
+        ...(question.debugMetadata ?? {}),
+        examProfile,
+        optionCount,
+      },
+    };
+  });
+
+  return {
+    ...result,
+    questions,
+  };
+}
+
 export function generateProbabilityQuestionStudioBatch(
   request: ProbabilityStandardQuestionStudioRequest = {},
 ) {
   const cockpitRequest = isExamProfile(selectedExamMode(request));
   const resolved = resolveRequest(request);
-  const result = generateProbabilityStandardQuestionStudioBatch(resolved);
+  const generated = generateProbabilityStandardQuestionStudioBatch(resolved);
+  const result = (resolved.language ?? "en") === "en"
+    ? preserveEnglishProfileDelivery(generated)
+    : generated;
   if ((resolved.language ?? "en") !== "en") return result;
 
   const readinessContext = {
@@ -67,7 +116,7 @@ export function generateProbabilityQuestionStudioBatch(
   }
 
   const { publiclyPublishable: _publicRelease, ...generationContext } = readinessContext;
-  const questions = result.questions.map((question) => {
+  const questions = result.questions.map((question: any) => {
     const { publiclyPublishable: _questionPublicRelease, ...payload } = question as Record<string, unknown>;
     return {
       ...payload,
