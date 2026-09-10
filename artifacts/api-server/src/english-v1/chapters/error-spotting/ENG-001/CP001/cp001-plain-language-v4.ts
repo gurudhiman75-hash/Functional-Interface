@@ -157,8 +157,10 @@ const PLAIN_REPLACEMENTS: readonly [string, string][] = [
   ["protocol", "rules"],
   ["assessment", "check"],
   ["conservation", "care"],
+  ["consultation", "check-up"],
   ["deployment", "setup"],
   ["settlement", "payment"],
+  ["transaction", "payment"],
   ["occupancy", "room use"],
   ["preliminary", "early"],
   ["firmware", "software"],
@@ -169,7 +171,15 @@ const PLAIN_REPLACEMENTS: readonly [string, string][] = [
   ["inspection", "check"],
   ["commissioning", "use"],
   ["curriculum", "study"],
+  ["irrigation", "water"],
   ["outage", "power cut"],
+  ["outpatient", "clinic"],
+  ["rehabilitation", "recovery"],
+  ["exhibition", "display"],
+  ["instalment", "payment"],
+  ["qualifying", "next"],
+  ["sowing", "planting"],
+  ["structural", "serious"],
 ] as const;
 
 export function simplifyCp001Text(text: string): string {
@@ -203,6 +213,10 @@ function contextConflicts(source: string, context: string): boolean {
   const sourceHasSpecificTime = /\b(?:today|tomorrow|tonight|this morning|this afternoon|this evening|this week|this term|this season)\b/.test(lowerSource);
   const contextHasSpecificTime = /\b(?:today|tomorrow|tonight|this morning|this afternoon|this evening|this week|this term|this season)\b/.test(lowerContext);
   if (sourceHasSpecificTime && contextHasSpecificTime) return true;
+
+  // A few physical nouns require a broader location than a room/road phrase.
+  if (/\broof\b/.test(lowerSource) && lowerContext === "in the room") return true;
+  if (/\bbridge\b/.test(lowerSource) && lowerContext === "on the road") return true;
 
   return false;
 }
