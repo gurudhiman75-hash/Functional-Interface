@@ -2,7 +2,7 @@
 
 **Chapter:** GEO-RIV-001 — Indian Rivers & Drainage System  
 **CP:** GEO-RIV-001-CP003  
-**Status:** IMPLEMENTATION SPEC V1
+**Status:** APPROVED ENGLISH FREEZE V1
 
 ## Scope
 
@@ -54,15 +54,15 @@ Build a deterministic, source-backed Static GK package for the Ganga river syste
 
 ## Permanent question families
 
-1. **QL-019 — Direct source/course association**
-2. **QL-020 — Reverse association**
-3. **QL-021 — Tributary / bank-side identification**
-4. **QL-022 — Confluence / Panch Prayag**
-5. **QL-023 — Correct pair**
-6. **QL-024 — Incorrect pair**
-7. **QL-025 — River relation chain / order**
-8. **QL-026 — Statement I/II**
-9. **QL-027 — Multi-statement count**
+1. **QL019 — Direct source/course association**
+2. **QL020 — Reverse association**
+3. **QL021 — Tributary / bank-side identification**
+4. **QL022 — Confluence / Panch Prayag**
+5. **QL023 — Correct pair**
+6. **QL024 — Incorrect pair**
+7. **QL025 — River relation chain / order**
+8. **QL026 — Statement I/II**
+9. **QL027 — Multi-statement count**
 
 ## Difficulty
 
@@ -92,7 +92,7 @@ Prefer same-class distractors:
 - river for river
 - glacier/source place for source place
 - confluence place for confluence place
-- left/right bank category for bank category
+- real river candidates for bank-side questions
 - Panch Prayag place for Panch Prayag place
 
 Every distractor must be checked against the canonical relation graph so no second correct answer is introduced.
@@ -108,19 +108,41 @@ Explanations should:
 Preferred example:
 > The Bhagirathi and Alaknanda meet at Devprayag. From this confluence, the river is known as the Ganga.
 
-Avoid generic phrases such as “this matches the reviewed relation,” “associated with the source,” “exam trap,” and unnecessary shortcut commentary.
+Avoid generic phrases such as “this matches the reviewed relation,” “associated with the source,” “exam trap,” tautological pair explanations, and unnecessary shortcut commentary.
 
-## Review checkpoint target
+## Reviewed fact normalization
 
-Build a **54-question** first review batch across QL019–QL027 with:
-- all major Ganga entities represented
+Bhagirathi and Alaknanda are modeled as joining at Devprayag to form the Ganga. Bhagirathi must not be represented as a tributary of Alaknanda merely because a source sentence states that it joins the Alaknanda there.
+
+## Approved English authority
+
+`GEO-RIV-001-CP003-ENGLISH-FREEZE-V1`
+
+Frozen corpus:
+- review batch V2
+- 54 questions
+- QL019–QL027
+- Easy 11 · Medium 34 · Hard 9
+- 54 semantically unique tasks
 - all five Panch Prayag relations represented
-- Yamuna and major plain tributaries represented
-- Easy/Medium/Hard separation
-- semantic uniqueness
-- answer-position distribution
-- provenance on every question
-- no automatic map requirement
-- review-only lifecycle
+- all four useful bank-side question patterns represented
+- all four Statement I/II answer modes represented
+- all four multi-statement count modes represented
+- deterministic selection and source/fact provenance preserved
 
-No CP003 freeze or Question Studio runtime registration may occur before explicit human approval.
+## Visual policy
+
+Maps/photos/diagrams are optional manual editorial attachments. Visual absence never invalidates a Geography question or explanation.
+
+## Lifecycle
+
+- explicit human editorial approval recorded
+- frozen corpus is immutable
+- Question Studio discoverable and generatable in `REVIEW_ONLY`
+- read-only
+- Question Bank writes disabled
+- test/mock eligibility disabled
+- public publication disabled
+- production release not authorized
+
+Any later change to approved stems, options, answers, explanations, difficulty, provenance, QL allocation, or wording requires a new governed freeze version.
