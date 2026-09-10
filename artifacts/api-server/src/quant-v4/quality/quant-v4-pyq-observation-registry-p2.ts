@@ -14,6 +14,9 @@ import {
   QUANT_V4_NUMBER_SYSTEM_SSC_WAVE2_COUNTABLE_PYQ_OBSERVATIONS,
 } from "./quant-v4-pyq-observations-number-system-ssc-wave2-p2";
 import {
+  QUANT_V4_TSD_WAVE1_COUNTABLE_PYQ_OBSERVATIONS,
+} from "./quant-v4-pyq-observations-tsd-wave1-p2";
+import {
   isCountablePyqEvidenceKind,
   validatePyqObservationSet,
   type QuantV4PyqExamId,
@@ -29,6 +32,7 @@ export const QUANT_V4_REGISTERED_PYQ_OBSERVATIONS: readonly QuantV4PyqObservatio
   ...QUANT_V4_ALGEBRA_WAVE3_COUNTABLE_PYQ_OBSERVATIONS,
   ...QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_COUNTABLE_PYQ_OBSERVATIONS,
   ...QUANT_V4_NUMBER_SYSTEM_SSC_WAVE2_COUNTABLE_PYQ_OBSERVATIONS,
+  ...QUANT_V4_TSD_WAVE1_COUNTABLE_PYQ_OBSERVATIONS,
 ]);
 
 validatePyqObservationSet(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS);

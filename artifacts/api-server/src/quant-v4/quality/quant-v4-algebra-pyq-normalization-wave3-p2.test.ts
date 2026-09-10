@@ -59,7 +59,7 @@ for (const value of [-7, -2, 0, 3, 11]) {
 assert.equal(40 * 12, 30 * 16, "HR1-S04 x/y coefficient ratios should match.");
 assert.notEqual(40 * 340, 30 * 170, "HR1-S04 constant ratio must differ for the no-solution state.");
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 36);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 42);
 const alg001 = listRegisteredCountablePyqObservations({ packageId: "ALG-001" });
 const alg002 = listRegisteredCountablePyqObservations({ packageId: "ALG-002" });
 assert.equal(alg001.length, 11);

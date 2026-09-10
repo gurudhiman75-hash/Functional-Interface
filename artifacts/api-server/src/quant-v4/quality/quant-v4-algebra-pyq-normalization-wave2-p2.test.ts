@@ -60,7 +60,7 @@ assert.equal(x + y - z, 6);
 assert.equal(x - y + z, 4);
 
 // Registry assertions are cumulative so an older-wave proof also catches later registry drift.
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 36);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 42);
 const alg001 = listRegisteredCountablePyqObservations({ packageId: "ALG-001" });
 const alg002 = listRegisteredCountablePyqObservations({ packageId: "ALG-002" });
 assert.equal(alg001.length, 11);
