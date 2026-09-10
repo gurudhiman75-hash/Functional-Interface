@@ -18,6 +18,28 @@ type Probe = Readonly<{
   request: Record<string, unknown>;
 }>;
 
+function observedNativeProfileValues(result: any): string[] {
+  const values = [
+    result?.generationContext?.examProfile,
+    ...(Array.isArray(result?.questions)
+      ? result.questions.flatMap((question: any) => [
+          question?.examProfile,
+          question?.metadata?.examProfile,
+          question?.traceability?.examProfile,
+          question?.debugMetadata?.examProfile,
+        ])
+      : []),
+    ...(Array.isArray(result?.questionPackages)
+      ? result.questionPackages.flatMap((question: any) => [
+          question?.examProfile,
+          question?.parameters?.examProfile,
+          question?.traceability?.examProfile,
+        ])
+      : []),
+  ];
+  return [...new Set(values.filter((value): value is string => typeof value === "string"))];
+}
+
 function optionCounts(result: any): number[] {
   return Array.isArray(result?.questions)
     ? result.questions.map((question: any) =>
@@ -36,12 +58,11 @@ async function runProbe(probe: Probe) {
   const counts = optionCounts(result);
   assert.ok(counts.length > 0, `${probe.id} returned no preview questions.`);
 
+  const nativeProfiles = observedNativeProfileValues(result);
+  const nativeProfileProof = nativeProfiles.includes(examProfile);
   const deliveryMatches = counts.every((count) => count === expectedOptionCount);
   const transportStatus = String(result?.generationContext?.profileTransportStatus ?? "");
   const profileSelectionCalibrated = result?.generationContext?.profileSelectionCalibrated === true;
-  const nativeProfileProof =
-    transportStatus === "APPLIED_DOWNSTREAM" && profileSelectionCalibrated;
-
   const status: ProbeStatus = nativeProfileProof && deliveryMatches
     ? "PROFILE_APPLIED_OR_EXPOSED"
     : deliveryMatches
@@ -55,10 +76,11 @@ async function runProbe(probe: Probe) {
     examProfile,
     expectedOptionCount,
     observedOptionCounts: Object.freeze(counts),
-    transportStatus,
-    profileSelectionCalibrated,
+    observedNativeProfiles: Object.freeze(nativeProfiles),
     nativeProfileProof,
     deliveryMatches,
+    transportStatus,
+    profileSelectionCalibrated,
     status,
   });
 }
@@ -121,15 +143,19 @@ for (const id of [
 ]) {
   assert.equal(byId[id].expectedOptionCount, 5);
   assert.ok(byId[id].observedOptionCounts.every((count: number) => count === 5), `${id} must deliver five options.`);
-  assert.equal(byId[id].status, "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING", `${id} must be delivery-correct without claiming native profile calibration.`);
+  assert.equal(byId[id].nativeProfileProof, false, `${id} must not claim native Banking calibration.`);
+  assert.equal(byId[id].transportStatus, "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING");
   assert.equal(byId[id].profileSelectionCalibrated, false);
+  assert.equal(byId[id].status, "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING");
 }
 
 for (const id of ["AVG_PUNJAB_STATE", "SAP_PUNJAB_STATE"]) {
   assert.equal(byId[id].expectedOptionCount, 4);
   assert.ok(byId[id].observedOptionCounts.every((count: number) => count === 4));
-  assert.equal(byId[id].status, "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING", `${id} must not be treated as Punjab-calibrated merely because four-option delivery is correct.`);
+  assert.equal(byId[id].nativeProfileProof, false, `${id} must not be treated as Punjab-calibrated merely because four-option delivery is correct.`);
+  assert.equal(byId[id].transportStatus, "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING");
   assert.equal(byId[id].profileSelectionCalibrated, false);
+  assert.equal(byId[id].status, "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING");
 }
 
 assert.equal(
