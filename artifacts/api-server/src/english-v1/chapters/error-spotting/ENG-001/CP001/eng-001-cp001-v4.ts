@@ -32,8 +32,8 @@ const STEMS: Record<Eng001QlId, readonly string[]> = {
  * the wrong reason. Longer phrases come before single-word replacements.
  */
 const EDITORIAL_PHRASE_REPLACEMENTS: readonly [string, string][] = [
-  ["waiting for document checking", "waiting for document check"],
-  ["scheduled for document checking", "waiting for document check"],
+  ["waiting for document checking", "scheduled for a document check"],
+  ["scheduled for document checking", "scheduled for a document check"],
   ["waiting near the main field", "waiting near the field"],
   ["assembled near the main field", "waiting near the field"],
   ["waiting in the reception area", "waiting near the front desk"],
@@ -56,6 +56,14 @@ const EDITORIAL_PHRASE_REPLACEMENTS: readonly [string, string][] = [
   ["riding in the marked cycle lane", "riding in the cycle lane"],
   ["under one project report", "in one project report"],
   ["in a single project report", "in one project report"],
+  ["The computers,", "The test programs,"],
+  ["along with the computers", "along with the test programs"],
+  ["together with the computers", "together with the test programs"],
+  ["as well as the computers", "as well as the test programs"],
+  ["Either the computers or", "Either the test programs or"],
+  ["Neither the computers nor", "Neither the test programs nor"],
+  ["or the computers", "or the test programs"],
+  ["nor the computers", "nor the test programs"],
   ["diagnostic programs", "test programs"],
   ["diagnostic program", "test program"],
   ["diagnostic unit", "test room"],
@@ -66,6 +74,8 @@ const EDITORIAL_PHRASE_REPLACEMENTS: readonly [string, string][] = [
   ["rehabilitation session", "recovery session"],
   ["dosage instructions", "medicine instructions"],
   ["valid prescriptions", "valid doctor's notes"],
+  ["follow-up examination", "follow-up check"],
+  ["after consultation", "after the check-up"],
   ["laboratory technicians", "lab workers"],
   ["laboratory technician", "lab worker"],
   ["laboratory procedure", "lab rules"],
@@ -78,7 +88,6 @@ const EDITORIAL_PHRASE_REPLACEMENTS: readonly [string, string][] = [
   ["observation plan", "study plan"],
   ["field station", "field site"],
   ["curriculum meeting", "school meeting"],
-  ["curriculum", "study"],
   ["examination guidelines", "test instructions"],
   ["examination portal", "test website"],
   ["examination schedule", "test schedule"],
@@ -94,6 +103,7 @@ const EDITORIAL_PHRASE_REPLACEMENTS: readonly [string, string][] = [
   ["inspection note", "check note"],
   ["safety inspection", "safety check"],
   ["routine inspection", "routine check"],
+  ["ground inspection", "ground check"],
   ["wholesale market", "large market"],
   ["packaged goods", "packed goods"],
   ["bulk order", "large order"],
@@ -101,6 +111,7 @@ const EDITORIAL_PHRASE_REPLACEMENTS: readonly [string, string][] = [
   ["supplier invoice", "supplier bill"],
   ["warehouse stock", "stored goods"],
   ["reusable shopping bag", "shopping bag"],
+  ["monthly instalment", "monthly payment"],
   ["qualifying round", "next round"],
   ["conditioning session", "fitness session"],
   ["public service centre", "service centre"],
@@ -115,6 +126,8 @@ const EDITORIAL_PHRASE_REPLACEMENTS: readonly [string, string][] = [
   ["irrigation pumps", "water pumps"],
   ["irrigation pump", "water pump"],
   ["irrigation plan", "water plan"],
+  ["sowing season", "planting season"],
+  ["scheduled servicing", "regular service"],
   ["production output", "work output"],
   ["assembly line", "work line"],
   ["structural defect", "serious fault"],
@@ -122,8 +135,9 @@ const EDITORIAL_PHRASE_REPLACEMENTS: readonly [string, string][] = [
   ["technical inspection", "safety check"],
   ["resurfacing", "road repair"],
   ["before commissioning", "before use"],
-  ["commissioning", "use"],
   ["distribution line", "power line"],
+  ["outage reporting service", "power complaint service"],
+  ["the interruption", "the power cut"],
   ["transaction instructions", "payment instructions"],
   ["transaction rules", "payment rules"],
   ["settlement rules", "payment rules"],
@@ -131,9 +145,19 @@ const EDITORIAL_PHRASE_REPLACEMENTS: readonly [string, string][] = [
   ["handheld system", "mobile device"],
   ["calculating postage", "checking the mail charge"],
   ["residential route", "home-delivery route"],
+  ["holiday travel period", "holiday travel time"],
   ["public exhibition", "public display"],
   ["main exhibition", "main display"],
+  ["exhibition catalogue", "display list"],
   ["chamber group", "music group"],
+  ["curators", "museum workers"],
+  ["curator", "museum worker"],
+  ["commuters", "travellers"],
+  ["commuter", "traveller"],
+  ["tellers", "bank clerks"],
+  ["teller", "bank clerk"],
+  ["recipients", "customers"],
+  ["recipient", "customer"],
   ["publication", "release"],
   ["broadcast", "show"],
   ["editorial", "news"],
@@ -151,6 +175,9 @@ const EDITORIAL_PHRASE_REPLACEMENTS: readonly [string, string][] = [
   ["laboratory", "lab"],
   ["verification", "checking"],
   ["maintenance", "repair"],
+  ["inspection", "check"],
+  ["commissioning", "use"],
+  ["curriculum", "study"],
 ] as const;
 
 function editorializeText(text: string): string {
@@ -171,11 +198,6 @@ interface ModifierEchoRepair {
   repaired: boolean;
 }
 
-/**
- * If a modifier repeats the same -ing verb as the main verb, use the scene's
- * other authored modifier. This removes machine-like wording without changing
- * the grammar rule or the error segment.
- */
 function repairBaseSceneModifierEcho(candidate: Eng001SentenceCandidate): ModifierEchoRepair {
   const correctSegments = [...candidate.correctSegments];
   const errorSegments = [...candidate.errorSegments];
@@ -314,14 +336,34 @@ function decorrelatedContextSeed(seed: string, ruleId: GrammarRuleId, domain: st
   return `ctx:${reversed}:${seed.length}:${alternating}:${ruleId}:${domain}`;
 }
 
+const CONTEXT_LEADS = ["at", "during", "in", "on", "under"] as const;
+
+function contextConflicts(source: string, context: string): boolean {
+  const lowerSource = source.toLowerCase();
+  const lowerContext = context.toLowerCase();
+  if (lowerSource.includes(lowerContext)) return true;
+
+  const lead = lowerContext.split(/\s+/)[0] ?? "";
+  if (CONTEXT_LEADS.includes(lead as (typeof CONTEXT_LEADS)[number])) {
+    const count = lowerSource.match(new RegExp(`\\b${lead}\\b`, "g"))?.length ?? 0;
+    if (count > 0) return true;
+  }
+
+  const sourceHasSpecificTime = /\b(?:today|tomorrow|tonight|this morning|this afternoon|this evening|this week|this term|this season)\b/.test(lowerSource);
+  const contextHasSpecificTime = /\b(?:today|tomorrow|tonight|this morning|this afternoon|this evening|this week|this term|this season)\b/.test(lowerContext);
+  if (sourceHasSpecificTime && contextHasSpecificTime) return true;
+
+  return false;
+}
+
 function choosePlainContext(
-  candidate: Eng001SentenceCandidate,
+  sourceSegments: readonly string[],
   domain: keyof typeof CONTEXT_EXPANSIONS_BY_DOMAIN_V4,
   seed: string,
 ) {
-  const source = candidate.correctSegments.join(" ").toLowerCase();
+  const source = sourceSegments.join(" ").replace(/\s+/g, " ").trim();
   const pool = CONTEXT_EXPANSIONS_BY_DOMAIN_V4[domain];
-  const eligible = pool.filter((entry) => !source.includes(entry.text.toLowerCase()));
+  const eligible = pool.filter((entry) => !contextConflicts(source, entry.text));
   return deterministicPick(seed, eligible.length > 0 ? eligible : pool);
 }
 
@@ -336,27 +378,27 @@ function simpleRuleExplanation(candidate: Eng001SentenceCandidate): string {
     case "GR-SVA-001":
       return `The subject is ${isPluralCorrection(correction) ? "plural" : "singular"}, so use “${correction}”.`;
     case "GR-SVA-002":
-      return `“Each” and “Every” are treated as singular, so use “${correction}”.`;
+      return `“Each” and “Every” are singular, so use “${correction}”.`;
     case "GR-SVA-003":
       return `In “one of ...”, the subject is “one”, so use “${correction}”.`;
     case "GR-SVA-004":
       return candidate.correctSegments[0]?.startsWith("A number of")
         ? `“A number of” means several, so use the plural verb “${correction}”.`
-        : `“The number of” refers to one total, so use the singular verb “${correction}”.`;
+        : `“The number of” means one total, so use the singular verb “${correction}”.`;
     case "GR-SVA-005":
-      return `Words after “along with”, “together with” or “as well as” do not change the main subject. Use “${correction}”.`;
+      return `“Along with”, “together with” and “as well as” do not change the main subject, so use “${correction}”.`;
     case "GR-SVA-006":
-      return `With “either...or” and “neither...nor”, the verb follows the nearer subject. Use “${correction}”.`;
+      return `With “either...or” and “neither...nor”, use the verb that matches the nearer subject: “${correction}”.`;
     case "GR-SVA-007":
       return isPluralCorrection(correction)
-        ? `The sentence shows the members acting separately, so use “${correction}”.`
-        : `The group acts as one, so use “${correction}”.`;
+        ? `The members are acting separately, so use “${correction}”.`
+        : `The group is acting as one, so use “${correction}”.`;
     case "GR-SVA-008":
       return `“More than one” takes a singular verb, so use “${correction}”.`;
     case "GR-SVA-009":
       return `“Many a/an” takes a singular verb, so use “${correction}”.`;
     case "GR-SVA-010":
-      return `The verb matches the main subject, not the noun in the middle. Use “${correction}”.`;
+      return `Use the verb that matches the main subject, not the noun in the middle. The correct verb is “${correction}”.`;
   }
 }
 
@@ -380,17 +422,18 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
   });
   const domain = semanticDomainOfV4(candidate);
   if (!domain) throw new Error(`${candidate.candidateId} lacks a semantic domain for V4 context expansion`);
+
+  const modifierRepair = repairBaseSceneModifierEcho(candidate);
+  const editorialCorrect = editorializeSegments(modifierRepair.correctSegments);
+  const editorialError = editorializeSegments(modifierRepair.errorSegments);
   const context = choosePlainContext(
-    candidate,
+    editorialCorrect,
     domain,
     decorrelatedContextSeed(input.seed, candidate.ruleId, domain),
   );
 
-  const modifierRepair = repairBaseSceneModifierEcho(candidate);
   const isNoError = qlId === "ENG-001-QL007";
   const rawErrorIndex = isNoError ? null : candidate.errorIndex;
-  const editorialCorrect = editorializeSegments(modifierRepair.correctSegments);
-  const editorialError = editorializeSegments(modifierRepair.errorSegments);
   const contextualCorrect = contextualizeSegments(editorialCorrect, candidate.errorIndex, context.text);
   const contextualError = contextualizeSegments(editorialError, candidate.errorIndex, context.text);
   const rawSegments = isNoError ? contextualCorrect : contextualError;
