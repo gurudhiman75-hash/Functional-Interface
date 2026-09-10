@@ -1,0 +1,68 @@
+name: Quant V4 specialized profile selection metadata patch
+
+on:
+  push:
+    branches:
+      - audit/quant-v4-specialized-profile-selection-evidence-gate-p2
+    paths:
+      - ".github/workflows/quant-v4-specialized-profile-selection-patch.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/quant-v4-specialized-profile-selection-evidence-gate-p2
+          fetch-depth: 0
+      - name: Integrate selection evidence metadata
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def once(path, old, new):
+              p = Path(path)
+              text = p.read_text()
+              count = text.count(old)
+              if count != 1:
+                  raise SystemExit(f"{path}: expected 1 match, found {count}: {old[:100]!r}")
+              p.write_text(text.replace(old, new, 1))
+
+          qsg = "artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts"
+          once(
+              qsg,
+              '} from "./generation-engine";\n',
+              '} from "./generation-engine";\nimport {\n  getQuantV4SpecializedProfileSelectionCapability,\n} from "./common/specialized-profile-selection";\n',
+          )
+          once(
+              qsg,
+              '    publiclyPublishable: true,\n  };\n}\n\nfunction numberSystemPackageCard()',
+              '    publiclyPublishable: true,\n    examProfileSelection: getQuantV4SpecializedProfileSelectionCapability(definition.packageId),\n  };\n}\n\nfunction numberSystemPackageCard()',
+          )
+          once(
+              qsg,
+              '    publiclyPublishable: false,\n  };\n}\n\nfunction simplificationPackageCard()',
+              '    publiclyPublishable: false,\n    examProfileSelection: getQuantV4SpecializedProfileSelectionCapability("NUM-001"),\n  };\n}\n\nfunction simplificationPackageCard()',
+          )
+
+          qsr = "artifacts/api-server/src/quant-v4/question-studio-review-engine.ts"
+          once(
+              qsr,
+              '} from "./generation-engine";\n',
+              '} from "./generation-engine";\nimport {\n  getQuantV4SpecializedProfileSelectionCapability,\n} from "./common/specialized-profile-selection";\n',
+          )
+          once(
+              qsr,
+              '      publiclyPublishable: false,\n    } as any);',
+              '      publiclyPublishable: false,\n      examProfileSelection: getQuantV4SpecializedProfileSelectionCapability("TMW-001"),\n    } as any);',
+          )
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts artifacts/api-server/src/quant-v4/question-studio-review-engine.ts
+          git diff --cached --check
+          git commit -m "feat(quant-v4): expose specialized profile selection evidence gates"
+          git push origin HEAD:audit/quant-v4-specialized-profile-selection-evidence-gate-p2
