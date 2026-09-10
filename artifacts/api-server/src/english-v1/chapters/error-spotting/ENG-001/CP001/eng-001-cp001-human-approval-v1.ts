@@ -15,4 +15,5 @@ export const ENG001_CP001_HUMAN_EDITORIAL_APPROVAL_V1 = Object.freeze({
   automaticStudentPublication: false as const,
   productionReleaseAuthorized: false as const,
   revisionPolicy: "SOURCE_GENERATOR_ONLY" as const,
+  note: "The approved generator authority is intentionally pinned to the human-reviewed pre-registration head; later integration commits must not silently expand content authority." as const,
 });
