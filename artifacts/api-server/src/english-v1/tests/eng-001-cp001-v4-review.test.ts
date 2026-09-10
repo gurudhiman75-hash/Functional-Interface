@@ -16,7 +16,7 @@ function firstMismatch(expected: string, actual: string): string {
 }
 
 const review = buildEng001Cp001ReviewV4Markdown();
-assert(review.includes("REVIEW_READY_V4__PRODUCTION_SCALE_DIVERSITY"), "V4 review status is missing.");
+assert(review.includes("FINAL_HUMAN_REVIEW_CANDIDATE__CI_GREEN__NOT_QUESTION_STUDIO_REGISTERED"), "V4 review status is missing.");
 assert(review.includes("## Easy") && review.includes("## Medium") && review.includes("## Hard"), "V4 review difficulty sections are incomplete.");
 assert((review.match(/^### \d+\./gm) ?? []).length === 60, "V4 review must contain exactly 60 generated questions.");
 assert((review.match(/Domains represented in this section: 20\./g) ?? []).length === 3, "Every V4 review section must reach all 20 semantic domains.");
