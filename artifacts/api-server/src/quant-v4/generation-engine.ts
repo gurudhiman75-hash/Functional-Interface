@@ -10,6 +10,7 @@ import {
   type QuantV4ExamProfileId,
 } from "./common/exam-profile";
 import { withQuantV4ExamProfileContext } from "./common/exam-profile-context";
+import { buildQuantV4AnswerOptions } from "./shared/answers/option-generation";
 import {
   generateProbabilityQuestionStudioBatch,
   isProbabilityStandardQuestionStudioRequest,
@@ -43,6 +44,8 @@ import {
 
 export const QUANT_V4_EXAM_PROFILE_INGRESS_AUTHORITY =
   "QUANT-V4-EXAM-PROFILE-INGRESS-P2" as const;
+export const QUANT_V4_PROFILE_DELIVERY_AUTHORITY =
+  "QUANT-V4-PROFILE-DELIVERY-P2" as const;
 
 export type QuantV4GenerationRequest = Omit<
   LegacyQuantV4GenerationRequest,
@@ -67,6 +70,7 @@ export {
 export type QuantV4ExamProfileTransportStatus =
   | "NOT_REQUESTED"
   | "APPLIED_DOWNSTREAM"
+  | "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING"
   | "INGRESS_ACCEPTED_DOWNSTREAM_PENDING";
 
 function observedExamProfile(value: any): string | undefined {
@@ -82,17 +86,125 @@ function observedExamProfile(value: any): string | undefined {
     | undefined;
 }
 
+function isQuantQuestion(value: any) {
+  return (
+    value?.section === "Quant" ||
+    value?.generationBackend === "quant-v4" ||
+    value?.debugSource === "quant-v4-package-runtime"
+  );
+}
+
+function enforceProfileDelivery(value: any, profileId: QuantV4ExamProfileId) {
+  if (!isQuantQuestion(value) || !Array.isArray(value?.options)) return null;
+  const contract = getQuantV4ExamProfileContract(profileId);
+  const existingOptions = value.options.map((option: unknown) => String(option ?? ""));
+  const hasExpectedOptionShape =
+    existingOptions.length === contract.optionCount &&
+    new Set(existingOptions).size === contract.optionCount;
+
+  let options = existingOptions;
+  let correctIndex = Number.isInteger(value.correctIndex)
+    ? value.correctIndex
+    : Number.isInteger(value.correct)
+      ? value.correct
+      : undefined;
+  let canonicalAnswer = value.canonicalAnswer;
+
+  if (!hasExpectedOptionShape) {
+    const answer = value.answer ?? value.canonicalAnswer?.display ?? value.canonicalAnswer?.value;
+    if (answer === undefined || answer === null || answer === "") return null;
+    const rebuilt = buildQuantV4AnswerOptions(answer, {
+      existingOptions,
+      optionCount: contract.optionCount,
+      seed: String(value.seed ?? value.questionId ?? value.text ?? `${profileId}:delivery`),
+      context: {
+        packageId: value.packageId,
+        archetypeId: value.patternId ?? value.packageId,
+        canonicalProblemId: value.canonicalProblemId,
+        questionLanguageId: value.questionLanguageId,
+        taskKind: value.taskKind,
+        difficulty: value.difficulty ?? value.difficultyLabel,
+        stem: value.text,
+        variables: value.proceduralLogic ?? value.logic,
+        traceability: value.traceability,
+      },
+    });
+    options = rebuilt.options;
+    correctIndex = rebuilt.correct;
+    canonicalAnswer = rebuilt.canonicalAnswer;
+  }
+
+  if (
+    options.length !== contract.optionCount ||
+    new Set(options).size !== contract.optionCount ||
+    !Number.isInteger(correctIndex) ||
+    (correctIndex as number) < 0 ||
+    (correctIndex as number) >= contract.optionCount
+  ) {
+    return null;
+  }
+
+  return {
+    ...value,
+    options,
+    correct: correctIndex,
+    correctIndex,
+    canonicalAnswer,
+    optionCount: contract.optionCount,
+    requestedExamProfile: profileId,
+    deliveryExamProfile: profileId,
+    expectedOptionCount: contract.optionCount,
+    profileSelectionCalibrated: false,
+    deliveryContractApplied: true,
+    examProfileTransportStatus:
+      "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING" as const,
+    profileTransportAuthority: QUANT_V4_EXAM_PROFILE_INGRESS_AUTHORITY,
+    profileDeliveryAuthority: QUANT_V4_PROFILE_DELIVERY_AUTHORITY,
+    metadata: {
+      ...(value.metadata ?? {}),
+      requestedExamProfile: profileId,
+      deliveryExamProfile: profileId,
+      optionCount: contract.optionCount,
+      profileSelectionCalibrated: false,
+      deliveryContractApplied: true,
+      profileDeliveryAuthority: QUANT_V4_PROFILE_DELIVERY_AUTHORITY,
+    },
+    debugMetadata: {
+      ...(value.debugMetadata ?? {}),
+      requestedExamProfile: profileId,
+      deliveryExamProfile: profileId,
+      optionCount: contract.optionCount,
+      profileSelectionCalibrated: false,
+      deliveryContractApplied: true,
+      profileDeliveryAuthority: QUANT_V4_PROFILE_DELIVERY_AUTHORITY,
+    },
+  };
+}
+
 function annotateProfileTransport(value: any, profileId: QuantV4ExamProfileId) {
   if (!value || typeof value !== "object") return value;
   const contract = getQuantV4ExamProfileContract(profileId);
   const applied = observedExamProfile(value) === profileId;
+  if (applied) {
+    return {
+      ...value,
+      requestedExamProfile: profileId,
+      expectedOptionCount: contract.optionCount,
+      profileSelectionCalibrated: true,
+      examProfileTransportStatus: "APPLIED_DOWNSTREAM" as const,
+      profileTransportAuthority: QUANT_V4_EXAM_PROFILE_INGRESS_AUTHORITY,
+    };
+  }
+
+  const deliveryApplied = enforceProfileDelivery(value, profileId);
+  if (deliveryApplied) return deliveryApplied;
+
   return {
     ...value,
     requestedExamProfile: profileId,
     expectedOptionCount: contract.optionCount,
-    examProfileTransportStatus: applied
-      ? ("APPLIED_DOWNSTREAM" as const)
-      : ("INGRESS_ACCEPTED_DOWNSTREAM_PENDING" as const),
+    profileSelectionCalibrated: false,
+    examProfileTransportStatus: "INGRESS_ACCEPTED_DOWNSTREAM_PENDING" as const,
     profileTransportAuthority: QUANT_V4_EXAM_PROFILE_INGRESS_AUTHORITY,
   };
 }
@@ -116,18 +228,35 @@ function withExamProfileIngress<T>(
       )
     : source.questionPackages;
 
-  const observations = [
-    ...(Array.isArray(questions) ? questions : []),
-    ...(Array.isArray(questionPackages) ? questionPackages : []),
-  ];
+  // Question Studio questions are the delivery surface. Raw package payloads are
+  // retained for trace/debug and must not downgrade a proven delivery result.
+  const observations = Array.isArray(questions) && questions.length > 0
+    ? questions
+    : Array.isArray(questionPackages)
+      ? questionPackages
+      : [];
   const downstreamAppliedCount = observations.filter(
     (item: any) => item?.examProfileTransportStatus === "APPLIED_DOWNSTREAM",
+  ).length;
+  const deliveryAppliedCount = observations.filter(
+    (item: any) =>
+      item?.examProfileTransportStatus ===
+      "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING",
   ).length;
   const downstreamPendingCount = observations.filter(
     (item: any) =>
       item?.examProfileTransportStatus ===
       "INGRESS_ACCEPTED_DOWNSTREAM_PENDING",
   ).length;
+
+  const profileTransportStatus: QuantV4ExamProfileTransportStatus =
+    downstreamPendingCount > 0
+      ? "INGRESS_ACCEPTED_DOWNSTREAM_PENDING"
+      : downstreamAppliedCount === observations.length && observations.length > 0
+        ? "APPLIED_DOWNSTREAM"
+        : deliveryAppliedCount > 0
+          ? "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING"
+          : "INGRESS_ACCEPTED_DOWNSTREAM_PENDING";
 
   return {
     ...source,
@@ -138,13 +267,13 @@ function withExamProfileIngress<T>(
       requestedDeliveryStyle: contract.deliveryStyle,
       expectedOptionCount: contract.optionCount,
       profileTransportAuthority: QUANT_V4_EXAM_PROFILE_INGRESS_AUTHORITY,
+      profileDeliveryAuthority: QUANT_V4_PROFILE_DELIVERY_AUTHORITY,
       downstreamContextAvailable: true,
       downstreamAppliedCount,
+      deliveryAppliedCount,
       downstreamPendingCount,
-      profileTransportStatus:
-        downstreamPendingCount === 0 && downstreamAppliedCount > 0
-          ? "APPLIED_DOWNSTREAM"
-          : "INGRESS_ACCEPTED_DOWNSTREAM_PENDING",
+      profileSelectionCalibrated: profileTransportStatus === "APPLIED_DOWNSTREAM",
+      profileTransportStatus,
     },
     questions,
     questionPackages,
