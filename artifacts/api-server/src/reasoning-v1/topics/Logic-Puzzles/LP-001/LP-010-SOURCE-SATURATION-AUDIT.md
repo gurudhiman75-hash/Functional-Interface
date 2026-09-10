@@ -1,6 +1,6 @@
 # LP-010 — Source and Saturation Audit
 
-Status: review-only English implementation. Permanent QL allocation, localization, Question Bank admission, test eligibility and publication remain locked.
+Status: English Question Studio review candidate. Question Studio owns the normal review and downstream workflow; LP-010 does not add a separate admission or publication pipeline.
 
 ## Source coverage
 
@@ -23,11 +23,11 @@ No source wording is copied. The uploaded book is used for puzzle-family boundar
 | Chronology | day 1 early time → day 1 later time → day 2 early time → day 2 later time → day 3 early time → day 3 later time |
 | Clue families | direct slot, day-only, time-only, before, between, immediately before, same time, same day and day exclusion |
 | Child queries | person-to-slot, slot-to-person, correct pair matching and immediate-next lookup |
-| Difficulty | Easy five direct placements; Medium direct + partial day/time + relation + exclusion; Hard at most one direct slot with layered partial, gap, immediate, same-day/time and exclusion deductions |
-| Languages | English review only |
+| Difficulty | Easy four direct placements + one ordering deduction; Medium direct + partial day/time + relation + exclusion; Hard at most one direct slot with layered partial, gap, immediate, same-day/time and exclusion deductions |
+| Languages | English review candidate |
 | Runtime | `REVIEW_ONLY` |
 
-Every child repeats all six people, all three days, both times, the six chronological slots and every clue. Explanations follow the approved LP-009 V2 contract from the start: use one exact clue at a time, state its consequence, show the surviving candidate table, then read the specific child answer from the unique final schedule.
+Every child repeats all six people, all three days, both times, the six chronological slots and every clue. Wording is intentionally simple and exam-like: people are directly described as scheduled on days/times, without artificial object labels, city/centre fields or solver jargon. Explanations use one clue at a time, state the actual deduction, show a progressive candidate table, and then read the requested answer from the completed schedule.
 
 ## Boundary with earlier checkpoints
 
@@ -42,7 +42,7 @@ LP-002 is a four-person multi-attribute day-and-location assignment puzzle. LP-0
 - keep four unique options and balance correct answer positions for all four QLs;
 - verify Easy/Medium/Hard differ by deduction structure rather than vocabulary or larger numbers;
 - verify every child repeats the complete setup and clue list;
-- verify explanations contain clue-specific progressive tables and no generic answer-only filler;
-- keep the Question Studio route review-only and non-persistent.
+- verify explanations contain clue-specific progressive tables and no generic answer-only or solver-count filler;
+- expose the approved implementation through the shared Question Studio path rather than a separate LP-specific release workflow.
 
-Executable proof is `lp-010.test.ts`; Question Studio route coverage is `lp-010-question-studio.test.ts`; chapter difficulty coverage is extended in `difficulty-calibration.test.ts`.
+Executable proof is `lp-010.test.ts`. After English review, the package should be connected to the existing shared Logic Puzzle Question Studio adapter, which already owns generation/review lifecycle handling.
