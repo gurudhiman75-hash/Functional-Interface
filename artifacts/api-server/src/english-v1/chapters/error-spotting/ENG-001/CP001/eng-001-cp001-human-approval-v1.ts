@@ -1,0 +1,18 @@
+export const ENG001_CP001_HUMAN_EDITORIAL_APPROVAL_V1 = Object.freeze({
+  authorityId: "ENG-001-CP001-HUMAN-EDITORIAL-APPROVAL-V1" as const,
+  chapterId: "ENG-001" as const,
+  cpId: "ENG-001-CP001" as const,
+  approvedReviewArtifact: "ENG-001-CP001-REVIEW-V4.md" as const,
+  approvedReviewBlobSha: "6e05c314555b047b6bbc05a7bdf0d0c99123b193" as const,
+  approvedGeneratorHeadSha: "5e3777abac96c2e486fc0de04a76fdac2c8d9406" as const,
+  approvedOn: "2026-09-10" as const,
+  approvalKind: "EXPLICIT_HUMAN_EDITORIAL_APPROVAL" as const,
+  questionStudioReviewOnlyAuthorized: true as const,
+  questionBankWritable: false as const,
+  testEligible: false as const,
+  mockTestEligible: false as const,
+  publiclyPublishable: false as const,
+  automaticStudentPublication: false as const,
+  productionReleaseAuthorized: false as const,
+  revisionPolicy: "SOURCE_GENERATOR_ONLY" as const,
+});
