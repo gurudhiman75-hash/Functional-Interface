@@ -9,18 +9,28 @@ function rebalance(q: GeoRiv001Cp006ReviewQuestion, targetIndex: number): GeoRiv
   return { ...q, options, correctIndex: targetIndex };
 }
 
+function qlNumber(q: GeoRiv001Cp006ReviewQuestion) {
+  return Number(q.qlId.match(/(\d+)$/)?.[1] ?? 999);
+}
+
+const ordered = [...generateGeoRiv001Cp006ReviewQuestionsV4()].sort((a, b) => qlNumber(a) - qlNumber(b) || a.questionId.localeCompare(b.questionId));
+
 export const GEO_RIV_001_CP006_REVIEW_BATCH_V1: GeoRiv001Cp006ReviewQuestion[] =
-  generateGeoRiv001Cp006ReviewQuestionsV4().map((q, index) => rebalance(q, index % 4));
+  ordered.map((q, index) => rebalance(q, index % 4));
 
 export function auditGeoRiv001Cp006ReviewBatchV1() {
   const issues: string[] = [];
   const qlCounts: Record<string, number> = {};
   const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };
   const answerPositions: Record<number, number> = { 0: 0, 1: 0, 2: 0, 3: 0 };
+  let previousQl = 45;
   for (const q of GEO_RIV_001_CP006_REVIEW_BATCH_V1) {
     qlCounts[q.qlId] = (qlCounts[q.qlId] ?? 0) + 1;
     difficultyCounts[q.difficulty] += 1;
     answerPositions[q.correctIndex] += 1;
+    const currentQl = qlNumber(q);
+    if (currentQl < previousQl) issues.push(`QL_ORDER:${q.questionId}`);
+    previousQl = currentQl;
     if (q.options[q.correctIndex] !== q.canonicalAnswer) issues.push(`ANSWER_MISMATCH:${q.questionId}`);
     if (q.options.length !== 4 || new Set(q.options).size !== 4) issues.push(`BAD_OPTIONS:${q.questionId}`);
     if (!q.sourceIds.length || !q.sourceFactIds.length) issues.push(`NO_PROVENANCE:${q.questionId}`);
