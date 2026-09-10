@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 
 import {
   EXTRACTED_FACT_SCHEMA,
+  buildExtractionRequest,
   buildFactGraph,
   buildGenerationRequest,
   extractedFactQualityRejectionReasons,
@@ -143,6 +144,14 @@ assert.deepEqual(
   [],
 );
 
+const extractionRequest = buildExtractionRequest({
+  sourceTitle: 'Example',
+  taxonomy: ['Political'],
+  sourceText: 'Index material',
+});
+assert.match(extractionRequest.prompt.system, /index entries/i);
+assert.match(extractionRequest.prompt.system, /empty facts array/i);
+
 const style = {
   tone: 'direct',
   sentenceLength: 'short' as const,
@@ -170,14 +179,6 @@ assert.match(hindi.prompt.system, /directly in hi/);
 assert.notEqual(english.prompt.system, hindi.prompt.system);
 assert.match(english.prompt.user, /Low-frequency but still eligible claim/);
 assert.doesNotMatch(english.prompt.user, /SOURCE PROSE/);
-
-const extractionRequest = (await import('./core')).buildExtractionRequest({
-  sourceTitle: 'Example',
-  taxonomy: ['Political'],
-  sourceText: 'Index material',
-});
-assert.match(extractionRequest.prompt.system, /index entries/i);
-assert.match(extractionRequest.prompt.system, /empty facts array/i);
 
 assert.deepEqual(validateNoteBlocks({
   blocks: [
