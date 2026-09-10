@@ -1,18 +1,18 @@
 # ENG-001-CP001 — V4 Production-Scale Diversity Audit
 
-Status: `V4_CAPACITY_GATE__SIX_FIGURE_REALIZATION__CI_PENDING`
+Status: `V4_CAPACITY_GATE__CI_GREEN__HUMAN_REVIEW_PENDING`
 
-## Why V4 exists
+## Purpose
 
-V3 solved the immediate office/recruitment-context repetition, but its observed surface count was still too small for a production English question bank. V4 therefore treats diversity as an engine-level contract rather than a review-file preference.
+V4 makes sentence diversity a generator-level contract rather than a review-file preference. It is the production candidate for ENG-001 CP001 and replaces the earlier exploratory V1–V3 implementations.
 
 ## What counts as a semantic scene
 
-A semantic scene contains a coherent subject, singular/plural verb pair, object or complement, sentence tail, and compatible modifier choices. Changing only `student` to `candidate` inside the same sentence is not counted as a new semantic scene.
+A semantic scene contains a coherent subject, singular/plural verb pair, object or complement, sentence tail, and compatible modifier choices. Merely replacing one noun with another in the same sentence frame is not counted as a new semantic scene.
 
 V4 stores 8 subject families in each of 20 unrelated standard domains. Every family contains 4 different predicate situations. This creates **640 complete semantic scenes** before grammar-rule transformation.
 
-V4 now also has a **domain-aware context-realization layer**. Every one of the 20 domains has **8 short, coherent situation contexts**. The selected context is attached only to a non-error segment, so it changes the sentence situation without changing the registered SVA mutation or hiding the answer.
+The production generator does **not** append generic context suffixes merely to inflate surface count. Each authored scene carries its own meaningful context.
 
 ## Semantic domains
 
@@ -37,79 +37,80 @@ V4 now also has a **domain-aware context-realization layer**. Every one of the 2
 19. Culture
 20. Emergency service
 
-Local city/place names are not used.
+Local city/place names are excluded.
 
 ## Structural catalogs
 
-The rules that cannot safely reuse a normal subject/action scene have dedicated V4 catalogs:
+Rules that cannot safely reuse a normal subject/action scene have dedicated V4 catalogs:
 
-- additive agreement (`along with`, `together with`, `as well as`): **80 pair scenes**
-- proximity agreement (`either...or`, `neither...nor`): the same 80 semantically compatible pair scenes, with separate singular/plural-nearer realizations
-- `the number of`: derived from the 80 pair scenes with domain-specific count contexts
-- intervening-subject agreement: **80 dedicated scenes**
-- collective nouns: **12 explicit unit-reading scenes + 12 explicit member-reading scenes**
+- additive agreement (`along with`, `together with`, `as well as`): **80 pair scenes**;
+- proximity agreement (`either...or`, `neither...nor`): the same 80 semantically compatible pair scenes, with controlled nearer-subject realizations;
+- `the number of`: controlled count structures derived from compatible scene material;
+- intervening-subject agreement: **80 dedicated scenes**;
+- collective nouns: **12 explicit unit-reading scenes + 12 explicit member-reading scenes**.
 
-## Capacity
+## Canonical capacity
 
-Before QL shaping or direction-stem variation, the original V4 structural catalog exposes this conservative lower bound of canonical candidate fingerprints:
+The current deterministic V4 engine exposes a conservative lower bound of:
 
-| Difficulty | Conservative canonical variants |
-|---|---:|
-| Easy | 3,200 |
-| Medium | 6,492 |
-| Hard | 4,012 |
-| **Total** | **13,704** |
+**13,464 canonical candidate variants before QL shaping.**
 
-Each candidate can now be realized in **8 domain-appropriate semantic contexts**. Therefore the conservative sentence-realization floor is:
+This figure deliberately does not multiply by instruction wording, option layout, or cosmetic context suffixes. It therefore represents structural/question-content capacity rather than presentation inflation.
 
-**13,704 × 8 = 109,632 domain-coherent candidate/context realizations.**
+The latest 20,000-seed CI diagnostics observed the following distinct corrected sentence surfaces in the sampled generator space:
 
-This figure still does **not** multiply by QL001/QL002/QL007 shaping or by direction wording. Those are presentation variations, not counted as additional semantic capacity.
+| Difficulty | Distinct observed surfaces | Semantic domains represented |
+| --- | ---: | ---: |
+| Easy | 1,920 | 20 |
+| Medium | 3,546 | 20 |
+| Hard | 1,915 | 20 |
 
-## Why the context layer is not cosmetic inflation
+The domain distribution remained broad in every difficulty sample; no single domain approached a dominant share.
 
-The context realization is part of the sentence content and is selected from the same semantic domain as the candidate. For example, a science sentence receives a laboratory/research/observation context, while a transport sentence receives a route/service/operation context. Context is never borrowed across unrelated domains.
+## Question directions
 
-The context is added to a non-error segment only. The correct and mutated versions receive the same context, preserving the invariant that exactly one registered SVA mutation determines the answer.
+Direction wording is intentionally standardized instead of treated as a diversity source:
 
-## Question-stem diversity
+- QL001: `Identify the part of the sentence that contains an error.`
+- QL002 / QL007: the same instruction plus `If there is no error, select 'No error'.`
 
-V4 keeps direction language natural rather than manufacturing hundreds of superficial instruction rewrites:
+The diversity budget is spent on actual sentence situations and grammatical structures, not superficial instruction rewrites.
 
-- QL001: 14 exam-style direction stems
-- QL002: 10 three-part + `No error` direction stems
-- QL007: 10 calibrated `No error` direction stems
+## Difficulty policy
 
-The main diversity budget is therefore spent on sentence content, not cosmetic directions.
+- Easy uses direct agreement with little structural concealment.
+- Medium introduces stronger distractors, distance, or agreement constructions.
+- Hard derives difficulty from dependency distance, competing nouns, proximity structures, collective readings, and rule complexity.
+- Obscure vocabulary is not used to manufacture Hard questions.
+- `lexicalLoad` remains a guardrail rather than a positive difficulty signal.
 
 ## Automated gates
 
-`eng-001-cp001-v4.test.ts` enforces:
+The V4 workflow currently passes all of the following:
 
-- at least 640 complete semantic scenes
-- at least 20 semantic domains
-- at least 32 scenes in every domain
-- 8 domain-aware context realizations per domain
-- at least 80 pair scenes
-- at least 80 intervening scenes
-- separate collective-unit and collective-member pools
-- at least 13,000 canonical structural variants
-- at least 100,000 conservative candidate/context realizations
-- deterministic regeneration
-- exactly one registered mutation
-- rule/mutation consistency
-- structural difficulty derivation
-- Hard lexical-load ceiling
-- QL002 error-segment preservation
-- calibrated No-error admission
-- non-empty visible segments
-- explanation/corrected-sentence consistency
-- large-sample observed surface thresholds
-- all 20 domains present in each difficulty stress sample
-- no single semantic domain above a 10% share in the 20,000-question stress sample
+- at least 640 complete semantic scenes;
+- all 20 semantic domains;
+- at least 32 base scenes per domain;
+- at least 80 pair scenes;
+- at least 80 intervening scenes;
+- separate collective-unit and collective-member pools;
+- at least 13,000 canonical variants;
+- deterministic regeneration;
+- exactly one registered mutation;
+- rule/mutation consistency;
+- structural difficulty derivation;
+- Hard lexical-load ceiling;
+- QL002 error-segment preservation;
+- calibrated No-error admission;
+- non-empty visible segments;
+- explanation/corrected-sentence consistency;
+- large-sample diversity thresholds;
+- all 20 domains in each difficulty stress sample;
+- domain-balance guardrails;
+- byte-for-byte equality between the deterministic review exporter and the frozen review artifact.
 
-## Human review gate
+## Human review artifact
 
-The V4 review exporter produces **60 questions: 20 Easy, 20 Medium, 20 Hard**. It attempts to show all 20 semantic domains once in each difficulty section before any domain can repeat.
+The V4 review exporter produces **60 questions: 20 Easy, 20 Medium, 20 Hard**. It targets all 20 semantic domains once in each difficulty section before a domain is reused.
 
-Question Studio/publication wiring remains blocked until the V4 review is approved.
+Question Studio/publication wiring remains blocked until this V4 review is explicitly approved.
