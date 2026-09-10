@@ -6,17 +6,12 @@ on:
       - audit/quant-v4-specialized-profile-delivery-remediation-p2
     paths:
       - ".github/workflows/quant-v4-specialized-profile-delivery-remediation-patch.yml"
-      - "artifacts/api-server/src/quant-v4/generation-engine.ts"
-      - "artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts"
-      - "artifacts/api-server/src/quant-v4/question-studio-review-engine.ts"
-      - "artifacts/api-server/src/routes/admin-question-studio-average.ts"
 
 permissions:
   contents: write
 
 jobs:
-  patch-specialized-profile-delivery:
-    if: ${{ !contains(github.event.head_commit.message, '[profile-delivery-patched]') }}
+  patch:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -24,76 +19,54 @@ jobs:
           ref: audit/quant-v4-specialized-profile-delivery-remediation-p2
           fetch-depth: 0
 
-      - name: Apply exact remediation patch
+      - name: Apply remediation
         run: |
           python - <<'PY'
           from pathlib import Path
 
-          def replace_once(path: str, old: str, new: str):
-              p = Path(path)
-              text = p.read_text()
-              if text.count(old) != 1:
-                  raise SystemExit(f"Expected exactly one match in {path}, found {text.count(old)} for:\n{old[:180]}")
+          def once(path, old, new):
+              p = Path(path); text = p.read_text(); count = text.count(old)
+              if count != 1: raise SystemExit(f"{path}: expected 1 match, found {count}: {old[:100]!r}")
               p.write_text(text.replace(old, new, 1))
 
           generation = "artifacts/api-server/src/quant-v4/generation-engine.ts"
-          replace_once(
-              generation,
-              "function withExamProfileIngress<T>(\n  result: T,\n  request: QuantV4GenerationRequest,\n): T {",
-              "export function applyQuantV4ExamProfileDelivery<T>(\n  result: T,\n  request: QuantV4GenerationRequest,\n): T {",
-          )
-          replace_once(
-              generation,
-              "    return withExamProfileIngress(result, request);",
-              "    return applyQuantV4ExamProfileDelivery(result, request);",
-          )
+          once(generation, "function withExamProfileIngress<T>(\n  result: T,\n  request: QuantV4GenerationRequest,\n): T {", "export function applyQuantV4ExamProfileDelivery<T>(\n  result: T,\n  request: QuantV4GenerationRequest,\n): T {")
+          once(generation, "    return withExamProfileIngress(result, request);", "    return applyQuantV4ExamProfileDelivery(result, request);")
 
           qsg = "artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts"
-          replace_once(
-              qsg,
-              "import {\n  generateQuestion as generateBaseQuestion,\n  listQuantV4Packages as listBasePackages,\n  toQuestionStudioPreview,",
-              "import {\n  applyQuantV4ExamProfileDelivery,\n  generateQuestion as generateBaseQuestion,\n  listQuantV4Packages as listBasePackages,\n  toQuestionStudioPreview,\n  withQuantV4ExamProfileContext,",
-          )
-          old_qsg = '''export async function generateQuestion(\n  request: QuestionStudioQuantV4GenerationRequest = {},\n) {\n  if (isSimplificationRequest(request)) {\n    return generateSimplificationQuestion(request);\n  }\n  if (isNumberSystemRequest(request)) {\n    return generateNumberSystemQuestion(request);\n  }\n  if (isMixtureAndAlligationRequest(request)) {\n    return generateMixtureAndAlligationQuestion(request);\n  }\n  if (isAverageRequest(request)) {\n    return generateAverageQuestion(request);\n  }\n  return generateBaseQuestion(request as QuantV4GenerationRequest);\n}\n'''
-          new_qsg = '''async function generateSpecializedWithProfileDelivery(\n  request: QuestionStudioQuantV4GenerationRequest,\n  generate: () => Promise<any>,\n) {\n  if (!request.examProfile) return generate();\n  return withQuantV4ExamProfileContext(request.examProfile, async () => {\n    const result = await generate();\n    return applyQuantV4ExamProfileDelivery(\n      result,\n      request as QuantV4GenerationRequest,\n    );\n  });\n}\n\nexport async function generateQuestion(\n  request: QuestionStudioQuantV4GenerationRequest = {},\n) {\n  if (isSimplificationRequest(request)) {\n    return generateSpecializedWithProfileDelivery(\n      request,\n      () => generateSimplificationQuestion(request),\n    );\n  }\n  if (isNumberSystemRequest(request)) {\n    return generateSpecializedWithProfileDelivery(\n      request,\n      () => generateNumberSystemQuestion(request),\n    );\n  }\n  if (isMixtureAndAlligationRequest(request)) {\n    return generateSpecializedWithProfileDelivery(\n      request,\n      () => generateMixtureAndAlligationQuestion(request),\n    );\n  }\n  if (isAverageRequest(request)) {\n    return generateSpecializedWithProfileDelivery(\n      request,\n      () => generateAverageQuestion(request),\n    );\n  }\n  return generateBaseQuestion(request as QuantV4GenerationRequest);\n}\n'''
-          replace_once(qsg, old_qsg, new_qsg)
+          once(qsg, "import {\n  generateQuestion as generateBaseQuestion,", "import {\n  applyQuantV4ExamProfileDelivery,\n  generateQuestion as generateBaseQuestion,")
+          once(qsg, "  toQuestionStudioPreview,\n  type QuantV4Difficulty,", "  toQuestionStudioPreview,\n  withQuantV4ExamProfileContext,\n  type QuantV4Difficulty,")
+          helper = '''async function generateSpecializedWithProfileDelivery(\n  request: QuestionStudioQuantV4GenerationRequest,\n  generate: () => Promise<any>,\n) {\n  if (!request.examProfile) return generate();\n  return withQuantV4ExamProfileContext(request.examProfile, async () => {\n    const result = await generate();\n    return applyQuantV4ExamProfileDelivery(result, request as QuantV4GenerationRequest);\n  });\n}\n\n'''
+          once(qsg, "export async function generateQuestion(\n  request: QuestionStudioQuantV4GenerationRequest = {},\n) {", helper + "export async function generateQuestion(\n  request: QuestionStudioQuantV4GenerationRequest = {},\n) {")
+          for old, new in [
+            ("    return generateSimplificationQuestion(request);", "    return generateSpecializedWithProfileDelivery(request, () => generateSimplificationQuestion(request));"),
+            ("    return generateNumberSystemQuestion(request);", "    return generateSpecializedWithProfileDelivery(request, () => generateNumberSystemQuestion(request));"),
+            ("    return generateMixtureAndAlligationQuestion(request);", "    return generateSpecializedWithProfileDelivery(request, () => generateMixtureAndAlligationQuestion(request));"),
+            ("    return generateAverageQuestion(request);", "    return generateSpecializedWithProfileDelivery(request, () => generateAverageQuestion(request));"),
+          ]: once(qsg, old, new)
 
           qsr = "artifacts/api-server/src/quant-v4/question-studio-review-engine.ts"
-          replace_once(
-              qsr,
-              '''import {\n  generateQuestion as generateBaseQuestion,\n  listQuantV4Packages as listBasePackages,\n  type QuestionStudioQuantV4GenerationRequest,\n} from "./question-studio-generation-engine";\n''',
-              '''import {\n  generateQuestion as generateBaseQuestion,\n  listQuantV4Packages as listBasePackages,\n  type QuestionStudioQuantV4GenerationRequest,\n} from "./question-studio-generation-engine";\nimport {\n  applyQuantV4ExamProfileDelivery,\n  withQuantV4ExamProfileContext,\n  type QuantV4GenerationRequest,\n} from "./generation-engine";\n''',
-          )
-          old_qsr = '''export async function generateQuestion(request: QuestionStudioReviewGenerationRequest = {}) {\n  if (isSapBankingQuestionStudioRequest(request as SapBankingQuestionStudioRequest)) {\n    return generateSapBankingQuestionStudioBatch(request as SapBankingQuestionStudioRequest);\n  }\n  if (isTimeAndWorkRequest(request)) return generateTmwReview(request);\n  if (!isNumberSystemRequest(request)) {\n    return generateBaseQuestion(request as QuestionStudioQuantV4GenerationRequest);\n  }\n\n  const language = String(request.language ?? "en") as NumCp001QuestionStudioReviewLanguage;\n  const explicitCp = String(request.canonicalProblemId ?? request.cpId ?? "") || undefined;\n  const inferredCp = inferNumCpFromQl(request.questionLanguageId);\n\n  if (explicitCp && inferredCp && explicitCp !== inferredCp) {\n    throw new Error(`${String(request.questionLanguageId)} is owned by ${inferredCp}, not ${explicitCp}.`);\n  }\n\n  const cp001Target = explicitCp === "NUM-CP-001"\n    || inferredCp === "NUM-CP-001"\n    || (language !== "en" && !explicitCp && !inferredCp);\n\n  if (cp001Target) return generateCp001Review(request);\n\n  if (language !== "en") {\n    throw new Error(\n      "NUM-001 supports Hindi/Punjabi Question Studio review only for NUM-CP-001; NUM-CP-003 and NUM-CP-004 remain English-only.",\n    );\n  }\n\n  return generateBaseQuestion(request as QuestionStudioQuantV4GenerationRequest);\n}\n'''
-          new_qsr = '''async function generateReviewSpecializedWithProfileDelivery(\n  request: QuestionStudioReviewGenerationRequest,\n  generate: () => Promise<any>,\n) {\n  if (!request.examProfile) return generate();\n  return withQuantV4ExamProfileContext(request.examProfile, async () => {\n    const result = await generate();\n    return applyQuantV4ExamProfileDelivery(\n      result,\n      request as QuantV4GenerationRequest,\n    );\n  });\n}\n\nexport async function generateQuestion(request: QuestionStudioReviewGenerationRequest = {}) {\n  if (isSapBankingQuestionStudioRequest(request as SapBankingQuestionStudioRequest)) {\n    return generateSapBankingQuestionStudioBatch(request as SapBankingQuestionStudioRequest);\n  }\n  if (isTimeAndWorkRequest(request)) {\n    return generateReviewSpecializedWithProfileDelivery(\n      request,\n      () => generateTmwReview(request),\n    );\n  }\n  if (!isNumberSystemRequest(request)) {\n    return generateBaseQuestion(request as QuestionStudioQuantV4GenerationRequest);\n  }\n\n  const language = String(request.language ?? "en") as NumCp001QuestionStudioReviewLanguage;\n  const explicitCp = String(request.canonicalProblemId ?? request.cpId ?? "") || undefined;\n  const inferredCp = inferNumCpFromQl(request.questionLanguageId);\n\n  if (explicitCp && inferredCp && explicitCp !== inferredCp) {\n    throw new Error(`${String(request.questionLanguageId)} is owned by ${inferredCp}, not ${explicitCp}.`);\n  }\n\n  const cp001Target = explicitCp === "NUM-CP-001"\n    || inferredCp === "NUM-CP-001"\n    || (language !== "en" && !explicitCp && !inferredCp);\n\n  if (cp001Target) {\n    return generateReviewSpecializedWithProfileDelivery(\n      request,\n      () => generateCp001Review(request),\n    );\n  }\n\n  if (language !== "en") {\n    throw new Error(\n      "NUM-001 supports Hindi/Punjabi Question Studio review only for NUM-CP-001; NUM-CP-003 and NUM-CP-004 remain English-only.",\n    );\n  }\n\n  return generateBaseQuestion(request as QuestionStudioQuantV4GenerationRequest);\n}\n'''
-          replace_once(qsr, old_qsr, new_qsr)
+          once(qsr, '} from "./question-studio-generation-engine";\n', '} from "./question-studio-generation-engine";\nimport {\n  applyQuantV4ExamProfileDelivery,\n  withQuantV4ExamProfileContext,\n  type QuantV4GenerationRequest,\n} from "./generation-engine";\n')
+          helper2 = '''async function generateReviewSpecializedWithProfileDelivery(\n  request: QuestionStudioReviewGenerationRequest,\n  generate: () => Promise<any>,\n) {\n  if (!request.examProfile) return generate();\n  return withQuantV4ExamProfileContext(request.examProfile, async () => {\n    const result = await generate();\n    return applyQuantV4ExamProfileDelivery(result, request as QuantV4GenerationRequest);\n  });\n}\n\n'''
+          once(qsr, "export async function generateQuestion(request: QuestionStudioReviewGenerationRequest = {}) {", helper2 + "export async function generateQuestion(request: QuestionStudioReviewGenerationRequest = {}) {")
+          once(qsr, "  if (isTimeAndWorkRequest(request)) return generateTmwReview(request);", "  if (isTimeAndWorkRequest(request)) {\n    return generateReviewSpecializedWithProfileDelivery(request, () => generateTmwReview(request));\n  }")
+          once(qsr, "  if (cp001Target) return generateCp001Review(request);", "  if (cp001Target) {\n    return generateReviewSpecializedWithProfileDelivery(request, () => generateCp001Review(request));\n  }")
 
           route = "artifacts/api-server/src/routes/admin-question-studio-average.ts"
-          replace_once(
-              route,
-              '''type SapBankingExamProfile = "BANKING_PRELIMS" | "BANKING_MAINS";\n''',
-              '''type SapBankingExamProfile = "BANKING_PRELIMS" | "BANKING_MAINS";\ntype QuantQuestionStudioExamProfile =\n  | "GENERIC_PRACTICE"\n  | "SSC_CGL_TIER_I"\n  | "SSC_CGL_CHSL"\n  | "SSC_CGL_JSO"\n  | "BANKING_PRELIMS"\n  | "BANKING_MAINS"\n  | "PUNJAB_STATE";\n''',
-          )
-          marker = '''function isAverageRequest(body: any) {\n'''
-          resolver = '''function resolveQuantQuestionStudioExamProfile(body: any): QuantQuestionStudioExamProfile | undefined {\n  const explicit = asString(body?.examProfile).toUpperCase();\n  const allowed = new Set<QuantQuestionStudioExamProfile>([\n    "GENERIC_PRACTICE",\n    "SSC_CGL_TIER_I",\n    "SSC_CGL_CHSL",\n    "SSC_CGL_JSO",\n    "BANKING_PRELIMS",\n    "BANKING_MAINS",\n    "PUNJAB_STATE",\n  ]);\n  if (allowed.has(explicit as QuantQuestionStudioExamProfile)) {\n    return explicit as QuantQuestionStudioExamProfile;\n  }\n\n  const banking = resolveSapBankingExamProfile(body);\n  if (banking) return banking;\n\n  const selected = normalizeSelector(body?.examProfileId || body?.exam);\n  if (/\\b(psssb|ppsc|punjab police)\\b/u.test(selected)) return "PUNJAB_STATE";\n  if (/\\bssc\\b/u.test(selected) && /\\bchsl\\b/u.test(selected)) return "SSC_CGL_CHSL";\n  if (/\\bssc\\b/u.test(selected) && /\\b(jso|tier 2|tier ii)\\b/u.test(selected)) return "SSC_CGL_JSO";\n  if (/\\bssc\\b/u.test(selected) && /\\b(tier 1|tier i)\\b/u.test(selected)) return "SSC_CGL_TIER_I";\n  return undefined;\n}\n\n'''
-          replace_once(route, marker, resolver + marker)
-          replace_once(
-              route,
-              '''    const sapBankingExamProfile = simplificationRequest\n      ? resolveSapBankingExamProfile(req.body)\n      : undefined;\n''',
-              '''    const quantExamProfile = reasoningRequest\n      ? undefined\n      : resolveQuantQuestionStudioExamProfile(req.body);\n    const sapBankingExamProfile = simplificationRequest\n      && (quantExamProfile === "BANKING_PRELIMS" || quantExamProfile === "BANKING_MAINS")\n      ? quantExamProfile\n      : undefined;\n''',
-          )
-          replace_once(route, "      examProfile: sapBankingExamProfile,", "      examProfile: quantExamProfile,")
-          replace_once(route, "        examProfile: sapBankingExamProfile,", "        examProfile: quantExamProfile,")
+          once(route, 'type SapBankingExamProfile = "BANKING_PRELIMS" | "BANKING_MAINS";\n', 'type SapBankingExamProfile = "BANKING_PRELIMS" | "BANKING_MAINS";\ntype QuantQuestionStudioExamProfile =\n  | "GENERIC_PRACTICE" | "SSC_CGL_TIER_I" | "SSC_CGL_CHSL" | "SSC_CGL_JSO"\n  | "BANKING_PRELIMS" | "BANKING_MAINS" | "PUNJAB_STATE";\n')
+          resolver = '''function resolveQuantQuestionStudioExamProfile(body: any): QuantQuestionStudioExamProfile | undefined {\n  const explicit = asString(body?.examProfile).toUpperCase();\n  const allowed = new Set<QuantQuestionStudioExamProfile>(["GENERIC_PRACTICE", "SSC_CGL_TIER_I", "SSC_CGL_CHSL", "SSC_CGL_JSO", "BANKING_PRELIMS", "BANKING_MAINS", "PUNJAB_STATE"]);\n  if (allowed.has(explicit as QuantQuestionStudioExamProfile)) return explicit as QuantQuestionStudioExamProfile;\n  const banking = resolveSapBankingExamProfile(body);\n  if (banking) return banking;\n  const selected = normalizeSelector(body?.examProfileId || body?.exam);\n  if (/\\b(psssb|ppsc|punjab police)\\b/u.test(selected)) return "PUNJAB_STATE";\n  if (/\\bssc\\b/u.test(selected) && /\\bchsl\\b/u.test(selected)) return "SSC_CGL_CHSL";\n  if (/\\bssc\\b/u.test(selected) && /\\b(jso|tier 2|tier ii)\\b/u.test(selected)) return "SSC_CGL_JSO";\n  if (/\\bssc\\b/u.test(selected) && /\\b(tier 1|tier i)\\b/u.test(selected)) return "SSC_CGL_TIER_I";\n  return undefined;\n}\n\n'''
+          once(route, "function isAverageRequest(body: any) {\n", resolver + "function isAverageRequest(body: any) {\n")
+          once(route, "    const sapBankingExamProfile = simplificationRequest\n      ? resolveSapBankingExamProfile(req.body)\n      : undefined;", "    const quantExamProfile = reasoningRequest\n      ? undefined\n      : resolveQuantQuestionStudioExamProfile(req.body);\n    const sapBankingExamProfile = simplificationRequest\n      && (quantExamProfile === \"BANKING_PRELIMS\" || quantExamProfile === \"BANKING_MAINS\")\n      ? quantExamProfile\n      : undefined;")
+          p = Path(route); text = p.read_text(); old = "examProfile: sapBankingExamProfile,"; count = text.count(old)
+          if count != 2: raise SystemExit(f"{route}: expected 2 profile transport fields, found {count}")
+          p.write_text(text.replace(old, "examProfile: quantExamProfile,"))
           PY
 
       - name: Commit remediation
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add artifacts/api-server/src/quant-v4/generation-engine.ts \
-            artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts \
-            artifacts/api-server/src/quant-v4/question-studio-review-engine.ts \
-            artifacts/api-server/src/routes/admin-question-studio-average.ts
+          git add artifacts/api-server/src/quant-v4/generation-engine.ts artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts artifacts/api-server/src/quant-v4/question-studio-review-engine.ts artifacts/api-server/src/routes/admin-question-studio-average.ts
           git diff --cached --check
-          git commit -m "fix(quant-v4): enforce specialized profile delivery [profile-delivery-patched]"
+          git commit -m "fix(quant-v4): enforce specialized profile delivery"
           git push origin HEAD:audit/quant-v4-specialized-profile-delivery-remediation-p2
