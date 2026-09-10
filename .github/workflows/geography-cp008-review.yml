@@ -1,0 +1,43 @@
+name: Validate GEO-RIV-001 CP008 Review
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp008-*"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/rivers-drainage/GEO-RIV-001-CP008-*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geo-riv-001-cp008-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp008:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run CP008 projection qualification
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp008-validator.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-riv-001-cp008-validator.test.mjs
+          node artifacts/api-server/dist/geography/geo-riv-001-cp008-validator.test.mjs
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
