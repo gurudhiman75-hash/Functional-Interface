@@ -162,29 +162,31 @@ function simpleRuleExplanation(candidate: Eng001SentenceCandidate, surfaceCorrec
       return `The subject is ${plural ? "plural" : "singular"}, so use “${surfaceCorrection}”.`;
     }
     case "GR-SVA-002":
-      return `“Each” and “Every” are singular, so use “${surfaceCorrection}”.`;
+      return `“Each” and “Every” take a singular verb, so use “${surfaceCorrection}”.`;
     case "GR-SVA-003":
-      return `In “one of ...”, the subject is “one”, so use “${surfaceCorrection}”.`;
+      return `“One of ...” takes a singular verb, so use “${surfaceCorrection}”.`;
     case "GR-SVA-004":
       return candidate.correctSegments[0]?.startsWith("A number of")
-        ? `“A number of” means several, so use the plural verb “${surfaceCorrection}”.`
-        : `“The number of” means one total, so use the singular verb “${surfaceCorrection}”.`;
+        ? `“A number of” means several, so use “${surfaceCorrection}”.`
+        : `“The number of” means one total, so use “${surfaceCorrection}”.`;
     case "GR-SVA-005":
-      return `“Along with”, “together with” and “as well as” do not change the main subject, so use “${surfaceCorrection}”.`;
+      return `The added phrase does not change the main subject, so use “${surfaceCorrection}”.`;
     case "GR-SVA-006":
-      return `With “either...or” and “neither...nor”, use the verb that matches the nearer subject: “${surfaceCorrection}”.`;
+      return `The verb matches the nearer subject, so use “${surfaceCorrection}”.`;
     case "GR-SVA-007": {
       const membersSeparate = candidate.tags.includes("pattern:collective-members");
       return membersSeparate
-        ? `The members are acting separately, so use “${surfaceCorrection}”.`
-        : `The group is acting as one, so use “${surfaceCorrection}”.`;
+        ? `The members act separately, so use “${surfaceCorrection}”.`
+        : `The group acts as one, so use “${surfaceCorrection}”.`;
     }
     case "GR-SVA-008":
       return `“More than one” takes a singular verb, so use “${surfaceCorrection}”.`;
     case "GR-SVA-009":
       return `“Many a/an” takes a singular verb, so use “${surfaceCorrection}”.`;
-    case "GR-SVA-010":
-      return `Use the verb that matches the main subject, not the noun in the middle. The correct verb is “${surfaceCorrection}”.`;
+    case "GR-SVA-010": {
+      const subject = simplifyCp001Text(candidate.subjectHead);
+      return `The main subject is “${subject}”, so use “${surfaceCorrection}”.`;
+    }
   }
 }
 
@@ -210,18 +212,14 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
   if (!domain) throw new Error(`${candidate.candidateId} lacks a semantic domain`);
 
   const modifierRepair = repairBaseSceneModifierEcho(candidate);
-  const plainCorrect = simplifyCp001Segments(modifierRepair.correctSegments);
-  const plainError = simplifyCp001Segments(modifierRepair.errorSegments);
-  const surfaceErrorSpan = simplifyCp001Text(candidate.errorSpan ?? "");
+  const correctSegments = simplifyCp001Segments(modifierRepair.correctSegments);
+  const errorSegments = simplifyCp001Segments(modifierRepair.errorSegments);
   const surfaceCorrection = simplifyCp001Text(candidate.correction ?? "");
 
   // Do not bolt an extra generic context phrase onto every sentence. The
   // authored scene and structural catalogs already provide the context needed
   // for an exam-like sentence. This keeps comprehension ahead of artificial
   // variant multiplication.
-  const correctSegments = plainCorrect;
-  const errorSegments = plainError;
-
   const isNoError = qlId === "ENG-001-QL007";
   const rawErrorIndex = isNoError ? null : candidate.errorIndex;
   const rawSegments = isNoError ? correctSegments : errorSegments;
@@ -237,7 +235,7 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
   const ruleExplanation = simpleRuleExplanation(candidate, surfaceCorrection);
   const explanation = isNoError
     ? `There is no error. ${ruleExplanation} Correct sentence: ${correctedSentence}`
-    : `Part ${answerLabel} contains the error. ${ruleExplanation} Replace “${surfaceErrorSpan}” with “${surfaceCorrection}”. Correct sentence: ${correctedSentence}`;
+    : `Part ${answerLabel} contains the error. ${ruleExplanation} Correct sentence: ${correctedSentence}`;
   const repairSuffix = modifierRepair.repaired ? ":ECHO-REPAIRED" : "";
   const realizedCandidateId = `${candidate.candidateId}${repairSuffix}`;
 
