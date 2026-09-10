@@ -14,6 +14,8 @@ for (const qlId of QLS) {
     assert.equal(q.options[q.correctIndex], q.canonicalAnswer, q.questionId);
     const visible = `${q.stem}\n${q.explanation}`;
     assert.doesNotMatch(visible, /associated with the source|source-glacier association|matches the reviewed relation|exam trap|shortcut|lower upper-course|in this transition/i);
+    if (q.qlId === "GEO-RIV-001-QL-035") assert.equal(q.difficulty, "Medium", "Two-statement CP004 questions should be Medium");
+    if (q.qlId === "GEO-RIV-001-QL-036") assert.equal(q.difficulty, "Hard", "Three-statement CP004 count questions should remain Hard");
     if (q.qlId === "GEO-RIV-001-QL-032" && q.canonicalAnswer === "Dibang — joins Siang/Dihang") sawDibangPair = true;
     if (q.canonicalAnswer === "Bay of Bengal") {
       sawBayQuestion = true;
