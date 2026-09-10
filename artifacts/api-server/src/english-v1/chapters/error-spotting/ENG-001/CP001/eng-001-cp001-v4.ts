@@ -155,37 +155,37 @@ function chooseRule(input: {
   return deterministicPick(`${input.seed}:rule:${input.qlId}:${input.difficulty}`, allowed);
 }
 
-function simpleRuleExplanation(candidate: Eng001SentenceCandidate, surfaceCorrection: string): string {
+function simpleRuleReason(candidate: Eng001SentenceCandidate): string {
   switch (candidate.ruleId) {
     case "GR-SVA-001": {
       const plural = candidate.candidateId.includes(":PL");
-      return `The subject is ${plural ? "plural" : "singular"}, so use “${surfaceCorrection}”.`;
+      return `The subject is ${plural ? "plural" : "singular"}.`;
     }
     case "GR-SVA-002":
-      return `“Each” and “Every” take a singular verb, so use “${surfaceCorrection}”.`;
+      return candidate.correctSegments[0]?.startsWith("Each")
+        ? "“Each” takes a singular verb."
+        : "“Every” takes a singular verb.";
     case "GR-SVA-003":
-      return `“One of ...” takes a singular verb, so use “${surfaceCorrection}”.`;
+      return "“One of ...” refers to one, so it takes a singular verb.";
     case "GR-SVA-004":
       return candidate.correctSegments[0]?.startsWith("A number of")
-        ? `“A number of” means several, so use “${surfaceCorrection}”.`
-        : `“The number of” means one total, so use “${surfaceCorrection}”.`;
+        ? "“A number of” means several, so it takes a plural verb."
+        : "“The number of” means one total, so it takes a singular verb.";
     case "GR-SVA-005":
-      return `The added phrase does not change the main subject, so use “${surfaceCorrection}”.`;
+      return "The added phrase does not change the main subject.";
     case "GR-SVA-006":
-      return `The verb matches the nearer subject, so use “${surfaceCorrection}”.`;
-    case "GR-SVA-007": {
-      const membersSeparate = candidate.tags.includes("pattern:collective-members");
-      return membersSeparate
-        ? `The members act separately, so use “${surfaceCorrection}”.`
-        : `The group acts as one, so use “${surfaceCorrection}”.`;
-    }
+      return "The verb agrees with the nearer subject.";
+    case "GR-SVA-007":
+      return candidate.tags.includes("pattern:collective-members")
+        ? "The members are acting separately."
+        : "The group is acting as one unit.";
     case "GR-SVA-008":
-      return `“More than one” takes a singular verb, so use “${surfaceCorrection}”.`;
+      return "“More than one” takes a singular verb.";
     case "GR-SVA-009":
-      return `“Many a/an” takes a singular verb, so use “${surfaceCorrection}”.`;
+      return "“Many a/an” takes a singular verb.";
     case "GR-SVA-010": {
       const subject = simplifyCp001Text(candidate.subjectHead);
-      return `The main subject is “${subject}”, so use “${surfaceCorrection}”.`;
+      return `The main subject is “${subject}”.`;
     }
   }
 }
@@ -232,10 +232,13 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
   const correctOptionIndex = shaped.errorIndex ?? shaped.segments.length;
   const answerLabel = options[correctOptionIndex]!;
   const correctedSentence = sentenceFromSegments(correctSegments);
-  const ruleExplanation = simpleRuleExplanation(candidate, surfaceCorrection);
+  const ruleReason = simpleRuleReason(candidate);
+  const correctionStatement = isNoError
+    ? `“${surfaceCorrection}” is correct.`
+    : `Use “${surfaceCorrection}”.`;
   const explanation = isNoError
-    ? `There is no error. ${ruleExplanation} Correct sentence: ${correctedSentence}`
-    : `Part ${answerLabel} contains the error. ${ruleExplanation} Correct sentence: ${correctedSentence}`;
+    ? `There is no error. ${ruleReason} ${correctionStatement} Correct sentence: ${correctedSentence}`
+    : `Part ${answerLabel} contains the error. ${ruleReason} ${correctionStatement} Correct sentence: ${correctedSentence}`;
   const repairSuffix = modifierRepair.repaired ? ":ECHO-REPAIRED" : "";
   const realizedCandidateId = `${candidate.candidateId}${repairSuffix}`;
 
