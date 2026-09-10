@@ -4,14 +4,16 @@ export type DayTimePerson = "A" | "B" | "C" | "D" | "E" | "F";
 export type DayTimeSlot = 0 | 1 | 2 | 3 | 4 | 5;
 export type DayTimeAssignment = Record<DayTimePerson, DayTimeSlot>;
 
+type TimeGroup = readonly DayTimeSlot[];
+
 export type DayTimeClue =
   | { kind: "PERSON_SLOT"; person: DayTimePerson; slot: DayTimeSlot; text: string }
   | { kind: "PERSON_DAY"; person: DayTimePerson; dayIndex: 0 | 1 | 2; text: string }
-  | { kind: "PERSON_TIME"; person: DayTimePerson; timeIndex: 0 | 1; text: string }
+  | { kind: "PERSON_TIME"; person: DayTimePerson; timeLabel: string; matchingSlots: TimeGroup; text: string }
   | { kind: "BEFORE"; left: DayTimePerson; right: DayTimePerson; text: string }
   | { kind: "BETWEEN"; left: DayTimePerson; right: DayTimePerson; count: number; text: string }
   | { kind: "IMMEDIATE_BEFORE"; left: DayTimePerson; right: DayTimePerson; text: string }
-  | { kind: "SAME_TIME"; left: DayTimePerson; right: DayTimePerson; text: string }
+  | { kind: "SAME_TIME"; left: DayTimePerson; right: DayTimePerson; timeGroups: readonly TimeGroup[]; text: string }
   | { kind: "SAME_DAY"; left: DayTimePerson; right: DayTimePerson; text: string }
   | { kind: "NOT_DAY"; person: DayTimePerson; dayIndex: 0 | 1 | 2; text: string };
 
@@ -22,7 +24,9 @@ export type Lp010Profile = {
   eventNoun: string;
   people: Record<DayTimePerson, string>;
   days: readonly [string, string, string];
-  times: readonly [string, string];
+  times: readonly string[];
+  slotTimes: Record<DayTimeSlot, string>;
+  timePatternId: string;
   slots: Record<DayTimeSlot, string>;
   personQuestionTemplate: string;
   slotQuestionTemplate: string;
@@ -79,20 +83,20 @@ const PROFILE_TEMPLATES = [
   { id: "RESEARCH_PRESENTATIONS", scenario: "Six researchers are scheduled to give presentations at a university.", personNoun: "researcher", eventNoun: "presentation", days: ["Wednesday", "Friday", "Saturday"] as const, people: ["Alok", "Beena", "Dinesh", "Farah", "Gopal", "Harini", "Irfan", "Juhi", "Kartik", "Leela", "Nitin", "Rupa"] },
 ] as const;
 
-const TIME_PAIRS = [
-  ["8:00 AM", "2:00 PM"],
-  ["9:00 AM", "3:00 PM"],
-  ["10:00 AM", "4:00 PM"],
-  ["11:00 AM", "5:00 PM"],
-  ["9:00 AM", "1:00 PM"],
-  ["10:00 AM", "2:00 PM"],
-  ["11:00 AM", "3:00 PM"],
-  ["12:00 PM", "4:00 PM"],
-  ["8:30 AM", "1:30 PM"],
-  ["9:30 AM", "2:30 PM"],
-  ["10:30 AM", "3:30 PM"],
-  ["11:30 AM", "4:30 PM"],
-] as const;
+const TIME_PATTERNS = [
+  { id: "REPEATED_PAIR_0900_1400", times: ["9:00 AM", "2:00 PM", "9:00 AM", "2:00 PM", "9:00 AM", "2:00 PM"] },
+  { id: "MIXED_FOUR_0900_1400", times: ["9:00 AM", "2:00 PM", "9:00 AM", "3:00 PM", "10:00 AM", "3:00 PM"] },
+  { id: "MIXED_FIVE_0900_1300", times: ["9:00 AM", "1:00 PM", "10:00 AM", "2:00 PM", "11:00 AM", "2:00 PM"] },
+  { id: "DISTINCT_SIX_0800_1500", times: ["8:00 AM", "1:00 PM", "9:00 AM", "2:00 PM", "10:00 AM", "3:00 PM"] },
+  { id: "REPEATED_PAIR_1000_1600", times: ["10:00 AM", "4:00 PM", "10:00 AM", "4:00 PM", "10:00 AM", "4:00 PM"] },
+  { id: "MIXED_FOUR_HALF_HOUR", times: ["8:30 AM", "1:30 PM", "9:30 AM", "1:30 PM", "9:30 AM", "2:30 PM"] },
+  { id: "MIXED_FIVE_HALF_HOUR", times: ["8:30 AM", "12:30 PM", "9:30 AM", "1:30 PM", "10:30 AM", "1:30 PM"] },
+  { id: "DISTINCT_SIX_HALF_HOUR", times: ["8:30 AM", "12:30 PM", "9:30 AM", "1:30 PM", "10:30 AM", "2:30 PM"] },
+  { id: "REPEATED_PAIR_0930_1530", times: ["9:30 AM", "3:30 PM", "9:30 AM", "3:30 PM", "9:30 AM", "3:30 PM"] },
+  { id: "MIXED_FOUR_1000_1430", times: ["10:00 AM", "2:30 PM", "10:30 AM", "3:30 PM", "10:30 AM", "2:30 PM"] },
+  { id: "MIXED_FIVE_1000_1600", times: ["10:00 AM", "3:00 PM", "11:00 AM", "4:00 PM", "12:00 PM", "4:00 PM"] },
+  { id: "DISTINCT_SIX_0900_1600", times: ["9:00 AM", "2:00 PM", "10:00 AM", "3:00 PM", "11:00 AM", "4:00 PM"] },
+] as const satisfies readonly { id: string; times: readonly [string, string, string, string, string, string] }[];
 
 function hashSeed(value: string): number { let hash = 2166136261; for (const char of value) { hash ^= char.charCodeAt(0); hash = Math.imul(hash, 16777619); } return hash >>> 0; }
 function rng(seed: string) { let state = hashSeed(seed) || 1; return () => { state = Math.imul(state ^ (state >>> 15), 2246822519) >>> 0; state = Math.imul(state ^ (state >>> 13), 3266489917) >>> 0; return ((state ^ (state >>> 16)) >>> 0) / 4294967296; }; }
@@ -101,24 +105,29 @@ function permutations<T>(items: readonly T[]): T[][] { if (items.length <= 1) re
 function pick<T>(items: readonly T[], random: () => number): T { return items[Math.floor(random() * items.length)]!; }
 function examList(values: readonly string[]): string { return `${values.slice(0, -1).join(", ")} and ${values[values.length - 1]}`; }
 function dayOf(slot: DayTimeSlot): 0 | 1 | 2 { return Math.floor(slot / 2) as 0 | 1 | 2; }
-function timeOf(slot: DayTimeSlot): 0 | 1 { return (slot % 2) as 0 | 1; }
 
-function materializeProfile(index: number, random: () => number, timePairIndex: number): Lp010Profile {
+function uniqueInOrder(values: readonly string[]): string[] { return values.filter((value, index) => values.indexOf(value) === index); }
+function timeGroups(profile: Lp010Profile): readonly TimeGroup[] {
+  return profile.times.map((time) => SLOTS.filter((slot) => profile.slotTimes[slot] === time)).filter((group) => group.length >= 2);
+}
+
+function materializeProfile(index: number, random: () => number, patternIndex: number): Lp010Profile {
   const template = PROFILE_TEMPLATES[index % PROFILE_TEMPLATES.length]!;
-  const times = TIME_PAIRS[timePairIndex % TIME_PAIRS.length]!;
+  const pattern = TIME_PATTERNS[patternIndex % TIME_PATTERNS.length]!;
   const names = shuffle(template.people, random).slice(0, 6);
   const people = { A: names[0]!, B: names[1]!, C: names[2]!, D: names[3]!, E: names[4]!, F: names[5]! };
+  const slotTimes = { 0: pattern.times[0], 1: pattern.times[1], 2: pattern.times[2], 3: pattern.times[3], 4: pattern.times[4], 5: pattern.times[5] } as Record<DayTimeSlot, string>;
   const slots = {
-    0: `${template.days[0]} at ${times[0]}`,
-    1: `${template.days[0]} at ${times[1]}`,
-    2: `${template.days[1]} at ${times[0]}`,
-    3: `${template.days[1]} at ${times[1]}`,
-    4: `${template.days[2]} at ${times[0]}`,
-    5: `${template.days[2]} at ${times[1]}`,
+    0: `${template.days[0]} at ${slotTimes[0]}`,
+    1: `${template.days[0]} at ${slotTimes[1]}`,
+    2: `${template.days[1]} at ${slotTimes[2]}`,
+    3: `${template.days[1]} at ${slotTimes[3]}`,
+    4: `${template.days[2]} at ${slotTimes[4]}`,
+    5: `${template.days[2]} at ${slotTimes[5]}`,
   } as Record<DayTimeSlot, string>;
   return {
     id: template.id, scenario: template.scenario, personNoun: template.personNoun, eventNoun: template.eventNoun,
-    people, days: template.days, times, slots,
+    people, days: template.days, times: uniqueInOrder(pattern.times), slotTimes, timePatternId: pattern.id, slots,
     personQuestionTemplate: `When is {person} scheduled?`,
     slotQuestionTemplate: `Who is scheduled on {slot}?`,
     pairQuestionTemplate: `Which of the following correctly matches two ${template.personNoun}s with their scheduled day and time?`,
@@ -131,11 +140,11 @@ const ALL_ASSIGNMENTS: readonly DayTimeAssignment[] = permutations(SLOTS).map((o
 function satisfies(assignment: DayTimeAssignment, clue: DayTimeClue): boolean {
   if (clue.kind === "PERSON_SLOT") return assignment[clue.person] === clue.slot;
   if (clue.kind === "PERSON_DAY") return dayOf(assignment[clue.person]) === clue.dayIndex;
-  if (clue.kind === "PERSON_TIME") return timeOf(assignment[clue.person]) === clue.timeIndex;
+  if (clue.kind === "PERSON_TIME") return clue.matchingSlots.includes(assignment[clue.person]);
   if (clue.kind === "BEFORE") return assignment[clue.left] < assignment[clue.right];
   if (clue.kind === "BETWEEN") return Math.abs(assignment[clue.left] - assignment[clue.right]) - 1 === clue.count;
   if (clue.kind === "IMMEDIATE_BEFORE") return assignment[clue.right] - assignment[clue.left] === 1;
-  if (clue.kind === "SAME_TIME") return timeOf(assignment[clue.left]) === timeOf(assignment[clue.right]);
+  if (clue.kind === "SAME_TIME") return clue.timeGroups.some((group) => group.includes(assignment[clue.left]) && group.includes(assignment[clue.right]));
   if (clue.kind === "SAME_DAY") return dayOf(assignment[clue.left]) === dayOf(assignment[clue.right]);
   return dayOf(assignment[clue.person]) !== clue.dayIndex;
 }
@@ -145,7 +154,7 @@ export function solveLp010(input: { clues: readonly DayTimeClue[] }): DayTimeAss
 function clueKey(clue: DayTimeClue): string {
   if (clue.kind === "PERSON_SLOT") return `${clue.kind}:${clue.person}:${clue.slot}`;
   if (clue.kind === "PERSON_DAY" || clue.kind === "NOT_DAY") return `${clue.kind}:${clue.person}:${clue.dayIndex}`;
-  if (clue.kind === "PERSON_TIME") return `${clue.kind}:${clue.person}:${clue.timeIndex}`;
+  if (clue.kind === "PERSON_TIME") return `${clue.kind}:${clue.person}:${clue.timeLabel}`;
   if (clue.kind === "BETWEEN") return `${clue.kind}:${[clue.left, clue.right].sort().join(":")}:${clue.count}`;
   return `${clue.kind}:${clue.left}:${clue.right}`;
 }
@@ -157,11 +166,13 @@ function directClue(person: DayTimePerson, assignment: DayTimeAssignment, profil
 
 function buildCandidates(assignment: DayTimeAssignment, profile: Lp010Profile): DayTimeClue[] {
   const out: DayTimeClue[] = [];
+  const groups = timeGroups(profile);
   for (const person of PEOPLE) {
-    const slot = assignment[person]; const dayIndex = dayOf(slot); const timeIndex = timeOf(slot);
+    const slot = assignment[person]; const dayIndex = dayOf(slot); const timeLabel = profile.slotTimes[slot];
+    const matchingSlots = SLOTS.filter((candidate) => profile.slotTimes[candidate] === timeLabel);
     out.push(directClue(person, assignment, profile));
     out.push({ kind: "PERSON_DAY", person, dayIndex, text: `${profile.people[person]} is scheduled on ${profile.days[dayIndex]}.` });
-    out.push({ kind: "PERSON_TIME", person, timeIndex, text: `${profile.people[person]} is scheduled at ${profile.times[timeIndex]}.` });
+    out.push({ kind: "PERSON_TIME", person, timeLabel, matchingSlots, text: `${profile.people[person]} is scheduled at ${timeLabel}.` });
     for (const candidateDay of [0, 1, 2] as const) if (candidateDay !== dayIndex) out.push({ kind: "NOT_DAY", person, dayIndex: candidateDay, text: `${profile.people[person]} is not scheduled on ${profile.days[candidateDay]}.` });
   }
   for (let i = 0; i < PEOPLE.length; i += 1) for (let j = i + 1; j < PEOPLE.length; j += 1) {
@@ -171,7 +182,7 @@ function buildCandidates(assignment: DayTimeAssignment, profile: Lp010Profile): 
     const count = Math.abs(sa - sb) - 1;
     if (count >= 1) out.push({ kind: "BETWEEN", left: a, right: b, count, text: `There ${count === 1 ? "is" : "are"} exactly ${count === 1 ? "one slot" : `${count} slots`} between ${profile.people[a]} and ${profile.people[b]}.` });
     if (Math.abs(sa - sb) === 1) out.push({ kind: "IMMEDIATE_BEFORE", left: first, right: second, text: `${profile.people[second]} is scheduled immediately after ${profile.people[first]}.` });
-    if (timeOf(sa) === timeOf(sb)) out.push({ kind: "SAME_TIME", left: a, right: b, text: `${profile.people[a]} and ${profile.people[b]} are scheduled at the same time on different days.` });
+    if (profile.slotTimes[sa] === profile.slotTimes[sb] && dayOf(sa) !== dayOf(sb)) out.push({ kind: "SAME_TIME", left: a, right: b, timeGroups: groups, text: `${profile.people[a]} and ${profile.people[b]} are scheduled at the same time on different days.` });
     if (dayOf(sa) === dayOf(sb)) out.push({ kind: "SAME_DAY", left: a, right: b, text: `${profile.people[a]} and ${profile.people[b]} are scheduled on the same day.` });
   }
   return out;
@@ -182,7 +193,6 @@ function minimizeUnique(clues: readonly DayTimeClue[]): DayTimeClue[] {
   while (changed) { changed = false; for (let i = 0; i < result.length; i += 1) { const reduced = result.filter((_, index) => index !== i); if (solveLp010({ clues: reduced }).length === 1) { result.splice(i, 1); changed = true; break; } } }
   return result;
 }
-
 function essential(clues: readonly DayTimeClue[]): boolean { return clues.every((_, removed) => solveLp010({ clues: clues.filter((__, index) => index !== removed) }).length > 1); }
 
 function chooseClues(assignment: DayTimeAssignment, profile: Lp010Profile, difficultyBand: DifficultyBand, random: () => number): DayTimeClue[] {
@@ -191,22 +201,31 @@ function chooseClues(assignment: DayTimeAssignment, profile: Lp010Profile, diffi
     const remaining = PEOPLE.filter((person) => !directPeople.includes(person));
     const first = assignment[remaining[0]!] < assignment[remaining[1]!] ? remaining[0]! : remaining[1]!;
     const second = first === remaining[0] ? remaining[1]! : remaining[0]!;
-    return [
-      ...directPeople.map((person) => directClue(person, assignment, profile)),
-      { kind: "BEFORE", left: first, right: second, text: `${profile.people[first]} is scheduled before ${profile.people[second]}.` },
-    ];
+    return [...directPeople.map((person) => directClue(person, assignment, profile)), { kind: "BEFORE", left: first, right: second, text: `${profile.people[first]} is scheduled before ${profile.people[second]}.` }];
   }
   const candidates = shuffle(buildCandidates(assignment, profile), random);
-  const quotas: Array<{ required: readonly DayTimeClue["kind"][]; target: number }> = difficultyBand === "Medium"
+  const uniqueTimeCount = profile.times.length;
+  const hasRepeatedTime = timeGroups(profile).length > 0;
+  const mediumQuotas: Array<{ required: readonly DayTimeClue["kind"][]; target: number }> = uniqueTimeCount >= 5
     ? [
+        { required: ["PERSON_SLOT", "PERSON_DAY", "BETWEEN", "NOT_DAY"], target: 6 },
+        { required: ["PERSON_SLOT", "PERSON_DAY", "IMMEDIATE_BEFORE", "NOT_DAY"], target: 6 },
+      ]
+    : [
         { required: ["PERSON_SLOT", "PERSON_TIME", "BEFORE", "NOT_DAY"], target: 6 },
         { required: ["PERSON_SLOT", "PERSON_DAY", "BETWEEN", "NOT_DAY"], target: 6 },
         { required: ["PERSON_SLOT", "PERSON_TIME", "IMMEDIATE_BEFORE", "NOT_DAY"], target: 6 },
-      ]
-    : [
+      ];
+  const hardQuotas: Array<{ required: readonly DayTimeClue["kind"][]; target: number }> = hasRepeatedTime
+    ? [
         { required: ["PERSON_TIME", "BETWEEN", "IMMEDIATE_BEFORE", "SAME_TIME", "NOT_DAY"], target: 8 },
         { required: ["PERSON_DAY", "BETWEEN", "IMMEDIATE_BEFORE", "SAME_DAY", "NOT_DAY"], target: 8 },
+      ]
+    : [
+        { required: ["PERSON_DAY", "BETWEEN", "IMMEDIATE_BEFORE", "SAME_DAY", "NOT_DAY"], target: 8 },
+        { required: ["PERSON_DAY", "BEFORE", "IMMEDIATE_BEFORE", "SAME_DAY", "NOT_DAY"], target: 8 },
       ];
+  const quotas = difficultyBand === "Medium" ? mediumQuotas : hardQuotas;
   for (let attempt = 0; attempt < 5000; attempt += 1) {
     const quota = quotas[attempt % quotas.length]!; let survivors = [...ALL_ASSIGNMENTS]; const chosen: DayTimeClue[] = [];
     for (const kind of quota.required) {
@@ -233,7 +252,7 @@ function chooseClues(assignment: DayTimeAssignment, profile: Lp010Profile, diffi
     if (difficultyBand === "Hard" && directCount > 1) continue;
     return reduced;
   }
-  throw new Error(`Unable to build an essential unique LP-010 schedule (${profile.id}, ${difficultyBand}).`);
+  throw new Error(`Unable to build an essential unique LP-010 schedule (${profile.id}, ${profile.timePatternId}, ${difficultyBand}).`);
 }
 
 type PartialTable = Partial<Record<DayTimePerson, readonly DayTimeSlot[]>>;
@@ -245,11 +264,11 @@ function tableMarkdown(profile: Lp010Profile, table: PartialTable): string {
 function explanationDetail(profile: Lp010Profile, clue: DayTimeClue): string {
   if (clue.kind === "PERSON_SLOT") return `${profile.people[clue.person]} is fixed at ${profile.slots[clue.slot]}.`;
   if (clue.kind === "PERSON_DAY") return `${profile.people[clue.person]} can be in only one of the two ${profile.days[clue.dayIndex]} slots.`;
-  if (clue.kind === "PERSON_TIME") return `${profile.people[clue.person]} must take the ${profile.times[clue.timeIndex]} slot on one of the three days.`;
-  if (clue.kind === "BEFORE") return `${profile.people[clue.left]} must come earlier than ${profile.people[clue.right]} when the six slots are read in chronological order.`;
+  if (clue.kind === "PERSON_TIME") return clue.matchingSlots.length === 1 ? `Only one listed slot is at ${clue.timeLabel}, so ${profile.people[clue.person]} is fixed there.` : `${profile.people[clue.person]} must be in one of the listed slots at ${clue.timeLabel}.`;
+  if (clue.kind === "BEFORE") return `${profile.people[clue.left]} must come earlier than ${profile.people[clue.right]} when the six slots are read in order.`;
   if (clue.kind === "BETWEEN") return `The positions of ${profile.people[clue.left]} and ${profile.people[clue.right]} must differ by ${clue.count + 1}.`;
   if (clue.kind === "IMMEDIATE_BEFORE") return `${profile.people[clue.left]} and ${profile.people[clue.right]} must occupy consecutive slots, with ${profile.people[clue.left]} first.`;
-  if (clue.kind === "SAME_TIME") return `${profile.people[clue.left]} and ${profile.people[clue.right]} must both take ${profile.times[0]} or both take ${profile.times[1]} on different days.`;
+  if (clue.kind === "SAME_TIME") return `${profile.people[clue.left]} and ${profile.people[clue.right]} must occupy two different-day slots carrying the same clock time.`;
   if (clue.kind === "SAME_DAY") return `${profile.people[clue.left]} and ${profile.people[clue.right]} must occupy the two slots of the same day.`;
   return `Both ${profile.days[clue.dayIndex]} slots are removed from ${profile.people[clue.person]}'s possibilities.`;
 }
@@ -295,13 +314,13 @@ function buildChildren(caseletId: string, profile: Lp010Profile, setup: string, 
 
 export function generateLp010Batch(seed = "lp-010-review", count = 8): Lp010Caselet[] {
   const result: Lp010Caselet[] = [];
-  const timeOffset = hashSeed(`${seed}:time-offset`) % TIME_PAIRS.length;
+  const patternOffset = hashSeed(`${seed}:time-pattern-offset`) % TIME_PATTERNS.length;
   for (let index = 0; index < count; index += 1) {
-    const random = rng(`${seed}:caselet:${index}`); const profile = materializeProfile(index, random, timeOffset + index);
+    const random = rng(`${seed}:caselet:${index}`); const profile = materializeProfile(index, random, patternOffset + index);
     const assignment = pick(shuffle(ALL_ASSIGNMENTS, random), random);
     const difficultyBand = (["Easy", "Medium", "Hard"] as const)[hashSeed(`${seed}:difficulty:${index}`) % 3]!;
     const clues = chooseClues(assignment, profile, difficultyBand, random); const caseletId = `LP-010-${String(index + 1).padStart(3, "0")}`;
-    const questionSetup = `${profile.scenario} The six ${profile.personNoun}s are ${examList(PEOPLE.map((person) => profile.people[person]))}. The schedule covers ${examList(profile.days)}. On each day, the two time slots are ${profile.times[0]} and ${profile.times[1]}. The six slots, in chronological order, are ${examList(SLOTS.map((slot) => profile.slots[slot]))}. Each ${profile.personNoun} is assigned exactly one slot, and no two ${profile.personNoun}s share a slot.`;
+    const questionSetup = `${profile.scenario} The six ${profile.personNoun}s are ${examList(PEOPLE.map((person) => profile.people[person]))}. The schedule covers ${examList(profile.days)}, with two slots on each day. The six day-time slots, in order, are ${examList(SLOTS.map((slot) => profile.slots[slot]))}. Each ${profile.personNoun} is assigned exactly one slot, and no two ${profile.personNoun}s share a slot.`;
     result.push({ caseletId, scenario: profile.scenario, questionSetup, scenarioProfileId: profile.id, difficultyBand, people: PEOPLE, slots: SLOTS, labels: profile, clues, assignment, children: buildChildren(caseletId, profile, questionSetup, clues, assignment, difficultyBand, random) });
   }
   return result;
