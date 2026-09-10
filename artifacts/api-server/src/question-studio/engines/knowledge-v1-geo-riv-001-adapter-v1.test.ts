@@ -88,6 +88,17 @@ const cp003 = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
 assert.equal(cp003.questions.every((question) => question.cpId === "GEO-RIV-001-CP003"), true);
 assert.equal(cp003.questions.every((question) => question.registrationAuthorityId === "GEO-RIV-001-CP003-ENGLISH-FREEZE-V1"), true);
 
+const hardCp002 = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
+  ...baseRequest,
+  canonicalProblemId: "GEO-RIV-001-CP002",
+  difficulty: "Hard",
+  count: 3,
+  seed: "geo-riv-001-cp002-hard-filter",
+});
+assert.equal(hardCp002.questions.length, 3);
+assert.equal(hardCp002.questions.every((question) => question.cpId === "GEO-RIV-001-CP002"), true);
+assert.equal(hardCp002.questions.every((question) => question.difficulty === "Hard"), true);
+
 const hardCp003 = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
   ...baseRequest,
   canonicalProblemId: "GEO-RIV-001-CP003",
