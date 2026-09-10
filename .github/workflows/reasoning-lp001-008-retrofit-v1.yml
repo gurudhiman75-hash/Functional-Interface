@@ -1,0 +1,39 @@
+name: Reasoning LP-001 to LP-008 Retrofit V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/**"
+      - ".github/workflows/reasoning-lp001-008-retrofit-v1.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: reasoning-lp001-008-retrofit-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  topology-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Audit LP-001 through LP-008 topology
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-retrofit-topology-audit.ts
+
+      - name: Reprove LP-006 difficulty calibration
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/difficulty-calibration.test.ts
+
+      - name: Reprove LP-007 generator
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-007.test.ts
+
+      - name: Reprove LP-008 generator
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-008.test.ts
