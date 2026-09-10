@@ -2,7 +2,7 @@
 
 **Chapter:** GEO-RIV-001 — Indian Rivers & Drainage System  
 **CP:** GEO-RIV-001-CP004  
-**Status:** IMPLEMENTATION SPEC V1
+**Status:** APPROVED · ENGLISH FREEZE V1 · REVIEW-ONLY QUESTION STUDIO
 
 ## Scope
 
@@ -71,6 +71,8 @@ South-bank focus:
 
 ## Difficulty
 
+Approved frozen distribution: **Easy 10 · Medium 30 · Hard 14**.
+
 ### Easy
 - one direct river/name/source relation
 - one familiar tributary relation
@@ -81,15 +83,16 @@ South-bank focus:
 - north/south-bank discrimination
 - alternate-name discrimination
 - two linked facts
+- Statement I/II questions
 - close same-system distractors
 
 ### Hard
 - multi-hop name/course chain
 - tributary hierarchy
-- statement combinations
+- three-statement count combinations
 - close same-system relation discrimination
 
-Hard wording must remain simple.
+Hard wording remains simple.
 
 ## Distractor rules
 
@@ -104,23 +107,24 @@ No distractor may create a second valid answer.
 
 ## Explanation standard
 
-Explanations must state the correct geography directly. Avoid generic phrases such as `matches the reviewed relation`, `associated with`, `exam trap`, `shortcut`, and unnecessary commentary.
+Explanations state the correct geography directly. Generic phrases such as `matches the reviewed relation`, `associated with`, `exam trap`, `shortcut`, and unnecessary commentary are excluded.
 
 Example:
 > In Tibet the river is known as the Yarlung Tsangpo. It enters Arunachal Pradesh as the Siang. After the Dibang and Lohit join it, the river is known as the Brahmaputra.
 
-## Review checkpoint target
+## Approved review authority
 
-Build a **54-question** review batch across QL028–QL036 with:
-- all main course/name transitions represented
-- strong north/south-bank coverage
-- major tributaries represented
-- Subansiri/Kameng/Manas sub-system anchors represented
-- Easy/Medium/Hard separation
-- semantic uniqueness
-- balanced answer positions
-- provenance on every question
-- no automatic map requirement
-- review-only lifecycle
+The approved English review authority is **GEO-RIV-001-CP004 Review Batch V2**:
+- 54 semantically unique questions
+- QL028–QL036
+- seven distinct target entities in both pair sections
+- all four north/south-bank question modes
+- main name/course transitions represented
+- source and fact provenance on every question
+- no automatic-map requirement
 
-No CP004 freeze or Question Studio runtime registration may occur before explicit human approval.
+## Freeze and lifecycle
+
+Freeze authority: **`GEO-RIV-001-CP004-ENGLISH-FREEZE-V1`**.
+
+The approved corpus is immutable and registered only for the Question Studio review lifecycle. It remains read-only, Question Bank writes are disabled, and it is not eligible for tests, mocks, public publication, or production release. Maps/photos/diagrams remain optional manual editorial attachments when useful.
