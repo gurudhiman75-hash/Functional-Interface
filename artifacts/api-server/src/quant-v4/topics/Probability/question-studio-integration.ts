@@ -8,8 +8,68 @@ import {
 export { isProbabilityStandardQuestionStudioRequest };
 export type { ProbabilityStandardQuestionStudioRequest };
 
+export const PROBABILITY_PUNJAB_PROFILE_GATE_AUTHORITY =
+  "PRB-PUNJAB-PROFILE-EVIDENCE-GATE-P2" as const;
+
+export const PROBABILITY_PUNJAB_PROFILE_GATE = Object.freeze({
+  examProfile: "PUNJAB_STATE" as const,
+  status: "EVIDENCE_GATED" as const,
+  centralOptionCount: 4 as const,
+  generationAllowed: false,
+  fallbackAllowed: false,
+  requiredEvidence: Object.freeze([
+    "Punjab exam-family Probability question observations with identifiable exam/paper provenance",
+    "CP/solve-mode coverage sufficient to justify an allowed-content contract",
+    "difficulty and representation evidence sufficient to avoid copying SSC rules by assumption",
+  ]),
+  authority: PROBABILITY_PUNJAB_PROFILE_GATE_AUTHORITY,
+});
+
+export class ProbabilityPunjabProfileEvidenceError extends Error {
+  readonly statusCode = 409;
+  readonly code = "PRB_PUNJAB_PROFILE_EVIDENCE_REQUIRED";
+  readonly examProfile = "PUNJAB_STATE" as const;
+  readonly authority = PROBABILITY_PUNJAB_PROFILE_GATE_AUTHORITY;
+
+  constructor() {
+    super(
+      "PUNJAB_STATE Probability generation is evidence-gated. No Punjab-specific Probability CP/solve-mode contract is approved, and SSC/generic fallback is forbidden.",
+    );
+    this.name = "ProbabilityPunjabProfileEvidenceError";
+  }
+}
+
 function selectedExamMode(request: ProbabilityStandardQuestionStudioRequest) {
   return String((request as any).runtimeMode ?? "").trim().toUpperCase();
+}
+
+function requestedExamProfile(request: ProbabilityStandardQuestionStudioRequest) {
+  return String((request as any).examProfile ?? selectedExamMode(request))
+    .trim()
+    .toUpperCase();
+}
+
+function isLegacyPunjabRealExamSimulatorFallback(
+  request: ProbabilityStandardQuestionStudioRequest,
+) {
+  const profile = requestedExamProfile(request);
+  if (profile !== "SSC_CGL_CHSL") return false;
+
+  const seed = String((request as any).seed ?? "").trim().toUpperCase();
+  if (!seed.startsWith("QUANT-V4-REAL-EXAM-")) return false;
+
+  return /(?:^|:)(PSSSB|PPSC|PUNJAB_POLICE)(?::|$)/u.test(seed);
+}
+
+function assertPunjabProfileEvidenceGate(
+  request: ProbabilityStandardQuestionStudioRequest,
+) {
+  if (
+    requestedExamProfile(request) === "PUNJAB_STATE"
+    || isLegacyPunjabRealExamSimulatorFallback(request)
+  ) {
+    throw new ProbabilityPunjabProfileEvidenceError();
+  }
 }
 
 function isExamProfile(value: string) {
@@ -37,6 +97,8 @@ export function listProbabilityStandardQuestionStudioPackages() {
     publiclyPublishable: false,
     freezeStatus: "ENGLISH_MOCK_READY",
     maxPerMockPerFamily: 1,
+    evidenceGatedExamProfiles: ["PUNJAB_STATE"],
+    punjabProfileGate: PROBABILITY_PUNJAB_PROFILE_GATE,
   }));
 }
 
@@ -89,6 +151,7 @@ function preserveEnglishProfileDelivery(result: any) {
 export function generateProbabilityQuestionStudioBatch(
   request: ProbabilityStandardQuestionStudioRequest = {},
 ) {
+  assertPunjabProfileEvidenceGate(request);
   const cockpitRequest = isExamProfile(selectedExamMode(request));
   const resolved = resolveRequest(request);
   const generated = generateProbabilityStandardQuestionStudioBatch(resolved);
