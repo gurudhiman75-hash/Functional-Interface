@@ -2,12 +2,17 @@ name: Reasoning LP-009 Permanent English Freeze
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009*"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/LP-009-*"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/README.md"
-      - ".github/workflows/reasoning-lp-009-permanent-freeze.yml"
   workflow_dispatch:
+
+concurrency:
+  group: reasoning-lp-009-permanent-freeze-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lp009-permanent-freeze:
