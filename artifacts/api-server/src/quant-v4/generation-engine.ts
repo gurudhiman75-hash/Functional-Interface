@@ -9,6 +9,7 @@ import {
   getQuantV4ExamProfileContract,
   type QuantV4ExamProfileId,
 } from "./common/exam-profile";
+import { withQuantV4ExamProfileContext } from "./common/exam-profile-context";
 import {
   generateProbabilityQuestionStudioBatch,
   isProbabilityStandardQuestionStudioRequest,
@@ -57,6 +58,11 @@ export type {
   QuantV4PackageId,
 } from "./generation-engine-legacy";
 export { QUANT_V4_PERCENTAGE_ALL_PATTERN_ID, toQuestionStudioPreview };
+export {
+  getCurrentQuantV4ExamProfileContract,
+  getCurrentQuantV4ExamProfileId,
+  withQuantV4ExamProfileContext,
+} from "./common/exam-profile-context";
 
 export type QuantV4ExamProfileTransportStatus =
   | "NOT_REQUESTED"
@@ -132,6 +138,7 @@ function withExamProfileIngress<T>(
       requestedDeliveryStyle: contract.deliveryStyle,
       expectedOptionCount: contract.optionCount,
       profileTransportAuthority: QUANT_V4_EXAM_PROFILE_INGRESS_AUTHORITY,
+      downstreamContextAvailable: true,
       downstreamAppliedCount,
       downstreamPendingCount,
       profileTransportStatus:
@@ -161,27 +168,17 @@ export function listQuantV4Packages() {
   ].sort((left, right) => left.packageId.localeCompare(right.packageId));
 }
 
-export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
-  if (request.examProfile) {
-    getQuantV4ExamProfileContract(request.examProfile);
-  }
-
+async function dispatchGeneration(request: QuantV4GenerationRequest) {
   if (isIop001StandardQuestionStudioRequest(request as Iop001QuestionStudioRequest)) {
-    return withExamProfileIngress(
-      generateIop001StandardQuestionStudioBatch(request as Iop001QuestionStudioRequest),
-      request,
-    );
+    return generateIop001StandardQuestionStudioBatch(request as Iop001QuestionStudioRequest);
   }
   if (
     isGeo001StandardQuestionStudioRequest(
       request as Geo001StandardQuestionStudioRequest,
     )
   ) {
-    return withExamProfileIngress(
-      generateGeo001StandardQuestionStudioBatch(
-        request as Geo001StandardQuestionStudioRequest,
-      ),
-      request,
+    return generateGeo001StandardQuestionStudioBatch(
+      request as Geo001StandardQuestionStudioRequest,
     );
   }
   if (
@@ -189,11 +186,8 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
       request as Mal001StandardQuestionStudioRequest,
     )
   ) {
-    return withExamProfileIngress(
-      generateMal001StandardQuestionStudioBatch(
-        request as Mal001StandardQuestionStudioRequest,
-      ),
-      request,
+    return generateMal001StandardQuestionStudioBatch(
+      request as Mal001StandardQuestionStudioRequest,
     );
   }
   if (
@@ -201,11 +195,8 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
       request as Blr001StandardQuestionStudioRequest,
     )
   ) {
-    return withExamProfileIngress(
-      generateBlr001StandardQuestionStudioBatch(
-        request as Blr001StandardQuestionStudioRequest,
-      ),
-      request,
+    return generateBlr001StandardQuestionStudioBatch(
+      request as Blr001StandardQuestionStudioRequest,
     );
   }
   if (
@@ -213,15 +204,20 @@ export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
       request as ProbabilityStandardQuestionStudioRequest,
     )
   ) {
-    return withExamProfileIngress(
-      generateProbabilityQuestionStudioBatch(
-        request as ProbabilityStandardQuestionStudioRequest,
-      ),
-      request,
+    return generateProbabilityQuestionStudioBatch(
+      request as ProbabilityStandardQuestionStudioRequest,
     );
   }
-  return withExamProfileIngress(
-    await generateLegacyQuestion(request as LegacyQuantV4GenerationRequest),
-    request,
-  );
+  return generateLegacyQuestion(request as LegacyQuantV4GenerationRequest);
+}
+
+export async function generateQuestion(request: QuantV4GenerationRequest = {}) {
+  if (request.examProfile) {
+    getQuantV4ExamProfileContract(request.examProfile);
+  }
+
+  return withQuantV4ExamProfileContext(request.examProfile, async () => {
+    const result = await dispatchGeneration(request);
+    return withExamProfileIngress(result, request);
+  });
 }
