@@ -18,6 +18,13 @@ import {
   type Syl001QuestionStudioRequest,
 } from "./topics/Syllogism/SYL-001/question-studio-adapter";
 import {
+  ARG_001_CP005_QUESTION_STUDIO_PACKAGE_ID,
+  ARG_001_CP005_QUESTION_STUDIO_REVIEW_PACKAGE,
+  assertArg001Cp005QuestionStudioPersistenceAllowed,
+  previewArg001Cp005QuestionStudioReview,
+  type PreviewArg001Cp005QuestionStudioInput,
+} from "./topics/Statement-and-Arguments/ARG-001/question-studio-review";
+import {
   STA_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   assertSta001QuestionStudioPersistenceAllowed,
   previewSta001QuestionStudioReview,
@@ -51,6 +58,7 @@ export type ReasoningV1QuestionStudioReviewPackageId =
   | typeof BLR_CP007_QUESTION_STUDIO_PACKAGE_ID
   | typeof DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.packageId
   | typeof SYL_001_QUESTION_STUDIO_PACKAGE_ID
+  | typeof ARG_001_CP005_QUESTION_STUDIO_PACKAGE_ID
   | typeof STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId
   | typeof STC_001_V1_QUESTION_STUDIO_REVIEW_PACKAGE.packageId
   | typeof STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.packageId
@@ -61,6 +69,7 @@ export type ReasoningV1QuestionStudioReviewRequest =
   | (BlrCp007QuestionStudioReviewRequest & Readonly<{ packageId: typeof BLR_CP007_QUESTION_STUDIO_PACKAGE_ID }>)
   | (DsfCp017QuestionStudioInput & Readonly<{ packageId: typeof DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE.packageId }>)
   | (Syl001QuestionStudioRequest & Readonly<{ packageId: typeof SYL_001_QUESTION_STUDIO_PACKAGE_ID }>)
+  | (PreviewArg001Cp005QuestionStudioInput & Readonly<{ packageId: typeof ARG_001_CP005_QUESTION_STUDIO_PACKAGE_ID }>)
   | (PreviewSta001QuestionStudioInput & Readonly<{ packageId: typeof STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId }>)
   | (PreviewStc001V1QuestionStudioInput & Readonly<{ packageId: typeof STC_001_V1_QUESTION_STUDIO_REVIEW_PACKAGE.packageId }>)
   | (PreviewStc001V2QuestionStudioInput & Readonly<{ packageId: typeof STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE.packageId }>)
@@ -71,6 +80,7 @@ const REVIEW_PACKAGES = [
   BLR_CP007_QUESTION_STUDIO_REVIEW_PACKAGE,
   DSF_CP017_QUESTION_STUDIO_REVIEW_PACKAGE,
   SYL_001_QUESTION_STUDIO_PACKAGE,
+  ARG_001_CP005_QUESTION_STUDIO_REVIEW_PACKAGE,
   STA_001_QUESTION_STUDIO_REVIEW_PACKAGE,
   STC_001_V22_QUESTION_STUDIO_REVIEW_PACKAGE,
   STC_001_V2_QUESTION_STUDIO_REVIEW_PACKAGE,
@@ -96,6 +106,10 @@ export function previewReasoningV1QuestionStudioReview(request: ReasoningV1Quest
   }
   if (request.packageId === SYL_001_QUESTION_STUDIO_PACKAGE_ID) {
     return previewSyl001QuestionStudio(request);
+  }
+  if (request.packageId === ARG_001_CP005_QUESTION_STUDIO_PACKAGE_ID) {
+    const { packageId: _packageId, ...input } = request;
+    return previewArg001Cp005QuestionStudioReview(input as PreviewArg001Cp005QuestionStudioInput);
   }
   if (request.packageId === STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
     const { packageId: _packageId, ...input } = request;
@@ -129,6 +143,9 @@ export function persistReasoningV1QuestionStudioReview(request: ReasoningV1Quest
   }
   if (request.packageId === SYL_001_QUESTION_STUDIO_PACKAGE_ID) {
     return assertSyl001QuestionStudioPersistenceAllowed();
+  }
+  if (request.packageId === ARG_001_CP005_QUESTION_STUDIO_PACKAGE_ID) {
+    return assertArg001Cp005QuestionStudioPersistenceAllowed();
   }
   if (request.packageId === STA_001_QUESTION_STUDIO_REVIEW_PACKAGE.packageId) {
     return assertSta001QuestionStudioPersistenceAllowed();
