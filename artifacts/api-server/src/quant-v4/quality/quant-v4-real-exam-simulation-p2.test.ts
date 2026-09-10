@@ -5,6 +5,7 @@ import {
   QUANT_V4_REAL_EXAM_PROFILES,
   QUANT_V4_REAL_EXAM_SIMULATION_AUTHORITY,
   generateQuantV4RealExamSection,
+  resolveProbabilitySimulationProfile,
   runQuantV4RealExamSimulationAudit,
 } from "./quant-v4-real-exam-simulation-p2";
 
@@ -29,6 +30,11 @@ assert.equal(punjabProfiles.length, 3);
 for (const profile of punjabProfiles) {
   assert.equal(profile.centralProfileGap, true, `${profile.id} must remain explicit about the missing central Punjab Quant profile.`);
   assert.equal(profile.centralDeliveryProfile, null, `${profile.id} must not silently masquerade as an SSC central profile.`);
+  assert.equal(
+    resolveProbabilitySimulationProfile(profile),
+    "PUNJAB_STATE",
+    `${profile.id} Probability must use the explicit Punjab evidence gate instead of an SSC fallback.`,
+  );
 }
 
 const structuralProbeIds = [
@@ -52,6 +58,27 @@ for (const examId of structuralProbeIds) {
     `${examId} section ordinals must be contiguous.`,
   );
   assert.ok(section.questions.some((question) => question.sourceKind === "RUNTIME_GENERATED"), `${examId} did not exercise live generation.`);
+}
+
+for (const examId of ["PSSSB", "PPSC", "PUNJAB_POLICE"] as const) {
+  const section = await generateQuantV4RealExamSection({
+    examId,
+    sectionIndex: 2,
+    seed: `QUANT-V4-REAL-EXAM-PUNJAB-PROBABILITY-DIRECT-PROFILE:${examId}`,
+  });
+  const profile = QUANT_V4_REAL_EXAM_PROFILES.find((entry) => entry.id === examId)!;
+  const expectedProbabilitySlots = profile.slotPlan.find((slot) => slot.kind === "PROBABILITY")?.count ?? 0;
+  const probabilitySlots = section.questions.filter((question) => question.slotKind === "PROBABILITY");
+  assert.equal(probabilitySlots.length, expectedProbabilitySlots, `${examId} Probability slot count drifted.`);
+  assert.ok(expectedProbabilitySlots > 0, `${examId} must exercise at least one Probability slot.`);
+  assert.ok(
+    probabilitySlots.every((question) => question.sourceKind === "CAPABILITY_GAP"),
+    `${examId} must not count SSC-generated Probability questions as Punjab runtime output.`,
+  );
+  assert.ok(
+    probabilitySlots.every((question) => /PUNJAB_STATE Probability generation is evidence-gated/u.test(question.gapReason ?? "")),
+    `${examId} Probability gaps must come from the explicit PUNJAB_STATE evidence gate.`,
+  );
 }
 
 const audit = await runQuantV4RealExamSimulationAudit({

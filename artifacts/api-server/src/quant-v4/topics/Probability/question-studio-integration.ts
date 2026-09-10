@@ -49,31 +49,17 @@ function requestedExamProfile(request: ProbabilityStandardQuestionStudioRequest)
     .toUpperCase();
 }
 
-function isLegacyPunjabRealExamSimulatorFallback(
-  request: ProbabilityStandardQuestionStudioRequest,
-) {
-  const profile = requestedExamProfile(request);
-  if (profile !== "SSC_CGL_CHSL") return false;
-
-  const seed = String((request as any).seed ?? "").trim().toUpperCase();
-  if (!seed.startsWith("QUANT-V4-REAL-EXAM-")) return false;
-
-  return /(?:^|:)(PSSSB|PPSC|PUNJAB_POLICE)(?::|$)/u.test(seed);
-}
-
 function assertPunjabProfileEvidenceGate(
   request: ProbabilityStandardQuestionStudioRequest,
 ) {
-  if (
-    requestedExamProfile(request) === "PUNJAB_STATE"
-    || isLegacyPunjabRealExamSimulatorFallback(request)
-  ) {
+  if (requestedExamProfile(request) === "PUNJAB_STATE") {
     throw new ProbabilityPunjabProfileEvidenceError();
   }
 }
 
 function isExamProfile(value: string) {
-  return value === "SSC_CGL_CHSL"
+  return value === "PUNJAB_STATE"
+    || value === "SSC_CGL_CHSL"
     || value === "SSC_CGL_JSO"
     || value === "BANKING_PRELIMS"
     || value === "BANKING_MAINS"

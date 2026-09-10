@@ -543,10 +543,24 @@ function difficultyFor(seed: string): "Easy" | "Medium" | "Hard" {
   return "Hard";
 }
 
-function probabilityProfile(profile: QuantV4RealExamProfile): string {
+export type QuantV4ProbabilitySimulationProfile =
+  | "SSC_CGL_CHSL"
+  | "SSC_CGL_JSO"
+  | "BANKING_PRELIMS"
+  | "BANKING_MAINS"
+  | "PUNJAB_STATE";
+
+export function resolveProbabilitySimulationProfile(
+  profile: QuantV4RealExamProfile,
+): QuantV4ProbabilitySimulationProfile {
+  if (profile.family === "PUNJAB_STATE") return "PUNJAB_STATE";
   if (profile.id === "SSC_CHSL") return "SSC_CGL_CHSL";
   if (profile.id === "SSC_CGL_TIER_II") return "SSC_CGL_JSO";
-  if (profile.family === "BANKING") return profile.centralDeliveryProfile ?? "BANKING_PRELIMS";
+  if (profile.family === "BANKING") {
+    return profile.centralDeliveryProfile === "BANKING_MAINS"
+      ? "BANKING_MAINS"
+      : "BANKING_PRELIMS";
+  }
   return "SSC_CGL_CHSL";
 }
 
@@ -654,7 +668,7 @@ async function generateProbabilitySlot(
       packageId: packageId as any,
       language: "en",
       difficulty: difficultyFor(`${seed}:difficulty`),
-      examProfile: probabilityProfile(profile) as any,
+      examProfile: resolveProbabilitySimulationProfile(profile) as any,
       seed,
       count: 1,
     } as any);
