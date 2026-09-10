@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 
 import {
   QUANT_V4_EXAM_PROFILE_INGRESS_AUTHORITY,
+  QUANT_V4_PROFILE_DELIVERY_AUTHORITY,
   generateQuestion,
   getCurrentQuantV4ExamProfileContract,
   getCurrentQuantV4ExamProfileId,
@@ -62,11 +63,18 @@ assert.equal(punjabCore.generationContext.requestedDeliveryStyle, "PUNJAB_STATE_
 assert.equal(punjabCore.generationContext.expectedOptionCount, 4);
 assert.equal(punjabCore.generationContext.downstreamContextAvailable, true);
 assert.equal(punjabCore.generationContext.profileTransportAuthority, QUANT_V4_EXAM_PROFILE_INGRESS_AUTHORITY);
-assert.equal(punjabCore.generationContext.profileTransportStatus, "INGRESS_ACCEPTED_DOWNSTREAM_PENDING");
-assert.ok(punjabCore.generationContext.downstreamPendingCount > 0);
+assert.equal(punjabCore.generationContext.profileDeliveryAuthority, QUANT_V4_PROFILE_DELIVERY_AUTHORITY);
+assert.equal(punjabCore.generationContext.profileTransportStatus, "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING");
+assert.equal(punjabCore.generationContext.deliveryAppliedCount, 2);
+assert.equal(punjabCore.generationContext.downstreamPendingCount, 0);
+assert.equal(punjabCore.generationContext.profileSelectionCalibrated, false);
 assert.ok(punjabCore.questions.every((question: any) => question.requestedExamProfile === "PUNJAB_STATE"));
+assert.ok(punjabCore.questions.every((question: any) => question.deliveryExamProfile === "PUNJAB_STATE"));
 assert.ok(punjabCore.questions.every((question: any) => question.expectedOptionCount === 4));
-assert.ok(punjabCore.questions.every((question: any) => question.examProfileTransportStatus === "INGRESS_ACCEPTED_DOWNSTREAM_PENDING"));
+assert.ok(punjabCore.questions.every((question: any) => question.options.length === 4));
+assert.ok(punjabCore.questions.every((question: any) => question.deliveryContractApplied === true));
+assert.ok(punjabCore.questions.every((question: any) => question.profileSelectionCalibrated === false));
+assert.ok(punjabCore.questions.every((question: any) => question.examProfileTransportStatus === "DELIVERY_CONTRACT_APPLIED_SELECTION_PENDING"));
 assert.ok(punjabCore.questions.every((question: any) => observedProfile(question) !== "PUNJAB_STATE"));
 
 const sscProbability = await generateQuestion({
@@ -116,6 +124,7 @@ assert.equal(invalidRejected, true, "Unknown shared exam profiles must fail clos
 console.log(JSON.stringify({
   status: "PASS_QUANT_V4_EXAM_PROFILE_INGRESS_P2",
   authority: QUANT_V4_EXAM_PROFILE_INGRESS_AUTHORITY,
+  deliveryAuthority: QUANT_V4_PROFILE_DELIVERY_AUTHORITY,
   requestScopedContextIsolation: isolatedProfiles,
   punjabCoreStatus: punjabCore.generationContext.profileTransportStatus,
   sscProbabilityStatus: sscProbability.generationContext.profileTransportStatus,
