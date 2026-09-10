@@ -23,9 +23,10 @@ export function auditGeoRiv001Cp005ReviewBatchV4() {
   const issues = [...base.issues];
   for (const q of GEO_RIV_001_CP005_REVIEW_BATCH_V4) {
     const visible = `${q.stem}\n${q.explanation}`;
-    if (/\bleft bank tributary\b|\bright bank tributary\b|linked with the Krishna source|associated with|matches the reviewed relation|exam trap|shortcut|;\s+The\b/i.test(visible)) {
+    if (/\bleft bank tributary\b|\bright bank tributary\b|linked with the Krishna source|associated with|matches the reviewed relation|exam trap|shortcut/i.test(visible)) {
       issues.push(`V4_EDITORIAL_LANGUAGE:${q.questionId}`);
     }
+    if (/;\s+The\b/.test(visible)) issues.push(`V4_SEMICOLON_CASING:${q.questionId}`);
     if (q.options[q.correctIndex] !== q.canonicalAnswer) issues.push(`V4_ANSWER_MISMATCH:${q.questionId}`);
   }
   return {
