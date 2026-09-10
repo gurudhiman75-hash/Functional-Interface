@@ -367,32 +367,23 @@ function renderManyA(difficulty: EnglishDifficulty, seed: string): Eng001Sentenc
   });
 }
 
-const HARD_INTERVENING_EXTENSIONS = [
-  "during the latest review period",
-  "across the two scheduled sessions",
-  "under the current operating arrangement",
-  "in the most recent assessment cycle",
-] as const;
-
 function renderIntervening(difficulty: EnglishDifficulty, seed: string): Eng001SentenceCandidate {
   const scene = deterministicPick(`${seed}:intervening`, INTERVENING_SCENES_V4);
-  const modifier = difficulty === "hard"
-    ? `${scene.modifier} ${deterministicPick(`${seed}:intervening-extension`, HARD_INTERVENING_EXTENSIONS)}`
-    : scene.modifier;
+  const hard = difficulty === "hard";
   return buildCandidate({
-    candidateId: `V4:P010:${scene.id}:${difficulty === "hard" ? modifier : "M"}`,
+    candidateId: `V4:P010:${scene.id}:${hard ? "H" : "M"}`,
     ruleId: "GR-SVA-010",
     difficulty,
-    dimensions: difficulty === "hard" ? dims(3, 5, 5, 4, 1, 1) : dims(2, 3, 4, 2, 1, 1),
-    correctSegments: [scene.subject, modifier, scene.singularVerb, scene.tail],
-    errorSegments: [scene.subject, modifier, scene.pluralVerb, scene.tail],
+    dimensions: hard ? dims(3, 4, 5, 3, 1, 1) : dims(2, 3, 4, 2, 1, 1),
+    correctSegments: [scene.subject, scene.modifier, scene.singularVerb, scene.tail],
+    errorSegments: [scene.subject, scene.modifier, scene.pluralVerb, scene.tail],
     errorIndex: 2,
     errorSpan: scene.pluralVerb,
     correction: scene.singularVerb,
     subjectHead: scene.subjectHead,
     distractorCue: scene.distractorCue,
     explanationApplication: `The true subject head is the singular noun “${scene.subjectHead}”. The nearby plural noun(s) “${scene.distractorCue}” are inside intervening material and do not control the verb.`,
-    tags: ["pattern:intervening-phrase", difficulty === "hard" ? "dependency:extended" : "dependency:single", `intervening:${scene.id}`, domainTag(scene.domain)],
+    tags: ["pattern:intervening-phrase", hard ? "dependency:attractor" : "dependency:single", `intervening:${scene.id}`, domainTag(scene.domain)],
   });
 }
 
@@ -446,8 +437,8 @@ export function semanticDomainOfV4(candidate: Eng001SentenceCandidate): Semantic
 export const CP001_V4_CANONICAL_VARIANT_CAPACITY = {
   easy: 3_200,
   medium: 6_492,
-  hard: 4_012,
-  total: 13_704,
+  hard: 3_772,
+  total: 13_464,
 } as const;
 
 export const CP001_V4_CATALOG_METRICS = {
