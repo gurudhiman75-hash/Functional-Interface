@@ -71,12 +71,27 @@ const PEOPLE: readonly DayTimePerson[] = ["A", "B", "C", "D", "E", "F"];
 const SLOTS: readonly DayTimeSlot[] = [0, 1, 2, 3, 4, 5];
 
 const PROFILE_TEMPLATES = [
-  { id: "STUDENT_PRESENTATIONS", scenario: "Six students are scheduled to give presentations at a college.", personNoun: "student", eventNoun: "presentation", days: ["Tuesday", "Wednesday", "Friday"] as const, times: ["10 a.m.", "4 p.m."] as const, people: ["Aarav", "Bhavna", "Chetan", "Diya", "Eshan", "Farah", "Gaurav", "Hina", "Ishan", "Jyoti", "Karan", "Meera"] },
-  { id: "INTERVIEW_SCHEDULE", scenario: "A recruitment board is scheduling interviews for six applicants.", personNoun: "applicant", eventNoun: "interview", days: ["Monday", "Wednesday", "Friday"] as const, times: ["9 a.m.", "3 p.m."] as const, people: ["Aditi", "Bharat", "Charu", "Dev", "Ira", "Kabir", "Leena", "Mohit", "Neha", "Parth", "Ritu", "Sahil"] },
-  { id: "TRAINING_DEMOS", scenario: "Six trainees are scheduled to give practical demonstrations at a training institute.", personNoun: "trainee", eventNoun: "demonstration", days: ["Tuesday", "Thursday", "Saturday"] as const, times: ["11 a.m.", "5 p.m."] as const, people: ["Anaya", "Bimal", "Deepa", "Harsh", "Kriti", "Manav", "Naman", "Ojas", "Pooja", "Ravi", "Simran", "Tanvi"] },
-  { id: "COUNSELLING_APPOINTMENTS", scenario: "Six candidates are scheduled for counselling appointments.", personNoun: "candidate", eventNoun: "counselling appointment", days: ["Monday", "Tuesday", "Thursday"] as const, times: ["10:30 a.m.", "2:30 p.m."] as const, people: ["Asha", "Bikram", "Deepak", "Esha", "Harish", "Jyoti", "Kiran", "Mona", "Naveen", "Reema", "Sahil", "Tina"] },
-  { id: "REVIEW_MEETINGS", scenario: "A bank is scheduling review meetings for six officers.", personNoun: "officer", eventNoun: "review meeting", days: ["Monday", "Thursday", "Friday"] as const, times: ["10 a.m.", "2 p.m."] as const, people: ["Kamal", "Lata", "Mohit", "Nisha", "Omkar", "Priya", "Rahul", "Simran", "Tarun", "Zoya", "Arjun", "Leela"] },
-  { id: "RESEARCH_PRESENTATIONS", scenario: "Six researchers are scheduled to give presentations at a university.", personNoun: "researcher", eventNoun: "presentation", days: ["Wednesday", "Friday", "Saturday"] as const, times: ["9:30 a.m.", "1:30 p.m."] as const, people: ["Alok", "Beena", "Dinesh", "Farah", "Gopal", "Harini", "Irfan", "Juhi", "Kartik", "Leela", "Nitin", "Rupa"] },
+  { id: "STUDENT_PRESENTATIONS", scenario: "Six students are scheduled to give presentations at a college.", personNoun: "student", eventNoun: "presentation", days: ["Tuesday", "Wednesday", "Friday"] as const, people: ["Aarav", "Bhavna", "Chetan", "Diya", "Eshan", "Farah", "Gaurav", "Hina", "Ishan", "Jyoti", "Karan", "Meera"] },
+  { id: "INTERVIEW_SCHEDULE", scenario: "A recruitment board is scheduling interviews for six applicants.", personNoun: "applicant", eventNoun: "interview", days: ["Monday", "Wednesday", "Friday"] as const, people: ["Aditi", "Bharat", "Charu", "Dev", "Ira", "Kabir", "Leena", "Mohit", "Neha", "Parth", "Ritu", "Sahil"] },
+  { id: "TRAINING_DEMOS", scenario: "Six trainees are scheduled to give practical demonstrations at a training institute.", personNoun: "trainee", eventNoun: "demonstration", days: ["Tuesday", "Thursday", "Saturday"] as const, people: ["Anaya", "Bimal", "Deepa", "Harsh", "Kriti", "Manav", "Naman", "Ojas", "Pooja", "Ravi", "Simran", "Tanvi"] },
+  { id: "COUNSELLING_APPOINTMENTS", scenario: "Six candidates are scheduled for counselling appointments.", personNoun: "candidate", eventNoun: "counselling appointment", days: ["Monday", "Tuesday", "Thursday"] as const, people: ["Asha", "Bikram", "Deepak", "Esha", "Harish", "Jyoti", "Kiran", "Mona", "Naveen", "Reema", "Sahil", "Tina"] },
+  { id: "REVIEW_MEETINGS", scenario: "A bank is scheduling review meetings for six officers.", personNoun: "officer", eventNoun: "review meeting", days: ["Monday", "Thursday", "Friday"] as const, people: ["Kamal", "Lata", "Mohit", "Nisha", "Omkar", "Priya", "Rahul", "Simran", "Tarun", "Zoya", "Arjun", "Leela"] },
+  { id: "RESEARCH_PRESENTATIONS", scenario: "Six researchers are scheduled to give presentations at a university.", personNoun: "researcher", eventNoun: "presentation", days: ["Wednesday", "Friday", "Saturday"] as const, people: ["Alok", "Beena", "Dinesh", "Farah", "Gopal", "Harini", "Irfan", "Juhi", "Kartik", "Leela", "Nitin", "Rupa"] },
+] as const;
+
+const TIME_PAIRS = [
+  ["8:00 AM", "2:00 PM"],
+  ["9:00 AM", "3:00 PM"],
+  ["10:00 AM", "4:00 PM"],
+  ["11:00 AM", "5:00 PM"],
+  ["9:00 AM", "1:00 PM"],
+  ["10:00 AM", "2:00 PM"],
+  ["11:00 AM", "3:00 PM"],
+  ["12:00 PM", "4:00 PM"],
+  ["8:30 AM", "1:30 PM"],
+  ["9:30 AM", "2:30 PM"],
+  ["10:30 AM", "3:30 PM"],
+  ["11:30 AM", "4:30 PM"],
 ] as const;
 
 function hashSeed(value: string): number { let hash = 2166136261; for (const char of value) { hash ^= char.charCodeAt(0); hash = Math.imul(hash, 16777619); } return hash >>> 0; }
@@ -88,21 +103,22 @@ function examList(values: readonly string[]): string { return `${values.slice(0,
 function dayOf(slot: DayTimeSlot): 0 | 1 | 2 { return Math.floor(slot / 2) as 0 | 1 | 2; }
 function timeOf(slot: DayTimeSlot): 0 | 1 { return (slot % 2) as 0 | 1; }
 
-function materializeProfile(index: number, random: () => number): Lp010Profile {
+function materializeProfile(index: number, random: () => number, timePairIndex: number): Lp010Profile {
   const template = PROFILE_TEMPLATES[index % PROFILE_TEMPLATES.length]!;
+  const times = TIME_PAIRS[timePairIndex % TIME_PAIRS.length]!;
   const names = shuffle(template.people, random).slice(0, 6);
   const people = { A: names[0]!, B: names[1]!, C: names[2]!, D: names[3]!, E: names[4]!, F: names[5]! };
   const slots = {
-    0: `${template.days[0]} at ${template.times[0]}`,
-    1: `${template.days[0]} at ${template.times[1]}`,
-    2: `${template.days[1]} at ${template.times[0]}`,
-    3: `${template.days[1]} at ${template.times[1]}`,
-    4: `${template.days[2]} at ${template.times[0]}`,
-    5: `${template.days[2]} at ${template.times[1]}`,
+    0: `${template.days[0]} at ${times[0]}`,
+    1: `${template.days[0]} at ${times[1]}`,
+    2: `${template.days[1]} at ${times[0]}`,
+    3: `${template.days[1]} at ${times[1]}`,
+    4: `${template.days[2]} at ${times[0]}`,
+    5: `${template.days[2]} at ${times[1]}`,
   } as Record<DayTimeSlot, string>;
   return {
     id: template.id, scenario: template.scenario, personNoun: template.personNoun, eventNoun: template.eventNoun,
-    people, days: template.days, times: template.times, slots,
+    people, days: template.days, times, slots,
     personQuestionTemplate: `When is {person} scheduled?`,
     slotQuestionTemplate: `Who is scheduled on {slot}?`,
     pairQuestionTemplate: `Which of the following correctly matches two ${template.personNoun}s with their scheduled day and time?`,
@@ -233,7 +249,7 @@ function explanationDetail(profile: Lp010Profile, clue: DayTimeClue): string {
   if (clue.kind === "BEFORE") return `${profile.people[clue.left]} must come earlier than ${profile.people[clue.right]} when the six slots are read in chronological order.`;
   if (clue.kind === "BETWEEN") return `The positions of ${profile.people[clue.left]} and ${profile.people[clue.right]} must differ by ${clue.count + 1}.`;
   if (clue.kind === "IMMEDIATE_BEFORE") return `${profile.people[clue.left]} and ${profile.people[clue.right]} must occupy consecutive slots, with ${profile.people[clue.left]} first.`;
-  if (clue.kind === "SAME_TIME") return `${profile.people[clue.left]} and ${profile.people[clue.right]} must both take the earlier time or both take the later time on different days.`;
+  if (clue.kind === "SAME_TIME") return `${profile.people[clue.left]} and ${profile.people[clue.right]} must both take ${profile.times[0]} or both take ${profile.times[1]} on different days.`;
   if (clue.kind === "SAME_DAY") return `${profile.people[clue.left]} and ${profile.people[clue.right]} must occupy the two slots of the same day.`;
   return `Both ${profile.days[clue.dayIndex]} slots are removed from ${profile.people[clue.person]}'s possibilities.`;
 }
@@ -279,12 +295,13 @@ function buildChildren(caseletId: string, profile: Lp010Profile, setup: string, 
 
 export function generateLp010Batch(seed = "lp-010-review", count = 8): Lp010Caselet[] {
   const result: Lp010Caselet[] = [];
+  const timeOffset = hashSeed(`${seed}:time-offset`) % TIME_PAIRS.length;
   for (let index = 0; index < count; index += 1) {
-    const random = rng(`${seed}:caselet:${index}`); const profile = materializeProfile(index, random);
+    const random = rng(`${seed}:caselet:${index}`); const profile = materializeProfile(index, random, timeOffset + index);
     const assignment = pick(shuffle(ALL_ASSIGNMENTS, random), random);
     const difficultyBand = (["Easy", "Medium", "Hard"] as const)[hashSeed(`${seed}:difficulty:${index}`) % 3]!;
     const clues = chooseClues(assignment, profile, difficultyBand, random); const caseletId = `LP-010-${String(index + 1).padStart(3, "0")}`;
-    const questionSetup = `${profile.scenario} The six ${profile.personNoun}s are ${examList(PEOPLE.map((person) => profile.people[person]))}. The schedule covers ${examList(profile.days)}. Each day has two time slots: ${profile.times[0]} and ${profile.times[1]}. Thus, the six chronological slots are ${examList(SLOTS.map((slot) => profile.slots[slot]))}. Each ${profile.personNoun} is assigned exactly one slot, and no two ${profile.personNoun}s share a slot.`;
+    const questionSetup = `${profile.scenario} The six ${profile.personNoun}s are ${examList(PEOPLE.map((person) => profile.people[person]))}. The schedule covers ${examList(profile.days)}. On each day, the two time slots are ${profile.times[0]} and ${profile.times[1]}. The six slots, in chronological order, are ${examList(SLOTS.map((slot) => profile.slots[slot]))}. Each ${profile.personNoun} is assigned exactly one slot, and no two ${profile.personNoun}s share a slot.`;
     result.push({ caseletId, scenario: profile.scenario, questionSetup, scenarioProfileId: profile.id, difficultyBand, people: PEOPLE, slots: SLOTS, labels: profile, clues, assignment, children: buildChildren(caseletId, profile, questionSetup, clues, assignment, difficultyBand, random) });
   }
   return result;
