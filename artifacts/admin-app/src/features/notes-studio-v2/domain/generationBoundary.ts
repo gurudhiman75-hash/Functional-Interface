@@ -16,16 +16,26 @@ export interface FactGraph {
   facts: GenerationFact[];
 }
 
+const POINTER_CLAIM_PATTERN = /\b(?:is|are|was|were)\s+(?:also\s+)?(?:mentioned|listed|indexed|referenced|included)\b|\bappears?\s+(?:on|in)\s+(?:page|the\s+index|an?\s+index|the\s+bibliograph(?:y|ies)|the\s+references?)\b/i;
+
+function isPointerStyleClaim(value: string) {
+  return POINTER_CLAIM_PATTERN.test(value.trim());
+}
+
 /**
  * Build the source-agnostic graph consumed by generation.
  * sourceRefs/extractedText are intentionally not part of GenerationFact.
- * Unresolved disputed facts are blocked from the graph.
+ * Unresolved disputed facts and navigation/pointer claims are blocked from the graph.
  */
 export function buildFactGraph(periodId: string, facts: Fact[]): FactGraph {
   return {
     periodId,
     facts: facts
-      .filter((fact) => fact.periodId === periodId && fact.confidence !== 'disputed')
+      .filter((fact) => (
+        fact.periodId === periodId
+        && fact.confidence !== 'disputed'
+        && !isPointerStyleClaim(fact.claim)
+      ))
       .map(({ id, subCategoryId, subCategory, claim, entities, dateOrEra, examFrequency }) => ({
         id,
         periodId,
