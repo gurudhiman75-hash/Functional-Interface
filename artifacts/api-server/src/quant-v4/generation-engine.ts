@@ -94,6 +94,51 @@ function isQuantQuestion(value: any) {
   );
 }
 
+function extendExistingOptionsForDelivery(input: {
+  options: readonly string[];
+  correctIndex: number | undefined;
+  desiredCount: number;
+  seed: string;
+}) {
+  if (
+    !Number.isInteger(input.correctIndex) ||
+    (input.correctIndex as number) < 0 ||
+    (input.correctIndex as number) >= input.options.length ||
+    input.options.length >= input.desiredCount ||
+    new Set(input.options).size !== input.options.length
+  ) {
+    return null;
+  }
+
+  const options = [...input.options];
+  const correctOption = options[input.correctIndex as number]!.trim();
+  const ratio = correctOption.match(/^(-?\d+(?:\.\d+)?)\s*:\s*(-?\d+(?:\.\d+)?)$/u);
+  const candidates: string[] = [];
+  if (ratio) {
+    const left = Number(ratio[1]);
+    const right = Number(ratio[2]);
+    if (Number.isFinite(left) && Number.isFinite(right)) {
+      candidates.push(`${left + 1}:${right}`, `${left}:${right + 1}`, `${Math.max(1, left - 1)}:${right}`);
+    }
+  }
+  candidates.push("None of these", "Cannot be determined", "Insufficient information");
+
+  let hash = 2166136261;
+  for (const character of input.seed) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  const start = (hash >>> 0) % candidates.length;
+  for (let offset = 0; offset < candidates.length && options.length < input.desiredCount; offset += 1) {
+    const candidate = candidates[(start + offset) % candidates.length]!;
+    if (!options.includes(candidate)) options.push(candidate);
+  }
+
+  return options.length === input.desiredCount
+    ? { options, correctIndex: input.correctIndex as number }
+    : null;
+}
+
 function enforceProfileDelivery(value: any, profileId: QuantV4ExamProfileId) {
   if (!isQuantQuestion(value) || !Array.isArray(value?.options)) return null;
   const contract = getQuantV4ExamProfileContract(profileId);
@@ -111,27 +156,42 @@ function enforceProfileDelivery(value: any, profileId: QuantV4ExamProfileId) {
   let canonicalAnswer = value.canonicalAnswer;
 
   if (!hasExpectedOptionShape) {
-    const answer = value.answer ?? value.canonicalAnswer?.display ?? value.canonicalAnswer?.value;
-    if (answer === undefined || answer === null || answer === "") return null;
-    const rebuilt = buildQuantV4AnswerOptions(answer, {
-      existingOptions,
-      optionCount: contract.optionCount,
-      seed: String(value.seed ?? value.questionId ?? value.text ?? `${profileId}:delivery`),
-      context: {
-        packageId: value.packageId,
-        archetypeId: value.patternId ?? value.packageId,
-        canonicalProblemId: value.canonicalProblemId,
-        questionLanguageId: value.questionLanguageId,
-        taskKind: value.taskKind,
-        difficulty: value.difficulty ?? value.difficultyLabel,
-        stem: value.text,
-        variables: value.proceduralLogic ?? value.logic,
-        traceability: value.traceability,
-      },
+    const deliverySeed = String(
+      value.seed ?? value.questionId ?? value.text ?? `${profileId}:delivery`,
+    );
+    const extension = extendExistingOptionsForDelivery({
+      options: existingOptions,
+      correctIndex,
+      desiredCount: contract.optionCount,
+      seed: deliverySeed,
     });
-    options = rebuilt.options;
-    correctIndex = rebuilt.correct;
-    canonicalAnswer = rebuilt.canonicalAnswer;
+
+    if (extension) {
+      options = extension.options;
+      correctIndex = extension.correctIndex;
+    } else {
+      const answer = value.answer ?? value.canonicalAnswer?.display ?? value.canonicalAnswer?.value;
+      if (answer === undefined || answer === null || answer === "") return null;
+      const rebuilt = buildQuantV4AnswerOptions(answer, {
+        existingOptions,
+        optionCount: contract.optionCount,
+        seed: deliverySeed,
+        context: {
+          packageId: value.packageId,
+          archetypeId: value.patternId ?? value.packageId,
+          canonicalProblemId: value.canonicalProblemId,
+          questionLanguageId: value.questionLanguageId,
+          taskKind: value.taskKind,
+          difficulty: value.difficulty ?? value.difficultyLabel,
+          stem: value.text,
+          variables: value.proceduralLogic ?? value.logic,
+          traceability: value.traceability,
+        },
+      });
+      options = rebuilt.options;
+      correctIndex = rebuilt.correct;
+      canonicalAnswer = rebuilt.canonicalAnswer;
+    }
   }
 
   if (
