@@ -50,6 +50,9 @@ function reviseInherited(question: GeoRiv001Cp004ReviewQuestion): GeoRiv001Cp004
     stem = "Chema Yundung Glacier is the conventional source glacier of which river?";
     explanation = "Chema Yundung Glacier is the conventional source-glacier association for the Brahmaputra mainstream.";
   }
+  if (question.canonicalAnswer === "Teesta — rises in Sikkim" && question.qlId === "GEO-RIV-001-QL-032") {
+    explanation = "The Teesta rises in Sikkim and later joins the Brahmaputra/Jamuna system in Bangladesh.";
+  }
   return {
     ...question,
     questionId: question.questionId.replace("CP004-V1", "CP004-V2"),
