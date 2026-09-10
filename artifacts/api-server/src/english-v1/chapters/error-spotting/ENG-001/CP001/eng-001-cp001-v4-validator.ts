@@ -102,15 +102,6 @@ function repeatedContinuousPredicate(question: Eng001Question): string | null {
   return occurrences > 1 ? cueParticiple : null;
 }
 
-function repeatedConnector(sentence: string): string | null {
-  const lower = sentence.toLowerCase();
-  for (const connector of ["before", "after", "during"] as const) {
-    const count = lower.match(new RegExp(`\\b${connector}\\b`, "g"))?.length ?? 0;
-    if (count > 1) return connector;
-  }
-  return null;
-}
-
 function stackedTimePhrase(sentence: string): boolean {
   const lower = sentence.toLowerCase();
   const specificTimes = lower.match(/\b(?:today|tomorrow|tonight|this morning|this afternoon|this evening|this week|this term|this season)\b/g) ?? [];
@@ -259,10 +250,11 @@ export function validateEng001Cp001QuestionV4(question: Eng001Question): Eng001C
     }
   }
 
-  const connector = repeatedConnector(question.correctedSentence);
-  if (connector) {
-    issues.push(issue("NATURALNESS", `${question.questionId} repeats “${connector}” in one sentence.`));
-  }
+  // Do not reject a sentence merely because a normal connector such as
+  // “during”, “before” or “after” occurs twice. That heuristic produced false
+  // positives on clear exam-style sentences. The comprehension gates below
+  // instead target actual clutter: stacked specific times, excessive length,
+  // repeated predicates and avoidable vocabulary.
   if (stackedTimePhrase(question.correctedSentence)) {
     issues.push(issue("NATURALNESS", `${question.questionId} stacks multiple specific time phrases.`));
   }
