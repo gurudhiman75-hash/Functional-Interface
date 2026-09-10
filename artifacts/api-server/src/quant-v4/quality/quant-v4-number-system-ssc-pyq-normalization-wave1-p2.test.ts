@@ -43,7 +43,7 @@ assert.equal(QUANT_V4_NUMBER_SYSTEM_SSC_WAVE1_SOURCE_LIMITATIONS.selectionCalibr
 assert.equal(2525, 101 * 25, "2010 Q67 repeated-block factorization failed.");
 for (let a = 1; a <= 15; a += 2) {
   for (let b = 1; b <= 15; b += 2) {
-    assert.equal((a ** 4 - b ** 4) % 8, 0, "2010 Q69 odd fourth-power divisibility failed.");
+    assert.equal(Math.abs((a ** 4 - b ** 4) % 8), 0, "2010 Q69 odd fourth-power divisibility failed.");
   }
 }
 for (let n = 1; n <= 100; n += 1) {
@@ -58,7 +58,7 @@ assert.equal(303375 % 25, 0, "2013 Q26 divisibility-by-25 check failed.");
 for (let tens = 1; tens <= 9; tens += 1) {
   for (let units = 0; units <= 9; units += 1) {
     const difference = (10 * tens + units) - (10 * units + tens);
-    assert.equal(difference % 9, 0, "2013 Q30 reversed-digit difference check failed.");
+    assert.equal(Math.abs(difference % 9), 0, "2013 Q30 reversed-digit difference check failed.");
   }
 }
 const a = 3n ** 333n + 1n;
