@@ -18,55 +18,21 @@ jobs:
         with:
           ref: audit/quant-v4-specialized-profile-delivery-remediation-p2
           fetch-depth: 0
-
-      - name: Apply remediation
+      - name: Preserve examProfileId at admin ingress
         run: |
           python - <<'PY'
           from pathlib import Path
-
-          def once(path, old, new):
-              p = Path(path); text = p.read_text(); count = text.count(old)
-              if count != 1: raise SystemExit(f"{path}: expected 1 match, found {count}: {old[:100]!r}")
-              p.write_text(text.replace(old, new, 1))
-
-          generation = "artifacts/api-server/src/quant-v4/generation-engine.ts"
-          once(generation, "function withExamProfileIngress<T>(\n  result: T,\n  request: QuantV4GenerationRequest,\n): T {", "export function applyQuantV4ExamProfileDelivery<T>(\n  result: T,\n  request: QuantV4GenerationRequest,\n): T {")
-          once(generation, "    return withExamProfileIngress(result, request);", "    return applyQuantV4ExamProfileDelivery(result, request);")
-
-          qsg = "artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts"
-          once(qsg, "import {\n  generateQuestion as generateBaseQuestion,", "import {\n  applyQuantV4ExamProfileDelivery,\n  generateQuestion as generateBaseQuestion,")
-          once(qsg, "  toQuestionStudioPreview,\n  type QuantV4Difficulty,", "  toQuestionStudioPreview,\n  withQuantV4ExamProfileContext,\n  type QuantV4Difficulty,")
-          helper = '''async function generateSpecializedWithProfileDelivery(\n  request: QuestionStudioQuantV4GenerationRequest,\n  generate: () => Promise<any>,\n) {\n  if (!request.examProfile) return generate();\n  return withQuantV4ExamProfileContext(request.examProfile, async () => {\n    const result = await generate();\n    return applyQuantV4ExamProfileDelivery(result, request as QuantV4GenerationRequest);\n  });\n}\n\n'''
-          once(qsg, "export async function generateQuestion(\n  request: QuestionStudioQuantV4GenerationRequest = {},\n) {", helper + "export async function generateQuestion(\n  request: QuestionStudioQuantV4GenerationRequest = {},\n) {")
-          for old, new in [
-            ("    return generateSimplificationQuestion(request);", "    return generateSpecializedWithProfileDelivery(request, () => generateSimplificationQuestion(request));"),
-            ("    return generateNumberSystemQuestion(request);", "    return generateSpecializedWithProfileDelivery(request, () => generateNumberSystemQuestion(request));"),
-            ("    return generateMixtureAndAlligationQuestion(request);", "    return generateSpecializedWithProfileDelivery(request, () => generateMixtureAndAlligationQuestion(request));"),
-            ("    return generateAverageQuestion(request);", "    return generateSpecializedWithProfileDelivery(request, () => generateAverageQuestion(request));"),
-          ]: once(qsg, old, new)
-
-          qsr = "artifacts/api-server/src/quant-v4/question-studio-review-engine.ts"
-          once(qsr, '} from "./question-studio-generation-engine";\n', '} from "./question-studio-generation-engine";\nimport {\n  applyQuantV4ExamProfileDelivery,\n  withQuantV4ExamProfileContext,\n  type QuantV4GenerationRequest,\n} from "./generation-engine";\n')
-          helper2 = '''async function generateReviewSpecializedWithProfileDelivery(\n  request: QuestionStudioReviewGenerationRequest,\n  generate: () => Promise<any>,\n) {\n  if (!request.examProfile) return generate();\n  return withQuantV4ExamProfileContext(request.examProfile, async () => {\n    const result = await generate();\n    return applyQuantV4ExamProfileDelivery(result, request as QuantV4GenerationRequest);\n  });\n}\n\n'''
-          once(qsr, "export async function generateQuestion(request: QuestionStudioReviewGenerationRequest = {}) {", helper2 + "export async function generateQuestion(request: QuestionStudioReviewGenerationRequest = {}) {")
-          once(qsr, "  if (isTimeAndWorkRequest(request)) return generateTmwReview(request);", "  if (isTimeAndWorkRequest(request)) {\n    return generateReviewSpecializedWithProfileDelivery(request, () => generateTmwReview(request));\n  }")
-          once(qsr, "  if (cp001Target) return generateCp001Review(request);", "  if (cp001Target) {\n    return generateReviewSpecializedWithProfileDelivery(request, () => generateCp001Review(request));\n  }")
-
-          route = "artifacts/api-server/src/routes/admin-question-studio-average.ts"
-          once(route, 'type SapBankingExamProfile = "BANKING_PRELIMS" | "BANKING_MAINS";\n', 'type SapBankingExamProfile = "BANKING_PRELIMS" | "BANKING_MAINS";\ntype QuantQuestionStudioExamProfile =\n  | "GENERIC_PRACTICE" | "SSC_CGL_TIER_I" | "SSC_CGL_CHSL" | "SSC_CGL_JSO"\n  | "BANKING_PRELIMS" | "BANKING_MAINS" | "PUNJAB_STATE";\n')
-          resolver = '''function resolveQuantQuestionStudioExamProfile(body: any): QuantQuestionStudioExamProfile | undefined {\n  const explicit = asString(body?.examProfile).toUpperCase();\n  const allowed = new Set<QuantQuestionStudioExamProfile>(["GENERIC_PRACTICE", "SSC_CGL_TIER_I", "SSC_CGL_CHSL", "SSC_CGL_JSO", "BANKING_PRELIMS", "BANKING_MAINS", "PUNJAB_STATE"]);\n  if (allowed.has(explicit as QuantQuestionStudioExamProfile)) return explicit as QuantQuestionStudioExamProfile;\n  const banking = resolveSapBankingExamProfile(body);\n  if (banking) return banking;\n  const selected = normalizeSelector(body?.examProfileId || body?.exam);\n  if (/\\b(psssb|ppsc|punjab police)\\b/u.test(selected)) return "PUNJAB_STATE";\n  if (/\\bssc\\b/u.test(selected) && /\\bchsl\\b/u.test(selected)) return "SSC_CGL_CHSL";\n  if (/\\bssc\\b/u.test(selected) && /\\b(jso|tier 2|tier ii)\\b/u.test(selected)) return "SSC_CGL_JSO";\n  if (/\\bssc\\b/u.test(selected) && /\\b(tier 1|tier i)\\b/u.test(selected)) return "SSC_CGL_TIER_I";\n  return undefined;\n}\n\n'''
-          once(route, "function isAverageRequest(body: any) {\n", resolver + "function isAverageRequest(body: any) {\n")
-          once(route, "    const sapBankingExamProfile = simplificationRequest\n      ? resolveSapBankingExamProfile(req.body)\n      : undefined;", "    const quantExamProfile = reasoningRequest\n      ? undefined\n      : resolveQuantQuestionStudioExamProfile(req.body);\n    const sapBankingExamProfile = simplificationRequest\n      && (quantExamProfile === \"BANKING_PRELIMS\" || quantExamProfile === \"BANKING_MAINS\")\n      ? quantExamProfile\n      : undefined;")
-          p = Path(route); text = p.read_text(); old = "examProfile: sapBankingExamProfile,"; count = text.count(old)
-          if count != 2: raise SystemExit(f"{route}: expected 2 profile transport fields, found {count}")
-          p.write_text(text.replace(old, "examProfile: quantExamProfile,"))
+          p = Path("artifacts/api-server/src/routes/admin-question-studio-average.ts")
+          text = p.read_text()
+          old = "  const explicit = asString(body?.examProfile).toUpperCase();"
+          new = "  const explicit = asString(body?.examProfile ?? body?.examProfileId).toUpperCase();"
+          if text.count(old) != 1:
+              raise SystemExit(f"expected one admin profile resolver match, found {text.count(old)}")
+          p.write_text(text.replace(old, new, 1))
           PY
-
-      - name: Commit remediation
-        run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add artifacts/api-server/src/quant-v4/generation-engine.ts artifacts/api-server/src/quant-v4/question-studio-generation-engine.ts artifacts/api-server/src/quant-v4/question-studio-review-engine.ts artifacts/api-server/src/routes/admin-question-studio-average.ts
+          git add artifacts/api-server/src/routes/admin-question-studio-average.ts
           git diff --cached --check
-          git commit -m "fix(quant-v4): enforce specialized profile delivery"
+          git commit -m "fix(quant-v4): preserve examProfileId at admin ingress"
           git push origin HEAD:audit/quant-v4-specialized-profile-delivery-remediation-p2
