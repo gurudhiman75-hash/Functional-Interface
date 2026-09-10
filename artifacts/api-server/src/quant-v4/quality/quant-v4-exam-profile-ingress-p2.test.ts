@@ -9,6 +9,14 @@ import {
   type QuantV4GenerationRequest,
 } from "../generation-engine";
 
+function observedProfile(question: any): string | undefined {
+  return question?.examProfile
+    ?? question?.parameters?.examProfile
+    ?? question?.traceability?.examProfile
+    ?? question?.metadata?.examProfile
+    ?? question?.debugMetadata?.examProfile;
+}
+
 const compileProbe: QuantV4GenerationRequest = {
   packageId: "PCT-001",
   examProfile: "PUNJAB_STATE",
@@ -59,6 +67,7 @@ assert.ok(punjabCore.generationContext.downstreamPendingCount > 0);
 assert.ok(punjabCore.questions.every((question: any) => question.requestedExamProfile === "PUNJAB_STATE"));
 assert.ok(punjabCore.questions.every((question: any) => question.expectedOptionCount === 4));
 assert.ok(punjabCore.questions.every((question: any) => question.examProfileTransportStatus === "INGRESS_ACCEPTED_DOWNSTREAM_PENDING"));
+assert.ok(punjabCore.questions.every((question: any) => observedProfile(question) !== "PUNJAB_STATE"));
 
 const sscProbability = await generateQuestion({
   packageId: "PRB-001" as any,
@@ -71,7 +80,8 @@ assert.equal(sscProbability.generationContext.requestedExamProfile, "SSC_CGL_CHS
 assert.equal(sscProbability.generationContext.expectedOptionCount, 4);
 assert.equal(sscProbability.generationContext.downstreamContextAvailable, true);
 assert.equal(sscProbability.generationContext.profileTransportStatus, "APPLIED_DOWNSTREAM");
-assert.ok(sscProbability.questions.every((question: any) => question.examProfile === "SSC_CGL_CHSL"));
+assert.ok(sscProbability.questions.every((question: any) => observedProfile(question) === "SSC_CGL_CHSL"));
+assert.ok(sscProbability.questions.every((question: any) => question.traceability?.examProfile === "SSC_CGL_CHSL"));
 assert.ok(sscProbability.questions.every((question: any) => question.examProfileTransportStatus === "APPLIED_DOWNSTREAM"));
 assert.ok(sscProbability.questions.every((question: any) => question.options.length === 4));
 
@@ -86,6 +96,8 @@ assert.equal(bankingProbability.generationContext.requestedExamProfile, "BANKING
 assert.equal(bankingProbability.generationContext.expectedOptionCount, 5);
 assert.equal(bankingProbability.generationContext.downstreamContextAvailable, true);
 assert.equal(bankingProbability.generationContext.profileTransportStatus, "APPLIED_DOWNSTREAM");
+assert.ok(bankingProbability.questions.every((question: any) => observedProfile(question) === "BANKING_PRELIMS"));
+assert.ok(bankingProbability.questions.every((question: any) => question.traceability?.examProfile === "BANKING_PRELIMS"));
 assert.ok(bankingProbability.questions.every((question: any) => question.options.length === 5));
 
 let invalidRejected = false;
