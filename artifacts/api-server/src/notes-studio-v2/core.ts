@@ -33,9 +33,15 @@ export type StyleSpecForGeneration = {
   exemplars?: string[];
 };
 
+const POINTER_CLAIM_PATTERN = /\b(?:is|are|was|were)\s+(?:also\s+)?(?:mentioned|listed|indexed|referenced|included)\b[^.!?]{0,100}\b(?:page(?:s)?|(?:the\s+)?(?:index|bibliograph(?:y|ies)|references?|contents|glossary))\b|\breferenced\s+in\s+the\s+source\s+text\s+with\s+page\s+number(?:s)?\b|\bappears?\s+(?:on|in)\s+(?:page(?:s)?|the\s+index|an?\s+index|the\s+bibliograph(?:y|ies)|the\s+references?)\b/i;
+
+export function isPointerStyleClaim(value: string) {
+  return POINTER_CLAIM_PATTERN.test(value.trim());
+}
+
 export function buildFactGraph(rows: FactRow[]): GenerationFact[] {
   return rows
-    .filter((row) => row.confidence !== 'disputed')
+    .filter((row) => row.confidence !== 'disputed' && !isPointerStyleClaim(row.claim))
     .map((row) => ({
       id: row.id,
       periodId: row.periodId,
@@ -140,8 +146,10 @@ export function buildExtractionRequest(input: {
       system: [
         'You extract atomic historical facts for ExamTree Notes Studio v2.',
         'Extract facts only; do not write learner-facing prose or summaries.',
-        'Each fact must be independently understandable and assigned to one provided sub-category.',
+        'Each fact must be a substantive proposition that is independently understandable and assigned to one provided sub-category.',
         'Use sub-category hints as routing guidance, never as a reason to omit facts.',
+        'Ignore table-of-contents lines, index entries, bibliography/reference-list entries, headers/footers, page-number cross-references, standalone names or terms, and statements whose only meaning is that something is mentioned or listed on a page.',
+        'If the supplied text contains only such navigation or back-matter material, return an empty facts array rather than manufacturing facts.',
         'Return an exact short source span in extractedText only for later verification.',
       ].join(' '),
       user: `Source: ${input.sourceTitle}\nAllowed sub-categories: ${input.taxonomy.join(', ')}\nExtract exhaustive atomic facts from the supplied source text.`,
@@ -226,7 +234,42 @@ export type ExtractedFactCandidate = {
   extractedText: string;
 };
 
-export function validateExtractedFacts(value: unknown, taxonomy: string[]): ExtractedFactCandidate[] {
+export type ExtractedFactQualityRejectionReason =
+  | 'pointer-claim'
+  | 'back-matter-locator'
+  | 'index-like-evidence';
+
+export type ExtractedFactQualityRejection = {
+  candidate: ExtractedFactCandidate;
+  reasons: ExtractedFactQualityRejectionReason[];
+};
+
+const BACK_MATTER_LOCATOR_PATTERN = /\b(?:index|bibliograph(?:y|ies)|references?|table\s+of\s+contents|contents|glossary|further\s+reading)\b/i;
+const SUBSTANTIVE_PREDICATE_PATTERN = /\b(?:is|are|was|were|has|have|had|became|built|founded|ruled|used|developed|occurred|included|produced|established|served|led|formed|made|known|called|believed|described|indicates?|shows?|states?|suggests?|refers?|contains?|consists?|emerged|expanded|declined|conquered|introduced|adopted|practised|practiced|covers?|spans?|dates?|lasted|began|ended|flourished)\b/i;
+const INDEX_PAGE_TAIL_PATTERN = /(?:^|[^\d])\d{1,4}(?:\s*[-–—]\s*\d{1,4})?(?:\s*[,;]\s*\d{1,4}(?:\s*[-–—]\s*\d{1,4})?)*\.?$/;
+const MULTI_PAGE_TAIL_PATTERN = /\d{1,4}(?:\s*[-–—]\s*\d{1,4})?\s*[,;]\s*\d{1,4}(?:\s*[-–—]\s*\d{1,4})?(?:\s*[,;]\s*\d{1,4}(?:\s*[-–—]\s*\d{1,4})?)*\.?$/;
+
+function looksLikeIndexEvidence(value: string) {
+  const compact = value.replace(/\s+/g, ' ').trim();
+  if (!compact || compact.length > 120) return false;
+  const words = compact.split(/\s+/);
+  if (words.length > 12 || SUBSTANTIVE_PREDICATE_PATTERN.test(compact)) return false;
+  if (MULTI_PAGE_TAIL_PATTERN.test(compact)) return true;
+  if (words.length > 5 || /\b(?:BC|BCE|AD|CE)\b/i.test(compact)) return false;
+  return INDEX_PAGE_TAIL_PATTERN.test(compact);
+}
+
+export function extractedFactQualityRejectionReasons(
+  candidate: ExtractedFactCandidate,
+): ExtractedFactQualityRejectionReason[] {
+  const reasons: ExtractedFactQualityRejectionReason[] = [];
+  if (isPointerStyleClaim(candidate.claim)) reasons.push('pointer-claim');
+  if (BACK_MATTER_LOCATOR_PATTERN.test(candidate.locator)) reasons.push('back-matter-locator');
+  if (looksLikeIndexEvidence(candidate.extractedText)) reasons.push('index-like-evidence');
+  return reasons;
+}
+
+function parseExtractedFacts(value: unknown, taxonomy: string[]): ExtractedFactCandidate[] {
   if (!value || typeof value !== 'object' || !Array.isArray((value as { facts?: unknown }).facts)) {
     throw new Error('Extraction did not return a facts array.');
   }
@@ -254,6 +297,22 @@ export function validateExtractedFacts(value: unknown, taxonomy: string[]): Extr
       extractedText,
     };
   });
+}
+
+export function validateExtractedFactsWithQuality(value: unknown, taxonomy: string[]) {
+  const parsed = parseExtractedFacts(value, taxonomy);
+  const candidates: ExtractedFactCandidate[] = [];
+  const rejections: ExtractedFactQualityRejection[] = [];
+  for (const candidate of parsed) {
+    const reasons = extractedFactQualityRejectionReasons(candidate);
+    if (reasons.length > 0) rejections.push({ candidate, reasons });
+    else candidates.push(candidate);
+  }
+  return { candidates, rejections, rawCount: parsed.length };
+}
+
+export function validateExtractedFacts(value: unknown, taxonomy: string[]): ExtractedFactCandidate[] {
+  return validateExtractedFactsWithQuality(value, taxonomy).candidates;
 }
 
 export function renderedNoteText(blocks: NotesStudioV2NoteBlock[]) {

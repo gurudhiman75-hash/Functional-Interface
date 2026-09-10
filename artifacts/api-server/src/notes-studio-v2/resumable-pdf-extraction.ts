@@ -4,8 +4,9 @@ import path from 'node:path';
 import { extractWithAI } from '../lib/ai-providers';
 import {
   buildExtractionRequest,
-  validateExtractedFacts,
+  validateExtractedFactsWithQuality,
   type ExtractedFactCandidate,
+  type ExtractedFactQualityRejection,
 } from './core';
 
 export const RESUMABLE_EXTRACTION_SEGMENT_PAGES = Math.max(
@@ -235,6 +236,25 @@ function combineSegmentResults(
   };
 }
 
+function qualityRejectionWarning(rejections: ExtractedFactQualityRejection[]) {
+  if (rejections.length === 0) return null;
+  const counts = new Map<string, number>();
+  for (const rejection of rejections) {
+    for (const reason of rejection.reasons) counts.set(reason, (counts.get(reason) ?? 0) + 1);
+  }
+  const breakdown = [...counts.entries()]
+    .map(([reason, count]) => `${reason}=${count}`)
+    .join(', ');
+  return `Rejected ${rejections.length} non-factual pointer/back-matter candidate${rejections.length === 1 ? '' : 's'} (${breakdown}).`;
+}
+
+function allRejectionsAreNavigationMaterial(rejections: ExtractedFactQualityRejection[]) {
+  return rejections.length > 0 && rejections.every((rejection) => (
+    rejection.reasons.includes('back-matter-locator')
+    || rejection.reasons.includes('index-like-evidence')
+  ));
+}
+
 async function extractPdfSegmentOnce(input: {
   filePath: string;
   startPage: number;
@@ -275,15 +295,23 @@ async function extractPdfSegmentOnce(input: {
   }
 
   let validated: ExtractedFactCandidate[];
+  let qualityWarning: string | null = null;
   let terminalEmptyWarning: string | null = null;
   try {
-    validated = validateExtractedFacts(ai.json, input.taxonomy);
+    const quality = validateExtractedFactsWithQuality(ai.json, input.taxonomy);
+    validated = quality.candidates;
+    qualityWarning = qualityRejectionWarning(quality.rejections);
+    if (qualityWarning) console.warn(`[notes-studio-v2:resumable] pages ${input.startPage}-${input.endPage}: ${qualityWarning}`);
+
     if (validated.length === 0) {
-      if (shouldAcceptEmptyFactsAtTerminalRange(input.startPage, input.endPage)) {
+      if (quality.rawCount > 0 && allRejectionsAreNavigationMaterial(quality.rejections)) {
+        terminalEmptyWarning = `Readable pages ${input.startPage}-${input.endPage} contained only rejected navigation/back-matter candidates; recorded as no extractable facts.`;
+        console.warn(`[notes-studio-v2:resumable] ${terminalEmptyWarning}`);
+      } else if (shouldAcceptEmptyFactsAtTerminalRange(input.startPage, input.endPage)) {
         terminalEmptyWarning = `Readable page ${input.startPage} returned a schema-valid empty facts array at the single-page retry floor; recorded as no extractable facts.`;
         console.warn(`[notes-studio-v2:resumable] ${terminalEmptyWarning}`);
       } else {
-        throw new Error('Extraction returned an empty facts array for readable source pages.');
+        throw new Error('Extraction returned no usable factual candidates for readable source pages.');
       }
     }
   } catch (error) {
@@ -326,6 +354,7 @@ async function extractPdfSegmentOnce(input: {
       warnings: [
         ...(selected.warnings ?? []),
         ...(ai.warnings ?? []),
+        ...(qualityWarning ? [qualityWarning] : []),
         ...(terminalEmptyWarning ? [terminalEmptyWarning] : []),
       ],
     },
