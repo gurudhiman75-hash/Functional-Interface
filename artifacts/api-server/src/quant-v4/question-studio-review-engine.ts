@@ -427,6 +427,12 @@ async function generateTmwReview(request: QuestionStudioReviewGenerationRequest)
 
 export function listQuantV4Packages() {
   const packages = listBasePackages().map((pkg: any) => {
+    if (pkg.packageId === "TMW-001") {
+      return {
+        ...pkg,
+        examProfileSelection: getQuantV4SpecializedProfileSelectionCapability("TMW-001"),
+      };
+    }
     if (pkg.packageId === "SAP") {
       return {
         ...pkg,

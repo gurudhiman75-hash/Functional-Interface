@@ -292,7 +292,15 @@ function simplificationPackageCard() {
 }
 
 export function listQuantV4Packages() {
-  const existing = listBasePackages();
+  const existing = listBasePackages().map((pkg: any) => {
+    if (pkg.packageId === "AVG-001" || pkg.packageId === "MAL-001" || pkg.packageId === "NUM-001") {
+      return {
+        ...pkg,
+        examProfileSelection: getQuantV4SpecializedProfileSelectionCapability(pkg.packageId),
+      };
+    }
+    return pkg;
+  });
   const additions = [];
   if (!existing.some((pkg: any) => pkg.packageId === "AVG-001")) {
     additions.push(packageCard(AVG_PACKAGE_DEFINITION));
