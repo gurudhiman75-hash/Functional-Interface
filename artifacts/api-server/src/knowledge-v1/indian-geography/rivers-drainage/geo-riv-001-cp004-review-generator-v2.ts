@@ -16,12 +16,12 @@ function dibangCorrectPair(seed: string): GeoRiv001Cp004ReviewQuestion {
   const rows = deterministicShuffle([
     { text: answer, correct: true },
     { text: "Dibang — tributary of Subansiri", correct: false },
-    { text: "Dibang — south-bank tributary near Kopili", correct: false },
+    { text: "Dibang — rises in Sikkim", correct: false },
     { text: "Dibang — another name of Kameng", correct: false },
   ], `${seed}:cp004-v2-dibang-options`);
   const options = rows.map((row) => row.text);
   const correctIndex = rows.findIndex((row) => row.correct);
-  const explanation = "The Dibang joins the Siang/Dihang in the upper Brahmaputra system. Together with the Lohit, it contributes to the name transition to Brahmaputra downstream.";
+  const explanation = "The Dibang joins the Siang/Dihang in the upper Brahmaputra system. After the Dibang and Lohit join it, the river is known as the Brahmaputra.";
   assertKnowledgeQuestionValid({ stem: "Which of the following pairs is correctly matched?", explanation, options, correctIndex, canonicalAnswer: answer });
   return {
     questionId: `GEO-RIV-001-CP004-V2-GEO-RIV-001-QL-032-${seed}`,
@@ -46,19 +46,43 @@ function dibangCorrectPair(seed: string): GeoRiv001Cp004ReviewQuestion {
 function reviseInherited(question: GeoRiv001Cp004ReviewQuestion): GeoRiv001Cp004ReviewQuestion {
   let stem = question.stem;
   let explanation = question.explanation;
+  let options = [...question.options];
+
   if (/Chema Yundung Glacier is associated with the source of which river\?/i.test(stem)) {
     stem = "Chema Yundung Glacier is the conventional source glacier of which river?";
-    explanation = "Chema Yundung Glacier is the conventional source-glacier association for the Brahmaputra mainstream.";
+    explanation = "Chema Yundung Glacier on the Tibetan Plateau is conventionally identified as the source glacier of the Brahmaputra.";
+  }
+  if (question.canonicalAnswer === "Chema Yundung Glacier") {
+    explanation = "Chema Yundung Glacier on the Tibetan Plateau is conventionally identified as the source glacier of the Brahmaputra.";
+  }
+  if (question.canonicalAnswer === "Siang" && question.qlId === "GEO-RIV-001-QL-028") {
+    explanation = "In Arunachal Pradesh, the river is known as the Siang. The name Dihang is also used for part of its course before the Dibang and Lohit join it.";
+  }
+  if (question.canonicalAnswer === "Siang/Dihang" && question.qlId === "GEO-RIV-001-QL-031") {
+    explanation = "The river is known as Siang in Arunachal Pradesh, with Dihang also used for part of this course. It receives the Dibang and Lohit before being called the Brahmaputra.";
   }
   if (question.canonicalAnswer === "Teesta — rises in Sikkim" && question.qlId === "GEO-RIV-001-QL-032") {
     explanation = "The Teesta rises in Sikkim and later joins the Brahmaputra/Jamuna system in Bangladesh.";
   }
-  return {
+  if (question.canonicalAnswer === "Bay of Bengal") {
+    options = options.map((option) => option === "Indian Ocean" ? "Gulf of Mannar" : option);
+  }
+
+  const revised = {
     ...question,
     questionId: question.questionId.replace("CP004-V1", "CP004-V2"),
     stem,
+    options,
     explanation,
   };
+  assertKnowledgeQuestionValid({
+    stem: revised.stem,
+    explanation: revised.explanation,
+    options: revised.options,
+    correctIndex: revised.correctIndex,
+    canonicalAnswer: revised.canonicalAnswer,
+  });
+  return revised;
 }
 
 export function generateGeoRiv001Cp004ReviewV2(qlId: string, seed: string): GeoRiv001Cp004ReviewQuestion {
