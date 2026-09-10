@@ -229,20 +229,19 @@ export function validateEng001Cp001QuestionV4(question: Eng001Question): Eng001C
     if (!question.explanation.startsWith("There is no error.")) {
       issues.push(issue("EXPLANATION", `${question.questionId} has an inconsistent No-error explanation.`));
     }
-  } else {
-    if (!question.explanation.startsWith(`Part ${question.metadata.answerSegment} contains the error.`)) {
-      issues.push(issue("EXPLANATION", `${question.questionId} does not identify the keyed part in plain language.`));
-    }
-    const surfaceErrorSpan = simplifyCp001Text(sourceCandidate.errorSpan ?? "");
-    const surfaceCorrection = simplifyCp001Text(sourceCandidate.correction ?? "");
-    const expectedReplacement = `Replace “${surfaceErrorSpan}” with “${surfaceCorrection}”.`;
-    if (!question.explanation.includes(expectedReplacement)) {
-      issues.push(issue("EXPLANATION", `${question.questionId} explanation does not match the visible error and correction.`));
-    }
+  } else if (!question.explanation.startsWith(`Part ${question.metadata.answerSegment} contains the error.`)) {
+    issues.push(issue("EXPLANATION", `${question.questionId} does not identify the keyed part in plain language.`));
   }
 
+  const surfaceCorrection = simplifyCp001Text(sourceCandidate.correction ?? "");
+  if (!question.explanation.includes(`“${surfaceCorrection}”`)) {
+    issues.push(issue("EXPLANATION", `${question.questionId} does not state the visible correction in plain language.`));
+  }
   if (!question.explanation.includes(question.correctedSentence)) {
     issues.push(issue("EXPLANATION", `${question.questionId} omits the corrected sentence.`));
+  }
+  if (/\bReplace\b/.test(question.explanation)) {
+    issues.push(issue("EXPLANATION", `${question.questionId} repeats the correction with an unnecessary replacement sentence.`));
   }
   if (/\s{2,}/.test(question.correctedSentence)) {
     issues.push(issue("NATURALNESS", `${question.questionId} corrected sentence contains doubled whitespace.`));
@@ -261,17 +260,12 @@ export function validateEng001Cp001QuestionV4(question: Eng001Question): Eng001C
     }
   }
 
-  // Do not reject a sentence merely because a normal connector such as
-  // “during”, “before” or “after” occurs twice. That heuristic produced false
-  // positives on clear exam-style sentences. The comprehension gates below
-  // instead target actual clutter: stacked specific times, excessive length,
-  // repeated predicates and avoidable vocabulary.
   if (stackedTimePhrase(question.correctedSentence)) {
     issues.push(issue("NATURALNESS", `${question.questionId} stacks multiple specific time phrases.`));
   }
 
   const explanationBeforeCorrection = question.explanation.split("Correct sentence:")[0] ?? question.explanation;
-  if (textWordCount(explanationBeforeCorrection) > 38) {
+  if (textWordCount(explanationBeforeCorrection) > 28) {
     issues.push(issue("EXPLANATION", `${question.questionId} explanation is too wordy before the corrected sentence.`));
   }
   const lowerExplanation = explanationBeforeCorrection.toLowerCase();
