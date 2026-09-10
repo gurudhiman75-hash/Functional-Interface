@@ -33,7 +33,7 @@ export type StyleSpecForGeneration = {
   exemplars?: string[];
 };
 
-const POINTER_CLAIM_PATTERN = /\b(?:is|are|was|were)\s+(?:also\s+)?(?:mentioned|listed|indexed|referenced|included)\b|\bappears?\s+(?:on|in)\s+(?:page|the\s+index|an?\s+index|the\s+bibliograph(?:y|ies)|the\s+references?)\b/i;
+const POINTER_CLAIM_PATTERN = /\b(?:is|are|was|were)\s+(?:also\s+)?(?:mentioned|listed|indexed|referenced|included)\b[^.!?]{0,100}\b(?:page(?:s)?|(?:the\s+)?(?:index|bibliograph(?:y|ies)|references?|contents|glossary))\b|\breferenced\s+in\s+the\s+source\s+text\s+with\s+page\s+number(?:s)?\b|\bappears?\s+(?:on|in)\s+(?:page(?:s)?|the\s+index|an?\s+index|the\s+bibliograph(?:y|ies)|the\s+references?)\b/i;
 
 export function isPointerStyleClaim(value: string) {
   return POINTER_CLAIM_PATTERN.test(value.trim());
