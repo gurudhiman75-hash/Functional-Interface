@@ -17,13 +17,14 @@ assert.equal(packageDef.testEligible, false);
 assert.equal(packageDef.mockTestEligible, false);
 assert.deepEqual(packageDef.supportedLanguages, ["en"]);
 assert.deepEqual(packageDef.supportedDifficulties, ["Easy", "Medium", "Hard"]);
-assert.deepEqual(packageDef.cpIds, ["GEO-RIV-001-CP001", "GEO-RIV-001-CP002", "GEO-RIV-001-CP003"]);
-assert.equal(packageDef.metadata?.cpCount, 3);
-assert.equal(packageDef.metadata?.qlCount, 27);
-assert.equal(packageDef.metadata?.englishQuestionCount, 162);
+assert.deepEqual(packageDef.cpIds, ["GEO-RIV-001-CP001", "GEO-RIV-001-CP002", "GEO-RIV-001-CP003", "GEO-RIV-001-CP004"]);
+assert.equal(packageDef.metadata?.cpCount, 4);
+assert.equal(packageDef.metadata?.qlCount, 36);
+assert.equal(packageDef.metadata?.englishQuestionCount, 216);
 assert.match(GEO_RIV_001_CONTENT_AUTHORITY_VERSION_V1, /CP001-ENGLISH-FREEZE-V1/);
 assert.match(GEO_RIV_001_CONTENT_AUTHORITY_VERSION_V1, /CP002-ENGLISH-FREEZE-V1/);
 assert.match(GEO_RIV_001_CONTENT_AUTHORITY_VERSION_V1, /CP003-ENGLISH-FREEZE-V1/);
+assert.match(GEO_RIV_001_CONTENT_AUTHORITY_VERSION_V1, /CP004-ENGLISH-FREEZE-V1/);
 
 assert.equal(isGeoRiv001QuestionStudioRequestV1({ packageId: "GEO-RIV-001" }), true);
 assert.equal(
@@ -58,84 +59,52 @@ for (const question of first.questions) {
   assert.equal(question.productionReleased, false);
   assert.equal(question.testEligible, false);
   assert.equal(question.mockTestEligible, false);
-  assert.match(String(question.registrationAuthorityId), /GEO-RIV-001-CP00[123]-ENGLISH-FREEZE-V1/);
+  assert.match(String(question.registrationAuthorityId), /GEO-RIV-001-CP00[1234]-ENGLISH-FREEZE-V1/);
 }
 
-const cp001 = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
-  ...baseRequest,
-  canonicalProblemId: "GEO-RIV-001-CP001",
-  count: 4,
-  seed: "geo-riv-001-cp001-filter",
-});
-assert.equal(cp001.questions.every((question) => question.cpId === "GEO-RIV-001-CP001"), true);
-assert.equal(cp001.questions.every((question) => question.registrationAuthorityId === "GEO-RIV-001-CP001-ENGLISH-FREEZE-V1"), true);
+for (const cpNumber of [1, 2, 3, 4]) {
+  const cpId = `GEO-RIV-001-CP${String(cpNumber).padStart(3, "0")}`;
+  const result = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
+    ...baseRequest,
+    canonicalProblemId: cpId,
+    count: 4,
+    seed: `geo-riv-001-cp${String(cpNumber).padStart(3, "0")}-filter`,
+  });
+  assert.equal(result.questions.every((question) => question.cpId === cpId), true);
+  assert.equal(
+    result.questions.every((question) => question.registrationAuthorityId === `${cpId}-ENGLISH-FREEZE-V1`),
+    true,
+  );
+}
 
-const cp002 = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
-  ...baseRequest,
-  canonicalProblemId: "GEO-RIV-001-CP002",
-  count: 4,
-  seed: "geo-riv-001-cp002-filter",
-});
-assert.equal(cp002.questions.every((question) => question.cpId === "GEO-RIV-001-CP002"), true);
-assert.equal(cp002.questions.every((question) => question.registrationAuthorityId === "GEO-RIV-001-CP002-ENGLISH-FREEZE-V1"), true);
+for (const cpId of ["GEO-RIV-001-CP002", "GEO-RIV-001-CP003", "GEO-RIV-001-CP004"]) {
+  const hard = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
+    ...baseRequest,
+    canonicalProblemId: cpId,
+    difficulty: "Hard",
+    count: 3,
+    seed: `${cpId}-hard-filter`,
+  });
+  assert.equal(hard.questions.length, 3);
+  assert.equal(hard.questions.every((question) => question.cpId === cpId), true);
+  assert.equal(hard.questions.every((question) => question.difficulty === "Hard"), true);
+}
 
-const cp003 = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
-  ...baseRequest,
-  canonicalProblemId: "GEO-RIV-001-CP003",
-  count: 4,
-  seed: "geo-riv-001-cp003-filter",
-});
-assert.equal(cp003.questions.every((question) => question.cpId === "GEO-RIV-001-CP003"), true);
-assert.equal(cp003.questions.every((question) => question.registrationAuthorityId === "GEO-RIV-001-CP003-ENGLISH-FREEZE-V1"), true);
-
-const hardCp002 = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
-  ...baseRequest,
-  canonicalProblemId: "GEO-RIV-001-CP002",
-  difficulty: "Hard",
-  count: 3,
-  seed: "geo-riv-001-cp002-hard-filter",
-});
-assert.equal(hardCp002.questions.length, 3);
-assert.equal(hardCp002.questions.every((question) => question.cpId === "GEO-RIV-001-CP002"), true);
-assert.equal(hardCp002.questions.every((question) => question.difficulty === "Hard"), true);
-
-const hardCp003 = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
-  ...baseRequest,
-  canonicalProblemId: "GEO-RIV-001-CP003",
-  difficulty: "Hard",
-  count: 3,
-  seed: "geo-riv-001-cp003-hard-filter",
-});
-assert.equal(hardCp003.questions.length, 3);
-assert.equal(hardCp003.questions.every((question) => question.cpId === "GEO-RIV-001-CP003"), true);
-assert.equal(hardCp003.questions.every((question) => question.difficulty === "Hard"), true);
-
-const qlCp001 = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
-  ...baseRequest,
-  patternId: "GEO-RIV-001-QL-003",
-  count: 2,
-  seed: "geo-riv-001-ql003-filter",
-});
-assert.equal(qlCp001.questions.every((question) => question.qlId === "GEO-RIV-001-QL-003"), true);
-assert.equal(qlCp001.questions.every((question) => question.cpId === "GEO-RIV-001-CP001"), true);
-
-const qlCp002 = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
-  ...baseRequest,
-  patternId: "GEO-RIV-001-QL-013",
-  count: 2,
-  seed: "geo-riv-001-ql013-filter",
-});
-assert.equal(qlCp002.questions.every((question) => question.qlId === "GEO-RIV-001-QL-013"), true);
-assert.equal(qlCp002.questions.every((question) => question.cpId === "GEO-RIV-001-CP002"), true);
-
-const qlCp003 = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
-  ...baseRequest,
-  patternId: "GEO-RIV-001-QL-022",
-  count: 2,
-  seed: "geo-riv-001-ql022-filter",
-});
-assert.equal(qlCp003.questions.every((question) => question.qlId === "GEO-RIV-001-QL-022"), true);
-assert.equal(qlCp003.questions.every((question) => question.cpId === "GEO-RIV-001-CP003"), true);
+for (const [qlId, cpId] of [
+  ["GEO-RIV-001-QL-003", "GEO-RIV-001-CP001"],
+  ["GEO-RIV-001-QL-013", "GEO-RIV-001-CP002"],
+  ["GEO-RIV-001-QL-022", "GEO-RIV-001-CP003"],
+  ["GEO-RIV-001-QL-031", "GEO-RIV-001-CP004"],
+] as const) {
+  const result = await knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
+    ...baseRequest,
+    patternId: qlId,
+    count: 2,
+    seed: `${qlId}-filter`,
+  });
+  assert.equal(result.questions.every((question) => question.qlId === qlId), true);
+  assert.equal(result.questions.every((question) => question.cpId === cpId), true);
+}
 
 await assert.rejects(
   knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
@@ -148,8 +117,8 @@ await assert.rejects(
 await assert.rejects(
   knowledgeV1GeoRiv001QuestionStudioAdapterV1.generate({
     ...baseRequest,
-    canonicalProblemId: "GEO-RIV-001-CP002",
-    patternId: "GEO-RIV-001-QL-022",
+    canonicalProblemId: "GEO-RIV-001-CP003",
+    patternId: "GEO-RIV-001-QL-031",
   }),
   /Conflicting GEO-RIV-001 CP\/QL selectors/i,
 );
