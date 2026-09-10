@@ -3,6 +3,10 @@ import {
   GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1,
   GEO_RIV_001_CP001_FROZEN_QUESTIONS_V1,
 } from "../../knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp001-freeze-v1";
+import {
+  GEO_RIV_001_CP002_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP002_FROZEN_QUESTIONS_V1,
+} from "../../knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp002-freeze-v1";
 import type {
   QuestionStudioEngineAdapter,
   QuestionStudioGenerationRequest,
@@ -16,15 +20,23 @@ export const GEO_RIV_001_QUESTION_STUDIO_PACKAGE_ID_V1 = "GEO-RIV-001" as const;
 export const GEO_RIV_001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
 export const GEO_RIV_001_REVISION_POLICY_V1 = "SOURCE_GENERATOR_ONLY" as const;
 export const GEO_RIV_001_CONTENT_AUTHORITY_VERSION_V1 =
-  GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1.authorityId;
+  `${GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP002_FREEZE_AUTHORITY_V1.authorityId}` as const;
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const supportedLanguages: QuestionStudioLanguage[] = ["en"];
 const supportedDifficulties = ["Easy", "Medium", "Hard"] as const;
-const cpIds = ["GEO-RIV-001-CP001"] as const;
-const qlIds = [
-  ...new Set(GEO_RIV_001_CP001_FROZEN_QUESTIONS_V1.map((question) => question.qlId)),
+const cpIds = ["GEO-RIV-001-CP001", "GEO-RIV-001-CP002"] as const;
+const frozenQuestions = [
+  ...GEO_RIV_001_CP001_FROZEN_QUESTIONS_V1,
+  ...GEO_RIV_001_CP002_FROZEN_QUESTIONS_V1,
 ];
+const qlIds = [...new Set(frozenQuestions.map((question) => question.qlId))];
+
+function freezeAuthorityForCp(cpId: string) {
+  if (cpId === "GEO-RIV-001-CP001") return GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1.authorityId;
+  if (cpId === "GEO-RIV-001-CP002") return GEO_RIV_001_CP002_FREEZE_AUTHORITY_V1.authorityId;
+  throw new Error(`Unknown GEO-RIV-001 frozen CP ${cpId}`);
+}
 
 function normalizeLanguage(language: QuestionStudioGenerationRequest["language"]): QuestionStudioLanguage {
   if (!language) return "en";
@@ -42,9 +54,7 @@ function normalizeCount(count: number | undefined) {
 
 function normalizeDifficulty(difficulty: QuestionStudioGenerationRequest["difficulty"]) {
   if (!difficulty || difficulty === "Mixed") return "Mixed" as const;
-  if (difficulty === "Easy" || difficulty === "Medium" || difficulty === "Hard") {
-    return difficulty;
-  }
+  if (difficulty === "Easy" || difficulty === "Medium" || difficulty === "Hard") return difficulty;
   throw new Error("GEO-RIV-001 difficulty must be Easy, Medium, Hard, or Mixed");
 }
 
@@ -54,7 +64,7 @@ function selectors(request: QuestionStudioGenerationRequest) {
     .filter(Boolean);
 }
 
-function normalizeQlSelector(request: QuestionStudioGenerationRequest) {
+function normalizeSelectors(request: QuestionStudioGenerationRequest) {
   const values = selectors(request);
   const qlMatches = values.filter((value) => qlIds.includes(value));
   const cpMatches = values.filter((value) => cpIds.includes(value as (typeof cpIds)[number]));
@@ -65,13 +75,16 @@ function normalizeQlSelector(request: QuestionStudioGenerationRequest) {
       !cpIds.includes(value as (typeof cpIds)[number]),
   );
   if (unknown.length) throw new Error(`Unknown GEO-RIV-001 selector ${unknown[0]}`);
-  if (new Set(qlMatches).size > 1) {
-    throw new Error(`Conflicting GEO-RIV-001 QL selectors ${qlMatches.join(", ")}`);
+  if (new Set(qlMatches).size > 1) throw new Error(`Conflicting GEO-RIV-001 QL selectors ${qlMatches.join(", ")}`);
+  if (new Set(cpMatches).size > 1) throw new Error(`Conflicting GEO-RIV-001 CP selectors ${cpMatches.join(", ")}`);
+
+  const qlId = qlMatches[0];
+  const explicitCpId = cpMatches[0];
+  const qlCpId = qlId ? frozenQuestions.find((question) => question.qlId === qlId)?.cpId : undefined;
+  if (explicitCpId && qlCpId && explicitCpId !== qlCpId) {
+    throw new Error(`Conflicting GEO-RIV-001 CP/QL selectors ${explicitCpId} and ${qlId}`);
   }
-  if (new Set(cpMatches).size > 1) {
-    throw new Error(`Conflicting GEO-RIV-001 CP selectors ${cpMatches.join(", ")}`);
-  }
-  return qlMatches[0];
+  return { qlId, cpId: explicitCpId ?? qlCpId };
 }
 
 export const GEO_RIV_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefinition = {
@@ -80,7 +93,7 @@ export const GEO_RIV_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageD
   subject: "Static GK",
   topic: "Indian Geography",
   subtopic: "Indian Rivers & Drainage System",
-  label: "Static GK · Indian Geography · Rivers & Drainage · CP001 Freeze V1",
+  label: "Static GK · Indian Geography · Rivers & Drainage · CP001–CP002 Frozen",
   enabled: true,
   cpIds: [...cpIds],
   supportedLanguages,
@@ -102,7 +115,11 @@ export const GEO_RIV_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageD
   productionReleaseAuthorized: lifecycle.productionReleaseAuthorized,
   metadata: {
     ...lifecycle,
-    registrationAuthorityId: GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1.authorityId,
+    registrationAuthorityId: GEO_RIV_001_CONTENT_AUTHORITY_VERSION_V1,
+    registrationAuthorityIds: [
+      GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1.authorityId,
+      GEO_RIV_001_CP002_FREEZE_AUTHORITY_V1.authorityId,
+    ],
     authoringReviewApproved: true,
     reviewOnly: true,
     frozenCorpusOnly: true,
@@ -114,11 +131,12 @@ export const GEO_RIV_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageD
     qlCount: qlIds.length,
     cpIds: [...cpIds],
     cpCount: cpIds.length,
-    englishQuestionCount: GEO_RIV_001_CP001_FROZEN_QUESTIONS_V1.length,
+    englishQuestionCount: frozenQuestions.length,
     revisionPolicy: GEO_RIV_001_REVISION_POLICY_V1,
     difficultyFilterSupported: true,
     supportedDifficulties: [...supportedDifficulties],
     productionDifficultyClaimsAuthorized: false,
+    explanationVisualPolicy: "OPTIONAL_MANUAL_EDITORIAL_ATTACHMENT",
   },
 };
 
@@ -150,89 +168,85 @@ export const knowledgeV1GeoRiv001QuestionStudioAdapterV1: QuestionStudioEngineAd
     if (packageId && packageId !== GEO_RIV_001_QUESTION_STUDIO_PACKAGE_ID_V1) {
       throw new Error(`knowledge-v1 GEO-RIV-001 adapter cannot generate package ${String(request.packageId)}`);
     }
-    if (
-      request.runtimeMode &&
-      request.runtimeMode !== GEO_RIV_001_QUESTION_STUDIO_RUNTIME_MODE_V1
-    ) {
-      throw new Error(
-        `GEO-RIV-001 only supports ${GEO_RIV_001_QUESTION_STUDIO_RUNTIME_MODE_V1} runtime`,
-      );
+    if (request.runtimeMode && request.runtimeMode !== GEO_RIV_001_QUESTION_STUDIO_RUNTIME_MODE_V1) {
+      throw new Error(`GEO-RIV-001 only supports ${GEO_RIV_001_QUESTION_STUDIO_RUNTIME_MODE_V1} runtime`);
     }
 
     const language = normalizeLanguage(request.language);
     const count = normalizeCount(request.count);
     const difficulty = normalizeDifficulty(request.difficulty);
-    const qlId = normalizeQlSelector(request);
-    const seed = request.seed?.trim() || "geo-riv-001-cp001-question-studio-freeze-v1";
+    const { qlId, cpId } = normalizeSelectors(request);
+    const seed = request.seed?.trim() || "geo-riv-001-question-studio-freeze-v1";
 
-    const candidates = GEO_RIV_001_CP001_FROZEN_QUESTIONS_V1.filter(
+    const candidates = frozenQuestions.filter(
       (question) =>
+        (!cpId || question.cpId === cpId) &&
         (!qlId || question.qlId === qlId) &&
         (difficulty === "Mixed" || question.difficulty === difficulty),
     );
 
-    if (!candidates.length) {
-      throw new Error(`GEO-RIV-001 selectors produced no ${difficulty} frozen questions`);
-    }
+    if (!candidates.length) throw new Error(`GEO-RIV-001 selectors produced no ${difficulty} frozen questions`);
     if (count > candidates.length) {
-      throw new Error(
-        `GEO-RIV-001 cannot fill ${count} questions from a ${candidates.length}-question frozen pool without repeats`,
-      );
+      throw new Error(`GEO-RIV-001 cannot fill ${count} questions from a ${candidates.length}-question frozen pool without repeats`);
     }
 
     const selected = deterministicShuffle(
       candidates,
-      `${seed}:${qlId ?? "ALL"}:${difficulty}`,
+      `${seed}:${cpId ?? "ALL_CPS"}:${qlId ?? "ALL_QLS"}:${difficulty}`,
     ).slice(0, count);
 
-    const questions = selected.map((question) => ({
-      ...lifecycle,
-      id: question.questionId,
-      questionId: question.questionId,
-      packageId: GEO_RIV_001_QUESTION_STUDIO_PACKAGE_ID_V1,
-      patternId: question.qlId,
-      qlId: question.qlId,
-      cpId: question.cpId,
-      subject: "Static GK",
-      topic: "Indian Geography",
-      subtopic: "Indian Rivers & Drainage System",
-      language,
-      locale: "en-IN",
-      stem: question.stem,
-      text: question.stem,
-      options: [...question.options],
-      correctIndex: question.correctIndex,
-      correct: question.correctIndex,
-      canonicalAnswer: question.canonicalAnswer,
-      answer: question.canonicalAnswer,
-      explanation: question.explanation,
-      difficulty: question.difficulty,
-      difficultyLabel: question.difficulty,
-      sourceIds: [...question.sourceIds],
-      sourceFactIds: [...question.sourceFactIds],
-      solverAuthority: question.solverAuthority,
-      registrationStatus: "REGISTERED_REVIEW_ONLY",
-      registrationAuthorityId: GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1.authorityId,
-      authoringReviewApproved: true,
-      questionStudioDiscoverable: true,
-      questionStudioGenerationEnabled: true,
-      runtimeRegistered: true,
-      readOnly: true,
-      revisionPolicy: GEO_RIV_001_REVISION_POLICY_V1,
-      productionReleased: false,
-      questionStudioReview: {
+    const questions = selected.map((question) => {
+      const registrationAuthorityId = freezeAuthorityForCp(question.cpId);
+      return {
         ...lifecycle,
-        registrationStatus: "REGISTERED_REVIEW_ONLY" as const,
-        registrationAuthorityId: GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1.authorityId,
-        runtimeMode: GEO_RIV_001_QUESTION_STUDIO_RUNTIME_MODE_V1,
+        id: question.questionId,
+        questionId: question.questionId,
+        packageId: GEO_RIV_001_QUESTION_STUDIO_PACKAGE_ID_V1,
+        patternId: question.qlId,
+        qlId: question.qlId,
+        cpId: question.cpId,
+        subject: "Static GK",
+        topic: "Indian Geography",
+        subtopic: "Indian Rivers & Drainage System",
+        language,
+        locale: "en-IN",
+        stem: question.stem,
+        text: question.stem,
+        options: [...question.options],
+        correctIndex: question.correctIndex,
+        correct: question.correctIndex,
+        canonicalAnswer: question.canonicalAnswer,
+        answer: question.canonicalAnswer,
+        explanation: question.explanation,
+        difficulty: question.difficulty,
+        difficultyLabel: question.difficulty,
+        sourceIds: [...question.sourceIds],
+        sourceFactIds: [...question.sourceFactIds],
+        solverAuthority: question.solverAuthority,
+        registrationStatus: "REGISTERED_REVIEW_ONLY",
+        registrationAuthorityId,
         authoringReviewApproved: true,
-        frozenCorpusOnly: true,
-        immutableCorpus: true,
-        contentAuthorityVersion: GEO_RIV_001_CONTENT_AUTHORITY_VERSION_V1,
+        questionStudioDiscoverable: true,
+        questionStudioGenerationEnabled: true,
+        runtimeRegistered: true,
+        readOnly: true,
         revisionPolicy: GEO_RIV_001_REVISION_POLICY_V1,
-        productionDifficultyClaimAuthorized: false,
-      },
-    }));
+        productionReleased: false,
+        questionStudioReview: {
+          ...lifecycle,
+          registrationStatus: "REGISTERED_REVIEW_ONLY" as const,
+          registrationAuthorityId,
+          runtimeMode: GEO_RIV_001_QUESTION_STUDIO_RUNTIME_MODE_V1,
+          authoringReviewApproved: true,
+          frozenCorpusOnly: true,
+          immutableCorpus: true,
+          contentAuthorityVersion: registrationAuthorityId,
+          revisionPolicy: GEO_RIV_001_REVISION_POLICY_V1,
+          productionDifficultyClaimAuthorized: false,
+          explanationVisualPolicy: "OPTIONAL_MANUAL_EDITORIAL_ATTACHMENT",
+        },
+      };
+    });
 
     return {
       questions,
@@ -242,7 +256,7 @@ export const knowledgeV1GeoRiv001QuestionStudioAdapterV1: QuestionStudioEngineAd
         packageId: GEO_RIV_001_QUESTION_STUDIO_PACKAGE_ID_V1,
         runtimeMode: GEO_RIV_001_QUESTION_STUDIO_RUNTIME_MODE_V1,
         registrationStatus: "REGISTERED_REVIEW_ONLY",
-        registrationAuthorityId: GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1.authorityId,
+        registrationAuthorityId: cpId ? freezeAuthorityForCp(cpId) : GEO_RIV_001_CONTENT_AUTHORITY_VERSION_V1,
         authoringReviewApproved: true,
         reviewOnly: true,
         frozenCorpusOnly: true,
@@ -256,10 +270,12 @@ export const knowledgeV1GeoRiv001QuestionStudioAdapterV1: QuestionStudioEngineAd
         difficultyFilterApplied: difficulty !== "Mixed",
         productionDifficultyClaimAuthorized: false,
         qlSelection: qlId ?? "DETERMINISTIC_ACROSS_PERMANENT_QLS",
+        cpSelection: cpId ?? "DETERMINISTIC_ACROSS_FROZEN_CPS",
         permanentQlIds: qlIds,
         cpIds: [...cpIds],
         candidatePoolSize: candidates.length,
-        selectionMode: "FROZEN_GEO_RIV_001_CP001_DETERMINISTIC_WITHOUT_REPLACEMENT",
+        selectionMode: "FROZEN_GEO_RIV_001_CP001_CP002_DETERMINISTIC_WITHOUT_REPLACEMENT",
+        explanationVisualPolicy: "OPTIONAL_MANUAL_EDITORIAL_ATTACHMENT",
         seed,
         count,
       },
