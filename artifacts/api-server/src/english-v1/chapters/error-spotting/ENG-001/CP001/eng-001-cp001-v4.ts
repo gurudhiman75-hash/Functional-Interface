@@ -8,189 +8,20 @@ import {
   semanticDomainOfV4,
 } from "./cp001-patterns-v4";
 import { BASE_SCENES_V4 } from "./cp001-semantic-catalog-v4";
-import { CONTEXT_EXPANSIONS_BY_DOMAIN_V4 } from "./cp001-context-expansions-v4";
+import {
+  chooseCp001PlainContext,
+  simplifyCp001Segments,
+} from "./cp001-plain-language-v4";
 
 /**
- * Directions are intentionally repetitive and clear, like real exam papers.
- * Diversity belongs in the sentence content, not in fancy instruction wording.
+ * Error-spotting directions should be instantly understood. Sentence diversity
+ * belongs in the question itself, not in constantly changing instructions.
  */
-const STEMS: Record<Eng001QlId, readonly string[]> = {
-  "ENG-001-QL001": [
-    "Identify the part of the sentence that contains an error.",
-  ],
-  "ENG-001-QL002": [
-    "Identify the part of the sentence that contains an error. If there is no error, select 'No error'.",
-  ],
-  "ENG-001-QL007": [
-    "Identify the part of the sentence that contains an error. If there is no error, select 'No error'.",
-  ],
+const STEMS: Record<Eng001QlId, string> = {
+  "ENG-001-QL001": "Identify the part of the sentence that contains an error.",
+  "ENG-001-QL002": "Identify the part of the sentence that contains an error. If there is no error, select 'No error'.",
+  "ENG-001-QL007": "Identify the part of the sentence that contains an error. If there is no error, select 'No error'.",
 };
-
-/**
- * Plain-language surface layer. These replacements keep the grammar target
- * unchanged while removing vocabulary that makes an SVA question harder for
- * the wrong reason. Longer phrases come before single-word replacements.
- */
-const EDITORIAL_PHRASE_REPLACEMENTS: readonly [string, string][] = [
-  ["waiting for document checking", "scheduled for a document check"],
-  ["scheduled for document checking", "scheduled for a document check"],
-  ["waiting near the main field", "waiting near the field"],
-  ["assembled near the main field", "waiting near the field"],
-  ["waiting in the reception area", "waiting near the front desk"],
-  ["gathered in the reception area", "waiting near the front desk"],
-  ["waiting with prepared parcels", "holding ready parcels"],
-  ["preparing the main field", "getting the field ready"],
-  ["managing the main field", "working in the field"],
-  ["monitoring the control screen", "watching the control screen"],
-  ["working at the control screen", "watching the control screen"],
-  ["submitting updated documents", "giving the required papers"],
-  ["seeking account renewal", "renewing the account"],
-  ["preparing the new exhibition", "setting up the new display"],
-  ["organising the new exhibition", "setting up the new display"],
-  ["rehearsing the opening piece", "practising the opening piece"],
-  ["leading the opening rehearsal", "leading the first practice"],
-  ["recording the morning survey", "doing the morning survey"],
-  ["conducting the morning survey", "doing the morning survey"],
-  ["attending the morning batch", "in the morning class"],
-  ["using the marked cycle lane", "riding in the cycle lane"],
-  ["riding in the marked cycle lane", "riding in the cycle lane"],
-  ["under one project report", "in one project report"],
-  ["in a single project report", "in one project report"],
-  ["The computers,", "The test programs,"],
-  ["along with the computers", "along with the test programs"],
-  ["together with the computers", "together with the test programs"],
-  ["as well as the computers", "as well as the test programs"],
-  ["Either the computers or", "Either the test programs or"],
-  ["Neither the computers nor", "Neither the test programs nor"],
-  ["or the computers", "or the test programs"],
-  ["nor the computers", "nor the test programs"],
-  ["diagnostic programs", "test programs"],
-  ["diagnostic program", "test program"],
-  ["diagnostic unit", "test room"],
-  ["diagnostic test", "test"],
-  ["clinical briefing", "medical meeting"],
-  ["clinical note", "medical note"],
-  ["outpatient clinic", "clinic"],
-  ["rehabilitation session", "recovery session"],
-  ["dosage instructions", "medicine instructions"],
-  ["valid prescriptions", "valid doctor's notes"],
-  ["follow-up examination", "follow-up check"],
-  ["after consultation", "after the check-up"],
-  ["laboratory technicians", "lab workers"],
-  ["laboratory technician", "lab worker"],
-  ["laboratory procedure", "lab rules"],
-  ["laboratory study", "lab study"],
-  ["laboratory log", "lab notes"],
-  ["preliminary data", "early results"],
-  ["research log", "study notes"],
-  ["research plan", "study plan"],
-  ["observation team", "study team"],
-  ["observation plan", "study plan"],
-  ["field station", "field site"],
-  ["curriculum meeting", "school meeting"],
-  ["examination guidelines", "test instructions"],
-  ["examination portal", "test website"],
-  ["examination schedule", "test schedule"],
-  ["reporting instructions", "test instructions"],
-  ["valid identity card", "valid ID card"],
-  ["practical demonstration", "practical lesson"],
-  ["under supervision", "with guidance"],
-  ["reserved ticket", "booked ticket"],
-  ["departure board", "travel board"],
-  ["maintenance bay", "repair area"],
-  ["braking system", "brakes"],
-  ["inspection report", "check report"],
-  ["inspection note", "check note"],
-  ["safety inspection", "safety check"],
-  ["routine inspection", "routine check"],
-  ["ground inspection", "ground check"],
-  ["wholesale market", "large market"],
-  ["packaged goods", "packed goods"],
-  ["bulk order", "large order"],
-  ["purchase invoice", "bill"],
-  ["supplier invoice", "supplier bill"],
-  ["warehouse stock", "stored goods"],
-  ["reusable shopping bag", "shopping bag"],
-  ["monthly instalment", "monthly payment"],
-  ["qualifying round", "next round"],
-  ["conditioning session", "fitness session"],
-  ["public service centre", "service centre"],
-  ["verification counter", "checking desk"],
-  ["field review", "field check"],
-  ["beta version", "test version"],
-  ["firmware update", "software update"],
-  ["protected wetland", "protected lake area"],
-  ["reservoir", "lake"],
-  ["irrigation demonstration", "water-use lesson"],
-  ["irrigation channel", "water channel"],
-  ["irrigation pumps", "water pumps"],
-  ["irrigation pump", "water pump"],
-  ["irrigation plan", "water plan"],
-  ["sowing season", "planting season"],
-  ["scheduled servicing", "regular service"],
-  ["production output", "work output"],
-  ["assembly line", "work line"],
-  ["structural defect", "serious fault"],
-  ["technical review", "repair check"],
-  ["technical inspection", "safety check"],
-  ["resurfacing", "road repair"],
-  ["before commissioning", "before use"],
-  ["distribution line", "power line"],
-  ["outage reporting service", "power complaint service"],
-  ["the interruption", "the power cut"],
-  ["transaction instructions", "payment instructions"],
-  ["transaction rules", "payment rules"],
-  ["settlement rules", "payment rules"],
-  ["registered letter", "special letter"],
-  ["handheld system", "mobile device"],
-  ["calculating postage", "checking the mail charge"],
-  ["residential route", "home-delivery route"],
-  ["holiday travel period", "holiday travel time"],
-  ["public exhibition", "public display"],
-  ["main exhibition", "main display"],
-  ["exhibition catalogue", "display list"],
-  ["chamber group", "music group"],
-  ["curators", "museum workers"],
-  ["curator", "museum worker"],
-  ["commuters", "travellers"],
-  ["commuter", "traveller"],
-  ["tellers", "bank clerks"],
-  ["teller", "bank clerk"],
-  ["recipients", "customers"],
-  ["recipient", "customer"],
-  ["publication", "release"],
-  ["broadcast", "show"],
-  ["editorial", "news"],
-  ["clinical", "medical"],
-  ["diagnostic", "test"],
-  ["protocol", "rules"],
-  ["assessment", "check"],
-  ["conservation", "care"],
-  ["deployment", "setup"],
-  ["settlement", "payment"],
-  ["occupancy", "room use"],
-  ["preliminary", "early"],
-  ["firmware", "software"],
-  ["wholesale", "large"],
-  ["laboratory", "lab"],
-  ["verification", "checking"],
-  ["maintenance", "repair"],
-  ["inspection", "check"],
-  ["commissioning", "use"],
-  ["curriculum", "study"],
-] as const;
-
-function editorializeText(text: string): string {
-  let out = text;
-  for (const [from, to] of EDITORIAL_PHRASE_REPLACEMENTS) {
-    out = out.replaceAll(from, to);
-  }
-  return out.replace(/\s+/g, " ").replace(/\s+([,.!?;:])/g, "$1").trim();
-}
-
-function editorializeSegments(segments: readonly string[]): string[] {
-  return segments.map(editorializeText);
-}
 
 interface ModifierEchoRepair {
   correctSegments: string[];
@@ -198,6 +29,11 @@ interface ModifierEchoRepair {
   repaired: boolean;
 }
 
+/**
+ * Replace a modifier only when it repeats the same -ing action as the main
+ * continuous verb. The replacement always comes from the scene's other
+ * authored modifier; nothing new is invented here.
+ */
 function repairBaseSceneModifierEcho(candidate: Eng001SentenceCandidate): ModifierEchoRepair {
   const correctSegments = [...candidate.correctSegments];
   const errorSegments = [...candidate.errorSegments];
@@ -296,8 +132,12 @@ function shapeThreeSegmentsPreserveError(
   seed: string,
 ): { segments: string[]; errorIndex: number } {
   if (segments.length !== 4) throw new Error(`QL002 requires four source segments; received ${segments.length}`);
-  const mergeCandidates = [0, 1, 2].filter((index) => index !== errorIndex && index + 1 !== errorIndex);
-  if (mergeCandidates.length === 0) throw new Error(`Unable to preserve error segment ${errorIndex} while shaping QL002`);
+  const mergeCandidates = [0, 1, 2].filter(
+    (index) => index !== errorIndex && index + 1 !== errorIndex,
+  );
+  if (mergeCandidates.length === 0) {
+    throw new Error(`Unable to preserve error segment ${errorIndex} while shaping QL002`);
+  }
   const mergeAt = deterministicPick(`${seed}:three-segment-merge`, mergeCandidates);
   const shaped = mergePair(segments, mergeAt, errorIndex);
   if (shaped.errorIndex === null) throw new Error("QL002 error index was lost during shaping");
@@ -318,12 +158,15 @@ function chooseRule(input: {
   const isNoError = input.qlId === "ENG-001-QL007";
   if (input.ruleId) {
     const rule = SUBJECT_VERB_AGREEMENT_RULE_BY_ID[input.ruleId];
-    if (!rule.allowedDifficulties.includes(input.difficulty)) throw new Error(`${input.ruleId} does not support ${input.difficulty}`);
+    if (!rule.allowedDifficulties.includes(input.difficulty)) {
+      throw new Error(`${input.ruleId} does not support ${input.difficulty}`);
+    }
     if (isNoError && !ENG001_CP001_V4_NO_ERROR_RULE_IDS.includes(input.ruleId)) {
       throw new Error(`${input.ruleId} is not admitted to the calibrated No-error pool`);
     }
     return input.ruleId;
   }
+
   const allowed = rulesForDifficultyV4(input.difficulty).filter(
     (ruleId) => !isNoError || ENG001_CP001_V4_NO_ERROR_RULE_IDS.includes(ruleId),
   );
@@ -336,47 +179,14 @@ function decorrelatedContextSeed(seed: string, ruleId: GrammarRuleId, domain: st
   return `ctx:${reversed}:${seed.length}:${alternating}:${ruleId}:${domain}`;
 }
 
-const CONTEXT_LEADS = ["at", "during", "in", "on", "under"] as const;
-
-function contextConflicts(source: string, context: string): boolean {
-  const lowerSource = source.toLowerCase();
-  const lowerContext = context.toLowerCase();
-  if (lowerSource.includes(lowerContext)) return true;
-
-  const lead = lowerContext.split(/\s+/)[0] ?? "";
-  if (CONTEXT_LEADS.includes(lead as (typeof CONTEXT_LEADS)[number])) {
-    const count = lowerSource.match(new RegExp(`\\b${lead}\\b`, "g"))?.length ?? 0;
-    if (count > 0) return true;
-  }
-
-  const sourceHasSpecificTime = /\b(?:today|tomorrow|tonight|this morning|this afternoon|this evening|this week|this term|this season)\b/.test(lowerSource);
-  const contextHasSpecificTime = /\b(?:today|tomorrow|tonight|this morning|this afternoon|this evening|this week|this term|this season)\b/.test(lowerContext);
-  if (sourceHasSpecificTime && contextHasSpecificTime) return true;
-
-  return false;
-}
-
-function choosePlainContext(
-  sourceSegments: readonly string[],
-  domain: keyof typeof CONTEXT_EXPANSIONS_BY_DOMAIN_V4,
-  seed: string,
-) {
-  const source = sourceSegments.join(" ").replace(/\s+/g, " ").trim();
-  const pool = CONTEXT_EXPANSIONS_BY_DOMAIN_V4[domain];
-  const eligible = pool.filter((entry) => !contextConflicts(source, entry.text));
-  return deterministicPick(seed, eligible.length > 0 ? eligible : pool);
-}
-
-function isPluralCorrection(correction: string): boolean {
-  const first = correction.trim().toLowerCase().split(/\s+/)[0] ?? "";
-  return first === "are" || first === "have" || first === "were";
-}
-
 function simpleRuleExplanation(candidate: Eng001SentenceCandidate): string {
   const correction = candidate.correction ?? "the correct verb";
+
   switch (candidate.ruleId) {
-    case "GR-SVA-001":
-      return `The subject is ${isPluralCorrection(correction) ? "plural" : "singular"}, so use “${correction}”.`;
+    case "GR-SVA-001": {
+      const plural = candidate.candidateId.includes(":PL");
+      return `The subject is ${plural ? "plural" : "singular"}, so use “${correction}”.`;
+    }
     case "GR-SVA-002":
       return `“Each” and “Every” are singular, so use “${correction}”.`;
     case "GR-SVA-003":
@@ -389,10 +199,12 @@ function simpleRuleExplanation(candidate: Eng001SentenceCandidate): string {
       return `“Along with”, “together with” and “as well as” do not change the main subject, so use “${correction}”.`;
     case "GR-SVA-006":
       return `With “either...or” and “neither...nor”, use the verb that matches the nearer subject: “${correction}”.`;
-    case "GR-SVA-007":
-      return isPluralCorrection(correction)
+    case "GR-SVA-007": {
+      const membersSeparate = candidate.tags.includes("pattern:collective-members");
+      return membersSeparate
         ? `The members are acting separately, so use “${correction}”.`
         : `The group is acting as one, so use “${correction}”.`;
+    }
     case "GR-SVA-008":
       return `“More than one” takes a singular verb, so use “${correction}”.`;
     case "GR-SVA-009":
@@ -424,18 +236,18 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
   if (!domain) throw new Error(`${candidate.candidateId} lacks a semantic domain for V4 context expansion`);
 
   const modifierRepair = repairBaseSceneModifierEcho(candidate);
-  const editorialCorrect = editorializeSegments(modifierRepair.correctSegments);
-  const editorialError = editorializeSegments(modifierRepair.errorSegments);
-  const context = choosePlainContext(
-    editorialCorrect,
+  const plainCorrect = simplifyCp001Segments(modifierRepair.correctSegments);
+  const plainError = simplifyCp001Segments(modifierRepair.errorSegments);
+  const context = chooseCp001PlainContext(
+    plainCorrect,
     domain,
     decorrelatedContextSeed(input.seed, candidate.ruleId, domain),
   );
 
   const isNoError = qlId === "ENG-001-QL007";
   const rawErrorIndex = isNoError ? null : candidate.errorIndex;
-  const contextualCorrect = contextualizeSegments(editorialCorrect, candidate.errorIndex, context.text);
-  const contextualError = contextualizeSegments(editorialError, candidate.errorIndex, context.text);
+  const contextualCorrect = contextualizeSegments(plainCorrect, candidate.errorIndex, context.text);
+  const contextualError = contextualizeSegments(plainError, candidate.errorIndex, context.text);
   const rawSegments = isNoError ? contextualCorrect : contextualError;
   const visible = ensureFourVisibleSegments(rawSegments, rawErrorIndex);
   const shaped = qlId === "ENG-001-QL002"
@@ -455,7 +267,7 @@ export function generateEng001Cp001QuestionV4(input: GenerateEng001Cp001V4Input)
 
   return {
     questionId: `ENG-001-CP001-V4:${qlId}:${realizedCandidateId}:${input.seed}`,
-    stem: STEMS[qlId][0]!,
+    stem: STEMS[qlId],
     segments: shaped.segments,
     options,
     correctOptionIndex,
