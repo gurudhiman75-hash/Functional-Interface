@@ -23,7 +23,7 @@ assert.equal(LP_010_ENGLISH_FREEZE_V1.nextAvailableQlId, "LP-QL-041");
 assert.equal(LP_010_ENGLISH_FREEZE_V1.questionStudioStatus, "PENDING_LOCALIZATION");
 
 const caselets = generateLp010Batch("lp-010-permanent-freeze-v1", 100);
-const permanentIds = new Set(LP_010_PERMANENT_QL_ALLOCATIONS.map(({ qlId }) => qlId);
+const permanentIds = new Set(LP_010_PERMANENT_QL_ALLOCATIONS.map(({ qlId }) => qlId));
 const qlCounts = new Map<string, number>();
 const qlAnswerPositions = new Map<string, number[]>();
 
