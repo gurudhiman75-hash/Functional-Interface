@@ -74,6 +74,20 @@ try {
 }
 assertEvidenceGate(runtimeModeError);
 
+let legacySimulatorFallbackError: unknown;
+try {
+  generateProbabilityQuestionStudioBatch({
+    packageId: "PRB-001",
+    canonicalProblemId: "PRB-CP-001",
+    examProfile: "SSC_CGL_CHSL",
+    count: 1,
+    seed: "QUANT-V4-REAL-EXAM-SIMULATION-CI:PSSSB:1:PROBABILITY:19",
+  });
+} catch (error) {
+  legacySimulatorFallbackError = error;
+}
+assertEvidenceGate(legacySimulatorFallbackError);
+
 const ssc = await generateQuestion({
   packageId: "PRB-001" as any,
   canonicalProblemId: "PRB-CP-001",
@@ -101,6 +115,7 @@ console.log(JSON.stringify({
   authority: PROBABILITY_PUNJAB_PROFILE_GATE_AUTHORITY,
   punjabProfileStatus: PROBABILITY_PUNJAB_PROFILE_GATE.status,
   fallbackAllowed: PROBABILITY_PUNJAB_PROFILE_GATE.fallbackAllowed,
+  legacySimulatorFallbackBlocked: true,
   controls: {
     ssc: ssc.generationContext.profileTransportStatus,
     banking: banking.generationContext.profileTransportStatus,
