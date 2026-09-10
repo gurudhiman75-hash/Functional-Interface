@@ -7,6 +7,10 @@ import { runMal001QuestionStudioPipeline } from "../topics/Arithmetic/subtopics/
 import type { ProbabilityExamProfile } from "../topics/Probability/shared/types";
 import type { MenCp009StandardQuestionStudioRequest } from "../topics/AdvancedMathematics/subtopics/Mensuration/MEN-002/MEN-CP-009/question-studio-runtime";
 import {
+  QUANT_V4_REAL_EXAM_PROFILES,
+  resolveProbabilitySimulationProfile,
+} from "./quant-v4-real-exam-simulation-p2";
+import {
   QUANT_V4_PUNJAB_PROFILE_BOUNDARY_FINDINGS,
   QUANT_V4_PUNJAB_SIMULATION_EXAMS,
   QUANT_V4_REAL_EXAM_PUNJAB_PROFILE_PROPAGATION_AUTHORITY,
@@ -23,7 +27,9 @@ const coreRequestBoundary: CoreQuantV4GenerationRequest = {
 };
 void coreRequestBoundary;
 
-// @ts-expect-error Probability has no PUNJAB_STATE profile contract yet.
+// The Question Studio boundary accepts PUNJAB_STATE and evidence-gates it, while
+// the raw Probability selection profile still has no native Punjab contract.
+// @ts-expect-error Probability has no native PUNJAB_STATE profile contract yet.
 const probabilityPunjabProfile: ProbabilityExamProfile = "PUNJAB_STATE";
 void probabilityPunjabProfile;
 
@@ -73,6 +79,13 @@ for (const summary of audit.summaries) {
   assert.equal(summary.centralOptionCount, 4);
   assert.equal(summary.centralDeliveryStyle, "PUNJAB_STATE_OBJECTIVE");
   assert.equal(summary.simulatorPropagationReady, false);
+  const simulatorProfile = QUANT_V4_REAL_EXAM_PROFILES.find((profile) => profile.id === summary.examId);
+  assert.ok(simulatorProfile, `Missing simulator profile ${summary.examId}.`);
+  assert.equal(
+    resolveProbabilitySimulationProfile(simulatorProfile),
+    "PUNJAB_STATE",
+    `${summary.examId} Probability must route to the explicit Punjab evidence gate.`,
+  );
 }
 
 const findingBySurface = new Map(
@@ -80,17 +93,21 @@ const findingBySurface = new Map(
 );
 assert.equal(findingBySurface.get("CENTRAL_EXAM_PROFILE_AUTHORITY")?.status, "SUPPORTED");
 assert.equal(findingBySurface.get("HISTORICAL_REAL_EXAM_SIMULATOR")?.status, "STALE_SIMULATOR_METADATA");
+assert.equal(findingBySurface.get("REAL_EXAM_PROBABILITY_RESOLVER")?.status, "SUPPORTED");
 assert.equal(findingBySurface.get("CORE_GENERATION_ENGINE")?.status, "PROFILE_BLIND");
 assert.equal(findingBySurface.get("QUESTION_STUDIO_AVERAGE_ROUTE")?.status, "PROFILE_BLIND");
 assert.equal(findingBySurface.get("QUESTION_STUDIO_MIXTURE_ROUTE")?.status, "PROFILE_BLIND");
 assert.equal(findingBySurface.get("LEGACY_ARITHMETIC_RUNTIME_ROUTES")?.status, "PROFILE_BLIND");
 assert.equal(findingBySurface.get("MEN_002_STANDARD_QUESTION_STUDIO_ROUTE")?.status, "PROFILE_BLIND");
-assert.equal(findingBySurface.get("PROBABILITY_PROFILE_CONTRACT")?.status, "PUNJAB_PROFILE_UNSUPPORTED");
+assert.equal(findingBySurface.get("PROBABILITY_PROFILE_CONTRACT")?.status, "EVIDENCE_GATED");
 
 const coreFinding = findingBySurface.get("CORE_GENERATION_ENGINE");
 assert.ok(coreFinding?.affectedPackages.includes("PCT-001"));
 assert.ok(coreFinding?.affectedPackages.includes("RAP-001"));
 assert.ok(coreFinding?.affectedPackages.includes("PRT-001"));
+assert.ok(findingBySurface.get("REAL_EXAM_PROBABILITY_RESOLVER")?.affectedPackages.includes("PSSSB"));
+assert.ok(findingBySurface.get("REAL_EXAM_PROBABILITY_RESOLVER")?.affectedPackages.includes("PPSC"));
+assert.ok(findingBySurface.get("REAL_EXAM_PROBABILITY_RESOLVER")?.affectedPackages.includes("PUNJAB_POLICE"));
 assert.ok(findingBySurface.get("PROBABILITY_PROFILE_CONTRACT")?.affectedPackages.includes("PRB-001"));
 assert.ok(findingBySurface.get("PROBABILITY_PROFILE_CONTRACT")?.affectedPackages.includes("PRB-002"));
 
@@ -100,6 +117,7 @@ console.log(JSON.stringify({
   profilesAudited: audit.profilesAudited,
   simulatorPropagationReady: audit.simulatorPropagationReady,
   probabilityHasPunjabProfile: audit.probabilityHasPunjabProfile,
+  probabilitySimulatorResolver: "PUNJAB_STATE_DIRECT_EVIDENCE_GATE",
   blockingFindingCount: audit.blockingFindingCount,
   findings: audit.findings,
   summaries: audit.summaries,
