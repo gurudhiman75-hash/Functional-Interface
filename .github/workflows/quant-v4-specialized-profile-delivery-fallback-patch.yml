@@ -1,0 +1,44 @@
+name: Quant V4 specialized profile delivery fallback patch
+
+on:
+  push:
+    branches:
+      - audit/quant-v4-specialized-profile-delivery-remediation-p2
+    paths:
+      - ".github/workflows/quant-v4-specialized-profile-delivery-fallback-patch.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/quant-v4-specialized-profile-delivery-remediation-p2
+          fetch-depth: 0
+      - name: Preserve existing specialized options when extending delivery shape
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path("artifacts/api-server/src/quant-v4/generation-engine.ts")
+          text = p.read_text()
+          marker = '''function enforceProfileDelivery(value: any, profileId: QuantV4ExamProfileId) {\n'''
+          helper = '''function extendExistingOptionsForDelivery(input: {\n  options: readonly string[];\n  correctIndex: number | undefined;\n  desiredCount: number;\n  seed: string;\n}) {\n  if (\n    !Number.isInteger(input.correctIndex) ||\n    (input.correctIndex as number) < 0 ||\n    (input.correctIndex as number) >= input.options.length ||\n    input.options.length >= input.desiredCount ||\n    new Set(input.options).size !== input.options.length\n  ) {\n    return null;\n  }\n\n  const options = [...input.options];\n  const correctOption = options[input.correctIndex as number]!.trim();\n  const ratio = correctOption.match(/^(-?\\d+(?:\\.\\d+)?)\\s*:\\s*(-?\\d+(?:\\.\\d+)?)$/u);\n  const candidates: string[] = [];\n  if (ratio) {\n    const left = Number(ratio[1]);\n    const right = Number(ratio[2]);\n    if (Number.isFinite(left) && Number.isFinite(right)) {\n      candidates.push(`${left + 1}:${right}`, `${left}:${right + 1}`, `${Math.max(1, left - 1)}:${right}`);\n    }\n  }\n  candidates.push("None of these", "Cannot be determined", "Insufficient information");\n\n  let hash = 2166136261;\n  for (const character of input.seed) {\n    hash ^= character.charCodeAt(0);\n    hash = Math.imul(hash, 16777619);\n  }\n  const start = (hash >>> 0) % candidates.length;\n  for (let offset = 0; offset < candidates.length && options.length < input.desiredCount; offset += 1) {\n    const candidate = candidates[(start + offset) % candidates.length]!;\n    if (!options.includes(candidate)) options.push(candidate);\n  }\n\n  return options.length === input.desiredCount\n    ? { options, correctIndex: input.correctIndex as number }\n    : null;\n}\n\n'''
+          if text.count(marker) != 1:
+              raise SystemExit(f"expected one enforceProfileDelivery marker, found {text.count(marker)}")
+          text = text.replace(marker, helper + marker, 1)
+
+          old = '''  if (!hasExpectedOptionShape) {\n    const answer = value.answer ?? value.canonicalAnswer?.display ?? value.canonicalAnswer?.value;\n    if (answer === undefined || answer === null || answer === "") return null;\n    const rebuilt = buildQuantV4AnswerOptions(answer, {\n      existingOptions,\n      optionCount: contract.optionCount,\n      seed: String(value.seed ?? value.questionId ?? value.text ?? `${profileId}:delivery`),\n      context: {\n        packageId: value.packageId,\n        archetypeId: value.patternId ?? value.packageId,\n        canonicalProblemId: value.canonicalProblemId,\n        questionLanguageId: value.questionLanguageId,\n        taskKind: value.taskKind,\n        difficulty: value.difficulty ?? value.difficultyLabel,\n        stem: value.text,\n        variables: value.proceduralLogic ?? value.logic,\n        traceability: value.traceability,\n      },\n    });\n    options = rebuilt.options;\n    correctIndex = rebuilt.correct;\n    canonicalAnswer = rebuilt.canonicalAnswer;\n  }\n'''
+          new = '''  if (!hasExpectedOptionShape) {\n    const deliverySeed = String(\n      value.seed ?? value.questionId ?? value.text ?? `${profileId}:delivery`,\n    );\n    const extension = extendExistingOptionsForDelivery({\n      options: existingOptions,\n      correctIndex,\n      desiredCount: contract.optionCount,\n      seed: deliverySeed,\n    });\n\n    if (extension) {\n      options = extension.options;\n      correctIndex = extension.correctIndex;\n    } else {\n      const answer = value.answer ?? value.canonicalAnswer?.display ?? value.canonicalAnswer?.value;\n      if (answer === undefined || answer === null || answer === "") return null;\n      const rebuilt = buildQuantV4AnswerOptions(answer, {\n        existingOptions,\n        optionCount: contract.optionCount,\n        seed: deliverySeed,\n        context: {\n          packageId: value.packageId,\n          archetypeId: value.patternId ?? value.packageId,\n          canonicalProblemId: value.canonicalProblemId,\n          questionLanguageId: value.questionLanguageId,\n          taskKind: value.taskKind,\n          difficulty: value.difficulty ?? value.difficultyLabel,\n          stem: value.text,\n          variables: value.proceduralLogic ?? value.logic,\n          traceability: value.traceability,\n        },\n      });\n      options = rebuilt.options;\n      correctIndex = rebuilt.correct;\n      canonicalAnswer = rebuilt.canonicalAnswer;\n    }\n  }\n'''
+          if text.count(old) != 1:
+              raise SystemExit(f"expected one rebuild block, found {text.count(old)}")
+          p.write_text(text.replace(old, new, 1))
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/generation-engine.ts
+          git diff --cached --check
+          git commit -m "fix(quant-v4): preserve specialized options during profile delivery"
+          git push origin HEAD:audit/quant-v4-specialized-profile-delivery-remediation-p2
