@@ -17,6 +17,7 @@ const Login = lazy(() => import("@/pages/login"));
 const AccountRecovery = lazy(() => import("@/pages/account-recovery"));
 const AccountDeletion = lazy(() => import("@/pages/account-deletion"));
 const Dashboard = lazy(() => import("@/pages/dashboard"));
+const Performance = lazy(() => import("@/pages/performance"));
 const Tests = lazy(() => import("@/pages/tests"));
 const TestSeries = lazy(() => import("@/pages/test-series"));
 const PublishedTest = lazy(() => import("@/pages/published-test"));
@@ -43,7 +44,6 @@ const PYQHub = lazy(() => import("@/pages/pyqs"));
 const Blog = lazy(() => import("@/pages/blog"));
 const ReportQuestion = lazy(() => import("@/pages/report-question"));
 const SeoLanding = lazy(() => import("@/pages/seo-landing"));
-const UnavailableFeature = lazy(() => import("@/pages/unavailable-feature"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 const DEFAULT_LOCAL_ADMIN_ORIGIN = "http://localhost:5174";
@@ -125,15 +125,6 @@ function ProtectedRoute({ component: Component, layout = "app" }: ProtectedRoute
   );
 }
 
-function AnalyticsUnavailable() {
-  return (
-    <UnavailableFeature
-      title="Performance analytics is being rebuilt"
-      description="Server-backed rankings, percentiles, weak-area analysis, and cross-device progress will appear here after the canonical analytics APIs are complete."
-    />
-  );
-}
-
 function LoginRecoveryShortcut({ location }: { location: string }) {
   if (location !== "/login" && !location.startsWith("/login/student")) return null;
   return (
@@ -193,10 +184,10 @@ function Router() {
           <Route path="/my-packages" component={() => <ProtectedRoute component={MyPurchases} />} />
           <Route path="/purchases" component={() => <ProtectedRoute component={MyPurchases} />} />
           <Route path="/bookmarks" component={() => <ProtectedRoute component={Bookmarks} />} />
+          <Route path="/performance" component={() => <ProtectedRoute component={Performance} />} />
           <Route path="/test-series/:id" component={() => <ProtectedRoute component={TestSeries} />} />
           <Route path="/test/:id" component={() => <ProtectedRoute component={Test} layout="none" />} />
           <Route path="/result" component={() => <ProtectedRoute component={Result} />} />
-          <Route path="/performance" component={() => renderAppRoute(AnalyticsUnavailable)} />
           <Route path="/profile" component={() => renderAppRoute(Profile)} />
           <Route path="/report-question" component={() => renderAppRoute(ReportQuestion)} />
 
