@@ -6,6 +6,7 @@ import {
   ENG001_CP001_V4_NO_ERROR_RULE_IDS,
   semanticDomainOfV4,
 } from "./cp001-patterns-v4";
+import { simplifyCp001Segments, simplifyCp001Text } from "./cp001-plain-language-v4";
 
 export interface Eng001Cp001V4Issue {
   code:
@@ -198,16 +199,18 @@ export function validateEng001Cp001QuestionV4(question: Eng001Question): Eng001C
     issues.push(issue("QL_CONTRACT", `${question.questionId} must use the simple exam-style instruction stem.`));
   }
 
+  const sourceCandidate = buildEng001Cp001CandidateV4({
+    ruleId: question.metadata.ruleId,
+    difficulty: question.metadata.difficulty,
+    seed: `${question.metadata.seed}:${question.metadata.ruleId}`,
+  });
+
   if (question.metadata.qlId === "ENG-001-QL002") {
     if (question.segments.length !== 3 || question.metadata.hasNoError) {
       issues.push(issue("QL_CONTRACT", `${question.questionId} violates the three-segment error contract.`));
     }
-    const candidate = buildEng001Cp001CandidateV4({
-      ruleId: question.metadata.ruleId,
-      difficulty: question.metadata.difficulty,
-      seed: `${question.metadata.seed}:${question.metadata.ruleId}`,
-    });
-    const errorSegment = candidate.errorSegments[candidate.errorIndex!];
+    const surfaceErrorSegments = simplifyCp001Segments(sourceCandidate.errorSegments);
+    const errorSegment = surfaceErrorSegments[sourceCandidate.errorIndex!];
     if (question.segments[question.correctOptionIndex] !== errorSegment) {
       issues.push(issue("QL_CONTRACT", `${question.questionId} merged the intended error with another source segment.`));
     }
@@ -226,8 +229,16 @@ export function validateEng001Cp001QuestionV4(question: Eng001Question): Eng001C
     if (!question.explanation.startsWith("There is no error.")) {
       issues.push(issue("EXPLANATION", `${question.questionId} has an inconsistent No-error explanation.`));
     }
-  } else if (!question.explanation.startsWith(`Part ${question.metadata.answerSegment} contains the error.`)) {
-    issues.push(issue("EXPLANATION", `${question.questionId} does not identify the keyed part in plain language.`));
+  } else {
+    if (!question.explanation.startsWith(`Part ${question.metadata.answerSegment} contains the error.`)) {
+      issues.push(issue("EXPLANATION", `${question.questionId} does not identify the keyed part in plain language.`));
+    }
+    const surfaceErrorSpan = simplifyCp001Text(sourceCandidate.errorSpan ?? "");
+    const surfaceCorrection = simplifyCp001Text(sourceCandidate.correction ?? "");
+    const expectedReplacement = `Replace “${surfaceErrorSpan}” with “${surfaceCorrection}”.`;
+    if (!question.explanation.includes(expectedReplacement)) {
+      issues.push(issue("EXPLANATION", `${question.questionId} explanation does not match the visible error and correction.`));
+    }
   }
 
   if (!question.explanation.includes(question.correctedSentence)) {
