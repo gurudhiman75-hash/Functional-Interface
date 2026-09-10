@@ -135,5 +135,13 @@ await assert.rejects(
   languageV1Eng001QuestionStudioAdapterV1.generate({ ...baseRequest, count: 51 }),
   /count between 1 and 50/i,
 );
+await assert.rejects(
+  languageV1Eng001QuestionStudioAdapterV1.generate({
+    ...baseRequest,
+    difficulty: "Medium",
+    canonicalProblemId: "GR-SVA-001",
+  }),
+  /GR-SVA-001 is not approved for Medium difficulty/i,
+);
 
 console.log("ENG-001 CP001 Question Studio language-v1 integration tests passed.");
