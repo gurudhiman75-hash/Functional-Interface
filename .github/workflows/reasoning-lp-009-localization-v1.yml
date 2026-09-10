@@ -1,0 +1,50 @@
+name: Reasoning LP-009 Hindi Punjabi Localization V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-v1.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-v1.test.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-review-export.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/LP-009-HI-PA-LOCALIZATION-REVIEW-V1.md"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-permanent-freeze.ts"
+  workflow_dispatch:
+
+concurrency:
+  group: lp-009-localization-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lp009-localization-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Reprove frozen English authority
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-permanent-freeze.test.ts
+
+      - name: Enforce approved English V2 explanation contract
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-explanation-quality-v2.test.ts
+
+      - name: Audit Hindi Punjabi semantic parity
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-v1.test.ts
+
+      - name: Export localization human review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-localization-review-export.ts
+
+      - name: Upload localization human review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: lp-009-hi-pa-review-v1
+          path: dist/reasoning-v1/lp-009-localization-review
+          retention-days: 14
