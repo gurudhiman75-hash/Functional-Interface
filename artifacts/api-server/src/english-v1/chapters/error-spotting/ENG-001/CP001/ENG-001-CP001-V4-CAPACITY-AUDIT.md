@@ -76,13 +76,15 @@ Direction wording is intentionally standardized instead of treated as a diversit
 
 The diversity budget is spent on actual sentence situations and grammatical structures, not superficial instruction rewrites.
 
-## Difficulty policy
+## Difficulty and editorial policy
 
 - Easy uses direct agreement with little structural concealment.
 - Medium introduces stronger distractors, distance, or agreement constructions.
 - Hard derives difficulty from dependency distance, competing nouns, proximity structures, collective readings, and rule complexity.
 - Obscure vocabulary is not used to manufacture Hard questions.
 - `lexicalLoad` remains a guardrail rather than a positive difficulty signal.
+- A dedicated plain-language realization layer removes avoidable domain jargon and selected awkward collocations without changing the agreement target.
+- Error explanations use one short reason followed by `Use “...”`; No-error explanations explicitly state that the existing verb is correct.
 
 ## Automated gates
 
@@ -100,10 +102,15 @@ The V4 workflow currently passes all of the following:
 - rule/mutation consistency;
 - structural difficulty derivation;
 - Hard lexical-load ceiling;
+- fixed exam-style instruction stems;
 - QL002 error-segment preservation;
 - calibrated No-error admission;
 - non-empty visible segments;
+- heavy-vocabulary and explanation-jargon guardrails;
+- concise direct correction wording;
 - explanation/corrected-sentence consistency;
+- machine-like repeated-predicate checks;
+- selected awkward-collocation regression checks found during human-style review;
 - large-sample diversity thresholds;
 - all 20 domains in each difficulty stress sample;
 - domain-balance guardrails;
@@ -113,4 +120,4 @@ The V4 workflow currently passes all of the following:
 
 The V4 review exporter produces **60 questions: 20 Easy, 20 Medium, 20 Hard**. It targets all 20 semantic domains once in each difficulty section before a domain is reused.
 
-Question Studio/publication wiring remains blocked until this V4 review is explicitly approved.
+The final frozen sample incorporates the plain-language human-style review pass. Question Studio/publication wiring remains blocked until this V4 review is explicitly approved.
