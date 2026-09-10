@@ -27,6 +27,47 @@ export interface Eng001Cp001V4Validation {
 
 const issue = (code: Eng001Cp001V4Issue["code"], message: string): Eng001Cp001V4Issue => ({ code, message });
 
+const HEAVY_SURFACE_TERMS = [
+  "assessment",
+  "clinical",
+  "commissioning",
+  "conservation",
+  "curriculum",
+  "deployment",
+  "diagnostic",
+  "editorial",
+  "firmware",
+  "irrigation",
+  "laboratory",
+  "maintenance",
+  "occupancy",
+  "outpatient",
+  "preliminary",
+  "protocol",
+  "qualifying",
+  "rehabilitation",
+  "reservoir",
+  "resurfacing",
+  "settlement",
+  "structural",
+  "transaction",
+  "verification",
+  "wholesale",
+] as const;
+
+const EXPLANATION_JARGON = [
+  "finite verb",
+  "head subject",
+  "subject head",
+  "controls agreement",
+  "plural noun phrase",
+  "intervening material",
+  "dependency",
+] as const;
+
+const ERROR_STEM = "Identify the part of the sentence that contains an error.";
+const NO_ERROR_STEM = "Identify the part of the sentence that contains an error. If there is no error, select 'No error'.";
+
 function sentenceWordCount(segments: readonly string[]): number {
   return segments.join(" ").trim().split(/\s+/).filter(Boolean).length;
 }
@@ -35,14 +76,6 @@ function textWordCount(text: string): number {
   return text.trim().split(/\s+/).filter(Boolean).length;
 }
 
-/**
- * Detect a real modifier/predicate echo such as “trainee attending ... is
- * attending ...”. A repeated -ing token elsewhere in a noun phrase (for
- * example “morning cleaning round ... is cleaning”) is not enough: the
- * registered intervening modifier itself must begin with the same participle,
- * and that participle must still occur twice on the realized surface after
- * editorial normalization.
- */
 function repeatedContinuousPredicate(question: Eng001Question): string | null {
   const candidate = buildEng001Cp001CandidateV4({
     ruleId: question.metadata.ruleId,
@@ -145,6 +178,11 @@ export function validateEng001Cp001QuestionV4(question: Eng001Question): Eng001C
     issues.push(issue("QL_CONTRACT", `${question.questionId} answer index is out of range.`));
   }
 
+  const expectedStem = question.metadata.qlId === "ENG-001-QL001" ? ERROR_STEM : NO_ERROR_STEM;
+  if (question.stem !== expectedStem) {
+    issues.push(issue("QL_CONTRACT", `${question.questionId} must use the simple exam-style instruction stem.`));
+  }
+
   if (question.metadata.qlId === "ENG-001-QL002") {
     if (question.segments.length !== 3 || question.metadata.hasNoError) {
       issues.push(issue("QL_CONTRACT", `${question.questionId} violates the three-segment error contract.`));
@@ -173,8 +211,8 @@ export function validateEng001Cp001QuestionV4(question: Eng001Question): Eng001C
     if (!question.explanation.startsWith("There is no error.")) {
       issues.push(issue("EXPLANATION", `${question.questionId} has an inconsistent No-error explanation.`));
     }
-  } else if (!question.explanation.includes(`segment ${question.metadata.answerSegment}`)) {
-    issues.push(issue("EXPLANATION", `${question.questionId} does not identify the keyed segment.`));
+  } else if (!question.explanation.startsWith(`Part ${question.metadata.answerSegment} contains the error.`)) {
+    issues.push(issue("EXPLANATION", `${question.questionId} does not identify the keyed part in plain language.`));
   }
 
   if (!question.explanation.includes(question.correctedSentence)) {
@@ -188,6 +226,24 @@ export function validateEng001Cp001QuestionV4(question: Eng001Question): Eng001C
   const realizedMax = question.metadata.difficulty === "easy" ? 30 : question.metadata.difficulty === "medium" ? 42 : 50;
   if (realizedWords > realizedMax) {
     issues.push(issue("NATURALNESS", `${question.questionId} realized sentence has ${realizedWords} words, above the ${question.metadata.difficulty} editorial ceiling of ${realizedMax}.`));
+  }
+
+  const lowerSentence = question.correctedSentence.toLowerCase();
+  for (const term of HEAVY_SURFACE_TERMS) {
+    if (lowerSentence.includes(term)) {
+      issues.push(issue("NATURALNESS", `${question.questionId} contains avoidable heavy vocabulary: “${term}”.`));
+    }
+  }
+
+  const explanationBeforeCorrection = question.explanation.split("Correct sentence:")[0] ?? question.explanation;
+  if (textWordCount(explanationBeforeCorrection) > 38) {
+    issues.push(issue("EXPLANATION", `${question.questionId} explanation is too wordy before the corrected sentence.`));
+  }
+  const lowerExplanation = explanationBeforeCorrection.toLowerCase();
+  for (const phrase of EXPLANATION_JARGON) {
+    if (lowerExplanation.includes(phrase)) {
+      issues.push(issue("EXPLANATION", `${question.questionId} explanation contains avoidable grammar jargon: “${phrase}”.`));
+    }
   }
 
   const repeatedPredicate = repeatedContinuousPredicate(question);
