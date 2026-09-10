@@ -42,7 +42,7 @@ Therefore copying generic, SSC or Banking-looking CP mixes into another profile 
   - `CP_QL_DISTRIBUTION_UNPROVEN`
   - `DIFFICULTY_REPRESENTATION_UNCALIBRATED`
 
-Question Studio package discovery exposes this contract as `examProfileSelection`, so callers can distinguish a usable delivery profile from a genuinely calibrated content selector.
+Question Studio package discovery exposes this contract as `examProfileSelection`, so callers can distinguish a usable delivery profile from a genuinely calibrated content selector. The discovery layer decorates both already-registered package cards and fallback-added cards, preventing older registrations from silently omitting the evidence status.
 
 ## Normalized observation registry
 
