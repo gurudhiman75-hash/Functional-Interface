@@ -74,6 +74,7 @@ function reviseInherited(question: GeoRiv001Cp004ReviewQuestion): GeoRiv001Cp004
     stem,
     options,
     explanation,
+    difficulty: question.qlId === "GEO-RIV-001-QL-035" ? "Medium" as const : question.difficulty,
   };
   assertKnowledgeQuestionValid({
     stem: revised.stem,
