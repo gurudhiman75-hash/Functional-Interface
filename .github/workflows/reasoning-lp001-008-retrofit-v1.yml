@@ -28,6 +28,9 @@ jobs:
       - name: Audit LP-001 through LP-008 topology
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-retrofit-topology-audit.ts
 
+      - name: Audit LP-001 through LP-008 learner-facing quality
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-editorial-quality-audit.ts
+
       - name: Reprove LP-006 difficulty calibration
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/difficulty-calibration.test.ts
 
