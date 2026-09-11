@@ -70,7 +70,15 @@ function polishLp003(language: Lp001008LocalizedLanguage, caselet: Lp001008Local
   const ordinalize = (text: string) => language === "hi"
     ? text.replace(/नीचे से ([1-7])वें/gu, (_match, value: string) => `नीचे से ${ORDINAL.hi[Number(value) as keyof typeof ORDINAL.hi]}`)
     : text.replace(/ਹੇਠਾਂ ਤੋਂ ([1-7])ਵੇਂ/gu, (_match, value: string) => `ਹੇਠਾਂ ਤੋਂ ${ORDINAL.pa[Number(value) as keyof typeof ORDINAL.pa]}`);
-  const polish = (text: string) => ordinalize(replaceAllClues(text, oldClues, newClues));
+  const polish = (text: string) => {
+    let output = ordinalize(replaceAllClues(text, oldClues, newClues));
+    if (language === "hi") {
+      output = output
+        .replace(/(\S+)ें के बीच/gu, "$1ों के बीच")
+        .replace(/(\S+)ाएँ के बीच/gu, "$1ाओं के बीच");
+    }
+    return output;
+  };
   return {
     ...caselet,
     scenario: polish(caselet.scenario),
@@ -96,7 +104,7 @@ function neutralSelection(language: Lp001008LocalizedLanguage, text: string): st
       .replace(/([^\n.]+?) और ([^\n.]+?) या तो दोनों चुने जाते हैं या दोनों नहीं।/gu, "$1 और $2—दोनों का चयन होता है या दोनों का नहीं।")
       .replace(/([^\n.]+?) और ([^\n.]+?) दोनों एक साथ नहीं चुने जा सकते।/gu, "$1 और $2—दोनों का एक साथ चयन नहीं हो सकता।")
       .replace(/([^\n.]+?) और ([^\n.]+?) में से ठीक एक चुना जाता है।/gu, "$1 और $2 में से ठीक एक का चयन होता है।")
-      .replace(/([^\n.]+?) नहीं चुना जाता है?।/gu, "$1 का चयन नहीं होता है।")
+      .replace(/([^\n.]+?) नहीं चुना जाता(?: है)?।/gu, "$1 का चयन नहीं होता है।")
       .replace(/([^\n.]+?) चुना जाता है।/gu, "$1 का चयन होता है।");
   } else {
     output = output
@@ -104,7 +112,7 @@ function neutralSelection(language: Lp001008LocalizedLanguage, text: string): st
       .replace(/([^\n.]+?) ਅਤੇ ([^\n.]+?) ਜਾਂ ਦੋਵੇਂ ਚੁਣੇ ਜਾਂਦੇ ਹਨ ਜਾਂ ਦੋਵੇਂ ਨਹੀਂ।/gu, "$1 ਅਤੇ $2—ਦੋਵਾਂ ਦੀ ਚੋਣ ਹੁੰਦੀ ਹੈ ਜਾਂ ਦੋਵਾਂ ਦੀ ਨਹੀਂ।")
       .replace(/([^\n.]+?) ਅਤੇ ([^\n.]+?) ਦੋਵੇਂ ਇਕੱਠੇ ਨਹੀਂ ਚੁਣੇ ਜਾ ਸਕਦੇ।/gu, "$1 ਅਤੇ $2—ਦੋਵਾਂ ਦੀ ਇਕੱਠੇ ਚੋਣ ਨਹੀਂ ਹੋ ਸਕਦੀ।")
       .replace(/([^\n.]+?) ਅਤੇ ([^\n.]+?) ਵਿੱਚੋਂ ਠੀਕ ਇੱਕ ਚੁਣਿਆ ਜਾਂਦਾ ਹੈ।/gu, "$1 ਅਤੇ $2 ਵਿੱਚੋਂ ਠੀਕ ਇੱਕ ਦੀ ਚੋਣ ਹੁੰਦੀ ਹੈ।")
-      .replace(/([^\n.]+?) ਨਹੀਂ ਚੁਣਿਆ ਜਾਂਦਾ।/gu, "$1 ਦੀ ਚੋਣ ਨਹੀਂ ਹੁੰਦੀ।")
+      .replace(/([^\n.]+?) ਨਹੀਂ ਚੁਣਿਆ ਜਾਂਦਾ(?: ਹੈ)?।/gu, "$1 ਦੀ ਚੋਣ ਨਹੀਂ ਹੁੰਦੀ।")
       .replace(/([^\n.]+?) ਚੁਣਿਆ ਜਾਂਦਾ ਹੈ।/gu, "$1 ਦੀ ਚੋਣ ਹੁੰਦੀ ਹੈ।")
       .replaceAll("| ਨਹੀਂ ਚੁਣਿਆ |", "| ਚੋਣ ਨਹੀਂ ਹੋਈ |")
       .replaceAll("| ਚੁਣਿਆ |", "| ਚੋਣ ਹੋਈ |");
