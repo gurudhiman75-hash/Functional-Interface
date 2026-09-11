@@ -60,8 +60,8 @@ export const GEO_RIV_001_CP015_SOURCE_CP_QUOTAS_V1 = Object.freeze(
 );
 
 const BASE_DIFFICULTY_PATTERN: readonly KnowledgeV1Difficulty[] = ["Easy", "Medium", "Medium", "Hard"];
-const CP007_DIFFICULTY_PATTERN: readonly KnowledgeV1Difficulty[] = ["Easy", "Easy", "Medium", "Hard", "Medium", "Medium"];
-const CP014_DIFFICULTY_PATTERN: readonly KnowledgeV1Difficulty[] = ["Medium", "Medium", "Medium", "Medium", "Medium", "Hard"];
+const CP007_DIFFICULTY_PATTERN: readonly KnowledgeV1Difficulty[] = ["Easy", "Easy", "Medium", "Medium", "Medium", "Medium"];
+const CP014_DIFFICULTY_PATTERN: readonly KnowledgeV1Difficulty[] = ["Medium", "Medium", "Medium", "Medium", "Hard", "Hard"];
 
 function difficultyPatternFor(pool: SourcePool) {
   if (pool.cpId === "GEO-RIV-001-CP007") return CP007_DIFFICULTY_PATTERN;
