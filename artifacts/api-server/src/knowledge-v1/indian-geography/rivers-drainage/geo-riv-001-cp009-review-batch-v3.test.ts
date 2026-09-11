@@ -8,7 +8,7 @@ assert.equal(scopeAudit.valid, true, scopeAudit.issues.join("\n"));
 assert.equal(scopeAudit.courseFactCount, 25);
 assert.equal(scopeAudit.uniqueCoursePairCount, 25);
 assert.equal(scopeAudit.riverCount, 9);
-assert.equal(scopeAudit.stateCount, 12);
+assert.equal(scopeAudit.stateCount, 15);
 assert.equal(GEO_RIV_001_CP009_REVIEW_SCOPE_V1.closedWorldForIncludedRiverCourseQuestions, true);
 assert.equal(GEO_RIV_001_CP009_REVIEW_SCOPE_V1.completeForIncludedRiversMainCourseInIndia, true);
 assert.equal(GEO_RIV_001_CP009_REVIEW_SCOPE_V1.universalGeographyCompletenessClaim, false);
