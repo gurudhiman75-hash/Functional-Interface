@@ -1,14 +1,17 @@
 import assert from "node:assert/strict";
-import { generateLp011Batch, lp011ClueSatisfied, LP_011_REVIEW_PACKAGE, solveLp011 } from "./lp-011.ts";
+import { lp011ClueSatisfied, LP_011_REVIEW_PACKAGE, solveLp011 } from "./lp-011.ts";
+import { generateLp011BatchStabilizedV1_1, LP_011_STABILIZED_V1_1 } from "./lp-011-stabilized-v1-1.ts";
 
 assert.equal(LP_011_REVIEW_PACKAGE.runtimeMode, "REVIEW_ONLY");
 assert.equal(LP_011_REVIEW_PACKAGE.qlAllocationStatus, "CANDIDATE_NOT_PERMANENT");
 assert.deepEqual(LP_011_REVIEW_PACKAGE.qlIds, ["LP-QL-041", "LP-QL-042", "LP-QL-043", "LP-QL-044"]);
+assert.equal(LP_011_STABILIZED_V1_1.status, "HUMAN_REVIEW_CANDIDATE");
 
-const caselets = generateLp011Batch("lp-011-proof-v1", 100);
+const caselets = generateLp011BatchStabilizedV1_1("lp-011-proof-v1-1", 100);
 assert.equal(caselets.length, 100);
 assert.deepEqual(new Set(caselets.map((caselet) => caselet.difficultyBand)), new Set(["Easy", "Medium", "Hard"]));
 assert.ok(new Set(caselets.map((caselet) => caselet.scenarioProfileId)).size >= 5);
+assert.equal(new Set(caselets.map((caselet) => caselet.caseletId)).size, caselets.length);
 
 const answerPositions = new Map<string, number[]>();
 for (const caselet of caselets) {
@@ -56,4 +59,4 @@ for (const [qlId, positions] of answerPositions) {
   assert.ok(Math.max(...counts) - Math.min(...counts) <= 1, `${qlId} answer positions are not balanced: ${counts.join(",")}`);
 }
 
-console.log("LP-011 V1 proof passed: 100 unique source-backed box-and-attribute caselets, 400 questions, clue necessity, difficulty structure, option integrity and progressive explanations are green.");
+console.log("LP-011 V1.1 proof passed: 100 source-backed box-and-attribute caselets, 400 questions, clue necessity, difficulty structure, option integrity and progressive explanations are green.");
