@@ -159,9 +159,9 @@ export function generateAnaCp010Semantic(
   const [correct] = shuffled.splice(currentCorrect, 1);
   shuffled.splice(requestedIndex, 0, correct);
   const options = shuffled;
-  const canonical = (value: SemanticOption) => Array.isArray(value)
-    ? value.map((part) => part.trim().toLocaleLowerCase(locale)).join("::")
-    : value.trim().toLocaleLowerCase(locale);
+  const canonical = (value: SemanticOption) => typeof value === "string"
+    ? value.trim().toLocaleLowerCase(locale)
+    : value.map((part) => part.trim().toLocaleLowerCase(locale)).join("::");
   if (new Set(options.map((option) => canonical(option.value))).size !== 4) throw new Error(`${qlId} produced duplicate semantic options.`);
   const correctIndex = options.findIndex((option) => option.errorLabel === null);
 
