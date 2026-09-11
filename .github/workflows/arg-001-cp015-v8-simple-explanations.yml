@@ -7,6 +7,7 @@ on:
     paths:
       - .github/workflows/arg-001-cp015-v8-simple-explanations.yml
       - scripts/arg-cp015-simple-explanations-repair.py
+      - scripts/arg-cp015-generic-fallback-routing-repair.py
 
 permissions:
   contents: write
@@ -25,7 +26,9 @@ jobs:
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
       - name: Apply plain-language repair
-        run: python scripts/arg-cp015-simple-explanations-repair.py
+        run: |
+          python scripts/arg-cp015-simple-explanations-repair.py
+          python scripts/arg-cp015-generic-fallback-routing-repair.py
       - name: Strict TypeScript
         working-directory: artifacts/api-server
         run: |
