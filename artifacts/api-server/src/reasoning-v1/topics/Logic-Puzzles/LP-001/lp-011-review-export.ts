@@ -1,8 +1,8 @@
-import { generateLp011Batch } from "./lp-011.ts";
+import { generateLp011BatchStabilizedV1_1 } from "./lp-011-stabilized-v1-1.ts";
 
-const caselets = generateLp011Batch("lp-011-human-review-v1", 12);
+const caselets = generateLp011BatchStabilizedV1_1("lp-011-human-review-v1-1", 12);
 
-console.log("# LP-011 — Box-and-Attribute Stack Puzzle — English Review V1\n");
+console.log("# LP-011 — Box-and-Attribute Stack Puzzle — English Review V1.1\n");
 console.log("Candidate QLs: `LP-QL-041..044`  ");
 console.log("Status: **HUMAN REVIEW ONLY — NOT PERMANENTLY ALLOCATED**\n");
 console.log("This review pack tests the new two-axis stack family: vertical box order + one independent attribute per box.\n");
