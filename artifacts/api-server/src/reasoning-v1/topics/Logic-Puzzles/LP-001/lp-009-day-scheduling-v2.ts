@@ -130,7 +130,6 @@ const PROFILE_TEMPLATES = [
 ] as const;
 
 type ProfileTemplate = (typeof PROFILE_TEMPLATES)[number];
-
 type IndexedClue = { clue: Lp009DayClue; index: number };
 
 function hashSeed(value: string): number {
@@ -263,12 +262,8 @@ function buildCandidates(assignment: Lp009DayAssignment, profile: Lp009DayProfil
       const second = first === left ? right : left;
       candidates.push({ kind: "BEFORE", left: first, right: second, text: `${profile.people[first]} is scheduled earlier in the week than ${profile.people[second]}.` });
       const count = Math.abs(assignment[left] - assignment[right]) - 1;
-      if (count >= 1) {
-        candidates.push({ kind: "BETWEEN", left, right, count, text: `Exactly ${count === 1 ? "one person is" : `${count} people are`} scheduled between ${profile.people[left]} and ${profile.people[right]}.` });
-      }
-      if (Math.abs(assignment[left] - assignment[right]) === 1) {
-        candidates.push({ kind: "ADJACENT", left, right, text: `${profile.people[left]} and ${profile.people[right]} are scheduled on consecutive days, in either order.` });
-      }
+      if (count >= 1) candidates.push({ kind: "BETWEEN", left, right, count, text: `Exactly ${count === 1 ? "one person is" : `${count} people are`} scheduled between ${profile.people[left]} and ${profile.people[right]}.` });
+      if (Math.abs(assignment[left] - assignment[right]) === 1) candidates.push({ kind: "ADJACENT", left, right, text: `${profile.people[left]} and ${profile.people[right]} are scheduled on consecutive days, in either order.` });
     }
   }
   return candidates;
@@ -290,25 +285,31 @@ function acceptableDifficulty(clues: readonly Lp009DayClue[], difficulty: Diffic
 function chooseClues(assignment: Lp009DayAssignment, profile: Lp009DayProfile, difficulty: DifficultyBand, random: () => number): Lp009DayClue[] {
   const candidates = buildCandidates(assignment, profile);
   const directCandidates = candidates.filter((clue) => clue.kind === "PERSON_DAY");
-  const directTarget = difficulty === "Easy" ? 4 : difficulty === "Medium" ? 2 : (random() < 0.5 ? 0 : 1);
+  // Hard keeps exactly one possible direct anchor at construction time and never adds another.
+  // The minimizer may remove it if the relational chain alone is sufficient.
+  const directTarget = difficulty === "Easy" ? 4 : difficulty === "Medium" ? 2 : 1;
 
-  for (let attempt = 0; attempt < 6000; attempt += 1) {
+  for (let attempt = 0; attempt < 9000; attempt += 1) {
     const chosen: Lp009DayClue[] = shuffle(directCandidates, random).slice(0, directTarget);
     let survivors = solveLp009Day({ clues: chosen });
-    const maxClues = difficulty === "Easy" ? 7 : difficulty === "Medium" ? 8 : 10;
+    const maxClues = difficulty === "Easy" ? 7 : difficulty === "Medium" ? 9 : 12;
 
     while (survivors.length > 1 && chosen.length < maxClues) {
+      const directAlready = chosen.filter((clue) => clue.kind === "PERSON_DAY").length;
       const possible = shuffle(candidates, random)
         .filter((candidate) => !chosen.some((clue) => clueKey(clue) === clueKey(candidate)))
+        .filter((candidate) => difficulty !== "Hard" || candidate.kind !== "PERSON_DAY")
+        .filter((candidate) => difficulty !== "Medium" || directAlready < 3 || candidate.kind !== "PERSON_DAY")
         .map((candidate) => ({ candidate, remaining: survivors.filter((state) => satisfies(state, candidate)).length }))
         .filter((entry) => entry.remaining > 0 && entry.remaining < survivors.length)
         .sort((left, right) => {
-          if (difficulty === "Hard") return right.remaining - left.remaining;
-          if (difficulty === "Medium") return Math.abs(left.remaining - survivors.length / 3) - Math.abs(right.remaining - survivors.length / 3);
-          return left.remaining - right.remaining;
+          if (difficulty === "Easy") return left.remaining - right.remaining;
+          const targetFraction = difficulty === "Hard" ? 0.55 : 0.35;
+          const target = survivors.length * targetFraction;
+          return Math.abs(left.remaining - target) - Math.abs(right.remaining - target);
         });
       if (!possible.length) break;
-      const window = Math.min(possible.length, difficulty === "Hard" ? 12 : 6);
+      const window = Math.min(possible.length, difficulty === "Hard" ? 18 : 8);
       const selected = possible[Math.floor(random() * window)]!.candidate;
       chosen.push(selected);
       survivors = survivors.filter((state) => satisfies(state, selected));
@@ -367,10 +368,7 @@ function planClues(clues: readonly Lp009DayClue[]): Lp009DayClue[] {
       const connected = cluePeople(candidate).some((person) => usedPeople.has(person)) ? 1 : 0;
       const direct = candidate.kind === "PERSON_DAY" ? 1 : 0;
       const score = fixedGain * 1_000_000 + direct * 50_000 + connected * 20_000 + reduction * 1_000 - unused[index]!.index / 1000;
-      if (score > bestScore) {
-        bestScore = score;
-        bestPosition = index;
-      }
+      if (score > bestScore) { bestScore = score; bestPosition = index; }
     }
     const [selected] = unused.splice(bestPosition, 1);
     planned.push(selected!.clue);
@@ -397,11 +395,7 @@ function buildExplanation(profile: Lp009DayProfile, clues: readonly Lp009DayClue
     const nextStates = solveLp009Day({ clues: nextApplied });
     const nextTable = tableMarkdown(nextStates, profile);
     const last = index === planned.length - 1;
-    if (nextTable === beforeTable && !last) {
-      applied = nextApplied;
-      states = nextStates;
-      continue;
-    }
+    if (nextTable === beforeTable && !last) { applied = nextApplied; states = nextStates; continue; }
 
     const lead = pending.length === 1
       ? `${step === 1 ? "Start with" : "Now use"} this clue: ${pending[0]!.text}`
@@ -486,34 +480,10 @@ function buildChildren(caseletId: string, caseletIndex: number, profile: Lp009Da
   const q4 = personOptions(profile, q4Answer, random, (caseletIndex + 3) % 4);
 
   return [
-    {
-      questionId: `${caseletId}-Q1`, qlId: "LP-QL-033",
-      stem: standaloneStem(setup, clues, `Who is scheduled on ${DAY_LABELS[q1Day]}?`),
-      options: q1.options, correctIndex: q1.correctIndex, answer: q1Answer, difficultyBand: difficulty,
-      misconceptionFamily: "day-to-person reversal",
-      explanation: buildExplanation(profile, clues, assignment, `From the completed table, **${q1Answer}** is scheduled on ${DAY_LABELS[q1Day]}.`),
-    },
-    {
-      questionId: `${caseletId}-Q2`, qlId: "LP-QL-034",
-      stem: standaloneStem(setup, clues, `On which day is ${profile.people[q2Person]} scheduled?`),
-      options: q2.options, correctIndex: q2.correctIndex, answer: q2Answer, difficultyBand: difficulty,
-      misconceptionFamily: "person-to-day reversal",
-      explanation: buildExplanation(profile, clues, assignment, `From the completed table, **${profile.people[q2Person]}** is scheduled on **${q2Answer}**.`),
-    },
-    {
-      questionId: `${caseletId}-Q3`, qlId: "LP-QL-035",
-      stem: standaloneStem(setup, clues, `Which option correctly gives the scheduled days of ${profile.people[pairLeft]} and ${profile.people[pairRight]}, respectively?`),
-      options: q3.options, correctIndex: q3.correctIndex, answer: q3Answer, difficultyBand: difficulty,
-      misconceptionFamily: "pair-order or day-swap error",
-      explanation: buildExplanation(profile, clues, assignment, `The completed rows give **${q3Answer}**.`),
-    },
-    {
-      questionId: `${caseletId}-Q4`, qlId: "LP-QL-036",
-      stem: standaloneStem(setup, clues, `Who is scheduled on the day immediately after ${profile.people[nextBase]}?`),
-      options: q4.options, correctIndex: q4.correctIndex, answer: q4Answer, difficultyBand: difficulty,
-      misconceptionFamily: "next-day direction reversal",
-      explanation: buildExplanation(profile, clues, assignment, `${profile.people[nextBase]} is on ${DAY_LABELS[assignment[nextBase]]}; the next listed day has **${q4Answer}**.`),
-    },
+    { questionId: `${caseletId}-Q1`, qlId: "LP-QL-033", stem: standaloneStem(setup, clues, `Who is scheduled on ${DAY_LABELS[q1Day]}?`), options: q1.options, correctIndex: q1.correctIndex, answer: q1Answer, difficultyBand: difficulty, misconceptionFamily: "day-to-person reversal", explanation: buildExplanation(profile, clues, assignment, `From the completed table, **${q1Answer}** is scheduled on ${DAY_LABELS[q1Day]}.`) },
+    { questionId: `${caseletId}-Q2`, qlId: "LP-QL-034", stem: standaloneStem(setup, clues, `On which day is ${profile.people[q2Person]} scheduled?`), options: q2.options, correctIndex: q2.correctIndex, answer: q2Answer, difficultyBand: difficulty, misconceptionFamily: "person-to-day reversal", explanation: buildExplanation(profile, clues, assignment, `From the completed table, **${profile.people[q2Person]}** is scheduled on **${q2Answer}**.`) },
+    { questionId: `${caseletId}-Q3`, qlId: "LP-QL-035", stem: standaloneStem(setup, clues, `Which option correctly gives the scheduled days of ${profile.people[pairLeft]} and ${profile.people[pairRight]}, respectively?`), options: q3.options, correctIndex: q3.correctIndex, answer: q3Answer, difficultyBand: difficulty, misconceptionFamily: "pair-order or day-swap error", explanation: buildExplanation(profile, clues, assignment, `The completed rows give **${q3Answer}**.`) },
+    { questionId: `${caseletId}-Q4`, qlId: "LP-QL-036", stem: standaloneStem(setup, clues, `Who is scheduled on the day immediately after ${profile.people[nextBase]}?`), options: q4.options, correctIndex: q4.correctIndex, answer: q4Answer, difficultyBand: difficulty, misconceptionFamily: "next-day direction reversal", explanation: buildExplanation(profile, clues, assignment, `${profile.people[nextBase]} is on ${DAY_LABELS[assignment[nextBase]]}; the next listed day has **${q4Answer}**.`) },
   ];
 }
 
@@ -529,20 +499,7 @@ export function generateLp009DaySchedulingV2(seed = "lp-009-day-scheduling-v2", 
     const clues = chooseClues(assignment, profile, difficulty, random);
     const caseletId = `LP-009-DAY-V2-${String(index + 1).padStart(3, "0")}`;
     const questionSetup = buildQuestionSetup(profile);
-    result.push({
-      caseletId,
-      scenarioProfileId: profile.id,
-      scenario: profile.scenario,
-      questionSetup,
-      mode: "DAY",
-      difficultyBand: difficulty,
-      people: PEOPLE,
-      days: DAY_VALUES,
-      labels: profile,
-      clues,
-      assignment,
-      children: buildChildren(caseletId, index, profile, questionSetup, clues, assignment, difficulty, random),
-    });
+    result.push({ caseletId, scenarioProfileId: profile.id, scenario: profile.scenario, questionSetup, mode: "DAY", difficultyBand: difficulty, people: PEOPLE, days: DAY_VALUES, labels: profile, clues, assignment, children: buildChildren(caseletId, index, profile, questionSetup, clues, assignment, difficulty, random) });
   }
   return result;
 }
