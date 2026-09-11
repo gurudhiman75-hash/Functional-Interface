@@ -2,12 +2,17 @@ name: Validate English CP003 V1
 
 on:
   pull_request:
-    branches: [New-main]
-    types: [opened, reopened, synchronize]
+    branches:
+      - New-main
+    types:
+      - opened
+      - reopened
+      - synchronize
     paths:
       - artifacts/api-server/src/english-v1/**
   push:
-    branches: [New-main]
+    branches:
+      - New-main
     paths:
       - artifacts/api-server/src/english-v1/**
   workflow_dispatch:
