@@ -69,11 +69,6 @@ const GENERAL_WORDS = [
   "NAIL", "HONEY", "STATUE", "CATHODE", "RELATION", "FLOWER", "MAGIC", "STONE",
 ] as const;
 
-const MIXED_WORDS = [
-  "HONEY", "STATUE", "CATHODE", "RELATION", "COURSE", "MANGO", "WINTER", "NATURE",
-  "FLOWER", "MAGIC", "STONE", "BRIDGE", "SILVER", "GARDEN", "PRAYER", "MARKET",
-] as const;
-
 const RULES: readonly SourceGapRuleId[] = [
   "ALPHABETICAL_ASCENDING_SORT",
   "INDEXED_SHIFT_THEN_REVERSE",
@@ -196,15 +191,18 @@ function contextForSeed(ruleId: SourceGapRuleId, seed: number): SourceGapContext
   };
 }
 
-function sourcePool(ruleId: SourceGapRuleId): readonly string[] {
-  return ruleId === "MIXED_CLASS_CODE" ? MIXED_WORDS : GENERAL_WORDS;
+function sourcePool(_ruleId: SourceGapRuleId): readonly string[] {
+  return GENERAL_WORDS;
 }
 
 function selectThree(pool: readonly string[], seed: number, attempt: number): readonly [string, string, string] {
   const size = pool.length;
-  const first = (Math.abs(seed) * 7 + attempt * 3 + 1) % size;
-  let second = (Math.abs(seed) * 11 + attempt * 5 + 4) % size;
-  let third = (Math.abs(seed) * 13 + attempt * 7 + 9) % size;
+  const value = Math.abs(seed) + attempt * 131;
+  const cycle = Math.floor(value / size);
+  const residue = value % size;
+  const first = (residue + cycle * 3 + 1) % size;
+  let second = (residue * 5 + cycle * 7 + 4) % size;
+  let third = (residue * 11 + cycle * 13 + 9) % size;
   if (second === first) second = (second + 1) % size;
   while (third === first || third === second) third = (third + 1) % size;
   return [pool[first]!, pool[second]!, pool[third]!];
