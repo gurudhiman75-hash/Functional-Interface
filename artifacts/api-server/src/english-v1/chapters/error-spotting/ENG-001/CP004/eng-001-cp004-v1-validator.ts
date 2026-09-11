@@ -67,7 +67,7 @@ export function validateEng001Cp004QuestionV1(question: Eng001Question): Validat
   if (/\.\./.test(visible)) issues.push(issue("EMPTY_SEGMENT", "Visible question contains doubled terminal punctuation."));
   if (plainWordBan.test(visible)) issues.push(issue("EXPLANATION_MISMATCH", "Question uses unnecessarily heavy vocabulary."));
   if (awkwardExplanationBan.test(question.explanation)) issues.push(issue("EXPLANATION_MISMATCH", "Explanation contains test-taking jargon instead of a simple grammar reason."));
-  if (!/(Correct sentence:|corrected sentence is:|sentence should read:|Corrected sentence:|sentence becomes:)/i.test(question.explanation)) {
+  if (!/(Correct sentence:|corrected sentence is:|sentence should read:|Corrected sentence:|sentence becomes:|sentence remains:|The sentence is:)/i.test(question.explanation)) {
     issues.push(issue("EXPLANATION_MISMATCH", "Explanation must show the full correct sentence."));
   }
 
