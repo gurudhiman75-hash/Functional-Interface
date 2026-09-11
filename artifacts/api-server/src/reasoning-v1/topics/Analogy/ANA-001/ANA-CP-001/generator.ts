@@ -52,11 +52,20 @@ function selectFacts(ruleId: string, seed: number): [SemanticFact, SemanticFact]
 }
 
 function wordOptions(target: SemanticFact, allFacts: readonly SemanticFact[], seed: number) {
-  const distractors = shuffle(
+  const shuffledFacts = shuffle(
     allFacts.filter((fact) => fact.id !== target.id && canonical(fact.right) !== canonical(target.right)),
     seed * 37 + 11,
-  ).slice(0, 3);
-  if (distractors.length !== 3) throw new Error(`Rule ${target.relation} cannot produce three category-safe distractors.`);
+  );
+  const seen = new Set<string>([canonical(target.right)]);
+  const distractors: SemanticFact[] = [];
+  for (const fact of shuffledFacts) {
+    const key = canonical(fact.right);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    distractors.push(fact);
+    if (distractors.length === 3) break;
+  }
+  if (distractors.length !== 3) throw new Error(`Rule ${target.relation} cannot produce three unique category-safe distractors.`);
   return shuffle([
     { value: target.right, errorLabel: null },
     ...distractors.map((fact) => ({ value: fact.right, errorLabel: "SAME_CATEGORY_WRONG_RELATION_TARGET" })),
