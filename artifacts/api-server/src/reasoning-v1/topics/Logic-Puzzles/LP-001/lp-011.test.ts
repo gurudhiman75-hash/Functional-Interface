@@ -1,14 +1,15 @@
 import assert from "node:assert/strict";
 import { lp011ClueSatisfied, LP_011_REVIEW_PACKAGE, solveLp011 } from "./lp-011.ts";
-import { generateLp011BatchStabilizedV1_1, LP_011_STABILIZED_V1_1 } from "./lp-011-stabilized-v1-1.ts";
+import { generateLp011BatchStabilizedV1_2, LP_011_STABILIZED_V1_2 } from "./lp-011-stabilized-v1-2.ts";
 
 assert.equal(LP_011_REVIEW_PACKAGE.runtimeMode, "REVIEW_ONLY");
 assert.equal(LP_011_REVIEW_PACKAGE.qlAllocationStatus, "CANDIDATE_NOT_PERMANENT");
 assert.deepEqual(LP_011_REVIEW_PACKAGE.qlIds, ["LP-QL-041", "LP-QL-042", "LP-QL-043", "LP-QL-044"]);
-assert.equal(LP_011_STABILIZED_V1_1.status, "HUMAN_REVIEW_CANDIDATE");
+assert.equal(LP_011_STABILIZED_V1_2.status, "HUMAN_REVIEW_CANDIDATE");
+assert.equal(LP_011_STABILIZED_V1_2.hardDirectBoxAttributeCluesForbidden, true);
 
-const caselets = generateLp011BatchStabilizedV1_1("lp-011-proof-v1-1", 100);
-assert.equal(caselets.length, 100);
+const caselets = generateLp011BatchStabilizedV1_2("lp-011-proof-v1-2", 48);
+assert.equal(caselets.length, 48);
 assert.deepEqual(new Set(caselets.map((caselet) => caselet.difficultyBand)), new Set(["Easy", "Medium", "Hard"]));
 assert.ok(new Set(caselets.map((caselet) => caselet.scenarioProfileId)).size >= 5);
 assert.equal(new Set(caselets.map((caselet) => caselet.caseletId)).size, caselets.length);
@@ -34,7 +35,10 @@ for (const caselet of caselets) {
   for (const label of Object.values(caselet.attributeLabels)) assert.match(caselet.scenario, new RegExp(label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "u"));
   for (const box of caselet.boxes) assert.match(caselet.scenario, new RegExp(`\\b${box}\\b`, "u"));
 
-  if (caselet.difficultyBand === "Hard") assert.ok(caselet.clues.every((clue) => clue.kind !== "BOX_HAS_ATTRIBUTE"), `${caselet.caseletId} Hard caselet has a direct attribute placement`);
+  if (caselet.difficultyBand === "Hard") {
+    assert.ok(caselet.clues.every((clue) => clue.kind !== "BOX_HAS_ATTRIBUTE"), `${caselet.caseletId} Hard caselet has a direct attribute placement`);
+    assert.ok(caselet.clues.some((clue) => clue.kind.includes("ATTRIBUTE")), `${caselet.caseletId} Hard caselet lacks attribute reasoning`);
+  }
   if (caselet.difficultyBand === "Easy") assert.ok(caselet.clues.some((clue) => ["BOX_HAS_ATTRIBUTE", "BOX_IMMEDIATELY_ABOVE_BOX", "ATTRIBUTE_IMMEDIATELY_ABOVE_BOX", "BOX_IMMEDIATELY_ABOVE_ATTRIBUTE"].includes(clue.kind)), `${caselet.caseletId} Easy caselet lacks a strong anchor`);
 
   assert.equal(caselet.children.length, 4);
@@ -56,7 +60,7 @@ for (const caselet of caselets) {
 for (const [qlId, positions] of answerPositions) {
   const counts = [0, 0, 0, 0];
   for (const position of positions) counts[position] += 1;
-  assert.ok(Math.max(...counts) - Math.min(...counts) <= 1, `${qlId} answer positions are not balanced: ${counts.join(",")}`);
+  assert.deepEqual(counts, [12, 12, 12, 12], `${qlId} answer positions are not exactly balanced`);
 }
 
-console.log("LP-011 V1.1 proof passed: 100 source-backed box-and-attribute caselets, 400 questions, clue necessity, difficulty structure, option integrity and progressive explanations are green.");
+console.log("LP-011 V1.2 proof passed: 48 source-backed box-and-attribute caselets, 192 questions, clue necessity, indirect Hard structure, option integrity and progressive explanations are green.");
