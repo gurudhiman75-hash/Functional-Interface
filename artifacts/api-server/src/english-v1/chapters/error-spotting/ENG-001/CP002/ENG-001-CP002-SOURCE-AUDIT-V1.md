@@ -1,10 +1,10 @@
 # ENG-001-CP002 Source & Coverage Audit — Tenses and Sequence of Tenses V1
 
-Status: `SOURCE_AUDIT_V1__IMPLEMENTATION_OPEN__NOT_QUESTION_STUDIO_REGISTERED`
+Status: `SOURCE_AUDIT_V1__REVIEW_CANDIDATE__HUMAN_REVIEW_PENDING__NOT_QUESTION_STUDIO_REGISTERED`
 
 ## Purpose
 
-This audit defines the evidence boundary for `ENG-001-CP002 — Tenses and Sequence of Tenses` before review generation. It follows the English blueprint requirement that every CP begin from a source-backed coverage matrix and preserve the pipeline:
+This audit defines the evidence boundary for `ENG-001-CP002 — Tenses and Sequence of Tenses`. It follows the English blueprint pipeline:
 
 > verified correct construction → registered grammar rule → controlled mutation → deterministic answer → question-specific explanation
 
@@ -29,7 +29,7 @@ A CP002 question may contain words such as `since`, `for`, `when`, or `by the ti
 
 ### A. Blueprint authority
 
-The Examtree English blueprint explicitly assigns `ENG-001-CP002` to **Tenses and Sequence of Tenses** and requires a source audit, rule inventory, patterns, mutations, difficulty mapping, explanations, validators, review batch, systemic defect correction, final audit, and Question Studio compatibility before completion.
+The Examtree English blueprint assigns `ENG-001-CP002` to **Tenses and Sequence of Tenses** and requires source audit, rule inventory, patterns, mutations, difficulty mapping, explanations, validators, review batch, systemic defect correction, final audit, and Question Studio compatibility before completion.
 
 ### B. Competitive-exam surfaces
 
@@ -52,7 +52,7 @@ Cambridge Grammar and British Council references were used to define safe determ
 - present perfect is not normally used with a definite finished-past time such as `yesterday`;
 - present perfect simple/continuous can describe situations that began in the past and continue to the present;
 - simple present is used for habits/general facts, while present continuous is used for actions happening around now;
-- stable stative verbs such as `know`, `understand`, `own`, and `belong` are not normally used progressively in their stative senses;
+- stable stative verbs such as `know`, `understand`, and `own` are not normally used progressively in their stative senses;
 - past perfect marks the earlier of two connected past events, while the later event is typically simple past;
 - a single completed past event does not require the past perfect merely because it happened long ago.
 
@@ -63,9 +63,9 @@ Cambridge Grammar and British Council references were used to define safe determ
 | `GR-TNS-001` | definite finished-past marker → simple past | Direct SSC PYQ + reference backed | Admit `yesterday`, `last Friday`, `two days ago`, explicit past dates; mutate simple past to present perfect. | Easy–Medium |
 | `GR-TNS-002` | continuing dynamic action from past → present perfect continuous | Direct exam-pattern + reference backed | Require dynamic verb, explicit since/for cue, and still-continuing meaning. Mutate to present continuous. | Medium–Hard |
 | `GR-TNS-003` | habitual/general action → simple present | Reference + exam-pattern backed | Use an authored routine marker matched to each scene; mutate to present continuous. | Easy–Medium |
-| `GR-TNS-004` | action happening now → present continuous | Reference backed | Require `right now`, `at the moment`, or `currently` with dynamic verbs; mutate to simple present. | Easy–Medium |
+| `GR-TNS-004` | action happening now → present continuous | Reference backed | Published surfaces use `right now` or `at the moment`; mutate to simple present. | Easy–Medium |
 | `GR-TNS-005` | stative verb not normally continuous | Direct exam-pattern + reference backed | Use only unambiguous stative senses of know/understand/own. | Medium |
-| `GR-TNS-006` | `did/did not + base form` | Direct SSC-pattern backed | Past marking stays on `did`; mutate the lexical verb to its past form. | Easy–Medium |
+| `GR-TNS-006` | `did/did not + base form` | SSC-style grammar pattern | Past marking stays on `did`; mutate the lexical verb to its past form. | Easy–Medium |
 | `GR-TNS-007` | earlier of two connected past actions → past perfect | Reference + exam-pattern backed | Require `by the time` plus explicit earlier/later ordering. Avoid contexts where two simple-past forms are equally natural. | Medium–Hard |
 | `GR-TNS-008` | ongoing past action + past interruption → past continuous | Reference backed | Require an explicit in-progress reading plus a distinct simple-past interruption. | Medium–Hard |
 | `GR-TNS-009` | single completed past event → simple past, not past perfect | Direct SSC CHSL evidence + reference backed | No second past reference point may appear. | Medium |
@@ -73,13 +73,14 @@ Cambridge Grammar and British Council references were used to define safe determ
 
 ## Implemented semantic depth
 
-The first production-oriented V1 catalog now contains:
+The V1 catalog contains:
 
-- **40 dynamic scenes** across all 20 semantic domains;
-- **20 continuing/sequence/interruption scenes**, one in every domain;
-- **20 stative scenes**, one in every domain;
+- **80 dynamic scenes** across all 20 semantic domains;
+- **40 continuing/sequence/interruption scenes**, two in every domain;
+- **40 stative scenes**, two in every domain;
+- **160 authored semantic scenes in total**;
 - neutral setting phrases rather than time-specific context phrases;
-- authored habit markers so a sentence cannot combine contradictory cues such as `at night` with `every morning`;
+- authored habit markers so contradictory cue combinations are not generated;
 - no local city/place-name pool.
 
 The 20 domains are education, transport, commerce, science, sports, public-service, technology, environment, hospitality, healthcare, agriculture, media, household, infrastructure, banking, manufacturing, energy, postal, culture, and emergency-service.
@@ -112,9 +113,11 @@ Grammar references:
 - Use four visible parts for QL001.
 - Use three visible parts plus `No error` for QL002 while preserving the mutated tense span as one visible segment.
 - QL007 is a calibrated no-error surface from deceptive but unambiguous correct constructions.
-- Difficulty is structural: distance between the temporal cue and verb, competing time cues, clause sequencing, and sentence length. Vocabulary must remain plain.
+- Difficulty is structural: distance between the temporal cue and verb, competing time cues, clause sequencing, and sentence length. Vocabulary remains plain.
 - Every error item starts from a verified correct sentence and changes exactly one tense/verb-form segment.
-- Explanations remain short: identify the part, state the time/sequence reason, give the correction, show the corrected sentence.
+- Explanations identify the part, give the time/sequence reason, state the correction, and show the corrected sentence.
+- User-visible surface normalization removes doubled terminal punctuation and avoids the weaker sentence-final `currently` construction.
+- Hard continuing-action surfaces use natural restrictive location phrases rather than forced parenthetical commas.
 
 ## Ambiguity exclusions
 
@@ -127,17 +130,13 @@ V1 rejects or defers:
 - narration/backshift and conditional tense systems;
 - any item whose answer depends on a disputed British/American preference rather than the target Indian competitive-exam convention.
 
-## Initial completion gate
+## Review gate
 
-Before CP002 can be approved, it must show:
+The deterministic V1 review contains **60 questions: 20 Easy, 20 Medium and 20 Hard**. Every difficulty section covers all 20 semantic domains exactly once. CP002 remains `reviewOnly: true` and is not registered in Question Studio.
 
-1. rule/mutation determinism;
-2. exactly one intended tense error;
-3. no hidden second error;
-4. simple exam-like vocabulary;
-5. stable Easy/Medium/Hard separation;
-6. meaningful no-error calibration;
-7. diverse temporal contexts rather than random noun replacement;
-8. question-specific explanations;
-9. deterministic review export;
-10. no Question Studio registration before human approval.
+Before approval it must still pass:
+
+1. human review of the frozen 60-question batch;
+2. any generator-level fixes arising from that review;
+3. final audit and regression run;
+4. Question Studio compatibility/registration only after explicit approval.
