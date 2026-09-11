@@ -57,7 +57,9 @@ for (const [packageId, generateV3, generateV31] of packages) {
       assert.match(text, /\*\*Case 1:\*\*/u);
       assert.match(text, /\*\*Case 2:\*\*/u);
       assert.match(text, /Case 2 breaks the clue, so reject it/u);
-      assert.doesNotMatch(text, /does not satisfy it|does not fix a complete entry by itself|Combining this with the earlier clues, we can now fix/iu);
+      assert.match(text, /Keep Case 1/u);
+      assert.match(text, /Write the final arrangement/u);
+      assert.doesNotMatch(text, /does not satisfy it|does not fix a complete entry by itself|Combining this with the earlier clues, we can now fix|solver|solution count|candidate states/iu);
       if (packageId === "LP-003") assert.doesNotMatch(text, /\*\*Case [12]:\*\* .+? is at position \d+ from the bottom/u);
     }
   }
