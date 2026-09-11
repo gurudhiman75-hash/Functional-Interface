@@ -39,7 +39,7 @@ jobs:
             --bundle --packages=external --platform=node --format=esm \
             --outfile=dist/geography/geo-riv-001-cp015-review-batch-v1.test.mjs
           node artifacts/api-server/dist/geography/geo-riv-001-cp015-review-batch-v1.test.mjs
-      - name: Materialize CP015 review artifact
+      - name: Materialize CP015 V2 review artifact
         run: |
           pnpm --dir artifacts/api-server exec esbuild \
             src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp015-export-review-v1.ts \
@@ -47,11 +47,11 @@ jobs:
             --outfile=dist/geography/geo-riv-001-cp015-export-review-v1.mjs
           cd artifacts/api-server
           node dist/geography/geo-riv-001-cp015-export-review-v1.mjs
-      - name: Upload CP015 review artifact
+      - name: Upload CP015 V2 review artifact
         uses: actions/upload-artifact@v4
         with:
-          name: GEO-RIV-001-CP015-MIXED-MASTERY-REVIEW-BATCH-V1
-          path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP015-V1/
+          name: GEO-RIV-001-CP015-MIXED-MASTERY-REVIEW-BATCH-V2
+          path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP015-V2/
           if-no-files-found: error
           retention-days: 30
       - name: Build API server
