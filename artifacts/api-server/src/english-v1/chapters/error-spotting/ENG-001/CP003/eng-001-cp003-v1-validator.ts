@@ -14,6 +14,11 @@ function correctionCue(correction: string): string {
   return withoutDeterminer.split(/\s+/)[0]?.replace(/[^\p{L}\p{N}-]/gu, "") ?? correction;
 }
 
+function firstIndexOfAny(text: string, needles: readonly string[]): number {
+  const positions = needles.map((needle) => text.indexOf(needle)).filter((at) => at >= 0);
+  return positions.length ? Math.min(...positions) : -1;
+}
+
 export function validateEng001Cp003CandidateV1(candidate: Eng001SentenceCandidate): Cp003Validation {
   const issues: Cp003Issue[] = [];
   if (candidate.correctSegments.length !== 4 || candidate.errorSegments.length !== 4) issues.push(issue("STRUCTURE", "Canonical CP003 candidates must have four segments."));
@@ -42,11 +47,16 @@ export function validateEng001Cp003QuestionV1(question: Eng001Question): Cp003Va
   const expectedStem = question.metadata.qlId === "ENG-001-QL001" ? STEM1 : STEM2;
   if (question.stem !== expectedStem) issues.push(issue("QL", "Question does not use the standard instruction."));
   if (question.metadata.qlId === "ENG-001-QL002" && question.segments.length !== 3) issues.push(issue("QL", "QL002 must have three visible sentence parts plus No error."));
+
   if (question.metadata.hasNoError) {
     if (question.metadata.qlId !== "ENG-001-QL007" || question.options[question.correctOptionIndex] !== "No error") issues.push(issue("QL", "No-error question violates QL007 contract."));
-    if (!question.explanation.startsWith("There is no error.")) issues.push(issue("EXPLANATION", "No-error explanation is inconsistent."));
-  } else if (!question.explanation.startsWith(`Part ${question.metadata.answerSegment} contains the error.`)) {
-    issues.push(issue("EXPLANATION", "Explanation does not identify the keyed part."));
+    if (!/^(?:There is no error\.|The sentence is correct as it is\.|No part of the sentence has an error\.|The given sentence is correct\.)/.test(question.explanation)) {
+      issues.push(issue("EXPLANATION", "No-error explanation does not clearly state that the sentence is correct."));
+    }
+  } else {
+    const label = question.metadata.answerSegment;
+    const keyedOpening = new RegExp(`^(?:Part ${label} contains the error\\.|The error is in Part ${label}\\.|Part ${label} is incorrect\\.|The mistake is in Part ${label}\\.|Part ${label} needs correction\\.)`);
+    if (!keyedOpening.test(question.explanation)) issues.push(issue("EXPLANATION", "Explanation does not identify the keyed part."));
   }
 
   const sceneId = question.metadata.candidateId.replace(/^ART-V1:/, "");
@@ -56,18 +66,41 @@ export function validateEng001Cp003QuestionV1(question: Eng001Question): Cp003Va
   } else {
     const correction = sourceScene.correction;
     if (!question.explanation.includes(`“${correction}”`)) issues.push(issue("EXPLANATION", "Explanation omits the correction."));
-    if (!question.metadata.hasNoError && !question.explanation.includes(`Use “${correction}”.`)) issues.push(issue("EXPLANATION", "Error explanation must state the correction directly."));
 
-    const reasonEnd = question.metadata.hasNoError
-      ? question.explanation.indexOf(`“${correction}” is correct.`)
-      : question.explanation.indexOf(`Use “${correction}”.`);
-    const reasonText = reasonEnd >= 0 ? question.explanation.slice(0, reasonEnd) : question.explanation;
+    const errorCorrectionPhrases = [
+      `Use “${correction}”.`,
+      `It should be “${correction}”.`,
+      `The correct form is “${correction}”.`,
+      `Write “${correction}” instead.`,
+      `Here, we need “${correction}”.`,
+    ] as const;
+    const noErrorConfirmationPhrases = [
+      `“${correction}” is correct here.`,
+      `So “${correction}” is correct.`,
+      `That is why “${correction}” is correct.`,
+      `Therefore, “${correction}” is correct.`,
+    ] as const;
+
+    const markerIndex = question.metadata.hasNoError
+      ? firstIndexOfAny(question.explanation, noErrorConfirmationPhrases)
+      : firstIndexOfAny(question.explanation, errorCorrectionPhrases);
+    if (markerIndex < 0) {
+      issues.push(issue("EXPLANATION", question.metadata.hasNoError
+        ? "No-error explanation does not confirm the keyed form directly."
+        : "Error explanation does not state the correction directly."));
+    }
+
+    const reasonText = markerIndex >= 0 ? question.explanation.slice(0, markerIndex) : question.explanation;
     const cue = correctionCue(correction);
     if (cue && !reasonText.toLocaleLowerCase().includes(cue.toLocaleLowerCase())) {
       issues.push(issue("EXPLANATION", `Explanation rule is not connected to the sentence cue “${cue}”.`));
     }
   }
+
   if (!question.explanation.includes(question.correctedSentence)) issues.push(issue("EXPLANATION", "Explanation omits the corrected sentence."));
+  if (!/(?:Correct sentence:|The corrected sentence is:|So the sentence should read:|Correct form:)/.test(question.explanation)) {
+    issues.push(issue("EXPLANATION", "Explanation does not present the corrected sentence clearly."));
+  }
   if (/\b(?:phonological realization|determiner phrase|DP structure|referential specificity)\b/i.test(question.explanation)) issues.push(issue("EXPLANATION", "Explanation contains unnecessary grammar jargon."));
   if (/\s{2,}/.test(question.correctedSentence)) issues.push(issue("NATURALNESS", "Corrected sentence contains doubled whitespace."));
   return { ok: issues.length === 0, issues };
