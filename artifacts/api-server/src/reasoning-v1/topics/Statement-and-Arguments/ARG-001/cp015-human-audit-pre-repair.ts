@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_AUTHORITY = "ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_V5" as const;
+export const ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_AUTHORITY = "ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_V6" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -26,7 +26,8 @@ function repairEnglish(value: string): string {
     .replace(/(^|[.!?;:]\s+|\bthat\s+)machine-learning anomaly alert is sufficient evidence/gi, "$1a machine-learning anomaly alert is sufficient evidence")
     .replace(/\btemporary risk controls is\b/gi, "temporary risk controls are")
     .replace(/\bservice-access burden that falls disproportionately on long periods\b/gi, "service-access burden that falls disproportionately on people who cannot stand for long periods")
-    .replace(/\bfrom most people in the future\b/gi, "among most people");
+    .replace(/\bfrom most people in the future\b/gi, "among most people")
+    .replace(/((?:An?|One) [^.]+? (?:complaint|report|flag|allegation)) can occur mainly when guilt is already certain/gi, "$1 is sufficient evidence of guilt on its own");
 }
 
 function repairHindi(value: string): string {
@@ -62,7 +63,9 @@ function repairHindi(value: string): string {
     .replace(/एक नकल की शिकायत ही सिद्ध करता है/g, "एक नकल की शिकायत ही सिद्ध करती है")
     .replace(/गृह-राज्य से बाहर कार्ड लेन-देन की अधिकांश घटना या तो धोखाधड़ी है या उसे धोखाधड़ी मानना चाहिए/g, "गृह-राज्य से बाहर कार्ड लेन-देन के अधिकांश मामले या तो धोखाधड़ी हैं या उन्हें धोखाधड़ी मानना चाहिए")
     .replace(/(अभ्यर्थी सहायता और बैकअप व्यवस्था[^।.!?]*?)उपलब्ध हो जाएगा/g, "$1उपलब्ध हो जाएँगी")
-    .replace(/(संक्षिप्त आगमन विंडो[^।.!?]*?)कम कर सकता है/g, "$1कम कर सकती है");
+    .replace(/(संक्षिप्त आगमन विंडो[^।.!?]*?)कम कर सकता है/g, "$1कम कर सकती है")
+    .replace(/लोगों अक्सर/g, "लोग अक्सर")
+    .replace(/उस राशि के आधार पर जानकारी के आधार पर खरीद निर्णय/g, "उस राशि को ध्यान में रखकर जानकारीपूर्ण खरीद निर्णय");
 }
 
 function repairPunjabi(value: string): string {
@@ -90,7 +93,14 @@ function repairPunjabi(value: string): string {
     .replace(/ਭਵਿੱਖ ਵਿੱਚ ਜ਼ਿਆਦਾਤਰ ਕਿਸੇ ਦੀ ਭਵਿੱਖ ਦਾ ਡੈੱਡਲਾਈਨ ਅਨੁਸ਼ਾਸਨ ਕਾਫ਼ੀ ਹੱਦ ਤੱਕ ਯਕੀਨੀ ਹੋ ਜਾਵੇਗੀ/g, "ਭਵਿੱਖ ਵਿੱਚ ਟ੍ਰੇਨੀਜ਼ ਦਾ ਡੈੱਡਲਾਈਨ ਅਨੁਸ਼ਾਸਨ ਲਗਭਗ ਯਕੀਨੀ ਹੋ ਜਾਵੇਗਾ")
     .replace(/(ਕਾਫ਼ੀ ਸਥਿਰ ਕਨੈਕਟਿਵਿਟੀ[^।.!?]*?)ਉਪਲਬਧ ਹੋ ਜਾਣਗੇ/g, "$1ਉਪਲਬਧ ਹੋ ਜਾਵੇਗੀ")
     .replace(/ਜ਼ਿਆਦਾਤਰ ਕੇਂਦਰ ਦਾ ਨਤੀਜਾ/g, "ਜ਼ਿਆਦਾਤਰ ਕੇਂਦਰਾਂ ਦੇ ਨਤੀਜੇ")
-    .replace(/ਸਥਾਈ ਜਾਮ ਸ਼ਾਇਦ ਹੋ ਜਾਵੇਗਾ/g, "ਲੰਬੇ ਸਮੇਂ ਦਾ ਜਾਮ ਪੈ ਜਾਵੇਗਾ");
+    .replace(/ਸਥਾਈ ਜਾਮ ਸ਼ਾਇਦ ਹੋ ਜਾਵੇਗਾ/g, "ਲੰਬੇ ਸਮੇਂ ਦਾ ਜਾਮ ਪੈ ਜਾਵੇਗਾ")
+    .replace(/ਪ੍ਰਕਿਰਿਆਵਾਂ ਦੀ ਬਿਹਤਰ ਯਾਦ ਬਿਹਤਰ ਮੰਨੇ ਜਾਣੇ ਚਾਹੀਦੇ ਹਨ/g, "ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ ਯਾਦ ਰੱਖਣ ਲਈ ਬਿਹਤਰ ਮੰਨੇ ਜਾਣੇ ਚਾਹੀਦੇ ਹਨ")
+    .replace(/ਸੂਚਨਾ ਤੁਰੰਤ ਬਾਅਦ/g, "ਸੂਚਨਾ ਦੇ ਤੁਰੰਤ ਬਾਅਦ")
+    .replace(/ਬਿਨਾਂ ਕਿਸੇ ਵੱਖ ਕਲੈਕਸ਼ਨ ਵਾਹਨ ਦੇ/g, "ਵੱਖਰੇ ਇਕੱਠ ਵਾਹਨ ਤੋਂ ਬਿਨਾਂ")
+    .replace(/ਵੱਖ ਕਲੈਕਸ਼ਨ ਵਾਹਨ ਦੇ ਬਿਨਾਂ/g, "ਵੱਖਰੇ ਇਕੱਠ ਵਾਹਨ ਤੋਂ ਬਿਨਾਂ")
+    .replace(/ਭੋਜਨ ਕੂੜੇ ਅਤੇ ਹੋਰ ਕੂੜੇ ਦੀ ਵੰਡ ਸਿੱਧੇ ਕੰਮ ਕਰੇਗੀ/g, "ਭੋਜਨ ਕੂੜੇ ਅਤੇ ਹੋਰ ਕੂੜੇ ਨੂੰ ਵੱਖ ਰੱਖਣ ਦੀ ਪ੍ਰਣਾਲੀ ਆਪਣੇ ਆਪ ਠੀਕ ਚੱਲੇਗੀ")
+    .replace(/ਵੱਖ ਕੀਤਾ ਭੋਜਨ ਕੂੜੇ ਅਤੇ ਹੋਰ ਕੂੜੇ ਮੁੜ ਮਿਲ ਸਕਦਾ ਹੈ/g, "ਵੱਖ ਕੀਤਾ ਭੋਜਨ ਕੂੜਾ ਅਤੇ ਹੋਰ ਕੂੜਾ ਮੁੜ ਮਿਲ ਸਕਦੇ ਹਨ")
+    .replace(/ਪਾਲਣਾ ਅਤੇ ਭਰੋਸਾ ਘੱਟੇਗਾ/g, "ਪਾਲਣਾ ਅਤੇ ਭਰੋਸਾ ਘਟ ਸਕਦੇ ਹਨ");
 }
 
 function repair(value: string, language: Language): string {
