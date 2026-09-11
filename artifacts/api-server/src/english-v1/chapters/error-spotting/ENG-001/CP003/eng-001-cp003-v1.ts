@@ -3,6 +3,7 @@ import { classifyEnglishDifficulty } from "../../../../core/difficulty";
 import type { ArticleRuleId, DifficultyDimensions, Eng001QlId, Eng001Question, Eng001SentenceCandidate, EnglishDifficulty } from "../../../../core/types";
 import { ARTICLE_DETERMINER_RULE_BY_ID } from "../../../../grammar/articles-determiners";
 import { ARTICLE_SCENES_BY_DIFFICULTY_V1, type ArticleSceneV1 } from "./cp003-catalog-v1";
+import { CP003_EXTRA_EASY_SCENES_V1 } from "./cp003-easy-extras-v1";
 
 const STEMS: Record<Eng001QlId, string> = {
   "ENG-001-QL001": "Identify the part of the sentence that contains an error.",
@@ -16,15 +17,17 @@ const dims = (difficulty: EnglishDifficulty): DifficultyDimensions => difficulty
     ? { ruleComplexity: 2, dependencyDistance: 3, distractorSimilarity: 3, sentenceLength: 2, ruleInteraction: 1, lexicalLoad: 1 }
     : { ruleComplexity: 4, dependencyDistance: 4, distractorSimilarity: 4, sentenceLength: 3, ruleInteraction: 1, lexicalLoad: 1 };
 
-function scenePool(difficulty: EnglishDifficulty, ruleId?: ArticleRuleId): readonly ArticleSceneV1[] {
-  const base = ARTICLE_SCENES_BY_DIFFICULTY_V1[difficulty];
+export function cp003ScenePoolV1(difficulty: EnglishDifficulty, ruleId?: ArticleRuleId): readonly ArticleSceneV1[] {
+  const base = difficulty === "easy"
+    ? [...ARTICLE_SCENES_BY_DIFFICULTY_V1.easy, ...CP003_EXTRA_EASY_SCENES_V1]
+    : ARTICLE_SCENES_BY_DIFFICULTY_V1[difficulty];
   const filtered = ruleId ? base.filter((scene) => scene.ruleId === ruleId) : base;
   if (!filtered.length) throw new Error(`No CP003 ${difficulty} scene is available${ruleId ? ` for ${ruleId}` : ""}.`);
   return filtered;
 }
 
 export function buildEng001Cp003CandidateV1(input: { seed: string; difficulty: EnglishDifficulty; ruleId?: ArticleRuleId }): Eng001SentenceCandidate {
-  const scene = deterministicPick(`${input.seed}:cp003:scene`, scenePool(input.difficulty, input.ruleId));
+  const scene = deterministicPick(`${input.seed}:cp003:scene`, cp003ScenePoolV1(input.difficulty, input.ruleId));
   const dimensions = dims(input.difficulty);
   const derived = classifyEnglishDifficulty(dimensions);
   if (derived !== input.difficulty) throw new Error(`${scene.id} difficulty mismatch: ${derived}`);
