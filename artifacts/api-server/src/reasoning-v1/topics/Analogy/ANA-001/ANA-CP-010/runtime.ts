@@ -128,8 +128,7 @@ function numericMisconceptions(
   correct: number,
   context: AnaCp010NumericContext,
 ) {
-  const text = String(input);
-  const digits = text.split("").map(Number);
+  const digits = String(input).split("").map(Number);
   const candidates: { value: number; errorLabel: string }[] = [];
   switch (ruleId) {
     case "NUM_HIGHER_FIXED_POWER":
@@ -138,6 +137,8 @@ function numericMisconceptions(
         { value: input ** Math.max(2, context.exponent! - 1), errorLabel: "USED_ONE_LOWER_EXPONENT" },
         { value: input ** (context.exponent! + 1), errorLabel: "USED_ONE_HIGHER_EXPONENT" },
         { value: input * context.exponent!, errorLabel: "MULTIPLIED_BY_EXPONENT" },
+        { value: input ** 2, errorLabel: "USED_SQUARE_INSTEAD_OF_REQUIRED_POWER" },
+        { value: correct + context.exponent!, errorLabel: "ADDED_EXPONENT_AFTER_POWER" },
       );
       break;
     case "NUM_EXACT_SQUARE_ROOT": {
@@ -147,6 +148,7 @@ function numericMisconceptions(
         { value: root + 1, errorLabel: "ROOT_ONE_TOO_LARGE" },
         { value: Math.round(Math.cbrt(input)), errorLabel: "USED_CUBE_ROOT" },
         { value: root * 2, errorLabel: "DOUBLED_THE_ROOT" },
+        { value: root ** 2, errorLabel: "SQUARED_THE_ROOT_AGAIN" },
       );
       break;
     }
@@ -157,6 +159,7 @@ function numericMisconceptions(
         { value: root - context.adjust!, errorLabel: "REVERSED_ADJUSTMENT_DIRECTION" },
         { value: correct - 1, errorLabel: "OFF_BY_ONE_AFTER_ROOT" },
         { value: correct + 1, errorLabel: "OFF_BY_ONE_AFTER_ROOT" },
+        { value: root + 2 * context.adjust!, errorLabel: "APPLIED_ADJUSTMENT_TWICE" },
       );
       break;
     }
@@ -166,32 +169,48 @@ function numericMisconceptions(
         { value: input ** 3 + context.constant!, errorLabel: "ADDED_CONSTANT_INSTEAD" },
         { value: input ** 3 - Math.max(1, context.constant! - 1), errorLabel: "USED_WRONG_CONSTANT" },
         { value: input ** 2 - context.constant!, errorLabel: "SQUARED_INSTEAD_OF_CUBED" },
+        { value: input ** 3 - (context.constant! + 1), errorLabel: "SUBTRACTED_ONE_EXTRA" },
       );
       break;
-    case "NUM_DIGIT_QUOTIENT":
+    case "NUM_DIGIT_QUOTIENT": {
+      const [a, b] = digits;
       candidates.push(
-        { value: Math.abs(digits[0] - digits[1]), errorLabel: "SUBTRACTED_DIGITS" },
-        { value: digits[0] + digits[1], errorLabel: "ADDED_DIGITS" },
-        { value: digits[0] * digits[1], errorLabel: "MULTIPLIED_DIGITS" },
-        { value: Math.floor(digits[1] / digits[0]), errorLabel: "REVERSED_DIGIT_DIVISION" },
+        { value: Math.abs(a - b), errorLabel: "SUBTRACTED_DIGITS" },
+        { value: a + b, errorLabel: "ADDED_DIGITS" },
+        { value: a * b, errorLabel: "MULTIPLIED_DIGITS" },
+        { value: Math.floor(b / a), errorLabel: "REVERSED_DIGIT_DIVISION" },
+        { value: a, errorLabel: "USED_TENS_DIGIT_ONLY" },
+        { value: b, errorLabel: "USED_UNITS_DIGIT_ONLY" },
+        { value: correct + 1, errorLabel: "DIVISION_OFF_BY_ONE" },
       );
       break;
-    case "NUM_THREE_DIGIT_SUM":
+    }
+    case "NUM_THREE_DIGIT_SUM": {
+      const [a, b, c] = digits;
       candidates.push(
-        { value: digits[0] + digits[1], errorLabel: "IGNORED_LAST_DIGIT" },
-        { value: digits[1] + digits[2], errorLabel: "IGNORED_FIRST_DIGIT" },
-        { value: digits[0] * digits[1] + digits[2], errorLabel: "MULTIPLIED_FIRST_TWO_DIGITS" },
-        { value: digits[0] + digits[1] * digits[2], errorLabel: "MULTIPLIED_LAST_TWO_DIGITS" },
+        { value: a + b, errorLabel: "IGNORED_LAST_DIGIT" },
+        { value: b + c, errorLabel: "IGNORED_FIRST_DIGIT" },
+        { value: a + c, errorLabel: "IGNORED_MIDDLE_DIGIT" },
+        { value: a * b + c, errorLabel: "MULTIPLIED_FIRST_TWO_DIGITS" },
+        { value: a + b * c, errorLabel: "MULTIPLIED_LAST_TWO_DIGITS" },
+        { value: a * b * c, errorLabel: "MULTIPLIED_ALL_DIGITS_INSTEAD" },
       );
       break;
-    case "NUM_THREE_DIGIT_PRODUCT":
+    }
+    case "NUM_THREE_DIGIT_PRODUCT": {
+      const [a, b, c] = digits;
       candidates.push(
-        { value: digits[0] * digits[1], errorLabel: "IGNORED_LAST_DIGIT" },
-        { value: digits[1] * digits[2], errorLabel: "IGNORED_FIRST_DIGIT" },
-        { value: digits[0] + digits[1] + digits[2], errorLabel: "ADDED_DIGITS_INSTEAD" },
-        { value: digits[0] * digits[1] + digits[2], errorLabel: "FAILED_TO_MULTIPLY_ALL_DIGITS" },
+        { value: a * b, errorLabel: "IGNORED_LAST_DIGIT" },
+        { value: b * c, errorLabel: "IGNORED_FIRST_DIGIT" },
+        { value: a * c, errorLabel: "IGNORED_MIDDLE_DIGIT" },
+        { value: a + b + c, errorLabel: "ADDED_DIGITS_INSTEAD" },
+        { value: a * b + c, errorLabel: "FAILED_TO_MULTIPLY_LAST_DIGIT" },
+        { value: a + b * c, errorLabel: "FAILED_TO_MULTIPLY_FIRST_DIGIT" },
+        { value: (a + 1) * b * c, errorLabel: "MISREAD_FIRST_DIGIT_BY_ONE" },
+        { value: a * b * (c + 1), errorLabel: "MISREAD_LAST_DIGIT_BY_ONE" },
       );
       break;
+    }
   }
   return uniquePositive(candidates, correct);
 }
@@ -234,8 +253,8 @@ function generateNumeric(ql: ReturnType<typeof anaCp010QlById>, seed: number): G
       { value: [target.input, target.output] as const, errorLabel: null },
       ...misconceptions.slice(0, 3).map((entry, index) => {
         const input = rule.candidateInputs[(Math.abs(seed) + index + 2) % rule.candidateInputs.length];
-        const correct = rule.apply(input, context);
-        const mistakes = correct === null ? [] : numericMisconceptions(ruleId, input, correct, context);
+        const optionCorrect = rule.apply(input, context);
+        const mistakes = optionCorrect === null ? [] : numericMisconceptions(ruleId, input, optionCorrect, context);
         const mistake = mistakes[index % Math.max(1, mistakes.length)] ?? entry;
         return { value: [input, mistake.value] as const, errorLabel: mistake.errorLabel };
       }),
@@ -354,5 +373,8 @@ export function generateAnaCp010(qlId: string, seed = 0): GeneratedAnaCp010 {
   const ql = anaCp010QlById(qlId);
   if (ql.ruleId === "SET_ALL_PRIME") return generatePrimeSet(qlId, seed);
   if (ql.ruleId === "SET_FIXED_RATIO_PROGRESSION") return generateRatioSet(qlId, seed);
+  if (ql.ruleId === "SEM_EXPANSION_REGISTRY") {
+    throw new Error(`${qlId} is a semantic ANA-CP-010 QL; use generateAnaCp010Semantic or generateLocalizedAnaCp010.`);
+  }
   return generateNumeric(ql, seed);
 }
