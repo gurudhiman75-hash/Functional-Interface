@@ -1,5 +1,6 @@
 import {
   ANA_CP010_SEMANTIC_RELATIONS,
+  anaCp010SemanticRelationById,
   type AnaCp010Locale,
   type AnaCp010SemanticFact,
   type AnaCp010SemanticRelation,
@@ -29,6 +30,25 @@ export interface GeneratedAnaCp010Semantic {
   explanation: readonly string[];
 }
 
+export const ANA_CP010_MISSING_TERM_SAFE_RELATION_IDS = [
+  "SEM_ACTIVITY_VENUE",
+  "SEM_SPORT_EQUIPMENT",
+  "SEM_DISEASE_ORGAN",
+  "SEM_AUTHOR_WORK",
+] as const satisfies readonly AnaCp010SemanticRelationId[];
+
+export const ANA_CP010_EQUIVALENT_PAIR_DISTRACTOR_RELATIONS = {
+  SEM_INSTITUTION_CONTENT: ["SEM_AUTHOR_WORK", "SEM_DISEASE_ORGAN", "SEM_SPORT_EQUIPMENT", "SEM_DWELLING", "SEM_PROBLEM_REMEDY"],
+  SEM_DWELLING: ["SEM_AUTHOR_WORK", "SEM_DISEASE_ORGAN", "SEM_SPORT_EQUIPMENT", "SEM_ACTIVITY_VENUE", "SEM_PROBLEM_REMEDY"],
+  SEM_ACTIVITY_VENUE: ["SEM_AUTHOR_WORK", "SEM_DISEASE_ORGAN", "SEM_DWELLING", "SEM_PROBLEM_REMEDY", "SEM_PAIRED_OBJECTS"],
+  SEM_PAIRED_OBJECTS: ["SEM_AUTHOR_WORK", "SEM_DISEASE_ORGAN", "SEM_DWELLING", "SEM_ACTIVITY_VENUE", "SEM_SPORT_EQUIPMENT"],
+  SEM_CAUSE_EFFECT: ["SEM_AUTHOR_WORK", "SEM_DWELLING", "SEM_SPORT_EQUIPMENT", "SEM_ACTIVITY_VENUE", "SEM_DISEASE_ORGAN"],
+  SEM_PROBLEM_REMEDY: ["SEM_AUTHOR_WORK", "SEM_DWELLING", "SEM_SPORT_EQUIPMENT", "SEM_ACTIVITY_VENUE", "SEM_DISEASE_ORGAN"],
+  SEM_SPORT_EQUIPMENT: ["SEM_AUTHOR_WORK", "SEM_DISEASE_ORGAN", "SEM_DWELLING", "SEM_PROBLEM_REMEDY", "SEM_ACTIVITY_VENUE"],
+  SEM_DISEASE_ORGAN: ["SEM_AUTHOR_WORK", "SEM_DWELLING", "SEM_SPORT_EQUIPMENT", "SEM_ACTIVITY_VENUE", "SEM_PAIRED_OBJECTS"],
+  SEM_AUTHOR_WORK: ["SEM_DISEASE_ORGAN", "SEM_DWELLING", "SEM_SPORT_EQUIPMENT", "SEM_ACTIVITY_VENUE", "SEM_PROBLEM_REMEDY"],
+} as const satisfies Record<AnaCp010SemanticRelationId, readonly AnaCp010SemanticRelationId[]>;
+
 function randomSource(seed: number): () => number {
   let state = (seed ^ 0x165667b1) >>> 0;
   return () => {
@@ -54,7 +74,14 @@ function text(fact: AnaCp010SemanticFact, side: "left" | "right", locale: AnaCp0
   return fact[side][locale];
 }
 
-function chooseRelation(seed: number): AnaCp010SemanticRelation {
+function chooseRelation(
+  seed: number,
+  presentationMode: "MISSING_FOURTH_TERM" | "EQUIVALENT_PAIR_SELECTION",
+): AnaCp010SemanticRelation {
+  if (presentationMode === "MISSING_FOURTH_TERM") {
+    const relationId = ANA_CP010_MISSING_TERM_SAFE_RELATION_IDS[Math.abs(seed) % ANA_CP010_MISSING_TERM_SAFE_RELATION_IDS.length];
+    return anaCp010SemanticRelationById(relationId);
+  }
   return ANA_CP010_SEMANTIC_RELATIONS[Math.abs(seed) % ANA_CP010_SEMANTIC_RELATIONS.length];
 }
 
@@ -88,17 +115,19 @@ function localizedStem(
 function localizedExplanation(
   locale: AnaCp010Locale,
   relation: AnaCp010SemanticRelation,
+  presentationMode: "MISSING_FOURTH_TERM" | "EQUIVALENT_PAIR_SELECTION",
   sourceA: string,
   sourceB: string,
   targetA: string,
   targetB: string,
 ): readonly string[] {
+  const answer = presentationMode === "MISSING_FOURTH_TERM" ? targetB : `${targetA} : ${targetB}`;
   if (locale === "hi-IN") {
     return [
       `संबंध: ${relation.ruleStatement[locale]}`,
       `${sourceA} : ${sourceB} इसी संबंध को दिखाता है।`,
       `उसी संबंध से ${targetA} : ${targetB} मिलता है।`,
-      `इसलिए सही उत्तर ${targetB} है।`,
+      `इसलिए सही उत्तर ${answer} है।`,
     ];
   }
   if (locale === "pa-IN") {
@@ -106,15 +135,43 @@ function localizedExplanation(
       `ਸੰਬੰਧ: ${relation.ruleStatement[locale]}`,
       `${sourceA} : ${sourceB} ਇਹੀ ਸੰਬੰਧ ਦਿਖਾਉਂਦਾ ਹੈ।`,
       `ਇਹੀ ਸੰਬੰਧ ਲਗਾਉਣ ਤੇ ${targetA} : ${targetB} ਮਿਲਦਾ ਹੈ।`,
-      `ਇਸ ਲਈ ਸਹੀ ਜਵਾਬ ${targetB} ਹੈ।`,
+      `ਇਸ ਲਈ ਸਹੀ ਜਵਾਬ ${answer} ਹੈ।`,
     ];
   }
   return [
     `Relationship: ${relation.ruleStatement[locale]}`,
     `${sourceA} : ${sourceB} shows this relationship.`,
     `Applying the same relationship gives ${targetA} : ${targetB}.`,
-    `Therefore, ${targetB} is the correct answer.`,
+    `Therefore, ${answer} is the correct answer.`,
   ];
+}
+
+function equivalentPairDistractors(
+  relationId: AnaCp010SemanticRelationId,
+  seed: number,
+  locale: AnaCp010Locale,
+): { value: readonly [string, string]; errorLabel: string }[] {
+  const alternateRelationIds = shuffle(
+    ANA_CP010_EQUIVALENT_PAIR_DISTRACTOR_RELATIONS[relationId],
+    seed * 37 + 13,
+  ).slice(0, 3);
+
+  return alternateRelationIds.map((alternateRelationId, index) => {
+    const alternateRelation = anaCp010SemanticRelationById(alternateRelationId);
+    const alternateFact = shuffle(alternateRelation.facts, seed * 41 + index * 101 + 17)[0];
+    const left = text(alternateFact, "left", locale);
+    const right = text(alternateFact, "right", locale);
+    if (independentlyValidateAnaCp010SemanticPair(relationId, left, right, locale)) {
+      throw new Error(`${relationId} equivalent-pair distractor accidentally matches the intended relation.`);
+    }
+    if (!independentlyValidateAnaCp010SemanticPair(alternateRelationId, left, right, locale)) {
+      throw new Error(`${alternateRelationId} equivalent-pair distractor is not a valid intact relation pair.`);
+    }
+    return {
+      value: [left, right] as const,
+      errorLabel: `DIFFERENT_RELATION_${alternateRelationId}`,
+    };
+  });
 }
 
 export function generateAnaCp010Semantic(
@@ -123,7 +180,7 @@ export function generateAnaCp010Semantic(
   locale: AnaCp010Locale = "en-IN",
 ): GeneratedAnaCp010Semantic {
   const presentationMode = qlId === "ANA-QL-267" ? "MISSING_FOURTH_TERM" : "EQUIVALENT_PAIR_SELECTION";
-  const relation = chooseRelation(seed);
+  const relation = chooseRelation(seed, presentationMode);
   const facts = shuffle(relation.facts, seed * 29 + 7);
   const source = facts[0];
   const target = facts[1];
@@ -134,22 +191,23 @@ export function generateAnaCp010Semantic(
 
   let rawOptions: { value: SemanticOption; errorLabel: string | null }[];
   if (presentationMode === "MISSING_FOURTH_TERM") {
+    const wrongOptions = facts.slice(2, 5).map((entry) => ({
+      value: text(entry, "right", locale),
+      errorLabel: "SAME_RELATION_CATEGORY_WRONG_TARGET",
+    }));
+    for (const wrong of wrongOptions) {
+      if (independentlyValidateAnaCp010SemanticPair(relation.id, targetA, wrong.value, locale)) {
+        throw new Error(`${qlId} produced a second valid missing-term answer.`);
+      }
+    }
     rawOptions = [
       { value: targetB, errorLabel: null },
-      ...facts.slice(2, 5).map((entry) => ({
-        value: text(entry, "right", locale),
-        errorLabel: "SAME_RELATION_CATEGORY_WRONG_TARGET",
-      })),
+      ...wrongOptions,
     ];
   } else {
-    const lefts = facts.slice(2, 5);
-    const rights = [facts[3], facts[4], facts[5]];
     rawOptions = [
       { value: [targetA, targetB] as const, errorLabel: null },
-      ...lefts.map((leftFact, index) => ({
-        value: [text(leftFact, "left", locale), text(rights[index], "right", locale)] as const,
-        errorLabel: "MISMATCHED_RELATION_PAIR",
-      })),
+      ...equivalentPairDistractors(relation.id, seed, locale),
     ];
   }
 
@@ -191,6 +249,6 @@ export function generateAnaCp010Semantic(
     stem: localizedStem(locale, presentationMode, sourceA, sourceB, targetA),
     options,
     correctIndex,
-    explanation: localizedExplanation(locale, relation, sourceA, sourceB, targetA, targetB),
+    explanation: localizedExplanation(locale, relation, presentationMode, sourceA, sourceB, targetA, targetB),
   };
 }
