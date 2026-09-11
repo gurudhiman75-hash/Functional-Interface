@@ -87,11 +87,7 @@ Cases are generated from actual alternative assignments that still satisfy the e
 
 ## 8. Current review gate
 
-The authoritative review file is:
-
-`LP-001-008-ENGLISH-RETROFIT-REVIEW-V3-1.md`
-
-The V1, V2 and raw V3 review artifacts are superseded and are not approval authorities.
+The authoritative review file is `LP-001-008-ENGLISH-RETROFIT-REVIEW-V3-1.md`. V1, V2 and raw V3 exports are superseded and are not approval authorities.
 
 No LP-001–LP-008 permanent-English freeze or Hindi/Punjabi localization freeze is authorized yet.
 
