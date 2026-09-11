@@ -21,7 +21,8 @@ for (const language of ["hi", "pa"] as const satisfies readonly Lp001008Localize
         const visible = [caselet.scenario, ...caselet.learnerFacingClues, ...caselet.children.flatMap((child) => [child.stem, ...child.explanation.lines])].join("\n");
         if (language === "hi") {
           assert.ok(!/[1-7]वें/u.test(visible), "LP-003/hi: numeric ordinal residue remains");
-          assert.ok(!/फाइलें के बीच|उत्तर-पुस्तिकाएँ के बीच/u.test(visible), "LP-003/hi: oblique-case grammar residue remains");
+          const oblique = visible.match(/.{0,100}(?:फाइलें के बीच|उत्तर-पुस्तिकाएँ के बीच).{0,100}/u)?.[0];
+          assert.ok(!oblique, `LP-003/hi: oblique-case grammar residue remains: ${oblique ?? "unknown"}`);
           assert.ok(!/ठीक 1 वस्तुएँ हैं/u.test(visible), "LP-003/hi: singular/plural mismatch remains");
         } else {
           assert.ok(!/[1-7]ਵੇਂ/u.test(visible), "LP-003/pa: numeric ordinal residue remains");
