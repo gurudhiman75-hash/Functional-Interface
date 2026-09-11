@@ -64,6 +64,9 @@ jobs:
       - name: Guard localized question-target parity V2
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-localization-v2.test.ts
 
+      - name: Guard native localization polish V3
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-localization-v3.test.ts
+
       - name: Reprove LP-006 difficulty calibration
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/difficulty-calibration.test.ts
 
@@ -83,12 +86,12 @@ jobs:
           path: LP-001-008-ENGLISH-RETROFIT-REVIEW-V4-2.md
           if-no-files-found: error
 
-      - name: Export Hindi and Punjabi localization review pack V2
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-localization-review-export-v2.ts > LP-001-008-HI-PA-LOCALIZATION-REVIEW-V2.md
+      - name: Export Hindi and Punjabi localization review pack V3
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-localization-review-export-v3.ts > LP-001-008-HI-PA-LOCALIZATION-REVIEW-V3.md
 
-      - name: Upload Hindi and Punjabi localization review pack V2
+      - name: Upload Hindi and Punjabi localization review pack V3
         uses: actions/upload-artifact@v4
         with:
-          name: LP-001-008-HI-PA-LOCALIZATION-REVIEW-V2
-          path: LP-001-008-HI-PA-LOCALIZATION-REVIEW-V2.md
+          name: LP-001-008-HI-PA-LOCALIZATION-REVIEW-V3
+          path: LP-001-008-HI-PA-LOCALIZATION-REVIEW-V3.md
           if-no-files-found: error
