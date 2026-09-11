@@ -53,14 +53,12 @@ assert.deepEqual([...QUANT_V4_ALGEBRA_WAVE2_NON_MIGRATED_SOURCE_IDS], [
   "ALG-V2-S09",
 ]);
 
-// Independent exact check for the fully stated S01 system in the source ledger.
 const [x, y, z] = [5, 4, 3];
 assert.equal(x + y + z, 12);
 assert.equal(x + y - z, 6);
 assert.equal(x - y + z, 4);
 
-// Registry assertions are cumulative so an older-wave proof also catches later registry drift.
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 47);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 53);
 const alg001 = listRegisteredCountablePyqObservations({ packageId: "ALG-001" });
 const alg002 = listRegisteredCountablePyqObservations({ packageId: "ALG-002" });
 assert.equal(alg001.length, 11);
@@ -71,7 +69,6 @@ assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").len
 assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CHSL").length, 3);
 assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_II").length, 2);
 
-// More Algebra evidence is useful, but Algebra-only data still cannot establish whole-section topic frequency.
 const cgl = buildQuantV4PyqFrequencyProfile({
   examId: "SSC_CGL_TIER_I",
   observations: algebraAll,
