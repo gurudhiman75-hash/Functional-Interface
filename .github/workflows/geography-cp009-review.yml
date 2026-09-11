@@ -38,7 +38,8 @@ jobs:
             src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp009-validator.test.ts \
             src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp009-review-generator-v1.test.ts \
             src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp009-review-generator-v2.test.ts \
-            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp009-review-batch-v2.test.ts
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp009-review-batch-v2.test.ts \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp009-review-batch-v3.test.ts
           do
             output_name="$(basename "${test_file}" .ts).mjs"
             pnpm --dir artifacts/api-server exec esbuild \
@@ -60,6 +61,21 @@ jobs:
         with:
           name: GEO-RIV-001-CP009-REVIEW-BATCH-V2
           path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP009-V2/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Materialize CP009 V3 review artifact
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp009-export-review-v3.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-riv-001-cp009-export-review-v3.mjs
+          cd artifacts/api-server
+          node dist/geography/geo-riv-001-cp009-export-review-v3.mjs
+      - name: Upload CP009 V3 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-RIV-001-CP009-REVIEW-BATCH-V3
+          path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP009-V3/
           if-no-files-found: error
           retention-days: 30
       - name: Build API server
