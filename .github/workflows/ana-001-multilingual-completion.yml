@@ -13,7 +13,6 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/**
-      - .github/workflows/ana-001-multilingual-completion.yml
   workflow_dispatch:
 
 permissions:
