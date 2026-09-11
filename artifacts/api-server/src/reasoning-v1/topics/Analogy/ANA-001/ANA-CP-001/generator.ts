@@ -3,6 +3,7 @@ import { factsForRule, qlById } from "./task-registry";
 import { relationDefinition } from "./relation-definitions";
 
 type SemanticOptionValue = string | readonly [string, string];
+export type SemanticDifficulty = "EASY" | "MEDIUM" | "HARD";
 
 export interface GeneratedSemanticAnalogy {
   sourceA: string;
@@ -10,6 +11,7 @@ export interface GeneratedSemanticAnalogy {
   targetA: string;
   targetB: string;
   presentationMode: "MISSING_FOURTH_TERM" | "EQUIVALENT_PAIR_SELECTION";
+  difficulty: SemanticDifficulty;
   relation: AnalogyRelation;
   options: readonly { value: SemanticOptionValue; errorLabel: string | null }[];
   correctIndex: number;
@@ -87,6 +89,19 @@ function pairOptions(target: SemanticFact, allFacts: readonly SemanticFact[], se
   ], seed * 53 + 23);
 }
 
+function deriveSemanticDifficulty(
+  source: SemanticFact,
+  target: SemanticFact,
+  presentationMode: "MISSING_FOURTH_TERM" | "EQUIVALENT_PAIR_SELECTION",
+): SemanticDifficulty {
+  const base = source.difficulty === "MEDIUM" || target.difficulty === "MEDIUM" ? 1 : 0;
+  const presentationBurden = presentationMode === "EQUIVALENT_PAIR_SELECTION" ? 1 : 0;
+  const score = base + presentationBurden;
+  if (score === 0) return "EASY";
+  if (score === 1) return "MEDIUM";
+  return "HARD";
+}
+
 export function generateSemanticAnalogy(qlId: string, seed = 0): GeneratedSemanticAnalogy {
   const ql = qlById(qlId);
   const definition = relationDefinition(ql.ruleId);
@@ -111,8 +126,8 @@ export function generateSemanticAnalogy(qlId: string, seed = 0): GeneratedSemant
       ? `Therefore, ${target.right} is the correct answer.`
       : `Therefore, ${target.left} : ${target.right} preserves the same relationship.`,
     closestTrapRejection: ql.presentationMode === "MISSING_FOURTH_TERM"
-      ? "The other options belong to the correct answer category but do not match the target term."
-      : "The other pairs use valid source and answer categories, but their members are deliberately mismatched.",
+      ? "The other options belong to the correct answer category but do not satisfy the exact relationship for the target term."
+      : "The other pairs use valid source and answer categories, but their members do not preserve the exact relationship.",
   };
 
   return {
@@ -121,13 +136,14 @@ export function generateSemanticAnalogy(qlId: string, seed = 0): GeneratedSemant
     targetA: target.left,
     targetB: target.right,
     presentationMode: ql.presentationMode,
+    difficulty: deriveSemanticDifficulty(source, target, ql.presentationMode),
     relation: {
       family: "SEMANTIC",
       ruleId: ql.ruleId,
       direction: "FORWARD",
       inputType: "WORD",
       arity: 1,
-      parameters: { sourceFactId: source.id, targetFactId: target.id, datasetVersion: "2.0.0" },
+      parameters: { sourceFactId: source.id, targetFactId: target.id, datasetVersion: "2.1.0" },
     },
     options,
     correctIndex,
