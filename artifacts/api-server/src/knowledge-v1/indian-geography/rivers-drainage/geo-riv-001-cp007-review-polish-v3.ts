@@ -19,7 +19,7 @@ function formedByComponents() {
   return GEO_RIV_001_CP007_PROJECTED_FACTS_V1.flatMap((fact) => {
     if (fact.relation !== "formed_by") return [];
     const raw = fact.value.kind === "text" ? fact.value.text.en : fact.value.kind === "entity_ref" ? fact.value.label.en : "";
-    return raw.split(/\s*\+\s*|\s+and\s+/i).map((part) => part.trim()).filter(Boolean);
+    return raw.split(/\s*\+\s*|\s*,\s*|\s+and\s+/i).map((part) => part.trim()).filter(Boolean);
   });
 }
 
