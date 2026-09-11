@@ -17,7 +17,7 @@ assert.equal(packageDef.engineId, "language-v1");
 assert.equal(packageDef.packageId, "ENG-001");
 assert.equal(packageDef.subject, "English");
 assert.equal(packageDef.topic, "Error Spotting");
-assert.equal(packageDef.subtopic, "Subject–Verb Agreement");
+assert.equal(packageDef.subtopic, "Approved grammar checkpoints");
 assert.equal(packageDef.lifecycleStage, "REVIEW_ONLY");
 assert.equal(packageDef.questionBankStatus, "NOT_STORED");
 assert.equal(packageDef.questionBankWritable, false);
@@ -26,7 +26,7 @@ assert.equal(packageDef.mockTestEligible, false);
 assert.equal(packageDef.publiclyPublishable, false);
 assert.deepEqual(packageDef.supportedLanguages, ["en"]);
 assert.deepEqual(packageDef.supportedDifficulties, ["Easy", "Medium", "Hard"]);
-assert.deepEqual(packageDef.cpIds, ["ENG-001-CP001"]);
+assert.deepEqual(packageDef.cpIds, ["ENG-001-CP001", "ENG-001-CP002"]);
 assert.equal(packageDef.metadata?.humanReviewApproved, true);
 assert.equal(packageDef.metadata?.reviewOnly, true);
 
@@ -34,14 +34,13 @@ assert.equal(listQuestionStudioEngines().includes("language-v1"), true);
 const registered = listQuestionStudioPackages().find((entry) => entry.packageId === "ENG-001");
 assert.equal(registered?.engineId, "language-v1");
 assert.equal(registered?.enabled, true);
+assert.deepEqual(registered?.cpIds, ["ENG-001-CP001", "ENG-001-CP002"]);
 
 assert.equal(isEng001QuestionStudioRequestV1({ packageId: "ENG-001" }), true);
+assert.equal(isEng001QuestionStudioRequestV1({ canonicalProblemId: "ENG-001-CP002" }), true);
+assert.equal(isEng001QuestionStudioRequestV1({ canonicalProblemId: "GR-TNS-007" }), true);
 assert.equal(
-  isEng001QuestionStudioRequestV1({
-    subject: "English",
-    topic: "Error Spotting",
-    subtopic: "Subject–Verb Agreement",
-  }),
+  isEng001QuestionStudioRequestV1({ subject: "English", topic: "Error Spotting", subtopic: "Tenses and Sequence of Tenses" }),
   true,
 );
 assert.equal(isEng001QuestionStudioRequestV1({ packageId: "COM-001" }), false);
@@ -56,16 +55,18 @@ const baseRequest = {
   runtimeMode: "review-only",
 };
 
+// Package-only requests retain the pre-CP002 CP001 behaviour.
 const first = await generateQuestionStudioQuestions(baseRequest);
 const replay = await generateQuestionStudioQuestions(baseRequest);
 assert.equal(first.engineId, "language-v1");
 assert.equal(first.questions.length, 12);
 assert.deepEqual(first, replay);
 assert.equal(new Set(first.questions.map((question) => question.candidateId)).size, 12);
+assert.equal(first.questions.every((question) => question.cpId === "ENG-001-CP001"), true);
 
-for (const question of first.questions) {
+function assertReviewOnly(question: Record<string, unknown>, expectedCp: string, authorityPattern: RegExp) {
   assert.equal(question.packageId, "ENG-001");
-  assert.equal(question.cpId, "ENG-001-CP001");
+  assert.equal(question.cpId, expectedCp);
   assert.equal(question.language, "en");
   assert.equal(question.registrationStatus, "REGISTERED_REVIEW_ONLY");
   assert.equal(question.authoringReviewApproved, true);
@@ -79,22 +80,47 @@ for (const question of first.questions) {
   assert.equal(question.testEligible, false);
   assert.equal(question.mockTestEligible, false);
   assert.equal(question.publiclyPublishable, false);
-  assert.match(String(question.registrationAuthorityId), /ENG-001-CP001-HUMAN-EDITORIAL-APPROVAL-V1/);
+  assert.match(String(question.registrationAuthorityId), authorityPattern);
   assert.equal(Array.isArray(question.options), true);
   assert.equal(Number.isInteger(question.correctIndex), true);
   assert.equal(typeof question.explanation, "string");
   assert.equal(typeof question.correctedSentence, "string");
   assert.equal(String(question.text).includes("Identify the part of the sentence that contains an error."), true);
-  assert.equal(getGeneratedItemApprovalDisposition({
-    ...question,
-    generationContext: first.generationContext,
-  }).mode, "review_only");
 }
 
-for (const [qlId, ruleId, selectorDifficulty] of [
-  ["ENG-001-QL001", "GR-SVA-001", "Easy"],
-  ["ENG-001-QL002", "GR-SVA-005", "Medium"],
-  ["ENG-001-QL007", "GR-SVA-008", "Medium"],
+for (const question of first.questions) {
+  assertReviewOnly(question, "ENG-001-CP001", /ENG-001-CP001-HUMAN-EDITORIAL-APPROVAL-V1/);
+  assert.equal(getGeneratedItemApprovalDisposition({ ...question, generationContext: first.generationContext }).mode, "review_only");
+}
+
+const cp002Request = {
+  ...baseRequest,
+  canonicalProblemId: "ENG-001-CP002",
+  subtopic: "Tenses and Sequence of Tenses",
+  seed: "eng001-cp002-question-studio-integration-test",
+};
+const cp002 = await generateQuestionStudioQuestions(cp002Request);
+const cp002Replay = await generateQuestionStudioQuestions(cp002Request);
+assert.deepEqual(cp002, cp002Replay);
+assert.equal(cp002.questions.length, 12);
+assert.equal(new Set(cp002.questions.map((question) => question.candidateId)).size, 12);
+assert.equal(cp002.generationContext?.cpId, "ENG-001-CP002");
+assert.equal(cp002.generationContext?.approvedReviewBlobSha, "2bab0f00ffdd423e6b7d9522b01462217a7e1b64");
+assert.equal(cp002.generationContext?.approvedGeneratorHeadSha, "5a5d8fcc72ef9f986626a8e49215a73c9471250c");
+for (const question of cp002.questions) {
+  assertReviewOnly(question, "ENG-001-CP002", /ENG-001-CP002-HUMAN-EDITORIAL-APPROVAL-V1/);
+  assert.equal(question.subtopic, "Tenses and Sequence of Tenses");
+  assert.match(String(question.ruleId), /^GR-TNS-/);
+  assert.equal(getGeneratedItemApprovalDisposition({ ...question, generationContext: cp002.generationContext }).mode, "review_only");
+}
+
+for (const [qlId, ruleId, selectorDifficulty, expectedCp] of [
+  ["ENG-001-QL001", "GR-SVA-001", "Easy", "ENG-001-CP001"],
+  ["ENG-001-QL002", "GR-SVA-005", "Medium", "ENG-001-CP001"],
+  ["ENG-001-QL007", "GR-SVA-008", "Medium", "ENG-001-CP001"],
+  ["ENG-001-QL001", "GR-TNS-003", "Easy", "ENG-001-CP002"],
+  ["ENG-001-QL002", "GR-TNS-007", "Hard", "ENG-001-CP002"],
+  ["ENG-001-QL007", "GR-TNS-008", "Hard", "ENG-001-CP002"],
 ] as const) {
   const result = await languageV1Eng001QuestionStudioAdapterV1.generate({
     ...baseRequest,
@@ -107,16 +133,28 @@ for (const [qlId, ruleId, selectorDifficulty] of [
   assert.equal(result.questions.length, 3);
   assert.equal(result.questions.every((question) => question.qlId === qlId), true);
   assert.equal(result.questions.every((question) => question.ruleId === ruleId), true);
+  assert.equal(result.questions.every((question) => question.cpId === expectedCp), true);
 }
 
 for (const difficulty of ["Easy", "Medium", "Hard"] as const) {
-  const result = await languageV1Eng001QuestionStudioAdapterV1.generate({
+  const cp001Result = await languageV1Eng001QuestionStudioAdapterV1.generate({
     ...baseRequest,
     difficulty,
+    canonicalProblemId: "ENG-001-CP001",
     count: 5,
-    seed: `eng001:${difficulty}:filter`,
+    seed: `eng001:cp001:${difficulty}:filter`,
   });
-  assert.equal(result.questions.every((question) => question.difficulty === difficulty), true);
+  assert.equal(cp001Result.questions.every((question) => question.difficulty === difficulty), true);
+
+  const cp002Result = await languageV1Eng001QuestionStudioAdapterV1.generate({
+    ...baseRequest,
+    difficulty,
+    canonicalProblemId: "ENG-001-CP002",
+    count: 5,
+    seed: `eng001:cp002:${difficulty}:filter`,
+  });
+  assert.equal(cp002Result.questions.every((question) => question.difficulty === difficulty), true);
+  assert.equal(cp002Result.questions.every((question) => question.cpId === "ENG-001-CP002"), true);
 }
 
 await assert.rejects(
@@ -136,12 +174,24 @@ await assert.rejects(
   /count between 1 and 50/i,
 );
 await assert.rejects(
-  languageV1Eng001QuestionStudioAdapterV1.generate({
-    ...baseRequest,
-    difficulty: "Medium",
-    canonicalProblemId: "GR-SVA-001",
-  }),
+  languageV1Eng001QuestionStudioAdapterV1.generate({ ...baseRequest, difficulty: "Medium", canonicalProblemId: "GR-SVA-001" }),
   /GR-SVA-001 is not approved for Medium difficulty/i,
 );
+await assert.rejects(
+  languageV1Eng001QuestionStudioAdapterV1.generate({
+    ...baseRequest,
+    canonicalProblemId: "ENG-001-CP001",
+    questionLanguageId: "GR-TNS-002",
+  }),
+  /Conflicting ENG-001 checkpoint selectors/i,
+);
+await assert.rejects(
+  languageV1Eng001QuestionStudioAdapterV1.generate({
+    ...baseRequest,
+    canonicalProblemId: "ENG-001-CP002",
+    questionLanguageId: "GR-SVA-005",
+  }),
+  /Conflicting ENG-001 checkpoint selectors/i,
+);
 
-console.log("ENG-001 CP001 Question Studio language-v1 integration tests passed.");
+console.log("ENG-001 CP001 + CP002 Question Studio language-v1 integration tests passed.");
