@@ -1,0 +1,129 @@
+name: ARG-001 CP015 Punjabi scope repair hotfix
+
+on:
+  push:
+    branches:
+      - feature/arg-001-cp012-editorial-remediation
+    paths:
+      - .github/workflows/arg-001-cp015-v10-punjabi-scope-fix.yml
+
+permissions:
+  contents: write
+
+jobs:
+  hotfix:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feature/arg-001-cp012-editorial-remediation
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+
+      - name: Repair Punjabi centre spelling and scope explanation trigger
+        shell: python
+        run: |
+          from pathlib import Path
+
+          root = Path("artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001")
+          source_path = root / "cp015-human-audit-pre-repair.ts"
+          proof_path = root / "cp015-anti-gaming-grammar-proof.test.ts"
+
+          source = source_path.read_text(encoding="utf-8")
+          proof = proof_path.read_text(encoding="utf-8")
+
+          def replace_once(value: str, old: str, new: str, label: str) -> str:
+              count = value.count(old)
+              if count != 1:
+                  raise SystemExit(f"{label}: expected exactly one anchor, found {count}")
+              return value.replace(old, new, 1)
+
+          source = replace_once(
+              source,
+              'export const ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_AUTHORITY = "ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_V9" as const;',
+              'export const ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_AUTHORITY = "ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_V10" as const;',
+              "authority bump",
+          )
+          source = replace_once(
+              source,
+              '.replace(/(?:ਦਾ|ਦੇ) ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸੀ/g, "ਦੇ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਰ ਪ੍ਰਭਾਵਿਤ ਸਨ")',
+              '.replace(/(?:ਦਾ|ਦੇ) ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸੀ/g, "ਦੇ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸਨ")',
+              "Punjabi centre spelling",
+          )
+          proof = replace_once(
+              proof,
+              '    /ਜ਼ਿਆਦਾਤਰ ਕੇਂਦਰ ਦਾ ਨਤੀਜਾ/,',
+              '    /ਜ਼ਿਆਦਾਤਰ ਕੇਂਦਰ ਦਾ ਨਤੀਜਾ/,\n    /ਕੇਂਰ/,',
+              "Punjabi malformed-centre guard",
+          )
+
+          source_path.write_text(source, encoding="utf-8")
+          proof_path.write_text(proof, encoding="utf-8")
+
+      - name: Strict TypeScript
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec tsc --noEmit --target es2022 --module esnext --moduleResolution bundler --allowImportingTsExtensions --strictNullChecks --noImplicitAny --noImplicitReturns --noFallthroughCasesInSwitch --skipLibCheck --types node \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-export.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-global-uniqueness-proof.ts
+
+      - name: Prove multilingual grammar and final surface
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts --bundle --platform=node --format=esm --outfile=dist/arg-cp015-anti-gaming-grammar-proof.mjs
+          node dist/arg-cp015-anti-gaming-grammar-proof.mjs
+
+      - name: Prove 1000-question diversity
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts --bundle --platform=node --format=esm --outfile=dist/arg-cp015-perceived-diversity-proof.mjs
+          node dist/arg-cp015-perceived-diversity-proof.mjs
+
+      - name: Export and prove human-review corpus
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-export.ts --bundle --platform=node --format=esm --outfile=dist/arg-cp015-human-review-export.mjs
+          node dist/arg-cp015-human-review-export.mjs
+          pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-global-uniqueness-proof.ts --bundle --platform=node --format=esm --outfile=dist/arg-cp015-human-review-global-proof.mjs
+          node dist/arg-cp015-human-review-global-proof.mjs
+
+      - name: Preserve approval and freezes
+        working-directory: artifacts/api-server
+        run: |
+          for file in \
+            cp014-manual-editorial-approval-proof.test.ts \
+            cp013-final-editorial-surface-proof.test.ts \
+            cp006-byte-freeze-proof.test.ts \
+            cp008-byte-freeze-proof.test.ts; do
+            pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/$file --bundle --platform=node --format=esm --outfile=dist/${file%.ts}.mjs
+            node dist/${file%.ts}.mjs
+          done
+
+      - name: Build production API
+        working-directory: artifacts/api-server
+        run: pnpm build
+
+      - name: Build production admin app
+        working-directory: artifacts/admin-app
+        run: pnpm build
+
+      - name: Commit repaired CP015 source
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-audit-pre-repair.ts \
+            artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts
+          git diff --cached --quiet && exit 0
+          git commit -m "fix(arg-cp015): restore Punjabi evidence-scope explanation"
+          git push origin HEAD:feature/arg-001-cp012-editorial-remediation
