@@ -3,10 +3,13 @@ import { checkSetAmbiguity } from "./ambiguity-checker";
 import { solveSetRule, verifySetTransfer, type NumberTriple } from "./independent-solver";
 import { setRuleById, type SetRuleContext } from "./rule-definitions";
 import { validateSetOptions, type SetOption } from "./option-validator";
+import { deriveSetDifficulty, type SetDifficulty } from "./audit-remediation";
 
-export type SetDifficulty = "EASY" | "MEDIUM" | "HARD";
+export type { SetDifficulty } from "./audit-remediation";
 export type SetLayout = "INLINE" | "TWO_ROW_TABLE" | "VERTICAL_GRID" | "BOXED_SETS";
 export type TriplePosition = 0 | 1 | 2;
+
+type GeneratedSetOption = { value: SetOption; errorLabel: string | null };
 
 export interface GeneratedSetAnalogy {
   qlId: string;
@@ -20,7 +23,7 @@ export interface GeneratedSetAnalogy {
   source: NumberTriple;
   target: NumberTriple;
   stem: string;
-  options: readonly { value: SetOption; errorLabel: string | null }[];
+  options: readonly GeneratedSetOption[];
   correctIndex: number;
   explanation: {
     ruleStatement: string;
@@ -52,6 +55,15 @@ function shuffle<T>(items: readonly T[], seed: number): T[] {
   return result;
 }
 
+function placeCorrect(options: readonly GeneratedSetOption[], requestedIndex: number): GeneratedSetOption[] {
+  const result = [...options];
+  const currentIndex = result.findIndex((option) => option.errorLabel === null);
+  if (currentIndex < 0) throw new Error("Set options are missing a correct answer.");
+  const [correct] = result.splice(currentIndex, 1);
+  result.splice(requestedIndex, 0, correct);
+  return result;
+}
+
 function qlById(qlId: string) {
   const ql = ANA_CP004_QLS.find((entry) => entry.qlId === qlId);
   if (!ql) throw new Error(`Unknown ANA-CP-004 QL: ${qlId}`);
@@ -73,21 +85,8 @@ function inputPairs(ruleId: string, min: number, max: number, seed: number): rea
   return shuffle(pairs, seed);
 }
 
-function difficultyForSeed(seed: number): SetDifficulty {
-  return (["EASY", "MEDIUM", "HARD"] as const)[Math.abs(seed) % 3];
-}
-
-function difficultyFits(difficulty: SetDifficulty, source: NumberTriple, target: NumberTriple): boolean {
-  const largestInput = Math.max(source.first, source.second, target.first, target.second);
-  const largestOutput = Math.max(source.third, target.third);
-  if (difficulty === "EASY") return largestInput <= 12 && largestOutput <= 80;
-  if (difficulty === "MEDIUM") return largestInput >= 7 && largestOutput <= 350;
-  return largestInput >= 12 || largestOutput >= 120;
-}
-
-function chooseInstance(ruleId: string, seed: number, difficulty: SetDifficulty): { context: SetRuleContext; source: NumberTriple; target: NumberTriple } {
+function chooseInstance(ruleId: string, seed: number): { context: SetRuleContext; source: NumberTriple; target: NumberTriple } {
   const rule = setRuleById(ruleId);
-  let fallback: { context: SetRuleContext; source: NumberTriple; target: NumberTriple } | null = null;
   for (const context of shuffle(rule.contexts, seed * 11 + 3)) {
     const pairs = inputPairs(ruleId, rule.minInput, rule.maxInput, seed * 13 + 5);
     for (let sourceIndex = 0; sourceIndex < pairs.length; sourceIndex += 1) {
@@ -101,13 +100,10 @@ function chooseInstance(ruleId: string, seed: number, difficulty: SetDifficulty)
         if (targetThird === null || targetThird === sourceThird) continue;
         const target = { first: targetFirst, second: targetSecond, third: targetThird };
         if (!checkSetAmbiguity(ruleId, context, [source, target]).accepted) continue;
-        const candidate = { context, source, target };
-        fallback ??= candidate;
-        if (difficultyFits(difficulty, source, target)) return candidate;
+        return { context, source, target };
       }
     }
   }
-  if (fallback) return fallback;
   throw new Error(`Unable to build an unambiguous ${ruleId} instance for seed ${seed}.`);
 }
 
@@ -137,7 +133,7 @@ function plausibleWrongMembers(target: NumberTriple, seed: number): number[] {
   );
 }
 
-function missingMemberOptions(target: NumberTriple, seed: number) {
+function missingMemberOptions(target: NumberTriple, seed: number): GeneratedSetOption[] {
   const distractors = plausibleWrongMembers(target, seed * 17 + 7).slice(0, 3);
   if (distractors.length !== 3) throw new Error("Unable to produce three varied missing-member distractors.");
   return shuffle([
@@ -146,7 +142,7 @@ function missingMemberOptions(target: NumberTriple, seed: number) {
   ], seed * 19 + 11);
 }
 
-function pairSelectionOptions(ruleId: string, context: SetRuleContext, target: NumberTriple, seed: number) {
+function pairSelectionOptions(ruleId: string, context: SetRuleContext, target: NumberTriple, seed: number): GeneratedSetOption[] {
   const rule = setRuleById(ruleId);
   const candidates = inputPairs(ruleId, rule.minInput, rule.maxInput, seed * 23 + 13);
   const distractors: { value: readonly [number, number, number]; errorLabel: string }[] = [];
@@ -211,21 +207,38 @@ function renderSelectionStem(source: NumberTriple, layout: SetLayout): string {
   return `Select the number set that follows the same rule as (${source.first}, ${source.second}, ${source.third}).`;
 }
 
+function scalarWrongValues(options: readonly { value: SetOption; errorLabel: string | null }[]): number[] {
+  return options.flatMap((option) =>
+    option.errorLabel !== null && typeof option.value === "number" ? [option.value] : [],
+  );
+}
+
 export function generateSetAnalogy(qlId: string, seed = 0): GeneratedSetAnalogy {
   const ql = qlById(qlId);
   const rule = setRuleById(ql.ruleId);
-  const difficulty = difficultyForSeed(seed);
   const layout = LAYOUTS[Math.abs(seed) % LAYOUTS.length];
   const permutation = PERMUTATIONS[Math.abs(Math.floor(seed / LAYOUTS.length)) % PERMUTATIONS.length];
-  const { context, source, target } = chooseInstance(ql.ruleId, seed, difficulty);
+  const { context, source, target } = chooseInstance(ql.ruleId, seed);
   if (!verifySetTransfer(ql.ruleId, context, source, target)) throw new Error("Independent solver rejected ANA-CP-004 instance.");
-  const options = ql.presentationMode === "MISSING_MEMBER"
+  const generatedOptions = ql.presentationMode === "MISSING_MEMBER"
     ? missingMemberOptions(target, seed)
     : pairSelectionOptions(ql.ruleId, context, target, seed);
+  const requestedCorrectIndex = ((seed + Number(qlId.slice(-3))) % 4 + 4) % 4;
+  const options = placeCorrect(generatedOptions, requestedCorrectIndex);
   const correctIndex = validateSetOptions(ql.ruleId, context, options);
   const rendered = ql.presentationMode === "MISSING_MEMBER"
     ? renderMissingStem(source, target, permutation, layout)
     : { stem: renderSelectionStem(source, layout), missingPosition: null };
+  const difficulty = deriveSetDifficulty(
+    rule,
+    context,
+    ql.presentationMode,
+    source,
+    target.third,
+    scalarWrongValues(options),
+    rendered.missingPosition,
+  );
+
   return {
     qlId,
     ruleId: ql.ruleId,

@@ -16,6 +16,7 @@ assert.equal(new Set(ANA_CP004_RULES.map((rule) => rule.id)).size, 16);
 const answerPositions = [0, 0, 0, 0];
 const layouts = new Set<string>();
 const difficulties = new Set<string>();
+const difficultiesBySeedCycle = [new Set<string>(), new Set<string>(), new Set<string>()];
 const missingPositions = new Set<number>();
 const stemsByQl = new Map<string, Set<string>>();
 let generatedCount = 0;
@@ -43,6 +44,7 @@ for (const ql of ANA_CP004_QLS) {
     assert.ok(first.stem.length > 12);
     layouts.add(first.layout);
     difficulties.add(first.difficulty);
+    difficultiesBySeedCycle[Math.abs(seed) % 3]!.add(first.difficulty);
     qlStems.add(first.stem);
 
     if (first.presentationMode === "MISSING_MEMBER") {
@@ -69,15 +71,22 @@ assert.deepEqual([...layouts].sort(), ["BOXED_SETS", "INLINE", "TWO_ROW_TABLE", 
 assert.deepEqual([...difficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
 assert.deepEqual([...missingPositions].sort(), [0, 1, 2]);
 
+// The former implementation mapped seed%3 directly to EASY/MEDIUM/HARD. Each
+// seed cycle must now contain multiple bands across structurally different QLs.
+for (const [cycle, bands] of difficultiesBySeedCycle.entries()) {
+  assert.ok(bands.size >= 2, `Difficulty still appears seed-cycle driven for seed%3=${cycle}: ${[...bands].join(", ")}`);
+}
+
 const minimum = Math.min(...answerPositions);
 const maximum = Math.max(...answerPositions);
 assert.ok(minimum > 0);
 assert.ok(maximum / minimum < 1.35, `Answer positions are imbalanced: ${answerPositions.join(", ")}`);
 
-console.log("ANA-CP-004 expanded variety audit passed.", {
+console.log("ANA-CP-004 expanded variety and structural-difficulty audit passed.", {
   generatedCount,
   answerPositions,
   layouts: [...layouts],
   difficulties: [...difficulties],
+  difficultiesBySeedCycle: difficultiesBySeedCycle.map((bands) => [...bands]),
   missingPositions: [...missingPositions],
 });

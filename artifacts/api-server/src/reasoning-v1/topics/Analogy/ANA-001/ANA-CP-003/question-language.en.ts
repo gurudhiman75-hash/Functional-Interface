@@ -24,7 +24,8 @@ export const ANA_CP003_QLS = RULES.flatMap(([title, ruleId], ruleIndex) =>
     solveMode: "NUMERIC_RULE_TRANSFER",
     ruleId,
     presentationMode: presentationMode as NumericPresentationMode,
-    difficultyBand: ruleIndex < 9 ? "EASY_TO_MEDIUM" : ruleIndex < 18 ? "MEDIUM" : "MEDIUM_TO_HARD",
+    difficultyBand: "INSTANCE_DERIVED" as const,
+    difficultyPolicy: "RULE_COMPLEXITY_PLUS_PRESENTATION_BURDEN_PLUS_DISTRACTOR_PROXIMITY" as const,
     answerType: presentationMode === "MISSING_FOURTH_TERM" ? "NUMBER" : "NUMBER_PAIR",
   })),
 );

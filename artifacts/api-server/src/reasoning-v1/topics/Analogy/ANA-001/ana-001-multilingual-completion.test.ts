@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { ANA_CP010_QLS } from "./ANA-CP-010/question-language.en";
 
 interface CheckpointCoverage {
   readonly checkpoint: string;
@@ -75,6 +76,18 @@ const COVERAGE: readonly CheckpointCoverage[] = [
     localizedTest: "ANA-CP-008/ana-cp-008-localized.test.ts",
     localizedSources: ["ANA-CP-008/localized-runtime.ts"],
   },
+  {
+    checkpoint: "ANA-CP-010",
+    firstQl: 251,
+    lastQl: 268,
+    qlCount: 18,
+    localizedTest: "ANA-CP-010/ana-cp-010-localized.test.ts",
+    localizedSources: [
+      "ANA-CP-010/localized-runtime.ts",
+      "ANA-CP-010/semantic-registry.ts",
+      "ANA-CP-010/semantic-runtime.ts",
+    ],
+  },
 ] as const;
 
 const repoRoot = process.cwd().endsWith("artifacts/api-server")
@@ -134,19 +147,26 @@ for (const checkpoint of COVERAGE) {
   expectedFirst = checkpoint.lastQl + 1;
 }
 
-assert.equal(totalQlCount, 250);
-assert.equal(qlIds.length, 250);
-assert.equal(new Set(qlIds).size, 250);
+assert.equal(totalQlCount, 268);
+assert.equal(qlIds.length, 268);
+assert.equal(new Set(qlIds).size, 268);
 assert.equal(qlIds[0], "ANA-QL-001");
-assert.equal(qlIds.at(-1), "ANA-QL-250");
+assert.equal(qlIds.at(-1), "ANA-QL-268");
 assert.deepEqual(supportedLocales, ["en-IN", "hi-IN", "pa-IN"]);
+assert.equal(ANA_CP010_QLS.length, 18);
+assert.ok(ANA_CP010_QLS.every((ql) => ql.status === "IMPLEMENTED"));
+assert.deepEqual(
+  ANA_CP010_QLS.map((ql) => ql.qlId),
+  Array.from({ length: 18 }, (_, index) => `ANA-QL-${String(251 + index).padStart(3, "0")}`),
+);
 
-console.log("ANA-001 multilingual completion audit passed.", {
+console.log("ANA-001 multilingual implemented completion audit passed.", {
   checkpoints: COVERAGE.length,
   qlRange: `${qlIds[0]}..${qlIds.at(-1)}`,
   qlCount: qlIds.length,
   locales: supportedLocales,
   permanentCp009QlCount: 0,
+  cp010Status: "IMPLEMENTED",
   questionStudioConnected: false,
   publiclyPublishable: false,
 });

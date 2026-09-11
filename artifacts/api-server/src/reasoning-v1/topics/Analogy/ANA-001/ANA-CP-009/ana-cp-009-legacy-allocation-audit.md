@@ -2,11 +2,13 @@
 
 Status: **AUTHORITATIVE FOR THE 24 HISTORICAL CP-009 PLACEHOLDERS; ZERO PERMANENT QLS ADMITTED**.
 
+> Allocation supersession — 2026-09-11: the historical CP-009 reservation `ANA-QL-251..274` is no longer an unallocated current window. The final ANA-001 source-gap closure assigns `ANA-QL-251..268` to implemented `ANA-CP-010`. `ANA-QL-269..274` remain unallocated. This document remains authoritative for the conclusion that **CP-009 itself owns zero permanent QLs** and for the historical merge/delegate/quarantine decisions below.
+
 ## 1. Why this audit is required
 
-The original ANA-001 design reserved 24 QLs for CP-009 before CP-003 through CP-008 were source-saturated and implemented. Those historical entries used the labels `ANA-QL-237..260`, but later manifest amendments reassigned the implemented chapter continuously through `ANA-QL-250` and moved the provisional CP-009 window to `ANA-QL-251..274`.
+The original ANA-001 design reserved 24 QLs for CP-009 before CP-003 through CP-008 were source-saturated and implemented. Those historical entries used the labels `ANA-QL-237..260`, but later manifest amendments reassigned the implemented chapter continuously through `ANA-QL-250` and, at that historical stage, moved the provisional CP-009 window to `ANA-QL-251..274`.
 
-The old family names therefore cannot be copied into the new range. They must first pass the current ownership rule:
+The old family names therefore cannot be copied into any later range. They must first pass the current ownership rule:
 
 > CP-009 owns only a source-backed relation in which the pair-local rule or its parameter must itself be derived across complete pairs.
 
@@ -33,6 +35,8 @@ Machine-readable decisions and zero-QL enforcement live in:
 
 - `legacy-allocation-boundary.ts`;
 - `legacy-allocation-boundary.test.ts`.
+
+The `formerQlRange` fields in that ledger are historical labels only. They are not current allocation claims and must not be interpreted as ownership of `ANA-QL-251..268`.
 
 ## 3. Key ownership corrections
 
@@ -68,4 +72,12 @@ A visible source condition that chooses between two bounded pair-local rules cou
 - source-required CP-009 candidates: **1**;
 - permanent CP-009 QLs admitted: **0**.
 
-The provisional range `ANA-QL-251..274` remains unallocated. Future CP-009 QLs must be discovered from source evidence and formal uniqueness proofs; they must not be reconstructed from the old count.
+Current identity state after the final ANA-001 source-gap closure:
+
+```text
+ANA-CP-009 permanent QLs: 0
+ANA-CP-010 implemented QLs: ANA-QL-251..268
+currently unallocated tail: ANA-QL-269..274
+```
+
+Future CP-009 QLs must still be discovered from recurring source evidence and formal option-independent uniqueness proofs. They must not be reconstructed from the old placeholder count or assumed to occupy any historical range.

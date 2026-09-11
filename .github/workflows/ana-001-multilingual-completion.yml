@@ -13,7 +13,6 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/**
-      - .github/workflows/ana-001-multilingual-completion.yml
   workflow_dispatch:
 
 permissions:
@@ -48,19 +47,32 @@ jobs:
             --noImplicitReturns \
             --skipLibCheck \
             --types node \
-            src/reasoning-v1/topics/Analogy/ANA-001/ana-001-multilingual-completion.test.ts
+            src/reasoning-v1/topics/Analogy/ANA-001/ana-001-multilingual-completion.test.ts \
+            src/reasoning-v1/topics/Analogy/ANA-001/ana-001-final-diversity-audit.test.ts \
+            src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-010/ana-cp-010.test.ts \
+            src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-010/ana-cp-010-localized.test.ts
       - name: Verify chapter multilingual coverage and Punjabi wording policy
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ana-001-multilingual-completion.test.ts
+      - name: Validate ANA-CP-001 English runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-001/ana-cp-001.test.ts
       - name: Validate ANA-CP-001 and ANA-CP-002 Hindi/Punjabi runtime
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ana-001-localized-runtime.test.ts
       - name: Validate ANA-CP-003 English runtime
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-003/ana-cp-003.test.ts
       - name: Validate ANA-CP-003 Hindi/Punjabi runtime
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-003/ana-cp-003-localized.test.ts
+      - name: Validate ANA-CP-004 English runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-004/ana-cp-004.test.ts
       - name: Validate ANA-CP-004 Hindi/Punjabi runtime
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-004/ana-cp-004-localized.test.ts
       - name: Validate ANA-CP-005 Hindi/Punjabi runtime
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-005/ana-cp-005-localized.test.ts
+      - name: Validate ANA-CP-010 source-gap runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-010/ana-cp-010.test.ts
+      - name: Validate ANA-CP-010 Hindi/Punjabi runtime
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-010/ana-cp-010-localized.test.ts
+      - name: Audit ANA-001 large-batch diversity and fingerprints
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ana-001-final-diversity-audit.test.ts
 
   cp006-locales:
     runs-on: ubuntu-latest
@@ -104,4 +116,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Confirm complete ANA-001 multilingual proof
-        run: echo "ANA-QL-001..250 passed English/Hindi/Punjabi completion gates."
+        run: echo "ANA-QL-001..268 passed English/Hindi/Punjabi candidate completion gates; CP-009 remains unallocated."
