@@ -65,7 +65,7 @@ export function auditGeoRiv001Cp009ScopeV1() {
 
   if (COURSE_FACTS.length !== 25) issues.push(`COURSE_FACT_COUNT:${COURSE_FACTS.length}`);
   if (stateSetsByRiver.size !== 9) issues.push(`RIVER_COUNT:${stateSetsByRiver.size}`);
-  if (riverSetsByState.size !== 12) issues.push(`STATE_COUNT:${riverSetsByState.size}`);
+  if (riverSetsByState.size !== 15) issues.push(`STATE_COUNT:${riverSetsByState.size}`);
   if (!GEO_RIV_001_CP009_REVIEW_SCOPE_V1.basinStateConflationForbidden) issues.push("BASIN_CONFLATION_GUARD_DISABLED");
   if (!GEO_RIV_001_CP009_REVIEW_SCOPE_V1.closedWorldForIncludedRiverCourseQuestions) issues.push("CLOSED_WORLD_REVIEW_SCOPE_DISABLED");
   if (GEO_RIV_001_CP009_REVIEW_SCOPE_V1.universalGeographyCompletenessClaim) issues.push("UNIVERSAL_COMPLETENESS_CLAIM_FORBIDDEN");
