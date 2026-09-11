@@ -1,7 +1,7 @@
 import { classifyEnglishDifficulty, structuralDifficultyScore } from "../../../../core/difficulty";
 import type { ArticleRuleId, Eng001Question, Eng001SentenceCandidate } from "../../../../core/types";
 import { ARTICLE_DETERMINER_RULE_BY_ID } from "../../../../grammar/articles-determiners";
-import { buildEng001Cp003CandidateV1 } from "./eng-001-cp003-v1";
+import { cp003ScenePoolV1 } from "./eng-001-cp003-v1";
 
 export interface Cp003Issue { code: "STRUCTURE" | "MUTATION" | "DIFFICULTY" | "QL" | "EXPLANATION" | "NATURALNESS" | "RULE"; message: string }
 export interface Cp003Validation { ok: boolean; issues: readonly Cp003Issue[] }
@@ -43,9 +43,16 @@ export function validateEng001Cp003QuestionV1(question: Eng001Question): Cp003Va
   } else if (!question.explanation.startsWith(`Part ${question.metadata.answerSegment} contains the error.`)) {
     issues.push(issue("EXPLANATION", "Explanation does not identify the keyed part."));
   }
-  const source = buildEng001Cp003CandidateV1({ seed: question.metadata.seed, difficulty: question.metadata.difficulty, ruleId: question.metadata.ruleId as ArticleRuleId });
-  if (!question.explanation.includes(`“${source.correction}”`)) issues.push(issue("EXPLANATION", "Explanation omits the correction."));
-  if (!question.metadata.hasNoError && !question.explanation.includes(`Use “${source.correction}”.`)) issues.push(issue("EXPLANATION", "Error explanation must state the correction directly."));
+
+  const sceneId = question.metadata.candidateId.replace(/^ART-V1:/, "");
+  const sourceScene = cp003ScenePoolV1(question.metadata.difficulty).find((scene) => scene.id === sceneId);
+  if (!sourceScene) {
+    issues.push(issue("STRUCTURE", `Selected source scene ${sceneId} is missing.`));
+  } else {
+    const correction = sourceScene.correction;
+    if (!question.explanation.includes(`“${correction}”`)) issues.push(issue("EXPLANATION", "Explanation omits the correction."));
+    if (!question.metadata.hasNoError && !question.explanation.includes(`Use “${correction}”.`)) issues.push(issue("EXPLANATION", "Error explanation must state the correction directly."));
+  }
   if (!question.explanation.includes(question.correctedSentence)) issues.push(issue("EXPLANATION", "Explanation omits the corrected sentence."));
   if (/\b(?:phonological realization|determiner phrase|DP structure|referential specificity)\b/i.test(question.explanation)) issues.push(issue("EXPLANATION", "Explanation contains unnecessary grammar jargon."));
   if (/\s{2,}/.test(question.correctedSentence)) issues.push(issue("NATURALNESS", "Corrected sentence contains doubled whitespace."));
