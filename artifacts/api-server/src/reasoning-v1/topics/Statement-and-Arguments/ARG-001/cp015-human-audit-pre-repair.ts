@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_AUTHORITY = "ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_V8" as const;
+export const ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_AUTHORITY = "ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_V9" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -26,6 +26,7 @@ function repairEnglish(value: string): string {
     .replace(/\bAny remote employees who\b/gi, "Any remote employee who")
     .replace(/\bAny office employees who\b/gi, "Any office employee who")
     .replace(/\bAny (remote|office|contract) employee who ask\b/gi, "Any $1 employee who asks")
+    .replace(/\basks about who can access\b/gi, "asks who can access")
     .replace(/(^|[.!?;:]\s+|\bthat\s+)machine-learning anomaly alert is sufficient evidence/gi, "$1a machine-learning anomaly alert is sufficient evidence")
     .replace(/\bYes\. a machine-learning anomaly alert\b/g, "Yes. A machine-learning anomaly alert")
     .replace(/\bNo\. a machine-learning anomaly alert\b/g, "No. A machine-learning anomaly alert")
@@ -71,7 +72,7 @@ function repairHindi(value: string): string {
     .replace(/डेटा संग्रह का उद्देश्य क्या है/g, "डेटा संग्रह का उद्देश्य")
     .replace(/रिकॉर्ड किसे उपलब्ध होते हैं के बारे में/g, "रिकॉर्ड तक किसकी पहुँच है, इस बारे में")
     .replace(/रिकॉर्ड किसे उपलब्ध होते हैं और/g, "रिकॉर्ड तक किसकी पहुँच है और")
-    .replace(/वेबकैम-आधारित गतिविधि निगरानी कर्मचारी की गोपनीयता को प्रभावित करता है/g, "वेबकैम-आधारित गतिविधि निगरानी कर्मचारी की गोपनीयता को प्रभावित करती है")
+    .replace(/((?:लगातार स्क्रीन रिकॉर्डिंग|स्थान ट्रैकिंग|कीस्ट्रोक लॉगिंग|वेबकैम-आधारित गतिविधि निगरानी)) कर्मचारी की गोपनीयता को प्रभावित करता है/g, "$1 कर्मचारी की गोपनीयता को प्रभावित करती है")
     .replace(/का अधिकांश अभ्यर्थी और केंद्र प्रभावित था/g, "के अधिकांश अभ्यर्थी और केंद्र प्रभावित थे")
     .replace(/अधिकांश केंद्र का परिणाम/g, "अधिकांश केंद्रों के परिणाम")
     .replace(/अधिकांश पेपर लीक का आरोप अनदेखी करनी होगी/g, "बाद के पेपर लीक आरोपों को अनदेखा करना होगा")
@@ -95,12 +96,15 @@ function repairPunjabi(value: string): string {
     .replace(/(?:ਅਰਜ਼ੀਕਾਰਾਂ|ਕਰਮਚਾਰੀਆਂ) ਦੀ ਪਛਾਣ ਕਰਨ ਵਾਲੀ ਨਾਮ ਅਤੇ/g, (matched) => matched.replace(/ ਦੀ ਪਛਾਣ ਕਰਨ ਵਾਲੀ ਨਾਮ ਅਤੇ$/, " ਦੇ ਨਾਮ ਅਤੇ"))
     .replace(/ਅਰਜ਼ੀਕਾਰਾਂ ਦੀ ਨਾਮ ਅਤੇ/g, "ਅਰਜ਼ੀਕਾਰਾਂ ਦੇ ਨਾਮ ਅਤੇ")
     .replace(/ਕਰਮਚਾਰੀਆਂ ਦੀ ਨਾਮ ਅਤੇ/g, "ਕਰਮਚਾਰੀਆਂ ਦੇ ਨਾਮ ਅਤੇ")
+    .replace(/(ਟ੍ਰੇਨੀਜ਼|ਅਰਜ਼ੀਕਾਰਾਂ|ਕਰਮਚਾਰੀਆਂ) ਬਾਰੇ ਨਾਮ ਅਤੇ/g, "$1 ਦੇ ਨਾਮ ਅਤੇ")
     .replace(/(ਪੇਪਰ ਲੀਕ ਦੋਸ਼) ਹੀ ਸਾਬਤ ਕਰਦੀ ਹੈ/g, "$1 ਹੀ ਸਾਬਤ ਕਰਦਾ ਹੈ")
-    .replace(/(?:ਦਾ|ਦੇ) ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸੀ/g, "ਦੇ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸਨ")
+    .replace(/(?:ਦਾ|ਦੇ) ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸੀ/g, "ਦੇ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਰ ਪ੍ਰਭਾਵਿਤ ਸਨ")
     .replace(/ਲੋਕਾਂ ਜੋ/g, "ਲੋਕ ਜੋ")
     .replace(/ਰਿਮੋਟ ਕਰਮਚਾਰੀਆਂ ਵਿੱਚ ਜੋ ਵੀ/g, "ਜੋ ਵੀ ਰਿਮੋਟ ਕਰਮਚਾਰੀ")
     .replace(/ਕੌਨਟ੍ਰੈਕਟ ਕਰਮਚਾਰੀਆਂ ਵਿੱਚ ਜੋ ਵੀ/g, "ਜੋ ਵੀ ਕੌਨਟ੍ਰੈਕਟ ਕਰਮਚਾਰੀ")
+    .replace(/ਫੀਲਡ ਸਟਾਫ ਵਿੱਚ ਜੋ ਵੀ/g, "ਫੀਲਡ ਸਟਾਫ ਦਾ ਕੋਈ ਮੈਂਬਰ ਜੋ")
     .replace(/ਡਾਟਾ ਇਕੱਠਾ ਕਰਨ ਦਾ ਮਕਸਦ ਕੀ ਹੈ ਬਾਰੇ/g, "ਡਾਟਾ ਇਕੱਠਾ ਕਰਨ ਦੇ ਮਕਸਦ ਬਾਰੇ")
+    .replace(/ਡਾਟਾ ਕਿੰਨਾ ਸਮਾਂ ਰੱਖਿਆ ਜਾਂਦਾ ਹੈ ਬਾਰੇ/g, "ਡਾਟਾ ਕਿੰਨਾ ਸਮਾਂ ਰੱਖਿਆ ਜਾਂਦਾ ਹੈ, ਇਸ ਬਾਰੇ")
     .replace(/(ਸਰਕਾਰੀ ਹਸਪਤਾਲਾਂ|ਜਨਤਕ ਸੇਵਾ ਦਫ਼ਤਰਾਂ) ਵਰਤਦੇ ਸਮੇਂ/g, "$1 ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਸਮੇਂ")
     .replace(/ਨਿਰਧਾਰਤ ਤਰਜੀਹੀ ਸਲਾਟ([^।.!?]*?)ਘੱਟ ਕਰ ਸਕਦੀ ਹੈ/g, "ਨਿਰਧਾਰਤ ਤਰਜੀਹੀ ਸਲਾਟ$1ਘੱਟ ਕਰ ਸਕਦੇ ਹਨ")
     .replace(/ਨਿਰਧਾਰਤ ਮੁਲਾਕਾਤ ਸਲਾਟ([^।.!?]*?)ਘੱਟ ਕਰ ਸਕਦੀ ਹੈ/g, "ਨਿਰਧਾਰਤ ਮੁਲਾਕਾਤ ਸਲਾਟ$1ਘੱਟ ਕਰ ਸਕਦੇ ਹਨ")
@@ -113,6 +117,7 @@ function repairPunjabi(value: string): string {
     .replace(/ਭੁਗਤਾਨ ਖਾਤਾ ਵਿੱਚ/g, "ਭੁਗਤਾਨ ਖਾਤੇ ਵਿੱਚ")
     .replace(/ਭੁਗਤਾਨ ਖਾਤਾ ਲਈ/g, "ਭੁਗਤਾਨ ਖਾਤੇ ਲਈ")
     .replace(/ਬੈਂਕ ਖਾਤਾ ਲਈ/g, "ਬੈਂਕ ਖਾਤੇ ਲਈ")
+    .replace(/ਤਨਖਾਹ ਜਮ੍ਹਾਂ ਹੋਣ ਵਾਲਾ ਬੈਂਕ ਖਾਤੇ ਲਈ/g, "ਤਨਖਾਹ ਜਮ੍ਹਾਂ ਹੋਣ ਵਾਲੇ ਬੈਂਕ ਖਾਤੇ ਲਈ")
     .replace(/ਭੁਗਤਾਨ ਖਾਤਾ ਦਾ ਜ਼ਿਆਦਾਤਰ ਅਸਲੀ ਬਦਲਾਅ/g, "ਭੁਗਤਾਨ ਖਾਤੇ ਵਿੱਚ ਜ਼ਿਆਦਾਤਰ ਅਸਲੀ ਬਦਲਾਅ")
     .replace(/ਲੈਣ-ਦੇਣ ਸੀਮਾ ਦਾ ਜ਼ਿਆਦਾਤਰ ਅਸਲੀ ਬਦਲਾਅ ਅਮਲ ਵਿੱਚ ਔਖਾ ਹੋ ਜਾਵੇਗਾ/g, "ਲੈਣ-ਦੇਣ ਸੀਮਾ ਵਿੱਚ ਜ਼ਿਆਦਾਤਰ ਅਸਲੀ ਬਦਲਾਅ ਕਰਨਾ ਅਮਲ ਵਿੱਚ ਔਖਾ ਹੋ ਜਾਵੇਗਾ")
     .replace(/ਭੁਗਤਾਨ ਖਾਤਾ ਬਦਲਣ ਦੀ ਜ਼ਿਆਦਾਤਰ ਅਸਲੀ ਬੇਨਤੀ ਵੀ ਅਮਲ ਵਿੱਚ ਔਖਾ ਹੋਵੇਗੀ/g, "ਭੁਗਤਾਨ ਖਾਤਾ ਬਦਲਣ ਲਈ ਜ਼ਿਆਦਾਤਰ ਅਸਲੀ ਬੇਨਤੀਆਂ ਵੀ ਅਮਲ ਵਿੱਚ ਔਖੀਆਂ ਹੋਣਗੀਆਂ")
