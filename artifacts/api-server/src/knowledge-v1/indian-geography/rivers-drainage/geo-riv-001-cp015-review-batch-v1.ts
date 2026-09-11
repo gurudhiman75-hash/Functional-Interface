@@ -60,7 +60,14 @@ export const GEO_RIV_001_CP015_SOURCE_CP_QUOTAS_V1 = Object.freeze(
 );
 
 const BASE_DIFFICULTY_PATTERN: readonly KnowledgeV1Difficulty[] = ["Easy", "Medium", "Medium", "Hard"];
-const EXTENDED_DIFFICULTY_PATTERN: readonly KnowledgeV1Difficulty[] = ["Easy", "Medium", "Medium", "Hard", "Medium", "Medium"];
+const CP007_DIFFICULTY_PATTERN: readonly KnowledgeV1Difficulty[] = ["Easy", "Easy", "Medium", "Hard", "Medium", "Medium"];
+const CP014_DIFFICULTY_PATTERN: readonly KnowledgeV1Difficulty[] = ["Medium", "Medium", "Medium", "Medium", "Medium", "Hard"];
+
+function difficultyPatternFor(pool: SourcePool) {
+  if (pool.cpId === "GEO-RIV-001-CP007") return CP007_DIFFICULTY_PATTERN;
+  if (pool.cpId === "GEO-RIV-001-CP014") return CP014_DIFFICULTY_PATTERN;
+  return BASE_DIFFICULTY_PATTERN;
+}
 
 function semanticKey(question: SourceQuestion) {
   return `${question.stem}::${question.canonicalAnswer}`;
@@ -82,7 +89,7 @@ function selectSourceQuestions() {
 
   for (const pool of SOURCE_POOLS) {
     const usedQls = new Set<string>();
-    const pattern = pool.quota === 6 ? EXTENDED_DIFFICULTY_PATTERN : BASE_DIFFICULTY_PATTERN;
+    const pattern = difficultyPatternFor(pool);
 
     for (let slot = 0; slot < pool.quota; slot += 1) {
       const targetDifficulty = pattern[slot];
