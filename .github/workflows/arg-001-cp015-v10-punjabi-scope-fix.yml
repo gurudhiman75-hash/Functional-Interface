@@ -110,7 +110,7 @@ jobs:
       - name: Preserve exact CP006 and CP008 historical freezes
         run: |
           for file in cp006-byte-freeze-proof.test.ts cp008-byte-freeze-proof.test.ts; do
-            pnpm --dir artifacts/api-server exec esbuild artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/$file --bundle --platform=node --format=esm --outfile=artifacts/api-server/dist/${file%.ts}.mjs
+            pnpm --dir artifacts/api-server exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/$file --bundle --platform=node --format=esm --outfile=dist/${file%.ts}.mjs
             node artifacts/api-server/dist/${file%.ts}.mjs
           done
 
