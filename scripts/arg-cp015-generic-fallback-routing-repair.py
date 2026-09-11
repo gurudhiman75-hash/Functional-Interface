@@ -143,6 +143,25 @@ if ql002_failed_check_punjabi_reason not in source:
         raise SystemExit(f"QL002 Punjabi failed-verification anecdote reason: expected exactly one Punjabi fallback anchor, found {count}")
     source = source.replace(punjabi_fallback_anchor, ql002_failed_check_punjabi_rule + punjabi_fallback_anchor, 1)
 
+# QL004 localized anti-gaming surface: a short/temporary restriction is used to
+# claim permanent destruction of most nearby activity. A temporary operational
+# measure may impose costs, but it does not establish permanent local shutdown.
+ql004_activity_hindi_reason = 'अस्थायी भारी-वाहन प्रतिबंध से कुछ स्थानीय गतिविधि प्रभावित हो सकती है, लेकिन इससे आसपास की अधिकांश गतिविधियाँ स्थायी रूप से समाप्त हो जाएँगी, यह निष्कर्ष उचित नहीं है।'
+ql004_activity_hindi_rule = f'  if (/अस्थायी प्रतिबंध.*(?:आसपास|स्थानीय).*(?:अधिकांश|ज्यादातर).*(?:गतिविधि|गतिविधियों).*(?:स्थायी रूप से समाप्त|स्थायी रूप से खत्म|खत्म)/.test(argument)) return "{ql004_activity_hindi_reason}";\n'
+if ql004_activity_hindi_reason not in source:
+    count = source.count(hindi_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL004 Hindi temporary-restriction activity reason: expected exactly one Hindi fallback anchor, found {count}")
+    source = source.replace(hindi_fallback_anchor, ql004_activity_hindi_rule + hindi_fallback_anchor, 1)
+
+ql004_activity_punjabi_reason = 'ਥੋੜ੍ਹੇ ਸਮੇਂ ਦੀ ਭਾਰੀ-ਵਾਹਨ ਪਾਬੰਦੀ ਕੁਝ ਸਥਾਨਕ ਸਰਗਰਮੀ ਨੂੰ ਪ੍ਰਭਾਵਿਤ ਕਰ ਸਕਦੀ ਹੈ, ਪਰ ਇਸ ਨਾਲ ਆਲੇ-ਦੁਆਲੇ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਰਗਰਮੀ ਸਦਾ ਲਈ ਖਤਮ ਹੋ ਜਾਵੇਗੀ, ਇਹ ਨਤੀਜਾ ਠੀਕ ਨਹੀਂ ਹੈ।'
+ql004_activity_punjabi_rule = f'  if (/(?:ਥੋੜ੍ਹੇ ਸਮੇਂ ਦੀ|ਅਸਥਾਈ).*ਪਾਬੰਦੀ.*(?:ਆਲੇ-ਦੁਆਲੇ|ਇਲਾਕੇ|ਸਥਾਨਕ).*(?:ਜ਼ਿਆਦਾਤਰ).*(?:ਸਰਗਰਮੀ).*(?:ਸਦਾ ਲਈ ਖਤਮ|ਸਥਾਈ ਤੌਰ.*ਖਤਮ|ਖਤਮ)/.test(argument)) return "{ql004_activity_punjabi_reason}";\n'
+if ql004_activity_punjabi_reason not in source:
+    count = source.count(punjabi_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL004 Punjabi temporary-restriction activity reason: expected exactly one Punjabi fallback anchor, found {count}")
+    source = source.replace(punjabi_fallback_anchor, ql004_activity_punjabi_rule + punjabi_fallback_anchor, 1)
+
 # The finalizer already runs every argument through repairSurface before reason
 # selection. Assert that V8's English article repair is present so the repaired
 # argument exposed to the rule is grammatical as well as semantically specific.
@@ -171,4 +190,4 @@ if new not in source:
 
 SOURCE_PATH.write_text(source, encoding="utf-8")
 GRAMMAR_PATH.write_text(grammar, encoding="utf-8")
-print("ARG-001 CP015 generic fallback routing and localized QL001/QL002 anecdote repair applied")
+print("ARG-001 CP015 generic fallback routing with localized QL004 activity repair applied")
