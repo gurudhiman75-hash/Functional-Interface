@@ -7,7 +7,7 @@ export const TENSE_SEQUENCE_RULES: readonly EnglishGrammarRule[] = [
     name: "finished_past_time_uses_simple_past",
     principle: "A completed action tied to a definite finished past time normally takes the simple past, not the present perfect.",
     mutationId: "MUT-TNS-PAST-TIME-001",
-    allowedDifficulties: ["easy", "medium", "hard"],
+    allowedDifficulties: ["easy", "medium"],
     ambiguityGuard: "Require a definite finished-past marker such as yesterday, last week, two days ago, or an explicit past date.",
   },
   {
@@ -43,7 +43,7 @@ export const TENSE_SEQUENCE_RULES: readonly EnglishGrammarRule[] = [
     name: "stative_verb_not_normally_continuous",
     principle: "Stative verbs such as know, understand, own, belong and believe are not normally used in the continuous form when they describe a state.",
     mutationId: "MUT-TNS-STATIVE-CONTINUOUS-001",
-    allowedDifficulties: ["medium", "hard"],
+    allowedDifficulties: ["medium"],
     ambiguityGuard: "Use only stative senses whose progressive reading would be clearly non-standard in the target exam convention.",
   },
   {
@@ -78,7 +78,7 @@ export const TENSE_SEQUENCE_RULES: readonly EnglishGrammarRule[] = [
     name: "single_completed_past_event_simple_past",
     principle: "A single completed event at a known past time normally uses the simple past; the past perfect is not used merely because the event is old.",
     mutationId: "MUT-TNS-SINGLE-PAST-001",
-    allowedDifficulties: ["medium", "hard"],
+    allowedDifficulties: ["medium"],
     ambiguityGuard: "Do not include a second past reference point that could license the past perfect.",
   },
   {
@@ -87,7 +87,7 @@ export const TENSE_SEQUENCE_RULES: readonly EnglishGrammarRule[] = [
     name: "continuing_stative_state_present_perfect",
     principle: "A stative situation that began in the past and still holds normally uses the present perfect simple rather than the present perfect continuous.",
     mutationId: "MUT-TNS-STATIVE-DURATION-001",
-    allowedDifficulties: ["medium", "hard"],
+    allowedDifficulties: ["medium"],
     ambiguityGuard: "Use stable stative verbs such as know, own, belong and understand with explicit since/for duration cues.",
   },
 ] as const;
