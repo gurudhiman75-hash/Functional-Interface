@@ -56,6 +56,18 @@ jobs:
         shell: bash
         run: node artifacts/api-server/dist/english-v1/eng-001-cp002-v1.test.mjs
 
+      - name: Compile CP002 V1 review freeze test
+        shell: bash
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/english-v1/tests/eng-001-cp002-v1-review.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/english-v1/eng-001-cp002-v1-review.test.mjs
+
+      - name: Run CP002 V1 review export/freeze test
+        shell: bash
+        run: node artifacts/api-server/dist/english-v1/eng-001-cp002-v1-review.test.mjs
+
       - name: Compile CP001 V4 regression
         shell: bash
         run: |
