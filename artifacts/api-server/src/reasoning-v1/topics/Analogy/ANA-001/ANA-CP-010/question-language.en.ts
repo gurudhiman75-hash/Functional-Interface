@@ -15,7 +15,8 @@ export const ANA_CP010_NUMERIC_QLS = ANA_CP010_NUMERIC_RULES.flatMap((rule, rule
     presentationMode,
     renderer: "TEXT",
     localeMode: "TRANSLATABLE_NUMERIC",
-    status: "PROVISIONAL_EXECUTABLE",
+    implementationCheckpoint: "ANA-CP-010" as const,
+    status: "IMPLEMENTED" as const,
   })),
 );
 
@@ -30,7 +31,8 @@ export const ANA_CP010_SET_QLS = [
     presentationMode: "EQUIVALENT_SET_SELECTION" as const,
     renderer: "STRUCTURED_TEXT",
     localeMode: "TRANSLATABLE_NUMERIC",
-    status: "PROVISIONAL_EXECUTABLE" as const,
+    implementationCheckpoint: "ANA-CP-010" as const,
+    status: "IMPLEMENTED" as const,
   },
   {
     qlId: "ANA-QL-266",
@@ -42,7 +44,8 @@ export const ANA_CP010_SET_QLS = [
     presentationMode: "EQUIVALENT_SET_SELECTION" as const,
     renderer: "STRUCTURED_TEXT",
     localeMode: "TRANSLATABLE_NUMERIC",
-    status: "PROVISIONAL_EXECUTABLE" as const,
+    implementationCheckpoint: "ANA-CP-010" as const,
+    status: "IMPLEMENTED" as const,
   },
 ] as const;
 
@@ -57,7 +60,8 @@ export const ANA_CP010_SEMANTIC_QLS = [
     presentationMode: "MISSING_FOURTH_TERM" as AnaCp010SemanticPresentation,
     renderer: "TEXT",
     localeMode: "LANGUAGE_ADAPTED",
-    status: "PROVISIONAL_EXECUTABLE" as const,
+    implementationCheckpoint: "ANA-CP-010" as const,
+    status: "IMPLEMENTED" as const,
   },
   {
     qlId: "ANA-QL-268",
@@ -69,7 +73,8 @@ export const ANA_CP010_SEMANTIC_QLS = [
     presentationMode: "EQUIVALENT_PAIR_SELECTION" as AnaCp010SemanticPresentation,
     renderer: "TEXT",
     localeMode: "LANGUAGE_ADAPTED",
-    status: "PROVISIONAL_EXECUTABLE" as const,
+    implementationCheckpoint: "ANA-CP-010" as const,
+    status: "IMPLEMENTED" as const,
   },
 ] as const;
 
