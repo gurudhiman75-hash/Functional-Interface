@@ -12,7 +12,12 @@ export type GeoRiv001Cp012SourceId =
   | "ODISHA-CUTTACK-MAHANADI"
   | "SRINAGAR-DISTRICT-JHELUM"
   | "ASSAM-GUWAHATI-BRAHMAPUTRA"
-  | "AP-VIJAYAWADA-KRISHNA";
+  | "AP-VIJAYAWADA-KRISHNA"
+  | "HARIDWAR-DISTRICT-GANGA"
+  | "AGRA-DISTRICT-YAMUNA"
+  | "MATHURA-DISTRICT-YAMUNA"
+  | "SURAT-DISTRICT-TAPI"
+  | "KMC-HOOGHLY-RIVERFRONT";
 
 type Source = Readonly<{ sourceId: GeoRiv001Cp012SourceId; title: string; url: string; sourceType: KnowledgeFactSource["sourceType"] }>;
 
@@ -29,6 +34,11 @@ export const GEO_RIV_001_CP012_SOURCE_AUTHORITIES_V1: readonly Source[] = Object
   { sourceId: "SRINAGAR-DISTRICT-JHELUM", title: "District Srinagar — District Geography", url: "https://srinagar.nic.in/", sourceType: "official" },
   { sourceId: "ASSAM-GUWAHATI-BRAHMAPUTRA", title: "Government of Assam — Guwahati/Brahmaputra geography", url: "https://kamrupmetro.assam.gov.in/", sourceType: "official" },
   { sourceId: "AP-VIJAYAWADA-KRISHNA", title: "Government of Andhra Pradesh — Vijayawada/Krishna geography", url: "https://ntr.ap.gov.in/", sourceType: "official" },
+  { sourceId: "HARIDWAR-DISTRICT-GANGA", title: "District Haridwar — History and Ganga", url: "https://haridwar.nic.in/history/", sourceType: "official" },
+  { sourceId: "AGRA-DISTRICT-YAMUNA", title: "District Agra — About District", url: "https://agra.nic.in/", sourceType: "official" },
+  { sourceId: "MATHURA-DISTRICT-YAMUNA", title: "District Mathura — Administrative Setup", url: "https://mathura.nic.in/administrative-setup/", sourceType: "official" },
+  { sourceId: "SURAT-DISTRICT-TAPI", title: "District Surat — District at a Glance", url: "https://surat.nic.in/district-at-a-glance/", sourceType: "official" },
+  { sourceId: "KMC-HOOGHLY-RIVERFRONT", title: "Kolkata Municipal Corporation — Hooghly River Front", url: "https://www.kmcgov.in/KMCPortal/outside_jsp/BeautificationHooglyRiverFront.jsp", sourceType: "official" },
 ]);
 
 export function toGeoRiv001Cp012FactSource(sourceId: GeoRiv001Cp012SourceId, locator: string): KnowledgeFactSource {
