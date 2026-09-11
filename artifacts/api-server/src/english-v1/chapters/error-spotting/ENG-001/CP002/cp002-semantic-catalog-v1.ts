@@ -60,93 +60,373 @@ export interface StativeTenseSceneV1 {
   modifier: string;
 }
 
+type DynamicRow = readonly [
+  subject: string,
+  base: string,
+  present3sg: string,
+  past: string,
+  participle: string,
+  ing: string,
+  object: string,
+  context: string,
+  habitMarker: DynamicTenseSceneV1["habitMarker"],
+];
+
+type OngoingRow = readonly [
+  subject: string,
+  participle: string,
+  ing: string,
+  object: string,
+  continuingMarker: string,
+  laterPastClause: string,
+  interruptionClause: string,
+  modifier: string,
+];
+
+type StativeRow = readonly [
+  subject: string,
+  base: string,
+  present3sg: string,
+  participle: string,
+  ing: string,
+  object: string,
+  durationMarker: string,
+  modifier: string,
+];
+
+function dynamicScenes(domain: TenseDomainV1, prefix: string, rows: readonly DynamicRow[]): DynamicTenseSceneV1[] {
+  return rows.map((row, index) => ({
+    id: `${prefix}-${String(index + 1).padStart(2, "0")}`,
+    domain,
+    subject: row[0],
+    base: row[1],
+    present3sg: row[2],
+    past: row[3],
+    participle: row[4],
+    ing: row[5],
+    object: row[6],
+    context: row[7],
+    habitMarker: row[8],
+  }));
+}
+
+function ongoingScenes(domain: TenseDomainV1, prefix: string, rows: readonly OngoingRow[]): OngoingTenseSceneV1[] {
+  return rows.map((row, index) => ({
+    id: `ONGO-${prefix}-${String(index + 1).padStart(2, "0")}`,
+    domain,
+    subject: row[0],
+    participle: row[1],
+    ing: row[2],
+    object: row[3],
+    continuingMarker: row[4],
+    laterPastClause: row[5],
+    interruptionClause: row[6],
+    modifier: row[7],
+  }));
+}
+
+function stativeScenes(domain: TenseDomainV1, prefix: string, rows: readonly StativeRow[]): StativeTenseSceneV1[] {
+  return rows.map((row, index) => ({
+    id: `STATE-${prefix}-${String(index + 1).padStart(2, "0")}`,
+    domain,
+    subject: row[0],
+    base: row[1],
+    present3sg: row[2],
+    participle: row[3],
+    ing: row[4],
+    object: row[5],
+    durationMarker: row[6],
+    modifier: row[7],
+  }));
+}
+
 export const DYNAMIC_TENSE_SCENES_V1: readonly DynamicTenseSceneV1[] = [
-  { id: "EDU-01", domain: "education", subject: "the teacher", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the attendance list", context: "in the classroom", habitMarker: "every morning" },
-  { id: "EDU-02", domain: "education", subject: "the librarian", base: "sort", present3sg: "sorts", past: "sorted", participle: "sorted", ing: "sorting", object: "the returned books", context: "in the library", habitMarker: "every day" },
-  { id: "TRN-01", domain: "transport", subject: "the driver", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the bus brakes", context: "at the depot", habitMarker: "every morning" },
-  { id: "TRN-02", domain: "transport", subject: "the conductor", base: "count", present3sg: "counts", past: "counted", participle: "counted", ing: "counting", object: "the ticket slips", context: "on the bus", habitMarker: "every day" },
-  { id: "COM-01", domain: "commerce", subject: "the clerk", base: "record", present3sg: "records", past: "recorded", participle: "recorded", ing: "recording", object: "the payments", context: "at the counter", habitMarker: "every day" },
-  { id: "COM-02", domain: "commerce", subject: "the cashier", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the receipts", context: "at the shop", habitMarker: "regularly" },
-  { id: "SCI-01", domain: "science", subject: "the assistant", base: "test", present3sg: "tests", past: "tested", participle: "tested", ing: "testing", object: "the sample", context: "in the lab", habitMarker: "every day" },
-  { id: "SCI-02", domain: "science", subject: "the researcher", base: "record", present3sg: "records", past: "recorded", participle: "recorded", ing: "recording", object: "the readings", context: "at the workbench", habitMarker: "regularly" },
-  { id: "SPT-01", domain: "sports", subject: "the coach", base: "review", present3sg: "reviews", past: "reviewed", participle: "reviewed", ing: "reviewing", object: "the practice notes", context: "at the ground", habitMarker: "every day" },
-  { id: "SPT-02", domain: "sports", subject: "the trainer", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the sports equipment", context: "in the training room", habitMarker: "each week" },
-  { id: "PUB-01", domain: "public-service", subject: "the officer", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the application forms", context: "at the service desk", habitMarker: "every day" },
-  { id: "PUB-02", domain: "public-service", subject: "the assistant", base: "record", present3sg: "records", past: "recorded", participle: "recorded", ing: "recording", object: "the public requests", context: "in the office", habitMarker: "regularly" },
-  { id: "TEC-01", domain: "technology", subject: "the technician", base: "update", present3sg: "updates", past: "updated", participle: "updated", ing: "updating", object: "the office software", context: "in the computer room", habitMarker: "each week" },
-  { id: "TEC-02", domain: "technology", subject: "the support worker", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the office devices", context: "at the support desk", habitMarker: "every day" },
-  { id: "ENV-01", domain: "environment", subject: "the worker", base: "measure", present3sg: "measures", past: "measured", participle: "measured", ing: "measuring", object: "the water level", context: "at the tank", habitMarker: "every morning" },
-  { id: "ENV-02", domain: "environment", subject: "the ranger", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the trail signs", context: "in the park", habitMarker: "each week" },
-  { id: "HOS-01", domain: "hospitality", subject: "the receptionist", base: "confirm", present3sg: "confirms", past: "confirmed", participle: "confirmed", ing: "confirming", object: "the room bookings", context: "at the front desk", habitMarker: "every morning" },
-  { id: "HOS-02", domain: "hospitality", subject: "the manager", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the room list", context: "in the hotel office", habitMarker: "every day" },
-  { id: "HEA-01", domain: "healthcare", subject: "the nurse", base: "record", present3sg: "records", past: "recorded", participle: "recorded", ing: "recording", object: "the patient's temperature", context: "in the ward", habitMarker: "regularly" },
-  { id: "HEA-02", domain: "healthcare", subject: "the assistant", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the medicine stock", context: "in the clinic", habitMarker: "every day" },
-  { id: "AGR-01", domain: "agriculture", subject: "the farmer", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the water pump", context: "in the field", habitMarker: "every morning" },
-  { id: "AGR-02", domain: "agriculture", subject: "the field worker", base: "measure", present3sg: "measures", past: "measured", participle: "measured", ing: "measuring", object: "the seed bags", context: "at the store shed", habitMarker: "regularly" },
-  { id: "MED-01", domain: "media", subject: "the editor", base: "review", present3sg: "reviews", past: "reviewed", participle: "reviewed", ing: "reviewing", object: "the headlines", context: "at the news desk", habitMarker: "every day" },
-  { id: "MED-02", domain: "media", subject: "the reporter", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the interview notes", context: "in the newsroom", habitMarker: "regularly" },
-  { id: "HOM-01", domain: "household", subject: "the caretaker", base: "lock", present3sg: "locks", past: "locked", participle: "locked", ing: "locking", object: "the main gate", context: "at the house", habitMarker: "every day" },
-  { id: "HOM-02", domain: "household", subject: "the helper", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the water tank", context: "on the roof", habitMarker: "every morning" },
-  { id: "INF-01", domain: "infrastructure", subject: "the engineer", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the road surface", context: "at the work site", habitMarker: "regularly" },
-  { id: "INF-02", domain: "infrastructure", subject: "the inspector", base: "record", present3sg: "records", past: "recorded", participle: "recorded", ing: "recording", object: "the bridge readings", context: "near the bridge", habitMarker: "each week" },
-  { id: "BNK-01", domain: "banking", subject: "the bank clerk", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the signatures", context: "at the bank counter", habitMarker: "every day" },
-  { id: "BNK-02", domain: "banking", subject: "the cashier", base: "record", present3sg: "records", past: "recorded", participle: "recorded", ing: "recording", object: "the deposits", context: "at the branch", habitMarker: "regularly" },
-  { id: "MFG-01", domain: "manufacturing", subject: "the worker", base: "pack", present3sg: "packs", past: "packed", participle: "packed", ing: "packing", object: "the finished boxes", context: "in the packing area", habitMarker: "every day" },
-  { id: "MFG-02", domain: "manufacturing", subject: "the supervisor", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the machine log", context: "on the factory floor", habitMarker: "regularly" },
-  { id: "ENE-01", domain: "energy", subject: "the operator", base: "record", present3sg: "records", past: "recorded", participle: "recorded", ing: "recording", object: "the meter readings", context: "in the control room", habitMarker: "every day" },
-  { id: "ENE-02", domain: "energy", subject: "the technician", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the control panel", context: "at the power station", habitMarker: "regularly" },
-  { id: "PST-01", domain: "postal", subject: "the postal worker", base: "sort", present3sg: "sorts", past: "sorted", participle: "sorted", ing: "sorting", object: "the parcels", context: "in the sorting room", habitMarker: "every morning" },
-  { id: "PST-02", domain: "postal", subject: "the clerk", base: "record", present3sg: "records", past: "recorded", participle: "recorded", ing: "recording", object: "the dispatch bags", context: "at the post office", habitMarker: "every day" },
-  { id: "CUL-01", domain: "culture", subject: "the guide", base: "open", present3sg: "opens", past: "opened", participle: "opened", ing: "opening", object: "the display room", context: "at the museum", habitMarker: "every morning" },
-  { id: "CUL-02", domain: "culture", subject: "the assistant", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the visitor register", context: "at the gallery", habitMarker: "every day" },
-  { id: "EMS-01", domain: "emergency-service", subject: "the control-room assistant", base: "record", present3sg: "records", past: "recorded", participle: "recorded", ing: "recording", object: "the emergency calls", context: "in the control room", habitMarker: "regularly" },
-  { id: "EMS-02", domain: "emergency-service", subject: "the responder", base: "check", present3sg: "checks", past: "checked", participle: "checked", ing: "checking", object: "the safety equipment", context: "at the station", habitMarker: "every morning" },
+  ...dynamicScenes("education", "EDU", [
+    ["the teacher", "check", "checks", "checked", "checked", "checking", "the attendance list", "in the classroom", "every morning"],
+    ["the librarian", "sort", "sorts", "sorted", "sorted", "sorting", "the returned books", "in the library", "every day"],
+    ["the examiner", "count", "counts", "counted", "counted", "counting", "the answer books", "in the exam room", "every day"],
+    ["the principal", "review", "reviews", "reviewed", "reviewed", "reviewing", "the timetable", "in the school office", "each week"],
+  ]),
+  ...dynamicScenes("transport", "TRN", [
+    ["the driver", "check", "checks", "checked", "checked", "checking", "the bus brakes", "at the depot", "every morning"],
+    ["the conductor", "count", "counts", "counted", "counted", "counting", "the ticket slips", "on the bus", "every day"],
+    ["the dispatcher", "record", "records", "recorded", "recorded", "recording", "the departures", "at the control desk", "every day"],
+    ["the station assistant", "check", "checks", "checked", "checked", "checking", "the platform signs", "at the station", "regularly"],
+  ]),
+  ...dynamicScenes("commerce", "COM", [
+    ["the clerk", "record", "records", "recorded", "recorded", "recording", "the payments", "at the counter", "every day"],
+    ["the cashier", "check", "checks", "checked", "checked", "checking", "the receipts", "at the shop", "regularly"],
+    ["the stock clerk", "count", "counts", "counted", "counted", "counting", "the cartons", "in the store room", "each week"],
+    ["the shop assistant", "label", "labels", "labelled", "labelled", "labelling", "the shelves", "inside the shop", "regularly"],
+  ]),
+  ...dynamicScenes("science", "SCI", [
+    ["the assistant", "test", "tests", "tested", "tested", "testing", "the sample", "in the lab", "every day"],
+    ["the researcher", "record", "records", "recorded", "recorded", "recording", "the readings", "at the workbench", "regularly"],
+    ["the lab worker", "record", "records", "recorded", "recorded", "recording", "the temperatures", "in the lab", "every day"],
+    ["the field assistant", "collect", "collects", "collected", "collected", "collecting", "the soil samples", "at the field site", "each week"],
+  ]),
+  ...dynamicScenes("sports", "SPT", [
+    ["the coach", "review", "reviews", "reviewed", "reviewed", "reviewing", "the practice notes", "at the ground", "every day"],
+    ["the trainer", "check", "checks", "checked", "checked", "checking", "the sports equipment", "in the training room", "each week"],
+    ["the referee", "check", "checks", "checked", "checked", "checking", "the player list", "near the field", "every day"],
+    ["the groundskeeper", "mark", "marks", "marked", "marked", "marking", "the field lines", "at the ground", "regularly"],
+  ]),
+  ...dynamicScenes("public-service", "PUB", [
+    ["the officer", "check", "checks", "checked", "checked", "checking", "the application forms", "at the service desk", "every day"],
+    ["the assistant", "record", "records", "recorded", "recorded", "recording", "the public requests", "in the office", "regularly"],
+    ["the desk clerk", "sort", "sorts", "sorted", "sorted", "sorting", "the certificates", "at the public counter", "every day"],
+    ["the field officer", "record", "records", "recorded", "recorded", "recording", "the complaints", "at the field office", "each week"],
+  ]),
+  ...dynamicScenes("technology", "TEC", [
+    ["the technician", "update", "updates", "updated", "updated", "updating", "the office software", "in the computer room", "each week"],
+    ["the support worker", "check", "checks", "checked", "checked", "checking", "the office devices", "at the support desk", "every day"],
+    ["the operator", "check", "checks", "checked", "checked", "checking", "the backup files", "in the server room", "regularly"],
+    ["the technician", "test", "tests", "tested", "tested", "testing", "the network cable", "at the support desk", "every day"],
+  ]),
+  ...dynamicScenes("environment", "ENV", [
+    ["the worker", "measure", "measures", "measured", "measured", "measuring", "the water level", "at the tank", "every morning"],
+    ["the ranger", "check", "checks", "checked", "checked", "checking", "the trail signs", "in the park", "each week"],
+    ["the volunteer", "collect", "collects", "collected", "collected", "collecting", "the litter bags", "near the park gate", "regularly"],
+    ["the park worker", "check", "checks", "checked", "checked", "checking", "the waste bins", "inside the park", "every day"],
+  ]),
+  ...dynamicScenes("hospitality", "HOS", [
+    ["the receptionist", "confirm", "confirms", "confirmed", "confirmed", "confirming", "the room bookings", "at the front desk", "every morning"],
+    ["the manager", "check", "checks", "checked", "checked", "checking", "the room list", "in the hotel office", "every day"],
+    ["the kitchen manager", "check", "checks", "checked", "checked", "checking", "the supply list", "in the kitchen office", "every day"],
+    ["the attendant", "prepare", "prepares", "prepared", "prepared", "preparing", "the guest rooms", "inside the hotel", "regularly"],
+  ]),
+  ...dynamicScenes("healthcare", "HEA", [
+    ["the nurse", "record", "records", "recorded", "recorded", "recording", "the patient's temperature", "in the ward", "regularly"],
+    ["the assistant", "check", "checks", "checked", "checked", "checking", "the medicine stock", "in the clinic", "every day"],
+    ["the clinic clerk", "record", "records", "recorded", "recorded", "recording", "the appointments", "at the clinic desk", "every day"],
+    ["the pharmacist", "check", "checks", "checked", "checked", "checking", "the medicine labels", "at the pharmacy counter", "regularly"],
+  ]),
+  ...dynamicScenes("agriculture", "AGR", [
+    ["the farmer", "check", "checks", "checked", "checked", "checking", "the water pump", "in the field", "every morning"],
+    ["the field worker", "measure", "measures", "measured", "measured", "measuring", "the seed bags", "at the store shed", "regularly"],
+    ["the farm worker", "count", "counts", "counted", "counted", "counting", "the seed packets", "inside the store shed", "every day"],
+    ["the supervisor", "record", "records", "recorded", "recorded", "recording", "the crop weights", "at the collection point", "each week"],
+  ]),
+  ...dynamicScenes("media", "MED", [
+    ["the editor", "review", "reviews", "reviewed", "reviewed", "reviewing", "the headlines", "at the news desk", "every day"],
+    ["the reporter", "check", "checks", "checked", "checked", "checking", "the interview notes", "in the newsroom", "regularly"],
+    ["the copy editor", "check", "checks", "checked", "checked", "checking", "the photo captions", "at the editing desk", "every day"],
+    ["the camera operator", "record", "records", "recorded", "recorded", "recording", "the interviews", "in the studio", "regularly"],
+  ]),
+  ...dynamicScenes("household", "HOM", [
+    ["the caretaker", "lock", "locks", "locked", "locked", "locking", "the main gate", "at the house", "every day"],
+    ["the helper", "check", "checks", "checked", "checked", "checking", "the water tank", "on the roof", "every morning"],
+    ["the resident", "check", "checks", "checked", "checked", "checking", "the door locks", "inside the house", "every day"],
+    ["the gardener", "water", "waters", "watered", "watered", "watering", "the plants", "in the garden", "every morning"],
+  ]),
+  ...dynamicScenes("infrastructure", "INF", [
+    ["the engineer", "check", "checks", "checked", "checked", "checking", "the road surface", "at the work site", "regularly"],
+    ["the inspector", "record", "records", "recorded", "recorded", "recording", "the bridge readings", "near the bridge", "each week"],
+    ["the surveyor", "measure", "measures", "measured", "measured", "measuring", "the road width", "at the survey site", "regularly"],
+    ["the site worker", "check", "checks", "checked", "checked", "checking", "the safety signs", "at the work site", "every day"],
+  ]),
+  ...dynamicScenes("banking", "BNK", [
+    ["the bank clerk", "check", "checks", "checked", "checked", "checking", "the signatures", "at the bank counter", "every day"],
+    ["the cashier", "record", "records", "recorded", "recorded", "recording", "the deposits", "at the branch", "regularly"],
+    ["the bank officer", "review", "reviews", "reviewed", "reviewed", "reviewing", "the loan forms", "in the branch office", "every day"],
+    ["the counter clerk", "count", "counts", "counted", "counted", "counting", "the cash notes", "at the counter", "regularly"],
+  ]),
+  ...dynamicScenes("manufacturing", "MFG", [
+    ["the worker", "pack", "packs", "packed", "packed", "packing", "the finished boxes", "in the packing area", "every day"],
+    ["the supervisor", "check", "checks", "checked", "checked", "checking", "the machine log", "on the factory floor", "regularly"],
+    ["the inspector", "check", "checks", "checked", "checked", "checking", "the packed boxes", "near the loading area", "every day"],
+    ["the operator", "record", "records", "recorded", "recorded", "recording", "the machine output", "at the control desk", "regularly"],
+  ]),
+  ...dynamicScenes("energy", "ENE", [
+    ["the operator", "record", "records", "recorded", "recorded", "recording", "the meter readings", "in the control room", "every day"],
+    ["the technician", "check", "checks", "checked", "checked", "checking", "the control panel", "at the power station", "regularly"],
+    ["the line worker", "check", "checks", "checked", "checked", "checking", "the cable joints", "at the service yard", "each week"],
+    ["the engineer", "record", "records", "recorded", "recorded", "recording", "the power use", "in the station office", "every day"],
+  ]),
+  ...dynamicScenes("postal", "PST", [
+    ["the postal worker", "sort", "sorts", "sorted", "sorted", "sorting", "the parcels", "in the sorting room", "every morning"],
+    ["the clerk", "record", "records", "recorded", "recorded", "recording", "the dispatch bags", "at the post office", "every day"],
+    ["the mail clerk", "sort", "sorts", "sorted", "sorted", "sorting", "the letters", "at the sorting table", "every morning"],
+    ["the delivery worker", "check", "checks", "checked", "checked", "checking", "the address labels", "at the post office", "every day"],
+  ]),
+  ...dynamicScenes("culture", "CUL", [
+    ["the guide", "open", "opens", "opened", "opened", "opening", "the display room", "at the museum", "every morning"],
+    ["the assistant", "check", "checks", "checked", "checked", "checking", "the visitor register", "at the gallery", "every day"],
+    ["the museum worker", "check", "checks", "checked", "checked", "checking", "the entry passes", "at the museum gate", "every day"],
+    ["the stage manager", "review", "reviews", "reviewed", "reviewed", "reviewing", "the programme list", "at the hall", "regularly"],
+  ]),
+  ...dynamicScenes("emergency-service", "EMS", [
+    ["the control-room assistant", "record", "records", "recorded", "recorded", "recording", "the emergency calls", "in the control room", "regularly"],
+    ["the responder", "check", "checks", "checked", "checked", "checking", "the safety equipment", "at the station", "every morning"],
+    ["the dispatcher", "record", "records", "recorded", "recorded", "recording", "the vehicle movements", "at the control desk", "every day"],
+    ["the station officer", "check", "checks", "checked", "checked", "checking", "the first-aid boxes", "at the station", "each week"],
+  ]),
 ] as const;
 
 export const ONGOING_TENSE_SCENES_V1: readonly OngoingTenseSceneV1[] = [
-  { id: "ONGO-EDU", domain: "education", subject: "the teacher", participle: "reviewed", ing: "reviewing", object: "the answer sheets", continuingMarker: "since 9 a.m.", laterPastClause: "the principal arrived", interruptionClause: "the bell rang", modifier: "in the staff room" },
-  { id: "ONGO-TRN", domain: "transport", subject: "the mechanic", participle: "repaired", ing: "repairing", object: "the bus engine", continuingMarker: "since early morning", laterPastClause: "the driver returned", interruptionClause: "the power went out", modifier: "in the workshop" },
-  { id: "ONGO-COM", domain: "commerce", subject: "the clerk", participle: "checked", ing: "checking", object: "the sales records", continuingMarker: "since the shop opened", laterPastClause: "the manager arrived", interruptionClause: "a customer called", modifier: "at the counter" },
-  { id: "ONGO-SCI", domain: "science", subject: "the assistant", participle: "tested", ing: "testing", object: "the water samples", continuingMarker: "for the last two hours", laterPastClause: "the supervisor arrived", interruptionClause: "the alarm sounded", modifier: "in the lab" },
-  { id: "ONGO-SPT", domain: "sports", subject: "the coach", participle: "reviewed", ing: "reviewing", object: "the training notes", continuingMarker: "since 8 a.m.", laterPastClause: "the players arrived", interruptionClause: "the whistle sounded", modifier: "beside the ground" },
-  { id: "ONGO-PUB", domain: "public-service", subject: "the officer", participle: "checked", ing: "checking", object: "the application forms", continuingMarker: "since the office opened", laterPastClause: "the supervisor arrived", interruptionClause: "the phone rang", modifier: "at the service desk" },
-  { id: "ONGO-TEC", domain: "technology", subject: "the technician", participle: "updated", ing: "updating", object: "the office computers", continuingMarker: "since noon", laterPastClause: "the manager returned", interruptionClause: "the network failed", modifier: "on the second floor" },
-  { id: "ONGO-ENV", domain: "environment", subject: "the ranger", participle: "checked", ing: "checking", object: "the trail signs", continuingMarker: "since sunrise", laterPastClause: "the survey team arrived", interruptionClause: "the rain started", modifier: "inside the park" },
-  { id: "ONGO-HOS", domain: "hospitality", subject: "the receptionist", participle: "confirmed", ing: "confirming", object: "the room bookings", continuingMarker: "since 7 a.m.", laterPastClause: "the manager arrived", interruptionClause: "the phone rang", modifier: "at the front desk" },
-  { id: "ONGO-HEA", domain: "healthcare", subject: "the nurse", participle: "monitored", ing: "monitoring", object: "the patient's condition", continuingMarker: "for the last three hours", laterPastClause: "the doctor arrived", interruptionClause: "the patient called for help", modifier: "in the ward" },
-  { id: "ONGO-AGR", domain: "agriculture", subject: "the farmer", participle: "repaired", ing: "repairing", object: "the water pump", continuingMarker: "since sunrise", laterPastClause: "the helper arrived", interruptionClause: "the rain started", modifier: "near the field" },
-  { id: "ONGO-MED", domain: "media", subject: "the editor", participle: "reviewed", ing: "reviewing", object: "the final pages", continuingMarker: "since 10 a.m.", laterPastClause: "the printer called", interruptionClause: "the phone rang", modifier: "at the news desk" },
-  { id: "ONGO-HOM", domain: "household", subject: "the caretaker", participle: "repaired", ing: "repairing", object: "the garden gate", continuingMarker: "since early morning", laterPastClause: "the owner returned", interruptionClause: "the rain began", modifier: "outside the house" },
-  { id: "ONGO-INF", domain: "infrastructure", subject: "the engineer", participle: "checked", ing: "checking", object: "the damaged section", continuingMarker: "for the last two hours", laterPastClause: "the repair team arrived", interruptionClause: "the rain began", modifier: "near the bridge" },
-  { id: "ONGO-BNK", domain: "banking", subject: "the clerk", participle: "checked", ing: "checking", object: "the account records", continuingMarker: "since the office opened", laterPastClause: "the customer returned", interruptionClause: "the system stopped", modifier: "at the service desk" },
-  { id: "ONGO-MFG", domain: "manufacturing", subject: "the worker", participle: "packed", ing: "packing", object: "the finished boxes", continuingMarker: "since 8 a.m.", laterPastClause: "the truck arrived", interruptionClause: "the machine stopped", modifier: "near the loading area" },
-  { id: "ONGO-ENE", domain: "energy", subject: "the operator", participle: "monitored", ing: "monitoring", object: "the power readings", continuingMarker: "for the last four hours", laterPastClause: "the next operator arrived", interruptionClause: "the warning light came on", modifier: "in the control room" },
-  { id: "ONGO-PST", domain: "postal", subject: "the postal worker", participle: "sorted", ing: "sorting", object: "the morning parcels", continuingMarker: "since 7 a.m.", laterPastClause: "the delivery van arrived", interruptionClause: "the supervisor called", modifier: "inside the sorting room" },
-  { id: "ONGO-CUL", domain: "culture", subject: "the guide", participle: "prepared", ing: "preparing", object: "the display room", continuingMarker: "since 9 a.m.", laterPastClause: "the visitors arrived", interruptionClause: "the curator called", modifier: "inside the museum" },
-  { id: "ONGO-EMS", domain: "emergency-service", subject: "the responder", participle: "checked", ing: "checking", object: "the safety equipment", continuingMarker: "since the shift began", laterPastClause: "the team leader arrived", interruptionClause: "an emergency call came in", modifier: "at the station" },
+  ...ongoingScenes("education", "EDU", [
+    ["the teacher", "reviewed", "reviewing", "the answer sheets", "since 9 a.m.", "the principal arrived", "the bell rang", "in the staff room"],
+    ["the librarian", "sorted", "sorting", "the returned books", "for the last two hours", "the head teacher arrived", "a student called for help", "inside the library"],
+  ]),
+  ...ongoingScenes("transport", "TRN", [
+    ["the mechanic", "repaired", "repairing", "the bus engine", "since early morning", "the driver returned", "the power went out", "in the workshop"],
+    ["the dispatcher", "recorded", "recording", "the departures", "since 8 a.m.", "the supervisor arrived", "the radio stopped working", "at the control desk"],
+  ]),
+  ...ongoingScenes("commerce", "COM", [
+    ["the clerk", "checked", "checking", "the sales records", "since the shop opened", "the manager arrived", "a customer called", "at the counter"],
+    ["the stock clerk", "counted", "counting", "the cartons", "for the last three hours", "the delivery van arrived", "the manager called", "in the store room"],
+  ]),
+  ...ongoingScenes("science", "SCI", [
+    ["the assistant", "tested", "testing", "the water samples", "for the last two hours", "the supervisor arrived", "the alarm sounded", "in the lab"],
+    ["the researcher", "recorded", "recording", "the readings", "since 10 a.m.", "the lab head arrived", "the power failed", "at the workbench"],
+  ]),
+  ...ongoingScenes("sports", "SPT", [
+    ["the coach", "reviewed", "reviewing", "the training notes", "since 8 a.m.", "the players arrived", "the whistle sounded", "beside the ground"],
+    ["the trainer", "checked", "checking", "the sports equipment", "for the last two hours", "the coach returned", "a player called", "in the training room"],
+  ]),
+  ...ongoingScenes("public-service", "PUB", [
+    ["the officer", "checked", "checking", "the application forms", "since the office opened", "the supervisor arrived", "the phone rang", "at the service desk"],
+    ["the desk clerk", "sorted", "sorting", "the certificates", "since 9 a.m.", "the officer returned", "a visitor called", "at the public counter"],
+  ]),
+  ...ongoingScenes("technology", "TEC", [
+    ["the technician", "updated", "updating", "the office computers", "since noon", "the manager returned", "the network failed", "on the second floor"],
+    ["the support worker", "checked", "checking", "the office devices", "for the last three hours", "the technician arrived", "the system stopped", "at the support desk"],
+  ]),
+  ...ongoingScenes("environment", "ENV", [
+    ["the ranger", "checked", "checking", "the trail signs", "since sunrise", "the survey team arrived", "the rain started", "inside the park"],
+    ["the park worker", "checked", "checking", "the waste bins", "for the last two hours", "the supervisor arrived", "the rain began", "near the park gate"],
+  ]),
+  ...ongoingScenes("hospitality", "HOS", [
+    ["the receptionist", "confirmed", "confirming", "the room bookings", "since 7 a.m.", "the manager arrived", "the phone rang", "at the front desk"],
+    ["the attendant", "prepared", "preparing", "the guest rooms", "for the last three hours", "the guests arrived", "the manager called", "inside the hotel"],
+  ]),
+  ...ongoingScenes("healthcare", "HEA", [
+    ["the nurse", "monitored", "monitoring", "the patient's condition", "for the last three hours", "the doctor arrived", "the patient called for help", "in the ward"],
+    ["the clinic clerk", "recorded", "recording", "the appointments", "since 8 a.m.", "the doctor arrived", "the phone rang", "at the clinic desk"],
+  ]),
+  ...ongoingScenes("agriculture", "AGR", [
+    ["the farmer", "repaired", "repairing", "the water pump", "since sunrise", "the helper arrived", "the rain started", "near the field"],
+    ["the farm worker", "counted", "counting", "the seed packets", "for the last two hours", "the supervisor arrived", "the truck arrived", "inside the store shed"],
+  ]),
+  ...ongoingScenes("media", "MED", [
+    ["the editor", "reviewed", "reviewing", "the final pages", "since 10 a.m.", "the printer called", "the phone rang", "at the news desk"],
+    ["the reporter", "checked", "checking", "the interview notes", "for the last two hours", "the editor arrived", "a source called", "in the newsroom"],
+  ]),
+  ...ongoingScenes("household", "HOM", [
+    ["the caretaker", "repaired", "repairing", "the garden gate", "since early morning", "the owner returned", "the rain began", "outside the house"],
+    ["the gardener", "watered", "watering", "the plants", "since sunrise", "the resident returned", "the rain started", "in the garden"],
+  ]),
+  ...ongoingScenes("infrastructure", "INF", [
+    ["the engineer", "checked", "checking", "the damaged section", "for the last two hours", "the repair team arrived", "the rain began", "near the bridge"],
+    ["the surveyor", "measured", "measuring", "the road width", "since 9 a.m.", "the site manager arrived", "the traffic stopped", "at the survey site"],
+  ]),
+  ...ongoingScenes("banking", "BNK", [
+    ["the clerk", "checked", "checking", "the account records", "since the office opened", "the customer returned", "the system stopped", "at the service desk"],
+    ["the bank officer", "reviewed", "reviewing", "the loan forms", "for the last three hours", "the manager arrived", "the customer called", "in the branch office"],
+  ]),
+  ...ongoingScenes("manufacturing", "MFG", [
+    ["the worker", "packed", "packing", "the finished boxes", "since 8 a.m.", "the truck arrived", "the machine stopped", "near the loading area"],
+    ["the operator", "recorded", "recording", "the machine output", "for the last two hours", "the supervisor arrived", "the warning light came on", "at the control desk"],
+  ]),
+  ...ongoingScenes("energy", "ENE", [
+    ["the operator", "monitored", "monitoring", "the power readings", "for the last four hours", "the next operator arrived", "the warning light came on", "in the control room"],
+    ["the technician", "checked", "checking", "the control panel", "since 9 a.m.", "the engineer arrived", "the alarm sounded", "at the power station"],
+  ]),
+  ...ongoingScenes("postal", "PST", [
+    ["the postal worker", "sorted", "sorting", "the morning parcels", "since 7 a.m.", "the delivery van arrived", "the supervisor called", "inside the sorting room"],
+    ["the mail clerk", "sorted", "sorting", "the letters", "for the last two hours", "the delivery worker arrived", "the phone rang", "at the sorting table"],
+  ]),
+  ...ongoingScenes("culture", "CUL", [
+    ["the guide", "prepared", "preparing", "the display room", "since 9 a.m.", "the visitors arrived", "the museum manager called", "inside the museum"],
+    ["the stage manager", "reviewed", "reviewing", "the programme list", "for the last two hours", "the performers arrived", "the hall manager called", "at the hall"],
+  ]),
+  ...ongoingScenes("emergency-service", "EMS", [
+    ["the responder", "checked", "checking", "the safety equipment", "since the shift began", "the team leader arrived", "an emergency call came in", "at the station"],
+    ["the dispatcher", "recorded", "recording", "the vehicle movements", "for the last three hours", "the station officer arrived", "the radio stopped working", "at the control desk"],
+  ]),
 ] as const;
 
 export const STATIVE_TENSE_SCENES_V1: readonly StativeTenseSceneV1[] = [
-  { id: "STATE-EDU", domain: "education", subject: "the student", base: "know", present3sg: "knows", participle: "known", ing: "knowing", object: "the answer", durationMarker: "for several years", modifier: "from regular practice" },
-  { id: "STATE-TRN", domain: "transport", subject: "the driver", base: "know", present3sg: "knows", participle: "known", ing: "knowing", object: "the city routes", durationMarker: "for six years", modifier: "from daily trips" },
-  { id: "STATE-COM", domain: "commerce", subject: "the shopkeeper", base: "own", present3sg: "owns", participle: "owned", ing: "owning", object: "the small shop", durationMarker: "since 2018", modifier: "near the market" },
-  { id: "STATE-SCI", domain: "science", subject: "the researcher", base: "understand", present3sg: "understands", participle: "understood", ing: "understanding", object: "the testing method", durationMarker: "for several years", modifier: "from regular lab work" },
-  { id: "STATE-SPT", domain: "sports", subject: "the coach", base: "know", present3sg: "knows", participle: "known", ing: "knowing", object: "the training plan", durationMarker: "since last season", modifier: "from daily practice" },
-  { id: "STATE-PUB", domain: "public-service", subject: "the officer", base: "understand", present3sg: "understands", participle: "understood", ing: "understanding", object: "the procedure", durationMarker: "for many years", modifier: "from daily work" },
-  { id: "STATE-TEC", domain: "technology", subject: "the technician", base: "know", present3sg: "knows", participle: "known", ing: "knowing", object: "the system settings", durationMarker: "since the first setup", modifier: "from earlier training" },
-  { id: "STATE-ENV", domain: "environment", subject: "the ranger", base: "know", present3sg: "knows", participle: "known", ing: "knowing", object: "the park trails", durationMarker: "for eight years", modifier: "from regular patrols" },
-  { id: "STATE-HOS", domain: "hospitality", subject: "the manager", base: "own", present3sg: "owns", participle: "owned", ing: "owning", object: "the guest house", durationMarker: "for ten years", modifier: "with the family" },
-  { id: "STATE-HEA", domain: "healthcare", subject: "the nurse", base: "understand", present3sg: "understands", participle: "understood", ing: "understanding", object: "the ward routine", durationMarker: "since joining the hospital", modifier: "from long experience" },
-  { id: "STATE-AGR", domain: "agriculture", subject: "the farmer", base: "own", present3sg: "owns", participle: "owned", ing: "owning", object: "the tractor", durationMarker: "since 2020", modifier: "for farm work" },
-  { id: "STATE-MED", domain: "media", subject: "the reporter", base: "know", present3sg: "knows", participle: "known", ing: "knowing", object: "the local area", durationMarker: "for many years", modifier: "through field work" },
-  { id: "STATE-HOM", domain: "household", subject: "the caretaker", base: "know", present3sg: "knows", participle: "known", ing: "knowing", object: "the house routine", durationMarker: "for five years", modifier: "from daily work" },
-  { id: "STATE-INF", domain: "infrastructure", subject: "the engineer", base: "understand", present3sg: "understands", participle: "understood", ing: "understanding", object: "the bridge design", durationMarker: "for several years", modifier: "from project work" },
-  { id: "STATE-BNK", domain: "banking", subject: "the clerk", base: "understand", present3sg: "understands", participle: "understood", ing: "understanding", object: "the payment process", durationMarker: "since joining the branch", modifier: "from regular work" },
-  { id: "STATE-MFG", domain: "manufacturing", subject: "the supervisor", base: "know", present3sg: "knows", participle: "known", ing: "knowing", object: "the machine settings", durationMarker: "for four years", modifier: "from factory work" },
-  { id: "STATE-ENE", domain: "energy", subject: "the operator", base: "understand", present3sg: "understands", participle: "understood", ing: "understanding", object: "the control system", durationMarker: "since joining the station", modifier: "from shift work" },
-  { id: "STATE-PST", domain: "postal", subject: "the postal worker", base: "know", present3sg: "knows", participle: "known", ing: "knowing", object: "the delivery route", durationMarker: "for six years", modifier: "from daily rounds" },
-  { id: "STATE-CUL", domain: "culture", subject: "the guide", base: "know", present3sg: "knows", participle: "known", ing: "knowing", object: "the display history", durationMarker: "for a long time", modifier: "from regular tours" },
-  { id: "STATE-EMS", domain: "emergency-service", subject: "the control-room assistant", base: "understand", present3sg: "understands", participle: "understood", ing: "understanding", object: "the call procedure", durationMarker: "since joining the service", modifier: "from daily practice" },
+  ...stativeScenes("education", "EDU", [
+    ["the student", "know", "knows", "known", "knowing", "the answer", "for several years", "from regular practice"],
+    ["the teacher", "understand", "understands", "understood", "understanding", "the marking rule", "since joining the school", "from daily work"],
+  ]),
+  ...stativeScenes("transport", "TRN", [
+    ["the driver", "know", "knows", "known", "knowing", "the city routes", "for six years", "from daily trips"],
+    ["the dispatcher", "understand", "understands", "understood", "understanding", "the bus schedule", "since joining the depot", "from regular work"],
+  ]),
+  ...stativeScenes("commerce", "COM", [
+    ["the shopkeeper", "own", "owns", "owned", "owning", "the small shop", "since 2018", "near the market"],
+    ["the clerk", "know", "knows", "known", "knowing", "the price list", "for four years", "from counter work"],
+  ]),
+  ...stativeScenes("science", "SCI", [
+    ["the researcher", "understand", "understands", "understood", "understanding", "the testing method", "for several years", "from regular lab work"],
+    ["the assistant", "know", "knows", "known", "knowing", "the safety rules", "since joining the lab", "from daily practice"],
+  ]),
+  ...stativeScenes("sports", "SPT", [
+    ["the coach", "know", "knows", "known", "knowing", "the training plan", "since last season", "from daily practice"],
+    ["the trainer", "understand", "understands", "understood", "understanding", "the exercise routine", "for five years", "from regular sessions"],
+  ]),
+  ...stativeScenes("public-service", "PUB", [
+    ["the officer", "understand", "understands", "understood", "understanding", "the procedure", "for many years", "from daily work"],
+    ["the desk clerk", "know", "knows", "known", "knowing", "the form requirements", "since joining the office", "from counter work"],
+  ]),
+  ...stativeScenes("technology", "TEC", [
+    ["the technician", "know", "knows", "known", "knowing", "the system settings", "since the first setup", "from earlier training"],
+    ["the support worker", "understand", "understands", "understood", "understanding", "the backup process", "for three years", "from regular support work"],
+  ]),
+  ...stativeScenes("environment", "ENV", [
+    ["the ranger", "know", "knows", "known", "knowing", "the park trails", "for eight years", "from regular patrols"],
+    ["the park worker", "understand", "understands", "understood", "understanding", "the waste rules", "since joining the park staff", "from daily work"],
+  ]),
+  ...stativeScenes("hospitality", "HOS", [
+    ["the manager", "own", "owns", "owned", "owning", "the guest house", "for ten years", "with the family"],
+    ["the receptionist", "know", "knows", "known", "knowing", "the booking process", "since joining the hotel", "from front-desk work"],
+  ]),
+  ...stativeScenes("healthcare", "HEA", [
+    ["the nurse", "understand", "understands", "understood", "understanding", "the ward routine", "since joining the hospital", "from long experience"],
+    ["the assistant", "know", "knows", "known", "knowing", "the medicine storage rules", "for four years", "from clinic work"],
+  ]),
+  ...stativeScenes("agriculture", "AGR", [
+    ["the farmer", "own", "owns", "owned", "owning", "the tractor", "since 2020", "for farm work"],
+    ["the farm worker", "know", "knows", "known", "knowing", "the planting schedule", "for five years", "from field work"],
+  ]),
+  ...stativeScenes("media", "MED", [
+    ["the reporter", "know", "knows", "known", "knowing", "the local area", "for many years", "through field work"],
+    ["the editor", "understand", "understands", "understood", "understanding", "the printing process", "since joining the paper", "from daily work"],
+  ]),
+  ...stativeScenes("household", "HOM", [
+    ["the caretaker", "know", "knows", "known", "knowing", "the house routine", "for five years", "from daily work"],
+    ["the resident", "own", "owns", "owned", "owning", "the house", "for twelve years", "near the main road"],
+  ]),
+  ...stativeScenes("infrastructure", "INF", [
+    ["the engineer", "understand", "understands", "understood", "understanding", "the bridge design", "for several years", "from project work"],
+    ["the surveyor", "know", "knows", "known", "knowing", "the site layout", "since joining the project", "from field work"],
+  ]),
+  ...stativeScenes("banking", "BNK", [
+    ["the clerk", "understand", "understands", "understood", "understanding", "the payment process", "since joining the branch", "from regular work"],
+    ["the bank officer", "know", "knows", "known", "knowing", "the loan rules", "for six years", "from branch work"],
+  ]),
+  ...stativeScenes("manufacturing", "MFG", [
+    ["the supervisor", "know", "knows", "known", "knowing", "the machine settings", "for four years", "from factory work"],
+    ["the inspector", "understand", "understands", "understood", "understanding", "the packing rules", "since joining the factory", "from daily checks"],
+  ]),
+  ...stativeScenes("energy", "ENE", [
+    ["the operator", "understand", "understands", "understood", "understanding", "the control system", "since joining the station", "from shift work"],
+    ["the technician", "know", "knows", "known", "knowing", "the safety procedure", "for seven years", "from station work"],
+  ]),
+  ...stativeScenes("postal", "PST", [
+    ["the postal worker", "know", "knows", "known", "knowing", "the delivery route", "for six years", "from daily rounds"],
+    ["the clerk", "understand", "understands", "understood", "understanding", "the dispatch process", "since joining the post office", "from regular work"],
+  ]),
+  ...stativeScenes("culture", "CUL", [
+    ["the guide", "know", "knows", "known", "knowing", "the display history", "for a long time", "from regular tours"],
+    ["the museum worker", "understand", "understands", "understood", "understanding", "the visitor rules", "since joining the museum", "from daily work"],
+  ]),
+  ...stativeScenes("emergency-service", "EMS", [
+    ["the control-room assistant", "understand", "understands", "understood", "understanding", "the call procedure", "since joining the service", "from daily practice"],
+    ["the responder", "know", "knows", "known", "knowing", "the station routine", "for five years", "from regular duty"],
+  ]),
 ] as const;
 
 export const CP002_TENSE_DOMAINS_V1 = [...new Set(DYNAMIC_TENSE_SCENES_V1.map((scene) => scene.domain))] as readonly TenseDomainV1[];
