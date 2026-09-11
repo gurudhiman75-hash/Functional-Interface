@@ -1,13 +1,6 @@
 name: Validate GEO-RIV-001 CP009 Review
 
 on:
-  push:
-    branches:
-      - feature/geo-riv-001-cp009-rivers-states-v1
-    paths:
-      - "artifacts/api-server/src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp009-*"
-      - "artifacts/api-server/src/knowledge-v1/indian-geography/rivers-drainage/GEO-RIV-001-CP009-*"
-      - ".github/workflows/geography-cp009-review.yml"
   pull_request:
     branches:
       - New-main
