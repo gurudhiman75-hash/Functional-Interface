@@ -38,8 +38,16 @@ const squareInputs = range(8, 32).map((value) => value * value);
 const cubeInputs = range(5, 16).map((value) => value * value * value);
 const threeDigitNoZero = range(123, 987).filter((value) => !String(value).includes("0"));
 const exactDigitQuotients = range(21, 99).filter((value) => {
-  const pair = twoDigits(value)!;
-  return pair[1] !== 0 && pair[0] >= pair[1] && pair[0] % pair[1] === 0;
+  const [a, b] = twoDigits(value)!;
+  if (b === 0 || a < b || a % b !== 0) return false;
+
+  // Admit only instances that can support at least three genuinely different
+  // digit-operation misconceptions. This keeps option quality deterministic
+  // without falling back to arbitrary near-value distractors.
+  const correct = a / b;
+  const misconceptionValues = [Math.abs(a - b), a + b, a * b, Math.floor(b / a), a, b]
+    .filter((candidate) => Number.isInteger(candidate) && candidate > 0 && candidate !== correct);
+  return new Set(misconceptionValues).size >= 3;
 });
 
 export const ANA_CP010_NUMERIC_RULES: readonly AnaCp010NumericRule[] = [
