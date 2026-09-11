@@ -101,7 +101,7 @@ assert.equal(67 / 15 + 1 / 3 + 1 / 5, 5); // Q68.
 assert.equal(792 / (0.75 * 0.88), 1200); // Q69.
 assert.ok(13 / 18 < 7 / 9 && 13 / 18 < 5 / 6 && 13 / 18 < 11 / 12); // Q70.
 assert.equal(4 * (22 / 7) * 7 ** 2 * 2, 1232); // Q71, ₹2 per cm².
-assert.equal(1 / 6 + 1 / 9 + 1 / 11, 73 / 198); // Q72.
+assert.equal(198 / 6 + 198 / 9 + 198 / 11, 73); // Q72, exact common-denominator numerator.
 assert.equal((2 * 500 + 3 * 750) / 5, 650); // Q73.
 assert.equal(0.5 * 1 * 5, 2.5); // Q74, factor of r².
 assert.equal(1498 - 1388, 1.25 * (1388 - 1300)); // Q75.
