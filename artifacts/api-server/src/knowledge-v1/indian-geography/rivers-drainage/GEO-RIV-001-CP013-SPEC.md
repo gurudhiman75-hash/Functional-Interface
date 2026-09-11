@@ -13,8 +13,8 @@ Qualify cross-river classification and comparison tasks without duplicating sour
 
 - Himalayan river
 - Peninsular river
-- East-flowing river
-- West-flowing river
+- East-flowing Peninsular river
+- West-flowing Peninsular river
 - Delta-forming river
 - Estuary-forming river
 - Source-backed major-river membership
@@ -23,7 +23,7 @@ The V1 fact pool contains 12 rivers. Learner-facing proper river names always us
 
 ## Major/minor safety rule
 
-`MAJOR_RIVER` is a one-way positive label supported by the qualified NCERT source set. CP013 MUST NOT infer `MINOR_RIVER` from absence. Questions may ask whether a river is explicitly included in the source-backed major set, but may not label an unlisted river as minor.
+`MAJOR_RIVER` is retained only as a one-way positive fact supported by the qualified NCERT source set. CP013 MUST NOT infer `MINOR_RIVER` from absence. V1 learner questions do not use the ambiguous major-vs-minor binary; the label remains available as canonical evidence without turning unlisted rivers into a false minor class.
 
 ## QLs
 
@@ -32,7 +32,7 @@ The V1 fact pool contains 12 rivers. Learner-facing proper river names always us
 - QL112 — correctly matched river–classification pair
 - QL113 — incorrectly matched river–classification pair
 - QL114 — cross-classification comparison / intersection
-- QL115 — source-backed major-river discrimination
+- QL115 — Himalayan–Peninsular pair discrimination
 - QL116 — Statement I/II
 - QL117 — three-statement count
 - QL118 — two-dimension river identification
@@ -41,14 +41,15 @@ QLs represent different learner tasks, not stem variants.
 
 ## Unique-answer rules
 
-A river may hold multiple simultaneous classifications. Therefore direct questions ask for a river satisfying a named class, rather than presenting overlapping classes as competing answers. Dual-class questions use distractors that fail at least one required class. Pair and statement questions recompute truth from the canonical class matrix.
+A river may hold multiple simultaneous classifications. Therefore direct questions ask for a river satisfying a named class, rather than presenting overlapping classes as competing answers. `EAST_FLOWING` and `WEST_FLOWING` are realized explicitly as Peninsular-river classifications so Ganga/Brahmaputra direction is not accidentally conflated with the standard east/west Peninsular grouping. Dual-class questions use distractors that fail at least one required class. Pair and statement questions recompute truth from the canonical class matrix.
 
 ## Editorial rules
 
 - clean competitive-exam language;
-- no machine-style labels in learner text;
+- no machine-style or source-audit language in learner stems;
 - no bare proper river names;
 - concise, beginner-readable explanations;
+- correct `a/an` grammar for class descriptors;
 - no unsupported extra facts;
 - no unsafe minor-river inference.
 
