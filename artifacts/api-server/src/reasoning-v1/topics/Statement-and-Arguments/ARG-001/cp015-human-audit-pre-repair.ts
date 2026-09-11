@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_AUTHORITY = "ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_V4" as const;
+export const ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_AUTHORITY = "ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_V5" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -45,7 +45,24 @@ function repairHindi(value: string): string {
     .replace(/(पंजीकृत मोबाइल नंबर|रिकवरी ईमेल|भुगतान खाता|लेन-देन सीमा) का वास्तविक बदलावों अव्यावहारिक हो जाएगा/g, "$1 में वास्तविक बदलाव अव्यावहारिक हो जाएँगे")
     .replace(/(पंजीकृत मोबाइल नंबर|रिकवरी ईमेल|भुगतान खाता|लेन-देन सीमा) के वैध बदलावों विफल होंगे/g, "$1 में वैध बदलाव विफल होंगे")
     .replace(/भुगतान खाते के वैध बदलावों विफल होंगे/g, "भुगतान खाते में वैध बदलाव विफल होंगे")
-    .replace(/भुगतान खाता में/g, "भुगतान खाते में");
+    .replace(/भुगतान खाता में/g, "भुगतान खाते में")
+    .replace(/अक्सर के लिए/g, "स्थायी रूप से")
+    .replace(/नगरपालिका सेवा केंद्रों उपयोग करते समय/g, "नगरपालिका सेवा केंद्रों का उपयोग करते समय")
+    .replace(/सरकारी अस्पतालों उपयोग करते समय/g, "सरकारी अस्पतालों का उपयोग करते समय")
+    .replace(/मोबिलिटी एड उपयोग करने/g, "मोबिलिटी एड का उपयोग करने")
+    .replace(/आगंतुकों जो/g, "आगंतुक जो")
+    .replace(/नागरिकों जो/g, "नागरिक जो")
+    .replace(/(रिमोट|कॉन्ट्रैक्ट) कर्मचारियों में जो भी/g, "जो भी $1 कर्मचारी")
+    .replace(/फील्ड स्टाफ में जो भी/g, "फील्ड स्टाफ का कोई सदस्य जो")
+    .replace(/डेटा संग्रह का उद्देश्य क्या है के बारे में/g, "डेटा संग्रह के उद्देश्य के बारे में")
+    .replace(/का अधिकांश अभ्यर्थी और केंद्र प्रभावित था/g, "के अधिकांश अभ्यर्थी और केंद्र प्रभावित थे")
+    .replace(/अधिकांश केंद्र का परिणाम/g, "अधिकांश केंद्रों के परिणाम")
+    .replace(/अधिकांश पेपर लीक का आरोप अनदेखी करनी होगी/g, "बाद के पेपर लीक आरोपों को अनदेखा करना होगा")
+    .replace(/अधिकांश नकल की शिकायत अनदेखी करनी होगी/g, "बाद की नकल शिकायतों को अनदेखा करना होगा")
+    .replace(/एक नकल की शिकायत ही सिद्ध करता है/g, "एक नकल की शिकायत ही सिद्ध करती है")
+    .replace(/गृह-राज्य से बाहर कार्ड लेन-देन की अधिकांश घटना या तो धोखाधड़ी है या उसे धोखाधड़ी मानना चाहिए/g, "गृह-राज्य से बाहर कार्ड लेन-देन के अधिकांश मामले या तो धोखाधड़ी हैं या उन्हें धोखाधड़ी मानना चाहिए")
+    .replace(/(अभ्यर्थी सहायता और बैकअप व्यवस्था[^।.!?]*?)उपलब्ध हो जाएगा/g, "$1उपलब्ध हो जाएँगी")
+    .replace(/(संक्षिप्त आगमन विंडो[^।.!?]*?)कम कर सकता है/g, "$1कम कर सकती है");
 }
 
 function repairPunjabi(value: string): string {
@@ -54,20 +71,69 @@ function repairPunjabi(value: string): string {
     .replace(/ਜ਼ਿਆਦਾਤਰ ਨਾਗਰਿਕ ਕੋਲ/g, "ਜ਼ਿਆਦਾਤਰ ਨਾਗਰਿਕਾਂ ਕੋਲ")
     .replace(/ਬਿਨਾਂ ਜ਼ਿਆਦਾਤਰ ਕਿਸਮ ਦਾ ([^।,.!?]+?) ਸੰਭਾਲ ਸਕਦੇ ਹਨ/g, "ਬਿਨਾਂ $1 ਦੀਆਂ ਜ਼ਿਆਦਾਤਰ ਕਿਸਮਾਂ ਸੰਭਾਲ ਸਕਦੇ ਹਨ")
     .replace(/ਟ੍ਰੇਨੀਜ਼ ਦੀ ਪਛਾਣ ਕਰਨ ਵਾਲੀ ਨਾਮ ਅਤੇ/g, "ਟ੍ਰੇਨੀਜ਼ ਦੇ ਨਾਮ ਅਤੇ")
+    .replace(/ਟ੍ਰੇਨੀਜ਼ ਦੀ ਨਾਮ ਅਤੇ/g, "ਟ੍ਰੇਨੀਜ਼ ਦੇ ਨਾਮ ਅਤੇ")
     .replace(/(ਪੇਪਰ ਲੀਕ ਦੋਸ਼) ਹੀ ਸਾਬਤ ਕਰਦੀ ਹੈ/g, "$1 ਹੀ ਸਾਬਤ ਕਰਦਾ ਹੈ")
     .replace(/(?:ਦਾ|ਦੇ) ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸੀ/g, "ਦੇ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸਨ")
     .replace(/ਲੋਕਾਂ ਜੋ/g, "ਲੋਕ ਜੋ")
     .replace(/(ਸਰਕਾਰੀ ਹਸਪਤਾਲਾਂ|ਜਨਤਕ ਸੇਵਾ ਦਫ਼ਤਰਾਂ) ਵਰਤਦੇ ਸਮੇਂ/g, "$1 ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਸਮੇਂ")
     .replace(/ਨਿਰਧਾਰਤ ਤਰਜੀਹੀ ਸਲਾਟ([^।.!?]*?)ਘੱਟ ਕਰ ਸਕਦੀ ਹੈ/g, "ਨਿਰਧਾਰਤ ਤਰਜੀਹੀ ਸਲਾਟ$1ਘੱਟ ਕਰ ਸਕਦੇ ਹਨ")
+    .replace(/ਨਿਰਧਾਰਤ ਮੁਲਾਕਾਤ ਸਲਾਟ([^।.!?]*?)ਘੱਟ ਕਰ ਸਕਦੀ ਹੈ/g, "ਨਿਰਧਾਰਤ ਮੁਲਾਕਾਤ ਸਲਾਟ$1ਘੱਟ ਕਰ ਸਕਦੇ ਹਨ")
+    .replace(/ਇਹ ਕੰਮ ਨਹੀਂ ਕਰ ਸਕਦੀ/g, "ਇਹ ਪ੍ਰਣਾਲੀ ਕੰਮ ਨਹੀਂ ਕਰ ਸਕਦੀ")
     .replace(/ਸਟੈਪ-ਅੱਪ ਪਰਮਾਣਕਰਨ,? ([^।.!?]{1,160}?) ਦੇ ਜੋਖਮ ਨੂੰ ਸੰਬੋਧ ਸਕਦੀ ਹੈ/g, "ਸਟੈਪ-ਅੱਪ ਪਰਮਾਣਕਰਨ $1 ਦੇ ਜੋਖਮ ਨੂੰ ਘਟਾ ਸਕਦਾ ਹੈ")
     .replace(/(ਸਟੈਪ-ਅੱਪ ਪਰਮਾਣਕਰਨ[^।.!?]*?)ਘੱਟ ਕਰ ਸਕਦੀ ਹੈ/g, "$1ਘੱਟ ਕਰ ਸਕਦਾ ਹੈ")
-    .replace(/([^।.!?]{1,160}?) ਦੀ ਜ਼ਿਆਦਾਤਰ ਘਟਨਾ ਜਾਂ ਤਾਂ ਧੋਖਾਧੜੀ ਹੈ ਜਾਂ ਉਸਨੂੰ ਧੋਖਾਧੜੀ ਮੰਨਣਾ ਚਾਹੀਦਾ ਹੈ/g, "$1 ਦੇ ਜ਼ਿਆਦਾਤਰ ਮਾਮਲੇ ਧੋਖਾਧੜੀ ਦੇ ਹੁੰਦੇ ਹਨ");
+    .replace(/([^।.!?]{1,160}?) ਦੀ ਜ਼ਿਆਦਾਤਰ ਘਟਨਾ ਜਾਂ ਤਾਂ ਧੋਖਾਧੜੀ ਹੈ ਜਾਂ ਉਸਨੂੰ ਧੋਖਾਧੜੀ ਮੰਨਣਾ ਚਾਹੀਦਾ ਹੈ/g, "$1 ਦੇ ਜ਼ਿਆਦਾਤਰ ਮਾਮਲੇ ਧੋਖਾਧੜੀ ਦੇ ਹੁੰਦੇ ਹਨ")
+    .replace(/ਭੁਗਤਾਨ ਖਾਤਾ ਦੀ/g, "ਭੁਗਤਾਨ ਖਾਤੇ ਦੀ")
+    .replace(/ਭੁਗਤਾਨ ਖਾਤਾ ਨਾਲ/g, "ਭੁਗਤਾਨ ਖਾਤੇ ਨਾਲ")
+    .replace(/ਲੈਣ-ਦੇਣ ਸੀਮਾ ਦਾ ਜ਼ਿਆਦਾਤਰ ਅਸਲੀ ਬਦਲਾਅ ਅਮਲ ਵਿੱਚ ਔਖਾ ਹੋ ਜਾਵੇਗਾ/g, "ਲੈਣ-ਦੇਣ ਸੀਮਾ ਵਿੱਚ ਜ਼ਿਆਦਾਤਰ ਅਸਲੀ ਬਦਲਾਅ ਕਰਨਾ ਅਮਲ ਵਿੱਚ ਔਖਾ ਹੋ ਜਾਵੇਗਾ")
+    .replace(/ਭੁਗਤਾਨ ਖਾਤਾ ਬਦਲਣ ਦੀ ਜ਼ਿਆਦਾਤਰ ਅਸਲੀ ਬੇਨਤੀ ਵੀ ਅਮਲ ਵਿੱਚ ਔਖਾ ਹੋਵੇਗੀ/g, "ਭੁਗਤਾਨ ਖਾਤਾ ਬਦਲਣ ਲਈ ਜ਼ਿਆਦਾਤਰ ਅਸਲੀ ਬੇਨਤੀਆਂ ਵੀ ਅਮਲ ਵਿੱਚ ਔਖੀਆਂ ਹੋਣਗੀਆਂ")
+    .replace(/ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ ਯਾਦ ਰੱਖਣ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ/g, "ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ ਯਾਦ ਰੱਖਣ ਦੀ ਸਮਰੱਥਾ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਗੁਆ ਦੇਣਗੇ")
+    .replace(/ਭਵਿੱਖ ਵਿੱਚ ਜ਼ਿਆਦਾਤਰ ਕਿਸੇ ਦੀ ਭਵਿੱਖ ਦਾ ਡੈੱਡਲਾਈਨ ਅਨੁਸ਼ਾਸਨ ਕਾਫ਼ੀ ਹੱਦ ਤੱਕ ਯਕੀਨੀ ਹੋ ਜਾਵੇਗੀ/g, "ਭਵਿੱਖ ਵਿੱਚ ਟ੍ਰੇਨੀਜ਼ ਦਾ ਡੈੱਡਲਾਈਨ ਅਨੁਸ਼ਾਸਨ ਲਗਭਗ ਯਕੀਨੀ ਹੋ ਜਾਵੇਗਾ")
+    .replace(/(ਕਾਫ਼ੀ ਸਥਿਰ ਕਨੈਕਟਿਵਿਟੀ[^।.!?]*?)ਉਪਲਬਧ ਹੋ ਜਾਣਗੇ/g, "$1ਉਪਲਬਧ ਹੋ ਜਾਵੇਗੀ")
+    .replace(/ਜ਼ਿਆਦਾਤਰ ਕੇਂਦਰ ਦਾ ਨਤੀਜਾ/g, "ਜ਼ਿਆਦਾਤਰ ਕੇਂਦਰਾਂ ਦੇ ਨਤੀਜੇ")
+    .replace(/ਸਥਾਈ ਜਾਮ ਸ਼ਾਇਦ ਹੋ ਜਾਵੇਗਾ/g, "ਲੰਬੇ ਸਮੇਂ ਦਾ ਜਾਮ ਪੈ ਜਾਵੇਗਾ");
 }
 
 function repair(value: string, language: Language): string {
   if (language === "hi") return repairHindi(value);
   if (language === "pa") return repairPunjabi(value);
   return repairEnglish(value);
+}
+
+function repairLocalizedQl006T04Explanation(
+  question: Question,
+  language: Language,
+  argumentsList: readonly string[],
+  current: string,
+): string {
+  if (text(question.templateId) !== "ARG-CP003-QL006-T04" || language === "en" || argumentsList.length !== 2) return current;
+  const strengths = Array.isArray(question.argumentStrengths) ? question.argumentStrengths.map((value: unknown) => text(value).toUpperCase()) : [];
+  if (strengths.length !== 2 || strengths.some((strength: string) => strength !== "WEAK")) return current;
+
+  const reasonFor = (argument: string): string | undefined => {
+    if (language === "hi") {
+      if (/(?:सिद्ध|साबित).*(?:अभ्यर्थी|उम्मीदवार).*केंद्र/.test(argument)) {
+        return "एक शिकायत या आरोप से यह सिद्ध नहीं होता कि अधिकांश अभ्यर्थी और केंद्र प्रभावित हैं; व्यापक कार्रवाई से पहले प्रमाण और प्रभाव-क्षेत्र की जाँच जरूरी है।";
+      }
+      if (/(?:या तो|अनदेखा|बंद करना|बंद करना होगा)/.test(argument)) {
+        return "प्राधिकरण के पास शिकायत को अनदेखा करने या परीक्षा बंद करने के अलावा भी विकल्प हैं; वह प्रमाण की जाँच करके अनुपातिक कार्रवाई कर सकता है।";
+      }
+      return undefined;
+    }
+    if (/(?:ਸਾਬਤ).*(?:ਉਮੀਦਵਾਰ).*ਕੇਂਦਰ/.test(argument)) {
+      return "ਇੱਕ ਸ਼ਿਕਾਇਤ ਜਾਂ ਦੋਸ਼ ਤੋਂ ਇਹ ਸਾਬਤ ਨਹੀਂ ਹੁੰਦਾ ਕਿ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਹਨ; ਵਿਆਪਕ ਕਾਰਵਾਈ ਤੋਂ ਪਹਿਲਾਂ ਸਬੂਤ ਅਤੇ ਪ੍ਰਭਾਵ ਦਾ ਦਾਇਰਾ ਜਾਂਚਣਾ ਲਾਜ਼ਮੀ ਹੈ।";
+    }
+    if (/(?:ਕਾਰਵਾਈ ਨਹੀਂ|ਅਣਡਿੱਠ|ਬੰਦ ਕਰਨਾ|ਬੰਦ ਕਰਨਾ ਪਵੇਗਾ)/.test(argument)) {
+      return "ਅਥਾਰਟੀ ਕੋਲ ਸ਼ਿਕਾਇਤ ਨੂੰ ਅਣਡਿੱਠਾ ਕਰਨ ਜਾਂ ਪ੍ਰੀਖਿਆ ਬੰਦ ਕਰਨ ਤੋਂ ਇਲਾਵਾ ਵੀ ਵਿਕਲਪ ਹਨ; ਉਹ ਸਬੂਤ ਜਾਂਚ ਕੇ ਅਨੁਪਾਤਿਕ ਕਾਰਵਾਈ ਕਰ ਸਕਦੀ ਹੈ।";
+    }
+    return undefined;
+  };
+
+  const reasons = argumentsList.map(reasonFor);
+  if (!reasons[0] || !reasons[1]) return current;
+  if (language === "hi") {
+    return `तर्क I कमजोर है: ${reasons[0]} तर्क II कमजोर है: ${reasons[1]}`;
+  }
+  return `ਦਲੀਲ I ਕਮਜ਼ੋਰ ਹੈ: ${reasons[0]} ਦਲੀਲ II ਕਮਜ਼ੋਰ ਹੈ: ${reasons[1]}`;
 }
 
 function stemFor(statement: string, language: Language, argumentsList: readonly string[]): string {
@@ -84,7 +150,8 @@ export function preRepairArgCp015HumanAuditSurface(question: Question): Question
   const originalExplanation = text(question.explanation);
   const statement = repair(originalStatement, language);
   const argumentsList = originalArguments.map((argument) => repair(argument, language));
-  const explanation = repair(originalExplanation, language);
+  const repairedExplanation = repair(originalExplanation, language);
+  const explanation = repairLocalizedQl006T04Explanation(question, language, argumentsList, repairedExplanation);
 
   const changed = statement !== originalStatement
     || argumentsList.some((argument, index) => argument !== originalArguments[index])
