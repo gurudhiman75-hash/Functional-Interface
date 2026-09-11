@@ -1,7 +1,10 @@
 from pathlib import Path
 
-SOURCE_PATH = Path("artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-final-editorial-quality.ts")
+ROOT = Path("artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001")
+SOURCE_PATH = ROOT / "cp015-final-editorial-quality.ts"
+GRAMMAR_PATH = ROOT / "cp015-anti-gaming-grammar-polish.ts"
 source = SOURCE_PATH.read_text(encoding="utf-8")
+grammar = GRAMMAR_PATH.read_text(encoding="utf-8")
 
 helper = '''function genericFallbackReason(reason: string, language: Language): boolean {
   if (language === "hi") return /^यह तर्क मान लेता है कि/.test(reason);
@@ -48,12 +51,34 @@ if ql004_legacy_reason not in source:
         raise SystemExit(f"QL004 long-standing-pattern reason: expected exactly one English fallback anchor, found {count}")
     source = source.replace(english_fallback_anchor, ql004_legacy_rule + english_fallback_anchor, 1)
 
+# QL006 can express the same fraud-overreach trap through several transaction
+# contexts. Keep each explanation tied to the actual transaction category rather
+# than allowing the generic weak-argument fallback to leak into learner copy.
+ql006_overseas_reason = 'First-time overseas card use can be legitimate travel or emergency spending, so treating most such transactions as fraud does not justify automatic blocking in every case.'
+ql006_overseas_rule = f'  if (/first-time overseas card use/i.test(argument) && /(?:most instances|treated as fraudulent)/i.test(argument)) return "{ql006_overseas_reason}";\n'
+if ql006_overseas_reason not in source:
+    count = source.count(english_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL006 first-time-overseas reason: expected exactly one English fallback anchor, found {count}")
+    source = source.replace(english_fallback_anchor, ql006_overseas_rule + english_fallback_anchor, 1)
+
 # The finalizer already runs every argument through repairSurface before reason
 # selection. Assert that V8's English article repair is present so the repaired
 # argument exposed to the rule is grammatical as well as semantically specific.
 article_repair = '.replace(/\\ba automatically renewed plan\\b/gi, "an automatically renewed plan")'
 if article_repair not in source:
     raise SystemExit("renewal article repair missing after V8 plain-language repair")
+
+# The preceding V8 grammar repair pluralizes "instance". Capitalize both the
+# singular source form and the pluralized form after Yes./No. so the final exam
+# surface never contains "Yes. most instances ...".
+old_capitalization = '.replace(/\\b(Yes|No)\\.\\s+most instance\\b/gi, "$1. Most instances")'
+new_capitalization = '.replace(/\\b(Yes|No)\\.\\s+most instances?\\b/gi, "$1. Most instances")'
+if new_capitalization not in grammar:
+    count = grammar.count(old_capitalization)
+    if count != 1:
+        raise SystemExit(f"most-instances capitalization: expected exactly one anchor, found {count}")
+    grammar = grammar.replace(old_capitalization, new_capitalization, 1)
 
 old = 'if (strengths[index] === "WEAK" && boilerplateReason(reason, language)) return specificReason(deduped.arguments[index]!, language);'
 new = 'if (strengths[index] === "WEAK" && (boilerplateReason(reason, language) || genericFallbackReason(reason, language))) return specificReason(deduped.arguments[index]!, language);'
@@ -64,4 +89,5 @@ if new not in source:
     source = source.replace(old, new, 1)
 
 SOURCE_PATH.write_text(source, encoding="utf-8")
-print("ARG-001 CP015 generic fallback routing repair applied")
+GRAMMAR_PATH.write_text(grammar, encoding="utf-8")
+print("ARG-001 CP015 generic fallback routing and QL006 overseas repair applied")
