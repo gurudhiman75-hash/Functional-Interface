@@ -145,6 +145,15 @@ function semanticAudit(question: GeoRiv001Cp010ReviewQuestion, issues: string[])
   }
 }
 
+function hasBareRiverReference(text: string) {
+  for (const river of ROWS.map((row) => row.river)) {
+    const escaped = river.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const pattern = new RegExp(`(?<!River )\\b${escaped}\\b(?!\\s+(?:Dam|Reservoir|Project|Sagar))`);
+    if (pattern.test(text)) return true;
+  }
+  return false;
+}
+
 export function auditGeoRiv001Cp010ReviewBatchV1() {
   const issues: string[] = [];
   const sourceAudit = auditGeoRiv001Cp010SourceAuthorities();
@@ -165,9 +174,9 @@ export function auditGeoRiv001Cp010ReviewBatchV1() {
     if (question.options[question.correctIndex] !== question.canonicalAnswer) issues.push(`ANSWER_ALIGNMENT:${question.questionId}`);
     if (!question.sourceFactIds.length || !question.sourceIds.length) issues.push(`MISSING_PROVENANCE:${question.questionId}`);
     if (!question.reviewOnly || question.runtimeRegistered) issues.push(`LIFECYCLE:${question.questionId}`);
-    if (/\b(?:Ganga|Brahmaputra|Godavari|Krishna|Narmada|Mahanadi|Cauvery|Satluj|Beas|Bhagirathi|Rihand|Tapi|Chambal|Tungabhadra)\b/.test(question.stem.replace(/River\s+[A-Za-z]+/g, ""))) {
-      issues.push(`BARE_RIVER_IN_STEM:${question.questionId}`);
-    }
+    if (hasBareRiverReference(question.stem)) issues.push(`BARE_RIVER_IN_STEM:${question.questionId}`);
+    if (question.options.some(hasBareRiverReference)) issues.push(`BARE_RIVER_IN_OPTIONS:${question.questionId}`);
+    if (hasBareRiverReference(question.explanation)) issues.push(`BARE_RIVER_IN_EXPLANATION:${question.questionId}`);
     if (/CP010|sourceFact|reviewed|associated with the fact|exam trap|shortcut/i.test(question.explanation)) issues.push(`MACHINE_LANGUAGE:${question.questionId}`);
     semanticAudit(question, issues);
   }
