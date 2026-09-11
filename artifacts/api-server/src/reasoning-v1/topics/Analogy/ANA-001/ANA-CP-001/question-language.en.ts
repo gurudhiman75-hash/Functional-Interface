@@ -30,10 +30,10 @@ export const ANA_CP001_QLS = RELATIONS.flatMap(([title, ruleId], relationIndex) 
       solveMode: "SEMANTIC_RELATION_TRANSFER",
       ruleId,
       presentationMode,
-      difficultyBand: presentationMode === "MISSING_FOURTH_TERM" ? "EASY_TO_MEDIUM" : "MEDIUM",
-      difficultyPolicy: "DERIVE_FROM_FACT_FAMILIARITY_AND_DISTRACTOR_PROXIMITY",
+      difficultyBand: "INSTANCE_DERIVED",
+      difficultyPolicy: "RELATION_SUBTLETY_PLUS_PRESENTATION_BURDEN",
       answerType: presentationMode === "MISSING_FOURTH_TERM" ? "WORD" : "WORD_PAIR",
-      requiredDatasets: ["ANA_SEMANTIC_FACTS_EN_V2"],
+      requiredDatasets: ["ANA_SEMANTIC_FACTS_EN_V2_1"],
       requiredVariables: ["sourceFactId", "targetFactId", "optionFactIds", "seed"],
       distractorKinds: presentationMode === "MISSING_FOURTH_TERM"
         ? ["SAME_CATEGORY_WRONG_RELATION_TARGET"]
