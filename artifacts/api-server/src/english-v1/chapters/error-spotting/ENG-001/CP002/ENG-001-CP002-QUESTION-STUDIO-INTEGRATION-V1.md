@@ -1,6 +1,6 @@
 # ENG-001-CP002 — Human Approval & Question Studio Integration V1
 
-Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY_REGISTERED__CI_PENDING__MERGE_PENDING`
+Status: `HUMAN_APPROVED__QUESTION_STUDIO_REVIEW_ONLY_REGISTERED__CI_GREEN__MERGE_PENDING`
 
 ## Approved authority
 
@@ -50,7 +50,7 @@ Registration opens only Question Studio generation and editorial review. It does
 - production release: false
 - inline editing: disabled by policy; fix the source generator and regenerate
 
-Approving a generated CP002 item in Question Studio must resolve as `review_only` and must produce zero Question Bank conversions.
+Approving a generated CP002 item in Question Studio resolves as `review_only` and cannot create a Question Bank conversion.
 
 ## Admin review surface
 
@@ -61,20 +61,24 @@ The existing `QuestionStudioEnglishReviewPanel` now provides one checkpoint sele
 
 The grammar-rule selector switches between SVA and tense inventories according to the selected checkpoint. QL, difficulty, exam, batch size, deterministic seed, generated question display, keyed answer, explanation, corrected sentence, and review actions remain on the same shared panel.
 
-## Integration validation gate
+## Integration validation
 
-Before merge, CI must prove all of the following at the integration head:
+The post-approval integration head passed the required gates before this status record was written:
 
-- CP002 deterministic generation/stress matrix passes;
-- the approved 60-question CP002 review remains byte-for-byte identical to the deterministic exporter;
-- approved CP001 V4 regression remains green;
-- the shared `language-v1` ENG-001 adapter generates CP001 and CP002 deterministically;
-- CP-specific rules cannot cross checkpoint boundaries;
-- CP002 items carry the CP002 approval authority and reviewed blob/head provenance;
-- both CPs remain review-only through the shared approval policy;
-- the English Question Studio admin surface typechecks;
-- API and Render production builds pass;
-- workflow-hygiene and branch-topology checks remain green.
+- CP002 deterministic generation/stress matrix;
+- byte-for-byte CP002 60-question review freeze;
+- approved CP001 V4 regression;
+- deterministic CP001 + CP002 `language-v1` adapter tests;
+- CP-family/rule conflict rejection;
+- CP002 approval authority and reviewed blob/head provenance checks;
+- review-only approval-policy checks;
+- English Question Studio admin typecheck;
+- API build and Render production build;
+- complete integrated admin application typecheck, tests, admin build and student build;
+- workflow-hygiene and branch-topology checks;
+- shared Computer Content Engine Question Studio registry/lifecycle regression after updating its stale ENG-001 CP-list assertion.
+
+The shared registry initially exposed the expected stale assertion that still required `ENG-001` to contain only CP001. That regression test was updated to admit the explicitly approved CP002 checkpoint and to smoke-test CP002 generation; its rerun passed without changing Computer content or lifecycle behavior.
 
 ## Reopening rule
 
