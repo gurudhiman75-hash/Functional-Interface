@@ -1,0 +1,181 @@
+name: TMP Quant V4 Wave4 evidence alignment
+
+on:
+  push:
+    branches:
+      - audit/quant-v4-cgl-2020-cycle-2021-08-17-s1-full-quant-section-wave4-p2
+
+permissions:
+  contents: write
+
+jobs:
+  align:
+    if: ${{ !contains(github.event.head_commit.message, '[wave4-align]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: audit/quant-v4-cgl-2020-cycle-2021-08-17-s1-full-quant-section-wave4-p2
+          fetch-depth: 0
+
+      - name: Apply deterministic Wave4 cumulative alignment
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          root = Path('artifacts/api-server/src/quant-v4/quality')
+
+          # Every cumulative regression should acknowledge the new 25-question section.
+          for path in root.glob('*.test.ts'):
+              text = path.read_text()
+              text2 = text.replace('QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 133', 'QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 158')
+              if text2 != text:
+                  path.write_text(text2)
+
+          # Declare the fourth complete section in the whole-section calibration authority.
+          path = root / 'quant-v4-whole-section-frequency-calibration-p2.ts'
+          text = path.read_text()
+          if 'SSC-CGL-T1-2020-CYCLE-2021-08-17-S1-QUANT' not in text:
+              marker = '''  Object.freeze({\n    sectionId: "SSC-CGL-T1-2022-12-01-S1-QUANT",\n    examId: "SSC_CGL_TIER_I",\n    paperId: "SSC-CGL-2022-TIER-I-2022-12-01-S1",\n    heldDate: "2022-12-01",\n    shift: "Shift 1",\n    questionStart: 51,\n    questionEnd: 75,\n    expectedQuestionCount: 25,\n  }),\n'''
+              addition = marker + '''  Object.freeze({\n    sectionId: "SSC-CGL-T1-2020-CYCLE-2021-08-17-S1-QUANT",\n    examId: "SSC_CGL_TIER_I",\n    paperId: "SSC-CGL-2020-TIER-I-2021-08-17-S1",\n    heldDate: "2021-08-17",\n    shift: "Shift 1",\n    questionStart: 51,\n    questionEnd: 75,\n    expectedQuestionCount: 25,\n  }),\n'''
+              assert marker in text
+              path.write_text(text.replace(marker, addition, 1))
+
+          # Whole-section proof: 4 complete sections / 100 complete questions / 4 held years.
+          path = root / 'quant-v4-whole-section-frequency-calibration-p2.test.ts'
+          text = path.read_text()
+          replacements = {
+              'QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length, 3': 'QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS.length, 4',
+              'profile.totalCountableQuestionCount, 100': 'profile.totalCountableQuestionCount, 125',
+              'profile.completeSectionCount, 3': 'profile.completeSectionCount, 4',
+              'profile.completeQuestionCount, 75': 'profile.completeQuestionCount, 100',
+              'profile.distinctSectionYearCount, 3': 'profile.distinctSectionYearCount, 4',
+              '["SSC-CGL-2022-TIER-I-2022-12-01-S1", 25],\n  ],': '["SSC-CGL-2022-TIER-I-2022-12-01-S1", 25],\n    ["SSC-CGL-2020-TIER-I-2021-08-17-S1", 25],\n  ],',
+              '"ALG-001": 7,': '"ALG-001": 10,',
+              '"AVG-001": 2,': '"AVG-001": 3,',
+              '"DI-001": 7,': '"DI-001": 11,',
+              '"GEO-001": 4,': '"GEO-001": 6,',
+              '"GEO-002": 6,': '"GEO-002": 8,',
+              '"INT-001": 3,': '"INT-001": 4,',
+              '"MEN-002": 4,': '"MEN-002": 5,',
+              '"NUM-001": 4,': '"NUM-001": 5,',
+              '"PCT-002": 2,': '"PCT-002": 3,',
+              '"PNL-001": 6,': '"PNL-001": 8,',
+              '"RAP-001": 2,': '"RAP-001": 3,',
+              'SAP: 2,': 'SAP: 3,',
+              '"TMW-001": 7,': '"TMW-001": 8,',
+              '"TRG-001": 8,': '"TRG-001": 11,',
+              '"TSD-001": 4,': '"TSD-001": 5,',
+              '), 75);': '), 100);',
+              'profile.packageWeights[0]?.packageId, "TRG-001"': 'profile.packageWeights[0]?.packageId, "DI-001"',
+              'profile.packageWeights[0]?.questionCount, 8': 'profile.packageWeights[0]?.questionCount, 11',
+              'profile.packageWeights[0]?.questionShare, 8 / 75': 'profile.packageWeights[0]?.questionShare, 11 / 100',
+              'profile.packageWeights[0]?.meanQuestionsPerSection, 8 / 3': 'profile.packageWeights[0]?.meanQuestionsPerSection, 11 / 4',
+              'profile.packageWeights[0]?.sectionPresenceCount, 3': 'profile.packageWeights[0]?.sectionPresenceCount, 4',
+              'contaminated.totalCountableQuestionCount, 101': 'contaminated.totalCountableQuestionCount, 126',
+              'contaminated.completeQuestionCount, 75': 'contaminated.completeQuestionCount, 100',
+              'incomplete.completeSectionCount, 2': 'incomplete.completeSectionCount, 3',
+              'incomplete.completeQuestionCount, 50': 'incomplete.completeQuestionCount, 75',
+          }
+          for old, new in replacements.items():
+              if old in text:
+                  text = text.replace(old, new)
+          text = text.replace('assert.ok(incomplete.blockers.includes("DISTINCT_SECTION_YEAR_SAMPLE_BELOW_POLICY"));\n', '')
+          path.write_text(text)
+
+          # Specialized profile evidence increments: AVG +1, NUM +1, TMW +1 for CGL Tier-I.
+          path = root / 'quant-v4-specialized-profile-selection-evidence-gate-p2.test.ts'
+          text = path.read_text()
+          reps = {
+              'packageId: "ALG-001" }).length, 18': 'packageId: "ALG-001" }).length, 21',
+              'packageId: "AVG-001" }).length, 8': 'packageId: "AVG-001" }).length, 9',
+              'packageId: "NUM-001" }).length, 20': 'packageId: "NUM-001" }).length, 21',
+              'packageId: "PNL-001" }).length, 6': 'packageId: "PNL-001" }).length, 8',
+              'packageId: "TMW-001" }).length, 12': 'packageId: "TMW-001" }).length, 13',
+              'packageId: "TSD-001" }).length, 7': 'packageId: "TSD-001" }).length, 8',
+              'packageId: "PCT-002" }).length, 7': 'packageId: "PCT-002" }).length, 8',
+              'SSC_CGL_TIER_I: 2, SSC_CGL_CHSL: 6': 'SSC_CGL_TIER_I: 3, SSC_CGL_CHSL: 6',
+              'SSC_CGL_TIER_I: 14,': 'SSC_CGL_TIER_I: 15,',
+              'SSC_CGL_TIER_I: 7, SSC_CGL_CHSL: 5': 'SSC_CGL_TIER_I: 8, SSC_CGL_CHSL: 5',
+          }
+          for old, new in reps.items():
+              assert old in text, old
+              text = text.replace(old, new)
+          path.write_text(text)
+
+          # Mature regressions whose package/profile totals genuinely move in Wave4.
+          targeted = {
+            'quant-v4-cgl-2022-s1-full-quant-section-wave3-p2.test.ts': {
+              'packageId: "ALG-001" }).length, 18': 'packageId: "ALG-001" }).length, 21',
+              'packageId: "AVG-001" }).length, 8': 'packageId: "AVG-001" }).length, 9',
+              'packageId: "NUM-001" }).length, 20': 'packageId: "NUM-001" }).length, 21',
+              'packageId: "PNL-001" }).length, 6': 'packageId: "PNL-001" }).length, 8',
+              'packageId: "TMW-001" }).length, 12': 'packageId: "TMW-001" }).length, 13',
+              'packageId: "TSD-001" }).length, 7': 'packageId: "TSD-001" }).length, 8',
+              'packageId: "PCT-002" }).length, 7': 'packageId: "PCT-002" }).length, 8',
+              'packageId: "RAP-001" }).length, 2': 'packageId: "RAP-001" }).length, 3',
+              'avgCgl.normalizedCountableObservationCount, 2': 'avgCgl.normalizedCountableObservationCount, 3',
+              'numCgl.normalizedCountableObservationCount, 14': 'numCgl.normalizedCountableObservationCount, 15',
+              'tmwCgl.normalizedCountableObservationCount, 7': 'tmwCgl.normalizedCountableObservationCount, 8',
+              'cgl.countableQuestionCount, 100': 'cgl.countableQuestionCount, 125',
+              'cgl.distinctPaperCount, 19': 'cgl.distinctPaperCount, 20',
+            },
+            'quant-v4-cgl-tier1-cross-topic-pyq-normalization-wave1-p2.test.ts': {
+              'packageId: "PNL-001" }).length, 6': 'packageId: "PNL-001" }).length, 8',
+              'packageId: "TMW-001" }).length, 12': 'packageId: "TMW-001" }).length, 13',
+              '["SSC_CGL_TIER_I"] }).length,\n  7,': '["SSC_CGL_TIER_I"] }).length,\n  8,',
+              'tmwCglContract.normalizedCountableObservationCount, 7': 'tmwCglContract.normalizedCountableObservationCount, 8',
+              'cgl.countableQuestionCount, 100': 'cgl.countableQuestionCount, 125',
+              'cgl.distinctPaperCount, 19': 'cgl.distinctPaperCount, 20',
+            },
+            'quant-v4-tmw-chsl-pyq-normalization-wave1-p2.test.ts': {
+              'tmw.length, 12': 'tmw.length, 13',
+              'entry.examId === "SSC_CGL_TIER_I").length, 7': 'entry.examId === "SSC_CGL_TIER_I").length, 8',
+              'tmwCglContract.normalizedCountableObservationCount, 7': 'tmwCglContract.normalizedCountableObservationCount, 8',
+            },
+            'quant-v4-average-chsl-pyq-normalization-wave1-p2.test.ts': {
+              'average.length, 8': 'average.length, 9',
+              'entry.examId === "SSC_CGL_TIER_I").length, 2': 'entry.examId === "SSC_CGL_TIER_I").length, 3',
+            },
+            'quant-v4-percentage-chsl-pyq-normalization-wave1-p2.test.ts': {
+              'percentage.length, 7': 'percentage.length, 8',
+              'entry.examId === "SSC_CGL_TIER_I").length, 2': 'entry.examId === "SSC_CGL_TIER_I").length, 3',
+            },
+            'quant-v4-number-system-ssc-pyq-normalization-wave2-p2.test.ts': {
+              'numAll.length, 20': 'numAll.length, 21',
+              'entry.examId === "SSC_CGL_TIER_I").length, 14': 'entry.examId === "SSC_CGL_TIER_I").length, 15',
+              'cglTierI.normalizedCountableObservationCount, 14': 'cglTierI.normalizedCountableObservationCount, 15',
+            },
+            'quant-v4-tsd-pyq-normalization-wave1-p2.test.ts': {
+              'tsd001.length, 7': 'tsd001.length, 8',
+              'entry.examId === "SSC_CGL_TIER_I").length, 4': 'entry.examId === "SSC_CGL_TIER_I").length, 5',
+            },
+          }
+          for name, reps in targeted.items():
+              path = root / name
+              text = path.read_text()
+              for old, new in reps.items():
+                  if old in text:
+                      text = text.replace(old, new)
+              path.write_text(text)
+
+          # Algebra package totals move by three ALG-001 questions in Wave4.
+          for name in ['quant-v4-algebra-pyq-normalization-wave2-p2.test.ts', 'quant-v4-algebra-pyq-normalization-wave3-p2.test.ts']:
+              path = root / name
+              text = path.read_text()
+              text = text.replace('alg001.length, 18', 'alg001.length, 21')
+              text = text.replace('algebraAll.length, 29', 'algebraAll.length, 32')
+              text = text.replace('entry.examId === "SSC_CGL_TIER_I").length, 24', 'entry.examId === "SSC_CGL_TIER_I").length, 27')
+              text = text.replace('cgl.countableQuestionCount, 24', 'cgl.countableQuestionCount, 27')
+              path.write_text(text)
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/api-server/src/quant-v4/quality
+          if git diff --cached --quiet; then
+            echo "No alignment changes needed."
+            exit 0
+          fi
+          git commit -m "test(quant-v4): align Wave4 cumulative evidence [wave4-align]"
+          git push origin HEAD:audit/quant-v4-cgl-2020-cycle-2021-08-17-s1-full-quant-section-wave4-p2
