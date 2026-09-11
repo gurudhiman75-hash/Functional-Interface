@@ -1,0 +1,61 @@
+name: Validate GEO-RIV-001 CP006 Review
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp006-*"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/rivers-drainage/GEO-RIV-001-CP006-*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: geo-riv-001-cp006-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp006:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run CP006 qualification gates
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          for test_file in \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp006-validator.test.ts \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp006-review-batch-v1.test.ts
+          do
+            output_name="$(basename "${test_file}" .ts).mjs"
+            pnpm --dir artifacts/api-server exec esbuild "${test_file}" --bundle --packages=external --platform=node --format=esm --outfile="dist/geography/${output_name}"
+            node "artifacts/api-server/dist/geography/${output_name}"
+          done
+      - name: Materialize CP006 review artifact
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp006-export-review.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-riv-001-cp006-export-review.mjs
+          cd artifacts/api-server
+          node dist/geography/geo-riv-001-cp006-export-review.mjs
+      - name: Upload CP006 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-RIV-001-CP006-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP006-V1/
+          if-no-files-found: error
+          retention-days: 30
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
