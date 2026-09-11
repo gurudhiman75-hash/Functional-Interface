@@ -76,6 +76,8 @@ export const ANA_CP010_SEMANTIC_RELATIONS: readonly AnaCp010SemanticRelation[] =
       fact("SEM_ACTIVITY_VENUE", 4, t("Swimming", "तैराकी", "ਤੈਰਾਕੀ"), t("Pool", "पूल", "ਪੂਲ")),
       fact("SEM_ACTIVITY_VENUE", 5, t("Skating", "स्केटिंग", "ਸਕੇਟਿੰਗ"), t("Rink", "रिंक", "ਰਿੰਕ")),
       fact("SEM_ACTIVITY_VENUE", 6, t("Athletics", "एथलेटिक्स", "ਐਥਲੈਟਿਕਸ"), t("Track", "ट्रैक", "ਟਰੈਕ")),
+      fact("SEM_ACTIVITY_VENUE", 7, t("Shooting", "निशानेबाज़ी", "ਨਿਸ਼ਾਨੇਬਾਜ਼ੀ"), t("Range", "रेंज", "ਰੇਂਜ")),
+      fact("SEM_ACTIVITY_VENUE", 8, t("Horse racing", "घुड़दौड़", "ਘੋੜਦੌੜ"), t("Racecourse", "रेसकोर्स", "ਰੇਸਕੋਰਸ")),
     ],
   },
   {
@@ -128,6 +130,8 @@ export const ANA_CP010_SEMANTIC_RELATIONS: readonly AnaCp010SemanticRelation[] =
       fact("SEM_SPORT_EQUIPMENT", 4, t("Golf", "गोल्फ", "ਗੋਲਫ"), t("Club", "क्लब", "ਕਲੱਬ")),
       fact("SEM_SPORT_EQUIPMENT", 5, t("Archery", "तीरंदाज़ी", "ਤੀਰਅੰਦਾਜ਼ੀ"), t("Bow", "धनुष", "ਧਨੁਸ਼")),
       fact("SEM_SPORT_EQUIPMENT", 6, t("Boxing", "मुक्केबाज़ी", "ਮੁੱਕੇਬਾਜ਼ੀ"), t("Gloves", "दस्ताने", "ਦਸਤਾਨੇ")),
+      fact("SEM_SPORT_EQUIPMENT", 7, t("Cycling", "साइकिलिंग", "ਸਾਈਕਲਿੰਗ"), t("Bicycle", "साइकिल", "ਸਾਈਕਲ")),
+      fact("SEM_SPORT_EQUIPMENT", 8, t("Skiing", "स्कीइंग", "ਸਕੀਇੰਗ"), t("Skis", "स्की", "ਸਕੀ")),
     ],
   },
   {
@@ -141,6 +145,8 @@ export const ANA_CP010_SEMANTIC_RELATIONS: readonly AnaCp010SemanticRelation[] =
       fact("SEM_DISEASE_ORGAN", 4, t("Gastritis", "गैस्ट्राइटिस", "ਗੈਸਟ੍ਰਾਈਟਿਸ"), t("Stomach", "पेट", "ਪੇਟ")),
       fact("SEM_DISEASE_ORGAN", 5, t("Conjunctivitis", "कंजंक्टिवाइटिस", "ਕੰਜੰਕਟਿਵਾਈਟਿਸ"), t("Eyes", "आँखें", "ਅੱਖਾਂ")),
       fact("SEM_DISEASE_ORGAN", 6, t("Pneumonia", "निमोनिया", "ਨਿਮੋਨੀਆ"), t("Lungs", "फेफड़े", "ਫੇਫੜੇ")),
+      fact("SEM_DISEASE_ORGAN", 7, t("Arthritis", "गठिया", "ਗਠੀਆ"), t("Joints", "जोड़", "ਜੋੜ")),
+      fact("SEM_DISEASE_ORGAN", 8, t("Tonsillitis", "टॉन्सिलाइटिस", "ਟਾਂਸਿਲਾਈਟਿਸ"), t("Tonsils", "टॉन्सिल", "ਟਾਂਸਿਲ")),
     ],
   },
   {
@@ -154,6 +160,8 @@ export const ANA_CP010_SEMANTIC_RELATIONS: readonly AnaCp010SemanticRelation[] =
       fact("SEM_AUTHOR_WORK", 4, t("Orwell", "Orwell", "Orwell"), t("1984", "1984", "1984")),
       fact("SEM_AUTHOR_WORK", 5, t("Austen", "Austen", "Austen"), t("Pride and Prejudice", "Pride and Prejudice", "Pride and Prejudice")),
       fact("SEM_AUTHOR_WORK", 6, t("Dickens", "Dickens", "Dickens"), t("Oliver Twist", "Oliver Twist", "Oliver Twist")),
+      fact("SEM_AUTHOR_WORK", 7, t("Homer", "Homer", "Homer"), t("Iliad", "Iliad", "Iliad")),
+      fact("SEM_AUTHOR_WORK", 8, t("Tolstoy", "Tolstoy", "Tolstoy"), t("War and Peace", "War and Peace", "War and Peace")),
     ],
   },
 ] as const;
