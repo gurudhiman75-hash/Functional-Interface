@@ -101,6 +101,7 @@ function chooseNumericInstance(ruleId: AnaCp010NumericRuleId, seed: number) {
       for (let targetIndex = sourceIndex + 1; targetIndex < inputs.length; targetIndex += 1) {
         const targetOutput = rule.apply(inputs[targetIndex], context);
         if (targetOutput === null || targetOutput === sourceOutput) continue;
+        if (numericMisconceptions(ruleId, inputs[targetIndex], targetOutput, context).length < 3) continue;
         const source = { input: inputs[sourceIndex], output: sourceOutput };
         const target = { input: inputs[targetIndex], output: targetOutput };
         if (!isUnambiguous(ruleId, context, [source, target])) continue;
@@ -110,7 +111,7 @@ function chooseNumericInstance(ruleId: AnaCp010NumericRuleId, seed: number) {
       }
     }
   }
-  throw new Error(`Unable to generate an unambiguous ${ruleId} instance for seed ${seed}.`);
+  throw new Error(`Unable to generate an unambiguous ${ruleId} instance with three misconception distractors for seed ${seed}.`);
 }
 
 function uniquePositive(values: readonly { value: number; errorLabel: string }[], correct: number) {
@@ -194,6 +195,7 @@ function numericMisconceptions(
         { value: a * b + c, errorLabel: "MULTIPLIED_FIRST_TWO_DIGITS" },
         { value: a + b * c, errorLabel: "MULTIPLIED_LAST_TWO_DIGITS" },
         { value: a * b * c, errorLabel: "MULTIPLIED_ALL_DIGITS_INSTEAD" },
+        { value: a * a + b * b + c * c, errorLabel: "ADDED_SQUARES_OF_DIGITS" },
       );
       break;
     }
@@ -234,6 +236,32 @@ function placeCorrect<T extends { errorLabel: string | null }>(options: readonly
   return result;
 }
 
+function numericPairDistractors(
+  ruleId: AnaCp010NumericRuleId,
+  context: AnaCp010NumericContext,
+  target: NumericPair,
+  seed: number,
+): { value: readonly [number, number]; errorLabel: string }[] {
+  const rule = anaCp010NumericRuleById(ruleId);
+  const distractors: { value: readonly [number, number]; errorLabel: string }[] = [];
+  const used = new Set<string>();
+  for (const input of shuffle(rule.candidateInputs, seed * 43 + 17)) {
+    if (input === target.input) continue;
+    const correct = rule.apply(input, context);
+    if (correct === null) continue;
+    const mistakes = shuffle(numericMisconceptions(ruleId, input, correct, context), seed * 47 + input * 13);
+    for (const mistake of mistakes) {
+      if (independentlySolveAnaCp010Numeric(ruleId, input, context) === mistake.value) continue;
+      const key = `${input}:${mistake.value}`;
+      if (used.has(key)) continue;
+      used.add(key);
+      distractors.push({ value: [input, mistake.value] as const, errorLabel: mistake.errorLabel });
+      if (distractors.length === 3) return distractors;
+    }
+  }
+  throw new Error(`${ruleId} cannot produce three truthful equivalent-pair distractors for seed ${seed}.`);
+}
+
 function generateNumeric(ql: ReturnType<typeof anaCp010QlById>, seed: number): GeneratedAnaCp010Numeric {
   const ruleId = ql.ruleId as AnaCp010NumericRuleId;
   const rule = anaCp010NumericRuleById(ruleId);
@@ -251,13 +279,7 @@ function generateNumeric(ql: ReturnType<typeof anaCp010QlById>, seed: number): G
   } else {
     rawOptions = [
       { value: [target.input, target.output] as const, errorLabel: null },
-      ...misconceptions.slice(0, 3).map((entry, index) => {
-        const input = rule.candidateInputs[(Math.abs(seed) + index + 2) % rule.candidateInputs.length];
-        const optionCorrect = rule.apply(input, context);
-        const mistakes = optionCorrect === null ? [] : numericMisconceptions(ruleId, input, optionCorrect, context);
-        const mistake = mistakes[index % Math.max(1, mistakes.length)] ?? entry;
-        return { value: [input, mistake.value] as const, errorLabel: mistake.errorLabel };
-      }),
+      ...numericPairDistractors(ruleId, context, target, seed),
     ];
   }
 
@@ -266,6 +288,13 @@ function generateNumeric(ql: ReturnType<typeof anaCp010QlById>, seed: number): G
   const keys = options.map((option) => Array.isArray(option.value) ? option.value.join(":") : String(option.value));
   if (new Set(keys).size !== 4) throw new Error(`${ql.qlId} produced duplicate options.`);
   const correctIndex = options.findIndex((option) => option.errorLabel === null);
+  if (presentationMode === "EQUIVALENT_PAIR_SELECTION") {
+    const validCount = options.filter((option) => {
+      if (!Array.isArray(option.value)) return false;
+      return independentlySolveAnaCp010Numeric(ruleId, option.value[0], context) === option.value[1];
+    }).length;
+    if (validCount !== 1) throw new Error(`${ql.qlId} must contain exactly one valid equivalent numeric pair.`);
+  }
 
   return {
     kind: "NUMERIC",
