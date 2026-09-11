@@ -75,6 +75,18 @@ const COVERAGE: readonly CheckpointCoverage[] = [
     localizedTest: "ANA-CP-008/ana-cp-008-localized.test.ts",
     localizedSources: ["ANA-CP-008/localized-runtime.ts"],
   },
+  {
+    checkpoint: "ANA-CP-010",
+    firstQl: 251,
+    lastQl: 268,
+    qlCount: 18,
+    localizedTest: "ANA-CP-010/ana-cp-010-localized.test.ts",
+    localizedSources: [
+      "ANA-CP-010/localized-runtime.ts",
+      "ANA-CP-010/semantic-registry.ts",
+      "ANA-CP-010/semantic-runtime.ts",
+    ],
+  },
 ] as const;
 
 const repoRoot = process.cwd().endsWith("artifacts/api-server")
@@ -134,19 +146,20 @@ for (const checkpoint of COVERAGE) {
   expectedFirst = checkpoint.lastQl + 1;
 }
 
-assert.equal(totalQlCount, 250);
-assert.equal(qlIds.length, 250);
-assert.equal(new Set(qlIds).size, 250);
+assert.equal(totalQlCount, 268);
+assert.equal(qlIds.length, 268);
+assert.equal(new Set(qlIds).size, 268);
 assert.equal(qlIds[0], "ANA-QL-001");
-assert.equal(qlIds.at(-1), "ANA-QL-250");
+assert.equal(qlIds.at(-1), "ANA-QL-268");
 assert.deepEqual(supportedLocales, ["en-IN", "hi-IN", "pa-IN"]);
 
-console.log("ANA-001 multilingual completion audit passed.", {
+console.log("ANA-001 multilingual candidate completion audit passed.", {
   checkpoints: COVERAGE.length,
   qlRange: `${qlIds[0]}..${qlIds.at(-1)}`,
   qlCount: qlIds.length,
   locales: supportedLocales,
   permanentCp009QlCount: 0,
+  cp010Status: "PROVISIONAL_EXECUTABLE",
   questionStudioConnected: false,
   publiclyPublishable: false,
 });
