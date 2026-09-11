@@ -93,7 +93,7 @@ function assertCompleteDomains(packageId: string, caselet: AnyCaselet) {
     assertVisible(c.scenario, c.values.map((value: string) => c.labels.values[value]), packageId);
   } else if (packageId === "LP-008") {
     assertVisible(c.scenario, c.people.map((person: string) => c.labels.people[person]), packageId);
-    assertVisible(c.scenario, c.labels.months, packageId);
+    assertVisible(c.scenario, c.months.map((month: number) => c.labels.months[month]), packageId);
     assert.ok(c.scenario.includes("12th") && c.scenario.includes("27th"), `${packageId}: setup omits date domain`);
   }
 }
