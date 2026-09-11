@@ -1,7 +1,7 @@
 import { strict as assert } from "node:assert";
-import { readFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { createHash } from "node:crypto";
 import { buildEng001Cp003ReviewV1, renderEng001Cp003ReviewV1 } from "../chapters/error-spotting/ENG-001/CP003/eng-001-cp003-review-v1-export";
+import { ENG001_CP003_HUMAN_EDITORIAL_APPROVAL_V1 } from "../chapters/error-spotting/ENG-001/CP003/eng-001-cp003-human-approval-v1";
 import { validateEng001Cp003QuestionV1 } from "../chapters/error-spotting/ENG-001/CP003/eng-001-cp003-v1-validator";
 
 const review = buildEng001Cp003ReviewV1();
@@ -14,13 +14,11 @@ for (const difficulty of ["easy", "medium", "hard"] as const) {
   }
 }
 
-const expected = renderEng001Cp003ReviewV1();
-const path = resolve("artifacts/api-server/src/english-v1/chapters/error-spotting/ENG-001/CP003/ENG-001-CP003-REVIEW-V1.md");
-const frozen = await readFile(path, "utf8");
-if (frozen !== expected) {
-  console.log("===BEGIN ENG-001-CP003 REVIEW V1===");
-  console.log(expected);
-  console.log("===END ENG-001-CP003 REVIEW V1===");
-  throw new Error("ENG-001 CP003 frozen review is stale.");
-}
-console.log("ENG-001 CP003 V1 review freeze passed.");
+const rendered = renderEng001Cp003ReviewV1();
+const renderedSha256 = createHash("sha256").update(rendered, "utf8").digest("hex");
+assert.equal(
+  renderedSha256,
+  ENG001_CP003_HUMAN_EDITORIAL_APPROVAL_V1.approvedReviewContentSha256,
+  `ENG-001 CP003 approved review changed: expected ${ENG001_CP003_HUMAN_EDITORIAL_APPROVAL_V1.approvedReviewContentSha256}, got ${renderedSha256}`,
+);
+console.log("ENG-001 CP003 V1 approved review hash gate passed.");
