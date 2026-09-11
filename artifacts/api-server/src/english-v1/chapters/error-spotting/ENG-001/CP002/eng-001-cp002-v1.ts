@@ -19,10 +19,20 @@ const STEMS: Record<Eng001QlId, string> = {
   "ENG-001-QL007": "Identify the part of the sentence that contains an error. If there is no error, select 'No error'.",
 };
 
+function normalizeSurfaceSegment(segment: string): string {
+  return segment
+    .replace(/\.\.+$/g, ".")
+    .replace(/\bcurrently\.$/i, "at the moment.")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function sentenceFromSegments(segments: readonly string[]): string {
   return segments
+    .map(normalizeSurfaceSegment)
     .join(" ")
     .replace(/\s+([,.!?;:])/g, "$1")
+    .replace(/\.\.+/g, ".")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -133,10 +143,11 @@ export function generateEng001Cp002QuestionV1(input: GenerateEng001Cp002V1Input)
   const shaped = qlId === "ENG-001-QL002"
     ? shapeThreeSegmentsPreserveError(rawSegments, rawErrorIndex!, input.seed)
     : { segments: rawSegments, errorIndex: rawErrorIndex };
+  const visibleSegments = shaped.segments.map(normalizeSurfaceSegment);
 
   const includeNoError = qlId !== "ENG-001-QL001";
-  const options = optionLabels(shaped.segments.length, includeNoError);
-  const correctOptionIndex = shaped.errorIndex ?? shaped.segments.length;
+  const options = optionLabels(visibleSegments.length, includeNoError);
+  const correctOptionIndex = shaped.errorIndex ?? visibleSegments.length;
   const answerLabel = options[correctOptionIndex]!;
   const correctedSentence = sentenceFromSegments(candidate.correctSegments);
   const correction = candidate.correction ?? "";
@@ -148,7 +159,7 @@ export function generateEng001Cp002QuestionV1(input: GenerateEng001Cp002V1Input)
   return {
     questionId: `ENG-001-CP002-V1:${qlId}:${candidate.candidateId}:${input.seed}`,
     stem: STEMS[qlId],
-    segments: shaped.segments,
+    segments: visibleSegments,
     options,
     correctOptionIndex,
     correctedSentence,
