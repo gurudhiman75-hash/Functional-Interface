@@ -190,6 +190,14 @@ export function validateEng001Cp002QuestionV1(question: Eng001Question): Eng001C
   if (wordCount(beforeCorrectSentence) > 32) {
     issues.push(issue("EXPLANATION", `${question.questionId} explanation before the corrected sentence is too long.`));
   }
+
+  const visibleText = `${question.segments.join(" ")} ${question.correctedSentence} ${question.explanation}`;
+  if (/\.\./.test(visibleText)) {
+    issues.push(issue("NATURALNESS", `${question.questionId} contains doubled terminal punctuation.`));
+  }
+  if (/\bcurrently\./i.test(`${question.segments.join(" ")} ${question.correctedSentence}`)) {
+    issues.push(issue("NATURALNESS", `${question.questionId} uses the weaker sentence-final “currently” surface instead of a natural present-time cue.`));
+  }
   if (/\s{2,}/.test(question.correctedSentence)) {
     issues.push(issue("NATURALNESS", `${question.questionId} contains doubled whitespace.`));
   }
