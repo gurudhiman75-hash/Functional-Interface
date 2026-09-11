@@ -92,7 +92,7 @@ const reviewLifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 assert.ok(eng001);
 assert.equal(eng001.engineId, "language-v1");
 assert.equal(eng001.enabled, true);
-assert.deepEqual(eng001.cpIds, ["ENG-001-CP001"]);
+assert.deepEqual(eng001.cpIds, ["ENG-001-CP001", "ENG-001-CP002"]);
 assert.deepEqual(eng001.supportedLanguages, ["en"]);
 assert.deepEqual(eng001.supportedDifficulties, ["Easy", "Medium", "Hard"]);
 assert.equal(eng001.runtimeMode, "review-only");
@@ -106,6 +106,7 @@ assert.equal(eng001.metadata?.humanReviewApproved, true);
 assert.equal(resolveQuestionStudioEngine({ packageId: "ENG-001" }).engineId, "language-v1");
 assert.equal(getQuestionStudioEngine("language-v1").engineId, "language-v1");
 
+// Package-only generation remains CP001 for backwards compatibility.
 const eng001Result = await generateQuestionStudioQuestions({
   packageId: "ENG-001",
   language: "en",
@@ -117,9 +118,27 @@ const eng001Result = await generateQuestionStudioQuestions({
 assert.equal(eng001Result.engineId, "language-v1");
 assert.equal(eng001Result.questions.length, 2);
 assert.equal(eng001Result.generationContext.packageId, "ENG-001");
+assert.equal(eng001Result.generationContext.cpId, "ENG-001-CP001");
 assert.equal(eng001Result.generationContext.stage, "REVIEW_ONLY");
 assert.equal(eng001Result.generationContext.questionBankStatus, "NOT_STORED");
 assert.equal(eng001Result.generationContext.questionBankWritable, false);
 assert.equal(eng001Result.generationContext.productionReleaseAuthorized, false);
 
-console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 ENG-001=review-only");
+const eng001Cp002Result = await generateQuestionStudioQuestions({
+  packageId: "ENG-001",
+  canonicalProblemId: "ENG-001-CP002",
+  subtopic: "Tenses and Sequence of Tenses",
+  language: "en",
+  difficulty: "Hard",
+  runtimeMode: "review-only",
+  count: 2,
+  seed: "engine-registry-eng001-cp002-smoke",
+});
+assert.equal(eng001Cp002Result.questions.length, 2);
+assert.equal(eng001Cp002Result.generationContext.cpId, "ENG-001-CP002");
+assert.equal(eng001Cp002Result.generationContext.questionBankWritable, false);
+assert.equal(eng001Cp002Result.questions.every((question) => question.cpId === "ENG-001-CP002"), true);
+assert.equal(eng001Cp002Result.questions.every((question) => String(question.ruleId).startsWith("GR-TNS-")), true);
+assert.equal(eng001Cp002Result.questions.every((question) => question.reviewOnly === true), true);
+
+console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 ENG-001 CP001+CP002=review-only");
