@@ -2,9 +2,11 @@ from pathlib import Path
 
 ROOT = Path("artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001")
 SOURCE_PATH = ROOT / "cp015-final-editorial-quality.ts"
+GRAMMAR_PATH = ROOT / "cp015-anti-gaming-grammar-polish.ts"
 PROOF_PATH = ROOT / "cp015-anti-gaming-grammar-proof.test.ts"
 
 source = SOURCE_PATH.read_text(encoding="utf-8")
+grammar = GRAMMAR_PATH.read_text(encoding="utf-8")
 proof = PROOF_PATH.read_text(encoding="utf-8")
 
 
@@ -42,6 +44,20 @@ source = replace_once(
     "authority bump",
 )
 
+grammar = replace_once(
+    grammar,
+    'export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V11" as const;',
+    'export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V12" as const;',
+    "grammar authority bump",
+)
+
+grammar = replace_once(
+    grammar,
+    '    .replace(/most ([a-z-]+) programme\\b/gi, "$1 programmes");',
+    '    .replace(/most ([a-z-]+) programme\\b/gi, "$1 programmes")\n    .replace(/\\b(Yes|No)\\.\\s+most instance\\b/gi, "$1. Most instances")\n    .replace(/\\bmost instances of ([^.!?]+?) is\\b/gi, "most instances of $1 are");',
+    "English most-instance agreement",
+)
+
 source = replace_once(
     source,
     '    .replace(/\\bmost candidate and centre\\b/gi, "most candidates and centres");',
@@ -56,8 +72,9 @@ source = insert_before_once(
   if (/guided rules session/i.test(argument) && /largely eliminated/i.test(argument)) return "A guided rules session can reduce confusion, but attendance alone does not show that unauthorised collaboration will be largely eliminated.";
   if (/nobody will ever choose an? automatically renewed plan/i.test(argument)) return "A reminder may influence some users, but it does not show that nobody would choose to continue the plan; informed choice can still be a legitimate objective.";
   if (/(?:rules session|guided rules session|briefing)/i.test(argument) && /(?:misunderstanding|violations|misconduct rules)/i.test(argument)) return "One rules session may reduce confusion, but it cannot be assumed to remove nearly all misunderstanding or rule violations by itself.";
+  if (/card transactions outside the home state/i.test(argument) && /(?:most instances|treated as fraudulent)/i.test(argument)) return "Transactions outside a customer's home state can be legitimate travel or emergency payments, so treating most of them as fraudulent does not justify mandatory pre-authorisation for every case.";
 ''',
-    "solve the queue problem on its own",
+    "card transactions outside the home state",
     "English specific reasons",
 )
 
@@ -122,6 +139,13 @@ proof = insert_after_once(
 )
 proof = insert_after_once(
     proof,
+    '    /The argument assumes that .*does not provide enough support/i,',
+    '\n    /\\bmost instance\\b/i,',
+    "\\bmost instance\\b",
+    "English most-instance grammar guard",
+)
+proof = insert_after_once(
+    proof,
     '    /अधिकांश केंद्र का परिणाम/,',
     '\n    /यह तर्क मान लेता है कि/,',
     "यह तर्क मान लेता है कि",
@@ -136,5 +160,6 @@ proof = insert_after_once(
 )
 
 SOURCE_PATH.write_text(source, encoding="utf-8")
+GRAMMAR_PATH.write_text(grammar, encoding="utf-8")
 PROOF_PATH.write_text(proof, encoding="utf-8")
-print("ARG-001 CP015 V8 simple-explanations patch applied")
+print("ARG-001 CP015 V8 simple-explanations and QL006 grammar patch applied")
