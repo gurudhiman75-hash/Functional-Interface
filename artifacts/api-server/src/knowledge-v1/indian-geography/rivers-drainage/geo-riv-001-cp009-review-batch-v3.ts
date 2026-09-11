@@ -1,5 +1,5 @@
 import { GEO_RIV_001_CP009_REVIEW_BATCH_V2, auditGeoRiv001Cp009ReviewBatchV2 } from "./geo-riv-001-cp009-review-batch-v2";
-import { toGeoRiv001Cp009ReviewV3 } from "./geo-riv-001-cp009-review-generator-v3";
+import { naturalizeGeoRiv001Cp009Stem, toGeoRiv001Cp009ReviewV3 } from "./geo-riv-001-cp009-review-generator-v3";
 import {
   auditGeoRiv001Cp009ScopeV1,
   geoRiv001Cp009CourseStatesForRiver,
@@ -37,21 +37,30 @@ function expectedCountAnswer(count: number) {
   return ["None", "One", "Two", "Three"][count] ?? "";
 }
 
-function semanticTruthAudit(question: GeoRiv001Cp009ReviewQuestion, issues: string[]) {
+function semanticTruthAudit(
+  question: GeoRiv001Cp009ReviewQuestion,
+  baseline: GeoRiv001Cp009ReviewQuestion,
+  issues: string[],
+) {
+  // V2 is used only as a stable semantic carrier for extracting the entities.
+  // V3 independently audits that its visible stem is exactly the naturalized
+  // rendering of this same semantic payload.
+  const stem = baseline.stem;
+
   if (question.qlId === "GEO-RIV-001-QL-074") {
-    const river = question.stem.match(/^Which of the following states does the (.+?) flow through\?$/)?.[1] ?? "";
+    const river = stem.match(/^Which of the following states does the (.+?) flow through\?$/)?.[1] ?? "";
     const truth = question.options.map((state) => geoRiv001Cp009IsCourseState(river, state));
     if (truth.filter(Boolean).length !== 1 || !truth[question.correctIndex]) issues.push(`QL074_TRUTH:${question.questionId}`);
   }
 
   if (question.qlId === "GEO-RIV-001-QL-075") {
-    const state = question.stem.match(/^Which of the following rivers flows through (.+?)\?$/)?.[1] ?? "";
+    const state = stem.match(/^Which of the following rivers flows through (.+?)\?$/)?.[1] ?? "";
     const truth = question.options.map((river) => geoRiv001Cp009IsCourseState(river, state));
     if (truth.filter(Boolean).length !== 1 || !truth[question.correctIndex]) issues.push(`QL075_TRUTH:${question.questionId}`);
   }
 
   if (question.qlId === "GEO-RIV-001-QL-077") {
-    const listed = question.stem.match(/^Which river's course in India passes through only the following states: (.+?)\?$/)?.[1]
+    const listed = stem.match(/^Which river's course in India passes through only the following states: (.+?)\?$/)?.[1]
       ?.split(", ").sort() ?? [];
     const expected = [...geoRiv001Cp009CourseStatesForRiver(question.canonicalAnswer)].sort();
     if (!sameArray(listed, expected)) issues.push(`QL077_EXHAUSTIVE_SET:${question.questionId}`);
@@ -69,7 +78,7 @@ function semanticTruthAudit(question: GeoRiv001Cp009ReviewQuestion, issues: stri
   }
 
   if (question.qlId === "GEO-RIV-001-QL-080") {
-    const match = question.stem.match(/^Which river flows through both (.+?) and (.+?)\?$/);
+    const match = stem.match(/^Which river flows through both (.+?) and (.+?)\?$/);
     const first = match?.[1] ?? "";
     const second = match?.[2] ?? "";
     const truth = question.options.map((river) => geoRiv001Cp009IsCourseState(river, first) && geoRiv001Cp009IsCourseState(river, second));
@@ -77,7 +86,7 @@ function semanticTruthAudit(question: GeoRiv001Cp009ReviewQuestion, issues: stri
   }
 
   if (question.qlId === "GEO-RIV-001-QL-081") {
-    const claims = statementClaims(question.stem);
+    const claims = statementClaims(stem);
     if (claims.length !== 2) {
       issues.push(`QL081_PARSE:${question.questionId}`);
     } else {
@@ -87,13 +96,28 @@ function semanticTruthAudit(question: GeoRiv001Cp009ReviewQuestion, issues: stri
   }
 
   if (question.qlId === "GEO-RIV-001-QL-082") {
-    const claims = statementClaims(question.stem);
+    const claims = statementClaims(stem);
     if (claims.length !== 3) {
       issues.push(`QL082_PARSE:${question.questionId}`);
     } else {
       const count = claims.filter((claim) => geoRiv001Cp009IsCourseState(claim.river, claim.state)).length;
       if (question.canonicalAnswer !== expectedCountAnswer(count)) issues.push(`QL082_ANSWER:${question.questionId}`);
     }
+  }
+}
+
+function stemQualityAudit(question: GeoRiv001Cp009ReviewQuestion, baseline: GeoRiv001Cp009ReviewQuestion, issues: string[]) {
+  const expected = naturalizeGeoRiv001Cp009Stem(baseline);
+  if (question.stem !== expected) issues.push(`STEM_RENDER_DRIFT:${question.questionId}`);
+  if (question.stem === baseline.stem) issues.push(`UNREMODELED_STEM:${question.questionId}`);
+  if (/state set|Which river's course in India passes through only|The .+ (?:rises|originates) in which state\?|How many of the following statements are correct\?/i.test(question.stem)) {
+    issues.push(`MACHINE_STEM_LANGUAGE:${question.questionId}`);
+  }
+  if (question.qlId === "GEO-RIV-001-QL-081" && !/Which of the statements given above is\/are correct\?$/.test(question.stem)) {
+    issues.push(`QL081_MISSING_EXAM_INSTRUCTION:${question.questionId}`);
+  }
+  if (question.qlId === "GEO-RIV-001-QL-082" && !/How many of (?:the statements given above|the above statements) are correct\?$/.test(question.stem)) {
+    issues.push(`QL082_MISSING_EXAM_INSTRUCTION:${question.questionId}`);
   }
 }
 
@@ -115,7 +139,7 @@ export function auditGeoRiv001Cp009ReviewBatchV3() {
     answerPositions[question.correctIndex] += 1;
 
     if (!question.questionId.includes("CP009-V3")) issues.push(`QUESTION_ID_VERSION:${question.questionId}`);
-    if (question.stem !== baseline.stem) issues.push(`STEM_DRIFT:${question.questionId}`);
+    stemQualityAudit(question, baseline, issues);
     if (!sameArray(question.options, baseline.options)) issues.push(`OPTION_DRIFT:${question.questionId}`);
     if (question.correctIndex !== baseline.correctIndex) issues.push(`CORRECT_INDEX_DRIFT:${question.questionId}`);
     if (question.canonicalAnswer !== baseline.canonicalAnswer) issues.push(`ANSWER_DRIFT:${question.questionId}`);
@@ -127,7 +151,7 @@ export function auditGeoRiv001Cp009ReviewBatchV3() {
     if (question.options[question.correctIndex] !== question.canonicalAnswer) issues.push(`ANSWER_ALIGNMENT:${question.questionId}`);
     if (question.explanation.length < 95) issues.push(`THIN_EXPLANATION:${question.questionId}:${question.explanation.length}`);
     if (/CP009|V[123]|reviewed|sourceFact|state set|associated with|linked with|exam trap|shortcut|Therefore,/i.test(question.explanation)) issues.push(`INTERNAL_OR_MACHINE_LANGUAGE:${question.questionId}`);
-    semanticTruthAudit(question, issues);
+    semanticTruthAudit(question, baseline, issues);
   });
 
   if (GEO_RIV_001_CP009_REVIEW_BATCH_V3.length !== 54) issues.push(`QUESTION_COUNT:${GEO_RIV_001_CP009_REVIEW_BATCH_V3.length}`);
@@ -145,5 +169,6 @@ export function auditGeoRiv001Cp009ReviewBatchV3() {
     scopeAudit,
     baselineAuditValid: v2Audit.valid,
     answerMatrixPreserved: !issues.some((issue) => /(?:OPTION|CORRECT_INDEX|ANSWER)_DRIFT/.test(issue)),
+    naturalStemLayerValid: !issues.some((issue) => /STEM|QL081_MISSING_EXAM_INSTRUCTION|QL082_MISSING_EXAM_INSTRUCTION/.test(issue)),
   });
 }
