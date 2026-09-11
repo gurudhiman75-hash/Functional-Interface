@@ -46,30 +46,12 @@ function displayRiver(river: string) {
   return river.startsWith("River ") ? river : `River ${river}`;
 }
 
-function valueText(fact: KnowledgeFact) {
-  if (fact.value.kind === "entity_ref") return fact.value.label.en;
-  if (fact.value.kind === "text") return fact.value.text.en;
-  return String(fact.value.value);
-}
-
 function factsFor(project: string, relation?: string) {
   return FACTS.filter((fact) => fact.entity.label.en === project && (!relation || fact.relation === relation));
 }
 
 function reservoirFact(reservoir: string) {
   return FACTS.find((fact) => fact.relation === "reservoir_on_river" && fact.entity.label.en === reservoir);
-}
-
-function rowForProject(project: string) {
-  const row = ROWS.find((item) => item.project === project);
-  if (!row) throw new Error(`Unknown CP010 project: ${project}`);
-  return row;
-}
-
-function rowForReservoir(reservoir: string) {
-  const row = ROWS.find((item) => item.reservoir === reservoir);
-  if (!row) throw new Error(`Unknown CP010 reservoir: ${reservoir}`);
-  return row;
 }
 
 function build(args: {
@@ -124,7 +106,7 @@ function ql083(seed: string) {
     stem: `On which of the following rivers is ${row.project} built?`,
     answer,
     optionPool: RIVERS.map(displayRiver),
-    explanation: `${row.project} is built on ${displayRiver(row.river)}. It creates ${row.reservoir}.`,
+    explanation: `${row.project} is built on ${displayRiver(row.river)}. The dam forms ${row.reservoir}.`,
     facts: factsFor(row.project),
     difficulty: "Easy",
     solverAuthority: "PROJECT_RIVER_RELATION",
@@ -140,7 +122,7 @@ function ql084(seed: string) {
     stem: `Which of the following dams/projects is built on ${displayRiver(row.river)}?`,
     answer: row.project,
     optionPool: PROJECTS,
-    explanation: `${row.project} is built on ${displayRiver(row.river)} and is associated with ${row.reservoir}.`,
+    explanation: `${row.project} is built on ${displayRiver(row.river)}. The dam forms ${row.reservoir}.`,
     facts: factsFor(row.project),
     difficulty: "Easy",
     solverAuthority: "UNIQUE_RIVER_TO_PROJECT",
@@ -157,7 +139,7 @@ function ql085(seed: string) {
     stem: `${row.project} is located in which of the following states?`,
     answer,
     optionPool: STATES,
-    explanation: `${row.project} is in ${answer} and is built on ${displayRiver(row.river)}.`,
+    explanation: `${row.project} is located in ${answer}. It is built on ${displayRiver(row.river)}.`,
     facts: factsFor(row.project),
     difficulty: "Easy",
     solverAuthority: "PROJECT_STATE_RELATION",
@@ -172,7 +154,7 @@ function ql086(seed: string) {
     stem: `Which reservoir is associated with ${row.project}?`,
     answer: row.reservoir,
     optionPool: RESERVOIRS,
-    explanation: `${row.project} creates ${row.reservoir} on ${displayRiver(row.river)}.`,
+    explanation: `${row.project}, built on ${displayRiver(row.river)}, forms ${row.reservoir}.`,
     facts: factsFor(row.project),
     difficulty: "Easy",
     solverAuthority: "PROJECT_RESERVOIR_RELATION",
@@ -188,7 +170,7 @@ function ql087(seed: string) {
     stem: `${row.reservoir} is associated with which of the following dams/projects?`,
     answer: row.project,
     optionPool: PROJECTS,
-    explanation: `${row.reservoir} is the reservoir associated with ${row.project}, which is built on ${displayRiver(row.river)}.`,
+    explanation: `${row.reservoir} is formed by ${row.project} on ${displayRiver(row.river)}.`,
     facts: [...factsFor(row.project), ...(extra ? [extra] : [])],
     difficulty: "Medium",
     solverAuthority: "RESERVOIR_PROJECT_RELATION",
@@ -214,7 +196,7 @@ function ql088(seed: string) {
     stem: "Select the correctly matched dam/project–river pair.",
     answer: options[target],
     optionPool: options,
-    explanation: `${row.project} is built on ${displayRiver(row.river)}.`,
+    explanation: `${row.project} is built on ${displayRiver(row.river)}. It is located in ${row.states.join(" and ")} and forms ${row.reservoir}.`,
     facts: selected.flatMap((item) => factsFor(item.project, "project_on_river")),
     difficulty: "Medium",
     solverAuthority: "MATCHED_PROJECT_RIVER_VERIFIER",
@@ -230,17 +212,23 @@ function ql089(seed: string) {
     return pair(row.project, deterministicPick(wrongStates, `${seed}:wrong-state`));
   });
   const row = selected[target];
+  const { right: wrongState } = pairParts(options[target]);
   return build({
     qlId: "GEO-RIV-001-QL-089",
     seed,
     stem: "Which one of the following dam/project–state pairs is incorrectly matched?",
     answer: options[target],
     optionPool: options,
-    explanation: `${row.project} is located in ${row.states[0]}, not in the state shown in the selected pair. It is built on ${displayRiver(row.river)}.`,
+    explanation: `${row.project} is located in ${row.states[0]}, not ${wrongState}. It is built on ${displayRiver(row.river)}.`,
     facts: selected.flatMap((item) => factsFor(item.project, "project_in_state")),
     difficulty: "Medium",
     solverAuthority: "MATCHED_PROJECT_STATE_VERIFIER",
   });
+}
+
+function pairParts(value: string) {
+  const [left = "", right = ""] = value.split(" — ").map((part) => part.trim());
+  return { left, right };
 }
 
 type Claim = { text: string; truth: boolean; explanation: string; facts: KnowledgeFact[] };
@@ -264,7 +252,7 @@ function stateClaim(row: (typeof ROWS)[number], truth: boolean, seed: string): C
     truth,
     explanation: truth
       ? `${row.project} is located in ${state}.`
-      : `${row.project} is not located in ${state}; the project state in this corpus is ${row.states.join(" and ")}.`,
+      : `${row.project} is located in ${row.states.join(" and ")}, not ${state}.`,
     facts: factsFor(row.project, "project_in_state"),
   };
 }
@@ -275,8 +263,8 @@ function reservoirClaim(row: (typeof ROWS)[number], truth: boolean, seed: string
     text: `${row.project} is associated with ${reservoir}.`,
     truth,
     explanation: truth
-      ? `${row.project} is associated with ${row.reservoir}.`
-      : `${row.project} is associated with ${row.reservoir}, not ${reservoir}.`,
+      ? `${row.project} forms ${row.reservoir}.`
+      : `${row.project} forms ${row.reservoir}, not ${reservoir}.`,
     facts: factsFor(row.project, "project_creates_reservoir"),
   };
 }
@@ -294,7 +282,7 @@ function ql090(seed: string) {
     stem: `With reference to dams and river projects in India, consider the following statements:\nI. ${first.text}\nII. ${second.text}\nWhich of the statements given above is/are correct?`,
     answer,
     optionPool: TWO_STATEMENT_OPTIONS,
-    explanation: `Statement I: ${first.explanation} Statement II: ${second.explanation} Hence, ${answer.toLowerCase()}.`,
+    explanation: `Statement I: ${first.explanation} Statement II: ${second.explanation} Hence, ${answer}.`,
     facts: [...first.facts, ...second.facts],
     difficulty: "Medium",
     solverAuthority: "STATEMENT_COMPOSITION_VERIFIER",
@@ -302,6 +290,13 @@ function ql090(seed: string) {
 }
 
 const COUNT_OPTIONS = ["None", "One", "Two", "Three"];
+function countConclusion(count: number) {
+  if (count === 0) return "None of the three statements is correct.";
+  if (count === 1) return "Only one of the three statements is correct.";
+  if (count === 2) return "Two of the three statements are correct.";
+  return "All three statements are correct.";
+}
+
 function ql091(seed: string) {
   const rows = deterministicShuffle(UNIQUE_STATE_ROWS, `${seed}:rows`).slice(0, 3);
   const targetCount = deterministicPick([0, 1, 2, 3] as const, `${seed}:count`);
@@ -321,7 +316,7 @@ function ql091(seed: string) {
     stem: `Consider the following statements about dams and river projects:\n${claims.map((claim, index) => `${index + 1}. ${claim.text}`).join("\n")}\nHow many of the statements given above are correct?`,
     answer,
     optionPool: COUNT_OPTIONS,
-    explanation: `${claims.map((claim, index) => `${index + 1}. ${claim.explanation}`).join(" ")} ${targetCount} of the three statements ${targetCount === 1 ? "is" : "are"} correct, so the answer is ${answer}.`,
+    explanation: `${claims.map((claim, index) => `${index + 1}. ${claim.explanation}`).join(" ")} ${countConclusion(targetCount)} Therefore, the answer is ${answer}.`,
     facts: claims.flatMap((claim) => claim.facts),
     difficulty: "Hard",
     solverAuthority: "STATEMENT_COMPOSITION_VERIFIER",
