@@ -62,7 +62,7 @@ assert.equal((9 / 16) * (16 / 9) * (25 / 9), 25 / 9);
 assert.equal(1 * 1 - 11 * 1 + 10, 0);
 assert.equal(10 * 10 - 11 * 10 + 10, 0);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 133);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 158);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 18);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 11);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 8);

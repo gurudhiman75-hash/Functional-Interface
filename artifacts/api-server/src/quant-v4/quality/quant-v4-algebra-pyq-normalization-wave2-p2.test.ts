@@ -47,14 +47,14 @@ assert.equal(x + y + z, 12);
 assert.equal(x + y - z, 6);
 assert.equal(x - y + z, 4);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 133);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 158);
 const alg001 = listRegisteredCountablePyqObservations({ packageId: "ALG-001" });
 const alg002 = listRegisteredCountablePyqObservations({ packageId: "ALG-002" });
-assert.equal(alg001.length, 18);
+assert.equal(alg001.length, 21);
 assert.equal(alg002.length, 11);
 const algebraAll = [...alg001, ...alg002];
-assert.equal(algebraAll.length, 29);
-assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 24);
+assert.equal(algebraAll.length, 32);
+assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 27);
 assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CHSL").length, 3);
 assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_II").length, 2);
 
@@ -63,7 +63,7 @@ const cgl = buildQuantV4PyqFrequencyProfile({
   observations: algebraAll,
   policy: { minDistinctPapers: 1, minCountableQuestions: 1, minTopicCoverage: 2, requireDatedPaperIdentity: true },
 });
-assert.equal(cgl.countableQuestionCount, 24);
+assert.equal(cgl.countableQuestionCount, 27);
 assert.equal(cgl.distinctPaperCount, 18);
 assert.equal(cgl.topicCoverageCount, 1);
 assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");

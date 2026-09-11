@@ -96,7 +96,7 @@ assert.ok(!priorPackages.has("RAP-001"));
 assert.ok(!priorPackages.has("RAP-003"));
 assert.ok(!priorPackages.has("DI-003"));
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 133);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 158);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 18);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 20);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 6);
