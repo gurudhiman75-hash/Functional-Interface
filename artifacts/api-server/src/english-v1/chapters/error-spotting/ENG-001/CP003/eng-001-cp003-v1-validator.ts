@@ -9,6 +9,11 @@ const issue = (code: Cp003Issue["code"], message: string): Cp003Issue => ({ code
 const STEM1 = "Identify the part of the sentence that contains an error.";
 const STEM2 = "Identify the part of the sentence that contains an error. If there is no error, select 'No error'.";
 
+function correctionCue(correction: string): string {
+  const withoutDeterminer = correction.replace(/^(?:a few|a little|the|a|an|many|much|few|little|each|every|several)\s+/i, "").trim();
+  return withoutDeterminer.split(/\s+/)[0]?.replace(/[^\p{L}\p{N}-]/gu, "") ?? correction;
+}
+
 export function validateEng001Cp003CandidateV1(candidate: Eng001SentenceCandidate): Cp003Validation {
   const issues: Cp003Issue[] = [];
   if (candidate.correctSegments.length !== 4 || candidate.errorSegments.length !== 4) issues.push(issue("STRUCTURE", "Canonical CP003 candidates must have four segments."));
@@ -52,6 +57,15 @@ export function validateEng001Cp003QuestionV1(question: Eng001Question): Cp003Va
     const correction = sourceScene.correction;
     if (!question.explanation.includes(`“${correction}”`)) issues.push(issue("EXPLANATION", "Explanation omits the correction."));
     if (!question.metadata.hasNoError && !question.explanation.includes(`Use “${correction}”.`)) issues.push(issue("EXPLANATION", "Error explanation must state the correction directly."));
+
+    const reasonEnd = question.metadata.hasNoError
+      ? question.explanation.indexOf(`“${correction}” is correct.`)
+      : question.explanation.indexOf(`Use “${correction}”.`);
+    const reasonText = reasonEnd >= 0 ? question.explanation.slice(0, reasonEnd) : question.explanation;
+    const cue = correctionCue(correction);
+    if (cue && !reasonText.toLocaleLowerCase().includes(cue.toLocaleLowerCase())) {
+      issues.push(issue("EXPLANATION", `Explanation rule is not connected to the sentence cue “${cue}”.`));
+    }
   }
   if (!question.explanation.includes(question.correctedSentence)) issues.push(issue("EXPLANATION", "Explanation omits the corrected sentence."));
   if (/\b(?:phonological realization|determiner phrase|DP structure|referential specificity)\b/i.test(question.explanation)) issues.push(issue("EXPLANATION", "Explanation contains unnecessary grammar jargon."));
