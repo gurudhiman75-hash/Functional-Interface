@@ -83,7 +83,7 @@ V3.1 keeps all V2 puzzle and option semantics and changes only the teaching laye
 
 Cases are generated from actual alternative assignments that still satisfy the earlier clues; they are not decorative or invented branches.
 
-`lp-001-008-stabilized-english-v3.test.ts` proves V2→V3 non-explanation parity and case presence. `lp-001-008-stabilized-english-v3-1.test.ts` guards the simplified wording and plural-safe LP-003 case presentation.
+`lp-001-008-stabilized-english-v3.test.ts` proves V2→V3 non-explanation parity and case presence. `lp-001-008-stabilized-english-v3-1.test.ts` guards the simplified wording, explicit case rejection, final-table step and plural-safe LP-003 case presentation.
 
 ## 8. Current review gate
 
