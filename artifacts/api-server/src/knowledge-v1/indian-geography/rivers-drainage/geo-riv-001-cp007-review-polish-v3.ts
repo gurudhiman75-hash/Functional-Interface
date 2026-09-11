@@ -2,7 +2,24 @@ import { GEO_RIV_001_CP007_PROJECTED_FACTS_V1 } from "./geo-riv-001-cp007-facts"
 import { GEO_RIV_001_CP007_REVIEW_BATCH_V3, auditGeoRiv001Cp007ReviewBatchV3 } from "./geo-riv-001-cp007-review-batch-v3";
 import type { GeoRiv001Cp007ReviewQuestion } from "./geo-riv-001-cp007-review-types";
 
-const RIVER_NAMES = [...new Set(GEO_RIV_001_CP007_PROJECTED_FACTS_V1.map((fact) => fact.entity.label.en))]
+const RIVER_VALUE_RELATIONS = new Set([
+  "main_tributary_of",
+  "tributary_of",
+  "principal_tributary_of",
+  "tributary_of_brahmaputra_system",
+  "headstream_of",
+  "source_stream_of",
+  "left_bank_tributary_of",
+  "right_bank_tributary_of",
+  "joins_river",
+  "joins_mainstream",
+]);
+
+const RIVER_NAMES = [...new Set(GEO_RIV_001_CP007_PROJECTED_FACTS_V1.flatMap((fact) => {
+  const names = [fact.entity.label.en];
+  if (RIVER_VALUE_RELATIONS.has(fact.relation) && fact.value.kind === "entity_ref") names.push(fact.value.label.en);
+  return names;
+}))]
   .filter((name) => name && !/^River\s+/i.test(name))
   .sort((a, b) => b.length - a.length);
 
@@ -41,7 +58,7 @@ export const GEO_RIV_001_CP007_REVIEW_BATCH_V3_POLISHED = Object.freeze(
 function hasBareRiverName(text: string) {
   for (const name of RIVER_NAMES) {
     const escaped = escapeRegExp(name);
-    let clean = text
+    const clean = text
       .replaceAll(`River ${name}`, "")
       .replaceAll(`${name} river system`, "")
       .replaceAll(`${name} system`, "")
