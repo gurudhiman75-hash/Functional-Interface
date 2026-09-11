@@ -53,7 +53,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ENG-001-CP004-REVIEW-V1
-          path: artifacts/api-server/dist/english-v1/ENG-001-CP004-REVIEW-V1.md
+          path: dist/english-v1/ENG-001-CP004-REVIEW-V1.md
           if-no-files-found: error
       - name: Compile CP003 regression
         run: pnpm --dir artifacts/api-server exec esbuild src/english-v1/tests/eng-001-cp003-v1.test.ts --bundle --platform=node --format=esm --outfile=dist/english-v1/eng-001-cp003-v1-regression.test.mjs
