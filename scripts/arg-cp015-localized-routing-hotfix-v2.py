@@ -17,10 +17,11 @@ if ql002_reason not in source:
     source = source.replace(punjabi_fallback_anchor, ql002_rule + punjabi_fallback_anchor, 1)
 
 # QL003 Punjabi: merely announcing a waste-separation rule does not make the
-# implementation work without the staff training and collection capacity named
-# in the argument. Explain the actual operational dependency directly.
+# implementation work without staff training and collection capacity. The corpus
+# can place the "without" phrase either before or after those dependencies, so
+# match both natural word orders while requiring the same waste-sorting claim.
 ql003_reason = 'ਸਟਾਫ ਟ੍ਰੇਨਿੰਗ ਅਤੇ ਕਲੈਕਸ਼ਨ ਸਮਰੱਥਾ ਬਿਨਾਂ ਨਿਯਮ ਸ਼ੁਰੂ ਕਰ ਦੇਣਾ ਇਹ ਸਾਬਤ ਨਹੀਂ ਕਰਦਾ ਕਿ ਕੂੜੇ ਦੀ ਵੰਡ ਆਪਣੇ ਆਪ ਠੀਕ ਕੰਮ ਕਰੇਗੀ; ਇਹ ਦੋਵੇਂ ਲਾਗੂ ਕਰਨ ਦੀਆਂ ਅਸਲ ਲੋੜਾਂ ਹਨ।'
-ql003_rule = f'  if (/(?:ਸਟਾਫ ਟ੍ਰੇਨਿੰਗ|ਕਲੈਕਸ਼ਨ ਸਮਰੱਥਾ).*(?:ਦੇ ਬਿਨਾਂ|ਬਿਨਾਂ ਕਿਸੇ).*(?:ਸ਼ੁਰੂ ਹੋ ਸਕਦਾ|ਸ਼ੁਰੂ ਕੀਤਾ ਜਾ ਸਕਦਾ|ਲਾਗੂ).*(?:ਵੰਡ|ਕੂੜੇ).*(?:ਸਿੱਧੇ ਕੰਮ|ਆਪਣੇ ਆਪ.*ਕੰਮ)/.test(argument)) return "{ql003_reason}";\n'
+ql003_rule = f'  if (/(?:(?:ਸਟਾਫ ਟ੍ਰੇਨਿੰਗ|ਕਲੈਕਸ਼ਨ ਸਮਰੱਥਾ).*(?:ਦੇ ਬਿਨਾਂ|ਬਿਨਾਂ ਕਿਸੇ))|(?:(?:ਦੇ ਬਿਨਾਂ|ਬਿਨਾਂ ਕਿਸੇ).*(?:ਸਟਾਫ ਟ੍ਰੇਨਿੰਗ|ਕਲੈਕਸ਼ਨ ਸਮਰੱਥਾ))).*(?:ਸ਼ੁਰੂ ਹੋ ਸਕਦਾ|ਸ਼ੁਰੂ ਕੀਤਾ ਜਾ ਸਕਦਾ|ਲਾਗੂ).*(?:ਵੰਡ|ਕੂੜੇ).*(?:ਸਿੱਧੇ ਕੰਮ|ਆਪਣੇ ਆਪ.*ਕੰਮ)/.test(argument)) return "{ql003_reason}";\n'
 if ql003_reason not in source:
     count = source.count(punjabi_fallback_anchor)
     if count != 1:
