@@ -69,7 +69,7 @@ const currentOldMembersTotal = oldFamilyTotal + 5 * 3;
 const currentFamilyTotal = 6 * 17;
 assert.equal(currentFamilyTotal - currentOldMembersTotal, 2);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 53);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 58);
 const average = listRegisteredCountablePyqObservations({ packageId: "AVG-001" });
 assert.equal(average.length, 6);
 assert.ok(average.every((entry) => entry.examId === "SSC_CHSL"));
@@ -94,8 +94,8 @@ const chsl = buildQuantV4PyqFrequencyProfile({
     requireDatedPaperIdentity: true,
   },
 });
-assert.equal(chsl.countableQuestionCount, 21);
-assert.equal(chsl.topicCoverageCount, 5);
+assert.equal(chsl.countableQuestionCount, 26);
+assert.equal(chsl.topicCoverageCount, 6);
 assert.equal(chsl.distinctPaperCount, 7);
 assert.equal(chsl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
 assert.ok(!chsl.blockers.includes("COUNTABLE_QUESTION_SAMPLE_BELOW_POLICY"));
