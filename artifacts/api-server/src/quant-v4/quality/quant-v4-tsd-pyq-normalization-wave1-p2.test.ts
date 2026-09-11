@@ -85,7 +85,7 @@ assert.equal(circumferenceCm, 220);
 assert.equal(linearMetresPerMinute, 550);
 assert.equal(linearMetresPerMinute * 100 / circumferenceCm, 250);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 42);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 47);
 const tsd001 = listRegisteredCountablePyqObservations({ packageId: "TSD-001" });
 const tsd002 = listRegisteredCountablePyqObservations({ packageId: "TSD-002" });
 assert.equal(tsd001.length, 3);
@@ -105,11 +105,11 @@ const chsl = buildQuantV4PyqFrequencyProfile({
     requireDatedPaperIdentity: true,
   },
 });
-assert.equal(chsl.countableQuestionCount, 10);
-assert.equal(chsl.topicCoverageCount, 3);
+assert.equal(chsl.countableQuestionCount, 15);
+assert.equal(chsl.topicCoverageCount, 4);
 assert.equal(chsl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
 assert.ok(chsl.blockers.includes("COUNTABLE_QUESTION_SAMPLE_BELOW_POLICY"));
-assert.ok(chsl.blockers.includes("TOPIC_COVERAGE_BELOW_POLICY"));
+assert.ok(!chsl.blockers.includes("TOPIC_COVERAGE_BELOW_POLICY"));
 assert.ok(chsl.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
 assert.equal(canReplaceProvisionalSimulationWeights(chsl), false);
 
