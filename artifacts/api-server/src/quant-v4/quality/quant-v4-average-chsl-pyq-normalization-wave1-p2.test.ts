@@ -42,37 +42,26 @@ assert.deepEqual([...QUANT_V4_AVERAGE_CHSL_WAVE1_SOURCE_LIMITATIONS.cpCoverage],
 assert.equal(QUANT_V4_AVERAGE_CHSL_WAVE1_SOURCE_LIMITATIONS.selectionCalibrationAllowed, false);
 assert.equal(QUANT_V4_AVERAGE_CHSL_WAVE1_SOURCE_LIMITATIONS.frequencyCalibrationAllowed, false);
 
-// Exact source-math checks for all six retained fixtures.
-// Q43: (11A + 63) / 12 = A + 2.
 const oldBattingAverage = 63 - 24;
 assert.equal(oldBattingAverage, 39);
 assert.equal(oldBattingAverage + 2, 41);
-
-// Q44: four consecutive even numbers centered around average 9.
 const evenNumbers = [6, 8, 10, 12];
 assert.equal(evenNumbers.reduce((sum, value) => sum + value, 0) / evenNumbers.length, 9);
 assert.equal(Math.max(...evenNumbers), 12);
-
-// Q45: replacement delta = count × change in average.
 assert.equal(55 + 12 * (1 / 3), 59);
-
-// Q46: weighted combined average.
 assert.equal((30 * 40 + 40 * 30) / 70, 240 / 7);
-
-// Q47: solve total count from subgroup averages.
 const workerCount = (7 * (12000 - 6000)) / (8000 - 6000);
 assert.equal(workerCount, 21);
-
-// Q48: five members had total 85 three years ago; today their total is 100.
 const oldFamilyTotal = 5 * 17;
 const currentOldMembersTotal = oldFamilyTotal + 5 * 3;
 const currentFamilyTotal = 6 * 17;
 assert.equal(currentFamilyTotal - currentOldMembersTotal, 2);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 60);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 84);
 const average = listRegisteredCountablePyqObservations({ packageId: "AVG-001" });
-assert.equal(average.length, 6);
-assert.ok(average.every((entry) => entry.examId === "SSC_CHSL"));
+assert.equal(average.length, 7);
+assert.equal(average.filter((entry) => entry.examId === "SSC_CHSL").length, 6);
+assert.equal(average.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 1);
 
 const avgChslContract = getQuantV4SpecializedProfileSelectionContract("AVG-001", "SSC_CGL_CHSL");
 assert.equal(avgChslContract.normalizedCountableObservationCount, 6);

@@ -52,45 +52,34 @@ assert.deepEqual([...QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.excludedStageAmbiguou
 ]);
 assert.equal(QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.frequencyCalibrationAllowed, false);
 
-// Independent exact checks for all six retained source questions.
-// SSC 10+2-2012 Q68: 100 m in 7.2 s => 50 km/h relative speed; subtract man's 5 km/h.
 const q68RelativeKmph = (100 * 10 * 18) / (72 * 5);
 assert.equal(q68RelativeKmph, 50);
 assert.equal(q68RelativeKmph - 5, 45);
-
-// SSC 10+2-2013 Q69.
 const q69DistanceKm = 80 * 4.5;
 assert.equal(q69DistanceKm, 360);
 assert.equal(q69DistanceKm / 4, 90);
-
-// IBPS Clerk-2012 Q72.
 const bicycleSpeedMps = 192 / 8;
 const manSpeedMps = bicycleSpeedMps * 3 / 4;
 assert.equal(bicycleSpeedMps, 24);
 assert.equal(manSpeedMps, 18);
 assert.equal(54 / manSpeedMps, 3);
-
-// IBPS Clerk-2012 Q73.
 assert.equal(572 / 13, 44);
-
-// IBPS Clerk-2013 Q74.
 const q74RelativeKmph = (210 / 6) * 18 / 5;
 assert.equal(q74RelativeKmph, 126);
 assert.equal(q74RelativeKmph - 9, 117);
-
-// SBI PO-2011 Q54: circumference = 220 cm = 2.2 m; 33 km/h = 550 m/min.
 const circumferenceCm = 2 * 22 * 35 / 7;
 const linearMetresPerMinute = 33000 / 60;
 assert.equal(circumferenceCm, 220);
 assert.equal(linearMetresPerMinute, 550);
 assert.equal(linearMetresPerMinute * 100 / circumferenceCm, 250);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 60);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 84);
 const tsd001 = listRegisteredCountablePyqObservations({ packageId: "TSD-001" });
 const tsd002 = listRegisteredCountablePyqObservations({ packageId: "TSD-002" });
-assert.equal(tsd001.length, 3);
+assert.equal(tsd001.length, 4);
 assert.equal(tsd002.length, 3);
 const tsdAll = [...tsd001, ...tsd002];
+assert.equal(tsdAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 1);
 assert.equal(tsdAll.filter((entry) => entry.examId === "SSC_CHSL").length, 2);
 assert.equal(tsdAll.filter((entry) => entry.examId === "IBPS_CLERK").length, 3);
 assert.equal(tsdAll.filter((entry) => entry.examId === "SBI_PO").length, 1);

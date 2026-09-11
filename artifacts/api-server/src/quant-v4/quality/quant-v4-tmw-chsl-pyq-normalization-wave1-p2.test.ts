@@ -81,11 +81,11 @@ assert.equal((q60FillNumerator - q60OutletNumerator) * 60, q60CommonDenominator)
 assert.equal(13 * 60 / 20, 39);
 assert.equal(7 + 39, 46);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 60);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 84);
 const tmw = listRegisteredCountablePyqObservations({ packageId: "TMW-001" });
-assert.equal(tmw.length, 6);
+assert.equal(tmw.length, 8);
 assert.equal(tmw.filter((entry) => entry.examId === "SSC_CHSL").length, 5);
-assert.equal(tmw.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 1);
+assert.equal(tmw.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 3);
 
 const tmwChslContract = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_CHSL");
 assert.equal(tmwChslContract.normalizedCountableObservationCount, 5);
@@ -98,7 +98,7 @@ assert.ok(tmwChslContract.blockers.includes("DIFFICULTY_REPRESENTATION_UNCALIBRA
 assert.ok(tmwChslContract.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
 
 const tmwCglContract = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_TIER_I");
-assert.equal(tmwCglContract.normalizedCountableObservationCount, 1);
+assert.equal(tmwCglContract.normalizedCountableObservationCount, 3);
 assert.equal(tmwCglContract.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
 assert.ok(!tmwCglContract.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
 
