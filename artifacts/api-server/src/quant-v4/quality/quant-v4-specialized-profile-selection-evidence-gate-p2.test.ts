@@ -24,11 +24,12 @@ assert.equal(
   QUANT_V4_PYQ_OBSERVATION_REGISTRY_AUTHORITY,
   "QUANT-V4-PYQ-OBSERVATION-REGISTRY-P2",
 );
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 53, "The normalized registry should contain twenty Algebra, sixteen Number System, six TSD, five Percentage and six Average observations after Average CHSL Wave 1.");
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 58, "The normalized registry should contain twenty Algebra, sixteen Number System, six TSD, five Percentage, six Average and five TMW observations after TMW CHSL Wave 1.");
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 11);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 9);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 6);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 16);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 5);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 3);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-002" }).length, 3);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-002" }).length, 5);
@@ -53,7 +54,7 @@ const EXPECTED_COUNTS: Readonly<Record<QuantV4SpecializedSelectionPackageId, Rea
     BANKING_PRELIMS: 0,
     BANKING_MAINS: 0,
   }),
-  "TMW-001": ZERO_COUNTS,
+  "TMW-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_CHSL: 5 }),
 });
 
 for (const packageId of PACKAGE_IDS) {
@@ -121,6 +122,7 @@ const runtimeCases = [
   { packageId: "NUM-001", examProfile: "SSC_CGL_TIER_I", canonicalProblemId: "NUM-CP-003", seed: "selection-gate:num:ssc-tier1" },
   { packageId: "NUM-001", examProfile: "SSC_CGL_CHSL", canonicalProblemId: "NUM-CP-003", seed: "selection-gate:num:chsl" },
   { packageId: "NUM-001", examProfile: "SSC_CGL_JSO", canonicalProblemId: "NUM-CP-003", seed: "selection-gate:num:jso" },
+  { packageId: "TMW-001", examProfile: "SSC_CGL_CHSL", seed: "selection-gate:tmw:chsl" },
   { packageId: "TMW-001", examProfile: "BANKING_PRELIMS", seed: "selection-gate:tmw:bank" },
   { packageId: "AVG-001", examProfile: "PUNJAB_STATE", seed: "selection-gate:avg:punjab" },
   { packageId: "TMW-001", examProfile: "PUNJAB_STATE", seed: "selection-gate:tmw:punjab" },
@@ -161,6 +163,7 @@ console.log(JSON.stringify({
     "NUM-001/SSC_CGL_TIER_I",
     "NUM-001/SSC_CGL_CHSL",
     "NUM-001/SSC_CGL_JSO",
+    "TMW-001/SSC_CGL_CHSL",
   ],
   nativeControl: "SAP/BANKING_PRELIMS",
 }));
