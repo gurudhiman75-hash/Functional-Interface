@@ -1,0 +1,109 @@
+name: Reasoning LP-001 to LP-008 Retrofit V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/**"
+  workflow_dispatch:
+
+concurrency:
+  group: reasoning-lp001-008-retrofit-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  topology-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Audit LP-001 through LP-008 topology
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-retrofit-topology-audit.ts
+
+      - name: Audit LP-001 through LP-008 learner-facing quality
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-editorial-quality-audit.ts
+
+      - name: Prove LP-001 through LP-008 explanation retrofit parity
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-explanation-retrofit-v1.test.ts
+
+      - name: Prove LP-001 through LP-008 option integrity V2
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-option-integrity-v2.test.ts
+
+      - name: Prove simple case-based English V3 parity
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-stabilized-english-v3.test.ts
+
+      - name: Guard polished English V3.1 wording
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-stabilized-english-v3-1.test.ts
+
+      - name: Guard table-based varied English V3.2 explanations
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-stabilized-english-v3-2.test.ts
+
+      - name: Guard progressive placeholder-table English V3.3 explanations
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-stabilized-english-v3-3.test.ts
+
+      - name: Prove complete domains and dependency-driven English V4
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-stabilized-english-v4.test.ts
+
+      - name: Prove LP-001 repetition-clubbing V4.2
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-stabilized-english-v4-2.test.ts
+
+      - name: Guard approved English freeze and permanent QL registry
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-permanent-freeze-v1.test.ts
+
+      - name: Prove Hindi and Punjabi localization semantic parity V1
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-localization-v1.test.ts
+
+      - name: Guard localized question-target parity V2
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-localization-v2.test.ts
+
+      - name: Guard native localization polish V3
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-localization-v3.test.ts
+
+      - name: Guard LP003/LP004 localization polish V4
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-localization-v4.test.ts
+
+      - name: Guard approved localization freeze and multilingual Question Studio
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-question-studio-multilingual-v1.test.ts
+
+      - name: Reprove LP-009 multilingual Question Studio regression
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-question-studio.test.ts
+
+      - name: Reprove LP-010 multilingual Question Studio regression
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-010-question-studio.test.ts
+
+      - name: Reprove LP-006 difficulty calibration
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/difficulty-calibration.test.ts
+
+      - name: Reprove LP-007 generator
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-007.test.ts
+
+      - name: Reprove LP-008 generator
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-008.test.ts
+
+      - name: Export consolidated English review pack
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-retrofit-review-export.ts > LP-001-008-ENGLISH-RETROFIT-REVIEW-V4-2.md
+
+      - name: Upload consolidated English review pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: LP-001-008-ENGLISH-RETROFIT-REVIEW-V4-2
+          path: LP-001-008-ENGLISH-RETROFIT-REVIEW-V4-2.md
+          if-no-files-found: error
+
+      - name: Export Hindi and Punjabi localization review pack V4
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-localization-review-export-v4.ts > LP-001-008-HI-PA-LOCALIZATION-REVIEW-V4.md
+
+      - name: Upload Hindi and Punjabi localization review pack V4
+        uses: actions/upload-artifact@v4
+        with:
+          name: LP-001-008-HI-PA-LOCALIZATION-REVIEW-V4
+          path: LP-001-008-HI-PA-LOCALIZATION-REVIEW-V4.md
+          if-no-files-found: error
