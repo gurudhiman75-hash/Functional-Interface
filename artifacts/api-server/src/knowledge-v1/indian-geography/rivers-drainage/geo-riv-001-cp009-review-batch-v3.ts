@@ -1,5 +1,12 @@
 import { GEO_RIV_001_CP009_REVIEW_BATCH_V2, auditGeoRiv001Cp009ReviewBatchV2 } from "./geo-riv-001-cp009-review-batch-v2";
-import { naturalizeGeoRiv001Cp009Stem, toGeoRiv001Cp009ReviewV3 } from "./geo-riv-001-cp009-review-generator-v3";
+import {
+  geoRiv001Cp009DisplayCanonicalAnswer,
+  geoRiv001Cp009DisplayOptions,
+  geoRiv001Cp009FactRiverName,
+  naturalizeGeoRiv001Cp009Stem,
+  toGeoRiv001Cp009ReviewV3,
+} from "./geo-riv-001-cp009-review-generator-v3";
+import { GEO_RIV_001_CP009_COURSE_STATE_FACTS_V1 } from "./geo-riv-001-cp009-facts";
 import {
   auditGeoRiv001Cp009ScopeV1,
   geoRiv001Cp009CourseStatesForRiver,
@@ -8,6 +15,7 @@ import {
 import type { GeoRiv001Cp009ReviewQuestion } from "./geo-riv-001-cp009-review-types";
 
 const QLS = Array.from({ length: 9 }, (_, index) => `GEO-RIV-001-QL-${String(74 + index).padStart(3, "0")}`);
+const RIVER_NAMES = [...new Set(GEO_RIV_001_CP009_COURSE_STATE_FACTS_V1.map((fact) => fact.entity.label.en))];
 
 export const GEO_RIV_001_CP009_REVIEW_BATCH_V3 = Object.freeze(
   GEO_RIV_001_CP009_REVIEW_BATCH_V2.map((question) => Object.freeze(toGeoRiv001Cp009ReviewV3(question))),
@@ -19,11 +27,14 @@ function sameArray(a: readonly string[], b: readonly string[]) {
 
 function parsePair(pair: string) {
   const [river = "", state = ""] = pair.split(" — ").map((part) => part.trim());
-  return { river, state };
+  return { river: geoRiv001Cp009FactRiverName(river), state };
 }
 
 function statementClaims(stem: string) {
-  return [...stem.matchAll(/(?:I{1,2}|\d+)\. The (.+?) flows through (.+?)\./g)].map((match) => ({ river: match[1], state: match[2] }));
+  return [...stem.matchAll(/(?:I{1,2}|\d+)\. (?:The )?(.+?) flows through (.+?)\./g)].map((match) => ({
+    river: geoRiv001Cp009FactRiverName(match[1]),
+    state: match[2],
+  }));
 }
 
 function expectedTwoStatementAnswer(truth: readonly boolean[]) {
@@ -42,9 +53,6 @@ function semanticTruthAudit(
   baseline: GeoRiv001Cp009ReviewQuestion,
   issues: string[],
 ) {
-  // V2 is used only as a stable semantic carrier for extracting the entities.
-  // V3 independently audits that its visible stem is exactly the naturalized
-  // rendering of this same semantic payload.
   const stem = baseline.stem;
 
   if (question.qlId === "GEO-RIV-001-QL-074") {
@@ -55,14 +63,15 @@ function semanticTruthAudit(
 
   if (question.qlId === "GEO-RIV-001-QL-075") {
     const state = stem.match(/^Which of the following rivers flows through (.+?)\?$/)?.[1] ?? "";
-    const truth = question.options.map((river) => geoRiv001Cp009IsCourseState(river, state));
+    const truth = question.options.map((river) => geoRiv001Cp009IsCourseState(geoRiv001Cp009FactRiverName(river), state));
     if (truth.filter(Boolean).length !== 1 || !truth[question.correctIndex]) issues.push(`QL075_TRUTH:${question.questionId}`);
   }
 
   if (question.qlId === "GEO-RIV-001-QL-077") {
     const listed = stem.match(/^Which river's course in India passes through only the following states: (.+?)\?$/)?.[1]
       ?.split(", ").sort() ?? [];
-    const expected = [...geoRiv001Cp009CourseStatesForRiver(question.canonicalAnswer)].sort();
+    const river = geoRiv001Cp009FactRiverName(question.canonicalAnswer);
+    const expected = [...geoRiv001Cp009CourseStatesForRiver(river)].sort();
     if (!sameArray(listed, expected)) issues.push(`QL077_EXHAUSTIVE_SET:${question.questionId}`);
   }
 
@@ -81,7 +90,10 @@ function semanticTruthAudit(
     const match = stem.match(/^Which river flows through both (.+?) and (.+?)\?$/);
     const first = match?.[1] ?? "";
     const second = match?.[2] ?? "";
-    const truth = question.options.map((river) => geoRiv001Cp009IsCourseState(river, first) && geoRiv001Cp009IsCourseState(river, second));
+    const truth = question.options.map((river) => {
+      const factRiver = geoRiv001Cp009FactRiverName(river);
+      return geoRiv001Cp009IsCourseState(factRiver, first) && geoRiv001Cp009IsCourseState(factRiver, second);
+    });
     if (truth.filter(Boolean).length !== 1 || !truth[question.correctIndex]) issues.push(`QL080_TRUTH:${question.questionId}`);
   }
 
@@ -121,6 +133,20 @@ function stemQualityAudit(question: GeoRiv001Cp009ReviewQuestion, baseline: GeoR
   }
 }
 
+function hasUnprefixedRiverName(text: string, river: string) {
+  const protectedText = text.split(`River ${river}`).join("");
+  return new RegExp(`\\b${river.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&")}\\b`).test(protectedText);
+}
+
+function riverPrefixAudit(question: GeoRiv001Cp009ReviewQuestion, issues: string[]) {
+  const surfaces = [question.stem, ...question.options, question.canonicalAnswer, question.explanation];
+  for (const river of RIVER_NAMES) {
+    if (surfaces.some((surface) => hasUnprefixedRiverName(surface, river))) {
+      issues.push(`UNPREFIXED_RIVER_NAME:${question.questionId}:${river}`);
+    }
+  }
+}
+
 export function auditGeoRiv001Cp009ReviewBatchV3() {
   const issues: string[] = [];
   const v2Audit = auditGeoRiv001Cp009ReviewBatchV2();
@@ -134,15 +160,18 @@ export function auditGeoRiv001Cp009ReviewBatchV3() {
 
   GEO_RIV_001_CP009_REVIEW_BATCH_V3.forEach((question, index) => {
     const baseline = GEO_RIV_001_CP009_REVIEW_BATCH_V2[index];
+    const expectedOptions = geoRiv001Cp009DisplayOptions(baseline);
+    const expectedCanonicalAnswer = geoRiv001Cp009DisplayCanonicalAnswer(baseline);
     qlCounts[question.qlId] = (qlCounts[question.qlId] ?? 0) + 1;
     difficultyCounts[question.difficulty] += 1;
     answerPositions[question.correctIndex] += 1;
 
     if (!question.questionId.includes("CP009-V3")) issues.push(`QUESTION_ID_VERSION:${question.questionId}`);
     stemQualityAudit(question, baseline, issues);
-    if (!sameArray(question.options, baseline.options)) issues.push(`OPTION_DRIFT:${question.questionId}`);
+    riverPrefixAudit(question, issues);
+    if (!sameArray(question.options, expectedOptions)) issues.push(`OPTION_RENDER_DRIFT:${question.questionId}`);
     if (question.correctIndex !== baseline.correctIndex) issues.push(`CORRECT_INDEX_DRIFT:${question.questionId}`);
-    if (question.canonicalAnswer !== baseline.canonicalAnswer) issues.push(`ANSWER_DRIFT:${question.questionId}`);
+    if (question.canonicalAnswer !== expectedCanonicalAnswer) issues.push(`ANSWER_RENDER_DRIFT:${question.questionId}`);
     if (question.difficulty !== baseline.difficulty) issues.push(`DIFFICULTY_DRIFT:${question.questionId}`);
     if (question.solverAuthority !== baseline.solverAuthority) issues.push(`SOLVER_AUTHORITY_DRIFT:${question.questionId}`);
     if (!sameArray(question.sourceIds, baseline.sourceIds)) issues.push(`SOURCE_ID_DRIFT:${question.questionId}`);
@@ -168,7 +197,8 @@ export function auditGeoRiv001Cp009ReviewBatchV3() {
     answerPositions: Object.freeze(answerPositions),
     scopeAudit,
     baselineAuditValid: v2Audit.valid,
-    answerMatrixPreserved: !issues.some((issue) => /(?:OPTION|CORRECT_INDEX|ANSWER)_DRIFT/.test(issue)),
+    answerMatrixPreserved: !issues.some((issue) => /OPTION_RENDER_DRIFT|CORRECT_INDEX_DRIFT|ANSWER_RENDER_DRIFT|ANSWER_ALIGNMENT/.test(issue)),
     naturalStemLayerValid: !issues.some((issue) => /STEM|QL081_MISSING_EXAM_INSTRUCTION|QL082_MISSING_EXAM_INSTRUCTION/.test(issue)),
+    riverPrefixValid: !issues.some((issue) => issue.startsWith("UNPREFIXED_RIVER_NAME:")),
   });
 }
