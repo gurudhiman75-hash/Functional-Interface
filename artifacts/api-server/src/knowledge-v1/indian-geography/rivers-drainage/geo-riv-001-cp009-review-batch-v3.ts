@@ -135,7 +135,7 @@ function stemQualityAudit(question: GeoRiv001Cp009ReviewQuestion, baseline: GeoR
 
 function hasUnprefixedRiverName(text: string, river: string) {
   const protectedText = text.split(`River ${river}`).join("");
-  return new RegExp(`\\b${river.replace(/[.*+?^${}()|[\\]\\]/g, "\\$&")}\\b`).test(protectedText);
+  return protectedText.includes(river);
 }
 
 function riverPrefixAudit(question: GeoRiv001Cp009ReviewQuestion, issues: string[]) {
