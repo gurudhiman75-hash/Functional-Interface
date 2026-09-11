@@ -1,0 +1,22 @@
+ARG-001 CP015 grammar/plain-language proof failure
+head: fa9ad80c99ee8d686b7a7dadabd29b55d9036d1f
+run: 34579975070
+
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: ARG-001:ARG-QL-004:BANKING_COMBO_4X5:CP015:f5a036d5782d06134b91: malformed grammar leaked into final CP015 question surface
+    at file:///home/runner/work/Functional-Interface/Functional-Interface/artifacts/api-server/dist/arg-cp015-anti-gaming-grammar-proof.mjs:9533:18
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'क्या एक अस्पताल पहुंच सड़क पर सुबह की भीड़ के दौरान भारी-वाहन आवाजाही की अस्थायी सीमा होनी चाहिए? हाँ। एक अस्पताल पहुंच सड़क पर सुबह की भीड़ में भारी वाहन सीमित करना पैदल यात्रियों से टकराने वाले मोड़-आधारित संघर्ष सीधे घटा सकता है। हाँ। सुबह की भीड़ के लिए सीमित रोक सबसे व्यस्त अवधि को निशाना बनाती है और इसे पूर्ण-दिवसीय प्रतिबंध बनने से बचाती है। नहीं। सुबह की भीड़ में भारी वाहनों की थोड़ी-सी सीमा भी एक अस्पताल पहुंच सड़क के आसपास अधिकांश गतिविधि को स्थायी रूप से बर्बाद कर देगी। नहीं। सुबह की भीड़ के दौरान एक अस्पताल पहुंच सड़क पर भारी वाहनों की सीमा उन आवश्यक डिलीवरी को देर करा सकती है जो दूसरा मार्ग नहीं ले सकतीं। तर्क I मजबूत है: यह व्यस्त समय से जुड़ा सीधा सुरक्षा कारण बताता है। तर्क II मजबूत है: सुबह की भीड़ के दौरान सीमित प्रतिबंध एक अस्पताल पहुंच सड़क पर सबसे व्यस्त अवधि को लक्षित करता है, बिना पूरे दिन का प्रतिबंध लगाए; इसलिए उपाय प्रासंगिक और अनुपातिक है। तर्क III कमजोर है: यह तर्क मान लेता है कि सुबह की भीड़ में भारी वाहनों की थोड़ी-सी सीमा भी एक अस्पताल पहुंच सड़क के आसपास अधिकांश गतिविधि को स्थायी रूप से बर्बाद कर देगी; दिए गए संदर्भ में इस निष्कर्ष के लिए पर्याप्त आधार नहीं दिया गया है। तर्क IV मजबूत है: यह प्रस्तावित प्रतिबंध से पैदा होने वाली एक महत्वपूर्ण संचालन संबंधी लागत बताता है।',
+  expected: /यह तर्क मान लेता है कि/,
+  operator: 'doesNotMatch',
+  diff: 'simple'
+}
+
+Node.js v22.23.2
