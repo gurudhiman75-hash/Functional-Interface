@@ -3,9 +3,11 @@ import { checkNumericAmbiguity } from "./ambiguity-checker";
 import { solveNumericRule, verifyNumericTransfer, type NumericPair } from "./independent-solver";
 import { numericRuleById, type NumericRuleContext } from "./rule-definitions";
 import { deriveNumericDifficulty, numericMisconceptions, type NumericDifficulty } from "./audit-remediation";
+import { numericMisconceptionExtensions } from "./misconception-extensions";
 
 type NumericOption = number | readonly [number, number];
 type NumericOptionEntry = { value: NumericOption; errorLabel: string | null };
+type NumericWrongCandidate = { value: number; errorLabel: string };
 
 export interface GeneratedNumericAnalogy {
   qlId: string;
@@ -69,6 +71,24 @@ function qlById(qlId: string) {
   return ql;
 }
 
+function governedNumericMisconceptions(
+  ruleId: string,
+  context: NumericRuleContext,
+  input: number,
+  correct: number,
+): NumericWrongCandidate[] {
+  const primary = numericMisconceptions(ruleId, context, input, correct)
+    .filter((candidate) => candidate.errorLabel !== "ARITHMETIC_OFF_BY_ONE_FALLBACK");
+  const extended = numericMisconceptionExtensions(ruleId, context, input, correct);
+  const combined: NumericWrongCandidate[] = [];
+  for (const candidate of [...primary, ...extended]) {
+    if (!Number.isInteger(candidate.value) || candidate.value <= 0 || candidate.value === correct) continue;
+    if (combined.some((entry) => entry.value === candidate.value)) continue;
+    combined.push(candidate);
+  }
+  return combined;
+}
+
 function candidateInputs(min: number, max: number, seed: number): number[] {
   return shuffle(Array.from({ length: max - min + 1 }, (_, index) => min + index), seed);
 }
@@ -84,6 +104,7 @@ function chooseInstance(ruleId: string, seed: number): { context: NumericRuleCon
       for (let j = i + 1; j < inputs.length; j += 1) {
         const targetOutput = solveNumericRule(ruleId, inputs[j], context);
         if (targetOutput === null || targetOutput === sourceOutput) continue;
+        if (governedNumericMisconceptions(ruleId, context, inputs[j], targetOutput).length < 3) continue;
         const source = { input: inputs[i], output: sourceOutput };
         const target = { input: inputs[j], output: targetOutput };
         const ambiguity = checkNumericAmbiguity(ruleId, context, [source, target]);
@@ -91,7 +112,7 @@ function chooseInstance(ruleId: string, seed: number): { context: NumericRuleCon
       }
     }
   }
-  throw new Error(`Unable to build an unambiguous ${ruleId} instance for seed ${seed}.`);
+  throw new Error(`Unable to build an unambiguous ${ruleId} instance with three governed distractors for seed ${seed}.`);
 }
 
 function chooseAdditionalReference(
@@ -119,10 +140,10 @@ function missingTermOptions(
   seed: number,
 ): NumericOptionEntry[] {
   const distractors = shuffle(
-    numericMisconceptions(ruleId, context, target.input, target.output),
+    governedNumericMisconceptions(ruleId, context, target.input, target.output),
     seed * 23 + 3,
   ).slice(0, 3);
-  if (distractors.length !== 3) throw new Error(`${ruleId} cannot produce three misconception distractors.`);
+  if (distractors.length !== 3) throw new Error(`${ruleId} cannot produce three governed misconception distractors.`);
   return shuffle([
     { value: target.output as NumericOption, errorLabel: null },
     ...distractors.map((entry) => ({ value: entry.value as NumericOption, errorLabel: entry.errorLabel })),
@@ -137,7 +158,7 @@ function pairOptions(ruleId: string, context: NumericRuleContext, target: Numeri
     if (input === target.input) continue;
     const correct = solveNumericRule(ruleId, input, context);
     if (correct === null) continue;
-    for (const misconception of numericMisconceptions(ruleId, context, input, correct)) {
+    for (const misconception of governedNumericMisconceptions(ruleId, context, input, correct)) {
       const value = [input, misconception.value] as const;
       if (solveNumericRule(ruleId, input, context) === misconception.value) continue;
       if (!distractors.some((entry) => entry.value[0] === input && entry.value[1] === misconception.value)) {
@@ -147,7 +168,7 @@ function pairOptions(ruleId: string, context: NumericRuleContext, target: Numeri
     }
     if (distractors.length === 3) break;
   }
-  if (distractors.length !== 3) throw new Error(`${ruleId} cannot produce three numeric pair distractors.`);
+  if (distractors.length !== 3) throw new Error(`${ruleId} cannot produce three governed numeric pair distractors.`);
   return shuffle([{ value: [target.input, target.output] as const, errorLabel: null }, ...distractors], seed * 37 + 13);
 }
 
@@ -227,8 +248,8 @@ export function generateNumericAnalogy(qlId: string, seed = 0): GeneratedNumeric
         ? `Therefore, ${target.output} is the correct answer.`
         : `Therefore, ${target.input} : ${target.output} follows the same rule.`,
       closestTrapRejection: ql.presentationMode === "MISSING_FOURTH_TERM"
-        ? "Each wrong option represents a specific alternate operation or calculation mistake; applying the demonstrated rule gives only the stated answer."
-        : "Each wrong pair comes from a specific alternate operation and fails the demonstrated relationship.",
+        ? "Each wrong option comes from a specific alternative operation or stage error; applying the demonstrated rule gives only the stated answer."
+        : "Each wrong pair comes from a specific alternative operation or stage error and fails the demonstrated relationship.",
     },
   };
 }
