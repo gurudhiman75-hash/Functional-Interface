@@ -5,6 +5,8 @@ import { relationDefinition } from "./relation-definitions";
 type SemanticOptionValue = string | readonly [string, string];
 export type SemanticDifficulty = "EASY" | "MEDIUM" | "HARD";
 
+type SemanticOption = { value: SemanticOptionValue; errorLabel: string | null };
+
 export interface GeneratedSemanticAnalogy {
   sourceA: string;
   sourceB: string;
@@ -13,7 +15,7 @@ export interface GeneratedSemanticAnalogy {
   presentationMode: "MISSING_FOURTH_TERM" | "EQUIVALENT_PAIR_SELECTION";
   difficulty: SemanticDifficulty;
   relation: AnalogyRelation;
-  options: readonly { value: SemanticOptionValue; errorLabel: string | null }[];
+  options: readonly SemanticOption[];
   correctIndex: number;
   explanationTrace: ExplanationTrace;
 }
@@ -45,13 +47,22 @@ function shuffle<T>(items: readonly T[], seed: number): T[] {
   return result;
 }
 
+function placeCorrect(options: readonly SemanticOption[], requestedIndex: number): SemanticOption[] {
+  const result = [...options];
+  const currentIndex = result.findIndex((option) => option.errorLabel === null);
+  if (currentIndex < 0) throw new Error("Semantic options are missing a correct answer.");
+  const [correct] = result.splice(currentIndex, 1);
+  result.splice(requestedIndex, 0, correct);
+  return result;
+}
+
 function selectFacts(ruleId: string, seed: number): [SemanticFact, SemanticFact] {
   const facts = shuffle(factsForRule(ruleId), seed * 31 + 7);
   if (facts.length < 12) throw new Error(`Rule ${ruleId} needs at least twelve curated facts.`);
   return [facts[0], facts[1]];
 }
 
-function wordOptions(target: SemanticFact, allFacts: readonly SemanticFact[], seed: number) {
+function wordOptions(target: SemanticFact, allFacts: readonly SemanticFact[], seed: number): SemanticOption[] {
   const shuffledFacts = shuffle(
     allFacts.filter((fact) => fact.id !== target.id && canonical(fact.right) !== canonical(target.right)),
     seed * 37 + 11,
@@ -72,7 +83,7 @@ function wordOptions(target: SemanticFact, allFacts: readonly SemanticFact[], se
   ], seed * 41 + 13);
 }
 
-function pairOptions(target: SemanticFact, allFacts: readonly SemanticFact[], seed: number) {
+function pairOptions(target: SemanticFact, allFacts: readonly SemanticFact[], seed: number): SemanticOption[] {
   const leftPool = shuffle(allFacts.filter((fact) => fact.id !== target.id), seed * 43 + 17);
   const rightPool = shuffle(allFacts.filter((fact) => fact.id !== target.id), seed * 47 + 19);
   const validPairs = new Set(allFacts.map((fact) => canonical([fact.left, fact.right])));
@@ -116,9 +127,11 @@ export function generateSemanticAnalogy(qlId: string, seed = 0): GeneratedSemant
   const definition = relationDefinition(ql.ruleId);
   const [source, target] = selectFacts(ql.ruleId, seed);
   const allFacts = factsForRule(ql.ruleId);
-  const options = ql.presentationMode === "MISSING_FOURTH_TERM"
+  const generatedOptions = ql.presentationMode === "MISSING_FOURTH_TERM"
     ? wordOptions(target, allFacts, seed)
     : pairOptions(target, allFacts, seed);
+  const requestedCorrectIndex = ((seed + Number(qlId.slice(-3))) % 4 + 4) % 4;
+  const options = placeCorrect(generatedOptions, requestedCorrectIndex);
   if (new Set(options.map((option) => canonical(option.value))).size !== 4) {
     throw new Error(`Rule ${ql.ruleId} produced duplicate options.`);
   }
