@@ -15,11 +15,22 @@ const RIVER_VALUE_RELATIONS = new Set([
   "joins_mainstream",
 ]);
 
-const RIVER_NAMES = [...new Set(GEO_RIV_001_CP007_PROJECTED_FACTS_V1.flatMap((fact) => {
-  const names = [fact.entity.label.en];
-  if (RIVER_VALUE_RELATIONS.has(fact.relation) && fact.value.kind === "entity_ref") names.push(fact.value.label.en);
-  return names;
-}))]
+function formedByComponents() {
+  return GEO_RIV_001_CP007_PROJECTED_FACTS_V1.flatMap((fact) => {
+    if (fact.relation !== "formed_by") return [];
+    const raw = fact.value.kind === "text" ? fact.value.text.en : fact.value.kind === "entity_ref" ? fact.value.label.en : "";
+    return raw.split(/\s*\+\s*|\s+and\s+/i).map((part) => part.trim()).filter(Boolean);
+  });
+}
+
+const RIVER_NAMES = [...new Set([
+  ...GEO_RIV_001_CP007_PROJECTED_FACTS_V1.flatMap((fact) => {
+    const names = [fact.entity.label.en];
+    if (RIVER_VALUE_RELATIONS.has(fact.relation) && fact.value.kind === "entity_ref") names.push(fact.value.label.en);
+    return names;
+  }),
+  ...formedByComponents(),
+])]
   .filter((name) => name && !/^River\s+/i.test(name))
   .sort((a, b) => b.length - a.length);
 
@@ -29,12 +40,19 @@ function escapeRegExp(value: string) {
 
 function polishRiverNames(input: string) {
   let output = input;
-  for (const name of RIVER_NAMES) {
+  const placeholders = new Map<string, string>();
+  RIVER_NAMES.forEach((name, index) => {
     const escaped = escapeRegExp(name);
+    const token = `__GEO_RIVER_${index}__`;
     const pattern = new RegExp(`(?<!River\\s)(?<![A-Za-z])${escaped}(?![A-Za-z])(?!\\s+(?:river\\s+system|system|Basin|basin))`, "g");
-    output = output.replace(pattern, `River ${name}`);
-  }
-  return output.replace(/\bthe River /g, "River ");
+    if (pattern.test(output)) {
+      pattern.lastIndex = 0;
+      output = output.replace(pattern, token);
+      placeholders.set(token, name);
+    }
+  });
+  for (const [token, name] of placeholders) output = output.replaceAll(token, `River ${name}`);
+  return output.replace(/\b(?:the|The) River /g, "River ");
 }
 
 function polishQuestion(question: GeoRiv001Cp007ReviewQuestion): GeoRiv001Cp007ReviewQuestion {
@@ -83,6 +101,7 @@ export function auditGeoRiv001Cp007ReviewPolishV3() {
     for (const visible of [q.stem, ...q.options, q.explanation]) {
       const bare = hasBareRiverName(visible);
       if (bare) issues.push(`BARE_RIVER_NAME:${q.questionId}:${bare}`);
+      if (/River\s+\w+\s+River\s+/i.test(visible)) issues.push(`NESTED_RIVER_PREFIX:${q.questionId}`);
     }
     if (/associated with|matches the reviewed relation|listed among|joining relation|exam trap|shortcut|both banks|neither bank|at near|at below|at west of/i.test(`${q.stem}\n${q.explanation}`)) {
       issues.push(`POLISH_EDITORIAL:${q.questionId}`);
