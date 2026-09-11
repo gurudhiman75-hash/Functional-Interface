@@ -138,6 +138,57 @@ function sentenceFromSegments(segments: readonly string[]): string {
   return segments.join(" ").replace(/\s+([,.!?;:])/g, "$1").replace(/\s+/g, " ").trim();
 }
 
+function renderHumanExplanation(input: {
+  seed: string;
+  qlId: Eng001QlId;
+  candidate: Eng001SentenceCandidate;
+  answerLabel: string;
+  correctedSentence: string;
+  noError: boolean;
+}): string {
+  const { seed, qlId, candidate, answerLabel, correctedSentence, noError } = input;
+  const reason = connectedExplanationReason(candidate);
+  const styleSeed = `${seed}:cp003:explanation:${candidate.candidateId}:${qlId}`;
+  const correctedTail = deterministicPick(`${styleSeed}:tail`, [
+    `Correct sentence: ${correctedSentence}`,
+    `The corrected sentence is: ${correctedSentence}`,
+    `So the sentence should read: ${correctedSentence}`,
+    `Correct form: ${correctedSentence}`,
+  ] as const);
+
+  if (noError) {
+    const opening = deterministicPick(`${styleSeed}:opening`, [
+      "There is no error.",
+      "The sentence is correct as it is.",
+      "No part of the sentence has an error.",
+      "The given sentence is correct.",
+    ] as const);
+    const confirmation = deterministicPick(`${styleSeed}:confirmation`, [
+      `“${candidate.correction}” is correct here.`,
+      `So “${candidate.correction}” is correct.`,
+      `That is why “${candidate.correction}” is correct.`,
+      `Therefore, “${candidate.correction}” is correct.`,
+    ] as const);
+    return `${opening} ${reason} ${confirmation} ${correctedTail}`;
+  }
+
+  const opening = deterministicPick(`${styleSeed}:opening`, [
+    `Part ${answerLabel} contains the error.`,
+    `The error is in Part ${answerLabel}.`,
+    `Part ${answerLabel} is incorrect.`,
+    `The mistake is in Part ${answerLabel}.`,
+    `Part ${answerLabel} needs correction.`,
+  ] as const);
+  const correctionLine = deterministicPick(`${styleSeed}:correction`, [
+    `Use “${candidate.correction}”.`,
+    `It should be “${candidate.correction}”.`,
+    `The correct form is “${candidate.correction}”.`,
+    `Write “${candidate.correction}” instead.`,
+    `Here, we need “${candidate.correction}”.`,
+  ] as const);
+  return `${opening} ${reason} ${correctionLine} ${correctedTail}`;
+}
+
 function shapeQl002(segments: readonly string[], errorIndex: number, seed: string): { segments: string[]; errorIndex: number } {
   if (segments.length !== 4) throw new Error("CP003 QL002 expects four canonical segments.");
   const mergeCandidates = [0, 1, 2].filter((at) => at !== errorIndex && at + 1 !== errorIndex);
@@ -181,10 +232,7 @@ export function generateEng001Cp003QuestionV1(input: GenerateEng001Cp003V1Input)
   const correctOptionIndex = noError ? shaped.segments.length : shaped.errorIndex;
   const answerLabel = options[correctOptionIndex]!;
   const correctedSentence = sentenceFromSegments(candidate.correctSegments);
-  const reason = connectedExplanationReason(candidate);
-  const explanation = noError
-    ? `There is no error. ${reason} “${candidate.correction}” is correct. Correct sentence: ${correctedSentence}`
-    : `Part ${answerLabel} contains the error. ${reason} Use “${candidate.correction}”. Correct sentence: ${correctedSentence}`;
+  const explanation = renderHumanExplanation({ seed: input.seed, qlId, candidate, answerLabel, correctedSentence, noError });
 
   return {
     questionId: `ENG-001-CP003-V1:${qlId}:${candidate.candidateId}:${input.seed}`,
