@@ -76,17 +76,17 @@ assert.equal(primesBelow100.at(-1), 97);
 assert.equal(97 - 2, 95, "2015 prime-extrema difference failed.");
 assert.equal(63 + 37, 100, "2012 recurring-decimal numerator sum failed.");
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 84);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 108);
 const numAll = listRegisteredCountablePyqObservations({ packageId: "NUM-001" });
-assert.equal(numAll.length, 17);
-assert.equal(numAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 11);
+assert.equal(numAll.length, 18);
+assert.equal(numAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 12);
 assert.equal(numAll.filter((entry) => entry.examId === "SSC_CHSL").length, 5);
 assert.equal(numAll.filter((entry) => entry.examId === "SSC_CGL_TIER_II").length, 1);
 
 const cglTierI = getQuantV4SpecializedProfileSelectionContract("NUM-001", "SSC_CGL_TIER_I");
 const chsl = getQuantV4SpecializedProfileSelectionContract("NUM-001", "SSC_CGL_CHSL");
 const tierII = getQuantV4SpecializedProfileSelectionContract("NUM-001", "SSC_CGL_JSO");
-assert.equal(cglTierI.normalizedCountableObservationCount, 11);
+assert.equal(cglTierI.normalizedCountableObservationCount, 12);
 assert.equal(chsl.normalizedCountableObservationCount, 5);
 assert.equal(tierII.normalizedCountableObservationCount, 1);
 for (const contract of [cglTierI, chsl, tierII]) {
