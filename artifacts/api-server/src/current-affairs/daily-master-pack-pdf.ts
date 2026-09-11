@@ -3,550 +3,78 @@ import { existsSync, readFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-
 import type { DailyMasterPackEvent, DailyMasterPackLanguage, DailyMasterPackPayload } from "./daily-master-pack";
 
 const nativeRequire = createRequire(import.meta.url);
 const { PDFDocument, GlobalFonts } = nativeRequire("@napi-rs/canvas") as typeof import("@napi-rs/canvas");
+const W=595.28,H=841.89,MX=44,MT=48,MB=48,CW=W-MX*2,ACCENT="#0A7F62",SOFT="#EAF6F2",INK="#18201E",MUTED="#66706D",RULE="#D8E1DE";
+const MODULE_DIR=path.dirname(fileURLToPath(import.meta.url));
 
-const A4_WIDTH = 595.28;
-const A4_HEIGHT = 841.89;
-const MARGIN_X = 46;
-const MARGIN_TOP = 46;
-const MARGIN_BOTTOM = 46;
-const CONTENT_WIDTH = A4_WIDTH - MARGIN_X * 2;
-const BODY_LINE = 15;
-const SMALL_LINE = 12;
-const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
+const COPY={
+  en:{locale:"en-IN",title:"Daily Current Affairs",header:"EXAMTREE  |  DAILY CURRENT AFFAIRS",count:(e:number,s:number)=>`${e} developments  •  ${s} sections`,updates:(n:number)=>`${n} ${n===1?"update":"updates"}`,why:"WHY IN NEWS",facts:"KEY FACTS",exam:"Exam focus",source:"Source",refs:"Sources & References",primary:"Primary",supporting:"Supporting",footer:"Examtree  •  Daily Current Affairs"},
+  hi:{locale:"hi-IN",title:"दैनिक करेंट अफेयर्स",header:"EXAMTREE  |  दैनिक करेंट अफेयर्स",count:(e:number,s:number)=>`${e} घटनाक्रम  •  ${s} खंड`,updates:(n:number)=>`${n} अपडेट`,why:"समाचार में क्यों",facts:"मुख्य तथ्य",exam:"परीक्षा फोकस",source:"स्रोत",refs:"स्रोत एवं संदर्भ",primary:"प्राथमिक",supporting:"सहायक",footer:"Examtree  •  दैनिक करेंट अफेयर्स"},
+  pa:{locale:"pa-IN",title:"ਰੋਜ਼ਾਨਾ ਕਰੰਟ ਅਫੇਅਰਜ਼",header:"EXAMTREE  |  ਰੋਜ਼ਾਨਾ ਕਰੰਟ ਅਫੇਅਰਜ਼",count:(e:number,s:number)=>`${e} ਘਟਨਾਵਾਂ  •  ${s} ਭਾਗ`,updates:(n:number)=>`${n} ਅਪਡੇਟ`,why:"ਖ਼ਬਰਾਂ ਵਿੱਚ ਕਿਉਂ",facts:"ਮੁੱਖ ਤੱਥ",exam:"ਪ੍ਰੀਖਿਆ ਫੋਕਸ",source:"ਸਰੋਤ",refs:"ਸਰੋਤ ਅਤੇ ਹਵਾਲੇ",primary:"ਮੁੱਖ",supporting:"ਸਹਾਇਕ",footer:"Examtree  •  ਰੋਜ਼ਾਨਾ ਕਰੰਟ ਅਫੇਅਰਜ਼"},
+} satisfies Record<DailyMasterPackLanguage,{locale:string;title:string;header:string;count:(e:number,s:number)=>string;updates:(n:number)=>string;why:string;facts:string;exam:string;source:string;refs:string;primary:string;supporting:string;footer:string}>;
 
-const PDF_COPY = {
-  en: {
-    locale: "en-IN",
-    title: "Examtree Daily Current Affairs",
-    header: "EXAMTREE - DAILY CURRENT AFFAIRS",
-    count: (events: number, sections: number) => `${events} verified, authoring-ready, exam-relevant developments across ${sections} sections`,
-    why: "WHY IN NEWS",
-    facts: "KEY FACTS",
-    remember: "REMEMBER",
-    exam: "Exam relevance",
-    evidence: "EVIDENCE",
-    primary: "Primary",
-    supporting: "Supporting",
-    footer: "Draft only - editorial approval required before distribution.",
-    provenance: "This PDF is rendered directly from the same canonical Daily Master Pack used for Examtree text/web output. It performs no independent research or rewriting.",
-  },
-  hi: {
-    locale: "hi-IN",
-    title: "Examtree दैनिक करेंट अफेयर्स",
-    header: "EXAMTREE - दैनिक करेंट अफेयर्स",
-    count: (events: number, sections: number) => `${events} सत्यापित, परीक्षा-प्रासंगिक घटनाक्रम · ${sections} खंड`,
-    why: "समाचार में क्यों",
-    facts: "मुख्य तथ्य",
-    remember: "याद रखें",
-    exam: "परीक्षा प्रासंगिकता",
-    evidence: "साक्ष्य",
-    primary: "प्राथमिक",
-    supporting: "सहायक",
-    footer: "केवल ड्राफ्ट - वितरण से पहले संपादकीय स्वीकृति आवश्यक है।",
-    provenance: "यह PDF उसी कैनोनिकल Daily Master Pack से सीधे रेंडर किया गया है जो Examtree के text/web output में उपयोग होता है। इसमें स्वतंत्र शोध या पुनर्लेखन नहीं किया जाता।",
-  },
-  pa: {
-    locale: "pa-IN",
-    title: "Examtree ਰੋਜ਼ਾਨਾ ਕਰੰਟ ਅਫੇਅਰਜ਼",
-    header: "EXAMTREE - ਰੋਜ਼ਾਨਾ ਕਰੰਟ ਅਫੇਅਰਜ਼",
-    count: (events: number, sections: number) => `${events} ਪ੍ਰਮਾਣਿਤ, ਪ੍ਰੀਖਿਆ-ਸੰਬੰਧਿਤ ਘਟਨਾਵਾਂ · ${sections} ਭਾਗ`,
-    why: "ਖ਼ਬਰਾਂ ਵਿੱਚ ਕਿਉਂ",
-    facts: "ਮੁੱਖ ਤੱਥ",
-    remember: "ਯਾਦ ਰੱਖੋ",
-    exam: "ਪ੍ਰੀਖਿਆ ਸੰਬੰਧਤਾ",
-    evidence: "ਸਬੂਤ",
-    primary: "ਮੁੱਖ ਸਰੋਤ",
-    supporting: "ਸਹਾਇਕ",
-    footer: "ਕੇਵਲ ਡਰਾਫਟ - ਵੰਡ ਤੋਂ ਪਹਿਲਾਂ ਸੰਪਾਦਕੀ ਮਨਜ਼ੂਰੀ ਲੋੜੀਂਦੀ ਹੈ।",
-    provenance: "ਇਹ PDF ਉਸੇ ਕੈਨੋਨਿਕਲ Daily Master Pack ਤੋਂ ਸਿੱਧਾ ਰੈਂਡਰ ਹੁੰਦਾ ਹੈ ਜੋ Examtree ਦੇ text/web output ਲਈ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ। ਇਹ ਕੋਈ ਵੱਖਰੀ ਖੋਜ ਜਾਂ ਮੁੜ-ਲਿਖਤ ਨਹੀਂ ਕਰਦਾ।",
-  },
-} satisfies Record<DailyMasterPackLanguage, {
-  locale: string;
-  title: string;
-  header: string;
-  count: (events: number, sections: number) => string;
-  why: string;
-  facts: string;
-  remember: string;
-  exam: string;
-  evidence: string;
-  primary: string;
-  supporting: string;
-  footer: string;
-  provenance: string;
-}>;
-
-const LANGUAGE_FONTS = {
-  hi: {
-    alias: "ExamtreeDevanagari",
-    family: "Noto Sans Devanagari",
-    fileName: "NotoSansDevanagari.ttf",
-    expectedSize: 647144,
-    expectedGitBlobSha1: "e703d5282088c4b7787b1a4c5f057cf18f0998d6",
-  },
-  pa: {
-    alias: "ExamtreeGurmukhi",
-    family: "Noto Sans Gurmukhi",
-    fileName: "NotoSansGurmukhi.ttf",
-    expectedSize: 268608,
-    expectedGitBlobSha1: "49878eb913077538cc8973dcf4ad7c51f3e5fb22",
-  },
-} as const;
-
-export type DailyMasterPackPdfRenderResult = {
-  buffer: Buffer;
-  pageCount: number;
-  eventCount: number;
-  contentDate: string;
-  language: DailyMasterPackLanguage;
-  fontFamily: string;
+const FACT_LABELS:Record<DailyMasterPackLanguage,Record<string,string>>={
+  en:{appointee:"Appointee",position:"Position",effective_date:"Effective from",index_value:"Index value",percentage:"Key figure",amount:"Amount",rank:"Rank",winner:"Winner",award_or_title:"Award / title",headquarters:"Headquarters",regulator:"Regulator",state:"State",mou_parties:"Parties",policy_repo_rate:"Repo rate",standing_deposit_facility_rate:"SDF rate",marginal_standing_facility_rate:"MSF rate",bank_rate:"Bank Rate",cash_reserve_ratio:"CRR",statutory_liquidity_ratio:"SLR",orbit_altitude:"Orbit altitude",repeat_cycle:"Repeat cycle",mission_life:"Mission life",launcher:"Launch vehicle",scheme_outlay:"Outlay",beneficiary_count:"Coverage",target_percentage:"Target",target_year:"Target year",current_account_status:"Current account",current_account_amount:"Amount",current_account_gdp_share:"Share of GDP",net_services_receipts:"Net services receipts"},
+  hi:{appointee:"नियुक्त व्यक्ति",position:"पद",effective_date:"प्रभावी तिथि",index_value:"सूचकांक मान",percentage:"मुख्य आंकड़ा",amount:"राशि",rank:"रैंक",winner:"विजेता",award_or_title:"पुरस्कार / उपाधि",headquarters:"मुख्यालय",regulator:"नियामक",state:"राज्य",mou_parties:"पक्ष",scheme_outlay:"परिव्यय",beneficiary_count:"लाभार्थी / कवरेज",target_percentage:"लक्ष्य",target_year:"लक्ष्य वर्ष"},
+  pa:{appointee:"ਨਿਯੁਕਤ ਵਿਅਕਤੀ",position:"ਅਹੁਦਾ",effective_date:"ਲਾਗੂ ਮਿਤੀ",index_value:"ਸੂਚਕਾਂਕ ਮੁੱਲ",percentage:"ਮੁੱਖ ਅੰਕੜਾ",amount:"ਰਕਮ",rank:"ਰੈਂਕ",winner:"ਜੇਤੂ",award_or_title:"ਇਨਾਮ / ਖਿਤਾਬ",headquarters:"ਮੁੱਖ ਦਫ਼ਤਰ",regulator:"ਨਿਯਾਮਕ",state:"ਰਾਜ",mou_parties:"ਪੱਖ",scheme_outlay:"ਖਰਚਾ",beneficiary_count:"ਲਾਭਪਾਤਰੀ / ਕਵਰੇਜ",target_percentage:"ਟੀਚਾ",target_year:"ਟੀਚਾ ਸਾਲ"},
 };
+const FONTS={hi:{alias:"ExamtreeDevanagari",family:"Noto Sans Devanagari",fileName:"NotoSansDevanagari.ttf",size:647144,sha:"e703d5282088c4b7787b1a4c5f057cf18f0998d6"},pa:{alias:"ExamtreeGurmukhi",family:"Noto Sans Gurmukhi",fileName:"NotoSansGurmukhi.ttf",size:268608,sha:"49878eb913077538cc8973dcf4ad7c51f3e5fb22"}} as const;
+const registered=new Set<string>();
 
-type PdfContext = any;
-type RendererState = {
-  doc: InstanceType<typeof PDFDocument>;
-  ctx: PdfContext;
-  y: number;
-  page: number;
-  payload: DailyMasterPackPayload;
-  fontFamily: string;
-};
+export type DailyMasterPackPdfRenderResult={buffer:Buffer;pageCount:number;eventCount:number;contentDate:string;language:DailyMasterPackLanguage;fontFamily:string};
+type Ctx=any;
+type State={doc:InstanceType<typeof PDFDocument>;ctx:Ctx;y:number;page:number;totalPages?:number;payload:DailyMasterPackPayload;fontFamily:string};
+const clean=(v:unknown)=>String(v??"").replace(/\s+/g," ").trim();
+const norm=(v:unknown)=>clean(v).toLocaleLowerCase("en-IN").replace(/[’‘`]/g,"'").replace(/[^\p{L}\p{N}%₹$]+/gu," ").replace(/\s+/g," ").trim();
+const font=(family:string,size:number,weight=400)=>`${weight} ${size}px ${family}${family==="sans-serif"?"":", sans-serif"}`;
+const dateLabel=(d:string,l:DailyMasterPackLanguage)=>new Intl.DateTimeFormat(COPY[l].locale,{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"}).format(new Date(`${d}T00:00:00Z`));
 
-type CmapSubtable = { format: 4 | 12; offset: number; length: number };
-
-const registeredFontPaths = new Set<string>();
-const verifiedFontBuffers = new Map<string, Buffer>();
-
-function clean(value: unknown) {
-  return String(value ?? "").replace(/\s+/g, " ").trim();
+export function dailyMasterPackPdfTakeaway(value:unknown){return clean(value).replace(/^(?:REMEMBER|Remember)\s*[:—-]?\s*/u,"").replace(/^याद रखें\s*[:—-]?\s*/u,"").replace(/^ਯਾਦ ਰੱਖੋ\s*[:—-]?\s*/u,"").trim()}
+const CORE_FACTS=new Set(["official_action","action_subject","acting_entity","launching_entity","initiative"]);
+export function visibleDailyMasterPackPdfFacts(event:Pick<DailyMasterPackEvent,"facts"|"title"|"summary">){
+  const narrative=norm(`${event.title} ${event.summary}`),seen=new Set<string>();
+  return event.facts.filter(f=>{const k=clean(f.key).toLowerCase(),v=clean(f.value),nv=norm(v);if(!k||!nv||CORE_FACTS.has(k)||narrative.includes(nv))return false;const fp=`${k}::${nv}`;if(seen.has(fp))return false;seen.add(fp);return true}).slice(0,6);
 }
+const factLabel=(l:DailyMasterPackLanguage,f:DailyMasterPackEvent["facts"][number])=>FACT_LABELS[l][clean(f.key).toLowerCase()]||clean(f.label)||clean(f.key).replace(/_/g," ").replace(/^./,c=>c.toUpperCase());
 
-export function visibleDailyMasterPackPdfFacts(event: Pick<DailyMasterPackEvent, "facts">) {
-  // CP-049: `official_action` remains an internal verification/authoring fact,
-  // but the learner PDF should state the action naturally in Why in News rather
-  // than repeat a mechanical "Action:" row under Key Facts.
-  return event.facts.filter((fact) => clean(fact.key).toLowerCase() !== "official_action");
+function fontDirs(){return [process.env.CURRENT_AFFAIRS_FONT_DIR,path.join(MODULE_DIR,"current-affairs-fonts"),path.resolve(MODULE_DIR,"../../.runtime-assets/current-affairs-fonts"),path.resolve(process.cwd(),"artifacts/api-server/.runtime-assets/current-affairs-fonts"),path.resolve(process.cwd(),".runtime-assets/current-affairs-fonts")].filter((v):v is string=>Boolean(v))}
+function resolveFont(language:Exclude<DailyMasterPackLanguage,"en">){
+  const d=FONTS[language];
+  for(const dir of fontDirs()){const p=path.join(dir,d.fileName);if(!existsSync(p))continue;const b=readFileSync(p);if(b.length!==d.size)throw new Error(`${d.family} runtime font size mismatch: expected ${d.size}, got ${b.length}`);const sha=createHash("sha1").update(Buffer.from(`blob ${b.length}\0`,"utf8")).update(b).digest("hex");if(sha!==d.sha)throw new Error(`${d.family} runtime font checksum mismatch`);if(!registered.has(p)){if(!GlobalFonts.registerFromPath(p,d.alias))throw new Error(`${d.family} could not be registered with the PDF renderer`);registered.add(p)}return {...d,buffer:b}}
+  throw new Error(`${d.family} runtime font is unavailable. Run the verified Current Affairs font bootstrap before rendering localized PDFs.`);
 }
+function scriptPoints(payload:DailyMasterPackPayload){if(payload.language==="en")return [];const c=COPY[payload.language],text=[c.title,c.header,c.why,c.facts,c.exam,c.source,c.refs,c.footer,...payload.sections.flatMap(s=>[s.label,...s.events.flatMap(e=>[e.title,e.summary,dailyMasterPackPdfTakeaway(e.oneLiner),...visibleDailyMasterPackPdfFacts(e).flatMap(f=>[f.label??"",f.value]),...e.sources.map(x=>x.name)])])].join(" "),set=new Set<number>();for(const ch of Array.from(text)){const n=ch.codePointAt(0)!;if(payload.language==="hi"?((n>=0x0900&&n<=0x097f)||(n>=0xa8e0&&n<=0xa8ff)):(n>=0x0a00&&n<=0x0a7f))set.add(n)}return [...set]}
+type Cmap={format:4|12;offset:number;length:number};
+const u16=(b:Buffer,o:number)=>{if(o<0||o+2>b.length)throw new Error("Invalid font table offset");return b.readUInt16BE(o)};
+const u32=(b:Buffer,o:number)=>{if(o<0||o+4>b.length)throw new Error("Invalid font table offset");return b.readUInt32BE(o)};
+function cmaps(b:Buffer){if(b.length<12)throw new Error("Font file is too small to contain a TrueType offset table");const n=u16(b,4);let co=-1,cl=0;for(let i=0;i<n;i++){const r=12+i*16;if(r+16>b.length)break;if(b.toString("ascii",r,r+4)!=="cmap")continue;co=u32(b,r+8);cl=u32(b,r+12);break}if(co<0||co+cl>b.length)throw new Error("Font cmap table is missing or invalid");const count=u16(b,co+2),out:Cmap[]=[];for(let i=0;i<count;i++){const r=co+4+i*8;if(r+8>co+cl)break;const o=co+u32(b,r+4);if(o+2>b.length)continue;const f=u16(b,o);if(f===12){const l=u32(b,o+4);if(l>=16&&o+l<=b.length)out.push({format:12,offset:o,length:l})}else if(f===4){const l=u16(b,o+2);if(l>=16&&o+l<=b.length)out.push({format:4,offset:o,length:l})}}return out.sort((a,b)=>b.format-a.format)}
+function f12(b:Buffer,s:Cmap,cp:number){const n=u32(b,s.offset+12);let lo=0,hi=n-1;while(lo<=hi){const m=Math.floor((lo+hi)/2),g=s.offset+16+m*12;if(g+12>s.offset+s.length)return false;const a=u32(b,g),z=u32(b,g+4);if(cp<a)hi=m-1;else if(cp>z)lo=m+1;else return u32(b,g+8)+(cp-a)!==0}return false}
+function f4(b:Buffer,s:Cmap,cp:number){if(cp>0xffff)return false;const n=u16(b,s.offset+6)/2,e=s.offset+14,st=e+n*2+2,d=st+n*2,ro=d+n*2;for(let i=0;i<n;i++){const end=u16(b,e+i*2);if(cp>end)continue;const start=u16(b,st+i*2);if(cp<start)return false;const delta=u16(b,d+i*2),ra=ro+i*2,r=u16(b,ra);if(r===0)return((cp+delta)&0xffff)!==0;const ga=ra+r+(cp-start)*2;if(ga+2>s.offset+s.length)return false;const glyph=u16(b,ga);return glyph!==0&&((glyph+delta)&0xffff)!==0}return false}
+const supports=(b:Buffer,cp:number)=>cmaps(b).some(s=>s.format===12?f12(b,s,cp):f4(b,s,cp));
+export function assertDailyMasterPackPdfFontCoverage(payload:DailyMasterPackPayload){if(payload.language==="en")return{language:"en" as const,fontFamily:"sans-serif",checkedCodePoints:0};const d=resolveFont(payload.language),points=scriptPoints(payload),missing=points.filter(cp=>!supports(d.buffer,cp));if(missing.length)throw new Error(`${d.family} is missing required ${payload.language} glyphs: ${missing.slice(0,12).map(cp=>`U+${cp.toString(16).toUpperCase().padStart(4,"0")}`).join(", ")}`);return{language:payload.language,fontFamily:d.alias,checkedCodePoints:points.length}}
 
-function dateLabel(date: string, language: DailyMasterPackLanguage) {
-  return new Intl.DateTimeFormat(PDF_COPY[language].locale, {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(`${date}T00:00:00Z`));
-}
+function wrap(ctx:Ctx,v:string,max:number){const words=clean(v).split(" ").filter(Boolean),lines:string[]=[];let line="";for(const word of words){const next=line?`${line} ${word}`:word;if(!line||ctx.measureText(next).width<=max)line=next;else{lines.push(line);line=word}}if(line)lines.push(line);return lines}
+function header(s:State){const c=COPY[s.payload.language],x=s.ctx;x.save();x.fillStyle=MUTED;x.font=font(s.fontFamily,8.5,600);x.fillText(c.header,MX,25);x.textAlign="right";x.font=font(s.fontFamily,8.5);x.fillText(dateLabel(s.payload.contentDate,s.payload.language),W-MX,25);x.strokeStyle=RULE;x.lineWidth=.7;x.beginPath();x.moveTo(MX,33);x.lineTo(W-MX,33);x.stroke();x.restore()}
+function footer(s:State){const c=COPY[s.payload.language],x=s.ctx;x.save();x.strokeStyle=RULE;x.lineWidth=.6;x.beginPath();x.moveTo(MX,H-33);x.lineTo(W-MX,H-33);x.stroke();x.fillStyle=MUTED;x.font=font(s.fontFamily,8);x.fillText(`${c.footer}  •  ${dateLabel(s.payload.contentDate,s.payload.language)}`,MX,H-18);x.textAlign="right";x.fillText(s.totalPages?`Page ${s.page} of ${s.totalPages}`:`Page ${s.page}`,W-MX,H-18);x.restore()}
+function begin(s:Omit<State,"ctx"|"y"|"page">&{page?:number}){const page=(s.page??0)+1,ctx=s.doc.beginPage(W,H),next:State={...s,ctx,y:MT,page};header(next);return next}
+function end(s:State){footer(s);s.doc.endPage()}
+function space(s:State,n:number){if(s.y+n<=H-MB)return s;end(s);return begin({doc:s.doc,payload:s.payload,fontFamily:s.fontFamily,page:s.page,totalPages:s.totalPages})}
+function text(s:State,v:string,o:{size?:number;weight?:number;line?:number;indent?:number;max?:number;gap?:number;color?:string}={}){const size=o.size??10.5,lh=o.line??15,indent=o.indent??0,f=font(s.fontFamily,size,o.weight??400);s.ctx.font=f;for(const line of wrap(s.ctx,v,o.max??CW-indent)){s=space(s,lh+2);s.ctx.font=f;s.ctx.fillStyle=o.color??INK;s.ctx.fillText(line,MX+indent,s.y);s.y+=lh}s.y+=o.gap??0;return s}
+const label=(s:State,v:string)=>text(s,v,{size:8.2,weight:700,line:11,gap:3,color:ACCENT});
+function rule(s:State,b=5,a=9){s=space(s,b+a+2);s.y+=b;const x=s.ctx;x.save();x.strokeStyle=RULE;x.lineWidth=.55;x.beginPath();x.moveTo(MX,s.y);x.lineTo(W-MX,s.y);x.stroke();x.restore();s.y+=a;return s}
+function band(s:State,v:string,count?:number){s=space(s,46);const x=s.ctx,c=COPY[s.payload.language],h=30;x.save();x.fillStyle=SOFT;x.fillRect(MX,s.y,CW,h);x.fillStyle=ACCENT;x.fillRect(MX,s.y,4,h);x.font=font(s.fontFamily,12.5,700);x.fillText(clean(v),MX+13,s.y+19);if(typeof count==="number"){x.textAlign="right";x.fillStyle=MUTED;x.font=font(s.fontFamily,8.5,500);x.fillText(c.updates(count),W-MX-11,s.y+19)}x.restore();s.y+=h+13;return s}
+function title(s:State,v:string,n:number){const tx=MX+34,tw=CW-34,f=font(s.fontFamily,12.7,700);s.ctx.font=f;const lines=wrap(s.ctx,v,tw),lh=16.5;s=space(s,Math.max(25,lines.length*lh+4));const x=s.ctx;x.save();x.fillStyle=ACCENT;x.font=font(s.fontFamily,9.5,700);x.fillText(String(n).padStart(2,"0"),MX,s.y+1);x.strokeStyle=ACCENT;x.lineWidth=1.1;x.beginPath();x.moveTo(MX,s.y+7);x.lineTo(MX+21,s.y+7);x.stroke();x.fillStyle=INK;x.font=f;let y=s.y;for(const line of lines){x.fillText(line,tx,y);y+=lh}x.restore();s.y=y+7;return s}
+function fact(s:State,k:string,v:string){const str=`${clean(k)}: ${clean(v)}`,lh=14;s.ctx.font=font(s.fontFamily,10.2);const lines=wrap(s.ctx,str,CW-15);s=space(s,lines.length*lh+3);const x=s.ctx;x.save();x.fillStyle=ACCENT;x.beginPath();x.arc(MX+4,s.y-3.5,1.8,0,Math.PI*2);x.fill();x.fillStyle=INK;x.font=font(s.fontFamily,10.2);for(const line of lines){x.fillText(line,MX+15,s.y);s.y+=lh}x.restore();s.y+=1;return s}
+function takeaway(s:State,v:string){const str=dailyMasterPackPdfTakeaway(v);if(!str)return s;const px=12,py=8,lh=14;s.ctx.font=font(s.fontFamily,10.2,600);const lines=wrap(s.ctx,str,CW-px*2-4),h=Math.max(30,py*2+lines.length*lh-2);s=space(s,h+8);const x=s.ctx;x.save();x.fillStyle=SOFT;x.fillRect(MX,s.y,CW,h);x.fillStyle=ACCENT;x.fillRect(MX,s.y,3,h);x.fillStyle=INK;x.font=font(s.fontFamily,10.2,600);let y=s.y+py+9;for(const line of lines){x.fillText(line,MX+px,y);y+=lh}x.restore();s.y+=h+7;return s}
+function meta(s:State,e:DailyMasterPackEvent){const c=COPY[s.payload.language],exams=e.examFamilies.map(x=>clean(x).toUpperCase()).filter(Boolean).join("  •  "),src=e.sources.find(x=>x.primary)??e.sources[0];if(!exams&&!src)return s;s=space(s,30);if(exams){s.ctx.fillStyle=MUTED;s.ctx.font=font(s.fontFamily,8.6,600);s.ctx.fillText(`${c.exam}: ${exams}`,MX,s.y);s.y+=12}if(src)s=text(s,`${c.source}: ${clean(src.name)}`,{size:8.5,line:11.5,color:MUTED});return s}
+function opening(s:State,e:DailyMasterPackEvent){s.ctx.font=font(s.fontFamily,12.7,700);const t=wrap(s.ctx,e.title,CW-34).length||1;s.ctx.font=font(s.fontFamily,10.5);const m=clean(e.summary)?wrap(s.ctx,e.summary,CW).length:0;return Math.max(78,t*16.5+Math.min(m,2)*15+38)}
+function event(s:State,e:DailyMasterPackEvent,n:number){const c=COPY[s.payload.language];s=space(s,opening(s,e));s=title(s,e.title,n);if(clean(e.summary)){s=label(s,c.why);s=text(s,e.summary,{gap:8})}const facts=visibleDailyMasterPackPdfFacts(e);if(facts.length){s=space(s,34);s=label(s,c.facts);for(const f of facts)s=fact(s,factLabel(s.payload.language,f),f.value);s.y+=3}s=takeaway(s,e.oneLiner);s=meta(s,e);return rule(s,7,12)}
+function refs(payload:DailyMasterPackPayload){const rows:Array<{n:number;t:string;name:string;url:string}>=[],c=COPY[payload.language];let n=1;for(const sec of payload.sections){for(const e of sec.events){const seen=new Set<string>();for(const src of e.sources.slice(0,3)){const url=clean(src.url),name=clean(src.name);if(!url||!name||seen.has(url))continue;seen.add(url);rows.push({n,t:src.primary?c.primary:c.supporting,name,url})}n++}}return rows}
+function referenceBlock(s:State){const rows=refs(s.payload);if(!rows.length)return s;s=space(s,65);s.y+=2;s=band(s,COPY[s.payload.language].refs);for(const r of rows)s=text(s,`${String(r.n).padStart(2,"0")}. ${r.t}: ${r.name} - ${r.url}`,{size:8.2,line:11.5,gap:3,color:MUTED});return s}
 
-function gitBlobSha1(buffer: Buffer) {
-  return createHash("sha1")
-    .update(Buffer.from(`blob ${buffer.length}\0`, "utf8"))
-    .update(buffer)
-    .digest("hex");
-}
-
-function fontDirectoryCandidates() {
-  return [
-    process.env.CURRENT_AFFAIRS_FONT_DIR,
-    path.join(MODULE_DIR, "current-affairs-fonts"),
-    path.resolve(MODULE_DIR, "../../.runtime-assets/current-affairs-fonts"),
-    path.resolve(process.cwd(), "artifacts/api-server/.runtime-assets/current-affairs-fonts"),
-    path.resolve(process.cwd(), ".runtime-assets/current-affairs-fonts"),
-  ].filter((item): item is string => Boolean(item));
-}
-
-function resolveLanguageFont(language: Exclude<DailyMasterPackLanguage, "en">) {
-  const descriptor = LANGUAGE_FONTS[language];
-  for (const directory of fontDirectoryCandidates()) {
-    const candidate = path.join(directory, descriptor.fileName);
-    if (!existsSync(candidate)) continue;
-    let buffer = verifiedFontBuffers.get(candidate);
-    if (!buffer) {
-      buffer = readFileSync(candidate);
-      if (buffer.length !== descriptor.expectedSize) {
-        throw new Error(`${descriptor.family} runtime font size mismatch: expected ${descriptor.expectedSize}, got ${buffer.length}`);
-      }
-      const actualGitBlobSha1 = gitBlobSha1(buffer);
-      if (actualGitBlobSha1 !== descriptor.expectedGitBlobSha1) {
-        throw new Error(`${descriptor.family} runtime font checksum mismatch`);
-      }
-      verifiedFontBuffers.set(candidate, buffer);
-    }
-    if (!registeredFontPaths.has(candidate)) {
-      const registered = GlobalFonts.registerFromPath(candidate, descriptor.alias);
-      if (!registered) throw new Error(`${descriptor.family} could not be registered with the PDF renderer`);
-      registeredFontPaths.add(candidate);
-    }
-    return { ...descriptor, path: candidate, buffer };
-  }
-  throw new Error(`${descriptor.family} runtime font is unavailable. Run the verified Current Affairs font bootstrap before rendering localized PDFs.`);
-}
-
-function readUInt16(buffer: Buffer, offset: number) {
-  if (offset < 0 || offset + 2 > buffer.length) throw new Error("Invalid font table offset");
-  return buffer.readUInt16BE(offset);
-}
-
-function readUInt32(buffer: Buffer, offset: number) {
-  if (offset < 0 || offset + 4 > buffer.length) throw new Error("Invalid font table offset");
-  return buffer.readUInt32BE(offset);
-}
-
-function cmapSubtables(buffer: Buffer): CmapSubtable[] {
-  if (buffer.length < 12) throw new Error("Font file is too small to contain a TrueType offset table");
-  const numTables = readUInt16(buffer, 4);
-  let cmapOffset = -1;
-  let cmapLength = 0;
-  for (let index = 0; index < numTables; index += 1) {
-    const record = 12 + index * 16;
-    if (record + 16 > buffer.length) break;
-    const tag = buffer.toString("ascii", record, record + 4);
-    if (tag !== "cmap") continue;
-    cmapOffset = readUInt32(buffer, record + 8);
-    cmapLength = readUInt32(buffer, record + 12);
-    break;
-  }
-  if (cmapOffset < 0 || cmapOffset + cmapLength > buffer.length) throw new Error("Font cmap table is missing or invalid");
-  const numSubtables = readUInt16(buffer, cmapOffset + 2);
-  const result: CmapSubtable[] = [];
-  for (let index = 0; index < numSubtables; index += 1) {
-    const record = cmapOffset + 4 + index * 8;
-    if (record + 8 > cmapOffset + cmapLength) break;
-    const relativeOffset = readUInt32(buffer, record + 4);
-    const offset = cmapOffset + relativeOffset;
-    if (offset + 2 > buffer.length) continue;
-    const format = readUInt16(buffer, offset);
-    if (format === 12) {
-      const length = readUInt32(buffer, offset + 4);
-      if (length >= 16 && offset + length <= buffer.length) result.push({ format: 12, offset, length });
-    } else if (format === 4) {
-      const length = readUInt16(buffer, offset + 2);
-      if (length >= 16 && offset + length <= buffer.length) result.push({ format: 4, offset, length });
-    }
-  }
-  return result.sort((a, b) => b.format - a.format);
-}
-
-function format12Supports(buffer: Buffer, subtable: CmapSubtable, codePoint: number) {
-  const groups = readUInt32(buffer, subtable.offset + 12);
-  let low = 0;
-  let high = groups - 1;
-  while (low <= high) {
-    const middle = Math.floor((low + high) / 2);
-    const group = subtable.offset + 16 + middle * 12;
-    if (group + 12 > subtable.offset + subtable.length) return false;
-    const start = readUInt32(buffer, group);
-    const end = readUInt32(buffer, group + 4);
-    if (codePoint < start) high = middle - 1;
-    else if (codePoint > end) low = middle + 1;
-    else return readUInt32(buffer, group + 8) + (codePoint - start) !== 0;
-  }
-  return false;
-}
-
-function format4Supports(buffer: Buffer, subtable: CmapSubtable, codePoint: number) {
-  if (codePoint > 0xffff) return false;
-  const segCount = readUInt16(buffer, subtable.offset + 6) / 2;
-  const endCodeOffset = subtable.offset + 14;
-  const startCodeOffset = endCodeOffset + segCount * 2 + 2;
-  const idDeltaOffset = startCodeOffset + segCount * 2;
-  const idRangeOffsetOffset = idDeltaOffset + segCount * 2;
-  for (let index = 0; index < segCount; index += 1) {
-    const end = readUInt16(buffer, endCodeOffset + index * 2);
-    if (codePoint > end) continue;
-    const start = readUInt16(buffer, startCodeOffset + index * 2);
-    if (codePoint < start) return false;
-    const delta = readUInt16(buffer, idDeltaOffset + index * 2);
-    const rangeOffsetAddress = idRangeOffsetOffset + index * 2;
-    const rangeOffset = readUInt16(buffer, rangeOffsetAddress);
-    if (rangeOffset === 0) return ((codePoint + delta) & 0xffff) !== 0;
-    const glyphAddress = rangeOffsetAddress + rangeOffset + (codePoint - start) * 2;
-    if (glyphAddress + 2 > subtable.offset + subtable.length) return false;
-    const glyph = readUInt16(buffer, glyphAddress);
-    return glyph !== 0 && ((glyph + delta) & 0xffff) !== 0;
-  }
-  return false;
-}
-
-function fontSupportsCodePoint(buffer: Buffer, codePoint: number) {
-  for (const subtable of cmapSubtables(buffer)) {
-    if (subtable.format === 12 && format12Supports(buffer, subtable, codePoint)) return true;
-    if (subtable.format === 4 && format4Supports(buffer, subtable, codePoint)) return true;
-  }
-  return false;
-}
-
-function relevantScriptCodePoints(payload: DailyMasterPackPayload) {
-  if (payload.language === "en") return [];
-  const text = [
-    PDF_COPY[payload.language].title,
-    PDF_COPY[payload.language].header,
-    PDF_COPY[payload.language].why,
-    PDF_COPY[payload.language].facts,
-    PDF_COPY[payload.language].remember,
-    PDF_COPY[payload.language].exam,
-    PDF_COPY[payload.language].evidence,
-    PDF_COPY[payload.language].footer,
-    PDF_COPY[payload.language].provenance,
-    ...payload.sections.flatMap((section) => [
-      section.label,
-      ...section.events.flatMap((event) => [
-        event.title,
-        event.summary,
-        event.oneLiner,
-        ...visibleDailyMasterPackPdfFacts(event).flatMap((fact) => [fact.label ?? "", fact.value]),
-        ...event.sources.map((source) => source.name),
-      ]),
-    ]),
-  ].join(" ");
-  const unique = new Set<number>();
-  for (const character of Array.from(text)) {
-    const codePoint = character.codePointAt(0)!;
-    const relevant = payload.language === "hi"
-      ? (codePoint >= 0x0900 && codePoint <= 0x097f) || (codePoint >= 0xa8e0 && codePoint <= 0xa8ff)
-      : codePoint >= 0x0a00 && codePoint <= 0x0a7f;
-    if (relevant) unique.add(codePoint);
-  }
-  return [...unique].sort((a, b) => a - b);
-}
-
-export function assertDailyMasterPackPdfFontCoverage(payload: DailyMasterPackPayload) {
-  if (payload.language === "en") return { language: "en" as const, fontFamily: "sans-serif", checkedCodePoints: 0 };
-  const font = resolveLanguageFont(payload.language);
-  const required = relevantScriptCodePoints(payload);
-  const missing = required.filter((codePoint) => !fontSupportsCodePoint(font.buffer, codePoint));
-  if (missing.length > 0) {
-    throw new Error(`${font.family} is missing required ${payload.language} glyphs: ${missing.slice(0, 12).map((codePoint) => `U+${codePoint.toString(16).toUpperCase().padStart(4, "0")}`).join(", ")}`);
-  }
-  return { language: payload.language, fontFamily: font.alias, checkedCodePoints: required.length };
-}
-
-function fontCss(fontFamily: string, size: number, weight = 400) {
-  return `${weight} ${size}px ${fontFamily}${fontFamily === "sans-serif" ? "" : ", sans-serif"}`;
-}
-
-function wrapText(ctx: PdfContext, value: string, maxWidth: number): string[] {
-  const text = clean(value);
-  if (!text) return [];
-  const words = text.split(" ");
-  const lines: string[] = [];
-  let line = "";
-  for (const word of words) {
-    const candidate = line ? `${line} ${word}` : word;
-    if (!line || ctx.measureText(candidate).width <= maxWidth) {
-      line = candidate;
-      continue;
-    }
-    lines.push(line);
-    line = word;
-  }
-  if (line) lines.push(line);
-  return lines;
-}
-
-function drawPageHeader(state: RendererState) {
-  const { ctx, payload, page, fontFamily } = state;
-  const copy = PDF_COPY[payload.language];
-  ctx.save();
-  ctx.fillStyle = "#111111";
-  ctx.font = fontCss(fontFamily, 9, 600);
-  ctx.fillText(copy.header, MARGIN_X, 25);
-  ctx.font = fontCss(fontFamily, 9);
-  ctx.textAlign = "right";
-  ctx.fillText(`${dateLabel(payload.contentDate, payload.language)}  |  ${page}`, A4_WIDTH - MARGIN_X, 25);
-  ctx.textAlign = "left";
-  ctx.strokeStyle = "#c7c7c7";
-  ctx.lineWidth = 0.7;
-  ctx.beginPath();
-  ctx.moveTo(MARGIN_X, 32);
-  ctx.lineTo(A4_WIDTH - MARGIN_X, 32);
-  ctx.stroke();
-  ctx.restore();
-}
-
-function drawPageFooter(state: RendererState) {
-  const { ctx, payload, fontFamily } = state;
-  ctx.save();
-  ctx.strokeStyle = "#d0d0d0";
-  ctx.lineWidth = 0.6;
-  ctx.beginPath();
-  ctx.moveTo(MARGIN_X, A4_HEIGHT - 32);
-  ctx.lineTo(A4_WIDTH - MARGIN_X, A4_HEIGHT - 32);
-  ctx.stroke();
-  ctx.fillStyle = "#555555";
-  ctx.font = fontCss(fontFamily, 8);
-  ctx.fillText(PDF_COPY[payload.language].footer, MARGIN_X, A4_HEIGHT - 18);
-  ctx.restore();
-}
-
-function beginPage(state: Omit<RendererState, "ctx" | "y" | "page"> & { page?: number }): RendererState {
-  const page = (state.page ?? 0) + 1;
-  const ctx = state.doc.beginPage(A4_WIDTH, A4_HEIGHT);
-  const next: RendererState = { ...state, ctx, y: MARGIN_TOP, page };
-  drawPageHeader(next);
-  return next;
-}
-
-function endPage(state: RendererState) {
-  drawPageFooter(state);
-  state.doc.endPage();
-}
-
-function ensureSpace(state: RendererState, required: number): RendererState {
-  if (state.y + required <= A4_HEIGHT - MARGIN_BOTTOM) return state;
-  endPage(state);
-  return beginPage({ doc: state.doc, payload: state.payload, fontFamily: state.fontFamily, page: state.page });
-}
-
-function drawWrapped(state: RendererState, value: string, options: {
-  size?: number;
-  weight?: number;
-  lineHeight?: number;
-  indent?: number;
-  maxWidth?: number;
-  gapAfter?: number;
-  fillStyle?: string;
-} = {}): RendererState {
-  const size = options.size ?? 11;
-  const weight = options.weight ?? 400;
-  const lineHeight = options.lineHeight ?? BODY_LINE;
-  const indent = options.indent ?? 0;
-  const maxWidth = options.maxWidth ?? CONTENT_WIDTH - indent;
-  const font = fontCss(state.fontFamily, size, weight);
-  state.ctx.font = font;
-  const lines = wrapText(state.ctx, value, maxWidth);
-  if (lines.length === 0) return state;
-  for (const line of lines) {
-    state = ensureSpace(state, lineHeight + 2);
-    state.ctx.font = font;
-    state.ctx.fillStyle = options.fillStyle ?? "#202020";
-    state.ctx.fillText(line, MARGIN_X + indent, state.y);
-    state.y += lineHeight;
-  }
-  state.y += options.gapAfter ?? 0;
-  return state;
-}
-
-function drawRule(state: RendererState, gapBefore = 4, gapAfter = 8): RendererState {
-  state = ensureSpace(state, gapBefore + gapAfter + 2);
-  state.y += gapBefore;
-  state.ctx.save();
-  state.ctx.strokeStyle = "#d4d4d4";
-  state.ctx.lineWidth = 0.6;
-  state.ctx.beginPath();
-  state.ctx.moveTo(MARGIN_X, state.y);
-  state.ctx.lineTo(A4_WIDTH - MARGIN_X, state.y);
-  state.ctx.stroke();
-  state.ctx.restore();
-  state.y += gapAfter;
-  return state;
-}
-
-function drawLabel(state: RendererState, label: string): RendererState {
-  return drawWrapped(state, label, { size: 9, weight: 600, lineHeight: 12, gapAfter: 2, fillStyle: "#333333" });
-}
-
-function drawEvent(state: RendererState, event: DailyMasterPackEvent, ordinal: number): RendererState {
-  const copy = PDF_COPY[state.payload.language];
-  state = ensureSpace(state, 54);
-  state = drawWrapped(state, `${ordinal}. ${event.title}`, { size: 13, weight: 600, lineHeight: 17, gapAfter: 6, fillStyle: "#111111" });
-
-  if (clean(event.summary)) {
-    state = drawLabel(state, copy.why);
-    state = drawWrapped(state, event.summary, { gapAfter: 7 });
-  }
-
-  const visibleFacts = visibleDailyMasterPackPdfFacts(event);
-  if (visibleFacts.length > 0) {
-    state = drawLabel(state, copy.facts);
-    for (const fact of visibleFacts.slice(0, 12)) {
-      const key = clean(fact.label) || clean(fact.key).replace(/_/g, " ");
-      const value = clean(fact.value);
-      if (!key || !value) continue;
-      state = drawWrapped(state, `• ${key}: ${value}`, { indent: 8, maxWidth: CONTENT_WIDTH - 8, gapAfter: 2 });
-    }
-    state.y += 3;
-  }
-
-  if (clean(event.oneLiner)) {
-    state = drawLabel(state, copy.remember);
-    state = drawWrapped(state, event.oneLiner, { size: 10.5, weight: 600, lineHeight: 14, gapAfter: 7 });
-  }
-
-  if (event.examFamilies.length > 0) {
-    state = drawWrapped(state, `${copy.exam}: ${event.examFamilies.map((item) => clean(item).toUpperCase()).filter(Boolean).join(" | ")}`, { size: 9, lineHeight: SMALL_LINE, gapAfter: 5, fillStyle: "#444444" });
-  }
-
-  if (event.sources.length > 0) {
-    state = drawLabel(state, copy.evidence);
-    for (const source of event.sources.slice(0, 4)) {
-      const name = clean(source.name);
-      const url = clean(source.url);
-      if (!name || !url) continue;
-      state = drawWrapped(state, `${source.primary ? copy.primary : copy.supporting}: ${name} - ${url}`, { size: 9, lineHeight: SMALL_LINE, indent: 8, maxWidth: CONTENT_WIDTH - 8, gapAfter: 2, fillStyle: "#4a4a4a" });
-    }
-  }
-
-  return drawRule(state, 5, 10);
-}
-
-export function assertDailyMasterPackPdfPayload(value: unknown): DailyMasterPackPayload {
-  if (!value || typeof value !== "object") throw new Error("Daily master pack payload is missing");
-  const payload = value as Partial<DailyMasterPackPayload>;
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(payload.contentDate ?? ""))) {
-    throw new Error("Daily master pack payload has an invalid content date");
-  }
-  if (!(["en", "hi", "pa"] as const).includes(payload.language as DailyMasterPackLanguage)) {
-    throw new Error("Daily master pack PDF language must be en, hi or pa");
-  }
-  if (!Array.isArray(payload.sections)) throw new Error("Daily master pack payload has no sections");
-  return payload as DailyMasterPackPayload;
-}
-
-export function renderDailyMasterPackPdf(input: unknown): DailyMasterPackPdfRenderResult {
-  const payload = assertDailyMasterPackPdfPayload(input);
-  const coverage = assertDailyMasterPackPdfFontCoverage(payload);
-  const fontFamily = coverage.fontFamily;
-  const copy = PDF_COPY[payload.language];
-  const doc = new PDFDocument({
-    title: `${copy.title} - ${payload.contentDate}`,
-    author: "Examtree",
-    subject: "Daily Current Affairs",
-    creator: "Examtree Current Affairs Studio",
-  });
-  let state = beginPage({ doc, payload, fontFamily });
-
-  state = drawWrapped(state, copy.title, { size: 22, weight: 700, lineHeight: 27, gapAfter: 4, fillStyle: "#111111" });
-  state = drawWrapped(state, dateLabel(payload.contentDate, payload.language), { size: 14, weight: 600, lineHeight: 18, gapAfter: 5 });
-  state = drawWrapped(state, copy.count(payload.eventCount, payload.categoryCount), { size: 10, lineHeight: 14, gapAfter: 12, fillStyle: "#444444" });
-  state = drawRule(state, 0, 12);
-
-  let ordinal = 1;
-  for (const section of payload.sections) {
-    const events = Array.isArray(section.events) ? section.events : [];
-    if (events.length === 0) continue;
-    state = ensureSpace(state, 42);
-    state = drawWrapped(state, clean(section.label), { size: 14, weight: 700, lineHeight: 18, gapAfter: 9, fillStyle: "#111111" });
-    for (const event of events) {
-      state = drawEvent(state, event, ordinal);
-      ordinal += 1;
-    }
-  }
-
-  state = drawWrapped(state, copy.provenance, { size: 8.5, lineHeight: 12, gapAfter: 4, fillStyle: "#555555" });
-  endPage(state);
-  const buffer = doc.close();
-
-  return {
-    buffer,
-    pageCount: state.page,
-    eventCount: payload.eventCount,
-    contentDate: payload.contentDate,
-    language: payload.language,
-    fontFamily,
-  };
-}
+export function assertDailyMasterPackPdfPayload(value:unknown):DailyMasterPackPayload{if(!value||typeof value!=="object")throw new Error("Daily master pack payload is missing");const p=value as Partial<DailyMasterPackPayload>;if(!/^\d{4}-\d{2}-\d{2}$/.test(String(p.contentDate??"")))throw new Error("Daily master pack payload has an invalid content date");if(!(["en","hi","pa"] as const).includes(p.language as DailyMasterPackLanguage))throw new Error("Daily master pack PDF language must be en, hi or pa");if(!Array.isArray(p.sections))throw new Error("Daily master pack payload has no sections");return p as DailyMasterPackPayload}
+function renderDoc(payload:DailyMasterPackPayload,fontFamily:string,totalPages?:number){const c=COPY[payload.language],doc=new PDFDocument({title:`Examtree ${c.title} - ${payload.contentDate}`,author:"Examtree",subject:"Daily Current Affairs",creator:"Examtree Current Affairs Studio"});let s=begin({doc,payload,fontFamily,totalPages});s=text(s,"EXAMTREE",{size:9,weight:700,line:12,gap:4,color:ACCENT});s=text(s,c.title,{size:23,weight:700,line:28,gap:4,color:INK});s=text(s,dateLabel(payload.contentDate,payload.language),{size:13.5,weight:600,line:18,gap:4});s=text(s,c.count(payload.eventCount,payload.categoryCount),{size:9.7,line:13,gap:13,color:MUTED});s=rule(s,0,14);let n=1;for(const sec of payload.sections){const events=Array.isArray(sec.events)?sec.events:[];if(!events.length)continue;s=band(s,clean(sec.label),events.length);for(const e of events)s=event(s,e,n++)}s=referenceBlock(s);end(s);return{buffer:doc.close(),pageCount:s.page}}
+export function renderDailyMasterPackPdf(input:unknown):DailyMasterPackPdfRenderResult{const payload=assertDailyMasterPackPdfPayload(input),coverage=assertDailyMasterPackPdfFontCoverage(payload),first=renderDoc(payload,coverage.fontFamily),final=renderDoc(payload,coverage.fontFamily,first.pageCount);return{buffer:final.buffer,pageCount:final.pageCount,eventCount:payload.eventCount,contentDate:payload.contentDate,language:payload.language,fontFamily:coverage.fontFamily}}
