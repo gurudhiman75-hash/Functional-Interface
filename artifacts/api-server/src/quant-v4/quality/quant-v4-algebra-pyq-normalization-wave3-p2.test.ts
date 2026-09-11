@@ -52,14 +52,13 @@ assert.equal(QUANT_V4_ALGEBRA_WAVE3_NON_MIGRATED_SOURCE_IDS.length, 17);
 assert.ok(QUANT_V4_ALGEBRA_WAVE3_NON_MIGRATED_SOURCE_IDS.includes("ALG-HR1-S09"));
 assert.ok(QUANT_V4_ALGEBRA_WAVE3_NON_MIGRATED_SOURCE_IDS.includes("ALG-FRZ-S13"));
 
-// Independent exact checks for source-stated algebraic structures.
 for (const value of [-7, -2, 0, 3, 11]) {
   assert.equal(16 * value * value + 40 * value + 25, (4 * value + 5) ** 2, "HR1-S02 perfect-square identity check failed.");
 }
 assert.equal(40 * 12, 30 * 16, "HR1-S04 x/y coefficient ratios should match.");
 assert.notEqual(40 * 340, 30 * 170, "HR1-S04 constant ratio must differ for the no-solution state.");
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 47);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 53);
 const alg001 = listRegisteredCountablePyqObservations({ packageId: "ALG-001" });
 const alg002 = listRegisteredCountablePyqObservations({ packageId: "ALG-002" });
 assert.equal(alg001.length, 11);
@@ -70,7 +69,6 @@ assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").len
 assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CHSL").length, 3);
 assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_II").length, 2);
 
-// The evidence set is deeper, but still Algebra-only; it cannot establish whole-section Quant frequency.
 const cgl = buildQuantV4PyqFrequencyProfile({
   examId: "SSC_CGL_TIER_I",
   observations: algebraAll,
