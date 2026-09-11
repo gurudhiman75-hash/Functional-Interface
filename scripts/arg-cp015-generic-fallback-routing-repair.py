@@ -17,17 +17,36 @@ if "function genericFallbackReason(" not in source:
         raise SystemExit(f"generic fallback helper: expected exactly one anchor, found {count}")
     source = source.replace(helper_anchor, helper + helper_anchor, 1)
 
+english_fallback_anchor = '  return englishFallback(argument);\n}'
+
 # The V8 plain-language script historically inserted several English rules as one
 # block. Make the renewal family independently idempotent so a pre-existing rule
 # cannot accidentally suppress this one.
 renewal_reason = 'A reminder may influence some users, but it does not show that nobody would choose to continue the plan; informed choice can still be a legitimate objective.'
 renewal_rule = f'  if (/nobody will ever choose (?:a|an) automatically renewed plan/i.test(argument)) return "{renewal_reason}";\n'
-english_fallback_anchor = '  return englishFallback(argument);\n}'
 if renewal_reason not in source:
     count = source.count(english_fallback_anchor)
     if count != 1:
         raise SystemExit(f"renewal-specific reason: expected exactly one English fallback anchor, found {count}")
     source = source.replace(english_fallback_anchor, renewal_rule + english_fallback_anchor, 1)
+
+# QL004 residual weak families exposed only after final editorial quality was wired
+# into the actual CP015 generator path. Keep these reasons direct and exam-like.
+ql004_business_reason = 'A temporary traffic restriction may inconvenience some businesses, but it does not show that most nearby businesses will permanently close.'
+ql004_business_rule = f'  if (/temporary restriction on heavy vehicles/i.test(argument) && /most nearby business(?:es)? permanently/i.test(argument)) return "{ql004_business_reason}";\n'
+if ql004_business_reason not in source:
+    count = source.count(english_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL004 business-closure reason: expected exactly one English fallback anchor, found {count}")
+    source = source.replace(english_fallback_anchor, ql004_business_rule + english_fallback_anchor, 1)
+
+ql004_legacy_reason = 'A long-standing traffic pattern is not automatically fair or untouchable; the argument gives no reason why a limited change would itself be unfair.'
+ql004_legacy_rule = f'  if (/existing traffic pattern has been in place for years/i.test(argument) && /changing it would readily be unfair/i.test(argument)) return "{ql004_legacy_reason}";\n'
+if ql004_legacy_reason not in source:
+    count = source.count(english_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL004 long-standing-pattern reason: expected exactly one English fallback anchor, found {count}")
+    source = source.replace(english_fallback_anchor, ql004_legacy_rule + english_fallback_anchor, 1)
 
 # The finalizer already runs every argument through repairSurface before reason
 # selection. Assert that V8's English article repair is present so the repaired
