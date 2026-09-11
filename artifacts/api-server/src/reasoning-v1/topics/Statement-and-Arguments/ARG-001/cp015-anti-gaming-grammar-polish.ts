@@ -5,7 +5,7 @@ import { finalizeArgCp015EditorialQuality } from "./cp015-final-editorial-qualit
 import { polishArgCp015HumanAuditSurface } from "./cp015-human-audit-polish.ts";
 import { preRepairArgCp015HumanAuditSurface } from "./cp015-human-audit-pre-repair.ts";
 
-export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V10" as const;
+export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V11" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -116,9 +116,11 @@ function polishPunjabi(value: string): string {
     .replace(/([^।.!?]{1,80}) ਦੀ ਸਮਰੱਥਾ ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ/g, "$1 ਦੀ ਸਮਰੱਥਾ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ")
     .replace(/ਨਾਲੋਂ ਚੰਗੇ ([^।.!?]{1,100}) ਬਿਹਤਰ ਮੰਨੇ ਜਾਣੇ ਚਾਹੀਦੇ ਹਨ/g, "ਨਾਲੋਂ $1 ਲਈ ਬਿਹਤਰ ਮੰਨੇ ਜਾਣੇ ਚਾਹੀਦੇ ਹਨ")
     .replace(/ਲੋਕਾਂ ਜੋ/g, "ਲੋਕ ਜੋ")
+    .replace(/ਜ਼ਿਆਦਾਤਰ ਨਾਗਰਿਕ ਕੋਲ/g, "ਜ਼ਿਆਦਾਤਰ ਨਾਗਰਿਕਾਂ ਕੋਲ")
+    .replace(/([^,।!?]+?) ਵਰਤਦੇ ਸਮੇਂ/g, "$1 ਦੀ ਵਰਤੋਂ ਕਰਦੇ ਸਮੇਂ")
     .replace(/ਨਿਰਧਾਰਤ ਤਰਜੀਹੀ ਸਲਾਟ([^।.!?]*?)ਘੱਟ ਕਰ ਸਕਦੀ ਹੈ/g, "ਨਿਰਧਾਰਤ ਤਰਜੀਹੀ ਸਲਾਟ$1ਘੱਟ ਕਰ ਸਕਦੇ ਹਨ")
-    .replace(/ਟਾਈਮ-ਸਲਾਟ ਬੁਕਿੰਗ([^।.!?]*?)ਘੱਟ ਕਰ ਸਕਦੀ ਹੈ/g, "ਟਾਈਮ-ਸਲਾਟ ਬੁਕਿੰਗ$1ਘੱਟ ਕਰ ਸਕਦੀ ਹੈ")
     .replace(/ਸਟੈਪ-ਅੱਪ ਪਰਮਾਣਕਰਨ, ([^।.!?]{1,140}?) ਦੇ ਜੋਖਮ ਨੂੰ ਸੰਬੋਧ ਸਕਦੀ ਹੈ/g, "ਸਟੈਪ-ਅੱਪ ਪਰਮਾਣਕਰਨ $1 ਦੇ ਜੋਖਮ ਨੂੰ ਘਟਾ ਸਕਦਾ ਹੈ")
+    .replace(/(ਸਟੈਪ-ਅੱਪ ਪਰਮਾਣਕਰਨ[^।.!?]*?)ਘੱਟ ਕਰ ਸਕਦੀ ਹੈ/g, "$1ਘੱਟ ਕਰ ਸਕਦਾ ਹੈ")
     .replace(/([^।.!?]{1,140}?) ਦੀ ਜ਼ਿਆਦਾਤਰ ਘਟਨਾ ਜਾਂ ਤਾਂ ਧੋਖਾਧੜੀ ਹੈ ਜਾਂ ਉਸਨੂੰ ਧੋਖਾਧੜੀ ਮੰਨਣਾ ਚਾਹੀਦਾ ਹੈ/g, "$1 ਦੇ ਜ਼ਿਆਦਾਤਰ ਮਾਮਲੇ ਧੋਖਾਧੜੀ ਦੇ ਹੁੰਦੇ ਹਨ");
 }
 
