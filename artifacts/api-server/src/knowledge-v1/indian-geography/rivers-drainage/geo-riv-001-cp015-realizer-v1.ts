@@ -28,6 +28,8 @@ const EXTRA_EXAM_ALIASES = [
   "Dihang",
 ] as const;
 
+const PROPER_NOUN_SUFFIXES = ["Dam", "Reservoir", "Project", "Sagar", "Kund"] as const;
+
 function formedByComponents() {
   return GEO_RIV_001_CP007_PROJECTED_FACTS_V1.flatMap((fact) => {
     if (fact.relation !== "formed_by") return [];
@@ -62,6 +64,20 @@ function escapeRegExp(value: string) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function naturalizeProtectedNames(input: string) {
+  let output = input;
+  for (const name of GEO_RIV_001_CP015_RIVER_DISPLAY_NAMES_V1) {
+    const escaped = escapeRegExp(name);
+    output = output
+      .replace(new RegExp(`\\bRiver ${escaped} system\\b`, "g"), `${name} river system`)
+      .replace(new RegExp(`\\bRiver ${escaped} Basin\\b`, "g"), `${name} Basin`);
+    for (const suffix of PROPER_NOUN_SUFFIXES) {
+      output = output.replace(new RegExp(`\\bRiver ${escaped} ${suffix}\\b`, "g"), `${name} ${suffix}`);
+    }
+  }
+  return output;
+}
+
 export function geoRiv001Cp015DisplayRiverNames(input: string) {
   let output = input;
   const placeholders = new Map<string, string>();
@@ -70,7 +86,7 @@ export function geoRiv001Cp015DisplayRiverNames(input: string) {
     const escaped = escapeRegExp(name);
     const token = `__CP015_RIVER_${index}__`;
     const pattern = new RegExp(
-      `(?<!River\\s)(?<![A-Za-z])${escaped}(?![A-Za-z])(?!\\s+(?:river\\s+system|system|Basin|basin|tributary|tributaries))`,
+      `(?<!River\\s)(?<![A-Za-z])${escaped}(?![A-Za-z])(?!\\s+(?:river\\s+system|system|Basin|basin|tributary|tributaries|Dam|Reservoir|Project|Sagar|Kund))`,
       "g",
     );
     if (pattern.test(output)) {
@@ -81,9 +97,10 @@ export function geoRiv001Cp015DisplayRiverNames(input: string) {
   });
 
   for (const [token, name] of placeholders) output = output.replaceAll(token, `River ${name}`);
-  return output
+  output = output
     .replace(/\b(?:the|The) River /g, "River ")
     .replace(/\bRiver ([A-Za-z]+) River\b/g, "River $1");
+  return naturalizeProtectedNames(output);
 }
 
 export function realizeGeoRiv001Cp015QuestionV1(question: GeoRiv001Cp015ReviewQuestion): GeoRiv001Cp015ReviewQuestion {
@@ -112,6 +129,7 @@ export function geoRiv001Cp015BareRiverName(text: string) {
       .replaceAll(`${name} basin`, "")
       .replaceAll(`${name} tributary`, "")
       .replaceAll(`${name} tributaries`, "");
+    for (const suffix of PROPER_NOUN_SUFFIXES) clean = clean.replaceAll(`${name} ${suffix}`, "");
   }
   for (const name of GEO_RIV_001_CP015_RIVER_DISPLAY_NAMES_V1) {
     const escaped = escapeRegExp(name);
