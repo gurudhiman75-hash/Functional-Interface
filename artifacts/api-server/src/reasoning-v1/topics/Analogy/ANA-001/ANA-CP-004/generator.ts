@@ -9,6 +9,8 @@ export type { SetDifficulty } from "./audit-remediation";
 export type SetLayout = "INLINE" | "TWO_ROW_TABLE" | "VERTICAL_GRID" | "BOXED_SETS";
 export type TriplePosition = 0 | 1 | 2;
 
+type GeneratedSetOption = { value: SetOption; errorLabel: string | null };
+
 export interface GeneratedSetAnalogy {
   qlId: string;
   ruleId: string;
@@ -21,7 +23,7 @@ export interface GeneratedSetAnalogy {
   source: NumberTriple;
   target: NumberTriple;
   stem: string;
-  options: readonly { value: SetOption; errorLabel: string | null }[];
+  options: readonly GeneratedSetOption[];
   correctIndex: number;
   explanation: {
     ruleStatement: string;
@@ -50,6 +52,15 @@ function shuffle<T>(items: readonly T[], seed: number): T[] {
     const target = Math.floor(random() * (index + 1));
     [result[index], result[target]] = [result[target], result[index]];
   }
+  return result;
+}
+
+function placeCorrect(options: readonly GeneratedSetOption[], requestedIndex: number): GeneratedSetOption[] {
+  const result = [...options];
+  const currentIndex = result.findIndex((option) => option.errorLabel === null);
+  if (currentIndex < 0) throw new Error("Set options are missing a correct answer.");
+  const [correct] = result.splice(currentIndex, 1);
+  result.splice(requestedIndex, 0, correct);
   return result;
 }
 
@@ -122,7 +133,7 @@ function plausibleWrongMembers(target: NumberTriple, seed: number): number[] {
   );
 }
 
-function missingMemberOptions(target: NumberTriple, seed: number) {
+function missingMemberOptions(target: NumberTriple, seed: number): GeneratedSetOption[] {
   const distractors = plausibleWrongMembers(target, seed * 17 + 7).slice(0, 3);
   if (distractors.length !== 3) throw new Error("Unable to produce three varied missing-member distractors.");
   return shuffle([
@@ -131,7 +142,7 @@ function missingMemberOptions(target: NumberTriple, seed: number) {
   ], seed * 19 + 11);
 }
 
-function pairSelectionOptions(ruleId: string, context: SetRuleContext, target: NumberTriple, seed: number) {
+function pairSelectionOptions(ruleId: string, context: SetRuleContext, target: NumberTriple, seed: number): GeneratedSetOption[] {
   const rule = setRuleById(ruleId);
   const candidates = inputPairs(ruleId, rule.minInput, rule.maxInput, seed * 23 + 13);
   const distractors: { value: readonly [number, number, number]; errorLabel: string }[] = [];
@@ -209,9 +220,11 @@ export function generateSetAnalogy(qlId: string, seed = 0): GeneratedSetAnalogy 
   const permutation = PERMUTATIONS[Math.abs(Math.floor(seed / LAYOUTS.length)) % PERMUTATIONS.length];
   const { context, source, target } = chooseInstance(ql.ruleId, seed);
   if (!verifySetTransfer(ql.ruleId, context, source, target)) throw new Error("Independent solver rejected ANA-CP-004 instance.");
-  const options = ql.presentationMode === "MISSING_MEMBER"
+  const generatedOptions = ql.presentationMode === "MISSING_MEMBER"
     ? missingMemberOptions(target, seed)
     : pairSelectionOptions(ql.ruleId, context, target, seed);
+  const requestedCorrectIndex = ((seed + Number(qlId.slice(-3))) % 4 + 4) % 4;
+  const options = placeCorrect(generatedOptions, requestedCorrectIndex);
   const correctIndex = validateSetOptions(ql.ruleId, context, options);
   const rendered = ql.presentationMode === "MISSING_MEMBER"
     ? renderMissingStem(source, target, permutation, layout)
