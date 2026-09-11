@@ -14,23 +14,29 @@ if new not in source:
         raise SystemExit(f"QL004 Hindi activity routing hotfix: expected exactly one old rule, found {count}")
     source = source.replace(old, new, 1)
 
-# Punjabi surface grammar exposed by the learner-facing sample. These are
-# nominative subjects before the frequency adverb, so remove the oblique plural
-# ending only for the known service-user families.
+# QL001 Punjabi T04 has four service-user object variants. They are generated in
+# oblique plural form for the statement, but before "ਅਕਸਰ" they are sentence
+# subjects and need nominative form.
 punjabi_repair_anchor = '.replace(/ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ/g, "ਹਾਸਲ ਕਰਨ ਦੀ ਆਪਣੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਗੁਆ ਸਕਦੇ ਹਨ");'
-punjabi_repair_replacement = '.replace(/ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ/g, "ਹਾਸਲ ਕਰਨ ਦੀ ਆਪਣੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਗੁਆ ਸਕਦੇ ਹਨ")\n    .replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ")\n    .replace(/ਅਰਜ਼ੀਕਾਰਾਂ ਅਕਸਰ/g, "ਅਰਜ਼ੀਕਾਰ ਅਕਸਰ");'
-if '.replace(/ਅਰਜ਼ੀਕਾਰਾਂ ਅਕਸਰ/g, "ਅਰਜ਼ੀਕਾਰ ਅਕਸਰ")' not in source:
-    if '.replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ");' in source:
-        source = source.replace(
-            '.replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ");',
-            '.replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ")\n    .replace(/ਅਰਜ਼ੀਕਾਰਾਂ ਅਕਸਰ/g, "ਅਰਜ਼ੀਕਾਰ ਅਕਸਰ");',
-            1,
-        )
-    else:
-        count = source.count(punjabi_repair_anchor)
-        if count != 1:
-            raise SystemExit(f"Punjabi service-subject repair: expected one anchor, found {count}")
-        source = source.replace(punjabi_repair_anchor, punjabi_repair_replacement, 1)
+punjabi_family_repairs = (
+    '.replace(/ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ/g, "ਹਾਸਲ ਕਰਨ ਦੀ ਆਪਣੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਗੁਆ ਸਕਦੇ ਹਨ")\n'
+    '    .replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ")\n'
+    '    .replace(/ਅਰਜ਼ੀਕਾਰਾਂ ਅਕਸਰ/g, "ਅਰਜ਼ੀਕਾਰ ਅਕਸਰ")\n'
+    '    .replace(/ਨਾਗਰਿਕਾਂ ਅਕਸਰ/g, "ਨਾਗਰਿਕ ਅਕਸਰ")\n'
+    '    .replace(/ਵਰਤੋਂਕਾਰਾਂ ਅਕਸਰ/g, "ਵਰਤੋਂਕਾਰ ਅਕਸਰ");'
+)
+if '.replace(/ਵਰਤੋਂਕਾਰਾਂ ਅਕਸਰ/g, "ਵਰਤੋਂਕਾਰ ਅਕਸਰ")' not in source:
+    # Normalize any earlier partial version of this family before installing the
+    # complete four-member repair.
+    partials = [
+        '.replace(/ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ/g, "ਹਾਸਲ ਕਰਨ ਦੀ ਆਪਣੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਗੁਆ ਸਕਦੇ ਹਨ")\n    .replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ")\n    .replace(/ਅਰਜ਼ੀਕਾਰਾਂ ਅਕਸਰ/g, "ਅਰਜ਼ੀਕਾਰ ਅਕਸਰ");',
+        '.replace(/ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ/g, "ਹਾਸਲ ਕਰਨ ਦੀ ਆਪਣੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਗੁਆ ਸਕਦੇ ਹਨ")\n    .replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ");',
+        punjabi_repair_anchor,
+    ]
+    matches = [candidate for candidate in partials if candidate in source]
+    if len(matches) != 1:
+        raise SystemExit(f"Punjabi QL001 family repair: expected one partial/anchor, found {len(matches)}")
+    source = source.replace(matches[0], punjabi_family_repairs, 1)
 
 hindi_fallback_anchor = '  return hindiFallback(argument);\n}'
 punjabi_fallback_anchor = '  return punjabiFallback(argument);\n}'
@@ -71,16 +77,21 @@ if ql006_complaint_punjabi_reason not in source:
         raise SystemExit(f"QL006 Punjabi complaint false-dilemma reason: expected exactly one Punjabi fallback anchor, found {count}")
     source = source.replace(punjabi_fallback_anchor, ql006_complaint_punjabi_rule + punjabi_fallback_anchor, 1)
 
-# QL001 Punjabi family: whether the user is seeking same-day help or arriving
-# late, labelling the whole group careless does not answer the actual service-
-# access question.
-ql001_service_punjabi_reason = 'ਸੇਵਾ ਲੈਣ ਵਾਲੇ ਲੋਕਾਂ ਜਾਂ ਅਰਜ਼ੀਕਾਰਾਂ ਨੂੰ ਸਿਰਫ਼ ਉਨ੍ਹਾਂ ਦੇ ਆਉਣ ਦੇ ਸਮੇਂ ਕਰਕੇ ਲਾਪਰਵਾਹ ਮੰਨਣਾ ਬਿਨਾਂ ਸਬੂਤ ਦੀ ਧਾਰਨਾ ਹੈ; ਸਮੇਂ ਬਾਰੇ ਫੈਸਲਾ ਅਸਲ ਮੰਗ ਅਤੇ ਪਹੁੰਚ ਦੀ ਲੋੜ ਦੇ ਆਧਾਰ ਤੇ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।'
-ql001_service_punjabi_rule = f'  if (/(?:ਉਸੇ ਦਿਨ ਮਦਦ ਚਾਹੁਣ ਵਾਲੇ ਲੋਕ|ਦੇਰ ਨਾਲ ਪਹੁੰਚਣ ਵਾਲੇ ਅਰਜ਼ੀਕਾਰ).*(?:ਅਕਸਰ|ਆਮ ਤੌਰ).*ਲਾਪਰਵਾਹ.*ਸੇਵਾ ਲੋੜਾਂ.*(?:ਕਦੇ|ਨਹੀਂ).*ਪ੍ਰਭਾਵਿਤ/.test(argument)) return "{ql001_service_punjabi_reason}";\n'
+# QL001 Punjabi T04 family: all four {d} variants express the same stereotype.
+ql001_service_punjabi_reason = 'ਸੇਵਾ ਲੈਣ ਵਾਲੇ ਲੋਕਾਂ ਨੂੰ ਸਿਰਫ਼ ਉਨ੍ਹਾਂ ਦੇ ਆਉਣ ਦੇ ਸਮੇਂ ਕਰਕੇ ਲਾਪਰਵਾਹ ਮੰਨਣਾ ਬਿਨਾਂ ਸਬੂਤ ਦੀ ਧਾਰਨਾ ਹੈ; ਕਾਊਂਟਰ ਦੇ ਸਮੇਂ ਬਾਰੇ ਫੈਸਲਾ ਅਸਲ ਮੰਗ ਅਤੇ ਸੇਵਾ-ਪਹੁੰਚ ਦੀ ਲੋੜ ਦੇ ਆਧਾਰ ਤੇ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।'
+ql001_service_punjabi_rule = f'  if (/(?:ਦੇਰ ਨਾਲ ਪਹੁੰਚਣ ਵਾਲੇ ਅਰਜ਼ੀਕਾਰ|ਬੰਦ ਹੋਣ ਦੇ ਸਮੇਂ ਨੇੜੇ ਪਹੁੰਚਣ ਵਾਲੇ ਨਾਗਰਿਕ|ਬਿਨਾਂ ਅਪਾਇੰਟਮੈਂਟ ਆਉਣ ਵਾਲੇ ਵਰਤੋਂਕਾਰ|ਉਸੇ ਦਿਨ ਮਦਦ ਚਾਹੁਣ ਵਾਲੇ ਲੋਕ).*(?:ਅਕਸਰ|ਆਮ ਤੌਰ).*ਲਾਪਰਵਾਹ.*ਸੇਵਾ ਲੋੜਾਂ.*(?:ਕਦੇ|ਨਹੀਂ).*ਪ੍ਰਭਾਵਿਤ/.test(argument)) return "{ql001_service_punjabi_reason}";\n'
+# Replace the earlier narrower rule if present; otherwise add the family rule.
+old_ql001_reason = 'ਸੇਵਾ ਲੈਣ ਵਾਲੇ ਲੋਕਾਂ ਜਾਂ ਅਰਜ਼ੀਕਾਰਾਂ ਨੂੰ ਸਿਰਫ਼ ਉਨ੍ਹਾਂ ਦੇ ਆਉਣ ਦੇ ਸਮੇਂ ਕਰਕੇ ਲਾਪਰਵਾਹ ਮੰਨਣਾ ਬਿਨਾਂ ਸਬੂਤ ਦੀ ਧਾਰਨਾ ਹੈ; ਸਮੇਂ ਬਾਰੇ ਫੈਸਲਾ ਅਸਲ ਮੰਗ ਅਤੇ ਪਹੁੰਚ ਦੀ ਲੋੜ ਦੇ ਆਧਾਰ ਤੇ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।'
 if ql001_service_punjabi_reason not in source:
-    count = source.count(punjabi_fallback_anchor)
-    if count != 1:
-        raise SystemExit(f"QL001 Punjabi service-stereotype reason: expected exactly one Punjabi fallback anchor, found {count}")
-    source = source.replace(punjabi_fallback_anchor, ql001_service_punjabi_rule + punjabi_fallback_anchor, 1)
+    if old_ql001_reason in source:
+        start = source.index('  if (/(?:ਉਸੇ ਦਿਨ ਮਦਦ ਚਾਹੁਣ ਵਾਲੇ ਲੋਕ|ਦੇਰ ਨਾਲ ਪਹੁੰਚਣ ਵਾਲੇ ਅਰਜ਼ੀਕਾਰ)')
+        end = source.index('\n', start) + 1
+        source = source[:start] + ql001_service_punjabi_rule + source[end:]
+    else:
+        count = source.count(punjabi_fallback_anchor)
+        if count != 1:
+            raise SystemExit(f"QL001 Punjabi service-stereotype reason: expected exactly one Punjabi fallback anchor, found {count}")
+        source = source.replace(punjabi_fallback_anchor, ql001_service_punjabi_rule + punjabi_fallback_anchor, 1)
 
 SOURCE_PATH.write_text(source, encoding="utf-8")
 print("ARG-001 CP015 localized QL001/QL004/QL006 routing and grammar hotfix applied")
