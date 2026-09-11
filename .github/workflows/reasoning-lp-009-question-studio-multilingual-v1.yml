@@ -6,6 +6,7 @@ on:
       - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio.ts"
+      - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/question-studio-v2.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-question-studio.test.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-question-studio-multilingual-v1.ts"
       - "artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/LP-009-QUESTION-STUDIO-MULTILINGUAL-INTEGRATION-V1.md"
@@ -39,5 +40,5 @@ jobs:
       - name: Prove LP-009 multilingual Question Studio route
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-question-studio.test.ts
 
-      - name: Reprove LP-008 remains English only
+      - name: Reprove LP-008 shared Question Studio route
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-008-question-studio.test.ts
