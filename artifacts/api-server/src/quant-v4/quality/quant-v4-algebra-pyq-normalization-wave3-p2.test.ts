@@ -67,7 +67,7 @@ const cgl = buildQuantV4PyqFrequencyProfile({
   policy: { minDistinctPapers: 1, minCountableQuestions: 1, minTopicCoverage: 2, requireDatedPaperIdentity: true },
 });
 assert.equal(cgl.countableQuestionCount, 27);
-assert.equal(cgl.distinctPaperCount, 18);
+assert.equal(cgl.distinctPaperCount, 19);
 assert.equal(cgl.topicCoverageCount, 1);
 assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
 assert.ok(cgl.blockers.includes("TOPIC_COVERAGE_BELOW_POLICY"));
@@ -78,6 +78,6 @@ console.log(JSON.stringify({
   authority: QUANT_V4_ALGEBRA_WAVE3_PYQ_MIGRATION_AUTHORITY,
   wave3ObservationCount: observations.length,
   algebraRegisteredObservationCount: algebraAll.length,
-  profileCounts: { SSC_CGL_TIER_I: 24, SSC_CHSL: 3, SSC_CGL_TIER_II: 2 },
+  profileCounts: { SSC_CGL_TIER_I: 27, SSC_CHSL: 3, SSC_CGL_TIER_II: 2 },
   wholeSectionWeightReady: false,
 }));
