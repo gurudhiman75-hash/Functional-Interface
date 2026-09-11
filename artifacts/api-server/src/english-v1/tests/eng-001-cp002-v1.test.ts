@@ -23,9 +23,9 @@ const difficulties: readonly EnglishDifficulty[] = ["easy", "medium", "hard"];
 const qlIds: readonly Eng001QlId[] = ["ENG-001-QL001", "ENG-001-QL002", "ENG-001-QL007"];
 
 assert.equal(TENSE_SEQUENCE_RULES.length, 10);
-assert.equal(DYNAMIC_TENSE_SCENES_V1.length, 40);
-assert.equal(ONGOING_TENSE_SCENES_V1.length, 20);
-assert.equal(STATIVE_TENSE_SCENES_V1.length, 20);
+assert.equal(DYNAMIC_TENSE_SCENES_V1.length, 80);
+assert.equal(ONGOING_TENSE_SCENES_V1.length, 40);
+assert.equal(STATIVE_TENSE_SCENES_V1.length, 40);
 assert.equal(new Set(DYNAMIC_TENSE_SCENES_V1.map((scene) => scene.domain)).size, 20);
 assert.equal(new Set(ONGOING_TENSE_SCENES_V1.map((scene) => scene.domain)).size, 20);
 assert.equal(new Set(STATIVE_TENSE_SCENES_V1.map((scene) => scene.domain)).size, 20);
@@ -34,7 +34,7 @@ assert.deepEqual(rulesForDifficultyCp002V1("hard"), ["GR-TNS-002", "GR-TNS-007",
 
 for (const difficulty of difficulties) {
   for (const ruleId of rulesForDifficultyCp002V1(difficulty)) {
-    for (let i = 0; i < 40; i += 1) {
+    for (let i = 0; i < 80; i += 1) {
       const seed = `cp002:candidate:${difficulty}:${ruleId}:${i}`;
       const candidate = buildEng001Cp002CandidateV1({ ruleId, difficulty, seed });
       const validation = validateEng001Cp002CandidateV1(candidate);
@@ -50,7 +50,7 @@ for (const difficulty of difficulties) {
   const surfaces = new Set<string>();
   const domains = new Set<string>();
   const rules = new Set<string>();
-  for (let i = 0; i < 1500; i += 1) {
+  for (let i = 0; i < 3000; i += 1) {
     const seed = `cp002:stress:${difficulty}:${i}`;
     const qlId = qlIds[i % qlIds.length]!;
     const question = generateEng001Cp002QuestionV1({ seed, difficulty, qlId });
@@ -70,7 +70,7 @@ for (const difficulty of difficulties) {
     domains.add(semanticDomainOfCp002V1(candidate)!);
   }
 
-  const minimumSurfaces = difficulty === "easy" ? 250 : difficulty === "medium" ? 400 : 50;
+  const minimumSurfaces = difficulty === "easy" ? 250 : difficulty === "medium" ? 400 : 80;
   assert.ok(surfaces.size >= minimumSurfaces, `${difficulty}: only ${surfaces.size} distinct corrected surfaces`);
   assert.equal(domains.size, 20, `${difficulty}: expected all 20 semantic domains, found ${domains.size}`);
   assert.ok(rules.size >= (difficulty === "hard" ? 3 : 4), `${difficulty}: insufficient rule coverage`);
