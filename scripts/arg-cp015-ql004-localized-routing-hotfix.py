@@ -14,14 +14,23 @@ if new not in source:
         raise SystemExit(f"QL004 Hindi activity routing hotfix: expected exactly one old rule, found {count}")
     source = source.replace(old, new, 1)
 
-# Punjabi surface grammar exposed by the exhaustive learner-facing sample.
+# Punjabi surface grammar exposed by the learner-facing sample. These are
+# nominative subjects before the frequency adverb, so remove the oblique plural
+# ending only for the known service-user families.
 punjabi_repair_anchor = '.replace(/ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ/g, "ਹਾਸਲ ਕਰਨ ਦੀ ਆਪਣੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਗੁਆ ਸਕਦੇ ਹਨ");'
-punjabi_repair_replacement = '.replace(/ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ/g, "ਹਾਸਲ ਕਰਨ ਦੀ ਆਪਣੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਗੁਆ ਸਕਦੇ ਹਨ")\n    .replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ");'
-if '.replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ")' not in source:
-    count = source.count(punjabi_repair_anchor)
-    if count != 1:
-        raise SystemExit(f"Punjabi ਲੋਕਾਂ ਅਕਸਰ repair: expected one anchor, found {count}")
-    source = source.replace(punjabi_repair_anchor, punjabi_repair_replacement, 1)
+punjabi_repair_replacement = '.replace(/ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ/g, "ਹਾਸਲ ਕਰਨ ਦੀ ਆਪਣੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਗੁਆ ਸਕਦੇ ਹਨ")\n    .replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ")\n    .replace(/ਅਰਜ਼ੀਕਾਰਾਂ ਅਕਸਰ/g, "ਅਰਜ਼ੀਕਾਰ ਅਕਸਰ");'
+if '.replace(/ਅਰਜ਼ੀਕਾਰਾਂ ਅਕਸਰ/g, "ਅਰਜ਼ੀਕਾਰ ਅਕਸਰ")' not in source:
+    if '.replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ");' in source:
+        source = source.replace(
+            '.replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ");',
+            '.replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ")\n    .replace(/ਅਰਜ਼ੀਕਾਰਾਂ ਅਕਸਰ/g, "ਅਰਜ਼ੀਕਾਰ ਅਕਸਰ");',
+            1,
+        )
+    else:
+        count = source.count(punjabi_repair_anchor)
+        if count != 1:
+            raise SystemExit(f"Punjabi service-subject repair: expected one anchor, found {count}")
+        source = source.replace(punjabi_repair_anchor, punjabi_repair_replacement, 1)
 
 hindi_fallback_anchor = '  return hindiFallback(argument);\n}'
 punjabi_fallback_anchor = '  return punjabiFallback(argument);\n}'
@@ -62,10 +71,11 @@ if ql006_complaint_punjabi_reason not in source:
         raise SystemExit(f"QL006 Punjabi complaint false-dilemma reason: expected exactly one Punjabi fallback anchor, found {count}")
     source = source.replace(punjabi_fallback_anchor, ql006_complaint_punjabi_rule + punjabi_fallback_anchor, 1)
 
-# QL001 Punjabi: a stereotype about same-day users being careless is not a valid
-# reason to disregard their service-access needs.
-ql001_service_punjabi_reason = 'ਉਸੇ ਦਿਨ ਮਦਦ ਮੰਗਣ ਵਾਲੇ ਲੋਕਾਂ ਨੂੰ ਆਮ ਤੌਰ ਤੇ ਲਾਪਰਵਾਹ ਮੰਨਣਾ ਬਿਨਾਂ ਸਬੂਤ ਦੀ ਧਾਰਨਾ ਹੈ; ਸੇਵਾ ਦੇ ਸਮੇਂ ਬਾਰੇ ਫੈਸਲਾ ਅਸਲ ਮੰਗ ਅਤੇ ਪਹੁੰਚ ਦੀ ਲੋੜ ਦੇ ਆਧਾਰ ਤੇ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।'
-ql001_service_punjabi_rule = f'  if (/ਉਸੇ ਦਿਨ ਮਦਦ ਚਾਹੁਣ ਵਾਲੇ ਲੋਕ.*(?:ਅਕਸਰ|ਆਮ ਤੌਰ).*ਲਾਪਰਵਾਹ.*ਸੇਵਾ ਲੋੜਾਂ.*(?:ਕਦੇ|ਨਹੀਂ).*ਪ੍ਰਭਾਵਿਤ/.test(argument)) return "{ql001_service_punjabi_reason}";\n'
+# QL001 Punjabi family: whether the user is seeking same-day help or arriving
+# late, labelling the whole group careless does not answer the actual service-
+# access question.
+ql001_service_punjabi_reason = 'ਸੇਵਾ ਲੈਣ ਵਾਲੇ ਲੋਕਾਂ ਜਾਂ ਅਰਜ਼ੀਕਾਰਾਂ ਨੂੰ ਸਿਰਫ਼ ਉਨ੍ਹਾਂ ਦੇ ਆਉਣ ਦੇ ਸਮੇਂ ਕਰਕੇ ਲਾਪਰਵਾਹ ਮੰਨਣਾ ਬਿਨਾਂ ਸਬੂਤ ਦੀ ਧਾਰਨਾ ਹੈ; ਸਮੇਂ ਬਾਰੇ ਫੈਸਲਾ ਅਸਲ ਮੰਗ ਅਤੇ ਪਹੁੰਚ ਦੀ ਲੋੜ ਦੇ ਆਧਾਰ ਤੇ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।'
+ql001_service_punjabi_rule = f'  if (/(?:ਉਸੇ ਦਿਨ ਮਦਦ ਚਾਹੁਣ ਵਾਲੇ ਲੋਕ|ਦੇਰ ਨਾਲ ਪਹੁੰਚਣ ਵਾਲੇ ਅਰਜ਼ੀਕਾਰ).*(?:ਅਕਸਰ|ਆਮ ਤੌਰ).*ਲਾਪਰਵਾਹ.*ਸੇਵਾ ਲੋੜਾਂ.*(?:ਕਦੇ|ਨਹੀਂ).*ਪ੍ਰਭਾਵਿਤ/.test(argument)) return "{ql001_service_punjabi_reason}";\n'
 if ql001_service_punjabi_reason not in source:
     count = source.count(punjabi_fallback_anchor)
     if count != 1:
