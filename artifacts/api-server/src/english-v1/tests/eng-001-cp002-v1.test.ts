@@ -3,6 +3,11 @@ import { strict as assert } from "node:assert";
 import type { Eng001QlId, EnglishDifficulty, TenseRuleId } from "../core/types";
 import { TENSE_SEQUENCE_RULES } from "../grammar/tenses-sequence";
 import {
+  DYNAMIC_TENSE_SCENES_V1,
+  ONGOING_TENSE_SCENES_V1,
+  STATIVE_TENSE_SCENES_V1,
+} from "../chapters/error-spotting/ENG-001/CP002/cp002-semantic-catalog-v1";
+import {
   ENG001_CP002_V1_NO_ERROR_RULE_IDS,
   buildEng001Cp002CandidateV1,
   rulesForDifficultyCp002V1,
@@ -18,6 +23,12 @@ const difficulties: readonly EnglishDifficulty[] = ["easy", "medium", "hard"];
 const qlIds: readonly Eng001QlId[] = ["ENG-001-QL001", "ENG-001-QL002", "ENG-001-QL007"];
 
 assert.equal(TENSE_SEQUENCE_RULES.length, 10);
+assert.equal(DYNAMIC_TENSE_SCENES_V1.length, 40);
+assert.equal(ONGOING_TENSE_SCENES_V1.length, 20);
+assert.equal(STATIVE_TENSE_SCENES_V1.length, 20);
+assert.equal(new Set(DYNAMIC_TENSE_SCENES_V1.map((scene) => scene.domain)).size, 20);
+assert.equal(new Set(ONGOING_TENSE_SCENES_V1.map((scene) => scene.domain)).size, 20);
+assert.equal(new Set(STATIVE_TENSE_SCENES_V1.map((scene) => scene.domain)).size, 20);
 assert.deepEqual(rulesForDifficultyCp002V1("easy"), ["GR-TNS-001", "GR-TNS-003", "GR-TNS-004", "GR-TNS-006"]);
 assert.deepEqual(rulesForDifficultyCp002V1("hard"), ["GR-TNS-002", "GR-TNS-007", "GR-TNS-008"]);
 
@@ -32,6 +43,8 @@ for (const difficulty of difficulties) {
     }
   }
 }
+
+const diversitySummary: Record<string, { surfaces: number; domains: number; rules: number }> = {};
 
 for (const difficulty of difficulties) {
   const surfaces = new Set<string>();
@@ -57,11 +70,11 @@ for (const difficulty of difficulties) {
     domains.add(semanticDomainOfCp002V1(candidate)!);
   }
 
-  const minimumSurfaces = difficulty === "easy" ? 150 : difficulty === "medium" ? 250 : 30;
-  const minimumDomains = difficulty === "hard" ? 10 : 18;
+  const minimumSurfaces = difficulty === "easy" ? 250 : difficulty === "medium" ? 400 : 50;
   assert.ok(surfaces.size >= minimumSurfaces, `${difficulty}: only ${surfaces.size} distinct corrected surfaces`);
-  assert.ok(domains.size >= minimumDomains, `${difficulty}: only ${domains.size} semantic domains`);
+  assert.equal(domains.size, 20, `${difficulty}: expected all 20 semantic domains, found ${domains.size}`);
   assert.ok(rules.size >= (difficulty === "hard" ? 3 : 4), `${difficulty}: insufficient rule coverage`);
+  diversitySummary[difficulty] = { surfaces: surfaces.size, domains: domains.size, rules: rules.size };
 }
 
 for (const difficulty of difficulties) {
@@ -91,4 +104,12 @@ assert.throws(
   /does not support hard/i,
 );
 
-console.log("ENG-001 CP002 V1 tense generation and validation tests passed.");
+console.log(JSON.stringify({
+  status: "PASS_ENG_001_CP002_V1",
+  sceneCounts: {
+    dynamic: DYNAMIC_TENSE_SCENES_V1.length,
+    ongoing: ONGOING_TENSE_SCENES_V1.length,
+    stative: STATIVE_TENSE_SCENES_V1.length,
+  },
+  diversitySummary,
+}, null, 2));
