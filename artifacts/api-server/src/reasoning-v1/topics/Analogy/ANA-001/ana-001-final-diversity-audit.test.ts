@@ -51,6 +51,24 @@ function auditQl(
   };
 }
 
+function assertMinimums(
+  name: string,
+  rows: readonly DiversityRow[],
+  minimumStructuralRatio: number,
+  minimumFullRatio: number,
+): void {
+  for (const row of rows) {
+    assert.ok(
+      row.structuralRatio >= minimumStructuralRatio,
+      `${name}/${row.qlId} structural diversity ${row.structuralRatio} is below ${minimumStructuralRatio}.`,
+    );
+    assert.ok(
+      row.fullRatio >= minimumFullRatio,
+      `${name}/${row.qlId} full-output diversity ${row.fullRatio} is below ${minimumFullRatio}.`,
+    );
+  }
+}
+
 function summarize(name: string, rows: readonly DiversityRow[]) {
   const byStructural = [...rows].sort((a, b) => a.structuralRatio - b.structuralRatio);
   const byFull = [...rows].sort((a, b) => a.fullRatio - b.fullRatio);
@@ -138,6 +156,21 @@ const cp010SemanticRows = ANA_CP010_SEMANTIC_QLS.map((ql) => auditQl(
   }),
 ));
 
+// These floors are chapter-specific release guards, not universal quality
+// scores. Narrow mathematical rules are allowed a smaller structural universe
+// when their full rendered output remains highly diverse. New source-gap QLs
+// get the same minimum full-output protection before promotion.
+assertMinimums("CP001 semantic", cp001Rows, 0.60, 0.95);
+assertMinimums("CP003 numeric", cp003Rows, 0.40, 0.95);
+assertMinimums("CP004 number sets", cp004Rows, 0.95, 0.95);
+assertMinimums("CP010 numeric/set source gaps", cp010NumericSetRows, 0.40, 0.95);
+assertMinimums("CP010 semantic source gaps", cp010SemanticRows, 0.70, 0.95);
+
+const ratioSet = cp010NumericSetRows.find((row) => row.qlId === "ANA-QL-266");
+assert.ok(ratioSet, "ANA-QL-266 diversity row is missing.");
+assert.ok(ratioSet.structuralRatio >= 0.75, `ANA-QL-266 structural diversity regressed to ${ratioSet.structuralRatio}.`);
+assert.ok(ratioSet.fullRatio >= 0.95, `ANA-QL-266 full-output diversity regressed to ${ratioSet.fullRatio}.`);
+
 const summaries = [
   summarize("CP001 semantic", cp001Rows),
   summarize("CP003 numeric", cp003Rows),
@@ -146,4 +179,7 @@ const summaries = [
   summarize("CP010 semantic source gaps", cp010SemanticRows),
 ];
 
-console.log("ANA-001 final diversity audit report", JSON.stringify(summaries, null, 2));
+console.log("ANA-001 final diversity audit report", JSON.stringify({
+  ratioSet,
+  summaries,
+}, null, 2));
