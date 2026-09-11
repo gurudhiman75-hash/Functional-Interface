@@ -48,6 +48,7 @@ jobs:
             --skipLibCheck \
             --types node \
             src/reasoning-v1/topics/Analogy/ANA-001/ana-001-multilingual-completion.test.ts \
+            src/reasoning-v1/topics/Analogy/ANA-001/ana-001-final-diversity-audit.test.ts \
             src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-010/ana-cp-010.test.ts \
             src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-010/ana-cp-010-localized.test.ts
       - name: Verify chapter multilingual coverage and Punjabi wording policy
@@ -70,6 +71,8 @@ jobs:
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-010/ana-cp-010.test.ts
       - name: Validate ANA-CP-010 Hindi/Punjabi runtime
         run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ANA-CP-010/ana-cp-010-localized.test.ts
+      - name: Audit ANA-001 large-batch diversity and fingerprints
+        run: pnpm dlx tsx ./artifacts/api-server/src/reasoning-v1/topics/Analogy/ANA-001/ana-001-final-diversity-audit.test.ts
 
   cp006-locales:
     runs-on: ubuntu-latest
