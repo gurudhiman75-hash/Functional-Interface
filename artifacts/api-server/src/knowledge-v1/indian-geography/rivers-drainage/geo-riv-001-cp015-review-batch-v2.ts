@@ -32,7 +32,7 @@ export function auditGeoRiv001Cp015ReviewBatchV2() {
     for (const visible of [question.stem, ...question.options, question.explanation]) {
       const bare = geoRiv001Cp015BareRiverName(visible);
       if (bare) issues.push(`V2_BARE_RIVER:${question.questionId}:${bare}`);
-      if (/River\s+\w+(?:\s+\w+)?\s+River\b/i.test(visible)) issues.push(`V2_NESTED_RIVER:${question.questionId}`);
+      if (/\bRiver\s+River\b/i.test(visible)) issues.push(`V2_DUPLICATE_RIVER_PREFIX:${question.questionId}`);
     }
   }
 
