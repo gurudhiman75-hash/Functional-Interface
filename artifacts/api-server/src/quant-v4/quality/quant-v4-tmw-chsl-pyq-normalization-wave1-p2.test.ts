@@ -81,10 +81,11 @@ assert.equal((q60FillNumerator - q60OutletNumerator) * 60, q60CommonDenominator)
 assert.equal(13 * 60 / 20, 39);
 assert.equal(7 + 39, 46);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 58);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 60);
 const tmw = listRegisteredCountablePyqObservations({ packageId: "TMW-001" });
-assert.equal(tmw.length, 5);
-assert.ok(tmw.every((entry) => entry.examId === "SSC_CHSL"));
+assert.equal(tmw.length, 6);
+assert.equal(tmw.filter((entry) => entry.examId === "SSC_CHSL").length, 5);
+assert.equal(tmw.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 1);
 
 const tmwChslContract = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_CHSL");
 assert.equal(tmwChslContract.normalizedCountableObservationCount, 5);
@@ -96,7 +97,12 @@ assert.ok(tmwChslContract.blockers.includes("CP_QL_DISTRIBUTION_UNPROVEN"));
 assert.ok(tmwChslContract.blockers.includes("DIFFICULTY_REPRESENTATION_UNCALIBRATED"));
 assert.ok(tmwChslContract.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
 
-for (const profile of ["SSC_CGL_TIER_I", "SSC_CGL_JSO", "PUNJAB_STATE", "BANKING_PRELIMS", "BANKING_MAINS"] as const) {
+const tmwCglContract = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_TIER_I");
+assert.equal(tmwCglContract.normalizedCountableObservationCount, 1);
+assert.equal(tmwCglContract.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
+assert.ok(!tmwCglContract.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
+
+for (const profile of ["SSC_CGL_JSO", "PUNJAB_STATE", "BANKING_PRELIMS", "BANKING_MAINS"] as const) {
   const contract = getQuantV4SpecializedProfileSelectionContract("TMW-001", profile);
   assert.equal(contract.normalizedCountableObservationCount, 0);
   assert.equal(contract.selectionStatus, "EVIDENCE_GATED_SELECTION_PENDING");
@@ -128,6 +134,7 @@ console.log(JSON.stringify({
   wave1ObservationCount: observations.length,
   registryObservationCount: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length,
   tmwChslObservationCount: tmwChslContract.normalizedCountableObservationCount,
+  tmwCglObservationCount: tmwCglContract.normalizedCountableObservationCount,
   chslCountableQuestions: chsl.countableQuestionCount,
   chslDistinctPapers: chsl.distinctPaperCount,
   chslTopicCoverage: chsl.topicCoverageCount,

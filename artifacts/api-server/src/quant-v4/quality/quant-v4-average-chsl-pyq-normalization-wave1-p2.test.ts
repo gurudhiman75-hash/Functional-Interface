@@ -69,7 +69,7 @@ const currentOldMembersTotal = oldFamilyTotal + 5 * 3;
 const currentFamilyTotal = 6 * 17;
 assert.equal(currentFamilyTotal - currentOldMembersTotal, 2);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 58);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 60);
 const average = listRegisteredCountablePyqObservations({ packageId: "AVG-001" });
 assert.equal(average.length, 6);
 assert.ok(average.every((entry) => entry.examId === "SSC_CHSL"));

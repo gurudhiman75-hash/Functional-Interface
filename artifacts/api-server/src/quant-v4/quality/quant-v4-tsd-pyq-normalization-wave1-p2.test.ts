@@ -85,7 +85,7 @@ assert.equal(circumferenceCm, 220);
 assert.equal(linearMetresPerMinute, 550);
 assert.equal(linearMetresPerMinute * 100 / circumferenceCm, 250);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 58);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 60);
 const tsd001 = listRegisteredCountablePyqObservations({ packageId: "TSD-001" });
 const tsd002 = listRegisteredCountablePyqObservations({ packageId: "TSD-002" });
 assert.equal(tsd001.length, 3);
