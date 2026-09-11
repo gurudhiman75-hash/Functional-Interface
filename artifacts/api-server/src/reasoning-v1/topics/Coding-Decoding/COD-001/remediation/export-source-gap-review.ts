@@ -4,14 +4,14 @@ import { resolve } from "node:path";
 import { COD_SOURCE_GAP_RULES, generateSourceGapPrototype } from "./source-gap-prototype";
 
 const outputPath = resolve(process.argv[2] ?? "cod-001-source-gap-review.md");
-const seeds = [1, 7, 19] as const;
+const seeds = [0, 1, 2] as const;
 
 const lines: string[] = [
   "# COD-001 Source-Gap Remediation — Human Review",
   "",
   "Status: prototype-only; no permanent QL allocation.",
   "",
-  "This pack shows three deterministic samples for each newly source-backed rule authority.",
+  "This pack shows three deterministic samples for each newly source-backed rule authority, including both mixed-class source variants.",
   "",
 ];
 
