@@ -1,13 +1,13 @@
 import {
-  generateLp001BatchRetrofitV1,
-  generateLp002BatchRetrofitV1,
-  generateLp003BatchRetrofitV1,
-  generateLp004BatchRetrofitV1,
-  generateLp005BatchRetrofitV1,
-  generateLp006BatchRetrofitV1,
-  generateLp007BatchRetrofitV1,
-  generateLp008BatchRetrofitV1,
-} from "./lp-001-008-explanation-retrofit-v1.ts";
+  generateLp001BatchStabilizedV2,
+  generateLp002BatchStabilizedV2,
+  generateLp003BatchStabilizedV2,
+  generateLp004BatchStabilizedV2,
+  generateLp005BatchStabilizedV2,
+  generateLp006BatchStabilizedV2,
+  generateLp007BatchStabilizedV2,
+  generateLp008BatchStabilizedV2,
+} from "./lp-001-008-stabilized-english-v2.ts";
 
 type ReviewChild = {
   questionId: string;
@@ -33,14 +33,14 @@ type ReviewCaselet = {
 type Generator = (seed: string, count: number) => ReviewCaselet[];
 
 const packages: readonly [string, Generator][] = [
-  ["LP-001", generateLp001BatchRetrofitV1 as Generator],
-  ["LP-002", generateLp002BatchRetrofitV1 as Generator],
-  ["LP-003", generateLp003BatchRetrofitV1 as Generator],
-  ["LP-004", generateLp004BatchRetrofitV1 as Generator],
-  ["LP-005", generateLp005BatchRetrofitV1 as Generator],
-  ["LP-006", generateLp006BatchRetrofitV1 as Generator],
-  ["LP-007", generateLp007BatchRetrofitV1 as Generator],
-  ["LP-008", generateLp008BatchRetrofitV1 as Generator],
+  ["LP-001", generateLp001BatchStabilizedV2 as Generator],
+  ["LP-002", generateLp002BatchStabilizedV2 as Generator],
+  ["LP-003", generateLp003BatchStabilizedV2 as Generator],
+  ["LP-004", generateLp004BatchStabilizedV2 as Generator],
+  ["LP-005", generateLp005BatchStabilizedV2 as Generator],
+  ["LP-006", generateLp006BatchStabilizedV2 as Generator],
+  ["LP-007", generateLp007BatchStabilizedV2 as Generator],
+  ["LP-008", generateLp008BatchStabilizedV2 as Generator],
 ];
 
 function selectTwo(caselets: ReviewCaselet[]): ReviewCaselet[] {
@@ -58,18 +58,20 @@ function queryOnly(caselet: ReviewCaselet, child: ReviewChild): string {
 }
 
 const lines: string[] = [
-  "# Logic Puzzles LP-001 → LP-008 — English Explanation Retrofit Review V1",
+  "# Logic Puzzles LP-001 → LP-008 — Stabilized English Review V2",
   "",
   "Status: **human review candidate**",
   "",
-  "This pack changes **explanations only**. Hidden assignments, stems, displayed clues, QLs, difficulty, options and correct answers are preserved from the current English generators.",
+  "This pack preserves the current English puzzle assignments, scenarios, displayed clues, QLs, difficulty labels, correct answers and correct-option positions. It upgrades explanations to clue-by-clue progressive tables and repairs ambiguous or giveaway distractors where the older generators did not guarantee one defensible MCQ answer.",
+  "",
+  "Option-integrity repairs apply to LP-QL-002, LP-QL-004, LP-QL-008, LP-QL-020 and LP-QL-024. All other QLs retain their existing option semantics.",
   "",
   "Every runtime child question remains standalone. To avoid repeating the same setup four times in this editorial file, each caselet shows the common setup/clues once, then its four child queries. The shared arrangement solution is also shown once; runtime children each receive the same clue-by-clue steps plus their own final answer step.",
   "",
 ];
 
 for (const [packageId, generate] of packages) {
-  const candidates = generate(`lp-001-008-review-v1:${packageId}`, 12);
+  const candidates = generate(`lp-001-008-review-v2:${packageId}`, 12);
   const selected = selectTwo(candidates);
   lines.push(`# ${packageId}`, "");
 
