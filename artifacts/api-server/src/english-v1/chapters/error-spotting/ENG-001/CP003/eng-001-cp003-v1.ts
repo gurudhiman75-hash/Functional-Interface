@@ -53,6 +53,87 @@ export function buildEng001Cp003CandidateV1(input: { seed: string; difficulty: E
   };
 }
 
+function stripLeadingDeterminer(text: string): string {
+  return text.replace(/^(?:the|a|an|many|much|few|a few|little|a little|each|every|several)\s+/i, "").trim();
+}
+
+function firstContentWord(text: string): string {
+  return stripLeadingDeterminer(text).split(/\s+/)[0]?.replace(/[^\p{L}\p{N}-]/gu, "") ?? text;
+}
+
+function connectedExplanationReason(candidate: Eng001SentenceCandidate): string {
+  const correction = candidate.correction.trim();
+  const content = stripLeadingDeterminer(correction);
+  const word = firstContentWord(correction);
+  const lower = correction.toLowerCase();
+
+  switch (candidate.ruleId) {
+    case "GR-ART-001":
+      return `“${content}” names one countable thing, so it needs an article.`;
+    case "GR-ART-002": {
+      const article = /^(?:an)\s+/i.test(correction) ? "an" : "a";
+      if (/^(?:a\s+)?(?:university|european)\b/i.test(correction)) {
+        return `“${word}” starts with a consonant “y” sound, so we use “${article}”.`;
+      }
+      if (/^(?:a\s+)?(?:one|one-time|one-hour)\b/i.test(correction)) {
+        return `“${word}” starts with a consonant “w” sound, so we use “${article}”.`;
+      }
+      const sound = article === "an" ? "vowel" : "consonant";
+      return `“${word}” starts with a ${sound} sound, so we use “${article}”.`;
+    }
+    case "GR-ART-003": {
+      const superlative = content.split(/\s+/)[0] ?? content;
+      return `“${superlative}” is a superlative, so we use “the” before it.`;
+    }
+    case "GR-ART-004": {
+      const noun = content.split(/\s+/)[0] ?? content;
+      return `The words after “${noun}” tell us exactly which ${noun} is meant, so we use “the”.`;
+    }
+    case "GR-ART-005":
+      return `“${content}” is used in a general sense, so no article is needed.`;
+    case "GR-ART-006": {
+      const article = /^(?:an)\s+/i.test(correction) ? "an" : "a";
+      return `“${content}” names one profession or role, so it needs “${article}”.`;
+    }
+    case "GR-ART-007": {
+      if (lower === "school") return `Here, “school” means attending as a pupil, so no article is used.`;
+      if (lower === "hospital") return `Here, “hospital” means being there as a patient, so no article is used.`;
+      if (lower === "prison") return `Here, “prison” means serving a sentence, so no article is used.`;
+      if (lower === "college") return `Here, “college” means attending as a student, so no article is used.`;
+      if (lower === "bed") return `In “go to bed”, “bed” takes no article.`;
+      if (lower === "church") return `Here, “church” means going there for worship, so no article is used.`;
+      return `“${content}” is used for its usual purpose here, so no article is needed.`;
+    }
+    case "GR-ART-008": {
+      if (/nile/i.test(correction)) return `“Nile” is a river name, so we use “the”.`;
+      if (/mount everest/i.test(correction)) return `“Mount Everest” is one mountain name, so no article is used.`;
+      if (/indian ocean/i.test(correction)) return `“Indian Ocean” is an ocean name, so we use “the”.`;
+      if (/sahara desert/i.test(correction)) return `“Sahara Desert” is a desert name, so we use “the”.`;
+      if (/lake victoria/i.test(correction)) return `“Lake Victoria” is one lake name, so no article is used.`;
+      if (/netherlands/i.test(correction)) return `The country name is “the Netherlands”, so “the” is required.`;
+      return `The article follows the usual pattern for the geographical name “${content}”.`;
+    }
+    case "GR-ART-009": {
+      const quantifier = correction.match(/^(a few|a little|many|much|few|little)\b/i)?.[1] ?? correction.split(/\s+/)[0] ?? correction;
+      const noun = correction.slice(quantifier.length).trim() || content;
+      if (/^(?:many|few|a few)$/i.test(quantifier)) {
+        return `“${noun}” is plural and countable, so we use “${quantifier}”.`;
+      }
+      return `“${noun}” is uncountable here, so we use “${quantifier}”.`;
+    }
+    case "GR-ART-010": {
+      const determiner = correction.split(/\s+/)[0] ?? correction;
+      const noun = correction.slice(determiner.length).trim() || content;
+      if (/^(?:each|every)$/i.test(determiner)) {
+        return `After “${determiner}”, “${noun}” must be singular.`;
+      }
+      return `After “${determiner}”, “${noun}” must be plural.`;
+    }
+    default:
+      return candidate.explanationApplication;
+  }
+}
+
 function sentenceFromSegments(segments: readonly string[]): string {
   return segments.join(" ").replace(/\s+([,.!?;:])/g, "$1").replace(/\s+/g, " ").trim();
 }
@@ -100,9 +181,10 @@ export function generateEng001Cp003QuestionV1(input: GenerateEng001Cp003V1Input)
   const correctOptionIndex = noError ? shaped.segments.length : shaped.errorIndex;
   const answerLabel = options[correctOptionIndex]!;
   const correctedSentence = sentenceFromSegments(candidate.correctSegments);
+  const reason = connectedExplanationReason(candidate);
   const explanation = noError
-    ? `There is no error. ${candidate.explanationApplication} “${candidate.correction}” is correct. Correct sentence: ${correctedSentence}`
-    : `Part ${answerLabel} contains the error. ${candidate.explanationApplication} Use “${candidate.correction}”. Correct sentence: ${correctedSentence}`;
+    ? `There is no error. ${reason} “${candidate.correction}” is correct. Correct sentence: ${correctedSentence}`
+    : `Part ${answerLabel} contains the error. ${reason} Use “${candidate.correction}”. Correct sentence: ${correctedSentence}`;
 
   return {
     questionId: `ENG-001-CP003-V1:${qlId}:${candidate.candidateId}:${input.seed}`,
