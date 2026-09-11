@@ -2,7 +2,10 @@ import { generateEng001Cp001QuestionV4 } from "../../english-v1/chapters/error-s
 import { ENG001_CP001_HUMAN_EDITORIAL_APPROVAL_V1 } from "../../english-v1/chapters/error-spotting/ENG-001/CP001/eng-001-cp001-human-approval-v1";
 import { generateEng001Cp002QuestionV1 } from "../../english-v1/chapters/error-spotting/ENG-001/CP002/eng-001-cp002-v1";
 import { ENG001_CP002_HUMAN_EDITORIAL_APPROVAL_V1 } from "../../english-v1/chapters/error-spotting/ENG-001/CP002/eng-001-cp002-human-approval-v1";
+import { generateEng001Cp003QuestionV1 } from "../../english-v1/chapters/error-spotting/ENG-001/CP003/eng-001-cp003-v1";
+import { ENG001_CP003_HUMAN_EDITORIAL_APPROVAL_V1 } from "../../english-v1/chapters/error-spotting/ENG-001/CP003/eng-001-cp003-human-approval-v1";
 import type {
+  ArticleRuleId,
   Eng001CpId,
   Eng001QlId,
   Eng001Question,
@@ -23,6 +26,7 @@ import { QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1 } from "../standard-l
 export const ENG001_QUESTION_STUDIO_PACKAGE_ID_V1 = "ENG-001" as const;
 export const ENG001_QUESTION_STUDIO_CP001_ID_V1 = "ENG-001-CP001" as const;
 export const ENG001_QUESTION_STUDIO_CP002_ID_V1 = "ENG-001-CP002" as const;
+export const ENG001_QUESTION_STUDIO_CP003_ID_V1 = "ENG-001-CP003" as const;
 /** @deprecated Use the CP-specific constants. Retained for CP001 callers. */
 export const ENG001_QUESTION_STUDIO_CP_ID_V1 = ENG001_QUESTION_STUDIO_CP001_ID_V1;
 export const ENG001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
@@ -32,7 +36,12 @@ const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const supportedLanguages: QuestionStudioLanguage[] = ["en"];
 const supportedDifficulties = ["Easy", "Medium", "Hard"] as const;
 const qlIds: Eng001QlId[] = ["ENG-001-QL001", "ENG-001-QL002", "ENG-001-QL007"];
-const cpIds: Eng001CpId[] = [ENG001_QUESTION_STUDIO_CP001_ID_V1, ENG001_QUESTION_STUDIO_CP002_ID_V1];
+const cpIds: Eng001CpId[] = [
+  ENG001_QUESTION_STUDIO_CP001_ID_V1,
+  ENG001_QUESTION_STUDIO_CP002_ID_V1,
+  ENG001_QUESTION_STUDIO_CP003_ID_V1,
+];
+
 const svaRuleIds: SvaRuleId[] = [
   "GR-SVA-001", "GR-SVA-002", "GR-SVA-003", "GR-SVA-004", "GR-SVA-005",
   "GR-SVA-006", "GR-SVA-007", "GR-SVA-008", "GR-SVA-009", "GR-SVA-010",
@@ -41,7 +50,11 @@ const tenseRuleIds: TenseRuleId[] = [
   "GR-TNS-001", "GR-TNS-002", "GR-TNS-003", "GR-TNS-004", "GR-TNS-005",
   "GR-TNS-006", "GR-TNS-007", "GR-TNS-008", "GR-TNS-009", "GR-TNS-010",
 ];
-const ruleIds: GrammarRuleId[] = [...svaRuleIds, ...tenseRuleIds];
+const articleRuleIds: ArticleRuleId[] = [
+  "GR-ART-001", "GR-ART-002", "GR-ART-003", "GR-ART-004", "GR-ART-005",
+  "GR-ART-006", "GR-ART-007", "GR-ART-008", "GR-ART-009", "GR-ART-010",
+];
+const ruleIds: GrammarRuleId[] = [...svaRuleIds, ...tenseRuleIds, ...articleRuleIds];
 
 const difficultiesByRule: Record<GrammarRuleId, readonly EnglishDifficulty[]> = {
   "GR-SVA-001": ["easy"],
@@ -64,6 +77,16 @@ const difficultiesByRule: Record<GrammarRuleId, readonly EnglishDifficulty[]> = 
   "GR-TNS-008": ["medium", "hard"],
   "GR-TNS-009": ["medium"],
   "GR-TNS-010": ["medium"],
+  "GR-ART-001": ["easy", "medium"],
+  "GR-ART-002": ["easy", "medium", "hard"],
+  "GR-ART-003": ["easy", "medium"],
+  "GR-ART-004": ["medium", "hard"],
+  "GR-ART-005": ["medium", "hard"],
+  "GR-ART-006": ["easy", "medium"],
+  "GR-ART-007": ["hard"],
+  "GR-ART-008": ["medium", "hard"],
+  "GR-ART-009": ["medium", "hard"],
+  "GR-ART-010": ["medium", "hard"],
 };
 
 function text(value: unknown) {
@@ -95,7 +118,9 @@ function capitalizeDifficulty(value: EnglishDifficulty) {
 }
 
 function cpForRule(ruleId: GrammarRuleId): Eng001CpId {
-  return ruleId.startsWith("GR-TNS-") ? ENG001_QUESTION_STUDIO_CP002_ID_V1 : ENG001_QUESTION_STUDIO_CP001_ID_V1;
+  if (ruleId.startsWith("GR-TNS-")) return ENG001_QUESTION_STUDIO_CP002_ID_V1;
+  if (ruleId.startsWith("GR-ART-")) return ENG001_QUESTION_STUDIO_CP003_ID_V1;
+  return ENG001_QUESTION_STUDIO_CP001_ID_V1;
 }
 
 function cpForSubtopic(subtopic: string): Eng001CpId | undefined {
@@ -103,6 +128,7 @@ function cpForSubtopic(subtopic: string): Eng001CpId | undefined {
   if (!normalized) return undefined;
   if (normalized.includes("subject-verb agreement")) return ENG001_QUESTION_STUDIO_CP001_ID_V1;
   if (normalized.includes("tense")) return ENG001_QUESTION_STUDIO_CP002_ID_V1;
+  if (normalized.includes("article") || normalized.includes("determiner")) return ENG001_QUESTION_STUDIO_CP003_ID_V1;
   return undefined;
 }
 
@@ -134,7 +160,6 @@ function normalizeSelectors(request: QuestionStudioGenerationRequest) {
     throw new Error(`Conflicting ENG-001 checkpoint selectors ${requestedCps.join(", ")}`);
   }
 
-  // Preserve the pre-CP002 package-only behaviour for existing callers.
   const cpId = requestedCps[0] ?? ENG001_QUESTION_STUDIO_CP001_ID_V1;
   return { qlId: qlMatches[0], ruleId, cpId };
 }
@@ -160,19 +185,21 @@ function learnerText(stem: string, options: readonly string[]) {
 }
 
 function cpAuthority(cpId: Eng001CpId) {
-  return cpId === ENG001_QUESTION_STUDIO_CP002_ID_V1
-    ? ENG001_CP002_HUMAN_EDITORIAL_APPROVAL_V1
-    : ENG001_CP001_HUMAN_EDITORIAL_APPROVAL_V1;
+  if (cpId === ENG001_QUESTION_STUDIO_CP003_ID_V1) return ENG001_CP003_HUMAN_EDITORIAL_APPROVAL_V1;
+  if (cpId === ENG001_QUESTION_STUDIO_CP002_ID_V1) return ENG001_CP002_HUMAN_EDITORIAL_APPROVAL_V1;
+  return ENG001_CP001_HUMAN_EDITORIAL_APPROVAL_V1;
 }
 
 function cpSubtopic(cpId: Eng001CpId) {
-  return cpId === ENG001_QUESTION_STUDIO_CP002_ID_V1
-    ? "Tenses and Sequence of Tenses"
-    : "Subject–Verb Agreement";
+  if (cpId === ENG001_QUESTION_STUDIO_CP003_ID_V1) return "Articles and Determiners";
+  if (cpId === ENG001_QUESTION_STUDIO_CP002_ID_V1) return "Tenses and Sequence of Tenses";
+  return "Subject–Verb Agreement";
 }
 
 function cpRuleIds(cpId: Eng001CpId): readonly GrammarRuleId[] {
-  return cpId === ENG001_QUESTION_STUDIO_CP002_ID_V1 ? tenseRuleIds : svaRuleIds;
+  if (cpId === ENG001_QUESTION_STUDIO_CP003_ID_V1) return articleRuleIds;
+  if (cpId === ENG001_QUESTION_STUDIO_CP002_ID_V1) return tenseRuleIds;
+  return svaRuleIds;
 }
 
 function generateForCp(input: {
@@ -182,6 +209,14 @@ function generateForCp(input: {
   qlId?: Eng001QlId;
   ruleId?: GrammarRuleId;
 }): Eng001Question {
+  if (input.cpId === ENG001_QUESTION_STUDIO_CP003_ID_V1) {
+    return generateEng001Cp003QuestionV1({
+      seed: input.seed,
+      difficulty: input.difficulty,
+      qlId: input.qlId,
+      ruleId: input.ruleId as ArticleRuleId | undefined,
+    });
+  }
   if (input.cpId === ENG001_QUESTION_STUDIO_CP002_ID_V1) {
     return generateEng001Cp002QuestionV1({
       seed: input.seed,
@@ -204,7 +239,7 @@ export const ENG001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefini
   subject: "English",
   topic: "Error Spotting",
   subtopic: "Approved grammar checkpoints",
-  label: "English · Error Spotting · ENG-001 · CP001–CP002",
+  label: "English · Error Spotting · ENG-001 · CP001–CP003",
   enabled: true,
   cpIds: [...cpIds],
   supportedLanguages,
@@ -232,6 +267,7 @@ export const ENG001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageDefini
     registrationAuthorities: {
       [ENG001_QUESTION_STUDIO_CP001_ID_V1]: ENG001_CP001_HUMAN_EDITORIAL_APPROVAL_V1.authorityId,
       [ENG001_QUESTION_STUDIO_CP002_ID_V1]: ENG001_CP002_HUMAN_EDITORIAL_APPROVAL_V1.authorityId,
+      [ENG001_QUESTION_STUDIO_CP003_ID_V1]: ENG001_CP003_HUMAN_EDITORIAL_APPROVAL_V1.authorityId,
     },
     humanReviewApproved: true,
     reviewOnly: true,
@@ -254,9 +290,18 @@ export function isEng001QuestionStudioRequestV1(request: QuestionStudioGeneratio
   const selectors = [request.patternId, request.canonicalProblemId, request.questionLanguageId]
     .map((value) => text(value).toUpperCase());
   return (
-    selectors.some((value) => value.startsWith("ENG-001") || value.startsWith("GR-SVA-") || value.startsWith("GR-TNS-")) ||
+    selectors.some((value) =>
+      value.startsWith("ENG-001") ||
+      value.startsWith("GR-SVA-") ||
+      value.startsWith("GR-TNS-") ||
+      value.startsWith("GR-ART-"),
+    ) ||
     (subject === "english" && topic === "error spotting" && (
-      subtopic.includes("subject") || subtopic.includes("tense") || subtopic === ""
+      subtopic.includes("subject") ||
+      subtopic.includes("tense") ||
+      subtopic.includes("article") ||
+      subtopic.includes("determiner") ||
+      subtopic === ""
     ))
   );
 }
