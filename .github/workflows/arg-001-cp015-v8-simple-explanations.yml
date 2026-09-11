@@ -40,7 +40,28 @@ jobs:
         working-directory: artifacts/api-server
         run: |
           pnpm exec esbuild src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts --bundle --platform=node --format=esm --outfile=dist/arg-cp015-anti-gaming-grammar-proof.mjs
-          node dist/arg-cp015-anti-gaming-grammar-proof.mjs
+          set +e
+          node dist/arg-cp015-anti-gaming-grammar-proof.mjs > /tmp/arg-cp015-grammar.log 2>&1
+          status=$?
+          set -e
+          if [ "$status" -ne 0 ]; then
+            mkdir -p ../../docs/review
+            {
+              echo "ARG-001 CP015 grammar/plain-language proof failure"
+              echo "head: $GITHUB_SHA"
+              echo "run: $GITHUB_RUN_ID"
+              echo
+              cat /tmp/arg-cp015-grammar.log
+            } > ../../docs/review/ARG-001-CP015-LAST-GRAMMAR-FAILURE.txt
+            git -C ../.. config user.name "github-actions[bot]"
+            git -C ../.. config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git -C ../.. add docs/review/ARG-001-CP015-LAST-GRAMMAR-FAILURE.txt
+            git -C ../.. commit -m "chore(arg-cp015): capture grammar proof failure" || true
+            git -C ../.. push origin HEAD:feature/arg-001-cp012-editorial-remediation
+            cat /tmp/arg-cp015-grammar.log
+            exit "$status"
+          fi
+          cat /tmp/arg-cp015-grammar.log
       - name: Prove diversity and human-review uniqueness
         working-directory: artifacts/api-server
         run: |
