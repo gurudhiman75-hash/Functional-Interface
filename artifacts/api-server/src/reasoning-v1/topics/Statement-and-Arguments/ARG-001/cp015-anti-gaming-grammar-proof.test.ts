@@ -58,6 +58,8 @@ const MALFORMED: Readonly<Record<Language, readonly RegExp[]>> = Object.freeze({
     /अवश्य देते हैं/,
     /(?:पंजीकृत मोबाइल नंबर|रिकवरी ईमेल|भुगतान खाता|लेन-देन सीमा) का वास्तविक बदलावों/,
     /(?:पंजीकृत मोबाइल नंबर|रिकवरी ईमेल|भुगतान खाता|लेन-देन सीमा) के वैध बदलावों विफल होंगे/,
+    /भुगतान खाते के वैध बदलावों विफल होंगे/,
+    /भुगतान खाता में/,
   ]),
   pa: Object.freeze([
     /ਅਕਸਰਂ/,
@@ -117,6 +119,19 @@ for (const language of LANGUAGES) {
         const argumentsList = Array.isArray(question.arguments) ? question.arguments as readonly string[] : [];
         sampledArguments += argumentsList.length;
 
+        const grammarSurface = [
+          String(question.statement ?? ""),
+          ...argumentsList,
+          String(question.explanation ?? ""),
+        ].join(" ");
+        for (const pattern of MALFORMED[language]) {
+          assert.doesNotMatch(
+            grammarSurface,
+            pattern,
+            `${question.questionId}: malformed grammar leaked into final CP015 question surface`,
+          );
+        }
+
         const argumentKeys = argumentsList.map(argumentKey);
         assert.equal(
           new Set(argumentKeys).size,
@@ -125,13 +140,6 @@ for (const language of LANGUAGES) {
         );
 
         for (const [argumentIndex, argument] of argumentsList.entries()) {
-          for (const pattern of MALFORMED[language]) {
-            assert.doesNotMatch(
-              argument,
-              pattern,
-              `${question.questionId}/argument-${argumentIndex + 1}: malformed anti-gaming rewrite: ${argument}`,
-            );
-          }
           if (question.examProfile === "SSC_RECENT_2X4") {
             assert.ok(words(argument) <= 34, `${question.questionId}/argument-${argumentIndex + 1}: SSC argument exceeds 34 words after grammar polish`);
           }
@@ -150,5 +158,6 @@ console.log(JSON.stringify({
   sampledQuestions,
   sampledArguments,
   grammarPolishedQuestions,
+  fullQuestionSurfaceChecked: true,
   languages: LANGUAGES,
 }, null, 2));
