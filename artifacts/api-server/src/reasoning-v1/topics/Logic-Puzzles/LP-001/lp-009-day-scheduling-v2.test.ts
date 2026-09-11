@@ -55,19 +55,23 @@ for (const caselet of caselets) {
 
   const direct = caselet.clues.filter((clue) => clue.kind === "PERSON_DAY").length;
   const relations = new Set(caselet.clues.filter((clue) => clue.kind === "BEFORE" || clue.kind === "BETWEEN" || clue.kind === "ADJACENT").map((clue) => clue.kind)).size;
-  const exclusions = caselet.clues.filter((clue) => clue.kind === "NOT_DAY").length;
+  const exclusionClues = caselet.clues.filter((clue) => clue.kind === "NOT_DAY");
+  const exclusions = exclusionClues.length;
+  assert.equal(new Set(exclusionClues.map((clue) => clue.person)).size, exclusions, `${caselet.caseletId} repeats day exclusions for the same person instead of using a cleaner clue mix`);
+
   if (caselet.difficultyBand === "Easy") {
     assert.ok(direct >= 3, `${caselet.caseletId} Easy lacks direct anchors`);
+    assert.ok(exclusions <= 1, `${caselet.caseletId} Easy has too many negative clues`);
     assert.ok(caselet.clues.length >= 4 && caselet.clues.length <= 6);
   }
   if (caselet.difficultyBand === "Medium") {
     assert.ok(direct >= 1 && direct <= 3);
-    assert.ok(relations >= 1 && exclusions >= 1);
+    assert.ok(relations >= 1 && exclusions === 1, `${caselet.caseletId} Medium should mix one exclusion with relational deductions`);
     assert.ok(caselet.clues.length >= 5);
   }
   if (caselet.difficultyBand === "Hard") {
     assert.ok(direct <= 1, `${caselet.caseletId} Hard has too many direct placements`);
-    assert.ok(relations >= 2 && exclusions >= 1, `${caselet.caseletId} Hard lacks layered relations/exclusion`);
+    assert.ok(relations >= 2 && exclusions >= 1 && exclusions <= 2, `${caselet.caseletId} Hard lacks a balanced layered relation/exclusion chain`);
     assert.ok(caselet.clues.length >= 5);
   }
 
@@ -102,4 +106,4 @@ for (const caselet of caselets) {
 for (const [qlId, counts] of qlPositionCounts) assert.deepEqual(counts, [25, 25, 25, 25], `${qlId} answer-position balance failed`);
 assert.ok(reorderedCaselets >= 50, `Dependency-driven explanation order is not visibly exercised enough (${reorderedCaselets}/100 caselets)`);
 
-console.log(`LP-009 Day Scheduling V2 proof passed: 100 source-backed day-only caselets, 400 standalone children, permanent QL reuse, unique/essential clues, structural difficulty, progressive explanations, ${reorderedCaselets}/100 solve-order reorderings and balanced answers.`);
+console.log(`LP-009 Day Scheduling V2 proof passed: 100 source-backed day-only caselets, 400 standalone children, permanent QL reuse, unique/essential clues, bounded non-repetitive exclusions, structural difficulty, progressive explanations, ${reorderedCaselets}/100 solve-order reorderings and balanced answers.`);
