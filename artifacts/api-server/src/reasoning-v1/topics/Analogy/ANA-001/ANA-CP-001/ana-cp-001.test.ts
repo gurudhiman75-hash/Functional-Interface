@@ -10,6 +10,7 @@ function pairKey(left: string, right: string): string {
 assert.equal(ANA_CP001_QLS.length, 36);
 assert.equal(new Set(ANA_CP001_QLS.map((ql) => ql.qlId)).size, 36);
 assert.deepEqual(ANA_CP001_QLS.map((ql) => ql.qlId), Array.from({ length: 36 }, (_, index) => `ANA-QL-${String(index + 1).padStart(3, "0")}`));
+assert.ok(ANA_CP001_QLS.every((ql) => ql.difficultyBand === "INSTANCE_DERIVED"));
 assert.equal(ANA_CP001_RELATIONS.length, 18);
 assert.equal(ANA_CP001_FACTS.length, 216);
 assert.equal(new Set(ANA_CP001_FACTS.map((fact) => fact.id)).size, 216);
@@ -20,11 +21,22 @@ for (const relation of ANA_CP001_RELATIONS) {
   assert.ok(facts.every((fact) => fact.predicate.length > 10));
   assert.ok(facts.every((fact) => fact.answerCategory === relation.answerCategory));
   assert.ok(facts.every((fact) => fact.sourceCategory === relation.sourceCategory));
-  assert.ok(facts.every((fact) => fact.version === "2.0.0"));
+  assert.ok(facts.every((fact) => fact.version === "2.1.0"));
   assert.equal(new Set(facts.map((fact) => pairKey(fact.left, fact.right))).size, facts.length);
+  // Array position must never masquerade as difficulty: all facts in one
+  // relation share the same relation-demand band.
+  assert.equal(new Set(facts.map((fact) => fact.difficulty)).size, 1);
 }
 
+const objectFunctions = new Set(factsForRule("SEM_OBJECT_FUNCTION").map((fact) => pairKey(fact.left, fact.right)));
+assert.ok(objectFunctions.has(pairKey("Phone", "Talk")));
+assert.ok(objectFunctions.has(pairKey("Television", "View")));
+
 const answerPositionCounts = [0, 0, 0, 0];
+const difficultyByMode = {
+  MISSING_FOURTH_TERM: new Set<string>(),
+  EQUIVALENT_PAIR_SELECTION: new Set<string>(),
+};
 for (const ql of ANA_CP001_QLS) {
   const validPairKeys = new Set(factsForRule(ql.ruleId).map((fact) => pairKey(fact.left, fact.right)));
   for (let seed = 0; seed < 100; seed += 1) {
@@ -33,6 +45,8 @@ for (const ql of ANA_CP001_QLS) {
     assert.equal(new Set(generated.options.map((option) => JSON.stringify(option.value).toLowerCase())).size, 4);
     assert.equal(generated.options.filter((option) => option.errorLabel === null).length, 1);
     assert.deepEqual(generated.options[generated.correctIndex].value, generated.presentationMode === "MISSING_FOURTH_TERM" ? generated.targetB : [generated.targetA, generated.targetB]);
+    assert.ok(["EASY", "MEDIUM", "HARD"].includes(generated.difficulty));
+    difficultyByMode[generated.presentationMode].add(generated.difficulty);
     assert.ok(generated.explanationTrace.ruleStatement.length > 15);
     assert.ok(!generated.explanationTrace.ruleStatement.includes("SEM_"));
     assert.ok(generated.explanationTrace.sourceDemonstration[0].result.includes(generated.sourceA));
@@ -53,8 +67,23 @@ for (const ql of ANA_CP001_QLS) {
   }
 }
 
+// Direct semantic completion should not fabricate hard questions from obscure
+// facts. Pair selection can legitimately reach HARD when the relation itself is
+// subtle and the learner must compare full pairs.
+assert.ok(difficultyByMode.MISSING_FOURTH_TERM.has("EASY"));
+assert.ok(difficultyByMode.MISSING_FOURTH_TERM.has("MEDIUM"));
+assert.ok(!difficultyByMode.MISSING_FOURTH_TERM.has("HARD"));
+assert.ok(difficultyByMode.EQUIVALENT_PAIR_SELECTION.has("MEDIUM"));
+assert.ok(difficultyByMode.EQUIVALENT_PAIR_SELECTION.has("HARD"));
+
 const minPositionCount = Math.min(...answerPositionCounts);
 const maxPositionCount = Math.max(...answerPositionCounts);
 assert.ok(maxPositionCount / minPositionCount < 1.2, `Answer positions are imbalanced: ${answerPositionCounts.join(", ")}`);
 
-console.log("ANA-CP-001 exhaustive contract test passed.", { answerPositionCounts });
+console.log("ANA-CP-001 exhaustive contract test passed.", {
+  answerPositionCounts,
+  difficultyByMode: {
+    missing: [...difficultyByMode.MISSING_FOURTH_TERM],
+    pair: [...difficultyByMode.EQUIVALENT_PAIR_SELECTION],
+  },
+});
