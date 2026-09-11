@@ -36,7 +36,6 @@ const QL_NAMES: Record<string, string> = {
 const BASIN_ROWS = GEO_RIV_001_CP011_BASIN_ROWS_V1;
 const PATTERN_ROWS = GEO_RIV_001_CP011_PATTERN_ROWS_V1;
 const BASINS = [...new Set(BASIN_ROWS.map((row) => row.basin))];
-const RIVERS = BASIN_ROWS.map((row) => row.river);
 const PATTERNS = PATTERN_ROWS.map((row) => row.pattern);
 
 function displayRiver(river: string) {
@@ -45,6 +44,10 @@ function displayRiver(river: string) {
 
 function rawRiver(river: string) {
   return river.replace(/^River\s+/, "");
+}
+
+function sentenceCase(value: string) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 function unique<T>(values: readonly T[]) {
@@ -105,7 +108,7 @@ function ql092(seed: string) {
     stem: `${displayRiver(row.river)} belongs to which of the following river basins?`,
     answer: row.basin,
     optionPool: BASINS,
-    explanation: `${displayRiver(row.river)} is part of the ${row.basin}. It belongs to the ${displayRiver(row.parentRiver)} system.`,
+    explanation: `${displayRiver(row.river)} is part of the ${row.basin}. It forms part of the ${displayRiver(row.parentRiver)} system.`,
     facts: fact ? [fact] : [],
     difficulty: "Easy",
     solverAuthority: "RIVER_BASIN_RELATION",
@@ -124,7 +127,7 @@ function ql093(seed: string) {
     stem: `Which of the following rivers is a part of the ${basin}?`,
     answer: displayRiver(target.river),
     optionPool: pool,
-    explanation: `${displayRiver(target.river)} belongs to the ${basin}; its parent river system is the ${displayRiver(target.parentRiver)} system.`,
+    explanation: `${displayRiver(target.river)} belongs to the ${basin} and forms part of the ${displayRiver(target.parentRiver)} system.`,
     facts: fact ? [fact] : [],
     difficulty: "Medium",
     solverAuthority: "BASIN_RIVER_DISCRIMINATION",
@@ -150,7 +153,7 @@ function ql094(seed: string) {
     stem: "Select the correctly matched river–basin pair.",
     answer: pairs[target],
     optionPool: pairs,
-    explanation: `${displayRiver(row.river)} belongs to the ${row.basin}. It is part of the ${displayRiver(row.parentRiver)} system.`,
+    explanation: `${displayRiver(row.river)} belongs to the ${row.basin} and forms part of the ${displayRiver(row.parentRiver)} system.`,
     facts: selected.map((item) => basinFactForRiver(item.river)).filter((fact): fact is KnowledgeFact => Boolean(fact)),
     difficulty: "Medium",
     solverAuthority: "MATCHED_RIVER_BASIN_VERIFIER",
@@ -172,7 +175,7 @@ function ql095(seed: string) {
     stem: "Which one of the following river–basin pairs is incorrectly matched?",
     answer: pairs[target],
     optionPool: pairs,
-    explanation: `${displayRiver(row.river)} belongs to the ${row.basin}, not to the basin shown in that pair. It is part of the ${displayRiver(row.parentRiver)} system.`,
+    explanation: `${displayRiver(row.river)} belongs to the ${row.basin}, not to the basin shown in that pair. It forms part of the ${displayRiver(row.parentRiver)} system.`,
     facts: selected.map((item) => basinFactForRiver(item.river)).filter((fact): fact is KnowledgeFact => Boolean(fact)),
     difficulty: "Medium",
     solverAuthority: "MATCHED_RIVER_BASIN_VERIFIER",
@@ -181,13 +184,19 @@ function ql095(seed: string) {
 
 function ql096(seed: string) {
   const row = deterministicPick(PATTERN_ROWS, `${seed}:row`);
+  const variant = deterministicPick([0, 1, 2] as const, `${seed}:stem-variant`);
+  const stems = [
+    `Which drainage pattern is characterized by a network in which ${row.recognition}?`,
+    `${sentenceCase(row.recognition)}. Which drainage pattern does this describe?`,
+    `Identify the drainage pattern in which ${row.recognition}.`,
+  ];
   return build({
     qlId: "GEO-RIV-001-QL-096",
     seed,
-    stem: `A drainage network in which ${row.recognition} is known as which type of drainage pattern?`,
+    stem: stems[variant],
     answer: row.pattern,
     optionPool: PATTERNS,
-    explanation: `${row.pattern} is identified by the way ${row.recognition}. Its form reflects ${row.control}.`,
+    explanation: `${row.pattern} has this characteristic: ${row.recognition}. It commonly reflects ${row.control}.`,
     facts: patternFacts(row.pattern),
     difficulty: "Easy",
     solverAuthority: "DRAINAGE_PATTERN_RECOGNITION",
@@ -196,13 +205,19 @@ function ql096(seed: string) {
 
 function ql097(seed: string) {
   const row = deterministicPick(PATTERN_ROWS, `${seed}:row`);
+  const variant = deterministicPick([0, 1, 2] as const, `${seed}:stem-variant`);
+  const stems = [
+    `Which drainage pattern is most closely associated with ${row.control}?`,
+    `${sentenceCase(row.control)}. Which drainage pattern is most likely to develop under these conditions?`,
+    `In terrain marked by ${row.control}, which drainage pattern is most likely to develop?`,
+  ];
   return build({
     qlId: "GEO-RIV-001-QL-097",
     seed,
-    stem: `Which drainage pattern is most closely associated with ${row.control}?`,
+    stem: stems[variant],
     answer: row.pattern,
     optionPool: PATTERNS,
-    explanation: `${row.pattern} develops under this control. It is recognized because ${row.recognition}.`,
+    explanation: `${row.pattern} is associated with ${row.control}. It is recognized because ${row.recognition}.`,
     facts: patternFacts(row.pattern),
     difficulty: "Medium",
     solverAuthority: "DRAINAGE_PATTERN_CONTROL",
@@ -272,7 +287,7 @@ function ql099(seed: string) {
     stem: `With reference to river basins and drainage patterns, consider the following statements:\nI. ${first.text}\nII. ${second.text}\nWhich of the statements given above is/are correct?`,
     answer,
     optionPool: TWO_STATEMENT_OPTIONS,
-    explanation: `Statement I: ${first.explanation} Statement II: ${second.explanation} Therefore, ${answer}.`,
+    explanation: `Statement I: ${first.explanation} Statement II: ${second.explanation} Hence, ${answer}.`,
     facts: [...first.facts, ...second.facts],
     difficulty: "Medium",
     solverAuthority: "STATEMENT_COMPOSITION_VERIFIER",
@@ -285,14 +300,20 @@ function ql100(seed: string) {
   const flags = deterministicShuffle([0, 1, 2].map((index) => index < targetCount), `${seed}:flags`);
   const claims = [basinClaim(`${seed}:1`, flags[0]), patternClaim(`${seed}:2`, flags[1]), basinClaim(`${seed}:3`, flags[2])];
   const answer = COUNT_OPTIONS[targetCount];
-  const countWord = ["None", "One", "Two", "Three"][targetCount];
+  const countConclusion = targetCount === 0
+    ? "None of the three statements are correct."
+    : targetCount === 1
+      ? "One of the three statements is correct."
+      : targetCount === 2
+        ? "Two of the three statements are correct."
+        : "All three statements are correct.";
   return build({
     qlId: "GEO-RIV-001-QL-100",
     seed,
     stem: `Consider the following statements about river basins and drainage patterns:\n${claims.map((claim, index) => `${index + 1}. ${claim.text}`).join("\n")}\nHow many of the statements given above are correct?`,
     answer,
     optionPool: COUNT_OPTIONS,
-    explanation: `${claims.map((claim, index) => `${index + 1}. ${claim.explanation}`).join(" ")} ${countWord} of the three statements ${targetCount === 1 ? "is" : "are"} correct.`,
+    explanation: `${claims.map((claim, index) => `${index + 1}. ${claim.explanation}`).join(" ")} ${countConclusion}`,
     facts: claims.flatMap((claim) => claim.facts),
     difficulty: "Hard",
     solverAuthority: "STATEMENT_COMPOSITION_VERIFIER",
