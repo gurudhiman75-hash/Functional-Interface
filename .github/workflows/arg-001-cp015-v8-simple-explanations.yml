@@ -10,6 +10,7 @@ on:
       - scripts/arg-cp015-generic-fallback-routing-repair.py
       - scripts/arg-cp015-ql004-localized-routing-hotfix.py
       - scripts/arg-cp015-localized-routing-hotfix-v2.py
+      - scripts/arg-cp015-localized-routing-hotfix-v3.py
       - scripts/arg-cp015-final-editorial-integration-repair.py
       - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts
 
@@ -35,6 +36,7 @@ jobs:
           python scripts/arg-cp015-generic-fallback-routing-repair.py
           python scripts/arg-cp015-ql004-localized-routing-hotfix.py
           python scripts/arg-cp015-localized-routing-hotfix-v2.py
+          python scripts/arg-cp015-localized-routing-hotfix-v3.py
           python scripts/arg-cp015-final-editorial-integration-repair.py
       - name: Strict TypeScript
         working-directory: artifacts/api-server
