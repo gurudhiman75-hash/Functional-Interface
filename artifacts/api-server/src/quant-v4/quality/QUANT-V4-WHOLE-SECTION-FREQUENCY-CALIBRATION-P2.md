@@ -13,7 +13,7 @@ Mixing both shapes in one frequency calculation can over-weight chapters that re
 
 ## P2 decision
 
-Whole-section frequency calibration is now a separate evidence surface.
+Whole-section frequency calibration is a separate evidence surface.
 
 - Only explicitly declared, fully normalized Quant sections enter section-frequency weights.
 - A declared section enters the calibration sample only when every expected question is present exactly once and its held date/shift match the declared paper identity.
@@ -28,10 +28,11 @@ Whole-section frequency calibration is now a separate evidence surface.
 | 09 Sep 2024 Shift 1 | Q51–Q75 | 25 |
 | 27 Jul 2023 Shift 2 | Q26–Q50 | 25 |
 | 01 Dec 2022 Shift 1 | Q51–Q75 | 25 |
+| SSC CGL 2020 cycle — held 17 Aug 2021 Shift 1 | Q51–Q75 | 25 |
 
-Current complete-section sample: **3 papers / 75 questions / 3 exam years / 20 live package IDs**.
+Current complete-section sample: **4 papers / 100 questions / 4 held years / 20 live package IDs**.
 
-The shared CGL Tier-I registry contains **100 countable observations**. Therefore **25** remain non-whole-section observations. Ten of those are legacy undated Number System collection observations; they no longer contaminate whole-section weights because they are outside the complete-section sample.
+The shared CGL Tier-I registry contains **125 countable observations**. Therefore **25** remain non-whole-section observations. Ten of those are legacy undated Number System collection observations; they do not contaminate whole-section weights because they are outside the complete-section sample.
 
 ## Conservative P2 audit policy
 
@@ -43,12 +44,16 @@ The shared CGL Tier-I registry contains **100 countable observations**. Therefor
 
 The current profile is therefore `SECTION_EVIDENCE_ACCUMULATING` with blocker `COMPLETE_SECTION_SAMPLE_BELOW_POLICY`.
 
-This checkpoint does **not** authorize replacement of provisional simulator weights. Even if evidence thresholds are temporarily lowered in a test, production promotion still requires an explicit authorization switch.
+The sample already clears held-year and package-coverage thresholds. It remains only halfway to the conservative complete-section count threshold.
+
+This checkpoint does **not** authorize replacement of provisional simulator weights. Even when the evidence threshold is eventually met, production promotion still requires a separate explicit authorization switch.
 
 ## Why this matters
 
 A chapter can have many verified PYQs because it was audited aggressively. That is evidence that the chapter exists in real exams, but not evidence that the chapter occupies the same share of an actual Quant section. Complete-section calibration avoids that sampling bias and gives Examtree a defensible path to future SSC chapter-frequency distributions.
 
+Four independent complete sections across four held years now make paper-to-paper variance visible, but the sample is still deliberately treated as accumulating evidence rather than a production frequency model.
+
 ## Exit condition
 
-Continue normalizing fully dated complete Quant sections. Revisit the P2 sample threshold only after enough independent sections exist to examine paper-to-paper variance. Do not promote production frequency weights merely because isolated-question totals are large.
+Continue normalizing fully dated complete Quant sections until at least eight independent sections are available. Then inspect paper-to-paper variance and package stability before considering evidence candidacy. Do not promote production frequency weights merely because isolated-question totals are large or because the minimum section count is reached.
