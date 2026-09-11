@@ -1,6 +1,7 @@
 import { strict as assert } from "node:assert";
 import { GEO_RIV_001_CP009_REVIEW_BATCH_V2 } from "./geo-riv-001-cp009-review-batch-v2";
 import { GEO_RIV_001_CP009_REVIEW_BATCH_V3, auditGeoRiv001Cp009ReviewBatchV3 } from "./geo-riv-001-cp009-review-batch-v3";
+import { naturalizeGeoRiv001Cp009Stem } from "./geo-riv-001-cp009-review-generator-v3";
 import { GEO_RIV_001_CP009_REVIEW_SCOPE_V1, auditGeoRiv001Cp009ScopeV1 } from "./geo-riv-001-cp009-scope";
 
 const scopeAudit = auditGeoRiv001Cp009ScopeV1();
@@ -19,6 +20,7 @@ const audit = auditGeoRiv001Cp009ReviewBatchV3();
 assert.equal(audit.valid, true, audit.issues.join("\n"));
 assert.equal(audit.baselineAuditValid, true);
 assert.equal(audit.answerMatrixPreserved, true);
+assert.equal(audit.naturalStemLayerValid, true);
 assert.equal(audit.questionCount, 54);
 assert.deepEqual(audit.difficultyCounts, { Easy: 18, Medium: 30, Hard: 6 });
 assert.deepEqual(audit.answerPositions, { 0: 14, 1: 14, 2: 13, 3: 13 });
@@ -30,7 +32,9 @@ for (let ql = 74; ql <= 82; ql += 1) {
 
 GEO_RIV_001_CP009_REVIEW_BATCH_V3.forEach((question, index) => {
   const v2 = GEO_RIV_001_CP009_REVIEW_BATCH_V2[index];
-  assert.equal(question.stem, v2.stem);
+  assert.equal(question.stem, naturalizeGeoRiv001Cp009Stem(v2));
+  assert.notEqual(question.stem, v2.stem);
+  assert.doesNotMatch(question.stem, /state set|Which river's course in India passes through only|The .+ (?:rises|originates) in which state\?|How many of the following statements are correct\?/i);
   assert.deepEqual(question.options, v2.options);
   assert.equal(question.correctIndex, v2.correctIndex);
   assert.equal(question.canonicalAnswer, v2.canonicalAnswer);
@@ -44,6 +48,13 @@ GEO_RIV_001_CP009_REVIEW_BATCH_V3.forEach((question, index) => {
   assert.equal(question.runtimeRegistered, false);
   assert.ok(question.explanation.length >= 95);
   assert.doesNotMatch(question.explanation, /CP009|V[123]|reviewed|sourceFact|state set|associated with|linked with|exam trap|shortcut|Therefore,/i);
+
+  if (question.qlId === "GEO-RIV-001-QL-081") {
+    assert.match(question.stem, /Which of the statements given above is\/are correct\?$/);
+  }
+  if (question.qlId === "GEO-RIV-001-QL-082") {
+    assert.match(question.stem, /How many of (?:the statements given above|the above statements) are correct\?$/);
+  }
 });
 
 console.log(JSON.stringify(audit, null, 2));
