@@ -39,7 +39,7 @@ function forceAnswerPosition(question: GeoRiv001Cp011ReviewQuestion, targetIndex
 }
 
 function semanticSignature(question: GeoRiv001Cp011ReviewQuestion) {
-  if (question.qlId === "GEO-RIV-001-QL-094" || question.qlId === "GEO-RIV-001-QL-095" || question.qlId === "GEO-RIV-001-QL-098") {
+  if (["GEO-RIV-001-QL-093", "GEO-RIV-001-QL-094", "GEO-RIV-001-QL-095", "GEO-RIV-001-QL-098"].includes(question.qlId)) {
     return `${question.stem}|${question.canonicalAnswer}`;
   }
   return question.stem;
