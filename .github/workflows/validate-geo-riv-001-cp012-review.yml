@@ -2,24 +2,31 @@ name: Validate GEO-RIV-001 CP012 Review
 
 on:
   pull_request:
-    branches: [New-main]
+    branches:
+      - New-main
     paths:
-      - 'artifacts/api-server/src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp012-**'
-      - 'artifacts/api-server/src/knowledge-v1/indian-geography/rivers-drainage/GEO-RIV-001-CP012-SPEC.md'
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp012-*"
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/rivers-drainage/GEO-RIV-001-CP012-*"
+  workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: geo-riv-001-cp012-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate-cp012:
     runs-on: ubuntu-24.04
+    timeout-minutes: 30
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: 22
       - name: Enable pnpm
         run: corepack enable
       - name: Install locked workspace dependencies
@@ -27,16 +34,25 @@ jobs:
       - name: Run CP012 qualification gate
         run: |
           mkdir -p artifacts/api-server/dist/geography
-          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp012-review-batch-v1.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/geography/geo-riv-001-cp012-review-batch-v1.test.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp012-review-batch-v1.test.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-riv-001-cp012-review-batch-v1.test.mjs
           node artifacts/api-server/dist/geography/geo-riv-001-cp012-review-batch-v1.test.mjs
       - name: Materialize CP012 V1 review artifact
         run: |
-          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp012-export-review-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/geography/geo-riv-001-cp012-export-review-v1.mjs
-          cd artifacts/api-server && node dist/geography/geo-riv-001-cp012-export-review-v1.mjs
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp012-export-review-v1.ts \
+            --bundle --packages=external --platform=node --format=esm \
+            --outfile=dist/geography/geo-riv-001-cp012-export-review-v1.mjs
+          cd artifacts/api-server
+          node dist/geography/geo-riv-001-cp012-export-review-v1.mjs
       - name: Upload CP012 V1 review artifact
         uses: actions/upload-artifact@v4
         with:
           name: GEO-RIV-001-CP012-REVIEW-BATCH-V1
           path: artifacts/api-server/dist/geography-review/GEO-RIV-001-CP012-V1/
+          if-no-files-found: error
+          retention-days: 30
       - name: Build API server
         run: pnpm --dir artifacts/api-server build
