@@ -1,0 +1,28 @@
+import type {
+  QuestionStudioEngineAdapter,
+  QuestionStudioGenerationRequest,
+  QuestionStudioGenerationResult,
+} from "../engine-types";
+import {
+  isEng001QuestionStudioRequestV1,
+  languageV1Eng001QuestionStudioAdapterV1,
+} from "./language-v1-eng001-adapter-v1";
+
+/**
+ * Composite adapter for language subjects. Individual chapter adapters own
+ * their grammar authority, review lifecycle, selectors, and generation rules.
+ */
+export const languageV1QuestionStudioAdapter: QuestionStudioEngineAdapter = {
+  engineId: "language-v1",
+
+  listPackages() {
+    return [...languageV1Eng001QuestionStudioAdapterV1.listPackages()];
+  },
+
+  async generate(request: QuestionStudioGenerationRequest): Promise<QuestionStudioGenerationResult> {
+    if (isEng001QuestionStudioRequestV1(request)) {
+      return languageV1Eng001QuestionStudioAdapterV1.generate(request);
+    }
+    throw new Error(`language-v1 cannot resolve package ${String(request.packageId ?? request.topic ?? "unknown")}`);
+  },
+};

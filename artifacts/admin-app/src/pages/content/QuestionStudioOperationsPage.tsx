@@ -7,6 +7,7 @@ import { QuestionStudioComputerAwarenessReviewPanel } from './QuestionStudioComp
 import { QuestionStudioCubesDiceReviewPanel } from './QuestionStudioCubesDiceReviewPanel';
 import { QuestionStudioDataSufficiencyReviewPanel } from './QuestionStudioDataSufficiencyReviewPanel';
 import { QuestionStudioDifficultyMixControls } from './QuestionStudioDifficultyMixControls';
+import { QuestionStudioEnglishReviewPanel } from './QuestionStudioEnglishReviewPanel';
 import { QuestionStudioExamProfileSummary } from './QuestionStudioExamProfileSummary';
 import { QuestionStudioInputOutputReviewPanel } from './QuestionStudioInputOutputReviewPanel';
 import { QuestionStudioInterestReviewPanel } from './QuestionStudioInterestReviewPanel';
@@ -19,6 +20,7 @@ import { QuestionStudioStatementAssumptionReviewPanel } from './QuestionStudioSt
 export function QuestionStudioOperationsPage() {
   return (
     <>
+      <QuestionStudioEnglishReviewPanel />
       <QuestionStudioComputerAwarenessReviewPanel />
       <QuestionStudioCom003PreviewPanel />
       <QuestionStudioCom003ReviewPanel />

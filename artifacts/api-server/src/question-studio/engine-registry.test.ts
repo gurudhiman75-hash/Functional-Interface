@@ -13,7 +13,7 @@ import {
 } from "./standard-lifecycle";
 
 const engines = listQuestionStudioEngines();
-assert.deepEqual(engines, ["quant-v4", "knowledge-v1"]);
+assert.deepEqual(engines, ["quant-v4", "knowledge-v1", "language-v1"]);
 
 const packages = listQuestionStudioPackages();
 assert.equal(packages.length > 0, true);
@@ -87,6 +87,39 @@ assert.equal(com002Result.generationContext.reviewRunPersistenceAllowed, true);
 assert.equal(com002Result.generationContext.canonicalQuestionPersistenceAllowed, true);
 assert.equal(com002Result.generationContext.questionBankWritable, true);
 
-assert.throws(() => getQuestionStudioEngine("language-v1"), /not registered/);
+const eng001 = packages.find((pkg) => pkg.packageId === "ENG-001");
+const reviewLifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
+assert.ok(eng001);
+assert.equal(eng001.engineId, "language-v1");
+assert.equal(eng001.enabled, true);
+assert.deepEqual(eng001.cpIds, ["ENG-001-CP001"]);
+assert.deepEqual(eng001.supportedLanguages, ["en"]);
+assert.deepEqual(eng001.supportedDifficulties, ["Easy", "Medium", "Hard"]);
+assert.equal(eng001.runtimeMode, "review-only");
+assert.equal(eng001.lifecycleStage, "REVIEW_ONLY");
+assert.equal(eng001.questionBankStatus, reviewLifecycle.questionBankStatus);
+assert.equal(eng001.questionBankWritable, false);
+assert.equal(eng001.testEligible, false);
+assert.equal(eng001.mockTestEligible, false);
+assert.equal(eng001.publiclyPublishable, false);
+assert.equal(eng001.metadata?.humanReviewApproved, true);
+assert.equal(resolveQuestionStudioEngine({ packageId: "ENG-001" }).engineId, "language-v1");
+assert.equal(getQuestionStudioEngine("language-v1").engineId, "language-v1");
 
-console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS COM-001=bank-only COM-002=bank-only knowledge-v1-composite=true");
+const eng001Result = await generateQuestionStudioQuestions({
+  packageId: "ENG-001",
+  language: "en",
+  difficulty: "Easy",
+  runtimeMode: "review-only",
+  count: 2,
+  seed: "engine-registry-eng001-smoke",
+});
+assert.equal(eng001Result.engineId, "language-v1");
+assert.equal(eng001Result.questions.length, 2);
+assert.equal(eng001Result.generationContext.packageId, "ENG-001");
+assert.equal(eng001Result.generationContext.stage, "REVIEW_ONLY");
+assert.equal(eng001Result.generationContext.questionBankStatus, "NOT_STORED");
+assert.equal(eng001Result.generationContext.questionBankWritable, false);
+assert.equal(eng001Result.generationContext.productionReleaseAuthorized, false);
+
+console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 ENG-001=review-only");
