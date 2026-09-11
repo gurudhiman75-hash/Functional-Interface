@@ -33,7 +33,7 @@ The Examtree English blueprint explicitly assigns `ENG-001-CP002` to **Tenses an
 
 ### B. Competitive-exam surfaces
 
-The audit used indexed official-paper questions reproduced by Testbook, Prepp, EduRev and similar exam-preparation hosts. These are secondary hosts of examination questions, not the examination authorities themselves, so each observation is used as exam-pattern evidence rather than as a claim of first-party provenance.
+The audit used indexed official-paper questions reproduced by Testbook, EduRev and similar exam-preparation hosts. These are secondary hosts of examination questions, not the examination authorities themselves, so each observation is used as exam-pattern evidence rather than as a claim of first-party provenance.
 
 Observed recurring surfaces include:
 
@@ -60,16 +60,29 @@ Cambridge Grammar and British Council references were used to define safe determ
 
 | Rule | Construction | Evidence status | V1 decision | Difficulty |
 | --- | --- | --- | --- | --- |
-| `GR-TNS-001` | definite finished-past marker → simple past | Direct SSC PYQ + reference backed | Admit `yesterday`, `last week`, `two days ago`, explicit past dates; mutate simple past to present perfect. | Easy–Hard |
+| `GR-TNS-001` | definite finished-past marker → simple past | Direct SSC PYQ + reference backed | Admit `yesterday`, `last Friday`, `two days ago`, explicit past dates; mutate simple past to present perfect. | Easy–Medium |
 | `GR-TNS-002` | continuing dynamic action from past → present perfect continuous | Direct exam-pattern + reference backed | Require dynamic verb, explicit since/for cue, and still-continuing meaning. Mutate to present continuous. | Medium–Hard |
-| `GR-TNS-003` | habitual/general action → simple present | Reference + exam-pattern backed | Require `usually`, `every day`, `regularly`, `each week`, etc.; mutate to present continuous. | Easy–Medium |
-| `GR-TNS-004` | action happening now → present continuous | Reference backed | Require `right now`, `at the moment`, `currently` with dynamic verbs; mutate to simple present. | Easy–Medium |
-| `GR-TNS-005` | stative verb not normally continuous | Direct exam-pattern + reference backed | Use only unambiguous stative senses of know/understand/own/belong/believe/need/prefer. | Medium–Hard |
+| `GR-TNS-003` | habitual/general action → simple present | Reference + exam-pattern backed | Use an authored routine marker matched to each scene; mutate to present continuous. | Easy–Medium |
+| `GR-TNS-004` | action happening now → present continuous | Reference backed | Require `right now`, `at the moment`, or `currently` with dynamic verbs; mutate to simple present. | Easy–Medium |
+| `GR-TNS-005` | stative verb not normally continuous | Direct exam-pattern + reference backed | Use only unambiguous stative senses of know/understand/own. | Medium |
 | `GR-TNS-006` | `did/did not + base form` | Direct SSC-pattern backed | Past marking stays on `did`; mutate the lexical verb to its past form. | Easy–Medium |
-| `GR-TNS-007` | earlier of two connected past actions → past perfect | Reference + exam-pattern backed | Require `by the time`/`already`-style explicit ordering. Avoid contexts where two simple-past forms are equally natural. | Medium–Hard |
-| `GR-TNS-008` | ongoing past action + past interruption → past continuous | Reference backed | Require explicit in-progress reading plus a distinct past interruption; mutate to a present-time tense to avoid semantic-only ambiguity. | Medium–Hard |
-| `GR-TNS-009` | single completed past event → simple past, not past perfect | Direct SSC CHSL evidence + reference backed | No second past reference point may appear. | Medium–Hard |
-| `GR-TNS-010` | continuing stative state → present perfect simple | Reference + SSC-style evidence | Use stable stative verbs plus since/for duration; reject progressive stative readings. | Medium–Hard |
+| `GR-TNS-007` | earlier of two connected past actions → past perfect | Reference + exam-pattern backed | Require `by the time` plus explicit earlier/later ordering. Avoid contexts where two simple-past forms are equally natural. | Medium–Hard |
+| `GR-TNS-008` | ongoing past action + past interruption → past continuous | Reference backed | Require an explicit in-progress reading plus a distinct simple-past interruption. | Medium–Hard |
+| `GR-TNS-009` | single completed past event → simple past, not past perfect | Direct SSC CHSL evidence + reference backed | No second past reference point may appear. | Medium |
+| `GR-TNS-010` | continuing stative state → present perfect simple | Reference + SSC-style evidence | Use stable stative verbs plus since/for duration; reject progressive stative readings. | Medium |
+
+## Implemented semantic depth
+
+The first production-oriented V1 catalog now contains:
+
+- **40 dynamic scenes** across all 20 semantic domains;
+- **20 continuing/sequence/interruption scenes**, one in every domain;
+- **20 stative scenes**, one in every domain;
+- neutral setting phrases rather than time-specific context phrases;
+- authored habit markers so a sentence cannot combine contradictory cues such as `at night` with `every morning`;
+- no local city/place-name pool.
+
+The 20 domains are education, transport, commerce, science, sports, public-service, technology, environment, hospitality, healthcare, agriculture, media, household, infrastructure, banking, manufacturing, energy, postal, culture, and emergency-service.
 
 ## Evidence URLs retained for the checkpoint
 
