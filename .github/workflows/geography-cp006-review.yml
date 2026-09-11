@@ -1,0 +1,48 @@
+name: Validate GEO-RIV-001 CP006 Review
+
+on:
+  pull_request:
+    paths:
+      - "artifacts/api-server/src/knowledge-v1/indian-geography/rivers-drainage/**"
+      - ".github/workflows/geography-cp006-review.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-cp006:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run CP006 qualification gate
+        run: |
+          mkdir -p artifacts/api-server/dist/geography
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp006-review-batch-v1.test.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/geography/geo-riv-001-cp006-review-batch-v1.test.mjs
+          node artifacts/api-server/dist/geography/geo-riv-001-cp006-review-batch-v1.test.mjs
+      - name: Materialize CP006 V1 review artifact
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp006-export-review-v1.ts --bundle --packages=external --platform=node --format=esm --outfile=dist/geography/geo-riv-001-cp006-export-review-v1.mjs
+          node artifacts/api-server/dist/geography/geo-riv-001-cp006-export-review-v1.mjs
+      - name: Upload CP006 V1 review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GEO-RIV-001-CP006-REVIEW-BATCH-V1
+          path: artifacts/api-server/dist/geography/GEO-RIV-001-CP006-REVIEW-BATCH-V1/
+          if-no-files-found: error
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
