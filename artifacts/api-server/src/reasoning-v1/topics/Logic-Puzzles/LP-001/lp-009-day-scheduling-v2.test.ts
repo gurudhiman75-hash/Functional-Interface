@@ -15,7 +15,6 @@ assert.equal(LP_009_DAY_SCHEDULING_V2_REVIEW.nextAvailableQlId, "LP-QL-041");
 assert.equal(LP_001_010_PERMANENT_QL_REGISTRY_V1.nextAvailableQlId, "LP-QL-041");
 assert.equal(LP_001_010_PERMANENT_QL_REGISTRY_V1.permanentQlCount, 40);
 
-// The frozen V1 generator remains the month/year authority and is not silently widened.
 const frozenV1 = generateLp009Batch("lp009-v1-regression-day-v2", 24);
 assert.deepEqual(new Set(frozenV1.map((caselet) => caselet.mode)), new Set(["MONTH", "YEAR"]));
 assert.ok(frozenV1.every((caselet) => caselet.children.every((child) => LP_009_ENGLISH_FREEZE_V1.permanentQlIds.includes(child.qlId))));
@@ -35,7 +34,7 @@ const qlPositionCounts = new Map<string, number[]>([
   ["LP-QL-035", [0, 0, 0, 0]],
   ["LP-QL-036", [0, 0, 0, 0]],
 ]);
-let explanationReorders = 0;
+let reorderedCaselets = 0;
 
 for (const caselet of caselets) {
   assert.equal(caselet.mode, "DAY");
@@ -74,6 +73,9 @@ for (const caselet of caselets) {
 
   assert.equal(caselet.children.length, 4);
   const displayedOrder = caselet.clues.map((clue) => clue.text);
+  const firstExplanationStep = caselet.children[0]!.explanation.lines[0]!;
+  if (!firstExplanationStep.includes(displayedOrder[0]!)) reorderedCaselets += 1;
+
   for (const child of caselet.children) {
     assert.ok(LP_009_DAY_SCHEDULING_V2_REVIEW.permanentQlIds.includes(child.qlId));
     assert.equal(child.options.length, 4);
@@ -91,8 +93,6 @@ for (const caselet of caselets) {
     assert.match(explanation, /Complete the schedule/u);
     assert.match(explanation, /Answer the question/u);
     assert.doesNotMatch(explanation, /remaining possibilities from|candidate states|solver found|associated/iu);
-    const firstUsed = displayedOrder.findIndex((clue) => explanation.indexOf(clue) >= 0);
-    if (firstUsed > 0) explanationReorders += 1;
 
     const counts = qlPositionCounts.get(child.qlId)!;
     counts[child.correctIndex] += 1;
@@ -100,6 +100,6 @@ for (const caselet of caselets) {
 }
 
 for (const [qlId, counts] of qlPositionCounts) assert.deepEqual(counts, [25, 25, 25, 25], `${qlId} answer-position balance failed`);
-assert.ok(explanationReorders >= 80, `Dependency-driven explanation order is not visibly exercised enough (${explanationReorders}/400 children)`);
+assert.ok(reorderedCaselets >= 50, `Dependency-driven explanation order is not visibly exercised enough (${reorderedCaselets}/100 caselets)`);
 
-console.log("LP-009 Day Scheduling V2 proof passed: 100 source-backed day-only caselets, 400 standalone children, permanent QL reuse, unique/essential clues, structural difficulty, progressive explanations and balanced answers.");
+console.log(`LP-009 Day Scheduling V2 proof passed: 100 source-backed day-only caselets, 400 standalone children, permanent QL reuse, unique/essential clues, structural difficulty, progressive explanations, ${reorderedCaselets}/100 solve-order reorderings and balanced answers.`);
