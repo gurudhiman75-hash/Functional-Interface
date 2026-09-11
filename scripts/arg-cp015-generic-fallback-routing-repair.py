@@ -21,6 +21,8 @@ if "function genericFallbackReason(" not in source:
     source = source.replace(helper_anchor, helper + helper_anchor, 1)
 
 english_fallback_anchor = '  return englishFallback(argument);\n}'
+hindi_fallback_anchor = '  return hindiFallback(argument);\n}'
+punjabi_fallback_anchor = '  return punjabiFallback(argument);\n}'
 
 # The V8 plain-language script historically inserted several English rules as one
 # block. Make the renewal family independently idempotent so a pre-existing rule
@@ -62,6 +64,26 @@ if ql006_overseas_reason not in source:
         raise SystemExit(f"QL006 first-time-overseas reason: expected exactly one English fallback anchor, found {count}")
     source = source.replace(english_fallback_anchor, ql006_overseas_rule + english_fallback_anchor, 1)
 
+# QL001 localized anti-gaming rewrites turn the old absolute "every item is
+# useless" distractor into a softer "most information is useless" claim. Give
+# that exact claim a contextual reason in both localized surfaces rather than
+# routing it to the generic weak-argument fallback.
+ql001_hindi_reason = 'प्रक्रिया पूरी होने के बाद भी शिकायत, परिणाम या सुधार से जुड़ी जानकारी उपयोगी रह सकती है; केवल प्रक्रिया समाप्त हो जाने से वह जानकारी बेकार नहीं हो जाती।'
+ql001_hindi_rule = f'  if (/प्रक्रिया पूरी होते ही.*अधिकांश जानकारी.*(?:सीधे )?बेकार हो जाती है/.test(argument)) return "{ql001_hindi_reason}";\n'
+if ql001_hindi_reason not in source:
+    count = source.count(hindi_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL001 Hindi post-process reason: expected exactly one Hindi fallback anchor, found {count}")
+    source = source.replace(hindi_fallback_anchor, ql001_hindi_rule + hindi_fallback_anchor, 1)
+
+ql001_punjabi_reason = 'ਪ੍ਰਕਿਰਿਆ ਪੂਰੀ ਹੋਣ ਤੋਂ ਬਾਅਦ ਵੀ ਸ਼ਿਕਾਇਤ, ਨਤੀਜੇ ਜਾਂ ਸੁਧਾਰ ਨਾਲ ਜੁੜੀ ਜਾਣਕਾਰੀ ਲਾਭਦਾਇਕ ਰਹਿ ਸਕਦੀ ਹੈ; ਕੇਵਲ ਪ੍ਰਕਿਰਿਆ ਖਤਮ ਹੋਣ ਨਾਲ ਉਹ ਜਾਣਕਾਰੀ ਬੇਕਾਰ ਨਹੀਂ ਹੋ ਜਾਂਦੀ।'
+ql001_punjabi_rule = f'  if (/ਪ੍ਰਕਿਰਿਆ ਪੂਰੀ ਹੋਣ.*ਜ਼ਿਆਦਾਤਰ ਜਾਣਕਾਰੀ.*(?:ਸਿੱਧੇ )?ਬੇਕਾਰ ਹੋ ਜਾਂਦੀ ਹੈ/.test(argument)) return "{ql001_punjabi_reason}";\n'
+if ql001_punjabi_reason not in source:
+    count = source.count(punjabi_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL001 Punjabi post-process reason: expected exactly one Punjabi fallback anchor, found {count}")
+    source = source.replace(punjabi_fallback_anchor, ql001_punjabi_rule + punjabi_fallback_anchor, 1)
+
 # The finalizer already runs every argument through repairSurface before reason
 # selection. Assert that V8's English article repair is present so the repaired
 # argument exposed to the rule is grammatical as well as semantically specific.
@@ -90,4 +112,4 @@ if new not in source:
 
 SOURCE_PATH.write_text(source, encoding="utf-8")
 GRAMMAR_PATH.write_text(grammar, encoding="utf-8")
-print("ARG-001 CP015 generic fallback routing and QL006 overseas repair applied")
+print("ARG-001 CP015 generic fallback routing and localized QL001 repair applied")
