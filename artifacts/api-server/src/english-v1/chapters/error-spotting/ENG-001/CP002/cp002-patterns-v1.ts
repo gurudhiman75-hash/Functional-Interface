@@ -35,7 +35,6 @@ const ongoingScene = (seed: string): OngoingTenseSceneV1 => deterministicPick(`$
 const stativeScene = (seed: string): StativeTenseSceneV1 => deterministicPick(`${seed}:stative`, STATIVE_TENSE_SCENES_V1);
 
 const PAST_MARKERS = ["yesterday", "last Friday", "two days ago", "in 2024"] as const;
-const HABIT_MARKERS = ["every morning", "every day", "each week", "regularly"] as const;
 const NOW_MARKERS = ["right now", "at the moment", "currently"] as const;
 
 function buildCandidate(input: {
@@ -98,7 +97,7 @@ function renderPastTime(difficulty: EnglishDifficulty, seed: string): Eng001Sent
     correction: correctVerb,
     subjectHead: scene.subject,
     distractorCue: marker,
-    explanationApplication: `The finished-past marker “${marker}” requires the simple past “${correctVerb}”; present perfect is not used with that completed past time.`,
+    explanationApplication: `The finished-past marker “${marker}” requires the simple past “${correctVerb}”.`,
     tags: ["pattern:finished-past", "dependency:time-cue-late", `scene:${scene.id}`, domainTag(scene.domain)],
   });
 }
@@ -120,7 +119,7 @@ function renderContinuingAction(difficulty: EnglishDifficulty, seed: string): En
       correction: correctVerb,
       subjectHead: scene.subject,
       distractorCue: scene.continuingMarker,
-      explanationApplication: `The action began in the past and is still continuing at “${scene.continuingMarker}”, so “${correctVerb}” is required.`,
+      explanationApplication: `The action began in the past and is still continuing at “${scene.continuingMarker}”.`,
       tags: ["pattern:continuing-action", `scene:${scene.id}`, domainTag(scene.domain)],
     });
   }
@@ -136,14 +135,14 @@ function renderContinuingAction(difficulty: EnglishDifficulty, seed: string): En
     correction: correctVerb,
     subjectHead: scene.subject,
     distractorCue: scene.continuingMarker,
-    explanationApplication: `The time cue “${scene.continuingMarker}” shows an action continuing from the past to now; the location phrase does not change that tense choice.`,
+    explanationApplication: `“${scene.continuingMarker}” shows that the action began in the past and is still continuing now.`,
     tags: ["pattern:continuing-action", "dependency:modifier", `scene:${scene.id}`, domainTag(scene.domain)],
   });
 }
 
 function renderHabit(difficulty: EnglishDifficulty, seed: string): Eng001SentenceCandidate {
   const scene = dynamicScene(seed);
-  const marker = deterministicPick(`${seed}:habit-marker`, HABIT_MARKERS);
+  const marker = scene.habitMarker;
   const correctVerb = scene.present3sg;
   const wrongVerb = `is ${scene.ing}`;
   if (difficulty === "easy") {
@@ -176,7 +175,7 @@ function renderHabit(difficulty: EnglishDifficulty, seed: string): Eng001Sentenc
     subjectHead: scene.subject,
     distractorCue: marker,
     explanationApplication: `The repeated-time cue “${marker}” marks a routine, so use the simple present “${correctVerb}”.`,
-    tags: ["pattern:habit", "dependency:fronted-context", `scene:${scene.id}`, domainTag(scene.domain)],
+    tags: ["pattern:habit", "dependency:fronted-setting", `scene:${scene.id}`, domainTag(scene.domain)],
   });
 }
 
@@ -215,7 +214,7 @@ function renderCurrentAction(difficulty: EnglishDifficulty, seed: string): Eng00
     subjectHead: scene.subject,
     distractorCue: marker,
     explanationApplication: `The explicit present-time cue “${marker}” requires the present continuous “${correctVerb}”.`,
-    tags: ["pattern:current-action", "dependency:fronted-context", `scene:${scene.id}`, domainTag(scene.domain)],
+    tags: ["pattern:current-action", "dependency:fronted-setting", `scene:${scene.id}`, domainTag(scene.domain)],
   });
 }
 
@@ -235,7 +234,7 @@ function renderStative(difficulty: EnglishDifficulty, seed: string): Eng001Sente
     errorSpan: wrongVerb,
     correction: correctVerb,
     subjectHead: scene.subject,
-    explanationApplication: `“${scene.base}” describes a state here, so the simple form “${correctVerb}” is used instead of a continuous form.`,
+    explanationApplication: `“${scene.base}” describes a state here, so the simple form “${correctVerb}” is used.`,
     tags: ["pattern:stative", `scene:${scene.id}`, domainTag(scene.domain)],
   });
 }
@@ -272,7 +271,7 @@ function renderDidBase(difficulty: EnglishDifficulty, seed: string): Eng001Sente
     correction: correctVerb,
     subjectHead: scene.subject,
     explanationApplication: `“Did” already carries the past tense, so the lexical verb must remain “${scene.base}”.`,
-    tags: ["pattern:did-base", "dependency:fronted-context", `scene:${scene.id}`, domainTag(scene.domain)],
+    tags: ["pattern:did-base", "dependency:fronted-setting", `scene:${scene.id}`, domainTag(scene.domain)],
   });
 }
 
@@ -293,7 +292,7 @@ function renderPastSequence(difficulty: EnglishDifficulty, seed: string): Eng001
       correction: correctVerb,
       subjectHead: scene.subject,
       distractorCue: scene.laterPastClause,
-      explanationApplication: `The ${scene.subject.replace(/^the /, "")} completed the action before “${scene.laterPastClause}”, so the earlier action takes the past perfect.`,
+      explanationApplication: `The first action was completed before “${scene.laterPastClause}”, so it takes the past perfect.`,
       tags: ["pattern:past-sequence", `scene:${scene.id}`, domainTag(scene.domain)],
     });
   }
@@ -309,7 +308,7 @@ function renderPastSequence(difficulty: EnglishDifficulty, seed: string): Eng001
     correction: correctVerb,
     subjectHead: scene.subject,
     distractorCue: scene.laterPastClause,
-    explanationApplication: `The completed action happened before the later past event “${scene.laterPastClause}”; “had already + past participle” marks that earlier action.`,
+    explanationApplication: `The completed action happened before the later past event “${scene.laterPastClause}”.`,
     tags: ["pattern:past-sequence", "dependency:long", `scene:${scene.id}`, domainTag(scene.domain)],
   });
 }
@@ -331,7 +330,7 @@ function renderPastInterruption(difficulty: EnglishDifficulty, seed: string): En
       correction: correctVerb,
       subjectHead: scene.subject,
       distractorCue: scene.interruptionClause,
-      explanationApplication: `The action was already in progress when the past event “${scene.interruptionClause}” occurred, so use the past continuous.`,
+      explanationApplication: `The action was already in progress when “${scene.interruptionClause}” occurred.`,
       tags: ["pattern:past-interruption", `scene:${scene.id}`, domainTag(scene.domain)],
     });
   }
@@ -347,7 +346,7 @@ function renderPastInterruption(difficulty: EnglishDifficulty, seed: string): En
     correction: correctVerb,
     subjectHead: scene.subject,
     distractorCue: scene.interruptionClause,
-    explanationApplication: `The interruption is a completed past event, while the first action was in progress at that time; therefore “${correctVerb}” is required.`,
+    explanationApplication: `The first action was in progress when the completed past interruption occurred.`,
     tags: ["pattern:past-interruption", "dependency:long", `scene:${scene.id}`, domainTag(scene.domain)],
   });
 }
@@ -370,7 +369,7 @@ function renderSinglePast(difficulty: EnglishDifficulty, seed: string): Eng001Se
     correction: correctVerb,
     subjectHead: scene.subject,
     distractorCue: marker,
-    explanationApplication: `Only one completed past event is stated at “${marker}”; there is no later past reference point, so simple past is sufficient.`,
+    explanationApplication: `Only one completed past event is stated at “${marker}”, so the simple past is sufficient.`,
     tags: ["pattern:single-past", `scene:${scene.id}`, domainTag(scene.domain)],
   });
 }
@@ -392,7 +391,7 @@ function renderStativeDuration(difficulty: EnglishDifficulty, seed: string): Eng
     correction: correctVerb,
     subjectHead: scene.subject,
     distractorCue: scene.durationMarker,
-    explanationApplication: `The state began in the past and still holds, but “${scene.base}” is stative here, so use the present perfect simple “${correctVerb}”.`,
+    explanationApplication: `The state began in the past and still holds, so use the present perfect simple “${correctVerb}”.`,
     tags: ["pattern:stative-duration", `scene:${scene.id}`, domainTag(scene.domain)],
   });
 }
