@@ -5,7 +5,7 @@ import { auditGeoRiv001Cp015ReviewBatchV1, GEO_RIV_001_CP015_REVIEW_BATCH_V1 } f
 const audit = auditGeoRiv001Cp015ReviewBatchV1();
 if (!audit.valid) throw new Error(`CP015 review export blocked: ${audit.issues.join(" | ")}`);
 
-const outDir = path.resolve("dist/geography/GEO-RIV-001-CP015-REVIEW-BATCH-V1");
+const outDir = path.resolve("artifacts/api-server/dist/geography/GEO-RIV-001-CP015-REVIEW-BATCH-V1");
 fs.mkdirSync(outDir, { recursive: true });
 const lines: string[] = [
   "# GEO-RIV-001 CP015 — Mixed Rivers Mastery — Review Batch V1",
