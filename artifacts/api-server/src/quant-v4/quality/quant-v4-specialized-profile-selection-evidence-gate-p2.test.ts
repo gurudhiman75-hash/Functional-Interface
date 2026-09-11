@@ -24,28 +24,43 @@ assert.equal(
   QUANT_V4_PYQ_OBSERVATION_REGISTRY_AUTHORITY,
   "QUANT-V4-PYQ-OBSERVATION-REGISTRY-P2",
 );
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 47, "The normalized registry should contain twenty Algebra, sixteen Number System, six TSD and five Percentage observations after Percentage CHSL Wave 1.");
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 53, "The normalized registry should contain twenty Algebra, sixteen Number System, six TSD, five Percentage and six Average observations after Average CHSL Wave 1.");
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 11);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 9);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 6);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 16);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 3);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-002" }).length, 3);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-002" }).length, 5);
 
-const NUM_EXPECTED_COUNTS: Readonly<Record<QuantV4CompetitiveExamProfileId, number>> = Object.freeze({
-  SSC_CGL_TIER_I: 10,
-  SSC_CGL_CHSL: 5,
-  SSC_CGL_JSO: 1,
+const ZERO_COUNTS: Readonly<Record<QuantV4CompetitiveExamProfileId, number>> = Object.freeze({
+  SSC_CGL_TIER_I: 0,
+  SSC_CGL_CHSL: 0,
+  SSC_CGL_JSO: 0,
   PUNJAB_STATE: 0,
   BANKING_PRELIMS: 0,
   BANKING_MAINS: 0,
+});
+
+const EXPECTED_COUNTS: Readonly<Record<QuantV4SpecializedSelectionPackageId, Readonly<Record<QuantV4CompetitiveExamProfileId, number>>>> = Object.freeze({
+  "AVG-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_CHSL: 6 }),
+  "MAL-001": ZERO_COUNTS,
+  "NUM-001": Object.freeze({
+    SSC_CGL_TIER_I: 10,
+    SSC_CGL_CHSL: 5,
+    SSC_CGL_JSO: 1,
+    PUNJAB_STATE: 0,
+    BANKING_PRELIMS: 0,
+    BANKING_MAINS: 0,
+  }),
+  "TMW-001": ZERO_COUNTS,
 });
 
 for (const packageId of PACKAGE_IDS) {
   for (const [examProfile, examIds] of Object.entries(QUANT_V4_SPECIALIZED_PROFILE_SOURCE_EXAMS) as [QuantV4CompetitiveExamProfileId, readonly any[]][]) {
     const countable = listRegisteredCountablePyqObservations({ packageId, examIds });
     const contract = getQuantV4SpecializedProfileSelectionContract(packageId, examProfile);
-    const expectedCount = packageId === "NUM-001" ? NUM_EXPECTED_COUNTS[examProfile] : 0;
+    const expectedCount = EXPECTED_COUNTS[packageId][examProfile];
 
     assert.equal(countable.length, expectedCount, `${packageId}/${examProfile} normalized evidence count drifted.`);
     assert.equal(contract.normalizedCountableObservationCount, expectedCount);
@@ -81,16 +96,13 @@ for (const packageId of PACKAGE_IDS) {
   assert.equal(pkg.examProfileSelection?.profileSelectionCalibrated, false);
   assert.equal(pkg.examProfileSelection?.deliveryAllowed, true);
 
-  if (packageId === "NUM-001") {
-    assert.equal(pkg.examProfileSelection?.normalizedCountableObservationCount, 16);
-    assert.equal(pkg.examProfileSelection?.evidenceBearingProfileCount, 3);
-  } else {
-    assert.equal(pkg.examProfileSelection?.normalizedCountableObservationCount, 0);
-    assert.equal(pkg.examProfileSelection?.evidenceBearingProfileCount, 0);
-  }
+  const totalExpected = Object.values(EXPECTED_COUNTS[packageId]).reduce((sum, value) => sum + value, 0);
+  const expectedEvidenceProfiles = Object.values(EXPECTED_COUNTS[packageId]).filter((value) => value > 0).length;
+  assert.equal(pkg.examProfileSelection?.normalizedCountableObservationCount, totalExpected);
+  assert.equal(pkg.examProfileSelection?.evidenceBearingProfileCount, expectedEvidenceProfiles);
 
   for (const examProfile of Object.keys(QUANT_V4_SPECIALIZED_PROFILE_SOURCE_EXAMS) as QuantV4CompetitiveExamProfileId[]) {
-    const expectedStatus = packageId === "NUM-001" && NUM_EXPECTED_COUNTS[examProfile] > 0
+    const expectedStatus = EXPECTED_COUNTS[packageId][examProfile] > 0
       ? "EVIDENCE_ACCUMULATING_SELECTION_PENDING"
       : "EVIDENCE_GATED_SELECTION_PENDING";
     assert.equal(
@@ -102,6 +114,7 @@ for (const packageId of PACKAGE_IDS) {
 }
 
 const runtimeCases = [
+  { packageId: "AVG-001", examProfile: "SSC_CGL_CHSL", seed: "selection-gate:avg:chsl" },
   { packageId: "AVG-001", examProfile: "BANKING_PRELIMS", seed: "selection-gate:avg:bank" },
   { packageId: "MAL-001", examProfile: "BANKING_PRELIMS", seed: "selection-gate:mal:bank" },
   { packageId: "NUM-001", examProfile: "BANKING_PRELIMS", canonicalProblemId: "NUM-CP-003", seed: "selection-gate:num:bank" },
@@ -144,6 +157,7 @@ console.log(JSON.stringify({
   specializedPackages: [...PACKAGE_IDS],
   promotedProfiles: 0,
   evidenceAccumulatingProfiles: [
+    "AVG-001/SSC_CGL_CHSL",
     "NUM-001/SSC_CGL_TIER_I",
     "NUM-001/SSC_CGL_CHSL",
     "NUM-001/SSC_CGL_JSO",
