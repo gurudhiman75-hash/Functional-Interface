@@ -7,11 +7,19 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/engine-registry.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-*.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
   push:
     branches:
       - New-main
     paths:
       - artifacts/api-server/src/english-v1/**
+      - artifacts/api-server/src/question-studio/engine-registry.ts
+      - artifacts/api-server/src/question-studio/engines/language-v1-*.ts
+      - artifacts/admin-app/src/pages/content/QuestionStudioEnglishReviewPanel.tsx
+      - artifacts/admin-app/src/pages/content/QuestionStudioOperationsPage.tsx
   workflow_dispatch:
 
 permissions:
@@ -24,7 +32,7 @@ concurrency:
 jobs:
   validate-cp002-v1:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
 
     steps:
       - name: Checkout source
@@ -79,6 +87,22 @@ jobs:
       - name: Re-run approved CP001 V4 regression
         shell: bash
         run: node artifacts/api-server/dist/english-v1/eng-001-cp001-v4-regression.test.mjs
+
+      - name: Compile ENG-001 Question Studio integration test
+        shell: bash
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/question-studio/engines/language-v1-eng001-adapter-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/english-v1/language-v1-eng001-adapter-v1.test.mjs
+
+      - name: Run ENG-001 Question Studio integration test
+        shell: bash
+        run: node artifacts/api-server/dist/english-v1/language-v1-eng001-adapter-v1.test.mjs
+
+      - name: Typecheck English Question Studio admin surface
+        shell: bash
+        run: pnpm --dir artifacts/admin-app run typecheck
 
       - name: Build API server
         shell: bash
