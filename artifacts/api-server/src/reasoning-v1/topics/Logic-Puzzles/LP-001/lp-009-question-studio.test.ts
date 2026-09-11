@@ -31,9 +31,10 @@ assert.equal(packageEntry.publiclyPublishable, false);
 
 const lp008 = packages.find((entry) => entry.packageId === "LP-008");
 assert.ok(lp008);
-assert.deepEqual(lp008.supportedLanguages, ["en"]);
-assert.equal(lp008.permanentQlCount, 0);
-assert.equal(lp008.permanentQlAllocationStatus, "UNALLOCATED");
+assert.deepEqual(lp008.supportedLanguages, ["en", "hi", "pa"]);
+assert.equal(lp008.permanentQlCount, 4);
+assert.equal(lp008.permanentQlAllocationStatus, "ALLOCATED");
+assert.equal(lp008.localizationFreezeStatus, "FROZEN_V4");
 
 const seed = "lp-009-question-studio-multilingual-proof";
 const english = await generateLogicPuzzleQuestionStudioBatch({ packageId: "LP-009", language: "en", seed, count: 8 });
@@ -88,10 +89,11 @@ const punjabiAlias = await generateLogicPuzzleQuestionStudioBatch({ packageId: "
 assert.equal(hindiAlias.generationContext.language, "hi");
 assert.equal(punjabiAlias.generationContext.language, "pa");
 
-await assert.rejects(
-  () => generateLogicPuzzleQuestionStudioBatch({ packageId: "LP-008", language: "hi", count: 1 }),
-  /LP-001 through LP-008 localization is not enabled/u,
-);
+const lp008Hindi = await generateLogicPuzzleQuestionStudioBatch({ packageId: "LP-008", language: "hi", seed: "lp008-multilingual-regression", count: 1 });
+assert.equal(lp008Hindi.generationContext.packageId, "LP-008");
+assert.equal(lp008Hindi.generationContext.language, "hi");
+assert.equal(lp008Hindi.generationContext.localizationFreezeStatus, "FROZEN_V4");
+
 await assert.rejects(
   () => generateLogicPuzzleQuestionStudioBatch({ packageId: "LP-009", language: "fr", count: 1 }),
   /LP-009 does not support Question Studio language/u,
