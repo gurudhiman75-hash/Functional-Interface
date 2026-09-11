@@ -47,6 +47,7 @@ assert.equal(cpCounts.get("NUM-CP-002"), 3);
 assert.equal(cpCounts.get("NUM-CP-004"), 2);
 assert.equal(cpCounts.get("NUM-CP-005") ?? 0, 0, "CP-005 must remain uncovered rather than receiving inferred evidence.");
 
+// Independent exact-math checks for all six Wave-2 fixtures.
 for (let a = 1; a <= 15; a += 2) {
   for (let b = 1; b <= 15; b += 2) {
     assert.equal(Math.abs((a + b + 2 * a * b) % 2), 0, "2011 Q29 parity check failed.");
