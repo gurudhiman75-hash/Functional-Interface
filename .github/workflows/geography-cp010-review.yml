@@ -7,7 +7,6 @@ on:
     paths:
       - "artifacts/api-server/src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp010-*"
       - "artifacts/api-server/src/knowledge-v1/indian-geography/rivers-drainage/GEO-RIV-001-CP010-*"
-      - ".github/workflows/geography-cp010-review.yml"
   workflow_dispatch:
 
 permissions:
