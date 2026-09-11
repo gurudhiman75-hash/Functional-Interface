@@ -5,7 +5,7 @@ import { finalizeArgCp015EditorialQuality } from "./cp015-final-editorial-qualit
 import { polishArgCp015HumanAuditSurface } from "./cp015-human-audit-polish.ts";
 import { preRepairArgCp015HumanAuditSurface } from "./cp015-human-audit-pre-repair.ts";
 
-export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V9" as const;
+export const ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_AUTHORITY = "ARG_CP015_ANTI_GAMING_GRAMMAR_POLISH_V10" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -96,7 +96,9 @@ function polishHindi(value: string): string {
     .replace(/अधिकांश नेटवर्क पासवर्ड/g, "नेटवर्क पासवर्ड")
     .replace(/भविष्य में इससे जुड़ी अधिकांश कठिनाई को काफी हद तक समाप्त कर देगी/g, "भविष्य की कठिनाइयों के समाधान के लिए इसी एक कार्यशाला को पर्याप्त मान लिया जाएगा")
     .replace(/अधिकांश वैध बदलाव/g, "वैध बदलावों")
-    .replace(/अधिकांश वास्तविक बदलाव/g, "वास्तविक बदलावों");
+    .replace(/अधिकांश वास्तविक बदलाव/g, "वास्तविक बदलावों")
+    .replace(/(पंजीकृत मोबाइल नंबर|रिकवरी ईमेल|भुगतान खाता|लेन-देन सीमा) का वास्तविक बदलावों अव्यावहारिक हो जाएगा/g, "$1 में वास्तविक बदलाव अव्यावहारिक हो जाएँगे")
+    .replace(/(पंजीकृत मोबाइल नंबर|रिकवरी ईमेल|भुगतान खाता|लेन-देन सीमा) के वैध बदलावों विफल होंगे/g, "$1 में वैध बदलाव विफल होंगे");
 }
 
 function polishPunjabi(value: string): string {
@@ -112,7 +114,12 @@ function polishPunjabi(value: string): string {
     .replace(/ਭਵਿੱਖ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸ਼ਿਕਾਇਤ ਅਣਡਿੱਠੀ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ/g, "ਬਾਅਦ ਦੀਆਂ ਸ਼ਿਕਾਇਤਾਂ ਉੱਤੇ ਵੀ ਕਾਰਵਾਈ ਦਾ ਆਧਾਰ ਕਮਜ਼ੋਰ ਮੰਨਣਾ ਚਾਹੀਦਾ ਹੈ")
     .replace(/ਜ਼ਿਆਦਾਤਰ ਵਾਜਬ ਬਦਲਾਅ/g, "ਵਾਜਬ ਬਦਲਾਵਾਂ")
     .replace(/([^।.!?]{1,80}) ਦੀ ਸਮਰੱਥਾ ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ/g, "$1 ਦੀ ਸਮਰੱਥਾ ਦਾ ਵੱਡਾ ਹਿੱਸਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ")
-    .replace(/ਨਾਲੋਂ ਚੰਗੇ ([^।.!?]{1,100}) ਬਿਹਤਰ ਮੰਨੇ ਜਾਣੇ ਚਾਹੀਦੇ ਹਨ/g, "ਨਾਲੋਂ $1 ਲਈ ਬਿਹਤਰ ਮੰਨੇ ਜਾਣੇ ਚਾਹੀਦੇ ਹਨ");
+    .replace(/ਨਾਲੋਂ ਚੰਗੇ ([^।.!?]{1,100}) ਬਿਹਤਰ ਮੰਨੇ ਜਾਣੇ ਚਾਹੀਦੇ ਹਨ/g, "ਨਾਲੋਂ $1 ਲਈ ਬਿਹਤਰ ਮੰਨੇ ਜਾਣੇ ਚਾਹੀਦੇ ਹਨ")
+    .replace(/ਲੋਕਾਂ ਜੋ/g, "ਲੋਕ ਜੋ")
+    .replace(/ਨਿਰਧਾਰਤ ਤਰਜੀਹੀ ਸਲਾਟ([^।.!?]*?)ਘੱਟ ਕਰ ਸਕਦੀ ਹੈ/g, "ਨਿਰਧਾਰਤ ਤਰਜੀਹੀ ਸਲਾਟ$1ਘੱਟ ਕਰ ਸਕਦੇ ਹਨ")
+    .replace(/ਟਾਈਮ-ਸਲਾਟ ਬੁਕਿੰਗ([^।.!?]*?)ਘੱਟ ਕਰ ਸਕਦੀ ਹੈ/g, "ਟਾਈਮ-ਸਲਾਟ ਬੁਕਿੰਗ$1ਘੱਟ ਕਰ ਸਕਦੀ ਹੈ")
+    .replace(/ਸਟੈਪ-ਅੱਪ ਪਰਮਾਣਕਰਨ, ([^।.!?]{1,140}?) ਦੇ ਜੋਖਮ ਨੂੰ ਸੰਬੋਧ ਸਕਦੀ ਹੈ/g, "ਸਟੈਪ-ਅੱਪ ਪਰਮਾਣਕਰਨ $1 ਦੇ ਜੋਖਮ ਨੂੰ ਘਟਾ ਸਕਦਾ ਹੈ")
+    .replace(/([^।.!?]{1,140}?) ਦੀ ਜ਼ਿਆਦਾਤਰ ਘਟਨਾ ਜਾਂ ਤਾਂ ਧੋਖਾਧੜੀ ਹੈ ਜਾਂ ਉਸਨੂੰ ਧੋਖਾਧੜੀ ਮੰਨਣਾ ਚਾਹੀਦਾ ਹੈ/g, "$1 ਦੇ ਜ਼ਿਆਦਾਤਰ ਮਾਮਲੇ ਧੋਖਾਧੜੀ ਦੇ ਹੁੰਦੇ ਹਨ");
 }
 
 function polishStatement(value: string, language: Language): string {
