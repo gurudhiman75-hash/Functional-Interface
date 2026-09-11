@@ -9,10 +9,30 @@ proof = PROOF_PATH.read_text(encoding="utf-8")
 
 
 def replace_once(value: str, old: str, new: str, label: str) -> str:
+    if new in value:
+        return value
     count = value.count(old)
     if count != 1:
         raise SystemExit(f"{label}: expected exactly one anchor, found {count}")
     return value.replace(old, new, 1)
+
+
+def insert_before_once(value: str, anchor: str, insertion: str, marker: str, label: str) -> str:
+    if marker in value:
+        return value
+    count = value.count(anchor)
+    if count != 1:
+        raise SystemExit(f"{label}: expected exactly one anchor, found {count}")
+    return value.replace(anchor, insertion + anchor, 1)
+
+
+def insert_after_once(value: str, anchor: str, insertion: str, marker: str, label: str) -> str:
+    if marker in value:
+        return value
+    count = value.count(anchor)
+    if count != 1:
+        raise SystemExit(f"{label}: expected exactly one anchor, found {count}")
+    return value.replace(anchor, anchor + insertion, 1)
 
 
 source = replace_once(
@@ -22,17 +42,17 @@ source = replace_once(
     "authority bump",
 )
 
-source = replace_once(
+source = insert_before_once(
     source,
     '  return englishFallback(argument);\n}',
     '''  if (/solve the queue problem on its own/i.test(argument)) return "Longer opening hours may reduce queues, but they cannot solve the whole queue problem by themselves; demand and service capacity still matter.";
   if (/(?:rules session|guided rules session|briefing)/i.test(argument) && /(?:misunderstanding|violations|misconduct rules)/i.test(argument)) return "One rules session may reduce confusion, but it cannot be assumed to remove nearly all misunderstanding or rule violations by itself.";
-  return englishFallback(argument);
-}''',
+''',
+    "solve the queue problem on its own",
     "English specific reasons",
 )
 
-source = replace_once(
+source = insert_before_once(
     source,
     '  return hindiFallback(argument);\n}',
     '''  if (/लापरवाह/.test(argument)) return "सेवा माँगने वाले लोगों को लापरवाह मानना उनकी वास्तविक जरूरत का प्रमाण नहीं है; समय तय करते समय सेवा-आवश्यकता को ही देखना चाहिए।";
@@ -50,12 +70,12 @@ source = replace_once(
   if (/अधिकांश मामले.*धोखाधड़ी|सर्वव्यापी अस्वीकार/.test(argument)) return "कुछ लेन-देन जोखिमपूर्ण हो सकते हैं, लेकिन अधिकांश मामलों को बिना जाँच धोखाधड़ी मानकर सबको रोक देना उचित नहीं है।";
   if (/स्थायी जाम|पूरे शहर/.test(argument)) return "एक सीमित मार्ग-प्रतिबंध से पूरे शहर में स्थायी जाम होगा, यह निष्कर्ष दिए गए कारणों से सिद्ध नहीं होता।";
   if (/बाद की.*शिकायत|बाद की अधिकांश शिकायत/.test(argument)) return "तुरंत स्थायी दंड न देना बाद की शिकायतों को अनदेखा करने के बराबर नहीं है; उनकी अलग से जाँच की जा सकती है।";
-  return hindiFallback(argument);
-}''',
+''',
+    "if (/लापरवाह/.test(argument))",
     "Hindi specific reasons",
 )
 
-source = replace_once(
+source = insert_before_once(
     source,
     '  return punjabiFallback(argument);\n}',
     '''  if (/(?:ਮਦਦ ਨੰਬਰ|ਹੈਲਪਲਾਈਨ|ਸੰਪਰਕ)/.test(argument) && /(?:ਕਾਫ਼ੀ|ਇਸ ਸੰਪਰਕ)/.test(argument)) return "ਮਦਦ ਨੰਬਰ ਲਾਭਦਾਇਕ ਹੋ ਸਕਦਾ ਹੈ, ਪਰ ਇੱਕੋ ਸੰਪਰਕ ਹਰ ਸੇਵਾ-ਸਬੰਧੀ ਸਮੱਸਿਆ ਹੱਲ ਕਰ ਦੇਵੇਗਾ, ਇਹ ਮੰਨਣਾ ਠੀਕ ਨਹੀਂ ਹੈ।";
@@ -69,37 +89,40 @@ source = replace_once(
   if (/ਜ਼ਿਆਦਾਤਰ ਮਾਮਲੇ ਧੋਖਾਧੜੀ|ਕੇਵਲ ਆਟੋਮੈਟਿਕ ਬਲਾਕ/.test(argument)) return "ਕੁਝ ਲੈਣ-ਦੇਣ ਜੋਖਮ ਵਾਲੇ ਹੋ ਸਕਦੇ ਹਨ, ਪਰ ਜ਼ਿਆਦਾਤਰ ਮਾਮਲਿਆਂ ਨੂੰ ਬਿਨਾਂ ਜਾਂਚ ਧੋਖਾਧੜੀ ਮੰਨ ਕੇ ਸਭ ਨੂੰ ਰੋਕਣਾ ਠੀਕ ਨਹੀਂ ਹੈ।";
   if (/ਲੰਬੇ ਸਮੇਂ ਦਾ ਜਾਮ|ਪੂਰੇ ਸ਼ਹਿਰ/.test(argument)) return "ਇੱਕ ਸੀਮਿਤ ਰਸਤਾ-ਪਾਬੰਦੀ ਨਾਲ ਪੂਰੇ ਸ਼ਹਿਰ ਵਿੱਚ ਲੰਬੇ ਸਮੇਂ ਦਾ ਜਾਮ ਪੈ ਜਾਵੇਗਾ, ਇਹ ਨਤੀਜਾ ਦਿੱਤੇ ਕਾਰਨਾਂ ਨਾਲ ਸਾਬਤ ਨਹੀਂ ਹੁੰਦਾ।";
   if (/ਬਾਅਦ ਦੀਆਂ [ਸ਼ਸ਼]ਿਕਾਇਤਾਂ/.test(argument)) return "ਤੁਰੰਤ ਸਥਾਈ ਸਜ਼ਾ ਨਾ ਦੇਣਾ ਬਾਅਦ ਦੀਆਂ ਸ਼ਿਕਾਇਤਾਂ ਨੂੰ ਅਣਡਿੱਠਾ ਕਰਨ ਦੇ ਬਰਾਬਰ ਨਹੀਂ; ਹਰ ਸ਼ਿਕਾਇਤ ਦੀ ਵੱਖਰੀ ਜਾਂਚ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ।";
-  return punjabiFallback(argument);
-}''',
+''',
+    "ਮਦਦ ਨੰਬਰ ਲਾਭਦਾਇਕ ਹੋ ਸਕਦਾ ਹੈ",
     "Punjabi specific reasons",
 )
 
 technical_anchor = '.replace(/ਵਿਭਾਗੀ ਟੈਸਟ ਦਾ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸੀ/g, "ਵਿਭਾਗੀ ਟੈਸਟ ਦੇ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸਨ")'
-source = replace_once(
+source = insert_after_once(
     source,
     technical_anchor,
-    technical_anchor
-    + '\n    .replace(/ਸੁਤੰਤਰ ਜਾਂਚ ਇਕੱਲੇ ਸਮਝੌਤੇ ਵਾਲੀ ਹਮਲਾ-ਕੜੀ ਤੋੜਦੀ ਹੈ/g, "ਸੁਤੰਤਰ ਜਾਂਚ ਨਾਲ ਕੇਵਲ ਚੋਰੀ ਹੋਏ ਲਾਗਇਨ ਵੇਰਵੇ ਬਦਲਾਅ ਲਈ ਕਾਫ਼ੀ ਨਹੀਂ ਰਹਿੰਦੇ")'
+    '\n    .replace(/ਸੁਤੰਤਰ ਜਾਂਚ ਇਕੱਲੇ ਸਮਝੌਤੇ ਵਾਲੀ ਹਮਲਾ-ਕੜੀ ਤੋੜਦੀ ਹੈ/g, "ਸੁਤੰਤਰ ਜਾਂਚ ਨਾਲ ਕੇਵਲ ਚੋਰੀ ਹੋਏ ਲਾਗਇਨ ਵੇਰਵੇ ਬਦਲਾਅ ਲਈ ਕਾਫ਼ੀ ਨਹੀਂ ਰਹਿੰਦੇ")'
     + '\n    .replace(/ਇਹ ਨਿਯੰਤਰਣ ਦੀ ਅਸਲੀ ਡਿਜ਼ਾਇਨ-ਸ਼ਰਤ ਹੈ/g, "ਇਹ ਸੁਰੱਖਿਆ ਪ੍ਰਬੰਧ ਦੀ ਅਸਲੀ ਲੋੜ ਹੈ")',
+    "ਸੁਤੰਤਰ ਜਾਂਚ ਨਾਲ ਕੇਵਲ ਚੋਰੀ ਹੋਏ ਲਾਗਇਨ ਵੇਰਵੇ",
     "Punjabi technical-language cleanup",
 )
 
-proof = replace_once(
+proof = insert_after_once(
     proof,
-    '    /the the/i,',
-    '    /the the/i,\n    /The argument assumes that .*does not provide enough support/i,',
+    '    /\\breadily renewed plan\\b/i,',
+    '\n    /The argument assumes that .*does not provide enough support/i,',
+    "The argument assumes that .*does not provide enough support",
     "English fallback guard",
 )
-proof = replace_once(
+proof = insert_after_once(
     proof,
     '    /अधिकांश केंद्र का परिणाम/,',
-    '    /अधिकांश केंद्र का परिणाम/,\n    /यह तर्क मान लेता है कि/,',
+    '\n    /यह तर्क मान लेता है कि/,',
+    "यह तर्क मान लेता है कि",
     "Hindi fallback guard",
 )
-proof = replace_once(
+proof = insert_after_once(
     proof,
     '    /ਕੇਂਰ/,',
-    '    /ਕੇਂਰ/,\n    /ਇਹ ਦਲੀਲ ਮੰਨ ਲੈਂਦੀ ਹੈ ਕਿ/,\n    /ਹਮਲਾ-ਕੜੀ/,\n    /ਡਿਜ਼ਾਇਨ-ਸ਼ਰਤ/,',
+    '\n    /ਇਹ ਦਲੀਲ ਮੰਨ ਲੈਂਦੀ ਹੈ ਕਿ/,\n    /ਹਮਲਾ-ਕੜੀ/,\n    /ਡਿਜ਼ਾਇਨ-ਸ਼ਰਤ/,',
+    "ਇਹ ਦਲੀਲ ਮੰਨ ਲੈਂਦੀ ਹੈ ਕਿ",
     "Punjabi fallback guard",
 )
 
