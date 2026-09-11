@@ -15,7 +15,7 @@ export function buildEng001Cp003ReviewV1(): Record<EnglishDifficulty, Cp003Revie
     const items = scenes.map((scene, index) => {
       const qlId = qls[index % qls.length]!;
       const seed = `cp003-review-v1:${difficulty}:${scene.id}`;
-      return { difficulty, qlId, question: generateEng001Cp003QuestionV1({ seed, difficulty, ruleId: scene.ruleId, qlId }) };
+      return { difficulty, qlId, question: generateEng001Cp003QuestionV1({ seed, difficulty, ruleId: scene.ruleId, sceneId: scene.id, qlId }) };
     });
     return [difficulty, items];
   })) as Record<EnglishDifficulty, Cp003ReviewItemV1[]>;
