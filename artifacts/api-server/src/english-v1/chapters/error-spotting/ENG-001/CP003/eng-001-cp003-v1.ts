@@ -149,44 +149,28 @@ function renderHumanExplanation(input: {
   const { seed, qlId, candidate, answerLabel, correctedSentence, noError } = input;
   const reason = connectedExplanationReason(candidate);
   const styleSeed = `${seed}:cp003:explanation:${candidate.candidateId}:${qlId}`;
-  const correctedTail = deterministicPick(`${styleSeed}:tail`, [
-    `Correct sentence: ${correctedSentence}`,
-    `The corrected sentence is: ${correctedSentence}`,
-    `So the sentence should read: ${correctedSentence}`,
-    `Correct form: ${correctedSentence}`,
-  ] as const);
 
   if (noError) {
-    const opening = deterministicPick(`${styleSeed}:opening`, [
-      "There is no error.",
-      "The sentence is correct as it is.",
-      "No part of the sentence has an error.",
-      "The given sentence is correct.",
+    return deterministicPick(`${styleSeed}:whole-style`, [
+      `There is no error. ${reason} “${candidate.correction}” is correct here. Correct sentence: ${correctedSentence}`,
+      `The sentence is correct as it is. ${reason} “${candidate.correction}” is the right form. The sentence remains: ${correctedSentence}`,
+      `No part of the sentence has an error. ${reason} So “${candidate.correction}” is correct. Correct sentence: ${correctedSentence}`,
+      `The given sentence is correct. ${reason} “${candidate.correction}” has been used correctly. The sentence is: ${correctedSentence}`,
+      `No correction is needed. ${reason} “${candidate.correction}” is correct in this sentence. Correct sentence: ${correctedSentence}`,
+      `The sentence has no error. ${reason} The use of “${candidate.correction}” is correct. The sentence remains: ${correctedSentence}`,
     ] as const);
-    const confirmation = deterministicPick(`${styleSeed}:confirmation`, [
-      `“${candidate.correction}” is correct here.`,
-      `So “${candidate.correction}” is correct.`,
-      `That is why “${candidate.correction}” is correct.`,
-      `Therefore, “${candidate.correction}” is correct.`,
-    ] as const);
-    return `${opening} ${reason} ${confirmation} ${correctedTail}`;
   }
 
-  const opening = deterministicPick(`${styleSeed}:opening`, [
-    `Part ${answerLabel} contains the error.`,
-    `The error is in Part ${answerLabel}.`,
-    `Part ${answerLabel} is incorrect.`,
-    `The mistake is in Part ${answerLabel}.`,
-    `Part ${answerLabel} needs correction.`,
+  return deterministicPick(`${styleSeed}:whole-style`, [
+    `Part ${answerLabel} contains the error. ${reason} Use “${candidate.correction}”. Correct sentence: ${correctedSentence}`,
+    `The error is in Part ${answerLabel}. ${reason} It should be “${candidate.correction}”. The corrected sentence is: ${correctedSentence}`,
+    `Part ${answerLabel} is incorrect. ${reason} The correct form is “${candidate.correction}”. So the sentence should read: ${correctedSentence}`,
+    `The mistake is in Part ${answerLabel}. ${reason} Write “${candidate.correction}” instead. Correct sentence: ${correctedSentence}`,
+    `Part ${answerLabel} needs correction. ${reason} Here, we need “${candidate.correction}”. The corrected sentence is: ${correctedSentence}`,
+    `The problem is in Part ${answerLabel}. ${reason} Replace it with “${candidate.correction}”. Correct sentence: ${correctedSentence}`,
+    `Part ${answerLabel} is the incorrect part. ${reason} “${candidate.correction}” is the right form. The sentence should read: ${correctedSentence}`,
+    `Part ${answerLabel} has the error. ${reason} Use “${candidate.correction}” here. Corrected sentence: ${correctedSentence}`,
   ] as const);
-  const correctionLine = deterministicPick(`${styleSeed}:correction`, [
-    `Use “${candidate.correction}”.`,
-    `It should be “${candidate.correction}”.`,
-    `The correct form is “${candidate.correction}”.`,
-    `Write “${candidate.correction}” instead.`,
-    `Here, we need “${candidate.correction}”.`,
-  ] as const);
-  return `${opening} ${reason} ${correctionLine} ${correctedTail}`;
 }
 
 function shapeQl002(segments: readonly string[], errorIndex: number, seed: string): { segments: string[]; errorIndex: number } {
