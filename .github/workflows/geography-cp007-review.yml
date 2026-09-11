@@ -31,15 +31,11 @@ jobs:
         run: corepack enable
       - name: Install locked workspace dependencies
         run: pnpm install --frozen-lockfile
-      - name: Run CP007 qualification gates
+      - name: Run CP007 V3 qualification gates
         run: |
           mkdir -p artifacts/api-server/dist/geography
           for test_file in \
             src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-validator.test.ts \
-            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-review-generator-v1.test.ts \
-            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-review-generator-v2.test.ts \
-            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-review-batch-v1.test.ts \
-            src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-review-batch-v2.test.ts \
             src/knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp007-review-batch-v3.test.ts
           do
             output_name="$(basename "${test_file}" .ts).mjs"
