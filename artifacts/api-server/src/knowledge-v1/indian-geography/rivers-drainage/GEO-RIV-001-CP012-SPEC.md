@@ -13,7 +13,9 @@ This relation means the city is conventionally described by an authoritative geo
 
 ## V1 corpus
 
-12 cities, 13 city–river relations. Prayagraj intentionally has two true relations: River Ganga and River Yamuna.
+17 cities, 18 city–river relations covering major exam anchors across the Ganga, Yamuna, Godavari, Cauvery, Sabarmati, Tapi, Narmada, Mahanadi, Jhelum, Brahmaputra, Krishna and Hooghly rivers.
+
+Prayagraj intentionally has two true relations: River Ganga and River Yamuna.
 
 Reverse river→city tasks may use only cases that have one eligible answer in the current qualified pool. Multi-river or multi-city ambiguity must never be hidden by generator wording.
 
@@ -28,6 +30,12 @@ Reverse river→city tasks may use only cases that have one eligible answer in t
 - QL107 Statement I/II
 - QL108 three-statement count
 - QL109 three-city match task
+
+## Diversity contract
+
+The review batch must contain six semantically distinct payloads per QL. Changing only distractors does not count as question variety.
+
+QL107 and QL108 may not repeat the same city within a question. QL109 must use three distinct cities and three distinct rivers so that exactly one complete mapping is true.
 
 ## Display policy
 
@@ -47,6 +55,8 @@ Every generated question must pass:
 - unique-answer validation
 - option distinctness
 - distractor truth-collision checks
+- six-distinct-payloads-per-QL audit
+- no repeated city inside statement-composition questions
 - learner-facing River-prefix audit
 - explanation-answer consistency
 - deterministic replay
