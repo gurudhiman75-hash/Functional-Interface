@@ -2,6 +2,7 @@ import { ANA_CP010_NUMERIC_RULES, type AnaCp010NumericRuleId } from "./rule-defi
 
 export type AnaCp010NumericPresentation = "MISSING_FOURTH_TERM" | "EQUIVALENT_PAIR_SELECTION";
 export type AnaCp010SetRuleId = "SET_ALL_PRIME" | "SET_FIXED_RATIO_PROGRESSION";
+export type AnaCp010SemanticPresentation = "MISSING_FOURTH_TERM" | "EQUIVALENT_PAIR_SELECTION";
 
 export const ANA_CP010_NUMERIC_QLS = ANA_CP010_NUMERIC_RULES.flatMap((rule, ruleIndex) =>
   (["MISSING_FOURTH_TERM", "EQUIVALENT_PAIR_SELECTION"] as const).map((presentationMode, modeIndex) => ({
@@ -45,7 +46,38 @@ export const ANA_CP010_SET_QLS = [
   },
 ] as const;
 
-export const ANA_CP010_QLS = [...ANA_CP010_NUMERIC_QLS, ...ANA_CP010_SET_QLS] as const;
+export const ANA_CP010_SEMANTIC_QLS = [
+  {
+    qlId: "ANA-QL-267",
+    cpId: "ANA-CP-010",
+    title: "Governed semantic expansion — complete analogy",
+    taskKind: "semanticMissingTerm",
+    solveMode: "SEMANTIC_EXPANSION_TRANSFER",
+    ruleId: "SEM_EXPANSION_REGISTRY" as const,
+    presentationMode: "MISSING_FOURTH_TERM" as AnaCp010SemanticPresentation,
+    renderer: "TEXT",
+    localeMode: "LANGUAGE_ADAPTED",
+    status: "PROVISIONAL_EXECUTABLE" as const,
+  },
+  {
+    qlId: "ANA-QL-268",
+    cpId: "ANA-CP-010",
+    title: "Governed semantic expansion — select equivalent pair",
+    taskKind: "semanticPairSelection",
+    solveMode: "SEMANTIC_EXPANSION_TRANSFER",
+    ruleId: "SEM_EXPANSION_REGISTRY" as const,
+    presentationMode: "EQUIVALENT_PAIR_SELECTION" as AnaCp010SemanticPresentation,
+    renderer: "TEXT",
+    localeMode: "LANGUAGE_ADAPTED",
+    status: "PROVISIONAL_EXECUTABLE" as const,
+  },
+] as const;
+
+export const ANA_CP010_QLS = [
+  ...ANA_CP010_NUMERIC_QLS,
+  ...ANA_CP010_SET_QLS,
+  ...ANA_CP010_SEMANTIC_QLS,
+] as const;
 
 export function anaCp010QlById(qlId: string) {
   const ql = ANA_CP010_QLS.find((entry) => entry.qlId === qlId);
