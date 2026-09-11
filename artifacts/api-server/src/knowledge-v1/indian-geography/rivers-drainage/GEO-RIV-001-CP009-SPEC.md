@@ -63,7 +63,7 @@ Question stems must read like standard competitive-exam questions rather than ge
 - Three-statement count questions should first present the statements and then ask how many of the above statements are correct.
 - Every learner-facing proper river name must use the **River + name** convention: `River Ganga`, `River Brahmaputra`, `River Godavari`, etc.
 - The River prefix applies consistently in stems, river-valued options, matched-pair options, canonical displayed answers and explanations. Internal fact/entity labels remain unchanged.
-- Wording variation must be deterministic and audited. It must never change the correct position, difficulty, provenance or the geographic relation being tested.
+- Wording variation must be deterministic and audited. Display normalization may add the `River` prefix, but it must not change the semantic option set, correct position, difficulty, provenance or geographic relation being tested.
 - Avoid conversational filler, artificial context, verbose framing and wording that sounds written for the content engine rather than for an examinee.
 
 ## Explanation policy
