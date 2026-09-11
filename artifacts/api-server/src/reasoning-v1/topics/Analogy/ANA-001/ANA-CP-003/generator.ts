@@ -2,6 +2,7 @@ import { ANA_CP003_QLS } from "./question-language.en";
 import { checkNumericAmbiguity } from "./ambiguity-checker";
 import { solveNumericRule, verifyNumericTransfer, type NumericPair } from "./independent-solver";
 import { numericRuleById, type NumericRuleContext } from "./rule-definitions";
+import { deriveNumericDifficulty, numericMisconceptions, type NumericDifficulty } from "./audit-remediation";
 
 type NumericOption = number | readonly [number, number];
 type NumericOptionEntry = { value: NumericOption; errorLabel: string | null };
@@ -10,10 +11,12 @@ export interface GeneratedNumericAnalogy {
   qlId: string;
   ruleId: string;
   presentationMode: "MISSING_FOURTH_TERM" | "EQUIVALENT_PAIR_SELECTION";
+  difficulty: NumericDifficulty;
   sourceA: number;
   sourceB: number;
   targetA: number;
   targetB: number;
+  additionalReference: NumericPair | null;
   context: NumericRuleContext;
   stem: string;
   options: readonly NumericOptionEntry[];
@@ -91,20 +94,38 @@ function chooseInstance(ruleId: string, seed: number): { context: NumericRuleCon
   throw new Error(`Unable to build an unambiguous ${ruleId} instance for seed ${seed}.`);
 }
 
-function missingTermOptions(target: NumericPair, seed: number): NumericOptionEntry[] {
-  const deltas = shuffle([1, 2, 3, 4, 5, 7, 9, 10, 12, 15], seed * 23 + 3);
-  const distractors: number[] = [];
-  for (const delta of deltas) {
-    for (const sign of [1, -1]) {
-      const value = target.output + sign * delta;
-      if (value > 0 && value !== target.output && !distractors.includes(value)) distractors.push(value);
-      if (distractors.length === 3) break;
-    }
-    if (distractors.length === 3) break;
+function chooseAdditionalReference(
+  ruleId: string,
+  context: NumericRuleContext,
+  source: NumericPair,
+  target: NumericPair,
+  seed: number,
+): NumericPair | null {
+  const rule = numericRuleById(ruleId);
+  for (const input of candidateInputs(rule.minInput, rule.maxInput, seed * 59 + 31)) {
+    if (input === source.input || input === target.input) continue;
+    const output = solveNumericRule(ruleId, input, context);
+    if (output === null || output === source.output || output === target.output) continue;
+    const candidate = { input, output };
+    if (checkNumericAmbiguity(ruleId, context, [source, candidate, target]).accepted) return candidate;
   }
+  return null;
+}
+
+function missingTermOptions(
+  ruleId: string,
+  context: NumericRuleContext,
+  target: NumericPair,
+  seed: number,
+): NumericOptionEntry[] {
+  const distractors = shuffle(
+    numericMisconceptions(ruleId, context, target.input, target.output),
+    seed * 23 + 3,
+  ).slice(0, 3);
+  if (distractors.length !== 3) throw new Error(`${ruleId} cannot produce three misconception distractors.`);
   return shuffle([
     { value: target.output as NumericOption, errorLabel: null },
-    ...distractors.map((value) => ({ value: value as NumericOption, errorLabel: "NEAR_VALUE_WRONG_OPERATION" })),
+    ...distractors.map((entry) => ({ value: entry.value as NumericOption, errorLabel: entry.errorLabel })),
   ], seed * 29 + 7);
 }
 
@@ -113,14 +134,14 @@ function pairOptions(ruleId: string, context: NumericRuleContext, target: Numeri
   const inputs = candidateInputs(rule.minInput, rule.maxInput, seed * 31 + 11);
   const distractors: { value: readonly [number, number]; errorLabel: string }[] = [];
   for (const input of inputs) {
+    if (input === target.input) continue;
     const correct = solveNumericRule(ruleId, input, context);
-    if (correct === null || input === target.input) continue;
-    for (const delta of [1, -1, 2, -2, 3, -3, 5, -5]) {
-      const output = correct + delta;
-      if (output <= 0 || solveNumericRule(ruleId, input, context) === output) continue;
-      const value = [input, output] as const;
-      if (!distractors.some((entry) => entry.value[0] === input && entry.value[1] === output)) {
-        distractors.push({ value, errorLabel: "VALID_INPUT_WRONG_NUMERIC_RELATION" });
+    if (correct === null) continue;
+    for (const misconception of numericMisconceptions(ruleId, context, input, correct)) {
+      const value = [input, misconception.value] as const;
+      if (solveNumericRule(ruleId, input, context) === misconception.value) continue;
+      if (!distractors.some((entry) => entry.value[0] === input && entry.value[1] === misconception.value)) {
+        distractors.push({ value, errorLabel: misconception.errorLabel });
       }
       if (distractors.length === 3) break;
     }
@@ -130,13 +151,36 @@ function pairOptions(ruleId: string, context: NumericRuleContext, target: Numeri
   return shuffle([{ value: [target.input, target.output] as const, errorLabel: null }, ...distractors], seed * 37 + 13);
 }
 
+function renderMissingStem(source: NumericPair, target: NumericPair, additional: NumericPair | null, seed: number): string {
+  if (!additional) {
+    return `Select the number that replaces the question mark (?) so that the same relationship is followed:\n${source.input} : ${source.output} :: ${target.input} : ?`;
+  }
+  const targetInMiddle = Math.abs(seed) % 2 === 1;
+  const expression = targetInMiddle
+    ? `${source.input} : ${source.output} :: ${target.input} : ? :: ${additional.input} : ${additional.output}`
+    : `${source.input} : ${source.output} :: ${additional.input} : ${additional.output} :: ${target.input} : ?`;
+  return `Select the number that replaces the question mark (?) so that all three pairs follow the same relationship:\n${expression}`;
+}
+
+function numericWrongValues(options: readonly NumericOptionEntry[]): number[] {
+  return options.flatMap((option) =>
+    option.errorLabel === null || Array.isArray(option.value) ? [] : [option.value as number],
+  );
+}
+
 export function generateNumericAnalogy(qlId: string, seed = 0): GeneratedNumericAnalogy {
   const ql = qlById(qlId);
   const rule = numericRuleById(ql.ruleId);
   const { context, source, target } = chooseInstance(ql.ruleId, seed);
   if (!verifyNumericTransfer(ql.ruleId, context, source, target)) throw new Error("Independent solver rejected generated instance.");
+
+  const wantsAdditionalReference = ql.presentationMode === "MISSING_FOURTH_TERM" && Math.abs(seed) % 3 === 0;
+  const additionalReference = wantsAdditionalReference
+    ? chooseAdditionalReference(ql.ruleId, context, source, target, seed)
+    : null;
+
   const shuffledOptions = ql.presentationMode === "MISSING_FOURTH_TERM"
-    ? missingTermOptions(target, seed)
+    ? missingTermOptions(ql.ruleId, context, target, seed)
     : pairOptions(ql.ruleId, context, target, seed);
   const qlOrdinal = Number(ql.qlId.slice(-3));
   const requestedCorrectIndex = ((seed + qlOrdinal) % 4 + 4) % 4;
@@ -145,25 +189,46 @@ export function generateNumericAnalogy(qlId: string, seed = 0): GeneratedNumeric
   if (new Set(options.map((option) => canonical(option.value))).size !== 4) throw new Error("Duplicate numeric options.");
   const correctIndex = options.findIndex((option) => option.errorLabel === null);
   if (correctIndex < 0 || options.filter((option) => option.errorLabel === null).length !== 1) throw new Error("Numeric analogy must have exactly one answer.");
+
   const sourceDemo = rule.explain(source.input, source.output, context);
+  const additionalDemo = additionalReference
+    ? rule.explain(additionalReference.input, additionalReference.output, context)
+    : null;
   const targetDemo = rule.explain(target.input, target.output, context);
+  const difficulty = deriveNumericDifficulty(
+    rule,
+    context,
+    ql.presentationMode,
+    numericWrongValues(options),
+    target.output,
+  );
+
   return {
-    qlId, ruleId: ql.ruleId, presentationMode: ql.presentationMode,
-    sourceA: source.input, sourceB: source.output, targetA: target.input, targetB: target.output, context,
+    qlId,
+    ruleId: ql.ruleId,
+    presentationMode: ql.presentationMode,
+    difficulty,
+    sourceA: source.input,
+    sourceB: source.output,
+    targetA: target.input,
+    targetB: target.output,
+    additionalReference,
+    context,
     stem: ql.presentationMode === "MISSING_FOURTH_TERM"
-      ? `${source.input} : ${source.output} :: ${target.input} : ?`
+      ? renderMissingStem(source, target, additionalReference, seed)
       : `Select the pair that follows the same relationship as ${source.input} : ${source.output}.`,
-    options, correctIndex,
+    options,
+    correctIndex,
     explanation: {
       ruleStatement: `The relationship is: ${rule.label}.`,
-      sourceDemonstration: sourceDemo,
+      sourceDemonstration: additionalDemo ? `${sourceDemo}; also, ${additionalDemo}` : sourceDemo,
       targetApplication: targetDemo,
       conclusion: ql.presentationMode === "MISSING_FOURTH_TERM"
         ? `Therefore, ${target.output} is the correct answer.`
         : `Therefore, ${target.input} : ${target.output} follows the same rule.`,
       closestTrapRejection: ql.presentationMode === "MISSING_FOURTH_TERM"
-        ? "The other values are close to the answer but do not result from the stated operation."
-        : "The other pairs contain valid numbers but do not preserve the same numeric rule.",
+        ? "Each wrong option represents a specific alternate operation or calculation mistake; applying the demonstrated rule gives only the stated answer."
+        : "Each wrong pair comes from a specific alternate operation and fails the demonstrated relationship.",
     },
   };
 }
