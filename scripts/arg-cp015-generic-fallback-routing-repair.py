@@ -17,6 +17,25 @@ if "function genericFallbackReason(" not in source:
         raise SystemExit(f"generic fallback helper: expected exactly one anchor, found {count}")
     source = source.replace(helper_anchor, helper + helper_anchor, 1)
 
+# The V8 plain-language script historically inserted several English rules as one
+# block. Make the renewal family independently idempotent so a pre-existing rule
+# cannot accidentally suppress this one.
+renewal_reason = 'A reminder may influence some users, but it does not show that nobody would choose to continue the plan; informed choice can still be a legitimate objective.'
+renewal_rule = f'  if (/nobody will ever choose (?:a|an) automatically renewed plan/i.test(argument)) return "{renewal_reason}";\n'
+english_fallback_anchor = '  return englishFallback(argument);\n}'
+if renewal_reason not in source:
+    count = source.count(english_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"renewal-specific reason: expected exactly one English fallback anchor, found {count}")
+    source = source.replace(english_fallback_anchor, renewal_rule + english_fallback_anchor, 1)
+
+# The finalizer already runs every argument through repairSurface before reason
+# selection. Assert that V8's English article repair is present so the repaired
+# argument exposed to the rule is grammatical as well as semantically specific.
+article_repair = '.replace(/\\ba automatically renewed plan\\b/gi, "an automatically renewed plan")'
+if article_repair not in source:
+    raise SystemExit("renewal article repair missing after V8 plain-language repair")
+
 old = 'if (strengths[index] === "WEAK" && boilerplateReason(reason, language)) return specificReason(deduped.arguments[index]!, language);'
 new = 'if (strengths[index] === "WEAK" && (boilerplateReason(reason, language) || genericFallbackReason(reason, language))) return specificReason(deduped.arguments[index]!, language);'
 if new not in source:
