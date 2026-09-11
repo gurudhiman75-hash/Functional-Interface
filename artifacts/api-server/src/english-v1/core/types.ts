@@ -7,7 +7,8 @@ export type Eng001QlId =
 
 export type Eng001CpId =
   | "ENG-001-CP001"
-  | "ENG-001-CP002";
+  | "ENG-001-CP002"
+  | "ENG-001-CP003";
 
 export type SvaRuleId =
   | "GR-SVA-001"
@@ -33,7 +34,19 @@ export type TenseRuleId =
   | "GR-TNS-009"
   | "GR-TNS-010";
 
-export type GrammarRuleId = SvaRuleId | TenseRuleId;
+export type ArticleRuleId =
+  | "GR-ART-001"
+  | "GR-ART-002"
+  | "GR-ART-003"
+  | "GR-ART-004"
+  | "GR-ART-005"
+  | "GR-ART-006"
+  | "GR-ART-007"
+  | "GR-ART-008"
+  | "GR-ART-009"
+  | "GR-ART-010";
+
+export type GrammarRuleId = SvaRuleId | TenseRuleId | ArticleRuleId;
 
 export type SvaMutationId =
   | "MUT-SVA-NUMBER-001"
@@ -59,7 +72,19 @@ export type TenseMutationId =
   | "MUT-TNS-SINGLE-PAST-001"
   | "MUT-TNS-STATIVE-DURATION-001";
 
-export type GrammarMutationId = SvaMutationId | TenseMutationId;
+export type ArticleMutationId =
+  | "MUT-ART-INDEFINITE-001"
+  | "MUT-ART-SOUND-001"
+  | "MUT-ART-SUPERLATIVE-001"
+  | "MUT-ART-UNIQUE-001"
+  | "MUT-ART-ZERO-GENERAL-001"
+  | "MUT-ART-PROFESSION-001"
+  | "MUT-ART-INSTITUTION-001"
+  | "MUT-ART-GEOGRAPHY-001"
+  | "MUT-ART-COUNTABILITY-001"
+  | "MUT-ART-DETERMINER-NUMBER-001";
+
+export type GrammarMutationId = SvaMutationId | TenseMutationId | ArticleMutationId;
 
 export interface DifficultyDimensions {
   ruleComplexity: 1 | 2 | 3 | 4 | 5;
@@ -72,7 +97,7 @@ export interface DifficultyDimensions {
 
 export interface EnglishGrammarRule {
   ruleId: GrammarRuleId;
-  category: "subject_verb_agreement" | "tenses_sequence";
+  category: "subject_verb_agreement" | "tenses_sequence" | "articles_determiners";
   name: string;
   principle: string;
   mutationId: GrammarMutationId;
