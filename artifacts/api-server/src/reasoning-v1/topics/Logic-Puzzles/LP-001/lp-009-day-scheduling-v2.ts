@@ -67,6 +67,8 @@ export const LP_009_DAY_SCHEDULING_V2_REVIEW = Object.freeze({
     everyDisplayedClueNecessary: true,
     dependencyDrivenExplanationOrder: true,
     progressiveWorkingTables: true,
+    repeatedExclusionsPerPersonForbidden: true,
+    excessiveExclusionStacksForbidden: true,
     questionBankWritable: false,
     testEligible: false,
     publiclyPublishable: false,
@@ -277,29 +279,33 @@ function acceptableDifficulty(clues: readonly Lp009DayClue[], difficulty: Diffic
   const direct = clues.filter((clue) => clue.kind === "PERSON_DAY").length;
   const relationKinds = new Set(clues.filter((clue) => clue.kind === "BEFORE" || clue.kind === "BETWEEN" || clue.kind === "ADJACENT").map((clue) => clue.kind)).size;
   const exclusions = clues.filter((clue) => clue.kind === "NOT_DAY").length;
-  if (difficulty === "Easy") return direct >= 3 && clues.length >= 4 && clues.length <= 6;
-  if (difficulty === "Medium") return direct >= 1 && direct <= 3 && relationKinds >= 1 && exclusions >= 1 && clues.length >= 5;
-  return direct <= 1 && relationKinds >= 2 && exclusions >= 1 && clueKindCount(clues) >= 3 && clues.length >= 5;
+  const exclusionPeople = new Set(clues.filter((clue): clue is Extract<Lp009DayClue, { kind: "NOT_DAY" }> => clue.kind === "NOT_DAY").map((clue) => clue.person));
+  if (exclusionPeople.size !== exclusions) return false;
+  if (difficulty === "Easy") return direct >= 3 && exclusions <= 1 && clues.length >= 4 && clues.length <= 6;
+  if (difficulty === "Medium") return direct >= 1 && direct <= 3 && relationKinds >= 1 && exclusions === 1 && clues.length >= 5;
+  return direct <= 1 && relationKinds >= 2 && exclusions >= 1 && exclusions <= 2 && clueKindCount(clues) >= 3 && clues.length >= 5;
 }
 
 function chooseClues(assignment: Lp009DayAssignment, profile: Lp009DayProfile, difficulty: DifficultyBand, random: () => number): Lp009DayClue[] {
   const candidates = buildCandidates(assignment, profile);
   const directCandidates = candidates.filter((clue) => clue.kind === "PERSON_DAY");
-  // Hard keeps exactly one possible direct anchor at construction time and never adds another.
-  // The minimizer may remove it if the relational chain alone is sufficient.
   const directTarget = difficulty === "Easy" ? 4 : difficulty === "Medium" ? 2 : 1;
 
-  for (let attempt = 0; attempt < 9000; attempt += 1) {
+  for (let attempt = 0; attempt < 12000; attempt += 1) {
     const chosen: Lp009DayClue[] = shuffle(directCandidates, random).slice(0, directTarget);
     let survivors = solveLp009Day({ clues: chosen });
     const maxClues = difficulty === "Easy" ? 7 : difficulty === "Medium" ? 9 : 12;
 
     while (survivors.length > 1 && chosen.length < maxClues) {
       const directAlready = chosen.filter((clue) => clue.kind === "PERSON_DAY").length;
+      const exclusionAlready = chosen.filter((clue) => clue.kind === "NOT_DAY").length;
+      const exclusionLimit = difficulty === "Hard" ? 2 : 1;
       const possible = shuffle(candidates, random)
         .filter((candidate) => !chosen.some((clue) => clueKey(clue) === clueKey(candidate)))
         .filter((candidate) => difficulty !== "Hard" || candidate.kind !== "PERSON_DAY")
         .filter((candidate) => difficulty !== "Medium" || directAlready < 3 || candidate.kind !== "PERSON_DAY")
+        .filter((candidate) => candidate.kind !== "NOT_DAY" || exclusionAlready < exclusionLimit)
+        .filter((candidate) => candidate.kind !== "NOT_DAY" || !chosen.some((clue) => clue.kind === "NOT_DAY" && clue.person === candidate.person))
         .map((candidate) => ({ candidate, remaining: survivors.filter((state) => satisfies(state, candidate)).length }))
         .filter((entry) => entry.remaining > 0 && entry.remaining < survivors.length)
         .sort((left, right) => {
