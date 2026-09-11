@@ -62,6 +62,16 @@ for (let index = 0; index < revised.length; index += 1) {
     }
   }
 
+  // No learner-facing list may contain two separate exclusion lines for the same person.
+  for (const person of after.people) {
+    const rawRepeatedExclusions = after.clues.filter((clue) => clue.kind === "NOT_IN_GROUP" && clue.person === person);
+    if (rawRepeatedExclusions.length >= 2) {
+      const displayedMatches = after.learnerFacingClues.filter((text) => text.includes(person));
+      assert.ok(displayedMatches.some((text) => /\bneither\b.+\bnor\b/iu.test(text)), `${after.caseletId}: ${person}'s repeated exclusions were not clubbed`);
+      for (const raw of rawRepeatedExclusions) assert.ok(!after.learnerFacingClues.includes(raw.text), `${after.caseletId}: raw repeated exclusion survived for ${person}`);
+    }
+  }
+
   const explanation = after.children[0]!.explanation.lines.join("\n\n");
   for (const displayClue of after.learnerFacingClues) assert.ok(explanation.includes(displayClue), `${after.caseletId}: displayed clue missing from explanation`);
   assert.ok(explanation.includes("| Person | Panel / group |"), `${after.caseletId}: progressive table missing`);
