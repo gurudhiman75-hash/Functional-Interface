@@ -124,6 +124,25 @@ if ql002_verification_punjabi_reason not in source:
         raise SystemExit(f"QL002 Punjabi verification-overclaim reason: expected exactly one Punjabi fallback anchor, found {count}")
     source = source.replace(punjabi_fallback_anchor, ql002_verification_punjabi_rule + punjabi_fallback_anchor, 1)
 
+# QL002 also contains an anecdotal overgeneralisation: one failed verification is
+# used to claim that most genuine changes will fail. Treat the single case as what
+# it is—a single case—and explain why it cannot establish a general failure rate.
+ql002_failed_check_hindi_reason = 'एक उपयोगकर्ता का सत्यापन पूरा न हो पाना केवल एक घटना है; इससे यह निष्कर्ष नहीं निकाला जा सकता कि अधिकांश वैध बदलाव या अनुरोध भी विफल होंगे।'
+ql002_failed_check_hindi_rule = f'  if (/(?:एक उपयोगकर्ता.*जाँच पूरी नहीं कर पाया|एक ग्राहक.*सत्यापन.*विफल).*(?:अधिकांश|ज्यादातर).*(?:वास्तविक|वैध).*(?:अव्यावहारिक|विफल)/.test(argument)) return "{ql002_failed_check_hindi_reason}";\n'
+if ql002_failed_check_hindi_reason not in source:
+    count = source.count(hindi_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL002 Hindi failed-verification anecdote reason: expected exactly one Hindi fallback anchor, found {count}")
+    source = source.replace(hindi_fallback_anchor, ql002_failed_check_hindi_rule + hindi_fallback_anchor, 1)
+
+ql002_failed_check_punjabi_reason = 'ਇੱਕ ਵਰਤੋਂਕਾਰ ਦਾ ਤਸਦੀਕ ਪੂਰਾ ਨਾ ਕਰ ਸਕਣਾ ਕੇਵਲ ਇੱਕ ਘਟਨਾ ਹੈ; ਇਸ ਤੋਂ ਇਹ ਨਤੀਜਾ ਨਹੀਂ ਨਿਕਲਦਾ ਕਿ ਜ਼ਿਆਦਾਤਰ ਅਸਲੀ ਜਾਂ ਵਾਜਬ ਬਦਲਾਅ ਵੀ ਨਾਕਾਮ ਹੋਣਗੇ।'
+ql002_failed_check_punjabi_rule = f'  if (/(?:ਇੱਕ ਵਰਤੋਂਕਾਰ.*ਤਸਦੀਕ.*(?:ਪੂਰਾ.*ਨਾ|ਨਾਕਾਮ)|ਇੱਕ ਗਾਹਕ.*ਤਸਦੀਕ.*ਅਸਫਲ).*(?:ਜ਼ਿਆਦਾਤਰ).*(?:ਅਸਲੀ|ਵਾਜਬ).*(?:ਅਮਲ ਵਿੱਚ ਔਖਾ|ਨਾਕਾਮ|ਅਸਫਲ)/.test(argument)) return "{ql002_failed_check_punjabi_reason}";\n'
+if ql002_failed_check_punjabi_reason not in source:
+    count = source.count(punjabi_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL002 Punjabi failed-verification anecdote reason: expected exactly one Punjabi fallback anchor, found {count}")
+    source = source.replace(punjabi_fallback_anchor, ql002_failed_check_punjabi_rule + punjabi_fallback_anchor, 1)
+
 # The finalizer already runs every argument through repairSurface before reason
 # selection. Assert that V8's English article repair is present so the repaired
 # argument exposed to the rule is grammatical as well as semantically specific.
@@ -152,4 +171,4 @@ if new not in source:
 
 SOURCE_PATH.write_text(source, encoding="utf-8")
 GRAMMAR_PATH.write_text(grammar, encoding="utf-8")
-print("ARG-001 CP015 generic fallback routing and localized QL001/QL002 verification repair applied")
+print("ARG-001 CP015 generic fallback routing and localized QL001/QL002 anecdote repair applied")
