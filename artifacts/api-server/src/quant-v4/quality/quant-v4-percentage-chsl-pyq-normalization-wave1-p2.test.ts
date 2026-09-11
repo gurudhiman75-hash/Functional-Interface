@@ -44,25 +44,16 @@ assert.deepEqual([...QUANT_V4_PERCENTAGE_CHSL_WAVE1_SOURCE_LIMITATIONS.excludedA
 assert.equal(QUANT_V4_PERCENTAGE_CHSL_WAVE1_SOURCE_LIMITATIONS.frequencyCalibrationAllowed, false);
 
 // Independent exact checks for all five retained source questions.
-// SSC 10+2-2012 Q65: 24 wins out of 40 games.
 assert.equal(24 / 40 * 100, 60);
-
-// SSC 10+2-2012 Q66: 125% of x = 100.
 assert.equal(100 * 100 / 125, 80);
-
-// SSC 10+2-2013 Q67: 81 is 90% of Supriyo's score.
 assert.equal(81 * 100 / 90, 90);
-
-// SSC 10+2-2013 Q68: 20% more becomes 16 2/3% less after switching the base.
 const shyamIncome = 100;
 const ramIncome = 120;
 const percentLess = (ramIncome - shyamIncome) / ramIncome * 100;
 assert.ok(Math.abs(percentLess - 50 / 3) < 1e-12);
-
-// SSC 10+2-2014 Q69: 1% of 1% of 25% of 1000.
 assert.equal(0.01 * 0.01 * 0.25 * 1000, 0.025);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 47);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 53);
 const percentage = listRegisteredCountablePyqObservations({ packageId: "PCT-002" });
 assert.equal(percentage.length, 5);
 assert.ok(percentage.every((entry) => entry.examId === "SSC_CHSL"));
@@ -77,12 +68,14 @@ const chsl = buildQuantV4PyqFrequencyProfile({
     requireDatedPaperIdentity: true,
   },
 });
-assert.equal(chsl.countableQuestionCount, 15);
-assert.equal(chsl.topicCoverageCount, 4);
+assert.equal(chsl.countableQuestionCount, 21);
+assert.equal(chsl.distinctPaperCount, 7);
+assert.equal(chsl.topicCoverageCount, 5);
 assert.equal(chsl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
-assert.ok(chsl.blockers.includes("COUNTABLE_QUESTION_SAMPLE_BELOW_POLICY"));
-assert.ok(chsl.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
+assert.ok(!chsl.blockers.includes("COUNTABLE_QUESTION_SAMPLE_BELOW_POLICY"));
 assert.ok(!chsl.blockers.includes("TOPIC_COVERAGE_BELOW_POLICY"));
+assert.ok(chsl.blockers.includes("DISTINCT_PAPER_SAMPLE_BELOW_POLICY"));
+assert.ok(chsl.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
 assert.equal(canReplaceProvisionalSimulationWeights(chsl), false);
 
 console.log(JSON.stringify({
@@ -91,6 +84,7 @@ console.log(JSON.stringify({
   wave1ObservationCount: observations.length,
   registryObservationCount: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length,
   chslCountableQuestions: chsl.countableQuestionCount,
+  chslDistinctPapers: chsl.distinctPaperCount,
   chslTopicCoverage: chsl.topicCoverageCount,
   empiricalWeightingPromoted: false,
 }));
