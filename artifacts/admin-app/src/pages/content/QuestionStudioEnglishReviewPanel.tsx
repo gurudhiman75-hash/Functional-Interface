@@ -66,6 +66,19 @@ const TENSE_RULES = [
   ['GR-TNS-010', 'Continuing stative state'],
 ] as const;
 
+const ARTICLE_RULES = [
+  ['GR-ART-001', 'Indefinite article with one countable noun'],
+  ['GR-ART-002', 'A / an by sound'],
+  ['GR-ART-003', 'The with superlatives'],
+  ['GR-ART-004', 'The for a specifically identified noun'],
+  ['GR-ART-005', 'Zero article for general reference'],
+  ['GR-ART-006', 'Article with professions and roles'],
+  ['GR-ART-007', 'Institutional zero article'],
+  ['GR-ART-008', 'Articles with geographical names'],
+  ['GR-ART-009', 'Countability with much / many / few / little'],
+  ['GR-ART-010', 'Determiner and noun-number agreement'],
+] as const;
+
 const CPS = [
   {
     id: 'ENG-001-CP001',
@@ -82,6 +95,14 @@ const CPS = [
     version: 'V1',
     ruleLabel: 'tense',
     rules: TENSE_RULES,
+  },
+  {
+    id: 'ENG-001-CP003',
+    label: 'CP003 · Articles and Determiners',
+    subtopic: 'Articles and Determiners',
+    version: 'V1',
+    ruleLabel: 'article / determiner',
+    rules: ARTICLE_RULES,
   },
 ] as const;
 
@@ -245,13 +266,13 @@ export function QuestionStudioEnglishReviewPanel() {
           </div>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline" className="border-success/30 text-success">Human-approved content</Badge>
-            <Badge variant="outline">2 CPs · 3 QLs · 20 grammar rules</Badge>
+            <Badge variant="outline">3 CPs · 3 QLs · 30 grammar rules</Badge>
             <Badge variant="outline">Easy / Medium / Hard</Badge>
             <Badge variant="outline" className="border-warning/30 text-warning">Review-only</Badge>
           </div>
         </div>
         <div className="rounded-lg border border-info/20 bg-info/5 p-3 text-xs text-muted-foreground">
-          CP001 and CP002 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
+          CP001, CP002 and CP003 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
         </div>
       </CardHeader>
 
@@ -317,7 +338,7 @@ export function QuestionStudioEnglishReviewPanel() {
           <div className="mb-3 grid gap-3 md:grid-cols-[1fr_minmax(18rem,32rem)] md:items-end">
             <div>
               <p className="text-sm font-semibold">Recent ENG-001 review runs</p>
-              <p className="text-xs text-muted-foreground">CP001 and CP002 share this existing review surface. Approved items cannot enter Question Bank from this package.</p>
+              <p className="text-xs text-muted-foreground">CP001, CP002 and CP003 share this existing review surface. Approved items cannot enter Question Bank from this package.</p>
             </div>
             <Field label="Reason for Needs fix / Reject">
               <Textarea value={reviewReason} onChange={(event) => setReviewReason(event.target.value)} className="min-h-16" placeholder="Describe the grammar, wording, explanation, ambiguity, or difficulty issue" />
