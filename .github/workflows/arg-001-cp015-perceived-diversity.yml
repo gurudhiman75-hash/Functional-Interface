@@ -52,8 +52,18 @@ jobs:
             --types node \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-proof.test.ts \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-export.ts \
             src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-human-review-global-uniqueness-proof.ts
+
+      - name: Prove multilingual grammar and final-surface integrity
+        working-directory: artifacts/api-server
+        run: |
+          pnpm exec esbuild \
+            src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/arg-001-cp015-anti-gaming-grammar-proof.mjs
+          node dist/arg-001-cp015-anti-gaming-grammar-proof.mjs
 
       - name: Prove 1000-question exact diversity and profile integrity
         working-directory: artifacts/api-server
