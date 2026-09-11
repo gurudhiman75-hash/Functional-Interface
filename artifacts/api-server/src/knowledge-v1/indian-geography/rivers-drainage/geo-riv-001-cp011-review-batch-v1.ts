@@ -96,6 +96,14 @@ function expectedCount(count: number) {
   return ["None", "One", "Two", "Three"][count] ?? "";
 }
 
+function rowByRecognitionInStem(stem: string) {
+  return PATTERN_ROWS.filter((row) => stem.toLowerCase().includes(row.recognition.toLowerCase()));
+}
+
+function rowByControlInStem(stem: string) {
+  return PATTERN_ROWS.filter((row) => stem.toLowerCase().includes(row.control.toLowerCase()));
+}
+
 function semanticAudit(question: GeoRiv001Cp011ReviewQuestion, issues: string[]) {
   if (question.qlId === "GEO-RIV-001-QL-092") {
     const match = question.stem.match(/^(River .+?) belongs to which of the following river basins\?$/);
@@ -125,14 +133,20 @@ function semanticAudit(question: GeoRiv001Cp011ReviewQuestion, issues: string[])
     if (truth.filter(Boolean).length !== 3 || truth[question.correctIndex]) issues.push(`QL095_TRUTH:${question.questionId}`);
   }
   if (question.qlId === "GEO-RIV-001-QL-096") {
-    const recognition = question.stem.match(/^A drainage network in which (.+) is known as which type of drainage pattern\?$/)?.[1] ?? "";
-    const truth = question.options.map((pattern) => patternRecognitionTrue(pattern, recognition));
-    if (truth.filter(Boolean).length !== 1 || !truth[question.correctIndex]) issues.push(`QL096_TRUTH:${question.questionId}`);
+    const rows = rowByRecognitionInStem(question.stem);
+    if (rows.length !== 1) issues.push(`QL096_PARSE:${question.questionId}`);
+    else {
+      const truth = question.options.map((pattern) => patternRecognitionTrue(pattern, rows[0].recognition));
+      if (truth.filter(Boolean).length !== 1 || !truth[question.correctIndex]) issues.push(`QL096_TRUTH:${question.questionId}`);
+    }
   }
   if (question.qlId === "GEO-RIV-001-QL-097") {
-    const control = question.stem.match(/^Which drainage pattern is most closely associated with (.+)\?$/)?.[1] ?? "";
-    const truth = question.options.map((pattern) => patternControlTrue(pattern, control));
-    if (truth.filter(Boolean).length !== 1 || !truth[question.correctIndex]) issues.push(`QL097_TRUTH:${question.questionId}`);
+    const rows = rowByControlInStem(question.stem);
+    if (rows.length !== 1) issues.push(`QL097_PARSE:${question.questionId}`);
+    else {
+      const truth = question.options.map((pattern) => patternControlTrue(pattern, rows[0].control));
+      if (truth.filter(Boolean).length !== 1 || !truth[question.correctIndex]) issues.push(`QL097_TRUTH:${question.questionId}`);
+    }
   }
   if (question.qlId === "GEO-RIV-001-QL-098") {
     const truth = question.options.map((option) => {
