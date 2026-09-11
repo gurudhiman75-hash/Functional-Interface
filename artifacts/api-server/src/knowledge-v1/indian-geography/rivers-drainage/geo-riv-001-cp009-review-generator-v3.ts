@@ -6,29 +6,45 @@ import {
 } from "./geo-riv-001-cp009-scope";
 import type { GeoRiv001Cp009ReviewQuestion } from "./geo-riv-001-cp009-review-types";
 
+export function geoRiv001Cp009DisplayRiverName(river: string) {
+  return river.startsWith("River ") ? river : `River ${river}`;
+}
+
+export function geoRiv001Cp009FactRiverName(river: string) {
+  return river.replace(/^River\s+/, "");
+}
+
 function courseListSentence(river: string) {
-  const states = geoRiv001Cp009CourseStatesForRiver(river);
+  const factRiver = geoRiv001Cp009FactRiverName(river);
+  const states = geoRiv001Cp009CourseStatesForRiver(factRiver);
   if (!states.length) return "";
-  return `In India, the main course of the ${river} passes through ${states.join(", ")}.`;
+  return `In India, the main course of ${geoRiv001Cp009DisplayRiverName(factRiver)} passes through ${states.join(", ")}.`;
 }
 
 function parsePair(pair: string) {
   const [river = "", state = ""] = pair.split(" — ").map((part) => part.trim());
-  return { river, state };
+  return { river: geoRiv001Cp009FactRiverName(river), state };
+}
+
+function displayPair(pair: string) {
+  const { river, state } = parsePair(pair);
+  return `${geoRiv001Cp009DisplayRiverName(river)} — ${state}`;
 }
 
 function statementClaims(stem: string) {
-  return [...stem.matchAll(/(?:I{1,2}|\d+)\. The (.+?) flows through (.+?)\./g)].map((match) => ({
-    river: match[1],
+  return [...stem.matchAll(/(?:I{1,2}|\d+)\. (?:The )?(.+?) flows through (.+?)\./g)].map((match) => ({
+    river: geoRiv001Cp009FactRiverName(match[1]),
     state: match[2],
   }));
 }
 
 function explainClaim(river: string, state: string, label?: string) {
+  const factRiver = geoRiv001Cp009FactRiverName(river);
+  const displayRiver = geoRiv001Cp009DisplayRiverName(factRiver);
   const prefix = label ? `${label} ` : "";
-  const trueClaim = geoRiv001Cp009IsCourseState(river, state);
-  if (trueClaim) return `${prefix}Correct: the ${river} flows through ${state}. ${courseListSentence(river)}`;
-  return `${prefix}Incorrect: ${state} is not on the ${river}'s main course in this relation. ${courseListSentence(river)}`;
+  const trueClaim = geoRiv001Cp009IsCourseState(factRiver, state);
+  if (trueClaim) return `${prefix}Correct: ${displayRiver} flows through ${state}. ${courseListSentence(factRiver)}`;
+  return `${prefix}Incorrect: ${state} is not on the main course of ${displayRiver}. ${courseListSentence(factRiver)}`;
 }
 
 function pickStem(question: GeoRiv001Cp009ReviewQuestion, variants: readonly string[]) {
@@ -37,17 +53,19 @@ function pickStem(question: GeoRiv001Cp009ReviewQuestion, variants: readonly str
 
 /**
  * Converts the mechanically regular V2 wording into controlled, competitive-
- * exam style English. The semantic payload is deliberately unchanged.
+ * exam style English. Every visible proper river name uses the `River X`
+ * convention while the underlying fact/entity label remains unchanged.
  */
 export function naturalizeGeoRiv001Cp009Stem(question: GeoRiv001Cp009ReviewQuestion) {
   switch (question.qlId) {
     case "GEO-RIV-001-QL-074": {
       const river = question.stem.match(/^Which of the following states does the (.+?) flow through\?$/)?.[1];
       if (!river) return question.stem;
+      const displayRiver = geoRiv001Cp009DisplayRiverName(river);
       return pickStem(question, [
-        `The ${river} flows through which of the following states?`,
-        `Which one of the following states is traversed by the ${river}?`,
-        `The main course of the ${river} passes through which of the following states?`,
+        `${displayRiver} flows through which of the following states?`,
+        `Which one of the following states is traversed by ${displayRiver}?`,
+        `The main course of ${displayRiver} passes through which of the following states?`,
       ]);
     }
     case "GEO-RIV-001-QL-075": {
@@ -62,12 +80,12 @@ export function naturalizeGeoRiv001Cp009Stem(question: GeoRiv001Cp009ReviewQuest
     case "GEO-RIV-001-QL-076": {
       const match = question.stem.match(/^The (.+?) (rises|originates) in which state\?$/);
       if (!match) return question.stem;
-      const river = match[1];
+      const displayRiver = geoRiv001Cp009DisplayRiverName(match[1]);
       const verb = match[2] === "rises" ? "rise" : "originate";
       return pickStem(question, [
-        `In which of the following states does the ${river} ${verb}?`,
-        `The ${river} has its source in which of the following states?`,
-        `Which of the following states is the place of origin of the ${river}?`,
+        `In which of the following states does ${displayRiver} ${verb}?`,
+        `${displayRiver} has its source in which of the following states?`,
+        `Which of the following states is the place of origin of ${displayRiver}?`,
       ]);
     }
     case "GEO-RIV-001-QL-077": {
@@ -103,8 +121,8 @@ export function naturalizeGeoRiv001Cp009Stem(question: GeoRiv001Cp009ReviewQuest
       const claims = statementClaims(question.stem);
       if (claims.length !== 2) return question.stem;
       const lines = [
-        `I. The ${claims[0].river} flows through ${claims[0].state}.`,
-        `II. The ${claims[1].river} flows through ${claims[1].state}.`,
+        `I. ${geoRiv001Cp009DisplayRiverName(claims[0].river)} flows through ${claims[0].state}.`,
+        `II. ${geoRiv001Cp009DisplayRiverName(claims[1].river)} flows through ${claims[1].state}.`,
       ];
       return pickStem(question, [
         `Consider the following statements:\n${lines.join("\n")}\nWhich of the statements given above is/are correct?`,
@@ -114,7 +132,7 @@ export function naturalizeGeoRiv001Cp009Stem(question: GeoRiv001Cp009ReviewQuest
     case "GEO-RIV-001-QL-082": {
       const claims = statementClaims(question.stem);
       if (claims.length !== 3) return question.stem;
-      const lines = claims.map((claim, index) => `${index + 1}. The ${claim.river} flows through ${claim.state}.`);
+      const lines = claims.map((claim, index) => `${index + 1}. ${geoRiv001Cp009DisplayRiverName(claim.river)} flows through ${claim.state}.`);
       return pickStem(question, [
         `Consider the following statements:\n${lines.join("\n")}\nHow many of the statements given above are correct?`,
         `With reference to Indian rivers, consider the following statements:\n${lines.join("\n")}\nHow many of the above statements are correct?`,
@@ -125,44 +143,66 @@ export function naturalizeGeoRiv001Cp009Stem(question: GeoRiv001Cp009ReviewQuest
   }
 }
 
+export function geoRiv001Cp009DisplayOptions(question: GeoRiv001Cp009ReviewQuestion) {
+  if (["GEO-RIV-001-QL-075", "GEO-RIV-001-QL-077", "GEO-RIV-001-QL-080"].includes(question.qlId)) {
+    return question.options.map(geoRiv001Cp009DisplayRiverName);
+  }
+  if (["GEO-RIV-001-QL-078", "GEO-RIV-001-QL-079"].includes(question.qlId)) {
+    return question.options.map(displayPair);
+  }
+  return [...question.options];
+}
+
+export function geoRiv001Cp009DisplayCanonicalAnswer(question: GeoRiv001Cp009ReviewQuestion) {
+  if (["GEO-RIV-001-QL-075", "GEO-RIV-001-QL-077", "GEO-RIV-001-QL-080"].includes(question.qlId)) {
+    return geoRiv001Cp009DisplayRiverName(question.canonicalAnswer);
+  }
+  if (["GEO-RIV-001-QL-078", "GEO-RIV-001-QL-079"].includes(question.qlId)) {
+    return displayPair(question.canonicalAnswer);
+  }
+  return question.canonicalAnswer;
+}
+
 function richerExplanation(question: GeoRiv001Cp009ReviewQuestion) {
   switch (question.qlId) {
-    case "GEO-RIV-001-QL-074": { // direct river -> state
+    case "GEO-RIV-001-QL-074": {
       const river = question.stem.match(/^Which of the following states does the (.+?) flow through\?$/)?.[1] ?? "";
-      return `The ${river} flows through ${question.canonicalAnswer}. ${courseListSentence(river)}`;
+      return `${geoRiv001Cp009DisplayRiverName(river)} flows through ${question.canonicalAnswer}. ${courseListSentence(river)}`;
     }
-    case "GEO-RIV-001-QL-075": { // state -> river
+    case "GEO-RIV-001-QL-075": {
       const state = question.stem.match(/^Which of the following rivers flows through (.+?)\?$/)?.[1] ?? "";
       const river = question.canonicalAnswer;
-      return `The ${river} flows through ${state}. ${courseListSentence(river)}`;
+      return `${geoRiv001Cp009DisplayRiverName(river)} flows through ${state}. ${courseListSentence(river)}`;
     }
-    case "GEO-RIV-001-QL-076": { // source state
+    case "GEO-RIV-001-QL-076": {
       const match = question.stem.match(/^The (.+?) (rises|originates) in which state\?$/);
       const river = match?.[1] ?? "";
       const verb = match?.[2] === "rises" ? "rises" : "originates";
       const courseContext = courseListSentence(river);
-      return `The ${river} ${verb} in ${question.canonicalAnswer}.${courseContext ? ` ${courseContext}` : ""} The place of origin and the states crossed by the river are different facts and should not be confused.`;
+      return `${geoRiv001Cp009DisplayRiverName(river)} ${verb} in ${question.canonicalAnswer}.${courseContext ? ` ${courseContext}` : ""} The place of origin and the states crossed by the river are different facts and should not be confused.`;
     }
-    case "GEO-RIV-001-QL-077": { // exhaustive main-course states
+    case "GEO-RIV-001-QL-077": {
       const river = question.canonicalAnswer;
       return `${courseListSentence(river)} These are the Indian states crossed by its main course; states lying only in its drainage basin are a separate matter.`;
     }
-    case "GEO-RIV-001-QL-078": { // correct pair
+    case "GEO-RIV-001-QL-078": {
       const { river, state } = parsePair(question.canonicalAnswer);
-      return `The pair ${river} — ${state} is correct because the ${river} flows through ${state}. ${courseListSentence(river)}`;
+      const displayRiver = geoRiv001Cp009DisplayRiverName(river);
+      return `${displayRiver} — ${state} is correctly matched because ${displayRiver} flows through ${state}. ${courseListSentence(river)}`;
     }
-    case "GEO-RIV-001-QL-079": { // incorrect pair
+    case "GEO-RIV-001-QL-079": {
       const { river, state } = parsePair(question.canonicalAnswer);
-      return `${river} — ${state} is the incorrect pair: ${state} is not crossed by the ${river}'s main course. ${courseListSentence(river)} A state in a river basin must not automatically be treated as a main-course state.`;
+      const displayRiver = geoRiv001Cp009DisplayRiverName(river);
+      return `${displayRiver} does not flow through ${state}. ${courseListSentence(river)} A state in a river basin must not automatically be treated as a main-course state.`;
     }
-    case "GEO-RIV-001-QL-080": { // both states
+    case "GEO-RIV-001-QL-080": {
       const match = question.stem.match(/^Which river flows through both (.+?) and (.+?)\?$/);
       const first = match?.[1] ?? "";
       const second = match?.[2] ?? "";
       const river = question.canonicalAnswer;
-      return `The ${river} flows through both ${first} and ${second}. ${courseListSentence(river)}`;
+      return `${geoRiv001Cp009DisplayRiverName(river)} flows through both ${first} and ${second}. ${courseListSentence(river)}`;
     }
-    case "GEO-RIV-001-QL-081": { // two statements
+    case "GEO-RIV-001-QL-081": {
       const claims = statementClaims(question.stem);
       if (claims.length !== 2) return question.explanation;
       return [
@@ -171,7 +211,7 @@ function richerExplanation(question: GeoRiv001Cp009ReviewQuestion) {
         `Hence, ${question.canonicalAnswer.toLowerCase()}.`,
       ].join(" ");
     }
-    case "GEO-RIV-001-QL-082": { // three statements
+    case "GEO-RIV-001-QL-082": {
       const claims = statementClaims(question.stem);
       if (claims.length !== 3) return question.explanation;
       const trueCount = claims.filter((claim) => geoRiv001Cp009IsCourseState(claim.river, claim.state)).length;
@@ -187,15 +227,16 @@ function richerExplanation(question: GeoRiv001Cp009ReviewQuestion) {
 
 /**
  * V3 is a pedagogical and editorial overlay over V2.
- * It preserves the verified answer, options, difficulty and provenance while
- * replacing mechanical stems with controlled exam-standard wording and giving
- * question-specific explanations grounded in the canonical main-course matrix.
+ * It preserves the verified semantic options, correct position, difficulty and
+ * provenance while rendering proper river names consistently as `River X`.
  */
 export function toGeoRiv001Cp009ReviewV3(question: GeoRiv001Cp009ReviewQuestion): GeoRiv001Cp009ReviewQuestion {
   return {
     ...question,
     questionId: question.questionId.replace("CP009-V2", "CP009-V3"),
     stem: naturalizeGeoRiv001Cp009Stem(question),
+    options: geoRiv001Cp009DisplayOptions(question),
+    canonicalAnswer: geoRiv001Cp009DisplayCanonicalAnswer(question),
     explanation: richerExplanation(question),
   };
 }
