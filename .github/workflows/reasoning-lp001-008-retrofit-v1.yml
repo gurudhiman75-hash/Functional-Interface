@@ -46,6 +46,9 @@ jobs:
       - name: Guard table-based varied English V3.2 explanations
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-stabilized-english-v3-2.test.ts
 
+      - name: Guard progressive placeholder-table English V3.3 explanations
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-stabilized-english-v3-3.test.ts
+
       - name: Reprove LP-006 difficulty calibration
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/difficulty-calibration.test.ts
 
@@ -56,11 +59,11 @@ jobs:
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-008.test.ts
 
       - name: Export consolidated English review pack
-        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-retrofit-review-export.ts > LP-001-008-ENGLISH-RETROFIT-REVIEW-V3-2.md
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-retrofit-review-export.ts > LP-001-008-ENGLISH-RETROFIT-REVIEW-V3-3.md
 
       - name: Upload consolidated English review pack
         uses: actions/upload-artifact@v4
         with:
-          name: LP-001-008-ENGLISH-RETROFIT-REVIEW-V3-2
-          path: LP-001-008-ENGLISH-RETROFIT-REVIEW-V3-2.md
+          name: LP-001-008-ENGLISH-RETROFIT-REVIEW-V3-3
+          path: LP-001-008-ENGLISH-RETROFIT-REVIEW-V3-3.md
           if-no-files-found: error
