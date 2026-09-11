@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_AUTHORITY = "ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_V9" as const;
+export const ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_AUTHORITY = "ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_V10" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -98,7 +98,7 @@ function repairPunjabi(value: string): string {
     .replace(/ਕਰਮਚਾਰੀਆਂ ਦੀ ਨਾਮ ਅਤੇ/g, "ਕਰਮਚਾਰੀਆਂ ਦੇ ਨਾਮ ਅਤੇ")
     .replace(/(ਟ੍ਰੇਨੀਜ਼|ਅਰਜ਼ੀਕਾਰਾਂ|ਕਰਮਚਾਰੀਆਂ) ਬਾਰੇ ਨਾਮ ਅਤੇ/g, "$1 ਦੇ ਨਾਮ ਅਤੇ")
     .replace(/(ਪੇਪਰ ਲੀਕ ਦੋਸ਼) ਹੀ ਸਾਬਤ ਕਰਦੀ ਹੈ/g, "$1 ਹੀ ਸਾਬਤ ਕਰਦਾ ਹੈ")
-    .replace(/(?:ਦਾ|ਦੇ) ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸੀ/g, "ਦੇ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਰ ਪ੍ਰਭਾਵਿਤ ਸਨ")
+    .replace(/(?:ਦਾ|ਦੇ) ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸੀ/g, "ਦੇ ਜ਼ਿਆਦਾਤਰ ਉਮੀਦਵਾਰ ਅਤੇ ਕੇਂਦਰ ਪ੍ਰਭਾਵਿਤ ਸਨ")
     .replace(/ਲੋਕਾਂ ਜੋ/g, "ਲੋਕ ਜੋ")
     .replace(/ਰਿਮੋਟ ਕਰਮਚਾਰੀਆਂ ਵਿੱਚ ਜੋ ਵੀ/g, "ਜੋ ਵੀ ਰਿਮੋਟ ਕਰਮਚਾਰੀ")
     .replace(/ਕੌਨਟ੍ਰੈਕਟ ਕਰਮਚਾਰੀਆਂ ਵਿੱਚ ਜੋ ਵੀ/g, "ਜੋ ਵੀ ਕੌਨਟ੍ਰੈਕਟ ਕਰਮਚਾਰੀ")
