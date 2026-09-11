@@ -1,0 +1,75 @@
+name: Validate English CP002 V1
+
+on:
+  pull_request:
+    branches:
+      - New-main
+    types: [opened, reopened, synchronize]
+    paths:
+      - artifacts/api-server/src/english-v1/**
+      - .github/workflows/english-cp002-v1.yml
+  push:
+    branches:
+      - New-main
+    paths:
+      - artifacts/api-server/src/english-v1/**
+      - .github/workflows/english-cp002-v1.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: english-cp002-v1-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-cp002-v1:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Enable pnpm
+        shell: bash
+        run: corepack enable
+
+      - name: Install workspace dependencies
+        shell: bash
+        run: pnpm install --frozen-lockfile
+
+      - name: Compile CP002 V1 stress test
+        shell: bash
+        run: |
+          mkdir -p artifacts/api-server/dist/english-v1
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/english-v1/tests/eng-001-cp002-v1.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/english-v1/eng-001-cp002-v1.test.mjs
+
+      - name: Run CP002 V1 generation and validation matrix
+        shell: bash
+        run: node artifacts/api-server/dist/english-v1/eng-001-cp002-v1.test.mjs
+
+      - name: Compile CP001 V4 regression
+        shell: bash
+        run: |
+          pnpm --dir artifacts/api-server exec esbuild \
+            src/english-v1/tests/eng-001-cp001-v4.test.ts \
+            --bundle --platform=node --format=esm \
+            --outfile=dist/english-v1/eng-001-cp001-v4-regression.test.mjs
+
+      - name: Re-run approved CP001 V4 regression
+        shell: bash
+        run: node artifacts/api-server/dist/english-v1/eng-001-cp001-v4-regression.test.mjs
+
+      - name: Build API server
+        shell: bash
+        run: pnpm --dir artifacts/api-server build
