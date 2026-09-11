@@ -1,0 +1,125 @@
+name: Quant V4 CGL 2020-cycle 2021-08-17 S1 full Quant section Wave 4 P2
+
+on:
+  push:
+    branches:
+      - audit/quant-v4-cgl-2020-cycle-2021-08-17-s1-full-quant-section-wave4-p2
+    paths:
+      - ".github/workflows/quant-v4-cgl-2020-cycle-2021-08-17-s1-full-quant-section-wave4-p2.yml"
+      - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-CGL-2020-CYCLE-2021-08-17-S1-FULL-QUANT-SECTION-WAVE4-P2.md"
+      - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-WHOLE-SECTION-FREQUENCY-CALIBRATION-P2.md"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observations-cgl-2020-cycle-2021-08-17-s1-full-quant-section-wave4-p2.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observation-registry-p2.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-whole-section-frequency-calibration-p2.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-cgl-2020-cycle-2021-08-17-s1-full-quant-section-wave4-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-whole-section-frequency-calibration-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-cgl-2022-s1-full-quant-section-wave3-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-cgl-2023-s2-full-quant-section-wave2-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-cgl-2024-s1-full-quant-section-wave1-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-cgl-tier1-cross-topic-pyq-normalization-wave1-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-tmw-chsl-pyq-normalization-wave1-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-average-chsl-pyq-normalization-wave1-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-percentage-chsl-pyq-normalization-wave1-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-tsd-pyq-normalization-wave1-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-algebra-pyq-normalization-wave2-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-algebra-pyq-normalization-wave3-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-number-system-ssc-pyq-normalization-wave2-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-selection-evidence-gate-p2.test.ts"
+  pull_request:
+    branches:
+      - New-main
+    paths:
+      - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-CGL-2020-CYCLE-2021-08-17-S1-FULL-QUANT-SECTION-WAVE4-P2.md"
+      - "artifacts/api-server/src/quant-v4/quality/QUANT-V4-WHOLE-SECTION-FREQUENCY-CALIBRATION-P2.md"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observations-cgl-2020-cycle-2021-08-17-s1-full-quant-section-wave4-p2.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-pyq-observation-registry-p2.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-whole-section-frequency-calibration-p2.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-cgl-2020-cycle-2021-08-17-s1-full-quant-section-wave4-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-whole-section-frequency-calibration-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-cgl-2022-s1-full-quant-section-wave3-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-cgl-2023-s2-full-quant-section-wave2-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-cgl-2024-s1-full-quant-section-wave1-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-cgl-tier1-cross-topic-pyq-normalization-wave1-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-tmw-chsl-pyq-normalization-wave1-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-average-chsl-pyq-normalization-wave1-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-percentage-chsl-pyq-normalization-wave1-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-tsd-pyq-normalization-wave1-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-algebra-pyq-normalization-wave2-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-algebra-pyq-normalization-wave3-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-number-system-ssc-pyq-normalization-wave2-p2.test.ts"
+      - "artifacts/api-server/src/quant-v4/quality/quant-v4-specialized-profile-selection-evidence-gate-p2.test.ts"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quant-v4-cgl-wave4-full-section-p2-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  cgl-wave4-full-quant-section:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Enable pnpm
+        run: corepack enable
+      - name: Install locked workspace dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build API server
+        run: pnpm --dir artifacts/api-server build
+      - name: Bundle evidence proofs
+        run: |
+          mkdir -p artifacts/api-server/dist/quant-v4/quality
+          for test in \
+            quant-v4-pyq-frequency-evidence-p2.test \
+            quant-v4-cgl-2020-cycle-2021-08-17-s1-full-quant-section-wave4-p2.test \
+            quant-v4-whole-section-frequency-calibration-p2.test \
+            quant-v4-cgl-2022-s1-full-quant-section-wave3-p2.test \
+            quant-v4-cgl-2023-s2-full-quant-section-wave2-p2.test \
+            quant-v4-cgl-2024-s1-full-quant-section-wave1-p2.test \
+            quant-v4-cgl-tier1-cross-topic-pyq-normalization-wave1-p2.test \
+            quant-v4-tmw-chsl-pyq-normalization-wave1-p2.test \
+            quant-v4-average-chsl-pyq-normalization-wave1-p2.test \
+            quant-v4-percentage-chsl-pyq-normalization-wave1-p2.test \
+            quant-v4-tsd-pyq-normalization-wave1-p2.test \
+            quant-v4-algebra-pyq-normalization-wave2-p2.test \
+            quant-v4-algebra-pyq-normalization-wave3-p2.test \
+            quant-v4-number-system-ssc-pyq-normalization-wave2-p2.test \
+            quant-v4-specialized-profile-selection-evidence-gate-p2.test
+          do
+            pnpm --dir artifacts/api-server exec esbuild \
+              "src/quant-v4/quality/${test}.ts" \
+              --bundle --platform=node --format=esm --packages=external \
+              --outfile="dist/quant-v4/quality/${test}.mjs"
+          done
+      - name: Run evidence proofs
+        working-directory: artifacts/api-server
+        run: |
+          for test in \
+            quant-v4-pyq-frequency-evidence-p2.test \
+            quant-v4-cgl-2020-cycle-2021-08-17-s1-full-quant-section-wave4-p2.test \
+            quant-v4-whole-section-frequency-calibration-p2.test \
+            quant-v4-cgl-2022-s1-full-quant-section-wave3-p2.test \
+            quant-v4-cgl-2023-s2-full-quant-section-wave2-p2.test \
+            quant-v4-cgl-2024-s1-full-quant-section-wave1-p2.test \
+            quant-v4-cgl-tier1-cross-topic-pyq-normalization-wave1-p2.test \
+            quant-v4-tmw-chsl-pyq-normalization-wave1-p2.test \
+            quant-v4-average-chsl-pyq-normalization-wave1-p2.test \
+            quant-v4-percentage-chsl-pyq-normalization-wave1-p2.test \
+            quant-v4-tsd-pyq-normalization-wave1-p2.test \
+            quant-v4-algebra-pyq-normalization-wave2-p2.test \
+            quant-v4-algebra-pyq-normalization-wave3-p2.test \
+            quant-v4-number-system-ssc-pyq-normalization-wave2-p2.test \
+            quant-v4-specialized-profile-selection-evidence-gate-p2.test
+          do
+            node "dist/quant-v4/quality/${test}.mjs"
+          done
+      - name: Patch hygiene
+        run: git diff --check
