@@ -1,4 +1,5 @@
 import { generateNumericAnalogy, type GeneratedNumericAnalogy } from "./generator";
+import { numericRuleById } from "./rule-definitions";
 
 type NumericLocale = "hi-IN" | "pa-IN";
 
@@ -22,13 +23,25 @@ const LABELS: Record<NumericLocale, Record<string, string>> = {
 };
 
 function localizedStep(g: GeneratedNumericAnalogy, input: number, output: number, locale: NumericLocale): string {
-  if (g.ruleId !== "DIGIT_REVERSE") {
-    const english = input === g.sourceA ? g.explanation.sourceDemonstration : g.explanation.targetApplication;
-    return english;
-  }
+  if (g.ruleId !== "DIGIT_REVERSE") return numericRuleById(g.ruleId).explain(input, output, g.context);
   return locale === "hi-IN"
     ? `${input} के अंकों का क्रम उलटने पर ${output} प्राप्त होता है।`
     : `${input} ਦੇ ਅੰਕਾਂ ਦਾ ਕ੍ਰਮ ਉਲਟਣ ਤੇ ${output} ਮਿਲਦਾ ਹੈ।`;
+}
+
+function localizedMissingStem(g: GeneratedNumericAnalogy, locale: NumericLocale, seed: number): string {
+  if (!g.additionalReference) {
+    return locale === "hi-IN"
+      ? `प्रश्नवाचक चिन्ह (?) के स्थान पर वह संख्या चुनिए जिससे समान संबंध बना रहे:\n${g.sourceA} : ${g.sourceB} :: ${g.targetA} : ?`
+      : `ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ (?) ਦੀ ਥਾਂ ਉਹ ਸੰਖਿਆ ਚੁਣੋ ਜਿਸ ਨਾਲ ਇੱਕੋ ਸੰਬੰਧ ਬਣਿਆ ਰਹੇ:\n${g.sourceA} : ${g.sourceB} :: ${g.targetA} : ?`;
+  }
+  const targetInMiddle = Math.abs(seed) % 2 === 1;
+  const expression = targetInMiddle
+    ? `${g.sourceA} : ${g.sourceB} :: ${g.targetA} : ? :: ${g.additionalReference.input} : ${g.additionalReference.output}`
+    : `${g.sourceA} : ${g.sourceB} :: ${g.additionalReference.input} : ${g.additionalReference.output} :: ${g.targetA} : ?`;
+  return locale === "hi-IN"
+    ? `प्रश्नवाचक चिन्ह (?) के स्थान पर वह संख्या चुनिए जिससे तीनों युग्मों में समान संबंध बना रहे:\n${expression}`
+    : `ਪ੍ਰਸ਼ਨ ਚਿੰਨ੍ਹ (?) ਦੀ ਥਾਂ ਉਹ ਸੰਖਿਆ ਚੁਣੋ ਜਿਸ ਨਾਲ ਤਿੰਨਾਂ ਜੋੜਿਆਂ ਵਿੱਚ ਇੱਕੋ ਸੰਬੰਧ ਬਣਿਆ ਰਹੇ:\n${expression}`;
 }
 
 export interface GeneratedLocalizedNumericAnalogy extends Omit<GeneratedNumericAnalogy, "stem" | "explanation"> {
@@ -44,21 +57,29 @@ export function generateLocalizedNumericAnalogy(qlId: string, locale: NumericLoc
     ? locale === "hi-IN"
       ? `उस युग्म का चयन कीजिए जो ${g.sourceA} : ${g.sourceB} के समान संबंध का अनुसरण करता है।`
       : `ਉਹ ਜੋੜਾ ਚੁਣੋ ਜੋ ${g.sourceA} : ${g.sourceB} ਵਾਲੇ ਹੀ ਸੰਬੰਧ ਦੀ ਪਾਲਣਾ ਕਰਦਾ ਹੈ।`
-    : `${g.sourceA} : ${g.sourceB} :: ${g.targetA} : ?`;
+    : localizedMissingStem(g, locale, seed);
+
+  const sourceStep = localizedStep(g, g.sourceA, g.sourceB, locale);
+  const additionalStep = g.additionalReference
+    ? localizedStep(g, g.additionalReference.input, g.additionalReference.output, locale)
+    : null;
+
   return {
     ...g,
     locale,
     stem,
     explanation: {
       ruleStatement: locale === "hi-IN" ? `संबंध है: ${LABELS[locale][g.ruleId]}।` : `ਸੰਬੰਧ ਹੈ: ${LABELS[locale][g.ruleId]}।`,
-      sourceDemonstration: localizedStep(g, g.sourceA, g.sourceB, locale),
+      sourceDemonstration: additionalStep
+        ? locale === "hi-IN" ? `${sourceStep}; इसी प्रकार ${additionalStep}` : `${sourceStep}; ਇਸੇ ਤਰ੍ਹਾਂ ${additionalStep}`
+        : sourceStep,
       targetApplication: localizedStep(g, g.targetA, g.targetB, locale),
       conclusion: pairMode
         ? locale === "hi-IN" ? `अतः ${g.targetA} : ${g.targetB} उसी नियम का अनुसरण करता है।` : `ਇਸ ਲਈ ${g.targetA} : ${g.targetB} ਉਸੇ ਨਿਯਮ ਦੀ ਪਾਲਣਾ ਕਰਦਾ ਹੈ।`
         : locale === "hi-IN" ? `अतः सही उत्तर ${g.targetB} है।` : `ਇਸ ਲਈ ਸਹੀ ਉੱਤਰ ${g.targetB} ਹੈ।`,
       closestTrapRejection: pairMode
-        ? locale === "hi-IN" ? "अन्य युग्मों में मान्य संख्याएँ हैं, पर वे वही संख्यात्मक नियम नहीं निभाते।" : "ਹੋਰ ਜੋੜਿਆਂ ਵਿੱਚ ਠੀਕ ਸੰਖਿਆਵਾਂ ਹਨ, ਪਰ ਉਹ ਉਹੀ ਸੰਖਿਆਤਮਕ ਨਿਯਮ ਨਹੀਂ ਨਿਭਾਉਂਦੇ।"
-        : locale === "hi-IN" ? "अन्य मान उत्तर के निकट हैं, पर वे बताए गए नियम से प्राप्त नहीं होते।" : "ਹੋਰ ਮੁੱਲ ਉੱਤਰ ਦੇ ਨੇੜੇ ਹਨ, ਪਰ ਉਹ ਦਿੱਤੇ ਨਿਯਮ ਨਾਲ ਪ੍ਰਾਪਤ ਨਹੀਂ ਹੁੰਦੇ।",
+        ? locale === "hi-IN" ? "अन्य युग्म किसी विशिष्ट वैकल्पिक क्रिया या गणना की गलती से बनते हैं और दिए गए संबंध को नहीं निभाते।" : "ਹੋਰ ਜੋੜੇ ਕਿਸੇ ਖਾਸ ਵੱਖਰੀ ਕਿਰਿਆ ਜਾਂ ਗਿਣਤੀ ਦੀ ਗਲਤੀ ਤੋਂ ਬਣਦੇ ਹਨ ਅਤੇ ਦਿੱਤੇ ਸੰਬੰਧ ਨੂੰ ਨਹੀਂ ਨਿਭਾਉਂਦੇ।"
+        : locale === "hi-IN" ? "हर गलत विकल्प किसी विशिष्ट वैकल्पिक क्रिया या गणना की गलती से बनता है; दिखाए गए नियम से केवल सही उत्तर मिलता है।" : "ਹਰ ਗਲਤ ਚੋਣ ਕਿਸੇ ਖਾਸ ਵੱਖਰੀ ਕਿਰਿਆ ਜਾਂ ਗਿਣਤੀ ਦੀ ਗਲਤੀ ਤੋਂ ਬਣਦੀ ਹੈ; ਦਿਖਾਏ ਨਿਯਮ ਨਾਲ ਕੇਵਲ ਸਹੀ ਉੱਤਰ ਮਿਲਦਾ ਹੈ।",
     },
   };
 }
