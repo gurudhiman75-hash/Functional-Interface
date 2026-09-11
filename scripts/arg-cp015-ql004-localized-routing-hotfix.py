@@ -3,17 +3,25 @@ from pathlib import Path
 SOURCE_PATH = Path("artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-final-editorial-quality.ts")
 source = SOURCE_PATH.read_text(encoding="utf-8")
 
-# QL004: cover both the older "temporary restriction" phrasing and the newer
-# anti-gaming surface that describes a "small limit on heavy vehicles" causing
-# permanent destruction of most nearby activity.
+# QL004 Hindi: cover both the older "temporary restriction" phrasing and the
+# newer anti-gaming surface describing a small heavy-vehicle limit as destroying
+# most nearby activity permanently.
 old = '  if (/अस्थायी प्रतिबंध.*(?:आसपास|स्थानीय).*(?:अधिकांश|ज्यादातर).*(?:गतिविधि|गतिविधियों).*(?:स्थायी रूप से समाप्त|स्थायी रूप से खत्म|खत्म)/.test(argument)) return "अस्थायी भारी-वाहन प्रतिबंध से कुछ स्थानीय गतिविधि प्रभावित हो सकती है, लेकिन इससे आसपास की अधिकांश गतिविधियाँ स्थायी रूप से समाप्त हो जाएँगी, यह निष्कर्ष उचित नहीं है।";\n'
 new = '  if (/(?:अस्थायी प्रतिबंध|भारी वाहनों की थोड़ी-सी सीमा).*?(?:आसपास|स्थानीय).*(?:अधिकांश|ज्यादातर).*(?:गतिविधि|गतिविधियों).*(?:स्थायी रूप से (?:समाप्त|खत्म|बर्बाद)|खत्म)/.test(argument)) return "अस्थायी या सीमित भारी-वाहन रोक से कुछ स्थानीय गतिविधि प्रभावित हो सकती है, लेकिन इससे आसपास की अधिकांश गतिविधि स्थायी रूप से बर्बाद हो जाएगी, यह निष्कर्ष उचित नहीं है।";\n'
-
 if new not in source:
     count = source.count(old)
     if count != 1:
         raise SystemExit(f"QL004 Hindi activity routing hotfix: expected exactly one old rule, found {count}")
     source = source.replace(old, new, 1)
+
+# Punjabi surface grammar exposed by the exhaustive learner-facing sample.
+punjabi_repair_anchor = '.replace(/ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ/g, "ਹਾਸਲ ਕਰਨ ਦੀ ਆਪਣੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਗੁਆ ਸਕਦੇ ਹਨ");'
+punjabi_repair_replacement = '.replace(/ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਸ਼ਾਇਦ ਗੁਆ ਦੇਣਗੇ/g, "ਹਾਸਲ ਕਰਨ ਦੀ ਆਪਣੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ ਗੁਆ ਸਕਦੇ ਹਨ")\n    .replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ");'
+if '.replace(/ਲੋਕਾਂ ਅਕਸਰ/g, "ਲੋਕ ਅਕਸਰ")' not in source:
+    count = source.count(punjabi_repair_anchor)
+    if count != 1:
+        raise SystemExit(f"Punjabi ਲੋਕਾਂ ਅਕਸਰ repair: expected one anchor, found {count}")
+    source = source.replace(punjabi_repair_anchor, punjabi_repair_replacement, 1)
 
 hindi_fallback_anchor = '  return hindiFallback(argument);\n}'
 punjabi_fallback_anchor = '  return punjabiFallback(argument);\n}'
@@ -37,7 +45,7 @@ if ql006_punjabi_reason not in source:
     source = source.replace(punjabi_fallback_anchor, ql006_punjabi_rule + punjabi_fallback_anchor, 1)
 
 # QL006: rejecting an immediate irreversible penalty does not imply that future
-# complaints must be ignored. This is a false either/or, not a material reason.
+# complaints must be ignored.
 ql006_complaint_hindi_reason = 'तुरंत स्थायी दंड न देना शिकायत को अनदेखा करना नहीं है; प्राधिकरण शिकायत की जाँच कर सकता है और प्रमाण के अनुसार अनुपातिक कार्रवाई कर सकता है।'
 ql006_complaint_hindi_rule = f'  if (/(?:तत्काल|तुरंत).*स्थायी दंड.*नहीं देता.*(?:भविष्य की )?(?:अधिकांश|ज्यादातर) शिकायत.*अनदेखी/.test(argument)) return "{ql006_complaint_hindi_reason}";\n'
 if ql006_complaint_hindi_reason not in source:
@@ -54,5 +62,15 @@ if ql006_complaint_punjabi_reason not in source:
         raise SystemExit(f"QL006 Punjabi complaint false-dilemma reason: expected exactly one Punjabi fallback anchor, found {count}")
     source = source.replace(punjabi_fallback_anchor, ql006_complaint_punjabi_rule + punjabi_fallback_anchor, 1)
 
+# QL001 Punjabi: a stereotype about same-day users being careless is not a valid
+# reason to disregard their service-access needs.
+ql001_service_punjabi_reason = 'ਉਸੇ ਦਿਨ ਮਦਦ ਮੰਗਣ ਵਾਲੇ ਲੋਕਾਂ ਨੂੰ ਆਮ ਤੌਰ ਤੇ ਲਾਪਰਵਾਹ ਮੰਨਣਾ ਬਿਨਾਂ ਸਬੂਤ ਦੀ ਧਾਰਨਾ ਹੈ; ਸੇਵਾ ਦੇ ਸਮੇਂ ਬਾਰੇ ਫੈਸਲਾ ਅਸਲ ਮੰਗ ਅਤੇ ਪਹੁੰਚ ਦੀ ਲੋੜ ਦੇ ਆਧਾਰ ਤੇ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।'
+ql001_service_punjabi_rule = f'  if (/ਉਸੇ ਦਿਨ ਮਦਦ ਚਾਹੁਣ ਵਾਲੇ ਲੋਕ.*(?:ਅਕਸਰ|ਆਮ ਤੌਰ).*ਲਾਪਰਵਾਹ.*ਸੇਵਾ ਲੋੜਾਂ.*(?:ਕਦੇ|ਨਹੀਂ).*ਪ੍ਰਭਾਵਿਤ/.test(argument)) return "{ql001_service_punjabi_reason}";\n'
+if ql001_service_punjabi_reason not in source:
+    count = source.count(punjabi_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL001 Punjabi service-stereotype reason: expected exactly one Punjabi fallback anchor, found {count}")
+    source = source.replace(punjabi_fallback_anchor, ql001_service_punjabi_rule + punjabi_fallback_anchor, 1)
+
 SOURCE_PATH.write_text(source, encoding="utf-8")
-print("ARG-001 CP015 localized QL004/QL006 routing hotfix applied")
+print("ARG-001 CP015 localized QL001/QL004/QL006 routing and grammar hotfix applied")
