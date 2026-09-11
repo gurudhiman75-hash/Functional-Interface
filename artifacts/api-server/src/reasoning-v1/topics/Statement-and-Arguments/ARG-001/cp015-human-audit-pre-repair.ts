@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 
-export const ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_AUTHORITY = "ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_V3" as const;
+export const ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_AUTHORITY = "ARG_CP015_HUMAN_AUDIT_PRE_REPAIR_V4" as const;
 
 type Question = Readonly<Record<string, any>>;
 type Language = "en" | "hi" | "pa";
@@ -44,6 +44,7 @@ function repairHindi(value: string): string {
     .replace(/(निर्धारित विज़िट स्लॉट[^।.!?]*?) कम कर सकता है/g, "$1 कम कर सकते हैं")
     .replace(/(पंजीकृत मोबाइल नंबर|रिकवरी ईमेल|भुगतान खाता|लेन-देन सीमा) का वास्तविक बदलावों अव्यावहारिक हो जाएगा/g, "$1 में वास्तविक बदलाव अव्यावहारिक हो जाएँगे")
     .replace(/(पंजीकृत मोबाइल नंबर|रिकवरी ईमेल|भुगतान खाता|लेन-देन सीमा) के वैध बदलावों विफल होंगे/g, "$1 में वैध बदलाव विफल होंगे")
+    .replace(/भुगतान खाते के वैध बदलावों विफल होंगे/g, "भुगतान खाते में वैध बदलाव विफल होंगे")
     .replace(/भुगतान खाता में/g, "भुगतान खाते में");
 }
 
