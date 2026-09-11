@@ -1,20 +1,20 @@
 ARG-001 CP015 grammar/plain-language proof failure
-head: ebf96f3f78989d82ee38bc98906453f5ee2bb7b6
-run: 34608648830
+head: 3bbb7ccad3974c98f0c2abb4633e79a7382c558a
+run: 34608798605
 
 node:internal/modules/run_main:123
     triggerUncaughtException(
     ^
 
-AssertionError [ERR_ASSERTION]: ARG-001:ARG-QL-006:BANKING_COMBO_3X5:CP015:9ba6653b42ad7e88d9f9: malformed grammar leaked into final CP015 question surface
-    at file:///home/runner/work/Functional-Interface/Functional-Interface/artifacts/api-server/dist/arg-cp015-anti-gaming-grammar-proof.mjs:9535:18
+AssertionError [ERR_ASSERTION]: ARG-001:ARG-QL-001:core:CP015:e3ea5f625671bdc3ce14: malformed grammar leaked into final CP015 question surface
+    at file:///home/runner/work/Functional-Interface/Functional-Interface/artifacts/api-server/dist/arg-cp015-anti-gaming-grammar-proof.mjs:9537:18
     at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
     at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
     at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5) {
   generatedMessage: false,
   code: 'ERR_ASSERTION',
-  actual: 'नकल की एक शिकायत के बाद क्या एक परीक्षा प्राधिकरण को तुरंत स्थायी दंड लगाना चाहिए? हाँ। नकल की एक शिकायत तभी हो सकती है जब दोष पहले से निश्चित हो, इसलिए एक परीक्षा प्राधिकरण तुरंत स्थायी दंड दे सकता है। नहीं। यदि नकल की एक शिकायत गलत हो, तो एक परीक्षा प्राधिकरण का स्थायी दंड गंभीर नुकसान कर सकता है जिसे बाद में वापस नहीं लिया जा सके। नहीं। यदि एक परीक्षा प्राधिकरण नकल की एक शिकायत के बाद तत्काल स्थायी दंड नहीं देता, तो उसे भविष्य की अधिकांश शिकायत अनदेखी करनी होगी। तर्क I कमजोर है: नकल की एक शिकायत अपने-आप दोष का प्रमाण नहीं है; इसे निर्णायक मानना तथ्य-जाँच की आवश्यकता को नजरअंदाज करता है। तर्क II मजबूत है: यदि नकल की एक शिकायत गलत निकले, तो स्थायी दंड गंभीर नुकसान कर सकता है जिसे बाद में पूरी तरह सुधारा न जा सके; यह जल्दबाजी की अपरिवर्तनीय कार्रवाई की वास्तविक लागत है। तर्क III कमजोर है: यह तर्क मान लेता है कि यदि एक परीक्षा प्राधिकरण नकल की एक शिकायत के बाद तत्काल स्थायी दंड नहीं देता, तो उसे भविष्य की अधिकांश शिकायत अनदेखी करनी होगी; दिए गए संदर्भ में इस निष्कर्ष के लिए पर्याप्त आधार नहीं दिया गया है।',
-  expected: /यह तर्क मान लेता है कि/,
+  actual: 'ਕੀ ਪਾਸਪੋਰਟ ਸੇਵਾ ਕਾਊਂਟਰ ਨੂੰ ਕੰਮਕਾਜੀ ਦਿਨਾਂ ਵਿੱਚ ਉਸੇ ਦਿਨ ਮਦਦ ਚਾਹੁਣ ਵਾਲੇ ਲੋਕਾਂ ਲਈ ਇੱਕ ਘੰਟਾ ਹੋਰ ਸਮੇਂ ਤੱਕ ਖੁੱਲ੍ਹਾ ਰਹਿਣਾ ਚਾਹੀਦਾ ਹੈ? ਨਹੀਂ। ਉਸੇ ਦਿਨ ਮਦਦ ਚਾਹੁਣ ਵਾਲੇ ਲੋਕਾਂ ਅਕਸਰ ਲਾਪਰਵਾਹ ਹੁੰਦੇ ਹਨ, ਇਸ ਲਈ ਉਹਨਾਂ ਦੀਆਂ ਸੇਵਾ ਲੋੜਾਂ ਕੰਮਕਾਜੀ ਦਿਨਾਂ ਵਿੱਚ ਪਾਸਪੋਰਟ ਸੇਵਾ ਕਾਊਂਟਰ ਦੇ ਸਮੇਂ ਨੂੰ ਕਦੇ ਪ੍ਰਭਾਵਿਤ ਨਹੀਂ ਕਰਣੀਆਂ ਚਾਹੀਦੀਆਂ। ਹਾਂ। ਕੰਮਕਾਜੀ ਦਿਨਾਂ ਵਿੱਚ ਪਾਸਪੋਰਟ ਸੇਵਾ ਕਾਊਂਟਰ ਨੂੰ ਇੱਕ ਘੰਟਾ ਹੋਰ ਖੁੱਲ੍ਹਾ ਰੱਖਣ ਨਾਲ ਜ਼ਿਆਦਾਤਰ ਉਸੇ ਦਿਨ ਮਦਦ ਚਾਹੁਣ ਵਾਲੇ ਲੋਕਾਂ ਦੀਆਂ ਕਤਾਰਾਂ ਕਾਫ਼ੀ ਹੱਦ ਤੱਕ ਖਤਮ ਹੋ ਜਾਣਗੀਆਂ। ਦਲੀਲ I ਕਮਜ਼ੋਰ ਹੈ: ਇਹ ਦਲੀਲ ਮੰਨ ਲੈਂਦੀ ਹੈ ਕਿ ਉਸੇ ਦਿਨ ਮਦਦ ਚਾਹੁਣ ਵਾਲੇ ਲੋਕਾਂ ਅਕਸਰ ਲਾਪਰਵਾਹ ਹੁੰਦੇ ਹਨ, ਇਸ ਲਈ ਉਹਨਾਂ ਦੀਆਂ ਸੇਵਾ ਲੋੜਾਂ ਕੰਮਕਾਜੀ ਦਿਨਾਂ ਵਿੱਚ ਪਾਸਪੋਰਟ ਸੇਵਾ ਕਾਊਂਟਰ ਦੇ ਸਮੇਂ ਨੂੰ ਕਦੇ ਪ੍ਰਭਾਵਿਤ ਨਹੀਂ ਕਰਣੀਆਂ ਚਾਹੀਦੀਆਂ; ਦਿੱਤੇ ਸੰਦਰਭ ਵਿੱਚ ਇਸ ਨਤੀਜੇ ਲਈ ਕਾਫ਼ੀ ਆਧਾਰ ਨਹੀਂ ਦਿੱਤਾ ਗਿਆ। ਦਲੀਲ II ਕਮਜ਼ੋਰ ਹੈ: ਇਹ ਦਲੀਲ ਪ੍ਰਸਤਾਵਿਤ ਪ੍ਰਬੰਧ ਲਈ ਇੱਕ ਵੱਡੀ ਲਾਗੂ ਕਰਨ ਵਾਲੀ ਰੁਕਾਵਟ ਨੂੰ ਬਿਨਾਂ ਸਬੂਤ ਮੰਨਦੀ ਹੈ ਅਤੇ ਘੱਟ-ਕਠੋਰ ਵਿਕਲਪਾਂ ਨੂੰ ਨਹੀਂ ਵੇਖਦੀ।',
+  expected: /ਇਹ ਦਲੀਲ ਮੰਨ ਲੈਂਦੀ ਹੈ ਕਿ/,
   operator: 'doesNotMatch',
   diff: 'simple'
 }
