@@ -16,27 +16,15 @@ import {
 } from "./quant-v4-pyq-observations-tsd-wave1-p2";
 
 const observations = QUANT_V4_TSD_WAVE1_COUNTABLE_PYQ_OBSERVATIONS;
-
-assert.equal(
-  QUANT_V4_TSD_WAVE1_PYQ_MIGRATION_AUTHORITY,
-  "QUANT-V4-TSD-PYQ-NORMALIZATION-WAVE1-P2",
-);
+assert.equal(QUANT_V4_TSD_WAVE1_PYQ_MIGRATION_AUTHORITY, "QUANT-V4-TSD-PYQ-NORMALIZATION-WAVE1-P2");
 assert.equal(observations.length, 6);
 validatePyqObservationSet(observations);
 assert.ok(observations.every((entry) => entry.evidenceKind === "VERIFIED_PYQ_COLLECTION"));
 assert.ok(observations.every((entry) => !entry.heldDate && !entry.shift));
 assert.ok(observations.every((entry) => entry.paperId?.includes("IDENTITY-UNRESOLVED")));
 assert.equal(new Set(observations.map((entry) => `${entry.examId}:${entry.paperId}:${entry.questionRef}`)).size, 6);
-
-assert.deepEqual(QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.packageCounts, {
-  "TSD-001": 3,
-  "TSD-002": 3,
-});
-assert.deepEqual(QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.profileObservationCounts, {
-  SSC_CHSL: 2,
-  IBPS_CLERK: 3,
-  SBI_PO: 1,
-});
+assert.deepEqual(QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.packageCounts, { "TSD-001": 3, "TSD-002": 3 });
+assert.deepEqual(QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.profileObservationCounts, { SSC_CHSL: 2, IBPS_CLERK: 3, SBI_PO: 1 });
 assert.equal(QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.excludedAmbiguousCglTierQuestions.length, 7);
 assert.deepEqual([...QUANT_V4_TSD_WAVE1_SOURCE_LIMITATIONS.excludedAmbiguousCglTierQuestions], [
   "DISHA-PDF-PAGE-195-Q56",
@@ -73,13 +61,13 @@ assert.equal(circumferenceCm, 220);
 assert.equal(linearMetresPerMinute, 550);
 assert.equal(linearMetresPerMinute * 100 / circumferenceCm, 250);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 84);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 108);
 const tsd001 = listRegisteredCountablePyqObservations({ packageId: "TSD-001" });
 const tsd002 = listRegisteredCountablePyqObservations({ packageId: "TSD-002" });
-assert.equal(tsd001.length, 4);
+assert.equal(tsd001.length, 6);
 assert.equal(tsd002.length, 3);
 const tsdAll = [...tsd001, ...tsd002];
-assert.equal(tsdAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 1);
+assert.equal(tsdAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 3);
 assert.equal(tsdAll.filter((entry) => entry.examId === "SSC_CHSL").length, 2);
 assert.equal(tsdAll.filter((entry) => entry.examId === "IBPS_CLERK").length, 3);
 assert.equal(tsdAll.filter((entry) => entry.examId === "SBI_PO").length, 1);
@@ -87,12 +75,7 @@ assert.equal(tsdAll.filter((entry) => entry.examId === "SBI_PO").length, 1);
 const chsl = buildQuantV4PyqFrequencyProfile({
   examId: "SSC_CHSL",
   observations: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
-  policy: {
-    minDistinctPapers: 8,
-    minCountableQuestions: 20,
-    minTopicCoverage: 4,
-    requireDatedPaperIdentity: true,
-  },
+  policy: { minDistinctPapers: 8, minCountableQuestions: 20, minTopicCoverage: 4, requireDatedPaperIdentity: true },
 });
 assert.equal(chsl.countableQuestionCount, 26);
 assert.equal(chsl.distinctPaperCount, 7);
@@ -107,12 +90,7 @@ assert.equal(canReplaceProvisionalSimulationWeights(chsl), false);
 const ibpsClerk = buildQuantV4PyqFrequencyProfile({
   examId: "IBPS_CLERK",
   observations: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
-  policy: {
-    minDistinctPapers: 6,
-    minCountableQuestions: 15,
-    minTopicCoverage: 4,
-    requireDatedPaperIdentity: true,
-  },
+  policy: { minDistinctPapers: 6, minCountableQuestions: 15, minTopicCoverage: 4, requireDatedPaperIdentity: true },
 });
 assert.equal(ibpsClerk.countableQuestionCount, 3);
 assert.equal(ibpsClerk.topicCoverageCount, 1);

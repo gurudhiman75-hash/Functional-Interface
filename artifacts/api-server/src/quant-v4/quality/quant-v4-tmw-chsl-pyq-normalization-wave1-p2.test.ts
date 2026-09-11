@@ -47,31 +47,20 @@ assert.deepEqual([...QUANT_V4_TMW_CHSL_WAVE1_SOURCE_LIMITATIONS.excludedCrossTop
 assert.equal(QUANT_V4_TMW_CHSL_WAVE1_SOURCE_LIMITATIONS.selectionCalibrationAllowed, false);
 assert.equal(QUANT_V4_TMW_CHSL_WAVE1_SOURCE_LIMITATIONS.frequencyCalibrationAllowed, false);
 
-// Q55: B works 9 days at a 12-day rate; A finishes the remaining quarter.
 assert.equal(9 * 4, 12 * 3);
 assert.equal((12 - 9) * 20, 12 * 5);
-
-// Q57: A is three times as efficient as B and needs 60 fewer days.
 const q57ATime = 30;
 const q57BTime = 90;
 assert.equal(q57BTime - q57ATime, 60);
 assert.equal(q57BTime, 3 * q57ATime);
 assert.equal(q57ATime * q57BTime / (q57ATime + q57BTime), 45 / 2);
-
-// Q58: direct combined work: T = T_A*T_B/(T_A+T_B).
 assert.equal(20 * 30 / (20 + 30), 12);
-
-// Q59: one two-day cycle completes 1/9 + 1/15 = 24/135.
-// Five cycles complete 120/135, leaving 15/135 = 1/9 for one final A-day.
 const q59CommonDenominator = 135;
 const q59CycleNumerator = 15 + 9;
 assert.equal(q59CycleNumerator * 5, 120);
 assert.equal(q59CommonDenominator - q59CycleNumerator * 5, 15);
 assert.equal(15 * 9, q59CommonDenominator);
 assert.equal(10 + 1, 11);
-
-// Q60: A+B = 5/180 + 4/180 = 9/180 = 1/20 per minute.
-// After 7 minutes, 13/20 remains. C removes 6/180, so net = 3/180 = 1/60.
 const q60CommonDenominator = 180;
 const q60FillNumerator = 5 + 4;
 const q60OutletNumerator = 6;
@@ -81,11 +70,11 @@ assert.equal((q60FillNumerator - q60OutletNumerator) * 60, q60CommonDenominator)
 assert.equal(13 * 60 / 20, 39);
 assert.equal(7 + 39, 46);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 84);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 108);
 const tmw = listRegisteredCountablePyqObservations({ packageId: "TMW-001" });
-assert.equal(tmw.length, 8);
+assert.equal(tmw.length, 11);
 assert.equal(tmw.filter((entry) => entry.examId === "SSC_CHSL").length, 5);
-assert.equal(tmw.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 3);
+assert.equal(tmw.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 6);
 
 const tmwChslContract = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_CHSL");
 assert.equal(tmwChslContract.normalizedCountableObservationCount, 5);
@@ -98,7 +87,7 @@ assert.ok(tmwChslContract.blockers.includes("DIFFICULTY_REPRESENTATION_UNCALIBRA
 assert.ok(tmwChslContract.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
 
 const tmwCglContract = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_TIER_I");
-assert.equal(tmwCglContract.normalizedCountableObservationCount, 3);
+assert.equal(tmwCglContract.normalizedCountableObservationCount, 6);
 assert.equal(tmwCglContract.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
 assert.ok(!tmwCglContract.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
 

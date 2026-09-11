@@ -19,11 +19,7 @@ import {
 } from "./quant-v4-pyq-observations-average-chsl-wave1-p2";
 
 const observations = QUANT_V4_AVERAGE_CHSL_WAVE1_COUNTABLE_PYQ_OBSERVATIONS;
-
-assert.equal(
-  QUANT_V4_AVERAGE_CHSL_WAVE1_PYQ_MIGRATION_AUTHORITY,
-  "QUANT-V4-AVERAGE-CHSL-PYQ-NORMALIZATION-WAVE1-P2",
-);
+assert.equal(QUANT_V4_AVERAGE_CHSL_WAVE1_PYQ_MIGRATION_AUTHORITY, "QUANT-V4-AVERAGE-CHSL-PYQ-NORMALIZATION-WAVE1-P2");
 assert.equal(observations.length, 6);
 validatePyqObservationSet(observations);
 assert.ok(observations.every((entry) => entry.examId === "SSC_CHSL"));
@@ -34,11 +30,7 @@ assert.ok(observations.every((entry) => entry.paperId?.includes("IDENTITY-UNRESO
 assert.equal(new Set(observations.map((entry) => `${entry.examId}:${entry.paperId}:${entry.questionRef}`)).size, 6);
 assert.deepEqual(QUANT_V4_AVERAGE_CHSL_WAVE1_SOURCE_LIMITATIONS.packageCounts, { "AVG-001": 6 });
 assert.deepEqual(QUANT_V4_AVERAGE_CHSL_WAVE1_SOURCE_LIMITATIONS.profileObservationCounts, { SSC_CHSL: 6 });
-assert.deepEqual([...QUANT_V4_AVERAGE_CHSL_WAVE1_SOURCE_LIMITATIONS.cpCoverage], [
-  "AVG-CP-002",
-  "AVG-CP-003",
-  "AVG-CP-004",
-]);
+assert.deepEqual([...QUANT_V4_AVERAGE_CHSL_WAVE1_SOURCE_LIMITATIONS.cpCoverage], ["AVG-CP-002", "AVG-CP-003", "AVG-CP-004"]);
 assert.equal(QUANT_V4_AVERAGE_CHSL_WAVE1_SOURCE_LIMITATIONS.selectionCalibrationAllowed, false);
 assert.equal(QUANT_V4_AVERAGE_CHSL_WAVE1_SOURCE_LIMITATIONS.frequencyCalibrationAllowed, false);
 
@@ -50,14 +42,13 @@ assert.equal(evenNumbers.reduce((sum, value) => sum + value, 0) / evenNumbers.le
 assert.equal(Math.max(...evenNumbers), 12);
 assert.equal(55 + 12 * (1 / 3), 59);
 assert.equal((30 * 40 + 40 * 30) / 70, 240 / 7);
-const workerCount = (7 * (12000 - 6000)) / (8000 - 6000);
-assert.equal(workerCount, 21);
+assert.equal((7 * (12000 - 6000)) / (8000 - 6000), 21);
 const oldFamilyTotal = 5 * 17;
 const currentOldMembersTotal = oldFamilyTotal + 5 * 3;
 const currentFamilyTotal = 6 * 17;
 assert.equal(currentFamilyTotal - currentOldMembersTotal, 2);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 84);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 108);
 const average = listRegisteredCountablePyqObservations({ packageId: "AVG-001" });
 assert.equal(average.length, 7);
 assert.equal(average.filter((entry) => entry.examId === "SSC_CHSL").length, 6);
@@ -76,12 +67,7 @@ assert.ok(avgChslContract.blockers.includes("DATED_PAPER_IDENTITY_INCOMPLETE"));
 const chsl = buildQuantV4PyqFrequencyProfile({
   examId: "SSC_CHSL",
   observations: QUANT_V4_REGISTERED_PYQ_OBSERVATIONS,
-  policy: {
-    minDistinctPapers: 8,
-    minCountableQuestions: 20,
-    minTopicCoverage: 4,
-    requireDatedPaperIdentity: true,
-  },
+  policy: { minDistinctPapers: 8, minCountableQuestions: 20, minTopicCoverage: 4, requireDatedPaperIdentity: true },
 });
 assert.equal(chsl.countableQuestionCount, 26);
 assert.equal(chsl.topicCoverageCount, 6);
