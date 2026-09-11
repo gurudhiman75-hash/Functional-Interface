@@ -51,6 +51,19 @@ This is deliberately narrow:
 - Medium: reverse identification, pair discrimination, multi-state course sets and two-statement composition.
 - Hard: multi-fact interstate discrimination and three-statement count; wording must remain simple.
 
+## Stem policy
+Question stems must read like standard competitive-exam questions rather than generator templates.
+
+- Use short, conventional exam instructions such as “Which one of the following…”, “Select the correctly matched…”, and “Consider the following statements…”.
+- Direct and reverse questions may use a small controlled set of natural variants, but the tested fact must remain identical.
+- Source-state questions should use natural forms such as “In which of the following states does the river originate/rise?” rather than inverted machine wording.
+- Exact multi-state questions must state the exhaustive condition naturally, for example “passes through these Indian states and no others”; never expose internal language such as “state set”.
+- Matched-pair questions should use standard exam wording and concise instructions.
+- Two-statement questions must end with an explicit instruction asking which statement(s) is/are correct.
+- Three-statement count questions should first present the statements and then ask how many of the above statements are correct.
+- Wording variation must be deterministic and audited. It must never change options, answer, difficulty, provenance or the geographic relation being tested.
+- Avoid conversational filler, artificial context, verbose framing and wording that sounds written for the content engine rather than for an examinee.
+
 ## Explanation policy
 Explanations must be question-specific, simple enough for a beginner, and state the geographic relation directly. Where useful, include the river's full Indian main-course state list as connected context. For statement questions, evaluate each statement separately before giving the final result. When a negative course claim could be confused with basin extent, explicitly preserve the distinction between main-course flow and basin/catchment drainage.
 
