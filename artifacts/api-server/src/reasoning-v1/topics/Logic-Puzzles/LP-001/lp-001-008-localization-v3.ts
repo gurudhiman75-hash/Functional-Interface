@@ -43,6 +43,28 @@ const RESIDUE_MAP: Record<Lp001008LocalizedLanguage, ReadonlyArray<readonly [str
   ],
 };
 
+// LP-004 uses several profile-specific names that were absent from the older shared
+// transliteration table. Keep the whole LP-004 candidate domain here so any seed/profile
+// is localized, rather than patching only names observed in one review sample.
+const LP004_NAME_MAP: Record<Lp001008LocalizedLanguage, Readonly<Record<string, string>>> = {
+  hi: {
+    Asha: "आशा", Baldev: "बलदेव", Charu: "चारु", Deepak: "दीपक", Esha: "ईशा", Farhan: "फरहान", Gita: "गीता",
+    Ananya: "अनन्या", Bhavna: "भावना", Chetan: "चेतन", Divya: "दिव्या", Ekta: "एकता", Faisal: "फैसल", Harish: "हरीश",
+    Kamal: "कमल", Lata: "लता", Mohit: "मोहित", Nisha: "निशा", Omkar: "ओमकार", Pooja: "पूजा", Rakesh: "राकेश",
+    Arun: "अरुण", Beena: "बीना", Chander: "चंदर", Devika: "देविका", Iqbal: "इकबाल", Jyoti: "ज्योति", Karan: "करण",
+    Amit: "अमित", Bhupinder: "भूपिंदर", Charan: "चरण", Dimple: "डिंपल", Eshwar: "ईश्वर", Feroz: "फिरोज़", Gurpreet: "गुरप्रीत",
+    Hardeep: "हरदीप", Inder: "इंदर", Jasleen: "जसलीन", Kiran: "किरण", Mandeep: "मनदीप", Navneet: "नवनीत", Parminder: "परमिंदर",
+  },
+  pa: {
+    Asha: "ਆਸ਼ਾ", Baldev: "ਬਲਦੇਵ", Charu: "ਚਾਰੂ", Deepak: "ਦੀਪਕ", Esha: "ਈਸ਼ਾ", Farhan: "ਫਰਹਾਨ", Gita: "ਗੀਤਾ",
+    Ananya: "ਅਨਨਿਆ", Bhavna: "ਭਾਵਨਾ", Chetan: "ਚੇਤਨ", Divya: "ਦਿਵਿਆ", Ekta: "ਏਕਤਾ", Faisal: "ਫੈਸਲ", Harish: "ਹਰੀਸ਼",
+    Kamal: "ਕਮਲ", Lata: "ਲਤਾ", Mohit: "ਮੋਹਿਤ", Nisha: "ਨਿਸ਼ਾ", Omkar: "ਓਮਕਾਰ", Pooja: "ਪੂਜਾ", Rakesh: "ਰਾਕੇਸ਼",
+    Arun: "ਅਰੁਣ", Beena: "ਬੀਨਾ", Chander: "ਚੰਦਰ", Devika: "ਦੇਵਿਕਾ", Iqbal: "ਇਕਬਾਲ", Jyoti: "ਜੋਤੀ", Karan: "ਕਰਨ",
+    Amit: "ਅਮਿਤ", Bhupinder: "ਭੁਪਿੰਦਰ", Charan: "ਚਰਨ", Dimple: "ਡਿੰਪਲ", Eshwar: "ਈਸ਼ਵਰ", Feroz: "ਫਿਰੋਜ਼", Gurpreet: "ਗੁਰਪ੍ਰੀਤ",
+    Hardeep: "ਹਰਦੀਪ", Inder: "ਇੰਦਰ", Jasleen: "ਜਸਲੀਨ", Kiran: "ਕਿਰਨ", Mandeep: "ਮਨਦੀਪ", Navneet: "ਨਵਨੀਤ", Parminder: "ਪਰਮਿੰਦਰ",
+  },
+};
+
 function translateSelectionOption(language: Lp001008LocalizedLanguage, text: string): string {
   let output = text;
   output = output.replace(/Only ([^*\n]+?) is selected among ([^,\n*]+), ([^,\n*]+), ([^.\n*]+)\./gu, (_match, selected: string, first: string, second: string, third: string) =>
@@ -66,6 +88,7 @@ function translateSelectionOption(language: Lp001008LocalizedLanguage, text: str
 
 function nativeText(language: Lp001008LocalizedLanguage, input: string): string {
   let output = translateSelectionOption(language, input);
+  for (const [source, target] of Object.entries(LP004_NAME_MAP[language])) output = output.split(source).join(target);
   for (const [source, target] of RESIDUE_MAP[language]) output = output.split(source).join(target);
   return output;
 }
@@ -115,7 +138,7 @@ function selectionClueText(language: Lp001008LocalizedLanguage, clue: any, name:
 function polishLp004(language: Lp001008LocalizedLanguage, caselet: Lp001008LocalizedCaselet): Lp001008LocalizedCaselet {
   const english = caselet.englishCaselet as any;
   const rows = tableRows(caselet.children[0]!);
-  const localizedName = (candidate: string) => rows[english.candidates.indexOf(candidate)]![0]!;
+  const localizedName = (candidate: string) => nativeText(language, rows[english.candidates.indexOf(candidate)]![0]!);
   const oldClues = [...caselet.learnerFacingClues];
   const newClues = english.clues.map((clue: any) => selectionClueText(language, clue, localizedName));
   const replaceClues = (text: string) => {
