@@ -50,12 +50,12 @@ export function validateEng001Cp003QuestionV1(question: Eng001Question): Cp003Va
 
   if (question.metadata.hasNoError) {
     if (question.metadata.qlId !== "ENG-001-QL007" || question.options[question.correctOptionIndex] !== "No error") issues.push(issue("QL", "No-error question violates QL007 contract."));
-    if (!/^(?:There is no error\.|The sentence is correct as it is\.|No part of the sentence has an error\.|The given sentence is correct\.)/.test(question.explanation)) {
+    if (!/^(?:There is no error\.|The sentence is correct as it is\.|No part of the sentence has an error\.|The given sentence is correct\.|No correction is needed\.|The sentence has no error\.)/.test(question.explanation)) {
       issues.push(issue("EXPLANATION", "No-error explanation does not clearly state that the sentence is correct."));
     }
   } else {
     const label = question.metadata.answerSegment;
-    const keyedOpening = new RegExp(`^(?:Part ${label} contains the error\\.|The error is in Part ${label}\\.|Part ${label} is incorrect\\.|The mistake is in Part ${label}\\.|Part ${label} needs correction\\.)`);
+    const keyedOpening = new RegExp(`^(?:Part ${label} contains the error\\.|The error is in Part ${label}\\.|Part ${label} is incorrect\\.|The mistake is in Part ${label}\\.|Part ${label} needs correction\\.|The problem is in Part ${label}\\.|Part ${label} is the incorrect part\\.|Part ${label} has the error\\.)`);
     if (!keyedOpening.test(question.explanation)) issues.push(issue("EXPLANATION", "Explanation does not identify the keyed part."));
   }
 
@@ -73,12 +73,17 @@ export function validateEng001Cp003QuestionV1(question: Eng001Question): Cp003Va
       `The correct form is “${correction}”.`,
       `Write “${correction}” instead.`,
       `Here, we need “${correction}”.`,
+      `Replace it with “${correction}”.`,
+      `“${correction}” is the right form.`,
+      `Use “${correction}” here.`,
     ] as const;
     const noErrorConfirmationPhrases = [
       `“${correction}” is correct here.`,
+      `“${correction}” is the right form.`,
       `So “${correction}” is correct.`,
-      `That is why “${correction}” is correct.`,
-      `Therefore, “${correction}” is correct.`,
+      `“${correction}” has been used correctly.`,
+      `“${correction}” is correct in this sentence.`,
+      `The use of “${correction}” is correct.`,
     ] as const;
 
     const markerIndex = question.metadata.hasNoError
@@ -98,7 +103,7 @@ export function validateEng001Cp003QuestionV1(question: Eng001Question): Cp003Va
   }
 
   if (!question.explanation.includes(question.correctedSentence)) issues.push(issue("EXPLANATION", "Explanation omits the corrected sentence."));
-  if (!/(?:Correct sentence:|The corrected sentence is:|So the sentence should read:|Correct form:)/.test(question.explanation)) {
+  if (!/(?:Correct sentence:|The corrected sentence is:|So the sentence should read:|The sentence remains:|The sentence is:|The sentence should read:|Corrected sentence:)/.test(question.explanation)) {
     issues.push(issue("EXPLANATION", "Explanation does not present the corrected sentence clearly."));
   }
   if (/\b(?:phonological realization|determiner phrase|DP structure|referential specificity)\b/i.test(question.explanation)) issues.push(issue("EXPLANATION", "Explanation contains unnecessary grammar jargon."));
