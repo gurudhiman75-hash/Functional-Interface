@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { ANA_CP010_QLS } from "./ANA-CP-010/question-language.en";
 
 interface CheckpointCoverage {
   readonly checkpoint: string;
@@ -152,14 +153,20 @@ assert.equal(new Set(qlIds).size, 268);
 assert.equal(qlIds[0], "ANA-QL-001");
 assert.equal(qlIds.at(-1), "ANA-QL-268");
 assert.deepEqual(supportedLocales, ["en-IN", "hi-IN", "pa-IN"]);
+assert.equal(ANA_CP010_QLS.length, 18);
+assert.ok(ANA_CP010_QLS.every((ql) => ql.status === "IMPLEMENTED"));
+assert.deepEqual(
+  ANA_CP010_QLS.map((ql) => ql.qlId),
+  Array.from({ length: 18 }, (_, index) => `ANA-QL-${String(251 + index).padStart(3, "0")}`),
+);
 
-console.log("ANA-001 multilingual candidate completion audit passed.", {
+console.log("ANA-001 multilingual implemented completion audit passed.", {
   checkpoints: COVERAGE.length,
   qlRange: `${qlIds[0]}..${qlIds.at(-1)}`,
   qlCount: qlIds.length,
   locales: supportedLocales,
   permanentCp009QlCount: 0,
-  cp010Status: "PROVISIONAL_EXECUTABLE",
+  cp010Status: "IMPLEMENTED",
   questionStudioConnected: false,
   publiclyPublishable: false,
 });
