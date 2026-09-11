@@ -5,6 +5,7 @@ import { GEO_RIV_001_CP010_QL_IDS_V1 } from "./geo-riv-001-cp010-review-generato
 
 const audit = auditGeoRiv001Cp010ReviewBatchV1();
 assert.equal(audit.valid, true, audit.issues.join("\n"));
+assert.equal(audit.reviewPayloadDiversityValid, true);
 assert.equal(GEO_RIV_001_CP010_AUTHORITY_V1.projectCount, 12);
 assert.equal(GEO_RIV_001_CP010_AUTHORITY_V1.mutableStatusExcluded, true);
 assert.equal(GEO_RIV_001_CP010_AUTHORITY_V1.learnerFacingRiverPrefixRequired, true);
