@@ -1,15 +1,28 @@
 import assert from "node:assert/strict";
 import { independentlySolveAnaCp010Numeric, independentlyValidateAnaCp010Set } from "./independent-solver";
-import { ANA_CP010_QLS } from "./question-language.en";
+import {
+  ANA_CP010_NUMERIC_QLS,
+  ANA_CP010_QLS,
+  ANA_CP010_SEMANTIC_QLS,
+  ANA_CP010_SET_QLS,
+} from "./question-language.en";
 import { generateAnaCp010 } from "./runtime";
 import { anaCp010NumericRuleById } from "./rule-definitions";
+import { ANA_CP010_SEMANTIC_RELATIONS } from "./semantic-registry";
+import { generateAnaCp010Semantic } from "./semantic-runtime";
+import { independentlyValidateAnaCp010SemanticPair } from "./semantic-solver";
 
-assert.equal(ANA_CP010_QLS.length, 16);
+assert.equal(ANA_CP010_QLS.length, 18);
 assert.deepEqual(
   ANA_CP010_QLS.map((entry) => entry.qlId),
-  Array.from({ length: 16 }, (_, index) => `ANA-QL-${String(251 + index).padStart(3, "0")}`),
+  Array.from({ length: 18 }, (_, index) => `ANA-QL-${String(251 + index).padStart(3, "0")}`),
 );
-assert.equal(new Set(ANA_CP010_QLS.map((entry) => entry.qlId)).size, 16);
+assert.equal(new Set(ANA_CP010_QLS.map((entry) => entry.qlId)).size, 18);
+assert.equal(ANA_CP010_NUMERIC_QLS.length, 14);
+assert.equal(ANA_CP010_SET_QLS.length, 2);
+assert.equal(ANA_CP010_SEMANTIC_QLS.length, 2);
+assert.equal(ANA_CP010_SEMANTIC_RELATIONS.length, 9);
+assert.ok(ANA_CP010_SEMANTIC_RELATIONS.every((relation) => relation.facts.length >= 6));
 
 const sourceFixtures = [
   ["NUM_HIGHER_FIXED_POWER", 3, { exponent: 5 }, 243],
@@ -42,7 +55,7 @@ const answerPositions = [0, 0, 0, 0];
 const seenDifficulties = new Set<string>();
 const seenRules = new Set<string>();
 
-for (const ql of ANA_CP010_QLS) {
+for (const ql of [...ANA_CP010_NUMERIC_QLS, ...ANA_CP010_SET_QLS]) {
   for (let seed = 0; seed < 60; seed += 1) {
     const generated = generateAnaCp010(ql.qlId, seed);
     assert.equal(generated.qlId, ql.qlId);
@@ -85,15 +98,55 @@ for (const ql of ANA_CP010_QLS) {
   }
 }
 
+const semanticAnswerPositions = [0, 0, 0, 0];
+const seenSemanticRelations = new Set<string>();
+for (const ql of ANA_CP010_SEMANTIC_QLS) {
+  for (let seed = 0; seed < 180; seed += 1) {
+    const english = generateAnaCp010Semantic(ql.qlId, seed, "en-IN");
+    const hindi = generateAnaCp010Semantic(ql.qlId, seed, "hi-IN");
+    const punjabi = generateAnaCp010Semantic(ql.qlId, seed, "pa-IN");
+    assert.equal(english.relationId, hindi.relationId);
+    assert.equal(english.relationId, punjabi.relationId);
+    assert.equal(english.sourceFactId, hindi.sourceFactId);
+    assert.equal(english.targetFactId, hindi.targetFactId);
+    assert.equal(english.correctIndex, hindi.correctIndex);
+    assert.equal(english.correctIndex, punjabi.correctIndex);
+    assert.equal(english.options.length, 4);
+    assert.equal(hindi.options.length, 4);
+    assert.equal(punjabi.options.length, 4);
+    assert.ok(english.stem.length > 30 && hindi.stem.length > 30 && punjabi.stem.length > 30);
+    assert.ok(!punjabi.stem.includes("ਸਾਦ੍ਰਿਸ਼ਤਾ"));
+    assert.ok(!punjabi.stem.includes("ਪਦ"));
+    assert.ok(independentlyValidateAnaCp010SemanticPair(english.relationId, english.sourceA, english.sourceB, "en-IN"));
+    assert.ok(independentlyValidateAnaCp010SemanticPair(hindi.relationId, hindi.sourceA, hindi.sourceB, "hi-IN"));
+    assert.ok(independentlyValidateAnaCp010SemanticPair(punjabi.relationId, punjabi.sourceA, punjabi.sourceB, "pa-IN"));
+    if (english.presentationMode === "EQUIVALENT_PAIR_SELECTION") {
+      const valid = english.options.filter((option) => Array.isArray(option.value)
+        && independentlyValidateAnaCp010SemanticPair(english.relationId, option.value[0], option.value[1], "en-IN"));
+      assert.equal(valid.length, 1);
+    } else {
+      assert.equal(english.options[english.correctIndex].value, english.targetB);
+    }
+    semanticAnswerPositions[english.correctIndex] += 1;
+    seenSemanticRelations.add(english.relationId);
+  }
+}
+
 assert.deepEqual(new Set(["EASY", "MEDIUM", "HARD"]), seenDifficulties);
 assert.equal(seenRules.size, 9);
+assert.equal(seenSemanticRelations.size, 9);
 const minPosition = Math.min(...answerPositions);
 const maxPosition = Math.max(...answerPositions);
-assert.ok(maxPosition / minPosition < 1.25, `ANA-CP-010 answer positions imbalanced: ${answerPositions.join(", ")}`);
+assert.ok(maxPosition / minPosition < 1.25, `ANA-CP-010 numeric/set answer positions imbalanced: ${answerPositions.join(", ")}`);
+const semanticMin = Math.min(...semanticAnswerPositions);
+const semanticMax = Math.max(...semanticAnswerPositions);
+assert.ok(semanticMax / semanticMin < 1.25, `ANA-CP-010 semantic answer positions imbalanced: ${semanticAnswerPositions.join(", ")}`);
 
-console.log("ANA-CP-010 numeric/set source-gap proof passed.", {
+console.log("ANA-CP-010 source-gap proof passed.", {
   qlCount: ANA_CP010_QLS.length,
-  rules: [...seenRules],
+  numericAndSetRules: [...seenRules],
+  semanticRelations: [...seenSemanticRelations],
   difficulties: [...seenDifficulties],
   answerPositions,
+  semanticAnswerPositions,
 });
