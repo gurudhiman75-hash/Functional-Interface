@@ -357,13 +357,22 @@ function generatePrimeSet(qlId: string, seed: number): GeneratedAnaCp010Set {
   };
 }
 
+const RATIO_SET_RATIOS = [2, 3, 4, 5] as const;
+const RATIO_SET_STARTS = Array.from({ length: 19 }, (_, index) => index + 2);
+
+function ratioTriple(start: number, ratio: number): readonly [number, number, number] {
+  return [start, start * ratio, start * ratio * ratio] as const;
+}
+
 function generateRatioSet(qlId: string, seed: number): GeneratedAnaCp010Set {
-  const ratios = [2, 3, 4] as const;
-  const ratio = ratios[Math.abs(seed) % ratios.length];
-  const start = 2 + (Math.abs(seed * 7) % 6);
-  const source = [start, start * ratio, start * ratio * ratio] as const;
-  const targetStart = start + 2 + (Math.abs(seed) % 4);
-  const correct = [targetStart, targetStart * ratio, targetStart * ratio * ratio] as const;
+  const ratio = shuffle(RATIO_SET_RATIOS, seed * 61 + 19)[0];
+  const starts = shuffle(RATIO_SET_STARTS, seed * 67 + ratio * 23);
+  const sourceStart = starts[0];
+  const targetStart = starts.find((value) => value !== sourceStart);
+  if (targetStart === undefined) throw new Error("Ratio-set generator needs two distinct starts.");
+
+  const source = ratioTriple(sourceStart, ratio);
+  const correct = ratioTriple(targetStart, ratio);
   const wrong1 = [targetStart, targetStart * ratio, targetStart * ratio * ratio + ratio] as const;
   const wrong2 = [targetStart, targetStart * (ratio + 1), targetStart * (ratio + 1) * ratio] as const;
   const wrong3 = [targetStart, targetStart + ratio, targetStart + ratio * 2] as const;
@@ -373,8 +382,9 @@ function generateRatioSet(qlId: string, seed: number): GeneratedAnaCp010Set {
     { value: wrong2, errorLabel: "CHANGED_RATIO" },
     { value: wrong3, errorLabel: "USED_ADDITIVE_PROGRESSION" },
   ];
-  const options = placeCorrect(shuffle(raw, seed * 17 + 9), ((seed + 266) % 4 + 4) % 4);
+  const options = placeCorrect(shuffle(raw, seed * 71 + 29), ((seed + 266) % 4 + 4) % 4);
   if (!independentlyValidateAnaCp010Set("SET_FIXED_RATIO_PROGRESSION", source)) throw new Error("Independent solver rejected ratio source set.");
+  if (source[2] > 500 || correct[2] > 500) throw new Error("Ratio-set value cap exceeded.");
   const validOptions = options.filter((option) => {
     if (!independentlyValidateAnaCp010Set("SET_FIXED_RATIO_PROGRESSION", option.value)) return false;
     return option.value[1] / option.value[0] === ratio;
@@ -385,7 +395,7 @@ function generateRatioSet(qlId: string, seed: number): GeneratedAnaCp010Set {
     kind: "NUMBER_SET",
     qlId,
     ruleId: "SET_FIXED_RATIO_PROGRESSION",
-    difficulty: ratio >= 3 ? "MEDIUM" : "EASY",
+    difficulty: ratio >= 4 ? "MEDIUM" : "EASY",
     source,
     stem: `Select the set in which the numbers are related in the same way as the numbers in (${source.join(", ")}).`,
     options,
