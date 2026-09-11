@@ -66,19 +66,18 @@ function polishLp003(language: Lp001008LocalizedLanguage, caselet: Lp001008Local
   const rows = finalRows(caselet.children[0]!);
   const label = (box: string) => rows[Number(english.assignment[box]) - 1]![1]!;
   const oldClues = [...caselet.learnerFacingClues];
-  const newClues = english.clues.map((clue: any) => lp003ClueText(language, clue, label));
+  const normalizeSurface = (text: string) => {
+    if (language !== "hi") return text;
+    return text
+      .replace(/(\S+)ें के बीच/gu, "$1ों के बीच")
+      .replace(/(\S+)ाएँ के बीच/gu, "$1ाओं के बीच");
+  };
+  const rawNewClues = english.clues.map((clue: any) => lp003ClueText(language, clue, label));
+  const newClues = rawNewClues.map(normalizeSurface);
   const ordinalize = (text: string) => language === "hi"
     ? text.replace(/नीचे से ([1-7])वें/gu, (_match, value: string) => `नीचे से ${ORDINAL.hi[Number(value) as keyof typeof ORDINAL.hi]}`)
     : text.replace(/ਹੇਠਾਂ ਤੋਂ ([1-7])ਵੇਂ/gu, (_match, value: string) => `ਹੇਠਾਂ ਤੋਂ ${ORDINAL.pa[Number(value) as keyof typeof ORDINAL.pa]}`);
-  const polish = (text: string) => {
-    let output = ordinalize(replaceAllClues(text, oldClues, newClues));
-    if (language === "hi") {
-      output = output
-        .replace(/(\S+)ें के बीच/gu, "$1ों के बीच")
-        .replace(/(\S+)ाएँ के बीच/gu, "$1ाओं के बीच");
-    }
-    return output;
-  };
+  const polish = (text: string) => normalizeSurface(ordinalize(replaceAllClues(text, oldClues, newClues)));
   return {
     ...caselet,
     scenario: polish(caselet.scenario),
