@@ -47,7 +47,6 @@ assert.equal(cpCounts.get("NUM-CP-002"), 3);
 assert.equal(cpCounts.get("NUM-CP-004"), 2);
 assert.equal(cpCounts.get("NUM-CP-005") ?? 0, 0, "CP-005 must remain uncovered rather than receiving inferred evidence.");
 
-// Independent exact-math checks for all six Wave-2 fixtures.
 for (let a = 1; a <= 15; a += 2) {
   for (let b = 1; b <= 15; b += 2) {
     assert.equal(Math.abs((a + b + 2 * a * b) % 2), 0, "2011 Q29 parity check failed.");
@@ -77,7 +76,7 @@ assert.equal(primesBelow100.at(-1), 97);
 assert.equal(97 - 2, 95, "2015 prime-extrema difference failed.");
 assert.equal(63 + 37, 100, "2012 recurring-decimal numerator sum failed.");
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 47);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 53);
 const numAll = listRegisteredCountablePyqObservations({ packageId: "NUM-001" });
 assert.equal(numAll.length, 16);
 assert.equal(numAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 10);
