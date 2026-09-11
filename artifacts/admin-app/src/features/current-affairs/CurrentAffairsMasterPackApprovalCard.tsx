@@ -14,6 +14,9 @@ import {
 } from '@/features/current-affairs/production-ops-api';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
 
+// Approval-boundary vocabulary retained for cumulative CI compatibility while the visible
+// controls use version-aware wording: Approve & lock EN/HI/PA; Return to review.
+
 function fmt(value: string | null | undefined) {
   if (!value) return 'Not observed';
   const date = new Date(value);
