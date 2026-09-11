@@ -60,6 +60,17 @@ const MALFORMED: Readonly<Record<Language, readonly RegExp[]>> = Object.freeze({
     /(?:पंजीकृत मोबाइल नंबर|रिकवरी ईमेल|भुगतान खाता|लेन-देन सीमा) के वैध बदलावों विफल होंगे/,
     /भुगतान खाते के वैध बदलावों विफल होंगे/,
     /भुगतान खाता में/,
+    /अक्सर के लिए/,
+    /(?:नगरपालिका सेवा केंद्रों|सरकारी अस्पतालों) उपयोग करते समय/,
+    /(?:आगंतुकों|नागरिकों) जो/,
+    /(?:रिमोट|कॉन्ट्रैक्ट) कर्मचारियों में जो भी/,
+    /फील्ड स्टाफ में जो भी/,
+    /डेटा संग्रह का उद्देश्य क्या है के बारे में/,
+    /का अधिकांश अभ्यर्थी और केंद्र प्रभावित था/,
+    /अधिकांश केंद्र का परिणाम/,
+    /अधिकांश (?:पेपर लीक का आरोप|नकल की शिकायत) अनदेखी करनी होगी/,
+    /एक नकल की शिकायत ही सिद्ध करता है/,
+    /गृह-राज्य से बाहर कार्ड लेन-देन की अधिकांश घटना/,
   ]),
   pa: Object.freeze([
     /ਅਕਸਰਂ/,
@@ -69,10 +80,20 @@ const MALFORMED: Readonly<Record<Language, readonly RegExp[]>> = Object.freeze({
     /ਲਾਜ਼ਮੀ ਦਿੰਦੇ ਹਨ/,
     /ਲੋਕਾਂ ਜੋ/,
     /ਨਿਰਧਾਰਤ ਤਰਜੀਹੀ ਸਲਾਟ[^।.!?]*ਘੱਟ ਕਰ ਸਕਦੀ ਹੈ/,
+    /ਨਿਰਧਾਰਤ ਮੁਲਾਕਾਤ ਸਲਾਟ[^।.!?]*ਘੱਟ ਕਰ ਸਕਦੀ ਹੈ/,
     /ਸਟੈਪ-ਅੱਪ ਪਰਮਾਣਕਰਨ[^।.!?]*ਜੋਖਮ ਨੂੰ ਸੰਬੋਧ ਸਕਦੀ ਹੈ/,
     /ਦੀ ਜ਼ਿਆਦਾਤਰ ਘਟਨਾ ਜਾਂ ਤਾਂ ਧੋਖਾਧੜੀ/,
     /ਜ਼ਿਆਦਾਤਰ ਨਾਗਰਿਕ ਕੋਲ/,
     /(?:ਦਫ਼ਤਰਾਂ|ਹਸਪਤਾਲਾਂ) ਵਰਤਦੇ ਸਮੇਂ/,
+    /ਟ੍ਰੇਨੀਜ਼ ਦੀ ਨਾਮ/,
+    /ਭੁਗਤਾਨ ਖਾਤਾ (?:ਦੀ|ਨਾਲ)/,
+    /ਲੈਣ-ਦੇਣ ਸੀਮਾ ਦਾ ਜ਼ਿਆਦਾਤਰ ਅਸਲੀ ਬਦਲਾਅ/,
+    /ਭੁਗਤਾਨ ਖਾਤਾ ਬਦਲਣ ਦੀ ਜ਼ਿਆਦਾਤਰ ਅਸਲੀ ਬੇਨਤੀ/,
+    /ਪ੍ਰਕਿਰਿਆਵਾਂ ਨੂੰ ਯਾਦ ਰੱਖਣ ਦੀ ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ/,
+    /ਜ਼ਿਆਦਾਤਰ ਕਿਸੇ ਦੀ ਭਵਿੱਖ/,
+    /ਕਾਫ਼ੀ ਸਥਿਰ ਕਨੈਕਟਿਵਿਟੀ[^।.!?]*ਉਪਲਬਧ ਹੋ ਜਾਣਗੇ/,
+    /ਜ਼ਿਆਦਾਤਰ ਕੇਂਦਰ ਦਾ ਨਤੀਜਾ/,
+    /ਸਥਾਈ ਜਾਮ ਸ਼ਾਇਦ ਹੋ ਜਾਵੇਗਾ/,
   ]),
 });
 
@@ -107,6 +128,7 @@ function sampleCell(language: Language, qlId: string, cell: Cell, cellIndex: num
 let sampledQuestions = 0;
 let sampledArguments = 0;
 let grammarPolishedQuestions = 0;
+let localizedQl006T04Checked = 0;
 
 for (const language of LANGUAGES) {
   for (const qlId of ARG_QL_IDS) {
@@ -144,6 +166,20 @@ for (const language of LANGUAGES) {
             assert.ok(words(argument) <= 34, `${question.questionId}/argument-${argumentIndex + 1}: SSC argument exceeds 34 words after grammar polish`);
           }
         }
+
+        if (question.templateId === "ARG-CP003-QL006-T04" && (language === "hi" || language === "pa")) {
+          localizedQl006T04Checked += 1;
+          const explanation = String(question.explanation ?? "");
+          if (language === "hi") {
+            assert.doesNotMatch(explanation, /नाम सार्वजनिक/);
+            assert.match(explanation, /प्रमाण और प्रभाव-क्षेत्र की जाँच जरूरी है/);
+            assert.match(explanation, /प्रमाण की जाँच करके अनुपातिक कार्रवाई कर सकता है/);
+          } else {
+            assert.doesNotMatch(explanation, /ਨਾਂ ਜਨਤਕ/);
+            assert.match(explanation, /ਸਬੂਤ ਅਤੇ ਪ੍ਰਭਾਵ ਦਾ ਦਾਇਰਾ ਜਾਂਚਣਾ ਲਾਜ਼ਮੀ ਹੈ/);
+            assert.match(explanation, /ਸਬੂਤ ਜਾਂਚ ਕੇ ਅਨੁਪਾਤਿਕ ਕਾਰਵਾਈ ਕਰ ਸਕਦੀ ਹੈ/);
+          }
+        }
       }
     }
   }
@@ -152,12 +188,14 @@ for (const language of LANGUAGES) {
 assert.equal(sampledQuestions, 216);
 assert.ok(sampledArguments >= 500, `Grammar proof sampled too few arguments: ${sampledArguments}`);
 assert.ok(grammarPolishedQuestions >= 10, `Grammar polish activated on too few sampled questions: ${grammarPolishedQuestions}`);
+assert.ok(localizedQl006T04Checked >= 2, `Localized QL006 T04 semantic mapping sampled too few times: ${localizedQl006T04Checked}`);
 
 console.log(JSON.stringify({
   status: "PASS_ARG_CP015_ANTI_GAMING_GRAMMAR",
   sampledQuestions,
   sampledArguments,
   grammarPolishedQuestions,
+  localizedQl006T04Checked,
   fullQuestionSurfaceChecked: true,
   languages: LANGUAGES,
 }, null, 2));
