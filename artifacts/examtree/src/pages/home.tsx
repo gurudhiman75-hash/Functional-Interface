@@ -30,7 +30,8 @@ import {
 import { getStudentTestSeries, type StudentSeriesSummary } from "@/lib/test-series";
 import { useExamCatalog } from "@/providers/ExamCatalogProvider";
 import { signInWithGoogle } from "@/lib/auth";
-import { getUser, type User } from "@/lib/storage";
+import { getActiveTestSessions, getUser, type User } from "@/lib/storage";
+import { getUserAttempts } from "@/lib/data";
 import { useToast } from "@/hooks/use-toast";
 import "@/styles/home-section-rhythm.css";
 
@@ -66,6 +67,13 @@ export default function Home() {
   const subcategories = sampleMode ? SAMPLE_HOME_SUBCATEGORIES : catalog.subcategories;
   const tests = sampleMode ? SAMPLE_HOME_TESTS : catalog.tests;
   const seriesQuery = useQuery({ queryKey: ["student-test-series", "reference-home"], queryFn: getStudentTestSeries, enabled: !sampleMode, retry: 1, staleTime: 60_000 });
+  const attemptsQuery = useQuery({
+    queryKey: ["canonical-attempt-history", sessionUser?.id],
+    queryFn: () => getUserAttempts(sessionUser?.id),
+    enabled: Boolean(sessionUser) && !sampleMode,
+    retry: false,
+    staleTime: 30_000,
+  });
   const examGroups = useMemo(() => buildExamTreeNodes(categories, subcategories, tests), [categories, subcategories, tests]);
   const featuredGroups = examGroups.slice(0, 6);
   const filteredGroups = useMemo(() => {
@@ -75,6 +83,22 @@ export default function Home() {
   }, [featuredGroups, query]);
   const allSeries = sampleMode ? SAMPLE_HOME_SERIES : (seriesQuery.data?.series ?? []);
   const popularSeries = useMemo(() => [...allSeries].filter((series) => seriesMatchesFilter(series, seriesFilter)).sort((left, right) => Number(right.attemptCount ?? 0) - Number(left.attemptCount ?? 0)).slice(0, 3), [allSeries, seriesFilter]);
+  const activeSession = useMemo(
+    () => Object.values(getActiveTestSessions()).sort((left, right) => right.updatedAt - left.updatedAt)[0] ?? null,
+    [sessionUser],
+  );
+  const latestAttempt = useMemo(
+    () => [...(attemptsQuery.data ?? [])].sort((left, right) => new Date(right.createdAt).getTime() - new Date(left.createdAt).getTime())[0] ?? null,
+    [attemptsQuery.data],
+  );
+  const loggedInHero = useMemo(() => {
+    const firstName = sessionUser?.name?.trim().split(/\s+/)[0] || "there";
+    const recommendedSeries = popularSeries[0] ?? null;
+    const action = activeSession
+      ? { label: "Resume test", href: `/test/${activeSession.testId}`, detail: activeSession.testName }
+      : { label: "Continue preparation", href: "/dashboard", detail: latestAttempt ? `Review your latest ${latestAttempt.category || "test"} attempt` : "Choose your next test and keep moving" };
+    return { firstName, recommendedSeries, action };
+  }, [activeSession, latestAttempt, popularSeries, sessionUser?.name]);
   const totalTests = tests.length;
   const totalCategories = categories.length;
   useEffect(() => {
@@ -105,22 +129,36 @@ export default function Home() {
       <section className="home-hero" data-testid="home-hero">
         <div className="hero-glow one" /><div className="hero-glow two" />
         <div className="hero-copy">
-          <span className="hero-badge"><Sparkles size={14} /> {formatCount(totalTests)}+ published tests for 2026</span>
-          <h1>Crack your exam.<br /><span>Own your future.</span></h1>
-          <p>Practice exam-like mock tests, understand every mistake, and improve your rank with insights built around you.</p>
-          <form className="search-box" onSubmit={(event) => { event.preventDefault(); document.getElementById("exams")?.scrollIntoView({ behavior: "smooth" }); }} role="search">
-            <Search aria-hidden="true" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search SSC, Banking, Railways..." aria-label="Search exams" /><button type="submit">Find tests</button>
-          </form>
-          {query ? <div className="search-results">{filteredGroups.length ? filteredGroups.slice(0, 4).map((group) => <button key={group.id} type="button" onClick={() => setLocation(sampleMode ? "/exams?preview=sample" : `/category/${group.id}`)}><CategoryIcon icon={group.icon} /><span><b>{group.name}</b><small>{group.subcategories.slice(0, 3).map((item) => item.name).join(" · ") || "Mock tests and practice"}</small></span><ChevronRight /></button>) : <p>No exams found. Try “SSC” or “Banking”.</p>}</div> : null}
-          {!sessionUser ? <div className="home-google-banner" data-testid="home-guest-google-banner"><div className="home-google-banner-copy"><strong>Save your preparation progress</strong><span>Sign in free to continue across devices and keep every attempt connected.</span></div><button type="button" onClick={() => void handleGoogleSignIn()} disabled={googleSignInPending}><Chrome aria-hidden="true" />{googleSignInPending ? "Connecting…" : "Continue with Google"}</button></div> : null}
-          <div className="hero-trust"><div className="avatars"><i>RK</i><i>AS</i><i>MG</i><i>+</i></div><div><span><Star size={14} fill="#ffb020" color="#ffb020" /> 4.8/5</span><p>Loved by serious aspirants</p></div></div>
+          {sessionUser ? <>
+            <span className="hero-badge"><Sparkles size={14} /> YOUR PREPARATION</span>
+            <h1>Welcome back, {loggedInHero.firstName}.<br /><span>Keep moving forward.</span></h1>
+            <p>{loggedInHero.action.detail}. Your saved progress and next steps are ready when you are.</p>
+            <div className="home-member-actions">
+              <button type="button" className="home-member-primary" onClick={() => setLocation(loggedInHero.action.href)}>{loggedInHero.action.label} <ArrowRight /></button>
+              <button type="button" className="home-member-secondary" onClick={() => setLocation("/dashboard")}>View dashboard</button>
+            </div>
+            <div className="home-member-summary" aria-label="Your preparation summary">
+              <div><span>Current focus</span><b>{activeSession?.category || loggedInHero.recommendedSeries?.examName || "Choose an exam"}</b></div>
+              <div><span>Next recommended</span><b>{activeSession?.testName || loggedInHero.recommendedSeries?.name || "Browse a test"}</b></div>
+              <div><span>Latest score</span><b>{latestAttempt ? `${Math.round(latestAttempt.score)}%` : "Start a test"}</b></div>
+            </div>
+          </> : <>
+            <span className="hero-badge"><Sparkles size={14} /> {formatCount(totalTests)}+ published tests for 2026</span>
+            <h1>Crack your exam.<br /><span>Own your future.</span></h1>
+            <p>Practice exam-like mock tests, understand every mistake, and improve your rank with insights built around you.</p>
+            <form className="search-box" onSubmit={(event) => { event.preventDefault(); document.getElementById("exams")?.scrollIntoView({ behavior: "smooth" }); }} role="search">
+              <Search aria-hidden="true" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search SSC, Banking, Railways..." aria-label="Search exams" /><button type="submit">Find tests</button>
+            </form>
+            {query ? <div className="search-results">{filteredGroups.length ? filteredGroups.slice(0, 4).map((group) => <button key={group.id} type="button" onClick={() => setLocation(sampleMode ? "/exams?preview=sample" : `/category/${group.id}`)}><CategoryIcon icon={group.icon} /><span><b>{group.name}</b><small>{group.subcategories.slice(0, 3).map((item) => item.name).join(" · ") || "Mock tests and practice"}</small></span><ChevronRight /></button>) : <p>No exams found. Try “SSC” or “Banking”.</p>}</div> : null}
+            <div className="home-google-banner" data-testid="home-guest-google-banner"><div className="home-google-banner-copy"><strong>Save your preparation progress</strong><span>Sign in free to continue across devices and keep every attempt connected.</span></div><button type="button" onClick={() => void handleGoogleSignIn()} disabled={googleSignInPending}><Chrome aria-hidden="true" />{googleSignInPending ? "Connecting…" : "Continue with Google"}</button></div>
+            <div className="hero-trust"><div className="avatars"><i>RK</i><i>AS</i><i>MG</i><i>+</i></div><div><span><Star size={14} fill="#ffb020" color="#ffb020" /> 4.8/5</span><p>Loved by serious aspirants</p></div></div>
+          </>}
         </div>
         <div className="hero-visual" aria-label="Performance dashboard preview"><div className="dashboard-card"><div className="dash-top"><span><span className="tiny-mark">E</span> Test analysis</span><Bell size={17} /></div><div className="score-panel"><div className="rank-ring"><span><b>92</b>/100</span></div><div><small>Your score</small><h3>Excellent work!</h3><p><Trophy size={14} /> You&apos;re in the top 3%</p></div></div><div className="dash-stats"><div><span>Accuracy</span><b>91.4%</b><em className="up">+8.2%</em></div><div><span>Percentile</span><b>97.1</b><em className="up">+4.5</em></div><div><span>Time saved</span><b>08:42</b><em>minutes</em></div></div><div className="progress-title"><span>Subject performance</span><b>View report</b></div>{[["Reasoning", 92, "#3156d9"], ["Quantitative Aptitude", 78, "#ed7a2f"], ["English", 86, "#0ea875"]].map(([name, value, color]) => <div className="subject" key={String(name)}><span>{name}</span><div><i style={{ width: `${value}%`, background: String(color) }} /></div><b>{value}%</b></div>)}</div><div className="float-card live"><i /><span><b>Live test</b><small>Taking place now</small></span><Play size={18} fill="currentColor" /></div><div className="float-card streak"><Award size={24} /><span><b>7 day streak!</b><small>Keep it going</small></span></div></div>
       </section>
 
       <section className="proof-bar"><div><b>{formatCount(Math.max(totalTests * 18, 1000))}</b><span>Questions in catalog</span></div><div><b>{formatCount(totalTests)}</b><span>Published tests</span></div><div><b>{formatCount(totalCategories)}</b><span>Exam categories</span></div><div><b>12</b><span>Languages supported</span></div></section>
 
-      <section className="section series-section" id="test-series" data-testid="home-popular-series"><div className="section-head"><div><span className="eyebrow">MOST ATTEMPTED</span><h2>Popular test series</h2><p>Built by subject experts. Updated to the latest pattern.</p></div><div className="pills" aria-label="Test series filters">{SERIES_FILTERS.map((filter) => <button key={filter} type="button" className={seriesFilter === filter ? "active" : ""} aria-pressed={seriesFilter === filter} onClick={() => setSeriesFilter(filter)}>{filter}</button>)}</div></div>{popularSeries.length ? <div className="series-grid">{popularSeries.map((series, index) => <article className="series-card" key={series.id}><div className="series-top"><div className={`series-icon tone-${index}`}><BookOpen /></div><span className="badge">{SERIES_BADGES[index]}</span></div><h3>{series.name}</h3><div className="series-meta"><span><BookOpen />{formatCount(series.testCount)} total tests</span><span><Users />{formatCount(series.attemptCount)} users</span></div><div className="series-bottom"><span><CheckCircle2 /> {formatCount(series.liveTestCount)} free tests</span><button type="button" onClick={() => setLocation(`/test-series/${series.id}`)}>View series <ArrowRight /></button></div></article>)}</div> : <div className="home-empty-card">No published test series match this filter yet.</div>}</section>
       <section className="section series-section" id="test-series" data-testid="home-popular-series"><div className="section-head"><div><span className="eyebrow">SELECTED FOR YOUR PREPARATION</span><h2>Featured Test Series</h2><p>Structured mock-test series built around the latest exam pattern.</p></div><div className="pills" aria-label="Test series filters">{SERIES_FILTERS.map((filter) => <button key={filter} type="button" className={seriesFilter === filter ? "active" : ""} aria-pressed={seriesFilter === filter} onClick={() => setSeriesFilter(filter)}>{filter}</button>)}</div></div>{popularSeries.length ? <div className="series-grid">{popularSeries.map((series, index) => <article className="series-card" key={series.id}><div className="series-top"><div className={`series-icon tone-${index}`}><BookOpen /></div><span className="badge">{SERIES_BADGES[index]}</span></div><h3>{series.name}</h3><div className="series-meta"><span><BookOpen />{formatCount(series.testCount)} total tests</span><span><Users />{formatCount(series.attemptCount)} users</span></div><div className="series-bottom"><span><CheckCircle2 /> {formatCount(series.liveTestCount)} free tests</span><button type="button" onClick={() => setLocation(`/test-series/${series.id}`)}>View series <ArrowRight /></button></div></article>)}</div> : <div className="home-empty-card">No published test series match this filter yet.</div>}</section>
 
       <section className="section" id="exams" data-testid="home-exam-categories"><div className="section-head"><div><span className="eyebrow">BROWSE BY CATEGORY</span><h2>Explore exams by category</h2><p>Pick your goal and start practising with the latest exam pattern.</p></div><button type="button" onClick={() => setLocation("/exams")}>View all exams <ArrowRight size={16} /></button></div><div className="exam-grid">{featuredGroups.map((group, index) => <button key={group.id} type="button" onClick={() => setLocation(sampleMode ? "/exams?preview=sample" : `/category/${group.id}`)} className={`exam-card ${CATEGORY_TONES[index % CATEGORY_TONES.length]}`}><div className="exam-icon"><CategoryIcon icon={group.icon} /></div><div><h3>{group.name}</h3><p>{group.subcategories.slice(0, 4).map((item) => item.name).join(" · ") || "Mock tests and practice"}</p><span>{formatCount(group.tests.length)}+ tests</span></div><ChevronRight className="chev" /></button>)}</div></section>
