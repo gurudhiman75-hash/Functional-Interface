@@ -5,6 +5,7 @@ import { buildDailyMasterPackPayload, type DailyMasterPackEvent, type DailyMaste
 import {
   assertDailyMasterPackPdfFontCoverage,
   assertDailyMasterPackPdfPayload,
+  dailyMasterPackPdfTakeaway,
   renderDailyMasterPackPdf,
   visibleDailyMasterPackPdfFacts,
 } from "./daily-master-pack-pdf";
@@ -28,14 +29,15 @@ const sample: DailyMasterPackPayload = {
           category: "national",
           eventDate: "2026-08-30",
           title: "Government notifies an examination-relevant national rule",
-          summary: "The Government notified a rule with direct relevance for current affairs preparation.",
-          oneLiner: "Remember the notifying authority and effective date.",
+          summary: "The Union Government notified an examination-relevant national rule.",
+          oneLiner: "Remember: The rule takes effect on 30 August 2026.",
           examFamilies: ["ssc", "punjab"],
           facts: [
             { key: "acting_entity", label: "Organisation", value: "Union Government", type: "entity", confidence: 0.99 },
             { key: "official_action", label: "Action", value: "notifies", type: "string", confidence: 0.99 },
             { key: "action_subject", label: "Topic", value: "Examination-relevant national rule", type: "string", confidence: 0.99 },
-            { key: "effective_date", value: "30 August 2026", type: "date", confidence: 0.98 },
+            { key: "effective_date", label: "Effective date", value: "30 August 2026", type: "date", confidence: 0.98 },
+            { key: "regulator", label: "Regulator", value: "National Rules Authority", type: "entity", confidence: 0.97 },
           ],
           sources: [
             { name: "Official Government Source", url: "https://example.gov.in/notice", primary: true },
@@ -58,6 +60,7 @@ const sample: DailyMasterPackPayload = {
           examFamilies: ["banking"],
           facts: Array.from({ length: 14 }, (_, index) => ({
             key: `fact_${index + 1}`,
+            label: `Fact ${index + 1}`,
             value: `Verified fact value ${index + 1} with enough text to exercise line wrapping in the generated document.`,
             type: "string",
             confidence: 0.95,
@@ -85,7 +88,7 @@ const hindiPayload = buildDailyMasterPackPayload("2026-08-30", [{
   ...localizedBase,
   title: "भारतीय रिज़र्व बैंक ने नई बैंकिंग पहल की घोषणा की",
   summary: "भारतीय रिज़र्व बैंक ने डिजिटल भुगतान व्यवस्था के लिए सत्यापित नई पहल की घोषणा की।",
-  oneLiner: "याद रखें कि यह पहल भारतीय रिज़र्व बैंक से संबंधित है।",
+  oneLiner: "याद रखें: यह पहल भारतीय रिज़र्व बैंक से संबंधित है।",
   facts: [
     { key: "regulator", label: "नियामक", value: "Reserve Bank of India", type: "entity", confidence: 0.99 },
     { key: "official_action", label: "कार्रवाई", value: "घोषणा की", type: "string", confidence: 0.99 },
@@ -100,7 +103,7 @@ const punjabiPayload = buildDailyMasterPackPayload("2026-08-30", [{
   category: "punjab",
   title: "ਪੰਜਾਬ ਸਰਕਾਰ ਨੇ ਨਵੀਂ ਸਿੱਖਿਆ ਪਹਿਲ ਦੀ ਘੋਸ਼ਣਾ ਕੀਤੀ",
   summary: "ਪੰਜਾਬ ਸਰਕਾਰ ਨੇ ਵਿਦਿਆਰਥੀਆਂ ਲਈ ਪ੍ਰਮਾਣਿਤ ਨਵੀਂ ਸਿੱਖਿਆ ਪਹਿਲ ਦੀ ਘੋਸ਼ਣਾ ਕੀਤੀ।",
-  oneLiner: "ਯਾਦ ਰੱਖੋ ਕਿ ਇਹ ਪਹਿਲ ਪੰਜਾਬ ਸਰਕਾਰ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ।",
+  oneLiner: "ਯਾਦ ਰੱਖੋ: ਇਹ ਪਹਿਲ ਪੰਜਾਬ ਸਰਕਾਰ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ।",
   facts: [
     { key: "state", label: "ਰਾਜ", value: "Punjab", type: "entity", confidence: 0.99 },
     { key: "official_action", label: "ਕਾਰਵਾਈ", value: "ਘੋਸ਼ਣਾ ਕੀਤੀ", type: "string", confidence: 0.99 },
@@ -116,11 +119,17 @@ assert.throws(() => assertDailyMasterPackPdfPayload({ ...sample, contentDate: "3
 assert.throws(() => assertDailyMasterPackPdfPayload({ ...sample, language: "fr" }), /must be en, hi or pa/);
 
 const visibleEnglishFacts = visibleDailyMasterPackPdfFacts(sample.sections[0]!.events[0]!);
-assert.equal(visibleEnglishFacts.some((fact) => fact.key === "official_action"), false, "PDF must not render the learner-facing Action row");
-assert.ok(visibleEnglishFacts.some((fact) => fact.key === "acting_entity"), "Organisation must remain visible");
-assert.ok(visibleEnglishFacts.some((fact) => fact.key === "action_subject"), "Topic must remain visible");
+assert.equal(visibleEnglishFacts.some((fact) => fact.key === "official_action"), false, "PDF must not render internal Action rows");
+assert.equal(visibleEnglishFacts.some((fact) => fact.key === "acting_entity"), false, "PDF must not repeat the acting entity from Why in News");
+assert.equal(visibleEnglishFacts.some((fact) => fact.key === "action_subject"), false, "PDF must not repeat the action subject from Why in News");
+assert.ok(visibleEnglishFacts.some((fact) => fact.key === "effective_date"), "Additive exam facts must remain visible");
+assert.ok(visibleEnglishFacts.some((fact) => fact.key === "regulator"), "Background/context facts must remain visible");
 assert.equal(visibleDailyMasterPackPdfFacts(hindiPayload.sections[0]!.events[0]!).some((fact) => fact.key === "official_action"), false);
-assert.equal(visibleDailyMasterPackPdfFacts(punjabiPayload.sections[0]!.events[0]!).some((fact) => fact.key === "official_action"), false);
+assert.equal(visibleDailyMasterPackPdfFacts(punjabiPayload.sections[0]!.events[0]!).some((fact) => fact.key === "initiative"), false);
+
+assert.equal(dailyMasterPackPdfTakeaway("Remember: RBI regulates monetary policy."), "RBI regulates monetary policy.");
+assert.equal(dailyMasterPackPdfTakeaway("याद रखें: RBI मौद्रिक नीति से संबंधित है।"), "RBI मौद्रिक नीति से संबंधित है।");
+assert.equal(dailyMasterPackPdfTakeaway("ਯਾਦ ਰੱਖੋ: RBI ਮੌਦ੍ਰਿਕ ਨੀਤੀ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ।"), "RBI ਮੌਦ੍ਰਿਕ ਨੀਤੀ ਨਾਲ ਸੰਬੰਧਿਤ ਹੈ।");
 
 const englishCoverage = assertDailyMasterPackPdfFontCoverage(sample);
 assert.equal(englishCoverage.fontFamily, "sans-serif");
@@ -146,4 +155,4 @@ for (const payload of [sample, hindiPayload, punjabiPayload]) {
   assert.ok(rendered.buffer.subarray(Math.max(0, rendered.buffer.length - 128)).toString("latin1").includes("%%EOF"));
 }
 
-console.log("CP-049 canonical EN/HI/PA PDF hides Action while preserving verified fact rendering and font coverage");
+console.log("Daily Current Affairs PDF v2 keeps only additive Key Facts, removes Remember labels, and renders EN/HI/PA");
