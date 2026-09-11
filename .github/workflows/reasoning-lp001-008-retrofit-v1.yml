@@ -15,7 +15,7 @@ concurrency:
 jobs:
   topology-audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -69,6 +69,15 @@ jobs:
 
       - name: Guard LP003/LP004 localization polish V4
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-localization-v4.test.ts
+
+      - name: Guard approved localization freeze and multilingual Question Studio
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-001-008-question-studio-multilingual-v1.test.ts
+
+      - name: Reprove LP-009 multilingual Question Studio regression
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-009-question-studio.test.ts
+
+      - name: Reprove LP-010 multilingual Question Studio regression
+        run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/lp-010-question-studio.test.ts
 
       - name: Reprove LP-006 difficulty calibration
         run: npx --yes tsx artifacts/api-server/src/reasoning-v1/topics/Logic-Puzzles/LP-001/difficulty-calibration.test.ts
