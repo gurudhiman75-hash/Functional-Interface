@@ -2,6 +2,8 @@
 
 Status: **SOURCE GAP — ZERO QLS; NO FORMAL RULE ADMITTED**.
 
+> Allocation supersession — 2026-09-11: the former provisional `ANA-QL-251..274` CP-009 reservation is historical only. Final ANA-001 source-gap closure assigns `ANA-QL-251..268` to implemented `ANA-CP-010`; `ANA-QL-269..274` remain unallocated. The conditional-branch family itself still owns zero QLs.
+
 ## 1. Question under review
 
 After the legacy CP-009 allocation audit, `ADV_CONDITIONAL_BRANCH` was the only historical label that could still describe a genuinely meta-level analogy:
@@ -73,11 +75,11 @@ candidate family: ADV_CONDITIONAL_BRANCH
 status: SOURCE_GAP
 recurring fixtures found: 0
 formal rule contracts admitted: 0
-permanent QL IDs: 0
+permanent CP-009 QL IDs: 0
 publicly publishable: false
 ```
 
-The provisional `ANA-QL-251..274` range remains entirely unallocated. CP-009 should not be implemented by inventing a conditional grammar to fill a historical count.
+CP-009 must not be implemented by inventing a conditional grammar to fill a historical count. The current unallocated Analogy tail is only `ANA-QL-269..274`, and no part of that tail is reserved for conditional branching without a future evidence-led allocation decision.
 
 ## 6. Next research priority
 
