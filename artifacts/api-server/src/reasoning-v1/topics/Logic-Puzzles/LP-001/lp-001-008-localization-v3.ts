@@ -44,35 +44,24 @@ const RESIDUE_MAP: Record<Lp001008LocalizedLanguage, ReadonlyArray<readonly [str
 };
 
 function translateSelectionOption(language: Lp001008LocalizedLanguage, text: string): string {
-  let match = text.match(/^Only (.+) is selected among (.+), (.+), (.+)\.$/u);
-  if (match) {
-    const [, selected, first, second, third] = match;
-    return language === "hi"
+  let output = text;
+  output = output.replace(/Only ([^*\n]+?) is selected among ([^,\n*]+), ([^,\n*]+), ([^.\n*]+)\./gu, (_match, selected: string, first: string, second: string, third: string) =>
+    language === "hi"
       ? `${first}, ${second} और ${third} में केवल ${selected} का चयन हुआ है।`
-      : `${first}, ${second} ਅਤੇ ${third} ਵਿੱਚ ਕੇਵਲ ${selected} ਦੀ ਚੋਣ ਹੋਈ ਹੈ।`;
-  }
-  match = text.match(/^(.+) and (.+) are selected, but (.+) is not\.$/u);
-  if (match) {
-    const [, first, second, third] = match;
-    return language === "hi"
+      : `${first}, ${second} ਅਤੇ ${third} ਵਿੱਚ ਕੇਵਲ ${selected} ਦੀ ਚੋਣ ਹੋਈ ਹੈ।`);
+  output = output.replace(/([^*\n]+?) and ([^*\n]+?) are selected, but ([^.\n*]+?) is not\./gu, (_match, first: string, second: string, third: string) =>
+    language === "hi"
       ? `${first} और ${second} का चयन हुआ है, लेकिन ${third} का नहीं।`
-      : `${first} ਅਤੇ ${second} ਦੀ ਚੋਣ ਹੋਈ ਹੈ, ਪਰ ${third} ਦੀ ਨਹੀਂ।`;
-  }
-  match = text.match(/^All three of (.+), (.+), (.+) are selected\.$/u);
-  if (match) {
-    const [, first, second, third] = match;
-    return language === "hi"
+      : `${first} ਅਤੇ ${second} ਦੀ ਚੋਣ ਹੋਈ ਹੈ, ਪਰ ${third} ਦੀ ਨਹੀਂ।`);
+  output = output.replace(/All three of ([^,\n*]+), ([^,\n*]+), ([^.\n*]+) are selected\./gu, (_match, first: string, second: string, third: string) =>
+    language === "hi"
       ? `${first}, ${second} और ${third}—तीनों का चयन हुआ है।`
-      : `${first}, ${second} ਅਤੇ ${third}—ਤਿੰਨਾਂ ਦੀ ਚੋਣ ਹੋਈ ਹੈ।`;
-  }
-  match = text.match(/^None of (.+), (.+), (.+) is selected\.$/u);
-  if (match) {
-    const [, first, second, third] = match;
-    return language === "hi"
+      : `${first}, ${second} ਅਤੇ ${third}—ਤਿੰਨਾਂ ਦੀ ਚੋਣ ਹੋਈ ਹੈ।`);
+  output = output.replace(/None of ([^,\n*]+), ([^,\n*]+), ([^.\n*]+) is selected\./gu, (_match, first: string, second: string, third: string) =>
+    language === "hi"
       ? `${first}, ${second} और ${third} में से किसी का भी चयन नहीं हुआ है।`
-      : `${first}, ${second} ਅਤੇ ${third} ਵਿੱਚੋਂ ਕਿਸੇ ਦੀ ਵੀ ਚੋਣ ਨਹੀਂ ਹੋਈ ਹੈ।`;
-  }
-  return text;
+      : `${first}, ${second} ਅਤੇ ${third} ਵਿੱਚੋਂ ਕਿਸੇ ਦੀ ਵੀ ਚੋਣ ਨਹੀਂ ਹੋਈ ਹੈ।`);
+  return output;
 }
 
 function nativeText(language: Lp001008LocalizedLanguage, input: string): string {
