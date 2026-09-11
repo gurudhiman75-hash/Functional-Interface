@@ -27,6 +27,16 @@ function normalizeSurfaceSegment(segment: string): string {
     .trim();
 }
 
+function surfaceSegments(candidate: Eng001SentenceCandidate, segments: readonly string[]): string[] {
+  return segments.map((segment, index) => {
+    let normalized = normalizeSurfaceSegment(segment);
+    if (candidate.ruleId === "GR-TNS-002" && candidate.difficulty === "hard" && index < 2) {
+      normalized = normalized.replace(/,$/, "");
+    }
+    return normalized;
+  });
+}
+
 function sentenceFromSegments(segments: readonly string[]): string {
   return segments
     .map(normalizeSurfaceSegment)
@@ -138,18 +148,18 @@ export function generateEng001Cp002QuestionV1(input: GenerateEng001Cp002V1Input)
   });
 
   const isNoError = qlId === "ENG-001-QL007";
-  const rawSegments = isNoError ? [...candidate.correctSegments] : [...candidate.errorSegments];
+  const sourceSegments = isNoError ? candidate.correctSegments : candidate.errorSegments;
+  const rawSegments = surfaceSegments(candidate, sourceSegments);
   const rawErrorIndex = isNoError ? null : candidate.errorIndex;
   const shaped = qlId === "ENG-001-QL002"
     ? shapeThreeSegmentsPreserveError(rawSegments, rawErrorIndex!, input.seed)
     : { segments: rawSegments, errorIndex: rawErrorIndex };
-  const visibleSegments = shaped.segments.map(normalizeSurfaceSegment);
 
   const includeNoError = qlId !== "ENG-001-QL001";
-  const options = optionLabels(visibleSegments.length, includeNoError);
-  const correctOptionIndex = shaped.errorIndex ?? visibleSegments.length;
+  const options = optionLabels(shaped.segments.length, includeNoError);
+  const correctOptionIndex = shaped.errorIndex ?? shaped.segments.length;
   const answerLabel = options[correctOptionIndex]!;
-  const correctedSentence = sentenceFromSegments(candidate.correctSegments);
+  const correctedSentence = sentenceFromSegments(surfaceSegments(candidate, candidate.correctSegments));
   const correction = candidate.correction ?? "";
   const reason = simpleRuleReason(candidate);
   const explanation = isNoError
@@ -159,7 +169,7 @@ export function generateEng001Cp002QuestionV1(input: GenerateEng001Cp002V1Input)
   return {
     questionId: `ENG-001-CP002-V1:${qlId}:${candidate.candidateId}:${input.seed}`,
     stem: STEMS[qlId],
-    segments: visibleSegments,
+    segments: shaped.segments,
     options,
     correctOptionIndex,
     correctedSentence,
