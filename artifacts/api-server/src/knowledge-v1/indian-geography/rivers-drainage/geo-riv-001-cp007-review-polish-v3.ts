@@ -74,14 +74,17 @@ export const GEO_RIV_001_CP007_REVIEW_BATCH_V3_POLISHED = Object.freeze(
 );
 
 function hasBareRiverName(text: string) {
+  let clean = text;
   for (const name of RIVER_NAMES) {
-    const escaped = escapeRegExp(name);
-    const clean = text
+    clean = clean
       .replaceAll(`River ${name}`, "")
       .replaceAll(`${name} river system`, "")
       .replaceAll(`${name} system`, "")
       .replaceAll(`${name} Basin`, "")
       .replaceAll(`${name} basin`, "");
+  }
+  for (const name of RIVER_NAMES) {
+    const escaped = escapeRegExp(name);
     if (new RegExp(`(?<![A-Za-z])${escaped}(?![A-Za-z])`).test(clean)) return name;
   }
   return null;
