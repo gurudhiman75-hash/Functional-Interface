@@ -7,13 +7,11 @@ on:
     types: [opened, reopened, synchronize]
     paths:
       - artifacts/api-server/src/english-v1/**
-      - .github/workflows/english-cp002-v1.yml
   push:
     branches:
       - New-main
     paths:
       - artifacts/api-server/src/english-v1/**
-      - .github/workflows/english-cp002-v1.yml
   workflow_dispatch:
 
 permissions:
