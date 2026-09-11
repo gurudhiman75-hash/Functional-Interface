@@ -19,6 +19,10 @@ import {
   GEO_RIV_001_CP005_FREEZE_AUTHORITY_V1,
   GEO_RIV_001_CP005_FROZEN_QUESTIONS_V1,
 } from "../../knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp005-freeze-v1";
+import {
+  GEO_RIV_001_CP008_FREEZE_AUTHORITY_V1,
+  GEO_RIV_001_CP008_FROZEN_QUESTIONS_V1,
+} from "../../knowledge-v1/indian-geography/rivers-drainage/geo-riv-001-cp008-freeze-v1";
 import type {
   QuestionStudioEngineAdapter,
   QuestionStudioGenerationRequest,
@@ -32,18 +36,26 @@ export const GEO_RIV_001_QUESTION_STUDIO_PACKAGE_ID_V1 = "GEO-RIV-001" as const;
 export const GEO_RIV_001_QUESTION_STUDIO_RUNTIME_MODE_V1 = "review-only" as const;
 export const GEO_RIV_001_REVISION_POLICY_V1 = "SOURCE_GENERATOR_ONLY" as const;
 export const GEO_RIV_001_CONTENT_AUTHORITY_VERSION_V1 =
-  `${GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP002_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP003_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP004_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP005_FREEZE_AUTHORITY_V1.authorityId}` as const;
+  `${GEO_RIV_001_CP001_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP002_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP003_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP004_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP005_FREEZE_AUTHORITY_V1.authorityId}+${GEO_RIV_001_CP008_FREEZE_AUTHORITY_V1.authorityId}` as const;
 
 const lifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 const supportedLanguages: QuestionStudioLanguage[] = ["en"];
 const supportedDifficulties = ["Easy", "Medium", "Hard"] as const;
-const cpIds = ["GEO-RIV-001-CP001", "GEO-RIV-001-CP002", "GEO-RIV-001-CP003", "GEO-RIV-001-CP004", "GEO-RIV-001-CP005"] as const;
+const cpIds = [
+  "GEO-RIV-001-CP001",
+  "GEO-RIV-001-CP002",
+  "GEO-RIV-001-CP003",
+  "GEO-RIV-001-CP004",
+  "GEO-RIV-001-CP005",
+  "GEO-RIV-001-CP008",
+] as const;
 const frozenQuestions = [
   ...GEO_RIV_001_CP001_FROZEN_QUESTIONS_V1,
   ...GEO_RIV_001_CP002_FROZEN_QUESTIONS_V1,
   ...GEO_RIV_001_CP003_FROZEN_QUESTIONS_V1,
   ...GEO_RIV_001_CP004_FROZEN_QUESTIONS_V1,
   ...GEO_RIV_001_CP005_FROZEN_QUESTIONS_V1,
+  ...GEO_RIV_001_CP008_FROZEN_QUESTIONS_V1,
 ];
 const qlIds = [...new Set(frozenQuestions.map((question) => question.qlId))];
 
@@ -53,6 +65,7 @@ function freezeAuthorityForCp(cpId: string) {
   if (cpId === "GEO-RIV-001-CP003") return GEO_RIV_001_CP003_FREEZE_AUTHORITY_V1.authorityId;
   if (cpId === "GEO-RIV-001-CP004") return GEO_RIV_001_CP004_FREEZE_AUTHORITY_V1.authorityId;
   if (cpId === "GEO-RIV-001-CP005") return GEO_RIV_001_CP005_FREEZE_AUTHORITY_V1.authorityId;
+  if (cpId === "GEO-RIV-001-CP008") return GEO_RIV_001_CP008_FREEZE_AUTHORITY_V1.authorityId;
   throw new Error(`Unknown GEO-RIV-001 frozen CP ${cpId}`);
 }
 
@@ -111,7 +124,7 @@ export const GEO_RIV_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageD
   subject: "Static GK",
   topic: "Indian Geography",
   subtopic: "Indian Rivers & Drainage System",
-  label: "Static GK · Indian Geography · Rivers & Drainage · CP001–CP005 Frozen",
+  label: "Static GK · Indian Geography · Rivers & Drainage · CP001–CP005 + CP008 Frozen",
   enabled: true,
   cpIds: [...cpIds],
   supportedLanguages,
@@ -140,6 +153,7 @@ export const GEO_RIV_001_STANDARD_REVIEW_ONLY_PACKAGE_V1: QuestionStudioPackageD
       GEO_RIV_001_CP003_FREEZE_AUTHORITY_V1.authorityId,
       GEO_RIV_001_CP004_FREEZE_AUTHORITY_V1.authorityId,
       GEO_RIV_001_CP005_FREEZE_AUTHORITY_V1.authorityId,
+      GEO_RIV_001_CP008_FREEZE_AUTHORITY_V1.authorityId,
     ],
     authoringReviewApproved: true,
     reviewOnly: true,
@@ -295,7 +309,7 @@ export const knowledgeV1GeoRiv001QuestionStudioAdapterV1: QuestionStudioEngineAd
         permanentQlIds: qlIds,
         cpIds: [...cpIds],
         candidatePoolSize: candidates.length,
-        selectionMode: "FROZEN_GEO_RIV_001_CP001_CP002_CP003_CP004_CP005_DETERMINISTIC_WITHOUT_REPLACEMENT",
+        selectionMode: "FROZEN_GEO_RIV_001_CP001_CP002_CP003_CP004_CP005_CP008_DETERMINISTIC_WITHOUT_REPLACEMENT",
         explanationVisualPolicy: "OPTIONAL_MANUAL_EDITORIAL_ATTACHMENT",
         seed,
         count,
