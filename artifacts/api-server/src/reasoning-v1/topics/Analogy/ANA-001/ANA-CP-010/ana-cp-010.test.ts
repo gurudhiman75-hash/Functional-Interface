@@ -9,7 +9,11 @@ import {
 import { generateAnaCp010 } from "./runtime";
 import { anaCp010NumericRuleById } from "./rule-definitions";
 import { ANA_CP010_SEMANTIC_RELATIONS } from "./semantic-registry";
-import { generateAnaCp010Semantic } from "./semantic-runtime";
+import {
+  ANA_CP010_EQUIVALENT_PAIR_DISTRACTOR_RELATIONS,
+  ANA_CP010_MISSING_TERM_SAFE_RELATION_IDS,
+  generateAnaCp010Semantic,
+} from "./semantic-runtime";
 import { independentlyValidateAnaCp010SemanticPair } from "./semantic-solver";
 
 assert.equal(ANA_CP010_QLS.length, 18);
@@ -100,11 +104,16 @@ for (const ql of [...ANA_CP010_NUMERIC_QLS, ...ANA_CP010_SET_QLS]) {
 
 const semanticAnswerPositions = [0, 0, 0, 0];
 const seenSemanticRelations = new Set<string>();
+const seenMissingSemanticRelations = new Set<string>();
+const seenEquivalentSemanticRelations = new Set<string>();
+const missingSafeRelations = new Set<string>(ANA_CP010_MISSING_TERM_SAFE_RELATION_IDS);
+
 for (const ql of ANA_CP010_SEMANTIC_QLS) {
   for (let seed = 0; seed < 180; seed += 1) {
     const english = generateAnaCp010Semantic(ql.qlId, seed, "en-IN");
     const hindi = generateAnaCp010Semantic(ql.qlId, seed, "hi-IN");
     const punjabi = generateAnaCp010Semantic(ql.qlId, seed, "pa-IN");
+    const localized = [english, hindi, punjabi] as const;
     assert.equal(english.relationId, hindi.relationId);
     assert.equal(english.relationId, punjabi.relationId);
     assert.equal(english.sourceFactId, hindi.sourceFactId);
@@ -120,12 +129,42 @@ for (const ql of ANA_CP010_SEMANTIC_QLS) {
     assert.ok(independentlyValidateAnaCp010SemanticPair(english.relationId, english.sourceA, english.sourceB, "en-IN"));
     assert.ok(independentlyValidateAnaCp010SemanticPair(hindi.relationId, hindi.sourceA, hindi.sourceB, "hi-IN"));
     assert.ok(independentlyValidateAnaCp010SemanticPair(punjabi.relationId, punjabi.sourceA, punjabi.sourceB, "pa-IN"));
+
     if (english.presentationMode === "EQUIVALENT_PAIR_SELECTION") {
-      const valid = english.options.filter((option) => Array.isArray(option.value)
-        && independentlyValidateAnaCp010SemanticPair(english.relationId, option.value[0], option.value[1], "en-IN"));
-      assert.equal(valid.length, 1);
+      seenEquivalentSemanticRelations.add(english.relationId);
+      for (const generated of localized) {
+        const valid = generated.options.filter((option) => Array.isArray(option.value)
+          && independentlyValidateAnaCp010SemanticPair(generated.relationId, option.value[0], option.value[1], generated.locale));
+        assert.equal(valid.length, 1);
+
+        for (const option of generated.options) {
+          if (option.errorLabel === null) continue;
+          assert.ok(Array.isArray(option.value));
+          if (!Array.isArray(option.value)) throw new Error("Equivalent-pair distractor must be a pair.");
+          const matchingRelationIds = ANA_CP010_SEMANTIC_RELATIONS
+            .filter((relation) => independentlyValidateAnaCp010SemanticPair(relation.id, option.value[0], option.value[1], generated.locale))
+            .map((relation) => relation.id);
+          assert.equal(matchingRelationIds.length, 1, `${generated.qlId} distractor must be one intact governed relation pair.`);
+          const distractorRelationId = matchingRelationIds[0];
+          assert.notEqual(distractorRelationId, generated.relationId);
+          assert.ok(
+            ANA_CP010_EQUIVALENT_PAIR_DISTRACTOR_RELATIONS[generated.relationId].includes(distractorRelationId as never),
+            `${generated.qlId} used an ungoverned semantic distractor relation.`,
+          );
+        }
+      }
     } else {
-      assert.equal(english.options[english.correctIndex].value, english.targetB);
+      seenMissingSemanticRelations.add(english.relationId);
+      assert.ok(missingSafeRelations.has(english.relationId), `${english.relationId} is not approved for missing-term semantic generation.`);
+      for (const generated of localized) {
+        assert.equal(generated.options[generated.correctIndex].value, generated.targetB);
+        for (const option of generated.options) {
+          if (option.errorLabel === null) continue;
+          assert.equal(typeof option.value, "string");
+          if (typeof option.value !== "string") throw new Error("Missing-term distractor must be one term.");
+          assert.ok(!independentlyValidateAnaCp010SemanticPair(generated.relationId, generated.targetA, option.value, generated.locale));
+        }
+      }
     }
     semanticAnswerPositions[english.correctIndex] += 1;
     seenSemanticRelations.add(english.relationId);
@@ -135,6 +174,8 @@ for (const ql of ANA_CP010_SEMANTIC_QLS) {
 assert.deepEqual(new Set(["EASY", "MEDIUM", "HARD"]), seenDifficulties);
 assert.equal(seenRules.size, 9);
 assert.equal(seenSemanticRelations.size, 9);
+assert.equal(seenMissingSemanticRelations.size, ANA_CP010_MISSING_TERM_SAFE_RELATION_IDS.length);
+assert.equal(seenEquivalentSemanticRelations.size, ANA_CP010_SEMANTIC_RELATIONS.length);
 const minPosition = Math.min(...answerPositions);
 const maxPosition = Math.max(...answerPositions);
 assert.ok(maxPosition / minPosition < 1.25, `ANA-CP-010 numeric/set answer positions imbalanced: ${answerPositions.join(", ")}`);
@@ -146,6 +187,8 @@ console.log("ANA-CP-010 source-gap proof passed.", {
   qlCount: ANA_CP010_QLS.length,
   numericAndSetRules: [...seenRules],
   semanticRelations: [...seenSemanticRelations],
+  missingTermSemanticRelations: [...seenMissingSemanticRelations],
+  equivalentPairSemanticRelations: [...seenEquivalentSemanticRelations],
   difficulties: [...seenDifficulties],
   answerPositions,
   semanticAnswerPositions,
