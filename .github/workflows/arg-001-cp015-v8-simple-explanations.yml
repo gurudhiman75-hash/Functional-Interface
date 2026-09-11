@@ -8,6 +8,8 @@ on:
       - .github/workflows/arg-001-cp015-v8-simple-explanations.yml
       - scripts/arg-cp015-simple-explanations-repair.py
       - scripts/arg-cp015-generic-fallback-routing-repair.py
+      - scripts/arg-cp015-final-editorial-integration-repair.py
+      - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts
 
 permissions:
   contents: write
@@ -25,10 +27,11 @@ jobs:
           node-version: 22
       - run: corepack enable
       - run: pnpm install --frozen-lockfile
-      - name: Apply plain-language repair
+      - name: Apply plain-language and runtime-integration repair
         run: |
           python scripts/arg-cp015-simple-explanations-repair.py
           python scripts/arg-cp015-generic-fallback-routing-repair.py
+          python scripts/arg-cp015-final-editorial-integration-repair.py
       - name: Strict TypeScript
         working-directory: artifacts/api-server
         run: |
@@ -68,7 +71,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-final-editorial-quality.ts artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts
+          git add artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-final-editorial-quality.ts artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-anti-gaming-grammar-proof.test.ts artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts
           git diff --cached --quiet && exit 0
-          git commit -m "fix(arg-cp015): simplify residual fallback explanations"
+          git commit -m "fix(arg-cp015): integrate final editorial quality at runtime"
           git push origin HEAD:feature/arg-001-cp012-editorial-remediation
