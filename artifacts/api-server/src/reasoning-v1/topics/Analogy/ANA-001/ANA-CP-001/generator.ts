@@ -21,9 +21,9 @@ export interface GeneratedSemanticAnalogy {
 }
 
 function canonical(value: SemanticOptionValue): string {
-  return Array.isArray(value)
-    ? value.map((part) => part.trim().toLocaleLowerCase("en-IN")).join("::")
-    : value.trim().toLocaleLowerCase("en-IN");
+  return typeof value === "string"
+    ? value.trim().toLocaleLowerCase("en-IN")
+    : value.map((part) => part.trim().toLocaleLowerCase("en-IN")).join("::");
 }
 
 function seededRandom(seed: number): () => number {
