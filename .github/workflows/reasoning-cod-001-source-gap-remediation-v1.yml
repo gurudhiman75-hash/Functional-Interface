@@ -2,16 +2,21 @@ name: Reasoning COD-001 Source-Gap Remediation V1
 
 on:
   pull_request:
+    branches:
+      - New-main
     paths:
       - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/remediation/**"
       - "artifacts/api-server/src/reasoning-v1/topics/Coding-Decoding/COD-001/COD-001-SOURCE-GAP-REMEDIATION-V1.md"
-      - ".github/workflows/reasoning-cod-001-source-gap-remediation-v1.yml"
   workflow_dispatch:
+
+concurrency:
+  group: reasoning-cod-001-source-gap-remediation-v1-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   source-gap-remediation:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
