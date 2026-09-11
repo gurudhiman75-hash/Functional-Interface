@@ -52,25 +52,23 @@ assert.equal(QUANT_V4_ALGEBRA_WAVE3_NON_MIGRATED_SOURCE_IDS.length, 17);
 assert.ok(QUANT_V4_ALGEBRA_WAVE3_NON_MIGRATED_SOURCE_IDS.includes("ALG-HR1-S09"));
 assert.ok(QUANT_V4_ALGEBRA_WAVE3_NON_MIGRATED_SOURCE_IDS.includes("ALG-FRZ-S13"));
 
-// Independent exact checks for source-stated algebraic structures.
 for (const value of [-7, -2, 0, 3, 11]) {
   assert.equal(16 * value * value + 40 * value + 25, (4 * value + 5) ** 2, "HR1-S02 perfect-square identity check failed.");
 }
 assert.equal(40 * 12, 30 * 16, "HR1-S04 x/y coefficient ratios should match.");
 assert.notEqual(40 * 340, 30 * 170, "HR1-S04 constant ratio must differ for the no-solution state.");
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 60);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 84);
 const alg001 = listRegisteredCountablePyqObservations({ packageId: "ALG-001" });
 const alg002 = listRegisteredCountablePyqObservations({ packageId: "ALG-002" });
-assert.equal(alg001.length, 11);
-assert.equal(alg002.length, 9);
+assert.equal(alg001.length, 13);
+assert.equal(alg002.length, 11);
 const algebraAll = [...alg001, ...alg002];
-assert.equal(algebraAll.length, 20);
-assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 15);
+assert.equal(algebraAll.length, 24);
+assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_I").length, 19);
 assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CHSL").length, 3);
 assert.equal(algebraAll.filter((entry) => entry.examId === "SSC_CGL_TIER_II").length, 2);
 
-// The evidence set is deeper, but still Algebra-only; it cannot establish whole-section Quant frequency.
 const cgl = buildQuantV4PyqFrequencyProfile({
   examId: "SSC_CGL_TIER_I",
   observations: algebraAll,
@@ -81,8 +79,8 @@ const cgl = buildQuantV4PyqFrequencyProfile({
     requireDatedPaperIdentity: true,
   },
 });
-assert.equal(cgl.countableQuestionCount, 15);
-assert.equal(cgl.distinctPaperCount, 15);
+assert.equal(cgl.countableQuestionCount, 19);
+assert.equal(cgl.distinctPaperCount, 16);
 assert.equal(cgl.topicCoverageCount, 1);
 assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
 assert.ok(cgl.blockers.includes("TOPIC_COVERAGE_BELOW_POLICY"));
@@ -94,7 +92,7 @@ console.log(JSON.stringify({
   wave3ObservationCount: observations.length,
   algebraRegisteredObservationCount: algebraAll.length,
   profileCounts: {
-    SSC_CGL_TIER_I: 15,
+    SSC_CGL_TIER_I: 19,
     SSC_CHSL: 3,
     SSC_CGL_TIER_II: 2,
   },

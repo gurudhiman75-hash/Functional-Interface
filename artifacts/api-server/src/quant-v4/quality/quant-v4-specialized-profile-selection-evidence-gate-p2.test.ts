@@ -24,16 +24,16 @@ assert.equal(
   QUANT_V4_PYQ_OBSERVATION_REGISTRY_AUTHORITY,
   "QUANT-V4-PYQ-OBSERVATION-REGISTRY-P2",
 );
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 60, "The normalized registry should contain the prior 58 observations plus two dated CGL Tier-I cross-topic observations.");
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 11);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 9);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 6);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 16);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 1);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 6);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 3);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 84, "The normalized registry should contain the prior 60 observations plus Q52-Q75 from the complete 9 Sep 2024 Shift 1 CGL Quant section.");
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-001" }).length, 13);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "ALG-002" }).length, 11);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "AVG-001" }).length, 7);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "NUM-001" }).length, 17);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 2);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 8);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-001" }).length, 4);
 assert.equal(listRegisteredCountablePyqObservations({ packageId: "TSD-002" }).length, 3);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-002" }).length, 5);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "PCT-002" }).length, 6);
 
 const ZERO_COUNTS: Readonly<Record<QuantV4CompetitiveExamProfileId, number>> = Object.freeze({
   SSC_CGL_TIER_I: 0,
@@ -45,17 +45,17 @@ const ZERO_COUNTS: Readonly<Record<QuantV4CompetitiveExamProfileId, number>> = O
 });
 
 const EXPECTED_COUNTS: Readonly<Record<QuantV4SpecializedSelectionPackageId, Readonly<Record<QuantV4CompetitiveExamProfileId, number>>>> = Object.freeze({
-  "AVG-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_CHSL: 6 }),
+  "AVG-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 1, SSC_CGL_CHSL: 6 }),
   "MAL-001": ZERO_COUNTS,
   "NUM-001": Object.freeze({
-    SSC_CGL_TIER_I: 10,
+    SSC_CGL_TIER_I: 11,
     SSC_CGL_CHSL: 5,
     SSC_CGL_JSO: 1,
     PUNJAB_STATE: 0,
     BANKING_PRELIMS: 0,
     BANKING_MAINS: 0,
   }),
-  "TMW-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 1, SSC_CGL_CHSL: 5 }),
+  "TMW-001": Object.freeze({ ...ZERO_COUNTS, SSC_CGL_TIER_I: 3, SSC_CGL_CHSL: 5 }),
 });
 
 for (const packageId of PACKAGE_IDS) {
@@ -121,6 +121,7 @@ for (const packageId of PACKAGE_IDS) {
 }
 
 const runtimeCases = [
+  { packageId: "AVG-001", examProfile: "SSC_CGL_TIER_I", seed: "selection-gate:avg:ssc-tier1" },
   { packageId: "AVG-001", examProfile: "SSC_CGL_CHSL", seed: "selection-gate:avg:chsl" },
   { packageId: "AVG-001", examProfile: "BANKING_PRELIMS", seed: "selection-gate:avg:bank" },
   { packageId: "MAL-001", examProfile: "BANKING_PRELIMS", seed: "selection-gate:mal:bank" },
@@ -166,6 +167,7 @@ console.log(JSON.stringify({
   specializedPackages: [...PACKAGE_IDS],
   promotedProfiles: 0,
   evidenceAccumulatingProfiles: [
+    "AVG-001/SSC_CGL_TIER_I",
     "AVG-001/SSC_CGL_CHSL",
     "NUM-001/SSC_CGL_TIER_I",
     "NUM-001/SSC_CGL_CHSL",

@@ -42,7 +42,6 @@ assert.equal(pnl.shift, "Shift 1");
 assert.equal(pnl.paperId, "SSC-CGL-2024-TIER-I-2024-09-09-S1");
 assert.ok(pnl.subtopic.includes("PNL-CP-005"));
 assert.ok(pnl.subtopic.includes("PNL-QL-121"));
-// Fake 870 g weight at stated cost price: profit is the charged-but-undelivered 130 g over delivered cost 870 g.
 assert.equal(13000 / 870, 1300 / 87);
 assert.ok(Math.abs((130 / 870) * 100 - 14.942528735632184) < 1e-12);
 
@@ -52,20 +51,19 @@ assert.equal(tmw.heldDate, "2023-07-27");
 assert.equal(tmw.shift, "Shift 2");
 assert.equal(tmw.paperId, "SSC-CGL-2023-TIER-I-2023-07-27-S2");
 assert.ok(tmw.subtopic.includes("TMW-CP-002"));
-// 1/9 + 1/12 + 1/18 = (4 + 3 + 2)/36 = 1/4.
 assert.equal(4 + 3 + 2, 9);
 assert.equal(36 / 9, 4);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 60);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 1);
-assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 6);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 84);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "PNL-001" }).length, 2);
+assert.equal(listRegisteredCountablePyqObservations({ packageId: "TMW-001" }).length, 8);
 assert.equal(
   listRegisteredCountablePyqObservations({ packageId: "TMW-001", examIds: ["SSC_CGL_TIER_I"] }).length,
-  1,
+  3,
 );
 
 const tmwCglContract = getQuantV4SpecializedProfileSelectionContract("TMW-001", "SSC_CGL_TIER_I");
-assert.equal(tmwCglContract.normalizedCountableObservationCount, 1);
+assert.equal(tmwCglContract.normalizedCountableObservationCount, 3);
 assert.equal(tmwCglContract.selectionStatus, "EVIDENCE_ACCUMULATING_SELECTION_PENDING");
 assert.equal(tmwCglContract.profileSelectionCalibrated, false);
 assert.ok(tmwCglContract.blockers.includes("PROFILE_SAMPLE_INSUFFICIENT_FOR_CALIBRATION"));
@@ -83,9 +81,9 @@ const cgl = buildQuantV4PyqFrequencyProfile({
     requireDatedPaperIdentity: true,
   },
 });
-assert.equal(cgl.countableQuestionCount, 27);
+assert.equal(cgl.countableQuestionCount, 51);
 assert.equal(cgl.distinctPaperCount, 18);
-assert.equal(cgl.topicCoverageCount, 4);
+assert.equal(cgl.topicCoverageCount, 9);
 assert.equal(cgl.status, "INSUFFICIENT_EMPIRICAL_EVIDENCE");
 assert.ok(!cgl.blockers.includes("COUNTABLE_QUESTION_SAMPLE_BELOW_POLICY"));
 assert.ok(!cgl.blockers.includes("DISTINCT_PAPER_SAMPLE_BELOW_POLICY"));
