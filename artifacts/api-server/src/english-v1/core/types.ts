@@ -5,7 +5,11 @@ export type Eng001QlId =
   | "ENG-001-QL002"
   | "ENG-001-QL007";
 
-export type GrammarRuleId =
+export type Eng001CpId =
+  | "ENG-001-CP001"
+  | "ENG-001-CP002";
+
+export type SvaRuleId =
   | "GR-SVA-001"
   | "GR-SVA-002"
   | "GR-SVA-003"
@@ -16,6 +20,20 @@ export type GrammarRuleId =
   | "GR-SVA-008"
   | "GR-SVA-009"
   | "GR-SVA-010";
+
+export type TenseRuleId =
+  | "GR-TNS-001"
+  | "GR-TNS-002"
+  | "GR-TNS-003"
+  | "GR-TNS-004"
+  | "GR-TNS-005"
+  | "GR-TNS-006"
+  | "GR-TNS-007"
+  | "GR-TNS-008"
+  | "GR-TNS-009"
+  | "GR-TNS-010";
+
+export type GrammarRuleId = SvaRuleId | TenseRuleId;
 
 export type SvaMutationId =
   | "MUT-SVA-NUMBER-001"
@@ -29,6 +47,20 @@ export type SvaMutationId =
   | "MUT-SVA-MANY-A-001"
   | "MUT-SVA-INTERVENING-PP-001";
 
+export type TenseMutationId =
+  | "MUT-TNS-PAST-TIME-001"
+  | "MUT-TNS-CONTINUING-ACTION-001"
+  | "MUT-TNS-HABIT-001"
+  | "MUT-TNS-CURRENT-ACTION-001"
+  | "MUT-TNS-STATIVE-CONTINUOUS-001"
+  | "MUT-TNS-DID-BASE-001"
+  | "MUT-TNS-PAST-SEQUENCE-001"
+  | "MUT-TNS-PAST-INTERRUPTION-001"
+  | "MUT-TNS-SINGLE-PAST-001"
+  | "MUT-TNS-STATIVE-DURATION-001";
+
+export type GrammarMutationId = SvaMutationId | TenseMutationId;
+
 export interface DifficultyDimensions {
   ruleComplexity: 1 | 2 | 3 | 4 | 5;
   dependencyDistance: 1 | 2 | 3 | 4 | 5;
@@ -40,10 +72,10 @@ export interface DifficultyDimensions {
 
 export interface EnglishGrammarRule {
   ruleId: GrammarRuleId;
-  category: "subject_verb_agreement";
+  category: "subject_verb_agreement" | "tenses_sequence";
   name: string;
   principle: string;
-  mutationId: SvaMutationId;
+  mutationId: GrammarMutationId;
   allowedDifficulties: readonly EnglishDifficulty[];
   ambiguityGuard?: string;
 }
@@ -51,7 +83,7 @@ export interface EnglishGrammarRule {
 export interface Eng001SentenceCandidate {
   candidateId: string;
   ruleId: GrammarRuleId;
-  mutationId: SvaMutationId;
+  mutationId: GrammarMutationId;
   difficulty: EnglishDifficulty;
   dimensions: DifficultyDimensions;
   correctSegments: readonly string[];
@@ -68,10 +100,10 @@ export interface Eng001SentenceCandidate {
 export interface Eng001QuestionMetadata {
   track: "english";
   chapterId: "ENG-001";
-  cpId: "ENG-001-CP001";
+  cpId: Eng001CpId;
   qlId: Eng001QlId;
   ruleId: GrammarRuleId;
-  mutationId: SvaMutationId;
+  mutationId: GrammarMutationId;
   difficulty: EnglishDifficulty;
   dimensions: DifficultyDimensions;
   answerSegment: string;

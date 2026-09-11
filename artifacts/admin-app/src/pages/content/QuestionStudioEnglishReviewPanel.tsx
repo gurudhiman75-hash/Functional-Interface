@@ -30,7 +30,6 @@ import { cn } from '@/lib/utils';
 
 const ENGINE_ID = 'language-v1';
 const PACKAGE_ID = 'ENG-001';
-const CP_ID = 'ENG-001-CP001';
 const RUNTIME_MODE = 'review-only';
 const ALL_QLS = 'all-qls';
 const ALL_RULES = 'all-rules';
@@ -41,7 +40,7 @@ const QLS = [
   ['ENG-001-QL007', 'Calibrated No-error'],
 ] as const;
 
-const RULES = [
+const SVA_RULES = [
   ['GR-SVA-001', 'Basic singular / plural'],
   ['GR-SVA-002', 'Each / every'],
   ['GR-SVA-003', 'One of'],
@@ -53,6 +52,40 @@ const RULES = [
   ['GR-SVA-009', 'Many a/an'],
   ['GR-SVA-010', 'Intervening phrase'],
 ] as const;
+
+const TENSE_RULES = [
+  ['GR-TNS-001', 'Finished past time → simple past'],
+  ['GR-TNS-002', 'Continuing action from past'],
+  ['GR-TNS-003', 'Habit / general action'],
+  ['GR-TNS-004', 'Action happening now'],
+  ['GR-TNS-005', 'Stative verb'],
+  ['GR-TNS-006', 'Did / did not + base form'],
+  ['GR-TNS-007', 'Earlier of two past actions'],
+  ['GR-TNS-008', 'Past action in progress + interruption'],
+  ['GR-TNS-009', 'Single completed past event'],
+  ['GR-TNS-010', 'Continuing stative state'],
+] as const;
+
+const CPS = [
+  {
+    id: 'ENG-001-CP001',
+    label: 'CP001 · Subject–Verb Agreement',
+    subtopic: 'Subject–Verb Agreement',
+    version: 'V4',
+    ruleLabel: 'SVA',
+    rules: SVA_RULES,
+  },
+  {
+    id: 'ENG-001-CP002',
+    label: 'CP002 · Tenses and Sequence of Tenses',
+    subtopic: 'Tenses and Sequence of Tenses',
+    version: 'V1',
+    ruleLabel: 'tense',
+    rules: TENSE_RULES,
+  },
+] as const;
+
+type CpId = (typeof CPS)[number]['id'];
 
 function asText(value: unknown) {
   return typeof value === 'string' ? value.trim() : '';
@@ -82,12 +115,15 @@ export function QuestionStudioEnglishReviewPanel() {
   const [available, setAvailable] = useState(false);
   const [runs, setRuns] = useState<QuestionStudioRun[]>([]);
   const [exam, setExam] = useState(EXAMS[0]?.code ?? 'SSC_CGL');
+  const [cpId, setCpId] = useState<CpId>('ENG-001-CP001');
   const [qlId, setQlId] = useState(ALL_QLS);
   const [ruleId, setRuleId] = useState(ALL_RULES);
   const [difficulty, setDifficulty] = useState('Medium');
   const [count, setCount] = useState(10);
   const [seed, setSeed] = useState('');
   const [reviewReason, setReviewReason] = useState('');
+
+  const selectedCp = CPS.find((entry) => entry.id === cpId) ?? CPS[0];
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -99,7 +135,7 @@ export function QuestionStudioEnglishReviewPanel() {
       const pkg = capabilities.packages.find(
         (entry) => entry.packageId === PACKAGE_ID && entry.engineId === ENGINE_ID,
       );
-      setAvailable(Boolean(pkg?.enabled));
+      setAvailable(Boolean(pkg?.enabled && pkg.cpIds?.includes(cpId)));
       setRuns(dashboard.runs.filter(isEnglishRun));
     } catch (caught) {
       showToast.error(
@@ -109,7 +145,7 @@ export function QuestionStudioEnglishReviewPanel() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [cpId]);
 
   useEffect(() => {
     void refresh();
@@ -117,9 +153,14 @@ export function QuestionStudioEnglishReviewPanel() {
 
   const recentRuns = useMemo(() => runs.slice(0, 8), [runs]);
 
+  const changeCp = (value: string) => {
+    setCpId(value as CpId);
+    setRuleId(ALL_RULES);
+  };
+
   const generate = async () => {
     if (!available) {
-      showToast.error('ENG-001 is not registered', 'The language-v1 Question Studio package is unavailable.');
+      showToast.error('ENG-001 checkpoint is not registered', `${selectedCp.id} is unavailable in the language-v1 package.`);
       return;
     }
     const selectedExam = EXAMS.find((entry) => entry.code === exam);
@@ -130,19 +171,19 @@ export function QuestionStudioEnglishReviewPanel() {
         exam: selectedExam?.name ?? exam,
         subject: 'English',
         topic: 'Error Spotting',
-        subtopic: 'Subject–Verb Agreement',
+        subtopic: selectedCp.subtopic,
         difficulty,
         count: Math.max(1, Math.min(50, count)),
         packageId: PACKAGE_ID,
         patternId: qlId === ALL_QLS ? undefined : qlId,
-        canonicalProblemId: ruleId === ALL_RULES ? CP_ID : ruleId,
+        canonicalProblemId: ruleId === ALL_RULES ? selectedCp.id : ruleId,
         language: 'en',
         seed: seed.trim() || undefined,
         runtimeMode: RUNTIME_MODE,
       });
       showToast.success(
         'ENG-001 review batch created',
-        `${result.publicCode} produced ${result.itemCount} ${difficulty} Subject–Verb Agreement review item(s).`,
+        `${result.publicCode} produced ${result.itemCount} ${difficulty} ${selectedCp.subtopic} review item(s).`,
       );
       await refresh();
     } catch (caught) {
@@ -196,30 +237,36 @@ export function QuestionStudioEnglishReviewPanel() {
         <div className="flex flex-col justify-between gap-3 lg:flex-row lg:items-start">
           <div>
             <CardTitle className="flex items-center gap-2 text-base">
-              <Sparkles className="h-4 w-4 text-info" /> English · ENG-001 CP001 review
+              <Sparkles className="h-4 w-4 text-info" /> English · ENG-001 review
             </CardTitle>
             <p className="mt-1 text-xs text-muted-foreground">
-              language-v1 · Error Spotting · Subject–Verb Agreement · human-approved V4 generator
+              language-v1 · Error Spotting · {selectedCp.subtopic} · human-approved {selectedCp.version} generator
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
             <Badge variant="outline" className="border-success/30 text-success">Human-approved content</Badge>
-            <Badge variant="outline">3 QLs · 10 SVA rules</Badge>
+            <Badge variant="outline">2 CPs · 3 QLs · 20 grammar rules</Badge>
             <Badge variant="outline">Easy / Medium / Hard</Badge>
             <Badge variant="outline" className="border-warning/30 text-warning">Review-only</Badge>
           </div>
         </div>
         <div className="rounded-lg border border-info/20 bg-info/5 p-3 text-xs text-muted-foreground">
-          CP001 is approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
+          CP001 and CP002 are approved for Question Studio review generation. Approval here records editorial acceptance only. Question Bank storage, tests, mock tests, public publication, inline editing, and automatic learner delivery remain locked. Fix defects in the source generator and generate a fresh batch.
         </div>
       </CardHeader>
 
       <CardContent className="space-y-5">
-        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-6">
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-7">
           <Field label="Exam">
             <Select value={exam} onValueChange={setExam}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>{EXAMS.map((entry) => <SelectItem key={entry.code} value={entry.code}>{entry.name}</SelectItem>)}</SelectContent>
+            </Select>
+          </Field>
+          <Field label="Checkpoint" className="xl:col-span-2">
+            <Select value={cpId} onValueChange={changeCp}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>{CPS.map((entry) => <SelectItem key={entry.id} value={entry.id}>{entry.label}</SelectItem>)}</SelectContent>
             </Select>
           </Field>
           <Field label="QL">
@@ -235,8 +282,8 @@ export function QuestionStudioEnglishReviewPanel() {
             <Select value={ruleId} onValueChange={setRuleId}>
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value={ALL_RULES}>All approved SVA rules</SelectItem>
-                {RULES.map(([id, label]) => <SelectItem key={id} value={id}>{id} · {label}</SelectItem>)}
+                <SelectItem value={ALL_RULES}>All approved {selectedCp.ruleLabel} rules</SelectItem>
+                {selectedCp.rules.map(([id, label]) => <SelectItem key={id} value={id}>{id} · {label}</SelectItem>)}
               </SelectContent>
             </Select>
           </Field>
@@ -253,7 +300,7 @@ export function QuestionStudioEnglishReviewPanel() {
 
         <div className="grid gap-3 md:grid-cols-[1fr_auto] md:items-end">
           <Field label="Optional deterministic seed">
-            <Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="Leave blank for the approved default seed" />
+            <Input value={seed} onChange={(event) => setSeed(event.target.value)} placeholder="Leave blank for the approved checkpoint default seed" />
           </Field>
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => void refresh()} disabled={loading || generating}>
@@ -270,7 +317,7 @@ export function QuestionStudioEnglishReviewPanel() {
           <div className="mb-3 grid gap-3 md:grid-cols-[1fr_minmax(18rem,32rem)] md:items-end">
             <div>
               <p className="text-sm font-semibold">Recent ENG-001 review runs</p>
-              <p className="text-xs text-muted-foreground">Approved items stay review-only and cannot enter Question Bank from this package.</p>
+              <p className="text-xs text-muted-foreground">CP001 and CP002 share this existing review surface. Approved items cannot enter Question Bank from this package.</p>
             </div>
             <Field label="Reason for Needs fix / Reject">
               <Textarea value={reviewReason} onChange={(event) => setReviewReason(event.target.value)} className="min-h-16" placeholder="Describe the grammar, wording, explanation, ambiguity, or difficulty issue" />
@@ -304,13 +351,15 @@ function EnglishRun({ run, canReview, updatingItemId, onDecision }: {
   updatingItemId: string | null;
   onDecision: (item: QuestionStudioItem, status: GenerationItemStatus) => Promise<void>;
 }) {
+  const selector = asText(run.requestSnapshot?.canonicalProblemId);
+  const subtopic = asText(run.requestSnapshot?.subtopic);
   return (
     <div className="space-y-3 rounded-lg border p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div>
           <p className="text-sm font-semibold">{run.publicCode}</p>
           <p className="text-xs text-muted-foreground">
-            {asText(run.requestSnapshot?.difficulty) || 'Medium'} · {asText(run.requestSnapshot?.patternId) || 'All QLs'} · {asText(run.requestSnapshot?.canonicalProblemId) || 'All SVA rules'}
+            {subtopic || 'Error Spotting'} · {asText(run.requestSnapshot?.difficulty) || 'Medium'} · {asText(run.requestSnapshot?.patternId) || 'All QLs'} · {selector || 'All approved rules'}
           </p>
         </div>
         <Badge variant="outline">{run.status.replace(/_/g, ' ')}</Badge>
@@ -338,11 +387,13 @@ function EnglishItem({ item, canReview, updating, onDecision }: {
   const correctedSentence = asText(payload.correctedSentence);
   const ruleId = asText(payload.ruleId);
   const qlId = asText(payload.qlId ?? payload.patternId);
+  const cpId = asText(payload.cpId);
 
   return (
     <div className="rounded-lg border bg-muted/10 p-4">
       <div className="mb-3 flex flex-wrap items-center gap-2 text-xs">
         <Badge variant="outline">#{item.itemNumber}</Badge>
+        {cpId && <Badge variant="outline">{cpId}</Badge>}
         {qlId && <Badge variant="outline">{qlId}</Badge>}
         {ruleId && <Badge variant="outline">{ruleId}</Badge>}
         <Badge variant="outline">{item.status.replace(/_/g, ' ')}</Badge>
