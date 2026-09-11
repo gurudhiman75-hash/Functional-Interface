@@ -26,8 +26,12 @@ export function cp003ScenePoolV1(difficulty: EnglishDifficulty, ruleId?: Article
   return filtered;
 }
 
-export function buildEng001Cp003CandidateV1(input: { seed: string; difficulty: EnglishDifficulty; ruleId?: ArticleRuleId }): Eng001SentenceCandidate {
-  const scene = deterministicPick(`${input.seed}:cp003:scene`, cp003ScenePoolV1(input.difficulty, input.ruleId));
+export function buildEng001Cp003CandidateV1(input: { seed: string; difficulty: EnglishDifficulty; ruleId?: ArticleRuleId; sceneId?: string }): Eng001SentenceCandidate {
+  const pool = cp003ScenePoolV1(input.difficulty, input.ruleId);
+  const scene = input.sceneId
+    ? pool.find((candidate) => candidate.id === input.sceneId)
+    : deterministicPick(`${input.seed}:cp003:scene`, pool);
+  if (!scene) throw new Error(`Unknown CP003 ${input.difficulty} scene ${input.sceneId}.`);
   const dimensions = dims(input.difficulty);
   const derived = classifyEnglishDifficulty(dimensions);
   if (derived !== input.difficulty) throw new Error(`${scene.id} difficulty mismatch: ${derived}`);
@@ -80,11 +84,12 @@ export interface GenerateEng001Cp003V1Input {
   difficulty: EnglishDifficulty;
   qlId?: Eng001QlId;
   ruleId?: ArticleRuleId;
+  sceneId?: string;
 }
 
 export function generateEng001Cp003QuestionV1(input: GenerateEng001Cp003V1Input): Eng001Question {
   const qlId = input.qlId ?? deterministicPick(`${input.seed}:cp003:ql`, ["ENG-001-QL001", "ENG-001-QL002", "ENG-001-QL007"] as const);
-  const candidate = buildEng001Cp003CandidateV1({ seed: input.seed, difficulty: input.difficulty, ruleId: input.ruleId });
+  const candidate = buildEng001Cp003CandidateV1({ seed: input.seed, difficulty: input.difficulty, ruleId: input.ruleId, sceneId: input.sceneId });
   const noError = qlId === "ENG-001-QL007";
   const sourceSegments = noError ? [...candidate.correctSegments] : [...candidate.errorSegments];
   const shaped = qlId === "ENG-001-QL002"
