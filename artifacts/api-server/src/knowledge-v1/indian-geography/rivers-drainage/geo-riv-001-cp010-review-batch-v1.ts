@@ -42,12 +42,41 @@ function forceAnswerPosition(question: GeoRiv001Cp010ReviewQuestion, targetIndex
   return { ...question, options, correctIndex: targetIndex };
 }
 
-const generated: GeoRiv001Cp010ReviewQuestion[] = [];
-for (const qlId of GEO_RIV_001_CP010_QL_IDS_V1) {
-  for (let index = 1; index <= 6; index += 1) {
-    generated.push(generateGeoRiv001Cp010ReviewV1(qlId, `review-${qlId}-${String(index).padStart(2, "0")}`));
+function diversityKey(question: GeoRiv001Cp010ReviewQuestion) {
+  switch (question.qlId) {
+    case "GEO-RIV-001-QL-083":
+    case "GEO-RIV-001-QL-084":
+    case "GEO-RIV-001-QL-085":
+    case "GEO-RIV-001-QL-086":
+    case "GEO-RIV-001-QL-087":
+      return question.stem;
+    case "GEO-RIV-001-QL-088":
+    case "GEO-RIV-001-QL-089":
+      return question.canonicalAnswer;
+    case "GEO-RIV-001-QL-090":
+    case "GEO-RIV-001-QL-091":
+      return question.stem;
+    default:
+      return `${question.stem}\n${question.canonicalAnswer}`;
   }
 }
+
+function generateDistinctQuestions(qlId: string, count: number) {
+  const selected: GeoRiv001Cp010ReviewQuestion[] = [];
+  const seen = new Set<string>();
+  for (let candidate = 1; candidate <= 240 && selected.length < count; candidate += 1) {
+    const question = generateGeoRiv001Cp010ReviewV1(qlId, `review-${qlId}-candidate-${String(candidate).padStart(3, "0")}`);
+    const key = diversityKey(question);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    selected.push(question);
+  }
+  if (selected.length !== count) throw new Error(`CP010 could not produce ${count} distinct review payloads for ${qlId}`);
+  return selected;
+}
+
+const generated: GeoRiv001Cp010ReviewQuestion[] = [];
+for (const qlId of GEO_RIV_001_CP010_QL_IDS_V1) generated.push(...generateDistinctQuestions(qlId, 6));
 
 export const GEO_RIV_001_CP010_REVIEW_BATCH_V1 = Object.freeze(
   generated.map((question, index) => Object.freeze(forceAnswerPosition(question, index % 4))),
@@ -163,6 +192,7 @@ export function auditGeoRiv001Cp010ReviewBatchV1() {
   const difficultyCounts = { Easy: 0, Medium: 0, Hard: 0 };
   const answerPositions: Record<number, number> = { 0: 0, 1: 0, 2: 0, 3: 0 };
   const ids = new Set<string>();
+  const diversityByQl = new Map<string, Set<string>>();
 
   for (const question of GEO_RIV_001_CP010_REVIEW_BATCH_V1) {
     if (ids.has(question.questionId)) issues.push(`DUPLICATE_ID:${question.questionId}`);
@@ -170,6 +200,11 @@ export function auditGeoRiv001Cp010ReviewBatchV1() {
     qlCounts[question.qlId] = (qlCounts[question.qlId] ?? 0) + 1;
     difficultyCounts[question.difficulty] += 1;
     answerPositions[question.correctIndex] += 1;
+    const diversitySet = diversityByQl.get(question.qlId) ?? new Set<string>();
+    const key = diversityKey(question);
+    if (diversitySet.has(key)) issues.push(`DUPLICATE_REVIEW_PAYLOAD:${question.qlId}:${key}`);
+    diversitySet.add(key);
+    diversityByQl.set(question.qlId, diversitySet);
     if (question.options.length !== 4 || new Set(question.options).size !== 4) issues.push(`OPTION_COUNT:${question.questionId}`);
     if (question.options[question.correctIndex] !== question.canonicalAnswer) issues.push(`ANSWER_ALIGNMENT:${question.questionId}`);
     if (!question.sourceFactIds.length || !question.sourceIds.length) issues.push(`MISSING_PROVENANCE:${question.questionId}`);
@@ -182,7 +217,10 @@ export function auditGeoRiv001Cp010ReviewBatchV1() {
   }
 
   if (GEO_RIV_001_CP010_REVIEW_BATCH_V1.length !== 54) issues.push(`QUESTION_COUNT:${GEO_RIV_001_CP010_REVIEW_BATCH_V1.length}`);
-  for (const qlId of GEO_RIV_001_CP010_QL_IDS_V1) if (qlCounts[qlId] !== 6) issues.push(`QL_COUNT:${qlId}:${qlCounts[qlId] ?? 0}`);
+  for (const qlId of GEO_RIV_001_CP010_QL_IDS_V1) {
+    if (qlCounts[qlId] !== 6) issues.push(`QL_COUNT:${qlId}:${qlCounts[qlId] ?? 0}`);
+    if ((diversityByQl.get(qlId)?.size ?? 0) !== 6) issues.push(`QL_DIVERSITY:${qlId}:${diversityByQl.get(qlId)?.size ?? 0}`);
+  }
   if (difficultyCounts.Easy !== 24 || difficultyCounts.Medium !== 24 || difficultyCounts.Hard !== 6) issues.push(`DIFFICULTY:${JSON.stringify(difficultyCounts)}`);
   if (answerPositions[0] !== 14 || answerPositions[1] !== 14 || answerPositions[2] !== 13 || answerPositions[3] !== 13) issues.push(`ANSWER_POSITIONS:${JSON.stringify(answerPositions)}`);
 
@@ -193,6 +231,7 @@ export function auditGeoRiv001Cp010ReviewBatchV1() {
     qlCounts: Object.freeze(qlCounts),
     difficultyCounts: Object.freeze(difficultyCounts),
     answerPositions: Object.freeze(answerPositions),
+    reviewPayloadDiversityValid: !issues.some((issue) => issue.startsWith("DUPLICATE_REVIEW_PAYLOAD") || issue.startsWith("QL_DIVERSITY")),
     sourceAudit,
   });
 }
