@@ -65,7 +65,8 @@ function q109(seed:string){
   for(const row of candidates){ if(usedRivers.has(row.river)) continue; selected.push(row); usedRivers.add(row.river); if(selected.length===3) break; }
   if(selected.length!==3) throw new Error("CP012 QL109 requires three distinct rivers");
   const correct=selected.map((r)=>pair(r.city,r.river)).join("; ");
-  const alternatives=[correct,...[1,2,3].map((shift)=>selected.map((r,i)=>pair(r.city,selected[(i+shift)%selected.length].river)).join("; "))];
+  const mapping=(indexes:number[])=>selected.map((r,i)=>pair(r.city,selected[indexes[i]].river)).join("; ");
+  const alternatives=[correct,mapping([1,2,0]),mapping([2,0,1]),mapping([1,0,2])];
   return build({qlId:GEO_RIV_001_CP012_QL_IDS_V1[8],seed,stem:"Which option correctly matches all three cities with their rivers?",answer:correct,pool:alternatives,explanation:selected.map((r)=>`${r.city} — ${displayRiver(r.river)}`).join("; ")+".",facts:selected.flatMap((r)=>cityFacts(r.city)),difficulty:"Hard",solver:"THREE_PAIR_MATCH_VERIFIER"});
 }
 
