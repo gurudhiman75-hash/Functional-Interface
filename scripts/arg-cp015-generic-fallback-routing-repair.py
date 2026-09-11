@@ -104,6 +104,26 @@ if ql002_punjabi_reason not in source:
         raise SystemExit(f"QL002 Punjabi self-paced-training reason: expected exactly one Punjabi fallback anchor, found {count}")
     source = source.replace(punjabi_fallback_anchor, ql002_punjabi_rule + punjabi_fallback_anchor, 1)
 
+# QL002 also contains a verification-overclaim distractor. CP015 deliberately
+# softens the historical absolute "every fraud attempt is impossible" wording,
+# but "most future fraud becomes impractical" is still too broad to be a strong
+# argument. Explain that exact overreach directly in both localized surfaces.
+ql002_verification_hindi_reason = 'अतिरिक्त सत्यापन धोखाधड़ी का जोखिम घटा सकता है, लेकिन केवल एक दूसरा सत्यापन कदम भविष्य की अधिकांश धोखाधड़ी रोक देगा, यह निष्कर्ष उचित नहीं है।'
+ql002_verification_hindi_rule = f'  if (/कोई भी दूसरा सत्यापन कदम.*(?:भविष्य की )?(?:अधिकांश|ज्यादातर) धोखाधड़ी.*(?:अव्यावहारिक|रोक)/.test(argument)) return "{ql002_verification_hindi_reason}";\n'
+if ql002_verification_hindi_reason not in source:
+    count = source.count(hindi_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL002 Hindi verification-overclaim reason: expected exactly one Hindi fallback anchor, found {count}")
+    source = source.replace(hindi_fallback_anchor, ql002_verification_hindi_rule + hindi_fallback_anchor, 1)
+
+ql002_verification_punjabi_reason = 'ਵਾਧੂ ਤਸਦੀਕ ਧੋਖਾਧੜੀ ਦਾ ਜੋਖਮ ਘਟਾ ਸਕਦੀ ਹੈ, ਪਰ ਕੇਵਲ ਇੱਕ ਹੋਰ ਤਸਦੀਕੀ ਕਦਮ ਨਾਲ ਭਵਿੱਖ ਦੀ ਜ਼ਿਆਦਾਤਰ ਧੋਖਾਧੜੀ ਰੁਕ ਜਾਵੇਗੀ, ਇਹ ਨਤੀਜਾ ਠੀਕ ਨਹੀਂ ਹੈ।'
+ql002_verification_punjabi_rule = f'  if (/ਕੋਈ ਵੀ ਦੂਜਾ ਤਸਦੀਕੀ ਕਦਮ.*(?:ਭਵਿੱਖ ਦੀ )?ਜ਼ਿਆਦਾਤਰ ਧੋਖਾਧੜੀ.*(?:ਅਮਲ ਵਿੱਚ ਔਖਾ|ਰੁਕ)/.test(argument)) return "{ql002_verification_punjabi_reason}";\n'
+if ql002_verification_punjabi_reason not in source:
+    count = source.count(punjabi_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL002 Punjabi verification-overclaim reason: expected exactly one Punjabi fallback anchor, found {count}")
+    source = source.replace(punjabi_fallback_anchor, ql002_verification_punjabi_rule + punjabi_fallback_anchor, 1)
+
 # The finalizer already runs every argument through repairSurface before reason
 # selection. Assert that V8's English article repair is present so the repaired
 # argument exposed to the rule is grammatical as well as semantically specific.
@@ -132,4 +152,4 @@ if new not in source:
 
 SOURCE_PATH.write_text(source, encoding="utf-8")
 GRAMMAR_PATH.write_text(grammar, encoding="utf-8")
-print("ARG-001 CP015 generic fallback routing and localized QL001/QL002 repair applied")
+print("ARG-001 CP015 generic fallback routing and localized QL001/QL002 verification repair applied")
