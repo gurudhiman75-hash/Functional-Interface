@@ -94,25 +94,25 @@ const PATTERN_ROWS: GeoRiv001Cp011PatternRow[] = [
     pattern: "Dendritic drainage pattern",
     shortName: "Dendritic",
     recognition: "streams branch irregularly like the branches of a tree",
-    control: "a broadly uniform rock structure where streams mainly follow the general slope",
+    control: "a relatively uniform rock structure with streams mainly following the general slope",
   },
   {
     pattern: "Trellis drainage pattern",
     shortName: "Trellis",
     recognition: "main streams tend to run nearly parallel and smaller tributaries join them at about right angles",
-    control: "alternating bands of resistant and less resistant rock arranged in a strongly guided structural pattern",
+    control: "alternating bands of resistant and less resistant rock that guide streams into near-parallel courses",
   },
   {
     pattern: "Rectangular drainage pattern",
     shortName: "Rectangular",
-    recognition: "the river network shows frequent right-angle bends",
-    control: "strongly jointed or faulted rocky terrain that guides channels along fractures",
+    recognition: "streams show frequent right-angle bends",
+    control: "strongly jointed or faulted rocks that guide channels along fractures",
   },
   {
     pattern: "Radial drainage pattern",
     shortName: "Radial",
     recognition: "streams flow outward in different directions from a central highland",
-    control: "a central elevated feature such as a dome, hill or mountain from which water flows outward",
+    control: "a central elevated feature such as a dome, hill or mountain from which streams flow outward",
   },
 ];
 
