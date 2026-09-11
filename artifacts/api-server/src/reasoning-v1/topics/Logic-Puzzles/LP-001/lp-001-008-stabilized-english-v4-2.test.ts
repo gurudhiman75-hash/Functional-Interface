@@ -75,8 +75,8 @@ const reference = generateLp001BatchStabilizedV4_2("lp-001-008-review-v3-3:LP-00
 assert.deepEqual(reference.learnerFacingClues, [
   "Bhavna and Meera sit on the same panel.",
   "Mohan is in a different panel from both Yash and Varun.",
-  "Bhavna is assigned to neither Assessment Review nor Classroom Observation.",
-  "The Lesson Planning panel does not include Mohan.",
+  "Bhavna is assigned to neither Classroom Observation nor Assessment Review.",
+  "Mohan is not on the Assessment Review panel.",
 ]);
 assert.equal(reference.learnerFacingClues.length, 4, "Reference case should reduce six repetitive clauses to four learner-facing clues.");
 assert.doesNotMatch(reference.learnerFacingClues.join("\n"), /\beither\b/iu, "Reference case still contains the ambiguous overlapping either/or rewrite.");
