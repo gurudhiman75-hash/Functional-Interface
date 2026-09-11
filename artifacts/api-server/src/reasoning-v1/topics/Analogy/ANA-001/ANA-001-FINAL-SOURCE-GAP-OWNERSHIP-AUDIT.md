@@ -1,12 +1,12 @@
 # ANA-001 Final Source-Gap and Ownership Audit
 
-Status: `AUDITED_FOR_REMEDIATION — PERMANENT ALLOCATION PENDING REVIEW`
+Status: `APPROVED_AND_ALLOCATED`
 
-This audit is the authority for the final post-V1 source-gap remediation. It supersedes any earlier assumption that `ANA-QL-001..250` alone proves source saturation. Existing permanent identities remain unchanged.
+This audit is the final authority for the post-V1 Analogy source-gap closure. It supersedes the earlier assumption that `ANA-QL-001..250` alone proved source saturation. Existing permanent identities remain unchanged, and the audited source gaps are now allocated to implemented `ANA-QL-251..268`.
 
 ## 1. Principle
 
-A source example is not automatically a new QL. A new permanent identity is justified only when the student-facing solve contract is materially different after parameter, presentation and wording variants are compressed.
+A source example is not automatically a new QL. A permanent identity is justified only when the student-facing solve contract is materially different after parameter, presentation and wording variants are compressed.
 
 The target is not to reproduce every historical preparation-book taxonomy label. The target is to cover recurring, exam-natural reasoning contracts across SSC, Banking and Punjab exams without importing unstable Static-GK trivia as artificial reasoning depth.
 
@@ -29,111 +29,95 @@ The target is not to reproduce every historical preparation-book taxonomy label.
 - place → purpose;
 - synonym/antonym and several lexical-strength relations under CP-002.
 
-`Phone : Talk :: Television : View` is not a new relation family. It is a source fixture of the existing object/function authority, so the CP-001 dataset should contain equivalent modern device/function facts.
+`Phone : Talk :: Television : View` is not a new relation family. It is a source fixture of the existing object/function authority, so CP-001 was widened rather than allocating another QL.
 
-### 2.2 Admit as stable semantic expansion families
+### 2.2 Implemented semantic expansion families
 
-The following are sufficiently distinct, stable and exam-natural to warrant a governed expansion registry:
+The governed CP010 semantic registry contains nine stable, exam-natural families:
 
-1. **institution/place → collection/content** — e.g. library → books, museum → artefacts;
-2. **entity/animal/person → dwelling/home**;
-3. **activity/game → venue/place of play**;
-4. **paired/companion objects**;
-5. **cause → effect**;
-6. **problem/state → remedy/action**;
-7. **sport/activity → equipment**;
-8. **disease/condition → affected organ/body system**;
-9. **author/creator → work/product**, provided only stable canonical works are admitted.
+1. institution/place → collection/content;
+2. entity/animal/person → dwelling/home;
+3. activity/game → venue/place of play;
+4. paired/companion objects;
+5. cause → effect;
+6. problem/state → remedy/action;
+7. sport/activity → equipment;
+8. disease/condition → affected organ/body system;
+9. author/creator → work/product, restricted to stable canonical works.
 
-These families should be exposed through a compact semantic-expansion QL rather than two new permanent QLs per relation. The relation ID remains runtime metadata so Question Studio can still filter/weight it.
+They are exposed through two compressed QLs rather than allocating two QLs per relation. Relation ID remains runtime metadata.
+
+`ANA-QL-267` is the missing-term contract. To prevent real-world multiple-answer ambiguity, it uses only four one-to-one governed reservoirs: activity→venue, sport→equipment, disease→organ and author→work.
+
+`ANA-QL-268` is the equivalent-pair contract. It may use all nine relation families, but every wrong option is an intact valid pair from a governed *different* relation family. Same-family cross-matching is prohibited because a registry-unlisted pair can still be a valid real-world relationship.
 
 ### 2.3 Merge rather than allocate
 
-- performer → action and tool → action are manifestations of function/action transfer and can share the existing object/function or worker/function semantics after the datasets are widened carefully;
-- shape → side-count belongs primarily to Classification when the task is odd-one-out; if used as a direct analogy, it may be served from shared semantic infrastructure without creating a dedicated Analogy QL;
+- performer → action and tool → action are manifestations of function/action transfer and remain with existing object/function or worker/function semantics;
+- shape → side-count belongs primarily to Classification when the task is odd-one-out; direct analogies can use shared semantic infrastructure without a dedicated Analogy QL;
 - study → subject remains CP-002 lexical/conceptual authority.
 
-### 2.4 Defer from Reasoning semantic expansion
+### 2.4 Deferred from Reasoning semantic expansion
 
 Traditional preparation books contain many factual analogy lists such as country → national fruit/flower/emblem/game, country → parliament name, award → field, revolution → production area, person → cremation ground and religion → book/place of worship.
 
-These are **not rejected as facts**, but they are deferred from the Reasoning generator because:
-
-- several are volatile, jurisdiction-sensitive or convention-dependent;
-- success depends more on Static-GK recall than analogy reasoning;
-- including them would make `Hard` mean obscure trivia rather than deeper reasoning;
-- they can be reconsidered only if modern target-exam frequency justifies a stable, separately governed GK-backed semantic pool.
-
-Verb-tense analogy is similarly deferred to English-language ownership unless modern Reasoning evidence establishes recurrence.
+These are not rejected as facts, but remain deferred because they are often volatile, jurisdiction-sensitive, Static-GK-heavy or poor measures of reasoning depth. Verb-tense analogy likewise remains English-language ownership unless modern Reasoning evidence establishes recurrence.
 
 ## 3. Numeric pair-transfer audit
 
-### 3.1 Admit
+### 3.1 Implemented
 
-The source corpus proves recurring pair-transfer families not fully present in CP-003:
+Seven recurring source-backed pair-transfer families were admitted:
 
-- **higher fixed power** (`x^k`, with bounded source-backed exponents beyond existing square/cube);
-- **exact square root**;
-- **cube root with small fixed adjustment**;
-- **cube with subtraction of a small fixed constant**;
-- **digit quotient** where divisibility is exact;
-- **sum of all digits of a three-digit input**;
-- **product of all digits of a three-digit input**.
+- higher fixed power (`x^k`, bounded source-backed exponents beyond existing square/cube);
+- exact square root;
+- cube root with small fixed adjustment;
+- cube with subtraction of a small fixed constant;
+- exact digit quotient;
+- sum of all digits of a three-digit input;
+- product of all digits of a three-digit input.
 
-These should remain bounded rule trees, not unrestricted expression synthesis.
+These remain bounded rule trees, not unrestricted expression synthesis.
 
 ### 3.2 Compression
 
-- higher powers use one rule with exponent as a bounded parameter;
-- root families separate exact square root from cube-root-plus/minus-adjust only if the displayed operation chain differs materially;
-- two-digit and three-digit digit-sum/product should share the same conceptual operation where answer behaviour is identical, but generation domains must expose both lengths so source-style three-digit questions are reachable;
-- missing-term and equivalent-pair are presentation contracts over each admitted rule, as in existing CP-003.
+Each numeric family owns two presentation contracts: missing fourth term and equivalent-pair selection. Higher powers use bounded exponent context rather than separate QLs for every exponent. Multi-reference forms such as `A : B :: C : D :: E : ?` remain a presentation/state variant of the underlying transfer rule and do not receive a separate identity.
 
-### 3.3 Defer arbitrary one-off formulas
-
-The exercise corpus contains many isolated polynomial or mixed formulas. They are not admitted merely because one worked answer can be reverse-engineered. A new formula family requires either recurrence across source fixtures or a bounded general rule family that is already exam-native and can be validated against simpler competing explanations.
+Arbitrary one-off polynomial or mixed formulas remain excluded unless recurrence or a defensible bounded exam-native rule family is demonstrated.
 
 ## 4. Number-set audit
 
-### 4.1 Admit
+Two materially distinct set contracts were admitted:
 
-Two source-native set properties remain materially distinct from the existing arithmetic-third-member rules:
+- `ANA-QL-265`: all-members-prime equivalent-set selection;
+- `ANA-QL-266`: fixed-ratio multiplicative-progression equivalent-set selection.
 
-- **all-members-prime set equivalence**;
-- **fixed-ratio multiplicative progression set equivalence** such as `a, ar, ar²`.
+Missing-member forms are not manufactured for properties that permit multiple values. Set-property generation must remain option-independently single-correct.
 
-These are primarily equivalent-set selection tasks. A missing-member form is not allocated unless the visible information uniquely determines one value without relying on answer-option guessing.
+## 5. Advanced/meta boundary
 
-### 4.2 Reject fake inversion
+Earlier CP-009 research found changing-vector and coupled-invariant examples whose published answer depended on the option set even though the visible anchors did not uniquely determine it under a bounded grammar. Those fixtures remain quarantined.
 
-A set-property QL must not manufacture a missing member when infinitely many values could satisfy the property. The generator may use only task forms with option-independent single-correctness.
+`ANA-CP-009` therefore retains zero permanent QLs. The final source-gap closure did not weaken the requirement that ExamTree questions be option-independently solvable.
 
-## 5. Multi-reference presentation
+## 6. Final allocation
 
-Forms such as:
+The permanent implemented allocation is:
 
-`A : B :: C : D :: E : ?`
+- `ANA-QL-251..264`: 14 numeric QLs — seven admitted pair-rule families × two presentation contracts;
+- `ANA-QL-265`: all-prime set equivalence;
+- `ANA-QL-266`: fixed-ratio progression set equivalence;
+- `ANA-QL-267`: governed ambiguity-safe semantic missing-term;
+- `ANA-QL-268`: governed semantic equivalent-pair selection.
 
-remain owned by the underlying stable pair-transfer rule. An extra complete pair is additional evidence, not a meta-rule. CP-003 remediation therefore adds this as a presentation/state variant with no new QL identity.
-
-## 6. Advanced/meta boundary
-
-Earlier CP-009 research found changing-vector and coupled-invariant examples whose published option set selected an answer even though the visible anchors did not uniquely determine it under a bounded grammar. Those fixtures remain quarantined.
-
-The final source-gap closure must not weaken the core requirement that ExamTree questions be option-independently solvable.
-
-## 7. Permanent-allocation recommendation
-
-Because no `ANA-QL-251..274` identity was ever implemented, that range may be replanned safely after review. The preferred compressed allocation is:
-
-- 14 numeric QLs: seven admitted pair-rule families × two presentation contracts;
-- 2 set-property QLs: prime-set equivalence and multiplicative-progression equivalence;
-- 2 semantic-expansion QLs: missing-term and equivalent-pair over a governed relation registry.
-
-Total recommended new identities: **18**, provisionally `ANA-QL-251..268`.
+Total additions: **18**.
 
 `ANA-QL-269..274` remain unallocated. Advanced/meta research receives no permanent identity until a source family passes option-independent uniqueness.
 
-## 8. Release requirements
+## 7. Closure evidence
 
-Before `251..268` become permanent, the executable prototypes must prove deterministic generation, independent solver agreement, four unique options, one correct answer, misconception-grounded distractors, source-style examples, structural difficulty, EN/HI/PA parity, answer-position balance and large-batch non-repetition.
+Before allocation, the executable authorities proved deterministic generation, independent-solver agreement, four unique options, one correct answer, truthful misconception distractors, source-style presentation, structural difficulty, EN/HI/PA parity, answer-position balance, semantic ambiguity guards and large-batch non-repetition.
+
+The final diversity gate passed without weakening its semantic floor. `ANA-QL-267` reached `0.728` structural and `1.000` full-output diversity over 180 seeds; `ANA-QL-268` reached `0.794` and `1.000`. The expanded ratio-set QL `ANA-QL-266` reached `0.967` structural and `1.000` full-output diversity over 120 seeds.
+
+This allocation approves chapter content only. Reasoning-wide exam-profile presentation control and Question Studio/Question Bank/public/mock activation remain separate integration authorities.
