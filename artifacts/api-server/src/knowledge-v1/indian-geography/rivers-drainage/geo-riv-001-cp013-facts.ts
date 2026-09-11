@@ -27,7 +27,13 @@ export const GEO_RIV_001_CP013_ROWS_V1: readonly GeoRiv001Cp013Row[] = Object.fr
 ]);
 
 const CLASS_LABEL: Record<GeoRiv001Cp013Class,string> = {
-  HIMALAYAN:"Himalayan river", PENINSULAR:"Peninsular river", EAST_FLOWING:"East-flowing river", WEST_FLOWING:"West-flowing river", DELTA_FORMING:"Delta-forming river", ESTUARY_FORMING:"Estuary-forming river", MAJOR_RIVER:"Major river",
+  HIMALAYAN:"Himalayan river",
+  PENINSULAR:"Peninsular river",
+  EAST_FLOWING:"East-flowing Peninsular river",
+  WEST_FLOWING:"West-flowing Peninsular river",
+  DELTA_FORMING:"Delta-forming river",
+  ESTUARY_FORMING:"Estuary-forming river",
+  MAJOR_RIVER:"Major river",
 };
 
 function fact(row: GeoRiv001Cp013Row, cls: GeoRiv001Cp013Class): KnowledgeFact {
