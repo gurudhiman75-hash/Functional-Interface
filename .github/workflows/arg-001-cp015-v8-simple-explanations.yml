@@ -8,6 +8,7 @@ on:
       - .github/workflows/arg-001-cp015-v8-simple-explanations.yml
       - scripts/arg-cp015-simple-explanations-repair.py
       - scripts/arg-cp015-generic-fallback-routing-repair.py
+      - scripts/arg-cp015-ql004-localized-routing-hotfix.py
       - scripts/arg-cp015-final-editorial-integration-repair.py
       - artifacts/api-server/src/reasoning-v1/topics/Statement-and-Arguments/ARG-001/cp015-perceived-diversity-expansion.ts
 
@@ -31,6 +32,7 @@ jobs:
         run: |
           python scripts/arg-cp015-simple-explanations-repair.py
           python scripts/arg-cp015-generic-fallback-routing-repair.py
+          python scripts/arg-cp015-ql004-localized-routing-hotfix.py
           python scripts/arg-cp015-final-editorial-integration-repair.py
       - name: Strict TypeScript
         working-directory: artifacts/api-server
