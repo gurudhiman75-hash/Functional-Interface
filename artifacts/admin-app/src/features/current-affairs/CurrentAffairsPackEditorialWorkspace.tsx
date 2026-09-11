@@ -271,12 +271,14 @@ export function CurrentAffairsPackEditorialWorkspace({
       </CardHeader>
       <CardContent className="space-y-5">
         <div className="grid gap-2 sm:grid-cols-5">
-          {['1 Review', '2 Edit events', '3 Refresh + QA', '4 Approve + lock', '5 Final download'].map((label, index) => (
+          {['1 Review', '2 Edit events', '3 Refresh + QA', '4 Approve version', '5 Download version'].map((label, index) => (
             <div key={label} className={cn('rounded-md border px-3 py-2 text-center text-xs font-medium', index < 3 ? 'border-primary/20 bg-primary/5' : '')}>{label}</div>
           ))}
         </div>
 
-        {packLocked ? <div className="rounded-lg border border-success/25 bg-success/5 p-3 text-sm"><p className="font-medium text-success">Approved pack is locked.</p><p className="mt-1 text-xs text-muted-foreground">Return the canonical approval to review before editing. Downloads from the approved pack are final locked artifacts.</p></div> : <div className="rounded-lg border p-3 text-sm"><p className="font-medium">Edit structured event copy, not generated Markdown/PDF.</p><p className="mt-1 text-xs text-muted-foreground">Verified facts are read-only here. English edits create a new authoring version; Hindi and Punjabi must then be saved against that same version. The pack changes only after you press Refresh pack + run QA.</p></div>}
+        {packLocked ? <div className="rounded-lg border border-success/25 bg-success/5 p-3 text-sm"><p className="font-medium text-success">This approved version is locked, not permanently uneditable.</p><p className="mt-1 text-xs text-muted-foreground">Open an editable revision below. The approved version stays preserved in history; the date returns to review so event wording and the canonical pack can be modified and re-approved as a new version.</p></div> : <div className="rounded-lg border p-3 text-sm"><p className="font-medium">Edit structured event copy, not generated Markdown/PDF.</p><p className="mt-1 text-xs text-muted-foreground">Verified facts are read-only here. English edits create a new authoring version; Hindi and Punjabi must then be saved against that same version. The pack changes only after you press Refresh pack + run QA.</p></div>}
+
+        {packLocked ? <CurrentAffairsMasterPackApprovalCard targetDate={date} onChanged={syncWorkspace} /> : null}
 
         {!parityReady ? <div className="flex items-start gap-2 rounded-md border border-warning/25 bg-warning/5 p-3 text-sm text-warning"><AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" /><p>The stored language packs do not currently have exact event-ID parity. Do not approve them. Editing is still available; the governed refresh below is the repair path.</p></div> : null}
 
@@ -328,9 +330,9 @@ export function CurrentAffairsPackEditorialWorkspace({
           </CardContent>
         </Card>
 
-        <CurrentAffairsMasterPackApprovalCard targetDate={date} onChanged={syncWorkspace} />
+        {!packLocked ? <CurrentAffairsMasterPackApprovalCard targetDate={date} onChanged={syncWorkspace} /> : null}
 
-        <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm"><div className="flex items-center gap-2 font-medium"><FileCheck2 className="h-4 w-4" />Final artifact gate</div><p className="mt-1 text-xs text-muted-foreground">After approval, EN/HI/PA are locked and the archive download controls switch from Preview to final Download. Learner publication remains a separate authority.</p></div>
+        <div className="rounded-lg border border-primary/20 bg-primary/5 p-3 text-sm"><div className="flex items-center gap-2 font-medium"><FileCheck2 className="h-4 w-4" />Final artifact gate</div><p className="mt-1 text-xs text-muted-foreground">Approval freezes one auditable version; it does not permanently freeze the date. Use Modify approved pack to open a revision, then edit, refresh + QA and approve the next version. Learner publication remains a separate authority.</p></div>
       </CardContent>
     </Card>
   );
