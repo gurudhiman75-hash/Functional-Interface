@@ -1,13 +1,13 @@
 import {
-  generateLp001BatchStabilizedV3_1,
-  generateLp002BatchStabilizedV3_1,
-  generateLp003BatchStabilizedV3_1,
-  generateLp004BatchStabilizedV3_1,
-  generateLp005BatchStabilizedV3_1,
-  generateLp006BatchStabilizedV3_1,
-  generateLp007BatchStabilizedV3_1,
-  generateLp008BatchStabilizedV3_1,
-} from "./lp-001-008-stabilized-english-v3-1.ts";
+  generateLp001BatchStabilizedV3_2,
+  generateLp002BatchStabilizedV3_2,
+  generateLp003BatchStabilizedV3_2,
+  generateLp004BatchStabilizedV3_2,
+  generateLp005BatchStabilizedV3_2,
+  generateLp006BatchStabilizedV3_2,
+  generateLp007BatchStabilizedV3_2,
+  generateLp008BatchStabilizedV3_2,
+} from "./lp-001-008-stabilized-english-v3-2.ts";
 
 type ReviewChild = {
   questionId: string;
@@ -33,14 +33,14 @@ type ReviewCaselet = {
 type Generator = (seed: string, count: number) => ReviewCaselet[];
 
 const packages: readonly [string, Generator][] = [
-  ["LP-001", generateLp001BatchStabilizedV3_1 as Generator],
-  ["LP-002", generateLp002BatchStabilizedV3_1 as Generator],
-  ["LP-003", generateLp003BatchStabilizedV3_1 as Generator],
-  ["LP-004", generateLp004BatchStabilizedV3_1 as Generator],
-  ["LP-005", generateLp005BatchStabilizedV3_1 as Generator],
-  ["LP-006", generateLp006BatchStabilizedV3_1 as Generator],
-  ["LP-007", generateLp007BatchStabilizedV3_1 as Generator],
-  ["LP-008", generateLp008BatchStabilizedV3_1 as Generator],
+  ["LP-001", generateLp001BatchStabilizedV3_2 as Generator],
+  ["LP-002", generateLp002BatchStabilizedV3_2 as Generator],
+  ["LP-003", generateLp003BatchStabilizedV3_2 as Generator],
+  ["LP-004", generateLp004BatchStabilizedV3_2 as Generator],
+  ["LP-005", generateLp005BatchStabilizedV3_2 as Generator],
+  ["LP-006", generateLp006BatchStabilizedV3_2 as Generator],
+  ["LP-007", generateLp007BatchStabilizedV3_2 as Generator],
+  ["LP-008", generateLp008BatchStabilizedV3_2 as Generator],
 ];
 
 function selectTwo(caselets: ReviewCaselet[]): ReviewCaselet[] {
@@ -51,29 +51,26 @@ function selectTwo(caselets: ReviewCaselet[]): ReviewCaselet[] {
 
 function queryOnly(caselet: ReviewCaselet, child: ReviewChild): string {
   if (caselet.clues.some((clue) => child.stem.includes(clue.text))) {
-    const parts = child.stem.split("\n\n");
-    return parts.at(-1) ?? child.stem;
+    return child.stem.split("\n\n").at(-1) ?? child.stem;
   }
   return child.stem;
 }
 
 const lines: string[] = [
-  "# Logic Puzzles LP-001 → LP-008 — Stabilized English Review V3.1",
+  "# Logic Puzzles LP-001 → LP-008 — Stabilized English Review V3.2",
   "",
   "Status: **human review candidate**",
   "",
-  "V3.1 keeps the V2 puzzle semantics and option-integrity repairs, but uses a simpler teaching style. Each clue is handled in short, plain language. When a genuine alternative remains, the explanation shows Case 1 / Case 2 and rejects the case that breaks the next clue. A clean final table is shown before the child-specific answer.",
+  "V3.2 keeps all V2 puzzle semantics and option-integrity repairs. Explanations now use short, simple language with natural wording variation. Whenever two genuine possibilities remain, Case 1 and Case 2 are shown in a compact table; the next clue is then used to remove the invalid case. A clean final arrangement table follows.",
   "",
-  "Nothing outside the explanation layer changes from V2: assignment, scenario, displayed clues, QL, difficulty, options, answer and correct option position remain the same.",
+  "Only the explanation layer changes from V3.1. Assignment, scenario, stem, clues, QL, difficulty, options, answer and correct-option position remain unchanged.",
   "",
-  "Option-integrity repairs still apply to LP-QL-002, LP-QL-004, LP-QL-008, LP-QL-020 and LP-QL-024.",
-  "",
-  "Every runtime child question remains standalone. To avoid repeating the same setup four times in this editorial file, each caselet shows the common setup/clues once, then its four child queries. The shared solution is also shown once; runtime children each receive the same steps plus their own final answer step.",
+  "Option-integrity repairs remain active for LP-QL-002, LP-QL-004, LP-QL-008, LP-QL-020 and LP-QL-024.",
   "",
 ];
 
 for (const [packageId, generate] of packages) {
-  const candidates = generate(`lp-001-008-review-v3-1:${packageId}`, 12);
+  const candidates = generate(`lp-001-008-review-v3-2:${packageId}`, 12);
   const selected = selectTwo(candidates);
   lines.push(`# ${packageId}`, "");
 
