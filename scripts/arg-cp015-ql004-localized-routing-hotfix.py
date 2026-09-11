@@ -15,12 +15,11 @@ if new not in source:
         raise SystemExit(f"QL004 Hindi activity routing hotfix: expected exactly one old rule, found {count}")
     source = source.replace(old, new, 1)
 
-# QL006: first-time overseas card use is a risk signal, not proof that most such
-# transactions are fraudulent. Keep the weak-argument explanation tied to the
-# actual fraud-overreach instead of the generic localized fallback.
 hindi_fallback_anchor = '  return hindiFallback(argument);\n}'
 punjabi_fallback_anchor = '  return punjabiFallback(argument);\n}'
 
+# QL006: first-time overseas card use is a risk signal, not proof that most such
+# transactions are fraudulent.
 ql006_hindi_reason = 'पहली बार विदेश में कार्ड उपयोग असामान्य हो सकता है, लेकिन इससे अधिकांश ऐसी खरीद को धोखाधड़ी नहीं माना जा सकता; जोखिम-संकेत की जाँच और अनुपातिक पुष्टि अधिक उचित है।'
 ql006_hindi_rule = f'  if (/पहली बार विदेश में कार्ड उपयोग.*(?:अधिकांश|ज्यादातर).*(?:घटना|लेन-देन|खरीद).*(?:धोखाधड़ी|फ्रॉड)/.test(argument)) return "{ql006_hindi_reason}";\n'
 if ql006_hindi_reason not in source:
@@ -36,6 +35,24 @@ if ql006_punjabi_reason not in source:
     if count != 1:
         raise SystemExit(f"QL006 Punjabi overseas-fraud reason: expected exactly one Punjabi fallback anchor, found {count}")
     source = source.replace(punjabi_fallback_anchor, ql006_punjabi_rule + punjabi_fallback_anchor, 1)
+
+# QL006: rejecting an immediate irreversible penalty does not imply that future
+# complaints must be ignored. This is a false either/or, not a material reason.
+ql006_complaint_hindi_reason = 'तुरंत स्थायी दंड न देना शिकायत को अनदेखा करना नहीं है; प्राधिकरण शिकायत की जाँच कर सकता है और प्रमाण के अनुसार अनुपातिक कार्रवाई कर सकता है।'
+ql006_complaint_hindi_rule = f'  if (/(?:तत्काल|तुरंत).*स्थायी दंड.*नहीं देता.*(?:भविष्य की )?(?:अधिकांश|ज्यादातर) शिकायत.*अनदेखी/.test(argument)) return "{ql006_complaint_hindi_reason}";\n'
+if ql006_complaint_hindi_reason not in source:
+    count = source.count(hindi_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL006 Hindi complaint false-dilemma reason: expected exactly one Hindi fallback anchor, found {count}")
+    source = source.replace(hindi_fallback_anchor, ql006_complaint_hindi_rule + hindi_fallback_anchor, 1)
+
+ql006_complaint_punjabi_reason = 'ਤੁਰੰਤ ਸਥਾਈ ਸਜ਼ਾ ਨਾ ਦੇਣਾ ਸ਼ਿਕਾਇਤ ਨੂੰ ਅਣਡਿੱਠਾ ਕਰਨਾ ਨਹੀਂ ਹੈ; ਅਥਾਰਟੀ ਸ਼ਿਕਾਇਤ ਦੀ ਜਾਂਚ ਕਰ ਸਕਦੀ ਹੈ ਅਤੇ ਸਬੂਤ ਦੇ ਅਨੁਸਾਰ ਅਨੁਪਾਤਿਕ ਕਾਰਵਾਈ ਕਰ ਸਕਦੀ ਹੈ।'
+ql006_complaint_punjabi_rule = f'  if (/(?:ਤੁਰੰਤ|ਫੌਰੀ).*ਸਥਾਈ (?:ਸਜ਼ਾ|ਦੰਡ).*ਨਾ.*(?:ਭਵਿੱਖ ਦੀਆਂ )?ਜ਼ਿਆਦਾਤਰ ਸ਼ਿਕਾਇਤ.*(?:ਅਣਡਿੱਠਾ|ਨਜ਼ਰਅੰਦਾਜ਼)/.test(argument)) return "{ql006_complaint_punjabi_reason}";\n'
+if ql006_complaint_punjabi_reason not in source:
+    count = source.count(punjabi_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL006 Punjabi complaint false-dilemma reason: expected exactly one Punjabi fallback anchor, found {count}")
+    source = source.replace(punjabi_fallback_anchor, ql006_complaint_punjabi_rule + punjabi_fallback_anchor, 1)
 
 SOURCE_PATH.write_text(source, encoding="utf-8")
 print("ARG-001 CP015 localized QL004/QL006 routing hotfix applied")
