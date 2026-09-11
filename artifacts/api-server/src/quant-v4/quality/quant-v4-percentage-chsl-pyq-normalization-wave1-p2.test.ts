@@ -62,7 +62,7 @@ assert.ok(Math.abs(percentLess - 50 / 3) < 1e-12);
 // SSC 10+2-2014 Q69: 1% of 1% of 25% of 1000.
 assert.equal(0.01 * 0.01 * 0.25 * 1000, 0.025);
 
-assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 58);
+assert.equal(QUANT_V4_REGISTERED_PYQ_OBSERVATIONS.length, 60);
 const percentage = listRegisteredCountablePyqObservations({ packageId: "PCT-002" });
 assert.equal(percentage.length, 5);
 assert.ok(percentage.every((entry) => entry.examId === "SSC_CHSL"));
