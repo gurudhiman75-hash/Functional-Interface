@@ -46,6 +46,7 @@ source = insert_before_once(
     source,
     '  return englishFallback(argument);\n}',
     '''  if (/solve the queue problem on its own/i.test(argument)) return "Longer opening hours may reduce queues, but they cannot solve the whole queue problem by themselves; demand and service capacity still matter.";
+  if (/guided rules session/i.test(argument) && /largely eliminated/i.test(argument)) return "A guided rules session can reduce confusion, but attendance alone does not show that unauthorised collaboration will be largely eliminated.";
   if (/(?:rules session|guided rules session|briefing)/i.test(argument) && /(?:misunderstanding|violations|misconduct rules)/i.test(argument)) return "One rules session may reduce confusion, but it cannot be assumed to remove nearly all misunderstanding or rule violations by itself.";
 ''',
     "solve the queue problem on its own",
