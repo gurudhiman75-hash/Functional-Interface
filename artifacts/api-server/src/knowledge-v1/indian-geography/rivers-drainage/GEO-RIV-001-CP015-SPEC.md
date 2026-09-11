@@ -1,6 +1,6 @@
 # GEO-RIV-001-CP015 — Mixed Rivers Mastery
 
-Status: REVIEW CANDIDATE V1
+Status: REVIEW CANDIDATE V2
 Chapter: `GEO-RIV-001`
 CP: `GEO-RIV-001-CP015`
 Engine: `knowledge-v1`
@@ -11,7 +11,7 @@ Close the Rivers & Drainage chapter with a balanced chapter-level review authori
 
 ## Stacked review boundary
 
-CP007 is currently an exact human-review candidate rather than a merged/frozen `New-main` authority. CP015 V1 is therefore intentionally stacked on the exact reviewed CP007 head plus current `New-main`. This allows chapter-level review to continue without pretending CP007 is approved.
+CP007 is currently an exact human-review candidate rather than a merged/frozen `New-main` authority. CP015 V2 is therefore intentionally stacked on the exact reviewed CP007 head plus current `New-main`. This allows chapter-level review to continue without pretending CP007 is approved.
 
 CP015 MUST NOT merge or enter Question Studio until CP007 receives explicit human approval and is merged/frozen first. After CP007 is approved, CP015 must be restacked/revalidated on the resulting `New-main` before any merge decision.
 
@@ -21,7 +21,7 @@ CP015 reuses the permanent QL IDs owned by CP001–CP014. It must not invent `QL
 
 ## Review batch contract
 
-The V1 mastery batch contains 60 questions with 60 distinct inherited QLs.
+The V2 mastery batch contains 60 questions with 60 distinct inherited QLs.
 
 Source-CP allocation:
 
@@ -52,14 +52,14 @@ Target difficulty shape:
 - Medium: 32
 - Hard: 14
 
-Correct-answer positions are rebalanced without changing option content:
+Correct-answer positions are rebalanced without changing option meaning:
 
 - A: 15
 - B: 15
 - C: 15
 - D: 15
 
-## Selection rules
+## Selection and realization rules
 
 1. Every selected source question must already have four distinct options and a valid keyed answer.
 2. Each source CP must contribute the exact quota above.
@@ -67,14 +67,17 @@ Correct-answer positions are rebalanced without changing option content:
 4. No learner payload may repeat by `stem + canonical answer`.
 5. Source IDs and source-fact IDs are mandatory and carried forward unchanged.
 6. CP015 records `sourceCpId`, `sourceQuestionId` and `sourceQlId` for every wrapped item.
-7. The learner-facing stem, options, canonical answer and explanation remain byte-identical to the selected qualified source item; only option order may be rebalanced.
-8. CP015 cannot silently repair a source defect. If a selected source item is defective, the defect must be fixed in the owning CP and the mastery batch regenerated.
+7. V1 composition preserves source learner content apart from option-order rebalancing. V2 applies one governed presentation-only normalization: proper river names use the chapter-wide `River + name` convention.
+8. The V2 realizer must not alter semantic answer authority, inherited QL identity, source/fact lineage or difficulty.
+9. River-derived proper nouns such as `Beas Kund`, `Tungabhadra Dam`, `Tungabhadra Reservoir`, basin names and river-system names are protected from inappropriate prefixing.
+10. CP015 cannot silently repair a semantic source defect. If a selected source item is factually, logically or editorially defective beyond this governed naming normalization, the defect must be fixed in the owning CP and the mastery batch regenerated.
 
 ## Editorial rules
 
 - competitive-exam wording only;
 - no review/source/generator language in learner content;
-- preserve the chapter-wide `River + name` convention;
+- preserve the chapter-wide `River + name` convention where it denotes the river itself;
+- preserve natural proper nouns and system/basin labels;
 - explanations remain concise and question-specific;
 - no fabricated distractors;
 - no unsupported inference from missing facts;
