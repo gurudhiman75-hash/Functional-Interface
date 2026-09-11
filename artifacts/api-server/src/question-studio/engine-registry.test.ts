@@ -92,7 +92,7 @@ const reviewLifecycle = QUESTION_STUDIO_STANDARD_REVIEW_ONLY_LIFECYCLE_V1;
 assert.ok(eng001);
 assert.equal(eng001.engineId, "language-v1");
 assert.equal(eng001.enabled, true);
-assert.deepEqual(eng001.cpIds, ["ENG-001-CP001", "ENG-001-CP002"]);
+assert.deepEqual(eng001.cpIds, ["ENG-001-CP001", "ENG-001-CP002", "ENG-001-CP003"]);
 assert.deepEqual(eng001.supportedLanguages, ["en"]);
 assert.deepEqual(eng001.supportedDifficulties, ["Easy", "Medium", "Hard"]);
 assert.equal(eng001.runtimeMode, "review-only");
@@ -141,4 +141,21 @@ assert.equal(eng001Cp002Result.questions.every((question) => question.cpId === "
 assert.equal(eng001Cp002Result.questions.every((question) => String(question.ruleId).startsWith("GR-TNS-")), true);
 assert.equal(eng001Cp002Result.questions.every((question) => question.reviewOnly === true), true);
 
-console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 ENG-001 CP001+CP002=review-only");
+const eng001Cp003Result = await generateQuestionStudioQuestions({
+  packageId: "ENG-001",
+  canonicalProblemId: "ENG-001-CP003",
+  subtopic: "Articles and Determiners",
+  language: "en",
+  difficulty: "Hard",
+  runtimeMode: "review-only",
+  count: 2,
+  seed: "engine-registry-eng001-cp003-smoke",
+});
+assert.equal(eng001Cp003Result.questions.length, 2);
+assert.equal(eng001Cp003Result.generationContext.cpId, "ENG-001-CP003");
+assert.equal(eng001Cp003Result.generationContext.questionBankWritable, false);
+assert.equal(eng001Cp003Result.questions.every((question) => question.cpId === "ENG-001-CP003"), true);
+assert.equal(eng001Cp003Result.questions.every((question) => String(question.ruleId).startsWith("GR-ART-")), true);
+assert.equal(eng001Cp003Result.questions.every((question) => question.reviewOnly === true), true);
+
+console.log("[QUESTION-STUDIO-ENGINE-REGISTRY] PASS quant-v4 knowledge-v1 language-v1 ENG-001 CP001+CP002+CP003=review-only");
