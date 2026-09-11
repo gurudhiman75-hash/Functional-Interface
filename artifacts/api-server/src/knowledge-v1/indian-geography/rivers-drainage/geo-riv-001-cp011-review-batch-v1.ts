@@ -39,7 +39,10 @@ function forceAnswerPosition(question: GeoRiv001Cp011ReviewQuestion, targetIndex
 }
 
 function semanticSignature(question: GeoRiv001Cp011ReviewQuestion) {
-  if (["GEO-RIV-001-QL-093", "GEO-RIV-001-QL-094", "GEO-RIV-001-QL-095", "GEO-RIV-001-QL-098"].includes(question.qlId)) {
+  if (question.qlId === "GEO-RIV-001-QL-098") {
+    return `${question.canonicalAnswer}|${[...question.options].sort().join("|")}`;
+  }
+  if (["GEO-RIV-001-QL-093", "GEO-RIV-001-QL-094", "GEO-RIV-001-QL-095"].includes(question.qlId)) {
     return `${question.stem}|${question.canonicalAnswer}`;
   }
   return question.stem;
