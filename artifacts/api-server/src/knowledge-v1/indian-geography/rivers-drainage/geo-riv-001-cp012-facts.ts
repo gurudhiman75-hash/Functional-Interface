@@ -22,15 +22,20 @@ const ROWS: GeoRiv001Cp012CityRiverRow[] = [
   { city: "Prayagraj", river: "Ganga", state: "Uttar Pradesh", sourceId: "PRAYAGRAJ-DISTRICT-GEOGRAPHY", locator: "District geography states that Prayagraj stands at the confluence of the Ganga and Yamuna." },
   { city: "Prayagraj", river: "Yamuna", state: "Uttar Pradesh", sourceId: "PRAYAGRAJ-DISTRICT-GEOGRAPHY", locator: "District geography states that Prayagraj stands at the confluence of the Ganga and Yamuna." },
   { city: "Patna", river: "Ganga", state: "Bihar", sourceId: "PATNA-DISTRICT-GANGA", locator: "Patna district states that Patna is located on the south bank of the Ganga." },
+  { city: "Haridwar", river: "Ganga", state: "Uttarakhand", sourceId: "HARIDWAR-DISTRICT-GANGA", locator: "Haridwar district describes the sacred Ganga at Har Ki Pauri and Haridwar's direct Ganga association." },
   { city: "Delhi", river: "Yamuna", state: "Delhi", sourceId: "DELHI-IFC-YAMUNA", locator: "Government of NCT of Delhi flood-control functions explicitly describe protecting the city of Delhi from floods in River Yamuna." },
+  { city: "Mathura", river: "Yamuna", state: "Uttar Pradesh", sourceId: "MATHURA-DISTRICT-YAMUNA", locator: "Mathura district states that Mathura is located on the bank of the Yamuna." },
+  { city: "Agra", river: "Yamuna", state: "Uttar Pradesh", sourceId: "AGRA-DISTRICT-YAMUNA", locator: "Agra district describes Agra as a city on the banks of the Yamuna." },
   { city: "Nashik", river: "Godavari", state: "Maharashtra", sourceId: "NASHIK-DISTRICT-GEOGRAPHY", locator: "Nashik district describes the city as situated on the banks of the Godavari and the river flowing through the city." },
   { city: "Tiruchirappalli", river: "Cauvery", state: "Tamil Nadu", sourceId: "TRICHY-DISTRICT-CAUVERY", locator: "Tiruchirappalli district states that the city is situated on the banks of the Cauvery." },
   { city: "Ahmedabad", river: "Sabarmati", state: "Gujarat", sourceId: "RBI-AHMEDABAD-SABARMATI", locator: "RBI Ahmedabad profile places the office near Gandhi Bridge on the banks of the Sabarmati in Ahmedabad, supporting the standard city-river relation." },
+  { city: "Surat", river: "Tapi", state: "Gujarat", sourceId: "SURAT-DISTRICT-TAPI", locator: "Surat district states that Surat city is situated on the left bank of River Tapi." },
   { city: "Jabalpur", river: "Narmada", state: "Madhya Pradesh", sourceId: "JABALPUR-DISTRICT-NARMADA", locator: "Jabalpur district tourism material repeatedly anchors major Jabalpur places and projects to the Narmada." },
   { city: "Cuttack", river: "Mahanadi", state: "Odisha", sourceId: "ODISHA-CUTTACK-MAHANADI", locator: "Government of Odisha describes Cuttack Mahanadi river-front development and Mahanadi banks at Cuttack." },
   { city: "Srinagar", river: "Jhelum", state: "Jammu and Kashmir", sourceId: "SRINAGAR-DISTRICT-JHELUM", locator: "District Srinagar geographic convention identifies the Jhelum as the river passing through Srinagar city." },
   { city: "Guwahati", river: "Brahmaputra", state: "Assam", sourceId: "ASSAM-GUWAHATI-BRAHMAPUTRA", locator: "Government of Assam district/city geography convention places Guwahati on the Brahmaputra." },
   { city: "Vijayawada", river: "Krishna", state: "Andhra Pradesh", sourceId: "AP-VIJAYAWADA-KRISHNA", locator: "Government of Andhra Pradesh district geography convention places Vijayawada on the Krishna River." },
+  { city: "Kolkata", river: "Hooghly", state: "West Bengal", sourceId: "KMC-HOOGHLY-RIVERFRONT", locator: "Kolkata Municipal Corporation describes the Hooghly riverfront within Kolkata's municipal boundaries." },
 ];
 
 function fact(row: GeoRiv001Cp012CityRiverRow): KnowledgeFact {
