@@ -6,6 +6,7 @@ on:
       - feature/arg-001-cp012-editorial-remediation
     paths:
       - .github/workflows/arg-001-cp015-v8-simple-explanations.yml
+      - scripts/arg-cp015-simple-explanations-repair.py
 
 permissions:
   contents: write
