@@ -1,6 +1,5 @@
 import type { Eng001QlId, Eng001Question, EnglishDifficulty } from "../../../../core/types";
-import { ARTICLE_SCENES_BY_DIFFICULTY_V1 } from "./cp003-catalog-v1";
-import { generateEng001Cp003QuestionV1 } from "./eng-001-cp003-v1";
+import { cp003ScenePoolV1, generateEng001Cp003QuestionV1 } from "./eng-001-cp003-v1";
 
 export interface Cp003ReviewItemV1 {
   difficulty: EnglishDifficulty;
@@ -12,7 +11,7 @@ const qls: readonly Eng001QlId[] = ["ENG-001-QL001", "ENG-001-QL002", "ENG-001-Q
 
 export function buildEng001Cp003ReviewV1(): Record<EnglishDifficulty, Cp003ReviewItemV1[]> {
   return Object.fromEntries((["easy", "medium", "hard"] as const).map((difficulty) => {
-    const scenes = ARTICLE_SCENES_BY_DIFFICULTY_V1[difficulty].slice(0, 20);
+    const scenes = cp003ScenePoolV1(difficulty).slice(0, 20);
     const items = scenes.map((scene, index) => {
       const qlId = qls[index % qls.length]!;
       const seed = `cp003-review-v1:${difficulty}:${scene.id}`;
