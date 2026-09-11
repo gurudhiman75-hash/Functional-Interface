@@ -11,8 +11,12 @@ function semanticClue(clue: any) {
 }
 
 function semanticChild(child: any) {
-  const { stem: _stem, explanation: _explanation, ...semantic } = child;
+  const { explanation: _explanation, ...semantic } = child;
   return semantic;
+}
+
+function assembledQuestion(caselet: any, child: any): string {
+  return `${caselet.scenario}\n\nClues:\n${caselet.clues.map((clue: any) => `- ${clue.text}`).join("\n")}\n\n${child.stem}`;
 }
 
 assert.equal(LP_001_008_STABILIZED_ENGLISH_V4_1.lp001ExclusionRender, "BINARY_EITHER_OR");
@@ -36,6 +40,12 @@ for (let index = 0; index < revised.length; index += 1) {
   assert.deepEqual(after.clues.map(semanticClue), before.clues.map(semanticClue));
   assert.deepEqual(after.children.map(semanticChild), before.children.map(semanticChild));
 
+  for (const child of after.children) {
+    const finalText = assembledQuestion(after, child);
+    for (const person of after.people) assert.ok(finalText.includes(person), `${child.questionId}: assembled question omits person ${person}`);
+    for (const group of after.groups) assert.ok(finalText.includes(after.groupLabels[group]), `${child.questionId}: assembled question omits group ${after.groupLabels[group]}`);
+  }
+
   for (let clueIndex = 0; clueIndex < after.clues.length; clueIndex += 1) {
     const oldClue = before.clues[clueIndex]!;
     const newClue = after.clues[clueIndex]!;
@@ -53,7 +63,9 @@ for (let index = 0; index < revised.length; index += 1) {
     assert.ok(!newClue.text.includes(after.groupLabels[newClue.group]), `${after.caseletId}: either/or clue incorrectly names excluded group ${after.groupLabels[newClue.group]}`);
 
     for (const child of after.children) {
-      assert.ok(child.stem.includes(newClue.text), `${child.questionId}: rewritten clue missing from stem`);
+      const finalText = assembledQuestion(after, child);
+      assert.ok(finalText.includes(newClue.text), `${child.questionId}: rewritten clue missing from assembled Question Studio text`);
+      assert.ok(!finalText.includes(oldClue.text), `${child.questionId}: old negative clue survived in assembled Question Studio text`);
       assert.ok(child.explanation.lines.some((line) => line.includes(newClue.text)), `${child.questionId}: rewritten clue missing from explanation`);
     }
   }
@@ -66,4 +78,4 @@ const exclusionTexts = reference.clues.filter((clue) => clue.kind === "NOT_IN_GR
 assert.ok(exclusionTexts.length >= 2, "Reference LP-001 case should expose the paired either/or pattern.");
 assert.ok(exclusionTexts.every((text) => /\beither\b.+\bor\b/iu.test(text)), "Reference LP-001 exclusions were not converted to either/or clues.");
 
-console.log(`LP-001 V4.1 either/or clue rendering passed for ${revised.length} caselets; ${rewritten} negative exclusions converted without semantic drift.`);
+console.log(`LP-001 V4.1 either/or clue rendering passed for ${revised.length} caselets; ${rewritten} negative exclusions converted without semantic drift, with complete assembled Question Studio text.`);
