@@ -87,7 +87,8 @@ assert.ok(minimum > 0);
 assert.ok(maximum / minimum < 1.35, `Answer positions are imbalanced: ${answerPositions.join(", ")}`);
 assert.deepEqual([...difficulties].sort(), ["EASY", "HARD", "MEDIUM"]);
 assert.ok(multiReferenceCount > 0, "Expected source-style multi-reference numeric analogies.");
-assert.ok(misconceptionDistractorCount > fallbackDistractorCount, "Rule-specific misconceptions must dominate arithmetic fallbacks.");
+assert.equal(fallbackDistractorCount, 0, `Generic arithmetic fallbacks are forbidden: ${JSON.stringify(Object.fromEntries(fallbackByRule))}`);
+assert.equal(misconceptionDistractorCount, generatedCount * 3, "Every CP003 wrong option must be misconception-grounded.");
 
 console.log("ANA-CP-003 audit-remediated contract test passed.", {
   generatedCount,
