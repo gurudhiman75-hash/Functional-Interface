@@ -84,6 +84,26 @@ if ql001_punjabi_reason not in source:
         raise SystemExit(f"QL001 Punjabi post-process reason: expected exactly one Punjabi fallback anchor, found {count}")
     source = source.replace(punjabi_fallback_anchor, ql001_punjabi_rule + punjabi_fallback_anchor, 1)
 
+# QL002's recorded/self-paced training family has a valid implementation trade-off,
+# but the weak distractor overstates it by claiming that replacing live sessions
+# destroys virtually all learning capacity. Explain that concrete flaw directly in
+# Hindi and Punjabi instead of falling back to a generic "insufficient support" line.
+ql002_hindi_reason = 'स्व-गति या रिकॉर्डेड मॉड्यूल में लाइव मार्गदर्शन की कुछ कमी हो सकती है, लेकिन इससे कर्मचारियों की सीखने या प्रशिक्षण से लाभ लेने की सारी क्षमता खत्म नहीं हो जाती।'
+ql002_hindi_rule = f'  if (/(?:स्व-गति स्लाइड मॉड्यूल|रिकॉर्ड किए वीडियो मॉड्यूल|स्वचालित ट्यूटोरियल|पूर्व-रिकॉर्ड वेबिनार)/.test(argument) && /(?:सारी क्षमता|क्षमता.*खो देंगे)/.test(argument)) return "{ql002_hindi_reason}";\n'
+if ql002_hindi_reason not in source:
+    count = source.count(hindi_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL002 Hindi self-paced-training reason: expected exactly one Hindi fallback anchor, found {count}")
+    source = source.replace(hindi_fallback_anchor, ql002_hindi_rule + hindi_fallback_anchor, 1)
+
+ql002_punjabi_reason = 'ਸਵੈ-ਗਤੀ ਜਾਂ ਰਿਕਾਰਡ ਕੀਤੇ ਮੋਡੀਊਲਾਂ ਵਿੱਚ ਲਾਈਵ ਮਾਰਗਦਰਸ਼ਨ ਦੀ ਕੁਝ ਕਮੀ ਹੋ ਸਕਦੀ ਹੈ, ਪਰ ਇਸ ਨਾਲ ਕਰਮਚਾਰੀਆਂ ਦੀ ਸਿੱਖਣ ਜਾਂ ਟ੍ਰੇਨਿੰਗ ਤੋਂ ਲਾਭ ਲੈਣ ਦੀ ਸਾਰੀ ਸਮਰੱਥਾ ਖਤਮ ਨਹੀਂ ਹੋ ਜਾਂਦੀ।'
+ql002_punjabi_rule = f'  if (/(?:ਸਵੈ-ਗਤੀ ਸਲਾਈਡ ਮੋਡੀਊਲ|ਰਿਕਾਰਡ ਕੀਤੇ ਵੀਡੀਓ ਮੋਡੀਊਲ|ਆਟੋਮੈਟਿਕ ਟਿਊਟੋਰਿਅਲ|ਪਹਿਲਾਂ ਰਿਕਾਰਡ ਵੈਬਿਨਾਰ)/.test(argument) && /(?:ਸਾਰੀ ਸਮਰੱਥਾ|ਜ਼ਿਆਦਾਤਰ ਸਮਰੱਥਾ|ਸਮਰੱਥਾ.*ਗੁਆ)/.test(argument)) return "{ql002_punjabi_reason}";\n'
+if ql002_punjabi_reason not in source:
+    count = source.count(punjabi_fallback_anchor)
+    if count != 1:
+        raise SystemExit(f"QL002 Punjabi self-paced-training reason: expected exactly one Punjabi fallback anchor, found {count}")
+    source = source.replace(punjabi_fallback_anchor, ql002_punjabi_rule + punjabi_fallback_anchor, 1)
+
 # The finalizer already runs every argument through repairSurface before reason
 # selection. Assert that V8's English article repair is present so the repaired
 # argument exposed to the rule is grammatical as well as semantically specific.
@@ -112,4 +132,4 @@ if new not in source:
 
 SOURCE_PATH.write_text(source, encoding="utf-8")
 GRAMMAR_PATH.write_text(grammar, encoding="utf-8")
-print("ARG-001 CP015 generic fallback routing and localized QL001 repair applied")
+print("ARG-001 CP015 generic fallback routing and localized QL001/QL002 repair applied")
