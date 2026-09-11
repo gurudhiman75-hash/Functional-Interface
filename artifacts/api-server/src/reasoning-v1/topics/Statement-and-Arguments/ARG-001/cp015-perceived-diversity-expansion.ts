@@ -19,6 +19,7 @@ import {
   polishArgCp015AntiGamingGrammar,
 } from "./cp015-anti-gaming-grammar-polish.ts";
 import { naturalizeArgCp015ComboStatement } from "./cp015-combo-statement-naturalization.ts";
+import { finalizeArgCp015EditorialQuality } from "./cp015-final-editorial-quality.ts";
 import {
   ARG_CP015_COMBO_ARGUMENT_SURFACE_AUTHORITY,
   contextualizeArgCp015ComboArguments,
@@ -245,7 +246,8 @@ function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed:
     const naturalized = naturalizeArgCp015TwoArgumentEditorial(reshaped);
     const polished = polishArgCp015LocalizedTwoArgumentSurface(naturalized);
     const debiased = debiasArgCp015AnswerCues(polished);
-    const question = polishArgCp015AntiGamingGrammar(debiased);
+    const grammarPolished = polishArgCp015AntiGamingGrammar(debiased);
+    const question = finalizeArgCp015EditorialQuality(grammarPolished);
     return { question, context: source.generationContext as Question };
   }
 
@@ -269,7 +271,8 @@ function oneCandidate(input: ArgCp015QuestionStudioInput, profile: string, seed:
     ? polishArgCp015ResidualLocalizedComboSurface(polished)
     : polished;
   const debiased = debiasArgCp015AnswerCues(residualPolished);
-  const question = polishArgCp015AntiGamingGrammar(debiased);
+  const grammarPolished = polishArgCp015AntiGamingGrammar(debiased);
+  const question = finalizeArgCp015EditorialQuality(grammarPolished);
   return { question, context: source.generationContext as Question };
 }
 
