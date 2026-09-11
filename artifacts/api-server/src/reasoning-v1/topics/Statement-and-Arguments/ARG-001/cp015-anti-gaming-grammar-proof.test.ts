@@ -44,6 +44,7 @@ const MALFORMED: Readonly<Record<Language, readonly RegExp[]>> = Object.freeze({
     /\bpermanently impractical\b/i,
     /\bwill predictably create permanent gridlock\b/i,
     /\bcan occur mainly when guilt is certain\b/i,
+    /\bcan occur mainly when guilt is already certain\b/i,
     /should be treated as sufficient to solve the queue problem/i,
     /will largely solve most related difficult/i,
     /\bis generally proof of fraud\b/i,
@@ -71,6 +72,8 @@ const MALFORMED: Readonly<Record<Language, readonly RegExp[]>> = Object.freeze({
     /अधिकांश (?:पेपर लीक का आरोप|नकल की शिकायत) अनदेखी करनी होगी/,
     /एक नकल की शिकायत ही सिद्ध करता है/,
     /गृह-राज्य से बाहर कार्ड लेन-देन की अधिकांश घटना/,
+    /लोगों अक्सर/,
+    /के आधार पर जानकारी के आधार पर/,
   ]),
   pa: Object.freeze([
     /ਅਕਸਰਂ/,
@@ -94,6 +97,12 @@ const MALFORMED: Readonly<Record<Language, readonly RegExp[]>> = Object.freeze({
     /ਕਾਫ਼ੀ ਸਥਿਰ ਕਨੈਕਟਿਵਿਟੀ[^।.!?]*ਉਪਲਬਧ ਹੋ ਜਾਣਗੇ/,
     /ਜ਼ਿਆਦਾਤਰ ਕੇਂਦਰ ਦਾ ਨਤੀਜਾ/,
     /ਸਥਾਈ ਜਾਮ ਸ਼ਾਇਦ ਹੋ ਜਾਵੇਗਾ/,
+    /ਬਿਹਤਰ ਯਾਦ ਬਿਹਤਰ/,
+    /ਸੂਚਨਾ ਤੁਰੰਤ ਬਾਅਦ/,
+    /ਬਿਨਾਂ ਕਿਸੇ ਵੱਖ ਕਲੈਕਸ਼ਨ ਵਾਹਨ ਦੇ/,
+    /ਵੱਖ ਕਲੈਕਸ਼ਨ ਵਾਹਨ ਦੇ ਬਿਨਾਂ/,
+    /ਵੱਖ ਕੀਤਾ ਭੋਜਨ ਕੂੜੇ ਅਤੇ ਹੋਰ ਕੂੜੇ ਮੁੜ ਮਿਲ ਸਕਦਾ ਹੈ/,
+    /ਪਾਲਣਾ ਅਤੇ ਭਰੋਸਾ ਘੱਟੇਗਾ/,
   ]),
 });
 
