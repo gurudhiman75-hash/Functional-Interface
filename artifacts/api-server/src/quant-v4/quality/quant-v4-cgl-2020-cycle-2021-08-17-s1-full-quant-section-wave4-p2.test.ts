@@ -90,7 +90,7 @@ assert.ok(Math.abs((640 + 0.15 * 640) * 1.15 - 846.4) < 1e-12); // Q62.
 assert.equal(1500 * 0.8 - 991, 209); // Q64.
 const q69x = 8;
 const q69y = 7;
-assert.equal(9429876 % 72, 0);
+assert.equal(9482976 % 72, 0);
 assert.equal(2 * q69x + 3 * q69y, 37); // Q69.
 assert.equal(1 ** 3 + (-2) ** 3 + 0 ** 3, -7); // Q72.
 const q74A = 45;
