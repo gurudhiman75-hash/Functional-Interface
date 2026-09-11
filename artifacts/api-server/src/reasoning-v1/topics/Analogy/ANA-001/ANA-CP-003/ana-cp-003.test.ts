@@ -16,6 +16,7 @@ assert.ok(ANA_CP003_QLS.every((ql) => ql.difficultyBand === "INSTANCE_DERIVED"))
 
 const answerPositions = [0, 0, 0, 0];
 const difficulties = new Set<string>();
+const fallbackByRule = new Map<string, number>();
 let generatedCount = 0;
 let multiReferenceCount = 0;
 let misconceptionDistractorCount = 0;
@@ -64,8 +65,10 @@ for (const ql of ANA_CP003_QLS) {
       if (option.errorLabel === null) continue;
       assert.notEqual(option.errorLabel, "NEAR_VALUE_WRONG_OPERATION");
       assert.notEqual(option.errorLabel, "VALID_INPUT_WRONG_NUMERIC_RELATION");
-      if (option.errorLabel === "ARITHMETIC_OFF_BY_ONE_FALLBACK") fallbackDistractorCount += 1;
-      else misconceptionDistractorCount += 1;
+      if (option.errorLabel === "ARITHMETIC_OFF_BY_ONE_FALLBACK") {
+        fallbackDistractorCount += 1;
+        fallbackByRule.set(first.ruleId, (fallbackByRule.get(first.ruleId) ?? 0) + 1);
+      } else misconceptionDistractorCount += 1;
     }
 
     if (first.presentationMode === "MISSING_FOURTH_TERM") {
@@ -93,4 +96,5 @@ console.log("ANA-CP-003 audit-remediated contract test passed.", {
   multiReferenceCount,
   misconceptionDistractorCount,
   fallbackDistractorCount,
+  fallbackByRule: Object.fromEntries([...fallbackByRule.entries()].sort((a, b) => b[1] - a[1])),
 });
