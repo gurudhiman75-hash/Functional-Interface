@@ -29,6 +29,7 @@ on:
       - "artifacts/api-server/ensure-current-affairs.mjs"
       - "artifacts/admin-app/src/features/current-affairs/selected-processing-api.ts"
       - "artifacts/admin-app/src/features/current-affairs/pack-editorial-api.ts"
+      - "artifacts/admin-app/src/features/current-affairs/CurrentAffairsMasterPackApprovalCard.tsx"
       - "artifacts/admin-app/src/features/current-affairs/CurrentAffairsPackEditorialWorkspace.tsx"
       - "artifacts/admin-app/src/features/current-affairs/CurrentAffairsPastDailyPacksCard.tsx"
       - "artifacts/admin-app/src/pages/content/CurrentAffairsProductionReadinessPage.tsx"
@@ -84,6 +85,8 @@ jobs:
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-binding-integrity.test.ts
       - name: Verify CP074 learner editorial quality contract
         run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-learner-editorial-quality.test.ts
+      - name: Verify CP075 approved revision editability contract
+        run: pnpm dlx tsx@4.20.6 artifacts/api-server/src/current-affairs/selected-processing-approved-revision-editability.test.ts
       - name: Build API server
         run: pnpm --filter @workspace/api-server build
       - name: Typecheck admin frontend

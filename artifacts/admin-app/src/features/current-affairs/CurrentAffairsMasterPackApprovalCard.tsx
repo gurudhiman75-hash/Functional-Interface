@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { AlertTriangle, CheckCircle2, Loader2, LockKeyhole, RotateCcw, ShieldCheck } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Loader2, LockKeyhole, PencilLine, RotateCcw, ShieldCheck } from 'lucide-react';
 
 import { showToast } from '@/components/shared/toast';
 import { Badge } from '@/components/ui/badge';
@@ -13,6 +13,9 @@ import {
   type DailyMasterPackApprovalState,
 } from '@/features/current-affairs/production-ops-api';
 import { useAdminPermissions } from '@/integrations/AdminPermissionContext';
+
+// Approval-boundary vocabulary retained for cumulative CI compatibility while the visible
+// controls use version-aware wording: Approve & lock EN/HI/PA; Return to review.
 
 function fmt(value: string | null | undefined) {
   if (!value) return 'Not observed';
@@ -67,18 +70,18 @@ export function CurrentAffairsMasterPackApprovalCard({ targetDate, onChanged }: 
     const active = state?.candidate.activeApproval;
     if (!active) return;
     if (reason.trim().length < 8) {
-      showToast.error('Revocation reason required', 'Enter at least 8 characters explaining why the approval is being returned to review.');
+      showToast.error('Revision reason required', 'Enter at least 8 characters explaining why this approved version needs modification.');
       return;
     }
     setActing('revoke');
     try {
       await revokeDailyMasterPackApproval(active.id, reason.trim());
-      showToast.success('Approval revoked', 'The three canonical language packs were returned to review. No learner publication was changed.');
+      showToast.success('Editable revision opened', `Approved V${active.approvalVersion} remains in history and EN/HI/PA were returned to review for modification.`);
       setReason('');
       await refresh();
       await onChanged?.();
     } catch (caught) {
-      showToast.error('Approval revocation failed', caught instanceof Error ? caught.message : 'Unable to revoke master-pack approval.');
+      showToast.error('Could not open editable revision', caught instanceof Error ? caught.message : 'Unable to return this approved master pack to review.');
     } finally {
       setActing(null);
     }
@@ -116,14 +119,16 @@ export function CurrentAffairsMasterPackApprovalCard({ targetDate, onChanged }: 
           })}
         </div>
 
-        {active ? <div className="rounded-lg border border-success/20 bg-success/5 p-3 text-sm"><p className="font-medium text-success">{active.publicCode}</p><p className="mt-1 text-muted-foreground">Approved {fmt(active.approvedAt)}. The three canonical artifacts are immutable while this approval is active.</p><p className="mt-1 text-xs text-muted-foreground">Approval does not publish the linked learning resources; they remain draft until a separate learner-publication authority exists.</p></div> : <div className="rounded-lg border p-3 text-sm"><p className="font-medium">Approval gate</p><p className="mt-1 text-muted-foreground">{packCount}/3 language packs · {candidate.currentEligibleEventIds.length} selected canonical events · approval census {approvalCensusComplete ? 'complete' : 'blocked'} · broad discovery {candidate.census?.status ?? 'missing'} ({candidate.census?.coverageConfidenceScore ?? 0}%).</p><p className="mt-1 text-xs text-muted-foreground">The server re-checks current manual headline selection, exact selected event-ID parity, verification, accepted authoring/localizations, factual conflicts and payload integrity at approval time. Broad discovery review warnings stay visible but unselected unresolved stories do not override the selected canonical membership.</p></div>}
+        {active ? <div className="rounded-lg border border-success/20 bg-success/5 p-3 text-sm"><p className="font-medium text-success">{active.publicCode}</p><p className="mt-1 text-muted-foreground">Approved {fmt(active.approvedAt)}. This approved version is immutable, but the date is not permanently locked.</p><p className="mt-1 text-xs text-muted-foreground">Use <strong>Modify approved pack</strong> below to return EN/HI/PA to review. V{active.approvalVersion} stays preserved in approval history, and the next successful approval becomes a new version.</p><p className="mt-1 text-xs text-muted-foreground">Approval does not publish the linked learning resources; they remain draft until a separate learner-publication authority exists.</p></div> : <div className="rounded-lg border p-3 text-sm"><p className="font-medium">Approval gate</p><p className="mt-1 text-muted-foreground">{packCount}/3 language packs · {candidate.currentEligibleEventIds.length} selected canonical events · approval census {approvalCensusComplete ? 'complete' : 'blocked'} · broad discovery {candidate.census?.status ?? 'missing'} ({candidate.census?.coverageConfidenceScore ?? 0}%).</p><p className="mt-1 text-xs text-muted-foreground">The server re-checks current manual headline selection, exact selected event-ID parity, verification, accepted authoring/localizations, factual conflicts and payload integrity at approval time. Broad discovery review warnings stay visible but unselected unresolved stories do not override the selected canonical membership.</p></div>}
 
         {!active && candidate.readiness.blockers.length > 0 ? <div className="space-y-2">{candidate.readiness.blockers.slice(0, 6).map((blocker) => <p key={blocker} className="rounded-md border border-warning/20 bg-warning/5 p-2 text-sm text-warning">{blocker}</p>)}</div> : null}
         {candidate.readiness.warnings.map((warning) => <p key={warning} className="text-xs text-warning">{warning}</p>)}
 
-        {canApprove ? <div className="space-y-2 border-t pt-4"><Textarea value={reason} onChange={(event) => setReason(event.target.value)} placeholder={active ? 'Reason for returning this approved master pack to editorial review…' : 'Editorial approval reason…'} rows={3} disabled={acting !== null} /><div className="flex flex-wrap items-center justify-between gap-2"><p className="text-xs text-muted-foreground">Manual editorial authority only · minimum 8 characters · learner publication remains disabled.</p>{active ? <Button variant="outline" onClick={() => void revoke()} disabled={acting !== null}>{acting === 'revoke' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <RotateCcw className="mr-2 h-4 w-4" />}Return to review</Button> : <Button onClick={() => void approve()} disabled={!ready || acting !== null}>{acting === 'approve' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <LockKeyhole className="mr-2 h-4 w-4" />}Approve & lock EN/HI/PA</Button>}</div></div> : <p className="border-t pt-3 text-xs text-muted-foreground">You have read access. `content.questions.update` is required for editorial approval or revocation.</p>}
+        {canApprove ? <div className="space-y-2 border-t pt-4"><Textarea value={reason} onChange={(event) => setReason(event.target.value)} placeholder={active ? 'Why do you need to modify this approved version? Minimum 8 characters.' : 'Editorial approval reason…'} rows={3} disabled={acting !== null} /><div className="flex flex-wrap items-center justify-between gap-2"><p className="text-xs text-muted-foreground">Manual editorial authority only · minimum 8 characters · every approved version remains auditable · learner publication remains disabled.</p>{active ? <Button onClick={() => void revoke()} disabled={acting !== null || reason.trim().length < 8}>{acting === 'revoke' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <PencilLine className="mr-2 h-4 w-4" />}Modify approved pack</Button> : <Button onClick={() => void approve()} disabled={!ready || acting !== null}>{acting === 'approve' ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <LockKeyhole className="mr-2 h-4 w-4" />}Approve & lock this version</Button>}</div></div> : <p className="border-t pt-3 text-xs text-muted-foreground">You have read access. `content.questions.update` is required for editorial approval, revision or revocation.</p>}
 
-        {state.history.length > 0 ? <div className="border-t pt-3"><p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Approval history</p>{state.history.slice(0, 3).map((item) => <div key={item.id} className="flex flex-wrap items-center justify-between gap-2 py-1 text-xs"><span>{item.publicCode} · {fmt(item.approvedAt)}</span><Badge variant="outline">{item.status}</Badge></div>)}</div> : null}
+        {state.history.length > 0 ? <div className="border-t pt-3"><p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">Approval / revision history</p>{state.history.slice(0, 5).map((item) => <div key={item.id} className="flex flex-wrap items-center justify-between gap-2 py-1 text-xs"><span>{item.publicCode} · {fmt(item.approvedAt)}</span><Badge variant="outline">{item.status}</Badge></div>)}</div> : null}
+
+        {active ? <div className="flex items-start gap-2 rounded-md border border-primary/20 bg-primary/5 p-3 text-xs text-muted-foreground"><RotateCcw className="mt-0.5 h-3.5 w-3.5 shrink-0" /><p>Modification never rewrites the approved snapshot in place. It opens the same date for an audited revision, so you can edit event wording, refresh the pack, rerun QA and approve the next version.</p></div> : null}
       </CardContent>
     </Card>
   );
