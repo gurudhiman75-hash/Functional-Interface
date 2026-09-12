@@ -1,7 +1,8 @@
-import { causalPath, hasDirectEdge, nodeById, solveCaeRelationship } from "./causal-solver.ts";
+import { causalPath, nodeById, solveCaeRelationship } from "./causal-solver.ts";
 import { CAE_001_PROJECTION_AUTHORITIES, familyForCae001, materializeCae001World } from "./causal-world-authorities.ts";
 import type {
   CaeCandidateAuthority,
+  CaeCandidateComparison,
   CaeCausalWorld,
   CaeDifficulty,
   CaeDifficultyEvidence,
@@ -12,6 +13,7 @@ import type {
   CaeRenderedOption,
   CaeScenarioFamilyAuthority,
   CaeScenarioVariant,
+  CaeNode,
   CaeVisibleContext,
   GeneratedCaeQuestion,
 } from "./types.ts";
@@ -61,7 +63,7 @@ const COPY: Record<CaeLocale, Readonly<Record<string, string>>> = {
     indirect: "Which relationship between the two events is best supported?",
     correlation: "Which conclusion about these two observations is logically supported?",
     sequence: "Select the causally valid sequence.", missing: "Which event most logically completes the causal sequence?",
-    observation: "Observation", because: "because", directStep: "This is one direct causal step.", matchedFactors: "The correct option matches the timing and scope; the other proposals do not.", competingMatch: "This chain matches the observation's timing, scope, and magnitude.", indirectChain: "The hidden event or events make the first statement an indirect cause of the second.", commonCause: "Both events follow from the same hidden cause", noCausalLink: "The two observations do not establish a causal link", noPathPair: "Neither displayed event lies on a causal path to the other.", separatePaths: "The displayed observations arise on separate causal paths.", missingBridge: "The missing event is the only direct bridge between the shown events.", sequenceSupported: "This order follows the causal chain shown by the events.",
+    observation: "Observation", because: "because", directStep: "This is one direct causal step.", matchedFactors: "This immediate link fits the observation's timing, scope, and magnitude.", competingMatch: "This chain matches the observation's timing, scope, and magnitude.", indirectChain: "The hidden event or events make the first statement an indirect cause of the second.", commonCause: "Both events follow from the same hidden cause", noCausalLink: "The two observations do not establish a causal link", noPathPair: "Neither displayed event lies on a causal path to the other.", separatePaths: "The displayed observations arise on separate causal paths.", missingBridge: "The missing event is the only direct bridge between the shown events.", sequenceSupported: "This order follows the causal chain shown by the events.",
   },
   "hi-IN": {
     relationship: "दोनों कथन पढ़िए और केवल दिखाई गई जानकारी से समर्थित संबंध तय कीजिए।",
@@ -72,7 +74,7 @@ const COPY: Record<CaeLocale, Readonly<Record<string, string>>> = {
     indirect: "दो घटनाओं के बीच कौन-सा संबंध सबसे अच्छी तरह समर्थित है?",
     correlation: "इन दोनों अवलोकनों के बारे में कौन-सा निष्कर्ष तार्किक रूप से समर्थित है?",
     sequence: "कारणात्मक रूप से सही क्रम चुनिए।", missing: "कौन-सी घटना कारणात्मक क्रम को सबसे तार्किक रूप से पूरा करती है?",
-    observation: "अवलोकन", because: "क्योंकि", directStep: "यह एक प्रत्यक्ष कारणात्मक चरण है।", matchedFactors: "सही विकल्प समय और दायरे से मेल खाता है; अन्य प्रस्ताव नहीं।", competingMatch: "यह क्रम अवलोकन के समय, दायरे और परिमाण से मेल खाता है।", indirectChain: "छिपी हुई घटना या घटनाएँ पहले कथन को दूसरे का अप्रत्यक्ष कारण बनाती हैं।", commonCause: "दोनों घटनाएँ एक ही छिपे हुए कारण से उत्पन्न हुई हैं", noCausalLink: "दोनों अवलोकन कारणात्मक संबंध स्थापित नहीं करते", noPathPair: "दिखाई गई कोई भी घटना दूसरी तक जाने वाले कारणात्मक पथ पर नहीं है।", separatePaths: "दिखाई गए अवलोकन अलग कारणात्मक पथों से उत्पन्न होते हैं।", missingBridge: "लुप्त घटना दिखाई गई घटनाओं के बीच एकमात्र प्रत्यक्ष सेतु है।", sequenceSupported: "यह क्रम घटनाओं से बने कारणात्मक क्रम का अनुसरण करता है।",
+    observation: "अवलोकन", because: "क्योंकि", directStep: "यह एक प्रत्यक्ष कारणात्मक चरण है।", matchedFactors: "यह तात्कालिक कड़ी अवलोकन के समय, दायरे और परिमाण से मेल खाती है।", competingMatch: "यह क्रम अवलोकन के समय, दायरे और परिमाण से मेल खाता है।", indirectChain: "छिपी हुई घटना या घटनाएँ पहले कथन को दूसरे का अप्रत्यक्ष कारण बनाती हैं।", commonCause: "दोनों घटनाएँ एक ही छिपे हुए कारण से उत्पन्न हुई हैं", noCausalLink: "दोनों अवलोकन कारणात्मक संबंध स्थापित नहीं करते", noPathPair: "दिखाई गई कोई भी घटना दूसरी तक जाने वाले कारणात्मक पथ पर नहीं है।", separatePaths: "दिखाई गए अवलोकन अलग कारणात्मक पथों से उत्पन्न होते हैं।", missingBridge: "लुप्त घटना दिखाई गई घटनाओं के बीच एकमात्र प्रत्यक्ष सेतु है।", sequenceSupported: "यह क्रम घटनाओं से बने कारणात्मक क्रम का अनुसरण करता है।",
   },
   "pa-IN": {
     relationship: "ਦੋਵੇਂ ਕਥਨ ਪੜ੍ਹੋ ਅਤੇ ਕੇਵਲ ਦਿਖਾਈ ਗਈ ਜਾਣਕਾਰੀ ਤੋਂ ਸਮਰਥਿਤ ਸੰਬੰਧ ਨਿਰਧਾਰਤ ਕਰੋ।",
@@ -83,7 +85,7 @@ const COPY: Record<CaeLocale, Readonly<Record<string, string>>> = {
     indirect: "ਦੋ ਘਟਨਾਵਾਂ ਵਿਚਕਾਰ ਕਿਹੜਾ ਸੰਬੰਧ ਸਭ ਤੋਂ ਵਧੀਆ ਸਮਰਥਿਤ ਹੈ?",
     correlation: "ਇਨ੍ਹਾਂ ਦੋਵਾਂ ਨਿਰੀਖਣਾਂ ਬਾਰੇ ਕਿਹੜਾ ਨਤੀਜਾ ਤਰਕਸੰਗਤ ਤੌਰ ਤੇ ਸਮਰਥਿਤ ਹੈ?",
     sequence: "ਕਾਰਨਾਤਮਕ ਤੌਰ ਤੇ ਸਹੀ ਕ੍ਰਮ ਚੁਣੋ।", missing: "ਕਿਹੜੀ ਘਟਨਾ ਕਾਰਨਾਤਮਕ ਕ੍ਰਮ ਨੂੰ ਸਭ ਤੋਂ ਤਰਕਸੰਗਤ ਢੰਗ ਨਾਲ ਪੂਰਾ ਕਰਦੀ ਹੈ?",
-    observation: "ਨਿਰੀਖਣ", because: "ਕਿਉਂਕਿ", directStep: "ਇਹ ਇੱਕ ਸਿੱਧਾ ਕਾਰਨਾਤਮਕ ਪੜਾਅ ਹੈ।", matchedFactors: "ਸਹੀ ਵਿਕਲਪ ਸਮੇਂ ਅਤੇ ਦਾਇਰੇ ਨਾਲ ਮੇਲ ਖਾਂਦਾ ਹੈ; ਹੋਰ ਪ੍ਰਸਤਾਵ ਨਹੀਂ।", competingMatch: "ਇਹ ਕੜੀ ਨਿਰੀਖਣ ਦੇ ਸਮੇਂ, ਦਾਇਰੇ ਅਤੇ ਪੈਮਾਨੇ ਨਾਲ ਮੇਲ ਖਾਂਦੀ ਹੈ।", indirectChain: "ਲੁਕੀ ਹੋਈ ਘਟਨਾ ਜਾਂ ਘਟਨਾਵਾਂ ਪਹਿਲੇ ਕਥਨ ਨੂੰ ਦੂਜੇ ਦਾ ਅਪ੍ਰਤੱਖ ਕਾਰਨ ਬਣਾਉਂਦੀਆਂ ਹਨ।", commonCause: "ਦੋਵੇਂ ਘਟਨਾਵਾਂ ਇੱਕੋ ਲੁਕੇ ਹੋਏ ਕਾਰਨ ਤੋਂ ਪੈਦਾ ਹੁੰਦੀਆਂ ਹਨ", noCausalLink: "ਦੋਵੇਂ ਨਿਰੀਖਣ ਕਾਰਨਾਤਮਕ ਸੰਬੰਧ ਸਥਾਪਤ ਨਹੀਂ ਕਰਦੇ", noPathPair: "ਦਿਖਾਈ ਗਈ ਕੋਈ ਵੀ ਘਟਨਾ ਦੂਜੀ ਤੱਕ ਜਾਂਦੇ ਕਾਰਨਾਤਮਕ ਰਸਤੇ ਉੱਤੇ ਨਹੀਂ ਹੈ।", separatePaths: "ਦਿਖਾਏ ਗਏ ਨਿਰੀਖਣ ਵੱਖਰੇ ਕਾਰਨਾਤਮਕ ਰਸਤਿਆਂ ਤੋਂ ਪੈਦਾ ਹੁੰਦੇ ਹਨ।", missingBridge: "ਲਾਪਤਾ ਘਟਨਾ ਦਿਖਾਈਆਂ ਘਟਨਾਵਾਂ ਦਰਮਿਆਨ ਇਕੋ ਸਿੱਧਾ ਪੁਲ ਹੈ।", sequenceSupported: "ਇਹ ਕ੍ਰਮ ਘਟਨਾਵਾਂ ਨਾਲ ਬਣੇ ਕਾਰਨਾਤਮਕ ਕ੍ਰਮ ਦੀ ਪਾਲਣਾ ਕਰਦਾ ਹੈ।",
+    observation: "ਨਿਰੀਖਣ", because: "ਕਿਉਂਕਿ", directStep: "ਇਹ ਇੱਕ ਸਿੱਧਾ ਕਾਰਨਾਤਮਕ ਪੜਾਅ ਹੈ।", matchedFactors: "ਇਹ ਤੁਰੰਤ ਕੜੀ ਨਿਰੀਖਣ ਦੇ ਸਮੇਂ, ਦਾਇਰੇ ਅਤੇ ਪੈਮਾਨੇ ਨਾਲ ਮੇਲ ਖਾਂਦੀ ਹੈ।", competingMatch: "ਇਹ ਕੜੀ ਨਿਰੀਖਣ ਦੇ ਸਮੇਂ, ਦਾਇਰੇ ਅਤੇ ਪੈਮਾਨੇ ਨਾਲ ਮੇਲ ਖਾਂਦੀ ਹੈ।", indirectChain: "ਲੁਕੀ ਹੋਈ ਘਟਨਾ ਜਾਂ ਘਟਨਾਵਾਂ ਪਹਿਲੇ ਕਥਨ ਨੂੰ ਦੂਜੇ ਦਾ ਅਪ੍ਰਤੱਖ ਕਾਰਨ ਬਣਾਉਂਦੀਆਂ ਹਨ।", commonCause: "ਦੋਵੇਂ ਘਟਨਾਵਾਂ ਇੱਕੋ ਲੁਕੇ ਹੋਏ ਕਾਰਨ ਤੋਂ ਪੈਦਾ ਹੁੰਦੀਆਂ ਹਨ", noCausalLink: "ਦੋਵੇਂ ਨਿਰੀਖਣ ਕਾਰਨਾਤਮਕ ਸੰਬੰਧ ਸਥਾਪਤ ਨਹੀਂ ਕਰਦੇ", noPathPair: "ਦਿਖਾਈ ਗਈ ਕੋਈ ਵੀ ਘਟਨਾ ਦੂਜੀ ਤੱਕ ਜਾਂਦੇ ਕਾਰਨਾਤਮਕ ਰਸਤੇ ਉੱਤੇ ਨਹੀਂ ਹੈ।", separatePaths: "ਦਿਖਾਏ ਗਏ ਨਿਰੀਖਣ ਵੱਖਰੇ ਕਾਰਨਾਤਮਕ ਰਸਤਿਆਂ ਤੋਂ ਪੈਦਾ ਹੁੰਦੇ ਹਨ।", missingBridge: "ਲਾਪਤਾ ਘਟਨਾ ਦਿਖਾਈਆਂ ਘਟਨਾਵਾਂ ਦਰਮਿਆਨ ਇਕੋ ਸਿੱਧਾ ਪੁਲ ਹੈ।", sequenceSupported: "ਇਹ ਕ੍ਰਮ ਘਟਨਾਵਾਂ ਨਾਲ ਬਣੇ ਕਾਰਨਾਤਮਕ ਕ੍ਰਮ ਦੀ ਪਾਲਣਾ ਕਰਦਾ ਹੈ।",
   },
 };
 
@@ -133,6 +135,7 @@ type SelectedState = Readonly<{
   world: CaeCausalWorld;
   selectionSeed: number;
 }>;
+type CandidateTargetRelation = "CAUSE_OF_TARGET" | "EFFECT_OF_TARGET" | "BRIDGE_TO_TARGET";
 
 function selectState(qlId: CaeProjectionAuthority["qlId"], seed: number): SelectedState {
   const plan = CAE_001_PROJECTION_AUTHORITIES.find((entry) => entry.qlId === qlId);
@@ -154,12 +157,12 @@ function rootToLeafPaths(world: CaeCausalWorld): readonly (readonly string[])[] 
   return roots.flatMap((root) => leaves.map((leaf) => causalPath(world, root.id, leaf.id)).filter((path): path is string[] => Boolean(path && path.length >= 3)));
 }
 
-function contextFor(family: CaeScenarioFamilyAuthority, variant: CaeScenarioVariant, world: CaeCausalWorld, locale: CaeLocale, visibleNodeIds: readonly string[]): CaeVisibleContext {
+function contextFor(family: CaeScenarioFamilyAuthority, variant: CaeScenarioVariant, world: CaeCausalWorld, locale: CaeLocale, visibleNodeIds: readonly string[], includeBackdrop = false): CaeVisibleContext {
   const hiddenNodeIds = world.nodes.filter((node) => !visibleNodeIds.includes(node.id)).map((node) => node.id);
-  if (family.renderingConstraints.contextMustBeNeutral && visibleNodeIds.some((id) => variant.backdrop[locale].includes(nodeById(world, id).text[locale]))) {
+  if (includeBackdrop && family.renderingConstraints.contextMustBeNeutral && visibleNodeIds.some((id) => variant.backdrop[locale].includes(nodeById(world, id).text[locale]))) {
     throw new Error(`${world.id}: backdrop leaks a visible event instead of providing a neutral setting.`);
   }
-  return { backdrop: variant.backdrop[locale], visibleNodeIds, hiddenNodeIds };
+  return { backdrop: includeBackdrop ? variant.backdrop[locale] : null, visibleNodeIds, hiddenNodeIds };
 }
 
 function renderTrace(world: CaeCausalWorld, locale: CaeLocale, nodeIds: readonly string[]): string {
@@ -175,13 +178,143 @@ function relationshipOptions(locale: CaeLocale, profile: CaeQuestionProfile, rel
   return shuffled(ids.map((id) => ({ id, text: RELATION_OPTION_TEXT[locale][id]!, isCorrect: id === answerId, distractorRole: roleFor(id) })), seed);
 }
 
-function candidateOptions(correctId: string, correctText: string, candidates: readonly CaeCandidateAuthority[], locale: CaeLocale, seed: number): readonly CaeRenderedOption[] {
-  const distinct = candidates.filter((entry, index, list) => list.findIndex((other) => other.text[locale] === entry.text[locale]) === index).slice(0, 3);
-  if (distinct.length !== 3) throw new Error("CAE-001: a generated candidate set needs three distinct, scenario-local distractors.");
-  return shuffled([
+const SCOPE_RANK = { PERSON: 0, SITE: 1, LOCAL: 2, CITY: 3, REGIONAL: 4 } as const;
+const MAGNITUDE_RANK = { LOW: 0, MODERATE: 1, HIGH: 2 } as const;
+const scopeByRank = (rank: number): keyof typeof SCOPE_RANK => (Object.keys(SCOPE_RANK) as (keyof typeof SCOPE_RANK)[]).find((entry) => SCOPE_RANK[entry] === Math.max(0, Math.min(4, rank)))!;
+const magnitudeByRank = (rank: number): keyof typeof MAGNITUDE_RANK => (Object.keys(MAGNITUDE_RANK) as (keyof typeof MAGNITUDE_RANK)[]).find((entry) => MAGNITUDE_RANK[entry] === Math.max(0, Math.min(2, rank)))!;
+
+function interpolateCandidateTemplate(template: string, target: CaeNode, variant: CaeScenarioVariant, relation: CandidateTargetRelation, locale: CaeLocale): string {
+  const isEffect = relation === "EFFECT_OF_TARGET";
+  const relationCopy = locale === "en-IN"
+    ? { relativeTime: isEffect ? "after" : "before", reverseRelation: isEffect ? "before" : "after", temporalRelation: isEffect ? "well after" : "well before", indirectDistance: isEffect ? "after" : "before" }
+    : locale === "hi-IN"
+    ? { relativeTime: isEffect ? "के बाद" : "से पहले", reverseRelation: isEffect ? "से पहले" : "के बाद", temporalRelation: isEffect ? "के काफी बाद" : "से काफी पहले", indirectDistance: isEffect ? "के दो चरण बाद" : "से दो चरण पहले" }
+    : { relativeTime: isEffect ? "ਤੋਂ ਬਾਅਦ" : "ਤੋਂ ਪਹਿਲਾਂ", reverseRelation: isEffect ? "ਤੋਂ ਪਹਿਲਾਂ" : "ਤੋਂ ਬਾਅਦ", temporalRelation: isEffect ? "ਤੋਂ ਕਾਫ਼ੀ ਬਾਅਦ" : "ਤੋਂ ਕਾਫ਼ੀ ਪਹਿਲਾਂ", indirectDistance: isEffect ? "ਤੋਂ ਦੋ ਪੜਾਅ ਬਾਅਦ" : "ਤੋਂ ਦੋ ਪੜਾਅ ਪਹਿਲਾਂ" };
+  return template
+    .replaceAll("{target}", target.text[locale].replace(/[.।]+$/u, ""))
+    .replaceAll("{anchor}", variant.distractorAnchor[locale])
+    .replaceAll("{relativeTime}", relationCopy.relativeTime)
+    .replaceAll("{reverseRelation}", relationCopy.reverseRelation)
+    .replaceAll("{temporalRelation}", relationCopy.temporalRelation)
+    .replaceAll("{indirectDistance}", relationCopy.indirectDistance);
+}
+
+function candidateFromRule(rule: CaeScenarioFamilyAuthority["distractorRules"][number], reference: CaeNode, target: CaeNode, variant: CaeScenarioVariant, relation: CandidateTargetRelation): CaeCandidateAuthority {
+  const isEffect = relation === "EFFECT_OF_TARGET";
+  const timingBase = rule.timingAnchor === "TARGET" ? target.temporalOrder : reference.temporalOrder;
+  const temporalOrder = isEffect && rule.mechanism === "REVERSE_CAUSATION"
+    ? Math.max(0, target.temporalOrder - 1)
+    : isEffect && rule.mechanism === "TEMPORAL_VIOLATION"
+    ? reference.temporalOrder + Math.abs(rule.temporalOffset)
+    : isEffect && (rule.mechanism === "INDIRECTNESS_CONFUSION" || rule.mechanism === "COMMON_CAUSE_CONFUSION")
+    ? reference.temporalOrder + 1
+    : Math.max(0, timingBase + rule.temporalOffset);
+  return {
+    id: `${target.id}:candidate:${rule.id}`,
+    text: {
+      "en-IN": interpolateCandidateTemplate(rule.text["en-IN"], target, variant, relation, "en-IN"),
+      "hi-IN": interpolateCandidateTemplate(rule.text["hi-IN"], target, variant, relation, "hi-IN"),
+      "pa-IN": interpolateCandidateTemplate(rule.text["pa-IN"], target, variant, relation, "pa-IN"),
+    },
+    mechanism: rule.mechanism,
+    source: "SCENARIO_RULE",
+    temporalOrder,
+    scope: scopeByRank(SCOPE_RANK[target.scope] + rule.scopeShift),
+    magnitude: magnitudeByRank(MAGNITUDE_RANK[target.magnitude] + rule.magnitudeShift),
+    severity: magnitudeByRank(MAGNITUDE_RANK[target.severity] + rule.severityShift),
+    causalDistance: rule.causalDistance,
+  };
+}
+
+function compareCandidate(reference: CaeNode, target: CaeNode, candidate: CaeCandidateAuthority, relation: CandidateTargetRelation): CaeCandidateComparison | null {
+  const timingGap = Math.abs(candidate.temporalOrder - target.temporalOrder);
+  const expectedTimingGap = Math.abs(candidate.temporalOrder - reference.temporalOrder);
+  const scopeGap = Math.abs(SCOPE_RANK[candidate.scope] - SCOPE_RANK[target.scope]);
+  const magnitudeGap = Math.abs(MAGNITUDE_RANK[candidate.magnitude] - MAGNITUDE_RANK[target.magnitude]);
+  const severityGap = Math.abs(MAGNITUDE_RANK[candidate.severity] - MAGNITUDE_RANK[target.severity]);
+  const isEffect = relation === "EFFECT_OF_TARGET";
+  const mechanismValid = candidate.mechanism === "REVERSE_CAUSATION"
+    ? isEffect ? candidate.temporalOrder < target.temporalOrder : candidate.temporalOrder > target.temporalOrder
+    : candidate.mechanism === "TEMPORAL_VIOLATION"
+    ? isEffect ? candidate.temporalOrder > reference.temporalOrder : candidate.temporalOrder < reference.temporalOrder
+    : candidate.mechanism === "WEAK_CAUSE"
+    ? MAGNITUDE_RANK[candidate.magnitude] < MAGNITUDE_RANK[target.magnitude] || MAGNITUDE_RANK[candidate.severity] < MAGNITUDE_RANK[target.severity]
+    : candidate.mechanism === "WRONG_SCOPE"
+    ? scopeGap > 0
+    : candidate.mechanism === "MAGNITUDE_MISMATCH"
+    ? magnitudeGap > 0 || severityGap > 0
+    : candidate.mechanism === "INDIRECTNESS_CONFUSION"
+    ? (candidate.causalDistance ?? 0) > 1
+    : true;
+  if (!mechanismValid) return null;
+  const mismatchPenalty = expectedTimingGap + scopeGap + magnitudeGap + severityGap + Math.max(0, (candidate.causalDistance ?? 1) - 1);
+  const plausibilityBurden = Math.max(0, 7 - mismatchPenalty);
+  if (expectedTimingGap === 0 && scopeGap === 0 && magnitudeGap === 0 && severityGap === 0 && (candidate.causalDistance === null || candidate.causalDistance === 1)) return null;
+  return {
+    candidateId: candidate.id,
+    mechanism: candidate.mechanism,
+    expectedRelation: relation,
+    candidateTemporalOrder: candidate.temporalOrder,
+    targetTemporalOrder: target.temporalOrder,
+    referenceTemporalOrder: reference.temporalOrder,
+    candidateScope: candidate.scope,
+    targetScope: target.scope,
+    candidateMagnitude: candidate.magnitude,
+    targetMagnitude: target.magnitude,
+    candidateSeverity: candidate.severity,
+    targetSeverity: target.severity,
+    timingGap,
+    expectedTimingGap,
+    scopeGap,
+    magnitudeGap,
+    severityGap,
+    causalDistance: candidate.causalDistance,
+    plausibilityBurden,
+    rejectionReason: candidate.mechanism === "REVERSE_CAUSATION" || candidate.mechanism === "TEMPORAL_VIOLATION"
+      ? "its timing is incompatible with the observation"
+      : candidate.mechanism === "WRONG_SCOPE"
+      ? "its scope does not match the observation"
+      : candidate.mechanism === "WEAK_CAUSE" || candidate.mechanism === "MAGNITUDE_MISMATCH"
+      ? "its magnitude or severity does not explain the observation"
+      : "it is not the immediate causal link required by the question",
+  };
+}
+
+function candidateOptions(
+  family: CaeScenarioFamilyAuthority,
+  variant: CaeScenarioVariant,
+  reference: CaeNode,
+  target: CaeNode,
+  relation: CandidateTargetRelation,
+  correctId: string,
+  correctText: string,
+  locale: CaeLocale,
+  seed: number,
+): Readonly<{ options: readonly CaeRenderedOption[]; comparisons: readonly CaeCandidateComparison[]; plausibilityBurden: number }> {
+  const pool = family.distractorRules
+    .map((rule) => candidateFromRule(rule, reference, target, variant, relation))
+    .map((candidate) => ({ candidate, comparison: compareCandidate(reference, target, candidate, relation) }))
+    .filter((entry): entry is { candidate: CaeCandidateAuthority; comparison: CaeCandidateComparison } => entry.comparison !== null);
+  if (pool.length < 4) throw new Error(`${family.id}/${target.id}: insufficient target-relative distractor pool.`);
+  const targetBand = mix32(seed ^ hashText(target.id)) % 3;
+  const ranked = [...pool].sort((left, right) => targetBand === 0
+    ? left.comparison.plausibilityBurden - right.comparison.plausibilityBurden
+    : targetBand === 1
+    ? Math.abs(left.comparison.plausibilityBurden - 3) - Math.abs(right.comparison.plausibilityBurden - 3)
+    : right.comparison.plausibilityBurden - left.comparison.plausibilityBurden);
+  const rotation = mix32(seed ^ hashText(`${reference.id}:${target.id}`)) % ranked.length;
+  const rotated = [...ranked.slice(rotation), ...ranked.slice(0, rotation)];
+  const selected: { candidate: CaeCandidateAuthority; comparison: CaeCandidateComparison }[] = [];
+  for (const entry of rotated) {
+    if (!selected.some((chosen) => chosen.candidate.mechanism === entry.candidate.mechanism)) selected.push(entry);
+    if (selected.length === 3) break;
+  }
+  if (selected.length !== 3) throw new Error(`${family.id}/${target.id}: cannot form a distinct misconception mix.`);
+  const options = shuffled([
     { id: correctId, text: correctText, isCorrect: true },
-    ...distinct.map((entry) => ({ id: entry.id, text: entry.text[locale], isCorrect: false, distractorRole: entry.mechanism })),
-  ], seed);
+    ...selected.map(({ candidate }) => ({ id: candidate.id, text: candidate.text[locale], isCorrect: false, distractorRole: candidate.mechanism })),
+  ], seed ^ 0x4e67);
+  return { options, comparisons: selected.map((entry) => entry.comparison), plausibilityBurden: selected.reduce((sum, entry) => sum + entry.comparison.plausibilityBurden, 0) };
 }
 
 function deriveDifficulty(input: {
@@ -189,14 +322,17 @@ function deriveDifficulty(input: {
   visibleNodeIds: readonly string[];
   topology: CaeScenarioFamilyAuthority["topology"];
   plausibleDistractors: number;
+  candidatePlausibilityBurden: number;
   inferenceBurden: number;
 }): { difficulty: CaeDifficulty; evidence: CaeDifficultyEvidence } {
   const causalDistance = Math.max(0, input.path.length - 1);
   const hiddenLinks = Math.max(0, input.path.filter((nodeId) => !input.visibleNodeIds.includes(nodeId)).length);
-  const topologyComplexity = input.topology === "DIRECT_CHAIN" ? 1 : input.topology === "PARALLEL_CHAINS" ? 2 : input.topology === "BRANCHING_COMMON_CAUSE" ? 2 : 3;
-  const score = causalDistance + hiddenLinks * 2 + topologyComplexity + input.plausibleDistractors + input.visibleNodeIds.length + input.inferenceBurden;
-  const difficulty: CaeDifficulty = score >= 13 ? "HARD" : score >= 8 ? "MEDIUM" : "EASY";
-  return { difficulty, evidence: { causalDistance, hiddenLinks, topologyComplexity, plausibleDistractors: input.plausibleDistractors, visibleEventCount: input.visibleNodeIds.length, inferenceBurden: input.inferenceBurden, score } };
+  const topologyComplexity = input.topology === "DIRECT_CHAIN" ? 1 : input.topology === "PARALLEL_CHAINS" ? 2 : input.topology === "BRANCHING_COMMON_CAUSE" ? 2 : 4;
+  // The raw burden remains auditable, but it is normalized for difficulty so
+  // three plausible alternatives do not make every otherwise-simple item hard.
+  const score = causalDistance + hiddenLinks * 2 + topologyComplexity + input.plausibleDistractors + Math.ceil(input.candidatePlausibilityBurden / 3) + input.visibleNodeIds.length + input.inferenceBurden;
+  const difficulty: CaeDifficulty = score >= 17 ? "HARD" : score >= 9 ? "MEDIUM" : "EASY";
+  return { difficulty, evidence: { causalDistance, hiddenLinks, topologyComplexity, plausibleDistractors: input.plausibleDistractors, candidatePlausibilityBurden: input.candidatePlausibilityBurden, visibleEventCount: input.visibleNodeIds.length, inferenceBurden: input.inferenceBurden, score } };
 }
 
 function answerDetails(options: readonly CaeRenderedOption[]) {
@@ -209,11 +345,12 @@ function relationshipStem(kind: "DIRECT_RELATIONSHIP" | "COMMON_OR_INDEPENDENT" 
   const copy = COPY[locale];
   const prompt = kind === "INDIRECT_CAUSAL_CHAIN" ? copy.indirect : kind === "CORRELATION_CHECK" ? copy.correlation : copy.relationship;
   const [first, second] = context.visibleNodeIds;
-  return `${prompt}\n\n${copy.situation}: ${context.backdrop}\n\n${copy.statementOne}: ${nodeById(world, first!).text[locale]}\n\n${copy.statementTwo}: ${nodeById(world, second!).text[locale]}`;
+  const setting = context.backdrop ? `${copy.situation}: ${context.backdrop}\n\n` : "";
+  return `${prompt}\n\n${setting}${copy.statementOne}: ${nodeById(world, first!).text[locale]}\n\n${copy.statementTwo}: ${nodeById(world, second!).text[locale]}`;
 }
 
-function semanticId(plan: CaeProjectionAuthority, state: SelectedState, visibleNodeIds: readonly string[], answerId: string): string {
-  return [plan.id, state.family.id, state.variant.id, ...visibleNodeIds.map((id) => nodeById(state.world, id).semanticSlot), answerId].join("|");
+function semanticId(plan: CaeProjectionAuthority, state: SelectedState, visibleNodeIds: readonly string[], answerId: string, distractorIds: readonly string[]): string {
+  return [plan.id, state.family.id, state.variant.id, ...visibleNodeIds.map((id) => nodeById(state.world, id).semanticSlot), answerId, `distractors:${[...distractorIds].sort().join(",")}`].join("|");
 }
 
 export function generateCaeQuestion(input: {
@@ -237,6 +374,15 @@ export function generateCaeQuestion(input: {
   let trace: readonly string[] = [];
   let questionProfile: CaeQuestionProfile | null = null;
   let inferenceBurden = 0;
+  let candidateComparisons: readonly CaeCandidateComparison[] = [];
+  let candidatePlausibilityBurden = 0;
+  const installCandidateOptions = (reference: CaeNode, target: CaeNode, relation: CandidateTargetRelation) => {
+    const rendered = candidateOptions(family, variant, reference, target, relation, reference.id, reference.text[locale], locale, mix32(optionSeed ^ input.seed));
+    options = rendered.options;
+    candidateComparisons = rendered.comparisons;
+    candidatePlausibilityBurden = rendered.plausibilityBurden;
+    answerId = answerDetails(options).answerId;
+  };
 
   if (plan.kind === "DIRECT_RELATIONSHIP") {
     const pair = pick(directPairs(world), selectionSeed, "direct pair");
@@ -248,7 +394,7 @@ export function generateCaeQuestion(input: {
     trace = relationship === "FIRST_DIRECT_CAUSES_SECOND" ? [visibleNodeIds[0]!, visibleNodeIds[1]!] : [visibleNodeIds[1]!, visibleNodeIds[0]!];
     const context = contextFor(family, variant, world, locale, visibleNodeIds);
     stem = relationshipStem("DIRECT_RELATIONSHIP", context, world, locale);
-    explanation = `${renderTrace(world, locale, trace)} ${copy.because} ${copy.directStep}`;
+    explanation = `${renderTrace(world, locale, trace)}. ${copy.directStep}`;
     questionProfile = profile;
   } else if (plan.kind === "COMMON_OR_INDEPENDENT") {
     const effects = world.nodes.filter((node) => node.role === "EFFECT");
@@ -265,7 +411,7 @@ export function generateCaeQuestion(input: {
       ? world.nodes.filter((node) => causalPath(world, node.id, visibleNodeIds[0]!) && causalPath(world, node.id, visibleNodeIds[1]!)).slice(0, 1).map((node) => node.id)
       : visibleNodeIds;
     explanation = relationship === "COMMON_CAUSE"
-      ? `${renderTrace(world, locale, trace)} → ${nodeById(world, visibleNodeIds[0]!).text[locale]} / ${nodeById(world, visibleNodeIds[1]!).text[locale]}. ${copy.commonCause}.`
+      ? `${renderTrace(world, locale, trace)} → ${nodeById(world, visibleNodeIds[0]!).text[locale].replace(/[.।]+$/u, "")} / ${nodeById(world, visibleNodeIds[1]!).text[locale].replace(/[.।]+$/u, "")}. ${copy.commonCause}.`
       : `${copy.noCausalLink}. ${copy.noPathPair}`;
     questionProfile = profile;
     inferenceBurden = relationship === "COMMON_CAUSE" ? 2 : 1;
@@ -275,24 +421,20 @@ export function generateCaeQuestion(input: {
     const correctNodeId = plan.kind === "PROBABLE_CAUSE" ? pair[0] : pair[1];
     const targetNodeId = plan.kind === "PROBABLE_CAUSE" ? pair[1] : pair[0];
     visibleNodeIds = [targetNodeId];
-    options = candidateOptions(correctNodeId, nodeById(world, correctNodeId).text[locale], variant.competingCandidates, locale, optionSeed);
-    answerId = answerDetails(options).answerId;
+    installCandidateOptions(nodeById(world, correctNodeId), nodeById(world, targetNodeId), plan.kind === "PROBABLE_CAUSE" ? "CAUSE_OF_TARGET" : "EFFECT_OF_TARGET");
     trace = plan.kind === "PROBABLE_CAUSE" ? [correctNodeId, targetNodeId] : [targetNodeId, correctNodeId];
-    const context = contextFor(family, variant, world, locale, visibleNodeIds);
-    stem = `${copy.situation}: ${context.backdrop}\n\n${copy.observation}: ${nodeById(world, targetNodeId).text[locale]}\n\n${plan.kind === "PROBABLE_CAUSE" ? copy.probableCause : copy.probableEffect}`;
+    stem = `${copy.observation}: ${nodeById(world, targetNodeId).text[locale]}\n\n${plan.kind === "PROBABLE_CAUSE" ? copy.probableCause : copy.probableEffect}`;
     explanation = `${renderTrace(world, locale, trace)}. ${copy.matchedFactors}`;
-    inferenceBurden = 2;
+    inferenceBurden = 1 + Math.floor(candidatePlausibilityBurden / 7);
   } else if (plan.kind === "COMPETING_EXPLANATION") {
     const paths = rootToLeafPaths(world);
     const path = pick(paths, selectionSeed, "competing explanation path");
     const correctNodeId = path[0]!;
     const targetNodeId = path[path.length - 1]!;
     visibleNodeIds = [targetNodeId];
-    options = candidateOptions(correctNodeId, nodeById(world, correctNodeId).text[locale], variant.competingCandidates, locale, optionSeed);
-    answerId = answerDetails(options).answerId;
+    installCandidateOptions(nodeById(world, correctNodeId), nodeById(world, targetNodeId), "CAUSE_OF_TARGET");
     trace = path;
-    const context = contextFor(family, variant, world, locale, visibleNodeIds);
-    stem = `${copy.situation}: ${context.backdrop}\n\n${copy.observation}: ${nodeById(world, targetNodeId).text[locale]}\n\n${copy.competing}`;
+    stem = `${copy.observation}: ${nodeById(world, targetNodeId).text[locale]}\n\n${copy.competing}`;
     explanation = `${renderTrace(world, locale, trace)}. ${copy.competingMatch}`;
     inferenceBurden = 4;
   } else if (plan.kind === "INDIRECT_CAUSAL_CHAIN") {
@@ -326,8 +468,7 @@ export function generateCaeQuestion(input: {
     options = shuffled(alternatives.map((candidate, index) => ({ id: candidate.join("|"), text: renderTrace(world, locale, candidate), isCorrect: candidate.join("|") === answer, distractorRole: candidate.join("|") === answer ? undefined : index === 1 ? "TEMPORAL_VIOLATION" as const : index === 2 ? "REVERSE_CAUSATION" as const : "INDIRECTNESS_CONFUSION" as const })), optionSeed);
     answerId = answer;
     trace = sequence;
-    const context = contextFor(family, variant, world, locale, visibleNodeIds);
-    stem = `${copy.sequence}\n\n${copy.situation}: ${context.backdrop}\n\n${sequence.map((nodeId, index) => `${String.fromCharCode(80 + index)}. ${nodeById(world, nodeId).text[locale]}`).join("\n")}`;
+    stem = `${copy.sequence}\n\n${sequence.map((nodeId, index) => `${String.fromCharCode(80 + index)}. ${nodeById(world, nodeId).text[locale]}`).join("\n")}`;
     explanation = `${renderTrace(world, locale, sequence)}. ${copy.sequenceSupported}`;
     inferenceBurden = 3;
   } else if (plan.kind === "MISSING_CAUSAL_LINK") {
@@ -337,13 +478,11 @@ export function generateCaeQuestion(input: {
     const middle = path[start + 1]!;
     const target = path[start + 2]!;
     visibleNodeIds = [source, target];
-    options = candidateOptions(middle, nodeById(world, middle).text[locale], variant.competingCandidates, locale, optionSeed);
-    answerId = answerDetails(options).answerId;
+    installCandidateOptions(nodeById(world, middle), nodeById(world, target), "BRIDGE_TO_TARGET");
     trace = [source, middle, target];
-    const context = contextFor(family, variant, world, locale, visibleNodeIds);
-    stem = `${copy.missing}\n\n${copy.situation}: ${context.backdrop}\n\n${nodeById(world, source).text[locale]} → ? → ${nodeById(world, target).text[locale]}`;
+    stem = `${copy.missing}\n\n${nodeById(world, source).text[locale]} → ? → ${nodeById(world, target).text[locale]}`;
     explanation = `${renderTrace(world, locale, trace)}. ${copy.missingBridge}`;
-    inferenceBurden = 3;
+    inferenceBurden = 1 + Math.floor(candidatePlausibilityBurden / 8);
   } else {
     const unreachable: never = plan.kind;
     throw new Error(`Unsupported CAE-001 projection '${unreachable}'.`);
@@ -353,10 +492,10 @@ export function generateCaeQuestion(input: {
   if (family.renderingConstraints.prohibitAnswerInStem && plan.kind !== "DIRECT_RELATIONSHIP" && plan.kind !== "COMMON_OR_INDEPENDENT" && plan.kind !== "INDIRECT_CAUSAL_CHAIN" && plan.kind !== "CORRELATION_CHECK" && stem.includes(options.find((option) => option.isCorrect)!.text)) {
     throw new Error(`${world.id}: answer text leaked into the learner-visible stem.`);
   }
-  if (family.renderingConstraints.prohibitIndependenceCue && (plan.kind === "COMMON_OR_INDEPENDENT" || plan.kind === "CORRELATION_CHECK") && /separate|independent|अलग-अलग|स्वतंत्र|ਵੱਖਰੇ|ਸੁਤੰਤਰ/i.test(visibleContext.backdrop)) {
+  if (family.renderingConstraints.prohibitIndependenceCue && visibleContext.backdrop && (plan.kind === "COMMON_OR_INDEPENDENT" || plan.kind === "CORRELATION_CHECK") && /separate|independent|अलग-अलग|स्वतंत्र|ਵੱਖਰੇ|ਸੁਤੰਤਰ/i.test(visibleContext.backdrop)) {
     throw new Error(`${world.id}: backdrop leaks the relationship answer.`);
   }
-  const derived = deriveDifficulty({ path: trace, visibleNodeIds, topology: family.topology, plausibleDistractors: options.filter((option) => !option.isCorrect && option.distractorRole && option.distractorRole !== "UNRELATED_EVENT").length, inferenceBurden });
+  const derived = deriveDifficulty({ path: trace, visibleNodeIds, topology: family.topology, plausibleDistractors: options.filter((option) => !option.isCorrect && option.distractorRole && option.distractorRole !== "UNRELATED_EVENT").length, candidatePlausibilityBurden, inferenceBurden });
   const details = answerDetails(options);
   return {
     chapterId: "CAE-001",
@@ -365,7 +504,7 @@ export function generateCaeQuestion(input: {
     projectionId: plan.id,
     scenarioFamilyId: family.id,
     scenarioVariantId: variant.id,
-    semanticInstanceId: semanticId(plan, state, visibleNodeIds, answerId),
+    semanticInstanceId: semanticId(plan, state, visibleNodeIds, answerId, candidateComparisons.map((candidate) => candidate.candidateId)),
     causalWorldId: world.id,
     causalStructure: `${family.topology}:${trace.map((nodeId) => nodeById(world, nodeId).semanticSlot).join(">")}`,
     locale,
@@ -381,6 +520,7 @@ export function generateCaeQuestion(input: {
     explanation,
     causalTrace: trace,
     distractorMechanisms: options.flatMap((option) => option.distractorRole ? [option.distractorRole] : []),
+    candidateComparisons,
     optionMetadata: options,
     metadata: { solver: "CAE_CAUSAL_WORLD_SOLVER_V3", sourceMode: "CURATED_COMPOSABLE_SCENARIO", qlAllocation: "PROVISIONAL_PENDING_SOURCE_SATURATION", reviewOnly: true, questionBankWritable: false, testEligible: false, mockEligible: false, publicEligible: false },
   };

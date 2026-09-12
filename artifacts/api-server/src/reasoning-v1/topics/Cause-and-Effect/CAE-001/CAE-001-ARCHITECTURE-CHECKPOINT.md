@@ -15,7 +15,7 @@ provisional checkpoint/QL plan
   → compatible scenario family
   → variant + graph-substructure selection from seed
   → canonical causal world (all nodes, edges, alternatives)
-  → question-visible context (backdrop + permitted nodes only)
+  → question-visible context (permitted nodes + optional neutral backdrop)
   → graph solver + ambiguity gates
   → error-mechanism distractors + derived difficulty
   → EN / HI / PA render from the identical semantic state
@@ -23,28 +23,28 @@ provisional checkpoint/QL plan
 
 | Layer | Authority | What it owns |
 | --- | --- | --- |
-| Scenario family | `CaeScenarioFamilyAuthority` | Domain, topology, compatible projections, allowed exam profiles, rendering constraints, variants. |
-| Variant | `CaeScenarioVariant` | Neutral backdrop, reusable event units, edge bindings, scenario-local competing candidates. |
+| Scenario family | `CaeScenarioFamilyAuthority` | Domain, topology, compatible projections, exam profiles, rendering constraints, variants, and an error-mechanism rule pool. |
+| Variant | `CaeScenarioVariant` | Neutral backdrop, reusable event units, edge bindings, and variant-local distractor terminology. |
 | Canonical world | `CaeCausalWorld` | Fully materialized event DAG. It contains causes, intermediates, primary/secondary effects, and temporal order even when these are hidden from the learner. |
-| Visible context | `CaeVisibleContext` | The backdrop and exact node IDs permitted in the stem. It never serializes the canonical world automatically. |
+| Visible context | `CaeVisibleContext` | Exact node IDs permitted in the stem and an optional backdrop. It never serializes the canonical world automatically. |
 | Node / edge | `CaeNode`, `CaeCausalEdge` | Role, scope, severity, magnitude, temporal order, effect priority; edge strength, temporal relation, and directness. |
-| Candidate | `CaeCandidateAuthority` | Localized event plus error mechanism, timing fit, scope fit, magnitude fit, and causal distance. |
+| Candidate | `CaeCandidateAuthority`, `CaeCandidateComparison` | A target-aware, scenario-local rendered alternative plus its calculated timing, scope, magnitude, severity, and distance comparison to the generated target. |
 | Generation plan | `CaeProjectionAuthority` | A provisional QL/checkpoint owner and compatible families; it is not a finished question. |
 
 The model expressly records scenario family/domain, intermediate nodes, primary and secondary effects, branching/common effects, strength, temporal relation, directness/distance, scope, severity/magnitude, exam profile compatibility, and stem-rendering constraints.
 
 ## Canonical state versus question-visible context
 
-`materializeCae001World` constructs the complete graph. `contextFor` receives a specific visible-node list and only renders the neutral variant backdrop plus those listed nodes. The rest remains hidden.
+`materializeCae001World` constructs the complete graph. `contextFor` receives a specific visible-node list and can add a neutral variant backdrop only when a projection actually needs it. The standard Statement I / Statement II form omits a setting line. The rest remains hidden.
 
 Examples of the guard in action:
 
 | Learner task | Canonical information kept hidden | Visible information |
 | --- | --- | --- |
-| Common cause | Root cause | The two effects and a neutral setting. |
-| Independent/correlation | Both roots and the fact that the chains are separate | Two observations and a neutral setting; no “independent”, “separate”, or “no shared cause” cue. |
+| Common cause | Root cause | The two effects only. |
+| Independent/correlation | Both roots and the fact that the chains are separate | Two observations only; no “independent”, “separate”, or “no shared cause” cue. |
 | Probable cause/effect | Correct candidate | One observation, then candidate options. |
-| Competing explanation | Root cause and intermediate chain | Outcome plus timing/scope/magnitude neutral setting. |
+| Competing explanation | Root cause and intermediate chain | Outcome plus timing/scope/magnitude prompt. |
 | Indirect/missing-link | Intermediate event(s) | Endpoints only. |
 | Sequence | Nothing required to be hidden | Selected event cards; the task is their order. |
 
@@ -80,27 +80,15 @@ The nine present IDs are `CAE_PROVISIONAL_QL_IDS`; neither the manifest nor Ques
 
 ## Difficulty and ambiguity policy
 
-Difficulty is calculated from the generated state, not stored on a projection: causal distance, hidden links, topology complexity, plausible distractors, visible-event count, and inference burden. The resulting score maps to EASY, MEDIUM, or HARD.
+Difficulty is calculated from the generated state, not stored on a projection: causal distance, hidden links, topology complexity, plausible distractors, candidate plausibility burden, visible-event count, and inference burden. The resulting score maps to EASY, MEDIUM, or HARD.
 
-The authority validator rejects unknown slots, cycles, temporal violations, non-neutral backdrops, duplicate locale text, insufficient local distractors, and distractors that are indistinguishable from the graph-supported answer. Generation additionally rejects answer leakage and independence cues. Candidate choices are drawn from the current scenario unit and distinguish reverse causation, weak cause, wrong scope, magnitude mismatch, temporal violation, common-cause confusion, correlation, and indirectness confusion—not unrelated nodes imported from another world.
+The authority validator rejects unknown slots, cycles, temporal violations, non-neutral backdrops, duplicate locale text, incomplete local rule pools, and defaults that make canonical scope/magnitude/severity too uniform. Generated-question validation recalculates target-relative timing, scope, magnitude, severity, and causal-distance checks; it rejects any candidate that could be indistinguishable from the graph-supported answer. Generation additionally rejects answer leakage and independence cues. Candidate choices are drawn from the current scenario unit and distinguish reverse causation, weak cause, wrong scope, magnitude mismatch, temporal violation, common-cause confusion, correlation, and indirectness confusion—not nodes imported from another world.
 
 Explanations show only the needed causal chain or shared-cause/separate-path structure, then one short reason. All explanatory glue is locale-specific; Hindi and Punjabi do not reuse English sentences.
 
 ## Generated review samples
 
-These are deterministic V3 outputs from the review generator. They demonstrate different families, topologies, difficulties, hidden-information policies, and distractor mechanisms across CP-001 to CP-009.
-
-| CP | Seed / generated state | Review sample |
-| --- | --- | --- |
-| CP-001 | `31` · Diagnostic disruption / pump · EASY | **I:** Water reached upper-floor homes slowly. **II:** Residents stored water earlier than usual. Answer: I directly causes II. Chain shown in explanation only: slow delivery → earlier storage. |
-| CP-002 | `48` · Coincident observations / vaccination-market · MEDIUM | Vaccination-desk visits and park footfall are shown under the neutral cue “Two public notices appeared on the same noticeboard.” Answer: independent; neither root cause is printed. |
-| CP-003 | `65` · Diagnostic disruption / server · MEDIUM | Observation: online applications took longer to submit. Answer: server response queue grew. Competing options are a late outcome, weak local disturbance, and wrong-scope service event. |
-| CP-004 | `82` · Civic sequence / cleaning · MEDIUM | Observation: a water-main repair began near the market. Answer: market entrance was temporarily restricted. The bridge node is not in the stem. |
-| CP-005 | `99` · Competing scope / metro · HARD | Observation: nearby-station metro use increased. Answer: main-route bridge closure, not light rain, a side-street market, or a later ridership count. Explanation reveals bridge closure → diversion → longer commute → metro use. |
-| CP-006 | `116` · Civic sequence / cleaning · HARD | Water-main repair and delayed shop opening are visible. Answer: the repair is an indirect cause. The entrance restriction and longer delivery route remain hidden until the explanation. |
-| CP-007 | `133` · Coincident observations / vaccination-market · MEDIUM | Vaccination-desk visits and a weekend craft market opening are visible. Answer: co-occurrence does not establish causation. The two causal roots are hidden. |
-| CP-008 | `150` · Hidden chain / cold-storage · HARD | Select the order: power failure → backup-generator delay → loading pause → late dispatch. Wrong orders encode temporal, reverse-causation, and indirectness errors. |
-| CP-009 | `167` · Hidden chain / drainage · HARD | Heavy rain → ? → water on access road. Answer: storm drain became blocked. The alternative choices encode weak, wrong-scope, and reverse-causation mechanisms. |
+The complete deterministic English editorial packet, including every currently available difficulty state from CP-001 through CP-009, is in [CAE-001-V3-HARDENING-EDITORIAL-REVIEW.md](CAE-001-V3-HARDENING-EDITORIAL-REVIEW.md).
 
 ## Review gate
 

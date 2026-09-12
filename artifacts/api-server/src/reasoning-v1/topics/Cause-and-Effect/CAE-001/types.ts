@@ -24,6 +24,7 @@ export type CaeScope = "PERSON" | "SITE" | "LOCAL" | "CITY" | "REGIONAL";
 export type CaeMagnitude = "LOW" | "MODERATE" | "HIGH";
 export type CaeTemporalRelation = "IMMEDIATE" | "SAME_DAY" | "SHORT_DELAY" | "DELAYED";
 export type CaeCausalStrength = "PRIMARY" | "CONTRIBUTING" | "WEAK";
+export type CaeTimeBand = "TRIGGER" | "IMMEDIATE_RESPONSE" | "SAME_SHIFT" | "LATER_OUTCOME";
 
 export type CaeNodeRole = "CAUSE" | "INTERMEDIATE" | "EFFECT" | "CONTEXT" | "COMPETING";
 export type CaeNode = Readonly<{
@@ -31,6 +32,7 @@ export type CaeNode = Readonly<{
   semanticSlot: string;
   role: CaeNodeRole;
   temporalOrder: number;
+  timeBand: CaeTimeBand;
   scope: CaeScope;
   magnitude: CaeMagnitude;
   severity: CaeMagnitude;
@@ -77,19 +79,61 @@ export type CaeCandidateAuthority = Readonly<{
   id: string;
   text: LocalizedText;
   mechanism: CaeDistractorRole;
-  timingFit: "ALIGNED" | "LATE" | "EARLY";
-  scopeFit: "ALIGNED" | "TOO_NARROW" | "TOO_BROAD";
-  magnitudeFit: "ALIGNED" | "TOO_WEAK" | "TOO_STRONG";
+  source: "CANONICAL_NODE" | "SCENARIO_RULE";
+  temporalOrder: number;
+  scope: CaeScope;
+  magnitude: CaeMagnitude;
+  severity: CaeMagnitude;
   causalDistance: number | null;
+  sourceNodeId?: string;
+}>;
+
+/** A family-local production-style alternative, transformed against the actual target at generation time. */
+export type CaeDistractorRule = Readonly<{
+  id: string;
+  mechanism: CaeDistractorRole;
+  text: LocalizedText;
+  /** Whether timing is calculated from the proposed answer or the observed event. */
+  timingAnchor: "REFERENCE" | "TARGET";
+  temporalOffset: number;
+  scopeShift: -2 | -1 | 0 | 1 | 2;
+  magnitudeShift: -2 | -1 | 0 | 1 | 2;
+  severityShift: -2 | -1 | 0 | 1 | 2;
+  causalDistance: number | null;
+}>;
+
+export type CaeCandidateComparison = Readonly<{
+  candidateId: string;
+  mechanism: CaeDistractorRole;
+  expectedRelation: "CAUSE_OF_TARGET" | "EFFECT_OF_TARGET" | "BRIDGE_TO_TARGET";
+  candidateTemporalOrder: number;
+  targetTemporalOrder: number;
+  referenceTemporalOrder: number;
+  candidateScope: CaeScope;
+  targetScope: CaeScope;
+  candidateMagnitude: CaeMagnitude;
+  targetMagnitude: CaeMagnitude;
+  candidateSeverity: CaeMagnitude;
+  targetSeverity: CaeMagnitude;
+  timingGap: number;
+  /** Difference from the graph-supported proposed answer, kept distinct from the observation gap. */
+  expectedTimingGap: number;
+  scopeGap: number;
+  magnitudeGap: number;
+  severityGap: number;
+  causalDistance: number | null;
+  plausibilityBurden: number;
+  rejectionReason: string;
 }>;
 
 export type CaeScenarioVariant = Readonly<{
   id: string;
   /** Neutral setting only; never an automatic rendering of canonical state. */
   backdrop: LocalizedText;
+  /** Variant-local terminology used only to render plausible distractors. */
+  distractorAnchor: LocalizedText;
   nodes: readonly CaeScenarioNodeUnit[];
   edgeBindings: readonly Readonly<{ from: string; to: string; strength?: CaeCausalStrength; temporalRelation?: CaeTemporalRelation }>[];
-  competingCandidates: readonly CaeCandidateAuthority[];
 }>;
 
 export type CaeRenderingConstraints = Readonly<{
@@ -106,6 +150,7 @@ export type CaeScenarioFamilyAuthority = Readonly<{
   topology: "DIRECT_CHAIN" | "BRANCHING_COMMON_CAUSE" | "PARALLEL_CHAINS" | "HIDDEN_CHAIN" | "COMPETING_CAUSES";
   allowedProjectionKinds: readonly CaeProjectionKind[];
   allowedQuestionProfiles: readonly CaeQuestionProfile[];
+  distractorRules: readonly CaeDistractorRule[];
   renderingConstraints: CaeRenderingConstraints;
   variants: readonly CaeScenarioVariant[];
 }>;
@@ -122,7 +167,7 @@ export type CaeProjectionAuthority = Readonly<{
 }>;
 
 export type CaeVisibleContext = Readonly<{
-  backdrop: string;
+  backdrop: string | null;
   visibleNodeIds: readonly string[];
   hiddenNodeIds: readonly string[];
 }>;
@@ -134,6 +179,7 @@ export type CaeDifficultyEvidence = Readonly<{
   plausibleDistractors: number;
   visibleEventCount: number;
   inferenceBurden: number;
+  candidatePlausibilityBurden: number;
   score: number;
 }>;
 
@@ -167,6 +213,7 @@ export type GeneratedCaeQuestion = Readonly<{
   explanation: string;
   causalTrace: readonly string[];
   distractorMechanisms: readonly CaeDistractorRole[];
+  candidateComparisons: readonly CaeCandidateComparison[];
   optionMetadata: readonly CaeRenderedOption[];
   metadata: Readonly<{
     solver: "CAE_CAUSAL_WORLD_SOLVER_V3";
