@@ -40,22 +40,8 @@ export interface QuantV4WholeSectionPackageWeight {
   readonly sectionPresenceShare: number;
 }
 
-export interface QuantV4WholeSectionTopicWeight {
-  readonly topic: string;
-  readonly questionCount: number;
-  readonly questionShare: number;
-}
-
-export interface QuantV4WholeSectionSnapshot {
-  readonly sectionId: string;
-  readonly paperId: string;
-  readonly heldDate: string;
-  readonly shift: string;
-  readonly questionCount: number;
-  readonly packageCount: number;
-  readonly complete: boolean;
-}
-
+export interface QuantV4WholeSectionTopicWeight { readonly topic: string; readonly questionCount: number; readonly questionShare: number; }
+export interface QuantV4WholeSectionSnapshot { readonly sectionId: string; readonly paperId: string; readonly heldDate: string; readonly shift: string; readonly questionCount: number; readonly packageCount: number; readonly complete: boolean; }
 export interface QuantV4WholeSectionFrequencyProfile {
   readonly authority: typeof QUANT_V4_WHOLE_SECTION_FREQUENCY_CALIBRATION_AUTHORITY;
   readonly examId: QuantV4PyqExamId;
@@ -77,6 +63,7 @@ export interface QuantV4WholeSectionFrequencyProfile {
 
 export const QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS = Object.freeze([
   Object.freeze({ sectionId: "SSC-CGL-T1-2024-09-09-S1-QUANT", examId: "SSC_CGL_TIER_I", paperId: "SSC-CGL-2024-TIER-I-2024-09-09-S1", heldDate: "2024-09-09", shift: "Shift 1", questionStart: 51, questionEnd: 75, expectedQuestionCount: 25 }),
+  Object.freeze({ sectionId: "SSC-CGL-T1-2024-09-09-S2-QUANT", examId: "SSC_CGL_TIER_I", paperId: "SSC-CGL-2024-TIER-I-2024-09-09-S2", heldDate: "2024-09-09", shift: "Shift 2", questionStart: 1, questionEnd: 25, expectedQuestionCount: 25 }),
   Object.freeze({ sectionId: "SSC-CGL-T1-2023-07-27-S2-QUANT", examId: "SSC_CGL_TIER_I", paperId: "SSC-CGL-2023-TIER-I-2023-07-27-S2", heldDate: "2023-07-27", shift: "Shift 2", questionStart: 26, questionEnd: 50, expectedQuestionCount: 25 }),
   Object.freeze({ sectionId: "SSC-CGL-T1-2023-07-26-S1-QUANT", examId: "SSC_CGL_TIER_I", paperId: "SSC-CGL-2023-TIER-I-2023-07-26-S1", heldDate: "2023-07-26", shift: "Shift 1", questionStart: 51, questionEnd: 75, expectedQuestionCount: 25 }),
   Object.freeze({ sectionId: "SSC-CGL-T1-2023-07-26-S2-QUANT", examId: "SSC_CGL_TIER_I", paperId: "SSC-CGL-2023-TIER-I-2023-07-26-S2", heldDate: "2023-07-26", shift: "Shift 2", questionStart: 51, questionEnd: 75, expectedQuestionCount: 25 }),
@@ -87,13 +74,7 @@ export const QUANT_V4_CGL_TIER_I_COMPLETE_SECTION_SPECS = Object.freeze([
   Object.freeze({ sectionId: "SSC-CGL-T1-2022-12-01-S2-QUANT", examId: "SSC_CGL_TIER_I", paperId: "SSC-CGL-2022-TIER-I-2022-12-01-S2", heldDate: "2022-12-01", shift: "Shift 2", questionStart: 51, questionEnd: 75, expectedQuestionCount: 25 }),
 ] satisfies readonly QuantV4CompleteSectionSpec[]);
 
-export const QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY: QuantV4WholeSectionFrequencyPolicy = Object.freeze({
-  minCompleteSections: 8,
-  minDistinctYears: 3,
-  minPackageCoverage: 10,
-  requireDatedSectionIdentity: true,
-  productionPromotionAuthorized: false,
-});
+export const QUANT_V4_CGL_TIER_I_WHOLE_SECTION_P2_AUDIT_POLICY: QuantV4WholeSectionFrequencyPolicy = Object.freeze({ minCompleteSections: 8, minDistinctYears: 3, minPackageCoverage: 10, requireDatedSectionIdentity: true, productionPromotionAuthorized: false });
 
 function clean(value: unknown): string { return String(value ?? "").trim(); }
 function questionNumber(questionRef: string | undefined): number { return Number(clean(questionRef).match(/Q(\d+)$/u)?.[1] ?? Number.NaN); }
